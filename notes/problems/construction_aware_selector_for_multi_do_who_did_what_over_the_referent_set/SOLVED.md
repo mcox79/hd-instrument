@@ -5,8 +5,8 @@ bar: "PASS = a glass-box construction-aware SELECTOR (Goldberg argument-structur
 result: "LOCATED NEGATIVE (the brief's sanctioned FULL PASS). A Goldberg construction-aware selector adds 0.0000 over the LIVE proximity/Competition-Model theme selector (hdlab.graded_role_assigner.hybrid_role_patient), scorer pick==gold_head abstain=wrong, at THREE levels: (1) SELECTOR-level over the referent-per-NP candidate set, cleaned-DO 19c LitBank n=149: +0.0000 CI[-0.0201,+0.0201] half=0.0201 null_p95=0.0134; full cleaned-DO n=669: -0.0030 CI[-0.0105,+0.0045] (slightly NEGATIVE); multi-DO subset n=162: -0.0123 CI[-0.0432,+0.0185]. (2) END-TO-END through the actual live SituationReader().read() on 25 LitBank conll docs: FULL n=1354 +0.0000 CI[0,0], CLEAN_DO n=149 +0.0000 CI[0,0]. (3) MODERN QA-SRL n=1261: -0.0008 CI[-0.0040,+0.0016] (register-invariant null). Our live selector is statistically TIED with a competent reader (spaCy oracle, reference-only): 0.9283 vs 0.9223, +0.0060 CI[-0.0164,+0.0284] n.s."
 floor: "Strongest floor actually run = the LIVE reader's deployed theme selector hdlab.graded_role_assigner.hybrid_role_patient (Competition-Model: word-order-dominant resolve_patient + voice/gap/animacy overrides, np_head_reduce ON) -- the EXACT function the wired route_predicate_arguments calls at line 427. Selector-level over referent-per-NP candidates: 0.9283 (cleaned-DO n=669); it already BEATS the experimental ideal_pick baseline the prototype used (0.8984, +0.030) -- the prototype's +0.146 was ideal_pick's animacy-override bug, not a real gain. Deployed end-to-end (coref source, all net-positive flags): CLEAN_DO 0.4698 / FULL 0.2105 (the parent's source-loss floor; construction leaves it byte-identical). Reference ceiling: competent reader (spaCy) 0.9223, statistically TIED."
 controls: "(1) SHUFFLED-CONSTRUCTION info-free twin: construction ROUTE fires at the same rate on the same multi-DO clauses but the picked end is randomised -- it LOSES to the construction arm (selector +0.034 CI-sep n=149; end-to-end +0.013 n.s.), BUT this is a TRAP that does NOT prove capability: randomising an already-correct proximity pick hurts; the honest bar is construction-vs-LIVE (=0.000), not construction-vs-twin. (2) NO-REGRESSION on single-DO clauses: construction vs live = +0.0000 CI[0,0] (identical -- the routing only touches multi-DO give/naming). (3) GENERALIZATION twin: the null replicates on modern QA-SRL (-0.0008) and 19c (-0.0030) -- register-invariant. (4) BRAIN-COMPARISON oracle (spaCy, reference-only): ours TIED with the competent reader (+0.006 n.s.); of our 48 residual errors, 56% are recoverable by a better PARSE (a fidelity gap owned by the parser problems) and 44% are a genuine ambiguity/gold-noise ceiling the competent reader ALSO misses. (5) END-TO-END through the real read() (not just the isolated selector): confirms 0.000, ruling out that the selector-level isolation hid a live effect. (6) IDEAL_PICK re-baseline: reproduces the prototype's +0.146 over ideal_pick, then shows it collapses to 0 over the live selector -- isolating the artifact."
-files_changed: "experiments/exp_construction_aware_selector_diagnosis_v1.py, experiments/exp_construction_aware_selector_residual_v1.py, experiments/exp_construction_aware_selector_brain_comparison_v1.py, experiments/exp_construction_aware_selector_generalization_v1.py, experiments/exp_construction_aware_selector_live_reader_v1.py, verification/test_construction_aware_selector.py, notes/problems/construction_aware_selector_for_multi_do_who_did_what_over_the_referent_set/SOLVED.md, notes/problems/construction_aware_selector_for_multi_do_who_did_what_over_the_referent_set/OWNER_NOTES.md. (REUSED read-only: experiments/exp_referent_per_np_selection_improvement_v1.py [the parent prototype -- re-ran once to reproduce; byte-identical science], exp_whodidwhat_ideal_brain_foundational_v1.py, exp_whodidwhat_coverage_transitivity_control_v1.py, exp_19c_composed_cleaned_gold_v1.py, hdlab/graded_role_assigner.py, hdlab/relcl_resolver.py, hdlab/predicate_argument_frontend.py, hdlab/situation_reader.py, hdlab/np_head_reduce.py.) NO hdlab/ written."
-reverify: ".venv/Scripts/python.exe verification/test_construction_aware_selector.py   # 7/7 -- selector-level null (n=149) + full-power null (n=669) + premise-refuted + tied-with-brain + parse-is-the-real-lever + register-invariant + end-to-end null, all from landed metrics.json (re-runs no cell)"
+files_changed: "experiments/exp_construction_aware_selector_diagnosis_v1.py, experiments/exp_construction_aware_selector_residual_v1.py, experiments/exp_construction_aware_selector_brain_comparison_v1.py, experiments/exp_construction_aware_selector_generalization_v1.py, experiments/exp_construction_aware_selector_live_reader_v1.py, experiments/exp_construction_ideal_composition_v1.py, verification/test_construction_aware_selector.py, notes/problems/construction_aware_selector_for_multi_do_who_did_what_over_the_referent_set/SOLVED.md, notes/problems/construction_aware_selector_for_multi_do_who_did_what_over_the_referent_set/OWNER_NOTES.md. (REUSED read-only: experiments/exp_referent_per_np_selection_improvement_v1.py [the parent prototype -- re-ran once to reproduce; byte-identical science], exp_whodidwhat_ideal_brain_foundational_v1.py, exp_whodidwhat_coverage_transitivity_control_v1.py, exp_19c_composed_cleaned_gold_v1.py, hdlab/graded_role_assigner.py, hdlab/relcl_resolver.py, hdlab/predicate_argument_frontend.py, hdlab/situation_reader.py, hdlab/np_head_reduce.py.) NO hdlab/ written."
+reverify: ".venv/Scripts/python.exe verification/test_construction_aware_selector.py   # 9/9 -- selector-level null (n=149) + full-power null (n=669) + premise-refuted + tied-with-brain + parse-is-the-real-lever + register-invariant + end-to-end null + IDEAL-composition indef-pronoun win (CI-sep) + composition ceiling 0.969, all from landed metrics.json (re-runs no cell)"
 ---
 
 # REFUTED — a construction-aware selector adds nothing over the live proximity/Competition-Model selector
@@ -128,6 +128,38 @@ meaning channel, all separately owned." The BIG end-to-end lever is not the sele
 0.47/0.21 because of the SOURCE loss (the parent's referent-per-NP wire, gated on the coref linker), while the selector
 given clean candidates is 0.93.
 
+## 7. THE IDEAL, EXACT BRAIN-FOUNDATIONAL SOLUTION — prototyped + measured (`exp_construction_ideal_composition_v1`)
+"Do we have enough to prototype the ideal, including upstream optimizations to maximize performance?" **YES — and the
+key structural fact is that the ideal's SELECTOR is already deployed and at ceiling, so the ideal is defined by the
+UPSTREAM stages.** The composition, each stage PINNED-vs-OUR-INVENTION, measured on cleaned-DO n=669 (selector task,
+gold verb):
+
+| stage | brain mechanism | status | measured |
+|---|---|---|---|
+| **S1 SOURCE** | referent-per-NP introduction (Kamp 1981 / Heim 1982 DRT) | PINNED (parent's, landed default-off) | base 0.9283 |
+| **S1 opt: indefinite-pronoun coverage** | DRT opens a referent for QUANTIFIED/indefinite NPs too (everybody/thee) | PINNED — **NEW, buildable, prototyped here** | **0.9283 → 0.9387, +0.0105 CI[+0.003,+0.019] CI-sep, twin loses** |
+| **S3 SELECTOR** | feature-competition (Bates & MacWhinney; eADM; Frankland-Greene abstract role code) | PINNED — **already at ceiling, held fixed** | 0.9283 = spaCy 0.9223 (tied) |
+| **S-PARSE** (clefts/inversion/register-POS mistags) | hierarchical structure-building + register-native tagging | the FILED parser/POS problems (bounded here) | **ceiling 0.9686, +0.040 CI-sep** (best-of ours-or-competent) |
+| **meaning-fit + ill-posed naming** | thematic-fit on meaning (McRae/Ferretti) / small-clause | GATED / ill-posed | genuine residual **3.1%** |
+
+**The composition ceiling on the selector task is 0.969**, leaving a **3.1% genuine, irreducible residual** (12
+ill-posed naming/object-complement clauses with no ground-truth patient + 9 gold-noise/hard). Two readings:
+- **The one genuinely NEW buildable win is upstream and small: indefinite-pronoun SOURCE coverage** (+0.0105 CI-sep,
+  twin loses). It is source-side (the parent's referent-per-NP territory) — recommend it as a tiny referent-per-NP
+  extension. The SELECTOR itself has no buildable win (it is at the competent-reader ceiling).
+- **The +0.040 "competent-parse" ceiling decomposes into ALREADY-FILED upstream problems, NOT a new selector or even a
+  new dependency parser** (`exp_construction_ideal_composition_v1` + the residual dump): ~7 indefinite pronouns
+  (captured by the S1 opt above), **~5-6 register-native POS mis-tags** (the 19c tagger tags "cheery-looking",
+  "dreamiest", "nicens" as NOUN, so the selector picks a mis-tagged adjective as the nearest post-verbal noun — the
+  parent's filed register-native-POS problem), and ~2-3 filler-gap **pseudo-clefts** ("what frightened people" — the
+  filed parser). Confirmed on disk: those adjectives ARE tagged NOUN by the deployed tagger.
+
+**To MAXIMIZE END-TO-END performance (the honest ranking):** the selector-task ceiling (0.969) is not the deployed
+number — the deployed reader is 0.47 (clean) / 0.21 (full) because of the **SOURCE loss**, not the selector. So the
+single biggest lever by far is **turning on the referent-per-NP SOURCE** (0.47→0.81 end-to-end, the parent's measured
++0.336), which is GATED on the coref linker (filed). Then register-native POS (~+0.01 of the parse ceiling), then
+indefinite-pronoun coverage (+0.0105), then filler-gap clefts. Every one is upstream; none is the selector.
+
 ## KEY REALIZATIONS (the enabling moves)
 - **Re-baseline against the function the live reader actually calls, not the experimental one in the prototype.** The
   entire +0.146 was `ideal_pick`'s animacy override picking the inanimate theme where the gold is the animate
@@ -205,12 +237,19 @@ construction-aware selector") should be **struck**, and its ideal-composition wr
 (`ideal_pick`'s animacy override is net-negative vs the deployed selector). I have written both as an AUDIT UPDATE
 above rather than editing the parent's owner-DONE files (scope).
 
-### NEXT STEPS (ranked; none is "add a cue to the selector")
-1. **The PARSE is the real who-did-what lever now** (56% of the residual): the filed `parser_arceager` route + a
-   discourse old/new module for locative inversion + filler-gap for clefts. This is where a competent reader beats us.
-2. **Extend the candidate SOURCE to indefinite-pronoun objects** (everybody/somebody/thee — 15% of the residual).
-   Small, and it is the parent's referent-per-NP source territory, not the selector.
-3. **A small-clause EXTRACTOR for object-complement/naming** ("call X Y" → emit BOTH the object and the complement),
-   rather than forcing a single "patient" pick at an ill-posed target. Fidelity refinement, low priority.
-4. **The meaning-fit selector for genuine ambiguity** — GATED on the meaning channel (the filed learner-on successor);
-   the competent reader also loses ~0.15 here, so part is shared hard gold.
+### NEXT STEPS (ranked by measured END-TO-END leverage; none is "add a cue to the selector")
+The ideal composition (§7) is prototyped; the SELECTOR is done. The levers, largest-first:
+1. **[BIGGEST, gated] Turn on the referent-per-NP SOURCE.** The deployed reader is 0.47/0.21 vs the selector's 0.93
+   because of source loss; the parent's measured lift is **+0.336** end-to-end. GATED on the coref linker (the parent's
+   filed `wire_the_referent_to_coref_linking_pass...`). This is where the who-did-what performance actually is.
+2. **[NEW, buildable, small] Extend the referent-per-NP source to indefinite-pronoun / quantifier heads**
+   (everybody/somebody/thee). Prototyped here: **+0.0105 CI-sep, twin loses** (§7). A tiny referent-per-NP extension
+   (parent's source territory) — recommend landing with the source wire.
+3. **[filed] Register-native POS tagging** — the parent's filed 1c; it is ~5-6 of the parse-recoverable residual (the
+   tagger mis-tags 19c adjectives as NOUN, so the selector picks them). Confirmed on disk (§7).
+4. **[filed] Filler-gap for pseudo-clefts** ("what frightened people") — the filed parser problem; ~2-3 clauses.
+5. **A small-clause EXTRACTOR for object-complement/naming** ("call X Y" → emit BOTH args) rather than forcing a
+   single ill-posed "patient" pick. This is the 12-clause ill-posed core of the 3.1% genuine residual — a fidelity
+   refinement, not a signal-loss lever.
+6. **The meaning-fit selector for genuine ambiguity** — GATED on the meaning channel (the filed learner-on successor);
+   the competent reader also loses here, so part is shared hard gold.

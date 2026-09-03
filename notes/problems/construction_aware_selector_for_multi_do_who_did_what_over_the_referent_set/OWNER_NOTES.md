@@ -41,6 +41,23 @@ Against the REAL reader the gain is zero. We isolated and proved this.
    construction-template retrieval, and that construction-vs-word-order is redundant on canonical English.
 6. **An AUDIT UPDATE** (in SOLVED.md) with two corrections to the parent problem's write-up for strategy to fold in.
 
+## The ideal, exact brain-foundational solution — prototyped and measured (your follow-up question)
+Yes — and the key fact is that the ideal's *picking step is already built and already as good as it gets*, so "the
+ideal" is really the composition plus the upstream fixes. Prototyped (`exp_construction_ideal_composition_v1`, 669
+sentences):
+- **Picking step (feature-competition — the brain's actual mechanism): 0.928, held fixed — no gain available.**
+- **One genuinely new, buildable win, upstream:** open a candidate for indefinite words like "everybody"/"somebody"/
+  "thee" (the reader currently ignores them, so "invite everybody" has no answer to pick). Measured **+1.0 point,
+  clean, its scrambled version loses.** Small, and it belongs on the reader's candidate-list step (the parent's area).
+- **Ceiling if we also had a competent parser: ~0.97** — and that remaining +4 points is entirely *already-filed*
+  upstream work: a **register-native part-of-speech tagger** (the current one mislabels old-fashioned adjectives like
+  "cheery-looking" as nouns, so the picker grabs them) and **cleft-sentence parsing**. Neither is the picking step.
+- **Irreducible floor: ~3%** — mostly "call X Y" naming sentences where even linguists disagree which noun is "the
+  thing acted on", so there is no right answer to pick.
+- **To actually maximize performance end-to-end**, the single biggest lever is not on this problem at all: turning on
+  the referent-per-NP candidate source (the deployed reader scores 0.47 instead of 0.93 purely because of that),
+  which is gated on the coreference-linker fix already on the board.
+
 ## What this means for the board (recommended actions — strategy owns the call)
 - **Do NOT land a construction-aware selector.** Strike the parent problem's NEXT-STEP #1 ("land the construction
   improvement 0.873→0.913").
