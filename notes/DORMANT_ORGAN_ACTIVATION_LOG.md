@@ -9,7 +9,52 @@
 
 ---
 
-## #1 — `verb_role_exemplar_selector` (VerbRoleExemplarSelector) — ✅ ACTIVATION NET-POSITIVE (wire owed)
+## #1 — `verb_role_exemplar_selector` (VerbRoleExemplarSelector) — ❌ LOCATED NEGATIVE **LIVE** (NOT wired; corrected 2026-09-03)
+
+> **⚠️ CORRECTION (2026-09-03, the wire attempt).** The "ACTIVATION NET-POSITIVE +0.024/+0.22" below was
+> measured against a **STALE PRE-FLIP population** (`_population*.json`, 2026-09-01) whose `wired_pick` predates
+> the 2026-09-03 flag flip, using **GOLD voice labels** for canonicity. Both confounds inflate it. Measured on the
+> **CURRENT reader** (the consumed metric), the override is **net-NEGATIVE-to-flat and was NOT wired** (the reader
+> was reverted clean). Details:
+>
+> | population | CURRENT reader (live OFF) | override ON | delta | reference claimed (stale) |
+> |---|---|---|---|---|
+> | **Modern QA-SRL** | **0.6441** | 0.4576 | **−0.1864 CI[−0.280,−0.102]** (every bootstrap neg) | +0.0237 |
+> | **19c LitBank** | 0.3571 | 0.3571 | **+0.0000** (flat) | +0.2177 |
+>
+> **Why the reference was wrong, mechanistically:**
+> 1. **Stale baseline.** The current reader scores **0.644** modern patient — far above the stale population's
+>    `wired_pick` (0.481) AND above the reference's own best INTEGRATED number (0.505). **The flag-flip
+>    (`predict_revise` + `verb_subcat_gate` + …) already delivers MORE than the store override could.** No headroom.
+> 2. **Gold-voice dependence.** The reference's `canonical` used `noncanonical = passive OR gold_idx<verb_idx` —
+>    i.e. the GOLD patient position, NOT gold-blind. With a realistic gold-blind parse voice detector
+>    (`is_passive_real`/`robust_passive`/`precise`, all ~0.32–0.38 passive recall on QA-SRL) the modern win falls
+>    to **+0.015 CI spanning 0**, and the verb-shuffle twin no longer separates.
+> 3. **19c = position, not the store.** With `b_pos=1` always (no canonicity), the 19c delta is identical
+>    (+0.216) and the verb-shuffle twin TIES under every canonicity source → the +0.22 was **position beating the
+>    stale reader's broken 19c pick**, which the now-default `predict_revise` (nearest-nominal recovery) already
+>    captures live (flat delta).
+> 4. **The formula breaks correct passives.** On "the apple was eaten by the man" the current reader picks
+>    `apple` (correct); `integrated_pick` (b_pos=0.15, apple fit 0.98 ≫ man 0.85) still returns `man` — the
+>    position log-softmax gap (pre-verbal floor 0.15 vs post-verbal 7) SWAMPS the small exemplar margin even
+>    down-weighted. So on 35% of overridden modern patients it flips right→wrong.
+>
+> **VERDICT: the store cannot beat the current reader on live who-did-what patient — its ceiling (INTEGRATED on
+> the stale pop, 0.505) is below the current reader's floor (0.644).** REROUTE below. The store remains a valid
+> ISLAND organ (modern thematic-fit, real on its isolated harness); its live niche (verb-specific disambiguation
+> among multiple grounded post-verbal candidates on CANONICAL clauses) is not exercised enough to help, and the
+> promoted formula cannot apply it safely. Helper `hdlab/verb_role_integrated.py` (committed `e51bf634d`) + selector
+> (`e65664b34`) are kept as artifacts; the reader wire was reverted (never committed to the reader).
+>
+> **METHOD LESSON (load-bearing):** a dormant-organ downstream eval MUST run against the **CURRENT** reader, not a
+> reference/stale population — a proxy "net-positive" can be a stale-baseline artifact, and the flip already moved
+> the baseline. Also: verify a reference's canonicity/label is genuinely gold-BLIND before trusting the number.
+>
+> **REROUTE (verdict-independent):** the modern who-did-what patient lever is NOT this store — the current reader
+> already leads. Any further gain routes through P1 (the meaning/individuation representation) + the cleaned-gold
+> P2 (`the_who_did_what_selection_residual_is_structural_np_head_chunking_and_case_not_meaning`), already filed.
+>
+> --- ORIGINAL (STALE, SUPERSEDED) ENTRY BELOW ---
 
 **Deep dive.** BRAIN: verb-specific SELECTIONAL PREFERENCE / thematic fit stored as an EXEMPLAR (instance)
 distribution, NOT a centroid (McRae et al. 1998; Elman 2009; the eADM) — "which candidate is the right patient
