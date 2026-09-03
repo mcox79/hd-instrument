@@ -652,7 +652,8 @@ class SituationReader:
                  np_head_reduce: bool = True,
                  bind_entity_states: bool = False,
                  structural_do_recover: bool = False,
-                 referent_per_np: bool = False) -> None:
+                 referent_per_np: bool = False,
+                 predicate_recall: bool = False) -> None:
         # === DEFAULTS FLIPPED ON 2026-09-03 (owner-authorized: "switch them on... 1 at a time, top down,
         # measure which are net positives"). The greedy forward-activation sweep (tools/flag_activation_sweep.py,
         # data/flag_activation_sweep/results.json) measured each flag one-at-a-time in dependency order on the
@@ -893,6 +894,18 @@ class SituationReader:
         # coref-column source, byte-identical. NO spaCy / NO LLM.
         self.referent_per_np = bool(referent_per_np)
         self._rnp_tagger = None        # lazy hdlab.pos_tagger.PosTagger (the frontend UPOS tagger)
+        # PREDICATE-RECALL: register-robust event recovery (opt-in; default OFF = byte-identical). P6 wire
+        # (2026-09-03, owner-DONE register_robust_event_detection...): the tense_agnostic UPOS==VERB detector
+        # silently DROPS a whole clause when the tagger mistags a real verb (archaic / noun-flanked prose). When
+        # ON, a glass-box 7-weight logistic over register-invariant cues (hdlab.predicate_detector, the brain's
+        # noisy-channel COMBINATION; Gibson 2013) promotes tagger-dropped non-VERB non-AUX tokens with a WordNet
+        # verb-reading back to event predicates. ADDITIVE-ONLY -> the existing UPOS==VERB detections + their role
+        # picks are BYTE-IDENTICAL (no regression by construction). Recovers dropped verbs MODERN 0.90 / 19c 0.56
+        # @ FP<=0.5/sent, twin loses CI-sep, ZERO 19c labels. The asset threshold is FP<=0.5/sent-calibrated on
+        # MODERN (denser 19c -> ~1.4 FP/sent at the same threshold: an FP-budget knob). Default OFF -> byte-
+        # identical. NO spaCy / NO LLM (WordNet lexical gate only).
+        self.predicate_recall = bool(predicate_recall)
+        self._pred_detector = None     # lazy hdlab.predicate_detector.PredicateDetector
         # PER-READ tag/parse memo (2026-09-03 perf): dimensions independently re-tag/re-parse the SAME
         # sentences (arc parser ~118x + POS tagger ~310x per read). Tag+parse each distinct sentence ONCE
         # per read() via _cached_tag/_cached_parse_heads; reset each read -> no cross-read leak, byte-identical
@@ -918,7 +931,7 @@ class SituationReader:
         "tense_agnostic_events", "preserve_tense", "timeline_register", "verb_subcat_gate", "track_space",
         "predict_surprisal", "track_belief", "bind_event_tokens", "predict_revise", "track_world_state",
         "densify_world_state", "np_head_reduce", "parser_arceager", "causation_typed", "spacy_pred_gate",
-        "bind_entity_states", "structural_do_recover", "referent_per_np")
+        "bind_entity_states", "structural_do_recover", "referent_per_np", "predicate_recall")
 
     @classmethod
     def all_capabilities_off(cls, gaz=None, **overrides):
@@ -987,13 +1000,34 @@ class SituationReader:
                     a = sent[i]
                     events.append(T.Event(lemma=tk.lower(), idx=i, pos=up[i],
                                           tense=_stock_tense(a, _TP), is_pp=bool(a["is_pp"])))
+            events = self._add_predicate_recall(events, toks, up)
             return events, []
         events = []
         for i, tk in enumerate(toks):
             if up[i] == "VERB":
                 events.append(T.Event(lemma=tk.lower(), idx=i, pos=up[i],
                                       tense=T.TENSE_SIMPLE_PAST, is_pp=False))
+        events = self._add_predicate_recall(events, toks, up)
         return events, []
+
+    def _add_predicate_recall(self, events, toks, up):
+        """ADDITIVE register-robust predicate recovery (default-off predicate_recall). For each tagger-DROPPED
+        real verb (a non-VERB non-AUX token the detector promotes) fire an extra T.Event; the existing
+        UPOS==VERB detections are UNTOUCHED (additive -> no regression by construction). Returns the combined
+        list SORTED by token index (event order == token order, as the UPOS==VERB loop produced). Default OFF
+        returns `events` unchanged. hdlab.predicate_detector -- glass-box 7-weight logistic, NO LLM."""
+        if not self.predicate_recall:
+            return events
+        if self._pred_detector is None:
+            from hdlab.predicate_detector import PredicateDetector
+            self._pred_detector = PredicateDetector.load()
+        W = self._ta_tagger._perc.weights
+        tags = self._ta_tagger.tags
+        for i, _p in self._pred_detector.rescue_indices(toks, up, W, tags):
+            events.append(T.Event(lemma=toks[i].lower(), idx=i, pos="VERB",
+                                  tense=T.TENSE_SIMPLE_PAST, is_pp=False))
+        events.sort(key=lambda e: e.idx)
+        return events
 
     # -- EVENTS: per-sentence predicate+agent+patient -> Cowan-4 bundle focus --
     def _read_events(self, sents, mentions, n_sents):

@@ -1,7 +1,6 @@
 ---
-priority: 6
-review:
-review_text:
+review: EXCELLENT
+review_text: Reverified first-hand 12/12. A glass-box learned noisy-channel predicate detector recovers tagger-DROPPED real verbs the tense_agnostic UPOS==VERB detector silently loses (archaic/noun-flanked prose): MODERN 0.899 / 19c-TRANSFER 0.5625 @ FP<=0.5/sent, info-free twin losing CI-sep, ZERO 19c labels; crosses the parent's structure-only modern wall (0.16). No-regression by construction (additive-only). LANDED the clean Q111 wire: hdlab/predicate_detector.py (pure-Python logistic == sklearn to 1e-16, NO experiments dep, NO LLM) + shipped asset + default-off predicate_recall flag in situation_reader._tense_agnostic_extract; landing witness test_predicate_recall_landing_organ.py 15/15. Turn-on MEASURED (no-default-off, 16 LitBank docs): flat +0.0011 who-did-what (n=1830, NOT CI-sep), coref/coref_acc UNCHANGED (zero consumer regression, unlike referent-per-NP) -> KEPT default-off (measured reason: the eval supplies the clean main-verb slice hiding the free-text recovery; ~1.4 FP/sent on the contaminated 19c gold). Residual named: 19c = fidelity gap (competent reader ~100%, closable by a joint-decoded tagger); modern semantic ceiling ~33% needs the meaning hub. Registered predicate_recall_wire_v1. §2b folded. Upstream improvement (CRF calibrated / joint-decoded POS+parse) FILED as a follow-on. INTEGRATED 2026-09-03.
 ---
 
 # PROBLEM: the who-did-what eval SUPPLIES the verb index, so a whole class of real-document loss is invisible — on raw prose the reader drops the ENTIRE event (agent + patient) when the POS tagger fails to recognize a real verb (register-diverse / archaic / noun-flanked verbs). Build register-robust glass-box PREDICATE detection (a trained self-supervised verbhood model, since heuristics over-generate) and prove it raises real-document who-did-what EVENT recall CI-separated with an info-free twin losing — or a located negative naming the ceiling.

@@ -1,0 +1,855 @@
+{
+  "anchor_name": "register_predicate_detector_v1",
+  "results": {
+    "with_parse": false,
+    "n_train_candidates": 24584,
+    "n_train_positives": 2028,
+    "combiner_coefs_standardized": {
+      "verb_margin": 1.63,
+      "frame_anchor": 0.207,
+      "subj_before": 0.385,
+      "obj_after": -0.119,
+      "morph_finite": 0.456,
+      "clause_verbless": 0.433,
+      "rel_position": -0.318
+    },
+    "combiner_intercept": -1.172,
+    "MODERN_udtest_cv_generalization": {
+      "n_candidates": 3172,
+      "n_sent": 2077,
+      "n_positives": 89,
+      "best_fp_le_1": {
+        "th": 0.0741,
+        "recovery": 1.0,
+        "false_verbs_per_sent": 0.975,
+        "n_promoted": 2114
+      },
+      "best_fp_le_0p5": {
+        "th": 0.3392,
+        "recovery": 0.8989,
+        "false_verbs_per_sent": 0.4661,
+        "n_promoted": 1048
+      },
+      "twin_at_best": {
+        "n_promoted": 2114,
+        "twin_recovery_mean": 0.6626,
+        "twin_recovery_p95": 0.7416
+      },
+      "bootstrap_delta_vs_twin": {
+        "delta_vs_twin_mean": 0.3329,
+        "ci": [
+          0.2115,
+          0.463
+        ],
+        "ci_half_width": 0.1257
+      },
+      "curve": [
+        {
+          "th": 0.05,
+          "recovery": 1.0,
+          "false_verbs_per_sent": 1.0871,
+          "n_promoted": 2347
+        },
+        {
+          "th": 0.0741,
+          "recovery": 1.0,
+          "false_verbs_per_sent": 0.975,
+          "n_promoted": 2114
+        },
+        {
+          "th": 0.0982,
+          "recovery": 1.0,
+          "false_verbs_per_sent": 0.8869,
+          "n_promoted": 1931
+        },
+        {
+          "th": 0.1223,
+          "recovery": 0.9888,
+          "false_verbs_per_sent": 0.8228,
+          "n_promoted": 1797
+        },
+        {
+          "th": 0.1464,
+          "recovery": 0.9775,
+          "false_verbs_per_sent": 0.7583,
+          "n_promoted": 1662
+        },
+        {
+          "th": 0.1705,
+          "recovery": 0.9663,
+          "false_verbs_per_sent": 0.7039,
+          "n_promoted": 1548
+        },
+        {
+          "th": 0.1946,
+          "recovery": 0.9663,
+          "false_verbs_per_sent": 0.6654,
+          "n_promoted": 1468
+        },
+        {
+          "th": 0.2187,
+          "recovery": 0.9551,
+          "false_verbs_per_sent": 0.6259,
+          "n_promoted": 1385
+        },
+        {
+          "th": 0.2428,
+          "recovery": 0.9551,
+          "false_verbs_per_sent": 0.5879,
+          "n_promoted": 1306
+        },
+        {
+          "th": 0.2669,
+          "recovery": 0.9438,
+          "false_verbs_per_sent": 0.5585,
+          "n_promoted": 1244
+        },
+        {
+          "th": 0.291,
+          "recovery": 0.9326,
+          "false_verbs_per_sent": 0.5306,
+          "n_promoted": 1185
+        },
+        {
+          "th": 0.3151,
+          "recovery": 0.9326,
+          "false_verbs_per_sent": 0.5017,
+          "n_promoted": 1125
+        },
+        {
+          "th": 0.3392,
+          "recovery": 0.8989,
+          "false_verbs_per_sent": 0.4661,
+          "n_promoted": 1048
+        },
+        {
+          "th": 0.3633,
+          "recovery": 0.8764,
+          "false_verbs_per_sent": 0.4391,
+          "n_promoted": 990
+        },
+        {
+          "th": 0.3874,
+          "recovery": 0.8764,
+          "false_verbs_per_sent": 0.4121,
+          "n_promoted": 934
+        },
+        {
+          "th": 0.4115,
+          "recovery": 0.8652,
+          "false_verbs_per_sent": 0.3842,
+          "n_promoted": 875
+        },
+        {
+          "th": 0.4356,
+          "recovery": 0.8427,
+          "false_verbs_per_sent": 0.3572,
+          "n_promoted": 817
+        },
+        {
+          "th": 0.4597,
+          "recovery": 0.8315,
+          "false_verbs_per_sent": 0.3385,
+          "n_promoted": 777
+        },
+        {
+          "th": 0.4838,
+          "recovery": 0.809,
+          "false_verbs_per_sent": 0.3144,
+          "n_promoted": 725
+        },
+        {
+          "th": 0.5079,
+          "recovery": 0.7753,
+          "false_verbs_per_sent": 0.2985,
+          "n_promoted": 689
+        },
+        {
+          "th": 0.5321,
+          "recovery": 0.764,
+          "false_verbs_per_sent": 0.2807,
+          "n_promoted": 651
+        },
+        {
+          "th": 0.5562,
+          "recovery": 0.764,
+          "false_verbs_per_sent": 0.2624,
+          "n_promoted": 613
+        },
+        {
+          "th": 0.5803,
+          "recovery": 0.7416,
+          "false_verbs_per_sent": 0.2431,
+          "n_promoted": 571
+        },
+        {
+          "th": 0.6044,
+          "recovery": 0.7303,
+          "false_verbs_per_sent": 0.2311,
+          "n_promoted": 545
+        },
+        {
+          "th": 0.6285,
+          "recovery": 0.7303,
+          "false_verbs_per_sent": 0.2147,
+          "n_promoted": 511
+        },
+        {
+          "th": 0.6526,
+          "recovery": 0.7191,
+          "false_verbs_per_sent": 0.1964,
+          "n_promoted": 472
+        },
+        {
+          "th": 0.6767,
+          "recovery": 0.6742,
+          "false_verbs_per_sent": 0.1781,
+          "n_promoted": 430
+        },
+        {
+          "th": 0.7008,
+          "recovery": 0.6517,
+          "false_verbs_per_sent": 0.1627,
+          "n_promoted": 396
+        },
+        {
+          "th": 0.7249,
+          "recovery": 0.6067,
+          "false_verbs_per_sent": 0.1459,
+          "n_promoted": 357
+        },
+        {
+          "th": 0.749,
+          "recovery": 0.573,
+          "false_verbs_per_sent": 0.1343,
+          "n_promoted": 330
+        },
+        {
+          "th": 0.7731,
+          "recovery": 0.5281,
+          "false_verbs_per_sent": 0.1194,
+          "n_promoted": 295
+        },
+        {
+          "th": 0.7972,
+          "recovery": 0.4831,
+          "false_verbs_per_sent": 0.104,
+          "n_promoted": 259
+        },
+        {
+          "th": 0.8213,
+          "recovery": 0.4607,
+          "false_verbs_per_sent": 0.0838,
+          "n_promoted": 215
+        },
+        {
+          "th": 0.8454,
+          "recovery": 0.382,
+          "false_verbs_per_sent": 0.0732,
+          "n_promoted": 186
+        },
+        {
+          "th": 0.8695,
+          "recovery": 0.3371,
+          "false_verbs_per_sent": 0.0583,
+          "n_promoted": 151
+        },
+        {
+          "th": 0.8936,
+          "recovery": 0.2697,
+          "false_verbs_per_sent": 0.0438,
+          "n_promoted": 115
+        },
+        {
+          "th": 0.9177,
+          "recovery": 0.2135,
+          "false_verbs_per_sent": 0.0323,
+          "n_promoted": 86
+        },
+        {
+          "th": 0.9418,
+          "recovery": 0.1685,
+          "false_verbs_per_sent": 0.0193,
+          "n_promoted": 55
+        },
+        {
+          "th": 0.9659,
+          "recovery": 0.1236,
+          "false_verbs_per_sent": 0.0096,
+          "n_promoted": 31
+        },
+        {
+          "th": 0.99,
+          "recovery": 0.0337,
+          "false_verbs_per_sent": 0.0005,
+          "n_promoted": 4
+        }
+      ]
+    },
+    "C19_litbank_transfer": {
+      "n_candidates": 28240,
+      "n_sent": 5999,
+      "n_positives": 144,
+      "best_fp_le_1": {
+        "th": 0.4838,
+        "recovery": 0.7431,
+        "false_verbs_per_sent": 0.9493,
+        "n_promoted": 5802
+      },
+      "best_fp_le_0p5": {
+        "th": 0.6767,
+        "recovery": 0.5625,
+        "false_verbs_per_sent": 0.4961,
+        "n_promoted": 3057
+      },
+      "twin_at_best": {
+        "n_promoted": 5802,
+        "twin_recovery_mean": 0.2086,
+        "twin_recovery_p95": 0.2708
+      },
+      "bootstrap_delta_vs_twin": {
+        "delta_vs_twin_mean": 0.5386,
+        "ci": [
+          0.4382,
+          0.6374
+        ],
+        "ci_half_width": 0.0996
+      },
+      "curve": [
+        {
+          "th": 0.05,
+          "recovery": 0.9861,
+          "false_verbs_per_sent": 3.4671,
+          "n_promoted": 20941
+        },
+        {
+          "th": 0.0741,
+          "recovery": 0.9861,
+          "false_verbs_per_sent": 3.1397,
+          "n_promoted": 18977
+        },
+        {
+          "th": 0.0982,
+          "recovery": 0.9792,
+          "false_verbs_per_sent": 2.8676,
+          "n_promoted": 17344
+        },
+        {
+          "th": 0.1223,
+          "recovery": 0.9792,
+          "false_verbs_per_sent": 2.6358,
+          "n_promoted": 15953
+        },
+        {
+          "th": 0.1464,
+          "recovery": 0.9722,
+          "false_verbs_per_sent": 2.4422,
+          "n_promoted": 14791
+        },
+        {
+          "th": 0.1705,
+          "recovery": 0.9722,
+          "false_verbs_per_sent": 2.2804,
+          "n_promoted": 13820
+        },
+        {
+          "th": 0.1946,
+          "recovery": 0.9028,
+          "false_verbs_per_sent": 2.1279,
+          "n_promoted": 12895
+        },
+        {
+          "th": 0.2187,
+          "recovery": 0.8819,
+          "false_verbs_per_sent": 1.9893,
+          "n_promoted": 12061
+        },
+        {
+          "th": 0.2428,
+          "recovery": 0.8611,
+          "false_verbs_per_sent": 1.8606,
+          "n_promoted": 11286
+        },
+        {
+          "th": 0.2669,
+          "recovery": 0.8542,
+          "false_verbs_per_sent": 1.7386,
+          "n_promoted": 10553
+        },
+        {
+          "th": 0.291,
+          "recovery": 0.8472,
+          "false_verbs_per_sent": 1.6354,
+          "n_promoted": 9933
+        },
+        {
+          "th": 0.3151,
+          "recovery": 0.8264,
+          "false_verbs_per_sent": 1.5259,
+          "n_promoted": 9273
+        },
+        {
+          "th": 0.3392,
+          "recovery": 0.8194,
+          "false_verbs_per_sent": 1.4322,
+          "n_promoted": 8710
+        },
+        {
+          "th": 0.3633,
+          "recovery": 0.8056,
+          "false_verbs_per_sent": 1.3387,
+          "n_promoted": 8147
+        },
+        {
+          "th": 0.3874,
+          "recovery": 0.7986,
+          "false_verbs_per_sent": 1.2579,
+          "n_promoted": 7661
+        },
+        {
+          "th": 0.4115,
+          "recovery": 0.7917,
+          "false_verbs_per_sent": 1.176,
+          "n_promoted": 7169
+        },
+        {
+          "th": 0.4356,
+          "recovery": 0.7639,
+          "false_verbs_per_sent": 1.0882,
+          "n_promoted": 6638
+        },
+        {
+          "th": 0.4597,
+          "recovery": 0.75,
+          "false_verbs_per_sent": 1.0198,
+          "n_promoted": 6226
+        },
+        {
+          "th": 0.4838,
+          "recovery": 0.7431,
+          "false_verbs_per_sent": 0.9493,
+          "n_promoted": 5802
+        },
+        {
+          "th": 0.5079,
+          "recovery": 0.7083,
+          "false_verbs_per_sent": 0.8838,
+          "n_promoted": 5404
+        },
+        {
+          "th": 0.5321,
+          "recovery": 0.6944,
+          "false_verbs_per_sent": 0.8256,
+          "n_promoted": 5053
+        },
+        {
+          "th": 0.5562,
+          "recovery": 0.6736,
+          "false_verbs_per_sent": 0.7645,
+          "n_promoted": 4683
+        },
+        {
+          "th": 0.5803,
+          "recovery": 0.6528,
+          "false_verbs_per_sent": 0.7101,
+          "n_promoted": 4354
+        },
+        {
+          "th": 0.6044,
+          "recovery": 0.6111,
+          "false_verbs_per_sent": 0.6604,
+          "n_promoted": 4050
+        },
+        {
+          "th": 0.6285,
+          "recovery": 0.5972,
+          "false_verbs_per_sent": 0.6031,
+          "n_promoted": 3704
+        },
+        {
+          "th": 0.6526,
+          "recovery": 0.5903,
+          "false_verbs_per_sent": 0.5514,
+          "n_promoted": 3393
+        },
+        {
+          "th": 0.6767,
+          "recovery": 0.5625,
+          "false_verbs_per_sent": 0.4961,
+          "n_promoted": 3057
+        },
+        {
+          "th": 0.7008,
+          "recovery": 0.5486,
+          "false_verbs_per_sent": 0.4592,
+          "n_promoted": 2834
+        },
+        {
+          "th": 0.7249,
+          "recovery": 0.5069,
+          "false_verbs_per_sent": 0.4212,
+          "n_promoted": 2600
+        },
+        {
+          "th": 0.749,
+          "recovery": 0.4583,
+          "false_verbs_per_sent": 0.3756,
+          "n_promoted": 2319
+        },
+        {
+          "th": 0.7731,
+          "recovery": 0.4375,
+          "false_verbs_per_sent": 0.3299,
+          "n_promoted": 2042
+        },
+        {
+          "th": 0.7972,
+          "recovery": 0.3611,
+          "false_verbs_per_sent": 0.2894,
+          "n_promoted": 1788
+        },
+        {
+          "th": 0.8213,
+          "recovery": 0.3125,
+          "false_verbs_per_sent": 0.2505,
+          "n_promoted": 1548
+        },
+        {
+          "th": 0.8454,
+          "recovery": 0.3125,
+          "false_verbs_per_sent": 0.2154,
+          "n_promoted": 1337
+        },
+        {
+          "th": 0.8695,
+          "recovery": 0.2639,
+          "false_verbs_per_sent": 0.1734,
+          "n_promoted": 1078
+        },
+        {
+          "th": 0.8936,
+          "recovery": 0.2431,
+          "false_verbs_per_sent": 0.135,
+          "n_promoted": 845
+        },
+        {
+          "th": 0.9177,
+          "recovery": 0.1944,
+          "false_verbs_per_sent": 0.103,
+          "n_promoted": 646
+        },
+        {
+          "th": 0.9418,
+          "recovery": 0.1528,
+          "false_verbs_per_sent": 0.0653,
+          "n_promoted": 414
+        },
+        {
+          "th": 0.9659,
+          "recovery": 0.0208,
+          "false_verbs_per_sent": 0.026,
+          "n_promoted": 159
+        },
+        {
+          "th": 0.99,
+          "recovery": 0.0,
+          "false_verbs_per_sent": 0.0012,
+          "n_promoted": 7
+        }
+      ]
+    },
+    "C19_transfer_at_MODERN_fixed_threshold": {
+      "threshold": 0.3392,
+      "recovery": 0.8194,
+      "false_verbs_per_sent": 1.4322,
+      "n_promoted": 8710,
+      "twin_recovery_mean": 0.3104,
+      "twin_recovery_p95": 0.3819,
+      "delta_vs_twin_mean": 0.5147,
+      "ci": [
+        0.4138,
+        0.6163
+      ],
+      "ci_half_width": 0.1013
+    },
+    "QASRL_modern_ood_cv_recoveryonly": {
+      "n_candidates": 21412,
+      "n_sent": 9079,
+      "n_positives": 1939,
+      "best_fp_le_1": {
+        "th": 0.2428,
+        "recovery": 0.9495,
+        "false_verbs_per_sent": 0.9811,
+        "n_promoted": 10748
+      },
+      "best_fp_le_0p5": {
+        "th": 0.4838,
+        "recovery": 0.803,
+        "false_verbs_per_sent": 0.4927,
+        "n_promoted": 6030
+      },
+      "twin_at_best": {
+        "n_promoted": 10748,
+        "twin_recovery_mean": 0.502,
+        "twin_recovery_p95": 0.5199
+      },
+      "bootstrap_delta_vs_twin": {
+        "delta_vs_twin_mean": 0.4479,
+        "ci": [
+          0.4185,
+          0.4771
+        ],
+        "ci_half_width": 0.0293
+      },
+      "curve": [
+        {
+          "th": 0.05,
+          "recovery": 0.9938,
+          "false_verbs_per_sent": 1.7703,
+          "n_promoted": 18000
+        },
+        {
+          "th": 0.0741,
+          "recovery": 0.9897,
+          "false_verbs_per_sent": 1.6237,
+          "n_promoted": 16661
+        },
+        {
+          "th": 0.0982,
+          "recovery": 0.9866,
+          "false_verbs_per_sent": 1.4971,
+          "n_promoted": 15505
+        },
+        {
+          "th": 0.1223,
+          "recovery": 0.9845,
+          "false_verbs_per_sent": 1.389,
+          "n_promoted": 14520
+        },
+        {
+          "th": 0.1464,
+          "recovery": 0.9799,
+          "false_verbs_per_sent": 1.2929,
+          "n_promoted": 13638
+        },
+        {
+          "th": 0.1705,
+          "recovery": 0.9752,
+          "false_verbs_per_sent": 1.2067,
+          "n_promoted": 12847
+        },
+        {
+          "th": 0.1946,
+          "recovery": 0.968,
+          "false_verbs_per_sent": 1.1193,
+          "n_promoted": 12039
+        },
+        {
+          "th": 0.2187,
+          "recovery": 0.9593,
+          "false_verbs_per_sent": 1.0501,
+          "n_promoted": 11394
+        },
+        {
+          "th": 0.2428,
+          "recovery": 0.9495,
+          "false_verbs_per_sent": 0.9811,
+          "n_promoted": 10748
+        },
+        {
+          "th": 0.2669,
+          "recovery": 0.9407,
+          "false_verbs_per_sent": 0.9193,
+          "n_promoted": 10170
+        },
+        {
+          "th": 0.291,
+          "recovery": 0.9268,
+          "false_verbs_per_sent": 0.8647,
+          "n_promoted": 9648
+        },
+        {
+          "th": 0.3151,
+          "recovery": 0.9123,
+          "false_verbs_per_sent": 0.8102,
+          "n_promoted": 9125
+        },
+        {
+          "th": 0.3392,
+          "recovery": 0.9015,
+          "false_verbs_per_sent": 0.7538,
+          "n_promoted": 8592
+        },
+        {
+          "th": 0.3633,
+          "recovery": 0.8896,
+          "false_verbs_per_sent": 0.7051,
+          "n_promoted": 8127
+        },
+        {
+          "th": 0.3874,
+          "recovery": 0.8706,
+          "false_verbs_per_sent": 0.6572,
+          "n_promoted": 7655
+        },
+        {
+          "th": 0.4115,
+          "recovery": 0.8582,
+          "false_verbs_per_sent": 0.6099,
+          "n_promoted": 7201
+        },
+        {
+          "th": 0.4356,
+          "recovery": 0.8432,
+          "false_verbs_per_sent": 0.5687,
+          "n_promoted": 6798
+        },
+        {
+          "th": 0.4597,
+          "recovery": 0.8252,
+          "false_verbs_per_sent": 0.5289,
+          "n_promoted": 6402
+        },
+        {
+          "th": 0.4838,
+          "recovery": 0.803,
+          "false_verbs_per_sent": 0.4927,
+          "n_promoted": 6030
+        },
+        {
+          "th": 0.5079,
+          "recovery": 0.786,
+          "false_verbs_per_sent": 0.4537,
+          "n_promoted": 5643
+        },
+        {
+          "th": 0.5321,
+          "recovery": 0.771,
+          "false_verbs_per_sent": 0.4151,
+          "n_promoted": 5264
+        },
+        {
+          "th": 0.5562,
+          "recovery": 0.7437,
+          "false_verbs_per_sent": 0.3792,
+          "n_promoted": 4885
+        },
+        {
+          "th": 0.5803,
+          "recovery": 0.7251,
+          "false_verbs_per_sent": 0.3419,
+          "n_promoted": 4510
+        },
+        {
+          "th": 0.6044,
+          "recovery": 0.7045,
+          "false_verbs_per_sent": 0.3125,
+          "n_promoted": 4203
+        },
+        {
+          "th": 0.6285,
+          "recovery": 0.6844,
+          "false_verbs_per_sent": 0.2829,
+          "n_promoted": 3895
+        },
+        {
+          "th": 0.6526,
+          "recovery": 0.6648,
+          "false_verbs_per_sent": 0.257,
+          "n_promoted": 3622
+        },
+        {
+          "th": 0.6767,
+          "recovery": 0.6385,
+          "false_verbs_per_sent": 0.2298,
+          "n_promoted": 3324
+        },
+        {
+          "th": 0.7008,
+          "recovery": 0.606,
+          "false_verbs_per_sent": 0.2055,
+          "n_promoted": 3041
+        },
+        {
+          "th": 0.7249,
+          "recovery": 0.5673,
+          "false_verbs_per_sent": 0.1824,
+          "n_promoted": 2756
+        },
+        {
+          "th": 0.749,
+          "recovery": 0.5348,
+          "false_verbs_per_sent": 0.1606,
+          "n_promoted": 2495
+        },
+        {
+          "th": 0.7731,
+          "recovery": 0.5023,
+          "false_verbs_per_sent": 0.1346,
+          "n_promoted": 2196
+        },
+        {
+          "th": 0.7972,
+          "recovery": 0.4626,
+          "false_verbs_per_sent": 0.1141,
+          "n_promoted": 1933
+        },
+        {
+          "th": 0.8213,
+          "recovery": 0.4234,
+          "false_verbs_per_sent": 0.0984,
+          "n_promoted": 1714
+        },
+        {
+          "th": 0.8454,
+          "recovery": 0.3791,
+          "false_verbs_per_sent": 0.0804,
+          "n_promoted": 1465
+        },
+        {
+          "th": 0.8695,
+          "recovery": 0.3388,
+          "false_verbs_per_sent": 0.0637,
+          "n_promoted": 1235
+        },
+        {
+          "th": 0.8936,
+          "recovery": 0.2862,
+          "false_verbs_per_sent": 0.0488,
+          "n_promoted": 998
+        },
+        {
+          "th": 0.9177,
+          "recovery": 0.2223,
+          "false_verbs_per_sent": 0.0365,
+          "n_promoted": 762
+        },
+        {
+          "th": 0.9418,
+          "recovery": 0.1599,
+          "false_verbs_per_sent": 0.0209,
+          "n_promoted": 500
+        },
+        {
+          "th": 0.9659,
+          "recovery": 0.0872,
+          "false_verbs_per_sent": 0.0067,
+          "n_promoted": 230
+        },
+        {
+          "th": 0.99,
+          "recovery": 0.0124,
+          "false_verbs_per_sent": 0.0001,
+          "n_promoted": 25
+        }
+      ]
+    },
+    "parent_baselines": {
+      "heuristic_combined_fp_per_sent": 3.72,
+      "noisy_channel_19c": "0.50rec@0.92FP",
+      "noisy_channel_modern": "0.16rec@0.46FP"
+    }
+  },
+  "elapsed_s": 155.1,
+  "ts_iso": "2026-09-03T19:35:49.478981+00:00"
+}

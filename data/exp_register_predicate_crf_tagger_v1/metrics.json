@@ -1,0 +1,51 @@
+{
+  "anchor_name": "register_predicate_crf_tagger_v1",
+  "results": {
+    "upstream_tagger_fix": {
+      "n_gold_verbs": 2605,
+      "perceptron_verb_recall": 0.9562,
+      "crf_verb_recall": 0.9536,
+      "crf_post_mean_on_true_verbs": 0.9336,
+      "crf_post_mean_on_nonverbs": 0.009,
+      "crf_post_saturation_frac_lt_0.01": 0.8379
+    },
+    "recovery_arms": {
+      "CRF_POST": {
+        "modern": {
+          "rec@0.5FP": 0.9551,
+          "fp": 0.4945,
+          "sep": true,
+          "n_pos": 89
+        },
+        "c19_transfer": {
+          "rec@0.5FP": 0.8056,
+          "fp": 0.4931,
+          "sep": true,
+          "n_pos": 144
+        }
+      },
+      "CRF_BOTH": {
+        "modern": {
+          "rec@0.5FP": 0.9551,
+          "fp": 0.4916,
+          "sep": true,
+          "n_pos": 89
+        },
+        "c19_transfer": {
+          "rec@0.5FP": 0.7917,
+          "fp": 0.4954,
+          "sep": true,
+          "n_pos": 144
+        }
+      }
+    },
+    "baselines_perceptron": {
+      "R0_frozen_margin_c19": 0.5818,
+      "R3_perceptron_posterior_logit_c19": 0.8182,
+      "R3_both_c19": 0.8,
+      "R0_modern": 0.9655
+    }
+  },
+  "elapsed_s": 136.7,
+  "ts_iso": "2026-09-03T20:50:37.294513+00:00"
+}

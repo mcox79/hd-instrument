@@ -1,0 +1,44 @@
+{
+  "model": "logistic_noisy_channel_predicate_detector",
+  "feat_names": [
+    "verb_margin",
+    "frame_anchor",
+    "subj_before",
+    "obj_after",
+    "morph_finite",
+    "clause_verbless",
+    "rel_position"
+  ],
+  "coef": [
+    1.6295043687615733,
+    0.206548868605789,
+    0.38459289970413857,
+    -0.11949381469230923,
+    0.4562792374795654,
+    0.4325815364426746,
+    -0.31799857831264483
+  ],
+  "intercept": -1.1717795568874279,
+  "mu": [
+    -20.569261805488697,
+    0.2286853237878295,
+    0.7032622844126261,
+    0.7137162382037098,
+    0.38224048161405794,
+    0.07130654083957046,
+    0.5033820285437639
+  ],
+  "sd": [
+    14.464131365422405,
+    0.4199861265231353,
+    0.45681992484496,
+    0.4520236382405027,
+    0.485934867888193,
+    0.25733619658558976,
+    0.293371492485657
+  ],
+  "operating_threshold_fp_le_0p5_modern": 0.3392,
+  "with_parse": false,
+  "gate": "wordnet_verb_reading_and_non_aux",
+  "trained_on": "UD-EWT-test + QA-SRL-dev (modern, self-supervised auto-labels)"
+}
