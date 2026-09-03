@@ -5,8 +5,8 @@ bar: "PASS = a referent-per-NP candidate source (a discourse referent per conten
 result: "PASS through the LIVE SituationReader().read() (mention source swapped, everything else identical), scorer pick==gold_head with ABSTENTION=WRONG, on 25 real LitBank docs. HONEST INSTRUMENT (cleaned 19c direct-object gold, n=149): coref-column deployment floor 0.4698 -> referent-per-NP 0.8054, +0.3356 CI[+0.2617,+0.4161] half=0.0772 null_p95=0.094 (CI-separated AND over null). FULL matched population (n=1354, KNOWN-NOISY gold ~76% oblique-contaminated): 0.2105 -> 0.2578, +0.0473 CI[+0.0229,+0.0702] half=0.0236 null_p95=0.0222 (CI-sep). Candidate-coverage lever reproduced first-hand: gold patient present under coref 0.8183 -> referent-per-NP 0.9705 (+0.1521, 1354 clauses). WHO-HAS-WHAT: OBJECT/theme candidate coverage 0.8191 -> 0.9342 (+0.1151); holder/SUBJECT coref-adequate (0.888, rnp 0.865); introduction capped by 19c POS-tagger noun recall 0.9142."
 floor: "Strongest floor actually run = the CURRENT live wired reader sourcing candidates from the deployed CoNLL COREF column (role_route=wired, all default net-positive flags ON, first-hand). CLEAN_DO 0.4698; FULL 0.2105. Not a strawman: it is the byte-for-byte live SituationReader; only the mention SOURCE is swapped. Reference ceilings on the same population: the noun-supplied eval through the SAME live reader (the `supplied` arm) 0.7987 CLEAN_DO / 0.2504 FULL -- referent-per-NP REPRODUCES it (no-regression); the parser-free naive-positional ceiling 0.9262 CLEAN_DO / 0.5037 FULL (the reader's own verb_subcat/quotative gates are the residual, parent-owned)."
 controls: "(1) INFO-FREE TWIN (matched-COUNT random-position filler referents): CLEAN_DO 0.3356 / FULL 0.1418, rnp-twin +0.4698/+0.1160 CI-sep AND twin ACTIVELY HURTS vs coref (-0.1342/-0.0687) -- adding random candidates steals picks; adding the RIGHT NP-head referents nets positive, so the signal is the FRAME not the count. (2) NO-REGRESSION (through the LIVE reader): referent-per-NP reproduces the noun-supplied eval arm, rnp-supplied delta +0.0067 CLEAN_DO / +0.0074 FULL (~0, statistically identical) -- self-built referents match the supplied candidate set. (3) DESIGN control: referent-per-NP as the SOLE source (coref demoted to linking) 0.8054 BEATS the additive union (keep coref + add missed nouns) 0.4027 -- REPLACE, do not ADD. (4) FRAME-DETECTION info-free twin: brain-faithful determiner/name-frame NP detection 0.914->0.931 CI-sep over static POS AND over a random-position twin (+0.0135 CI-sep). (5) WALL DECOMPOSITION: the FULL residual is the reader's OWN gates (supplied 0.2504 vs naive-positional 0.5037), NOT a referent-per-NP distractor penalty (rnp==supplied)."
-files_changed: "experiments/exp_referent_per_np_end_to_end_v1.py, experiments/exp_referent_per_np_holder_and_generalization_v1.py, experiments/exp_referent_per_np_frame_detection_v1.py, experiments/exp_referent_per_np_signal_loss_waterfall_v1.py, experiments/exp_referent_per_np_ideal_composition_v1.py, verification/test_referent_per_np_organ.py, notes/problems/open_a_discourse_referent_for_every_np_not_just_coref_mentions/research_discourse_referents_brain_foundational_2026-09-03.md, notes/problems/open_a_discourse_referent_for_every_np_not_just_coref_mentions/IDEAL_who_did_what_composition_2026-09-03.md, notes/problems/open_a_discourse_referent_for_every_np_not_just_coref_mentions/SOLVED.md (REUSED read-only: experiments/exp_whodidwhat_referent_per_np_prototype_v1.py, experiments/exp_whodidwhat_ideal_brain_foundational_v1.py, hdlab/situation_reader.py, hdlab/coref.py, experiments/exp_19c_composed_cleaned_gold_v1.py). NO hdlab/ written -- the proposed wire is in FOR STRATEGY below (Q111, default-off, witnessed)."
-reverify: ".venv/Scripts/python.exe verification/test_referent_per_np_organ.py   # 8/8 -- coverage lever + end-to-end CI-sep + twin-loses-and-hurts + no-regression + REPLACE>ADD + who-has-what + generalization + brain-faithful frame detection, all FROM SOURCE"
+files_changed: "experiments/exp_referent_per_np_end_to_end_v1.py, experiments/exp_referent_per_np_holder_and_generalization_v1.py, experiments/exp_referent_per_np_frame_detection_v1.py, experiments/exp_referent_per_np_signal_loss_waterfall_v1.py, experiments/exp_referent_per_np_ideal_composition_v1.py, experiments/exp_referent_per_np_selection_improvement_v1.py, verification/test_referent_per_np_organ.py, notes/problems/open_a_discourse_referent_for_every_np_not_just_coref_mentions/research_discourse_referents_brain_foundational_2026-09-03.md, notes/problems/open_a_discourse_referent_for_every_np_not_just_coref_mentions/IDEAL_who_did_what_composition_2026-09-03.md, notes/problems/open_a_discourse_referent_for_every_np_not_just_coref_mentions/selection_improvement_construction_aware_2026-09-03.md, notes/problems/open_a_discourse_referent_for_every_np_not_just_coref_mentions/SOLVED.md (REUSED read-only: experiments/exp_whodidwhat_referent_per_np_prototype_v1.py, experiments/exp_whodidwhat_ideal_brain_foundational_v1.py, hdlab/situation_reader.py, hdlab/coref.py, experiments/exp_19c_composed_cleaned_gold_v1.py). NO hdlab/ written -- the proposed wire is in FOR STRATEGY below (Q111, default-off, witnessed)."
+reverify: ".venv/Scripts/python.exe verification/test_referent_per_np_organ.py   # 10/10 -- coverage lever + end-to-end CI-sep + twin-loses-and-hurts + no-regression + REPLACE>ADD + who-has-what + generalization + frame detection + IDEAL composition (>=competent reader) + construction-aware SELECTION improvement, all FROM SOURCE"
 ---
 
 # SOLVED — open a discourse referent for every NP, not just coref mentions
@@ -240,16 +240,47 @@ None blocking. One judgement call for strategy at landing: whether to ship the d
 with the builder (recommended — +0.017 introduction CI-sep, register-robust, glass-box) or land the plain POS builder
 first and add the frame detector as a fast-follow.
 
-### NEXT STEPS
-1. **Land the wire** (strategy, Q111, default-off, witnessed): a `referent_per_np` candidate source (POS + frame
-   detector; coref demoted to a linking pass) REPLACING the coref-column source in `read()`; re-measure through the
-   live reader; then re-validate the who-did-what + who-has-what consumers (they inherit the source — re-validate,
-   don't re-code).
-2. **Wire the thematic-fit SELECTOR** (`thematic_role_labeler` cue-integration, +0.264 non-canonical) as the pick over
-   the expanded candidate set — the brain is thematic-fit-DOMINANT, we are proximity-primary; this is the lever that
-   converts the residual multi-candidate coverage into accuracy. Gated on a clean non-canonical gold + the meaning
-   channel (parent's fenced territory) — a scoped successor, not this bar.
-3. **Register-native POS/NER** (the parent's filed 1c): close the introduction cap (0.914→1.0) that the frame
-   detector only partly recovers — the brain IDs names/nouns from morphology+position, not a static modern-trained tag.
-4. **NP-type TAG pass** (open-broad-then-tag): tag predicate-nominal / incorporated / quantified / idiom NPs so the
-   flat referent set carries referentiality (a refinement toward full DRT fidelity).
+### NEXT STEPS — RANKED BY THE MEASURED SIGNAL-LOSS (we know exactly where each point goes)
+The signal-loss waterfall (§2b) says precisely where the remaining signal is, so the optimization order is not a guess.
+After the source fix, the RNP chain is: ORACLE 1.000 → S1 source **0.987** → S2 event **0.966** → S3 selection
+**0.845** → END 0.805. Each next step targets a NAMED stage with its measured loss, the lever, the expected gain, and
+whether it is READY or GATED:
+
+0. **LAND THIS BAR FIRST — the referent-per-NP SOURCE wire** (strategy, Q111, default-off, witnessed). Closes S1
+   source loss 0.161→0.013; measured **+0.336 CI-sep** end-to-end (cleaned-DO), +0.115 who-has-what theme coverage, no
+   regression. Ship the determiner/name FRAME detector on the HOLDER/name path (helps who-has-what) but NOT as extra
+   patient candidates (it hurts the patient slot). Then re-validate the who-did-what + who-has-what consumers (they
+   inherit the source — re-validate, don't re-code). **STATUS: READY.**
+
+1. **[BIGGEST REMAINING LOSS — S3 SELECTION, 0.148] Land the ideal selector + the PROTOTYPED construction-aware
+   improvement.** Base = the parent's validated `ideal_pick` (structural-DO filter replacing the over-firing gates +
+   Competition-Model pick), which takes the source fix 0.805 → **0.873 (at/above competent reader 0.846)**;
+   shuffled-candidate twin collapses to 0.235 (+0.638 CI-sep). ON TOP, I PROTOTYPED a Goldberg construction-aware
+   multi-DO selector (`exp_referent_per_np_selection_improvement_v1`, from the error diagnosis: 84% of residual errors
+   are multi-DO competition): double-object → recipient, naming/object-complement → complement. MEASURED **0.873 →
+   0.913 (+0.040 CI[+0.013,+0.074] CI-sep; +0.146 CI-sep on the multi-DO subset)**, info-free twin loses.
+   **STATUS: READY — the ideal selector is parent-owned; the construction improvement is prototyped + witnessed (W10),
+   compose both at land.**
+
+2. **[DEEPEST S3 RESIDUAL — the ~0.09 to oracle after (1)] The MEANING-FIT selector for genuine ambiguity.** Where
+   even the constructions cannot pick, the brain uses thematic-fit on MEANING (McRae/Ferretti). KEY FINDING from the
+   prototype: a distributional selectional-preference re-rank adds only +0.007 n.s. OVER the constructions (though it
+   beats its shuffled twin +0.067 CI-sep) — so on canonical multi-DO the "fit" the brain uses is CONSTRUCTIONAL, not
+   lexical co-occurrence, which reconciles Q3 (fit-dominant) with the parent's fenced grounded-fit negative
+   (`selection_improvement_construction_aware_2026-09-03.md`). The residual meaning-ambiguous tail needs a real valence
+   model. **STATUS: GATED on the meaning channel** (the filed learner-on successor); the competent reader loses ~0.15
+   here too, so part is shared hard/ambiguous gold.
+
+3. **[S1 residual + who-has-what holder cap] Register-native POS/NER.** The introduction cap is 19c POS-tagger noun
+   recall 0.914 (the frame detector recovers ~20% → 0.931). A register-native tagger closes it to ~1.0 — the brain IDs
+   names/nouns from morphology+position, not a static modern-trained tag. **STATUS: FILED (parent's 1c).**
+
+4. **[S2 EVENT/verb-ID, 0.034] The parent's noisy-channel joint POS override** for free-text deployment (the who-did-
+   what task supplies the verb index, so this is small here but matters end-to-end). **STATUS: AVAILABLE (parent §0j).**
+
+5. **[fidelity refinement] NP-type TAG pass** (open-broad-then-tag): tag predicate-nominal/quantified/idiom NPs so the
+   flat referent set carries referentiality — a small step toward full DRT fidelity, not a signal-loss lever.
+
+**In one line:** land the source (this bar) → land the validated structural selector (biggest remaining loss, ready) →
+the meaning-fit selector is the deepest lever but is gated on the meaning channel; the introduction/event caps are
+smaller, register-native-tagger/POS-override jobs.
