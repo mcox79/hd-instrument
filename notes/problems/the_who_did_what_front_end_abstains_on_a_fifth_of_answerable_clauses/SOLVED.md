@@ -9,6 +9,15 @@ files_changed: "experiments/exp_whodidwhat_coverage_diagnosis_v1.py, experiments
 reverify: ".venv/Scripts/python.exe verification/test_whodidwhat_coverage.py"
 ---
 
+## INTEGRATED_BY_STRATEGY (2026-09-03) — EXCELLENT
+Reverified first-hand: `test_whodidwhat_coverage.py` **65/65**. Meets the bar (effective end-to-end 0.629→0.985; the 22% abstention is 3 OUR-INVENTION precision gates on 19c, not a parser gap). Exemplary: the stored floor went STALE mid-work (np_head_reduce + predict_revise landed) → recomputed first-hand to 0.7877, recovery +0.1973 CI-sep over THAT, twin loses, no regression; + a §0h self-correction of reinvented conclusions. Actions:
+- **§2b AUDIT UPDATE folded** (newest entry): the abstention artifact; routing-beats-flat-composition; the located negatives (verb-ID heuristic HARD_FAIL; non-canonical gated on the meaning channel, head-independent); the honest self-correction.
+- **CLEAN WIRE OWED (§0g item 2, being landed as a focused RE-MEASURED step): the STRUCTURAL-DO candidate filter** (restrict patient candidates to BARE post-verbal nominals before the pick — subsumes the `verb_subcat` hard veto, recovers the 47 + intransitive precision 0.975, +0.0045 main gold) into `_read_events_wired`/the `_cands` primitive, default-off + witnessed, RE-MEASURED against the CURRENT substrate (the floor moved, so the marginal must be re-confirmed on top of the landed np_head_reduce + predict_revise). Ref impl `exp_whodidwhat_composed_pipeline_v1.composed_who_did_what`.
+- **FOLLOW-ONS FILED:** `open_a_discourse_referent_for_every_np_not_just_coref_mentions` (P5 — the biggest real-world lever, referent-per-NP +0.15 candidate coverage; the solver explicitly scoped this as its own problem) + `register_robust_event_detection_the_reader_drops_events_when_the_tagger_misses_the_verb` (P6 — the trained joint predicate model the verb-ID located negative requires).
+- DO NOT land: the grounded-valence selection cue / any verb-ID heuristic (refuted). `np_head_reduce` already landed (keep).
+
+**Bottom line: EXCELLENT.** A high-integrity diagnosis + recovery (silent abstention → 0.985), with a model recompute after its own floor moved and an honest self-correction. The one clean wire (structural-DO filter) is landed as a re-measured step; the two biggest forward levers are filed (P5/P6).
+
 # SOLVED — the who-did-what front end silently abstains on a fifth of answerable clauses
 
 ## What this problem asked, and the answer in one line

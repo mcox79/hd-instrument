@@ -1,7 +1,6 @@
 ---
-priority: 2
-review:
-review_text:
+review: EXCELLENT
+review_text: Reverified first-hand 65/65. Meets the bar -- the 22% silent abstention is three OUR-INVENTION precision gates mis-firing on 19c (NOT a parser gap; arc-eager recovers 1/669); effective end-to-end 0.629->0.985. Exemplary honesty -- the stored 0.6293 floor went STALE mid-work (np_head_reduce + predict_revise landed), recomputed first-hand to 0.7877, recovery +0.1973 CI-sep over THAT, twin loses, no regression; plus a §0h self-correction of its own reinvented conclusions. Located negatives: verb-ID heuristic HARD_FAIL (needs a trained joint parser -> filed P6); non-canonical gated on the meaning channel not the parser. Clean wire OWED (§0g): the structural-DO candidate filter (bare post-verbal nominals; subsumes verb_subcat; recovers 47) into _read_events_wired/_cands, default-off, RE-MEASURED on the current substrate (the floor moves). Follow-ons filed: P5 referent-per-NP (+0.15), P6 predicate detection. §2b folded. INTEGRATED 2026-09-03.
 ---
 
 # PROBLEM: the NP-head fix repaired the who-did-what ACCURACY error (+0.20 per consumer, at the parse ceiling), but the live reader still silently ABSTAINS on ~22% of answerable clauses — its event/predicate gate + parse-dependent mention builder drop a fifth of clauses that DO have a recoverable patient (effective end-to-end 0.629 vs the full-coverage stack 0.981, i.e. abstention counted as wrong is the larger remaining loss); diagnose exactly which clauses are dropped and why, and recover them (attempt every finite verb; Davidsonian coverage) CI-separated end-to-end with NO precision regression — or a located negative naming the coverage blocker.
