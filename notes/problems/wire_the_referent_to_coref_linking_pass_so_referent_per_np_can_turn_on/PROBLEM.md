@@ -1,0 +1,44 @@
+---
+priority: 5
+review:
+review_text:
+---
+
+# PROBLEM: the landed referent-per-NP mention source (+0.336 who-did-what, default-off) CANNOT turn on because it gives every non-coref NP head a FRESH SINGLETON cluster and the "coref demoted to a downstream LINKING pass" the DRT design assumed is NOT wired — so cluster-based coref COLLAPSES (`coref_acc` 0.4818 → 0.0200 when the flag is on). WIRE the referent→coref LINKING pass: after introducing a referent per NP (Kamp/Heim), a downstream pass MERGES co-referring referents into shared clusters (the reader's coref resolves pronouns; this must also link the non-pronoun referents), so with `referent_per_np` ON, `coref_acc` RECOVERS to ≥ the coref-column baseline while who-did-what keeps +0.336 — then `referent_per_np` flips default-ON net-positive. Or a located negative naming why the linking cannot recover it.
+
+**slug:** `wire_the_referent_to_coref_linking_pass_so_referent_per_np_can_turn_on` — **opened:** 2026-09-03 by the strategy session, the TURN-ON BLOCKER discovered integrating the owner-DONE `open_a_discourse_referent_for_every_np_not_just_coref_mentions` (the wire is landed default-off, `hdlab/referent_per_np.py` + the `referent_per_np` flag; flipping it on regresses coref because the linking pass is missing). **status:** OPEN. Strategy lands any hdlab wire (Q111, default-off, witnessed). Glass-box, NO external LLM.
+
+> ## ⚙️ SOLVER OPERATING PROTOCOL (standing — owner 2026-08-25/26)
+> **DO THE RIGHT THING, NOT THE CHEAP THING.** 🧠 OPENING MOVE: how does the BRAIN do THIS? Name the structure + computation, replicate it. Mark PINNED vs OUR-INVENTION. A rigorous located NEGATIVE is a PASS if the brain's actual mechanism, faithfully built, is what failed. 📖 REFERENCE `notes/BRAIN_FOUNDATIONAL_AUDIT.md` §2b (the referent-per-NP entry).
+
+## 1. THE PROBLEM IN PLAIN LANGUAGE
+The reader now (optionally) opens a mental file-card for EVERY noun phrase — great for finding who-did-what to whom, but it currently treats each card as a brand-new entity. Real comprehension does two steps: open a card for each mention, THEN work out which cards are the SAME entity ("the doctor" … "he" … "Watson" = one person). We wired the first step; the second (linking) is missing, so the coreference score collapses when the first step is on. The brain does exactly this two-step: introduce a discourse referent, then bind co-referring ones by matching agreement + recency + salience. The job: build that linking pass so the two steps compose, and coreference works WITH the complete referent set (better, since the right antecedent is now always a candidate) instead of breaking.
+
+## 2. WHY THIS ONE — it is the measured GATE on a +0.336 landed capability
+The referent-per-NP source is landed (`hdlab/referent_per_np.py`, witness 9/9, byte-faithful to the validated +0.336 build_source) but default-OFF because turning it on measured `coref_acc` 0.4818 → 0.0200 (2 real LitBank docs, first-hand): the fresh singleton clusters on non-coref heads break the cluster-based coref metric AND any cluster-consuming consumer (who-has-what densify). The parent SOLVED assumed "coref demoted to a downstream linking pass" but only measured who-did-what/who-has-what, not coref — so the linking pass was never built. This problem builds it → unblocks the flip (and the parent found the COMPLETE referent set should even IMPROVE coref, because the right antecedent is now always in the candidate set: waterfall S1 0.839→0.987 with rnp).
+
+## 3. HOW THE BRAIN DOES THIS (the opening move)
+PINNED: DRT/FCS (Kamp 1981; Heim 1982) — INTRODUCTION (open a referent per NP) and ANAPHORA RESOLUTION (link co-referring referents) are SEPARATE operations; the linker binds by agreement (gender/number), recency/Centering (Grosz-Joshi-Weinstein), and grammatical salience; the reader already has a validated pronoun→antecedent resolver (`event_centrality_coref` / `graded_coref_pick`, cue-based ACT-R retrieval) — the missing piece is extending it to MERGE the non-pronoun referents (nominal coref: "the doctor" ≡ "Watson") into shared clusters. OUR-INVENTION: the exact nominal-linking features + the merge threshold (sweep). Mark PINNED vs OUR-INVENTION.
+
+## MEASURED vs INFERRED
+- **MEASURED (do NOT re-derive):** with `referent_per_np` ON, `coref_acc` 0.4818 → 0.0200 (fresh singletons break cluster-based coref); the parent's waterfall shows the complete referent set makes the gold antecedent reachable (S1 source 0.839→0.987) and REPAIRS selection (coref gaps had corrupted the pick). (Sources: this integration's first-hand check; parent SOLVED.md waterfall §.)
+- **INFERRED (you must measure):** whether a glass-box referent→coref linking pass, run over the referent-per-NP mention set, recovers `coref_acc` to ≥ the coref-column baseline (0.48, ideally ABOVE — the antecedent is now always a candidate) with `referent_per_np` ON, WITHOUT regressing who-did-what (+0.336) or who-has-what (+0.115), info-free (shuffled-link) twin LOSING → `referent_per_np` flips default-ON net-positive. The residual + its named cause.
+
+## VERIFY BEFORE YOU START (the disk outranks this brief)
+- FIRST STEPS: `python tools/substrate_map.py`, `python tools/reader_capabilities.py`; read the parent `notes/problems/open_a_discourse_referent_for_every_np_not_just_coref_mentions/SOLVED.md` (the coref/linker sections + the waterfall) IN FULL; read `hdlab/referent_per_np.py` (the source), `hdlab/coref.py` (`parse_litbank_conll` — the gold clusters + the mention schema), `hdlab/event_centrality_coref.py` + `hdlab/graded_coref_pick.py` (the landed pronoun resolver to EXTEND), `hdlab/situation_reader.py` (`_read_entities` / `build_pronoun_targets` / the `referent_per_np` flag + how `sm.coref_acc` is computed).
+- Reproduce first-hand: `coref_acc` 0.48 (OFF) vs 0.02 (ON) on 2 LitBank docs — the can-fail regression this fix must close.
+
+## THE BAR (can-fail; CI-separated; the info-free twin must lose)
+PASS = a glass-box referent→coref linking pass (agreement + recency/Centering + salience; extends the landed resolver to nominal referents; NO external LLM) such that with `referent_per_np` ON, `coref_acc` recovers to ≥ the coref-column baseline CI-separated, with NO regression on who-did-what (+0.336 cleaned-DO) or who-has-what, and a shuffled-link info-free twin LOSING → `referent_per_np` turns default-ON. Report CI half-width + null p95; recompute floors on the same population. A rigorous located NEGATIVE — no glass-box linking recovers coref over the singleton-cluster source, with the named cause — is a FULL PASS (then referent-per-NP stays a who-did-what-only source). Strategy lands the Q111 wire + flips `referent_per_np` default-on if the bar is met.
+
+## ALREADY TRIED / DO NOT REDO
+- The pronoun→antecedent resolver is LANDED (`event_centrality_coref`, cue-based ACT-R retrieval) — EXTEND it to nominal referents, do not re-derive pronoun resolution.
+- The coref axis's OTHER angles (discourse-focus-stack, next-mention prior, content-addressable retrieval) are owner-DONE — this is NOT another antecedent-selection tweak; it is the referent-set LINKING that the referent-per-NP source requires.
+- Do NOT "fix" it by reverting to the coref-column source (that is the deployment ceiling the parent removed).
+
+## FILES AND ENTRY POINTS
+Build in `experiments/` + `verification/`. REUSE `hdlab/referent_per_np.py`, `hdlab/event_centrality_coref.py`, `hdlab/graded_coref_pick.py`, `hdlab/coref.py`, `hdlab/situation_reader.py`. Strategy lands the Q111 wire + the `referent_per_np` default-on flip. Fold an AUDIT UPDATE into `BRAIN_FOUNDATIONAL_AUDIT.md` §2b.
+
+## DO NOT QUOTE
+- Do NOT quote the who-did-what +0.336 as the turn-on justification alone — turn-on requires coref recovery too (this problem).
+- Do NOT use an external LLM for the linking (the invariant).
