@@ -71,6 +71,57 @@ _GOV_PERCEPTRON_CACHE: dict = {}
 _BOW_PERCEPTRON_CACHE: dict = {}
 _THETA_CACHE: dict = {}
 
+# PERSISTENT DISK CACHE for the earned appraisal-sim theta (2026-09-03 substrate-speed fix, companion to
+# frame_induction's cache). _sim_theta trains an online bandit (n_train episodes, torch) on the FIRST read()
+# of every fresh process (~8-24s); the in-process _THETA_CACHE amortizes only within a process. The result
+# (Codebook, theta) is DETERMINISTIC given (seed, n_train) + the training code (manual_seed CPU torch), so
+# we persist it keyed by (seed, n_train) + a CONTENT HASH of the training module source -- so any change to
+# train_theta / Codebook / reward / phi auto-invalidates (no silent staleness). Byte-faithful; a missing/
+# corrupt/stale cache just re-trains. Witness: test_theta_disk_cache_organ.py.
+import hashlib as _hashlib  # noqa: E402
+
+_THETA_DISK_DIR = os.path.join(REPO_ROOT, "data", "theta_cache")
+_THETA_DISK_VERSION = "v1"
+
+
+def _theta_src_hash() -> str:
+    """sha1 of the appraisal-sim module source (the code that defines train_theta/Codebook/reward/phi).
+    Any edit to that file changes the hash -> the cache invalidates and re-trains."""
+    try:
+        with open(_sim.__file__, "rb") as fh:
+            return _hashlib.sha1(fh.read()).hexdigest()[:16]
+    except (OSError, IOError, AttributeError):
+        return "nosrc"
+
+
+def _theta_disk_path(seed: int, n_train: int) -> str:
+    return os.path.join(_THETA_DISK_DIR,
+                        "theta_%s_s%d_n%d_%s.pt" % (_THETA_DISK_VERSION, seed, n_train, _theta_src_hash()))
+
+
+def _load_theta_disk(seed: int, n_train: int):
+    fp = _theta_disk_path(seed, n_train)
+    if not os.path.exists(fp):
+        return None
+    try:
+        obj = torch.load(fp, weights_only=False)
+        if isinstance(obj, tuple) and len(obj) == 2:
+            return obj
+    except Exception:
+        return None
+    return None
+
+
+def _save_theta_disk(seed: int, n_train: int, result) -> None:
+    try:
+        os.makedirs(_THETA_DISK_DIR, exist_ok=True)
+        fp = _theta_disk_path(seed, n_train)
+        tmp = fp + ".tmp"
+        torch.save(result, tmp)
+        os.replace(tmp, fp)
+    except Exception:
+        pass
+
 
 def _governor_pred_fn(seed: int):
     """Certified governor perceptron (bridge1 stage-1: gov/adj-class + Component-3 frame + cope +
@@ -100,11 +151,16 @@ def _sim_theta(seed: int, n_train_theta: int):
     per (seed, n_train_theta)."""
     key = (seed, n_train_theta)
     if key not in _THETA_CACHE:
-        gen = torch.Generator().manual_seed(seed)
-        cb = _sim.Codebook(gen)
-        g_theta = torch.Generator().manual_seed(seed * 100 + _sim.hash_variant("FULL"))
-        theta = _sim.train_theta(cb, g_theta, "FULL", n_train_theta)
-        _THETA_CACHE[key] = (cb, theta)
+        disk = _load_theta_disk(seed, n_train_theta)   # skip the ~8-24s training if a prior process built it
+        if disk is not None:
+            _THETA_CACHE[key] = disk
+        else:
+            gen = torch.Generator().manual_seed(seed)
+            cb = _sim.Codebook(gen)
+            g_theta = torch.Generator().manual_seed(seed * 100 + _sim.hash_variant("FULL"))
+            theta = _sim.train_theta(cb, g_theta, "FULL", n_train_theta)
+            _THETA_CACHE[key] = (cb, theta)
+            _save_theta_disk(seed, n_train_theta, (cb, theta))
     return _THETA_CACHE[key]
 
 
