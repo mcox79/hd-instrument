@@ -948,7 +948,7 @@ class SituationReader:
             # but a COMPOSED Reichenbach tense/is_pp instead of the placeholder constant. Byte-identical to
             # the validated ref impl (exp_tense_preserving_live_reader_and_timeline_v1.tense_preserving_extract).
             if self._tp_mod is None:
-                import experiments.exp_tense_preserving_event_detector_v1 as _TP
+                from hdlab import tense_preserving_detector as _TP   # promoted verbatim (no experiments dep)
                 self._tp_mod = _TP
             _TP = self._tp_mod
             sent = _TP.assign_sentence(toks, up, mode="surface")
