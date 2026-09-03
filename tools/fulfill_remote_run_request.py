@@ -487,14 +487,30 @@ def main():
               "will likely REJECT. Proceeding so you see the authoritative gate.", file=sys.stderr)
 
     print(f"[fulfill] dispatching: {' '.join(qcmd)}")
-    p = subprocess.run(qcmd, cwd=REPO, creationflags=_NO_WINDOW)
-    outcome = "dispatched" if p.returncode == 0 else "queue_add_failed"
+    # CAPTURE queue_add.sh's own [gate]/[queue-add] output and SURFACE it -- under the windowless
+    # Scheduled Task (creationflags=_NO_WINDOW) an un-captured child writes to a console that does not
+    # exist, so its diagnostics were LOST and the watcher log only ever showed "returned 1" (making every
+    # stuck run a manual reproduction, 2026-09-03). Now the actual failure point (self-test error, a Pattern
+    # 7/8 ssh failure, the enqueue) lands in the log tail. 30-min guard so a hung ssh/scp can't wedge forever.
+    try:
+        p = subprocess.run(qcmd, cwd=REPO, creationflags=_NO_WINDOW,
+                           capture_output=True, text=True, timeout=1800)
+        q_out = (p.stdout or "") + (p.stderr or "")
+        q_rc = p.returncode
+    except subprocess.TimeoutExpired as e:
+        q_out = (e.stdout or "") + (e.stderr or "") + "\n[fulfill] queue_add.sh TIMED OUT after 1800s (hung ssh/scp?)."
+        q_rc = 124
+    # echo queue_add.sh's tail so it is visible interactively AND captured into the watcher log
+    _tail = "\n".join(q_out.strip().splitlines()[-25:])
+    if _tail:
+        print(_tail)
+    outcome = "dispatched" if q_rc == 0 else "queue_add_failed"
     log_event({"ts": datetime.now(timezone.utc).isoformat(), "cell": cell, "outcome": outcome,
                "queue": decided_queue, "prereg": prereg_rel, "name": name, "timeout": timeout,
-               "rc": p.returncode, "request": a.request})
-    if p.returncode != 0:
-        print(f"FAIL: queue_add.sh returned {p.returncode}", file=sys.stderr)
-        return p.returncode
+               "rc": q_rc, "request": a.request, "queue_add_tail": q_out[-1500:]})
+    if q_rc != 0:
+        print(f"FAIL: queue_add.sh returned {q_rc} (see queue_add.sh output above / queue_add_tail in the log)", file=sys.stderr)
+        return q_rc
     print(f"[fulfill] OK: {name} queued to {decided_queue}. Results return via local_metrics_sync.ps1 "
           f"(~20 min) or tools/orchestrator/scp_recover_landing.py --verify-after {name}.")
     return 0
