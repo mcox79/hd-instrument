@@ -5,7 +5,7 @@ bar: "PASS = a coverage recovery (attempt every finite verb + parser-robust cand
 result: "RECOMPUTED against the CURRENT live reader (the stored 0.6293 floor went STALE -- upstream modules landed DURING this work and lifted the live wired reader to 0.7877; predict_revise = +0.0643 of it). On the 669 clean-19c direct-object clauses, scorer pick==gold_head, effective end-to-end (abstention=wrong): CURRENT live wired 0.7877 -> STRUCTURAL recovery 0.9851, marginal +0.1973 CI[+0.1689,+0.2272] CI-separated. The recovery's contribution is now primarily ACCURACY (it fixes 65 of the reader's 75 remaining wrong picks) plus the 47 verb_subcat + 20 no-event abstentions. Modern QA-SRL (n=1261) 0.5678 -> 0.9025, +0.3347 CI-sep (modern floor not yet re-run against current substrate)."
 floor: "Strongest floor actually run = the CURRENT live wired reader 0.7877 (predict_revise ON; recomputed first-hand, NOT the stale stored 0.6293). predict_revise OFF = 0.7235. The RECOVERED path beats the current floor +0.1973 CI[+0.1689,+0.2272]. best-available-parser wired floor (updated arc-eager UAS 0.842) 0.6308 at the time it was run -- also now superseded by the upstream lift. RETIRED as stale: the stored wired_pick 0.6293."
 controls: "(1) info-free twin = full coverage + UNIFORM-RANDOM post-verbal pick 0.4185, LOSES CI-sep. (2) NO-REGRESSION: present-accuracy 0.807->0.981; 5 individual flips (hard ditransitive/copula/distant-noun). (3) INTRANSITIVE precision control (constructed, can-fail): naive soft rule over-generates on 100% of intransitives; STRUCTURAL-DO abstains correctly 0.975 AND recovers the 47 AND does not regress the main gold. (4) CURRENT-FLOOR recompute (first-hand): the recovery marginal is measured over the CURRENT 0.7877 reader, not the stale 0.6293; predict_revise attributed (+0.064). (5) fair-floor: the updated arc-eager parser recovers only 1/669 -> abstention was not parse-quality. (6) per-cause ablation is exhaustive."
-files_changed: "experiments/exp_whodidwhat_coverage_diagnosis_v1.py, experiments/exp_whodidwhat_coverage_recover_v1.py, experiments/exp_whodidwhat_coverage_parser_floor_v1.py, experiments/exp_whodidwhat_coverage_transitivity_control_v1.py, experiments/exp_whodidwhat_verb_id_recoverable_v1.py, experiments/exp_whodidwhat_mention_source_transfer_v1.py, experiments/exp_whodidwhat_meaning_prediction_completeness_v1.py, experiments/exp_whodidwhat_live_wire_end_to_end_v1.py, experiments/exp_whodidwhat_current_floor_rediagnosis_v1.py, experiments/exp_whodidwhat_referent_per_np_prototype_v1.py, experiments/exp_whodidwhat_verbid_override_prototype_v1.py, experiments/exp_whodidwhat_ideal_brain_foundational_v1.py, experiments/exp_whodidwhat_noncanonical_upstream_v1.py, verification/test_whodidwhat_coverage.py, notes/problems/the_who_did_what_front_end_abstains_on_a_fifth_of_answerable_clauses/SOLVED.md"
+files_changed: "experiments/exp_whodidwhat_coverage_diagnosis_v1.py, experiments/exp_whodidwhat_coverage_recover_v1.py, experiments/exp_whodidwhat_coverage_parser_floor_v1.py, experiments/exp_whodidwhat_coverage_transitivity_control_v1.py, experiments/exp_whodidwhat_verb_id_recoverable_v1.py, experiments/exp_whodidwhat_mention_source_transfer_v1.py, experiments/exp_whodidwhat_meaning_prediction_completeness_v1.py, experiments/exp_whodidwhat_live_wire_end_to_end_v1.py, experiments/exp_whodidwhat_current_floor_rediagnosis_v1.py, experiments/exp_whodidwhat_referent_per_np_prototype_v1.py, experiments/exp_whodidwhat_verbid_override_prototype_v1.py, experiments/exp_whodidwhat_ideal_brain_foundational_v1.py, experiments/exp_whodidwhat_noncanonical_upstream_v1.py, experiments/exp_whodidwhat_fillergap_fix_v1.py, verification/test_whodidwhat_coverage.py, notes/problems/the_who_did_what_front_end_abstains_on_a_fifth_of_answerable_clauses/SOLVED.md"
 reverify: ".venv/Scripts/python.exe verification/test_whodidwhat_coverage.py"
 ---
 
@@ -106,6 +106,22 @@ NOT primarily a parser gap; it is a LAYERED upstream problem, biggest layer firs
    this verb, resolved jointly with the parse — the successor problem the prior work already named.
 So "vastly improve non-canonical" = (1) CLEAN THE GOLD, (2) proper FILLER-GAP resolution, (3) a joint valence parser —
 in that order. It is partly a parser gap (layer 2) but the dominant immediate blocker is gold noise (layer 1).
+
+**ALL THREE LAYERS PROTOTYPED as a cumulative ladder (cell: exp_whodidwhat_fillergap_fix_v1) — honestly, 2 of 3 work:**
+| layer | non-canonical acc | verdict |
+|---|---|---|
+| L0 ideal (full noisy) | 0.1385 | baseline |
+| L1 + clean the gold | 0.1620 | ✓ works (+0.024) |
+| **L2 + object-gap routing** (gap -> nearest-preverbal theme; unaccusative/fronting) | **0.2465** | ✓ **works, biggest lever (+0.085 CI-sep) — roughly DOUBLES L0** |
+| L3 + joint valence re-rank (grounded fit + animacy) | 0.2113 | ✗ **REFUTED (−0.035)** — the meaning cue is too weak; the real valence parser needs the meaning channel fixed first |
+
+Two honest NEGATIVES inside the prototype: (a) the SOPHISTICATED filler-gap (skip the embedded subject, take the noun
+before the relativizer as the relative HEAD) is REFUTED — on the object-gap slice the SIMPLE nearest-preverbal rule
+scores 0.741 vs the sophisticated rule's 0.345 (most clean non-canonical are unaccusative/fronting where the nearest
+preverbal IS the patient, not object-relatives needing subject-skipping); (b) L3 grounded-valence re-ranking hurts,
+re-confirming first-hand that who-did-what selection is not fit-quality-bound. Net: the tractable brain-foundational
+fix (clean gold + route object-gaps to the preverbal theme) roughly doubles non-canonical (0.139 -> 0.247); the true
+frontier remains the joint generative valence parser, which is gated on the (separately-filed) meaning channel.
 
 **What this says about completeness (honest):** on CANONICAL who-did-what the ideal is at the parse ceiling (0.985),
 fully brain-foundational, every info-free twin loses, and the predictive-confidence layer flags its own errors
