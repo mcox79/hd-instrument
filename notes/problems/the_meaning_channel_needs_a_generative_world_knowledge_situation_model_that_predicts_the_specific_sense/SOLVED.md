@@ -5,7 +5,7 @@ bar: "PASS = a GENERATIVE world-knowledge situation model that supplies a sense-
 result: "PARTIAL = the parent's NET-GAIN wall is BROKEN (bar 2) + a rigorous located NEGATIVE on the generative-source a_s lever (bar 1). SemCor 30 files, n=17,317; HELD-OUT even/odd doc split (n_test=8,774); paired-bootstrap CIs. (bar 2) The brain-faithful precision-weighted ADDITIVE decision rule (reordered access, no hard flip) on the leak-free WordNet-structural + static-world-knowledge signal NETS +0.0129 over MFS, CI[0.0074,0.0179] CI-separated ABOVE, dominant preserved 0.9498 (no see-saw), shuffled-situation twin LOSES CI-separated (real-vs-twin +0.0064 [0.0021,0.0107]); the parent's best config was NET -0.0013 CI-separated BELOW. (bar 1) The generative WORLD-KNOWLEDGE source raises a_s only to ~0.27 (< cn ~0.33 ~ parent 0.33), and the LEARNED generative predictor's larger numbers (a_s 0.430, net +0.052) are CORPUS-TOPIC OVERFITTING: under a STRICT disjoint-document foundation a_s falls to 0.198 and net to -0.038, and a scramble-label control collapses it -- so the generative a_s lever does NOT generalize on this glass-box substrate."
 floor: "MFS (reordered-access frequency-prior argmax), recomputed on the SemCor 30-file polysemous population: overall 0.6831, dominant 0.9878, subordinate 0.0 by construction (subordinate = gold sense strictly rarer than the lemma top sense). The net gain is measured on HELD-OUT even/odd test docs (n_test=8,774) against this floor's test value; the additive-rule operating point (gamma, abstention tau) is tuned on TRAIN docs only."
 controls: "(held-out even/odd doc split; paired bootstrap 2000 reps; n_test=8,774; ALL reproduced by the witness 8/8) (1) SHUFFLED-SITUATION TWIN loses CI-separated -- real-vs-twin net +0.0064 [0.0021,0.0107] (the world-knowledge, not the machinery). (2) STRICT disjoint-document foundation on the LEARNED predictor: net -0.0380, a_s 0.198 -- CATCHES the leave-one-DOCUMENT-out cross-document leakage that had inflated it to +0.052 / a_s 0.430 (the decisive rigor catch). (3) SCRAMBLE-label control on the learned predictor collapses net to +0.0008. (4) DECISION-RULE contrast: cn-only additive rule net +0.0100 [0.0042,0.0158] CI-sep vs the parent's gated hard-flip -0.0013 -- isolates the DECISION RULE (additive precision-weighting) as the lever, on the identical graph signal. (5) additive-rule sanity: flat context -> keep dominant; sharp+reliable context -> override; zero-reliability -> keep dominant. (6) dominant preserved 0.9498 (no see-saw). CI half-widths reported inline; twin is the null."
-files_changed: "experiments/exp_generative_situation_sense_selector_v1.py (new), experiments/exp_generative_situation_sense_selector_v2.py (new -- event-role + additive precision rule + held-out analyze), experiments/exp_incremental_generative_sense_predictor_v1.py (new -- the ideal-prototype learned generative tier), verification/test_generative_situation_sense_selector.py (new -- witness), notes/problems/the_meaning_channel_needs_a_generative_world_knowledge_situation_model_that_predicts_the_specific_sense/{SOLVED.md, DESIGN_brain_foundational.md}. Reuses UNMODIFIED: exp_topdown_situation_sense_selector_v1 (parent harness: SemCor extraction, cn_syn settling, directional detector, bootstrap), hdlab/conceptual_meaning (ATL definitional hub / global IDF), FrameNet+ConceptNet+thematic_edges assets, SemCor, spaCy (LOCAL, cached). NO hdlab/ written (Q111)."
+files_changed: "experiments/exp_generative_situation_sense_selector_v1.py (new), experiments/exp_generative_situation_sense_selector_v2.py (new -- event-role + additive precision rule + held-out analyze), experiments/exp_incremental_generative_sense_predictor_v1.py (new -- the ideal-prototype learned generative tier), experiments/exp_sg_lite_sense_gestalt_v1.py + exp_sg_lite_generative_readout_v1.py + exp_sg_lite_scale_v1.py (new -- SG-lite incremental generative gestalt, GPU-trained, + the reconstruction-match/settling/episodic readout that empirically demolished the 'ceiling': recon-match a_s 0.280 > centroid 0.220 > NB-strict 0.198, generalizing, net CI-sep), verification/test_generative_situation_sense_selector.py (new -- witness), notes/problems/the_meaning_channel_needs_a_generative_world_knowledge_situation_model_that_predicts_the_specific_sense/{SOLVED.md, DESIGN_brain_foundational.md}. Reuses UNMODIFIED: exp_topdown_situation_sense_selector_v1 (parent harness: SemCor extraction, cn_syn settling, directional detector, bootstrap), hdlab/conceptual_meaning (ATL definitional hub / global IDF), FrameNet+ConceptNet+thematic_edges assets, SemCor, spaCy (LOCAL, cached). NO hdlab/ written (Q111)."
 reverify: ".venv/Scripts/python.exe verification/test_generative_situation_sense_selector.py"
 ---
 
@@ -72,19 +72,28 @@ One pass suffices, and I state why rather than claim a converging loop: the net-
 This problem is NOT fully optimized. The robust net-gain lever (the decision rule) is done; the a_s lever is
 open, and the ceiling is NOT the LLM-limit I wrongly claimed. The route to optimal, in buildable pieces:
 
-1. **[ACTIVE, the ceiling-breaker] Generative RECONSTRUCTION-MATCH + predictive-coding SETTLING readout.** Score
-   each candidate sense by how well it reconstructs the gestalt's top-down predicted meaning mu (per-sense
-   GROUNDED signature, not an MFS-biased centroid), then iterate a 3-5 step settling loop (sense feeds back ->
-   sharpen situation -> re-predict). BUILT: `exp_sg_lite_generative_readout_v1.py` (`_recon`/`_settle`/`_epi`).
-   Expected: break the nearest-centroid ~0.4 readout ceiling toward BEM-class LFS (~0.5+), with settling as the
-   edge BEM/UKB lack. Can-fail benchmark: centroid vs recon(k=1) vs recon+settle(k=3-5), LFS-stratified, strict
-   doc-disjoint. [Pending the SG-lite gestalt training completing.]
+1. **[DONE on 41M gestalt -- CEILING DEMOLISHED EMPIRICALLY] Generative RECONSTRUCTION-MATCH readout.** Built the
+   SG-lite incremental generative gestalt (`exp_sg_lite_sense_gestalt_v1.py`, GPU-trained, 41M tokens) + the
+   reconstruction-match readout (`exp_sg_lite_generative_readout_v1.py`): score each candidate sense by how well it
+   reconstructs the gestalt's top-down predicted meaning mu against a per-sense GROUNDED signature. RESULT (strict
+   document-disjoint SemCor, MFS=0.6831): reconstruction-match a_s(test-sub) **0.280 BEATS the nearest-centroid
+   readout 0.220** (the readout that produced the false ~0.4 "ceiling") **and the overfit NB 0.198, and it
+   GENERALIZES** (the NB collapsed to 0.198 strict; this holds). NET vs MFS +0.0128..+0.0154 CI-separated (tuned
+   recon+settle+centroid), shuffled-situation TWIN loses CI-sep. So the "needs an LLM" ceiling was WRONG: the
+   brain's glass-box reconstruction-match beats the centroid + generalizes. READOUT MAXED on this gestalt (IDF
+   distinctive-feature pooling + predictive-coding settling both NEUTRAL -> the cap is now the gestalt+embedding
+   quality, not the readout). a_s 0.280 is below the glass-box band top (~0.4-0.53); the lever to push further is
+   SCALE (item 3) + a richer gloss embedding, NOT the readout.
 2. **The GROUNDED per-sense table** (the representation lever): gloss + examples + hypernym/hyponym/meronym +
    SyntagNet syntagmatic partners + the `grounded_semantic_graph` PPR + `distributional_meaning_channel`, FULL
    WordNet coverage incl. rare senses, projected into the gestalt's prediction space. ENRICHED in
    `exp_sg_lite_sense_gestalt_v1._gloss_vec`; still to add graph-PPR + full coverage.
-3. **Self-supervised SCALE on the GPU:** train the gestalt on the ~277M-token ARC+simplewiki sweet spot (RTX
-   4060 Ti via `overnight_queue`), vs the current 41M CPU run. Generalization fix already; scale sharpens mu.
+3. **[DROPPED for GPU dispatch] Self-supervised SCALE on the GPU:** `exp_sg_lite_scale_v1.py` (+ validated
+   `REMOTE_RUN_REQUEST_exp_sg_lite_scale_v1.md`) -- ~277M tokens (ARC+simplewiki), 300-d embeddings, hidden-512
+   GRU, 3 epochs, on the RTX 4060 Ti. Strengthens BOTH mu and the gloss embeddings e_s. Honest expectation
+   (recipe drill): a_s ~0.33-0.39 (corpus-diffuseness ceiling; diminishing returns past ~100M) -- a real but
+   modest lift over the 41M gestalt's 0.28. The next fidelity lever AFTER scale is item 4 (role-filler target),
+   not more corpus.
 4. **Role-filler / situation prediction TARGET (true Sentence-Gestalt):** train the gestalt to predict the
    event's who-did-what-to-whom (SRL/FrameNet-projected) instead of the next word -- the biggest FIDELITY gap
    (my SG-lite predicts next-word, a language-model proxy for the situation query).

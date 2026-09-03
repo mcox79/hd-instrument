@@ -5,7 +5,7 @@ bar: "PASS = an is-a/attribute binding readout (glass-box, NO LLM) that, on a cl
 result: "The is-a/attribute binding READ-BACK answers 'what/who is X' at recall 0.6718 / precision 0.7690 on 451 gold copular predications (UD-EWT test; nominal is-a + adjectival + identity), CI-separated +0.1685 [+0.1136,+0.2172] hw=0.0518 nullp95=0.0518 over the most-recent-noun floor (0.5033), with the info-free binding-SHUFFLE twin LOSING +0.2195 [+0.1767,+0.2625] recall / +0.2322 precision CI-sep. THE FIX (label-robust copula-anchored detection, prototyped) raises it to recall 0.8182 (+0.1463 [+0.1114,+0.1833] CI-sep over base; twin still loses +0.2949 recall CI-sep), the gain CONCENTRATED on the identity weak point (adj +0.102, is-a +0.194, identity +0.247). Glass-box Higgins TYPE classifier 0.9690 coarse. Register-independent (modern 0.900->1.000, archaic 0.450->0.700 with the fix). No-regression: state_register self-test 11/11 + the typed binding feeds it and round-trips ('what is Ahab?'->captain, 'what is the room?'->cold)."
 floor: "Strongest simple floor ACTUALLY RUN, recomputed on the same 451-clause population = most-recent-noun / parse-free positional holder (extract_entity_states_positional): read-back recall 0.5033, precision 0.3969. Info-free SHUFFLE twin (keep the detected property, bind a RANDOM preceding nominal as holder): recall 0.4523. The binding beats BOTH CI-separated; the fix beats both by more."
 controls: "(1) most-recent-noun POSITIONAL floor recomputed on the same population -> excludes 'any copula-anchored heuristic wins' (binding beats it +0.1685 CI-sep). (2) info-free binding-SHUFFLE twin (random holder, matched property/count) -> excludes 'the holder binding is noise' (twin loses +0.2195 recall / +0.2322 precision CI-sep for base; +0.2949 / +0.2017 for the fix). (3) PROCESS MAP stage decomposition (451 gold -> 319 detected -> 303 bound -> 297 typed) -> LOCATES the residual loss at DETECTION (the arc labeler's `cop` recall), not binding (95% lossless given detection) -> excludes 'binding is the bottleneck'. (4) per-Higgins-type gradient (adj 0.746 > is-a 0.621 > identity 0.466) + gold-detection ceiling (0.807) -> excludes 'the loss is uniform'; it is concentrated in identity/equative. (5) NO-REGRESSION: landed state_register self-test 11/11 unchanged + typed binding composes -> excludes 'the readout breaks the existing registers'. (6) register-independence on a controlled modern<->archaic matched set -> excludes 'this is a modern-text artifact'. Each control excludes a specific alternative."
-files_changed: "experiments/exp_copular_is_a_binding_readout_v1.py (process map + typed is-a/attribute read-back + floor + shuffle twin + THE FIX + symmetric-identity arm + glass-box Higgins classifier), experiments/exp_copular_is_a_binding_register_and_noregress_v1.py (register-independence controlled set + no-regression), verification/test_copular_is_a_binding_organ.py (scaffold-free witness, 10/10), notes/problems/the_reader_has_no_copular_is_a_binding_schema/research_copular_is_a_binding_2026-09-02.md (4-lane full-text brain drill), notes/problems/the_reader_has_no_copular_is_a_binding_schema/prototype_identity_gain_ci.py (persisted: identity-only gain CI + specificational typing), notes/problems/the_reader_has_no_copular_is_a_binding_schema/SOLVED.md. REUSES (unmodified): experiments/_copular_nominal_events.extract_entity_states (the sibling's binding primitive), hdlab.state_register (landed, the read-back store), the in-substrate pos_tagger/arc_parser/arc_labeler. NO hdlab/ file changed -- proposed diff below (Q111)."
+files_changed: "experiments/exp_copular_is_a_binding_readout_v1.py (process map + typed is-a/attribute read-back + floor + shuffle twin + THE FIX + symmetric-identity arm + glass-box Higgins classifier), experiments/exp_copular_is_a_binding_register_and_noregress_v1.py (register-independence controlled set + no-regression), verification/test_copular_is_a_binding_organ.py (scaffold-free witness, 10/10), notes/problems/the_reader_has_no_copular_is_a_binding_schema/research_copular_is_a_binding_2026-09-02.md (4-lane full-text brain drill), notes/problems/the_reader_has_no_copular_is_a_binding_schema/prototype_identity_gain_ci.py (persisted: identity-only gain CI + specificational typing), notes/problems/the_reader_has_no_copular_is_a_binding_schema/prototype_precision_and_identity_residual.py (persisted: fix precision-cost deflation + identity residual decomposition), notes/problems/the_reader_has_no_copular_is_a_binding_schema/SOLVED.md. REUSES (unmodified): experiments/_copular_nominal_events.extract_entity_states (the sibling's binding primitive), hdlab.state_register (landed, the read-back store), the in-substrate pos_tagger/arc_parser/arc_labeler. NO hdlab/ file changed -- proposed diff below (Q111)."
 reverify: ".venv/Scripts/python.exe verification/test_copular_is_a_binding_organ.py"
 ---
 
@@ -84,10 +84,11 @@ And the loss is **concentrated by Higgins type** -- the capability-loss gradient
 | predicational nominal (is-a) | 103 | 0.6214 | labeler misses `cop` on the copula token even when the tree is right |
 | **identificational (identity)** | **73** | **0.4658** | **DOUBLE wall: labeler mislabels the predicate `nsubj`/`root` (equative reversal) AND, even given the gold predicate, the parser tree finds the holder only 56%** |
 
-**Root cause, pinned:** the loss is DETECTION, specifically the arc labeler's low `cop` recall (base 0.672 ->
-**gold-detection ceiling 0.807** if every copular predicate were detected). It is worst on the identity type
-because equatives ("NP is NP", both referring) reverse subject/predicate -- a genuinely hard, contested syntactic
-problem the modern-trained parser mishandles.
+**Root cause, pinned:** the loss is DETECTION, specifically the arc labeler's low `cop` recall (given gold
+detection + a tree-position holder, read-back rises 0.672 -> 0.807 -- a METHOD-SPECIFIC probe, not a hard ceiling:
+the fix's label+tree+positional UNION actually reaches 0.818, so holder recovery has more headroom than the
+single-method probe showed). It is worst on the identity type because equatives ("NP is NP", both referring)
+reverse subject/predicate -- a genuinely hard, contested syntactic problem the modern-trained parser mishandles.
 
 ## Prototyping the FIX to that component (owner: "can you prototype a fix to that?")
 **Brain-faithful principle:** the copula is a transparent CLOSED-CLASS carrier -- predication detection must NOT
@@ -101,6 +102,15 @@ and the holder from the tree (nominal child preceding the copula, else nearest p
 - The gain is **exactly where capability was lost:** identity +0.247 (0.466->0.712), is-a +0.194, adjectival
   +0.102 -- it closes the identity weak point most. **The identity-type gain is itself CI-separated:** +0.2466
   [+0.153,+0.347] on the n=73 identity subset (doc-bootstrap) -- not a whole-set artifact.
+- **The precision cost is REAL, now quantified (not hand-waved):** of the 231 fix fires outside the narrow typed
+  gold, **53.7% are genuinely spurious over-fire** (not a gold cop predicate), ~46% are real copular clauses the
+  NARROW gold excluded (PP/clausal/expletive subjects, or a real predicate with a different holder). So the
+  precision drop is about half genuine over-fire, half gold-narrowness -- which is why the LANDED default is the
+  high-precision label path and the fix is the recall-max option.
+- **The identity residual is now fully decomposed:** the fix still misses 21/73 identity clauses -- **13 (detection:
+  the hardest equatives/clefts/specificational-inversions the copula-anchored path still can't find) + 8 (holder:
+  the equative subject/predicate reversal the positional heuristic still mis-orders).** Still detection-dominated;
+  the holder 8 need discourse topicality (a document-level cue -- UD-EWT is sentence-level, so a follow-on).
 - **Brain-pinned symmetric identity** (CA3 auto-association): scoring identity as an unordered/symmetric link
   recovers the equative-reversal cases the parser mis-orders (identity 0.712 -> 0.726). Small here (UD-EWT
   equatives are mostly canonical order) but the faithful representation, and it grows with reversal-heavy prose.
@@ -126,6 +136,14 @@ neural dissociation itself is OPEN, so I claim only the cue-based typing).
   base (0.769); the high-recall point is the fix. I report both, like the sibling's confident-vs-recall-max split.
 - **The neural predicational/identity dissociation is an extrapolation** (drill: OPEN). I claim only surface-cue
   typing + the symmetric-identity representation (CA3-pinned).
+- **Measured at the glass-box `extract_entity_states`/parser level, NOT end-to-end through the live
+  `SituationReader.read()`** (which consumes conll files), and the read-back is WITHIN-CLAUSE (holder = the nsubj
+  token), NOT a canonical-entity query resolved across a discourse via coref. The full "what is X for a canonical
+  entity across the passage" composition (binding + coref) is a plumbing wire, not yet measured end-to-end. This
+  matches the sibling's methodology (its entity-state dimension was also measured at `extract_entity_states`).
+- **The fix's genuine over-fire (53.7% of non-gold fires) is not yet gated down.** A tighter existential/cleft/
+  aux-chain gate could raise the recall-max precision; I did not chase it because the high-precision label path is
+  the landed default (the operating-point split already handles the precision concern).
 
 ## FURTHER PUSHES (owner-directed deepening: "any more we can push here?" + adjacent-component fidelity)
 **(A) The identity-weak-point recovery is CI-separated on its own subset** (not a whole-set artifact): base
