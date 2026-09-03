@@ -22,6 +22,30 @@ Keystone → front-end → dimensions. `tools/flag_activation_sweep.py` runs the
 ## DISCIPLINES (unchanged, load-bearing)
 Reverify FIRST-HAND before grading/landing. Wires land DEFAULT-OFF + witnessed (Q111) — BUT this task's explicit goal is to then FLIP the net-positive ones default-ON (owner-authorized). Path-limit every commit (`git commit -- <paths>`; hd_metrics_sync auto-stages notes/). **NO push** (needs in-session owner auth). Only stop/kill what THIS session spawned. Route heavy runs remote if they exceed local capacity.
 
+## ⚠️ POST-OVERNIGHT REALITY (2026-09-03 AM): THE LOOP DID NOT RUN. The session-only cron `d94a4466` never re-engaged me after setup, so NO work happened after ~22:54 last night. The sweep DID finish on its own (~22:52). Nothing was flipped/fixed/integrated. **The results below are ready to ACT ON — that is the immediate job.** (Cron lesson: a session-only cron does not reliably drive an idle overnight session; on resume, do the work in-turn, do not depend on the cron.)
+
+## ✅ SWEEP RESULT (complete, `data/flag_activation_sweep/results.json`, 641s) — the verdicts to ACT ON
+Reader-QA on 16 docs, 19c LitBank. Baseline all-off agg **0.2903** → kept-stack agg **0.3598 (+0.070)**. Per-flag (greedy, cumulative):
+| flag | verdict | note |
+|---|---|---|
+| `tense_agnostic_events` | **KEEP_BUT_FIX** | events 0.120→0.226 (+0.10) BUT **causal 0.375→0.149 (−0.23)** + broke temporal (restored by preserve_tense). FIX the causal organ. |
+| `preserve_tense` | KEEP | agg **+0.057**; restores temporal 0→0.843 |
+| `role_route="wired"` | KEEP | events 0.226→0.249 |
+| `parser_arceager` | **DROP (on 19c)** | −0.001, events 0.249→0.248 — 19c at-ceiling; it is the MODERN lever (+0.033 QA-SRL, +0.067 UAS). Keep default-off; flip only for modern consumers. |
+| `np_head_reduce` | KEEP | small on the CONTAMINATED 19c gold; the real +0.20 is on the CLEANED who-did-what gold (witness 45/45) |
+| `predict_revise` | KEEP | flat on this harness (its +0.06 is who-did-what patient recall, not the QA agg) |
+| `verb_subcat_gate` | KEEP | flat here |
+| `predict_surprisal` | KEEP | flat here (metadata signal) |
+| `timeline_register` | KEEP_BUT_FIX | temporal −0.0075 (tiny) |
+| `track_space` | KEEP | flat (location dim already 1.0 = abstain) |
+| `track_belief` | KEEP | flat (belief dim already 1.0 = abstain) |
+FINAL KEPT = all but `parser_arceager`. Not scored here (own instruments, already net-positive → flip + note): `track_world_state`, `densify_world_state` (+0.148), `bind_event_tokens`.
+
+## 🔴 #1 ON RECOVERY — DO THIS IN-TURN (do NOT wait on the cron):
+1. **FIX THE CAUSAL BREAK** (the real bottleneck): `tense_agnostic_events` ON drops causal 0.375→0.149. Diagnose `_read_causation` / the causal organ against the tense-agnostic event set (likely the causal reader keys off the OLD tense-gated events or the connective-sentence event structure changed); adapt it; re-run `tools/flag_activation_sweep.py` (or a targeted causal-dim score) to confirm causal recovers WITH tense_agnostic_events on. THEN the KEEP verdict is clean.
+2. **FLIP the net-positive flags DEFAULT-ON** in `hdlab/situation_reader.py` (change `bool = False` → `True` for: tense_agnostic_events, preserve_tense, np_head_reduce, predict_revise, verb_subcat_gate, predict_surprisal, timeline_register, track_space, track_belief, track_world_state, densify_world_state, bind_event_tokens; ALSO default role_route="wired"). KEEP `parser_arceager` default-off (19c-negative). Re-run existing dimension witnesses to confirm no regression; commit per small batch. NOTE: flipping np_head_reduce/etc changes patient outputs → re-validate the ~20 role-output organs (own step).
+3. **INTEGRATE the 2 SOLVED in-progress solutions** (reverified-ready): (a) coverage-gap `the_who_did_what_front_end_abstains_on_a_fifth_of_answerable_clauses` — witness `test_whodidwhat_coverage.py` **21/21 already reverified first-hand** (+0.35 end-to-end, parser-independent); land the coverage-recovery wire (default-off attempt-every-finite-verb) + §2b + register + clear priority + commit. (b) copular `the_reader_has_no_copular_is_a_binding_schema` — witness `test_copular_is_a_binding_organ.py` (reverify first), land the typed is-a binding read (reuses `state_register`) + §2b + commit.
+
 ## CURRENT STATE (update every chunk)
 - **2026-09-03 initial:** flag sweep LAUNCHED → `data/flag_activation_sweep/results.json`. Cron `d94a4466`. Overnight infra committed.
 - **SWEEP is already yielding real signal (and CAUGHT a bottleneck):** baseline all-off agg=0.2903 (coref 0.569 / events 0.120 / temporal 0.931 / causal 0.375 / location 1.0 / belief 1.0). `+tense_agnostic_events`: events **0.120→0.226 (+0.10, big who-did-what win)** BUT causal **0.375→0.149 (-0.23, HURT)** + temporal→None (expected — needs `preserve_tense`, the next flag). Verdict KEEP_BUT_DOWNSTREAM_FIX. **→ DOWNSTREAM FIX OWED: the causal dimension organ breaks under the tense-agnostic event set — diagnose + adapt it so causal recovers (this is exactly the "bad bottleneck killing downstream" the owner wants fixed).** Watch the rest of the sweep for more.
