@@ -27,6 +27,29 @@ ASSET-INDEPENDENT: the caller supplies the vectors from ANY embedding space (the
 the WSD path could supply grounded/hub vectors). The residual ceiling (~0.35 glass-box) is the CONTEXT-INPUT
 ENCODING (one sense-conflated vector per surface form), a separate contextual-encoder fork -- NOT this readout.
 Glass-box, NO LLM. This is the a_s lever the meaning channel's controlled-knowledge growth feeds.
+
+================================================================================================
+USAGE (for solvers -- this is the shared a_s INSTRUMENT the meaning-channel projects measure on)
+================================================================================================
+The organ scores CANDIDATE SENSES given CONTEXT; you feed it VECTORS. To pick a word's sense in context:
+
+    from hdlab.diagnostic_context_wsd import pick_sense, diagnostic_context_scores
+    # vec_lookup: str -> unit np.ndarray or None  (YOUR embedding space -- w2v gestalt / hub / your encoder)
+    # context_words: the target's sentence, content words, target REMOVED
+    # candidate_gloss_words: for each candidate WordNet synset, its gloss+example+lemma words (a word list)
+    idx = pick_sense(context_words, candidate_gloss_words, vec_lookup)   # -> index of the picked synset (or None)
+
+Or drive the pure mechanism yourself: build `context_vecs` (S? no -- (W,D) unit rows, one per in-vocab context
+word) and `sense_gloss_vecs` ((S,D) unit rows, the MEAN gloss-word vector per candidate synset; a missing-gloss
+sense = a ZERO row), then `tn[int(argmax(diagnostic_context_scores(context_vecs, sense_gloss_vecs)))]`.
+
+WHAT A PROJECT VARIES: your knowledge/encoder change swaps the VECTORS fed in (better gloss signatures from
+consolidated knowledge; a context-shaped target/context vector from a contextual encoder) -- the biased-competition
+READOUT stays FIXED (that is the point: the readout is solved, the input is the lever). The a_s BAR is strict
+document-disjoint SemCor, subordinate senses, subject-weighted accuracy, with a shuffled-context/diagnosticity twin
+LOSING. REFERENCE HARNESS (build recs + embeddings + the a_s eval -- do NOT re-implement the loader/scorer):
+`experiments/exp_sg_lite_diagnostic_context_readout_v1` (the DIAGCTX arm) + `exp_sg_lite_sense_gestalt_v1._gloss_vec`
+(the per-synset gloss-vector builder) + its strict-disjoint SemCor a_s split. Witness: `test_diagnostic_context_wsd_organ.py`.
 """
 from __future__ import annotations
 
@@ -79,3 +102,40 @@ def flat_context_scores(context_vecs: np.ndarray, sense_gloss_vecs: np.ndarray) 
     so a consumer can measure the biased-competition lift on its own population before defaulting it on."""
     q = _unit(context_vecs.mean(axis=0))
     return sense_gloss_vecs @ q
+
+
+# ── convenience entry points (build the vectors from words + a lookup, then run the mechanism) ────────────────
+def _stack_word_vecs(words, vec_lookup):
+    """Unit rows for the in-vocab words (vec_lookup: word -> vector or None). Returns (K, D) float64 or None."""
+    rows = []
+    for w in words:
+        v = vec_lookup(w)
+        if v is not None:
+            rows.append(_unit(np.asarray(v, dtype=np.float64).reshape(-1)))
+    return np.stack(rows) if rows else None
+
+
+def sense_gloss_vec(gloss_words, vec_lookup):
+    """Per-synset gloss signature = the unit MEAN of its in-vocab gloss/example/lemma word vectors (the same
+    construction as exp_sg_lite_sense_gestalt_v1._gloss_vec). Returns a unit (D,) vector, or None if no gloss
+    word is in-vocab (the caller should pass a ZERO row for such a sense so it scores 0)."""
+    M = _stack_word_vecs(gloss_words, vec_lookup)
+    return None if M is None else _unit(M.mean(axis=0))
+
+
+def pick_sense(context_words, candidate_gloss_words, vec_lookup, shuffle_rng=None):
+    """Direct solver entry point: pick which candidate SENSE the context supports, by biased competition.
+    context_words: the target's sentence content words (target REMOVED). candidate_gloss_words: a list (one per
+    candidate synset, IN ORDER) of that synset's gloss+example+lemma words. vec_lookup: word -> vector or None
+    (YOUR embedding space). Returns the INDEX of the picked candidate synset, or None if the context or every
+    gloss is out-of-vocab (the caller keeps its own fallback -- e.g. the MFS/first synset). Pass shuffle_rng for
+    the info-free twin. Builds the vectors then calls diagnostic_context_scores (missing-gloss senses = zero rows)."""
+    C = _stack_word_vecs(context_words, vec_lookup)
+    if C is None or not candidate_gloss_words:
+        return None
+    gvs = [sense_gloss_vec(g, vec_lookup) for g in candidate_gloss_words]
+    if all(g is None for g in gvs):
+        return None
+    D = C.shape[1]
+    G = np.stack([g if g is not None else np.zeros(D, dtype=np.float64) for g in gvs])
+    return int(np.argmax(diagnostic_context_scores(C, G, shuffle_rng)))

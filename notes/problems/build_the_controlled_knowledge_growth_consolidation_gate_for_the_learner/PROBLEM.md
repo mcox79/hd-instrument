@@ -42,7 +42,7 @@ PASS = a glass-box consolidation gate (extract → consolidate → admit; persis
 - The contextual-encoder ceiling fork (past ~0.35) — a SEPARATE owner decision, NOT this near-term lever; this problem is the knowledge lever (room to ~0.35).
 
 ## FILES AND ENTRY POINTS
-Build in `experiments/` + `verification/`. REUSE `hdlab/diagnostic_context_wsd.py` (the a_s instrument), `hdlab/grounded_semantic_graph.py`, `hdlab/reading_grounding_loop.py`, SyntagNet. Heavy runs go REMOTE GPU. Strategy lands any hdlab wire (Q111, default-off, witnessed). Fold an AUDIT UPDATE into `BRAIN_FOUNDATIONAL_AUDIT.md` §2b.
+Build in `experiments/` + `verification/`. REUSE `hdlab/diagnostic_context_wsd.py` (THE a_s instrument — read its USAGE docstring section + call `pick_sense(context_words, candidate_gloss_words, vec_lookup)` or `diagnostic_context_scores`; the biased-competition READOUT is FIXED, your consolidated knowledge swaps the GLOSS-SIGNATURE VECTORS fed in; the reference a_s harness is `experiments/exp_sg_lite_diagnostic_context_readout_v1`), `hdlab/grounded_semantic_graph.py`, `hdlab/reading_grounding_loop.py`, SyntagNet. Heavy runs go REMOTE GPU. Strategy lands any hdlab wire (Q111, default-off, witnessed). Fold an AUDIT UPDATE into `BRAIN_FOUNDATIONAL_AUDIT.md` §2b.
 
 ## DO NOT QUOTE
 - Do NOT quote leave-one-DOCUMENT-out a_s numbers — they leak; STRICT disjoint-document is the honest measure.

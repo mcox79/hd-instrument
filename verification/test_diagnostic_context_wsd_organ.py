@@ -14,7 +14,8 @@ if _REPO not in sys.path:
     sys.path.insert(0, _REPO)
 
 from hdlab.diagnostic_context_wsd import (
-    diagnosticity, diagnostic_query, diagnostic_context_scores, flat_context_scores)
+    diagnosticity, diagnostic_query, diagnostic_context_scores, flat_context_scores,
+    sense_gloss_vec, pick_sense)
 
 _n = 0
 
@@ -87,6 +88,22 @@ def main():
     G0 = np.stack([_unit(np.eye(8)[0]), _unit(np.eye(8)[1])])
     q = diagnostic_query(C0, G0)
     _ok(abs(np.linalg.norm(q) - 1.0) < 1e-6, "non-diagnostic context -> unit flat-mean fallback (no crash)")
+
+    # 5. CONVENIENCE ENTRY POINT (the solver-facing API): pick_sense over words + a vec_lookup picks the gold
+    #    sense; sense_gloss_vec builds a unit signature; OOV context -> None fallback.
+    D = 8
+    vecs = {"diagword": np.zeros(D), "gen_a": np.zeros(D), "gen_b": np.zeros(D),
+            "gloss0": np.zeros(D), "gloss1": np.zeros(D)}
+    vecs["gloss0"][0] = 1.0; vecs["gloss1"][1] = 1.0                 # two orthogonal sense glosses
+    vecs["diagword"][0] = 0.9; vecs["diagword"][1] = 0.1            # a diagnostic word for sense 0
+    vecs["gen_a"][4] = 1.0; vecs["gen_b"][5] = 1.0                  # topic-generic words (unused dims)
+    lookup = lambda w: vecs.get(w)
+    idx = pick_sense(["diagword", "gen_a", "gen_b"], [["gloss0"], ["gloss1"]], lookup)
+    _ok(idx == 0, "pick_sense (words + vec_lookup) picks the gold sense")
+    sv = sense_gloss_vec(["gloss0", "gen_a"], lookup)
+    _ok(sv is not None and abs(np.linalg.norm(sv) - 1.0) < 1e-6, "sense_gloss_vec builds a unit signature")
+    _ok(pick_sense(["oov1", "oov2"], [["gloss0"], ["gloss1"]], lookup) is None,
+        "pick_sense returns None on out-of-vocab context (caller keeps its fallback)")
 
     print("%d/%d checks passed" % (_n, _n), flush=True)
     print("SELF-TEST PASSED", flush=True)
