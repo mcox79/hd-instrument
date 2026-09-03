@@ -63,6 +63,42 @@ record_ship_attempt() {
     "${now}" "${QUEUE}" "${NAME}" "${now}" >> "${SHIP_SENTINEL}"
 }
 
+# ── SCP hardening (fix 2026-09-03; root-causes the long-standing "queue_add.sh
+# rc=1 for a healthy cell" report, notes/problems/build_sg_lite_.../SOLVED.md) ──
+# Root cause: `scp` does NOT auto-create a missing remote destination directory
+# -- it fails with a bare `scp: dest open "...": Failure` and non-zero exit.
+# Every scp call in the remote-dispatch branch below was UNGUARDED (no `|| true`,
+# not inside an `if`), so under `set -euo pipefail` a missing remote dir killed
+# the whole script immediately with only scp's terse native stderr -- no
+# "[queue-add]"-prefixed marker naming which of the ~10 scp call sites failed or
+# why. Matches the reported symptom exactly ("returns rc=1 for a healthy cell
+# ... run with full stderr to find the failing step"). NOT a network flake: the
+# remote C:/dev/hd-instrument mirror is not git-synced with local (files only
+# ever arrive via scp -- see the Pattern 5b "known repo drift" note below), so
+# ANY locally-new subdirectory that was never previously shipped reproduces
+# this 100% of the time for an otherwise perfectly healthy cell. Live-reproduced
+# 2026-09-03 by scp'ing into a fresh local subdirectory with no remote sibling:
+#   scp: dest open "C:/dev/hd-instrument/experiments/_diag_repro_subdir_TEMP/": Failure
+# Fix: ensure_remote_dir makes the destination idempotently before every scp
+# (New-Item -Force is a no-op if it already exists); scp_ship wraps the scp call
+# itself so a genuine transport/permission failure still fails LOUD with an
+# unambiguous "[queue-add] FAIL: SCP ..." message instead of a bare silent exit.
+ensure_remote_dir() {
+  local remote_dir="$1"
+  ssh -o ConnectTimeout=10 "${SSH_TARGET}" \
+    "powershell -Command \"New-Item -ItemType Directory -Force -Path '${remote_dir}' | Out-Null\"" \
+    >/dev/null 2>&1 || true
+}
+
+scp_ship() {
+  local local_file="$1" remote_dir="$2"
+  ensure_remote_dir "${remote_dir}"
+  if ! scp -o ConnectTimeout=10 "${local_file}" "${SSH_TARGET}:${remote_dir}/"; then
+    echo "FAIL: SCP ${local_file} -> ${SSH_TARGET}:${remote_dir}/ failed (remote dir was auto-created if missing; check network/disk/permissions on ${SSH_TARGET})." >&2
+    exit 13
+  fi
+}
+
 if [[ "${QUEUE}" == "local_cpu_queue" ]]; then
   # ── Local CPU path ──────────────────────────────────────────────────────────
   # Script and prereg are already in the local repo; no SCP needed.
@@ -138,9 +174,9 @@ elif [[ "${QUEUE}" == "overnight_queue" || "${QUEUE}" == "remote_cpu_queue" ]]; 
   PREREG_REMOTE_DIR="${REPO_REMOTE}/$(dirname "${PREREG_REL}")"
 
   echo "[queue-add] SCP script -> ${SSH_TARGET}:${SCRIPT_REMOTE_DIR}/"
-  scp -o ConnectTimeout=10 "${SCRIPT_LOCAL}" "${SSH_TARGET}:${SCRIPT_REMOTE_DIR}/"
+  scp_ship "${SCRIPT_LOCAL}" "${SCRIPT_REMOTE_DIR}"
   echo "[queue-add] SCP prereg -> ${SSH_TARGET}:${PREREG_REMOTE_DIR}/"
-  scp -o ConnectTimeout=10 "${PREREG_LOCAL}" "${SSH_TARGET}:${PREREG_REMOTE_DIR}/"
+  scp_ship "${PREREG_LOCAL}" "${PREREG_REMOTE_DIR}"
 
   # Auto-detect + SCP sibling helpers (4th recurrence fix; 2026-06-30).
   # Cell convention: exp_<base>_seed_<N>.py wrappers exec exp_<base>.py core +
@@ -163,21 +199,21 @@ elif [[ "${QUEUE}" == "overnight_queue" || "${QUEUE}" == "remote_cpu_queue" ]]; 
     CORE_LOCAL="${SCRIPT_DIR_LOCAL}/${CORE_BASE}.py"
     if [[ -f "${CORE_LOCAL}" ]]; then
       echo "[queue-add] AUTO-SCP core sibling -> ${CORE_LOCAL}"
-      scp -o ConnectTimeout=10 "${CORE_LOCAL}" "${SSH_TARGET}:${SCRIPT_REMOTE_DIR}/"
+      scp_ship "${CORE_LOCAL}" "${SCRIPT_REMOTE_DIR}"
       SHIPPED_SIBLINGS+=("${CORE_BASE}")
     fi
     # Pattern 2: _<base>_core.py (helper module convention; older cells)
     CORE_HELPER="${SCRIPT_DIR_LOCAL}/_${CORE_BASE}_core.py"
     if [[ -f "${CORE_HELPER}" ]]; then
       echo "[queue-add] AUTO-SCP _core helper -> ${CORE_HELPER}"
-      scp -o ConnectTimeout=10 "${CORE_HELPER}" "${SSH_TARGET}:${SCRIPT_REMOTE_DIR}/"
+      scp_ship "${CORE_HELPER}" "${SCRIPT_REMOTE_DIR}"
       SHIPPED_SIBLINGS+=("_${CORE_BASE}_core")
     fi
     # Pattern 3: _<base>_base.py (alternative helper convention)
     BASE_HELPER="${SCRIPT_DIR_LOCAL}/_${CORE_BASE}_base.py"
     if [[ -f "${BASE_HELPER}" ]]; then
       echo "[queue-add] AUTO-SCP _base helper -> ${BASE_HELPER}"
-      scp -o ConnectTimeout=10 "${BASE_HELPER}" "${SSH_TARGET}:${SCRIPT_REMOTE_DIR}/"
+      scp_ship "${BASE_HELPER}" "${SCRIPT_REMOTE_DIR}"
       SHIPPED_SIBLINGS+=("_${CORE_BASE}_base")
     fi
     # Pattern 4: strip leading exp_ from base when looking up helpers (5th recurrence fix; 2026-06-30).
@@ -188,13 +224,13 @@ elif [[ "${QUEUE}" == "overnight_queue" || "${QUEUE}" == "remote_cpu_queue" ]]; 
       CORE_HELPER_STRIPPED="${SCRIPT_DIR_LOCAL}/_${STRIPPED_BASE}_core.py"
       if [[ -f "${CORE_HELPER_STRIPPED}" ]]; then
         echo "[queue-add] AUTO-SCP _core helper (exp_-stripped) -> ${CORE_HELPER_STRIPPED}"
-        scp -o ConnectTimeout=10 "${CORE_HELPER_STRIPPED}" "${SSH_TARGET}:${SCRIPT_REMOTE_DIR}/"
+        scp_ship "${CORE_HELPER_STRIPPED}" "${SCRIPT_REMOTE_DIR}"
         SHIPPED_SIBLINGS+=("_${STRIPPED_BASE}_core")
       fi
       BASE_HELPER_STRIPPED="${SCRIPT_DIR_LOCAL}/_${STRIPPED_BASE}_base.py"
       if [[ -f "${BASE_HELPER_STRIPPED}" ]]; then
         echo "[queue-add] AUTO-SCP _base helper (exp_-stripped) -> ${BASE_HELPER_STRIPPED}"
-        scp -o ConnectTimeout=10 "${BASE_HELPER_STRIPPED}" "${SSH_TARGET}:${SCRIPT_REMOTE_DIR}/"
+        scp_ship "${BASE_HELPER_STRIPPED}" "${SCRIPT_REMOTE_DIR}"
         SHIPPED_SIBLINGS+=("_${STRIPPED_BASE}_base")
       fi
     fi
@@ -238,7 +274,7 @@ elif [[ "${QUEUE}" == "overnight_queue" || "${QUEUE}" == "remote_cpu_queue" ]]; 
         # lives elsewhere, this places the module where python's import resolves it.
         SHARED_REMOTE_DIR="${REPO_REMOTE}/experiments"
         echo "[queue-add] AUTO-SCP shared framework module (Pattern 5) -> ${SHARED_LOCAL} -> ${SHARED_REMOTE_DIR}/"
-        scp -o ConnectTimeout=10 "${SHARED_LOCAL}" "${SSH_TARGET}:${SHARED_REMOTE_DIR}/"
+        scp_ship "${SHARED_LOCAL}" "${SHARED_REMOTE_DIR}"
         SHIPPED_SIBLINGS+=("${MODULE}")
       else
         echo "[queue-add] WARN: script imports experiments.${MODULE} but ${SHARED_LOCAL} not found locally" >&2
@@ -267,7 +303,7 @@ elif [[ "${QUEUE}" == "overnight_queue" || "${QUEUE}" == "remote_cpu_queue" ]]; 
       if [[ -f "${HDLAB_LOCAL}" ]]; then
         HDLAB_REMOTE_DIR="${REPO_REMOTE}/hdlab"
         echo "[queue-add] AUTO-SCP shared hdlab module (Pattern 5b) -> ${HDLAB_LOCAL} -> ${HDLAB_REMOTE_DIR}/"
-        scp -o ConnectTimeout=10 "${HDLAB_LOCAL}" "${SSH_TARGET}:${HDLAB_REMOTE_DIR}/"
+        scp_ship "${HDLAB_LOCAL}" "${HDLAB_REMOTE_DIR}"
       else
         echo "[queue-add] WARN: script imports hdlab.${HMODULE} but ${HDLAB_LOCAL} not found locally" >&2
       fi
@@ -314,7 +350,7 @@ elif [[ "${QUEUE}" == "overnight_queue" || "${QUEUE}" == "remote_cpu_queue" ]]; 
       SIB_LOCAL="${SCRIPT_DIR_LOCAL}/${SIB_BASE}.py"
       if [[ -f "${SIB_LOCAL}" ]]; then
         echo "[queue-add] AUTO-SCP import-parsed sibling (Pattern 6) -> ${SIB_LOCAL}"
-        scp -o ConnectTimeout=10 "${SIB_LOCAL}" "${SSH_TARGET}:${SCRIPT_REMOTE_DIR}/"
+        scp_ship "${SIB_LOCAL}" "${SCRIPT_REMOTE_DIR}"
         SHIPPED_SIBLINGS+=("${SIB_BASE}")
       fi
     done < <(python "${SIBLING_IMPORT_HELPER}" "${SCRIPT_LOCAL}" 2>/dev/null || true)
@@ -373,12 +409,28 @@ elif [[ "${QUEUE}" == "overnight_queue" || "${QUEUE}" == "remote_cpu_queue" ]]; 
   # Extra flags (e.g. --rerun-as, --allow-duplicate) are appended verbatim.
   # HDLAB_QUEUE_ADD_ON_REMOTE=1 satisfies the host-guard in queue_add.py that
   # refuses direct local writes to remote-queue queue.json files.
+  # 2026-09-03: appended `; exit $LASTEXITCODE` -- PowerShell's own process exit
+  # code does not always mirror the last native command's exit code unless told
+  # to explicitly (the nltk-check payload above already does this; this one did
+  # not, a named suspect in the rc=1 report). Makes queue_add.py's real exit
+  # code (0 success; 1 GATE_FAIL; 6-12 PROT-0xx) the ssh command's exit code,
+  # rather than relying on implicit propagation.
   EXTRA_FLAGS_STR="${EXTRA_FLAGS[*]:-}"
-  PS_PAYLOAD="cd ${REPO_REMOTE}; \$env:HDLAB_QUEUE_ADD_ON_REMOTE='1'; .\\.venv\\Scripts\\python.exe tools/queue_add.py ${QUEUE} ${NAME} ${SCRIPT_REL} --prereg ${PREREG_REL} --timeout ${TIMEOUT_S} --skip-smoke ${EXTRA_FLAGS_STR}"
+  PS_PAYLOAD="cd ${REPO_REMOTE}; \$env:HDLAB_QUEUE_ADD_ON_REMOTE='1'; .\\.venv\\Scripts\\python.exe tools/queue_add.py ${QUEUE} ${NAME} ${SCRIPT_REL} --prereg ${PREREG_REL} --timeout ${TIMEOUT_S} --skip-smoke ${EXTRA_FLAGS_STR}; exit \$LASTEXITCODE"
 
   echo "[queue-add] SSH queue_add -> ${SSH_TARGET} (${QUEUE})"
   echo "[queue-add] payload: ${PS_PAYLOAD}"
-  ssh -o ConnectTimeout=10 "${SSH_TARGET}" "powershell -Command \"${PS_PAYLOAD}\""
+  # Explicit rc capture (was a bare unguarded call): preserves queue_add.py's
+  # real exit code while giving a clear, labeled failure line instead of a
+  # silent script-death -- addresses "run with full stderr to find the failing
+  # step" (the GATE_FAIL detail is already printed above by queue_add.py; this
+  # adds the queue_add.sh-level marker naming that IS the failing step).
+  ENQUEUE_RC=0
+  ssh -o ConnectTimeout=10 "${SSH_TARGET}" "powershell -Command \"${PS_PAYLOAD}\"" || ENQUEUE_RC=$?
+  if [[ "${ENQUEUE_RC}" -ne 0 ]]; then
+    echo "FAIL: remote queue_add.py exited ${ENQUEUE_RC} (see GATE_FAIL / PROT-0xx detail above) -- ${NAME} was NOT queued." >&2
+    exit "${ENQUEUE_RC}"
+  fi
 
   # Post-ship verification: confirm entry actually landed in REMOTE queue.json.
   # Catches scp/ssh silent failures and proves the entry is reachable by the runner.
@@ -393,7 +445,26 @@ elif [[ "${QUEUE}" == "overnight_queue" || "${QUEUE}" == "remote_cpu_queue" ]]; 
   # the entry may be present but in a terminal state (completed / failed / canceled / killed)
   # from a prior run, making "VERIFIED present" a stale-claim (USER caught 2026-07-01 02:30 UTC).
   # Emit both status AND run_index so downstream watchers/USER can spot terminal-state ships.
-  STATUS_PS="\$q = Get-Content ${REPO_REMOTE}/data/${QUEUE}/queue.json | ConvertFrom-Json; \$e = \$q.experiments | Where-Object { \$_.name -eq '${NAME}' }; if (\$e) { \"status=\" + \$e.status + \" run_index=\" + \$e.run_index }"
+  # 2026-09-03 fix, two independent bugs both live-confirmed (STATUS_LINE was
+  # empty on EVERY single invocation, 100%, permanently disabling the
+  # terminal-state / dedup warning (Fix #28-adjacent) this block exists to
+  # provide -- degraded silently to the "(status field unreadable)" fallback):
+  #   (a) the two literal substrings "status=" / " run_index=" were
+  #       double-quoted, colliding with the outer bash
+  #       `powershell -Command \"...\"` wrapping -- PowerShell's parser saw the
+  #       FIRST inner `"` as the end of -Command's argument and truncated the
+  #       expression. Fixed by using single-quoted PS string literals (no
+  #       variable interpolation needed in these two substrings).
+  #   (b) even after fixing (a), a FRESH queue entry has no `run_index` key at
+  #       all (queue_add.py only sets it on an --allow-duplicate reset; see
+  #       tools/queue_add.py `entry = {...}` construction) -- and the remote
+  #       PowerShell session runs under strict-mode (from the profile that
+  #       `-Command` loads), so bare `$e.run_index` on a property-less object
+  #       throws a terminating PropertyNotFoundStrict error, which becomes
+  #       powershell.exe's nonzero exit and blanks STATUS_LINE the same way.
+  #       Fixed with an explicit PSObject.Properties existence check before
+  #       reading the property.
+  STATUS_PS="\$q = Get-Content ${REPO_REMOTE}/data/${QUEUE}/queue.json | ConvertFrom-Json; \$e = \$q.experiments | Where-Object { \$_.name -eq '${NAME}' }; if (\$e) { \$ri = 1; if (\$e.PSObject.Properties.Name -contains 'run_index') { \$ri = \$e.run_index }; 'status=' + \$e.status + ' run_index=' + \$ri }"
   STATUS_LINE=$(ssh -o ConnectTimeout=10 "${SSH_TARGET}" "powershell -Command \"${STATUS_PS}\"" 2>/dev/null | tr -d '\r' | head -1 || true)
   if [[ -z "${STATUS_LINE}" ]]; then
     # Fallback: entry present per REMOTE_HIT but status field unreadable (schema drift?).
