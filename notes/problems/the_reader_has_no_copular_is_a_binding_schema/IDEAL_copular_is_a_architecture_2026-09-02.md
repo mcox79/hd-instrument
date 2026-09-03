@@ -45,9 +45,12 @@ plan the submission's NEXT STEPS point at, and it is where "research where there
   comes from FEATURE GENERALITY -- a superordinate has a broader/more-shared feature (context) distribution than its
   hyponyms (the distributional-inclusion / generality hypothesis; Geffet & Dagan 2005; Weeds & Weir; Santus
   entropy-based generality). So the IDEAL inheritance = a DIRECTIONAL generality measure over the feature-overlap
-  space, not symmetric cosine. **Prototyped** in `prototype_isa_inheritance_feature_overlap.py` (result folded into
-  SOLVED.md): does "distributionally-similar AND more-general" recover the true superordinate over a frequency floor
-  with a shuffle twin losing? -- the brain-faithful test of feature-overlap inheritance.
+  space, not symmetric cosine. **Prototyped** in `prototype_isa_inheritance_feature_overlap.py`. RESULT (freq-matched
+  2AFC, chance 0.5, n=12855): symmetric cosine 0.666 (weak); the proper feature-inclusion measure WeedsPrec 0.685,
+  CI-separated ABOVE symmetric -- DIRECTIONALITY is the confirmed brain-faithful lever, but the gain is modest and
+  glass-box feature-overlap under-delivers on is-a. **LOCATED GAP:** inheritance needs directional feature-inclusion
+  (WeedsPrec/balAPinc) AND likely a hybrid with the symbolic grounded semantic graph (WordNet is-a as a static
+  foundation asset). Entropy-generality gating rode the frequency confound (washes out on the matched test).
 
 ### Stage 5 -- RESOLVE the holder to a canonical ENTITY (coref)  [NOT composed end-to-end]
 - **Brain (PINNED):** "what is X" queries a canonical entity across the discourse; coref reactivates hippocampal

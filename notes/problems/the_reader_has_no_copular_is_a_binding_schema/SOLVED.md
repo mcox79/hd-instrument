@@ -5,7 +5,7 @@ bar: "PASS = an is-a/attribute binding readout (glass-box, NO LLM) that, on a cl
 result: "The is-a/attribute binding READ-BACK answers 'what/who is X' at recall 0.6718 / precision 0.7690 on 451 gold copular predications (UD-EWT test; nominal is-a + adjectival + identity), CI-separated +0.1685 [+0.1136,+0.2172] hw=0.0518 nullp95=0.0518 over the most-recent-noun floor (0.5033), with the info-free binding-SHUFFLE twin LOSING +0.2195 [+0.1767,+0.2625] recall / +0.2322 precision CI-sep. THE FIX (label-robust copula-anchored detection, prototyped) raises it to recall 0.8182 (+0.1463 [+0.1114,+0.1833] CI-sep over base; twin still loses +0.2949 recall CI-sep), the gain CONCENTRATED on the identity weak point (adj +0.102, is-a +0.194, identity +0.247). Glass-box Higgins TYPE classifier 0.9690 coarse. Register-independent (modern 0.900->1.000, archaic 0.450->0.700 with the fix). No-regression: state_register self-test 11/11 + the typed binding feeds it and round-trips ('what is Ahab?'->captain, 'what is the room?'->cold)."
 floor: "Strongest simple floor ACTUALLY RUN, recomputed on the same 451-clause population = most-recent-noun / parse-free positional holder (extract_entity_states_positional): read-back recall 0.5033, precision 0.3969. Info-free SHUFFLE twin (keep the detected property, bind a RANDOM preceding nominal as holder): recall 0.4523. The binding beats BOTH CI-separated; the fix beats both by more."
 controls: "(1) most-recent-noun POSITIONAL floor recomputed on the same population -> excludes 'any copula-anchored heuristic wins' (binding beats it +0.1685 CI-sep). (2) info-free binding-SHUFFLE twin (random holder, matched property/count) -> excludes 'the holder binding is noise' (twin loses +0.2195 recall / +0.2322 precision CI-sep for base; +0.2949 / +0.2017 for the fix). (3) PROCESS MAP stage decomposition (451 gold -> 319 detected -> 303 bound -> 297 typed) -> LOCATES the residual loss at DETECTION (the arc labeler's `cop` recall), not binding (95% lossless given detection) -> excludes 'binding is the bottleneck'. (4) per-Higgins-type gradient (adj 0.746 > is-a 0.621 > identity 0.466) + gold-detection ceiling (0.807) -> excludes 'the loss is uniform'; it is concentrated in identity/equative. (5) NO-REGRESSION: landed state_register self-test 11/11 unchanged + typed binding composes -> excludes 'the readout breaks the existing registers'. (6) register-independence on a controlled modern<->archaic matched set -> excludes 'this is a modern-text artifact'. Each control excludes a specific alternative."
-files_changed: "experiments/exp_copular_is_a_binding_readout_v1.py (process map + typed is-a/attribute read-back + floor + shuffle twin + THE FIX + symmetric-identity arm + glass-box Higgins classifier), experiments/exp_copular_is_a_binding_register_and_noregress_v1.py (register-independence controlled set + no-regression), verification/test_copular_is_a_binding_organ.py (scaffold-free witness, 10/10), notes/problems/the_reader_has_no_copular_is_a_binding_schema/research_copular_is_a_binding_2026-09-02.md (4-lane full-text brain drill), notes/problems/the_reader_has_no_copular_is_a_binding_schema/prototype_identity_gain_ci.py (persisted: identity-only gain CI + specificational typing), notes/problems/the_reader_has_no_copular_is_a_binding_schema/prototype_precision_and_identity_residual.py (persisted: fix precision-cost deflation + identity residual decomposition), notes/problems/the_reader_has_no_copular_is_a_binding_schema/SOLVED.md. REUSES (unmodified): experiments/_copular_nominal_events.extract_entity_states (the sibling's binding primitive), hdlab.state_register (landed, the read-back store), the in-substrate pos_tagger/arc_parser/arc_labeler. NO hdlab/ file changed -- proposed diff below (Q111)."
+files_changed: "experiments/exp_copular_is_a_binding_readout_v1.py (process map + typed is-a/attribute read-back + floor + shuffle twin + THE FIX + symmetric-identity arm + glass-box Higgins classifier), experiments/exp_copular_is_a_binding_register_and_noregress_v1.py (register-independence controlled set + no-regression), verification/test_copular_is_a_binding_organ.py (scaffold-free witness, 10/10), notes/problems/the_reader_has_no_copular_is_a_binding_schema/research_copular_is_a_binding_2026-09-02.md (4-lane full-text brain drill), notes/problems/the_reader_has_no_copular_is_a_binding_schema/prototype_identity_gain_ci.py (persisted: identity-only gain CI + specificational typing), notes/problems/the_reader_has_no_copular_is_a_binding_schema/prototype_precision_and_identity_residual.py (persisted: fix precision-cost deflation + identity residual decomposition), notes/problems/the_reader_has_no_copular_is_a_binding_schema/IDEAL_copular_is_a_architecture_2026-09-02.md (the ideal 6-stage brain-faithful system + research gaps), notes/problems/the_reader_has_no_copular_is_a_binding_schema/prototype_isa_inheritance_feature_overlap.py (persisted: is-a inheritance via feature-overlap -- located gap), notes/problems/the_reader_has_no_copular_is_a_binding_schema/prototype_signal_loss_waterfall.py (persisted: exact per-stage brain-vs-us signal-loss waterfall), notes/problems/the_reader_has_no_copular_is_a_binding_schema/SOLVED.md. REUSES (unmodified): experiments/_copular_nominal_events.extract_entity_states (the sibling's binding primitive), hdlab.state_register (landed, the read-back store), the in-substrate pos_tagger/arc_parser/arc_labeler. NO hdlab/ file changed -- proposed diff below (Q111)."
 reverify: ".venv/Scripts/python.exe verification/test_copular_is_a_binding_organ.py"
 ---
 
@@ -153,22 +153,58 @@ PINNED CUE 1): "The winner is John" / "The captain is Ahab" / "The best option i
 via the definiteness/proper-name cue -- the specificational=identity-family clauses my definiteness rule was
 built to catch.
 
-**(B) is-a INHERITANCE is the deepest remaining brain-foundational lever, and I evaluated its reachability (not
-just named it).** The drill PINNED that assigning a category to a discourse entity AUTO-ACTIVATES an associated
-property online (Duffy & Keir 2004) and that the ATL represents is-a as EMERGENT FEATURE-OVERLAP, not a symbolic
-hypernym graph (Rogers 2004; Patterson 2007). Reachability check: the category nouns from the predicational-nominal
-bindings have clean WordNet is-a chains on disk (doctor -> medical_practitioner -> health_professional ->
-professional -> person), so a SYMBOLIC inheritance is trivially available -- but that is the NON-brain-faithful
-path. **The brain-faithful path (feature-overlap) is BLOCKED on an asset, not a mechanism:** the only prebuilt
-distributional space on disk (`concept_space.npz`) is 207 lemmas -- far too small for general category inheritance.
-So the honest status: inheritance is REACHABLE, the faithful substrate is feature-overlap, and building the
-distributional/grounded space to carry it is a bounded FOLLOW-ON problem (routed below), not a mechanism wall.
+**(B) is-a INHERITANCE is the deepest remaining brain-foundational lever -- I PROTOTYPED the ideal mechanism and
+LOCATED the gap** (`prototype_isa_inheritance_feature_overlap.py`; the full ideal is `IDEAL_copular_is_a_
+architecture_2026-09-02.md`). The drill PINNED that category assignment AUTO-ACTIVATES a property online (Duffy &
+Keir 2004) and that the ATL represents is-a as EMERGENT FEATURE-OVERLAP, NOT a symbolic hypernym graph (Rogers
+2004; Patterson 2007). I built a glass-box PPMI-SVD feature-overlap space from raw reading (no LLM; 1.2M-3.9M
+tokens) and tested is-a recovery against WordNet hypernym gold, on the FREQUENCY-MATCHED 2AFC (chance 0.5 --
+superordinates are frequent, so a raw 2AFC is confounded and inflates every method to 0.67-0.78; the matched test
+is the honest one). n=12855 pairs:
+- **Pure feature-overlap (symmetric cosine) carries only a WEAK is-a signal: 0.666 +/-0.008** -- barely above
+  chance, and on ranking it barely surfaces the superordinate (top-10 ~0.10). CONFIRMS the drill's prediction:
+  distributional overlap is mostly RELATEDNESS (doctor~nurse~hospital), not is-a DIRECTIONALITY.
+- **The proper DIRECTIONAL feature-inclusion measure (WeedsPrec) is the best: 0.685 +/-0.008, CI-separated ABOVE
+  symmetric cosine** (the brain-faithful lever -- a superordinate's contexts INCLUDE its hyponym's; distributional-
+  inclusion hypothesis, Geffet & Dagan 2005; Weeds & Weir; Santus). But the gain is MODEST (+0.019). Entropy-based
+  generality gating (0.665) WASHES OUT once frequency is controlled -- it was riding the confound (an honest
+  correction: on the confounded 2AFC + top-10 ranking it looked like the winner; it is not).
+**Honest status:** is-a inheritance is only WEAKLY supported by glass-box feature-overlap even with the right
+directional measure (best 0.685). The brain-faithful DIRECTION (feature inclusion) is confirmed as the lever but
+is insufficient alone -- a bounded FOLLOW-ON (routed below) that likely needs a hybrid with the grounded semantic
+graph (WordNet is-a as a static foundation asset -- admissible, not an LLM). The ideal MECHANISM is now specified
+and the gap is LOCATED precisely (directionality is the lever; a distributional space alone under-delivers).
 
 **(C) The identity->coreference route is the other high-fidelity opportunity.** The drill PINNED that coreference
 reactivates hippocampal concept cells (Dijksterhuis 2024) and equative identity is symmetric/hippocampal (CA3).
 Our identity typing is done (0.969) but the identity link is not yet MERGED into the coref system -- so "she is
 his wife" types correctly but does not yet make she==his-wife co-refer. That merge is the faithful home for the
 identity type (a symmetric relational bind), routed below.
+
+## HOW WE COMPARE TO THE BRAIN, AND WHERE WE LOSE SIGNAL -- the exact waterfall (owner-directed)
+`prototype_signal_loss_waterfall.py`. The brain comprehends clear copular predication at ~CEILING (a fluent
+reader essentially never fails "what was Ahab?" for a clear clause), PLUS it inherits (doctor->person) and resolves
+the holder to a canonical cross-sentence entity for free. Our best system (the fix) vs that reference:
+
+| stage | our retention (of 451 gold) | signal lost here | EXACT divergence from the brain |
+|---|---|---|---|
+| gold clause (brain ~1.00) | 451 (1.000) | -- | -- |
+| **1 DETECTION** | 390 (0.865) | **-0.135 (61 clauses)** | brain detects predication HOLISTICALLY + INCREMENTALLY from the closed-class copula, no full parse; we use a BATCH parser (UAS 0.79) whose tree is wrong on the hardest equatives/clefts/specificational-inversions (13 of the 61 are identity) |
+| **2 HOLDER binding (= fix 0.818)** | 369 (0.818) | **-0.047 (21 clauses)** | brain resolves equative subject/predicate by INFORMATION STRUCTURE (topicality/givenness -- the discourse-old NP is subject); we use SYNTACTIC POSITION, which mis-orders equative reversals (8 of the 21 holder errors are identity, from only 73/451 identity clauses -- disproportionate) |
+| **TYPING (separate axis)** | 0.969 | -0.031 | brain uses the FULL cue inventory (reversibility, pronominalization, demonstrative, info-structure) + DEFERS on the possessive ambiguity zone; we use a cue SUBSET (AP/proper-name/definiteness) + FORCE the ambiguity zone. Loss concentrated in identity (0.849 vs 0.99 predicational) |
+| **4 INHERITANCE** | ~0 built | **-~1.0 (whole capability)** | brain AUTO-activates category properties via FEATURE-INCLUSION in the ATL hub (directional); our glass-box feature-overlap only WEAKLY supports it (WeedsPrec 0.685 freq-matched 2AFC) -- we bind "doctor" but cannot infer "person" |
+| **5 CANONICAL-ENTITY (coref)** | within-clause only | not composed | brain binds to a CANONICAL entity via hippocampal concept-cell reactivation across coref (Dijksterhuis 2024); we bind to the nsubj TOKEN, no cross-sentence resolution |
+| **6 PERSISTENCE** | brain-faithful | ~0 | CLOSEST to the brain: state_register default-persists + cancels on contradiction (Dowty inertia; Iatridou perfect) |
+
+**Net absolute gap:** brain ~1.0 -> us 0.818 on the core binding (a 0.18 gap: 0.135 detection + 0.047 holder), PLUS
+two whole capabilities the brain has and we do not yet (automatic inheritance; cross-sentence entity resolution),
+PLUS a 0.031 typing gap. **The single ROOT divergence behind losses 1, 2, and 5:** the brain is INCREMENTAL,
+PREDICTIVE, and DISCOURSE-CONTEXTUALIZED -- it integrates detection + typing + binding + coref + inheritance in ONE
+online pass using running discourse context; we run a BATCH, MODULAR pipeline (parse whole sentence -> extract ->
+type -> bind) with NO discourse context at detection/binding time and no predictive integration. That one
+architectural difference is why the parser fails on hard constructions (batch not incremental), why the holder
+fails on equatives (no discourse givenness), and why coref is not composed (modular) -- and it is exactly the
+incremental predictive parser + situation-model context the substrate has repeatedly named as its one big lever.
 
 ## KEY REALIZATIONS (the enabling moves)
 1. **Check the existing organs BEFORE building.** Three organs already covered most of the binding

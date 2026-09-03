@@ -108,6 +108,27 @@ open, and the ceiling is NOT the LLM-limit I wrongly claimed. The route to optim
 8. **External validity:** run on Raganato ALL (fairer MFS floor 0.6474) + a modern corpus (avoid the McGuffey
    200-year-old-text confound), LFS-stratified.
 
+## FOR STRATEGY -- HOW TO OPTIMIZE FROM HERE (ordered, actionable; each is a standalone component)
+0. **[IMMEDIATE -- blocked on strategy, solver-scope-barred] Dispatch the SG-lite SCALE run.** `exp_sg_lite_scale_v1.py`
+   + `REMOTE_RUN_REQUEST_exp_sg_lite_scale_v1.md` are dropped + dry-run-validated, but `queue_add.sh` keeps FAILING
+   rc=1 (the SAME recurring issue that hit the base run `sg_lite_generative_readout_v1` before you fixed it). Re-dispatch
+   it: likely `--allow-duplicate` + let the ARC 1.48GB KB_REFERENT finish shipping; the GPU box needs **gensim** for the
+   300-d w2v retrain (install if missing, exactly as nltk-semcor was installed for the base run). Result ->
+   `data/exp_sg_lite_scale_v1/metrics.json`. Expected a_s ~0.33-0.39 (corpus-diffuseness ceiling). ~2-3h wall-clock.
+1. **LAND the PROVEN net-gain lever (this problem's confirmed bar-2 result, +0.0116 CI-sep held-out):** the additive
+   reordered-access + non-margin-precision READ PATH into `hdlab/semantic_control` (default-off, witnessed, Q111).
+   OFF byte-identical; ON nets over MFS CI-sep with the shuffled-situation twin losing. This is the generalizing lever.
+2. **The ROLE-FILLER prediction TARGET (true Sentence-Gestalt)** -- the biggest remaining FIDELITY lever (roadmap #4):
+   train the gestalt to predict who-did-what-to-whom (SRL/FrameNet-projected), not the next word. Do AFTER scale lands.
+3. **A richer glass-box GLOSS/sense embedding for e_s** -- the reconstruction-match's real cap (BEM's LFS gains came from
+   better gloss vectors; IDF pooling was neutral here). Higher-dim + more-data w2v (rides on the scale run) or a
+   contextual gloss embedding.
+4. **grounded input spoke + LIFG biased-competition selection + divisive prediction-error units** (roadmap #6).
+5. **External validity:** Raganato ALL (fairer MFS floor 0.6474) + a modern corpus (avoid the McGuffey confound),
+   LFS-stratified (roadmap #8).
+See the ranked `## WHAT REMAINS TO REACH OPTIMAL` map above for the file/organ owning each; the DECISION RULE (item 1)
+is the confirmed net-gain lever, the RECONSTRUCTION-MATCH + scale (items 0/3) is the confirmed a_s lever.
+
 ## TLDR (plain English)
 Words with a rare meaning are the hard case: the common meaning is right about 99% of the time, so anything that "overrides" toward the rare meaning risks breaking the many easy cases -- a see-saw the previous effort could not beat. I found the fix is not a smarter meaning-lookup but the brain's DECISION RULE: never switch off the common meaning; only let the surrounding words *add* weight to a rare meaning, and only trust that push in proportion to how reliable the clue is. With that rule the reader now does slightly better than always guessing the common meaning, held out on unseen documents, and a scrambled-context control fails -- so the improvement is real, and it never wrecks the common meaning. I also built the "ideal" version the research pointed to -- a small model that learns to predict meanings from reading -- and it looked much better at first, but a strict test showed that was memorizing the specific documents, not learning to generalize; the honest number is that it does not yet beat the common-meaning baseline on unseen documents. The real fix for that is to train it on far more ordinary text, which is the next build. Bottom line: the see-saw the last effort was stuck on is broken by copying the brain's rule; getting the rare meaning itself right needs a much larger learned reading model, and the last stretch to human level genuinely needs the kind of on-the-fly reasoning we have chosen not to use at run time.
 
