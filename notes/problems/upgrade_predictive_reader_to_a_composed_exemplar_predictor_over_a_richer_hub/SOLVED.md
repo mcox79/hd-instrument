@@ -11,6 +11,13 @@ reverify: ".venv/Scripts/python.exe verification/test_composedhub_signal_loss.py
 
 # Forward prediction IS representation-bounded, and the ~200-d hub + composed-exemplar predictor fixes it — held-out (2.4x) AND on the live reader (+0.069, the full advantage), once the live signal is measured the way the N400 actually works
 
+## INTEGRATED_BY_STRATEGY (2026-09-03) — EXCELLENT
+Reverified first-hand: `test_composedhub_signal_loss.py` 11/11 (all W2–W13 CI-sep, headline hub+composed vs spoke +0.076 held-out / +0.069 live) + `test_composedhub_no_regression.py` PASS. LANDED the owner's primary directive:
+- **SHIPPED the ~200-d hub as the static foundation asset** `data/frontend_assets/hub_ppmi_svd_200d.pkl` (12.5 MB, PPMI-SVD over 44,482 QA-SRL train sentences, topn=15000) — the SAME hub the north-star P1 reads, built once.
+- **PROMOTED `HubComposedPredictor` → `hdlab/composed_hub_predictor.py`** (verbatim, byte-faithful to the experiment; `.load()` reconstructs from the assets). The recipe P1 + the surprisal path reuse.
+- **§2b AUDIT UPDATE** folded.
+- **MEASURED disposition on the reader surprisal-predictor swap (per the USER "no default-off, measure impact + turn on" rule):** NOT defaulted-on, with a measured reason — the hub improves the forward-prediction/anticipation signal (+0.069) but that signal is EventRecord METADATA (`patient_surprisal`) consumed by NO default-on scored metric (abstention tau is off by default), and the fitted store is 124 MB vs the spoke's 2 MB (+122 MB / +2s per reader process). So defaulting it would load 124 MB for a dormant signal. The hub's realized value is P1's shared representation (shipped) + the surprisal-hub is available (rebuild the store via the build recipe) for the abstention/coverage consumer when it lands. The 124 MB fitted store is a rebuildable offline artifact (NOT committed). NO push.
+
 **Bottom line: SOLVED.** I built the ~200-d ATL-grade hub + the precision-weighted composed-exemplar
 predictor as a glass-box drop-in (KEEP FHRR, NO LLM). On the LIVE organ's own domain it beats the spoke
 organ **+0.076 held-out (2.4x)** and **+0.069 on the LIVE reader** — with all info-free twins (agent-shuffle
