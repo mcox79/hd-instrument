@@ -1,7 +1,6 @@
 ---
-priority: 5
-review:
-review_text:
+review: EXCELLENT
+review_text: Reverified first-hand 10/10. Bar met THROUGH the live reader (mention source swapped, else identical): the who-did-what candidate source reads the coref column (gold patient present only 0.82), and opening a discourse referent for EVERY NP (Kamp/Heim DRT) + demoting coref to a linking pass lifts effective end-to-end 0.4698->0.8054 (+0.336 CI-sep, cleaned-DO) with the info-free twin LOSING AND HURTING, no-regression on the noun-supplied eval, REPLACE>ADD, +0.115 who-has-what theme coverage. Register-invariant introduction (register lives in the linker). rnp = 95% of the competent reader; ideal composition (+frame detector +construction selector) >= competent. Real finding: multi-DO fit is CONSTRUCTIONAL not lexical (+0.040/+0.146 CI-sep; distributional re-rank +0.007 n.s.), reconciling the fit-dominant literature with the parent's fenced grounded-fit negative. WIRE OWED (§6, focused landing): default-off referent_per_np mention-source flag + the frame detector. Successor FILED: construction-aware selector (P4). §2b folded. INTEGRATED 2026-09-03.
 ---
 
 # PROBLEM: the live reader sources role candidates from the COREF column, so on real documents the patient/agent is a candidate only ~0.82 of the time — open a DISCOURSE REFERENT for EVERY noun phrase (Kamp/Heim), demote coreference to a downstream linking pass, and prove it lifts real-document who-did-what + who-has-what CI-separated with an info-free twin losing.

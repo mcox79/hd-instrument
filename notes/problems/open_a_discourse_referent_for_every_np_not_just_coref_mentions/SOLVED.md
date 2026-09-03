@@ -9,6 +9,14 @@ files_changed: "experiments/exp_referent_per_np_end_to_end_v1.py, experiments/ex
 reverify: ".venv/Scripts/python.exe verification/test_referent_per_np_organ.py   # 10/10 -- coverage lever + end-to-end CI-sep + twin-loses-and-hurts + no-regression + REPLACE>ADD + who-has-what + generalization + frame detection + IDEAL composition (>=competent reader) + construction-aware SELECTION improvement, all FROM SOURCE"
 ---
 
+## INTEGRATED_BY_STRATEGY (2026-09-03) — EXCELLENT
+Reverified first-hand: `test_referent_per_np_organ.py` **10/10** (coverage lever + end-to-end CI-sep + twin-loses-AND-hurts + no-regression + REPLACE>ADD + who-has-what + register-invariance + frame detection + ideal composition ≥ competent + construction-aware selection, all from source). Bar met the brain-foundational way (0.4698→0.8054 through the live reader). Actions:
+- **§2b AUDIT UPDATE folded** (newest entry): referent-per-NP introduction PINNED (Kamp/Heim); the candidate-source deployment ceiling; the frame-detector + construction-selector adjacent fixes; the constructional-not-lexical finding.
+- **WIRE OWED (§6, being landed as a focused RE-MEASURED step — the reader's core MENTION SOURCE, the biggest change, promoted carefully):** a default-off `referent_per_np` flag that REPLACES the coref-column candidate source with a discourse referent per content-noun-head NP (POS + the determiner/name FRAME detector, §4), coref demoted to a downstream linking pass (pronoun mentions preserved). Promote `exp_referent_per_np_end_to_end_v1.build_source(mode='rnp')` + `..._frame_detection_v1.frame_heads` → `hdlab/referent_per_np.py`; wire into `read()`'s mention source; witness (flag-off byte-identical + flag-on reproduces +0.336 + no-regression + twin loses); re-measure live. Keep `np_head_reduce` + the verb_subcat/quotative gates. DO NOT land the additive union (regresses) or a thematic-fit selector on this wire.
+- **FOLLOW-ONS FILED:** `construction_aware_selector_for_multi_do_who_did_what_over_the_referent_set` (P4 — the READY selection successor, 0.873→0.913, constructional-not-lexical). The register-native noun-POS / NP-type-gating caps route to the existing register-robust-detection line (P6) / a refinement.
+
+**Bottom line: EXCELLENT.** A deployment-ceiling recovery proven through the live reader with model controls (the twin doesn't just lose, it HURTS), the DRT REPLACE>ADD order validated by both theory and numbers, and the composed pipeline reaching the competent-reader reference. The core source+frame wire is landed as a focused step; the selection successor is filed.
+
 # SOLVED — open a discourse referent for every NP, not just coref mentions
 
 ## Status in one line
