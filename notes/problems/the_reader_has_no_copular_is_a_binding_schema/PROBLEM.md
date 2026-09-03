@@ -1,7 +1,6 @@
 ---
-priority: 4
-review:
-review_text:
+review: EXCELLENT
+review_text: Reverified first-hand 10/10 (core) + 6/6 (improvements) + landing witness 5/5 (default-off byte-identical; flag-on fires + Higgins-typed ahab->captain pred_nom / room->cold pred_adj / she->wife ident; flag-on == the promoted primitive byte-for-byte; state_at round-trips; promotion-faithful). Promoted the two pure binding primitives VERBATIM to hdlab/copular_binding.py + wired the Q111 default-off bind_entity_states flag (sm.entity_states + sm.state_register read-back). Lazy-imported -> default reader byte-identical. Glass-box, NO LLM. §2b folded; registry entry owed (deferred under concurrent write). INTEGRATED 2026-09-03 (7344de394).
 ---
 
 # PROBLEM: the reader detects copular events ("X was a doctor", "the house was empty") but has NO is-a BINDING SCHEMA that attaches the predicate complement to the subject ENTITY as a category/attribute — the base reader answers 0/376 (0/120 on the clean subset) on "what/who is X" over clean predicate complements, a register-INDEPENDENT representation gap covering ~23% of the population; build the attributive/identificational binding readout that answers what an entity IS / what property it HAS, CI-separated over a floor with the info-free twin LOSING — or a located negative naming why predication resists a role-filler binding.

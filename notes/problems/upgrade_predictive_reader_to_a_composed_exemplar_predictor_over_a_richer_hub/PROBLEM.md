@@ -1,7 +1,6 @@
 ---
-priority: 3
-review:
-review_text:
+review: EXCELLENT
+review_text: Reverified first-hand 11/11 (all W2-W13 CI-sep) + no-regression PASS. Shipped the ~200-d ATL-grade hub as P1's shared static foundation asset (hub_ppmi_svd_200d.pkl, 12.5MB) + promoted HubComposedPredictor to hdlab; beats the 12-d spoke +0.076 held-out (2.4x) / +0.069 on the live reader, all info-free twins (agent-shuffle + shuffled-hub) losing CI-sep, transfers to WiC +0.027. Per the no-default-off rule I MEASURED the reader surprisal-swap and did NOT default it, with a measured reason (the +0.069 is EventRecord metadata consumed by no default-on scored metric, and the fitted store is 124MB rebuildable). Glass-box, FHRR untouched, NO LLM. §2b folded. INTEGRATED 2026-09-03 (0bc7ea925).
 ---
 
 # PROBLEM: forward prediction (the N400 organ `predictive_reader`) is REPRESENTATION-bounded — agent×verb composition is a REAL predictive signal (+0.032 MRR CI-sep) but DEAD in the organ's 12-dim grounded spoke and ALIVE in a ~200-dim hub proxy, where a precision-weighted composed-EXEMPLAR predictor beats the organ's current method +0.083 CI-sep = 2.3x held-out MRR (de-risked to a class, `IdealComposedPredictor`); so build the ~200-dim ATL-grade meaning HUB and the composed-exemplar predictor, upgrade `predictive_reader` behind a default-off flag, and prove the forward-prediction lift CI-separated on held-out text and on the LIVE reader with the info-free twins LOSING — or a located negative naming the representation ceiling.
