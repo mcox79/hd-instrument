@@ -94,4 +94,53 @@ class SemanticControl:
         return int(np.argmax(supp)), c
 
 
-__all__ = ["SemanticControl", "conflict", "DEFAULT_QUANTILE", "DEFAULT_GAMMA"]
+# ---------------------------------------------------------------------------------------------------
+# BRAIN-FAITHFUL REORDERED-ACCESS ADDITIVE read-out (landed 2026-09-03 from the owner-DONE north-star
+# the_meaning_channel_needs_a_generative_world_knowledge_situation_model...). The parent's net-gain
+# see-saw was NOT the generative source -- it was the DECISION RULE: a SUBTRACTIVE/gated hard-flip
+# (like `resolve`'s suppression, or the parent's argmax override) can ERASE a correct dominant sense
+# (Duffy/Morris/Rayner reordered access is ADDITIVE: the dominant is ALWAYS accessed by frequency;
+# context only ADDS activation to a subordinate, never subtracts from the dominant), and using the
+# posterior's own margin as confidence rewards a false-confident peak (Feldman-Friston: precision is
+# EXPECTED reliability estimated from OTHER variables -- here context richness, NON-margin). This
+# additive, facilitatory-only, non-margin-precision rule is the GENERALIZING net-gain lever: on held-out
+# SemCor it nets +0.0116 over the MFS floor CI-separated (twin loses, dominant preserved 0.949) where the
+# parent's gated hard-flip was -0.0013 CI-sep BELOW. Promoted VERBATIM from the validated
+# experiments/exp_generative_situation_sense_selector_v2._additive_pick (+ _z/_margin) so a wired read is
+# byte-exact to the witnessed cell. DEFAULT-SAFE: a NEW read-out; importing/using it does not change
+# `resolve`/`conflict`/`suppressed_scores`. spaCy-free, LM-free. MEASURE on the live task before a claim.
+
+
+def _z(a) -> np.ndarray:
+    a = np.asarray(a, float)
+    s = a.std()
+    return (a - a.mean()) / s if s > 1e-12 else np.zeros(len(a))
+
+
+def _margin(likelihood) -> float:
+    """top1-top2 relative gap of the context likelihood -- used ONLY as an abstention gate (a totally
+    flat context must not override), NOT as the confidence weight (that is the non-margin reliability)."""
+    s = np.sort(np.asarray(likelihood, float))[::-1]
+    return float((s[0] - s[1]) / (s[0] + 1e-9)) if len(s) > 1 else 0.0
+
+
+def additive_reordered_read(prior, likelihood, reliability: float = 1.0,
+                            gamma: float = DEFAULT_GAMMA, tau: float = 0.0) -> int:
+    """The brain-faithful reordered-access ADDITIVE sense pick (byte-exact to the validated
+    exp_generative_situation_sense_selector_v2._additive_pick):
+        score(s) = log(prior(s)) + gamma * reliability * relu(z(likelihood)(s))
+    argmax over senses. `prior` = frequency prior over candidate senses; `likelihood` = the context
+    signal over the SAME senses (None or margin<tau => abstain to the dominant/prior argmax); `reliability`
+    = expected non-margin context richness in [0,1] (Feldman-Friston precision, NOT the posterior margin).
+    Context can only ADD activation to context-supported senses; the dominant is NEVER penalized (no
+    see-saw). Deterministic, numpy-only. This is the net-gain read-out; `resolve` remains the (suppressive)
+    conflict-gate for callers that want it."""
+    pr = np.asarray(prior, float)
+    pr = pr / pr.sum()
+    if likelihood is None or _margin(likelihood) < tau:
+        return int(np.argmax(pr))
+    boost = gamma * float(reliability) * np.maximum(_z(np.asarray(likelihood, float)), 0.0)
+    return int(np.argmax(np.log(pr + 1e-6) + boost))
+
+
+__all__ = ["SemanticControl", "conflict", "additive_reordered_read", "DEFAULT_QUANTILE", "DEFAULT_GAMMA"]

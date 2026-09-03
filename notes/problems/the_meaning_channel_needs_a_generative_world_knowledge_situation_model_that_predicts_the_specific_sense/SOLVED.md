@@ -148,3 +148,37 @@ None blocking. One judgement call flagged: I marked this PARTIAL rather than SOL
 2. **[NORTH STAR] Build SG-lite** at self-supervised scale (the a_s lever the static/overfit routes could not supply).
 3. **[validity]** Run the additive rule on Raganato ALL (fairer external MFS floor) to confirm transfer.
 4. **[enabler]** Turn on `tense_agnostic_events` + graded coref before any LIVE situation-model measurement.
+
+## INTEGRATED_BY_STRATEGY 2026-09-03
+
+Reverified `verification/test_generative_situation_sense_selector.py` FIRST-HAND: **8/8** (W0 n=17317
+MFS=0.6831; W1 additive rule no-hard-flip [flat->dominant, sharp+reliable->override, low-reliability->keep];
+W2 cn+GEN net_test **+0.0124 CI[0.007,0.0176]** held-out CI-sep, parent best -0.0013 CI-sep BELOW; W3
+dominant preserved 0.9500 no see-saw; W4 shuffled-situation twin loses +0.0049 CI[0.0005,0.0096]; W5 the
+LEARNED predictor OVERFITS -- strict disjoint-doc net -0.0380 / a_s 0.198, LOO-doc leaked to +0.05/0.43;
+W6 scramble collapses to +0.0008; W7 the DECISION RULE is the lever, cn-only +0.0100 CI[0.0042,0.0158],
+world-knowledge adds +0.0024).
+
+Accepted **PARTIAL (advancing the parent)**, rating **EXCELLENT** -- the north star, and a model result:
+(1) BROKE the parent's net-gain see-saw wall, held-out + CI-sep, by the brain's precision-weighted ADDITIVE
+reordered-access DECISION RULE (dominant never suppressed; non-margin reliability; Duffy-Morris-Rayner /
+Feldman-Friston) -- NOT the generative source the brief named; (2) a RIGOROUS located NEGATIVE on the a_s
+generative-source lever with the decisive rigor catch (the exciting learned-predictor a_s 0.43 was
+cross-DOCUMENT leakage -> strict disjoint-doc collapses it to 0.198/-0.038; scramble confirms); (3)
+DEMOLISHED the "0.4 ceiling / needs-an-LLM" claim glass-box (reconstruction-match a_s 0.280 > centroid 0.220
+> NB 0.198, generalizes) and RETRACTED the earlier "needs an LLM" line. Honest bounds throughout; base rate
+noted (30 vetted HARD_PASS, 1 upheld). Exemplary self-correction.
+
+**Q111 WIRE LANDED:** the PROVEN net-gain DECISION RULE (bar 2) promoted VERBATIM into
+`hdlab/semantic_control.additive_reordered_read` (+ `_z`/`_margin`), byte-exact to the validated
+`exp_generative_situation_sense_selector_v2._additive_pick`. Default-safe (a NEW read-out; `resolve`/`conflict`
+untouched). Witness `test_semantic_control_additive_read_landing_organ.py` 3/3 (existing organ intact;
+promotion byte-exact over 400 cases; additive/facilitatory-only property). Registered
+`semantic_control_additive_reordered_read_v1`. HONEST BOUND: the meaning organ's LIVE wiring into
+`situation_reader.read()` is a separate DEBT-3 step (meaning organs are islands); this lands the proven
+generalizing lever INTO the organ. §2b AUDIT UPDATE + the 3 hygiene corrections folded in. Priority cleared.
+
+The a_s lever (the generative SOURCE) is the OPEN north-star continuation, routed to the follow-on
+`build_sg_lite_self_supervised_scale_generative_sense_predictor` (the SG-lite self-supervised scale + the
+role-filler prediction target). The scale run `exp_sg_lite_scale_v1` (which strategy unblocked) is IN FLIGHT;
+its a_s folds into that follow-on when it lands.

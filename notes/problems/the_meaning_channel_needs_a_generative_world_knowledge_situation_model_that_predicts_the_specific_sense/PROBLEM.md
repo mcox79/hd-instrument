@@ -1,7 +1,7 @@
 ---
-priority: 1
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: INTEGRATED 2026-09-03 (reverified 8/8 first-hand). PARTIAL, advancing the parent, EXCELLENT. BROKE the net-gain see-saw wall by the brain's precision-weighted ADDITIVE reordered-access decision rule (+0.0124 over MFS held-out CI-sep, twin loses, dominant preserved 0.950 -- parent was -0.0013 below); a rigorous located NEGATIVE on the a_s generative-source lever (the learned predictor's a_s 0.43 was cross-document leakage -> strict 0.198/-0.038); DEMOLISHED the "needs-an-LLM" ceiling glass-box (reconstruction-match a_s 0.280 > centroid 0.220 > NB 0.198, generalizes). Q111 WIRE LANDED: the additive rule promoted into hdlab/semantic_control.additive_reordered_read (byte-exact, witness 3/3). a_s lever routed to the SG-lite self-supervised-scale follow-on; the scale run is in flight. §2b + 3 hygiene corrections updated.
 ---
 
 # PROBLEM: the meaning channel's binding limit is now DECISIVELY LOCATED — the top-down sense selector proved DETECTION is MAXED (the directional predictive-error detector reaches AUC ~0.71) but the net cannot beat the word-frequency floor because the OVERRIDE accuracy a_s~0.33 ("which SPECIFIC rare sense") is GENERATION from a world-knowledge situation model we do not have — so build the GENERATIVE, glass-box world-knowledge situation/comprehension model that predicts each word's SPECIFIC expected sense (the a_s lever, where ALL the meaning gains now live) via (a) a sense-SPECIFIC continuous representation (reuse `meaning_fusion` + `ultrametric_clustering` for emergent granularity) so the situation can discriminate WHICH rare sense, and (b) a richer world-knowledge SOURCE (FrameNet roles / Chambers-Jurafsky script chains / a denser thematic KG) so the situation INFERS unmentioned concepts, selected through the CONFIRMED directional detector + `semantic_control` biased-competition read path — and prove it raises a_s (override accuracy on the fired-subordinate items) CI-separated, translating to a NET gain over the MFS floor WITHOUT the base-rate see-saw, with a shuffled-situation twin LOSING.
