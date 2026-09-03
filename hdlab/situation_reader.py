@@ -864,6 +864,11 @@ class SituationReader:
         # glass-box Higgins typing. Integrated 2026-09-03 from the owner-DONE the_reader_has_no_copular_is_a_
         # binding_schema (10/10 + 6/6). Lazy imports -> byte-identical when off. NO LLM.
         self.bind_entity_states = bool(bind_entity_states)
+        # PER-READ tag/parse memo (2026-09-03 perf): dimensions independently re-tag/re-parse the SAME
+        # sentences (arc parser ~118x + POS tagger ~310x per read). Tag+parse each distinct sentence ONCE
+        # per read() via _cached_tag/_cached_parse_heads; reset each read -> no cross-read leak, byte-identical
+        # (pure deterministic tagger/parser). Generalizable: every reader path that tags/parses reuses it.
+        self._read_parse_cache: Dict[tuple, object] = {}
         self._es_mod = None            # lazy experiments._copular_nominal_events
         self._es_typed = None          # lazy predicted_type (Higgins classifier)
         self._es_pos = None            # lazy PosTagger (the copular assets' tagger)
@@ -1012,6 +1017,25 @@ class SituationReader:
     # reader-native, case-independent quotative-inversion rule) with the positional rule as the good-enough
     # fallback; richer roles (goal/recipient/...) are collected as additive metadata. Everything else
     # (event extraction, encoding, focus, frame/affect metadata) is UNCHANGED from the stock _read_events.
+    def _cached_tag(self, toks):
+        """Per-read memoized POS tag (see self._read_parse_cache): tag each distinct sentence ONCE per read().
+        Returns a FRESH copy each call (like the original per-call self._tagger.tag) so a consumer that mutates
+        it cannot corrupt the cache -> byte-identical; the saved cost is the Viterbi tag, not the tiny copy."""
+        key = ("tag", tuple(toks))
+        c = self._read_parse_cache
+        if key not in c:
+            c[key] = self._tagger.tag(toks)
+        return list(c[key])
+
+    def _cached_parse_heads(self, toks, pos):
+        """Per-read memoized base-parser heads dict; returns a FRESH copy (see _cached_tag). Byte-identical to
+        self._parser.parse(toks, pos).heads, minus the re-parse cost."""
+        key = ("parse", tuple(toks))
+        c = self._read_parse_cache
+        if key not in c:
+            c[key] = self._parser.parse(toks, pos).heads
+        return dict(c[key])
+
     def _router_roles(self, toks):
         """{verb_pos0: {pa_role: token_pos0}} from parse -> route_predicate_arguments, fed the reader's OWN
         tokens so indices align with mention wtok positions. quotative=False: the reader applies its OWN
@@ -1019,7 +1043,7 @@ class SituationReader:
         speaker scan cannot fire here). Empty for empty / very long token lists."""
         if not toks or len(toks) > 120:
             return {}
-        pos = self._tagger.tag(toks)
+        pos = self._cached_tag(toks)
         if self.parser_arceager:                     # opt-in: route the wired parse through the improved arc-eager parser
             if self._ae_W is None:
                 from hdlab.arceager_parser import load_model, parse_with_conf, MODEL_PATH
@@ -1027,7 +1051,7 @@ class SituationReader:
                 self._ae_parse = parse_with_conf
             heads = self._ae_parse(toks, pos, self._ae_W)[0]   # Dict[int,int] 1-based child->head (same shape as ArcParser)
         else:
-            heads = self._parser.parse(toks, pos).heads
+            heads = self._cached_parse_heads(toks, pos)
         out = {}
         for v in matrix_verbs(toks, pos, heads):
             roles = route_predicate_arguments(toks, pos, heads, v, quotative=False,
@@ -1081,7 +1105,7 @@ class SituationReader:
                 # POSITIONAL-path fix: drop mentions whose head token is a compound modifier / genitive possessor,
                 # so _assign_roles + the router's _nom_head_at pick the NP HEAD (mention-level 2nd-pass wire).
                 from hdlab.np_head_reduce import is_np_head as _is_np_head
-                _up = self._tagger.tag(list(toks))
+                _up = self._cached_tag(list(toks))
                 noms = [m for m in noms if _is_np_head(toks, _up, m["wtok_start"])] or noms
             rr = self._router_roles(list(toks))
             # the event extractor uses a DIFFERENT tokenization than `toks` (e.idx is its space, not toks-
@@ -1209,9 +1233,17 @@ class SituationReader:
             from experiments import _space_reader as _SP
             self._space_mod = _SP
         _SP = self._space_mod
+        # PARSE DEDUP (2026-09-03): _read_space runs AFTER _read_events, so the reader's per-read tag/parse cache
+        # is already warm -> the space adapter reuses the reader's parse (SAME model) instead of re-parsing every
+        # sentence a second time (~half the read's parser cost). Byte-identical.
         reg, _events, _names, _sents, _persons = _SP.read_locations_in_substrate(
-            conll_path, gaz=self.gaz, mode="prior_ext")
+            conll_path, gaz=self.gaz, mode="prior_ext", parse_provider=self._space_parse_provider)
         return reg
+
+    def _space_parse_provider(self, toks):
+        """(upos, heads) for the SPACE adapter from the reader's per-read cache -> parse each sentence ONCE."""
+        u = self._cached_tag(toks)
+        return u, self._cached_parse_heads(toks, u)
 
     def _read_belief(self, sm, sents) -> None:
         """Opt-in BELIEF/ToM dimension (default-off; wired 2026-08-31 from the owner-DONE problem
@@ -1498,6 +1530,7 @@ class SituationReader:
         sm.state_register = reg
 
     def read(self, conll_path: str) -> SituationModel:
+        self._read_parse_cache = {}   # per-read tag/parse memo (bound memory; safe if the reader is reused)
         mentions, n_sents = parse_litbank_conll(conll_path, name_gender_map=self.gaz)
         sents = parse_conll_sentences(conll_path)
         if len(sents) != n_sents:
