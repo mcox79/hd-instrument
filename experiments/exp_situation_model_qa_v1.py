@@ -488,27 +488,21 @@ def _sm_qa_dim_fns(qa: "SituationQA"):
 # THE READER THE INSTRUMENT SCORES (the correct baseline -- capable by default)
 # ===========================================================================
 def build_reader(gaz, capable: bool = True) -> SituationReader:
-    """Build the reader this QA instrument scores. `capable=True` (the DEFAULT, and the correct baseline
-    every solver needs) turns ON the validated extraction dimensions the live reader ships behind
-    default-off flags:
-      - tense_agnostic_events : UPOS==VERB detection, event recall 0.33->0.95 (the keystone).
-      - preserve_tense        : COMPOSED Reichenbach tense instead of the placeholder -- so PAST_PERFECT
-                                SURVIVES the keystone, and the temporal gold (past-perfect anteriority) is
-                                NOT erased (without it the keystone collapses temporal questions to 0).
-      - timeline_register     : the whole-passage chronological order on sm.timeline_order -- the CORRECT
-                                temporal readout field (a tense-independent constraint-graph toposort).
-    INSTRUMENT-COUPLING FIX (2026-08-31): the original instrument ran the DEFAULT (weak) reader and read
-    temporal answers off sm.events tense, which the keystone rewrites to a placeholder -> temporal Qs
-    collapse 86->0 and the readout degrades. Scoring the CAPABLE reader + reading temporal off
-    sm.timeline_order is the fix (measured: temporal survives + the register readout beats the naive one).
-    spaCy-requiring causation_typed is deliberately EXCLUDED so the instrument stays spaCy-free /
-    remote-safe; the causal gold + readout are already tense-independent (connective grammar +
-    sm.causal_links), so causation does not need the capable path. `capable=False` = the historical
-    DEFAULT (weak) reader, kept for the before/after comparison."""
+    """Build the reader this QA instrument scores. AS OF 2026-09-03 the validated extraction dimensions are
+    DEFAULT-ON in SituationReader (the owner-authorized flag flip: reader-QA agg 0.2903->0.3598), so
+    `capable=True` (the DEFAULT) is simply the default reader = the fully-capable reader (tense_agnostic_events
+    + preserve_tense + timeline_register [the temporal trio] + role_route='wired' + np_head_reduce + predict_revise
+    + verb_subcat_gate + predict_surprisal + track_space + track_belief + track_world_state/densify + bind_event_tokens).
+    `capable=False` = the HISTORICAL weak reader (every capability flag explicitly OFF), kept ONLY for the
+    before/after comparison -- it must set the flags OFF explicitly now that they are default-ON.
+    NOTE (temporal coupling, still true): temporal answers are read off sm.timeline_order (a tense-independent
+    toposort), NOT the naive sm.events tense, because the keystone rewrites tense to a placeholder. spaCy-requiring
+    causation_typed / spacy_pred_gate stay OFF (remote-safe invariant); parser_arceager stays OFF (19c-negative)."""
     if not capable:
-        return SituationReader(gaz=gaz)
-    return SituationReader(gaz=gaz, tense_agnostic_events=True, preserve_tense=True,
-                           timeline_register=True)
+        # the historical WEAK reader -- ONE canonical all-off factory (derives from SituationReader.
+        # CAPABILITY_FLAGS, so a future default flip needs no change here).
+        return SituationReader.all_capabilities_off(gaz=gaz)
+    return SituationReader(gaz=gaz)
 
 
 # ===========================================================================

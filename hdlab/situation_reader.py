@@ -605,27 +605,40 @@ class SituationReader:
                  focus_n_dim: int = FOCUS_N_DIM,
                  pred_gate_fn=None, spacy_pred_gate: bool = False,
                  gate_intransitive: bool = True,
-                 role_route: str = "positional",
-                 tense_agnostic_events: bool = False,
+                 role_route: str = "wired",
+                 tense_agnostic_events: bool = True,
                  causation_typed: bool = False, causation_gate_mode: str = "force",
                  causation_use_gate: bool = True, causation_role_source: str = "parse",
                  causation_tendency: bool = True, causation_use_constructions: bool = True,
                  causation_sense_gate: bool = True, causation_sense_tau: float = 1.0,
                  causation_foreground_gate: bool = False,
-                 timeline_register: bool = False,
-                 preserve_tense: bool = False,
-                 verb_subcat_gate: bool = False, verb_subcat_thr: float = 0.35,
-                 track_space: bool = False,
-                 predict_surprisal: bool = False,
+                 timeline_register: bool = True,
+                 preserve_tense: bool = True,
+                 verb_subcat_gate: bool = True, verb_subcat_thr: float = 0.35,
+                 track_space: bool = True,
+                 predict_surprisal: bool = True,
                  surprisal_abstain_tau: Optional[float] = None,
                  predict_surprisal_asset: Optional[str] = None,
-                 track_belief: bool = False,
-                 bind_event_tokens: bool = False,
-                 predict_revise: bool = False,
-                 track_world_state: bool = False,
-                 densify_world_state: bool = False,
+                 track_belief: bool = True,
+                 bind_event_tokens: bool = True,
+                 predict_revise: bool = True,
+                 track_world_state: bool = True,
+                 densify_world_state: bool = True,
                  parser_arceager: bool = False,
-                 np_head_reduce: bool = False) -> None:
+                 np_head_reduce: bool = True) -> None:
+        # === DEFAULTS FLIPPED ON 2026-09-03 (owner-authorized: "switch them on... 1 at a time, top down,
+        # measure which are net positives"). The greedy forward-activation sweep (tools/flag_activation_sweep.py,
+        # data/flag_activation_sweep/results.json) measured each flag one-at-a-time in dependency order on the
+        # reader-QA harness: reader-QA aggregate 0.2903 (all-off) -> 0.3598 (kept stack). ALL are net non-negative
+        # with NO real downstream regression (the apparent causal -0.23 under tense_agnostic_events is a MEASUREMENT
+        # artifact -- the causal gold is built from sm.events which the keystone densifies, while the causal READOUT
+        # reads sm.causal_links [C.extract], flag-independent; the reader's causal answers are byte-identical, and
+        # the capable board has always operated at causal 0.1485). This SUPERSEDES the prior "no dimension flag
+        # should be flipped default-ON yet -- the fully-on reader is N parallel silos" caution: bind_event_tokens
+        # (the JOINT binder, coref 1.000 vs 0.600) is flipped ON here, so the dimensions now BIND, not just compose.
+        # STILL DEFAULT-OFF BY DESIGN: parser_arceager (19c-negative, -0.001; a MODERN-text-only lever, flip it per
+        # consumer on modern corpora), causation_typed + spacy_pred_gate (require spaCy -> NOT remote-safe / the
+        # no-external-dep invariant). To reproduce the historical WEAK reader, pass every flag False explicitly.
         self.gaz = load_name_gender() if gaz is None else gaz
         self.focus_n_dim = int(focus_n_dim)
         # OPTIONAL supplied-grammar predicate-validity gate (29522 L1 win, ADOPTED opt-in).
@@ -830,6 +843,27 @@ class SituationReader:
         # persistent readers (the banked backbone + single-sentence validity baseline)
         self.reader_ec = EventCentralityReader(n_dim=EVENT_N_DIM, mem_seed=MEM_SEED)
         self.reader_ss = CorefReader()
+
+    # ONE authoritative capability-flag list (the ONLY hand-maintained bit). Every "flags-off historical
+    # reader" derives from it: build_reader(capable=False) and each isolation witness call
+    # all_capabilities_off(...) -- so a future default flip updates HERE, not N call sites. role_route is the
+    # string flag whose OFF value is "positional". Add a new capability flag here when you add one to __init__.
+    CAPABILITY_FLAGS = (
+        "tense_agnostic_events", "preserve_tense", "timeline_register", "verb_subcat_gate", "track_space",
+        "predict_surprisal", "track_belief", "bind_event_tokens", "predict_revise", "track_world_state",
+        "densify_world_state", "np_head_reduce", "parser_arceager", "causation_typed", "spacy_pred_gate")
+
+    @classmethod
+    def all_capabilities_off(cls, gaz=None, **overrides):
+        """Build the HISTORICAL WEAK reader -- every capability flag OFF (role_route='positional') -- with
+        optional per-flag overrides. The ONE canonical 'flags off' baseline (see CAPABILITY_FLAGS): used by
+        build_reader(capable=False), isolation witnesses, and any before/after comparison, so flipping a
+        default in the future requires NO change at those call sites. Example (isolate one flag under test):
+        SituationReader.all_capabilities_off(gaz=g, tense_agnostic_events=True, verb_subcat_gate=True)."""
+        cfg = {f: False for f in cls.CAPABILITY_FLAGS}
+        cfg["role_route"] = "positional"
+        cfg.update(overrides)
+        return cls(gaz=gaz, **cfg)
 
     # -- ENTITIES + COREF (banked EventCentralityReader recency-centrality, 29516) --
     def _read_entities(self, mentions, targets, n_sents):
@@ -1439,10 +1473,20 @@ class SituationReader:
                 sense_gate=self.causation_sense_gate, sense_tau=self.causation_sense_tau,
                 foreground_gate=self.causation_foreground_gate,
                 nlp=self._causation_nlp, lexicon=self._causation_lex)
+        if self.track_belief:
+            # BELIEF/ToM dimension: bind sm.believes / sm.knows query callables to this passage
+            self._read_belief(sm, sents)
+        if self.predict_revise:
+            # PARSE-RECALL drop-fill: recover the DROPPED patient the batch parse missed (runs AFTER
+            # causation/timeline so it only fills genuine '?' drops, and BEFORE the backbone so a bound
+            # event token would see the recovered patient). Additive/reversible.
+            self._read_predict_revise(sm, sents)
         if self.verb_subcat_gate:
             # post-read patient-presence gate: suppress a bound patient on low-transitivity (intransitive)
-            # verbs. Matches the validated SubcatGateReader (runs AFTER causation/timeline, so those see the
-            # un-suppressed patient exactly as measured). Lazy import -> byte-identical when off.
+            # verbs. REORDERED 2026-09-03 (default-flag flip) to run AFTER predict_revise so the STRUCTURAL
+            # intransitive-suppression has the FINAL say -- else predict_revise re-introduces the very patient
+            # the gate suppressed (a spurious patient on an intransitive). Byte-identical to the validated
+            # SubcatGateReader when predict_revise is off (its validation config). Lazy import -> no-op when off.
             if self._vs_mod is None:
                 from hdlab import verb_subcat as _VS
                 self._vs_mod = _VS
@@ -1451,16 +1495,11 @@ class SituationReader:
                 if e.patient not in ("?", None) and _VS.suppress_patient(e.predicate, self.verb_subcat_thr):
                     e.patient = "?"
         if self.predict_surprisal:
-            # forward-prediction surprisal metadata + abstain flag (runs LAST -> scores the FINAL patient)
+            # forward-prediction surprisal metadata + abstain flag. Runs LAST over the FINAL patient (after
+            # predict_revise's recovery AND verb_subcat_gate's suppression). Reordered 2026-09-03 (flip): with
+            # these default-ON, scoring HERE makes surprisal reflect the final patient, not a stale pre-revise
+            # value. Nothing after it (bind_event_tokens/track_world_state) mutates e.patient.
             self._read_surprisal(sm, sents)
-        if self.track_belief:
-            # BELIEF/ToM dimension: bind sm.believes / sm.knows query callables to this passage
-            self._read_belief(sm, sents)
-        if self.predict_revise:
-            # PARSE-RECALL drop-fill: recover the DROPPED patient the batch parse missed (runs AFTER
-            # verb_subcat/causation so it only fills genuine '?' drops, and BEFORE the backbone so a bound
-            # event token would see the recovered patient). Additive/reversible.
-            self._read_predict_revise(sm, sents)
         if self.bind_event_tokens:
             # BOUND-EVENT-TOKEN backbone: build sm.event_tokens + sm.episodic_store over the FINAL event set
             # (runs LAST -> binds the events exactly as every other dimension left them). Additive.

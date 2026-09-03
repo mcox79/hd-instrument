@@ -61,7 +61,7 @@ def test_preserve_tense_landing():
     # (1) DEFAULT-OFF byte-identical: placeholder path unchanged, composition module not imported.
     assert "experiments.exp_tense_preserving_event_detector_v1" not in sys.modules, \
         "composition module must not be imported before any preserve_tense reader is built/run"
-    sm_off = SituationReader(tense_agnostic_events=True).read(doc)               # preserve_tense default False
+    sm_off = SituationReader(tense_agnostic_events=True, preserve_tense=False).read(doc)   # explicit-OFF (default-ON since 2026-09-03)
     sm_off2 = SituationReader(tense_agnostic_events=True, preserve_tense=False).read(doc)
     off_tuples = _ev_tuples(sm_off)
     assert off_tuples == _ev_tuples(sm_off2), "preserve_tense=False must be byte-identical to the default"

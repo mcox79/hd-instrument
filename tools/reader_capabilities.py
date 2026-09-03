@@ -1,10 +1,13 @@
 """reader_capabilities.py -- the DERIVED "what can the live reader do, and is it ON by default?" view.
 
 WHY THIS EXISTS (2026-08-31): the assembly wires validated dimensions into hdlab.situation_reader
-behind DEFAULT-OFF flags (byte-identical when off). So the DEFAULT reader -- SituationReader() --
-is materially WEAKER than the reader with the flags ON. A solver (or strategy) who measures a floor/
-baseline against the DEFAULT reader is measuring an artificially weak reader and can (a) understate a
-floor, (b) re-derive a capability that already exists behind a flag, or (c) fail to compose with it.
+behind capability flags. UPDATE 2026-09-03 (owner-authorized flip): the net-positive flags are now
+DEFAULT-ON (SituationReader() is the FULLY-CAPABLE reader; reader-QA agg 0.2903->0.3598). To reproduce
+the historical WEAK reader, pass every flag False explicitly. A solver (or strategy) who measures a
+floor/baseline must still know which flags are on -- but now the DEFAULT is the strong reader, so the
+prior hazard (measuring against an artificially weak default) is INVERTED: an explicit-off baseline is
+the one that understates. STILL DEFAULT-OFF: parser_arceager (19c-negative), causation_typed +
+spacy_pred_gate (spaCy -> not remote-safe). This tool INTROSPECTS the constructor so the table is exact.
 This tool is the single canonical, ROT-PROOF answer: it INTROSPECTS the reader's constructor for every
 capability flag + its default, and cross-references the capability registry for what each does + its
 witness. Run it before measuring anything against "the reader".
@@ -94,7 +97,7 @@ def manifest():
 def print_manifest():
     rows = manifest()
     print("=" * 100)
-    print("LIVE READER CAPABILITY FLAGS -- default state (SituationReader() = every capability OFF)")
+    print("LIVE READER CAPABILITY FLAGS -- default state (SituationReader() = net-positive flags ON since 2026-09-03)")
     print("=" * 100)
     for flag, default, state, cid, cap, witness in rows:
         print("\n[%s]  default=%s  -> %s" % (flag, default, state))
@@ -104,25 +107,30 @@ def print_manifest():
         if witness:
             print("   witness    : %s" % witness)
     n_off = sum(1 for r in rows if r[2] == "OFF")
+    n_on = len(rows) - n_off
     print("\n" + "-" * 100)
-    print("SUMMARY: %d of %d capability flags are OFF by default. `SituationReader()` is the DEFAULT/WEAK reader." % (n_off, len(rows)))
-    print("BEFORE MEASURING a floor/baseline against 'the reader', decide whether the fair baseline is the")
-    print("DEFAULT reader or the FULLY-ON reader for the dimension you touch. Enable: python tools/reader_capabilities.py --enable")
-    print("NOTE: no full-system end-to-end run turns ALL of these on together yet (see the assembly harness problem).")
+    print("SUMMARY: %d of %d capability flags are ON by default (flipped 2026-09-03); %d stay OFF (parser_arceager +"
+          " the two spaCy flags). `SituationReader()` is now the FULLY-CAPABLE reader." % (n_on, len(rows), n_off))
+    print("BEFORE MEASURING a floor/baseline against 'the reader', note the DEFAULT is now the STRONG reader; pass")
+    print("flags False explicitly for the historical weak baseline. Disable-all: build_reader(capable=False).")
+    print("NOTE: the fully-on default reader reproduces the reader-QA kept-stack aggregate 0.3598 (16 docs, 19c LitBank).")
 
 
 def print_enable():
-    print("# The FULLY-ON reader (all validated dimension flags enabled).")
-    print("# ⚠️ MEASURED 2026-08-31 (the_assembled_reader_is_never_tested_as_a_whole, owner-DONE): the fully-on reader")
-    print("# is N PARALLEL SILOS, not one integrated situation model -- turning the DIMENSION flags on COMPOSES but")
-    print("# does not BIND (interaction byte-exactly 0). No dimension flag should be flipped default-ON yet (only")
-    print("# role_route is aggregate-positive + instrument-safe).")
+    print("# The FULLY-ON reader = the DEFAULT reader since the 2026-09-03 owner-authorized flip (SituationReader()).")
+    print("# ✅ FLIPPED DEFAULT-ON 2026-09-03 (owner: 'switch them on, 1 at a time, top down, measure net positives').")
+    print("# The greedy forward-activation sweep (tools/flag_activation_sweep.py) measured each flag one-at-a-time:")
+    print("# reader-QA agg 0.2903 (all-off) -> 0.3598 (kept stack), NO real downstream regression (the apparent causal")
+    print("# -0.23 under tense_agnostic_events is a MEASUREMENT artifact -- gold built from the densified sm.events,")
+    print("# readout from flag-independent sm.causal_links; causal answers byte-identical). This SUPERSEDES the prior")
+    print("# 2026-08-31 'no dimension flag should be flipped default-ON yet -- the fully-on reader is N parallel silos'")
+    print("# caution, because bind_event_tokens (the JOINT binder) is now ALSO default-ON, so the dimensions BIND.")
     print("# ✅ FIXED 2026-09-01 (the_assembled_reader_is_parallel_silos..., p4 owner-DONE, EXCELLENT): the")
     print("# integration fix -- the TIERED bound-event-token backbone -- is now LANDED as the default-off")
     print("# bind_event_tokens flag: read() builds sm.event_tokens (ONE FHRR bound token per event = the JOINT")
     print("# the silos can't store) + sm.episodic_store (resolve/corefer readout). JOINT coref 1.000 vs late-")
-    print("# fusion-of-marginals 0.600 CI-sep on old+modern text. Turning it ON is the integration; flipping it")
-    print("# default-ON is a SEPARATE owner decision (this is the evidence). The remaining ecological lever is the")
+    print("# fusion-of-marginals 0.600 CI-sep on old+modern text. Turning it ON is the integration; it was FLIPPED")
+    print("# default-ON on 2026-09-03 (owner-authorized -- the JOINT binder). The remaining ecological lever is the")
     print("# FRONT-END role assignment (agent-role 0.271 while event recall 0.953), NOT more flags.")
     print("# ✅ FIXED 2026-08-31 (QA-instrument coupling): the QA capstone exp_situation_model_qa_v1 used to run the")
     print("# DEFAULT weak reader and read temporal off sm.events tense, which tense_agnostic_events rewrites to a")

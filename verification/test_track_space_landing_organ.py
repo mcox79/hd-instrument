@@ -60,8 +60,10 @@ def test_track_space_landing():
     # (1) DEFAULT-OFF byte-identical + no import of the space adapter on the default path.
     assert "experiments._space_reader" not in sys.modules, \
         "the SPACE adapter must not be imported before a track_space reader runs"
-    sm_def = SituationReader().read(doc)
-    sm_off = SituationReader(track_space=False).read(doc)
+    # isolated all-OFF readers (flags default-ON since 2026-09-03): track_belief-default-ON would import
+    # _belief_reader -> _space_reader, breaking this isolation check, so build via the canonical all-off factory.
+    sm_def = SituationReader.all_capabilities_off().read(doc)
+    sm_off = SituationReader.all_capabilities_off(track_space=False).read(doc)
     assert sm_def.locations is None and sm_off.locations is None, \
         "sm.locations must be None when track_space is off"
     assert "experiments._space_reader" not in sys.modules, \
@@ -69,7 +71,7 @@ def test_track_space_landing():
     print("[1] DEFAULT-OFF byte-identical: sm.locations None on the default reader; space adapter not imported")
 
     # (2) FLAG FIRES + EQUIVALENCE to the validated read_locations_in_substrate (prior_ext).
-    reader = SituationReader(track_space=True)
+    reader = SituationReader.all_capabilities_off(track_space=True)   # isolate track_space vs the validated direct read
     gaz = reader.gaz
     sm_on = reader.read(doc)
     assert sm_on.locations is not None and hasattr(sm_on.locations, "where_is"), \

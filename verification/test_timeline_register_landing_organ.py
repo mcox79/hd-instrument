@@ -55,8 +55,9 @@ def _frame_tuples(frames):
 def test_timeline_register_landing():
     doc = _doc_path()
 
-    # (1) DEFAULT-OFF byte-identical.
-    sm_def = SituationReader().read(doc)
+    # (1) EXPLICIT-OFF byte-identical / reversible (flags are default-ON since 2026-09-03; the reversibility
+    # guarantee is that timeline_register=False reproduces the pre-wire behavior -- empty order, no import).
+    sm_def = SituationReader(timeline_register=False).read(doc)
     sm_off = SituationReader(timeline_register=False).read(doc)
     assert _frame_tuples(sm_def.timeline_frames) == _frame_tuples(sm_off.timeline_frames), \
         "timeline_frames must be byte-identical default vs explicit timeline_register=False"

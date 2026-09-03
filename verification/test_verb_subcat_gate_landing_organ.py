@@ -32,6 +32,17 @@ from hdlab.situation_reader import SituationReader, _write_temp_conll
 
 _SRC = os.path.join(_REPO, "data", "litbank", "coref", "conll", "1023_bleak_house_brat.conll")
 
+# ISOLATION (2026-09-03 default-flag flip): the net-positive flags are now default-ON, so this unit test
+# builds readers with the OTHER flags OFF -- testing verb_subcat_gate against its VALIDATED minimal config
+# (the SubcatGateReader = tense_agnostic_events + the gate). The off-set is DERIVED from the authoritative
+# SituationReader.CAPABILITY_FLAGS (not hand-copied), so a future default flip needs NO change here. In the
+# full default reader, verb_subcat_gate now runs AFTER predict_revise (its structural suppression gets the
+# final say) -- that interaction is verified by the QA aggregate, not this per-flag landing witness.
+_ISO = {f: False for f in SituationReader.CAPABILITY_FLAGS}
+_ISO["role_route"] = "positional"
+for _v in ("tense_agnostic_events", "verb_subcat_gate"):
+    _ISO.pop(_v, None)   # this witness sets these two explicitly per call
+
 
 def _truncate_conll(src, n_sents):
     """Copy the header + first n_sents blank-line-terminated sentences to a temp conll (real coref markers,
@@ -69,16 +80,16 @@ def test_verb_subcat_gate_landing():
             rows.append((si, wi, tok, "-"))
     syn = _write_temp_conll(rows)
     assert "hdlab.verb_subcat" not in sys.modules, "verb_subcat must not be imported before a gated reader runs"
-    sm_def = SituationReader(tense_agnostic_events=True).read(syn)
-    sm_off = SituationReader(tense_agnostic_events=True, verb_subcat_gate=False).read(syn)
+    sm_def = SituationReader(tense_agnostic_events=True, verb_subcat_gate=False, **_ISO).read(syn)   # explicit-OFF, isolated
+    sm_off = SituationReader(tense_agnostic_events=True, verb_subcat_gate=False, **_ISO).read(syn)
     assert _ev(sm_def) == _ev(sm_off), "verb_subcat_gate=False must be byte-identical to the default"
     assert "hdlab.verb_subcat" not in sys.modules, "verb_subcat must NOT be imported on the gate-OFF path"
     print("[1] DEFAULT-OFF byte-identical: %d events identical; verb_subcat not imported" % len(sm_def.events))
 
     # Real (truncated) doc -> real coref mentions -> the binder actually assigns patients.
     doc = _truncate_conll(_SRC, n_sents=60)
-    off = SituationReader(tense_agnostic_events=True).read(doc)
-    on = SituationReader(tense_agnostic_events=True, verb_subcat_gate=True).read(doc)
+    off = SituationReader(tense_agnostic_events=True, verb_subcat_gate=False, **_ISO).read(doc)   # explicit-OFF, isolated
+    on = SituationReader(tense_agnostic_events=True, verb_subcat_gate=True, **_ISO).read(doc)
 
     # (2) events held + suppress-only + at least one fire.
     assert len(off.events) == len(on.events), "event recall must be unchanged (detection is upstream of the gate)"
@@ -98,7 +109,7 @@ def test_verb_subcat_gate_landing():
     # (3) FAITHFUL WIRING == the validated SubcatGateReader byte-for-byte.
     import exp_verb_subcat_supply_through_reader_v1 as TR
     asset = TR.V2.load_final_asset()
-    ref = TR.SubcatGateReader(subcat_asset=asset, subcat_thr=0.35, tense_agnostic_events=True).read(doc)
+    ref = TR.SubcatGateReader(subcat_asset=asset, subcat_thr=0.35, tense_agnostic_events=True, **_ISO).read(doc)
     assert _ev(on) == _ev(ref), "landed verb_subcat_gate must EQUAL the validated SubcatGateReader byte-for-byte"
     print("[3] FAITHFUL WIRING: landed verb_subcat_gate=True == the validated SubcatGateReader (byte-for-byte)")
 

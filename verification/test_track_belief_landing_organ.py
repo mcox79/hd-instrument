@@ -45,7 +45,7 @@ _AGENT = ["he", "him", "his"]
 
 def test_default_off_byte_identical():
     gaz = load_given_gazetteer()
-    off = SituationReader(gaz=gaz).read(_DOC)
+    off = SituationReader(gaz=gaz, track_belief=False).read(_DOC)   # explicit-OFF (flags are default-ON since 2026-09-03)
     on = SituationReader(gaz=gaz, track_belief=True).read(_DOC)
     assert off.believes is None and off.knows is None, "OFF reader exposed belief callables"
     assert callable(on.believes) and callable(on.knows), "flag-on did not expose sm.believes/sm.knows"

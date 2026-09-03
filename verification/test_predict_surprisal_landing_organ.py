@@ -49,7 +49,7 @@ def _nominal_heads(toks, up):
 
 def test_default_off_byte_identical():
     gaz = load_given_gazetteer()
-    off = SituationReader(gaz=gaz).read(_DOC)
+    off = SituationReader(gaz=gaz, predict_surprisal=False).read(_DOC)   # explicit-OFF (flags default-ON since 2026-09-03)
     on = SituationReader(gaz=gaz, predict_surprisal=True, surprisal_abstain_tau=6.0).read(_DOC)
     core_off = [(e.global_idx, e.predicate, e.agent, e.patient, str(e.tense)) for e in off.events]
     core_on = [(e.global_idx, e.predicate, e.agent, e.patient, str(e.tense)) for e in on.events]

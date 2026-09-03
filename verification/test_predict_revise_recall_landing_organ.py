@@ -37,10 +37,13 @@ from hdlab import relcl_resolver as RR  # noqa: E402
 from experiments._forward_prediction_live import get_tagger, NOMINAL, PRON_LOW  # noqa: E402
 
 
-# the p2 wire composes with role_route='wired' (the assembly who-did-what path) + the capable flags
+# predict_revise composes with role_route='wired' + the temporal/space capable flags. Built via the all-off
+# factory (flags default-ON since 2026-09-03) so this witness reproduces predict_revise's VALIDATED minimal
+# context, NOT the full default reader: verb_subcat_gate (now default-ON, runs AFTER predict_revise) would
+# SUPPRESS some fills, and np_head_reduce would change candidate heads -- both orthogonal to the fill logic
+# under test here. Those interactions are covered by their own witnesses + the QA aggregate.
 CAPABLE = dict(tense_agnostic_events=True, preserve_tense=True, timeline_register=True,
-               track_space=True, verb_subcat_gate=True, role_route="wired",
-               spacy_pred_gate=False, causation_typed=False)
+               track_space=True, role_route="wired")
 
 
 def _sig(sm):
@@ -66,8 +69,8 @@ def _relcl_fill_ref(toks, up, v0):
 
 def main():
     gaz = QA.load_given_gazetteer()
-    reader_off = SituationReader(gaz=gaz, predict_revise=False, **CAPABLE)
-    reader_on = SituationReader(gaz=gaz, predict_revise=True, **CAPABLE)
+    reader_off = SituationReader.all_capabilities_off(gaz=gaz, predict_revise=False, **CAPABLE)
+    reader_on = SituationReader.all_capabilities_off(gaz=gaz, predict_revise=True, **CAPABLE)
     tagger = get_tagger()
 
     doc_used = sm_off = sm_on = None
