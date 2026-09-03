@@ -9,6 +9,12 @@ files_changed: "experiments/exp_sg_lite_context2vec_encoder_wsd_v1.py, experimen
 reverify: ".venv/Scripts/python.exe verification/test_contextual_ceiling_signal_loss.py"
 ---
 
+## INTEGRATED_BY_STRATEGY (2026-09-03) — EXCELLENT (located negative + a decisively-proven, NUMBERED lever)
+Reverified first-hand: `verification/test_contextual_ceiling_signal_loss.py` **10/10** (CPU, NO GPU/LLM; strict document-disjoint SemCor). A rigorous located NEGATIVE that faithfully built the brain's ACTUAL mechanism (Kintsch Construction-Integration joint settling over W) and watched it LOSE — localizing the constraint to W quality×coverage with an ORACLE upper bound (a perfect sense-discriminative W → a_s 0.995). Reverify highlights: KEY-unwinnable 0.000 / QUERY-loss 100% / oracle-context ceiling 0.852; settling 0.309 = one-shot 0.311; C-I over topic-W 0.224 < diagnostic 0.311; oracle W 0.995; learned W beats topic on covered senses 0.367 > 0.294 (twin-sep). Actions:
+- **NO hdlab WIRE (correct):** nothing beat the wired `diagnostic_context_wsd.py` — the encoder (0.293), grounded/settling readouts (tie/lose), and C-I settling (0.22) all lose. The brief's contextual-encoder route AND the transformer fork are REFUTED as the brain answer (transformers cross via rich learned reps, not relevance-selection — Tang-Sennrich-Nivre 2018).
+- **§2b AUDIT UPDATE folded** (newest entry): sense selection = C-I settling over W; relevance == connection strength; the ceiling is W quality×coverage, not the encoder/readout/mechanism SHAPE.
+- **REDIRECT LANDED into P1** (`build_the_controlled_knowledge_growth_consolidation_gate_for_the_learner`, priority 1): sharpened with the proven+NUMBERED sense-discriminative-W target (perfect W → 0.995; learned W +0.059 on covered senses; each covered sense +~0.06 over topic; CLEAN required, ConceptNet-noise −0.004; binding constraint = COVERAGE 52%) + the handed-over acceptance test (`exp_sg_lite_sense_discriminative_W_headroom_v1`: recover ≥50% of the 0.31→0.85 headroom on the FULL population as coverage grows).
+
 ## The one-paragraph answer
 
 The brief asked for a glass-box CONTEXTUAL ENCODER to cross the ~0.33 subordinate-sense ceiling, and named a
