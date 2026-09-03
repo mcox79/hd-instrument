@@ -5,7 +5,7 @@ bar: "PASS = a self-supervised generative sense predictor (SG-lite at scale + a 
 result: "a_s(subordinate senses, subject-weighted, strict document-disjoint SemCor, n_sub_test~2676). BRAIN-FOUNDATIONAL FIX prototyped + validated: a biased-competition DIAGNOSTIC-CONTEXT readout (semantic control -- amplify sense-discriminating context words, suppress shared topic; glass-box, no LLM) reaches a_s = 0.326 (APEX) with 277M embeddings (paired +0.0430 CI-sep over flat-context 0.283), and 0.307 on 41M (paired +0.0389 CI-sep [+0.019,+0.059] over 0.268), with a shuffled-diagnosticity twin LOSING CI-sep both times. It STACKS knowledge (better embeddings 0.307->0.326) with the brain mechanism, is the most brain-faithful arm, and beats the top-k key trick. Prior APEX (readout tricks): 0.306 by STACKING the 277M gestalt (best knowledge) + a richer TOP-K gloss readout (paired +0.0262 CI-sep over that gestalt's mean-pool 0.280). >> the located-negative NB 0.198, the nearest-centroid 0.22, and the parent's 0.280. Each lever alone: KNOWLEDGE -- paired 41M-vs-8M recon a_s +0.0277 CI-sep [0.0120,0.0445] (reverify witness; n=2676), rising 8M 0.255 -> 41M 0.280 -> 277M 0.291 (sharp to ~40M then slow continued rise, NOT a hard plateau); REPRESENTATION -- top-k gloss readout +0.0310 CI-sep on the 41M gestalt (0.265->0.296) and +0.0262 on the 277M gestalt (0.280->0.306). Shuffled twin LOSES CI-sep and net over MFS(0.6831) is POSITIVE CI-sep at every point. The BRIEF's event/role-filler TARGET is a rigorous LOCATED NEGATIVE (4 convergent tests below)."
 floor: "MFS overall 0.6831 (net-gain floor, gated on upper bound); a_s floors: overfit-NB 0.198 and nearest-centroid readout 0.22 (both strict document-disjoint). Every net-over-MFS is CI-separated ABOVE 0 with the twin losing."
 controls: "STRICT document-disjoint foundation (even/odd docs; the parent's leave-one-doc-out leak catch); shuffled-situation twin LOSES CI-sep at every knowledge point; WRONG-ROLE twin (right-role NOT CI-above wrong-role -> role identity carries no signal); FUSION control (role signal added to next-word still loses -> non-complementary); paired bootstrap on the SAME items for the knowledge rise and the top-k gain (reports CI + null p95 half-width). Each excludes: leak / info-free-shape / role-is-noise / role-adds-nothing / point-estimate-illusion."
-files_changed: "experiments/exp_sg_lite_event_role_readout_v1.py, experiments/exp_sg_lite_event_target_gestalt_v1.py, experiments/exp_sg_lite_knowledge_scaling_v1.py, experiments/exp_sg_lite_selectional_fit_readout_v1.py, experiments/exp_sg_lite_signal_loss_trace_v1.py, experiments/exp_sg_lite_diagnostic_context_readout_v1.py, experiments/exp_sg_lite_brain_gap_attribution_v1.py, experiments/exp_sg_lite_graph_knowledge_scaling_v1.py (reuses grounded_semantic_graph_organ UNMODIFIED), experiments/exp_sg_lite_syntactic_query_wsd_v1.py, verification/test_event_role_and_knowledge_scaling.py, data/exp_sg_lite_knowledge_scaling_v1/metrics_know{530000,7500000,0}.json, data/exp_sg_lite_event_{role_readout,target_gestalt}_v1/metrics.json, data/exp_sg_lite_selectional_fit_readout_v1/metrics{,_know0}.json, data/exp_sg_lite_signal_loss_trace_v1/metrics.json, data/exp_sg_lite_diagnostic_context_readout_v1/metrics.json"
+files_changed: "experiments/exp_sg_lite_event_role_readout_v1.py, experiments/exp_sg_lite_event_target_gestalt_v1.py, experiments/exp_sg_lite_knowledge_scaling_v1.py, experiments/exp_sg_lite_selectional_fit_readout_v1.py, experiments/exp_sg_lite_signal_loss_trace_v1.py, experiments/exp_sg_lite_diagnostic_context_readout_v1.py, experiments/exp_sg_lite_brain_gap_attribution_v1.py, experiments/exp_sg_lite_graph_knowledge_scaling_v1.py (reuses grounded_semantic_graph_organ UNMODIFIED), experiments/exp_sg_lite_syntactic_query_wsd_v1.py, experiments/exp_sg_lite_context_encoder_wsd_v1.py, experiments/exp_sg_lite_context_encoder_wsd_v2.py, verification/test_event_role_and_knowledge_scaling.py, data/exp_sg_lite_knowledge_scaling_v1/metrics_know{530000,7500000,0}.json, data/exp_sg_lite_event_{role_readout,target_gestalt}_v1/metrics.json, data/exp_sg_lite_selectional_fit_readout_v1/metrics{,_know0}.json, data/exp_sg_lite_signal_loss_trace_v1/metrics.json, data/exp_sg_lite_diagnostic_context_readout_v1/metrics.json"
 reverify: ".venv/Scripts/python.exe verification/test_event_role_and_knowledge_scaling.py"
 ---
 
@@ -178,6 +178,45 @@ discriminate the senses" and the diagnostic measure targets that DIRECTLY, subsu
 construction / biased competition) is confirmed; its specific SYNTACTIC implementation is dominated by the SEMANTIC
 one. Remaining research arms: exemplar-retrieval (coverage-limited -- covered-sense supervised ceiling is only 0.35);
 a small recurrent Sentence-Gestalt contextual encoder (the ceiling candidate, needs a trained component).
+
+## HOW FAR CAN WE GO -- the ceiling, triangulated (3 research drills + 5 prototypes)
+The question "does more optimization help, and how far" now has an evidenced answer, and it is a real wall, not a
+to-do list.
+
+**Where we ARE (glass-box, wireable): a_s ~0.33-0.34** via the biased-competition diagnostic query. The full-chain
+attribution shows this is near the readout ceiling (covered-sense supervised bound 0.35).
+
+**The wall = CONTEXTUAL INPUT ENCODING, and static fixes cannot cross it -- proven, not asserted:**
+- CEILING PROTOTYPE (`exp_sg_lite_context_encoder_wsd_v1/v2`): a small glass-box bi-encoder (BEM-lite: BiGRU context
+  encoder + gloss encoder, target masked) trained on SemCor. a_s 0.245 (v1) -> 0.253 (v2, both design fixes) -> 0.227
+  (v2 + dropout 0.5) -- ALL BELOW the parameter-free bag (0.283). Two configs, one over-fit one under-fit, both lose:
+  the shortfall is NOT tuning, it is the FROZEN W2V INPUT (one sense-conflated vector per surface form). A contextual
+  encoder built ON TOP of frozen w2v cannot cross the input's own ceiling.
+- UPSTREAM STATIC FIX -- ruled out by research (`notes/research_wsd_input_representation_sense_embeddings_2026-09-03.md`,
+  P_deflated 0.10): static per-synset/multi-prototype sense embeddings are brain-UNFAITHFUL for topically-overlapping
+  polysemy (our exact case needs ONE representation reshaped by context, not discrete per-sense vectors -- Klepousniotou,
+  Rodd, Beretta 2005 MEG), empirically UNDERperform a plain supervised baseline (AutoExtend 58.3 < IMS 65.2), and are
+  CIRCULAR (every deployed system falls back to the same sense-conflated context vector).
+- The design-validation drill (`notes/research_wsd_bem_lite_biencoder_design_validation_2026-09-03.md`) calibrates the
+  wall: MFS 65.5 -> BERT-base-no-gloss 73.7 is ~HALF the total gap to BEM (79.0 / LFS 52.6), and that half is the INPUT
+  REPRESENTATION alone (contextual + subword), independent of any gloss mechanism.
+
+**So the ceiling, by regime:**
+| regime | a_s (subordinate) | status |
+|---|---|---|
+| glass-box readout (bag + biased-competition diagnostic) | ~0.33-0.35 | WE ARE HERE; wireable |
+| static-embedding fixes (sense embeddings, retrofitting) | <= readout | research dead-end (circular, brain-unfaithful) |
+| small glass-box contextual encoder on FROZEN w2v | < bag | input-capped (proven) |
+| scale-trained BiLSTM LM contextual encoder (context2vec/ELMo-style, unsupervised on ~277M) | ~0.40-0.45 (est.) | UNTESTED -- the one remaining glass-box contextual route; a real GPU build |
+| transformer contextual encoder (BEM-class, offline, OUR model) | ~0.53 (SOTA-LFS) | crosses the wall but is transformer-architecture -- the INVARIANT boundary (owner call) |
+| human | ~0.6-0.7 (subordinate; overall 0.72 caveated) | grounding + world-knowledge inference |
+
+**THE STRATEGIC FORK (owner decision, involves the no-external-LLM invariant):** to go materially past ~0.35 requires a
+genuinely contextual input encoder. Options: (a) accept the glass-box ceiling and wire the diagnostic fix; (b) build a
+scale-trained BiLSTM-LM contextual encoder (the one untested glass-box route, est. ~0.40, uncertain, a real GPU build);
+(c) accept a small OFFLINE-trained transformer (our own model, not an external LLM -- arguably within the invariant),
+which reaches ~0.53 but is transformer-architecture the project has otherwise avoided. All three research drills agree
+the target is contextual encoding; the fork is how far to go and at what fidelity cost.
 
 ## KEY REALIZATIONS
 - **The brief named the wrong lever.** "Role-filler target raises a_s" is refuted; the levers that actually move

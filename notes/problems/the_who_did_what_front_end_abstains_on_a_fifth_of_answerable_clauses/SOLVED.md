@@ -5,7 +5,7 @@ bar: "PASS = a coverage recovery (attempt every finite verb + parser-robust cand
 result: "RECOMPUTED against the CURRENT live reader (the stored 0.6293 floor went STALE -- upstream modules landed DURING this work and lifted the live wired reader to 0.7877; predict_revise = +0.0643 of it). On the 669 clean-19c direct-object clauses, scorer pick==gold_head, effective end-to-end (abstention=wrong): CURRENT live wired 0.7877 -> STRUCTURAL recovery 0.9851, marginal +0.1973 CI[+0.1689,+0.2272] CI-separated. The recovery's contribution is now primarily ACCURACY (it fixes 65 of the reader's 75 remaining wrong picks) plus the 47 verb_subcat + 20 no-event abstentions. Modern QA-SRL (n=1261) 0.5678 -> 0.9025, +0.3347 CI-sep (modern floor not yet re-run against current substrate)."
 floor: "Strongest floor actually run = the CURRENT live wired reader 0.7877 (predict_revise ON; recomputed first-hand, NOT the stale stored 0.6293). predict_revise OFF = 0.7235. The RECOVERED path beats the current floor +0.1973 CI[+0.1689,+0.2272]. best-available-parser wired floor (updated arc-eager UAS 0.842) 0.6308 at the time it was run -- also now superseded by the upstream lift. RETIRED as stale: the stored wired_pick 0.6293."
 controls: "(1) info-free twin = full coverage + UNIFORM-RANDOM post-verbal pick 0.4185, LOSES CI-sep. (2) NO-REGRESSION: present-accuracy 0.807->0.981; 5 individual flips (hard ditransitive/copula/distant-noun). (3) INTRANSITIVE precision control (constructed, can-fail): naive soft rule over-generates on 100% of intransitives; STRUCTURAL-DO abstains correctly 0.975 AND recovers the 47 AND does not regress the main gold. (4) CURRENT-FLOOR recompute (first-hand): the recovery marginal is measured over the CURRENT 0.7877 reader, not the stale 0.6293; predict_revise attributed (+0.064). (5) fair-floor: the updated arc-eager parser recovers only 1/669 -> abstention was not parse-quality. (6) per-cause ablation is exhaustive."
-files_changed: "experiments/exp_whodidwhat_coverage_diagnosis_v1.py, experiments/exp_whodidwhat_coverage_recover_v1.py, experiments/exp_whodidwhat_coverage_parser_floor_v1.py, experiments/exp_whodidwhat_coverage_transitivity_control_v1.py, experiments/exp_whodidwhat_verb_id_recoverable_v1.py, experiments/exp_whodidwhat_mention_source_transfer_v1.py, experiments/exp_whodidwhat_meaning_prediction_completeness_v1.py, experiments/exp_whodidwhat_live_wire_end_to_end_v1.py, experiments/exp_whodidwhat_current_floor_rediagnosis_v1.py, experiments/exp_whodidwhat_referent_per_np_prototype_v1.py, experiments/exp_whodidwhat_verbid_override_prototype_v1.py, experiments/exp_whodidwhat_ideal_brain_foundational_v1.py, experiments/exp_whodidwhat_noncanonical_upstream_v1.py, experiments/exp_whodidwhat_fillergap_fix_v1.py, experiments/exp_whodidwhat_composed_pipeline_v1.py, experiments/exp_whodidwhat_verbid_learned_combiner_v1.py, experiments/exp_whodidwhat_competent_reader_benchmark_v1.py, experiments/exp_whodidwhat_verbid_joint_pos_parse_v1.py, experiments/exp_whodidwhat_noncanonical_gold_rebuild_v1.py, experiments/exp_whodidwhat_fillergap_parse_v1.py, verification/test_whodidwhat_coverage.py, notes/problems/the_who_did_what_front_end_abstains_on_a_fifth_of_answerable_clauses/SOLVED.md"
+files_changed: "experiments/exp_whodidwhat_coverage_diagnosis_v1.py, experiments/exp_whodidwhat_coverage_recover_v1.py, experiments/exp_whodidwhat_coverage_parser_floor_v1.py, experiments/exp_whodidwhat_coverage_transitivity_control_v1.py, experiments/exp_whodidwhat_verb_id_recoverable_v1.py, experiments/exp_whodidwhat_mention_source_transfer_v1.py, experiments/exp_whodidwhat_meaning_prediction_completeness_v1.py, experiments/exp_whodidwhat_live_wire_end_to_end_v1.py, experiments/exp_whodidwhat_current_floor_rediagnosis_v1.py, experiments/exp_whodidwhat_referent_per_np_prototype_v1.py, experiments/exp_whodidwhat_verbid_override_prototype_v1.py, experiments/exp_whodidwhat_ideal_brain_foundational_v1.py, experiments/exp_whodidwhat_noncanonical_upstream_v1.py, experiments/exp_whodidwhat_fillergap_fix_v1.py, experiments/exp_whodidwhat_composed_pipeline_v1.py, experiments/exp_whodidwhat_verbid_learned_combiner_v1.py, experiments/exp_whodidwhat_competent_reader_benchmark_v1.py, experiments/exp_whodidwhat_verbid_joint_pos_parse_v1.py, experiments/exp_whodidwhat_noncanonical_gold_rebuild_v1.py, experiments/exp_whodidwhat_fillergap_parse_v1.py, experiments/exp_whodidwhat_joint_pos_parse_coherence_v1.py, verification/test_whodidwhat_coverage.py, notes/problems/the_who_did_what_front_end_abstains_on_a_fifth_of_answerable_clauses/SOLVED.md"
 reverify: ".venv/Scripts/python.exe verification/test_whodidwhat_coverage.py"
 ---
 
@@ -233,6 +233,28 @@ The CONFIRMED structural fixes, ready to land into `hdlab` (reference impl:
 DO NOT land: the grounded-VALENCE cue on selection (fenced negative); a verb-ID heuristic (all refuted — 1c needs the
 joint trained model). Every step is default-off + witnessed; strategy re-verifies against the CURRENT substrate (the
 floor moves — §0).
+
+## 0h. ⚠️ CORRECTIONS from the substrate-parser map (research 2026-09-03) — I was partly REINVENTING landed work
+A substrate map corrected several of my exploratory conclusions; recording honestly:
+- **"Non-canonical is gated on parser quality" (§0f) is WRONG per the disk.** The who-did-what patient decision is
+  measured HEAD-INDEPENDENT (`hybrid_role_patient`/`resolve_patient` unmoved by better parse heads). My 0.40 "parser
+  patient" number measured parser DEPENDENTS against a spaCy-rebuilt gold (≈ "does our parse agree with spaCy") — a
+  circular-ish comparison, not the live lever. **Non-canonical role assignment is ALREADY SOLVED and landed**
+  (`the_front_end_mishandles_non_canonical_argument_structure`, SOLVED) — a Competition-Model non-canonical assigner.
+- **Filler-gap already EXISTS as a specialised circuit** (`hdlab/relcl_resolver.py`, filler-gap 0.953, oracle-tying);
+  the general parser is HARMFUL there (0.198). My filler-gap heuristic reinvented a landed, better organ. It fires on
+  ~0.75% of real prose (+0.001 aggregate) — low ROI, correctly routed AROUND the parser.
+- **The 19c verb-ID "collapse" is ~87% copula-as-AUX (CORRECT UPOS)**; only ~2% is genuine archaic mistag (my 20
+  no-event). So the verb-ID lever is small in aggregate — but it is the ONE genuinely-open, un-owned, brain-foundational
+  build, and it is **doubly-compounding** (POS feeds BOTH the parser AND the meaning channel's lemma/POS).
+- **The parser bottleneck problem is SOLVED/owner-DONE** (improved arc-eager UAS 0.842 landed, default-off); chasing
+  better UAS / register-native data is REFUTED. Build ON `PARSER_SERVICE_SPEC_brain_foundational.md`, not a new parser.
+
+**NET re-scoping of "the impactful build":** the single genuinely-open, high-fidelity, un-owned next build is
+**JOINT POS+dependency inference** — make category a PARSE decision (the transition parser can override a mis-tag),
+targeting the gold-POS→pred-POS UAS gap (0.842→0.805; ~87% joint-inference headroom). Everything else I "found" as a
+gap (non-canonical, filler-gap) is already landed; I was measuring against broken/rebuilt gold or reinventing organs.
+This is the honest correction the research bought.
 
 ## 1. The diagnosis — first-hand, exhaustive (cell: exp_whodidwhat_coverage_diagnosis_v1) [floor superseded by §0]
 I re-ran the actual `hdlab.situation_reader.SituationReader` (the "strong" reader the gold was built with:
