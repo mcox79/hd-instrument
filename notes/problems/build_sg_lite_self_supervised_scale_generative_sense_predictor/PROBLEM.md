@@ -1,7 +1,6 @@
 ---
-priority: 1
-review:
-review_text:
+review: EXCELLENT
+review_text: Reverified first-hand 12/12 (strict document-disjoint SemCor, subordinate senses, n=2676). MEETS THE BAR the brain-foundational way -- the biased-competition DIAGNOSTIC-CONTEXT readout raises a_s 0.198->0.326 (+0.0389/+0.0430 CI-sep, shuffled-diagnosticity twin loses, net over MFS positive), no overclaim. The brief's OWN event/role-filler target is a rigorous located NEGATIVE (4 convergent tests + mechanism). Headline for the whole learner-on north star: knowledge growth is the biggest lever (+0.081) BUT raw growth REGRESSES (-0.015) -- clean-foundation-before-learner-on is now a MEASURED requirement. WIRE LANDED (Q111): promoted the readout mechanism to hdlab/diagnostic_context_wsd.py (asset-independent, witness 7/7); live WSD/WiC consumer measurement owed (no-default-off). Filed the owner-flagged top follow-on (the consolidation gate) + presented the contextual-encoder fork. §2b folded. INTEGRATED 2026-09-03.
 ---
 
 # PROBLEM: the meaning-channel north star located the a_s ("which SPECIFIC rare sense") lever precisely — it is NOT a decision-rule fix (that is done: the additive rule nets over MFS) and NOT an LLM (that ceiling is demolished glass-box), it is a LEARNED incremental GENERATIVE sense predictor trained self-supervised at SCALE; a 41M-token SG-lite gestalt + reconstruction-match readout already beats the nearest-centroid readout and generalizes (a_s 0.280 > 0.220 > overfit-NB 0.198), so BUILD the self-supervised SG-lite at scale (the ~277M-token GPU run is in flight) + a role-filler (who-did-what) prediction target, and prove it raises a_s CI-separated over the located negative (0.198 strict) on strict disjoint-document SemCor with a shuffled-situation twin LOSING — or a located negative naming the scale/representation ceiling.

@@ -9,6 +9,16 @@ files_changed: "experiments/exp_sg_lite_event_role_readout_v1.py, experiments/ex
 reverify: ".venv/Scripts/python.exe verification/test_event_role_and_knowledge_scaling.py"
 ---
 
+## INTEGRATED_BY_STRATEGY (2026-09-03) — EXCELLENT
+Reverified first-hand: `test_event_role_and_knowledge_scaling.py` **12/12** (the a_s knowledge rise +0.0202 CI-sep, BOTH located negatives on the event/role target, the diagnostic-context +0.0389 CI-sep with the shuffled-diagnosticity twin losing, and W10 raw-growth-regresses/only-curated-helps — all reproduce from source). Meets the bar the brain-foundational way (a_s 0.198→0.326, no overclaim). Actions:
+- **WIRE LANDED (Q111):** promoted the biased-competition readout MECHANISM VERBATIM (asset-independent pure numpy) → **`hdlab/diagnostic_context_wsd.py`** (`diagnostic_context_scores` / `diagnosticity` / `diagnostic_query` / `flat_context_scores`; the caller supplies context+gloss vectors from any embedding space). Witness **`verification/test_diagnostic_context_wsd_organ.py` 7/7** (mechanism identifies the diagnostic word; biased competition sharpens the pick over the flat topic average; the shuffled-diagnosticity twin LOSES 1.000 vs 0.535; graceful flat-mean fallback). HONEST BOUND: this BANKS the a_s-lifting mechanism; the LIVE WSD `select_sense`/`read()` wiring + the on-vs-off WiC measurement (before any default-on, per the no-default-off rule) is OWED — the meaning read-out's live consumer is the same DEBT the P1 entry names.
+- **§2b AUDIT UPDATE folded** (newest entry): biased competition PINNED as the sense readout; event/role target a located NEGATIVE (readout mismatch, not the gestalt); knowledge the dominant-but-bounded lever; consolidation a MEASURED requirement; contextual-input-encoding the ceiling.
+- **FOLLOW-ON FILED (owner-flagged TOP lever, priority 1):** `build_the_controlled_knowledge_growth_consolidation_gate_for_the_learner` — the clean-foundation-before-learner-on gate, now a numbered requirement (raw growth −0.015; clean +0.058).
+- **PRESENTED TO OWNER (decisions):** the contextual-encoder fork past ~0.35 (glass-box BiLSTM-LM est. ~0.40 vs an offline transformer ~0.53 = the invariant boundary); the optional selectional-fit readout redesign before fully closing the event route; the `queue_add.sh` rc=1 infra flag (orchestrator lane).
+- The event/role target is NOT re-opened (located negative). No hdlab wire for the located negatives.
+
+**Bottom line: EXCELLENT.** The north-star continuation delivered the a_s lever the brain-foundational way, refuted its own brief's proposed mechanism with power, and converted "clean foundation before learner-on" from an aspiration into a measured requirement — the exact next build.
+
 ## What was asked, and what the disk says
 
 The brief's proposed mechanism: a **self-supervised generative sense predictor at scale + a role-filler
