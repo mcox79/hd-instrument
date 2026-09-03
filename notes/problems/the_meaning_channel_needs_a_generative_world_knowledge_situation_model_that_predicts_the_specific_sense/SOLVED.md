@@ -11,6 +11,14 @@ reverify: ".venv/Scripts/python.exe verification/test_generative_situation_sense
 
 # The meaning channel's a_s wall: the parent's NET-GAIN see-saw is BROKEN by the brain's DECISION RULE (reordered-access, no hard flip); the generative WORLD-KNOWLEDGE source is real but modest, and the learned generative predictor is the right architecture whose gain is corpus-overfit at SemCor scale
 
+> **SUBMITTED with the SG-lite SCALE run STILL IN FLIGHT (owner decision).** The submission stands on the CONFIRMED,
+> witnessed results below -- (A) the parent's net-gain wall broken by the brain-faithful DECISION RULE (+0.0116 CI-sep
+> held-out), and (B) the "0.4 ceiling / needs-an-LLM" claim DEMOLISHED empirically (reconstruction-match a_s 0.280 >
+> nearest-centroid 0.220 > NB 0.198, generalizing). The self-supervised SCALE run (`exp_sg_lite_scale_v1`, ~277M tokens
+> on the GPU) is running (word2vec phase, ~1-2h) as a PUSH to the glass-box band; its a_s (~0.33-0.39 expected, recipe
+> drill) is a FOLLOW-UP that will update roadmap items 1/3 below -- NOT a blocker. If it fails to land, the submission
+> is complete without it.
+
 ## Verdict
 **PARTIAL, advancing the parent.** The brief asked for a generative world-knowledge situation model that raises the "which specific rare sense" override accuracy a_s and thereby nets over the most-frequent-sense (MFS) floor. Faithfully built, the result splits:
 - **The NET-GAIN wall the parent could not beat is BROKEN (bar 2), robustly and held-out** -- but by a mechanism the brief did not name: the brain's **precision-weighted ADDITIVE decision rule** (reordered access: the dominant is never suppressed, context only *adds* to a subordinate; Feldman-Friston non-margin precision), not the generative source. On the leak-free WordNet-structural + static-world-knowledge signal it nets **+0.0116 over MFS (held-out, CI[0.0060,0.0169], twin loses CI-sep, dominant preserved 0.949)**; the parent's best gated hard-flip was **-0.0013 CI-separated BELOW**.
@@ -88,9 +96,9 @@ open, and the ceiling is NOT the LLM-limit I wrongly claimed. The route to optim
    SyntagNet syntagmatic partners + the `grounded_semantic_graph` PPR + `distributional_meaning_channel`, FULL
    WordNet coverage incl. rare senses, projected into the gestalt's prediction space. ENRICHED in
    `exp_sg_lite_sense_gestalt_v1._gloss_vec`; still to add graph-PPR + full coverage.
-3. **[DROPPED for GPU dispatch] Self-supervised SCALE on the GPU:** `exp_sg_lite_scale_v1.py` (+ validated
-   `REMOTE_RUN_REQUEST_exp_sg_lite_scale_v1.md`) -- ~277M tokens (ARC+simplewiki), 300-d embeddings, hidden-512
-   GRU, 3 epochs, on the RTX 4060 Ti. Strengthens BOTH mu and the gloss embeddings e_s. Honest expectation
+3. **[RUNNING on GPU -- word2vec phase, ~1-2h; result pending -> data/exp_sg_lite_scale_v1/metrics.json]
+   Self-supervised SCALE:** `exp_sg_lite_scale_v1.py` (+ validated `REMOTE_RUN_REQUEST_exp_sg_lite_scale_v1.md`) --
+   ~277M tokens (ARC+simplewiki), 300-d embeddings, hidden-512 GRU, 3 epochs, on the RTX 4060 Ti. Strengthens BOTH mu and the gloss embeddings e_s. Honest expectation
    (recipe drill): a_s ~0.33-0.39 (corpus-diffuseness ceiling; diminishing returns past ~100M) -- a real but
    modest lift over the 41M gestalt's 0.28. The next fidelity lever AFTER scale is item 4 (role-filler target),
    not more corpus.
