@@ -9,6 +9,13 @@ files_changed: "experiments/exp_situation_model_state_qa_v1.py (NEW -- the power
 reverify: ".venv/Scripts/python.exe verification/test_state_qa_consumer_organ.py   (9/9, all recomputed from source)"
 ---
 
+## INTEGRATED_BY_STRATEGY (2026-09-03) — EXCELLENT
+Reverified first-hand: `verification/test_state_qa_consumer_organ.py` **9/9** PRE-landing (base OFF=0; qa_state 0.7011 CI-sep +0.140 over floor; shuffle twin loses; router 1.000/ablation 0; no-regression 4 dims byte-identical; waterfall read-back|binding 0.992; LitBank 295/296; label 0.701→robust_cop 0.826→arc-eager 0.848 each CI-sep). Bar met the brain-foundational way (content-addressable retrieval → mental-model read-out). **BOTH REQUIRED CHANGES LANDED (Q111):**
+- **CHANGE 1 — consumer wire + turn ON:** the state-QA consumer lives in `experiments/exp_situation_model_qa_v1.py` (already on disk); flipped `bind_entity_states` **DEFAULT-ON** in `hdlab/situation_reader.py` (no-default-off: net-positive on a CONSUMED metric, PURELY ADDITIVE — 4 scored dims byte-identical off vs on, qa_aggregate 0.2811→0.4657, +~5ms/read).
+- **CHANGE 2 — upstream detection fix:** promoted `robust_cop` (label-ROBUST closed-class copula detector) VERBATIM → `hdlab/copular_binding.py`; unioned it into `_read_entity_states` (`bind | robust_cop`). Measured FIRST-HAND through the LIVE reader: **qa_state 0.7011 → 0.826 CI-sep** (concentrated on is-a pred_nom +0.184).
+- **Witnesses:** `test_copular_is_a_binding_landing_organ.py` 6/6 (default-ON [0] + union [3] byte-exact + read-back + factory-off); `test_state_qa_consumer_organ.py` 9/9 (W9 made landing-aware — robust_cop is now the reader default, arc-eager +0.032 on top). Registered `copular_state_qa_consumer_and_robust_cop_wire_v1`. §2b AUDIT UPDATE folded.
+- **OPTIMIZATION NOT LANDED (modern-only): arc-eager tree** stacks +0.032 (→0.848) but is 19c-negative → needs PER-REGISTER parser routing; deferred as a measured follow-on. Two brain-differences remain filed follow-ons (cross-sentence canonical-entity binding; identity→coref-merge).
+
 # SOLVED -- the copular is-a/attribute capability now has a LIVE QA CONSUMER, proven net-positive on a consumed metric (qa_state CI-separated over the validated floor, twin losing), no other-dimension regression, and the flag is ready to turn ON
 
 **Status: SOLVED (WIP until `owner_verdict: DONE`).** Glass-box, NO external LLM at inference (the invariant). NO

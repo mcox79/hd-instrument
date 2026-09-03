@@ -53,33 +53,42 @@ def main():
     on = SituationReader.all_capabilities_off(gaz=_GAZ, bind_entity_states=True).read(doc)
     checks = []
 
-    # [1] DEFAULT-OFF byte-identical.
+    # [1] EXPLICIT-OFF byte-identical (all_capabilities_off + bind OFF -> no state binding).
     ok1 = (list(off.entity_states) == [] and off.state_register is None and _core(off) == _core(on))
-    checks.append((ok1, "[1] DEFAULT-OFF byte-identical: entity_states=[] + state_register None; %d core events "
+    checks.append((ok1, "[1] EXPLICIT-OFF byte-identical: entity_states=[] + state_register None; %d core events "
                    "identical off vs on" % len(off.events)))
+
+    # [0] DEFAULT-ON (P3 CHANGE 1, 2026-09-03): bind_entity_states is now the reader's DEFAULT (the state-QA
+    # consumer landed, turn-on net-positive) -- SituationReader() with no args builds the state register; the
+    # factory off-baseline still sets it False.
+    ok0 = (SituationReader().bind_entity_states is True
+           and SituationReader.all_capabilities_off().bind_entity_states is False
+           and "bind_entity_states" in SituationReader.CAPABILITY_FLAGS)
+    checks.append((ok0, "[0] DEFAULT-ON: SituationReader().bind_entity_states=True, factory-off=False, in FLAGS"))
 
     # [2] FLAG-ON FIRES + typed.
     got = {(s.holder.lower(), s.property.lower(), s.htype) for s in on.entity_states}
     ok2 = (("ahab", "captain", "pred_nom") in got) and (("room", "cold", "pred_adj") in got)
     checks.append((ok2, "[2] FLAG-ON fires + Higgins-typed: %s" % sorted(got)))
 
-    # [3] FLAG-ON == the promoted primitive byte-for-byte (same assets the reader uses).
+    # [3] FLAG-ON == the promoted DETECTION UNION (label path | robust_cop), byte-for-byte (P3 CHANGE 2: the
+    # entity-state route unions the high-precision `cop`-label path with the label-ROBUST closed-class detector).
     import hdlab.copular_binding as M
     from hdlab.pos_tagger import PosTagger
     from hdlab.arc_parser import ArcParser
     from hdlab.arc_labeler import ArcLabeler
     pos = PosTagger.load(M.POS_ASSET); arc = ArcParser.load(M.ARC_ASSET); lab = ArcLabeler.load(M.LAB_ASSET)
     sents = parse_conll_sentences(doc)
-    ref_pairs, got_pairs = [], []
+    ref = set()
     for si, toks in enumerate(sents):
         up = pos.tag(toks)
-        ref_pairs += [(si, h, p) for (h, p) in M.extract_entity_states(toks, up, arc, lab)]
-    for s in on.entity_states:
-        toks = sents[s.sent_idx]
-        got_pairs.append((s.sent_idx, toks.index(s.holder) if s.holder in toks else -1,
-                          toks.index(s.property) if s.property in toks else -1))
-    ok3 = sorted(got_pairs) == sorted(ref_pairs) and len(ref_pairs) > 0
-    checks.append((ok3, "[3] FLAG-ON == validated extract_entity_states byte-for-byte (%d pairs)" % len(ref_pairs)))
+        heads = arc.parse(toks, up).heads
+        pairs = set(M.extract_entity_states(toks, up, arc, lab)) | M.robust_cop(toks, up, heads, gate=True)
+        for (h, p) in pairs:
+            ref.add((si, toks[h].lower(), toks[p].lower()))
+    got = set((s.sent_idx, s.holder.lower(), s.property.lower()) for s in on.entity_states)
+    ok3 = got == ref and len(ref) > 0
+    checks.append((ok3, "[3] FLAG-ON == extract_entity_states UNION robust_cop byte-for-byte (%d pairs)" % len(ref)))
 
     # [4] READ-BACK round-trips via state_register.
     sa = on.state_register.state_at("ahab") if on.state_register is not None else set()

@@ -16,6 +16,7 @@ experiments.exp_copular_is_a_binding_readout_v1.predicted_type (witness: test_co
 from __future__ import annotations
 
 import os
+from collections import defaultdict
 
 _REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # the copular solution's OWN validated frontend assets (so the promoted path == the validated experiment)
@@ -26,6 +27,66 @@ LAB_ASSET = os.path.join(_REPO, "data", "frontend_assets", "arc_labeler_hashed_u
 # Higgins definiteness cues (verbatim from the validated classifier)
 DEF_DET = {"the", "this", "that", "these", "those", "my", "your", "his", "her", "its", "our", "their"}
 INDEF_DET = {"a", "an", "some", "any", "another", "one"}
+
+# robust_cop closed-class lexicons (verbatim from exp_copular_is_a_binding_readout_v1)
+BE_LEMMAS = {"be", "is", "are", "was", "were", "been", "being", "am", "'s", "'re", "'m"}
+LINK_LEMMAS = {"become", "became", "seem", "seemed", "remain", "remained", "prove", "proved"}
+EXPLETIVE = {"there", "here"}
+
+
+def robust_cop(toks, up, heads, gate=True):
+    """THE LABEL-ROBUST detection fix (verbatim from exp_copular_is_a_binding_readout_v1.robust_cop). The dominant
+    entity-state capability loss is DETECTION -- the arc labeler's `cop` recall is low (it labels a nominal
+    predicate `nsubj`/`root`, worst on the equative identity type). The copula BE is a CLOSED-CLASS functional
+    carrier (PINNED), so predication detection should NOT be gated on a fragile dependency label. Fire on each
+    copula/linking TOKEN; predicate = its parse-tree head (if a content word) ELSE the next content head; holder =
+    the tree nominal-child of that predicate preceding the copula ELSE the nearest preceding nominal. Robust to the
+    labeler's `cop` miss; UNION with the label path (extract_entity_states). gate: skip existential expletive
+    holders + an intervening main VERB (progressive/passive aux, clefts). Returns a set of (holder_idx, prop_idx)."""
+    n = len(toks)
+    out = set()
+    children = defaultdict(list)
+    for d in range(1, n + 1):
+        h = heads.get(d, 0)
+        if h:
+            children[h].append(d - 1)
+    for i in range(n):
+        lem = toks[i].lower()
+        if not (lem in BE_LEMMAS or up[i] == "AUX" or lem in LINK_LEMMAS):
+            continue
+        ph = heads.get(i + 1, 0) - 1
+        p = None
+        if 0 <= ph < n and up[ph] in ("NOUN", "PROPN", "ADJ", "PRON"):
+            p = ph
+        else:
+            j = i + 1
+            while j < n and up[j] in ("DET", "ADV", "PART", "NUM", "ADJ"):
+                j += 1
+            if j < n and up[j] in ("NOUN", "PROPN", "PRON"):
+                k = j
+                while k + 1 < n and up[k + 1] in ("NOUN", "PROPN"):
+                    k += 1
+                p = k
+        if p is None:
+            continue
+        noms = [c for c in children.get(p + 1, []) if up[c] in ("NOUN", "PROPN", "PRON") and c < i]
+        if noms:
+            holder = max(noms)
+        else:
+            holder = None
+            for k in range(i - 1, -1, -1):
+                if up[k] in ("NOUN", "PROPN", "PRON"):
+                    holder = k
+                    break
+        if holder is None or holder == p:
+            continue
+        if gate:
+            if toks[holder].lower() in EXPLETIVE:
+                continue
+            if any(up[q] == "VERB" for q in range(holder + 1, p)):
+                continue
+        out.add((holder, p))
+    return out
 
 
 def extract_entity_states(toks, up, arc, lab):

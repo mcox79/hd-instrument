@@ -1,7 +1,6 @@
 ---
-priority: 3
-review:
-review_text:
+review: EXCELLENT
+review_text: Reverified first-hand 9/9 (pre-landing). The copular is-a/attribute capability had a landed-but-OFF producer with NO consumer (live 0/378). LANDED both required Q111 changes: CHANGE 1 = the state-QA consumer wire + flip bind_entity_states DEFAULT-ON (net-positive on a consumed metric, qa_state 0.7116 CI-sep +0.140 over floor, shuffle twin loses; purely additive, 4 dims byte-identical, qa_aggregate 0.2811->0.4657); CHANGE 2 = promoted robust_cop -> hdlab/copular_binding.py + unioned into _read_entity_states, lifting qa_state 0.701->0.826 CI-sep through the LIVE reader (concentrated on is-a). Witnesses green: copular landing 6/6 (default-on + union byte-exact + read-back + factory-off), state-QA 9/9 (W9 landing-aware). Registered copular_state_qa_consumer_and_robust_cop_wire_v1. Consumer is lossless (read-back|binding 0.996); residual is upstream. NOT landed (modern-only, deferred): arc-eager tree +0.032 (needs per-register routing). Follow-ons remain: cross-sentence canonical-entity binding, identity->coref-merge. §2b folded. INTEGRATED 2026-09-03.
 ---
 
 # PROBLEM: the reader has a landed but default-OFF copular is-a/attribute capability (`bind_entity_states` → `sm.entity_states` + `sm.state_register`) with NO live consumer and NO board metric, so it scores a live 0/376 on predicate complements and cannot be turned on under the no-default-off rule. WIRE the consumer: add a "state" dimension to the situation-model QA harness that ASKS "what/who is X" / "is X a Y" and ANSWERS off `sm.state_register`, flip `bind_entity_states=True` in that reader, and prove a CI-separated `qa_state` row (+ a lift on `qa_aggregate`) on the baseline board vs the copular problem's validated most-recent-noun floor + shuffle twin — then the flag is net-positive on a real consumed metric and turns ON.

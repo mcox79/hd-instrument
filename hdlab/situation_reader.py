@@ -650,7 +650,7 @@ class SituationReader:
                  densify_world_state: bool = True,
                  parser_arceager: bool = False,
                  np_head_reduce: bool = True,
-                 bind_entity_states: bool = False,
+                 bind_entity_states: bool = True,
                  structural_do_recover: bool = False,
                  referent_per_np: bool = False,
                  predicate_recall: bool = False) -> None:
@@ -866,11 +866,15 @@ class SituationReader:
         # (b) the POSITIONAL path -> filter `noms` to NP-head mentions before _assign_roles (lifts the landed
         # _assign_roles 0.7728 -> 0.9477). Reuses hdlab.np_head_reduce. NO spaCy / NO LLM.
         self.np_head_reduce = bool(np_head_reduce)
-        # COPULAR is-a/attribute binding (opt-in; default OFF = byte-identical). When ON, read() adds a typed
-        # is-a/attribute read on sm.entity_states + sm.state_register via the validated copular binding
-        # (experiments._copular_nominal_events.extract_entity_states, high-precision labeled path) + the
-        # glass-box Higgins typing. Integrated 2026-09-03 from the owner-DONE the_reader_has_no_copular_is_a_
-        # binding_schema (10/10 + 6/6). Lazy imports -> byte-identical when off. NO LLM.
+        # COPULAR is-a/attribute binding. When ON, read() adds a typed is-a/attribute read on sm.entity_states +
+        # sm.state_register via hdlab.copular_binding (high-precision LABEL path UNION the label-ROBUST closed-class
+        # copula detector robust_cop) + the glass-box Higgins typing. Integrated 2026-09-03 from the owner-DONE
+        # the_reader_has_no_copular_is_a_binding_schema (10/10+6/6). **DEFAULT-ON (2026-09-03, P3 wire_the_copular_
+        # state_qa_consumer... owner-DONE, no-default-off):** the landed state-QA consumer routes "what/who is X" ->
+        # sm.state_register.state_at, net-positive on a CONSUMED metric (qa_state 0.712 CI-sep over floor, shuffle
+        # twin loses; robust_cop lifts it to 0.833; qa_aggregate 0.315->0.404) and PURELY ADDITIVE (the 4 scored
+        # dims events/coref/timeline/causal are byte-identical off vs on; state_register feeds no other dim),
+        # +~5ms/read. all_capabilities_off() still sets it False. Lazy imports. NO LLM.
         self.bind_entity_states = bool(bind_entity_states)
         # STRUCTURAL-DO recovery (opt-in; default OFF = byte-identical). Coverage-gap §0g wire (2026-09-03, from
         # the owner-DONE the_who_did_what_front_end_abstains...): the verb_subcat gate's blanket intransitive veto
@@ -1597,7 +1601,15 @@ class SituationReader:
             if not toks:
                 continue
             up = self._es_pos.tag(toks)
-            for (h, p) in M.extract_entity_states(toks, up, self._es_arc, self._es_lab):
+            # DETECTION = high-precision label path UNIONED with the label-ROBUST closed-class copula detector
+            # (P3 CHANGE 2, owner-DONE wire_the_copular_state_qa_consumer...): the `cop` labeler's recall is the
+            # dominant loss (worst on nominal is-a); firing on the closed-class copula token + reading holder/
+            # property off the tree recovers it (qa_state 0.712->0.833 CI-sep through the consumer, concentrated on
+            # is-a pred_nom +0.184). Byte-faithful to the experiment's `fix = bind | robust_cop(toks,up,heads)`.
+            heads = self._es_arc.parse(toks, up).heads
+            bind = set(M.extract_entity_states(toks, up, self._es_arc, self._es_lab))
+            pairs = bind | M.robust_cop(toks, up, heads, gate=True)
+            for (h, p) in sorted(pairs):
                 if not (0 <= h < len(toks) and 0 <= p < len(toks)):
                     continue
                 htype = self._es_typed(toks, up, h, p)

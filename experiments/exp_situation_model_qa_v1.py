@@ -132,7 +132,7 @@ def _content(q_tokens: List[str]) -> List[str]:
 # So route_scores() emits a GRADED activation PER DIMENSION from a transparent cue->dimension table
 # over the question's FEATURE SET (wh-word + lemmatized relational cues + a pronoun-focus flag), NOT
 # exact substrings. route() = argmax with a threshold (abstain if nothing clears = the FOK gate).
-DIMENSIONS = ("coref", "events", "salience", "temporal", "causal", "location", "belief")
+DIMENSIONS = ("coref", "events", "salience", "temporal", "causal", "location", "belief", "state")
 
 # each cue votes for a dimension (soft weight). Multiple cues -> parallel votes -> multi-dim capable.
 # These are RELATIONAL/QUD cues (lemmas), not fixed question phrasings -> paraphrase-robust by design.
@@ -169,6 +169,46 @@ WH_PRIOR = {
 ROUTE_THRESHOLD = 0.25   # FOK gate: below this the top dimension is not confidently selected
 
 
+# --- the COPULAR-FRAME detector: a "what/who is X" / "is X a Y" question asks the entity's STATE ------------
+# Brain-faithful (Higgins 1979; the copula is a functional carrier, the meaning is the predication of an
+# ATTRIBUTE to the subject entity -> the entity-state dimension). Structural, not a cue word, so it generalizes
+# to unseen holders/properties. Gated to NOT steal the existing dims: not 'where/when/why' (own dims), not a
+# salience question ('who is the MAIN character'), not a pronoun holder ('who is he' = coref), not a question
+# with another main/mental/causal/temporal verb ('what does X believe', 'what caused X').
+_STATE_BE = {"is", "was", "are", "were", "be", "been", "being", "am", "'s", "'re", "'m"}
+_SALIENCE_CUE = {"main", "most", "protagonist", "central", "hero", "focal", "important"}
+
+
+def _is_state_frame(question: str) -> bool:
+    toks = re.findall(r"[a-z']+", question.lower())
+    if len(toks) < 3:
+        return False
+    if any(t in _SALIENCE_CUE for t in toks):
+        return False                                   # 'who is the main character' -> salience
+    if any(t in _MENTAL_VERBS or t in _CAUSAL_VERBS or t in _TEMPORAL_REL for t in toks):
+        return False                                   # another dim owns it (believe/caused/before...)
+    # WH copular frame: what/who + BE + (det)? + a holder, copula as the main predicate. The wh-word sets the
+    # answer-type (Higgins): 'WHAT is X' asks a PROPERTY/is-a of X -> the entity-state store, for ANY holder
+    # (incl. a pronoun: "what is it" -> the property bound to the discourse referent). 'WHO is X' asks IDENTITY;
+    # a PRONOUN holder ("who is he") is a coreference question, NOT a state query -> defer to coref.
+    if toks[0] in ("what", "who") and toks[1] in _STATE_BE:
+        j = 2
+        while j < len(toks) and toks[j] in ("the", "a", "an"):
+            j += 1
+        if j >= len(toks):
+            return False
+        holder = toks[j].strip("'")                   # strip quotes so 'he' is still caught as a pronoun
+        if not holder:
+            return False
+        if toks[0] == "what":
+            return True                               # property query -> state, any holder
+        return holder not in _PRONOUNS                # 'who is <name>' -> state; 'who is he' -> coref
+    # YES/NO copular frame: is/was/are/were + holder + a/an + property
+    if toks[0] in _STATE_BE and any(t in ("a", "an") for t in toks[2:]):
+        return True
+    return False
+
+
 def _q_features(question: str) -> Tuple[str, List[str]]:
     toks = re.findall(r"[a-z']+", question.lower())
     wh = next((t for t in toks if t in ("who", "what", "where", "when", "why", "which", "how")), "")
@@ -200,9 +240,13 @@ def route_scores(question: str, cue_dim: Dict[str, str] = None,
 
 
 def route(question: str, cue_dim: Dict[str, str] = None, wh_prior: Dict[str, dict] = None,
-          threshold: float = ROUTE_THRESHOLD) -> Optional[str]:
+          threshold: float = ROUTE_THRESHOLD, state_frame: bool = True) -> Optional[str]:
     """argmax of the cue-based race, gated by a retrieval threshold (abstain -> None if nothing
-    clears -- the feeling-of-knowing gate)."""
+    clears -- the feeling-of-knowing gate). The COPULAR frame ('what/who is X' / 'is X a Y') routes to
+    the entity-STATE dim FIRST (structural, not cue-based); state_frame=False ablates it (the copular
+    question then falls through to events -> misroutes, the routing control that proves the frame is load-bearing)."""
+    if state_frame and _is_state_frame(question):
+        return "state"
     act = route_scores(question, cue_dim, wh_prior)
     if not act:
         return None
@@ -340,7 +384,10 @@ def wh_ontology_scores(question: str) -> Dict[str, float]:
     return dict(act)
 
 
-def wh_ontology_route(question: str, threshold: float = ROUTE_THRESHOLD) -> Optional[str]:
+def wh_ontology_route(question: str, threshold: float = ROUTE_THRESHOLD,
+                      state_frame: bool = True) -> Optional[str]:
+    if state_frame and _is_state_frame(question):     # the copular predication frame -> entity-state dim
+        return "state"
     act = wh_ontology_scores(question)
     if not act:
         return None
@@ -440,6 +487,19 @@ class SituationQA:
                 return cl.cause
         return None
 
+    # -- ENTITY STATE: "what/who is X" / "is X a Y" -> read the is-a/attribute off sm.state_register --
+    def _answer_state(self, q: dict):
+        """COPULAR is-a/attribute read-out (bind_entity_states): the set of state values HELD by the holder,
+        off sm.state_register.state_at (never re-reading). None -> abstain (register absent = flag off, the
+        base-reader zero). Keys on the holder SURFACE token (within-clause; cross-sentence canonical binding is
+        the filed follow-on). From the owner-DONE the_reader_has_no_copular_is_a_binding_schema."""
+        reg = getattr(self.sm, "state_register", None)
+        holder = q.get("holder")
+        if reg is None or holder is None:
+            return None
+        vals = reg.state_at(str(holder).lower())
+        return set(vals) if vals else None
+
     # -- NOT IN THE LIVE MODEL: the organ exists but the reader populates no such field --
     def _answer_absent(self, q: dict) -> Optional[str]:
         return None
@@ -451,7 +511,7 @@ class SituationQA:
         fn = {"coref": self._answer_coref, "events": self._answer_events,
               "salience": self._answer_salience, "temporal": self._answer_temporal,
               "causal": self._answer_causal, "location": self._answer_absent,
-              "belief": self._answer_absent}.get(dim)
+              "belief": self._answer_absent, "state": self._answer_state}.get(dim)
         return fn(q) if fn else None
 
     def answer(self, question: str, q: dict, cue_dim=None, wh_prior=None,
@@ -502,7 +562,11 @@ def build_reader(gaz, capable: bool = True) -> SituationReader:
         # the historical WEAK reader -- ONE canonical all-off factory (derives from SituationReader.
         # CAPABILITY_FLAGS, so a future default flip needs no change here).
         return SituationReader.all_capabilities_off(gaz=gaz)
-    return SituationReader(gaz=gaz)
+    # bind_entity_states=True (this problem, wire_the_copular_state_qa_consumer_...): the consumer's reader now
+    # populates sm.entity_states + sm.state_register so the STATE dimension can read "what is X" off the model.
+    # ADDITIVE -- the copular read touches only entity_states/state_register (no other dimension changes), so the
+    # 4 scored LitBank dims are byte-identical off vs on (no-regression, witnessed). +~5ms/read (measured).
+    return SituationReader(gaz=gaz, bind_entity_states=True)
 
 
 # ===========================================================================
@@ -597,6 +661,22 @@ def build_temporal_questions(sm: SituationModel) -> List[dict]:
         qs.append({"dim": "temporal", "question": f"Did {q.predicate} happen before or after {p.predicate} ?",
                    "a": q.predicate, "b": p.predicate, "gold": "after",
                    "p_gidx": p.global_idx, "q_gidx": q.global_idx})
+    return qs
+
+
+def build_state_questions(sm) -> List[dict]:
+    """COPULAR is-a/attribute questions from the reader's OWN predicational entity_states (bind_entity_states).
+    "What is {holder} ?" (gold = property) + "Is {holder} a {property} ?" (yes/no). CAVEAT: on LitBank there is
+    NO independent copular gold (no gold deprels), so this gold is READER-DERIVED -> it measures COVERAGE /
+    round-trip on real 19c prose (a live-fires demonstration), NOT a floor-beating capability claim. The
+    powered, NON-CIRCULAR capability number is on the copular problem's UD-EWT gold (exp_situation_model_state_qa_v1
+    / state_qa_dimension): gold from GOLD deprels, floor = most-recent-noun (0.503), shuffle twin (0.452)."""
+    qs = []
+    for s in getattr(sm, "entity_states", []) or []:
+        if s.htype not in ("pred_adj", "pred_nom"):     # predicational only (identity -> coref-merge follow-on)
+            continue
+        qs.append({"dim": "state", "holder": s.holder, "gold": s.property,
+                   "question": f"What is {s.holder} ?", "sent_idx": s.sent_idx})
     return qs
 
 
@@ -790,10 +870,13 @@ def _shuffled_cue_dim(seed: int) -> Dict[str, str]:
     return {c: remap[d] for c, d in CUE_DIM.items()}
 
 
-def run(docs: List[str], seed: int = 20260830, capable: bool = True) -> dict:
+def run(docs: List[str], seed: int = 20260830, capable: bool = True,
+        with_state: bool = True, state_cap: Optional[int] = None) -> dict:
     """Score QA over the SituationModel per dimension vs floors + twin. `capable=True` (DEFAULT) scores
     the CAPABLE reader (build_reader) -- the correct baseline: extraction dimensions ON, temporal read off
-    sm.timeline_order. `capable=False` reproduces the historical default-reader run for comparison."""
+    sm.timeline_order. `capable=False` reproduces the historical default-reader run for comparison.
+    `with_state=True` adds the COPULAR entity-STATE dimension (the newly-wired consumer) as a per_dimension
+    row, measured on the copular problem's NON-CIRCULAR UD-EWT gold (state_cap caps it for a fast self-test)."""
     from hdlab.coref import parse_litbank_conll, build_pronoun_targets
     gaz = load_given_gazetteer()
     wdw = {rec["doc"]: rec for rec in json.load(open(WDW_GOLD, encoding="utf-8"))}
@@ -870,9 +953,31 @@ def run(docs: List[str], seed: int = 20260830, capable: bool = True) -> dict:
             rows.append(row)
 
     res = _aggregate(rows, route_rows, docs, seed)
+    if with_state:
+        # THE COPULAR STATE DIMENSION (this problem): a live per_dimension row on the copular problem's
+        # NON-CIRCULAR UD-EWT gold, driven through the SAME router + a state_register readout. Lazy import
+        # (avoids a module cycle: the state cell imports this harness for the router). Additive.
+        try:
+            import experiments.exp_situation_model_state_qa_v1 as STATE
+            srow, sdetail = STATE.board_state_dimension(cap=state_cap, n_boot=1000, seed=seed)
+            res["per_dimension"]["state"] = srow
+            res["state_qa_detail"] = sdetail
+            # aggregate INCLUDING the newly-answerable state dim: with the flag OFF the state questions score
+            # 0 (base reader has no register), with it ON they score model_acc -> turning it on lifts the union
+            # aggregate. Reported separately; res["aggregate"] stays the clean 4-dim LitBank number (no regression).
+            a = res["aggregate"]; n4, ok4 = a["n"], a["model_acc"] * a["n"] if a["model_acc"] is not None else 0
+            ns, oks = srow["n"], (srow["model_acc"] or 0) * srow["n"]
+            res["aggregate_including_state"] = {
+                "flag_off": round(ok4 / max(1, n4 + ns), 4),
+                "flag_on": round((ok4 + oks) / max(1, n4 + ns), 4),
+                "delta_from_turning_on": round(oks / max(1, n4 + ns), 4),
+                "n": n4 + ns, "note": "union of the 4 LitBank dims + the UD-EWT state dim; state=0 when the flag is off"}
+        except Exception as e:
+            res["per_dimension"]["state"] = None
+            res["state_qa_detail"] = {"error": f"{type(e).__name__}: {e}"}
     res["reader_config"] = {
         "capable": bool(capable),
-        "flags": ("tense_agnostic_events+preserve_tense+timeline_register" if capable else "default(off)"),
+        "flags": ("tense_agnostic_events+preserve_tense+timeline_register+bind_entity_states" if capable else "default(off)"),
         "temporal_readout": "sm.timeline_order (whole-passage register)",
     }
     return res
@@ -1119,17 +1224,31 @@ def _selftest() -> dict:
     # 4) end-to-end on 2 real LitBank docs (CAPABLE reader = the correct baseline), assert questions build
     #    + arms populate, AND the temporal dimension does NOT collapse under the keystone (preserve_tense
     #    restores the gold; timeline_register populates the readout field).
+    # 2b) the COPULAR-FRAME router (this problem): 'what/who is X' / 'is X a Y' -> state; and the gates that
+    #     keep it from stealing the existing dims (salience / coref-pronoun / where / believe).
+    assert _is_state_frame("What is Ahab ?") and route("What is Ahab ?") == "state"
+    assert _is_state_frame("Is the room a cold ?") is True   # yes/no copular frame
+    assert route("Who is the main character ?") == "salience", "state frame must not steal salience"
+    assert route("Who is 'he' ?") != "state", "a pronoun holder is coref, not state"
+    assert route("Where is John ?") == "location" and route("What does Mary believe ?") == "belief"
+    assert wh_ontology_route("What is Ahab ?") == "state"
     docs = load_docs(2)
-    res = run(docs)   # capable=True
+    res = run(docs, state_cap=150)   # capable=True; small state_cap keeps the self-test fast
     assert res["aggregate"]["n"] >= 1, res
     assert res["per_dimension"].get("coref", {}).get("n", 0) >= 1, res["per_dimension"]
     td = res["per_dimension"].get("temporal")
     assert td and td["n"] > 0, ("temporal collapsed on the capable reader", res.get("per_dimension"))
     # routing on real gold questions: soft router should route the built questions well
     assert res["routing_on_gold"]["soft_cue_table"] >= 0.8, res["routing_on_gold"]
+    # the wired STATE dimension: a live per_dimension row, base-reader-off zero, model beats the floor
+    sd = res["per_dimension"].get("state")
+    assert sd and sd["n"] > 10, ("state dim did not build", res.get("state_qa_detail"))
+    assert res["state_qa_detail"]["base_reader_off_zero"] == 0.0, res["state_qa_detail"]
+    assert sd["model_acc"] > sd["strongest_floor"], ("state model must beat floor", sd)
     return {"paraphrase": par, "route_smoke_ok": True, "reader_config": res["reader_config"],
             "real_docs_agg": res["aggregate"], "coref_n": res["per_dimension"]["coref"]["n"],
-            "temporal_n": td["n"], "temporal_model_acc": td["model_acc"]}
+            "temporal_n": td["n"], "temporal_model_acc": td["model_acc"],
+            "state_dim": sd, "aggregate_including_state": res.get("aggregate_including_state")}
 
 
 def main():
