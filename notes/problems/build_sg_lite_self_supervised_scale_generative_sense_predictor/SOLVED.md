@@ -5,7 +5,7 @@ bar: "PASS = a self-supervised generative sense predictor (SG-lite at scale + a 
 result: "a_s(subordinate senses, subject-weighted, strict document-disjoint SemCor, n_sub_test~2676). BRAIN-FOUNDATIONAL FIX prototyped + validated: a biased-competition DIAGNOSTIC-CONTEXT readout (semantic control -- amplify sense-discriminating context words, suppress shared topic; glass-box, no LLM) reaches a_s = 0.326 (APEX) with 277M embeddings (paired +0.0430 CI-sep over flat-context 0.283), and 0.307 on 41M (paired +0.0389 CI-sep [+0.019,+0.059] over 0.268), with a shuffled-diagnosticity twin LOSING CI-sep both times. It STACKS knowledge (better embeddings 0.307->0.326) with the brain mechanism, is the most brain-faithful arm, and beats the top-k key trick. Prior APEX (readout tricks): 0.306 by STACKING the 277M gestalt (best knowledge) + a richer TOP-K gloss readout (paired +0.0262 CI-sep over that gestalt's mean-pool 0.280). >> the located-negative NB 0.198, the nearest-centroid 0.22, and the parent's 0.280. Each lever alone: KNOWLEDGE -- paired 41M-vs-8M recon a_s +0.0277 CI-sep [0.0120,0.0445] (reverify witness; n=2676), rising 8M 0.255 -> 41M 0.280 -> 277M 0.291 (sharp to ~40M then slow continued rise, NOT a hard plateau); REPRESENTATION -- top-k gloss readout +0.0310 CI-sep on the 41M gestalt (0.265->0.296) and +0.0262 on the 277M gestalt (0.280->0.306). Shuffled twin LOSES CI-sep and net over MFS(0.6831) is POSITIVE CI-sep at every point. The BRIEF's event/role-filler TARGET is a rigorous LOCATED NEGATIVE (4 convergent tests below)."
 floor: "MFS overall 0.6831 (net-gain floor, gated on upper bound); a_s floors: overfit-NB 0.198 and nearest-centroid readout 0.22 (both strict document-disjoint). Every net-over-MFS is CI-separated ABOVE 0 with the twin losing."
 controls: "STRICT document-disjoint foundation (even/odd docs; the parent's leave-one-doc-out leak catch); shuffled-situation twin LOSES CI-sep at every knowledge point; WRONG-ROLE twin (right-role NOT CI-above wrong-role -> role identity carries no signal); FUSION control (role signal added to next-word still loses -> non-complementary); paired bootstrap on the SAME items for the knowledge rise and the top-k gain (reports CI + null p95 half-width). Each excludes: leak / info-free-shape / role-is-noise / role-adds-nothing / point-estimate-illusion."
-files_changed: "experiments/exp_sg_lite_event_role_readout_v1.py, experiments/exp_sg_lite_event_target_gestalt_v1.py, experiments/exp_sg_lite_knowledge_scaling_v1.py, experiments/exp_sg_lite_selectional_fit_readout_v1.py, experiments/exp_sg_lite_signal_loss_trace_v1.py, experiments/exp_sg_lite_diagnostic_context_readout_v1.py, experiments/exp_sg_lite_brain_gap_attribution_v1.py, experiments/exp_sg_lite_graph_knowledge_scaling_v1.py (reuses grounded_semantic_graph_organ UNMODIFIED), experiments/exp_sg_lite_syntactic_query_wsd_v1.py, experiments/exp_sg_lite_context_encoder_wsd_v1.py, experiments/exp_sg_lite_context_encoder_wsd_v2.py, verification/test_event_role_and_knowledge_scaling.py, data/exp_sg_lite_knowledge_scaling_v1/metrics_know{530000,7500000,0}.json, data/exp_sg_lite_event_{role_readout,target_gestalt}_v1/metrics.json, data/exp_sg_lite_selectional_fit_readout_v1/metrics{,_know0}.json, data/exp_sg_lite_signal_loss_trace_v1/metrics.json, data/exp_sg_lite_diagnostic_context_readout_v1/metrics.json"
+files_changed: "experiments/exp_sg_lite_event_role_readout_v1.py, experiments/exp_sg_lite_event_target_gestalt_v1.py, experiments/exp_sg_lite_knowledge_scaling_v1.py, experiments/exp_sg_lite_selectional_fit_readout_v1.py, experiments/exp_sg_lite_signal_loss_trace_v1.py, experiments/exp_sg_lite_diagnostic_context_readout_v1.py, experiments/exp_sg_lite_brain_gap_attribution_v1.py, experiments/exp_sg_lite_graph_knowledge_scaling_v1.py (reuses grounded_semantic_graph_organ UNMODIFIED), experiments/exp_sg_lite_syntactic_query_wsd_v1.py, experiments/exp_sg_lite_context_encoder_wsd_v1.py, experiments/exp_sg_lite_context_encoder_wsd_v2.py, experiments/exp_sg_lite_knowledge_growth_diagnostic_v1.py, verification/test_event_role_and_knowledge_scaling.py, data/exp_sg_lite_knowledge_scaling_v1/metrics_know{530000,7500000,0}.json, data/exp_sg_lite_event_{role_readout,target_gestalt}_v1/metrics.json, data/exp_sg_lite_selectional_fit_readout_v1/metrics{,_know0}.json, data/exp_sg_lite_signal_loss_trace_v1/metrics.json, data/exp_sg_lite_diagnostic_context_readout_v1/metrics.json"
 reverify: ".venv/Scripts/python.exe verification/test_event_role_and_knowledge_scaling.py"
 ---
 
@@ -218,6 +218,38 @@ scale-trained BiLSTM-LM contextual encoder (the one untested glass-box route, es
 which reaches ~0.53 but is transformer-architecture the project has otherwise avoided. All three research drills agree
 the target is contextual encoding; the fork is how far to go and at what fidelity cost.
 
+## 🚨 KNOWLEDGE GROWTH IS THE BIGGEST LEVER -- AND IT MUST BE HIGHLY CONTROLLED (owner-flagged focus for next)
+`exp_sg_lite_knowledge_growth_diagnostic_v1`: growing the sense-signature KNOWLEDGE through the WINNING
+biased-competition readout (mechanism held fixed) is the largest single lever measured on this problem, AND it is
+STRICTLY gated on the CLEANLINESS of the added knowledge.
+
+| knowledge level (diagnostic readout, subordinate test n=2676) | a_s | delta |
+|---|---|---|
+| gloss only | 0.239 | -- |
+| + WordNet relations | 0.284 | +0.045 |
+| + SyntagNet (curated syntagmatic) | 0.309 | +0.025 |
+| + ConceptNet (curated commonsense) | 0.320 | +0.011 |
+| + ORGANIC raw w2v-NN (naive corpus-learned) | 0.305 | **-0.015** |
+
+**Two load-bearing facts:**
+1. **Knowledge is the dominant ingredient:** gloss->rich = **+0.081 CI-separated [+0.046,+0.085]** -- larger than any
+   readout/mechanism tweak. The diagnostic readout's success is MOSTLY a knowledge-richness effect (gloss-only
+   through the same mechanism is only 0.24). Room runs to ~0.35 (the readout ceiling) via more CLEAN structured
+   knowledge; past 0.35 is the contextual-mechanism fork, not a knowledge problem.
+2. **⚠️ GROWTH MUST BE HIGHLY CONTROLLED / CONSOLIDATED -- raw growth HURTS.** Naive organic knowledge (raw w2v-NN
+   of gloss words) DROPPED a_s -0.015, the SAME pattern as the graph organ's RAW `learn_from_text` co-occurrence
+   (0.274->0.267). CURATED/consolidated knowledge of the SAME syntagmatic kind (SyntagNet -- itself corpus-derived,
+   but cleaned) HELPED (+0.025/+0.058). **So the learner CAN grow this knowledge organically from reading, but ONLY
+   through a CONSOLIDATION / quality-control gate that filters to clean, high-confidence, syntagmatic associations
+   (SyntagNet-quality). Raw or naive growth adds noise and REGRESSES the score.**
+
+**➡️ THIS IS THE NEXT FOCUS (owner-directed):** the highest-value next build is a **controlled knowledge-growth /
+consolidation gate for the learner** -- extract syntagmatic associations from reading, CONSOLIDATE (dedup, confidence-
+filter, cross-situational verify) to SyntagNet-quality, and only then admit them to the sense signatures. This is the
+concrete, measured form of the project's "clean foundation before learner-on" north star: it is now pinned as a
+REQUIREMENT with numbers (raw hurts, clean helps), not an aspiration. The safety framing is exact -- uncontrolled
+growth is not neutral, it is NEGATIVE, so the consolidation gate must precede any learner-on.
+
 ## KEY REALIZATIONS
 - **The brief named the wrong lever.** "Role-filler target raises a_s" is refuted; the levers that actually move
   `a_s` are (1) corpus knowledge up to ~40M and (2) the readout's sense-signature representation (top-k, not
@@ -278,11 +310,14 @@ a mechanistic reason rather than building the one remaining readout redesign (ro
 strategy may want that redesign tested before fully closing the event route.
 
 ## NEXT STEPS
-Wire the DIAGNOSTIC-CONTEXT (biased-competition) readout -- the brain-foundational fix, best + most faithful arm
-(item 1). Then the highest-yield follow-on (research drill + graph control, both landed) is **arm 1: a
-dependency/governor-filtered second-order context vector replacing the flat context bag** -- the lever is the QUERY
-CONSTRUCTION (encoding), not sense-discrimination (the graph organ caps 0.27 < word2vec 0.33) and not coverage.
-Mandatory control: the gain must be concentrated on TOPIC-CONFOUNDED items and NOT reproduced by a same-cardinality
-RANDOM context subset. Details + arms 2/3 in `notes/research_wsd_contextual_encoding_glassbox_mechanisms_2026-09-03.md`.
-Fix queue_add.sh (item 4). The event/role target is closed pending the optional
+1. **[OWNER-FLAGGED, TOP FOCUS] Build the CONTROLLED knowledge-growth / consolidation gate for the learner** -- the
+   biggest lever is knowledge growth (+0.081 CI-sep) but it is NEGATIVE if uncontrolled (raw growth regresses the
+   score). Extract syntagmatic associations from reading -> CONSOLIDATE to SyntagNet-quality (dedup, confidence-filter,
+   cross-situational verify) -> admit to sense signatures. This IS the "clean foundation before learner-on" north star,
+   now a measured REQUIREMENT. See the KNOWLEDGE-GROWTH section above.
+2. **Wire the DIAGNOSTIC-CONTEXT (biased-competition) readout** -- the brain-foundational mechanism the knowledge
+   feeds (best + most faithful arm). Default-off, witnessed, Q111.
+3. The ceiling past ~0.35 (contextual-encoding fork) is a separate owner decision (see HOW FAR section) -- NOT the
+   near-term lever; controlled knowledge growth is. Contextual-encoding arms detailed in the 09-03 research notes.
+Fix queue_add.sh (infra). The event/role target is closed pending the optional
 selectional-fit-readout redesign.
