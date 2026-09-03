@@ -96,21 +96,28 @@ def scan() -> list[dict]:
         if path_str in seen and seen[path_str] >= mtime:
             continue  # already-seen
         seen[path_str] = mtime
+        anchor, sh4 = _canonical_anchor(d.name)
         try:
             m = json.loads(mp.read_text(encoding="utf-8"))
-        except json.JSONDecodeError:
-            continue
-        anchor, sh4 = _canonical_anchor(d.name)
-        arrivals.append({
-            "ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(mtime)),
-            "cell": d.name,
-            "anchor": anchor,
-            "sh4_double_prefix": sh4,
-            "verdict": (m.get("verdict") or "?")[:80],
-            "run_mode": m.get("run_mode"),
-            "n_seeds": m.get("n_seeds"),
-            "elapsed_s": m.get("elapsed_s"),
-        })
+            # `verdict` is a STRING for older cells but a DICT/LIST for newer ones. `dict[:80]` raises
+            # `KeyError: slice(...)` -- exactly what silently broke this notifier ~2026-08-14 (state frozen
+            # since; task disabled after repeated exit-1). Coerce to a short string, and guard the WHOLE
+            # per-file block so ONE malformed metrics.json can never crash the scan (the docstring invariant).
+            _v = m.get("verdict")
+            if isinstance(_v, (dict, list)):
+                _v = json.dumps(_v, sort_keys=True)
+            arrivals.append({
+                "ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(mtime)),
+                "cell": d.name,
+                "anchor": anchor,
+                "sh4_double_prefix": sh4,
+                "verdict": (str(_v) if _v not in (None, "") else "?")[:80],
+                "run_mode": m.get("run_mode"),
+                "n_seeds": m.get("n_seeds"),
+                "elapsed_s": m.get("elapsed_s"),
+            })
+        except Exception:
+            continue  # malformed / unexpected-shape metrics.json -> skip this one, never abort the scan
     # Append arrivals to landings file
     if arrivals:
         with open(LANDINGS, "a", encoding="utf-8") as f:
@@ -135,12 +142,15 @@ def _refresh_pane() -> None:
         lines = LANDINGS.read_text(encoding="utf-8").strip().split("\n")
     except OSError:
         return
-    tail = []
-    for line in lines[-PANE_N:]:
+    parsed = []
+    for line in lines[-2000:]:   # bound the parse cost to a recent window
         try:
-            tail.append(json.loads(line))
+            parsed.append(json.loads(line))
         except json.JSONDecodeError:
             continue
+    # Show the genuinely MOST-RECENT by timestamp -- append order != time order (a one-time backfill,
+    # or out-of-order directory iteration, would otherwise surface stale rows). ISO ts sorts chronologically.
+    tail = sorted(parsed, key=lambda r: r.get("ts", ""), reverse=True)[:PANE_N]
     now_iso = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     sh4_hits = sum(1 for r in tail if r.get("sh4_double_prefix"))
     sh4_note = (f"  |  **SH-4 double-prefix hits in tail:** {sh4_hits}"
@@ -164,7 +174,10 @@ def _refresh_pane() -> None:
         seeds = r.get("n_seeds")
         seeds_s = "" if seeds is None else str(seeds)
         el = r.get("elapsed_s")
-        el_s = "" if el is None else f"{el:.1f}"
+        try:
+            el_s = "" if el is None else f"{float(el):.1f}"
+        except (TypeError, ValueError):
+            el_s = str(el)
         out.append(f"| {r.get('ts','')} | {cell} | {verdict} | {rm} | {seeds_s} | {el_s} |")
     try:
         LATEST_PANE.write_text("\n".join(out) + "\n", encoding="utf-8")
