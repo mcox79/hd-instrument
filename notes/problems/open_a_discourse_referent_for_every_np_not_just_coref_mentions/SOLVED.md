@@ -5,7 +5,7 @@ bar: "PASS = a referent-per-NP candidate source (a discourse referent per conten
 result: "PASS through the LIVE SituationReader().read() (mention source swapped, everything else identical), scorer pick==gold_head with ABSTENTION=WRONG, on 25 real LitBank docs. HONEST INSTRUMENT (cleaned 19c direct-object gold, n=149): coref-column deployment floor 0.4698 -> referent-per-NP 0.8054, +0.3356 CI[+0.2617,+0.4161] half=0.0772 null_p95=0.094 (CI-separated AND over null). FULL matched population (n=1354, KNOWN-NOISY gold ~76% oblique-contaminated): 0.2105 -> 0.2578, +0.0473 CI[+0.0229,+0.0702] half=0.0236 null_p95=0.0222 (CI-sep). Candidate-coverage lever reproduced first-hand: gold patient present under coref 0.8183 -> referent-per-NP 0.9705 (+0.1521, 1354 clauses). WHO-HAS-WHAT: OBJECT/theme candidate coverage 0.8191 -> 0.9342 (+0.1151); holder/SUBJECT coref-adequate (0.888, rnp 0.865); introduction capped by 19c POS-tagger noun recall 0.9142."
 floor: "Strongest floor actually run = the CURRENT live wired reader sourcing candidates from the deployed CoNLL COREF column (role_route=wired, all default net-positive flags ON, first-hand). CLEAN_DO 0.4698; FULL 0.2105. Not a strawman: it is the byte-for-byte live SituationReader; only the mention SOURCE is swapped. Reference ceilings on the same population: the noun-supplied eval through the SAME live reader (the `supplied` arm) 0.7987 CLEAN_DO / 0.2504 FULL -- referent-per-NP REPRODUCES it (no-regression); the parser-free naive-positional ceiling 0.9262 CLEAN_DO / 0.5037 FULL (the reader's own verb_subcat/quotative gates are the residual, parent-owned)."
 controls: "(1) INFO-FREE TWIN (matched-COUNT random-position filler referents): CLEAN_DO 0.3356 / FULL 0.1418, rnp-twin +0.4698/+0.1160 CI-sep AND twin ACTIVELY HURTS vs coref (-0.1342/-0.0687) -- adding random candidates steals picks; adding the RIGHT NP-head referents nets positive, so the signal is the FRAME not the count. (2) NO-REGRESSION (through the LIVE reader): referent-per-NP reproduces the noun-supplied eval arm, rnp-supplied delta +0.0067 CLEAN_DO / +0.0074 FULL (~0, statistically identical) -- self-built referents match the supplied candidate set. (3) DESIGN control: referent-per-NP as the SOLE source (coref demoted to linking) 0.8054 BEATS the additive union (keep coref + add missed nouns) 0.4027 -- REPLACE, do not ADD. (4) FRAME-DETECTION info-free twin: brain-faithful determiner/name-frame NP detection 0.914->0.931 CI-sep over static POS AND over a random-position twin (+0.0135 CI-sep). (5) WALL DECOMPOSITION: the FULL residual is the reader's OWN gates (supplied 0.2504 vs naive-positional 0.5037), NOT a referent-per-NP distractor penalty (rnp==supplied)."
-files_changed: "experiments/exp_referent_per_np_end_to_end_v1.py, experiments/exp_referent_per_np_holder_and_generalization_v1.py, experiments/exp_referent_per_np_frame_detection_v1.py, verification/test_referent_per_np_organ.py, notes/problems/open_a_discourse_referent_for_every_np_not_just_coref_mentions/research_discourse_referents_brain_foundational_2026-09-03.md, notes/problems/open_a_discourse_referent_for_every_np_not_just_coref_mentions/SOLVED.md (REUSED read-only: experiments/exp_whodidwhat_referent_per_np_prototype_v1.py, hdlab/situation_reader.py, hdlab/coref.py, experiments/exp_19c_composed_cleaned_gold_v1.py). NO hdlab/ written -- the proposed wire is in FOR STRATEGY below (Q111, default-off, witnessed)."
+files_changed: "experiments/exp_referent_per_np_end_to_end_v1.py, experiments/exp_referent_per_np_holder_and_generalization_v1.py, experiments/exp_referent_per_np_frame_detection_v1.py, experiments/exp_referent_per_np_signal_loss_waterfall_v1.py, experiments/exp_referent_per_np_ideal_composition_v1.py, verification/test_referent_per_np_organ.py, notes/problems/open_a_discourse_referent_for_every_np_not_just_coref_mentions/research_discourse_referents_brain_foundational_2026-09-03.md, notes/problems/open_a_discourse_referent_for_every_np_not_just_coref_mentions/IDEAL_who_did_what_composition_2026-09-03.md, notes/problems/open_a_discourse_referent_for_every_np_not_just_coref_mentions/SOLVED.md (REUSED read-only: experiments/exp_whodidwhat_referent_per_np_prototype_v1.py, experiments/exp_whodidwhat_ideal_brain_foundational_v1.py, hdlab/situation_reader.py, hdlab/coref.py, experiments/exp_19c_composed_cleaned_gold_v1.py). NO hdlab/ written -- the proposed wire is in FOR STRATEGY below (Q111, default-off, witnessed)."
 reverify: ".venv/Scripts/python.exe verification/test_referent_per_np_organ.py   # 8/8 -- coverage lever + end-to-end CI-sep + twin-loses-and-hurts + no-regression + REPLACE>ADD + who-has-what + generalization + brain-faithful frame detection, all FROM SOURCE"
 ---
 
@@ -77,6 +77,42 @@ NOT the referent-per-NP mechanism failing; it decomposes exactly:
 The genuine multi-candidate SELECTION lever (thematic-fit-dominant, Q3) is a SEPARATE organ (`thematic_role_labeler`)
 and the parent's fenced territory (who-did-what selection is structure-bound on canonical; grounded-fit HURTS;
 the real valence parser is gated on the meaning channel). Named as the next lever, not conflated with this SOURCE bar.
+
+## 2b. THE MEASURED BRAIN COMPARISON — signal-loss waterfall + competent-reader benchmark + the IDEAL composition
+(`exp_referent_per_np_signal_loss_waterfall_v1`, `exp_referent_per_np_ideal_composition_v1`; cleaned-DO, n=149; spaCy
+= competent-reader REFERENCE-ONLY, the diagnostic-oracle exception.) The multiplicative chain ORACLE→source→event→
+selection→END, per arm, so every point of loss is attributed to a named stage:
+
+| stage | COREF (floor) | RNP (this fix) | IDEAL (S1+S3) | what the loss IS |
+|---|---|---|---|---|
+| ORACLE | 1.000 | 1.000 | 1.000 | gold reachable |
+| S1 candidate present (SOURCE) | 0.839 | **0.987** | 0.987 | the coref-vs-referent gap |
+| S2 event detected \| cand | 0.968 | 0.966 | (verb supplied) | verb-ID / no-event (POS mistag) |
+| S3 selected \| cand & event | 0.545 | 0.845 | → 0.873 end | positional pick + reader gates |
+| **END-TO-END** | **0.443** | **0.805** | **0.873** | |
+| **vs a brain** | | competent reader (spaCy) **0.846**; oracle 1.000 | | |
+
+Three readings: (1) **performance vs a brain** — the source fix alone reaches 0.805 = 95% of the competent reader
+(0.846); the IDEAL composition (referent-per-NP source + the parent's validated structural-DO + Competition-Model
+selector) reaches **0.873, statistically AT/above the competent reader** (ideal−competent +0.027 n.s.), closing 77%
+of the floor→oracle gap. The IDEAL ladder + controls (n=149): live-coref 0.470 → live-rnp 0.805 → IDEAL 0.873;
+competent 0.846; oracle 1.000. **Info-free candidate twin (shuffle which head sits at each position) collapses to
+0.235 — IDEAL beats it +0.638 CI[+0.557,+0.718] CI-sep** (the mechanism is real). The selector adds a MODEST +0.067
+over the live source fix (CI[0.000,0.134], borderline n.s.) — the big CI-separated lever is the SOURCE (this bar), the
+selector a smaller top-up. **STRUCTURE-BOUND insight (re-confirms the parent first-hand):** a SHUFFLED-CUE-WEIGHT twin
+barely loses (0.846) — on canonical DO the STRUCTURAL direct-object filter carries the pick, not the cue weights, which
+is exactly why a meaning-fit cue is a fenced negative HERE (structure already suffices). (2) **where we lose signal** —
+the coref source loses at BOTH the source (0.161) AND selection (0.369: a GAPPY candidate set corrupts the positional
+pick); referent-per-NP nearly closes the source (loss 0.013) AND repairs selection (0.545→0.845), because a COMPLETE NP
+set lets proximity find the true DO where coref gaps misled it (the counterintuitive finding — the twin proves RANDOM
+candidates hurt, but the RIGHT complete set helps BOTH coverage and selection). (3) **the ideal is prototyped from
+PINNED organs** (details: `IDEAL_who_did_what_composition_2026-09-03.md`) — S1 referent-per-NP + frame (mine), S2 the
+parent's noisy-channel joint POS override (available), S3 the parent's `ideal_pick`. The one GATED piece is the
+meaning-fit selector for genuine ambiguity (the 0.127 residual to oracle), fenced on the meaning channel — and the
+competent reader loses ~0.15 there too, so part is shared hard/ambiguous gold, not a unique gap. **HONEST NUANCE:** the
+FRAME detector helps introduction RECALL (holder/name coverage → who-has-what) but HURTS the who-did-what PATIENT slot
+(ideal+frame 0.812 < ideal 0.873) — names are prototypically agents, not patients; apply the right candidates to the
+right slot.
 
 ## 3. WHO-HAS-WHAT effect (`exp_referent_per_np_holder_and_generalization_v1`, doc-aligned WDW role gold)
 Candidate coverage of NON-PRONOUN gold role heads (pronouns excluded from both arms — they are the ORTHOGONAL he/she
