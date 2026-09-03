@@ -651,7 +651,8 @@ class SituationReader:
                  parser_arceager: bool = False,
                  np_head_reduce: bool = True,
                  bind_entity_states: bool = False,
-                 structural_do_recover: bool = False) -> None:
+                 structural_do_recover: bool = False,
+                 referent_per_np: bool = False) -> None:
         # === DEFAULTS FLIPPED ON 2026-09-03 (owner-authorized: "switch them on... 1 at a time, top down,
         # measure which are net positives"). The greedy forward-activation sweep (tools/flag_activation_sweep.py,
         # data/flag_activation_sweep/results.json) measured each flag one-at-a-time in dependency order on the
@@ -881,6 +882,17 @@ class SituationReader:
         # default OFF -> patient_is_bare_do stays None -> the veto is unconditional (byte-identical). NO spaCy / NO LLM.
         self.structural_do_recover = bool(structural_do_recover)
         self._sdo = None               # lazy hdlab.structural_do
+        # REFERENT-PER-NP mention source (opt-in; default OFF = byte-identical). Coverage-gap §0g/P5 wire (2026-09-03,
+        # owner-DONE open_a_discourse_referent_for_every_np...): the deployed read() sources who-did-what candidates
+        # from the CoNLL COREF column, so on real 19c prose the gold patient is a candidate only ~0.82 of the time.
+        # When ON, replace the mention source with a discourse referent per content-noun-head NP (Kamp/Heim DRT + the
+        # determiner/name FRAME detector), coref pronouns/clusters PRESERVED (coref demoted to a downstream linking
+        # pass) -- hdlab.referent_per_np.referent_per_np_source, a drop-in for parse_litbank_conll. REPLACE, not add
+        # (the union regresses). Lifts effective who-did-what 0.4698->0.8054 (+0.336 cleaned-DO, live) + who-has-what
+        # theme coverage +0.115; twin loses AND hurts; no-regression on the noun-supplied eval. Default OFF -> the
+        # coref-column source, byte-identical. NO spaCy / NO LLM.
+        self.referent_per_np = bool(referent_per_np)
+        self._rnp_tagger = None        # lazy hdlab.pos_tagger.PosTagger (the frontend UPOS tagger)
         # PER-READ tag/parse memo (2026-09-03 perf): dimensions independently re-tag/re-parse the SAME
         # sentences (arc parser ~118x + POS tagger ~310x per read). Tag+parse each distinct sentence ONCE
         # per read() via _cached_tag/_cached_parse_heads; reset each read -> no cross-read leak, byte-identical
@@ -906,7 +918,7 @@ class SituationReader:
         "tense_agnostic_events", "preserve_tense", "timeline_register", "verb_subcat_gate", "track_space",
         "predict_surprisal", "track_belief", "bind_event_tokens", "predict_revise", "track_world_state",
         "densify_world_state", "np_head_reduce", "parser_arceager", "causation_typed", "spacy_pred_gate",
-        "bind_entity_states", "structural_do_recover")
+        "bind_entity_states", "structural_do_recover", "referent_per_np")
 
     @classmethod
     def all_capabilities_off(cls, gaz=None, **overrides):
@@ -1564,7 +1576,16 @@ class SituationReader:
 
     def read(self, conll_path: str) -> SituationModel:
         self._read_parse_cache = {}   # per-read tag/parse memo (bound memory; safe if the reader is reused)
-        mentions, n_sents = parse_litbank_conll(conll_path, name_gender_map=self.gaz)
+        if self.referent_per_np:
+            # REFERENT-PER-NP mention source: a discourse referent per content-noun-head NP (coref demoted to a
+            # downstream linking pass), REPLACING the coref-column candidate source. Drop-in for parse_litbank_conll.
+            if self._rnp_tagger is None:
+                from hdlab.pos_tagger import PosTagger
+                self._rnp_tagger = PosTagger.load(_FRONTEND_POS_ASSET)
+            from hdlab.referent_per_np import referent_per_np_source
+            mentions, n_sents = referent_per_np_source(conll_path, self._rnp_tagger, name_gender_map=self.gaz)
+        else:
+            mentions, n_sents = parse_litbank_conll(conll_path, name_gender_map=self.gaz)
         sents = parse_conll_sentences(conll_path)
         if len(sents) != n_sents:
             raise RuntimeError("SENTENCE_MISALIGN: parse_litbank=%d parse_conll_sentences=%d"
