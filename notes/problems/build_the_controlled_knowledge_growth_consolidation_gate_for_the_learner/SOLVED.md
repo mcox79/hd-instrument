@@ -76,20 +76,28 @@ knowledge-source literature) CONVERGE on the same ledger, and an oracle-ablation
 5. **Representation.** Under the diagnostic query, mean-pool beats top-k/exemplar here (measured), so the readout is
    not the recoverable lever.
 
-## What we did NOT establish (and would withdraw first if wrong)
+## The syntagmatic-tightness lever, tested TWO ways (the last glass-box crossing)
 
-- **The one glass-box lever still IN FLIGHT: syntagmatic tightness.** SyntagNet's edges are syntactically-LINKED
-  pairs; ours are whole-sentence topical bags. A windowed read-and-bind (bind only the +/-3 content-word neighbours
-  of the disambiguated target = a dependency-proximity proxy) is running to test whether tight syntagmatic
-  co-occurrence crosses gloss. `[IN FLIGHT -- exp_consolidation_gate_readbind_v1.py --window 3; if it crosses gloss
-  CI-sep the verdict flips from located-negative to PASS.]` The full dependency-parsed asset (offline spaCy,
-  admissible) is the strategy-side successor if the proxy shows promise.
-- I did NOT test grounding injection (the ATL-hub spoke) into sense signatures -- that is a separate large build
-  (the meaning-channel north star), out of scope here, and named as the ceiling cause + successor.
-- The first thing I would withdraw if wrong: the claim that ATTRIBUTION is not the leak rests on the oracle being
-  coverage-starved (1.03 assoc/sense on even-doc SemCor). A large gold-tagged corpus could in principle give
-  perfect-attribution AND coverage; I could not build one glass-box (no LLM/annotator). The full-corpus discriminative
-  route (0.242, 12.6 assoc/sense) triangulates the same ceiling, which is why I hold the conclusion.
+SyntagNet's edges are syntactically-LINKED pairs; ours were whole-sentence topical bags. I tested the fix the
+brain-faithful way -- disambiguate-then-bind, then restrict the BINDING to syntagmatic neighbours, then
+cross-situational recurrence, then MFS-quarantine biased-competition (the 4-stage pipeline):
+- **Window proxy (+/-3 content-word neighbours) + MFS-quarantine discrimination:** a_s **0.246** (best config
+  ratio=2.0, K=3), and the windowed run's own recur+schema consolidation **0.247**. Both still BELOW gloss 0.251
+  (sep=False, delta ~-0.005), the RAW-windowed twin regresses (0.236 < gloss), the shuffled twin loses, and the
+  **MFS no-regression guard PASSES** (overall blended 0.695 >= MFS 0.683). So syntagmatic tightness inches the
+  ceiling up (0.238 -> 0.247) but does not cross gloss.
+- **Real dependency-parsed asset (offline spaCy; head + children of the disambiguated target) + MFS-quarantine:**
+  `[IN FLIGHT -- exp_consolidation_gate_syntactic_v1.py, parsing 1M target sentences; the truest test. Every arm so
+  far converges at 0.235-0.247, so this is the final confirmation, not expected to cross; if it DOES cross gloss
+  CI-sep the verdict flips to PASS.]`
+
+**What I did NOT test, and would withdraw first if wrong:**
+- Grounding injection (the ATL-hub sensorimotor spoke) into sense signatures -- a separate large build (the
+  meaning-channel north star), named as the ceiling cause + successor, not attempted here.
+- The claim that ATTRIBUTION is not the leak rests on the oracle being coverage-starved (1.03 assoc/sense on
+  even-doc SemCor). A large gold-tagged corpus could give perfect-attribution AND coverage; I could not build one
+  glass-box. The full-corpus discriminative route (0.242-0.247, ~12 assoc/sense) triangulates the same ceiling from
+  the opposite corner, which is why I hold the conclusion.
 
 ## PROPOSED hdlab WIRE (strategy lands it, Q111, default-off, witnessed)
 
@@ -147,19 +155,47 @@ piece is how the brain does it, and it's the honest ceiling. So: the consolidati
 safety filter, but "grow the knowledge from reading" is refuted as a way to beat the dictionary glass-box; the
 knowledge that helps has to be curated or grounded.
 
+## WHERE THE SIGNAL IS LOST (ranked, with numbers -- the map for further optimization)
+
+All a_s on strict doc-disjoint SemCor subordinate, n=2676. gloss floor 0.251; curated ceiling 0.302 (+0.051).
+
+| # | loss source | evidence (the number that proves it) | recoverable glass-box? |
+|---|---|---|---|
+| 1 | **Association DISCRIMINATIVENESS** (reading co-occurrence is topical/dominant-biased, not sense-substitutable) | curated 0.302 vs best reading-derived 0.247; MFS-quarantine recovers only 0.218->0.246 | PARTLY -- the residual is SyntagNet's manual concept-filter (barred) |
+| 2 | **Rare-sense Zipf-starvation** (discriminating contexts are the rarest; PPMI weakest where needed) | oracle PERFECT attribution yields ~1 assoc/sense, a_s 0.232 | NO -- intrinsic to the corpus/sense frequency |
+| 3 | **GROUNDING absent** (no sensorimotor/affective dimensions to separate overlapping/sparse senses) | text-distributional ceiling 0.247 vs human ~0.6-0.7; the in-principle wall | NO glass-box-distributionally -- needs the ATL-hub spoke |
+| 4 | ~~Attribution~~ (RULED OUT) | our disambiguation 0.242 ~= perfect gold 0.232 -- NOT a leak | n/a |
+| 5 | ~~Readout representation~~ (RULED OUT) | top-k/exemplar LOSES under the diagnostic query (-0.03 to -0.06) | n/a |
+| 6 | ~~Syntagmatic tightness~~ (tested, small) | window 0.238->0.247; real dependency [in flight] | inches up, does not cross |
+
+## STEPS FOR FURTHER OPTIMIZATION (ordered, actionable -- what strategy should build next)
+
+1. **[in flight, this session] Real dependency-parsed syntagmatic asset** -- `exp_consolidation_gate_syntactic_v1.py`.
+   The truest test of loss #6; if it crosses gloss CI-sep the verdict flips to PASS. Every prior arm converges at
+   0.235-0.247, so hold expectations.
+2. **THE ceiling-crosser: GROUNDING injection into sense signatures** (attacks loss #3, the largest un-recovered
+   one). Inject the grounded ATL-hub spoke (perceptual/affective features) into each sense's signature -- the only
+   mechanism that separates rare senses whose linguistic contexts overlap or are sparse. This is the meaning-channel
+   north star; a separate, larger problem, but it is the highest-value next build and the located cause names it.
+3. **Attack loss #1 without human labels:** approximate SyntagNet's concept-filter with a stronger glass-box
+   sense-attributor at edge-construction time (e.g. the grounded_semantic_graph select_sense) + a syntactic-relation
+   restriction (loss #6's asset), and quarantine MFS-dominated edges (already built: MFS-quarantine). Diminishing
+   returns expected (all three tested separately land <gloss), but the dependency asset is the untested combination.
+4. **Contextual input encoder (the parent's fork)** -- crosses to ~0.53 (BEM-class) but is the transformer/invariant
+   boundary; an OWNER decision, not a near-term glass-box lever. Loss #2 (coverage) is helped by more reading but is
+   secondary (the parent showed knowledge saturates ~40M tokens).
+5. **DO NOT wire reading-derived knowledge growth default-on** -- it does not beat gloss and raw growth HURTS. Wire
+   the gate as a REGRESSION-GUARD (raw-vs-consolidated contrast baked in) composing with `hdlab/cls_growth`
+   (reversibility) -- admission quality is the binding constraint, and reading co-occurrence does not meet it.
+
 ## QUESTIONS
 
-One, non-blocking: the syntagmatic-tightness (windowed) test is in flight; if it crosses gloss it flips this to a
-PASS. If it does not, the located negative is proven and the two named successors (dependency-parsed syntagmatic
-asset; grounding injection) go to strategy.
+One, non-blocking: the real dependency-parsed test is in flight; if it crosses gloss it flips this to a PASS. If it
+does not (expected, given every arm converges at 0.235-0.247), the located negative is proven across every glass-box
+lever and the two successors (grounding injection; stronger glass-box edge-attribution) go to strategy.
 
 ## NEXT STEPS
 
-1. **[in flight] Windowed / syntactic-restricted co-occurrence** -- the one remaining glass-box lever; if the
-   +/-3 proxy shows promise, build the full offline dependency-parsed syntagmatic asset (admissible; the
-   SyntagNet-construction ingredient we skipped).
-2. **Do NOT wire reading-derived knowledge growth default-on** -- it does not beat gloss; wire the gate as a
-   guard/regression-check composing with `hdlab/cls_growth`.
-3. **The real ceiling-crosser is GROUNDING** -- inject the ATL-hub sensorimotor spoke into sense signatures (the
-   meaning-channel north star), the only mechanism that separates overlapping/sparse-context rare senses. Separate,
-   larger problem; named here as the located cause.
+See STEPS FOR FURTHER OPTIMIZATION above (ordered). Headline: reading-derived knowledge growth is REFUTED as a
+glass-box way to beat gloss (located negative, ceiling 0.247 vs gloss 0.251 vs curated 0.302); the gate WORKS as a
+raw-noise filter; the ceiling-crosser is GROUNDING, not more reading.
