@@ -42,6 +42,17 @@ the brief.*
   + citations + fix). State the problem ONCE crisply, ONCE in plain language, ONCE as "why now" — no more. Put
   floors/controls inside THE BAR, citations inside HOW THE BRAIN DOES THIS. Use ⚠️/🚫 sparingly. A brief packed with
   restatement and warnings is harder to act on, not safer.
+- **EVERY BRIEF CARRIES THE 🧠 BRAIN-FOUNDATIONAL CHECKLIST (OWNER 2026-09-03).** A blockquote directly after the
+  SOLVER OPERATING PROTOCOL, distilling the standing guidance the owner gives every solver — a RATIONAL ORDERED
+  checklist the solution must satisfy: (1) OPEN — how does the BRAIN do this? (name structure+computation, PINNED vs
+  OUR-INVENTION, research where unsure); (2) REUSE — does an organ already do it?; (3) GENERALIZE — does it need to,
+  and how does the brain?; (4) HIT A WALL → GO DEEPER, don't stop (if the brain can do it, it's possible; drill WHY;
+  a located negative counts only if the brain's ACTUAL mechanism failed); (5) OPTIMIZE BY EXACT REPLICATION (evaluate
+  aggressively/precisely how the brain does it, replicate exactly, no half-effort); (6) PERFORMANCE vs THE BRAIN
+  (compare to a competent reader, where along the chain we lose signal, itemized mechanism-diff); (7) ADJACENT
+  COMPONENTS (capabilities/limitations/opportunities/brain-status → seeds the next problems); (8) COMPLETION BAR (is
+  it complete, excellent, FULLY brain-foundational conveying ALL the brain function's benefits? else keep pushing).
+  Copy the canonical block verbatim from any recent brief (e.g. `upgrade_the_pos_tagger_to_a_calibrated_joint_decoded_posterior/PROBLEM.md`).
 
 ## 🔢 **PRIORITY -- OWNER INSTRUCTION 2026-08-22: *"I also want a priority for what problems to tackle first, on the problem page"***
 

@@ -11,6 +11,16 @@ review_text:
 > ## ⚙️ SOLVER OPERATING PROTOCOL (standing — owner 2026-08-25/26)
 > **DO THE RIGHT THING, NOT THE CHEAP THING.** 🧠 OPENING MOVE: how does the BRAIN do THIS? Name the structure + computation, replicate it. Mark PINNED vs OUR-INVENTION. A rigorous located NEGATIVE is a PASS if the brain's actual mechanism, faithfully built, is what failed. 📖 REFERENCE `notes/BRAIN_FOUNDATIONAL_AUDIT.md` §2b.
 
+> ## 🧠 BRAIN-FOUNDATIONAL CHECKLIST (the owner's standing bar — work through IN ORDER; the solution is not done until every box holds)
+> 1. **OPEN — how does the BRAIN do THIS?** Name the specific structure + computation and replicate that OPERATION as the FIRST move; mark each choice PINNED vs OUR-INVENTION. RESEARCH AGGRESSIVELY wherever you are unsure — do not build the tractable thing and cite neuroscience after.
+> 2. **REUSE — does an existing organ already do what you need?** Check `tools/substrate_map.py` / `tools/reader_capabilities.py` / `hdlab/` FIRST; extend a matching organ rather than re-deriving it.
+> 3. **GENERALIZE — does this need to generalize, and HOW does the brain generalize it?** Build for that (register / novelty / transfer), not for the single test.
+> 4. **HIT A WALL? GO DEEPER, DON'T STOP.** Research-drill WHY. If the brain can do it, it IS possible and we can too, once we understand it. A located NEGATIVE counts only if the brain's ACTUAL mechanism, faithfully built, is what failed (fair test: can-fail, one-variable, real baseline).
+> 5. **OPTIMIZE BY EXACT REPLICATION.** Evaluate aggressively, with great precision, EXACTLY how the brain does it, and replicate it exactly — copy the computation, SWEEP (never adopt) the parameters. No half-effort: the closer we are, the better we do.
+> 6. **PERFORMANCE vs THE BRAIN.** How does our performance compare to a competent brain/reader on this task? WHERE ALONG THE CHAIN do we lose signal? What EXACTLY differs between our implementation and the brain's mechanism (an itemized mechanism-diff)?
+> 7. **ADJACENT COMPONENTS.** Map the capabilities, limitations, opportunities, and brain-foundational status of the adjacent components — that seeds the next problems to address.
+> 8. **COMPLETION BAR.** Is this a COMPLETE, EXCELLENT solved problem? Is it FULLY brain-foundational, conveying ALL the benefits of the brain function we replicate? If not, keep pushing toward a fully complete, exceptional solution.
+
 ## 1. THE PROBLEM IN PLAIN LANGUAGE
 Once the reader sees every noun phrase as a candidate (the referent-per-NP fix), the hard remaining errors are sentences with TWO possible objects — "she gave the man a book", "they called the place a haven" — where it must pick which noun fills which role. Today it mostly picks by position (nearest noun after the verb), which is wrong on these. The submission found the brain's cue here is the CONSTRUCTION (the sentence pattern itself: a double-object frame means the first noun is the recipient; a naming/object-complement frame means the second is the complement), NOT how often that verb co-occurs with that noun. The job: build a selector that reads the construction and assigns the roles accordingly, and show it beats the positional pick on multi-object clauses.
 
