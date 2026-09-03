@@ -5,7 +5,7 @@ bar: "PASS = a self-supervised generative sense predictor (SG-lite at scale + a 
 result: "a_s(subordinate senses, subject-weighted, strict document-disjoint SemCor, n_sub_test~2676). BRAIN-FOUNDATIONAL FIX prototyped + validated: a biased-competition DIAGNOSTIC-CONTEXT readout (semantic control -- amplify sense-discriminating context words, suppress shared topic; glass-box, no LLM) reaches a_s = 0.326 (APEX) with 277M embeddings (paired +0.0430 CI-sep over flat-context 0.283), and 0.307 on 41M (paired +0.0389 CI-sep [+0.019,+0.059] over 0.268), with a shuffled-diagnosticity twin LOSING CI-sep both times. It STACKS knowledge (better embeddings 0.307->0.326) with the brain mechanism, is the most brain-faithful arm, and beats the top-k key trick. Prior APEX (readout tricks): 0.306 by STACKING the 277M gestalt (best knowledge) + a richer TOP-K gloss readout (paired +0.0262 CI-sep over that gestalt's mean-pool 0.280). >> the located-negative NB 0.198, the nearest-centroid 0.22, and the parent's 0.280. Each lever alone: KNOWLEDGE -- paired 41M-vs-8M recon a_s +0.0277 CI-sep [0.0120,0.0445] (reverify witness; n=2676), rising 8M 0.255 -> 41M 0.280 -> 277M 0.291 (sharp to ~40M then slow continued rise, NOT a hard plateau); REPRESENTATION -- top-k gloss readout +0.0310 CI-sep on the 41M gestalt (0.265->0.296) and +0.0262 on the 277M gestalt (0.280->0.306). Shuffled twin LOSES CI-sep and net over MFS(0.6831) is POSITIVE CI-sep at every point. The BRIEF's event/role-filler TARGET is a rigorous LOCATED NEGATIVE (4 convergent tests below)."
 floor: "MFS overall 0.6831 (net-gain floor, gated on upper bound); a_s floors: overfit-NB 0.198 and nearest-centroid readout 0.22 (both strict document-disjoint). Every net-over-MFS is CI-separated ABOVE 0 with the twin losing."
 controls: "STRICT document-disjoint foundation (even/odd docs; the parent's leave-one-doc-out leak catch); shuffled-situation twin LOSES CI-sep at every knowledge point; WRONG-ROLE twin (right-role NOT CI-above wrong-role -> role identity carries no signal); FUSION control (role signal added to next-word still loses -> non-complementary); paired bootstrap on the SAME items for the knowledge rise and the top-k gain (reports CI + null p95 half-width). Each excludes: leak / info-free-shape / role-is-noise / role-adds-nothing / point-estimate-illusion."
-files_changed: "experiments/exp_sg_lite_event_role_readout_v1.py, experiments/exp_sg_lite_event_target_gestalt_v1.py, experiments/exp_sg_lite_knowledge_scaling_v1.py, experiments/exp_sg_lite_selectional_fit_readout_v1.py, experiments/exp_sg_lite_signal_loss_trace_v1.py, experiments/exp_sg_lite_diagnostic_context_readout_v1.py, experiments/exp_sg_lite_brain_gap_attribution_v1.py, experiments/exp_sg_lite_graph_knowledge_scaling_v1.py (reuses grounded_semantic_graph_organ UNMODIFIED), verification/test_event_role_and_knowledge_scaling.py, data/exp_sg_lite_knowledge_scaling_v1/metrics_know{530000,7500000,0}.json, data/exp_sg_lite_event_{role_readout,target_gestalt}_v1/metrics.json, data/exp_sg_lite_selectional_fit_readout_v1/metrics{,_know0}.json, data/exp_sg_lite_signal_loss_trace_v1/metrics.json, data/exp_sg_lite_diagnostic_context_readout_v1/metrics.json"
+files_changed: "experiments/exp_sg_lite_event_role_readout_v1.py, experiments/exp_sg_lite_event_target_gestalt_v1.py, experiments/exp_sg_lite_knowledge_scaling_v1.py, experiments/exp_sg_lite_selectional_fit_readout_v1.py, experiments/exp_sg_lite_signal_loss_trace_v1.py, experiments/exp_sg_lite_diagnostic_context_readout_v1.py, experiments/exp_sg_lite_brain_gap_attribution_v1.py, experiments/exp_sg_lite_graph_knowledge_scaling_v1.py (reuses grounded_semantic_graph_organ UNMODIFIED), experiments/exp_sg_lite_syntactic_query_wsd_v1.py, verification/test_event_role_and_knowledge_scaling.py, data/exp_sg_lite_knowledge_scaling_v1/metrics_know{530000,7500000,0}.json, data/exp_sg_lite_event_{role_readout,target_gestalt}_v1/metrics.json, data/exp_sg_lite_selectional_fit_readout_v1/metrics{,_know0}.json, data/exp_sg_lite_signal_loss_trace_v1/metrics.json, data/exp_sg_lite_diagnostic_context_readout_v1/metrics.json"
 reverify: ".venv/Scripts/python.exe verification/test_event_role_and_knowledge_scaling.py"
 ---
 
@@ -153,6 +153,31 @@ shape. This is the most brain-faithful result in the problem: it is the actual s
 the top-k key-side trick (0.296) while running on the SMALLER 41M gestalt, and it is gestalt-independent (context
 words + glosses). It attacks the REPRESENTATION half of the loss; the COVERAGE half (48% unseen rare senses) remains
 the learner's curriculum job. **This is the fix to wire** (supersedes item 1 below): default-off, witnessed, Q111.
+
+## FOLLOW-ON DRILLS -- do we have the organ? does more knowledge help? does syntactic query construction help?
+**Q1 (sense-discriminative organ):** we HAVE one -- `grounded_semantic_graph_organ` (WordNet++ synset nodes, spreading
+activation, senses = distinct nodes; augmentable + learnable). Run UNMODIFIED on OUR a_s metric
+(`exp_sg_lite_graph_knowledge_scaling_v1`, subordinate test n=2676): it caps at a_s **0.27 -- BELOW the topic-word2vec
+0.33** (context-shuffle twin loses +0.099, so its signal is real). => sense-DISCRIMINATION alone is NOT the lever;
+this empirically corroborates the attribution (the lever is ENCODING / query construction).
+
+**Q2 (does more world knowledge help, via the learner?):** CURATED knowledge helps, RAW learner knowledge does not
+(yet). Graph knowledge ladder on our metric: base 0.219 -> +ConceptNet 0.216 (flat) -> +SyntagNet **0.274 (+0.058)**.
+But `learn_from_text` (the learner growing raw co-occurrence edges from reading): 0.272 -> 0.267 as it adds 5k then
+35k edges -- FLAT-TO-DOWN. *Reason: raw co-occurrence is too noisy; it needs the CONSOLIDATION / clean-foundation
+step before it helps -- exactly why the learner is OFF (the "extract CLEAN knowledge first" gate). Curated syntagmatic
+knowledge (SyntagNet) IS clean, so it helps.* So "more knowledge -> higher score" holds for CLEAN knowledge; the
+learner's value is gated on consolidation, and this locates that precisely.
+
+**Arm 1 prototype (the research's top pick -- syntactic/dependency-filtered query, `exp_sg_lite_syntactic_query_wsd_v1`):
+LOCATED NEGATIVE vs the diagnostic fix.** On subordinate test-sub (FLAT 0.322): syntax HARD-filter 0.318 (recall
+loss); syntax SOFT up-weight 0.326 (+0.004, NOT separated); syntax x diagnostic 0.334 (+0.012 CI-sep); **diagnostic on
+the full bag (the biased-competition fix) 0.338 (+0.016 CI-sep) -- the BEST.** Syntactic words ARE informative (SYNTAX
+beats a same-cardinality RANDOM subset +0.047 CI-sep -- the mandatory control), but syntax is a PROXY for "which words
+discriminate the senses" and the diagnostic measure targets that DIRECTLY, subsuming it. => the research's LEVER (query
+construction / biased competition) is confirmed; its specific SYNTACTIC implementation is dominated by the SEMANTIC
+one. Remaining research arms: exemplar-retrieval (coverage-limited -- covered-sense supervised ceiling is only 0.35);
+a small recurrent Sentence-Gestalt contextual encoder (the ceiling candidate, needs a trained component).
 
 ## KEY REALIZATIONS
 - **The brief named the wrong lever.** "Role-filler target raises a_s" is refuted; the levers that actually move

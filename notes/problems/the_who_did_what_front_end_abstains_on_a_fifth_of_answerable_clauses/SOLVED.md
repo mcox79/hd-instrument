@@ -5,7 +5,7 @@ bar: "PASS = a coverage recovery (attempt every finite verb + parser-robust cand
 result: "RECOMPUTED against the CURRENT live reader (the stored 0.6293 floor went STALE -- upstream modules landed DURING this work and lifted the live wired reader to 0.7877; predict_revise = +0.0643 of it). On the 669 clean-19c direct-object clauses, scorer pick==gold_head, effective end-to-end (abstention=wrong): CURRENT live wired 0.7877 -> STRUCTURAL recovery 0.9851, marginal +0.1973 CI[+0.1689,+0.2272] CI-separated. The recovery's contribution is now primarily ACCURACY (it fixes 65 of the reader's 75 remaining wrong picks) plus the 47 verb_subcat + 20 no-event abstentions. Modern QA-SRL (n=1261) 0.5678 -> 0.9025, +0.3347 CI-sep (modern floor not yet re-run against current substrate)."
 floor: "Strongest floor actually run = the CURRENT live wired reader 0.7877 (predict_revise ON; recomputed first-hand, NOT the stale stored 0.6293). predict_revise OFF = 0.7235. The RECOVERED path beats the current floor +0.1973 CI[+0.1689,+0.2272]. best-available-parser wired floor (updated arc-eager UAS 0.842) 0.6308 at the time it was run -- also now superseded by the upstream lift. RETIRED as stale: the stored wired_pick 0.6293."
 controls: "(1) info-free twin = full coverage + UNIFORM-RANDOM post-verbal pick 0.4185, LOSES CI-sep. (2) NO-REGRESSION: present-accuracy 0.807->0.981; 5 individual flips (hard ditransitive/copula/distant-noun). (3) INTRANSITIVE precision control (constructed, can-fail): naive soft rule over-generates on 100% of intransitives; STRUCTURAL-DO abstains correctly 0.975 AND recovers the 47 AND does not regress the main gold. (4) CURRENT-FLOOR recompute (first-hand): the recovery marginal is measured over the CURRENT 0.7877 reader, not the stale 0.6293; predict_revise attributed (+0.064). (5) fair-floor: the updated arc-eager parser recovers only 1/669 -> abstention was not parse-quality. (6) per-cause ablation is exhaustive."
-files_changed: "experiments/exp_whodidwhat_coverage_diagnosis_v1.py, experiments/exp_whodidwhat_coverage_recover_v1.py, experiments/exp_whodidwhat_coverage_parser_floor_v1.py, experiments/exp_whodidwhat_coverage_transitivity_control_v1.py, experiments/exp_whodidwhat_verb_id_recoverable_v1.py, experiments/exp_whodidwhat_mention_source_transfer_v1.py, experiments/exp_whodidwhat_meaning_prediction_completeness_v1.py, experiments/exp_whodidwhat_live_wire_end_to_end_v1.py, experiments/exp_whodidwhat_current_floor_rediagnosis_v1.py, experiments/exp_whodidwhat_referent_per_np_prototype_v1.py, experiments/exp_whodidwhat_verbid_override_prototype_v1.py, experiments/exp_whodidwhat_ideal_brain_foundational_v1.py, experiments/exp_whodidwhat_noncanonical_upstream_v1.py, experiments/exp_whodidwhat_fillergap_fix_v1.py, experiments/exp_whodidwhat_composed_pipeline_v1.py, verification/test_whodidwhat_coverage.py, notes/problems/the_who_did_what_front_end_abstains_on_a_fifth_of_answerable_clauses/SOLVED.md"
+files_changed: "experiments/exp_whodidwhat_coverage_diagnosis_v1.py, experiments/exp_whodidwhat_coverage_recover_v1.py, experiments/exp_whodidwhat_coverage_parser_floor_v1.py, experiments/exp_whodidwhat_coverage_transitivity_control_v1.py, experiments/exp_whodidwhat_verb_id_recoverable_v1.py, experiments/exp_whodidwhat_mention_source_transfer_v1.py, experiments/exp_whodidwhat_meaning_prediction_completeness_v1.py, experiments/exp_whodidwhat_live_wire_end_to_end_v1.py, experiments/exp_whodidwhat_current_floor_rediagnosis_v1.py, experiments/exp_whodidwhat_referent_per_np_prototype_v1.py, experiments/exp_whodidwhat_verbid_override_prototype_v1.py, experiments/exp_whodidwhat_ideal_brain_foundational_v1.py, experiments/exp_whodidwhat_noncanonical_upstream_v1.py, experiments/exp_whodidwhat_fillergap_fix_v1.py, experiments/exp_whodidwhat_composed_pipeline_v1.py, experiments/exp_whodidwhat_verbid_learned_combiner_v1.py, experiments/exp_whodidwhat_competent_reader_benchmark_v1.py, experiments/exp_whodidwhat_verbid_joint_pos_parse_v1.py, experiments/exp_whodidwhat_noncanonical_gold_rebuild_v1.py, verification/test_whodidwhat_coverage.py, notes/problems/the_who_did_what_front_end_abstains_on_a_fifth_of_answerable_clauses/SOLVED.md"
 reverify: ".venv/Scripts/python.exe verification/test_whodidwhat_coverage.py"
 ---
 
@@ -151,6 +151,69 @@ while non-canonical still loses **0.70** — recovered 4× off the floor by stru
 meaning channel (structural cues cannot close it; the generative situation model is the successor). Combined effective
 0.7607. The confidence layer still flags the composed pipeline's own errors (surprisal wrong 2.60 > correct 1.66).
 This is the reference drop-in the strategy session lands (Q111, default-off, witnessed).
+
+## 0e. BRAIN-COMPARISON (performance-level) + the verb-ID located negative + scoped successors
+**Verb-ID learned combiner — the research-confirmed fix, IMPLEMENTED and located as a HARD_FAIL** (cell:
+`exp_whodidwhat_verbid_learned_combiner_v1`). Per the 2026-09-03 drill this is a "combiner not capability" problem: a
+learned logistic weighting (WordNet + dependency-attachment + morphology + closed-class) over the same signals,
+trained on UD gold. Result: UD verb recall +4pp, but on 19c at FP<=1.0/sentence recovery is only **0.05** (HARD_FAIL
+vs the pre-registered recall+>=20pp @ FP<=1.0 bar). Mechanistic reason: the discriminative signal (dependency
+attachment, learned weight 3.86) is **corrupted on the exact tokens** — the arc-eager parser inherits the POS
+mis-tag, so the mis-tagged verb is not attached as a head. => the real fix is a **JOINT POS+parse retrain** (so the
+parser does not inherit the mis-tag), not a combiner. Scoped as follow-on 1c with this evidence.
+
+**COMPETENT-READER BENCHMARK — the brain-comparison, made performance-level** (cell:
+`exp_whodidwhat_competent_reader_benchmark_v1`; spaCy REFERENCE-ONLY, never at inference — the diagnostic-oracle
+exception): our glass-box pipeline vs a competent statistical parser (spaCy structural roles) vs the oracle ceiling.
+
+| regime | OUR pipeline | competent reader (spaCy) | oracle |
+|---|---|---|---|
+| CANONICAL (n=669) | **0.9596** | 0.8520 | 0.9895 |
+| NON-CANONICAL cleaned (n=284) | 0.2923 | **0.0211** | 0.9965 |
+
+TWO findings: (1) **on CANONICAL we are AT competent-reader level** (0.96 vs spaCy 0.85, near oracle 0.99) — a
+trustworthy quantitative brain-comparison. (2) **On NON-CANONICAL a COMPETENT reference parser ALSO fails (0.021)** —
+so the non-canonical gold is BROKEN; its "0.70 signal loss" was measuring against an unreliable target, **NOT a
+modeling/meaning gap**. This CORRECTS the earlier framing (§0c/§0d) that non-canonical was gated on the meaning
+channel: it is gated on GOLD QUALITY first. Our 0.29 > spaCy 0.021 is NOT "better than a competent reader" — our
+positional rule accidentally matches the gold's noisy preverbal-labeling; neither number is trustworthy on this gold.
+
+**HONEST STATUS — are we 100% brain-foundational?** No. The role-assignment CORE is brain-foundational and verified;
+THREE surrounding organs are not, each a named successor:
+- **verb/predicate identification** — static tagger; brain-faithful combiner HARD_FAILED; needs joint POS+parse retrain (1c).
+- **meaning channel** — 12-d grounded space measurably weak/dead; the generative situation model is partial/unbuilt, priority-1 under the learner-on north star (CITED, not opened — a fenced re-tread for selection).
+- **deployment mention builder** — coref-based, not referent-per-NP (quantified deviation; fix prototyped, not landed).
+And a data prerequisite: the **non-canonical gold must be rebuilt** before non-canonical can be measured at all.
+Where signal is lost = MEASURED at each stage (§0d ledger). Brain-comparison = performance-level on canonical (at
+competent-reader), un-measurable on non-canonical (broken gold).
+
+## 0f. THE TWO NEXT-STEPS DONE + THE BRAIN STRUCTURE FOR EACH NON-BRAIN-FOUNDATIONAL ORGAN
+**Step 2 — verb-ID JOINT POS+parse** (cell: `exp_whodidwhat_verbid_joint_pos_parse_v1`). Brain: lexical category and
+syntax settle JOINTLY (left posterior temporal lexical access + left IFG/BA44-45 combinatorial syntax; MacDonald 1994)
+— there is no static tag to mis-propagate, which is exactly why the sequential combiner failed. The heuristic joint
+version (re-categorise a verb-less clause's predicate, then re-parse) ALSO HARD_FAILS (recovery 0.05) — most no-event
+clauses are NOT verb-less (they contain other verbs), so the trigger rarely fires. THREE approaches now refuted
+(heuristic combined cue; learned sequential combiner; heuristic joint re-tag) → 19c verb-ID genuinely needs a **fully
+JOINTLY-TRAINED POS+dependency model** (Bohnet & Nivre 2012 joint parsing), a substantial adjacent build — thoroughly
+located as follow-on 1c, not a heuristic.
+
+**Step 1 — REBUILD the non-canonical gold** (cell: `exp_whodidwhat_noncanonical_gold_rebuild_v1`; spaCy reference-only,
+offline eval-gold build). The original LitBank non-canonical gold agrees with a competent reader only **0.0426** (96%
+broken — the "0.70 signal loss" was mostly measuring noise). But against the REBUILT competent-reader gold (282
+clauses where spaCy gives a confident patient), our positional pipeline scores **0.4752** — a REAL modeling gap. So
+non-canonical is BOTH: broken gold masked a genuine gap. A competent parser handles relative clauses / fronting; our
+positional rule reaches 48%. This is now honestly measurable (it was not, on the broken gold), and the lever is a
+real filler-gap parse, not more cues.
+
+**The brain structure for each non-brain-foundational organ (the answer to "what does it in the actual brain"):**
+- **verb/predicate identification** → left posterior temporal (lexical) + left IFG/BA44-45 (combinatorial syntax),
+  settling category + structure JOINTLY (no static tagger). Our fix = joint POS+parse (1c).
+- **meaning** → the anterior temporal lobe HUB binding sensorimotor spokes (Lambon Ralph hub-and-spoke); the ~200-d
+  amodal hub the project already filed as its successor (the 12-d grounded space is one crude spoke).
+- **referent/mention** → the discourse/situation model (default-mode network + hippocampus/entorhinal); every NP opens
+  a referent (Kamp/Heim at the computational level). Our fix = referent-per-NP (prototyped).
+Each organ HAS a brain-foundational answer AND a filed/prototyped successor; none is a fidelity wall, but two
+(meaning hub, joint parser) are substantial builds and one (referent-per-NP) is ready to land.
 
 ## 1. The diagnosis — first-hand, exhaustive (cell: exp_whodidwhat_coverage_diagnosis_v1) [floor superseded by §0]
 I re-ran the actual `hdlab.situation_reader.SituationReader` (the "strong" reader the gold was built with:
