@@ -260,6 +260,11 @@ class EventRecord:
     # was recovered (so the recovery is glass-box + reversible). The default reader never sets it.
     pred_idx: Optional[int] = None
     patient_prerevise: Optional[str] = None
+    # STRUCTURAL-DO recovery (2026-09-03 wire, default-off structural_do_recover). True/False when the flag is on
+    # and this event has a bound patient on the WIRED path (whether the bound patient is a BARE post-verbal direct
+    # object -> the verb_subcat veto is overridden and the patient kept); None otherwise. The default reader never
+    # sets it. Set in _read_events_wired where the toks-space verb + candidate indices are available.
+    patient_is_bare_do: Optional[bool] = None
 
 
 @dataclass
@@ -645,7 +650,8 @@ class SituationReader:
                  densify_world_state: bool = True,
                  parser_arceager: bool = False,
                  np_head_reduce: bool = True,
-                 bind_entity_states: bool = False) -> None:
+                 bind_entity_states: bool = False,
+                 structural_do_recover: bool = False) -> None:
         # === DEFAULTS FLIPPED ON 2026-09-03 (owner-authorized: "switch them on... 1 at a time, top down,
         # measure which are net positives"). The greedy forward-activation sweep (tools/flag_activation_sweep.py,
         # data/flag_activation_sweep/results.json) measured each flag one-at-a-time in dependency order on the
@@ -864,6 +870,17 @@ class SituationReader:
         # glass-box Higgins typing. Integrated 2026-09-03 from the owner-DONE the_reader_has_no_copular_is_a_
         # binding_schema (10/10 + 6/6). Lazy imports -> byte-identical when off. NO LLM.
         self.bind_entity_states = bool(bind_entity_states)
+        # STRUCTURAL-DO recovery (opt-in; default OFF = byte-identical). Coverage-gap §0g wire (2026-09-03, from
+        # the owner-DONE the_who_did_what_front_end_abstains...): the verb_subcat gate's blanket intransitive veto
+        # also drops genuinely-transitive uses of low-transitivity verbs on 19c prose (47 mis-vetoed clauses). When
+        # ON, the WIRED path (_read_events_wired) records per event whether its bound patient is a BARE post-verbal
+        # DIRECT OBJECT (hdlab.structural_do.is_bare_do -- no preposition between verb and candidate), and the
+        # verb_subcat gate OVERRIDES its veto for a bare-DO patient (structural evidence beats the weak transitivity
+        # prior -- Competition Model), recovering the 47 while preserving intransitive precision (a low-transitivity
+        # verb WITHOUT a bare DO still abstains). Requires role_route='wired' + verb_subcat_gate to have effect;
+        # default OFF -> patient_is_bare_do stays None -> the veto is unconditional (byte-identical). NO spaCy / NO LLM.
+        self.structural_do_recover = bool(structural_do_recover)
+        self._sdo = None               # lazy hdlab.structural_do
         # PER-READ tag/parse memo (2026-09-03 perf): dimensions independently re-tag/re-parse the SAME
         # sentences (arc parser ~118x + POS tagger ~310x per read). Tag+parse each distinct sentence ONCE
         # per read() via _cached_tag/_cached_parse_heads; reset each read -> no cross-read leak, byte-identical
@@ -889,7 +906,7 @@ class SituationReader:
         "tense_agnostic_events", "preserve_tense", "timeline_register", "verb_subcat_gate", "track_space",
         "predict_surprisal", "track_belief", "bind_event_tokens", "predict_revise", "track_world_state",
         "densify_world_state", "np_head_reduce", "parser_arceager", "causation_typed", "spacy_pred_gate",
-        "bind_entity_states")
+        "bind_entity_states", "structural_do_recover")
 
     @classmethod
     def all_capabilities_off(cls, gaz=None, **overrides):
@@ -1152,9 +1169,25 @@ class SituationReader:
                 subj_role, obj_role = _assign_frame_primary_roles(e.lemma, toks, e.idx, noms,
                                                                   gate_intransitive=self.gate_intransitive)
                 affect = _assign_affect(patient, text)
+                pib = None
+                if self.structural_do_recover and patient not in ("?", None) and vp is not None:
+                    # STRUCTURAL-DO (§0g wire): is the bound patient a BARE post-verbal direct object of this verb?
+                    # verb (vp) + candidate indices are in toks-space here; find the nearest post-verbal nom whose
+                    # head == patient. Feeds the verb_subcat veto override in read(). Lazy import when on.
+                    if self._sdo is None:
+                        from hdlab import structural_do as _SDO
+                        self._sdo = _SDO
+                    pcands = [m["wtok_start"] for m in noms
+                              if m.get("head") == patient and m["wtok_start"] > vp]
+                    if pcands:
+                        _up = self._cached_tag(list(toks))
+                        pib = bool(self._sdo.is_bare_do(toks, _up, vp, min(pcands)))
+                    else:
+                        pib = False   # patient is not a post-verbal nominal -> not a bare DO -> allow the veto
                 events.append(EventRecord(global_idx=gidx, sent_idx=si, predicate=e.lemma, agent=agent,
                                           patient=patient, tense=str(e.tense), subj_role=subj_role,
-                                          obj_role=obj_role, affect=affect, pred_idx=e.idx))
+                                          obj_role=obj_role, affect=affect, pred_idx=e.idx,
+                                          patient_is_bare_do=pib))
                 role_fillers.append(rf)
                 if extra:
                     self.wired_extra_roles.append({"global_idx": gidx, **extra})
@@ -1599,6 +1632,8 @@ class SituationReader:
             _VS = self._vs_mod
             for e in sm.events:
                 if e.patient not in ("?", None) and _VS.suppress_patient(e.predicate, self.verb_subcat_thr):
+                    if self.structural_do_recover and e.patient_is_bare_do:
+                        continue  # STRUCTURAL-DO override (§0g): a bare post-verbal DO beats the intransitive veto
                     e.patient = "?"
         if self.predict_surprisal:
             # forward-prediction surprisal metadata + abstain flag. Runs LAST over the FINAL patient (after
