@@ -1,0 +1,27 @@
+# OVERNIGHT AUTONOMOUS PLAN — 2026-09-03 (owner away until morning; FULL authority granted)
+
+**READ THIS FIRST on any wake/cron-fire/recovery. Do NOT wait for owner confirmation — the owner explicitly authorized autonomous execution overnight.** Cron `d94a4466` (session-only, fires :18 + :58) drives this; **if a fresh session recovers, RECREATE the cron** (CronCreate, same prompt as below) and resume from the CURRENT STATE section.
+
+## THE MANDATE (owner, 2026-09-03, verbatim intent)
+1. **Turn the reader's ~13 default-off capability flags ON, one at a time, top-down (dependency order), and measure which are net-positive vs net-negative.** Trace signal at EVERY step so one bad bottleneck component isn't silently killing everything downstream.
+2. **As you turn on upstream improvements, FIX the downstream items to work with them** (adapt / re-validate the ~20 role-output organs; a flag that helps upstream but hurts a downstream dim = adapt that organ, don't just drop the flag).
+3. **Peek at the solver solutions being worked right now; treat them as done; integrate any SIGNIFICANT advance here.** (In-progress = has `SOLVED.md`, not yet `owner_verdict: DONE`.)
+4. Keep this plan current so it survives compaction. Commit path-limited (NO push).
+
+## THE FLAGS (default-off, dependency order = the sweep order)
+Keystone → front-end → dimensions. `tools/flag_activation_sweep.py` runs the GREEDY forward activation + per-dimension signal trace on the reader-QA harness (coref / events[who-did-what] / temporal / causal / location / belief), writing `data/flag_activation_sweep/results.json`.
+1. `tense_agnostic_events` (event detection 0.33→0.95 — the keystone) · 2. `preserve_tense` · 3. `role_route="wired"` (gate for arceager) · 4. `parser_arceager` (UAS +0.067 modern; ~flat/degraded 19c) · 5. `np_head_reduce` (+0.20 clean who-did-what) · 6. `predict_revise` (+0.06 wdw) · 7. `verb_subcat_gate` · 8. `predict_surprisal` · 9. `timeline_register` (TIME) · 10. `track_space` (SPACE) · 11. `track_belief` (ToM).
+**Scored by their OWN instruments (already net-positive; flip + note, don't re-run in the sweep):** `track_world_state` + `densify_world_state` (who-has-what; densify +0.148) · `bind_event_tokens` (the JOINT). **Off by invariant (do NOT flip):** `spacy_pred_gate`, `causation_typed` (need spaCy).
+⚠️ CORPUS CAVEAT: the sweep runs on 19c LitBank whose who-did-what gold is ~76% oblique-CONTAMINATED, and arc-eager is at-ceiling on 19c — so the events/parser deltas there UNDER-show; confirm parser/role flags on modern QA-SRL (`instrument_who_did_what_qasrl` in `tools/baseline_board.py`) before dropping them.
+
+## THE LOOP (each cron fire / wake — do the next unblocked chunk)
+- **A. Sweep analysis + flip + downstream-fix.** If `results.json` is complete: for each flag, read `agg_delta_vs_kept` + `dim_delta_vs_kept` + `hurt_dims` + `verdict`. Flip the KEEP flags DEFAULT-ON in `hdlab/situation_reader.py` (change the `bool = False` default). For KEEP_BUT_DOWNSTREAM_FIX (helped net but hurt a dim) → open the hurt dimension's organ, diagnose why the better upstream input broke it, FIX it, re-run `flag_activation_sweep` (or a targeted per-dim score) to confirm the dim recovers. For DROP → leave default-off + record why (corpus-dependent etc.). Witness each default flip stays correct (existing dimension witnesses should still pass). Commit per flag or per small batch.
+- **B. Integrate significant in-progress solutions.** `grep -L INTEGRATED_BY_STRATEGY notes/problems/*/SOLVED.md` minus owner-DONE gate items → assess; if a SIGNIFICANT advance, reverify FIRST-HAND, grade, land the Q111 wire (default-off, witnessed), §2b, register, clear priority, commit.
+- **C. Housekeeping.** Update this file's CURRENT STATE + STATUS.md every chunk. Commit path-limited. NO push.
+
+## DISCIPLINES (unchanged, load-bearing)
+Reverify FIRST-HAND before grading/landing. Wires land DEFAULT-OFF + witnessed (Q111) — BUT this task's explicit goal is to then FLIP the net-positive ones default-ON (owner-authorized). Path-limit every commit (`git commit -- <paths>`; hd_metrics_sync auto-stages notes/). **NO push** (needs in-session owner auth). Only stop/kill what THIS session spawned. Route heavy runs remote if they exceed local capacity.
+
+## CURRENT STATE (update every chunk)
+- **2026-09-03 initial:** flag sweep LAUNCHED (`tools/flag_activation_sweep.py`, bg, ~20-30 min) → `data/flag_activation_sweep/results.json`. Cron `d94a4466` created. Two in-progress solutions SOLVED + awaiting integration assessment: `the_reader_has_no_copular_is_a_binding_schema` (SOLVED) and `the_who_did_what_front_end_abstains_on_a_fifth_of_answerable_clauses` (SOLVED — the coverage gap, directly relevant to the sweep's `predict_revise`/coverage). NEXT: (1) monitor the sweep; (2) integrate the 2 solutions if significant; (3) when sweep done, flip net-positives + fix downstream.
+- Committed today (arc): meaning-channel north-star `e3cce21e2`, who-did-what NP-head 2-site wire `bd0c71a77`, + earlier session commits. NOTHING pushed.
