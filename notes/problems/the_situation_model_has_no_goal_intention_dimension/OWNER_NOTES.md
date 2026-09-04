@@ -21,7 +21,7 @@ phrasings, ties each goal to the right character, tracks whether it was reached,
    tracker. `experiments/goal_register.py`.
 2. **A measurement on 100 real story chapters** proving it works and where it doesn't.
    `experiments/exp_goal_register_qa_v1.py`.
-3. **A self-checking witness** (8/8 checks) that re-verifies the claims without re-running the big job.
+3. **A self-checking witness** (9/9 checks) that re-verifies the claims without re-running the big job.
    `verification/test_goal_register.py`.
 4. **The brain-mechanism research** it is built on. `research_goal_intention_brain_mechanism_2026-09-04.md`.
 
@@ -38,6 +38,10 @@ phrasings, ties each goal to the right character, tracks whether it was reached,
   character-blind guess is wrong **827** times, vs the reverse only **4** times.
 - Whether a goal was reached/abandoned/still-open: **100%** on clean hand-made examples vs **33%** for a
   tracker that never updates.
+- It also does what the psychology says a reader does: once a character finishes a small step ("get the
+  passport"), it drops that step and returns to the bigger goal it served ("escape the country") -- **100%**
+  right, where a tracker that just names the most recent goal gets it **0%** (it stays stuck on the finished
+  step).
 
 ## Where it honestly falls short (measured, named)
 - **Implied goals** (never said out loud -- "he picked up the knife" -> "to attack") need real-world
