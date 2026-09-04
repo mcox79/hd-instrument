@@ -1,0 +1,55 @@
+---
+priority: 4
+review:
+review_text:
+---
+
+# PROBLEM: with the Competition-Model AGENT assigner landed (who-did-what agent 0.041→~0.69), the residual is LOCALIZED and measured: 75% of remaining agent errors are NOMINATIVE-vs-NOMINATIVE ties in EMBEDDED / RELATIVE clauses — two+ animate tracked entities that tie on every current cue (word-order + animacy + givenness + crude clause-locality), where the correct agent is fixed ONLY by full clause structure. A trained arc parser was PROVEN to LOSE out-of-domain on 19c prose (CI-separated, 0.376<0.422) — so the fix is NOT a trained parser. Build a REGISTER-GENERAL incremental structure-builder whose subject/clause attachment enters `hdlab.graded_competition` as ONE precision-weighted CUE (down-weighted when unreliable — eADM), composed with RECENCY-weighted Centering (the Cb = the recent subject/topic, not the merely-frequent entity), so the competition resolves the embedded-clause tie. Beat the current cue competition on the embedded-clause slice CI-separated, info-free twin LOSING, WITHOUT regressing canonical clauses — or a located negative naming why register-general incremental parsing cannot be built glass-box.
+
+**slug:** `the_agent_tie_wall_is_embedded_clauses_needs_a_register_general_incremental_parse_cue` — **opened:** 2026-09-04 by the strategy session, the explicit highest-leverage follow-on the owner-DONE `swap_the_positional_role_assigner_for_the_brain_foundational_competition_model` (P2) named (§6b/§NEXT-STEPS #2). **status:** OPEN. Strategy lands any hdlab wire (Q111, witnessed). Glass-box, NO external LLM, NO trained parser (proven to lose OOD).
+
+> ## ⚙️ SOLVER OPERATING PROTOCOL (standing — owner 2026-08-25/26)
+> **DO THE RIGHT THING, NOT THE CHEAP THING.** The mission is the most brain-faithful substrate. A located NEGATIVE is a PASS — but only if the brain's actual mechanism, faithfully built, is what failed.
+
+> ## 🧠 BRAIN-FOUNDATIONAL CHECKLIST (the owner's standing bar — work through IN ORDER; the solution is not done until every box holds)
+> 1. **OPEN — how does the BRAIN do THIS?** Name the specific structure + computation and replicate that OPERATION as the FIRST move; mark each choice PINNED vs OUR-INVENTION. RESEARCH AGGRESSIVELY wherever you are unsure — do not build the tractable thing and cite neuroscience after.
+> 2. **REUSE — does an existing organ already do what you need?** Check `tools/substrate_map.py` / `tools/reader_capabilities.py` / `hdlab/` FIRST; extend a matching organ rather than re-deriving it.
+> 3. **GENERALIZE — does this need to generalize, and HOW does the brain generalize it?** Build for that (register / novelty / transfer), not for the single test.
+> 4. **HIT A WALL? GO DEEPER, DON'T STOP.** Research-drill WHY. If the brain can do it, it IS possible and we can too, once we understand it. A located NEGATIVE counts only if the brain's ACTUAL mechanism, faithfully built, is what failed (fair test: can-fail, one-variable, real baseline).
+> 5. **OPTIMIZE BY EXACT REPLICATION.** Evaluate aggressively, with great precision, EXACTLY how the brain does it, and replicate it exactly — copy the computation, SWEEP (never adopt) the parameters. No half-effort: the closer we are, the better we do.
+> 6. **PERFORMANCE vs THE BRAIN.** How does our performance compare to a competent brain/reader on this task? WHERE ALONG THE CHAIN do we lose signal? What EXACTLY differs between our implementation and the brain's mechanism (an itemized mechanism-diff)?
+> 7. **ADJACENT COMPONENTS.** Map the capabilities, limitations, opportunities, and brain-foundational status of the adjacent components — that seeds the next problems to address.
+> 8. **COMPLETION BAR.** Is this a COMPLETE, EXCELLENT solved problem? Is it FULLY brain-foundational, conveying ALL the benefits of the brain function we replicate? If not, keep pushing toward a fully complete, exceptional solution.
+
+## 1. THE PROBLEM IN PLAIN LANGUAGE
+The reader now names "who did it" well on ordinary sentences (we just fixed it: from ~4-in-100 back up to ~69-in-100). What's left is the genuinely hard case: long 19th-century sentences with clauses inside clauses, where two living characters both sit before the verb and every clue we use says "either one." A person resolves these by actually parsing the clause structure — knowing which character is the subject of *which* clause. We tried handing the reader a modern grammar parser; it made things WORSE here, because it was trained on modern text and 19c prose is foreign to it. The job: build a grammar cue that WORKS on any register (doesn't collapse on old prose), feed it into the reader's "weigh the clues" step as ONE more clue that quietly steps back when it's unsure, and also prefer the character the story most recently made the subject — so the reader picks the right doer inside a nested clause.
+
+## 2. WHY THIS ONE — it is the measured, highest-leverage remaining who-did-what lever
+P2 (owner-DONE) pushed who-did-what agent to ~0.69 and then localized the residual robustly (16 docs): 75% of remaining errors are embedded/relative-clause nominative-vs-nominative ties; 20% event detection (a different organ); 5% coref coverage. Every cheap lever is already spent (case +0.005, salience ~0, crude clause-bounds +0.011). The tie wall is the bulk and only full clause structure resolves it — so this is the single highest-leverage remaining lever on the reader's weakest, most load-bearing dimension. And it must be REGISTER-GENERAL: the trained parser's failure OOD (§6 of P2) is the measured reason the naive fix doesn't work.
+
+## 3. HOW THE BRAIN DOES THIS (the opening move)
+PINNED: role assignment is CLAUSE-BOUNDED and INCREMENTAL — the parser builds structure left-to-right and thematic roles are assigned within the current clause (Lewis-Vasishth 2005 cue-based retrieval; Frazier-Clifton clause-boundary effects; eADM actor-competition — Bornkessel-Schlesewsky-Schlesewsky 2006). Syntax is ONE cue in a competition, PRECISION-WEIGHTED: when the structural signal is reliable it dominates, when unreliable (OOD register) it is DOWN-weighted and the lexical/semantic/givenness cues carry (Bates-MacWhinney cue validity; Friston precision). Centering (Grosz 1995) tracks the Cb by RECENCY + grammatical role, not raw frequency. OUR-INVENTION-under-test: the exact register-general structure-builder (a glass-box incremental clause/subject attachment, NOT a trained parser), its precision estimate, the recency-weighted Centering update. Sweep, do not adopt. REUSE: `hdlab.graded_competition.net_activation` (the competition — add the structural cue), the landed `agent_competition_pick`, the crude `clause_bounds` (extend to comma/relative boundaries), `hdlab.incremental_parser`/`arceager_parser` (evaluate as a register-general cue source, NOT a hard subject oracle).
+
+## MEASURED vs INFERRED
+- **MEASURED (do NOT re-derive — P2 SOLVED, 16 docs + held-out[16:40]):** who-did-what agent is at ~0.69 (cued readout); 75% of remaining errors are embedded/relative nominative-vs-nominative ties; the trained arc parser LOSES OOD on 19c (0.376<0.422 tuned, 0.399<0.446 held-out, CI-sep) and as a precision-weighted fallback only TIES; crude `clause_bounds` gives +0.011 CI-sep (misses comma/relative boundaries).
+- **INFERRED (you must measure):** whether a register-general incremental structure cue (glass-box; precision-weighted into `graded_competition`) + recency-weighted Centering beats the current cue competition on the EMBEDDED-CLAUSE slice CI-separated, info-free (shuffled-structure) twin LOSING, with NO regression on canonical clauses; the residual + its named cause.
+
+## VERIFY BEFORE YOU START (the disk outranks this brief)
+- FIRST STEPS: `python tools/substrate_map.py`, `python tools/reader_capabilities.py`; read `notes/problems/swap_the_positional_role_assigner.../SOLVED.md` §5/§6/§6b IN FULL (the error attribution + the parser-loses-OOD proof + the clause-local prototype) and `experiments/exp_cmrole_agent_{board,clause,parser}_v1.py`; read `hdlab/graded_competition.py`, `hdlab/graded_role_assigner.py` (the landed `agent_competition_pick`), `hdlab/incremental_parser.py` + `hdlab/arceager_parser.py` (the candidate structure sources), `hdlab/situation_reader.py` (`_read_events`, `clause_bounds`).
+- Reproduce first-hand: the embedded-clause tie errors (P2's `dump_competition_errors`), and the trained-parser OOD loss (the can-fail baseline this must beat WITHOUT a trained parser).
+
+## THE BAR (can-fail; CI-separated; the info-free twin must lose)
+PASS = a glass-box, REGISTER-GENERAL incremental structure cue (NO trained parser, NO LLM) entering `graded_competition` as ONE precision-weighted cue + recency-weighted Centering, such that on the embedded/relative-clause agent slice it beats the current cue competition CI-separated, with a shuffled-structure info-free twin LOSING and NO regression on canonical clauses (the whole-arm number does not drop). Report CI half-width + null p95; recompute floors on the same population; replicate on held-out docs. A rigorous located NEGATIVE — register-general incremental parsing cannot be built glass-box to beat the competition on the tie slice, with the named cause + number — is a FULL PASS. Strategy lands the Q111 wire.
+
+## ALREADY TRIED / DO NOT REDO
+- The Competition-Model agent assigner + candidate-set decouple + pronoun admission + case filter + crude clause-local + cued readout are LANDED (P2) — this is the STRUCTURAL cue for the tie residual, a new axis; do not re-derive them.
+- A TRAINED arc parser is a PROVEN located-negative here (loses OOD on 19c) — do NOT wire it as the subject oracle; the brain-faithful role is a precision-weighted cue that down-weights when unreliable.
+- The crude `clause_bounds` (+0.011) is landed — EXTEND it (comma/relative boundaries) or replace with a real incremental structure-builder; do not re-file the crude version.
+
+## FILES AND ENTRY POINTS
+Build in `experiments/` + `verification/`. REUSE `hdlab/graded_competition.py`, `hdlab/graded_role_assigner.py`, `hdlab/incremental_parser.py`, `hdlab/arceager_parser.py`, `hdlab/situation_reader.py` (`clause_bounds`, `_read_events`). Measure on the board's who-did-what agent arm, embedded-clause slice, with the P2 stack ON. Strategy lands the Q111 wire. Fold an AUDIT UPDATE into `BRAIN_FOUNDATIONAL_AUDIT.md` §2b.
+
+## DO NOT QUOTE
+- Do NOT quote a whole-arm gain — report the EMBEDDED-CLAUSE slice CI-separated (the tie residual is where the lever bites) + confirm canonical clauses do not regress.
+- Do NOT wire a trained parser (the invariant + the measured OOD loss).
+- Do NOT quote a gain without the shuffled-structure twin losing.
