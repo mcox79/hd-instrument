@@ -99,12 +99,23 @@ a candidate-filter ceiling constant across arms). WHERE THE ~0.31 GAP GOES NOW (
 - **5% — COREF COVERAGE**: the coref column never tracked the gold entity.
 
 **FUTURE OPPORTUNITIES FOR GROWTH (measured, ranked, each with the brain-foundational mechanism):**
-1. **Sharpen the competition on hard clauses (75% of errors).** (a) RECENCY-weighted Centering (prefer the
-   entity that was the recent subject/topic -- the Cb -- over the merely-frequent one); (b) THEMATIC-FIT /
-   selectional-preference cue (agent-verb plausibility from the substrate's grounded/distributional norms);
-   (c) a REGISTER-GENERAL incremental parse as a precision-weighted cue (the trained parser was proven to fail
-   OOD on 19c -- §6; the fidelity gap is a register-general parser, not a trained one). All fold into the SAME
-   `graded_competition` as extra cues -- no new mechanism.
+1. **Sharpen the competition on hard clauses (75% of errors).** The error dump (`dump_competition_errors`)
+   shows three sub-classes:
+   - **CASE-form errors — ADDRESSED (`case_filter`, `experiments/exp_cmrole_agent_case_v1.py`).** Accusative/
+     possessive/reflexive pronouns (her/him/their/his/themselves) were out-competing the true nominative
+     subject. The Competition-Model CASE cue (case morphology is a high-validity cue where marked; English
+     marks it on pronouns -> keep only NOMINATIVE pronoun agents) fixes it: **+0.0055 held-out CI[+0.0003,
+     +0.0107] CI-separated** (tuned +0.0022, n.s.), twin still loses, generalizes. SMALL because the class is
+     small after the readout fix; brain-foundational and net-positive, so fold it in.
+   - **Nominative-vs-nominative TIES in embedded/relative clauses (the bulk, the genuine WALL).** Two+ animate
+     tracked subjects tie on every cue; the correct one is fixed only by full clause structure. The trained
+     parser fails OOD here (§6); the crude `clause_bounds` helps a little (§6b). The brain-faithful fix is a
+     REGISTER-GENERAL incremental parse as a precision-weighted cue + RECENCY-weighted Centering (the Cb =
+     recent subject/topic, not the merely-frequent entity). This is the real frontier -- a focused next problem.
+   - **Animacy-lexicon coverage misses** (e.g. "people"/"somebody" mislabelled inanimate) flip a few picks --
+     a fix in the `animacy_lexicon` organ, not this one.
+   - Also available: THEMATIC-FIT / selectional-preference (agent-verb plausibility from the substrate's
+     grounded/distributional norms). All fold into the SAME `graded_competition` -- no new mechanism.
 2. **Event/predicate detection (20% of errors)** -- a separate upstream organ; name it as its own problem.
 3. **Coref coverage (5%)** -- the coref resolver's recall.
 4. **Register generalization** -- the Competition Model's own prediction is that cue VALIDITIES are
