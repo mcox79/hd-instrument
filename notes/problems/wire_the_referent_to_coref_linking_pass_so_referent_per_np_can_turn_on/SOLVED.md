@@ -198,6 +198,43 @@ coref win, flagged as using provided nominal clustering).
 | **referent-per-NP feature typing** (`_mk_referent`: gender=None, lowercased) | file-card carries features = PINNED | blank cards blind anaphora — the regression root | fold feature restoration into `referent_per_np_source` if the referents are ever needed downstream with features |
 | **animacy lexicon** (`animacy_lexicon`, PROPN→None) | animacy is a core retrieval cue = PINNED | proper names type as animacy=None (gender rescues them here) | a proper-name animacy/person override (small, register-native) |
 
+## 9. THE STEP-5 (PERSON-SELECTION) FRONTIER + THREE FLAGGED OPEN CHALLENGES (owner-requested — flag as OPEN, not impossible)
+After the linking pass, steps 1–4 of pronoun resolution (open the card / feature it / gate to tracked people /
+unify duplicates) are near-lossless; the entire residual to a competent reader (**~0.55 vs ~0.90**) is STEP 5:
+picking the right person among several same-gender candidates. I built and measured the exact brain architecture for
+it (Garrod-Sanford two-pass bonding→resolution; Centering Cb; Kehler-Rohde separate likelihood×prior; Lewis-Vasishth
+interference; a learned Competition-Model cue-validity combiner). Result (held-out, 100 LitBank docs, exploratory,
+`experiments/exp_referent_coref_step5_{selection,brain_foundational,ideal}_v1.py`): the learned combiner lifts
+selection **0.490→0.558 (+0.068 CI-sep)** and reaches ~83% of the *structural* oracle (0.695); the whole residual to
+a human is the RESOLUTION stage's per-character world-knowledge representation. I wired the landed GloVe-300 asset
+into the world-knowledge slot (carries +0.017 CI-sep signal, localized to the 17% struct-dominated bucket) and tried
+four glass-box individuation encodings (flat / cumulative / distinctive-TFIDF / learned rank-24 bilinear matching);
+**all four converge at ~0.55** — no transform of context statistics crosses the individuation wall.
+
+**THREE OPEN CHALLENGES — verified against the current literature (two parallel research probes, 2026-09-03), flagged
+as CRACKABLE, not walls. The owner does not accept these as impossible, and neither should the next solver.**
+1. **A content-bearing per-character INDIVIDUATION representation** (tell "the anxious god-daughter" from "the vain
+   elder sister"). Neuroscience shows the code EXISTS (ATL/perirhinal person-specific decoding) but no validated rule
+   BUILDS it from text; every system that carries this content (EntityNLM, Recurrent Entity Networks, entity-level
+   neural coref) is a LEARNED entity model. **Crackable path (admissible under "foundation is free / static offline
+   asset / no external LLM at inference"): train a small glass-box entity-representation organ OFFLINE and ship it as
+   a static asset, exactly as GloVe is.** This is the priority-1 North Star's core, not a fixed-vector trick — my four
+   attempts prove that boundary precisely.
+2. **Self-supervised cue-validity learning** (learn how much to trust each cue from the reader's own prediction
+   errors, no gold labels). The one direct human test (van Wonderen & Nieuwland 2023) came back NEGATIVE and the
+   pre-nominal error signal failed the 9-lab Nieuwland 2018 replication — so it is EMPIRICALLY OPEN. **Crackable path:
+   run the disconfirmation-adaptation test at the REFERENTIAL level in-house (nobody has — it is a genuine open gap,
+   not a settled ceiling), and if positive, build the predict-referent-then-reweight learner.**
+3. **An open-text COHERENCE next-mention prior** (Kehler-Rohde P(referent) — who the discourse expects next). The
+   structural likelihood is glass-box LM-free; the open-text prior has only ever been filled by human norming or an
+   LM. **Crackable path (LM-free slices): implicit-causality per-verb bias NORMS (tabulatable, brain-pinned — the one
+   new faithful cue I have NOT yet wired) + a learned-offline coherence-relation classifier as a static asset.**
+
+**Bottom line for the next solver:** the faithful *skeleton* is built and measured; the gap to 100% is ONE named,
+open, buildable organ — a learned per-character individuation representation (offline static asset, admissible) — plus
+two research bets (self-supervised cue learning; an LM-free coherence prior). None is refuted-impossible; each has a
+concrete first step above.
+
 ---
 
 ### TLDR (plain language)
