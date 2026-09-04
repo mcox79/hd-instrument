@@ -172,6 +172,39 @@ all five (time/space/causation/protagonist+belief/INTENTIONALITY).
 - **Goal x belief composition** -- the mentalizing network binds goals AND beliefs; "X wants Y because X
   believes Z" composes this register with the belief timeline. A clean next reasoning problem.
 
+## §9 FULL BRAIN-FOUNDATIONAL AUDIT -- every computational step (owner directive 2026-09-04: "ENSURE that EVERYTHING is as close to brain foundational as possible; every calculation, averaging step")
+Grounded in the two upstream research drills (`research_infinitive_attachment_brain_mechanism_2026-09-04.md`,
+`research_goal_intention_brain_mechanism_2026-09-04.md`). Each MECHANISM step is PINNED (named brain
+structure/computation, copied) or OUR-INVENTION-UNDER-TEST (flagged, swept). MEASUREMENT steps are
+labelled HYGIENE -- they are how we MEASURE, deliberately NOT a brain claim (the mission is the mechanism;
+measurement is hygiene). NO step is a convenient off-the-shelf substitute for a brain operation.
+
+| # | step (operation) | brain status | note |
+|---|---|---|---|
+| 1 | goal-cue detection (Levin desiderative/intend/try verbs; in-order-to; bare-to) | **PINNED** | reliable anchor = Levin classes + PropBank ARGM-PRP; the cue LISTS are OUR-INVENTION-swept |
+| 2 | subcat filter: complement-taker vs adjunct-host | **PINNED** | lexicalist constraint-satisfaction / FILTERING (MacDonald-Seidenberg 1994; Vosse-Kempen 2000); the brain-faithful mechanism for the clear case |
+| 3 | P(complement)=xcomp/(xcomp+advcl) frequency ratio | **PINNED** | the brain stores FREQUENCY-WEIGHTED subcat frames (Trueswell 1996; Garnsey 1997) -- this "averaging" IS lexical experience, not a convenience average; graded (Pickering 2000: soft not argmax) |
+| 4 | is_complement_taker threshold (tau=0.5) | OUR-INVENTION | a binary decision on the graded frame; tau SWEPT, not adopted |
+| 5 | extraposition detection (expletive-it + copula + predicate) | **PINNED** | surface cue for extraposed subject (Li et al. 2009 JAIR; CGEL); predicate set corpus-DERIVED, not hand-listed |
+| 6 | attachment (nearest preceding finite verb) | PINNED-ish / OUR-INVENTION | the brain attaches a purpose clause HIGH to the matrix event (Construal; A'ingae "TP adjunct"); nearest-finite-verb = the matrix verb in the dominant case; high-attachment refinement filed |
+| 7 | **agent binding: PRO -> matrix AGENT (passive guard)** | **PINNED** | Lane 4 / McCourt et al. 2015: subject in actives, IMPLICIT agent in passives; the passive guard reuses the reader's VOICE-AWARE role extraction, never binds the patient |
+| 8 | canonicalize (surface -> entity via coref) | **PINNED (reuse)** | reuses the reader's coref/entity model; pronoun-resolution pick is OUR-INVENTION |
+| 9 | status field (active/satisfied/failed) | **PINNED** | Lutz & Radvansky 1997 (failed>completed>neutral); the satisfied-match / negation rules are OUR-INVENTION |
+| 10 | reinstatement: wants()=most-recent ACTIVE goal | **PINNED** | Suh & Trabasso 1993 (last-unsatisfied-superordinate); recency is a real factor |
+| 11 | why()/goals_of() readout | PINNED (order) / OUR-INVENTION (match) | reinstatement order PINNED; the head-match is OUR-INVENTION |
+| M1 | doc-cluster bootstrap CI, null p95 | **HYGIENE** | resampling MEAN over docs -- statistical measurement, not a brain averaging step |
+| M2 | floors (most-recent-action / physical-cause / adjacency), info-free twin, spaCy oracle | **HYGIENE** | baselines / controls / reference validation -- deliberately trivial, not brain claims |
+| M3 | _match_goal (lemma equality), _match_overlap | **HYGIENE** | scoring predicate |
+
+**Averaging audit (the owner's specific ask):** the ONLY averaging inside the MECHANISM is the subcat-frame
+frequency ratio (#3), which is brain-faithful (lexical frames ARE frequency-weighted, PINNED). There is NO
+FHRR bundling / vector averaging / consolidation-style mean in the goal pipeline (the register SELECTS, it
+does not superpose) -- so this dimension does not carry the project's documented "averaging machine" hazard.
+Every other mean is the bootstrap over documents (#M1), which is measurement hygiene and correctly not a
+brain claim. **Conclusion: every mechanism step is PINNED or OUR-INVENTION-flagged-and-swept; no convenient
+substitute for a brain operation remains.** The two labelled residuals to the ideal are the high-attachment
+graph (#6, filed as the goal-hierarchy next-problem) and Tier-2 abductive inference (the meaning channel).
+
 ## TLDR (plain English)
 When we read a story, most of what we understand is what people are TRYING to do -- she went to the market
 to buy bread, he lied because he wanted to protect her. Our reader could say what happened, who did it,
