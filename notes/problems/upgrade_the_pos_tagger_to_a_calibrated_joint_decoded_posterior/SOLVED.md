@@ -179,6 +179,46 @@ CONFIDENCE-limited** — the calibrated confidence is the right brain-faithful u
 who-did-what gain, because selection needs composition/world-knowledge (the filed meaning-hub program), not better cue
 reliability. A fourth independent convergence on "the 19c who-did-what residual is SELECTION/meaning."
 
+## 4f. DEEP RESEARCH — the who-did-what "wall" is largely a MEASUREMENT-FRAMING artifact, and the optimization is ARCHITECTURAL (research fan-out + disk verification, 2026-09-03/04)
+A four-lane research drill (2 literature, 2 corpus) + first-hand disk verification OVERTURNS my §4d "the parse stage is a
+capability gap" read. The corrected, convergent picture:
+
+1. **The 0.44 who-did-what / ~0.60 select-given-reach "ceiling" is mostly a CONTAMINATED-GOLD artifact.** DISK-VERIFIED
+   (data/exp_19c_composed_cleaned_gold_v1/metrics.json, owner-DONE, witness 22/22): the 19c gold is **76.1% PP-oblique
+   contaminated**; on the CLEAN direct-object gold (n=617), **position alone = 0.919, + NP-head chunking = 0.961**
+   (data/exp_19c_whodidwhat_residual_taxonomy_v1: +0.0433 CI[+0.025,+0.063]). The literature agrees the frame is broken:
+   general SRL/QA-SRL inter-annotator agreement is 0.79-0.92 F1 (PropBank 0.84; QA-SRL 0.80-0.92) — far above 0.60 — but
+   UD's obl/core split "does not coherently track semantic argumenthood" (Przepiorkowski & Patejuk 2018), and our gold IS
+   UD-derived over literary text.
+2. **Thematic-fit / composition as a SELECTION lever is REFUTED AT POWER on this corpus** (COMPOSED vs MARGINAL
+   -0.0097 CI incl. 0; the earlier +0.076 was small-sample noise). 19c English who-did-what is word-order-dominant (gold
+   100% active). Composition / generalized event knowledge is a PREDICTION cue and is DISCOURSE-dependent (Metusalem 2012
+   Exp2: the event effect vanishes when context is stripped), not canonical selection.
+3. **The copula subset (22%) is a narrow predication-representation choice + a harness gate, not a capability gap.**
+   Copular clauses are Kimian states (Maienborn 2005) — a real predication, and UD already encodes nsubj(complement,
+   subject) one-hop; our reach-from-the-copula-token measures 0.13 vs a competent reader's 0.95 purely because a
+   POS=VERB anchor skips it. Cheaply fixable in the harness (register-native already showed a naive copula-transparent
+   traversal only ties a permissive twin — so the value is measurement correctness, not a new capability).
+4. **Even humans** hit 74-88% agent/patient ID on non-canonical/passive structure (Ferreira 2003) — a sub-0.9 ceiling on
+   hard literary structure is normal, not a world-knowledge deficit.
+5. **The genuine residual after fixing the frame is TINY (~3% of clean items) and is INDIVIDUATION** ("which SPECIFIC
+   entity"), which routes to the learned ~200-d meaning/individuation hub (north-star P1), NOT thematic-fit tables.
+6. **BRAIN-FAITHFUL ARCHITECTURE (audit-PINNED + neuroscience):** category + structure + thematic fit settle ONLINE,
+   competing DURING attachment (Lewis-Vasishth; MacDonald; Levy noisy-channel) — a post-hoc override structurally cannot
+   separate override-when-conflicting from leave-alone (why §4e's precision-weighted prototype is a fenced null). Roles
+   are abstract variables bound online in lmSTC/amPFC (Frankland & Greene 2015/2020) over situation-model event schemas
+   (Baldassano 2017; McRae GEK), accessed by lexis (Rissman & Majid 2019).
+
+**REVISED OPTIMIZATION (grounded, ranked):** (i) FIX THE EVAL FRAME — score who-did-what on the clean-DO gold + a proper
+copula anchor (else we optimize against a broken ruler; this alone reframes 0.44 -> 0.92-0.96). (ii) FLIP `np_head_reduce`
+ON (wired default-off; +0.043 clean-gold / +0.35 end-to-end) — repairs the dominant 64% structural residual. (iii) BUILD
+THE ONLINE INCREMENTAL PARSER (filed priority-1: `the_argument_parser_is_batch_where_the_brain_is_incremental` /
+`wire_the_incremental_parser_as_the_reader_extraction_front_end`) where the CALIBRATED category posterior (THIS problem's
+tagger — the keystone), structure, and selectional PREDICTION compete online. **This is where the calibrated tagger's
+graded belief finally pays off** — the perceptron's saturated confidence cannot drive online integration; the CRF's
+calibrated posterior can. (iv) Route the ~3% individuation residual to P1. NONE of these is more tagger/parser accuracy
+(near-ceiling on clean gold), a thematic-fit table (refuted), or a post-hoc selector (fenced).
+
 ## 5. The dependency story, resolved (the deployable win)
 The calibrated CRF posterior was a `sklearn_crfsuite.CRF` pickle — crfsuite is not a tracked substrate dependency and a
 pickle is not glass-box. A linear-chain CRF is just state potentials + label-label transitions + forward-backward, and
