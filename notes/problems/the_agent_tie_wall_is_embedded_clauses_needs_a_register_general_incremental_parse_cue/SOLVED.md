@@ -5,7 +5,7 @@ bar: "PASS = a glass-box, REGISTER-GENERAL incremental structure cue (NO trained
 result: "board who-did-what AGENT accuracy on the EMBEDDED-CLAUSE nominative-vs-nominative TIE slice (>=2 animate tracked candidates preverbal; SITQA.build_events_questions -> context-cued answer_instanced -> _match; LitBank 19c, referent_per_np + full P2 stack ON): the register-general incremental left-corner STRUCTURE cue entering hdlab.graded_competition as ONE self-gating precision-weighted cue lifts the tie slice from base 0.6372 to 0.7098 = +0.0726, doc-bootstrap 95% CI [+0.0435,+0.0992], half-width 0.0279, p(<=0)=0.000 -> CI-SEPARATED (tuned, n_tie=317). GENERALIZES held-out (docs[16:40], never inspected, n_tie=552): 0.6178 -> 0.6739 = +0.0562 CI[+0.0336,+0.0811] hw 0.0238. Canonical does NOT regress (tuned +0.0074 CI[+0.0021,+0.0133]; held +0.0039 CI[+0.0016,+0.0067]); whole-arm improves (tuned +0.0188 CI[+0.0130,+0.0246]; held +0.0140 CI[+0.0097,+0.0190])."
 floor: "strongest floor actually run = the CURRENT cue competition = the LIVE full P2 stack (cm_agent + include_pron_agents + case_filter + clause_local, referent_per_np ON), recomputed on the SAME tie-slice population = 0.6372 tuned / 0.6178 held-out. Info-free shuffled-structure twin (same machinery, the structure cue's per-candidate support permuted) = 0.4890 tuned / 0.4710 held-out (null p95: struct-twin +0.2208 CI[+0.1751,+0.2571] tuned, +0.2029 CI[+0.1611,+0.2416] held -> the twin LOSES CI-separated; the twin scores BELOW base because a weighted NOISE cue misdirects the competition, isolating that the STRUCTURAL signal is what carries)."
 controls: "(1) shuffled-structure info-free TWIN loses CI-separated on tie (tuned +0.221, held +0.203, p<=0=0.000) -> the structure INFORMATION carries, not the extra cue slot. (2) CANONICAL-slice no-regression CI-separated on both sets (the whole-arm number RISES, does not drop). (3) HELD-OUT replication of every headline (never-inspected docs[16:40]). (4) RECENCY-Centering REFUTED: adding the brief's recency-Centering cue (Cb = previous subject) does NOT beat base on the tie slice (tuned +0.0252 CI[-0.0091,+0.0592] NOT-separated; held +0.0199 NOT-separated) and is WORSE than the structure cue alone -> matches the substrate's OWN measured salience_binder finding (recency at chance on hard cases) + the mechanistic fact that embedded clauses introduce a NEW subject. GRAMMATICAL-PROMINENCE Centering ALSO fails (prom-struct = -0.0221 CI-sep BELOW) -> both Centering variants lose to structure alone; structure is the sole lever for these ties. eADM GRADED precision (distance / relativizer-gating) does NOT beat the SELF-GATING flat cue (prec_dist -0.0063 NOT-sep; prec_rel identical); weight-robust across struct_w in {1.5,2.5,4.0} (all CI-sep vs base). (5) MORE-BRAIN-FAITHFUL RC-POP (revision) REJECTED: a stack-based left-corner with relative-clause pop is WORSE than the flat cue on tie (rcpop-struct = -0.0126 CI[-0.0231,-0.0033] CI-separated BELOW) -> reproduces the incremental_parser organ's own measured lesson (revision HURTS clean prose; over-fires as a general cue). (6) UPSTREAM animacy-lexicon collective-human fix is neutral on tie, marginally positive whole-arm (+0.001). (7) TRAINED parser stays BARRED (P2 section6 measured OOD loss; corroborated by the adjacent relcl SOLVED: the general dependency parser is HARMFUL here, 0.198 < twin). (8) scaffold-free witness test_cmrole_agent_struct_organ.py."
-files_changed: "experiments/exp_cmrole_agent_struct_v1.py (the register-general structure cue + slice classifier + measurement + self-test), experiments/exp_cmrole_agent_struct_opt_v1.py (eADM graded-precision + weight-robustness + prominence-vs-recency), experiments/exp_cmrole_agent_struct_v2.py (the more-brain-faithful RC-pop prototype + upstream animacy fix), experiments/exp_cmrole_agent_thematic_v1.py (the thematic-fit/agentivity next-lever route-closure, section 7a), experiments/exp_cmrole_agent_detect_v1.py (the 47.8%-bucket decomposition probe: predicate_recall +0.0083 CI-sep whole-arm, section 7a), verification/test_cmrole_agent_struct_organ.py (scaffold-free witness). NO hdlab file changed (solver scope; proposed hdlab diff in section 8, Q111)."
+files_changed: "experiments/exp_cmrole_agent_struct_v1.py (the register-general structure cue + slice classifier + measurement + self-test), experiments/exp_cmrole_agent_struct_opt_v1.py (eADM graded-precision + weight-robustness + prominence-vs-recency), experiments/exp_cmrole_agent_struct_v2.py (the more-brain-faithful RC-pop prototype + upstream animacy fix), experiments/exp_cmrole_agent_thematic_v1.py (the thematic-fit/agentivity next-lever route-closure, section 7a), experiments/exp_cmrole_agent_detect_v1.py (the residual-bucket detection probe: predicate_recall +0.0083 CI-sep whole-arm), experiments/exp_cmrole_agent_allfix_v1.py (fix-every-loss composition: gated RC-pop + gerund-possessive + all fixes composed = +0.0105 CI-sep whole-arm; section 7a), verification/test_cmrole_agent_struct_organ.py (scaffold-free witness). NO hdlab file changed (solver scope; proposed hdlab diff in section 8, Q111)."
 reverify: ".venv/Scripts/python.exe verification/test_cmrole_agent_struct_organ.py"
 ---
 
@@ -132,27 +132,34 @@ The owner-named next lever was a thematic-fit / selectional-preference cue. I ra
   cue — lexical AGENT-CAPABILITY (`animacy_lexicon.agent_capable`, Dowty proto-agent) — added to the
   competition does NOT beat its info-free twin (agentiv−twin = +0.0000 CI[−0.0228,+0.0199]) and is marginally
   worse than the structure cue alone (−0.0126). CLOSED.
-- **Why (residual map, tie-slice errors after structure, n=92, `diag_residual`):** **89% are character-vs-
-  character** (>=2 animate tracked candidates) — where a selectional cue structurally cannot discriminate (two
-  named people are both plausible agents of the verb). The residual decomposes into ADJACENT organs, NOT a
-  missing cue in this competition:
-  - **47.8% STRUCT-RIGHT-but-readout/event-surfaces-wrong** — DECOMPOSED (`diag_readout_bucket`) and PROBED,
-    not hand-waved: **~58% is event DETECTION @ the queried sentence** (29% predicate never detected, 29%
-    detected elsewhere but not at S — often `have`/`be` copulas/light verbs), **~40% is the COMPETITION picking
-    a wrong agent at a detected event** (fragmented: the animacy bug like `round`/people→bridges, matrix-vs-
-    embedded like `engage`/chizzle→boys, possessive-of-gerund like `furnish`/his), **1% genuine readout pick.**
-    PROTOTYPED the detection lever (`exp_cmrole_agent_detect_v1`): turning ON the EXISTING, currently default-
-    OFF `predicate_recall` organ (register-robust event recovery, WordNet verb-gate; P6 owner-DONE) composed
-    with the structure cue lifts the WHOLE agent arm **+0.0083 CI[+0.0048,+0.0122] CI-separated** (canonical
-    0.722→0.732; tie unchanged — ties are not detection-limited), and with the animacy fix **+0.0094 CI-sep**.
-    So this bucket has a real, measured lever that is simply switched off — but it is the EVENT-DETECTION organ
-    (it changes all 5 reader dimensions), so its global turn-on belongs to a dedicated detection problem.
-  - **13.0% matrix-after-RC pop** (STRUCT_ABSTAINED + relativizer) — the GATED relcl filler-gap organ's job.
-  - **10.9% coref miss** (gold never a tracked candidate) — the coref resolver's recall.
-  - **13.1% structure's own limit** (fired-wrong / pop-fail); 15.2% structure-abstained (no relativizer).
-So the AGENT ROLE COMPETITION is at its CEILING on this slice; the remaining gains are ADJACENT organs, and the
-single biggest (event detection) is not only named but PROVEN actionable here (+0.008 CI-sep from flipping one
-existing organ ON) — see NEXT STEPS.
+- **Why (residual map — ONE mutually-exclusive partition of the tie-slice errors after structure, n=92,
+  `diag_readout_bucket`; sums to 100%):**
+  - **58.6% event DETECTION @ the queried sentence** — the predicate is not detected at S (29.3% never detected,
+    29.3% detected elsewhere not at S), often `have`/`be` copulas/light verbs.
+  - **40.2% COMPETITION picks a wrong agent at a detected event** — fragmented: the animacy bug
+    (`round`/people→bridges), matrix-vs-embedded (`engage`/chizzle→boys), possessive-of-gerund (`furnish`/his),
+    and the irreducible remainder.
+  - **1.1% genuine readout pick.**
+  CROSS-CUTTING (not a partition member): **89% of ALL these errors are character-vs-character** (>=2 animate
+  tracked candidates) — two named people, both grammatically valid subjects, where NO cue (structure, thematic-
+  fit, animacy) can discriminate; this is the irreducible genuine-ambiguity floor (a human needs more context,
+  and the WDW gold itself is noisiest here).
+- **FIXES PROTOTYPED FOR EVERY MECHANICAL LOSS (`exp_cmrole_agent_detect_v1` / `exp_cmrole_agent_allfix_v1`),
+  composed and measured end-to-end vs the structure cue (tuned):**
+  - DETECTION (58.6%) → turn ON the EXISTING default-OFF `predicate_recall` organ (register-robust event
+    recovery, WordNet gate; P6 owner-DONE): **+0.0083 CI[+0.0048,+0.0122] CI-sep on the whole agent arm**
+    (canonical 0.722→0.732; ties unchanged — ties are not detection-limited).
+  - COMPETITION fragments: gerund-possessive candidate exception +0.0017; collective-human animacy fix +0.0011
+    (both small, not individually CI-sep). Matrix-vs-embedded → a GATED RC-pop (who/whom/which only, not the
+    over-firing "that") = **NO gain** (tie +0.0000, all −0.0006): the pop cases are too few and the abstained-
+    relativizer cases fail because the true subject is not a candidate (coref), not mis-bound.
+  - **ALL mechanical fixes composed = +0.0105 CI[+0.0059,+0.0152] CI-sep on the whole agent arm** (tie slice
+    +0.0032, NOT CI-sep — the tie residual is genuine character-vs-character ambiguity + coref-miss, not a
+    fixable cue). NOT fixable in this organ: coref-miss (the coref resolver's recall) and the character-vs-
+    character bulk (irreducible ambiguity).
+So the AGENT ROLE COMPETITION is at its CEILING on the tie slice; the whole-arm gains beyond it are (a) the
+EVENT-DETECTION organ (proven actionable, +0.008 CI-sep from flipping one existing organ ON — but it changes all
+5 reader dimensions, so its global turn-on is the detection problem's call) and (b) coref recall. See NEXT STEPS.
 
 ## 8. Proposed hdlab change (solver may not write hdlab; strategy lands under Q111)
 One edit, reuses existing organs, no new dependency, NO trained parser, NO LLM:
@@ -175,6 +182,12 @@ reason -> land ON (no-more-default-off). Do NOT add recency-Centering (refuted) 
   (so the true embedded lever may be larger than the tie-slice number).
 - The graded-precision and prominence-Centering negatives are on THIS corpus/population; on modern in-domain
   prose the reliabilities differ (the Competition Model's own register-specificity prediction).
+- **The CORE result (the structure cue: +0.073/+0.056 CI-sep, twin loses, no regression) is HELD-OUT-confirmed
+  (docs[16:40], never inspected).** The ADJACENT-fix probes in sections 5/6/7a — RC-pop (rejected), thematic-fit
+  (closed), predicate_recall (+0.0083), gerund-possessive, animacy, and the composed +0.0105 — are TUNED-only
+  (16 docs) and DIRECTIONAL: they point to the next problems and are not part of THIS submission's landed claim.
+  The two negatives that are ALSO held-out-confirmed: recency-Centering (fails held-out) and the whole-arm/
+  canonical no-regression of the structure cue.
 
 ## KEY REALIZATIONS
 - **The register-general parser was already built — the work was using it as a CUE, not a parser.** The prior
@@ -197,9 +210,11 @@ reason -> land ON (no-more-default-off). Do NOT add recency-Centering (refuted) 
   (`graded_role_assigner.agent_supports`/`agent_competition_pick`) gains a brain-foundational STRUCTURE cue —
   the register-general incremental left-corner subject attachment (`incremental_parser`) entering the SAME
   `graded_competition` as ONE self-gating precision-weighted cue (Matchin-Hickok separate-pools; eADM). Fidelity
-  up on the embedded-clause tie residual (+0.073/+0.056 CI-sep, generalizes). Residual is now MEASURED and is
-  ADJACENT organs, not this competition (at ceiling): 48% event-detection/readout, 13% matrix-after-RC pop
-  (gated relcl organ), 11% coref. Thematic-fit as an AGENT cue is TESTED + CLOSED on 19c (null vs twin).
+  up on the embedded-clause tie residual (+0.073/+0.056 CI-sep, generalizes). Residual MEASURED (one partition,
+  n=92): 58.6% event-detection, 40.2% competition, 1.1% readout; 89% cross-cutting character-vs-character. All
+  MECHANICAL losses fixed + composed (+0.0105 CI-sep whole-arm, mostly predicate_recall); the tie remainder is
+  irreducible (character-vs-character ambiguity + coref-miss). Thematic-fit as an AGENT cue TESTED + CLOSED (null
+  vs twin); ungated AND gated RC-pop both net-neutral/negative (the gated relcl organ is the home for pop).
 - **incremental_parser**: confirmed as a register-general CUE source for role assignment (not just a candidate-
   pool front-end). Its documented "revision hurts clean prose" is reconfirmed here: ungated RC-pop as a general
   cue is net-negative; the brain's gated reanalysis lives in the specialized relcl filler-gap circuit.
@@ -232,16 +247,18 @@ measured cause — section 5.)
    `agent_supports`/`AGENT_VALIDITIES`, self-gating, default-ON (net-positive, patient-neutral, held-out-
    replicated). Optionally fold the collective-human animacy patch into `hdlab.animacy_lexicon`.
 2. **➡️ THE NEXT FOCUS (open as its own problem): register-robust EVENT DETECTION.** This is the single
-   highest-leverage remaining who-did-what lever — now MEASURED and PARTLY PROTOTYPED, not guessed: ~58% of the
-   47.8% residual bucket is the predicate not being detected at the queried sentence (often `have`/`be` copulas/
-   light verbs), and turning ON the EXISTING default-OFF `predicate_recall` organ already buys **+0.0083 CI-sep
-   on the whole agent arm** (section 7a) — an immediate, concrete entry point. The full problem: a register-
-   robust predicate detector (copula/light-verb/archaic-verb recovery) with the cross-arm turn-on impact analysis
-   (`predicate_recall` changes all 5 reader dimensions, so its global flip is the detection problem's call, not
-   this one's). Brain-foundational framing: register-invariant predicate detection (noisy-channel combination,
-   Gibson 2013) + content-addressable context-cued episodic retrieval (Lewis-Vasishth; hippocampal event
-   binding). Fixing it lifts EVERY who-did-what arm, not just this slice.
+   highest-leverage remaining who-did-what lever — now MEASURED and PARTLY PROTOTYPED, not guessed: **58.6% of
+   the tie-slice residual (n=92) is the predicate not being detected at the queried sentence** (often `have`/`be`
+   copulas/light verbs), and turning ON the EXISTING default-OFF `predicate_recall` organ already buys **+0.0083
+   CI-sep on the whole agent arm** (section 7a) — an immediate, concrete entry point. The full problem: a
+   register-robust predicate detector (copula/light-verb/archaic-verb recovery) with the cross-arm turn-on impact
+   analysis (`predicate_recall` changes all 5 reader dimensions, so its global flip is the detection problem's
+   call, not this one's). Brain-foundational framing: register-invariant predicate detection (noisy-channel
+   combination, Gibson 2013) + content-addressable context-cued episodic retrieval (Lewis-Vasishth; hippocampal
+   event binding). Fixing it lifts EVERY who-did-what arm, not just this slice.
 3. **After that, in measured order:** (a) wire the GATED relcl filler-gap organ (`the_relcl_parser...`, SOLVED)
-   for the 13% matrix-after-RC pop cases — the brain-faithful gated reanalysis the ungated RC-pop could not be;
-   (b) coref recall (11% gold-never-tracked); (c) fold the collective-human `animacy_lexicon` patch (section 6)
-   into the upstream organ. **Do NOT re-file thematic-fit — it is a closed route (section 7a).**
+   for the matrix-after-RC pop cases — the brain-faithful gated reanalysis the ungated (and my gated) RC-pop
+   could not be as a general cue;
+   (b) coref recall (the gold entity never tracked — part of the competition residual, a different organ);
+   (c) fold the collective-human `animacy_lexicon` patch (section 6, already prototyped) into the upstream organ.
+   **Do NOT re-file thematic-fit or RC-pop — both are closed routes (sections 7a, 5).**
