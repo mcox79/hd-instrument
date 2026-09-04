@@ -4,27 +4,25 @@
 
 **HEADLINE: 0/1 plan steps done; C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap))**
 
-generated: 2026-09-04T02:55:58Z  |  HEAD: a554cc3e7
+generated: 2026-09-04T11:53:30Z  |  HEAD: 1084ecf12
 
 ## 1. Where we are against the plan (notes/PLAN_NEXT_12H.md)
 - UNKNOWN -- notes/PLAN_NEXT_12H.md not readable
 
 ## 2. What is running right now
 Heartbeats (data/heartbeats/*.timestamp):
-  - exp_dev: 8873 min ago <-- STALE
-  - orchestrator: 54939 min ago <-- STALE
-  - research: 3 min ago
-  - skunkworks: 57610 min ago <-- STALE
-  - testbed: 94184 min ago <-- STALE
+  - exp_dev: 9410 min ago <-- STALE
+  - orchestrator: 55476 min ago <-- STALE
+  - research: 541 min ago <-- STALE
+  - skunkworks: 58148 min ago <-- STALE
+  - testbed: 94722 min ago <-- STALE
 data/ directories touched in the last 180 min:
   - logs: 0 min ago, NO metrics.json yet (likely in-flight)
   - local_cpu_queue: 0 min ago, NO metrics.json yet (likely in-flight)
-  - exp_atl_hubspoke_query_side_readout_v1: 1 min ago, NO metrics.json yet (likely in-flight)
-  - .metrics_sync: 2 min ago, NO metrics.json yet (likely in-flight)
-  - exp_atl_hubspoke_grounded_separability_v1: 5 min ago, NO metrics.json yet (likely in-flight)
-  - exp_arc_parser_read_delta_v1: 16 min ago, has metrics.json
-  - hook_state: 18 min ago, NO metrics.json yet (likely in-flight)
-  - exp_arc_parser_fastfeat_v3: 20 min ago, has metrics.json
+  - .metrics_sync: 0 min ago, NO metrics.json yet (likely in-flight)
+  - durability_reports: 43 min ago, NO metrics.json yet (likely in-flight)
+  - snapshots: 43 min ago, NO metrics.json yet (likely in-flight)
+  - capability_registry_reports: 155 min ago, NO metrics.json yet (likely in-flight)
 notes/STATUS.md WHAT IS RUNNING (verbatim):
   - 🏗️ **OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS.** This session keeps the  10k view, writes briefs and INTEGRATES; solvers solve one bounded problem. **THE ORDER LIVES IN EACH  `notes/problems/<slug>/PROBLEM.md` FRONTMATTER (`priority:`) -- ENUMERATE, NEVER MIRROR.** *ENUMERATED FROM DISK 08-23 23:0x: `10` open (priorities `1`-`10`, contiguous), `8` solved+reviewed. **THE PREVIOUS TEXT HERE READ `11` open / `5` reviewed -- I MIRRORED A REMEMBERED COUNT ON THE VERY LINE THAT SAYS ENUMERATE.** Q111: solvers never write `hdlab/`.* `notes/problems/README.md`
   - ✅ **TWO OF THE THREE ARE NOW REVIEWED (08-23 late). BOTH RE-VERIFIES PASS; I THEN AUDITED THE
@@ -144,13 +142,13 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
 - C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap)) -- source: data\exp_orthographic_floor_vet_v1\metrics.json
 
 ## 4. What moved since the last snapshot
-- 9 new commit(s) since last snapshot (HEAD 2657172a1 -> a554cc3e7)
-- data/ directory count: 9014 -> 9022 (+8)
+- 3 new commit(s) since last snapshot (HEAD a554cc3e7 -> 1084ecf12)
+- data/ directory count: 9022 -> 9023 (+1)
 
 ## 5. What is stuck (blocked / pending / no owner)
 - comparator it did not use (it ran TWO supplied arms and quoted the weaker) and **it held**: the
 - US** (*"the sweep never bit"* -- a random baseline breaks inside that range where it held `1.0000`).
 
 <!-- SNAPSHOT_STATE_JSON
-{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 9022, "generated_at": "2026-09-04T02:55:58Z", "head_commit": "a554cc3e7e5a69ceb26fc3104276103a3aba8d12", "step_status": {}}
+{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 9023, "generated_at": "2026-09-04T11:53:30Z", "head_commit": "1084ecf123f15c7280b224a16ab41121429cfaa5", "step_status": {}}
 -->
