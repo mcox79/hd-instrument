@@ -1,0 +1,56 @@
+---
+priority: 2
+review:
+review_text:
+---
+
+# PROBLEM: the reader's coreference is PROPER-NAME-CENTRIC — it forms NO discourse referent for entities introduced only by a COMMON NOUN ("the man", "the child", "the old woman"), so those characters are invisible to every character-bound dimension. Measured as the dominant loss across the reader: coreference is 87% of the end-to-end AFFECT loss (gold coref F1 0.945 vs live 0.581), and 83.5% of emotion experiencers are common-noun entities the reader never tracks; the SAME gap caps who-did-what (P2: coref coverage residual), goals, world-state, and belief. The brain builds a discourse referent for EVERY entity and resolves later mentions by content-addressable cue-based retrieval (Gernsbacher Structure Building; Poesio-Vieira direct/associative anaphora; Lewis-Vasishth 2005). Build the glass-box COMMON-NOUN discourse-referent former (a referent for every entity — definiteness/modifiers/recency introduction + bridging + cue-based retrieval + own-NP detection) so the coref chain-F1 AND the downstream character-bound dimensions (affect, who-did-what, goals) rise CI-separated with an info-free twin LOSING — or a rigorous located negative naming why glass-box common-noun referent formation cannot recover the +0.43 gold-coref ceiling.
+
+**slug:** `form_a_discourse_referent_for_every_entity_not_just_named_ones_common_noun_coref` — **opened:** 2026-09-04 by the strategy session, the explicit #1 NEXT FOCUS the owner-DONE `the_situation_model_has_no_affect_emotion_dimension` named (its signal-loss study localized 87% of the loss to common-noun coref; the fix is a substantial COREF-ORGAN build, prototyped + spec'd, owned by coref NOT affect). **status:** OPEN. THE highest-leverage shared upstream lever (lifts every character-bound dimension). Strategy lands any hdlab wire (Q111). Glass-box, NO external LLM.
+
+> ## ⚙️ SOLVER OPERATING PROTOCOL (standing — owner 2026-08-25/26)
+> **DO THE RIGHT THING, NOT THE CHEAP THING.** The mission is the most brain-faithful substrate. A located NEGATIVE is a PASS — but only if the brain's actual mechanism, faithfully built, is what failed.
+
+> ## 🧠 BRAIN-FOUNDATIONAL CHECKLIST (the owner's standing bar — work through IN ORDER; the solution is not done until every box holds)
+> 1. **OPEN — how does the BRAIN do THIS?** Name the specific structure + computation and replicate that OPERATION as the FIRST move; mark each choice PINNED vs OUR-INVENTION. RESEARCH AGGRESSIVELY wherever you are unsure — do not build the tractable thing and cite neuroscience after.
+> 2. **REUSE — does an existing organ already do what you need?** Check `tools/substrate_map.py` / `tools/reader_capabilities.py` / `hdlab/` FIRST; extend a matching organ rather than re-deriving it.
+> 3. **GENERALIZE — does this need to generalize, and HOW does the brain generalize it?** Build for that (register / novelty / transfer), not for the single test.
+> 4. **HIT A WALL? GO DEEPER, DON'T STOP.** Research-drill WHY. If the brain can do it, it IS possible and we can too, once we understand it. A located NEGATIVE counts only if the brain's ACTUAL mechanism, faithfully built, is what failed (fair test: can-fail, one-variable, real baseline).
+> 5. **OPTIMIZE BY EXACT REPLICATION.** Evaluate aggressively, with great precision, EXACTLY how the brain does it, and replicate it exactly — copy the computation, SWEEP (never adopt) the parameters. No half-effort: the closer we are, the better we do.
+> 6. **PERFORMANCE vs THE BRAIN.** How does our performance compare to a competent brain/reader on this task? WHERE ALONG THE CHAIN do we lose signal? What EXACTLY differs between our implementation and the brain's mechanism (an itemized mechanism-diff)?
+> 7. **ADJACENT COMPONENTS.** Map the capabilities, limitations, opportunities, and brain-foundational status of the adjacent components — that seeds the next problems to address.
+> 8. **COMPLETION BAR.** Is this a COMPLETE, EXCELLENT solved problem? Is it FULLY brain-foundational, conveying ALL the benefits of the brain function we replicate? If not, keep pushing toward a fully complete, exceptional solution.
+
+## 1. THE PROBLEM IN PLAIN LANGUAGE
+When a story introduces a character by name ("Alice"), the reader tracks them. But when it introduces one by description only ("the man", "the child", "an old woman") — which is how most people in most stories appear — the reader never creates a "who" for them, so it can't say that person felt afraid, wanted something, did something, or owns something. Measurement shows this single gap is the biggest thing holding the reader back: give it a perfect who-is-who and its emotion-tracking jumps from ~58% to ~95%, and the same gap limits who-did-what and goals. A person effortlessly opens a mental file for every character the moment they're mentioned and later matches "he/the boy/the child" back to it. The job: build that — open a referent for every entity (not just named ones), and match later descriptions/pronouns back to it — so all the character-based abilities rise together.
+
+## 2. WHY THIS ONE — it is the measured, shared bottleneck under nearly every character-bound dimension
+The affect signal-loss study (oracle-substitution ladder) is decisive: glass-box F1 0.581 → +gold coref 0.945 → ceiling 1.0, so COREFERENCE is 87% of the loss, and 83.5% of emotion experiencers are common-noun entities the reader never forms a referent for (genuine named-pronoun error is only ~9.6%; detection recall 0.96). Independently, P2 localized ~5% of who-did-what agent errors to coref coverage, and goals/world-state/belief all bind to coref-resolved entities. One fix — a referent for every entity — lifts them all. This is the highest-leverage single lever in the queue.
+
+## 3. HOW THE BRAIN DOES THIS (the opening move)
+PINNED: comprehension opens a DISCOURSE REFERENT for every entity at first mention regardless of name (Gernsbacher 1990 Structure Building — lay a foundation, map coherent info, shift on a new entity; Kamp/Heim DRT introduction), and resolves later mentions by CONTENT-ADDRESSABLE CUE-BASED RETRIEVAL over the referents (Lewis-Vasishth 2005 ACT-R; McElree direct access), including DIRECT/ASSOCIATIVE (bridging) anaphora for definite common-noun descriptions ("the man" ≡ a previously-introduced male entity; Poesio-Vieira 1998; Clark bridging). Definiteness, modifiers, gender/number agreement, and recency/salience (Centering) are the retrieval cues. OUR-INVENTION-under-test: the exact glass-box referent-introduction rule (which NPs open a referent), the bridging/anaphora features, the retrieval threshold. Sweep, do not adopt. REUSE: `hdlab/coref.py` (the current resolver + gold schema), `hdlab/event_centrality_coref.py` / `hdlab/graded_coref_pick.py` (the cue-based pronoun resolver to EXTEND to common-noun anaphora), `hdlab/referent_per_np.py` (opens a referent per NP head — the introduction half is landed; the LINKING/retrieval for common nouns is the gap), the affect solver's `experiments/discourse_referents.py` prototype.
+
+## MEASURED vs INFERRED
+- **MEASURED (do NOT re-derive — the affect SOLVED signal-loss study):** coref is 87% of end-to-end affect loss (glass-box 0.581 → gold-coref 0.945); 83.5% of emotion experiencers are common-noun entities with NO referent; detection recall 0.96 / POS ~4% (the loss is NOT detection or POS); the affect extraction/valence/experiencer-linking are near-ceiling GIVEN coref; six glass-box prototypes (salience fallback, Centering resolver, definiteness+modifiers+recency referent former) each recover ≤+0.02 identity / ~0 chain-F1 — only GOLD coref recovers +0.43.
+- **INFERRED (you must measure):** whether a FULL faithful common-noun discourse-referent former (introduction + bridging + cue-based retrieval + own-NP detection, a substantial coref-organ build — NOT the partial prototypes) recovers the coref chain-F1 AND lifts the downstream character-bound dimensions (affect first; then who-did-what/goals) CI-separated, info-free twin LOSING; the residual + its named cause.
+
+## VERIFY BEFORE YOU START (the disk outranks this brief)
+- FIRST STEPS: `python tools/substrate_map.py`, `python tools/reader_capabilities.py`; read the affect `notes/problems/the_situation_model_has_no_affect_emotion_dimension/{SOLVED.md, signal_loss_chain_analysis_2026-09-04.md, research_brain_vs_our_coref_binding_mechanism_diff_*}` IN FULL (the 8-item mechanism-diff + the six prototypes + the precise fix spec) and `experiments/discourse_referents.py` (the prototype); read `hdlab/coref.py`, `hdlab/event_centrality_coref.py`, `hdlab/graded_coref_pick.py`, `hdlab/referent_per_np.py`. Check the prior owner-DONE coref problems (name-clustering, discourse-focus-stack, next-mention-prior) so you EXTEND, not re-derive.
+- Reproduce first-hand: the 0.581 → 0.945 coref oracle ladder on affect; that 83.5% of experiencers are common-noun-only (the can-fail baseline this must close).
+
+## THE BAR (can-fail; CI-separated; the info-free twin must lose)
+PASS = a glass-box common-noun discourse-referent former (a referent for every entity + bridging + cue-based retrieval + own-NP detection; NO external LLM) such that the coref chain-F1 rises CI-separated toward the +0.43 gold-coref headroom AND at least one downstream character-bound dimension (affect experiencer-binding first) rises CI-separated, with an info-free twin LOSING and no-regress on named-entity coref. Report CI half-width + null p95; recompute floors on the same population. A rigorous located NEGATIVE — a faithful common-noun referent former cannot recover the coref gap glass-box (with the named cause + number, e.g. the retrieval cue is genuinely insufficient without world knowledge), decisively beyond the six partial prototypes — is a FULL PASS. Strategy lands the Q111 wire.
+
+## ALREADY TRIED / DO NOT REDO
+- SIX partial prototypes (salience fallback, Centering resolver, definiteness+modifiers+recency referent former) each recovered ≤+0.02 — the fix is the FULL faithful build (introduction + bridging + cue-based retrieval + own-NP detection), not another partial patch; use them as the located-negative baseline to beat.
+- `referent_per_np` already opens a referent per NP head (introduction) — the gap is the LINKING/RETRIEVAL for common-noun anaphora (which is also why referent_per_np needed the coref-column decouple); EXTEND the cue-based resolver to common-noun mentions, do not re-derive introduction.
+- The named-entity/name-clustering coref is already strong (prior owner-DONE) — do NOT regress it; this is the COMMON-NOUN gap.
+- Do NOT use an external LLM (the invariant).
+
+## FILES AND ENTRY POINTS
+Build in `experiments/` + `verification/`. REUSE `hdlab/coref.py`, `hdlab/event_centrality_coref.py`, `hdlab/graded_coref_pick.py`, `hdlab/referent_per_np.py`, `experiments/discourse_referents.py`. Measure on the coref chain-F1 + the affect experiencer-binding (+ who-did-what) arms. Strategy lands the Q111 wire. Fold an AUDIT UPDATE into `BRAIN_FOUNDATIONAL_AUDIT.md` §2b.
+
+## DO NOT QUOTE
+- Do NOT quote the +0.43 gold-coref headroom as achieved — it is the ceiling; report the glass-box recovery + its residual.
+- Do NOT quote a gain without the info-free twin losing + named-entity coref no-regress.
+- Do NOT use an external LLM (the invariant).
