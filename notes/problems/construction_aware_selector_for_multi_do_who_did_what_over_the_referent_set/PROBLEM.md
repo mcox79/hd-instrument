@@ -1,7 +1,6 @@
 ---
-priority: 4
-review:
-review_text:
+review: EXCELLENT
+review_text: Reverified first-hand 11/11. A rigorous REFUTED located negative (= full pass): a Goldberg construction-aware selector adds EXACTLY 0.000 over the live feature-competition theme selector (hybrid_role_patient), proven three ways -- selector-level (19c -0.0030 n.s.; multi-DO -0.0123 n.s.), end-to-end through read() (+0.0000 CI[0,0]), register-invariant (modern -0.0008 n.s.); the deployed selector is TIED with a competent reader (0.928 vs 0.922). Role binding is FEATURE-COMPETITION, not construction-template retrieval (PINNED). Two disk-outranks-brief corrections: the +0.146 premise was the ideal_pick animacy-override artifact (STRIKE the parent's construction-selector next-step); ideal_pick is net-negative (0.898 vs 0.928, do not adopt). NO hdlab wire (selector at ceiling). One buildable win deferred to P5: extend the referent-per-NP source to indefinite-pronoun heads (+0.0105 CI-sep, twin loses). Waterfall: deployed loss = SOURCE not selector. §2b folded. INTEGRATED 2026-09-03.
 ---
 
 # PROBLEM: with a COMPLETE referent-per-NP candidate set, the biggest remaining who-did-what loss is multi-direct-object COMPETITION (84% of residual errors) — the reader's proximity-primary selector picks the wrong one. The submission proved the fix is CONSTRUCTIONAL, not lexical: a Goldberg construction-aware selector (double-object → recipient; naming/object-complement → complement) lifts the ideal pipeline 0.873 → 0.913 (+0.040 CI-sep; +0.146 on the multi-DO subset), while a distributional selectional-preference re-rank adds only +0.007 n.s. OVER the constructions. BUILD that construction-aware SELECTOR as the who-did-what role pick over the referent-per-NP / expanded candidate set, glass-box, and prove it CI-separated with the info-free twin losing — or a located negative.

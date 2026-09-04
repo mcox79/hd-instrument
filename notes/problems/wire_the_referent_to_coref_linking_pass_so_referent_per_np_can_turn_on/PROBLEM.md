@@ -49,6 +49,9 @@ PASS = a glass-box referent→coref linking pass (agreement + recency/Centering 
 ## FILES AND ENTRY POINTS
 Build in `experiments/` + `verification/`. REUSE `hdlab/referent_per_np.py`, `hdlab/event_centrality_coref.py`, `hdlab/graded_coref_pick.py`, `hdlab/coref.py`, `hdlab/situation_reader.py`. Strategy lands the Q111 wire + the `referent_per_np` default-on flip. Fold an AUDIT UPDATE into `BRAIN_FOUNDATIONAL_AUDIT.md` §2b.
 
+## 🎁 LAND WITH THE TURN-ON (from P4 `construction_aware_selector...`, owner-DONE 2026-09-03)
+When you turn `referent_per_np` on, ALSO extend the referent-per-NP SOURCE to **INDEFINITE-PRONOUN heads** (DRT introduction — "someone/anyone/nobody/each/all…" open a discourse referent too): whole-composition who-did-what **0.9283→0.9387, +0.0105 CI[+0.0015,+0.0209] CI-sep, info-free twin loses, no single-DO regression** (19c-specific). Promote `INDEF_PRON` from `experiments/exp_construction_ideal_composition_v1.py` into `hdlab/referent_per_np.py`'s content-head detection. P4 PROVED the construction-aware SELECTOR is a null (feature-competition is at ceiling) — do NOT add a selector; the indefinite-pronoun SOURCE coverage is the one buildable win, and it belongs with this turn-on.
+
 ## DO NOT QUOTE
 - Do NOT quote the who-did-what +0.336 as the turn-on justification alone — turn-on requires coref recovery too (this problem).
 - Do NOT use an external LLM for the linking (the invariant).

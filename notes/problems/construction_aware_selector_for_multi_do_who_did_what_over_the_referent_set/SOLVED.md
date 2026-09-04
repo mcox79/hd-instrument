@@ -9,6 +9,12 @@ files_changed: "experiments/exp_construction_aware_selector_diagnosis_v1.py, exp
 reverify: ".venv/Scripts/python.exe verification/test_construction_aware_selector.py   # 11/11 -- selector-level null (n=149) + full-power null (n=669) + premise-refuted + tied-with-brain + parse-is-the-real-lever + register-invariant + end-to-end null + IDEAL-composition indef-pronoun win (CI-sep) + composition ceiling 0.969 + the WHOLE composition proven CI-sep (indef drives, RHR a documented null), all from landed metrics.json (re-runs no cell)"
 ---
 
+## INTEGRATED_BY_STRATEGY (2026-09-03) — EXCELLENT (rigorous REFUTED located negative = FULL PASS)
+Reverified first-hand: `verification/test_construction_aware_selector.py` **11/11** (W10 indef-pronoun +0.0105 CI-sep; W11 waterfall). A Goldberg construction-aware selector adds EXACTLY 0.000 over the live feature-competition theme selector, proven three ways (selector-level, end-to-end through `read()`, register-invariant); role binding is FEATURE-COMPETITION not construction-template retrieval (PINNED), and the deployed selector is TIED with a competent reader. Actions:
+- **NO hdlab wire (located negative — the selector is at ceiling).**
+- **§2b AUDIT UPDATE folded** (newest entry): feature-competition PINNED; TWO parent corrections — STRIKE `open_a_discourse_referent...` NEXT-STEP #1 (construction-selector 0.873→0.913 was the `ideal_pick` animacy-override artifact), and DO NOT adopt `ideal_pick` (net-negative 0.898 vs 0.928); the waterfall (deployed loss = SOURCE, not selector).
+- **ONE buildable win deferred to the P5 source wire:** extend the referent-per-NP SOURCE to INDEFINITE-PRONOUN heads (+0.0105 CI-sep, twin loses, no single-DO regression; promote `INDEF_PRON` from `exp_construction_ideal_composition_v1`). Folded into `wire_the_referent_to_coref_linking_pass...` (P5) — landed WITH the referent-per-NP turn-on, since the source is default-off/P5-gated.
+
 # REFUTED — a construction-aware selector adds nothing over the live proximity/Competition-Model selector
 
 ## Status in one line
