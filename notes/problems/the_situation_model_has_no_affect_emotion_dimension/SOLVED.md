@@ -5,7 +5,7 @@ bar: "PASS = a glass-box per-character AFFECT register (explicit emotion constru
 result: "'How does X feel' reliable slice (category, n=673): model 0.788 vs most-recent-emotion-word floor 0.312 vs shuffled-character twin 0.394 (both CI-separated, model-floor CI [0.430,0.523]). Valence-sign (primary PINNED channel, n=743): model 0.838 vs floor 0.490 (CI [0.299,0.400]). Positive control (multi-character): model-right/char-blind-floor-wrong 391 vs reverse 37. Numbers are post the CYCLE-1 emotion-DENOTATION gate (see signal_loss_chain_analysis note)."
 floor: "most-recent-emotion-word (character-blind), recomputed per population = 0.312 on the reliable slice (0.302 all); shuffled-character twin = 0.394 (reliable) / 0.380 (all), twin null p95 = 0.435; model-floor CI half-width ~0.047."
 controls: "shuffled-character info-free twin (excludes emotion-word recency w/o binding; loses, null p95 0.435); most-recent-emotion-word char-blind floor (excludes 'name the last emotion'); positive control on multi-character passages (excludes salience/recency: 391 vs 37); spaCy oracle reference-only (never on inference path); upstream psych-verb-frame A/B (naive subject=experiencer baseline: authored 1.0 vs 0.333); ORACLE-SUBSTITUTION LADDER signal-loss budget (coref = 87% of end-to-end loss); zero-regression witness (non-psych affects byte-identical frame vs naive)."
-files_changed: "experiments/affect_register.py, experiments/affect_lexicon.py, experiments/psych_verb_frames.py, experiments/exp_affect_register_qa_v1.py, experiments/exp_affect_chain_signal_loss_v1.py, verification/test_affect_register.py (12/12), data/psych_verb_frames_v1/psych_verb_transitivity_ud_ewt.json, data/exp_affect_register_qa_v1/metrics.json, data/exp_affect_chain_signal_loss_v1/metrics.json"
+files_changed: "experiments/affect_register.py, experiments/affect_lexicon.py, experiments/psych_verb_frames.py, experiments/exp_affect_register_qa_v1.py, experiments/exp_affect_chain_signal_loss_v1.py (ladder+trace), experiments/discourse_referents.py (coref-organ fix prototype), verification/test_affect_register.py (12/12), data/psych_verb_frames_v1/psych_verb_transitivity_ud_ewt.json, data/exp_affect_register_qa_v1/metrics.json, data/exp_affect_chain_signal_loss_v1/metrics.json; 5 research/analysis notes in the problem folder"
 reverify: ".venv/Scripts/python.exe verification/test_affect_register.py"
 ---
 
@@ -210,13 +210,18 @@ Itemized mechanism-diff vs a competent reader:
   single dominant difference is that our coref is proper-name-centric and forms NO referent for
   common-noun-only entities, where the brain builds a referent for every entity via descriptive-content
   match + bridging (Clark-Haviland 1977; Poesio-Vieira 1998; Gundel-Hedberg-Zacharski 1993).
-- CYCLE 2/3 -- FIVE coref prototypes, all can-fail measured (binding vs gold, reader baseline 0.380):
-  salience fallback -0.001; Centering full-replace -0.051; Centering fallback -0.003; referent-former
-  full-replace 0.278; referent-former ADDITIVE (reader-first, form a referent only where the reader
-  abstains) **0.400 (+0.020)** -- the proof-of-concept that common-noun referent formation is the right
-  brain-foundational direction. The faithful fix (head-match + definiteness/modifiers + bridging +
-  cue-based retrieval) is a substantial COREF-ORGAN build, now precisely spec'd and handed off -- NOT an
-  affect-register patch (the affect dimension is near-ceiling given good coref, F1 0.945).
+- CYCLE 2/3 -- SIX coref prototypes, all can-fail measured (binding vs gold, reader baseline 0.380;
+  chain-F1 vs the competent-reader reference): salience fallback (identity ~0, F1 -0.001); Centering
+  full-replace (F1 -0.051, HURTS); Centering fallback (-0.003); naive head-match referent-former
+  full-replace (identity 0.278, WORSE); naive additive (identity +0.020, but F1 -0.095 from label
+  mismatch); and the FAITHFUL referent MODEL (experiments/discourse_referents.py -- definiteness +
+  head/number/modifier compatibility + recency-linking + gold-style longest-head labels; identity
+  +0.010, F1 -0.002 WASH). VERDICT: every glass-box prototype recovers <=+0.02 (identity) / ~0 (F1);
+  only GOLD coref recovers +0.43. The direction (common-noun referent formation) is validated, but the
+  full recovery needs a faithful COREF-ORGAN build (head-match + definiteness/modifiers [prototyped] +
+  bridging inference + cue-based retrieval + own-NP detection + situation-model-consistent labels) --
+  NOT an affect-register patch (affect is near-ceiling given good coref, F1 0.945). The prototype + the
+  precise spec are the validated hand-off to the coref organ.
 
 ## 8. LOCATED NEGATIVE (the brief's sanctioned FULL PASS, named + numbered)
 INFERRED (unstated) emotion cannot be recovered by the glass-box explicit extractor. "She slammed the
@@ -280,7 +285,17 @@ character in the hard cases and changes nothing else.
 None.
 
 ## NEXT STEPS (ranked by the MEASURED signal-loss budget, verdict-independent)
-1. COREFERENCE (the measured dominant loss: 87% of the end-to-end gap; binding 0.36 vs gold). Improving the coref organ is the single highest-value lever for character-emotion tracking. The Centering salience fallback (cycle 2) is a bounded down-payment; the full fix belongs to the coref/name-clustering problems (other solver sessions).
+1. **>>> THE NEXT FOCUS <<< COREFERENCE -- specifically COMMON-NOUN DISCOURSE-REFERENT FORMATION.** This
+   is the measured dominant loss (87% of the end-to-end gap; gold coref recovers +0.43 F1; binding 0.36
+   vs gold). The trace pinpoints it: 83.5% of emotion experiencers are common-noun entities the reader
+   never forms a referent for; genuine named-pronoun error is only ~9.6%. The mechanism-diff names the
+   brain mechanism (Structure Building + descriptive-content match + bridging; Poesio-Vieira). A working
+   prototype exists (experiments/discourse_referents.py: definiteness + head/number/modifier + recency)
+   with the fix SPEC in signal_loss_chain_analysis_2026-09-04.md. Six prototypes recover <=+0.02 alone,
+   so the faithful build (+ bridging + cue-based retrieval + own-NP detection + situation-model labels)
+   is a substantial COREF-ORGAN research problem -- this is where the next work should go, and it lifts
+   character-emotion tracking AND every other dimension that binds to characters. It is owned by the
+   coref / name-clustering problems, NOT this affect problem (affect is near-ceiling given good coref).
 2. The OCC-appraisal meaning channel for INFERRED (unstated) affect -- the located negative; gated on the Phase-1 meaning channel.
 3. goal x affect composition (frustration/satisfaction from goal status) -- clean glass-box compositional win, reusing the landed goal register.
 4. arousal + graded decay dynamics (we store arousal, do not yet use it).

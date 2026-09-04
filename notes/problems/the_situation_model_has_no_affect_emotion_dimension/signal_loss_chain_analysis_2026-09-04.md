@@ -147,12 +147,20 @@ Experiencer-binding recovery vs gold (head-lemma identity, n=295; reader baselin
   than the reader's coref -- surface features without the generative attention mechanism).
 - Cycle 2b' Centering resolver, fallback-only -> -0.003 (WASH).
 - Cycle 3 referent-former (head-noun clustering), full replacement -> identity 0.278 (WORSE: over-merges).
-- Cycle 3' referent-former, ADDITIVE (reader-first; form a referent ONLY where the reader abstains) ->
-  identity 0.380 -> **0.400 (+0.020, a real modest recovery)**: the proof-of-concept that common-noun
-  referent formation is the right, brain-foundational direction.
+- Cycle 3' referent-former, ADDITIVE naive head-match (reader-first) -> identity 0.380 -> 0.400 (+0.020),
+  but chain-F1 -0.095 (its head-lemma labels do not match gold's longest-head labels).
+- Cycle 3b FAITHFUL referent MODEL (experiments/discourse_referents.py: definiteness a/the -> new-vs-link;
+  head-noun + number + modifier compatibility so 'the old man' != 'the young man'; recency-linking;
+  longest-head labels matching gold's convention) -> identity 0.380 -> 0.390 (+0.010); chain-F1 -0.002
+  (WASH). Finer entity distinctions do not help the head-lemma metric, and the glass-box referent LABELS
+  still do not match gold cluster labels well enough to register as chain-F1 gains.
 
-CONCLUSION: pronoun-heuristic fixes wash out (they target the ~10% named-pronoun slice); the dominant
-loss is common-noun referent formation, and a NAIVE additive head-match recovers +0.02 -- the faithful
-fix (head-match + definiteness/modifiers + bridging + cue-based retrieval) is a substantial COREF-ORGAN
-build, now precisely spec'd and handed off. It is NOT an affect-register patch (the affect dimension is
-near-ceiling given good coref, F1 0.945).
+CONCLUSION (exhaustive -- SIX coref prototypes): every glass-box prototype recovers at most +0.01-0.02 by
+a forgiving head-lemma identity metric and ~0 at the chain-F1 level; ONLY gold coref recovers the +0.43.
+The DIRECTION is validated (common-noun referent formation is where the signal is), but closing the gap
+needs a FULL faithful coref build: head-match + definiteness/modifiers (done in the prototype) PLUS
+bridging inference + cue-based retrieval + the reader's OWN NP detection (not gold spans) + entity
+labeling consistent with how the situation model names characters. That is a substantial COREF-ORGAN
+research problem (owned by the name-clustering / referent-linking problems), NOT an affect-register patch
+(the affect dimension is near-ceiling given good coref, F1 0.945). The prototype
+(experiments/discourse_referents.py) + this spec are the validated hand-off to the coref organ.
