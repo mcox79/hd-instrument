@@ -1,0 +1,2372 @@
+{
+ "n_sents": 12544,
+ "n_verbs": 298,
+ "frames": {
+  "warn": {
+   "xcomp_inf": 1,
+   "advcl_inf": 0,
+   "total": 14,
+   "p_complement": 1.0
+  },
+  "cease": {
+   "xcomp_inf": 1,
+   "advcl_inf": 0,
+   "total": 3,
+   "p_complement": 1.0
+  },
+  "sadden": {
+   "xcomp_inf": 1,
+   "advcl_inf": 0,
+   "total": 1,
+   "p_complement": 1.0
+  },
+  "admit": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 15,
+   "p_complement": 0.0
+  },
+  "bloody": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 1,
+   "p_complement": 0.0
+  },
+  "start": {
+   "xcomp_inf": 14,
+   "advcl_inf": 1,
+   "total": 99,
+   "p_complement": 0.9333
+  },
+  "provide": {
+   "xcomp_inf": 0,
+   "advcl_inf": 5,
+   "total": 85,
+   "p_complement": 0.0
+  },
+  "take": {
+   "xcomp_inf": 1,
+   "advcl_inf": 42,
+   "total": 393,
+   "p_complement": 0.0233
+  },
+  "shadow": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 1,
+   "p_complement": 0.0
+  },
+  "appropriate": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 3,
+   "p_complement": 0.0
+  },
+  "train": {
+   "xcomp_inf": 3,
+   "advcl_inf": 0,
+   "total": 28,
+   "p_complement": 1.0
+  },
+  "work": {
+   "xcomp_inf": 0,
+   "advcl_inf": 14,
+   "total": 222,
+   "p_complement": 0.0
+  },
+  "travel": {
+   "xcomp_inf": 0,
+   "advcl_inf": 4,
+   "total": 32,
+   "p_complement": 0.0
+  },
+  "reach": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 22,
+   "p_complement": 0.0
+  },
+  "let": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 180,
+   "p_complement": 0.0
+  },
+  "hunt": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 2,
+   "p_complement": 0.0
+  },
+  "fight": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 29,
+   "p_complement": 0.0
+  },
+  "solve": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 7,
+   "p_complement": 0.0
+  },
+  "receive": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 100,
+   "p_complement": 0.0
+  },
+  "search": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 12,
+   "p_complement": 0.0
+  },
+  "see": {
+   "xcomp_inf": 0,
+   "advcl_inf": 4,
+   "total": 293,
+   "p_complement": 0.0
+  },
+  "give": {
+   "xcomp_inf": 0,
+   "advcl_inf": 10,
+   "total": 254,
+   "p_complement": 0.0
+  },
+  "add": {
+   "xcomp_inf": 0,
+   "advcl_inf": 3,
+   "total": 77,
+   "p_complement": 0.0
+  },
+  "change": {
+   "xcomp_inf": 0,
+   "advcl_inf": 3,
+   "total": 75,
+   "p_complement": 0.0
+  },
+  "offer": {
+   "xcomp_inf": 3,
+   "advcl_inf": 0,
+   "total": 47,
+   "p_complement": 1.0
+  },
+  "suffer": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 17,
+   "p_complement": 0.0
+  },
+  "proceed": {
+   "xcomp_inf": 2,
+   "advcl_inf": 0,
+   "total": 11,
+   "p_complement": 1.0
+  },
+  "lose": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 39,
+   "p_complement": 0.0
+  },
+  "trust": {
+   "xcomp_inf": 3,
+   "advcl_inf": 0,
+   "total": 25,
+   "p_complement": 1.0
+  },
+  "contract": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 5,
+   "p_complement": 0.0
+  },
+  "teach": {
+   "xcomp_inf": 3,
+   "advcl_inf": 0,
+   "total": 8,
+   "p_complement": 1.0
+  },
+  "determine": {
+   "xcomp_inf": 1,
+   "advcl_inf": 0,
+   "total": 16,
+   "p_complement": 1.0
+  },
+  "walk": {
+   "xcomp_inf": 0,
+   "advcl_inf": 3,
+   "total": 53,
+   "p_complement": 0.0
+  },
+  "place": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 20,
+   "p_complement": 0.0
+  },
+  "puff": {
+   "xcomp_inf": 0,
+   "advcl_inf": 2,
+   "total": 2,
+   "p_complement": 0.0
+  },
+  "anger": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 1,
+   "p_complement": 0.0
+  },
+  "force": {
+   "xcomp_inf": 6,
+   "advcl_inf": 0,
+   "total": 16,
+   "p_complement": 1.0
+  },
+  "wait": {
+   "xcomp_inf": 0,
+   "advcl_inf": 17,
+   "total": 69,
+   "p_complement": 0.0
+  },
+  "assemble": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 2,
+   "p_complement": 0.0
+  },
+  "lead": {
+   "xcomp_inf": 4,
+   "advcl_inf": 1,
+   "total": 39,
+   "p_complement": 0.8
+  },
+  "fax": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 12,
+   "p_complement": 0.0
+  },
+  "remain": {
+   "xcomp_inf": 2,
+   "advcl_inf": 2,
+   "total": 34,
+   "p_complement": 0.5
+  },
+  "write": {
+   "xcomp_inf": 0,
+   "advcl_inf": 2,
+   "total": 48,
+   "p_complement": 0.0
+  },
+  "finish": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 19,
+   "p_complement": 0.0
+  },
+  "stream": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 1,
+   "p_complement": 0.0
+  },
+  "qualify": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 2,
+   "p_complement": 0.0
+  },
+  "buy": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 76,
+   "p_complement": 0.0
+  },
+  "reply": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 7,
+   "p_complement": 0.0
+  },
+  "deliver": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 29,
+   "p_complement": 0.0
+  },
+  "expect": {
+   "xcomp_inf": 19,
+   "advcl_inf": 0,
+   "total": 52,
+   "p_complement": 1.0
+  },
+  "build": {
+   "xcomp_inf": 0,
+   "advcl_inf": 2,
+   "total": 27,
+   "p_complement": 0.0
+  },
+  "push": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 21,
+   "p_complement": 0.0
+  },
+  "convert": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 2,
+   "p_complement": 0.0
+  },
+  "stump": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 1,
+   "p_complement": 0.0
+  },
+  "stay": {
+   "xcomp_inf": 0,
+   "advcl_inf": 2,
+   "total": 69,
+   "p_complement": 0.0
+  },
+  "come": {
+   "xcomp_inf": 6,
+   "advcl_inf": 16,
+   "total": 259,
+   "p_complement": 0.2727
+  },
+  "use": {
+   "xcomp_inf": 11,
+   "advcl_inf": 40,
+   "total": 276,
+   "p_complement": 0.2157
+  },
+  "react": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 5,
+   "p_complement": 0.0
+  },
+  "hesitate": {
+   "xcomp_inf": 5,
+   "advcl_inf": 0,
+   "total": 6,
+   "p_complement": 1.0
+  },
+  "land": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 3,
+   "p_complement": 0.0
+  },
+  "vow": {
+   "xcomp_inf": 1,
+   "advcl_inf": 0,
+   "total": 1,
+   "p_complement": 1.0
+  },
+  "suck": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 9,
+   "p_complement": 0.0
+  },
+  "get": {
+   "xcomp_inf": 27,
+   "advcl_inf": 8,
+   "total": 585,
+   "p_complement": 0.7714
+  },
+  "retaliate": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 2,
+   "p_complement": 0.0
+  },
+  "return": {
+   "xcomp_inf": 0,
+   "advcl_inf": 4,
+   "total": 55,
+   "p_complement": 0.0
+  },
+  "accept": {
+   "xcomp_inf": 1,
+   "advcl_inf": 0,
+   "total": 32,
+   "p_complement": 1.0
+  },
+  "review": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 35,
+   "p_complement": 0.0
+  },
+  "read": {
+   "xcomp_inf": 1,
+   "advcl_inf": 1,
+   "total": 74,
+   "p_complement": 0.5
+  },
+  "think": {
+   "xcomp_inf": 1,
+   "advcl_inf": 0,
+   "total": 255,
+   "p_complement": 1.0
+  },
+  "project": {
+   "xcomp_inf": 2,
+   "advcl_inf": 0,
+   "total": 7,
+   "p_complement": 1.0
+  },
+  "turn": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 48,
+   "p_complement": 0.0
+  },
+  "hurt": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 17,
+   "p_complement": 0.0
+  },
+  "manage": {
+   "xcomp_inf": 6,
+   "advcl_inf": 0,
+   "total": 18,
+   "p_complement": 1.0
+  },
+  "intend": {
+   "xcomp_inf": 13,
+   "advcl_inf": 0,
+   "total": 27,
+   "p_complement": 1.0
+  },
+  "speak": {
+   "xcomp_inf": 0,
+   "advcl_inf": 2,
+   "total": 47,
+   "p_complement": 0.0
+  },
+  "claim": {
+   "xcomp_inf": 3,
+   "advcl_inf": 0,
+   "total": 28,
+   "p_complement": 1.0
+  },
+  "initiate": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 9,
+   "p_complement": 0.0
+  },
+  "choose": {
+   "xcomp_inf": 11,
+   "advcl_inf": 0,
+   "total": 29,
+   "p_complement": 1.0
+  },
+  "pawn": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 1,
+   "p_complement": 0.0
+  },
+  "challenge": {
+   "xcomp_inf": 1,
+   "advcl_inf": 0,
+   "total": 4,
+   "p_complement": 1.0
+  },
+  "duel": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 1,
+   "p_complement": 0.0
+  },
+  "undertake": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 4,
+   "p_complement": 0.0
+  },
+  "toss": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 4,
+   "p_complement": 0.0
+  },
+  "develop": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 39,
+   "p_complement": 0.0
+  },
+  "tone": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 1,
+   "p_complement": 0.0
+  },
+  "vote": {
+   "xcomp_inf": 0,
+   "advcl_inf": 4,
+   "total": 12,
+   "p_complement": 0.0
+  },
+  "apply": {
+   "xcomp_inf": 0,
+   "advcl_inf": 2,
+   "total": 34,
+   "p_complement": 0.0
+  },
+  "check": {
+   "xcomp_inf": 0,
+   "advcl_inf": 2,
+   "total": 70,
+   "p_complement": 0.0
+  },
+  "devote": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 4,
+   "p_complement": 0.0
+  },
+  "spend": {
+   "xcomp_inf": 0,
+   "advcl_inf": 2,
+   "total": 52,
+   "p_complement": 0.0
+  },
+  "tow": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 6,
+   "p_complement": 0.0
+  },
+  "say": {
+   "xcomp_inf": 6,
+   "advcl_inf": 0,
+   "total": 456,
+   "p_complement": 1.0
+  },
+  "incur": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 2,
+   "p_complement": 0.0
+  },
+  "reword": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 1,
+   "p_complement": 0.0
+  },
+  "recruit": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 5,
+   "p_complement": 0.0
+  },
+  "restrict": {
+   "xcomp_inf": 1,
+   "advcl_inf": 0,
+   "total": 2,
+   "p_complement": 1.0
+  },
+  "modify": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 5,
+   "p_complement": 0.0
+  },
+  "procure": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 1,
+   "p_complement": 0.0
+  },
+  "seem": {
+   "xcomp_inf": 34,
+   "advcl_inf": 0,
+   "total": 73,
+   "p_complement": 1.0
+  },
+  "decline": {
+   "xcomp_inf": 2,
+   "advcl_inf": 0,
+   "total": 9,
+   "p_complement": 1.0
+  },
+  "appear": {
+   "xcomp_inf": 4,
+   "advcl_inf": 0,
+   "total": 20,
+   "p_complement": 1.0
+  },
+  "begin": {
+   "xcomp_inf": 13,
+   "advcl_inf": 0,
+   "total": 49,
+   "p_complement": 1.0
+  },
+  "introduce": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 12,
+   "p_complement": 0.0
+  },
+  "prepare": {
+   "xcomp_inf": 2,
+   "advcl_inf": 0,
+   "total": 27,
+   "p_complement": 1.0
+  },
+  "pressure": {
+   "xcomp_inf": 3,
+   "advcl_inf": 0,
+   "total": 4,
+   "p_complement": 1.0
+  },
+  "persuade": {
+   "xcomp_inf": 2,
+   "advcl_inf": 0,
+   "total": 2,
+   "p_complement": 1.0
+  },
+  "tell": {
+   "xcomp_inf": 21,
+   "advcl_inf": 0,
+   "total": 190,
+   "p_complement": 1.0
+  },
+  "cut": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 24,
+   "p_complement": 0.0
+  },
+  "wear": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 14,
+   "p_complement": 0.0
+  },
+  "drag": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 8,
+   "p_complement": 0.0
+  },
+  "solicit": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 2,
+   "p_complement": 0.0
+  },
+  "open": {
+   "xcomp_inf": 0,
+   "advcl_inf": 2,
+   "total": 33,
+   "p_complement": 0.0
+  },
+  "drive": {
+   "xcomp_inf": 0,
+   "advcl_inf": 4,
+   "total": 45,
+   "p_complement": 0.0
+  },
+  "target": {
+   "xcomp_inf": 2,
+   "advcl_inf": 0,
+   "total": 7,
+   "p_complement": 1.0
+  },
+  "advise": {
+   "xcomp_inf": 1,
+   "advcl_inf": 0,
+   "total": 20,
+   "p_complement": 1.0
+  },
+  "tend": {
+   "xcomp_inf": 10,
+   "advcl_inf": 0,
+   "total": 11,
+   "p_complement": 1.0
+  },
+  "aspire": {
+   "xcomp_inf": 1,
+   "advcl_inf": 0,
+   "total": 2,
+   "p_complement": 1.0
+  },
+  "obligate": {
+   "xcomp_inf": 3,
+   "advcl_inf": 0,
+   "total": 3,
+   "p_complement": 1.0
+  },
+  "order": {
+   "xcomp_inf": 4,
+   "advcl_inf": 1,
+   "total": 44,
+   "p_complement": 0.8
+  },
+  "contact": {
+   "xcomp_inf": 0,
+   "advcl_inf": 4,
+   "total": 27,
+   "p_complement": 0.0
+  },
+  "refer": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 33,
+   "p_complement": 0.0
+  },
+  "argue": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 16,
+   "p_complement": 0.0
+  },
+  "relate": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 12,
+   "p_complement": 0.0
+  },
+  "permit": {
+   "xcomp_inf": 3,
+   "advcl_inf": 0,
+   "total": 4,
+   "p_complement": 1.0
+  },
+  "be": {
+   "xcomp_inf": 0,
+   "advcl_inf": 3,
+   "total": 361,
+   "p_complement": 0.0
+  },
+  "recommend": {
+   "xcomp_inf": 8,
+   "advcl_inf": 0,
+   "total": 108,
+   "p_complement": 1.0
+  },
+  "enter": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 20,
+   "p_complement": 0.0
+  },
+  "send": {
+   "xcomp_inf": 0,
+   "advcl_inf": 8,
+   "total": 144,
+   "p_complement": 0.0
+  },
+  "promise": {
+   "xcomp_inf": 4,
+   "advcl_inf": 0,
+   "total": 18,
+   "p_complement": 1.0
+  },
+  "ask": {
+   "xcomp_inf": 26,
+   "advcl_inf": 1,
+   "total": 133,
+   "p_complement": 0.963
+  },
+  "bother": {
+   "xcomp_inf": 2,
+   "advcl_inf": 0,
+   "total": 12,
+   "p_complement": 1.0
+  },
+  "run": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 76,
+   "p_complement": 0.0
+  },
+  "hold": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 60,
+   "p_complement": 0.0
+  },
+  "bless": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 5,
+   "p_complement": 0.0
+  },
+  "stand": {
+   "xcomp_inf": 0,
+   "advcl_inf": 2,
+   "total": 33,
+   "p_complement": 0.0
+  },
+  "control": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 10,
+   "p_complement": 0.0
+  },
+  "know": {
+   "xcomp_inf": 4,
+   "advcl_inf": 0,
+   "total": 428,
+   "p_complement": 1.0
+  },
+  "regret": {
+   "xcomp_inf": 1,
+   "advcl_inf": 0,
+   "total": 7,
+   "p_complement": 1.0
+  },
+  "cause": {
+   "xcomp_inf": 6,
+   "advcl_inf": 0,
+   "total": 26,
+   "p_complement": 1.0
+  },
+  "board": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 6,
+   "p_complement": 0.0
+  },
+  "issue": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 16,
+   "p_complement": 0.0
+  },
+  "hire": {
+   "xcomp_inf": 0,
+   "advcl_inf": 4,
+   "total": 13,
+   "p_complement": 0.0
+  },
+  "hope": {
+   "xcomp_inf": 14,
+   "advcl_inf": 0,
+   "total": 75,
+   "p_complement": 1.0
+  },
+  "like": {
+   "xcomp_inf": 74,
+   "advcl_inf": 2,
+   "total": 164,
+   "p_complement": 0.9737
+  },
+  "look": {
+   "xcomp_inf": 9,
+   "advcl_inf": 19,
+   "total": 221,
+   "p_complement": 0.3214
+  },
+  "refuse": {
+   "xcomp_inf": 19,
+   "advcl_inf": 1,
+   "total": 26,
+   "p_complement": 0.95
+  },
+  "endeavor": {
+   "xcomp_inf": 1,
+   "advcl_inf": 0,
+   "total": 1,
+   "p_complement": 1.0
+  },
+  "go": {
+   "xcomp_inf": 3,
+   "advcl_inf": 25,
+   "total": 606,
+   "p_complement": 0.1071
+  },
+  "show": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 86,
+   "p_complement": 0.0
+  },
+  "beg": {
+   "xcomp_inf": 2,
+   "advcl_inf": 0,
+   "total": 3,
+   "p_complement": 1.0
+  },
+  "talk": {
+   "xcomp_inf": 0,
+   "advcl_inf": 2,
+   "total": 85,
+   "p_complement": 0.0
+  },
+  "set": {
+   "xcomp_inf": 3,
+   "advcl_inf": 2,
+   "total": 43,
+   "p_complement": 0.6
+  },
+  "attack": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 15,
+   "p_complement": 0.0
+  },
+  "estimate": {
+   "xcomp_inf": 1,
+   "advcl_inf": 0,
+   "total": 20,
+   "p_complement": 1.0
+  },
+  "mail": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 6,
+   "p_complement": 0.0
+  },
+  "scream": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 5,
+   "p_complement": 0.0
+  },
+  "absent": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 2,
+   "p_complement": 0.0
+  },
+  "appreciate": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 29,
+   "p_complement": 0.0
+  },
+  "leave": {
+   "xcomp_inf": 0,
+   "advcl_inf": 10,
+   "total": 135,
+   "p_complement": 0.0
+  },
+  "limit": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 8,
+   "p_complement": 0.0
+  },
+  "remember": {
+   "xcomp_inf": 6,
+   "advcl_inf": 0,
+   "total": 50,
+   "p_complement": 1.0
+  },
+  "extend": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 13,
+   "p_complement": 0.0
+  },
+  "neglect": {
+   "xcomp_inf": 1,
+   "advcl_inf": 0,
+   "total": 2,
+   "p_complement": 1.0
+  },
+  "remind": {
+   "xcomp_inf": 1,
+   "advcl_inf": 0,
+   "total": 7,
+   "p_complement": 1.0
+  },
+  "kill": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 44,
+   "p_complement": 0.0
+  },
+  "seek": {
+   "xcomp_inf": 9,
+   "advcl_inf": 1,
+   "total": 29,
+   "p_complement": 0.9
+  },
+  "purchase": {
+   "xcomp_inf": 0,
+   "advcl_inf": 2,
+   "total": 30,
+   "p_complement": 0.0
+  },
+  "mandate": {
+   "xcomp_inf": 1,
+   "advcl_inf": 0,
+   "total": 1,
+   "p_complement": 1.0
+  },
+  "meet": {
+   "xcomp_inf": 0,
+   "advcl_inf": 5,
+   "total": 68,
+   "p_complement": 0.0
+  },
+  "listen": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 23,
+   "p_complement": 0.0
+  },
+  "help": {
+   "xcomp_inf": 10,
+   "advcl_inf": 0,
+   "total": 149,
+   "p_complement": 1.0
+  },
+  "accumulate": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 5,
+   "p_complement": 0.0
+  },
+  "require": {
+   "xcomp_inf": 9,
+   "advcl_inf": 1,
+   "total": 35,
+   "p_complement": 0.9
+  },
+  "nominate": {
+   "xcomp_inf": 0,
+   "advcl_inf": 2,
+   "total": 1,
+   "p_complement": 0.0
+  },
+  "ride": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 12,
+   "p_complement": 0.0
+  },
+  "forbid": {
+   "xcomp_inf": 1,
+   "advcl_inf": 1,
+   "total": 5,
+   "p_complement": 0.5
+  },
+  "care": {
+   "xcomp_inf": 1,
+   "advcl_inf": 1,
+   "total": 31,
+   "p_complement": 0.5
+  },
+  "bring": {
+   "xcomp_inf": 0,
+   "advcl_inf": 5,
+   "total": 72,
+   "p_complement": 0.0
+  },
+  "have": {
+   "xcomp_inf": 199,
+   "advcl_inf": 19,
+   "total": 1332,
+   "p_complement": 0.9128
+  },
+  "happen": {
+   "xcomp_inf": 4,
+   "advcl_inf": 0,
+   "total": 50,
+   "p_complement": 1.0
+  },
+  "compare": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 16,
+   "p_complement": 0.0
+  },
+  "commit": {
+   "xcomp_inf": 0,
+   "advcl_inf": 2,
+   "total": 7,
+   "p_complement": 0.0
+  },
+  "occur": {
+   "xcomp_inf": 0,
+   "advcl_inf": 2,
+   "total": 16,
+   "p_complement": 0.0
+  },
+  "compel": {
+   "xcomp_inf": 1,
+   "advcl_inf": 0,
+   "total": 3,
+   "p_complement": 1.0
+  },
+  "cancel": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 15,
+   "p_complement": 0.0
+  },
+  "approve": {
+   "xcomp_inf": 3,
+   "advcl_inf": 2,
+   "total": 33,
+   "p_complement": 0.6
+  },
+  "move": {
+   "xcomp_inf": 0,
+   "advcl_inf": 3,
+   "total": 76,
+   "p_complement": 0.0
+  },
+  "want": {
+   "xcomp_inf": 205,
+   "advcl_inf": 0,
+   "total": 310,
+   "p_complement": 1.0
+  },
+  "hospitalize": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 1,
+   "p_complement": 0.0
+  },
+  "put": {
+   "xcomp_inf": 0,
+   "advcl_inf": 3,
+   "total": 146,
+   "p_complement": 0.0
+  },
+  "act": {
+   "xcomp_inf": 0,
+   "advcl_inf": 3,
+   "total": 21,
+   "p_complement": 0.0
+  },
+  "decide": {
+   "xcomp_inf": 26,
+   "advcl_inf": 0,
+   "total": 42,
+   "p_complement": 1.0
+  },
+  "quote": {
+   "xcomp_inf": 0,
+   "advcl_inf": 3,
+   "total": 19,
+   "p_complement": 0.0
+  },
+  "stun": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 1,
+   "p_complement": 0.0
+  },
+  "need": {
+   "xcomp_inf": 118,
+   "advcl_inf": 10,
+   "total": 256,
+   "p_complement": 0.9219
+  },
+  "call": {
+   "xcomp_inf": 3,
+   "advcl_inf": 23,
+   "total": 209,
+   "p_complement": 0.1154
+  },
+  "access": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 5,
+   "p_complement": 0.0
+  },
+  "find": {
+   "xcomp_inf": 1,
+   "advcl_inf": 0,
+   "total": 210,
+   "p_complement": 1.0
+  },
+  "rig": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 2,
+   "p_complement": 0.0
+  },
+  "draw": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 8,
+   "p_complement": 0.0
+  },
+  "agree": {
+   "xcomp_inf": 7,
+   "advcl_inf": 0,
+   "total": 43,
+   "p_complement": 1.0
+  },
+  "suppose": {
+   "xcomp_inf": 13,
+   "advcl_inf": 0,
+   "total": 22,
+   "p_complement": 1.0
+  },
+  "beseech": {
+   "xcomp_inf": 1,
+   "advcl_inf": 0,
+   "total": 1,
+   "p_complement": 1.0
+  },
+  "ought": {
+   "xcomp_inf": 1,
+   "advcl_inf": 0,
+   "total": 1,
+   "p_complement": 1.0
+  },
+  "amend": {
+   "xcomp_inf": 0,
+   "advcl_inf": 2,
+   "total": 6,
+   "p_complement": 0.0
+  },
+  "schedule": {
+   "xcomp_inf": 3,
+   "advcl_inf": 1,
+   "total": 19,
+   "p_complement": 0.75
+  },
+  "dare": {
+   "xcomp_inf": 1,
+   "advcl_inf": 0,
+   "total": 1,
+   "p_complement": 1.0
+  },
+  "pay": {
+   "xcomp_inf": 0,
+   "advcl_inf": 6,
+   "total": 98,
+   "p_complement": 0.0
+  },
+  "pull": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 21,
+   "p_complement": 0.0
+  },
+  "allow": {
+   "xcomp_inf": 19,
+   "advcl_inf": 0,
+   "total": 32,
+   "p_complement": 1.0
+  },
+  "count": {
+   "xcomp_inf": 0,
+   "advcl_inf": 2,
+   "total": 10,
+   "p_complement": 0.0
+  },
+  "burrow": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 4,
+   "p_complement": 0.0
+  },
+  "transfer": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 9,
+   "p_complement": 0.0
+  },
+  "log": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 4,
+   "p_complement": 0.0
+  },
+  "invite": {
+   "xcomp_inf": 6,
+   "advcl_inf": 1,
+   "total": 12,
+   "p_complement": 0.8571
+  },
+  "wish": {
+   "xcomp_inf": 5,
+   "advcl_inf": 0,
+   "total": 17,
+   "p_complement": 1.0
+  },
+  "elect": {
+   "xcomp_inf": 1,
+   "advcl_inf": 1,
+   "total": 11,
+   "p_complement": 0.5
+  },
+  "design": {
+   "xcomp_inf": 0,
+   "advcl_inf": 6,
+   "total": 15,
+   "p_complement": 0.0
+  },
+  "aim": {
+   "xcomp_inf": 2,
+   "advcl_inf": 0,
+   "total": 4,
+   "p_complement": 1.0
+  },
+  "secure": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 7,
+   "p_complement": 0.0
+  },
+  "re-type": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 1,
+   "p_complement": 0.0
+  },
+  "fix": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 42,
+   "p_complement": 0.0
+  },
+  "enable": {
+   "xcomp_inf": 8,
+   "advcl_inf": 0,
+   "total": 9,
+   "p_complement": 1.0
+  },
+  "pester": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 2,
+   "p_complement": 0.0
+  },
+  "promote": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 8,
+   "p_complement": 0.0
+  },
+  "dial": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 5,
+   "p_complement": 0.0
+  },
+  "update": {
+   "xcomp_inf": 0,
+   "advcl_inf": 2,
+   "total": 10,
+   "p_complement": 0.0
+  },
+  "recall": {
+   "xcomp_inf": 1,
+   "advcl_inf": 0,
+   "total": 11,
+   "p_complement": 1.0
+  },
+  "make": {
+   "xcomp_inf": 5,
+   "advcl_inf": 3,
+   "total": 403,
+   "p_complement": 0.625
+  },
+  "try": {
+   "xcomp_inf": 114,
+   "advcl_inf": 6,
+   "total": 193,
+   "p_complement": 0.95
+  },
+  "inspect": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 1,
+   "p_complement": 0.0
+  },
+  "conceptualize": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 1,
+   "p_complement": 0.0
+  },
+  "continue": {
+   "xcomp_inf": 21,
+   "advcl_inf": 0,
+   "total": 56,
+   "p_complement": 1.0
+  },
+  "convince": {
+   "xcomp_inf": 5,
+   "advcl_inf": 0,
+   "total": 7,
+   "p_complement": 1.0
+  },
+  "revise": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 13,
+   "p_complement": 0.0
+  },
+  "believe": {
+   "xcomp_inf": 2,
+   "advcl_inf": 0,
+   "total": 89,
+   "p_complement": 1.0
+  },
+  "forget": {
+   "xcomp_inf": 10,
+   "advcl_inf": 0,
+   "total": 25,
+   "p_complement": 1.0
+  },
+  "win": {
+   "xcomp_inf": 0,
+   "advcl_inf": 2,
+   "total": 21,
+   "p_complement": 0.0
+  },
+  "gear": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 3,
+   "p_complement": 0.0
+  },
+  "lift": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 4,
+   "p_complement": 0.0
+  },
+  "charge": {
+   "xcomp_inf": 0,
+   "advcl_inf": 6,
+   "total": 44,
+   "p_complement": 0.0
+  },
+  "torment": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 1,
+   "p_complement": 0.0
+  },
+  "rush": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 7,
+   "p_complement": 0.0
+  },
+  "battle": {
+   "xcomp_inf": 0,
+   "advcl_inf": 2,
+   "total": 3,
+   "p_complement": 0.0
+  },
+  "keep": {
+   "xcomp_inf": 0,
+   "advcl_inf": 3,
+   "total": 137,
+   "p_complement": 0.0
+  },
+  "pretend": {
+   "xcomp_inf": 3,
+   "advcl_inf": 0,
+   "total": 5,
+   "p_complement": 1.0
+  },
+  "attribute": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 3,
+   "p_complement": 0.0
+  },
+  "bear": {
+   "xcomp_inf": 1,
+   "advcl_inf": 0,
+   "total": 32,
+   "p_complement": 1.0
+  },
+  "equip": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 6,
+   "p_complement": 0.0
+  },
+  "award": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 6,
+   "p_complement": 0.0
+  },
+  "seize": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 7,
+   "p_complement": 0.0
+  },
+  "click": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 14,
+   "p_complement": 0.0
+  },
+  "assign": {
+   "xcomp_inf": 1,
+   "advcl_inf": 0,
+   "total": 13,
+   "p_complement": 1.0
+  },
+  "mean": {
+   "xcomp_inf": 1,
+   "advcl_inf": 0,
+   "total": 81,
+   "p_complement": 1.0
+  },
+  "suggest": {
+   "xcomp_inf": 1,
+   "advcl_inf": 2,
+   "total": 36,
+   "p_complement": 0.3333
+  },
+  "prefer": {
+   "xcomp_inf": 4,
+   "advcl_inf": 0,
+   "total": 16,
+   "p_complement": 1.0
+  },
+  "commission": {
+   "xcomp_inf": 1,
+   "advcl_inf": 0,
+   "total": 1,
+   "p_complement": 1.0
+  },
+  "afford": {
+   "xcomp_inf": 6,
+   "advcl_inf": 0,
+   "total": 13,
+   "p_complement": 1.0
+  },
+  "fly": {
+   "xcomp_inf": 0,
+   "advcl_inf": 3,
+   "total": 27,
+   "p_complement": 0.0
+  },
+  "serve": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 42,
+   "p_complement": 0.0
+  },
+  "tear": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 5,
+   "p_complement": 0.0
+  },
+  "thrive": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 4,
+   "p_complement": 0.0
+  },
+  "slap": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 1,
+   "p_complement": 0.0
+  },
+  "balance": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 1,
+   "p_complement": 0.0
+  },
+  "arrive": {
+   "xcomp_inf": 0,
+   "advcl_inf": 2,
+   "total": 29,
+   "p_complement": 0.0
+  },
+  "plan": {
+   "xcomp_inf": 10,
+   "advcl_inf": 1,
+   "total": 51,
+   "p_complement": 0.9091
+  },
+  "visit": {
+   "xcomp_inf": 0,
+   "advcl_inf": 2,
+   "total": 57,
+   "p_complement": 0.0
+  },
+  "wrap": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 5,
+   "p_complement": 0.0
+  },
+  "grant": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 8,
+   "p_complement": 0.0
+  },
+  "threaten": {
+   "xcomp_inf": 4,
+   "advcl_inf": 0,
+   "total": 9,
+   "p_complement": 1.0
+  },
+  "encourage": {
+   "xcomp_inf": 8,
+   "advcl_inf": 0,
+   "total": 14,
+   "p_complement": 1.0
+  },
+  "feel": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 146,
+   "p_complement": 0.0
+  },
+  "flock": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 1,
+   "p_complement": 0.0
+  },
+  "learn": {
+   "xcomp_inf": 5,
+   "advcl_inf": 0,
+   "total": 44,
+   "p_complement": 1.0
+  },
+  "coin": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 1,
+   "p_complement": 0.0
+  },
+  "hate": {
+   "xcomp_inf": 3,
+   "advcl_inf": 0,
+   "total": 17,
+   "p_complement": 1.0
+  },
+  "demand": {
+   "xcomp_inf": 1,
+   "advcl_inf": 0,
+   "total": 8,
+   "p_complement": 1.0
+  },
+  "report": {
+   "xcomp_inf": 1,
+   "advcl_inf": 0,
+   "total": 33,
+   "p_complement": 1.0
+  },
+  "pin": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 2,
+   "p_complement": 0.0
+  },
+  "fail": {
+   "xcomp_inf": 4,
+   "advcl_inf": 0,
+   "total": 16,
+   "p_complement": 1.0
+  },
+  "love": {
+   "xcomp_inf": 5,
+   "advcl_inf": 0,
+   "total": 91,
+   "p_complement": 1.0
+  },
+  "pursue": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 6,
+   "p_complement": 0.0
+  },
+  "contribute": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 4,
+   "p_complement": 0.0
+  },
+  "do": {
+   "xcomp_inf": 0,
+   "advcl_inf": 23,
+   "total": 510,
+   "p_complement": 0.0
+  },
+  "expand": {
+   "xcomp_inf": 0,
+   "advcl_inf": 2,
+   "total": 13,
+   "p_complement": 0.0
+  },
+  "migrate": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 5,
+   "p_complement": 0.0
+  },
+  "inform": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 17,
+   "p_complement": 0.0
+  },
+  "direct": {
+   "xcomp_inf": 2,
+   "advcl_inf": 0,
+   "total": 7,
+   "p_complement": 1.0
+  },
+  "prompt": {
+   "xcomp_inf": 1,
+   "advcl_inf": 0,
+   "total": 2,
+   "p_complement": 1.0
+  },
+  "impose": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 4,
+   "p_complement": 0.0
+  },
+  "form": {
+   "xcomp_inf": 0,
+   "advcl_inf": 2,
+   "total": 12,
+   "p_complement": 0.0
+  },
+  "employ": {
+   "xcomp_inf": 0,
+   "advcl_inf": 2,
+   "total": 9,
+   "p_complement": 0.0
+  },
+  "melt": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 9,
+   "p_complement": 0.0
+  },
+  "swivel": {
+   "xcomp_inf": 0,
+   "advcl_inf": 1,
+   "total": 1,
+   "p_complement": 0.0
+  },
+  "attempt": {
+   "xcomp_inf": 11,
+   "advcl_inf": 0,
+   "total": 11,
+   "p_complement": 1.0
+  },
+  "guarantee": {
+   "xcomp_inf": 1,
+   "advcl_inf": 0,
+   "total": 10,
+   "p_complement": 1.0
+  },
+  "pledge": {
+   "xcomp_inf": 4,
+   "advcl_inf": 0,
+   "total": 4,
+   "p_complement": 1.0
+  },
+  "urge": {
+   "xcomp_inf": 5,
+   "advcl_inf": 0,
+   "total": 6,
+   "p_complement": 1.0
+  }
+ },
+ "extrap_predicates": {
+  "year": {
+   "n": 6,
+   "total": 332,
+   "rate": 0.0181
+  },
+  "request": {
+   "n": 4,
+   "total": 42,
+   "rate": 0.0952
+  },
+  "first": {
+   "n": 3,
+   "total": 109,
+   "rate": 0.0275
+  },
+  "glad": {
+   "n": 6,
+   "total": 16,
+   "rate": 0.375
+  },
+  "time": {
+   "n": 28,
+   "total": 461,
+   "rate": 0.0607
+  },
+  "lot": {
+   "n": 5,
+   "total": 127,
+   "rate": 0.0394
+  },
+  "way": {
+   "n": 21,
+   "total": 200,
+   "rate": 0.105
+  },
+  "sorry": {
+   "n": 3,
+   "total": 26,
+   "rate": 0.1154
+  },
+  "pressure": {
+   "n": 3,
+   "total": 13,
+   "rate": 0.2308
+  },
+  "willing": {
+   "n": 22,
+   "total": 25,
+   "rate": 0.88
+  },
+  "able": {
+   "n": 72,
+   "total": 72,
+   "rate": 1.0
+  },
+  "thing": {
+   "n": 8,
+   "total": 166,
+   "rate": 0.0482
+  },
+  "likely": {
+   "n": 13,
+   "total": 27,
+   "rate": 0.4815
+  },
+  "dangerous": {
+   "n": 2,
+   "total": 21,
+   "rate": 0.0952
+  },
+  "unable": {
+   "n": 9,
+   "total": 11,
+   "rate": 0.8182
+  },
+  "potential": {
+   "n": 2,
+   "total": 10,
+   "rate": 0.2
+  },
+  "hard": {
+   "n": 18,
+   "total": 45,
+   "rate": 0.4
+  },
+  "difficult": {
+   "n": 9,
+   "total": 19,
+   "rate": 0.4737
+  },
+  "position": {
+   "n": 2,
+   "total": 46,
+   "rate": 0.0435
+  },
+  "free": {
+   "n": 9,
+   "total": 57,
+   "rate": 0.1579
+  },
+  "ready": {
+   "n": 15,
+   "total": 26,
+   "rate": 0.5769
+  },
+  "keen": {
+   "n": 2,
+   "total": 3,
+   "rate": 0.6667
+  },
+  "effort": {
+   "n": 9,
+   "total": 31,
+   "rate": 0.2903
+  },
+  "failure": {
+   "n": 3,
+   "total": 9,
+   "rate": 0.3333
+  },
+  "eager": {
+   "n": 6,
+   "total": 7,
+   "rate": 0.8571
+  },
+  "permission": {
+   "n": 2,
+   "total": 5,
+   "rate": 0.4
+  },
+  "enough": {
+   "n": 6,
+   "total": 24,
+   "rate": 0.25
+  },
+  "plan": {
+   "n": 5,
+   "total": 47,
+   "rate": 0.1064
+  },
+  "reasonable": {
+   "n": 3,
+   "total": 27,
+   "rate": 0.1111
+  },
+  "chance": {
+   "n": 13,
+   "total": 32,
+   "rate": 0.4062
+  },
+  "attempt": {
+   "n": 12,
+   "total": 22,
+   "rate": 0.5455
+  },
+  "impossible": {
+   "n": 5,
+   "total": 9,
+   "rate": 0.5556
+  },
+  "means": {
+   "n": 2,
+   "total": 11,
+   "rate": 0.1818
+  },
+  "power": {
+   "n": 3,
+   "total": 73,
+   "rate": 0.0411
+  },
+  "sure": {
+   "n": 8,
+   "total": 112,
+   "rate": 0.0714
+  },
+  "inability": {
+   "n": 3,
+   "total": 3,
+   "rate": 1.0
+  },
+  "early": {
+   "n": 2,
+   "total": 53,
+   "rate": 0.0377
+  },
+  "reason": {
+   "n": 4,
+   "total": 55,
+   "rate": 0.0727
+  },
+  "much": {
+   "n": 7,
+   "total": 92,
+   "rate": 0.0761
+  },
+  "ability": {
+   "n": 12,
+   "total": 16,
+   "rate": 0.75
+  },
+  "job": {
+   "n": 2,
+   "total": 95,
+   "rate": 0.0211
+  },
+  "order": {
+   "n": 2,
+   "total": 72,
+   "rate": 0.0278
+  },
+  "message": {
+   "n": 2,
+   "total": 55,
+   "rate": 0.0364
+  },
+  "tool": {
+   "n": 3,
+   "total": 14,
+   "rate": 0.2143
+  },
+  "unwillingness": {
+   "n": 2,
+   "total": 2,
+   "rate": 1.0
+  },
+  "need": {
+   "n": 3,
+   "total": 28,
+   "rate": 0.1071
+  },
+  "more": {
+   "n": 2,
+   "total": 175,
+   "rate": 0.0114
+  },
+  "group": {
+   "n": 2,
+   "total": 94,
+   "rate": 0.0213
+  },
+  "important": {
+   "n": 7,
+   "total": 43,
+   "rate": 0.1628
+  },
+  "afraid": {
+   "n": 4,
+   "total": 16,
+   "rate": 0.25
+  },
+  "crucial": {
+   "n": 2,
+   "total": 5,
+   "rate": 0.4
+  },
+  "good": {
+   "n": 18,
+   "total": 568,
+   "rate": 0.0317
+  },
+  "necessary": {
+   "n": 8,
+   "total": 24,
+   "rate": 0.3333
+  },
+  "available": {
+   "n": 6,
+   "total": 42,
+   "rate": 0.1429
+  },
+  "determined": {
+   "n": 6,
+   "total": 8,
+   "rate": 0.75
+  },
+  "obligation": {
+   "n": 2,
+   "total": 6,
+   "rate": 0.3333
+  },
+  "step": {
+   "n": 2,
+   "total": 31,
+   "rate": 0.0645
+  },
+  "simple": {
+   "n": 2,
+   "total": 21,
+   "rate": 0.0952
+  },
+  "easy": {
+   "n": 18,
+   "total": 52,
+   "rate": 0.3462
+  },
+  "information": {
+   "n": 2,
+   "total": 65,
+   "rate": 0.0308
+  },
+  "opportunity": {
+   "n": 9,
+   "total": 24,
+   "rate": 0.375
+  },
+  "right": {
+   "n": 8,
+   "total": 95,
+   "rate": 0.0842
+  },
+  "room": {
+   "n": 4,
+   "total": 96,
+   "rate": 0.0417
+  },
+  "committed": {
+   "n": 2,
+   "total": 2,
+   "rate": 1.0
+  },
+  "idea": {
+   "n": 7,
+   "total": 47,
+   "rate": 0.1489
+  },
+  "work": {
+   "n": 3,
+   "total": 119,
+   "rate": 0.0252
+  },
+  "set": {
+   "n": 4,
+   "total": 21,
+   "rate": 0.1905
+  },
+  "ok": {
+   "n": 3,
+   "total": 35,
+   "rate": 0.0857
+  },
+  "about": {
+   "n": 6,
+   "total": 6,
+   "rate": 1.0
+  },
+  "person": {
+   "n": 4,
+   "total": 71,
+   "rate": 0.0563
+  },
+  "surprised": {
+   "n": 3,
+   "total": 7,
+   "rate": 0.4286
+  },
+  "happy": {
+   "n": 5,
+   "total": 51,
+   "rate": 0.098
+  },
+  "nice": {
+   "n": 2,
+   "total": 77,
+   "rate": 0.026
+  },
+  "offer": {
+   "n": 2,
+   "total": 11,
+   "rate": 0.1818
+  },
+  "delighted": {
+   "n": 3,
+   "total": 3,
+   "rate": 1.0
+  },
+  "responsibility": {
+   "n": 2,
+   "total": 16,
+   "rate": 0.125
+  },
+  "office": {
+   "n": 2,
+   "total": 90,
+   "rate": 0.0222
+  },
+  "complicated": {
+   "n": 3,
+   "total": 2,
+   "rate": 1.5
+  },
+  "authority": {
+   "n": 2,
+   "total": 23,
+   "rate": 0.087
+  },
+  "possible": {
+   "n": 6,
+   "total": 56,
+   "rate": 0.1071
+  },
+  "lucky": {
+   "n": 3,
+   "total": 10,
+   "rate": 0.3
+  },
+  "call": {
+   "n": 2,
+   "total": 90,
+   "rate": 0.0222
+  },
+  "move": {
+   "n": 4,
+   "total": 13,
+   "rate": 0.3077
+  },
+  "requirement": {
+   "n": 5,
+   "total": 22,
+   "rate": 0.2273
+  },
+  "option": {
+   "n": 5,
+   "total": 62,
+   "rate": 0.0806
+  },
+  "place": {
+   "n": 33,
+   "total": 237,
+   "rate": 0.1392
+  },
+  "system": {
+   "n": 2,
+   "total": 62,
+   "rate": 0.0323
+  },
+  "decision": {
+   "n": 3,
+   "total": 22,
+   "rate": 0.1364
+  },
+  "authorization": {
+   "n": 2,
+   "total": 3,
+   "rate": 0.6667
+  },
+  "meeting": {
+   "n": 2,
+   "total": 72,
+   "rate": 0.0278
+  },
+  "project": {
+   "n": 2,
+   "total": 39,
+   "rate": 0.0513
+  },
+  "strategy": {
+   "n": 2,
+   "total": 16,
+   "rate": 0.125
+  },
+  "form": {
+   "n": 2,
+   "total": 45,
+   "rate": 0.0444
+  },
+  "motion": {
+   "n": 2,
+   "total": 4,
+   "rate": 0.5
+  },
+  "pleased": {
+   "n": 2,
+   "total": 15,
+   "rate": 0.1333
+  },
+  "people": {
+   "n": 2,
+   "total": 251,
+   "rate": 0.008
+  },
+  "use": {
+   "n": 2,
+   "total": 20,
+   "rate": 0.1
+  },
+  "wise": {
+   "n": 2,
+   "total": 5,
+   "rate": 0.4
+  },
+  "direction": {
+   "n": 2,
+   "total": 18,
+   "rate": 0.1111
+  },
+  "prepared": {
+   "n": 2,
+   "total": 4,
+   "rate": 0.5
+  },
+  "interesting": {
+   "n": 4,
+   "total": 17,
+   "rate": 0.2353
+  },
+  "promise": {
+   "n": 2,
+   "total": 7,
+   "rate": 0.2857
+  },
+  "restaurant": {
+   "n": 3,
+   "total": 58,
+   "rate": 0.0517
+  },
+  "tip": {
+   "n": 3,
+   "total": 9,
+   "rate": 0.3333
+  },
+  "safe": {
+   "n": 2,
+   "total": 29,
+   "rate": 0.069
+  },
+  "big": {
+   "n": 2,
+   "total": 89,
+   "rate": 0.0225
+  },
+  "helpful": {
+   "n": 2,
+   "total": 45,
+   "rate": 0.0444
+  },
+  "cheap": {
+   "n": 2,
+   "total": 34,
+   "rate": 0.0588
+  },
+  "choice": {
+   "n": 4,
+   "total": 24,
+   "rate": 0.1667
+  },
+  "normal": {
+   "n": 3,
+   "total": 18,
+   "rate": 0.1667
+  },
+  "expensive": {
+   "n": 3,
+   "total": 25,
+   "rate": 0.12
+  },
+  "area": {
+   "n": 2,
+   "total": 86,
+   "rate": 0.0233
+  },
+  "worth": {
+   "n": 2,
+   "total": 30,
+   "rate": 0.0667
+  },
+  "rare": {
+   "n": 2,
+   "total": 7,
+   "rate": 0.2857
+  },
+  "quick": {
+   "n": 3,
+   "total": 17,
+   "rate": 0.1765
+  }
+ },
+ "source": "UD-EWT gold train (foundation asset, offline-built; not the LitBank test set)"
+}

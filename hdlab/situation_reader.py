@@ -380,6 +380,13 @@ class SituationModel:
     # / had_been). Additive -- never touches the other dimensions. From the owner-DONE copular-is-a solution.
     entity_states: List["EntityState"] = field(default_factory=list)
     state_register: Optional[object] = None
+    # opt-in GOAL/INTENTION dimension (WHAT-IS-X-TRYING-TO-DO / WHY-DID-X-ACT); None unless the reader is
+    # built with track_goals=True. A hdlab.goal_register.GoalRegister over THIS passage's explicit
+    # purpose/desire/intention constructions (the missing 5th Zwaan-Radvansky event-indexing dimension,
+    # intentionality); the query callables sm.wants(agent)/sm.why(action,agent)/sm.achieved(agent,goal) are
+    # bound as attributes at read time (mirroring sm.believes/knows). Additive -- never touches the other
+    # dimensions. From the owner-DONE the_situation_model_has_no_goal_intention_dimension (Q111).
+    goal_register: Optional[object] = None
     memory_roundtrip: Dict[str, float] = field(default_factory=dict)
     # per-dimension honest accuracy (coref only; scored vs LitBank gold on this passage)
     coref_acc: Optional[float] = None
@@ -662,6 +669,7 @@ class SituationReader:
                  predict_revise: bool = True,
                  track_world_state: bool = True,
                  densify_world_state: bool = True,
+                 track_goals: bool = True,
                  parser_arceager: bool = False,
                  np_head_reduce: bool = True,
                  bind_entity_states: bool = True,
@@ -862,6 +870,19 @@ class SituationReader:
         # wire lands the ENTITY-KEYED representation live so the STATE dimension is not a raw-string island. NO LLM.
         self.densify_world_state = bool(densify_world_state)
         self._ws_binder_mod = None     # lazy hdlab.world_state_entity_binding
+        # GOAL/INTENTION dimension (DEFAULT-ON 2026-09-04, no-default-off: additive + net-positive). Wired from
+        # the owner-DONE problem the_situation_model_has_no_goal_intention_dimension (Q111). read() builds a per-agent
+        # GOAL REGISTER (the missing 5th Zwaan-Radvansky event-indexing dimension, intentionality) from THIS
+        # passage's explicit purpose/desire/intention constructions via the promoted hdlab.goal_register (extractor
+        # + lexicalist hdlab.verb_subcat_frames complement-vs-adjunct filter + track_status), binds each goal to the
+        # reader's OWN resolved agent (coref) + passive-agent guard, and sets sm.goal_register + the query callables
+        # sm.wants(agent)/sm.why(action,agent)/sm.achieved(agent,goal). Mirrors _read_belief/_read_world_state:
+        # additive, runs LAST so agents/status bind to the FINAL event+coref stream -- no other dimension field
+        # changes (byte-identical off vs on; landing witness L3). Turned DEFAULT-ON like the sibling situation-model
+        # dimensions (track_belief/track_world_state/bind_entity_states): net-positive (WANT-explicit CI-sep over the
+        # most-recent-action floor + shuffled-agent twin loses; WHY 0.97 where physical-cause cannot), zero regression
+        # (additive by construction), +~0.24s/read. NO spaCy / NO LLM.
+        self.track_goals = bool(track_goals)
         # IMPROVED PARSER (opt-in; default OFF = byte-identical). Wired 2026-09-02 from the owner-DONE parser problem
         # the_extraction_front_end_parser_is_the_cross_task_bottleneck...: route the WIRED who-did-what front-end
         # through the promoted arc-eager parser (hdlab.arceager_parser, UD-EWT UAS 0.775->0.842) instead of the
@@ -958,7 +979,7 @@ class SituationReader:
         "tense_agnostic_events", "preserve_tense", "timeline_register", "verb_subcat_gate", "track_space",
         "predict_surprisal", "track_belief", "bind_event_tokens", "predict_revise", "track_world_state",
         "densify_world_state", "np_head_reduce", "parser_arceager", "causation_typed", "spacy_pred_gate",
-        "bind_entity_states", "structural_do_recover", "referent_per_np", "predicate_recall")
+        "bind_entity_states", "structural_do_recover", "referent_per_np", "predicate_recall", "track_goals")
 
     @classmethod
     def all_capabilities_off(cls, gaz=None, **overrides):
@@ -1625,6 +1646,36 @@ class SituationReader:
                                         outcome=outcome.lemma, method=method))
         return links
 
+    def _read_goals(self, sm, sents) -> None:
+        """Opt-in GOAL/INTENTION dimension (default-off track_goals; wired 2026-09-04 from the owner-DONE
+        problem the_situation_model_has_no_goal_intention_dimension, Q111). Build a per-agent GOAL REGISTER
+        over THIS passage's explicit purpose/desire/intention constructions (the missing 5th Zwaan-Radvansky
+        event-indexing dimension) and bind the query callables to sm. BYTE-FAITHFUL to the validated driver
+        experiments/exp_goal_register_qa_v1.py::read_doc (the canonical extract->canon->passive_guard->bind->
+        status->register sequence): POS from the reader's OWN shared frontend tagger (the SAME
+        pos_tagger_ud_ewt_upos.json asset the QA cell's _tagger uses); the lexicalist subcat frame from the
+        promoted hdlab.verb_subcat_frames (the upstream complement-vs-adjunct fix), None -> the hardcoded
+        heuristic fallback. Runs AFTER coref+events (in read()) so agents/status bind to the FINAL stream.
+        Additive -- sets ONLY sm.goal_register + sm.wants/why/achieved; no other dimension field changes
+        (byte-identical off vs on). Lazy imports -> the default (OFF) reader loads NONE of this. NO spaCy / NO LLM."""
+        from hdlab import goal_register as GR
+        try:
+            from hdlab.verb_subcat_frames import SubcatFrames
+            sc = SubcatFrames.load()
+        except Exception:
+            sc = None
+        pos = [self._cached_tag(list(t)) for t in sents]
+        goals = GR.extract_goals(sents, pos, subcat=sc)
+        canon, _names = GR.make_canonicalizer(sm)
+        GR.passive_agent_guard(goals, sm, sents, pos)
+        GR.bind_agents(goals, canon)
+        GR.track_status(goals, sm.events)
+        reg = GR.GoalRegister(goals)
+        sm.goal_register = reg
+        sm.wants = lambda agent: reg.wants(agent)
+        sm.why = lambda action_head, agent=None: reg.why(action_head, agent)
+        sm.achieved = lambda agent, goal_head: reg.achieved(agent, goal_head)
+
     def _read_entity_states(self, sm, sents) -> None:
         """COPULAR is-a/attribute BINDING (default-off bind_entity_states; wired 2026-09-03 from the owner-DONE
         the_reader_has_no_copular_is_a_binding_schema, 10/10+6/6). For each sentence, recover the labeled copular
@@ -1792,6 +1843,11 @@ class SituationReader:
             # COPULAR is-a/attribute dimension: typed (holder, property) states on sm.entity_states +
             # sm.state_register. Additive -- both stay empty/None when the flag is off.
             self._read_entity_states(sm, sents)
+        if self.track_goals:
+            # GOAL/INTENTION dimension: per-agent goal register on sm.goal_register + the query callables
+            # sm.wants/why/achieved. Runs LAST so goals bind to the FINAL event+coref stream (mirrors
+            # _read_belief/_read_world_state). Additive -- sm.goal_register stays None when the flag is off.
+            self._read_goals(sm, sents)
         return sm
 
 

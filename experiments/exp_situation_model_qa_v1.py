@@ -132,7 +132,7 @@ def _content(q_tokens: List[str]) -> List[str]:
 # So route_scores() emits a GRADED activation PER DIMENSION from a transparent cue->dimension table
 # over the question's FEATURE SET (wh-word + lemmatized relational cues + a pronoun-focus flag), NOT
 # exact substrings. route() = argmax with a threshold (abstain if nothing clears = the FOK gate).
-DIMENSIONS = ("coref", "events", "salience", "temporal", "causal", "location", "belief", "state")
+DIMENSIONS = ("coref", "events", "salience", "temporal", "causal", "location", "belief", "state", "goal")
 
 # each cue votes for a dimension (soft weight). Multiple cues -> parallel votes -> multi-dim capable.
 # These are RELATIONAL/QUD cues (lemmas), not fixed question phrasings -> paraphrase-robust by design.
@@ -871,7 +871,8 @@ def _shuffled_cue_dim(seed: int) -> Dict[str, str]:
 
 
 def run(docs: List[str], seed: int = 20260830, capable: bool = True,
-        with_state: bool = True, state_cap: Optional[int] = None) -> dict:
+        with_state: bool = True, state_cap: Optional[int] = None,
+        with_goal: bool = True, goal_cap: Optional[int] = None) -> dict:
     """Score QA over the SituationModel per dimension vs floors + twin. `capable=True` (DEFAULT) scores
     the CAPABLE reader (build_reader) -- the correct baseline: extraction dimensions ON, temporal read off
     sm.timeline_order. `capable=False` reproduces the historical default-reader run for comparison.
@@ -975,6 +976,19 @@ def run(docs: List[str], seed: int = 20260830, capable: bool = True,
         except Exception as e:
             res["per_dimension"]["state"] = None
             res["state_qa_detail"] = {"error": f"{type(e).__name__}: {e}"}
+    if with_goal:
+        # THE GOAL/INTENTION DIMENSION (Q111): a live per_dimension row reading sm.goal_register off the
+        # track_goals reader, scored on the RELIABLE explicit slice vs the most-recent-action floor + the
+        # shuffled-agent twin (WANT) and the physical-cause floor (goal-WHY). Additive -- the 4 scored LitBank
+        # dims are untouched; the goal row is a separate track_goals pass (like the state dim). goal_cap caps it
+        # for a fast self-test.
+        try:
+            grow, gdetail = board_goal_dimension(docs, gaz, cap=goal_cap, n_boot=1000, seed=seed)
+            res["per_dimension"]["goal"] = grow
+            res["goal_qa_detail"] = gdetail
+        except Exception as e:
+            res["per_dimension"]["goal"] = None
+            res["goal_qa_detail"] = {"error": f"{type(e).__name__}: {e}"}
     res["reader_config"] = {
         "capable": bool(capable),
         "flags": ("tense_agnostic_events+preserve_tense+timeline_register+bind_entity_states" if capable else "default(off)"),
@@ -1195,6 +1209,205 @@ def run_wired_events_qa(docs: List[str]) -> dict:
                 arms[mode][1] += 1
     return {k: round(v[0] / v[1], 4) if v[1] else None for k, v in arms.items()} | \
            {"n": arms["positional"][1], "n_docs": len([d for d in docs if d in wdw])}
+
+
+# ===========================================================================
+# THE GOAL/INTENTION DIMENSION (Q111 board arm) -- reads sm.goal_register off the track_goals reader.
+# ===========================================================================
+# The 5th Zwaan-Radvansky dimension (intentionality), landed as SituationReader(track_goals=True). The board
+# arm mirrors experiments/exp_goal_register_qa_v1.py's WANT + goal-why scoring but reads the LIVE reader's
+# sm.goal_register (never re-extracting). Self-contained (hdlab.goal_register only; no import of the dedicated
+# goal cell -> no import cycle). Gated to the RELIABLE explicit slice (desire/intend/try + in-order-to) for the
+# WANT arm, and the goal-why-vs-PHYSICAL-cause floor for the WHY arm. The full twin-null/CI battery + spaCy
+# oracle live in exp_goal_register_qa_v1.py; here it is a per_dimension board row.
+_GOAL_EXPLICIT_KINDS = ("desire", "intend", "try", "purpose_marked")
+
+
+def _goal_match(pred_head: Optional[str], gold_head: str) -> bool:
+    import hdlab.goal_register as GR
+    if not pred_head or not gold_head:
+        return False
+    return GR._lemma(pred_head) == GR._lemma(gold_head)
+
+
+def _goal_floor_most_recent_action(sm, agent_canon, canon, before_sent) -> Optional[str]:
+    """The trivial 'what is X doing' floor: X's most recent event predicate (an ACTION, not a goal)."""
+    best = None
+    for e in sm.events:
+        ea = canon(str(e.agent), e.sent_idx) or str(e.agent).lower()
+        if ea == agent_canon and e.sent_idx <= before_sent and e.predicate not in ("?", None):
+            best = e.predicate
+    return best
+
+
+def _goal_floor_physical_cause(sm, action_head) -> Optional[str]:
+    """The PHYSICAL-CAUSE dimension's answer for an action (sm.causal_links) -- disjoint from a purpose."""
+    import hdlab.goal_register as GR
+    ah = GR._lemma(action_head)
+    for cl in sm.causal_links:
+        if GR._lemma(str(cl.outcome)) == ah:
+            return cl.cause
+    return None
+
+
+def build_goal_questions(sm) -> List[dict]:
+    """A) 'What is X trying to do?' -- one per goal with a canonical (non-pronoun) agent, gated to the
+    RELIABLE explicit slice. gold = the goal head from the construction grammar. Reads sm.goal_register."""
+    import hdlab.goal_register as GR
+    reg = getattr(sm, "goal_register", None)
+    if reg is None:
+        return []
+    qs = []
+    for g in reg.goals:
+        a = g.agent_canonical
+        if not a or a == "?" or GR._norm(a) in GR._PRONOUNS:
+            continue
+        if g.kind not in _GOAL_EXPLICIT_KINDS:
+            continue
+        qs.append({"qtype": "want", "agent": a, "gold_head": g.goal_head, "gold_text": g.goal_text,
+                   "kind": g.kind, "sent_idx": g.sent_idx})
+    return qs
+
+
+def build_goal_why_questions(sm) -> List[dict]:
+    """B) 'Why did X do ACTION?' -- one per PURPOSE construction. gold = the purpose (goal); the floor is
+    the PHYSICAL-CAUSE dimension (a disjoint construction). Reads sm.goal_register."""
+    import hdlab.goal_register as GR
+    reg = getattr(sm, "goal_register", None)
+    if reg is None:
+        return []
+    qs = []
+    for g in reg.goals:
+        if g.kind not in ("purpose_marked", "purpose_bare"):
+            continue
+        a = g.agent_canonical
+        qs.append({"qtype": "why", "agent": a if a and GR._norm(a) not in GR._PRONOUNS else None,
+                   "action_head": g.source_verb, "gold_head": g.goal_head, "gold_text": g.goal_text,
+                   "kind": g.kind, "sent_idx": g.sent_idx})
+    return qs
+
+
+def _answer_goal(sm, q: dict) -> Optional[str]:
+    """Read the goal answer OFF sm.goal_register (never re-reading): wants(agent) for a WANT question,
+    why(action, agent) for a WHY question. Returns the goal head, or None to abstain (register absent)."""
+    reg = getattr(sm, "goal_register", None)
+    if reg is None:
+        return None
+    if q["qtype"] == "want":
+        g = reg.wants(q["agent"])
+        return g.goal_head if g else None
+    g = reg.why(q["action_head"], q.get("agent"))
+    return g.goal_head if g else None
+
+
+def _goal_shuffled_wants(goals, seed):
+    """INFO-FREE TWIN: a derangement of the goal->agent binding (the load-bearing step), then wants() per
+    agent. Mirrors exp_goal_register_qa_v1.shuffled_register. Returns a {agent_low -> goal_head} for the
+    twin's wants()."""
+    import copy
+    import hdlab.goal_register as GR
+    rng = np.random.default_rng(seed)
+    canon_agents = [g.agent_canonical for g in goals]
+    uniq = list(dict.fromkeys([a for a in canon_agents if a and GR._norm(a) not in GR._PRONOUNS]))
+    if len(uniq) < 2:
+        perm = list(rng.permutation(canon_agents))
+    else:
+        remap = {}
+        for _ in range(2000):
+            p = list(rng.permutation(uniq))
+            if all(p[i] != uniq[i] for i in range(len(uniq))):
+                remap = {uniq[i]: p[i] for i in range(len(uniq))}
+                break
+        perm = [remap.get(a, a) for a in canon_agents]
+    shuffled = []
+    for g, a in zip(goals, perm):
+        gg = copy.copy(g)
+        gg.agent_canonical = a
+        shuffled.append(gg)
+    return GR.GoalRegister(shuffled)
+
+
+def _goal_cluster_boot(per_doc, docs, ia, ib, seed, B):
+    """Paired per-doc bootstrap of arm_a - arm_b. per_doc[doc] = [n, ok_model, ok_floor, ok_twin]."""
+    dd = [d for d in docs if d in per_doc]
+    if not dd:
+        return [None, None]
+    N = np.array([per_doc[d][0] for d in dd], float)
+    A = np.array([per_doc[d][ia] for d in dd], float)
+    Bk = np.array([per_doc[d][ib] for d in dd], float)
+    rng = np.random.default_rng(seed + 7)
+    nD = len(dd)
+    diffs = np.empty(B)
+    for b in range(B):
+        s = rng.integers(0, nD, nD)
+        na = N[s].sum()
+        diffs[b] = (A[s].sum() / na - Bk[s].sum() / na) if na else 0.0
+    diffs.sort()
+    return [round(float(diffs[int(0.025 * B)]), 4), round(float(diffs[int(0.975 * B)]), 4)]
+
+
+def board_goal_dimension(docs, gaz=None, cap: Optional[int] = None, n_boot: int = 1000,
+                         seed: int = 20260830):
+    """The per_dimension-shaped 'goal' row for run() (same schema as board_state_dimension) + the full
+    detail. Builds a SituationReader(track_goals=True) per doc and scores WANT-explicit (vs most-recent-action
+    floor + shuffled-agent twin) and goal-WHY (vs physical-cause floor), doc-cluster bootstrap CI."""
+    import hdlab.goal_register as GR
+    from hdlab.situation_reader import SituationReader
+    if gaz is None:
+        gaz = load_given_gazetteer()
+    dd = docs[:cap] if cap else docs
+    want_rows, why_rows = [], []
+    per_doc_want = defaultdict(lambda: [0, 0, 0, 0])   # doc -> [n, model_ok, floor_ok, twin_ok]
+    for doc in dd:
+        path = os.path.join(CONLL_DIR, doc + ".conll")
+        if not os.path.exists(path):
+            continue
+        sm = SituationReader(gaz=gaz, track_goals=True).read(path)
+        canon, _names = GR.make_canonicalizer(sm)
+        twin = _goal_shuffled_wants(sm.goal_register.goals, seed)
+        for q in build_goal_questions(sm):
+            a = q["agent"]
+            model_ok = int(_goal_match(_answer_goal(sm, q), q["gold_head"]))
+            floor_ok = int(_goal_match(_goal_floor_most_recent_action(sm, a, canon, q["sent_idx"]), q["gold_head"]))
+            tg = twin.wants(a)
+            twin_ok = int(tg is not None and _goal_match(tg.goal_head, q["gold_head"]))
+            want_rows.append({"doc": doc, "model_ok": model_ok, "floor_ok": floor_ok, "twin_ok": twin_ok})
+            pd = per_doc_want[doc]; pd[0] += 1; pd[1] += model_ok; pd[2] += floor_ok; pd[3] += twin_ok
+        for q in build_goal_why_questions(sm):
+            model_ok = int(_goal_match(_answer_goal(sm, q), q["gold_head"]))
+            cause_ok = int(_goal_match(_goal_floor_physical_cause(sm, q["action_head"]), q["gold_head"]))
+            why_rows.append({"doc": doc, "model_ok": model_ok, "phys_cause_ok": cause_ok})
+
+    def acc(rows, k):
+        v = [r[k] for r in rows if k in r]
+        return round(sum(v) / len(v), 4) if v else None
+    n = len(want_rows)
+    m = acc(want_rows, "model_ok"); fl = acc(want_rows, "floor_ok"); tw = acc(want_rows, "twin_ok")
+    ms = _goal_cluster_boot(per_doc_want, dd, 1, 2, seed, n_boot)
+    mt = _goal_cluster_boot(per_doc_want, dd, 1, 3, seed, n_boot)
+    row = {
+        "n": n, "model_acc": m,
+        "overlap_floor": fl,
+        "floor_accs": {"most_recent_action": fl},
+        "strongest_floor_name": "most_recent_action",
+        "strongest_floor": fl,
+        "twin_acc": tw,
+        "model_minus_strongest": ms,
+        "model_minus_twin": mt,
+        "ci_sep_over_strongest": bool(ms[0] is not None and ms[0] > 0),
+        "ci_sep_over_twin": bool(mt[0] is not None and mt[0] > 0),
+        "population": "LitBank goal register, WANT explicit slice (desire/intend/try + in-order-to)",
+    }
+    detail = {
+        "want_explicit": {"n": n, "model": m, "floor_most_recent_action": fl, "twin_shuffled_agent": tw,
+                          "model_minus_floor": ms, "model_minus_twin": mt},
+        "why_goal": {"n": len(why_rows), "model_goal_register": acc(why_rows, "model_ok"),
+                     "floor_physical_cause": acc(why_rows, "phys_cause_ok")},
+        "note": "goal dimension reads sm.goal_register off the track_goals reader (never re-extracting). WANT "
+                "explicit slice vs most-recent-action floor + shuffled-agent twin; WHY goal-why vs physical-cause "
+                "floor. Full twin-null/CI battery + spaCy oracle: experiments/exp_goal_register_qa_v1.py.",
+    }
+    return row, detail
 
 
 # ===========================================================================

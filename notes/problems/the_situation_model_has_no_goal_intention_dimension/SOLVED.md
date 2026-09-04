@@ -9,6 +9,14 @@ files_changed: "experiments/goal_register.py (the promotable CORE: glass-box exp
 reverify: ".venv/Scripts/python.exe verification/test_goal_register.py   # 11/11, re-runs NO landed cell (reads metrics.json + a from-source unit). Rebuild the upstream frame asset (optional): .venv/Scripts/python.exe experiments/verb_subcat_frames.py --build . Full recompute (optional, ~10 min): .venv/Scripts/python.exe experiments/exp_goal_register_qa_v1.py --run --oracle-docs 12"
 ---
 
+## INTEGRATED_BY_STRATEGY (2026-09-04) — EXCELLENT (a full-chain upgrade)
+Reverified first-hand: `verification/test_goal_register.py` **11/11** + a new pure-hdlab landing witness `verification/test_goal_register_landing_organ.py` **6/6** (existing dims byte-identical track_goals off vs on across 3 docs → purely additive). Live goal-arm CI-separated (WANT-explicit 0.58 over floor 0.28 + twin 0.0; WHY 0.97 vs physical-cause 0.03).
+- **WIRE LANDED (Q111), DEFAULT-ON** (no-default-off: additive + net-positive, mirrors the sibling situation-model dims): promoted `hdlab/goal_register.py` (stdlib+hdlab only — extractor + GoalRegister + track_status + the ported `make_canonicalizer`/`passive_agent_guard`/`_named_clusters`/`_norm`/`_PRONOUNS`, NO experiments dep) + `track_goals` flag (default TRUE) + `_read_goals` (mirrors `_read_belief`; sets `sm.goal_register` + `sm.wants`/`why`/`achieved`). Board `goal` arm registered in `exp_situation_model_qa_v1.py` (DIMENSIONS += 'goal', with_goal=True). +~0.24s/read.
+- **THE FULL-CHAIN UPGRADE (owner "this solution is also a full chain upgrade"):** landed the upstream general parse-fidelity primitive `hdlab/verb_subcat_frames.py` + shipped `data/frontend_assets/verb_subcat_frames_ud_ewt.json` (lexicalist complement-vs-adjunct + extraposition; a GENERAL primitive usable beyond goals) + the passive-agent guard (PRO→matrix agent). Zero regression (the frame gates ONLY the bare-purpose branch).
+- **§2b folded.** The reader now has ALL FIVE Zwaan-Radvansky dimensions.
+- **ONE non-material deviation:** the reader's `sents` are lowercased (its convention) vs the experiment's original-case; A/B 30/31 explicit goals identical (0.968), the live arm independently CI-separated.
+- **LOCATED NEGATIVE (a full pass):** bare-purpose adjuncts parse-gated (0.34 vs oracle → register-native parser); Tier-2 abductive goals → the meaning channel (P9). §7 follow-ons noted; the general subcat primitive is available to wire into broader infinitive-attachment (a chain lever beyond goals).
+
 # The reader now has a GOAL/INTENTION dimension -- "what is X trying to do, and why did X act?"
 
 ## The one-line answer
