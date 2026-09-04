@@ -1,0 +1,57 @@
+---
+priority: 2
+review:
+review_text:
+---
+
+# PROBLEM: the reader's who-did-what ROLE assignment is PURELY POSITIONAL (agent = preverbal mention, patient = nearest post-verbal, "?" when none) — NOT the brain's mechanism — and it is now the load-bearing downstream gap: with the brain-foundational `referent_per_np` complete-referent set DEFAULT-ON, the board's who-did-what AGENT arm REGRESSES 0.252→0.075 because the positional agent pick grabs a WRONG preverbal NP head from the denser (more correct) referent set. Replace the positional assigner with the brain-foundational COMPETITION-MODEL cue-competition role assigner (word-order-dominant + animacy + voice + verb-frame, two-stage good-enough→reanalysis; Bates-MacWhinney), glass-box, NO training — already prototyped (`exp_brain_upstream_role_v1`, cuts the inanimate-agent error class 0.333→0.081). Prove the board's who-did-what (agent) RECOVERS to ≥ the pre-`referent_per_np` baseline CI-separated (making `referent_per_np` default-on a NET board win) with an info-free twin LOSING — or a located negative naming why cue competition cannot recover the agent on the denser set.
+
+**slug:** `swap_the_positional_role_assigner_for_the_brain_foundational_competition_model` — **opened:** 2026-09-04 by the strategy session (URGENT: the downstream fidelity gap exposed when `referent_per_np` was turned default-ON per owner decision — the complete referent set is the correct upstream, the positional agent assigner is the poorly-implemented downstream). **status:** OPEN. Strategy lands any hdlab wire (Q111, witnessed). Glass-box, NO external LLM, NO trained parser.
+
+> ## ⚙️ SOLVER OPERATING PROTOCOL (standing — owner 2026-08-25/26)
+> **DO THE RIGHT THING, NOT THE CHEAP THING.** The mission is the most brain-faithful substrate. A located NEGATIVE is a PASS — but only if the brain's actual mechanism, faithfully built, is what failed.
+
+> ## 🧠 BRAIN-FOUNDATIONAL CHECKLIST (the owner's standing bar — work through IN ORDER; the solution is not done until every box holds)
+> 1. **OPEN — how does the BRAIN do THIS?** Name the specific structure + computation and replicate that OPERATION as the FIRST move; mark each choice PINNED vs OUR-INVENTION. RESEARCH AGGRESSIVELY wherever you are unsure — do not build the tractable thing and cite neuroscience after.
+> 2. **REUSE — does an existing organ already do what you need?** Check `tools/substrate_map.py` / `tools/reader_capabilities.py` / `hdlab/` FIRST; extend a matching organ rather than re-deriving it.
+> 3. **GENERALIZE — does this need to generalize, and HOW does the brain generalize it?** Build for that (register / novelty / transfer), not for the single test.
+> 4. **HIT A WALL? GO DEEPER, DON'T STOP.** Research-drill WHY. If the brain can do it, it IS possible and we can too, once we understand it. A located NEGATIVE counts only if the brain's ACTUAL mechanism, faithfully built, is what failed (fair test: can-fail, one-variable, real baseline).
+> 5. **OPTIMIZE BY EXACT REPLICATION.** Evaluate aggressively, with great precision, EXACTLY how the brain does it, and replicate it exactly — copy the computation, SWEEP (never adopt) the parameters. No half-effort: the closer we are, the better we do.
+> 6. **PERFORMANCE vs THE BRAIN.** How does our performance compare to a competent brain/reader on this task? WHERE ALONG THE CHAIN do we lose signal? What EXACTLY differs between our implementation and the brain's mechanism (an itemized mechanism-diff)?
+> 7. **ADJACENT COMPONENTS.** Map the capabilities, limitations, opportunities, and brain-foundational status of the adjacent components — that seeds the next problems to address.
+> 8. **COMPLETION BAR.** Is this a COMPLETE, EXCELLENT solved problem? Is it FULLY brain-foundational, conveying ALL the benefits of the brain function we replicate? If not, keep pushing toward a fully complete, exceptional solution.
+
+## 1. THE PROBLEM IN PLAIN LANGUAGE
+The reader decides WHO did an action by a crude rule: the agent is "the noun just before the verb." That works when there is exactly one obvious noun there, but it breaks the moment the reader has a richer, more complete list of the things in a sentence — it grabs the wrong pre-verb noun. We just gave the reader that richer, more correct list of referents (a genuine improvement that recovers the OBJECT of actions), and the crude agent rule promptly got worse at naming the SUBJECT — so the "who did it" score on the scoreboard dropped even though the underlying representation improved. The brain does not use a position rule; it weighs several cues at once (word order, is-this-thing-alive, active-vs-passive, what-this-verb-usually-takes) and revises. The job: replace the position rule with that cue-competition mechanism (already prototyped) so the reader names the right agent from the richer list — turning the improvement into a clean win.
+
+## 2. WHY THIS ONE — it is the URGENT downstream fix that banks a stuck +0.336
+`referent_per_np` (a discourse referent per NP head — Kamp/Heim DRT) is the correct, brain-foundational who-did-what candidate SOURCE, and it is now DEFAULT-ON (owner decision). It lifts the PATIENT +0.336 (it recovers post-verbal objects the coref column misses). But because the AGENT assignment is positional, the denser set makes the AGENT worse (board qa_events 0.252→0.075). So the reader is transiently WORSE on the scoreboard's who-did-what arm even though its inputs improved — and the +0.336 patient win is stranded off-board. Fixing the agent assignment is what converts the default-on into a net board win, so it is the highest-value unblocker in the queue.
+
+## 3. HOW THE BRAIN DOES THIS (the opening move)
+PINNED: thematic-role assignment is graded CUE COMPETITION (the Competition Model — Bates & MacWhinney 1989; constraint-satisfaction — MacDonald 1994; good-enough processing + reanalysis — Ferreira; the ERP two-stream — the P600 reanalysis). English is word-order-DOMINANT, but animacy, voice (active/passive), and verb argument-frame are weighted cues that override order (an inanimate pre-verbal noun is a poor agent; a passive flips agent/patient). NOT a position rule, NOT a trained parser. OUR-INVENTION-under-test: the exact cue set + the validity-seeded weights + the two-stage revision threshold (sweep, do not adopt). The prototype `exp_brain_upstream_role_v1` used ~4 hand-set validity-seeded weights over `hdlab.thematic_role_labeler` + `hdlab.animacy_lexicon`, NO training, and cut inanimate-agent error 0.333→0.081.
+
+## MEASURED vs INFERRED
+- **MEASURED (do NOT re-derive):** with `referent_per_np` DEFAULT-ON, the board's who-did-what AGENT arm (build_events_questions, scores the subject) regresses 0.2519→0.0754 first-hand (16 LitBank docs; identical event counts, so it is the agent PICK, not detection); the positional path is confirmed in `situation_reader._assign_roles` (`agent = subj_m["head"]`, preverbal). The Competition-Model prototype (`exp_brain_upstream_role_v1`) cuts inanimate-agent error 0.333→0.081 vs positional, and the parent P5 measured the owner's thesis: making the upstream role assigner brain-foundational lifts the downstream binder's trust MONOTONICALLY (−0.048 reader-events → +0.220 Competition-Model).
+- **INFERRED (you must measure):** whether wiring the Competition-Model assigner into the LIVE reader recovers the board's who-did-what (agent) arm to ≥ the pre-`referent_per_np` baseline (0.252) CI-separated WITH `referent_per_np` on (so default-on is a net board win), WITHOUT regressing the PATIENT (+0.336) or the other dims, info-free (shuffled-cue-validity) twin LOSING; the residual + its named cause.
+
+## VERIFY BEFORE YOU START (the disk outranks this brief)
+- FIRST STEPS: `python tools/substrate_map.py`, `python tools/reader_capabilities.py`; read the parent `notes/problems/wire_the_referent_to_coref_linking_pass_so_referent_per_np_can_turn_on/SOLVED.md` §9 (the UPSTREAM UPDATE — the built Competition-Model assigner + the monotonic-trust chain) IN FULL, and `the_who_did_what_selection_residual_is_structural_np_head_chunking_and_case_not_meaning` (NP-head reduce, integrated) + `discrete_where_the_brain_is_graded_in_parsing_and_role_assignment` SOLVED.
+- Reproduce first-hand: the qa_events 0.252→0.075 regression with `referent_per_np` on (the can-fail baseline this must close), and `exp_brain_upstream_role_v1`'s inanimate-agent 0.333→0.081.
+- Inspect what you REUSE: `hdlab/situation_reader.py` (`_assign_roles` / `_read_events_wired` — the positional agent path to REPLACE; the `_router_roles` refinement), `hdlab/thematic_role_labeler.py`, `hdlab/animacy_lexicon.py`, `hdlab/graded_role_assigner.py` (the existing graded competition pick), `experiments/exp_brain_upstream_role_v1.py` (the prototype).
+
+## THE BAR (can-fail; CI-separated; the info-free twin must lose)
+PASS = a glass-box Competition-Model cue-competition role assigner (word-order + animacy + voice + verb-frame + two-stage revision; NO trained parser, NO LLM) wired into the live reader such that with `referent_per_np` ON, the board's who-did-what (agent) arm RECOVERS to ≥ the pre-`referent_per_np` baseline (0.252) CI-separated (default-on becomes a net board win), with NO regression on the patient (+0.336) or the other dims, and a shuffled-cue-validity info-free twin LOSING CI-separated. Report CI half-width + null p95; recompute floors on the same population. A rigorous located NEGATIVE — cue competition cannot recover the agent on the denser set within a glass-box budget, with the named cause + number — is a FULL PASS (then reconsider the `referent_per_np` default). Strategy lands the Q111 wire.
+
+## ALREADY TRIED / DO NOT REDO
+- The POSITIONAL assigner (`_assign_roles`, agent=preverbal) is the CURRENT baseline that regresses — the thing to replace; do not "tune" it.
+- The construction-aware selector — REFUTED (adds 0.000 over the live feature-competition selector; `construction_aware_selector...` owner-DONE). This is NOT a construction-template retrieval; it is CUE COMPETITION (a different, PINNED mechanism).
+- NP-head reduction (`np_head_reduce`, integrated) already fixes the NP-head chunking error — this is the AGENT SELECTION among heads (which head is the agent), a different axis; compose with it.
+- Do NOT take a trained parser / external LLM (the invariant) — the Competition Model is ~4 validity-seeded weights, glass-box.
+
+## FILES AND ENTRY POINTS
+Build in `experiments/` + `verification/`. REUSE `experiments/exp_brain_upstream_role_v1.py` (the prototype), `hdlab/thematic_role_labeler.py`, `hdlab/animacy_lexicon.py`, `hdlab/graded_role_assigner.py`, `hdlab/situation_reader.py` (`_assign_roles` / `_read_events_wired`). Measure on the board's who-did-what arm (build_events_questions, agent) with `referent_per_np` on. Strategy lands the Q111 wire. Fold an AUDIT UPDATE into `BRAIN_FOUNDATIONAL_AUDIT.md` §2b.
+
+## DO NOT QUOTE
+- Do NOT quote the inanimate-agent 0.333→0.081 as the board number — it is one error class; report the full who-did-what (agent) arm recovery with `referent_per_np` on.
+- Do NOT quote a board recovery without confirming the PATIENT +0.336 does not regress (both slots must win).
+- Do NOT use an external LLM or a trained parser (the invariant).

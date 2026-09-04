@@ -652,7 +652,7 @@ class SituationReader:
                  np_head_reduce: bool = True,
                  bind_entity_states: bool = True,
                  structural_do_recover: bool = False,
-                 referent_per_np: bool = False,
+                 referent_per_np: bool = True,
                  predicate_recall: bool = False) -> None:
         # === DEFAULTS FLIPPED ON 2026-09-03 (owner-authorized: "switch them on... 1 at a time, top down,
         # measure which are net positives"). The greedy forward-activation sweep (tools/flag_activation_sweep.py,
@@ -887,15 +887,24 @@ class SituationReader:
         # default OFF -> patient_is_bare_do stays None -> the veto is unconditional (byte-identical). NO spaCy / NO LLM.
         self.structural_do_recover = bool(structural_do_recover)
         self._sdo = None               # lazy hdlab.structural_do
-        # REFERENT-PER-NP mention source (opt-in; default OFF = byte-identical). Coverage-gap §0g/P5 wire (2026-09-03,
-        # owner-DONE open_a_discourse_referent_for_every_np...): the deployed read() sources who-did-what candidates
-        # from the CoNLL COREF column, so on real 19c prose the gold patient is a candidate only ~0.82 of the time.
-        # When ON, replace the mention source with a discourse referent per content-noun-head NP (Kamp/Heim DRT + the
-        # determiner/name FRAME detector), coref pronouns/clusters PRESERVED (coref demoted to a downstream linking
-        # pass) -- hdlab.referent_per_np.referent_per_np_source, a drop-in for parse_litbank_conll. REPLACE, not add
-        # (the union regresses). Lifts effective who-did-what 0.4698->0.8054 (+0.336 cleaned-DO, live) + who-has-what
-        # theme coverage +0.115; twin loses AND hurts; no-regression on the noun-supplied eval. Default OFF -> the
-        # coref-column source, byte-identical. NO spaCy / NO LLM.
+        # REFERENT-PER-NP mention source. The deployed read() sourced who-did-what candidates from the CoNLL COREF
+        # column, so on real 19c prose the gold PATIENT is a candidate only ~0.82 of the time. A discourse referent
+        # per content-noun-head NP (Kamp/Heim DRT + the determiner/name FRAME detector) recovers the missed objects
+        # -> effective who-did-what PATIENT 0.4698->0.8054 (+0.336 cleaned-DO, live) + who-has-what theme +0.115.
+        # **DECOUPLED (P5 wire, owner-DONE wire_the_referent_to_coref_linking_pass): referent_per_np swaps ONLY the
+        # who-did-what ROLE-candidate + entity source; pronoun ANAPHORA keeps reading the coref-column source (two
+        # consumers, two brain cue-filters -- Lewis-Vasishth / Grosz-Joshi-Weinstein). See read(). -> coref_acc
+        # byte-identical to the OFF reader (fixes the 0.469->0.102 collapse).**
+        # **DEFAULT-ON (2026-09-04, OWNER DECISION): the complete referent set IS the brain-foundational upstream
+        # (a discourse referent per NP), so it is the default. HONEST CAVEAT: the board's who-did-what arm scores the
+        # AGENT (subject), and the DENSER referent set transiently REGRESSES the agent (qa_events 0.252->0.075)
+        # because the downstream AGENT role assignment is PURELY POSITIONAL (agent=preverbal mention -- NOT the
+        # brain's mechanism), so it grabs a wrong preverbal NP head from the extra referents. This is a downstream
+        # fidelity gap, NOT a referent_per_np defect: the PATIENT (where coref misses) improves +0.336; the AGENT
+        # (where coref already had the subject) regresses until the role assigner is made brain-foundational. THE FIX
+        # (filed URGENT): the Competition-Model cue-competition role assigner (word-order+animacy+voice+verb-frame;
+        # cuts inanimate-agent error 0.333->0.081) -> then qa_events recovers and default-on is a net board win.**
+        # all_capabilities_off() sets it False. NO spaCy / NO LLM.
         self.referent_per_np = bool(referent_per_np)
         self._rnp_tagger = None        # lazy hdlab.pos_tagger.PosTagger (the frontend UPOS tagger)
         # PREDICATE-RECALL: register-robust event recovery (opt-in; default OFF = byte-identical). P6 wire
@@ -1659,26 +1668,38 @@ class SituationReader:
     def read(self, conll_path: str) -> SituationModel:
         self._read_parse_cache = {}   # per-read tag/parse memo (bound memory; safe if the reader is reused)
         if self.referent_per_np:
-            # REFERENT-PER-NP mention source: a discourse referent per content-noun-head NP (coref demoted to a
-            # downstream linking pass), REPLACING the coref-column candidate source. Drop-in for parse_litbank_conll.
+            # DECOUPLE (P5 wire, owner-DONE wire_the_referent_to_coref_linking_pass): referent_per_np swaps ONLY
+            # the who-did-what ROLE-candidate + entity source (a discourse referent per content-noun-head NP);
+            # pronoun ANAPHORA keeps reading the coref-column source. The two consumers retrieve the referent set
+            # through DIFFERENT brain cue-filters (thematic-role vs animacy/Centering-gated retrieval --
+            # Lewis-Vasishth / Grosz-Joshi-Weinstein), so sharing ONE mention list was the bug: it flooded the
+            # anaphora pool with feature-blank singleton referents (coref_acc 0.469->0.102). Decoupled ->
+            # coref reads its own (coref-column) source == byte-identical to the OFF reader (no regression),
+            # while who-did-what keeps the parent's +0.336. The brief's "merge referents INTO the coref pool"
+            # is REFUTED (-0.106 CI-sep -- the antecedent was already coref-covered, so the extra referents are
+            # pure distractors). NO external LLM.
             if self._rnp_tagger is None:
                 from hdlab.pos_tagger import PosTagger
                 self._rnp_tagger = PosTagger.load(_FRONTEND_POS_ASSET)
             from hdlab.referent_per_np import referent_per_np_source
-            mentions, n_sents = referent_per_np_source(conll_path, self._rnp_tagger, name_gender_map=self.gaz)
+            role_mentions, n_sents = referent_per_np_source(conll_path, self._rnp_tagger, name_gender_map=self.gaz)
+            coref_mentions, n_coref = parse_litbank_conll(conll_path, name_gender_map=self.gaz)
+            if n_coref != n_sents:
+                raise RuntimeError("SENTENCE_MISALIGN: rnp=%d coref=%d" % (n_sents, n_coref))
         else:
-            mentions, n_sents = parse_litbank_conll(conll_path, name_gender_map=self.gaz)
+            role_mentions, n_sents = parse_litbank_conll(conll_path, name_gender_map=self.gaz)
+            coref_mentions = role_mentions   # coupled OFF -> byte-identical to the deployed baseline
         sents = parse_conll_sentences(conll_path)
         if len(sents) != n_sents:
             raise RuntimeError("SENTENCE_MISALIGN: parse_litbank=%d parse_conll_sentences=%d"
                                % (n_sents, len(sents)))
         pid = os.path.splitext(os.path.basename(conll_path))[0]
         sm = SituationModel(passage_id=pid, n_sentences=n_sents)
-        sm.entities = _build_entities(mentions)
+        sm.entities = _build_entities(role_mentions)   # the FULL referent set (who-has-what / entities)
 
-        targets = build_pronoun_targets(mentions)
+        targets = build_pronoun_targets(coref_mentions)   # pronoun anaphora reads the coref-column source
         if targets:
-            resolutions, recs_ec, recs_ss = self._read_entities(mentions, targets, n_sents)
+            resolutions, recs_ec, recs_ss = self._read_entities(coref_mentions, targets, n_sents)
             sm.coref_resolutions = resolutions
             sm.n_targets = len(resolutions)
             sm.coref_acc = _acc([r.correct for r in resolutions])
@@ -1688,7 +1709,7 @@ class SituationReader:
             sm.single_sentence_xsent_acc = (
                 _acc([bool(recs_ss[i]["correct"]) for i in xs]) if xs else None)
 
-        events, focus, codec, role_fillers, suppressed = self._read_events(sents, mentions, n_sents)
+        events, focus, codec, role_fillers, suppressed = self._read_events(sents, role_mentions, n_sents)
         sm.events = events
         sm.suppressed_predicates = suppressed
         sm.memory_roundtrip = self._memory_roundtrip(focus, codec, events, role_fillers)

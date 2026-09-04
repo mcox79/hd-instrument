@@ -11,6 +11,14 @@ reverify: ".venv/Scripts/python.exe verification/test_referent_coref_linking_org
 
 # SOLVED — the referent→coref linking pass, and why the brief's mechanism is the wrong one
 
+## INTEGRATED_BY_STRATEGY (2026-09-04) — EXCELLENT + a strategy first-hand finding
+Reverified first-hand: `verification/test_referent_coref_linking_organ.py` **7/7**. Actions:
+- **DECOUPLE LANDED (Q111):** `situation_reader.read()` builds TWO mention views when referent_per_np is ON — role_mentions (referent_per_np) → events/entities; coref_mentions (coref column) → pronoun anaphora. `coref_acc` byte-identical to the OFF reader (0.5255==0.5255 first-hand; fixes the 0.469→0.102 collapse). The brief's "merge into the coref pool" is REFUTED. Witness `test_referent_per_np_source_landing_organ.py` updated → 9/9.
+- **⚠️ OWNER DECISION: referent_per_np turned DEFAULT-ON** — despite a MEASURED board regression, because the regression is a DOWNSTREAM fidelity gap, not a referent_per_np defect. First-hand no-default-off measurement: board who-did-what AGENT arm regresses 0.2519→0.0754 with referent_per_np ON (16 docs; identical event counts → the agent PICK), while the PATIENT improves +0.336. DIAGNOSED: the reader's role assignment is PURELY POSITIONAL (`_assign_roles`: agent=preverbal), so the denser referent set makes it grab a wrong preverbal NP head. The complete referent set is the brain-foundational upstream → default-ON; the positional agent assigner is the poor downstream → FIXED via the urgent follow-on below. HONEST: qa_events transiently regresses until that lands (baseline_2026-09-04 is now stale).
+- **§2b AUDIT UPDATE folded** (newest entry): the decouple + the default-on + the positional-role-assigner diagnosis + the monotonic-trust thesis + the coherence-prior frontier.
+- **URGENT FOLLOW-ON FILED (the downstream fix, P2): `swap_the_positional_role_assigner_for_the_brain_foundational_competition_model`** — the Competition-Model cue-competition role assigner (§9's built launch pad, inanimate-agent 0.333→0.081) recovers the board agent arm → makes default-on a NET win.
+- **DEEPER FRONTIER (noted, not filed separately): the coref person-selection last link = the world-knowledge COHERENCE / next-mention prior (Kehler-Rohde P(referent|coherence))** — implicit-causality + selectional-preference norms (glass-box, no training). ALSO flagged (needs a decision, uses gold nominal clustering): the overlay-by-discourse-entity coref bonus (+0.043 CI-sep).
+
 ## Status in one line
 Turning `referent_per_np` ON collapses `coref_acc` from **0.469 → 0.102** because the referent-per-NP
 source opens a discourse referent for every NP but leaves the file-card's **conceptual features

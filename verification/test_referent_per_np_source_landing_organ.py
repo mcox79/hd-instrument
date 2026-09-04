@@ -61,17 +61,18 @@ def main():
     nf = sum(1 for m in gotf if not m["is_pronoun"])
     _ok(nf >= n_rnp_nom, "frame detector is a superset of POS-only (%d >= %d)" % (nf, n_rnp_nom))
 
-    # 4. CONSTRUCTOR / FACTORY: flag registered, default OFF
+    # 4. CONSTRUCTOR / FACTORY: flag registered, DEFAULT-ON (2026-09-04 owner decision -- the complete referent set
+    # is the brain-foundational upstream, decoupled from coref); all_capabilities_off() still sets it False.
     _ok("referent_per_np" in SituationReader.CAPABILITY_FLAGS, "flag in CAPABILITY_FLAGS")
-    _ok(SituationReader().referent_per_np is False
+    _ok(SituationReader().referent_per_np is True
         and SituationReader.all_capabilities_off().referent_per_np is False,
-        "default OFF + all_capabilities_off() covers it")
+        "DEFAULT-ON + all_capabilities_off() covers it")
 
-    # 5. READER: default-off runs (coref-column source); flag-on runs (mention source swapped)
-    sm_off = SituationReader().read(DOC)
-    sm_on = SituationReader(referent_per_np=True).read(DOC)
-    _ok(len(sm_off.events) > 0, "default-off reader runs (coref-column source)")
-    _ok(len(sm_on.events) > 0, "flag-on reader runs (referent-per-NP source swapped in)")
+    # 5. READER: explicit-off runs (coref-column source); on runs (role source swapped, coref decoupled)
+    sm_off = SituationReader(referent_per_np=False).read(DOC)
+    sm_on = SituationReader().read(DOC)   # default reader is now ON
+    _ok(len(sm_off.events) > 0, "explicit-off reader runs (coref-column source)")
+    _ok(len(sm_on.events) > 0, "default (referent-per-NP) reader runs; coref decoupled (coref-column anaphora)")
 
     print("%d/%d checks passed" % (_n, _n), flush=True)
     print("SELF-TEST PASSED", flush=True)
