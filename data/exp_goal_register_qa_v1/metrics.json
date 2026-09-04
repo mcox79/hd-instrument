@@ -1,0 +1,237 @@
+{
+  "n_docs": 100,
+  "slice_counts": {
+    "purpose_bare": 1091,
+    "intend": 52,
+    "why_purpose_bare": 1233,
+    "desire": 106,
+    "try": 64,
+    "purpose_marked": 12,
+    "why_purpose_marked": 13
+  },
+  "want": {
+    "n": 1325,
+    "acc": {
+      "model": 0.6921,
+      "floor_most_recent_action": 0.1502,
+      "twin_shuffled_agent": 0.0083
+    },
+    "ci": {
+      "model_minus_floor_most_recent_action": [
+        0.5131,
+        0.5714
+      ],
+      "sep_over_floor_most_recent_action": true,
+      "model_minus_twin_shuffled_agent": [
+        0.6542,
+        0.7145
+      ],
+      "sep_over_twin_shuffled_agent": true
+    },
+    "ci_halfwidth_model_minus_floor": 0.0292,
+    "twin_null_p95": {
+      "mean": 0.0115,
+      "p95": 0.0166,
+      "max": 0.0204,
+      "n_seeds": 200
+    }
+  },
+  "want_explicit": {
+    "n": 234,
+    "acc": {
+      "model": 0.6068,
+      "floor_most_recent_action": 0.1368,
+      "twin_shuffled_agent": 0.0171
+    },
+    "ci": {
+      "model_minus_floor_most_recent_action": [
+        0.4037,
+        0.5349
+      ],
+      "sep_over_floor_most_recent_action": true,
+      "model_minus_twin_shuffled_agent": [
+        0.528,
+        0.6546
+      ],
+      "sep_over_twin_shuffled_agent": true
+    },
+    "ci_halfwidth_model_minus_floor": 0.0656
+  },
+  "why": {
+    "n": 1246,
+    "acc": {
+      "model_goal_register": 0.9655,
+      "floor_physical_cause": 0.0353
+    },
+    "ci": {
+      "model_minus_floor_physical_cause": [
+        0.9138,
+        0.9455
+      ],
+      "sep_over_floor_physical_cause": true
+    },
+    "ci_halfwidth_model_minus_floor": 0.0159
+  },
+  "why_marked": {
+    "n": 13,
+    "acc": {
+      "model_goal_register": 1.0,
+      "floor_physical_cause": 0.0
+    },
+    "ci": {
+      "model_minus_floor_physical_cause": [
+        1.0,
+        1.0
+      ],
+      "sep_over_floor_physical_cause": true
+    },
+    "ci_halfwidth_model_minus_floor": 0.0
+  },
+  "want_by_slice": {
+    "desire": {
+      "n": 106,
+      "model": 0.566,
+      "floor": 0.1226,
+      "twin": 0.0283
+    },
+    "intend": {
+      "n": 52,
+      "model": 0.4423,
+      "floor": 0.0962,
+      "twin": 0.0
+    },
+    "purpose_bare": {
+      "n": 1091,
+      "model": 0.7104,
+      "floor": 0.1531,
+      "twin": 0.0064
+    },
+    "purpose_marked": {
+      "n": 12,
+      "model": 0.9167,
+      "floor": 0.0,
+      "twin": 0.0
+    },
+    "try": {
+      "n": 64,
+      "model": 0.75,
+      "floor": 0.2188,
+      "twin": 0.0156
+    }
+  },
+  "explicit_vs_bare": {
+    "explicit": {
+      "n": 234,
+      "model": 0.6068,
+      "floor": 0.1368,
+      "twin": 0.0171
+    },
+    "bare_purpose": {
+      "n": 1091,
+      "model": 0.7104,
+      "floor": 0.1531,
+      "twin": 0.0064
+    }
+  },
+  "seed": 20260904,
+  "positive_control": {
+    "n_multi_agent_want": 1324,
+    "model_right_agentblind_wrong": 816,
+    "agentblind_right_model_wrong": 3,
+    "both_right": 100
+  },
+  "causal_complementarity": {
+    "n_physical_cause_q": 461,
+    "causal_dimension_acc": 0.859,
+    "goal_register_acc": 0.0108,
+    "note": "converse of arm B: on physical because/so questions the causal dim answers, the goal register does not -> goal-why and physical-cause are DISJOINT dimensions (Malle)."
+  },
+  "goal_status": {
+    "n": 12,
+    "model_acc": 1.0,
+    "floor_always_active_acc": 0.3333,
+    "by_status": {
+      "satisfied": {
+        "n": 5,
+        "ok": 5
+      },
+      "active": {
+        "n": 4,
+        "ok": 4
+      },
+      "failed": {
+        "n": 3,
+        "ok": 3
+      }
+    },
+    "note": "status field = PINNED (Lutz & Radvansky 1997 failed>completed>neutral). Thwart-by-OUTCOME ('tried to X but Y stopped him') is NOT covered -- it needs the outcome/meaning channel (located negative)."
+  },
+  "reinstatement": {
+    "n": 10,
+    "model_reinstatement_acc": 1.0,
+    "floor_recency_acc": 0.0,
+    "twin_status_shuffle_null": {
+      "mean": 0.4945,
+      "p95": 0.8,
+      "max": 0.9,
+      "n_seeds": 200
+    },
+    "note": "PINNED Suh & Trabasso 1993: a satisfied subgoal deactivates -> the older superordinate goal is reinstated as current. Status-gated wants() gets it; a status-blind recency floor returns the satisfied subgoal (0.0); the status-shuffle info-free twin null loses."
+  },
+  "oracle_extraction_quality": {
+    "n_docs": 12,
+    "all_head": {
+      "precision": 0.4027,
+      "recall": 0.7059,
+      "f1": 0.5128,
+      "tp": 60,
+      "fp": 89,
+      "fn": 25
+    },
+    "explicit_head_precision": {
+      "precision": 0.8571,
+      "recall": 1.0,
+      "f1": 0.9231,
+      "tp": 18,
+      "fp": 3,
+      "fn": 0
+    },
+    "bare_purpose_head_precision": {
+      "precision": 0.3435,
+      "recall": 1.0,
+      "f1": 0.5114,
+      "tp": 45,
+      "fp": 86,
+      "fn": 0
+    },
+    "note": "spaCy REFERENCE-ONLY oracle; register uses the frontend POS tagger only (no spaCy at inference). recall is computed vs the full oracle set on 'all'; per-slice shows precision (fp against the oracle)."
+  },
+  "oracle_extraction_quality_heuristic": {
+    "n_docs": 12,
+    "all_head": {
+      "precision": 0.3962,
+      "recall": 0.7412,
+      "f1": 0.5164,
+      "tp": 63,
+      "fp": 96,
+      "fn": 22
+    },
+    "explicit_head_precision": {
+      "precision": 0.8571,
+      "recall": 1.0,
+      "f1": 0.9231,
+      "tp": 18,
+      "fp": 3,
+      "fn": 0
+    },
+    "bare_purpose_head_precision": {
+      "precision": 0.3404,
+      "recall": 1.0,
+      "f1": 0.5079,
+      "tp": 48,
+      "fp": 93,
+      "fn": 0
+    },
+    "note": "spaCy REFERENCE-ONLY oracle; register uses the frontend POS tagger only (no spaCy at inference). recall is computed vs the full oracle set on 'all'; per-slice shows precision (fp against the oracle)."
+  }
+}
