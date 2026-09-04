@@ -252,6 +252,26 @@ built, does not rescue selection without them.** Step-5 selection stands at 0.49
 combiner + a weak GloVe context prior, +0.017 CI-sep localized to the 17% struct-dominated bucket); the honest ceiling
 of a glass-box, no-training, no-world-model build is ~0.56.
 
+**UPSTREAM UPDATE (2026-09-03) — the chain is now fully localized: EVERY component made brain-foundational helps
+MONOTONICALLY, and exactly ONE non-faithful component remains.** The step-5 binder was being fed a NON-brain-foundational
+upstream: the reader's who-did-what role assignment (`_assign_roles`) is PURELY POSITIONAL (agent=preverbal noun,
+patient=nearest post-verbal, `'?'` when none) — not the brain's mechanism. Research (2026-09-03, four converging
+traditions: Competition Model / constraint-satisfaction / good-enough / ERP two-stream) PINS the brain-foundational
+upstream as word-order-dominant CUE COMPETITION {word-order, animacy, voice, verb-frame} + a two-stage revision —
+glass-box, NO trained parser, animacy+voice highest-leverage. I built it (`experiments/exp_brain_upstream_role_v1.py`,
+reusing `hdlab.thematic_role_labeler` + `hdlab.animacy_lexicon`, ~4 hand-set validity-seeded weights, NO training): it
+cuts the inanimate-agent error class **0.333→0.081** vs positional. Feeding it through the IDENTICAL faithful FHRR
+binder (`experiments/exp_referent_coref_step5_chain_v1.py`), the binder's trust in its facts climbs MONOTONICALLY with
+upstream fidelity: reader-events **−0.048** → per-sentence-positional **+0.101** → spaCy-oracle **+0.188** →
+brain-foundational Competition-Model **+0.220** (2× the positional baseline). This is the owner's thesis measured:
+making an upstream component brain-foundational demonstrably improves the chain. BUT the chain still does not
+CI-separate (bound-signal −0.002; acc flat ~0.554) — so exactly ONE non-faithful link remains, precisely named: the
+**world-knowledge COHERENCE / next-mention PRIOR** (Kehler-Rohde `P(referent | coherence)`). The pinned, glass-box,
+no-training path to that last component (from the 2026-09-03 research) is **implicit-causality verb norms +
+selectional-preference norms** (static, brain-faithful cues) — NOT a learned model. So challenge #1's real content is
+now sharpened: not "a learned individuation organ," but making this LAST cue brain-foundational so the faithful
+binding+retrieval it already has becomes discriminative.
+
 ---
 
 ### TLDR (plain language)
