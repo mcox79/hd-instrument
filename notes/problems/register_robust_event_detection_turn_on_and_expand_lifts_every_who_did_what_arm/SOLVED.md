@@ -68,27 +68,49 @@ Composite (predicate_recall + copula readout) vs the OFF default reader, with th
 | patient / open | 1107 | 0.2836 | 0.2945 | +0.0108 [+0.0060,+0.0175] CI-sep | +0.0054 CI-sep | -- |
 | patient / be | 278 | 0.0000 | 0.2590 | **+0.2590 [+0.2059,+0.3192] CI-sep** | -- | +0.2518 CI-sep |
 
-- **Both arms rise CI-separated** (agent +0.0230, patient +0.0589) -- the bar's "agent AND patient CI-separated" MET.
+- **Both arms rise CI-separated** -- the bar's "agent AND patient CI-separated" MET.
 - **The info-free twins LOSE**: random-verbhood loses CI-sep on the patient arm (+0.0042); deranged-state loses
   CI-sep on patient/be (+0.2518, twin collapses to 0.0072). The bar's "twin LOSES" MET.
 - **The clean structural win is the patient copula recovery** (0.0000 -> 0.2590): the verb-only detector fires no
   event for 'be', so the property was unreachable; the state IS detected, and the unified readout reaches it.
-- **Lever B ALONE (no predicate_recall) carries NO regression by construction** and gives patient/all +0.0505
-  CI[+0.0402,+0.0613] CI-sep, agent/all +0.0148 (touches 0); the CI-sep AGENT arm needs lever A too.
+
+### 4a. HELD-OUT replication (`exp_event_detection_heldout_v1`, 40 DISJOINT docs 16..56) -- and the honest correction it forced
+The 16 docs are not tuned (the detector is modern-trained/ZERO-19c; the copular binding is UD-trained), but I proved
+generalization on a disjoint 40-doc slice (n=4806 agent / 3794 patient):
+
+| lever | held-out result | verdict |
+|---|---|---|
+| A predicate_recall, agent | +0.0125 [+0.0086,+0.0168] CI-sep | **generalizes (stronger than board +0.0082)** |
+| A predicate_recall, patient | +0.0050 [+0.0029,+0.0072] CI-sep | **generalizes** |
+| B copula, patient/be | 0.0000 -> 0.2746, +0.2746 over base / +0.2651 over twin, CI-sep | **generalizes strongly** |
+| B copula, agent/be | +0.0000 | **does NOT generalize -> WITHDRAWN** |
+
+- **The held-out CAUGHT an over-statement in the 16-doc composite.** The board's agent/all +0.0230 was inflated by
+  the copula AGENT slice (+0.097 on 278 questions), which is NOISE -- it nets to 0.0000 on held-out. The HONEST,
+  held-out agent-arm lift is **+0.0125 (predicate_recall-driven)**; the copula win is **PATIENT-only**. The patient
+  arm (+0.0588 composite) generalizes fully (lever A open +0.0050 + lever B copula +0.0538).
+- So the corrected headline: **agent arm rises via lever A (open-class recovery); patient arm rises via lever A +
+  lever B (copula property).** Both CI-sep, both held-out-replicated.
 
 ## 5. NO-REGRESSION -- measured on FIXED question-sets, and it caught a real cost (`exp_event_detection_noregress_v1` + `exp_event_detection_causal_scope_v1`)
 The self-derived dims (temporal/causal) build their questions FROM `sm.events`, so a naive OFF-vs-ON read scores
 DIFFERENT question sets. I measured them on a FIXED question-set (built from OFF, answered by both):
 
-| dimension | instrument | naive (drifting qset) | FIXED qset | verdict |
+| dimension | instrument | naive (drifting qset) | FIXED qset / fact test | verdict |
 |---|---|---|---|---|
 | **coref** | fixed external LitBank gold | 0.5149 -> 0.5149 | -- | **byte-identical** |
 | **temporal** | self-derived | -0.0224 (CI spans 0) | 0.8358 -> 0.8358 | **byte-identical** (the dip was qset drift) |
-| **causal** | self-derived | **+0.0224 'gain'** | **0.8911 -> 0.8317, -0.0594 [-0.1122,-0.0177]** | **REAL CI-sep REGRESSION** |
+| **causal** | self-derived | **+0.0224 'gain'** | **0.8911 -> 0.8317, -0.0594 [-0.1122,-0.0177]** | **REAL CI-sep REGRESSION** (fixed below) |
+| **world_state** | fact preservation | -- | 0 flipped, 22 added, 45 preserved | **no fact destroyed** |
+| **bound_event_tokens** | existing-event role identity | -- | 1/3641 role-shift (0.03%), +1188 added | **effectively additive** |
 
 - **The naive read LIED in BOTH directions**: temporal looked like a regression (it was qset drift -> actually
   byte-identical), causal looked like a GAIN (qset inflation -> actually a CI-sep REGRESSION). The fixed-qset
   instrument is the honest one, and it is why the brief demanded the cross-arm view.
+- **The two OTHER event-consuming dims** (`world_state`, `bound_event_tokens`, `exp_event_detection_state_noregress_v1`)
+  are clean: world_state ADDS 22 possession/location facts and FLIPS zero; the bound-token backbone changes exactly
+  ONE of 3641 existing events' roles (the density perturbs role competition at the 0.03% level) -- so the P6
+  "existing picks byte-identical" claim holds to 99.97%, and neither dim carries a meaningful regression.
 - **CAUSE of the causal regression (located):** `_read_causation` selects the cause via a connective/bridge rule
   (`C.causal_net_cause`) over the DENSIFIED event set; predicate_recall's extra events add distractor causes in
   causal-connective sentences -> the rule mis-picks. The extra events are CORRECT (who-did-what needs them); the
@@ -102,12 +124,24 @@ DIFFERENT question sets. I measured them on a FIXED question-set (built from OFF
   matches on gov-verb LEMMA at the queried SENTENCE -- an FP event on an unrelated token almost never collides.
   **This IS the precision gate:** additive-only + lemma-and-sentence matching means the FP does not reach a
   who-did-what answer; the threshold is the available recall/FP dial.
+- **THRESHOLD SWEEP (`exp_event_detection_threshold_sweep_v1`) -- robust + a per-consumer optimization.** The arm
+  gain is CI-sep across a 2x threshold range and MONOTONE in recovery (thr 0.30: agent +0.0093 / patient +0.0091,
+  FP 1.10/sent; 0.50: +0.0071 / +0.0070, 0.64; 0.70: +0.0038 / +0.0042, 0.32; 0.90: washes to CI-touches-0, 0.09).
+  Monotone-in-recovery = REAL predicate-hood signal, not a promotion artifact. **Optimization:** the P6 threshold is
+  FP-calibrated for FREE-TEXT precision; the who-did-what consumer TOLERATES FP (it does not reach an answer, and
+  causal is scoped), so a LOWER threshold (~0.30) maximizes the who-did-what arm gain -- the threshold should be a
+  PER-CONSUMER dial, aggressive for who-did-what, conservative for free-text event streams.
 
 ## 6. The located NEGATIVES (honest sub-classes -- named, not faked)
-- **agent/be is marginal (+0.0971, CI touches 0), and the cause is the INSTRUMENT.** The board's "Who did be?"
-  discards the property, so the holder is under-determined when several states sit near the queried sentence. The
-  binding itself is strong -- the state dimension's OWN instrument scores it 0.677R/0.872P (copular solver,
-  owner-DONE). A property-carrying "who is <X>?" question would lift it; the degenerate template is the ceiling.
+- **The copula AGENT (holder) slice does NOT generalize -- WITHDRAWN, and the cap is now precisely located.** I
+  tried to save it (`exp_event_detection_copula_agent_v1`): (a) exact-sentence state selection == nearest (no gain);
+  (b) a FAIR property-carrying instrument (use the paired gold object as the "who is <property>?" cue) -- propmatch
+  +0.0899, STILL not CI-sep, and NO better than the property-free readout. So the marginality is NOT the degenerate
+  question (giving the property does not rescue it) and NOT selection -- it is the **OOD nsubj holder-attachment on
+  19c** (the parser attaches the copular subject wrongly OOD; the copular solver's named ~0.64-0.73 OOD precision).
+  Held-out confirms it nets to 0.0000. The PROPERTY readout (patient) is robust because the complement is local and
+  post-copula; the HOLDER readout (agent) needs subject attachment, which is the parser-fidelity lever. This is a
+  cleaner account than my first "degenerate instrument" read -- the disk outranked the draft.
 - **have/do need no recovery here** -- main-verb 'have'/'do' are tagged VERB and already fire (agent 0.756/0.811);
   only auxiliary 'have'/pro-verb 'do' drop, a tiny context-bound slice (VP-ellipsis for 'do'; possessive-'have' is
   the world-state register's job). Not a static-detector headroom; mapped for the adjacent-component list.
@@ -135,16 +169,44 @@ UD-parser-bound (OOD 19c copular ~0.64-0.73 precision, inherited); the open-clas
    -0.0594 CI-sep -- do NOT land (a) alone.
 2. **Add a SORT-AWARE who-did-what readout** (the copula silo-unification). In the events readout, when the
    dynamic-event lookup for a copula-gov predicate returns None, consult `sm.entity_states` for the copular state
-   nearest the queried sentence and return its HOLDER (agent) / PROPERTY (patient). Additive; never overrides a
-   dynamic answer; needs NO new detection (entity_states is default-ON).
+   nearest the queried sentence and return its PROPERTY (patient-slot -- the clean, held-out-replicated win). The
+   HOLDER (agent-slot) path is present but LOW-VALUE (does not generalize -- OOD nsubj attachment); land it only
+   behind the parser-fidelity upgrade, or leave the agent slot on the existing dynamic readout. Additive; never
+   overrides a dynamic answer; needs NO new detection (entity_states is default-ON).
 3. Do NOT fire copular states into `sm.events` (Maienborn sort-collapse -- the copular solver's PINNED bar); the
    unification is at the READOUT, sort-typed.
+
+## 9. IS THERE MORE OPTIMIZATION -- HERE AND UPSTREAM? (the owner's push, evaluated)
+Everything I could close WITHIN this problem is closed above (held-out replication; world_state/bound-token
+no-regression; the scoped causal fix; the agent/be adjudication; the FP threshold as the dial). The remaining
+optimization is UPSTREAM, and each is an ALREADY-OWNED lever -- I evaluate fidelity + potential, I do not build
+another session's filed problem:
+- **CRF calibrated-posterior / joint-decoded tagger (filed: `upgrade_the_pos_tagger_to_a_calibrated_joint_decoded_posterior`).**
+  Fidelity HIGH-PINNED (graded/calibrated category belief re-estimated from structure = the brain's axis-i/ii).
+  Potential for THIS result: it directly raises predicate_recall's OPEN-class 19c recovery 0.56 -> 0.806 (+0.224
+  prototyped), so lever A's arm gain would GROW on the archaic slice -- the single highest-yield amplifier of this
+  turn-on. Owned elsewhere; named, not built.
+- **Unified sort-typed eventuality inventory (filed: `the_assembled_reader_is_parallel_silos_assemble_the_tiered_bound_event_token`).**
+  Fidelity HIGH-PINNED (one inventory with typed nodes = Frankland/Greene). My readout-unification is the near-term
+  proxy for the copula win; the physical merge would let EVERY consumer (causal/temporal/world_state), not just the
+  who-did-what readout, reason over states. Bigger than this patch; owned elsewhere.
+- **Force-dynamic causal attribution (NOT yet a filed problem -- a candidate the strategy should file).** The causal
+  connective cause-selection is an OUR-INVENTION adjacency heuristic (density-brittle -- proven here); force-dynamics
+  (Talmy/Wolff; the `causation_typed` path) is the PINNED faithful mechanism and would retire the scoping workaround.
+- **Parser fidelity (OOD copular nsubl + 19c attachment).** Caps the copula AGENT slice (this problem) AND the
+  open-class 19c recovery -- one lever, two payoffs, the same joint-decoded tagger-parser the CRF problem names.
+So: no further optimization is stranded HERE; the upstream levers are named, evaluated, and (2 of 3) already filed.
 
 ## KEY REALIZATIONS (the enabling moves)
 - **The biggest who-did-what recovery was not a DETECTION gap -- it was a READOUT silo.** The copular states the
   who-did-what reader needs are already detected and default-ON; they were filed where it couldn't look.
   Partitioning arms by verb-class turned "predicate_recall is flat" into "predicate_recall is the small open-class
   lever; the big lever is a cross-silo readout the brief didn't name."
+- **HELD-OUT replication caught an over-statement -- and it is the reason to always run it.** The 16-doc composite
+  credited the agent arm +0.0230; on 40 disjoint docs the copula-AGENT slice that inflated it nets to EXACTLY 0.000,
+  and the honest agent lift is +0.0125 (predicate_recall only). A win that lives on the eval set and dies on
+  held-out is not a win; the property-readout (patient) survived, the holder-readout (agent) did not, and that split
+  localized the residual to OOD subject-attachment rather than leaving a vague "marginal" tag.
 - **The cross-arm / fixed-question-set discipline caught a regression the single-arm view HID -- in both
   directions.** The naive self-derived read showed causal as a +0.0224 GAIN; the honest fixed-qset instrument
   showed a -0.0594 CI-sep REGRESSION (and temporal's apparent dip was pure question-set drift). A self-derived
@@ -161,9 +223,11 @@ UD-parser-bound (OOD 19c copular ~0.64-0.73 precision, inherited); the open-clas
 
 ## AUDIT UPDATE (for notes/BRAIN_FOUNDATIONAL_AUDIT.md SS2b)
 - **Event/predicate DETECTION turn-on:** `predicate_recall` (P6) is NET-POSITIVE on BOTH who-did-what arms on the
-  CURRENT reader (agent +0.0082 / patient +0.0084 CI-sep; agent/open +0.0098, patient/open +0.0108), beats the
-  random-verbhood twin CI-sep on the patient arm. **Mark DEFAULT-ON-recommended, SCOPED** (compute causal_links
-  over base events) -- supersedes the P6 "kept-off, flat" note (measured on the weaker pre-2026-09-03 reader).
+  CURRENT reader and REPLICATES held-out (agent +0.0125 / patient +0.0050 CI-sep on 40 disjoint docs; board agent
+  +0.0082 / patient +0.0084), beats the random-verbhood twin CI-sep on the patient arm, gain monotone in recovery
+  (threshold sweep = real signal). **Mark DEFAULT-ON-recommended, SCOPED** (compute causal_links over base events;
+  a lower-than-modern threshold is admissible for the who-did-what consumer) -- supersedes the P6 "kept-off, flat"
+  note (measured on the weaker pre-2026-09-03 reader).
 - **NEW PINNED deviation (load-bearing): the who-did-what readout is SILOED from the copular-state dimension.**
   Copular predications are detected (default-ON `bind_entity_states`, 0.677R/0.872P) but unreachable by the
   who-did-what readout; a sort-aware readout (HOLDER->agent / PROPERTY->patient) lifts patient/be 0.0000->0.2590
@@ -181,20 +245,21 @@ UD-parser-bound (OOD 19c copular ~0.64-0.73 precision, inherited); the open-clas
   (SS8); strategy lands it (Q111). The wire has TWO coupled parts (scoped predicate_recall + the copula readout);
   landing predicate_recall UNSCOPED alone would regress causal -0.0594 -- I would withdraw any "clean default-ON"
   claim for the unscoped flag.
-- **agent/be recovery is POSITIVE but not CI-separated** on the degenerate board instrument -- I withdraw any
-  "agent copula arm CI-sep" claim; the defensible copula claim is the PATIENT arm (+0.2590 CI-sep over base+twin)
-  and the whole-arm composite (agent/all +0.0230 CI-sep, carried partly by the marginal copula agent slice).
+- **The copula AGENT (holder) slice is WITHDRAWN** -- it does NOT generalize (board +0.097 -> held-out +0.000), and
+  a property-carrying instrument does not rescue it (propmatch +0.0899, not sep). The defensible copula claim is the
+  PATIENT (property) arm ONLY (board +0.2590 / held-out +0.2746, CI-sep over base + twin). The honest agent-arm lift
+  is predicate_recall-driven (+0.0125 held-out); I withdraw the 16-doc composite's +0.0230 agent figure as
+  copula-agent-inflated.
 - The copula readout is a READOUT unification, not new detection; it depends on `bind_entity_states` staying
-  default-ON, and inherits the UD-parser-in-domain copular binding (OOD 19c copular ~0.64-0.73).
+  default-ON, and inherits the UD-parser-in-domain copular binding (OOD 19c copular ~0.64-0.73) -- which is exactly
+  why the holder (agent) slice fails and the property (patient) slice holds.
 - The FP "0.845 no-gold-match" is a loose upper bound (sparse who-did-what gold), not a true false-verb rate; the
-  trustworthy statement is ~1.0 extra events/sent and "the FP does not reach a who-did-what answer" (measured via
-  the net-positive arms + coref byte-identical).
-- **No-regression was measured on the three externally-instrumented board dims (coref/temporal/causal).** Two other
-  dims also consume the event stream (`world_state`, `bound_event_tokens`); the copula readout (lever B) cannot
-  touch them by construction (it never adds an event), but predicate_recall's extra events could -- I did NOT
-  separately measure those two, and flag them for the strategy's landing re-verify (the same fixed-instrument test;
-  if either shows the causal-style density sensitivity, scope recall out of it too). Lever B is universally safe;
-  lever A's landing carries this one open check beyond causal.
+  trustworthy statement is ~1.0 extra events/sent and "the FP does not reach a who-did-what answer" (net-positive
+  arms + coref byte-identical).
+- **No-regression is now measured on FIVE event-consuming dims** (coref/temporal/causal + world_state/bound_tokens);
+  all clean (causal after scoping). The two remaining board dims I did NOT instrument for regression are goal/affect/
+  belief/space -- but predicate_recall is additive-to-events and those read their own registers; the copula readout
+  (lever B) touches nothing in sm.events. I flag them as a light landing re-verify, not a known risk.
 
 ---
 
@@ -218,12 +283,15 @@ inventory (the "assemble the tiered bound event token" problem), but the readout
 delivers the patient/be win now. And predicate_recall must land SCOPED (causal over base events) or not at all.
 
 ### NEXT STEPS
-1. **Land the wire (SS8):** turn `predicate_recall` ON scoped (causal over base events); add the sort-aware copula
-   readout to the who-did-what path.
-2. **The unified sort-typed eventuality inventory** ("assemble the tiered bound event token") -- physically merge
-   dynamic events + copular states into one sorted store so EVERY consumer sees the whole inventory.
-3. **Force-dynamic causal attribution** -- replace the density-brittle connective cause-selection with the typed
-   force-dynamic path so causal is robust to a complete event set (retires the scoping workaround).
-4. **The 19c open-class fidelity gap** -- land the P7 CRF calibrated-posterior / joint-decoded tagger (+0.224
-   prototyped) to push open-class 19c recovery from 0.56 toward ~1.0.
-5. **A property-carrying copula instrument** -- to measure the (already-strong) holder binding fairly on the agent side.
+1. **Land the wire (SS8):** turn `predicate_recall` ON scoped (causal over base events; a who-did-what-tuned lower
+   threshold is admissible); add the sort-aware copula PROPERTY readout (patient) to the who-did-what path. Light
+   landing re-verify on goal/affect/belief/space (additive-to-events, low risk).
+2. **Force-dynamic causal attribution (candidate NEW problem the strategy should file)** -- replace the
+   density-brittle connective cause-selection with the typed force-dynamic path so causal is robust to a complete
+   event set; retires the scoping workaround. This is the ONLY successor not already filed.
+3. **The 19c open-class fidelity gap (already filed: `upgrade_the_pos_tagger...`)** -- the P7 CRF/joint-decoded
+   tagger (+0.224 prototyped) both raises predicate_recall's 19c open-class gain AND fixes the OOD copular
+   holder-attachment that caps the copula AGENT slice -- one lever, two payoffs for THIS problem.
+4. **The unified sort-typed eventuality inventory (already filed: `the_assembled_reader_is_parallel_silos...`)** --
+   physically merge dynamic events + copular states so EVERY consumer, not just the who-did-what readout, sees the
+   states. The bigger, faithful form of lever B.
