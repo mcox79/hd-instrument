@@ -1,0 +1,56 @@
+---
+priority: 6
+review:
+review_text:
+---
+
+# PROBLEM: EVENT/PREDICATE DETECTION is now the measured dominant residual on who-did-what — 58.6% of the agent-tie residual (the just-landed structure cue) and ~20% of the P2 agent residual are the reader failing to EMIT an agentive event for the verb (the tagger misses it, or it is a copula/light-verb/archaic predicate the tense-gated detector drops). It caps EVERY who-did-what arm (agent AND patient) because a dropped event is an unanswerable question. The register-robust detector is ALREADY BUILT (`hdlab/predicate_detector.py`, the owner-DONE P6, behind the default-OFF `predicate_recall` flag) and flipping it ON already lifts the agent arm +0.0083 CI-sep — but it was kept OFF (board hides the free-text recovery; ~1.4 FP/sent on the contaminated 19c gold). Do the full build: TURN ON register-robust event detection with a proper cross-arm turn-on analysis (measure the impact on EVERY who-did-what arm + the other dims on their RIGHT instruments, per no-default-off), and EXPAND recovery to the copula/light-verb/archaic-predicate classes the detector still drops — so who-did-what coverage rises across the board CI-separated with an info-free twin LOSING, or a located negative naming why the dropped events cannot be recovered glass-box without unacceptable false positives.
+
+**slug:** `register_robust_event_detection_turn_on_and_expand_lifts_every_who_did_what_arm` — **opened:** 2026-09-04 by the strategy session, the explicit NEXT FOCUS the owner-DONE `the_agent_tie_wall_is_embedded_clauses_needs_a_register_general_incremental_parse_cue` named (58.6% of its residual is event detection; the predicate_recall flip is the prototyped +0.008 entry point). **status:** OPEN. Strategy lands any hdlab wire (Q111, witnessed). Glass-box, NO external LLM.
+
+> ## ⚙️ SOLVER OPERATING PROTOCOL (standing — owner 2026-08-25/26)
+> **DO THE RIGHT THING, NOT THE CHEAP THING.** The mission is the most brain-faithful substrate. A located NEGATIVE is a PASS — but only if the brain's actual mechanism, faithfully built, is what failed.
+
+> ## 🧠 BRAIN-FOUNDATIONAL CHECKLIST (the owner's standing bar — work through IN ORDER; the solution is not done until every box holds)
+> 1. **OPEN — how does the BRAIN do THIS?** Name the specific structure + computation and replicate that OPERATION as the FIRST move; mark each choice PINNED vs OUR-INVENTION. RESEARCH AGGRESSIVELY wherever you are unsure — do not build the tractable thing and cite neuroscience after.
+> 2. **REUSE — does an existing organ already do what you need?** Check `tools/substrate_map.py` / `tools/reader_capabilities.py` / `hdlab/` FIRST; extend a matching organ rather than re-deriving it.
+> 3. **GENERALIZE — does this need to generalize, and HOW does the brain generalize it?** Build for that (register / novelty / transfer), not for the single test.
+> 4. **HIT A WALL? GO DEEPER, DON'T STOP.** Research-drill WHY. If the brain can do it, it IS possible and we can too, once we understand it. A located NEGATIVE counts only if the brain's ACTUAL mechanism, faithfully built, is what failed (fair test: can-fail, one-variable, real baseline).
+> 5. **OPTIMIZE BY EXACT REPLICATION.** Evaluate aggressively, with great precision, EXACTLY how the brain does it, and replicate it exactly — copy the computation, SWEEP (never adopt) the parameters. No half-effort: the closer we are, the better we do.
+> 6. **PERFORMANCE vs THE BRAIN.** How does our performance compare to a competent brain/reader on this task? WHERE ALONG THE CHAIN do we lose signal? What EXACTLY differs between our implementation and the brain's mechanism (an itemized mechanism-diff)?
+> 7. **ADJACENT COMPONENTS.** Map the capabilities, limitations, opportunities, and brain-foundational status of the adjacent components — that seeds the next problems to address.
+> 8. **COMPLETION BAR.** Is this a COMPLETE, EXCELLENT solved problem? Is it FULLY brain-foundational, conveying ALL the benefits of the brain function we replicate? If not, keep pushing toward a fully complete, exceptional solution.
+
+## 1. THE PROBLEM IN PLAIN LANGUAGE
+The reader can only answer "who did what" about actions it actually NOTICED. When the sentence's verb is missed (the grammar tagger slips, or the action is carried by a "to be"/"have a look"/old-fashioned verb the detector ignores), the whole event vanishes and the question is unanswerable — and this turns out to be the single biggest thing now holding back "who did what," across the board. We already built a better, register-robust action-detector, but left it switched off because on one noisy old test it also fired on a few non-actions. The job: switch it on the right way (carefully measuring the effect on every part of the scoreboard, not just one), and extend it to catch the action types it still misses (being/having/archaic verbs) — so the reader notices more of the real actions and can answer more of the questions.
+
+## 2. WHY THIS ONE — it is the measured shared cap on who-did-what, and the entry point is built
+Two owner-DONE solutions converged: the agent-tie cue localized 58.6% of its residual to event detection, and P2 localized ~20% of its agent residual to the same. A dropped event is unanswerable, so it caps BOTH the agent and patient arms simultaneously — the highest-leverage remaining who-did-what lever after the parser. The register-robust detector is already built (P6 `hdlab/predicate_detector.py`) and the flip is a measured +0.0083 on the agent arm; this problem does it properly (cross-arm turn-on) and extends the recovery.
+
+## 3. HOW THE BRAIN DOES THIS (the opening move)
+PINNED: event/predicate recognition is register-robust and category-cued (not tense-gated) — a noisy-channel lexical-category inference (Gibson 2013; the calibrated CRF posterior = P7) plus the recognition that STATES and LIGHT-VERB/support constructions ("be afraid", "have a look", "give a start") are eventive predications (Higgins; Jespersen light verbs; Bemis-Pylkkanen LATL composition). The brain does not drop a predicate because its surface tense is unusual. OUR-INVENTION-under-test: the exact recovery classes (copula-as-event, light-verb, archaic/nominalized predicate), the precision gate (the false-positive control), the cross-arm turn-on policy. Sweep, do not adopt. REUSE: `hdlab/predicate_detector.py` (the built detector + the `predicate_recall` flag), `hdlab/crf_tagger.py` (the calibrated posterior cue), the event extraction in `hdlab/situation_reader.py` (`_extract_events` / `_tense_agnostic_extract` / `_add_predicate_recall`), `hdlab/copular_binding.py` (copula events).
+
+## MEASURED vs INFERRED
+- **MEASURED (do NOT re-derive):** event detection is 58.6% of the agent-tie residual + ~20% of the P2 agent residual; flipping `predicate_recall` ON gives +0.0083 CI-sep on the agent arm; it was kept default-OFF because the board hides free-text recovery and it fires ~1.4 FP/sent on the ~76%-contaminated 19c gold (P6).
+- **INFERRED (you must measure):** whether a proper cross-arm turn-on of register-robust event detection (+ copula/light-verb/archaic recovery) lifts who-did-what coverage across EVERY arm CI-separated, with a false-positive-controlled precision gate + an info-free twin LOSING and NO regression on the other dims (measure each on its RIGHT instrument, per no-default-off); the residual + its named cause.
+
+## VERIFY BEFORE YOU START (the disk outranks this brief)
+- FIRST STEPS: `python tools/substrate_map.py`, `python tools/reader_capabilities.py`; read the agent-tie `notes/problems/the_agent_tie_wall.../SOLVED.md` (the residual partition + the predicate_recall +0.008) + the P6 `register_robust_event_detection.../SOLVED.md` (the built detector + the measured-OFF reason) IN FULL; read `hdlab/predicate_detector.py`, `hdlab/crf_tagger.py`, `hdlab/situation_reader.py` (`_extract_events`/`_add_predicate_recall`/`predicate_recall`), `hdlab/copular_binding.py`.
+- Reproduce first-hand: the predicate_recall +0.0083 agent-arm gain AND the ~1.4 FP/sent 19c cost (the can-fail tension this must resolve).
+
+## THE BAR (can-fail; CI-separated; the info-free twin must lose; cross-arm)
+PASS = a register-robust event detection turn-on (+ copula/light-verb/archaic recovery) with a false-positive-controlled precision gate such that who-did-what coverage rises on the agent AND patient arms CI-separated, an info-free twin LOSES, and NO other dimension regresses (each measured on its right instrument; recompute floors per population). Report CI half-width + null p95. A rigorous located NEGATIVE — the dropped events cannot be recovered glass-box without an unacceptable false-positive cost (with the named number + the cross-arm turn-on table) — is a FULL PASS (then predicate_recall stays off with the measured reason). Strategy lands the Q111 wire + the flag flip.
+
+## ALREADY TRIED / DO NOT REDO
+- The register-robust DETECTOR is BUILT (P6, `hdlab/predicate_detector.py`) — this is the TURN-ON (cross-arm) + the RECOVERY EXPANSION (copula/light-verb/archaic), not re-deriving the detector.
+- The calibrated CRF posterior cue is landed (P7, `hdlab/crf_tagger.py`) — REUSE it as the category cue, do not re-derive it.
+- Do NOT flip predicate_recall on blindly — the measured OFF reason (FP on contaminated 19c gold) is real; the fix is the precision gate + the cross-arm turn-on analysis.
+- Do NOT use an external LLM (the invariant).
+
+## FILES AND ENTRY POINTS
+Build in `experiments/` + `verification/`. REUSE `hdlab/predicate_detector.py`, `hdlab/crf_tagger.py`, `hdlab/situation_reader.py` (`_extract_events`/`_add_predicate_recall`), `hdlab/copular_binding.py`. Measure on every who-did-what arm (agent + patient) + the free-text event-recall consumer. Strategy lands the Q111 wire. Fold an AUDIT UPDATE into `BRAIN_FOUNDATIONAL_AUDIT.md` §2b.
+
+## DO NOT QUOTE
+- Do NOT quote a single-arm gain — report the CROSS-ARM turn-on table (every who-did-what arm + the other dims), per no-default-off.
+- Do NOT quote a coverage gain without the false-positive cost + the info-free twin losing.
+- Do NOT use an external LLM (the invariant).
