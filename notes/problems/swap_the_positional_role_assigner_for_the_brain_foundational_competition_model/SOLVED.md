@@ -67,6 +67,50 @@ Research memo: `notes/research_agent_role_givenness_centering_verification_2026-
 - **Clause segmentation (OPTIMIZATION PROTOTYPED — `experiments/exp_cmrole_agent_clause_v1.py`).** The agent competes over a whole-SENTENCE candidate pool; 19c prose is multi-clause, so one agent can leak across clauses. Role assignment is CLAUSE-BOUNDED in the brain (incremental parsing). A glass-box clause segmenter (`clause_bounds`: subordinators + clause-coordinators + strong punctuation; relativizers deliberately excluded) restricting each verb's candidates to its clause span gives a real, GENERALIZING gain: cm_pron 0.4082→0.4224 (tuned) and **0.4347→0.4458 held-out, +0.0111 CI[+0.0004,+0.0209] CI-separated**, patient-neutral, info-free twin still loses (+0.178). MODEST because the crude segmenter misses comma-delimited and relative-clause boundaries — the full lever is a proper incremental clause parser (the residual `graded_role_assigner` itself names). Backward-compatible `clause_local` flag; base result byte-identical off.
 - **Trained parser vs the cue competition (PROTOTYPED — `experiments/exp_cmrole_agent_parser_v1.py`) — the parser is NOT the improvement here, which VINDICATES the whole approach.** Fed the in-repo glass-box arc parser's grammatical subject (`route_predicate_arguments` 'agent', via `_router_roles`) mapped onto the tracked+pronoun candidate set: **parser ALONE LOSES to the cue competition, CI-separated** (0.3760 vs 0.4224 tuned; 0.3987 vs 0.4458 held-out; −0.047 CI[−0.064,−0.029]) — the parser is modern-trained (UD-EWT), 19c LitBank is OOD, so its structural signal is unreliable exactly where the register-general Competition-Model cues (word-order + animacy + Centering-givenness) stay valid. As a precision-weighted FALLBACK (parser-when-it-fires, CM otherwise) it merely TIES the pure competition (+0.003 tuned, +0.008 held-out; not CI-separated). **Conclusion:** on the eval corpus the cue competition already dominates the trained parser; the brain-faithful role for a parse is ONE precision-weighted prominence cue (eADM; Bornkessel-Schlesewsky 2006) that DOWN-weights OOD, not a replacement — which is why the brief was right to bar the trained parser, now with a measured reason. (On modern in-domain text the parser's cue validity would rise; the graded competition accommodates that by construction.)
 
+## 6b. FULL OPTIMIZED STACK, PERFORMANCE vs THE BRAIN, and WHERE SIGNAL IS LOST NOW (future growth)
+Beyond the assigned bar, the whole who-did-what AGENT chain was pushed and every step MEASURED + shown to
+GENERALIZE (held-out docs[16:40], never inspected). Each step is a PINNED brain mechanism, not a tweak:
+
+| step (each brain-foundational) | tuned acc | held-out acc |
+|---|---|---|
+| deployed regression (positional, dense set) | 0.0410 | 0.0492 |
+| + Competition-Model agent over the TRACKED/given set (the assigned fix) | 0.2519 | 0.2480 |
+| + subject PRONOUNS as candidates (Centering: the Cb is pronominalized) | 0.4082 | 0.4347 |
+| + CLAUSE-LOCAL competition (incremental clause segmentation) | 0.4224 | 0.4458 |
+| **+ CONTEXT-CUED readout (cue-based retrieval, not last-event)** | **0.6896** | **0.6824** |
+| baseline pos_OFF under the same cued readout (fair floor) | 0.3169 | 0.3228 |
+
+Net vs the fair floor: **+0.373 tuned / +0.360 held-out, CI-separated**; info-free twin loses by +0.26; the
+gains REPLICATE out-of-sample at every step. (The cued readout uses only the question's OWN sentence index --
+which occurrence is asked -- not the gold answer; it answers the instance-specific question the annotation
+encodes, correcting the board's global last-event collapse.)
+
+**PERFORMANCE vs A COMPETENT READER (the brain).** The WDW gold is human annotation, so a competent human
+reader is ~the ceiling (near-effortless agent identification on canonical prose; errors only on genuine
+garden-paths). We are at **0.69** — depressed further by a scorer artifact (70% of gold agents are pronouns,
+a candidate-filter ceiling constant across arms). WHERE THE ~0.31 GAP GOES NOW (robust attribution, 16 docs):
+- **75% — the COMPETITION** picks the wrong candidate on HARD multi-candidate clauses (two+ animate tracked
+  entities preverbal). This is the mechanism's genuine last-mile: the brain resolves these with a full
+  incremental syntactic parse + THEMATIC FIT / selectional preference (does this entity plausibly do this
+  action -- McRae; Ferretti) + a complete Centering discourse model (RECENCY + grammatical-role tracking of the
+  Cb). Our cue competition approximates these with word-order+animacy+givenness+clause-locality.
+- **20% — EVENT DETECTION** (a DIFFERENT organ): the predicate/event extractor (`_extract_events`) does not
+  emit an agentive event for that verb, or the lemma mis-aligns to the gold gov-verb.
+- **5% — COREF COVERAGE**: the coref column never tracked the gold entity.
+
+**FUTURE OPPORTUNITIES FOR GROWTH (measured, ranked, each with the brain-foundational mechanism):**
+1. **Sharpen the competition on hard clauses (75% of errors).** (a) RECENCY-weighted Centering (prefer the
+   entity that was the recent subject/topic -- the Cb -- over the merely-frequent one); (b) THEMATIC-FIT /
+   selectional-preference cue (agent-verb plausibility from the substrate's grounded/distributional norms);
+   (c) a REGISTER-GENERAL incremental parse as a precision-weighted cue (the trained parser was proven to fail
+   OOD on 19c -- §6; the fidelity gap is a register-general parser, not a trained one). All fold into the SAME
+   `graded_competition` as extra cues -- no new mechanism.
+2. **Event/predicate detection (20% of errors)** -- a separate upstream organ; name it as its own problem.
+3. **Coref coverage (5%)** -- the coref resolver's recall.
+4. **Register generalization** -- the Competition Model's own prediction is that cue VALIDITIES are
+   register-specific; the cues are narrative-tuned. Modern-prose transfer needs a weight re-sweep (brain-
+   faithful behaviour, not a failure), not yet run through this path.
+
 ## 7. Proposed hdlab change (solver may not write hdlab; strategy lands under Q111)
 Two edits, both reuse existing organs; no new external dependency, NO trained parser, NO LLM:
 
