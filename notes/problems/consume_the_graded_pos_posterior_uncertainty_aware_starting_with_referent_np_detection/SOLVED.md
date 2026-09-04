@@ -9,6 +9,13 @@ files_changed: "experiments/exp_graded_pos_diagnostic_v1.py, experiments/exp_gra
 reverify: ".venv/Scripts/python.exe verification/test_graded_pos_consumption_located_negative.py"
 ---
 
+## INTEGRATED_BY_STRATEGY (2026-09-04) — EXCELLENT (a located-negative + a landed structure-first win)
+Reverified first-hand: WIN `test_structural_patient_optimization.py` **3/3** + located-negative `test_graded_pos_consumption_located_negative.py` **4/4** + a new pure-hdlab landing witness `test_structural_patient_landing_organ.py` **4/4**.
+- **BRIEF REFUTED (a full pass):** referent introduction is PROPN↔NOUN-invariant, coref never reads UPOS → the graded posterior into referent_per_np adds +0.000; animacy is a subordinate cue. NO wire for the graded posterior.
+- **THE REAL WIN LANDED (Q111, DEFAULT-ON):** `hdlab/predicate_argument_frontend.route_predicate_arguments` reads the PATIENT STRUCTURE-FIRST off the parse (`structural_patient_pick`: object[active]/promoted-subject[passive]/coordination-share, heuristic fallback; AGENT untouched — P2 byte-safe, 0/2850 board agent answers changed); `structural_patient` flag default-ON. +0.088 on CLEAN UD-EWT gold (0.673→0.760), ZERO tuned params, no-regress (non-role dims byte-identical).
+- **Default-on justified by the CLEAN instrument** — the LitBank OBJECT gold reads −0.006 only because it mislabels obliques as objects (a confounded-ruler artifact; the role-balanced/OBJECT patient gold is flagged INVALID → re-base who-did-what eval on the UD structural gold).
+- **§2b folded.** Ceiling with a perfect parse 0.912 → the residual +0.15 is the parser's verb→argument attachment → **FOLLOW-ON FILED `improve_the_parser_verb_argument_attachment_for_who_did_what` (priority 3).**
+
 > ## 🧭 SUPERSEDING FINDING (deepest drill -- READ `WHAT_WAS_WRONG_structure_not_meaning.md`)
 > The owner pushed to understand "what's wrong." It is TWO things, both confirmed on a CLEAN instrument (UD-EWT gold
 > relations): (1) our who-did-what is the brain's DAMAGED-BACKUP route -- flat cue/position selection with NO

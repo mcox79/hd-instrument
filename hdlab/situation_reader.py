@@ -672,6 +672,7 @@ class SituationReader:
                  track_goals: bool = True,
                  parser_arceager: bool = False,
                  np_head_reduce: bool = True,
+                 structural_patient: bool = True,
                  bind_entity_states: bool = True,
                  structural_do_recover: bool = False,
                  referent_per_np: bool = True,
@@ -907,6 +908,17 @@ class SituationReader:
         # (b) the POSITIONAL path -> filter `noms` to NP-head mentions before _assign_roles (lifts the landed
         # _assign_roles 0.7728 -> 0.9477). Reuses hdlab.np_head_reduce. NO spaCy / NO LLM.
         self.np_head_reduce = bool(np_head_reduce)
+        # STRUCTURE-FIRST PATIENT (opt-in; default OFF = byte-identical). Promoted 2026-09-04 from the owner-DONE
+        # who-did-what drill `consume_the_graded_pos_posterior_...`: the stock THEME/patient is a flat cue/position
+        # selector (the brain's DAMAGED-BACKUP / agrammatic route -- NO arc heads). When ON, the WIRED path routes
+        # the THEME structure-first through the parse relations + voice remapping (predicate_argument_frontend.
+        # structural_patient_pick: object[active] / promoted-subject[passive via robust_passive] / coordination-
+        # control share; heuristic fallback where the parse yields no core object -- net-safe). +0.088 test / +0.076
+        # train over the live heuristic on CLEAN UD-EWT gold (patient := obj|nsubj:pass off gold relations), ZERO
+        # tuned parameters (generalizes), ceiling 0.91 with a perfect parse. The AGENT is UNCHANGED (cm_agent /
+        # positional / by-phrase untouched -> byte-identical agent). Requires role_route='wired' to have effect
+        # (the router path); default OFF -> the heuristic THEME, byte-identical. NO spaCy / NO LLM.
+        self.structural_patient = bool(structural_patient)
         # COPULAR is-a/attribute binding. When ON, read() adds a typed is-a/attribute read on sm.entity_states +
         # sm.state_register via hdlab.copular_binding (high-precision LABEL path UNION the label-ROBUST closed-class
         # copula detector robust_cop) + the glass-box Higgins typing. Integrated 2026-09-03 from the owner-DONE
@@ -1018,7 +1030,7 @@ class SituationReader:
         "predict_surprisal", "track_belief", "bind_event_tokens", "predict_revise", "track_world_state",
         "densify_world_state", "np_head_reduce", "parser_arceager", "causation_typed", "spacy_pred_gate",
         "bind_entity_states", "structural_do_recover", "referent_per_np", "cm_agent", "include_pron_agents",
-        "case_filter", "clause_local", "predicate_recall", "track_goals")
+        "case_filter", "clause_local", "predicate_recall", "track_goals", "structural_patient")
 
     @classmethod
     def all_capabilities_off(cls, gaz=None, **overrides):
@@ -1273,9 +1285,13 @@ class SituationReader:
         else:
             heads = self._cached_parse_heads(toks, pos)
         out = {}
+        # structural_patient passed ONLY when ON, so the OFF wired path issues a call BYTE-IDENTICAL to the
+        # historical one (no new kwarg) -- preserving any caller-side wrapper/monkeypatch of the router that
+        # predates this param (e.g. the solver's no-regress scaffold).
+        sp_kw = {"structural_patient": True} if self.structural_patient else {}
         for v in matrix_verbs(toks, pos, heads):
             roles = route_predicate_arguments(toks, pos, heads, v, quotative=False,
-                                              np_head_reduce=self.np_head_reduce)
+                                              np_head_reduce=self.np_head_reduce, **sp_kw)
             out[v - 1] = {k: (val - 1) for k, val in roles.items() if isinstance(val, int) and val}
         return out
 

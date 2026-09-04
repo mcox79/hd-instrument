@@ -28,7 +28,7 @@ from __future__ import annotations
 
 from typing import Dict, FrozenSet, List, Optional, Sequence, Tuple
 
-from hdlab.graded_role_assigner import hybrid_role_patient
+from hdlab.graded_role_assigner import hybrid_role_patient, robust_passive
 from hdlab.relcl_resolver import precise_passive
 from hdlab.thematic_role_labeler import lemma_verb
 from hdlab.animacy_lexicon import lookup_animacy
@@ -37,6 +37,7 @@ from hdlab.animacy_lexicon import lookup_animacy
 # structural plumbing (copied UNCHANGED from the validated exp_shared_predarg_frontend_v1/v2)
 # ------------------------------------------------------------------------------------------------
 NOMINAL = {"NOUN", "PROPN", "PRON"}
+BY = {"by"}
 MAX_HOPS = 4
 # theme words that, when the binder picks them, mean the goal belongs to the AGENT (self-motion idiom / reflexive /
 # path-noun), never a distinct moved theme.
@@ -182,6 +183,84 @@ def is_place_ground(word: Optional[str]) -> bool:
 # ------------------------------------------------------------------------------------------------
 def _cands(pos: Sequence[str]) -> List[int]:
     return [i for i in range(1, len(pos) + 1) if pos[i - 1] in NOMINAL]
+
+
+# ------------------------------------------------------------------------------------------------
+# STRUCTURE-FIRST PATIENT (opt-in, default OFF; promoted 2026-09-04 from the owner-DONE who-did-what
+# drill `consume_the_graded_pos_posterior_...`). The stock THEME/patient is a flat cue/position selector
+# (hybrid_role_patient) -- the brain's DAMAGED-BACKUP/agrammatic route (no arc heads). The brain reads the
+# core patient off the PARSE STRUCTURE: the verb's object (active) / promoted subject (passive, voice via
+# robust_passive) / coordination-control-shared object -- grammatical relations + linking rules + voice
+# remapping (Hagoort MUC; Levin-Rappaport-Hovav; agrammatism dual-route parallel). On CLEAN UD-EWT gold
+# (patient := obj|nsubj:pass off gold relations) the structure-first HYBRID (structure if the parse yields a
+# core object, else the heuristic fallback) beats the live heuristic +0.088 test / +0.076 train with ZERO
+# tuned parameters (generalizes; unlike the register-fitted Competition Model), ceiling 0.91 with a perfect
+# parse (residual = parser quality). NO-REGRESS through the live reader (non-role outputs byte-stable). Bodies
+# copied VERBATIM from experiments/exp_structural_role_reader_v1.structural_roles (+ its _verb_nom_deps /
+# _by_agent / _shared_object helpers) and experiments/exp_structural_patient_noregress_v1.hybrid_patient.
+# The AGENT is UNCHANGED (the nearest-pre-verbal / by-phrase / cm_agent path is already stronger than the
+# parse's raw subject); this changes ONLY the THEME/patient. Glass-box, NO LLM.
+# ------------------------------------------------------------------------------------------------
+def _verb_nom_deps(pos, heads, v, n):
+    return [c for c in range(1, n + 1) if heads.get(c) == v and pos[c - 1] in NOMINAL]
+
+
+def _by_agent(toks, pos, heads, v, n):
+    """a nominal governed by the verb whose left edge is 'by' (the demoted agent of a passive)."""
+    for c in range(1, n + 1):
+        if pos[c - 1] in NOMINAL and heads.get(c) == v:
+            j = c - 1
+            while j - 1 >= 1 and pos[j - 2] in ("ADJ", "NOUN", "PROPN", "DET"):
+                j -= 1
+            if j - 1 >= 1 and toks[j - 2].lower() in BY:
+                return c
+    return None
+
+
+def _shared_object(toks, pos, heads, v, n):
+    """coordination/control SHARING: if v has no object of its own, borrow the object of a coordinated verb
+    (a verb sharing v's head, or v's head if v is a conjunct). Mirrors UD enhanced-dependency argument sharing."""
+    hv = heads.get(v)
+    sib_verbs = [u for u in range(1, n + 1) if pos[u - 1] == "VERB" and u != v and (heads.get(u) == hv or u == hv or heads.get(v) == u)]
+    for u in sib_verbs:
+        post = [c for c in _verb_nom_deps(pos, heads, u, n) if c > u]
+        if post:
+            return post[0]
+    return None
+
+
+def structural_roles(toks, pos, heads, v, is_passive=None):
+    """Read (agent, patient) off the verb's grammatical relations in the parse + voice remapping. 1-based."""
+    n = len(toks)
+    if is_passive is None:
+        is_passive = robust_passive(toks, pos, v)
+    nom = _verb_nom_deps(pos, heads, v, n)
+    pre = [c for c in nom if c < v]; post = [c for c in nom if c > v]
+    if is_passive:
+        patient = pre[-1] if pre else (post[0] if post else None)   # promoted subject
+        agent = _by_agent(toks, pos, heads, v, n)                    # by-phrase (often absent)
+    else:
+        patient = post[0] if post else None                         # object
+        agent = pre[-1] if pre else None                            # subject
+    if patient is None:
+        patient = _shared_object(toks, pos, heads, v, n)            # coordination/control sharing
+    return {"agent": agent, "patient": patient}
+
+
+def structural_patient_pick(tokens: Sequence[str], upos: Sequence[str], heads: Dict[int, int], v: int,
+                            cands: Optional[List[int]] = None, np_head_reduce: bool = False) -> Optional[int]:
+    """The DEPLOYABLE structure-first patient (1-based, or None): the verb's object (active) / promoted subject
+    (passive) / coordination-shared object read off the parse relations + voice remapping (structural_roles);
+    fall back to the heuristic cue/position patient (hybrid_role_patient) ONLY where the parse yields no core
+    object -- net-safe, never worse than the heuristic on uncovered items. Body copied VERBATIM from
+    exp_structural_patient_noregress_v1.hybrid_patient (with np_head_reduce threaded to the fallback so the OFF
+    behavior stays byte-identical to the current heuristic path)."""
+    sp = structural_roles(tokens, upos, heads, v)["patient"]
+    if sp is not None:
+        return sp
+    if cands is None:
+        cands = _cands(upos)
+    return hybrid_role_patient(tokens, upos, v, cands=cands, np_head_reduce=np_head_reduce)
 
 
 def matrix_verbs(tokens: Sequence[str], upos: Sequence[str], heads: Dict[int, int]) -> List[int]:
@@ -406,13 +485,18 @@ def route_predicate_arguments(tokens: Sequence[str], upos: Sequence[str], heads:
                               verb_idx: int, prep_to_base: Optional[Dict[str, str]] = None,
                               event_classes_fn=None, dest_fn=None,
                               animacy_fn=lookup_animacy, max_hops: int = MAX_HOPS,
-                              quotative: bool = True, np_head_reduce: bool = False) -> dict:
+                              quotative: bool = True, np_head_reduce: bool = False,
+                              structural_patient: bool = False) -> dict:
     """The SHARED event-semantic predicate-argument router. Returns 1-based token indices (or None):
     {agent, theme, goal, location, path, source, recipient, direction, instrument, goal_belongs_to}.
     prep_to_base / event_classes_fn / dest_fn are override points ONLY for the info-free TWIN control; the
     defaults are the true _PREP_TO_BASE / get_event_classes / is_destination_verb. `quotative` (default
     True) applies quotative-inversion agent handling for speech/COMM verbs ("said Fred" -> Fred=AGENT);
     pass False to disable it (ablation, or callers that apply their own quotative handling separately).
+    `structural_patient` (default False = byte-identical historical THEME): when True, the THEME/patient is read
+    STRUCTURE-FIRST off the parse relations + voice remapping (structural_patient_pick: object[active] /
+    promoted-subject[passive] / coordination-share, heuristic fallback when the parse yields no core object)
+    instead of the flat cue/position heuristic -- the brain's main (parse-structure) role route. AGENT unchanged.
 
     Precedence for the to/for GOAL-vs-RECIPIENT ambiguity (Competition-Model style): (1) TRANSFER/COMM + 'to' ->
     RECIPIENT; (2) MOTION/PUT (to/into/onto/unto) -> GOAL; (3) unclassified verb, 'to', animate object -> RECIPIENT;
@@ -424,7 +508,15 @@ def route_predicate_arguments(tokens: Sequence[str], upos: Sequence[str], heads:
     v = verb_idx
     cands = _cands(upos)
     passive = precise_passive(tokens, upos, v)
-    theme_idx = hybrid_role_patient(tokens, upos, v, cands=cands, np_head_reduce=np_head_reduce)
+    # THEME/patient: structure-first (opt-in) reads the object/promoted-subject off the parse relations + voice
+    # (structural_patient_pick), else the stock flat cue/position heuristic. structural_patient=False is
+    # byte-identical to the historical router (the heuristic pick). Only the THEME changes -- the AGENT below is
+    # untouched. The heuristic fallback inside structural_patient_pick uses the SAME hybrid_role_patient call, so
+    # uncovered items (no parse object) stay byte-identical to the OFF path.
+    if structural_patient:
+        theme_idx = structural_patient_pick(tokens, upos, heads, v, cands=cands, np_head_reduce=np_head_reduce)
+    else:
+        theme_idx = hybrid_role_patient(tokens, upos, v, cands=cands, np_head_reduce=np_head_reduce)
     pp_args = _pp_args_for_verb(tokens, upos, heads, v, max_hops=max_hops)
 
     by_obj = next((o for (p, o) in pp_args if p == "by"), None)

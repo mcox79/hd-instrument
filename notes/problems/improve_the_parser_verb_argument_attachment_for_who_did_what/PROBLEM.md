@@ -1,0 +1,56 @@
+---
+priority: 3
+review:
+review_text:
+---
+
+# PROBLEM: with the who-did-what PATIENT now read STRUCTURE-FIRST off the parse (landed, +0.088 on clean UD gold, 0.673→0.760), the entire remaining gap to human level is the PARSER'S verb→argument ATTACHMENT: a GOLD parse lifts the structural patient to 0.912 (the measured ceiling), and the residual 0.76→0.91 is genuine parse error — the reader binds the verb to the WRONG dependent (~45%) or reads the WRONG head (~25%). A brain-faithful post-hoc verb-frame-guided binder recovers only ~9% of the gap (+0.017); ignoring the parse COLLAPSES to 0.58 (the attachment is load-bearing, not optional). The brain does not attach arguments post-hoc; it binds each argument into the verb's VALENCY SLOT DURING incremental parsing (Vosse-Kempen unification; Hagoort MUC; verb-frame expectation — Levin/Rappaport-Hovav). Build a register-general, verb-frame-guided, LABELED dependency parse that binds the verb's subject/object/oblique into its argument slots as it parses (glass-box, incremental, NO batch LLM, NO trained-on-modern-only parser that loses OOD on 19c) so the live who-did-what (patient + agent) rises toward the 0.91 ceiling CI-separated — or a located negative naming why register-general labeled attachment cannot be built glass-box.
+
+**slug:** `improve_the_parser_verb_argument_attachment_for_who_did_what` — **opened:** 2026-09-04 by the strategy session, the explicit clear next problem the owner-DONE `consume_the_graded_pos_posterior_uncertainty_aware_starting_with_referent_np_detection` named (its §NEXT-STEPS #2 + `WHAT_WAS_WRONG_structure_not_meaning.md`). **status:** OPEN. Strategy lands any hdlab wire (Q111, witnessed). Glass-box, NO external LLM, NO trained-modern-only parser (proven to lose OOD on 19c). **CONVERGES WITH `the_agent_tie_wall_is_embedded_clauses_needs_a_register_general_incremental_parse_cue` (priority 4): both need a better register-general parse — that one attacks the AGENT embedded-clause ties (parse-as-a-cue), this one attacks the PATIENT verb→object ATTACHMENT (parse-core quality). A strong labeled parser serves both; scope each by its own role + measurement.**
+
+> ## ⚙️ SOLVER OPERATING PROTOCOL (standing — owner 2026-08-25/26)
+> **DO THE RIGHT THING, NOT THE CHEAP THING.** The mission is the most brain-faithful substrate. A located NEGATIVE is a PASS — but only if the brain's actual mechanism, faithfully built, is what failed.
+
+> ## 🧠 BRAIN-FOUNDATIONAL CHECKLIST (the owner's standing bar — work through IN ORDER; the solution is not done until every box holds)
+> 1. **OPEN — how does the BRAIN do THIS?** Name the specific structure + computation and replicate that OPERATION as the FIRST move; mark each choice PINNED vs OUR-INVENTION. RESEARCH AGGRESSIVELY wherever you are unsure — do not build the tractable thing and cite neuroscience after.
+> 2. **REUSE — does an existing organ already do what you need?** Check `tools/substrate_map.py` / `tools/reader_capabilities.py` / `hdlab/` FIRST; extend a matching organ rather than re-deriving it.
+> 3. **GENERALIZE — does this need to generalize, and HOW does the brain generalize it?** Build for that (register / novelty / transfer), not for the single test.
+> 4. **HIT A WALL? GO DEEPER, DON'T STOP.** Research-drill WHY. If the brain can do it, it IS possible and we can too, once we understand it. A located NEGATIVE counts only if the brain's ACTUAL mechanism, faithfully built, is what failed (fair test: can-fail, one-variable, real baseline).
+> 5. **OPTIMIZE BY EXACT REPLICATION.** Evaluate aggressively, with great precision, EXACTLY how the brain does it, and replicate it exactly — copy the computation, SWEEP (never adopt) the parameters. No half-effort: the closer we are, the better we do.
+> 6. **PERFORMANCE vs THE BRAIN.** How does our performance compare to a competent brain/reader on this task? WHERE ALONG THE CHAIN do we lose signal? What EXACTLY differs between our implementation and the brain's mechanism (an itemized mechanism-diff)?
+> 7. **ADJACENT COMPONENTS.** Map the capabilities, limitations, opportunities, and brain-foundational status of the adjacent components — that seeds the next problems to address.
+> 8. **COMPLETION BAR.** Is this a COMPLETE, EXCELLENT solved problem? Is it FULLY brain-foundational, conveying ALL the benefits of the brain function we replicate? If not, keep pushing toward a fully complete, exceptional solution.
+
+## 1. THE PROBLEM IN PLAIN LANGUAGE
+The reader now works out "who was acted on" by reading the sentence's grammar (a big, just-landed improvement). What's left between it and a competent human is purely the grammar-reader (the parser) itself: when we hand the reader a PERFECT parse, this jumps to ~91% right; with our real parser it's ~76%, and the gap is the parser attaching the verb to the wrong word. A person doesn't parse the whole sentence and then guess which noun is the object; as they read, they slot each noun into the verb's expected roles ("eat" expects an eater and a thing-eaten) and revise. The job: build that — a grammar-reader that, as it goes, binds each verb's subject/object into the verb's own argument slots and labels them, works on old prose as well as new (our modern-trained parser fails on 19th-century text), and pushes "who did what" toward that 91% ceiling.
+
+## 2. WHY THIS ONE — it is the entire measured residual on the reader's weakest core dimension
+Two independent owner-DONE solutions converged here this session: the structure-first PATIENT (this parent) measured the ceiling with a GOLD parse at 0.912 and the live parser at 0.760 — the whole 0.15 gap is parse attachment (~45% wrong-dependent, ~25% wrong-head); and the Competition-Model AGENT (P2) localized 75% of its residual to embedded-clause ties that only full clause structure resolves. Who-did-what is the reader's most load-bearing, weakest-scoring core dimension, and the parser is now the single shared lever for BOTH roles. A post-hoc binder was PROTOTYPED and is a located-negative (recovers only +0.017), so the fix must be IN the parse (during, not after).
+
+## 3. HOW THE BRAIN DOES THIS (the opening move)
+PINNED: syntactic parsing is INCREMENTAL unification of each word into a developing structure, driven by the verb's stored ARGUMENT-STRUCTURE / valency frame (Vosse-Kempen 2000 competitive unification; Hagoort's MUC / LIFG-pMTG binding; expectation-based / surprisal parsing — Hale 2001, Levy 2008; verb-frame expectation — Levin 1993, Rappaport-Hovav). The verb PROJECTS its slots (agent/theme/goal) and each argument competes to fill them, revised on disconfirmation (garden-path/P600). This is a LABELED, verb-centric attachment — NOT an unlabeled head-only parse, and NOT a post-hoc rule over a finished tree. OUR-INVENTION-under-test: the exact glass-box incremental attach+label mechanism, the valency-slot representation, the register-general features (so it does not collapse OOD like the modern-trained parser). Sweep, do not adopt. REUSE: `hdlab/incremental_parser.py` / `hdlab/arceager_parser.py` (the incremental substrate), `hdlab/arc_labeler.py` (labels), `hdlab/predicate_argument_frontend.py` (`structural_roles` / `route_predicate_arguments` — the consumer to feed), the verb-frame/valency resources the goal + subcat work shipped (`hdlab/verb_subcat_frames.py`).
+
+## MEASURED vs INFERRED
+- **MEASURED (do NOT re-derive — the parent SOLVED):** structure-first patient live 0.760 vs GOLD-parse ceiling 0.912 (clean UD-EWT, n=1255); the residual is ~45% wrong-dependent + ~25% wrong-head (genuine parse error); a post-hoc verb-frame binder recovers only +0.017 (~9% of the gap); ignoring the parse collapses to 0.58 (attachment is load-bearing); the modern-trained arc parser LOSES OOD on 19c (P2 §6).
+- **INFERRED (you must measure):** whether a register-general, verb-frame-guided, LABELED incremental parse that binds arguments into valency slots raises the live who-did-what PATIENT (and, composed, the AGENT ties) toward the 0.912 ceiling CI-separated, on BOTH modern (UD/QA-SRL) and 19c registers, with an info-free twin LOSING and no-regress on the non-role dims; the residual + its named cause.
+
+## VERIFY BEFORE YOU START (the disk outranks this brief)
+- FIRST STEPS: `python tools/substrate_map.py`, `python tools/reader_capabilities.py`; read the parent `notes/problems/consume_the_graded_pos_posterior.../SOLVED.md` + `WHAT_WAS_WRONG_structure_not_meaning.md` + `MECHANISM_DIFF_where_we_lose_signal.md` + `CHAIN_SIGNAL_LOSS_TRACKER.md` IN FULL (the ceiling + the attachment error breakdown + the post-hoc-binder located-negative); read the sibling `the_agent_tie_wall...` brief; read `hdlab/incremental_parser.py`, `hdlab/arceager_parser.py`, `hdlab/arc_labeler.py`, `hdlab/predicate_argument_frontend.py` (`structural_roles`), `hdlab/verb_subcat_frames.py`.
+- Reproduce first-hand: the structure-first patient 0.760 vs the 0.912 gold-parse ceiling on clean UD; the ~45%/25% attachment-error split; the post-hoc-binder +0.017 (the can-fail baseline this must beat by fixing the parse itself).
+
+## THE BAR (can-fail; CI-separated; register-general; the info-free twin must lose)
+PASS = a glass-box, register-general, verb-frame-guided LABELED incremental parse (NO batch LLM, NO trained-modern-only parser) that raises the live who-did-what PATIENT toward the 0.912 clean-UD ceiling CI-separated on BOTH modern AND 19c registers, with an info-free twin LOSING and NO regression on the non-role dims or the P2 AGENT. Report CI half-width + null p95; recompute floors on the same population; measure on the CLEAN UD structural gold (the LitBank OBJECT gold is confounded — do not use it). A rigorous located NEGATIVE — register-general labeled valency-slot attachment cannot be built glass-box to beat the current structural patient, with the named cause + number — is a FULL PASS. Strategy lands the Q111 wire.
+
+## ALREADY TRIED / DO NOT REDO
+- Structure-first PATIENT off the current parse is LANDED (this parent, default-on) — this is about improving the PARSE it reads, not re-deriving the structural read.
+- A POST-HOC verb-frame binder over a finished tree is a PROVEN located-negative (+0.017) — the fix must be DURING parsing (incremental valency binding), not after.
+- A TRAINED modern-only parser is a proven located-negative (loses OOD on 19c) — build register-general.
+- Do NOT re-base on the confounded LitBank OBJECT/role-balanced gold (flagged INVALID) — use the clean UD structural gold.
+
+## FILES AND ENTRY POINTS
+Build in `experiments/` + `verification/`. REUSE `hdlab/incremental_parser.py`, `hdlab/arceager_parser.py`, `hdlab/arc_labeler.py`, `hdlab/predicate_argument_frontend.py` (`structural_roles`), `hdlab/verb_subcat_frames.py`. Measure on the who-did-what patient (+ agent) arms against the clean UD structural gold, modern + 19c. Strategy lands the Q111 wire. Fold an AUDIT UPDATE into `BRAIN_FOUNDATIONAL_AUDIT.md` §2b.
+
+## DO NOT QUOTE
+- Do NOT quote a gain on the confounded LitBank OBJECT gold — measure on the clean UD structural gold (patient := obj|nsubj:pass + voice).
+- Do NOT quote a modern-only gain without the 19c register (the modern-trained parser's OOD collapse is the whole reason for register-generality).
+- Do NOT use an external LLM or a trained-modern-only parser (the invariant + the measured OOD loss).
