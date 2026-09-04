@@ -1091,16 +1091,33 @@ class SituationReader:
         key = ("tag", tuple(toks))
         c = self._read_parse_cache
         if key not in c:
-            c[key] = self._tagger.tag(toks)
+            c[key] = self._frontend_tagger().tag(toks)
         return list(c[key])
+
+    def _frontend_tagger(self):
+        """The SINGLE shared frontend POS tagger, lazily loaded (the module-level _FRONTEND_CACHE makes reload
+        free). role_route!='positional' loads it eagerly; ANY organ that needs it under ANY config (entity-states,
+        causal, ...) gets the SAME instance -> no organ carries a redundant private copy, and _cached_tag works
+        regardless of role_route. General, not tied to one reader configuration."""
+        if getattr(self, "_tagger", None) is None:
+            self._tagger, self._parser = _load_frontend()
+        return self._tagger
+
+    def _frontend_parser(self):
+        """The SINGLE shared frontend arc parser (see _frontend_tagger). NOT the parser_arceager opt-in (that is a
+        separate role-routing path); this is the base frontend parser the per-read parse cache memoizes."""
+        if getattr(self, "_parser", None) is None:
+            self._tagger, self._parser = _load_frontend()
+        return self._parser
 
     def _cached_parse_heads(self, toks, pos):
         """Per-read memoized base-parser heads dict; returns a FRESH copy (see _cached_tag). Byte-identical to
-        self._parser.parse(toks, pos).heads, minus the re-parse cost."""
+        self._parser.parse(toks, pos).heads, minus the re-parse cost. Uses the lazily-loaded shared frontend so
+        it is safe from ANY path (not only role_route!='positional')."""
         key = ("parse", tuple(toks))
         c = self._read_parse_cache
         if key not in c:
-            c[key] = self._parser.parse(toks, pos).heads
+            c[key] = self._frontend_parser().parse(toks, pos).heads
         return dict(c[key])
 
     def _router_roles(self, toks):
@@ -1613,14 +1630,20 @@ class SituationReader:
         for si, toks in enumerate(sents):
             if not toks:
                 continue
-            up = self._es_pos.tag(toks)
+            # PERF (2026-09-04, general): the copular assets (POS/ARC) are BYTE-IDENTICAL to the reader's base
+            # tagger/parser, so route the tag + parse through the reader's SHARED per-read cache
+            # (_cached_tag/_cached_parse_heads) -- the events/roles path already parsed these sentences, so this
+            # is a cache HIT (0 extra parses/tags) instead of a redundant re-parse on the private _es_pos/_es_arc.
+            # This alone eliminated ~120 arc parses/read (58% of the default read). Byte-identical (same assets).
+            up = self._cached_tag(toks)
+            heads = self._cached_parse_heads(toks, up)
             # DETECTION = high-precision label path UNIONED with the label-ROBUST closed-class copula detector
             # (P3 CHANGE 2, owner-DONE wire_the_copular_state_qa_consumer...): the `cop` labeler's recall is the
             # dominant loss (worst on nominal is-a); firing on the closed-class copula token + reading holder/
             # property off the tree recovers it (qa_state 0.712->0.833 CI-sep through the consumer, concentrated on
             # is-a pred_nom +0.184). Byte-faithful to the experiment's `fix = bind | robust_cop(toks,up,heads)`.
-            heads = self._es_arc.parse(toks, up).heads
-            bind = set(M.extract_entity_states(toks, up, self._es_arc, self._es_lab))
+            # Pass the CACHED heads into extract_entity_states so it does not re-parse (byte-identical).
+            bind = set(M.extract_entity_states(toks, up, self._es_arc, self._es_lab, heads=heads))
             pairs = bind | M.robust_cop(toks, up, heads, gate=True)
             for (h, p) in sorted(pairs):
                 if not (0 <= h < len(toks) and 0 <= p < len(toks)):

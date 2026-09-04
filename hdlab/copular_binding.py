@@ -89,11 +89,15 @@ def robust_cop(toks, up, heads, gate=True):
     return out
 
 
-def extract_entity_states(toks, up, arc, lab):
+def extract_entity_states(toks, up, arc, lab, heads=None):
     """[(holder_idx, property_idx)] 0-based, from the labeled parse: for each `cop` arc, PROPERTY = its head,
-    HOLDER = the nsubj/nsubj:pass/csubj dependent of that same head. Brain-faithful HOLDER+PROPERTY binding."""
+    HOLDER = the nsubj/nsubj:pass/csubj dependent of that same head. Brain-faithful HOLDER+PROPERTY binding.
+    `heads` optional (perf): pass precomputed parse heads (e.g. from the caller's shared per-read parse cache)
+    to SKIP the internal re-parse -- byte-identical, since the labeler consumes those same heads. When None,
+    parses via `arc` as before (back-compatible)."""
     try:
-        heads = arc.parse(toks, up).heads
+        if heads is None:
+            heads = arc.parse(toks, up).heads
         labels = lab.label(toks, up, heads)
     except Exception:
         return []
