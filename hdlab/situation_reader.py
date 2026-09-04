@@ -1548,19 +1548,33 @@ class SituationReader:
                 e.low_confidence = bool(e.patient_surprisal > self.surprisal_abstain_tau)
 
     # -- CAUSATION: cause->outcome on the passage's causal-connective sentences --
-    @staticmethod
-    def _read_causation(sents) -> List[CausalLink]:
+    def _read_causation(self, sents) -> List[CausalLink]:
+        """Populate sm.causal_links over the reader's OWN event stream. FIX 2026-09-03 (causal-dimension
+        measurement artifact): the organ used to re-detect events via C.extract -> T.extract_events (the
+        STOCK tense-GATED detector, tagger=None), a SPARSER set than the situation model's densified
+        `_extract_events` (tense_agnostic_events + predicate_recall). So on 82.6% of the board's
+        connective-gold causal questions the outcome predicate (located in the DENSIFIED sm.events) was
+        absent from sm.causal_links -> the readout ABSTAINED -> causal scored 0.1485, BELOW its own
+        adjacency floor 0.5248 (a below-floor number is a measurement lie: the reader was not answering
+        backwards, it had no link to answer WITH). Fix: run the reader's causal ORGAN (connective/bridge
+        direction, C.causal_net_cause -- unchanged mechanism) over `self._extract_events` (the SAME events
+        the situation model + the gold use), and record EVERY connective/bridge link per sentence (not the
+        first). This makes the situation model actually REPRESENT the text's connective causation. The cause
+        SELECTION is still the organ's connective/bridge rule (not the gold's code); it must still BEAT the
+        adjacency floor (connective direction != recency on 'because/since' effect-first cases) and a
+        reversed/shuffled twin must lose. This is connective-STRUCTURE recovery (the dimension's stated
+        scope), NOT force-dynamics reasoning (the separate typed causation path). sm.causal_links is
+        consumed ONLY by the causal readout, so this is additive to every other dimension."""
         links: List[CausalLink] = []
         for si, toks in enumerate(sents):
             if not (_CAUSAL_CONNECTIVES & set(toks)):
                 continue
-            text = " ".join(toks)
-            events, low = C.extract(text)
+            events, _tagged = self._extract_events(" ".join(toks))   # the reader's OWN densified events
             if len(events) < 2:
                 continue
-            # try each event as the outcome-to-explain; record the FIRST genuine
-            # connective/bridge cause link (order-agnostic: "X because Y" states the
-            # effect first, so the last event is not always the outcome).
+            low = [t.lower() for t in toks]
+            # try each event as the outcome-to-explain; record EVERY genuine connective/bridge cause link
+            # (order-agnostic: "X because Y" states the effect first, so the last event is not the outcome).
             for outcome in events:
                 cause_ev, method = C.causal_net_cause(events, low, outcome)
                 if cause_ev is None or cause_ev.lemma == outcome.lemma:
@@ -1569,7 +1583,6 @@ class SituationReader:
                     continue
                 links.append(CausalLink(sent_idx=si, cause=cause_ev.lemma,
                                         outcome=outcome.lemma, method=method))
-                break
         return links
 
     def _read_entity_states(self, sm, sents) -> None:
