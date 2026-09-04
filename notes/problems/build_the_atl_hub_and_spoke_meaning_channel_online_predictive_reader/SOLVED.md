@@ -5,7 +5,7 @@ bar: "PASS = a glass-box ATL hub-and-spoke sense representation (distributional 
 result: "PARTIAL = a LOCATED NEGATIVE on the brief's named mechanism (a FULL PASS by the bar) + a NEW brain-faithful directional POSITIVE, and the ceiling relocated with a number. (1) The RICHER grounded ATL hub-and-spoke does NOT cross: Binder-2016 65-dim + Warriner VAD, ATL distinctive-feature WHITENED, propagated to coverage by WordNet semantic inheritance, bound to the launch-pad distributional atom -- fed to the wired biased-competition readout, concat-hub a_s=0.283, which LOSES to the launch pad 0.313 CI-separated [-0.044,-0.015]; grounded-keys-alone 0.184; and the concat-hub beats its shuffled-grounding twin 0.162 CI-sep, so the grounded signal is REAL but insufficient. (2) THE SURPRISE THAT LOCATES THE CAUSE: the grounded keys DO separate the senses distribution merges -- w2v gloss keys of gold-vs-dominant cos=0.799 (superposed), grounded keys cos=0.222 (separated), and among the 1277 distribution-MERGED pairs grounding 'rescues' 80% (cos<0.5). So the brief's orthogonality premise HOLDS at the key level; grounding still does not help because (a) coverage is only 0.477 of test pairs and (b) the loss is QUERY-side selection, not key separability (the parent proved KEY-unwinnable=0.000). (3) THE REAL LEVER IS QUERY-SIDE AND BRAIN-FAITHFUL: precision-weighting (Friston selective gain -- gamma>1 / top-k on the diagnosticity, the multiplicative gain that lets a high-precision subordinate cue overturn the dominant prior) CROSSES the launch pad: a_s=0.3364 vs 0.3133, delta +0.0232 CI-sep [+0.012,+0.035], ci_hw 0.0112 = null_p95 0.0112, the shuffled-diagnosticity twin LOSES (0.271, delta +0.066 CI-sep), and it does NOT regress the dominant-sense/MFS population (all-items 0.420->0.435, +0.014). (4) BUT no glass-box readout/representation lever reaches the 0.35 ceiling (best 0.336<0.35; candidate-restriction-by-topic HURTS 0.304, distinctive-whitening the w2v keys is ill-conditioned 0.162): the crosser is a broad-coverage SENSE-DISCRIMINATIVE connection matrix W (parent proved oracle-W -> a_s 0.995; coverage-bound at 52%), which is the owner-DONE consolidation sibling's domain, NOT the ATL grounded hub. (5) THE FULL UPSTREAM BRAIN-FOUNDATIONAL CHAIN, BUILT AND MEASURED AS A MONOTONIC FIDELITY LADDER (grounded sense keys -> grounded/bootstrap ENCODING sense-resolver -> Hebbian bind-to-resolved-sense -> cross-situational consolidation -> precision-weighted W readout; every component the brain's actual computation, research-verified): the sense-discriminative-W ARCHITECTURE helps ONLY when the encoding resolver is correct -- GOLD-resolved W beats base by +0.028 on the gold-attested subset (a_s ~0.335 vs ~0.307; the ONLY positive arm, directionally > every glass-box resolver; borderline, NOT robustly CI-separated -- which sharpens the negative), while EVERY glass-box encoding resolver FAILS to build a clean W (distributional ~0.000, grounded -0.028, grounded+precision -0.016, propose-and-verify bootstrap -0.012 -- none beats base). This LOCALIZES the single remaining non-brain-foundational component: the encoding-time sense-resolver, which is trapped in the FROZEN, non-recomputed sense-conflated w2v context representation (100% of the loss sits there; grounding never touches the context side). An independent literature drill converged on the identical localization. So the wall is a genuine fixed point: to build the W that would disambiguate, you must first disambiguate, and no glass-box cue breaks the circularity because the subordinate sense is inseparable in the frozen representation the brain replaces by contextual re-computation. All a_s: strict document-disjoint SemCor subordinate, subject-weighted, n=2676/2675, through the wired hdlab.diagnostic_context_wsd, glass-box, frozen 200-dim w2v, NO external LLM/transformer/training; gold used only as the diagnostic-context readout oracle at eval and as the idealized-resolver reference arm, never at inference."
 floor: "launch-pad RICH-w2v diagnostic a_s = 0.3133 (this session, threads=1 deterministic; the parent's clean-foundation 0.318 reproduced first-hand); gloss-w2v floor = 0.2512 (parent 0.251 reproduced); the info-free twins: shuffled-diagnosticity 0.2707 and shuffled-grounding 0.1615 (both LOSE CI-separated to their arms). Every arm recomputed on its own population."
 controls: "shuffled-GROUNDING twin (grounded keys permuted onto WRONG senses -> concat-hub beats it +0.122 CI-sep, so the grounded signal is real -- and yet the hub still loses to the launch pad, so grounding is real-but-insufficient); shuffled-DIAGNOSTICITY twin (precision gain applied to permuted/WRONG context words -> loses -0.066 CI-sep, so the precision win is the CORRECT diagnostic words, not the sharpening shape); SEPARABILITY DECOMPOSITION (grounded cos(gold,dominant)=0.222 vs w2v-gloss 0.799 -> EXCLUDES 'grounding cannot separate superposed senses'; localizes the null to query-side + 0.477 coverage, NOT key separability); MFS no-regression guard (all-items 0.420->0.435 +0.014 -> the precision gain does not hurt the dominant population); distributional candidate-restriction (0.304 < launch pad -> EXCLUDES 'prune-by-topic helps'; it reinforces the dominant sense, exactly the Deco-Rolls biased-competition narrow-working-range prediction); distinctive-whitening of the distributional keys (0.162, ill-conditioned over 200-dim -> EXCLUDES 'decorrelating the w2v atoms helps'); floors reproduced first-hand (gloss 0.251, launch pad 0.313). Paired 5000x bootstrap CI half-width + sign-flip null p95 on every contrast; each control excludes a distinct rival explanation."
-files_changed: "experiments/exp_atl_hubspoke_grounded_separability_v1.py (the richer grounded ATL hub + separability decomposition), experiments/exp_atl_hubspoke_query_side_readout_v1.py (the query-side brain-faithful levers: precision-weighting, candidate-restriction, distinctive-whitening), experiments/exp_atl_hubspoke_grounded_disambiguate_then_bind_v1.py (the FULL upstream chain: grounded/bootstrap encoding resolver -> Hebbian W -> consolidation -> precision readout, as a monotonic brain-fidelity ladder), experiments/exp_atl_hubspoke_discourse_situation_prior_v1.py (the discourse/situation-prior arm -- Vu-Kellas domain-of-reference, located negative), experiments/exp_atl_hubspoke_ideal_full_chain_v1.py (the IDEAL max-coverage gold-W chain + leave-one-doc-out + inheritance -- closes the coverage route; the brain-comparison signal-loss ladder), experiments/exp_atl_hubspoke_contextual_recompute_v1.py (the frozen-representation fix: AutoExtend glass-box de-superposition + context re-computation -- located negative, forces the invariant decision), experiments/exp_atl_hubspoke_joint_ppr_recompute_v1.py (the FULLY-JOINT re-computation via the landed hdlab.grounded_semantic_graph PPR organ -- topical, located negative), experiments/exp_atl_hubspoke_ppr_signal_loss_v1.py (drill: degree-bias REFUTED, leak = topical edges), experiments/exp_atl_hubspoke_actr_ideal_chain_v1.py (the ACT-R ideal chain: experience-weighted directional discriminative edges + fan-specificity + amplify-weak = best arm 0.345, still < 0.35, Zipf-bound edges), experiments/exp_atl_hubspoke_multicue_integration_v1.py (reliability-weighted integration of all cues = 0.344, confirms the ceiling; grounded weight->0), experiments/exp_atl_hubspoke_signal_loss_ladder_v1.py (oracle decomposition: ORACLE_single 0.868 / ORACLE_signed 0.627 -- query-side diagnostic-word ID is the largest loss), experiments/exp_atl_hubspoke_controlled_retrieval_v1.py + _gated_v1.py (controlled-retrieval anti-dominant attack: crosses 0.35 ungated 0.382 but fails MFS guard = prior shift; gated preserves MFS but gain vanishes), verification/test_atl_hubspoke_meaning_channel.py (W1-W8), notes/research_grounded_disambiguate_then_bind_2026-09-04.md + notes/research_exemplar_based_contextual_recomputation_wsd_2026-09-04.md (research verification: exemplar contextualization Zipf-swamps), data/exp_atl_hubspoke_grounded_separability_v1/metrics_full.json, data/exp_atl_hubspoke_query_side_readout_v1/metrics_full.json, data/exp_atl_hubspoke_grounded_disambiguate_then_bind_v1/metrics_full.json"
+files_changed: "experiments/exp_atl_hubspoke_grounded_separability_v1.py (the richer grounded ATL hub + separability decomposition), experiments/exp_atl_hubspoke_query_side_readout_v1.py (the query-side brain-faithful levers: precision-weighting, candidate-restriction, distinctive-whitening), experiments/exp_atl_hubspoke_grounded_disambiguate_then_bind_v1.py (the FULL upstream chain: grounded/bootstrap encoding resolver -> Hebbian W -> consolidation -> precision readout, as a monotonic brain-fidelity ladder), experiments/exp_atl_hubspoke_discourse_situation_prior_v1.py (the discourse/situation-prior arm -- Vu-Kellas domain-of-reference, located negative), experiments/exp_atl_hubspoke_ideal_full_chain_v1.py (the IDEAL max-coverage gold-W chain + leave-one-doc-out + inheritance -- closes the coverage route; the brain-comparison signal-loss ladder), experiments/exp_atl_hubspoke_contextual_recompute_v1.py (the frozen-representation fix: AutoExtend glass-box de-superposition + context re-computation -- located negative, forces the invariant decision), experiments/exp_atl_hubspoke_joint_ppr_recompute_v1.py (the FULLY-JOINT re-computation via the landed hdlab.grounded_semantic_graph PPR organ -- topical, located negative), experiments/exp_atl_hubspoke_ppr_signal_loss_v1.py (drill: degree-bias REFUTED, leak = topical edges), experiments/exp_atl_hubspoke_actr_ideal_chain_v1.py (the ACT-R ideal chain: experience-weighted directional discriminative edges + fan-specificity + amplify-weak = best arm 0.345, still < 0.35, Zipf-bound edges), experiments/exp_atl_hubspoke_multicue_integration_v1.py (reliability-weighted integration of all cues = 0.344, confirms the ceiling; grounded weight->0), experiments/exp_atl_hubspoke_signal_loss_ladder_v1.py (oracle decomposition: ORACLE_single 0.868 / ORACLE_signed 0.627 -- query-side diagnostic-word ID is the largest loss), experiments/exp_atl_hubspoke_controlled_retrieval_v1.py + _gated_v1.py (controlled-retrieval anti-dominant attack: crosses 0.35 ungated 0.382 but fails MFS guard = prior shift; gated preserves MFS but gain vanishes), experiments/exp_atl_hubspoke_knowledge_integration_v1.py (structured-membership knowledge integration: apparent PASS 0.360 was TRANSDUCTIVE LEAKAGE; clean inductive 0.261 < precision -- W_MODE=even|loo documents the delta), experiments/exp_atl_hubspoke_signal_trace_v2.py (chance-controlled re-trace: ORACLE_single was ~72% combinatorics; per-token gold signal +0.047 above chance = thin/representation-thinned; enabler = contextual re-representation not knowledge), notes/research_lfs_rare_sense_enabler_knowledge_vs_context_2026-09-04.md, verification/test_atl_hubspoke_meaning_channel.py (W1-W8), notes/research_grounded_disambiguate_then_bind_2026-09-04.md + notes/research_exemplar_based_contextual_recomputation_wsd_2026-09-04.md (research verification: exemplar contextualization Zipf-swamps), data/exp_atl_hubspoke_grounded_separability_v1/metrics_full.json, data/exp_atl_hubspoke_query_side_readout_v1/metrics_full.json, data/exp_atl_hubspoke_grounded_disambiguate_then_bind_v1/metrics_full.json"
 reverify: ".venv/Scripts/python.exe verification/test_atl_hubspoke_meaning_channel.py   # W1-W8 (grounding-neg; precision-positive +0.02 CI-sep; gold-W helps only where the rare sense is attested + borderline; glass-box resolvers fail; ideal max-coverage W does NOT cross; glass-box de-superposition de-superposes but a_s drops). The JOINT PPR arm is reproduced by its own cell (data/exp_atl_hubspoke_joint_ppr_recompute_v1/metrics_full.json): PPR 0.264 / fuse 0.323 < precision 0.342 -> topical, does not cross"
 ---
 
@@ -345,6 +345,80 @@ is exactly the Zipf/frozen-representation wall from the query side.** The anti-d
 cross 0.35 is correctly rejected by the MFS no-regression guard -- a clean example of the guard catching a
 population-composition artifact, not a capability.
 
+**KNOWLEDGE-INTEGRATION OPTIMIZATION (`exp_atl_hubspoke_knowledge_integration_v1`) -- an apparent PASS that a strict
+control EXPOSED as transductive leakage.** Using all the substrate's sense-linked knowledge (WordNet gloss+examples,
+SyntagNet, ConceptNet, gold-W) as a per-sense structured SIGNATURE and identifying the clincher by IDF-weighted
+structured MEMBERSHIP (not topical cosine), fused with the precision cosine, first read as a clean PASS: a_s 0.360,
+CI-sep over precision, twin loses, MFS IMPROVES 0.44->0.53, crosses 0.35. I SUSPECTED it and built the strict
+inductive control -- and it was **transductive leakage**: the leave-one-DOCUMENT-out W pulled in OTHER odd (test)
+documents' gold. With a strictly inductive W (EVEN/train docs only, disjoint from every test doc): fuse **0.261 <
+precision 0.336** (CI-separated BELOW), BAR_PASS = False; the entire +0.099 was leakage (and dev-tuning saw dev items'
+own gold -> dev_sub 0.85, the smoking gun). Under clean induction the knowledge-overlap channel HURTS (the train-only
+W is Zipf-thin for held-out test senses -- the same wall). No knowledge integration crosses 0.35 inductively.
+
+## RE-TRACE v2 WITH CHANCE CONTROLS -- the enabler is contextual re-representation, NOT knowledge; and I CORRECT my own ORACLE_single overclaim
+
+Pressed on "if knowledge is not the enabler, what is," I re-traced the signal with chance controls
+(`exp_atl_hubspoke_signal_trace_v2`) and ran a literature drill. Both converge, and both correct an earlier claim.
+
+**CORRECTION (the disk over the swing): ORACLE_single 0.868 was ~72% combinatorics.** With a mean of 10.4 candidate
+senses/item, chance that SOME context word argmaxes to a SPECIFIC sense is high: a RANDOM non-gold sense's
+ORACLE_single = 0.717. So the gold ORACLE_single (0.867) is only +0.150 above random -- the "the disambiguating cue
+is in the context 87% of the time" framing was inflated; most of it was luck. WITHDRAW the strong reading of that
+number.
+
+**What IS there: a thin-but-real per-token signal (representation-THINNED, not purely extraction-limited).** Per
+context word, gold gets 21.2% of the argmax votes vs chance 16.5% vs a random non-gold sense 15.5% -- **+0.047 above
+chance, +0.057 above random**; the signed context tilt toward gold over the dominant is **+0.004** (tiny, positive);
+the signal concentrates only weakly in high-confidence words (0.227 vs 0.195). Knowledge-free aggregation
+(plurality/margin vote) = 0.25-0.29, BELOW our precision readout 0.336 -- so we already extract the thin signal
+better than naive voting, and the gold-blind extraction ceiling is only modestly above precision (~0.35, where the
+ACT-R ideal chain sits). The signal is thin because each context word is itself a SENSE-CONFLATED static vector, so
+its vote is blurred.
+
+**THE ENABLER, stated plainly (literature drill `research_lfs_rare_sense_enabler_knowledge_vs_context_2026-09-04.md`):
+CONTEXTUAL PER-OCCURRENCE RE-REPRESENTATION, not knowledge.** Field evidence: zero-knowledge frozen BERT beats MFS by
+~20 F1 on rare senses; knowledge-graph pretraining WITHOUT a contextual base UNDERperforms plain frozen BERT (31.2 vs
+37.0 LFS); knowledge adds real lift (+7-16) ONLY once a contextual base exists -- exactly reproducing this problem's
+0.261-below-0.34 knowledge result. No verified static-embedding-only method beats MFS on rare senses anywhere. The
+true bar is CONTEXTUAL, not TRANSFORMER (context2vec, a BiLSTM, beats MFS on LFS) -- but any contextual re-computation
+is a trained encoder = the invariant boundary. Contextual re-representation is the enabler precisely because it
+THICKENS the thin static signal: the token vector becomes sense-resolved, so the per-token diagnostic vote is no
+longer blurred. Knowledge cannot substitute because it rides on the same thin static signal.
+
+**Net corrected localization:** the static-embedding per-token signal is real but thin (+0.047 above chance); we
+already extract near its gold-blind ceiling (~0.34-0.35); the remaining headroom (to ~0.53) is a REPRESENTATION gain
+that only contextual re-representation delivers -- confirming, from a corrected and chance-controlled trace, that the
+enabler is the frozen-representation fix (the invariant boundary), and that neither knowledge nor a better static
+extractor closes it.
+
+## ORGAN CHECK -- do we have an organ that does contextual re-representation? (yes; all glass-box ones fail within the invariant)
+
+Asked to check the organs for the enabler (contextual re-representation) and/or prototype a brain-faithful one, I
+enumerated what the substrate already has:
+- **FIVE self-built glass-box contextual encoders exist and ALL score BELOW the static baseline** (measured, on disk):
+  context2vec BiLSTM 0.137, context_encoder v2 (masked-LM + gloss encoder, 15 epochs) 0.227, predictive_coding_encoder
+  (error-drive + precision) 0.130, context_encoder_from_text 0.107 -- vs bag/diagnostic 0.28-0.34. Contextual
+  re-representation is the enabler, but it realizes the gain ONLY at transformer scale (lit refs on disk: BERT-nogloss
+  LFS ~0.37, BEM LFS 0.526); our within-invariant encoders are too weak to THICKEN the thin static signal -- they add
+  noise and land below the bag. This is the invariant boundary, from five encoder directions.
+- **`hdlab/predictive_reader.py`** is the brain-faithful FORWARD-predictor (selectional preference / thematic fit,
+  Altmann-Kamide 1999, McRae 1998 -- the "online predictive" half the brief named; landed, owner-DONE, 8/8). But by its
+  OWN landed caveat it predicts COARSE GROUNDED features and is "a graded-difficulty SIGNAL, not a standalone accuracy
+  lift (ceiling'd by the grounded space)"; and it requires the predicate-argument structure (which verb governs the
+  target) that the eval harness (context bags, no parse) does not provide.
+- Other meaning organs (`distributional_meaning_channel` = substitutability only, actively BAD at general similarity;
+  `iterative_attractor` = settling, over-collapses; `vsa_cleanup_memory`, `conceptual_meaning`, `meaning_fusion`) do
+  not do per-occurrence contextual re-representation of the word.
+
+**Verdict:** the organs for contextual re-representation EXIST and they CONFIRM it cannot be realized glass-box within
+the invariant -- five encoders all fall below the static baseline (the enabler needs transformer scale = the boundary),
+and the brain-faithful forward-predictor is grounded-coarse + parse-dependent (a difficulty signal, not an accuracy
+lift). A sixth within-invariant encoder would be another sub-baseline variant; a predictive_reader WSD prototype is
+grounded-ceiling'd AND parse-blocked on this harness. So there is no organ-backed, invariant-respecting prototype that
+thickens the signal -- consistent with the re-trace (thin static signal) and the literature (only trained contextual
+re-representation crosses).
+
 ## What I did NOT establish / would withdraw first
 
 - The **precision-weighting +0.023** is the load-bearing positive; its CI lower bound is +0.012 and the exact
@@ -370,6 +444,13 @@ population-composition artifact, not a capability.
   dominant sense (Deco-Rolls narrow working range). Making the gain MULTIPLICATIVE and SHARP (gamma>1 / top-k --
   Friston precision) lets a few high-precision subordinate cues win. That is a one-line, brain-faithful refinement to
   the wired readout, and it is our only CI-separated gain.
+- **THE STRICT INDUCTIVE CONTROL IS NON-NEGOTIABLE -- it caught two false PASSes.** Both the anti-dominant controlled
+  retrieval (0.382, crossed 0.35) and the knowledge-integration fuse (0.360, crossed 0.35, MFS improved) read as
+  clean PASSes until vetted: the first was a prior-shift the MFS guard caught, the second was transductive leakage a
+  strict train-only W caught (0.360 leaked -> 0.261 clean). A leave-one-DOCUMENT-out W that includes OTHER test
+  documents is transductive on the test population; the smoking gun was dev_sub 0.85 (dev items' own gold in the
+  W). Always run: (a) the MFS no-regression guard, (b) a strictly inductive train-only foundation, (c) dev-tuning on
+  a set disjoint from the foundation. The disk (adversarial recompute) outranks the swing.
 - **The relational "spoke" is not a spoke.** Research corrected the brief: the canonical ATL hub has six perceptual/
   affect/verbal spokes and NO relational one; relational/sense-discriminative knowledge is a separate system. So the
   crosser (a sense-discriminative W) was never going to arrive as an ATL grounded spoke -- it is the consolidation/
