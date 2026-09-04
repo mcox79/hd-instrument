@@ -1,0 +1,77 @@
+{
+  "anchor_name": "atl_hubspoke_grounded_separability_v1",
+  "verdict": "MEASURED",
+  "result": {
+    "n_dev": 2605,
+    "n_test": 2676,
+    "separability_decomposition": {
+      "n_test_items": 2676,
+      "n_both_grounded": 1287,
+      "grounded_coverage_of_pairs": 0.481,
+      "grounded_white_cos_gold_vs_dominant_mean": 0.2192,
+      "grounded_white_cos_median": 0.1017,
+      "frac_grounded_separable_cos_lt_0.5": 0.8089,
+      "w2v_gloss_cos_gold_vs_dominant_mean": 0.7986,
+      "n_distribution_merged_cos_ge_0.5": 1287,
+      "among_merged__grounded_white_cos_mean": 0.2192,
+      "among_merged__frac_grounding_rescues_cos_lt_0.5": 0.8089,
+      "concrete__grounded_cos_mean": 0.6388,
+      "abstract__grounded_cos_mean": 0.1815,
+      "frac_concrete": 0.0824,
+      "surface_collapse_control__grounded_cos_mean": 0.2518
+    },
+    "arms": {
+      "L0_gloss_w2v": 0.2512,
+      "L3_rich_w2v_LAUNCHPAD": 0.3118,
+      "grounded_keys_whitened": 0.192,
+      "grounded_keys_raw": 0.1977,
+      "hub_concat_best_lam": 0.25,
+      "hub_concat": 0.2789,
+      "hub_concat_shuffled_twin": 0.1626
+    },
+    "hub_vs_launchpad": {
+      "delta": -0.0329,
+      "ci": [
+        -0.0467,
+        -0.0183
+      ],
+      "ci_hw": 0.0142,
+      "null_p95": 0.0142,
+      "a": 0.2789,
+      "b": 0.3118,
+      "n": 2675,
+      "sep": false,
+      "beats_null": false
+    },
+    "grounded_keys_white_vs_launchpad": {
+      "delta": -0.1309,
+      "ci": [
+        -0.1662,
+        -0.0936
+      ],
+      "ci_hw": 0.0363,
+      "null_p95": 0.0372,
+      "a": 0.192,
+      "b": 0.3228,
+      "n": 1047,
+      "sep": false,
+      "beats_null": false
+    },
+    "hub_vs_shuffled_twin": {
+      "delta": 0.1163,
+      "ci": [
+        0.0953,
+        0.1376
+      ],
+      "ci_hw": 0.0211,
+      "null_p95": 0.0221,
+      "a": 0.2789,
+      "b": 0.1626,
+      "n": 2675,
+      "sep": true,
+      "beats_null": true
+    },
+    "elapsed_s": 20.7,
+    "headline": "ATL RICHER GROUNDED HUB | launchpad=0.3118 hub_concat=0.2789 (vs launchpad sep=False ci=[-0.0467, -0.0183]) | grounded cov=0.481 cos(gold,dom)=0.219 rescues-merged=0.8089 | LOCATED NEGATIVE (grounding does not cross the launch pad)"
+  }
+}

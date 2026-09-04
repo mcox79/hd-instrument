@@ -1,0 +1,162 @@
+{
+  "anchor_name": "atl_hubspoke_grounded_disambiguate_then_bind_v1",
+  "verdict": "MEASURED",
+  "result": {
+    "n_train": 8543,
+    "n_test": 2676,
+    "ladder_gated_overall": {
+      "R0_launchpad_overall": 0.3118,
+      "R1_distributional_W_gated": 0.2269,
+      "R2_grounded_W_gated": 0.2127,
+      "R3_grounded_W_precision_gated": 0.2718,
+      "R4_bootstrap_W_gated": 0.2725,
+      "REF_gold_W_gated": 0.2991,
+      "TWIN_shuffled_grounded_W_gated": 0.2987
+    },
+    "MECHANISM_on_covered_subset": {
+      "coverage_frac": 0.878,
+      "distributional_W": {
+        "n": 2338,
+        "a_s_W": 0.1946,
+        "a_s_base_same_items": 0.2917,
+        "W_minus_base": -0.0971,
+        "sep": false,
+        "ci": [
+          -0.1206,
+          -0.0757
+        ]
+      },
+      "grounded_W": {
+        "n": 2348,
+        "a_s_W": 0.1776,
+        "a_s_base_same_items": 0.2905,
+        "W_minus_base": -0.1129,
+        "sep": false,
+        "ci": [
+          -0.135,
+          -0.0916
+        ]
+      },
+      "grounded_W_precision": {
+        "n": 1410,
+        "a_s_W": 0.1574,
+        "a_s_base_same_items": 0.2801,
+        "W_minus_base": -0.1227,
+        "sep": false,
+        "ci": [
+          -0.1504,
+          -0.0943
+        ]
+      },
+      "gold_W_reference": {
+        "n": 1400,
+        "a_s_W": 0.2186,
+        "a_s_base_same_items": 0.29,
+        "W_minus_base": -0.0714,
+        "sep": false,
+        "ci": [
+          -0.1029,
+          -0.0386
+        ]
+      },
+      "shuffled_twin": {
+        "n": 892,
+        "a_s_W": 0.1704,
+        "a_s_base_same_items": 0.2836,
+        "W_minus_base": -0.1132,
+        "sep": false,
+        "ci": [
+          -0.1513,
+          -0.0762
+        ]
+      }
+    },
+    "MECHANISM_on_gold_attested_subset": {
+      "attested_frac_grounded": 0.488,
+      "attested_frac_gold": 0.522,
+      "distributional_W": {
+        "n": 1260,
+        "a_s_W": 0.3651,
+        "a_s_base_same_items": 0.3595,
+        "W_minus_base": 0.0056,
+        "sep": false,
+        "ci": [
+          -0.027,
+          0.0373
+        ]
+      },
+      "grounded_W": {
+        "n": 1305,
+        "a_s_W": 0.3249,
+        "a_s_base_same_items": 0.3433,
+        "W_minus_base": -0.0184,
+        "sep": false,
+        "ci": [
+          -0.0529,
+          0.0153
+        ]
+      },
+      "grounded_W_precision": {
+        "n": 1305,
+        "a_s_W": 0.3126,
+        "a_s_base_same_items": 0.3395,
+        "W_minus_base": -0.0269,
+        "sep": false,
+        "ci": [
+          -0.0544,
+          -0.0008
+        ]
+      },
+      "bootstrap_W": {
+        "n": 1295,
+        "a_s_W": 0.3151,
+        "a_s_base_same_items": 0.3398,
+        "W_minus_base": -0.0247,
+        "sep": false,
+        "ci": [
+          -0.051,
+          0.0031
+        ]
+      },
+      "gold_W_reference": {
+        "n": 1396,
+        "a_s_W": 0.3388,
+        "a_s_base_same_items": 0.3052,
+        "W_minus_base": 0.0336,
+        "sep": true,
+        "ci": [
+          0.0057,
+          0.0609
+        ]
+      },
+      "shuffled_twin": {
+        "n": 784,
+        "a_s_W": 0.4082,
+        "a_s_base_same_items": 0.3457,
+        "W_minus_base": 0.0625,
+        "sep": true,
+        "ci": [
+          0.0306,
+          0.0931
+        ]
+      }
+    },
+    "R3_gated_vs_R0": {
+      "delta": -0.04,
+      "ci": [
+        -0.0583,
+        -0.0202
+      ],
+      "ci_hw": 0.0191,
+      "null_p95": 0.0191,
+      "a": 0.2718,
+      "b": 0.3118,
+      "n": 2675,
+      "sep": false,
+      "beats_null": false
+    },
+    "crosses_0.35_overall": false,
+    "elapsed_s": 24.7,
+    "headline": "GROUNDED DISAMBIG-THEN-BIND | GATED overall: R0=0.3118 dist=0.2269 grnd=0.2127 grnd+prec=0.2718 gold=0.2991 twin=0.2987 | ATTESTED-subset(gold-sense seen) W-minus-base: dist=0.0056 grnd=-0.0184 gold=0.0336 (att_frac=0.52) | crosses0.35=False"
+  }
+}

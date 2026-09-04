@@ -1,0 +1,81 @@
+{
+  "anchor_name": "atl_hubspoke_query_side_readout_v1",
+  "verdict": "MEASURED",
+  "result": {
+    "n_dev": 2605,
+    "n_test": 2676,
+    "arms": {
+      "L3_rich_LAUNCHPAD": 0.3118,
+      "precision_gamma": 0.3368,
+      "precision_gamma__cfg": {
+        "gamma": 2.0
+      },
+      "precision_topk": 0.3241,
+      "precision_topk__cfg": {
+        "topk": 8
+      },
+      "candidate_restrict_distrib": 0.3006,
+      "candidate_restrict_distrib__cfg": {
+        "restrict_keep": 4
+      },
+      "precision_x_restrict": 0.3006,
+      "precision_x_restrict__cfg": {
+        "gamma": 1.0,
+        "restrict_keep": 4
+      },
+      "grounded_candidate_restrict": 0.3252,
+      "grounded_candidate_restrict__cfg": {
+        "grnd_restrict_keep": 3,
+        "gamma": 2.0
+      },
+      "precision_topk_x_grounded_restrict": 0.3178,
+      "precision_topk_x_grounded_restrict__cfg": {
+        "grnd_restrict_keep": 3,
+        "topk": 8,
+        "gamma": 1.0
+      },
+      "distinctive_whitened_keys": 0.1664
+    },
+    "oracle_context_ceiling_ref": 0.853,
+    "launchpad_floor": 0.3118,
+    "best_arm": "precision_gamma",
+    "best_a_s": 0.3368,
+    "best_vs_launchpad": {
+      "delta": 0.025,
+      "ci": [
+        0.0142,
+        0.0363
+      ],
+      "ci_hw": 0.011,
+      "null_p95": 0.0116,
+      "a": 0.3368,
+      "b": 0.3118,
+      "n": 2675,
+      "sep": true,
+      "beats_null": true
+    },
+    "best_vs_twin": {
+      "delta": 0.0654,
+      "ci": [
+        0.0479,
+        0.083
+      ],
+      "ci_hw": 0.0176,
+      "null_p95": 0.0176,
+      "a": 0.3368,
+      "b": 0.2714,
+      "n": 2675,
+      "sep": true,
+      "beats_null": true
+    },
+    "twin_a_s": 0.2714,
+    "mfs_guard": {
+      "launchpad_all": 0.4159,
+      "best_all": 0.4335,
+      "delta_all": 0.0175,
+      "no_regression": true
+    },
+    "headline": "QUERY-SIDE READOUT | launchpad=0.3118 best=precision_gamma 0.3368 (vs launchpad sep=True ci=[0.0142, 0.0363]; twin=0.2714) | CROSSES launch pad",
+    "elapsed_s": 49.6
+  }
+}
