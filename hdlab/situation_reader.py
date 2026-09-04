@@ -205,6 +205,20 @@ def _load_frontend():
         _FRONTEND_CACHE["p"] = ArcParser.load(_FRONTEND_ARC_ASSET)
     return _FRONTEND_CACHE["t"], _FRONTEND_CACHE["p"]
 
+
+class _CachedTagShim:
+    """Adapts the reader's shared per-read tag cache to the `tagger.tag(toks)` interface that
+    referent_per_np_source expects, so its per-sentence tagging HITS the shared _cached_tag instead of a
+    redundant private PosTagger copy. Byte-identical: _cached_tag uses the same _FRONTEND_POS_ASSET the
+    private tagger loaded. General (not tied to one config)."""
+    __slots__ = ("_r",)
+
+    def __init__(self, reader):
+        self._r = reader
+
+    def tag(self, toks):
+        return self._r._cached_tag(list(toks))
+
 _CAUSAL_CONNECTIVES = frozenset(
     set(getattr(C, "CONNECTIVE_CAUSE_FIRST", set()))
     | set(getattr(C, "CONNECTIVE_EFFECT_FIRST", set())))
@@ -993,11 +1007,12 @@ class SituationReader:
         split (no form-based AUX blocklist, which wrongly drops main-verb have/do/let). This is the
         validated `fixed_extract_events` from exp_extraction_frontend_end_to_end_live_reader_v1, landed
         behind the flag. Placeholder tense (see the __init__ boundary note)."""
-        if self._ta_tagger is None:
-            from hdlab.pos_tagger import PosTagger
-            self._ta_tagger = PosTagger.load(_FRONTEND_POS_ASSET)
         toks = text.split()
-        up = self._ta_tagger.tag(toks)
+        # PERF sweep #2 (2026-09-04, general): the tense-agnostic detector loads _FRONTEND_POS_ASSET -- the SAME
+        # asset the shared frontend tagger uses -- so route its per-sentence tag through the shared per-read cache
+        # (_cached_tag) instead of a redundant private PosTagger copy. Byte-identical (same asset); the events path
+        # tags these same sentences, so most are cache HITS (measured 81 -> ~0 extra tags/read).
+        up = self._cached_tag(toks)
         if self.preserve_tense:
             # tense-PRESERVING: identical detection (same UPOS==VERB tokens -> recall preserved EXACTLY),
             # but a COMPOSED Reichenbach tense/is_pp instead of the placeholder constant. Byte-identical to
@@ -1034,8 +1049,9 @@ class SituationReader:
         if self._pred_detector is None:
             from hdlab.predicate_detector import PredicateDetector
             self._pred_detector = PredicateDetector.load()
-        W = self._ta_tagger._perc.weights
-        tags = self._ta_tagger.tags
+        ft = self._frontend_tagger()   # same _FRONTEND_POS_ASSET as the old private _ta_tagger -> identical weights/tags
+        W = ft._perc.weights
+        tags = ft.tags
         for i, _p in self._pred_detector.rescue_indices(toks, up, W, tags):
             events.append(T.Event(lemma=toks[i].lower(), idx=i, pos="VERB",
                                   tense=T.TENSE_SIMPLE_PAST, is_pp=False))
@@ -1551,16 +1567,14 @@ class SituationReader:
             from hdlab.predictive_reader import PredictiveReader
             self._pr_predictor = PredictiveReader.load(self.predict_surprisal_asset or _PREDICT_SURPRISAL_ASSET)
         pr = self._pr_predictor
-        if self._ta_tagger is None:
-            from hdlab.pos_tagger import PosTagger
-            self._ta_tagger = PosTagger.load(_FRONTEND_POS_ASSET)
-        tagger = self._ta_tagger
         cand_cache: Dict[int, List[str]] = {}
 
         def cands_for(si: int) -> List[str]:
             if si not in cand_cache:
                 toks = sents[si] if 0 <= si < len(sents) else []
-                cand_cache[si] = self._nominal_heads(toks, tagger.tag(toks)) if toks else []
+                # PERF sweep #2: route through the shared per-read tag cache (was a private _ta_tagger copy loading
+                # the same _FRONTEND_POS_ASSET) -> byte-identical, cache HIT on already-tagged sentences.
+                cand_cache[si] = self._nominal_heads(toks, self._cached_tag(toks)) if toks else []
             return cand_cache[si]
 
         for e in sm.events:
@@ -1678,11 +1692,11 @@ class SituationReader:
             # while who-did-what keeps the parent's +0.336. The brief's "merge referents INTO the coref pool"
             # is REFUTED (-0.106 CI-sep -- the antecedent was already coref-covered, so the extra referents are
             # pure distractors). NO external LLM.
-            if self._rnp_tagger is None:
-                from hdlab.pos_tagger import PosTagger
-                self._rnp_tagger = PosTagger.load(_FRONTEND_POS_ASSET)
             from hdlab.referent_per_np import referent_per_np_source
-            role_mentions, n_sents = referent_per_np_source(conll_path, self._rnp_tagger, name_gender_map=self.gaz)
+            # PERF sweep #2: referent_per_np_source tags each sentence via tagger.tag(); the reader's frontend
+            # tagger loads the SAME _FRONTEND_POS_ASSET, so pass a shim over the shared per-read tag cache instead
+            # of a redundant private PosTagger copy -> byte-identical, its 71 tags/read become shared-cache hits.
+            role_mentions, n_sents = referent_per_np_source(conll_path, _CachedTagShim(self), name_gender_map=self.gaz)
             coref_mentions, n_coref = parse_litbank_conll(conll_path, name_gender_map=self.gaz)
             if n_coref != n_sents:
                 raise RuntimeError("SENTENCE_MISALIGN: rnp=%d coref=%d" % (n_sents, n_coref))
