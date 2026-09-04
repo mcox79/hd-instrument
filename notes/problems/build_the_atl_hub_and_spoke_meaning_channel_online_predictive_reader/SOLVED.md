@@ -392,6 +392,29 @@ that only contextual re-representation delivers -- confirming, from a corrected 
 enabler is the frozen-representation fix (the invariant boundary), and that neither knowledge nor a better static
 extractor closes it.
 
+## THE ENCODER, RE-EXAMINED (owner: "does the brain use a trained encoder?" -- no; "modify the encoder to what downstream needs")
+
+Two owner corrections closed this cleanly. (1) A batch-trained encoder is NOT brain-foundational and was abandoned:
+I traced the prior encoders' failure to a real BUG -- the context2vec readout matched a 256-dim context-space query
+to a 200-dim w2v gloss key (proven: matmul 200!=256 space/dimension mismatch), so it was near-random; context2vec's
+NATIVE readout uses mean-context-vector sense keys IN THE SAME SPACE. Fixing that (`exp_atl_hubspoke_context2vec_aligned_v1`)
+and scaling the self-supervised pretrain 40k->300k sentences moved a_s only 0.192->0.207 (coverage 0.99, so not a
+coverage issue) -- it beats its structure-destroyed twin (real contextual signal) but stays below the static bag
+0.265: a slow, scale-bound climb confirming a trained encoder needs transformer-scale (BERT 0.37 / BEM 0.53). Not
+built further (not brain-faithful, and scale-bound).
+(2) The reader ALREADY has a brain-faithful contextual re-representation -- the gestalt model's per-token `mu`
+(`_gestalts_with_mu`). Decoded: the raw static target vector leans to the DOMINANT sense (gold-minus-dominant tilt
+-0.019) but `mu` leans to the GOLD/subordinate sense (+0.012); `mu` beats the raw static target in the readout
+(0.201 -> 0.275) and ADDS a real, non-leaky increment to the precision readout (0.3335 -> 0.3394; the shuffled-`mu`
+twin drops to 0.266, so the signal is genuine, not leakage). So the substrate's online reader DOES re-represent the
+token toward its context sense -- brain-faithfully, glass-box -- it is just WEAK (+0.012 tilt, +0.006 to the readout),
+the same thin-signal ceiling as everything else on the frozen substrate. What the downstream needs is a STRONGER
+gold-tilt; strengthening `mu` glass-box is the online predictive-coding learner accumulating re-representation over
+much more reading (the learner-on / consolidation north star) -- which this problem's disambiguate-then-bind ladder
+showed is Zipf-bound with a glass-box resolver (gold-resolved helps +0.03 on attested; glass-box resolvers do not).
+So the encoder is real and brain-faithful; its sense-resolution is thin for the measured reason, and thickening it
+is the online-experience north star, not a batch encoder.
+
 ## ORGAN CHECK -- do we have an organ that does contextual re-representation? (yes; all glass-box ones fail within the invariant)
 
 Asked to check the organs for the enabler (contextual re-representation) and/or prototype a brain-faithful one, I
