@@ -5,7 +5,7 @@ bar: "PASS = glass-box grounding-anchored propose-and-verify online growth (admi
 result: "LOCATED NEGATIVE (a full pass by the bar), with a real controlled positive inside it. Scorer throughout: subject-weighted a_s on strict document-disjoint SemCor SUBORDINATE senses, n=2676, via hdlab/diagnostic_context_wsd, frozen 200-dim w2v, glass-box. (1) MECHANISM: episodic count-normalized MINERVA-2 retrieval beats prototype-averaging on the rare tail at the gold ceiling -- PURE content vs shuffled-trace twin +0.038 CI-sep [0.006,0.071]; count-normalization beats raw-summed MINERVA-2 +0.096 CI-sep (the Zipf-swamp). (2) ONLINE PBV-v2 (grounding-anchored propose + cross-encounter Bush-Mosteller verify + prioritized replay + consolidation-gated commit) produces CLEAN traces: covered PURE episodic 0.763 vs twin 0.707, +0.056 CI-sep. (3) COVERAGE GROWS with reading (external simplewiki, morphologically lemmatized): breadth 0.14 in-SemCor -> 0.47 at 2.78M sentences; on covered senses episodic beats base and twin CI-sep at every checkpoint. (4) ALL-BRAIN-FAITHFUL deploy (every component in its faithful form): deployed rare-sense a_s 0.327 vs base 0.317 = +0.011, CI-separated only at moderate coverage (frac 0.40-0.55, CI [0.0015]/[0.0004]) NOT at full corpus (CI [-0.0019,0.0217]); concrete stratum +0.035; full-population MFS no-regression holds (0.457 vs 0.450). NAMED CAUSE of the non-crossing: with every downstream component faithful, the only non-faithful piece left is the frozen distributional INPUT representation -- base readout and episodic traces derive from the SAME thin w2v context, so episodic memory adds little the readout does not already extract. The faithful form of that last piece is a contextual per-occurrence encoder = a transformer = the §2 invariant boundary. (5) MORE-HUMAN-LIKE result: scored at the COARSE (supersense) grain humans actually agree on (~0.90 ITA vs ~0.72 fine), the SAME mechanism reaches ~0.50 on rare senses -- coarse R3 0.496 beats coarse-MFS +0.204 CI-sep [0.181,0.225] and coarse-random +0.134 CI-sep [0.111,0.159] (subordinate senses carry a different supersense than the dominant, so it is a real, non-trivial coarse win). ~0.18-0.20 of the apparent fine-grained 'wall' is the over-fine SENSE-INVENTORY ARTIFACT, not comprehension."
 floor: "base = the wired diagnostic-context readout (WordNet rich-atom keys) on the SAME rare population, recomputed per stage: STAGE-0/gold rare-covered 0.283; STAGE-3/all-faithful all-rare 0.3166 (base_full head+tail 0.450). Prototype-averaging (P9 R5 gold) 0.359 rare-covered. NAIVE contaminated deploy 0.265 and raw-summed MINERVA-2 swamp 0.321 (the info-free controls the mechanism must beat)."
 controls: "(1) SHUFFLED-EXPERIENCE twin (committed sense->trace map permuted; identical coverage, content-isolated) LOSES CI-sep on every mechanism arm across all stages -- and it caught the coverage/attestation artifact in the fused arms (fused beat proto but NOT its twin). (2) count-normalized/MAX echo beats the RAW-SUMMED MINERVA-2 echo +0.096 CI-sep (Zipf-swamp control; the canonical raw-sum re-imports frequency bias). (3) MFS NO-REGRESSION guard on the full head+tail population passes at every stage. (4) strict INDUCTIVE: the external growth corpus (simplewiki) is disjoint from the SemCor test docs -- no transductive leakage (the control that caught P9's '0.360'). (5) COVERAGE-AWARE vs NAIVE deploy (0.265) -- isolates the uncovered-competitor contamination. (6) cls_growth.rollback_gate: ACCEPTs coverage-aware growth (probe corruption 0.095<0.10), ROLLs-BACK naive growth (0.145>0.10); random-decision control accepts blindly (protection is real). (7) concrete/abstract stratification (Brysbaert) -- the mechanism-diff predictor (concrete deploys +0.035, abstract does not)."
-files_changed: "experiments/exp_rare_sense_episodic_vs_prototype_v1.py (STAGE 0: episodic-vs-prototype, gold ceiling); experiments/exp_rare_sense_propose_verify_episodic_v1.py (STAGE 1: vanilla-margin PBV located negative); experiments/exp_rare_sense_pbv_v2_brain_faithful_v1.py (STAGE 1.5: the brain-foundational PBV-v2 upgrade); experiments/exp_rare_sense_coverage_growth_v1.py (STAGE 2: external-corpus coverage growth + consolidation gate + pw deploy); experiments/exp_rare_sense_all_brain_faithful_v1.py (STAGE 3: every component faithful); experiments/exp_rare_sense_full_chain_signal_loss_v1.py (full upstream->downstream signal-loss trace + coarse/human-like scoring); experiments/exp_rare_sense_cls_rollback_safety_v1.py (cls_growth safe-growth reuse); experiments/exp_rare_sense_trace_sharpening_v1.py (trace-sharpening optimization probe); verification/test_rare_sense_episodic_coverage_growth.py (13-check witness)."
+files_changed: "experiments/exp_rare_sense_episodic_vs_prototype_v1.py (STAGE 0: episodic-vs-prototype, gold ceiling); experiments/exp_rare_sense_propose_verify_episodic_v1.py (STAGE 1: vanilla-margin PBV located negative); experiments/exp_rare_sense_pbv_v2_brain_faithful_v1.py (STAGE 1.5: the brain-foundational PBV-v2 upgrade); experiments/exp_rare_sense_coverage_growth_v1.py (STAGE 2: external-corpus coverage growth + consolidation gate + pw deploy); experiments/exp_rare_sense_all_brain_faithful_v1.py (STAGE 3: every component faithful); experiments/exp_rare_sense_full_chain_signal_loss_v1.py (full upstream->downstream signal-loss trace + coarse/human-like scoring); experiments/exp_rare_sense_cls_rollback_safety_v1.py (cls_growth safe-growth reuse); experiments/exp_rare_sense_trace_sharpening_v1.py (trace-sharpening optimization probe); verification/test_rare_sense_episodic_coverage_growth.py (15-check witness)."
 reverify: ".venv/Scripts/python.exe verification/test_rare_sense_episodic_coverage_growth.py"
 ---
 
@@ -126,6 +126,29 @@ floors) -- a real comprehension capability the fine-grained scoring obscured.**
 Two upstream DEVIATIONS carry the residual: the frozen input embedding (the §2 boundary) and the over-fine sense
 inventory (an artifact the coarse/human-like scoring shows is ~40% of the gap). Everything else is faithful.
 
+## RESEARCH CROSS-CHECK (2026-09-04 literature scan + P9 disk) -- the two upstream deviations, verified
+**(1) COARSE is the MORE BRAIN-FAITHFUL grain (not just easier).** Word senses are purpose-relative abstractions over
+citations (Kilgarriff 1997); annotators rate MULTIPLE fine senses jointly applicable to one token (Erk & McCarthy
+2009); humans only reach reliable agreement after senses are MERGED (OntoNotes "90% solution", Hovy 2006), and the
+brain's ATL represents concepts as a GRADED continuous space (Lambon-Ralph 2016), with supersense-level categories
+(animate/inanimate...) having neural grounding that fine synset splits do NOT. Caveat (honest): the faithful move is
+"merge POLYSEMOUS over-splits, KEEP HOMONYMIC distinctions" -- polysemy is one underspecified core (Frisson-Pickering;
+Rodd 2004 attractor), homonyms are genuinely distinct. So the ~0.50 coarse/supersense result is the more
+brain-faithful measure of rare-sense comprehension; the ~0.32 fine number is bounded partly by an over-split
+inventory, not purely by mechanism.
+**(2) THE GLASS-BOX CONTEXTUAL-RE-REPRESENTATION ROUTES ARE DISK-EXHAUSTED -- the §2 boundary is verified, not
+assumed.** The scan named three glass-box (non-transformer) alternatives to a trained contextual encoder; P9 already
+built and refuted all three: AutoExtend sense de-superposition (a_s 0.323->0.213 -- de-superposes the KEYS but the
+frozen context breaks the match); joint-PPR spreading activation over the WordNet sense graph (the DeConf-equivalent,
+on the landed grounded_semantic_graph organ -- 0.264/fuse 0.323, topical); and recurrent attractor / Kintsch
+construction-integration settling (OVER-COLLAPSES to the dominant basin; iterative==one-shot). All fail for the SAME
+reason and it is the reason this whole problem exists: they enrich the KEYS/sense-vectors, which P9 proved are already
+separable (KEY-unwinnable 0.000), while the loss is on the QUERY side -- the frozen, non-recomputed CONTEXT
+representation. The brain's faithful contextual re-representation IS recurrent settling (Armstrong-Plaut 2016), but it
+settles over a RICHLY re-computed substrate; ours settles over a frozen thin w2v context, so it over-collapses. Making
+the context side faithful = re-computing the word-in-context = a contextual encoder = the §2 boundary. This is now
+triangulated by three independent lines: P9's chain, STAGE 3's all-faithful build, and this scan.
+
 ## WHAT I DID NOT ESTABLISH / WHAT I WOULD WITHDRAW FIRST
 - **A robust CI-separated crossing of the deployed bar.** It crosses only at moderate coverage (0.40-0.55) with a
   borderline CI (lower bound ~0.001) and dilutes at full corpus as harder rare senses join. I do NOT claim a SOLVED.
@@ -187,10 +210,15 @@ chosen not to use. So the honest result is: the brain-faithful memory, learning,
 is the frozen input, and closing it is exactly the invariant decision.
 
 ## QUESTIONS
-One, and it is the owner's (this problem sharpens it into THE decision): hold the no-transformer invariant and accept
-that the rare-sense ceiling is set by the frozen input representation (the brain-faithful memory/coverage machinery is
-proven complete and human-like context-free), OR relax it for one offline contextual input encoder to turn the proven
-covered-sense advantage into a full-set gain toward ~0.53? This work assumed the invariant HOLDS. No other questions.
+One, and it is the owner's -- but this problem REFRAMES it into a smaller decision than it looked. Two facts change the
+calculus: (a) at the brain-faithful COARSE grain (the grain humans agree on ~0.90; fine WordNet splits are largely an
+inventory artifact with no neural grounding), the mechanism ALREADY reaches ~0.50 on rare senses, CI-separated over the
+floors -- rare-sense *comprehension* is substantially PRESENT, not walled; (b) the frozen input caps only the FINE
+number, and the disk has now refuted three independent glass-box routes to close it, so closing it needs a contextual
+encoder = the invariant boundary. So: hold the no-transformer invariant and accept that the FINE-grained ceiling is set
+by the input representation (the memory/coverage/acquisition machinery is proven complete, faithful, and human-like at
+the coarse grain), OR relax it for one offline contextual input encoder to push the FINE number toward ~0.53? Given (a),
+holding the invariant costs less than it first appeared. This work assumed the invariant HOLDS. No other questions.
 
 ## NEXT STEPS
 1. Owner decides §2 (the sharpened decision above). This located negative is the input to it.
