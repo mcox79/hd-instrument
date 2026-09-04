@@ -5,7 +5,7 @@ bar: "PASS = a likelihood-trained (CRF-objective) POS tagger with a CALIBRATED p
 result: "LOCATED NEGATIVE on the JOINT DECODE (axis-3) + a hardened, dependency-resolved DEPLOYABLE WIN on the calibrated posterior (axis-1). (1) The likelihood-trained CRF CALIBRATED POSTERIOR alone separates 19c dropped verbs at AUROC 0.9409 (n_drops=55, n_cand=10703) / recovery 0.8727 @ FP<=0.5 (19c LitBank transfer), CI-separated over the info-free twin (delta +0.747), MODERN 0.931 — the axis-1 fix, reproduced. (2) JOINT PARSE-DECODE (axis-3) DOES NOT PUSH PAST IT: adding the force-VERB parse-coherence cue lifts AUROC by +0.0017 with a REGISTER-ROBUST delexicalized parser (recovery 0.8727 @FP<=0.5 = a NO-OP vs CRF-alone) and by +0.0012 with the modern LEXICAL parser (which HURTS the operating point: 0.800). The delexicalized coherence IS the better structural cue (AUROC 0.6184 vs lexical 0.5901 — the parser's register-brittleness is real) but IMMATERIAL because the calibrated posterior already captures the separable signal (AUROC 0.94). (3) PARSER DOWNSTREAM (payoff-2) IS REAL but the lever is the calibrated posterior + PRECISION-GUARDED recovery, NOT the joint decode: on the genuine-drop subpopulation (n=55), recovering the dropped verb lifts who-did-what REACHABILITY +0.3091 CI[0.182,0.455] over base (0.491->0.800) and +0.3636 CI[0.236,0.509] over the info-free random-correction twin, and who-did-what accuracy +0.236; BUT feeding recovered tags at the modern threshold FLOODS the parse (6576 corrections / 3015 records) and COLLAPSES full-pop reachability 0.698->0.497. (4) The residual is a PARSER/TAGGER-FIDELITY gap, not a meaning ceiling: spaCy (offline competent-reader oracle) recovers 0.818 of the drops / 0.881 of in-vocab drops. (5) DEPENDENCY STORY RESOLVED: the CRF posterior is reimplemented GLASS-BOX in pure numpy (linear-chain forward-backward), reproducing sklearn_crfsuite.predict_marginals to max|dP(VERB)|=7.3e-7 (Viterbi tags 100%), so it ships as a dependency-free static json asset — NO crfsuite runtime dep."
 floor: "For the JOINT-DECODE question the strongest floor actually run is the CRF-alone calibrated posterior (CRF_POST): recovery 0.8727 @FP<=0.5 on 19c-transfer (AUROC 0.9409); the joint-decode arms tie (delex 0.8727) or lose (lexical 0.800). For the calibrated-posterior-vs-perceptron question the floor is the perceptron max-margin margin (0.582 on 19c drops, parent SS4c). For payoff-2 the floor is base reachability on the genuine-drop subpopulation (lexical parser + committed perceptron tags) = 0.4909, and the info-free random-correction twin = 0.4364 (does NOT lift, -0.0545 vs base)."
 controls: "(1) INFO-FREE TWIN payoff-1 (random-verbhood promotion at matched rate) LOSES CI-separated for the calibrated posterior (delta +0.747). (2) INFO-FREE TWIN payoff-2 (force ONE RANDOM gate-eligible token->VERB, same #corrections, wrong token) does NOT lift reachability (twin-base -0.0545 CI[-0.127,0.0] not-sep) and oracle-recovery beats it +0.3636 CI[0.236,0.509] -> the downstream gain is real verb-recovery signal, not a distractor-VERB artifact. (3) AUROC DECOMPOSITION (CRF posterior vs each parse-coherence cue, n_cand=10703) isolates that structure adds ~nothing over the calibrated posterior (delta +0.0017 delex / +0.0012 lexical). (4) LEXICAL-vs-DELEX parser (one variable = word-identity features): the register-robust delex coherence separates better (AUROC 0.618>0.590) — register-brittleness is real — yet immaterial. (5) spaCy OFFLINE ORACLE (reference-only, never at inference): recovers 0.818/0.881 of drops -> the residual is a fidelity gap, NOT a meaning ceiling. (6) MODERN UAS RETENTION: delex parser loses 8 UAS in-domain (0.842->0.762) — quantifies the delexicalization cost and why it is not free. (7) FULL-POP FLOODING vs SUBPOP PRECISION-GUARDED isolates that payoff-2's full-pop collapse (0.698->0.497) is a detector-PRECISION artifact (6576 forced VERBs), not a limit of verb recovery. (8) GLASS-BOX CRF vs crfsuite (max|dP(VERB)|=7.3e-7) verifies the dependency-free asset is byte-faithful."
-files_changed: "experiments/exp_joint_decode_register_robust_tagger_parser_v1.py (the delexicalized register-robust parser + both payoff arms), experiments/exp_joint_decode_residual_decomposition_v1.py (AUROC decomposition + spaCy oracle + OOV split), experiments/exp_joint_decode_downstream_bestshot_v1.py (payoff-2 oracle recovery + twin on the drop subpopulation), experiments/exp_crf_glassbox_marginals_v1.py (pure-numpy CRF forward-backward = the dependency resolution), verification/test_joint_decode_register_robust.py (scaffold-free witness, 5/5), data/exp_crf_glassbox_marginals_v1/crf_tagger_glassbox.json (the deployable dependency-free calibrated-posterior asset), data/exp_joint_decode_register_robust_tagger_parser_v1/{metrics.json, arceager_delex_ud_ewt.npz} (NO hdlab file changed — proposed diff below, strategy lands it per Q111)."
+files_changed: "experiments/exp_joint_decode_register_robust_tagger_parser_v1.py (the delexicalized register-robust parser + both payoff arms), experiments/exp_joint_decode_residual_decomposition_v1.py (AUROC decomposition + spaCy oracle + OOV split), experiments/exp_joint_decode_downstream_bestshot_v1.py (payoff-2 oracle recovery + twin on the drop subpopulation), experiments/exp_brain_comparison_signal_loss_ladder_v1.py (the per-stage signal-loss ladder vs the competent-reader proxy, §4d), experiments/exp_crf_glassbox_marginals_v1.py (pure-numpy CRF forward-backward = the dependency resolution), verification/test_joint_decode_register_robust.py (scaffold-free witness, 5/5), data/exp_crf_glassbox_marginals_v1/crf_tagger_glassbox.json (the deployable dependency-free calibrated-posterior asset), data/exp_joint_decode_register_robust_tagger_parser_v1/{metrics.json, arceager_delex_ud_ewt.npz} (NO hdlab file changed — proposed diff below, strategy lands it per Q111)."
 reverify: ".venv/Scripts/python.exe verification/test_joint_decode_register_robust.py"
 ---
 
@@ -110,6 +110,35 @@ BASE-MODEL CAPACITY / target-register training data, not the joint-decode archit
 meaning hub. (The genuine meaning-hub residual lives in the MODERN confident-mistag 33%, per parent SS4b — a different
 population.)
 
+## 4d. PERFORMANCE vs THE BRAIN — the per-stage signal-loss ladder (cell: exp_brain_comparison_signal_loss_ladder_v1)
+Where along the who-did-what chain do we lose signal vs a competent reader? Measured on the SAME 19c LitBank pop
+(n=2123 records), retained fraction per stage, with spaCy (a competent STATISTICAL reader; offline diagnostic oracle,
+never at inference) as the nearest measurable brain proxy. The conditional columns decompose the chain multiplicatively.
+
+| arm | VERB (detect) | REACH (arg reaches verb) | SELECT (who-did-what) | REACH\|verb | SELECT\|reach |
+|---|---|---|---|---|---|
+| OURS-perceptron (live floor) | 0.9741 | 0.6952 | 0.4357 | 0.7007 | 0.6070 |
+| OURS + CRF verb-recovery | **1.0000** | 0.7033 | 0.4418 | 0.7033 | 0.6088 |
+| BRAIN-proxy (spaCy) | 0.9967 | **0.9637** | 0.5695 | **0.9664** | 0.5890 |
+
+**The loss localizes to ONE stage, and it is NOT the tagger.**
+- **DETECTION: we MATCH the brain.** The CRF calibrated posterior takes verb-detection 0.974 -> 1.000 (vs proxy 0.997).
+  This problem's axis-1 fix closes the detection gap; detection is not where we lose signal.
+- **PARSE (REACH|verb): THE loss = 0.703 vs 0.966, a 0.26 gap.** Given the verb is present, our modern-trained arc-eager
+  parser attaches the gold argument to it 70% of the time on 19c; the competent reader does it 97%. CRF verb-recovery
+  adds only +0.003 here on the full pop (the parser, not the tagger, is the full-pop bottleneck).
+- **SELECTION (SELECT|reach): we MATCH the brain proxy (0.609 vs 0.589).** Once the argument reaches the verb, our
+  who-did-what selection is as good as the competent statistical reader's — and BOTH sit at ~0.60, so ~0.40 of selection
+  is a genuine MEANING CEILING that even a competent statistical reader cannot pass without a situation model.
+
+**So essentially 100% of our end-to-end deficit vs the brain proxy (who-did-what 0.44 vs 0.57) is the PARSE stage.** It is
+a parser-FIDELITY/CAPACITY gap (UD-EWT perceptron vs spaCy's ~10x-data neural parser, on archaic word-order), NOT a
+tagger gap (matched) and NOT — for the part we can beat — a selection gap (matched to the statistical reader). The deepest
+residual (~0.40 at SELECT|reach, shared with the proxy) is the situation-model/world-knowledge ceiling a HUMAN would beat
+but spaCy cannot — the meaning hub (north-star P1). CAVEAT: spaCy proxies the brain's EXPOSURE advantage, not its
+world-knowledge; and its dependency scheme differs from ours (reachability-within-8-hops is scheme-robust, but the 0.26
+gap may be marginally inflated by scheme differences — it is far too large to be an artifact).
+
 ## 5. The dependency story, resolved (the deployable win)
 The calibrated CRF posterior was a `sklearn_crfsuite.CRF` pickle — crfsuite is not a tracked substrate dependency and a
 pickle is not glass-box. A linear-chain CRF is just state potentials + label-label transitions + forward-backward, and
@@ -163,6 +192,10 @@ crfsuite at runtime — and is landable in hdlab with NO new runtime dependency 
   WORD-ORDER gap (19c 90% in-vocab), not the vocabulary gap a delexicalized parser addresses; delex costs 8 UAS
   in-domain. The 19c verb-drop residual is a PARSER/TAGGER-FIDELITY gap (spaCy recovers 0.82/0.88), closable by base-model
   capacity/target-register data — NOT by the joint-decode architecture and NOT (for this population) by the meaning hub.
+- **Signal-loss ladder vs a competent reader (§4d, NEW):** on 19c who-did-what the loss localizes to the PARSE stage:
+  detection MATCHES the brain proxy (CRF 1.000 vs 0.997); REACH|verb is the gap (0.703 vs 0.966, -0.26); SELECT|reach
+  MATCHES the proxy (0.609 vs 0.589), with ~0.40 a shared meaning ceiling. Mark the reader's 19c bottleneck as the
+  PARSER's OOD word-order fidelity (a data/capacity gap), with the residual selection ceiling owned by the meaning hub.
 
 ## 7. Adjacent-component map (capabilities / limitations / brain status / next problems)
 | component (hdlab) | capability now | limitation | brain status | opportunity -> next problem |

@@ -5,7 +5,7 @@ bar: "PASS = a glass-box consolidation gate (extract -> consolidate -> admit; pe
 result: "RIGOROUS LOCATED NEGATIVE (= the FULL PASS the bar names), now proven across EVERY glass-box lever incl. grounding. a_s on strict document-disjoint SemCor subordinate senses, diagnostic-context readout, n=2676. The consolidation gate CLEANS raw co-occurrence (raw-ungated 0.2183 -> gate 0.238-0.246, CI-separated; the RAW twin REGRESSES -0.033 below gloss, reproducing the parent; MFS no-regression guard PASSES 0.695>=0.683) BUT NO glass-box knowledge source beats gloss-only 0.2512: distributional reading co-occurrence climbs monotonically with syntagmatic tightness (sentence 0.238 -> window+discrim 0.246 -> REAL dependency-parse+discrim 0.251 = gloss, never above); perfect gold sense-ATTRIBUTION 0.232 (coverage-starved); top-k readout 0.218; and GROUNDING (the brain's named crosser, 12-dim Lancaster sensorimotor+concreteness via hdlab.grounded_similarity, biased-competition-fused, reliability-gated) 0.251-0.254, NOT CI-sep even on the grounded-SEPARABLE subset (0.246 vs 0.248). ONLY curated SyntagNet crosses (0.3024, +0.051 CI-sep) via non-glass-box manual concept-filtering. Loss LOCALIZED: attribution is NOT the leak (oracle ~= ours); the residual is association DISCRIMINATIVENESS (reading co-occurrence is topical, not sense-substitutable) + rare-sense Zipf-starvation + GROUNDING that our 12-dim asset is too coarse to realize (ideal = Binder 65-dim brain-based, only 535-word coverage). The growth ENGINE (hdlab.cls_growth) is proven safe (+0.110/6 rounds, drift-free); the binding constraint is admission QUALITY at the source, which no glass-box source meets."
 floor: "gloss-only (WordNet definition+examples+lemma-names+hypernyms) a_s = 0.2512 (strongest floor actually run; the parent's pure-gloss L0 = 0.239). RAW-ungated reading-growth twin = 0.2183 (regresses -0.0329, CI-separated below gloss). Curated-SyntagNet CEILING = 0.3024 (+0.051 CI-sep over gloss)."
 controls: "RAW-ungated twin (regresses -0.033 below gloss AND loses to the gate CI-sep -> raw is noise, gate removes it); shuffled-sense twin (associates to WRONG sense LOSES 0.236); shuffled-GROUNDING twin (grounded vectors permuted onto wrong senses -> fuse does NOT beat it, 0.251 vs 0.254 -> the grounded channel carries ~no net signal on this population); ORACLE gold sense-attribution (0.232, coverage-starved -> EXCLUDES 'our disambiguation is the leak'); curated-SyntagNet (0.302 +0.051 -> EXCLUDES 'knowledge cannot help through this readout'); MFS-quarantine vs plain recurrence (0.242 vs 0.218 -> discriminativeness lever real); top-k vs mean readout (top-k LOSES -> EXCLUDES 'readout is the fix'); syntagmatic-tightness ladder sentence->window->dependency (0.238->0.246->0.251 monotone-to-gloss -> EXCLUDES 'topical-bag is the only problem'); grounded STRATIFICATION by sense-separability (fails on BOTH the separable AND indistinct halves -> EXCLUDES 'grounding would work if we only applied it where senses differ'); MFS no-regression guard (blended overall 0.695>=MFS 0.683). Each control excludes a distinct rival explanation. Paired bootstrap CI half-width + sign-flip null p95 on every contrast."
-files_changed: "experiments/exp_consolidation_gate_v1.py, experiments/exp_consolidation_gate_readbind_v1.py (disambiguate-then-bind; +window), experiments/exp_consolidation_signal_loss_trace_v1.py (oracle-attribution trace), experiments/exp_consolidation_discriminative_rescore_v1.py (MFS-quarantine), experiments/exp_consolidation_gate_syntactic_v1.py (dependency-parsed asset), experiments/exp_consolidation_grounded_v1.py (the grounded ceiling-crosser test), verification/test_consolidation_gate.py, data/exp_consolidation_gate_readbind_v1/metrics_s2353551_cap15.json, data/exp_consolidation_signal_loss_trace_v1/metrics_full.json, data/exp_consolidation_discriminative_rescore_v1/metrics_full.json, data/exp_consolidation_gate_syntactic_v1/metrics_p1000000.json, data/exp_consolidation_grounded_v1/metrics_full.json"
+files_changed: "experiments/exp_consolidation_gate_v1.py, experiments/exp_consolidation_gate_readbind_v1.py (disambiguate-then-bind; +window), experiments/exp_consolidation_signal_loss_trace_v1.py (oracle-attribution trace), experiments/exp_consolidation_discriminative_rescore_v1.py (MFS-quarantine), experiments/exp_consolidation_gate_syntactic_v1.py (dependency-parsed asset), experiments/exp_consolidation_grounded_v1.py (grounded fusion, 3 richness levels), experiments/exp_consolidation_grounding_inherit_v1.py (BRAIN-FAITHFUL semantic-inheritance grounding), verification/test_consolidation_gate.py, data/exp_consolidation_gate_readbind_v1/metrics_s2353551_cap15.json, data/exp_consolidation_signal_loss_trace_v1/metrics_full.json, data/exp_consolidation_discriminative_rescore_v1/metrics_full.json, data/exp_consolidation_gate_syntactic_v1/metrics_p1000000.json, data/exp_consolidation_grounded_v1/metrics_full.json"
 reverify: ".venv/Scripts/python.exe verification/test_consolidation_gate.py"
 ---
 
@@ -115,12 +115,21 @@ tested that fix glass-box (`exp_consolidation_grounded_v1.py`) using the WIRED g
   0.246) but nowhere near a CI-separated crossing.
 - **Stratifying by grounded-separability does not rescue it:** on the HIGH-separability (concrete-ish) half it is
   0.246 vs gloss 0.248; on the LOW half 0.255 vs 0.255. It fails on BOTH halves.
-- **The specific reason (measured, not asserted):** (a) the glass-box grounding asset is too COARSE -- 12 sensorimotor
-  dims; the ideal Binder 65-dim brain-based componential set covers only **535 words**; (b) SemCor subordinate senses
-  are ABSTRACT/relational/verbal-dominated, where sensorimotor grounding is inherently uninformative; (c) gloss-derived
-  sense centroids rarely capture the discriminative perceptual feature. So grounding is the RIGHT mechanism, REPLICATED
-  and TESTED, and shown un-realizable WITH THIS ASSET for a specific reason -- the successor is a richer grounded INPUT
-  representation, not a 12-dim norm lookup.
+- **The BRAIN'S EXACT grounding mechanism was implemented and ALSO does not cross.** Grounding coverage to
+  abstract/unseen concepts is achieved in the brain by CATEGORY-BASED SEMANTIC INHERITANCE (a hyponym inherits its
+  hypernym's grounded features; the ATL hub over the concept hierarchy) -- NOT by a regressor (the brain does not
+  train a map from word-vectors onto feature-ratings; that ML hack was tried and correctly DROPPED as
+  non-brain-foundational). Implemented exactly (`exp_consolidation_grounding_inherit_v1.py`: aggregate the
+  perceptual norms over each synset's own + hypernym-chain + hyponym words, distance-weighted): INHERIT_fuse =
+  0.2512 = gloss (sep=False). The brain's Hebbian binding + CLS consolidation + inheritance are ALL replicated, and
+  the capability still does not cross.
+- **THE WALL IS THE GROUNDED INPUT SIGNAL, NOT THE ALGORITHM (the deep, corrected conclusion).** With the brain's
+  full mechanism faithfully in place, the residual is a FIDELITY-vs-COVERAGE tradeoff the brain does not face: rich
+  brain-based grounding (Binder 65-dim) covers only 535 words (too sparse for the context side); broad grounding
+  (Lancaster+affect norms, ~30k words) is only 12-15 coarse dims (abstract-blind). The brain has grounding that is
+  BOTH rich AND universal because it has lived multimodal PERCEPTION for everything; our substitute is coarse-or-
+  sparse. So grounding is the RIGHT mechanism, fully REPLICATED and TESTED, and the missing ingredient is high-
+  fidelity grounded PERCEPTION at coverage -- a sensor/data/representation problem, not a learning algorithm.
 
 ## HOW THE LEARNER GROWS THIS CAPABILITY OVER TIME, AND BUILDS THE CORPUS OPTIMALLY (the composed path)
 
@@ -220,11 +229,14 @@ All a_s on strict doc-disjoint SemCor subordinate, n=2676. gloss floor 0.251; cu
 
 ## STEPS FOR FURTHER OPTIMIZATION (ordered, actionable -- what strategy should build next)
 
-1. **THE ceiling-crosser: a RICHER GROUNDED INPUT representation** (attacks loss #1+#3, the shared upstream root).
-   The 12-dim sensorimotor+concreteness asset is too coarse and abstract-blind (tested: fails even on the
-   grounded-separable half); build/adopt a Binder-class 65-dim brain-based componential space at BROAD coverage
-   (or a grounded contextual encoder) and inject it as the sense REPRESENTATION, not a 12-dim readout-fusion. This is
-   the meaning-channel north star; a separate, larger problem, but the highest-value next build and the located cause.
+1. **THE ceiling-crosser is the GROUNDED INPUT SIGNAL, not the algorithm** (loss #1+#3, the shared upstream root;
+   the brain's full LEARNING mechanism -- Hebbian bind + CLS + semantic inheritance -- is already replicated and
+   does not cross, so the algorithm is not the gap). Close the fidelity-vs-coverage tradeoff: propagate REAL
+   Binder-class 65-dim brain-based features to broad coverage by SEMANTIC INHERITANCE through the concept hierarchy
+   (real features + brain-faithful propagation -- NOT a w2v->ratings regressor, which is not brain-foundational),
+   and/or a grounded CONTEXTUAL ENCODER (the parent's input fork). The fundamental need is grounding that is BOTH
+   rich AND broad -- which the brain has via lived perception; a sensor/data/representation build, the meaning-
+   channel north star.
 2. **The growth ENGINE + admission GATE are ready to compose:** this problem supplies the admission-quality gate
    (disambiguate-then-bind -> recurrence -> discrimination -> raw-vs-consolidated regression check); `hdlab/cls_growth`
    supplies safe reversible growth (+0.110/6 rounds, drift-free). Once a SOURCE that clears gloss exists (step 1), this
