@@ -9,3 +9,4 @@
   P_deflated(crosses 0.35)=0.10. Cheap decisive test named (near-zero-cost data re-slice) before any
   full pipeline build; all actionable content is IN the note itself (no companion hand-off file, per the
   no-routing-files override — an erroneously-written hand-off file was retracted in place).
+- 2026-09-04: exemplar-based contextual re-representation for subordinate-sense WSD -> notes/research_exemplar_based_contextual_recomputation_wsd_2026-09-04.md (LOCATED NEGATIVE: raw exemplars Zipf-swamp per Blevins-Zettlemoyer 40-62 F1pt rare-sense drop + Reisinger-Mooney multi-prototype beats pure exemplar 0.76 vs 0.60; reinforces existing multi-prototype-W redirect, no new build)

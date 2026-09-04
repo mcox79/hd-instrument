@@ -175,3 +175,22 @@ put an exact board number next to the per-read deltas.
    cost now, and the cleanest genuinely-new follow-on.
 3. Incremental parsing is already covered (`wire_the_incremental_parser...` PARTIAL, located negative);
    fold only the mechanism-label correction into the audit — do NOT re-file it.
+
+---
+## SESSION EXTENSIONS (beyond the byte-identical arc-factored speedup — same session)
+1. **BREADTH — the memoization generalizes.** The feature-hash memoization was also applied,
+   byte-identically, to the brain-foundational arc-EAGER parser (`experiments/exp_arceager_fastfeat_v1.py`,
+   +1.12x, 0 head/conf/margin mismatches). It is a general substrate primitive (both parsers + the POS
+   tagger share the hashed-feature shape). Bigger picture: arc-eager is O(n) and already ~8.4x faster
+   than the arc-factored parser it can replace, AND +0.05 UAS — the parser SWAP dominates the micro-opt.
+2. **NO-REGRESSION of the brain-foundational parse.** Reader consumers (events, coref_acc, pronoun
+   targets, causal) are IDENTICAL with the arc-eager route on vs off on 3 LitBank docs, and reads run
+   faster; the byte-identical speed opts change no output by construction.
+3. **THE WALL, LOCALIZED + THE PATH (brain-foundational direction).** See
+   `BRAIN_FOUNDATIONAL_UPSTREAM_FINDING.md`: the parser/chain accuracy wall is NOT decode-algorithm
+   fidelity (a one-pass brain-foundational tagger regresses vs the already-cue-based perceptron; the
+   joint tag<->parse route has +0.016 oracle headroom but is gated on parser accuracy). It is the
+   missing lexical-SEMANTIC grounding. Prototyped the clear path: growing a TYPED grounding lexicon
+   lifts PP-attachment 0.587 -> 0.639 (+0.052), monotonic and unsaturated toward the ~0.84 ideal;
+   info-free twin collapses; the generic topical hub does NOT help (needs (head,GF)-typed selectional
+   preference). This is the meaning channel and is proposed as its own next problem.

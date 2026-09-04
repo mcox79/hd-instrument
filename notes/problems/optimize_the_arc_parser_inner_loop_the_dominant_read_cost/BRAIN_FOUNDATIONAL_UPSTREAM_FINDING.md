@@ -62,3 +62,57 @@ live parse metric (per the "no more default-off; measure impact and turn on" dir
 The +0.016 oracle joint-headroom number (single-run, gold-deprel cue). If wrong, the located
 negative (realistic joint regresses; standalone brain tagger regresses) and the parser win (+0.044)
 still stand — those are the load-bearing claims.
+
+---
+
+# GROWING GROUNDING — the clear path, prototyped and grown (the answer to "how do we break the wall")
+
+The wall localizes to grounding, so I prototyped the IDEAL grounded system on the canonical
+grounding-sensitive parse decision (PP-attachment: attach the PP to the verb or the noun) and grew
+the grounding lexicon. Files: `experiments/exp_grow_grounding_pp_attachment_v1.py`
+(+ object-selpref probe inline); metrics `data/exp_grow_grounding_pp_attachment_v1/metrics.json`.
+UD-EWT, n=1104 ambiguous PP cases, glass-box, one-pass counts, NO LLM.
+
+## The clear path IS a growth curve (grounding grows -> capability grows, monotonic)
+| grounding lexicon size | PP-attach accuracy |
+|---|---|
+| FLOOR (locality / always-attach-majority) | 0.5870 |
+| grown on 5% of corpus | 0.5833 |
+| 10% | 0.5888 |
+| 25% | 0.6005 |
+| 50% | 0.6214 |
+| **100% (full grounding)** | **0.6386  (+0.0517 over floor)** |
+| info-free twin (shuffled preposition) | 0.5118 (collapses BELOW floor -> the grounding carries real signal) |
+- **Monotonic in grounding size, and STILL RISING at 100% train** -- the curve is not saturated, so
+  more grounding keeps paying. SOTA lexicalized PP-attach ~0.84 / human ~0.88 is the ultimate ideal;
+  the path from 0.59 -> 0.64 -> ... -> 0.84 is "keep growing the grounding lexicon."
+
+## "Make sure it's ideal" -- LEXICAL grounding is the load-bearing signal; the generic hub is NOT the right ideal
+- LEXICAL co-occurrence grounding (Hindle & Rooth 1993: attach where the preposition associates more) = 0.6386.
+- Adding the DISTRIBUTIONAL hub (composed_hub_predictor's 200-d PPMI-SVD) as a selectional-preference
+  backoff -- on the candidate HEAD *and* on the PP's OBJECT noun (Pado/Erk/Resnik) -- **does NOT help**
+  (0.629-0.632, slightly below lexical-only). Reason, verified against the research: the hub is a
+  **topical** distributional space, and attachment needs a **syntactically-TYPED** (head,
+  grammatical-function) space -- Pado, Pado & Erk (2007) show plain distributional vectors "cannot
+  separate hunter from deer" for this exact discrimination; the fix is (head,GF)-typed dimensions,
+  which the topical hub does not have. So the IDEAL grounding is lexical co-occurrence + a
+  SYNTACTICALLY-TYPED selectional-preference space (Pado) or WordNet-class association (Resnik) --
+  NOT the generic topical hub. This is the same lesson as the reader's WSD wall (the frozen
+  distributional substrate is topical/superposed; grounding must be typed).
+
+## The organs that grow it (REUSE)
+- `hdlab/grounding_acquisition_loop.py` -- the online grow-grounding organ (grows the lexicon from reading).
+- `hdlab/composed_hub_predictor.py` + `hub_ppmi_svd_200d.pkl` -- the ATL hub (topical; needs typing for attachment).
+- `hdlab/cls_growth.py` -- safe growth (keep-both + rollback + EMA anchor) to grow WITHOUT drift.
+- WordNet KBs -- the Resnik taxonomic backoff (typed grounding for sparse heads).
+
+## KEY FINDING (the clear path, stated)
+The wall is broken by GROWING GROUNDING, and the growth is monotonic and unsaturated: floor 0.587 ->
+grown grounding 0.639 (+0.052) on PP-attachment, twin collapses, curve still rising toward the ~0.84
+ideal. The grounding that pays is LEXICAL co-occurrence + SYNTACTICALLY-TYPED selectional preference
+(Pado/Resnik) -- NOT the generic topical hub. So the path to solve the parser/chain wall is: grow a
+TYPED grounding lexicon (co-occurrence + selectional preference + WordNet-class), online from
+reading via `grounding_acquisition_loop` under `cls_growth` safe growth -- and as it grows,
+attachment (and the joint tag<->parse loop it unblocks) climbs toward the competent-reader ceiling.
+This is the meaning channel, and it is the ONE component whose brain-foundational grounding lifts the
+entire chain -- exactly the owner's thesis.
