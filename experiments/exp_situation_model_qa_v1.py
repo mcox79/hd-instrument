@@ -77,6 +77,7 @@ from experiments.exp_name_entity_clustering_v1 import load_given_gazetteer  # no
 OUTDIR = os.path.join(REPO, "data/exp_situation_model_qa_v1")
 WDW_GOLD = os.path.join(REPO, "data/litbank/who_did_what_events.json")
 CONLL_DIR = NC.CONLL_DIR
+POS_ASSET = os.path.join(REPO, "data/frontend_assets/pos_tagger_ud_ewt_upos.json")  # affect board-arm floor
 
 # CONTEXT-CUED who-did-what readout (answer_instanced, P2 wire 2026-09-04, DEFAULT-ON). The board's
 # who-did-what question is INSTANCE-specific (it carries `sent` = the sentence of the queried gov_verb
@@ -143,7 +144,7 @@ def _content(q_tokens: List[str]) -> List[str]:
 # So route_scores() emits a GRADED activation PER DIMENSION from a transparent cue->dimension table
 # over the question's FEATURE SET (wh-word + lemmatized relational cues + a pronoun-focus flag), NOT
 # exact substrings. route() = argmax with a threshold (abstain if nothing clears = the FOK gate).
-DIMENSIONS = ("coref", "events", "salience", "temporal", "causal", "location", "belief", "state", "goal")
+DIMENSIONS = ("coref", "events", "salience", "temporal", "causal", "location", "belief", "state", "goal", "affect")
 
 # each cue votes for a dimension (soft weight). Multiple cues -> parallel votes -> multi-dim capable.
 # These are RELATIONAL/QUD cues (lemmas), not fixed question phrasings -> paraphrase-robust by design.
@@ -901,7 +902,8 @@ def _shuffled_cue_dim(seed: int) -> Dict[str, str]:
 
 def run(docs: List[str], seed: int = 20260830, capable: bool = True,
         with_state: bool = True, state_cap: Optional[int] = None,
-        with_goal: bool = True, goal_cap: Optional[int] = None) -> dict:
+        with_goal: bool = True, goal_cap: Optional[int] = None,
+        with_affect: bool = True, affect_cap: Optional[int] = None) -> dict:
     """Score QA over the SituationModel per dimension vs floors + twin. `capable=True` (DEFAULT) scores
     the CAPABLE reader (build_reader) -- the correct baseline: extraction dimensions ON, temporal read off
     sm.timeline_order. `capable=False` reproduces the historical default-reader run for comparison.
@@ -1018,6 +1020,19 @@ def run(docs: List[str], seed: int = 20260830, capable: bool = True,
         except Exception as e:
             res["per_dimension"]["goal"] = None
             res["goal_qa_detail"] = {"error": f"{type(e).__name__}: {e}"}
+    if with_affect:
+        # THE AFFECT/EMOTION DIMENSION (Q111): a live per_dimension row reading sm.affect_register off the
+        # track_affect reader, scored on the RELIABLE explicit slice ('how does X feel', category) vs the
+        # most-recent-emotion-word floor + the shuffled-character twin, plus valence-sign. Additive -- the 4
+        # scored LitBank dims are untouched; the affect row is a separate track_affect pass (like the goal dim).
+        # affect_cap caps it for a fast self-test.
+        try:
+            arow, adetail = board_affect_dimension(docs, gaz, cap=affect_cap, n_boot=1000, seed=seed)
+            res["per_dimension"]["affect"] = arow
+            res["affect_qa_detail"] = adetail
+        except Exception as e:
+            res["per_dimension"]["affect"] = None
+            res["affect_qa_detail"] = {"error": f"{type(e).__name__}: {e}"}
     res["reader_config"] = {
         "capable": bool(capable),
         "flags": ("tense_agnostic_events+preserve_tense+timeline_register+bind_entity_states" if capable else "default(off)"),
@@ -1435,6 +1450,179 @@ def board_goal_dimension(docs, gaz=None, cap: Optional[int] = None, n_boot: int 
         "note": "goal dimension reads sm.goal_register off the track_goals reader (never re-extracting). WANT "
                 "explicit slice vs most-recent-action floor + shuffled-agent twin; WHY goal-why vs physical-cause "
                 "floor. Full twin-null/CI battery + spaCy oracle: experiments/exp_goal_register_qa_v1.py.",
+    }
+    return row, detail
+
+
+# ===========================================================================
+# THE AFFECT/EMOTION DIMENSION (Q111 board arm) -- reads sm.affect_register off the track_affect reader.
+# ===========================================================================
+# The emotion dimension, landed as SituationReader(track_affect=True). The board arm mirrors
+# experiments/exp_affect_register_qa_v1.py's "how does X feel" (category) + valence scoring but reads the
+# LIVE reader's sm.affect_register (never re-extracting). Self-contained (hdlab.affect_register /
+# hdlab.affect_lexicon only; no import of the dedicated affect cell -> no import cycle). Gated to the
+# RELIABLE explicit slice (copular_adj/felt_noun/psych_verb/to_poss/noun_poss). The full twin-null/CI
+# battery + spaCy oracle + upstream A/B live in exp_affect_register_qa_v1.py; here it is a per_dimension row.
+_AFFECT_RELIABLE_KINDS = ("copular_adj", "felt_noun", "psych_verb", "to_poss", "noun_poss")
+
+
+def _affect_cat_match(a, gold_cat, gold_sign) -> int:
+    """Category match (falls back to valence sign when a category is unavailable on either side) -- the
+    same scoring the affect cell's _cat_match uses."""
+    if a is None:
+        return 0
+    if gold_cat is not None and a.emotion_cat is not None:
+        return int(a.emotion_cat == gold_cat)
+    return int(a.valence_sign is not None and a.valence_sign == gold_sign)
+
+
+def _affect_sign_match(a, gold_sign) -> int:
+    return int(a is not None and a.valence_sign is not None and a.valence_sign == gold_sign)
+
+
+def _affect_floor_recent_emotion(emo_occ, lex, before_si, before_ti):
+    """MOST-RECENT-EMOTION-WORD floor (character-blind): the nearest emotion word STRICTLY BEFORE the
+    question's construction (non-circular). Returns (category, valence_sign)."""
+    best = None
+    for (si, ti, w) in emo_occ:
+        if (si, ti) < (before_si, before_ti):
+            best = w
+        else:
+            break
+    if best is None:
+        return None, None
+    return lex.category(best), lex.valence_sign(best)
+
+
+def build_affect_questions(sm) -> List[dict]:
+    """A) 'How does X feel?' -- one per affect with a canonical (non-pronoun) experiencer, gated to the
+    RELIABLE explicit slice. gold = the emotion (category + valence sign) from the construction grammar.
+    Reads sm.affect_register."""
+    reg = getattr(sm, "affect_register", None)
+    if reg is None:
+        return []
+    qs = []
+    for a in reg.affects:
+        c = a.experiencer_canonical
+        if not c or c == "?" or _norm(c) in _PRONOUNS:
+            continue
+        if a.kind not in _AFFECT_RELIABLE_KINDS:
+            continue
+        qs.append({"char": c, "gold_cat": a.emotion_cat, "gold_sign": a.valence_sign,
+                   "kind": a.kind, "sent_idx": a.sent_idx, "tok": a.tok})
+    return qs
+
+
+def _answer_affect(sm, q):
+    """Read the affect answer OFF sm.affect_register (never re-reading): feels(char) -> the character's
+    CURRENT emotion (de Vega overwrite dynamics). Returns the Affect, or None to abstain (register absent)."""
+    reg = getattr(sm, "affect_register", None)
+    if reg is None:
+        return None
+    return reg.feels(q["char"])
+
+
+def _affect_shuffled_register(affects, seed):
+    """INFO-FREE TWIN: a derangement of the emotion->character binding (the load-bearing step). Mirrors
+    exp_affect_register_qa_v1.shuffled_register. Returns a shuffled AffectRegister."""
+    import copy
+    import hdlab.affect_register as AR
+    rng = np.random.default_rng(seed)
+    chars = [a.experiencer_canonical for a in affects]
+    uniq = list(dict.fromkeys([c for c in chars if c and _norm(c) not in _PRONOUNS]))
+    if len(uniq) < 2:
+        perm = list(rng.permutation(chars))
+    else:
+        remap = {}
+        for _ in range(2000):
+            p = list(rng.permutation(uniq))
+            if all(p[i] != uniq[i] for i in range(len(uniq))):
+                remap = {uniq[i]: p[i] for i in range(len(uniq))}
+                break
+        perm = [remap.get(c, c) for c in chars]
+    shuffled = []
+    for a, c in zip(affects, perm):
+        aa = copy.copy(a)
+        aa.experiencer_canonical = c
+        shuffled.append(aa)
+    return AR.AffectRegister(shuffled)
+
+
+def board_affect_dimension(docs, gaz=None, cap: Optional[int] = None, n_boot: int = 1000,
+                           seed: int = 20260830):
+    """The per_dimension-shaped 'affect' row for run() (same schema as board_goal_dimension) + the full
+    detail. Builds a SituationReader(track_affect=True) per doc and scores 'how does X feel' (category, vs
+    most-recent-emotion-word floor + shuffled-character twin) and valence-sign, doc-cluster bootstrap CI."""
+    from hdlab.affect_lexicon import AffectLexicon
+    from hdlab.pos_tagger import PosTagger
+    from hdlab.situation_reader import SituationReader
+    if gaz is None:
+        gaz = load_given_gazetteer()
+    lex = AffectLexicon.load()
+    tagger = PosTagger.load(POS_ASSET)
+    dd = docs[:cap] if cap else docs
+    feel_rows, val_rows = [], []
+    per_doc_feel = defaultdict(lambda: [0, 0, 0, 0])   # doc -> [n, model_ok, floor_ok, twin_ok]
+    for doc in dd:
+        path = os.path.join(CONLL_DIR, doc + ".conll")
+        if not os.path.exists(path):
+            continue
+        sm = SituationReader(gaz=gaz, track_affect=True).read(path)
+        sents = _conll_sents(path)
+        pos = [tagger.tag(list(t)) for t in sents]
+        # char-blind emotion-word occurrences (the floor population): every emotion word, in text order
+        emo_occ = []
+        for si, toks in enumerate(sents):
+            up = pos[si] if si < len(pos) else []
+            for ti, w in enumerate(toks):
+                uj = up[ti] if ti < len(up) else "X"
+                if uj in ("ADJ", "NOUN", "VERB", "ADV") and lex.is_emotion_word(w):
+                    emo_occ.append((si, ti, w.lower()))
+        twin = _affect_shuffled_register(sm.affect_register.affects, seed)
+        for q in build_affect_questions(sm):
+            c = q["char"]
+            mg = _answer_affect(sm, q)
+            model_ok = _affect_cat_match(mg, q["gold_cat"], q["gold_sign"])
+            fcat, fsign = _affect_floor_recent_emotion(emo_occ, lex, q["sent_idx"], q["tok"])
+            floor_ok = int((q["gold_cat"] is not None and fcat == q["gold_cat"]) or
+                           (q["gold_cat"] is None and fsign is not None and fsign == q["gold_sign"]))
+            tg = twin.feels(c)
+            twin_ok = _affect_cat_match(tg, q["gold_cat"], q["gold_sign"])
+            feel_rows.append({"doc": doc, "model_ok": model_ok, "floor_ok": floor_ok, "twin_ok": twin_ok})
+            pd = per_doc_feel[doc]; pd[0] += 1; pd[1] += model_ok; pd[2] += floor_ok; pd[3] += twin_ok
+            mv = _affect_sign_match(mg, q["gold_sign"])
+            fv = int(fsign is not None and fsign == q["gold_sign"])
+            val_rows.append({"doc": doc, "model_ok": mv, "floor_ok": fv})
+
+    def acc(rows, k):
+        v = [r[k] for r in rows if k in r]
+        return round(sum(v) / len(v), 4) if v else None
+    n = len(feel_rows)
+    m = acc(feel_rows, "model_ok"); fl = acc(feel_rows, "floor_ok"); tw = acc(feel_rows, "twin_ok")
+    ms = _goal_cluster_boot(per_doc_feel, dd, 1, 2, seed, n_boot)
+    mt = _goal_cluster_boot(per_doc_feel, dd, 1, 3, seed, n_boot)
+    row = {
+        "n": n, "model_acc": m,
+        "overlap_floor": fl,
+        "floor_accs": {"most_recent_emotion_word": fl},
+        "strongest_floor_name": "most_recent_emotion_word",
+        "strongest_floor": fl,
+        "twin_acc": tw,
+        "model_minus_strongest": ms,
+        "model_minus_twin": mt,
+        "ci_sep_over_strongest": bool(ms[0] is not None and ms[0] > 0),
+        "ci_sep_over_twin": bool(mt[0] is not None and mt[0] > 0),
+        "population": "LitBank affect register, HOW-DOES-X-FEEL reliable slice (copular/felt/psych/to-poss/noun-poss)",
+    }
+    detail = {
+        "feel_reliable": {"n": n, "model": m, "floor_most_recent_emotion_word": fl, "twin_shuffled_char": tw,
+                          "model_minus_floor": ms, "model_minus_twin": mt},
+        "valence_sign": {"n": len(val_rows), "model": acc(val_rows, "model_ok"),
+                         "floor_most_recent_emotion_word": acc(val_rows, "floor_ok")},
+        "note": "affect dimension reads sm.affect_register off the track_affect reader (never re-extracting). "
+                "'how does X feel' category vs most-recent-emotion-word floor + shuffled-character twin; valence "
+                "sign reported. Full twin-null/CI battery + spaCy oracle + upstream A/B: "
+                "experiments/exp_affect_register_qa_v1.py.",
     }
     return row, detail
 

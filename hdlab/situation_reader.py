@@ -387,6 +387,15 @@ class SituationModel:
     # bound as attributes at read time (mirroring sm.believes/knows). Additive -- never touches the other
     # dimensions. From the owner-DONE the_situation_model_has_no_goal_intention_dimension (Q111).
     goal_register: Optional[object] = None
+    # opt-in AFFECT/EMOTION dimension (HOW-DOES-X-FEEL); None unless the reader is built with
+    # track_affect=True. A hdlab.affect_register.AffectRegister over THIS passage's explicit emotion
+    # constructions (the missing emotion dimension -- a DISTINCT appraisal/affect system, PINNED-dissociated
+    # from the goal/belief mentalizing dimensions, Campanella 2022 triple dissociation); each affect is bound
+    # to the resolved EXPERIENCER (the psych-verb linking split) and carries VALENCE (primary) + emotion
+    # CATEGORY (secondary). The query callables sm.feels(char)/sm.valence_of(char)/sm.feels_about(char,y) are
+    # bound as attributes at read time (mirroring sm.wants/why/achieved). Additive -- never touches the other
+    # dimensions. From the owner-DONE the_situation_model_has_no_affect_emotion_dimension (Q111).
+    affect_register: Optional[object] = None
     memory_roundtrip: Dict[str, float] = field(default_factory=dict)
     # per-dimension honest accuracy (coref only; scored vs LitBank gold on this passage)
     coref_acc: Optional[float] = None
@@ -670,6 +679,7 @@ class SituationReader:
                  track_world_state: bool = True,
                  densify_world_state: bool = True,
                  track_goals: bool = True,
+                 track_affect: bool = True,
                  parser_arceager: bool = False,
                  np_head_reduce: bool = True,
                  structural_patient: bool = True,
@@ -890,6 +900,20 @@ class SituationReader:
         # most-recent-action floor + shuffled-agent twin loses; WHY 0.97 where physical-cause cannot), zero regression
         # (additive by construction), +~0.24s/read. NO spaCy / NO LLM.
         self.track_goals = bool(track_goals)
+        # AFFECT/EMOTION dimension (DEFAULT-ON 2026-09-04, no-default-off: additive + net-positive). Wired from
+        # the owner-DONE problem the_situation_model_has_no_affect_emotion_dimension (Q111). read() builds a
+        # per-character AFFECT REGISTER (the missing emotion dimension -- a DISTINCT appraisal/affect system,
+        # PINNED-dissociated from the goal/belief mentalizing dimensions, Campanella 2022 triple dissociation)
+        # from THIS passage's explicit emotion constructions via the promoted hdlab.affect_register (extractor
+        # + curated-denotation hdlab.affect_lexicon valence/category + lexicalist hdlab.psych_verb_frames
+        # experiencer-linking split), binds each emotion to the reader's OWN resolved experiencer (coref), and
+        # sets sm.affect_register + the query callables sm.feels(char)/sm.valence_of(char)/sm.feels_about(char,y).
+        # Mirrors _read_goals: additive, runs LAST so experiencers bind to the FINAL coref stream -- no other
+        # dimension field changes (byte-identical off vs on; landing witness L3). Turned DEFAULT-ON like the
+        # sibling situation-model dimensions (track_goals/track_belief/track_world_state): net-positive ("how does
+        # X feel" category CI-sep over the most-recent-emotion-word floor + shuffled-character twin loses; valence
+        # 0.838; zero regression, additive by construction; +~0.24s/read). NO spaCy / NO LLM.
+        self.track_affect = bool(track_affect)
         # IMPROVED PARSER (opt-in; default OFF = byte-identical). Wired 2026-09-02 from the owner-DONE parser problem
         # the_extraction_front_end_parser_is_the_cross_task_bottleneck...: route the WIRED who-did-what front-end
         # through the promoted arc-eager parser (hdlab.arceager_parser, UD-EWT UAS 0.775->0.842) instead of the
@@ -1030,7 +1054,7 @@ class SituationReader:
         "predict_surprisal", "track_belief", "bind_event_tokens", "predict_revise", "track_world_state",
         "densify_world_state", "np_head_reduce", "parser_arceager", "causation_typed", "spacy_pred_gate",
         "bind_entity_states", "structural_do_recover", "referent_per_np", "cm_agent", "include_pron_agents",
-        "case_filter", "clause_local", "predicate_recall", "track_goals", "structural_patient")
+        "case_filter", "clause_local", "predicate_recall", "track_goals", "track_affect", "structural_patient")
 
     @classmethod
     def all_capabilities_off(cls, gaz=None, **overrides):
@@ -1791,6 +1815,39 @@ class SituationReader:
         sm.why = lambda action_head, agent=None: reg.why(action_head, agent)
         sm.achieved = lambda agent, goal_head: reg.achieved(agent, goal_head)
 
+    def _read_affect(self, sm, sents) -> None:
+        """Opt-in AFFECT/EMOTION dimension (default-on track_affect; wired 2026-09-04 from the owner-DONE
+        problem the_situation_model_has_no_affect_emotion_dimension, Q111). Build a per-character AFFECT
+        REGISTER over THIS passage's explicit emotion constructions (the missing emotion dimension) and bind
+        the query callables to sm. BYTE-FAITHFUL to the validated driver
+        experiments/exp_affect_register_qa_v1.py::read_doc (the canonical extract->canon->bind_experiencers->
+        register sequence): POS from the reader's OWN shared frontend tagger (the SAME pos_tagger_ud_ewt_upos.json
+        asset the QA cell's _tagger uses); the emotion valence/category from the promoted hdlab.affect_lexicon
+        (curated denotation gate + Warriner valence); the experiencer-linking split from the promoted
+        hdlab.psych_verb_frames (the upstream psych-verb fear-type/frighten-type fix), None -> the naive
+        subject-experiencer fallback; the coref canonicalizer REUSED from hdlab.goal_register (dimension-agnostic).
+        Runs AFTER coref+events (in read()) so experiencers bind to the FINAL coref stream. Additive -- sets ONLY
+        sm.affect_register + sm.feels/valence_of/feels_about; no other dimension field changes (byte-identical off
+        vs on). Lazy imports -> the default (OFF) reader loads NONE of this. NO spaCy / NO LLM."""
+        from hdlab import affect_register as AR
+        from hdlab import goal_register as GR
+        from hdlab.affect_lexicon import AffectLexicon
+        try:
+            from hdlab.psych_verb_frames import PsychVerbFrames
+            pvf = PsychVerbFrames.load()
+        except Exception:
+            pvf = None
+        lex = AffectLexicon.load()
+        pos = [self._cached_tag(list(t)) for t in sents]
+        affects = AR.extract_affect(sents, pos, lex, pvf=pvf)
+        canon, _names = GR.make_canonicalizer(sm)
+        AR.bind_experiencers(affects, canon)
+        reg = AR.AffectRegister(affects)
+        sm.affect_register = reg
+        sm.feels = lambda char: reg.feels(char)
+        sm.valence_of = lambda char: reg.valence_of(char)
+        sm.feels_about = lambda char, stimulus: reg.feels_about(char, stimulus)
+
     def _read_entity_states(self, sm, sents) -> None:
         """COPULAR is-a/attribute BINDING (default-off bind_entity_states; wired 2026-09-03 from the owner-DONE
         the_reader_has_no_copular_is_a_binding_schema, 10/10+6/6). For each sentence, recover the labeled copular
@@ -1966,6 +2023,11 @@ class SituationReader:
             # sm.wants/why/achieved. Runs LAST so goals bind to the FINAL event+coref stream (mirrors
             # _read_belief/_read_world_state). Additive -- sm.goal_register stays None when the flag is off.
             self._read_goals(sm, sents)
+        if self.track_affect:
+            # AFFECT/EMOTION dimension: per-character affect register on sm.affect_register + the query
+            # callables sm.feels/valence_of/feels_about. Runs LAST so experiencers bind to the FINAL coref
+            # stream (mirrors _read_goals). Additive -- sm.affect_register stays None when the flag is off.
+            self._read_affect(sm, sents)
         return sm
 
 

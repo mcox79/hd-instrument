@@ -9,6 +9,13 @@ files_changed: "experiments/affect_register.py, experiments/affect_lexicon.py, e
 reverify: ".venv/Scripts/python.exe verification/test_affect_register.py"
 ---
 
+## INTEGRATED_BY_STRATEGY (2026-09-04) — EXCELLENT
+Reverified 12/12 first-hand + a new pure-hdlab landing witness `test_affect_register_landing_organ.py` **6/6** (existing dims incl. the goal register byte-identical track_affect off vs on → purely additive; live `feels('alice')→sadness`).
+- **WIRE LANDED (Q111, DEFAULT-ON):** `hdlab/affect_register.py` (stdlib+hdlab only) + upstream `hdlab/psych_verb_frames.py` (+ shipped `data/frontend_assets/psych_verb_transitivity_ud_ewt.json`) + `hdlab/affect_lexicon.py` (Warriner valence + emotion inventory, shipped asset); `track_affect` flag default-ON + `_read_affect` (mirrors `_read_goals`; sets `sm.affect_register` + `sm.feels`/`valence_of`/`feels_about`) + the board `affect` arm. Zero regression (psych frame gates only psych-verb experiencer position).
+- **§2b folded.** The reader now has all five Zwaan dimensions + goal + affect.
+- **THE DOMINANT FINDING → FOLLOW-ON FILED:** coreference is 87% of the affect loss (83.5% of experiencers are common-noun entities the reader never tracks) → **`form_a_discourse_referent_for_every_entity_not_just_named_ones_common_noun_coref` (priority 2)** — the highest-leverage shared lever (lifts every character-bound dimension).
+- **LOCATED NEGATIVE (a full pass):** unstated emotion needs the OCC-appraisal meaning channel.
+
 # The AFFECT/EMOTION dimension: a glass-box per-character affect register
 
 The reader now tracks how each character FEELS -- the emotion dimension of the situation model,
