@@ -9,6 +9,13 @@ files_changed: "experiments/exp_joint_decode_register_robust_tagger_parser_v1.py
 reverify: ".venv/Scripts/python.exe verification/test_joint_decode_register_robust.py"
 ---
 
+## INTEGRATED_BY_STRATEGY (2026-09-04) — EXCELLENT (deployable dependency-free win + a rigorous located negative)
+Reverified first-hand: `test_joint_decode_register_robust` **5/5**, `test_whodidwhat_clean_frame` **3/3**, `test_freetext_event_recall_deployed` **3/3**. The calibrated CRF posterior IS the axis-1 lever (AUROC 0.94 vs max-margin 0.58); the JOINT parse-decode (axis-3, the brief's named mechanism) is a rigorous LOCATED NEGATIVE (+0.0017 AUROC, retired); the dependency is dissolved (pure-numpy CRF reproducing crfsuite to 7.3e-7). Actions:
+- **WIRE LANDED (Q111): promoted `GlassBoxCRF` + `crf_token_feats` VERBATIM → `hdlab/crf_tagger.py`** (`vpost` calibrated P(VERB) + `vlogit` cue, pure-numpy forward-backward, NO crfsuite/LLM) + shipped the asset `data/frontend_assets/pos_crf_glassbox_ud_ewt.json`. Landing witness `test_crf_tagger_landing_organ.py` **5/5** (byte-faithful 0.0 err to the experiment, dependency-free, calibrated). Registered `crf_glassbox_posterior_wire_v1`.
+- **§2b AUDIT UPDATE folded** (newest entry): calibrated posterior = the axis-1 lever; joint decode = located negative (structure adds nothing over the posterior); dependency dissolved; residual = a parser/tagger-fidelity gap (spaCy oracle 0.818), not a meaning ceiling.
+- **NOT landed: the joint parse-decode (located negative) + the delexicalized parser** (−8 UAS in-domain, immaterial on 19c).
+- **READY application (documented, not urgent): the predicate_detector category-cue swap** `verb_margin` → `logit(CRF vpost)` (SS6) — `crf_tagger.vlogit` is landed; applying it re-fits the detector's logistic on the CRF cue and lifts its 19c recall 0.582→0.806. predicate_detector is DEFAULT-OFF (no live-reader change; turn-on is gated on a free-text event-recall consumer, per P6), so the cue-swap is the ready improvement to apply WHEN that consumer is wired — no separate problem filed (dormant-organ improvement).
+
 # PARTIAL — the JOINT DECODE (axis-3) is a located negative; the CALIBRATED POSTERIOR (axis-1) is the lever, and it is now dependency-free and delivers both payoffs under precision-guarded recovery
 
 **Status: PARTIAL (WIP until `owner_verdict: DONE`).** No `hdlab/` file changed — mechanism proven in `experiments/` +
