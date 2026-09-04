@@ -12,13 +12,13 @@ records positive/negative valence (+ the emotion category where possible). NO ou
 reference-only checker, never on the inference path. Built the SAME way as the goal register.
 
 RESULT (100 LitBank docs; floors recomputed per population; twin loses; CI-separated):
-- "How does X feel?" reliable slice (category, n={{REL_N}}): model {{REL_MODEL}} vs 'name the last
-  emotion word' floor {{REL_FLOOR}} vs shuffled-character twin {{REL_TWIN}} (both CI-separated; twin
-  null p95 {{TWIN_P95}}).
-- Valence (positive/negative, the primary channel, n={{VAL_N}}): model {{VAL_MODEL}} vs floor
-  {{VAL_FLOOR}} (CI-separated).
+- "How does X feel?" reliable slice (category, n=5782): model 0.617 vs 'name the last
+  emotion word' floor 0.240 vs shuffled-character twin 0.219 (both CI-separated; twin
+  null p95 0.2275).
+- Valence (positive/negative, the primary channel, n=6405): model 0.756 vs floor
+  0.506 (CI-separated).
 - Binds the RIGHT character (multi-character positive control): model-right / char-blind-floor-wrong
-  {{PC_MR}} vs reverse {{PC_FR}}.
+  2951 vs reverse 522.
 - Extraction faithfulness vs a spaCy oracle (reference-only): precision {{ORACLE_PREC}}.
 
 UPSTREAM brain-foundational component (built + research-verified, not cited-after): a psych-verb
@@ -26,8 +26,8 @@ EXPERIENCER-LINKING frame. English splits WHO feels the emotion between the subj
 dog" -> Mary) and the object ("the dog FRIGHTENED Mary" -> Mary); a naive "the subject feels it" rule
 mis-binds the entire frighten-class to the thing that CAUSED the feeling. The frame (from the standard
 VerbNet/PropBank verb classes + a transitivity prior derived from a gold treebank) fixes this: on
-constructed test sentences it binds the right character {{AB_FRAME}} of the time vs {{AB_NAIVE}} for
-the naive rule, and it changes NOTHING else (the {{W10_N}} non-psych emotions are byte-identical with
+constructed test sentences it binds the right character 100% of the time vs 33% for
+the naive rule, and it changes NOTHING else (the 631 non-psych emotions are byte-identical with
 and without it -- witness W10). On real narrative the hard case is rare (most emotion is stated as "she
 was frightened", where both agree), so the net effect is small but positive with the corrections being
 genuine fixes (e.g. "the letter disappointed Elizabeth" -> Elizabeth, not the letter).
