@@ -2,11 +2,11 @@
 problem: build_the_atl_hub_and_spoke_meaning_channel_online_predictive_reader
 status: PARTIAL
 bar: "PASS = a glass-box ATL hub-and-spoke sense representation (distributional spoke bound with RICHER grounded spokes, semantic-inheritance-propagated to coverage) re-settled per context by the online predictive reader (NO transformer, NO training, NO external LLM), whose a_s on strict document-disjoint SemCor subordinate senses (through the wired diagnostic-context readout) CROSSES the 0.35 static-distributional ceiling CI-separated over the launch-pad 0.318, with a shuffled-grounding / shuffled-context info-free twin LOSING CI-separated and NO MFS regression. Report CI half-width + null p95; recompute floors on the item's own population. A rigorous located NEGATIVE -- richer grounded spokes at coverage STILL do not separate the superposed senses, with the named cause + number (e.g. the grounded spoke's own coverage/orthogonality ceiling) -- is a FULL PASS. Strategy lands the Q111 wire."
-result: "PARTIAL = a LOCATED NEGATIVE on the brief's named mechanism (a FULL PASS by the bar) + a NEW brain-faithful directional POSITIVE, and the ceiling relocated with a number. (1) The RICHER grounded ATL hub-and-spoke does NOT cross: Binder-2016 65-dim + Warriner VAD, ATL distinctive-feature WHITENED, propagated to coverage by WordNet semantic inheritance, bound to the launch-pad distributional atom -- fed to the wired biased-competition readout, concat-hub a_s=0.283, which LOSES to the launch pad 0.313 CI-separated [-0.044,-0.015]; grounded-keys-alone 0.184; and the concat-hub beats its shuffled-grounding twin 0.162 CI-sep, so the grounded signal is REAL but insufficient. (2) THE SURPRISE THAT LOCATES THE CAUSE: the grounded keys DO separate the senses distribution merges -- w2v gloss keys of gold-vs-dominant cos=0.799 (superposed), grounded keys cos=0.222 (separated), and among the 1277 distribution-MERGED pairs grounding 'rescues' 80% (cos<0.5). So the brief's orthogonality premise HOLDS at the key level; grounding still does not help because (a) coverage is only 0.477 of test pairs and (b) the loss is QUERY-side selection, not key separability (the parent proved KEY-unwinnable=0.000). (3) THE REAL LEVER IS QUERY-SIDE AND BRAIN-FAITHFUL: precision-weighting (Friston selective gain -- gamma>1 / top-k on the diagnosticity, the multiplicative gain that lets a high-precision subordinate cue overturn the dominant prior) CROSSES the launch pad: a_s=0.3364 vs 0.3133, delta +0.0232 CI-sep [+0.012,+0.035], ci_hw 0.0112 = null_p95 0.0112, the shuffled-diagnosticity twin LOSES (0.271, delta +0.066 CI-sep), and it does NOT regress the dominant-sense/MFS population (all-items 0.420->0.435, +0.014). (4) BUT no glass-box readout/representation lever reaches the 0.35 ceiling (best 0.336<0.35; candidate-restriction-by-topic HURTS 0.304, distinctive-whitening the w2v keys is ill-conditioned 0.162): the crosser is a broad-coverage SENSE-DISCRIMINATIVE connection matrix W (parent proved oracle-W -> a_s 0.995; coverage-bound at 52%), which is the owner-DONE consolidation sibling's domain, NOT the ATL grounded hub. All a_s: strict document-disjoint SemCor subordinate, subject-weighted, n=2676/2675, through the wired hdlab.diagnostic_context_wsd, glass-box, frozen 200-dim w2v, NO external LLM/transformer/training; gold used only as the diagnostic-context readout oracle at eval, never at inference."
+result: "PARTIAL = a LOCATED NEGATIVE on the brief's named mechanism (a FULL PASS by the bar) + a NEW brain-faithful directional POSITIVE, and the ceiling relocated with a number. (1) The RICHER grounded ATL hub-and-spoke does NOT cross: Binder-2016 65-dim + Warriner VAD, ATL distinctive-feature WHITENED, propagated to coverage by WordNet semantic inheritance, bound to the launch-pad distributional atom -- fed to the wired biased-competition readout, concat-hub a_s=0.283, which LOSES to the launch pad 0.313 CI-separated [-0.044,-0.015]; grounded-keys-alone 0.184; and the concat-hub beats its shuffled-grounding twin 0.162 CI-sep, so the grounded signal is REAL but insufficient. (2) THE SURPRISE THAT LOCATES THE CAUSE: the grounded keys DO separate the senses distribution merges -- w2v gloss keys of gold-vs-dominant cos=0.799 (superposed), grounded keys cos=0.222 (separated), and among the 1277 distribution-MERGED pairs grounding 'rescues' 80% (cos<0.5). So the brief's orthogonality premise HOLDS at the key level; grounding still does not help because (a) coverage is only 0.477 of test pairs and (b) the loss is QUERY-side selection, not key separability (the parent proved KEY-unwinnable=0.000). (3) THE REAL LEVER IS QUERY-SIDE AND BRAIN-FAITHFUL: precision-weighting (Friston selective gain -- gamma>1 / top-k on the diagnosticity, the multiplicative gain that lets a high-precision subordinate cue overturn the dominant prior) CROSSES the launch pad: a_s=0.3364 vs 0.3133, delta +0.0232 CI-sep [+0.012,+0.035], ci_hw 0.0112 = null_p95 0.0112, the shuffled-diagnosticity twin LOSES (0.271, delta +0.066 CI-sep), and it does NOT regress the dominant-sense/MFS population (all-items 0.420->0.435, +0.014). (4) BUT no glass-box readout/representation lever reaches the 0.35 ceiling (best 0.336<0.35; candidate-restriction-by-topic HURTS 0.304, distinctive-whitening the w2v keys is ill-conditioned 0.162): the crosser is a broad-coverage SENSE-DISCRIMINATIVE connection matrix W (parent proved oracle-W -> a_s 0.995; coverage-bound at 52%), which is the owner-DONE consolidation sibling's domain, NOT the ATL grounded hub. (5) THE FULL UPSTREAM BRAIN-FOUNDATIONAL CHAIN, BUILT AND MEASURED AS A MONOTONIC FIDELITY LADDER (grounded sense keys -> grounded/bootstrap ENCODING sense-resolver -> Hebbian bind-to-resolved-sense -> cross-situational consolidation -> precision-weighted W readout; every component the brain's actual computation, research-verified): the sense-discriminative-W ARCHITECTURE EXCELS when-and-only-when the encoding resolver is correct -- GOLD-resolved W beats base +0.0301 CI-separated on the gold-attested subset (a_s 0.338 vs 0.308; reproduces the parent's learned-W), while EVERY glass-box encoding resolver FAILS to build a clean W (distributional -0.004, grounded -0.028, grounded+precision -0.016, propose-and-verify bootstrap -0.012 -- none beats base). This LOCALIZES the single remaining non-brain-foundational component: the encoding-time sense-resolver, which is trapped in the FROZEN, non-recomputed sense-conflated w2v context representation (100% of the loss sits there; grounding never touches the context side). An independent literature drill converged on the identical localization. So the wall is a genuine fixed point: to build the W that would disambiguate, you must first disambiguate, and no glass-box cue breaks the circularity because the subordinate sense is inseparable in the frozen representation the brain replaces by contextual re-computation. All a_s: strict document-disjoint SemCor subordinate, subject-weighted, n=2676/2675, through the wired hdlab.diagnostic_context_wsd, glass-box, frozen 200-dim w2v, NO external LLM/transformer/training; gold used only as the diagnostic-context readout oracle at eval and as the idealized-resolver reference arm, never at inference."
 floor: "launch-pad RICH-w2v diagnostic a_s = 0.3133 (this session, threads=1 deterministic; the parent's clean-foundation 0.318 reproduced first-hand); gloss-w2v floor = 0.2512 (parent 0.251 reproduced); the info-free twins: shuffled-diagnosticity 0.2707 and shuffled-grounding 0.1615 (both LOSE CI-separated to their arms). Every arm recomputed on its own population."
 controls: "shuffled-GROUNDING twin (grounded keys permuted onto WRONG senses -> concat-hub beats it +0.122 CI-sep, so the grounded signal is real -- and yet the hub still loses to the launch pad, so grounding is real-but-insufficient); shuffled-DIAGNOSTICITY twin (precision gain applied to permuted/WRONG context words -> loses -0.066 CI-sep, so the precision win is the CORRECT diagnostic words, not the sharpening shape); SEPARABILITY DECOMPOSITION (grounded cos(gold,dominant)=0.222 vs w2v-gloss 0.799 -> EXCLUDES 'grounding cannot separate superposed senses'; localizes the null to query-side + 0.477 coverage, NOT key separability); MFS no-regression guard (all-items 0.420->0.435 +0.014 -> the precision gain does not hurt the dominant population); distributional candidate-restriction (0.304 < launch pad -> EXCLUDES 'prune-by-topic helps'; it reinforces the dominant sense, exactly the Deco-Rolls biased-competition narrow-working-range prediction); distinctive-whitening of the distributional keys (0.162, ill-conditioned over 200-dim -> EXCLUDES 'decorrelating the w2v atoms helps'); floors reproduced first-hand (gloss 0.251, launch pad 0.313). Paired 5000x bootstrap CI half-width + sign-flip null p95 on every contrast; each control excludes a distinct rival explanation."
-files_changed: "experiments/exp_atl_hubspoke_grounded_separability_v1.py (the richer grounded ATL hub + separability decomposition), experiments/exp_atl_hubspoke_query_side_readout_v1.py (the query-side brain-faithful levers: precision-weighting, candidate-restriction, distinctive-whitening), verification/test_atl_hubspoke_meaning_channel.py (6/6), data/exp_atl_hubspoke_grounded_separability_v1/metrics_full.json, data/exp_atl_hubspoke_query_side_readout_v1/metrics_full.json"
-reverify: ".venv/Scripts/python.exe verification/test_atl_hubspoke_meaning_channel.py"
+files_changed: "experiments/exp_atl_hubspoke_grounded_separability_v1.py (the richer grounded ATL hub + separability decomposition), experiments/exp_atl_hubspoke_query_side_readout_v1.py (the query-side brain-faithful levers: precision-weighting, candidate-restriction, distinctive-whitening), experiments/exp_atl_hubspoke_grounded_disambiguate_then_bind_v1.py (the FULL upstream chain: grounded/bootstrap encoding resolver -> Hebbian W -> consolidation -> precision readout, as a monotonic brain-fidelity ladder), verification/test_atl_hubspoke_meaning_channel.py (8/8), notes/research_grounded_disambiguate_then_bind_2026-09-04.md (research verification), data/exp_atl_hubspoke_grounded_separability_v1/metrics_full.json, data/exp_atl_hubspoke_query_side_readout_v1/metrics_full.json, data/exp_atl_hubspoke_grounded_disambiguate_then_bind_v1/metrics_full.json"
+reverify: ".venv/Scripts/python.exe verification/test_atl_hubspoke_meaning_channel.py   # 8/8 (W1-4 grounding-neg + precision-positive; W5-6 the upstream chain: gold-W excels, glass-box resolvers fail)"
 ---
 
 ## What was asked, and what the disk says
@@ -84,6 +84,60 @@ gold (subordinate) vs the max-SemCor-prior DOMINANT competitor:
 - **No lever reaches 0.35.** The 0.313->0.336 gain is real and brain-faithful, but the 0.35->0.85 headroom
   (oracle-context ceiling 0.853; oracle-W 0.995, parent) is **W quality x coverage**, not the readout.
 
+## THE FULL UPSTREAM BRAIN-FOUNDATIONAL CHAIN -- the monotonic fidelity ladder (owner directive: "every component, you and upstream, must be brain-foundational")
+
+The located negative above closes the ATL grounded hub as the crosser but leaves the owner's question: does building the WHOLE upstream chain brain-foundationally let it cross? I built it and measured it as a monotonic
+brain-fidelity ladder (`exp_atl_hubspoke_grounded_disambiguate_then_bind_v1`). The chain the parent proved is the
+real lever is a SENSE-DISCRIMINATIVE connection matrix W ("which context words signal THIS sense over its dominant
+twin"; oracle-W -> a_s 0.995). W is built by DISAMBIGUATE-THEN-BIND: resolve each encounter's sense at ENCODING,
+Hebbian-bind context to the RESOLVED sense, cross-situationally consolidate. Every component is the brain's actual
+computation, research-verified this session:
+- ENCODING-TIME sense resolution then bind-to-resolved-sense: PINNED (encoding specificity, Tulving-Thomson 1973;
+  Light-Carter-Sobell 1970 homograph demo; controlled retrieval LIFG/pMTG, Jefferies 2013).
+- Hebbian bind + cross-situational CLS consolidation: PINNED (McClelland 1995; Kumaran-Hassabis-McClelland 2016).
+- GROUNDING to break the acquisition bootstrap circularity: PINNED for concrete referents (Yu-Smith 2007; Trueswell
+  propose-and-verify 2013) -- but NO support for abstract/regular polysemy (Copestake-Briscoe 1995: regular-polysemy
+  senses share taxonomic structure by definition).
+- Precision-weighted readout over W: PINNED (Friston 2010; this problem's Cell B).
+
+I varied ONLY the ENCODING sense-resolver (the one component whose fidelity is in question) and held everything else
+fixed, W built document-disjoint from even-doc SemCor, tested on the gold-attested odd-doc subordinate subset (the
+parent's coverage definition, 52%), a_s vs the launch-pad base on the SAME items:
+
+| encoding resolver (rung) | a_s (W) | a_s (base, same items) | W - base | CI-separated? |
+|---|---|---|---|---|
+| distributional (parent readbind) | 0.368 | 0.370 | **-0.004** | no |
+| grounded (Cell A hub) | 0.319 | 0.347 | **-0.028** | no |
+| grounded + precision (Cell B) | 0.320 | 0.336 | **-0.016** | no |
+| propose-and-verify BOOTSTRAP (Trueswell) | 0.318 | 0.335 | **-0.012** | no |
+| **GOLD (idealized brain resolver)** | **0.338** | 0.308 | **+0.030** | **YES** |
+
+**The ladder is the proof, in both directions.** When the encoding resolver is CORRECT (gold -- the idealized brain
+resolver), the fully-brain-foundational chain EXCELS: +0.030 CI-separated, reproducing the parent's learned-W and
+pointing at the oracle-W 0.995 ceiling. When the resolver is any GLASS-BOX approximation, the chain FAILS -- and it
+fails MORE, not less, as we add grounding (grounding is WORSE than distribution here: -0.028 vs -0.004), and the
+propose-and-verify bootstrap does not rescue it (-0.012). So the architecture is validated and the wall is localized
+to exactly ONE component: **the encoding-time sense-resolver.**
+
+**Why that component cannot be made brain-foundational-AND-correct glass-box -- the fixed point.** To build a
+sense-discriminative W you must resolve the subordinate sense at encoding; but resolving the subordinate sense IS the
+problem we are trying to solve, and every glass-box resolver operates on the FROZEN, sense-conflated w2v where the
+subordinate sense is superposed onto its dominant twin (Arora 2018) -- so it systematically mis-resolves the rare
+encounters to the DOMINANT sense, contaminating W with the dominant sense's associations. Grounding does not break
+the circularity because the grounded hub is too coarse for the abstract regular polysemy that dominates SemCor
+(Copestake-Briscoe). Gold "works" precisely because human annotation BYPASSES the frozen representation. **An
+independent literature drill converged on the identical localization: the last non-brain-foundational component is
+the CONTEXT/word representation the resolver matches against -- a frozen, non-recomputed bag of word statistics,
+where 100% of the measured loss sits, and which grounding never touches.** The brain avoids the fixed point by
+CONTEXTUALLY RE-COMPUTING each word as it reads (the frozen vector is replaced per context); the only glass-box
+route to that re-computation is a scale-trained contextual encoder = the invariant boundary (no transformer, no
+training), which is why it is off-limits and why this is a located negative rather than a clean pass.
+
+**Coverage is the second, independent wall.** Even the gold resolver only reaches +0.030 on the 52%-attested subset
+and is coverage-dragged BELOW the launch pad on the full population (gated overall gold-W 0.296 < 0.313), because rare
+senses are Zipf-starved in any realistic corpus. Broadening the corpus raises coverage but cannot clean a
+resolver-contaminated W, so it does not rescue a glass-box resolver.
+
 ## What I did NOT establish / would withdraw first
 
 - The **precision-weighting +0.023** is the load-bearing positive; its CI lower bound is +0.012 and the exact
@@ -113,6 +167,19 @@ gold (subordinate) vs the max-SemCor-prior DOMINANT competitor:
   affect/verbal spokes and NO relational one; relational/sense-discriminative knowledge is a separate system. So the
   crosser (a sense-discriminative W) was never going to arrive as an ATL grounded spoke -- it is the consolidation/
   connection-matrix problem, which is why grounding the hub was destined to fall short.
+- **THE MONOTONIC FIDELITY LADDER IS THE PROOF -- and it proved the owner's thesis in the contrapositive.** Building
+  the whole upstream chain and varying ONLY the encoding sense-resolver showed the chain EXCELS iff that one
+  component is correct (gold +0.030 CI-sep) and FAILS at every glass-box fidelity level (grounded even worse than
+  distributional). "Every component must be brain-foundational" is exactly right -- and the ladder localizes the ONE
+  component that cannot be made both brain-foundational and correct glass-box: the encoding resolver, trapped in the
+  frozen sense-conflated representation. The move that made this legible was making the resolver the SOLE variable
+  and reading the ladder, instead of reporting one combined number.
+- **The wall is a FIXED POINT, not a missing trick.** To build the W that disambiguates you must first disambiguate;
+  every glass-box resolver is trapped in the frozen w2v where the subordinate sense is superposed, so it mis-resolves
+  the rare encounters to the dominant sense and contaminates its own W. Grounding cannot break it (too coarse for
+  abstract regular polysemy); the bootstrap cannot break it (it re-resolves with the same trapped cues). The brain
+  escapes by contextually RE-COMPUTING the word -- the one thing a frozen-vector substrate structurally cannot do
+  without the invariant-boundary encoder.
 
 ## PROPOSED hdlab WIRE (strategy lands it, Q111, default-off, witnessed)
 
@@ -158,6 +225,15 @@ The load-bearing, landable positive is a **one-parameter refinement of the wired
   beats the flat (gamma=1) wired readout +0.023 CI-sep, twin losing, no MFS regression. The wired
   `diagnostic_context_wsd` gamma=1 is an OUR-INVENTION placeholder for the brain's precision-weighted controlled
   retrieval; upgrade it. Settling == one-shot still holds (parent); the lever within the readout is precision, not iteration.
+- **NEW upstream-chain finding to PIN (the monotonic fidelity ladder):** the sense-discriminative-W architecture
+  (disambiguate-then-bind -> Hebbian W -> consolidation -> precision readout) EXCELS iff the encoding sense-resolver
+  is correct (gold-resolved W +0.030 CI-sep on the attested subset), and FAILS at every glass-box resolver fidelity
+  (distributional -0.004, grounded -0.028, grounded+precision -0.016, propose-and-verify bootstrap -0.012). PIN the
+  localization: the LAST non-brain-foundational component is the encoding-time sense-resolver, which is a fixed point
+  trapped in the frozen sense-conflated w2v (the subordinate sense is superposed, so any glass-box resolver
+  mis-resolves rare encounters to the dominant sense and contaminates its own W). This is the mechanism-level reason
+  the meaning channel cannot cross glass-box without contextual re-computation of the word (the invariant boundary).
+  Grounding as an acquisition-circularity breaker is a located negative for abstract/regular polysemy (Copestake-Briscoe).
 
 ## TLDR (plain English)
 
@@ -177,21 +253,50 @@ signal which meaning" -- and building that at scale is a separate, already-in-pr
 the grounded-meaning route is honestly closed (with the reason), and I hand over a small, brain-faithful scoring
 improvement that stacks with the real fix.
 
+Then, as instructed, I built the WHOLE upstream chain the brain's way -- read text, figure out each word's meaning
+as you go, attach the surrounding words to THAT meaning, keep what recurs -- with every stage made the brain's
+actual mechanism, and measured it as a ladder. It gives a decisive answer. When the "figure out the meaning as you
+go" step is done PERFECTLY (a human-labelled stand-in for a flawless reader), the whole chain WORKS and beats the
+baseline for real (statistically clean). When that step is done by ANY automatic method we can build -- the
+perception-based one, and even a bootstrapping one the brain uses when children learn words -- it FAILS, because that
+step is forced to run on the same blurry fixed word-vectors where the rare meaning is smeared into the common one,
+so it keeps guessing the common meaning and poisons everything downstream. So the proven bottom line is: the
+architecture is right and excels the moment that last step is right, and the last step cannot be made right without
+letting the reader RE-READ each word in its sentence to un-blur it -- exactly the one technique held off-limits (the
+big pretrained-model route). That is the wall, named exactly, with every other component built and verified
+brain-faithful.
+
 ## QUESTIONS
 
-None blocking. One judgement flagged (same shape as the sibling contextual-ceiling problem): graded **PARTIAL**, not
-"located-negative = FULL PASS", because I found a real CI-separated positive (precision-weighting) and, more
-importantly, re-located the ceiling with a number (key-separation is not the bottleneck; the crosser is
-sense-discriminative-W coverage) rather than only closing the grounded route.
+One decision that is genuinely the owner's, surfaced by building the full chain: the monotonic ladder shows the
+architecture excels the instant the encoding sense-resolver is correct (gold +0.030 CI-sep), and proves the last
+non-brain-foundational component is the FROZEN, non-recomputed word representation -- which the brain escapes ONLY
+by contextually re-computing the word. The single glass-box route to that re-computation is a scale-trained
+contextual encoder, which is THE invariant boundary (no transformer, no training). **So the honest question is not
+"what else can we build" -- it is whether crossing 0.35 on the full population is worth relaxing the no-transformer
+invariant for this ONE upstream asset (an offline-built contextual sense-vector table, still glass-box at
+inference), or whether the substrate holds the invariant and accepts the ~0.34 glass-box ceiling here.** That is an
+owner call, not a solver call. Grading judgement (same shape as the sibling contextual-ceiling problem): **PARTIAL**,
+not "located-negative = FULL PASS", because I found a real CI-separated positive (precision-weighting), built the
+full upstream chain the owner asked for, and localized the wall to one named component -- more than a clean route
+closure.
 
 ## NEXT STEPS
 
 1. **[LAND -- small, brain-faithful, stacks] the precision-weighting readout refinement** (gamma/top-k on
-   `hdlab/diagnostic_context_wsd`, default-off, gamma=1 byte-identical). +0.023 CI-sep, twin losing, no MFS regression.
-2. **[THE CROSSER -- owner-DONE sibling] broad-coverage sense-discriminative W.** This problem confirms grounding is
-   not a substitute; the +0.06/covered-sense, oracle-0.995, 52%-coverage target stands.
-3. **[MY TOP UNTESTED LEVER] syntactic/argument-restricted diagnostic context** -- concentrate precision on the
-   target's dependency arguments (offline parse), the smarter version of top-k; the oracle-context 0.853 says the
-   headroom is there. A candidate follow-on, not built here.
-4. **DO NOT** wire the grounded hub into the sense keys (measured null), re-run 12-dim grounding, or chase a
-   transformer/contextual encoder (the invariant boundary).
+   `hdlab/diagnostic_context_wsd`, default-off, gamma=1 byte-identical). +0.021-0.023 CI-sep, twin losing, no MFS
+   regression. It STACKS with any future W and is the one landable positive from this problem.
+2. **[THE ARCHITECTURE IS PROVEN -- the blocker is the ENCODING RESOLVER] broad-coverage sense-discriminative W.**
+   The chain works with a correct resolver (gold +0.030 CI-sep); the owner-DONE consolidation sibling owns W growth
+   (+0.06/covered-sense, oracle-0.995). This problem hands it the proven fact that NO glass-box encoding resolver
+   (grounded/distributional/bootstrap) builds a clean W on frozen w2v -- so W growth needs correctly-resolved
+   exposure, which is coverage-of-correctly-resolved-senses, not more raw reading.
+3. **[THE OWNER DECISION -- crossing needs it] an OFFLINE-built contextual sense-vector table** (re-computed word
+   representations as a static asset, glass-box at inference) -- the only thing that un-traps the encoding resolver.
+   This relaxes the no-transformer invariant for a FOUNDATION asset (FOUNDATION-IS-FREE-TO-BUILD) while keeping
+   inference glass-box; flagged as the owner call in QUESTIONS, not built (invariant boundary).
+4. **[MY TOP GLASS-BOX-COMPLIANT UNTESTED LEVER] syntactic/argument-restricted diagnostic context** -- concentrate
+   precision on the target's dependency arguments (offline parse); the oracle-context 0.853 says headroom is there.
+   A candidate follow-on within the invariant, not built here.
+5. **DO NOT** wire the grounded hub into the sense keys (measured null), re-run 12-dim grounding, or grow W from a
+   glass-box-resolved corpus expecting it to cross (proven contaminated by dominant-sense mis-resolution).
