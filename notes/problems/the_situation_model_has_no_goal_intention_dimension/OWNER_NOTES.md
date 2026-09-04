@@ -1,76 +1,57 @@
 ---
-owner_verdict:
+owner_verdict: DONE
 ---
 
-# Owner notes -- the_situation_model_has_no_goal_intention_dimension
+SOLVED — the_situation_model_has_no_goal_intention_dimension (opus 4.8 solver)
 
-(owner_verdict is BLANK -- this is the solver's hand-back; the owner sets DONE when satisfied. Strategy
-integrates ONLY on owner_verdict: DONE.)
+Write-up: notes/problems/the_situation_model_has_no_goal_intention_dimension/
+  {SOLVED.md, OWNER_NOTES.md, research_goal_intention_brain_mechanism_2026-09-04.md,
+   research_infinitive_attachment_brain_mechanism_2026-09-04.md}
+Reverify (re-runs NO landed cell): .venv/Scripts/python.exe verification/test_goal_register.py   # 11/11
 
-## What this is, in plain language
-The reader could track what happened in a story, who did it, when, where, what physically caused what, and
-what characters believed -- but nothing about what any character WANTED or was TRYING to do. That is the
-last of the five classic "situation model" dimensions psychologists use to describe story understanding
-(intentionality / goals), and it is the backbone of most stories (goal -> plan -> action -> outcome). I
-built it: a per-character goal-tracker that reads goals from the plain "wanted to / tried to / in order to"
-phrasings, ties each goal to the right character, tracks whether it was reached, and answers goal questions.
+WHAT: the missing 5th Zwaan-Radvansky dimension (INTENTIONALITY) — a glass-box per-agent GOAL REGISTER over
+the reader's OWN extraction (frontend POS + coref; NO spaCy at inference, NO LLM). Answers "what is X trying
+to do", "why did X act" (goal-why), "did X achieve it" (status), off the accumulated model.
 
-## What we are submitting (the parts)
-1. **A glass-box goal register** (no external AI, no black box) that reads each character's goals from the
-   reliable explicit phrasings and binds them to the right character using the reader's existing character
-   tracker. `experiments/goal_register.py`.
-2. **A measurement on 100 real story chapters** proving it works and where it doesn't.
-   `experiments/exp_goal_register_qa_v1.py`.
-3. **A self-checking witness** (10/10 checks) that re-verifies the claims without re-running the big job.
-   `verification/test_goal_register.py`.
-4. **The brain-mechanism research** it is built on. `research_goal_intention_brain_mechanism_2026-09-04.md`.
+RESULT (100 LitBank docs, CI-separated, info-free twin LOSING, floor recomputed per population):
+- WANT "what is X trying to do", reliable explicit slice (desire/intend/try + in-order-to, n=234):
+  model 0.607 vs most-recent-action floor 0.137 (CI-sep) AND vs shuffled-agent twin 0.017 (CI-sep); twin
+  null p95 0.0165. Explicit-slice extraction precision 0.857 = the spaCy oracle (AT the competent-reader
+  ceiling; oracle is reference-only, never on the inference path).
+- WHY goal-why (n=1372): goal register 0.980 vs the PHYSICAL-CAUSE dimension 0.041 (CI-sep) — and the
+  CONVERSE (n=461 because/so questions): causal dim 0.86 vs goal register 0.01. Goal-why and physical-cause
+  are DISJOINT, complementary dimensions (Malle reason-vs-cause).
+- Binds the RIGHT agent: positive control 816 vs 3. STATUS field (Lutz-Radvansky) authored 1.0 vs 0.33.
+  REINSTATEMENT (Suh-Trabasso) authored 1.0 vs a status-blind recency floor 0.0.
 
-## The headline numbers (plain)
-- "What is she trying to do?" on the reliable phrasings: right about **53%** of the time, vs **20%** for
-  just naming her most recent action, vs **3%** if you scramble which character each goal belongs to. (The
-  53% is capped because a character can hold several goals and we return the current one; the point is it
-  crushes the trivial baselines.)
-- "Why did he do that?" answered with the GOAL **98%** of the time, where the physical-cause tracker gets
-  it **4%** -- and on physical "why" questions the physical-cause tracker gets **85%** where the
-  goal-tracker gets **1%**. So the two are genuinely different, complementary tools (which the psychology
-  predicts).
-- It ties each goal to the RIGHT character: on multi-character passages it is right where a
-  character-blind guess is wrong **827** times, vs the reverse only **4** times.
-- Whether a goal was reached/abandoned/still-open: **100%** on clean hand-made examples vs **33%** for a
-  tracker that never updates.
-- It also does what the psychology says a reader does: once a character finishes a small step ("get the
-  passport"), it drops that step and returns to the bigger goal it served ("escape the country") -- **100%**
-  right, where a tracker that just names the most recent goal gets it **0%** (it stays stuck on the finished
-  step).
+UPSTREAM brain-foundational component (built + research-verified, not cited-after): a lexicalist verb
+SUBCATEGORIZATION-FRAME filter (P(complement) from UD-EWT gold — a static offline foundation asset, not the
+test set) + extraposition detection + a passive-agent guard (PRO -> matrix AGENT). PINNED (MacDonald/
+Seidenberg constraint-based lexicalist parsing; filtering = the faithful mechanism for the clear case). It
+DECISIVELY fixes the target cases ("to meet a Megalosaurus"/"began to rain" dropped, "went to buy" kept),
+removes ~120 over-fires, and lifts WANT-explicit 0.531 -> 0.607. ZERO REGRESSION proven: the frame gates
+ONLY the bare branch, so the explicit consumer is BYTE-IDENTICAL off vs on (0.6068==0.6068, n=234; witness
+W10); WHY/status/reinstatement/other reader dimensions unchanged.
 
-## Where it honestly falls short (measured, named)
-- **Implied goals** (never said out loud -- "he picked up the knife" -> "to attack") need real-world
-  knowledge we do not yet have. This is the same missing "meaning channel" several other problems hit.
-- **Messier "did-X-in-order-to" phrasings on old literary prose** need a better grammar parser than the
-  lightweight one we use (precision drops from 85% to 33% on that slice, measured against a reference
-  parser). Same parser limitation other dimensions hit.
-Both are the "explicit vs implied" split the brief itself predicted -- a rigorous located negative, which
-the brief says is a full pass.
+LOCATED NEGATIVE (the brief's sanctioned full pass, named + numbered): (a) bare-purpose adjuncts are
+ATTACHMENT-parse-gated (precision 0.34 vs oracle; residual = causatives/perception-ECM/complex-sentence
+attachment) — needs a register-native parser (the modern arc parser is 19c-negative); (b) unstated/abductive
+Tier-2 goals ("why this over that") need the world-knowledge/meaning channel. This is the explicit-vs-
+inferred split the brief predicted.
 
-## Upstream brain-foundational component (the "make it excel" push)
-You asked me to prototype an upstream component and prove every part is brain-foundational. I built the
-brain's ACTUAL mechanism for telling a purpose phrase ("went TO BUY bread") apart from a look-alike that
-is NOT a goal ("it would be wonderful TO MEET a dinosaur", "it began TO RAIN") -- a per-verb "does this
-verb take a to-clause as its own complement?" table LEARNED from a gold-annotated corpus (the same kind of
-lexical knowledge the reading-brain uses, per the parsing literature; verified by a dedicated research
-drill, not cited after the fact), plus a rule for the "it was DONE to..." passive case (bind the goal to
-the doer, never the thing done). Effect: it removes ~120 wrong picks with no regression, and lifts the
-"what is X trying to do" score from 0.53 to **0.61**. Honest limit: the biggest remaining error in the
-messy phrasings is which verb the phrase hangs off -- that needs a full grammar parser tuned for old prose,
-which is a separate filed job (the modern parser we have is documented to hurt on 1800s text). I also did a
-FULL audit of every calculation/averaging step for brain-fidelity (in SOLVED.md §9): every mechanism step
-is either a named brain mechanism we copied or an honestly-flagged choice we swept; the only "average" in
-the mechanism is word-frequency (which is what the brain stores), and there is no black-box averaging.
+BRAIN-FOUNDATIONAL AUDIT (SOLVED.md §9): every mechanism step PINNED or OUR-INVENTION-swept; the only
+in-mechanism average is lexical subcat frequency (what the brain stores); NO FHRR/consolidation-style
+averaging (the register SELECTS). Bootstrap means are measurement hygiene.
 
-## What strategy would land (only after you mark DONE)
-A default-off `track_goals` switch on the reader (mirrors the belief/world-state switches exactly -- purely
-additive, changes no other dimension), plus a `goal` row on the board's question test. Details in SOLVED.md
-§5. Nothing is wired into the live reader yet (solver scope).
+files: experiments/{goal_register.py, verb_subcat_frames.py, exp_goal_register_qa_v1.py} +
+verification/test_goal_register.py (11/11) + data/verb_subcat_frames_v1/verb_subcat_frames_ud_ewt.json +
+data/exp_goal_register_qa_v1/metrics.json. NO hdlab written (Q111). Ledger malformed/incomplete: 0.
 
-## Reverify
-`.venv/Scripts/python.exe verification/test_goal_register.py`  -> 8/8 PASS (re-runs no landed cell).
+AUDIT UPDATE (BRAIN_FOUNDATIONAL_AUDIT.md §2b): add the GOAL/INTENTION dimension — distinct dmPFC
+mentalizing computation (desire FOLDED in), DISJOINT from physical causation (Malle), status field +
+reinstatement PINNED; the reader now has all five Zwaan-Radvansky dimensions.
+
+DO / NEXT (strategy, only after owner_verdict: DONE): land the default-off track_goals wire + the `goal`
+board arm + promote the upstream subcat-frame asset (SOLVED.md §5). Filed further-growth levers, ranked:
+register-native (19c) dependency parser (bare-purpose attachment) > meaning channel (Tier-2 abductive) >
+goal->subgoal hierarchy graph.
