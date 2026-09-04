@@ -9,6 +9,12 @@ files_changed: "experiments/exp_consolidation_gate_v1.py, experiments/exp_consol
 reverify: ".venv/Scripts/python.exe verification/test_consolidation_gate.py"
 ---
 
+## INTEGRATED_BY_STRATEGY (2026-09-04) — EXCELLENT (the gate PASSES + a mechanism-complete located negative + the north-star pathway pinned)
+Reverified first-hand: `verification/test_consolidation_gate.py` **14/14** (C13 rich 0.318 vs gloss 0.251; C13b settling over-collapses). The consolidation gate delivers "the clean foundation before learner-on" (+0.067 CI-sep, raw twin loses), and PROVES the ~0.35 ceiling is the frozen sense-superposed distributional substrate itself. Actions:
+- **WIRE LANDED (Q111): the load-bearing wire is a GUARD, not a default-on feature** (§6). Promoted `consolidate` + `raw_assocs` + a `regression_guard` VERBATIM → **`hdlab/consolidation_gate.py`** — the reusable offline admission gate with the raw-vs-consolidated regression check BAKED IN (raw growth can never silently ship), composing with the landed `hdlab/cls_growth` (reversibility). Landing witness `test_consolidation_gate_landing_organ.py` **7/7** (byte-faithful; blocks below-gloss admission). Registered `consolidation_gate_admission_guard_v1`. NOT wired default-on (reading-derived growth doesn't beat gloss). `diagnostic_context_wsd` kept as-is.
+- **§2b AUDIT UPDATE folded** (newest entry): the gate passes +0.067; the located negative is mechanism-complete; the ~0.35 ceiling is the SUBSTRATE (supervised distributional keys cap 0.35, senses superposed); 12-dim grounding ruled out (too coarse); the ONLY brain-foundational route is the grounded ATL hub-and-spoke + online predictive reader.
+- **FOLLOW-ON FILED (the north star this problem earns): `build_the_atl_hub_and_spoke_meaning_channel_online_predictive_reader` (P9)** — richer grounded spokes (Binder ~65-dim + affect + relational, semantic-inheritance-propagated) bound to the distributional spoke, re-settled online per context, to cross the 0.35 ceiling glass-box (no transformer, no training). The launch pad (0.318) is built; this is the ceiling-breaker.
+
 ## >>> THE 100% BRAIN-FOUNDATIONAL PATHWAY -- THE NEXT FOCUS <<<
 
 The ~0.35 glass-box ceiling is the FROZEN DISTRIBUTIONAL substrate: senses are SUPERPOSED in w2v (Arora 2018), so no
