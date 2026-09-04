@@ -76,24 +76,41 @@ def diagnosticity(context_vecs: np.ndarray, sense_gloss_vecs: np.ndarray) -> np.
 
 
 def diagnostic_query(context_vecs: np.ndarray, sense_gloss_vecs: np.ndarray,
-                     shuffle_rng: Optional[np.random.Generator] = None) -> np.ndarray:
+                     shuffle_rng: Optional[np.random.Generator] = None,
+                     gamma: float = 1.0, topk: Optional[int] = None) -> np.ndarray:
     """The DIAGNOSTIC-weighted context query (unit). Falls back to the FLAT context mean when no context word is
     diagnostic (weight sum ~0). shuffle_rng permutes the weights onto the WRONG words -> the info-free twin
-    (which must LOSE). VERBATIM to the cell's diag_q."""
+    (which must LOSE). VERBATIM to the cell's diag_q.
+
+    PRECISION-WEIGHTING (P9 `build_the_atl_hub_and_spoke_meaning_channel...`, owner-DONE; Friston 2010 selective
+    gain / Feldman-Friston -- precision is a MULTIPLICATIVE gain letting a high-precision subordinate cue overturn
+    the dominant prior): `topk` keeps only the top-k most-diagnostic context words (hard selective gain); `gamma`
+    is the sharpening exponent on the per-word diagnosticity. DEFAULT gamma=1.0, topk=None -> BYTE-IDENTICAL to
+    the pre-P9 flat diagnostic query (both branches guarded off). On strict document-disjoint SemCor subordinate
+    senses this lifts a_s 0.313 -> 0.336 (+0.023 CI-sep, shuffled-diagnosticity twin loses, NO MFS regression);
+    it does NOT reach the ~0.35 static-distributional ceiling (that is the frozen sense-conflated input, not the
+    readout). VERBATIM to exp_atl_hubspoke_query_side_readout_v1.readout_pick."""
     diag = diagnosticity(context_vecs, sense_gloss_vecs)
     if shuffle_rng is not None:
         diag = diag[shuffle_rng.permutation(len(diag))]
+    if topk is not None and topk < len(diag):          # hard selective gain: keep only the top-k diagnostic words
+        thr = np.sort(diag)[-topk]
+        diag = np.where(diag >= thr, diag, 0.0)
+    if gamma != 1.0:                                   # multiplicative precision sharpening (guarded -> byte-identical at 1.0)
+        diag = diag ** gamma
     if float(diag.sum()) <= _EPS:
         return _unit(context_vecs.mean(axis=0))
     return _unit((diag[:, None] * context_vecs).sum(axis=0))
 
 
 def diagnostic_context_scores(context_vecs: np.ndarray, sense_gloss_vecs: np.ndarray,
-                              shuffle_rng: Optional[np.random.Generator] = None) -> np.ndarray:
+                              shuffle_rng: Optional[np.random.Generator] = None,
+                              gamma: float = 1.0, topk: Optional[int] = None) -> np.ndarray:
     """Biased-competition sense scores = cos(diagnostic-weighted query, each candidate sense gloss). Returns (S,);
     argmax = the picked sense. The wired a_s fix (DIAGCTX arm of the validated cell). All inputs UNIT vectors;
-    a missing-gloss sense is a zero row (scores 0). Pass shuffle_rng to get the info-free twin's scores."""
-    q = diagnostic_query(context_vecs, sense_gloss_vecs, shuffle_rng)
+    a missing-gloss sense is a zero row (scores 0). Pass shuffle_rng to get the info-free twin's scores.
+    gamma/topk = the P9 precision-weighting (default gamma=1.0, topk=None = byte-identical; see diagnostic_query)."""
+    q = diagnostic_query(context_vecs, sense_gloss_vecs, shuffle_rng, gamma=gamma, topk=topk)
     return sense_gloss_vecs @ q
 
 
@@ -123,13 +140,15 @@ def sense_gloss_vec(gloss_words, vec_lookup):
     return None if M is None else _unit(M.mean(axis=0))
 
 
-def pick_sense(context_words, candidate_gloss_words, vec_lookup, shuffle_rng=None):
+def pick_sense(context_words, candidate_gloss_words, vec_lookup, shuffle_rng=None,
+               gamma: float = 1.0, topk: Optional[int] = None):
     """Direct solver entry point: pick which candidate SENSE the context supports, by biased competition.
     context_words: the target's sentence content words (target REMOVED). candidate_gloss_words: a list (one per
     candidate synset, IN ORDER) of that synset's gloss+example+lemma words. vec_lookup: word -> vector or None
     (YOUR embedding space). Returns the INDEX of the picked candidate synset, or None if the context or every
     gloss is out-of-vocab (the caller keeps its own fallback -- e.g. the MFS/first synset). Pass shuffle_rng for
-    the info-free twin. Builds the vectors then calls diagnostic_context_scores (missing-gloss senses = zero rows)."""
+    the info-free twin. gamma/topk = the P9 precision-weighting (default = byte-identical; see diagnostic_query).
+    Builds the vectors then calls diagnostic_context_scores (missing-gloss senses = zero rows)."""
     C = _stack_word_vecs(context_words, vec_lookup)
     if C is None or not candidate_gloss_words:
         return None
@@ -138,4 +157,4 @@ def pick_sense(context_words, candidate_gloss_words, vec_lookup, shuffle_rng=Non
         return None
     D = C.shape[1]
     G = np.stack([g if g is not None else np.zeros(D, dtype=np.float64) for g in gvs])
-    return int(np.argmax(diagnostic_context_scores(C, G, shuffle_rng)))
+    return int(np.argmax(diagnostic_context_scores(C, G, shuffle_rng, gamma=gamma, topk=topk)))

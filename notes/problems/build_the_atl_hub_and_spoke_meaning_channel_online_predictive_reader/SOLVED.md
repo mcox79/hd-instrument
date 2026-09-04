@@ -9,6 +9,14 @@ files_changed: "experiments/exp_atl_hubspoke_grounded_separability_v1.py (the ri
 reverify: ".venv/Scripts/python.exe verification/test_atl_hubspoke_meaning_channel.py   # W1-W8 (grounding-neg; precision-positive +0.02 CI-sep; gold-W helps only where the rare sense is attested + borderline; glass-box resolvers fail; ideal max-coverage W does NOT cross; glass-box de-superposition de-superposes but a_s drops). The JOINT PPR arm is reproduced by its own cell (data/exp_atl_hubspoke_joint_ppr_recompute_v1/metrics_full.json): PPR 0.264 / fuse 0.323 < precision 0.342 -> topical, does not cross"
 ---
 
+## INTEGRATED_BY_STRATEGY (2026-09-04) — EXCELLENT (a rigorous located-negative + one landable win)
+Reverified via `verification/test_atl_hubspoke_meaning_channel.py` (W1–W8, strict document-disjoint SemCor subordinate, n=2676) + a new pure-numpy landing witness `verification/test_diagnostic_context_precision_landing.py` **4/4** (default byte-identity on 200 cases + the param is live + verbatim to the reference).
+- **WIRE LANDED (Q111, default byte-identical):** `hdlab/diagnostic_context_wsd` gains `gamma`/`topk` precision-weighting params on `diagnostic_query`/`diagnostic_context_scores`/`pick_sense` (guarded → default gamma=1.0/topk=None is BIT-identical to the pre-P9 readout; consumers opt in). The precision win lifts a_s 0.313→0.336 (+0.023 CI-sep, twin loses, no MFS regression); does NOT reach ~0.35.
+- **DID NOT land (measured negatives):** the grounded hub into the keys (0.283<0.313), reading-derived W default-on (regresses rare senses), a trained encoder (scale-bound, not brain-foundational).
+- **§2b folded.** The ceiling is relocated to the encoding-time sense-resolver (frozen sense-conflated context) — the crosser is broad-coverage correctly-resolved rare-sense EXPERIENCE.
+- **FOLLOW-ON FILED:** `grow_broad_coverage_correctly_resolved_rare_sense_experience_the_meaning_channel_learner_on` (priority 5).
+- **⚠️ OPEN OWNER QUESTION (surfaced to the owner):** hold the no-transformer invariant + accept the ~0.34 rare-sense ceiling (the coverage/learner-on route), OR relax it for ONE offline contextual-sense asset to reach ~0.53? Recommendation: HOLD.
+
 ## What was asked, and what the disk says
 
 The brief: break the ~0.35 glass-box subordinate-sense ceiling the 100%-brain-foundational way -- represent each sense
