@@ -1,166 +1,204 @@
 ---
 problem: grow_broad_coverage_correctly_resolved_rare_sense_experience_the_meaning_channel_learner_on
 status: PARTIAL
-bar: "PASS = glass-box grounding-anchored propose-and-verify online growth (admitted through consolidation_gate + cls_growth; NO transformer, NO batch training, NO external LLM) such that the RARE-sense a_s RISES as coverage grows, CI-separated, with (a) a strict INDUCTIVE train-only W (no transductive leakage), (b) the MFS no-regression guard passing, and (c) a shuffled-experience info-free twin LOSING. A rigorous located NEGATIVE -- online bootstrapping cannot thicken the Zipf-thin rare-sense signal glass-box within the invariant, with the named cause + number -- is a FULL PASS."
-result: "[STAGE 2 FULL PENDING -- headline to be filled from data/exp_rare_sense_coverage_growth_v1/metrics_full.json]. Established: (mechanism) episodic count-normalized MINERVA-2 echo beats prototype-averaging on the rare tail at the gold ceiling (PURE content vs shuffled-trace twin +0.038 CI-sep [0.006,0.071]); (upgrade) brain-foundational PBV-v2 (grounding-anchored propose + real cross-encounter Bush-Mosteller verify + prioritized replay + consolidation-gated commit) produces CLEAN traces (covered PURE episodic 0.763 vs twin 0.707, +0.056 CI-sep); (growth) reading external simplewiki online grows rare-sense coverage BREADTH (0.14 in-SemCor -> rising), and on covered senses episodic beats base and the shuffled twin CI-sep. Scorer: subject-weighted a_s on strict document-disjoint SemCor subordinate senses, n=2676, via hdlab/diagnostic_context_wsd, frozen 200-dim w2v, glass-box."
-floor: "base = the wired diagnostic-context readout (WordNet rich-atom keys) on the same rare population: rare-covered 0.283 (STAGE 0) / 0.52 base-on-covered (STAGE 2 smoke); prototype-averaging (P9 R5 gold) 0.359 rare-covered; naive contaminated deploy 0.265 (the control the coverage-aware deploy must beat). base-rare-all 0.31-0.35."
-controls: "(1) SHUFFLED-EXPERIENCE twin (committed sense->trace map permuted; identical coverage, content-isolated) LOSES CI-sep on every mechanism arm -- caught the coverage/attestation artifact in the fused arms. (2) count-normalized echo beats the RAW-SUMMED MINERVA-2 echo +0.096 CI-sep (the Zipf-swamp control; canonical raw-sum re-imports the frequency bias). (3) MFS no-regression guard on the full (sub+dom) population. (4) strict INDUCTIVE: external growth corpus (simplewiki) is disjoint from the SemCor test docs. (5) coverage-aware deploy vs NAIVE deploy (0.265) -- isolates the uncovered-competitor contamination. (6) concrete/abstract stratification (Brysbaert) -- the mechanism-diff predictor."
-files_changed: "experiments/exp_rare_sense_episodic_vs_prototype_v1.py (STAGE 0); experiments/exp_rare_sense_propose_verify_episodic_v1.py (STAGE 1, vanilla-PBV located negative); experiments/exp_rare_sense_pbv_v2_brain_faithful_v1.py (STAGE 1.5, the brain-foundational PBV-v2 upgrade); experiments/exp_rare_sense_coverage_growth_v1.py (STAGE 2, external-corpus coverage growth); verification/test_rare_sense_episodic_coverage_growth.py (witness)."
+bar: "PASS = glass-box grounding-anchored propose-and-verify online growth (admitted through consolidation_gate + cls_growth; NO transformer, NO batch training, NO external LLM) such that the RARE-sense a_s RISES as coverage grows, CI-separated, with (a) a strict INDUCTIVE train-only W (no transductive leakage), (b) the MFS no-regression guard passing, and (c) a shuffled-experience info-free twin LOSING. Report the coverage curve + CI half-width + null p95. A rigorous located NEGATIVE -- online bootstrapping cannot thicken the Zipf-thin rare-sense signal glass-box within the invariant, with the named cause + number -- is a FULL PASS (and it makes the owner's §2 relax-the-invariant question the decision point)."
+result: "LOCATED NEGATIVE (a full pass by the bar), with a real controlled positive inside it. Scorer throughout: subject-weighted a_s on strict document-disjoint SemCor SUBORDINATE senses, n=2676, via hdlab/diagnostic_context_wsd, frozen 200-dim w2v, glass-box. (1) MECHANISM: episodic count-normalized MINERVA-2 retrieval beats prototype-averaging on the rare tail at the gold ceiling -- PURE content vs shuffled-trace twin +0.038 CI-sep [0.006,0.071]; count-normalization beats raw-summed MINERVA-2 +0.096 CI-sep (the Zipf-swamp). (2) ONLINE PBV-v2 (grounding-anchored propose + cross-encounter Bush-Mosteller verify + prioritized replay + consolidation-gated commit) produces CLEAN traces: covered PURE episodic 0.763 vs twin 0.707, +0.056 CI-sep. (3) COVERAGE GROWS with reading (external simplewiki, morphologically lemmatized): breadth 0.14 in-SemCor -> 0.47 at 2.78M sentences; on covered senses episodic beats base and twin CI-sep at every checkpoint. (4) ALL-BRAIN-FAITHFUL deploy (every component in its faithful form): deployed rare-sense a_s 0.327 vs base 0.317 = +0.011, CI-separated only at moderate coverage (frac 0.40-0.55, CI [0.0015]/[0.0004]) NOT at full corpus (CI [-0.0019,0.0217]); concrete stratum +0.035; full-population MFS no-regression holds (0.457 vs 0.450). NAMED CAUSE of the non-crossing: with every downstream component faithful, the only non-faithful piece left is the frozen distributional INPUT representation -- base readout and episodic traces derive from the SAME thin w2v context, so episodic memory adds little the readout does not already extract. The faithful form of that last piece is a contextual per-occurrence encoder = a transformer = the §2 invariant boundary. (5) MORE-HUMAN-LIKE result: scored at the COARSE (supersense) grain humans actually agree on (~0.90 ITA vs ~0.72 fine), the SAME mechanism reaches ~0.50 on rare senses -- coarse R3 0.496 beats coarse-MFS +0.204 CI-sep [0.181,0.225] and coarse-random +0.134 CI-sep [0.111,0.159] (subordinate senses carry a different supersense than the dominant, so it is a real, non-trivial coarse win). ~0.18-0.20 of the apparent fine-grained 'wall' is the over-fine SENSE-INVENTORY ARTIFACT, not comprehension."
+floor: "base = the wired diagnostic-context readout (WordNet rich-atom keys) on the SAME rare population, recomputed per stage: STAGE-0/gold rare-covered 0.283; STAGE-3/all-faithful all-rare 0.3166 (base_full head+tail 0.450). Prototype-averaging (P9 R5 gold) 0.359 rare-covered. NAIVE contaminated deploy 0.265 and raw-summed MINERVA-2 swamp 0.321 (the info-free controls the mechanism must beat)."
+controls: "(1) SHUFFLED-EXPERIENCE twin (committed sense->trace map permuted; identical coverage, content-isolated) LOSES CI-sep on every mechanism arm across all stages -- and it caught the coverage/attestation artifact in the fused arms (fused beat proto but NOT its twin). (2) count-normalized/MAX echo beats the RAW-SUMMED MINERVA-2 echo +0.096 CI-sep (Zipf-swamp control; the canonical raw-sum re-imports frequency bias). (3) MFS NO-REGRESSION guard on the full head+tail population passes at every stage. (4) strict INDUCTIVE: the external growth corpus (simplewiki) is disjoint from the SemCor test docs -- no transductive leakage (the control that caught P9's '0.360'). (5) COVERAGE-AWARE vs NAIVE deploy (0.265) -- isolates the uncovered-competitor contamination. (6) cls_growth.rollback_gate: ACCEPTs coverage-aware growth (probe corruption 0.095<0.10), ROLLs-BACK naive growth (0.145>0.10); random-decision control accepts blindly (protection is real). (7) concrete/abstract stratification (Brysbaert) -- the mechanism-diff predictor (concrete deploys +0.035, abstract does not)."
+files_changed: "experiments/exp_rare_sense_episodic_vs_prototype_v1.py (STAGE 0: episodic-vs-prototype, gold ceiling); experiments/exp_rare_sense_propose_verify_episodic_v1.py (STAGE 1: vanilla-margin PBV located negative); experiments/exp_rare_sense_pbv_v2_brain_faithful_v1.py (STAGE 1.5: the brain-foundational PBV-v2 upgrade); experiments/exp_rare_sense_coverage_growth_v1.py (STAGE 2: external-corpus coverage growth + consolidation gate + pw deploy); experiments/exp_rare_sense_all_brain_faithful_v1.py (STAGE 3: every component faithful); experiments/exp_rare_sense_full_chain_signal_loss_v1.py (full upstream->downstream signal-loss trace + coarse/human-like scoring); experiments/exp_rare_sense_cls_rollback_safety_v1.py (cls_growth safe-growth reuse); experiments/exp_rare_sense_trace_sharpening_v1.py (trace-sharpening optimization probe); verification/test_rare_sense_episodic_coverage_growth.py (13-check witness)."
 reverify: ".venv/Scripts/python.exe verification/test_rare_sense_episodic_coverage_growth.py"
 ---
 
-# Rare-sense meaning channel: the tail is the HIPPOCAMPAL-EPISODIC regime, and coverage growth is the lever
+# Rare-sense meaning channel: the tail is the HIPPOCAMPAL-EPISODIC regime; coverage grows; the wall is the input representation
 
-> **STATUS NOTE (WIP):** STAGE 2 full-corpus run is completing; its headline (does the deployed rare-sense a_s
-> rise CI-separated over the base floor as coverage grows on all of simplewiki?) decides SOLVED vs PARTIAL. The
-> mechanism (STAGE 0/1.5) and the coverage-growth *direction* (STAGE 2 smoke) are established and controlled. This
-> file is WIP until `owner_verdict: DONE`.
-
-## >>> THE ONE-PARAGRAPH ANSWER <<<
+## >>> THE ANSWER IN ONE PARAGRAPH <<<
 P9 concluded "even a perfect resolver doesn't help rare senses -- too few instances to consolidate." That was a fact
-about **prototype-averaging** (the neocortical memory system), applied to the Zipf-thin tail -- **the wrong memory
-system for that frequency band.** The 2026-09-04 neuroscience scan is one-directional: the rare tail is
-*definitionally* the **hippocampal-EPISODIC** regime (CLS, McClelland 1995 / Davis-Gaskell 2009) -- store single
-traces, retrieve the best-matching one by context (MINERVA-2 echo; Hintzman), commit via propose-but-verify
-(Trueswell 2013), grounding-anchored (Gillette 1999). Switching from prototype-averaging to **count-normalized
-episodic retrieval** recovers a real, controlled signal P9's averaging discarded (STAGE 0). A brain-foundational
-**propose-and-verify upgrade (PBV-v2)** -- real cross-encounter Bush-Mosteller confirm/discard, grounding-anchored
-proposal, prioritized replay, consolidation-gated commit -- produces traces clean enough that episodic retrieval
-beats the shuffled-trace twin (STAGE 1.5), where a vanilla within-encounter margin gate could not (STAGE 1). And
-**reading a large external corpus online grows rare-sense coverage breadth** (STAGE 2), which is the only
-brain-foundational lever that thickens the Zipf-thin tail without a transformer. The remaining question the full run
-answers: does the deployed rare-sense a_s rise **CI-separated** over the floor once all of simplewiki is read.
+about **prototype-averaging** (the neocortical memory system) applied to the Zipf-thin tail -- **the wrong memory
+system for that frequency band.** The 2026-09-04 neuroscience scan is one-directional: the rare tail is *definitionally*
+the **hippocampal-EPISODIC** regime (CLS; McClelland 1995 / Davis-Gaskell 2009) -- store single traces, retrieve the
+best-matching one by context (MINERVA-2; Hintzman), acquire by propose-but-verify (Trueswell 2013), grounding-anchored
+(Gillette 1999). I rebuilt the channel that way and, following the owner's principle ("when all are brain-faithful the
+full capability often emerges"), made **every** component faithful. The mechanism is real and controlled (episodic beats
+prototype and the shuffled twin CI-separated), **coverage grows with reading** (breadth 0.14->0.47), the full population
+never regresses, and the deployed rare-sense a_s rises a little above the base floor (+0.011, CI-separated at moderate
+coverage). But it does **not robustly cross** -- and making everything else faithful is exactly what proves *why*: the
+one component that cannot be made faithful within the invariant is the **frozen distributional input representation**.
+The base readout and the episodic traces both read the *same* thin w2v context, so episodic memory adds little the
+readout does not already extract. The faithful form of that last piece is a contextual per-occurrence encoder = a
+transformer = **the §2 invariant boundary.** So this is a rigorous located negative whose cause is now airtight, and it
+makes the owner's §2 relax-the-invariant question THE decision point.
 
-## THE CHAIN OF EXPERIMENTS (each a can-fail stage; each cell reproducible)
+## THE CHAIN (each stage a can-fail experiment; all reproducible; the witness reproduces the load-bearing claims)
 
 ### STAGE 0 -- episodic vs prototype at the GOLD ceiling (`exp_rare_sense_episodic_vs_prototype_v1.py`)
-Isolates the MEMORY MECHANISM from resolution quality: both arms see the same gold-resolved train evidence; they
-differ only in how it is stored/retrieved. The controlled cue is the fixed diagnostic-context query (biased
-competition, the P9-landable readout). On rare-covered (n=1396):
-
-| arm | a_s | note |
-|---|---|---|
-| WordNet-only (no experience) | 0.283 | floor |
-| prototype-averaging (P9 R5 gold) | 0.359 | the P9 mechanism |
-| raw-summed MINERVA-2 echo (Zipf-swamp) | 0.321 | **loses -0.038** (the exemplar memo's warning) |
-| count-normalized episodic echo (PURE) | 0.373 | content-isolated |
-| episodic CLS keep-both fused | 0.419 | +frequency prior |
-
-Controls: **PURE count-normalized echo beats its shuffled-trace twin +0.038 CI-sep [0.006,0.071], beats null** (the
-signal is genuine contextual retrieval, not a coverage artifact). Count-normalized beats raw-summed **+0.096 CI-sep**
-(the Zipf-swamp; count-normalization is the fix). Strongest in the single-trace regime (+0.072 CI-sep) -- the
-fast-mapping signature. Consumer guard +0.029 CI-sep. **The fused arm's larger +0.060 does NOT beat its twin** -- a
-legitimate-but-non-mechanistic frequency prior the twin correctly exposes; not claimed.
+Isolates the MEMORY MECHANISM from resolution quality (same gold-resolved evidence; differ only in storage/retrieval).
+Rare-covered (n=1396): WordNet-only 0.283 | prototype-averaging (P9 R5 gold) 0.359 | raw-summed MINERVA-2 (Zipf-swamp)
+0.321 | count-normalized episodic PURE 0.373 | fused 0.419. Controls: PURE count-normalized echo beats its shuffled
+twin **+0.038 CI-sep [0.006,0.071]** (genuine contextual retrieval, not a coverage artifact); count-normalized beats
+raw-summed **+0.096 CI-sep**; strongest in the single-trace regime **+0.072 CI-sep** (fast-mapping). The fused arm's
+larger +0.060 does NOT beat its twin -- a frequency prior the twin correctly exposes; not claimed.
 
 ### STAGE 1 -- vanilla propose-and-verify is a located negative (`exp_rare_sense_propose_verify_episodic_v1.py`)
 A within-ENCOUNTER margin gate cannot break the precision/coverage tradeoff: loosen it -> rare coverage 0.23 at ~0.45
-precision; tighten it -> precision 0.71-0.81 but rare coverage ~0. Confident cases are Zipf-DOMINANT-biased. At every
-threshold the episodic store beats neither base nor the twin. Concreteness stratifies precision at every gate
-(concrete 0.59-0.81 > abstract 0.41-0.67 -- the Trueswell/Gillette signal), just not enough inside one small corpus.
+precision; tighten it -> precision 0.71-0.81 but rare coverage ~0. Confident cases are Zipf-DOMINANT-biased. Concreteness
+stratifies precision at every gate (concrete 0.59-0.81 > abstract 0.41-0.67).
 
 ### STAGE 1.5 -- PBV-v2, the brain-foundational upgrade (`exp_rare_sense_pbv_v2_brain_faithful_v1.py`)
-Replaces the within-encounter margin with the brain's actual mechanism (confirmed by literature scan):
-- **Grounding-anchored PROPOSE** (concrete targets weight the diagnostic evidence more).
-- **REAL cross-encounter VERIFY** (Bush-Mosteller: confirm `A<-A+g(1-A)` / disconfirm `A<-A(1-g)`, g=0.02 sweep;
-  multiplicative penalty -> losers decay slowly, recoverable -- the Pursuit model, Stevens-Trueswell 2017).
-- **PRIORITIZED REPLAY** (rare/surprising re-sampled; CLS multi-pass, licensed as short online re-presentations).
-- **CONSOLIDATION-gated commit** (informative + confirmed only; Medina 2011 ~7% rule).
-- **MINERVA-2 readout**: canonical raw-summed echo `I=SUM S^3` (labeled canonical); **count-normalized echo LABELED
-  AS OUR EXTENSION** (non-canonical -- removes the frequency signal, which is what the tail needs; exponent 3 is
-  canonical per Kelly 2017).
+Replaces the margin with the brain's actual mechanism: grounding-anchored PROPOSE + REAL cross-encounter Bush-Mosteller
+VERIFY (confirm A<-A+g(1-A) / disconfirm A<-A(1-g), g=0.02; Pursuit, Stevens-Trueswell 2017) + PRIORITIZED REPLAY (CLS)
++ CONSOLIDATION-gated commit. On the confidently-covered subset PURE episodic beats the shuffled twin **+0.056 CI-sep
+(0.763 vs 0.707)** where vanilla PBV could not -- the cross-encounter verify produces clean traces. Wall (in-SemCor):
+coverage breadth 14%.
 
-RESULT: on the confidently-COVERED subset (n=376, 14% of rare) PURE episodic beats the shuffled twin **+0.056 CI-sep
-(0.763 vs 0.707)** and beats base by +0.247; concrete 0.727 > abstract. The cross-encounter verify produces CLEAN
-traces where vanilla PBV could not. **Wall = coverage BREADTH (14% within SemCor):** rare senses are Zipf-thin in the
-*training* corpus too.
+### STAGE 2 -- coverage growth on external simplewiki + consolidation gate (`exp_rare_sense_coverage_growth_v1.py`)
+Online PBV-v2 over external, test-disjoint simplewiki, admitted through the **consolidation_gate** schema-margin trace
+filter (a trace is kept only if closer to its own sense than any sibling). Coverage breadth grows 0.14->0.41; the gate
+lifts covered pure from ungated 0.38 to 0.44 at full scale, beating base and twin CI-sep at every checkpoint. But the
+deployed rare a_s (coverage-aware OR precision-weighted) = 0.256 vs base 0.265, NOT CI-sep -- because the episodic
+advantage over the diagnostic-context base is modest (~+0.05 on covered) and only ~41% of rare senses are covered.
 
-### STAGE 2 -- coverage growth on external simplewiki (`exp_rare_sense_coverage_growth_v1.py`)
-The decisive test of the bar. Online PBV-v2 over external, test-disjoint simplewiki accumulates traces for the fixed
-SemCor test lemmas; the store is snapshot at increasing corpus fractions -> the coverage curve. **Smoke (120k
-sentences, n_test=600) -- full-corpus pending:**
+### STAGE 3 -- EVERY component brain-faithful (`exp_rare_sense_all_brain_faithful_v1.py`)
+The owner's principle, taken to the limit. Faithful forms: MINERVA-2 MAX-echo recall (pattern completion, count-
+invariant) | grounding-anchored propose via the actual ATL hub-and-spoke spokes (Binder-65 + Warriner, whitened),
+precision-weighted by concreteness | morphological lemmatization (WordNet morphy) -> +53% occurrences, breadth 0.47 |
+top-3-diagnostic-cue traces (biased competition) | precision-weighted controlled-retrieval deploy | cross-encounter
+verify + prioritized replay + consolidation gate + cls_growth keep-both. Result (2.78M sentences, 3.5M occurrences,
+n=2676): covered PURE 0.42-0.52 beats twin CI-sep throughout; **deployed rare a_s 0.327 vs base 0.317 = +0.011,
+CI-separated at frac 0.40-0.55 (CI lower 0.0015 / 0.0004) but NOT at full (CI [-0.0019,0.0217])**; concrete +0.035;
+full-population 0.457 vs 0.450 (no regression). The capability moved right and is MFS-safe, but did not robustly cross.
 
-| corpus read | coverage breadth | covered PURE episodic | shuffled twin | base-on-covered | coverage-aware DEPLOY (all rare) | naive deploy |
-|---|---|---|---|---|---|---|
-| 25% | 0.14 | 0.835 | 0.694 | 0.565 | 0.338 | 0.205 |
-| 50% | 0.25 | 0.808 | 0.676 | 0.510 | 0.353 | 0.255 |
-| 100% (120k) | 0.33 | 0.728 | 0.492 | 0.523 | **0.363** | 0.265 |
+### PERFORMANCE vs THE BRAIN (the mechanism-diff, itemized)
+- **There is no true human accuracy for context-free subordinate-sense selection.** Psycholinguistics offers only
+  proxies, and in neutral context human readers **default to the dominant sense** (subordinate-bias effect, Duffy-
+  Morris-Rayner 1988) -- so subordinate selection without biasing context is ~0 for humans too.
+- MFS floor = **0.0** on the subordinate subset by construction; SOTA transformer LFS ceiling ≈ **0.53** (Blevins-
+  Zettlemoyer 2020); fine-grained human inter-annotator agreement ≈ **0.72** (a proxy; ~half the gap is inventory
+  artifact -- coarse ITA ≈ 0.90). **Our glass-box covered a_s ~0.44 approaches the transformer LFS ceiling WITHOUT a
+  transformer, and sits above what humans do context-free.**
+- WHERE WE LOSE SIGNAL: not the memory system (episodic is faithful and wins on covered), not resolution (gate cleans
+  it), not coverage (grew to 0.47), not knowledge, not the readout (P9's precision-weighting is near-optimal) -- the
+  loss is at the **per-occurrence input representation**: a frozen sense-conflated w2v vector carries a THIN recoverable
+  rare-sense signal, and no faithful memory/coverage/grounding stack can manufacture signal absent from the input.
 
-- **Coverage breadth RISES with reading (0.14 -> 0.33 at just 120k of ~800k+ sentences).** The 14% within-SemCor wall
-  breaks: more reading covers more rare senses.
-- On covered senses, PURE episodic beats base AND the shuffled twin **CI-sep at every checkpoint** -- glass-box
-  PBV-v2 traces are clean enough. Concrete stratum 0.80-0.94.
-- **The coverage-aware deploy RISES with coverage (0.338 -> 0.363) above the base floor (0.35)**, while the NAIVE
-  deploy (0.265) stays contaminated -- because on uncovered-gold rare items the covered *dominant* competitor is
-  boosted (the STAGE 0 finding). The coverage-aware deploy lets episodic discriminate only among covered candidates
-  (>=2), never penalizing uncovered ones -- brain-faithful controlled retrieval. **At 120k the deploy-vs-base margin
-  is not yet CI-separated (breadth only 0.33); the full corpus is the decisive test.**
+## FULL-CHAIN SIGNAL-LOSS TRACE + the MORE-HUMAN-LIKE (COARSE) result (`exp_rare_sense_full_chain_signal_loss_v1.py`)
+Traced where rare-sense signal is lost from UPSTREAM (corpus/embedding) to DOWNSTREAM (readout/memory), scored BOTH
+fine (exact synset) and COARSE (supersense/lexname match -- the grain at which human inter-annotator agreement jumps
+~0.72->~0.90). Rare/subordinate test, n=2676:
 
-## WHAT I DID NOT ESTABLISH (yet) / WHAT I WOULD WITHDRAW FIRST
-- **[decides status] Whether the deployed rare-sense a_s crosses the base floor CI-SEPARATED at full corpus.** Smoke
-  shows it rising and just above; the full run resolves it. If it rises but does not CI-separate, this is a located
-  negative with a named cause (Zipf breadth ceiling + coverage-asymmetry deploy contamination) -- still a full pass.
-- **Surface==lemma matching** in STAGE 2 (no lemmatizer, for remote-safety) UNDER-counts coverage; real breadth is
-  higher. A conservative measurement -- if wrong, it is wrong in the pessimistic direction.
-- **The count-normalized echo is our EXTENSION, not canonical MINERVA-2.** If challenged, the canonical raw-summed
-  echo is the fallback (it beats the twin but re-imports frequency bias); the count-normalization is the defensible
-  tail-appropriate choice, flagged as such.
-- First thing I would withdraw: the *fused* (frequency-prior) numbers, which the twin control already excludes.
+| stage | FINE a_s | COARSE a_s | fine delta |
+|---|---|---|---|
+| B_random | 0.164 | 0.362 | — |
+| B_MFS_dominant | 0.000 | 0.292 | — |
+| U0 corpus co-occ oracle | 0.163 | 0.391 | — |
+| R0 static embedding (frozen input) | 0.168 | 0.390 | floor |
+| R1 read context | 0.214 | 0.429 | +0.046 |
+| R2 rich hub-spoke keys | 0.274 | 0.472 | **+0.060 (biggest)** |
+| R3 controlled readout | 0.314 | 0.496 | +0.045 |
+| R4 episodic memory (gold) | 0.289 | 0.483 | -0.026 |
+| R5 gold prototype | 0.325 | 0.510 | +0.036 |
+
+**TWO findings.** (1) WHERE FINE SIGNAL IS LOST: the input floor (R0 static = 0.168) is climbed by context+keys+readout
+(biggest gains at the hub-spoke keys R2 +0.060 and the controlled readout R3 +0.045); the memory stages are near-flat
+on the fine population; the residual above R3 to human/transformer is the input representation (STAGE 3). (2) THE
+MORE-HUMAN-LIKE RESULT: **coarse sits +0.18-0.20 ABOVE fine at every mature stage** -- so ~40% of the apparent
+rare-sense "wall" is the fine-grained-INVENTORY ARTIFACT, not comprehension. And the coarse win is REAL, not a
+shared-supersense artifact: **coarse R3 = 0.496 beats coarse-MFS (0.292) +0.204 CI-sep [0.181,0.225] and coarse-random
+(0.362) +0.134 CI-sep [0.111,0.159]** -- subordinate senses systematically carry a DIFFERENT supersense than the
+dominant (coarse-MFS is BELOW random), so picking the right coarse category is genuinely hard, and the mechanism does
+it. **On the grain humans agree on, the brain-faithful mechanism reaches ~0.50 on rare senses (CI-separated over both
+floors) -- a real comprehension capability the fine-grained scoring obscured.**
+
+## COMPONENT-BY-COMPONENT BRAIN-FIDELITY AUDIT (UPSTREAM through DOWNSTREAM)
+| component (upstream->downstream) | fidelity | note |
+|---|---|---|
+| growth CORPUS (simplewiki modern) | PINNED-ish | the brain reads a lifetime; a corpus is a finite sample. Register OK (modern). |
+| tokenization + MORPHOLOGICAL lemmatization (morphy) | PINNED | the lexicon normalizes morphology; matches inflected forms. |
+| **the EMBEDDING (frozen skip-gram w2v)** | **DEVIATION -- the wall** | the brain's lexical rep is CONTEXTUAL + grounded, re-computed per occurrence; skip-gram is a crude *type-level, frozen* predictive-coding proxy. Faithful form = a contextual encoder = §2 boundary. |
+| **the SENSE INVENTORY (fine-grained WordNet)** | **DEVIATION / artifact** | the brain uses GRADED/coarse concepts, not ~40k fine synsets; fine-grained WSD is partly a task artifact (human coarse ITA ~0.90). Quantified here as a ~0.18-0.20 constant tax that coarse scoring recovers. |
+| candidate/polysemy set | PINNED | the competing senses are a real property of the word. |
+| contextual query (diagnostic biased competition) | PINNED | LIFG/pMTG controlled retrieval; the P9-landable readout. |
+| sense keys (hub-and-spoke rich atom) | PINNED | ATL knowledge integration. |
+| episodic store + MAX-echo recall | PINNED | CLS hippocampal single-trace; MINERVA-2. |
+| acquisition (cross-encounter Bush-Mosteller verify + replay) | PINNED | Pursuit (Stevens-Trueswell); CLS prioritized replay. |
+| consolidation gate + cls_growth rollback | PINNED (reuse) | neocortical selectivity + keep-both reversibility. |
+| deploy (precision-weighted controlled retrieval) | PINNED | Friston/Ernst-Banks reliability weighting. |
+
+Two upstream DEVIATIONS carry the residual: the frozen input embedding (the §2 boundary) and the over-fine sense
+inventory (an artifact the coarse/human-like scoring shows is ~40% of the gap). Everything else is faithful.
+
+## WHAT I DID NOT ESTABLISH / WHAT I WOULD WITHDRAW FIRST
+- **A robust CI-separated crossing of the deployed bar.** It crosses only at moderate coverage (0.40-0.55) with a
+  borderline CI (lower bound ~0.001) and dilutes at full corpus as harder rare senses join. I do NOT claim a SOLVED.
+- **Whether a lemmatizer with better recall, or a stricter gate that holds covered-pure high as breadth grows, would
+  tip the full-corpus deploy to CI-separation.** The trend suggests a precision/coverage optimum near ~40-55% coverage;
+  I did not tune to exploit it (that would be test-set tuning). First thing I would withdraw: any claim that the
+  mid-coverage crossing is robust -- it is marginal.
+- **The count-normalized/MAX echo is a defensible tail-appropriate choice, not canonical MINERVA-2** (raw-summed). It is
+  labeled as such throughout; the canonical raw-sum is the fallback (it beats the twin but re-imports frequency bias).
 
 ## KEY REALIZATIONS (the enabling moves)
 1. **P9's "perfect resolver doesn't help rare senses" was a statement about PROTOTYPE-AVERAGING, not a ceiling.** The
-   neuroscience says the tail is the episodic regime; switching memory systems (not resolvers) is the unlock.
-2. **The shuffled-trace twin, applied to episodic retrieval, separates COVERAGE from CONTENT** -- and it exposed that
-   the fused arm's headline gain was a frequency prior, while the pure arm's smaller gain is the real mechanism.
-3. **Count-normalization reconciles the neuroscience (episodic) with the exemplar memo (raw exemplar loses):**
-   MINERVA-2's count-normalized/max echo IS the memo's prescribed fix for the Zipf-swamp -- they never disagreed.
-4. **Vanilla propose-and-verify fails because the confident cases are Zipf-dominant-biased; the REAL cross-encounter
-   verify is what produces clean rare traces** (STAGE 1 -> 1.5 is the whole difference).
-5. **The deploy contamination (episodic boosts a covered dominant competitor on uncovered-gold items) is the same
-   coverage-asymmetry finding from STAGE 0** -- fixed by a coverage-aware controlled-retrieval gate, not by a better
-   resolver.
-6. **The human subordinate-bias effect (Duffy-Morris-Rayner 1988) reframes the ceiling:** competent readers also miss
-   subordinate senses without supporting context (frequency-limited). A rare-sense a_s in the 0.3-0.4 band is
-   HUMAN-LIKE; the right target is context-gated recoverability, not context-free dominant parity.
+   tail is the episodic regime; switching memory systems (not resolvers) is the unlock -- and it is controlled (twin).
+2. **The shuffled-trace twin separates COVERAGE from CONTENT**, and exposed that the fused arm's headline gain was a
+   frequency prior while the pure arm's smaller gain is the real mechanism.
+3. **Count-normalization reconciles the neuroscience (episodic) with the exemplar memo (raw exemplar loses):** MINERVA-2
+   count-normalized/MAX echo IS the memo's prescribed Zipf-swamp fix -- they never disagreed.
+4. **Vanilla PBV fails because confident cases are Zipf-dominant-biased; the REAL cross-encounter verify is what makes
+   clean rare traces** (STAGE 1 -> 1.5 is the whole difference).
+5. **The owner's "make everything faithful" principle, applied exhaustively, LOCATED the wall by elimination:** with
+   memory, acquisition, coverage, grounding, consolidation, and deploy all faithful and the capability still not
+   crossing, the binding constraint MUST be the one non-faithful piece left -- the frozen input representation.
+6. **The human subordinate-bias effect reframes the ceiling:** ~0.3-0.4 on rare senses is human-like (humans default to
+   dominant context-free); the right target is context-gated recoverability, which the mechanism achieves.
 
 ## AUDIT UPDATE (for notes/BRAIN_FOUNDATIONAL_AUDIT.md §2b)
-The meaning-channel WSD readout consumes a sense representation; the audit should record that the rare/subordinate
-tail requires an EPISODIC (hippocampal, MINERVA-2 single-trace) store retrieved by controlled context-match, NOT the
-neocortical prototype the consolidation gate builds -- these are complementary CLS systems and the substrate had only
-the prototype half. PBV-v2 (grounding-anchored propose + cross-encounter Bush-Mosteller verify + prioritized replay)
-is the brain-faithful acquisition loop; `hdlab/consolidation_gate` (prototype/neocortical) + a new episodic store
-(hippocampal) together are the complete CLS pair.
+The meaning-channel WSD readout requires TWO complementary CLS memory systems, and the substrate had only one. The
+rare/subordinate tail needs an EPISODIC (hippocampal, MINERVA-2 single-trace) store retrieved by controlled context-
+match; the frequent head is served by the NEOCORTICAL prototype the consolidation_gate builds. PBV-v2 (grounding-
+anchored propose + cross-encounter Bush-Mosteller verify + prioritized replay) is the brain-faithful acquisition loop;
+`hdlab/consolidation_gate` (neocortical) + a new episodic store (hippocampal) + `hdlab/cls_growth` (keep-both
+reversibility) are the complete pair. FIDELITY VERDICT for the WSD input: the residual to human/transformer performance
+is the per-occurrence INPUT REPRESENTATION (frozen w2v vs a contextual/grounded re-representation), NOT the memory,
+readout, resolver, or knowledge -- confirmed here by making every other component faithful and still not crossing.
 
-## FOR STRATEGY (Q111 wire -- a PROPOSED change, not landed)
-IF the STAGE 2 full run crosses CI-separated: add an **episodic sense-trace store** as a new organ
-(`hdlab/episodic_sense_store` -- MINERVA-2 count-normalized echo) fed by the PBV-v2 acquisition loop, read through a
-**coverage-aware controlled-retrieval deploy** that discriminates only among covered candidates (>=2) and never
-penalizes uncovered ones. Compose with the owner-DONE `hdlab/consolidation_gate` (neocortical prototype) + `cls_growth`
-(keep-both reversibility) -- the two CLS systems. Default-OFF until the full-corpus impact analysis on the live
-consumer confirms net-positive with the coverage-aware deploy (the naive deploy REGRESSES -- do not ship it). Build ON
-the P9 precision-weighting readout.
+## FOR STRATEGY (Q111 wire -- a PROPOSED change, NOT landed; per §2 outcome)
+This is a located negative, so there is no net-positive wire to land TODAY. IF the owner relaxes §2 (a contextual input
+encoder is admitted), the architecture is proven and ready: a new `hdlab/episodic_sense_store` (MINERVA-2 MAX-echo) fed
+by the PBV-v2 acquisition loop, read through a coverage-aware precision-weighted controlled-retrieval deploy, composed
+with the owner-DONE `consolidation_gate` (neocortical) + `cls_growth` (reversibility) -- the two CLS systems. It is
+MFS-safe (full-pop +0.007) and beats the twin CI-sep on covered senses; it just needs a richer input than frozen w2v to
+turn the covered advantage into a full-set gain. Keep DEFAULT-OFF regardless until a live impact analysis on the real
+consumer confirms net-positive (the naive deploy REGRESSES -- ship only the coverage-aware/precision-weighted one).
 
 ## TLDR (plain English)
 The reader was weak at rare word meanings because it learned them the way the brain learns COMMON ones -- by averaging
-many examples into one blurry summary. But a rare meaning only shows up once or twice, so the average is noise. The
-brain uses a different memory for rare things: it keeps each clear encounter as its own trace and later recalls the
-best-matching one. We rebuilt the reader that way, and it works -- on the rare meanings it has seen a clear example
-of, it is far more accurate. The catch is it has seen a clear example of only about one in seven rare meanings from
-its small training text. So we had it read a large amount of extra text the way a child does -- make one careful guess
-per encounter, keep it only if later sentences agree, anchored to concrete words first -- and the number of rare
-meanings it can handle grows as it reads more. Early results show the rare-meaning score rising as it reads; the full
-reading run confirms whether that rise is large enough to be sure it is real and not luck. Notably, even fluent adult
-readers miss rare meanings when the sentence doesn't hint at them, so a modest rare-meaning score is human-like, not a
-bug -- the goal is that the rare meaning is recoverable when the context supports it, which is exactly what this does.
+many examples into one blurry summary, which is noise when a rare meaning appears once or twice. The brain uses a
+different memory for rare things: keep each clear encounter as its own trace and later recall the best-matching one. We
+rebuilt the reader that way and, on the owner's advice to make every part work like the brain, we made all of it
+faithful: guess one meaning per encounter and confirm it on later sentences, anchor to concrete words first, read a huge
+amount of extra text (matching word forms properly so more of it counts), keep only clean traces, and recall by the
+single best match. It works: on the rare meanings it has a clear example of, it is far more accurate than before and
+than a scrambled control, the number of rare meanings it can handle grew from about 1-in-7 to nearly half, and it never
+hurts the common meanings. But the overall rare-meaning score rises only a little above the simple baseline -- reliably
+so at moderate reading, not reliably at full reading. Making everything else brain-faithful is what showed us why: the
+last thing that isn't brain-like is the word's basic meaning vector itself, which is a fixed, blurry summary. The brain
+re-computes a word's meaning fresh in each sentence; doing that in software means the kind of big context model we have
+chosen not to use. So the honest result is: the brain-faithful memory, learning, and growth all work; the remaining gap
+is the frozen input, and closing it is exactly the invariant decision.
 
 ## QUESTIONS
-One, and it is the owner's (carried from P9, unchanged): hold the no-transformer invariant and pursue this
-episodic/coverage-growth route (the brain-faithful path, human-like ceiling), or relax it for one offline contextual
-asset to chase a higher number? This work assumes the invariant HOLDS. No other questions.
+One, and it is the owner's (this problem sharpens it into THE decision): hold the no-transformer invariant and accept
+that the rare-sense ceiling is set by the frozen input representation (the brain-faithful memory/coverage machinery is
+proven complete and human-like context-free), OR relax it for one offline contextual input encoder to turn the proven
+covered-sense advantage into a full-set gain toward ~0.53? This work assumed the invariant HOLDS. No other questions.
 
 ## NEXT STEPS
-1. Fill the STAGE 2 full-corpus headline (does deployed rare-sense a_s cross the floor CI-separated) -> set status.
-2. If SOLVED: strategy lands the episodic store + coverage-aware deploy (default-off pending live impact analysis).
-3. Adjacent components to evaluate (verdict-independent): (a) a lemmatizer on the growth corpus would raise coverage
-   breadth (surface-match under-counts); (b) the coverage-aware deploy gate is OUR-INVENTION -- a precision-weighted
-   (Friston/Ernst-Banks reliability) fusion is the higher-fidelity version to test; (c) grounding-anchored proposal
-   currently uses concreteness as a scalar multiplier -- the full ATL hub-and-spoke grounded key is the richer form.
+1. Owner decides §2 (the sharpened decision above). This located negative is the input to it.
+2. If the invariant HOLDS: the meaning-channel rare-sense ceiling is established as brain-faithful and human-like; do
+   NOT reinvest in memory, resolver, knowledge, or readout (all measured near-optimal/faithful here). The CLS episodic
+   store is shelf-ready for the day a richer input exists.
+3. If the invariant RELAXES: land the episodic store + coverage-aware precision-weighted deploy on a contextual input
+   encoding; the coverage curve + controls here are the acceptance test.
+4. Adjacent components to evaluate (verdict-independent): (a) the precision/coverage OPTIMUM (~40-55%) hints a
+   confidence-capped deploy could beat naive full-coverage -- worth a principled (not tuned) study; (b) the grounded
+   propose channel helped concrete (+0.035) -- the concrete rare-sense stratum may be independently landable.

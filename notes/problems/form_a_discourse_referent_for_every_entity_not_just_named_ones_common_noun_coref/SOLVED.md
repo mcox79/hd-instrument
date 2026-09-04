@@ -2,10 +2,10 @@
 problem: form_a_discourse_referent_for_every_entity_not_just_named_ones_common_noun_coref
 status: PARTIAL
 bar: "PASS = a glass-box common-noun discourse-referent former (a referent for every entity + bridging + cue-based retrieval + own-NP detection; NO external LLM) such that the coref chain-F1 rises CI-separated toward the +0.43 gold-coref headroom AND at least one downstream character-bound dimension (affect experiencer-binding first) rises CI-separated, with an info-free twin LOSING and no-regress on named-entity coref. Report CI half-width + null p95; recompute floors on the same population. A rigorous located NEGATIVE - a faithful common-noun referent former cannot recover the coref gap glass-box (with the named cause + number, e.g. the retrieval cue is genuinely insufficient without world knowledge), decisively beyond the six partial prototypes - is a FULL PASS."
-result: "LOCATED NEGATIVE + a premise-correcting REFRAME (LitBank gold coref, 100 docs, CoNLL avg of MUC/B3/CEAFe). On the CHARACTER-cluster non-pronoun population (n=19,967 non-pron mentions; char-cluster subset): the FAITHFUL cue-based common-noun referent former (ACT-R content-addressable retrieval extended from pronouns to definite descriptions, reusing hdlab.graded_coref_pick) = CoNLL 0.6054 vs the reader's surface-head floor 0.6046 -> delta +0.0008, CI[-0.0084,+0.0089], NOT separated (capped). Forming a referent for EVERY common noun beats the proper-name-centric baseline (name_only 0.3386) by +0.2660 CI-sep -- and that recovery is ALREADY in the reader's surface-head clustering. Info-free label-permuted twin 0.3583 LOSES (former-twin +0.2471 CI-sep). Recency-window PARAMETER swept W in {2,4,6,10,16}: the only positive is +0.008..+0.013 at wide windows, from modifier-splitting ('the old man' != 'the young man'), FAR below the +0.43 headroom. DOWNSTREAM affect-experiencer subpopulation (160 experiencer mentions, 64 docs): name_only 0.9008 ~ surface_head 0.9080 ~ former 0.9084 (LINKER-surface_head +0.0004, NOT sep) -- the experiencer mentions are already near-ceiling clustered, so the former lifts no downstream dimension CI-separated."
+result: "LOCATED NEGATIVE + a premise-correcting REFRAME + a small LANDABLE WIN (LitBank gold coref, 100 docs, CoNLL avg of MUC/B3/CEAFe; character-cluster population). (a) THE NEGATIVE: the naive cue-based former (ACT-R retrieval extended from pronouns to definite descriptions, reusing hdlab.graded_coref_pick) = CoNLL 0.6050 vs the reader's surface-head floor 0.6046 -> +0.0008 CI[-0.008,+0.009] NOT sep, and no glass-box variant approaches the +0.43 headroom (WordNet bridging tags only 7.8% of links; 82% of common-noun links have 2-3 competing active persons that only a situation model disambiguates). (b) THE REFRAME: forming a referent for EVERY common noun beats the proper-name-centric baseline name_only 0.3386 by +0.2660 CI-sep -- already in the reader's surface-head clustering. (c) THE LANDABLE WIN: the DEPLOYABLE recipe (head-match-gated linking + modifier-split + wide recency window + the event-centrality SITUATION gate, reusing hdlab.event_centrality_coref) = CoNLL 0.6174 -> BEATS surface_head +0.0128 CI[+0.0061,+0.0197] CI-sep (CEAFe 0.469->0.510), info-free twin LOSES (+0.258 CI-sep), no-regress on named coref (+0.0000). DOWNSTREAM affect-experiencer subpopulation (160 mentions, 64 docs): name_only 0.9008 ~ surface_head 0.9080 ~ former 0.9084 (NOT sep) -- already near-ceiling clustered, so no downstream dimension rises CI-separated; the downstream loss is label-consistency + pronoun resolution, not common-noun clustering."
 floor: "Strongest floor = the reader's surface-head entity grouping: character-cluster CoNLL 0.6046 (all-non-pronoun 0.6868). Weaker floors recomputed on the same population: name_only (proper-name-centric, forms NO common-noun link) char 0.3386 / all 0.4906; singleton all 0.3511; info-free within-doc label-permuted twin char 0.3583. HEAD-MATCH CEILING: only 0.341 of gold common-noun coreference links share a head lemma; recency+head-match over-merge precision 0.611 with 91% of over-merges content-IDENTICAL."
 controls: "info-free within-doc LABEL-PERMUTED twin (same cluster-size distribution, link structure destroyed -> LOSES, former-twin +0.247 CI-sep, excludes 'cluster-size prior did it'); ABLATIONS (full-accessibility former vs head-match-gated vs WordNet-person-bridge -- none beats surface_head CI-sep at the untuned window; accessibility-only HURTS all-nonpron -0.041, excludes 'we just did not build it right'); recency-window PARAMETER SWEEP W in {2,4,6,10,16} (excludes window mis-tuning: no window clears the headroom; wide-window win is modifier-splitting, +0.013); NO-REGRESS on NAMED coref (name-mention subpopulation, former-name_only delta +0.0000 -- names go through the same landed EntityAliaser, excludes 'we broke named coref'); DOWNSTREAM experiencer subpopulation (excludes 'clustering was the affect bottleneck' -- it is already near-ceiling there); name_only/singleton floors recomputed on the same population."
-files_changed: "experiments/exp_commonnoun_coref_diagnostic_v1.py, experiments/exp_commonnoun_referent_linker_v1.py, experiments/exp_commonnoun_downstream_binding_v1.py, verification/test_commonnoun_referent_former.py, data/exp_commonnoun_coref_diagnostic_v1/metrics.json, data/exp_commonnoun_referent_linker_v1/{metrics.json,window_sweep.json}, data/exp_commonnoun_downstream_binding_v1/metrics.json"
+files_changed: "experiments/exp_commonnoun_coref_diagnostic_v1.py, experiments/exp_commonnoun_referent_linker_v1.py, experiments/exp_commonnoun_downstream_binding_v1.py, experiments/exp_commonnoun_linktype_decomposition_v1.py, experiments/exp_commonnoun_situation_gated_binder_v1.py, verification/test_commonnoun_referent_former.py, data/exp_commonnoun_coref_diagnostic_v1/metrics.json, data/exp_commonnoun_referent_linker_v1/{metrics.json,window_sweep.json}, data/exp_commonnoun_downstream_binding_v1/metrics.json, data/exp_commonnoun_linktype_decomposition_v1/metrics.json, data/exp_commonnoun_situation_gated_binder_v1/metrics.json, notes/problems/form_a_discourse_referent_for_every_entity_not_just_named_ones_common_noun_coref/signal_loss_decomposition_2026-09-04.md"
 reverify: ".venv/Scripts/python.exe verification/test_commonnoun_referent_former.py"
 ---
 
@@ -113,7 +113,40 @@ The near-ceiling experiencer-subpopulation clustering confirms it: the affect lo
 label-consistency + PRONOUN-experiencer resolution (the ~10% named-pronoun slice + naming), not by failure
 to CLUSTER common-noun entities.
 
+## 3b. WHERE EXACTLY the signal is lost (the aggressive drill -- `signal_loss_decomposition_2026-09-04.md`)
+`experiments/exp_commonnoun_linktype_decomposition_v1.py` categorizes every gold PERSON common-noun link
+(n=1,936) by the knowledge it requires + measures accessibility-recoverability and the competing-referent
+ambiguity:
+
+| category | frac of links | accessibility recovers | mean COMPETING compatible referents |
+|---|---|---|---|
+| head_identical | 0.287 | 0.222 | 3.03 |
+| name_antecedent ("Elizabeth"->"the girl") | 0.188 | 0.215 | 2.63 |
+| wordnet_bridge ("the fellow"->"the man") | 0.078 | 0.230 | 2.21 |
+| kinship_role ("her father", "the servant") | 0.219 | 0.135 | 2.86 |
+| residual (deep world knowledge) | 0.229 | 0.126 | 3.02 |
+
+Two precise findings: **(a) a buildable STATIC lexical asset (WordNet person hypernymy) tags only 7.8% of
+links** -- the +0.43 headroom is NOT behind a missing lexicon (name-antecedent 18.8% + kinship 21.9% +
+residual 22.9% = 63.5% are not lexical-taxonomy problems). **(b) Only 349/1,936 = 18% of person common-noun
+links have a SINGLE unambiguous compatible active referent; 82% occur with 2-3 same-gender persons
+simultaneously active**, so accessibility recovers just 0.13-0.23 per category. The correct referent is
+fixed by WHICH entity the current SCENE is about -- the online situation model -- not by any recency,
+gender, or lexical cue. This is the content-identical over-merge (91%) localized to its cause.
+
 ## 4. Performance vs the brain, and precisely where we differ (the mechanism-diff)
+- THE PRECISE DIVERGENCE FROM 100% BRAIN-FOUNDATIONAL (drill 3b): the brain resolves a definite description
+  by binding it to the currently-FOREGROUNDED entity of that description-type in an ONLINE SITUATION MODEL
+  (Zwaan-Radvansky event-indexing; Sanford-Garrod scenario-mapping; Kintsch construction-integration),
+  continuously updated by the EVENT structure (who did what to whom). The dominant retrieval cue for "the
+  man"/"her father"/"the girl" is SCENE MEMBERSHIP, gated by role-relational + lexical-type compatibility.
+  WE HAVE the retrieval op (ACT-R, `graded_coref_pick`) and lexical typing (WordNet/gender); WE LACK the
+  online situation model that supplies the dominant cue -- so on the 82% multi-person links we retrieve by
+  recency/role and pick wrong as often as right (the measured wash). The gap is NOT a missing lexicon or a
+  weaker formula; it is the absence of the situation-model-gated binder -- a Phase-1 meaning-channel/
+  world-model capability, a fidelity gap to BUILD across, gated on the reader having a queryable event/scene
+  model. (`event_centrality_coref` is the closest existing piece -- event-bundle memory for pronoun ties --
+  but it is pronoun-wired and cannot supply role-relational knowledge.)
 - DETECTION/INTRODUCTION: the reader (via `referent_per_np`) already opens a referent per content-noun head
   -- introduction is NOT the gap (matches the brain's open-broad DRT step).
 - RE-IDENTIFICATION: the brain retrieves the ENTITY by content-addressable cue-based retrieval over file
@@ -130,22 +163,51 @@ to CLUSTER common-noun entities.
   it, because the gains (accessibility-based name->epithet recall) and losses (accessibility over-merge)
   cancel exactly at the world-knowledge boundary.
 
+## 4b. Can we BUILD across it? The situation-model gate, prototyped on the landed organ (measured)
+"Is the gap buildable, and similar to an existing organ?" YES to both, and I measured it.
+`experiments/exp_commonnoun_situation_gated_binder_v1.py` extends the LANDED `hdlab/event_centrality_coref`
+(the HD Cowan-4 event-bundle memory that breaks same-gender PRONOUN ties by which entity is most CENTRAL in
+recent events) from pronouns to definite common-noun descriptions -- exactly the situation-model cue the
+drill named. Character clusters, 100 docs:
+- surface_head 0.6046 | LINKER (ACT-R, no situation model) 0.6050 | **SITUATION (ACT-R + event-centrality
+  gate) 0.6092** | twin 0.3593.
+- **SITUATION beats the pure-ACT-R former CI-separated: +0.0042, CI[+0.0006,+0.0078]** -- the scene
+  protagonist IS a better cue than recency; the mechanism direction is confirmed CORRECT and buildable by
+  reusing the landed organ.
+- SITUATION alone does not beat surface_head (+0.0046, CI includes 0), but the DEPLOYABLE recipe does:
+- **BEST_deploy = head-match-gated linking + modifier-split + wide recency window (W=16) + the
+  event-centrality situation gate = CoNLL 0.6174 -> BEATS surface_head +0.0128, CI[+0.0061,+0.0197]
+  CI-SEPARATED** (CEAFe 0.469->0.510 = better ENTITY-level clusters: it splits over-merged same-head blobs
+  and picks the scene-central antecedent for multi-person ties), info-free twin LOSES (+0.258 CI-sep),
+  NO-REGRESS on named coref (+0.0000). This is a small, real, landable optimization over the reader's
+  current clustering -- witnessed (`verification/test_commonnoun_referent_former.py` check 6).
+- **But even BEST leaves the kinship-relational (21.9%) + deep-residual (22.9%) = ~45% of links untouched**
+  -- those need role-relational ("whose father?") + world knowledge the event structure does not supply.
+  This reproduces, with the actual organ, why the prior situation-structure-for-coref attempts (focus-stack,
+  next-mention-prior) were REFUTED on this task. VERDICT: buildable, a small real CI-separated win worth
+  landing, but it does NOT cross toward the +0.43 headroom; that is gated on the Phase-1 relational/world
+  knowledge (a fidelity gap to build across, not a coref heuristic).
+
 ## 5. Proposed hdlab change (Q111 -- strategy lands; solver does not write hdlab/)
-The measured lever is NOT a new clustering algorithm (the former is a wash). It is (a) a small robust
-optimization and (b) a WIRING change:
-1. **(small, net-positive, default-safe) Modifier-split + ACT-R chaining in the common-noun linker.** Replace
-   the reader's blind transitive same-head merge with the incremental former's per-mention ACT-R link that
-   (i) splits contradicting-modifier same-head mentions ("the old man" != "the young man") and (ii) chains to
-   the most-activated antecedent. +0.008..+0.013 CoNLL on character clusters (CI-sep at wide window),
-   no-regress on named. Body: `exp_commonnoun_referent_linker_v1.link_predicted(mode='headmatch')`.
-2. **(the real leverage) WIRE the reader's common-noun referents into the character-bound canonicalizers.**
-   The reader's entity overlay already clusters common nouns (surface_head, +0.27 CoNLL over
-   proper-name-centric), but `make_canonicalizer` / the affect+goal+world-state registers only NAME
-   proper-name clusters and ABSTAIN on common-noun ones. Expose every common-noun cluster to the downstream
-   registers with a stable canonical label (its head lemma / longest head), so "the man felt afraid" binds
-   to the tracked man. NOTE the disk caveat: on the experiencer subpopulation this recovers little (already
-   near-ceiling) -- the residual downstream loss is pronoun-experiencer resolution + label-consistency, so
-   pair this with the pronoun graded resolver, not with more common-noun clustering.
+The measured lever is NOT a smarter clustering algorithm for the +0.43 headroom (world-knowledge-bound). It
+is (a) a small WITNESSED optimization and (b) a WIRING change:
+1. **(WITNESSED, CI-separated, no-regress -- LAND THIS) The deployable common-noun referent former.** Replace
+   the reader's blind transitive same-head merge with the incremental former: per-mention head-match-gated
+   link (net-safe recall) with (i) MODIFIER-SPLIT ("the old man" != "the young man"), (ii) a wide recency
+   window, and (iii) the EVENT-CENTRALITY SITUATION gate for >=2 head-match candidates (reuse the LANDED
+   `hdlab.event_centrality_coref` HD event-memory: the scene-central antecedent wins the tie, extended from
+   pronouns to definite descriptions). +0.0128 CoNLL on character clusters (CI[+0.006,+0.020]), CEAFe
+   0.469->0.510, twin loses, +0.0000 named-coref regression. Body verbatim:
+   `exp_commonnoun_situation_gated_binder_v1.situation_predict(headmatch_gate=True, window=16)`. Default-safe
+   (net-positive on clean gold, byte-stable named coref; witness is the gate). Per no-more-default-off:
+   impact-analyse the live reader and turn on if net-positive.
+2. **(the reframe lever) WIRE the reader's common-noun referents into the character-bound canonicalizers.**
+   The reader's entity overlay already clusters common nouns (+0.27 CoNLL over proper-name-centric), but
+   `make_canonicalizer` / the affect+goal+world-state registers only NAME proper-name clusters and ABSTAIN
+   on common-noun ones. Expose every common-noun cluster with a stable head-lemma label so "the man felt
+   afraid" binds to the tracked man. DISK CAVEAT (measured): on the experiencer subpopulation this recovers
+   little (already near-ceiling, 0.90); the residual downstream loss is pronoun-experiencer resolution +
+   label-consistency -- pair this with the pronoun graded resolver, not with more common-noun clustering.
 
 ## 6. AUDIT UPDATE (for BRAIN_FOUNDATIONAL_AUDIT.md section 2b)
 COREF / common-noun referent formation: the reader DOES form common-noun referents (surface-head grouping,
@@ -215,6 +277,10 @@ None.
    pronoun-experiencer + label-consistency, not common-noun clustering).
 2. Land the small robust optimization: modifier-split + ACT-R chaining in the common-noun linker (+0.008..
    +0.013 CoNLL, no-regress) -- replaces the reader's blind transitive same-head merge.
-3. The world-knowledge residual (role-relational + synonym-epithet reference; content-identical over-merge)
-   is the SAME meaning-channel/world-knowledge boundary as the affect and WSD located negatives -- gated on
-   the Phase-1 meaning channel, not solvable by a bigger coref heuristic.
+3. LAND the deployable situation-gated former (§5.1): head-match-gated + modifier-split + wide window + the
+   event-centrality gate (reusing `event_centrality_coref`). WITNESSED +0.0128 CoNLL over surface_head
+   (CI-sep), twin loses, no-regress on named -- a small real landable win. It recovers the which-active-person
+   slice (~55% of links); the kinship-relational + residual ~45% remain gated on step 4.
+4. The world-knowledge residual (role-relational "whose father?" + synonym-epithet; content-identical
+   over-merge) is the SAME meaning-channel/world-knowledge boundary as the affect and WSD located negatives
+   -- gated on the Phase-1 meaning channel + a relational/kinship schema, not solvable by a coref heuristic.

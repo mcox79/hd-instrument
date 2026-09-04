@@ -67,5 +67,24 @@ The mean-ambiguity 2.2-3.0 says: even a competent human, at "the man said..." in
 by the SCENE, not the sentence. So the glass-box ceiling WITHOUT a situation model is low by construction
 -- our 0.605 (character clusters) / surface-head grouping is near the ceiling of what recency+lexical cues
 can reach. The "much better" the owner expects is real but it lives BEHIND the situation model, not behind
-a better coref rule. [Pending: the human/SOTA-neural coref number on the LitBank common-noun sub-population,
-to put an exact figure on the reachable-with-situation-model ceiling -- research drill in flight.]
+a better coref rule.
+
+LITERATURE CROSS-CHECK (research drill, verified primary sources -- Bamman et al. 2020 LREC LitBank;
+Toshniwal et al. 2021):
+- SOTA NEURAL coref on LitBank = 79.3 CoNLL F1 with gold mentions / 68.1 with predicted (Bamman 2020;
+  Toshniwal 2021 also 79.3). But this OVERALL number is DOMINATED by pronouns (LitBank is 54.3% pronoun,
+  33.5% common-noun/NOM, 12.2% proper), and is achieved WITH a large pretrained LM (SpanBERT-class) whose
+  embeddings encode implicit WORLD KNOWLEDGE -- exactly the resource our NO-external-LLM invariant bars.
+- Human IAA (ceiling) = MUC 95.5 (3 trained annotators), but inflated (LitBank restricts to characters /
+  6 ACE types) and MUC is the most link-lenient metric.
+- NO paper reports a per-type (pronoun vs proper vs NOMINAL) F1 breakdown on LitBank -- so this
+  decomposition is a novel localization. The INDIRECT literature evidence CONVERGES on our finding:
+  common nouns sit a MEDIAN of 5-6 entities from their antecedent (vs 2 for pronouns; Bamman 2020) -- an
+  independent corroboration of our "2-3 competing compatible referents / 82% multi-person" measurement;
+  multi-genre error analysis finds "the majority of errors involved definite nominals" and some nominal
+  links "require world knowledge" (Toshniwal 2021).
+- INTERPRETATION: the ~79 SOTA reachable ceiling is (a) pronoun-dominated and (b) built on pretrained-LM
+  world knowledge. The common-noun-nominal residual -- the population THIS problem targets -- is the hard,
+  world-knowledge-dependent part, unreported as a standalone number precisely because it is where systems
+  struggle. Our glass-box no-LLM tie at 0.605 is near the ceiling reachable WITHOUT importing that world
+  knowledge; crossing it means building the situation model (or, disallowed, importing an LLM's implicit one).
