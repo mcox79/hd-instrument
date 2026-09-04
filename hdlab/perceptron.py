@@ -53,6 +53,7 @@ class StructuredPerceptron:
         self._c: int = 1  # cumulative-step counter
         self._averaged: dict[str, float] | None = None  # computed lazily
         self._rng_seed = rng_seed
+        self._fast = None  # optional byte-identical fast emission plan (attached by PosTagger for inference)
 
     @property
     def weights(self) -> dict[str, float]:
@@ -61,6 +62,23 @@ class StructuredPerceptron:
             self._averaged = {f: self._w[f] - self._cw[f] / self._c for f in self._w}
         return self._averaged
 
+    def set_fast_emission(self, fast) -> None:
+        """Attach a byte-identical fast emission plan (e.g. the POS variant-C plan). When set AND the
+        weights handed to _viterbi ARE the plan's (i.e. inference under the averaged weights), _viterbi
+        uses the plan's precomputed TM/SV + sparse-per-lane emission with the numpy DP verbatim.
+        Training (fit) always routes through the stock reference, so this never perturbs learning."""
+        self._fast = fast
+
+    def _emission_reference(self, observations, weights, feature_fn):
+        """Stock emission matrix (numpy), verbatim: em[i,k] = sum(weights.get(f,0.0) for f in
+        feature_fn(observations,i,tags[k])). The byte-identity REFERENCE the fast plan is checked against."""
+        n = len(observations)
+        return np.array([
+            [sum(weights.get(f, 0.0) for f in feature_fn(observations, i, self.tags[k]))
+             for k in range(self.n_tags)]
+            for i in range(n)
+        ])
+
     def _viterbi(
         self,
         observations: Sequence,
@@ -68,17 +86,46 @@ class StructuredPerceptron:
         feature_fn: Callable,
         transition_fn: Callable,
     ) -> list[str]:
-        """Viterbi inference under current weights."""
+        """Viterbi inference. BYTE-IDENTICAL fast path when a fast emission plan is attached AND the
+        weights ARE the plan's (inference under the averaged weights); otherwise the stock reference.
+        The numpy DP is verbatim in both; only the emission build + TM/SV differ (proven bit-identical)."""
+        fast = self._fast
+        if HAS_NUMPY and fast is not None and weights is fast.weights:
+            n = len(observations)
+            if n == 0:
+                return []
+            em = fast.emission(observations, n)      # variant-C sparse per-lane (byte-identical)
+            TM = fast.TM                             # precomputed once (constant given the weights)
+            SV = fast.SV
+            V = np.empty((n, self.n_tags))
+            bp = np.zeros((n, self.n_tags), dtype=int)
+            V[0] = em[0] + SV
+            for i in range(1, n):
+                cand = V[i - 1][:, None] + TM
+                bp[i] = np.argmax(cand, axis=0)
+                V[i] = cand[bp[i], np.arange(self.n_tags)] + em[i]
+            seq = [int(np.argmax(V[n - 1]))]
+            for i in range(n - 1, 0, -1):
+                seq.append(int(bp[i][seq[-1]]))
+            seq.reverse()
+            return [self.tags[k] for k in seq]
+        return self._viterbi_reference(observations, weights, feature_fn, transition_fn)
+
+    def _viterbi_reference(
+        self,
+        observations: Sequence,
+        weights: dict[str, float],
+        feature_fn: Callable,
+        transition_fn: Callable,
+    ) -> list[str]:
+        """Stock Collins-Viterbi inference (emission + TM/SV rebuilt per call, then DP). UNCHANGED
+        reference: used by training (fit) and kept for byte-identity self-checking of the fast path."""
         n = len(observations)
         if n == 0:
             return []
 
         if HAS_NUMPY:
-            em = np.array([
-                [sum(weights.get(f, 0.0) for f in feature_fn(observations, i, self.tags[k]))
-                 for k in range(self.n_tags)]
-                for i in range(n)
-            ])
+            em = self._emission_reference(observations, weights, feature_fn)
             TM = np.array([
                 [weights.get(transition_fn(self.tags[j], self.tags[k]), 0.0)
                  for k in range(self.n_tags)]
@@ -164,7 +211,7 @@ class StructuredPerceptron:
                     continue
                 obs = [pair[0] for pair in seq]
                 gold = [pair[1] for pair in seq]
-                pred = self._viterbi(obs, self._w, feature_fn, transition_fn)
+                pred = self._viterbi_reference(obs, self._w, feature_fn, transition_fn)
                 if pred != gold:
                     pg = "<S>"
                     pp = "<S>"

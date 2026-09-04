@@ -9,6 +9,12 @@ files_changed: "experiments/exp_pos_tagger_profile_v1.py, experiments/exp_pos_ta
 reverify: ".venv/Scripts/python.exe verification/test_pos_tagger_speedup_byte_identical.py"
 ---
 
+## INTEGRATED_BY_STRATEGY (2026-09-04) — EXCELLENT
+Reverified first-hand: pre-landing witness `verification/test_pos_tagger_speedup_byte_identical.py` **4/4** + a new pure-hdlab landing witness `verification/test_pos_tagger_fast_path_landing.py` **3/3** (emission matrix BIT-identical 0/694, tags 0/694, 4.85x) + the full-read SituationReader fingerprint UNCHANGED (byte-identical end-to-end).
+- **WIRE LANDED (Q111, default-ON):** `hdlab/pos_tagger.py` `_FastEmissionPlan` (variant-C: base_contrib split on last `~` + precomputed TM/SV + token_bases; reduction through the SAME `sum()` for Neumaier bit-identity) attached lazily to the perceptron; `hdlab/perceptron._viterbi` routes to the fast path ONLY when a plan is attached AND `weights is fast.weights` (dict-identity guard), else the untouched `_viterbi_reference` (the byte-identity reference + the training path — `fit` always uses reference; non-POS StructuredPerceptron users unaffected). Compounds with P8 (parser) + perf sweep #2 (call-count 321→111).
+- **§2b folded** (byte-identical → no fidelity-map change; the brain-foundational-chain note: perceptron bottom-up = delta-rule = Rescorla-Wagner, the gap is the DECODE which the speed makes affordable, the deeper wall is MEANING = typed grounding P9).
+- **FOLLOW-ON FAMILY (to file):** graded-posterior consumption (referent_per_np first, PROPN↔NOUN); the typed-grounding meaning wall = P9.
+
 # SOLVED — the POS tagger's per-call Viterbi is 4.4–5.25x faster, byte-identical
 
 ## What I built (the mechanism)
