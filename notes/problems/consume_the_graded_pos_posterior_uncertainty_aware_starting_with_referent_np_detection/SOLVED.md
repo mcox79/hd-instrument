@@ -5,9 +5,21 @@ bar: "PASS = an uncertainty-aware consumer (the graded CRF posterior -> referent
 result: "LOCATED NEGATIVE (a FULL PASS per the bar), attributed at three levels. (1) referent_per_np: consuming the graded posterior as soft-nominal referent recovery adds +0.0000 to live who-did-what (CLEAN_DO n=149: floor=soft=0.7919; FULL n=1354: 0.2511) -- the shuffled-posterior twin LOSES (-0.0126 CI-sep FULL) so the mechanism is real, but the true posterior changes ZERO picks because introduction is PROPN<->NOUN-INVARIANT (0/3669 head diffs) and coverage is frame-SATURATED (graded adds 0.26% of gold heads over the deployed frame detector). (2) coref/name: UPOS-independent by construction (parse_litbank_conll never reads the tag). (3) the ONE channel PROPN<->NOUN genuinely flips -- ANIMACY -- fed brain-foundationally (name->animate + expected-animacy-under-category-uncertainty) into the Competition-Model role assigner is a genuinely MORE-VALID cue (learned validity 0.511 > floor 0.467 > shuffled-twin 0.296; BEATS the twin CI-sep on the non-canonical slice, +0.0231) yet does NOT CI-separate over the hard 1-best on who-did-what (graded-floor +0.0000 all / +0.0026 n.s. non-canonical, LitBank name-rich n=2957), because English is word-order-DOMINANT (MacWhinney-Bates) so animacy is subordinate, and the CRF posterior is confident (mean top 0.949) so E[animacy]~=hard."
 floor: "The DEPLOYED consumers, recomputed per population: (a) landed referent_per_np (base content heads + frame detector) who-did-what CLEAN_DO 0.7919 / FULL 0.2511 (25 LitBank docs); (b) the deployed animacy cue (lookup_animacy on the perceptron 1-best; PROPN->unk) in the landed Competition-Model role assigner, non-canonical role accuracy 0.6012 (science gold, n_test_pre~2000) / 0.0540 (LitBank non-canonical, n=389)."
 controls: "SHUFFLED-POSTERIOR TWIN (soft-recovery + graded-animacy both) -- LOSES CI-sep (soft: twin -0.0126 FULL; animacy: graded>twin +0.0037 all / +0.0231 non-canonical CI-sep) -> the effect is the posterior's VALUES, not noise/extra-referents. INTRODUCTION-INVARIANCE (flip every PROPN<->NOUN, 0/3669 head-set diffs) -> excludes the brief's introduction mechanism. FRAME-SATURATION (graded soft adds 0.26% gold-head recall over frame) -> excludes the coverage lever. NO-REGRESS (brain-foundational name->animate animacy: live who-did-what+coref BYTE-IDENTICAL) -> excludes downstream regression. REFIT-PER-VARIANT logistic -> the animacy cue validity is SWEPT not adopted (research: English animacy validity is LOW). One-variable throughout (only the head set / animacy support changes)."
-files_changed: "experiments/exp_graded_pos_diagnostic_v1.py, experiments/exp_graded_pos_whodidwhat_v1.py, experiments/exp_graded_animacy_competition_v1.py, experiments/exp_graded_animacy_litbank_v1.py, experiments/exp_whodidwhat_brain_chain_v1.py, experiments/exp_whodidwhat_stage5_thematic_fit_v1.py, experiments/exp_whodidwhat_register_native_store_v1.py, experiments/exp_whodidwhat_thematic_override_v1.py, experiments/exp_whodidwhat_ud_structural_v1.py, verification/test_graded_pos_consumption_located_negative.py, notes/problems/consume_the_graded_pos_posterior_uncertainty_aware_starting_with_referent_np_detection/{SOLVED.md, MECHANISM_DIFF_where_we_lose_signal.md, CHAIN_SIGNAL_LOSS_TRACKER.md}  (NO hdlab/ written -- optional Q111 fidelity diff + Stage-4 live-wire recommendation below)"
+files_changed: "experiments/exp_graded_pos_diagnostic_v1.py, experiments/exp_graded_pos_whodidwhat_v1.py, experiments/exp_graded_animacy_competition_v1.py, experiments/exp_graded_animacy_litbank_v1.py, experiments/exp_whodidwhat_brain_chain_v1.py, experiments/exp_whodidwhat_stage5_thematic_fit_v1.py, experiments/exp_whodidwhat_register_native_store_v1.py, experiments/exp_whodidwhat_thematic_override_v1.py, experiments/exp_whodidwhat_ud_structural_v1.py, experiments/exp_structural_role_reader_v1.py, experiments/exp_structural_patient_noregress_v1.py, experiments/exp_parser_role_attachment_v1.py, verification/test_graded_pos_consumption_located_negative.py, verification/test_structural_patient_optimization.py, notes/problems/consume_the_graded_pos_posterior_uncertainty_aware_starting_with_referent_np_detection/{SOLVED.md, MECHANISM_DIFF_where_we_lose_signal.md, CHAIN_SIGNAL_LOSS_TRACKER.md}  (NO hdlab/ written -- optional Q111 fidelity diff + Stage-4 live-wire recommendation below)"
 reverify: ".venv/Scripts/python.exe verification/test_graded_pos_consumption_located_negative.py"
 ---
+
+> ## 🧭 SUPERSEDING FINDING (deepest drill -- READ `WHAT_WAS_WRONG_structure_not_meaning.md`)
+> The owner pushed to understand "what's wrong." It is TWO things, both confirmed on a CLEAN instrument (UD-EWT gold
+> relations): (1) our who-did-what is the brain's DAMAGED-BACKUP route -- flat cue/position selection with NO
+> structure (agrammatic profile) -- not the brain's MAIN route (read roles off the PARSE + voice remapping); (2) the
+> role-balanced gold I first measured on is confounded (crowd-question voice, coref-antecedent patients, reader's own
+> parse, engineered distribution, circular weights). **THE WIN: a structure-first PATIENT beats the live heuristic
+> +0.088 (test)/+0.076 (train) on clean gold, zero tuned params (generalizes), NO-REGRESS through the live reader --
+> READY TO LAND.** **THE CLEAR NEXT STEP: file `improve_the_parser_verb_argument_attachment_for_who_did_what`** -- the
+> remaining +0.15 to human-level (0.76 -> 0.91 ceiling) is the parser's verb->argument attachment (a parser-core
+> build). Everything below about the graded posterior / meaning wall is the earlier (confounded-gold) layer, kept for
+> the audit trail but SUPERSEDED by this. See NEXT STEPS.
 
 ## SOLVED (PARTIAL) -- a rigorous, multi-level LOCATED NEGATIVE + a brain-foundational reframe
 
@@ -206,13 +218,25 @@ sentences is further downstream (untangling clause structure), not the grammar-t
 ### QUESTIONS
 None. (The negative is rigorous and multiply-attributed; the constructive animacy fix is measured byte-safe.)
 
-### NEXT STEPS
-1. **Optional:** land the brain-foundational name->animate animacy fix (fidelity, default-safe, no-op measured)
-   -- the right representation, ready for a future high-animacy consumer.
-2. **Do NOT** file more graded-POS-posterior consumers on the NOUN/PROPN axis -- it is structurally
-   low-leverage (this result). The graded posterior's high-value axis (VERB -> predicate_detector) is already
-   landed (P7).
-3. **The real who-did-what wall is downstream:** reduced-relative structure (verb-subcat supply, incremental
-   clause segmentation, coref linking) -- already owned by the concurrent non-canonical / graded-parsing
-   briefs. Point the graded_role_assigner (Competition Model, currently default-OFF island) work there; a
-   graded-animacy upgrade to it has a low ceiling by the organ's own cue-validity design.
+### NEXT STEPS (superseding order -- the deep drill re-based these; see `WHAT_WAS_WRONG_structure_not_meaning.md`)
+1. **LAND the structure-first PATIENT (the READY WIN).** Read the patient off the parse's grammatical relations +
+   voice remapping (`exp_structural_role_reader_v1.structural_roles` + the frame-guided binder), heuristic fallback,
+   agent unchanged. **+0.088 (test) / +0.076 (train) over the live heuristic on CLEAN UD gold, zero tuned parameters
+   (generalizes), and NO-REGRESS through the live reader** (all non-role outputs byte-stable). Witness:
+   `verification/test_structural_patient_optimization.py` (3/3). Strategy lands the Q111 diff (swap the wired
+   router's THEME to structure-first). This SUPERSEDES the graded-animacy / meaning-wall direction below, which was
+   an artifact of the confounded role-balanced gold.
+2. **>>> THE CLEAR NEXT PROBLEM TO FILE: `improve_the_parser_verb_argument_attachment_for_who_did_what`.** The
+   remaining +0.15 to the human-level ceiling (structure-first 0.76 -> gold-parse 0.91) is ENTIRELY the parser's
+   verb->argument attachment -- a PARSER-CORE build (a verb-frame-guided, LABELED dependency parser that binds
+   arguments into valency slots during parsing; glass-box, incremental, NOT a batch LLM). A post-hoc binder recovers
+   only ~9% of the gap; the bulk (~45% wrong-dep + ~25% wrong-head) needs the parser itself. This is the genuine
+   remaining who-did-what lever. Full prototype + decomposition + the ideal spec in
+   `WHAT_WAS_WRONG_structure_not_meaning.md` (last two sections).
+3. **Re-base ALL who-did-what evaluation on the clean UD-EWT structural gold** (roles off gold nsubj/obj/nsubj:pass
+   + voice) -- NEVER the confounded role-balanced gold (crowd-question voice, coref-antecedent patients, reader's own
+   parse stapled to the roles, engineered 62%-passive, circular weights). This is why the earlier "meaning wall" was
+   a mirage.
+4. **Superseded (record only):** the graded-POS-posterior / graded-animacy / meaning-wall directions -- low-leverage
+   or artifactual on clean gold. The optional name->animate animacy fidelity fix still stands as a correctness fix,
+   not a metric mover.

@@ -75,3 +75,61 @@ route; structure wins, cues/thematic-fit only break genuine ties):
 **One-line answer to "what's wrong":** we assign who-did-what with the brain's damaged backup system (flat cues) on
 a broken ruler; the brain reads it off sentence STRUCTURE, which -- even with our imperfect parser -- is already
 better (+0.06) and, with a good parse, reaches human level (0.91). The lever is the PARSER/structure, not meaning.
+
+## OPTIMIZATION IMPLEMENTED (prototype + proof; strategy lands the hdlab diff)
+
+Built the structure-first PATIENT reader (`experiments/exp_structural_role_reader_v1.structural_roles`) + a net-safe
+HYBRID (structure if the parse yields a core object, else the current heuristic). Reverify:
+`.venv/Scripts/python.exe verification/test_structural_patient_optimization.py` (3/3).
+
+**MEASURED (clean UD-EWT gold, patient := obj|nsubj:pass off gold relations; ZERO tuned parameters):**
+- HYBRID patient beats the live heuristic **+0.088 (test, 0.673->0.760) / +0.076 (train, 0.730->0.806)** -- the
+  hybrid beats BOTH pure structure and pure heuristic (structure wins where the parse finds an object; the heuristic
+  covers the residual). Ceiling with a perfect parse 0.91-0.94.
+- GENERALIZABLE: proven on UD-EWT test AND train; the mechanism is grammatical relations + voice remapping with NO
+  fitted weights (unlike the circular Competition Model), so it does not overfit a register.
+- NO-REGRESS: wired through the LIVE reader (route_predicate_arguments THEME <- structural patient) on a real
+  LitBank doc, the read COMPLETES and every non-role output is byte-stable (n_events / entities / coref_acc /
+  causal / timeline / targets), while 126/219 event patients change -- the intended improvement, zero collateral.
+
+**PROPOSED hdlab CHANGE (Q111 -- strategy lands, default-safe):**
+In `hdlab/predicate_argument_frontend.route_predicate_arguments` (the wired role router the live reader already
+calls with the parse `heads`), compute the THEME/patient STRUCTURE-FIRST: among the verb's nominal dependents in
+`heads`, take the object (post-verbal) for active / the promoted subject (pre-verbal) for passive (voice via
+`robust_passive`), with coordination/control SHARING for a missing object; fall back to the existing
+`hybrid_role_patient` only when the parse yields no core object. Body verbatim in
+`exp_structural_role_reader_v1.structural_roles` + `exp_structural_patient_noregress_v1.hybrid_patient`. Keep the
+AGENT as-is (nearest pre-verbal is already stronger than our parse's subject). Default-safe: net-positive on clean
+gold, byte-stable non-role outputs (witness is the gate). The remaining headroom to 0.91 is PARSER quality -- the
+real who-did-what lever, and a STRUCTURAL problem (improve subject/object attachment), not meaning.
+
+## PARSER-IMPROVEMENT PROTOTYPE (to realize the rest: structure-first 0.76 -> gold-parse 0.91)
+
+The 0.76->0.91 gap is ENTIRELY the parser's verb->argument attachment (structural_roles reads only the verb's
+dependents). Prototyped the brain-faithful fix -- verb-frame-guided argument BINDING (Hagoort MUC: retrieve the
+verb's valency frame, bind arguments into its slots) -- in `experiments/exp_parser_role_attachment_v1.py`.
+
+MEASURED (clean UD-EWT, patient):
+| route | TEST | TRAIN | note |
+|---|---|---|---|
+| STRUCT_ourparse (read off raw parse) | 0.734 | 0.794 | baseline structure-first |
+| **FRAME_GUIDED (parse-first + subcat-gated binding of a missed object + coordination share)** | **0.751** | **0.798** | closes **9.4% / 3.1%** of the gap; buildable now |
+| FRAME_FIRST (ignore parse, frame+position+PP-skip) | 0.583 | 0.614 | COLLAPSES -> the parse's attachment carries REAL signal |
+| ceiling (gold parse) | 0.912 | 0.936 | the IDEAL |
+
+**Two honest findings:**
+1. **A realizable post-parse verb-frame binder recovers ~9% of the gap (+0.017)** -- it binds a direct object the
+   parser dropped, when the verb's frame expects one (subcat-gated), + coordination/control sharing. Small but real,
+   net-safe, zero-LLM. Worth folding into the structural reader.
+2. **The BULK of the gain requires a better PARSER CORE, not a post-hoc binder.** Ignoring the parse (FRAME_FIRST)
+   COLLAPSES to 0.58 -> the raw attachment is load-bearing. The miss decomposition confirms it: of the structure-
+   first errors, **~45% are "wrong dependent chosen", ~25% "gold arg attached to the wrong head"** -- genuine parse
+   errors a heuristic on top cannot fix; only ~30% are "no arg attached" (what the binder recovers), and even those
+   are hard (the object often isn't the nearest post-verbal noun).
+
+**THE IDEAL parser improvement (the real lever, a separate problem to file):** a verb-frame-guided DEPENDENCY parser
+that BINDS arguments into the verb's valency slots DURING parsing (not post-hoc) -- scoring an attachment by
+valency/subcat + the calibrated POS posterior + selectional fit -- and produces LABELED core relations (obj vs obl),
+so the object/subject are identified as grammatical relations, not by position. That reaches the 0.91 ceiling. It is
+a parser-core build (glass-box, incremental -- NOT a batch LLM), and it is the genuine remaining who-did-what lever.
+Recommend filing it as `improve_the_parser_verb_argument_attachment_for_who_did_what` (owns the +0.15 to the ceiling).

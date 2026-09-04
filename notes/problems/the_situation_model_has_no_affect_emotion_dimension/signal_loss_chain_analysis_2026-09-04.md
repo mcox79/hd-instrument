@@ -113,3 +113,46 @@ The affect dimension itself is brain-faithful and near-ceiling given its inputs.
 loss in the end-to-end chain is UPSTREAM COREFERENCE (87%), not the affect extraction -- which reframes
 the next-highest-value work as improving the coref organ (and, for the unstated tier, the OCC-appraisal
 meaning channel). The emotion-denotation gate (cycle 1) is a real, landed precision win independent of coref.
+
+## PRECISELY HOW OUR IMPLEMENTATION DIFFERS FROM THE BRAIN (mechanism-diff)
+Full drill: research_brain_vs_our_coref_binding_mechanism_diff_2026-09-04.md. The 8-item diff
+(ours / brain+citation / predicted failure), summarized:
+1. RETRIEVAL: ours = hard-filtered ranked list; brain = content-addressable parallel cue-matching /
+   direct access (Lewis & Vasishth 2005; McElree 2003) -> a stale-but-frequent character can beat a
+   just-reactivated one.
+2. INCREMENTALITY: ours = post-hoc one pass; brain = online verb-driven expectation (Altmann-Kamide
+   1999; Levy 2008) -> misses exactly at psych-verb clauses.
+3. DECAY: ours = fixed/cumulative recency; brain = power-law decay + reactivation (Anderson-Schooler
+   1991) -> predicted the -0.001 salience-fallback wash.
+4. AGREEMENT: ours = hard gender filter; brain = graded weighted cue (Wagers-Lau-Phillips 2009).
+5. CENTERING: ours = hand-coded recency+subjecthood; brain = emergent from attention (Gordon-Grosz-
+   Gilliom 1993) -> predicted the -0.051 when we hand-coded surface features without the mechanism.
+6. IMPLICIT CAUSALITY: absent in ours; brain uses it online (Koornneef-Van Berkum 2006).
+7. REFERENT SEGMENTATION (the DOMINANT item): ours is proper-name-centric and forms NO referent for
+   common-noun-only entities; brain builds a referent for every entity via descriptive-content match +
+   bridging (Clark-Haviland 1977; Poesio-Vieira 1998; Gundel-Hedberg-Zacharski 1993; Ariel 1990) --
+   matches the trace numbers almost exactly.
+8. EMOTION-EXPERIENCER binding: already near-ceiling given correct coref (F1 0.945) -> the loss is
+   entirely upstream in 1-7, dominated by 7.
+
+SINGLE MOST IMPORTANT DIFFERENCE (independently confirmed by the trace): our coref has NO mechanism for
+entities referred to only by common nouns (83.5% of experiencers). FIX SPEC: head-noun-match clustering
+first (the cheap glass-box Poesio-Vieira dominant case), then bridging inference, before revisiting the
+pronoun-retrieval architecture (cue-based retrieval + IC bias).
+
+## THE ITERATION -- ALL COREF PROTOTYPES (can-fail; measured; honest)
+Experiencer-binding recovery vs gold (head-lemma identity, n=295; reader baseline 0.380):
+- Cycle 2a global-protagonist salience fallback -> F1 -0.001 (WASH).
+- Cycle 2b Centering resolver, full replacement -> F1 -0.051 (HURTS: naive recency+subjecthood is worse
+  than the reader's coref -- surface features without the generative attention mechanism).
+- Cycle 2b' Centering resolver, fallback-only -> -0.003 (WASH).
+- Cycle 3 referent-former (head-noun clustering), full replacement -> identity 0.278 (WORSE: over-merges).
+- Cycle 3' referent-former, ADDITIVE (reader-first; form a referent ONLY where the reader abstains) ->
+  identity 0.380 -> **0.400 (+0.020, a real modest recovery)**: the proof-of-concept that common-noun
+  referent formation is the right, brain-foundational direction.
+
+CONCLUSION: pronoun-heuristic fixes wash out (they target the ~10% named-pronoun slice); the dominant
+loss is common-noun referent formation, and a NAIVE additive head-match recovers +0.02 -- the faithful
+fix (head-match + definiteness/modifiers + bridging + cue-based retrieval) is a substantial COREF-ORGAN
+build, now precisely spec'd and handed off. It is NOT an affect-register patch (the affect dimension is
+near-ceiling given good coref, F1 0.945).

@@ -202,16 +202,21 @@ Itemized mechanism-diff vs a competent reader:
   a curated emotion-denotation inventory (WordNet-Affect-style, ~230 terms; Pavlenko 2008 emotion-label
   vs emotion-laden; Zhang et al. 2017 neural dissociation), keeping Warriner for valence. Lifted the
   reliable-slice accuracy 0.625 -> 0.788, valence 0.766 -> 0.838, positive control 5.9x -> 10.6x.
-- CYCLE 2 (the dominant loss) -- a CAN-FAIL NEGATIVE, honestly reported: added a brain-faithful Centering
-  global-topic-salience fallback for UNRESOLVED experiencer pronouns (bind to the gender-compatible
-  protagonist; Grosz-Joshi-Weinstein 1995 level 4). Measured as ladder rung G1b_salienceCoref: F1
-  recovery = -0.001 (a WASH -- adds as many wrong bindings as right, because the experiencer is often
-  not the global protagonist and there are usually several same-gender characters). CONCLUSION: the
-  coref loss is NOT closeable by a crude affect-side fallback; it needs a proper Centering resolver
-  (recency + subjecthood + parallelism + gender + implicit-causality bias) IN THE COREF ORGAN (the
-  name-clustering / referent-linking problems), not an affect-register patch. The negative is the value:
-  it proves the affect dimension is sound and hands the coref organ a precise target (0.38 -> gold
-  recovers +0.43 end-to-end F1).
+- TRACE of the dominant (coref) loss: 83.5% of emotion experiencers are COMMON-NOUN entities ("the man",
+  "the child") the reader never forms a referent for; genuine named-pronoun coref error is only ~9.6%
+  (61/637 mentions); 61/61 abstains are mentions the reader NEVER CLUSTERED. So the loss is common-noun
+  REFERENT FORMATION, not pronoun mis-binding.
+- PRECISE brain-diff (research_brain_vs_our_coref_binding_mechanism_diff): 8-item mechanism-diff; the
+  single dominant difference is that our coref is proper-name-centric and forms NO referent for
+  common-noun-only entities, where the brain builds a referent for every entity via descriptive-content
+  match + bridging (Clark-Haviland 1977; Poesio-Vieira 1998; Gundel-Hedberg-Zacharski 1993).
+- CYCLE 2/3 -- FIVE coref prototypes, all can-fail measured (binding vs gold, reader baseline 0.380):
+  salience fallback -0.001; Centering full-replace -0.051; Centering fallback -0.003; referent-former
+  full-replace 0.278; referent-former ADDITIVE (reader-first, form a referent only where the reader
+  abstains) **0.400 (+0.020)** -- the proof-of-concept that common-noun referent formation is the right
+  brain-foundational direction. The faithful fix (head-match + definiteness/modifiers + bridging +
+  cue-based retrieval) is a substantial COREF-ORGAN build, now precisely spec'd and handed off -- NOT an
+  affect-register patch (the affect dimension is near-ceiling given good coref, F1 0.945).
 
 ## 8. LOCATED NEGATIVE (the brief's sanctioned FULL PASS, named + numbered)
 INFERRED (unstated) emotion cannot be recovered by the glass-box explicit extractor. "She slammed the
