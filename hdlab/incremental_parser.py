@@ -150,4 +150,33 @@ def incremental_build(
     return out
 
 
-__all__ = ["incremental_build"]
+def incremental_subject_before(
+    toks: Sequence[str],
+    pos: Sequence[str],
+    buffer_n: int = 3,
+) -> List[Optional[int]]:
+    """subj_before[i] = the incremental left-corner SUBJECT token index for a verb at position i: the nearest
+    preceding nominal held in a bounded (buffer_n) lossy buffer (Now-or-Never). This REPRODUCES the subject
+    rule of incremental_build (frames[verb].subj = buffer[-1]), generalized to EVERY token position so it is
+    robust to event-extractor/tagger verb-index mismatches. Register-general, glass-box: reads only toks/UPOS.
+    Returns a list of length len(toks) (None where no nominal precedes).
+
+    Promoted VERBATIM (2026-09-04) from the owner-DONE
+    `the_agent_tie_wall_is_embedded_clauses_needs_a_register_general_incremental_parse_cue`
+    (reference impl experiments/exp_cmrole_agent_struct_v1.py:incremental_subject_before). It is the
+    register-general STRUCTURE cue source for the Competition-Model AGENT competition
+    (hdlab.graded_role_assigner.agent_supports): the parser's SUBJECT ATTACHMENT enters the role competition
+    as ONE self-gating precision-weighted vote (Matchin-Hickok separate pools; eADM). 0-based indices."""
+    n = len(toks)
+    out: List[Optional[int]] = [None] * n
+    buf: List[int] = []
+    for i in range(n):
+        out[i] = buf[-1] if buf else None            # buffer state BEFORE token i => subject for a verb AT i
+        tag = pos[i] if i < len(pos) else None
+        if tag in NOMINAL:
+            buf.append(i)
+            buf = buf[-buffer_n:]
+    return out
+
+
+__all__ = ["incremental_build", "incremental_subject_before"]

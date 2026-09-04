@@ -690,6 +690,7 @@ class SituationReader:
                  include_pron_agents: bool = True,
                  case_filter: bool = True,
                  clause_local: bool = True,
+                 cm_agent_struct: bool = True,
                  cm_weights: Optional[Dict[str, float]] = None,
                  cm_twin_seed: Optional[int] = None,
                  predicate_recall: bool = False) -> None:
@@ -1013,6 +1014,18 @@ class SituationReader:
         self.include_pron_agents = bool(include_pron_agents)
         self.case_filter = bool(case_filter)
         self.clause_local = bool(clause_local)
+        # STRUCTURE cue (cm_agent_struct, DEFAULT-ON 2026-09-04, owner-DONE the_agent_tie_wall_is_embedded_
+        # clauses...): feed the register-general incremental left-corner subject bind (hdlab.incremental_parser.
+        # incremental_subject_before) into the AGENT competition as ONE self-gating precision-weighted cue
+        # (graded_role_assigner.agent_supports "structure", weight AGENT_VALIDITIES["structure"]=2.5). Resolves
+        # the embedded/relative-clause nominative-vs-nominative TIE residual: tie slice +0.073 tuned / +0.056
+        # held-out CI-sep, canonical +0.007 (no regression, slight gain), whole-arm +0.019 CI-sep; PATIENT
+        # byte-identical (agent-only); shuffled-structure twin LOSES. SELF-GATING: votes only when the parse
+        # binds a subject onto a tracked candidate -> byte-identical where it does not fire. Net-positive with a
+        # measured reason -> default ON (no-more-default-off). Has effect ONLY when cm_agent stack is engaged;
+        # cm_agent_struct OFF -> the AGENT is byte-identical to the pre-structure competition. NO spaCy / NO LLM
+        # (the incremental parser reads only toks/POS). all_capabilities_off() sets it False.
+        self.cm_agent_struct = bool(cm_agent_struct)
         self.cm_weights = dict(cm_weights) if cm_weights else None
         self.cm_twin_seed = cm_twin_seed
         self._coref_mentions = None    # stashed by read() -> the AGENT candidate source (tracked/given set)
@@ -1054,7 +1067,8 @@ class SituationReader:
         "predict_surprisal", "track_belief", "bind_event_tokens", "predict_revise", "track_world_state",
         "densify_world_state", "np_head_reduce", "parser_arceager", "causation_typed", "spacy_pred_gate",
         "bind_entity_states", "structural_do_recover", "referent_per_np", "cm_agent", "include_pron_agents",
-        "case_filter", "clause_local", "predicate_recall", "track_goals", "track_affect", "structural_patient")
+        "case_filter", "clause_local", "cm_agent_struct", "predicate_recall", "track_goals", "track_affect",
+        "structural_patient")
 
     @classmethod
     def all_capabilities_off(cls, gaz=None, **overrides):
@@ -1195,8 +1209,16 @@ class SituationReader:
         if self.clause_local:                          # bound candidates to the verb's clause span (segmentation)
             lo, hi = clause_bounds(toks, up, pred_idx)
             acand = [m for m in anoms if lo <= m["wtok_start"] < hi] or anoms
+        # STRUCTURE cue: the register-general incremental left-corner subject-before array (self-gating; the
+        # weighted `structure` support votes only where the parse binds a subject onto a candidate). Default ON;
+        # OFF -> subj_before=None -> agent_competition_pick is byte-identical to the pre-structure competition.
+        subj_before = None
+        if self.cm_agent_struct:
+            from hdlab.incremental_parser import incremental_subject_before
+            subj_before = incremental_subject_before(toks, up)
         return agent_competition_pick(toks, up, pred_idx, acand, cluster_freq=agent_freq,
-                                      weights=self.cm_weights, gaz=self.gaz, twin_seed=self.cm_twin_seed)
+                                      weights=self.cm_weights, gaz=self.gaz, twin_seed=self.cm_twin_seed,
+                                      subj_before=subj_before)
 
     # -- EVENTS: per-sentence predicate+agent+patient -> Cowan-4 bundle focus --
     def _read_events(self, sents, mentions, n_sents):

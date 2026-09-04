@@ -219,11 +219,24 @@ def hybrid_role_patient(toks: Sequence[str], pos: Sequence[str], v: int,
 # the +0.336). Ported VERBATIM from experiments/exp_cmrole_agent_board_v1.py (agent_supports/cm_agent_pick).
 # OUR-INVENTION-UNDER-TEST (swept, not adopted): the cue set + the validity-seeded weights AGENT_VALIDITIES.
 
+# STRUCTURE cue weight (self-gating; SWEPT not adopted). Landed 2026-09-04 from the owner-DONE
+# `the_agent_tie_wall_is_embedded_clauses_needs_a_register_general_incremental_parse_cue`: the register-general
+# incremental left-corner subject bind (hdlab.incremental_parser.incremental_subject_before) enters the AGENT
+# competition as ONE precision-weighted support. It sits between animacy(2) and byagent(6): a real structural
+# commitment, ONE cue that must NOT override strong lexical evidence on canonical clauses (the diagnostic
+# FIX/BREAK ratio was ~12:1, so a moderate weight is net-positive on BOTH slices without regression). SOLVED
+# weight-robust across {1.5, 2.5, 4.0} (all CI-sep vs base; SATURATES >=2.5 -- more weight cannot change the
+# argmax once it breaks the tie). Only votes when a caller supplies `subj_before` (self-gating: see agent_supports).
+STRUCT_W = 2.5
+
 # validity-seeded AGENT cue weights -- a STATIC asset (like DEFAULT_VALIDITIES above), hand-set from cue
 # validity, NOT trained; weight-robustness swept (SOLVED control (5): cm stays 0.211-0.229 across +/-50% on
 # every discriminating cue). English is word-order-DOMINANT (agent preverbal); byagent dominates under PASSIVE.
+# `structure` is inert unless the caller passes an incremental subj_before (agent_supports omits the support key
+# otherwise, and net_activation skips a weighted cue with no support array -> byte-identical for those callers).
 AGENT_VALIDITIES: Dict[str, float] = {
-    "preverbal": 3.0, "core_arg": 2.0, "animacy": 2.0, "salience": 2.0, "adjacency": 1.0, "byagent": 6.0}
+    "preverbal": 3.0, "core_arg": 2.0, "animacy": 2.0, "salience": 2.0, "adjacency": 1.0, "byagent": 6.0,
+    "structure": STRUCT_W}
 
 _AGENT_PREPS = frozenset(("in", "on", "at", "by", "of", "for", "with", "to", "from", "into", "onto", "upon",
                           "over", "under", "through", "about", "among", "amongst", "between", "against",
@@ -323,17 +336,33 @@ def _nominals_keep_pron(mentions, n_sents):
     return per
 
 
-def agent_supports(toks, pos, v0, cands, gaz=None, cluster_freq=None) -> Dict[str, list]:
+def agent_supports(toks, pos, v0, cands, gaz=None, cluster_freq=None, subj_before=None) -> Dict[str, list]:
     """Per-candidate AGENT support arrays for the Competition-Model cues. `cands` = [(wtok_start, head,
-    cluster), ...]; v0 = predicate index (0-based). cluster_freq = passage-level {cluster: mention_count} for
-    the Centering givenness cue. Reads ONLY toks/pos + the animacy lexicon + gazetteer + discourse counts --
-    glass-box, no gold. Cues: preverbal (word-order), core_arg (PP-government scan), animacy, salience
-    (Centering givenness), adjacency (clause-locality), byagent (passive voice)."""
+    cluster[, wtok_end]), ...]; v0 = predicate index (0-based). cluster_freq = passage-level {cluster:
+    mention_count} for the Centering givenness cue. Reads ONLY toks/pos + the animacy lexicon + gazetteer +
+    discourse counts -- glass-box, no gold. Cues: preverbal (word-order), core_arg (PP-government scan),
+    animacy, salience (Centering givenness), adjacency (clause-locality), byagent (passive voice).
+
+    STRUCTURE cue (opt-in, SELF-GATING): when `subj_before` is supplied (the register-general incremental
+    left-corner subject-before array from hdlab.incremental_parser.incremental_subject_before), add a
+    `structure` support of +1 for the candidate the incremental parse binds as this verb's subject -- the
+    parser's SUBJECT ATTACHMENT entering the role competition as ONE precision-weighted vote (Matchin-Hickok
+    separate pools; eADM minimal precision). It votes only when the bound subject maps onto a candidate; where
+    it does not (or `subj_before is None`), no `structure` key is emitted -> byte-identical (net_activation
+    skips a weighted cue with no support array). Landed 2026-09-04, VERBATIM from
+    experiments/exp_cmrole_agent_struct_v1.py:cm_agent_pick_struct."""
     low = [t.lower() for t in toks]
     passive = is_passive_clause(toks, pos)
     cf = cluster_freq or {}
     S = {"preverbal": [], "core_arg": [], "animacy": [], "salience": [], "adjacency": [], "byagent": []}
-    for (p, head, cl) in cands:
+    # STRUCTURE cue: the incremental left-corner subject token bound for a verb AT v0 (self-gating; abstains
+    # -> no `structure` support key -> byte-identical for callers that pass no subj_before).
+    use_struct = subj_before is not None
+    subj_tok = subj_before[v0] if (use_struct and 0 <= v0 < len(subj_before)) else None
+    if use_struct:
+        S["structure"] = []
+    for cand in cands:
+        p, head, cl = cand[0], cand[1], cand[2]
         pre = p < v0
         prevtok = low[p - 1] if p - 1 >= 0 else ""
         by = 1.0 if prevtok == "by" else 0.0
@@ -353,21 +382,28 @@ def agent_supports(toks, pos, v0, cands, gaz=None, cluster_freq=None) -> Dict[st
         # CENTERING givenness (Grosz-Joshi-Weinstein): a TRACKED discourse entity (established coref chain,
         # freq>=2) is the salient center -> realized as SUBJECT. A one-off (fresh singleton) is not.
         S["salience"].append(1.0 if cf.get(cl, 0) >= 2 else 0.0)
+        if use_struct:                                          # +1 for the candidate the incremental parse binds
+            e = cand[3] if len(cand) > 3 else p                 # candidate span end (head may sit inside the NP span)
+            hit = subj_tok is not None and (p == subj_tok or p <= subj_tok <= e)
+            S["structure"].append(1.0 if hit else 0.0)
     return S
 
 
 def agent_competition_pick(toks, pos, v, cands, cluster_freq=None,
-                           weights: Optional[Dict[str, float]] = None, gaz=None, twin_seed=None) -> str:
+                           weights: Optional[Dict[str, float]] = None, gaz=None, twin_seed=None,
+                           subj_before=None) -> str:
     """The AGENT = argmax additive cue activation over the tracked/given candidate mentions (REUSES
     graded_competition.net_activation). `cands` = list of mention dicts (each with 'wtok_start', 'head',
-    optional 'cluster'); v = predicate index (0-based) in toks-space; weights default to AGENT_VALIDITIES.
-    Returns a head string, or '?' when there is no candidate. twin_seed set => INFO-FREE TWIN: shuffle each
-    cue's per-candidate support across candidates (the structure->candidate mapping destroyed)."""
+    optional 'cluster'/'wtok_end'); v = predicate index (0-based) in toks-space; weights default to
+    AGENT_VALIDITIES. Returns a head string, or '?' when there is no candidate. twin_seed set => INFO-FREE
+    TWIN: shuffle each cue's per-candidate support across candidates (the structure->candidate mapping
+    destroyed). subj_before (optional): the incremental left-corner subject-before array -> the self-gating
+    STRUCTURE cue votes (see agent_supports); None (default) => byte-identical (no structure support)."""
     w = AGENT_VALIDITIES if weights is None else weights
-    c = [(m["wtok_start"], m["head"], m.get("cluster")) for m in cands]
+    c = [(m["wtok_start"], m["head"], m.get("cluster"), m.get("wtok_end", m.get("wtok_start"))) for m in cands]
     if not c:
         return "?"
-    S = agent_supports(toks, pos, v, c, gaz, cluster_freq)
+    S = agent_supports(toks, pos, v, c, gaz, cluster_freq, subj_before=subj_before)
     if twin_seed is not None:
         rng = np.random.default_rng(twin_seed + v + len(c))
         S = {k: list(np.asarray(vv)[rng.permutation(len(vv))]) for k, vv in S.items()}
@@ -377,5 +413,5 @@ def agent_competition_pick(toks, pos, v, cands, cluster_freq=None,
 
 __all__ = ["hybrid_role_patient", "competition_pick", "cue_supports", "voice_cues", "robust_passive",
            "gap_config", "DEFAULT_VALIDITIES", "CUES", "UNACC",
-           "agent_competition_pick", "agent_supports", "clause_bounds", "AGENT_VALIDITIES",
+           "agent_competition_pick", "agent_supports", "clause_bounds", "AGENT_VALIDITIES", "STRUCT_W",
            "NOMINATIVE_PRON", "_nominals_keep_pron"]

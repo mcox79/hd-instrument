@@ -9,6 +9,9 @@ files_changed: "experiments/exp_cmrole_agent_struct_v1.py (the register-general 
 reverify: ".venv/Scripts/python.exe verification/test_cmrole_agent_struct_organ.py"
 ---
 
+## INTEGRATED_BY_STRATEGY (2026-09-04) — EXCELLENT
+Reverified `verification/test_cmrole_agent_struct_organ.py` ALL PASS first-hand (tie slice 0.544→0.622, shuffled-structure twin 0.400 loses, canonical no-regress). WIRE LANDED (Q111, DEFAULT-ON, patient+agent byte-identical where it does not fire): `hdlab/incremental_parser.incremental_subject_before` exposed + a self-gating `structure` cue in `hdlab/graded_role_assigner.agent_supports` + `AGENT_VALIDITIES["structure"]=2.5`; `situation_reader._cm_agent_for` passes the incremental subj_before into `agent_competition_pick` behind `cm_agent_struct` (default-on). Composes with the P2 agent competition + the structure-first patient. REFUTED/CLOSED (did NOT land): recency-Centering, RC-pop revision, thematic-fit (all measured negatives). §2b folded. Residual: 58.6% event-detection → **FOLLOW-ON FILED `register_robust_event_detection_turn_on_and_expand_lifts_every_who_did_what_arm` (priority 6).**
+
 # A register-general incremental STRUCTURE cue resolves the embedded-clause AGENT tie wall — as ONE precision-weighted cue in the competition, NOT a parser swap
 
 ## 1. What the bar asked, and the headline
