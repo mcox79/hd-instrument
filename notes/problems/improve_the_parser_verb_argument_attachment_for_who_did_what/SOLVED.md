@@ -175,9 +175,13 @@ downstream wire; and the deep opportunity is a register-general glass-box parser
    obj/nsubj:pass slot with valency-gated binding + net-safe hybrid fallback -- body verbatim in
    `experiments/exp_valency_labeled_patient_v1.labeled_pick` + `exp_valency_labeled_live_reader_v1.improved_structural_patient_pick`.
    Requires loading `hdlab.arc_labeler` on the role path (it is already loaded for the copular consumer).
-3. **REGISTER-SAFE better parser (optional, unblocks `parser_arceager`):** once (1)+(2) land, `parser_arceager`
-   is no longer 19c-negative for the patient (+0.0045); a confidence-precision-weighted parse selection is the
-   general form. Land the labeled readout FIRST, then re-measure the arceager flag end-to-end.
+3. **REGISTER-SAFE better parser -- FLIP `parser_arceager` ON under the labeled readout (a SOLVED opportunity):**
+   once (1)+(2) land, the labeled/valency/voice readout makes the stronger arceager parser (UAS 0.842) net-
+   positive AND register-safe -- patient +0.006 on modern (R_final arc 0.8311 -> arceager 0.8375) and +0.0045 on
+   19c clean-DO (reversing the -0.0017 arceager causes under the deployed position readout). This is the concrete
+   resolution of "the better parser kills a consumer": it no longer does, under this readout. Land the readout
+   FIRST, then flip `parser_arceager` default-ON and re-measure end-to-end. (A neural parser gives more on modern
+   -- spaCy+readout 0.856 -- but is barred by the invariant; arceager is the glass-box register-safe choice.)
 
 ## 7. KEY REALIZATIONS (the enabling moves)
 

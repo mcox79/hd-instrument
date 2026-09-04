@@ -118,16 +118,25 @@ does not narrow them. By category at Wp=5: head_identical 0.297, name_antecedent
 but **kinship_role 0.194, residual 0.135** -- presence is weakest exactly on the slices that need
 relational/world knowledge. So the situation model AT PRESENCE/LOCALITY GRANULARITY is NOT the crossing lever.
 
-**(3) Relational / kinship binder -- SMALL ceiling, measured structure.** Of the 423 kinship_role links:
-46.8% are possessive-headed ("her father", "his wife") -- a relational target a glass-box binder could
-exploit (resolve the possessor, bind via the relation) -- but 52.2% are BARE roles ("the servant", "the
-Squire", "the master") with NO explicit relational structure (world-knowledge-bound). And even the possessive
-46.8% needs the relation ESTABLISHED in-text (a prior apposition "Mr. Bennet, her father"). So the relational
-build targets at most ~10% of person common-noun links, with real recovery a fraction of that.
+**(3) Relational / kinship binder -- PROTOTYPED, works, negligible recovery (confirms the ceiling).**
+Structure: of the 423 kinship_role links, 46.8% are possessive-headed ("her father", "his wife") -- a
+relational target -- but 52.2% are BARE roles ("the servant", "the Squire") with NO explicit structure
+(world-knowledge-bound), and the possessive cases need the relation ESTABLISHED in-text. I BUILT the
+mechanism (`situation_predict(relational=True)`): the brain's SAME-RELATION+SAME-RELATUM rule -- resolve the
+possessive-pronoun possessor to a discourse referent, key the role-referent by (role_lemma, possessor_ref),
+so "her father" ... "her father" (same 'her') co-refer. MEASURED (100 docs): kinship-slice link recall
+0.357 -> 0.366 (+4 of 423 links); overall character-cluster CoNLL BEST+RELATIONAL - BEST = +0.0006
+CI[+0.0001,+0.0012] (CI-separated but NEGLIGIBLE), BEST+RELATIONAL - surface_head +0.0134 CI-sep, twin loses,
+no-regress on named. So the relational situation model is a CORRECT, buildable, brain-foundational mechanism
+-- and prototyping it CONFIRMS the world-knowledge boundary rather than crossing it: real recovery is ~1% of
+the kinship slice, because most role-relational reference needs the relation established by world knowledge
+(bare roles) or a possessor resolution + relation recurrence that the narrative rarely makes explicit.
 
 ## VERDICT (attack the real capability): the crossing capability is NOT a buildable coref/presence heuristic
-Every buildable glass-box lever is measured and CAPPED: event-centrality +0.013 (built); presence/locality
-~0.26 ceiling even with a gold oracle; relational touches <=10% and needs the relation stated. The crossing
+Every buildable glass-box lever is measured -- and PROTOTYPED where it had a ceiling -- and all are CAPPED:
+event-centrality situation gate +0.013 (built, landable); presence/locality ~0.26 ceiling even with a gold
+oracle; relational situation model +0.0006 (built, works, negligible -- confirms the ceiling). Combined
+BEST+RELATIONAL = +0.0134 over surface_head, far from the +0.43 headroom. The crossing
 requires (a) fine-grained discourse FOCUS beyond recency (partly captured, small headroom), (b) a RELATIONAL
 world-model (who is whose father / whose servant -- built from the narrative), and (c) genuine WORLD KNOWLEDGE
 for the bare-role + deep-residual ~45%. That triad IS the Phase-1 meaning channel / situation-model-plus-world-

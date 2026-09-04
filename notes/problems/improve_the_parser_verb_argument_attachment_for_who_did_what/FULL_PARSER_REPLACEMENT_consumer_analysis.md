@@ -56,9 +56,12 @@ Head-driven = the parse `heads` change its output. Legend: BF = brain-foundation
 - **verb_subcat gate (B3) is OI-simple (lexical threshold)** -- the BF GRADED Competition-Model presence gate
   (`verb_subcat.patient_present`, AUC 0.777, who-did-what 0.30->0.49) is built but UNWIRED (needs POS + patient
   index at role-assignment time; WIRING DEBT 2). A ready optimized consumer.
-- **SPACE/PP (A2) is the one genuine remaining HEAD lever:** obl attach 0.69 (live) / 0.72 (arceager) / 1.0
-  (gold). Its QA is saturated (location = 1.0 on the 16-doc gold), so an obl improvement is not measurable on the
-  current instrument -- a candidate follow-on that needs an obl-sensitive instrument first.
+- **SPACE/PP (A2) reduces to the HEAD-attachment wall (measured this session):** on a clean-UD oblique-argument
+  instrument (gold obl* nominals per verb), the current head-chain readout scores F1 0.710 on our parse vs 0.843
+  on gold heads -- the +0.13 is obl HEAD attachment (= wall 1). A LABELED readout (arc_labeler 'obl' + head==verb)
+  is WORSE (F1 0.660: higher precision 0.779, but recall collapses 0.573 -- the labeler misses obls), so unlike
+  the patient, labeling does NOT help the space consumer; the current head-chain walk is already the better
+  readout. So the space opportunity is head-bound (located-negative, same wall), not a fresh readout win.
 - **Curated-list / fixed-window placeholders (OI):** `SPEECH_VERBS` / `ANIMATE_NOUNS` / `_CURATED_PLACES` /
   `i//LOCAL_WINDOW` scene segmentation -- flagged OI; out of this problem's patient scope.
 

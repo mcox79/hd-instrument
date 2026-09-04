@@ -181,8 +181,14 @@ drill named. Character clusters, 100 docs:
   and picks the scene-central antecedent for multi-person ties), info-free twin LOSES (+0.258 CI-sep),
   NO-REGRESS on named coref (+0.0000). This is a small, real, landable optimization over the reader's
   current clustering -- witnessed (`verification/test_commonnoun_referent_former.py` check 6).
-- **But even BEST leaves the kinship-relational (21.9%) + deep-residual (22.9%) = ~45% of links untouched**
-  -- those need role-relational ("whose father?") + world knowledge the event structure does not supply.
+- **RELATIONAL situation model PROTOTYPED** (`situation_predict(relational=True)`): the brain's
+  same-relation+same-relatum rule (resolve the possessive-pronoun possessor -> key the role-referent by
+  (role, possessor) so "her father"..."her father" co-refer). Built + measured: it WORKS (kinship-slice link
+  recall 0.357->0.366, BEST+RELATIONAL - BEST +0.0006 CI-sep) but recovers ~1% of the kinship slice --
+  NEGLIGIBLE, confirming the ceiling (most role-relational reference needs the relation established by world
+  knowledge: 52% are bare roles, and possessive cases rarely recur with a resolvable possessor).
+- **So BEST + RELATIONAL = +0.0134 over surface_head, and the kinship-relational + deep-residual ~45% remain**
+  -- those need role-relational + world knowledge the event structure + in-text relations do not supply.
   This reproduces, with the actual organ, why the prior situation-structure-for-coref attempts (focus-stack,
   next-mention-prior) were REFUTED on this task. VERDICT: buildable, a small real CI-separated win worth
   landing, but it does NOT cross toward the +0.43 headroom; that is gated on the Phase-1 relational/world
