@@ -86,3 +86,45 @@ domain-matched (register-native) event-knowledge store -- a FOUNDATION/corpus pr
    preferences) + the metric -- i.e. the project's central `clean foundation / domain-match` wall, reached again from
    the who-did-what side. **The chain is optimized as far as the structural stages + available event knowledge allow;
    the remaining loss is a FOUNDATION problem (a register-native selectional store), not another dorsal heuristic.**
+
+## ITERATION 3-4 (2026-09-04) -- the meaning signal IS real and DOMAIN-dependent; cashing it needs a clean foundation
+
+**Iter 3 (register-native store as a competing cue):** built a REGISTER-NATIVE selectional store from the gold's
+OWN patients (train split, no leakage; `exp_whodidwhat_register_native_store_v1.py`). As a competing cue it adds
+only +0.0018 (n.s.) on non-canonical -- barely above the modern store's +0.0000 -- because thematic fit is
+SUBORDINATE to always-on position in the linear competition, and the decidable (passive) cases are already caught
+by the voice cue.
+
+**THE KEY PROBE -- where thematic fit is DECISIVE (no syntactic cue fires, position silent), n=275 held-out:**
+| selector | patient acc |
+|---|---|
+| position (word order) | **0.0109** (catastrophic -- picks post-verbal, patient is pre-verbal) |
+| pure thematic-fit, MODERN (OOD) store | 0.3292 |
+| **pure thematic-fit, REGISTER-NATIVE store** | **0.3958** |
+
+So the MEANING signal IS there (+0.38 over position) and **in-domain beats OOD by +0.07** -- the domain-match
+hypothesis, confirmed by direct measurement. Stage 5 is not weak; it was mis-integrated (subordinate cue).
+
+**Iter 4 (eADM two-route + N400 override; `exp_whodidwhat_thematic_override_v1.py`):** route to thematic fit when
+NO syntactic cue fires AND the word-order reading is IMPLAUSIBLE (fit(position) < abs_thr) AND the conflict clears a
+margin. Full sweep (n_pre=1681 / n_post=2093, native store 690 verbs): the override recovers **+0.03 to +0.055 on
+non-canonical** but costs **-0.13 to -0.34 on canonical** -- NO net-positive operating point exists. Cause: on this
+SCIENCE/OOD gold the GROUNDED thematic-fit values are too noisy to tell canonical (position right) from
+non-canonical (position wrong), so the override wrecks the canonical majority. The signal is real; the grounding +
+event-knowledge FOUNDATION is out of domain.
+
+## REVISED ENDPOINT (iterations 1-4) -- the chain is tracked to the FOUNDATION wall
+
+1. **POS / parse / candidates: NOT the loss** (we match the brain; ceiling 0.98).
+2. **Stage 4 (dorsal override): the clean built WIN, +0.0247 CI-sep, canonical-safe, DEFAULT-OFF -> wire it.**
+3. **Stage 6 neutral (no clause marker on reduced relatives); Stage 7 net-negative (surface cues can't reach the
+   brain's revision precision).**
+4. **Stage 5 (MEANING) is REAL and RECOVERABLE and DOMAIN-DEPENDENT** -- pure thematic fit gets 0.40 vs position's
+   0.01 where syntax is silent, and a REGISTER-NATIVE store beats the MODERN/OOD store (+0.07). But it CANNOT be
+   cashed net-positive on the OOD science instrument: the grounded fit is too noisy to gate the override without
+   wrecking canonical.
+5. **THE WALL is a REGISTER-NATIVE FOUNDATION** -- an in-domain grounding space + selectional-preference store so
+   thematic fit is clean enough to gate. This is EXACTLY the project's north-star `clean foundation / domain-match`
+   problem (narrative -> knowledge base -> clean foundation -> safe growth), now shown to be the LITERAL residual
+   of who-did-what: the last ~0.3 of non-canonical who-did-what is bounded by in-domain event knowledge, not by any
+   grammar heuristic. The dorsal (structural) chain is optimized as far as it goes; the rest is the foundation.

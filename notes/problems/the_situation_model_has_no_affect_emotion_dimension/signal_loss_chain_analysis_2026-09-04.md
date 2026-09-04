@@ -22,10 +22,13 @@ Oracles: POS/parse = spaCy (reference-only, never on the glass-box path); coref 
 (the annotation = the binding ceiling); emotion lexicon + experiencer frame are shared (brain-faithful,
 not swept). The reference (ceiling) = the all-oracle rung ~ a competent reader on the explicit tier.
 
-## SIGNAL-LOSS BUDGET (100 LitBank docs) -- WHERE WE LOSE SIGNAL
-Measured on the chain (F1 vs the competent-reader reference):
+## SIGNAL-LOSS BUDGET -- WHERE WE LOSE SIGNAL
+Measured on the chain (F1 vs the competent-reader reference). The 100-doc table is the CYCLE-0 lexicon;
+the CYCLE-1 denotation-gate 40-doc ladder reconfirms the SAME dominance (G0 0.514 -> +spaCyPOS 0.555 ->
++goldCoref 0.945; gold coref recovers +0.430 of the 0.486 total = 89%), so the finding is robust to the
+lexicon change.
 
-| rung | what is oracle | F1 |
+| rung | what is oracle | F1 (100 docs, cycle-0) |
 |---|---|---|
 | G0 glass-box | nothing (full glass-box) | 0.581 |
 | G1 +spaCy POS | POS/parse | 0.624 |
@@ -65,13 +68,20 @@ and the curated family as the CATEGORY. Result: the "how does X feel" reliable-s
 control 5.9x -> **10.6x**. Cost: ~80% fewer affects extracted (higher precision, some recall of
 borderline emotions traded away -- explicit affect is now sparse, ~1 per 23 events).
 
-**Cycle 2 -- brain-faithful COREF fallback (the dominant loss).** Added a Centering global-topic-salience
-fallback: when the reader's coref leaves an experiencer pronoun UNRESOLVED, bind it to the
-gender-compatible PROTAGONIST (the most-frequently-mentioned named character of matching gender) -- the
-research-recommended cheap fallback (Grosz-Joshi-Weinstein 1995 level 4). Measured as a ladder rung
-(G1b_salienceCoref). [RESULT PENDING the cycle-1 ladder run -- will record the recovery here.] The full
-coref gap (to 0.945) belongs to the coref organ; the fallback is a bounded, low-regression in-scope
-attempt and its recovery is reported honestly, not assumed.
+**Cycle 2 -- brain-faithful COREF fallback (the dominant loss): a CAN-FAIL NEGATIVE, honestly reported.**
+Added a Centering global-topic-salience fallback: when the reader's coref leaves an experiencer pronoun
+UNRESOLVED, bind it to the gender-compatible PROTAGONIST (the most-frequently-mentioned named character
+of matching gender) -- the research-recommended cheap fallback (Grosz-Joshi-Weinstein 1995 level 4).
+Measured as ladder rung G1b_salienceCoref (40 docs): F1 recovery = **-0.001 (a wash)**. It adds a few
+correct bindings (recall +0.004) and an equal number of wrong ones (precision -0.006). WHY IT FAILS:
+the protagonist guess is as often wrong as right -- there are usually several same-gender characters, and
+the experiencer of a given emotion is frequently NOT the global protagonist. The dominant coref loss
+(gold coref recovers +0.43) is therefore NOT closeable by a crude affect-side fallback; it requires a
+proper Centering resolver (recency + subjecthood + role-parallelism + gender + implicit-causality verb
+bias, per the research), which is the COREF ORGAN's job (name-clustering / referent-linking problems),
+not an affect-register patch. This negative is the value: it proves the affect dimension is sound and
+hands the coref organ a precise target -- bind emotion-experiencer pronouns (reader 0.38 vs gold; gold
+recovers +0.43 F1 end-to-end).
 
 ## THE STANDING FINDING
 The affect dimension itself is brain-faithful and near-ceiling given its inputs. The dominant signal
