@@ -1,7 +1,6 @@
 ---
-priority: 8
-review:
-review_text:
+review: EXCELLENT
+review_text: Reverified first-hand 4/4 (pre-landing) + 4/4 (a new pure-hdlab landing witness) — 393,225 held-out arcs byte-identical, 0/376 sentences differ in heads/arcs/margins, parse 3.16–3.74x faster. LANDED the memoized fast path VERBATIM into hdlab/arc_parser.py (FeatCache/precompute_token/sentence_flat/sentence_scores/decode_from_scores; parse/eval_uas route through it; stock body kept as _parse_reference as the self-contained byte-identity reference), default-ON (pure byte-identical speedup, consumers byte-safe by construction, live read confirmed). Corrected two brief premises (arc-FACTORED graph parser not shift-reduce; "73% of a read" was a cProfile artifact, warm ~26% → read-level 1.13–1.45x). Arc-eager flip NOT taken (already default-off, 19c-negative, no measured reader benefit). The real accuracy wall is localized to typed lexical-semantic grounding (PP-attachment 0.587→0.639 monotonic, generic hub doesn't help), NOT decode-algorithm fidelity — routed to the meaning channel. Follow-on filed: the POS-tagger inner-loop SPEED optimization. §2b folded. INTEGRATED 2026-09-04.
 ---
 
 # PROBLEM: the arc parser's inner feature-ID loop is the DOMINANT read cost (~73% of a warm read; `_arc_ids`/`_h` = ~55M Python genexpr calls/read, 179 parses/read), so every reading benchmark and every downstream organ pays it. Optimize the arc parser's per-transition feature computation (vectorize / precompute-and-hash the feature IDs / lift the hot genexprs out of Python) so a read is materially faster with BYTE-IDENTICAL parse heads + labels on the same input — a GENERAL substrate speedup (every consumer benefits), or a located negative naming the irreducible cost.

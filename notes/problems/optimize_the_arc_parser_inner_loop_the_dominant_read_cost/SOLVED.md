@@ -9,6 +9,13 @@ files_changed: "experiments/exp_arc_parser_profile_v1.py, experiments/exp_arc_pa
 reverify: ".venv/Scripts/python.exe verification/test_arc_parser_speedup_byte_identical.py"
 ---
 
+## INTEGRATED_BY_STRATEGY (2026-09-04) — EXCELLENT
+Reverified first-hand: the pre-landing witness `verification/test_arc_parser_speedup_byte_identical.py` **4/4** and a new pure-hdlab landing witness `verification/test_arc_parser_fast_path_landing.py` **4/4** (393,225 held-out arcs byte-identical to `hdlab._arc_ids`; 0/376 sentences differ in heads/arcs/margins; parse 3.16–3.74x faster). Live reader read confirmed byte-safe.
+- **WIRE LANDED (Q111, default-ON):** promoted the memoized fast path VERBATIM into `hdlab/arc_parser.py` (`FeatCache`, `precompute_token`, `sentence_flat`, `sentence_scores`, `decode_from_scores`); `ArcParser.parse`/`eval_uas` route through it; the untouched stock body is kept as `ArcParser._parse_reference` (the byte-identity reference the landing witness checks against, self-contained — no experiments-cell import). Default-ON is correct per no-default-off (a pure byte-identical speedup, no invariant to break; consumers byte-safe by construction).
+- **ARC-EAGER FLIP (proposal b) NOT TAKEN:** arc-eager is already default-off with a MEASURED reason (19c-negative; the reader eval includes 19c LitBank) and the submission's own check found reader consumers IDENTICAL arc-eager on-vs-off on 3 docs (no measured reader benefit); the existing default-off (needs per-register routing) stands.
+- **§2b folded:** the mechanism-label correction (arc-FACTORED graph parser, not shift-reduce) + the "73%→~26% of a read" profiler-artifact correction + the localized real wall (typed lexical-semantic grounding, NOT decode-algorithm fidelity). Incremental parsing is already covered (`wire_the_incremental_parser...` PARTIAL) — NOT re-filed.
+- **FOLLOW-ON FILED:** the POS-tagger inner-loop SPEED optimization (same memoization technique, different code path; distinct from the SOLVED tagger CALIBRATION problem) — the co-dominant warm-read cost.
+
 # The arc parser inner loop, optimized 3.53x with byte-identical output
 
 ## What the problem actually is (and one brief/disk correction up front)
