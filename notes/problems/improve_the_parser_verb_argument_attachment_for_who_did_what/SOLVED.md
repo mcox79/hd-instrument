@@ -127,6 +127,44 @@ per-consumer brain-fidelity in `FULL_PARSER_REPLACEMENT_consumer_analysis.md`. T
   did X?"), and its LitBank patient gold is confounded (the brief bars it). So the +0.086 is provable only on the
   CLEAN UD instrument; end-to-end aggregate does not move. A patient-QA on clean gold is a measurement gap to file.
 
+## 5b. WHERE WE STAND vs STATE-OF-THE-ART and vs THE BRAIN (the walls + opportunities)
+
+**vs SOTA (measured, clean UD-EWT test, n=1255, SAME R_final readout on each parser's heads):** our glass-box
+arc_parser 0.8311; a competent NEURAL parser (spaCy en_core_web_sm, the parent's SOTA reference) 0.8558
+(+0.025); GOLD heads 0.9171 (the upper bound any parser -- SOTA included -- can reach with this readout). So a
+better parser buys only ~+0.025-0.09 on modern who-did-what -- the READOUT dominates, not head accuracy. (spaCy's
+raw UAS reads 0.566 here purely because its CLEAR attachment scheme != UD -- a scoring artifact; the patient
+readout is robust to it. Field SOTA biaffine/transformer parsers reach ~0.92-0.95 UAS on modern UD and SOTA SRL
+~0.86-0.88 F1, but they are trained-modern (documented to COLLAPSE OOD on 19c -- the invariant's whole reason)
+and/or LLMs (barred). On CANONICAL who-did-what we BEAT the spaCy parser: nphead 0.9701 vs 0.9162, +0.0539 CI-sep
+-- parent `clean_frame_ladder`.) Net: a few points below a modern-ONLY SOTA parser on modern, but glass-box +
+register-general + no-LLM, which SOTA is not.
+
+**vs the BRAIN (human who-did-what is sentence-type-conditioned; parent MECHANISM_DIFF):** canonical/irreversible
+~95-99% -- WE MATCH (0.97 on canonical clean-frame); reversible passive ~75-80%; reduced-relative/garden-path
+~40-55% (humans keep the wrong reading). Our clean-UD 0.831 (91% active) sits at the human ceiling on canonical;
+the residual is (a) parse-HEAD quality -- the brain's parser far exceeds ours on ordinary sentences, and THIS is
+where we are below the brain -- and (b) the confounded ruler + missing dorsal Stage-6/7 (clause segmentation,
+reanalysis) mapped in the parent's diff. The READOUT itself is now brain-faithful end-to-end (Hagoort MUC
+valency + Levin/Rappaport-Hovav linking rules + voice remapping + Friston precision-weighting).
+
+**THE WALLS (understood + fairly tested):**
+1. **Register-general glass-box parsing (the +0.06-0.09 head residual).** A modern-only SOTA parser closes part
+   of it on modern but collapses OOD; a register-general glass-box parser at SOTA accuracy is unsolved here AND
+   is a known-hard open problem in the field (cross-domain/low-resource parsing). The brain's own head mechanism
+   (selectional competitive unification) tested NULL-to-negative here (sec 5). This is the fundamental wall, and
+   it is a FAIR located-negative -- not a defect in this solution.
+2. **The measurement wall.** The live who-did-what QA is AGENT-only; the LitBank patient gold is confounded
+   (~85% oblique, zero passives); no 19c gold UD treebank exists. The win is provable only on the clean UD ruler.
+3. **The 19c non-canonical SELECTION/FOUNDATION wall.** The residual there is world-knowledge/thematic-fit bounded
+   by a register-native event-knowledge store (the project's north-star clean-foundation problem), NOT parsing
+   (parent CHAIN_SIGNAL_LOSS: pure thematic fit 0.40 vs position 0.01 where syntax is silent; OOD-bound).
+
+**THE OPPORTUNITIES (understood):** the READOUT-layer pattern (labels+voice+valency+confidence) is the reusable
+lever for every head-consumer (patient done; agent=sibling; space/obl needs an instrument); per-arc CONFIDENCE is
+a computed-but-discarded brain signal (precision-weighting); the graded verb_subcat presence gate is a ready
+downstream wire; and the deep opportunity is a register-general glass-box parser that does not collapse OOD (wall 1).
+
 ## 6. PROPOSED hdlab CHANGES (Q111 -- strategy lands, witnessed; all default-safe)
 
 1. **PATIENT VOICE (the biggest, cleanest, zero-param win, +0.0565 alone):** in
