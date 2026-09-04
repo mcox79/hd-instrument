@@ -52,3 +52,37 @@ cannot reach the precision the brain's P600 revision needs -- this is the brain'
 order and voice are silent); (c) Stage 6 real (non-marker) clause structure for reduced relatives; (d) fix the
 ruler so gains are visible. Signal is NOT lost in POS/parse/candidates -- it is lost in SELECTION, and after the
 dorsal override the residual is MEANING.
+
+## ITERATION 2 (2026-09-04) -- BUILD Stage 5 (meaning / thematic fit) and track it
+
+Stage 5 = generalized event knowledge / verb selectional preference (McRae role-filler distributions; Elman 2009;
+eADM), REUSING the landed brain-faithful organ `hdlab.verb_role_exemplar_selector` (nearest-grounded-exemplar over
+a verb's attested OBJ fillers -- an INSTANCE distribution, glass-box offline store, NO LLM). Integrated the
+brain-faithful way: as a COMPETING CUE with a LEARNED validity in the Competition Model (cue-competition down-weights
+it where noisy), not a hard override -- because a probe showed the pure thematic-fit selector picks 0.42 < floor 0.60
+on this SCIENCE gold. Harness: `experiments/exp_whodidwhat_stage5_thematic_fit_v1.py`.
+
+| variant | non-canonical (pre_clean, n=1681) | canonical (post, n=2093) |
+|---|---|---|
+| base (Competition-Model cues) | 0.6669 | 0.8782 |
+| + Stage 5 thematic-fit cue | **0.6669 (+0.0000)** | 0.8743 (-0.0038) |
+| + Stage 5 VERB-SHUFFLED twin | **0.6669** | -- |
+
+**Stage 5 is a COMPLETE NO-OP on this gold, AND ties its verb-shuffled twin EXACTLY (fit-twin = +0.0000).** The
+logistic still WANTS the cue (learned validity ~0.97-1.92) but its VALUES carry no signal -- a RANDOM verb's fillers
+do as well. This is the organ's own documented caveat, reproduced at scale: **who-did-what thematic fit is bounded
+by DOMAIN MATCH of the event-knowledge store.** The store is modern web text; the gold is science/expository = OUT OF
+DOMAIN. IN-domain (modern prose) the same organ recovers **+0.102 CI-sep with the twin LOSING** (landed
+`the_plausibility_prior_is_a_coarse_centroid...`, p5). So the MECHANISM is right and built; the WALL is a
+domain-matched (register-native) event-knowledge store -- a FOUNDATION/corpus problem, not a role-mechanism defect.
+
+## THE TRACKED ENDPOINT (iterations 1+2) -- where the signal is lost, along the ENTIRE chain
+
+1. **POS / parse / candidate coverage: NOT the loss** (we match the brain; gold-POS/parse recover nothing; candidate ceiling 0.98).
+2. **Stage 4 (algorithmic override): the one clean built WIN, +0.0247 CI-sep, canonical-safe, DEFAULT-OFF -> wire it.**
+3. **Stage 6 (clause seg): neutral** (reduced relatives have no marker). **Stage 7 (reanalysis): net-negative** (surface cues can't hit the brain's revision precision -- the imperfect-revision reality).
+4. **Stage 5 (MEANING): the right mechanism, BUILT, but DOMAIN-BOUND -- null on OOD (ties its twin), +0.102 in-domain.**
+   The residual meaning loss is a **DOMAIN-MATCHED EVENT-KNOWLEDGE FOUNDATION** problem (register-native selectional
+   preferences) + the metric -- i.e. the project's central `clean foundation / domain-match` wall, reached again from
+   the who-did-what side. **The chain is optimized as far as the structural stages + available event knowledge allow;
+   the remaining loss is a FOUNDATION problem (a register-native selectional store), not another dorsal heuristic.**

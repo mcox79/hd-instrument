@@ -2,10 +2,10 @@
 problem: the_situation_model_has_no_affect_emotion_dimension
 status: SOLVED
 bar: "PASS = a glass-box per-character AFFECT register (explicit emotion constructions -> coref-bound experiencer -> valence[/category]; NO LLM) wired additive + default-on (mirroring the goal/belief/state dims; byte-identical to the OFF reader on the other dimensions) such that 'how does X feel' scores CI-separated over a most-recent-emotion-word floor with a shuffled-character info-free twin LOSING, valence accuracy reported, no regression on the other dimensions. Report CI half-width + null p95; recompute floors on the same population. A rigorous located NEGATIVE ... is a FULL PASS."
-result: "'How does X feel' reliable slice (category, n=3170): model 0.625 vs most-recent-emotion-word floor 0.257 vs shuffled-character twin 0.265 (both CI-separated). Valence-sign (primary PINNED channel, n=3793): model 0.766 vs floor 0.519 (CI-sep). Positive control (multi-character): model-right/char-blind-floor-wrong 1760 vs reverse 296. Extraction precision vs a fair spaCy oracle: 0.587."
-floor: "most-recent-emotion-word (character-blind), recomputed per population = 0.257 on the reliable slice (0.248 all); shuffled-character twin = 0.265 (reliable) / 0.262 (all), twin null p95 = 0.271; model-floor CI half-width ~0.026."
-controls: "shuffled-character info-free twin (excludes emotion-word recency w/o binding; loses, null p95 0.271); most-recent-emotion-word char-blind floor (excludes 'name the last emotion'); positive control on multi-character passages (excludes salience/recency: 1760 vs 296); fair spaCy oracle reference-only (extraction precision 0.587, never on inference path); upstream psych-verb-frame A/B (naive subject=experiencer baseline: authored 1.0 vs 0.333); zero-regression witness (non-psych affects byte-identical frame vs naive)."
-files_changed: "experiments/affect_register.py, experiments/affect_lexicon.py, experiments/psych_verb_frames.py, experiments/exp_affect_register_qa_v1.py, verification/test_affect_register.py (12/12), data/psych_verb_frames_v1/psych_verb_transitivity_ud_ewt.json, data/exp_affect_register_qa_v1/metrics.json"
+result: "'How does X feel' reliable slice (category, n=673): model 0.788 vs most-recent-emotion-word floor 0.312 vs shuffled-character twin 0.394 (both CI-separated, model-floor CI [0.430,0.523]). Valence-sign (primary PINNED channel, n=743): model 0.838 vs floor 0.490 (CI [0.299,0.400]). Positive control (multi-character): model-right/char-blind-floor-wrong 391 vs reverse 37. Numbers are post the CYCLE-1 emotion-DENOTATION gate (see signal_loss_chain_analysis note)."
+floor: "most-recent-emotion-word (character-blind), recomputed per population = 0.312 on the reliable slice (0.302 all); shuffled-character twin = 0.394 (reliable) / 0.380 (all), twin null p95 = 0.435; model-floor CI half-width ~0.047."
+controls: "shuffled-character info-free twin (excludes emotion-word recency w/o binding; loses, null p95 0.435); most-recent-emotion-word char-blind floor (excludes 'name the last emotion'); positive control on multi-character passages (excludes salience/recency: 391 vs 37); spaCy oracle reference-only (never on inference path); upstream psych-verb-frame A/B (naive subject=experiencer baseline: authored 1.0 vs 0.333); ORACLE-SUBSTITUTION LADDER signal-loss budget (coref = 87% of end-to-end loss); zero-regression witness (non-psych affects byte-identical frame vs naive)."
+files_changed: "experiments/affect_register.py, experiments/affect_lexicon.py, experiments/psych_verb_frames.py, experiments/exp_affect_register_qa_v1.py, experiments/exp_affect_chain_signal_loss_v1.py, verification/test_affect_register.py (12/12), data/psych_verb_frames_v1/psych_verb_transitivity_ud_ewt.json, data/exp_affect_register_qa_v1/metrics.json, data/exp_affect_chain_signal_loss_v1/metrics.json"
 reverify: ".venv/Scripts/python.exe verification/test_affect_register.py"
 ---
 
@@ -79,19 +79,22 @@ Slice counts: copular_adj 1584, noun_poss 1022, adverb 561, psych_verb 377, felt
 noun_metaphor 62, to_poss 60.
 
 ## 2. What was measured (100 LitBank docs; floors recomputed per population; CI-separated; twin loses)
-- "How does X feel?" reliable slice (copular/felt/psych/to-poss/noun-poss, category match, n=3170):
-  model 0.625 vs most-recent-emotion-word floor 0.257 vs shuffled-character twin 0.265; model-floor CI
-  [0.343, 0.395] (sep), model-twin CI [0.330, 0.392] (sep). All questions (n=3793): model 0.634 /
-  floor 0.248 / twin 0.262; twin null p95 0.271 (< model). CI half-width ~0.026.
-- VALENCE-SIGN (the primary PINNED channel, n=3793): model 0.766 vs floor 0.519 vs twin 0.492; CI
-  [0.224, 0.271]. Valence is the coarser, higher channel, as the brain model predicts (valence primary;
-  category secondary/best-effort at 0.625).
+NUMBERS POST the CYCLE-1 emotion-DENOTATION gate (see section 7 + the signal_loss_chain_analysis note;
+the gate replaced NRC association with a curated emotion-denoting inventory and lifted every arm).
+- "How does X feel?" reliable slice (copular/felt/psych/to-poss/noun-poss, category match, n=673):
+  model 0.788 vs most-recent-emotion-word floor 0.312 vs shuffled-character twin 0.394; model-floor CI
+  [0.430, 0.523] (sep), model-twin CI [0.339, 0.455] (sep). All questions (n=743): model 0.787 / floor
+  0.302 / twin 0.380; twin null p95 0.435 (< model). CI half-width ~0.047.
+- VALENCE-SIGN (the primary PINNED channel, n=743): model 0.838 vs floor 0.490; CI [0.299, 0.400].
+  Valence is the coarser, higher channel, as the brain model predicts (valence primary; category the
+  curated family at 0.788).
 - POSITIVE CONTROL (multi-character passages where the char-blind floor returns the wrong character's
-  emotion, n=3793): model-right & char-blind-floor-wrong 1760 vs reverse 296 (5.9x).
-- EXTRACTION faithfulness vs a fair spaCy oracle (reference-only, 25 docs, same 5 reliable
-  constructions off an independent parse): precision 0.587 (tp=492 fp=346).
+  emotion, n=743): model-right & char-blind-floor-wrong 391 vs reverse 37 (10.6x).
+- EXTRACTION: detection recall vs a competent-parser (spaCy) reference = 0.96 (near-ceiling coverage;
+  the signal-loss ladder, section 7). Explicit affect is sparse (~1 per 23 events) -- the denotation
+  gate trades some recall of borderline emotions for high precision (the located-negative boundary).
 
-The model number (0.625) is < 1.0 for the same reason the goal register's WANT-explicit was 0.607:
+The model number (0.788) is < 1.0 for the same reason the goal register's WANT-explicit was 0.607:
 `feels()` returns the CURRENT emotion, so a question about an EARLIER construction of a multi-emotion
 character is answered with the later (overwritten) emotion -- the honest cost of the brain-faithful
 overwrite semantics, not an extraction error. The load-bearing claim is the SEPARATION: character-bound
@@ -167,33 +170,50 @@ two-tier constructed-emotion architecture; experiencer bound by the PINNED psych
 overwrite update (de Vega) -- the deliberate asymmetry vs the goal register's persistence. The reader
 now represents the classic five Zwaan-Radvansky dimensions PLUS goal/intention PLUS affect/emotion.
 
-## 7. Performance vs the brain, and exactly where we differ (itemized mechanism-diff)
-A competent human reader, tested on "how does X feel", would (i) recover explicit affect at ceiling
-(a lexical/syntactic lookup), (ii) bind the experiencer correctly including object-experiencer verbs
-(we match this via the frame), AND (iii) INFER unstated emotion from action + situation ("she slammed
-the door" -> anger), which we do NOT. The itemized differences:
-- EXTRACTION: our (experiencer, emotion) pairs corroborate a fair spaCy oracle 0.587 of the time vs a
-  human ~1.0. The residual is coref/POS-tagger error inherited from the frontend, the bare emotion-noun
-  metaphor tail, and NRC/Warriner category noise -- NOT the binding rules (which are PINNED). This is
-  lower than the goal register's 0.857 because affect spans more construction types and leans harder on
-  coref (the experiencer is often a pronoun).
-- CATEGORY specificity: we store valence faithfully (0.766) but the discrete category is best-effort
-  (0.625) -- NRC's promiscuous multi-flagging (e.g. hate -> fear not anger). The brain matches this
-  coarseness ONLINE (Gygax 2004: no exact-lexical specificity online), so this is closer to
-  brain-faithful than it looks; a richer appraisal model would recover finer categories.
-- INFERENCE (the big one): the brain infers emotion from the causation+goal registers via OCC-style
-  appraisal (Gernsbacher et al. 1998: implicit inference is as automatic as explicit). We read only the
-  EXPLICIT tier. This is the located negative below, and it is where the largest signal is lost --
-  explicit affect covers only ~1 emotion per 5 events (0.204).
-- DYNAMICS: we implement overwrite (de Vega); the brain also has graded arousal/decay we store
-  (arousal) but do not yet use (a next-problem).
+## 7. Performance vs the brain -- the FULL-CHAIN SIGNAL-LOSS BUDGET (measured, not asserted)
+The chain: raw text -> POS tagger -> parse/frame-shape -> emotion-denotation lexicon + valence/category
+-> psych-verb experiencer frame -> coreference -> affect register -> answer. We measured WHERE it loses
+signal with an ORACLE-SUBSTITUTION LADDER (`experiments/exp_affect_chain_signal_loss_v1.py`): swap each
+glass-box stage for its competent-reader oracle (POS/parse = spaCy; coref = LitBank GOLD clusters) and
+measure end-to-end F1 recovery vs a competent-reader reference (the all-oracle ceiling). Full note:
+signal_loss_chain_analysis_2026-09-04.md.
+
+SIGNAL-LOSS BUDGET (100 docs): G0 glass-box F1 0.581 -> +spaCy POS 0.624 -> +GOLD coref 0.945 ->
+ceiling 1.0.
+- **COREFERENCE is 87% of the end-to-end loss** (+0.364 recovered by gold coref; POS only +0.043). The
+  reader binds the emotion experiencer correctly on only 36% of mentions vs gold. The affect
+  extraction + experiencer-linking + valence rules are NEAR-PERFECT given good coref (F1 0.945). The
+  bottleneck is entirely the upstream COREF organ (a separate, filed problem).
+- DETECTION recall vs the competent-parser reference = 0.96 (lexicon+tagger coverage is near-ceiling).
+Itemized mechanism-diff vs a competent reader:
+- DETECTION: ~ceiling (0.96). EMOTION TYPING: valence primary (matches online reading, Gygax 2004);
+  category is the clean curated family (0.788). EXPERIENCER ROLE: PINNED psych frame (A/B 1.0 vs 0.33).
+- BINDING (which character): the brain uses Centering (recency + subjecthood + parallelism + topic
+  salience) + implicit-causality verb bias; OUR coref lags badly (0.36 vs gold) -- THE gap. Cycle 2
+  adds a brain-faithful salience fallback (section 7a).
+- INFERENCE: the brain infers unstated emotion via OCC appraisal (Gernsbacher 1998: as automatic as
+  explicit); we read only the EXPLICIT tier -- the located negative (section 8).
+- DYNAMICS: we implement overwrite (de Vega); we store arousal (Warriner) but do not yet use it for a
+  decay/intensity dynamic (a next-problem).
+
+## 7a. The iteration (getting closer, with research + drilling)
+- CYCLE 1 (landed): the ladder exposed that the NRC lexicon over-fires on emotion-ASSOCIATED concepts
+  (war->fear, death->sadness, friends->joy) rather than emotion-DENOTING states. Replaced the gate with
+  a curated emotion-denotation inventory (WordNet-Affect-style, ~230 terms; Pavlenko 2008 emotion-label
+  vs emotion-laden; Zhang et al. 2017 neural dissociation), keeping Warriner for valence. Lifted the
+  reliable-slice accuracy 0.625 -> 0.788, valence 0.766 -> 0.838, positive control 5.9x -> 10.6x.
+- CYCLE 2 (the dominant loss): added a brain-faithful Centering global-topic-salience fallback for
+  UNRESOLVED experiencer pronouns (bind to the gender-compatible protagonist; Grosz-Joshi-Weinstein
+  1995). Measured as ladder rung G1b_salienceCoref. [RESULT recorded in the signal_loss note once the
+  cycle-1 ladder run lands.] The full coref gap belongs to the coref organ; this is a bounded in-scope
+  attempt, reported honestly.
 
 ## 8. LOCATED NEGATIVE (the brief's sanctioned FULL PASS, named + numbered)
 INFERRED (unstated) emotion cannot be recovered by the glass-box explicit extractor. "She slammed the
 door" carries anger to a human reader (witness W11: our extractor correctly yields NO affect there).
-Explicit affect is sparse relative to events (explicit-affect-per-event = 0.204 on LitBank: 4606
-explicit affects over 22633 events), so most action-implied emotion is out of reach of the explicit
-tier. Recovering it needs the OCC-appraisal MEANING channel consuming the causation + goal registers as
+Explicit affect is sparse relative to events (explicit-affect-per-event = 0.044 on LitBank after the
+denotation gate: ~1 explicit emotion per ~23 events), so most action-implied emotion is out of reach of
+the explicit tier. Recovering it needs the OCC-appraisal MEANING channel consuming the causation + goal registers as
 input -- a separate, harder capability (NOT a harder version of this extractor), and the SAME
 explicit-vs-inferred split the goal dimension found. The pass is anchored on the explicit tier (the
 reliable anchor), exactly as the brief and the goal precedent require.
@@ -249,8 +269,9 @@ character in the hard cases and changes nothing else.
 ## QUESTIONS
 None.
 
-## NEXT STEPS (ranked, verdict-independent)
-1. The OCC-appraisal meaning channel for INFERRED (unstated) affect -- the located negative; highest value, gated on the Phase-1 meaning channel.
-2. goal x affect composition (frustration/satisfaction from goal status) -- clean glass-box compositional win, reusing the landed goal register.
-3. arousal + graded decay dynamics (we store arousal, do not yet use it).
-4. Revisit context_grounded_valence to adopt the psych-verb experiencer frame + compose with the affect register.
+## NEXT STEPS (ranked by the MEASURED signal-loss budget, verdict-independent)
+1. COREFERENCE (the measured dominant loss: 87% of the end-to-end gap; binding 0.36 vs gold). Improving the coref organ is the single highest-value lever for character-emotion tracking. The Centering salience fallback (cycle 2) is a bounded down-payment; the full fix belongs to the coref/name-clustering problems (other solver sessions).
+2. The OCC-appraisal meaning channel for INFERRED (unstated) affect -- the located negative; gated on the Phase-1 meaning channel.
+3. goal x affect composition (frustration/satisfaction from goal status) -- clean glass-box compositional win, reusing the landed goal register.
+4. arousal + graded decay dynamics (we store arousal, do not yet use it).
+5. Revisit context_grounded_valence to adopt the psych-verb experiencer frame + compose with the affect register.
