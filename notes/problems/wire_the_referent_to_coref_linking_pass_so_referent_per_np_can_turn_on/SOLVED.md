@@ -231,9 +231,26 @@ as CRACKABLE, not walls. The owner does not accept these as impossible, and neit
    new faithful cue I have NOT yet wired) + a learned-offline coherence-relation classifier as a static asset.**
 
 **Bottom line for the next solver:** the faithful *skeleton* is built and measured; the gap to 100% is ONE named,
-open, buildable organ — a learned per-character individuation representation (offline static asset, admissible) — plus
-two research bets (self-supervised cue learning; an LM-free coherence prior). None is refuted-impossible; each has a
-concrete first step above.
+open, buildable organ — a per-character individuation representation feeding a world-knowledge/coherence next-mention
+prior — plus two research bets (self-supervised cue learning; an LM-free coherence prior). None is refuted-impossible;
+each has a concrete first step above.
+
+**EMPIRICAL UPDATE (2026-09-03) — the faithful individuation MECHANISM was BUILT and measured, so challenge #1 is now
+a MEASURED negative, not an assumed one.** The 2026-09-03 research probe pinned the mechanism (VSA/HRR conjunctive
+binding = hippocampal fast binding, Duff & Brown-Schmidt 2012; cue-based content-addressable retrieval, Lewis-Vasishth
+2005; DRT accessibility) — all glass-box, NO training, and FHRR is already the substrate's binding basis. I built it
+(`experiments/exp_referent_coref_step5_bound_v1.py`): each character's mental file = a bundle of `ROLE⊛GloVe(filler)`
+bindings over the reader's OWN extracted facts (who-did-what actions + the copular state organ's attributes), resolved
+by ROLE-TYPED unbinding — the faithful "bind, don't average" fix. RESULT (held-out): the bound cue fires broadly
+(44,691 rows) but carries **NO CI-separated signal** (learned weight −0.048; model−shuffled-twin −0.001, not sep; it
+slightly HURTS vs the flat context cohesion). Six representations now converge (flat / cumulative / distinctive /
+learned-bilinear / structured-centroid / role-typed-FHRR-bound); the most brain-faithful is the weakest. This is the
+research prediction MEASURED: the predicate-fit SELECTION is epiphenomenal of a next-mention prior that needs world
+knowledge (Kehler-Rohde), and the reader's extractions are themselves noisy (`patient='?'`). **So challenge #1's real
+content is the WORLD-KNOWLEDGE COHERENCE PRIOR + cleaner upstream extraction — the faithful binding mechanism, proven
+built, does not rescue selection without them.** Step-5 selection stands at 0.490→0.558 held-out (the structural
+combiner + a weak GloVe context prior, +0.017 CI-sep localized to the 17% struct-dominated bucket); the honest ceiling
+of a glass-box, no-training, no-world-model build is ~0.56.
 
 ---
 
