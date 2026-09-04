@@ -83,7 +83,32 @@ not an affect-register patch. This negative is the value: it proves the affect d
 hands the coref organ a precise target -- bind emotion-experiencer pronouns (reader 0.38 vs gold; gold
 recovers +0.43 F1 end-to-end).
 
-## THE STANDING FINDING
+## TRACING THE COREF LOSS -- what ACTUALLY happened (637 scorable experiencer mentions, 100 docs)
+The aggregate "coref = 87% of loss" is real in F1-vs-reference terms, but a per-mention TRACE
+(`--trace`) shows the MECHANISM is not what "coref error" first suggests:
+- SURFACE of the experiencer: 39.6% personal pronouns, 53.4% common-noun NPs ("the man", "the child"),
+  4.4% named, 2.7% plural/it.
+- GOLD canonical type: **only 16.5% of experiencers are NAMED characters; 83.5% are COMMON-NOUN cluster
+  heads** ("child", "man", "woman") -- most narrative experiencers are UNNAMED entities.
+- Reader outcome: agree 37.4%, abstain(None) 38.3%, wrong-name 24.3%.
+- ABSTAIN breakdown: of 244 abstains, **212 are because the GOLD is a common-noun entity** the reader's
+  proper-name-centric canonicalizer cannot name; only 32 are genuine misses on a NAMED cluster. Of
+  personal-pronoun abstains, an antecedent was available in just **3** cases -- i.e. the reader almost
+  never abstains on a resolvable named pronoun.
+- WRONG-NAME breakdown: 126 of 155 are on common-noun-gold mentions; only 29 are a named pronoun bound
+  to the WRONG named character.
+- **GENUINE named-character pronoun coref errors = ~61/637 ~= 9.6%.** The other ~90% of the "loss" is
+  the COMMON-NOUN REFERENT REPRESENTATION gap: (a) most experiencers are unnamed common-noun entities,
+  and (b) the reader's coref/entity model clusters/names them differently from gold, so the character-
+  NAME comparison mismatches.
+
+WHY the three affect-side coref fixes failed, now explained by the trace: they all targeted PRONOUN
+resolution (recency/salience/gender), but resolvable named pronouns were already handled well (only 3
+abstains had an available antecedent). The real gap is common-noun ENTITY segmentation/clustering, which
+is the coref/entity ORGAN's job (referent formation), not a pronoun heuristic and not an affect patch.
+This is the precise, traced conclusion -- and it changes the recommended fix from "better pronoun coref"
+to "name and track common-noun entities as characters" (extend the reader's entity model, or have the
+affect register canonicalize common-noun coref clusters by their head).
 The affect dimension itself is brain-faithful and near-ceiling given its inputs. The dominant signal
 loss in the end-to-end chain is UPSTREAM COREFERENCE (87%), not the affect extraction -- which reframes
 the next-highest-value work as improving the coref organ (and, for the unstated tier, the OCC-appraisal
