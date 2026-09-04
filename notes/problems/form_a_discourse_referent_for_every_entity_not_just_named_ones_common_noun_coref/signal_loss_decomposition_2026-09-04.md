@@ -88,3 +88,52 @@ Toshniwal et al. 2021):
   world-knowledge-dependent part, unreported as a standalone number precisely because it is where systems
   struggle. Our glass-box no-LLM tie at 0.605 is near the ceiling reachable WITHOUT importing that world
   knowledge; crossing it means building the situation model (or, disallowed, importing an LLM's implicit one).
+
+## ATTACK THE REAL CAPABILITY: the ceiling of every BUILDABLE glass-box lever (measured, GOLD oracle)
+Owner: "let's attack the real capability." I measured the CEILING of each buildable brain-foundational lever
+BEFORE building, using GOLD referents (so it measures the SIGNAL, not our clustering).
+
+**(1) Event-centrality situation gate -- BUILT.** Reused `event_centrality_coref` for definite descriptions:
++0.013 CoNLL over surface_head (CI-sep), no-regress. A small real landable win; recovers the which-active
+slice, not the relational/residual.
+
+**(2) Presence / locality model -- CAPPED, measured fairly** (`exp_commonnoun_scene_presence_ceiling_v1.py`).
+FIRST caveat found + fixed: `scene_segment.detect_scene_boundaries` yields only ~1.6 scenes on an ~86-sentence
+LitBank excerpt (median 1) -- too coarse; "in scene" == "in doc". So I swept a tight PRESENCE WINDOW Wp
+instead. Ceiling over all 1,936 person common-noun links (GOLD referents):
+
+| Wp (on-stage last Wp sents) | recall (ante in window) | unique&correct | presence+recency correct | mean candidates |
+|---|---|---|---|---|
+| 1 | 0.231 | 0.088 | 0.149 | 1.14 |
+| 3 | 0.410 | 0.090 | 0.219 | 2.24 |
+| 5 | 0.518 | 0.076 | 0.245 | 3.16 |
+| 8 | 0.612 | 0.053 | 0.259 | 4.31 |
+| 15 | 0.686 | 0.031 | 0.265 | 6.51 |
+
+A locality/presence model faces a BRUTAL recall/precision tradeoff: tight window -> ~1 candidate but the
+antecedent is rarely in it (recall 0.23); wide window -> antecedent present but ~6 candidates. **Best
+presence+recency = ~0.26; unique-AND-correct tops out at ~0.09.** Even a PERFECT gold-referent presence
+oracle CANNOT fix the referent -- the scenes hold ~3-6 co-present compatible same-gender persons and presence
+does not narrow them. By category at Wp=5: head_identical 0.297, name_antecedent 0.333 (surface cue helps),
+but **kinship_role 0.194, residual 0.135** -- presence is weakest exactly on the slices that need
+relational/world knowledge. So the situation model AT PRESENCE/LOCALITY GRANULARITY is NOT the crossing lever.
+
+**(3) Relational / kinship binder -- SMALL ceiling, measured structure.** Of the 423 kinship_role links:
+46.8% are possessive-headed ("her father", "his wife") -- a relational target a glass-box binder could
+exploit (resolve the possessor, bind via the relation) -- but 52.2% are BARE roles ("the servant", "the
+Squire", "the master") with NO explicit relational structure (world-knowledge-bound). And even the possessive
+46.8% needs the relation ESTABLISHED in-text (a prior apposition "Mr. Bennet, her father"). So the relational
+build targets at most ~10% of person common-noun links, with real recovery a fraction of that.
+
+## VERDICT (attack the real capability): the crossing capability is NOT a buildable coref/presence heuristic
+Every buildable glass-box lever is measured and CAPPED: event-centrality +0.013 (built); presence/locality
+~0.26 ceiling even with a gold oracle; relational touches <=10% and needs the relation stated. The crossing
+requires (a) fine-grained discourse FOCUS beyond recency (partly captured, small headroom), (b) a RELATIONAL
+world-model (who is whose father / whose servant -- built from the narrative), and (c) genuine WORLD KNOWLEDGE
+for the bare-role + deep-residual ~45%. That triad IS the Phase-1 meaning channel / situation-model-plus-world-
+knowledge capability -- exactly what SOTA imports from a pretrained LM (barred here) and what the human brings.
+It is a fidelity gap to BUILD ACROSS as a Phase-1 program (a relational situation model over the event
+structure), NOT a coref build -- and building more coref/presence heuristics here would be the "shared wall
+across variations" the owner warns is NOT convergence. The brain's actual mechanism is identified (situation
+model + relational + world knowledge) and each buildable approximation is shown capped with a SPECIFIC measured
+reason -- the legitimate stopping point for THIS problem, and the precise brief for the next.
