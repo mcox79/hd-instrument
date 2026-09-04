@@ -78,6 +78,17 @@ OUTDIR = os.path.join(REPO, "data/exp_situation_model_qa_v1")
 WDW_GOLD = os.path.join(REPO, "data/litbank/who_did_what_events.json")
 CONLL_DIR = NC.CONLL_DIR
 
+# CONTEXT-CUED who-did-what readout (answer_instanced, P2 wire 2026-09-04, DEFAULT-ON). The board's
+# who-did-what question is INSTANCE-specific (it carries `sent` = the sentence of the queried gov_verb
+# occurrence). The brain answers "who did X" by CONTENT-ADDRESSABLE, CONTEXT-CUED retrieval from the
+# situation/episodic model (Lewis & Vasishth 2005 cue-based retrieval) -- the queried sentence is a
+# RETRIEVAL CUE that selects the contextually-relevant event, NOT the globally-last one. `_answer_events`
+# returns the matching-predicate event NEAREST the queried sentence (uses ONLY q['sent'] -- which
+# occurrence is asked -- never the gold answer). This is the big lever on the AGENT arm (0.42 -> 0.69,
+# SOLVED section 6b): it corrects the board's last-matching-event collapse. Set False to reproduce the
+# historical last-event readout (the pre-P2 board number).
+ANSWER_INSTANCED = True
+
 _PRONOUNS = {"he", "him", "his", "she", "her", "hers", "they", "them", "their", "it", "its",
              "himself", "herself", "themselves", "itself"}
 _STOP = {"who", "what", "when", "where", "why", "did", "does", "do", "is", "was", "the", "a", "an",
@@ -422,6 +433,21 @@ class SituationQA:
         pred = q.get("pred")
         want = q.get("slot", "agent")
         plem = lemma_verb(pred) if pred is not None else None
+        # CONTEXT-CUED retrieval (answer_instanced, default-on): the matching-predicate event NEAREST the
+        # QUERIED sentence q['sent'] (which occurrence is asked -- a retrieval cue, NEVER the gold answer);
+        # ties -> the earliest event. Corrects the board's global last-matching-event collapse (SOLVED 6b).
+        S = q.get("sent")
+        if ANSWER_INSTANCED and isinstance(S, int) and S >= 0:
+            best, bestkey = None, None
+            for ev in self.sm.events:
+                if pred is not None and lemma_verb(ev.predicate) != plem and _norm(ev.predicate) != _norm(pred):
+                    continue
+                head = ev.agent if want == "agent" else ev.patient
+                if head and head != "?":
+                    key = (abs(ev.sent_idx - S), ev.global_idx)
+                    if bestkey is None or key < bestkey:
+                        bestkey, best = key, head
+            return best
         best = None
         for ev in self.sm.events:
             if pred is not None and lemma_verb(ev.predicate) != plem and _norm(ev.predicate) != _norm(pred):
@@ -632,6 +658,9 @@ def build_events_questions(sm: SituationModel, rec: dict) -> List[dict]:
             "question": f"Who did {gov} ?",
             "pred": gov, "slot": "agent",
             "gold": gold,
+            # `sent` = the sentence index of THIS gov_verb occurrence (which instance is asked) -- the
+            # context cue for the answer_instanced readout. Metadata about the QUESTION, NOT the gold answer.
+            "sent": int(m.get("sent", -1)),
             "candidates": sorted(set(list(names.values()) + [gold])),
         })
     return qs

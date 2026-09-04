@@ -9,6 +9,12 @@ files_changed: "experiments/exp_cmrole_agent_board_v1.py (the mechanism + all ar
 reverify: ".venv/Scripts/python.exe verification/test_cmrole_agent_board_organ.py   # scaffold-free, writes nothing to landed dirs; canary + 8-doc board orderings, 10/10 PASS"
 ---
 
+## INTEGRATED_BY_STRATEGY (2026-09-04) — EXCELLENT
+Reverified first-hand: board organ `verification/test_cmrole_agent_board_organ.py` **10/10** + a new pure-hdlab landing witness `verification/test_cmrole_agent_landing_organ.py` **5/5** — landed reader recovers who-did-what AGENT to 0.6073 (baseline 0.2649, regression 0.0750), PATIENT byte-identical on positional AND wired paths, twin 0.4607 loses; deployed wired path cm_agent OFF 0.1383 → ON 0.6073 (+0.4689 CI-sep). The stale board is unblocked.
+- **WIRE LANDED (Q111, DEFAULT-ON — full proven stack):** `hdlab/graded_role_assigner.agent_competition_pick` (+ `AGENT_VALIDITIES`, REUSING `graded_competition.net_activation`) + `situation_reader` routes `coref_mentions` (tracked) as the AGENT candidate source in `_read_events`/`_read_events_wired`, patient untouched; flags `cm_agent`/`include_pron_agents`/`case_filter`/`clause_local` all default-ON; the board scorer's context-cued `answer_instanced` readout (question's own sentence index, never the gold). Banks agent 0.041→~0.64–0.69.
+- **§2b folded.** Residual localized: 75% embedded-clause nominative ties → **FOLLOW-ON FILED `the_agent_tie_wall_is_embedded_clauses_needs_a_register_general_incremental_parse_cue` (priority 4)** (a register-general incremental parse cue — NOT a trained parser, proven to lose OOD); 20% event detection; 5% coref.
+- **Note:** 0.64-vs-0.69 is reader-default drift since the SOLVED run (the solver's shadow reader yields 0.64 today, agent signatures byte-identical to the landed reader). Pre-existing stale self-tests (`_selftest_frame_arity_gate`, `test_situation_model_qa` temporal/causal) NOT caused by P2 — flagged for a separate refresh.
+
 # Competition-Model AGENT role assignment recovers the board's who-did-what agent arm — via a two-part fix: the RIGHT rule over the RIGHT (brain-foundational) candidate set
 
 ## 1. What the bar asked, and the headline

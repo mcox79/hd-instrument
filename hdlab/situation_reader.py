@@ -675,6 +675,12 @@ class SituationReader:
                  bind_entity_states: bool = True,
                  structural_do_recover: bool = False,
                  referent_per_np: bool = True,
+                 cm_agent: bool = True,
+                 include_pron_agents: bool = True,
+                 case_filter: bool = True,
+                 clause_local: bool = True,
+                 cm_weights: Optional[Dict[str, float]] = None,
+                 cm_twin_seed: Optional[int] = None,
                  predicate_recall: bool = False) -> None:
         # === DEFAULTS FLIPPED ON 2026-09-03 (owner-authorized: "switch them on... 1 at a time, top down,
         # measure which are net positives"). The greedy forward-activation sweep (tools/flag_activation_sweep.py,
@@ -942,6 +948,38 @@ class SituationReader:
         # all_capabilities_off() sets it False. NO spaCy / NO LLM.
         self.referent_per_np = bool(referent_per_np)
         self._rnp_tagger = None        # lazy hdlab.pos_tagger.PosTagger (the frontend UPOS tagger)
+        # COMPETITION-MODEL AGENT role assignment (P2 wire, 2026-09-04, owner-DONE swap_the_positional_role_
+        # assigner_for_the_brain_foundational_competition_model). referent_per_np default-ON banks the +0.336
+        # PATIENT win but the POSITIONAL agent (leftmost-NP subject proxy) COLLAPSED over the denser set
+        # (who-did-what AGENT 0.2257 -> 0.0410). THE FIX (SOLVED, scaffold-free witness 10/10): recompute the
+        # AGENT by a GRADED, PARALLEL cue competition (Competition Model, Bates & MacWhinney; McClelland 2013
+        # posterior; hdlab.graded_role_assigner.agent_competition_pick over hdlab.graded_competition.
+        # net_activation -- the SAME organ the PATIENT side uses) over the TRACKED / GIVEN discourse entities
+        # (the coref-column set; Centering Cb->subject Grosz 1995, DuBois 1987 PAS) -- DECOUPLED from the dense
+        # PATIENT set (the +0.336, left EXACTLY as _assign_roles produced it -> byte-identical patient by
+        # construction; agent-only change). The candidate-SET decouple is load-bearing (the same rule over the
+        # DENSE set only reaches 0.082). ALL DEFAULT-ON per the no-more-default-off rule (each is net-positive,
+        # patient-neutral, held-out-replicated in the SOLVED; full stack 0.041 -> ~0.69 on the arm):
+        #   cm_agent            -- the Competition-Model AGENT competition (the keystone).
+        #   include_pron_agents -- KEEP subject pronouns as agent candidates (Centering: the salient Cb is
+        #                          pronominalized -> the strongest agent candidate; _sentence_nominals drops them,
+        #                          which is why 70% of gold agents were unreachable). Lifts 0.2519 -> 0.4082.
+        #   case_filter         -- keep only NOMINATIVE pronoun agents (Competition-Model CASE cue: accusative/
+        #                          possessive/reflexive pronouns are morphologically marked as non-subjects).
+        #   clause_local        -- bound the agent candidates to the verb's CLAUSE span (incremental clause
+        #                          segmentation; hdlab.graded_role_assigner.clause_bounds). 0.4082 -> 0.4224.
+        # BACKWARD-COMPATIBLE: each has effect ONLY when cm_agent AND referent_per_np are both ON and a coref
+        # source exists; with cm_agent OFF (or referent_per_np OFF) the AGENT is byte-identical to the stock
+        # positional/wired pick. all_capabilities_off() sets them all False (the historical pre-P2 reader).
+        # cm_weights (static asset default = AGENT_VALIDITIES) + cm_twin_seed (info-free control) are knobs, not
+        # capability flags. NO spaCy / NO LLM (the competition reads only toks/POS + animacy lexicon + coref).
+        self.cm_agent = bool(cm_agent)
+        self.include_pron_agents = bool(include_pron_agents)
+        self.case_filter = bool(case_filter)
+        self.clause_local = bool(clause_local)
+        self.cm_weights = dict(cm_weights) if cm_weights else None
+        self.cm_twin_seed = cm_twin_seed
+        self._coref_mentions = None    # stashed by read() -> the AGENT candidate source (tracked/given set)
         # PREDICATE-RECALL: register-robust event recovery (opt-in; default OFF = byte-identical). P6 wire
         # (2026-09-03, owner-DONE register_robust_event_detection...): the tense_agnostic UPOS==VERB detector
         # silently DROPS a whole clause when the tagger mistags a real verb (archaic / noun-flanked prose). When
@@ -979,7 +1017,8 @@ class SituationReader:
         "tense_agnostic_events", "preserve_tense", "timeline_register", "verb_subcat_gate", "track_space",
         "predict_surprisal", "track_belief", "bind_event_tokens", "predict_revise", "track_world_state",
         "densify_world_state", "np_head_reduce", "parser_arceager", "causation_typed", "spacy_pred_gate",
-        "bind_entity_states", "structural_do_recover", "referent_per_np", "predicate_recall", "track_goals")
+        "bind_entity_states", "structural_do_recover", "referent_per_np", "cm_agent", "include_pron_agents",
+        "case_filter", "clause_local", "predicate_recall", "track_goals")
 
     @classmethod
     def all_capabilities_off(cls, gaz=None, **overrides):
@@ -1079,13 +1118,58 @@ class SituationReader:
         events.sort(key=lambda e: e.idx)
         return events
 
+    # -- COMPETITION-MODEL AGENT (P2 wire): the AGENT competes over the TRACKED/GIVEN entities (decoupled) --
+    def _cm_agent_candidates(self, n_sents):
+        """Per-sentence AGENT candidate sets (the TRACKED / GIVEN coref-column nominals) + the per-cluster
+        Centering-givenness freq, for the Competition-Model AGENT. Returns (agent_sent_noms, agent_freq), or
+        (None, None) when cm_agent is off / referent_per_np off / no coref source -> the positional (or wired)
+        AGENT is left UNTOUCHED (byte-identical). The AGENT source (tracked/given) is DECOUPLED from the dense
+        PATIENT source; include_pron_agents keeps subject pronouns, case_filter keeps only nominative pronouns."""
+        if not (self.cm_agent and self.referent_per_np):
+            return None, None
+        coref_ment = self._coref_mentions
+        if not coref_ment:
+            return None, None
+        from hdlab.graded_role_assigner import NOMINATIVE_PRON, _nominals_keep_pron
+        if self.include_pron_agents:
+            agent_sent_noms = _nominals_keep_pron(coref_ment, n_sents)
+            if self.case_filter:                       # CASE cue: keep only NOMINATIVE pronoun agents
+                agent_sent_noms = [[m for m in lst if (not m.get("is_pronoun"))
+                                    or m["head"].lower() in NOMINATIVE_PRON] for lst in agent_sent_noms]
+        else:
+            agent_sent_noms = _sentence_nominals(coref_ment, n_sents)
+        # Centering givenness per cluster (count pronoun mentions too when they are agent candidates --
+        # frequent pronominalization == high salience -> a stronger given-entity signal).
+        agent_freq = {}
+        for m in coref_ment:
+            if self.include_pron_agents or not m.get("is_pronoun"):
+                agent_freq[m.get("cluster")] = agent_freq.get(m.get("cluster"), 0) + 1
+        return agent_sent_noms, agent_freq
+
+    def _cm_agent_for(self, toks, agent_sent_noms, agent_freq, si, pred_idx):
+        """The Competition-Model AGENT head for the event at (si, pred_idx), or None to KEEP the positional/
+        wired agent (no tracked candidate in this sentence). Clause-bounded when clause_local. Reuses the
+        per-read tag cache for the sentence POS -- glass-box, reads only toks/POS + animacy + coref counts."""
+        anoms = agent_sent_noms[si] if si < len(agent_sent_noms) else []
+        if not anoms:
+            return None
+        from hdlab.graded_role_assigner import agent_competition_pick, clause_bounds
+        up = self._cached_tag(list(toks))
+        acand = anoms
+        if self.clause_local:                          # bound candidates to the verb's clause span (segmentation)
+            lo, hi = clause_bounds(toks, up, pred_idx)
+            acand = [m for m in anoms if lo <= m["wtok_start"] < hi] or anoms
+        return agent_competition_pick(toks, up, pred_idx, acand, cluster_freq=agent_freq,
+                                      weights=self.cm_weights, gaz=self.gaz, twin_seed=self.cm_twin_seed)
+
     # -- EVENTS: per-sentence predicate+agent+patient -> Cowan-4 bundle focus --
     def _read_events(self, sents, mentions, n_sents):
         if self.role_route != "positional":
             return self._read_events_wired(sents, mentions, n_sents)   # ASSEMBLY opt-in; else byte-identical
         codec = EventBundleCodec(n_dim=self.focus_n_dim, roles=DEFAULT_ROLES, seed=FOCUS_SEED)
         focus = ChunkedFocus(codec, capacity=4, fanout=2, seed=FOCUS_SEED)
-        sent_noms = _sentence_nominals(mentions, n_sents)
+        sent_noms = _sentence_nominals(mentions, n_sents)   # DENSE referent set -> PATIENT (the residual, +0.336)
+        agent_sent_noms, agent_freq = self._cm_agent_candidates(n_sents)  # TRACKED/given set -> AGENT (decoupled)
         events: List[EventRecord] = []
         role_fillers: List[Dict[str, str]] = []
         suppressed: List[SuppressedPredicate] = []
@@ -1099,6 +1183,12 @@ class SituationReader:
             for e in evs:
                 agent, patient = _assign_roles(e.idx, noms, lemma=e.lemma,
                                                gate_intransitive=self.gate_intransitive)
+                # CM-AGENT (cm_agent): recompute the AGENT by the Competition-Model competition over the
+                # TRACKED/given entities; PATIENT is left EXACTLY as _assign_roles produced it (byte-identical).
+                if agent_sent_noms is not None:
+                    cm_a = self._cm_agent_for(toks, agent_sent_noms, agent_freq, si, e.idx)
+                    if cm_a is not None:
+                        agent = cm_a
                 if verb_lows is not None and e.lemma not in verb_lows:
                     # POS mis-tag (non-verb read as a predicate) -> suppress (glass-box record)
                     suppressed.append(SuppressedPredicate(
@@ -1222,6 +1312,7 @@ class SituationReader:
         codec = EventBundleCodec(n_dim=self.focus_n_dim, roles=DEFAULT_ROLES, seed=FOCUS_SEED)
         focus = ChunkedFocus(codec, capacity=4, fanout=2, seed=FOCUS_SEED)
         sent_noms = _sentence_nominals(mentions, n_sents)
+        agent_sent_noms, agent_freq = self._cm_agent_candidates(n_sents)  # TRACKED/given set -> AGENT (decoupled)
         events: List[EventRecord] = []
         role_fillers: List[Dict[str, str]] = []
         suppressed: List[SuppressedPredicate] = []
@@ -1273,6 +1364,14 @@ class SituationReader:
                                 h = self._nom_head_at(noms, vr[pa])
                                 if h is not None:
                                     extra[PREDARG_TO_GOLD.get(pa, pa)] = h
+                # CM-AGENT (cm_agent): recompute the AGENT by the Competition-Model competition over the
+                # TRACKED/given entities, OVERRIDING the positional/quotative/router agent; PATIENT untouched
+                # (byte-identical). Runs after the wired agent so the same brain-foundational agent is used
+                # regardless of role_route (the SOLVED proof was on role_route='positional'; this extends it).
+                if agent_sent_noms is not None:
+                    cm_a = self._cm_agent_for(toks, agent_sent_noms, agent_freq, si, e.idx)
+                    if cm_a is not None:
+                        agent = cm_a
                 if verb_lows is not None and e.lemma not in verb_lows:
                     suppressed.append(SuppressedPredicate(sent_idx=si, predicate=e.lemma, tense=str(e.tense),
                                                           agent=agent, patient=patient))
@@ -1754,6 +1853,9 @@ class SituationReader:
         else:
             role_mentions, n_sents = parse_litbank_conll(conll_path, name_gender_map=self.gaz)
             coref_mentions = role_mentions   # coupled OFF -> byte-identical to the deployed baseline
+        # stash the coref-column (tracked/given) mentions -> the Competition-Model AGENT candidate source
+        # (_cm_agent_candidates). Inert unless cm_agent AND referent_per_np are both ON.
+        self._coref_mentions = coref_mentions
         sents = parse_conll_sentences(conll_path)
         if len(sents) != n_sents:
             raise RuntimeError("SENTENCE_MISALIGN: parse_litbank=%d parse_conll_sentences=%d"

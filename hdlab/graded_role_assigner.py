@@ -42,11 +42,11 @@ from typing import Dict, List, Optional, Sequence
 import numpy as np
 
 from hdlab.animacy_lexicon import lookup_animacy
-from hdlab.graded_competition import map_pick
+from hdlab.graded_competition import map_pick, net_activation
 from hdlab.relcl_resolver import (
     BE_AUX, RELATIVIZERS, _cands, is_object_gap, precise_passive, resolve_patient,
 )
-from hdlab.thematic_role_labeler import _is_participle, lemma_verb
+from hdlab.thematic_role_labeler import _is_participle, is_passive_clause, lemma_verb
 
 CUES = ["order", "adjacency", "passive_strong", "passive_weak", "gap", "unacc", "byagent", "animacy"]
 NOMINAL = {"NOUN", "PROPN", "PRON"}
@@ -201,5 +201,181 @@ def hybrid_role_patient(toks: Sequence[str], pos: Sequence[str], v: int,
     return base                                             # canonical / no override cue -> word-order default
 
 
+# ===========================================================================
+# BRAIN-FOUNDATIONAL AGENT competition -- the AGENT counterpart to hybrid_role_patient.
+# ===========================================================================
+# Landed 2026-09-04 from the owner-DONE swap_the_positional_role_assigner_for_the_brain_foundational_
+# competition_model (SOLVED; scaffold-free witness test_cmrole_agent_board_organ.py 10/10; board who-did-what
+# AGENT 0.041 -> ~0.69 full stack). The reader's who-did-what AGENT was POSITIONAL (leftmost-NP subject proxy)
+# and COLLAPSED (0.2257 -> 0.0410) when referent_per_np densified the candidate set with non-participant
+# content-noun heads. This is the brain's method: GRADED, PARALLEL cue competition -- the Competition Model
+# (Bates & MacWhinney 1989), constraint satisfaction (MacDonald 1994), cue-based retrieval (Lewis & Vasishth
+# 2005); additive cue activation A_i = sum_c w_c*support_c(i) -> argmax IS the Bayesian posterior (McClelland
+# 2013) -- over the TRACKED / GIVEN discourse entities (Centering Cb->subject, Grosz 1995; DuBois 1987
+# Preferred Argument Structure: the transitive AGENT is the given/pronominal argument). REUSES
+# graded_competition.net_activation VERBATIM (the same organ the PATIENT side above uses; this adds the AGENT
+# slot the substrate lacked). The candidate-SET decouple is LOAD-BEARING: the SAME rule over the DENSE set only
+# reaches 0.082 -- the AGENT source (tracked/given) must be decoupled from the PATIENT source (dense residual,
+# the +0.336). Ported VERBATIM from experiments/exp_cmrole_agent_board_v1.py (agent_supports/cm_agent_pick).
+# OUR-INVENTION-UNDER-TEST (swept, not adopted): the cue set + the validity-seeded weights AGENT_VALIDITIES.
+
+# validity-seeded AGENT cue weights -- a STATIC asset (like DEFAULT_VALIDITIES above), hand-set from cue
+# validity, NOT trained; weight-robustness swept (SOLVED control (5): cm stays 0.211-0.229 across +/-50% on
+# every discriminating cue). English is word-order-DOMINANT (agent preverbal); byagent dominates under PASSIVE.
+AGENT_VALIDITIES: Dict[str, float] = {
+    "preverbal": 3.0, "core_arg": 2.0, "animacy": 2.0, "salience": 2.0, "adjacency": 1.0, "byagent": 6.0}
+
+_AGENT_PREPS = frozenset(("in", "on", "at", "by", "of", "for", "with", "to", "from", "into", "onto", "upon",
+                          "over", "under", "through", "about", "among", "amongst", "between", "against",
+                          "toward", "towards", "within", "without", "during", "after", "before", "beside",
+                          "behind", "beyond", "near", "off", "out", "across", "around", "beneath"))
+_AGENT_NP_SKIP = frozenset(("DET", "ADJ", "NUM", "PUNCT"))     # NP-internal modifiers to skip when scanning left
+# personal pronouns as discourse participants: nominative (he/she/they/we/i/you) are animate agents; 'it' is
+# inanimate; accusative (him/her/them/us/me) are animate but rarely subjects. Only consulted for pronoun cands.
+_AGENT_ANIM_PRON = frozenset(("he", "she", "they", "we", "i", "you", "him", "her", "them", "us", "me"))
+# CASE cue (Competition Model: case morphology is a HIGH-VALIDITY cue where marked; English marks it on
+# pronouns). NOMINATIVE pronouns can be SUBJECTS; accusative/possessive/reflexive pronouns CANNOT.
+NOMINATIVE_PRON = frozenset(("he", "she", "they", "we", "i", "you", "it", "who"))
+# Clause-boundary markers (brain-foundational clause segmentation: role assignment is CLAUSE-BOUNDED, an
+# argument competes within its clause -- incremental parsing). Relativizers (who/which/that) are DELIBERATELY
+# NOT boundaries (they EMBED; the main-clause subject precedes them, so bounding there would delete it).
+_AGENT_SUBORD = frozenset(("because", "when", "while", "if", "although", "though", "since", "unless", "after",
+                           "before", "until", "as", "whereas", "whenever", "wherever", "once", "lest"))
+_AGENT_COORD = frozenset(("and", "but", "or", "nor", "yet", "so"))
+_AGENT_STRONGPUNCT = frozenset((";", ":", "--", "—", "(", ")"))
+
+
+def _agent_pp_governed(low, up, p):
+    """Is the noun at p the object of a preposition? Scan left over NP-internal modifiers (DET/ADJ/NUM/PUNCT +
+    possessive); if a preposition governs before any clause-blocking token, it is a PP object -> NOT a subject."""
+    j = p - 1
+    for _ in range(5):
+        if j < 0:
+            return False
+        t = low[j]
+        u = up[j] if j < len(up) else None
+        if t in _AGENT_PREPS:
+            return True
+        if u in _AGENT_NP_SKIP or t in ("'s", "'", "the", "a", "an"):
+            j -= 1
+            continue
+        return False
+    return False
+
+
+def _agent_is_animate(head: str, tag, gaz) -> float:
+    """+1 animate, -1 inanimate, 0 unknown. lookup_animacy covers common nouns; it returns None for most PROPN,
+    so recover the animacy of a NAMED discourse referent (a gazetteer given-name, or a PROPN head, is animate in
+    narrative prose -- a coverage fix for the SAME cue, not a new cue). Pronouns: nominative/accusative animate,
+    'it' inanimate. (Place-name PROPN are typically preposition-governed, so the core_arg cue excludes them.)"""
+    if head in _AGENT_ANIM_PRON:
+        return 1.0
+    if head == "it":
+        return -1.0
+    a = lookup_animacy(head, tag)
+    if a is not None:
+        if a["animacy"] == "animate":
+            return 1.0
+        if a["animacy"] == "inanimate":
+            return -1.0
+    if gaz and head in gaz:
+        return 1.0
+    if tag == "PROPN":
+        return 1.0
+    return 0.0
+
+
+def clause_bounds(toks, up, v0):
+    """The [left, right) CLAUSE span of the verb at v0 (0-based). Left = just after the nearest preceding clause
+    boundary (subordinator / strong punct / clause-coordinator that separates two verbs); right = the nearest
+    following such boundary. The incremental clause segmentation the subject search is bounded by -- glass-box,
+    reads only toks/pos. (SOLVED section 6: crude but net-positive; the full lever is an incremental parser.)"""
+    low = [t.lower() for t in toks]
+    left = 0
+    for i in range(v0):
+        t = low[i]
+        if t in _AGENT_SUBORD or t in _AGENT_STRONGPUNCT:
+            left = i + 1
+        elif t in _AGENT_COORD and any(j < len(up) and up[j] == "VERB" for j in range(left, i)):
+            left = i + 1                       # a coordinator AFTER a verb in this span = a new coordinate clause
+    right = len(toks)
+    for i in range(v0 + 1, len(toks)):
+        t = low[i]
+        if t in _AGENT_SUBORD or t in _AGENT_STRONGPUNCT:
+            right = i
+            break
+        if t in _AGENT_COORD and any(j < len(up) and up[j] == "VERB" for j in range(v0 + 1, i)):
+            right = i
+            break
+    return left, right
+
+
+def _nominals_keep_pron(mentions, n_sents):
+    """Like situation_reader._sentence_nominals but KEEPS pronoun mentions (a subject pronoun is the maximally-
+    given Centering mention -> a valid, strong AGENT candidate). Per-sentence, sorted by token position."""
+    per = [[] for _ in range(n_sents)]
+    for m in mentions:
+        si = m["sent_idx"]
+        if 0 <= si < n_sents:
+            per[si].append(m)
+    for lst in per:
+        lst.sort(key=lambda mm: (mm["wtok_start"], mm.get("midx", 0)))
+    return per
+
+
+def agent_supports(toks, pos, v0, cands, gaz=None, cluster_freq=None) -> Dict[str, list]:
+    """Per-candidate AGENT support arrays for the Competition-Model cues. `cands` = [(wtok_start, head,
+    cluster), ...]; v0 = predicate index (0-based). cluster_freq = passage-level {cluster: mention_count} for
+    the Centering givenness cue. Reads ONLY toks/pos + the animacy lexicon + gazetteer + discourse counts --
+    glass-box, no gold. Cues: preverbal (word-order), core_arg (PP-government scan), animacy, salience
+    (Centering givenness), adjacency (clause-locality), byagent (passive voice)."""
+    low = [t.lower() for t in toks]
+    passive = is_passive_clause(toks, pos)
+    cf = cluster_freq or {}
+    S = {"preverbal": [], "core_arg": [], "animacy": [], "salience": [], "adjacency": [], "byagent": []}
+    for (p, head, cl) in cands:
+        pre = p < v0
+        prevtok = low[p - 1] if p - 1 >= 0 else ""
+        by = 1.0 if prevtok == "by" else 0.0
+        core = 0.0 if _agent_pp_governed(low, pos, p) else 1.0   # a preposition-governed noun is NOT the subject
+        tag = pos[p] if p < len(pos) else None
+        if passive:                                             # VOICE flip: surface subject demoted; by-phrase = agent
+            S["preverbal"].append(0.0)
+            S["byagent"].append(by)
+            S["adjacency"].append(1.0 / (1.0 + abs(p - v0)) if by else 0.0)
+        else:                                                   # ACTIVE: agent is preverbal (word-order dominant)
+            S["preverbal"].append(1.0 if pre else 0.0)
+            S["byagent"].append(0.0)
+            # clause-locality: the subject is the NEAREST preceding core NP (Lewis-Vasishth most-active retrieval)
+            S["adjacency"].append(1.0 / (1.0 + (v0 - p)) if pre else 0.0)
+        S["core_arg"].append(core)
+        S["animacy"].append(_agent_is_animate(head, tag, gaz))
+        # CENTERING givenness (Grosz-Joshi-Weinstein): a TRACKED discourse entity (established coref chain,
+        # freq>=2) is the salient center -> realized as SUBJECT. A one-off (fresh singleton) is not.
+        S["salience"].append(1.0 if cf.get(cl, 0) >= 2 else 0.0)
+    return S
+
+
+def agent_competition_pick(toks, pos, v, cands, cluster_freq=None,
+                           weights: Optional[Dict[str, float]] = None, gaz=None, twin_seed=None) -> str:
+    """The AGENT = argmax additive cue activation over the tracked/given candidate mentions (REUSES
+    graded_competition.net_activation). `cands` = list of mention dicts (each with 'wtok_start', 'head',
+    optional 'cluster'); v = predicate index (0-based) in toks-space; weights default to AGENT_VALIDITIES.
+    Returns a head string, or '?' when there is no candidate. twin_seed set => INFO-FREE TWIN: shuffle each
+    cue's per-candidate support across candidates (the structure->candidate mapping destroyed)."""
+    w = AGENT_VALIDITIES if weights is None else weights
+    c = [(m["wtok_start"], m["head"], m.get("cluster")) for m in cands]
+    if not c:
+        return "?"
+    S = agent_supports(toks, pos, v, c, gaz, cluster_freq)
+    if twin_seed is not None:
+        rng = np.random.default_rng(twin_seed + v + len(c))
+        S = {k: list(np.asarray(vv)[rng.permutation(len(vv))]) for k, vv in S.items()}
+    A = net_activation(S, w)
+    return c[int(np.argmax(A))][1]
+
+
 __all__ = ["hybrid_role_patient", "competition_pick", "cue_supports", "voice_cues", "robust_passive",
-           "gap_config", "DEFAULT_VALIDITIES", "CUES", "UNACC"]
+           "gap_config", "DEFAULT_VALIDITIES", "CUES", "UNACC",
+           "agent_competition_pick", "agent_supports", "clause_bounds", "AGENT_VALIDITIES",
+           "NOMINATIVE_PRON", "_nominals_keep_pron"]
