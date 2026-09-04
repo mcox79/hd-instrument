@@ -36,6 +36,50 @@ grounding cannot separate the superposed senses at coverage.
 All a_s: strict document-disjoint SemCor (odd docs = test), subordinate senses, subject-weighted, n=2676, through the
 WIRED `hdlab/diagnostic_context_wsd`, glass-box, frozen w2v, NO external LLM / transformer / training.
 
+## >>> THE GAP TO IMPROVE THIS -- STATED PLAINLY (read this first) <<<
+
+The full brain-faithful chain was assembled and traced end-to-end (ladder below). It CLIMBS correctly and the gap is
+NOT where the brief guessed. Here is exactly where the signal is and is not lost:
+
+- **NOT the readout.** Controlled-retrieval precision-weighting is the single biggest gain (+0.069) and is near-optimal
+  and landable. **Do not look for more here.**
+- **NOT the sense keys / knowledge.** Hub-and-spoke keys help (+0.057); grounding separates the senses fine (cos
+  0.222); adding curated + corpus knowledge INDUCTIVELY HURTS (0.261 < 0.34) and only "helped" via measured leakage.
+- **NOT a static extractor.** Chance-controlled, the per-token diagnostic signal in frozen w2v is real but THIN
+  (+0.047 above chance); we already extract near its ceiling.
+- **THE GAP, precisely: the CONSOLIDATION-OF-EXPERIENCE stage cannot build a strong representation for RARE senses,
+  because rare senses are Zipf-thin (~1-2 instances in any realistic corpus).** On the assembled chain the climb
+  stalls exactly here: glass-box consolidation HURTS rare senses (worse than random -- mis-resolution binds the
+  dominant sense's associates onto the rare one), and EVEN A PERFECT (gold) RESOLVER does not help rare senses (too
+  few instances to consolidate) though it helps well-attested ones (+0.034 all-population). The enabler the whole
+  field uses -- contextual re-representation that THICKENS the thin signal -- requires either transformer-scale
+  training (the invariant boundary) or lifetime-scale rare-sense EXPERIENCE, and our fixed test set contains neither.
+
+So the ceiling on this rare-sense task is **~0.34** (controlled retrieval), and the ONE thing standing between ~0.34
+and the ~0.53 a competent reader reaches is **broad-coverage, correctly-resolved RARE-SENSE experience** -- not a
+better encoder algorithm, not more knowledge, not a better readout.
+
+## >>> WHAT THE NEXT PROBLEM SHOULD FOCUS ON <<<
+
+The next problem should attack the ONE localized gap: **grow broad-coverage, correctly-resolved rare-sense
+experience over time** (the learner-on / consolidation north star), because that -- and only that -- thickens the
+signal for rare senses without crossing the invariant. Concretely, it should:
+1. **Target rare-sense COVERAGE, not the readout or the keys** (those are solved / near-ceiling here). The measured
+   bottleneck is that ~half of test senses have <=1-2 correctly-resolved instances.
+2. **Break the encoding-resolver circularity with GROUNDING-ANCHORED BOOTSTRAPPING (propose-and-verify, Trueswell
+   2013):** resolve the CONFIDENT/concrete cases first (where grounding + precision are reliable), bind them, and let
+   the growing sense-discriminative store resolve progressively harder cases -- iterated over a LARGE corpus, ONLINE
+   (no batch training). This session showed a single-pass glass-box resolver poisons rare-sense W; the untested lever
+   is the iterated, confidence-gated bootstrap that only binds when resolution is trustworthy.
+3. **Consolidate with the gate that is already owner-DONE** (`consolidation_gate` + `cls_growth`: keep-what-recurs,
+   rollback, EMA anchor) so growth is safe and the raw regression can never ship.
+4. **Measure on the SAME instrument** (strict doc-disjoint SemCor subordinate a_s + the full-population consumer
+   guard), with the acceptance test PROVEN here: recover the rare-sense gain as coverage grows, WITHOUT regressing
+   the dominant population, and with a strict INDUCTIVE (train-only) W + shuffled twin (two false PASSes this session
+   were caught only by those controls).
+The alternative (owner decision, NOT brain-foundational): an offline contextual-sense asset (a scale-trained encoder)
+-- crosses to ~0.53 but is the invariant boundary. Recommend the coverage/learner-on route; hold the invariant.
+
 ## How the brain does this -- what is PINNED, what we INVENTED, and what we replicated (5 research drills, cited)
 
 Five primary-source drills this session (notes below). The brain-foundational ledger, marked:

@@ -146,12 +146,28 @@ Two edits, both reuse existing organs; no new external dependency, NO trained pa
 - **graded_role_assigner**: previously PATIENT-only Competition Model; the AGENT slot is now demonstrated (proposed as `agent_competition_pick`). The organ's own docstring named "the incremental structure-builder for clause segmentation" as an upstream residual — confirmed here (clause-locality/adjacency cue is what makes the whole-sentence candidate pool workable).
 
 ## TLDR (plain language)
-The reader decides "who did it" with a crude position rule. We had just given it a richer, more complete list of things-in-the-sentence (which correctly fixed "what got acted on"), and the crude rule promptly started naming the wrong doer — the score for "who did it" fell from about 23 right in 100 to about 4 in 100. The brain does not use position; it weighs several clues at once (word order, is-it-alive, active-vs-passive) AND it looks for the doer among the people the story is actually tracking, not among every noun in the sentence. We built exactly that. On its own the clue-weighing was not enough (about 8 in 100) — the decisive part was **looking for the doer only among the tracked characters**. Together they bring "who did it" back to about **25 in 100**, slightly BETTER than before the richer list, while keeping the improvement to "what got acted on." An information-scrambled version of the same machinery does clearly worse, so the result is carrying real signal, not luck.
+The reader decides "who did it" with a crude position rule. We had just given it a richer list of things in each sentence (which correctly fixed "what got acted on"), and the crude rule promptly started naming the wrong doer — the "who did it" score fell from about 23 right in 100 to about 4. The brain does not use position; it weighs several clues at once (word order, is-it-alive, active-vs-passive) AND it looks for the doer only among the people the story is actually tracking. We built that (about 25 in 100 — back above where it started), then kept going, each step copying a specific brain mechanism and each one checked on documents we never looked at: also allow the doer to be a pronoun like "he/she" (the brain's most common way to name the current character) — up to about 41; only look inside the doer's own clause — about 42; and answer "who did X" by recalling the event at the sentence actually being asked about, instead of the last one anywhere — up to about **69 in 100**. A last clue — only "he/she/they" can be a subject, never "him/her/their" (case) — added a small, real amount. An information-scrambled version does clearly worse throughout, so this is real signal. A competent human is near-perfect here; most of our remaining gap is genuinely hard sentences (relative clauses with two people) where the brain uses full grammar — that is the named next build.
 
 ## QUESTIONS
 None. (The disk-vs-brief number discrepancies are resolved in §2; the wire is described in §7.)
 
 ## NEXT STEPS
-1. **Strategy lands the §7 wire** (add `agent_competition_pick` to `hdlab/graded_role_assigner.py`; pass `coref_mentions` as the agent source in `situation_reader._read_events`), witnessed, and — per the no-more-default-off rule and the §7 impact analysis — turns it **ON** (net-positive, patient-neutral).
-2. **Highest-leverage follow-on:** wire pronoun→antecedent into the agent filler (the coref column already resolves it) to lift the 30% pronoun-ceiling that caps this whole arm.
-3. **Construction detector** for the ~20% thetic/presentational/unaccusative residual (existential "there" + appearance/motion verbs) — the named brain-faithful refinement for new-entity subjects.
+1. **Strategy lands the whole PROVEN stack as ONE wire (§7)** — the agent competition over the tracked/given
+   set (`agent_competition_pick` on `graded_role_assigner`, fed `coref_mentions` in `situation_reader._read_events`)
+   PLUS the generalizing refinements that are all backward-compatible flags today: `include_pron_agents` +
+   `case_filter` (nominative subject pronouns), `clause_local` (clause segmentation), and the context-cued
+   `answer_instanced` readout in the board scorer. Every one is net-positive, patient-neutral, and replicated
+   on held-out docs; turn them ON per the no-more-default-off rule. This banks 0.041 → ~0.69 on the arm.
+2. **➡️ THE NEXT BUILD (open it as its own problem): a REGISTER-GENERAL incremental parse as a precision-
+   weighted CUE in the competition.** This is the located wall (§6b): after every cheap lever (case +0.005,
+   salience ~0, crude clause +0.011), the residual 75%-of-errors bucket is nominative-vs-nominative subject
+   ties in embedded/relative clauses that only full clause structure resolves. The trained arc parser was
+   PROVEN to lose OOD on 19c (§6), so the brain-faithful fix is NOT a trained parser but a register-general
+   incremental structure-builder whose subject-attachment enters `graded_competition` as ONE precision-weighted
+   cue (down-weighted when unreliable — eADM), composed with RECENCY-weighted Centering (the Cb = the recent
+   subject/topic). Bar: beat the current cue competition on the embedded-clause slice, CI-separated, info-free
+   twin losing, WITHOUT regressing canonical clauses — or a located negative naming why register-general
+   parsing cannot be built glass-box. This is the highest-leverage remaining lever on who-did-what agents.
+3. **Adjacent, smaller:** event/predicate-detection recall (the 20% NO_PREDICATE_EVENT bucket — a different
+   organ), `animacy_lexicon` coverage (people/somebody mislabelled inanimate), and a construction detector for
+   the thetic/presentational/unaccusative new-entity subjects.
