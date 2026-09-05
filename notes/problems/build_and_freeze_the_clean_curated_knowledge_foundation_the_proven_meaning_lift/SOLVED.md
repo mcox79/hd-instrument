@@ -5,7 +5,7 @@ bar: "PASS = a clean curated knowledge foundation, BUILT + VERIFIED + FROZEN as 
 result: "The FROZEN static asset (117,614 WordNet synsets, one 200-d mean-w2v unit signature each, float16, 44MB) delivers a_s 0.2512 -> 0.3267 = +0.0755 CI-separated [0.0557, 0.0957] (ci_hw 0.020, null_p95 0.0194) through the LIVE hdlab.diagnostic_context_wsd readout, on strict document-disjoint SemCor subordinate senses (odd-doc test, n=2675). Freeze->reload is byte-exact (delta 0.0). Determinism fixed + witnessed. The store also emits a multi-index foundation MANIFEST (7 spokes) and an intrinsic-quality transform + a gap-analysis acquisition backlog."
 floor: "gloss-only (WordNet definition+examples+lemma-names+hypernyms), a_s = 0.2512 (recomputed on the SAME odd-doc subordinate test population, n=2675). Second floor: the info-free SHUFFLED-knowledge twin a_s = 0.2015 (curated associates permuted onto the WRONG senses)."
 controls: "(1) SHUFFLED-knowledge info-free twin LOSES CI-sep (frozen 0.3267 vs shuffled 0.2015, +0.1252) -> it is the CORRECT curated knowledge, not 'more words'. (2) MFS no-regression on the FULL all-sense population (blended-frozen 0.6890 >= MFS 0.6834, n=8774) -> does not hurt the dominant cases. (3) FREEZE-FIDELITY (frozen==on-the-fly, delta 0.0) -> the static asset delivers exactly what the live build does. (4) DETERMINISM (byte-identical signatures across PYTHONHASHSEED 0/1/2 after the sorted-then-capped fix) -> excludes 'the number was a hash-order artifact' (the parent's un-sorted hyponyms()[:8] WAS hash-dependent). (5) REPRESENTATION test: all-but-the-top (Mu-Viswanath) HURTS the readout monotonically (0.319->0.210) and IDF pre-pooling is neutral -> excludes 'a post-hoc transform recovers the ceiling'; VERDICT DATA-GAP. (6) TRIMMING: schema-margin, sibling-confusion, and incoherence anomaly trims ALL fail to beat keep-all on held-out -> excludes 'the curated store has prunable overlap that helps a_s'. Each control excludes a distinct rival. Paired bootstrap CI half-width + sign-flip null p95 on every contrast."
-files_changed: "experiments/exp_knowledge_factory_meaning_store_v1.py (adapter->trim->freeze->reload->validate + optimize + full-WordNet freeze), experiments/exp_knowledge_factory_intrinsic_trim_v1.py (intrinsic quality transform + anomaly trim), experiments/exp_knowledge_factory_repr_optimize_v1.py (decisive all-but-the-top / SIF representation test), experiments/exp_knowledge_factory_gap_analysis_v1.py (the 'what to learn' acquisition backlog), experiments/exp_knowledge_factory_grow_loop_v1.py (the multi-round ingest->prune->climb->freeze grow loop), experiments/exp_knowledge_factory_targeted_acq_v1.py (targeted disambiguate-then-bind acquisition), experiments/exp_knowledge_factory_signal_loss_drill_v1.py (the resolution-isolation drill: oracle/plain/additive bootstrap), verification/test_knowledge_factory_meaning_store.py (scaffold-free witness 6/6), verification/test_knowledge_factory_grow_loop.py (grow-mechanism witness), verification/test_knowledge_factory_learner_ready.py (ingest/learn/trim/gate live-readiness witness 4/4), data/frontend_assets/meaning_sense_signatures_v1.npz (FROZEN C1 foundation, 117,614 synsets), data/frontend_assets/associative_similarity_store_v1.npz (FROZEN C1b reading-grown associative store), data/frontend_assets/knowledge_foundation_manifest.json (the multi-index hub-and-spoke registry, 8 spokes), notes/problems/<slug>/REMOTE_RUN_REQUEST_exp_knowledge_factory_grow_loop_v1.md, data/exp_knowledge_factory_*/metrics_*.json"
+files_changed: "experiments/exp_knowledge_factory_meaning_store_v1.py (adapter->trim->freeze->reload->validate + optimize + full-WordNet freeze), experiments/exp_knowledge_factory_intrinsic_trim_v1.py (intrinsic quality transform + anomaly trim), experiments/exp_knowledge_factory_repr_optimize_v1.py (decisive all-but-the-top / SIF representation test), experiments/exp_knowledge_factory_gap_analysis_v1.py (the 'what to learn' acquisition backlog), experiments/exp_knowledge_factory_grow_loop_v1.py (the multi-round ingest->prune->climb->freeze grow loop), experiments/exp_knowledge_factory_targeted_acq_v1.py (targeted disambiguate-then-bind acquisition), experiments/exp_knowledge_factory_signal_loss_drill_v1.py (the resolution-isolation drill: oracle/plain/additive bootstrap), verification/test_knowledge_factory_meaning_store.py (scaffold-free witness 6/6), verification/test_knowledge_factory_grow_loop.py (grow-mechanism witness), verification/test_knowledge_factory_learner_ready.py (ingest/learn/trim/gate live-readiness witness 4/4), verification/test_knowledge_factory_consumers_benefit.py (consumers-only-benefit + fix witness 3/3), data/frontend_assets/meaning_sense_signatures_v1.npz (FROZEN C1 foundation, 117,614 synsets), data/frontend_assets/associative_similarity_store_v1.npz (FROZEN C1b reading-grown associative store), data/frontend_assets/knowledge_foundation_manifest.json (the multi-index hub-and-spoke registry, 8 spokes), notes/problems/<slug>/REMOTE_RUN_REQUEST_exp_knowledge_factory_grow_loop_v1.md, data/exp_knowledge_factory_*/metrics_*.json"
 reverify: ".venv/Scripts/python.exe verification/test_knowledge_factory_meaning_store.py"
 ---
 
@@ -173,6 +173,53 @@ REASON (a stage riding the frequency prior scores high on dominant-heavy tests; 
 the dominant number while raising the rare one -- a metric artifact, check the sub-population, which is why the MFS
 guard is measured separately). OPERATING RULE at every wire/growth: measure ALL consumers; any regression on correct
 knowledge -> fix list.
+
+## CONSUMERS ONLY BENEFIT FROM GROWTH (+ the fix for the one regressor) -- witnessed 3/3
+
+Owner: "show that consumers only benefit (and if any regress, the fix)." Witness
+`verification/test_knowledge_factory_consumers_benefit.py` (3/3), all from landed metrics + the landed gate:
+
+| consumer | reads | effect of growing the KB | regression? | fix |
+|---|---|---|---|---|
+| word-similarity (SimLex/WordSim) | associative store C1b | **BENEFIT** SimLex 0.088 -> 0.165 (+0.077, beats raw + shuffled) | none | -- |
+| meaning / WSD | curated C1 signatures | **UNAFFECTED** -- separate frozen spoke; growing C1b cannot touch C1 | none (by construction) | hub-and-spoke routing |
+| meaning / WSD* (mis-routed to raw reading-growth) | raw reading co-occurrence | REGRESSES (topical) a_s 0.280 -> 0.267 | YES | the GATE rejects it (regression_guard admit=False) |
+
+The hub-and-spoke design is what makes "consumers only benefit" TRUE, not hoped: each consumer reads its OWN spoke,
+so growing one spoke is architecturally isolated from consumers of another. The single path where a consumer WOULD
+regress -- feeding raw reading-growth into the meaning signatures -- is CAUGHT by the landed consolidation gate
+(admit=False) and by routing (the meaning consumer reads curated C1, not the associative store). That is the fix,
+verified.
+
+## SIGNIFICANTLY LARGER, BROAD, PRUNED KB -- the balanced multi-genre ingestion (the submission's "grow it for real" piece)
+
+The 12M-token / 40k-word simplewiki store is the DEMONSTRATION scale, and it is also NARROW (one register). The
+submission's real grow is BREADTH over raw volume: `exp_knowledge_factory_grow_loop_v1 --broad` = 5 rounds x 10M
+tokens BALANCED across ALL genres (`_stream_balanced`): fiction (Alice/Anne/Little Women/Tom Sawyer/Oz), mystery
+(Sherlock), drama (Shakespeare), textbook-science (biology/chemistry/microbiology/anatomy/psychology), science-
+explanation (WorldTree), graded readers (McGuffey g1-g6), news (OneStop), social-commonsense, + capped
+encyclopedic (simplewiki 15M) + science-exam (ARC 15M) so the diverse registers are a REAL fraction, vocab 80,000.
+
+**WHY BREADTH (brain-foundational): different genres feed different typed stores.** Encyclopedic text -> topical
+word-similarity (the associative store). NARRATIVE / children's / graded-reader text is dense in exactly the
+knowledge the LIVE reader consumers read and encyclopedias lack: concrete action verbs with typical arguments
+("the boy ATE the apple") = the typed SELECTIONAL-PREFERENCE store (parser/roles); emotion-in-context ("she was
+FRIGHTENED") = affect; goals/beliefs (want/try/pretend) = goal/belief; spatial/motion/causal common-sense =
+space/world-state/causation. So breadth is the BRIDGE to gains for the LIVE consumers, not cosmetic.
+
+**THE BREADTH-PRESERVING PRUNE (owner: "key is an effective prune"):** a naive GLOBAL count floor deletes the
+breadth -- low-frequency narrative words are swamped by ARC's 244M expository tokens and pruned right back out
+(caught + fixed: vocab min_count and the recurrence gate lowered to 2 for broad; the expository sources capped).
+The REAL prune is PPMI SURPRISE-WEIGHTING (frequency-NORMALIZED, the brain's N400 gate): a strong association
+between two RARE narrative words scores high PPMI at low count, while high-frequency topical filler is discounted --
+so the prune keeps what is INFORMATIVE, not what is FREQUENT, preserving the diverse-genre signal. Net effective
+prune = low recurrence floor + PPMI + expository-volume cap.
+
+Dispatched to remote marsh@home (`args: "--broad"`, remote_cpu_queue, 3h). Local round-1 (10M broad) GREEN and
+already ABOVE the narrow 12M store: SimLex 0.204 (raw 0.011, shuffled -0.081), WordSim 0.523 -- breadth-per-token.
+The frozen store (metrics carry a `breadth_sources` per-genre token breakdown) is the significantly-larger, broad,
+pruned KB for permanent inclusion (the ~48MB .npz is pulled from remote via `scp_recover_landing.py` -- strategy's
+remote-op lane -- at integration; metrics return via the ~20-min sync). Mechanism + controls + freeze witnessed 4/4.
 
 ## THE CONTINUING PROCESS (for strategy -- owner asked to share thoughts)
 

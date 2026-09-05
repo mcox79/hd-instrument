@@ -116,7 +116,7 @@ The bar's own wording — "byte-identical affect output (**feel-category + valen
 3. **The affect governor is re-derived by `nearest_verb_idx` over a fresh tagging**, but the reader already knows the event's predicate index (`e.idx`). Feeding the event's own predicate as the governor would use the parse once (more brain-foundational) and could shrink the `NA<->None` divergence further. Adjacent optimization.
 
 ## AUDIT UPDATE (for `notes/BRAIN_FOUNDATIONAL_AUDIT.md`, strategy folds in)
-The affect/valence path (`context_grounded_valence` reached from `situation_reader._assign_affect`) ran a **second POS tagger** (NLTK averaged-perceptron) redundant with the reader's one hdlab UD front end — an un-brain-foundational two-category-system deviation, now measured and removable byte-identically on the valenced output. Also: the grounded-valence wire is **near-dormant on real narrative** (1 valenced firing / 8947 events) — a fidelity/coverage note for the affect dimension entry.
+The affect/valence path (`context_grounded_valence` reached from `situation_reader._assign_affect`) ran a **second POS tagger** (NLTK averaged-perceptron) redundant with the reader's one hdlab UD front end — an un-brain-foundational two-category-system deviation, now measured and removable byte-identically on the valenced output. Also: the grounded-valence wire is **near-dormant on real narrative** (1 valenced firing / 8947 events) — a fidelity/coverage note for the affect dimension entry. Perf (byte-identical, not a fidelity change): the arc-labeler (`hdlab/arc_labeler.py`) still uses the naive per-label string-concat scoring the POS tagger already retired; a `_FastLabelPlan` gives 9.8× on the labeler / ~0.87s/read, entity-states byte-identical. And the timeline/temporal subsystem still depends on an NLTK **Penn** tagger (`tag_punct`) because no substrate XPOS asset exists — a named gap.
 
 ## What I did NOT establish
 - Strict `EventRecord.affect` FIELD byte-identity (the `None/NA` bit differs 7.5–9%); I established valenced (feel-category + valence) byte-identity + inertness of the residual.
@@ -133,6 +133,7 @@ The reader was accidentally running two different part-of-speech taggers — its
 None.
 
 ## NEXT STEPS (priority)
-1. **Strategy lands BOTH optimizations** (the diff above: raw UD UPOS reroute + `need_valence=False`) and runs the witness (6/6) + the reader self-test. ~0.37s/read off the affect path, byte-identical on the meaningful output; NLTK calls/read 195→12.
-2. **File the temporal-path twin** (`tag_punct`, adjacent #1) — the ONLY NLTK tagger left after the affect fix (~0.08s/read, 133 calls), same fix modulo the Penn→UD tagset reconcile. This would take the read to **zero** NLTK tagger calls.
-3. **Evaluate the grounded-valence wire's near-dormancy** (adjacent #2) — decide whether the valence channel needs a broader OCC-appraisal firing mechanism or whether the affect_register dimension already carries the emotion load.
+1. **Strategy lands the affect optimizations** (raw UD UPOS reroute + `need_valence=False`); witness `test_affect_reroute_hdlab_tagger.py` 6/6 + the reader self-test. ~0.37s/read off the affect path, byte-identical; NLTK calls/read 195→12.
+2. **File + land the arc-labeler fast path** (Additional Inefficiency I) — the biggest lever here: **~0.87s/read median, byte-identical** (`test_arc_labeler_fastpath.py` 3/3, `_FastLabelPlan` diff ready). A separate organ from the NLTK reroute, so it wants its own problem entry, but the mechanism is proven and landing-ready.
+3. **File the `tag_punct` / temporal-tense problem** (Additional Inefficiency II) — a substrate XPOS tagger (UD-EWT XPOS is on disk) to reach **zero** NLTK taggers in a read, or route the timeline through the reader's own `EventRecord.tense`. Located-negative today (UPOS can't carry VBD/VBN).
+4. **Evaluate the grounded-valence wire's near-dormancy** (adjacent #2) — OCC-appraisal firing vs the affect_register dimension.

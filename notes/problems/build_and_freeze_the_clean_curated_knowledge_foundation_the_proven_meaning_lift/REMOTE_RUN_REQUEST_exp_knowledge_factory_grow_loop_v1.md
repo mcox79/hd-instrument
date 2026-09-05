@@ -1,23 +1,27 @@
 ---
 cell: experiments/exp_knowledge_factory_grow_loop_v1.py
-mode: full
+args: "--broad"
 queue: remote_cpu_queue
-timeout_s: 3600
+timeout_s: 10800
 results_path: data/exp_knowledge_factory_grow_loop_v1/metrics_full.json
 self_test: green
-question: does multi-round grow-from-reading (ingest -> recurrence+PPMI prune -> additive accumulate) CLIMB held-out SimLex/WordSim rho over 6 rounds to a respectable frozen associative store, beating the raw-count (no-prune) arm and the shuffled-corpus info-free twin?
-gate: final SimLex rho AND WordSim rho > the RAW-count arm (prune helps) AND > the SHUFFLED-corpus twin (info-free loses); rho climbs round-over-round (monotone within CI noise). Recompute on the covered-pair intersection; report CI half-width + null p95.
+question: does a BROAD, BALANCED multi-genre ingestion (fiction + mystery + drama + textbook-science/social + graded readers + news + social-commonsense + capped encyclopedic/ARC = ~50M balanced tokens, 80k breadth-preserving vocab, 5 rounds, recurrence(min_count=2)+PPMI pruned, additive-accumulated) build a SIGNIFICANTLY LARGER, BREADTH-covering pruned associative store whose held-out SimLex/WordSim rho climbs, beating the raw-count (no-prune) arm and the shuffled-corpus info-free twin?
+gate: final SimLex rho AND WordSim rho > the RAW-count arm (prune helps) AND > the SHUFFLED-corpus twin (info-free loses); rho climbs; the frozen store is >= 80k words spanning MANY genres (breadth_sources reported in metrics). Report CI half-width + null p95 on the covered-pair intersection.
 kb_referents:
   - data/corpora/simplewiki/simplewiki_clean_v1.txt
+  - data/corpora/arc/ARC-V1-Feb2018-2/ARC_Corpus.txt
   - data/encoder_eval_benchmarks/simlex999.txt
   - data/encoder_eval_benchmarks/wordsim353_combined.csv
 ---
-6 rounds x 3,000,000 tokens (18M of the 38M-token simplewiki), vocab cap 40k, WINDOW=2, PPMI alpha 0.75, SVD_K=300.
-Bare invocation == FULL (smoke only via --smoke), so the remote bare run is the real one.
-Arms per round: (a) MAIN = recurrence-gate(min_count=3) + PPMI + SVD -> SimLex/WordSim rho; (b) RAW-count no-prune
-control (must lose -> the prune is what converts raw-regression into gain); (c) SHUFFLED-corpus info-free twin
-(must lose). Accumulation is ADDITIVE co-occurrence (CLS, catastrophic-forgetting-free). Freezes
-data/frontend_assets/associative_similarity_store_v1.npz = the reading-grown ASSOCIATIVE store (the SECOND typed
-store; complements the frozen curated sense-discriminative C1 meaning_sense_signatures_v1.npz). Reuses the proven
-exp_learn_from_reading_strong_arm_v1 reader machinery (does_learning_from_reading_deserve_to_continue, SOLVED). NO
-external LLM, deterministic. Smoke locally GREEN: SimLex 0.061->0.078 climb, prune 0.070 >> raw -0.037, shuffled loses.
+THE SUBMISSION'S "significantly larger, BROAD, pruned KB" build -- breadth over raw volume. `--broad` = 5 rounds x
+10M tokens, BALANCED across ALL genres via _stream_balanced (every diverse corpus read fully; simplewiki + ARC
+CAPPED at 15M each so fiction / graded-readers / textbooks / drama / social-commonsense are a real fraction),
+vocab_cap 80000 with a LOW min_count=2 floor so the low-frequency narrative vocabulary SURVIVES (a global count
+floor would delete exactly the breadth we ingested), PPMI surprise-weighting does the real prune, SVD_K=300,
+recurrence min_count=2. WHY BREADTH: different genres feed different typed stores -- encyclopedic -> topical
+similarity; NARRATIVE/children's -> the concrete action-verb selectional preference + affect + goal + spatial/causal
+knowledge the LIVE reader consumers read. Freezes data/frontend_assets/associative_similarity_store_v1.npz. Local
+round-1 (10M broad) GREEN: SimLex 0.204 (raw 0.011, shuffled -0.081), WordSim 0.523 -- already ABOVE the narrow
+12M-simplewiki store, confirming breadth-per-token. Reuses exp_learn_from_reading_strong_arm_v1 reader machinery.
+NO external LLM, deterministic, no module-level spaCy. metrics_full.json (with breadth_sources genre breakdown)
+returns via the ~20-min sync; the ~48MB frozen .npz is pulled via scp_recover_landing.py (strategy remote-op lane).
