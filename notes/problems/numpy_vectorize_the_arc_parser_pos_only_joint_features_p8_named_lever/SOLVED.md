@@ -9,6 +9,9 @@ files_changed: "experiments/exp_arc_parser_posfeat_profile_v1.py, experiments/ex
 reverify: ".venv/Scripts/python.exe verification/test_arc_parser_posfeat_vectorize.py"
 ---
 
+## INTEGRATED_BY_STRATEGY (2026-09-05) — EXCELLENT
+Promoted the vectorized POS-feature path VERBATIM into `hdlab/arc_parser.py` (`_bucket_idx`/`PosTables`/`sentence_flat_vec`/`sentence_scores_auto` etc., lazy tables, length-gated at 16); `parse`/`eval_uas` route through `sentence_scores_auto`, the scalar path kept as the n<16 branch + byte-identity reference. Reverified `test_arc_parser_posfeat_vectorize.py` 6/6 (W4 timing baseline repointed to the scalar reference, since parse is now the fast path) + a new landing witness `test_arc_parser_posfeat_landing.py` (parse == _parse_reference bit-identical, 393,225 arcs). Output byte-identical → no §2b fidelity change. Adjacent follow-on named: the POS-tagger Viterbi (same technique). §2b folded.
+
 # The arc parser's POS-only joint features, vectorized byte-identically (2.0-2.6x over the landed fast path)
 
 ## What I built
