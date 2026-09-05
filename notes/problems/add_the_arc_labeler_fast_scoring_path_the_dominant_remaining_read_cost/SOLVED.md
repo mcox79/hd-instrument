@@ -5,7 +5,7 @@ bar: "PASS = _FastLabelPlan landed into hdlab/arc_labeler.py, built lazily in la
 result: "Byte-identical labels: 0 mismatches / 22,921 HELD-OUT arcs (4,575 LitBank predicted-heads + 18,346 UD-EWT-test gold-heads); full SituationModel byte-identical across ALL dimensions on 3 held-out docs. Labeler scoring 8.73x faster in-read (14.29s->1.64s median-of-9, ~4.2s/read removed on full LitBank docs). Brain-foundational extension (reuses the LANDED graded_competition organ): graded readout argmax byte-identical (0/18,346 = MAP-optimality, zero consumer regression) AND its normalized entropy flags labeling errors gold-free (AUC 0.930; info-free twin 0.481)."
 floor: "The landed reference ArcLabeler._predict_label -- byte-identity measured against it, 0 divergence over 22,921 held-out arcs. For the graded-readout exceed: the info-free twin (shuffled cue validities) AUC 0.481 ~ chance is the floor the entropy signal (AUC 0.930) clears."
 controls: "(1) W4 info-free shuffled-weights plan MUST diverge from the real plan -- 10/10 probe arcs differ (byte-identity check is non-vacuous). (2) W3 full-model regression guard: fresh-reader single-read stock-vs-fast SituationModel byte-identical across events/entity_states/causal/typed_causal/coref/coref_xsent/timeline (excludes NO consumer). (3) MAP-optimality byte-identity: argmax(lane)==stock over 18,346 UD arcs, so the graded readout is a strict SUPERSET of the discrete one (regresses nothing). (4) Info-free twin for the entropy signal: shuffled cue validities AUC 0.481 (loses)."
-files_changed: "experiments/exp_arc_labeler_graded_competition_v1.py, experiments/exp_arc_labeler_fastpath_landing_v1.py, experiments/exp_frontend_chain_signal_loss_v1.py, verification/test_arc_labeler_fastpath_landing.py, verification/test_arc_labeler_graded_competition.py, notes/problems/add_the_arc_labeler_fast_scoring_path_the_dominant_remaining_read_cost/SOLVED.md (REUSES the pre-existing experiments/exp_arc_labeler_fastpath_v1.py + verification/test_arc_labeler_fastpath.py; NO hdlab/ writes -- proposed diff below, strategy lands per Q111)"
+files_changed: "experiments/exp_arc_labeler_graded_competition_v1.py, experiments/exp_arc_labeler_fastpath_landing_v1.py, experiments/exp_frontend_chain_signal_loss_v1.py, experiments/exp_arceager_graded_beam_parser_v1.py, experiments/exp_arceager_parser_replacement_v1.py, experiments/exp_arc_labeler_joint_clause_competition_v1.py, verification/test_arc_labeler_fastpath_landing.py, verification/test_arc_labeler_graded_competition.py, verification/test_arceager_parser_replacement.py, notes/problems/add_the_arc_labeler_fast_scoring_path_the_dominant_remaining_read_cost/SOLVED.md (REUSES pre-existing experiments/exp_arc_labeler_fastpath_v1.py + verification/test_arc_labeler_fastpath.py + hdlab/arceager_parser.py + hdlab/graded_competition.py; NO hdlab/ writes -- proposed diffs below, strategy lands per Q111)"
 reverify: ".venv/Scripts/python.exe verification/test_arc_labeler_fastpath_landing.py"
 ---
 
@@ -149,6 +149,45 @@ non-incrementality -- is UNCLOSED and is the deeper structural gap; combined wit
 where the chain's remaining signal is lost. It is owned by the in-flight incremental-parser / who-did-what /
 joint-decode problems (Q113); the concrete brain-faithful target is shared-head joint decoding (CRF / bipartite
 matching over each predicate's arcs) with one-role-per-clause competition.
+
+## (F) IS THE ARC-EAGER PARSER IDEAL? Is it better than the batch parser in EVERY way? -- NO to both (MEASURED)
+`exp_parser_dominance_breakdown_v1.py`, held-out UD-EWT test (2,061 sents, 24,120 arcs, live pred-POS).
+
+**Not ideal.** Overall UAS 0.8053 (live) / 0.842 (gold POS) -- it still gets ~1 head in 5 wrong (gap to the 1.0
+ceiling = 0.195), well below neural-parser SOTA (~0.92 on UD-EWT). It is greedy with NO revision (beam+revision
+is a located negative on this greedy-trained model, section E). So "ideal" it is not; it is the best AVAILABLE
+and more brain-foundational than the batch parser (incremental + working-memory buffer).
+
+**NOT strictly better than the batch parser.** It wins massively where it matters most -- long-range attachment
+(distance 6-10: +0.15, 11+: +0.18) and left-headed arcs (+0.076), which drives the +0.045 overall -- but it
+LOSES on four relations:
+| relation | batch | arc-eager | delta | note |
+|---|---|---|---|---|
+| obl:agent | 0.824 | 0.676 | -0.147 | the PASSIVE "by"-agent -- the who-did-what-critical relation (n=34) |
+| appos | 0.507 | 0.472 | -0.035 | apposition |
+| det | 0.942 | 0.923 | -0.019 | determiners -- VERY frequent (n=1785) |
+| amod | 0.838 | 0.836 | -0.002 | negligible |
+
+So a wholesale kill-and-replace trades a passive-agent + determiner REGRESSION for a large long-range gain.
+
+**Headroom of combining (oracle-union): 0.854** (+0.049 over arc-eager). The two parsers' errors are
+COMPLEMENTARY (arc-eager uniquely right on 9.3% of arcs, batch uniquely right on 4.9%; agreement 80.8%). So a
+confidence-gated hybrid (run both routes, arbitrate by reliability -- itself the Competition Model applied to
+PARSING routes) is a real path, but its CEILING (0.854) is still not ideal.
+
+**What an actually-ideal parser needs -- and the critical caveat.** Reaching ~0.92 needs a model trained with a
+global/graded objective (dynamic-oracle + beam/globally-normalized training, i.e. train FOR revision), which is
+a real BUILD, not a reuse. BUT: the `improve_the_parser_verb_argument_attachment` problem recorded that a
+modern-trained parser LOSES out-of-distribution on 19c literature (the reader's actual corpus). So "ideal for
+this reader" is NOT "max UAS on UD-EWT" -- it is REGISTER-GENERAL. The glass-box perceptron arc-eager is more
+register-robust than a neural SOTA parser would be. The honest ideal target: a register-general parser trained
+with a graded/revision objective, evaluated on BOTH UD-EWT and 19c, that also fixes arc-eager's obl:agent/det
+pockets -- none of which is achieved by reusing what is on disk today.
+
+**Bottom line for the owner's question:** arc-eager is the better DEFAULT and a genuine brain-foundational
+improvement, but it is neither ideal nor strictly dominant. A confidence-gated hybrid reaches 0.854; true ideal
+needs a register-general graded-with-revision retrain (with the 19c-OOD guard), which is out of a reuse-only,
+byte-safe scope and should be its own build problem.
 
 ## Proposed hdlab/ diff (strategy lands, Q111)
 Add `_FastLabelPlan` to `hdlab/arc_labeler.py` (the class body of `experiments/exp_arc_labeler_fastpath_v1.py::
