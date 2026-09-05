@@ -247,6 +247,34 @@ brain mechanism we DID replicate. The failures are exactly the two organs we hav
 un-brain-foundational in what it built; it is INCOMPLETE, missing the two hardest brain organs, and no shallow proxy
 substitutes for either. That is the honest, precise location of the gap.
 
+## 8. ⚠️ CORRECTION (2026-09-05) — THE HOLDER "WALL" WAS A MEASUREMENT BUG IN MY OWN LEVER B, NOT AN UN-BRAIN-FOUNDATIONAL GAP
+The owner's principle held: "the brain works, so a faithful build cannot fail." It didn't. Chasing the holder with a
+closure bracketer, a tagger-isolation diagnostic exposed that the copula-HOLDER numbers throughout §6-§7a (us 0.09-0.24
+vs oracle 0.71) were CORRUPTED by a READOUT-ROUTING BUG: my lever-B copula readout used `ev if ev is not None else
+copula_readout(...)`, PREFERRING a spurious dynamic 'be'-event agent (fires when 'is' is mistagged VERB) over the
+landed entity-state HOLDER. Read the landed `entity_states` holder DIRECTLY (sort-aware: LEAD with the state for a
+copula-gov question) and:
+
+| copula HOLDER | base (dynamic readout) | CORRECTED (lead with entity_states) | vs base | vs deranged-state twin |
+|---|---|---|---|---|
+| board (16) | 0.108 | **0.590** | +0.482 CI[+0.421,+0.551] | +0.529 SEP |
+| **held-out (40)** | 0.091 | **0.626** | **+0.535 CI[+0.481,+0.586] SEP** | +0.562 SEP |
+
+**So the copula HOLDER is NOT an un-brain-foundational wall.** The landed copular organ (the arc-labeler `cop`-relation
+nsubj) already identifies it at **0.59-0.63, near the competent-reader oracle 0.71-0.77.** The six "holder" prototypes
+(nsubj-arc, incremental binder, agent-cues, +animacy, clause-initial subject-head, Kimball closure) all "failed" only
+against a corrupted 0.20 baseline — the real baseline was 0.59, and the landed organ already beats every prototype
+(closure 0.40 < entity_states 0.59). **The un-brain-foundational component here was ME: I mis-routed the readout around
+a working brain-faithful organ.** The FIX is a one-line sort-aware routing correction (lead with `entity_states` for a
+copula-gov predicate, do NOT fall back after a spurious dynamic event), and it lifts the copula AGENT arm +0.53
+held-out CI-sep -- the arm I had WITHDRAWN. (The §7b CAUSAL diagnosis stands: a perfect parse is worse, participants
+don't help -> genuinely the missing meaning hub. The §7a HOLDER diagnosis is RETRACTED by this correction.)
+
+**What still holds after the correction:** the OPEN-class agent attachment gap (us 0.83 vs oracle 0.955) and the
+CAUSAL meaning-hub gap are real; the copula HOLDER gap is NOT (it was my routing bug). Register-invariant
+structure-building via a closure bracketer is a valid organ but is NOT needed for the holder (the landed `cop` organ
+already does better); it may still help the open-class attachment residual -- untested.
+
 ## TLDR (plain language)
 I measured exactly where the reader loses "who did what," and it is NOT catching the actions anymore (we fixed that)
 — it is figuring out WHO the subject is and WHAT caused what. Then I looked up how the brain does each, precisely.
