@@ -402,6 +402,74 @@ features toward 0.82; (d) MEANWHILE the free, safe win is flipping the dormant a
 general front-end (fixes the batch parser's 0.82 for entity_states, byte-safe, already built). The online learner
 is the north-star acquisition mechanism (proven to learn, stable); it is not yet a drop-in.
 
+## (M) MINUTE STEP-BY-STEP: where our online learner loses signal vs the brain (measured + research-grounded)
+Measured decomposition (exp_accuracy_loss_ladder_v1, SAME Eisner decode, only the knowledge source changes):
+self-sup POS-only 0.41 -> SUPERVISED POS-only 0.60 (+0.20 = NO ANSWER KEY) -> rich lexical supervised 0.87
+(+0.27 = words + valence + features) -> brain/SOTA 0.95 (+0.08 = distributed representation). Now WHERE each
+gap comes from, per pipeline step, vs the brain's actual mechanism:
+
+STEP 1 -- WORD REPRESENTATION. Ours: word -> POS tag -> random code (keep ~18 category labels, discard which
+word). Brain: distributed learned meaning+form code, and VERB-SPECIFIC argument structure stored per word
+(Tomasello verb-islands; MacDonald lexicalist) [PINNED]. LOST: all lexical + argument-structure signal -- most
+of the +0.27 model/lexical gap; the brain reads structure off verb-specific expectations POS cannot see.
+QUANTIFIED (research): PP-attachment structure-only baseline 59% -> +lexical/valence 82-84% -> human lexical
+ceiling 88% (Collins&Brooks 1995; Ratnaparkhi 1994) = ~22-25 points from valence/selectional info. REFINEMENT
+(shapes the fix): it is the CLASS/subcategorization level that matters, NOT word-pair memorization -- Klein&
+Manning 2003 (unlexicalized+subcat 86.4% ~= lexicalized SOTA), Gildea 2001 (bilexical worth only ~0.5F), Resnik
+1996, Zapirain 2013 (+17% error reduction). THIS is why our raw word-pair PMI HURT and why the lever is
+CLASS-based selectional preference (generalizable) -- exactly what GROUNDED MEANING supplies. Non-local: cue-based
+retrieval + interference (Lewis-Vasishth 2005; Linzen 2016 agreement error 7->33->70% at 0->1->4 attractors) --
+our first-order-ish associative W lacks it.
+
+STEP 2 -- THE CUE. Ours: ONE cue (category->category association). Brain: ~6 cues in a graded competition --
+word order, verb argument structure, selectional fit (meaning), animacy, agreement, prosody (Competition Model,
+MacWhinney; syntactic bootstrapping, Gleitman/Fisher) [PINNED]. LOST: five of six cues, strongest = meaning +
+valence.
+
+STEP 3 -- THE SUPERVISION SIGNAL (the biggest). Ours: learn from our OWN best-guess parse (self-training) nudged
+by prediction error -- NO external check, so it can only reinforce its own guesses (it plateaus; pre-settle-fix
+it amplified error). Brain: PROPOSE-BUT-VERIFY (Trueswell/Medina/Gleitman 2013) -- propose one parse, VERIFY
+against MEANING/the situation (win-stay/lose-shift); error = grounded coherence, neurally a prediction-error/P600
+(Fitz & Chang 2019) [PINNED]. LOST: THE ANSWER KEY ITSELF. The brain's answer key IS meaning/the world (semantic
+bootstrapping, Pinker 1984); we removed the answer key and put NOTHING (no grounding) in its place -> the +0.20
+"no answer key" gap is almost entirely THIS. It is a missing SIGNAL, not mainly a data limit.
+
+STEP 4 -- COMMIT. Ours: global settle (Eisner) = brain-like constraint-satisfaction settling. LITTLE loss (the
+greedy->settle fix already recovered ~+0.06 and stopped error-amplification).
+
+STEP 5 -- DATA (quantity AND quality). Ours: ~3-6k sentences (~50-100k words) of ADULT text. Child: tens of
+millions of GROUNDED words (Hart & Risley 1995 ~30M by age 3; revised to ~4M typical by Gilkerson 2017 LENA), and
+that input is EASIER -- formulaic/frequency-skewed frames (Cameron-Faulkner 2003) and "optimized for syntax-free
+semantic inference" (Sci. Reports 2021: CDS redundancy lets local co-occurrence recover verb causativity WITHOUT
+syntax). So we are ~100-1000x under the child on QUANTITY and on QUALITY (grounded+formulaic vs raw adult text).
+Grounding still dominates (propose-but-verify is near one-shot).
+
+STEP 6 -- PROSODY (a signal a TEXT reader structurally lacks). PINNED: infants use speech rhythm/pausing/pitch
+for phrase+clause BOUNDARIES (6-9mo) and coarse HEAD-DIRECTION typology (3mo, Christophe 2003; Bion 2013).
+A text-only reader has NO analog (punctuation is a sparse, weak, late substitute). Genuine additional loss -- but
+COARSE (boundaries + word-order typology), NOT fine dependency attachment; and prosody needs function words for
+labeling. So it is a real but bounded text-reader deficit, not the main lever (which remains grounded meaning).
+
+RESEARCH CONFIRMATION (lit-scan): Step 3 is PINNED -- Brown & Hanlon 1970 + Marcus 1993: children get NO reliable
+EXPLICIT grammatical answer key; parental correction tracks TRUTH/MEANING, not grammar -> the brain's answer key
+IS meaning. Grounded-meaning-as-supervision is PINNED (Yu & Smith 2007 cross-situational; Tanenhaus 1995
+visual-world; and DIRECTLY: Alishahi & Stevenson 2008 -- a model that learns argument structure from utterance-
+MEANING pairs with NO gold trees, the precedent for the build). Self-training error-amplification is PINNED
+(Arazo 2020 confirmation bias; Blum & Mitchell 1998 co-training: a self-referential loop needs an INDEPENDENT
+second view to break it -- grounded meaning IS that second view). Predictive coding is grounded against real
+input (Rao-Ballard 1999; Friston 2010). TWO HONEST CAVEATS (synthesis inferences, NOT citable claims): (i)
+framing grounded meaning as a "different-kind-of answer key" is our synthesis; (ii) "grounded prediction error
+avoids self-training collapse" is well-motivated by combining the ML + neuro literatures but NO paper states it
+directly. The mechanism pieces are pinned; the exact bridge is ours-under-test.
+
+VERDICT (owner's "we should NOT be losing that accuracy" -- CORRECT): most of 0.42->0.87 is signal we DISCARDED,
+not a fundamental limit. Single highest-leverage missing signal = GROUNDED MEANING as the verification/
+supervision signal: it (a) replaces the missing answer key (Step 3, +0.20) by correcting the parse against
+meaning, and (b) supplies the selectional/valence cue (Steps 1-2, much of +0.27). Down-payment already measured:
+grounded meaning picks the agent 43% where word-order gets 0% on non-canonical clauses. Genuine residual limit is
+small (~0.08 representation + some data-scale). FIX brain-foundationally: make supervision GROUNDED (meaning-
+verified propose-but-verify) and LEXICAL/valence-aware -- NOT add an answer key, NOT mainly add data.
+
 ## Proposed hdlab/ diff (strategy lands, Q111)
 Add `_FastLabelPlan` to `hdlab/arc_labeler.py` (the class body of `experiments/exp_arc_labeler_fastpath_v1.py::
 FastLabelPlan`, verbatim). Add `ArcLabeler._ensure_fast(self)` that lazily builds `self._fast_plan =

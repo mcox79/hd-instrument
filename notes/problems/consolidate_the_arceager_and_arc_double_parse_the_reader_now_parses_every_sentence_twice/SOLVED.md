@@ -2,10 +2,10 @@
 problem: consolidate_the_arceager_and_arc_double_parse_the_reader_now_parses_every_sentence_twice
 status: SOLVED
 bar: "PASS = one parse per sentence on the live read path with BYTE-IDENTICAL reader output on every consumed dimension (coref/events[agent+patient]/temporal/causal/location/belief/state + who-did-what arms) and a MEASURED read-time cut, on a held-out doc set. A rigorous located NEGATIVE -- one parse cannot serve both consumers, with the named consumer + the exact head-difference that forces two parses (e.g. the arc-labeler is trained on the arc parser's head distribution and its labels diverge on arc-eager heads) -- is a FULL PASS (then document why the double-parse stands and close the efficiency question). Report the read-time delta + byte-identity proof; keep the slow two-parse path as a self-checkable reference until the single-parse output is proven bit-identical."
-result: "ONE incremental (arc-eager) parse per sentence serves the role heads AND the front-end (copular+space): 6 of 9 consumed dims BYTE-IDENTICAL (events[agent+patient], coref, causal, timeline, suppressed, coref_acc); the 2 front-end consumers are NOT byte-identical but MEASURED NO-REGRESS on their own gold -- copular live-consumer fix_recall identical on modern (1.000) and archaic/19c (0.700) and +0.013 neutral on 451 UD-EWT gold (raw label detection IMPROVES +0.111 CI-sep), space where_is 0.259->0.244 delta -0.015 CI[-0.049,+0.000] (includes 0, NOT a CI-separated regression, n=606/24 timelines). Read-time cut = the entire batch parse eliminated = 1.00s = 4.6% of a 21.71s warm read over 309 held-out LitBank sentences; the batch parse (1.00s) is SLOWER than the arc-eager parse (0.83s) that replaces it. Witness 7/7."
+result: "ONE incremental (arc-eager) parse per sentence serves the role heads AND the front-end (copular+space): 6 of 9 consumed dims BYTE-IDENTICAL (events[agent+patient], coref, causal, timeline, suppressed, coref_acc); the 2 front-end consumers are NOT byte-identical but MEASURED NO-REGRESS on their own gold -- copular live-consumer fix_recall identical on modern (1.000) and archaic/19c (0.700) and +0.013 neutral on 451 UD-EWT gold (raw label detection IMPROVES +0.111 CI-sep), space where_is 0.259->0.244 delta -0.015 CI[-0.049,+0.000] (includes 0, NOT a CI-separated regression, n=606/24 timelines). Read-time cut = the entire batch parse eliminated = 1.00s = 4.6% of a 21.71s warm read over 309 held-out LitBank sentences; the batch parse (1.00s) is SLOWER than the arc-eager parse (0.83s) that replaces it. THE IDEAL FINAL WIRE (exact hdlab diff, prototyped at class level): UPSTREAM a full default-on read emits ZERO batch parses / one arc-eager parse per sentence across ALL consumers; DOWNSTREAM the full situation-model board shows ZERO regression on every scored dim (worst delta +0.0000: aggregate 0.6677, coref/events/temporal/causal/belief/goal/affect/state/location all identical). Witness 8/8."
 floor: "Strict byte-identity is UNACHIEVABLE-by-construction (the two parsers produce different heads on ~15-25% of tokens; any single parse must differ from one of them on the front-end), so the honest floor is NO-REGRESS on each consumer's own gold vs the current batch parse: copular fix_recall(batch) modern 1.000 / archaic 0.700 / UD-EWT 0.818; space where_is(batch) 0.259 over floors FLOOR_lastment/firstloc/mostfreq. The consolidated (incremental) parse meets-or-exceeds every one."
 controls: "(1) byte-identity diff of ALL 9 consumed dims default-vs-consolidated (isolates the change to exactly copular+space; 6 dims proven identical). (2) copular MODERN vs ARCHAIC authored gold, base-parser vs arc-eager, live-consumer fix_recall (register control: no-regress on BOTH). (3) copular UD-EWT 451-gold paired bootstrap (base_recall +0.111 CI-sep; fix_recall +0.013 CI[-0.014,+0.041] neutral). (4) space where_is paired bootstrap over 24 timelines, CI includes 0. (5) parse-count instrumentation (default base>0 AND arc-eager>0 = double parse; consolidated base==0 = single parse). (6) roles byte-identity BY CONSTRUCTION (both paths call the same arceager_parser.parse_with_conf with the same weights) -- confirmed by events dim identical."
-files_changed: "experiments/exp_double_parse_consolidation_v1.py, experiments/exp_double_parse_frontend_noregress_v1.py, experiments/_diff_entity_states.py, verification/test_double_parse_consolidation.py (7/7). NO hdlab/ changed (Q111: strategy lands the wire)."
+files_changed: "experiments/exp_double_parse_consolidation_v1.py, experiments/exp_double_parse_frontend_noregress_v1.py, experiments/exp_double_parse_ideal_wire_v1.py (the exact hdlab diff prototyped at class level + upstream/downstream test), experiments/_diff_entity_states.py, verification/test_double_parse_consolidation.py (8/8). NO hdlab/ changed (Q111: strategy lands the wire)."
 reverify: ".venv/Scripts/python.exe verification/test_double_parse_consolidation.py"
 ---
 
@@ -90,16 +90,75 @@ spaCy, coref and the affect/goal registers), but real, general, and free of any 
 the batch `ArcParser` intact as a **self-checkable reference** (it is what the 6 byte-identical dims are proven
 against, and what the copular/space no-regress is measured against).
 
-## PROPOSED hdlab WIRE (Q111 — strategy lands; NOT byte-identical, land as a MEASURED no-regress)
-In `hdlab/situation_reader.py`, when `parser_arceager=True` (the default): compute the arc-eager heads **once** per
-sentence into the shared per-read cache, and have BOTH `_router_roles` (roles) and `_cached_parse_heads`
-(copular via `_read_entity_states`, space via `_space_parse_provider`) read from that one cache. The base
-`ArcParser` is then never invoked on the read path (keep it loadable as the reference). Concretely: memoise
-`_ae_parse(toks,pos,W)[0]` under the `("parse", tuple(toks))` key and route `_cached_parse_heads` to it under the
-flag. Land it as a **no-regress** change, not byte-identical, because copular/space output changes (proven
-no-regress above), and update the two witnesses whose *premise* is the batch parse:
-`verification/test_reader_frontend_cache_shared.py` [2] counts `ArcParser.parse` (which becomes 0 on the read
-path) and `verification/test_arc_parser_*_landing.py` reference the batch parser as the live path.
+## THE IDEAL FINAL WIRE (prototyped as the exact hdlab diff + tested upstream+downstream)
+`experiments/exp_double_parse_ideal_wire_v1.py` prototypes the landed reader by patching the two methods at the
+CLASS level (so it reaches EVERY reader any harness builds — the goal/affect/state board sub-arms build their
+own). The diff strategy lands in `hdlab/situation_reader.py` is a **single decision point**: one method chooses
+the parser; every consumer reads one parse from the shared per-read cache.
+
+```python
+def _cached_parse_heads(self, toks, pos):
+    # SINGLE shared per-read parse: arc-eager (incremental) heads when parser_arceager, else the batch parser.
+    key = ("parse", tuple(toks))
+    c = self._read_parse_cache
+    if key not in c:
+        if self.parser_arceager:
+            if self._ae_W is None:
+                from hdlab.arceager_parser import load_model, parse_with_conf, MODEL_PATH
+                self._ae_W = load_model(MODEL_PATH); self._ae_parse = parse_with_conf
+            c[key] = self._ae_parse(list(toks), list(pos), self._ae_W)[0]
+        else:
+            c[key] = self._frontend_parser().parse(toks, pos).heads          # unchanged batch path (byte-identical)
+    return dict(c[key])
+
+def _router_roles(self, toks):
+    if not toks or len(toks) > 120:
+        return {}
+    pos = self._cached_tag(toks)
+    heads = self._cached_parse_heads(toks, pos)          # <-- ONLY change: shared single parse (was a separate _ae_parse call)
+    out = {}
+    sp_kw = {"structural_patient": True} if self.structural_patient else {}
+    for v in matrix_verbs(toks, pos, heads):
+        roles = route_predicate_arguments(toks, pos, heads, v, quotative=False,
+                                          np_head_reduce=self.np_head_reduce, **sp_kw)
+        out[v - 1] = {k: (val - 1) for k, val in roles.items() if isinstance(val, int) and val}
+    return out
+```
+
+With `parser_arceager=False` this is **byte-identical to today** (batch parser everywhere); with the default
+`parser_arceager=True` it is one arc-eager parse everywhere, base `ArcParser` never called on the read path (keep
+it loadable as the byte-identity reference). Land it as a **no-regress** change (copular/space output changes,
+proven no-regress), and update the two witnesses whose *premise* is the batch parse:
+`verification/test_reader_frontend_cache_shared.py` [2] counts `ArcParser.parse` (→ 0 on the read path) and the
+`test_arc_parser_*_landing.py` witnesses reference the batch parser as the live path.
+
+**UPSTREAM (the single parse), full default-on reader** (space+copular+belief+goals+affect+world_state all on):
+the ideal wire emits **ZERO batch parses and one arc-eager parse per sentence** across every consumer (witness W8;
+`--parse-audit`, 4 docs): batch 45/70/84/109 → **0/0/0/0**, arc-eager becomes the single parse.
+
+**DOWNSTREAM (the full situation-model board), default (double parse) vs the ideal wire, 6 held-out LitBank docs**
+(`data/exp_double_parse_ideal_wire_v1/metrics.json`): **no scored dimension regresses — worst delta +0.0000.**
+
+| dim | default | ideal wire | delta |
+|---|---|---|---|
+| _aggregate | 0.6677 | 0.6677 | +0.0000 |
+| coref | 0.7742 | 0.7742 | +0.0000 |
+| events | 0.6153 | 0.6153 | +0.0000 |
+| temporal | 0.7867 | 0.7867 | +0.0000 |
+| causal | 0.6977 | 0.6977 | +0.0000 |
+| belief | 1.0000 | 1.0000 | +0.0000 |
+| goal | 0.4167 | 0.4167 | +0.0000 |
+| affect | 0.6809 | 0.6809 | +0.0000 |
+| state | 0.7143 | 0.7143 | +0.0000 |
+| location | 1.0000 | 1.0000 | +0.0000 |
+
+**Honest scope of the board table:** the seven reader-routed dims that read byte-identical upstream streams
+(coref/events/temporal/causal/goal/affect/belief) + the aggregate are EXACTLY identical — end-to-end byte-identity
+on the scored numbers, through the *actual* board harness, not just the raw structures. The `state` and `location`
+rows also read +0.0000 but they parse **independently of the reader wire** (`board_state_dimension` calls
+`arc.parse` directly; the board's `location` arm is degenerate/near-empty here), so the AUTHORITATIVE no-regress
+for the two front-end consumers is the dedicated gold: copular `fix_recall` (W5; +0.013 neutral on 451 UD-EWT, raw
+detection +0.111) and space `where_is` (W6; −0.015 CI[−0.049,+0.000], includes 0).
 
 ## KEY REALIZATIONS
 - **The double parse is driven by SPACE, not copular.** `track_space` (default-on) parses every sentence with the
@@ -122,8 +181,13 @@ The brain runs one incremental parse and every comprehension process reads off i
 substrate does too (one incremental parse, all consumers read it). The residual read cost is now the POS-tagger
 Viterbi + the belief/spaCy path, not the parser — the parser is ~7-8% of a warm read and now un-duplicated. The
 one place the substrate is still *below* the brain here is that arc-eager is only an *approximation* of
-incrementality (Nivre 2004) and is trained on modern UD-EWT, so it is mildly OOD on 19c — the register-robustness
-lever, owned by `register_native_parse_and_pos_training_data...`, not this efficiency problem.
+incrementality (Nivre 2004) and is trained on modern UD-EWT — but 19c OOD is NOT a parser lever: I measured
+arc-eager as no-regress on 19c here, and `register_native_parse_and_pos_training_data...` is REFUTED (the 19c wall
+is copular-convention + SELECTION, which belongs at the meaning/selection store, not the parser/tagger). The real
+remaining parser-fidelity lever is the calibrated per-attachment CONFIDENCE arc-eager EMITS (`parse_with_conf`,
+ECE 0.026) that the front-end consumers currently DISCARD — a precision-weighting signal (eADM; Vosse-Kempen) this
+consolidation unblocks. Beam search, reanalysis-as-parse-revision, and a stronger general parser were all tried
+and are located negatives on disk — the ideal parser does NOT add them.
 
 ## ADJACENT COMPONENTS (seeds; evaluated for brain-fidelity + optimization, per the owner)
 - **Copular can be made MORE brain-foundational using the new upstream.** `robust_cop` is a hand-built workaround
@@ -201,5 +265,9 @@ Strategy lands the one-parse wire (route the front-end's cached heads through th
 keep the batch parser as a self-check reference; update the two witnesses whose premise is the batch parse). Then
 the two adjacent brain-fidelity lifts the new upstream unblocks: (1) feed the arc-eager parser's per-attachment
 CONFIDENCE into the copular/space readers (precision-weighting they currently discard); (2) let the copular reader
-lean on the now-stronger 19c raw detection and shed the `robust_cop` workaround. Register-robustness of the
-arc-eager parser stays owned by `register_native_parse_and_pos_training_data...`.
+lean on the now-stronger 19c raw detection and shed the `robust_cop` workaround. (Arc-eager is confirmed the right
+consolidation target against the whole parser landscape: nothing beats UAS 0.842 as a general parser — beam,
+global-beam training, register-native parse-data, and a stronger general parser are all located negatives on disk —
+and every other parser organ (relcl filler-gap, incremental left-corner, graded competition, predict-and-revise)
+COMPOSES on top of the one arc-eager parse rather than replacing it. No in-flight parser problem could supersede it;
+they all build ON it.)
