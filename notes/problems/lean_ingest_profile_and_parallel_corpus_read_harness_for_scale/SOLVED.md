@@ -2,7 +2,7 @@
 problem: lean_ingest_profile_and_parallel_corpus_read_harness_for_scale
 status: SOLVED
 bar: "PASS = a named lean \"ingest profile\" (or a small set of presets) that keeps only the requested extraction, byte-identical to the full read on those dimensions, at the measured ~5x; PLUS a process-parallel corpus-read harness whose per-doc output is identical to serial and whose throughput scales ~linearly with cores (report the measured scaling + a 10k-doc projection). A located NEGATIVE -- a dimension cannot be cleanly leaned out (a hidden cross-dimension dependency), or reads are not safely parallel (a shared-state hazard), with the named cause -- is a FULL PASS."
-result: "(1) named profiles byte-identical to the full read on the harvest core {events, entities, coref, timeline_frames, causal_links} across 24 LitBank docs (selpref profile; the 9 additive dims off; 10,057 usable (predicate,role,arg-head) triples harvested); per-dim leaned-in==full + core-unchanged verified for every serializable additive dim. (2) process-parallel harness: per-doc output BYTE-IDENTICAL serial-vs-parallel across 1/2/4/8 workers on 40 docs; throughput ~0.87->2.69 docs/s (1->8 workers). Speedups (per-profile, MEASURED -- the brief's flat '5x' is corrected): selpref ~1.4-2.4x (parse+roles is the irreducible floor; the ratio is box-load-dependent), lean_floor ~9-15x (role-free). Byte-identity is exact and load-independent; the speedup magnitude is not."
+result: "(1) named profiles byte-identical to the full read on the harvest core {events, entities, coref, timeline_frames, causal_links} across 24 LitBank docs (selpref profile; the 9 additive dims off; 10,057 usable (predicate,role,arg-head) triples harvested); per-dim leaned-in==full + core-unchanged verified for every serializable additive dim; PLUS a sense_context profile (tokenize+tag only) BYTE-IDENTICAL to the reader's own POS tags at ~44x vs full (the second knowledge store). (2) process-parallel harness: per-doc output BYTE-IDENTICAL serial-vs-parallel across 1/2/4/8 workers on 40 docs; throughput ~0.87->2.69 docs/s (1->8 workers). Speedups (per-profile, MEASURED -- the brief's flat '5x' is corrected): selpref ~1.4-2.4x (parse+roles is the irreducible floor; the ratio is box-load-dependent), lean_floor ~9-15x (role-free). Byte-identity is exact and load-independent; the speedup magnitude is not."
 floor: "strongest floors actually run: (a) CAN-FAIL sentinel -- the lean_floor (positional, no-parse) profile's events DIFFER from the full read (byte-identity is non-vacuous); (b) the box's OWN pure-CPU process-scaling ceiling = 4.55x at 8 workers (12-physical-core hybrid); the harness reaches 2.69 docs/s = 3.09x = 68% of that ceiling, so the sub-linearity is HARDWARE (P/E cores + hyperthreading), not the design; (c) serial throughput 0.87 docs/s baseline."
 controls: "can-fail sentinel (lean_floor events != full -> byte-identity is a real constraint); per-dim leaned-in==full AND core-unchanged-when-dropped (excludes hidden feedback of the additive dims into events); PYTHONHASHSEED determinism control (located set-ORDER nondeterminism in the harvested fields -- chiefly sm.entities, but a different set-derived field can reorder on a different doc; the robust fix canonicalizes EVERY field by sorting at the serialization boundary, verified order-invariant + witness parallel==serial reproduced 3x); parallel==serial across 4 worker counts (excludes shared-state corruption / scheduling nondeterminism); box pure-CPU ceiling (excludes 'harness is inefficient')."
 files_changed: "experiments/exp_lean_ingest_profiles_v1.py, experiments/exp_parallel_corpus_read_harness_v1.py, verification/test_lean_ingest_and_parallel_harness.py"
@@ -19,9 +19,13 @@ An ingest profile is a `SituationReader` config that keeps ONLY the extraction o
   the full read on the harvest core `{events, entities, coref, timeline_frames, causal_links}` (24 docs; 10,057
   usable `(predicate, role, arg-head)` triples). Serves the TYPED selectional-preference store. Speedup
   **~1.4-2.4x** (box-load-dependent; the parse it keeps is the cost).
-- **`lean_floor`** = the existing `SituationReader.all_capabilities_off()` -- no parse, positional roles. The
-  **~9-15x** fast floor for a role-FREE harvest (e.g. sense-context windows). NOT byte-identical to full (positional
-  != parsed) -- offered as the floor, not as a roles ingest.
+- **`sense_context`** -- tokenize + POS-tag ONLY, skipping coref/events/timeline/causation entirely (the always-run
+  reader stages a bag-of-words sense ingest never uses). **BYTE-IDENTICAL to the reader's OWN POS tags** (same
+  shared frontend tagger; verified per sentence). **~44x vs full, ~6x leaner than `lean_floor`.** Serves the
+  sense-discriminative W store (content-word context windows) -- the SECOND typed store in the knowledge-lever map.
+- **`lean_floor`** = the existing `SituationReader.all_capabilities_off()` -- no parse, positional roles. A
+  ~9-15x middle floor; positional roles are NOT byte-identical to full (use `sense_context` for a tag-only harvest
+  or `selpref` for real roles -- `lean_floor` is the historical all-off baseline).
 - **`<dim>_kept`** -- `selpref` + exactly one higher dimension; proves ANY dimension can be leaned in/out and its
   output stays byte-identical to the full read.
 
@@ -203,10 +207,10 @@ harness need not canonicalize -- a small sort at each set-to-list boundary.
   reproduced 3x) and that the harness tracks the box's CPU ceiling. The clean near-linear curve belongs on an idle
   homogeneous box -- see the remote-run note; I would withdraw any specific efficiency ratio before I withdrew the
   byte-identity or the ceiling-relative framing.
-- **The "senses" ingest byte-identity is only defined against the front-end tags**, not a `SituationModel`
-  dimension (the sense-context W ingest does not consume the higher dimensions; its leanest profile is
-  tokenize+tag, which `lean_floor` over-serves). I did not build a separate tag-only extractor; `lean_floor` is the
-  offered floor for it.
+- **The `sense_context` byte-identity is defined against the front-end POS tags**, not a `SituationModel`
+  dimension -- because the bag-of-words sense-W ingest genuinely does not consume the higher dimensions; its
+  correctness constraint is that the tags match the reader's, which they do (verified per sentence). If a future
+  sense ingest wants SYNTACTIC context (not bag-of-words), that is `selpref`, not `sense_context`.
 - I did **not** land anything in `hdlab/` (Q111) -- the profiles + harness are proven in `experiments/` and the
   wire is proposed above.
 
