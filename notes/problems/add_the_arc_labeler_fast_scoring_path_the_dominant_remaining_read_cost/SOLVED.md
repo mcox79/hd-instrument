@@ -470,6 +470,32 @@ grounded meaning picks the agent 43% where word-order gets 0% on non-canonical c
 small (~0.08 representation + some data-scale). FIX brain-foundationally: make supervision GROUNDED (meaning-
 verified propose-but-verify) and LEXICAL/valence-aware -- NOT add an answer key, NOT mainly add data.
 
+## (N) IMPLEMENTED ALL IMPROVEMENTS + RETESTED -- HONEST NEGATIVE (exp_grounded_online_learner_v1)
+Built the fully brain-foundational learner integrating EVERY research-identified improvement: online PE-gated
+Hebbian (predictive_coding) + CLASS-based grounded selectional cue (meaning_foundation) + grounded propose-but-
+verify + global-settle + consolidation + innate bias + never frozen. Retested at scale with CONTROLS (plain-
+ungrounded; scrambled-meaning).
+
+RESULT (UD-EWT test, maxlen<=10, 2 passes): aggregate UAS plain 0.395 -> grounded 0.422 -> SCRAMBLED-meaning
+0.448 (scrambled BEATS grounded). Hard arcs (obl:agent/obl/nmod/iobj) plain 0.158 -> grounded 0.196 ->
+SCRAMBLED 0.215 (scrambled BEATS grounded again). Learning curve DRIFTS DOWN (hard 0.25 -> 0.20 as it reads).
+An early tiny-smoke result (real meaning +0.057 over scrambled on hard arcs) DID NOT REPLICATE at scale -- I
+withdraw it (adversarial control beat the hopeful reading).
+
+HONEST VERDICT: implementing all improvements did NOT recover the 0.42->0.87 accuracy, and the CONTROLS show why
+the grounding did not help: on the attachment SKELETON (UAS), grounded meaning does not beat a structural-bias
+(scrambled) control -- for the 4th time across independent experiments. This is consistent, not a fluke: MEANING'S
+REAL CONTRIBUTION IS ROLE ASSIGNMENT (agent/patient given structure -- measured 0.43 vs 0.00 on non-canonical),
+NOT the attachment skeleton that UAS scores. Two further honest reasons the text-only recovery fails: (a)
+propose-but-verify needs a genuinely EXTERNAL corrector (the world/situation); a text-only MEANING-VECTOR cue is
+NOT independent of the parse (Blum&Mitchell 1998 -- a self-referential loop needs an independent second view), so
+it cannot supply the missing +0.20 "answer key" or break the self-training drift; (b) the online learning is not
+yet STABLE (drifts down; stability/plasticity/consolidation unsolved). So the earlier projection that grounding
+would recover +0.20/+0.22 is CORRECTED: not from a text-only cue. The genuine path (all evidence converges):
+ground the parser in the reader's actual SITUATION/MEANING model (an external corrector), applied to ROLE, not a
+meaning-vector cue on the skeleton -- a major integration, beyond a text-only parser. Architecture is 100%
+brain-foundational in MECHANISM; the accuracy is NOT recovered from text alone, and the controls are what prove it.
+
 ## Proposed hdlab/ diff (strategy lands, Q111)
 Add `_FastLabelPlan` to `hdlab/arc_labeler.py` (the class body of `experiments/exp_arc_labeler_fastpath_v1.py::
 FastLabelPlan`, verbatim). Add `ArcLabeler._ensure_fast(self)` that lazily builds `self._fast_plan =

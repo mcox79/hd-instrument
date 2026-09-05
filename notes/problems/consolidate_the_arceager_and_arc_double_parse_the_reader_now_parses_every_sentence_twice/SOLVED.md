@@ -2,10 +2,10 @@
 problem: consolidate_the_arceager_and_arc_double_parse_the_reader_now_parses_every_sentence_twice
 status: SOLVED
 bar: "PASS = one parse per sentence on the live read path with BYTE-IDENTICAL reader output on every consumed dimension (coref/events[agent+patient]/temporal/causal/location/belief/state + who-did-what arms) and a MEASURED read-time cut, on a held-out doc set. A rigorous located NEGATIVE -- one parse cannot serve both consumers, with the named consumer + the exact head-difference that forces two parses (e.g. the arc-labeler is trained on the arc parser's head distribution and its labels diverge on arc-eager heads) -- is a FULL PASS (then document why the double-parse stands and close the efficiency question). Report the read-time delta + byte-identity proof; keep the slow two-parse path as a self-checkable reference until the single-parse output is proven bit-identical."
-result: "ONE incremental (arc-eager) parse per sentence serves the role heads AND the front-end (copular+space): 6 of 9 consumed dims BYTE-IDENTICAL (events[agent+patient], coref, causal, timeline, suppressed, coref_acc); the 2 front-end consumers are NOT byte-identical but MEASURED NO-REGRESS on their own gold -- copular live-consumer fix_recall identical on modern (1.000) and archaic/19c (0.700) and +0.013 neutral on 451 UD-EWT gold (raw label detection IMPROVES +0.111 CI-sep), space where_is 0.259->0.244 delta -0.015 CI[-0.049,+0.000] (includes 0, NOT a CI-separated regression, n=606/24 timelines). Read-time cut = the entire batch parse eliminated = 1.00s = 4.6% of a 21.71s warm read over 309 held-out LitBank sentences; the batch parse (1.00s) is SLOWER than the arc-eager parse (0.83s) that replaces it. THE IDEAL FINAL WIRE (exact hdlab diff, prototyped at class level): UPSTREAM a full default-on read emits ZERO batch parses / one arc-eager parse per sentence across ALL consumers; DOWNSTREAM the full situation-model board shows ZERO regression on every scored dim (worst delta +0.0000: aggregate 0.6677, coref/events/temporal/causal/belief/goal/affect/state/location all identical). Witness 8/8."
+result: "ONE incremental (arc-eager) parse per sentence serves the role heads AND the front-end (copular+space): 6 of 9 consumed dims BYTE-IDENTICAL (events[agent+patient], coref, causal, timeline, suppressed, coref_acc); the 2 front-end consumers are NOT byte-identical but MEASURED NO-REGRESS on their own gold -- copular live-consumer fix_recall identical on modern (1.000) and archaic/19c (0.700) and +0.013 neutral on 451 UD-EWT gold (raw label detection IMPROVES +0.111 CI-sep), space where_is 0.259->0.244 delta -0.015 CI[-0.049,+0.000] (includes 0, NOT a CI-separated regression, n=606/24 timelines). Read-time cut = the entire batch parse eliminated = 1.00s = 4.6% of a 21.71s warm read over 309 held-out LitBank sentences; the batch parse (1.00s) is SLOWER than the arc-eager parse (0.83s) that replaces it. THE IDEAL FINAL WIRE (exact hdlab diff, prototyped at class level): UPSTREAM a full default-on read emits ZERO batch parses / one arc-eager parse per sentence across ALL consumers; DOWNSTREAM the full situation-model board shows ZERO regression on every scored dim (worst delta +0.0000: aggregate 0.6677, coref/events/temporal/causal/belief/goal/affect/state/location all identical). Witness 9/9 (incl. the ideal-setup confidence-weighting split: copular gate neutral, roles margin-abstain real)."
 floor: "Strict byte-identity is UNACHIEVABLE-by-construction (the two parsers produce different heads on ~15-25% of tokens; any single parse must differ from one of them on the front-end), so the honest floor is NO-REGRESS on each consumer's own gold vs the current batch parse: copular fix_recall(batch) modern 1.000 / archaic 0.700 / UD-EWT 0.818; space where_is(batch) 0.259 over floors FLOOR_lastment/firstloc/mostfreq. The consolidated (incremental) parse meets-or-exceeds every one."
 controls: "(1) byte-identity diff of ALL 9 consumed dims default-vs-consolidated (isolates the change to exactly copular+space; 6 dims proven identical). (2) copular MODERN vs ARCHAIC authored gold, base-parser vs arc-eager, live-consumer fix_recall (register control: no-regress on BOTH). (3) copular UD-EWT 451-gold paired bootstrap (base_recall +0.111 CI-sep; fix_recall +0.013 CI[-0.014,+0.041] neutral). (4) space where_is paired bootstrap over 24 timelines, CI includes 0. (5) parse-count instrumentation (default base>0 AND arc-eager>0 = double parse; consolidated base==0 = single parse). (6) roles byte-identity BY CONSTRUCTION (both paths call the same arceager_parser.parse_with_conf with the same weights) -- confirmed by events dim identical."
-files_changed: "experiments/exp_double_parse_consolidation_v1.py, experiments/exp_double_parse_frontend_noregress_v1.py, experiments/exp_double_parse_ideal_wire_v1.py (the exact hdlab diff prototyped at class level + upstream/downstream test), experiments/_diff_entity_states.py, verification/test_double_parse_consolidation.py (8/8). NO hdlab/ changed (Q111: strategy lands the wire)."
+files_changed: "experiments/exp_double_parse_consolidation_v1.py, experiments/exp_double_parse_frontend_noregress_v1.py, experiments/exp_double_parse_ideal_wire_v1.py (the exact hdlab diff prototyped at class level + upstream/downstream test), experiments/_diff_entity_states.py, experiments/exp_double_parse_ideal_confidence_v1.py (confidence-weighting: copular neutral / roles real), verification/test_double_parse_consolidation.py (9/9). NO hdlab/ changed (Q111: strategy lands the wire)."
 reverify: ".venv/Scripts/python.exe verification/test_double_parse_consolidation.py"
 ---
 
@@ -159,6 +159,39 @@ rows also read +0.0000 but they parse **independently of the reader wire** (`boa
 `arc.parse` directly; the board's `location` arm is degenerate/near-empty here), so the AUTHORITATIVE no-regress
 for the two front-end consumers is the dedicated gold: copular `fix_recall` (W5; +0.013 neutral on 451 UD-EWT, raw
 detection +0.111) and space `where_is` (W6; −0.015 CI[−0.049,+0.000], includes 0).
+
+## THE IDEAL SETUP, PART 2 — arc-eager CONFIDENCE wired into the consumers (upstream + downstream)
+The one genuine remaining fidelity lever beyond the single-parse consolidation is that arc-eager EMITS calibrated
+per-attachment confidence (`parse_with_conf` → `(heads, conf, marg)`) that the consumers currently DISCARD.
+`experiments/exp_double_parse_ideal_confidence_v1.py` prototypes wiring it as precision-weighting (eADM /
+Vosse-Kempen; the substrate already has the mechanism — `graded_competition.softmax_gain`'s gain term IS the
+precision knob) and measures the implication. **The result is a clean SPLIT — and it is what tells you where the
+"ideal parser" actually pays off:**
+
+- **UPSTREAM (does the confidence carry information?) — YES, moderately.** On UD-EWT: the general arc confidence
+  separates a correct attachment from a wrong one at **AUC 0.699** (n=6305; matches the arceager error-AUC on
+  record), and the object-arc **margin** separates a correctly- from wrongly-attached object at **AUC 0.732**
+  (n=301; near the audit's 0.81). The copular property-arc confidence is a *weak* signal (**AUC 0.574**).
+- **DOWNSTREAM — COPULAR: NEUTRAL (a located negative).** Gating the emitted (holder,property) pairs on their arc
+  confidence gives **+0.0005 F1** (no-gate 0.7109 → best-gate 0.7114 at thr 0.65) and the shuffled-confidence twin
+  (same count) loses (0.7018) — i.e. the tiny gain is real-but-immaterial. **Reason:** copular F1 is RECALL-bound
+  (the wrong pairs aren't concentrated at low confidence enough to gate profitably); precision-weighting has no
+  purchase. **Do NOT wire confidence into copular/space** (space is parser-quality-insensitive — W6).
+- **DOWNSTREAM — ROLES (who-did-what): a REAL precision lever.** The object-arc margin converts to a **calibrated
+  abstain**: abstaining on the low-margin half lifts object-arc accuracy **0.8870 → 0.9470 (+0.0600)** on the
+  confident half, where an averaged shuffled-margin twin (random abstain) stays at overall (**0.8852**). So the
+  margin is an actionable answer-when-confident signal for the role path — exactly the "computed-but-discarded"
+  precision substrate the parser-improvement problem flagged (obj-arc AUC ~0.81) and the N7/predict-revise
+  drop-trigger the reader already half-uses.
+
+**Bottom line on the ideal setup:** the single incremental parse (part 1) captures the structural win; the
+discarded confidence is **not** a uniform lever — it is NEUTRAL for the recall-bound front-end (copular/space) and
+a REAL calibrated-abstain precision lever for the who-did-what/role path. So the ideal parser is *arc-eager + one
+shared parse + confidence consumed WHERE IT PAYS (the role path's abstain/precision-weight), not everywhere.* This
+scopes the filed confidence follow-on: wire the arc margin into the role path (structural-patient abstain +
+`graded_competition` gain), NOT into copular/space. Honest bound: the roles number is the attachment-precision
+proxy (obj-arc head correctness on clean UD gold); the end-to-end patient-QA abstain curve is the natural
+confirming follow-on.
 
 ## KEY REALIZATIONS
 - **The double parse is driven by SPACE, not copular.** `track_space` (default-on) parses every sentence with the
