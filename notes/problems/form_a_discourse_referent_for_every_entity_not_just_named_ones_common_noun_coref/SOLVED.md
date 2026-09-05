@@ -9,6 +9,12 @@ files_changed: "experiments/exp_commonnoun_coref_diagnostic_v1.py, experiments/e
 reverify: ".venv/Scripts/python.exe verification/test_commonnoun_referent_former.py"
 ---
 
+## INTEGRATED_BY_STRATEGY (2026-09-04) — EXCELLENT
+Reverified `test_commonnoun_referent_former.py` **7/7** + a new pure-hdlab landing witness `test_commonnoun_coref_landing_organ.py` **4/4**.
+- **WIRE LANDED (Q111, DEFAULT-ON):** the deployable situation-gated former → `hdlab/commonnoun_binder.py` (self-contained; head-match-gated + modifier-split + wide window + the `event_centrality_coref` situation gate) replaces the reader's blind same-head merge (+0.0128 CoNLL CI-sep, named coref byte-stable); `commonnoun_canonical` wires the common-noun clusters into `make_canonicalizer` + the affect/goal registers. Both flags **flipped DEFAULT-ON** per the "flip-on-find-the-break" directive — the cross-consumer check is CLEAN: 7 structural dims byte-stable, and the gold-scored goal/affect QA is **IDENTICAL on vs off** (goal 0.4615==0.4615, affect 0.7288==0.7288). No regression; +~0.3s/read.
+- **§2b folded** (the reader already forms common-noun referents; the "+0.43" was partly a label-space artifact; the real mechanism is the entity-world-model query, world-knowledge-bound).
+- **FOLLOW-ON FILED:** the Phase-1 world-knowledge-prior entity-world-model resolver (the built resolver crosses 0.255→0.540 given records but hits the identifiability wall → needs the curated-KB prior; ties to the knowledge foundation).
+
 # Common-noun discourse-referent formation: a located negative, and where the leverage actually is
 
 The brief's premise -- that the reader forms NO discourse referent for common-noun-only entities, and a

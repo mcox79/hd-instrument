@@ -425,7 +425,10 @@ def _build_entities(mentions: List[dict]) -> List[TrackedEntity]:
     for m in mentions:
         by_cluster.setdefault(m["cluster"], []).append(m)
     out: List[TrackedEntity] = []
-    for cid in sorted(by_cluster):
+    # sort key tolerant of MIXED cluster-id types (the commonnoun_situation_gate re-labels non-pronoun
+    # referents with 'CN:' string ids while pronoun-only clusters keep their int coref ids); all-int
+    # (the default reader) sorts byte-identically to plain sorted().
+    for cid in sorted(by_cluster, key=lambda c: (0, c) if isinstance(c, int) else (1, str(c))):
         ms = by_cluster[cid]
         heads: List[str] = []
         seen = set()
@@ -693,7 +696,9 @@ class SituationReader:
                  cm_agent_struct: bool = True,
                  cm_weights: Optional[Dict[str, float]] = None,
                  cm_twin_seed: Optional[int] = None,
-                 predicate_recall: bool = False) -> None:
+                 predicate_recall: bool = False,
+                 commonnoun_situation_gate: bool = True,
+                 commonnoun_canonical: bool = True) -> None:
         # === DEFAULTS FLIPPED ON 2026-09-03 (owner-authorized: "switch them on... 1 at a time, top down,
         # measure which are net positives"). The greedy forward-activation sweep (tools/flag_activation_sweep.py,
         # data/flag_activation_sweep/results.json) measured each flag one-at-a-time in dependency order on the
@@ -1054,6 +1059,22 @@ class SituationReader:
         self._es_reg_cls = None        # lazy hdlab.state_register.StateRegister
         self._causation_nlp = None     # lazy spaCy handle (loaded once, only when causation_typed)
         self._causation_lex = None     # lazy force lexicon
+        # COMMON-NOUN referent former + wiring (opt-in; default OFF -> byte-identical). Wired 2026-09-04 from the
+        # owner-DONE form_a_discourse_referent_for_every_entity_not_just_named_ones_common_noun_coref (Q111, §5).
+        # (a) commonnoun_situation_gate: RE-CLUSTER the reader's common-noun (person) referents via the LANDED
+        #     deployable situation-gated former (hdlab.commonnoun_binder: head-match-gated link + modifier-split +
+        #     wide window + the event-centrality tie-break, reusing hdlab.event_centrality_coref), REPLACING the
+        #     referent-per-NP gold/singleton cluster ids on sm.entities (the surface-head blind transitive merge).
+        #     +0.0128 CoNLL over surface-head on the SOLVED's gold population (CI-sep, no-regress named). ONLY
+        #     sm.entities changes -- coref/events/world-state read their OWN separate streams (byte-identical).
+        # (b) commonnoun_canonical: expose common-noun clusters to make_canonicalizer with a stable head-lemma
+        #     label (the reframe/wiring lever -- the character-bound goal/affect registers bind 'the man' to the
+        #     tracked man). DISK CAVEAT (measured in the SOLVED): the experiencer subpop is near-ceiling ~0.90, so
+        #     little downstream CI-sep lift is expected -- the point is the wiring-debt fix + no-regress.
+        # Default OFF pending the strategy's cross-consumer measurement (no-more-default-off). NO external LLM.
+        self.commonnoun_situation_gate = bool(commonnoun_situation_gate)
+        self.commonnoun_canonical = bool(commonnoun_canonical)
+        self._cn_binder_mod = None     # lazy hdlab.commonnoun_binder
         # persistent readers (the banked backbone + single-sentence validity baseline)
         self.reader_ec = EventCentralityReader(n_dim=EVENT_N_DIM, mem_seed=MEM_SEED)
         self.reader_ss = CorefReader()
@@ -1068,7 +1089,7 @@ class SituationReader:
         "densify_world_state", "np_head_reduce", "parser_arceager", "causation_typed", "spacy_pred_gate",
         "bind_entity_states", "structural_do_recover", "referent_per_np", "cm_agent", "include_pron_agents",
         "case_filter", "clause_local", "cm_agent_struct", "predicate_recall", "track_goals", "track_affect",
-        "structural_patient")
+        "structural_patient", "commonnoun_situation_gate", "commonnoun_canonical")
 
     @classmethod
     def all_capabilities_off(cls, gaz=None, **overrides):
@@ -1827,7 +1848,7 @@ class SituationReader:
             sc = None
         pos = [self._cached_tag(list(t)) for t in sents]
         goals = GR.extract_goals(sents, pos, subcat=sc)
-        canon, _names = GR.make_canonicalizer(sm)
+        canon, _names = GR.make_canonicalizer(sm, commonnoun_canonical=self.commonnoun_canonical)
         GR.passive_agent_guard(goals, sm, sents, pos)
         GR.bind_agents(goals, canon)
         GR.track_status(goals, sm.events)
@@ -1862,7 +1883,7 @@ class SituationReader:
         lex = AffectLexicon.load()
         pos = [self._cached_tag(list(t)) for t in sents]
         affects = AR.extract_affect(sents, pos, lex, pvf=pvf)
-        canon, _names = GR.make_canonicalizer(sm)
+        canon, _names = GR.make_canonicalizer(sm, commonnoun_canonical=self.commonnoun_canonical)
         AR.bind_experiencers(affects, canon)
         reg = AR.AffectRegister(affects)
         sm.affect_register = reg
@@ -1924,6 +1945,45 @@ class SituationReader:
         sm.entity_states = states
         sm.state_register = reg
 
+    def _apply_commonnoun_gate(self, role_mentions):
+        """(commonnoun_situation_gate) RE-CLUSTER the reader's common-noun (person) referents via the LANDED
+        deployable situation-gated former (hdlab.commonnoun_binder.situation_predict: head-match-gated link +
+        modifier-split + wide window W=16 + the event-centrality tie-break for >=2 head-match candidates),
+        REPLACING the referent-per-NP gold/singleton cluster ids on NON-PRONOUN mentions (the reader's
+        common-noun clustering / the surface-head blind transitive merge).
+
+        Pronoun-linkage PRESERVED: each merged group INHERITS a real gold coref cluster id when any member was
+        gold-coref-covered (so make_canonicalizer still ties pronoun resolutions -- keyed on the coref cluster
+        -- to the named entity); a group of only referent-per-NP singletons gets a fresh 'CN:'-namespaced id (a
+        newly-tracked common-noun entity). Only sm.entities changes downstream -- coref scoring, events, and
+        world-state read their OWN separate mention/event streams, so they are byte-identical. Mutates
+        role_mentions in place (a fresh per-read list). Default OFF -> never called. NO external LLM."""
+        from collections import Counter, defaultdict
+        if self._cn_binder_mod is None:
+            from hdlab import commonnoun_binder as _CN
+            self._cn_binder_mod = _CN
+        _CN = self._cn_binder_mod
+        labels = _CN.situation_predict(role_mentions, self.gaz, window=16, headmatch_gate=True)
+        anchored = {m["cluster"] for m in (self._coref_mentions or []) if not m["is_pronoun"]}
+        members = defaultdict(list)
+        for m in role_mentions:
+            if m["is_pronoun"]:
+                continue
+            lab = labels.get(m["midx"])
+            if lab is not None:
+                members[lab].append(m)
+        lab_to_cluster = {}
+        for lab, ms in members.items():
+            gold = [m["cluster"] for m in ms if m["cluster"] in anchored]
+            lab_to_cluster[lab] = Counter(gold).most_common(1)[0][0] if gold else ("CN:%s" % lab)
+        for m in role_mentions:
+            if m["is_pronoun"]:
+                continue
+            lab = labels.get(m["midx"])
+            if lab is not None:
+                m["cluster"] = lab_to_cluster[lab]
+        return role_mentions
+
     def read(self, conll_path: str) -> SituationModel:
         self._read_parse_cache = {}   # per-read tag/parse memo (bound memory; safe if the reader is reused)
         if self.referent_per_np:
@@ -1957,6 +2017,10 @@ class SituationReader:
                                % (n_sents, len(sents)))
         pid = os.path.splitext(os.path.basename(conll_path))[0]
         sm = SituationModel(passage_id=pid, n_sentences=n_sents)
+        if self.commonnoun_situation_gate:
+            # RE-CLUSTER common-noun referents via the landed situation-gated former (opt-in; default OFF ->
+            # byte-identical). Runs BEFORE _build_entities so sm.entities reflects the former's grouping.
+            self._apply_commonnoun_gate(role_mentions)
         sm.entities = _build_entities(role_mentions)   # the FULL referent set (who-has-what / entities)
 
         targets = build_pronoun_targets(coref_mentions)   # pronoun anaphora reads the coref-column source

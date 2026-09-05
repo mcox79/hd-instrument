@@ -441,8 +441,22 @@ def _named_clusters(sm) -> Dict[int, str]:
     return out
 
 
-def make_canonicalizer(sm):
+def make_canonicalizer(sm, commonnoun_canonical: bool = False):
+    """Canonical-entity resolver read off sm.entities + sm.coref_resolutions: canon(surface, si) -> a stable
+    entity label, or None (abstain).
+
+    commonnoun_canonical (default False -> BYTE-IDENTICAL to the proper-name-centric behavior): when True,
+    expose every COMMON-NOUN cluster with a STABLE head-lemma label (the wiring/reframe lever from the owner-DONE
+    common-noun coref problem, Q111 §5.2). The reader already CLUSTERS common nouns, but a mention surface whose
+    HEAD is a common noun ('the man', 'men') only bound when its whole normalized span matched a stored head --
+    so multi-token / plural surfaces ABSTAINED. When on, each cluster head ALSO registers its head TOKEN and the
+    head LEMMA (hdlab.commonnoun_binder.head_lemma) as keys -> the same canon, and canon() falls back to the
+    surface's head-token/lemma, so 'the man felt afraid' binds to the tracked man where it previously abstained.
+    Lazy import -> the default (OFF) path loads nothing new. NO external LLM."""
     names = _named_clusters(sm)                       # {cluster -> canonical name}
+    _hl = None
+    if commonnoun_canonical:
+        from hdlab.commonnoun_binder import head_lemma as _hl   # light noun lemma (stable head-lemma label)
     head2canon: Dict[str, str] = {}
     for e in sm.entities:
         canon = names.get(e.cluster)
@@ -452,6 +466,11 @@ def make_canonicalizer(sm):
             hn = _norm(h)
             if hn and hn not in _PRONOUNS:
                 head2canon.setdefault(hn, canon)
+                if commonnoun_canonical:
+                    toks = [t for t in hn.split() if t and t not in _PRONOUNS]
+                    if toks:
+                        head2canon.setdefault(toks[-1], canon)                     # head token: 'the man' -> 'man'
+                        head2canon.setdefault(_hl(toks[-1]) or toks[-1], canon)    # + its stable lemma: 'men' -> 'man'
     pron_by_sent: Dict[int, list] = defaultdict(list)
     for r in sm.coref_resolutions:
         canon = names.get(r.resolved_cluster)
@@ -462,6 +481,12 @@ def make_canonicalizer(sm):
         s = _norm(surface)
         if s in head2canon:
             return head2canon[s]
+        if commonnoun_canonical:
+            toks = [t for t in s.split() if t and t not in _PRONOUNS]
+            if toks:
+                for key in (toks[-1], (_hl(toks[-1]) or toks[-1])):
+                    if key in head2canon:
+                        return head2canon[key]
         if s in _PRONOUNS or surface.lower() in _PRONOUNS:
             for sj in range(si, -1, -1):
                 for (p, c) in pron_by_sent.get(sj, []):
