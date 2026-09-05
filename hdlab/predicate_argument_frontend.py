@@ -26,12 +26,28 @@ store-agnostic scoring core any caller can use.
 """
 from __future__ import annotations
 
+import os
 from typing import Dict, FrozenSet, List, Optional, Sequence, Tuple
 
 from hdlab.graded_role_assigner import hybrid_role_patient, robust_passive
 from hdlab.relcl_resolver import precise_passive
-from hdlab.thematic_role_labeler import lemma_verb
+from hdlab.thematic_role_labeler import lemma_verb, is_strictly_intransitive
+from hdlab.verb_subcat import suppress_patient
 from hdlab.animacy_lexicon import lookup_animacy
+
+_REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+_LAB_ASSET = os.path.join(_REPO, "data", "frontend_assets", "arc_labeler_hashed_ud_ewt.json")
+_LABELER = None
+
+
+def _labeler():
+    """The shared arc_labeler (lazy singleton; SAME asset copular_binding uses). Loaded only when the labeled
+    patient readout is actually exercised, so the module import + the structural_patient=OFF path stay cheap."""
+    global _LABELER
+    if _LABELER is None:
+        from hdlab.arc_labeler import ArcLabeler
+        _LABELER = ArcLabeler.load(_LAB_ASSET)
+    return _LABELER
 
 # ------------------------------------------------------------------------------------------------
 # structural plumbing (copied UNCHANGED from the validated exp_shared_predarg_frontend_v1/v2)
@@ -247,20 +263,77 @@ def structural_roles(toks, pos, heads, v, is_passive=None):
     return {"agent": agent, "patient": patient}
 
 
+# ------------------------------------------------------------------------------------------------
+# LABELED PATIENT READOUT (promoted 2026-09-04 from the owner-DONE
+# improve_the_parser_verb_argument_attachment_for_who_did_what). Read the patient the brain's way --
+# the verb's LABELED obj/nsubj:pass grammatical relation + a PRECISE voice remapping + VALENCY-gated
+# binding of a missed argument (Hagoort MUC valency unification; Levin/Rappaport-Hovav linking rules) --
+# NOT by position with the lossy robust_passive. +0.086 CI-sep on clean UD-EWT (0.745->0.831), +0.097 on
+# 19c clean-DO, head-independent, zero tuned parameters. Bodies (position_pick / _transitive / labeled_pick)
+# copied VERBATIM from experiments/exp_valency_labeled_patient_v1. Glass-box, NO LLM.
+# ------------------------------------------------------------------------------------------------
+def position_pick(toks, pos, v, heads, is_passive):
+    """the PRIOR readout: nearest post-verbal (active) / pre-verbal (passive) NOMINAL dependent."""
+    n = len(toks)
+    deps = [c for c in range(1, n + 1) if heads.get(c) == v and pos[c - 1] in NOMINAL]
+    pre = [c for c in deps if c < v]; post = [c for c in deps if c > v]
+    if is_passive:
+        return pre[-1] if pre else (post[0] if post else None)
+    return post[0] if post else (pre[-1] if pre else None)
+
+
+def _transitive(lemma):
+    """valency: does the verb expect a direct object? (glass-box subcat signal)."""
+    return not is_strictly_intransitive(lemma) and not suppress_patient(lemma, 0.35)
+
+
+def labeled_pick(toks, pos, v, heads, labels, is_passive, valency=False):
+    """BRAIN-FAITHFUL: fill the verb's obj (active) / nsubj:pass (passive) LABELED slot; if the parse
+    labeled no such dependent, valency-gated bind the nearest non-PP nominal on the expected side when the
+    verb's frame expects an argument (unification into the open slot). Falls back to position otherwise."""
+    n = len(toks)
+    deps = [c for c in range(1, n + 1) if heads.get(c) == v and pos[c - 1] in NOMINAL]
+    want = "nsubj:pass" if is_passive else "obj"
+    lab = [c for c in deps if labels.get(c) == want]
+    if lab:
+        side = [c for c in lab if (c < v if is_passive else c > v)]
+        if side:
+            return side[-1] if is_passive else side[0]
+        return lab[-1] if is_passive else lab[0]
+    if valency:
+        lemma = lemma_verb(toks[v - 1])
+        if is_passive:
+            for c in range(v - 1, 0, -1):
+                if pos[c - 1] in NOMINAL and not (c - 2 >= 0 and pos[c - 2] == "ADP"):
+                    return c
+        elif _transitive(lemma):
+            for c in range(v + 1, n + 1):
+                if pos[c - 1] in NOMINAL and not (c - 2 >= 0 and pos[c - 2] == "ADP"):
+                    return c
+        else:
+            return None                      # intransitive frame -> no object bound
+    return position_pick(toks, pos, v, heads, is_passive)
+
+
 def structural_patient_pick(tokens: Sequence[str], upos: Sequence[str], heads: Dict[int, int], v: int,
                             cands: Optional[List[int]] = None, np_head_reduce: bool = False) -> Optional[int]:
-    """The DEPLOYABLE structure-first patient (1-based, or None): the verb's object (active) / promoted subject
-    (passive) / coordination-shared object read off the parse relations + voice remapping (structural_roles);
-    fall back to the heuristic cue/position patient (hybrid_role_patient) ONLY where the parse yields no core
-    object -- net-safe, never worse than the heuristic on uncovered items. Body copied VERBATIM from
-    exp_structural_patient_noregress_v1.hybrid_patient (with np_head_reduce threaded to the fallback so the OFF
-    behavior stays byte-identical to the current heuristic path)."""
-    sp = structural_roles(tokens, upos, heads, v)["patient"]
-    if sp is not None:
-        return sp
-    if cands is None:
-        cands = _cands(upos)
-    return hybrid_role_patient(tokens, upos, v, cands=cands, np_head_reduce=np_head_reduce)
+    """The DEPLOYABLE who-did-what PATIENT (1-based, or None), read the brain's way off the LABELED parse:
+    the verb's obj (active) / nsubj:pass (passive) grammatical relation with a PRECISE voice remapping +
+    VALENCY-gated binding of a missed argument (labeled_pick, valency=True); net-safe fallback to the
+    heuristic cue/position patient (hybrid_role_patient) ONLY where the labeled readout binds nothing --
+    never worse than the heuristic on uncovered items. +0.086 CI-sep over the prior position readout on
+    clean UD-EWT (0.745->0.831), register-general (+0.097 on 19c clean-DO), head-independent, zero tuned
+    parameters (owner-DONE improve_the_parser_verb_argument_attachment_for_who_did_what, 2026-09-04). Body
+    promoted VERBATIM from exp_valency_labeled_live_reader_v1.improved_structural_patient_pick (the drop-in
+    that passed the live-reader no-regress) + exp_valency_labeled_patient_v1.labeled_pick."""
+    labels = _labeler().label(list(tokens), list(upos), heads)
+    pp = precise_passive(tokens, upos, v)
+    pick = labeled_pick(tokens, upos, v, heads, labels, pp, valency=True)
+    if pick is None:
+        if cands is None:
+            cands = _cands(upos)
+        pick = hybrid_role_patient(tokens, upos, v, cands=cands, np_head_reduce=np_head_reduce)
+    return pick
 
 
 def matrix_verbs(tokens: Sequence[str], upos: Sequence[str], heads: Dict[int, int]) -> List[int]:

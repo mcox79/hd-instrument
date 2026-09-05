@@ -776,7 +776,10 @@ def build_absent_questions(sm: SituationModel) -> List[dict]:
     prot = None
     cand = [(e.n_mentions, e.cluster) for e in sm.entities if names.get(e.cluster)]
     if cand:
-        cand.sort(reverse=True)
+        # protagonist = the named entity with the most mentions; tie-break on a STRINGIFIED cluster id
+        # (the newer coref flags emit mixed int/str cluster ids, so a raw tuple sort raises TypeError on
+        # equal-mention ties -- and the choice only names an expect_abstain question, so it is score-neutral).
+        cand.sort(key=lambda x: (x[0], str(x[1])), reverse=True)
         prot = names[cand[0][1]]
     if prot is None:
         return []

@@ -683,7 +683,7 @@ class SituationReader:
                  densify_world_state: bool = True,
                  track_goals: bool = True,
                  track_affect: bool = True,
-                 parser_arceager: bool = False,
+                 parser_arceager: bool = True,
                  np_head_reduce: bool = True,
                  structural_patient: bool = True,
                  bind_entity_states: bool = True,
@@ -709,9 +709,14 @@ class SituationReader:
         # the capable board has always operated at causal 0.1485). This SUPERSEDES the prior "no dimension flag
         # should be flipped default-ON yet -- the fully-on reader is N parallel silos" caution: bind_event_tokens
         # (the JOINT binder, coref 1.000 vs 0.600) is flipped ON here, so the dimensions now BIND, not just compose.
-        # STILL DEFAULT-OFF BY DESIGN: parser_arceager (19c-negative, -0.001; a MODERN-text-only lever, flip it per
-        # consumer on modern corpora), causation_typed + spacy_pred_gate (require spaCy -> NOT remote-safe / the
-        # no-external-dep invariant). To reproduce the historical WEAK reader, pass every flag False explicitly.
+        # parser_arceager FLIPPED DEFAULT-ON 2026-09-04 (owner-DONE improve_the_parser_verb_argument_attachment...):
+        # the labeled/valency/voice PATIENT readout (predicate_argument_frontend.structural_patient_pick, landed this
+        # session) makes the stronger arc-eager parser REGISTER-SAFE -- it reads the labeled grammatical relation +
+        # precision-weights, so OOD head errors no longer poison the patient. Net-positive on the who-did-what
+        # instrument (+0.006 modern / +0.0045 19c clean-DO, reversing the -0.0017 arceager caused under the OLD position
+        # readout) and BOARD-NEUTRAL (all 6 dims byte-identical 0.0-delta, arceager on-vs-off, 16 docs). Glass-box, no
+        # external dep. STILL DEFAULT-OFF BY DESIGN: causation_typed + spacy_pred_gate (require spaCy -> NOT remote-safe
+        # / the no-external-dep invariant). To reproduce the historical WEAK reader, pass every flag False explicitly.
         self.gaz = load_name_gender() if gaz is None else gaz
         self.focus_n_dim = int(focus_n_dim)
         # OPTIONAL supplied-grammar predicate-validity gate (29522 L1 win, ADOPTED opt-in).

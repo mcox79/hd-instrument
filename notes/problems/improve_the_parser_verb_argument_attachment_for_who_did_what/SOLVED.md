@@ -9,6 +9,9 @@ files_changed: "experiments/exp_valency_labeled_patient_v1.py (the ladder + twin
 reverify: ".venv/Scripts/python.exe verification/test_valency_labeled_patient.py"
 ---
 
+## INTEGRATED_BY_STRATEGY (2026-09-04) — EXCELLENT
+Landed all 3 Q111 diffs into `hdlab/predicate_argument_frontend.py` (precise voice + labeled-obj/valency `structural_patient_pick`, `labeled_pick`/`position_pick`/`_transitive` promoted verbatim) + `hdlab/situation_reader.py` (`parser_arceager` DEFAULT-ON). Reverified `test_valency_labeled_patient.py` 5/5 + `test_labeled_patient_landing.py` (byte-identity 0/1255, +0.0861); arceager board-neutral (0.0 all dims); no-regress (patient invisible to the agent-only events QA). Follow-on filed: `add_a_patient_slot_who_did_what_qa_on_clean_gold`. §2b folded.
+
 ## SUMMARY -- what was built and what it establishes
 
 The brief asked for a register-general, verb-frame-guided, LABELED parse that binds verb subject/object into
