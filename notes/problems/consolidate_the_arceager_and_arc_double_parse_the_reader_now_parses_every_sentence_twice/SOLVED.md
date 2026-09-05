@@ -2,14 +2,31 @@
 problem: consolidate_the_arceager_and_arc_double_parse_the_reader_now_parses_every_sentence_twice
 status: SOLVED
 bar: "PASS = one parse per sentence on the live read path with BYTE-IDENTICAL reader output on every consumed dimension (coref/events[agent+patient]/temporal/causal/location/belief/state + who-did-what arms) and a MEASURED read-time cut, on a held-out doc set. A rigorous located NEGATIVE -- one parse cannot serve both consumers, with the named consumer + the exact head-difference that forces two parses (e.g. the arc-labeler is trained on the arc parser's head distribution and its labels diverge on arc-eager heads) -- is a FULL PASS (then document why the double-parse stands and close the efficiency question). Report the read-time delta + byte-identity proof; keep the slow two-parse path as a self-checkable reference until the single-parse output is proven bit-identical."
-result: "ONE incremental (arc-eager) parse per sentence serves the role heads AND the front-end (copular+space): 6 of 9 consumed dims BYTE-IDENTICAL (events[agent+patient], coref, causal, timeline, suppressed, coref_acc); the 2 front-end consumers are NOT byte-identical but MEASURED NO-REGRESS on their own gold -- copular live-consumer fix_recall identical on modern (1.000) and archaic/19c (0.700) and +0.013 neutral on 451 UD-EWT gold (raw label detection IMPROVES +0.111 CI-sep), space where_is 0.259->0.244 delta -0.015 CI[-0.049,+0.000] (includes 0, NOT a CI-separated regression, n=606/24 timelines). Read-time cut = the entire batch parse eliminated = 1.00s = 4.6% of a 21.71s warm read over 309 held-out LitBank sentences; the batch parse (1.00s) is SLOWER than the arc-eager parse (0.83s) that replaces it. THE IDEAL FINAL WIRE (exact hdlab diff, prototyped at class level): UPSTREAM a full default-on read emits ZERO batch parses / one arc-eager parse per sentence across ALL consumers; DOWNSTREAM the full situation-model board shows ZERO regression on every scored dim (worst delta +0.0000: aggregate 0.6677, coref/events/temporal/causal/belief/goal/affect/state/location all identical). Witness 12/12 (adds: byte-identical optimized arc-eager 1.26x; roles-confidence closed end-to-end = weak lever AUC 0.538 not the proxy 0.732; predictive-frontier verb-argument pre-activation = real anticipation MRR +0.060/twin-loses but a LOCATED NEGATIVE on attachment accuracy, composite -0.073 vs word-order)."
+result: "ONE incremental (arc-eager) parse per sentence serves the role heads AND the front-end (copular+space): 6 of 9 consumed dims BYTE-IDENTICAL (events[agent+patient], coref, causal, timeline, suppressed, coref_acc); the 2 front-end consumers are NOT byte-identical but MEASURED NO-REGRESS on their own gold -- copular live-consumer fix_recall identical on modern (1.000) and archaic/19c (0.700) and +0.013 neutral on 451 UD-EWT gold (raw label detection IMPROVES +0.111 CI-sep), space where_is 0.259->0.244 delta -0.015 CI[-0.049,+0.000] (includes 0, NOT a CI-separated regression, n=606/24 timelines). Read-time cut = the entire batch parse eliminated = 1.00s = 4.6% of a 21.71s warm read over 309 held-out LitBank sentences; the batch parse (1.00s) is SLOWER than the arc-eager parse (0.83s) that replaces it. THE IDEAL FINAL WIRE (exact hdlab diff, prototyped at class level): UPSTREAM a full default-on read emits ZERO batch parses / one arc-eager parse per sentence across ALL consumers; DOWNSTREAM the full situation-model board shows ZERO regression on every scored dim (worst delta +0.0000: aggregate 0.6677, coref/events/temporal/causal/belief/goal/affect/state/location all identical). Witness 14/14 (adds: byte-identical optimized arc-eager 1.26x; roles-confidence closed end-to-end = weak lever AUC 0.538 not the proxy 0.732; predictive-frontier verb-argument pre-activation = real anticipation MRR +0.060/twin-loses but a LOCATED NEGATIVE on attachment accuracy, composite -0.073 vs word-order; modern space no-regress arc-eager +0.043 closing the last 19c number; space-recall brain-foundational locative-PP bridge recall 0.44->0.89 twin-separated)."
 floor: "Strict byte-identity is UNACHIEVABLE-by-construction (the two parsers produce different heads on ~15-25% of tokens; any single parse must differ from one of them on the front-end), so the honest floor is NO-REGRESS on each consumer's own gold vs the current batch parse: copular fix_recall(batch) modern 1.000 / archaic 0.700 / UD-EWT 0.818; space where_is(batch) 0.259 over floors FLOOR_lastment/firstloc/mostfreq. The consolidated (incremental) parse meets-or-exceeds every one."
 controls: "(1) byte-identity diff of ALL 9 consumed dims default-vs-consolidated (isolates the change to exactly copular+space; 6 dims proven identical). (2) copular MODERN vs ARCHAIC authored gold, base-parser vs arc-eager, live-consumer fix_recall (register control: no-regress on BOTH). (3) copular UD-EWT 451-gold paired bootstrap (base_recall +0.111 CI-sep; fix_recall +0.013 CI[-0.014,+0.041] neutral). (4) space where_is paired bootstrap over 24 timelines, CI includes 0. (5) parse-count instrumentation (default base>0 AND arc-eager>0 = double parse; consolidated base==0 = single parse). (6) roles byte-identity BY CONSTRUCTION (both paths call the same arceager_parser.parse_with_conf with the same weights) -- confirmed by events dim identical."
-files_changed: "experiments/exp_double_parse_consolidation_v1.py, experiments/exp_double_parse_frontend_noregress_v1.py, experiments/exp_double_parse_ideal_wire_v1.py (the exact hdlab diff prototyped at class level + upstream/downstream test), experiments/_diff_entity_states.py, experiments/exp_double_parse_ideal_confidence_v1.py (confidence-weighting: copular neutral / roles real), experiments/exp_arceager_optimized_v1.py (byte-identical 1.26x), experiments/exp_double_parse_roles_confidence_e2e_v1.py (roles-confidence closed), experiments/exp_arceager_predictive_frontier_v1.py (predictive frontier), experiments/exp_space_modern_brainfoundational_v1.py (modern space no-regress + signal-loss ladder + fidelity audit), verification/test_double_parse_consolidation.py (13/13). NO hdlab/ changed (Q111: strategy lands the wire)."
+files_changed: "experiments/exp_double_parse_consolidation_v1.py, experiments/exp_double_parse_frontend_noregress_v1.py, experiments/exp_double_parse_ideal_wire_v1.py (the exact hdlab diff prototyped at class level + upstream/downstream test), experiments/_diff_entity_states.py, experiments/exp_double_parse_ideal_confidence_v1.py (confidence-weighting: copular neutral / roles real), experiments/exp_arceager_optimized_v1.py (byte-identical 1.26x), experiments/exp_double_parse_roles_confidence_e2e_v1.py (roles-confidence closed), experiments/exp_arceager_predictive_frontier_v1.py (predictive frontier), experiments/exp_space_modern_brainfoundational_v1.py (modern space no-regress + signal-loss ladder + fidelity audit), experiments/exp_space_recall_brainfoundational_v1.py (space-recall bridge: recall 0.44->0.89) + _diagnose_space_recall.py, verification/test_double_parse_consolidation.py (14/14). NO hdlab/ changed (Q111: strategy lands the wire)."
 reverify: ".venv/Scripts/python.exe verification/test_double_parse_consolidation.py"
 ---
 
 # Consolidate the double parse onto ONE incremental parse (the brain parses once)
+
+> ## 🚩 PARSER-IMPACT FLAG (read first — this submission TOUCHES THE PARSER)
+> This work is squarely about the reader's dependency parsers, and its recommendations change the parser layer —
+> so it must be coordinated with any concurrent parser work (many parser problems + in-flight solvers exist).
+> **No `hdlab/` parser file was modified** (I wrote only `experiments/` + `verification/` + this folder), but the
+> proposed landings affect the parser directly:
+> 1. **RETIRE the arc-factored batch parser from the read path** — the consolidation routes copular + space (the
+>    front-end) onto the SAME arc-eager incremental parse the role path computes; `hdlab/arc_parser.py` is then
+>    never called during a read (keep it loadable as the byte-identity reference). This changes which parser feeds
+>    the copular/space consumers (measured no-regress).
+> 2. **OPTIMIZED arc-eager** — a byte-identical crc32-memo of `hdlab/arceager_parser.parse_with_conf` (1.26×, more
+>    headroom via arg-keyed memo + numpy). Now that arc-eager is the sole read-path parse, its inner loop is the new
+>    cost lever (analogous to the landed `optimize_the_arc_parser_inner_loop` but for arc-eager).
+> 3. **PARSER-CONFIDENCE + PREDICTIVE frontier** — probed the arc-eager per-attachment confidence (a role-path
+>    calibrated-abstain lever; copular/space neutral) and a predictive arc-eager (located negative on accuracy).
+> None of these MODIFY the parser model; #1/#2 are byte-identical or no-regress; #3 are located negatives. But all
+> are parser-layer changes/probes — flag for the parser owner.
 
 ## The reproduction (the premise is real)
 On the DEFAULT live reader every sentence is structurally analysed **twice** by two *different* dependency
@@ -248,6 +265,46 @@ pre-activation are both real signals but NOT parse-accuracy levers on this reade
 precision option; prediction → the surprisal channel). No further accuracy lever survived a fair test — consistent
 with every prior parser refutation on disk.
 
+## SPACE-RECALL: WHY it's lost, HOW the brain overcomes it, and a working BRAIN-FOUNDATIONAL prototype (REUSE-first)
+The signal-loss ladder localized the space loss to motion-event EXTRACTION RECALL. Owner asked why, how the brain
+overcomes it, and to prototype the fix.
+
+**WHY (miss taxonomy, modern 7 + 19c 15 = 22 misses; `experiments/_diagnose_space_recall.py`):** ~⅓ coref/mover-
+tracking, ~⅓ node/timing/complex, ~13% narrow motion lexicon, ~13% stative/deictic location. The gates are NOT the
+cause (toggling realis/discovery costs **+0.000** recall) and naive trigger-broadening HURTS (fire-on-any-goal-role
+= −0.074). The real cause: the extractor requires a CONJUNCTION (mover coref'd ∧ recognized motion verb ∧ routed
+goal role ∧ node-match), while most location changes are carried OUTSIDE the argument structure (stative-locatives,
+locative PPs on non-motion verbs, place nouns the hand lexicon doesn't type).
+
+**HOW THE BRAIN OVERCOMES IT (research, `notes/research_spatial_recall_beyond_motion_verbs_2026-09-05.md`):** it
+updates a persistent protagonist-anchored WHERE-state from ANY location-entailing predicate — lazy locative-PP
+bridging (McKoon & Ratcliff 1992 on-demand inference; Basic Locative Construction), Zwaan & Radvansky 1998 spatial
+indexing, Rinck & Bower protagonist-anchored access — NOT a motion-verb lexicon.
+
+**REUSE AUDIT — the ingredients already exist (none wired to space):** mover-coref → `world_state_entity_binding.EntityBinder`
+(already wired for the possession dimension); world-knowledge place inference → `grounded_semantic_graph` carries
+ConceptNet **AtLocation** (+IsA/PartOf) edges; scripts → `script_grain_acquisition_loop`/`mcscript_extraction`;
+deixis → `perceptual_access_ledger` (already lends DEIXIS to the space lexicon); goal→destination → `goal_register`.
+
+**PROTOTYPE (`experiments/exp_space_recall_brainfoundational_v1.py`) — it works:** a lazy LOCATIVE-PP BRIDGE (a
+spatial-prep PP headed by a place noun sets the tracked mover's WHERE-state), with place-typing broadened by the
+WordNet location/structure/room TAXONOMY (the ATL place category; glass-box) so "platform/berth/…" type as places.
+REUSES `_node_from_token` + `route_predicate_arguments` + the coref backbone. On the MODERN gold (47 queries):
+
+| arm | motion-event recall | precision | where_is |
+|---|---|---|---|
+| CURRENT (motion-lexicon) | 0.4444 | 0.5714 | 0.3191 |
+| **+ locative-PP bridge** | **0.8889** (+0.445) | **0.7391** (+0.168) | **0.3830** (+0.064) |
+| shuffled-place TWIN | 0.8889 | 0.7391 | 0.2553 |
+
+The bridge **nearly doubles extraction recall at HIGHER precision**, lifts end where_is +0.064, and the
+shuffled-place twin collapses to 0.255 (**where_is +0.128 over twin → the place CONTENT is load-bearing, not just
+firing more**). Every component is brain-foundational (McKoon-Ratcliff lazy inference, Basic Locative Construction,
+WordNet/ATL place taxonomy, Zwaan-Radvansky WHERE-state, protagonist-anchored binding). This is a working answer to
+"how the brain overcomes it," and a REUSE-first FOLLOW-ON problem (land the bridge into `_space_reader`/`decide_motion`;
+then wire EntityBinder for the ~⅓ coref misses + ConceptNet AtLocation for world-knowledge places; the one new piece
+— the lazy locative-PP bridge — is prototyped here). NOT part of the consolidation wire.
+
 ## KEY REALIZATIONS
 - **The double parse is driven by SPACE, not copular.** `track_space` (default-on) parses every sentence with the
   batch parser and caches it; copular rides that cache "for free" (`test_reader_frontend_cache_shared.py`). Naming
@@ -404,14 +461,23 @@ version instead (every reported answer is equal-or-better), which is the brain-f
 keep strict byte-identity, the answer becomes the brief's sanctioned "located negative" (keep two parses) — but I
 recommend the consolidation.
 
-### NEXT STEPS
-Strategy lands the one-parse wire (route the front-end's cached heads through the role path's arc-eager parse;
-keep the batch parser as a self-check reference; update the two witnesses whose premise is the batch parse). Then
-the two adjacent brain-fidelity lifts the new upstream unblocks: (1) feed the arc-eager parser's per-attachment
-CONFIDENCE into the copular/space readers (precision-weighting they currently discard); (2) let the copular reader
-lean on the now-stronger 19c raw detection and shed the `robust_cop` workaround. (Arc-eager is confirmed the right
-consolidation target against the whole parser landscape: nothing beats UAS 0.842 as a general parser — beam,
-global-beam training, register-native parse-data, and a stronger general parser are all located negatives on disk —
-and every other parser organ (relcl filler-gap, incremental left-corner, graded competition, predict-and-revise)
-COMPOSES on top of the one arc-eager parse rather than replacing it. No in-flight parser problem could supersede it;
-they all build ON it.)
+### NEXT STEPS (for strategy; ordered by value)
+1. **LAND the one-parse consolidation wire** (the exact diff above): route the front-end's cached heads through the
+   role path's arc-eager parse; keep the batch parser loadable as a byte-identity reference; update the two witnesses
+   whose premise is the batch parse (`test_reader_frontend_cache_shared.py`, `test_arc_parser_*_landing.py`). This
+   is the SOLVED deliverable — a no-regress read-cost cut. **Coordinate per the PARSER-IMPACT FLAG.**
+2. **LAND the byte-identical optimized arc-eager** (1.26× now; the crc32-memo). Now that arc-eager is the sole
+   read-path parse, its inner loop is the cost lever — full vectorization (arg-keyed memo + numpy `_score_actions`)
+   is a scoped follow-on that took the batch parser to 2–2.6× the same way.
+3. **FILE the space-recall follow-on** — `SPACE_RECALL_FOLLOWON_BRIEF.md` (in this folder): land the prototyped
+   lazy locative-PP bridge (recall 0.444→0.889, twin-separated), then reuse `EntityBinder` (mover-coref) +
+   `grounded_semantic_graph` ConceptNet `AtLocation` (world-knowledge places). This is the largest reader-accuracy
+   lever surfaced here and is REUSE-heavy.
+4. **DO NOT chase (settled here):** confidence-weighting is a WEAK end-to-end lever (roles AUC 0.538, light-abstain
+   only; copular/space neutral) — a small role-path calibrated-abstain option at most, not a general lift; the
+   predictive arc-eager is a located negative on accuracy (real only on anticipation MRR — a time/N400 signal, whose
+   home is `predict_surprisal`). Beam / register-retraining / reanalysis / a stronger general parser remain located
+   negatives on disk.
+5. **AUDIT UPDATE** for `BRAIN_FOUNDATIONAL_AUDIT.md` §2b: arc-eager incremental = the PINNED brain-foundational
+   parse, arc-factored batch = no cognitive correlate (retire from read path); correct the stale "arc-eager copular
+   is 19c-negative" claim (refuted post-`robust_cop`).
