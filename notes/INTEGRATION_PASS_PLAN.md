@@ -11,6 +11,9 @@ Companion to `notes/INTEGRATION_LEDGER.md` (the tracker/scoreboard). This is the
 
 ---
 
+## PARSER TIER (cross-cutting — integrate as ONE joint parser, never piecemeal)
+Several in-flight submissions carry parser improvements/replacements. The parser is upstream of who-did-what (patient/agent), world-state, space, state, and goals, and its fixes **do not transfer** (helping one consumer has regressed another). Stage each parser submission as it lands, HOLD all live-parser wiring, then build ONE parser optimized across all consumers per **`notes/PARSER_JOINT_INTEGRATION_RUBRIC.md`** (the consumer matrix, the known transfer-conflicts, a slot per submission, the joint-build protocol). This is its own tier of the pass, run before Step 3 (who-did-what realization) since those consumers depend on it.
+
 ## STEP 0 — BOARD-INSTRUMENT UPGRADE (do FIRST; verdict-independent measurement infra)
 **Why first:** several LIVE gains are invisible because the board under-measures. Fix the ruler before turning knobs, else the pass can't attribute gains.
 
