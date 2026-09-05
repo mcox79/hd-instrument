@@ -1882,6 +1882,23 @@ class SituationReader:
         sm.wants = lambda agent: reg.wants(agent)
         sm.why = lambda action_head, agent=None: reg.why(action_head, agent)
         sm.achieved = lambda agent, goal_head: reg.achieved(agent, goal_head)
+        # GOAL->SUBGOAL HIERARCHY GRAPH (owner-DONE build_the_goal_subgoal_hierarchy_graph_for_plot_structure_
+        # comprehension, 2026-09-05, Q111): compose the flat register's goals + the reader's causal network into
+        # an explicit goal->subgoal graph, exposing the plot-structure readouts the FLAT register STRUCTURALLY
+        # cannot -- the multi-hop goal-why CHAIN ("why did X do this, ULTIMATELY"), SUPERORDINATE reinstatement
+        # over intervening subgoals, and CONNECTIVITY salience (Trabasso & van den Broek 1985; Suh & Trabasso
+        # 1993). PURE ADD: sets sm.goal_graph + NEW query callables ONLY; never touches sm.wants/why/achieved
+        # (169/169 live-board answers byte-identical off vs on -> 0 regression on every dimension). DEFAULT-ON
+        # with track_goals (no-default-off: additive + net-positive; the benefit is scored on the plot-structure
+        # battery -- the live board's goal-why questions are only 4% multi-hop, a filed instrument gap). NO LLM.
+        from hdlab.goal_hierarchy_graph import build_goal_graph as _build_goal_graph
+        gg = _build_goal_graph(goals, causal_links=getattr(sm, "causal_links", None),
+                               events=getattr(sm, "events", None))
+        sm.goal_graph = gg
+        sm.goal_why_chain = lambda agent, action_head: gg.why_chain(agent, action_head)
+        sm.superordinate_goal = lambda agent, action_head: gg.superordinate(agent, action_head)
+        sm.reinstated_goal = lambda agent: gg.open_superordinate(agent)
+        sm.salient_goal = lambda agent: gg.most_connected(agent)
 
     def _read_affect(self, sm, sents) -> None:
         """Opt-in AFFECT/EMOTION dimension (default-on track_affect; wired 2026-09-04 from the owner-DONE

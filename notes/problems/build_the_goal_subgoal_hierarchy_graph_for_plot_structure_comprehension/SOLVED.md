@@ -9,6 +9,9 @@ files_changed: "experiments/goal_hierarchy_graph.py (the promotable CORE: GoalGr
 reverify: ".venv/Scripts/python.exe verification/test_goal_hierarchy_graph.py   # 8/8, re-runs NO landed cell (reads metrics.json + a from-source unit). Full recompute (optional, writes only its own dir): .venv/Scripts/python.exe experiments/exp_goal_hierarchy_qa_v1.py --run --n-twin 500"
 ---
 
+## INTEGRATED_BY_STRATEGY (2026-09-05) — EXCELLENT
+Promoted `experiments/goal_hierarchy_graph.py` → `hdlab/goal_hierarchy_graph.py` (VERBATIM; stdlib + `hdlab.goal_register`) + wired `_read_goals` to set `sm.goal_graph` + the 4 plot-structure callables AFTER the flat bindings (PURE ADD; witness `test_goal_hierarchy_landing.py`). Reverified `test_goal_hierarchy_graph.py` 8/8. DEFAULT-ON. Follow-ons filed: the PPMI+SVD means-end bridge real-narrative validation + the inverse-planning organ. §2b folded.
+
 # The reader now builds a GOAL->SUBGOAL HIERARCHY GRAPH -- "why, ultimately, did X do this, and what overarching goal remains?"
 
 ## The one-line answer
