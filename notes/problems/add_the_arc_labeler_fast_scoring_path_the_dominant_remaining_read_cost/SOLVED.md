@@ -5,7 +5,7 @@ bar: "PASS = _FastLabelPlan landed into hdlab/arc_labeler.py, built lazily in la
 result: "Byte-identical labels: 0 mismatches / 22,921 HELD-OUT arcs (4,575 LitBank predicted-heads + 18,346 UD-EWT-test gold-heads); full SituationModel byte-identical across ALL dimensions on 3 held-out docs. Labeler scoring 8.73x faster in-read (14.29s->1.64s median-of-9, ~4.2s/read removed on full LitBank docs). Brain-foundational extension (reuses the LANDED graded_competition organ): graded readout argmax byte-identical (0/18,346 = MAP-optimality, zero consumer regression) AND its normalized entropy flags labeling errors gold-free (AUC 0.930; info-free twin 0.481)."
 floor: "The landed reference ArcLabeler._predict_label -- byte-identity measured against it, 0 divergence over 22,921 held-out arcs. For the graded-readout exceed: the info-free twin (shuffled cue validities) AUC 0.481 ~ chance is the floor the entropy signal (AUC 0.930) clears."
 controls: "(1) W4 info-free shuffled-weights plan MUST diverge from the real plan -- 10/10 probe arcs differ (byte-identity check is non-vacuous). (2) W3 full-model regression guard: fresh-reader single-read stock-vs-fast SituationModel byte-identical across events/entity_states/causal/typed_causal/coref/coref_xsent/timeline (excludes NO consumer). (3) MAP-optimality byte-identity: argmax(lane)==stock over 18,346 UD arcs, so the graded readout is a strict SUPERSET of the discrete one (regresses nothing). (4) Info-free twin for the entropy signal: shuffled cue validities AUC 0.481 (loses)."
-files_changed: "experiments/exp_arc_labeler_graded_competition_v1.py, experiments/exp_arc_labeler_fastpath_landing_v1.py, verification/test_arc_labeler_fastpath_landing.py, verification/test_arc_labeler_graded_competition.py, notes/problems/add_the_arc_labeler_fast_scoring_path_the_dominant_remaining_read_cost/SOLVED.md (REUSES the pre-existing experiments/exp_arc_labeler_fastpath_v1.py + verification/test_arc_labeler_fastpath.py; NO hdlab/ writes -- proposed diff below, strategy lands per Q111)"
+files_changed: "experiments/exp_arc_labeler_graded_competition_v1.py, experiments/exp_arc_labeler_fastpath_landing_v1.py, experiments/exp_frontend_chain_signal_loss_v1.py, verification/test_arc_labeler_fastpath_landing.py, verification/test_arc_labeler_graded_competition.py, notes/problems/add_the_arc_labeler_fast_scoring_path_the_dominant_remaining_read_cost/SOLVED.md (REUSES the pre-existing experiments/exp_arc_labeler_fastpath_v1.py + verification/test_arc_labeler_fastpath.py; NO hdlab/ writes -- proposed diff below, strategy lands per Q111)"
 reverify: ".venv/Scripts/python.exe verification/test_arc_labeler_fastpath_landing.py"
 ---
 
@@ -112,6 +112,43 @@ role readout currently gate on a hard 1-best label; where the labeler's entropy 
 a graded consumer could defer or let discourse evidence re-rank -- exactly the pattern
 `consume_the_graded_pos_posterior_uncertainty_aware...` is landing for the POS tagger, now available from the
 labeler too.
+
+## (D) EXACT signal-loss accounting over the ENTIRE chain (owner's question, MEASURED)
+`exp_frontend_chain_signal_loss_v1.py`, held-out UD-EWT test (2,061 sents, 24,120 tokens), ORACLE-SUBSTITUTION
+ladder (feed each stage gold vs predicted inputs -> each stage's loss is isolated and attributed):
+
+| stage | measured | signal lost | attributed to |
+|---|---|---|---|
+| Tagger  | POS accuracy 0.9443 | -5.6% of tags | itself |
+| Parser  | UAS 0.7907 (gold POS) -> 0.7608 (pred POS) | -20.9% of heads in isolation; tagger propagation -3.0 UAS | PARSER dominant; tagger secondary |
+| Labeler | A gold-struct 0.9422 -> C(pred POS) 0.9082 -> B(pred heads) 0.8439 -> D live 0.8210 | intrinsic -5.8%; tagger->features -3.4; PARSER->labeler -9.8 | parser head-errors are 3x the tagger's cost to labeling |
+| End-to-end | LAS (head AND label correct) 0.7175 | -- | compounded |
+
+**Who-did-what signal specifically:** core-role (nsubj/obj/iobj/nsubj:pass/obl:agent) accuracy is 0.9293 in
+isolation but 0.8166 live; the catastrophic losses are the PASSIVE role markers -- **obl:agent LAS 0.0588,
+nsubj:pass 0.402** -- because the parser fails to attach the passive "by"-agent, so the labeler never sees the
+arc. This IS the non-canonical / who-did-what wall the front-end problems target. Downstream of LAS the
+who-did-what TASK sits lower still (audit: 0.48 flat -> 0.74 with a brain-faithful front-end) due to
+consumer-side losses (referent linking / coref / NP-head chunking -- other problems).
+
+**The decisive, honest finding:** the LABELER (this problem's component) is the STRONGEST link -- 5.8% intrinsic
+loss, the most brain-faithful of the three at the operation level. **The dominant leak is UPSTREAM: the parser**
+(loses ~21% of heads even with gold tags; its head-errors cost the labeler 3x what the tagger does). The
+owner's premise -- every component AND upstream must be brain-foundational -- is now QUANTIFIED: the biggest
+brain-fidelity payoff is the PARSER, not the labeler.
+
+### Per-stage brain-diff (EXACTLY where each stage departs from the brain)
+| stage | our operation | brain's operation (PINNED) | the specific deviation | measured cost |
+|---|---|---|---|---|
+| Tagger  | emission = sum feature-weights per tag; Viterbi (global DP); hard 1-best | incremental + graded lexical-category belief, top-down re-ranked (cohort; McClelland-Kawamoto) | batch global decode + hard 1-best (PROPN<->NOUN, 28% of tag errors, propagates) | 5.6% tags; -3.0 parser UAS; -3.4 labeler |
+| Parser  | O(n^2) all-pairs arc scores; greedy argmax head + cycle-break; batch | incremental structure-building with graded parallel constraint satisfaction + working-memory retrieval (Lewis-Vasishth 2005; Hale/Levy) | non-incremental + hard argmax + NO structural competition | UAS 0.79 -> the DOMINANT leak; -9.8 to labeler |
+| Labeler | sum feature-weights per label; per-arc HARD ARGMAX; arcs INDEPENDENT | additive cue integration (Competition Model / FLMP) -> graded normalized competition; whole-clause settling with one-role-per-clause competition (McClelland-Kawamoto 1986; Theta-Criterion; LFG Uniqueness) | (1) hard argmax readout [CLOSED here: graded readout, AUC 0.93, byte-safe]; (2) per-arc INDEPENDENCE [OPEN: no joint decode] | intrinsic 5.8% (strongest link) |
+
+Gap (1) is closed at the labeler (the graded readout, section B). Gap (2) -- per-arc independence and
+non-incrementality -- is UNCLOSED and is the deeper structural gap; combined with the parser's dominance it is
+where the chain's remaining signal is lost. It is owned by the in-flight incremental-parser / who-did-what /
+joint-decode problems (Q113); the concrete brain-faithful target is shared-head joint decoding (CRF / bipartite
+matching over each predicate's arcs) with one-role-per-clause competition.
 
 ## Proposed hdlab/ diff (strategy lands, Q111)
 Add `_FastLabelPlan` to `hdlab/arc_labeler.py` (the class body of `experiments/exp_arc_labeler_fastpath_v1.py::
