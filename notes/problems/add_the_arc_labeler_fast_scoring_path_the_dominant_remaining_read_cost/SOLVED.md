@@ -189,6 +189,53 @@ improvement, but it is neither ideal nor strictly dominant. A confidence-gated h
 needs a register-general graded-with-revision retrain (with the 19c-OOD guard), which is out of a reuse-only,
 byte-safe scope and should be its own build problem.
 
+## (G) THE TRULY BRAIN-FOUNDATIONAL PARSER: why it is TRAINED, and a self-supervised implementation (owner escalation)
+Owner challenge: "why is it trained? does the brain use a trained parser?" Both live parsers (batch + arc-eager)
+are SUPERVISED-trained on gold UD trees. The brain does NOT learn syntax from gold trees (there are none in a
+child's input); it learns SELF-SUPERVISED from PREDICTION (research drill, notes/research_self_supervised_
+predictive_parser_2026-09-02.md: Saffran/Aslin/Newport 1996; Tomasello 2003; Rao-Ballard 1999; Hale/Levy; and
+Fedorenko 2020 / Schrimpf 2021 -- no separate "parser" module, structure is emergent from a predictive model
+integrated with meaning).
+
+TASK 1 -- confidence-gated HYBRID of the two parsers = LOCATED NEGATIVE (exp_parser_confidence_hybrid_v1).
+No confidence rule beats arc-eager (best hybrid 0.8053 = arc-eager; z-conf 0.796 HURTS; reliability-calibrated
+0.8046 ties). The per-attachment confidences are not reliably complementary. AND the framing was wrong: an
+ensemble of two separately-trained parsers arbitrated post-hoc is NOT the Competition Model (which integrates
+CUES within ONE process) -- it is an engineering combiner. Oracle-union ceiling 0.854 exists but is unreachable
+by confidence -> the answer is one better model (task 2), not a combiner.
+
+TASK 2 -- self-supervised predictive parser, IMPLEMENTED (exp_predictive_selfsup_parser_v1 + exp_dmv_selfsup_
+parser_v1). A naive predictive-PMI "attach to your best predictor" inducer FAILS (0.22-0.28, BELOW the adjacency
+floor 0.30) -- because self-supervised prediction ALONE converges on a linear-order shortcut (Yedetore 2023).
+The research's prescription (generative model + UNIVERSAL STRUCTURAL PRIOR + EM + graded inference) built as a
+glass-box DMV (Klein-Manning 2004) + universal head->dep POS prior (Naseem 2010) + hard-EM + projective Eisner
+INDUCES REAL STRUCTURE with NO gold trees: UAS 0.385-0.398 vs adjacency floor ~0.30 (+0.08-0.09), Eisner
+self-test passes, and the ablation proves BOTH ingredients load-bearing (no-prior EM-only 0.35-0.37; prior-only
+no-EM 0.32-0.35). HONEST: my reduced DMV plateaus ~0.38-0.40 (no valence/stop model, POS-only, no lexicalization);
+a fully-tuned self-supervised DMV reaches ~0.55-0.65 (Spitkovsky; Naseem); BOTH are far below the supervised 0.84.
+
+WHAT THIS ESTABLISHES.
+  * The brain-faithful ACQUISITION signal (self-supervised prediction + universal structural bias) is REAL and
+    buildable glass-box, and induces genuine dependency structure with zero gold trees.
+  * It trades accuracy (~0.38-0.65 vs 0.84). Supervised-on-gold-trees is a SHORTCUT that wins on limited data by
+    injecting structure the learner cannot yet discover. Its cost is register-OOD (a modern-trained parser loses
+    on 19c -- measured by improve_the_parser); the self-supervised learner needs NO gold trees so it trains on
+    19c+modern directly, sidestepping OOD.
+  * PINNED (research): self-supervised prediction ALONE is a FLOOR, not a ceiling. The brain's ceiling comes from
+    SEMANTIC/GROUNDED bootstrapping (Pinker/Gleitman) and there is NO separate parser module -- structure is
+    emergent from a predictive generative model INTEGRATED WITH MEANING. So the truly ideal parser is inseparable
+    from the situation/meaning model -- the project's grounding thesis. A parser optimized in isolation cannot be
+    ideal.
+  * UPSTREAM (owner "upstream as well if needed"): the POS tagger is ALSO gold-trained; the DMV leans on gold
+    POS. A FULLY self-supervised chain induces categories too (distributional clustering, Saffran 1996; frequent
+    frames, Mintz 2003) -- the next upstream step, flagged not closed.
+
+RECOMMENDATION (philosophy fork -- owner's call): (a) ship the supervised arc-eager as a best-performing offline
+FOUNDATION asset (admissible; keep the runtime inference brain-faithful/graded) as the interim; (b) pursue the
+self-supervised + MEANING-bootstrapped predictive parser as the north-star research program that closes the gap
+the brain's way and is register-general. I lean (b) north-star / (a) interim. This whole parser arc merits its
+own problem folder; it exceeded the arc-labeler scope on owner instruction and is recorded here for handoff.
+
 ## Proposed hdlab/ diff (strategy lands, Q111)
 Add `_FastLabelPlan` to `hdlab/arc_labeler.py` (the class body of `experiments/exp_arc_labeler_fastpath_v1.py::
 FastLabelPlan`, verbatim). Add `ArcLabeler._ensure_fast(self)` that lazily builds `self._fast_plan =
