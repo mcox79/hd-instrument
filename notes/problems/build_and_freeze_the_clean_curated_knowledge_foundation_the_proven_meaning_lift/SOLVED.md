@@ -5,7 +5,7 @@ bar: "PASS = a clean curated knowledge foundation, BUILT + VERIFIED + FROZEN as 
 result: "The FROZEN static asset (117,614 WordNet synsets, one 200-d mean-w2v unit signature each, float16, 44MB) delivers a_s 0.2512 -> 0.3267 = +0.0755 CI-separated [0.0557, 0.0957] (ci_hw 0.020, null_p95 0.0194) through the LIVE hdlab.diagnostic_context_wsd readout, on strict document-disjoint SemCor subordinate senses (odd-doc test, n=2675). Freeze->reload is byte-exact (delta 0.0). Determinism fixed + witnessed. The store also emits a multi-index foundation MANIFEST (7 spokes) and an intrinsic-quality transform + a gap-analysis acquisition backlog."
 floor: "gloss-only (WordNet definition+examples+lemma-names+hypernyms), a_s = 0.2512 (recomputed on the SAME odd-doc subordinate test population, n=2675). Second floor: the info-free SHUFFLED-knowledge twin a_s = 0.2015 (curated associates permuted onto the WRONG senses)."
 controls: "(1) SHUFFLED-knowledge info-free twin LOSES CI-sep (frozen 0.3267 vs shuffled 0.2015, +0.1252) -> it is the CORRECT curated knowledge, not 'more words'. (2) MFS no-regression on the FULL all-sense population (blended-frozen 0.6890 >= MFS 0.6834, n=8774) -> does not hurt the dominant cases. (3) FREEZE-FIDELITY (frozen==on-the-fly, delta 0.0) -> the static asset delivers exactly what the live build does. (4) DETERMINISM (byte-identical signatures across PYTHONHASHSEED 0/1/2 after the sorted-then-capped fix) -> excludes 'the number was a hash-order artifact' (the parent's un-sorted hyponyms()[:8] WAS hash-dependent). (5) REPRESENTATION test: all-but-the-top (Mu-Viswanath) HURTS the readout monotonically (0.319->0.210) and IDF pre-pooling is neutral -> excludes 'a post-hoc transform recovers the ceiling'; VERDICT DATA-GAP. (6) TRIMMING: schema-margin, sibling-confusion, and incoherence anomaly trims ALL fail to beat keep-all on held-out -> excludes 'the curated store has prunable overlap that helps a_s'. Each control excludes a distinct rival. Paired bootstrap CI half-width + sign-flip null p95 on every contrast."
-files_changed: "experiments/exp_knowledge_factory_meaning_store_v1.py (adapter->trim->freeze->reload->validate + optimize + full-WordNet freeze), experiments/exp_knowledge_factory_intrinsic_trim_v1.py (intrinsic quality transform + anomaly trim), experiments/exp_knowledge_factory_repr_optimize_v1.py (decisive all-but-the-top / SIF representation test), experiments/exp_knowledge_factory_gap_analysis_v1.py (the 'what to learn' acquisition backlog), experiments/exp_knowledge_factory_grow_loop_v1.py (the multi-round ingest->prune->climb->freeze grow loop), verification/test_knowledge_factory_meaning_store.py (scaffold-free witness 6/6), verification/test_knowledge_factory_grow_loop.py (grow-mechanism witness), data/frontend_assets/meaning_sense_signatures_v1.npz (FROZEN C1 foundation, 117,614 synsets), data/frontend_assets/associative_similarity_store_v1.npz (FROZEN C1b reading-grown associative store), data/frontend_assets/knowledge_foundation_manifest.json (the multi-index hub-and-spoke registry, 8 spokes), notes/problems/<slug>/REMOTE_RUN_REQUEST_exp_knowledge_factory_grow_loop_v1.md, data/exp_knowledge_factory_*/metrics_*.json"
+files_changed: "experiments/exp_knowledge_factory_meaning_store_v1.py (adapter->trim->freeze->reload->validate + optimize + full-WordNet freeze), experiments/exp_knowledge_factory_intrinsic_trim_v1.py (intrinsic quality transform + anomaly trim), experiments/exp_knowledge_factory_repr_optimize_v1.py (decisive all-but-the-top / SIF representation test), experiments/exp_knowledge_factory_gap_analysis_v1.py (the 'what to learn' acquisition backlog), experiments/exp_knowledge_factory_grow_loop_v1.py (the multi-round ingest->prune->climb->freeze grow loop), experiments/exp_knowledge_factory_targeted_acq_v1.py (targeted disambiguate-then-bind acquisition), experiments/exp_knowledge_factory_signal_loss_drill_v1.py (the resolution-isolation drill: oracle/plain/additive bootstrap), verification/test_knowledge_factory_meaning_store.py (scaffold-free witness 6/6), verification/test_knowledge_factory_grow_loop.py (grow-mechanism witness), verification/test_knowledge_factory_learner_ready.py (ingest/learn/trim/gate live-readiness witness 4/4), data/frontend_assets/meaning_sense_signatures_v1.npz (FROZEN C1 foundation, 117,614 synsets), data/frontend_assets/associative_similarity_store_v1.npz (FROZEN C1b reading-grown associative store), data/frontend_assets/knowledge_foundation_manifest.json (the multi-index hub-and-spoke registry, 8 spokes), notes/problems/<slug>/REMOTE_RUN_REQUEST_exp_knowledge_factory_grow_loop_v1.md, data/exp_knowledge_factory_*/metrics_*.json"
 reverify: ".venv/Scripts/python.exe verification/test_knowledge_factory_meaning_store.py"
 ---
 
@@ -102,6 +102,34 @@ only 5 gloss-only synsets (coverage is fine -- the gap is DISCRIMINABILITY), and
 with 2,010/2,675 decisions near-ties. This is the active-learning target set for step-2: the learner reads for THESE
 pairs instead of everything, admitted through the gate. Brain: prediction-error/novelty/curiosity direct WHERE to
 learn (faithful); the global offline gap-MAP is a super-brain offline-build convenience.
+
+## SIGNAL-LOSS DRILL -- WHERE meaning-KB growth loses signal, isolated + quantified (owner: "the brain does this, so can we")
+
+The targeted-acquisition located negative was DRILLED to its exact mechanism (`exp_knowledge_factory_signal_loss_drill_v1`,
+collapsed pairs, acquire from doc-disjoint even docs, test odd subordinate n=568):
+
+| arm | resolution acc | collapsed-pair a_s | what it isolates |
+|---|---|---|---|
+| frozen | 0.328 (chance 0.10) | 0.2575 | baseline |
+| plain bootstrap (argmax) | 0.37 -> 0.29 (DRIFTS to dominant) | 0.2099 (-0.048) | naive propose-verify fails |
+| **additive prior-override bootstrap** | **0.61 -> 0.60 (stable, ~2x)** | 0.2451 (-0.012, ~break-even) | prior-override recovers HALF |
+| ORACLE (perfect resolution) | 1.00 | **0.3333 (+0.076 CI-sep)** | the representation is ADEQUATE |
+
+**ISOLATION (mechanism-complete):** the loss is ACQUISITION-TIME RESOLUTION, not the representation. ORACLE
+resolution recovers +0.076 CI-sep -> mean-pooling correctly-resolved context onto the static prototype DOES encode
+the distinction (this REVERSES the earlier "representational ceiling" read -- that was about post-hoc readout
+geometry). The missing mechanism is PRIOR-OVERRIDE: plain argmax on the collapsed signatures drifts to the dominant
+sense (0.37->0.29) and the bootstrap amplifies it (rich-get-richer). Swapping in the LANDED brain-faithful ADDITIVE
+reordered-access resolver (`hdlab.semantic_control.additive_reordered_read`: score=log(freq prior)+gamma*reliability*
+relu(z(context)); Duffy/Morris/Rayner -- dominant anchored by frequency, context only ADDS to a subordinate)
+~DOUBLES resolution accuracy (0.33->0.60, stable) and nearly erases the regression (-0.048->-0.012). **THE RESIDUAL
+is quantified:** acquisition net-helps only above a resolution-accuracy threshold (0.60 = break-even, 1.0 = +0.076);
+the 0.60->1.0 stretch is the CONTEXTUAL TOKEN REPRESENTATION (the brain recomputes the token in context to resolve
+confidently; we resolve against a static sense-conflated vector). That last stretch = the invariant-boundary
+contextual encoder / online predictive reader (the meaning-channel north star, an OWNER decision -- not faked
+glass-box). ITEMIZED brain-diff: (1) representation capacity ADEQUATE; (2) prior-override WAS MISSING, now supplied
+glass-box (+half); (3) contextual token representation STILL STATIC, caps resolution ~0.60 glass-box. A 30-min
+deepening cron continues squeezing the residual (reliability gating, PPR resolver, Zipf balance).
 
 ## STEP-2 GROWTH DEMONSTRATED -- ingest a corpus -> PRUNE -> clear improvement -> iterate -> freeze -> hand off
 
