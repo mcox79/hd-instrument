@@ -908,7 +908,10 @@ def _shuffled_cue_dim(seed: int) -> Dict[str, str]:
 def run(docs: List[str], seed: int = 20260830, capable: bool = True,
         with_state: bool = True, state_cap: Optional[int] = None,
         with_goal: bool = True, goal_cap: Optional[int] = None,
-        with_affect: bool = True, affect_cap: Optional[int] = None) -> dict:
+        with_affect: bool = True, affect_cap: Optional[int] = None,
+        with_patient: bool = True, patient_cap: Optional[int] = None,
+        with_goal_hierarchy: bool = True,
+        with_wic: bool = True, wic_mode: str = "full") -> dict:
     """Score QA over the SituationModel per dimension vs floors + twin. `capable=True` (DEFAULT) scores
     the CAPABLE reader (build_reader) -- the correct baseline: extraction dimensions ON, temporal read off
     sm.timeline_order. `capable=False` reproduces the historical default-reader run for comparison.
@@ -1038,6 +1041,42 @@ def run(docs: List[str], seed: int = 20260830, capable: bool = True,
         except Exception as e:
             res["per_dimension"]["affect"] = None
             res["affect_qa_detail"] = {"error": f"{type(e).__name__}: {e}"}
+    if with_patient:
+        # PATIENT-slot who-did-what board arm (Step 0a): the LANDED structural_patient_pick on CLEAN UD-EWT gold
+        # (the LitBank patient/object gold is oblique-confounded/INVALID). Additive -- makes the live +0.086 patient
+        # gain visible (build_events_questions is agent-only). Its own witness: test_board_patient_slot_arm.py 6/6.
+        try:
+            from experiments.exp_board_patient_slot_v1 import board_patient_dimension
+            prow, pdetail = board_patient_dimension(cap=patient_cap)
+            res["per_dimension"]["patient"] = prow
+            res["patient_qa_detail"] = pdetail
+        except Exception as e:
+            res["per_dimension"]["patient"] = None
+            res["patient_qa_detail"] = {"error": f"{type(e).__name__}: {e}"}
+    if with_goal_hierarchy:
+        # GOAL-HIERARCHY multi-hop board arm (Step 0b): graph.superordinate (multi-hop) vs the flat immediate-purpose
+        # floor on the authored plot battery. Additive -- makes the goal-graph organ + the means-end edge visible
+        # (the live goal-why arm is only ~4% multi-hop). Its own witness: test_board_new_arms.py.
+        try:
+            from experiments.exp_board_goal_hierarchy_v1 import board_goal_hierarchy_dimension
+            ghrow, ghdetail = board_goal_hierarchy_dimension(seed=seed)
+            res["per_dimension"]["goal_hierarchy"] = ghrow
+            res["goal_hierarchy_qa_detail"] = ghdetail
+        except Exception as e:
+            res["per_dimension"]["goal_hierarchy"] = None
+            res["goal_hierarchy_qa_detail"] = {"error": f"{type(e).__name__}: {e}"}
+    if with_wic:
+        # WiC / SENSE-DISCRIMINATION board arm (Step 0c): curated taxonomic signatures + shared-core coarsening vs
+        # the LIVE PPR select_sense reader. Additive -- PUTS THE MEANING CHANNEL ON THE BOARD (no meaning dim existed;
+        # select_sense is islanded). Its own witness: test_board_new_arms.py. wic_mode="smoke" for a fast self-test.
+        try:
+            from experiments.exp_board_wic_sense_v1 import board_wic_dimension
+            wrow, wdetail = board_wic_dimension(mode=wic_mode)
+            res["per_dimension"]["wic"] = wrow
+            res["wic_qa_detail"] = wdetail
+        except Exception as e:
+            res["per_dimension"]["wic"] = None
+            res["wic_qa_detail"] = {"error": f"{type(e).__name__}: {e}"}
     res["reader_config"] = {
         "capable": bool(capable),
         "flags": ("tense_agnostic_events+preserve_tense+timeline_register+bind_entity_states" if capable else "default(off)"),
@@ -1668,7 +1707,8 @@ def _selftest() -> dict:
     assert route("Where is John ?") == "location" and route("What does Mary believe ?") == "belief"
     assert wh_ontology_route("What is Ahab ?") == "state"
     docs = load_docs(2)
-    res = run(docs, state_cap=150)   # capable=True; small state_cap keeps the self-test fast
+    # capable=True; small state_cap + the 3 new arms OFF (they have their own witnesses + load UD/WordNet) keep the self-test fast
+    res = run(docs, state_cap=150, with_patient=False, with_goal_hierarchy=False, with_wic=False)
     assert res["aggregate"]["n"] >= 1, res
     assert res["per_dimension"].get("coref", {}).get("n", 0) >= 1, res["per_dimension"]
     td = res["per_dimension"].get("temporal")
