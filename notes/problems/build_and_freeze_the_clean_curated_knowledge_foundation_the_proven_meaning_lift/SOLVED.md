@@ -5,9 +5,55 @@ bar: "PASS = a clean curated knowledge foundation, BUILT + VERIFIED + FROZEN as 
 result: "The FROZEN static asset (117,614 WordNet synsets, one 200-d mean-w2v unit signature each, float16, 44MB) delivers a_s 0.2512 -> 0.3267 = +0.0755 CI-separated [0.0557, 0.0957] (ci_hw 0.020, null_p95 0.0194) through the LIVE hdlab.diagnostic_context_wsd readout, on strict document-disjoint SemCor subordinate senses (odd-doc test, n=2675). Freeze->reload is byte-exact (delta 0.0). Determinism fixed + witnessed. The store also emits a multi-index foundation MANIFEST (7 spokes) and an intrinsic-quality transform + a gap-analysis acquisition backlog."
 floor: "gloss-only (WordNet definition+examples+lemma-names+hypernyms), a_s = 0.2512 (recomputed on the SAME odd-doc subordinate test population, n=2675). Second floor: the info-free SHUFFLED-knowledge twin a_s = 0.2015 (curated associates permuted onto the WRONG senses)."
 controls: "(1) SHUFFLED-knowledge info-free twin LOSES CI-sep (frozen 0.3267 vs shuffled 0.2015, +0.1252) -> it is the CORRECT curated knowledge, not 'more words'. (2) MFS no-regression on the FULL all-sense population (blended-frozen 0.6890 >= MFS 0.6834, n=8774) -> does not hurt the dominant cases. (3) FREEZE-FIDELITY (frozen==on-the-fly, delta 0.0) -> the static asset delivers exactly what the live build does. (4) DETERMINISM (byte-identical signatures across PYTHONHASHSEED 0/1/2 after the sorted-then-capped fix) -> excludes 'the number was a hash-order artifact' (the parent's un-sorted hyponyms()[:8] WAS hash-dependent). (5) REPRESENTATION test: all-but-the-top (Mu-Viswanath) HURTS the readout monotonically (0.319->0.210) and IDF pre-pooling is neutral -> excludes 'a post-hoc transform recovers the ceiling'; VERDICT DATA-GAP. (6) TRIMMING: schema-margin, sibling-confusion, and incoherence anomaly trims ALL fail to beat keep-all on held-out -> excludes 'the curated store has prunable overlap that helps a_s'. Each control excludes a distinct rival. Paired bootstrap CI half-width + sign-flip null p95 on every contrast."
-files_changed: "experiments/exp_knowledge_factory_meaning_store_v1.py (adapter->trim->freeze->reload->validate + optimize + full-WordNet freeze), experiments/exp_knowledge_factory_intrinsic_trim_v1.py (intrinsic quality transform + anomaly trim), experiments/exp_knowledge_factory_repr_optimize_v1.py (decisive all-but-the-top / SIF representation test), experiments/exp_knowledge_factory_gap_analysis_v1.py (the 'what to learn' acquisition backlog), experiments/exp_knowledge_factory_grow_loop_v1.py (the multi-round ingest->prune->climb->freeze grow loop), experiments/exp_knowledge_factory_targeted_acq_v1.py (targeted disambiguate-then-bind acquisition), experiments/exp_knowledge_factory_signal_loss_drill_v1.py (the resolution-isolation drill: oracle/plain/additive bootstrap), experiments/exp_knowledge_factory_consumer_growth_v1.py (original-hub -> grown -> pruned consumer-scoring + prune contenders + per-consumer ideal-prune), experiments/exp_knowledge_factory_consumer_usage_tweak_v1.py (AvgSim->MaxSim usage tweak for composed_hub_predictor, +0.065 CI-sep), verification/test_knowledge_factory_consumer_usage_tweak.py (usage-tweak witness 3/3), verification/test_knowledge_factory_meaning_store.py (scaffold-free witness 6/6), verification/test_knowledge_factory_grow_loop.py (grow-mechanism witness), verification/test_knowledge_factory_learner_ready.py (ingest/learn/trim/gate live-readiness witness 4/4), verification/test_knowledge_factory_consumers_benefit.py (consumers-only-benefit + fix witness 3/3), data/frontend_assets/meaning_sense_signatures_v1.npz (FROZEN C1 foundation, 117,614 synsets), data/frontend_assets/associative_similarity_store_v1.npz (FROZEN C1b reading-grown associative store), data/frontend_assets/knowledge_foundation_manifest.json (the multi-index hub-and-spoke registry, 8 spokes), notes/problems/<slug>/REMOTE_RUN_REQUEST_exp_knowledge_factory_grow_loop_v1.md, data/exp_knowledge_factory_*/metrics_*.json"
-reverify: ".venv/Scripts/python.exe verification/test_knowledge_factory_meaning_store.py"
+files_changed: "experiments/exp_knowledge_factory_meaning_store_v1.py (adapter->trim->freeze->reload->validate + optimize + full-WordNet freeze), experiments/exp_knowledge_factory_intrinsic_trim_v1.py (intrinsic quality transform + anomaly trim), experiments/exp_knowledge_factory_repr_optimize_v1.py (decisive all-but-the-top / SIF representation test), experiments/exp_knowledge_factory_gap_analysis_v1.py (the 'what to learn' acquisition backlog), experiments/exp_knowledge_factory_grow_loop_v1.py (the multi-round ingest->prune->climb->freeze grow loop), experiments/exp_knowledge_factory_targeted_acq_v1.py (targeted disambiguate-then-bind acquisition), experiments/exp_knowledge_factory_signal_loss_drill_v1.py (the resolution-isolation drill: oracle/plain/additive bootstrap), experiments/exp_knowledge_factory_consumer_growth_v1.py (original-hub -> grown -> pruned consumer-scoring + prune contenders + per-consumer ideal-prune), experiments/exp_knowledge_factory_consumer_usage_tweak_v1.py (AvgSim->MaxSim usage tweak for composed_hub_predictor, +0.065 CI-sep), verification/test_knowledge_factory_consumer_usage_tweak.py (usage-tweak witness 3/3), verification/test_knowledge_factory_meaning_store.py (scaffold-free witness 6/6), verification/test_knowledge_factory_grow_loop.py (grow-mechanism witness), verification/test_knowledge_factory_learner_ready.py (ingest/learn/trim/gate live-readiness witness 4/4), verification/test_knowledge_factory_consumers_benefit.py (consumers-only-benefit + fix witness 3/3), data/frontend_assets/meaning_sense_signatures_v1.npz (FROZEN C1 foundation, 117,614 synsets), data/frontend_assets/associative_similarity_store_v1.npz (FROZEN C1b reading-grown associative store), data/frontend_assets/knowledge_foundation_manifest.json (the multi-index hub-and-spoke registry, 8 spokes), notes/problems/<slug>/REMOTE_RUN_REQUEST_exp_knowledge_factory_grow_loop_v1.md, data/exp_knowledge_factory_*/metrics_*.json, experiments/exp_knowledge_factory_consumer_usage_tweak_v1.py + verification/test_knowledge_factory_consumer_usage_tweak.py (AvgSim->MaxSim), verification/test_knowledge_factory_consumers_benefit.py + test_knowledge_factory_learner_ready.py, data/corpora/{textbook_university_physics,textbook_calculus,textbook_algebra,textbook_astronomy,textbook_philosophy,textbook_neuroscience} (6 OpenStax textbooks fetched+cleaned this session) + data/corpora/openstax_common/clean_book_generic.py"
+reverify: ".venv/Scripts/python.exe verification/test_knowledge_factory_meaning_store.py  (C1 6/6; also: test_knowledge_factory_learner_ready.py 4/4, test_knowledge_factory_consumer_usage_tweak.py 3/3)"
 ---
+
+## SUBMISSION SUMMARY + READINESS (read first)
+
+**WHAT THIS DELIVERS.** The clean curated knowledge foundation, BUILT + FROZEN + VALIDATED, plus the machinery to
+grow/prune/consult it and measured consumer optimizations. TWO frozen static assets + a growth engine:
+
+| asset | what | measured | witness |
+|---|---|---|---|
+| **C1 meaning** `meaning_sense_signatures_v1.npz` | 117,614 WordNet synsets, per-sense signatures | rare-sense WSD a_s 0.2512 -> 0.3267 (**+0.0755 CI-sep**) | 6/6 |
+| **C1b associative** `associative_similarity_store_v1.npz` | **80,002 words**, reading-grown over **40M BROAD multi-domain tokens** | SimLex 0.166 (live hub) -> **0.264 (+0.098)**; WordSim 0.604 | 4/4 |
+| **ingest->prune->learn machinery** | `consolidation_gate` (admit) + `cls_growth` (keep-both/rollback) | ADMITS good growth, REJECTS harmful, reversible, deterministic | 4/4 |
+| **usage optimization** | `composed_hub_predictor` AvgSim->MaxSim exemplar | which-argument **+0.065 CI-sep** | 3/3 |
+
+DOMAIN COVERAGE (C1b): encyclopedic, general science, life-science, chemistry, PHYSICS, MATH (calculus+algebra),
+astronomy, NEUROSCIENCE, psychology, PHILOSOPHY, fiction, drama, graded readers, news (6 OpenStax textbooks fetched +
+cleaned this session). GAP: materials science (no OpenStax source).
+
+**IS IT READY TO BE THE LIVE PRIMARY KB?** The KNOWLEDGE (both frozen stores + the machinery) is READY and validated
+-- superior to the current live hub (`hub_ppmi_svd_200d`, 15k words, SimLex 0.166) on every axis. What is NOT done is
+the WIRING: the frozen stores have NO live read()-time consumers yet. C1 (meaning) is blocked on the
+`reader_meaning_channel` read()-stage (the reader consults no meaning store today); C1b (the distributional store)
+has ONE consumer, `composed_hub_predictor`, which is BUILT but not CALLED by the live reader. So the
++0.0755 / +0.098 / +0.065 gains are PROVEN ON THE INSTRUMENT but LATENT on read() until wired. Strategy owns the
+wire (Q111, hdlab writes).
+
+**TO TURN IT ON (ranked, actionable -- strategy lands):**
+1. Rebuild `composed_hub_predictor`'s store on the NEW 80k C1b vectors + adopt the MaxSim usage tweak; measure
+   which-argument vs the current (15k hub + AvgSim); wire into the live who-did-what path if net-positive. **THE
+   readiest live gain -- and the one still-unmeasured step is combining the bigger store + the better usage on the
+   live task (store growth +0.098 and usage +0.065 were measured separately).**
+2. Ship C1b as the reader's default distributional store (replace `hub_ppmi_svd_200d`: 15k -> 80k words).
+3. Add a read()-time WSD stage consuming C1 (the `reader_meaning_channel` dependency) -> the +0.0755 goes live.
+
+**STEPS TO IMPROVE (ranked):**
+1. Meaning-KB resolution residual: the additive prior-override resolver closes HALF glass-box (acquisition resolution
+   0.33->0.60, regression -0.048->-0.012); the rest (0.60->1.0) needs a CONTEXTUAL reader = the invariant-boundary
+   OWNER DECISION (no glass-box shortcut -- proven).
+2. Per-consumer prune PROJECTIONS: top-k for strict-similarity consumers, recurrence-floor for relatedness (measured:
+   consumers disagree on the ideal prune) -- one store, consumer-specific projections.
+3. Materials-science coverage (Wikipedia / other open text) + re-freeze -- the one domain gap.
+4. Step-2 ONLINE propose-and-verify learner (grow-experience on top of the frozen foundation, gated) -- keep only if
+   it beats the frozen store.
+
+**NEXT EXPERIMENTS:** (a) [#1 above] the `composed_hub_predictor` rebuild-on-80k + wire measurement (the definitive
+"does the better KB + better usage help the live consumer"); (b) the contextual-reader owner decision for the meaning
+residual; (c) step-2 online learner.
 
 ## What was asked, and what the disk says
 
