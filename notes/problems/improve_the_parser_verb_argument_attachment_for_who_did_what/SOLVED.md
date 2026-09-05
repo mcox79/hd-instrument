@@ -317,18 +317,46 @@ in 100 to about 83 in 100 -- closing half the gap to a perfect-grammar ceiling -
 off because it hurt old-text reading) SAFE to use again. The bigger lesson for the owner's "replace the whole
 parser" question: the payoff is almost entirely in HOW we read the grammar (labels + voice + what-the-verb-
 expects + confidence), not in building a fancier grammar-reader -- and two of those signals were being computed
-and thrown away.
+and thrown away. I then researched and built the FULL ideal version -- the brain's actual design, where fixed
+grammar RULES decide what's even possible and the statistical parser only picks among the allowed options -- and
+tested it on modern, 19th-century, and pure-nonsense-word sentences. It generalizes the best of everything tried
+(it does not fall apart on unfamiliar styles). For "who was acted on" the ideal reader turns out to equal the
+read-out fix above (already the best), so that is what we ship; the extra rule-based machinery earns its keep on
+"who DID it" in tangled multi-clause sentences, which is a neighbouring problem we hand it to.
 
 ### QUESTIONS
 None. (The win is on the brief's mandated clean instrument, info-free twins all lose, and the 19c/QA-instrument
 confounds are documented, not worked around.)
 
-### NEXT STEPS
-1. **Land the three Q111 diffs (section 6), in order:** precise voice (1-line), labeled+valency readout, then
-   re-measure `parser_arceager` end-to-end (now register-safe for the patient).
-2. **File a patient-QA on clean gold** -- the live who-did-what QA is agent-only, so patient gains are invisible
-   end-to-end. This is a measurement gap, not a mechanism gap.
-3. **The remaining HEAD lever is `obl`/PP attachment (0.69 -> 1.0 gold)** for the SPACE/PP consumers -- a
-   candidate follow-on (its QA is currently saturated, so it needs an instrument first).
-4. **Labeled `nsubj` cue into the Competition-Model AGENT** is the sibling `the_agent_tie_wall...` problem's
-   scope; the graded `verb_subcat` presence gate (built, unwired, WIRING DEBT 2) is a separate wire.
+### NEXT STEPS (further improvement -- ordered; the architecture to build ON is the two-tier ideal reader)
+
+**SHIP NOW (this problem -- the patient reader is complete + generalizing):**
+1. **Land the three Q111 diffs (section 6), in order:** (a) precise voice (1-line: `precise_passive` for the
+   patient path), (b) the labeled-obj + valency readout `structural_patient_pick` (the R_final reader -- this IS
+   the ideal patient reader; the legality gate is dormant so ship it UNGATED, per sec 5d), (c) then flip
+   `parser_arceager` default-ON (now register-safe under this readout). Net: live patient 0.745 -> 0.831, register-
+   general (cross-register spread 0.061), no-regress.
+2. **Fix the measurement gap: add a PATIENT-slot QA on clean gold.** The live who-did-what QA is AGENT-only, so
+   the +0.086 patient gain is invisible end-to-end -- future patient work cannot be seen until this exists.
+
+**THE ONE HIGH-VALUE FURTHER-IMPROVEMENT LEVER (owned by the agent/OOD problem, mechanism handed off):**
+3. **A more precise register-invariant CLAUSE SEGMENTER (Stage 0 of the ideal reader).** This is the single lever
+   that would push further, and it is now precisely located: the categorical backbone attaches perfectly on clean
+   structure (Jabberwocky agent 0.97) but drops to ~0.84 on real messy prose because clause segmentation on real
+   text (no punctuation, complex coordination/apposition) is imprecise. A better segmenter would (a) lift the
+   AGENT backbone toward its 0.97 structural ceiling on real prose -- the biggest remaining who-did-what gain
+   (agent gold ceiling 0.97 vs live ~0.86), and (b) activate the ideal reader's legality tier as a genuine
+   register-safety net on harder-OOD. **This belongs to `the_agent_tie_wall_is_embedded_clauses...` (the embedded-
+   clause agent tie IS a clause-segmentation problem); the validated categorical backbone + Jabberwocky battery
+   (`exp_categorical_backbone_parser_v1.py`) are handed to it as the ready mechanism.** NOT a patient-problem lever
+   (patient is already register-safe).
+
+**LOWER-VALUE / SEPARATE:**
+4. **`obl`/PP attachment (0.69 -> 1.0 gold)** for the SPACE consumers -- head-attachment bound (same wall);
+   labeling HURTS it (sec 4). Needs a non-saturated obl instrument first.
+5. **The graded `verb_subcat` presence gate** (built, unwired, WIRING DEBT 2) -- a strategy-side wire for the
+   PRESENCE half of who-did-what, not this identity problem.
+6. **Online-local frequency tie-break (Fine et al. 2013)** -- the research note's Stage 6: a per-document,
+   incrementally-re-estimated tie-break (NOT a frozen corpus prior) for residual ambiguity the categorical layer
+   leaves open. Deferred: residual ambiguity after legality+preference is small on the patient; build only if a
+   consumer needs it.

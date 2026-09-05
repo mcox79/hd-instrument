@@ -11,6 +11,35 @@ reverify: ".venv/Scripts/python.exe verification/test_rare_sense_episodic_covera
 
 # Rare-sense meaning channel: the tail is the HIPPOCAMPAL-EPISODIC regime; coverage grows; the wall is the input representation
 
+## >>> THE WINNER (THE LANDABLE DELIVERABLE) + NEXT OPTIMIZATION STEPS -- READ FIRST <<<
+**THE WINNER = the IDEAL readout: Bayesian log-prior + precision-weighted context** (`argmax(log P(sense) +
+w*precision_context)`, frequency as a DECAYING RESTING BIAS not an additive vote; the brain's frequency-modulated
+competition, MacDonald/McRae, linearized). Dev-selected (gamma=2.0, top-k=0, w=5.0 on EVEN docs), reported on ODD test:
+**rare-sense a_s 0.316 (wired) -> 0.387, +0.065-0.072 CI-separated**, coarse 0.49 -> 0.57, shuffled-context twin LOSES,
+strict PARETO win over the wired readout (all-pop 0.456 -> 0.629). **GENERALIZES with FROZEN weights, 6/6 CI-sep**
+(NOUN +0.052, VERB +0.047, high-freq +0.059, low-freq +0.041, fresh mod-3 doc split +0.037). Bigger than P9's
+precision-weighting (+0.023) and STACKS with it. Two clarifying findings behind it: the episodic memory (STAGE 0-3, a
+proven better mechanism) is REDUNDANT over this readout (both read the same frozen input -> the readout IS the glass-box
+ceiling); and at the brain's own grain, polysemy is near-solved (coarse 0.848) and homonymy is the real residual.
+
+**THE BAR's OWN VERDICT (separate from the winner): a full-pass LOCATED NEGATIVE** -- online coverage growth does not
+robustly cross the fine-grained bar even fully brain-faithful, because the residual is the FROZEN INPUT REPRESENTATION
+(the §2 invariant boundary), triangulated 4 ways and disk-exhausted. Status PARTIAL = the real landable readout win +
+the rigorous located negative that makes §2 the decision.
+
+**NEXT STEPS FOR OPTIMIZATION (clear, ranked):**
+1. **LAND the winner** (verdict-independent, immediate): add `sense_prior` + `prior_weight` to `hdlab/diagnostic_context_wsd`
+   (default prior_weight=0 = byte-identical); combine in log-space with the precision-weighted context. Dev-select w on a
+   held-out split; do NOT test-tune. +0.065-0.072 on the rare tail, generalizing, MFS-safe.
+2. **CROSS-CORPUS generalization** (the one untested axis): adapt the readout to WiC / a modern SemEval all-words
+   benchmark and apply the frozen weights (zero re-tune). Confirms the win is not SemCor-inventory-specific.
+3. **§2 INPUT-REPRESENTATION DECISION** (the residual ceiling): the readout is now the glass-box ceiling. The ONLY path
+   past it is a richer per-occurrence input -- a contextual encoder (the invariant boundary). If relaxed, the shelf-ready
+   CLS episodic store + coverage-growth machinery becomes NON-redundant (it read the same thin input; a richer input
+   makes its extra signal real).
+4. **ADOPT the brain-faithful GRAIN**: score the meaning channel at the coarse/polysemy-merged grain (fine understates
+   comprehension by ~0.18 and has no neural grounding); keep fine only for the homonymy subset.
+
 ## >>> THE ANSWER IN ONE PARAGRAPH <<<
 P9 concluded "even a perfect resolver doesn't help rare senses -- too few instances to consolidate." That was a fact
 about **prototype-averaging** (the neocortical memory system) applied to the Zipf-thin tail -- **the wrong memory

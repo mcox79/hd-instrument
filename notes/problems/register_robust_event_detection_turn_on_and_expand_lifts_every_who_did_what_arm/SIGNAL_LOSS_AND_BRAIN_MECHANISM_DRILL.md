@@ -163,6 +163,36 @@ parser" line over-unified; the causal loss is the counterexample.
   primary verification.
 - **HOLDER-vs-AGENT circuit identity** is genuinely untested.
 
+## 6. THE IDEAL BRAIN-FOUNDATIONAL SOLUTION — specified, prototyped, and generalization-tested (owner push 2026-09-05)
+The full ideal who-did-what reader has FOUR organs, each replacing one of the four divergences above. I built the
+two that are new + in-scope and tested them on the 16 board docs AND 40 DISJOINT held-out docs. **Both new organs
+are LOCATED NEGATIVES that do not generalize — and that is the finding: the ideal solution's remaining gains are
+GATED by two upstream dependencies, not buildable as standalone glass-box organs.**
+
+| ideal organ | replaces divergence | status | measured |
+|---|---|---|---|
+| **1. joint graded decoder** (tag+parse, no argmax commit) | COMMIT / SERIAL | FILED (`upgrade_the_pos_tagger...`) | not rebuilt; the drill gives it a precise triple-sourced motivation |
+| **2. multi-cue role assigner** (dynamic agent) | SINGLE-CHANNEL | **ALREADY BUILT + generalizes** (the landed CM agent; predicate_recall+CM agent +0.0125 on 40 held-out docs) | the ideal is realized here |
+| **2b. multi-cue HOLDER** (copula subject) | SINGLE-CHANNEL | **PROTOTYPED → NEGATIVE** (`exp_event_detection_multicue_holder_v1`) | board 0.205→0.241 (+0.036 not-sep); **held-out +0.0000**; gold subject is IN the candidate set 94.2% → NOT coverage; on 19c COPULAR predications the discriminating cue is STRUCTURE (oracle nsubj 0.71–0.77), not semantic plausibility (Mahowald's modern 87-89% does NOT transfer) → **parser-bound, folds into organ 1** |
+| **3. semantic causal scorer** (force/plausibility) | POSITIONAL | **PROTOTYPED → NEGATIVE** (`exp_event_detection_semantic_causal_v1`) | force-lexicon + arg-overlap + foreground; **degenerates to positional** (features fire 75% but AGREE with position 95% — the accidental adjacency-plausibility correlation, measured; pick changes only 5%); board −0.069 (= positional), **held-out −0.147 (WORSE than positional)** → **meaning-hub-bound** |
+| **4. unified sort-typed eventuality inventory** | the SILO | FILED (`the_assembled_reader_is_parallel_silos...`) | the physical form of lever B's copula PROPERTY win |
+
+**The result, precisely:** the parts of the ideal reader that WORK and GENERALIZE are already built — register-robust
+DETECTION (predicate_recall, a learned per-sentence cue combiner ≈ the brain's frame×morphology induction), the
+MULTI-CUE dynamic role assigner (the landed CM agent = the Competition Model, realized), and the copula PROPERTY
+silo-unification (lever B, held-out-replicated). The two organs that would close the RESIDUAL do NOT work as
+standalone glass-box additions, and held-out proves it: (a) the copula HOLDER needs a register-robust PARSE (the
+semantic multi-cue layer adds +0.000 held-out; structure is the cue here, not plausibility) → organ 1; (b) the
+CAUSAL selector needs the situation-model MEANING HUB (a coarse force/plausibility proxy degenerates to positional
+and is worse on held-out) → the north-star. **So the ideal solution is gated on exactly the two levers the drill's
+mechanism-diff already named — the joint graded decoder and the meaning hub — and NOT on any organ I can build
+standalone.** Building either coarse organ would have been wasted effort; the generalization test caught both.
+
+**This also sharpens the §4 correction once more:** attachment (open-class agent AND copula holder) → the register-
+robust joint decoder; causation → the meaning hub. The copula holder, which the HOLDER drill hypothesized as a
+multi-cue win, is measured PARSER-bound on this register — so the two lever families are (1) joint decoder/parser
+[detection + all attachment] and (2) meaning hub [causal].
+
 ## TLDR (plain language)
 I measured exactly where the reader loses "who did what," and it is NOT catching the actions anymore (we fixed that)
 — it is figuring out WHO the subject is and WHAT caused what. Then I looked up how the brain does each, precisely.
