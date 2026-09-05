@@ -5,7 +5,7 @@ bar: "PASS = a clean curated knowledge foundation, BUILT + VERIFIED + FROZEN as 
 result: "The FROZEN static asset (117,614 WordNet synsets, one 200-d mean-w2v unit signature each, float16, 44MB) delivers a_s 0.2512 -> 0.3267 = +0.0755 CI-separated [0.0557, 0.0957] (ci_hw 0.020, null_p95 0.0194) through the LIVE hdlab.diagnostic_context_wsd readout, on strict document-disjoint SemCor subordinate senses (odd-doc test, n=2675). Freeze->reload is byte-exact (delta 0.0). Determinism fixed + witnessed. The store also emits a multi-index foundation MANIFEST (7 spokes) and an intrinsic-quality transform + a gap-analysis acquisition backlog."
 floor: "gloss-only (WordNet definition+examples+lemma-names+hypernyms), a_s = 0.2512 (recomputed on the SAME odd-doc subordinate test population, n=2675). Second floor: the info-free SHUFFLED-knowledge twin a_s = 0.2015 (curated associates permuted onto the WRONG senses)."
 controls: "(1) SHUFFLED-knowledge info-free twin LOSES CI-sep (frozen 0.3267 vs shuffled 0.2015, +0.1252) -> it is the CORRECT curated knowledge, not 'more words'. (2) MFS no-regression on the FULL all-sense population (blended-frozen 0.6890 >= MFS 0.6834, n=8774) -> does not hurt the dominant cases. (3) FREEZE-FIDELITY (frozen==on-the-fly, delta 0.0) -> the static asset delivers exactly what the live build does. (4) DETERMINISM (byte-identical signatures across PYTHONHASHSEED 0/1/2 after the sorted-then-capped fix) -> excludes 'the number was a hash-order artifact' (the parent's un-sorted hyponyms()[:8] WAS hash-dependent). (5) REPRESENTATION test: all-but-the-top (Mu-Viswanath) HURTS the readout monotonically (0.319->0.210) and IDF pre-pooling is neutral -> excludes 'a post-hoc transform recovers the ceiling'; VERDICT DATA-GAP. (6) TRIMMING: schema-margin, sibling-confusion, and incoherence anomaly trims ALL fail to beat keep-all on held-out -> excludes 'the curated store has prunable overlap that helps a_s'. Each control excludes a distinct rival. Paired bootstrap CI half-width + sign-flip null p95 on every contrast."
-files_changed: "experiments/exp_knowledge_factory_meaning_store_v1.py (adapter->trim->freeze->reload->validate + optimize + full-WordNet freeze), experiments/exp_knowledge_factory_intrinsic_trim_v1.py (intrinsic quality transform + anomaly trim), experiments/exp_knowledge_factory_repr_optimize_v1.py (decisive all-but-the-top / SIF representation test), experiments/exp_knowledge_factory_gap_analysis_v1.py (the 'what to learn' acquisition backlog), experiments/exp_knowledge_factory_grow_loop_v1.py (the multi-round ingest->prune->climb->freeze grow loop), experiments/exp_knowledge_factory_targeted_acq_v1.py (targeted disambiguate-then-bind acquisition), experiments/exp_knowledge_factory_signal_loss_drill_v1.py (the resolution-isolation drill: oracle/plain/additive bootstrap), verification/test_knowledge_factory_meaning_store.py (scaffold-free witness 6/6), verification/test_knowledge_factory_grow_loop.py (grow-mechanism witness), verification/test_knowledge_factory_learner_ready.py (ingest/learn/trim/gate live-readiness witness 4/4), verification/test_knowledge_factory_consumers_benefit.py (consumers-only-benefit + fix witness 3/3), data/frontend_assets/meaning_sense_signatures_v1.npz (FROZEN C1 foundation, 117,614 synsets), data/frontend_assets/associative_similarity_store_v1.npz (FROZEN C1b reading-grown associative store), data/frontend_assets/knowledge_foundation_manifest.json (the multi-index hub-and-spoke registry, 8 spokes), notes/problems/<slug>/REMOTE_RUN_REQUEST_exp_knowledge_factory_grow_loop_v1.md, data/exp_knowledge_factory_*/metrics_*.json"
+files_changed: "experiments/exp_knowledge_factory_meaning_store_v1.py (adapter->trim->freeze->reload->validate + optimize + full-WordNet freeze), experiments/exp_knowledge_factory_intrinsic_trim_v1.py (intrinsic quality transform + anomaly trim), experiments/exp_knowledge_factory_repr_optimize_v1.py (decisive all-but-the-top / SIF representation test), experiments/exp_knowledge_factory_gap_analysis_v1.py (the 'what to learn' acquisition backlog), experiments/exp_knowledge_factory_grow_loop_v1.py (the multi-round ingest->prune->climb->freeze grow loop), experiments/exp_knowledge_factory_targeted_acq_v1.py (targeted disambiguate-then-bind acquisition), experiments/exp_knowledge_factory_signal_loss_drill_v1.py (the resolution-isolation drill: oracle/plain/additive bootstrap), experiments/exp_knowledge_factory_consumer_growth_v1.py (original-hub -> grown -> pruned consumer-scoring + prune contenders + per-consumer ideal-prune), verification/test_knowledge_factory_meaning_store.py (scaffold-free witness 6/6), verification/test_knowledge_factory_grow_loop.py (grow-mechanism witness), verification/test_knowledge_factory_learner_ready.py (ingest/learn/trim/gate live-readiness witness 4/4), verification/test_knowledge_factory_consumers_benefit.py (consumers-only-benefit + fix witness 3/3), data/frontend_assets/meaning_sense_signatures_v1.npz (FROZEN C1 foundation, 117,614 synsets), data/frontend_assets/associative_similarity_store_v1.npz (FROZEN C1b reading-grown associative store), data/frontend_assets/knowledge_foundation_manifest.json (the multi-index hub-and-spoke registry, 8 spokes), notes/problems/<slug>/REMOTE_RUN_REQUEST_exp_knowledge_factory_grow_loop_v1.md, data/exp_knowledge_factory_*/metrics_*.json"
 reverify: ".venv/Scripts/python.exe verification/test_knowledge_factory_meaning_store.py"
 ---
 
@@ -220,6 +220,37 @@ already ABOVE the narrow 12M store: SimLex 0.204 (raw 0.011, shuffled -0.081), W
 The frozen store (metrics carry a `breadth_sources` per-genre token breakdown) is the significantly-larger, broad,
 pruned KB for permanent inclusion (the ~48MB .npz is pulled from remote via `scp_recover_landing.py` -- strategy's
 remote-op lane -- at integration; metrics return via the ~20-min sync). Mechanism + controls + freeze witnessed 4/4.
+
+## CONSUMER-GROWTH EXPERIMENT -- original live store -> larger ingest -> pruned, measured on the consumers
+
+Owner: "measure how consumers score on the original, then the larger ingest, then prune it perfectly and measure
+again; try a few top prune contenders; the consumers may need refactoring for the ideal prune -- evaluate one."
+`exp_knowledge_factory_consumer_growth_v1`. THE LIVE STORE the distributional consumers read = shipped
+`hub_ppmi_svd_200d.pkl` = **15,000 words x 200-d** (read by situation_reader, affect/goal/state registers, coref,
+graded_coref_pick, distributional_meaning_channel). Grown from a 24M-token BROAD multi-genre ingest (1,373 files).
+
+| condition | SimLex (strict-similarity consumer) | WordSim (relatedness consumer) |
+|---|---|---|
+| **ORIGINAL hub** (15k words) | 0.166 | **0.629** |
+| **GROWN-RAW** (un-pruned) | 0.024 | 0.245 |
+| **GROWN + best prune** | **0.268** (top-k-150) | 0.610 (recurrence) |
+
+Store grew **15,000 -> 40,009 words (2.7x)**. FINDINGS: (1) **the prune is decisive** -- raw un-pruned is garbage
+(0.024 / 0.245); the same store pruned jumps to 0.268 / 0.610. (2) The grown+pruned store is 2.7x LARGER and BEATS
+the hub on strict similarity (SimLex 0.166 -> 0.268, +0.10 / +60%) while ~matching relatedness (0.629 -> 0.610).
+(3) **CONSUMERS DISAGREE ON THE IDEAL PRUNE (measured):** strict-similarity wants top-k-150 (sharpen to strongest
+associations); relatedness wants the recurrence floor (keep broad co-occurrence). Prune contenders tried:
+recurrence-floor (mc2 best), PPMI-threshold (q0.5), top-k (150 best) -- over-pruning (mc5, q0.8, topk50) hurts both.
+IDEAL PRUNE = consumer-specific.
+
+**THE REFACTORING IMPLICATION (owner's point, confirmed):** because the ideal prune differs by consumer, a single
+shared store forces a compromise. The clean fix = HUB-AND-SPOKE APPLIED TO THE PRUNE: each consumer reads its OWN
+optimally-pruned projection of the one grown store (top-k projection for similarity consumers; recurrence-floor
+projection for relatedness consumers). The existing hub is RELATEDNESS-tuned (high WordSim, weak SimLex), so the
+relatedness consumer barely benefits from growth (~flat) while the strict-similarity consumer benefits strongly
+(+0.10) -- the relatedness consumer (coref/registers) is the one to evaluate/refactor first before switching it to a
+sharper pruned store. (This 24M/40k result is the LOCAL larger-ingest in hand; the remote --broad 50M/80k freeze
+was dispatched but its metrics had not returned at write time -- status unconfirmed, strategy's remote-op lane.)
 
 ## THE CONTINUING PROCESS (for strategy -- owner asked to share thoughts)
 
