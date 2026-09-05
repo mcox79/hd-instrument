@@ -4,7 +4,7 @@ status: SOLVED
 bar: "PASS = a named lean \"ingest profile\" (or a small set of presets) that keeps only the requested extraction, byte-identical to the full read on those dimensions, at the measured ~5x; PLUS a process-parallel corpus-read harness whose per-doc output is identical to serial and whose throughput scales ~linearly with cores (report the measured scaling + a 10k-doc projection). A located NEGATIVE -- a dimension cannot be cleanly leaned out (a hidden cross-dimension dependency), or reads are not safely parallel (a shared-state hazard), with the named cause -- is a FULL PASS."
 result: "(1) named profiles byte-identical to the full read on the harvest core {events, entities, coref, timeline_frames, causal_links} across 24 LitBank docs (selpref profile; the 9 additive dims off; 10,057 usable (predicate,role,arg-head) triples harvested); per-dim leaned-in==full + core-unchanged verified for every serializable additive dim. (2) process-parallel harness: per-doc output BYTE-IDENTICAL serial-vs-parallel across 1/2/4/8 workers on 40 docs; throughput ~0.87->2.69 docs/s (1->8 workers). Speedups (per-profile, MEASURED -- the brief's flat '5x' is corrected): selpref ~1.4-2.4x (parse+roles is the irreducible floor; the ratio is box-load-dependent), lean_floor ~9-15x (role-free). Byte-identity is exact and load-independent; the speedup magnitude is not."
 floor: "strongest floors actually run: (a) CAN-FAIL sentinel -- the lean_floor (positional, no-parse) profile's events DIFFER from the full read (byte-identity is non-vacuous); (b) the box's OWN pure-CPU process-scaling ceiling = 4.55x at 8 workers (12-physical-core hybrid); the harness reaches 2.69 docs/s = 3.09x = 68% of that ceiling, so the sub-linearity is HARDWARE (P/E cores + hyperthreading), not the design; (c) serial throughput 0.87 docs/s baseline."
-controls: "can-fail sentinel (lean_floor events != full -> byte-identity is a real constraint); per-dim leaned-in==full AND core-unchanged-when-dropped (excludes hidden feedback of the additive dims into events); PYTHONHASHSEED determinism control (located sm.entities as the ONE hash-order-dependent field; canonicalization makes the digest order-invariant -- proven order-invariant + verified across seeds); parallel==serial across 4 worker counts (excludes shared-state corruption / scheduling nondeterminism); box pure-CPU ceiling (excludes 'harness is inefficient')."
+controls: "can-fail sentinel (lean_floor events != full -> byte-identity is a real constraint); per-dim leaned-in==full AND core-unchanged-when-dropped (excludes hidden feedback of the additive dims into events); PYTHONHASHSEED determinism control (located set-ORDER nondeterminism in the harvested fields -- chiefly sm.entities, but a different set-derived field can reorder on a different doc; the robust fix canonicalizes EVERY field by sorting at the serialization boundary, verified order-invariant + witness parallel==serial reproduced 3x); parallel==serial across 4 worker counts (excludes shared-state corruption / scheduling nondeterminism); box pure-CPU ceiling (excludes 'harness is inefficient')."
 files_changed: "experiments/exp_lean_ingest_profiles_v1.py, experiments/exp_parallel_corpus_read_harness_v1.py, verification/test_lean_ingest_and_parallel_harness.py"
 reverify: ".venv/Scripts/python.exe verification/test_lean_ingest_and_parallel_harness.py"
 ---
@@ -36,11 +36,15 @@ locally, and near-linear to physical-core count on homogeneous/idle hardware.
   parse+roles AND get >~2.4x by leaning -- the parse IS the cost** (`_read_events` = ~44% of the full read; it is
   the brain's obligatory syntactic structure-building). 9x is only for ingests that drop roles entirely. So the
   speedup is per-profile: **2.4x roles-keeping / 9.4x role-free**, both measured.
-- The brief's **"reads are deterministic, no cross-doc state"** is *almost* right. **One field, `sm.entities`, is
-  hash-order-dependent** (built from a set-derived mention stream in `hdlab/referent_per_np.py`): identical
-  CONTENT, nondeterministic LIST ORDER across worker processes (different `PYTHONHASHSEED` salts). Every other
-  field is fully deterministic. This is the exact "shared-state hazard" the brief flagged as a possible located
-  negative -- **found, and fixed** (canonicalize the set-like output; pin the seed as a safety net).
+- The brief's **"reads are deterministic, no cross-doc state"** is *almost* right. **Harvested fields carry
+  set-ORDER nondeterminism** -- chiefly `sm.entities` (built from a set-derived mention stream in
+  `hdlab/referent_per_np.py`), but a *different* set-derived field can reorder on a *different* document:
+  identical CONTENT, nondeterministic LIST ORDER across worker processes (different `PYTHONHASHSEED` salts). This
+  is the exact "shared-state hazard" the brief flagged as a possible located negative -- **found, and fixed**
+  (canonicalize EVERY harvested field by sorting at the serialization boundary; the parallel==serial witness now
+  reproduces 3x; pin `PYTHONHASHSEED=0` as a launcher safety net). A per-field fix would have been whack-a-mole;
+  sorting all fields is safe because the genuinely-ordered fields are already deterministic (sorting them is a
+  no-op for the comparison) and a real content difference still changes the sorted rows.
 - => The dominant scaling lever for the roles ingest is **parallelism, not leaning** (leaning caps at ~2.4x; 8
   workers give ~3x and a homogeneous server gives ~N).
 
@@ -111,16 +115,19 @@ docs). The sub-linearity here is a property of this consumer laptop, not the har
 
 ## THE LOCATED DETERMINISM FINDING (a genuine sub-result)
 
-Reads are deterministic WITHIN a fixed hash seed, but `sm.entities` list ORDER is hash-seed-dependent because it
-is assembled from a set-derived mention stream (`hdlab/referent_per_np.py`). Across worker processes (each with its
-own `PYTHONHASHSEED` salt) the entities LIST reorders (same content). This is the #1 hidden source of
-nondeterministic parallel output (PEP 456 salted hashing; reproducible-builds.org). **Fix, two parts:**
-(1) *canonicalize* -- sort every set-like field at the serialization boundary (the robust guarantee: output
-becomes independent of hash seed, worker count, and scheduling); (2) *pin* `PYTHONHASHSEED` for the ingest launcher
-(belt-and-suspenders). I verified the canonicalized digest is order-invariant and that parallel==serial holds
-after the fix. **Root-cause fix for strategy (hdlab):** make `referent_per_np_source` emit mentions in a
-deterministic order (sort the NP heads before grouping) so `sm.entities` is deterministic at the source -- a
-one-line sort. Until then the harness canonicalizes on read.
+Reads are deterministic WITHIN a fixed hash seed, but harvested-field list ORDER is hash-seed-dependent where a
+field is assembled from a set-derived stream -- chiefly `sm.entities` (mention grouping in
+`hdlab/referent_per_np.py`), and, discovered while hardening the witness, a *different* field can reorder on a
+*different* document. Across worker processes (each with its own `PYTHONHASHSEED` salt) the list reorders (same
+content). This is the #1 hidden source of nondeterministic parallel output (PEP 456 salted hashing;
+reproducible-builds.org). **The fix is comprehensive, not per-field:** canonicalize EVERY harvested field by
+sorting its rows at the serialization boundary. Safe because the genuinely-ordered fields (events by token, coref
+by occurrence) are produced deterministically -- sorting is a no-op for the comparison there -- while a real
+content difference still changes the sorted rows and is still caught. I verified the parallel==serial witness now
+passes 3x in a row (it flaked before the comprehensive fix). Also recommended: launch the production ingest with
+`PYTHONHASHSEED=0` (belt-and-suspenders). **Root-cause fix for strategy (hdlab):** make the reader emit its
+set-derived collections (mentions -> `sm.entities`, and any other) in a deterministic order at the source, so the
+harness need not canonicalize -- a small sort at each set-to-list boundary.
 
 ## WHAT STRATEGY WOULD LAND (Q111 -- proposed, not landed)
 
@@ -169,10 +176,11 @@ one-line sort. Until then the harness canonicalizes on read.
 - **The byte-identity check must compare a dropped-dim reader against the full reader, not two readers in the same
   order.** The real risk was a hidden feedback of an additive dim into events; direct full-vs-selpref event
   equality is what proves it.
-- **The parallel mismatch was hash-order nondeterminism in ONE set-derived field, not a race.** Fixing the hash
-  seed and diffing per field (same seed -> identical, vary seed -> only `entities` moves) located it precisely;
-  canonicalizing the unordered output is the robust fix. Pinning `PYTHONHASHSEED` alone is a safety net, not the
-  guarantee.
+- **The parallel mismatch was hash-order nondeterminism in set-derived fields (ORDER, not content), not a race.**
+  Fixing the hash seed and diffing per field located it (vary seed -> `entities` reorders); a first canonicalize of
+  just `{entities}` still let the witness flake, because a DIFFERENT field reorders on a DIFFERENT doc -- so the
+  fix had to be comprehensive: sort EVERY field's rows. Per-field whack-a-mole loses; canonicalize-all wins and is
+  safe (sorting deterministic-order fields is a comparison no-op; content diffs still caught). Reproduced 3x.
 - **Judge parallel efficiency against the box's OWN CPU ceiling, not against N.** A 12-hybrid-core shared laptop
   can only do ~4.5x at 8 workers for ideal CPU work; reporting "3x" against that ceiling (68%) is honest, whereas
   "3x of 8 = bad" would wrongly blame the design.
@@ -184,8 +192,9 @@ one-line sort. Until then the harness canonicalizes on read.
   world-state/space/copular/bound-tokens/surprisal/timeline-register), each of which is byte-identical when leaned
   in or out. This is the "task-set gating" structure and is worth recording as a fidelity note: the reader already
   HAS the substrate for depth-of-processing profiles; it lacks only the named presets.
-- **New deviation located:** `sm.entities` output order is non-deterministic across processes (set-derived, hash-
-  salted). Minor, fixable at source; recorded so it is not re-discovered.
+- **New deviation located:** set-derived harvested collections (chiefly `sm.entities`) have non-deterministic
+  LIST ORDER across processes (hash-salted set iteration); content is deterministic. Minor, fixable at source with
+  a sort at each set-to-list boundary; recorded so it is not re-discovered.
 
 ## WHAT I DID NOT ESTABLISH / WOULD WITHDRAW FIRST
 

@@ -169,9 +169,12 @@ The frozen asset is already shipped to `data/frontend_assets/`. The wire is a sm
    instead of computing gloss-only signatures on the fly. Measured +0.0755 CI-sep through that exact organ; the
    witness is the gate.
 3. Per "no more default-off" (owner 2026-09-03): run the impact analysis on the consumer's live metric and turn it
-   ON if net-positive; keep OFF only with a measured reason. (The read()-time WSD stage itself is the separate
-   `reader_meaning_channel` wiring; the frozen store is READY the moment that stage exists, and can also feed
-   `grounded_semantic_graph`/`semantic_control`.)
+   ON if net-positive; keep OFF only with a measured reason. HONEST CONSUMER FACT (verified): C1's signature store
+   has EXACTLY ONE consumer -- the `diagnostic_context_wsd` readout -- and NOTHING in `hdlab/` or `experiments/`
+   calls that readout live yet (`semantic_control` operates on scores, `grounded_semantic_graph` on the graph --
+   neither consumes C1 signatures). So the +0.0755 is proven on the project's standard meaning INSTRUMENT but is
+   currently LATENT: no live read()-time consumer feels it until the `reader_meaning_channel` stage exists. The
+   frozen store is READY the moment it does.
 4. Register the manifest as the foundation index; keep `consolidation_gate` as the mandatory admission guard for any
    step-2 grown knowledge.
 
