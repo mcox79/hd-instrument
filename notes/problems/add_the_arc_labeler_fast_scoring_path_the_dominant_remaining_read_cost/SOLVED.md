@@ -5,7 +5,7 @@ bar: "PASS = _FastLabelPlan landed into hdlab/arc_labeler.py, built lazily in la
 result: "Byte-identical labels: 0 mismatches / 22,921 HELD-OUT arcs (4,575 LitBank predicted-heads + 18,346 UD-EWT-test gold-heads); full SituationModel byte-identical across ALL dimensions on 3 held-out docs. Labeler scoring 8.73x faster in-read (14.29s->1.64s median-of-9, ~4.2s/read removed on full LitBank docs). Brain-foundational extension (reuses the LANDED graded_competition organ): graded readout argmax byte-identical (0/18,346 = MAP-optimality, zero consumer regression) AND its normalized entropy flags labeling errors gold-free (AUC 0.930; info-free twin 0.481)."
 floor: "The landed reference ArcLabeler._predict_label -- byte-identity measured against it, 0 divergence over 22,921 held-out arcs. For the graded-readout exceed: the info-free twin (shuffled cue validities) AUC 0.481 ~ chance is the floor the entropy signal (AUC 0.930) clears."
 controls: "(1) W4 info-free shuffled-weights plan MUST diverge from the real plan -- 10/10 probe arcs differ (byte-identity check is non-vacuous). (2) W3 full-model regression guard: fresh-reader single-read stock-vs-fast SituationModel byte-identical across events/entity_states/causal/typed_causal/coref/coref_xsent/timeline (excludes NO consumer). (3) MAP-optimality byte-identity: argmax(lane)==stock over 18,346 UD arcs, so the graded readout is a strict SUPERSET of the discrete one (regresses nothing). (4) Info-free twin for the entropy signal: shuffled cue validities AUC 0.481 (loses)."
-files_changed: "ARC-LABELER (assigned): experiments/exp_arc_labeler_graded_competition_v1.py, exp_arc_labeler_fastpath_landing_v1.py, exp_frontend_chain_signal_loss_v1.py, exp_arc_labeler_joint_clause_competition_v1.py, verification/test_arc_labeler_fastpath_landing.py, test_arc_labeler_graded_competition.py. PARSER (owner escalation): experiments/exp_arceager_graded_beam_parser_v1.py, exp_arceager_parser_replacement_v1.py, exp_parser_dominance_breakdown_v1.py, exp_parser_confidence_hybrid_v1.py, verification/test_arceager_parser_replacement.py. SELF-SUPERVISED + MEANING (owner escalation): experiments/exp_predictive_selfsup_parser_v1.py, exp_dmv_selfsup_parser_v1.py, exp_selfsup_parser_semantic_bootstrap_v1.py, exp_selfsup_parser_grounded_selpref_v1.py, exp_grounded_meaning_role_v1.py. notes/problems/add_the_arc_labeler_fast_scoring_path_the_dominant_remaining_read_cost/SOLVED.md. REUSES exp_arc_labeler_fastpath_v1.py + test_arc_labeler_fastpath.py + hdlab/arceager_parser.py + hdlab/graded_competition.py + hdlab/meaning_foundation.py + hdlab/animacy_lexicon.py; NO hdlab/ writes -- proposed diffs below, strategy lands per Q111"
+files_changed: "ARC-LABELER (assigned): experiments/exp_arc_labeler_graded_competition_v1.py, exp_arc_labeler_fastpath_landing_v1.py, exp_frontend_chain_signal_loss_v1.py, exp_arc_labeler_joint_clause_competition_v1.py, verification/test_arc_labeler_fastpath_landing.py, test_arc_labeler_graded_competition.py. PARSER (owner escalation): experiments/exp_arceager_graded_beam_parser_v1.py, exp_arceager_parser_replacement_v1.py, exp_parser_dominance_breakdown_v1.py, exp_parser_confidence_hybrid_v1.py, verification/test_arceager_parser_replacement.py. SELF-SUPERVISED + MEANING + FULL CHAIN (owner escalation): experiments/exp_predictive_selfsup_parser_v1.py, exp_dmv_selfsup_parser_v1.py, exp_selfsup_parser_semantic_bootstrap_v1.py, exp_selfsup_parser_grounded_selpref_v1.py, exp_grounded_meaning_role_v1.py, exp_selfsup_category_induction_v1.py, exp_full_brain_foundational_chain_v1.py. notes/problems/add_the_arc_labeler_fast_scoring_path_the_dominant_remaining_read_cost/SOLVED.md. REUSES exp_arc_labeler_fastpath_v1.py + test_arc_labeler_fastpath.py + hdlab/arceager_parser.py + hdlab/graded_competition.py + hdlab/meaning_foundation.py + hdlab/animacy_lexicon.py; NO hdlab/ writes -- proposed diffs below, strategy lands per Q111"
 reverify: ".venv/Scripts/python.exe verification/test_arc_labeler_fastpath_landing.py"
 ---
 
@@ -288,6 +288,66 @@ skeleton/aggregate), traced the loss (structure/parser is the leak; meaning's lo
 got the ARCHITECTURE correct with controlled evidence for each piece. I did NOT build the full end-to-end
 integrated self-supervised+grounded chain (a multi-week research program). Each component's brain-faithful
 mechanism is prototyped + measured; the integration is the specified program.
+
+## (I) FULLY BRAIN-FOUNDATIONAL PROTOTYPES FOR EVERY STAGE + END-TO-END (owner: "for all")
+A self-supervised, glass-box (no LLM, no gold tags/trees) replacement or modification prototyped for EACH stage,
+assembled and measured end-to-end (exp_selfsup_category_induction_v1 + exp_full_brain_foundational_chain_v1):
+
+| stage | brain-foundational prototype | mechanism (PINNED) | measured |
+|---|---|---|---|
+| CATEGORIES | self-sup distributional clustering (PPMI ctx -> SVD -> k-means) | Harris 1954 / Saffran 1996 / Mintz 2003 | many-to-one 0.547 vs 0.427 random (reduced; lit ~0.70) |
+| STRUCTURE | self-sup DMV + universal prior + hard-EM + Eisner | Klein-Manning 2004 / Naseem 2010; prediction=Levy/Hale | 0.38-0.45 standalone (gold cats); prior+EM ablation-confirmed |
+| RELATIONS | graded competition readout (softmax over lane) | McClelland 2013 FLMP posterior | argmax byte-identical; entropy->error AUC 0.93 |
+| ROLE | Competition Model: position + GROUNDED meaning cue | MacWhinney; Pinker/Gleitman semantic bootstrapping | grounded 0.43 vs positional 0.00 on non-canonical |
+
+END-TO-END (UD-EWT test, maxlen<=12): supervised REF (gold POS -> arc-eager) 0.874; self-sup STRUCTURE on gold
+cats 0.295 (cost of self-sup structure ~0.58 in this harness / ~0.43 with the standalone DMV's fuller prior);
++ self-sup CATEGORIES 0.203 (cost of self-sup categories ~0.09); FULLY self-supervised (no gold anywhere) 0.178.
+
+HONEST VERDICT. Every stage now has a working brain-foundational prototype and they compose end-to-end -- but
+the fully self-supervised chain reaches ~0.18-0.29 UAS vs the supervised 0.874: a LARGE compounding trade,
+dominated by the self-supervised STRUCTURE learner (self-sup categories add only ~0.09 more). This is the honest
+state of from-scratch self-supervised parsing on a limited offline corpus. The brain closes this gap with
+massive GROUNDED MULTIMODAL experience over years (which we cannot replicate offline), NOT with a different
+learning signal -- so the MECHANISMS are brain-faithful (validated) while the DATA/GROUNDING scale is the gap.
+Meaning's role contribution (the one place grounding clearly helps) is concentrated in the non-canonical tail,
+which the reader's REAL 19c corpus has far more of than modern UD-EWT (the fair-test caveat, still open).
+
+IMPLICATION (do the right thing): the supervised parser is best treated as an offline FOUNDATION asset (proven
+0.84, admissible) with brain-faithful RUNTIME (graded/incremental); the self-supervised chain is the north-star
+research program whose bottleneck is GROUNDED EXPERIENCE scale, not the mechanism. The single highest-leverage
+brain-foundational build remains the STRUCTURE learner (the dominant leak and the dominant self-sup cost),
+grounded by meaning for the non-canonical tail, evaluated on 19c text.
+
+## (J) DEEP EVALUATION vs the brain + best alternative; WHERE signal is lost; brain-fidelity of the top rungs
+`exp_chain_signal_loss_deep_v1.py` (UD-EWT test, maxlen<=12, n=1304). LADDER (UAS): brain/human-IAA ~0.955
+(cited); neural biaffine SOTA ~0.957 (Dozat-Manning 2017, cited); OUR supervised arc-eager 0.874; OUR self-sup
+DMV 0.409. Gaps: brain->SOTA ~0.00 (SOTA has MATCHED human accuracy -- by a non-brain route: gold-tree
+supervision + transformer); SOTA->ours -0.083 (representation gap); supervised->self-sup -0.465 (grounding/impl).
+
+WHERE the self-sup chain loses (by relation, arcs_lost): punct 660, nsubj 335, case 292, aux 228 (dmv 0.013!),
+root 227, obj 203, compound 191 (0.044), cop 191 (0.000!), nmod 191, obl 185. By distance: 3-5 loses 1242 (the
+mid-range core-arg band), 2 loses 1036, 1 loses 864. The loss is CONCENTRATED and STRUCTURAL, not uniform.
+
+DEEP brain-fidelity of the highest-loss rungs:
+  RUNG 1 supervised->self-sup (-0.465, biggest). NOT a mechanism-fidelity flaw -- the brain IS self-supervised at
+  0.955. Decomposes into: (a) REDUCED IMPLEMENTATION -- the near-total aux(0.01)/cop(0.00)/compound(0.04)
+  collapse is exactly what the full DMV's VALENCE/stop model + lexicalization handle, which my prototype omits
+  (fixable in-mechanism); (b) GROUNDING -- nsubj(0.32)/obj(0.27) core-arg discrimination needs meaning+agreement
+  (role probe: grounded 0.43 vs positional 0.00 on non-canonical); (c) grounded-experience SCALE. Verdict: the
+  self-supervised MECHANISM is brain-faithful; we are reduced + starved, not un-brain-like.
+  RUNG 2 SOTA->ours supervised (-0.083). A GENUINE brain-fidelity gap: our parser uses SPARSE HASHED SYMBOLIC
+  features; the brain (and SOTA) use DISTRIBUTED CONTEXTUAL representations. The brain-faithful fix = feed the
+  parser the substrate's OWN distributed meaning vectors (meaning_foundation / distributional_meaning_channel,
+  present but unused by the parser) -- glass-box, NO LLM. The most tractable clearly-brain-foundational upgrade.
+  RUNG 3 the LIVE WIRING. The reader runs the weaker BATCH parser (0.79), not the dormant arc-eager (0.87) whose
+  incremental working-memory decode recovers long-range (+0.15) -- a fidelity+wiring loss; and obl:agent needs
+  meaning the role stage does not supply.
+
+RANKED brain-foundational fixes (measured loss x fidelity): (1) DISTRIBUTED REPRESENTATIONS into the parser (the
+one clear fidelity gap, -0.083, tractable, glass-box); (2) COMPLETE THE DMV MECHANISM (valence + lexicalization
+-- fixes the aux/cop/compound collapse); (3) WIRE GROUNDED MEANING into role competition (validated non-
+canonical); (4) FLIP the dormant arc-eager live (+0.05 free) + graded/incremental runtime. All on 19c text.
 
 ## Proposed hdlab/ diff (strategy lands, Q111)
 Add `_FastLabelPlan` to `hdlab/arc_labeler.py` (the class body of `experiments/exp_arc_labeler_fastpath_v1.py::
