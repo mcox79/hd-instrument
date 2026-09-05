@@ -5,7 +5,7 @@ bar: "PASS = a clean curated knowledge foundation, BUILT + VERIFIED + FROZEN as 
 result: "The FROZEN static asset (117,614 WordNet synsets, one 200-d mean-w2v unit signature each, float16, 44MB) delivers a_s 0.2512 -> 0.3267 = +0.0755 CI-separated [0.0557, 0.0957] (ci_hw 0.020, null_p95 0.0194) through the LIVE hdlab.diagnostic_context_wsd readout, on strict document-disjoint SemCor subordinate senses (odd-doc test, n=2675). Freeze->reload is byte-exact (delta 0.0). Determinism fixed + witnessed. The store also emits a multi-index foundation MANIFEST (7 spokes) and an intrinsic-quality transform + a gap-analysis acquisition backlog."
 floor: "gloss-only (WordNet definition+examples+lemma-names+hypernyms), a_s = 0.2512 (recomputed on the SAME odd-doc subordinate test population, n=2675). Second floor: the info-free SHUFFLED-knowledge twin a_s = 0.2015 (curated associates permuted onto the WRONG senses)."
 controls: "(1) SHUFFLED-knowledge info-free twin LOSES CI-sep (frozen 0.3267 vs shuffled 0.2015, +0.1252) -> it is the CORRECT curated knowledge, not 'more words'. (2) MFS no-regression on the FULL all-sense population (blended-frozen 0.6890 >= MFS 0.6834, n=8774) -> does not hurt the dominant cases. (3) FREEZE-FIDELITY (frozen==on-the-fly, delta 0.0) -> the static asset delivers exactly what the live build does. (4) DETERMINISM (byte-identical signatures across PYTHONHASHSEED 0/1/2 after the sorted-then-capped fix) -> excludes 'the number was a hash-order artifact' (the parent's un-sorted hyponyms()[:8] WAS hash-dependent). (5) REPRESENTATION test: all-but-the-top (Mu-Viswanath) HURTS the readout monotonically (0.319->0.210) and IDF pre-pooling is neutral -> excludes 'a post-hoc transform recovers the ceiling'; VERDICT DATA-GAP. (6) TRIMMING: schema-margin, sibling-confusion, and incoherence anomaly trims ALL fail to beat keep-all on held-out -> excludes 'the curated store has prunable overlap that helps a_s'. Each control excludes a distinct rival. Paired bootstrap CI half-width + sign-flip null p95 on every contrast."
-files_changed: "experiments/exp_knowledge_factory_meaning_store_v1.py (adapter->trim->freeze->reload->validate + optimize + full-WordNet freeze), experiments/exp_knowledge_factory_intrinsic_trim_v1.py (intrinsic quality transform + anomaly trim), experiments/exp_knowledge_factory_repr_optimize_v1.py (decisive all-but-the-top / SIF representation test), experiments/exp_knowledge_factory_gap_analysis_v1.py (the 'what to learn' acquisition backlog), experiments/exp_knowledge_factory_grow_loop_v1.py (the multi-round ingest->prune->climb->freeze grow loop), experiments/exp_knowledge_factory_targeted_acq_v1.py (targeted disambiguate-then-bind acquisition), experiments/exp_knowledge_factory_signal_loss_drill_v1.py (the resolution-isolation drill: oracle/plain/additive bootstrap), experiments/exp_knowledge_factory_consumer_growth_v1.py (original-hub -> grown -> pruned consumer-scoring + prune contenders + per-consumer ideal-prune), verification/test_knowledge_factory_meaning_store.py (scaffold-free witness 6/6), verification/test_knowledge_factory_grow_loop.py (grow-mechanism witness), verification/test_knowledge_factory_learner_ready.py (ingest/learn/trim/gate live-readiness witness 4/4), verification/test_knowledge_factory_consumers_benefit.py (consumers-only-benefit + fix witness 3/3), data/frontend_assets/meaning_sense_signatures_v1.npz (FROZEN C1 foundation, 117,614 synsets), data/frontend_assets/associative_similarity_store_v1.npz (FROZEN C1b reading-grown associative store), data/frontend_assets/knowledge_foundation_manifest.json (the multi-index hub-and-spoke registry, 8 spokes), notes/problems/<slug>/REMOTE_RUN_REQUEST_exp_knowledge_factory_grow_loop_v1.md, data/exp_knowledge_factory_*/metrics_*.json"
+files_changed: "experiments/exp_knowledge_factory_meaning_store_v1.py (adapter->trim->freeze->reload->validate + optimize + full-WordNet freeze), experiments/exp_knowledge_factory_intrinsic_trim_v1.py (intrinsic quality transform + anomaly trim), experiments/exp_knowledge_factory_repr_optimize_v1.py (decisive all-but-the-top / SIF representation test), experiments/exp_knowledge_factory_gap_analysis_v1.py (the 'what to learn' acquisition backlog), experiments/exp_knowledge_factory_grow_loop_v1.py (the multi-round ingest->prune->climb->freeze grow loop), experiments/exp_knowledge_factory_targeted_acq_v1.py (targeted disambiguate-then-bind acquisition), experiments/exp_knowledge_factory_signal_loss_drill_v1.py (the resolution-isolation drill: oracle/plain/additive bootstrap), experiments/exp_knowledge_factory_consumer_growth_v1.py (original-hub -> grown -> pruned consumer-scoring + prune contenders + per-consumer ideal-prune), experiments/exp_knowledge_factory_consumer_usage_tweak_v1.py (AvgSim->MaxSim usage tweak for composed_hub_predictor, +0.065 CI-sep), verification/test_knowledge_factory_consumer_usage_tweak.py (usage-tweak witness 3/3), verification/test_knowledge_factory_meaning_store.py (scaffold-free witness 6/6), verification/test_knowledge_factory_grow_loop.py (grow-mechanism witness), verification/test_knowledge_factory_learner_ready.py (ingest/learn/trim/gate live-readiness witness 4/4), verification/test_knowledge_factory_consumers_benefit.py (consumers-only-benefit + fix witness 3/3), data/frontend_assets/meaning_sense_signatures_v1.npz (FROZEN C1 foundation, 117,614 synsets), data/frontend_assets/associative_similarity_store_v1.npz (FROZEN C1b reading-grown associative store), data/frontend_assets/knowledge_foundation_manifest.json (the multi-index hub-and-spoke registry, 8 spokes), notes/problems/<slug>/REMOTE_RUN_REQUEST_exp_knowledge_factory_grow_loop_v1.md, data/exp_knowledge_factory_*/metrics_*.json"
 reverify: ".venv/Scripts/python.exe verification/test_knowledge_factory_meaning_store.py"
 ---
 
@@ -251,6 +251,39 @@ relatedness consumer barely benefits from growth (~flat) while the strict-simila
 (+0.10) -- the relatedness consumer (coref/registers) is the one to evaluate/refactor first before switching it to a
 sharper pruned store. (This 24M/40k result is the LOCAL larger-ingest in hand; the remote --broad 50M/80k freeze
 was dispatched but its metrics had not returned at write time -- status unconfirmed, strategy's remote-op lane.)
+
+## CONSUMER-USAGE TWEAK (followed to the end, ACTIONABLE) -- AvgSim mean-centroid -> MaxSim exemplar for composed_hub_predictor
+
+Owner: "look at one consumer's store USAGE -- a small tweak may make it much cleaner + perform better; follow it to
+actionable/ideal." THE CONSUMER = `hdlab.composed_hub_predictor` (the LIVE organ that loads `hub_ppmi_svd_200d` and
+scores which argument a verb takes). ITS USAGE = AvgSim: `score_pool` scores each candidate by cos(candidate,
+verb-patient MEAN CENTROID) (`c = P_all.mean(axis=0)`) + a weighted-MEAN agent-composed term. THE BLUR: a
+polysemous verb (play {game, music, role, card}) has a centroid matching none of them. THE TWEAK = MaxSim / top-k
+NEAREST-EXEMPLAR (keep the instance distribution; Erk-Pado 2010).
+
+MEASURED on the which-argument task (QA-SRL, AMBIGUOUS slice = passive/non-canonical/pre-verbal, n=1318) IN THE
+DISTRIBUTIONAL HUB SPACE the organ uses (`exp_knowledge_factory_consumer_usage_tweak_v1`, witness 3/3):
+
+| scoring | ambiguous a_pick | full a_pick |
+|---|---|---|
+| **AvgSim mean-centroid (CURRENT)** | 0.4476 | 0.4107 |
+| MaxSim 1-NN | 0.4825 | 0.4538 |
+| **MaxSim top-k (k=3) (TWEAK)** | **0.5121 (+0.0645 CI-sep)** | **0.4791 (+0.0683 CI-sep)** |
+| verb-shuffled-exemplar twin | 0.2648 (LOSES) | 0.2749 (LOSES) |
+| chance | 0.271 | 0.271 |
+
+**RESULT: the usage tweak WINS +0.065 CI-sep, verb-shuffled twin loses, above chance -- and it TRANSFERS to the
+distributional hub** (the parent proved +0.067 in the GROUNDED space; this is the previously-UNMEASURED hub-space
+confirmation on the live organ). This is the SAME "sharpen-for-discrimination" principle as the ideal PRUNE: the
+top-k STORE prune sharpens the store, MaxSim USAGE sharpens the query -- co-apply both for a discrimination consumer.
+
+**ACTIONABLE hdlab DIFF (strategy lands, Q111):** in `hdlab/composed_hub_predictor.py` `score_pool`, replace the
+mean-centroid base `c = P_all.mean(0); cent = Cn @ (c/||c||)` with a top-k nearest-exemplar base
+`Pn = _cn(P_all); base = sort(Cn @ Pn.T, axis=1)[:, -k:].mean(axis=1)` (k=3), CONSTRUCTION-CONDITIONALLY (use it on
+the ambiguous-argument slice -- passive/non-canonical/pre-verbal -- keep the centroid backoff where position is
+structurally decisive, per the parent's integrated deployment). Default-safe (opt-in flag); the witness is the gate;
+impact-analyse on the live who-did-what metric + turn on if net-positive. `precision()` similarly changes from
+centroid-concentration to top-k exemplar tightness.
 
 ## THE CONTINUING PROCESS (for strategy -- owner asked to share thoughts)
 
