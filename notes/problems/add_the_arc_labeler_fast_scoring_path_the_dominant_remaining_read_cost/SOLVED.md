@@ -380,6 +380,28 @@ learning rate / stronger slow-store stabilization (the brain's consolidation) is
 brain-foundational MECHANISM is now BUILT and VALIDATED: it learns structure by predicting text, online, never
 frozen, reusing the substrate's predictive-coding organ.
 
+## (L) ROBUST IN-PLACE EVALUATION of the online learner in the LIVE reader (exp_online_learner_inplace_eval_v1)
+1. UAS on held-out UD-EWT: live-batch 0.822 | arc-eager 0.869 | ONLINE-LEARNER 0.423. It is ~HALF the accuracy
+   of the live parsers -- too weak to deploy.
+2. IN-PLACE (live SituationReader, 3 real 19c LitBank docs; swap the general front-end parser to the online
+   learner): coref_acc UNCHANGED (0.579/0.835/0.025), events UNCHANGED (245/337/331), causal UNCHANGED -- because
+   those run off the ROLE-path (arc-eager, default-on) or don't read these heads. ONLY entity_states regressed
+   (44->27, 52->37, 34->19, ~-40% of copular bindings). So the general front-end parser's blast radius is SMALL
+   (it feeds ~only entity_states); the HIGH-leverage parser is the role-path arc-eager, already the better one.
+3. ADAPTATION: after reading 80 19c sentences online, modern UAS 0.4226 -> 0.4216 (-0.001) = STABLE, no
+   catastrophic forgetting (consolidation works -- the stability half of stability/plasticity). The PLASTICITY
+   half (does it improve ON 19c) is UNMEASURED here: no 19c gold trees exist, and only 80 sentences were read.
+
+RECOMMENDATION + downstream implications (honest): the online learner REPLACES NOTHING today -- at 0.42 UAS it
+would regress entity_states ~40% and anything else on its heads. When strengthened to >=0.82 it would replace
+the general FRONT-END parser (the batch parser feeding the labeler/entity_states) -- but that is LOW-leverage
+(only entity_states depends on it). The high-leverage parser (events/who-did-what) is the role-path arc-eager,
+already at 0.87. So: (a) do NOT swap the online learner in now; (b) its unique value is adaptation + never-frozen
++ no-answer-key + STABLE (measured); (c) the strengthening path is grounding + steadier consolidation + richer
+features toward 0.82; (d) MEANWHILE the free, safe win is flipping the dormant arc-eager (0.87) to also serve the
+general front-end (fixes the batch parser's 0.82 for entity_states, byte-safe, already built). The online learner
+is the north-star acquisition mechanism (proven to learn, stable); it is not yet a drop-in.
+
 ## Proposed hdlab/ diff (strategy lands, Q111)
 Add `_FastLabelPlan` to `hdlab/arc_labeler.py` (the class body of `experiments/exp_arc_labeler_fastpath_v1.py::
 FastLabelPlan`, verbatim). Add `ArcLabeler._ensure_fast(self)` that lazily builds `self._fast_plan =
