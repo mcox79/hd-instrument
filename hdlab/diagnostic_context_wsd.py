@@ -105,13 +105,30 @@ def diagnostic_query(context_vecs: np.ndarray, sense_gloss_vecs: np.ndarray,
 
 def diagnostic_context_scores(context_vecs: np.ndarray, sense_gloss_vecs: np.ndarray,
                               shuffle_rng: Optional[np.random.Generator] = None,
-                              gamma: float = 1.0, topk: Optional[int] = None) -> np.ndarray:
+                              gamma: float = 1.0, topk: Optional[int] = None,
+                              sense_prior: Optional[np.ndarray] = None,
+                              prior_weight: float = 0.0) -> np.ndarray:
     """Biased-competition sense scores = cos(diagnostic-weighted query, each candidate sense gloss). Returns (S,);
     argmax = the picked sense. The wired a_s fix (DIAGCTX arm of the validated cell). All inputs UNIT vectors;
     a missing-gloss sense is a zero row (scores 0). Pass shuffle_rng to get the info-free twin's scores.
-    gamma/topk = the P9 precision-weighting (default gamma=1.0, topk=None = byte-identical; see diagnostic_query)."""
+    gamma/topk = the P9 precision-weighting (default gamma=1.0, topk=None = byte-identical; see diagnostic_query).
+    sense_prior/prior_weight = the BAYESIAN frequency-modulated competition (owner-DONE rare-sense readout
+    `grow_broad_coverage_correctly_resolved_rare_sense_experience...`, 2026-09-04): frequency enters as a log-prior
+    RESTING BIAS while STRONG context decides (MacDonald 1994 / McRae competition-integration, linearized), NOT as an
+    additive dominant-forcing vote. `sense_prior` = a per-candidate frequency prior (SAME order as the gloss rows);
+    `prior_weight` scales it. DEFAULT prior_weight=0.0 (or sense_prior=None) -> BYTE-IDENTICAL to the pure biased-
+    competition scores. When active, returns prior_weight*log(prior) + zscore(context_score) -- the rare tail rises
+    +0.065 CI-sep (SemCor, generalizes 6/6 frozen-weight), a strict PARETO win over the context-only readout; dev-
+    select prior_weight on a held-out split (do NOT test-tune). Its only substrate consumer (consolidation_gate /
+    learner) is default-off, so this is an OFF-by-default tuning knob (like gamma/topk), on for the day the meaning
+    channel turns on (the owner's input-representation decision)."""
     q = diagnostic_query(context_vecs, sense_gloss_vecs, shuffle_rng, gamma=gamma, topk=topk)
-    return sense_gloss_vecs @ q
+    sc = sense_gloss_vecs @ q
+    if sense_prior is not None and prior_weight:
+        pr = np.asarray(sense_prior, dtype=np.float64).reshape(-1)
+        z = (sc - sc.mean()) / (sc.std() + 1e-9)              # scale-free context; frequency = log resting bias
+        sc = prior_weight * np.log(pr + 1e-6) + z
+    return sc
 
 
 def flat_context_scores(context_vecs: np.ndarray, sense_gloss_vecs: np.ndarray) -> np.ndarray:
@@ -141,7 +158,8 @@ def sense_gloss_vec(gloss_words, vec_lookup):
 
 
 def pick_sense(context_words, candidate_gloss_words, vec_lookup, shuffle_rng=None,
-               gamma: float = 1.0, topk: Optional[int] = None):
+               gamma: float = 1.0, topk: Optional[int] = None,
+               sense_prior: Optional[np.ndarray] = None, prior_weight: float = 0.0):
     """Direct solver entry point: pick which candidate SENSE the context supports, by biased competition.
     context_words: the target's sentence content words (target REMOVED). candidate_gloss_words: a list (one per
     candidate synset, IN ORDER) of that synset's gloss+example+lemma words. vec_lookup: word -> vector or None
@@ -157,4 +175,5 @@ def pick_sense(context_words, candidate_gloss_words, vec_lookup, shuffle_rng=Non
         return None
     D = C.shape[1]
     G = np.stack([g if g is not None else np.zeros(D, dtype=np.float64) for g in gvs])
-    return int(np.argmax(diagnostic_context_scores(C, G, shuffle_rng, gamma=gamma, topk=topk)))
+    return int(np.argmax(diagnostic_context_scores(C, G, shuffle_rng, gamma=gamma, topk=topk,
+                                                    sense_prior=sense_prior, prior_weight=prior_weight)))

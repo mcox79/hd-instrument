@@ -9,6 +9,9 @@ files_changed: "experiments/exp_rare_sense_episodic_vs_prototype_v1.py (STAGE 0:
 reverify: ".venv/Scripts/python.exe verification/test_rare_sense_episodic_coverage_growth.py"
 ---
 
+## INTEGRATED_BY_STRATEGY (2026-09-05) — EXCELLENT
+Landed the landable win (`sense_prior`/`prior_weight` Bayesian readout) into `hdlab/diagnostic_context_wsd`, DEFAULT byte-identical (witness `test_bayesian_prior_wsd_landing.py`). Reverified `test_rare_sense_episodic_coverage_growth.py` 26/26. KEPT default-off with a measured reason (the only consumer, consolidation_gate, is default-off; the operating point is per-consumer). The episodic/coverage store is NOT landed (the located-negative half, §2-gated). Follow-on filed: cross-corpus WiC/SemEval generalization. §2 owner decision surfaced (strategy rec: HOLD the no-transformer invariant). §2b folded.
+
 # Rare-sense meaning channel: the tail is the HIPPOCAMPAL-EPISODIC regime; coverage grows; the wall is the input representation
 
 ## >>> THE WINNER (THE LANDABLE DELIVERABLE) + NEXT OPTIMIZATION STEPS -- READ FIRST <<<
