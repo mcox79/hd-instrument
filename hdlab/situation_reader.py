@@ -696,7 +696,7 @@ class SituationReader:
                  cm_agent_struct: bool = True,
                  cm_weights: Optional[Dict[str, float]] = None,
                  cm_twin_seed: Optional[int] = None,
-                 predicate_recall: bool = False,
+                 predicate_recall: bool = True,
                  commonnoun_situation_gate: bool = True,
                  commonnoun_canonical: bool = True) -> None:
         # === DEFAULTS FLIPPED ON 2026-09-03 (owner-authorized: "switch them on... 1 at a time, top down,
@@ -1047,8 +1047,15 @@ class SituationReader:
         # verb-reading back to event predicates. ADDITIVE-ONLY -> the existing UPOS==VERB detections + their role
         # picks are BYTE-IDENTICAL (no regression by construction). Recovers dropped verbs MODERN 0.90 / 19c 0.56
         # @ FP<=0.5/sent, twin loses CI-sep, ZERO 19c labels. The asset threshold is FP<=0.5/sent-calibrated on
-        # MODERN (denser 19c -> ~1.4 FP/sent at the same threshold: an FP-budget knob). Default OFF -> byte-
-        # identical. NO spaCy / NO LLM (WordNet lexical gate only).
+        # MODERN (denser 19c -> ~1.4 FP/sent at the same threshold: an FP-budget knob).
+        # FLIPPED DEFAULT-ON 2026-09-05 (owner-DONE register_robust_event_detection_turn_on_and_expand...): the
+        # cross-arm re-adjudication proved the turn-on NET-POSITIVE on BOTH who-did-what arms on the CURRENT
+        # reader (held-out agent +0.0125 / patient +0.0050 CI-sep, monotone in recovery = real signal), the
+        # random-verbhood twin loses. SCOPED so causal stays byte-identical: _read_causation computes
+        # sm.causal_links over the BASE (non-recall) event set (see there) -- without scoping the extra events
+        # add distractor causes and causal regresses -0.0594 CI-sep. coref/temporal byte-identical, world_state
+        # +22/-0 facts, bound_event_tokens 1/3641. FP does not reach a who-did-what answer (additive + lemma-and-
+        # sentence match). NO spaCy / NO LLM (WordNet lexical gate only). all_capabilities_off() still sets False.
         self.predicate_recall = bool(predicate_recall)
         self._pred_detector = None     # lazy hdlab.predicate_detector.PredicateDetector
         # PER-READ tag/parse memo (2026-09-03 perf): dimensions independently re-tag/re-parse the SAME
@@ -1812,26 +1819,39 @@ class SituationReader:
         adjacency floor (connective direction != recency on 'because/since' effect-first cases) and a
         reversed/shuffled twin must lose. This is connective-STRUCTURE recovery (the dimension's stated
         scope), NOT force-dynamics reasoning (the separate typed causation path). sm.causal_links is
-        consumed ONLY by the causal readout, so this is additive to every other dimension."""
-        links: List[CausalLink] = []
-        for si, toks in enumerate(sents):
-            if not (_CAUSAL_CONNECTIVES & set(toks)):
-                continue
-            events, _tagged = self._extract_events(" ".join(toks))   # the reader's OWN densified events
-            if len(events) < 2:
-                continue
-            low = [t.lower() for t in toks]
-            # try each event as the outcome-to-explain; record EVERY genuine connective/bridge cause link
-            # (order-agnostic: "X because Y" states the effect first, so the last event is not the outcome).
-            for outcome in events:
-                cause_ev, method = C.causal_net_cause(events, low, outcome)
-                if cause_ev is None or cause_ev.lemma == outcome.lemma:
+        consumed ONLY by the causal readout, so this is additive to every other dimension.
+
+        SCOPED 2026-09-05 (owner-DONE register_robust_event_detection...): computed over the BASE (non-recall)
+        event set even when predicate_recall is default-ON. predicate_recall's extra recovered events add
+        distractor causes in connective sentences that mis-pick the connective/bridge selection (a density-brittle
+        OUR-INVENTION heuristic) -> causal regresses -0.0594 CI-sep if unscoped. Temporarily disabling recall for
+        THIS method's own _extract_events makes sm.causal_links BYTE-IDENTICAL to the recall-OFF reader while
+        sm.events (already built with recall) keeps the who-did-what densification. The faithful fix (force-dynamic
+        attribution) is the filed meaning-hub successor; scoping is the measured interim."""
+        saved_recall = self.predicate_recall
+        self.predicate_recall = False               # scope: causal extraction sees the base (validated) density
+        try:
+            links: List[CausalLink] = []
+            for si, toks in enumerate(sents):
+                if not (_CAUSAL_CONNECTIVES & set(toks)):
                     continue
-                if method not in ("connective", "bridge"):
+                events, _tagged = self._extract_events(" ".join(toks))   # the reader's OWN densified events
+                if len(events) < 2:
                     continue
-                links.append(CausalLink(sent_idx=si, cause=cause_ev.lemma,
-                                        outcome=outcome.lemma, method=method))
-        return links
+                low = [t.lower() for t in toks]
+                # try each event as the outcome-to-explain; record EVERY genuine connective/bridge cause link
+                # (order-agnostic: "X because Y" states the effect first, so the last event is not the outcome).
+                for outcome in events:
+                    cause_ev, method = C.causal_net_cause(events, low, outcome)
+                    if cause_ev is None or cause_ev.lemma == outcome.lemma:
+                        continue
+                    if method not in ("connective", "bridge"):
+                        continue
+                    links.append(CausalLink(sent_idx=si, cause=cause_ev.lemma,
+                                            outcome=outcome.lemma, method=method))
+            return links
+        finally:
+            self.predicate_recall = saved_recall
 
     def _read_goals(self, sm, sents) -> None:
         """Opt-in GOAL/INTENTION dimension (default-off track_goals; wired 2026-09-04 from the owner-DONE

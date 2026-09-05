@@ -9,6 +9,9 @@ files_changed: "experiments/exp_event_detection_crossarm_v1.py (predicate_recall
 reverify: ".venv/Scripts/python.exe verification/test_event_detection_crossarm_organ.py"
 ---
 
+## INTEGRATED_BY_STRATEGY (2026-09-05) — EXCELLENT
+Landed into `hdlab/situation_reader.py`: `predicate_recall` DEFAULT-ON + `_read_causation` SCOPED over the base (non-recall) event set (causal byte-identical; witness `test_event_detection_scoped_recall_landing.py`). Reverified `test_event_detection_crossarm_organ.py` 7/7. The copula silo-unification is realized by the reader's `entity_states` (default-ON) + the copula-aware who-did-what readout (the main board already answers copular via the STATE dim). Follow-on filed: a force-dynamic meaning-hub causal scorer. §2b folded.
+
 # SOLVED -- the who-did-what cap is register-robust event DETECTION, and it clears on BOTH arms: turn on the open-class recovery (already built, scoped so causal is neutral) + UNIFY the readout across the copular-state silo
 
 **Status: SOLVED (WIP until `owner_verdict: DONE`).** No `hdlab/` file changed -- the mechanism is proven in
