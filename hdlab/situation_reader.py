@@ -127,7 +127,8 @@ def __getattr__(name: str):
 
 # ---- grounded-affect dimension (reuse, 2026-08-05 wire; CERTIFIED SCOPE =
 # notes/landed_vet_bridge1_foundation.md, animacy-axis event override, Bopen=1.000) ----
-from hdlab.context_grounded_valence import score_context_grounded_valence, to_ternary
+from hdlab.context_grounded_valence import (score_context_grounded_valence,
+                                            score_context_grounded_valence_pretagged, to_ternary)
 
 # ---- banked TIME + CAUSATION mechanisms (reuse) ----
 from experiments import _temporal_ordering as T
@@ -640,13 +641,24 @@ def _assign_affect(patient: str, sentence_text: str) -> Optional[str]:
     Uses the organ's DEFAULT seed=0 / FULL_N_TRAIN_THETA on every call -- the organ's own
     module-level caches (_GOV_PERCEPTRON_CACHE / _THETA_CACHE) train the perceptron/theta once
     per process and reuse it across every event/passage, so this is O(1) trainings, O(events)
-    cheap scoring calls."""
+    cheap scoring calls.
+
+    REROUTED 2026-09-05 (owner-DONE route_the_redundant_nltk_perceptron_tagger_through_the_fast_hdlab_tagger):
+    tags via the shared hdlab UD-EWT frontend tagger (_load_frontend -- the SAME asset + structured-perceptron
+    model the events/roles/entity-state path uses, so the affect field is computed from ONE consistent category
+    system, not a second off-the-shelf NLTK averaged-perceptron tagger), and skips the DISCARDED torch valence
+    (need_valence=False -- _assign_affect reads only predicted_type + stage). VALENCED output (HARM/HELP +
+    feel-category) BYTE-IDENTICAL to the NLTK route (0 flips / 8947, witness 6/6); the inert NA<->None
+    firing-provenance bit differs on ~9% of events (no production consumer branches on it; hdlab tags are often
+    MORE correct). Sheds ~0.37s/read off the affect path. NO NLTK perceptron tagger in the read path."""
     if patient in (None, "?"):
         return None
+    toks = sentence_text.split(" ")
+    pos = _load_frontend()[0].tag(toks)      # hdlab UD UPOS -- one category system, no NLTK
     try:
-        result = score_context_grounded_valence(patient, sentence_text)
+        result = score_context_grounded_valence_pretagged(patient, toks, pos)   # need_valence=False
     except ValueError:
-        return None  # patient head not found by the organ's own tokenizer -- abstain, not guess
+        return None  # patient head not found -- abstain, not guess
     if result["stage"] != "event":
         return None  # certified animacy-axis override did not fire for this item -- abstain
     return to_ternary(result["predicted_type"])

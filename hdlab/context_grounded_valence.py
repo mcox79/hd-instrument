@@ -167,7 +167,7 @@ def _sim_theta(seed: int, n_train_theta: int):
 def score_item(tokens: list, pos: list, target_idx: int, target_word: Optional[str] = None, *,
                seed: int = 0, n_train_theta: int = FULL_N_TRAIN_THETA,
                control: str = "none", animacy_map: Optional[dict] = None,
-               situation_type: Optional[str] = None) -> dict:
+               situation_type: Optional[str] = None, need_valence: bool = True) -> dict:
     """Certified 3-stage scoring for one pre-tokenized/POS-tagged item. Returns predicted_type (in
     TYPES), valence (float, Q(harm@coherent)-Q(help@coherent)), sign (+1/-1), and per-stage
     diagnostics. `control` selects a certified can-fail control arm in place of the real governor
@@ -215,14 +215,39 @@ def score_item(tokens: list, pos: list, target_idx: int, target_word: Optional[s
     # score_item stays the certified/unwired path. score_passage is the opt-in wire that computes a
     # real situation_type per item (see module docstring) and passes it through this parameter.
     final_type, winner = _v2.combine_biased_competition(gov_type, event_type, situation_type)
-    cb, theta = _sim_theta(seed, n_train_theta)
-    valence = _gov.valence_for_type(cb, theta, final_type)
+    if need_valence:
+        cb, theta = _sim_theta(seed, n_train_theta)
+        valence = _gov.valence_for_type(cb, theta, final_type)
+        sign = 1 if valence > 0 else -1
+    else:
+        # the affect wire reads only predicted_type + stage (via to_ternary) and DISCARDS valence, so skip
+        # the two torch theta matmuls (owner-DONE route_the_redundant_nltk_perceptron_tagger..., 2026-09-05):
+        # to_ternary(final_type) is valence-independent -> the ternary output is byte-identical. Default True
+        # keeps every existing caller (score_batch/score_passage/the NLTK entrypoint) byte-identical.
+        valence, sign = None, None
     return {
-        "predicted_type": final_type, "valence": valence, "sign": 1 if valence > 0 else -1,
+        "predicted_type": final_type, "valence": valence, "sign": sign,
         "stage": winner, "governor_type": gov_type, "event_type": event_type,
         "patient_category": category, "governor_word": gov_word, "control": control, "seed": seed,
         "situation_type": situation_type,
     }
+
+
+def score_context_grounded_valence_pretagged(target_word: str, tokens: list, pos: list, *,
+                                             seed: int = 0, n_train_theta: int = FULL_N_TRAIN_THETA,
+                                             need_valence: bool = False) -> dict:
+    """PRE-TAGGED entrypoint (owner-DONE route_the_redundant_nltk_perceptron_tagger..., 2026-09-05): the caller
+    supplies hdlab UD UPOS `pos` aligned to `tokens` (e.g. via the reader's shared frontend tagger), so the
+    NLTK perceptron tagger + word_tokenize (_tokenize_and_tag) are NOT called -- ONE category system consistent
+    with every other organ. need_valence=False skips the discarded torch valence (the affect wire reads only
+    predicted_type + stage). Byte-identical valenced output vs the NLTK route (0 flips / 8947, witness 6/6).
+    Keeps _tokenize_and_tag / score_context_grounded_valence for standalone (non-reader) use."""
+    tw = target_word.lower()
+    target_idx = next((i for i, t in enumerate(tokens) if t.lower() == tw), None)
+    if target_idx is None:
+        raise ValueError("target_word %r not in tokens" % target_word)
+    return score_item(list(tokens), list(pos), target_idx, target_word, seed=seed,
+                      n_train_theta=n_train_theta, need_valence=need_valence)
 
 
 def score_batch(items: list, *, seed: int = 0, n_train_theta: int = FULL_N_TRAIN_THETA,
