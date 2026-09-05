@@ -349,6 +349,37 @@ one clear fidelity gap, -0.083, tractable, glass-box); (2) COMPLETE THE DMV MECH
 -- fixes the aux/cop/compound collapse); (3) WIRE GROUNDED MEANING into role competition (validated non-
 canonical); (4) FLIP the dormant arc-eager live (+0.05 free) + graded/incremental runtime. All on 19c text.
 
+## (K) THE BRAIN-FOUNDATIONAL STRUCTURE LEARNER, BUILT: online, prediction-error-driven, never frozen
+`exp_online_predictive_structure_learner_v1.py`, built ON hdlab.predictive_coding (the substrate's own
+Friston/Rao-Ballard organ). This is "how the brain does it, exactly": NOT a trained-then-frozen model, but a
+system that reads left-to-right, predicts, and updates itself from its own prediction error, continuously,
+consolidating -- no answer key, no batch training, never frozen.
+
+MECHANISM (each piece reuses / copies the brain's): distributed bipolar code per word-type; an associative
+memory W (predictive_coding) predicts a head's dependents; read incrementally; attach by GLOBAL settling to a
+coherent parse (graded competition); then a PREDICTION-ERROR-GATED Hebbian write (predictive_coding.
+proportional_gate + gated_write: W += surprise * outer(dep, head)) -- big surprise, big update; consolidate
+fast->slow (EMA, the cortical trace). Seeded with an INNATE universal structural bias (Naseem 2010).
+
+RESULT -- it LEARNS AS IT READS (UD-EWT test, no gold trees, never frozen):
+  innate bias, 0 read (settle) 0.3902  ->  0.4433 (peak, 500 sents)  ->  0.4270 (final)  = +0.037-0.053 learned.
+  CONTROL no-learning (W frozen at the innate bias): 0.3902 (flat -- confirms the rise is real learning).
+  CONTROL no innate bias, then learned: 0.2747 (the innate structural bias is LOAD-BEARING -- like the brain's).
+It matches the batch self-supervised DMV (0.38-0.45) but done the brain's way (online, never frozen).
+
+KEY REALIZATION (the fix that made it work): my first update rule learned from its OWN GREEDY guesses and
+REINFORCED ITS OWN MISTAKES -- accuracy DROPPED below the innate bias (0.368 -> 0.262). The brain-foundational
+fix: SETTLE on a coherent whole-sentence parse BEFORE learning from it (an online version of a careful
+expectation step), which flipped learning from degrading to improving. Self-training on a weak greedy decode
+amplifies error; settling first does not.
+
+HONEST LIMITS: absolute accuracy ~0.44 is far below the supervised parser (0.84) -- it is category-level, learns
+from limited text, and lacks the grounding + experience-scale the brain has (the measured gap in J). And there
+is mild drift after the early peak (0.4433 -> 0.4270) -- the online writes slowly over-consolidate; a lower
+learning rate / stronger slow-store stabilization (the brain's consolidation) is the next lever. But the
+brain-foundational MECHANISM is now BUILT and VALIDATED: it learns structure by predicting text, online, never
+frozen, reusing the substrate's predictive-coding organ.
+
 ## Proposed hdlab/ diff (strategy lands, Q111)
 Add `_FastLabelPlan` to `hdlab/arc_labeler.py` (the class body of `experiments/exp_arc_labeler_fastpath_v1.py::
 FastLabelPlan`, verbatim). Add `ArcLabeler._ensure_fast(self)` that lazily builds `self._fast_plan =
