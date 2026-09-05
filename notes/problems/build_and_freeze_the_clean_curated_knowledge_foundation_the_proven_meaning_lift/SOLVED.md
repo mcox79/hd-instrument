@@ -5,7 +5,7 @@ bar: "PASS = a clean curated knowledge foundation, BUILT + VERIFIED + FROZEN as 
 result: "The FROZEN static asset (117,614 WordNet synsets, one 200-d mean-w2v unit signature each, float16, 44MB) delivers a_s 0.2512 -> 0.3267 = +0.0755 CI-separated [0.0557, 0.0957] (ci_hw 0.020, null_p95 0.0194) through the LIVE hdlab.diagnostic_context_wsd readout, on strict document-disjoint SemCor subordinate senses (odd-doc test, n=2675). Freeze->reload is byte-exact (delta 0.0). Determinism fixed + witnessed. The store also emits a multi-index foundation MANIFEST (7 spokes) and an intrinsic-quality transform + a gap-analysis acquisition backlog."
 floor: "gloss-only (WordNet definition+examples+lemma-names+hypernyms), a_s = 0.2512 (recomputed on the SAME odd-doc subordinate test population, n=2675). Second floor: the info-free SHUFFLED-knowledge twin a_s = 0.2015 (curated associates permuted onto the WRONG senses)."
 controls: "(1) SHUFFLED-knowledge info-free twin LOSES CI-sep (frozen 0.3267 vs shuffled 0.2015, +0.1252) -> it is the CORRECT curated knowledge, not 'more words'. (2) MFS no-regression on the FULL all-sense population (blended-frozen 0.6890 >= MFS 0.6834, n=8774) -> does not hurt the dominant cases. (3) FREEZE-FIDELITY (frozen==on-the-fly, delta 0.0) -> the static asset delivers exactly what the live build does. (4) DETERMINISM (byte-identical signatures across PYTHONHASHSEED 0/1/2 after the sorted-then-capped fix) -> excludes 'the number was a hash-order artifact' (the parent's un-sorted hyponyms()[:8] WAS hash-dependent). (5) REPRESENTATION test: all-but-the-top (Mu-Viswanath) HURTS the readout monotonically (0.319->0.210) and IDF pre-pooling is neutral -> excludes 'a post-hoc transform recovers the ceiling'; VERDICT DATA-GAP. (6) TRIMMING: schema-margin, sibling-confusion, and incoherence anomaly trims ALL fail to beat keep-all on held-out -> excludes 'the curated store has prunable overlap that helps a_s'. Each control excludes a distinct rival. Paired bootstrap CI half-width + sign-flip null p95 on every contrast."
-files_changed: "experiments/exp_knowledge_factory_meaning_store_v1.py (adapter->trim->freeze->reload->validate + optimize + full-WordNet freeze), experiments/exp_knowledge_factory_intrinsic_trim_v1.py (intrinsic quality transform + anomaly trim), experiments/exp_knowledge_factory_repr_optimize_v1.py (decisive all-but-the-top / SIF representation test), experiments/exp_knowledge_factory_gap_analysis_v1.py (the 'what to learn' acquisition backlog), verification/test_knowledge_factory_meaning_store.py (scaffold-free witness 6/6), data/frontend_assets/meaning_sense_signatures_v1.npz (the FROZEN foundation asset, 117,614 synsets), data/frontend_assets/knowledge_foundation_manifest.json (the multi-index hub-and-spoke registry), data/exp_knowledge_factory_*/metrics_*.json"
+files_changed: "experiments/exp_knowledge_factory_meaning_store_v1.py (adapter->trim->freeze->reload->validate + optimize + full-WordNet freeze), experiments/exp_knowledge_factory_intrinsic_trim_v1.py (intrinsic quality transform + anomaly trim), experiments/exp_knowledge_factory_repr_optimize_v1.py (decisive all-but-the-top / SIF representation test), experiments/exp_knowledge_factory_gap_analysis_v1.py (the 'what to learn' acquisition backlog), experiments/exp_knowledge_factory_grow_loop_v1.py (the multi-round ingest->prune->climb->freeze grow loop), verification/test_knowledge_factory_meaning_store.py (scaffold-free witness 6/6), verification/test_knowledge_factory_grow_loop.py (grow-mechanism witness), data/frontend_assets/meaning_sense_signatures_v1.npz (FROZEN C1 foundation, 117,614 synsets), data/frontend_assets/associative_similarity_store_v1.npz (FROZEN C1b reading-grown associative store), data/frontend_assets/knowledge_foundation_manifest.json (the multi-index hub-and-spoke registry, 8 spokes), notes/problems/<slug>/REMOTE_RUN_REQUEST_exp_knowledge_factory_grow_loop_v1.md, data/exp_knowledge_factory_*/metrics_*.json"
 reverify: ".venv/Scripts/python.exe verification/test_knowledge_factory_meaning_store.py"
 ---
 
@@ -103,6 +103,62 @@ with 2,010/2,675 decisions near-ties. This is the active-learning target set for
 pairs instead of everything, admitted through the gate. Brain: prediction-error/novelty/curiosity direct WHERE to
 learn (faithful); the global offline gap-MAP is a super-brain offline-build convenience.
 
+## STEP-2 GROWTH DEMONSTRATED -- ingest a corpus -> PRUNE -> clear improvement -> iterate -> freeze -> hand off
+
+Owner: "show ingestion of a large corpus, then pruning, then the clear improvement -- a number of times, to a
+respectable corpus, freeze it, hand for permanent inclusion." Built the multi-round grow loop
+(`exp_knowledge_factory_grow_loop_v1`, reusing the proven `does_learning_from_reading_deserve_to_continue` reader
+machinery) and it demonstrates the full cycle -- **on the store where reading-growth is measured to WORK.**
+
+**Honest scope (this is the load-bearing point):** reading-growth improves the ASSOCIATIVE / word-similarity store
+(SimLex/WordSim), a DIFFERENT typed store than the curated sense-DISCRIMINATIVE WSD signatures (C1). Reading-growth
+is a located NEGATIVE for C1 (topical, not sense-substitutable), so C1 stays curated+frozen; the grow loop builds
+the SECOND typed store. Both are in the manifest.
+
+The loop: INGEST simplewiki over R rounds -> PRUNE (recurrence gate min_count=3 + PPMI surprise-weighting, the
+brain's N400 encoding gate) -> ACCUMULATE additively (CLS, catastrophic-forgetting-free) -> SVD -> measure held-out
+SimLex/WordSim rho -> FREEZE `data/frontend_assets/associative_similarity_store_v1.npz`.
+
+**FULL 6-round run (12M tokens, local fallback -- see remote note):** SimLex rho climbs MONOTONICALLY
+**0.0878 -> 0.1075 -> 0.1127 -> 0.1385 -> 0.1458 -> 0.1647** (+0.0769 over 6 rounds, monotone=True); WordSim
+**0.388 -> 0.477**. **The prune is what makes it work, at EVERY round:** the RAW-count (no-prune) arm is NEGATIVE
+the whole way (-0.041 -> -0.014) while the PPMI-gated store climbs -- pruning converts raw-regression into gain.
+The info-free SHUFFLED-corpus twin loses every round (~0 to -0.04). FROZEN
+`associative_similarity_store_v1.npz` (44.6 MB, 40,023 words x 300-d, PPMI-SVD). Witness
+`verification/test_knowledge_factory_grow_loop.py` **4/4** (recurrence-prune, prune>raw, shuffled-loses, climb).
+NOTE: 12M of the 38M-token corpus -> rho 0.165; the strong-arm parent reached SimLex 0.2552 / WordSim 0.6301 at
+full-corpus scale, so a full-corpus freeze lands higher -- the remote 18M+ run is dropped
+(`REMOTE_RUN_REQUEST_exp_knowledge_factory_grow_loop_v1.md`) for the higher-coverage freeze once the remote
+pipeline is back (the watcher looked STALE: last activity 2026-09-03, recent `queue_add.sh` returned 1 -- flagged
+to strategy).
+
+## REGRESSING CONSUMERS = BROKEN CONSUMERS (the audit rule, owner 2026-09-04)
+
+A consumer that regresses on CLEAN, CORRECT, relevant knowledge is MIS-INTEGRATING it -- a consumer bug, not a
+reason to withhold the knowledge. The bug is almost always: a fixed threshold/normalization tuned to the old thin
+store, NO precision/reliability weighting (correct-but-numerous signal dilutes a sharp one), a capacity bottleneck
+(superposition -- exactly C1's measured 0.93 cone), or double-counting correlated evidence. Brain: cortex
+integrates cues PRECISION-WEIGHTED (Ernst-Banks, Friston); a healthy circuit does not degrade on more reliable
+input. TWO qualifiers before blaming the consumer: (1) rule out BAD KNOWLEDGE via the info-free/shuffled twin -- if
+the shuffled twin regresses the consumer equally, it's noise not the consumer; (2) rule out RIGHT-FOR-THE-WRONG-
+REASON (a stage riding the frequency prior scores high on dominant-heavy tests; adding rare-sense knowledge drops
+the dominant number while raising the rare one -- a metric artifact, check the sub-population, which is why the MFS
+guard is measured separately). OPERATING RULE at every wire/growth: measure ALL consumers; any regression on correct
+knowledge -> fix list.
+
+## THE CONTINUING PROCESS (for strategy -- owner asked to share thoughts)
+
+A permanent wake/sleep consolidation cycle: **ingest new corpus -> prune (recurrence+PPMI+schema) -> admit via
+`cls_growth` keep-both+rollback (never overwrite) -> measure ALL consumers held-out -> freeze a new VERSION only
+when it beats the prior across consumers -> hand for permanent inclusion.** Gated by one criterion applied every
+round (improve CI-sep + no sub-population regression + beat the info-free twin, else rollback). Targeted by the
+gap-analysis backlog (read for the collapsed/low-margin pairs, not everything = active learning). The
+regression-audit above runs every cycle. Strategy owns: the periodic cron, the version-promotion decision, the
+consumer-regression fix queue, and the invariant guard (no external LLM; the contextual-encoder is the separate
+owner decision). Honest ceiling: the associative store grows indefinitely; the sense-discriminative store is capped
+by the frozen representation (~0.35 glass-box, a DATA gap) until targeted acquisition closes specific pairs or the
+invariant is relaxed.
+
 ## PROPOSED hdlab CHANGE (strategy lands it, Q111)
 
 The frozen asset is already shipped to `data/frontend_assets/`. The wire is a small loader + a default:
@@ -152,6 +208,10 @@ The frozen asset is already shipped to `data/frontend_assets/`. The wire is a sm
 - **The intrinsic transform is more brain-faithful than the labeled metric.** The brain prunes/admits on its own
   activity statistics (efficient coding, prediction error), not an external gold. The label-free sibling-separation +
   the gap-map are the brain's criterion; the held-out a_s is the proxy we can audit against.
+- **The PRUNE *is* the growth.** In the grow loop, raw reading co-occurrence regresses at EVERY round (-0.04 SimLex)
+  while the SAME data through the recurrence+PPMI prune climbs monotonically (+0.077 over 6 rounds). "Ingest more"
+  only helps once "prune" is in the loop -- which is exactly why growth must be gated, never raw, and why a consumer
+  that regresses on the RAW store is not evidence against growth, only against ungated growth.
 
 ## What I did NOT establish, and would withdraw first if wrong
 

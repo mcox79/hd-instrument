@@ -5,7 +5,7 @@ bar: "PASS = a glass-box goal->subgoal hierarchy graph (subgoal->superordinate m
 result: "A glass-box GOAL->SUBGOAL HIERARCHY GRAPH built by composing the LANDED flat goal register (hdlab.goal_register) with the reader's causal network (motivation edges = subgoal-action -> superordinate-purpose, chained on the shared head lemma; connectivity salience; open-superordinate reinstatement). On a 30-item authored plot-structure battery (hand-set gold, independent of the mechanism; the flat register + shuffled-edges twin carry the epistemic weight), THREE plot-structure QA arms each CI-separated over the actual landed flat-register floor with the shuffled-edges info-free twin LOSING: (A) goal-why CHAIN / superordinate (n=88): graph 1.000 vs flat_register.why (immediate purpose only) 0.6818, paired item-bootstrap diff +0.3182 CI[+0.2273,+0.4205] half-width 0.0966, twin[shuffled-edges] null p95 0.2955 << 1.000; (B) SUPERORDINATE reinstatement over distance (n=15): graph 1.000 vs flat_register.wants (recency) 0.0667, diff +0.9333 CI[+0.80,+1.00] hw 0.10, twin null p95 0.4667; (C) CONNECTIVITY salience (n=15): graph 1.000 vs recency 0.000, diff +1.000 CI[+1.0,+1.0], twin null p95 0.3333. Structural graph-accuracy (immediate parent edge vs authored gold) 1.000 (n=88). DISTANCE-invariance: the graph answers reinstatement at 1.000 for K=0..5 intervening distractor goals while the flat recency floor collapses 1.000->0.000 at K>=1. NO-REGRESS: the flat register's why()/wants() answers are byte-identical with and without the graph (30/30) -- the graph is a pure ADD. REAL 19c narrative (25 LitBank docs): 723 goal nodes, 11 genuine >=2-hop explicit chains in 8/25 docs; 10.8% of goal nodes are ISOLATED (stated goals with no explicit superordinate link) -- the located-negative slice needing planning inference."
 floor: "Strongest floors actually run, recomputed on the SAME population: (A) the LANDED flat_register.why() (immediate purpose, one hop) 0.6818 -- model CI-separated above; (B) the LANDED flat_register.wants() (Suh-Trabasso most-recent-active = recency across siblings/distractors) 0.0667 -- model CI-separated above; (C) most-recent goal (recency/depth) 0.000. Plus the info-free SHUFFLED-EDGES twin per arm (null p95 0.2955 / 0.4667 / 0.3333), all LOSING to the 1.000 model."
 controls: "(1) INFO-FREE TWIN = shuffled edges (rewire every motivation edge to a uniformly-random node, preserving node set + status + edge count, randomizing WHICH node is the root; per-item independent seeds, 500 draws): loses on all three arms (null p95 0.30/0.47/0.33 vs model 1.0) -- EXCLUDES 'the answer comes from the node set / positions, not the real hierarchy structure'. (2) FLAT-REGISTER FLOOR = the actual landed hdlab.goal_register readouts (why/wants) -- EXCLUDES 'the flat register already does this'; it structurally cannot (why() returns only the immediate purpose; wants() returns recency). (3) DISTANCE curve (K=0..5 intervening distractor goals) -- EXCLUDES 'the win is adjacency': the graph is distance-invariant, the recency floor collapses at K>=1. (4) NO-REGRESS (byte-identical flat answers with/without the graph, 30/30) -- EXCLUDES a regression on the flat goal dimension (the graph is purely additive). (5) GOLD-NEUTRAL tiebreak (connectivity ties broken lexicographically, not by position) -- EXCLUDES 'the readout leaks the gold via an earliest-mention tiebreak'. (6) REAL-narrative incidence (25 docs) + isolated-node fraction -- LOCATES the negative: explicit >=2-hop hierarchy is sparse (11 chains) and 10.8% of goals are structurally unlinkable (need inference)."
-files_changed: "experiments/goal_hierarchy_graph.py (the promotable CORE: GoalGraph + build_goal_graph over hdlab.goal_register's goals + the causal network -- motivation/enablement edges, connectivity salience, why_chain/superordinate/open_superordinate/most_connected readouts, shuffled_graph twin; stdlib + hdlab.goal_register only); experiments/exp_goal_hierarchy_qa_v1.py (the measurement: 30-item authored battery + generators, 3 QA arms vs the landed flat floor + shuffled-edges twin, item-bootstrap CI + null p95, distance curve, no-regress, real LitBank incidence); verification/test_goal_hierarchy_graph.py (scaffold-free witness, 8/8, reads landed metrics + a from-source unit); notes/problems/build_the_goal_subgoal_hierarchy_graph_for_plot_structure_comprehension/{research_goal_hierarchy_plot_structure_mechanism_2026-09-04.md, SOLVED.md}; data/exp_goal_hierarchy_qa_v1/metrics.json. hdlab/ UNTOUCHED (proposed default-on Q111 wire in §5, strategy lands it)."
+files_changed: "experiments/goal_hierarchy_graph.py (the promotable CORE: GoalGraph + build_goal_graph over hdlab.goal_register's goals + the causal network -- motivation/enablement edges, connectivity salience, why_chain/superordinate/open_superordinate/most_connected readouts, shuffled_graph twin; stdlib + hdlab.goal_register only); experiments/exp_goal_hierarchy_qa_v1.py (the measurement: 30-item authored battery + generators, 3 QA arms vs the landed flat floor + shuffled-edges twin, item-bootstrap CI + null p95, distance curve, no-regress, real LitBank incidence); verification/test_goal_hierarchy_graph.py (scaffold-free witness, 8/8, reads landed metrics + a from-source unit); experiments/exp_goal_hierarchy_consumer_impact_v1.py (end-to-end consumer impact: additive 0-regression + instrument gap, live reader); experiments/exp_goal_hierarchy_markerless_bridge_v1.py (§5b: the ATOMIC graded means-end bridge cracking the located negative to 0.6875 on the covered slice); notes/problems/build_the_goal_subgoal_hierarchy_graph_for_plot_structure_comprehension/{research_goal_hierarchy_plot_structure_mechanism_2026-09-04.md, research_prior_multihop_supercharge_implications_2026-09-04.md, SOLVED.md}; data/{exp_goal_hierarchy_qa_v1,exp_goal_hierarchy_consumer_impact_v1,exp_goal_hierarchy_markerless_bridge_v1}/metrics.json. hdlab/ UNTOUCHED (proposed default-on Q111 wire in §5, strategy lands it)."
 reverify: ".venv/Scripts/python.exe verification/test_goal_hierarchy_graph.py   # 8/8, re-runs NO landed cell (reads metrics.json + a from-source unit). Full recompute (optional, writes only its own dir): .venv/Scripts/python.exe experiments/exp_goal_hierarchy_qa_v1.py --run --n-twin 500"
 ---
 
@@ -94,17 +94,19 @@ The three arms are the three capabilities the flat register structurally lacks: 
 so `why()` returns only the immediate purpose -- it cannot walk to the root; (B) `wants()` returns the most-recent
 active goal, so a more-recent distractor beats the still-open superordinate; (C) it has no connectivity notion.
 
-## §3 The located negative (the brief's sanctioned FULL PASS), with named cause + number
+## §3 The located negative -- DOWNGRADED (owner: "we can DEFINITELY do multihop"), with named cause + number
 On REAL 19c narrative (25 LitBank docs, 723 goal nodes) the explicit, structurally-recoverable hierarchy is SPARSE:
 only **11 genuine >=2-hop chains across 8/25 docs**, and **10.8% of goal nodes are ISOLATED** -- stated goals with no
-explicit purpose link to any superordinate. Placing an isolated/marker-less goal in the hierarchy ("she found a knife"
--> subgoal of "escape"?) is a PLANNING INFERENCE over world-knowledge (Schank-Abelson plans; Baker/Jara-Ettinger inverse
-planning over a cost model) -- PINNED out of scope for a structural graph builder, confirmed by the drill. The
-open-stack (Grosz-Sidner) heuristic would attach some structurally, but it attached 0 of the isolated stated-goals
-reliably and is an unverified guess, not an inference. This is the SAME meaning-channel gate the flat register's Tier-2
-abductive goals, the belief inference-edge, and WSD all hit. Secondary parse-gated cause: bare-purpose extraction
-over-fires on 19c prose (the goal SOLVED measured precision 0.33 vs a spaCy oracle), so many "connected" pairs in the
-real slice are noisy 1-hop links, not multi-level hierarchy -- the register-native-parser wall, filed already.
+explicit purpose link to any superordinate. My FIRST submission called placing an isolated/marker-less goal
+("she found a knife" -> subgoal of "escape"?) "PLANNING INFERENCE, out of scope for a structural graph." **That was
+OVER-STATED, and §5b corrects it with a measurement:** the marker-less action->goal link is a graded MEANS-END lookup
+(the exact pattern of the landed 0.700 discourse-fact bridge), and a graded ATOMIC-backed bridge cracks it to **0.6875
+on the ATOMIC-covered slice** (beats recency 0.0 and the info-free shuffled-index twin p95 0.25). So the residual is
+NOT "un-inferable"; it is a KNOWLEDGE-COVERAGE bound (which action verbs the means-end resource covers) + a parse bound
+(bare-purpose over-fires on 19c prose, precision 0.33 vs a spaCy oracle -- the register-native-parser wall, filed). This
+is the SAME "the reasoning step works; extraction/coverage is the limiter" verdict the whole reason-over-the-situation-
+model lineage reached (`the_reader_cannot_reason_over_its_own_situation_model_on_real_inference`;
+`the_discourse_fact_reasoner_is_unvalidated_on_natural_text`).
 
 ## §4 Performance vs a competent reader (the mechanism-diff)
 On explicit purpose structure the graph is at the competent-reader ceiling (1.000 structural reconstruction, multi-hop
@@ -130,6 +132,51 @@ witnessed 30/30). Recommended DEFAULT-ON (net-positive + additive, per the no-mo
    ones), so no consumer regresses.
 3. Add a `goal_hierarchy` per-dimension arm to the board QA (a `build_plot_structure_questions` + `_answer` reading
    `sm.goal_graph`, gated to the goal-why-chain + reinstatement-over-distance slice with the flat register as the floor).
+
+## §5a CONSUMER IMPACT (end-to-end, live reader; owner: "how do consumers score with this improvement?")
+Enumerated the actual consumers: the ONLY live consumer of the goal readouts is the board QA goal arm (WANT +
+depth-1 goal-why in `exp_situation_model_qa_v1.py`); NOTHING in hdlab computes off `sm.wants`/`why`/`achieved`. Measured
+through the LIVE `SituationReader(track_goals=True)` on 12 LitBank docs (`exp_goal_hierarchy_consumer_impact_v1.py`):
+- **REGRESSION: zero.** The graph is a pure ADD (sets `sm.goal_graph` + NEW callables; never mutates `sm.wants`/`why`/
+  `achieved`), so every existing board answer is **byte-identical (169/169)** -> 0 regression on ALL board dimensions.
+  WANT 0.45->0.45, depth-1 goal-why 0.953->0.953.
+- **INSTRUMENT GAP (the honest reason the benefit is not yet visible live):** only **6/149 (4%)** of the live board's
+  goal-why questions are multi-hop (graph superordinate != flat immediate purpose). The board's gold IS the immediate
+  purpose, so the current instrument does NOT probe the graph's deepening -- the benefit needs the plot-structure arm
+  (§5 step 3). This is the SAME shape as the parser problem (the events QA was agent-only, so a patient change was
+  invisible end-to-end): a new capability is invisible until a question type probes it.
+- **SCORED benefit** (the plot-structure question type, authored battery -- the same answerer using the flat register vs
+  the graph): why-chain 0.68->1.00, reinstatement 0.07->1.00, salience 0.00->1.00 (§2).
+
+## §5b CRACKING THE LOCATED NEGATIVE with the proven multi-hop supercharge (owner: "found ways to supercharge it")
+Prior-work reconciliation (`research_prior_multihop_supercharge_implications_2026-09-04.md`, from the multi-hop body the
+owner flagged): multi-hop reasoning is a PROVEN, supercharged capability here -- but on CLEAN symbolic substrates
+(certified `hdlab/multi_hop.py` K=2; ConceptNet 2-hop 0.848; 50 hops validated only when relations do not repeat). The
+supercharges all work by SHRINKING per-hop fan-out (community-routing; gated re-query micro-loop +0.383 on real
+ConceptNet; hierarchical decomposition; meet-in-the-middle `hdlab/reasoner.py`); the precision ceiling is "cone-collapse"
+(crosstalk ~sqrt(fanout/N)), closed by candidate-set restriction, never by scaling; K-beam pathsum SANITY_BREACHed and
+per-hop-schema-Bayes HARD_FAILED (cautions). **KEY: no prior multi-hop runs over the reader's OWN extraction -- all
+clean substrates; the limiter is EXTRACTION/COVERAGE, not the reasoning step.** Two implications, acted on:
+1. **My structural graph walk is in the PROVEN-clean regime** (explicit purpose edges = clean discrete relations), and
+   the real lever for real narrative is EDGE COVERAGE, not deeper search (the word-placement synthesis: gains came from
+   more edge TYPES, capacity-doubling gave zero). Confirmed on live docs: adding the causal network's ENABLEMENT edges
+   (a second edge type, already in `build_goal_graph`) rescues isolated goals 0.080->0.066 (4/24 reconnected).
+2. **The marker-less link is crackable, not out of scope -- and OPTIMIZED (owner: "optimize even more?").** Built a
+   graded MEANS-END bridge over ATOMIC (xIntent/xWant in the CSKG -- "why PersonX did the event" = the goal), the SAME
+   curated-bridge pattern as the landed 0.700 discourse-fact bridge (`exp_goal_hierarchy_markerless_bridge_v1.py`),
+   attaching a marker-less action to the goal it serves, vs a recency floor 0.0 and an info-free shuffled-index twin
+   (null p95 0.25). Three implementations, ascending fidelity (each measured):
+   - binary set-membership 0.375 (ties too often);
+   - **frequency-graded counts 0.6875** (counts break ties: cook->eat 136 vs sleep 1);
+   - **PPMI+SVD low-rank embedding 0.9375 (+0.25 over counts)** -- the OPTIMIZATION, copying the discfact bridge's exact
+     mechanism. The graded cosine breaks the remaining ties AND recovers pairs with zero raw count (hide->escape).
+   The SVD also **GENERALIZES to UNSEEN pairs: held-out AUC 0.68** (true held-out means-end pairs ranked above random,
+   pos 0.115 vs neg 0.041) -- the same generalization the discfact bridge got (0.700), which SOFTENS the coverage bound.
+   And a **reliability GATE** (fire only when the fit clears a margin) abstains on 4/5 no-signal control items -- the
+   discfact real-text lesson that an ungated bridge HURTS the no-means-end complement. Honest limits: n=16 authored
+   items with hand distractors; ATOMIC verb coverage is partial (dig/gather/unlock/flee absent). So this DOWNGRADES the
+   located negative from "un-inferable / out of scope" to **"a gated PPMI+SVD means-end bridge, 0.94 on covered verbs +
+   0.68 generalization to unseen"** -- a PoC/optimization, with the full real-narrative validation named below.
 
 ## §6 AUDIT UPDATE (for notes/BRAIN_FOUNDATIONAL_AUDIT.md §2b)
 Add a **GOAL HIERARCHY / PLOT-STRUCTURE GRAPH** entry to the situation-model section, as the §7 follow-on the goal
@@ -192,18 +239,40 @@ still-open big goal even after several small steps. On a 30-story test set it an
 the key?" (-> to escape) where the old tracker could only say "to open the door"; it returns to the overarching goal
 after distracting side-tasks where the old tracker jumps to the most recent thing; and it picks the most-connected goal
 as the central one -- each far better than the old flat tracker, and a scrambled-tree version fails, so the win comes
-from the real structure. Where it honestly stops: in real old novels, spelled-out goal chains are rare (11 in 25
-chapters) and about one in ten goals is stated with no clue about which bigger goal it serves -- connecting those needs
-real-world reasoning about people's plans, which we do not yet have. That inference engine is the clear next step, and
-it is the same engine the belief-tracker needs.
+from the real structure. Where it stops on real old novels: spelled-out goal chains are rare (11 in 25 chapters) and
+about one in ten goals is stated with no clue about which bigger goal it serves. I first called that "out of scope,"
+but that was too pessimistic: using a commonsense table of what-people-usually-do-things-for (ATOMIC), the reader can
+guess the right bigger goal for a stated action about 7 in 10 times where the table covers the verb -- far better than
+guessing the most-recent goal (0) or a scrambled table. The limit is coverage of that table, not the reasoning. And
+building the graph does not change any existing answer the reader already gives (verified word-for-word on real
+chapters) -- it only adds the new "why, ultimately" and "which goal is central" abilities, which the current test set
+does not yet ask about.
 
 ## QUESTIONS
 None.
 
-## NEXT STEPS
-Land the default-on Q111 wire (§5): promote `goal_hierarchy_graph.py`, add `sm.goal_graph` + the multi-hop query
-callables to `_read_goals` (additive), add the `goal_hierarchy` board arm. Then the highest-value follow-on is the
-inverse-planning / plan-library inference engine (the located negative) -- which unifies with the belief timeline's
-POMDP next-brief and the goal register's Tier-2 abductive goals into ONE mentalizing inference organ. Lower: the
-register-native parser (lifts real-narrative chain density), the faithful two-hop enablement path, and a
-corpus-validated connectivity-salience arm against human recall/importance.
+## NEXT STEPS (optimization roadmap -- DONE this session marked; the rest ranked by leverage)
+0. **DONE (this session):** the goal->subgoal graph (why-chain / reinstatement / connectivity, all CI-sep + twin
+   losing, structural 1.000); consumer impact (additive, 0-regression, instrument gap named); and the located-negative
+   CRACK + OPTIMIZATION -- the PPMI+SVD ATOMIC means-end bridge (0.375 binary -> 0.688 counts -> **0.938 PPMI+SVD**,
+   held-out generalization AUC 0.68, reliability gate no-harm).
+1. **Land the default-on Q111 wire (§5):** promote `goal_hierarchy_graph.py`, add `sm.goal_graph` + the multi-hop query
+   callables to `_read_goals` (additive, 0-regression verified), add the `goal_hierarchy` board arm (without it the
+   benefit is invisible -- §5a).
+2. **THE biggest remaining win -- validate the PPMI+SVD means-end bridge on REAL narrative (§5b).** The 0.938/0.68 is on
+   an n=16 authored PoC; the full solve validates on real LitBank marker-less actions with a COVERAGE CURVE, wired as a
+   RELIABILITY-GATED edge type (fire only when a goal is on the open-stack AND the fit clears the margin -- the discfact
+   real-text lesson that an ungated bridge HURTS the no-means-end complement). Reuse `exp_discfact_store_bridging_graded_v1`
+   + `hdlab/graded_competition` + `hdlab/reasoner.py`. Problem-sized; the honest bound is ATOMIC verb coverage (softened
+   by the SVD generalization). Do NOT over-tune the n=16 PoC (single-config overfit -- the replication-gate discipline).
+3. **Fidelity refinements (more brain-faithful, smaller number-moves):** salience = connectivity + chain-membership (I
+   use pure degree -- research pinned both); the faithful TWO-HOP enablement path (outcome enables the superordinate's
+   NEXT attempt, not the goal directly); backoff edge types (WordNet / grounded_semantic_graph) for verbs ATOMIC misses
+   (the "more edge types, not deeper search" lesson -- confirmed: causal edges already rescue isolated goals 0.080->0.066).
+4. **Lower:** the register-native parser (lifts real-narrative explicit-chain density past the 0.33 bare-purpose wall);
+   a corpus-validated connectivity-salience arm against human recall/importance (Trabasso & van den Broek).
+Reconciliation (owner's multi-hop pointer): multi-hop reasoning is PROVEN here on CLEAN substrates (K=2 certified, 50
+hops when relations do not repeat), supercharged by candidate-set restriction (community-routing, gated re-query,
+meet-in-the-middle); the precision ceiling is cone-collapse, closed by restriction not scaling. The goal graph's
+structural walk is in that proven-clean regime (no per-hop decay); the real-narrative lever is EDGE COVERAGE + the
+means-end bridge, NOT deeper search.
