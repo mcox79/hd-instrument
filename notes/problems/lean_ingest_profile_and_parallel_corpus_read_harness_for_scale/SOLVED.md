@@ -9,6 +9,9 @@ files_changed: "experiments/exp_lean_ingest_profiles_v1.py, experiments/exp_para
 reverify: ".venv/Scripts/python.exe verification/test_lean_ingest_and_parallel_harness.py"
 ---
 
+## INTEGRATED_BY_STRATEGY (2026-09-05) — EXCELLENT
+Landed `hdlab/ingest_profiles.py` (the named presets, promoted verbatim; witness `test_ingest_profiles_landing.py` — 12 profiles byte-faithful, selpref==full on the harvest core). Reverified `test_lean_ingest_and_parallel_harness.py` 36/36. The process-parallel harness is validated + usable in `experiments/exp_parallel_corpus_read_harness_v1`. DEFERRED as optional/low-value: the referent_per_np source-determinism fix (harness canonicalizes; would change global entity order for no gain) + a tools/ CLI. §2b folded.
+
 # >>> THE DELIVERABLE -- READ FIRST <<<
 
 Two durable pieces, both verified (36/36 witness), plus a bisected two-source determinism finding the brief anticipated as a valid located negative.
