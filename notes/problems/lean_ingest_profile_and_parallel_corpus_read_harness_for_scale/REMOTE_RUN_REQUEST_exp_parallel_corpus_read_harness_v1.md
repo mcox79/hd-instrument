@@ -38,5 +38,14 @@ identity is proven by the guarded FULL run + the local witness. Bare invocation 
 Deterministic; the one hash-order-dependent field (sm.entities) is canonicalized before hashing, so the identity
 check holds across worker processes regardless of PYTHONHASHSEED.
 
+HARDENING SINCE THE FIRST DISPATCH (2026-09-05): (1) FORK-preferring on Linux -- the parent loads the model once and
+workers inherit it copy-on-write (no per-worker model copy/RAM), which should close most of the ~32% gap to the
+hardware ceiling seen locally on Windows/spawn; (2) the CPU-ceiling probe runs FIRST and the reader section is
+guarded, so a missing asset still returns the box's parallel headroom; (3) PYTHONHASHSEED pinned across parent+
+workers; (4) fast asset-free self-test (clears the 300s guardrail). NOTE for interpretation: under the intended
+regime (workers <= physical cores, threads=1) the reader is byte-reproducible; if the remote box is OVERSUBSCRIBED,
+the affect/subj_role metadata organs can show rare borderline label flips (a located hdlab float-repro sensitivity)
+-- the per-worker `identical_to_serial` flags will reveal it if so.
+
 This is verdict-INDEPENDENT validation of the scaling claim; the SOLVED deliverable stands without it (byte-identity
 + local ceiling-relative scaling are already proven). It just confirms near-linear scaling on cleaner hardware.

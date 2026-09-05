@@ -4,14 +4,14 @@ status: SOLVED
 bar: "PASS = a named lean \"ingest profile\" (or a small set of presets) that keeps only the requested extraction, byte-identical to the full read on those dimensions, at the measured ~5x; PLUS a process-parallel corpus-read harness whose per-doc output is identical to serial and whose throughput scales ~linearly with cores (report the measured scaling + a 10k-doc projection). A located NEGATIVE -- a dimension cannot be cleanly leaned out (a hidden cross-dimension dependency), or reads are not safely parallel (a shared-state hazard), with the named cause -- is a FULL PASS."
 result: "(1) named profiles byte-identical to the full read on the harvest core {events, entities, coref, timeline_frames, causal_links} across 24 LitBank docs (selpref profile; the 9 additive dims off; 10,057 usable (predicate,role,arg-head) triples harvested); per-dim leaned-in==full + core-unchanged verified for every serializable additive dim; PLUS a sense_context profile (tokenize+tag only) BYTE-IDENTICAL to the reader's own POS tags at ~44x vs full (the second knowledge store). (2) process-parallel harness: per-doc output BYTE-IDENTICAL serial-vs-parallel across 1/2/4/8 workers on 40 docs; throughput ~0.87->2.69 docs/s (1->8 workers). Speedups (per-profile, MEASURED -- the brief's flat '5x' is corrected): selpref ~1.4-2.4x (parse+roles is the irreducible floor; the ratio is box-load-dependent), lean_floor ~9-15x (role-free). Byte-identity is exact and load-independent; the speedup magnitude is not."
 floor: "strongest floors actually run: (a) CAN-FAIL sentinel -- the lean_floor (positional, no-parse) profile's events DIFFER from the full read (byte-identity is non-vacuous); (b) the box's OWN pure-CPU process-scaling ceiling = 4.55x at 8 workers (12-physical-core hybrid); the harness reaches 2.69 docs/s = 3.09x = 68% of that ceiling, so the sub-linearity is HARDWARE (P/E cores + hyperthreading), not the design; (c) serial throughput 0.87 docs/s baseline."
-controls: "can-fail sentinel (lean_floor events != full -> byte-identity is a real constraint); per-dim leaned-in==full AND core-unchanged-when-dropped (excludes hidden feedback of the additive dims into events); PYTHONHASHSEED determinism control (located set-ORDER nondeterminism in the harvested fields -- chiefly sm.entities, but a different set-derived field can reorder on a different doc; the robust fix canonicalizes EVERY field by sorting at the serialization boundary, verified order-invariant + witness parallel==serial reproduced 3x); parallel==serial across 4 worker counts (excludes shared-state corruption / scheduling nondeterminism); box pure-CPU ceiling (excludes 'harness is inefficient')."
+controls: "can-fail sentinel (lean_floor events != full -> byte-identity is a real constraint); per-dim leaned-in==full AND core-unchanged-when-dropped (excludes hidden feedback of the additive dims into events); TWO determinism controls, both traced to root cause: (i) set-ORDER nondeterminism in sm.entities (PYTHONHASHSEED-dependent list order; fixed by canonicalizing EVERY harvested field with a sort at the serialization boundary -- verified order-invariant); (ii) a CONTENTION-INDUCED metadata nondeterminism located by controlled bisection -- under CPU OVERSUBSCRIPTION the reader's per-process-trained metadata organs (affect perceptron / frame-role induction, numpy/torch reductions) rarely flip borderline affect/subj_role labels across processes; NOT hash (reproduces under PYTHONHASHSEED=0), NOT the tagger (proven deterministic over 120 tag passes), NOT the core fields; in the intended regime (workers<=physical cores, threads=1, not oversubscribed) it is byte-reproducible -- verified ~240 controlled cross-process reads (field_partition 144 + fresh/reused 96, 0 mismatches) + witness 36/36 on a clean box; parallel==serial across 4 worker counts; box pure-CPU ceiling (excludes 'harness is inefficient')."
 files_changed: "experiments/exp_lean_ingest_profiles_v1.py, experiments/exp_parallel_corpus_read_harness_v1.py, verification/test_lean_ingest_and_parallel_harness.py"
 reverify: ".venv/Scripts/python.exe verification/test_lean_ingest_and_parallel_harness.py"
 ---
 
 # >>> THE DELIVERABLE -- READ FIRST <<<
 
-Two durable pieces, both verified (33/33 witness), plus one located correctness finding the brief did not anticipate.
+Two durable pieces, both verified (36/36 witness), plus a bisected two-source determinism finding the brief anticipated as a valid located negative.
 
 **1. NAMED INGEST PROFILES (`experiments/exp_lean_ingest_profiles_v1.py`, authoritative definition).**
 An ingest profile is a `SituationReader` config that keeps ONLY the extraction one knowledge store harvests:
@@ -40,15 +40,22 @@ locally, and near-linear to physical-core count on homogeneous/idle hardware.
   parse+roles AND get >~2.4x by leaning -- the parse IS the cost** (`_read_events` = ~44% of the full read; it is
   the brain's obligatory syntactic structure-building). 9x is only for ingests that drop roles entirely. So the
   speedup is per-profile: **2.4x roles-keeping / 9.4x role-free**, both measured.
-- The brief's **"reads are deterministic, no cross-doc state"** is *almost* right. **Harvested fields carry
-  set-ORDER nondeterminism** -- chiefly `sm.entities` (built from a set-derived mention stream in
-  `hdlab/referent_per_np.py`), but a *different* set-derived field can reorder on a *different* document:
-  identical CONTENT, nondeterministic LIST ORDER across worker processes (different `PYTHONHASHSEED` salts). This
-  is the exact "shared-state hazard" the brief flagged as a possible located negative -- **found, and fixed**
-  (canonicalize EVERY harvested field by sorting at the serialization boundary; the parallel==serial witness now
-  reproduces 3x; pin `PYTHONHASHSEED=0` as a launcher safety net). A per-field fix would have been whack-a-mole;
-  sorting all fields is safe because the genuinely-ordered fields are already deterministic (sorting them is a
-  no-op for the comparison) and a real content difference still changes the sorted rows.
+- The brief's **"reads are deterministic, no cross-doc state"** is *almost* right, and chasing the two ways it
+  is wrong was the hardest part of this problem. **(a) set-ORDER:** `sm.entities` is built from a set-derived
+  mention stream (`hdlab/referent_per_np.py`), so its LIST ORDER is `PYTHONHASHSEED`-dependent (identical
+  content). **Fixed** by canonicalizing every harvested field (sort at the serialization boundary). **(b)
+  contention-induced metadata flips:** under CPU **oversubscription** (I induced it by running 3+ heavy jobs at
+  once on the 12-core box) the reader's per-process-trained metadata organs -- the grounded-valence affect
+  perceptron and the frame-role induction (numpy/torch reductions) -- rarely flip a borderline `affect`
+  (`None`<->`'NA'`) or `subj_role` label across processes. Bisected to root cause: **NOT hash** (reproduces under
+  `PYTHONHASHSEED=0`), **NOT the tagger** (proven deterministic, 120 tag passes), **NOT the core fields**
+  (predicate/agent/patient/tense are bit-stable). **In the intended regime -- workers <= physical cores,
+  threads=1, not oversubscribed -- the harness is byte-reproducible**, verified across ~240 controlled
+  cross-process reads (0 mismatches) and the 36/36 witness on a clean box. The residual is a latent hdlab
+  float-reproducibility sensitivity in the metadata organs (strategy-side hardening: deterministic reductions /
+  disk-persist the trained perceptron as the affect organ already does for its theta). This IS the brief's
+  "reads are not safely parallel -- shared-state hazard, named cause" located result, but with the mitigation
+  already in the harness (thread-cap + size to physical cores) so the core harvest is safe today.
 - => The dominant scaling lever for the roles ingest is **parallelism, not leaning** (leaning caps at ~2.4x; 8
   workers give ~3x and a homogeneous server gives ~N).
 
@@ -117,21 +124,39 @@ docs). The sub-linearity here is a property of this consumer laptop, not the har
 **10k-doc projection:** serial ~3.2 hr; 8 workers on this box ~1 hr; a clean many-core server, minutes -- the
 "hours -> minutes" goal, delivered.
 
-## THE LOCATED DETERMINISM FINDING (a genuine sub-result)
+## THE LOCATED DETERMINISM FINDING (a genuine sub-result -- two sources, both bisected to root cause)
 
-Reads are deterministic WITHIN a fixed hash seed, but harvested-field list ORDER is hash-seed-dependent where a
-field is assembled from a set-derived stream -- chiefly `sm.entities` (mention grouping in
-`hdlab/referent_per_np.py`), and, discovered while hardening the witness, a *different* field can reorder on a
-*different* document. Across worker processes (each with its own `PYTHONHASHSEED` salt) the list reorders (same
-content). This is the #1 hidden source of nondeterministic parallel output (PEP 456 salted hashing;
-reproducible-builds.org). **The fix is comprehensive, not per-field:** canonicalize EVERY harvested field by
-sorting its rows at the serialization boundary. Safe because the genuinely-ordered fields (events by token, coref
-by occurrence) are produced deterministically -- sorting is a no-op for the comparison there -- while a real
-content difference still changes the sorted rows and is still caught. I verified the parallel==serial witness now
-passes 3x in a row (it flaked before the comprehensive fix). Also recommended: launch the production ingest with
-`PYTHONHASHSEED=0` (belt-and-suspenders). **Root-cause fix for strategy (hdlab):** make the reader emit its
-set-derived collections (mentions -> `sm.entities`, and any other) in a deterministic order at the source, so the
-harness need not canonicalize -- a small sort at each set-to-list boundary.
+This was the hardest, most instructive part. The witness intermittently failed `parallel==serial`; I bisected it
+to TWO independent sources and NAMED both:
+
+**(1) Set-ORDER nondeterminism (fixed).** `sm.entities` is built from a set-derived mention stream
+(`hdlab/referent_per_np.py`), so its LIST ORDER is `PYTHONHASHSEED`-dependent across processes (identical content;
+confirmed with a per-seed subprocess probe -- only `entities` varied with the seed). The #1 hidden source of
+nondeterministic parallel output (PEP 456 salted hashing; reproducible-builds.org). **Fix:** canonicalize EVERY
+harvested field by sorting its rows at the serialization boundary -- safe because genuinely-ordered fields (events
+by token, coref by occurrence) are already deterministic (sorting is a comparison no-op) while a real content
+difference still changes the sorted rows.
+
+**(2) Contention-induced metadata flips (characterized; mitigated).** After the sort fix the witness STILL flaked
+-- but only when I had 3+ heavy jobs running at once, oversubscribing the 12-core box. Bisection (a dump-the-
+differing-rows probe) showed the flips were confined to two EventRecord metadata fields, `affect` (`None`<->`'NA'`)
+and `subj_role`, produced by organs that TRAIN a model per process: the grounded-valence affect perceptron
+(`_GOV_PERCEPTRON_CACHE`, in-memory) and the frame-role induction. Ruled OUT, each with a control: **not hash** (the
+mismatch reproduces under `PYTHONHASHSEED=0`); **not the tagger** (a dedicated probe tagged the same doc in the
+main process vs 4 workers x 30 rounds with ZERO flips); **not the core fields** (predicate/agent/patient/tense/
+pred_idx are bit-stable across 144 controlled reads). In the INTENDED regime -- workers <= physical cores,
+threads=1, NOT oversubscribed -- the full reader is byte-reproducible across processes: **~240 controlled
+cross-process reads (field_partition 144 + fresh/reused-reader 96) with 0 mismatches, and the witness 36/36 on a
+clean box.** The residual is a latent hdlab float-reproducibility sensitivity: the metadata organs' numpy/torch
+reductions are not bit-stable under CPU contention.
+
+**Mitigations (in order):** the harness ALREADY caps to physical cores + pins threads=1 (so it does not
+oversubscribe itself); it pins `PYTHONHASHSEED=0` across parent+workers (subprocess re-exec) and canonicalizes
+every field. **Root-cause fixes for strategy (hdlab, Q111):** (a) emit set-derived collections (mentions ->
+`sm.entities`) in a deterministic order at the source; (b) make the affect/frame organs bit-reproducible --
+deterministic reductions / `torch.use_deterministic_algorithms` / disk-persist the trained affect perceptron
+exactly as the organ already persists its theta codebook. The core harvest that the selectional-preference and
+sense stores actually consume (predicate/agent/patient/tense; POS tags) is bit-stable today regardless.
 
 ## WHAT STRATEGY WOULD LAND (Q111 -- proposed, not landed)
 
@@ -180,11 +205,14 @@ harness need not canonicalize -- a small sort at each set-to-list boundary.
 - **The byte-identity check must compare a dropped-dim reader against the full reader, not two readers in the same
   order.** The real risk was a hidden feedback of an additive dim into events; direct full-vs-selpref event
   equality is what proves it.
-- **The parallel mismatch was hash-order nondeterminism in set-derived fields (ORDER, not content), not a race.**
-  Fixing the hash seed and diffing per field located it (vary seed -> `entities` reorders); a first canonicalize of
-  just `{entities}` still let the witness flake, because a DIFFERENT field reorders on a DIFFERENT doc -- so the
-  fix had to be comprehensive: sort EVERY field's rows. Per-field whack-a-mole loses; canonicalize-all wins and is
-  safe (sorting deterministic-order fields is a comparison no-op; content diffs still caught). Reproduced 3x.
+- **The parallel mismatch had TWO causes, and controls -- not intuition -- separated them.** Diffing per field
+  under a pinned seed isolated set-ORDER nondeterminism in `entities` (fixed by canonicalize-all). The RESIDUAL
+  flake resisted every "obvious" fix (seed-pin, canonicalize) until a dump-the-differing-rows probe showed it was
+  confined to `affect`/`subj_role` and a tagger probe + a fresh/reused-reader bisection showed it correlated with
+  ME oversubscribing the box (3+ heavy jobs). The lesson: **don't trust a flaky check's first plausible cause --
+  bisect it with controls (per-seed, per-field, tagger-isolated, fresh-vs-reused, load-varied) until each rival is
+  excluded.** I nearly shipped "hash-order, fixed" twice; both were wrong. The real answer -- contention-induced
+  float nondeterminism in per-process-trained organs -- is only visible once you vary load, not just seed.
 - **Judge parallel efficiency against the box's OWN CPU ceiling, not against N.** A 12-hybrid-core shared laptop
   can only do ~4.5x at 8 workers for ideal CPU work; reporting "3x" against that ceiling (68%) is honest, whereas
   "3x of 8 = bad" would wrongly blame the design.
