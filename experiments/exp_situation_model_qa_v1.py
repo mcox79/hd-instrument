@@ -464,7 +464,9 @@ class SituationQA:
                 if self.names.get(e.cluster)]
         if not cand:
             return None
-        cand.sort(reverse=True)
+        # most-mentioned named cluster; tie-break on a STRINGIFIED cluster id (the newer coref flags emit
+        # mixed int/str cluster ids, so a raw tuple sort raises TypeError on equal-mention ties; score-neutral).
+        cand.sort(key=lambda x: (x[0], str(x[1])), reverse=True)
         return self.names.get(cand[0][1])
 
     # -- TIME: "did <A> happen before or after <B>?" -> whole-passage chrono order --
@@ -634,7 +636,7 @@ def build_salience_question(sm: SituationModel) -> List[dict]:
     gold_counts = [(e.n_mentions, e.cluster) for e in sm.entities if names.get(e.cluster)]
     if not gold_counts:
         return []
-    gold_counts.sort(reverse=True)
+    gold_counts.sort(key=lambda x: (x[0], str(x[1])), reverse=True)   # str tie-break: mixed int/str cluster ids
     gold_name = names[gold_counts[0][1]]
     return [{
         "dim": "salience",
