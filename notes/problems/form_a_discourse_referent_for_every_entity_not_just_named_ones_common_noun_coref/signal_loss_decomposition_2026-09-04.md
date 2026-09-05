@@ -132,6 +132,70 @@ no-regress on named. So the relational situation model is a CORRECT, buildable, 
 the kinship slice, because most role-relational reference needs the relation established by world knowledge
 (bare roles) or a possessor resolution + relation recurrence that the narrative rarely makes explicit.
 
+## SIGNAL-LOSS TRACE of all 3 prototypes (`exp_commonnoun_prototype_signal_trace_v1.py`) -- weak impl vs true wall
+Owner discipline: a fair test of a WEAK impl proves THAT setup failed, not the capability. Traced each lever.
+
+- **LEVER 3 (relational) -- CONFIRMED true wall, my apposition hypothesis REFUTED.** Structure across 561
+  role-description links: possessive_pronoun 53.7%, BARE 43.7%, apposition_name 1.6%, genitive/of 1.1%. I had
+  suspected the weakness was missing APPOSITION ("Mr. Bennet, her father") + role->NAME binding -- but
+  apposition is only 1.6% of links, so the relation `father-of(Elizabeth)=Bennet` is ALMOST NEVER stated
+  explicitly; it is world/narrative knowledge the reader accumulates. My prototype DID target the dominant
+  structure (possessive, 54%); its low recovery is because (a) 44% are bare roles ("the master") needing world
+  knowledge, and (b) the possessive relations rarely RECUR with a consistently-resolvable possessor. Not a
+  missing-apposition weak impl -- a genuine world-knowledge fact.
+- **LEVER 2 (presence) -- CONFIRMED true wall.** Entrance-based spatial presence (present until a gap>6 sents)
+  gives 5.19 candidates vs the recency-window's 6.36, but LOWER antecedent retention (0.676 vs 0.749) -- the
+  same recall/precision tradeoff. ~5-6 compatible persons are co-present regardless of the presence
+  definition. Not a weak window -- genuine scene crowding.
+- **LEVER 1 (event gate) -- narrow by design + a real fidelity gap.** It only ranks head-match ties, and its
+  event extraction is POSITIONAL (first-subject = agent), NOT true SRL.
+
+**WHERE WE ARE NOT BRAIN-FOUNDATIONAL (named, from the trace):** (i) event extraction is positional, not the
+verb-frame SRL the brain uses (Hagoort MUC) -- the situation model is fed noisy roles; (ii) the relational
+binder resolved the possessor by most-recent-compatible, not the LANDED graded_coref_pick (ACT-R) resolver;
+(iii) there is NO persistent ENTITY WORLD-MODEL (a file card per entity carrying role, relations, location,
+recent actions) that reference resolution queries -- we resolve from surface cues, the brain resolves against
+an accumulated situation/world model. (i)-(ii) are cheap fidelity fixes the trace predicts yield little (the
+structure is not there for most links); (iii) is the real capability = the Phase-1 world model.
+
+## THE PROPER IMPLEMENTATION BUILT: entity world-model query -- mechanism crosses, deployment hits a bootstrap wall
+Research (`research` drill, 19 verified sources -- Kintsch CI; Zwaan event-indexing; Sanford-Garrod
+bonding->resolution; Morrow-Bower/Glenberg foregrounding; Heim FCS/Kamp DRT; EntNet/EntityNLM/Referential
+Reader) PINNED the proper mechanism: the reader resolves "the man"/"her father"/"the master" by QUERYING an
+accumulated ENTITY WORLD-MODEL (one file card per entity: types, social ROLE, RELATIONS accumulated across
+the text, recent-EVENT participation, presence, salience), restricted to the FOREGROUNDED set (bonding),
+scored by descriptive match (resolution) -- NOT by weighting surface cues. WHERE WE WERE NOT
+BRAIN-FOUNDATIONAL: no persistent entity model; recency/gender/head are surface cues not entity records;
+no role/relation/presence tracking; ACT-R ranks surface mentions not model records.
+
+BUILT it (`exp_commonnoun_entity_world_model_v1.py`) and measured the AMBIGUOUS-LINK resolution accuracy the
+research targets (0.26->0.5-0.65):
+| arm (1716 ambiguous person common-noun links, GOLD referents) | resolution accuracy |
+|---|---|
+| recency (surface baseline) | 0.255 |
+| event-agent (situation cue alone) | 0.287 |
+| **ENTITY WORLD-MODEL query** | **0.540** |
+| union-oracle (any single cue uniquely correct) | 0.615 |
+
+**The mechanism CROSSES: 0.255 -> 0.540, more than double, in the research's predicted band.** The union
+oracle 0.615 confirms the disambiguating facts ARE in the narrative. My earlier "capped" conclusion was
+premature AT THE MECHANISM LEVEL -- it was capped for a SURFACE-CUE resolver, not for the entity-world-model
+query. Per-category: head_identical 0.202->0.723, kinship_role 0.294->0.548, residual 0.279->0.418.
+
+**BUT the DEPLOYABLE former hits a BOOTSTRAPPING / IDENTIFIABILITY wall.** The 0.540 uses records built from
+the GOLD clustering (the answer). Building records from the reader's OWN clustering (`world_model_predict`)
+and re-scoring: character-cluster CoNLL 0.6046 -> 0.6097 (+0.0051, CI includes 0), CEAFe 0.469 -> 0.501
+(+0.032 -- genuinely better ENTITY boundaries) but MUC -0.010 -> net wash. TWO-PASS CONSOLIDATION (accumulate
+full-document records, then re-resolve -- the brain's "build the situation model, then resolve") does NOT
+cross it either: 0.6091 (+0.0045), no gain over single-pass (-0.0006). Reason: self-built records are ~60%
+pure (our clustering is ~0.60), so the descriptive/role/relation records are noisy, and consolidation
+REINFORCES pass-1 errors rather than fixing them. You cannot build correct-enough entity records without
+already resolving the reference -- a genuine chicken-and-egg the brain breaks with PRIOR WORLD KNOWLEDGE
+(it knows a priori who "the master" is, who Elizabeth's father is), the external prior the no-LLM invariant
+bars. So the residual is now PRECISELY characterized: not a missing mechanism (built, ceiling 0.540) but an
+identifiability wall broken only by external world knowledge -- exactly what SOTA imports from a pretrained
+LM and the human brings as world knowledge.
+
 ## VERDICT (attack the real capability): the crossing capability is NOT a buildable coref/presence heuristic
 Every buildable glass-box lever is measured -- and PROTOTYPED where it had a ceiling -- and all are CAPPED:
 event-centrality situation gate +0.013 (built, landable); presence/locality ~0.26 ceiling even with a gold
