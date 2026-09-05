@@ -29,7 +29,7 @@ from __future__ import annotations
 import os
 from typing import Dict, FrozenSet, List, Optional, Sequence, Tuple
 
-from hdlab.graded_role_assigner import hybrid_role_patient, robust_passive
+from hdlab.graded_role_assigner import hybrid_role_patient
 from hdlab.relcl_resolver import precise_passive
 from hdlab.thematic_role_labeler import lemma_verb, is_strictly_intransitive
 from hdlab.verb_subcat import suppress_patient
@@ -53,7 +53,6 @@ def _labeler():
 # structural plumbing (copied UNCHANGED from the validated exp_shared_predarg_frontend_v1/v2)
 # ------------------------------------------------------------------------------------------------
 NOMINAL = {"NOUN", "PROPN", "PRON"}
-BY = {"by"}
 MAX_HOPS = 4
 # theme words that, when the binder picks them, mean the goal belongs to the AGENT (self-motion idiom / reflexive /
 # path-noun), never a distinct moved theme.
@@ -202,35 +201,16 @@ def _cands(pos: Sequence[str]) -> List[int]:
 
 
 # ------------------------------------------------------------------------------------------------
-# STRUCTURE-FIRST PATIENT (opt-in, default OFF; promoted 2026-09-04 from the owner-DONE who-did-what
-# drill `consume_the_graded_pos_posterior_...`). The stock THEME/patient is a flat cue/position selector
-# (hybrid_role_patient) -- the brain's DAMAGED-BACKUP/agrammatic route (no arc heads). The brain reads the
-# core patient off the PARSE STRUCTURE: the verb's object (active) / promoted subject (passive, voice via
-# robust_passive) / coordination-control-shared object -- grammatical relations + linking rules + voice
-# remapping (Hagoort MUC; Levin-Rappaport-Hovav; agrammatism dual-route parallel). On CLEAN UD-EWT gold
-# (patient := obj|nsubj:pass off gold relations) the structure-first HYBRID (structure if the parse yields a
-# core object, else the heuristic fallback) beats the live heuristic +0.088 test / +0.076 train with ZERO
-# tuned parameters (generalizes; unlike the register-fitted Competition Model), ceiling 0.91 with a perfect
-# parse (residual = parser quality). NO-REGRESS through the live reader (non-role outputs byte-stable). Bodies
-# copied VERBATIM from experiments/exp_structural_role_reader_v1.structural_roles (+ its _verb_nom_deps /
-# _by_agent / _shared_object helpers) and experiments/exp_structural_patient_noregress_v1.hybrid_patient.
-# The AGENT is UNCHANGED (the nearest-pre-verbal / by-phrase / cm_agent path is already stronger than the
-# parse's raw subject); this changes ONLY the THEME/patient. Glass-box, NO LLM.
+# SHARED STRUCTURAL HELPERS for the parse-relation patient readout. _verb_nom_deps + _shared_object are
+# consumed by the LABELED patient readout below (structural_patient_pick -> labeled_pick, promoted 2026-09-04)
+# and are imported by the frozen R0 floor in experiments/exp_valency_labeled_patient_v1 (byte-identity to the
+# pre-upgrade DEPLOYED patient). PRUNED 2026-09-05 (at-land vestige cleanup): the old `structural_roles`
+# position-readout wrapper + its `_by_agent` helper were orphaned by the labeled-readout landing (no live hdlab
+# caller; the two importers on disk pull from experiments/exp_structural_role_reader_v1, not here). The
+# historical structure-first behaviour remains reproducible from that experiment cell. Glass-box, NO LLM.
 # ------------------------------------------------------------------------------------------------
 def _verb_nom_deps(pos, heads, v, n):
     return [c for c in range(1, n + 1) if heads.get(c) == v and pos[c - 1] in NOMINAL]
-
-
-def _by_agent(toks, pos, heads, v, n):
-    """a nominal governed by the verb whose left edge is 'by' (the demoted agent of a passive)."""
-    for c in range(1, n + 1):
-        if pos[c - 1] in NOMINAL and heads.get(c) == v:
-            j = c - 1
-            while j - 1 >= 1 and pos[j - 2] in ("ADJ", "NOUN", "PROPN", "DET"):
-                j -= 1
-            if j - 1 >= 1 and toks[j - 2].lower() in BY:
-                return c
-    return None
 
 
 def _shared_object(toks, pos, heads, v, n):
@@ -243,24 +223,6 @@ def _shared_object(toks, pos, heads, v, n):
         if post:
             return post[0]
     return None
-
-
-def structural_roles(toks, pos, heads, v, is_passive=None):
-    """Read (agent, patient) off the verb's grammatical relations in the parse + voice remapping. 1-based."""
-    n = len(toks)
-    if is_passive is None:
-        is_passive = robust_passive(toks, pos, v)
-    nom = _verb_nom_deps(pos, heads, v, n)
-    pre = [c for c in nom if c < v]; post = [c for c in nom if c > v]
-    if is_passive:
-        patient = pre[-1] if pre else (post[0] if post else None)   # promoted subject
-        agent = _by_agent(toks, pos, heads, v, n)                    # by-phrase (often absent)
-    else:
-        patient = post[0] if post else None                         # object
-        agent = pre[-1] if pre else None                            # subject
-    if patient is None:
-        patient = _shared_object(toks, pos, heads, v, n)            # coordination/control sharing
-    return {"agent": agent, "patient": patient}
 
 
 # ------------------------------------------------------------------------------------------------
