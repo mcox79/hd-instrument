@@ -1359,13 +1359,29 @@ class SituationReader:
         return self._parser
 
     def _cached_parse_heads(self, toks, pos):
-        """Per-read memoized base-parser heads dict; returns a FRESH copy (see _cached_tag). Byte-identical to
-        self._parser.parse(toks, pos).heads, minus the re-parse cost. Uses the lazily-loaded shared frontend so
-        it is safe from ANY path (not only role_route!='positional')."""
+        """Per-read memoized SINGLE shared parse heads dict; returns a FRESH copy (see _cached_tag).
+
+        DOUBLE-PARSE CONSOLIDATION 2026-09-05 (owner-DONE consolidate_the_arceager_and_arc_double_parse...): when
+        parser_arceager (the default), the ONE shared per-read parse is the arc-eager INCREMENTAL parse (the
+        PINNED brain-foundational parser -- Lewis-Vasishth incremental working-memory decode), serving BOTH the
+        role path (_router_roles) AND the front-end (copular/space) -- so the base arc-FACTORED batch parser is
+        never called on the read path (eliminates the redundant second parse: ~5% read-cost cut, full board ZERO
+        regression -- 6/9 consumed dims byte-identical, copular/space measured no-regress; witness 14/14). The
+        ROLE heads are byte-identical either way (same arceager_parser.parse_with_conf + weights); only the
+        front-end switches batch->incremental (the measured no-regress). When parser_arceager=False it is
+        byte-identical to the historical batch-parser path. The batch parser stays loadable (_frontend_parser) as
+        a self-checkable byte-identity reference."""
         key = ("parse", tuple(toks))
         c = self._read_parse_cache
         if key not in c:
-            c[key] = self._frontend_parser().parse(toks, pos).heads
+            if self.parser_arceager:
+                if self._ae_W is None:
+                    from hdlab.arceager_parser import load_model, parse_with_conf, MODEL_PATH
+                    self._ae_W = load_model(MODEL_PATH)
+                    self._ae_parse = parse_with_conf
+                c[key] = self._ae_parse(toks, pos, self._ae_W)[0]   # 1-based child->head (same shape as ArcParser)
+            else:
+                c[key] = self._frontend_parser().parse(toks, pos).heads
         return dict(c[key])
 
     def _router_roles(self, toks):
@@ -1376,14 +1392,11 @@ class SituationReader:
         if not toks or len(toks) > 120:
             return {}
         pos = self._cached_tag(toks)
-        if self.parser_arceager:                     # opt-in: route the wired parse through the improved arc-eager parser
-            if self._ae_W is None:
-                from hdlab.arceager_parser import load_model, parse_with_conf, MODEL_PATH
-                self._ae_W = load_model(MODEL_PATH)
-                self._ae_parse = parse_with_conf
-            heads = self._ae_parse(toks, pos, self._ae_W)[0]   # Dict[int,int] 1-based child->head (same shape as ArcParser)
-        else:
-            heads = self._cached_parse_heads(toks, pos)
+        # DOUBLE-PARSE CONSOLIDATION: read heads from the SINGLE shared per-read parse cache (arc-eager when
+        # parser_arceager) instead of a separate _ae_parse call -- so the front-end (copular/space) and this role
+        # path share ONE parse (was two). Role heads are byte-identical (the shared parse IS arc-eager when the
+        # flag is on, same weights); the batch parser is no longer called on the read path.
+        heads = self._cached_parse_heads(toks, pos)
         out = {}
         # structural_patient passed ONLY when ON, so the OFF wired path issues a call BYTE-IDENTICAL to the
         # historical one (no new kwarg) -- preserving any caller-side wrapper/monkeypatch of the router that

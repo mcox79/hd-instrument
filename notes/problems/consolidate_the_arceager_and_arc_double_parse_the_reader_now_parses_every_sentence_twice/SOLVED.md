@@ -9,6 +9,9 @@ files_changed: "experiments/exp_double_parse_consolidation_v1.py, experiments/ex
 reverify: ".venv/Scripts/python.exe verification/test_double_parse_consolidation.py"
 ---
 
+## INTEGRATED_BY_STRATEGY (2026-09-05) — EXCELLENT
+LANDED (Q111, DEFAULT-ON): `hdlab/situation_reader._cached_parse_heads` computes the ONE shared per-read parse via arc-eager `parse_with_conf` when `parser_arceager` (serving BOTH the role path AND the copular/space front-end); `_router_roles` reads from that shared cache (no separate `_ae_parse` call). The base `ArcParser` is never called on the read path (kept loadable as a byte-identity reference). Reverified `test_double_parse_consolidation.py` — substantive checks PASS (W3 6 dims byte-identical; W5/W6 copular/space no-regress; W8 zero batch parses); W1/W4/W7 are premise-stale post-landing (the double-parse they assert is correctly gone). ~5% read-cost cut; full board zero-regression. §2b folded (arc-eager incremental = PINNED brain-foundational; arc-factored batch retired from the read path). Follow-on filed: `space_where_is...lazy_locative_pp_bridging` (pri 5).
+
 # Consolidate the double parse onto ONE incremental parse (the brain parses once)
 
 > ## 🚩 PARSER-IMPACT FLAG (read first — this submission TOUCHES THE PARSER)
