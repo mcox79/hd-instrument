@@ -80,3 +80,45 @@ The mechanism rests on (1) MFS-is-chance-on-WiC [pinned], (2) GCM/Thompson-Schil
 [pinned], (5) cue-based retrieval + SUSTAIN clustered prototypes [pinned]. It does NOT rest on
 definitions-beat-contexts or a specific ATL-sense-identity routing (flagged speculative). The curated
 foundation is the taxonomic-similarity KEY the associative live reader lacks; that is the defensible frame.
+
+---
+# ADDENDUM — the glass-box WiC CEILING, and WHY nothing beat 0.644 (research 2026-09-05)
+
+Prompted by "understand those results deeply." Empirical error analysis + a 4-sub-agent primary-source lit scan.
+
+## The error analysis DIAGNOSED the wall (exp_wic_error_analysis_v1)
+Best arm (curated static, n=2038, acc 0.644): we predict SAME only 35% when gold-SAME is 50%. gold-SAME acc =
+0.494 (CHANCE); gold-DIFF acc = 0.793. The error is OVER-SPLITTING (false-diff 0.253 >> false-same 0.103):
+same-sense uses land on different-but-related WordNet synsets. POLYSEMY (1 lexname, >=2 senses) acc 0.544 <<
+HOMONYMY (>=2 lexnames) acc 0.622 -- exactly the shared-core-polysemy prediction.
+
+## The diagnosis' fix WON (exp_wic_sense_coarsening_v1)
+Coarsening WordNet to shared-core senses -- predict SAME iff the two picked synsets share a lexicographer file
+(supersense) -- lifts WiC 0.643 -> 0.664 (+0.0206 CI-sep [+0.004,+0.036]), rebalancing gold-SAME 0.494->0.655,
+pred-same 0.350->0.492. HYP-share (k=3) +0.0113 CI-sep. WUP-threshold +0.006 (not sep). The FIRST raw-accuracy
+gain over static, glass-box, brain-faithful (Rodd 2002 shared-core polysemy; WordNet granularity is a known
+artifact, CSI/OntoNotes).
+
+## Literature placement (PRIMARY-verified)
+- WiC paper (Pilehvar & Camacho-Collados 2019, Table 3, test): random 50.0; non-contextual w2v/BoW 54-58.7;
+  sense-embeddings DeConf 58.7 / SW2V 58.1 / JBT 53.6; context2vec 57.9-59.3; ELMo 56-57.7; BERT-base 60.2-65.4;
+  BERT-large 65.5; human 80.0. Fine-tuned BERT++ (SuperGLUE) 69.5. Best-ever machine ST-MoE-32B 77.7 (still <80).
+- SO: our glass-box 0.644/0.664 is ABOVE the non-contextual + sense-embedding baselines and IN the BERT-base range,
+  no LM. Not a wall we are failing -- at/above the knowledge-based frontier.
+- Bottleneck decomposition (Hovy OntoNotes 2006; Lacerra CSI 2020 -> coarsening reaches 85.9% F1 WSD; Navigli 2009;
+  Ethayarajh 2019): (A) GRANULARITY is a real WSD ceiling BUT the WiC authors already pruned the worst cases
+  (removed first-degree/sister/same-supersense pairs; human 57% on pruned-out vs 80% released) -> our coarsening
+  gain is real but BOUNDED (+0.02, not the +to-85% seen on raw WSD). (B) CONTEXTUALIZATION is the strongest
+  evidence for the static->BERT gap, with the key nuance that SHALLOW contextual models (ELMo/context2vec) barely
+  beat static -- only DEEP transformers jump -> the residual is deep-LM (invariant boundary), not shallow dynamics.
+  (C) world-knowledge for WiC: unstudied.
+- Symbolic knowledge WSD (UKB/Babelfy/Lesk/SyntagRank) has NEVER been evaluated on English SuperGLUE-WiC (UKB's
+  70.3 is Senseval all-words F1, a different benchmark) -- so a "knowledge-based WiC ceiling" is an extrapolation,
+  and our glass-box knowledge-based WiC numbers may be among the few that exist.
+
+## WHY the dynamic C-I reader lost (now clear)
+(1) WiC is ISOLATED single sentences; Kintsch Construction-Integration is a DISCOURSE-comprehension model -- its
+advantage (situation model, cross-sentence coherence) is out of scope on WiC. (2) The bottleneck is inventory
+GRANULARITY + deep contextualization, not sense-SELECTION dynamics, so joint settling addresses the wrong stage.
+(3) Jointly resolving ~10 noisy context senses injects more error than the topical signal it sharpens. C-I is the
+right architecture for discourse comprehension; WiC is the wrong instrument to show it.
