@@ -9,6 +9,9 @@ files_changed: "experiments/exp_knowledge_factory_meaning_store_v1.py (adapter->
 reverify: ".venv/Scripts/python.exe verification/test_knowledge_factory_meaning_store.py  (C1 6/6; also: test_knowledge_factory_learner_ready.py 4/4, test_knowledge_factory_consumer_usage_tweak.py 3/3)"
 ---
 
+## INTEGRATED_BY_STRATEGY (2026-09-05) — EXCELLENT
+Landed `hdlab/meaning_foundation.py` (loader for the frozen `meaning_sense_signatures_v1.npz`, byte-identical to the on-disk store; witness `test_meaning_foundation_landing.py`) as the default sense-signature source for the meaning channel. Reverified `test_knowledge_factory_meaning_store.py` 6/6 (+0.0755 CI-sep through the live `diagnostic_context_wsd`). The frozen assets stay on-disk (the whole `data/` tree is gitignored — the project's convention; no frontend asset is committed). LATENT (no live read()-time consumer of `diagnostic_context_wsd` exists yet); the store is READY for the `reader_meaning_channel` stage. DEFERRED (validated): the `composed_hub_predictor` AvgSim→MaxSim tweak (latent organ). §2b folded.
+
 ## SUBMISSION SUMMARY + READINESS (read first)
 
 **WHAT THIS DELIVERS.** The clean curated knowledge foundation, BUILT + FROZEN + VALIDATED, plus the machinery to
