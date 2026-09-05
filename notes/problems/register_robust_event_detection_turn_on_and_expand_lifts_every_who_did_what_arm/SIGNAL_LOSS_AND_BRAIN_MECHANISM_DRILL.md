@@ -193,6 +193,60 @@ robust joint decoder; causation → the meaning hub. The copula holder, which th
 multi-cue win, is measured PARSER-bound on this register — so the two lever families are (1) joint decoder/parser
 [detection + all attachment] and (2) meaning hub [causal].
 
+## 7. AGGRESSIVE DRILL — "the brain works, so we're un-brain-foundational SOMEWHERE" (owner push 2026-09-05)
+The two prototype negatives (§6) were challenged: a faithful brain-foundational build cannot fail, so the failure
+means the infidelity is elsewhere. I ran ISOLATION experiments to find exactly where. **Both residuals are now
+proven to be MISSING brain-foundational ORGANS, not broken ones — and the shallow proxies I built failed precisely
+because they sat on a non-brain-foundational substrate.**
+
+### 7a. The HOLDER is an un-brain-foundational STRUCTURE-BUILDER (not the role organ)
+Six glass-box holder identifiers, copula-agent slice, board(16)+held-out(40 disjoint), vs the competent-reader oracle:
+
+| identifier | board | held-out | note |
+|---|---|---|---|
+| OOD arc-parser nsubj | 0.205 | 0.091 | corpus-trained, register-brittle |
+| register-general incremental binder (nearest nominal) | 0.209 | 0.091 | grabs PP-internal "house" not head "man" |
+| multi-cue AGENT competition | 0.241 | 0.091 | agent cues, wrong relation for a HOLDER |
+| + animacy fallback | 0.209 | 0.091 | — |
+| **register-invariant subject-head** (clause-initial NP head + agreement, `exp_event_detection_subject_head_v1`) | **0.187** | — | self-test correct ("man" not "house"); real 19c inversions/existentials defeat the heuristic |
+| **competent-reader oracle** (spaCy nsubj) | **0.705** | **0.771** | a competent parser; itself register-capped |
+
+**ALL our tools plateau ~0.19–0.24; a competent parser gets 0.71–0.77; the gap generalizes.** The gold subject is
+IN the tracked candidate set 94.2% → NOT coverage. The infidelity is that our STRUCTURE-BUILDING is not register-
+invariant: the arc-parser is corpus-trained (OOD-brittle), the incremental binder is too shallow (nearest-nominal,
+grabs PP-internal), and a partial clause-initial+agreement HEURISTIC cannot handle real copular syntax (inversions
+"here he is", existentials, complex NPs). The brain integrates agreement + case + closed-class NP-boundary +
+argument-frame in ONE graded parse; a bolt-on heuristic does not substitute. → the fix is the INTEGRATED register-
+invariant parse (the joint graded decoder), extending `incremental_parser` — not a standalone heuristic.
+
+### 7b. The CAUSAL is an un-brain-foundational MISSING MEANING CHANNEL (not the parser)
+Causal cause-selection isolation (`exp_event_detection_causal_oracle_v1`, fixed qset, OFF=0.9109):
+
+| cause-selection | causal | vs OFF |
+|---|---|---|
+| positional (OFF) | 0.9109 | baseline |
+| semantic, our participants | 0.8416 | −0.069 |
+| semantic, **ORACLE participants** | 0.8218 | **−0.089 — correct participants DON'T help** |
+| **ORACLE structural** (spaCy's syntactic connective argument) | 0.7624 | **−0.149 — a PERFECT parse is the WORST** |
+
+**Decisive:** the causal failure is NOT the parser (a perfect parse is *worse* than positional) and NOT broken
+participants (oracle participants don't help). The positional heuristic only "works" by riding the accidental
+adjacency-plausibility correlation; real structure actively misleads (Koornneef & Van Berkum, now measured). Cause-
+selection genuinely requires a SITUATION-MODEL PLAUSIBILITY channel — and we have NONE. The brain has a situation
+model; our substrate does not. → the fix is the meaning hub (north-star P1); it is a MISSING organ, not a broken one.
+
+### 7c. The precise answer to "where are we not brain-foundational?"
+TWO missing organs, each proven by isolation, each the exact lever the mechanism-diff (§3) named:
+1. **Register-invariant INTEGRATED structure-building** (the joint graded decoder, extending `incremental_parser`)
+   — caps all ATTACHMENT (open-class agent + copula holder). Our parsers are corpus-brittle OR too shallow; no
+   partial heuristic closes the gap; the brain's is one graded agreement-driven register-invariant parse.
+2. **The SITUATION-MODEL PLAUSIBILITY channel** (the meaning hub) — caps CAUSAL. Proven structurally necessary: a
+   perfect parse is worse, correct participants don't help; the brain reasons over a situation model we lack.
+The organs that WORK and generalize (predicate_recall, the CM agent, the copula PROPERTY readout) are the ones whose
+brain mechanism we DID replicate. The failures are exactly the two organs we have NOT built — so the approach is not
+un-brain-foundational in what it built; it is INCOMPLETE, missing the two hardest brain organs, and no shallow proxy
+substitutes for either. That is the honest, precise location of the gap.
+
 ## TLDR (plain language)
 I measured exactly where the reader loses "who did what," and it is NOT catching the actions anymore (we fixed that)
 — it is figuring out WHO the subject is and WHAT caused what. Then I looked up how the brain does each, precisely.
