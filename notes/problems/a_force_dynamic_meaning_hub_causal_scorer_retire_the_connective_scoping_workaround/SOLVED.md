@@ -11,12 +11,18 @@ reverify: ".venv/Scripts/python.exe verification/test_causal_selection_plausibil
 
 # PARTIAL — the brief's connective-plausibility mechanism is REFUTED (scoping is optimal); the REAL wall (mental causation, the 70% majority) is CROSSED by a brain-foundational chain: an upstream event-TYPE representation + a downstream unified bridging selector
 
-**Status: PARTIAL (WIP until `owner_verdict: DONE`).** Two results: (A) a rigorous located NEGATIVE on the brief's
-literal route (the FULL PASS the bar names), and (B) a constructive brain-foundational CHAIN — an upstream event-type
-representation + a downstream unified (physical+mental) bridging selector — that crosses the underlying wall in
-prototype, exceeds the physical-only baseline CI-separated, and regresses no downstream consumer. No `hdlab/` changed;
-the mechanism is proven in `experiments/` + `verification/`; the wire + the revisit-consumers analysis are below;
-strategy lands (Q111). Glass-box, NO external LLM. Research-confirmed brain-foundational at every link.
+**Status: PARTIAL (WIP until `owner_verdict: DONE`).** Results: **(A)** a rigorous located NEGATIVE on the brief's
+literal route (the FULL PASS the bar names — connective selection is structural, plausibility is CI-sep worse, the QA
+gold is circular); **(B)** a constructive brain-foundational CHAIN — an upstream event-TYPE representation + a
+downstream unified (physical+mental) bridging selector — that crosses the underlying wall (mental causation, the ~70%
+majority), exceeds the physical-only baseline CI-separated, and regresses no downstream consumer; **(C)** the selector
+implemented EXACTLY as the brain does it ("resonance proposes, necessity disposes"; +0.875 CI-sep over recency-only)
+with the whole-chain SIGNAL-LOSS localized; **(D)** the two upstream losses FIXED with the REAL brain-foundational
+organs (the landed `GroundedSemanticGraph` WSD lifts the chain 0.875→0.938; `psych_verb_frames`+coref for experiencer)
+— the cheap Lesk shortcut was tried and REJECTED; **(E)** a per-component BRAIN-FOUNDATIONAL FIDELITY AUDIT of all 11
+stages. No `hdlab/` changed (the two remaining wires are reader-internal LANDINGS, strategy Q111); the mechanism +
+fixes are proven in `experiments/` + `verification/` (witness 19/19). Glass-box, NO external LLM. Research-confirmed
+brain-foundational at every link.
 
 ## 0. The opening move — how does the BRAIN select a cause, and WHERE is the wall?
 Causal cause-selection is TWO subtasks with TWO brain systems:

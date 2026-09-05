@@ -5,7 +5,7 @@ bar: "PASS = _FastLabelPlan landed into hdlab/arc_labeler.py, built lazily in la
 result: "Byte-identical labels: 0 mismatches / 22,921 HELD-OUT arcs (4,575 LitBank predicted-heads + 18,346 UD-EWT-test gold-heads); full SituationModel byte-identical across ALL dimensions on 3 held-out docs. Labeler scoring 8.73x faster in-read (14.29s->1.64s median-of-9, ~4.2s/read removed on full LitBank docs). Brain-foundational extension (reuses the LANDED graded_competition organ): graded readout argmax byte-identical (0/18,346 = MAP-optimality, zero consumer regression) AND its normalized entropy flags labeling errors gold-free (AUC 0.930; info-free twin 0.481)."
 floor: "The landed reference ArcLabeler._predict_label -- byte-identity measured against it, 0 divergence over 22,921 held-out arcs. For the graded-readout exceed: the info-free twin (shuffled cue validities) AUC 0.481 ~ chance is the floor the entropy signal (AUC 0.930) clears."
 controls: "(1) W4 info-free shuffled-weights plan MUST diverge from the real plan -- 10/10 probe arcs differ (byte-identity check is non-vacuous). (2) W3 full-model regression guard: fresh-reader single-read stock-vs-fast SituationModel byte-identical across events/entity_states/causal/typed_causal/coref/coref_xsent/timeline (excludes NO consumer). (3) MAP-optimality byte-identity: argmax(lane)==stock over 18,346 UD arcs, so the graded readout is a strict SUPERSET of the discrete one (regresses nothing). (4) Info-free twin for the entropy signal: shuffled cue validities AUC 0.481 (loses)."
-files_changed: "experiments/exp_arc_labeler_graded_competition_v1.py, experiments/exp_arc_labeler_fastpath_landing_v1.py, experiments/exp_frontend_chain_signal_loss_v1.py, experiments/exp_arceager_graded_beam_parser_v1.py, experiments/exp_arceager_parser_replacement_v1.py, experiments/exp_arc_labeler_joint_clause_competition_v1.py, verification/test_arc_labeler_fastpath_landing.py, verification/test_arc_labeler_graded_competition.py, verification/test_arceager_parser_replacement.py, notes/problems/add_the_arc_labeler_fast_scoring_path_the_dominant_remaining_read_cost/SOLVED.md (REUSES pre-existing experiments/exp_arc_labeler_fastpath_v1.py + verification/test_arc_labeler_fastpath.py + hdlab/arceager_parser.py + hdlab/graded_competition.py; NO hdlab/ writes -- proposed diffs below, strategy lands per Q111)"
+files_changed: "ARC-LABELER (assigned): experiments/exp_arc_labeler_graded_competition_v1.py, exp_arc_labeler_fastpath_landing_v1.py, exp_frontend_chain_signal_loss_v1.py, exp_arc_labeler_joint_clause_competition_v1.py, verification/test_arc_labeler_fastpath_landing.py, test_arc_labeler_graded_competition.py. PARSER (owner escalation): experiments/exp_arceager_graded_beam_parser_v1.py, exp_arceager_parser_replacement_v1.py, exp_parser_dominance_breakdown_v1.py, exp_parser_confidence_hybrid_v1.py, verification/test_arceager_parser_replacement.py. SELF-SUPERVISED + MEANING (owner escalation): experiments/exp_predictive_selfsup_parser_v1.py, exp_dmv_selfsup_parser_v1.py, exp_selfsup_parser_semantic_bootstrap_v1.py, exp_selfsup_parser_grounded_selpref_v1.py, exp_grounded_meaning_role_v1.py. notes/problems/add_the_arc_labeler_fast_scoring_path_the_dominant_remaining_read_cost/SOLVED.md. REUSES exp_arc_labeler_fastpath_v1.py + test_arc_labeler_fastpath.py + hdlab/arceager_parser.py + hdlab/graded_competition.py + hdlab/meaning_foundation.py + hdlab/animacy_lexicon.py; NO hdlab/ writes -- proposed diffs below, strategy lands per Q111"
 reverify: ".venv/Scripts/python.exe verification/test_arc_labeler_fastpath_landing.py"
 ---
 
@@ -235,6 +235,59 @@ FOUNDATION asset (admissible; keep the runtime inference brain-faithful/graded) 
 self-supervised + MEANING-bootstrapped predictive parser as the north-star research program that closes the gap
 the brain's way and is register-general. I lean (b) north-star / (a) interim. This whole parser arc merits its
 own problem folder; it exceeded the arc-labeler scope on owner instruction and is recorded here for handoff.
+
+## (H) THE 100% BRAIN-FOUNDATIONAL CHAIN: exactly what is incorrect, signal loss traced, and the correction
+Owner: "do the right thing; implement the 100% brain-foundational chain; identify exactly what is incorrect;
+trace signal loss every step; get it correct." Uses the live substrate's new curated knowledge foundation
+(hdlab.meaning_foundation, 117,614 WordNet-synset meaning signatures).
+
+### SIGNAL LOSS, every step (measured)
+| step | our impl | brain-faithful? | measured |
+|---|---|---|---|
+| categories (POS) | supervised UPOS Viterbi | NO (brain: self-sup distributional clustering) | 0.944 acc; 5.6% loss |
+| structure (heads) | supervised gold-tree parser | NO (brain: self-sup predictive + graded) | UAS 0.79 -- DOMINANT leak; obl:agent collapses |
+| relations (labels) | supervised perceptron, hard argmax | PARTLY (graded readout closed here) | 0.94 given gold structure; LAS 0.72 live |
+| roles/meaning | rule + competition | the real locus of MEANING (below) | who-did-what gated by structure (0.48->0.74) |
+
+### EXACTLY WHAT IS INCORRECT (three findings, each controlled)
+1. **The whole chain is SUPERVISED** (gold trees + gold tags). The brain learns syntax SELF-SUPERVISED from
+   prediction (no gold trees exist in the input). FIX validated: DMV + universal structural prior + hard-EM +
+   Eisner INDUCES real structure with NO gold trees (UAS 0.38-0.45 vs adjacency 0.30; prior +0.03 and EM +0.05
+   both load-bearing by ablation). Honest trade: ~0.4 (my reduced DMV) / ~0.6 (tuned literature) vs 0.84
+   supervised -- the price of gold-tree-free + register-generality.
+2. **MEANING does NOT build the attachment SKELETON.** THREE controlled located negatives: lexical-PMI selpref
+   (0.25, HURTS), animacy directional bonus (+0.02 = its scrambled control), grounded distributional selpref
+   from the curated foundation (+0.063 UAS but the scrambled-meaning + shuffled-prototype controls lift +0.057-
+   +0.061 -- grounded meaning adds only +0.002 over its controls). The "lift" was a verb->nominal STRUCTURAL
+   bias, not meaning. The skeleton is a distributional/syntactic problem; I mis-targeted meaning at it.
+3. **MEANING is a SUBORDINATE cue on AGGREGATE English, but CARRIES ROLE exactly where structure fails.** On all
+   UD-EWT test transitive clauses, POSITION predicts the agent at 0.961 (English SVO word-order cue validity is
+   ~96%; animacy 0.950 real vs 0.886 scrambled = real-but-subordinate; grounded 0.778). BUT on NON-CANONICAL
+   (passive) clauses, where position MISLEADS: positional 0.00, animacy 0.07, **grounded meaning 0.43**. So
+   meaning's brain-foundational locus is ROLE assignment WHERE SYNTACTIC CUES ARE ABSENT/MISLEADING (Competition
+   Model: when the word-order cue is invalid, the semantic cue decides), NOT the skeleton and NOT the aggregate.
+
+### THE CORRECTION (the 100% brain-foundational architecture, blueprint + validated pieces)
+Separate the two jobs the brain separates: (i) the STRUCTURE skeleton is induced SELF-SUPERVISED from prediction/
+distribution (DMV+prior+EM validated; the graded-competition engine does incremental inference); (ii) grounded
+MEANING (curated foundation) is a CUE in the SAME graded competition that decides ROLE when the structural cue
+is weak/misleading (non-canonical, passives, ambiguous attachment) -- validated: grounded meaning 0.43 vs
+positional 0.00 where syntax fails. Upstream: the POS tagger is also gold-trained; a fully self-supervised chain
+induces categories too (distributional clustering; Saffran 1996 / Mintz 2003) -- flagged, next.
+
+### KEY CAVEAT (fair test): the reader's REAL corpus is 19c literature, which has MANY MORE non-canonical
+constructions than modern rigid-SVO UD-EWT. Word-order cue validity is LOWER on 19c prose, so meaning's role
+contribution (measured 0.43-vs-0.00 on the rare UD-EWT passives) is LARGER on the actual reading corpus than
+these UD numbers show. This aligns with the substrate's own findings (animacy correct-but-subordinate; the
+who-did-what residual is structural NP/case; WSD wall is contextual-rep not grounding) -- and with the audit's
+"front-end is the binding constraint." The dominant lever is the self-supervised STRUCTURE learner; meaning is
+the subordinate role-decider for the non-canonical tail (which 19c has in abundance).
+
+### HONEST STATE. I identified exactly what is incorrect (supervised acquisition; meaning mis-targeted at
+skeleton/aggregate), traced the loss (structure/parser is the leak; meaning's locus is non-canonical role), and
+got the ARCHITECTURE correct with controlled evidence for each piece. I did NOT build the full end-to-end
+integrated self-supervised+grounded chain (a multi-week research program). Each component's brain-faithful
+mechanism is prototyped + measured; the integration is the specified program.
 
 ## Proposed hdlab/ diff (strategy lands, Q111)
 Add `_FastLabelPlan` to `hdlab/arc_labeler.py` (the class body of `experiments/exp_arc_labeler_fastpath_v1.py::
