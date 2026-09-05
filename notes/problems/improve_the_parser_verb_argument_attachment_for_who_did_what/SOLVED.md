@@ -5,7 +5,7 @@ bar: "PASS = a glass-box, register-general, verb-frame-guided LABELED incrementa
 result: "LIVE who-did-what PATIENT, clean UD-EWT gold (patient := obj|nsubj:pass off gold relations, LIVE arc_parser heads, n=1255): deployed structural_patient_pick 0.7450 -> improved readout 0.8311, +0.0861 (cluster-bootstrap CI[0.0678, 0.1043], CI-separated); closes ~52% of the gap to the 0.913 gold-parse position-ceiling. Train (n=1604): 0.8030 -> 0.9009, +0.0979 CI[0.0810, 0.1157]. Register-general on 19c clean direct objects (LitBank, n=669): position 0.7728 -> readout 0.870, +0.0972. The win is a brain-faithful READOUT (voice remapping + labeled obj-relation + valency binding), head-INDEPENDENT (arceager UAS 0.842 gives the same +0.077), zero tuned parameters."
 floor: "The DEPLOYED landed structural_patient_pick (default-on, hdlab.predicate_argument_frontend), recomputed on the LIVE arc_parser heads per population: clean UD-EWT test 0.7450 (n=1255) / train 0.8030 (n=1604); 19c LitBank clean-DO nearest-post-verbal position 0.7728 (n=669). Gold-parse ceilings on the same instrument: 0.9131 (position) / 0.9610 (labeled)."
 controls: "INFO-FREE TWINS (all LOSE CI-separated, clean UD test): shuffled-VOICE twin -- voice lever +0.1968 CI[0.1740,0.2197] (the signal is the voice VALUES); shuffled-LABEL twin -- label lever +0.0781 CI[0.0618,0.0954]; shuffled-HEADS twin (each nominal to a random verb) -- full readout +0.1554 CI[0.1335,0.1794] (the structural signal is real). NO-REGRESS: wired through the LIVE SituationReader on 16 LitBank docs (n_q=2634) -- 2718/8049 patient picks change yet all 6 QA dimensions (coref/events/temporal/causal/location/belief) and the aggregate (0.6625) are byte-0.0-delta (the events QA is AGENT-only, so the patient change is correctly invisible + the P2 AGENT is untouched; zero collateral). HEAD-INDEPENDENCE control: swapping the live arc_parser (UAS 0.79) for arceager (UAS 0.842) leaves the readout gain essentially unchanged (+0.0773) -> the win is the readout, not head accuracy. REGISTER-SAFETY control: under the labeled readout the stronger arceager parser does NOT regress on 19c clean-DO (+0.0045), reversing the -0.0017 it causes under the position readout."
-files_changed: "experiments/exp_valency_labeled_patient_v1.py (the ladder + twins + CI + gold ceiling, clean UD), experiments/exp_valency_labeled_patient_19c_v1.py (19c register-safety/generality), experiments/exp_valency_labeled_live_reader_v1.py (end-to-end no-regress through SituationReader), experiments/exp_valency_labeled_patient_reattach_v1.py (the head-residual selectional re-attachment located-negative, sec 5), verification/test_valency_labeled_patient.py (scaffold-free witness, 5 assertions), notes/problems/improve_the_parser_verb_argument_attachment_for_who_did_what/{SOLVED.md, FULL_PARSER_REPLACEMENT_consumer_analysis.md}. NO hdlab/ written (Q111 -- proposed one-line diffs named in section 6)."
+files_changed: "experiments/exp_valency_labeled_patient_v1.py (the ladder + twins + CI + gold ceiling, clean UD), experiments/exp_valency_labeled_patient_19c_v1.py (19c register-safety/generality), experiments/exp_valency_labeled_live_reader_v1.py (end-to-end no-regress through SituationReader), experiments/exp_valency_labeled_patient_reattach_v1.py (the head-residual selectional re-attachment located-negative, sec 5), experiments/exp_categorical_backbone_parser_v1.py (the brain's register-general categorical-backbone parser + Jabberwocky mechanism validation, sec 5c; research note notes/research_register_general_argument_attachment_mechanism_2026-09-04.md), experiments/exp_ideal_argument_reader_v1.py (the full two-tier legality-gates-preference reader + cross-register/role generalization test, sec 5d), verification/test_valency_labeled_patient.py (scaffold-free witness, 5 assertions), notes/problems/improve_the_parser_verb_argument_attachment_for_who_did_what/{SOLVED.md, FULL_PARSER_REPLACEMENT_consumer_analysis.md}. NO hdlab/ written (Q111 -- proposed one-line diffs named in section 6)."
 reverify: ".venv/Scripts/python.exe verification/test_valency_labeled_patient.py"
 ---
 
@@ -164,6 +164,89 @@ valency + Levin/Rappaport-Hovav linking rules + voice remapping + Friston precis
 lever for every head-consumer (patient done; agent=sibling; space/obl needs an instrument); per-arc CONFIDENCE is
 a computed-but-discarded brain signal (precision-weighting); the graded verb_subcat presence gate is a ready
 downstream wire; and the deep opportunity is a register-general glass-box parser that does not collapse OOD (wall 1).
+
+## 5c. CRACKING WALL #1 -- RESEARCHED + BUILT + VALIDATED the brain's register-general mechanism (owner push)
+
+Owner (2026-09-04): "can't crack glass-box is being lazy; the brain does it, so we can too." So I did not stop
+at the located-negative. Dispatched a deep literature scan
+(`notes/research_register_general_argument_attachment_mechanism_2026-09-04.md`, 45 sources) and BUILT the
+brain's actual mechanism (`experiments/exp_categorical_backbone_parser_v1.py`).
+
+**THE MECHANISM (research thesis):** a modern-corpus-trained parser conflates attachment LEGALITY (categorical,
+register-invariant) with PREFERENCE (graded, corpus-frequency) into ONE frozen score -> collapses OOD. The brain
+uses a CATEGORICAL BACKBONE with NO corpus prior (nothing to collapse): closed-class scaffold + clause
+segmentation (Kimball Two-Sentences stack) + verb VALENCY projection (Vosse-Kempen/Hagoort) + word-order/UTAH
+default-linking + voice flip; frequency enters only as an ONLINE, locally-re-estimated tie-break (Fine et al.
+2013: humans recalibrate within tens of sentences of the text being read -- never a frozen corpus import). This
+is why a human parses 19c/Jabberwocky with no retraining and a statistical parser cannot.
+
+**BUILT it (Stages 0-4, NO trained parser) and ran the decisive tests:**
+- **MECHANISM VALIDATED on the Jabberwocky battery** (nonce content words in known frames + real closed-class +
+  morphology; zero lexical content -- a trained parser has no grip): backbone PATIENT ~0.81, AGENT ~0.97 from
+  PURE STRUCTURE (research HARD-PASS >=0.80/0.90). This proves attachment does NOT require corpus statistics --
+  the categorical backbone alone assigns subject/object correctly with no lexical content.
+- **On REAL modern UD-EWT the backbone UNDERPERFORMS the trained readout** (patient CATEG 0.627 vs R_final 0.831;
+  agent CATEG ~0.84 vs positional ~0.86). Named cause: Stage-0 clause segmentation on REAL messy prose (no
+  punctuation, complex coordination/apposition) is imprecise -- the heuristic segmenter is the bottleneck, and
+  the trained parser already handles modern clause structure (a clause-boundary GUARD on the trained pick adds
+  exactly +0.000). The MECHANISM is right; realizing Stage-0 clause segmentation on real text to human precision
+  is itself a hard parsing sub-problem.
+- **And it does not even matter for the PATIENT:** the trained readout is ALREADY register-safe (0.87 on 19c
+  clean-DO, sec 3), so a register-general parser is NOT the patient lever. The patient is solved by the readout
+  (+0.086) + the register-safe better-parser flip.
+
+**So wall #1 is now a RESEARCH-GROUNDED, MECHANISM-VALIDATED located-negative with a precise cause, not "lazy":**
+the brain's mechanism is proven (Jabberwocky), the reason a glass-box register-general parser doesn't yet beat
+the trained one on real text is NAMED (clause-segmentation precision on real prose), and the remaining lever is a
+better register-invariant clause segmenter -- which pays on the AGENT/very-OOD (the sibling `the_agent_tie_wall`
+problem, whose embedded-clause tie is exactly what clean clause segmentation resolves: backbone agent 0.97 vs
+positional 0.64 on structural Jabberwocky cases), NOT on this patient problem. The validated categorical backbone
++ Jabberwocky battery are handed to that problem as a ready mechanism.
+
+## 5d. THE FULL IDEAL BRAIN-FOUNDATIONAL READER + DOES IT GENERALIZE (owner synthesis request)
+
+Synthesized everything into the brain's two-tier architecture and prototyped it end-to-end
+(`experiments/exp_ideal_argument_reader_v1.py`): **LEGALITY (register-invariant categorical backbone: clause-seg
++ valency + word-order/UTAH + voice) GATES PREFERENCE (the trained parser's labeled pick, precision-weighted),
+with the backbone as the register-invariant fallback.** Measured across three REGISTERS x two ROLES.
+
+**PATIENT (IDEAL vs the trained readout vs backbone-alone vs positional; GOLD ceiling):**
+| register | IDEAL | trained-readout | backbone-alone | positional |
+|---|---|---|---|---|
+| modern UD-EWT (n=1255) | 0.8295 | 0.8311 | 0.6271 | 0.612 |
+| 19c LitBank clean-DO (n=669) | 0.8759 | 0.8774 | 0.6233 | 0.710 |
+| Jabberwocky pure-structure (n=54) | 0.8148 | 0.8148 | 0.8148 | 0.5926 |
+| **cross-register SPREAD (lower=generalizes)** | **0.0611** | **0.0626** | 0.1915 | 0.1174 |
+
+**DOES IT GENERALIZE? YES.** The ideal reader has the LOWEST cross-register spread (0.061) of any arm -- it does
+NOT collapse OOD (0.83 modern / 0.88 19c / 0.81 Jabberwocky), and it is register-general BY CONSTRUCTION (labels +
+voice + valency are register-invariant; the backbone catches any illegal parser pick). Backbone-ALONE collapses
+on 19c (0.62, spread 0.19); positional spread 0.12. So the readout layer -- not head accuracy -- is what carries
+register-generality, confirmed across three registers.
+
+**HONEST verdict on the integration:** for the PATIENT the legality gate is essentially DORMANT -- IDEAL == the
+trained readout to within +/-0.0016 on every register, because the trained parser's patient picks are already
+categorically legal (in-clause) across all tested registers (the clause-boundary guard fired ~never; the
+imprecise segmenter's rare over-veto makes IDEAL a hair BELOW the ungated readout on modern). So the FULL IDEAL
+PATIENT reader reduces to the already-landed R_final readout -- which is the ideal AND generalizes (spread 0.061).
+The categorical backbone is a validated register-invariant SAFETY NET (dormant on these registers; it would fire
+on harder-OOD illegal picks).
+
+**Where the ideal architecture's second tier is ACTIVE: the AGENT.** Same reader, agent role: Jabberwocky
+(structural/embedded cases) backbone-agent 0.9688 vs positional 0.6406 (+0.33) -- the register-invariant clause
+structure resolves the embedded-clause subject that positional and the OOD-collapsed trained parser both miss.
+On real modern UD the agent backbone is 0.841 (~ positional 0.860, segmentation-noise-limited). So the two-tier
+reader GENERALIZES across roles: for the patient the trained-readout tier carries (already register-safe); for
+the agent the categorical-backbone tier carries on exactly the embedded-clause cases that are the sibling
+`the_agent_tie_wall...` problem's wall. The remaining lever is a more precise register-invariant clause segmenter
+(would lift the agent backbone on real prose toward its 0.97 structural ceiling) -- the named next build, owned by
+the agent/OOD problem.
+
+**Bottom line:** the full ideal brain-foundational reader is the two-tier legality-gates-preference architecture;
+it generalizes (lowest cross-register spread, no OOD collapse); the PATIENT piece is the landed R_final readout
+(ideal + generalizing); the AGENT piece is the categorical backbone (register-invariant, active on embedded
+clauses). Nothing here is a frozen corpus prior -- the readout is register-invariant and the backbone has no
+corpus prior to collapse.
 
 ## 6. PROPOSED hdlab CHANGES (Q111 -- strategy lands, witnessed; all default-safe)
 

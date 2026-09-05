@@ -194,6 +194,32 @@ drill named. Character clusters, 100 docs:
   landing, but it does NOT cross toward the +0.43 headroom; that is gated on the Phase-1 relational/world
   knowledge (a fidelity gap to build across, not a coref heuristic).
 
+## 4c. THE IDEAL FULL SOLUTION built + the exact remaining wall (`exp_commonnoun_entity_world_model_v1.py`)
+A `research` drill (19 verified sources) PINNED the proper brain mechanism: definite reference is resolved by
+QUERYING an accumulated ENTITY WORLD-MODEL (a file card per entity: type, social ROLE, RELATIONS accumulated
+across the text, recent-EVENT participation, presence, salience), restricted to the FOREGROUNDED set
+(bonding), scored by descriptive match (resolution) -- NOT by weighting surface cues (Kintsch CI; Zwaan
+event-indexing; Sanford-Garrod bonding->resolution; Morrow-Bower/Glenberg foregrounding; Heim FCS/Kamp DRT;
+EntNet/EntityNLM). I BUILT the full ideal architecture = entity world-model + bonding->resolution query +
+CONFIDENCE-GATED accumulation (commit high-margin, DEFER uncertain -- reusing graded_coref_pick's abstain,
+Nieuwland Nref) + name anchors.
+
+- **The MECHANISM CROSSES with correct records: ambiguous-link resolution 0.255 (surface recency) -> 0.540
+  (entity world-model), union-oracle 0.615.** My earlier "capped" conclusion was premature AT THE MECHANISM
+  LEVEL -- it was capped for a SURFACE-CUE resolver, not for the world-model query. The facts ARE in the
+  narrative (union oracle 0.615).
+- **But DEPLOYMENT hits a BOOTSTRAPPING / IDENTIFIABILITY wall.** The 0.540 uses records built from the GOLD
+  clustering (the answer). Self-built records -> char-cluster CoNLL 0.6046 -> 0.6097 (+0.0051, CI incl 0;
+  CEAFe 0.469->0.501 better entity boundaries, MUC -0.010). Neither 2-pass CONSOLIDATION (0.6091) nor the
+  CONFIDENCE GATE (best margin 0.6102, +0.0056 CI incl 0) crosses it -- you cannot build correct-enough
+  records without already resolving the reference. The brain breaks this chicken-and-egg with a PRIOR WORLD
+  KNOWLEDGE (it knows a priori who "the master" is, who Elizabeth's father is) -- the external prior the
+  no-LLM invariant bars, and exactly what SOTA imports from a pretrained LM.
+- **GENERALIZES (held-out, ZERO fitted params -- reasoned brain-faithful priors):** disjoint even/odd halves
+  both show resolution ~doubling (recency 0.24 -> world-model 0.50 / 0.58) and deployable ~+0.005 wash. The
+  mechanism is register-general by construction; the specific numbers are 19c-literary (modern text has fewer
+  co-present characters -> likely EASIER, untested); the bootstrap WALL is structural, not a corpus artifact.
+
 ## 5. Proposed hdlab change (Q111 -- strategy lands; solver does not write hdlab/)
 The measured lever is NOT a smarter clustering algorithm for the +0.43 headroom (world-knowledge-bound). It
 is (a) a small WITNESSED optimization and (b) a WIRING change:
@@ -257,6 +283,11 @@ world-knowledge-bound (head-match recall 0.341; over-merge 91% content-identical
 - **The lever is WIRING, not a new algorithm.** Forming a referent for every common noun recovers +0.27
   CoNLL over proper-name-centric, and the reader already computes it; the character-bound registers just do
   not consume common-noun clusters.
+- **The RIGHT mechanism is an entity world-model query, and it CROSSES -- given records.** Building the proper
+  brain mechanism (query an accumulated file-card model, not weight surface cues) resolves ambiguous reference
+  0.255->0.540. The final wall is not the mechanism but IDENTIFIABILITY: you cannot bootstrap correct entity
+  records from text alone (consolidation + confidence-gating both cap at +0.006 deployed). The brain breaks it
+  with a world-knowledge PRIOR -- which is the precise, generalizable Phase-1 dependency this problem hands off.
 
 ## TLDR (plain English)
 The task was: when a story calls someone "the man" or "the child" instead of by name, teach the reader to
@@ -276,23 +307,36 @@ a cleverer matching algorithm. The rest genuinely needs world knowledge we have 
 ## QUESTIONS
 None.
 
-## NEXT STEPS (verdict-independent)
-1. **WIRE the reader's existing common-noun clusters into the character-bound canonicalizers** (affect / goal
-   / world-state / `make_canonicalizer`), with a stable head-lemma label -- the +0.27 recovery is already
-   computed and being dropped. Pair with the pronoun graded resolver (the residual downstream loss is
-   pronoun-experiencer + label-consistency, not common-noun clustering).
-2. Land the small robust optimization: modifier-split + ACT-R chaining in the common-noun linker (+0.008..
-   +0.013 CoNLL, no-regress) -- replaces the reader's blind transitive same-head merge.
-3. LAND the deployable situation-gated former (§5.1): head-match-gated + modifier-split + wide window + the
-   event-centrality gate (reusing `event_centrality_coref`). WITNESSED +0.0128 CoNLL over surface_head
-   (CI-sep), twin loses, no-regress on named -- a small real landable win. It recovers the which-active-person
-   slice (~55% of links); the kinship-relational + residual ~45% remain gated on step 4.
-4. The world-knowledge residual (role-relational "whose father?" + synonym-epithet; content-identical
-   over-merge) is the SAME meaning-channel/world-knowledge boundary as the affect and WSD located negatives.
-   ATTACKED + measured every buildable lever's CEILING (signal_loss_decomposition note): the situation model
-   AT PRESENCE/LOCALITY granularity is CAPPED at ~0.26 even with a gold-referent oracle (scenes hold ~3-6
-   co-present compatible persons; presence does not narrow them); the relational/kinship binder targets <=10%
-   of links and needs the relation stated in-text (46.8% possessive, 52.2% bare roles). So the crossing
-   capability is NOT a coref/presence heuristic -- it is a Phase-1 RELATIONAL SITUATION MODEL over the event
-   structure + world knowledge (what SOTA imports from a pretrained LM, barred here; what the human brings).
-   FILE it as a Phase-1 program, not a coref follow-on.
+## NEXT STEPS FOR OPTIMIZATION (ranked; verdict-independent)
+The optimization space is now fully mapped and every buildable lever measured. In priority order:
+
+1. **LAND the deployable situation-gated former (§5.1) -- the ready, witnessed win.** Head-match-gated +
+   modifier-split + wide window + the event-centrality gate (reuse `event_centrality_coref`). +0.0128 CoNLL
+   over surface_head (CI-sep), CEAFe 0.469->0.510, twin loses, +0.0000 named-coref regression. Body:
+   `exp_commonnoun_situation_gated_binder_v1.situation_predict(headmatch_gate=True, window=16)`. Small but
+   real, generalizes (zero fitted params), no-regress. Per no-more-default-off: impact-analyse + turn on if
+   net-positive on the live reader.
+
+2. **WIRE the reader's common-noun referents into the character-bound canonicalizers (§5.2) -- the reframe
+   lever.** The reader already clusters common nouns (+0.27 CoNLL over proper-name-centric) but the affect /
+   goal / world-state registers only NAME proper-name clusters. Expose common-noun clusters with a stable
+   head-lemma label. DISK CAVEAT: on the experiencer subpopulation this recovers little (already ~0.90);
+   pair with the pronoun graded resolver, because the residual downstream loss is pronoun-experiencer +
+   label-consistency, not common-noun clustering. Measure the true downstream lever before over-investing.
+
+3. **The REAL capability = an ENTITY WORLD-MODEL resolver SEEDED BY A WORLD-KNOWLEDGE PRIOR (Phase-1).** The
+   ideal architecture is BUILT and PROVEN correct (§4c: entity world-model query resolves 0.255->0.540 GIVEN
+   records; generalizes). The ONLY thing blocking it is the bootstrapping wall -- you cannot accumulate
+   correct entity records from the text alone (single-pass, 2-pass consolidation, and confidence-gating all
+   cap at +0.006). The precise unlock is an EXTERNAL WORLD-KNOWLEDGE PRIOR to seed the records (who plausibly
+   holds the "master"/"servant" role in this scenario; kinship priors) -- a static offline foundation asset
+   (scenario/frame library + relational schema), NOT an inference-time LLM. FILE this as the Phase-1 program:
+   "seed the entity world-model with a scenario/role + kinship KB so the built resolver realizes its 0.54
+   ceiling." It lifts this problem AND the affect/WSD located negatives together (shared world-knowledge
+   boundary), which is where the leverage is -- NOT another coref/presence heuristic (every one is measured
+   and capped).
+
+4. **DO NOT REDO (measured-capped, do not re-attempt as coref heuristics):** WordNet lexical bridging (tags
+   7.8%); presence/locality model (~0.26 ceiling even with a gold oracle; ~5-6 co-present regardless of
+   presence definition); the possessor-keyed relational binder (+0.0006); 2-pass consolidation (+0.0045);
+   confidence-gated accumulation (+0.0056). All are on disk with their specific capping reason.

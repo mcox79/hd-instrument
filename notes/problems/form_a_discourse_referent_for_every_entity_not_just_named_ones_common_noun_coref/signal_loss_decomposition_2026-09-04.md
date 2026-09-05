@@ -196,6 +196,30 @@ bars. So the residual is now PRECISELY characterized: not a missing mechanism (b
 identifiability wall broken only by external world knowledge -- exactly what SOTA imports from a pretrained
 LM and the human brings as world knowledge.
 
+## THE IDEAL FULL SOLUTION (confidence-gated) + does it GENERALIZE
+The brain (and the landed `graded_coref_pick`) breaks record-pollution with a CONFIDENCE GATE: commit only
+high-margin bindings, DEFER uncertain ones (Nieuwland Nref "hold both") so guesses do not corrupt the
+world-model. Added it (`world_model_predict(margin_thr)`) -- the full ideal architecture = entity world-model
+file cards + bonding->resolution query + confidence-gated accumulation + name anchors. Margin sweep (100
+docs, char clusters): best at margin=1.0 -> CoNLL 0.6102, +0.0056 vs surface_head, CI[-0.0016,+0.0135]
+(NOT sep); higher margins over-abstain and HURT (margin 3.0 -> -0.0042). So the confidence gate is
+brain-faithful and helps a hair, but CANNOT manufacture correct records from text alone -- the bootstrap wall
+holds even for the ideal architecture. This is the load-bearing negative: the mechanism is right and crosses
+GIVEN records (0.540), but no glass-box no-LLM accumulation strategy (single-pass, 2-pass consolidation,
+confidence-gated) builds correct-enough records without an external world-knowledge prior.
+
+GENERALIZATION (held-out split; ZERO weights fit to the data -- reasoned brain-faithful priors): the two
+load-bearing results are STABLE across disjoint halves. Half A (50 docs, 795 ambiguous links): resolution
+recency 0.235 -> world-model 0.499; deployable +0.0072. Half B (50 docs, 921 links): recency 0.271 ->
+world-model 0.576; deployable +0.0042. Both halves: resolution ~doubles with records; deployable ~+0.005
+wash. Not doc-overfit. The MECHANISM is register-general by construction (DRT file cards + descriptive query
++ ACT-R + Centering are universal comprehension operations; WordNet + name gazetteer are general assets).
+CROSS-REGISTER caveat (honest, untested here): the specific NUMBERS (0.54 ceiling, ~5-6 co-present crowding)
+are for 19c literary narrative; modern text has fewer characters per scene, so the crowding -- and thus the
+wall -- is likely LESS severe (the mechanism would plausibly do BETTER on modern text), but that is not
+measured here. The bootstrap/identifiability WALL is structural, not a LitBank artifact -- it is inherent to
+glass-box no-LLM reference among multiple compatible entities.
+
 ## VERDICT (attack the real capability): the crossing capability is NOT a buildable coref/presence heuristic
 Every buildable glass-box lever is measured -- and PROTOTYPED where it had a ceiling -- and all are CAPPED:
 event-centrality situation gate +0.013 (built, landable); presence/locality ~0.26 ceiling even with a gold
