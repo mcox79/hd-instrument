@@ -9,6 +9,9 @@ files_changed: "experiments/exp_affect_nltk_profile_v1.py, experiments/exp_affec
 reverify: ".venv/Scripts/python.exe verification/test_affect_reroute_hdlab_tagger.py"
 ---
 
+## INTEGRATED_BY_STRATEGY (2026-09-05) — EXCELLENT
+Landed: `hdlab/situation_reader._assign_affect` reroutes through the shared `_load_frontend` UD-EWT tagger (one category system, no NLTK); `hdlab/context_grounded_valence.score_item` gains `need_valence` (default True = byte-identical) so the affect wire skips the discarded torch valence. Valenced output byte-identical (witness `test_affect_reroute_landing.py`: 0 flips / 1124, NLTK-free, skip-valence byte-identical); the pre-land witness `test_affect_reroute_hdlab_tagger.py` is 6/6 (its C4 is a stale NLTK-tokenizer control post-land). ~0.37s/read. Follow-on filed: the arc-labeler fast-path (`_FastLabelPlan`, built + witnessed, ready). §2b folded.
+
 # Route the redundant NLTK perceptron tagger through the fast hdlab tagger — SOLVED
 
 ## What the disk says (it outranks the brief on two points)
