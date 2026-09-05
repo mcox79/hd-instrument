@@ -9,6 +9,9 @@ files_changed: "experiments/exp_causal_selection_instrument_diagnostic_v1.py (ci
 reverify: ".venv/Scripts/python.exe verification/test_causal_selection_plausibility_and_scoping.py"
 ---
 
+## INTEGRATED_BY_STRATEGY (2026-09-05) — EXCELLENT
+Reverified `test_causal_selection_plausibility_and_scoping.py` **19/19** first-hand + landing witness `test_causal_mental_bridge_landing.py` **9/9**. LANDED (Q111): promoted the event-TYPE organ VERBATIM → `hdlab/event_type.py`; wired the MENTAL-BRIDGE PASS-2 into `_read_causation` behind `causal_mental_bridge` (DEFAULT-ON **pure add** — connective causal QA + goal QA + events + coref byte-identical off-vs-on; goal graph strict superset; +214 mental_bridge links; connective links emitted FIRST). **KEPT scoping** on the connective path (the brief's premise is REFUTED — scoping is the optimum; a plausibility selector is CI-sep worse). §2b folded. **DEFERRED into the INTEGRATION LEDGER / top-down pass** (the field-accuracy + downstream-signal work this unlocks): the GroundedSemanticGraph WSD wire (0.875→0.938), the coref-experiencer wire, the mined mental-bridge gold instrument, and the 3 consumers to update to RECEIVE the event-type signal (causation_typing / affect OCC / goal-graph spine). This landing is the MECHANISM + the reusable event-type organ; the full gain is realized when those downstream wires land in the pass.
+
 # PARTIAL — the brief's connective-plausibility mechanism is REFUTED (scoping is optimal); the REAL wall (mental causation, the 70% majority) is CROSSED by a brain-foundational chain: an upstream event-TYPE representation + a downstream unified bridging selector
 
 **Status: PARTIAL (WIP until `owner_verdict: DONE`).** Results: **(A)** a rigorous located NEGATIVE on the brief's

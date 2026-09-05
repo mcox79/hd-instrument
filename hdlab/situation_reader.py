@@ -709,6 +709,7 @@ class SituationReader:
                  cm_weights: Optional[Dict[str, float]] = None,
                  cm_twin_seed: Optional[int] = None,
                  predicate_recall: bool = True,
+                 causal_mental_bridge: bool = True,
                  commonnoun_situation_gate: bool = True,
                  commonnoun_canonical: bool = True) -> None:
         # === DEFAULTS FLIPPED ON 2026-09-03 (owner-authorized: "switch them on... 1 at a time, top down,
@@ -1069,6 +1070,14 @@ class SituationReader:
         # +22/-0 facts, bound_event_tokens 1/3641. FP does not reach a who-did-what answer (additive + lemma-and-
         # sentence match). NO spaCy / NO LLM (WordNet lexical gate only). all_capabilities_off() still sets False.
         self.predicate_recall = bool(predicate_recall)
+        # MENTAL-BRIDGE causal path (owner-DONE a_force_dynamic_meaning_hub_causal_scorer..., 2026-09-05, Q111):
+        # APPEND folk-psych mental-causation links (perception/cognition/emotion trigger -> mental/expressive
+        # outcome, via the WordNet event-TYPE representation) on NON-connective sentences where _read_causation
+        # otherwise builds nothing. Additive: connective causal QA + events + coref BYTE-IDENTICAL off vs on (the
+        # mental path never touches connective sentences, and the causal QA gold is connective-only); the goal
+        # graph stays a strict SUPERSET (connective links emitted first). Crosses the mental wall the physical
+        # force lexicon cannot (11/16 real cause verbs). Default matches the measured off-vs-on board impact.
+        self.causal_mental_bridge = bool(causal_mental_bridge)
         self._pred_detector = None     # lazy hdlab.predicate_detector.PredicateDetector
         # PER-READ tag/parse memo (2026-09-03 perf): dimensions independently re-tag/re-parse the SAME
         # sentences (arc parser ~118x + POS tagger ~310x per read). Tag+parse each distinct sentence ONCE
@@ -1113,7 +1122,7 @@ class SituationReader:
         "densify_world_state", "np_head_reduce", "parser_arceager", "causation_typed", "spacy_pred_gate",
         "bind_entity_states", "structural_do_recover", "referent_per_np", "cm_agent", "include_pron_agents",
         "case_filter", "clause_local", "cm_agent_struct", "predicate_recall", "track_goals", "track_affect",
-        "structural_patient", "commonnoun_situation_gate", "commonnoun_canonical")
+        "structural_patient", "causal_mental_bridge", "commonnoun_situation_gate", "commonnoun_canonical")
 
     @classmethod
     def all_capabilities_off(cls, gaz=None, **overrides):
@@ -1861,6 +1870,41 @@ class SituationReader:
                         continue
                     links.append(CausalLink(sent_idx=si, cause=cause_ev.lemma,
                                             outcome=outcome.lemma, method=method))
+            # PASS 2 -- MENTAL-BRIDGE links on NON-connective sentences (owner-DONE a_force_dynamic_meaning_hub_
+            # causal_scorer_retire_the_connective_scoping_workaround, 2026-09-05, Q111). The brief's literal route
+            # (retire scoping via a plausibility selector) is a LOCATED NEGATIVE -- connective cause-selection is
+            # STRUCTURAL and scoping is its OPTIMUM (a force+agentivity plausibility selector is CI-sep WORSE,
+            # -0.2079; and the connective causal QA gold IS the positional rule, so a perfect-parse oracle LOSES too
+            # -- the refutation is mechanism-agnostic). The landable value is the DEEPER wall: most narrative
+            # causation is MENTAL ("she saw the letter, then wept") -- a DISTINCT brain system (Jack 2013 / Saxe
+            # 2003 / Campanella 2022) the physical force lexicon structurally cannot represent (it covers ~3/16 real
+            # cause verbs; 11/16 are perception/cognition/emotion/communication). This appends a folk-psych episode-
+            # schema bridge (Rumelhart/Stein&Glenn story grammar; Malle BDI; OCC appraisal) over the WordNet
+            # event-TYPE representation (hdlab.event_type): a MENTAL/expressive OUTCOME is explained by the nearest
+            # prior MENTAL TRIGGER. APPENDED AFTER the connective links so downstream first-parent-wins consumers
+            # (goal_hierarchy_graph._add_enablement) keep the connective parent -> the goal graph stays a strict
+            # SUPERSET (the measured landing requirement -- a first run lost 1 edge until connective links went
+            # first). Additive: connective causal QA + events + coref BYTE-IDENTICAL off vs on (the mental path
+            # fires only on NON-connective sentences; the causal QA gold is connective-only). MFS event-type is the
+            # cheap ATL frequency default; the contextual-WSD accuracy upgrade (GroundedSemanticGraph, +0.688->0.750
+            # type_ok) + the coref-experiencer gate cap the FIELD accuracy (not the mechanism -- oracle-candset
+            # sound) and are filed follow-ons. NO LLM.
+            if self.causal_mental_bridge:
+                from hdlab.event_type import event_type as _etype, MENTAL_TRIGGER, MENTAL_OUTCOME
+                for si, toks in enumerate(sents):
+                    if _CAUSAL_CONNECTIVES & set(toks):
+                        continue
+                    events, _tagged = self._extract_events(" ".join(toks))
+                    if len(events) < 2:
+                        continue
+                    types = {e.idx: _etype(e.lemma) for e in events}
+                    for outcome in events:
+                        if types.get(outcome.idx) not in MENTAL_OUTCOME:
+                            continue
+                        trig = [e for e in events if e.idx < outcome.idx and types.get(e.idx) in MENTAL_TRIGGER]
+                        if trig:
+                            links.append(CausalLink(sent_idx=si, cause=trig[-1].lemma,
+                                                    outcome=outcome.lemma, method="mental_bridge"))
             return links
         finally:
             self.predicate_recall = saved_recall
