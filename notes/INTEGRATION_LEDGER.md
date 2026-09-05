@@ -46,6 +46,20 @@
 
 ---
 
+## STAGED QUEUE — owner-DONE, reverified first-hand, HELD for the top-down pass (board-movers, wire in tier order)
+
+Per the batch discipline: reverify + grade promptly (done), wire in the pass so board-movers are measured in the integrated reader + in tier order. None wired live yet (no `INTEGRATED_BY_STRATEGY`).
+
+| Submission | Reverify (first-hand) | Tier / pass step | Claimed gain (instrument) | Disposition |
+|---|---|---|---|---|
+| `seed_the_entity_world_model_resolver...` | `test_entitykb_resolver_v2.py` **6/6** | COREF (step 2) | common-noun coref +0.0809 / relational +0.1440 CI-sep (held-out LitBank) | Land the full-chain resolver + KB asset + live `sm.entities` coref coupling into `commonnoun_binder`; NOT the agent head-match. Board-mover (coref dim). |
+| `wire_the_curated_meaning_foundation...` | `test_curated_foundation_wic.py` **6/6** | MEANING (step 4) | curated+coarsening beats the LIVE PPR `select_sense` reader **+0.0633 CI-sep** on WiC (n=2038); twins lose | **REROUTED win** — the brief's who-did-what/hub + meaning-readout proposals are located negatives (parse-bound; no live meaning stage). Wire the curated taxonomic signatures + shared-core COARSENING into the live `grounded_semantic_graph.select_sense` (the board's one live meaning metric). Coarsening SCOPED to the same/diff-sense judgment (NOT fine-sense a_s). Residual to human 0.80 = deep contextualization = §2 owner decision. |
+| `validate_the_ppmi_svd_means_end_bridge...` | `test_contextual_goal_attachment_modern.py` **4/4** (+5/5,+9/9) | GOAL (post-meaning) | contextual situation-relatedness beats the info-free twin **K1 0.700 vs 0.483 CI-sep** (n=797 modern gold; 19c 0.634 vs 0.537) | **REROUTED** — the brief's context-free ATOMIC bridge is REFUTED (sits in the twin band); the brain's CONTEXTUAL inverse planning (situation→goal relatedness in the live associative store) wins. **NO PARSER WORK** (parser reused unchanged — the parser-touch flag was a false positive). Wire a reliability-gated contextual edge in `build_goal_graph`; uses the meaning store (compose after the meaning tier). |
+
+**Parser-tier note:** so far NO submission carries a parser REPLACEMENT to wire. The arc-labeler's parser sections (D-O) were DIAGNOSIS/exploration (recorded in the rubric, filed as follow-ons); the means-end did NO parser work. If a genuine parser replacement is coming, it is in a not-yet-done submission.
+
+---
+
 ## Chunk C — dimensions / state / events (harvested 2026-09-05)
 
 ### the_situation_model_has_no_affect_emotion_dimension
