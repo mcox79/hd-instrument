@@ -6,6 +6,8 @@
 
 **Key recurring pattern:** "landed ≠ live." A component can be promoted to `hdlab/` and even default-ON, yet its claimed gain sits on *its own instrument* while the board doesn't probe it (instrument gap), or it's capped by an unbuilt upstream (coref/parser/meaning-hub), or a downstream consumer isn't updated to *receive* its new signal. Those are the rows that matter for the pass.
 
+**Companion:** `notes/PROVISIONAL_WIRINGS.md` — everything wired in a TEMPORARY/non-final state (scoped workarounds, default-off holds, latent landings, provisional golds, lossy couplings) + what the pass resolves.
+
 **Status vocabulary:** `LIVE` (wired + default-on, reaching a consumer) · `LATENT` (in hdlab, no live read()-time consumer) · `DEFAULT-OFF` (wired, flag off with a reason) · `NO-WIRE` (located negative — a valid pass, nothing to land) · `INSTRUMENT-GAP` (live but no board arm probes it).
 
 > Build status: harvesting the recent SOLVED corpus via 4 read-only agents (2026-09-05). Chunk C (dimensions/state/events) landed first and is below; who-did-what/coref, knowledge/meaning, and perf chunks appending. The at-a-glance SUMMARY TABLE + the ordered TOP-DOWN WORK-LIST are built at the bottom once all chunks are in.
