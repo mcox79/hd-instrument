@@ -2,10 +2,10 @@
 problem: consolidate_the_arceager_and_arc_double_parse_the_reader_now_parses_every_sentence_twice
 status: SOLVED
 bar: "PASS = one parse per sentence on the live read path with BYTE-IDENTICAL reader output on every consumed dimension (coref/events[agent+patient]/temporal/causal/location/belief/state + who-did-what arms) and a MEASURED read-time cut, on a held-out doc set. A rigorous located NEGATIVE -- one parse cannot serve both consumers, with the named consumer + the exact head-difference that forces two parses (e.g. the arc-labeler is trained on the arc parser's head distribution and its labels diverge on arc-eager heads) -- is a FULL PASS (then document why the double-parse stands and close the efficiency question). Report the read-time delta + byte-identity proof; keep the slow two-parse path as a self-checkable reference until the single-parse output is proven bit-identical."
-result: "ONE incremental (arc-eager) parse per sentence serves the role heads AND the front-end (copular+space): 6 of 9 consumed dims BYTE-IDENTICAL (events[agent+patient], coref, causal, timeline, suppressed, coref_acc); the 2 front-end consumers are NOT byte-identical but MEASURED NO-REGRESS on their own gold -- copular live-consumer fix_recall identical on modern (1.000) and archaic/19c (0.700) and +0.013 neutral on 451 UD-EWT gold (raw label detection IMPROVES +0.111 CI-sep), space where_is 0.259->0.244 delta -0.015 CI[-0.049,+0.000] (includes 0, NOT a CI-separated regression, n=606/24 timelines). Read-time cut = the entire batch parse eliminated = 1.00s = 4.6% of a 21.71s warm read over 309 held-out LitBank sentences; the batch parse (1.00s) is SLOWER than the arc-eager parse (0.83s) that replaces it. THE IDEAL FINAL WIRE (exact hdlab diff, prototyped at class level): UPSTREAM a full default-on read emits ZERO batch parses / one arc-eager parse per sentence across ALL consumers; DOWNSTREAM the full situation-model board shows ZERO regression on every scored dim (worst delta +0.0000: aggregate 0.6677, coref/events/temporal/causal/belief/goal/affect/state/location all identical). Witness 9/9 (incl. the ideal-setup confidence-weighting split: copular gate neutral, roles margin-abstain real)."
+result: "ONE incremental (arc-eager) parse per sentence serves the role heads AND the front-end (copular+space): 6 of 9 consumed dims BYTE-IDENTICAL (events[agent+patient], coref, causal, timeline, suppressed, coref_acc); the 2 front-end consumers are NOT byte-identical but MEASURED NO-REGRESS on their own gold -- copular live-consumer fix_recall identical on modern (1.000) and archaic/19c (0.700) and +0.013 neutral on 451 UD-EWT gold (raw label detection IMPROVES +0.111 CI-sep), space where_is 0.259->0.244 delta -0.015 CI[-0.049,+0.000] (includes 0, NOT a CI-separated regression, n=606/24 timelines). Read-time cut = the entire batch parse eliminated = 1.00s = 4.6% of a 21.71s warm read over 309 held-out LitBank sentences; the batch parse (1.00s) is SLOWER than the arc-eager parse (0.83s) that replaces it. THE IDEAL FINAL WIRE (exact hdlab diff, prototyped at class level): UPSTREAM a full default-on read emits ZERO batch parses / one arc-eager parse per sentence across ALL consumers; DOWNSTREAM the full situation-model board shows ZERO regression on every scored dim (worst delta +0.0000: aggregate 0.6677, coref/events/temporal/causal/belief/goal/affect/state/location all identical). Witness 12/12 (adds: byte-identical optimized arc-eager 1.26x; roles-confidence closed end-to-end = weak lever AUC 0.538 not the proxy 0.732; predictive-frontier verb-argument pre-activation = real anticipation MRR +0.060/twin-loses but a LOCATED NEGATIVE on attachment accuracy, composite -0.073 vs word-order)."
 floor: "Strict byte-identity is UNACHIEVABLE-by-construction (the two parsers produce different heads on ~15-25% of tokens; any single parse must differ from one of them on the front-end), so the honest floor is NO-REGRESS on each consumer's own gold vs the current batch parse: copular fix_recall(batch) modern 1.000 / archaic 0.700 / UD-EWT 0.818; space where_is(batch) 0.259 over floors FLOOR_lastment/firstloc/mostfreq. The consolidated (incremental) parse meets-or-exceeds every one."
 controls: "(1) byte-identity diff of ALL 9 consumed dims default-vs-consolidated (isolates the change to exactly copular+space; 6 dims proven identical). (2) copular MODERN vs ARCHAIC authored gold, base-parser vs arc-eager, live-consumer fix_recall (register control: no-regress on BOTH). (3) copular UD-EWT 451-gold paired bootstrap (base_recall +0.111 CI-sep; fix_recall +0.013 CI[-0.014,+0.041] neutral). (4) space where_is paired bootstrap over 24 timelines, CI includes 0. (5) parse-count instrumentation (default base>0 AND arc-eager>0 = double parse; consolidated base==0 = single parse). (6) roles byte-identity BY CONSTRUCTION (both paths call the same arceager_parser.parse_with_conf with the same weights) -- confirmed by events dim identical."
-files_changed: "experiments/exp_double_parse_consolidation_v1.py, experiments/exp_double_parse_frontend_noregress_v1.py, experiments/exp_double_parse_ideal_wire_v1.py (the exact hdlab diff prototyped at class level + upstream/downstream test), experiments/_diff_entity_states.py, experiments/exp_double_parse_ideal_confidence_v1.py (confidence-weighting: copular neutral / roles real), verification/test_double_parse_consolidation.py (9/9). NO hdlab/ changed (Q111: strategy lands the wire)."
+files_changed: "experiments/exp_double_parse_consolidation_v1.py, experiments/exp_double_parse_frontend_noregress_v1.py, experiments/exp_double_parse_ideal_wire_v1.py (the exact hdlab diff prototyped at class level + upstream/downstream test), experiments/_diff_entity_states.py, experiments/exp_double_parse_ideal_confidence_v1.py (confidence-weighting: copular neutral / roles real), experiments/exp_arceager_optimized_v1.py (byte-identical 1.26x), experiments/exp_double_parse_roles_confidence_e2e_v1.py (roles-confidence closed), experiments/exp_arceager_predictive_frontier_v1.py (predictive frontier), experiments/exp_space_modern_brainfoundational_v1.py (modern space no-regress + signal-loss ladder + fidelity audit), verification/test_double_parse_consolidation.py (13/13). NO hdlab/ changed (Q111: strategy lands the wire)."
 reverify: ".venv/Scripts/python.exe verification/test_double_parse_consolidation.py"
 ---
 
@@ -193,6 +193,61 @@ scopes the filed confidence follow-on: wire the arc margin into the role path (s
 proxy (obj-arc head correctness on clean UD gold); the end-to-end patient-QA abstain curve is the natural
 confirming follow-on.
 
+## PUSHING FURTHER — optimized arc-eager, roles-confidence closed end-to-end, and the predictive frontier
+The owner asked to push past the consolidation: prototype an OPTIMIZED arc-eager (incl. the deep frontier) and
+close the roles-confidence proxy. Three results, each with its own cell + can-fail controls:
+
+**(1) OPTIMIZED arc-eager — byte-identical speedup of the now-sole read-path parse**
+(`experiments/exp_arceager_optimized_v1.py`). After consolidation, arc-eager is the ONLY read-path parse, so its
+inner loop is the new lever — and it never got the vectorization the batch parser did. A crc32-MEMO of the
+per-transition feature strings (they repeat massively across a document — the same reuse lever that sped the batch
+parser) is **1.26× and BIT-IDENTICAL** (0 mismatches / 1200 UD-EWT sentences / 15,252 arcs: heads + conf + margins
+`==`). Further headroom (arg-keyed memo skipping the %-format too, + numpy-batching `_score_actions`) is a scoped
+follow-on — the batch parser reached 2–2.6× the same way. A pure compounding read-cost cut, no model change.
+
+**(2) ROLES-CONFIDENCE, closed END-TO-END — the proxy OVERSTATED it**
+(`experiments/exp_double_parse_roles_confidence_e2e_v1.py`). Earlier I measured the confidence lever on the obj-arc
+head-correctness PROXY (AUC 0.732). On the DEPLOYED who-did-what patient readout (`structural_patient_pick`, n=1259
+UD-EWT verbs) the margin separates a correct PICK at only **AUC 0.538** — near chance. Margin-calibrated abstention
+gives a small light-abstain gain (accuracy-when-answered 0.838 → **0.872 at 80% coverage**, shuffled-margin twin
+0.837, so twin-separated) that **decays and reverses by 40% coverage**. Why the proxy overstated it: a WRONG
+role-pick often lands on a confidently-attached NON-patient token (a subject/oblique), so the picked-token margin
+doesn't rank role-correctness. **Revised verdict: the confidence lever is WEAK end-to-end** — a light-abstention
+precision option on the role path, not the strong lever the proxy suggested. (This corrects the earlier
+"roles = a REAL lever" phrasing; the disk outranks the proxy.)
+
+**(3) THE DEEP FRONTIER — a predictive arc-eager (verb-argument pre-activation): mechanism REAL, accuracy a LOCATED NEGATIVE**
+(`experiments/exp_arceager_predictive_frontier_v1.py`; research-calibrated). Brain basis: a verb pre-activates its
+expected argument class and biases the FORWARD attachment (Altmann & Kamide 1999 anticipatory eye-movements; eADM
+graded prominence prediction; Kuperberg 2024 precision-weighted predictive-coding N400) — genuinely distinct from
+beam (wider search, refuted) and reanalysis (backward revision, refuted): prediction is a forward bias on the
+not-yet-made decision. Built a CONJUNCTIVE verb×object-class selectional preference (Bicknell 2010) as a static
+offline asset from UD-EWT TRAIN gold (verb → gold-object WordNet supersense), back-off smoothed.
+- **COMPANION (pure prediction) — the mechanism WORKS:** anticipation MRR of the gold object class, verb-conditioned
+  **0.393 vs 0.334 global-class floor (+0.060), shuffled twin 0.278 LOSES** (n=1012). Verb-argument anticipation is
+  a real, brain-faithful signal reproduced in the substrate.
+- **ACCURACY — a clean LOCATED NEGATIVE:** on the ambiguous subset (≥2 post-verbal nominal candidates, n=893) the
+  FAIR composite (word-order prior × SP, the eADM/Competition-Model cue combination — not SP-alone) **degrades**
+  attachment: position floor **0.682 → composite 0.609 (−0.073)**; it beats the shuffled twin (0.549, +0.060, so the
+  content is real) but pulls picks off the correct word-order default more than it fixes (347 flips: **won 141 /
+  lost 206**). Single-candidate subset: 1.000 (SP a no-op by construction — expected).
+- **Verdict + why it's the RIGHT answer, not a failure:** this is exactly the pre-registered expectation —
+  Demberg-Keller-Koller 2013 (a broad-coverage predictive parser is accuracy-COMPARABLE, winning only on reading-time
+  fit); McRae 1998 (selectional-fit ≈0.37 is a minority tie-breaker under a ≈0.51 structural cue); Van Schijndel &
+  Linzen 2021 (pure prediction under-explains hard cases — they need reanalysis, refuted here); and the substrate's
+  own 19c precedent (wins on prediction/MRR, ties/loses on selection). **Prediction is a processing-TIME/N400
+  mechanism, not a parse-accuracy one — its brain-faithful home is the surprisal/difficulty channel the reader
+  ALREADY has (`predict_surprisal`, the N400 dimension), NOT the attachment decision.** So the deep frontier is a
+  located negative for parser accuracy and a confirmation that the reader's predictive machinery already lives where
+  it belongs. Untested boundary: a targeted garden-path/reduced-relative slice (the theory still predicts a
+  time-not-accuracy effect there, and reanalysis — refuted — is what those items need).
+
+**Net of the push:** the single incremental parse is the win; the one shippable additional optimization is the
+byte-identical arc-eager inner-loop speedup (1.26×, more on the table); confidence-weighting and predictive
+pre-activation are both real signals but NOT parse-accuracy levers on this reader (confidence → a light-abstain
+precision option; prediction → the surprisal channel). No further accuracy lever survived a fair test — consistent
+with every prior parser refutation on disk.
+
 ## KEY REALIZATIONS
 - **The double parse is driven by SPACE, not copular.** `track_space` (default-on) parses every sentence with the
   batch parser and caches it; copular rides that cache "for free" (`test_reader_frontend_cache_shared.py`). Naming
@@ -269,10 +324,66 @@ sentence global optimisation the way arc-factored MST/Eisner parsing does.
   different heads on 19c copula-BE and PP/motion attachment (UAS 0.775 vs 0.842) — and the double parse would
   stand only for byte-identity's sake, at a measured no-regress cost. I recommend the consolidation.
 - The read-time **fraction** (4.6%) is on 4 LitBank docs; the per-sentence cut (~3.2 ms) is the portable number,
-  the fraction will drift as other read costs change. First thing I'd withdraw if wrong: the space no-regress —
-  its CI upper bound just touches 0 (−0.015 CI[−0.049,+0.000]); a larger 19c space gold could move it CI-negative,
-  in which case space becomes the one consumer to harden (confidence-weighted parse) rather than a reason to keep
-  two parses.
+  the fraction will drift as other read costs change. (The earlier "space no-regress is the thing I'd withdraw
+  first" is now RESOLVED: on the MODERN space gold arc-eager is +0.043 over base, > floor + twin — the 19c −0.015
+  was the OOD handicap, not a real regression.) First thing I'd withdraw now: the predictive-frontier's
+  ambiguous-subset framing — my "ambiguous" proxy (≥2 post-verbal nominals) includes easy cases, and a targeted
+  garden-path/reduced-relative slice is untested (though the theory + Demberg 2013 predict a time-not-accuracy
+  effect there too).
+
+## CORPUS-AGE / REGISTER ANCHORING (the standing confound — where it does and does NOT bite here)
+The reader's default doc set (LitBank) is 19c literary prose — effectively a *different register* for the
+modern-trained (UD-EWT) parser/tagger, a documented project-wide confound. For THIS problem it mostly does not bite,
+because the load-bearing numbers are either MODERN-anchored or register-INDEPENDENT:
+- **MODERN (UD-EWT):** the optimized arc-eager byte-identity + 1.26× (1200 sents); the copular no-regress powered
+  gold (451, +0.013 neutral / +0.111 CI-sep detection); the roles-confidence end-to-end (AUC 0.538, n=1259); the
+  predictive-frontier anticipation MRR + attachment (train+test both UD-EWT).
+- **REGISTER-INDEPENDENT:** the double-parse reproduction, the 6/9 byte-identical dims (they don't consume the
+  front-end parse at all → identical on ANY input), the read-time cut, the board no-regress (worst +0.0000). 19c
+  LitBank here is just a convenient doc set; the conclusion is structural, not register-bound.
+- **19c-ANCHORED — NOW CLOSED ON MODERN.** The one 19c-anchored no-regress number (space where_is) was re-run on
+  the MODERN space gold (`experiments/exp_space_modern_brainfoundational_v1.py`, 8 modern passages, 47 queries):
+  arc-eager **0.3191 vs base 0.2766 (+0.0426)**, both above the last-mention floor (0.1489) and the shuffled-twin
+  p95 (0.2298). So on modern the consolidation does not just no-regress — it **helps** space (+0.043); the 19c
+  within-noise −0.015 was exactly the predicted OOD handicap. The copular ARCHAIC set remains a deliberate register
+  CONTROL (the powered copular gold is modern UD-EWT). **Nothing 19c-anchored remains load-bearing.**
+
+## SPACE CHAIN ON MODERN — 100% brain-foundational component audit + signal-loss ladder
+Owner directive: run the space chain on modern, verify EVERY component is brain-foundational, measure signal loss
+along the chain. `experiments/exp_space_modern_brainfoundational_v1.py`.
+
+**Component fidelity (each PINNED-by-evidence unless noted):** tag = UD-EWT perceptron (single lexical-category
+inference) → parse = arc-eager INCREMENTAL (Hagoort MUC / Nivre — the consolidated single parse) → coref/mover
+backbone = ANIMATE movers only (Lakusta & Landau 2012, animacy-modulated motion) → spatial roles =
+`route_predicate_arguments` (Jackendoff Place/Path; Goldberg constructional caused-motion) → `decide_motion` =
+NOISY-CHANNEL LIKELIHOOD (Talmy force/path + GOAL-over-SOURCE [Talmy; Lakusta & Landau]; satellite-framed path
+[Talmy typology]; veridicality gate; Ji & Papafragou 2023 missed-source-lowers-confidence-not-erases) → LocationRegister
+= Zwaan & Radvansky 1998 event-indexing SPACE with a PERSISTENCE prior (the noisy-channel PRIOR fused with the
+likelihood) → where_is = mental-model state read-out (Glenberg 1987; Kintsch 1988). **The whole chain is a
+brain-faithful noisy-channel (Bayesian prior × likelihood) spatial situation model.** The ONE OUR-INVENTION-under-test
+is the discretized confidence weight (conf ∈ {1,2,3}) standing in for the graded likelihood — a swept parameter, not
+an adopted number.
+
+**Signal-loss ladder (where the modern where_is accuracy is lost):**
+
+| stage | accuracy | reading |
+|---|---|---|
+| 1. FLOOR (last-mention) | 0.1489 | stateless baseline |
+| 2. LIVE where_is (arc-eager chain) | 0.3191 | the full chain — 2.1× the floor, > twin p95 0.2298 |
+| 3. motion-event EXTRACTION recall | **0.4444** (base=arc-eager) | **the bottleneck** — the chain detects only ~44% of gold location changes; parse-INDEPENDENT (base==ae recall) |
+| 3′. motion-event EXTRACTION precision | 0.529 (base) / 0.571 (arc-eager) | arc-eager's +0.043 end-gain comes through PRECISION, not recall |
+| 4. register \| PERFECT extraction (CEILING) | 0.7872 | readout + persistence are ~lossless → the loss is UPSTREAM extraction, not the register or the readout |
+
+**What the ladder says:** the space dimension's loss is dominated by **motion-event extraction RECALL** (0.444) — a
+separate organ (which motion verbs/paths get detected), NOT the parse (base==arc-eager recall) and NOT the
+register/readout (lossless to 0.787). This confirms on MODERN prose the standing finding that space is
+extraction-recall-bound, not parse-quality-bound — so the consolidation is safe here, and the real space frontier is
+motion-event recall (Talmy path-verb coverage), owned by a separate problem. (Ceiling 0.787 not 1.0 is partly the
+approximate gold-event reconstruction in the control; the true register ceiling is ≥ that, and either way ≫ the live
+0.319.)
+- **Strategic (owner's standing point):** parser/reader evals should be MODERN-anchored (UD-EWT / modern annotated /
+  QA-SRL), with 19c used ONLY as an explicit OOD robustness control — the eval-corpus choice is a project-level fix
+  (strategy's domain), flagged here.
 
 ---
 ### TLDR

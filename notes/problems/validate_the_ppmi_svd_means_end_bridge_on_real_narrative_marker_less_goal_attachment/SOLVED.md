@@ -24,12 +24,15 @@ store, it beats the info-free twin CI-separated by a wide margin on MODERN GENER
 n=797 gold-clean) -- exactly where the context-free bridge sat inside the null band.
 
 ## §1 The full brain-foundational chain (every component, and where each stands)
-1. **UPSTREAM PARSE -- purpose-vs-complement (advcl vs xcomp).** The reader's OWN arc parser + labeler makes
-   this call: `went to buy`=advcl(purpose), `had to give`/`made him understand`=xcomp(complement). On MODERN
-   text it is accurate (0.929 advcl/xcomp split under gold heads; 0.72 end-to-end precision). On 19c LitBank it
+1. **UPSTREAM PARSE -- purpose-vs-complement (advcl vs xcomp). *** NO PARSER WORK WAS DONE. *** I did NOT
+   modify, retrain, or build any parser -- `hdlab/arc_parser.py` and `hdlab/arc_labeler.py` are REUSED UNCHANGED.
+   I only (a) MEASURED the reader's existing arc parser + labeler on the advcl/xcomp decision, and (b) prototyped
+   a purpose-vs-complement FILTER on top of its output (keep advcl, reject xcomp). The reader's OWN parser+labeler
+   already makes the call: `went to buy`=advcl(purpose), `had to give`/`made him understand`=xcomp(complement).
+   On MODERN text it is accurate (0.929 advcl/xcomp split under gold heads; 0.72 end-to-end). On 19c LitBank it
    drops to 0.375 -- a PURE CORPUS-AGE (out-of-distribution) artifact, not a mechanism failure. => NO separate
-   19c parser is warranted; the lever is GENERAL narrative parse quality (the filed parser problem), which lifts
-   every consumer. Brain-foundational (Friederici syntax network; Malle reason-vs-cause).
+   19c parser is warranted, and I built none; the lever is GENERAL narrative parse quality (the ALREADY-FILED
+   parser problem), which lifts every consumer. Brain-foundational (Friederici syntax network; Malle reason-vs-cause).
 2. **UPSTREAM MEANING -- the live relatedness store** (`conceptual_meaning` routes relatedness->associative;
    `meaning_fusion` phi == this space). Distributional relatedness BEATS the curated ATOMIC means-end table on
    real narrative -- the store, not a hand-curated table, carries the signal.
