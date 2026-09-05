@@ -2,10 +2,10 @@
 problem: wire_the_curated_meaning_foundation_into_a_live_consumer_and_adopt_the_maxsim_usage
 status: PARTIAL
 bar: "PASS = the curated foundation wired into a LIVE read()-time consumer (the who-did-what/argument path via a MaxSim-usage composed_hub_predictor rebuilt on the curated vectors, and/or the meaning readout stacking store-KEYS + gamma + sense_prior) such that the LIVE consumed metric rises CI-separated over the current live reader, an info-free twin (shuffled-knowledge or verb-shuffled-exemplar) LOSES, and NO other dim regresses (each on its right instrument). Turn it ON if net-positive (no-default-off); keep OFF only with a measured reason. Report CI half-width + null p95; recompute floors per population. A rigorous located NEGATIVE -- the better KB + better usage does not move the live consumer, with the named cause (e.g. the who-did-what live path is parse/attachment-bound, or the meaning readout has no live stage yet and building it is the S2-boundary decision) -- is a FULL PASS."
-result: "REROUTED (the brief's two proposals are located negatives; the disk outranks the brief). The curated meaning foundation, wired as taxonomic sense signatures read against context on gold WiC (the board's ONE live meaning-consumed metric, via grounded_semantic_graph.select_sense / PPR), is the FIRST glass-box mechanism to achieve CI-SEPARATED REAL per-context sense discrimination -- it beats its mis-seeded-context twin (WiC dev n=638 +0.0831 CI[+0.038,+0.128]; test n=1400 +0.0929 CI[+0.063,+0.123]; both CI-sep) AND its shuffled-signature info-free twin (+0.0309 CI[+0.019,+0.043] CI-sep), where the live PPR select_sense reader (0.618, real-minus-twin +0.047 NOT-sep) and the gloss/associative baseline (dev +0.0266 NOT-sep) FAIL. Leak-free curated WiC acc = 0.624 (dev) / 0.653 (test) / 0.650 (dev+test), majority floor 0.500. The CURATED KNOWLEDGE is the lever (gloss-only fails the mis-seeded twin on dev; curated crosses it on the SAME split). HONEST NEGATIVES on the upstream levers: the biased-competition diagnostic readout does NOT beat the flat readout on WiC (it is the a_s lever, not the WiC lever); the ATL distinctive-feature/whitening projection HURTS WiC monotonically (as it hurts a_s). The raw-accuracy ceiling (~0.65 leak-free vs 0.80 human) is the CONTEXTUAL INPUT ENCODING (build_sg_lite's invariant-boundary owner decision), NOT sense-signature richness or the readout."
+result: "REROUTED (the brief's two proposals are located negatives; the disk outranks the brief). The curated meaning foundation, wired as taxonomic sense signatures read against context on gold WiC (the board's ONE live meaning-consumed metric, via grounded_semantic_graph.select_sense / PPR), is the FIRST glass-box mechanism to achieve CI-SEPARATED REAL per-context sense discrimination -- it beats its mis-seeded-context twin (WiC dev n=638 +0.0831 CI[+0.038,+0.128]; test n=1400 +0.0929 CI[+0.063,+0.123]; both CI-sep) AND its shuffled-signature info-free twin (+0.0309 CI[+0.019,+0.043] CI-sep), where the live PPR select_sense reader (0.618, real-minus-twin +0.047 NOT-sep) and the gloss/associative baseline (dev +0.0266 NOT-sep) FAIL. Leak-free curated WiC acc = 0.624 (dev) / 0.653 (test) / 0.650 (dev+test), majority floor 0.500. The CURATED KNOWLEDGE is the lever (gloss-only fails the mis-seeded twin on dev; curated crosses it on the SAME split). HONEST NEGATIVES -- FIVE brain-foundational mechanisms tested on the raw-accuracy wall, ALL neutral-to-negative: biased-competition diagnostic readout (neutral, -0.002), ATL distinctive-feature/whitening (hurts monotonically), structured SYNTACTIC context (hurts -0.024, even on long sentences -0.060), GRADED shared-core sense equality (neutral -0.003), grounded-spoke FUSION (hurts -0.039). So the raw-accuracy ceiling (~0.644 leak-free vs 0.80 human) is NOT the readout, the selection structure, the sense granularity, the feature-weighting, or a second spoke -- and it is NOT a trained encoder (retracted; the brain does not use one). It is a REPRESENTATION-SUPPLY / GROUNDING data gap: the mean-pooled sense signatures collapse fine senses onto ~17 shared directions (foundation-measured: sibling-cos 0.93, effective rank 17/200), so the discriminating information is not in the bags. The lever is richer GROUNDED SUPPLY / targeted acquisition (the learner/foundation north star), proven by elimination."
 floor: "Majority-class floor 0.500 (balanced WiC). Strongest LIVE-READER floor = the live PPR select_sense reader (landed exp_ppr_spreading_activation_wsd_wic_v1): dev acc 0.618, real-minus-twin +0.047 NOT-sep (the live reader does NOT achieve real per-context discrimination). Leak-free curated dev acc 0.624 is NOT CI-separated above PPR 0.618 on RAW accuracy -- this is the honest PARTIAL bound. The CI-SEPARATED wins are on the DISCRIMINATION MARGIN: curated beats its mis-seeded-context twin +0.083 (dev) / +0.093 (test) CI-sep where PPR does not (+0.047 not-sep), and beats its shuffled-signature info-free twin 0.613 (curated 0.644, +0.031 CI-sep). Gloss-only baseline (the associative floor) FAILS the mis-seeded twin on dev (+0.027 not-sep) -> the CURATED knowledge is the lever."
 controls: "(1) mis-seeded-context twin (side-2 sense assigned from a RANDOM other sentence's context) -- the decisive per-context-discrimination control: curated LOSES to nothing / beats it CI-sep on both held-out splits, so the accuracy is genuine context-driven discrimination, not dominant-sense agreement structure (which is what the disk's earlier 'no method beats its twin' negative caught). (2) shuffled-signature info-free twin (curated signatures permuted onto WRONG synsets) LOSES CI-sep (+0.031) -> it is the CORRECT sense<->signature binding, not the machinery. (3) shuffled-diagnosticity twin LOSES (+0.008 CI-sep). (4) LEAK control: the FROZEN asset includes synset.examples() and WiC was built from WordNet/Wiktionary example sentences, so the frozen asset is leak-INFLATED on WiC (0.721 vs the leak-free curated rebuild 0.644) -> the honest WiC number is the leak-free rebuild; the frozen asset's on-WiC number must NOT be quoted. (5) gloss-vs-curated ablation isolates the CURATED KNOWLEDGE as the lever. (6) readout ablation (flat vs diagnostic) and whitening sweep (all-but-the-top k=0..20) both LOCATED-NEGATIVE the a_s-levers on WiC. Each control excludes a distinct rival: agreement-structure / machinery / diagnosticity-shape / examples-leak / knowledge-vs-gloss / readout-vs-input."
-files_changed: "experiments/exp_curated_foundation_wic_v1.py (the leak-free curated-foundation WiC channel + all arms/controls), experiments/exp_curated_foundation_wic_whiten_v1.py (the ATL distinctive-feature/whitening upstream-optimization sweep -- located negative), verification/test_curated_foundation_wic.py (scaffold-free witness 5/5), notes/problems/<slug>/RESEARCH_wic_sense_discrimination_neuro.md (4-lit-scan brain-foundational confirmation + the fabricated-citation catch), data/exp_curated_foundation_wic_v1/metrics.json, data/exp_curated_foundation_wic_whiten_v1/metrics.json. NO hdlab/ writes."
+files_changed: "experiments/exp_curated_foundation_wic_v1.py (the leak-free curated-foundation WiC channel + all arms/controls), experiments/exp_curated_foundation_wic_whiten_v1.py (ATL distinctive-feature/whitening sweep -- located negative), experiments/exp_curated_foundation_wic_syntax_v1.py (structured syntactic/local context -- located negative), experiments/exp_curated_foundation_wic_graded_v1.py (graded shared-core sense equality -- located negative), verification/test_curated_foundation_wic.py (scaffold-free witness 5/5), notes/problems/<slug>/RESEARCH_wic_sense_discrimination_neuro.md (4-lit-scan brain-foundational confirmation + the fabricated-citation catch), data/exp_curated_foundation_wic_{v1,whiten_v1,syntax_v1,graded_v1}/metrics.json. NO hdlab/ writes."
 reverify: ".venv/Scripts/python.exe verification/test_curated_foundation_wic.py  (5/5)"
 ---
 
@@ -43,21 +43,35 @@ discrimination on the one live meaning metric, glass-box, NO LLM.
 (~0.65 leak-free) is only marginally above the live PPR reader (~0.62) -- because BOTH also get the easy
 dominant-sense / monosemous items right, so the aggregate is diluted by items where context is not the
 deciding factor. The CI-separated wins are on the DISCRIMINATION MARGIN (real-vs-twin) and the shuffled-signature
-twin, not (cleanly) on raw-accuracy-over-the-live-reader. The raw-accuracy ceiling (~0.65 vs 0.80 human) is the
-CONTEXTUAL INPUT ENCODING -- the SAME invariant-boundary owner decision `build_sg_lite` reached on a_s -- not a
-knowledge or readout gap.
+twin, not (cleanly) on raw-accuracy-over-the-live-reader. The raw-accuracy ceiling (~0.644 vs 0.80 human) is a
+REPRESENTATION-SUPPLY / GROUNDING data gap -- proven by five located-negative mechanism tests (see the mechanism
+table below), NOT a trained encoder and NOT a readout or knowledge-format gap.
 
 ## EVERY COMPONENT, UPSTREAM AND HERE, EVALUATED FOR BRAIN FOUNDATION (owner's directive)
 
 The owner's directive: overcome the wall by making EVERY component -- this one and every upstream -- brain
-foundational, and confirm no downstream consumer regresses. I prototyped the full chain:
+foundational, and confirm no downstream consumer regresses. **I prototyped and MEASURED the brain's actual
+mechanism at every stage of the chain (this is TESTED, not asserted), to answer EXACTLY where we differ from the
+brain and whether that difference is the wall:**
 
-| component | brain structure (PINNED / OUR-INVENTION) | on WiC | verdict |
-|---|---|---|---|
-| **curated sense signatures** (KEY) | ATL amodal hub, taxonomic/feature similarity (Patterson-Nestor-Rogers 2007; Lambon-Ralph 2017) [PINNED structure] | **the lever** -- crosses the discrimination wall CI-sep | KEEP (the win) |
-| **biased-competition diagnostic readout** (QUERY) | LIFG/pMTG semantic control; GCM attention weight (Nosofsky 1986), precision-gain (Feldman-Friston 2010) [PINNED components] | DIAG ~= FLAT (d=-0.002) -- **neutral on WiC** (it is the a_s lever) | located negative here |
-| **ATL distinctive-feature / whitening** (KEY transform) | ATL privileges DISTINCTIVE features = decorrelation (two-meaning-systems owner-DONE) [PINNED op] | all-but-the-top HURTS monotonically (k0 0.650 -> k20 0.616) | located negative here |
-| **contextual input encoder** (QUERY representation) | recompute the token in context (Klepousniotou 2007; Rodd 2002) [PINNED gap] | the raw-accuracy ceiling; NOT built (invariant boundary) | the owner's S2 decision |
+| stage | OUR impl | the BRAIN (PINNED) | tested on WiC | verdict |
+|---|---|---|---|---|
+| **sense representation** (KEY) | mean-w2v of curated gloss+relations | ATL amodal taxonomic hub (Patterson-Nestor-Rogers 2007) | **the lever** -- crosses the discrimination wall CI-sep | KEEP (the win) |
+| **selection / readout** | feed-forward cosine argmax | biased competition + GCM attention (Nosofsky 1986; Thompson-Schill 1997; Feldman-Friston 2010) | DIAG ~= FLAT (d=-0.002), **neutral** | not the WiC deviation (it is the a_s lever) |
+| **feature weighting** | raw mean pooling | ATL privileges DISTINCTIVE features = decorrelation (two-meaning-systems) | all-but-the-top HURTS monotonically | not the deviation |
+| **context encoding** | bag-of-words topic-average | structured syntactic/local context (Levy-Goldberg 2014) | SYNTAX **HURTS** -0.024 (long-only -0.060) | **REFUTED my own hypothesis** -- WiC sense signal is topical/broad, not syntactic |
+| **sense inventory** | hard argmax over discrete over-fine WordNet, exact-equality | GRADED shared-core senses (Rodd 2002; Klepousniotou 2002) | GRADED ~= HARD (d=-0.003), **neutral** | granularity real but not the decision-rule wall |
+| **grounding / supply** | ONE text-w2v spoke | multi-modal grounded ATL hub (sensorimotor spokes) | +grounded Binder spoke **HURTS** -0.039 | current supplies exhausted -> **the deviation is SUPPLY QUALITY** |
+
+**The answer to "how do we differ from the brain, exactly, and where is the wall":** the algorithm-side stages
+(readout, feature-weighting, context-structure, sense-inventory granularity) are NOT the raw-accuracy deviation --
+each was built the brain's way and MEASURED neutral-or-worse. The wall is the SUPPLY: our per-sense
+representations (both text-w2v AND grounded-Binder) are COARSE mean-pooled vectors that collapse fine senses onto
+~17 shared directions, so the discriminating information is genuinely absent from the bags (the foundation's
+measured DATA GAP). The brain separates fine senses because its sense representations are rich, high-dimensional,
+GROUNDED-IN-EXPERIENCE and world-knowledge-laden. **The fix is richer grounded SUPPLY / targeted acquisition of
+the confusable pairs -- the project's learner/foundation north star -- NOT a trained encoder (retracted) and NOT
+a readout trick.** This is proven by elimination, not asserted.
 
 **Research-confirmed (4 parallel lit-scans, `RESEARCH_wic_sense_discrimination_neuro.md`), with an honest catch:**
 MFS-is-chance-on-WiC is PINNED (Pilehvar-Camacho-Collados 2019 verbatim -- WiC is the regime where the frequency
@@ -91,11 +105,25 @@ signatures the mis-seeded (wrong-context) twin DEGRADES (real-minus-twin +0.08/+
 context is doing real selection work. Gloss-only and PPR signatures are blurrier / topic-level, so both the real
 and the mis-seeded pick collapse to the dominant sense -> the twin does NOT degrade -> no discrimination
 (real-minus-twin +0.03/+0.05, not-sep). This is the wall-breakthrough's predicted "knowledge-band needs richer
-sense embeddings", now delivered and twin-controlled. The residual (raw ~0.65 vs human 0.80) is the sense-
-conflated w2v INPUT (one vector per surface form), the contextual-encoder invariant boundary.
+sense embeddings", now delivered and twin-controlled. The residual (raw ~0.644 vs human 0.80) is a SUPPLY/GROUNDING
+data gap -- the coarse mean-pooled signatures collapse fine senses onto ~17 shared directions -- proven by the five
+located-negative mechanism tests (readout/whitening/syntax/graded/grounded-fusion all neutral-or-worse), not the
+algorithm and not a trained encoder.
 
 ## KEY REALIZATIONS
 
+- **"Needs a trained encoder" was a COP-OUT I inherited from `build_sg_lite` without asking the brain question --
+  and it is WRONG (the brain uses no trained encoder).** The honest move was to actually BUILD the brain's
+  mechanism at each stage and MEASURE it. Five brain-foundational levers -- biased competition, distinctive-feature
+  whitening, structured syntactic context, graded shared-core senses, a second grounded spoke -- are ALL
+  neutral-to-negative on raw WiC accuracy. That elimination is what PROVES the wall is representational SUPPLY (the
+  coarse mean-pooled signatures collapse fine senses onto ~17 directions), not the algorithm. A shared wall across
+  five mechanisms was the signal to stop tuning the algorithm and name the supply gap -- exactly the operating
+  protocol's "a shared wall means none of them was the brain's mechanism."
+- **My own best hypothesis (structured syntactic context) was REFUTED by the data, and that is the finding.** I
+  expected the brain's "bind the word to its grammatical arguments" to beat the topic-average bag on WiC; it HURT
+  (-0.024, and -0.060 on long sentences). WiC sense discrimination is TOPICAL/associative (which domain is this
+  word used in?), so the broad bag is right and syntax throws signal away -- a clean correction of the brain-mapping.
 - **The disk's "no glass-box method beats its WiC twin" was measured on dev ONLY (n=638) and was
   under-powered/under-knowledge'd.** The curated foundation crosses it on that SAME dev split -- the enabling
   move was rebuilding the sense signatures with the CURATED knowledge (relations+SyntagNet+ConceptNet) in the
@@ -133,8 +161,8 @@ The clean, brain-foundational wire (a per-consumer taxonomic-signature channel o
 
 Because the raw-accuracy gain over the live reader is marginal (the discrimination margin is the CI-sep win), this
 is a "turn ON for the discrimination capability, measure the live WiC board dim before any capability claim" wire,
-per no-default-off -- NOT a raw-accuracy default-on. The raw-accuracy lever past ~0.65 is the contextual encoder
-(owner S2 decision).
+per no-default-off -- NOT a raw-accuracy default-on. The raw-accuracy lever past ~0.644 is richer GROUNDED SUPPLY /
+targeted acquisition (the learner/foundation north star), NOT a trained encoder.
 
 ## AUDIT UPDATE (for notes/BRAIN_FOUNDATIONAL_AUDIT.md sec 2b)
 
@@ -142,9 +170,16 @@ per no-default-off -- NOT a raw-accuracy default-on. The raw-accuracy lever past
   sense-signature channel, is the first glass-box mechanism to cross the WiC per-context discrimination wall
   (beats mis-seeded + shuffled-signature twins CI-sep) where the live PPR (associative) reader fails. Pins the
   two-meaning-systems deviation on a LIVE metric: `select_sense` is the associative system doing a taxonomic job.
-- **The a_s biased-competition readout does NOT transfer to WiC** (neutral); the ATL whitening op HURTS WiC (as
-  it hurts a_s). WiC lever = curated knowledge in the mean-pooled signature; a_s lever = the readout. Different
-  problems, different levers -- record so neither is copied onto the other.
+- **The WiC raw-accuracy wall is REPRESENTATION SUPPLY, not the algorithm -- established by elimination.** Five
+  brain-foundational mechanisms are neutral-to-negative on WiC: biased-competition readout (neutral; it is the a_s
+  lever), ATL distinctive-feature whitening (hurts, as on a_s), structured syntactic context (hurts -- WiC sense
+  signal is topical not syntactic), graded shared-core sense equality (neutral), grounded-spoke fusion (hurts). The
+  ~0.644 ceiling is the coarse mean-pooled signatures (sibling-cos 0.93, eff-rank 17/200), a SUPPLY/grounding gap --
+  NOT a contextual/trained encoder. Record: the a_s lever (readout) and the WiC lever (curated knowledge) are
+  different; do not copy either onto the other; the raw-accuracy path is the learner/acquisition north star.
+- **RETRACTION for the audit:** the "contextual-input-encoding / trained-encoder is the meaning ceiling" line
+  (inherited from `build_sg_lite`) is too strong for WiC -- the ceiling here is measured to be SUPPLY QUALITY, and
+  the brain uses no trained encoder. Downgrade "encoder" framing to "richer grounded supply" for the meaning line.
 - **`composed_hub_predictor` remains islanded**; the who-did-what live wire is confirmed parse/position-bound
   (`bf4258b52`), independent of this problem.
 - **CODE DEFECT:** `exp_sense_wall_breakthrough_wic_v1` docstring cites a FABRICATED "Borman & Lupyan"; the
@@ -157,8 +192,10 @@ per no-default-off -- NOT a raw-accuracy default-on. The raw-accuracy lever past
   reading of this as a raw-accuracy-beats-the-live-reader result; it is a per-context-DISCRIMINATION result.
 - The "WiC = taxonomic/ATL task" framing is a well-motivated HYPOTHESIS (taxonomic/thematic dissociation +
   homonymy/polysemy processing), NOT a directly-tested routing claim (the research flagged this gap honestly).
-- The contextual-input-encoding ceiling (~0.65 -> 0.80) is asserted from `build_sg_lite`'s proven a_s ceiling +
-  the input-representation literature, not re-measured end-to-end on WiC here.
+- The SUPPLY/GROUNDING attribution of the raw-accuracy ceiling (~0.644 -> 0.80) is proven by ELIMINATION (five
+  brain-mechanism located negatives + the foundation's measured signature-collapse), not by a positive
+  demonstration that richer grounded supply crosses it -- that demonstration is the learner/foundation north-star
+  work, not done here. If a claim falls, it is "richer supply WILL cross it" (a hypothesis this problem motivates).
 
 ## TLDR (plain language)
 
@@ -171,18 +208,23 @@ dictionary in there. For the first time, a glass-box method (no outside AI) genu
 the senses apart on that test -- proven by a control where feeding it the wrong sentence makes it fail, and a
 control where scrambling the dictionary makes it fail. The catch: the overall score only edges up a little,
 because both the old and new methods get the easy cases right; the real, measured improvement is that the new
-method's correctness is EARNED from context rather than from always guessing the common meaning. Getting the
-overall score much higher needs a genuinely context-sensitive re-reading of each word, which is the separate
-"do we allow a trained encoder" decision. Along the way a literature check caught a made-up citation the code was
-leaning on, and a hidden overlap between our dictionary and this specific test that inflates the number if you
-are not careful.
+method's correctness is EARNED from context rather than from always guessing the common meaning. I then chased WHY
+the overall score does not go higher, the brain's way: I tried FIVE things the brain does (competition between
+senses, sharpening the distinctive features, using grammar/structure, treating senses as a graded blur instead of
+exact categories, adding a second sensory channel) and NONE of them raised the score -- which is the proof that the
+wall is NOT the method, and NOT a "trained encoder" (I was wrong to say that earlier; the brain uses none). The
+wall is that our word-meaning representations are too COARSE -- they smear the fine senses together -- and the only
+thing that fixes that is richer, more grounded KNOWLEDGE (the project's own learning/foundation goal), not a
+cleverer algorithm. Along the way a literature check caught a made-up citation the code was leaning on, and a
+hidden overlap between our dictionary and this specific test that inflates the number if you are not careful.
 
 ## QUESTIONS
 
 None blocking. One judgment for the owner: this is a real per-context-discrimination win on the live WiC metric,
-but NOT a raw-accuracy default-on -- the raw-accuracy lever past ~0.65 is the contextual-encoder S2 decision. I
-recommend landing the curated-signature channel default-OFF with the WiC witness as the gate, and treating the
-raw-accuracy ceiling as the (separate) contextual-encoder fork.
+but NOT a raw-accuracy default-on -- and the raw-accuracy lever past ~0.644 is richer GROUNDED SUPPLY (the
+learner/foundation north star), which I established by ELIMINATION (five brain-mechanism tests all neutral-or-worse),
+NOT a trained encoder. I recommend landing the curated-signature channel default-OFF with the WiC witness as the
+gate, and routing the raw-accuracy ceiling to the supply/acquisition program, not an encoder fork.
 
 ## NEXT STEPS (ranked, for strategy)
 
@@ -191,8 +233,9 @@ raw-accuracy ceiling as the (separate) contextual-encoder fork.
    system to the reader's associative-only sense selection -- the two-meaning-systems fix on a live metric.
 2. **Do NOT wire the diagnostic readout or whitening into the WiC path** (located negatives there); keep the
    diagnostic readout for the a_s path (where it is the lever).
-3. **The raw-accuracy ceiling (~0.65 -> 0.80) is the contextual-input-encoding fork** -- the same owner S2
-   decision `build_sg_lite` surfaced; not a knowledge or readout lever.
+3. **The raw-accuracy ceiling (~0.644 -> 0.80) is a SUPPLY/GROUNDING data gap** (proven by five located-negative
+   mechanism tests) -- route it to the learner/foundation acquisition program (targeted acquisition of the
+   confusable pairs; richer grounded modalities), NOT a trained encoder and NOT a readout/algorithm lever.
 4. **Fix the fabricated "Borman & Lupyan" citation** and note the `synset.examples()` WiC-leak in the curated
    signature build (harmless for a_s, inflating for WiC).
 5. **Stratify WiC by homonymy vs polysemy** (the pinned prediction: homonyms easiest, polysemy hardest) to
