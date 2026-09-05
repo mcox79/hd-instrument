@@ -82,12 +82,62 @@ def arc_features(tokens: Sequence[str], pos: Sequence[str], i: int, h: int) -> L
     return F
 
 
+class _FastLabelPlan:
+    """Byte-identical variant-C plan for ArcLabeler._predict_label -- promoted VERBATIM (Q111) from
+    experiments/exp_arc_labeler_fastpath_v1.FastLabelPlan (owner-DONE add_the_arc_labeler_fast_scoring_path,
+    2026-09-05). Built once from the averaged weights: precompute feat -> [(label_idx, weight)] (split each key
+    on the LAST '~' -- labels never contain '~', verified 0/36 on the landed asset, so the split is EXACT and
+    byte-identity is UNCONDITIONAL in the weights, not a lucky sample); per arc accumulate present weights into
+    per-label lanes IN FEATURE ORDER and argmax IN LABEL ORDER -> the float sum is bit-identical to stock _score
+    and the first-max strict-'>' tie-break is identical. ~9x faster than the stock 36-label rescan (labeler is
+    ~54% of a full-length-doc read). The lane[] it materializes IS the pinned Competition-Model / FLMP net
+    activation (graded_competition.net_activation), so the SAME refactor enables the graded readout (label_graded)
+    at zero cost -- argmax byte-identical (MAP-optimality), the normalized entropy a gold-free error signal."""
+
+    def __init__(self, weights, labels):
+        self.labels = list(labels)
+        self.n = len(self.labels)
+        li = {l: i for i, l in enumerate(self.labels)}
+        self.contrib = {}                      # feat -> [(label_idx, weight)]
+        for key, val in weights.items():
+            feat, lab = key.rsplit("~", 1)     # labels never contain '~' (verified); features never do either
+            self.contrib.setdefault(feat, []).append((li[lab], val))
+
+    def predict(self, feats):
+        lane = [0.0] * self.n
+        c = self.contrib
+        for f in feats:                        # feature order preserved -> per-lane sum order == stock
+            lst = c.get(f)
+            if lst:
+                for k, wv in lst:
+                    lane[k] += wv
+        best_i = 0
+        best_s = lane[0]
+        for i in range(1, self.n):             # label order preserved -> identical first-max tie-break
+            if lane[i] > best_s:
+                best_s = lane[i]; best_i = i
+        return self.labels[best_i]
+
+    def lanes(self, feats):
+        """The per-label net activation (sum of present feature-weights per label, feature order). Same
+        accumulation predict() does; exposed for the graded readout (argmax(lanes) == predict, MAP-optimality)."""
+        lane = [0.0] * self.n
+        c = self.contrib
+        for f in feats:
+            lst = c.get(f)
+            if lst:
+                for k, wv in lst:
+                    lane[k] += wv
+        return lane
+
+
 class ArcLabeler:
     """Multiclass averaged perceptron labeling each arc with its UD relation, given the head structure."""
 
     def __init__(self, labels: Sequence[str], weights: Dict[str, float] | None = None):
         self.labels = list(labels)
         self.weights: Dict[str, float] = dict(weights) if weights else {}
+        self._fast: "_FastLabelPlan | None" = None   # byte-identical fast plan, built lazily on first label()
 
     def _score(self, feats: Sequence[str], lab: str) -> float:
         w = self.weights
@@ -99,6 +149,8 @@ class ArcLabeler:
         return s
 
     def _predict_label(self, feats: Sequence[str]) -> str:
+        """The stock 36-label rescan -- KEPT UNCHANGED as the training path AND the byte-identity reference
+        (the fast path in label() is provably identical to this; see _FastLabelPlan)."""
         best_l = self.labels[0]
         best_s = float("-inf")
         for lab in self.labels:
@@ -108,8 +160,16 @@ class ArcLabeler:
                 best_l = lab
         return best_l
 
+    def _ensure_fast(self) -> "_FastLabelPlan":
+        """Lazily build + cache the byte-identical fast plan (idempotent), mirroring PosTagger._ensure_fast."""
+        if self._fast is None:
+            self._fast = _FastLabelPlan(self.weights, self.labels)
+        return self._fast
+
     def label(self, tokens: Sequence[str], pos: Sequence[str], heads: Dict[int, int]) -> Dict[int, str]:
-        """Label each arc dep->head under the GIVEN head map. Returns {dep_idx(1-based): deprel}."""
+        """Label each arc dep->head under the GIVEN head map. Returns {dep_idx(1-based): deprel}. Routes through
+        the byte-identical fast plan (~9x); output is identical to _predict_label for ANY weights (theorem)."""
+        plan = self._ensure_fast()
         out: Dict[int, str] = {}
         n = len(tokens)
         for i in range(1, n + 1):
@@ -117,7 +177,29 @@ class ArcLabeler:
             if h is None or h < 0 or h > n:
                 h = 0
             feats = arc_features(tokens, pos, i, h)
-            out[i] = self._predict_label(feats)
+            out[i] = plan.predict(feats)
+        return out
+
+    def label_graded(self, tokens: Sequence[str], pos: Sequence[str], heads: Dict[int, int]) -> Dict[int, tuple]:
+        """OPT-IN brain-faithful readout (default-off; NO consumer wired). Returns {dep_idx: (argmax_label,
+        posterior[np], normalized_entropy)} -- the graded label competition the brain maintains (Hale/Levy;
+        Kiani-Shadlen), materialized for free off the fast plan's lane[]. BYTE-SAFE: argmax(posterior) ==
+        label()'s pick (MAP-optimality). normalized_entropy is a validated gold-free difficulty signal
+        (AUC 0.930 vs info-free twin 0.481). Reuses hdlab.graded_competition.softmax."""
+        import numpy as np
+        from hdlab.graded_competition import softmax
+        plan = self._ensure_fast()
+        out: Dict[int, tuple] = {}
+        n = len(tokens)
+        logn = float(np.log(plan.n)) if plan.n > 1 else 1.0
+        for i in range(1, n + 1):
+            h = heads.get(i, 0)
+            if h is None or h < 0 or h > n:
+                h = 0
+            lane = plan.lanes(arc_features(tokens, pos, i, h))
+            post = softmax(lane)
+            ent = float(-(post * np.log(post + 1e-12)).sum()) / logn
+            out[i] = (plan.labels[int(np.argmax(post))], post, ent)
         return out
 
     def label_accuracy(self, gold_sents: Sequence[Sequence[tuple]], maxlen: int = 50) -> Tuple[float, int, int]:

@@ -9,6 +9,9 @@ files_changed: "ARC-LABELER (assigned): experiments/exp_arc_labeler_graded_compe
 reverify: ".venv/Scripts/python.exe verification/test_arc_labeler_fastpath_landing.py"
 ---
 
+## INTEGRATED_BY_STRATEGY (2026-09-05) — EXCELLENT
+Reverified `test_arc_labeler_fastpath_landing.py` **5/5** + a new pure-hdlab landing witness `test_arc_labeler_fastpath_hdlab_landing.py` **4/4**. LANDED (Q111, DEFAULT-ON, **byte-identical**): promoted `_FastLabelPlan` VERBATIM → `hdlab/arc_labeler.py` + `_ensure_fast` (mirrors `PosTagger._ensure_fast`) + `label()` routes through it; `_predict_label`/`_score` kept as the training path + reference. ~9x labeler / ~54% of a long-doc read, the LANDED `label()` == the reference on 22,921 held-out arcs. Also landed the byte-safe opt-in `label_graded` publisher (default-off — the graded Competition-Model posterior + gold-free entropy AUC 0.930, materialized free; argmax byte-identical). §2b folded. **The owner-directed PARSER/self-supervised exploration (D-O) is exploratory-not-landable (per the solver's own flag): its findings are recorded in `notes/PARSER_JOINT_INTEGRATION_RUBRIC.md` (the parser tier of the integration pass) and two follow-ons filed (whiten the meaning-channel embedding; self-supervised+grounded parser).**
+
 # Arc labeler fast scoring path -- SOLVED (byte-identical), plus a brain-foundational extension it unlocks for free
 
 ## >>> PARSER-WORK FLAG (owner-requested; READ THIS) -- the escalation exceeded the arc-labeler scope

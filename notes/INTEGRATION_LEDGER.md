@@ -27,6 +27,23 @@
 - followon_filed: recorded here (this ledger) rather than scattered problem files.
 - full_gain_realized: PARTIAL — mechanism + event-type organ live; field accuracy + the 3 downstream signal-updates + a scored mental-causal instrument are the pass work.
 
+### add_the_arc_labeler_fast_scoring_path_the_dominant_remaining_read_cost
+- one_line: A byte-identical fast scoring path for the arc labeler's 36-label per-arc perceptron (~54% of a long-doc read) + the graded Competition-Model readout the same refactor materializes for free.
+- claimed_gain: labeler scoring 8.7–9.8x (~4.2s/read), whole-read ~54% cut on 3 full docs; byte-identical (0/22,921 held-out arcs); graded readout entropy→error AUC 0.930 (twin 0.481).
+- instrument: labeler-in-read timing (3 full docs) + byte-identity witness (22,921 held-out arcs, 2 populations); NOT a board dim (byte-identical → no score change).
+- verdict: EXCELLENT — byte-identical speedup + a brain-faithful graded readout (positive; the parser exploration D-O = located negatives/research).
+- landed_live: LIVE default-ON. `_FastLabelPlan` + `_ensure_fast` in `hdlab/arc_labeler.py`; `label()` routes through it; `_predict_label`/`_score` kept as reference. Opt-in byte-safe `label_graded` publisher (default-off). Witnesses: solver 5/5 + hdlab-landing 4/4.
+- realized_on_board: NONE (byte-identical — pure speedup, the single biggest read-cost). The graded readout is default-off (no consumer wired).
+- upstream_needed: the PARSER is the dominant leak (obl:agent LAS 0.0588; −21% heads even w/ gold tags) — the parser tier.
+- downstream_needed: the entity_states/copular binder + who-did-what readout should consume the graded label posterior + entropy (not hard 1-best) — belongs with `consume_the_graded_pos_posterior` (row 7).
+- adjacent_or_optim: per-arc INDEPENDENCE (no joint one-role-per-clause decode) = the deeper fidelity gap (Q113). Parser exploration (D-O) → the rubric.
+- followon_filed: recorded here (below) — whiten-the-meaning-channel + self-sup+grounded parser.
+- full_gain_realized: YES for the speed (fully live, byte-identical). The graded-readout ACCURACY payoff needs a consumer (row 7 step); the parser fidelity is the parser tier.
+
+**Two tracked follow-ons from this submission (owner may dispatch as solver problems; kept here per "track it all in one place"):**
+1. **whiten the meaning-channel embedding** (MEANING TIER / step 4) — root cause of the grounding negatives = near-collinear meaning vectors (cosine 0.92); whiten (subtract global mean + project out top-D PCs) lifts the LIVE WSD channel a_s +0.0176–0.058 (n=2676) AND flips the parser-grounding control +0.020. UNVERIFIED — needs the shuffled-diagnosticity twin + significance + vs-curated-baseline before landing. A concrete near-term testable win; fold into the meaning-stage build.
+2. **self-supervised + grounded front-end parser** (PARSER TIER north-star) — the DMV+universal-prior+EM + online never-frozen predictive-coding learner induce real structure with no gold trees (0.38–0.45), grounded meaning deciding ROLE on non-canonical clauses; the gap to supervised 0.84 is grounded-experience SCALE + the missing answer key, not the mechanism. Recorded in `PARSER_JOINT_INTEGRATION_RUBRIC.md` as the true-ideal direction; a multi-week program (owner decision to dispatch).
+
 ---
 
 ## Chunk C — dimensions / state / events (harvested 2026-09-05)
