@@ -5,7 +5,7 @@ bar: "PASSES only with ALL of: (1) a glass-box RELATIONAL SPATIAL MODEL + reason
 result: "Balanced yes/no, exact-match accuracy, paired bootstrap CI (half-width + null p95). ALL THREE inference types clear the bar CI-separated over BOTH controls on MODERN non-synthetic gold, with reasoning ISOLATED from extraction (gold relations supplied): CONTAINMENT (SpaceEval/ISO-Space gold, train n=1304): reasoner 1.000 vs last-mention 0.940, margin +0.060 CI[+0.047,+0.073], null p95 0.014; multi-fact subset (n=155) 1.000 vs 0.497 (last-mention at chance); shuffled-twin 0.508; two-level is_in_region ablation 0.896. RELATIVE POSITION (SpartQA-HUMAN gold SPRL, test n=1300): reasoner 1.000 vs last-mention 0.734, margin +0.266 CI[+0.242,+0.289]; multi-fact subset (n=828) 1.000 vs 0.582; shuffled-twin 0.143 (collapses). PATH/TRANSFER (SpaceEval gold MOVELINK, train n=32): reasoner 1.000 vs last-mention 0.500, margin +0.500 CI[+0.344,+0.656]; shuffled-twin 0.469; vacate-Source works. END-TO-END over the reader's OWN extraction: RELATIVE POSITION now clears the bar end-to-end too -- SpartQA-HUMAN reasoner 0.276 vs last-mention 0.213 (margin +0.063 CI[+0.024,+0.110], sep) vs twin 0.095, coverage 0.339 (after implemented upgrades: part-whole + locative constructions, a canon_entity block-label fix, nested-frame inheritance). LOCATED NEGATIVE (named with counts): SpaceEval containment/path end-to-end is extraction-gated -- recall 22% containment / 6% position / 2% moves (up from 13% after the extraction upgrade), MULTI-HOP CONTAINMENT CHAIN SURVIVAL 6/90 (up from 1/90); and ReSQ (implicit real-world captions) stays at coverage 0.036 (83% entity-unresolved + ~17% commonsense). The info-free twin LOSES CI-separated throughout (extracted relations are load-bearing; coverage, not the reasoner, is the cap)."
 floor: "Most-recent/last-mention (strongest stateless), recomputed per population, per type: containment 0.940 (train) / 0.916 (trial); relative-position 0.734 (test) / 0.707 (train); path/transfer 0.500 (train). Each LOSES CI-separated to the reasoner, and each is at/near chance on its multi-fact subset (containment 0.497, position 0.582, path 0.500)."
 controls: "(1) SHUFFLED-RELATION twin (edges permuted, node set + counts kept) LOSES CI-separated on all three types (containment 0.508, position 0.143, path 0.469 vs reasoner 1.000) -- the relation CONTENT is load-bearing. (2) SINGLE-FACT readout ablation (depth-1 reasoner) == the last-mention floor (composition is the lift). (3) IS_IN_REGION ablation (the LocationRegister's two-level INDOORS/OUTDOORS containment) scores 0.896 on containment -- it cannot answer arbitrary nested containment. (4) GOLD-vs-EXTRACTED (isolates reasoning from extraction): the reasoner is near-perfect on gold relations and coverage-limited end-to-end -> the wall is extraction recall, not the reasoning. (5) POSITIVE control: a >=2-fact item vs a matched single-fact item (single-fact subset reasoner==last-mention==1.000)."
-files_changed: "experiments/fetch_spatial_relational_gold.py, experiments/spatial_relational_model.py, experiments/spatial_gold_loaders.py, experiments/spatial_relation_extractor.py, experiments/exp_spatial_reasoner_gold_relations_v1.py, experiments/exp_spatial_position_gold_v1.py, experiments/exp_spatial_position_qa_v1.py, experiments/exp_spatial_extraction_recall_v1.py, verification/test_spatial_relational_reasoning.py, notes/problems/reason_over_the_spatial_relational_model_containment_position_path_modern_gold/SOLVED.md (NO hdlab/ written -- Q111)"
+files_changed: "experiments/fetch_spatial_relational_gold.py, experiments/spatial_relational_model.py, experiments/spatial_gold_loaders.py, experiments/spatial_relation_extractor.py, experiments/exp_spatial_reasoner_gold_relations_v1.py, experiments/exp_spatial_position_gold_v1.py, experiments/exp_spatial_position_qa_v1.py, experiments/exp_spatial_extraction_recall_v1.py, experiments/exp_spatial_commonsense_gapfill_v1.py, verification/test_spatial_relational_reasoning.py, notes/problems/reason_over_the_spatial_relational_model_containment_position_path_modern_gold/SOLVED.md (NO hdlab/ written -- Q111)"
 reverify: ".venv/Scripts/python.exe verification/test_spatial_relational_reasoning.py"
 ---
 
@@ -123,6 +123,23 @@ Two upgrades RESEARCHED and REVERTED (walls understood, not ceilings):
   twin (an existential is easily satisfied on shuffled relations). It measures a DIFFERENT competence (set
   aggregation), so it corrupts the composition metric this problem targets -- kept as a model capability, not scored.
 
+## 4c. The two "next-problem" levers, PROTOTYPED (not deferred -- proving them is in scope; only hdlab landing is not)
+- **Extraction organ (block-name + grid-frame):** the trace of a REL_UNDETERMINED item exposed two concrete bugs --
+  a block label was orphaned ("second block call B" stored as its own node instead of "B", disconnecting the block
+  relation from the containment graph) and object-in-block membership was missed ("X touching the edge of B" not
+  linked). Fixed both (block-label canonicalization; a grid-frame containment pass). Net-positive, folded in:
+  SpartQA multi-fact end-to-end reasoner 0.329 -> 0.342, no regression. FINDING: per-construction returns DIMINISH,
+  because a multi-hop answer needs the COMPLETE sub-graph (both object-block containments AND the block-block
+  relation AND resolution) -- so the remaining lever is JOINT high-quality extraction (parse UAS across all
+  relations in a sentence), i.e. the organ's overall quality, not one more rule.
+- **ReSQ commonsense gap-filler (`exp_spatial_commonsense_gapfill_v1`):** the brain fills UNSTATED relations by
+  world knowledge/simulation (Barsalou). Prototyped a glass-box, NO-LLM fallback (ConceptNet AtLocation) for when
+  the passage reasoner abstains: ReSQ commonsense accuracy 0.019 -> 0.126 (+11 items), CI-separated over BOTH the
+  passage-only baseline (+0.107 [+0.049,+0.175]) AND a SHUFFLED-ConceptNet control (+0.097 [+0.049,+0.155]) -- the
+  world-knowledge signal is load-bearing. CEILING: a lexical KB reaches only CONTAINMENT (2/23) + PROXIMITY (9/37);
+  ORIENTATION commonsense (26 items: is-the-rail-above-the-chairs) has NO KB signal and needs PERCEPTUAL SIMULATION
+  -- the honestly-named missing FACULTY, not a stronger reasoner or a bigger KB.
+
 ## 5. Why this clears the bar (and where I deflate)
 Bar (1) three-type glass-box reasoner: MET. (2) CI-separated over BOTH controls on modern non-synthetic gold, floor
 loses on multi-fact, twin loses on all three: MET on the gold-relation condition for all three types. (3) isolate
@@ -137,20 +154,26 @@ correct, brain-faithful mechanism, it holds end-to-end where extraction is adequ
 remaining lever elsewhere.
 
 ## 6. Isolation vs capability -- the honest line (the trap this project keeps hitting)
-A gold-relation win is, by itself, a construction proof. It becomes a capability claim only in the exact scope proven:
-the REASONING COMPUTATION is sound, brain-faithful, and necessary (last-mention and the shuffled twin both fail). The
-END-TO-END capability over the reader's extraction is NOT established (it is the located negative). Both are reported
-side by side; neither number crosses into the other's territory.
+A gold-relation win is, by itself, a construction proof. It becomes a capability claim only in the exact scope
+proven: the REASONING COMPUTATION is sound, brain-faithful, and necessary (last-mention and the shuffled twin both
+fail). RELATIVE POSITION additionally holds END-TO-END over the reader's own extraction (SpartQA, CI-separated,
+coverage 0.34) -- a capability claim within that scope. Containment/path end-to-end on terse real prose and ReSQ
+commonsense remain the located negatives (extraction recall / missing faculty). Every number is reported with its
+scope; none crosses into another's territory.
 
 ## 7. PROPOSED hdlab DIFF (Q111 -- strategy lands it; NOTHING landed by me)
 1. Promote `SpatialModel` (containment transitive closure + spatial-framework position with converse + nested-frame
    inheritance + `still_at` vacate-Source) as a new `hdlab/spatial_relational_model.py` REASONING organ that composes
    `sm.locations` (the LocationRegister) -- default-OFF read-time query API (`contains_path`/`relative`/`still_at`),
    no change to the tracking core. It is additive (a read-time reasoner; emits no events), so no other consumer moves.
-2. Do NOT land the text->relation extractor as a capability wire yet: its recall (2-13%) makes it coverage-limited on
-   real prose. It belongs behind the parent SPACE line's next problem (Ground-aware PP-attachment / relation binding).
+2. Do NOT land the text->relation extractor as a capability wire yet: recall is 0.22 containment / 0.06 position /
+   0.02 moves on terse real prose (coverage-limited). It belongs behind the parent SPACE line's next problem
+   (JOINT relation extraction: PP-attachment + block/frame membership + proper-noun place recognition; Sec 4c).
 3. The reasoner's answers are only as good as the relations fed in -- wire it to consume BETTER relations as the
    extraction organ improves (the gold-vs-extracted gap IS the expected gain curve).
+4. The commonsense gap-filler (Sec 4c) is a SEPARATE, glass-box (ConceptNet, NO LLM) fallback organ for
+   under-specified text -- land it default-OFF and ONLY behind the passage reasoner (world-knowledge fill, not
+   passage evidence); it reaches containment/proximity commonsense and correctly abstains on orientation.
 
 ## KEY REALIZATIONS
 - **Isolate the reasoner from extraction and the picture inverts.** Over-the-extraction numbers looked like a weak
@@ -192,15 +215,17 @@ side by side; neither number crosses into the other's territory.
   Landau 2005), but its AUTOMATICITY during comprehension is CONTESTED/under-tested -- model it as available, not
   obligatory. Nested-frame position inheritance is PINNED but EFFORTFUL (Peer & Epstein 2025).
 
-## 8. ADJACENT COMPONENTS (seeds the next problems)
+## 8. ADJACENT COMPONENTS (seeds the next problems -- both levers PROTOTYPED, Sec 4c)
 - **The text->spatial-relation EXTRACTOR (the owned bottleneck):** parse UAS ~0.79 + PP-attachment + motion
-  source/goal binding. This is the parent SPACE line's queued "Ground-aware attachment" problem; it now has a
-  DOWNSTREAM CONSUMER (this reasoner) and a target curve (the gold-vs-extracted gap). Highest-leverage follow-on.
-- **A gap-filling SIMULATOR for under-specified text:** the brain fills unstated relations by perceptual simulation +
-  commonsense (Barsalou) and correctly ABSTAINS on genuinely indeterminate text -- our abstention is brain-consistent;
-  the missing faculty is a simulator, NOT a stronger reasoner. Candidate follow-on (must preserve correct abstention).
-- **`grounded_semantic_graph` (ConceptNet AtLocation):** a functional-locus containment-typing source the extractor
-  could use to type more grounds -- brain-foundational, untested here.
+  source/goal binding + block/frame membership. PROTOTYPED here (constructions + block-name + grid-frame, folded in,
+  net-positive) and shown to have DIMINISHING per-construction returns -- the remaining lever is JOINT high-quality
+  extraction (the whole sub-graph must survive). Parent SPACE line's problem; now has a downstream consumer + target.
+- **A commonsense/simulation gap-filler for under-specified text:** PROTOTYPED (`exp_spatial_commonsense_gapfill_v1`)
+  -- a glass-box ConceptNet fallback recovers containment/proximity commonsense CI-separated over a shuffled control
+  (+11 ReSQ items), and correctly ABSTAINS elsewhere. Its ceiling is a lexical KB; ORIENTATION commonsense needs a
+  PERCEPTUAL SIMULATION faculty (imagine the scene) -- the genuinely-missing organ, NOT a stronger reasoner or KB.
+- **`grounded_semantic_graph` (ConceptNet AtLocation):** already reused by the gap-filler; also a functional-locus
+  containment-typing source the extractor could use to type more grounds.
 
 ## TLDR (plain English)
 Our reader knew where each character was but could not reason about how things sit in space. I built the missing
@@ -216,18 +241,23 @@ reasoning part is solved and brain-faithful; the remaining work is the relations
 separate, already-known component.
 
 ## QUESTIONS
-None. (One judgement call for the owner: I marked this SOLVED because the reasoner clears the full positive bar on all
-three types on modern gold AND a rigorous located negative is delivered -- the bar treats either as a pass. A stricter
-reading that requires the CI-separation to hold end-to-end over the reader's OWN extraction would make it PARTIAL;
-the end-to-end is coverage-limited, by design of the extraction wall. Content is identical either way.)
+None. (One judgement call for the owner: SOLVED because the reasoner clears the full positive bar on all three types
+on modern gold, relative-position ALSO clears it end-to-end over the reader's own extraction, AND a rigorous located
+negative is delivered for the rest -- the bar treats each as a pass. A stricter reading requiring CI-separation
+end-to-end for ALL three types (containment/path are still extraction-gated on terse prose) would make it PARTIAL.
+Content is identical either way.)
 
 ## NEXT STEPS
-1. Land the `SpatialModel` reasoning organ default-OFF over `sm.locations` (Sec 7.1); it is additive, no consumer
-   regresses.
-2. File the follow-on: improve the text->spatial-relation extractor (PP-attachment + motion source/goal binding) --
-   it now has a downstream consumer and a measured target (gold-vs-extracted gap); coordinate with the parent SPACE
-   line's Ground-aware attachment problem, do not duplicate.
-3. Fold the AUDIT UPDATE (new reasoning layer; the two overstated SPACE phrasings; chain-survival as the wall metric)
+1. Land the `SpatialModel` reasoning organ default-OFF over `sm.locations` (Sec 7.1); additive, no consumer regresses.
+2. File the follow-on with the PROTOTYPE evidence in hand (Sec 4c): JOINT text->spatial-relation extraction
+   (PP-attachment + motion source/goal + block/frame membership + proper-noun place recognition) -- diminishing
+   per-construction returns proven, so the target is whole-sub-graph survival; downstream consumer + target curve
+   ready. Coordinate with the parent SPACE line, do not duplicate.
+3. Optionally land the commonsense gap-filler (`exp_spatial_commonsense_gapfill_v1`) as a default-OFF glass-box
+   fallback behind the passage reasoner; file PERCEPTUAL SIMULATION (orientation commonsense) as the genuinely-new
+   faculty (must be glass-box / NO LLM, must preserve abstention).
+4. Fold the AUDIT UPDATE (new reasoning layer; the two overstated SPACE phrasings; chain-survival as the wall metric)
    into BRAIN_FOUNDATIONAL_AUDIT.md.
-4. Do NOT re-file: denser dataset (the sparsity is extraction, not data), metric coordinates (categorical by default),
-   or a third bridging variant (out of scope).
+5. Do NOT re-file: denser dataset (the sparsity is extraction, not data), metric coordinates (categorical by
+   default), a third bridging variant, or event-participant grounding / quantifier-in-scorer (both researched dead
+   ends -- Sec 4b).

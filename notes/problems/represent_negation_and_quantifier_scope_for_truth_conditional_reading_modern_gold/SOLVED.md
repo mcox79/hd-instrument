@@ -87,9 +87,12 @@ fires where polarity/quantity bites). Witnesses: `verification/test_polarity_ope
   injects attachment errors. Built `event_polarity_parsed` (advmod-negation + conj-coordination + xcomp/ccomp
   implicative gate + det-'no' object negation) and a glass-box parse-repair (`exp_coordination_parallelism_
   parser_repair_v1.py`) using **STORED lexical knowledge, NO training** -- WordNet lexical category, Frazier
-  coordination parallelism, do-support predicate expectation, and verb ARGUMENT STRUCTURE (subcategorization).
-  It recovers negation recall to the surface level (0.8333 -> 0.8788) and lifts the structural resolver net
-  0.8864 -> 0.9242 (near the surface 0.9318), over-negation clean 0.0000.
+  coordination parallelism, do-support predicate expectation, verb ARGUMENT STRUCTURE (subcategorization), and
+  the SHARED-SUBJECT constraint (a conjunct with its own subject is a separate clause / reduced relative, not a
+  VP-coordinate). It recovers negation recall to the surface level (0.8333 -> 0.8788) and lifts the structural
+  resolver net **0.8864 -> 0.9318 = the surface operator EXACTLY, over-negation 0.0385 = surface** (both only the
+  single gold-noise item) -> **CLEAN WIN**: the structural resolver fully crosses the parse-error wall using only
+  retrieved lexical/structural knowledge, no training.
 
 ## The wall, fully researched (owner: research every wall; the brain does it WITHOUT training)
 
@@ -144,8 +147,10 @@ the headline (they clear the bar) and name the noise items rather than quietly e
    constraint satisfaction over STORED lexical knowledge: word category, verb ARGUMENT STRUCTURE
    (subcategorization: "not hesitate to use or refer" → refer is hesitate's complement, so it HAPPENS), and
    plausibility. Consulting the verb's argument structure corrected a parse attachment-LEVEL error (refer
-   mis-attached as a coordinate of hesitate) with zero training and lifted the resolver 0.8864 → 0.9242. The
-   "fix the parser" answer is "give the parser more of the lexicon it retrieves from", never "train it".
+   mis-attached as a coordinate of hesitate) with zero training. Four stored constraints (lexical category,
+   coordination parallelism, subcategorization, shared-subject) lifted the structural resolver 0.8864 → 0.9318 —
+   EXACTLY equalling the robust surface operator. The "fix the parser" answer is "give the parser more of the
+   lexicon it retrieves from", never "train it".
 
 ## AUDIT UPDATE (`notes/BRAIN_FOUNDATIONAL_AUDIT.md` — event-stream / state-register entries)
 
@@ -171,10 +176,11 @@ the headline (they clear the bar) and name the noise items rather than quietly e
   parser to fix this — it resolves attachment by CONSTRAINT SATISFACTION over STORED lexical knowledge (word
   category, verb argument structure / subcategorization, plausibility), retrieved incrementally (MacDonald /
   Trueswell / Tanenhaus constraint-based parsing; Lewis-Vasishth). Demonstrated: adding lexical-category +
-  coordination-parallelism + subcategorization constraints (all glass-box, retrieved, NEVER trained) lifted the
-  structural resolver 0.8864 → 0.9242. The remaining residual is MORE lexical knowledge to encode (subcat frames,
-  reduced-relative structure, thematic plausibility) — a FOUNDATION build, not a training run, and it enriches the
-  parse for EVERY consumer (who-did-what, coref), not just negation.
+  coordination-parallelism + subcategorization + shared-subject constraints (all glass-box, retrieved, NEVER
+  trained) lifted the structural resolver 0.8864 → **0.9318 = the surface operator EXACTLY** (over-negation 0.0385
+  = surface). The wall is fully crossed with stored knowledge; further gains (MED restrictor-vs-scope monotonicity
+  for every/all, reduced-relative detection at scale) are MORE lexical knowledge to encode — a FOUNDATION build,
+  not a training run, and it enriches the parse for EVERY consumer (who-did-what, coref), not just negation.
 - **The QA capstone + coref + goal/causal registers** consume these propositions polarity-blind today; they are
   the DOWNSTREAM that will answer negated/quantified questions correctly once the field is wired (no regress —
   the field is additive; extraction byte-identical).
