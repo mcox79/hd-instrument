@@ -17,6 +17,19 @@ register + the magnitude-line order primitive; it does NOT re-extract tense or r
 change (Q111). Glass-box, NO external LLM at inference (the invariant) -- the timeline query + interval reasoning is
 transparent, not a learned temporal-QA model.
 
+> **UPSTREAM CAVEAT (strategy, 2026-09-06) -- the reader's fine TENSE labels are currently DEGRADED, and this brief's
+> Reichenbach E/R/S mechanism rests on tense/aspect.** The 2026-09-03 tagger reroute (a real perf/coverage win) coarsened
+> the POS-conditioned fine tense labels: coordinated-2nd-conjunct `PAST_PERFECT` propagation, `MODAL_SUBORDINATE`, and
+> `PARTICIPIAL` now collapse to `SIMPLE_PAST`/`OTHER` (the 1st-conjunct direct-`had` `PAST_PERFECT` still fires). See
+> `notes/PROVISIONAL_WIRINGS.md` sec5. So a REQUIRED can-fail step: measure temporal accuracy WITH vs WITHOUT the fine
+> tense labels; if they are load-bearing, re-derive tense from the arc-eager PARSE (dependency structure), not the raw POS
+> tagger -- that closes both this brief and that lossy coupling (the full-stack-upstream directive in the checklist below).
+>
+> **MODERN GOLD ALREADY ON DISK:** `data/corpora/mctaco` (MC-TACO) is a modern temporal-commonsense QA benchmark whose
+> categories map directly onto this brief's targets -- event ordering (before/after), event DURATION, and TYPICAL time --
+> so it is the natural primary non-circular gold here (confirm its license/provenance before use). Do NOT fall back to the
+> 19c/circular timeline gold.
+
 > **PRIORITY NOTE (the call is the strategy session's; provisional -- RE-RANK per the owner):** filed at `5` (a free,
 > unique rank). It is HIGH-value -- the TIME sibling of the causal reasoning pivot, the first inference organ over the
 > event timeline, and it retires a 19c/circular-gold measurement for a modern one -- but it is a NEW capability that
