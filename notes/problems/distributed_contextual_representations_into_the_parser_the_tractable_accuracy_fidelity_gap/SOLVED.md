@@ -458,11 +458,13 @@ triangulated three independent ways; the 19c and contextual-encoder gaps are doc
 ### NEXT STEPS (ordered) -- CORRECTED after the "is UAS the right target?" verdict (section 3e)
 The pivot: STOP chasing attachment accuracy / UAS. The brain does not optimize tree accuracy; it builds a
 situation model with a good-enough parse, and our own disk shows a better parser moves comprehension by ~+0.00.
-1. **Wire a CALIBRATED per-arc CONFIDENCE for downstream PRECISION-WEIGHTING (Friston) -- NOT for UAS.** This is
-   the achievable, brain-foundational parser deliverable: the arc-eager parser already EMITS `attach_conf`
-   consumed by ZERO live consumers (sibling), and a graded cue competition sharpens it (AUC 0.768 vs 0.645). The
-   win is letting downstream readers DOWN-WEIGHT low-confidence arcs, not producing better trees. Reuse the landed
-   graded_competition organ.
+1. **Wire a CALIBRATED per-arc CONFIDENCE for downstream PRECISION-WEIGHTING (Friston) -- NOT for UAS. DEMONSTRATED
+   (section 3f), now wire it.** The achievable, brain-foundational parser deliverable: the arc-eager parser already
+   EMITS `attach_conf` consumed by ZERO live consumers (sibling); a graded cue competition sharpens it (AUC 0.768
+   vs 0.645) and precision-weighted selective attachment already works (confident-half 0.826 vs 0.776 blanket,
+   CI[+0.0254,+0.0761], random twin flat). The wire: expose the calibrated confidence to the who-did-what / space
+   readers so they DOWN-WEIGHT low-confidence arcs (defer/fall back), and measure the COMPREHENSION lift (not UAS).
+   Reuse the landed graded_competition organ.
 2. **Invest the freed effort in the READOUT (thematic-role -> situation model), where the comprehension lever
    actually is.** Our own ablation: a stronger parser -> who-did-what +0.00 (head-independent); PP-attachment is
    ~8% of the comprehension residual (NP-chunking + plausibility dominate). This is a comprehension problem, not

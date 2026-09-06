@@ -5,7 +5,7 @@ bar: "PASS = a whitened grounded selectional-fit role cue, self-gated by word-or
 result: "TWO results. (1) LOCATED NEGATIVE on the brief's mechanism (the bar's sanctioned full-PASS form): a WHITENED, verb-keyed, self-gated grounded selectional-fit cue built into the LIVE agent competition (hdlab.graded_role_assigner.agent_supports + graded_competition.net_activation) does NOT beat structure+animacy on non-canonical AGENT — it TIES its info-free twins (real 0.5124 vs scrambled-meaning 0.5224, d=-0.010 CI[-0.055,+0.035] NOT sep; verb-shuffled 0.5174) on the non-canonical slice AND on the by-LESS residual (+selfit vs byhead d=-0.007 CI[-0.036,+0.014]). Scorer = AGENT-detection accuracy (argmax competition token in the gold agent span), role-balanced comprehension gold (QA-SRL, modern, NO age confound) read through the reader's OWN weak front-end, n=201 non-canonical test items (n=90 clean agent-post). (2) The underlying who-did-what-on-non-canonical problem SOLVED a more brain-foundational way — a by-phrase CASE-MORPHOLOGY cue (`byhead`: reward candidates governed by the passive-agent preposition 'by' through their NP), gated by the participle+by-PP construction detector, lifts the LIVE agent arm on the CLEAN non-canonical slice (gold agent post-verbal) 0.2556 -> 0.6889, d=+0.4333 CI[+0.3333,+0.5333] hw=0.100; on the full non-canonical slice 0.5224 -> 0.6866 d=+0.1642 CI[+0.1144,+0.2189]; on BOTH animate (+0.0988) and inanimate (+0.2294) agents. (3) END-TO-END on the LIVE LitBank board (exp_cmrole_agent_board_byhead_v1, n=1830 who-did-what AGENT Qs): byhead added to the live competition is SAFE -- changes 1/1830 answers, cm_ON 0.2536 -> cm_byhead 0.2530, d=-0.0005 CI[-0.0016,0.0] (NOT a CI-separated regression); the participle+by-PP construction gate fires only 4/1830 because the LitBank WDW gold is built from SYNTACTIC SUBJECTS and contains ~no by-agent questions -- so the board confirms SAFETY, not power, and the QA-SRL role-balanced corpus is the correct powered instrument."
 floor: "Strongest floors, recomputed per population. CLEAN non-canonical slice (gold agent post-verbal, n=90): positional/word-order 0.0778, and the LIVE agent competition (current reader, the real floor) 0.2556 -> byhead 0.6889 CI-separated over BOTH. FULL non-canonical slice (n=201): positional 0.4229, live baseline 0.5224 -> byhead 0.6866 CI-sep. Canonical (n=845): baseline 0.6959 (no-regress reference). Info-free twin (shuffled by-membership) 0.2778 on the clean slice."
 controls: "(1) info-free by-membership TWIN (byhead support shuffled across candidates) LOSES CI-sep on the clean slice (byhead 0.6889 vs twin 0.2778, d=+0.4111 CI[+0.3111,+0.5111]) and full slice (d=+0.1642) -- EXCLUDES 'boosting any candidate helps'. (2) CANONICAL no-regress (n=845): byhead 0.6994 vs baseline 0.6959, d=+0.0036 CI[-0.0036,+0.0118] NOT sep -- EXCLUDES 'trades canonical for non-canonical'. (3) GROUNDED info-free twins (scrambled-meaning + verb-shuffled prototypes) TIE the real grounded cue -- ESTABLISHES the located negative (grounded carries no discriminative role signal here). (4) CONSTRUCTION-GATE control (participle+by-PP vs is_passive_clause): 14 vs 106 canonical false-fires at equal-or-higher real-passive recall -- EXCLUDES 'the gate is just is_passive_clause'. (5) ANIMATE vs INANIMATE agent split: byhead CI-separates on BOTH -- EXCLUDES 'byhead only helps animate (or only inanimate) agents'. (6) by-LESS residual: grounded adds nothing on the by-morphology-absent residual either -- EXCLUDES 'grounded helps where by-morphology cannot'. (7) END-TO-END LIVE BOARD no-regress (LitBank, n=1830): cm_byhead vs cm_ON d=-0.0005 CI[-0.0016,0.0] NOT sep, 1 answer changed, gate fires 4/1830 -- EXCLUDES 'byhead regresses the live reader' AND establishes the board cannot power a by-agent slice (its gold asks about syntactic subjects)."
-files_changed: "experiments/exp_grounded_selfit_role_cue_v1.py; experiments/exp_noncanonical_agent_bymorph_v1.py; experiments/exp_cmrole_agent_board_byhead_v1.py; verification/test_noncanonical_agent_bymorph_organ.py; verification/test_cmrole_agent_board_byhead_organ.py; notes/problems/grounded_meaning_role_cue_for_non_canonical_who_did_what_where_word_order_misleads/{SOLVED.md, RESEARCH_brain_foundational_case_morphology_role_cue.md}. NO hdlab/ modified (Q111)."
+files_changed: "experiments/exp_grounded_selfit_role_cue_v1.py; experiments/exp_noncanonical_agent_bymorph_v1.py; experiments/exp_cmrole_agent_board_byhead_v1.py; experiments/exp_noncanonical_agent_parse_ceiling_v1.py; verification/test_noncanonical_agent_bymorph_organ.py; verification/test_cmrole_agent_board_byhead_organ.py; notes/problems/grounded_meaning_role_cue_for_non_canonical_who_did_what_where_word_order_misleads/{SOLVED.md, RESEARCH_brain_foundational_case_morphology_role_cue.md}. NO hdlab/ modified (Q111)."
 reverify: ".venv/Scripts/python.exe verification/test_noncanonical_agent_bymorph_organ.py  &&  .venv/Scripts/python.exe verification/test_cmrole_agent_board_byhead_organ.py"
 ---
 
@@ -160,6 +160,31 @@ is the QA-SRL role-balanced corpus (by design: modern, no age confound, by-agent
 This is the complete two-instrument picture the bar's "LIVE arm" clause needs: proven safe on the live reader,
 proven powerful on the instrument that contains the phenomenon.
 
+## WHERE THE REMAINING GAP TO THE BRAIN LIVES (localized to organs, with numbers)
+
+The user's decisive question: is this as good as the brain? The brain reads "written by the clerk" ~perfectly; the
+by-cue lifts the hard slice to 0.69–0.78 through the reader's WEAK front-end. I localized every part of that gap to
+a specific brain organ (`exp_noncanonical_agent_parse_ceiling_v1.py` — decomposing the 690 non-canonical items by
+WHERE the agent actually is, byhead-on-weak-parse vs a GOOD parse read off spaCy labeled deps, substrate-native, no
+LLM):
+
+| part of the non-canonical population | share | byhead (weak parse) | good parse | the organ that closes it |
+|---|---|---|---|---|
+| **(A) by-marked** (agent is a by-phrase in the clause) | 27.5% | **0.784** | **0.874** | PARSE quality — and byhead is already NEAR the good-parse ceiling |
+| **(B) no-by, agent in clause** (fronting / word-order) | 70.7% | 0.568 | — | the incremental PARSER (structure), not a by-cue |
+| **(C) agentless** (agent recovered from context) | 1.7% | 0.000 | — | COREF / discourse (a different organ) |
+
+**Two honest conclusions.** (1) On its home cases (A, by-marked passives), byhead (0.784) is CLOSE to what even a
+good off-the-shelf parser achieves on this noisy gold (0.874) — so the role mechanism is **nearly complete there**;
+the "~99%" ceiling is a CLEAN-text figure (the fit-gate's UD-EWT) that gold noise caps lower on this instrument, so
+"byhead 0.69 vs brain 0.99" overstated the shortfall. (2) The rest of the gap is **not the role cue's job** — it is
+the brain's INCREMENTAL PARSER (the 70.7% structural bulk B) and COREF (the agentless tail C). Those are separate
+brain organs, each already a filed problem, each with a weak version in the substrate today. **So who-did-what
+reaches the brain's level only when all THREE are brain-quality: the role cue (this problem — done and near its
+ceiling), the incremental cue-integrated parser, and coref.** The role cue is the complete, correct, brain-faithful
+piece for its slice; it does not, and structurally cannot, substitute for the other two organs — exactly as the
+Competition Model + the fit-gate line predict.
+
 ## WHAT I DID NOT ESTABLISH (and would withdraw first)
 
 - **The domain generalisation of byhead's magnitude.** The +0.43 clean-slice lift is on modern QA-SRL science
@@ -272,3 +297,11 @@ name the refutation, PARTIAL-with-redirect is defensible — but a real fix ship
    signal is near a modest ceiling and structure+animacy already captures it.
 5. The AGENTLESS-passive majority (~80% of real passives, no clause-internal agent) is a DISCOURSE/COREF
    problem, not a role-cue one — route who-did-what on those to the coref/entity organs, not here.
+6. **THE BIG LEVER to reach the BRAIN'S level — the incremental cue-integrated PARSER.** The organ-localization
+   (§WHERE THE GAP LIVES) shows the role cue is near its ceiling on by-marked cases; the remaining who-did-what
+   gap to the brain is the substrate's WEAK front-end parser (the 70.7% structural bulk + the by-marked
+   0.784→0.874 residual). The brain-faithful target is the incremental, predictive, cue-integrated
+   structure-builder (Lewis-Vasishth/MacDonald/Levy — order+morphology+animacy+fit competing DURING attachment,
+   not a downstream patch). This is the already-filed problem `distributed_contextual_representations_into_the_parser`;
+   it is the true path to brain-level who-did-what, and this problem's role cue is the correct, complete piece
+   that sits ON TOP of it. Recommend prioritizing that parser as the dominant remaining lever.
