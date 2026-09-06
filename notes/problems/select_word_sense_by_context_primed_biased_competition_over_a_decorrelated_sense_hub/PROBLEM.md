@@ -1,9 +1,8 @@
 ---
-priority: 7
 slug: select_word_sense_by_context_primed_biased_competition_over_a_decorrelated_sense_hub
-status: CANDIDATE
-review:
-review_text:
+status: INTEGRATED
+review: EXCELLENT
+review_text: "Located negative on hub-decorrelation (land nothing; +0.0176 whitening retracted; §2 no-encoder HOLD confirmed) + a real transferring positive: hdlab/underspecified_sense_reader.py promoted + sm.select_sense read()-time consumer landed default-on (lazy/additive), committing the COARSE shared-core sense. +0.169 CI-sep TRANSFERS live (witness 11/11 first-hand, 2353/2353). Meaning channel now has its first live sense-selection consumer. Board arm on MODERN gold pending (SemCor +0.169 informational under the 19c ban)."
 ---
 
 # PROBLEM: fine word-sense selection is stuck at ~0.33 because the sense hub is near-collinear (senses look nearly identical) and there is no brain-faithful context-primed SELECTION among them -- decorrelate the sense hub toward a well-separated (hub-like) geometry AND select the context-appropriate sense by biased competition primed by the DISCOURSE context, glass-box, with NO trained encoder.
