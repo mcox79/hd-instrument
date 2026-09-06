@@ -19,20 +19,31 @@ LitBank coref/events/temporal/causal. Land the modern board so the HEADLINE aggr
 WITNESS: `verification/test_modern_board.py` W1 (19c-free guarantee: no dim's gold is LitBank; gaps named) +
 W2/W5/W6 (coref/patient/state CI-sep on modern). This is the bar's PASS.
 
-## 1. Register-safe AGENT guardrail — `hybrid_agent_pick` on `hdlab/graded_role_assigner.py`
+## 1. Register-safe AGENT guardrail — `hybrid_agent_pick` on `hdlab/graded_role_assigner.py` (MEASURED no-regress + non-canonical lift)
 The landed CM agent (`agent_competition_pick`, ALWAYS-compete over the tracked set) is REGISTER-TUNED to 19c and
 UNDER-performs a positional floor on modern canonical prose (UD-EWT full_cm 0.758 vs positional 0.855; GUM
 cm_tracked 0.634 vs positional 0.829; the tracked-set decouple REVERSES sign on modern). Add the AGENT
-counterpart to the proven `hybrid_role_patient` (reference impl `experiments/exp_board_agent_slot_ud_v1.
-hybrid_agent_pick`): keep the word-order default BYTE-IDENTICAL on canonical clauses, invoke the competition ONLY
-on a MARKED override cue — PASSIVE (voice), a PP-GOVERNED positional pick (core_arg), or a NON-NOMINATIVE pronoun
-(case). Gate behind a flag (e.g. `agent_hybrid=True`); it recovers 0.758→0.832 on modern and preserves the
-passive win, and is byte-identical to the pure positional default on canonical clauses.
-WITNESS: `test_modern_board.py` W3 (twin loses; full_cm located below floor) + a no-regress check that the 19c
-board AGENT arm (`test_cmrole_agent_landing_organ.py`) is unchanged with the flag OFF.
-CAVEAT: even the hybrid sits just under the near-ceiling positional floor on modern sentence-level gold — so on
-modern canonical prose the guardrail's job is NO-REGRESS to position (not a lift). Land it as the register-safe
-default; do NOT expect a modern lift on canonical text.
+counterpart to the proven `hybrid_role_patient` (reference impl `experiments/exp_board_agent_noncanonical_v1.
+_hybrid_idx`): keep the word-order default on canonical clauses, invoke the competition ONLY on a MARKED override
+cue — PASSIVE **with an explicit by-phrase** (voice), a PP-GOVERNED positional pick (core_arg), or a
+NON-NOMINATIVE pronoun (case). Gate behind a flag (e.g. `agent_hybrid=True`).
+MEASURED (UD-EWT train+test, n=13441): full modern set **hybrid_byfix 0.853 ~= positional 0.8525 (+0.0005,
+no-regress)**; canonical 0.8855 ~= 0.8903; NON-CANONICAL slice **0.393 vs 0.316 (+0.077 CI-sep)**, twin loses.
+The by-phrase gate on the passive override is what closes the canonical no-regress gap (agentless passives have
+no agent to flip to). WITNESS: `test_modern_board.py` W3/W9 + a no-regress check that the 19c board AGENT arm
+(`test_cmrole_agent_landing_organ.py`) is unchanged with the flag OFF.
+
+## 1b. byagent-cue COVERAGE FIX on `hdlab/graded_role_assigner.py::agent_supports` (MEASURED +0.214 CI-sep on passives)
+The landed byagent cue is `by = 1.0 if prevtok == "by"` — it fires ONLY when 'by' is IMMEDIATELY before the
+candidate, so it MISSES multi-word by-phrases ('by US **troops**' -> agent head 'troops', prev token 'US'). 'by'
+governs the whole by-PP; the agent is its HEAD, which may be separated by compound/DET/ADJ modifiers. FIX: scan
+left over NP-internal modifiers to find 'by' (mirror `_agent_pp_governed`'s scan; reference impl
+`experiments/exp_board_agent_noncanonical_v1._byagent_fixed`). A coverage fix to the SAME voice cue, NOT a new
+cue. MEASURED (passive slice, n=182): landed cm 0.308 -> **cm_byfix 0.522 (+0.214 CI[+0.138,+0.293])**; vs raw
+positional 0.028 that is +0.49. Brain-foundational, net-positive, isolated to passives (byte-identical on
+actives) -> land it. WITNESS: `test_modern_board.py` W10.
+FOLLOW-ON (precision): the `_agent_pp_governed` detector OVER-fires (flags some real subjects), so the
+pp-suspect-active slice is a wash — a precision fix to the PP-government scan is a small named follow-on.
 
 ## 2. Register-adaptive cue validities (FILED, not landed — do NOT hand-tune)
 The Competition Model predicts cue validities are register-specific; the modern re-sweep is the mechanism

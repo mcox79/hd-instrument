@@ -54,8 +54,29 @@ models that KEPT d=0.5 (Lewis & Vasishth 2005; Li/Hale) did so because they stay
 (copy the computation, SWEEP the parameter). The pinned d=2.0 is near-optimal for the pronoun pick; a dev-validated
 d=1.5 additionally helps the entity-KB hard-link (+0.079 test).**
 
+## WALL 5 — SOFT-HOLD writeback (confidence-gate + graded Nref) net-negative — WRONG MECHANISM, understood
+Both soft-write variants (graded distribution; confidence-gated abstain) are net-negative on GUM. MEASURED WHY
+(`exp_softhold_wm_diagnostic_gum_v1.py`, `test_softhold_wm_diagnostic.py` D1): low-margin ("ambiguous") pronoun picks
+are STILL 0.327 accurate (n=1112) — well above the multi-candidate chance — so gating/holding them discards the real
+salience signal from the ~1/3 that are right; HARD COMMIT lets the correct entity's activation accumulate despite the
+noise. **Verdict: not a fidelity gap — soft-hold is the WRONG mechanism for running-discourse reference.** Garrod &
+Sanford's BONDING is fast and hard; the Nref sustained-negativity (Van Berkum) is a TRANSIENT ambiguity signal, not a
+persistent parallel store. CONFIRMS cross-corpus the prior LitBank finding (`incremental_entity_maintenance`: "SOFT
+hold-both LOSES to HARD commit, attractors settle") on modern GUM.
+
+## WALL 6 — WORKING-MEMORY bound (Cowan ~4 / Centering Cf) marginal — REDUNDANT with the ACT-R decay, understood
+A hard k=4 candidate bound gives only +0.002 (k=8/16 null). MEASURED WHY (same cell, D2): the correct antecedent is
+within the 4 most-recent referents 92.3% of the time (median recency-rank 0 — usually THE most recent), and the ACT-R
+pick already lies in the recency-top-4 99.9% of the time. **Verdict: not a wall — a hard discrete-slot bound is
+REDUNDANT with the ACT-R base-level activation, which IS the (graded) working-memory limit** (Lewis & Vasishth 2005:
+cue-based retrieval = ACT-R; the activation decay is the capacity, there is no separate slot). We already have the
+brain's working-memory mechanism; bolting a Miller/Cowan discrete bound on top adds nothing.
+
 ## Net
-Two "walls" were not walls (animacy redundant; decay a units bug, fixed). One (parallelism) is a genuine cue-scope
-limit with nothing to build. The common-noun wall is MIXED: a small glass-box fidelity gap (built, +0.0074 CI-sep)
-plus a large, quantified world-knowledge limit the no-LLM invariant bars. Nothing here is an unexplained ceiling —
-each is understood to mechanism and verdict.
+Of SIX researched walls/optimizations: two were not walls (animacy redundant; decay a units bug); two are the WRONG or
+REDUNDANT mechanism, understood to why (soft-hold loses to hard-commit; a hard WM bound is redundant with the ACT-R
+decay that already implements graded working memory); one (parallelism) is a genuine cue-scope limit with nothing to
+build; and the common-noun wall is MIXED (a small glass-box fidelity gap, built, +0.0074 CI-sep, plus a large,
+quantified world-knowledge limit the no-LLM invariant bars). **Nothing here is an unexplained ceiling — every one is
+understood to mechanism and verdict, and each confirms the component is saturated: the remaining headroom is UPSTREAM
+clustering (the P2 role assigner → the oracle 0.584) and barred world knowledge.**
