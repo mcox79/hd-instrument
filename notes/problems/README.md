@@ -392,6 +392,12 @@ Each `PROBLEM.md` has the same eight sections, in this order:
 
 *Short version of `CLAUDE.md`; read it in full before landing anything.*
 
+- **🚫📜 19c IS BANNED AS A LOAD-BEARING GOLD (OWNER 2026-09-06, emphatic).** 19th-century text (McGuffey
+  primers ~200yo, LitBank = pre-1923 novels) is "basically a different language" -- the reader must comprehend
+  MODERN language. **Every load-bearing claim must be measured on MODERN annotated gold (UD-EWT / QA-SRL / GUM /
+  modern OntoNotes), NOT on a 19c corpus.** A 19c number is informational only; when both exist, the MODERN
+  number is the one that counts. Do not lean on a 19c corpus because it is better-powered -- that is a
+  measurement-power gap to close on modern data, not a license to use 19c. [ref memory: mcguffey-corpus-is-200-years-old]
 - **⚙️ DO THE RIGHT THING, NOT THE CHEAP OR EASY THING (owner 2026-08-25 -- applies to ALL project
   instructions, not just briefs).** The mission is the most brain-faithful substrate, not the fastest
   green check. A cheaper path that is less brain-faithful is the wrong path even when it clears the floor.
