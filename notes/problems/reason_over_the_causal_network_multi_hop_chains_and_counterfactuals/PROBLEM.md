@@ -1,9 +1,8 @@
 ---
-priority: 10
 slug: reason_over_the_causal_network_multi_hop_chains_and_counterfactuals
-status: CANDIDATE
-review:
-review_text:
+status: INTEGRATED
+review: EXCELLENT
+review_text: "A glass-box causal-network reasoner (Trabasso reachability + Pearl counterfactual + Halpern-Pearl actual causation) landed as hdlab/causal_reasoner.py + a lazy additive query layer over sm.causal_links (sm.ultimate_cause/is_necessary/counterfactual/...). Verified first-hand: SOUND (1.000 vs adjacency 0.000 multi-hop; counterfactual necessity; over-determination) + load-bearing on modern gold (WIQA multi-hop; TellMeWhy non-adjacent-cause the ONLY method that finds it, CI-sep), refutes prior HARD_FAILs. Value correctly located = the multi-hop/non-adjacent/counterfactual subset (cause is usually the adjacent sentence globally). sm.causal_links byte-identical. UPSTREAM gap named: real-narrative network is sparse -> densification default-off until edge-correctness validated. Board arm follow-on."
 ---
 
 # PROBLEM: the reader EXTRACTS a causal network (cause->outcome edges) but never REASONS over it -- it cannot answer multi-hop causal-chain questions ("what ULTIMATELY caused Z?", trace the chain of consequence, name the mediating cause) or COUNTERFACTUALS ("if X had not happened, would Y still have happened?"), which narrative comprehension requires. Build a glass-box reasoner OVER the already-extracted network: traverse it for multi-hop chains (ultimate/mediating cause) and evaluate counterfactual necessity by SIMULATED intervention (remove/negate a node, re-propagate, check whether the outcome still holds), CI-separated over a most-recent/adjacency floor (which must LOSE on the multi-hop items) and an info-free shuffled-edge twin, on MODERN non-circular causal/counterfactual gold.
