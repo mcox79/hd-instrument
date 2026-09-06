@@ -69,6 +69,11 @@ from hdlab.situation_focus import ChunkedFocus
 # override). See graded_pick note on EventCentralityReader below.
 from hdlab.graded_coref_pick import graded_antecedent_pick, TUNED_WEIGHTS
 
+# UNIFIED discourse referent (DRT file-change): ONE card per entity, merged across name/common/pronoun,
+# pronoun pick by ACT-R base-level activation over the unified referents (landed behind unified_referent,
+# default OFF -> byte-identical). Faithful port of exp_unified_referent_gum_v1.Resolver(arm='unified').
+from hdlab.unified_referent import resolve_unified_stream
+
 # Event-role centrality weights (AGENT drives the event > PATIENT); glass-box constants.
 AGENT_W = 2.0
 PATIENT_W = 1.0
@@ -204,7 +209,8 @@ class EventCentralityReader(SceneProtagonistReader):
     coref_acc number it was measured on."""
 
     def __init__(self, *, n_dim: int = EVENT_N_DIM, capacity: int = 4, fanout: int = 2,
-                 mem_seed: int = 0, graded_pick: bool = True, **kw) -> None:
+                 mem_seed: int = 0, graded_pick: bool = True, unified_referent: bool = False,
+                 **kw) -> None:
         super().__init__(**kw)
         self._n_dim = int(n_dim)
         self._capacity = int(capacity)
@@ -212,6 +218,10 @@ class EventCentralityReader(SceneProtagonistReader):
         self._mem_seed = int(mem_seed)
         self.n_glass_kept = 0
         self.graded_pick = bool(graded_pick)     # ON = PINNED graded ACT-R pick (event-centrality forced off)
+        # unified_referent (DEFAULT OFF -> byte-identical): ON routes resolve_stream to the DRT file-change
+        # unified referent (hdlab.unified_referent) -- ONE card per entity across name/common/pronoun, ACT-R
+        # d=2.0 pick. Landed default-off (strategy flips on after first-hand verify).
+        self.unified_referent = bool(unified_referent)
         self._midx_to_sent: Dict[int, int] = {}  # per-mention sentence index (graded ACT-R distance term)
 
     def resolve_stream(self, mentions: List[dict], targets: List[dict], *,
@@ -225,6 +235,11 @@ class EventCentralityReader(SceneProtagonistReader):
                        glass_box_limit: int = 0) -> List[dict]:
         """Mirror of SceneProtagonistReader.resolve_stream(prefer_topical=True, per_scene=True)
         plus the event-memory query. query_memory=False == the parent bit-for-bit."""
+        if self.unified_referent:
+            # UNIFIED discourse referent path (DRT file-change; ACT-R d=2.0 over unified referents). Ignores
+            # the scene/event-memory scaffolding (the unified referent supersedes the fragmented overlay). With
+            # this flag OFF everything below runs unchanged -> byte-identical to the landed graded_pick reader.
+            return resolve_unified_stream(mentions, targets)
         if self.graded_pick:
             # PINNED graded ACT-R pick: stash per-mention sentence indices for the graded distance term,
             # and force the event-centrality memory OFF -- the graded retrieval is the SOLE pick (EC
@@ -567,13 +582,53 @@ def _selftest_graded_pick_default_on_prefers_recent() -> None:
         "graded_pick=False incumbent must keep the mass pick anna, got %s" % off[0]["resolved_head"])
 
 
+def _selftest_unified_referent_routes_and_resolves() -> None:
+    """unified_referent=True routes resolve_stream to the DRT file-change unified referent: name variants
+    ("Elizabeth Bennet"/"Elizabeth") share ONE card and the pronoun resolves to the gn-compatible referent;
+    the flag OFF is byte-identical to the landed graded_pick reader (the default path is untouched)."""
+    from hdlab.coref import build_pronoun_targets
+
+    def M(head, cluster, is_pron, sent, midx, gender, rank, span_toks, name_gender=None, number="singular"):
+        return {"head": head, "cluster": cluster, "is_pronoun": is_pron, "sent_idx": sent,
+                "midx": midx, "gender": gender, "number": number, "name_gender": name_gender,
+                "sent_role_rank": rank, "is_subject": rank == 0, "span_toks": span_toks}
+
+    ms = []
+    i = 0
+    ms.append(M("bennet", 1, False, 0, i, None, 0, ["Elizabeth", "Bennet"], name_gender="fem")); i += 1
+    ms.append(M("darcy", 2, False, 1, i, None, 0, ["Darcy"], name_gender="masc")); i += 1
+    ms.append(M("elizabeth", 1, False, 2, i, None, 0, ["Elizabeth"], name_gender="fem")); i += 1  # variant -> same card
+    ms.append(M("she", 1, True, 3, i, "fem", 0, ["she"])); i += 1                                  # gold cluster 1
+    targets = build_pronoun_targets(ms)
+    assert len(targets) == 1, "expected one target"
+    scene_ids = [0, 0, 0, 0]
+
+    uni = EventCentralityReader(graded_pick=True, unified_referent=True).resolve_stream(
+        ms, targets, scene_ids=scene_ids, topical_mode="rolemass")
+    assert len(uni) == 1, "one record per target"
+    assert uni[0]["correct"] is True, "unified must resolve she -> Elizabeth (fem), got %r" % uni[0]
+
+    # OFF == the default landed reader, bit-for-bit (the flag default changes nothing)
+    off = EventCentralityReader(graded_pick=True, unified_referent=False).resolve_stream(
+        ms, targets, scene_ids=scene_ids, topical_mode="rolemass",
+        query_memory=True, centrality_mode="event_role")
+    base = EventCentralityReader(graded_pick=True).resolve_stream(
+        ms, targets, scene_ids=scene_ids, topical_mode="rolemass",
+        query_memory=True, centrality_mode="event_role")
+    for a, b in zip(off, base):
+        assert a["resolved_cluster"] == b["resolved_cluster"] and a["correct"] == b["correct"], "OFF path drift"
+
+
 def _run_all_selftests() -> dict:
     _selftest_memory_roundtrips_and_bounds()
     _selftest_query_off_reproduces_parent()
     _selftest_event_role_beats_recency_when_structure_decisive()
     _selftest_graded_pick_default_on_prefers_recent()
+    _selftest_unified_referent_routes_and_resolves()
     return {"n_dim": EVENT_N_DIM, "agent_w": AGENT_W, "patient_w": PATIENT_W, "graded_pick_default": True,
-            "reuse": ["SceneProtagonistReader", "EventBundleCodec", "ChunkedFocus", "graded_coref_pick"]}
+            "unified_referent_default": False,
+            "reuse": ["SceneProtagonistReader", "EventBundleCodec", "ChunkedFocus", "graded_coref_pick",
+                      "unified_referent"]}
 
 
 if __name__ == "__main__":

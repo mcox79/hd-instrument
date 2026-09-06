@@ -762,6 +762,7 @@ class SituationReader:
                  entity_kb_resolver: bool = False,
                  commonnoun_situation_gate: bool = True,
                  commonnoun_canonical: bool = True,
+                 unified_referent: bool = False,
                  precision_weight_roles: bool = False,
                  precision_weight_tau: Optional[float] = None) -> None:
         # === DEFAULTS FLIPPED ON 2026-09-03 (owner-authorized: "switch them on... 1 at a time, top down,
@@ -1240,6 +1241,14 @@ class SituationReader:
         self.commonnoun_situation_gate = bool(commonnoun_situation_gate)
         self.commonnoun_canonical = bool(commonnoun_canonical)
         self._cn_binder_mod = None     # lazy hdlab.commonnoun_binder
+        # unified_referent (DEFAULT OFF -> byte-identical to the landed reader): ON re-keys the pronoun
+        # overlay to ONE DRT file-change discourse referent per entity (merged across name/common/pronoun via
+        # hdlab.unified_referent), resolving pronouns by ACT-R base-level activation (d=2.0) over the unified
+        # referents. Reference-faithful port of exp_unified_referent_gum_v1.Resolver(arm='unified'); measured
+        # on MODERN gold (GUM) it lifts the pronoun pick +0.106 CI-sep and the entity-KB hard-link +0.072
+        # CI-sep over the separate-tracking reader (twin loses, named coref no-regress). Landed default-off;
+        # strategy flips on after first-hand verify. all_capabilities_off() sets it False.
+        self.unified_referent = bool(unified_referent)
         # persistent readers (the banked backbone + single-sentence validity baseline).
         # graded_pick=True (LANDED 2026-09-06, owner-DONE strengthen_the_cue_based_pronoun_coreference_
         # resolver...): the live pronoun pick is the PINNED graded ACT-R cue-based retrieval (recency
@@ -1247,7 +1256,8 @@ class SituationReader:
         # forces the event-centrality memory OFF internally (query_memory below is overridden), lifting
         # live pooled he/she coref_acc 0.4693 -> 0.6019 (+0.1327 CI-sep), named coref no-regress. Brain-
         # fidelity correction (register-general recency mechanism); graded_pick=False = incumbent fallback.
-        self.reader_ec = EventCentralityReader(n_dim=EVENT_N_DIM, mem_seed=MEM_SEED, graded_pick=True)
+        self.reader_ec = EventCentralityReader(n_dim=EVENT_N_DIM, mem_seed=MEM_SEED, graded_pick=True,
+                                               unified_referent=self.unified_referent)
         self.reader_ss = CorefReader()
 
     # ONE authoritative capability-flag list (the ONLY hand-maintained bit). Every "flags-off historical
@@ -1262,7 +1272,7 @@ class SituationReader:
         "case_filter", "clause_local", "cm_agent_struct", "cm_agent_byhead", "predicate_recall",
         "track_goals", "track_affect", "track_tom_action", "track_bridges",
         "structural_patient", "causal_mental_bridge", "goal_purpose_filter", "entity_kb_resolver",
-        "commonnoun_situation_gate", "commonnoun_canonical", "precision_weight_roles")
+        "commonnoun_situation_gate", "commonnoun_canonical", "unified_referent", "precision_weight_roles")
 
     @classmethod
     def all_capabilities_off(cls, gaz=None, **overrides):
