@@ -1,9 +1,8 @@
 ---
-priority: 2
 slug: form_the_unified_discourse_referent_before_the_pronoun_pick_the_shared_entity_lever
-status: CANDIDATE
-review:
-review_text:
+status: INTEGRATED
+review: EXCELLENT
+review_text: "Faithful port landed (hdlab/unified_referent.py) behind unified_referent (CAPABILITY_FLAGS), witness 14/14 first-hand; +0.106 GUM reproduces exactly. DEFAULT-OFF with a MEASURED reason: the +0.106 was vs a weakened isolated-lever baseline; the LIVE incumbent graded_pick (0.503) already subsumes the unified port (0.433 modern GUM), so flip-on regresses. EXCELLENT isolated-lever science; the live win needs the HYBRID follow-on (unify the store ON TOP of the incumbent pool). §2b recorded."
 ---
 
 # PROBLEM: the reader tracks names, common nouns, and pronouns in SEPARATE passes, so coreference, the affect experiencer, and the entity-KB each independently re-derive "which entity is this?" -- build ONE unified discourse referent per entity (merged across all three mention types, updated incrementally as the passage is read) that every downstream consumer reads, so they SELECT AMONG unified referents instead of re-deriving them.

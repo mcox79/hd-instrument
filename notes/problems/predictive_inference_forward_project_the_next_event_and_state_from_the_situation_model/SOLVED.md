@@ -5,7 +5,7 @@ bar: "PASS = a glass-box FORWARD PREDICTOR -- a transparent, hand-auditable proj
 result: "Glass-box forward continuation predictor on Story Cloze (MODERN, right-vs-wrong 5th sentence; MoE-UNC/story_cloze val 1871 + test 1871). The brain-faithful forward GENERALIZED-EVENT-KNOWLEDGE projection (Elman-style graded associative readout over the corpus's own forward transitions, self-supervised on ROCStories-train 98,161 stories) discriminates the coherent continuation val 0.5922 [0.5697,0.6147] / test 0.5815 [0.5585,0.6040], CI-SEPARATED over the majority-continuation floor (val +0.078 [+0.045,+0.110]; test +0.068 [+0.039,+0.099]); the cross-context info-free twin COLLAPSES to chance (val 0.4912 [0.468,0.514]; test 0.4885); and a calibrated precision (1 - normalized entropy of the graded_competition 2-way distribution) earns MONOTONICALLY RISING selective accuracy (val 0.592->0.654; test 0.582->0.630) while the random-confidence twin stays FLAT (val ->0.607; test ->0.560). LOCATED NEGATIVE (rigorous, triple-sourced) on the STRONGER claim: the projection does NOT robustly exceed a 1-step co-occurrence counter (val margin +0.0096 [-0.006,+0.024] NOT CI-sep; test +0.0176 [+0.004,+0.032]) and situation-model STRUCTURE does not lift it -- the multi-step successor HORIZON adds ~+0.01 (the successor_representation docstring's pre-registered outcome iii), the event-structured verb-chain grain is WEAKER (val 0.547/test 0.538), and the goal/causal registers FIRE ON ONLY ~27% of 5-sentence stories (measured). DOING IT RIGHT (v2): the artifact-free brain-foundational coherence engine (protagonist-centered CONTEXT-DEPENDENT contradiction + affect-arc-DIRECTION + causal-to-goal, learned cue validities, cross-validated) produces a GENUINE artifact-free lift over the counter (val 0.6002 +0.0176 [-0.002,+0.036]; test 0.5863 +0.0224 [+0.003,+0.043] CI-sep), twin collapses to 0.53, at the research-confirmed honest glass-box ceiling (~0.60; Mostafazadeh 2016 context baselines 0.52-0.585). The full CI with a cheap ending-only negation flag beat the counter CI-sep on BOTH splits (val +0.032/test +0.041) but a negation-ablation proved that was the Schwartz-2017 STYLE ARTIFACT, not coherence. Adding Friston PRECISION-WEIGHTING (v3: trust each cue by per-item reliability) tips it to paired-CI-separated over the counter on BOTH splits (val 0.6029 +0.0203 [+0.0005,+0.040]; test 0.5922 +0.0283 [+0.010,+0.047]), razor-thin on val. The dominant remaining gap is EXTRACTION density (a separate problem's lane), NOT the now-validated inference design."
 floor: "STRONGEST base-rate floors, recomputed on each split's own population: majority-continuation prior val 0.5142 [0.492,0.537] / test 0.5131; ending-only unigram plausibility val 0.5045 / test 0.5104; 1-step SYMMETRIC co-occurrence counter val 0.5826 [0.559,0.605] / test 0.5639 [0.541,0.586] (the SR docstring's named floor -- the strongest). The mechanism CI-separates over majority+unigram on both splits; it does NOT CI-separate over the 1-step counter on val (+0.0096, CI includes 0)."
 controls: "(1) cross-context twin (endings scored against a RANDOM other story's context, same shapes/balance) -> val 0.4912 / test 0.4885 = EXCLUDES 'uses only the endings / a style artifact', proves it USES this story. (2) random-confidence twin (precision permuted, same coverage) -> selective curve FLAT = EXCLUDES 'any abstention at this rate raises accuracy'. (3) 1-step co-occurrence counter floor = EXCLUDES 'the win needs a predictive HORIZON' (it does not; the horizon adds ~+0.01). (4) event-structured verb-chain / verb+patient arm (0.54) = EXCLUDES 'a finer event grain helps' (it is weaker). (5) register fire-rate on the full live-reader eval (Cell B, n=1871/split: goal fires 0.319/0.335, causal 0.285/0.277, mean 7.9 events per 4-sentence context; witness W6 corroborates 10/40 & 9/40) = LOCATES the extraction bottleneck. (6) held-out by construction: the transition store is ROCStories-train, disjoint from the Story Cloze eval stories."
-files_changed: "experiments/exp_forward_event_projection_v1.py (content-GEK spine, full-scale); experiments/exp_forward_event_projection_situation_model_v1.py (live SituationReader + graded_competition multi-cue combination); experiments/exp_forward_event_affect_coherence_v1.py (the affect/valence-trajectory cue); experiments/exp_forward_event_construction_integration_v1.py (the full Kintsch/Trabasso alternative + the negation-artifact ablation); experiments/exp_forward_event_situation_coherence_v2.py (the RIGHT artifact-free engine: protagonist-centered context-dependent contradiction + affect-arc-direction + causal-to-goal, learned cue validities); experiments/exp_forward_event_precision_weighted_v3.py (the Friston PRECISION-WEIGHTED integration upgrade); experiments/exp_forward_event_predictive_loop_v1.py (CLOSING THE PREDICTIVE-CODING LOOP: forward prediction error for coherence + event SEGMENTATION + reset-vs-reinstate); experiments/exp_forward_event_generalization_socialiqa_v1.py (cross-dataset generalization boundary on Social IQa); experiments/exp_forward_event_world_knowledge_v1.py (richer ConceptNet causal/script world-knowledge foundation -- prototype for blocker 2); experiments/exp_forward_event_density_phase_v1.py (the DENSITY phase-diagram sweep); experiments/exp_forward_event_dense_context_v1.py (THE DECISIVE dense-regime test: MCScript2 long-context forward-continuation with same-scenario hard negatives); experiments/exp_forward_event_ci_settling_v1.py (Kintsch Construction-Integration SETTLING -- the brain's integration mechanism, glass-box); notes/problems/.../research_drill_forward_coherence_wall_2026-09-06.md (aggressive 4-angle wall research); experiments/fetch_story_cloze_rocstories.py (pinned reproducible gold fetch); verification/test_forward_event_projection.py (scaffold-free witness); data/exp_forward_event_projection_v1/metrics.json; data/exp_forward_event_projection_situation_model_v1/metrics.json; data/exp_forward_event_affect_coherence_v1/metrics.json; data/corpora/story_cloze/ + data/corpora/roc_stories/ (materialized gold, gitignored). hdlab/ UNTOUCHED (Q111)."
+files_changed: "experiments/exp_forward_event_projection_v1.py (content-GEK spine, full-scale); experiments/exp_forward_event_projection_situation_model_v1.py (live SituationReader + graded_competition multi-cue combination); experiments/exp_forward_event_affect_coherence_v1.py (the affect/valence-trajectory cue); experiments/exp_forward_event_construction_integration_v1.py (the full Kintsch/Trabasso alternative + the negation-artifact ablation); experiments/exp_forward_event_situation_coherence_v2.py (the RIGHT artifact-free engine: protagonist-centered context-dependent contradiction + affect-arc-direction + causal-to-goal, learned cue validities); experiments/exp_forward_event_precision_weighted_v3.py (the Friston PRECISION-WEIGHTED integration upgrade); experiments/exp_forward_event_predictive_loop_v1.py (CLOSING THE PREDICTIVE-CODING LOOP: forward prediction error for coherence + event SEGMENTATION + reset-vs-reinstate); experiments/exp_forward_event_generalization_socialiqa_v1.py (cross-dataset generalization boundary on Social IQa); experiments/exp_forward_event_world_knowledge_v1.py (richer ConceptNet causal/script world-knowledge foundation -- prototype for blocker 2); experiments/exp_forward_event_density_phase_v1.py (the DENSITY phase-diagram sweep); experiments/exp_forward_event_dense_context_v1.py (THE DECISIVE dense-regime test: MCScript2 long-context forward-continuation with same-scenario hard negatives); experiments/exp_forward_event_ci_settling_v1.py (Kintsch Construction-Integration SETTLING); experiments/exp_forward_event_schema_foundation_v1.py (first slice of the event-schema knowledge foundation -- scenario-conditioned script structure, leave-one-story-out); notes/problems/.../research_drill_forward_coherence_wall_2026-09-06.md (aggressive 4-angle wall research); experiments/fetch_story_cloze_rocstories.py (pinned reproducible gold fetch); verification/test_forward_event_projection.py (scaffold-free witness); data/exp_forward_event_projection_v1/metrics.json; data/exp_forward_event_projection_situation_model_v1/metrics.json; data/exp_forward_event_affect_coherence_v1/metrics.json; data/corpora/story_cloze/ + data/corpora/roc_stories/ (materialized gold, gitignored). hdlab/ UNTOUCHED (Q111)."
 reverify: ".venv/Scripts/python.exe verification/test_forward_event_projection.py"
 ---
 
@@ -313,6 +313,22 @@ foundation, SPECIALIZED to event-schemas), THEN run the already-built glass-box 
 causal-necessity + inverse-planning) over IT. This is a FOUNDATION-scale build, not a mechanism tweak -- which is
 precisely why the built mechanisms plateau without it.
 
+**First slice of the schema foundation, built and tested (`exp_forward_event_schema_foundation_v1`) -- an
+informative NEGATIVE that sharpens the target.** I built a scenario-conditioned schema (per-scenario script
+structure: forward transitions + canonical step-order, learned offline leave-one-STORY-out from MCScript2's
+repeated scenarios). Run via schema-forward on the dense-context task it scores 0.275 dev / 0.298 test -- WELL
+BELOW chance, CI-separated. Reason (informative): the same-scenario hard negative is itself a scenario-TYPICAL
+sentence, so schema-TYPICALITY systematically prefers the DISTRACTOR over this story's specific next step. Two
+lessons: (1) schema-typicality is NOT the discriminator -- the coherent continuation is distinguished by THIS
+STORY'S SPECIFIC STATE/trajectory, not scenario-generic typicality, so the foundation must feed a STORY-STATE-
+SPECIFIC generative model (SEM-style), not a typicality lookup; (2) the MCScript2 same-scenario task has its OWN
+typicality artifact (the distractor is typicality-matched) -- a caveat on the dense-context result, analogous to
+Story Cloze's style artifact. (I did NOT invert the anti-predictive signal to 0.72 -- that would exploit the
+task's typicality artifact, not solve forward coherence.) So the target is sharpened: the foundation must be run
+by a story-state-specific generative model, and the forced-choice BENCHMARKS themselves carry artifacts that
+reward shallow/typicality signals -- both point to a dedicated foundation+generative-model build, evaluated on an
+artifact-controlled instrument.
+
 ## Why this is a rigorous located negative -- and the sharpened diagnosis (TWO fidelity gaps, not one ceiling)
 Every faithful glass-box readout was built and tested -- GEK association (works over frequency floors), the
 successor/horizon (no lift, pre-registered), the finer event grain (weaker), goal/causal structure (registers too
@@ -480,16 +496,23 @@ EXTRACTOR density on short narrative (a separate filed problem).
 
 ## TLDR (plain English)
 A good reader is always a step ahead of the story. I built the "what comes next?" guess our reader never had:
-from what has been said, it guesses which of two possible endings really comes next, using learned knowledge of
-what usually follows what. On modern test stories it beats simply betting on the more common ending (about 59%
-vs about 51%, a real and statistically clean gap), it falls apart when you feed it a DIFFERENT story's setup
-(proving it truly uses the story, not a writing-style trick), and when it says it is confident it is right more
-often (about 65% on its most-confident quarter). What it does NOT do is beat a simple "which words tend to go
-together" counter -- and I showed exactly why: guessing the next EVENT from broad word-association is close to
-the real ceiling for this kind of task (the research literature agrees), the story's deeper structure (goals,
-causes) is only detected in about a quarter of these short stories, and looking further ahead than one step adds
-nothing. So the forward guess works and is honestly calibrated; the ceiling is a real property of the task plus a
-gap in how much structure we extract from short stories -- not a broken guesser.
+from what has been said, it picks which of two endings really comes next. On modern test stories it beats simply
+betting on the more common ending (about 59% vs 51%, a clean gap), it falls apart when fed a DIFFERENT story's
+setup (so it truly uses THIS story), and when it says it is confident it is right more often (about 65% on its
+most-confident quarter). I then pushed hard on the one thing it could NOT do -- beat a simple "which words tend
+to go together" counter -- and made the reader's forward-prediction loop real along the way: the forward guess,
+used as a surprise signal, detects story boundaries about three times better than the reader's old backward
+signal. To find out whether the counter was a real ceiling or a gap in our approach, I built the brain's actual
+deeper mechanisms (weigh clues by reliability; settle the story into a coherent whole; use cause, goals, emotion,
+and world knowledge; even a first slice of a "scripts" knowledge base) and researched the science exhaustively.
+The verdict is now clear and honest: the reasoning MACHINERY is built and correct, but it only pays off when it
+runs on the RIGHT KIND of knowledge -- rich, structured "what a typical situation looks like step by step" -- and
+on a model that tracks THIS specific story's state, not generic word-association. Two separate research findings
+show human-level is reachable this way WITHOUT any banned outside AI at answer-time; it just needs that knowledge
+foundation built (a bigger, dedicated project). Bonus honesty: both standard test sets have built-in shortcuts
+that reward shallow tricks, so the real next step also needs a cleaner test. Net: the forward guess works and is
+honestly calibrated; the path to human-level is understood and buildable, and it is a knowledge-foundation
+project, not a broken guesser or a forbidden model.
 
 ## QUESTIONS
 - ONE LABELLING CALL FOR YOU: I marked this **PARTIAL**. The bar's own clause says a rigorous located negative
@@ -528,12 +551,23 @@ gap in how much structure we extract from short stories -- not a broken guesser.
   extraction side.
 - **GAP (B) INFERENCE ENGINES -- BUILT + tested (v2/v3 cues + Kintsch CI-settling); they are NOT the missing
   piece.** The glass-box engines are ready; they plateau ONLY because they run over associative nets.
-- **THE REAL LEVER -- build the RICH SCRIPT/EVENT-SCHEMA KNOWLEDGE FOUNDATION (north-star, offline static asset).**
-  Canonical ordered event structures per situation, causal/goal-typed (Schank scripts + Trabasso causal criteria +
-  Rashkin naive-psychology schema), then run the already-built CI-settling + causal-necessity + inverse-planning
-  over it, recruited on-demand at the forced choice (Graesser). This is a FOUNDATION-scale project (the project's
-  clean/typed knowledge north-star, specialized to event-schemas), and it is the brain-foundational, invariant-
-  compliant (NO inference-LLM) path across the wall. The SEM-style generative dynamics can be ONLINE-fitted per
-  schema (Kumar 2023 shows the learned piece is not irreducible), not batch-trained.
-- Revisit `predict_surprisal` (extend to event level) and `n400_coherence_monitor` (take its error against this
-  forward prediction) to consume the new forward-event expectation -- the true predictive-coding loop.
+- **THE REAL LEVER = A NEW NORTH-STAR PROBLEM (file it; it is foundation-scale, not this lane).** Build a
+  STORY-STATE-SPECIFIC GENERATIVE EVENT MODEL over a RICH EVENT-SCHEMA KNOWLEDGE FOUNDATION. Three parts, each
+  brain-foundational + invariant-compliant (offline static foundation and/or ONLINE learning; NO inference-LLM):
+  (1) the event-schema FOUNDATION -- canonical script structures per situation, causal/goal-typed (Schank scripts +
+  Trabasso causal criteria + Rashkin naive-psychology), the project's clean/typed knowledge north-star specialized
+  to event-schemas; (2) a STORY-STATE-SPECIFIC generative model that instantiates the schema with THIS story's
+  entities/state and generates the next event (SEM-style; the learned dynamics is ONLINE-fittable per schema --
+  Kumar 2023 shows it is NOT a forbidden LLM); (3) the already-built glass-box engines (CI-settling +
+  causal-necessity + inverse-planning) run over it, recruited on-demand at the forced choice (Graesser).
+  WHY it is the lever, proven by this problem: schema-TYPICALITY alone is anti-predictive (schema slice 0.28) and
+  every associative mechanism plateaus -- the discriminator must be THIS-STORY-SPECIFIC, which only the generative
+  model supplies. EVALUATE on an ARTIFACT-CONTROLLED instrument (both Story Cloze's style artifact and the
+  MCScript2 typicality artifact reward shallow signals -- neither is clean; construct a hard-negative gold that a
+  content-blind/typicality baseline cannot beat).
+- **NOT the lever (tested, do not re-file): denser extraction** (dense-regime test: no lift), **richer world
+  knowledge via ConceptNet** (fires dense, no lift), **the meaning_foundation as a coherence cue** (hurts -- it is
+  the meaning channel, not the event-knowledge channel), **multi-step successor horizon** (adds ~+0.01).
+- Revisit `predict_surprisal` (extend to event level) and `n400_coherence_monitor` (take its error against the
+  forward prediction + lambda~0.3 reinstatement) to consume the new forward-event expectation -- the true
+  predictive-coding loop (the built loop cell shows forward error >> backward for both coherence and segmentation).

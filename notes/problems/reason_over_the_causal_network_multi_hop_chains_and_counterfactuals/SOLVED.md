@@ -5,8 +5,8 @@ bar: "PASSES only with ALL of: (1) A glass-box reasoner OVER the extracted causa
 result: "The reasoner is built and SOUND, the multi-hop traversal + counterfactual intervention are LOAD-BEARING on modern gold INCLUDING DIRECTED HUMAN NARRATIVE gold, and the anticipated NEGATIVE (real network too sparse) is confirmed + built-across. (L1 constructed, n=5000 DAGs) ultimate-cause reasoner 1.000 vs adjacency 0.279 (0.000 on the multi-hop subset), reasoner-adjacency +1.000 CI[1.000,1.000], reasoner-twin +0.844 CI[0.831,0.856]; counterfactual necessity by node-removal 1.000 vs adjacency 0.482 (+0.518 CI[0.510,0.527]) vs twin 0.479 (+0.521 CI[0.513,0.529], null p95 0.011); graded-necessity ordering 1.000; general Pearl cut-and-re-simulate agrees 0.920; Halpern-Pearl ACTUAL causation handles over-determination (both over-determining causes are actual though neither is but-for necessary). (L2 WIQA modern, n=5005) refutes the prior HARD_FAILs: reason 0.5852 beats polarity-echo 0.3211 (+0.2641 CI[0.247,0.281]) + majority 0.4220; multi-hop (n=996) reason 0.2560 beats 1-hop adjacency 0.0000 (+0.2560 CI[0.229,0.283]) + twin 0.0663 (+0.190 CI[0.166,0.215]); reachability-`no_effect` 0.6491 beats the prior lexical trick 0.4938. (L3 located NEGATIVE, ROCStories n=1500) the LIVE reader's narrative network is far too sparse: 0.560 edges/story (median 0), 0.077 cross-sentence, depth median 0, only 3.2% support a >=2-hop chain. (L4 build-across) a Trabasso contiguity+plausibility densification lifts multi-hop support 3.0% -> 94.8% (depth 0.39 -> 2.78), additive/no-regress. (L5 DIRECTED HUMAN GOLD, TellMeWhy n=1765 answerable) on the NON-ADJACENT-cause subset (n=299, where the cause is not the immediately-prior sentence) the dense causal network finds the human-annotated cause 0.2375 vs the adjacency floor 0.0000 (+0.2375 CI[0.191,0.288]), the recency floor 0.0000 (+0.2375), and the shuffled-edge twin 0.1171 (+0.120 CI[0.060,0.181]) -- ALL CI-separated; and beats a lexical-overlap baseline CI-sep overall. HONEST BOUND: overall the cause is the adjacent prior sentence ~69%, so the topical densification is not globally cause-correct (dense 0.32 < adjacency 0.69) and the directed event-type gate does NOT help (0.28) -> the residual is the directed causal-knowledge / world-knowledge wall, quantified."
 floor: "Multiple, recomputed per population. (L1) ADJACENCY floor (immediate-predecessor / 1-hop) = 0.279 / 0.482, and 0.000 on the multi-hop subset. (L2 WIQA) ADJACENCY 0.0000 on multi-hop; POLARITY-ECHO 0.3211; MAJORITY 0.4220; the prior lexical no_effect trick reproduced at 0.4938. (L5 TellMeWhy directed human gold) the ADJACENCY floor (cause = prior sentence) is STRONG overall (0.6880) but 0.0000 on the non-adjacent-cause subset by construction; the RECENCY floor 0.0000 on that subset; the LEXICAL-overlap floor 0.2493 overall; the shuffled-edge twin 0.1171 on the non-adjacent subset. (L3/L4) the SPARSE connective+mental network supports a >=2-hop chain in 3.0% of stories; Story Cloze (affect-dominated, wrong instrument) topical 0.4950. Each floor beaten CI-separated where a positive is claimed (L1, L2, L5-multihop); the L4 Story-Cloze arm and the L5-overall arm are located sub-negatives (NOT CI-separated over the adjacency prior) and reported as such."
 controls: "(1) info-free SHUFFLED-EDGE twin LOSES CI-separated everywhere a positive is claimed: L1 ultimate-cause (r-twin +0.844) + necessity (+0.521, null p95 0.011); L2 multi-hop (+0.190); L5 TellMeWhy non-adjacent cause-ID (+0.120 CI[0.060,0.181]). (2) ADJACENCY + RECENCY floors LOSE CI-separated on the multi-hop / non-adjacent subset (L1 0.000; L2 0.0000; L5 0.0000) -- the traversal, not recency, carries the answer; and L5 shows adjacency is a STRONG overall floor (0.69) that the multi-hop positive is honestly separated from. (3) REASONING-ISOLATION: L2 gold (i,j) anchors isolate reasoning from anchoring; the 1-hop ablation isolates traversal from extraction. (4) POSITIVE control the metric moves: L1 depth>=2 where ultimate!=most-recent (adjacency 0.000, reasoner 1.000); the diamond-bypass necessity + the over-determination Halpern-Pearl case; L5 the non-adjacent-cause subset. (5) LEXICAL-overlap (L5) + TEMPORAL-only / TOPICAL (L4) isolate the causal signal from lexical/positional/plausibility-free baselines. (6) DIRECTED event-type ablation (L5 0.28 < topical 0.32) shows the class-level type gate does NOT help -- a drilled negative. (7) the leaked WIQA `dj`==answer is NEVER read. Each excludes: twin -> topology load-bearing; adjacency/recency -> multi-hop load-bearing; oracle-anchors -> reasoning not anchoring; lexical/temporal -> causal not lexical/plausibility-free."
-files_changed: "experiments/_causal_reasoner.py, experiments/exp_causal_reasoner_{soundness,wiqa,narrative,densify,directed,tellmewhy,phase,cskg}_v1.py, experiments/fetch_tellmewhy_v1.py, verification/test_causal_reasoner_{soundness,wiqa,narrative,densify,tellmewhy,phase,cskg}.py, data/corpora/tellmewhy/ (fetched, pinned), notes/problems/reason_over_the_causal_network_multi_hop_chains_and_counterfactuals/{SOLVED.md,RESEARCH_brain_mechanism_and_wiqa_postmortem_2026-09-06.md}"
-reverify: ".venv/Scripts/python.exe verification/test_causal_reasoner_soundness.py   # 9/9, re-derives the headline (reasoner sound + multi-hop traversal + counterfactual intervention + Halpern-Pearl actual causation load-bearing vs adjacency + twin, live). Full suite (7 witnesses, 31 checks): test_causal_reasoner_wiqa.py (4/4), narrative (4/4), densify (3/3), tellmewhy (4/4 -- multi-hop cause-ID CI-sep on directed human gold + cue-integration), phase (4/4 -- correctness is the sole binding axis), cskg (3/3 -- the c-lever identifiability wall measured at 17.3% KB coverage)."
+files_changed: "experiments/_causal_reasoner.py, experiments/exp_causal_reasoner_{soundness,wiqa,narrative,densify,directed,tellmewhy,phase,cskg,simulate}_v1.py, experiments/fetch_tellmewhy_v1.py, verification/test_causal_reasoner_{soundness,wiqa,narrative,densify,tellmewhy,phase,cskg,simulate}.py, data/corpora/tellmewhy/ (fetched, pinned), notes/problems/reason_over_the_causal_network_multi_hop_chains_and_counterfactuals/{SOLVED.md,RESEARCH_brain_mechanism_and_wiqa_postmortem_2026-09-06.md}"
+reverify: ".venv/Scripts/python.exe verification/test_causal_reasoner_soundness.py   # 9/9, re-derives the headline (reasoner sound + multi-hop traversal + counterfactual intervention + Halpern-Pearl actual causation load-bearing vs adjacency + twin, live). Full suite (8 witnesses, 33 checks): test_causal_reasoner_wiqa.py (4/4), narrative (4/4), densify (3/3), tellmewhy (4/4 -- multi-hop cause-ID CI-sep on directed human gold + cue-integration), phase (4/4 -- correctness is the sole binding axis), cskg (3/3 -- retrieval/KB coverage wall measured at 17.3%), simulate (2/2 -- the generative-SIMULATION reasoner beats topical CI-sep with NO LLM)."
 ---
 
 # SOLVED -- a glass-box causal-network REASONER (multi-hop chains + counterfactual necessity), proven sound and load-bearing on modern gold, with the real-narrative bottleneck located and built-across
@@ -39,7 +39,7 @@ the shuffled-EDGE twin), lifted from the GOAL graph onto CAUSAL edges -- the sam
 PINNED: the Trabasso reachability computation + the Pearl intervention. OUR-INVENTION-UNDER-TEST (swept): the
 question->query mapping, the intervention rule, the plausibility/threshold parameters.
 
-## What I measured (four layers; one-screen summary per the bar)
+## What I measured (five validation layers + eight upgrades; one-screen summary per the bar)
 | layer | question | headline | controls |
 |---|---|---|---|
 | **L1 constructed (n=5000 DAGs)** | is the reasoner SOUND and the traversal LOAD-BEARING? | ultimate-cause **1.000** vs adjacency 0.279 (**0.000** on multi-hop); necessity **1.000** vs adjacency 0.482 / twin 0.479; graded ordering 1.000; Pearl agrees 0.920 | reasoner-adj **+1.000** CI[1.0,1.0] (multihop); reasoner-twin +0.844; necessity r-adj +0.518, r-twin +0.521 (null p95 0.011) -- all CI-sep |
@@ -99,6 +99,22 @@ question->query mapping, the intervention rule, the plausibility/threshold param
   REDUNDANT with topical relatedness. So the phase diagram's c-lever is the RIGHT axis, but raising c on real narrative
   requires CONTEXTUAL causal inference -- exactly what an external LLM supplies and the invariant bars. The
   identifiability wall is now a MEASURED bound (17.3% KB coverage), not a hand-wave.
+- **U8 -- THE RETRIEVAL->SIMULATION REASONER: the brain-foundational way past the coverage wall, PROTOTYPED, and it
+  works WITHOUT an LLM (the answer to "how does the brain overcome causal inference?").** The CSKG result (U7) exposed
+  that RETRIEVAL (fact-store / KB / LLM-distilled asset) is the wrong architecture -- it is coverage-bounded by
+  construction. The brain does not retrieve causal facts; it GENERATES them by SIMULATION over a few intuitive-theory
+  engines (intuitive physics / ToBY; intuitive psychology / ToMM -- Battaglia/Tenenbaum; Gerstenberg CSM; Johnson-Laird
+  mental models), which have effectively infinite coverage because the link is COMPUTED, not stored. I COMPOSED the
+  substrate's OWN generative engines -- `_causal_network` force dynamics (intuitive physics: FORCE_ACTION->RESULT_STATE)
+  + `hdlab.affect_lexicon` Warriner-valence APPRAISAL (the directed signal topical MISSES: "insulted"(-) -> "cried"(-))
+  + `hdlab.event_type` MENTAL_TRIGGER->MENTAL_OUTCOME cascade -- into a generative causal-plausibility simulator
+  (`exp_causal_reasoner_simulate_v1.py`, witness SIM0-SIM1). On TellMeWhy non-adjacent causes (n=299) the generative
+  simulation scores **0.2843 vs the topical baseline 0.2542, +0.0301 CI[0.003,0.057] CI-separated -- with NO LLM and
+  NO fact-store.** This is the FIRST method here to beat topical (the retrieval routes U2 event-type gate and U7 CSKG
+  both FAILED to). The lift is MODEST because this composes CLASS-LEVEL engines (appraisal congruence + force sets),
+  not a full grounded ROLLOUT -- but it is directionally decisive: SIMULATION > RETRIEVAL > topical, and it proves we
+  do NOT need LLM access; we need to compose (and deepen) the generative engines we already have. That deepening (a
+  content-sensitive physical/social rollout) is the real successor -- the "grounded generative world-model" direction.
 
 ## The core finding, plainly: the prior WIQA HARD_FAILs were a NON-brain-foundational implementation, not a ceiling
 A research drill (mechanism-level post-mortem, `notes/problems/<slug>/RESEARCH_brain_mechanism_and_wiqa_postmortem_2026-09-06.md`)
@@ -233,18 +249,23 @@ constructed graphs but the real network is too sparse" -- I met that AND showed 
 gold (WIQA) AND prototyped the density fix, so I filed status SOLVED rather than PARTIAL. If you prefer the label
 tied strictly to an end-to-end narrative accuracy win, this is a PARTIAL; the science is identical either way.
 
-## NEXT STEPS
-1. **The c-lever is now TESTED (U7), and the residual is CONTEXTUAL causal knowledge.** A generic directed causal KB
-   (CSKG, 86k edges) covers only 17.3% of real narrative cause-pairs; it cannot raise c. So the honest lever is an
-   OFFLINE-BUILT CONTEXTUAL causal asset -- e.g. distil an LLM's causal judgments into a static per-narrative causal
-   graph OFFLINE (FOUNDATION-legal: the invariant bars an external LLM AT INFERENCE, not an offline-built asset;
-   owner ruling 08-16 "a STATIC OFFLINE-BUILT ASSET IS ADMISSIBLE"). That is an owner/P9 decision + a real build --
-   the correct scope for a NEW brief, and the phase diagram makes its target quantitative (move c 0.24 -> 0.8 for
-   +0.6 advantage). The `is_ques_answerable=Not-Answerable` TellMeWhy subset is the labelled target population.
-2. **Land the reasoner (hdlab change #1)** + wire it to the QA why/causal + a "what-if" question type -- it is proven
-   sound + load-bearing (constructed, WIQA, TellMeWhy multi-hop) and is a pure REUSE of `sm.causal_links` + the
-   goal-graph traversal pattern.
-3. **Wire the reader's SURPRISAL register -> Kahneman-Miller node selection** (U4) -- the norm-violating (high-surprisal)
-   event is the one a reader mutates in a counterfactual; the reasoner side (`most_mutable_cause`) is built + tested.
-4. **Couple counterfactual necessity to the affect/regret organs** (adjacent #3) -- narrative coherence is affect-driven
-   (Story Cloze); the reasoner's necessity read-out is the substrate for a vmPFC-style regret/blame consumer.
+## NEXT STEPS (priority-ordered)
+**P1 (highest -- the real capability lever).** **DEEPEN the generative simulator (U8) -- the proven, LLM-free path past the coverage wall.** The retrieval routes
+   (topical, event-type, CSKG KB) are coverage-bounded; the composed generative simulator is the FIRST to beat topical
+   (+0.030 CI-sep) with NO LLM. The lift is modest because it composes CLASS-LEVEL engines. The successor is a
+   CONTENT-SENSITIVE ROLLOUT: a real intuitive-physics simulation (object/force state over the sentence's participants)
+   + a real inverse-planning social simulation (goal/belief/affect over the resolved agents), composing the landed
+   `force_dynamics_typer` + `goal_register` + `belief_partition` + `affect_register`. This is the "grounded generative
+   world-model" direction -- large, but the RIGHT one, and it does NOT need LLM access (a fact-store/LLM-distilled
+   asset is the WRONG architecture -- retrieval, coverage-bounded; the brain simulates). The phase diagram makes the
+   target quantitative (move c 0.24 -> 0.8 for +0.6 advantage); the `is_ques_answerable=Not-Answerable` TellMeWhy
+   subset is the labelled hard population.
+**P2 (strategy-owned, ready now).** **Land the reasoner (hdlab change #1)** + wire it to the QA why/causal + a "what-if"
+   question type -- it is proven sound + load-bearing (constructed, WIQA, TellMeWhy multi-hop) and is a pure REUSE of
+   `sm.causal_links` + the goal-graph traversal pattern. Land the U8 generative densification default-OFF until P1 deepens it.
+**P3 (cheap, in-scope).** **Wire the reader's SURPRISAL register -> Kahneman-Miller node selection** (U4) -- the
+   norm-violating (high-surprisal) event is the one a reader mutates in a counterfactual; the reasoner side
+   (`most_mutable_cause`) is built + tested, so this is a wiring job.
+**P4 (adjacent capability).** **Couple counterfactual necessity to the affect/regret organs** -- narrative coherence is
+   affect-driven (the Story Cloze finding); the reasoner's necessity read-out is the substrate for a vmPFC-style
+   regret/blame consumer.
