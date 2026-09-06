@@ -911,7 +911,8 @@ def run(docs: List[str], seed: int = 20260830, capable: bool = True,
         with_affect: bool = True, affect_cap: Optional[int] = None,
         with_patient: bool = True, patient_cap: Optional[int] = None,
         with_goal_hierarchy: bool = True,
-        with_wic: bool = True, wic_mode: str = "full") -> dict:
+        with_wic: bool = True, wic_mode: str = "smoke",
+        with_common_noun: bool = True, common_noun_n: int = 24) -> dict:
     """Score QA over the SituationModel per dimension vs floors + twin. `capable=True` (DEFAULT) scores
     the CAPABLE reader (build_reader) -- the correct baseline: extraction dimensions ON, temporal read off
     sm.timeline_order. `capable=False` reproduces the historical default-reader run for comparison.
@@ -1077,6 +1078,19 @@ def run(docs: List[str], seed: int = 20260830, capable: bool = True,
         except Exception as e:
             res["per_dimension"]["wic"] = None
             res["wic_qa_detail"] = {"error": f"{type(e).__name__}: {e}"}
+    if with_common_noun:
+        # COMMON-NOUN COREF board arm (realizes the entity-KB tier): the full-chain entity-KB resolver's
+        # character-cluster CoNLL vs surface-head + the shuffled-KB twin. The board `coref` dim scores PRONOUN
+        # coref; this scores COMMON-NOUN clustering (Sanford-Garrod scenario binding, a distinct brain system)
+        # -- the +0.0882 win that was board-INVISIBLE. Its own cell: exp_board_common_noun_coref_v1.
+        try:
+            from experiments.exp_board_common_noun_coref_v1 import board_common_noun_coref_dimension
+            cnrow, cndetail = board_common_noun_coref_dimension(n_docs=common_noun_n)
+            res["per_dimension"]["common_noun_coref"] = cnrow
+            res["common_noun_coref_detail"] = cndetail
+        except Exception as e:
+            res["per_dimension"]["common_noun_coref"] = None
+            res["common_noun_coref_detail"] = {"error": f"{type(e).__name__}: {e}"}
     res["reader_config"] = {
         "capable": bool(capable),
         "flags": ("tense_agnostic_events+preserve_tense+timeline_register+bind_entity_states" if capable else "default(off)"),
@@ -1707,8 +1721,8 @@ def _selftest() -> dict:
     assert route("Where is John ?") == "location" and route("What does Mary believe ?") == "belief"
     assert wh_ontology_route("What is Ahab ?") == "state"
     docs = load_docs(2)
-    # capable=True; small state_cap + the 3 new arms OFF (they have their own witnesses + load UD/WordNet) keep the self-test fast
-    res = run(docs, state_cap=150, with_patient=False, with_goal_hierarchy=False, with_wic=False)
+    # capable=True; small state_cap + the 4 new arms OFF (own witnesses + load UD/WordNet/entity-KB) keep the self-test fast
+    res = run(docs, state_cap=150, with_patient=False, with_goal_hierarchy=False, with_wic=False, with_common_noun=False)
     assert res["aggregate"]["n"] >= 1, res
     assert res["per_dimension"].get("coref", {}).get("n", 0) >= 1, res["per_dimension"]
     td = res["per_dimension"].get("temporal")
