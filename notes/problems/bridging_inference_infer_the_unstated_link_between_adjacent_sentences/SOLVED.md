@@ -2,10 +2,10 @@
 problem: bridging_inference_infer_the_unstated_link_between_adjacent_sentences
 status: SOLVED
 bar: "PASS = a glass-box bridging inference that, given two adjacent sentences with an unstated coherence link, infers the correct bridge (which entity is the instrument / that A caused B / which whole a part belongs to), CI-separated over BOTH (a) a no-inference floor (the reader WITHOUT the bridge; e.g. most-recent / most-salient entity, or the connective-only causal_links) AND (b) a meaning-SHUFFLED info-free twin (the same selector reading a permuted/shuffled meaning store) -- and the TWIN MUST LOSE, proving the semantic-relatedness signal is load-bearing (not salience or a shape artifact). Report the bootstrap CI half-width AND the null p95; recompute each floor on the item's OWN population; no number crosses scorers or populations. Prefer to report per-bridge-type (instrument / causal / part) separately -- a win on one type and a negative on another is a real, useful result."
-result: "Scorer = argmax==gold antecedent-selection accuracy, item bootstrap CI (2000x), held-out. ANTECEDENT SELECTION (the brief's which-whole / which-event, meaning store = the ATL PPMI+SVD hub, glass-box): REFERENTIAL-PART on WordNet meronymy (n_pooled=6350, 5 splits) RAW_HUB 0.4720 vs no-inference floor 0.2000 (+0.2720 CI[+0.2524,+0.2921]) and vs most-salient floor 0.1737 (+0.2976 CI[+0.2728,+0.3213]); shuffled-meaning twin 0.1969 (RAW-TWIN +0.2752 CI[+0.2508,+0.3008]). REFERENTIAL-PART on ConceptNet PartOf (independent 2nd source, n=3775) RAW_HUB 0.6087 / meaning_foundation 0.6541 vs floor 0.2000 (+0.4087) twin 0.2021. INSTRUMENT on ConceptNet UsedFor (artifact subject, n=3390) RAW_HUB 0.4522 vs floor 0.2000 (+0.2522 CI[+0.2354,+0.2699]) twin 0.1968. All CI-separated ABOVE both floors; every twin collapses to chance (0.20). INTEGRATION/CONDITIONING LEVER (candidate set WITH salient distractors -- the realistic confound): salience-discounted specificity (COND, N400/predictive-coding) beats raw relatedness CI-separated on all three types (+0.050/+0.049/+0.048, each CI-lo >0.039). END-TO-END over a parsed situation model (n=1005 generated modern 2-sentence items) COND 0.4965 vs recency/no-inference floor 0.0 (gold placed non-recently) vs shuffled twin 0.2886 (COND-TWIN +0.208 CI[+0.167,+0.250]). LOCATED SUB-NEGATIVES: (i) relation-TYPE selection (3-way, chance 0.333, n=5145) exemplar 0.7854 but its SEMANTIC contribution over the shape twin is only +0.050 [+0.038,+0.062] -- the relation LABEL is mostly lexical/structural, not distributional relatedness; (ii) a linear relation-OFFSET selector is a shape artifact (offset-minus-twin +0.029 vs raw-minus-twin +0.275) -- a coherence relation is not a single linear direction. CAUSAL antecedent selection corroborates on the associative axis (RAW/COND beat floor+twin on ConceptNet Causes) but is NOT redone as a mechanism -- the force+mental unstated-causal selector is already SOLVED on disk (exp_causal_unified_bridge_event_type_v1)."
+result: "Scorer = argmax==gold antecedent-selection accuracy, item bootstrap CI (2000x), held-out. ANTECEDENT SELECTION (the brief's which-whole / which-event, meaning store = the ATL PPMI+SVD hub, glass-box): REFERENTIAL-PART on WordNet meronymy (n_pooled=6350, 5 splits) RAW_HUB 0.4720 vs no-inference floor 0.2000 (+0.2720 CI[+0.2524,+0.2921]) and vs most-salient floor 0.1737 (+0.2976 CI[+0.2728,+0.3213]); shuffled-meaning twin 0.1969 (RAW-TWIN +0.2752 CI[+0.2508,+0.3008]). REFERENTIAL-PART on ConceptNet PartOf (independent 2nd source, n=3775) RAW_HUB 0.6087 / meaning_foundation 0.6541 vs floor 0.2000 (+0.4087) twin 0.2021. INSTRUMENT on ConceptNet UsedFor (artifact subject, n=3390) RAW_HUB 0.4522 vs floor 0.2000 (+0.2522 CI[+0.2354,+0.2699]) twin 0.1968. All CI-separated ABOVE both floors; every twin collapses to chance (0.20). INTEGRATION/CONDITIONING LEVER (candidate set WITH salient distractors -- the realistic confound): salience-discounted specificity (COND, N400/predictive-coding) beats raw relatedness CI-separated on all three types (+0.050/+0.049/+0.048, each CI-lo >0.039). END-TO-END over a parsed situation model (n=1005 generated modern 2-sentence items) COND 0.4965 vs recency/no-inference floor 0.0 (gold placed non-recently) vs shuffled twin 0.2886 (COND-TWIN +0.208 CI[+0.167,+0.250]). LOCATED SUB-NEGATIVES: (i) relation-TYPE selection (3-way, chance 0.333, n=5145) exemplar 0.7854 but its SEMANTIC contribution over the shape twin is only +0.050 [+0.038,+0.062] -- the relation LABEL is mostly lexical/structural, not distributional relatedness; (ii) a linear relation-OFFSET selector is a shape artifact (offset-minus-twin +0.029 vs raw-minus-twin +0.275) -- a coherence relation is not a single linear direction. CAUSAL antecedent selection corroborates on the associative axis (RAW/COND beat floor+twin on ConceptNet Causes) but is NOT redone as a mechanism -- the force+mental unstated-causal selector is already SOLVED on disk (exp_causal_unified_bridge_event_type_v1). SIGNAL-LOSS TRACE (measured, same population, exp_bridging_signal_loss_ladder_v1): vs a perfect reader the loss decomposes as ESTIMATOR -0.505 (dominant: even gold-vs-4-random-words the static hub gets 0.495) >> gold-ambiguity -0.047 >> salience-confound -0.007 (population-level, minor) + conditioning recovery +0.048; extraction + typing are downstream. BRAIN-FIDELITY: NOT 100% -- the two biggest deviations (a STATIC bag-cosine estimator vs the ATL's relational settling; a ONE-STEP discount vs Kintsch's iterative integration) COINCIDE with the biggest signal loss. Closing that gap (exp_bridging_ppr_integration_v1): the FAITHFUL iterative spreading-activation integration (PPR over the relational graph, meronymy/PartOf/UsedFor HELD OUT) fused with the distributional read BEATS the static estimator held-out -- INSTRUMENT FUSE 0.531 vs HUB 0.441 (+0.090 CI[+0.074,+0.106]), PART FUSE 0.485 vs 0.449 (+0.036 CI[+0.019,+0.052]), random-seed PPR twin collapses to chance."
 floor: "Strongest floor actually run = the most-SALIENT-candidate floor (hubness = mean cosine to a 2000-word vocab sample), recomputed per population: PartOf 0.1579, part_wn 0.1737, INSTRUMENT 0.2059; PLUS the no-inference RANDOM/recency floor 0.2000 (and 0.0 end-to-end by construction). The meaning-store arm is CI-separated ABOVE both on every type. Null p95: the shuffled-meaning twin sits at chance (part_wn 0.1969, PartOf 0.2021, INSTRUMENT 0.1968; 3-way type twin 0.7353; end-to-end twin 0.2886) -- the meaning-minus-twin margin excludes zero everywhere the mechanism is claimed."
 controls: "(1) SHUFFLED-MEANING TWIN (hub vectors permuted across the vocabulary; same task shape) -> collapses to chance on every antecedent-selection type -> excludes 'shape/salience/frequency wins'; the specific word<->meaning map is load-bearing. (2) MOST-SALIENT-CANDIDATE floor (hubness) -> beaten CI-separated -> excludes 'pick the generically-frequent entity' (the confound a yield probe exposed: raw hub ranks knife~john 0.282 > knife~murder 0.099). (3) RANDOM/RECENCY no-inference floor -> beaten CI-separated. (4) LINEAR-OFFSET arm + its own twin -> the offset's lift is a shape artifact (offset-twin +0.029 << raw-twin +0.275) -> excludes 'the win is a word2vec-analogy trick' AND locates a negative. (5) HELD-OUT 50/50 splits x5 for every fitted component (the relation direction, the conditioning beta). (6) TYPE-selection shape twin (shuffled meaning, exemplar typer) -> 0.7353, isolating the small +0.050 semantic contribution. (7) end-to-end RECENCY floor 0.0 by construction (gold antecedent placed non-recently in S1) + shuffled twin 0.2886 as the real end-to-end floor."
-files_changed: "experiments/exp_bridging_selection_partof_v1.py (first PART instrument + the offset negative), experiments/exp_bridging_selection_v2.py (unified PART[WordNet+ConceptNet]+INSTRUMENT antecedent selection + meaning_foundation comparison arm), experiments/exp_bridging_type_selection_v1.py (3-way relation-TYPE selection, two-sided), experiments/exp_bridging_salience_conditioning_v1.py (the construction-integration conditioning lever vs the salience confound), experiments/exp_bridging_discourse_endtoend_v1.py (end-to-end over a parsed situation model + glass-box canonical trace), verification/test_bridging_inference.py (20/20 scaffold-free witness), data/bridge_relation_assets_v1/ (offline-built static typed-relation asset from ConceptNet 5.7: UsedFor/PartOf/MadeOf/HasA/ReceivesAction/Causes, admissible), notes/problems/bridging_inference_infer_the_unstated_link_between_adjacent_sentences/SOLVED.md. NO hdlab/ write (Q111); proposed wire below."
+files_changed: "experiments/exp_bridging_selection_partof_v1.py (first PART instrument + the offset negative), experiments/exp_bridging_selection_v2.py (unified PART[WordNet+ConceptNet]+INSTRUMENT antecedent selection + meaning_foundation comparison arm), experiments/exp_bridging_type_selection_v1.py (3-way relation-TYPE selection, two-sided), experiments/exp_bridging_salience_conditioning_v1.py (the construction-integration conditioning lever vs the salience confound), experiments/exp_bridging_discourse_endtoend_v1.py (end-to-end over a parsed situation model + glass-box canonical trace), experiments/exp_bridging_signal_loss_ladder_v1.py (the MEASURED signal-loss trace, stage by stage), experiments/exp_bridging_ppr_integration_v1.py (the brain-fidelity upgrade: the ACTUAL Kintsch spreading-activation integration, held-out), experiments/exp_bridging_graded_integration_v1.py (the optimization: Competition-Model multi-cue fusion + entropy-gated SELECTIVE bridging), verification/test_bridging_inference.py (28/28 scaffold-free witness), data/bridge_relation_assets_v1/ (offline-built static typed-relation asset from ConceptNet 5.7: UsedFor/PartOf/MadeOf/HasA/ReceivesAction/Causes, admissible), notes/problems/bridging_inference_infer_the_unstated_link_between_adjacent_sentences/SOLVED.md. NO hdlab/ write (Q111); proposed wire below."
 reverify: ".venv/Scripts/python.exe verification/test_bridging_inference.py"
 ---
 
@@ -108,12 +108,111 @@ offset (offset-twin +0.029 << raw-twin +0.275); typing is not distributional (+0
 end-to-end residual is extraction + salience + coref (traced item-by-item). Nothing was claimed that a control
 did not survive.
 
+## 4b. WHERE THE SIGNAL IS LOST -- traced stage by stage, MEASURED on one population (owner's question)
+A signal-loss ladder (exp_bridging_signal_loss_ladder_v1) holds the scorer FIXED (raw hub) and peels away one
+degradation at a time on the SAME PART pairs (K=4, chance 0.20, n=5075), so each drop is attributable. The
+result CORRECTS my first framing (which over-blamed the salience confound):
+
+| stage (what changes) | acc | loss attributed to this step |
+|---|---|---|
+| PERFECT reader (human ceiling) | 1.000 | -- |
+| CEIL: gold vs 4 RANDOM words (best case) | 0.495 | **-0.505 = the ESTIMATOR itself (+gold noise)** |
+| PLAUS: distractors are other plausible wholes | 0.448 | -0.047 = gold-ambiguity / relatedness resolution |
+| SAL: add 2 salient distractors (raw) | 0.441 | -0.007 = the salience confound (population-level: MINOR) |
+| SAL + conditioning (specificity discount) | 0.489 | +0.048 = the conditioning recovery |
+| end-to-end over a PARSED situation model | ~0.50 | extraction/construction (pronoun targets, generic-verb candidates) |
+| relation TYPE label | ~structural | +0.050 only from meaning (typing is not distributional) |
+
+**THE DOMINANT LOSS IS THE ESTIMATOR, not the confound.** Even distinguishing the true whole from 4 RANDOM
+unrelated words, the static hub relatedness gets only 0.495 (instrument 0.474) -- so ~half the signal a competent
+reader has is simply not in the static bag-cosine read (part of this residual is WordNet gold noise -- obscure
+meronyms like reserve->bench -- which I did not fully separate; MEAN_FND raises the ceiling to 0.580, so >=0.085
+of it is estimator-choice, not gold). The salience confound that the knife~john probe exposed is real on
+adversarial singletons but only -0.007 at the population level. Gold-ambiguity is -0.047. Extraction and typing
+are downstream. **So the highest-leverage place to recover signal is the relatedness ESTIMATOR + the INTEGRATION
+step -- which is exactly the least brain-faithful part of the pipeline (next section).**
+
+## 4c. ARE WE 100% BRAIN-FOUNDATIONAL? -- NO. Component-by-component audit (honest)
+| component | brain op | our impl | verdict |
+|---|---|---|---|
+| situation model (entities/events) | event-indexing (Zwaan); discourse referents | reader's extraction; I used raw NPs | PINNED op; DEVIATION: not coref-resolved referents -> pronoun targets lost |
+| CONSTRUCTION (propose closed set) | Kintsch: stated props + likely inferences | fixed inventory {PART,INSTR,CAUSAL} | PINNED idea; OUR-INVENTION inventory (graded/open in the brain) |
+| relatedness ESTIMATOR | ATL: graded, compositional, context-modulated settling (Lambon Ralph) | STATIC PPMI+SVD bag-of-words cosine | **BIGGEST DEVIATION** -- and 4b shows it is the biggest signal loss |
+| INTEGRATION (settle) | iterative spreading activation to a fixed point (Kintsch) | ONE-STEP salience discount (score - b*sal) | **LARGE DEVIATION** -- a shortcut, not the recurrent settling |
+| SELECTION | graded competition / softmax settling | hard argmax + abstain | minor deviation |
+| TYPING | schema/syntax/connective | not built (measured structural, not distributional) | GAP (a different organ) |
+
+**So: NO, not 100% brain-foundational -- and, decisively, the two biggest fidelity gaps (a static bag-cosine
+estimator; a one-step discount standing in for iterative integration) are EXACTLY where 4b says the signal is
+lost. The fidelity gap and the accuracy gap coincide.** That is the opposite of a benchmark artifact: it says the
+route to overcoming the wall is to make those two components brain-faithful -- which I then did (4d).
+
+## 4d. CLOSING THE GAP: the ACTUAL Kintsch integration recovers signal (the owner's "every component brain-foundational")
+I replaced the static estimator + one-step discount with the FAITHFUL operation: PERSONALIZED PAGERANK
+(iterative spreading activation to settling) over the WordNet++ relational graph, seeded by the target, reading
+the settled activation on each candidate (exp_bridging_ppr_integration_v1). Crucially the graph is built from
+ConceptNet + SyntagNet ONLY -- so the PART meronymy / ConceptNet PartOf / UsedFor gold edges are HELD OUT: the
+settling must recover the bridge from surrounding relational structure, not the direct edge (the parent
+discourse-fact SOLVED's held-out-edge test). Held-out, K=4, chance 0.20:
+
+| type | HUB (static, current) | PPR (spreading activation) | FUSE (graph + distributional) | PPR twin (random seed) |
+|---|---|---|---|---|
+| INSTRUMENT (n=4041) | 0.441 | **0.509 (+0.068 CI[+0.048,+0.088])** | **0.531 (+0.090 CI[+0.074,+0.106])** | 0.205 (collapses) |
+| PART (n=3045) | 0.449 | 0.419 (-0.030) | **0.485 (+0.036 CI[+0.019,+0.052])** | 0.204 (collapses) |
+
+**The more-brain-foundational estimator wins, held-out, on both types: the ATL as BOTH relational
+spreading-activation AND distributional (FUSE) beats the static bag-cosine (+0.036 PART, +0.090 INSTRUMENT), and
+the target-specific spread is load-bearing (random-seed PPR twin collapses to chance).** For INSTRUMENT the pure
+spreading-activation already beats the static read (+0.068); for PART the graph alone is weaker (meronymy is
+sparse in ConceptNet+SyntagNet co-occurrence) but the fusion still wins. This is the concrete demonstration that
+overcoming the wall = making the component brain-faithful, and it is the recommended estimator for the landing.
+
+## 4e. BRAIN-FOUNDATIONAL OPTIMIZATION OPPORTUNITIES (ranked by MEASURED leverage; the top ones prototyped)
+Every opportunity below is tied to a measured loss (4b) and a named fidelity gap (4c), not a wishlist.
+
+**PROTOTYPED + MEASURED (they deliver, held-out; exp_bridging_graded_integration_v1 + _ppr_integration_v1):**
+1. **Selective / abstaining bridging via the maintained-distribution ENTROPY (biggest win).** The brain does not
+   force a guess; it commits when the competition settles and defers when it does not (Levy 2008 entropy =
+   difficulty; Friston precision; the metacognitive abstain the brief asks for). Fusing the ATL cues through the
+   pinned Competition Model (hdlab.graded_competition) and ranking by 1-normalized-entropy: the CONFIDENT subset
+   is far more accurate than blanket -- top quartile 0.81, top half 0.66 (PART) / 0.70 (INSTRUMENT) vs ~0.52-0.54
+   blanket; selective@50 +0.139 / +0.158 CI-separated; SHUFFLED-confidence twin FLAT. **This turns the ~0.5
+   blanket into a high-precision committed subset + an honest abstain -- the single highest-value optimization,
+   and it reuses a proven organ.**
+2. **Multi-cue Competition-Model fusion (the ATL integrates cues, it does not pick one).** No single relatedness
+   channel is best on every type (mfnd on PART, spreading-activation PPR on INSTRUMENT). Additive-cue -> softmax
+   with held-out weights (the pinned FLMP/Bayesian posterior) beats the BEST single cue +0.062 (PART) / +0.048
+   (INSTRUMENT) CI-separated.
+3. **Faithful iterative INTEGRATION (spreading activation) instead of the one-step discount** (4d): FUSE beats the
+   static estimator +0.036 (PART) / +0.090 (INSTRUMENT) held-out.
+
+**NAMED, NOT YET BUILT (ranked by expected leverage against the ladder):**
+4. **Context-modulated / compositional relatedness (the biggest remaining loss -- the estimator, 4b).** The ATL
+   read must be gated by the situation-model context (IFG semantic control = MULTIPLICATIVE gain -- the audit's
+   C3 "additive where control is multiplicative"); compose the target with the discourse content
+   (composed_hub_predictor already does precision-weighted composition) rather than reading a fixed lexical
+   vector. This attacks the dominant -0.505 loss directly.
+5. **Sense-resolved relatedness.** meaning_foundation stores per-SENSE signatures and grounded_semantic_graph does
+   context WSD; resolve each entity/target to its context sense BEFORE computing relatedness (IFG disambiguation
+   -> ATL relatedness on the resolved concept), instead of lemma/MFS. Sharpens the estimator.
+6. **Coref-resolved referents as the candidate set (fixes a whole extraction failure mode).** Run selection over
+   sm.entities (coref-resolved) not raw NPs -> recovers the pronoun-target case (water/fire "It") that is 100%
+   lost today. Reuses the coref organ.
+7. **A structural relation-TYPING organ** (typing is not distributional, 2c): definite-NP + meronym-head -> PART;
+   instrument-near-event -> INSTRUMENT; connective/force -> CAUSAL -- completes propose-score-select where the
+   meaning store cannot.
+8. **Denser/grounded relational graph for PART** (PPR was weak on PART because meronymy is sparse in the
+   ConceptNet+SyntagNet co-occurrence graph): add the reader's learned edges / a grounded co-occurrence base.
+
 ## 5. Upstream brain-foundational component + downstream no-regress (the owner's standing push)
-- **UPSTREAM = the relatedness estimator itself.** The probe showed the raw ATL-hub read is salience-confounded;
-  the brain-foundational fix is the N400/predictive-coding CONDITIONING (relatedness beyond generic
-  expectation), which I built and measured (+0.048..+0.050 CI-sep, section 2b). I also compared estimators and
-  found the curated `meaning_foundation` (w2v sense signatures) is the best/most-robust source -- the upstream
-  asset to prefer. Both are brain-foundational (ATL graded relatedness; N400 precision) and glass-box.
+- **UPSTREAM = the relatedness estimator itself, and it is where BOTH the signal (4b) and the fidelity (4c) are
+  lost.** Three brain-foundational upgrades measured, all glass-box: (1) the N400/predictive-coding CONDITIONING
+  (relatedness beyond generic expectation) recovers +0.048..+0.050 CI-sep (2b); (2) the curated
+  `meaning_foundation` (w2v sense signatures) is a stronger source than the raw hub (2a); (3) THE big one -- the
+  FAITHFUL Kintsch INTEGRATION (iterative spreading activation / PPR over the relational graph) fused with the
+  distributional read beats the static estimator held-out (+0.036 PART / +0.090 INSTRUMENT, 4d). The recommended
+  landing estimator is the FUSE (ATL = relational settling AND distributional), not the raw static cosine -- that
+  is the maximally-brain-faithful, highest-signal read of the three.
 - **NO DOWNSTREAM REGRESSION -- by construction.** The meaning channel is currently LATENT (no live read()-time
   consumer), so there is nothing downstream of it to regress; the bridge is the FIRST consumer. The proposed
   wire is ADDITIVE: it READS `sm.entities`/`sm.events`/`sm.causal_links` and APPENDS a new `sm.bridges`
@@ -169,6 +268,11 @@ did not survive.
   adds +0.05 CI-sep. LOCATED NEGATIVES: relation-TYPE selection is only weakly semantic (+0.05 over a shape
   twin -- typing is lexical/structural, not distributional); a linear relation-offset is a shape artifact.
   PINNED refs added: Kintsch 1988; Lambon Ralph 2017 (ATL graded relatedness); Kuperberg & Jaeger 2016 (N400).
+  **INTEGRATION now BUILT faithfully (not just the one-step shortcut):** iterative spreading activation (PPR over
+  the relational graph, gold edges held out) fused with the distributional read BEATS the static estimator
+  held-out (+0.036 PART / +0.090 INSTRUMENT; random-seed twin collapses) -- so the Kintsch integration deviation
+  is now partly CLOSED, and the signal-loss trace (estimator dominates -0.505 >> salience -0.007) localizes the
+  remaining deviation to the relatedness estimator's static/non-compositional read.
 - **DISCOURSE / BRIDGING of the UNSTATED (Graesser) -- "thin/UNPINNED, IS coref in disguise" -> REFINED +
   MEASURED.** Elaborative bridging of the unstated is now measured for PART + INSTRUMENT: the ANTECEDENT read
   reuses the coref-style selection (confirming "coref in disguise" for the WHICH-element half) but the RELATION
@@ -202,9 +306,12 @@ did not survive.
   meaning relatedness reading `meaning_foundation` (the best source) -- this is the FIRST live read()-time
   meaning consumer, and it wires cleanly to the `reader_meaning_channel` stage. Emit `sm.bridges`
   (target, antecedent, type, score, abstain-if-low-margin). ADDITIVE -> byte-identical existing dimensions.
-- Land it with the N400/specificity CONDITIONING (not raw cosine) and an honest abstain; do NOT expect the
-  meaning store to TYPE the bridge (measured weak) -- take the type from the causal-bridge cells / a structural
-  typer. Measure the live-board comprehension consumer AFTER the meaning-read stage lands.
+- Score with the FUSE estimator (spreading-activation PPR over `grounded_semantic_graph` + the distributional
+  meaning read) and the N400/specificity CONDITIONING, NOT the raw static cosine -- 4c/4d show the static cosine
+  is BOTH the least brain-faithful component AND the biggest signal loss, and the faithful integration recovers
+  signal held-out. Add an honest abstain; do NOT expect the meaning store to TYPE the bridge (measured weak) --
+  take the type from the causal-bridge cells / a structural typer. Measure the live-board comprehension consumer
+  AFTER the meaning-read stage lands.
 
 ---
 

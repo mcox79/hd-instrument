@@ -5,8 +5,8 @@ bar: "PASS = a glass-box mentalizing inference -- a transparent, hand-auditable 
 result: "Glass-box forward chain believes(A,F,t) x wants(A) -> action (act off the BELIEVED state), driven by the reader's OWN extraction (NO LLM), on BigToM (Gandhi et al. 2023) forward items -- a MODERN, peer-reviewed ToM gold with matched TRUE/FALSE-belief conditions (278 items = 139 TB + 139 FB stories). BELIEF-prediction task: CHAIN 0.849 overall vs reality-only floor 0.500 (paired story-bootstrap +0.349 CI[+0.273,+0.421]); on the load-bearing FALSE-belief subset +0.871 CI[+0.813,+0.921] (floor is provably 0.000 there); both info-free twins LOSE CI-sep (percept-shuffle FB +0.374 CI[+0.281,+0.468], belief-shuffle FB +0.341 CI[+0.225,+0.450]). ACTION-prediction task (the belief x desire composition): CHAIN 0.655 overall vs floor 0.489 (+0.165 CI[+0.086,+0.248]); FB +0.432 CI[+0.295,+0.568]; twins LOSE. Positive control: with GOLD belief the composition is EXACT (belief 1.000) -> the residual gap is extraction, not the inference rule."
 floor: "REALITY-ONLY floor (the beliefless reader: act on the TRUE state, ignoring belief; strongest form = oracle reality value) = 0.500 overall, and PROVABLY 0.000 on the false-belief subset for BOTH the belief and action tasks (reality and stale are the two different candidates and the desire equals exactly one -> the reality reader is 0% on false belief). Also run: CHAIN_NOFIX (the CURRENT live substrate, belief never updates on the change) = 0.478 belief / 0.471 action (~chance) -- the CHAIN beats it +0.371/+0.183 CI-sep, so the upstream fix is the whole lever."
 controls: "(1) REALITY-ONLY floor (oracle true state) -- loses CI-sep, 0.000 on FB -> the belief representation is load-bearing. (2) INFO-FREE TWIN A = percept(observed)-bits SHUFFLED across items (belief updates at random): loses CI-sep on FB -> the percept->belief gate is load-bearing. (3) INFO-FREE TWIN B = believed-value binding SHUFFLED across items (derangement): loses CI-sep on FB -> excludes 'the chain works from a non-informative binding'. (4) CHAIN_NOFIX ablation = the current live substrate (no COS reality extractor): sits at chance and is a MIRROR of the reality floor (right on FB, wrong on TB) -> localizes the win to the upstream percept-gated change-of-state update. (5) POSITIVE CONTROL oracle-belief -> composition exact (1.000) and oracle-desire -> 0.849 (the action gap is desire extraction). (6) NO-REGRESS: the present-tense percept-gate extension is a strict superset of PAL's RULE-0 lexicon (PAL's 5 canonical self-test cases byte-identical; BigToM present-tense fixed 2/2); FANToM belief headline does not use PAL's epistemic gate -> unaffected; hdlab untouched. (7) LIVE-WIRE through SituationReader.read(): sm.wants + sm.believes are consumable off read(); the fixed chain's FB action (0.662) beats the live reality floor (0.245)."
-files_changed: "experiments/_tom_bigtom.py (BigToM loader + index-based value model); experiments/_tom_chain.py (the glass-box forward chain: initial-belief + COS/substitution reality extractor + present-tense percept gate + belief_at_T over the promoted belief_timeline + goal->fact desire binding + forward_action); experiments/_tom_present_tense_pal.py (the LANDABLE percept-gate fix as a PAL subclass + no-regress check); experiments/_diagnose_tom_bottleneck.py (the localization trace); experiments/exp_tom_chain_belief_goal_action_v1.py (the measurement: arms, paired story-bootstrap CIs by TB/FB, twins, oracle controls); experiments/exp_tom_chain_live_wire_v1.py (live-wire through SituationReader.read()); verification/test_tom_chain.py (scaffold-free witness, 7/7); data/corpora/bigtom/bigtom.csv (foundation import, offline); data/exp_tom_chain_belief_goal_action_v1/metrics.json; data/exp_tom_chain_live_wire_v1/metrics.json; notes/problems/chain_.../{research_forward_tom_inverse_planning_2026-09-06.md, SOLVED.md}. hdlab/ UNTOUCHED (proposed Q111 diff in section 6)."
-reverify: ".venv/Scripts/python.exe verification/test_tom_chain.py   # 7/7; reads landed metrics + recomputes the gold structure + the present-tense PAL parity from source (re-runs NO landed cell)"
+files_changed: "experiments/_tom_bigtom.py (BigToM loader + index-based value model); experiments/_tom_chain.py (the glass-box forward chain: initial-belief + COS/substitution reality extractor + present-tense percept gate + belief_at_T over the promoted belief_timeline + goal->fact desire binding + forward_action); experiments/_tom_present_tense_pal.py (the LANDABLE percept-gate fix as a PAL subclass + no-regress check); experiments/_tom_desire_meaning.py (the FAITHFUL naive-utility desire binding over the ATL meaning hub -- a LOCATED NEGATIVE, Phase-1-gated); experiments/_diagnose_tom_bottleneck.py (the localization trace); experiments/exp_tom_chain_belief_goal_action_v1.py (the measurement: arms, paired story-bootstrap CIs by TB/FB, twins, oracle controls); experiments/exp_tom_chain_live_wire_v1.py (live-wire through SituationReader.read()); verification/test_tom_chain.py (scaffold-free witness, 8/8); data/corpora/bigtom/bigtom.csv (foundation import, offline); experiments/exp_tom_inverse_attribution_v1.py (the bidirectional inverse-planning engine: attribute belief from an observed action); data/exp_tom_chain_belief_goal_action_v1/metrics.json; data/exp_tom_chain_live_wire_v1/metrics.json; data/exp_tom_desire_meaning_v1/metrics.json; data/exp_tom_inverse_attribution_v1/metrics.json; notes/problems/chain_.../{research_forward_tom_inverse_planning_2026-09-06.md, PROPOSED_HDLAB_LANDING.md, SOLVED.md}. hdlab/ UNTOUCHED (turnkey Q111 diff in PROPOSED_HDLAB_LANDING.md + section 6)."
+reverify: ".venv/Scripts/python.exe verification/test_tom_chain.py   # 9/9; reads landed metrics + recomputes the gold structure + present-tense PAL parity + the desire located-negative + the inverse-planning engine from source (re-runs NO landed cell)"
 ---
 
 # The reader now REASONS with mental states: believes(A,F,t) x wants(A) -> predicted (false-belief) action
@@ -105,14 +105,46 @@ untouched; the COS extractor lives only in `experiments/` (zero live effect). `b
 `goal_register` self-tests stay green (hdlab untouched). The proposed landing (section 6) still needs strategy's
 no-regress witness on the belief dimension's LitBank slice for the COS branch (a landing gate).
 
-## Section 4 -- performance vs a competent reader (the mechanism-diff)
-- **Composition**: EXACT (oracle-belief -> belief task 1.000). The inference rule is not the loss.
-- **Belief extraction**: 0.849 (FB 0.871). Residual = the ~6% b0 misses + rare COS frames the extractor doesn't
-  catch (0.94 change coverage) + a handful of indirect/inferential percepts ("sees the flood" -> infer the
-  valve opened; Sodian & Wimmer inference channel).
-- **Desire extraction** is the ACTION ceiling: oracle-desire -> action 0.849 == belief recovery, so the action
-  gap (0.655 vs 0.849) is entirely desire recovery. The LIVE `sm.wants` recovers the fine desired VALUE at only
-  0.353 -- the goal register stores goal HEADS, not the fact-value (the goal->fact value binding is the fix).
+## Section 4 -- performance vs a competent reader (the MEASURED signal-loss ladder)
+- **Composition**: EXACT (oracle-belief -> belief task 1.000). The inference rule is NOT the loss -- every point
+  of headroom is extraction.
+- **Belief extraction residual = 42/278 errors (0.151)**, decomposed (`_diagnose_tom_bottleneck` follow-on):
+  NO_B0 initial-belief not extracted 38% | value-normalize 33% | percept-cue absent/indirect 29%. No single
+  MECHANISM gap -- all extraction/lexicon (the belief-value channel + the inference channel for indirect percepts
+  + the meaning channel for open-value normalization).
+- **Desire is the ACTION ceiling and it is 100% goal->fact BINDING**: of the action errors that remain WHEN the
+  belief was already correct (59 items), 100% are DESIRE_WRONG_CANDIDATE (the binding picked the wrong candidate
+  value), 0% are coverage misses. Oracle-desire -> action 0.849 == belief recovery. The LIVE `sm.wants` recovers
+  the fine desired VALUE at only 0.353 (the goal register stores goal HEADS, not the fact-value). The FAITHFUL
+  upgrade is naive-utility-calculus utility-ranking (score which candidate value SERVES the goal) -- which needs
+  the meaning/world-knowledge channel (the project's Phase-1 bottleneck, and the goal register's own Tier-2
+  located negative). A valence/sentiment heuristic would clear more of the gap but is the CHEAP-not-right thing.
+
+## Section 4b -- IS IT 100% BRAIN-FOUNDATIONAL? (the deepening push: attempted the faithful desire mechanism)
+The INFERENCE is 100% brain-foundational and copied exactly (composition EXACT: oracle-belief -> 1.000). The one
+mechanism that was OUR-INVENTION -- the goal->fact DESIRE binding (the entire action ceiling: 100% of the
+belief-correct action errors are wrong-desired-candidate) -- I then built in its FAITHFUL form and tested it:
+**naive-utility-calculus (Jara-Ettinger et al. 2016): desire = argmax candidate of associative relatedness to the
+goal, read off the ATL distributed-semantic hub (the promoted `hdlab.meaning_foundation` sense signatures) --**
+the brain's actual mechanism, NOT a valence/sentiment hack. Result (`_tom_desire_meaning.py`, data/
+exp_tom_desire_meaning_v1): the relatedness is DIRECTIONALLY correct (irrigate->open, cappuccino->oat,
+fish->good-condition, bouquet->bloom) but **LOCATED NEGATIVE: it does NOT beat the extraction heuristic at any
+confident-override margin** (utility-primary 0.540, best hybrid 0.655 == heuristic 0.655, oracle ceiling 0.849)
+-- the meaning-channel margins are too thin. **So the faithful desire mechanism is the RIGHT one and it is gated
+by the project's Phase-1 MEANING CHANNEL, not by this chain.** Verdict: the ToM chain is 100% brain-foundational
+in its INFERENCE; the last ~15% is EXTRACTION, and its single biggest piece (desire utility) routes into Phase-1
+-- exactly where the goal register's own Tier-2 located negative and the project's north-star already point.
+Building anything else there (a valence heuristic) would LOWER fidelity, so it is deliberately not shipped.
+
+## Section 4c -- the BIDIRECTIONAL engine (one planner, forward AND inverse -- the architecture completion)
+A fully brain-foundational ToM computation is ONE generative planner used both ways (Baker/Saxe/Tenenbaum 2017):
+FORWARD to PREDICT an action, INVERSE to ATTRIBUTE belief from an observed action. The forward direction is the
+headline; `exp_tom_inverse_attribution_v1.py` proves the INVERSE with the SAME rule
+(`attribute_belief_from_action`: believed = desire if action==PROCEED else the other candidate). Observing what
+the agent DID recovers the (false) belief it implies: **INVERSE FB 0.741 vs reality-attributer floor 0.000
+(+0.741 CI[+0.669,+0.806]); shuffled-action twin LOSES (+0.288 CI[+0.180,+0.396]).** So the substrate does not
+just PREDICT behavior from mental states -- it EXPLAINS behavior BY attributing them (the intentional stance),
+from one engine. (The 0.741 is the desire-extraction ceiling, identical to the forward oracle-belief action.)
 
 ## Section 5 -- the located sub-negatives (each a control that excluded something)
 - **The current live substrate is at chance** (NOFIX 0.478/0.471) -- NOT because the registers are wrong but
