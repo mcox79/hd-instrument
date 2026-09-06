@@ -1,7 +1,7 @@
 ---
-priority: 8
-review:
-review_text:
+priority: 98
+review: EXCELLENT
+review_text: "EXCELLENT located negative (the brief's sanctioned full-PASS form), INTEGRATED_BY_STRATEGY 2026-09-06. Reverified verification/test_typed_selpref_ppattach_negative.py 10/10. REFUTES the brief + brain-corroborates it: object-class distributed selectional preference is anti-complementary (below chance where the parser errs) and CI-sep HURTS UAS; humans do not use it for PP-attachment. THE REFRAME: UAS is NOT the brain's objective (a better parser moved who-did-what ~+0.00) -- the brain builds a good-enough parse and PRECISION-WEIGHTS it (Friston). DEMONSTRATED: the parser emits a confidence nobody reads; precision-weighting the readout gives selective who-did-what 0.871 vs 0.780 (+0.0907 CI-sep), random twin flat, ADDITIVE. NO hdlab wire (located negative). Follow-on FILED = p4 precision_weight_the_head_driven_readers_on_calibrated_parse_confidence (strategy owns the wire) -- the reliability substrate for the reasoning phase. See BRAIN_FOUNDATIONAL_AUDIT.md 2b (2026-09-06)."
 ---
 
 # PROBLEM: the parser is the DOMINANT signal leak in the whole front-end (loses ~21% of heads even given perfect POS tags; its head-errors cost the labeler 3× what the tagger's do), and the ONE clear, tractable, brain-foundational fidelity gap is its REPRESENTATION: it scores attachments over SPARSE HASHED SYMBOLIC features where the brain (and neural SOTA) use DISTRIBUTED CONTEXTUAL representations. Feed the parser the substrate's OWN distributed meaning vectors (glass-box, NO LLM) to close the measured −0.083 accuracy gap — the biggest upstream accuracy multiplier.
