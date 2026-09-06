@@ -45,6 +45,18 @@ actives) -> land it. WITNESS: `test_modern_board.py` W10.
 FOLLOW-ON (precision): the `_agent_pp_governed` detector OVER-fires (flags some real subjects), so the
 pp-suspect-active slice is a wash — a precision fix to the PP-government scan is a small named follow-on.
 
+## 1c. EXISTENTIAL construction cue on the AGENT hybrid (MEASURED +0.015 full-set CI-sep, brain-foundational)
+The mechanism drill proved the agent competition is preverbal-DOMINATED (P(cm==floor)=0.84 on canonical), so it
+cannot recover position's failures except via a cue DECORRELATED from position; construction-specific rules
+(Goldberg 1995) are that class. Add the EXISTENTIAL override to the hybrid (reference impl
+`experiments/exp_board_agent_construction_v1.hybrid_construction_pick` / `_existential_subject`): when the clause
+has an expletive 'there' (PRON/ADV) pre-verbally, the notional subject is the first post-copular NOUN/PROPN, NOT
+'there'. MEASURED (UD-EWT train+test): existentials **0.186→0.6535 (+0.467 CI[+0.392,+0.546])**; FULL who-did-what
+AGENT set **0.855→0.870 (+0.015 CI[+0.012,+0.018])** — the first clear full-set margin over position — with EXACT
+zero canonical regress and the twin losing. Land it with the hybrid (§1). WITNESS: `test_modern_board.py` W12.
+DO NOT land the coordination first-conjunct override (tested NEUTRAL, n.s.). The general principle (more
+construction cues: cleft, tough-movement) is a filed follow-on.
+
 ## 2. Register-adaptive cue validities (FILED, not landed — do NOT hand-tune)
 The Competition Model predicts cue validities are register-specific; the modern re-sweep is the mechanism
 (word-order-dominant; DROP the tracked-set restriction on expository prose — it reverses sign). A dev-tuned modern
