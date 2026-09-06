@@ -48,7 +48,24 @@
 
 ---
 
-## STAGED QUEUE — owner-DONE, reverified first-hand, HELD for the top-down pass (board-movers, wire in tier order)
+## ✅ TOP-DOWN PASS EXECUTED (2026-09-05) — all 6 owner-DONE integrated; gate EMPTY
+
+Baseline agg **0.6592** → tiers landed in order, each measured + committed:
+- **Step 0 (ruler):** 3 arms folded into the board (`patient`/`goal_hierarchy`/`wic`) — realized the previously-INVISIBLE gains: **patient 0.8311 (+0.086 CI-sep)**, **goal_hierarchy 1.000 (+0.318)**, and put the **meaning channel on the board** (`wic` 0.6006→0.6639 = +0.0633). `9da95a0ea`.
+- **Parser tier:** double-parse CONSOLIDATION (single arc-eager parse) — board **0.6592 zero-regression**, ~5% faster. `612b0b579`.
+- **Goal tier:** advcl PURPOSE FILTER (goal-why lever) + CONTEXTUAL `_link_open_stack` edge (situation-relatedness). `5462341ec`.
+- **Coref tier (entity-KB):** landed default-OFF — LIVE PROBE decisive: runs live (merges entities 451→369) but `coref_acc` IDENTICAL off-vs-on (the board coref dim is PRONOUN; the win is COMMON-NOUN). Board-visibility located negative. `6b57a04e9`.
+- **Meaning tier:** board-visible via the wic arm; the reader-side `select_sense` channel is §2-deferred (islanded). `4cf4ac041`.
+- Earlier this session: causal mental-bridge `8cbb1b0ed`, arc-labeler fast path `dad8b7b11`.
+
+**REALIZED board wins:** patient +0.086, goal-hierarchy +0.318, goal-why (purpose-filter), a faster board-neutral parser, and the meaning channel now SCORED (wic). **Board-neutral/additive/latent (honestly):** parser (neutral), causal mental-bridge + goal contextual edge (additive, not board-scored), entity-KB (common-noun ≠ the pronoun coref dim), meaning-wire reader-side (islanded select_sense).
+
+## PASS FOLLOW-ONS (the deeper realization work surfaced by the pass — owner may dispatch)
+1. **The entity-KB TWO-PASS reader_coref + a COMMON-NOUN coref board arm** — the board `coref` dim scores only PRONOUN coref; add a common-noun-clustering arm (like the patient/wic arms) so the entity-KB's +0.0882 becomes visible, and supply the Step-3 reader-coref lever via a two-pass. Then flip `entity_kb_resolver` on if net-positive.
+2. **The read()-time MEANING STAGE (§2-gated)** — the reader has no read()-time meaning consumer; `grounded_semantic_graph.select_sense` is islanded. Build the stage that consumes the curated foundation (the wic arm proves the value). Gated by the §2 no-transformer owner decision for the fine half.
+3. **The event-TYPE downstream signals** — feed `hdlab/event_type` to the 3 named consumers: causation_typing (mental typing 3/16→16/16), affect_register (OCC inferred-emotion), goal-graph (motivational spine); + a mined MENTAL-causal gold + a marker-less goal gold (the mechanisms landed this session are additive, awaiting these instruments).
+
+## STAGED QUEUE — (all integrated 2026-09-05; retained for the record)
 
 Per the batch discipline: reverify + grade promptly (done), wire in the pass so board-movers are measured in the integrated reader + in tier order. None wired live yet (no `INTEGRATED_BY_STRATEGY`).
 
