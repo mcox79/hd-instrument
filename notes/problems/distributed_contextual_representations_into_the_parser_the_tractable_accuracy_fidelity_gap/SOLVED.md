@@ -2,10 +2,10 @@
 problem: distributed_contextual_representations_into_the_parser_the_tractable_accuracy_fidelity_gap
 status: REFUTED
 bar: "PASS = a whitened, syntactically-TYPED distributed selectional-preference feature in the arc-eager attachment score that lifts held-out UAS (and the meaning-sensitive obl/PP relations) CI-separated over the current parser, with a shuffled-meaning info-free twin LOSING, on BOTH modern AND 19c (register-general, no 19c regression), landed through the LIVE reader -- and NO-regress on any board dim, ideally a CI-separated lift on one (who-did-what/state/space). Report CI half-width + null p95; recompute floors per population. A rigorous located NEGATIVE -- a faithful distributed selectional feature cannot close the gap glass-box (with the exact reason, e.g. the class-typing coverage bound), is a FULL PASS."
-result: "LOCATED NEGATIVE (the brief calls this a FULL PASS), now BRAIN-CORROBORATED by a literature drill. A whitened, (head-POS,preposition)-TYPED, object-CONDITIONED distributed selectional-preference feature over the substrate's own meaning_foundation vectors, built faithfully (Pado/Resnik class-level + lemma back-off), scores PP-attachment 0.5743 on UD-EWT test (n=1104 PP cases) -- BELOW the arc-eager parser's own 0.7763, below locality 0.6540, below lexical 0.6603. It is ANTI-complementary: on the 247 cases the parser gets WRONG it scores 0.4737 (BELOW chance). Making it PREDICATE-SPECIFIC (the brain's actual Pado/Resnik cue: verb/noun-lemma -> semantic-cluster -> POS back-off) makes it WORSE, not better: 0.5580 standalone, 0.4170 on parser-wrong cases (the scrambled twin 0.4332 beats it there) -- predicate-conditioning memorizes typical attachments and misleads on the atypical hard cases. Wired as a confidence-gated PP re-attachment on the full parse (n=2077 sents, 2460 gold obl/nmod arcs) the distributed cue CI-separated HURTS UAS (0.8459 -> 0.8449, delta -0.0010 CI[-0.0017,-0.0005]). The ONLY complementary signal is lexical head<->preposition association (Hindle-Rooth, 0.6437 on parser-wrong cases; the brain's real cue per Hindle&Rooth 1993 + verb argument obligatoriness Britt 1994). Its ORACLE ceiling is high (override all parser-wrong with lexical -> 0.9139) -- the signal EXISTS -- but NO inference-available uncertainty gate captures it CI-separated: two-parser disagreement (arceager vs arc_parser) is a weak wrong-detector (AUC 0.599), arceager softmax-conf AUC 0.645; the best real gate gives +0.0082 CI[-0.0082,+0.0245] (includes 0) with its scrambled twin nearly matching. A literature drill confirms object-class selectional preference has NO positive human-isolation evidence for PP-attachment -- the refutation is brain-faithful, not a build failure. The blocker is the greedy parser's lack of a CALIBRATED attachment posterior (the upstream lever)."
+result: "LOCATED NEGATIVE (the brief calls this a FULL PASS), now BRAIN-CORROBORATED by a literature drill. A whitened, (head-POS,preposition)-TYPED, object-CONDITIONED distributed selectional-preference feature over the substrate's own meaning_foundation vectors, built faithfully (Pado/Resnik class-level + lemma back-off), scores PP-attachment 0.5743 on UD-EWT test (n=1104 PP cases) -- BELOW the arc-eager parser's own 0.7763, below locality 0.6540, below lexical 0.6603. It is ANTI-complementary: on the 247 cases the parser gets WRONG it scores 0.4737 (BELOW chance). Making it PREDICATE-SPECIFIC (the brain's actual Pado/Resnik cue: verb/noun-lemma -> semantic-cluster -> POS back-off) makes it WORSE, not better: 0.5580 standalone, 0.4170 on parser-wrong cases (the scrambled twin 0.4332 beats it there) -- predicate-conditioning memorizes typical attachments and misleads on the atypical hard cases. Wired as a confidence-gated PP re-attachment on the full parse (n=2077 sents, 2460 gold obl/nmod arcs) the distributed cue CI-separated HURTS UAS (0.8459 -> 0.8449, delta -0.0010 CI[-0.0017,-0.0005]). The ONLY complementary signal is lexical head<->preposition association (Hindle-Rooth, 0.6437 on parser-wrong cases; the brain's real cue per Hindle&Rooth 1993 + verb argument obligatoriness Britt 1994). Its ORACLE ceiling is high (override all parser-wrong with lexical -> 0.9139) -- the signal EXISTS -- but NO inference-available uncertainty gate captures it CI-separated: two-parser disagreement (arceager vs arc_parser) is a weak wrong-detector (AUC 0.599), arceager softmax-conf AUC 0.645; the best real gate gives +0.0082 CI[-0.0082,+0.0245] (includes 0) with its scrambled twin nearly matching. A literature drill confirms object-class selectional preference has NO positive human-isolation evidence for PP-attachment -- the refutation is brain-faithful, not a build failure. The blocker is the greedy parser's lack of a CALIBRATED attachment posterior (the upstream lever). PROTOTYPED that upstream lever the brain-faithful way -- a graded cue COMPETITION (lexical + obligatoriness + locality, calibrated logistic = Bates-MacWhinney cue validities): its confidence is BETTER-calibrated than the greedy parser (AUC 0.768 vs 0.645) and gating a parser override on it wins the isolated V/N decision +0.0308 CI[+0.0054,+0.0571] (twin loses). But this does NOT survive to full-parse UAS via post-hoc re-attachment (-0.0031 CI[-0.0047,-0.0015], though less than the twin -0.0052): post-hoc revision is the wrong architecture (Frazier vs MacDonald), and the V/N win is a decision-proxy that crude nearest-candidate re-attachment cannot translate token-for-token. The definitive lever is an INTRINSICALLY-graded-competition parser (its key component -- the calibrated confidence -- is now prototyped and works)."
 floor: "The arc-eager parser's OWN PP-attachment pick = 0.7763 (n=1104 UD-EWT test PP cases; majority 0.5870, locality 0.6540, lexical Hindle-Rooth 0.6603 all weaker). Full-parse floor: baseline arc-eager UAS 0.8459 / obl+nmod attachment 0.7533 (n=2077 UD-EWT test sents, 2460 gold obl/nmod arcs). Floors recomputed per population on the same items."
 controls: "SHUFFLED-MEANING twin (permute word->vector before whitening): distributed selpref collapses 0.5743 -> 0.5208 (signal is real but far below structure). SHUFFLED-ASSOCIATION twin (randomized preposition) for the lexical route: loses on the isolated decision (0.7699 vs 0.7862), the full parse (UAS -0.0004; obl -0.0028), and the disagreement gate (twin nearly matches the arm). COMPLEMENTARITY control (decisive): distributed selpref is BELOW chance on parser-wrong cases -- pooled 0.4737, PREDICATE-CONDITIONED 0.4170 -- a cue that cannot beat chance where the parser errs cannot correct it. UN-WHITENED control: 0.5634 (whitening does not rescue). PRECISION-GATE controls: arc-eager softmax-conf AUC(right vs wrong)=0.6452; two-parser (arceager vs arc_parser) DISAGREEMENT AUC=0.599 -- both too weak to localize the parser's errors; gating the meaning cue to low-conf 30% HURTS (-0.0254). ORACLE ceiling 0.9139 shows the headroom is real (the gate, not the signal, is the blocker). Distributed reattach on full UAS is CI-separated NEGATIVE (-0.0010 CI[-0.0017,-0.0005])."
-files_changed: "experiments/exp_typed_selpref_ppattach_v1.py (decisive isolated PP-attachment test: floors + whitened typed object-conditioned selpref + lexical HR + twins + complementarity + CIs), experiments/exp_selpref_ppattach_deepen_v1.py (PREDICATE-CONDITIONED selpref, L0 lemma / L1 semantic-cluster / L2 POS back-off -- the brain's actual Pado/Resnik cue; still anti-complementary), experiments/exp_lexical_pp_reattach_uas_v1.py (full-parse UAS + obl/nmod bar via confidence-gated PP re-attachment, sentence-level bootstrap), experiments/exp_ppattach_uncertainty_gate_v1.py (UPSTREAM lever: oracle ceiling + two-parser-disagreement / softmax-conf uncertainty gates), verification/test_typed_selpref_ppattach_negative.py (scaffold-free witness, 6 assertions W1-W6). NO hdlab/ written (Q111; and nothing to land -- a located negative proposes no wire)."
+files_changed: "experiments/exp_typed_selpref_ppattach_v1.py (decisive isolated PP-attachment test: floors + whitened typed object-conditioned selpref + lexical HR + twins + complementarity + CIs), experiments/exp_selpref_ppattach_deepen_v1.py (PREDICATE-CONDITIONED selpref, L0 lemma / L1 semantic-cluster / L2 POS back-off -- the brain's actual Pado/Resnik cue; still anti-complementary), experiments/exp_lexical_pp_reattach_uas_v1.py (full-parse UAS + obl/nmod bar via confidence-gated PP re-attachment, sentence-level bootstrap), experiments/exp_ppattach_uncertainty_gate_v1.py (UPSTREAM lever: oracle ceiling + two-parser-disagreement / softmax-conf uncertainty gates), experiments/exp_competition_model_ppattach_v1.py (the architecturally-faithful graded cue COMPETITION -- cue-validity logistic, calibration AUC, gated override), experiments/exp_competition_model_uas_v1.py (the CM full-parse UAS bar, q selected on held-out train), verification/test_typed_selpref_ppattach_negative.py (scaffold-free witness, 7 assertions W1-W7). NO hdlab/ written (Q111; and nothing to land -- a located negative proposes no wire)."
 reverify: ".venv/Scripts/python.exe verification/test_typed_selpref_ppattach_negative.py"
 ---
 
@@ -135,6 +135,34 @@ is NOT because the signal is absent -- it is because the parser cannot say WHERE
   foundational lever is therefore a graded, calibrated attachment competition (the parser analog of the board's
   "upgrade the pos tagger to a calibrated joint-decoded posterior") -- NOT a distributed meaning feature.
 
+## 3c. THE ARCHITECTURALLY-FAITHFUL TEST -- the Competition Model (exp_competition_model_ppattach / _uas_v1)
+
+Sections 2-3 tested cues by POST-HOC revision (override a committed parser pick). But the research's architecture
+verdict is that the brain integrates cues in ONE incremental precision-weighted competition (MacDonald 1994;
+Bates-MacWhinney; Tanenhaus/Trueswell), NOT structure-first-then-revise (Frazier). And the greedy hashed-
+perceptron parser is itself not brain-faithful. So I built the brain's architecture: a graded cue COMPETITION --
+a glass-box logistic over the brain's PINNED cues (locality; lexical head<->prep association; verb-argument
+OBLIGATORINESS Britt 1994; noun PP-affinity), each learned weight read as a Bates-MacWhinney CUE VALIDITY (fit on
+UD-EWT train; weights: hr_noun -2.43, hr_verb +1.62, noun_obl -1.50, verb_obl +0.91, dist -1.04 -- linguistically
+sensible). Two findings:
+
+- **The graded competition supplies a genuinely BETTER-CALIBRATED confidence than the greedy parser: AUC 0.768 vs
+  0.645** (does its |P(V)-0.5| track correctness?). This is a REAL brain-foundational improvement -- the precision
+  signal (Friston) the greedy parser lacks -- and it is the missing piece section 3b identified.
+- **Gating a parser override on that calibrated confidence WINS the isolated V/N decision**: 0.7763 -> 0.8071,
+  +0.0308 CI[+0.0054,+0.0571] (CI-separated), scrambled-lexical twin LOSES (0.7582, -0.0181). So in the RIGHT
+  architecture, the brain's cues (lexical + obligatoriness, integrated + calibrated) DO carry complementary signal.
+
+**But it does NOT clear the brief's full-parse bar.** Wired as a calibrated-confidence-gated PP re-attachment
+(q selected on held-out train, not test), on the full parse it HURTS: UAS 0.8459 -> 0.8428 (-0.0031
+CI[-0.0047,-0.0015]), obl/nmod 0.7533 -> 0.7268 (-0.0264) -- less than the scrambled twin (UAS -0.0052; obl
+-0.0451), so the signal is real, but still net-negative. WHY: the +0.0308 is a V/N-BINARY decision-proxy (gold by
+head POS); crude re-attachment to the NEAREST verb/noun mis-targets the specific gold token, and applied to the
+full (messier) PP-target set the calibrated cue is less reliable than on the clean 2-candidate subset. Post-hoc
+revision cannot harvest a competition win for token-level UAS. **The definitive lever is an INTRINSICALLY-graded
+parser** where this calibrated competition IS the head-selection mechanism (not a bolt-on) -- its key component,
+the calibrated confidence, is now prototyped and demonstrably beats the greedy parser's.
+
 ## 4. WHY IT FAILS -- the precise mechanistic cause (three converging reasons)
 
 1. **The object's distributed semantic CLASS is weakly discriminative for the V-vs-N choice.** In "ate pizza with
@@ -171,15 +199,17 @@ is NOT because the signal is absent -- it is because the parser cannot say WHERE
 
 Per the owner's push, each neighbour rated on capability / limitation / opportunity / brain-status:
 
-- **Parser per-attachment PRECISION (a calibrated posterior) -- THE highest-value follow-on.** *Capability:* the
-  parser emits a softmax conf + margin. *Limitation:* both barely track correctness (softmax-conf AUC 0.645;
-  two-parser disagreement AUC 0.599; margin median 42, uncalibrated) -- section 3b's measured blocker.
-  *Opportunity:* a graded-competition posterior over legal attachments (reuse the landed graded_competition
-  organ) would localize the parser's errors and let the complementary lexical/obligatoriness cue be
-  precision-weighted in to capture the 0.9139 oracle ceiling. *Brain-status:* greedy hard-commitment is NOT
-  brain-faithful (the brain does graded parallel constraint satisfaction -- MacDonald/Tanenhaus); precision-
-  weighting is PINNED (Friston) but un-built for the parser. Cross-refs the board's "upgrade the pos tagger to a
-  calibrated joint-decoded posterior" and the sibling's "per-arc confidence consumed by ZERO live consumers".
+- **Parser per-attachment PRECISION (a calibrated, intrinsically-graded parser) -- THE highest-value follow-on,
+  now PROTOTYPED.** *Capability:* the greedy parser emits a softmax conf + margin. *Limitation:* both barely
+  track correctness (softmax-conf AUC 0.645; two-parser disagreement AUC 0.599; margin median 42, uncalibrated)
+  -- section 3b's measured blocker. *Opportunity (prototyped, section 3c):* a graded cue COMPETITION supplies a
+  calibrated confidence AUC 0.768 (>> the greedy 0.645) and wins the isolated V/N decision +0.0308 CI-sep -- the
+  missing precision signal WORKS. The remaining build is to make that competition the parser's INTRINSIC head-
+  selection (not a post-hoc re-attachment, which cannot translate the win to token-level UAS). Reuse the landed
+  graded_competition organ. *Brain-status:* greedy hard-commitment is NOT brain-faithful (the brain does graded
+  parallel constraint satisfaction -- MacDonald/Tanenhaus); precision-weighting is PINNED (Friston). Cross-refs
+  the board's "upgrade the pos tagger to a calibrated joint-decoded posterior" and the sibling's "per-arc
+  confidence consumed by ZERO live consumers".
 - **Verb argument-structure OBLIGATORINESS / valency (Britt 1994) -- the brain's dominant PP cue, partly built.**
   *Capability:* verb subcategorization exists (verb_subcat; the sibling flagged a graded verb_subcat presence
   gate built-but-unwired, WIRING DEBT 2). *Limitation:* not wired as an attachment cue; lexical Hindle-Rooth
@@ -269,8 +299,10 @@ not a diff.
 - I did not test a trained contextual encoder (barred by the invariant) -- so I cannot say a glass-box CONTEXTUAL
   distributed representation is impossible, only that the STATIC selectional-preference slice the brief specifies
   fails, and that the contextual version is exactly what the no-trained-encoder invariant excludes.
-- I did not build the calibrated-posterior parser (section 5) -- I localized it as the blocker and the next
-  problem, but did not prove it would turn the isolated lexical +0.0100 into a net UAS gain.
+- I did not build the INTRINSICALLY-graded-competition parser. I PROTOTYPED its key component (a calibrated cue
+  competition; confidence AUC 0.768 > greedy 0.645; isolated V/N override +0.0308 CI-sep) and proved post-hoc
+  re-attachment cannot translate that to token-level UAS -- but I did not build the graded competition AS the
+  head-selection mechanism, which is the next-problem-sized build where the win would actually land.
 - I did not test the REFERENTIAL/discourse-context cue (Altmann&Steedman) or a dedicated OBLIGATORINESS cue
   (Britt 1994) as attachment features. The literature ranks obligatoriness + lexical as the dominant human cues
   and referential context as a conditional gate; I tested the lexical piece (complementary, un-harvestable
@@ -308,9 +340,10 @@ None. (The mechanism is refuted on the brief's own instrument with the info-free
 triangulated three independent ways; the 19c and contextual-encoder gaps are documented, not worked around.)
 
 ### NEXT STEPS (ordered)
-1. **File the calibrated per-attachment posterior/precision parser problem** (section 5) -- the real blocker, and
-   the "upstream component" this push localized. Without a reliable "unsure here" signal, no complementary cue
-   (lexical/obligatoriness/referential) can be precision-weighted in without spoiling correct structural picks.
+1. **File the INTRINSICALLY-graded-competition parser problem** (sections 3c, 5) -- the real lever, now with its
+   key component PROTOTYPED. The graded cue competition already supplies a calibrated confidence (AUC 0.768 >>
+   greedy 0.645) and wins the isolated V/N decision +0.0308 CI-sep; what remains is to make that competition the
+   parser's head-selection mechanism (not a post-hoc re-attachment, which cannot translate the win to UAS).
    Oracle ceiling 0.914 says the payoff is real. Highest-value parser-fidelity follow-on; reuses the landed
    graded_competition organ + the sibling's discarded per-arc confidence; the parser analog of the board's
    tagger-posterior problem.

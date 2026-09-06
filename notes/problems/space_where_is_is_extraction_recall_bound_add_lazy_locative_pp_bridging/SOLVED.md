@@ -2,10 +2,10 @@
 problem: space_where_is_is_extraction_recall_bound_add_lazy_locative_pp_bridging
 status: PARTIAL
 bar: "PASS = where_is on the MODERN space gold CI-separated over BOTH the current motion-lexicon chain AND the strongest stateless floor (last-mention), with the info-free shuffled-place twin LOSING, motion-event recall materially recovered, and NO precision regression — landed through the LIVE reader (not just the prototype harness). A rigorous located NEGATIVE (the brain's on-demand locative bridging, faithfully built, does not hold end-to-end, with the exact stage that eats the gain named) is a FULL PASS. Report the recall + where_is deltas with CIs + the twin."
-result: "where_is exact-node, GP._score-style, paired bootstrap. (1) BRIEF REFUTED: the lazy locative-PP bridge lifts motion-event extraction recall 0.444->0.889 but moves end where_is only +0.064 (modern, n=47, item CI [-0.021,+0.149], NOT CI-separated over the current chain). (2) REAL LEVER = NAMED-GROUND BINDING (a brain-foundational Ground extractor: verb-frame Goal gate + Figure-Ground compound-head + partitive + functional-locus typing): where_is MODERN 0.319->0.468 (+0.149, n=47) and REAL 19c LitBank 0.244->0.320 (+0.076, n=606, 24 timelines); beats the last-mention floor CI-separated on both; the shuffled-ground twin LOSES CI-separated on both (modern 0.468 vs 0.213; 19c 0.320 vs 0.213); precision IMPROVES on both (modern 0.571->0.696; 19c 0.163->0.215); through the LIVE SituationReader.read() stock 0.277->wired 0.447 (+0.170, 9 named grounds recovered). Gain over the CURRENT chain: item CI touches zero (modern [+0.000,+0.298]; 19c timeline [-0.034,+0.193] but 19c item-level separated) -> NOT cleared at the conservative unit. (3) UPSTREAM localized: a perfect ground node on already-fired events is worth +0.107 where_is (0.468->0.575), MORE than the downstream binder -- the shared role router's Ground selection is the biggest single lever; ground-extraction accuracy 0.692->0.731 with the fixes."
+result: "where_is exact-node, GP._score-style, paired bootstrap. (1) BRIEF REFUTED: the lazy locative-PP bridge lifts motion-event extraction recall 0.444->0.889 but moves end where_is only +0.064 (modern, n=47, item CI [-0.021,+0.149], NOT CI-separated over the current chain). (2) REAL LEVER = NAMED-GROUND BINDING (a brain-foundational Ground extractor: verb-frame Goal gate + Figure-Ground compound-head + closed-class partitive resolution + GRADED ConceptNet-AtLocation functional-locus typing -- no hand list): where_is MODERN 0.319->0.468 (+0.149, n=47) and REAL 19c LitBank 0.244->0.312 (+0.068, n=606, 24 timelines); beats the last-mention floor CI-separated on both; the shuffled-ground twin LOSES CI-separated on both (modern 0.468 vs 0.170; 19c 0.312 vs 0.147); precision IMPROVES on both (modern 0.571->0.702; 19c 0.163->0.209); through the LIVE SituationReader.read() stock 0.277->wired 0.447 (+0.170, 10 named grounds recovered). Gain over the CURRENT chain: item CI touches zero (modern [+0.000,+0.277]; 19c timeline not separated but 19c item-level separated) -> NOT cleared at the conservative unit. (3) UPSTREAM localized: a perfect ground node on already-fired events is worth +0.149 where_is (0.468->0.617), as much as the downstream binder -- the shared role router's Ground selection is the biggest single lever; ground-extraction accuracy 0.692->0.731 with the fixes."
 floor: "last-mention (strongest stateless): 0.1489 modern (n=47) / 0.0132 19c (n=606). Named-ground binding beats it CI-separated on both. Perfect-extraction CEILING (gold events folded) = 0.7872 modern -- the register/readout headroom the extraction front-end must reach."
 controls: "shuffled-ground info-free twin (same firing rate, ground nodes permuted) LOSES CI-separated on both corpora (the ground CONTENT is load-bearing). Perfect-extraction ceiling (0.787) isolates the register/readout as not-the-bottleneck. Precision guardrail: motion-event precision IMPROVES on both (no gain bought with false firing). ADDITIVE-SAFETY (no other consumer regresses): the who-did-what events are BYTE-IDENTICAL with vs without the wire -- extract_events_in_substrate is called ONLY by _read_space (verified). Can-fail negatives: (a) the AGGRESSIVE binder (locative/stative PPs + protagonist fallback) REGRESSES on real 19c prose (-0.05..-0.08) -> only the high-precision motion-goal subset is robust; (b) ANTICIPATORY Goal binding (Altmann-Kamide) over-fires and HURTS both corpora (modern -0.021, 19c -0.059) -> agrees with Ferretti 2001 (verbs do not prime Locations as they prime Agents)."
-files_changed: "experiments/exp_space_recall_e2e_ci_v1.py, experiments/exp_space_named_ground_binding_v1.py, experiments/exp_space_ground_binding_litbank_v1.py, experiments/exp_space_ground_binding_live_wire_v1.py, experiments/exp_route_ground_v2.py, experiments/_diagnose_where_is_errors.py, experiments/_localize_upstream_ground_lever.py, verification/test_space_ground_binding.py, notes/research_spatial_ground_role_assignment_2026-09-05.md (NO hdlab/ written)"
+files_changed: "experiments/exp_space_recall_e2e_ci_v1.py, experiments/exp_space_named_ground_binding_v1.py, experiments/exp_space_ground_binding_litbank_v1.py, experiments/exp_space_ground_binding_live_wire_v1.py, experiments/exp_route_ground_v2.py, experiments/_diagnose_where_is_errors.py, experiments/_localize_upstream_ground_lever.py, experiments/_diagnose_residual_firing.py, verification/test_space_ground_binding.py, notes/research_spatial_ground_role_assignment_2026-09-05.md (NO hdlab/ written)"
 reverify: ".venv/Scripts/python.exe verification/test_space_ground_binding.py"
 ---
 
@@ -43,12 +43,21 @@ argument-structure frame; a manner-of-motion verb is a **single-argument predica
 argument, the path PP an adjunct — no theme to usurp the goal); a bare to/into PP is a spatial Goal only when the
 verb's frame predicts a Goal slot (Altmann & Kamide 1999).
 
-**The Ground extractor I built** (each choice research-backed): a verb-frame Goal gate (bind a goal only on a
-genuine motion verb — the conservative subset); compound-noun **HEAD** selection ("meeting room"->room); a
-**partitive** resolver ("the back **of** the hall"->hall); a curated **functional-locus** typer (desk/bed/seat/
-plane/car/gate/ward — reference objects a person occupies that the WordNet location taxonomy misses); and dropping
-the benefactive `for` from the spatial prepositions ("waited **for** the boarding call" is not a destination). It
-binds the named Ground to the **mover directly**, sidestepping the role router's `goal_belongs_to` mislabel.
+**The Ground extractor I built** (each choice research-backed, each a brain-foundational SHAPE): a verb-frame Goal
+gate (bind a goal only on a genuine, VerbNet-classed motion verb — the conservative subset); compound-noun **HEAD**
+selection ("meeting room"->room); a closed-class **partitive** resolver ("the back **of** the hall"->hall — the
+axial/partitive terms are a small closed grammatical class, Landau & Jackendoff); **GRADED functional-locus typing
+from SEMANTIC MEMORY** (ConceptNet **AtLocation**: a noun is an occupiable locus iff things are frequently found
+"at" it — desk=216/bed=104/plane=46/car=72 AtLocation edges, while non-loci and incidental 19c objects score ~0:
+carriage=0/cart=0/laugh=0); and dropping the benefactive `for` from the spatial prepositions. It binds the named
+Ground to the **mover directly**, sidestepping the role router's `goal_belongs_to` mislabel.
+
+**Why AtLocation and not a list or a hard taxonomy (a brain-foundational fidelity finding).** I first used a
+curated functional-locus LIST — but a curated list is the wrong SHAPE (CLAUDE.md). Replacing it with a hard WordNet
+furniture/vehicle **hyponymy** test (semantic memory, right shape) REGRESSED on real 19c prose (ARM 0.320->0.262):
+a hard taxonomy over-generates, typing incidental "carriage"/"cart" as loci. The brain's functional-locus knowledge
+is **graded**, not hard membership — so I use the graded ConceptNet AtLocation frequency, which recovers the
+curated-list result (modern 0.468, precision 0.702) at STRONGER twin separation and is fully brain-foundational.
 
 **The upstream localization (modern gold, the ladder the owner asked for):**
 
@@ -137,6 +146,29 @@ Because coref/precision improve and no other dimension changes, recommend landin
   regression shows binding to a wrong mover costs more than it buys on real (non-gold) coref — wire it before any
   aggressive binding.
 
+## 9. Answering the two gate questions directly: brain-foundational status + are all walls understood?
+**Are we 100% brain-foundational?** Now yes, in shape. Audited each component: verb-frame Goal gate = VerbNet
+event-class (brain-foundational); Figure-Ground compound-head = constituency; partitive/prepositions = closed
+grammatical classes the brain stores as finite lexicons (Landau & Jackendoff axial terms); **functional-locus
+typing = GRADED ConceptNet AtLocation semantic memory** (was a curated list — the one wrong-shape piece, now fixed;
+the hard-taxonomy alternative over-generates, so graded is the faithful choice). Residual honesty: two small verb
+recall-backstops (`_MANNER_MOTION`, `_STRONG_DEST`) supplement the VerbNet motion/destination classes — the same
+"curated backstop over a VerbNet class" pattern the shipped router already uses for SPEECH_VERBS; defensible, not
+purely computed.
+
+**Do we understand ALL the walls?** Now yes — I stopped asserting and MEASURED the residual (`_diagnose_residual_
+firing.py`). After a perfect ground node (0.617) the gap to the ceiling (0.787) decomposes as: **50% register
+REPRESENTATION** (start-states + `<away>`/`<scene>` gold the readout can't score as a named place — a
+representation limit, not extraction); **19% self-motion mis-bind** ("headed into the locker room" — the
+`goal_belongs_to` mislabel; route_v2's valency gate is the brain-foundational fix, though my mover-direct binding
+already sidesteps it for space); **19% discourse-level Ground** ("watched him board, the plane was already late" —
+the Ground is the subject of a SEPARATE clause, not an argument of the motion verb; this is the anticipatory case,
+and it is a genuine hard wall — my eager version over-fires AND the neuroscience says the brain anticipates
+Locations weakly, Ferretti 2001, so it may be a real human-level limit); **12% rare-facility typing** ("radiology"
+— outside both WordNet and ConceptNet). My earlier "the residual is raw parser attachment" was WRONG; parser
+mis-attachment is a small part. The one wall I have NOT closed and cannot with the current corpus is statistical
+POWER (n=47 modern / 24 timelines) to CI-separate a +0.15 effect over the already-decent current chain.
+
 ## KEY REALIZATIONS
 - **The diagnosis that names a metric is not the diagnosis that moves it.** "Extraction recall 0.44" was a
   change-point DETECTION number; where_is is a node-at-query-time number. The ceiling control (perfect events ->
@@ -150,6 +182,13 @@ Because coref/precision improve and no other dimension changes, recommend landin
 - **The neuroscience predicted my located negative.** Anticipatory Goal binding failed empirically AND the
   literature says the brain does not anticipate Locations the way it anticipates Agents — the mechanism and the
   measurement agreed, which is the strongest kind of negative.
+- **"Brain-foundational SHAPE" is not "any semantic-memory lookup" — it is the GRADED one.** A curated locus list,
+  a hard WordNet hyponymy test, and a graded ConceptNet AtLocation frequency are three shapes for the SAME typing
+  job; only the graded one both generalizes (recovers the list's accuracy) and does not over-fire on unfamiliar
+  vocabulary. The hard taxonomy regressing on 19c is what proved semantic-memory typicality is graded.
+- **Stop asserting a wall; measure it.** I wrote "the residual is parser attachment" and it was wrong — the
+  decomposition showed it is 50% representation + 19% discourse-Ground + 19% self-motion label + 12% rare typing.
+  Naming a wall without decomposing it is how a mechanism gap gets mis-attributed.
 
 ## AUDIT UPDATE (for `BRAIN_FOUNDATIONAL_AUDIT.md`)
 - SPACE extraction front-end (`_space_reader` / `route_predicate_arguments`): correct the verdict — **the where_is

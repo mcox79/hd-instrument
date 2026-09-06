@@ -33,10 +33,20 @@ Role assignment is graded, parallel **cue competition** weighted by each cue's *
 (Bates & MacWhinney Competition Model; McClelland 2013: additive-activation → softmax *is* the Bayesian
 posterior). The relevant cues and their brain status:
 - **word order** — HIGH validity on canonical English (~96%), ~0 on passive. PINNED. (In the competition.)
-- **case / voice morphology** — "by" morphologically marks the *demoted* passive agent; be/get + participle
-  marks the construction. In the Competition Model, **case marking and voice are TOP-validity cues**, and
-  they *override* word order exactly on the marked (non-canonical) constructions. PINNED. **This is the cue
-  the substrate under-implements** — the fix.
+- **case / voice morphology** — "by" morphologically marks the *demoted* passive agent (Bruening 2013: the
+  by-phrase spells out the external argument); be/get + participle marks the construction. In the Competition
+  Model (MacWhinney, Bates & Kliegl 1984) **case/adposition marking is a top-validity cue**, and in the eADM
+  (Bornkessel-Schlesewsky & Schlesewsky 2006) case is a fast actor-PROMINENCE feature. It out-weighs word order
+  on the marked (non-canonical) construction. PINNED **at the architectural level** (HYPOTHESIS at the specific
+  English-"by" letter — the cue-validity studies are on case-inflection languages; English "by" is a
+  well-motivated extension by analogy). **This is the cue the substrate under-implements** — the fix. NOTE on graded
+  vs boolean: the brain's version is PROBABILISTIC, not a hard override (Ferreira 2003: comprehenders sometimes
+  adopt the plausible reading even against a clean by-phrase). I TESTED a graded voice-CONFIDENCE weight
+  (down-weighting no-aux reduced-relative passives to 0.6): it is slightly WORSE (0.6333 vs 0.6889, −0.056
+  CI-sep) because a by-PP is reliable REGARDLESS of aux ("the letter written by the clerk" is trustworthy
+  without a "was"). So the right form is the BOOLEAN participle+by-PP gate PLUS the additive-softmax competition
+  — the softmax is what provides the probabilistic, outvotable behavior (byhead weight 10 can be outvoted by
+  the summed other cues), NOT a graded gate. This is empirically settled, not an unfinished approximation.
 - **animacy** — a coarse selectional/thematic-fit cue, real but subordinate. PINNED. (In the competition,
   weight 2.)
 - **selectional fit (grounded meaning)** — verb-specific thematic-fit expectations (McRae/Ferretti; N400),
@@ -65,10 +75,19 @@ twin 0.5174 — **it does not beat, and does not separate from, its own info-fre
 - On **inanimate-agent** clauses (n=109) the agents are expository causers ("formed **by a natural process**",
   "scratched **by topaz**", "pushed **by the shore**"); no agent-vs-patient prototype (or animacy) can carry
   role there — 0.385 baseline, grounded 0.367. The reliable signal is the **by-morphology**, not semantics.
-- Even on the **by-LESS residual** (n=140), grounded adds nothing (−0.007). So the negative is comprehensive.
-This converges with `grounded_role_assignment_via_verb_keyed_thematic_fit` (an independent 8-fit-vector-method
-study): the noun-side role signal is near a modest ceiling regardless of representation, and structure+animacy
-is the baseline to beat. Whitening — the brief's named upstream lever — is real but does NOT rescue it here.
+- On the **genuine by-LESS agent-post residual** (n=26 — where no morphological marker exists, so fit is
+*theoretically* expected to matter most), grounded gives a **directional but NOT CI-separated** nudge: +0.0385
+CI[0.000,+0.115] (lower bound exactly 0). This is precisely the noisy-channel prediction (Gibson, Bergen &
+Piantadosi 2013, PNAS): fit's relative value is higher where the marker is absent — but its absolute magnitude
+is too small (and the residual too rare + noisy) to clear the bar. So the negative is honest and
+literature-consistent, not a flat null. This converges with `grounded_role_assignment_via_verb_keyed_thematic_fit`
+(an independent 8-fit-vector-method study): the noun-side role signal is near a modest ceiling regardless of
+representation, and structure+animacy is the baseline to beat. Whitening — the brief's named upstream lever —
+is real but does NOT rescue it here.
+
+*Honest scope on the animacy claim:* "the competition's animacy cue already captures the animate-agent signal"
+is a DATA observation here (animate-agent baseline 0.70), NOT an established general fact — the literature does
+not show animacy captures "most" of thematic fit, and I do not claim it does.
 
 **(B) The by-morphology cue solves the real problem** (`exp_noncanonical_agent_bymorph_v1.py` §B). `byhead`:
 on a passive-agent construction, give strong AGENT support to any candidate governed by "by" through its NP.
@@ -92,6 +111,28 @@ voice signal to know it is looking at a passive agent (not a locative "by the ri
 The **participle + by-PP** detector (the exact V-en + by-NP morphological signature) fires on 62/90 real
 passives with only **14/845** canonical false-fires — higher recall AND ~8× higher precision. This is the
 brain-foundational voice cue, and it is the upstream component that sets byhead's coverage ceiling.
+
+## THE WALL, FULLY DECOMPOSED (do we understand where the residual lives — yes)
+
+Decomposing the non-canonical AGENT population (`exp_noncanonical_agent_bymorph_v1.py` error analysis; clean
+agent-post slice n=90, and full non-canonical n=201) resolves every remaining error into one of three buckets,
+each with a known cause and the RIGHT organ:
+
+| bucket | share | byhead acc | who owns it |
+|---|---|---|---|
+| **by-MARKED non-canonical** (agent morphologically present) | ~30% of the noisy slice; **64/90 of the clean slice** | **0.86** | **byhead — SOLVED** |
+| **by-LESS, genuine** (fronting/cleft/locative-inversion, agent present, no marker) | 26/90 clean | ~0.27 | grounded fit *directionally* helps (+0.04) but not CI-sep; **rare + a located negative** |
+| **AGENTLESS passive** (no clause-internal agent; ~80% of real passives, Quirk 1985; Huddleston & Pullum 2002) | the majority of real passives | n/a | **NOT this cue** — a DISCOURSE / COREF / generic-agent problem (a different organ) |
+
+Two honest facts fall out. **(1)** byhead's scope is the by-MARKED subset — exactly the cases where the agent is
+morphologically RECOVERABLE from the clause. That is the correct scope: the agentless majority has no
+clause-internal agent to assign and is owned by coref/discourse, not a role cue. **(2)** The QA-SRL gold's
+`voice=='passive'` label is NOISY — a large fraction of the "by-less non-canonical" rows are actually active
+clauses ("We went to shoot", "A pollinator carries it", "reduction exceeded levels"), which the reader's
+`is_passive_clause` detector CORRECTLY rejects and where word-order already wins. So the apparent "68% by-less
+wall" is mostly mislabeled actives + agentless passives, not a tractable role-cue residual we are failing to
+cross. The genuine by-less residual (fronting/clefts) is small, and grounded fit's non-separated +0.04 there is
+the honest ceiling.
 
 ## WHAT I DID NOT ESTABLISH (and would withdraw first)
 
@@ -199,7 +240,11 @@ name the refutation, PARTIAL-with-redirect is defensible — but a real fix ship
    AGENT-arm validation (measure on the live reader, not in isolation — the fit-gate line's phase-gate).
 2. **Evaluate the participle+by-PP detector as a shared voice cue** — re-measure the PATIENT route before
    adopting it there (downstream-consumer check).
-3. Consider a **graded** voice cue (confidence-weighted) feeding the competition rather than a boolean gate —
-   the natural next fidelity step, and it composes with the graded_competition entropy currency.
+3. A **graded** voice-confidence weight was TESTED and is slightly worse (−0.056 CI-sep) — do NOT pursue it;
+   the boolean participle+by-PP gate + the softmax is the settled form. A worthwhile MINOR refinement: the
+   by-NP HEAD selection on long/repeated-noun by-phrases (the 9/61 by-marked residual errors are long by-NPs
+   like "by the poles of the permanent magnets" and repeated-noun clauses).
 4. Do NOT invest in a grounded role-fit vector — located negative here and in the fit-gate line; the noun-side
    signal is near a modest ceiling and structure+animacy already captures it.
+5. The AGENTLESS-passive majority (~80% of real passives, no clause-internal agent) is a DISCOURSE/COREF
+   problem, not a role-cue one — route who-did-what on those to the coref/entity organs, not here.
