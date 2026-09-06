@@ -165,20 +165,42 @@ was caused by flooding the pronoun pool with FEATURE-BLANK fresh-singleton NP re
 and never adds blank distractors to the pool. The live-LitBank consumer re-validation is the strategy session's at
 integration (I am scope-barred from the live reader); the no-regression evidence here is on modern gold.
 
-## PROPOSED hdlab WIRE (Q111 — strategy lands it; do NOT land from here)
-1. **Re-key the pronoun-anaphora overlay entity to the unified referent.** In `situation_reader.py`, where the pronoun
-   path builds `state_of_mind` overlay entities keyed by `EntityState.head` (surface head string), maintain ONE referent
-   per discourse entity that accumulates (time, role) history + gender + number across name+common+pronoun mentions, and
-   resolve pronouns by ACT-R activation (`hdlab.salience_binder`) over these unified referents with recall-safe
-   gender/number agreement. Names merge via `EntityAliaser` ∪ blind-exact-surface (no-regress); common nouns by
-   head-lemma + recency (Ariel). This is the "run graded retrieval over the resolver stream" the organ already queues,
-   with the referent unified.
-2. **Guardrails (measured):** keep event-centrality OFF (prior net-negative); do NOT apply the salience cue to nominal
-   resolution (Ariel — hurts names/commons); the name aliaser is register-gated (helps 19c, neutral modern) — keep the
-   blind-surface union so names never regress; the entity-KB hard-link benefit needs the P2 Competition-Model upstream
-   to be fully realized (positional roles cost −0.084).
-3. **DO NOT** wire gender propagation, recall-safe-only agreement, or the aliaser-alone name path as improvements — they
-   are register/consumer-specific.
+## PROPOSED hdlab WIRE — apply-ready, OPTIMIZED (Q111 — STRATEGY LANDS IT; solver is scope-barred from hdlab/)
+> I cannot land this (board Q111 — the strategy session is the sole writer of the live substrate). This is the exact,
+> apply-ready change. **Reference implementation = `experiments/exp_unified_referent_gum_v1.py::Resolver`** (the whole
+> mechanism, byte-for-byte); the diff below maps it onto the two live integration points I verified on disk.
+
+**THE ROOT to change (verified on disk):** `hdlab/state_of_mind.py::WorkingOverlay.observe` keys entities by
+`head.lower()` (L302, `self._entities[head]` L311) — the SURFACE HEAD STRING — so "Elizabeth"/"Miss Bennet"/"Bennet"
+fragment into separate `EntityState`s and pronoun resolution in `hdlab/situation_reader.py::_read_entities` (L1280,
+`EventCentralityReader.resolve_stream`) picks among fragments.
+
+**THE WIRE (one unified referent per entity; identical scorer, unified representation):**
+1. **Re-key `WorkingOverlay._entities` by a CANONICAL referent id, not the surface head.** On each nominal `observe`,
+   resolve the canonical id: NAME → `hdlab.coref.EntityAliaser.assign(span, gender)` ∪ blind exact-surface fallback
+   (dominates both; no-regress); COMMON → head-lemma, PLUS the glass-box **is-a bridge** for common→named-entity
+   (head-in-name string containment + apposition/copula, `extract_isa_edges`) — this is the adopted optimization,
+   +0.0074 CI-sep. Every mention (name/common/pronoun) UPDATES the ONE `EntityState`: append `(time, role)` to its
+   history, set gender/number if newly known (file-change).
+2. **Resolve pronouns by ACT-R base-level activation** (`hdlab.salience_binder.actr_activation`, decay d=2.0) over the
+   unified referents, filtered by RECALL-SAFE gender+number agreement (unknown never excludes). HARD-commit the pick
+   (see guardrails). Keep event-centrality OFF (`query_memory=False`) — measured net-negative.
+3. **Config (PINNED / swept):** decay d=2.0 (near-optimal for the pick; d=1.5 is a kb-only refinement that trades
+   −0.02 on the pick — do NOT adopt globally). No hard working-memory bound (the ACT-R decay IS the graded WM limit —
+   a k=4 slot is redundant, measured). Parallelism only as a low-weight tie-breaker (marginal).
+
+**GUARDRAILS — every one MEASURED here, do NOT wire (they regress or are redundant):**
+- ❌ graded Nref write AND ❌ confidence-gated writeback — both net-negative (soft-hold loses to hard-commit; low-margin
+  picks still carry signal, "attractors settle").
+- ❌ hard working-memory bound — redundant with the ACT-R decay (ACT-R pick is in the recency-top-4 99.9%).
+- ❌ animacy φ-feature — redundant with English gender.
+- ❌ the salience cue on NOMINAL resolution — Ariel: names resolve by identity, commons by recency; salience hurts them.
+- ❌ gender propagation / recall-safe-only agreement / aliaser-alone name path — register/consumer-specific negatives.
+- ⚠️ **DEPENDENCY:** the entity-KB hard-link benefit is only fully realized with the **P2 Competition-Model role
+  assigner** (positional roles cost −0.084) — land P2 alongside; its better roles feed this referent's ACT-R salience.
+
+**Validated end state (GUM modern TEST):** pronoun pick +0.106 CI-sep, entity-KB hard-link +0.072 CI-sep, twin loses,
+named coref no-regress; deployable stack is glass-box, no gold at inference, no LLM.
 
 ## KEY REALIZATIONS (the enabling moves)
 - **"Feed the SAME ACT-R binder unified vs fragmented histories" isolates the lever cleanly** — the contrast is purely

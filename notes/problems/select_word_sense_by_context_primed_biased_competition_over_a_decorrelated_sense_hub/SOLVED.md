@@ -175,11 +175,14 @@ readout does):
 3. **Top-down prediction (Federmeier & Kutas 1999; predictive coding).** The situation model PRE-ACTIVATES the
    fitting sense before/as the word arrives; reordered access + semantic control (both LANDED) then let the predicted
    subordinate sense beat the frequency-dominant one.
-4. **Coarser granularity than WordNet (Rodd 2002).** The brain holds polysemy as a graded shared core and does not
-   hair-split. MEASURED (`exp_sense_selection_granularity_probe_v1`, n=50,386): the SAME incumbent picks score
-   a_s 0.2697 at FINE (exact synset) but **0.5412 at the brain's shared-core granularity (supersense)** -- 37% of
-   the "errors" are fine near-misses INSIDE the correct coarse sense. The brain "solves" a third of the ceiling by
-   simply not making the distinction we force.
+4. **Coarser granularity than WordNet (Rodd 2002) -- and this is a REAL, VALIDATED, implementable-NOW win.** The
+   brain holds polysemy as a graded shared core and does not hair-split. MEASURED (`exp_sense_selection_granularity_
+   probe_v1`, n=50,386): the SAME incumbent picks score a_s 0.2697 at FINE (exact synset) but **0.5412 at the brain's
+   shared-core granularity (supersense/lexname)** -- 37% of the "errors" are fine near-misses INSIDE the correct
+   coarse sense. Crucially this is NOT a lenient metric: the reader's coarse pick beats the **coarse-MFS frequency
+   floor 0.4035 by +0.1377 CI[+0.1329,+0.1426]** AND a proper cross-item **context-shuffle twin 0.4308 by +0.1104
+   CI[+0.1051,+0.1153]** -- so it is genuine, CONTEXT-DRIVEN coarse sense selection. The brain "solves" a third of
+   the ceiling by not making the distinction we force, and our reader ALREADY delivers that coarse sense reliably.
 
 **So the corrected conclusion:** crossing the fine-sense ceiling needs CONTEXTUALIZED word meaning, which the brain
 produces by glass-box structured/predictive comprehension over slowly-offline-learned representations -- NOT a
