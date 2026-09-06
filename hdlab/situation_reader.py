@@ -66,6 +66,7 @@ os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")
 
 import sys
 from dataclasses import dataclass, field
+from functools import lru_cache
 from typing import Dict, List, Optional, Tuple
 
 _REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -625,6 +626,17 @@ def _assign_frame_primary_roles(lemma: str, toks: List[str], pred_idx: int,
     return subj_role, obj_role
 
 
+@lru_cache(maxsize=8192)
+def _affect_pos_cached(sentence_text: str):
+    """Per-string memo of the frontend UPOS tags for the affect path. EFFICIENCY (2026-09-06): tag() is a
+    PURE deterministic function of the token list, and _assign_affect runs once PER EVENT -- many events share
+    a sentence, so the identical string was re-tagged repeatedly (the affect path was ~half the read's POS-tag
+    calls; tagging is ~40% of read cost). Memoizing by sentence_text is BYTE-IDENTICAL (same split, same
+    deterministic tagger, same tags) and safe across reads (the frontend model is process-constant). Returns a
+    tuple; callers copy to a fresh list so a downstream mutation cannot corrupt the cache."""
+    return tuple(_load_frontend()[0].tag(sentence_text.split(" ")))
+
+
 def _assign_affect(patient: str, sentence_text: str) -> Optional[str]:
     """Grounded-affect wire (2026-08-05): calls the promoted hdlab organ
     (score_context_grounded_valence) on the event's PATIENT head against the sentence text, and
@@ -654,7 +666,7 @@ def _assign_affect(patient: str, sentence_text: str) -> Optional[str]:
     if patient in (None, "?"):
         return None
     toks = sentence_text.split(" ")
-    pos = _load_frontend()[0].tag(toks)      # hdlab UD UPOS -- one category system, no NLTK
+    pos = list(_affect_pos_cached(sentence_text))   # hdlab UD UPOS (memoized per string), one category system
     try:
         result = score_context_grounded_valence_pretagged(patient, toks, pos)   # need_valence=False
     except ValueError:
@@ -1405,6 +1417,18 @@ class SituationReader:
             self._lab = ArcLabeler.load(os.path.join(_REPO, "data/frontend_assets/arc_labeler_hashed_ud_ewt.json"))
         return self._lab
 
+    @staticmethod
+    def _has_to_verb(toks, up):
+        """True iff some 'to' token (index 1..len-2) is immediately followed by a VERB. This is the EXACT
+        entry gate of GR.extract_goals_sentence branch (3) (goal_register.py:259-262), the ONLY consumer of
+        the arc-labeler deprels (the ADVCL purpose filter, :299-303). A sentence failing this can NEVER reach
+        the deprel read, so skipping its labeling is BYTE-IDENTICAL to labeling it -- the efficiency gate for
+        the goal purpose filter (avoids labeling the ~75-90% of prose sentences with no 'to VERB')."""
+        for k in range(1, len(toks) - 1):
+            if toks[k].lower() == "to" and (k + 1) < len(up) and up[k + 1] == "VERB":
+                return True
+        return False
+
     def _router_roles(self, toks):
         """{verb_pos0: {pa_role: token_pos0}} from parse -> route_predicate_arguments, fed the reader's OWN
         tokens so indices align with mention wtok positions. quotative=False: the reader applies its OWN
@@ -1964,10 +1988,16 @@ class SituationReader:
         pos = [self._cached_tag(list(t)) for t in sents]
         deprels_by_sent = None
         if self.goal_purpose_filter:
-            # the reader's OWN arc-labeler deprels over the SHARED per-read parse (consolidated arc-eager heads)
+            # the reader's OWN arc-labeler deprels over the SHARED per-read parse (consolidated arc-eager heads).
+            # EFFICIENCY (2026-09-06): the ADVCL purpose filter reads a deprel ONLY in GR.extract_goals_sentence
+            # branch (3) (the bare 'to VINF' adjunct), whose entry gate requires a 'to' token followed by a VERB.
+            # Label ONLY those sentences (self._has_to_verb) -- BYTE-IDENTICAL (a skipped sentence passes
+            # deprels=None, exactly as it would have fallen through), ~4-8x fewer arc-labeler calls on prose.
             lab = self._frontend_labeler()
-            deprels_by_sent = [lab.label(list(t), pos[i], self._cached_parse_heads(list(t), pos[i]))
-                               for i, t in enumerate(sents)]
+            deprels_by_sent = [
+                (lab.label(list(t), pos[i], self._cached_parse_heads(list(t), pos[i]))
+                 if self._has_to_verb(t, pos[i]) else None)
+                for i, t in enumerate(sents)]
         goals = GR.extract_goals(sents, pos, subcat=sc, deprels_by_sent=deprels_by_sent)
         canon, _names = GR.make_canonicalizer(sm, commonnoun_canonical=self.commonnoun_canonical)
         GR.passive_agent_guard(goals, sm, sents, pos)
