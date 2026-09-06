@@ -453,6 +453,21 @@ class SituationModel:
     predict_action: Optional[object] = None
     will_act_on: Optional[object] = None
     attribute_belief: Optional[object] = None
+    # opt-in FORWARD-EVENT-PREDICTION dimension (WHAT-COMES-NEXT): the CALLABLE sm.predict_next_event(candidates=
+    # None, t=None) bound at read time when the reader is built with track_prediction=True (default-on). The missing
+    # FORWARD half of the discourse/event predictive hierarchy -- the reader builds a rich BACKWARD situation model
+    # but never projected FORWARD. The glass-box generalized-event-knowledge readout (Elman 2009 GEK graded
+    # associative co-activation) forward-projects the next event's content over the frozen forward-transition store
+    # (hdlab.generalized_event_knowledge), composing the GEK content cue + the agent's-goal cue via graded_competition
+    # (precision = 1 - normalized entropy). Given candidate continuations it DISCRIMINATES the coherent one (the
+    # validated headline: Story Cloze val 0.592 CI-sep over the majority floor, cross-context twin collapses,
+    # precision earns rising selective accuracy); given none it returns the top-k forward-expected content. PURE ADD
+    # -- a new read-only callable; forward_prediction stays None until predict_next_event is invoked, and no
+    # extraction is touched (byte-identical off vs on; landing witness W2). LAZY -- loads NO store asset until
+    # invoked, ABSTAINS (returns None) if the gitignored store asset is absent. From the owner-DONE
+    # predictive_inference_forward_project_the_next_event_and_state_from_the_situation_model (Q111).
+    predict_next_event: Optional[object] = None
+    forward_prediction: Optional[object] = None
     memory_roundtrip: Dict[str, float] = field(default_factory=dict)
     # per-dimension honest accuracy (coref only; scored vs LitBank gold on this passage)
     coref_acc: Optional[float] = None
@@ -768,6 +783,7 @@ class SituationReader:
                  track_senses: bool = True,
                  sense_mode: str = "underspecified", sense_gamma: float = 1.0,
                  sense_topk: Optional[int] = None, sense_prior_weight: float = 0.0,
+                 track_prediction: bool = True,
                  parser_arceager: bool = True,
                  np_head_reduce: bool = True,
                  structural_patient: bool = True,
@@ -1075,6 +1091,19 @@ class SituationReader:
         self.sense_prior_weight = float(sense_prior_weight)
         self._sense_mod = None       # lazy hdlab.underspecified_sense_reader
         self._sense_vl = None        # lazy sglite-w2v vec_lookup closure
+        # FORWARD-EVENT-PREDICTION stage (default-on track_prediction; wired 2026-09-06 from the owner-DONE problem
+        # predictive_inference_forward_project_the_next_event_and_state_from_the_situation_model, Q111). Binds
+        # sm.predict_next_event -- the FORWARD half the reader lacked: a glass-box generalized-event-knowledge readout
+        # that forward-projects the next event's content over the frozen forward-transition store (Elman 2009 GEK),
+        # composing the GEK content cue + the agent's-goal cue via graded_competition (precision = 1 - normalized
+        # entropy). LAZY + ADDITIVE: the closure loads NO store asset until sm.predict_next_event is invoked
+        # (byte-identical off vs on; landing witness W2), sm.forward_prediction stays None until a caller invokes it,
+        # and it DEGRADES GRACEFULLY -- predict_next_event returns None (abstains) if the gitignored store asset is
+        # absent, never raises (default-on is safe in an asset-less environment). Compose the CONTENT GEK cue + goal
+        # cue ONLY -- NOT the successor/horizon (adds nothing) or a verb-structure grain (weaker; the SOLVED W4/W5
+        # located negatives). NEW ISLAND -- no downstream consumer today, so no regression. NO external LLM.
+        self.track_prediction = bool(track_prediction)
+        self._gek_org = None         # lazy hdlab.generalized_event_knowledge.GEKProjector
         # IMPROVED PARSER (opt-in; default OFF = byte-identical). Wired 2026-09-02 from the owner-DONE parser problem
         # the_extraction_front_end_parser_is_the_cross_task_bottleneck...: route the WIRED who-did-what front-end
         # through the promoted arc-eager parser (hdlab.arceager_parser, UD-EWT UAS 0.775->0.842) instead of the
@@ -1322,6 +1351,7 @@ class SituationReader:
         "bind_entity_states", "structural_do_recover", "referent_per_np", "cm_agent", "include_pron_agents",
         "case_filter", "clause_local", "cm_agent_struct", "cm_agent_byhead", "predicate_recall",
         "track_goals", "track_affect", "track_tom_action", "track_bridges", "track_senses",
+        "track_prediction",
         "structural_patient", "causal_mental_bridge", "goal_purpose_filter", "entity_kb_resolver",
         "commonnoun_situation_gate", "commonnoun_canonical", "unified_referent", "precision_weight_roles")
 
@@ -2569,6 +2599,93 @@ class SituationReader:
         sm.select_sense = select_sense
         # sm.senses stays [] (the field default) until a caller populates it -- zero read-time cost / no load.
 
+    def _read_prediction(self, sm, sents) -> None:
+        """Opt-in FORWARD-EVENT-PREDICTION dimension (default-on track_prediction; wired 2026-09-06 from the
+        owner-DONE problem predictive_inference_forward_project_the_next_event_and_state_from_the_situation_model,
+        Q111). MIRRORS _read_bridges/_read_senses. Bind the FORWARD half the reader lacked -- a read-only QUERY
+        callable that forward-projects the next event's content from the situation as it stands, via the promoted
+        glass-box organ hdlab.generalized_event_knowledge.GEKProjector (Elman 2009 generalized-event-knowledge
+        graded associative co-activation readout over a frozen ROCStories forward-transition PPMI store):
+
+          sm.predict_next_event(candidates=None, t=None, *, gain=2.0, topk=8, context_words=None)
+              -> ForwardPrediction | None
+              DISCRIMINATION (candidates given -- list of continuation strings/lemma bags): score each by the GEK
+              CONTENT cue (context content -> candidate) + the GOAL cue (the agent's open goal text -> candidate,
+              read off the LIVE sm.wants register), COMPOSE via hdlab.graded_competition (equal weights on
+              standardized cues), argmax = the forward-projected continuation, precision = 1 - normalized entropy
+              (the validated headline: Story Cloze val 0.592 CI-sep over the majority floor; cross-context twin
+              collapses; precision earns rising selective accuracy). GENERATIVE (no candidates): the top-k
+              forward-expected content tokens (glass-box, uncalibrated -- not a validated capability). t (int) =
+              use only the passage content up to and including sentence t (None = the whole passage);
+              context_words overrides the passage context. Returns None (abstains) when the store asset is absent
+              or nothing is scorable -- never guesses.
+
+        Composes the CONTENT GEK cue + GOAL cue ONLY -- NOT the successor/horizon (adds nothing) or a finer
+        verb-structure grain (weaker) -- the SOLVED W4/W5 located negatives. Runs LAST in read() so the goal cue
+        composes the FINAL goal register (sm.wants) and the context reflects the FINAL passage.
+
+        PURE ADD: sets ONLY sm.predict_next_event (+ leaves sm.forward_prediction None until invoked); touches NO
+        existing field (byte-identical off vs on -- the landing witness W2 asserts it). LAZY -- the closure computes
+        nothing + loads NO store asset until sm.predict_next_event is invoked (zero read-time cost). DEGRADES
+        GRACEFULLY -- if the gitignored store asset is absent, predict_next_event returns None, never raises. It is
+        a NEW ISLAND (no downstream consumer today -> no regression). NO spaCy / NO external LLM at inference."""
+        from hdlab import generalized_event_knowledge as GEK
+        if self._gek_org is None:
+            self._gek_org = GEK.GEKProjector()
+        org = self._gek_org
+
+        def _passage_lemmas(t=None):
+            """The passage's content lemmas up to (and including) sentence t (None = whole passage), lemmatized
+            with the SAME morphy lemmatizer the store was built with (GEK.lemmatize)."""
+            toks = []
+            for si, s in enumerate(sents):
+                if t is not None and si > t:
+                    break
+                toks.extend(str(tok).lower() for tok in s)
+            return GEK.lemmatize(" ".join(toks))
+
+        def _goal_lemmas():
+            """The agents' OPEN goal text lemmas, read off the LIVE goal register (sm.wants). [] when track_goals
+            is off / no goal fired -- the projection then falls back to the GEK content cue alone (graceful)."""
+            wants = getattr(sm, "wants", None)
+            if wants is None:
+                return []
+            agents = set()
+            for e in sm.events:
+                a = str(getattr(e, "agent", "")).lower()
+                if a and a not in ("?", ""):
+                    agents.add(a)
+            spans = []
+            for ag in sorted(agents):
+                try:
+                    g = wants(ag)
+                except Exception:
+                    g = None
+                gt = (getattr(g, "goal_text", None) or "") if g is not None else ""
+                if gt:
+                    spans.append(gt)
+            return GEK.lemmatize(" ".join(spans)) if spans else []
+
+        def predict_next_event(candidates=None, t=None, *, gain=2.0, topk=8, context_words=None):
+            if not org.available():
+                return None
+            ctx = ([str(c).lower() for c in context_words]
+                   if context_words is not None else _passage_lemmas(t))
+            if candidates is not None:
+                bags = [GEK.lemmatize(c) if isinstance(c, str) else [str(x).lower() for x in c]
+                        for c in candidates]
+                fp = org.project(ctx, _goal_lemmas(), bags, gain=gain)
+                if fp is not None:
+                    fp.candidates = [str(c) for c in candidates]
+                sm.forward_prediction = fp
+                return fp
+            fp = org.project_expected(ctx, topk=topk, gain=gain)
+            sm.forward_prediction = fp
+            return fp
+
+        sm.predict_next_event = predict_next_event
+        # sm.forward_prediction stays None (the field default) until predict_next_event is invoked -- zero cost.
+
     def _read_entity_states(self, sm, sents) -> None:
         """COPULAR is-a/attribute BINDING (default-off bind_entity_states; wired 2026-09-03 from the owner-DONE
         the_reader_has_no_copular_is_a_binding_schema, 10/10+6/6). For each sentence, recover the labeled copular
@@ -2819,6 +2936,15 @@ class SituationReader:
             # invoked); sets ONLY sm.select_sense + leaves sm.senses [] (byte-identical off vs on). Nothing lands
             # on the hub (the SOLVED located negative).
             self._read_senses(sm, sents)
+        if self.track_prediction:
+            # FORWARD-EVENT-PREDICTION dimension: bind sm.predict_next_event(candidates=None, t=None), the FORWARD
+            # half the reader lacked -- a glass-box generalized-event-knowledge readout that forward-projects the
+            # next event's content (GEK content cue + goal cue via graded_competition, precision = 1 - entropy).
+            # Runs LAST so the goal cue composes the FINAL goal register and the context is the FINAL passage. PURE
+            # ADD -- lazy closure only (computes nothing, loads NO store asset, until sm.predict_next_event is
+            # invoked); sets ONLY sm.predict_next_event + leaves sm.forward_prediction None (byte-identical off vs
+            # on). NEW ISLAND -- no downstream consumer today. Abstains (returns None) if the store asset is absent.
+            self._read_prediction(sm, sents)
         return sm
 
 
