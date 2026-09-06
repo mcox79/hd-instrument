@@ -398,6 +398,15 @@ Each `PROBLEM.md` has the same eight sections, in this order:
   modern OntoNotes), NOT on a 19c corpus.** A 19c number is informational only; when both exist, the MODERN
   number is the one that counts. Do not lean on a 19c corpus because it is better-powered -- that is a
   measurement-power gap to close on modern data, not a license to use 19c. [ref memory: mcguffey-corpus-is-200-years-old]
+- **📥 YOU ARE PRE-AUTHORIZED to ACQUIRE an open MODERN annotated gold corpus (the necessary complement to the
+  19c ban).** Acquiring a static offline eval gold is FOUNDATION-building (the invariant is NO external LLM AT
+  INFERENCE, not no offline gold). Rules: (1) put it under `data/corpora/<name>/` (the established convention --
+  `fantom`, `bigtom`, `mcscript2`, `litbank_coref_conll`, GUM -> `data/corpora/gum/`, NOT a new top-level dir);
+  (2) `data/` is gitignored, so the corpus is NOT committed -- you MUST write a REPRODUCIBLE fetch script (in
+  `experiments/`) that pins the exact version/release/commit + a short provenance note (source URL, version,
+  license, date), so the gold is re-acquirable; (3) `data/foundation/` stays READ-ONLY. Prefer GUM (modern,
+  multi-genre, coref+entity+discourse) / UD-EWT / QA-SRL / OntoNotes-modern. OOD companions (GENTLE, reddit) are
+  fine as robustness checks. No need to ask -- this is a standing authorization.
 - **⚙️ DO THE RIGHT THING, NOT THE CHEAP OR EASY THING (owner 2026-08-25 -- applies to ALL project
   instructions, not just briefs).** The mission is the most brain-faithful substrate, not the fastest
   green check. A cheaper path that is less brain-faithful is the wrong path even when it clears the floor.
