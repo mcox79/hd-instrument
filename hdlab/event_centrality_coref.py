@@ -64,11 +64,22 @@ from hdlab.state_of_mind import PRONOUN_SCOPE, TARGET_PRONOUNS, EntityState
 from hdlab.event_bundle import EventBundleCodec
 from hdlab.situation_focus import ChunkedFocus
 
+# PINNED graded ACT-R cue-based antecedent retrieval (recency load-bearing) -- the live pronoun pick
+# (landed 2026-09-06, replacing the anti-brain-foundational rolemass topical pick + event-centrality
+# override). See graded_pick note on EventCentralityReader below.
+from hdlab.graded_coref_pick import graded_antecedent_pick, TUNED_WEIGHTS
+
 # Event-role centrality weights (AGENT drives the event > PATIENT); glass-box constants.
 AGENT_W = 2.0
 PATIENT_W = 1.0
 EVENT_ROLES = ("AGENT", "PATIENT")
 EVENT_N_DIM = 4096          # round-trips cleanly at Cowan-4 load (29511 capacity signature)
+
+
+def _role_str(rank: int) -> str:
+    """Map a mention's sent_role_rank (0=subject, 1=object, else) to the graded pick's role token
+    (SUBJECT/OBJECT/OTHER). Byte-faithful to exp_coref_graded_live_transfer_v1._role_str."""
+    return "SUBJECT" if rank == 0 else ("OBJECT" if rank == 1 else "OTHER")
 
 
 class EventMemory:
@@ -179,16 +190,29 @@ class EventCentralityReader(SceneProtagonistReader):
     HD-centrality candidate (mode in {event_role, recency}); if the centrality is degenerate
     (no in-focus event mentions any pool candidate) the base topical pick stands (strict
     addition -- no info loss). Every override is recorded (mem_changed) so the cell measures
-    the decision-change rate = memory is decision-driving."""
+    the decision-change rate = memory is decision-driving.
+
+    graded_pick (DEFAULT ON, landed 2026-09-06): the brain-foundational pronoun pick. When ON, the
+    pool pick is the PINNED graded ACT-R cue-based retrieval (hdlab.graded_coref_pick, Lewis & Vasishth
+    2005; recency load-bearing) and the event-centrality memory is forced OFF (it measurably HURTS:
+    live pooled he/she coref_acc 0.4876 EC-off vs 0.4693 EC-on). This replaces the anti-brain-foundational
+    rolemass topical pick (subject-role mass, NO recency term) + HD event-centrality override that scored
+    0.4693 pooled -- BELOW plain recency 0.6052 -- lifting the live pooled pick to 0.6019 (+0.1327
+    CI[+0.0929,+0.1738], named coref no-regress 0.4883->0.6165). graded_pick=False restores the exact
+    incumbent rolemass+event-centrality path (the self-checkable reference / fallback). This is a
+    register-general recency-mechanism fidelity correction, justified independently of the LitBank (19c)
+    coref_acc number it was measured on."""
 
     def __init__(self, *, n_dim: int = EVENT_N_DIM, capacity: int = 4, fanout: int = 2,
-                 mem_seed: int = 0, **kw) -> None:
+                 mem_seed: int = 0, graded_pick: bool = True, **kw) -> None:
         super().__init__(**kw)
         self._n_dim = int(n_dim)
         self._capacity = int(capacity)
         self._fanout = int(fanout)
         self._mem_seed = int(mem_seed)
         self.n_glass_kept = 0
+        self.graded_pick = bool(graded_pick)     # ON = PINNED graded ACT-R pick (event-centrality forced off)
+        self._midx_to_sent: Dict[int, int] = {}  # per-mention sentence index (graded ACT-R distance term)
 
     def resolve_stream(self, mentions: List[dict], targets: List[dict], *,
                        scene_ids: Optional[List[int]] = None,
@@ -201,6 +225,13 @@ class EventCentralityReader(SceneProtagonistReader):
                        glass_box_limit: int = 0) -> List[dict]:
         """Mirror of SceneProtagonistReader.resolve_stream(prefer_topical=True, per_scene=True)
         plus the event-memory query. query_memory=False == the parent bit-for-bit."""
+        if self.graded_pick:
+            # PINNED graded ACT-R pick: stash per-mention sentence indices for the graded distance term,
+            # and force the event-centrality memory OFF -- the graded retrieval is the SOLE pick (EC
+            # measurably hurts: 0.4876 EC-off vs 0.4693 EC-on). Byte-faithful to the validated GRADED arm
+            # (exp_coref_graded_live_transfer_v1.GradedPickReader.resolve_stream, _use_graded clean path).
+            self._midx_to_sent = {m["midx"]: m.get("sent_idx", 0) for m in mentions}
+            query_memory = False
         if topical_heads is None:
             topical_heads = TOPICAL_SLOT_HEADS
         if scene_ids is None:
@@ -361,6 +392,46 @@ class EventCentralityReader(SceneProtagonistReader):
                 self.last_rt = (mem.n_rt_agent_ok, mem.n_rt_checks)
         return records
 
+    # ── PINNED graded ACT-R pronoun pick (default ON) ────────────────────────────────────────────
+    # Byte-faithful to the validated clean GRADED arm of exp_coref_graded_live_transfer_v1
+    # (_use_graded=True with twin/propagate/soft_gender/keep_ec all OFF). The pool construction
+    # (compatible + generic-suppress + agreement-narrow) and the mention replay in resolve_stream are
+    # the deployed code, byte-unchanged; ONLY the pool PICK is swapped.
+
+    def _priors_of(self, pool, midx_to_role):
+        """Per-candidate prior-mention list as (sentence_index, role) tuples for graded_antecedent_pick
+        (role in {SUBJECT,OBJECT,OTHER} from the mention's sent_role_rank)."""
+        return [[(self._midx_to_sent.get(mx, 0), _role_str(midx_to_role.get(mx, 99)))
+                 for mx in e.mention_midxs] or [(0, "OTHER")] for e in pool]
+
+    def _graded_pool_pick(self, pool, midx_to_role):
+        """The landed graded ACT-R cue-based antecedent retrieval over the (agreement-narrowed) pool
+        (hdlab.graded_coref_pick.graded_antecedent_pick, TUNED_WEIGHTS). Single-candidate pool -> that
+        candidate; empty -> None. Clean validated arm (no twin / propagate / soft-gender)."""
+        pool = list(pool)
+        if not pool:
+            return None
+        if len(pool) == 1:
+            return pool[0]
+        priors = self._priors_of(pool, midx_to_role)
+        p_sent = max((s for pr in priors for (s, _r) in pr), default=0) + 1
+        res = graded_antecedent_pick(priors, p_sent, weights=TUNED_WEIGHTS)
+        idx = res["pick"]
+        return pool[idx] if 0 <= idx < len(pool) else None
+
+    def _topical_pick(self, pool, scene_midxs, midx_to_role, mode):
+        """Graded ACT-R pick when graded_pick is on (recency load-bearing); else the incumbent rolemass
+        topical pick (SceneProtagonistReader._topical_pick) -- the self-checkable graded_pick=False fallback."""
+        if not self.graded_pick:
+            return super()._topical_pick(pool, scene_midxs, midx_to_role, mode)
+        return self._graded_pool_pick(pool, midx_to_role)
+
+    def _adaptive_pick(self, pool, now, trank, midx_to_role):
+        """Graded ACT-R pick when graded_pick is on; else the incumbent backbone adaptive pick."""
+        if not self.graded_pick:
+            return super()._adaptive_pick(pool, now, trank, midx_to_role)
+        return self._graded_pool_pick(pool, midx_to_role)
+
 
 # ===================== formula self-tests ==========================================
 
@@ -412,7 +483,7 @@ def _selftest_query_off_reproduces_parent() -> None:
     parent = SceneProtagonistReader()
     base = parent.resolve_stream(mentions, targets, prefer_topical=True, per_scene=True,
                                  scene_ids=scene_ids, topical_mode="rolemass")
-    ecr = EventCentralityReader()
+    ecr = EventCentralityReader(graded_pick=False)   # incumbent fallback == the parent bit-for-bit
     off = ecr.resolve_stream(mentions, targets, scene_ids=scene_ids,
                              topical_mode="rolemass", query_memory=False)
     assert len(base) == len(off) == len(targets), "record count mismatch"
@@ -446,7 +517,7 @@ def _selftest_event_role_beats_recency_when_structure_decisive() -> None:
     n_sents = max(m["sent_idx"] for m in mentions) + 1
     scene_ids = [i // 5 for i in range(n_sents)]
 
-    ecr = EventCentralityReader()
+    ecr = EventCentralityReader(graded_pick=False)   # exercise the incumbent EC memory tie-break (fallback)
     ev = ecr.resolve_stream(mentions, targets, scene_ids=scene_ids, topical_mode="rolemass",
                             query_memory=True, centrality_mode="event_role",
                             glass_box_limit=4)
@@ -462,12 +533,47 @@ def _selftest_event_role_beats_recency_when_structure_decisive() -> None:
     assert any(r["mem_changed"] for r in rc), "recency query never changed the decision"
 
 
+def _selftest_graded_pick_default_on_prefers_recent() -> None:
+    """The DEFAULT reader (graded_pick=True) uses the PINNED graded ACT-R pick (recency load-bearing):
+    with two same-gender candidates where the RECENT antecedent differs from the incumbent rolemass
+    subject-mass pick, the default resolves to the recency-favored candidate and DIFFERS from the
+    graded_pick=False incumbent. Proves the graded pick is on by default and is decision-driving."""
+    from hdlab.coref import build_pronoun_targets
+
+    # anna is the high-MASS early subject (3 subject mentions); bella is the SINGLE most-recent subject.
+    # rolemass (incumbent, NO recency) -> anna (mass); graded ACT-R (recency) -> bella (recent). gold=bella.
+    mentions = []
+    mi = 0
+    mentions.append(_mk("anna", 1, False, 0, mi, "fem", 0, name_gender="fem")); mi += 1
+    mentions.append(_mk("anna", 1, False, 1, mi, "fem", 0, name_gender="fem")); mi += 1
+    mentions.append(_mk("anna", 1, False, 2, mi, "fem", 0, name_gender="fem")); mi += 1
+    mentions.append(_mk("bella", 2, False, 3, mi, "fem", 0, name_gender="fem")); mi += 1  # most-recent subj
+    mentions.append(_mk("she", 2, True, 4, mi, "fem", 0)); mi += 1                        # gold=bella (recent)
+    targets = build_pronoun_targets(mentions)
+    n_sents = max(m["sent_idx"] for m in mentions) + 1
+    scene_ids = [i // 5 for i in range(n_sents)]
+
+    default_reader = EventCentralityReader()                     # graded_pick default ON
+    assert default_reader.graded_pick is True, "graded_pick must default ON"
+    on = default_reader.resolve_stream(mentions, targets, scene_ids=scene_ids,
+                                       topical_mode="rolemass", query_memory=True,
+                                       centrality_mode="event_role")
+    off = EventCentralityReader(graded_pick=False).resolve_stream(
+        mentions, targets, scene_ids=scene_ids, topical_mode="rolemass",
+        query_memory=True, centrality_mode="event_role")
+    assert on[0]["resolved_head"] == "bella", (
+        "default graded pick must prefer the RECENT antecedent bella, got %s" % on[0]["resolved_head"])
+    assert off[0]["resolved_head"] == "anna", (
+        "graded_pick=False incumbent must keep the mass pick anna, got %s" % off[0]["resolved_head"])
+
+
 def _run_all_selftests() -> dict:
     _selftest_memory_roundtrips_and_bounds()
     _selftest_query_off_reproduces_parent()
     _selftest_event_role_beats_recency_when_structure_decisive()
-    return {"n_dim": EVENT_N_DIM, "agent_w": AGENT_W, "patient_w": PATIENT_W,
-            "reuse": ["SceneProtagonistReader", "EventBundleCodec", "ChunkedFocus"]}
+    _selftest_graded_pick_default_on_prefers_recent()
+    return {"n_dim": EVENT_N_DIM, "agent_w": AGENT_W, "patient_w": PATIENT_W, "graded_pick_default": True,
+            "reuse": ["SceneProtagonistReader", "EventBundleCodec", "ChunkedFocus", "graded_coref_pick"]}
 
 
 if __name__ == "__main__":

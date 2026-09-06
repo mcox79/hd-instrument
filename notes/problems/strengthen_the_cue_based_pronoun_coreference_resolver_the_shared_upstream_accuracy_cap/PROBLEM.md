@@ -1,7 +1,7 @@
 ---
-priority: 1
-review:
-review_text:
+status: INTEGRATED
+review: EXCELLENT
+review_text: "EXCELLENT board-mover, INTEGRATED_BY_STRATEGY 2026-09-06. Found the LIVE pronoun pick was ANTI-brain-foundational (rolemass topical mass, NO recency term + event-centrality override, 0.4693 -- BELOW plain recency 0.6052); the PINNED graded ACT-R retrieval (hdlab.graded_coref_pick, Lewis & Vasishth) was already built but consumed only by commonnoun_binder, never the live pronoun path. WIRE LANDED default-on (EventCentralityReader.graded_pick=True, event-centrality forced off; graded_pick=False = self-checkable fallback). MEASURED first-hand: live pooled coref 0.4693->0.6019 (+0.1327 CI-sep); named coref no-regress 0.4883->0.6165; who-has-what board dim 0.4035->0.4735 (+0.070 CI-sep); info-free twin loses; coref-independent dims byte-identical 12/12. Reverify test_coref_graded_live_transfer.py 5/5 (21/21 suite) + landing test_coref_graded_pick_landing.py 7/7. BRAIN_FOUNDATIONAL_AUDIT.md 2b (2026-09-06). Follow-ons: entity-unification shared lever (p2 filed); +0.043 overlay-by-entity bonus (owner call); a modern pronoun coref corpus."
 ---
 
 # PROBLEM: the reader's own coreference is only ~0.58-accurate, and that ONE number caps at least three dimensions at once — it is the single most SHARED upstream bottleneck. The brain resolves reference by cue-based content-addressable RETRIEVAL (recency + centrality + gender/number/animacy agreement + semantic fit, Lewis-Vasishth 2005); build a faithful stronger resolver so a pronoun/mention binds to the right discourse entity, and the affect experiencer / entity-world-model / who-has-what dimensions it feeds all rise with it.

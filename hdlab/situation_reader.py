@@ -1133,8 +1133,14 @@ class SituationReader:
         self.commonnoun_situation_gate = bool(commonnoun_situation_gate)
         self.commonnoun_canonical = bool(commonnoun_canonical)
         self._cn_binder_mod = None     # lazy hdlab.commonnoun_binder
-        # persistent readers (the banked backbone + single-sentence validity baseline)
-        self.reader_ec = EventCentralityReader(n_dim=EVENT_N_DIM, mem_seed=MEM_SEED)
+        # persistent readers (the banked backbone + single-sentence validity baseline).
+        # graded_pick=True (LANDED 2026-09-06, owner-DONE strengthen_the_cue_based_pronoun_coreference_
+        # resolver...): the live pronoun pick is the PINNED graded ACT-R cue-based retrieval (recency
+        # load-bearing), replacing the rolemass topical pick + event-centrality override. The graded path
+        # forces the event-centrality memory OFF internally (query_memory below is overridden), lifting
+        # live pooled he/she coref_acc 0.4693 -> 0.6019 (+0.1327 CI-sep), named coref no-regress. Brain-
+        # fidelity correction (register-general recency mechanism); graded_pick=False = incumbent fallback.
+        self.reader_ec = EventCentralityReader(n_dim=EVENT_N_DIM, mem_seed=MEM_SEED, graded_pick=True)
         self.reader_ss = CorefReader()
 
     # ONE authoritative capability-flag list (the ONLY hand-maintained bit). Every "flags-off historical
@@ -1165,6 +1171,9 @@ class SituationReader:
     # -- ENTITIES + COREF (banked EventCentralityReader recency-centrality, 29516) --
     def _read_entities(self, mentions, targets, n_sents):
         sid_fixed = [i // LOCAL_WINDOW for i in range(n_sents)]
+        # query_memory=True / centrality_mode="event_role" are the INCUMBENT (graded_pick=False) config.
+        # With the default graded_pick=True reader, resolve_stream forces the event-centrality memory OFF
+        # and uses the PINNED graded ACT-R pick (recency load-bearing); these kwargs are the fallback path.
         recs_ec = self.reader_ec.resolve_stream(
             mentions, targets, scene_ids=sid_fixed, topical_mode="rolemass",
             query_memory=True, centrality_mode="event_role", **SUP_KW)

@@ -1,5 +1,5 @@
 ---
-priority: 99
+status: INTEGRATED
 review: EXCELLENT
 review_text: "EXCELLENT PARTIAL, INTEGRATED_BY_STRATEGY 2026-09-06. Disk-outranks-brief: the lazy locative-PP bridge is a LOCATED NEGATIVE (recall 0.444->0.889 moves where_is only +0.064); the real lever is NAMED-GROUND BINDING (Talmy Figure/Ground + VerbNet Goal gate + Figure-Ground compound head + closed-class partitive + GRADED ConceptNet-AtLocation functional-locus typing, no hand list). Modern where_is 0.319->0.468 (+0.149; beats floor + shuffled-ground twin CI-sep; precision 0.571->0.702); LIVE read() 0.277->0.447 (+0.170). WIRE LANDED default-on in prior_ext (conservative=True only; aggressive + anticipatory paths are located negatives, kept off) VERBATIM into experiments/_space_reader.py; additive-safe (who-did-what byte-identical). Graded on MODERN per the owner no-19c directive (the n=606 19c corpus is banned; the +0.149 is under-powered over the current chain at n=47 -> the modern-gold expansion must close the power gap). Witness verification/test_space_ground_binding.py 5/5. Follow-ons filed: Ground-aware goal-PP attachment; fold Ground typing into the shared role router (coordinate w/ p3); a modern where_is board arm. See BRAIN_FOUNDATIONAL_AUDIT.md 2b (2026-09-06)."
 ---
