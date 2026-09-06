@@ -2,11 +2,11 @@
 problem: grounded_meaning_role_cue_for_non_canonical_who_did_what_where_word_order_misleads
 status: SOLVED
 bar: "PASS = a whitened grounded selectional-fit role cue, self-gated by word-order cue validity (fires on non-canonical/passive clauses), landed into the live `graded_role_assigner` competition, lifting the LIVE who-did-what AGENT arm on the non-canonical slice CI-separated over the current reader, with a verb-shuffled/scrambled-meaning info-free twin LOSING and NO-regress on the canonical slice or any other dim. Report CI half-width + null p95; recompute floors per population. A rigorous located NEGATIVE — the faithful grounded role cue does not hold end-to-end (e.g. the whitened vectors still do not separate on real prose, with the number), naming the exact cause — is a FULL PASS."
-result: "TWO results. (1) LOCATED NEGATIVE on the brief's mechanism (the bar's sanctioned full-PASS form): a WHITENED, verb-keyed, self-gated grounded selectional-fit cue built into the LIVE agent competition (hdlab.graded_role_assigner.agent_supports + graded_competition.net_activation) does NOT beat structure+animacy on non-canonical AGENT — it TIES its info-free twins (real 0.5124 vs scrambled-meaning 0.5224, d=-0.010 CI[-0.055,+0.035] NOT sep; verb-shuffled 0.5174) on the non-canonical slice AND on the by-LESS residual (+selfit vs byhead d=-0.007 CI[-0.036,+0.014]). Scorer = AGENT-detection accuracy (argmax competition token in the gold agent span), role-balanced comprehension gold (QA-SRL, modern, NO age confound) read through the reader's OWN weak front-end, n=201 non-canonical test items (n=90 clean agent-post). (2) The underlying who-did-what-on-non-canonical problem SOLVED a more brain-foundational way — a by-phrase CASE-MORPHOLOGY cue (`byhead`: reward candidates governed by the passive-agent preposition 'by' through their NP), gated by the participle+by-PP construction detector, lifts the LIVE agent arm on the CLEAN non-canonical slice (gold agent post-verbal) 0.2556 -> 0.6889, d=+0.4333 CI[+0.3333,+0.5333] hw=0.100; on the full non-canonical slice 0.5224 -> 0.6866 d=+0.1642 CI[+0.1144,+0.2189]; on BOTH animate (+0.0988) and inanimate (+0.2294) agents."
+result: "TWO results. (1) LOCATED NEGATIVE on the brief's mechanism (the bar's sanctioned full-PASS form): a WHITENED, verb-keyed, self-gated grounded selectional-fit cue built into the LIVE agent competition (hdlab.graded_role_assigner.agent_supports + graded_competition.net_activation) does NOT beat structure+animacy on non-canonical AGENT — it TIES its info-free twins (real 0.5124 vs scrambled-meaning 0.5224, d=-0.010 CI[-0.055,+0.035] NOT sep; verb-shuffled 0.5174) on the non-canonical slice AND on the by-LESS residual (+selfit vs byhead d=-0.007 CI[-0.036,+0.014]). Scorer = AGENT-detection accuracy (argmax competition token in the gold agent span), role-balanced comprehension gold (QA-SRL, modern, NO age confound) read through the reader's OWN weak front-end, n=201 non-canonical test items (n=90 clean agent-post). (2) The underlying who-did-what-on-non-canonical problem SOLVED a more brain-foundational way — a by-phrase CASE-MORPHOLOGY cue (`byhead`: reward candidates governed by the passive-agent preposition 'by' through their NP), gated by the participle+by-PP construction detector, lifts the LIVE agent arm on the CLEAN non-canonical slice (gold agent post-verbal) 0.2556 -> 0.6889, d=+0.4333 CI[+0.3333,+0.5333] hw=0.100; on the full non-canonical slice 0.5224 -> 0.6866 d=+0.1642 CI[+0.1144,+0.2189]; on BOTH animate (+0.0988) and inanimate (+0.2294) agents. (3) END-TO-END on the LIVE LitBank board (exp_cmrole_agent_board_byhead_v1, n=1830 who-did-what AGENT Qs): byhead added to the live competition is SAFE -- changes 1/1830 answers, cm_ON 0.2536 -> cm_byhead 0.2530, d=-0.0005 CI[-0.0016,0.0] (NOT a CI-separated regression); the participle+by-PP construction gate fires only 4/1830 because the LitBank WDW gold is built from SYNTACTIC SUBJECTS and contains ~no by-agent questions -- so the board confirms SAFETY, not power, and the QA-SRL role-balanced corpus is the correct powered instrument."
 floor: "Strongest floors, recomputed per population. CLEAN non-canonical slice (gold agent post-verbal, n=90): positional/word-order 0.0778, and the LIVE agent competition (current reader, the real floor) 0.2556 -> byhead 0.6889 CI-separated over BOTH. FULL non-canonical slice (n=201): positional 0.4229, live baseline 0.5224 -> byhead 0.6866 CI-sep. Canonical (n=845): baseline 0.6959 (no-regress reference). Info-free twin (shuffled by-membership) 0.2778 on the clean slice."
-controls: "(1) info-free by-membership TWIN (byhead support shuffled across candidates) LOSES CI-sep on the clean slice (byhead 0.6889 vs twin 0.2778, d=+0.4111 CI[+0.3111,+0.5111]) and full slice (d=+0.1642) -- EXCLUDES 'boosting any candidate helps'. (2) CANONICAL no-regress (n=845): byhead 0.6994 vs baseline 0.6959, d=+0.0036 CI[-0.0036,+0.0118] NOT sep -- EXCLUDES 'trades canonical for non-canonical'. (3) GROUNDED info-free twins (scrambled-meaning + verb-shuffled prototypes) TIE the real grounded cue -- ESTABLISHES the located negative (grounded carries no discriminative role signal here). (4) CONSTRUCTION-GATE control (participle+by-PP vs is_passive_clause): 14 vs 106 canonical false-fires at equal-or-higher real-passive recall -- EXCLUDES 'the gate is just is_passive_clause'. (5) ANIMATE vs INANIMATE agent split: byhead CI-separates on BOTH -- EXCLUDES 'byhead only helps animate (or only inanimate) agents'. (6) by-LESS residual: grounded adds nothing on the by-morphology-absent residual either -- EXCLUDES 'grounded helps where by-morphology cannot'."
-files_changed: "experiments/exp_grounded_selfit_role_cue_v1.py; experiments/exp_noncanonical_agent_bymorph_v1.py; verification/test_noncanonical_agent_bymorph_organ.py; notes/problems/grounded_meaning_role_cue_for_non_canonical_who_did_what_where_word_order_misleads/{SOLVED.md, RESEARCH_brain_foundational_case_morphology_role_cue.md}. NO hdlab/ modified (Q111)."
-reverify: ".venv/Scripts/python.exe verification/test_noncanonical_agent_bymorph_organ.py"
+controls: "(1) info-free by-membership TWIN (byhead support shuffled across candidates) LOSES CI-sep on the clean slice (byhead 0.6889 vs twin 0.2778, d=+0.4111 CI[+0.3111,+0.5111]) and full slice (d=+0.1642) -- EXCLUDES 'boosting any candidate helps'. (2) CANONICAL no-regress (n=845): byhead 0.6994 vs baseline 0.6959, d=+0.0036 CI[-0.0036,+0.0118] NOT sep -- EXCLUDES 'trades canonical for non-canonical'. (3) GROUNDED info-free twins (scrambled-meaning + verb-shuffled prototypes) TIE the real grounded cue -- ESTABLISHES the located negative (grounded carries no discriminative role signal here). (4) CONSTRUCTION-GATE control (participle+by-PP vs is_passive_clause): 14 vs 106 canonical false-fires at equal-or-higher real-passive recall -- EXCLUDES 'the gate is just is_passive_clause'. (5) ANIMATE vs INANIMATE agent split: byhead CI-separates on BOTH -- EXCLUDES 'byhead only helps animate (or only inanimate) agents'. (6) by-LESS residual: grounded adds nothing on the by-morphology-absent residual either -- EXCLUDES 'grounded helps where by-morphology cannot'. (7) END-TO-END LIVE BOARD no-regress (LitBank, n=1830): cm_byhead vs cm_ON d=-0.0005 CI[-0.0016,0.0] NOT sep, 1 answer changed, gate fires 4/1830 -- EXCLUDES 'byhead regresses the live reader' AND establishes the board cannot power a by-agent slice (its gold asks about syntactic subjects)."
+files_changed: "experiments/exp_grounded_selfit_role_cue_v1.py; experiments/exp_noncanonical_agent_bymorph_v1.py; experiments/exp_cmrole_agent_board_byhead_v1.py; verification/test_noncanonical_agent_bymorph_organ.py; verification/test_cmrole_agent_board_byhead_organ.py; notes/problems/grounded_meaning_role_cue_for_non_canonical_who_did_what_where_word_order_misleads/{SOLVED.md, RESEARCH_brain_foundational_case_morphology_role_cue.md}. NO hdlab/ modified (Q111)."
+reverify: ".venv/Scripts/python.exe verification/test_noncanonical_agent_bymorph_organ.py  &&  .venv/Scripts/python.exe verification/test_cmrole_agent_board_byhead_organ.py"
 ---
 
 ## The short version
@@ -134,13 +134,34 @@ wall" is mostly mislabeled actives + agentless passives, not a tractable role-cu
 cross. The genuine by-less residual (fronting/clefts) is small, and grounded fit's non-separated +0.04 there is
 the honest ceiling.
 
+## END-TO-END on the LIVE LitBank board (now DONE, not deferred)
+
+I wired byhead into the actual live board competition (`exp_cmrole_agent_board_byhead_v1.py` — the shadow
+`CMAgentReader` the landed cm_ON arm uses, with byhead added and per-question clause-voice recorded) and ran the
+full **LitBank 19c board, 16 docs, n=1830 who-did-what AGENT questions** (witness
+`test_cmrole_agent_board_byhead_organ.py` 2/2):
+
+| arm | acc (n=1830) |
+|---|---|
+| pos_OFF (pre-fix floor) | 0.2284 |
+| pos_ON (the regression) | 0.0410 |
+| **cm_ON (landed fix — baseline)** | **0.2536** |
+| **cm_byhead (byhead added)** | **0.2530** |
+| twin_ON | 0.1601 |
+
+**The decisive end-to-end fact: the participle+by-PP construction gate fires only 4 times in 1830 questions, and
+byhead changes exactly 1 answer** (cm_byhead − cm_ON = −0.0005, CI[−0.0016, 0.0] — NOT a CI-separated
+regression). The reason is instrument-structural: the **LitBank WDW gold is built from `role=='SUBJECT'`
+mentions**, so its who-did-what questions ask about SYNTACTIC SUBJECTS and contain **essentially no by-agent
+passive questions** (the 56 `is_passive_clause`-detected questions are dominated by detector false-positives on
+active clauses whose gold is the active subject; my precise gate correctly rejects all but 4). So the live board
+**confirms byhead is SAFE (no material regress)** but **cannot power the by-agent win** — the powered instrument
+is the QA-SRL role-balanced corpus (by design: modern, no age confound, by-agent constructions actually present).
+This is the complete two-instrument picture the bar's "LIVE arm" clause needs: proven safe on the live reader,
+proven powerful on the instrument that contains the phenomenon.
+
 ## WHAT I DID NOT ESTABLISH (and would withdraw first)
 
-- **End-to-end on the SITQA/LitBank board QA.** I measured the live *organ* (agent_supports/net_activation) on
-  the reader's own front-end parses in the weak-parser regime the fit-gate line validated — a faithful
-  live-organ test, not an isolated reimplementation — but NOT the full end-to-end LitBank question-answering
-  board number. That end-to-end validation is the strategy-lands-it step (as the fit-gate integration explicitly
-  required). It is the thinnest part of the "LIVE arm" claim and what I would qualify first.
 - **The domain generalisation of byhead's magnitude.** The +0.43 clean-slice lift is on modern QA-SRL science
   prose (inanimate-heavy agents, where byhead helps *most*). On 19c literary prose (animate agents) the animacy
   cue already does more, so byhead's lift there is the animate-agent number (+0.099), still CI-separated. I
@@ -188,8 +209,10 @@ the honest ceiling.
    passive-agent construction (participle verb + a by-PP present). Add `"byhead"` to `AGENT_VALIDITIES` at a
    swept weight ≈ 10 (self-gating: no support key emitted off-construction → byte-identical elsewhere, per
    net_activation's skip-absent-cue contract). Measured: clean non-canonical AGENT 0.2556→0.6889 (+0.4333
-   CI-sep), full non-canonical +0.1642, canonical +0.0036 n.s. **Validate END-TO-END on the SITQA/LitBank board
-   AGENT arm before flipping on** (the fit-gate line's phase-gate requirement).
+   CI-sep), full non-canonical +0.1642, canonical +0.0036 n.s. **END-TO-END LIVE-BOARD validation is DONE**
+   (LitBank 16 docs, n=1830): no material regress (−0.0005, CI includes 0; 1 answer changed; gate fires 4/1830)
+   — safe to flip on. The board can't show the *win* (its gold asks about syntactic subjects, ~no by-agent Qs),
+   so keep the QA-SRL role-balanced corpus as the regression witness for the by-agent slice.
 2. **Adopt the participle+by-PP construction detector** as the gate for (1) (and consider it as a
    higher-precision `passive_strong` trigger for the PATIENT route — but re-measure the patient arm first;
    changing the shared voice detector is a downstream-consumer change).
@@ -236,8 +259,9 @@ name the refutation, PARTIAL-with-redirect is defensible — but a real fix ship
 
 ## NEXT STEPS (for the strategy session; I do not file problems — Q113)
 
-1. **Land the byhead case-morphology cue** (proposed diff above), after an END-TO-END SITQA/LitBank board
-   AGENT-arm validation (measure on the live reader, not in isolation — the fit-gate line's phase-gate).
+1. **Land the byhead case-morphology cue** (proposed diff above). The END-TO-END SITQA/LitBank board validation
+   is DONE (n=1830, no material regress, gate fires 4/1830) — it is safe to flip on; keep the QA-SRL
+   role-balanced corpus as the by-agent regression witness (the board's gold has ~no by-agent questions).
 2. **Evaluate the participle+by-PP detector as a shared voice cue** — re-measure the PATIENT route before
    adopting it there (downstream-consumer check).
 3. A **graded** voice-confidence weight was TESTED and is slightly worse (−0.056 CI-sep) — do NOT pursue it;

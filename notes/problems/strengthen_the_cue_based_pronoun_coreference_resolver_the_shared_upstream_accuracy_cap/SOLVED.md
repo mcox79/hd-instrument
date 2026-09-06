@@ -5,7 +5,7 @@ bar: "PASS = a cue-integrated retrieval resolver that lifts the LIVE reader core
 result: "LIVE pooled he/she coref_acc (100 LitBank docs, n=7597 targets, scorer resolved_cluster==gold_cluster, the deployed EventCentralityReader): the landed graded ACT-R cue-based pick lifts the deployed pick 0.4693 -> 0.6019, paired doc-bootstrap delta +0.1327 CI[+0.0929,+0.1738] half-width 0.0405, CI-separated; the info-free shuffled-history twin scores 0.2697 (null p95 0.2952) and LOSES. NO-regress on named-antecedent coref (0.4883 -> 0.6165, it RISES). DOWNSTREAM (the pronoun-bound dimension): he/she who-has-what pick accuracy (25 LitBank docs, n=1700, gold-nominal grouping) rises 0.4035 -> 0.4735, PAIRED per-target delta +0.0700 CI[+0.0429,+0.0976] CI-separated, twin 0.0471 loses."
 floor: "Strongest floor per population, recomputed in-place. Pooled coref: the DEPLOYED live pick (EventCentralityReader rolemass topical + event-centrality memory) = 0.4693 -- reproduced BYTE-EXACT to the known exp_referent_coref_linking_v1 deployment number. Strongest SIMPLE floor on the same pooled population = plain recency in the graded net = 0.6052 (the deployed pick is BELOW it -- the mechanistic cap). who-has-what floor: the deployed rolemass pick = 0.4035. Info-free floors: shuffled-history twin 0.2697 (pooled) / 0.0471 (who-has-what)."
 controls: "(1) info-free shuffled-candidate-history twin (severs the candidate<->evidence link, same activation machinery + shape): LOSES CI-sep on BOTH the pooled (0.2697 vs 0.4693) and who-has-what (0.0471) -- excludes 'the machinery/pool shape carried it'. (2) FLOOR reproduces the known 0.4693 deployment number exactly -- excludes a harness artifact; every arm re-ranks the IDENTICAL deployed candidate pool, so the win is pure pick quality. (3) named-antecedent no-regress: named coref RISES (0.4883->0.6165) -- excludes 'gained on common nouns at the cost of names'. (4) cue ablation locates the lever: recency-only 0.6052 ~= graded 0.6019 >> deployed rolemass 0.4693, and event-centrality OFF (0.4876) beats event-centrality ON (0.4693) -- the deployed pick's 'NO recency term' design + its event-centrality override ARE the cap. (5) p_sent-proxy robustness: recency-only's argmax is p_sent-invariant, and the who-has-what cell uses the TRUE pronoun sentence index and reproduces the graded number exactly (0.4735 == the entity_maintenance nochain floor) -- excludes 'the proxy inflated recency'. (6) affect experiencer (a brief-NAMED downstream) is a rigorous LOCATED NEGATIVE (+0.0124 NOT_SEP) with a measured cause: it is common-noun-experiencer bound (83.5% of experiencers are common nouns), not pronoun bound."
-files_changed: "experiments/exp_coref_graded_live_transfer_v1.py, experiments/exp_coref_graded_downstream_whohaswhat_v1.py, experiments/exp_coref_graded_downstream_affect_v1.py, experiments/exp_coref_graded_residual_anatomy_v1.py, experiments/exp_coref_incremental_gender_prototype_v1.py, experiments/exp_coref_graded_upstream_drill_v1.py, verification/test_coref_graded_live_transfer.py, verification/test_coref_graded_downstream.py, verification/test_coref_graded_deepening.py, notes/problems/strengthen_the_cue_based_pronoun_coreference_resolver_the_shared_upstream_accuracy_cap/SOLVED.md (NO hdlab/ writes -- the Q111 wire is proposed below for strategy)"
+files_changed: "experiments/exp_coref_graded_live_transfer_v1.py, experiments/exp_coref_graded_downstream_whohaswhat_v1.py, experiments/exp_coref_graded_downstream_affect_v1.py, experiments/exp_coref_graded_residual_anatomy_v1.py, experiments/exp_coref_incremental_gender_prototype_v1.py, experiments/exp_coref_graded_upstream_drill_v1.py, experiments/exp_coref_graded_unification_v1.py, experiments/exp_coref_graded_soft_gender_v1.py, verification/test_coref_graded_live_transfer.py, verification/test_coref_graded_downstream.py, verification/test_coref_graded_deepening.py, verification/test_coref_graded_unification.py, verification/test_coref_graded_soft_gender.py, notes/problems/strengthen_the_cue_based_pronoun_coreference_resolver_the_shared_upstream_accuracy_cap/SOLVED.md (NO hdlab/ writes -- the Q111 wire is proposed below for strategy)"
 reverify: ".venv/Scripts/python.exe verification/test_coref_graded_live_transfer.py  (deepening: verification/test_coref_graded_deepening.py 5/5; downstream: verification/test_coref_graded_downstream.py 2/2)"
 ---
 
@@ -134,10 +134,59 @@ replace the pronoun antecedent pick with the landed organ:
   (incremental entity-maintenance, §P3) since the loop helps the graded pick but hurts the rigid pick.
 - **Do NOT** deploy recency-only (it regresses the competitive/conflict cases the integrated organ handles).
 
+**SECOND WIRE (compose, +0.020 more): glass-box entity unification.** Before building the candidate pool,
+unify proper-name variants with the reader's OWN `hdlab.coref.build_merge_map` (`EntityAliaser`, no gold) and
+key the overlay entity by the canonical referent so salience accumulates on ONE entity. Measured deployable
++0.020 CI-sep, twin loses, named no-regress (`exp_coref_graded_unification_v1`). Fixes the ROOT upstream
+deviation (surface-head keying in `state_of_mind.EntityState`). **Do NOT** also wire gender-propagation /
+recall-safe agreement — they regress even on a unified pool until a confidence-gated resolve-then-propagate
+loop exists (the +0.28 gender ceiling is a filed follow-on).
+
 Expected board effect: the coref board dim and who-has-what rise; affect/entity-KB unchanged (common-noun
 bound — a separate, already-filed lever).
 
 ---
+
+## UPSTREAM BRAIN-FAITHFULNESS EVALUATION — EXACTLY where it deviates (owner ask)
+
+I evaluated each component upstream of the pronoun pick for brain-faithfulness and pinned the EXACT
+deviation (file + mechanism), ranked by measured leverage on coref. Reverify:
+`verification/test_coref_graded_unification.py` (3/3) + `test_coref_graded_deepening.py` (6/6).
+
+| upstream component | brain requirement (PINNED) | what the reader does | EXACT deviation (where) | measured leverage |
+|---|---|---|---|---|
+| **entity individuation** | ONE discourse referent per entity; a pronoun retrieves the UNIFIED entity (Kamp/Heim DRT; hippocampal concept cells; Kintsch CI) | keys entities by **surface HEAD STRING** → "Elizabeth"/"Miss Bennet"/"Bennet" are 3 entities; salience+gender split across fragments | `hdlab/state_of_mind.py::EntityState.head` + `WorkingOverlay.observe(head)` | **ROOT. +0.020 CI-sep DEPLOYABLE (glass-box aliasing); +0.034 oracle; and it gates the +0.28 gender ceiling** |
+| gender / phi-features | gender set at introduction, STABLE; agreement a GRADED VIOLABLE cue (Carminati); uncertain resolutions "hold both" (Nref) | static name-gazetteer; NO propagation; HARD narrow | `hdlab/scene_segment.py::_agreement_narrow` (hard) + `state_of_mind._compatible_entities` (hard gender exclude) + no establishment | **FIXED brain-faithfully (soft cue + gated propagation): −0.125 → +0.008; but MARGINAL/ns — the +0.28 ceiling was over a weak baseline** |
+| grammatical role (Cf cue) | role by cue-competition (Competition Model: order+animacy+morphology+verb-frame); subjecthood a GRADED cue | **positional** (`agent = pre-verbal noun`) | `hdlab/situation_reader.py::_assign_roles` / `_pick_role_mentions` | LOW on coref (recency-only ≈ graded; subject cue ~weightless). Matters for who-did-what → filed P2 CM-role |
+| event-centrality | an entity central to recent events is more accessible = ONE graded cue in the retrieval competition (Gernsbacher advancement) | applied as a HARD OVERRIDE of the pick on same-gender ties, not integrated as a cue | `hdlab/event_centrality_coref.py::resolve_stream` (the `query_memory` override) | non-faithful AS IMPLEMENTED: hurts near AND far uniformly (−0.12 over the graded pick) → keep OFF |
+| mention detection (coref path) | — | uses GOLD CoNLL mention spans for coref (`parse_litbank_conll`) | (gold; not a coref deviation) | n/a for coref |
+
+**THE SIGNIFICANT ONE — entity fragmentation — is FIXABLE glass-box, and I prototyped the benefit
+(`exp_coref_graded_unification_v1`).** Unifying proper-name variants with the reader's OWN incremental
+name-aliaser (`hdlab.coref.build_merge_map` / `EntityAliaser` — no gold, no LLM) and re-keying the overlay
+entity to the canonical referent lifts the live pooled pick **0.6019 → 0.6220 (+0.020, CI[+0.008,+0.033],
+CI-separated)**, the shuffled-alias info-free twin LOSES (0.524, −0.078), and named coref does NOT regress
+(0.617 → 0.638). It captures **59% of the +0.034 oracle-unification ceiling** from a deployable mechanism.
+**So the composed deployable, fully-glass-box, fully-brain-foundational stack is: deployed 0.4693 → graded
+PICK 0.6019 → + glass-box UNIFICATION 0.6220 = +0.153 over the live floor**, two PINNED mechanisms, no gold,
+no LLM.
+
+**Gender: the bootstrapping wall is FIXED brain-foundationally — but the prize was illusory (owner ask "fix
+it, brain foundational?", `exp_coref_graded_soft_gender_v1`, witness `test_coref_graded_soft_gender.py` 2/2).**
+The hard-filter version regressed (−0.125) because a ~36%-wrong pick propagated a WRONG gender that then
+HARD-EXCLUDED the correct future antecedent (irrecoverable). I rebuilt gender the brain's way — two PINNED
+changes: (1) **gender is a VIOLABLE graded CUE** (Carminati 2002; McClelland/FLMP product), integrated into
+the SAME graded competition over a NUMBER-only pool, so a wrong gender only PENALIZES a candidate, never
+excludes it (recoverable); (2) **confidence-gated propagation** (Nieuwland-Van Berkum Nref "hold both") —
+commit gender only on a low-entropy pick. This **REMOVES the regression** (−0.125 → +0.008) and the
+random-gender twin does not help (−0.003, control). **BUT the benefit is MARGINAL and NOT CI-separated
+(+0.008 [−0.012,+0.032]).** The honest realization: the +0.281 "ceiling" (anatomy: name_only 0.524 →
+name+prior_pron 0.805) was headroom over a WEAK over-narrowing baseline, NOT signal the strong pick was
+missing — the recency-dominated graded pick already resolves the most-recent same-gender antecedent
+correctly, so gender's real marginal value is small (same lesson as the whole problem: recency dominates).
+**Gender is now a faithful, non-regressing, marginal component; the deployable levers stay PICK (+0.133) +
+glass-box UNIFICATION (+0.020).** So the chain is brain-foundational at PICK ✅ + UNIFICATION ✅ + GENDER ✅
+(faithful, ~0), and the real residual above is the individuation/world-knowledge wall (below), not gender.
 
 ## DEEPENING (owner push: prototype the upstream, confirm brain-foundational, no downstream regress)
 
@@ -149,7 +198,8 @@ find how far a fully-brain-foundational chain can go. Reverify: `verification/te
 |---|---|---|
 | deployed pick (rolemass + event-centrality) | 0.4693 | OUR-INVENTION placeholder (anti-recency) |
 | **+ graded ACT-R pick** (my primary) | **0.6019** | PINNED (Lewis-Vasishth). WIRE IT. ✅ robust |
-| **+ entity unification** (one representation per character; oracle gold-cluster) | **0.6358** | PINNED (Heim familiarity). The NEXT lever. ✅ robust (oracle) |
+| **+ glass-box entity unification** (name-aliasing, deployable, NO gold) | **0.6220** | PINNED (Heim/DRT). **WIRE IT — 2nd deployable win, +0.020 CI-sep, twin loses.** ✅ |
+| + entity unification (oracle gold-cluster, upper bound) | 0.6358 | the ceiling of unification (+0.034) |
 | + event-centrality kept ON | 0.4833 | non-faithful AS IMPLEMENTED — hurts near AND far uniformly → keep OFF |
 | + hard gender propagation | 0.5621 | LOCATED NEGATIVE — regresses |
 | + recall-safe (soft) agreement | 0.4335 | LOCATED NEGATIVE live — floods the fragmented pool |
@@ -252,10 +302,10 @@ want the literally-named downstream to rise, that lever is common-noun coref (al
    Unify a character's surface variants into one representation (Heim file-change) BEFORE the pronoun pick,
    via glass-box name merging (`build_merge_map`) — this is the already-filed common-noun-coref / discourse-
    referent component; it composes with the pick and is the SHARED lever that also unblocks affect/entity-KB.
-3. **ONLY THEN re-test recall-safe agreement + incremental gender accrual** on the unified entities. These
-   help in the idealized cache (+0.021) but REGRESS the live fragmented pool today (−0.17 / −0.07) — they are
-   candidates gated on a DEPLOYABLE unification, not wins to wire now (Carminati gender-as-graded-cue is the
-   target form, but the pool must be clean first).
+3. **Gender is DONE (brain-faithful, marginal): do NOT chase it further.** The soft violable-cue + gated
+   propagation build (`exp_coref_graded_soft_gender_v1`) removed the regression and settled it at +0.008 ns —
+   the +0.28 ceiling was over a weak baseline. Optionally wire it for FIDELITY (a faithful non-regressing
+   component) behind a flag, but it is not an accuracy lever. Spend the effort on the individuation wall.
 4. **The residual above that is the DOCUMENTED wall** — ~14% external world-knowledge (no-LLM-barred) + ~86%
    entity-individuation = priority-1 North Star. The coherence next-mention prior is owner-DONE dead x2; do
    NOT re-open it.
