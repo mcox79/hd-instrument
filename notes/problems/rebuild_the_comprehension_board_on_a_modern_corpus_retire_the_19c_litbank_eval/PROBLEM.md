@@ -1,9 +1,8 @@
 ---
-priority: 1
 slug: rebuild_the_comprehension_board_on_a_modern_corpus_retire_the_19c_litbank_eval
-status: CANDIDATE
-review:
-review_text:
+status: INTEGRATED
+review: EXCELLENT
+review_text: "The 19c ban realized as the reported instrument. The comprehension board is now 19c-FREE MODERN (aggregate 0.6135 over 7 modern dims, no LitBank; LitBank demoted to informational_19c_crossref); 3 new arms fold in this session's board-invisible wins (coarse-sense/selective-reliability/causal-multihop). Decisive register located finding: the 19c who-did-what AGENT win (0.041->0.69) is register-specific (modern positional 0.855 near-ceiling; always-compete CM reverses sign) = a vindication of the ban. hdlab guardrail hybrid_agent_pick + construction cues flag-gated default-off (measured register reason; agent_hybrid=False byte-identical). 1b SKIPPED (verified byhead-subsumed, no double-count). Verified first-hand 12/12 + 9/9. Full board --run to persist = strategy follow-up."
 ---
 
 # PROBLEM: the reader's whole comprehension board scores its aggregate and most dimensions on 100 pre-1923 LitBank documents (19c fiction, owner-banned 2026-09-06 as a load-bearing gold), so rebuild the board so EVERY dimension is scored on MODERN annotated gold (GUM coref/entity + UD-EWT/QA-SRL who-did-what/state), preserving the per_dimension floor/twin/CI discipline exactly, yielding a 19c-FREE aggregate.
