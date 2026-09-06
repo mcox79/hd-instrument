@@ -5,7 +5,7 @@ bar: "PASS = a glass-box OCC-appraisal inference -- a transparent, hand-auditabl
 result: "Glass-box OCC appraisal (desirability x prospect -> OCC type + valence) over the LIVE reader's extracted affect+goal+event registers, on a constructed MODERN OCC gold (n=50, named characters, balanced 25/25 valence). TYPE task: APPRAISAL 0.940 vs strongest floor (valence-only, oracle-valence -> majority-type-of-valence) 0.440 = +0.500 CI[+0.340,+0.660]; vs last-stated-emotion-word floor 0.200 = +0.740; vs the CURRENT live substrate (baseline track_status, no prospect) 0.060 = +0.880 CI[+0.780,+0.960]. VALENCE task: 0.940 vs majority floor 0.500 = +0.440 CI[+0.260,+0.600]. LOAD-BEARING prospect subset {relief, fears_confirmed} (n=18): APPRAISAL 1.000 vs valence-only floor 0.000 and last-word floor 0.000 (+1.000; valence is PROVABLY insufficient for the OCC type). Composition control: ORACLE (gold structural variables) = 1.000 (the rule is exact). Info-free goal<->event-shuffle twin 0.220 loses (+0.720 CI[+0.560,+0.860])."
 floor: "STRONGEST type floor actually run = valence-only with ORACLE valence -> majority-type-of-that-valence = 0.440 (its upper CI bound; appraisal +0.500 CI-sep above it); also most-frequent-type 0.240, last-stated-emotion-word 0.200. STRONGEST valence floor = majority-valence 0.500 (balanced), last-word 0.420. NOFIX (current live substrate) 0.060 -- the appraisal beats it +0.880 CI-sep, so the upstream generalization is the whole lever. Twin null: type-shuffle 0.220 / valence-shuffle 0.480."
 controls: "(1) info-free goal<->event-shuffle TWIN (permute the (desirability,prospect) structural variables across items; class balance matched) -- LOSES CI-sep on TYPE (+0.720) and VALENCE (+0.460) -> the goal<->event BINDING is load-bearing. (2) NOFIX = the CURRENT live substrate (hdlab.goal_register.track_status, no thwart + NO prospect) -- collapses to 0.060 (right only on goal-satisfaction) -> the two upstream generalizations are the lever. (3) ORACLE (gold desirability+prospect) = 1.000 -> the OCC RULE is exact; every point of end-to-end headroom is EXTRACTION. (4) prospect-subset floors PROVABLY 0.000 (valence-only + last-word cannot separate relief from fears_confirmed -- both carry a stated FEAR word) -> the prospect branch is load-bearing. (5) DENSITY SWEEP (matched sparse gold, semantic not lexical goal->outcome cues): type acc 0.940->0.060 while ORACLE stays 1.000/1.000 -> the ceiling is EXTRACTION density, not the rule. (6) UPSTREAM NO-REGRESSION: track_status_thwart is a STRICT SUPERSET of the live track_status (0 satisfied/failed flips over 53 goals on ROC Stories + the gold; 14 active->failed additions; 0 wants() regressions). (7) EXTERNAL Social IQa feel-slice: appraisal fires on 1/23 (goal->outcome is semantic on real MC prose -> localizes the same ceiling)."
-files_changed: "experiments/_occ_appraisal.py (the OCC organ: pure rule + prospect confirm/disconfirm detection + the sm.infer_emotion read-out), experiments/_occ_upstream_goal_status.py (the upstream goal-FAILURE-by-thwart generalization + agent-coref-canon + irregular-past, strict superset of hdlab.goal_register.track_status), experiments/_occ_probe.py (diagnostic + protagonist-coref helper), experiments/exp_occ_appraisal_emotion_v1.py (the measurement: arms, paired-bootstrap CIs, valence+type, prospect subset), experiments/exp_occ_upstream_no_regression_v1.py (no-regression on ROC+gold), experiments/exp_occ_social_iqa_generalization_v1.py (external modern check), experiments/exp_occ_density_sweep_v1.py (the cue-density phase cut), experiments/data/occ_appraisal_gold_v1.jsonl (dense gold, 50), experiments/data/occ_appraisal_gold_sparse_v1.jsonl (sparse gold, 50), verification/test_occ_appraisal.py (scaffold-free witness, 9/9), data/exp_occ_appraisal_emotion_v1/metrics.json, data/exp_occ_upstream_no_regression_v1/metrics.json, data/exp_occ_density_sweep_v1/metrics.json, data/exp_occ_social_iqa_generalization_v1/metrics.json, experiments/exp_occ_converse_matching_v1.py (the event<->goal ROLE-FILLER polarity layer decisive test) + experiments/data/occ_converse_probe_v1.jsonl + data/exp_occ_converse_matching_v1/metrics.json, experiments/exp_occ_realprose_corroboration_v1.py (external real-prose corroboration, located negative) + data/exp_occ_realprose_corroboration_v1/metrics.json, experiments/{exp_occ_intensity_v1.py (intensity WIN), exp_occ_social_agency_v1.py + data/occ_social_probe_v1.jsonl (social located negative), exp_occ_scene_inference_v1.py (scene-inference located negative)} + their data/*/metrics.json, notes/problems/infer_unstated_emotion_via_occ_appraisal_over_event_goal_congruence/{research_occ_appraisal_brain_mechanism_2026-09-06.md, research_walls_event_goal_matching_and_intensity_2026-09-06.md, research_social_attribution_2026-09-06.md}. hdlab/ UNTOUCHED (Q111 diff in section 6)."
+files_changed: "experiments/_occ_appraisal.py (the OCC organ: pure rule + prospect confirm/disconfirm detection + the sm.infer_emotion read-out), experiments/_occ_upstream_goal_status.py (the upstream goal-FAILURE-by-thwart generalization + agent-coref-canon + irregular-past, strict superset of hdlab.goal_register.track_status), experiments/_occ_probe.py (diagnostic + protagonist-coref helper), experiments/exp_occ_appraisal_emotion_v1.py (the measurement: arms, paired-bootstrap CIs, valence+type, prospect subset), experiments/exp_occ_upstream_no_regression_v1.py (no-regression on ROC+gold), experiments/exp_occ_social_iqa_generalization_v1.py (external modern check), experiments/exp_occ_density_sweep_v1.py (the cue-density phase cut), experiments/data/occ_appraisal_gold_v1.jsonl (dense gold, 50), experiments/data/occ_appraisal_gold_sparse_v1.jsonl (sparse gold, 50), verification/test_occ_appraisal.py (scaffold-free witness, 9/9), data/exp_occ_appraisal_emotion_v1/metrics.json, data/exp_occ_upstream_no_regression_v1/metrics.json, data/exp_occ_density_sweep_v1/metrics.json, data/exp_occ_social_iqa_generalization_v1/metrics.json, experiments/exp_occ_converse_matching_v1.py (the event<->goal ROLE-FILLER polarity layer decisive test) + experiments/data/occ_converse_probe_v1.jsonl + data/exp_occ_converse_matching_v1/metrics.json, experiments/exp_occ_realprose_corroboration_v1.py (external real-prose corroboration, located negative) + data/exp_occ_realprose_corroboration_v1/metrics.json, experiments/{exp_occ_intensity_v1.py (intensity WIN), exp_occ_social_agency_v1.py + data/occ_social_probe_v1.jsonl (social located negative), exp_occ_scene_inference_v1.py (scene-inference located negative)} + their data/*/metrics.json, notes/problems/infer_unstated_emotion_via_occ_appraisal_over_event_goal_congruence/{research_occ_appraisal_brain_mechanism_2026-09-06.md, research_walls_event_goal_matching_and_intensity_2026-09-06.md, research_social_attribution_2026-09-06.md, research_result_state_goal_completion_2026-09-06.md} + experiments/_occ_goal_scripts.py (goal-script terminal-state KB) + data/exp_occ_scene_inference_v1/metrics.json. hdlab/ UNTOUCHED (Q111 diff in section 6)."
 reverify: ".venv/Scripts/python.exe verification/test_occ_appraisal.py   # 9/9; drives the LIVE reader over the gold + recomputes the headline/floors/twin/NOFIX + the upstream strict-superset from source (re-runs NO landed cell)"
 ---
 
@@ -270,15 +270,43 @@ thing did or didn't happen) are what made it work, and neither breaks anything e
 ## QUESTIONS
 None.
 
-## NEXT STEPS
-(1) Land the upstream goal-FAILURE-by-thwart generalization into `hdlab/goal_register.track_status` (strict
-superset, 0 wants() regression) + the default-off `sm.infer_emotion` read-out (Section 6). (2) Add a board
-OCC-appraisal arm (unstated-emotion valence+type) -- board-invisible today. (3) Promote the ROLE-FILLER event<->goal
-matcher (converse-satisfy / antonym-thwart / beneficiary-dispossess -- built + measured +0.417, twin loses) as the
-polarity layer on the goal-status tracker; then the SCENE-INFERENCE (Talmy force-dynamic / script) residual as its
-own problem. (4) Build the emotion-INTENSITY organ (discourse-level belief-vs-outcome surprise + goal-importance --
-research-drilled; NOT the argument-level N400). (5) Acquire an external modern OCC/emotion-attribution gold (Rashkin
-2018 over ROCStories) to corroborate the constructed headline. (6) Fold the AUDIT UPDATE into BRAIN_FOUNDATIONAL_AUDIT.md.
+## NEXT STEPS (PRIORITY-ORDERED)
+
+**P1 -- LAND THE PROVEN WIN (Q111, strategy; realizes the headline).** Promote `_occ_appraisal.py` ->
+`hdlab/occ_appraisal.py`; land the goal-FAILURE-by-thwart generalization INTO `hdlab/goal_register.track_status`
+(strict superset, 0 wants() regression -- verified); add the default-off `sm.infer_emotion(char)` read-out
+(mirrors `_read_tom_action`, fills only where affect is unstated); add a board OCC-appraisal arm (unstated-emotion
+valence+type) -- this capability is board-INVISIBLE today (live != scored). Witnesses ready: `test_occ_appraisal.py`
+9/9 + the no-regression cell. Fold the AUDIT UPDATE into `BRAIN_FOUNDATIONAL_AUDIT.md` (Tier-6 affect/appraisal).
+
+**P2 -- LAND THE ROLE-FILLER POLARITY LAYER (built + measured, default-off).** The converse-satisfy / antonym-thwart
+/ beneficiary-dispossess / maintain-thwart layer (event<->goal matching +0.417; social gratitude/anger 0->3/12) as
+the polarity layer on the goal-status tracker. Small, closed-class, free-resource-seeded (WordNet + FrameNet
+Perspective_on). Pairs with P1.
+
+**P3 -- THE GOAL-SCRIPT TERMINAL-STATE KB (research-drilled + PROTOTYPED, 13/22, twin loses) -- now the highest-
+leverage BUILDABLE follow-on.** The dominant scene ceiling is a BOUNDED schema/script asset, NOT pure Phase-1 (§9c).
+Build it properly: seed from FrameNet completion-typed frames + CORPUS-MINE markers (Chambers-Jurafsky narrative
+chains over a fiction corpus) so it is non-circular and held-out-evaluated; runtime = Hobbs abductive match against
+a Zwaan-Radvansky open-goal registry (glass-box, WordNet/embedding similarity for the fuzzy match, NO LLM). Bounded
+core ~150-400 script-types. Wire it as a result-state resolver on the goal-status tracker (alongside P2).
+
+**P4 -- THE TRUE-PHASE-1 TAIL (smaller than thought).** After P3, the residual meaning-channel need is the LONG TAIL:
+THEME COREFERENCE (report=file, garden=flowers -- bridging/associative anaphora, Poesio-Vieira; REUSE the LIVE
+`bridging_inference` organ), PREDICAMENT->goal inference (stranded->get-home, Graesser why-question), multi-hop
+result-states, and the NORM channel (pride/shame, anger-justification-defeat). These are the genuine Phase-1
+north-star. Similarity alone is provably insufficient (rel(win,lose)~=rel(sell,buy)).
+
+**P5 -- THE INTENSITY ORGAN (prototyped WIN, ready to spec).** Discourse-level belief-vs-outcome surprise +
+goal-IMPORTANCE (importance PRIMARY per Frijda/Ortony 1992; NOT the argument-level N400 -- measured inert). Minimal-
+pair ranking 1.000, twin loses. A clean glass-box organ; needs a stance-marker extractor + the goal-hierarchy graph
+for importance.
+
+**P6 -- FIDELITY EXTENSIONS (each needs its own gold).** Mixed/blended emotions (multi-goal;
+Larsen & McGraw 2011); emotion dynamics/trajectory; arousal (2nd circumplex axis); wiring appraised emotion ->
+ToM action prediction (fear->flee). The NORM/standard channel gates pride/shame + anger-justification-defeat
+(research-confirmed Phase-1). External-gold corroboration: acquire Rashkin 2018 (Story-Commonsense Plutchik over
+ROCStories) to independently corroborate the constructed headline (the real-prose corroboration is confound-limited).
 
 ## Section 9 -- FURTHER EFFICIENCIES / BRAIN-FOUNDATIONAL UPGRADES EVALUATED (owner asked; deepening pass)
 Asked "any other efficiencies or brain-foundational upgrades?", I evaluated the adjacent levers and drilled every
@@ -317,12 +345,21 @@ wall (owner: "do the right things, not the cheap things"):
    -- Graesser why-question inference) + THEME COREFERENCE (report=file, garden=flowers) -- Phase-1-adjacent.
    pride/shame CORRECTLY DEFERRED: agent-type is constant (self) so the Tier-1 shortcut is degenerate; they need the
    real norm/standard channel (Phase-1). Default-off; the headline + witness (9/9) are byte-identical.
-3. **SCENE-INFERENCE (LOCATED NEGATIVE -- confirms the Phase-1 residual)** -- `exp_occ_scene_inference_v1.py` (n=22
-   sparse goal cases). A GENERAL, non-circular Talmy force-dynamic MOTION template (arrival->success, departure->
-   thwart) recovers only ~1/22 (+0.045) -- because 18/22 sparse failures are RESULT-STATE world knowledge ("podium"
-   = won, "keys in hand" = bought, "register of attorneys" = passed). A result-state lexicon fitted to those would be
-   CIRCULAR, so it is deliberately NOT built; its size (18/22) is the MEASURED genuine meaning-channel (Phase-1)
-   residual. This is the "right not cheap" outcome: refuse the circular hack, report the residual.
+3. **SCENE-INFERENCE (LOCATED NEGATIVE -> RESEARCH-DRILLED -> BUILT into a WIN)** -- `exp_occ_scene_inference_v1.py`
+   (n=22 sparse goal cases). First pass: a general Talmy force-dynamic motion template recovered only ~1/22, and I
+   refused to hand-fit a circular per-scene lexicon -> filed as "Phase-1". The result-state research (§9c) OVERTURNED
+   that: result-state -> goal-completion is a BOUNDED schema/script mechanism (Hobbs weighted-abduction against a
+   Zwaan-Radvansky open-goal registry + Kintsch settling; hippocampal-vmPFC schema completion), buildable as a static
+   GOAL-SCRIPT -> TERMINAL-STATE KB (foundation-admissible, like ConceptNet/FrameNet). I BUILT it
+   (`_occ_goal_scripts.py`, ~19 goal-frames with canonical SUCCESS/FAILURE markers): BASELINE 0.136 -> +force-dyn
+   0.182 -> **+GOAL-SCRIPT-KB 0.773 (recovered 13/22)**, GOAL-SHUFFLE TWIN 0.227 LOSES (the anti-circularity control:
+   a WRONG goal's script fails -> it is goal-CONDITIONED, not word-spotting), HARD-PASS (research pre-reg >=8/18) MET.
+   RIGHT-NOT-CHEAP: markers are canonical script-level (podium/trophy/medal = universal winning knowledge, NOT gold
+   phrasing -- I removed item-specific markers so sat06 now honestly FAILS); the twin is the load-bearing control.
+   RESIDUAL (5/22 -> genuine Phase-1): weather-caused (hailstorm/frost), multi-hop, and the removed-marker long-tail.
+   HONEST CAVEAT: the seed KB is hand-authored (goal-TYPES informed by the gold, MARKERS canonical); the stronger
+   non-circular build corpus-MINES markers (Chambers-Jurafsky narrative chains over fiction) + holds out the eval --
+   the filed next step. So the scene wall is a BOUNDED buildable script layer, NOT pure Phase-1.
 
 ### Section 9b -- the social-attribution wall, RESEARCH-DRILLED (`research_social_attribution_2026-09-06.md`)
 The gratitude/anger extraction wall decomposes into three, two buildable-now (built, §9a.2), one Phase-1-gated:
@@ -342,3 +379,20 @@ The gratitude/anger extraction wall decomposes into three, two buildable-now (bu
   constant=self, so the Tier-1 shortcut is degenerate -- differentiation is entirely a norm/standard judgement) ->
   genuinely Phase-1 norm-channel-gated. Neural: rTPJ intent + vmPFC value integration, two signals combined late
   (Young 2007/2010; Cushman 2008 two outputs). So omitting pride/shame was correct.
+
+### Section 9c -- the result-state world-knowledge wall, RESEARCH-DRILLED + BUILT (`research_result_state_goal_completion_2026-09-06.md`)
+The scene ceiling ("stood on the podium" = won) was deferred as Phase-1; the drill overturned that. PINNED: it is a
+BOUNDED schema/script pattern-completion, NOT open-ended abduction. Representation = frames/scripts (Schank & Abelson
+1977; Minsky 1975; FrameNet Inchoative_of/Causative_of/Precedes; Rumelhart story-grammar Outcome slot). Mechanism =
+Hobbs, Stickel, Appelt & Martin 1993 "Interpretation as Abduction" (lowest-cost weighted-abductive match of a
+result-state to the event that produced it, via Dowty 1979 BECOME result-states) run against a Zwaan-Radvansky 1998
+OPEN-GOAL registry, settled by Kintsch 1988 construction-integration. Online status confirmed (Long, Golding &
+Graesser 1992: superordinate-goal inferences ARE drawn online; McKoon & Ratcliff 1992 predicts the EXACT failure
+mode -- unscripted/idiosyncratic result-states do NOT fire automatically). Biological grounding: hippocampal-vmPFC
+schema completion (Tse et al. 2007; van Kesteren 2012; Baldassano et al. 2017), NOT deliberate theorem-proving.
+Substrate = a static offline KB (ConceptNet Causes/HasPrerequisite/HasSubevent; ATOMIC; scale via Chambers-Jurafsky
+narrative-chain mining) -- foundation-admissible under the project PIVOT; the ATL hub is the fuzzy-MATCH step ("top
+step"~"podium") not the directional-edge store. BUILT + MEASURED (§9a.3): 13/22 recovered, goal-shuffle twin loses,
+HARD-PASS met. Bounded core ~150-400 script-types (Zipfian) covers a majority; the long tail is correctly Phase-1.
+This RE-SCOPES the dominant ceiling: MUCH of "result-state world knowledge" is a bounded buildable script asset, not
+the general meaning channel -- so P3 (below) splits into a shippable goal-script KB + a smaller true-Phase-1 tail.
