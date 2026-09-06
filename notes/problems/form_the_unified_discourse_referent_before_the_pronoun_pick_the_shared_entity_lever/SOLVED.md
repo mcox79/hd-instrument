@@ -5,8 +5,8 @@ bar: "PASS = a UNIFIED-referent representation (one discourse referent per entit
 result: "On MODERN gold (GUM V12.1.0, 275 docs, held-out TEST=137 docs), scorer=antecedent resolves to correct gold entity. TWO consumers lift CI-separated over the separate-tracking reader with the info-free twin losing: (1) PRONOUN PICK 0.3621->0.4681, +0.1060 CI[+0.079,+0.133] (half-width 0.027), twin(null) 0.2034; (2) ENTITY-KB HARD-LINK (named-entity pronoun files under the name-carrying referent) 0.3963->0.4682, +0.0719 CI[+0.023,+0.120] (half-width 0.048), twin(null) 0.0819. NO-regress on named coref (0.6781->0.6845, +0.0064)."
 floor: "Strongest simple floor recomputed per population on TEST: pronoun -- the separate-tracking reader itself 0.3621 (> string-identity 0.307, recency 0.293); unified beats it +0.1060 CI-sep. entity-KB hard-link -- separate reader 0.3963; unified +0.0719 CI-sep. common -- blind head-identity 0.5412 (unified 0.4879 does NOT beat it: located negative). Oracle-unified (gold clusters) ceiling: pronoun 0.584, kb 0.547."
 controls: "info-free TWIN (shuffled identity evidence, same machinery+shape) LOSES on both lift consumers (pronoun uni-twin +0.265 CI-sep; kb uni-twin +0.386 CI-sep) -- excludes 'any incremental machinery'. Leave-one-out ablation: gender agreement load-bearing for the pronoun pick (+0.036 CI-sep), ACT-R grammatical-prominence salience load-bearing for the kb hard-link (+0.137 CI-sep) -- excludes 'recency alone'. UPSTREAM control: positional roles (the live _assign_roles) vs gold grammatical roles drops the kb hard-link -0.084 CI-sep -- the downstream benefit requires a brain-foundational upstream role assigner. Dev/test split by doc parity; PINNED ACT-R decay d=2.0 near-optimal on TEST (dev-tuning does not beat it on the pronoun pick)."
-files_changed: "experiments/fetch_gum_coref_v1.py, experiments/gum_coref.py, experiments/exp_unified_referent_gum_v1.py, experiments/exp_unified_referent_ablation_gum_v1.py, experiments/exp_unified_referent_optimize_gum_v1.py, verification/test_unified_referent_gum.py, verification/test_unified_referent_ablation.py, verification/test_unified_referent_optimize.py, data/corpora/gum/ (acquired offline asset, gitignored; fetch script pins GUM V12.1.0 @ 22fdf87). NO hdlab/ written (Q111 -- proposed wire only)."
-reverify: ".venv/Scripts/python.exe verification/test_unified_referent_gum.py  (5/5; full suite: test_unified_referent_ablation.py 3/3, test_unified_referent_optimize.py 2/2 = 10/10; GUM parse positive control: experiments/gum_coref.py --self-test)"
+files_changed: "experiments/fetch_gum_coref_v1.py, experiments/gum_coref.py, experiments/exp_unified_referent_gum_v1.py, experiments/exp_unified_referent_ablation_gum_v1.py, experiments/exp_unified_referent_optimize_gum_v1.py, experiments/exp_unified_referent_optimizations_gum_v1.py, experiments/exp_commonnoun_wall_gum_v1.py, verification/test_unified_referent_gum.py, verification/test_unified_referent_ablation.py, verification/test_unified_referent_optimize.py, verification/test_commonnoun_wall.py, notes/problems/<slug>/WALLS_RESEARCH_brain_foundational_2026-09-06.md, data/corpora/gum/ (acquired offline asset, gitignored; fetch script pins GUM V12.1.0 @ 22fdf87). NO hdlab/ written (Q111 -- proposed wire only)."
+reverify: ".venv/Scripts/python.exe verification/test_unified_referent_gum.py  (5/5; full suite: test_unified_referent_ablation.py 3/3, test_unified_referent_optimize.py 2/2, test_unified_referent_optimizations.py 2/2, test_commonnoun_wall.py 3/3 = 15/15; GUM parse positive control: experiments/gum_coref.py --self-test)"
 ---
 
 # SOLVED — form the unified discourse referent (the shared entity lever)
@@ -107,6 +107,47 @@ the entity-KB hard-link +0.079 on held-out TEST** (a slower base-level decay kee
 protagonist activated) — a legitimate per-corpus refinement, reported not adopted (d=2.0 matches the validated live
 binder; the headline is the conservative d=2.0).
 
+## Brain-foundational optimizations — ALL tested, dev-adopted, test-reported (owner: "do all")
+Seven candidate optimizations, each a PINNED brain operation, dev-selected on a pronoun+kb+common objective (adopt
+only if it does NOT regress the pronoun pick), reported once on TEST (`exp_unified_referent_optimizations_gum_v1.py`,
+`test_unified_referent_optimizations.py` 2/2). **The base unified referent already saturates the CUE-PARAMETER family these optimizations live in** (decay /
+agreement / salience / parallelism): the dev-adopted set (is-a bridge + parallelism) MAINTAINS the headline —
+pronoun 0.4732 (+0.111 vs separate, CI-sep), kb 0.4828 (+0.087 vs separate, CI-sep), name no-regress, twin loses —
+but its gains OVER the base unified are small and not CI-separated. **This is NOT the absolute no-LLM ceiling** — the
+remaining headroom is elsewhere: (1) CLUSTERING quality — the unified pronoun pick 0.468 vs the ORACLE-unified (gold
+clusters) 0.584 is a 0.116 GLASS-BOX gap (my incremental referents aren't the gold clusters; better mention linking,
+the P2 role assigner, close it — no LLM needed); (2) above the oracle, genuine ambiguity where salience+gender+
+agreement underdetermine the antecedent — PART world-knowledge/semantics (the no-LLM-barred fraction) and PART the
+coherence/next-mention prior (Kehler-Rohde, owner-DONE dead ×2). So "the cue family is saturated" is the honest claim;
+the real levers above it are glass-box clustering and (barred) world knowledge, not more cue-tuning. Honest ledger:
+- **ADOPTED — glass-box common→name is-a bridge** (Heim file-card familiarity; apposition/copula + head-in-name): dev
+  +0.015, small.
+- **ADOPTED — Smyth parallelism**: dev +0.020 (marginal; the literature says weak — Kehler et al. 2008: syntactic
+  parallelism alone is null, the effect rides the Parallel/Resemblance coherence relation, <2% of continuations — so
+  a tiny, non-CI-sep gain is exactly expected; kept as a low-weight tie-breaker).
+- **REJECTED — ACT-R decay d=1.5**: a TRADE, not a free win — it lifts kb/common but REGRESSES the pronoun pick −0.02
+  on dev (a shallower base-level decay keeps the protagonist active but loses recency discrimination on the pick). Not
+  globally adopted; available as a kb-specific tuning if kb is prioritized. (Canonical d=0.5 HURTS badly, −0.074: a
+  units-mismatch — d=0.5 was fit on a real-CLOCK range; on a mentions-ago clock the right refit is d≈1.5-2.0, Kahana &
+  Adler 2002. The pinned d=2.0 is near-optimal for the pronoun pick.)
+- **REJECTED — graded Nref write** (divisive normalization, hold-both): net-NEGATIVE on GUM (dev −0.036). The +0.027
+  it earned on LitBank who-did-what does NOT transfer to GUM pronoun/kb resolution — an honest located negative.
+- **REJECTED — animacy φ-feature**: 0.0 dev gain (CONFIRMED-REDUNDANT — English pronominal gender IS a natural-gender
+  system whose primary axis is animacy: he/she animate, it inanimate, so animacy = gender measured twice; Quirk 1985;
+  Corbett 1991; Zaenen 2004). Drop it.
+Every wall was researched to a literature verdict (FIDELITY GAP vs GENUINE LIMIT) — detail in
+`WALLS_RESEARCH_brain_foundational_2026-09-06.md`.
+- **Common-noun wall (MIXED — a small glass-box FIDELITY GAP + a large quantified no-LLM LIMIT):** researched to 100%
+  (`exp_commonnoun_wall_gum_v1.py`, `test_commonnoun_wall.py` 3/3). Anaphoric common nouns are 64.7% same-head (blind
+  head resolves), 10.1% common→named-entity, 25.2% variant. Of the common→name cases, a GLASS-BOX bridge
+  (apposition/copula 0.7% [Heim file-card familiarity; Stanford Precise-Constructs sieve] + head-in-name string
+  containment 18.4% ["American College of Pediatricians"→"the college"]) recovers **19.1%; the other 80.9% needs WORLD
+  KNOWLEDGE** the discourse never states (Argentina→"the country", Frontiers→"the publisher"). The glass-box bridge
+  (built) lifts common-noun resolution +0.0074 CI-sep. **Register fact, not a bug:** the literature estimate is 65-80%
+  text-derivable on biography/news (appositive occupation-tagging convention); GUM's academic-heavy mix carries it
+  weakly — my 19% sits right at the research's <20% HARD-FAIL boundary. So the located negative is a genuine,
+  quantified, mostly-world-knowledge limit — understood to mechanism, not an implementation miss.
+
 ## No downstream consumer regresses
 On modern gold, every consumer is up-or-flat: pronoun +0.106, entity-KB hard-link +0.072, name +0.006 (no-regress),
 common +0.0007 (flat). The mechanism does NOT reintroduce the `referent_per_np` turn-on coref-collapse (0.48→0.02): that
@@ -140,6 +181,11 @@ integration (I am scope-barred from the live reader); the no-regression evidence
   (the twin loses hard, 0.082).
 - **Acquiring the right MODERN gold was the unlock.** Every prior unification number was 19c; the finding that the
   name-variant aliaser is register-specific only became visible once measured on modern multi-genre text.
+- **Decomposing a wall by resolution-TYPE separates a fidelity gap from a genuine limit.** The common-noun located
+  negative looked like a flat "world-knowledge" wall; measuring same-head vs name-bridge vs variant, then splitting
+  name-bridge into text-derivable (appos/copula 0.7% + head-in-name 18.4%) vs world-knowledge (80.9%), turned "it
+  doesn't help" into "19% is a glass-box gap I can build, 81% is barred" — and caught that my first is-a extractor
+  (appos/copula only, 0.7%) was mis-reading the wall until I inspected the actual GUM cases and added head-in-name.
 
 ## AUDIT UPDATE (for BRAIN_FOUNDATIONAL_AUDIT.md §2b, COREFERENCE / ENTITY TRACKING)
 The 2026-09-04 entry FLAGGED (not landed) "resolution-overlay-by-discourse-entity, keyed by surface token → fragments a
@@ -156,10 +202,13 @@ the P2 Competition-Model problem.
 
 ## Adjacent components (seeds for next problems)
 - **P2 Competition-Model role assigner** — measured load-bearing for the entity-KB hard-link (+0.084). Land it WITH this.
-- **Common-noun / entity-KB world-knowledge bridging** — the located no-LLM wall (`entity_world_model_resolver`
-  identifiability, Phase-1); "the woman"→a named person needs a scenario/role/kinship prior.
-- **Register-adaptive name aliasing** — the `EntityAliaser` should be gated by register (variant-rich 19c vs
-  variant-sparse modern), or the blind-surface union made the default.
+- **Glass-box common-noun bridge (small, buildable now):** apposition/copula (Heim file-card / Stanford Precise-Constructs)
+  + head-in-name string containment recover ~19% of common→named-entity anaphora, +0.0074 CI-sep — a brain-foundational
+  refinement to the common-noun binder (stronger on news/bio register than GUM's academic mix).
+- **Common-noun / entity-KB WORLD-KNOWLEDGE bridging** — the ~81% remainder is the located no-LLM wall
+  (`entity_world_model_resolver` identifiability, Phase-1): Argentina→"the country" needs a semantic is-a/scenario prior.
+- **Register-adaptive name aliasing** — the `EntityAliaser` variant-merge helps 19c family novels, is register-neutral on
+  modern multi-genre GUM; keep the blind-surface union as the default / gate the aliaser by register.
 - **GENTLE OOD (26 docs) acquired** — an out-of-domain robustness arm is available and cheap; next-step corroboration.
 
 ---
