@@ -108,10 +108,11 @@ protagonist activated) — a legitimate per-corpus refinement, reported not adop
 binder; the headline is the conservative d=2.0).
 
 ## Brain-foundational optimizations — ALL tested, dev-adopted, test-reported (owner: "do all")
-Seven candidate optimizations, each a PINNED brain operation, dev-selected on a pronoun+kb+common objective (adopt
-only if it does NOT regress the pronoun pick), reported once on TEST (`exp_unified_referent_optimizations_gum_v1.py`,
-`test_unified_referent_optimizations.py` 2/2). **The base unified referent already saturates the CUE-PARAMETER family these optimizations live in** (decay /
-agreement / salience / parallelism): the dev-adopted set (is-a bridge + parallelism) MAINTAINS the headline —
+NINE candidate optimizations spanning the WHOLE within-component brain-foundational family (cue parameters + Nref
+writeback + working-memory bound), each dev-selected on a pronoun+kb+common objective (adopt only if it does NOT
+regress the pronoun pick), reported once on TEST (`exp_unified_referent_optimizations_gum_v1.py`,
+`test_unified_referent_optimizations.py` 2/2). **The base unified referent already saturates this whole family:** the
+dev-adopted set (is-a bridge + parallelism + working-memory bound k=4) MAINTAINS the headline —
 pronoun 0.4732 (+0.111 vs separate, CI-sep), kb 0.4828 (+0.087 vs separate, CI-sep), name no-regress, twin loses —
 but its gains OVER the base unified are small and not CI-separated. **This is NOT the absolute no-LLM ceiling** — the
 remaining headroom is elsewhere: (1) CLUSTERING quality — the unified pronoun pick 0.468 vs the ORACLE-unified (gold
@@ -130,11 +131,20 @@ the real levers above it are glass-box clustering and (barred) world knowledge, 
   globally adopted; available as a kb-specific tuning if kb is prioritized. (Canonical d=0.5 HURTS badly, −0.074: a
   units-mismatch — d=0.5 was fit on a real-CLOCK range; on a mentions-ago clock the right refit is d≈1.5-2.0, Kahana &
   Adler 2002. The pinned d=2.0 is near-optimal for the pronoun pick.)
+- **ADOPTED — working-memory bound k=4** (Cowan ~4 / Centering Cf-list: resolve within a recency-bounded focus): dev
+  +0.002, marginal (k=8/16 null — consistent with the ~4 capacity, but the effect is tiny on antecedent accuracy).
 - **REJECTED — graded Nref write** (divisive normalization, hold-both): net-NEGATIVE on GUM (dev −0.036). The +0.027
   it earned on LitBank who-did-what does NOT transfer to GUM pronoun/kb resolution — an honest located negative.
+- **REJECTED — confidence-gated writeback** (Nref: hold under ambiguity, don't POLLUTE the referent on a low-margin
+  pick): net-NEGATIVE (dev −0.038, pronoun −0.022). Abstaining from writeback loses the salience of CORRECT
+  low-confidence picks more than it saves from pollution — so both Nref-family writeback variants (graded + conf-gate)
+  are net-negative here.
 - **REJECTED — animacy φ-feature**: 0.0 dev gain (CONFIRMED-REDUNDANT — English pronominal gender IS a natural-gender
   system whose primary axis is animacy: he/she animate, it inanimate, so animacy = gender measured twice; Quirk 1985;
   Corbett 1991; Zaenen 2004). Drop it.
+- **NET:** across all nine, nothing moves the result CI-separated. The component is saturated; the remaining headroom
+  is UPSTREAM clustering (the P2 Competition-Model role assigner; better incremental merging → the oracle 0.584) and
+  the barred world-knowledge fraction — NOT more knobs on this component.
 Every wall was researched to a literature verdict (FIDELITY GAP vs GENUINE LIMIT) — detail in
 `WALLS_RESEARCH_brain_foundational_2026-09-06.md`.
 - **Common-noun wall (MIXED — a small glass-box FIDELITY GAP + a large quantified no-LLM LIMIT):** researched to 100%

@@ -5,7 +5,7 @@ bar: "PASS = a glass-box, context-primed BIASED-COMPETITION sense selector (REUS
 result: "LOCATED NEGATIVE (full pass): NO brain-faithful glass-box lever crosses the incumbent diagnostic_context_wsd readout, on the MODERN instrument or on SemCor. (1) HUB DECORRELATION does not beat the incumbent -- on SemCor subordinate a_s (n=50,386, frozen curated hub) RAW=0.2697; LCSS(local-contrastive+renorm) -0.0025 (CI incl. 0), global whitening ABTT3 -0.0152 CI[-0.0187,-0.0117] and ZCA -0.0275 CI[-0.0315,-0.0235] (CI-separated BELOW); on MODERN WiC (n=7466, floor 0.500) RAW=0.6238, LCSS +0.0000, ABTT3 -0.0103, ZCA -0.0126. And it is provably accuracy-NEUTRAL: subtracting the per-word sense centroid WITHOUT renorm changes 0 picks (LCSS_NORENORM==RAW, 0 disagreements at n=50,386 AND n=7466) -- the cosine-argmax already reads only the distinctive residual. (2) DISCOURSE-PRIMED context de-blur (construction-integration) -0.0421 to -0.0575 (n=50,386). (3) DISTINCTIVE-FEATURE (IDF) per-sense resupply -0.1693 (n=50,386). Every lever reads REAL structure (each beats its info-free twin CI-separated) but scores below the incumbent -> the ceiling is the CONTEXT-INPUT ENCODING x COVERAGE, not the hub geometry or the readout. HOLD on the no-encoder invariant is empirically confirmed."
 floor: "The strongest floor actually run = the incumbent diagnostic_context_wsd readout over hdlab.meaning_foundation, recomputed per population WITH its landed settings: a_s RAW 0.2697 (SemCor subordinate, n=50,386); WiC RAW 0.6238 exact / 0.6499 coarse (n=7466, floor 0.500). Additional floors on the a_s population: MFS = 0 on subordinate items BY CONSTRUCTION (subordinate := gold != most-frequent-sense); random 1/k. The whitening prior-art claim (+0.0176 a_s, unverified) is REFUTED: it does not reproduce on the curated hub and is CI-separated NEGATIVE at full n (it was small-sample noise -- reproduced as a spurious +0.0058 on an 8-file subset that vanishes at n=50k)."
 controls: "NEUTRALITY PROOF: LCSS_NORENORM (common-mode removal, no renorm) == RAW with 0 pick-disagreements on both a_s (n=50,386) and WiC (n=7466) -- hub decorrelation cannot change the argmax by construction. INFO-FREE TWINS (all LOSE to their arm CI-separated, so each arm reads real structure -- yet all arms still lose to the incumbent): SHUFSEP (wrong-word centroid) LCSS +0.006 CI-sep; CTX_SHUFFLE (shuffled context) loses to every arm; RANDOM_SENSE (context de-blurred with random senses) CI-de-blur +0.0187 CI-sep; SHUFFLED_GLOSS (per-sense bags permuted onto wrong senses) IDF +0.0605 CI-sep. IDF>UNWEIGHTED +0.0020 (the distinctive-feature op barely earns its keep on selection, vs a large CI-sep win on identity/SimLex). NO trained encoder anywhere; frozen static hub -> no train/test leakage. Additivity: I propose NO hub change, so no non-consumer can regress."
-files_changed: "experiments/exp_sense_hub_collinearity_locus_v1.py, experiments/exp_sense_hub_separation_as_v1.py, experiments/exp_sense_hub_separation_wic_v1.py, experiments/exp_sense_selection_ci_deblur_as_v1.py, experiments/exp_sense_signature_distinctive_feature_as_v1.py, verification/test_sense_hub_separation_and_selection_organ.py, notes/problems/select_word_sense_by_context_primed_biased_competition_over_a_decorrelated_sense_hub/SOLVED.md"
+files_changed: "experiments/exp_sense_hub_collinearity_locus_v1.py, experiments/exp_sense_hub_separation_as_v1.py, experiments/exp_sense_hub_separation_wic_v1.py, experiments/exp_sense_selection_ci_deblur_as_v1.py, experiments/exp_sense_signature_distinctive_feature_as_v1.py, experiments/exp_sense_selection_granularity_probe_v1.py, verification/test_sense_hub_separation_and_selection_organ.py, notes/problems/select_word_sense_by_context_primed_biased_competition_over_a_decorrelated_sense_hub/SOLVED.md"
 reverify: ".venv/Scripts/python.exe verification/test_sense_hub_separation_and_selection_organ.py"
 ---
 
@@ -160,6 +160,35 @@ separation is task-inappropriate.**
   brain's glass-box selection mechanisms (biased competition, reordered access, semantic control, precision-weighting)
   are landed/brain-complete; neither separation, nor construction-integration context de-blur, nor distinctive-feature
   resupply crosses it. HOLD on the no-external-encoder invariant is EMPIRICALLY CONFIRMED.
+
+## 10b. HOW THE BRAIN ACTUALLY DOES IT WITHOUT A TRAINED ENCODER (owner question -- and a correction to my framing)
+
+**My "the ceiling requires a trained encoder, which is barred" was TOO STRONG.** The brain resolves word sense
+WITHOUT a black-box encoder -- so the true wall is not the invariant. The brain's mechanism is a glass-box,
+STRUCTURED, PREDICTIVE, INCREMENTAL comprehension process, not a scan of co-occurring words (which is all our
+readout does):
+1. **Incremental structure, not a bag (Kintsch 1988 construction-integration).** It parses and builds a running
+   situation model (entities/events/roles); the disambiguating "context" is that STRUCTURE, not word co-occurrence.
+2. **The thematic frame is a hard constraint (selectional preference).** The sense is pinned by the word's ARGUMENT
+   SLOT + GOVERNING PREDICATE: "deposit [money] at the bank" (verb+theme -> financial) vs "sat on the grassy bank"
+   (locative predicate + modifier -> land). A bag discards which word governs the target and in what role.
+3. **Top-down prediction (Federmeier & Kutas 1999; predictive coding).** The situation model PRE-ACTIVATES the
+   fitting sense before/as the word arrives; reordered access + semantic control (both LANDED) then let the predicted
+   subordinate sense beat the frequency-dominant one.
+4. **Coarser granularity than WordNet (Rodd 2002).** The brain holds polysemy as a graded shared core and does not
+   hair-split. MEASURED (`exp_sense_selection_granularity_probe_v1`, n=50,386): the SAME incumbent picks score
+   a_s 0.2697 at FINE (exact synset) but **0.5412 at the brain's shared-core granularity (supersense)** -- 37% of
+   the "errors" are fine near-misses INSIDE the correct coarse sense. The brain "solves" a third of the ceiling by
+   simply not making the distinction we force.
+
+**So the corrected conclusion:** crossing the fine-sense ceiling needs CONTEXTUALIZED word meaning, which the brain
+produces by glass-box structured/predictive comprehension over slowly-offline-learned representations -- NOT a
+transformer. My located negatives all live INSIDE the bag-of-context paradigm (decorrelate the hub, resupply the
+signatures, de-blur context words); they correctly fail because none of them add the missing STRUCTURE. The forward
+lever is meaning-selection as a downstream READ of the TOP-DOWN situation model + the parsed thematic frame, at
+shared-core granularity -- which is the project's Phase-1 comprehension program, NOT a hub/readout fix. The
+no-external-LLM-at-inference invariant stays correct; but "the ceiling is unreachable without a barred encoder" is
+withdrawn.
 
 ## 10. WHAT I DID NOT ESTABLISH (withdraw first if wrong)
 
