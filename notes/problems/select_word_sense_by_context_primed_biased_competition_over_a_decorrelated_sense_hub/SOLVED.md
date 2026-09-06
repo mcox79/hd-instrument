@@ -5,7 +5,7 @@ bar: "PASS = a glass-box, context-primed BIASED-COMPETITION sense selector (REUS
 result: "LOCATED NEGATIVE (full pass): NO brain-faithful glass-box lever crosses the incumbent diagnostic_context_wsd readout, on the MODERN instrument or on SemCor. (1) HUB DECORRELATION does not beat the incumbent -- on SemCor subordinate a_s (n=50,386, frozen curated hub) RAW=0.2697; LCSS(local-contrastive+renorm) -0.0025 (CI incl. 0), global whitening ABTT3 -0.0152 CI[-0.0187,-0.0117] and ZCA -0.0275 CI[-0.0315,-0.0235] (CI-separated BELOW); on MODERN WiC (n=7466, floor 0.500) RAW=0.6238, LCSS +0.0000, ABTT3 -0.0103, ZCA -0.0126. And it is provably accuracy-NEUTRAL: subtracting the per-word sense centroid WITHOUT renorm changes 0 picks (LCSS_NORENORM==RAW, 0 disagreements at n=50,386 AND n=7466) -- the cosine-argmax already reads only the distinctive residual. (2) DISCOURSE-PRIMED context de-blur (construction-integration) -0.0421 to -0.0575 (n=50,386). (3) DISTINCTIVE-FEATURE (IDF) per-sense resupply -0.1693 (n=50,386). Every lever reads REAL structure (each beats its info-free twin CI-separated) but scores below the incumbent -> the ceiling is the CONTEXT-INPUT ENCODING x COVERAGE, not the hub geometry or the readout. (4) I ALSO built the brain's ACTUAL structural mechanism -- THEMATIC-FIT selectional preference (Erk-distributional, parsed governing-predicate+role, doc-held-out, n=4,892): it beats its role-permutation (+0.065) and verb-shuffle (+0.020) twins CI-separated (real structure) but is DOMINATED by topical context (FIT coarse 0.439 < BAG 0.520; a dev-selected multi-cue integrator assigns it weight w*=0.00), replicating Lee&Ng 2002 (-0.6pp) + this project's own +0.007 + 5 external studies -- coarse-only by construction. (5) A GRANULARITY probe shows 37% of fine 'errors' are near-misses INSIDE the correct coarse sense (same picks: a_s 0.2697 fine -> 0.5412 shared-core). CORRECTED CONCLUSION: the residual needs richer CONTEXTUAL representation built by glass-box structured PREDICTIVE comprehension (Phase-1), NOT a barred encoder; HOLD on the no-encoder invariant is confirmed for the right reason (the brain uses none either)."
 floor: "The strongest floor actually run = the incumbent diagnostic_context_wsd readout over hdlab.meaning_foundation, recomputed per population WITH its landed settings: a_s RAW 0.2697 (SemCor subordinate, n=50,386); WiC RAW 0.6238 exact / 0.6499 coarse (n=7466, floor 0.500). Additional floors on the a_s population: MFS = 0 on subordinate items BY CONSTRUCTION (subordinate := gold != most-frequent-sense); random 1/k. The whitening prior-art claim (+0.0176 a_s, unverified) is REFUTED: it does not reproduce on the curated hub and is CI-separated NEGATIVE at full n (it was small-sample noise -- reproduced as a spurious +0.0058 on an 8-file subset that vanishes at n=50k)."
 controls: "NEUTRALITY PROOF: LCSS_NORENORM (common-mode removal, no renorm) == RAW with 0 pick-disagreements on both a_s (n=50,386) and WiC (n=7466) -- hub decorrelation cannot change the argmax by construction. INFO-FREE TWINS (all LOSE to their arm CI-separated, so each arm reads real structure -- yet all arms still lose to the incumbent): SHUFSEP (wrong-word centroid) LCSS +0.006 CI-sep; CTX_SHUFFLE (shuffled context) loses to every arm; RANDOM_SENSE (context de-blurred with random senses) CI-de-blur +0.0187 CI-sep; SHUFFLED_GLOSS (per-sense bags permuted onto wrong senses) IDF +0.0605 CI-sep. IDF>UNWEIGHTED +0.0020 (the distinctive-feature op barely earns its keep on selection, vs a large CI-sep win on identity/SimLex). NO trained encoder anywhere; frozen static hub -> no train/test leakage. Additivity: I propose NO hub change, so no non-consumer can regress."
-files_changed: "experiments/exp_sense_hub_collinearity_locus_v1.py, experiments/exp_sense_hub_separation_as_v1.py, experiments/exp_sense_hub_separation_wic_v1.py, experiments/exp_sense_selection_ci_deblur_as_v1.py, experiments/exp_sense_signature_distinctive_feature_as_v1.py, experiments/exp_sense_selection_granularity_probe_v1.py, experiments/exp_sense_selection_thematic_frame_as_v1.py, verification/test_sense_hub_separation_and_selection_organ.py, notes/problems/select_word_sense_by_context_primed_biased_competition_over_a_decorrelated_sense_hub/SOLVED.md"
+files_changed: "experiments/exp_sense_hub_collinearity_locus_v1.py, experiments/exp_sense_hub_separation_as_v1.py, experiments/exp_sense_hub_separation_wic_v1.py, experiments/exp_sense_selection_ci_deblur_as_v1.py, experiments/exp_sense_signature_distinctive_feature_as_v1.py, experiments/exp_sense_selection_granularity_probe_v1.py, experiments/exp_sense_selection_thematic_frame_as_v1.py, experiments/exp_sense_selection_joint_role_ecu_v1.py, verification/test_sense_hub_separation_and_selection_organ.py, notes/problems/select_word_sense_by_context_primed_biased_competition_over_a_decorrelated_sense_hub/SOLVED.md"
 reverify: ".venv/Scripts/python.exe verification/test_sense_hub_separation_and_selection_organ.py"
 ---
 
@@ -156,6 +156,12 @@ separation is task-inappropriate.**
 - **The context-appropriate reshaping is a READOUT-time, context-independent-hub operation (CSC 2017).** The landed
   `diagnostic_context_wsd` diagnosticity already implements the transient reshaping; the hub is correctly
   context-independent. Do NOT move the reshaping into the stored representation.
+- **CROSS-CUTTING (binding/VSA): role composition should use BIND, not BUNDLE.** Conditioning a selectional
+  expectation on a filled sibling role via MULTIPLICATIVE (bind) composition beats ADDITIVE (bundle) CI-separated
+  (Lenci 2011 ECU reproduced: +0.011 fine / +0.013 coarse, sibling-shuffle twin loses). Consistent with the
+  substrate's existing role-filler BIND; wherever the substrate composes role-fillers for a joint expectation, prefer
+  bind over bundle. (This does NOT lift sense selection -- structure stays bag-dominated -- but it is a reusable
+  composition principle.)
 - **The fine-sense ceiling (a_s ~0.27-0.33; WiC ~0.62) is confirmed CONTEXT-INPUT-ENCODING x COVERAGE bound.** The
   brain's glass-box selection mechanisms (biased competition, reordered access, semantic control, precision-weighting)
   are landed/brain-complete; neither separation, nor construction-integration context de-blur, nor distinctive-feature
@@ -210,6 +216,15 @@ multi-cue integrator (McRae 1998 constraint integration, weight chosen on train)
 **w\*=0.00** -- given the choice it IGNORES the structural cue, because the topical bag already subsumes its coarse
 signal. Complementarity is tiny (fit on the bag's WRONG items 0.189 vs chance 0.168). No bucket reverses it: not the
 coarse-separable bucket, not the strongly-selecting-verb bucket (Resnik's cherry-pick), not their intersection.
+
+**Joint-role conditioning (Lenci 2011 ECU) BUILT + DRILLED (`exp_sense_selection_joint_role_ecu_v1`, n=2,576).**
+Conditioning the (verb,role) expectation on the already-filled SIBLING argument via MULTIPLICATIVE composition (BIND)
+beats ADDITIVE (BUNDLE) **CI-separated on both grains (+0.0109 fine, +0.0128 coarse)** -- a clean reproduction of
+Lenci's PRODUCT>SUM AND a validation of THIS SUBSTRATE'S bind-over-bundle principle for role composition (the real
+sibling carries signal: BIND beats its sibling-shuffle twin +0.045/+0.034 CI-sep). This is a genuine positive: the
+RIGHT composition operation is bind (multiplicative/structure-preserving), not bundle (additive/superposition). BUT
+the joint-conditioned fit is STILL dominated by topical context (dev-fusion weight again ~0; BIND < BAG by ~0.08-0.09)
+-- the structural family stays coarse-only, confirmed a fourth way.
 
 **This is not a build failure -- it is the information-theoretic ceiling the field agrees on.** Lee & Ng (2002)'s
 controlled ablation lost 0.6pp removing syntactic/selectional features from a strong SENSEVAL-2 classifier -- a
@@ -284,8 +299,10 @@ signal the constructive half (the hub needs no change; wire the existing stack),
    recovers 0.27->0.54, CI-separated over the coarse-MFS floor (+0.1377) AND a context-shuffle twin (+0.1104), the
    cheapest brain-faithful gain; wire the meaning channel to emit the shared-core cluster (WordNet lexname/supersense,
    or an OntoNotes/CoarseWSD grouping) as its default sense, keeping the fine synset only when a task demands it;
-   (b) **multiplicative (bind, not bundle) joint-role conditioning** (Lenci
-   2011 ECU: PRODUCT 84% > SUM ~chance on Bicknell 2010) -- a clean bind-vs-bundle test on this substrate; (c) an
+   (b) **[BUILT -- bind>bundle CONFIRMED] multiplicative (bind, not bundle) joint-role conditioning** (Lenci 2011
+   ECU): BIND beats BUNDLE CI-separated (+0.011 fine / +0.013 coarse) on this substrate -- role composition should
+   use bind, not bundle. (Still bag-dominated for sense selection; the value is the confirmed composition principle,
+   reusable wherever the substrate composes role-fillers.) (c) an
    **additive discourse-event prior** from the tracked situation model (Metusalem), which must collapse to ~0 in
    isolation or it is leaking local information. These are the top-down comprehension program, NOT a hub/readout fix.
    The no-external-LLM-at-inference invariant HOLDS -- for the right reason (the brain uses none either), not because

@@ -6,7 +6,7 @@ result: "On MODERN gold (GUM V12.1.0, 275 docs, held-out TEST=137 docs), scorer=
 floor: "Strongest simple floor recomputed per population on TEST: pronoun -- the separate-tracking reader itself 0.3621 (> string-identity 0.307, recency 0.293); unified beats it +0.1060 CI-sep. entity-KB hard-link -- separate reader 0.3963; unified +0.0719 CI-sep. common -- blind head-identity 0.5412 (unified 0.4879 does NOT beat it: located negative). Oracle-unified (gold clusters) ceiling: pronoun 0.584, kb 0.547."
 controls: "info-free TWIN (shuffled identity evidence, same machinery+shape) LOSES on both lift consumers (pronoun uni-twin +0.265 CI-sep; kb uni-twin +0.386 CI-sep) -- excludes 'any incremental machinery'. Leave-one-out ablation: gender agreement load-bearing for the pronoun pick (+0.036 CI-sep), ACT-R grammatical-prominence salience load-bearing for the kb hard-link (+0.137 CI-sep) -- excludes 'recency alone'. UPSTREAM control: positional roles (the live _assign_roles) vs gold grammatical roles drops the kb hard-link -0.084 CI-sep -- the downstream benefit requires a brain-foundational upstream role assigner. Dev/test split by doc parity; PINNED ACT-R decay d=2.0 near-optimal on TEST (dev-tuning does not beat it on the pronoun pick)."
 files_changed: "experiments/fetch_gum_coref_v1.py, experiments/gum_coref.py, experiments/exp_unified_referent_gum_v1.py, experiments/exp_unified_referent_ablation_gum_v1.py, experiments/exp_unified_referent_optimize_gum_v1.py, experiments/exp_unified_referent_optimizations_gum_v1.py, experiments/exp_commonnoun_wall_gum_v1.py, experiments/exp_softhold_wm_diagnostic_gum_v1.py, experiments/exp_cmrole_compose_gum_v1.py, verification/test_unified_referent_gum.py, verification/test_unified_referent_ablation.py, verification/test_unified_referent_optimize.py, verification/test_unified_referent_optimizations.py, verification/test_commonnoun_wall.py, verification/test_softhold_wm_diagnostic.py, verification/test_cmrole_compose_gum.py, notes/problems/<slug>/WALLS_RESEARCH_brain_foundational_2026-09-06.md, data/corpora/gum/ (acquired offline asset, gitignored; fetch script pins GUM V12.1.0 @ 22fdf87). NO hdlab/ written (Q111 -- proposed wire only)."
-reverify: ".venv/Scripts/python.exe verification/test_unified_referent_gum.py  (5/5; full suite: test_unified_referent_ablation.py 3/3, test_unified_referent_optimize.py 2/2, test_unified_referent_optimizations.py 2/2, test_commonnoun_wall.py 3/3, test_softhold_wm_diagnostic.py 2/2, test_cmrole_compose_gum.py 2/2 = 19/19; GUM parse positive control: experiments/gum_coref.py --self-test)"
+reverify: ".venv/Scripts/python.exe verification/test_unified_referent_gum.py  (5/5; full suite: test_unified_referent_ablation.py 3/3, test_unified_referent_optimize.py 2/2, test_unified_referent_optimizations.py 2/2, test_commonnoun_wall.py 3/3, test_softhold_wm_diagnostic.py 2/2, test_cmrole_compose_gum.py 3/3 = 20/20; GUM parse positive control: experiments/gum_coref.py --self-test)"
 ---
 
 # SOLVED — form the unified discourse referent (the shared entity lever)
@@ -98,11 +98,17 @@ positional 0.384 / **CM(landed P2) 0.410** / CM-shuffled-cue-twin 0.350. Finding
   (entity-KB hard-link +0.026; common-noun +0.010 CI-sep), and its CUE STRUCTURE is load-bearing (the shuffled-cue
   twin loses CI-separated on both). Good news for the integration, and it addresses the 19c-ban concern.
 - **For COMMON-noun resolution the CM assigner FULLY recovers gold-role quality** (CM ≈ gold, CI-sep over positional).
-- **For the ENTITY-KB hard-link the CM assigner PARTIALLY recovers (~1/3 of the positional→gold gap), leaving a −0.058
-  residual to gold** — which localizes exactly to the ALREADY-FILED follow-on
-  `the_agent_tie_wall_is_embedded_clauses_needs_a_register_general_incremental_parse_cue` (75% embedded-clause
-  nominative ties), now quantified on modern gold. So the two landed wins COMPOSE positively on modern gold; the
-  remaining role-quality gap is a filed, understood problem, not a new wall.
+- **For the ENTITY-KB hard-link the CM assigner recovers ~1/3 of the positional→gold gap (0.384→0.410).** Adding the
+  FULL landed stack — the incremental-parser STRUCTURE cue (`hdlab.incremental_parser.incremental_subject_before`, the
+  landed embedded-clause-tie fix, also owner-DONE) + the by-phrase case cue — recovers MORE: **0.384→0.424, ~47% of the
+  gap** (structure cue adds +0.014 on top of CM; the full stack's cue structure is load-bearing, shuffled-cue twin loses
+  +0.087 CI-sep). So ALL THREE landed wins (unified referent + CM roles + incremental-parser structure) COMPOSE
+  positively on modern gold.
+- **A −0.044 residual to gold-UD roles remains even with the FULL glass-box stack** — this is the UNDERSTOOD
+  glass-box-vs-trained-parser ceiling: the register-general cue stack deliberately avoids a trained parser (which loses
+  OOD — this project's documented failure mode), so it approximates but cannot match gold UD role quality. Not a new
+  wall; the residual is the price of glass-box register-generality, and closing it with a trained parser is a known
+  dead-end. (`exp_cmrole_compose_gum_v1.py`, `test_cmrole_compose_gum.py` 3/3.)
 
 ## The located negatives (a full pass under the bar; the deeper truth)
 Unification's lift is CUE-SPECIFIC, and this refines the brief's premise that "one shared record is the multiplier the

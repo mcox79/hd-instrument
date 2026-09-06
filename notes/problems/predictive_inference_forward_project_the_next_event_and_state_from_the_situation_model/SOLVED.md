@@ -141,6 +141,35 @@ it is NOT the Schwartz 2017 sentiment STYLE artifact. But it is WEAKER than the 
 because valence PROXIMITY is a shallow proxy that cannot represent the arc REVERSAL, and because any SIMILARITY
 readout is fooled by the topically-matched wrong endings.
 
+## The FULL brain-foundational alternative: construction-integration coherence + learned cue validities (and the artifact I caught)
+`exp_forward_event_construction_integration_v1` builds the full Kintsch/Trabasso alternative: SIX
+brain-foundational COHERENCE cues over the live situation model -- GEK association, grounded-hub semantic
+integration (N400 integration cost), affect/valence-trajectory consistency, a negation/contradiction marker,
+causal event-TYPE transition plausibility (learned on ROC), and referential continuity (argument overlap) --
+integrated with LEARNED cue VALIDITIES (Competition Model; a paired logistic fit on ONE split, evaluated on the
+OTHER -- cross-validated, NO test-mining).
+
+| arm | val acc | test acc |
+|---|---|---|
+| 1-step counter (strongest floor) | 0.5826 | 0.5639 |
+| GEK alone | 0.5922 | 0.5815 |
+| **construction-integration COMBINED (all 6 cues, learned validities)** | **0.6146** | **0.6045** |
+| construction-integration, NEGATION cue REMOVED (context-dependent cues only) | 0.5954 | 0.5783 |
+| cross-context twin | 0.5249 | 0.5339 |
+
+**The full combination EXCEEDS the counter CI-separated** (val +0.0321 [+0.012,+0.053]; test +0.0406
+[+0.020,+0.061]), selective accuracy rises to 0.71, twin loses. Learned validities (val/test): gek +0.34/+0.40,
+affect +0.11/+0.20, **neg -0.39/-0.33** (dominant non-GEK cue), and hub / ctype / refer ~0 (the pure-SIMILARITY
+cues add nothing -- confirming similarity is fooled).
+
+**BUT the honesty ablation shows the exceed is the ARTIFACT, not coherence.** The negation cue reads ONLY the
+ending (context-independent), so it is exactly the Schwartz 2017 style tell (turkers over-used negation writing
+"wrong" endings). Remove it and the remaining CONTEXT-DEPENDENT, twin-guarded coherence cues do NOT exceed the
+counter: **CI-no-neg val 0.5954 (+0.0128 [-0.008,+0.032], NOT CI-sep) / test 0.5783 (+0.0144 [-0.003,+0.032], NOT
+CI-sep).** The twin retaining the negation signal is why it sits at 0.52-0.53, not 0.50. So: I built the full
+alternative, it nominally beats the counter, and the ablation caught it RIDING THE ARTIFACT -- the genuine
+(artifact-free) coherence does NOT exceed the counter. The located negative HOLDS, now under the strongest test.
+
 ## Why this is a rigorous located negative -- and the sharpened diagnosis (TWO fidelity gaps, not one ceiling)
 Every faithful glass-box readout was built and tested -- GEK association (works over frequency floors), the
 successor/horizon (no lift, pre-registered), the finer event grain (weaker), goal/causal structure (registers too

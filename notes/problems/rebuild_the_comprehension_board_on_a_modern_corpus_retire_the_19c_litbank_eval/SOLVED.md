@@ -50,11 +50,22 @@ is a FULL PASS.
 
 - **TRANSFERRED to modern gold (in the 19c-free aggregate):** coref/pronoun (GUM), salience (GUM), common-noun
   (GUM), who-did-what agent (UD-EWT), who-did-what patient (UD-EWT), state (UD-EWT), wic (WiC).
-- **NAMED GAPS — no modern gold on disk yet → filed follow-ons (NOT fabricated, NOT retained as 19c):**
-  - **temporal** — the 19c gold shares the tense signal (circular); needs an INDEPENDENT modern event-ordering
-    gold (TimeBank/TDDiscourse).
-  - **causal** — the 19c gold is connective-reducible; needs a NON-CIRCULAR modern causal gold (BECauSE).
-  - **goal** / **affect** — scored on 19c LitBank only; need modern intentionality / emotion golds.
+- **NAMED GAPS — no modern gold on disk yet → filed follow-ons (NOT fabricated, NOT retained as 19c).
+  RESEARCHED this round and DIFFERENTIATED into two kinds (the key finding: two of the four are NOT
+  corpus-acquisition problems):**
+  - **temporal & causal — PHASE-1-GATED, not corpus-gated.** I checked the derivable modern gold: UD-EWT/GUM
+    have gold temporal/causal `advcl`+`mark` clauses (before/after; because/so), ~370 temporal in UD train+test.
+    But a gold derived from the explicit connective is CIRCULAR against a connective-DETECTING reader, and the
+    only NON-circular order/cause signal beyond text-order and the connective is EVENT-STRUCTURE / WORLD
+    KNOWLEDGE (ordering "she poured then drank", causing "it shattered because it fell" without a cue) — which
+    the no-LLM invariant + Phase-1 gate. So acquiring TimeBank/MATRES (temporal) or BECauSE (causal) supplies the
+    GOLD but the reader still cannot beat text-order without Phase-1's meaning channel. These are gated on
+    Phase-1, NOT on acquiring a corpus — a deeper reason than "no gold on disk".
+  - **goal & affect — CORPUS-ACQUISITION follow-ons (tractable).** The reader's goal/affect registers extract
+    EXPLICIT constructions (want/intend; feel/emotion-word) that CAN be scored non-circularly on modern
+    annotated text. Candidate golds: modern intentionality — social_iqa (on disk) / a modern purpose-clause
+    battery; emotion — GoEmotions (experiencer-linked) or a roc_stories/story_cloze-derived affect gold. These
+    are real, buildable modern arms (a filed follow-on each), unlike temporal/causal.
 
 ## 3. The headline located finding — the 19c who-did-what AGENT win is REGISTER-SPECIFIC (the point of the ban)
 
@@ -107,9 +118,11 @@ agent guardrail — no reader-behavior change is required to PASS.
 
 ## 6. Performance vs the brain / where signal is lost (per dimension)
 - **coref:** oracle-unified ceiling 0.584 (sibling) → residual is clustering error, not the scorer.
-- **who-did-what agent:** a competent reader is ~ceiling on canonical prose; position already gets 0.83–0.86 and
-  the residual is the non-canonical slice (passives/fronting/embedded ties) + event-detection — the discriminating
-  signal that modern edited single-sentence corpora under-represent (→ the follow-on: a non-canonical modern gold).
+- **who-did-what agent:** a competent reader is ~ceiling on canonical prose; position already gets 0.83–0.86.
+  The DIAGNOSTIC (§6b.6) localizes the residual precisely: position fails on 14.7%, but 70% of those failures are
+  canonical-clause UPSTREAM EXTRACTION errors (POS/candidate coverage) the role assigner cannot touch; the
+  assigner is near-complete for its scope (it wins on the passive/structural failures it was built for). **The
+  remaining agent headroom is the upstream POS + candidate/coref extractors, not the role assigner.**
 - **common-noun:** blind head-identity (0.541) is the no-LLM ceiling; cross-type nominal bridging needs world
   knowledge the invariant bars (Phase-1) — a located wall, not a fidelity gap here.
 - **salience:** frequency-dominated on modern gold; ACT-R-prominence-vs-frequency is a follow-on.
@@ -120,13 +133,15 @@ The wall was: on modern CANONICAL prose position is near-ceiling, so no assigner
 UD-EWT train+test, n=13441, sentence-clustered bootstrap. Non-canonicality is flagged STRUCTURALLY
 (voice / PP-governed positional pick) — independent of the answer.
 
-| slice | n | positional | landed CM | CM+byfix | CM+bothfix | **hybrid_bothfix** | twin | best−floor CI |
-|---|---|---|---|---|---|---|---|---|
-| ALL (full modern) | 13422 | 0.8525 | 0.7444 | 0.7468 | 0.7478 | **0.8549** | 0.2977 | +0.0024 (no-regress) |
-| canonical | 12597 | 0.8901 | 0.7707 | 0.7701 | 0.7711 | 0.8852 | 0.3041 | −0.0048 (tiny) |
-| **NON-CANONICAL** | 825 | **0.2788** | 0.3442 | 0.3915 | 0.3915 | **0.3915** | 0.2000 | **[+0.073,+0.152] CI-sep** |
-| **passive** | 182 | **0.0275** | 0.3077 | **0.5220** | 0.5220 | 0.5220 | 0.1813 | **[+0.425,+0.565] CI-sep** |
-| pp-suspect active | 643 | 0.3499 | 0.3546 | 0.3546 | 0.3546 | 0.3546 | 0.2053 | +0.005 (n.s.) |
+| slice | n | positional | landed CM | CM+byfix | **hybrid_bothfix** | twin | best−floor CI |
+|---|---|---|---|---|---|---|---|
+| ALL (full modern) | 13422 | 0.8525 | 0.7444 | 0.7469 | **0.8554** | 0.2977 | **+0.0029 CI-sep** (net win) |
+| canonical | 12597 | 0.8901 | 0.7707 | 0.7702 | 0.8858 | 0.3041 | −0.0043 (tiny cost) |
+| **NON-CANONICAL** | 825 | **0.2788** | 0.3442 | 0.3915 | **0.3915** | 0.2000 | **[+0.073,+0.152] CI-sep** |
+| **passive** | 182 | **0.0275** | 0.3077 | **0.5220** | 0.5220 | 0.1813 | **[+0.425,+0.565] CI-sep** |
+| pp-suspect active | 643 | 0.3499 | 0.3546 | 0.3546 | 0.3546 | 0.2053 | +0.005 (n.s.) |
+
+(GUM cross-corpus, gold POS: full-set hybrid **+0.0095 CI-sep**; passive byfix **+0.221 CI-sep**.)
 
 1. **THE NON-CANONICAL INSTRUMENT (the module named in NEXT STEPS #1) — the win across the wall.** On the
    structurally non-canonical slice the brain-foundational assigner EXCEEDS position **+0.113 CI[+0.073,+0.152]**,
@@ -155,14 +170,38 @@ UD-EWT train+test, n=13441, sentence-clustered bootstrap. Non-canonicality is fl
    UD-EWT artifacts: the byagent fix lifts GUM passive-agent recovery **0.314→0.536 (+0.221 CI[+0.169,+0.279])**
    — the same +0.22 as UD-EWT — and the deployable hybrid_bothfix **beats positional +0.0095 CI[+0.007,+0.013]**
    on the full GUM set (a small CI-sep WIN, not just no-regress; gold POS removes the tagger-error confound
-   present on UD-EWT). Two independent modern corpora, same result.
+   present on UD-EWT). The clause-local passive gate (below) also pushed the UD-EWT full set to +0.0029 CI-sep.
+6. **DIAGNOSTIC — where the assigner's value LIVES on modern (the mechanism-diff; humbling and directional).**
+   Position fails on **14.7% of modern clauses** (n=1980). Splitting those failures: **PASSIVE (n=177)** the
+   assigner recovers decisively (0.52), **pp-fronting (n=418)** partially, but **the MAJORITY — canonical
+   clauses (n=1385, 70% of failures)** — the assigner recovers only ~0.10, no better than the scrambled twin
+   (0.17). Those canonical failures are NOT role-structure problems: they are UPSTREAM EXTRACTION errors (POS
+   mislabels, the true agent missing from the candidate set / coref coverage, coordination). So the role
+   assigner is **near-complete for its brain-foundational scope on modern** (it wins where structure is the
+   issue — passives — and cannot help where the failure is upstream). **The remaining who-did-what AGENT
+   headroom on modern is the UPSTREAM extractors (POS tagging + candidate/coref coverage), not the role
+   assigner** — the next problem to file. On the clauses position gets right, the hybrid keeps 0.9865 (no-regress).
+7. **THE CANONICAL-COST fix (clause-local voice).** The landed `is_passive_clause` is SENTENCE-level, so a
+   passive SUBORDINATE clause ('the man who was arrested by police confessed') falsely marked the MAIN clause
+   passive. Scoping voice to the verb's CLAUSE span (the same clause-bounding used for candidates) trimmed the
+   canonical cost and pushed the full-set hybrid to +0.0029 CI-sep. Residual canonical cost (−0.004) is
+   non-agentive by-phrases ('by Friday/hand') firing the byagent cue — a small named follow-on.
 
-## 7. Adjacent components / next problems (seeds)
-1. **A non-canonical modern who-did-what gold** (passives / fronting / embedded clauses) — the discriminating
-   agent instrument the CM assigner needs to show its brain-foundational value on modern register.
-2. **Independent modern temporal-order + non-circular causal golds** (the two NAMED GAPS with the strongest case).
-3. **Modern intentionality (goal) + emotion (affect) golds** — retire the last two 19c board arms.
-4. **Register-adaptive agent cue validities** — the Competition Model predicts them; the modern re-sweep is the
+## 7. Adjacent components / next problems (seeds) — sharpened by this round's diagnostics
+1. **🔝 The UPSTREAM who-did-what extractors (POS tagger + candidate/coref coverage)** — the DIAGNOSTIC (§6b.6)
+   localizes the remaining modern agent headroom HERE, not in the role assigner: 70% of position's modern
+   failures are canonical-clause extraction errors no role-cue can touch. This is the highest-leverage agent
+   follow-on now (the role assigner is near-complete for its scope; the non-canonical gold below is the
+   instrument, this is the capability).
+2. **A non-canonical modern who-did-what gold arm** — BUILT this round (`exp_board_agent_noncanonical_v1.py`);
+   strategy folds it in as the discriminating agent board arm.
+3. **Goal + affect modern golds (CORPUS-ACQUISITION, tractable)** — social_iqa / GoEmotions / story-derived;
+   the goal/affect registers extract explicit constructions scorable non-circularly on modern text (§2).
+4. **Temporal + causal (PHASE-1-GATED, not corpus-gated)** — the non-circular capability is world-knowledge-bound
+   (§2); acquiring TimeBank/BECauSE supplies the gold but not the capability. Gate on Phase-1.
+5. **Small agent precision fixes** — the `_agent_pp_governed` over-fire (pp-fronting wash) and the non-agentive
+   by-phrase byagent leak ('by Friday', the −0.004 canonical cost); both named, both minor.
+6. **Register-adaptive agent cue validities** — the Competition Model predicts them; the modern re-sweep is the
    mechanism (word-order-dominant, drop the tracked-set restriction on expository prose).
 
 ## 8. What I did NOT establish (would withdraw first if wrong)
@@ -184,6 +223,11 @@ UD-EWT train+test, n=13441, sentence-clustered bootstrap. Non-canonicality is fl
 - **Gating the override on an EXPLICIT by-phrase is what made the hybrid no-regress.** An agentless passive has
   no agent to flip to; overriding there only added false positives on canonical clauses. The brain-faithful
   voice cue fires only when there IS a by-phrase — and that single gate closed the canonical no-regress gap.
+- **The value diagnostic REDIRECTED the next problem.** Measuring where the assigner recovers position's
+  failures (not just the aggregate score) showed its value is SHARP but NARROW — decisive on passives, ~nil on
+  the 70%-majority of failures that are upstream extraction errors (POS/candidate coverage). "The role assigner
+  is near-complete; the remaining agent headroom is upstream" is a conclusion you only get by partitioning the
+  failures, not from the headline accuracy — and it points the next build at the right organ.
 - **The 19c load-bearing lever REVERSES sign on modern.** The tracked-set decouple that carried the 19c AGENT win
   (cm_dense 0.082 << cm_tracked 0.252) flips on modern (cm_dense 0.719 > cm_tracked 0.634). One measurement — the
   same rule on both registers — is the cleanest possible proof that the assigner's winning configuration is
