@@ -280,8 +280,11 @@ signal the constructive half (the hub needs no change; wire the existing stack),
    from an incremental situation model (Kintsch 1988; Metusalem 2012 -- event knowledge pre-activates the fitting
    sense, and the effect COLLAPSES when the discourse is removed, its own falsification control); (iii) at COARSE
    shared-core granularity. Concretely mapped as Phase-1 comprehension components, each with the research's
-   falsification recipe: (a) **score/measure sense at SHARED-CORE granularity** -- immediately recovers 0.27->0.54
-   here, the cheapest brain-faithful gain; (b) **multiplicative (bind, not bundle) joint-role conditioning** (Lenci
+   falsification recipe: (a) **[IMPLEMENTABLE NOW -- VALIDATED] consume/score sense at SHARED-CORE granularity** --
+   recovers 0.27->0.54, CI-separated over the coarse-MFS floor (+0.1377) AND a context-shuffle twin (+0.1104), the
+   cheapest brain-faithful gain; wire the meaning channel to emit the shared-core cluster (WordNet lexname/supersense,
+   or an OntoNotes/CoarseWSD grouping) as its default sense, keeping the fine synset only when a task demands it;
+   (b) **multiplicative (bind, not bundle) joint-role conditioning** (Lenci
    2011 ECU: PRODUCT 84% > SUM ~chance on Bicknell 2010) -- a clean bind-vs-bundle test on this substrate; (c) an
    **additive discourse-event prior** from the tracked situation model (Metusalem), which must collapse to ~0 in
    isolation or it is leaking local information. These are the top-down comprehension program, NOT a hub/readout fix.

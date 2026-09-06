@@ -5,8 +5,8 @@ bar: "PASS = a UNIFIED-referent representation (one discourse referent per entit
 result: "On MODERN gold (GUM V12.1.0, 275 docs, held-out TEST=137 docs), scorer=antecedent resolves to correct gold entity. TWO consumers lift CI-separated over the separate-tracking reader with the info-free twin losing: (1) PRONOUN PICK 0.3621->0.4681, +0.1060 CI[+0.079,+0.133] (half-width 0.027), twin(null) 0.2034; (2) ENTITY-KB HARD-LINK (named-entity pronoun files under the name-carrying referent) 0.3963->0.4682, +0.0719 CI[+0.023,+0.120] (half-width 0.048), twin(null) 0.0819. NO-regress on named coref (0.6781->0.6845, +0.0064)."
 floor: "Strongest simple floor recomputed per population on TEST: pronoun -- the separate-tracking reader itself 0.3621 (> string-identity 0.307, recency 0.293); unified beats it +0.1060 CI-sep. entity-KB hard-link -- separate reader 0.3963; unified +0.0719 CI-sep. common -- blind head-identity 0.5412 (unified 0.4879 does NOT beat it: located negative). Oracle-unified (gold clusters) ceiling: pronoun 0.584, kb 0.547."
 controls: "info-free TWIN (shuffled identity evidence, same machinery+shape) LOSES on both lift consumers (pronoun uni-twin +0.265 CI-sep; kb uni-twin +0.386 CI-sep) -- excludes 'any incremental machinery'. Leave-one-out ablation: gender agreement load-bearing for the pronoun pick (+0.036 CI-sep), ACT-R grammatical-prominence salience load-bearing for the kb hard-link (+0.137 CI-sep) -- excludes 'recency alone'. UPSTREAM control: positional roles (the live _assign_roles) vs gold grammatical roles drops the kb hard-link -0.084 CI-sep -- the downstream benefit requires a brain-foundational upstream role assigner. Dev/test split by doc parity; PINNED ACT-R decay d=2.0 near-optimal on TEST (dev-tuning does not beat it on the pronoun pick)."
-files_changed: "experiments/fetch_gum_coref_v1.py, experiments/gum_coref.py, experiments/exp_unified_referent_gum_v1.py, experiments/exp_unified_referent_ablation_gum_v1.py, experiments/exp_unified_referent_optimize_gum_v1.py, experiments/exp_unified_referent_optimizations_gum_v1.py, experiments/exp_commonnoun_wall_gum_v1.py, experiments/exp_softhold_wm_diagnostic_gum_v1.py, verification/test_unified_referent_gum.py, verification/test_unified_referent_ablation.py, verification/test_unified_referent_optimize.py, verification/test_unified_referent_optimizations.py, verification/test_commonnoun_wall.py, verification/test_softhold_wm_diagnostic.py, notes/problems/<slug>/WALLS_RESEARCH_brain_foundational_2026-09-06.md, data/corpora/gum/ (acquired offline asset, gitignored; fetch script pins GUM V12.1.0 @ 22fdf87). NO hdlab/ written (Q111 -- proposed wire only)."
-reverify: ".venv/Scripts/python.exe verification/test_unified_referent_gum.py  (5/5; full suite: test_unified_referent_ablation.py 3/3, test_unified_referent_optimize.py 2/2, test_unified_referent_optimizations.py 2/2, test_commonnoun_wall.py 3/3, test_softhold_wm_diagnostic.py 2/2 = 17/17; GUM parse positive control: experiments/gum_coref.py --self-test)"
+files_changed: "experiments/fetch_gum_coref_v1.py, experiments/gum_coref.py, experiments/exp_unified_referent_gum_v1.py, experiments/exp_unified_referent_ablation_gum_v1.py, experiments/exp_unified_referent_optimize_gum_v1.py, experiments/exp_unified_referent_optimizations_gum_v1.py, experiments/exp_commonnoun_wall_gum_v1.py, experiments/exp_softhold_wm_diagnostic_gum_v1.py, experiments/exp_cmrole_compose_gum_v1.py, verification/test_unified_referent_gum.py, verification/test_unified_referent_ablation.py, verification/test_unified_referent_optimize.py, verification/test_unified_referent_optimizations.py, verification/test_commonnoun_wall.py, verification/test_softhold_wm_diagnostic.py, verification/test_cmrole_compose_gum.py, notes/problems/<slug>/WALLS_RESEARCH_brain_foundational_2026-09-06.md, data/corpora/gum/ (acquired offline asset, gitignored; fetch script pins GUM V12.1.0 @ 22fdf87). NO hdlab/ written (Q111 -- proposed wire only)."
+reverify: ".venv/Scripts/python.exe verification/test_unified_referent_gum.py  (5/5; full suite: test_unified_referent_ablation.py 3/3, test_unified_referent_optimize.py 2/2, test_unified_referent_optimizations.py 2/2, test_commonnoun_wall.py 3/3, test_softhold_wm_diagnostic.py 2/2, test_cmrole_compose_gum.py 2/2 = 19/19; GUM parse positive control: experiments/gum_coref.py --self-test)"
 ---
 
 # SOLVED — form the unified discourse referent (the shared entity lever)
@@ -86,6 +86,23 @@ POSITIONAL `_assign_roles` (agent=preverbal) drops the entity-KB hard-link −0.
 +0.016 n.s.). So the downstream benefit is only realized when the upstream role assigner is brain-foundational — exactly
 the filed **P2 `swap_the_positional_role_assigner_for_the_brain_foundational_competition_model`** (Competition-Model
 cue-competition). The unified referent and the Competition-Model upstream are complementary: land both.
+
+## Composing the landed P2 upstream (the CM role assigner) — measured on modern GUM
+P2 (`swap_the_positional_role_assigner_for_the_brain_foundational_competition_model`) is SOLVED + integrated
+(default-ON, `hdlab.graded_role_assigner.agent_competition_pick`), but validated on 19c LitBank. I composed the LANDED
+assigner (reused unchanged) with this unified referent on MODERN GUM — reading only tokens + gold UD POS + the
+gazetteer + gold cluster sizes (glass-box; NO gold roles for the CM arm) — to answer the integration question
+(`exp_cmrole_compose_gum_v1.py`, `test_cmrole_compose_gum.py` 2/2). Entity-KB hard-link: gold-roles 0.468 /
+positional 0.384 / **CM(landed P2) 0.410** / CM-shuffled-cue-twin 0.350. Findings:
+- **The 19c-validated CM assigner TRANSFERS to modern GUM** — it beats positional on both role-sensitive consumers
+  (entity-KB hard-link +0.026; common-noun +0.010 CI-sep), and its CUE STRUCTURE is load-bearing (the shuffled-cue
+  twin loses CI-separated on both). Good news for the integration, and it addresses the 19c-ban concern.
+- **For COMMON-noun resolution the CM assigner FULLY recovers gold-role quality** (CM ≈ gold, CI-sep over positional).
+- **For the ENTITY-KB hard-link the CM assigner PARTIALLY recovers (~1/3 of the positional→gold gap), leaving a −0.058
+  residual to gold** — which localizes exactly to the ALREADY-FILED follow-on
+  `the_agent_tie_wall_is_embedded_clauses_needs_a_register_general_incremental_parse_cue` (75% embedded-clause
+  nominative ties), now quantified on modern gold. So the two landed wins COMPOSE positively on modern gold; the
+  remaining role-quality gap is a filed, understood problem, not a new wall.
 
 ## The located negatives (a full pass under the bar; the deeper truth)
 Unification's lift is CUE-SPECIFIC, and this refines the brief's premise that "one shared record is the multiplier the

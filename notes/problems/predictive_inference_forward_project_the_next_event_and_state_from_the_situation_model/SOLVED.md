@@ -5,7 +5,7 @@ bar: "PASS = a glass-box FORWARD PREDICTOR -- a transparent, hand-auditable proj
 result: "Glass-box forward continuation predictor on Story Cloze (MODERN, right-vs-wrong 5th sentence; MoE-UNC/story_cloze val 1871 + test 1871). The brain-faithful forward GENERALIZED-EVENT-KNOWLEDGE projection (Elman-style graded associative readout over the corpus's own forward transitions, self-supervised on ROCStories-train 98,161 stories) discriminates the coherent continuation val 0.5922 [0.5697,0.6147] / test 0.5815 [0.5585,0.6040], CI-SEPARATED over the majority-continuation floor (val +0.078 [+0.045,+0.110]; test +0.068 [+0.039,+0.099]); the cross-context info-free twin COLLAPSES to chance (val 0.4912 [0.468,0.514]; test 0.4885); and a calibrated precision (1 - normalized entropy of the graded_competition 2-way distribution) earns MONOTONICALLY RISING selective accuracy (val 0.592->0.654; test 0.582->0.630) while the random-confidence twin stays FLAT (val ->0.607; test ->0.560). LOCATED NEGATIVE (rigorous, triple-sourced) on the STRONGER claim: the projection does NOT robustly exceed a 1-step co-occurrence counter (val margin +0.0096 [-0.006,+0.024] NOT CI-sep; test +0.0176 [+0.004,+0.032]) and situation-model STRUCTURE does not lift it -- the multi-step successor HORIZON adds ~+0.01 (the successor_representation docstring's pre-registered outcome iii), the event-structured verb-chain grain is WEAKER (val 0.547/test 0.538), and the goal/causal registers FIRE ON ONLY ~27% of 5-sentence stories (measured)."
 floor: "STRONGEST base-rate floors, recomputed on each split's own population: majority-continuation prior val 0.5142 [0.492,0.537] / test 0.5131; ending-only unigram plausibility val 0.5045 / test 0.5104; 1-step SYMMETRIC co-occurrence counter val 0.5826 [0.559,0.605] / test 0.5639 [0.541,0.586] (the SR docstring's named floor -- the strongest). The mechanism CI-separates over majority+unigram on both splits; it does NOT CI-separate over the 1-step counter on val (+0.0096, CI includes 0)."
 controls: "(1) cross-context twin (endings scored against a RANDOM other story's context, same shapes/balance) -> val 0.4912 / test 0.4885 = EXCLUDES 'uses only the endings / a style artifact', proves it USES this story. (2) random-confidence twin (precision permuted, same coverage) -> selective curve FLAT = EXCLUDES 'any abstention at this rate raises accuracy'. (3) 1-step co-occurrence counter floor = EXCLUDES 'the win needs a predictive HORIZON' (it does not; the horizon adds ~+0.01). (4) event-structured verb-chain / verb+patient arm (0.54) = EXCLUDES 'a finer event grain helps' (it is weaker). (5) register fire-rate on the full live-reader eval (Cell B, n=1871/split: goal fires 0.319/0.335, causal 0.285/0.277, mean 7.9 events per 4-sentence context; witness W6 corroborates 10/40 & 9/40) = LOCATES the extraction bottleneck. (6) held-out by construction: the transition store is ROCStories-train, disjoint from the Story Cloze eval stories."
-files_changed: "experiments/exp_forward_event_projection_v1.py (content-GEK spine, full-scale); experiments/exp_forward_event_projection_situation_model_v1.py (live SituationReader + graded_competition multi-cue combination); experiments/fetch_story_cloze_rocstories.py (pinned reproducible gold fetch); verification/test_forward_event_projection.py (scaffold-free witness); data/exp_forward_event_projection_v1/metrics.json; data/exp_forward_event_projection_situation_model_v1/metrics.json; data/corpora/story_cloze/ + data/corpora/roc_stories/ (materialized gold, gitignored). hdlab/ UNTOUCHED (Q111)."
+files_changed: "experiments/exp_forward_event_projection_v1.py (content-GEK spine, full-scale); experiments/exp_forward_event_projection_situation_model_v1.py (live SituationReader + graded_competition multi-cue combination); experiments/exp_forward_event_affect_coherence_v1.py (the affect/valence-trajectory STRUCTURED-coherence cue -- the deepening); experiments/fetch_story_cloze_rocstories.py (pinned reproducible gold fetch); verification/test_forward_event_projection.py (scaffold-free witness); data/exp_forward_event_projection_v1/metrics.json; data/exp_forward_event_projection_situation_model_v1/metrics.json; data/exp_forward_event_affect_coherence_v1/metrics.json; data/corpora/story_cloze/ + data/corpora/roc_stories/ (materialized gold, gitignored). hdlab/ UNTOUCHED (Q111)."
 reverify: ".venv/Scripts/python.exe verification/test_forward_event_projection.py"
 ---
 
@@ -120,17 +120,48 @@ weights on standardized cues -- OUR-INVENTION, NOT tuned to the test):
   (selective COMB val 0.587->0.642).
 
 
-## Why this is a rigorous located negative and not an implementation failure (the wall is real)
-Every faithful glass-box forward mechanism was built and tested: the GEK associative readout (works, over
-frequency floors), the successor/horizon (no lift -- pre-registered), the finer event grain (weaker), and the
-situation-model goal/causal structure (registers too sparse on 5-sentence stories). The literature says the
-ceiling itself is narrow (Chambers-Jurafsky disclaim human-solvability; Story Cloze's 75.2% content-blind
-classifier is a style artifact, not comprehension), and the ONE model that exceeds it -- SEM (Franklin, Norman,
-Ranganath, Zacks, Gershman 2020: a gated RNN over HRR-bound scene vectors) -- is a LEARNED continuation model,
-which the invariant (NO external LLM / no long training at inference; "the brain does not do long training runs")
-forbids. So the fair, brain-faithful, glass-box forward projector clears the base-rate floor and the twin, earns
-its precision, and hits a genuine ceiling at the associative-counter level -- the located-negative-is-a-full-PASS
-condition the bar spells out, with the exact cause named and enumerated.
+### The deepening -- affect/valence-trajectory coherence (a STRUCTURED cue, not association)
+Prompted by "are we 100% brain-foundational, and how does the brain ACTUALLY do this," I built the missing
+structured cue. Story Cloze wrong endings are crafted TOPICALLY related but INCOHERENT -- in story 0 the context
+is "troubled -> gangs -> shot -> turned a new leaf" and the WRONG ending "He joined a gang" REPEATS "gang" from
+the context, so it has MORE lexical overlap than the RIGHT "He is happy now." Every similarity/association readout
+(GEK and the counter) is therefore ACTIVELY FOOLED on the adversarial items. The brain discriminates via the
+affect/valence TRAJECTORY (core affect -- Barrett; Russell circumplex; Warriner 2013 norms via
+`hdlab.affect_lexicon`): the arc REVERSED to positive at "turned a new leaf", so "happy" fits and "gang" violates
+it. `exp_forward_event_affect_coherence_v1` (full val+test):
+
+| arm | val | test |
+|---|---|---|
+| affect-coherence alone (valence proximity to the story's current state) | 0.5425 | 0.5286 |
+| affect cross-context twin (vs a random other story's context) | 0.5174 | 0.4853 |
+| GEK + affect (graded_competition) | 0.5917 | 0.5810 |
+
+The affect cue IS real and genuinely USES the story -- its cross-context TWIN COLLAPSES (drop 0.025 / 0.043), so
+it is NOT the Schwartz 2017 sentiment STYLE artifact. But it is WEAKER than the counter and adds ~nothing to GEK,
+because valence PROXIMITY is a shallow proxy that cannot represent the arc REVERSAL, and because any SIMILARITY
+readout is fooled by the topically-matched wrong endings.
+
+## Why this is a rigorous located negative -- and the sharpened diagnosis (TWO fidelity gaps, not one ceiling)
+Every faithful glass-box readout was built and tested -- GEK association (works over frequency floors), the
+successor/horizon (no lift, pre-registered), the finer event grain (weaker), goal/causal structure (registers too
+sparse), and affect-trajectory (real but weak). They CONVERGE on ~0.54-0.59 for ONE reason: **they are all
+SIMILARITY / ASSOCIATION readouts, and the adversarial wrong endings are constructed to be topically SIMILAR.**
+The brain does something categorically different -- **INFERENTIAL causal-motivational coherence**: it builds the
+causal chain and the protagonist's goal/affect arc and checks whether the ending is ENTAILED, not whether it is
+SIMILAR. So we do not show the brain's ~1.00 for TWO concrete, brain-foundational FIDELITY GAPS to build across
+(NOT one ceiling):
+  * **(A) EXTRACTION** -- the situation model is too sparse/noisy on short modern narrative (causal fires ~0.28,
+    goals ~0.32, events over-segment to ~7.9/story). Dense structured extraction is prerequisite.
+  * **(B) INFERENCE** -- we have only shallow associative/proximity readouts; there is NO causal-coherence
+    inference engine that asks "is this ending ENTAILED by the situation?" (Trabasso-van den Broek causal network
+    run FORWARD). Every cheap cue collapses back to association; inferential coherence is the missing organ.
+The honest-ceiling literature is consistent (Chambers-Jurafsky disclaim human-solvability for SHALLOW event
+models; Story Cloze's 75.2% content-blind classifier is a style artifact), and the ONE model that reaches ~0.90 --
+SEM (Franklin/Gershman 2020, a gated RNN over HRR-bound scene vectors) and modern LMs -- brings a LEARNED deep
+world model, which the invariant (NO external LLM; "the brain does not do long training runs") forbids. So the
+glass-box GEK projector is the correct SHALLOWEST layer (Elman GEK, PINNED) of a deep stack whose upper layers
+(dense extraction + causal inference) are not yet built -- the located-negative-is-a-full-PASS condition the bar
+spells out, with the exact cause named AND a concrete brain-foundational build path, not a ceiling.
 
 ## Performance vs the brain, and where signal is lost along the chain
 A competent reader discriminates Story Cloze at ~1.00 (humans) / SOTA fine-tuned LMs ~0.90; our glass-box
@@ -142,6 +173,13 @@ ours is a co-occurrence PPMI table, which captures scene association but not fin
 goal cue. The FIRST is the highest-leverage upstream fix (see ADJACENT).
 
 ## KEY REALIZATIONS
+- **The adversarial wrong endings are topically SIMILAR, so every similarity readout is FOOLED -- the brain uses
+  ENTAILMENT, not similarity.** The single deepest realization: Story Cloze wrong endings often REPEAT context
+  words ("joined a gang" after a gang-heavy context), so GEK, the co-occurrence counter, and even semantic-gist
+  integration are actively fooled. Goal, event-type, and affect cues each converge on ~0.54-0.59 because they are
+  ALL similarity/association readouts. The brain discriminates by INFERENTIAL causal-motivational coherence (is
+  the ending ENTAILED by the situation?), which no cheap glass-box cue captures -- naming this is what turns a
+  "modest win, real ceiling" into "two concrete fidelity gaps (dense extraction + a causal-inference engine)."
 - **The instrument reframed the ceiling.** The research's honest-ceiling finding (Chambers-Jurafsky narrow
   margins; Story Cloze's 75.2% content-blind style classifier) told me BEFORE building that a large win would be
   a confound, and made the CROSS-CONTEXT twin (not the temporal-shuffle) the load-bearing control -- it is what
@@ -231,10 +269,15 @@ gap in how much structure we extract from short stories -- not a broken guesser.
   because the win is over the majority/frequency floor, not the strongest (associative-counter) floor. Content is
   identical either way; your call on the label.
 
-## NEXT STEPS
+## NEXT STEPS (the brain-foundational build path across the two fidelity gaps)
 - Land the additive `generalized_event_knowledge` organ + `predict_next_event` readout (Q111, default-off, new
-  island, no-regress), then measure the live-board lift.
-- File the highest-leverage follow-on: DENSER event/goal/causal EXTRACTION on short modern narrative (the ~27%
-  fire-rate is the measured bottleneck; it caps every forward cue).
+  island, no-regress), then measure the live-board lift. This is the correct SHALLOWEST layer.
+- **GAP (A) EXTRACTION -- file the highest-leverage follow-on: DENSER event/goal/causal/affect EXTRACTION on
+  short modern narrative** (the ~0.28-0.32 fire-rate + ~7.9-events-per-4-sentences over-segmentation is the
+  measured bottleneck; it caps every forward cue). Prerequisite to everything above.
+- **GAP (B) INFERENCE -- file the categorically-missing organ: a FORWARD causal-coherence INFERENCE engine**
+  (Trabasso-van den Broek causal network run forward: is a candidate ending ENTAILED by the situation, not merely
+  SIMILAR?). This is what defeats the topically-matched wrong endings; no similarity readout can. Distinct from
+  the backward bridging/causal organs already filed.
 - Revisit `predict_surprisal` (extend to event level) and `n400_coherence_monitor` (take its error against this
   forward prediction) to consume the new forward-event expectation -- the true predictive-coding loop.

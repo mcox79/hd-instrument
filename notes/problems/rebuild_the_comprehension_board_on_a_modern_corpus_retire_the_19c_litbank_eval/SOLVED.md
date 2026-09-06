@@ -6,7 +6,7 @@ result: "A 19c-FREE modern board (data/situation_model_qa_modern_v1/metrics.json
 floor: "Per dimension, recomputed on its OWN modern population: coref -- separate-tracking reader 0.3621 (> recency 0.293, string-identity 0.307); who-did-what agent -- positional nearest-preverbal 0.855 (UD-EWT) / 0.829 (GUM discourse, n=15738); state -- most-recent-noun 0.438; patient -- deployed positional readout 0.745; common-noun -- blind head-identity 0.5412 (the no-LLM ceiling; unified 0.488 does NOT beat it, located negative); salience -- first-introduced-entity 0.197."
 controls: "info-free TWINS per dim (shuffled identity evidence / shuffled cue supports) LOSE on coref (twin 0.2034), state, patient, and the agent hybrid (hybrid-twin +0.537 CI-sep) -- excludes 'any machinery'. CROSS-CONSUMER UPSTREAM control (GUM entity-KB hard-link): brain-foundational gold grammatical roles 0.4682 vs the live POSITIONAL role proxy 0.3841, +0.084 CI[+0.031,+0.130] CI-sep -- the same upstream role assigner lifts coref too. AGENT candidate-SET control (GUM): cm_dense 0.719 > cm_tracked 0.634 (the 19c tracked-set decouple REVERSES sign on modern -> register-specific). RE-SWEEP control: dev-tuned modern weights do NOT rescue CM above the positional floor (test pinned 0.767 / dev-best 0.780 < floor 0.857) -> the narrative cue validities do not generalize. VOICE split: on passives position collapses (0.062 UD / 0.000 GUM) and CM recovers (0.125 / 0.107) -- the assigner's brain-foundational value survives on the non-canonical slice."
 files_changed: "experiments/exp_situation_model_qa_modern_v1.py (the 19c-free board assembly + aggregate + gap map), experiments/exp_board_agent_slot_ud_v1.py (modern who-did-what AGENT arm + hybrid-override + cue re-sweep), experiments/exp_board_agent_gum_v1.py (modern DISCOURSE AGENT arm -- the fair tracked-set test), experiments/exp_board_coref_gum_v1.py (modern coref/salience/common-noun rows + cross-consumer upstream proof), experiments/exp_board_agent_noncanonical_v1.py (the NON-CANONICAL modern who-did-what instrument + the brain-foundational byagent-cue optimization + by-phrase-gated hybrid), verification/test_modern_board.py (scaffold-free witness, 10/10). REUSES verbatim: experiments/exp_unified_referent_gum_v1.py + gum_coref.py + fetch_gum_coref_v1.py (GUM fetch, pinned V12.1.0 @ 22fdf87), hdlab.graded_role_assigner (owner-DONE CM assigner), exp_board_patient_slot_v1 / exp_situation_model_state_qa_v1 / exp_board_wic_sense_v1 (already-modern arms). NO hdlab/ written (Q111)."
-reverify: ".venv/Scripts/python.exe verification/test_modern_board.py   # 10/10; reads the cells' metrics.json (writes nothing to landed dirs). Rebuild inputs: experiments/exp_situation_model_qa_modern_v1.py --run ; experiments/exp_board_agent_noncanonical_v1.py --run"
+reverify: ".venv/Scripts/python.exe verification/test_modern_board.py   # 11/11; reads the cells' metrics.json (writes nothing to landed dirs). Rebuild inputs: experiments/exp_situation_model_qa_modern_v1.py --run ; experiments/exp_board_agent_noncanonical_v1.py --run ; experiments/exp_board_agent_gum_v1.py --run --xcorpus"
 ---
 
 # SOLVED — the 19c-free modern comprehension board, and its two upstream brain-foundational organs
@@ -120,17 +120,17 @@ The wall was: on modern CANONICAL prose position is near-ceiling, so no assigner
 UD-EWT train+test, n=13441, sentence-clustered bootstrap. Non-canonicality is flagged STRUCTURALLY
 (voice / PP-governed positional pick) — independent of the answer.
 
-| slice | n | positional | landed CM | **CM+byfix** | **hybrid+byfix** | twin | best−floor CI |
-|---|---|---|---|---|---|---|---|
-| ALL (full modern) | 13422 | 0.8525 | 0.7444 | 0.7468 | 0.8506 | **0.8530** | 0.2977 | +0.0005 (no-regress) |
-| canonical | 12537 | 0.8903 | 0.7724 | 0.7718 | 0.8860 | 0.8855 | 0.3043 | −0.005 (≈ no-regress) |
-| **NON-CANONICAL** | 885 | **0.3164** | 0.3492 | 0.3932 | 0.3492 | **0.3932** | 0.2045 | **[+0.038,+0.119] CI-sep** |
-| **passive** | 182 | **0.0275** | 0.3077 | **0.5220** | — | 0.5220 | 0.1813 | **[+0.425,+0.565] CI-sep** |
-| pp-suspect active | 703 | 0.3912 | 0.3599 | 0.3599 | — | 0.3599 | 0.2105 | −0.031 (n.s.) |
+| slice | n | positional | landed CM | CM+byfix | CM+bothfix | **hybrid_bothfix** | twin | best−floor CI |
+|---|---|---|---|---|---|---|---|---|
+| ALL (full modern) | 13422 | 0.8525 | 0.7444 | 0.7468 | 0.7478 | **0.8549** | 0.2977 | +0.0024 (no-regress) |
+| canonical | 12597 | 0.8901 | 0.7707 | 0.7701 | 0.7711 | 0.8852 | 0.3041 | −0.0048 (tiny) |
+| **NON-CANONICAL** | 825 | **0.2788** | 0.3442 | 0.3915 | 0.3915 | **0.3915** | 0.2000 | **[+0.073,+0.152] CI-sep** |
+| **passive** | 182 | **0.0275** | 0.3077 | **0.5220** | 0.5220 | 0.5220 | 0.1813 | **[+0.425,+0.565] CI-sep** |
+| pp-suspect active | 643 | 0.3499 | 0.3546 | 0.3546 | 0.3546 | 0.3546 | 0.2053 | +0.005 (n.s.) |
 
 1. **THE NON-CANONICAL INSTRUMENT (the module named in NEXT STEPS #1) — the win across the wall.** On the
-   structurally non-canonical slice the brain-foundational assigner EXCEEDS position **+0.077 CI[+0.038,+0.119]**,
-   twin loses (0.205). The lift is **PASSIVE-driven**: where position collapses (0.028, it grabs the surface
+   structurally non-canonical slice the brain-foundational assigner EXCEEDS position **+0.113 CI[+0.073,+0.152]**,
+   twin loses (0.200). The lift is **PASSIVE-driven**: where position collapses (0.028, it grabs the surface
    subject) the voice cue flips to the by-phrase (0.522). This is the discriminating modern who-did-what agent
    instrument the canonical board lacked.
 2. **THE byagent-cue OPTIMIZATION (brain-foundational, upstream) — passive-agent recovery 0.308→0.522
@@ -138,14 +138,24 @@ UD-EWT train+test, n=13441, sentence-clustered bootstrap. Non-canonicality is fl
    it misses multi-word by-phrases ('by US **troops**'). The fix scans left over NP-internal modifiers for 'by'
    (mirroring the core_arg scan): 'by' governs the whole PP, the agent is its HEAD. A coverage fix to the SAME
    voice cue, not a new cue. Proposed for `hdlab.graded_role_assigner` (`PROPOSED_HDLAB_LANDING.md`).
-3. **THE by-phrase-gated HYBRID (register-safe, no-regress) — full modern set 0.853 ≈ positional 0.8525.** The
-   hybrid overrides position ONLY on a marked cue; gating the passive override on an EXPLICIT by-phrase (an
-   agentless passive has no agent to flip to) removes the false-positive overrides that cost the canonical slice,
-   so the deployable agent is NO-REGRESS vs position on modern overall AND strictly better on the non-canonical
-   slice. This is the brain-faithful `hybrid_role_patient` design carried to the agent.
-4. **Located sub-finding:** the pp-suspect-active slice is a WASH (position 0.391 ≈ CM 0.360) because the
-   PP-government detector over-fires (flags some real subjects) — so the non-canonical win is carried by passives,
-   not by the core_arg cue. Named as a precision follow-on for `_agent_pp_governed`.
+3. **THE by-phrase-gated HYBRID (register-safe, no-regress) — full modern set 0.8549 vs positional 0.8525
+   (+0.0024, CI includes 0 = no-regress).** The hybrid overrides position ONLY on a marked cue; gating the
+   passive override on an EXPLICIT by-phrase (an agentless passive has no agent to flip to) buys back the
+   false-positive overrides. Net: NO-REGRESS on the full modern set (a tiny −0.0048 canonical cost bought back
+   many times over by the +0.113 non-canonical / +0.49 passive win). The brain-faithful `hybrid_role_patient`
+   design carried to the agent.
+4. **THE PP-government precision fix (brain-foundational) — a cleaner INSTRUMENT, honest about the pick.** The
+   landed `_agent_pp_governed` skips punctuation, so 'In 2019 , Google launched' FALSELY flags the real subject
+   as PP-governed. Stopping the left-scan at a comma (a constituent boundary) fixes it and de-contaminates the
+   pp-suspect class (its positional floor drops 0.391→0.350 as mis-labelled canonical clauses leave). HONEST:
+   at full power the pp-suspect slice remains a WASH (position 0.350 ≈ CM 0.355) — the fix improves the
+   MEASUREMENT (a correct non-canonical class) but the core_arg cue does NOT add on the pick there; the
+   non-canonical win is passive-driven. Reported not oversold.
+5. **CROSS-CORPUS GENERALIZATION (a SECOND modern corpus — GUM, GOLD POS, n=15738).** The optimizations are not
+   UD-EWT artifacts: the byagent fix lifts GUM passive-agent recovery **0.314→0.536 (+0.221 CI[+0.169,+0.279])**
+   — the same +0.22 as UD-EWT — and the deployable hybrid_bothfix **beats positional +0.0095 CI[+0.007,+0.013]**
+   on the full GUM set (a small CI-sep WIN, not just no-regress; gold POS removes the tagger-error confound
+   present on UD-EWT). Two independent modern corpora, same result.
 
 ## 7. Adjacent components / next problems (seeds)
 1. **A non-canonical modern who-did-what gold** (passives / fronting / embedded clauses) — the discriminating
