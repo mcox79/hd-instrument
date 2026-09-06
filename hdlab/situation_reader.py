@@ -710,6 +710,7 @@ class SituationReader:
                  cm_twin_seed: Optional[int] = None,
                  predicate_recall: bool = True,
                  causal_mental_bridge: bool = True,
+                 goal_purpose_filter: bool = True,
                  commonnoun_situation_gate: bool = True,
                  commonnoun_canonical: bool = True) -> None:
         # === DEFAULTS FLIPPED ON 2026-09-03 (owner-authorized: "switch them on... 1 at a time, top down,
@@ -1078,6 +1079,12 @@ class SituationReader:
         # graph stays a strict SUPERSET (connective links emitted first). Crosses the mental wall the physical
         # force lexicon cannot (11/16 real cause verbs). Default matches the measured off-vs-on board impact.
         self.causal_mental_bridge = bool(causal_mental_bridge)
+        # GOAL ADVCL PURPOSE FILTER (owner-DONE validate_the_ppmi_svd_means_end_bridge... §5): gate the goal
+        # register's bare-purpose 'to VP' on the reader's OWN arc-labeler deprel -- reject confirmed complements
+        # (xcomp/ccomp/acl), keep purpose adjuncts (advcl). Upstream net-positive on why() (removes 131 wrong vs
+        # 24 genuine, 5.5:1). Consumes the shared per-read parse (the consolidated arc-eager heads) + arc labeler.
+        self.goal_purpose_filter = bool(goal_purpose_filter)
+        self._lab = None               # lazy shared hdlab.arc_labeler.ArcLabeler (deprels for the goal filter)
         self._pred_detector = None     # lazy hdlab.predicate_detector.PredicateDetector
         # PER-READ tag/parse memo (2026-09-03 perf): dimensions independently re-tag/re-parse the SAME
         # sentences (arc parser ~118x + POS tagger ~310x per read). Tag+parse each distinct sentence ONCE
@@ -1122,7 +1129,8 @@ class SituationReader:
         "densify_world_state", "np_head_reduce", "parser_arceager", "causation_typed", "spacy_pred_gate",
         "bind_entity_states", "structural_do_recover", "referent_per_np", "cm_agent", "include_pron_agents",
         "case_filter", "clause_local", "cm_agent_struct", "predicate_recall", "track_goals", "track_affect",
-        "structural_patient", "causal_mental_bridge", "commonnoun_situation_gate", "commonnoun_canonical")
+        "structural_patient", "causal_mental_bridge", "goal_purpose_filter", "commonnoun_situation_gate",
+        "commonnoun_canonical")
 
     @classmethod
     def all_capabilities_off(cls, gaz=None, **overrides):
@@ -1383,6 +1391,13 @@ class SituationReader:
             else:
                 c[key] = self._frontend_parser().parse(toks, pos).heads
         return dict(c[key])
+
+    def _frontend_labeler(self):
+        """Shared lazy arc labeler (UD deprels) -- for the goal advcl purpose filter (+ reused by entity_states)."""
+        if self._lab is None:
+            from hdlab.arc_labeler import ArcLabeler
+            self._lab = ArcLabeler.load(os.path.join(_REPO, "data/frontend_assets/arc_labeler_hashed_ud_ewt.json"))
+        return self._lab
 
     def _router_roles(self, toks):
         """{verb_pos0: {pa_role: token_pos0}} from parse -> route_predicate_arguments, fed the reader's OWN
@@ -1941,7 +1956,13 @@ class SituationReader:
         except Exception:
             sc = None
         pos = [self._cached_tag(list(t)) for t in sents]
-        goals = GR.extract_goals(sents, pos, subcat=sc)
+        deprels_by_sent = None
+        if self.goal_purpose_filter:
+            # the reader's OWN arc-labeler deprels over the SHARED per-read parse (consolidated arc-eager heads)
+            lab = self._frontend_labeler()
+            deprels_by_sent = [lab.label(list(t), pos[i], self._cached_parse_heads(list(t), pos[i]))
+                               for i, t in enumerate(sents)]
+        goals = GR.extract_goals(sents, pos, subcat=sc, deprels_by_sent=deprels_by_sent)
         canon, _names = GR.make_canonicalizer(sm, commonnoun_canonical=self.commonnoun_canonical)
         GR.passive_agent_guard(goals, sm, sents, pos)
         GR.bind_agents(goals, canon)
@@ -1961,8 +1982,14 @@ class SituationReader:
         # with track_goals (no-default-off: additive + net-positive; the benefit is scored on the plot-structure
         # battery -- the live board's goal-why questions are only 4% multi-hop, a filed instrument gap). NO LLM.
         from hdlab.goal_hierarchy_graph import build_goal_graph as _build_goal_graph
+        # CONTEXTUAL means-end edge ON (owner-DONE validate_the_ppmi_svd_means_end_bridge...): link marker-less
+        # actions to the situation-most-related open goal (recency is a located negative). Additive -- only fills
+        # previously-parentless action nodes; the flat register + why()/wants() are unchanged. Gated by the goal
+        # filter flag (the same means-end submission). Passes the reader's OWN sentence tokens as the situation.
         gg = _build_goal_graph(goals, causal_links=getattr(sm, "causal_links", None),
-                               events=getattr(sm, "events", None))
+                               events=getattr(sm, "events", None),
+                               link_open_stack=self.goal_purpose_filter,
+                               sents=[list(t) for t in sents])
         sm.goal_graph = gg
         sm.goal_why_chain = lambda agent, action_head: gg.why_chain(agent, action_head)
         sm.superordinate_goal = lambda agent, action_head: gg.superordinate(agent, action_head)

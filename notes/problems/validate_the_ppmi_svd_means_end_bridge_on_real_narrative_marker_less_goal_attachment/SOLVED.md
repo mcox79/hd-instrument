@@ -9,6 +9,9 @@ files_changed: "experiments/exp_contextual_goal_attachment_v1.py (THE MECHANISM:
 reverify: ".venv/Scripts/python.exe verification/test_contextual_goal_attachment_modern.py   # 4/4 (the POWERED+CLEAN win on modern general text). Plus verification/test_contextual_goal_attachment.py (5/5, the 19c win + context-free refutation) and verification/test_meansend_realtext_validate.py (9/9, the located negative + upstream precision). Full recompute: .venv/Scripts/python.exe experiments/exp_contextual_goal_attachment_modern_v1.py --run"
 ---
 
+## INTEGRATED_BY_STRATEGY (2026-09-05) — EXCELLENT
+LANDED (Q111, DEFAULT-ON, gated `goal_purpose_filter`): (1) the ADVCL PURPOSE FILTER in `hdlab/goal_register.extract_goals` (keep bare-purpose iff the infinitive's arc-labeler deprel is advcl; reject xcomp/ccomp/acl — the goal-why board lever, 5.5:1 net-positive) via the reader's own `_frontend_labeler` over the consolidated arc-eager parse; (2) the CONTEXTUAL `_link_open_stack` edge in `hdlab/goal_hierarchy_graph` (attach a marker-less action to the situation-most-related open goal in the associative store, margin-gated; recency is a located negative), `link_open_stack=True` in `_read_goals` with the reader's sentence tokens as the situation. ADDITIVE (self-test PASS). Reverify 4/4+5/5+9/9. §2b folded. The contextual edge enriches the goal graph (marker-less attachment) which the current board under-scores (goal_hierarchy arm = explicit-goal); its K1 0.700 real-narrative value needs a mined marker-less gold (instrument gap).
+
 ## SOLVER NOTE (owner drove this to the answer): the located negative was the WRONG mechanism, not a ceiling
 My first pass built the brief's CONTEXT-FREE means-end bridge, showed it fails, and called it a located
 negative. The owner corrected it twice -- *"the brain does it, so it works; trace where we're losing signal

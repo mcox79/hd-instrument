@@ -182,11 +182,22 @@ def _is_extraposed(toks: List[str], up: List[str], to_i: int, subcat) -> bool:
     return False
 
 
-def extract_goals_sentence(toks: List[str], up: List[str], si: int, subcat=None) -> List[Goal]:
+# ADVCL PURPOSE FILTER (owner-DONE validate_the_ppmi_svd_means_end_bridge... §5): a bare 'to VP' is a PURPOSE
+# adjunct (advcl) vs a COMPLEMENT (xcomp/ccomp/acl) -- a syntactic-structure decision read off the arc labeler.
+_PURPOSE_DEPREL = frozenset({"advcl"})
+_COMPLEMENT_DEPREL = frozenset({"xcomp", "ccomp", "acl", "acl:relcl", "relcl", "csubj"})
+
+
+def extract_goals_sentence(toks: List[str], up: List[str], si: int, subcat=None, deprels=None) -> List[Goal]:
     """Extract explicit goals from ONE sentence (tokens + UPOS). Glass-box, rule-based, no LLM. When
     `subcat` (a SubcatFrames lexicalist frame) is provided, the bare-purpose branch uses the brain-
     foundational verb SUBCATEGORIZATION FRAME (complement-taker vs adjunct-host) + extraposition detection
-    instead of the hardcoded NON_GOAL_TO list -- the upstream fix for the parse-gated over-firing."""
+    instead of the hardcoded NON_GOAL_TO list -- the upstream fix for the parse-gated over-firing.
+
+    `deprels` (an optional {1-based idx -> arc-labeler deprel} for this sentence) applies the ADVCL PURPOSE
+    FILTER: a bare 'to VP' is KEPT only if the infinitive's deprel is a purpose adjunct (advcl), a confirmed
+    complement (xcomp/ccomp/acl) is REJECTED (upstream net-positive on why(): removes 131 wrong vs 24 genuine,
+    5.5:1). An unlabeled/other deprel falls through to the subcat decision (no over-rejection)."""
     low = [t.lower() for t in toks]
     out: List[Goal] = []
     n = len(toks)
@@ -282,6 +293,14 @@ def extract_goals_sentence(toks: List[str], up: List[str], si: int, subcat=None)
             # fallback (no frame asset): the hardcoded raising/desire list
             if adjacent and (mv in NON_GOAL_TO or mvl in NON_GOAL_TO or mv in GOAL_VERBS or mvl in GOAL_VERBS):
                 continue
+        # ADVCL PURPOSE FILTER: the infinitive verb is at 0-based i+1 (the VERB after 'to'); read its arc-labeler
+        # deprel (1-based). REJECT a confirmed complement (xcomp/ccomp/acl); an unlabeled/other deprel falls
+        # through (do not over-reject). This is the syntactic purpose-vs-complement decision (Friederici; UD advcl).
+        if deprels is not None:
+            inf = i + 1
+            dep = deprels.get(inf + 1) or deprels.get(inf)
+            if dep in _COMPLEMENT_DEPREL:
+                continue
         head, span = _goal_span_after_to(toks, up, i)
         if not head:
             continue
@@ -293,14 +312,17 @@ def extract_goals_sentence(toks: List[str], up: List[str], si: int, subcat=None)
     return out
 
 
-def extract_goals(sents: List[List[str]], pos_tags: List[List[str]], subcat=None) -> List[Goal]:
+def extract_goals(sents: List[List[str]], pos_tags: List[List[str]], subcat=None, deprels_by_sent=None) -> List[Goal]:
     """Extract explicit goals across a passage. sents = [[token]], pos_tags = [[UPOS]] aligned. When
     `subcat` (a SubcatFrames lexicalist frame) is provided, the bare-purpose branch is gated by the
-    brain-foundational verb subcategorization frame + extraposition detection (the upstream fix)."""
+    brain-foundational verb subcategorization frame + extraposition detection (the upstream fix). When
+    `deprels_by_sent` (an optional [{1-based idx -> arc-labeler deprel}] aligned to sents) is provided, the
+    ADVCL PURPOSE FILTER additionally rejects bare-purpose 'to VP's whose infinitive is a confirmed complement."""
     goals: List[Goal] = []
     for si, toks in enumerate(sents):
         up = pos_tags[si] if si < len(pos_tags) else ["X"] * len(toks)
-        goals.extend(extract_goals_sentence(list(toks), list(up), si, subcat=subcat))
+        dr = deprels_by_sent[si] if (deprels_by_sent is not None and si < len(deprels_by_sent)) else None
+        goals.extend(extract_goals_sentence(list(toks), list(up), si, subcat=subcat, deprels=dr))
     return goals
 
 

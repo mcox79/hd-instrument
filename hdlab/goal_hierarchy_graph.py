@@ -193,7 +193,7 @@ class GoalGraph:
 # GRAPH CONSTRUCTION from the flat register's goals + the causal network
 # ---------------------------------------------------------------------------
 def build_goal_graph(goals: List[Goal], causal_links=None, events=None,
-                     link_open_stack: bool = False) -> GoalGraph:
+                     link_open_stack: bool = False, sents=None) -> GoalGraph:
     """Build the goal->subgoal graph over the reader's OWN extracted goals.
 
     MOTIVATION edges (PINNED relation; structural for explicit purpose):
@@ -233,7 +233,7 @@ def build_goal_graph(goals: List[Goal], causal_links=None, events=None,
 
     # 4) OUR-INVENTION Tier-2 open-stack attachment (default off; measured as the located-negative slice)
     if link_open_stack:
-        _link_open_stack(G, goals)
+        _link_open_stack(G, goals, sents=sents)
     return G
 
 
@@ -280,11 +280,47 @@ def _add_enablement(G: GoalGraph, causal_links) -> None:
             G._add_motivation(ck, gkey, "enablement")
 
 
-def _link_open_stack(G: GoalGraph, goals: List[Goal]) -> None:
-    """Tier-2 OUR-INVENTION (located-negative boundary): attach a marker-less action node that has no parent
-    to the most-recent still-open dominating GOAL node of the same agent introduced before it (Grosz-Sidner
-    focus stack). A structural approximation of planning inference -- measured separately, expected to be
-    the inferential wall."""
+# CONTEXTUAL inverse-planning edge (owner-DONE validate_the_ppmi_svd_means_end_bridge...): a marker-less action
+# is attached to the OPEN goal most RELATED to the action's SITUATION (Baker/Jara-Ettinger inverse planning
+# conditioned on state; the ATL associative relatedness hub) -- NOT recency (the recency floor is a LOCATED
+# NEGATIVE: it sits inside the info-free shuffled-situation twin band; the situation-relatedness mechanism beats
+# it CI-sep on modern gold, K1 0.700 vs twin p95 0.483). Lazy singleton associative store (glass-box, NO LLM).
+_ASSOC = None
+
+
+def _assoc():
+    global _ASSOC
+    if _ASSOC is None:
+        import os
+        import numpy as np
+        _repo = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        d = np.load(os.path.join(_repo, "data/frontend_assets/associative_similarity_store_v1.npz"), allow_pickle=True)
+        W = d["words"]; V = d["vecs"].astype(np.float32)
+        V = V / (np.linalg.norm(V, axis=1, keepdims=True) + 1e-9)
+        _ASSOC = (V, {str(w).lower(): i for i, w in enumerate(W)})
+    return _ASSOC
+
+
+def _situation_relatedness(sit_words, goal_head, topk=5):
+    """Top-k mean cosine between the situation's content words and the goal head, in the associative store."""
+    V, w2i = _assoc()
+    gi = w2i.get((goal_head or "").lower())
+    if gi is None:
+        return None
+    gv = V[gi]
+    sims = [float(V[w2i[w]] @ gv) for w in {s.lower() for s in sit_words} if w in w2i]
+    if not sims:
+        return None
+    sims.sort(reverse=True)
+    return sum(sims[:topk]) / min(topk, len(sims))
+
+
+def _link_open_stack(G: GoalGraph, goals: List[Goal], sents=None, margin: float = 0.02) -> None:
+    """Attach a marker-less action node that has no parent to a still-open dominating GOAL node of the same
+    agent introduced before it. CONTEXTUAL when `sents` is provided: pick the OPEN goal whose head is most
+    RELATED to the action's SITUATION (the sentence's content words) in the associative store, gated by a
+    top-1 margin (inverse planning conditioned on state). Recency fallback (the located-negative floor) when
+    no relatedness signal / no sents. Additive: only fills previously-parentless action nodes."""
     stated = defaultdict(list)  # agent -> [(sent_idx, key)] of desire/intend/try/purpose goal nodes
     for key, nd in G.nodes.items():
         if nd.kind in ("desire", "intend", "try", "purpose_marked", "purpose_bare"):
@@ -295,8 +331,21 @@ def _link_open_stack(G: GoalGraph, goals: List[Goal]) -> None:
         if nd.kind != "action" or G.parent.get(key):
             continue
         cands = [k for (si, k) in stated.get(nd.agent, []) if si <= nd.sent_idx and k != key]
-        if cands:
-            G._add_motivation(key, cands[-1], "motivation")
+        if not cands:
+            continue
+        chosen = cands[-1]                       # recency floor (fallback)
+        if sents is not None and 0 <= nd.sent_idx < len(sents):
+            sit = [w for w in sents[nd.sent_idx] if isinstance(w, str) and w.isalpha()]
+            scored = []
+            for k in cands:
+                r = _situation_relatedness(sit, G.nodes[k].head)
+                if r is not None:
+                    scored.append((r, k))
+            if scored:
+                scored.sort(reverse=True)
+                if len(scored) == 1 or (scored[0][0] - scored[1][0]) >= margin:
+                    chosen = scored[0][1]        # CONTEXTUAL: the most situation-related open goal
+        G._add_motivation(key, chosen, "motivation")
 
 
 # ---------------------------------------------------------------------------
