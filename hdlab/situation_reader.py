@@ -468,6 +468,29 @@ class SituationModel:
     # predictive_inference_forward_project_the_next_event_and_state_from_the_situation_model (Q111).
     predict_next_event: Optional[object] = None
     forward_prediction: Optional[object] = None
+    # opt-in CAUSAL-NETWORK REASONING dimension (WHAT-ULTIMATELY-CAUSED-Z / WOULD-Z-STILL-HOLD-WITHOUT-X):
+    # read-only CALLABLES bound at read time when the reader is built with track_causal_reasoning=True
+    # (default-on). The FIRST INFERENCE organ over the situation model -- a glass-box multi-hop reasoner over
+    # the reader's OWN extracted causal network (sm.causal_links) via the promoted hdlab.causal_reasoner
+    # (Trabasso & van den Broek reachability PINNED: ultimate/mediating cause + chain-of-consequence; Pearl
+    # simulated intervention PINNED: counterfactual necessity by node-removal). causal_reasoner() lazily builds
+    # + returns the hdlab.causal_reasoner.CausalGraph over sm.causal_links on first use (None until invoked);
+    # ultimate_cause(outcome) / mediating_cause(cause,outcome) / chain_of_consequence(event) /
+    # is_necessary(cause,outcome) / counterfactual(cause,outcome) / graded_necessity(cause,outcome) /
+    # signed_effect(perturbed,outcome[,sign]) are the convenience readouts over that graph. PURE ADD -- new
+    # read-only callables via hdlab.causal_reasoner; consumes sm.causal_links, mutates NO existing field
+    # (byte-identical off vs on; landing witness W2). LAZY -- builds nothing until a callable is invoked
+    # (default read byte-identical). A NEW ISLAND (no downstream consumer today -> no regression). ABSTAINS
+    # cleanly (returns None / False / 'no_effect') on an empty/sparse network. From the owner-DONE
+    # reason_over_the_causal_network_multi_hop_chains_and_counterfactuals (Q111).
+    causal_reasoner: Optional[object] = None
+    ultimate_cause: Optional[object] = None
+    mediating_cause: Optional[object] = None
+    chain_of_consequence: Optional[object] = None
+    is_necessary: Optional[object] = None
+    counterfactual: Optional[object] = None
+    graded_necessity: Optional[object] = None
+    signed_effect: Optional[object] = None
     memory_roundtrip: Dict[str, float] = field(default_factory=dict)
     # per-dimension honest accuracy (coref only; scored vs LitBank gold on this passage)
     coref_acc: Optional[float] = None
@@ -784,6 +807,7 @@ class SituationReader:
                  sense_mode: str = "underspecified", sense_gamma: float = 1.0,
                  sense_topk: Optional[int] = None, sense_prior_weight: float = 0.0,
                  track_prediction: bool = True,
+                 track_causal_reasoning: bool = True,
                  parser_arceager: bool = True,
                  np_head_reduce: bool = True,
                  structural_patient: bool = True,
@@ -1104,6 +1128,28 @@ class SituationReader:
         # located negatives). NEW ISLAND -- no downstream consumer today, so no regression. NO external LLM.
         self.track_prediction = bool(track_prediction)
         self._gek_org = None         # lazy hdlab.generalized_event_knowledge.GEKProjector
+        # CAUSAL-NETWORK REASONING stage (default-on track_causal_reasoning; wired 2026-09-06 from the owner-DONE
+        # problem reason_over_the_causal_network_multi_hop_chains_and_counterfactuals, Q111). Binds the FIRST
+        # INFERENCE organ over the situation model -- read-only callables (sm.causal_reasoner() + ultimate_cause /
+        # mediating_cause / chain_of_consequence / is_necessary / counterfactual / graded_necessity / signed_effect)
+        # that reason over the reader's OWN extracted causal network (sm.causal_links) via the promoted glass-box
+        # hdlab.causal_reasoner.CausalGraph: MULTI-HOP chain traversal (ultimate cause = root ancestor; mediating
+        # cause = node on the path; chain of consequence = forward reachability -- Trabasso & van den Broek 1985
+        # PINNED, salience = connectivity not recency) + COUNTERFACTUAL NECESSITY by simulated node-removal
+        # intervention (Pearl abduction->action->re-propagate PINNED). Proven SOUND on constructed DAGs
+        # (ultimate-cause 1.000 vs adjacency 0.000 on multi-hop; counterfactual necessity load-bearing, twin loses;
+        # Halpern-Pearl over-determination handled) and load-bearing on modern gold (WIQA multi-hop; TellMeWhy
+        # non-adjacent causes -- the ONLY method that finds the non-adjacent cause). LAZY + ADDITIVE: the closures
+        # build the CausalGraph over sm.causal_links only on FIRST invocation (zero read-time cost -> default read
+        # BYTE-IDENTICAL; landing witness W2), sm.causal_reasoner stays None until a callable is invoked, and every
+        # readout DEGRADES GRACEFULLY -- abstains (None / False / 'no_effect') on an empty/sparse network, never
+        # raises. A NEW ISLAND / query layer over the EXISTING sm.causal_links (no downstream consumer today -> no
+        # regression). NOTE (honest bound): the real-narrative causal network is SPARSE (an upstream extraction gap
+        # -- median chain depth ~0 on ROCStories), so the multi-hop value is confined to the multi-hop / non-adjacent
+        # subset; a Trabasso contiguity+plausibility DENSIFICATION (populating a distinct sm.inferred_causal_links)
+        # is the DEFAULT-OFF follow-on, held until its edge CORRECTNESS is validated on directed causal QA gold. NO
+        # spaCy / NO external LLM at inference. flag-off (track_causal_reasoning=False) = the pre-landing reader.
+        self.track_causal_reasoning = bool(track_causal_reasoning)
         # IMPROVED PARSER (opt-in; default OFF = byte-identical). Wired 2026-09-02 from the owner-DONE parser problem
         # the_extraction_front_end_parser_is_the_cross_task_bottleneck...: route the WIRED who-did-what front-end
         # through the promoted arc-eager parser (hdlab.arceager_parser, UD-EWT UAS 0.775->0.842) instead of the
@@ -1351,7 +1397,7 @@ class SituationReader:
         "bind_entity_states", "structural_do_recover", "referent_per_np", "cm_agent", "include_pron_agents",
         "case_filter", "clause_local", "cm_agent_struct", "cm_agent_byhead", "predicate_recall",
         "track_goals", "track_affect", "track_tom_action", "track_bridges", "track_senses",
-        "track_prediction",
+        "track_prediction", "track_causal_reasoning",
         "structural_patient", "causal_mental_bridge", "goal_purpose_filter", "entity_kb_resolver",
         "commonnoun_situation_gate", "commonnoun_canonical", "unified_referent", "precision_weight_roles")
 
@@ -2686,6 +2732,104 @@ class SituationReader:
         sm.predict_next_event = predict_next_event
         # sm.forward_prediction stays None (the field default) until predict_next_event is invoked -- zero cost.
 
+    def _read_causal_reasoning(self, sm, sents) -> None:
+        """Opt-in CAUSAL-NETWORK REASONING dimension (default-on track_causal_reasoning; wired 2026-09-06 from the
+        owner-DONE problem reason_over_the_causal_network_multi_hop_chains_and_counterfactuals, Q111). MIRRORS
+        _read_tom_action / _read_bridges. Bind the FIRST INFERENCE organ over the situation model -- read-only QUERY
+        callables that REASON over the reader's OWN extracted causal network (sm.causal_links) via the promoted
+        glass-box hdlab.causal_reasoner.CausalGraph (Trabasso & van den Broek 1985 reachability PINNED; Pearl
+        simulated intervention PINNED; it REUSES the goal_hierarchy_graph ancestors/root/connectivity/shuffled-twin
+        traversal pattern, lifted from GOAL edges onto CAUSAL edges):
+
+          sm.causal_reasoner()                         -> the hdlab.causal_reasoner.CausalGraph over sm.causal_links,
+                                                          lazily BUILT + cached on first call (full readout surface:
+                                                          descendants / mediators / graded_necessity / is_actual_cause
+                                                          / most_mutable_cause / intervene_and_compare / shuffled twin)
+          sm.ultimate_cause(outcome)                   -> the ROOT ancestor of `outcome` (multi-hop; not the 1-hop
+                                                          predecessor) -- None if no antecedent / OOV / empty network
+          sm.mediating_cause(cause, outcome)           -> the most salient node on the path cause->...->outcome
+          sm.chain_of_consequence(event)               -> the forward-reachable consequences of `event` (a set)
+          sm.is_necessary(cause, outcome)              -> counterfactual necessity by SIMULATED node-removal (bool)
+          sm.counterfactual(cause, outcome)            -> 'necessary' | 'not_necessary' (the labelled read-out)
+          sm.graded_necessity(cause, outcome)          -> the max-product path weight in [0,1] (Trabasso/vdB/Suh)
+          sm.signed_effect(perturbed, outcome[, sign]) -> 'more' | 'less' | 'no_effect' (signed propagation)
+
+        NODE IDS are the reader's OWN causal-link event LEMMAS (CausalLink.cause / .outcome, already lowercased
+        lemmas). Query args are normalised the SAME way (rightmost token, lowercased) so a caller may pass the
+        lemma directly; enumerate sm.causal_reasoner().nodes for the exact id space.
+
+        PURE ADD: sets ONLY sm.causal_reasoner + the convenience callables; touches NO existing field (byte-identical
+        off vs on -- the landing witness W2 asserts it; in particular sm.causal_links is UNCHANGED -- this only READS
+        it). LAZY -- the closures build NOTHING until a callable is invoked, and the graph is built at most once per
+        read and cached (zero read-time cost -> default read byte-identical). DEGRADES GRACEFULLY -- every readout
+        abstains (None / False / 'no_effect' / empty) on an empty/sparse network, never raises. A NEW ISLAND (no
+        downstream consumer today -> no regression). NO spaCy / NO external LLM at inference (a transparent graph
+        walk over the reader's OWN extracted links). Runs LAST in read() so it sees the FINAL sm.causal_links."""
+        from hdlab.causal_reasoner import CausalGraph
+
+        def _node(x):
+            """Normalise a query arg to the causal-link node id space (rightmost token, lowercased) -- the SAME
+            normalisation the graph builder applies to CausalLink.cause / .outcome (already lowercased lemmas)."""
+            if x is None:
+                return None
+            tok = str(x).strip().split()
+            return tok[-1].lower() if tok else None
+
+        holder = {}   # lazy single-build cache of the CausalGraph over sm.causal_links (built at most once)
+
+        def _graph():
+            g = holder.get("g")
+            if g is None:
+                g = CausalGraph()
+                for cl in (getattr(sm, "causal_links", None) or []):
+                    c = _node(getattr(cl, "cause", None))
+                    o = _node(getattr(cl, "outcome", None))
+                    if c and o and c != o:
+                        g.add_edge(c, o)
+                holder["g"] = g
+            return g
+
+        def causal_reasoner():
+            return _graph()
+
+        def ultimate_cause(outcome):
+            o = _node(outcome)
+            return _graph().ultimate_cause(o) if o else None
+
+        def mediating_cause(cause, outcome):
+            c, o = _node(cause), _node(outcome)
+            return _graph().mediating_cause(c, o) if (c and o) else None
+
+        def chain_of_consequence(event):
+            e = _node(event)
+            return _graph().descendants(e) if e else set()
+
+        def is_necessary(cause, outcome):
+            c, o = _node(cause), _node(outcome)
+            return _graph().is_necessary(c, o) if (c and o) else False
+
+        def counterfactual(cause, outcome):
+            c, o = _node(cause), _node(outcome)
+            return _graph().counterfactual_answer(c, o) if (c and o) else "not_necessary"
+
+        def graded_necessity(cause, outcome):
+            c, o = _node(cause), _node(outcome)
+            return _graph().graded_necessity(c, o) if (c and o) else 0.0
+
+        def signed_effect(perturbed, outcome, sign=1):
+            p, o = _node(perturbed), _node(outcome)
+            return _graph().signed_effect(p, o, sign) if (p and o) else "no_effect"
+
+        sm.causal_reasoner = causal_reasoner
+        sm.ultimate_cause = ultimate_cause
+        sm.mediating_cause = mediating_cause
+        sm.chain_of_consequence = chain_of_consequence
+        sm.is_necessary = is_necessary
+        sm.counterfactual = counterfactual
+        sm.graded_necessity = graded_necessity
+        sm.signed_effect = signed_effect
+        # the CausalGraph is built LAZILY inside the closures on first invocation -- zero read-time cost / no build.
+
     def _read_entity_states(self, sm, sents) -> None:
         """COPULAR is-a/attribute BINDING (default-off bind_entity_states; wired 2026-09-03 from the owner-DONE
         the_reader_has_no_copular_is_a_binding_schema, 10/10+6/6). For each sentence, recover the labeled copular
@@ -2945,6 +3089,16 @@ class SituationReader:
             # invoked); sets ONLY sm.predict_next_event + leaves sm.forward_prediction None (byte-identical off vs
             # on). NEW ISLAND -- no downstream consumer today. Abstains (returns None) if the store asset is absent.
             self._read_prediction(sm, sents)
+        if self.track_causal_reasoning:
+            # CAUSAL-NETWORK REASONING dimension: bind sm.causal_reasoner() + ultimate_cause / mediating_cause /
+            # chain_of_consequence / is_necessary / counterfactual / graded_necessity / signed_effect -- the FIRST
+            # INFERENCE organ over the situation model (glass-box multi-hop chain traversal + counterfactual necessity
+            # by simulated intervention over the reader's OWN sm.causal_links, via the promoted hdlab.causal_reasoner).
+            # Runs LAST so the reasoner reads the FINAL sm.causal_links. PURE ADD -- lazy closures only (builds the
+            # CausalGraph only when a callable is invoked, at most once per read); sets ONLY the new callables +
+            # leaves sm.causal_reasoner None until invoked (byte-identical off vs on). NEW ISLAND -- no downstream
+            # consumer today. Abstains cleanly on an empty/sparse network. sm.causal_links is UNCHANGED (read-only).
+            self._read_causal_reasoning(sm, sents)
         return sm
 
 
