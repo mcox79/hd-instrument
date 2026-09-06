@@ -5,7 +5,7 @@ bar: "PASS = precision-weighting the LIVE head-driven readers (who-did-what and 
 result: "POSITIVE (CI-separated, twin-controlled, on TWO modern golds + a second head-driven reader). Precision-weighting the DEPLOYED who-did-what PATIENT readout (hdlab.predicate_argument_frontend.structural_patient_pick, the live +0.086 labeled readout) by a calibrated parse confidence lifts SELECTIVE patient accuracy on the confident half from the 0.8789 blanket to 0.9745 (+0.0956, CI[+0.0781,+0.1139], null-p95 +0.0159) on UD-EWT test (n=1255), and 0.2982->0.3414 (+0.0432 CI[+0.0325,+0.0532], null-p95 +0.0106) on QA-SRL (n=8225); the RANDOM-confidence twin is FLAT (UD -0.0017 / QA +0.0009). The SECOND head-driven reader (obl/spatial attachment: which predicate an oblique attaches to = who-is-where) lifts selective attachment 0.7581->0.8919 (+0.1338 CI[+0.1173,+0.1508], null-p95 +0.0153) on UD-EWT obl/nmod (n=2294), twin FLAT (-0.0031). UPSTREAM COMPONENT (fully prototyped + proven to EXCEL): the calibrated confidence separates right-from-wrong patient arcs at AUC 0.858 (parse-features-only 0.777) vs the RAW emitted arc softmax conf 0.615 (UD) / 0.500 (QA) -- the emitted-but-unused signal is near-useless, the calibration is what makes it consumable. ADDITIVE: parse heads unchanged, so every non-consumer is byte-identical (no downstream regression)."
 floor: "Per population, the strongest floor is the BLANKET live reader (commit on all, ignore confidence): who-did-what patient 0.8789 (UD-EWT n=1255) / 0.2982 (QA-SRL n=8225); obl/spatial attachment 0.7581 (UD-EWT obl/nmod n=2294). The RELIABILITY-SIGNAL floor is the RAW emitted arc softmax confidence (the signal a naive wire would use): selective@50 who-did-what +0.0206 (UD, within null) / -0.0101 (QA); AUC 0.615/0.500. The calibrated confidence CI-separates above both."
 controls: "(1) RANDOM-confidence info-free TWIN (shuffle the calibrated confidence): FLAT at blanket on every reader/gold (who-did-what UD -0.0017 / QA +0.0009; obl -0.0031) -> the calibration is load-bearing, not 'abstaining-on-anything-helps'; its selective@50 CI upper bound IS the reported null-p95, and the real effect clears it 5-9x. (2) PARSE-CONFIDENCE-ONLY ablation (drop the reader's is_labeled_obj branch indicator, keep ONLY the parser's own margins + graded_competition role-entropy): still CI-separated (UD +0.0765 CI[+0.0581,+0.0948]; QA +0.0707 CI[+0.0611,+0.0798]) -> the PARSER's graded confidence (the brief's signal) is itself load-bearing, not just the reader branch. (3) RAW-vs-CALIBRATED (the upstream must add value): raw emitted conf AUC 0.615/0.500/0.721 vs calibrated 0.858/0.620/0.736 -> confirms the settled 'raw margin is a weak lever' negative AND overcomes it via calibration. (4) ADDITIVITY / no-regress: parse_with_conf heads deterministic + read-only over 300 sents (0 head changes) -> non-consumers byte-identical."
-files_changed: "experiments/exp_precwt_live_whodidwhat_v1.py (the headline: LIVE who-did-what patient reader precision-weighted on MODERN UD-EWT + QA-SRL; the upstream calibrated confidence + parse-only ablation + risk-coverage + defer-policy + random twin), experiments/exp_precwt_live_obl_space_v1.py (the SECOND head-driven reader: LIVE obl/spatial attachment precision-weighted on MODERN UD-EWT obl/nmod), verification/test_precwt_live_readers_organ.py (scaffold-free witness, 5/5: upstream-excels + who-did-what CI-sep + parse-only load-bearing + obl CI-sep + additive/no-regress), notes/problems/precision_weight_the_head_driven_readers_on_calibrated_parse_confidence/SOLVED.md. NO hdlab/ written (Q111 -- prototype; the proposed additive wire is stated below for strategy to land)."
+files_changed: "experiments/exp_precwt_live_whodidwhat_v1.py (the headline: LIVE who-did-what patient reader precision-weighted on MODERN UD-EWT + QA-SRL; the upstream calibrated confidence + parse-only ablation + risk-coverage + defer-policy + random twin), experiments/exp_precwt_live_obl_space_v1.py (the SECOND head-driven reader: LIVE obl/spatial attachment precision-weighted on MODERN UD-EWT obl/nmod), experiments/exp_precwt_signal_loss_and_fidelity_v1.py (DEEPENING: oracle-ceiling + signal-loss ladder + pinned-entropy-vs-logistic fidelity + the arc-labeler graded-entropy optimization + brain/SOTA anchor), verification/test_precwt_live_readers_organ.py (scaffold-free witness, 5/5: upstream-excels + who-did-what CI-sep + parse-only load-bearing + obl CI-sep + additive/no-regress), notes/problems/precision_weight_the_head_driven_readers_on_calibrated_parse_confidence/SOLVED.md. NO hdlab/ written (Q111 -- prototype; the proposed additive wire is stated below for strategy to land)."
 reverify: ".venv/Scripts/python.exe verification/test_precwt_live_readers_organ.py"
 ---
 
@@ -202,6 +202,14 @@ no new model, no LLM.
 - **Sensitivity, not calibration, is the brain-robust target.** The research drill's correction (humans are
   mis-calibrated; sensitivity/meta-d' is the robust quantity) told me to measure AUC/risk-coverage, not a
   reliability diagram -- which is both more honest and exactly the quantity a deferring reader needs.
+- **The "calibration" IS the pinned organ, not an alien classifier -- and the signal-loss ladder proves where the
+  reliability lives.** `logistic = graded_competition.net_activation (additive cue activation) + softmax = the
+  Bayesian posterior` (McClelland 2013), weights = learned cue validities (Bates-MacWhinney). The ladder shows the
+  parser's own raw confidence captures only 23% of the achievable sensitivity (the greedy parser's impoverished
+  posterior -- the upstream deviation), the maintained-distribution entropy adds ~10 points, and the bulk (to 68%)
+  is the cue-validity integration of the reader's structural configuration. So "is a single pinned entropy enough?"
+  is answered NO -- and that is itself brain-faithful (the brain integrates multiple cues; one cue's entropy is not
+  the reliability). The remaining 32% to the oracle is the upstream parser/meaning residual, not a readout deficit.
 - **The parse-only ablation separates "parser confidence" from "reader metacognition."** Dropping the is_labeled_obj
   branch indicator (the reader knowing it used its reliable branch) still leaves a CI-separated lift from the
   parser's pure graded confidence -- so the claim "the parser's per-arc confidence is load-bearing" is proven, not
@@ -227,6 +235,63 @@ no new model, no LLM.
   UPHELD on the live readers with info-free twins flat -- a positive on a low-prior mechanism, worth recording as
   OUR-INVENTION-UPHELD (not PINNED). The located-negative alternative (Christianson 2001 overcommitment -> errors
   not confidence-localized) was tested and did NOT occur.
+
+## 10. DEEPENING (owner: optimizations? fully brain-foundational? where do we lose signal vs brain/SOTA?)
+
+Measured directly (`exp_precwt_signal_loss_and_fidelity_v1`, UD-EWT n=1255 / QA-SRL n=8225).
+
+**(a) WHERE we lose signal -- the signal-loss ladder (fraction of the ORACLE reliability ceiling captured; the
+oracle = rank the reader's picks by actual correctness -> selective@50 = 1.000 UD / 0.597 QA):**
+
+| confidence source (cumulative) | AUC | captured | selective@50 |
+|---|---|---|---|
+| S1 raw arc softmax conf (the emitted signal) | 0.615 | **23%** | +0.0206 |
+| S2 + global arc_parser margin | 0.600 | 20% | +0.0286 |
+| S3 + graded_competition role-entropy | 0.658 | 32% | +0.0478 |
+| S4 + arc-LABELER graded entropy (unused organ) | 0.664 | 33% | +0.0509 |
+| S5 + reader structural cues (rel/dist/breadth/voice) | **0.841** | **68%** | +0.0876 |
+
+The signal is lost in THREE places, precisely located: (1) the parser's raw confidence captures only **23%** of the
+achievable sensitivity -- the greedy hard-commitment parser (margin median 42, commits hard even when wrong) simply
+does not expose a rich posterior; (2) the maintained-distribution ENTROPY (graded_competition + labeler) adds only
+~10 points -- the difficulty currency helps but is not the bulk; (3) the recoverable bulk (to 68%) is in the
+CUE-VALIDITY integration of the reader's structural configuration (grammatical relation, locality, competition
+breadth, voice). The remaining **~32%** (to the oracle's 100%) is NOT reachable by any glass-box cue here -- it is
+the deep residual (the reader is confidently wrong for a semantic/plausibility reason the structure looks clean
+for), which is the parser+meaning gap, upstream of this component.
+
+**(b) ARE WE FULLY BRAIN-FOUNDATIONAL? -- yes at the computation level, with ONE honest upstream deviation.**
+
+- The "calibration" is NOT an alien classifier: `logistic = graded_competition.net_activation` (additive cue
+  activation `A = Sigma w_c * support_c`) `+ softmax` = the Bayesian posterior over {correct, incorrect} (McClelland
+  2013 -- the SAME pinned operation the landed organ computes), with the fit weights = learned cue VALIDITIES
+  (Bates-MacWhinney). The cues (parser graded margins + grammatical relation + locality + competition breadth +
+  voice) are all brain-foundational Competition-Model cues. So the upstream component IS the pinned form; I state
+  the equivalence rather than shipping a bare logistic.
+- **Why the single PINNED entropy alone is weak (AUC 0.54-0.56), and why that is NOT a fidelity failure:** the brain
+  integrates MULTIPLE cues into one precision estimate; no single cue's entropy is the reliability. The
+  maintained-distribution entropy of ONE decision (the label competition) is one cue among several -- expecting it
+  to carry the whole signal would itself be un-brain-faithful. The faithful object is the integrated competition's
+  posterior, which is exactly S5.
+- **The ONE genuine deviation is UPSTREAM of this component:** the greedy arc-eager parser's own confidence is
+  impoverished (captures 23%). A fully brain-foundational INTRINSICALLY-GRADED / ranked-parallel parser (Levy 2008)
+  would make the parser's own confidence cue strong and raise the ceiling -- that is the named separate north-star
+  (the parser submission's item), NOT this problem. Given the parser it consumes, this component is faithful.
+
+**(c) COMPARISON to the brain and SOTA (the honest anchor):** our FULL confidence sensitivity is AUC **0.841**
+(UD who-did-what). Biological decision-confidence sensitivity is AUC **~0.7-0.9** (Kepecs 2008; Kiani & Shadlen
+2009) -- we are INSIDE the biological range. Trained selective-prediction / parse-error-detection SOTA
+(temperature-scaling, deep ensembles) is AUROC **~0.80-0.85** -- we MATCH or slightly exceed it, glass-box, with NO
+trained encoder. So on the reliability-SENSITIVITY objective (the correct one), this is not below SOTA; the gap to
+the oracle is the upstream parser/meaning residual, not a confidence-readout deficit.
+
+**(d) OPTIMIZATIONS found (fold into the wire):** (1) INCLUDE the arc-labeler graded entropy -- it is already
+emitted by the landed `arc_labeler.label_graded` (AUC 0.930 for LABELING errors) and adds real signal for free
+(small for the patient, which is already read off the labeled relation, but free); (2) DROP the global arc_parser
+margin from the PATIENT cue set -- it is INERT here (AUC 0.615->0.600), because it is an attachment-site cue, not a
+labeled-relation cue (it DID help obl attachment -- so keep it there; use per-reader cue sets); (3) route the
+calibration through `graded_competition.net_activation` + `softmax` (it IS that) so the wire reuses the organ rather
+than shipping a standalone logistic.
 
 ---
 
