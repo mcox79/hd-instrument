@@ -299,7 +299,8 @@ def extract_events_in_substrate(sents: List[List[str]], mentions_by_sent: Dict[i
                                 person_clusters: Optional[set] = None, place_typing: bool = True,
                                 realis_gate: bool = False, discovery_gate: bool = False,
                                 embedded_route: bool = False, caused_motion_theme: bool = False,
-                                stative_expand: bool = False, parse_provider=None
+                                stative_expand: bool = False, parse_provider=None,
+                                ground_bind: bool = False
                                 ) -> List[Tuple[int, str, Optional[str], int, int]]:
     """Walk the discourse once; per sentence tag+parse (in-substrate), route verbs, map the AGENT (and, with
     caused_motion_theme, the moved THEME) token to its coref cluster (ANIMATE movers only), emit
@@ -365,6 +366,18 @@ def extract_events_in_substrate(sents: List[List[str]], mentions_by_sent: Dict[i
                     events.append((tcid, "arrive", gnode, i, 3))          # theme ends at the goal (entailed)
                     if agent_tracked and lemma in _ACCOMPANIED_MOTION:    # agent co-moves only if accompanied
                         events.append((acid, "arrive", gnode, i, 3))
+    # NAMED-GROUND BINDING (owner-DONE space_where_is..., 2026-09-06): append the conservative named-ground pass
+    # ALONGSIDE the base chain (which still contributes departs/returns/scene where no named ground exists). Uses
+    # the SAME parse provider -> byte-identical parse; conservative=True only (the aggressive/anticipatory paths
+    # are located negatives). Additive: emits ONLY SPACE events; no other consumer of the reader changes.
+    if ground_bind and person_clusters:
+        if parse_provider is not None:
+            _gprov = parse_provider
+        else:
+            def _gprov(_toks):
+                _u = tagger.tag(list(_toks))
+                return _u, parser.parse(list(_toks), _u).heads
+        events = events + ground_bind_events(sents, mentions_by_sent, person_clusters, _gprov, conservative=True)
     return events
 
 
@@ -395,6 +408,259 @@ def fold_tracker(clusters: Sequence[int], events: Sequence[Tuple[int, str, Optio
     return reg
 
 
+# ===========================================================================
+# NAMED-GROUND BINDING (owner-DONE space_where_is_is_extraction_recall_bound_add_lazy_locative_pp_bridging,
+# 2026-09-06, Q111). The where_is cap is binding the correct NAMED GROUND to an already-detected motion event
+# (Talmy Figure/Ground; Landau & Jackendoff 1993 "where"; Rappaport Hovav & Levin 2008 argument structure), NOT
+# change-point recall. Promoted VERBATIM from the validated prototype exp_space_named_ground_binding_v1.py
+# (+ is_place_wn from exp_space_recall_brainfoundational_v1). Only the conservative=True path is landed live; the
+# aggressive locative/stative + protagonist fallback REGRESSES real prose and the anticipatory Goal fill over-fires
+# (Ferretti 2001: verbs do not prime Locations as they prime Agents) -- both located negatives, kept off.
+# Modern where_is 0.319->0.468 (+0.149; beats the last-mention floor + the shuffled-ground twin CI-sep; precision
+# 0.571->0.702); live read() 0.277->0.447. Additive-safe: emits ONLY SPACE events (witnessed byte-identical
+# who-did-what). Glass-box, NO LLM (static ConceptNet AtLocation + WordNet).
+# ===========================================================================
+_WN = None
+_PLACE_CACHE: Dict[str, bool] = {}
+
+
+def is_place_wn(noun):
+    """Brain-foundational place typing beyond the hand lexicon: a noun is a PLACE if any synset is a hyponym of
+    location / structure / room / way (the ATL taxonomic place category). Glass-box WordNet; cached."""
+    global _WN
+    w = noun.lower().strip(".,:;\"'")
+    if w in _PLACE_CACHE:
+        return _PLACE_CACHE[w]
+    if _WN is None:
+        from nltk.corpus import wordnet as wn
+        _WN = wn
+    roots = {"location.n.01", "structure.n.01", "room.n.01", "way.n.06", "geological_formation.n.01",
+             "body_of_water.n.01", "tract.n.01"}
+    ok = False
+    for s in _WN.synsets(w, pos="n")[:3]:
+        hyper = set()
+        for path in s.hypernym_paths():
+            hyper.update(x.name() for x in path)
+        if roots & hyper:
+            ok = True
+            break
+    _PLACE_CACHE[w] = ok
+    return ok
+
+
+def _place_node(toks, j1):
+    """Place node for a 1-based token: the hand-lexicon typer first, else the WordNet place taxonomy."""
+    n = _node_from_token(toks, j1, place_typing=True)
+    if n is not None:
+        return n
+    w = toks[j1 - 1]
+    if is_place_wn(w):
+        return canon_node(w.lower().strip(".,:;\"'")) or w.lower().strip(".,:;\"'")
+    return None
+
+
+# 'for' REMOVED (benefactive/purpose, not a spatial goal -- Jackendoff; it spuriously typed "waited FOR the
+# boarding call" as a destination). goal = {into/onto/to/toward} only.
+GOAL_PREP = {"into", "onto", "to", "toward", "towards"}
+LOC_PREP = {"in", "on", "at", "by", "inside", "within", "aboard", "atop", "upon", "near", "beside",
+            "behind", "under", "underneath", "beneath", "outside", "over"}
+SPATIAL_PREP = GOAL_PREP | LOC_PREP
+_MOTION_EXTRA = {"head", "walk", "step", "cut", "drift", "slip", "climb", "stroll", "stride", "wander"}
+# PARTITIVE / region head-nouns: 'the back OF the hall', 'the edge OF the field' -- the GROUND is the place after
+# 'of', not the partitive word. (Landau & Jackendoff axial/region terms: the reference object is the whole.)
+_PARTITIVE = {"back", "front", "middle", "centre", "center", "end", "edge", "side", "top", "bottom", "corner",
+              "rest", "far", "foot", "head", "rear", "part", "midst", "heart", "base"}
+# FUNCTIONAL LOCI (Landau & Jackendoff 1993 'where'), typed from SEMANTIC MEMORY via ConceptNet AtLocation
+# ("things are found AT a desk/plane") -- a noun is a functional locus iff it is a frequent AtLocation TARGET.
+# BRAIN-FOUNDATIONAL and GRADED (a curated list, or a hard WordNet furniture/vehicle hyponymy test, is the wrong
+# shape: the hard taxonomy over-generates on real prose -- types incidental 'carriage'/'cart' as loci -- where the
+# GRADED AtLocation signal gives them ~0 while giving desk=216/bed=104/plane=46/car=72). Static asset; NO LLM.
+_ATLOC_PATH = os.path.join(_REPO, "data", "datasets", "conceptnet5_en_100k.jsonl")
+_ATLOC_MIN = 10          # AtLocation-target count threshold (desk/bed/table/plane/car >=22; bag=7/carriage=0 out)
+_atloc_targets = None
+
+
+def _load_atloc():
+    global _atloc_targets
+    if _atloc_targets is None:
+        import json, collections
+        c = collections.Counter()
+        with open(_ATLOC_PATH, encoding="utf-8") as f:
+            for ln in f:
+                r = json.loads(ln)
+                if r.get("predicate") == "AtLocation":
+                    c[r["object"].lower()] += 1
+        _atloc_targets = c
+    return _atloc_targets
+
+
+def is_funcloc_atlocation(noun):
+    """GRADED semantic-memory functional-locus typing: is `noun` a frequent ConceptNet AtLocation TARGET?"""
+    w = noun.lower().strip(".,:;\"'()")
+    return _load_atloc().get(w, 0) >= _ATLOC_MIN
+
+
+def _ground_node(toks, j1):
+    """A NAMED place/locus node for a 1-based token, or None. Broadens _place_node with GRADED semantic-memory
+    functional-locus typing (ConceptNet AtLocation, not a list); REJECTS the deictic scene / away sentinels (a
+    <scene> 'ground' clobbers persistence -- worse than nothing)."""
+    from hdlab.location_register import DEICTIC_SCENE as _DS, AWAY as _AW
+    node = _place_node(toks, j1)
+    if node in (_DS, _AW):
+        node = None
+    if node is not None:
+        return node
+    w = toks[j1 - 1].lower().strip(".,:;\"'()")
+    if is_funcloc_atlocation(w):
+        return canon_node(w) or w
+    return None
+
+
+def _head_of_run(toks, upos, start):
+    """Given a 1-based index at the start of a contiguous NOUN/PROPN run, return the LAST index of the run (the
+    compound HEAD: 'meeting ROOM', 'locker ROOM', 'lower ... garage' -> the head noun, not the modifier)."""
+    j = start
+    while j + 1 <= len(toks) and upos[j] in ("NOUN", "PROPN"):
+        j += 1
+    return j
+
+
+def _pp_ground(toks, upos, k):
+    """Named ground of the PP whose preposition is at 1-based index k: the first NOUN run after k, typed on its
+    HEAD (last noun of the run); if the head does not type, back off to earlier nouns in the run. Handles the
+    PARTITIVE 'back/edge/end OF the PLACE' -- the ground is the place after 'of', not the partitive word.
+    None if none."""
+    for j in range(k + 1, min(k + 5, len(toks) + 1)):
+        if upos[j - 1] in ("NOUN", "PROPN"):
+            head = _head_of_run(toks, upos, j)
+            # PARTITIVE: 'the back of the hall' -> resolve to the place after 'of'
+            if toks[head - 1].lower().strip(".,:;\"'()") in _PARTITIVE:
+                m = head + 1
+                if m <= len(toks) and toks[m - 1].lower() == "of":
+                    g = _pp_ground(toks, upos, m)     # recurse on the 'of'-PP
+                    if g is not None:
+                        return g
+            for jj in range(head, j - 1, -1):        # head first, then modifiers
+                node = _ground_node(toks, jj)
+                if node is not None:
+                    return node
+            return None
+    return None
+
+
+def _dobj_ground(toks, upos, heads, v):
+    """Named ground of a direct-object noun of a destination/motion verb ('reached the OFFICE'), typed on the
+    compound HEAD. Skips a noun that is the object of a preposition (handled by _pp_ground). None otherwise."""
+    for i in range(1, len(toks) + 1):
+        if heads.get(i) == v and upos[i - 1] in ("NOUN", "PROPN"):
+            prevs = [toks[j - 1].lower() for j in range(max(1, i - 2), i)]
+            if any(pv in SPATIAL_PREP for pv in prevs):
+                continue
+            head = _head_of_run(toks, upos, i)
+            for jj in range(head, i - 1, -1):
+                node = _ground_node(toks, jj)
+                if node is not None:
+                    return node
+    return None
+
+
+_STRONG_DEST = {"board", "enter", "mount", "reach", "arrive", "approach", "exit", "leave", "return"}
+
+
+def _anticipated_ground(toks, upos, v):
+    """Altmann & Kamide 1999 anticipatory Goal binding: a Goal-predicting verb with NO overt Ground pre-activates
+    a place/vehicle-typed slot filled from the clause. Fire ONLY when the clause offers EXACTLY ONE place-typed
+    noun (unambiguous), so it does not over-generate. Returns the node or None."""
+    cands = []
+    for j in range(1, len(toks) + 1):
+        if upos[j - 1] in ("NOUN", "PROPN"):
+            node = _ground_node(toks, j)
+            if node is not None and node not in cands:
+                cands.append(node)
+    return cands[0] if len(cands) == 1 else None
+
+
+def ground_bind_events(sents, by_sent, persons, ae, shuffle_rng=None, protagonist_fallback=False,
+                       conservative=False, anticipatory=False):
+    """The named-ground pass. Emit (cluster, kind, node, t, conf) binding the NAMED ground of every motion/location
+    clause for its tracked mover; prefer named-ground over scene. Returns events (to be folded ALONGSIDE the base
+    chain, which still contributes departs/returns/scene where no named ground exists)."""
+    ev, nodes_seen = [], []
+    for i, toks in enumerate(sents):
+        if not toks or len(toks) > 120:
+            continue
+        upos, heads = ae(list(toks))
+        noms = by_sent.get(i, [])
+        for v in [k for k in range(1, len(toks) + 1) if upos[k - 1] == "VERB"]:
+            if _is_irrealis(toks, upos, heads, v) or _is_discovery(toks, heads, v):
+                continue
+            lemma = lemma_verb(toks[v - 1])
+            roles = route_predicate_arguments(list(toks), upos, heads, v, quotative=True)
+            # -- who moves: the routed agent, else (protagonist-anchored) any tracked person in the sentence --
+            ag = roles.get("agent")
+            cid = _cluster_covering(noms, ag - 1) if ag else None
+            movers = set()
+            if cid is not None and cid in persons:
+                movers.add(cid)
+            # a caused-motion THEME that is a tracked person moves too ('wheeled HIM to radiology')
+            th = roles.get("theme")
+            tcid = _cluster_covering(noms, th - 1) if th else None
+            if tcid is not None and tcid in persons:
+                movers.add(tcid)
+            if not movers and protagonist_fallback:
+                for m in noms:
+                    mc = _cluster_covering(noms, m["wtok_start"])
+                    if mc is not None and mc in persons:
+                        movers.add(mc)
+            if not movers:
+                continue
+            # -- collect the clause's place-typed GROUNDS, in linear order, tagged goal|loc --
+            goal_grounds, loc_grounds = [], []
+            dg = _dobj_ground(toks, upos, heads, v)
+            is_motion = (is_motion_verb(lemma) or is_destination_verb(lemma) or lemma in _MOTION_EXTRA
+                         or lemma in _LEAVE_VERBS or lemma in DEIXIS_AWAY or lemma in DEIXIS_TOWARD)
+            if dg is not None and is_motion:
+                goal_grounds.append(dg)
+            for k in range(1, len(toks) + 1):
+                w = toks[k - 1].lower()
+                if w in SPATIAL_PREP and upos[k - 1] == "ADP":
+                    g = _pp_ground(toks, upos, k)
+                    if g is None:
+                        continue
+                    (goal_grounds if w in GOAL_PREP else loc_grounds).append(g)
+            # -- choose reading: a goal ground under a motion reading -> arrive; else a locative ground -> stative --
+            if conservative:
+                # highest-precision subset: a GENUINE motion verb naming a GOAL ground only (no locative/stative,
+                # no bare-dobj-without-motion) -- 'when a real motion verb names a destination, bind it'.
+                if goal_grounds and is_motion:
+                    node, kind, conf = goal_grounds[0], "arrive", 3
+                elif (anticipatory and not goal_grounds and not loc_grounds
+                      and (is_destination_verb(lemma) or lemma in _STRONG_DEST)):
+                    # ANTICIPATORY Goal fill (Altmann & Kamide): a strong destination verb with no overt Ground
+                    # binds the clause's single place-typed noun ('watched him board [the plane]').
+                    anode = _anticipated_ground(toks, upos, v)
+                    if anode is None:
+                        continue
+                    node, kind, conf = anode, "arrive", 3
+                else:
+                    continue
+            elif goal_grounds and (is_motion or dg is not None):
+                node, kind, conf = goal_grounds[0], "arrive", 3
+            elif loc_grounds and (lemma in _STATIVE_LOC_VERBS or not is_motion):
+                node, kind, conf = loc_grounds[0], "stative", 2
+            elif goal_grounds:
+                node, kind, conf = goal_grounds[0], "arrive", 3
+            else:
+                continue
+            for m in movers:
+                ev.append((m, kind, node, i, conf))
+                nodes_seen.append(node)
+    if shuffle_rng is not None and ev:            # INFO-FREE TWIN: scramble the ground content, keep firing
+        perm = shuffle_rng.permutation(len(nodes_seen))
+        ev = [(c, k, nodes_seen[perm[idx] % len(nodes_seen)], t, cf) for idx, (c, k, n, t, cf) in enumerate(ev)]
+    return ev
+
+
 def read_locations_in_substrate(conll_path: str, gaz=None, place_typing: bool = True, mode: str = "truth",
                                 parse_provider=None):
     """End-to-end: the reader's OWN backbone -> in-substrate motion events -> promoted tracker.
@@ -409,7 +675,7 @@ def read_locations_in_substrate(conll_path: str, gaz=None, place_typing: bool = 
     events = extract_events_in_substrate(sents, by_sent, person_clusters=person_clusters,
                                          place_typing=place_typing, realis_gate=prior, discovery_gate=prior,
                                          embedded_route=ext, caused_motion_theme=ext, stative_expand=ext,
-                                         parse_provider=parse_provider)
+                                         parse_provider=parse_provider, ground_bind=ext)
     reg = fold_tracker(sorted(person_clusters), events, n_clauses=len(sents), prior_fold=prior)
     return reg, events, cluster_name, sents, person_clusters
 
