@@ -9,6 +9,9 @@ files_changed: "experiments/exp_entitykb_resolver_v2.py, experiments/exp_reader_
 reverify: ".venv/Scripts/python.exe verification/test_entitykb_resolver_v2.py"
 ---
 
+## INTEGRATED_BY_STRATEGY (2026-09-05) — EXCELLENT (landed default-off; board-visibility located negative)
+LANDED (Q111): `hdlab/entity_world_model_resolver.py` (imports the exact reverified `resolve`, byte-faithful) + `resolve_common_noun` swapped into `_apply_commonnoun_gate` behind `entity_kb_resolver` (DEFAULT-OFF). Reverify 6/6. LIVE PROBE: the resolver runs on the reader's own `role_mentions` (format-compatible) + merges common-noun entities more (451→369), but `coref_acc` is IDENTICAL off-vs-on — the board `coref` dim scores PRONOUN coref while this improves COMMON-NOUN clustering, so the +0.0882 harness win does not reach the board coref dim. Kept default-off with that measured reason (indirect payoff via affect/goal experiencers, unmeasured). §2b folded. Follow-on filed: the two-pass Step-3 reader_coref + a common-noun coref board arm (the realization path). Do NOT wire the reader AGENT head-match.
+
 # Seed the entity-world-model resolver with a role/kinship prior (Phase 1) — SOLVED (brain-foundational chain; KB-seed = located negative)
 
 ## Headline

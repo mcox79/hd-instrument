@@ -711,6 +711,7 @@ class SituationReader:
                  predicate_recall: bool = True,
                  causal_mental_bridge: bool = True,
                  goal_purpose_filter: bool = True,
+                 entity_kb_resolver: bool = False,
                  commonnoun_situation_gate: bool = True,
                  commonnoun_canonical: bool = True) -> None:
         # === DEFAULTS FLIPPED ON 2026-09-03 (owner-authorized: "switch them on... 1 at a time, top down,
@@ -1084,6 +1085,11 @@ class SituationReader:
         # (xcomp/ccomp/acl), keep purpose adjuncts (advcl). Upstream net-positive on why() (removes 131 wrong vs
         # 24 genuine, 5.5:1). Consumes the shared per-read parse (the consolidated arc-eager heads) + arc labeler.
         self.goal_purpose_filter = bool(goal_purpose_filter)
+        # ENTITY-KB common-noun-coref path (owner-DONE seed_the_entity_world_model_resolver...): replace the
+        # situation-gated former with the full brain-foundational chain (curated role/kinship KB + situation-model
+        # instance binding + pronoun-into-entity). DEFAULT-OFF pending a live measurement -- its harness win is
+        # COMMON-NOUN CoNLL, which the board's PRONOUN coref dim does not score (indirect payoff via affect/goal).
+        self.entity_kb_resolver = bool(entity_kb_resolver)
         self._lab = None               # lazy shared hdlab.arc_labeler.ArcLabeler (deprels for the goal filter)
         self._pred_detector = None     # lazy hdlab.predicate_detector.PredicateDetector
         # PER-READ tag/parse memo (2026-09-03 perf): dimensions independently re-tag/re-parse the SAME
@@ -1129,8 +1135,8 @@ class SituationReader:
         "densify_world_state", "np_head_reduce", "parser_arceager", "causation_typed", "spacy_pred_gate",
         "bind_entity_states", "structural_do_recover", "referent_per_np", "cm_agent", "include_pron_agents",
         "case_filter", "clause_local", "cm_agent_struct", "predicate_recall", "track_goals", "track_affect",
-        "structural_patient", "causal_mental_bridge", "goal_purpose_filter", "commonnoun_situation_gate",
-        "commonnoun_canonical")
+        "structural_patient", "causal_mental_bridge", "goal_purpose_filter", "entity_kb_resolver",
+        "commonnoun_situation_gate", "commonnoun_canonical")
 
     @classmethod
     def all_capabilities_off(cls, gaz=None, **overrides):
@@ -2101,7 +2107,13 @@ class SituationReader:
             from hdlab import commonnoun_binder as _CN
             self._cn_binder_mod = _CN
         _CN = self._cn_binder_mod
-        labels = _CN.situation_predict(role_mentions, self.gaz, window=16, headmatch_gate=True)
+        if self.entity_kb_resolver:
+            # FULL brain-foundational chain (curated KB + situation-model binding + pronoun-into-entity). Single-
+            # pass here (reader_coref=None); the Step-3 reader-coref lever wants a two-pass (a filed follow-on).
+            from hdlab.entity_world_model_resolver import resolve_common_noun
+            labels = resolve_common_noun(role_mentions, self.gaz, reader_coref=None)
+        else:
+            labels = _CN.situation_predict(role_mentions, self.gaz, window=16, headmatch_gate=True)
         anchored = {m["cluster"] for m in (self._coref_mentions or []) if not m["is_pronoun"]}
         members = defaultdict(list)
         for m in role_mentions:
