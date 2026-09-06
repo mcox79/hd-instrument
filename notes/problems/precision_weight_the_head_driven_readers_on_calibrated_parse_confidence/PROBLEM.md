@@ -1,9 +1,9 @@
 ---
-priority: 4
 slug: precision_weight_the_head_driven_readers_on_calibrated_parse_confidence
-status: CANDIDATE
-review:
-review_text:
+status: INTEGRATED
+review: EXCELLENT
+review_text: "EXCELLENT, INTEGRATED_BY_STRATEGY 2026-09-06 -- the reasoning phase's RELIABILITY SUBSTRATE (Friston precision; the reader now knows which role picks to trust). NEW hdlab/parse_confidence.py (frozen glass-box calibrator turning the parser's near-useless raw arc conf AUC 0.615 into a calibrated reliability AUC 0.858, reusing graded_competition -- no training at inference). Wired precision_weight_roles (EventRecord.patient_conf/patient_defer) additively. MODERN golds: who-did-what PATIENT selective@50 0.8789->0.9745 (+0.0956), QA-SRL 0.2982->0.3414, obl/spatial 0.7581->0.8919, random-confidence twins FLAT. Byte-identical off-vs-on (parse heads + every dim); board self-test PASS. Reverify test_precwt_live_readers_organ.py 6/6 + landing test_precwt_landing.py W1/W2/W3. DEFAULT-OFF with a MEASURED reason: no live consumer defers on the confidence YET (the reasoning phase is its consumer) + ~2 parses/read cost -> landed-but-latent; flip-on trigger = a reasoning consumer defers + the board read-cost check passes. BRAIN_FOUNDATIONAL_AUDIT.md 2b. Follow-ons: a MODERN selective-reliability board arm; wire a defer-consumer then flip on."
+---
 ---
 
 # PROBLEM: the parser computes a per-arc CONFIDENCE that ZERO live consumers read; the head-driven readers (who-did-what / obl / space) treat every role assignment as equally certain, so a low-confidence attachment asserts a wrong fact instead of DEFERRING -- wire the calibrated confidence in and have each head-driven reader trust its confident arcs and defer on the rest, delivering comprehension RELIABILITY (not higher UAS).

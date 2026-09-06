@@ -281,6 +281,15 @@ class EventRecord:
     # object -> the verb_subcat veto is overridden and the patient kept); None otherwise. The default reader never
     # sets it. Set in _read_events_wired where the toks-space verb + candidate indices are available.
     patient_is_bare_do: Optional[bool] = None
+    # PRECISION-WEIGHT (2026-09-06 wire, default-off precision_weight_roles), ADDITIVE metadata only -- the
+    # CALIBRATED per-arc reliability (Friston precision, hdlab.parse_confidence) of the parse arc the who-did-what
+    # PATIENT was read off, in [0,1]. Higher = a confident arc; a consumer can TRUST the confident half and DEFER
+    # on the shaky one (selective patient acc 0.8789->0.9745 on the confident half, UD-EWT). patient_defer = the
+    # abstain decision at the reader's precision_weight_tau (None unless a tau is set). None when the flag is off,
+    # no structural patient arc was used, or the calibrator could not run (abstain, never a guess). The default
+    # reader never sets it -- exposing it is byte-identical to the incumbent (the patient PICK is unchanged).
+    patient_conf: Optional[float] = None
+    patient_defer: Optional[bool] = None
 
 
 @dataclass
@@ -752,7 +761,9 @@ class SituationReader:
                  goal_purpose_filter: bool = True,
                  entity_kb_resolver: bool = False,
                  commonnoun_situation_gate: bool = True,
-                 commonnoun_canonical: bool = True) -> None:
+                 commonnoun_canonical: bool = True,
+                 precision_weight_roles: bool = False,
+                 precision_weight_tau: Optional[float] = None) -> None:
         # === DEFAULTS FLIPPED ON 2026-09-03 (owner-authorized: "switch them on... 1 at a time, top down,
         # measure which are net positives"). The greedy forward-activation sweep (tools/flag_activation_sweep.py,
         # data/flag_activation_sweep/results.json) measured each flag one-at-a-time in dependency order on the
@@ -1047,6 +1058,21 @@ class SituationReader:
         # positional / by-phrase untouched -> byte-identical agent). Requires role_route='wired' to have effect
         # (the router path); default OFF -> the heuristic THEME, byte-identical. NO spaCy / NO LLM.
         self.structural_patient = bool(structural_patient)
+        # PRECISION-WEIGHT the head-driven patient readout (opt-in; default OFF = byte-identical). Landed
+        # 2026-09-06 from the owner-DONE precision_weight_the_head_driven_readers_on_calibrated_parse_confidence
+        # (Q111). The arc-eager parser emits a per-arc confidence NO live consumer reads; when ON, each wired
+        # event's PATIENT parse arc carries a CALIBRATED reliability (hdlab.parse_confidence -- Friston precision,
+        # the pinned graded_competition posterior) on EventRecord.patient_conf in [0,1], so a downstream can TRUST
+        # confident arcs + DEFER on the shaky half (selective patient acc 0.8789->0.9745 on the confident half of
+        # UD-EWT; random-confidence twin flat). ADDITIVE: read-only over the parse, changes NO head -> the patient
+        # PICK and every scored dim are byte-identical; only the new metadata field is added. Requires
+        # role_route='wired' (the router path). precision_weight_tau (default None) = the DEFER threshold; None ->
+        # patient_defer stays None (no abstain -- byte-identical). DEFAULT OFF because no live consumer reads the
+        # confidence yet (board-invisible -- the reasoning phase is its consumer); flip ON once a consumer defers
+        # on it AND the board read-cost / additive-no-regress check passes (no-more-default-off). Reuses
+        # hdlab.graded_competition (the role-competition entropy cue). NO spaCy / NO LLM.
+        self.precision_weight_roles = bool(precision_weight_roles)
+        self.precision_weight_tau = precision_weight_tau
         # COPULAR is-a/attribute binding. When ON, read() adds a typed is-a/attribute read on sm.entity_states +
         # sm.state_register via hdlab.copular_binding (high-precision LABEL path UNION the label-ROBUST closed-class
         # copula detector robust_cop) + the glass-box Higgins typing. Integrated 2026-09-03 from the owner-DONE
@@ -1236,7 +1262,7 @@ class SituationReader:
         "case_filter", "clause_local", "cm_agent_struct", "cm_agent_byhead", "predicate_recall",
         "track_goals", "track_affect", "track_tom_action", "track_bridges",
         "structural_patient", "causal_mental_bridge", "goal_purpose_filter", "entity_kb_resolver",
-        "commonnoun_situation_gate", "commonnoun_canonical")
+        "commonnoun_situation_gate", "commonnoun_canonical", "precision_weight_roles")
 
     @classmethod
     def all_capabilities_off(cls, gaz=None, **overrides):
@@ -1503,6 +1529,43 @@ class SituationReader:
                 c[key] = self._frontend_parser().parse(toks, pos).heads
         return dict(c[key])
 
+    def _cached_parse_conf(self, toks, pos):
+        """Per-read memoized (heads, conf, marg) from the arc-eager parse_with_conf -- the FULL per-arc
+        reliability the precision-weight readout consumes (the conf/marg that _cached_parse_heads discards).
+        Returns FRESH copies. Only invoked on the opt-in precision_weight_roles path; the default reader never
+        calls it (so the OFF path issues no extra parse -- byte-identical)."""
+        key = ("parseconf", tuple(toks))
+        c = self._read_parse_cache
+        if key not in c:
+            if self._ae_W is None:
+                from hdlab.arceager_parser import load_model, parse_with_conf, MODEL_PATH
+                self._ae_W = load_model(MODEL_PATH)
+                self._ae_parse = parse_with_conf
+            c[key] = self._ae_parse(toks, pos, self._ae_W)
+        h, cf, mg = c[key]
+        return dict(h), dict(cf), dict(mg)
+
+    def _patient_arc_confidence(self, toks, v, pk):
+        """CALIBRATED reliability in [0,1] of the who-did-what PATIENT parse arc (1-based `v`, `pk`), or None on
+        any failure (abstain -- never breaks a read). The precision-weighting substrate: the reader can DEFER on
+        a low-confidence patient (Friston precision; hdlab.parse_confidence, reusing graded_competition). Feature
+        inputs are byte-identical to the validated exp_precwt_live_whodidwhat_v1 row (arc-eager conf/marg + the
+        global arc_parser margin at pk + the role-competition entropy + the labeled-obj indicator + passive).
+        Read-only over the parse -- changes no head (ADDITIVE)."""
+        try:
+            from hdlab import parse_confidence as PC
+            from hdlab.relcl_resolver import precise_passive
+            pos = self._cached_tag(list(toks))
+            heads, conf, marg = self._cached_parse_conf(list(toks), pos)
+            labels = self._frontend_labeler().label(list(toks), list(pos), heads)
+            passive = bool(precise_passive(list(toks), list(pos), v))
+            pr = self._frontend_parser().parse(list(toks), list(pos))  # global arc_parser margin (a2_marg cue)
+            a2m = float(pr.margins[pk]) if 0 <= pk < len(pr.margins) else 0.0
+            return PC.calibrated_patient_confidence(list(toks), list(pos), heads, conf, marg, v, pk,
+                                                    labels, passive, a2_marg=a2m)
+        except Exception:
+            return None
+
     def _frontend_labeler(self):
         """Shared lazy arc labeler (UD deprels) -- for the goal advcl purpose filter (+ reused by entity_states)."""
         if self._lab is None:
@@ -1607,6 +1670,7 @@ class SituationReader:
                                                gate_intransitive=self.gate_intransitive)
                 extra: Dict[str, object] = {}
                 vp = toks_pos[ei]
+                theme_pos0 = None             # the router's structural THEME token (0-based) when it IS the patient
                 if vp is not None and is_speech_verb(lemma_verb(e.lemma)):
                     # QUOTATIVE INVERSION, reader-native (case-independent): the reader's tokens are
                     # lowercased, so use the MENTION structure -- the speaker (AGENT) is the nearest
@@ -1626,6 +1690,7 @@ class SituationReader:
                             agent = a_head        # ROUTER agent (fixes passive/ditransitive), else positional
                         if t_head is not None:
                             patient = t_head
+                            theme_pos0 = vr["theme"]   # the structural patient arc -> precision-weight it below
                         for pa in ("goal", "recipient", "source", "location", "path", "direction", "instrument"):
                             if pa in vr:
                                 h = self._nom_head_at(noms, vr[pa])
@@ -1663,10 +1728,19 @@ class SituationReader:
                         pib = bool(self._sdo.is_bare_do(toks, _up, vp, min(pcands)))
                     else:
                         pib = False   # patient is not a post-verbal nominal -> not a bare DO -> allow the veto
+                # PRECISION-WEIGHT (opt-in): attach the CALIBRATED reliability of the structural patient arc.
+                # Purely ADDITIVE metadata -- the patient PICK above is unchanged; a consumer DEFERS on the
+                # low-confidence half. None (abstain) when off / no structural theme / calibrator can't run.
+                p_conf = p_defer = None
+                if self.precision_weight_roles and theme_pos0 is not None and vp is not None:
+                    p_conf = self._patient_arc_confidence(list(toks), vp + 1, theme_pos0 + 1)
+                    if p_conf is not None and self.precision_weight_tau is not None:
+                        from hdlab.parse_confidence import defer as _pw_defer
+                        p_defer = _pw_defer(p_conf, self.precision_weight_tau)
                 events.append(EventRecord(global_idx=gidx, sent_idx=si, predicate=e.lemma, agent=agent,
                                           patient=patient, tense=str(e.tense), subj_role=subj_role,
                                           obj_role=obj_role, affect=affect, pred_idx=e.idx,
-                                          patient_is_bare_do=pib))
+                                          patient_is_bare_do=pib, patient_conf=p_conf, patient_defer=p_defer))
                 role_fillers.append(rf)
                 if extra:
                     self.wired_extra_roles.append({"global_idx": gidx, **extra})
