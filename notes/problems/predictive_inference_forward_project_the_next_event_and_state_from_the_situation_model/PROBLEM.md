@@ -1,9 +1,8 @@
 ---
-priority: 8
 slug: predictive_inference_forward_project_the_next_event_and_state_from_the_situation_model
-status: CANDIDATE
-review:
-review_text:
+status: INTEGRATED
+review: STRONG
+review_text: "The reader's FIRST forward-projection organ (the substrate verifiably lacked one). NEW hdlab/generalized_event_knowledge.py (Elman GEK forward-transition store, offline ROCStories foundation asset) + sm.predict_next_event (default-on, lazy, additive, new island). Verified first-hand 12/12: 0.593 vs majority 0.514 (+0.079 CI-sep), cross-context twin collapses, selective precision rises. Rigorous located-negative (ties a 1-step counter; residual = extraction density). Value = the organ + the predictive-coding-loop north-star (n400 error vs FORWARD prediction: measured seg F1 0.77 vs 0.27 = the wall-map's recurrent-loop closure). Board arm + the loop follow-on filed."
 ---
 
 # PROBLEM: the reader builds a rich situation model (events/entities/time/space/causation + goals/affect/belief/state) but it is purely BACKWARD-looking -- it records what happened and never PROJECTS FORWARD what happens next, so it cannot answer "what will happen next" / "what will X do" as a precision-weighted forward inference from the model + goals + causal/script structure; build the glass-box forward predictor, prove it beats a base-rate floor CI-separated with an info-free (scrambled-context) twin LOSING on a MODERN next-event/continuation gold AND emits a calibrated precision so selective accuracy on its confident predictions rises, or a rigorous located negative naming the exact cause.
