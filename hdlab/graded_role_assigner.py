@@ -521,8 +521,173 @@ def agent_competition_pick_conf(toks, pos, v, cands, cluster_freq=None,
     return pick, float(np.tanh(top2 / 3.0)), float(1.0 - ent)
 
 
+# ===========================================================================
+# REGISTER-SAFE AGENT HYBRID -- the AGENT counterpart to hybrid_role_patient (the deployable route).
+# ===========================================================================
+# Landed 2026-09-06 from the owner-DONE rebuild_the_comprehension_board_on_a_modern_corpus_retire_the_
+# 19c_litbank_eval. The always-compete agent_competition_pick is REGISTER-TUNED to 19c and UNDER-performs a
+# positional floor on MODERN canonical prose (gold agent = nsubj ~= nearest-preverbal-nominal in fixed-word-
+# order English, so word-order is near-ceiling there; UD-EWT full_cm 0.758 vs positional 0.855). The
+# brain-foundational fix is the SAME hybrid design proven for the PATIENT (hybrid_role_patient): keep the
+# high-validity WORD-ORDER default on canonical clauses BYTE-IDENTICAL, and invoke the Competition-Model
+# competition (which already carries the landed byhead by-phrase CASE cue) ONLY on a MARKED override cue --
+#   (1) a PASSIVE clause WITH an explicit by-phrase (voice: the surface subject is the patient, the agent is
+#       the by-PP; an agentless passive has no agent to flip to, so the by-phrase gate is what buys back the
+#       canonical no-regress), (2) the positional pick is PP-GOVERNED (core_arg: a preposition-governed noun
+#       is not the subject), (3) the positional pick is a NON-NOMINATIVE pronoun (case: him/her/them cannot
+#       be the subject). MEASURED (UD-EWT train+test): full modern set hybrid 0.853 ~= positional 0.8525
+#       (no-regress) with NON-CANONICAL +0.077 CI-sep, the info-free twin LOSING (ports the arm reference impl
+#       experiments/exp_board_agent_slot_ud_v1.hybrid_agent_pick / exp_board_agent_noncanonical_v1._hybrid_idx).
+# DECORRELATED CONSTRUCTION cues (construction=True, opt-in): the mechanism drill proved the competition is
+# preverbal-DOMINATED (correlated with position) so the only glass-box way to recover position's failures is a
+# cue DECORRELATED from position; Construction Grammar (Goldberg 1995) gives two high-frequency ones tried
+# BEFORE the word-order default -- EXISTENTIAL ('there is/was X' -> notional subject = first post-copular NOUN,
+# not 'there') and guarded NP-COORDINATION ('NP1 and NP2 V' -> subject head = first conjunct NP1). MEASURED
+# together with the hybrid: full who-did-what AGENT set 0.855->0.873 (+0.018 CI-sep), EXACT zero canonical
+# regress, twin loses; they compose with byhead (existential/coordination are ACTIVE constructions, byhead
+# fires on the passive by-PP -> disjoint). Ports experiments/exp_board_agent_construction_v1.
+# DEFAULT-SAFE: importing this changes NO existing behaviour; hybrid_agent_pick is a NEW callable. The live
+# reader wires it behind SituationReader.agent_hybrid (default OFF -- the reader's live who-did-what board is
+# 19c LitBank, where the always-compete win is register-specific and the hybrid reverts toward position; the
+# MODERN board arm computes the hybrid directly). Glass-box, reads only toks/POS + animacy + coref counts.
+_CONSTR_NPMOD = frozenset(("DET", "ADJ", "NUM"))
+_CONSTR_COORD = frozenset(("and", "or", "nor"))
+_CONSTR_PP_SKIP = frozenset(("DET", "ADJ", "NUM"))   # NP-internal modifiers, WITHOUT PUNCT (a comma ends a phrase)
+
+
+def _pp_governed_commastop(low, up, p):
+    """Core-argument PP-government detector, comma-STOPPED (the deployable one -- mirrors
+    experiments/exp_board_agent_noncanonical_v1._pp_governed_fixed): STOP the left-scan at any punctuation (a
+    comma closes a fronted constituent), so 'In 2019 , Google launched' does NOT falsely flag the real subject.
+    Does NOT skip compound noun modifiers (the aggressive variant over-fires -- a LOCATED NEGATIVE). p 0-based."""
+    j = p - 1
+    for _ in range(5):
+        if j < 0:
+            return False
+        t = low[j]
+        u = up[j] if j < len(up) else None
+        if u == "PUNCT" or t in (",", ";", ":", "--"):
+            return False
+        if t in _AGENT_PREPS:
+            return True
+        if u in _CONSTR_PP_SKIP or t in ("'s", "'", "the", "a", "an"):
+            j -= 1
+            continue
+        return False
+    return False
+
+
+def _positional_agent_base(cands, v0):
+    """The nearest PRE-verbal candidate mention (word-order-only positional floor); else nearest post-verbal;
+    else None. cands = mention dicts with 'wtok_start'. v0 = predicate index (0-based). Returns the mention
+    dict (or None)."""
+    pre = [c for c in cands if c["wtok_start"] < v0]
+    if pre:
+        return max(pre, key=lambda c: c["wtok_start"])
+    post = [c for c in cands if c["wtok_start"] > v0]
+    return min(post, key=lambda c: c["wtok_start"]) if post else None
+
+
+def agent_override_fires(toks, pos, v0, cands):
+    """Does a MARKED override cue fire for the verb at v0 (0-based)? True iff the clause is a PASSIVE WITH an
+    explicit by-phrase (voice), OR the positional pick (nearest preverbal candidate) is PP-GOVERNED (core_arg),
+    OR the positional pick is a NON-NOMINATIVE pronoun (case). This is the gate that decides whether the AGENT
+    hybrid invokes the Competition-Model competition instead of the word-order default. Clause-bounded (voice +
+    by-phrase are scoped to the verb's clause span; role assignment is clause-local). Reads only toks/POS."""
+    low = [t.lower() for t in toks]
+    lo, hi = clause_bounds(toks, pos, v0)
+    passive_local = is_passive_clause(toks[lo:hi], pos[lo:hi])
+    has_by = any(low[i] == "by" for i in range(lo, min(hi, len(low))))
+    if passive_local and has_by:
+        return True
+    base = _positional_agent_base(cands, v0)
+    if base is None:
+        return False
+    bi = base["wtok_start"]
+    if _agent_pp_governed(low, pos, bi):
+        return True
+    bh = str(base["head"]).lower()
+    if bh in _AGENT_ANIM_PRON and bh not in NOMINATIVE_PRON:
+        return True
+    return False
+
+
+def _existential_agent(toks, pos, v0, cands):
+    """EXISTENTIAL construction ('there is/was X'): expletive 'there' (PRON/ADV) pre-verbally in the clause ->
+    the notional subject is the first NOUN/PROPN candidate AFTER the verb within the clause. Returns the head
+    string or None. Ports experiments/exp_board_agent_construction_v1._existential_subject (v0 0-based)."""
+    low = [t.lower() for t in toks]
+    lo, hi = clause_bounds(toks, pos, v0)
+    if not any(low[i] == "there" and (pos[i] in ("PRON", "ADV")) for i in range(lo, min(hi, v0 + 1))):
+        return None
+    post = [c for c in cands if v0 < c["wtok_start"] < hi
+            and (pos[c["wtok_start"]] if c["wtok_start"] < len(pos) else None) in ("NOUN", "PROPN")]
+    return min(post, key=lambda c: c["wtok_start"])["head"] if post else None
+
+
+def _first_conjunct_agent(toks, pos, v0, cands):
+    """NP-COORDINATION construction ('NP1 and NP2 V'): the subject HEAD is the FIRST conjunct NP1 (position
+    picks the nearer NP2). GUARDED (learned from the wall drill): the coordinator immediately joins the two NPs
+    (only NP-internal modifiers between); NO ', and' (clause/list coordination); NP1 not PP-governed. Returns
+    NP1's head string or None. Ports experiments/exp_board_agent_construction_v1._first_conjunct_subject."""
+    base = _positional_agent_base(cands, v0)
+    if base is None:
+        return None
+    base_i = base["wtok_start"]
+    if base_i >= v0:
+        return None
+    low = [t.lower() for t in toks]
+    cand_starts = {c["wtok_start"]: c for c in cands}
+    j = base_i - 1                                          # skip NP2's own left modifiers to reach the coordinator
+    while j >= 0 and ((pos[j] if j < len(pos) else "") in _CONSTR_NPMOD or low[j] in ("the", "a", "an")):
+        j -= 1
+    if j < 0 or low[j] not in _CONSTR_COORD:
+        return None
+    if j - 1 >= 0 and low[j - 1] == ",":
+        return None                                        # ', and' -> clause/list coordination
+    k = j - 1                                              # NP1 head = the nominal immediately before the coordinator
+    while k >= 0 and ((pos[k] if k < len(pos) else "") in _CONSTR_NPMOD or low[k] in ("the", "a", "an")):
+        k -= 1
+    if k < 0 or (pos[k] if k < len(pos) else "") not in ("NOUN", "PROPN", "PRON"):
+        return None
+    if _pp_governed_commastop(low, pos, k):
+        return None                                        # NP1 is a PP object, not a subject conjunct
+    return cand_starts[k]["head"] if k in cand_starts else None
+
+
+def hybrid_agent_pick(toks, pos, v, cands, cluster_freq=None, weights=None, gaz=None,
+                      subj_before=None, byhead_agent_cue=True, twin_seed=None,
+                      construction=False):
+    """THE DEPLOYABLE brain-foundational AGENT route -- the AGENT counterpart to hybrid_role_patient. Keep the
+    POSITIONAL pick (nearest preverbal candidate = the high-validity word-order cue, DOMINANT in canonical
+    English) as the default, and invoke the Competition-Model competition (agent_competition_pick, which carries
+    the landed byhead by-phrase CASE cue when byhead_agent_cue=True) ONLY when a MARKED override cue fires
+    (agent_override_fires: passive-with-by / PP-governed positional pick / non-nominative-case positional pick).
+    construction=True (opt-in): try the DECORRELATED construction cues FIRST (existential 'there' -> post-copular
+    notional subject; guarded NP-coordination -> first conjunct), then the marked-cue-gated competition, then the
+    word-order default. `cands` = list of mention dicts (each 'wtok_start'/'head'[/'cluster'/'wtok_end']); v =
+    predicate index (0-based). Returns a head STRING, or None when there is no candidate (the caller keeps its own
+    pick). twin_seed set => the info-free twin of the competition branch (agent_competition_pick's shuffle)."""
+    if not cands:
+        return None
+    if construction:
+        e = _existential_agent(toks, pos, v, cands)
+        if e is not None:
+            return e
+        c = _first_conjunct_agent(toks, pos, v, cands)
+        if c is not None:
+            return c
+    if agent_override_fires(toks, pos, v, cands):
+        return agent_competition_pick(toks, pos, v, cands, cluster_freq=cluster_freq, weights=weights,
+                                      gaz=gaz, twin_seed=twin_seed, subj_before=subj_before,
+                                      byhead_agent_cue=byhead_agent_cue)
+    base = _positional_agent_base(cands, v)                 # canonical clause -> word-order default
+    return base["head"] if base is not None else None
+
+
 __all__ = ["hybrid_role_patient", "competition_pick", "cue_supports", "voice_cues", "robust_passive",
            "gap_config", "DEFAULT_VALIDITIES", "CUES", "UNACC",
            "agent_competition_pick", "agent_competition_pick_conf", "agent_supports", "clause_bounds",
            "AGENT_VALIDITIES", "STRUCT_W", "NOMINATIVE_PRON", "_nominals_keep_pron",
-           "by_governs", "participle_bypp_gate", "BYHEAD_W"]
+           "by_governs", "participle_bypp_gate", "BYHEAD_W",
+           "hybrid_agent_pick", "agent_override_fires"]

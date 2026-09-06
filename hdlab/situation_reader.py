@@ -820,6 +820,8 @@ class SituationReader:
                  clause_local: bool = True,
                  cm_agent_struct: bool = True,
                  cm_agent_byhead: bool = True,
+                 agent_hybrid: bool = False,
+                 agent_hybrid_construction: bool = False,
                  cm_weights: Optional[Dict[str, float]] = None,
                  cm_twin_seed: Optional[int] = None,
                  predicate_recall: bool = True,
@@ -1297,6 +1299,26 @@ class SituationReader:
         # net-positive on the powered instrument + board-safe -> default ON (no-more-default-off). Has effect ONLY
         # when the cm_agent stack is engaged. NO spaCy / NO LLM (reads only toks/POS). all_capabilities_off() OFF.
         self.cm_agent_byhead = bool(cm_agent_byhead)
+        # REGISTER-SAFE AGENT HYBRID (agent_hybrid, DEFAULT-OFF 2026-09-06, owner-DONE rebuild_the_comprehension_
+        # board_on_a_modern_corpus...): the always-compete agent_competition_pick is register-tuned to 19c; on
+        # MODERN canonical prose word-order is near-ceiling and the full competition UNDER-performs a positional
+        # floor (UD-EWT 0.758 vs 0.855). agent_hybrid keeps the reader's WORD-ORDER default on canonical clauses and
+        # invokes the Competition-Model competition (graded_role_assigner.agent_override_fires gate; the competition
+        # already carries the landed byhead cue) ONLY on a MARKED override cue (passive-with-by / PP-governed
+        # positional pick / non-nominative-case pick). MEASURED (UD-EWT train+test): full modern set no-regress
+        # (0.853 ~= positional 0.8525), NON-CANONICAL +0.077 CI-sep, twin loses. agent_hybrid_construction (opt-in):
+        # ADD the decorrelated construction overrides (existential 'there' notional subject; guarded NP-coordination
+        # first conjunct; Goldberg 1995) BEFORE the word-order default -- full set 0.855->0.873 (+0.018 CI-sep),
+        # exact zero canonical regress, composes with byhead (disjoint: active constructions vs passive by-PP).
+        # DEFAULT-OFF (register reason, NOT a hidden subpar downstream): the reader's LIVE who-did-what board is 19c
+        # LitBank, where the always-compete win (0.041->0.69) is register-specific and the hybrid reverts toward the
+        # positional floor -> flipping ON there is a REGRESSION with no modern upside (the MODERN who-did-what board
+        # arm computes the hybrid DIRECTLY, exp_board_agent_slot_ud_v1.board_agent_dimension, independent of this
+        # flag). agent_hybrid=False => the AGENT is BYTE-IDENTICAL to the pre-2026-09-06 always-compete reader.
+        # Has effect ONLY when the cm_agent stack is engaged (a clause-local CM pick exists). all_capabilities_off()
+        # sets both OFF. NO spaCy / NO LLM (reads only toks/POS + animacy + coref counts).
+        self.agent_hybrid = bool(agent_hybrid)
+        self.agent_hybrid_construction = bool(agent_hybrid_construction)
         self.cm_weights = dict(cm_weights) if cm_weights else None
         self.cm_twin_seed = cm_twin_seed
         self._coref_mentions = None    # stashed by read() -> the AGENT candidate source (tracked/given set)
@@ -1395,7 +1417,8 @@ class SituationReader:
         "predict_surprisal", "track_belief", "bind_event_tokens", "predict_revise", "track_world_state",
         "densify_world_state", "np_head_reduce", "parser_arceager", "causation_typed", "spacy_pred_gate",
         "bind_entity_states", "structural_do_recover", "referent_per_np", "cm_agent", "include_pron_agents",
-        "case_filter", "clause_local", "cm_agent_struct", "cm_agent_byhead", "predicate_recall",
+        "case_filter", "clause_local", "cm_agent_struct", "cm_agent_byhead", "agent_hybrid",
+        "agent_hybrid_construction", "predicate_recall",
         "track_goals", "track_affect", "track_tom_action", "track_bridges", "track_senses",
         "track_prediction", "track_causal_reasoning",
         "structural_patient", "causal_mental_bridge", "goal_purpose_filter", "entity_kb_resolver",
@@ -1558,9 +1581,24 @@ class SituationReader:
             subj_before = incremental_subject_before(toks, up)
         # BY-PHRASE CASE cue (cm_agent_byhead, default ON): the self-gating byhead support votes only on the
         # participle+by-PP passive-agent construction; OFF -> the competition is byte-identical.
-        return agent_competition_pick_conf(toks, up, pred_idx, acand, cluster_freq=agent_freq,
-                                           weights=self.cm_weights, gaz=self.gaz, twin_seed=self.cm_twin_seed,
-                                           subj_before=subj_before, byhead_agent_cue=self.cm_agent_byhead)
+        head, margin, conf = agent_competition_pick_conf(
+            toks, up, pred_idx, acand, cluster_freq=agent_freq, weights=self.cm_weights,
+            gaz=self.gaz, twin_seed=self.cm_twin_seed, subj_before=subj_before,
+            byhead_agent_cue=self.cm_agent_byhead)
+        # REGISTER-SAFE AGENT HYBRID (agent_hybrid, default OFF => this block is skipped => byte-identical): keep
+        # the WORD-ORDER default (nearest-preverbal tracked candidate) on canonical clauses; the always-compute
+        # `head` above is applied ONLY on a MARKED override cue (passive-with-by / PP-governed / non-nominative);
+        # construction overrides (existential/coordination) apply first when agent_hybrid_construction. margin/conf
+        # stay the competition's role-reliability readout (the precision-defer signal is orthogonal).
+        if self.agent_hybrid:
+            from hdlab.graded_role_assigner import hybrid_agent_pick
+            hyb = hybrid_agent_pick(toks, up, pred_idx, acand, cluster_freq=agent_freq,
+                                    weights=self.cm_weights, gaz=self.gaz, subj_before=subj_before,
+                                    byhead_agent_cue=self.cm_agent_byhead, twin_seed=self.cm_twin_seed,
+                                    construction=self.agent_hybrid_construction)
+            if hyb is not None:
+                head = hyb
+        return head, margin, conf
 
     # -- EVENTS: per-sentence predicate+agent+patient -> Cowan-4 bundle focus --
     def _read_events(self, sents, mentions, n_sents):
