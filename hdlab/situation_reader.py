@@ -419,6 +419,17 @@ class SituationModel:
     # read-only inference; it reads sm.entities/sm.events, mutates none). From the owner-DONE
     # bridging_inference_infer_the_unstated_link_between_adjacent_sentences (Q111).
     bridges: list = field(default_factory=list)
+    # opt-in WORD-SENSE-SELECTION dimension (WHICH-MEANING); empty unless the reader is built with track_senses=True
+    # (default-on). The meaning channel's word-sense consumer: the query callable sm.select_sense(token, context_
+    # words=None, pos="n") COMMITS the underspecified shared-core (WordNet supersense/lexname) sense of a target word
+    # given its context, competing FINE over the curated hdlab.meaning_foundation hub + the landed
+    # hdlab.diagnostic_context_wsd biased-competition readout and DELIVERING the coarse cluster (Frisson 2009
+    # good-enough; Rodd 2002 shared-core; a_s +0.169 CI-sep over the coarse-MFS floor + a context-shuffle twin). The
+    # fine synset is retained for on-demand elaboration. senses = an optional batch of committed picks (stays [] until
+    # a caller populates it). Additive -- sets ONLY sm.select_sense + sm.senses; every other dimension is byte-
+    # identical (a NEW read-only inference; nothing lands on the hub -- the SOLVED located negative). From the
+    # owner-DONE select_word_sense_by_context_primed_biased_competition_over_a_decorrelated_sense_hub (Q111, sec 10e).
+    senses: list = field(default_factory=list)
     # opt-in THEORY-OF-MIND ACTION dimension (WHAT-WILL-X-DO): three CALLABLES bound at read time when the reader
     # is built with track_tom_action=True (default-on). The glass-box FORWARD inverse-planning chain composes the
     # two LIVE mentalizing registers -- sm.believes (rTPJ belief) x sm.wants (dmPFC desire) -- into a predicted
@@ -742,6 +753,9 @@ class SituationReader:
                  track_tom_action: bool = True,
                  track_bridges: bool = True,
                  bridge_source: str = "hub", bridge_beta: float = 0.0, bridge_tau: float = 0.0,
+                 track_senses: bool = True,
+                 sense_mode: str = "underspecified", sense_gamma: float = 1.0,
+                 sense_topk: Optional[int] = None, sense_prior_weight: float = 0.0,
                  parser_arceager: bool = True,
                  np_head_reduce: bool = True,
                  structural_patient: bool = True,
@@ -1030,6 +1044,25 @@ class SituationReader:
         self.bridge_beta = float(bridge_beta)
         self.bridge_tau = float(bridge_tau)
         self._bridge_org = None      # lazy hdlab.bridging_inference.BridgeInference
+        # WORD-SENSE-SELECTION stage (default-on track_senses; wired 2026-09-06 from the owner-DONE problem
+        # select_word_sense_by_context_primed_biased_competition_over_a_decorrelated_sense_hub, Q111, SOLVED sec 10e).
+        # Binds sm.select_sense -- the meaning channel's word-sense consumer, committing the underspecified shared-core
+        # (WordNet supersense) sense of a target word given its context, via the promoted glass-box organ
+        # hdlab.underspecified_sense_reader over the curated meaning_foundation hub + the landed
+        # diagnostic_context_wsd readout. LAZY + ADDITIVE: the closure loads NO meaning/w2v asset until sm.select_sense
+        # is invoked (byte-identical off vs on; landing witness W2), sm.senses stays [] until a caller populates it,
+        # and it DEGRADES GRACEFULLY -- select_sense abstains (returns None) if the gitignored hub/w2v asset is absent,
+        # never raises. sense_mode = "underspecified" (default -- commit coarse) | "cluster_first" (compute knob) |
+        # "fine" (raw diagnostic argmax passthrough). sense_gamma/sense_topk/sense_prior_weight = the landed precision
+        # + Bayesian resting-prior knobs (default = the proven byte-identical-passthrough values; they only RAISE the
+        # floor). NOTHING lands on the hub (the SOLVED located negative -- no whitening/decorrelation). NO external LLM.
+        self.track_senses = bool(track_senses)
+        self.sense_mode = str(sense_mode)
+        self.sense_gamma = float(sense_gamma)
+        self.sense_topk = None if sense_topk is None else int(sense_topk)
+        self.sense_prior_weight = float(sense_prior_weight)
+        self._sense_mod = None       # lazy hdlab.underspecified_sense_reader
+        self._sense_vl = None        # lazy sglite-w2v vec_lookup closure
         # IMPROVED PARSER (opt-in; default OFF = byte-identical). Wired 2026-09-02 from the owner-DONE parser problem
         # the_extraction_front_end_parser_is_the_cross_task_bottleneck...: route the WIRED who-did-what front-end
         # through the promoted arc-eager parser (hdlab.arceager_parser, UD-EWT UAS 0.775->0.842) instead of the
@@ -1270,7 +1303,7 @@ class SituationReader:
         "densify_world_state", "np_head_reduce", "parser_arceager", "causation_typed", "spacy_pred_gate",
         "bind_entity_states", "structural_do_recover", "referent_per_np", "cm_agent", "include_pron_agents",
         "case_filter", "clause_local", "cm_agent_struct", "cm_agent_byhead", "predicate_recall",
-        "track_goals", "track_affect", "track_tom_action", "track_bridges",
+        "track_goals", "track_affect", "track_tom_action", "track_bridges", "track_senses",
         "structural_patient", "causal_mental_bridge", "goal_purpose_filter", "entity_kb_resolver",
         "commonnoun_situation_gate", "commonnoun_canonical", "unified_referent", "precision_weight_roles")
 
@@ -2417,6 +2450,71 @@ class SituationReader:
         sm.infer_bridges = infer_bridges
         # sm.bridges stays [] (the field default) until infer_bridges() is invoked -- zero read-time cost / no load.
 
+    def _read_senses(self, sm, sents) -> None:
+        """Opt-in WORD-SENSE-SELECTION dimension (default-on track_senses; wired 2026-09-06 from the owner-DONE
+        problem select_word_sense_by_context_primed_biased_competition_over_a_decorrelated_sense_hub, Q111, SOLVED
+        sec 10e). MIRRORS _read_bridges EXACTLY. Bind the meaning channel's word-sense consumer -- a read-only QUERY
+        callable that COMMITS the shared-core (coarse) sense of a target word given its context, via the promoted
+        glass-box organ hdlab.underspecified_sense_reader.select_sense over the curated hdlab.meaning_foundation hub
+        + the landed hdlab.diagnostic_context_wsd biased-competition readout:
+
+          sm.select_sense(token, context_words=None, pos="n", *, mode=None, gamma=None, topk=None,
+                          sense_prior=None, prior_weight=None) -> {coarse, fine, confidence, n_fine, n_coarse,
+                          distribution} | None
+              COMMIT the underspecified shared-core (WordNet supersense/lexname) sense of `token`, competing FINE over
+              the curated hub and DELIVERING COARSE (Frisson 2009 good-enough; Rodd 2002 shared-core; a_s +0.169
+              CI-sep over the coarse-MFS floor + a context-shuffle twin). context_words defaults to THIS passage's
+              content tokens. Returns None when the target is OOV / has no covered signature. mode=
+              "underspecified" (default -- commit coarse) | "cluster_first" (compute knob) | "fine" (raw diagnostic
+              argmax passthrough). The committed default sense is `coarse`; `fine` is retained for on-demand
+              elaboration. Per-call mode/gamma/topk/sense_prior/prior_weight override the reader defaults (None ->
+              reader default = the proven byte-identical-passthrough values, which only RAISE the floor when set).
+
+        Uses the substrate's sglite-w2v vec_lookup (hdlab.underspecified_sense_reader.default_vec_lookup -- the
+        meaning_foundation default signature source, the proven +0.0633-over-live-PPR wire).
+
+        PURE ADD: sets ONLY sm.select_sense (+ leaves sm.senses = the field default []); touches NO existing field
+        (byte-identical off vs on -- the landing witness W2 asserts it). LAZY -- the closure computes nothing + loads
+        NO meaning asset / w2v space until sm.select_sense is invoked (zero read-time cost). DEGRADES GRACEFULLY --
+        if the gitignored hub/w2v asset is absent, select_sense abstains (returns None), never raises. LANDS NOTHING
+        ON THE HUB (the SOLVED located negative -- no whitening/decorrelation). NO spaCy / NO external LLM."""
+        if self._sense_vl is None:
+            from hdlab import underspecified_sense_reader as _USR
+            self._sense_mod = _USR
+            self._sense_vl = _USR.default_vec_lookup()
+        USR = self._sense_mod
+        vl = self._sense_vl
+
+        def _passage_context():
+            """The passage's content tokens (alpha, len>1, deduped, lowercased) -- the default sense-selection
+            context when the caller passes none (sents are already lowercased-token lists)."""
+            out, seen = [], set()
+            for s in sents:
+                for tok in s:
+                    t = str(tok).lower()
+                    if t.isalpha() and len(t) > 1 and t not in seen:
+                        seen.add(t)
+                        out.append(t)
+            return out
+
+        def select_sense(token, context_words=None, pos="n", *, mode=None, gamma=None, topk=None,
+                         sense_prior=None, prior_weight=None):
+            lemma = str(token).split()[-1].lower() if token else token
+            if not lemma:
+                return None
+            ctx = ([str(c).lower() for c in context_words]
+                   if context_words is not None else _passage_context())
+            return USR.select_sense(
+                ctx, vl, lemma=lemma, pos=pos,
+                mode=(self.sense_mode if mode is None else mode),
+                gamma=(self.sense_gamma if gamma is None else gamma),
+                topk=(self.sense_topk if topk is None else topk),
+                sense_prior=sense_prior,
+                prior_weight=(self.sense_prior_weight if prior_weight is None else prior_weight))
+
+        sm.select_sense = select_sense
+        # sm.senses stays [] (the field default) until a caller populates it -- zero read-time cost / no load.
+
     def _read_entity_states(self, sm, sents) -> None:
         """COPULAR is-a/attribute BINDING (default-off bind_entity_states; wired 2026-09-03 from the owner-DONE
         the_reader_has_no_copular_is_a_binding_schema, 10/10+6/6). For each sentence, recover the labeled copular
@@ -2659,6 +2757,14 @@ class SituationReader:
             # ADD -- lazy closures only (computes nothing, loads NO meaning asset, until a callable is invoked);
             # sets ONLY sm.bridges + sm.bridge/infer_bridges (byte-identical off vs on).
             self._read_bridges(sm, sents)
+        if self.track_senses:
+            # WORD-SENSE-SELECTION dimension: bind sm.select_sense(token, ...), the meaning channel's word-sense
+            # consumer (commit the underspecified shared-core sense of a target word over the curated hub + the
+            # landed diagnostic readout). Runs LAST so the passage-context default reflects the FINAL read. PURE
+            # ADD -- lazy closure only (computes nothing, loads NO meaning/w2v asset, until sm.select_sense is
+            # invoked); sets ONLY sm.select_sense + leaves sm.senses [] (byte-identical off vs on). Nothing lands
+            # on the hub (the SOLVED located negative).
+            self._read_senses(sm, sents)
         return sm
 
 
