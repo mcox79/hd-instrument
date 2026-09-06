@@ -302,16 +302,43 @@ wall (owner: "do the right things, not the cheap things"):
    collapses to 0.20. Importance (stakes cues) is solid; surprise (belief-vs-outcome, negation/conflict-aware stance
    extraction) works. CAVEAT: stance-marker extraction on real prose is coverage-limited (the same extraction wall).
    -> the strongest of the three; ready to spec as an organ.
-2. **SOCIAL / ATTRIBUTION (anger/gratitude) (LOCATED NEGATIVE -- rule sound, extraction walled)** --
+2. **SOCIAL / ATTRIBUTION (anger/gratitude) -- LOCATED NEGATIVE, then RESEARCH-DRILLED + PARTIALLY BUILT UP** --
    `exp_occ_social_agency_v1.py` (n=18). The socialize RULE is EXACT (oracle 1.000: satisfaction/disappointment +
-   OTHER agency -> gratitude/anger), and the agency DETECTOR works (all social items tagged other-caused). But
-   end-to-end is 0.167 because the GOAL BRANCH does not fire: gratitude needs goal-satisfaction BY ANOTHER AGENT for
-   the beneficiary ("Tom paid the rent FOR her" -- the same-agent rule blocks it), and anger's antecedent is usually
-   an IMPLICIT goal / violated investment ("saved the seat", "prepared the report" -- no explicit want to extract).
-   pride/shame OMITTED (need a norms/praiseworthiness representation). WALL (research-drilled, see §9b).
+   OTHER agency -> gratitude/anger) and the agency DETECTOR works; the wall was pure EXTRACTION. The research drill
+   (§9b) named THREE buildable mechanisms; I BUILT them (all PINNED): (a) BENEFICIARY satisfaction -- a goal
+   satisfied by ANOTHER agent doing the goal HEAD/converse FOR the goal-holder (Jara-Ettinger naive-utility; FrameNet
+   Assistance Helper/Benefited_party); (b) an IMPLICIT-INVESTMENT goal feeder -- posit a MAINTAIN/OBTAIN goal from
+   effort/possession ("saved the seat", "grown the garden") routed into the SAME goal store (Trabasso causal-
+   necessity; Liu 2017 effort->goal-value; Friedman first-possession) + a MAINTAIN-thwart (another agent
+   removes/damages the theme); (c) a Tier-1 CONTROLLABILITY guard (volitional other, excludes "accidentally" --
+   Smith & Ellsworth other-responsibility). RESULT: the social subset {gratitude,anger} rose 0.000 -> 0.250 (the
+   CLEAN investment/beneficiary cases: grat01 beneficiary, ang01 maintain-thwart, ang06 dispossess), RULE + agency
+   still exact, twin loses. RESIDUAL (9/12, honest): PREDICAMENT-implicit goals (stranded->get-home, deadline->meet
+   -- Graesser why-question inference) + THEME COREFERENCE (report=file, garden=flowers) -- Phase-1-adjacent.
+   pride/shame CORRECTLY DEFERRED: agent-type is constant (self) so the Tier-1 shortcut is degenerate; they need the
+   real norm/standard channel (Phase-1). Default-off; the headline + witness (9/9) are byte-identical.
 3. **SCENE-INFERENCE (LOCATED NEGATIVE -- confirms the Phase-1 residual)** -- `exp_occ_scene_inference_v1.py` (n=22
    sparse goal cases). A GENERAL, non-circular Talmy force-dynamic MOTION template (arrival->success, departure->
    thwart) recovers only ~1/22 (+0.045) -- because 18/22 sparse failures are RESULT-STATE world knowledge ("podium"
    = won, "keys in hand" = bought, "register of attorneys" = passed). A result-state lexicon fitted to those would be
    CIRCULAR, so it is deliberately NOT built; its size (18/22) is the MEASURED genuine meaning-channel (Phase-1)
    residual. This is the "right not cheap" outcome: refuse the circular hack, report the residual.
+
+### Section 9b -- the social-attribution wall, RESEARCH-DRILLED (`research_social_attribution_2026-09-06.md`)
+The gratitude/anger extraction wall decomposes into three, two buildable-now (built, §9a.2), one Phase-1-gated:
+- **Beneficiary satisfaction (gratitude) = separable structural layer, NO norm channel.** PINNED: Jara-Ettinger
+  naive-utility (reward accrues to the goal-HOLDER, cost to the ACTOR -- architecturally separate terms; conflating
+  them was the bug); Ullman/Baker Help-or-Hinder inverse planning; Hamlin 2007 + Warneken-Tomasello infant helping
+  (pre-linguistic primitive); FrameNet Assistance (Helper/Benefited_party). Dowty has NO beneficiary role -> Primus
+  Proto-Recipient fills it. Bratman shared-agency does NOT apply (passive unaware beneficiary != joint agency). BUILT.
+- **Implicit-goal/investment (anger) = a second feeder into the same goal store, NO norm channel for base detection.**
+  PINNED: Trabasso causal-necessity implicit goals + Graesser why-question; Baker 2009 / Liu 2017 effort->goal-value;
+  Friedman first-possession + psychological-ownership. Appraisal side = agency + controllability only (Roseman;
+  Smith & Ellsworth other-responsibility loads, NO independent norm term; Weiner controllable->anger; Averill: anger
+  is mostly perceived-avoidable-wrongdoing). BUILT (base); justification-defeat is a Phase-1 refinement.
+- **Blame/praise (deservingness) SPLITS.** Tier-1 = agent-causation + intentionality-via-volitionality (Malle/Shaver
+  first two nodes; Smith & Ellsworth: this is most of the anger/gratitude signal) -- BUILT (the controllability
+  guard). Tier-2 = reasons/justification + coercion (needs a legitimacy standard) and PRIDE/SHAME (agent-type
+  constant=self, so the Tier-1 shortcut is degenerate -- differentiation is entirely a norm/standard judgement) ->
+  genuinely Phase-1 norm-channel-gated. Neural: rTPJ intent + vmPFC value integration, two signals combined late
+  (Young 2007/2010; Cushman 2008 two outputs). So omitting pride/shame was correct.
