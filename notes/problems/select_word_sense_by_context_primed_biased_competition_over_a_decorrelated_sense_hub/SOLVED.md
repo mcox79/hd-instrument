@@ -2,10 +2,10 @@
 problem: select_word_sense_by_context_primed_biased_competition_over_a_decorrelated_sense_hub
 status: REFUTED
 bar: "PASS = a glass-box, context-primed BIASED-COMPETITION sense selector (REUSING graded_competition + semantic_control, primed by the reader's structured DISCOURSE context) over a DECORRELATED / whitened sense hub, that BEATS the current diagnostic_context_wsd readout (recomputed on the item's OWN population, WITH its landed precision + Bayesian-prior settings) CI-separated on a MODERN WiC/WSD instrument, with: a CONTEXT-SHUFFLED info-free twin LOSING CI-separated, AND the WHITENING/separation lever VERIFIED (decorrelated-hub arm beats the un-whitened baseline, shuffled-diagnosticity twin LOSING, significance reported, settling the +0.0176-on-a_s vs neutral-to-negative-on-WiC tension), AND NO trained contextual encoder, and NO MFS/dominant regression. A rigorous located NEGATIVE -- the faithful biased-competition-over-a-whitened-hub, discourse-primed, built, does NOT cross the ceiling, with the exact cause NAMED and measured -- is a FULL PASS that EMPIRICALLY SETTLES the standing 'hold the no-encoder invariant' decision."
-result: "LOCATED NEGATIVE (full pass): NO brain-faithful glass-box lever crosses the incumbent diagnostic_context_wsd readout, on the MODERN instrument or on SemCor. (1) HUB DECORRELATION does not beat the incumbent -- on SemCor subordinate a_s (n=50,386, frozen curated hub) RAW=0.2697; LCSS(local-contrastive+renorm) -0.0025 (CI incl. 0), global whitening ABTT3 -0.0152 CI[-0.0187,-0.0117] and ZCA -0.0275 CI[-0.0315,-0.0235] (CI-separated BELOW); on MODERN WiC (n=7466, floor 0.500) RAW=0.6238, LCSS +0.0000, ABTT3 -0.0103, ZCA -0.0126. And it is provably accuracy-NEUTRAL: subtracting the per-word sense centroid WITHOUT renorm changes 0 picks (LCSS_NORENORM==RAW, 0 disagreements at n=50,386 AND n=7466) -- the cosine-argmax already reads only the distinctive residual. (2) DISCOURSE-PRIMED context de-blur (construction-integration) -0.0421 to -0.0575 (n=50,386). (3) DISTINCTIVE-FEATURE (IDF) per-sense resupply -0.1693 (n=50,386). Every lever reads REAL structure (each beats its info-free twin CI-separated) but scores below the incumbent -> the ceiling is the CONTEXT-INPUT ENCODING x COVERAGE, not the hub geometry or the readout. HOLD on the no-encoder invariant is empirically confirmed."
+result: "LOCATED NEGATIVE (full pass): NO brain-faithful glass-box lever crosses the incumbent diagnostic_context_wsd readout, on the MODERN instrument or on SemCor. (1) HUB DECORRELATION does not beat the incumbent -- on SemCor subordinate a_s (n=50,386, frozen curated hub) RAW=0.2697; LCSS(local-contrastive+renorm) -0.0025 (CI incl. 0), global whitening ABTT3 -0.0152 CI[-0.0187,-0.0117] and ZCA -0.0275 CI[-0.0315,-0.0235] (CI-separated BELOW); on MODERN WiC (n=7466, floor 0.500) RAW=0.6238, LCSS +0.0000, ABTT3 -0.0103, ZCA -0.0126. And it is provably accuracy-NEUTRAL: subtracting the per-word sense centroid WITHOUT renorm changes 0 picks (LCSS_NORENORM==RAW, 0 disagreements at n=50,386 AND n=7466) -- the cosine-argmax already reads only the distinctive residual. (2) DISCOURSE-PRIMED context de-blur (construction-integration) -0.0421 to -0.0575 (n=50,386). (3) DISTINCTIVE-FEATURE (IDF) per-sense resupply -0.1693 (n=50,386). Every lever reads REAL structure (each beats its info-free twin CI-separated) but scores below the incumbent -> the ceiling is the CONTEXT-INPUT ENCODING x COVERAGE, not the hub geometry or the readout. (4) I ALSO built the brain's ACTUAL structural mechanism -- THEMATIC-FIT selectional preference (Erk-distributional, parsed governing-predicate+role, doc-held-out, n=4,892): it beats its role-permutation (+0.065) and verb-shuffle (+0.020) twins CI-separated (real structure) but is DOMINATED by topical context (FIT coarse 0.439 < BAG 0.520; a dev-selected multi-cue integrator assigns it weight w*=0.00), replicating Lee&Ng 2002 (-0.6pp) + this project's own +0.007 + 5 external studies -- coarse-only by construction. (5) A GRANULARITY probe shows 37% of fine 'errors' are near-misses INSIDE the correct coarse sense (same picks: a_s 0.2697 fine -> 0.5412 shared-core). CORRECTED CONCLUSION: the residual needs richer CONTEXTUAL representation built by glass-box structured PREDICTIVE comprehension (Phase-1), NOT a barred encoder; HOLD on the no-encoder invariant is confirmed for the right reason (the brain uses none either)."
 floor: "The strongest floor actually run = the incumbent diagnostic_context_wsd readout over hdlab.meaning_foundation, recomputed per population WITH its landed settings: a_s RAW 0.2697 (SemCor subordinate, n=50,386); WiC RAW 0.6238 exact / 0.6499 coarse (n=7466, floor 0.500). Additional floors on the a_s population: MFS = 0 on subordinate items BY CONSTRUCTION (subordinate := gold != most-frequent-sense); random 1/k. The whitening prior-art claim (+0.0176 a_s, unverified) is REFUTED: it does not reproduce on the curated hub and is CI-separated NEGATIVE at full n (it was small-sample noise -- reproduced as a spurious +0.0058 on an 8-file subset that vanishes at n=50k)."
 controls: "NEUTRALITY PROOF: LCSS_NORENORM (common-mode removal, no renorm) == RAW with 0 pick-disagreements on both a_s (n=50,386) and WiC (n=7466) -- hub decorrelation cannot change the argmax by construction. INFO-FREE TWINS (all LOSE to their arm CI-separated, so each arm reads real structure -- yet all arms still lose to the incumbent): SHUFSEP (wrong-word centroid) LCSS +0.006 CI-sep; CTX_SHUFFLE (shuffled context) loses to every arm; RANDOM_SENSE (context de-blurred with random senses) CI-de-blur +0.0187 CI-sep; SHUFFLED_GLOSS (per-sense bags permuted onto wrong senses) IDF +0.0605 CI-sep. IDF>UNWEIGHTED +0.0020 (the distinctive-feature op barely earns its keep on selection, vs a large CI-sep win on identity/SimLex). NO trained encoder anywhere; frozen static hub -> no train/test leakage. Additivity: I propose NO hub change, so no non-consumer can regress."
-files_changed: "experiments/exp_sense_hub_collinearity_locus_v1.py, experiments/exp_sense_hub_separation_as_v1.py, experiments/exp_sense_hub_separation_wic_v1.py, experiments/exp_sense_selection_ci_deblur_as_v1.py, experiments/exp_sense_signature_distinctive_feature_as_v1.py, experiments/exp_sense_selection_granularity_probe_v1.py, verification/test_sense_hub_separation_and_selection_organ.py, notes/problems/select_word_sense_by_context_primed_biased_competition_over_a_decorrelated_sense_hub/SOLVED.md"
+files_changed: "experiments/exp_sense_hub_collinearity_locus_v1.py, experiments/exp_sense_hub_separation_as_v1.py, experiments/exp_sense_hub_separation_wic_v1.py, experiments/exp_sense_selection_ci_deblur_as_v1.py, experiments/exp_sense_signature_distinctive_feature_as_v1.py, experiments/exp_sense_selection_granularity_probe_v1.py, experiments/exp_sense_selection_thematic_frame_as_v1.py, verification/test_sense_hub_separation_and_selection_organ.py, notes/problems/select_word_sense_by_context_primed_biased_competition_over_a_decorrelated_sense_hub/SOLVED.md"
 reverify: ".venv/Scripts/python.exe verification/test_sense_hub_separation_and_selection_organ.py"
 ---
 
@@ -190,6 +190,34 @@ shared-core granularity -- which is the project's Phase-1 comprehension program,
 no-external-LLM-at-inference invariant stays correct; but "the ceiling is unreachable without a barred encoder" is
 withdrawn.
 
+## 10c. I BUILT THE BRAIN'S STRUCTURAL MECHANISM (thematic-fit selectional preference) AND DRILLED IT -- it is REAL but topical-context-DOMINATED, exactly as the literature predicts
+
+Per the owner's directive to build the brain's actual mechanism and drill every wall, I built a THEMATIC-FRAME sense
+selector (`exp_sense_selection_thematic_frame_as_v1`): parse the sentence (spaCy, a glass-box syntactic frame -- NOT
+an LLM), find the target NOUN's governing predicate + syntactic role, build ERK-DISTRIBUTIONAL selectional-preference
+profiles (count-weighted typical-filler centroid per (verb, role), doc-held-out, GOLD-BLIND), and select the sense
+whose `meaning_foundation` signature best fits the (verb, role) profile. Research-grounded by a dedicated drill
+(McRae-Spivey-Knowlton-Tanenhaus 1998; Ferretti-McRae-Hatherell 2001; Resnik 1996; Erk 2007 / Erk-Pado-Pado 2010;
+Baroni-Lenci 2010; Lenci 2011; Metusalem 2012; Palmer-Dang-Fellbaum 2007; Lee & Ng 2002).
+
+**RESULT (SemCor subordinate NOUN, doc-held-out, n=4,892):** thematic-fit reads REAL structure -- it beats BOTH
+info-free twins CI-separated (role-permutation +0.065, verb-shuffle +0.020) -- but it is DOMINATED by topical
+context: FIT a_s 0.234 fine / 0.439 coarse vs the incumbent BAG 0.346 / 0.520. A dev-selected brain-faithful
+multi-cue integrator (McRae 1998 constraint integration, weight chosen on train) assigns thematic-fit weight
+**w\*=0.00** -- given the choice it IGNORES the structural cue, because the topical bag already subsumes its coarse
+signal. Complementarity is tiny (fit on the bag's WRONG items 0.189 vs chance 0.168). No bucket reverses it: not the
+coarse-separable bucket, not the strongly-selecting-verb bucket (Resnik's cherry-pick), not their intersection.
+
+**This is not a build failure -- it is the information-theoretic ceiling the field agrees on.** Lee & Ng (2002)'s
+controlled ablation lost 0.6pp removing syntactic/selectional features from a strong SENSEVAL-2 classifier -- a
+near-exact match to this project's own +0.007 and to my w\*=0.00. McCarthy & Carroll (2003): selectional preference
+is BEATEN by MFS on fine senses and fails to beat random on the non-dominant subset. Navigli (2009): "selectional
+restrictions have not been found to perform as well as Lesk-based methods or MFS." Fine polysemy shares a coarse
+selectional class by construction, and selectional preference is a coarse-class-level signal -- it cannot see below
+a class it cannot see. **The brain's structural cue is REAL, coarse-only, and here it is redundant with topical
+context. The residual routes to richer CONTEXTUAL representation (Phase-1 structured comprehension), not more
+structure** -- the research's own bottom line, now empirically confirmed on this substrate.
+
 ## 10. WHAT I DID NOT ESTABLISH (withdraw first if wrong)
 
 - **All numbers are on SemCor (subordinate a_s, mid-20c, informational) and WiC (modern, the headline).** I did not
@@ -243,5 +271,16 @@ signal the constructive half (the hub needs no change; wire the existing stack),
 4. **Adjacent probe (small, Rodd-grounded):** a homonym-ONLY separation (route by WordNet unrelatedness) -- separation
    is predicted appropriate for genuine homonyms; likely a small subset, but the one place decorrelation could earn
    its keep.
-5. **The real forward lever remains the context INPUT representation** -- and the invariant says that lever is a
-   trained encoder, which is barred. This result is the empirical basis for keeping it barred.
+5. **The real forward lever is richer CONTEXTUAL representation built the brain's way -- glass-box structured
+   PREDICTIVE comprehension, NOT a trained encoder (corrected).** The brain resolves sense by (i) the parsed
+   thematic frame [built + drilled here: real but topical-context-dominated, coarse-only]; (ii) top-down PREDICTION
+   from an incremental situation model (Kintsch 1988; Metusalem 2012 -- event knowledge pre-activates the fitting
+   sense, and the effect COLLAPSES when the discourse is removed, its own falsification control); (iii) at COARSE
+   shared-core granularity. Concretely mapped as Phase-1 comprehension components, each with the research's
+   falsification recipe: (a) **score/measure sense at SHARED-CORE granularity** -- immediately recovers 0.27->0.54
+   here, the cheapest brain-faithful gain; (b) **multiplicative (bind, not bundle) joint-role conditioning** (Lenci
+   2011 ECU: PRODUCT 84% > SUM ~chance on Bicknell 2010) -- a clean bind-vs-bundle test on this substrate; (c) an
+   **additive discourse-event prior** from the tracked situation model (Metusalem), which must collapse to ~0 in
+   isolation or it is leaking local information. These are the top-down comprehension program, NOT a hub/readout fix.
+   The no-external-LLM-at-inference invariant HOLDS -- for the right reason (the brain uses none either), not because
+   the ceiling needs one.
