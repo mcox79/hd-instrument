@@ -1,7 +1,8 @@
 ---
-priority: 4
 slug: wire_a_defer_consumer_for_calibrated_confidence_and_realize_precision_weighting
-status: CANDIDATE
+status: INTEGRATED
+review: EXCELLENT
+review_text: "The reliability substrate now DELIVERS. Live defer-consumer (abstain-below-tau) on the frozen parse_confidence + agent defer (raw CM margin) + EventRecord.event_conf (the reasoning-phase bridge). Cost-fold removes the duplicate parse -> ZERO extra parses -> precision_weight_roles flipped DEFAULT-ON (emission byte-identical at tau=None). Verified first-hand 4/4 + fixed precwt witness: patient answered 0.879->0.968 (+0.089 CI-sep), obl 0.758->0.839 (+0.081), event AUC 0.771, twins flat, density-scaling. Located negatives (fall-back nil; small-beam doesn't out-calibrate) name a globally-normalized parser as the north-star = the wall-map's greedy-parser fix. Board arm on modern gold pending."
 ---
 
 # PROBLEM: a calibrated per-arc parse confidence is LANDED (hdlab/parse_confidence.py) and emitted as EventRecord.patient_conf/patient_defer behind situation_reader.precision_weight_roles, but it is DEFAULT-OFF because NOTHING downstream DEFERS on it -- build the DEFER-CONSUMER (a head-driven readout that DOWN-WEIGHTS / ABSTAINS on low-confidence arcs and falls back to its prior), measure the LIVE selective-reliability gain on MODERN gold, and give strategy the flip-on evidence to turn precision_weight_roles ON.
