@@ -1,9 +1,8 @@
 ---
-priority: 6
 slug: bridging_inference_infer_the_unstated_link_between_adjacent_sentences
-status: CANDIDATE
-review:
-review_text:
+status: INTEGRATED
+review: EXCELLENT
+review_text: "EXCELLENT, INTEGRATED_BY_STRATEGY 2026-09-06 -- the MEANING CHANNEL'S FIRST LIVE read()-time CONSUMER (it was entirely LATENT). NEW hdlab/bridging_inference.py (argmax meaning-store relatedness over candidate antecedents, glass-box, abstains below a margin), wired default-on as sm.bridge/sm.infer_bridges (lazy, additive), reusing the ATL PPMI+SVD hub + meaning_foundation. Measured: referential-part WordNet meronymy 0.4720, ConceptNet PartOf 0.6087 (curated mfnd 0.6541 best), instrument UsedFor 0.4522, each CI-scale over floors, shuffled-meaning twin collapses, per-item byte-identical to the validated cell. All 8 dims byte-identical off-vs-on. Reverify test_bridging_inference.py 33/33 + landing 17/17. BRAIN_FOUNDATIONAL_AUDIT.md 2b. Follow-ons: board_bridging arm; the PPR-FUSE/entropy-gate estimator."
 ---
 
 # PROBLEM: the reader extracts what each sentence STATES but never INFERS the unstated coherence link a human automatically fills between adjacent sentences ("John was murdered. The knife was found nearby." -> the knife is the INSTRUMENT; "Mary poured water on the fire. It went out." -> the pouring CAUSED the going-out; "We checked the picnic supplies. The beer was warm." -> the beer is PART of the supplies) -- so its situation model is a list of disconnected facts. Build a glass-box CONSTRUCTION-INTEGRATION bridge that, over adjacent situation-model events/entities, PROPOSES the small set of coherence-required bridges (causal / instrument / referential-part) and SELECTS the one best supported by semantic relatedness in the meaning store + the situation model.

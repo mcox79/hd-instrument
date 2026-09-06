@@ -1,7 +1,7 @@
 ---
-priority: 3
-review:
-review_text:
+status: INTEGRATED
+review: EXCELLENT
+review_text: "EXCELLENT PARTIAL, INTEGRATED_BY_STRATEGY 2026-09-06. The brief's grounded selectional-fit cue is a LOCATED NEGATIVE (ties its info-free twin); the real win is a by-phrase CASE-MORPHOLOGY agent cue (byhead: reward the candidate governed by passive-agent 'by', gated by the participle+by-PP construction detector, weight 10 outvotable). WIRED default-on into hdlab.graded_role_assigner.agent_supports + situation_reader.cm_agent_byhead. MODERN QA-SRL (19c-clean): non-canonical agent clean-slice 0.2556->0.6889 (+0.433 CI-sep), full 0.5224->0.6866, canonical no-regress, twin loses. Byte-faithful (per-row identical). Additive/agent-only (0 non-agent/causal diffs); board -0.0016 on 19c is gate false-fires on archaic 'by oneself' (banned corpus, informational). Reverify test_noncanonical_agent_bymorph_organ.py 5/5 + test_cmrole_agent_board_byhead_organ.py 2/2 + landing test_byhead_agent_cue_landing.py 15/15. BRAIN_FOUNDATIONAL_AUDIT.md 2b. Follow-on: a modern by-agent board arm; tighten the gate vs reflexive by-oneself."
 ---
 
 # PROBLEM: the reader assigns who-did-what by WORD ORDER, which is ~96% valid on canonical English but COLLAPSES on non-canonical clauses (passives, clefts, fronting) — exactly where 19c literary prose lives. On those clauses positional agent = 0.00 and animacy = 0.07, but GROUNDED MEANING already picks the agent at 0.43. The brain resolves this by the Competition Model: when the word-order cue is INVALID, the semantic/selectional cue decides. Build the grounded-meaning role cue into the live role competition so who-did-what holds where syntax misleads.

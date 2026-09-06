@@ -1,9 +1,8 @@
 ---
-priority: 5
 slug: chain_belief_and_goal_into_theory_of_mind_inference_intention_and_false_belief
-status: CANDIDATE
-review:
-review_text:
+status: INTEGRATED
+review: EXCELLENT
+review_text: "EXCELLENT, INTEGRATED_BY_STRATEGY 2026-09-06 -- the reasoning phase's first mentalizing system. Glass-box forward chain believes(A,F,t) x wants(A) -> action (acting off the BELIEVED state, so false belief falls out). NEW hdlab/theory_of_mind.py (reuses belief_timeline + goal_register), wired default-on as sm.predict_action/will_act_on/attribute_belief (lazy, additive). BigToM (modern): belief-pred CHAIN 0.849, false-belief +0.871 CI-sep over a 0% floor, twins lose, oracle 1.000. Byte-identical off-vs-on. Reverify test_tom_chain.py 9/9 + landing test_tom_chain_landing.py 12/12. BRAIN_FOUNDATIONAL_AUDIT.md 2b. Follow-ons: board_tom_action arm; goal->fact value binding via the meaning channel."
 ---
 
 # PROBLEM: the reader stores what each character BELIEVES (per-agent, over time) and what each character WANTS (per-agent goals with status), but it never CHAINS them into a mental-state inference -- so it cannot answer "given what X believes and wants, what will X DO?" (intention attribution) or its false-belief special case (X believes P but P is false, so X acts on the false P, not on reality). Build the glass-box forward inference belief x goal -> predicted intention/action (and its Sally-Anne special case), prove it beats a reality-only floor CI-separated on a MODERN gold with the false-belief items load-bearing and an info-free twin LOSING, or a rigorous located negative naming the exact cause.

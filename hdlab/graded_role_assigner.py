@@ -229,14 +229,34 @@ def hybrid_role_patient(toks: Sequence[str], pos: Sequence[str], v: int,
 # argmax once it breaks the tie). Only votes when a caller supplies `subj_before` (self-gating: see agent_supports).
 STRUCT_W = 2.5
 
+# BY-PHRASE CASE-MORPHOLOGY cue weight (byhead; self-gating). Landed 2026-09-06 from the owner-DONE
+# `grounded_meaning_role_cue_for_non_canonical_who_did_what_where_word_order_misleads`. On a NON-CANONICAL /
+# passive clause ("the tea was poured by the WOMAN") word order misleads and the reader mis-picks the agent;
+# the fix is a by-phrase CASE cue -- reward the candidate GOVERNED by the passive-agent preposition "by"
+# through its NP (scan over DET/ADJ/NUM/possessive to the governing "by"; see `by_governs`), gated by the
+# participle+by-PP CONSTRUCTION detector (`participle_bypp_gate`, the V-en + by-NP morphological signature of
+# the demoted external argument). Bates & MacWhinney: case marking is a TOP cue and "by" is English's
+# morphological marker of the demoted passive agent. ONE additive Competition-Model cue (OUTVOTABLE by the
+# aligned word-order/animacy/structure cues), NOT a hard override. Complements the landed `byagent` cue, which
+# only fires when a candidate's PREVIOUS token is literally "by" (prevtok=='by') and so MISSES multi-word
+# by-phrases ("by the clerk" / "by a natural process") -- byhead recovers those. SWEPT on MODERN QA-SRL
+# {4,6,8,10,12}, saturates at 10 (adopted). VALIDATED (19c-clean QA-SRL): clean agent-post slice
+# 0.2556->0.6889 (n=90) / full non-canonical 0.5224->0.6866 (n=201), CI-separated over the live-competition
+# floor AND the info-free shuffled-by-membership twin; canonical no-regress (n=845, ~0.696 unchanged); LitBank
+# board-safe (participle+byPP gate fires ~4/1830, <=1 answer changed). SELF-GATING: agent_supports emits no
+# `byhead` support key unless the caller passes byhead_agent_cue AND the construction gate fires -> byte-
+# identical elsewhere (net_activation skips a weighted cue with no support array).
+BYHEAD_W = 10.0
+
 # validity-seeded AGENT cue weights -- a STATIC asset (like DEFAULT_VALIDITIES above), hand-set from cue
 # validity, NOT trained; weight-robustness swept (SOLVED control (5): cm stays 0.211-0.229 across +/-50% on
 # every discriminating cue). English is word-order-DOMINANT (agent preverbal); byagent dominates under PASSIVE.
-# `structure` is inert unless the caller passes an incremental subj_before (agent_supports omits the support key
+# `structure` is inert unless the caller passes an incremental subj_before, and `byhead` is inert unless the
+# caller passes byhead_agent_cue AND the participle+by-PP gate fires (agent_supports omits the support key
 # otherwise, and net_activation skips a weighted cue with no support array -> byte-identical for those callers).
 AGENT_VALIDITIES: Dict[str, float] = {
     "preverbal": 3.0, "core_arg": 2.0, "animacy": 2.0, "salience": 2.0, "adjacency": 1.0, "byagent": 6.0,
-    "structure": STRUCT_W}
+    "structure": STRUCT_W, "byhead": BYHEAD_W}
 
 _AGENT_PREPS = frozenset(("in", "on", "at", "by", "of", "for", "with", "to", "from", "into", "onto", "upon",
                           "over", "under", "through", "about", "among", "amongst", "between", "against",
@@ -256,6 +276,48 @@ _AGENT_SUBORD = frozenset(("because", "when", "while", "if", "although", "though
                            "before", "until", "as", "whereas", "whenever", "wherever", "once", "lest"))
 _AGENT_COORD = frozenset(("and", "but", "or", "nor", "yet", "so"))
 _AGENT_STRONGPUNCT = frozenset((";", ":", "--", "—", "(", ")"))
+
+
+# ------------------------------------------------------------------- BY-PHRASE CASE cue (byhead) machinery
+# NP-internal tokens scanned through leftward to find a governing "by" (the by-PP head can sit several tokens
+# in: "by a natural process"). Ported VERBATIM from experiments/exp_noncanonical_agent_bymorph_v1.py.
+_BYHEAD_NP_SKIP = frozenset(("DET", "ADJ", "NUM", "PUNCT", "NOUN", "PROPN", "CCONJ"))
+_BYHEAD_NP_SKIP_LOW = frozenset(("'s", "the", "a", "an", "of"))
+_BYHEAD_NOM = ("NOUN", "PROPN", "PRON")
+
+
+def by_governs(low, pos, p, maxscan=8):
+    """Is the nominal at 0-based p the object of the passive-agent preposition 'by'? Scan left through
+    NP-internal modifiers + coordination; a 'by' before any clause-blocking token -> by-PP member (the demoted
+    passive agent). VERBATIM from exp_noncanonical_agent_bymorph_v1.by_governs. `low` = lowercased tokens."""
+    j = p - 1
+    for _ in range(maxscan):
+        if j < 0:
+            return False
+        if low[j] == "by":
+            return True
+        u = pos[j] if j < len(pos) else None
+        if u in _BYHEAD_NP_SKIP or low[j] in _BYHEAD_NP_SKIP_LOW:
+            j -= 1
+            continue
+        return False
+    return False
+
+
+def participle_bypp_gate(toks, pos, v0):
+    """The by-agent CONSTRUCTION detector: the predicate at 0-based v0 is a PARTICIPLE (V-en) and the clause
+    carries a by-governed NP -- the V-en + by-NP morphological signature of the demoted passive agent. The
+    UPSTREAM voice gate for the byhead CASE cue; HIGHER-PRECISION than is_passive_clause (14 vs 106 canonical
+    false-fires on QA-SRL) while covering >= as many real by-passives -> use IT, not is_passive_clause. VERBATIM
+    from exp_cmrole_agent_board_byhead_v1._participle_bypp_gate."""
+    if not (0 <= v0 < len(toks)):
+        return False
+    tag = pos[v0] if v0 < len(pos) else None
+    if not _is_participle(toks[v0], tag):
+        return False
+    low = [t.lower() for t in toks]
+    return any(by_governs(low, pos, i) for i in range(len(toks))
+               if (pos[i] if i < len(pos) else None) in _BYHEAD_NOM)
 
 
 def _agent_pp_governed(low, up, p):
@@ -336,7 +398,8 @@ def _nominals_keep_pron(mentions, n_sents):
     return per
 
 
-def agent_supports(toks, pos, v0, cands, gaz=None, cluster_freq=None, subj_before=None) -> Dict[str, list]:
+def agent_supports(toks, pos, v0, cands, gaz=None, cluster_freq=None, subj_before=None,
+                   byhead_agent_cue=False) -> Dict[str, list]:
     """Per-candidate AGENT support arrays for the Competition-Model cues. `cands` = [(wtok_start, head,
     cluster[, wtok_end]), ...]; v0 = predicate index (0-based). cluster_freq = passage-level {cluster:
     mention_count} for the Centering givenness cue. Reads ONLY toks/pos + the animacy lexicon + gazetteer +
@@ -386,24 +449,37 @@ def agent_supports(toks, pos, v0, cands, gaz=None, cluster_freq=None, subj_befor
             e = cand[3] if len(cand) > 3 else p                 # candidate span end (head may sit inside the NP span)
             hit = subj_tok is not None and (p == subj_tok or p <= subj_tok <= e)
             S["structure"].append(1.0 if hit else 0.0)
+    # BY-PHRASE CASE-MORPHOLOGY cue (byhead, opt-in + SELF-GATING): +1 for a candidate GOVERNED by the passive-
+    # agent preposition "by" through its NP (scan over DET/ADJ to the governing "by"; the case-morphology agent
+    # signal the landed `byagent` cue -- prevtok=='by' -- misses on multi-word by-phrases). Emitted ONLY when the
+    # caller passes byhead_agent_cue AND the participle+by-PP construction gate fires -> no `byhead` support key
+    # otherwise -> byte-identical (net_activation skips a weighted cue with no support array). Weight
+    # AGENT_VALIDITIES["byhead"]=BYHEAD_W. Landed 2026-09-06 (see BYHEAD_W); VERBATIM from
+    # experiments/exp_noncanonical_agent_bymorph_v1.py:pick byhead injection.
+    if byhead_agent_cue and participle_bypp_gate(toks, pos, v0):
+        S["byhead"] = [1.0 if by_governs(low, pos, cand[0]) else 0.0 for cand in cands]
     return S
 
 
 def agent_competition_pick(toks, pos, v, cands, cluster_freq=None,
                            weights: Optional[Dict[str, float]] = None, gaz=None, twin_seed=None,
-                           subj_before=None) -> str:
+                           subj_before=None, byhead_agent_cue=False) -> str:
     """The AGENT = argmax additive cue activation over the tracked/given candidate mentions (REUSES
     graded_competition.net_activation). `cands` = list of mention dicts (each with 'wtok_start', 'head',
     optional 'cluster'/'wtok_end'); v = predicate index (0-based) in toks-space; weights default to
     AGENT_VALIDITIES. Returns a head string, or '?' when there is no candidate. twin_seed set => INFO-FREE
     TWIN: shuffle each cue's per-candidate support across candidates (the structure->candidate mapping
     destroyed). subj_before (optional): the incremental left-corner subject-before array -> the self-gating
-    STRUCTURE cue votes (see agent_supports); None (default) => byte-identical (no structure support)."""
+    STRUCTURE cue votes (see agent_supports); None (default) => byte-identical (no structure support).
+    byhead_agent_cue (default False): when True, the self-gating BY-PHRASE CASE cue votes on the participle+
+    by-PP passive-agent construction (see agent_supports/BYHEAD_W); False => byte-identical (no byhead
+    support). The live reader passes True (default-on via SituationReader.cm_agent_byhead)."""
     w = AGENT_VALIDITIES if weights is None else weights
     c = [(m["wtok_start"], m["head"], m.get("cluster"), m.get("wtok_end", m.get("wtok_start"))) for m in cands]
     if not c:
         return "?"
-    S = agent_supports(toks, pos, v, c, gaz, cluster_freq, subj_before=subj_before)
+    S = agent_supports(toks, pos, v, c, gaz, cluster_freq, subj_before=subj_before,
+                       byhead_agent_cue=byhead_agent_cue)
     if twin_seed is not None:
         rng = np.random.default_rng(twin_seed + v + len(c))
         S = {k: list(np.asarray(vv)[rng.permutation(len(vv))]) for k, vv in S.items()}
@@ -414,4 +490,5 @@ def agent_competition_pick(toks, pos, v, cands, cluster_freq=None,
 __all__ = ["hybrid_role_patient", "competition_pick", "cue_supports", "voice_cues", "robust_passive",
            "gap_config", "DEFAULT_VALIDITIES", "CUES", "UNACC",
            "agent_competition_pick", "agent_supports", "clause_bounds", "AGENT_VALIDITIES", "STRUCT_W",
-           "NOMINATIVE_PRON", "_nominals_keep_pron"]
+           "NOMINATIVE_PRON", "_nominals_keep_pron",
+           "by_governs", "participle_bypp_gate", "BYHEAD_W"]

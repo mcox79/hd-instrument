@@ -398,6 +398,29 @@ class SituationModel:
     # bound as attributes at read time (mirroring sm.wants/why/achieved). Additive -- never touches the other
     # dimensions. From the owner-DONE the_situation_model_has_no_affect_emotion_dimension (Q111).
     affect_register: Optional[object] = None
+    # opt-in BRIDGING-INFERENCE dimension (the unstated coherence link between adjacent sentences -- which whole
+    # a part belongs to / which event an instrument serves); empty unless the reader is built with
+    # track_bridges=True. This is the meaning channel's FIRST live read()-time consumer (Kintsch 1988
+    # construction-integration; Clark 1975 bridging; the ATL PPMI+SVD hub / curated meaning_foundation supplies
+    # the relatedness). bridges = the per-element antecedent proposals (each a hdlab.bridging_inference.Bridge:
+    # target, antecedent, source, score, margin, abstained, ranked). The query callable
+    # sm.bridge(target, candidates=None, ...) is bound as an attribute at read time (mirroring
+    # sm.wants/feels/believes) -- it SELECTS the prior situation-model element best supported by meaning-store
+    # relatedness. Additive -- sets ONLY sm.bridges + sm.bridge; every other dimension is byte-identical (a NEW
+    # read-only inference; it reads sm.entities/sm.events, mutates none). From the owner-DONE
+    # bridging_inference_infer_the_unstated_link_between_adjacent_sentences (Q111).
+    bridges: list = field(default_factory=list)
+    # opt-in THEORY-OF-MIND ACTION dimension (WHAT-WILL-X-DO): three CALLABLES bound at read time when the reader
+    # is built with track_tom_action=True (default-on). The glass-box FORWARD inverse-planning chain composes the
+    # two LIVE mentalizing registers -- sm.believes (rTPJ belief) x sm.wants (dmPFC desire) -- into a predicted
+    # action, READING THE ACTION OFF THE BELIEVED STATE (not reality), so a false belief yields the belief-driven
+    # action (Baker/Saxe/Tenenbaum forward planner; Leslie 1987 meta-representation). predict_action /
+    # will_act_on(agent, fact, t[, desired]) -> 'PROCEED'/'FETCH'/None; attribute_belief(agent, fact, action[, ...])
+    # runs the SAME engine INVERSE (Baker 2017 intentional stance). PURE ADD -- new read-only callables via
+    # hdlab.theory_of_mind; never touches sm.believes/knows/wants or any extraction (byte-identical off vs on).
+    predict_action: Optional[object] = None
+    will_act_on: Optional[object] = None
+    attribute_belief: Optional[object] = None
     memory_roundtrip: Dict[str, float] = field(default_factory=dict)
     # per-dimension honest accuracy (coref only; scored vs LitBank gold on this passage)
     coref_acc: Optional[float] = None
@@ -707,6 +730,9 @@ class SituationReader:
                  densify_world_state: bool = True,
                  track_goals: bool = True,
                  track_affect: bool = True,
+                 track_tom_action: bool = True,
+                 track_bridges: bool = True,
+                 bridge_source: str = "hub", bridge_beta: float = 0.0, bridge_tau: float = 0.0,
                  parser_arceager: bool = True,
                  np_head_reduce: bool = True,
                  structural_patient: bool = True,
@@ -718,6 +744,7 @@ class SituationReader:
                  case_filter: bool = True,
                  clause_local: bool = True,
                  cm_agent_struct: bool = True,
+                 cm_agent_byhead: bool = True,
                  cm_weights: Optional[Dict[str, float]] = None,
                  cm_twin_seed: Optional[int] = None,
                  predicate_recall: bool = True,
@@ -952,6 +979,45 @@ class SituationReader:
         # X feel" category CI-sep over the most-recent-emotion-word floor + shuffled-character twin loses; valence
         # 0.838; zero regression, additive by construction; +~0.24s/read). NO spaCy / NO LLM.
         self.track_affect = bool(track_affect)
+        # THEORY-OF-MIND ACTION dimension (DEFAULT-ON 2026-09-06, no-default-off: additive + net-positive). Wired
+        # from the owner-DONE problem chain_belief_and_goal_into_theory_of_mind_inference_intention_and_false_belief
+        # (Q111). read() binds three read-only callables -- sm.predict_action / sm.will_act_on(agent, fact, t[,
+        # desired]) and sm.attribute_belief(agent, fact, action) -- that CHAIN the two LIVE mentalizing registers
+        # (sm.believes = rTPJ belief x sm.wants = dmPFC desire) into a predicted action via the promoted glass-box
+        # forward inverse-planning organ hdlab.theory_of_mind (Baker/Saxe/Tenenbaum 2017; Leslie 1987 meta-
+        # representation). The action is read OFF THE BELIEVED STATE, not reality, so a FALSE belief yields the
+        # belief-driven action (validated on BigToM, the modern ToM gold: belief-prediction FB +0.871 CI-sep over a
+        # reality floor provably 0% on false belief; twins lose; composition exact with oracle belief). PURE ADD --
+        # LAZY (computes nothing until a callable is invoked), binds ONLY sm.predict_action/will_act_on/
+        # attribute_belief; never touches sm.believes/knows/wants or any extraction (byte-identical off vs on;
+        # landing witness W3). Runs LAST in read() (needs the FINAL sm.believes + sm.wants). NO spaCy / NO LLM at
+        # inference (a transparent composition of believes x wants). Requires track_belief + track_goals (both
+        # default-on) for a non-None answer; degrades to None gracefully if either is off. NOTE: the SOLVED proposed
+        # this default-OFF; landed DEFAULT-ON per the no-default-off discipline (additive + lazy -> zero read-time
+        # cost, cannot regress any dimension) -- flag-off (track_tom_action=False) = the pre-landing reader.
+        self.track_tom_action = bool(track_tom_action)
+        # BRIDGING-INFERENCE dimension (DEFAULT-ON 2026-09-06, no-default-off: additive + lazy). Wired from the
+        # owner-DONE problem bridging_inference_infer_the_unstated_link_between_adjacent_sentences (Q111). read()
+        # binds sm.bridge(target, candidates=None, source=None, beta=None, tau=None) + sm.infer_bridges(...) --
+        # the meaning channel's FIRST live read()-time consumer. sm.bridge SELECTS the prior situation-model
+        # element (entity head / event predicate) best supported by meaning-store relatedness to the target
+        # (Kintsch 1988 construction-integration; Clark 1975 bridging; the ATL PPMI+SVD hub = Lambon Ralph 2017),
+        # abstaining when the winning margin < tau (McKoon-Ratcliff minimalist). Validated: referential-PART
+        # WordNet meronymy 0.4720 / ConceptNet PartOf 0.6087 (curated meaning_foundation 0.6541) / INSTRUMENT
+        # UsedFor 0.4522, each CI-separated over the no-inference + most-salient floors, shuffled-meaning twin at
+        # chance (hdlab.bridging_inference; witness verification/test_bridging_inference_landing.py). PURE ADD --
+        # LAZY (computes nothing + loads NO meaning asset until a callable is invoked), binds ONLY
+        # sm.bridges/bridge/infer_bridges; never touches any extraction (byte-identical off vs on; landing W3).
+        # DEGRADES GRACEFULLY: the hub/meaning assets are large gitignored data assets -- absent -> select()
+        # abstains, never raises (default-on is safe in an asset-less environment). bridge_source in
+        # {"hub","mfnd","cond"} (default "hub" = the validated headline); bridge_beta = the N400 salience-discount
+        # (cond mode); bridge_tau = the abstain margin. NO spaCy / NO external LLM at inference. flag-off
+        # (track_bridges=False) = the pre-landing reader.
+        self.track_bridges = bool(track_bridges)
+        self.bridge_source = str(bridge_source)
+        self.bridge_beta = float(bridge_beta)
+        self.bridge_tau = float(bridge_tau)
+        self._bridge_org = None      # lazy hdlab.bridging_inference.BridgeInference
         # IMPROVED PARSER (opt-in; default OFF = byte-identical). Wired 2026-09-02 from the owner-DONE parser problem
         # the_extraction_front_end_parser_is_the_cross_task_bottleneck...: route the WIRED who-did-what front-end
         # through the promoted arc-eager parser (hdlab.arceager_parser, UD-EWT UAS 0.775->0.842) instead of the
@@ -1063,6 +1129,21 @@ class SituationReader:
         # cm_agent_struct OFF -> the AGENT is byte-identical to the pre-structure competition. NO spaCy / NO LLM
         # (the incremental parser reads only toks/POS). all_capabilities_off() sets it False.
         self.cm_agent_struct = bool(cm_agent_struct)
+        # BY-PHRASE CASE-MORPHOLOGY AGENT cue (cm_agent_byhead, DEFAULT-ON 2026-09-06, owner-DONE
+        # grounded_meaning_role_cue_for_non_canonical_who_did_what_where_word_order_misleads): feed the
+        # participle+by-PP passive-agent CASE cue (graded_role_assigner.by_governs, gated by participle_bypp_gate)
+        # into the AGENT competition as ONE self-gating precision-weighted cue (agent_supports "byhead", weight
+        # AGENT_VALIDITIES["byhead"]=BYHEAD_W=10.0). On a non-canonical/passive clause ("the tea was poured by the
+        # WOMAN") word order misleads and the reader mis-picks the agent; byhead rewards the by-governed NP.
+        # Complements the landed `byagent` cue (prevtok=='by'), which misses multi-word by-phrases ("by the
+        # clerk"). VALIDATED on MODERN QA-SRL (19c-clean): clean agent-post slice 0.2556->0.6889 (n=90) / full
+        # non-canonical 0.5224->0.6866 (n=201), CI-sep over the live floor AND the info-free shuffled-by-membership
+        # twin; canonical no-regress; LitBank board-safe (the higher-precision participle+byPP gate fires ~4/1830,
+        # <=1 answer changed). SELF-GATING: votes ONLY on the participle+by-PP construction; OFF -> the AGENT is
+        # byte-identical to the pre-byhead competition (agent_competition_pick(byhead_agent_cue=False)). Additive +
+        # net-positive on the powered instrument + board-safe -> default ON (no-more-default-off). Has effect ONLY
+        # when the cm_agent stack is engaged. NO spaCy / NO LLM (reads only toks/POS). all_capabilities_off() OFF.
+        self.cm_agent_byhead = bool(cm_agent_byhead)
         self.cm_weights = dict(cm_weights) if cm_weights else None
         self.cm_twin_seed = cm_twin_seed
         self._coref_mentions = None    # stashed by read() -> the AGENT candidate source (tracked/given set)
@@ -1152,7 +1233,8 @@ class SituationReader:
         "predict_surprisal", "track_belief", "bind_event_tokens", "predict_revise", "track_world_state",
         "densify_world_state", "np_head_reduce", "parser_arceager", "causation_typed", "spacy_pred_gate",
         "bind_entity_states", "structural_do_recover", "referent_per_np", "cm_agent", "include_pron_agents",
-        "case_filter", "clause_local", "cm_agent_struct", "predicate_recall", "track_goals", "track_affect",
+        "case_filter", "clause_local", "cm_agent_struct", "cm_agent_byhead", "predicate_recall",
+        "track_goals", "track_affect", "track_tom_action", "track_bridges",
         "structural_patient", "causal_mental_bridge", "goal_purpose_filter", "entity_kb_resolver",
         "commonnoun_situation_gate", "commonnoun_canonical")
 
@@ -1305,9 +1387,11 @@ class SituationReader:
         if self.cm_agent_struct:
             from hdlab.incremental_parser import incremental_subject_before
             subj_before = incremental_subject_before(toks, up)
+        # BY-PHRASE CASE cue (cm_agent_byhead, default ON): the self-gating byhead support votes only on the
+        # participle+by-PP passive-agent construction; OFF -> agent_competition_pick is byte-identical.
         return agent_competition_pick(toks, up, pred_idx, acand, cluster_freq=agent_freq,
                                       weights=self.cm_weights, gaz=self.gaz, twin_seed=self.cm_twin_seed,
-                                      subj_before=subj_before)
+                                      subj_before=subj_before, byhead_agent_cue=self.cm_agent_byhead)
 
     # -- EVENTS: per-sentence predicate+agent+patient -> Cowan-4 bundle focus --
     def _read_events(self, sents, mentions, n_sents):
@@ -2074,6 +2158,181 @@ class SituationReader:
         sm.valence_of = lambda char: reg.valence_of(char)
         sm.feels_about = lambda char, stimulus: reg.feels_about(char, stimulus)
 
+    def _read_tom_action(self, sm, sents) -> None:
+        """Opt-in THEORY-OF-MIND ACTION dimension (default-on track_tom_action; wired 2026-09-06 from the owner-DONE
+        problem chain_belief_and_goal_into_theory_of_mind_inference_intention_and_false_belief, Q111). Bind three
+        read-only QUERY callables that CHAIN the two LIVE mentalizing registers into a predicted action, via the
+        promoted glass-box forward inverse-planning organ hdlab.theory_of_mind (Baker/Saxe/Tenenbaum 2017 forward
+        planner; Leslie 1987 meta-representation; act-on-believes not reality):
+
+          sm.predict_action(agent_aliases, fact, t[, desired])  -> 'PROCEED' | 'FETCH' | None
+          sm.will_act_on(...)                                    (alias of predict_action)
+          sm.attribute_belief(agent_aliases, fact, action[, t, desired]) -> the belief VALUE the action implies
+
+        believed = sm.believes(agent_aliases, fact, t)   (rTPJ belief -- the sample-and-hold hdlab.belief_timeline,
+        may be a FALSE belief); desired = the value the agent WANTS F to have, read off the LIVE goal register
+        sm.wants(agent) (dmPFC intention) -- the value_vocab token named in the agent's goal text; PROCEED if the
+        agent BELIEVES F already has the desired value, else FETCH (hdlab.theory_of_mind.compose_action). Reading
+        the action off the BELIEVED state (not reality) is exactly what makes the false-belief case come out right.
+
+        PURE ADD: sets ONLY sm.predict_action / sm.will_act_on / sm.attribute_belief; touches NO existing field
+        (byte-identical off vs on -- the landing witness asserts it). LAZY -- the closures compute nothing until
+        invoked. Requires track_belief + track_goals (both default-on) for a non-None answer; degrades to None
+        gracefully if sm.believes or sm.wants is absent. NO spaCy / NO LLM at inference."""
+        from hdlab import theory_of_mind as TOM
+
+        def _agent0(agent_aliases):
+            if isinstance(agent_aliases, (list, tuple)):
+                return agent_aliases[0] if agent_aliases else None
+            return agent_aliases
+
+        def _desired_value(agent, fact):
+            """The value the agent WANTS F to have, from the LIVE goal register (dmPFC): the fact's value_vocab
+            token named in the agent's current goal text (sm.wants). None if the goal names no candidate value."""
+            wants = getattr(sm, "wants", None)
+            if wants is None or agent is None:
+                return None
+            try:
+                g = wants(agent)
+            except Exception:
+                g = None
+            gt = (getattr(g, "goal_text", None) or "") if g is not None else ""
+            if not gt:
+                return None
+            gtl = gt.lower()
+            vocab = list((fact or {}).get("value_vocab") or [])
+            hits = [v for v in vocab if v and str(v).lower() in gtl]
+            return hits[0] if hits else None
+
+        def _believed_value(agent_aliases, fact, t):
+            believes = getattr(sm, "believes", None)
+            if believes is None:
+                return None
+            try:
+                return believes(agent_aliases, fact, float(t))
+            except Exception:
+                return None
+
+        def predict_action(agent_aliases, fact, t, desired=None):
+            believed = _believed_value(agent_aliases, fact, t)
+            if desired is None:
+                desired = _desired_value(_agent0(agent_aliases), fact)
+            return TOM.compose_action(believed, desired)
+
+        def will_act_on(agent_aliases, fact, t, desired=None):
+            return predict_action(agent_aliases, fact, t, desired)
+
+        def attribute_belief(agent_aliases, fact, observed_action, t=None, desired=None):
+            """INVERSE (Baker 2017): the belief value the observed action implies given the desire. FETCH -> the
+            OTHER candidate value of the (binary) fact, read off value_vocab."""
+            if desired is None:
+                desired = _desired_value(_agent0(agent_aliases), fact)
+            other = None
+            vocab = list((fact or {}).get("value_vocab") or [])
+            if desired is not None:
+                cands = [v for v in vocab if str(v).lower() != str(desired).lower()]
+                other = cands[0] if len(cands) == 1 else None
+            return TOM.attribute_belief_value(observed_action, desired, other_value=other)
+
+        sm.predict_action = predict_action
+        sm.will_act_on = will_act_on
+        sm.attribute_belief = attribute_belief
+
+    def _read_bridges(self, sm, sents) -> None:
+        """Opt-in BRIDGING-INFERENCE dimension (default-on track_bridges; wired 2026-09-06 from the owner-DONE
+        problem bridging_inference_infer_the_unstated_link_between_adjacent_sentences, Q111). Bind the meaning
+        channel's FIRST live read()-time consumer -- two read-only QUERY callables that SELECT the prior
+        situation-model element best supported by meaning-store relatedness (Kintsch 1988 construction-integration;
+        Clark 1975 bridging; the ATL PPMI+SVD hub / curated meaning_foundation = Lambon Ralph 2017 graded
+        relatedness), via the promoted glass-box organ hdlab.bridging_inference.BridgeInference:
+
+          sm.bridge(target, candidates=None, source=None, beta=None, tau=None) -> Bridge | None
+              infer the unstated link for `target` (a part / an instrument): SELECT the antecedent (which whole /
+              which event) from `candidates`, defaulting to THIS passage's prior elements (entity heads + event
+              predicates). Returns the glass-box Bridge (antecedent, score, margin, abstained, ranked) or None
+              when target/candidates are OOV in the meaning store (nothing to infer).
+          sm.infer_bridges(targets=None, source=None, beta=None, tau=None, keep_abstained=False) -> [Bridge]
+              PROPOSE a bridge for each target (default = every tracked entity head) over the OTHER prior
+              elements, commit the non-abstained ones, and store them on sm.bridges (the construction-integration
+              proposal set). Returns the list.
+
+        source in {"hub","mfnd","cond"} (default self.bridge_source = "hub" = the validated headline); beta = the
+        N400 salience-discount (cond mode); tau = the abstain margin (default self.bridge_tau). The candidate pool
+        reduces each surface head to its rightmost token (the NP head lemma), lowercased.
+
+        PURE ADD: sets ONLY sm.bridge / sm.infer_bridges / sm.bridges; touches NO existing field (byte-identical
+        off vs on -- the landing witness W3 asserts it). LAZY -- the closures compute nothing + load NO meaning
+        asset until a callable is invoked, and sm.bridges stays [] until infer_bridges() is called (zero read-time
+        cost). DEGRADES GRACEFULLY -- if the gitignored hub/meaning asset is absent, select() abstains (returns
+        None), never raises. NO spaCy / NO external LLM at inference."""
+        from hdlab.bridging_inference import BridgeInference
+        if self._bridge_org is None:
+            self._bridge_org = BridgeInference(
+                source=self.bridge_source, beta=self.bridge_beta, tau=self.bridge_tau)
+        org = self._bridge_org
+
+        def _head_tok(surface):
+            """The NP head lemma = the rightmost token of a (possibly multiword) surface head, lowercased."""
+            if not surface:
+                return None
+            tok = str(surface).split()[-1].lower()
+            return tok if (tok.isalpha() and len(tok) > 1) else None
+
+        def _entity_heads():
+            out, seen = [], set()
+            for ent in sm.entities:
+                for h in (getattr(ent, "heads", None) or []):
+                    tok = _head_tok(h)
+                    if tok and tok not in seen:
+                        seen.add(tok)
+                        out.append(tok)
+            return out
+
+        def _event_preds():
+            out, seen = [], set()
+            for ev in sm.events:
+                tok = _head_tok(getattr(ev, "predicate", None))
+                if tok and tok not in seen:
+                    seen.add(tok)
+                    out.append(tok)
+            return out
+
+        def _default_pool():
+            out, seen = [], set()
+            for w in _entity_heads() + _event_preds():
+                if w not in seen:
+                    seen.add(w)
+                    out.append(w)
+            return out
+
+        def bridge(target, candidates=None, source=None, beta=None, tau=None):
+            tgt = _head_tok(target) or (str(target).lower() if target else target)
+            if candidates is None:
+                cands = [c for c in _default_pool() if c != tgt]
+            else:
+                cands = [(_head_tok(c) or (str(c).lower() if c else c)) for c in candidates]
+                cands = [c for c in cands if c]
+            return org.select(tgt, cands, source=source, beta=beta, tau=tau)
+
+        def infer_bridges(targets=None, source=None, beta=None, tau=None, keep_abstained=False):
+            if targets is None:
+                heads = _entity_heads()
+            else:
+                heads = [h for h in (_head_tok(t) for t in targets) if h]
+            pool_all = _default_pool()
+            out = []
+            for tgt in heads:
+                b = org.select(tgt, [c for c in pool_all if c != tgt], source=source, beta=beta, tau=tau)
+                if b is None or (b.abstained and not keep_abstained):
+                    continue
+                out.append(b)
+            sm.bridges = out
+            return out
+
+        sm.bridge = bridge
+        sm.infer_bridges = infer_bridges
+        # sm.bridges stays [] (the field default) until infer_bridges() is invoked -- zero read-time cost / no load.
+
     def _read_entity_states(self, sm, sents) -> None:
         """COPULAR is-a/attribute BINDING (default-off bind_entity_states; wired 2026-09-03 from the owner-DONE
         the_reader_has_no_copular_is_a_binding_schema, 10/10+6/6). For each sentence, recover the labeled copular
@@ -2303,6 +2562,19 @@ class SituationReader:
             # callables sm.feels/valence_of/feels_about. Runs LAST so experiencers bind to the FINAL coref
             # stream (mirrors _read_goals). Additive -- sm.affect_register stays None when the flag is off.
             self._read_affect(sm, sents)
+        if self.track_tom_action:
+            # THEORY-OF-MIND ACTION dimension: bind sm.predict_action / sm.will_act_on / sm.attribute_belief,
+            # the forward inverse-planning chain of sm.believes x sm.wants (act off the BELIEVED state). Runs
+            # LAST so it composes the FINAL belief + goal registers. PURE ADD -- lazy closures only; sets no
+            # existing field (byte-identical off vs on). Needs track_belief + track_goals for a non-None answer.
+            self._read_tom_action(sm, sents)
+        if self.track_bridges:
+            # BRIDGING-INFERENCE dimension: bind sm.bridge(target, ...) + sm.infer_bridges(), the meaning
+            # channel's FIRST live read()-time consumer (construction-integration antecedent selection over the
+            # ATL relatedness hub). Runs LAST so the candidate pool reflects the FINAL entity + event set. PURE
+            # ADD -- lazy closures only (computes nothing, loads NO meaning asset, until a callable is invoked);
+            # sets ONLY sm.bridges + sm.bridge/infer_bridges (byte-identical off vs on).
+            self._read_bridges(sm, sents)
         return sm
 
 
