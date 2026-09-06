@@ -26,6 +26,47 @@ selectional feature [that] cannot close the gap glass-box (with the exact reason
 and I went past the located negative to test the underlying goal (lift the parser's obl/PP attachment glass-box)
 by the one route the disk shows is complementary -- lexical association -- which also does not clear the bar.
 
+**THE FULL ARC (owner pushed through four deepening rounds; read this first):**
+1. **REFUTED the brief's mechanism** -- object-class distributed selectional preference (pooled AND the brain's
+   predicate-specific Pado/Resnik form) is ANTI-complementary to the parser (below chance where it errs) and
+   CI-separated HURTS UAS. Brain-corroborated: humans do not use object-class selpref for PP-attachment either.
+2. **REFRAMED the target** -- UAS on UD trees is NOT the brain's objective. The brain builds a SITUATION MODEL from
+   a good-enough parse (Ferreira; Sachs 1967; Zwaan & Radvansky) and consumes it by PRECISION-WEIGHTING (Friston).
+   Triply-corroborated: our own disk (a better parser moved who-did-what ~+0.00), psycholinguistics, and NLP
+   extrinsic-eval (UAS gains do not transfer downstream).
+3. **BUILT + AUDITED the upstream** -- the parser's real deviation is greedy hard-commitment with an uncalibrated
+   score; the brain-foundational fix is a graded competition whose calibrated confidence (research-verified:
+   Levy/Hale/Kuperberg-Jaeger/Friston) is the missing precision signal.
+4. **DEMONSTRATED the brain-foundational deliverable end-to-end** -- precision-weighting the parse by its calibrated
+   confidence delivers COMPREHENSION reliability: selective who-did-what accuracy 0.871 vs 0.780 blanket (+0.0907
+   CI[+0.0676,+0.1154]) and selective obl/PP attachment 0.826 vs 0.776, random twins FLAT. The signal is ADDITIVE
+   (parse heads unchanged) so NO downstream consumer regresses; the head-driven consumers (who-did-what/obl/space)
+   are the ones to revisit, all with the same precision-weighted upgrade.
+
+So the honest verdict: the brief's mechanism is REFUTED, but the underlying wall is overcome the brain-foundational
+way -- not by a more-accurate parser, but by a good-enough parse + calibrated confidence + precision-weighted
+readout, demonstrated to exceed on the correct (comprehension) objective. The only remaining step is the
+strategy-side Q111 landing of the additive confidence wire.
+
+> ## >>> THE NEXT PROBLEM (highest-value follow-on; strategy to file + own) <<<
+> **Slug:** `precision_weight_the_head_driven_readers_on_calibrated_parse_confidence`
+> **One line:** The parser already computes a per-arc confidence that ZERO live consumers read; the GLOBAL
+> arc-factored parser's margin is a calibrated reliability signal (AUC ~0.81 for object attachment), and
+> precision-weighting the head-driven readers by it delivers COMPREHENSION reliability -- LAND the additive
+> confidence wire (Q111) and have who-did-what / obl / space DEFER (down-weight/fall back) on low-confidence arcs,
+> then measure the LIVE board.
+> **Why now / leverage:** it is the DEMONSTRATED brain-foundational lever (this submission, sections 3f-3g):
+> selective who-did-what 0.871 vs 0.780 blanket (+0.0907 CI[+0.0676,+0.1154]) and selective obl/PP 0.826 vs 0.776,
+> random twins FLAT. It is ADDITIVE (parse heads unchanged -> zero downstream regression, confirmed), so it is the
+> safest possible upstream change. This is the parser's real value to comprehension -- NOT higher UAS.
+> **First steps:** reuse `exp_precision_weighted_selective_attach_v1` + `exp_precision_weighted_whodidwhat_v1` +
+> the landed `graded_competition` organ + the sibling's who-did-what readout; expose `attach_conf`/the
+> arc_parser margin as a calibrated confidence; precision-weight the head-driven readers; measure the live board
+> comprehension dims (who-did-what, space). Bar: a CI-separated live-board comprehension lift (or reliability/
+> selective gain) with a random-confidence twin LOSING, no-regress on non-consumers.
+> **Do NOT:** chase UAS, build a graded parser for ACCURACY, or relax the no-trained-encoder invariant (all shown
+> here to be the wrong lever).
+
 ## 1. HOW THE BRAIN DOES THIS (the opening move) and what I built
 
 PINNED: the brain resolves attachment by DISTRIBUTED, graded lexical-semantic constraint satisfaction
