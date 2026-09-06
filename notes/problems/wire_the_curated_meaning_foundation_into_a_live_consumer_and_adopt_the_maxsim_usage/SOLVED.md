@@ -9,6 +9,9 @@ files_changed: "experiments/exp_curated_foundation_wic_v1.py (the leak-free cura
 reverify: ".venv/Scripts/python.exe verification/test_curated_foundation_wic.py  (6/6; the live-reader beat + stack: .venv/Scripts/python.exe experiments/exp_wic_optimization_stack_v1.py --mode full)"
 ---
 
+## INTEGRATED_BY_STRATEGY (2026-09-05) — EXCELLENT (board-visible via the wic arm; reader-side wire §2-deferred)
+The pri-4 GOAL (the curated foundation's value made LIVE/board-visible) is ACHIEVED: the WiC/sense board arm (Step 0c, `exp_board_wic_sense_v1`, folded into `exp_situation_model_qa_v1.run()`) now SCORES the meaning channel on the board — curated+coarsening **0.6639 vs the live PPR select_sense reader 0.6006 = +0.0633 CI-sep** (there was NO meaning board dim before). Reverify `test_curated_foundation_wic.py` 6/6. DEFERRED to the §2-gated follow-on: the `select_sense` reader-side curated channel (a vector-scoring build into `grounded_semantic_graph`, which is ISLANDED — 0 read()-time consumers) + a read()-time meaning stage that consumes sense selection. Residual to human 0.80 = deep contextualization = the §2 no-transformer owner decision.
+
 ## SUBMISSION SUMMARY (read first)
 
 **The brief's two proposals are located negatives, on disk, so I rerouted to the REAL problem underneath
