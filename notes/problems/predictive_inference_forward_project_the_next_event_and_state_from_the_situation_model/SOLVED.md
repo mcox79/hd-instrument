@@ -5,7 +5,7 @@ bar: "PASS = a glass-box FORWARD PREDICTOR -- a transparent, hand-auditable proj
 result: "Glass-box forward continuation predictor on Story Cloze (MODERN, right-vs-wrong 5th sentence; MoE-UNC/story_cloze val 1871 + test 1871). The brain-faithful forward GENERALIZED-EVENT-KNOWLEDGE projection (Elman-style graded associative readout over the corpus's own forward transitions, self-supervised on ROCStories-train 98,161 stories) discriminates the coherent continuation val 0.5922 [0.5697,0.6147] / test 0.5815 [0.5585,0.6040], CI-SEPARATED over the majority-continuation floor (val +0.078 [+0.045,+0.110]; test +0.068 [+0.039,+0.099]); the cross-context info-free twin COLLAPSES to chance (val 0.4912 [0.468,0.514]; test 0.4885); and a calibrated precision (1 - normalized entropy of the graded_competition 2-way distribution) earns MONOTONICALLY RISING selective accuracy (val 0.592->0.654; test 0.582->0.630) while the random-confidence twin stays FLAT (val ->0.607; test ->0.560). LOCATED NEGATIVE (rigorous, triple-sourced) on the STRONGER claim: the projection does NOT robustly exceed a 1-step co-occurrence counter (val margin +0.0096 [-0.006,+0.024] NOT CI-sep; test +0.0176 [+0.004,+0.032]) and situation-model STRUCTURE does not lift it -- the multi-step successor HORIZON adds ~+0.01 (the successor_representation docstring's pre-registered outcome iii), the event-structured verb-chain grain is WEAKER (val 0.547/test 0.538), and the goal/causal registers FIRE ON ONLY ~27% of 5-sentence stories (measured). DOING IT RIGHT (v2): the artifact-free brain-foundational coherence engine (protagonist-centered CONTEXT-DEPENDENT contradiction + affect-arc-DIRECTION + causal-to-goal, learned cue validities, cross-validated) produces a GENUINE artifact-free lift over the counter (val 0.6002 +0.0176 [-0.002,+0.036]; test 0.5863 +0.0224 [+0.003,+0.043] CI-sep), twin collapses to 0.53, at the research-confirmed honest glass-box ceiling (~0.60; Mostafazadeh 2016 context baselines 0.52-0.585). The full CI with a cheap ending-only negation flag beat the counter CI-sep on BOTH splits (val +0.032/test +0.041) but a negation-ablation proved that was the Schwartz-2017 STYLE ARTIFACT, not coherence. Adding Friston PRECISION-WEIGHTING (v3: trust each cue by per-item reliability) tips it to paired-CI-separated over the counter on BOTH splits (val 0.6029 +0.0203 [+0.0005,+0.040]; test 0.5922 +0.0283 [+0.010,+0.047]), razor-thin on val. The dominant remaining gap is EXTRACTION density (a separate problem's lane), NOT the now-validated inference design."
 floor: "STRONGEST base-rate floors, recomputed on each split's own population: majority-continuation prior val 0.5142 [0.492,0.537] / test 0.5131; ending-only unigram plausibility val 0.5045 / test 0.5104; 1-step SYMMETRIC co-occurrence counter val 0.5826 [0.559,0.605] / test 0.5639 [0.541,0.586] (the SR docstring's named floor -- the strongest). The mechanism CI-separates over majority+unigram on both splits; it does NOT CI-separate over the 1-step counter on val (+0.0096, CI includes 0)."
 controls: "(1) cross-context twin (endings scored against a RANDOM other story's context, same shapes/balance) -> val 0.4912 / test 0.4885 = EXCLUDES 'uses only the endings / a style artifact', proves it USES this story. (2) random-confidence twin (precision permuted, same coverage) -> selective curve FLAT = EXCLUDES 'any abstention at this rate raises accuracy'. (3) 1-step co-occurrence counter floor = EXCLUDES 'the win needs a predictive HORIZON' (it does not; the horizon adds ~+0.01). (4) event-structured verb-chain / verb+patient arm (0.54) = EXCLUDES 'a finer event grain helps' (it is weaker). (5) register fire-rate on the full live-reader eval (Cell B, n=1871/split: goal fires 0.319/0.335, causal 0.285/0.277, mean 7.9 events per 4-sentence context; witness W6 corroborates 10/40 & 9/40) = LOCATES the extraction bottleneck. (6) held-out by construction: the transition store is ROCStories-train, disjoint from the Story Cloze eval stories."
-files_changed: "experiments/exp_forward_event_projection_v1.py (content-GEK spine, full-scale); experiments/exp_forward_event_projection_situation_model_v1.py (live SituationReader + graded_competition multi-cue combination); experiments/exp_forward_event_affect_coherence_v1.py (the affect/valence-trajectory cue); experiments/exp_forward_event_construction_integration_v1.py (the full Kintsch/Trabasso alternative + the negation-artifact ablation); experiments/exp_forward_event_situation_coherence_v2.py (the RIGHT artifact-free engine: protagonist-centered context-dependent contradiction + affect-arc-direction + causal-to-goal, learned cue validities); experiments/exp_forward_event_precision_weighted_v3.py (the Friston PRECISION-WEIGHTED integration upgrade -- trust each cue by per-item reliability); experiments/fetch_story_cloze_rocstories.py (pinned reproducible gold fetch); verification/test_forward_event_projection.py (scaffold-free witness); data/exp_forward_event_projection_v1/metrics.json; data/exp_forward_event_projection_situation_model_v1/metrics.json; data/exp_forward_event_affect_coherence_v1/metrics.json; data/corpora/story_cloze/ + data/corpora/roc_stories/ (materialized gold, gitignored). hdlab/ UNTOUCHED (Q111)."
+files_changed: "experiments/exp_forward_event_projection_v1.py (content-GEK spine, full-scale); experiments/exp_forward_event_projection_situation_model_v1.py (live SituationReader + graded_competition multi-cue combination); experiments/exp_forward_event_affect_coherence_v1.py (the affect/valence-trajectory cue); experiments/exp_forward_event_construction_integration_v1.py (the full Kintsch/Trabasso alternative + the negation-artifact ablation); experiments/exp_forward_event_situation_coherence_v2.py (the RIGHT artifact-free engine: protagonist-centered context-dependent contradiction + affect-arc-direction + causal-to-goal, learned cue validities); experiments/exp_forward_event_precision_weighted_v3.py (the Friston PRECISION-WEIGHTED integration upgrade); experiments/exp_forward_event_predictive_loop_v1.py (CLOSING THE PREDICTIVE-CODING LOOP: forward prediction error as the shared currency for coherence + event SEGMENTATION + the reset-vs-reinstate sweep); experiments/fetch_story_cloze_rocstories.py (pinned reproducible gold fetch); verification/test_forward_event_projection.py (scaffold-free witness); data/exp_forward_event_projection_v1/metrics.json; data/exp_forward_event_projection_situation_model_v1/metrics.json; data/exp_forward_event_affect_coherence_v1/metrics.json; data/corpora/story_cloze/ + data/corpora/roc_stories/ (materialized gold, gitignored). hdlab/ UNTOUCHED (Q111)."
 reverify: ".venv/Scripts/python.exe verification/test_forward_event_projection.py"
 ---
 
@@ -207,6 +207,34 @@ the artifact-free result to a PAIRED-bootstrap CI-separated lift over the counte
 weighting is a genuine, PINNED brain-foundational upgrade that brings the artifact-free mechanism to the
 CI-separation threshold, at the honest glass-box ceiling.
 
+## CLOSING THE PREDICTIVE-CODING LOOP (the highest-value SYSTEMIC upgrade -- forward error drives comprehension AND segmentation)
+The substrate had the loop OPEN: a BACKWARD event monitor (`n400_coherence_monitor`, error vs a running gist)
+and an argument-level forward surprisal, but the forward EVENT prediction was never the thing the error is
+taken against. Research (folded below) pins that the error is ALWAYS against a FORWARD prediction (Rao-Ballard/
+Friston; N400 as forward belief-update error, Rabovsky 2018; Zacks-Reynolds-Braver 2007 feedforward next-input
+predictor + error-spike gate). `exp_forward_event_predictive_loop_v1` wires the forward prediction error as the
+shared currency and measures it two ways:
+
+| | forward prediction error | backward running gist |
+|---|---|---|
+| **(A) coherence** (Story Cloze, pick coherent ending) | **0.5922 [0.570,0.615]** | 0.5377 [0.515,0.561] |
+| **(B) segmentation F1** (400 ROCStories concatenated; true boundaries = story starts; MATCHED z-score EST) | **0.766 reset / 0.806 reinstate(0.3)** | 0.272 (matched) / 0.043 (landed organ) |
+
+- **(A)** the forward error beats the backward gist for comprehension (CI-separated), same discrimination, only the
+  prediction differs.
+- **(B)** the forward directional predictor is a ~3x better EVENT-BOUNDARY detector than the backward gist
+  (0.766 vs 0.272 at a matched threshold; random 0.230; shuffled-stream twin collapses to 0.166 -- it uses the
+  real narrative structure). This is the loop-closure payoff: redirecting the segmentation error from the backward
+  gist to the FORWARD prediction is a large, clean win.
+- **RESET vs REINSTATE (item 5, Wall 2) answered empirically:** a MILD reinstatement of the prior context at a
+  boundary (lambda~0.3) BEATS a hard reset (0.806 vs 0.766); heavy reinstatement (0.7) HURTS (0.707). This matches
+  Pu, Kong, Ranganath & Melloni 2022's gated-blend `C_t=(1-lambda)[...]+lambda*C_1` with fit lambda~0.2 and SEM's
+  reinstate-don't-wipe -- and the honest negative (heavy reinstate blurs boundaries; reinstatement keys on schema-
+  type match, not positional recurrence). The `n400_coherence_monitor` currently hard-RESETS -- the proposed fix is
+  lambda~0.2-0.3 reinstatement. NOTE: fusing "error magnitude -> boundary" with "distribution concentration ->
+  confidence" for one signal is OUR-INVENTION (a defensible Friston/EST synthesis; EST's formal model uses
+  magnitude only) -- flagged, not overclaimed.
+
 ## Why this is a rigorous located negative -- and the sharpened diagnosis (TWO fidelity gaps, not one ceiling)
 Every faithful glass-box readout was built and tested -- GEK association (works over frequency floors), the
 successor/horizon (no lift, pre-registered), the finer event grain (weaker), goal/causal structure (registers too
@@ -284,10 +312,17 @@ goal cue. The FIRST is the highest-leverage upstream fix (see ADJACENT).
 - **SR-over-narrative-events should be marked OUR-INVENTION, not PINNED.** The research finds no demonstrated
   SR over narrative events (spatial/graph metaphor); my result confirms it is a 1-step counter here. Recommend
   the `successor_representation` audit entry note this and cite outcome (iii) as now OBSERVED on a modern gold.
-- **n400_coherence_monitor reset-vs-reinstate deviation.** The event-segmentation literature (Baldassano 2017;
-  Ben-Yakov & Henson 2018) says the event model is REINSTATED/UPDATED at a boundary, not reset-to-blank; the
-  monitor resets its running gist to the new item. Flagging as a fidelity deviation to note (not rebuilt here --
-  it is a separate owner-DONE organ).
+- **THE PREDICTIVE-CODING LOOP is now closeable AND measured.** The forward EVENT prediction error beats the
+  backward running-gist error for BOTH comprehension (Story Cloze 0.592 vs 0.538) AND event segmentation (F1
+  0.766-0.806 vs 0.272 matched) -- the error should be taken against the FORWARD prediction (Rao-Ballard/Friston;
+  Rabovsky 2018 N400; Zacks-Reynolds-Braver), not the backward gist. Recommend Tier 5 record that the loop is
+  now demonstrated: `n400_coherence_monitor` should take its error against the forward projection.
+- **n400_coherence_monitor reset-vs-reinstate deviation -- now MEASURED.** The monitor hard-RESETS its gist at a
+  boundary; the literature says REINSTATE (Pu 2022 gated blend `C_t=(1-lambda)[...]+lambda*C_1`, lambda~0.2; SEM;
+  Baldassano 2017). Measured here: mild reinstatement (lambda~0.3) beats hard reset on boundary F1 (0.806 vs
+  0.766); heavy reinstate hurts. Recommend the monitor add a swept lambda~0.2-0.3 reinstatement. (Honest negative:
+  reinstatement keys on schema-type match, not positional recurrence -- Radvansky's same-room test refuted naive
+  positional reinstatement.)
 
 ## ADJACENT COMPONENTS (brain-fidelity + optimization potential -- seeds for the next problems)
 - **The situation-model EVENT EXTRACTOR is the highest-leverage upstream bottleneck (candidate next problem).**
@@ -348,9 +383,30 @@ gap in how much structure we extract from short stories -- not a broken guesser.
   because the win is over the majority/frequency floor, not the strongest (associative-counter) floor. Content is
   identical either way; your call on the label.
 
+## OTHER EFFICIENCIES + BRAIN-FOUNDATIONAL UPGRADES (this round -- "do them all")
+- **DONE -- closed the predictive-coding LOOP** (`exp_forward_event_predictive_loop_v1`): forward error > backward
+  gist for coherence AND segmentation (0.766-0.806 vs 0.272). The single highest-value SYSTEMIC upgrade.
+- **DONE -- reset-vs-reinstate**: mild reinstatement (lambda~0.3) beats hard reset on boundary F1; propose the
+  monitor add a swept lambda.
+- **DONE -- precision-weighting** (v3, Friston): tips the artifact-free coherence to CI-sep over the counter on both splits.
+- **DONE (efficiencies, folded into v3/loop)**: lean extraction (the projector needs only events+protagonist+affect,
+  not the full default-on reader); pruned to the 3 live cues (gek + affect-direction + protagonist-contradiction --
+  hub/causal-type/referential/verb-chain all learned ~0 validity); 1-step directed transitions (the multi-step
+  successor horizon adds ~+0.01 -- skip the O(V^3) matrix).
+- **MAPPED (item 6, EXTRACTION density -- another problem's lane; building a crippled version would be "cheap").**
+  Research names the exact brain-foundational operations: (1) REUSE the already-integrated `bridging_inference`
+  organ to GENERATE the unstated causal/goal links (Graesser causal-antecedent + superordinate-goal inferences are
+  automatic) -- do not rebuild; (2) WHOLE-CONTEXT RESONANCE spread-activation over the meaning store across ALL
+  prior text (Myers-O'Brien / Albrecht-O'Brien) -- the highest-leverage UNBUILT lever for the ~30% fire-rate; (3)
+  plan-library GOAL-FROM-ACTION (Schank-Abelson / Kautz-Allen) -- cheap glass-box. Honest negative: forward/
+  elaborative inference generation is strategic/fragile (Klin 1999) -- do NOT expect gains there; only bridging
+  (causal/goal) is automatic.
+
 ## NEXT STEPS (the brain-foundational build path across the two fidelity gaps)
 - Land the additive `generalized_event_knowledge` organ + `predict_next_event` readout (Q111, default-off, new
-  island, no-regress), then measure the live-board lift. This is the correct SHALLOWEST layer.
+  island, no-regress) + the forward-error segmentation wire into `n400_coherence_monitor` (redirect its error to
+  the forward prediction + add lambda~0.3 reinstatement), then measure the live-board lift. Lean extraction, the
+  3 live cues, precision-weighting, 1-step transitions.
 - **GAP (A) EXTRACTION -- file the highest-leverage follow-on: DENSER event/goal/causal/affect EXTRACTION on
   short modern narrative** (the ~0.28-0.32 fire-rate + ~7.9-events-per-4-sentences over-segmentation is the
   measured bottleneck; it caps every forward cue). Prerequisite to everything above.

@@ -4,27 +4,27 @@
 
 **HEADLINE: 0/1 plan steps done; C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap))**
 
-generated: 2026-09-06T18:47:28Z  |  HEAD: 96b4d5679
+generated: 2026-09-06T19:10:17Z  |  HEAD: cbc72c44c
 
 ## 1. Where we are against the plan (notes/PLAN_NEXT_12H.md)
 - UNKNOWN -- notes/PLAN_NEXT_12H.md not readable
 
 ## 2. What is running right now
 Heartbeats (data/heartbeats/*.timestamp):
-  - exp_dev: 12704 min ago <-- STALE
-  - orchestrator: 58770 min ago <-- STALE
-  - research: 986 min ago <-- STALE
-  - skunkworks: 61442 min ago <-- STALE
-  - testbed: 98016 min ago <-- STALE
+  - exp_dev: 12727 min ago <-- STALE
+  - orchestrator: 58793 min ago <-- STALE
+  - research: 1008 min ago <-- STALE
+  - skunkworks: 61465 min ago <-- STALE
+  - testbed: 98039 min ago <-- STALE
 data/ directories touched in the last 180 min:
   - logs: 0 min ago, NO metrics.json yet (likely in-flight)
   - local_cpu_queue: 0 min ago, NO metrics.json yet (likely in-flight)
+  - exp_forward_event_predictive_loop_v1: 0 min ago, has metrics.json
+  - hook_state: 2 min ago, NO metrics.json yet (likely in-flight)
+  - exp_causal_reasoner_wiqa_v1: 4 min ago, NO metrics.json yet (likely in-flight)
   - exp_sense_selection_discourse_event_prior_v1: 5 min ago, has metrics.json
   - exp_sense_selection_joint_role_ecu_v1: 5 min ago, has metrics.json
-  - exp_sense_selection_thematic_frame_as_v1: 6 min ago, has metrics.json
-  - exp_sense_signature_distinctive_feature_as_v1: 6 min ago, has metrics.json
-  - exp_sense_selection_ci_deblur_as_v1: 6 min ago, has metrics.json
-  - exp_sense_hub_separation_wic_v1: 6 min ago, has metrics.json
+  - exp_sense_selection_thematic_frame_as_v1: 5 min ago, has metrics.json
 notes/STATUS.md WHAT IS RUNNING (verbatim):
   - 🏗️ **OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS.** This session keeps the  10k view, writes briefs and INTEGRATES; solvers solve one bounded problem. **THE ORDER LIVES IN EACH  `notes/problems/<slug>/PROBLEM.md` FRONTMATTER (`priority:`) -- ENUMERATE, NEVER MIRROR.** *ENUMERATED FROM DISK 08-23 23:0x: `10` open (priorities `1`-`10`, contiguous), `8` solved+reviewed. **THE PREVIOUS TEXT HERE READ `11` open / `5` reviewed -- I MIRRORED A REMEMBERED COUNT ON THE VERY LINE THAT SAYS ENUMERATE.** Q111: solvers never write `hdlab/`.* `notes/problems/README.md`
   - ✅ **TWO OF THE THREE ARE NOW REVIEWED (08-23 late). BOTH RE-VERIFIES PASS; I THEN AUDITED THE
@@ -144,13 +144,12 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
 - C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap)) -- source: data\exp_orthographic_floor_vet_v1\metrics.json
 
 ## 4. What moved since the last snapshot
-- 3 new commit(s) since last snapshot (HEAD 8eeed1acd -> 96b4d5679)
-- data/ directory count: 9291 -> 9292 (+1)
+- nothing measurable moved since the last snapshot
 
 ## 5. What is stuck (blocked / pending / no owner)
 - comparator it did not use (it ran TWO supplied arms and quoted the weaker) and **it held**: the
 - US** (*"the sweep never bit"* -- a random baseline breaks inside that range where it held `1.0000`).
 
 <!-- SNAPSHOT_STATE_JSON
-{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 9292, "generated_at": "2026-09-06T18:47:28Z", "head_commit": "96b4d5679905632702a3cc5a07fbffed4ccaf37b", "step_status": {}}
+{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 9298, "generated_at": "2026-09-06T19:10:17Z", "head_commit": "cbc72c44c5c04749f7f58a995b5451916569f96e", "step_status": {}}
 -->

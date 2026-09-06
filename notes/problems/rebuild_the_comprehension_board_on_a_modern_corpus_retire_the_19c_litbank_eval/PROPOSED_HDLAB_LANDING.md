@@ -45,17 +45,22 @@ actives) -> land it. WITNESS: `test_modern_board.py` W10.
 FOLLOW-ON (precision): the `_agent_pp_governed` detector OVER-fires (flags some real subjects), so the
 pp-suspect-active slice is a wash — a precision fix to the PP-government scan is a small named follow-on.
 
-## 1c. EXISTENTIAL construction cue on the AGENT hybrid (MEASURED +0.015 full-set CI-sep, brain-foundational)
+## 1c. DECORRELATED CONSTRUCTION cues on the AGENT hybrid (MEASURED +0.018 full-set CI-sep, brain-foundational)
 The mechanism drill proved the agent competition is preverbal-DOMINATED (P(cm==floor)=0.84 on canonical), so it
 cannot recover position's failures except via a cue DECORRELATED from position; construction-specific rules
-(Goldberg 1995) are that class. Add the EXISTENTIAL override to the hybrid (reference impl
-`experiments/exp_board_agent_construction_v1.hybrid_construction_pick` / `_existential_subject`): when the clause
-has an expletive 'there' (PRON/ADV) pre-verbally, the notional subject is the first post-copular NOUN/PROPN, NOT
-'there'. MEASURED (UD-EWT train+test): existentials **0.186→0.6535 (+0.467 CI[+0.392,+0.546])**; FULL who-did-what
-AGENT set **0.855→0.870 (+0.015 CI[+0.012,+0.018])** — the first clear full-set margin over position — with EXACT
-zero canonical regress and the twin losing. Land it with the hybrid (§1). WITNESS: `test_modern_board.py` W12.
-DO NOT land the coordination first-conjunct override (tested NEUTRAL, n.s.). The general principle (more
-construction cues: cleft, tough-movement) is a filed follow-on.
+(Goldberg 1995) are that class. Add two overrides to the hybrid (reference impl
+`experiments/exp_board_agent_construction_v1.hybrid_construction_pick`), tried before the word-order default:
+- **EXISTENTIAL** (`_existential_subject`): expletive 'there' pre-verbally -> notional subject = first
+  post-copular NOUN/PROPN, NOT 'there'. **0.186→0.6535 (+0.467 CI[+0.392,+0.546])**.
+- **NP-COORDINATION** (`_first_conjunct_subject`, GUARDED): 'NP1 and NP2 V' -> subject head = first conjunct NP1.
+  Guards (learned from the wall drill, REQUIRED): the coordinator immediately joins the two NPs; NO ', and'
+  (clause/list); NP1 not PP-governed. **0.307→0.5817 (+0.275 CI[+0.130,+0.416])**.
+
+MEASURED together (UD-EWT train+test): FULL who-did-what AGENT set **0.855→0.873 (+0.018 CI[+0.015,+0.021])** —
+the first clear full-set margin over position — with EXACT zero canonical regress and the twin losing. Land both
+with the hybrid (§1). WITNESS: `test_modern_board.py` W12. DO NOT land a cleft override (verified NOT an
+agent-dimension opportunity — the nsubj is the relativizer). More constructions (tough-movement) = a filed
+follow-on with diminishing per-construction value.
 
 ## 2. Register-adaptive cue validities (FILED, not landed — do NOT hand-tune)
 The Competition Model predicts cue validities are register-specific; the modern re-sweep is the mechanism

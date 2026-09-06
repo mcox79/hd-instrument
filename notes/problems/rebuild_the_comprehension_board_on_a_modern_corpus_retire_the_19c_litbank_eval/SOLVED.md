@@ -5,7 +5,7 @@ bar: "PASS = a MODERN comprehension board that scores AT LEAST the coref + event
 result: "A 19c-FREE modern board (data/situation_model_qa_modern_v1/metrics.json) scoring 7 dimensions on MODERN gold, NO LitBank in the aggregate; item-weighted 19c-free aggregate model 0.605 vs floor 0.561 (4/7 dims CI-sep over floor: coref, patient, state, wic). Core bar dims: COREF pronoun-pick (GUM, n=3132) model 0.4681 vs separate-tracking floor 0.3621, +0.1060 CI[+0.0786,+0.1327], twin 0.2034 LOSES; STATE (UD-EWT copular, n=378) model 0.8333 vs most-recent-noun floor 0.5714, CI-sep, twin 0.4656 loses; WHO-DID-WHAT AGENT (UD-EWT, n=1423) is a rigorous LOCATED FINDING (full pass): positional floor 0.8545 is NEAR-CEILING on modern canonical prose and the 19c-tuned Competition-Model agent does NOT beat it (full_cm 0.7583, hybrid-override 0.832; full_cm-floor -0.096 CI[-0.113,-0.079]), while the info-free twin LOSES (twin 0.2952) -- the 19c AGENT win (0.041->0.69) is register-specific and does not transfer. Also modern: PATIENT (UD-EWT, n=1255, landed structural_patient_pick 0.8311 vs positional 0.745 CI-sep), WiC (sense, n=2038, 0.6639 vs 0.6006 CI-sep), COMMON-NOUN (GUM, located negative 0.4879 vs 0.5412), SALIENCE (GUM)."
 floor: "Per dimension, recomputed on its OWN modern population: coref -- separate-tracking reader 0.3621 (> recency 0.293, string-identity 0.307); who-did-what agent -- positional nearest-preverbal 0.855 (UD-EWT) / 0.829 (GUM discourse, n=15738); state -- most-recent-noun 0.438; patient -- deployed positional readout 0.745; common-noun -- blind head-identity 0.5412 (the no-LLM ceiling; unified 0.488 does NOT beat it, located negative); salience -- first-introduced-entity 0.197."
 controls: "info-free TWINS per dim (shuffled identity evidence / shuffled cue supports) LOSE on coref (twin 0.2034), state, patient, and the agent hybrid (hybrid-twin +0.537 CI-sep) -- excludes 'any machinery'. CROSS-CONSUMER UPSTREAM control (GUM entity-KB hard-link): brain-foundational gold grammatical roles 0.4682 vs the live POSITIONAL role proxy 0.3841, +0.084 CI[+0.031,+0.130] CI-sep -- the same upstream role assigner lifts coref too. AGENT candidate-SET control (GUM): cm_dense 0.719 > cm_tracked 0.634 (the 19c tracked-set decouple REVERSES sign on modern -> register-specific). RE-SWEEP control: dev-tuned modern weights do NOT rescue CM above the positional floor (test pinned 0.767 / dev-best 0.780 < floor 0.857) -> the narrative cue validities do not generalize. VOICE split: on passives position collapses (0.062 UD / 0.000 GUM) and CM recovers (0.125 / 0.107) -- the assigner's brain-foundational value survives on the non-canonical slice."
-files_changed: "experiments/exp_situation_model_qa_modern_v1.py (the 19c-free board assembly + aggregate + gap map), experiments/exp_board_agent_slot_ud_v1.py (modern who-did-what AGENT arm + hybrid-override + cue re-sweep), experiments/exp_board_agent_gum_v1.py (modern DISCOURSE AGENT arm -- the fair tracked-set test), experiments/exp_board_coref_gum_v1.py (modern coref/salience/common-noun rows + cross-consumer upstream proof), experiments/exp_board_agent_noncanonical_v1.py (the NON-CANONICAL modern who-did-what instrument + byagent-cue optimization + clause-local voice + by-phrase-gated hybrid + the value diagnostic), experiments/_diagnose_agent_upstream.py (categorizes canonical agent failures -> the upstream located negative), experiments/_drill_agent_walls.py (mechanism drill: preverbal-domination -> cm correlated with position), experiments/exp_board_agent_construction_v1.py (the EXISTENTIAL decorrelated construction cue -- +0.015 full-set CI-sep), verification/test_modern_board.py (scaffold-free witness, 12/12). REUSES verbatim: experiments/exp_unified_referent_gum_v1.py + gum_coref.py + fetch_gum_coref_v1.py (GUM fetch, pinned V12.1.0 @ 22fdf87), hdlab.graded_role_assigner (owner-DONE CM assigner), exp_board_patient_slot_v1 / exp_situation_model_state_qa_v1 / exp_board_wic_sense_v1 (already-modern arms). NO hdlab/ written (Q111)."
+files_changed: "experiments/exp_situation_model_qa_modern_v1.py (the 19c-free board assembly + aggregate + gap map), experiments/exp_board_agent_slot_ud_v1.py (modern who-did-what AGENT arm + hybrid-override + cue re-sweep), experiments/exp_board_agent_gum_v1.py (modern DISCOURSE AGENT arm -- the fair tracked-set test), experiments/exp_board_coref_gum_v1.py (modern coref/salience/common-noun rows + cross-consumer upstream proof), experiments/exp_board_agent_noncanonical_v1.py (the NON-CANONICAL modern who-did-what instrument + byagent-cue optimization + clause-local voice + by-phrase-gated hybrid + the value diagnostic), experiments/_diagnose_agent_upstream.py (categorizes canonical agent failures -> the upstream located negative), experiments/_drill_agent_walls.py (mechanism drill: preverbal-domination -> cm correlated with position), experiments/exp_board_agent_construction_v1.py (the EXISTENTIAL + guarded NP-COORDINATION decorrelated construction cues -- agent 0.855->0.873, +0.018 full-set CI-sep, no-regress), verification/test_modern_board.py (scaffold-free witness, 12/12). REUSES verbatim: experiments/exp_unified_referent_gum_v1.py + gum_coref.py + fetch_gum_coref_v1.py (GUM fetch, pinned V12.1.0 @ 22fdf87), hdlab.graded_role_assigner (owner-DONE CM assigner), exp_board_patient_slot_v1 / exp_situation_model_state_qa_v1 / exp_board_wic_sense_v1 (already-modern arms). NO hdlab/ written (Q111)."
 reverify: ".venv/Scripts/python.exe verification/test_modern_board.py   # 12/12; reads the cells' metrics.json (writes nothing to landed dirs). Rebuild inputs: experiments/exp_situation_model_qa_modern_v1.py --run ; experiments/exp_board_agent_noncanonical_v1.py --run ; experiments/exp_board_agent_gum_v1.py --run --xcorpus ; experiments/exp_board_agent_construction_v1.py --run"
 ---
 
@@ -229,22 +229,36 @@ position (voice is the only one today). Construction Grammar (Goldberg 1995): ar
 construction-specific, so each construction gives its own decorrelated agent rule. I built the two highest-
 frequency ones (`experiments/exp_board_agent_construction_v1.py`, UD-EWT train+test, n=13441):
 
-| construction | n | floor | hybrid | **+ construction cue** | twin | Δ over hybrid |
+| construction | n | floor | hybrid | **+ construction cues** | twin | Δ over hybrid |
 |---|---|---|---|---|---|---|
 | **existential** ('There is/was X') | 430 | 0.191 | 0.186 | **0.6535** | 0.244 | **[+0.392,+0.546] CI-sep** |
-| **FULL modern set** | 13422 | 0.8525 | 0.8554 | **0.8704** | 0.2977 | **[+0.0124,+0.0176] CI-sep** |
-| canonical (no-regress) | 12612 | 0.8838 | 0.8871 | 0.8871 | 0.3017 | 0.000 (exact no-regress) |
-| coordination (tested NEUTRAL) | 380 | 0.5632 | 0.5605 | 0.5605 | 0.226 | 0.000 (not in deployable) |
+| **coordination** ('NP1 and NP2 V') | 153 | 0.307 | 0.307 | **0.5817** | 0.235 | **[+0.130,+0.416] CI-sep** |
+| **FULL modern set** | 13422 | 0.8525 | 0.8554 | **0.8733** | 0.2977 | **[+0.0148,+0.0209] CI-sep** |
+| canonical (no-regress) | 12839 | 0.8811 | 0.8843 | 0.8841 | 0.3003 | −0.0002 (exact no-regress) |
 
-**The EXISTENTIAL cue is a clean brain-foundational win** — the expletive 'there' is not an argument, so the
-notional subject is the post-copular nominal (a PINNED fact of the construction). It lifts existentials
-0.186→0.6535 (+0.467) and the FULL who-did-what AGENT set 0.855→0.870 (+0.015 CI-sep) — the FIRST clear
-full-set margin over position — with EXACT zero canonical regress and the twin losing. This validates the
-mechanism drill's prediction at the build level: a decorrelated construction cue is exactly what recovers
-position's failures. The COORDINATION first-conjunct cue was TESTED and is a located NEUTRAL (n.s.; position is
-already ~0.56 on coordination and the first-conjunct rule doesn't reliably beat it) — reported, not deployed.
-This is the direct answer to "any other brain-foundational upgrades": YES — construction-specific decorrelated
-cues, existential now BUILT + measured, the general principle open for more (cleft, tough-movement).
+**Two decorrelated construction cues, both clean wins.** (1) EXISTENTIAL — the expletive 'there' is not an
+argument, so the notional subject is the post-copular nominal (0.186→0.6535, +0.467). (2) COORDINATION 'NP1 and
+NP2 V' — the subject HEAD is the first conjunct NP1 (position picks NP2); this was a WALL (the naive rule fired
+on CLAUSE coordination too — 'clan , and observers…', 'on the street and they…' — where position was already
+right 56%), RESEARCHED to mechanism and FIXED with three guards (coordinator immediately joins the two NPs; no
+', and'; NP1 not PP-governed): 0.307→0.5817 (+0.275). Together they lift the FULL who-did-what AGENT set
+**0.855→0.873 (+0.018 CI-sep)** — the first clear full-set margin over position — with EXACT zero canonical
+regress and the twin losing. This validates the mechanism drill at the build level: a cue DECORRELATED from
+position is exactly what recovers position's failures.
+
+**The other identified upgrades, RESEARCHED (honest scope):**
+- **CLEFT ('It was X who Yed') — NOT an agent-dimension opportunity** (verified, 18 cases): the syntactic nsubj
+  of the embedded verb is the RELATIVIZER ('who'), which the reader already gets right; the 'X = who' binding is
+  a COREF question, not an agent one. Correctly skipped.
+- **SALIENCE ACT-R prominence — ALREADY DEPLOYED, not a new build:** the brain-foundational salience computation
+  (ACT-R base-level activation + Centering grammatical prominence) is already the pronoun-pick mechanism in the
+  COREF dimension (+0.106). The standalone 'main character' arm is frequency-dominated only because its GOLD is
+  frequency (most-mentioned) — a measurement artifact, not an upgrade gap.
+- **CROSS-CONSUMER wiring (efficiency)** — the CM role assigner feeds BOTH who-did-what AND coref's entity-KB
+  hard-link (+0.084 measured, §4); ONE upstream wire serves two consumers. It is a strategy Q111 wire (§1 of the
+  landing doc), nothing left to build here.
+- **Board compute (efficiency)** — the assembly re-loads the POS tagger + re-parses per arm; a shared
+  tagger/parse cache would speed reruns (no science change). Noted as a landing-time refactor.
 
 ## 7. Adjacent components / next problems (seeds) — sharpened by this round's diagnostics
 1. **🔝 A REGISTER-GENERAL incremental parse for subject attachment** — the upstream chase (§6c) drilled the

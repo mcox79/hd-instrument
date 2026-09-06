@@ -95,6 +95,28 @@ PARSE that supplies subject-attachment as the one cue that is decorrelated from 
 only the voice cue is) — already filed as `the_agent_tie_wall_is_embedded_clauses_needs_a_register_general_
 incremental_parse_cue`. A cheap named sub-slice: an existential-'there' detector (part of the 78% bucket).
 
+## Wall E — the COORDINATION cue was NEUTRAL because CLAUSE-coordination looks like NP-coordination
+The construction upgrade added a 'NP1 and NP2 V -> agent = NP1' rule. Naive, it was a located NEUTRAL. Drill: it
+fired on 388 clauses and **position was already RIGHT on 216 (56%)** — because the naive rule cannot tell
+NP-coordination ('the IP **and** ICDC have…', agent = IP) from CLAUSE-coordination ('a clan , **and** some
+observers have…' / 'on the street **and** they have…', where 'and' joins two clauses and the preceding nominal is
+in the OTHER clause). Three guards fix it (all measured necessary): the coordinator must IMMEDIATELY join the two
+NPs (only NP-internal modifiers between); NO ', and' (a comma before 'and' = clause/list coordination); and NP1
+must NOT be PP-governed ('on the street' -> street is an object, not a subject conjunct). Guarded, the cue lifts
+genuine NP-coordination **0.307→0.5817 (+0.275 CI-sep)** with the false-positive clause-coordinations removed
+(n 380→153) and zero canonical regress. Same lesson as the v3 PP wall: a linear surface rule needs explicit
+constituent-boundary guards to stand in for the parse it lacks.
+
+## The construction-cue outcome (the upgrade the drill predicted, BUILT)
+Two DECORRELATED construction cues (existential + guarded NP-coordination) lift the FULL modern who-did-what AGENT
+set 0.855→0.873 (+0.018 CI-sep), zero canonical regress, twin loses — the first clear full-set margin over
+position, exactly as the "add a cue decorrelated from position" mechanism predicted. CLEFT was checked and is NOT
+an agent-dimension lever (the embedded nsubj is the relativizer, already correct — 'X = who' is coref). SALIENCE
+(ACT-R/Centering) is ALREADY the deployed pronoun-pick mechanism in the coref dimension; the standalone
+protagonist arm is frequency-dominated only because its gold IS frequency. So the glass-box AGENT frontier after
+this round is genuinely the register-general parser + Phase-1 (filed); the construction inventory has diminishing
+per-construction value beyond existential + coordination.
+
 ## Citations
 Bates & MacWhinney 1989 (Competition Model; word-order as the dominant English cue); MacWhinney 1987 (cue
 validity is environment-specific); McClelland 2013 (additive cue → posterior); Lewis & Vasishth 2005 (cue-based
