@@ -1,0 +1,64 @@
+---
+priority: 2
+slug: form_the_unified_discourse_referent_before_the_pronoun_pick_the_shared_entity_lever
+status: CANDIDATE
+review:
+review_text:
+---
+
+# PROBLEM: the reader tracks names, common nouns, and pronouns in SEPARATE passes, so coreference, the affect experiencer, and the entity-KB each independently re-derive "which entity is this?" -- build ONE unified discourse referent per entity (merged across all three mention types, updated incrementally as the passage is read) that every downstream consumer reads, so they SELECT AMONG unified referents instead of re-deriving them.
+
+**slug:** `form_the_unified_discourse_referent_before_the_pronoun_pick_the_shared_entity_lever` -- **opened:** 2026-09-06 by the strategy session (surfaced by the just-solved pronoun-pick problem, which named "entity unification" as "the shared lever ABOVE the pick" and measured a deployable +0.020 CI-sep on the pick from name-variant merging alone). **status:** CANDIDATE. Glass-box, NO external LLM at inference (THE invariant). Solver prototypes in `experiments/`; strategy lands the Q111 wire.
+
+> ## SOLVER OPERATING PROTOCOL (standing -- owner 2026-08-25/26)
+> **DO THE RIGHT THING, NOT THE CHEAP THING.** Iterate to the OPTIMAL brain-foundational solution; do NOT submit the first thing that clears. The OPENING MOVE is "how does the BRAIN actually do this?" -- name the structure/circuit + replicate the OPERATION. A located NEGATIVE is a PASS -- but only if the brain's actual mechanism, faithfully built, is what failed. Run a 30-min deepening cron; cancel + submit only when the brain-mechanism bar is met AND nothing more of value remains.
+
+> ## BRAIN-FOUNDATIONAL CHECKLIST (work through IN ORDER; not done until every box holds)
+> 1. **OPEN -- how does the BRAIN do THIS?** Name the structure + computation; PINNED vs OUR-INVENTION. RESEARCH where unsure.
+> 2. **REUSE -- does an existing organ already do it?** Check `tools/substrate_map.py` / `hdlab/` FIRST.
+> 3. **GENERALIZE -- how does the brain generalize it?** Build for that.
+> 4. **HIT A WALL? GO DEEPER.** A located NEGATIVE counts only if the brain's ACTUAL mechanism, faithfully built, failed.
+> 5. **OPTIMIZE BY EXACT REPLICATION.** Copy the computation, SWEEP the parameters.
+> 6. **PERFORMANCE vs THE BRAIN.** Where do we lose signal? The mechanism-diff.
+> 7. **ADJACENT COMPONENTS.** Map the neighbours -- seeds the next problems.
+> 8. **COMPLETION BAR.** COMPLETE + EXCELLENT + conveys the full benefit?
+
+## 1. THE PROBLEM IN PLAIN LANGUAGE
+When a story keeps referring to the same character in different ways -- by name ("Elizabeth"), by a description ("the young woman"), and by "she" -- a good reader knows all three point to ONE person, and files everything learned about her onto that one mental record. Our reader does not. It runs three separate bookkeeping passes and, in each, works out from scratch which character is meant. So the part that decides who "she" is, the part that tracks how a character feels, and the part that remembers facts about her all guess independently, and none of them shares one settled answer. Build the single shared record: one entity, updated as the story is read, that every part reads from.
+
+## 2. WHY THIS ONE -- the shared record ABOVE the pick
+The just-solved pronoun-pick problem left one lever explicitly on the table and named it "the shared lever ABOVE the pick": the reader keys entities by SURFACE HEAD STRING, so one character's name variants ("Elizabeth" / "Miss Bennet" / "Bennet") become several fragmented entities with salience and features split across them. Merely merging name variants (no gold, no LLM) already lifts the live pronoun pick **+0.020 CI[+0.008,+0.033]** and the oracle-unified ceiling is **+0.034**. That was only the NAME axis and only the PICK consumer. The full lever is a discourse referent unified across ALL THREE mention types (name + common-noun + pronoun) that the affect experiencer and the entity-KB read too -- and those two are exactly the consumers the pronoun-only pick could NOT lift, because 83.5% of their entities are common-noun-headed. One shared record, formed once, is the multiplier the separate passes throw away.
+
+## 3. HOW THE BRAIN DOES THIS (the opening move)
+PINNED -- Heim (1982) / Kamp DRT FILE-CHANGE semantics: comprehension maintains a FILE of discourse referents; each entity is a "file card" OPENED on first mention and UPDATED (never re-created) by every subsequent mention, whatever its surface form. A pronoun, a name, and a common-noun description all write to the SAME card once bound. PINNED -- Sanford & Garrod scenario-mapping / mental-models: entities are bound into a situation-specific scenario, which is why "the master" resolves to "the squire" WITHIN a scene. Working-memory bound (Cowan ~4) caps the active referent set. The mechanism to replicate: incrementally FORM and MERGE discourse referents across all mention types via a cue-integrated identity match that is GRADED and RECALL-SAFE (a mismatch penalizes, never hard-excludes), so the pick / affect / entity-KB SELECT AMONG unified referents instead of each re-deriving identity. REUSE, do NOT rebuild: `hdlab/coref.build_merge_map` (the incremental `EntityAliaser` -- name-variant merging, no gold, the proven +0.020 starting point) and `CorefReader` (the per-sentence `WorkingOverlay` reading loop); `hdlab/commonnoun_binder` (common-noun clustering, the common-noun axis); `hdlab/entity_world_model_resolver` (a downstream consumer + `reader_coref_from_entities`). The lever is UNIFYING the referent across mention types and re-keying the overlay entity to the canonical referent, NOT a new organ.
+
+## MEASURED vs INFERRED
+- **MEASURED (do NOT re-derive):** the live reader keys entities by surface head (`hdlab/state_of_mind.EntityState.head` + `WorkingOverlay.observe(head)`), so name variants fragment. Glass-box name-variant unification (`build_merge_map`, no gold) lifts the live pooled he/she pick 0.6019 -> 0.6220, **+0.020 CI[+0.008,+0.033] CI-sep** (n=7597 targets, scorer `resolved_cluster==gold_cluster`, LitBank -- 19c, informational only), shuffled-alias info-free twin 0.524 LOSES, named coref no-regress (0.617 -> 0.638); the oracle gold-cluster ceiling is +0.034. `build_merge_map` surface-head grouping baseline = 0.605. The pronoun-only pick did NOT lift affect (+0.0124 NOT_SEP) or the entity-KB (common-noun bound: 83.5% of experiencers are common-noun entities). The entity-KB common-noun clustering chain scored +0.0882 CI-sep on its OWN harness.
+- **INFERRED (you must measure, on MODERN gold):** whether ONE discourse referent unified across name + common-noun + pronoun mentions, updated incrementally (file-change), lifts AT LEAST TWO downstream consumers (the pronoun coref pick AND affect-experiencer OR entity-KB hard-link) CI-separated over the current separate-tracking reader, with a shuffled-identity-evidence info-free twin LOSING and no-regress on named coref. Whether unification across mention TYPES (not just name variants) is the lever, or name-variant merging already captures it. Which identity cue is load-bearing (surface head / gender / recency / scenario role) via ablation.
+
+## ALREADY TRIED / DO NOT REDO
+- **Name-variant merging is PROVEN, not a question:** `build_merge_map` gives +0.020 CI-sep on the pick alone. REUSE it as the starting point and EXTEND it to common-noun + pronoun mention types feeding multiple consumers -- do NOT re-derive the name-merge number.
+- **Do NOT re-solve the pronoun PICK.** The ACT-R recency-based pick (`graded_coref_pick`) is SOLVED and being wired live by strategy right now. This problem builds ABOVE it: unify the referents the pick then selects among. No live-code overlap.
+- **DISTINCT from the common-noun-coref located negative.** That was EPITHET resolution bound by external WORLD-KNOWLEDGE ("the master" = a specific named person needing facts the no-LLM invariant bars) -- a located negative, closed. THIS is STRUCTURAL file-change unification across mention types feeding the consumers; do NOT re-tread epithet-by-world-knowledge.
+- **Do NOT wire gender propagation or recall-safe agreement** onto the live path -- both are located negatives (regress) until a deployable unification exists (they may become candidates AFTER this, not within it). **Keep event-centrality OFF** (measured net-negative). The coherence next-mention prior (Kehler-Rohde) is owner-DONE dead x2 -- do NOT re-open.
+- Run `python tools/before_you_start.py "unified discourse referent across mention types"` and `python tools/experiment_index.py query "unification"` / `query "discourse referent"` anyway.
+
+## VERIFY BEFORE YOU START (the disk outranks this brief)
+- FIRST STEPS: (1) understand ALL the organs -- `python tools/substrate_map.py`, `python tools/reader_capabilities.py`; (2) read IN FULL `notes/problems/strengthen_the_cue_based_pronoun_coreference_resolver_the_shared_upstream_accuracy_cap/SOLVED.md` (it NAMES this as the shared lever above the pick, gives the +0.020 / +0.034 / 0.605 numbers, and the located negatives you must not re-tread). REUSE (do not rebuild): `hdlab/coref.py` (`build_merge_map`, `EntityAliaser`, `CorefReader`), `hdlab/graded_coref_pick.py`, `hdlab/commonnoun_binder.py`, `hdlab/entity_world_model_resolver.py`, `hdlab/event_centrality_coref.py`. Read the reader's entity path in `hdlab/situation_reader.py` and the surface-head keying in `hdlab/state_of_mind.py`.
+- Read `notes/BRAIN_FOUNDATIONAL_AUDIT.md` "COREFERENCE / ENTITY TRACKING" section (~line 2616) and the E3 coreference entries in the section-2b update log.
+- **Get MODERN coref+entity gold FIRST:** GUM (Georgetown University Multilayer -- modern, multi-genre, has coreference + entity annotation) OR modern OntoNotes. 19c LitBank is BANNED as a load-bearing gold (owner 2026-09-06); a 19c number is informational only. Reproduce the name-merge behaviour first-hand before extending it.
+
+## THE BAR (can-fail; CI-separated; the info-free twin must lose)
+PASS = a UNIFIED-referent representation (one discourse referent per entity, merged across name + common-noun + pronoun, updated incrementally file-change style) that lifts AT LEAST TWO downstream consumers -- the pronoun coref pick AND (affect-experiencer OR entity-KB hard-link) -- CI-separated over the current SEPARATE-TRACKING reader, measured on MODERN annotated gold (GUM or modern OntoNotes, NOT 19c LitBank), with an info-free twin (shuffled identity evidence, same machinery + shape) LOSING and NO-regress on named coref. Report CI half-width + null p95; recompute each floor on the item's OWN population. A rigorous located NEGATIVE -- the faithful file-change unification, built, does NOT lift the downstream consumers, with the cause NAMED and measured -- is a FULL PASS.
+
+## COORDINATION (does NOT conflict with the in-flight pick wire)
+Strategy is wiring the graded ACT-R pronoun pick into `_read_entities` RIGHT NOW (Q111, from the prior SOLVED). This problem is a DIFFERENT sub-path: it forms the unified referents that the pick SELECTS AMONG, and re-keys the overlay entity so salience/features accumulate on ONE record. Prototype in `experiments/`; strategy lands the Q111 wire for both. No live-code overlap with the pick itself -- do not modify the pick.
+
+## FILES AND ENTRY POINTS
+Prototype + measure in `experiments/` + `verification/` ONLY (solver never writes `hdlab/` -- Q111). REUSE: `hdlab/coref.py` (`build_merge_map`, `EntityAliaser`, `CorefReader`), `hdlab/commonnoun_binder.py`, `hdlab/entity_world_model_resolver.py`, `hdlab/graded_coref_pick.py`, `hdlab/event_centrality_coref.py`. The eventual wire (strategy lands it) is the surface-head keying in `hdlab/state_of_mind.py` (`EntityState.head` / `WorkingOverlay.observe`) + the entity path in `hdlab/situation_reader.py::_read_entities`, so the overlay entity is keyed by the canonical unified referent. State the exact proposed `hdlab/` change in `SOLVED.md`; fold an `AUDIT UPDATE` into `BRAIN_FOUNDATIONAL_AUDIT.md` section 2b (E3 coreference / entity tracking).
+
+## DO NOT QUOTE
+- Do NOT quote a unification gain without the shuffled-identity info-free twin LOSING + named coref no-regress, on MODERN gold.
+- Do NOT quote any downstream (pick / affect / entity-KB) payoff without measuring it on its OWN right instrument and population.
+- Do NOT re-quote the +0.020 / +0.034 / 0.605 numbers as this problem's result -- they are the PRIOR pick-only name-merge result and the 19c-LitBank baseline (informational); this problem's headline must be TWO consumers lifted on MODERN gold.
+- NO external LLM at inference (THE invariant); the identity match is glass-box (surface + gender + recency + scenario cues + the landed aliaser).

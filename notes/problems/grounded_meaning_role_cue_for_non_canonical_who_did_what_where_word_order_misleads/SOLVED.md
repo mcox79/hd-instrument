@@ -275,6 +275,14 @@ genuine passive sentences — lifted the reader on the hardest sentences from **
 sentences untouched and a scrambled-control version failing. So: the brief's meaning-based fix is a dead end
 (for a well-understood reason), and the real, more brain-faithful fix is the grammar cue "by marks the doer."
 
+**Is it as good as the brain?** On the sentences it is *for* (real "by" sentences), yes — nearly: it gets ~78%
+where even a good grammar-reader gets only ~87% on this messy data (my earlier "69 vs 99" overstated the gap; 99%
+is clean-textbook data). The reason the *overall* number isn't near-perfect is that most remaining hard sentences
+are not "by" sentences at all — they need a stronger **grammar-reader** (to untangle sentence structure), and a
+few need the reader to **remember who was mentioned earlier** (coref). Those are two *other* parts of the brain,
+each a separate job. My fix is the complete, correct piece for its part; the biggest remaining move is rebuilding
+the grammar-reader.
+
 ## QUESTIONS
 
 None. One judgement call flagged: I graded this SOLVED because the underlying non-canonical who-did-what problem
@@ -284,24 +292,31 @@ name the refutation, PARTIAL-with-redirect is defensible — but a real fix ship
 
 ## NEXT STEPS (for the strategy session; I do not file problems — Q113)
 
-1. **Land the byhead case-morphology cue** (proposed diff above). The END-TO-END SITQA/LitBank board validation
-   is DONE (n=1830, no material regress, gate fires 4/1830) — it is safe to flip on; keep the QA-SRL
-   role-balanced corpus as the by-agent regression witness (the board's gold has ~no by-agent questions).
-2. **Evaluate the participle+by-PP detector as a shared voice cue** — re-measure the PATIENT route before
-   adopting it there (downstream-consumer check).
-3. A **graded** voice-confidence weight was TESTED and is slightly worse (−0.056 CI-sep) — do NOT pursue it;
-   the boolean participle+by-PP gate + the softmax is the settled form. A worthwhile MINOR refinement: the
-   by-NP HEAD selection on long/repeated-noun by-phrases (the 9/61 by-marked residual errors are long by-NPs
-   like "by the poles of the permanent magnets" and repeated-noun clauses).
-4. Do NOT invest in a grounded role-fit vector — located negative here and in the fit-gate line; the noun-side
-   signal is near a modest ceiling and structure+animacy already captures it.
-5. The AGENTLESS-passive majority (~80% of real passives, no clause-internal agent) is a DISCOURSE/COREF
-   problem, not a role-cue one — route who-did-what on those to the coref/entity organs, not here.
-6. **THE BIG LEVER to reach the BRAIN'S level — the incremental cue-integrated PARSER.** The organ-localization
-   (§WHERE THE GAP LIVES) shows the role cue is near its ceiling on by-marked cases; the remaining who-did-what
-   gap to the brain is the substrate's WEAK front-end parser (the 70.7% structural bulk + the by-marked
-   0.784→0.874 residual). The brain-faithful target is the incremental, predictive, cue-integrated
-   structure-builder (Lewis-Vasishth/MacDonald/Levy — order+morphology+animacy+fit competing DURING attachment,
-   not a downstream patch). This is the already-filed problem `distributed_contextual_representations_into_the_parser`;
-   it is the true path to brain-level who-did-what, and this problem's role cue is the correct, complete piece
-   that sits ON TOP of it. Recommend prioritizing that parser as the dominant remaining lever.
+**THE TWO MOVES THAT MATTER, in priority order:**
+
+**① NOW — land the byhead case cue (cheap, safe, done-validating).** Proposed diff above (§PROPOSED hdlab CHANGE).
+Measured: clean non-canonical AGENT 0.2556→0.6889 (+0.4333 CI-sep), twin-controlled, no canonical regress; the
+END-TO-END live-board validation is DONE (LitBank n=1830, no material regress, gate fires 4/1830 → safe to flip
+on). Keep the QA-SRL role-balanced corpus as the by-agent regression witness (the board's gold has ~no by-agent
+questions). This is a finished, self-contained win — flip it on.
+
+**② THE BIG LEVER — build the brain's incremental, cue-integrated PARSER. This is the dominant remaining move to
+reach brain-level who-did-what.** The organ-localization (§WHERE THE GAP TO THE BRAIN LIVES) proves the role cue is
+already NEAR its ceiling on by-marked cases (0.784 vs a good parser's 0.874); the rest of the gap is the
+substrate's WEAK front-end parser — the 70.7% structural (non-by) bulk AND the by-marked 0.784→0.874 residual are
+both parse-quality, not role-cue. The brain-faithful target is the incremental, predictive, cue-integrated
+structure-builder (Lewis-Vasishth / MacDonald / Levy — word order + voice morphology + animacy + fit competing
+DURING attachment, not a downstream patch). This is the already-filed problem
+`distributed_contextual_representations_into_the_parser…`; **recommend prioritizing it as the single highest-value
+remaining lever for who-did-what.** This problem's role cue is the correct, complete piece that sits ON TOP of it.
+
+**③ SMALLER / SUPPORTING (do after ①, alongside ②):**
+- Evaluate the participle+by-PP detector as a shared voice cue — but re-measure the PATIENT route first
+  (changing the shared voice detector is a downstream-consumer change).
+- The tiny AGENTLESS tail (agent recovered from context, ~1–2% here) is a COREF/discourse job — route it to the
+  coref/entity organs, not here. A second, smaller lever after the parser.
+- Minor byhead refinement: by-NP HEAD selection on long/repeated-noun by-phrases (the 9/61 residual errors).
+
+**DO NOT:** pursue a graded voice-confidence weight (TESTED, −0.056 CI-sep — worse); add a grounded selectional-fit
+cue to the role competition (located negative here + in the fit-gate line — it does not beat the animacy cue
+already present); couple `meaning_foundation` whitening to this problem (its payoff is the WSD channel, not role).
