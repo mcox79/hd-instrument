@@ -5,8 +5,8 @@ bar: "A glass-box polarity + quantity OPERATOR over the extracted proposition ..
 result: "NEGATION reader-native (UD-EWT sm.events, n=131): net factuality 0.9313 vs polarity-blind 0.5038 (+0.4275 CI[0.3435,0.5115]); negated-recall 0.8769 vs blind 0.0000; over-negation 0.0000 clean / 0.0152 all -- BEATS the prior negation_factuality_gate MIDDLE_BAND (0.0303). NEGATION well-powered (MoNLI NMoNLI n=1202): operator 0.9965 vs blind 0.0035 (+0.9929 CI[0.9876,0.9973]); PMoNLI op==blind 1.0 (no positive regression); detection 1.0. QUANTIFIER reader-native (n=585, 210 passages, verb-extraction 1.0): 1.0000 vs quantity-blind 0.5385 (+0.4615 CI[0.4205,0.5026]); specific-exception 1.0 vs blind 0.0. QUANTIFIER well-powered (MED downward-monotone n=563): 0.8259 vs monotone-blind 0.1741 (+0.6519 CI[0.5879,0.7123])."
 floor: "POLARITY/QUANTITY-BLIND floor (every extracted proposition stored positive+singular), recomputed per population: MoNLI-NMoNLI 0.0035 (inverts), EWT 0.5038, reader-native quantifier 0.5385, MED-downward 0.1741. Second floor: majority (MoNLI 0.5). All lose CI-separated on the negated/quantified subset."
 controls: "(1) polarity/quantity-blind floor -- LOSES CI-sep on every negated/quantified population, and INVERTS on the monotonicity golds (MoNLI 0.0035, MED-down 0.1741) = the positive control (polarity-respecting answer OPPOSITE the blind one). (2) info-free shuffled-token twin (permute negation cues / determiners across items, matched shapes) -- LOSES CI-sep, beats null p95 on all four. (3) ADDITIVE isolation -- operator applied to sm.events leaves predicate/agent/patient/tense/pred_idx BYTE-IDENTICAL (no downstream regress). (4) ablation direct-only vs full scope -- the coordination/implicative/inversion machinery adds +0.053 net on EWT and drives over-negation 0.0303->0.0000."
-files_changed: "experiments/_polarity_operator.py, experiments/fetch_negation_quantifier_gold_v1.py, experiments/exp_polarity_operator_monli_v1.py, experiments/exp_polarity_operator_ewt_v1.py, experiments/exp_quantifier_operator_v1.py, experiments/exp_quantifier_operator_med_v1.py, verification/test_polarity_operator_core.py, verification/test_polarity_operator_monli.py, verification/test_polarity_operator_ewt.py, verification/test_quantifier_operator.py, data/corpora/{monli,med}/ (fetched, gitignored), notes/problems/represent_negation_and_quantifier_scope_for_truth_conditional_reading_modern_gold/SOLVED.md"
-reverify: ".venv/Scripts/python.exe verification/test_polarity_operator_ewt.py && .venv/Scripts/python.exe verification/test_quantifier_operator.py"
+files_changed: "experiments/_polarity_operator.py (operator core + parse-aware resolver + unified state_match query), experiments/fetch_negation_quantifier_gold_v1.py, experiments/exp_polarity_operator_monli_v1.py, experiments/exp_polarity_operator_ewt_v1.py, experiments/exp_quantifier_operator_v1.py, experiments/exp_quantifier_operator_med_v1.py, experiments/exp_polarity_wired_reader_v1.py (P1 landing prototype), experiments/exp_negation_scanner_consolidation_v1.py (P4), experiments/exp_polarity_operator_parsed_ewt_v1.py (parse-aware wall research), experiments/exp_coordination_parallelism_parser_repair_v1.py (brain-foundational parser fix), verification/test_polarity_operator_{core,monli,ewt,parsed,upgrades}.py, verification/test_quantifier_operator.py, verification/test_coordination_parallelism_parser_repair.py (7 witnesses / 23 checks), data/corpora/{monli,med}/ (fetched, gitignored), notes/problems/represent_negation_and_quantifier_scope_for_truth_conditional_reading_modern_gold/SOLVED.md"
+reverify: ".venv/Scripts/python.exe verification/test_polarity_operator_ewt.py && .venv/Scripts/python.exe verification/test_quantifier_operator.py && .venv/Scripts/python.exe verification/test_polarity_operator_upgrades.py"
 ---
 
 # Represent negation + quantifier scope for truth-conditional reading — SOLVED
@@ -69,7 +69,29 @@ PMoNLI (positive, n=1476): operator == blind == 1.0 — **zero regression on pos
 fires where polarity/quantity bites). Witnesses: `verification/test_polarity_operator_{core,monli,ewt}.py` +
 `test_quantifier_operator.py` = **14/14 checks**. Heavy runs stayed local (short sentences, <90 s each).
 
-## The wall, fully researched (owner: research every wall)
+## Implemented upgrades (all the identified efficiencies + the upstream component, prototyped)
+
+- **P1 -- the Q111 landing prototype + downstream consumer** (`exp_polarity_wired_reader_v1.py`): a
+  `WiredPolarityReader` that attaches the `polarity`/`quantity` field ADDITIVELY (default-off byte-identical to
+  the stock reader; core event fields unchanged) plus the downstream factuality-QA that reads it -- end-to-end,
+  polarity-aware QA **1.00 vs polarity-blind 0.40**, glass-box provenance on every field. This is the exact
+  additive shape the strategy session lands in hdlab.
+- **P2 -- unified truth-conditional query** (`proposition_answer`): event-proposition polarity now answers
+  through the SAME `hdlab.state_register.state_match` primitive as copular-state queries ("did she take the
+  key?" and "is she ill?" share one representation) -- the consolidation the audit called for, brain-faithful.
+- **P4 -- scanner consolidation** (`exp_negation_scanner_consolidation_v1.py`): the operator MATCHES the owned
+  hdlab scanners on direct cases (3-way agreement 1.00) and STRICTLY subsumes them on extended cases (operator
+  1.00 vs goal_typing 0.20 vs def_pred 0.60) -- the >=5 scattered scanners can be retired under one operator.
+- **UPSTREAM (all-the-way-up) -- the parse-aware structural resolver + a brain-foundational FIXED PARSER.**
+  The brain resolves scope structurally over the dependency tree; the reader's arc-eager parse (UAS ~0.79)
+  injects attachment errors. Built `event_polarity_parsed` (advmod-negation + conj-coordination + xcomp/ccomp
+  implicative gate + det-'no' object negation) and a glass-box parse-repair (`exp_coordination_parallelism_
+  parser_repair_v1.py`) using **STORED lexical knowledge, NO training** -- WordNet lexical category, Frazier
+  coordination parallelism, do-support predicate expectation, and verb ARGUMENT STRUCTURE (subcategorization).
+  It recovers negation recall to the surface level (0.8333 -> 0.8788) and lifts the structural resolver net
+  0.8864 -> 0.9242 (near the surface 0.9318), over-negation clean 0.0000.
+
+## The wall, fully researched (owner: research every wall; the brain does it WITHOUT training)
 
 The prior `negation_factuality_gate` reached MIDDLE_BAND because it PROPAGATED negation through a learned
 arc-labeler's `conj` edges, which mislabels complement clauses → over-negation 0.0303. I built ACROSS it two
@@ -117,6 +139,13 @@ the headline (they clear the bar) and name the noise items rather than quietly e
 5. **The gold embodied the bug.** The EWT gold's auto-propagation over-negates across "but"; a brain-faithful
    operator is measurably more correct than its own evaluation gold on ~6 items — a reminder that the disk can
    be wrong and to drill misses to mechanism before accepting them.
+6. **The parser residual is closed by KNOWLEDGE, not training.** The structural resolver's failures are parse
+   attachment errors — but the brain never trains a parser mid-comprehension. It resolves attachment by
+   constraint satisfaction over STORED lexical knowledge: word category, verb ARGUMENT STRUCTURE
+   (subcategorization: "not hesitate to use or refer" → refer is hesitate's complement, so it HAPPENS), and
+   plausibility. Consulting the verb's argument structure corrected a parse attachment-LEVEL error (refer
+   mis-attached as a coordinate of hesitate) with zero training and lifted the resolver 0.8864 → 0.9242. The
+   "fix the parser" answer is "give the parser more of the lexicon it retrieves from", never "train it".
 
 ## AUDIT UPDATE (`notes/BRAIN_FOUNDATIONAL_AUDIT.md` — event-stream / state-register entries)
 
@@ -137,9 +166,15 @@ the headline (they clear the bar) and name the noise items rather than quietly e
 - **`state_register` (copular polarity) — REVISIT to REUSE this operator.** It carries polarity only for copular
   states; the event stream now has the same primitive. Unifying them under one polarity representation is the
   brain-faithful move (one truth-conditional layer over copular AND event propositions).
-- **The parser / arc-labeler (upstream of upstream) — the residual lever.** The 2 genuinely-hard EWT misses and
-  MED's uncovered conjunction/conditional cases need a labelled parse (conj vs relcl vs ccomp). This is the SAME
-  parse-quality lever the precision-weighting audit entry already tracks — a candidate follow-on, not a bolt-on.
+- **The parser (upstream of upstream) — the residual lever, closed the BRAIN'S way (no training).** The
+  structural resolver's residual is parser ATTACHMENT error, dominated by POS mistags. The brain does not train a
+  parser to fix this — it resolves attachment by CONSTRAINT SATISFACTION over STORED lexical knowledge (word
+  category, verb argument structure / subcategorization, plausibility), retrieved incrementally (MacDonald /
+  Trueswell / Tanenhaus constraint-based parsing; Lewis-Vasishth). Demonstrated: adding lexical-category +
+  coordination-parallelism + subcategorization constraints (all glass-box, retrieved, NEVER trained) lifted the
+  structural resolver 0.8864 → 0.9242. The remaining residual is MORE lexical knowledge to encode (subcat frames,
+  reduced-relative structure, thematic plausibility) — a FOUNDATION build, not a training run, and it enriches the
+  parse for EVERY consumer (who-did-what, coref), not just negation.
 - **The QA capstone + coref + goal/causal registers** consume these propositions polarity-blind today; they are
   the DOWNSTREAM that will answer negated/quantified questions correctly once the field is wired (no regress —
   the field is additive; extraction byte-identical).
@@ -188,8 +223,9 @@ load-bearing numbers and the constructed set as illustrative.
   questions off it — the downstream that makes the gain board-visible.
 - **P2 (this operator, next build):** unify `state_register` copular polarity and event polarity under one
   representation (revisit the adjacent component to REUSE this operator) — one truth-conditional layer.
-- **P3 (upstream lever):** the 2 hard EWT misses + MED's uncovered conjunction/conditional cases need a labelled
-  parse (conj vs relcl vs ccomp) — the same parse-quality lever the precision-weighting entry tracks; a candidate
+- **P3 (upstream lever, PROTOTYPED):** the parse-aware resolver + brain-foundational parser fix are built; the
+  residual is closed by encoding MORE STORED lexical knowledge (subcategorization frames, reduced-relative
+  structure, thematic plausibility) applied by constraint satisfaction — a FOUNDATION build, NO training; a candidate
   follow-on problem, itemized with counts.
 - **P4 (adjacent):** consolidate the ≥5 scattered clause-local negation scanners in hdlab under this operator
   (fragmentation named in the AUDIT UPDATE) — removes duplicated, divergent negation logic.

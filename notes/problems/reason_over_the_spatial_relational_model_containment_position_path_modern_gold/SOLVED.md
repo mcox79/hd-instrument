@@ -2,7 +2,7 @@
 problem: reason_over_the_spatial_relational_model_containment_position_path_modern_gold
 status: SOLVED
 bar: "PASSES only with ALL of: (1) a glass-box RELATIONAL SPATIAL MODEL + reasoner (over sm.locations + the named-ground events; REUSE the LocationRegister + its region-containment primitive, EXTEND to a small updatable relational graph) answering THREE inference types no single location fact settles: (a) CONTAINMENT (multi-step/transitive), (b) RELATIVE POSITION (composed over the spatial framework), (c) PATH/TRANSFER (post-move location AND the vacate-Source 'no longer' inference); NO learned QA model, NO external LLM. (2) Answers CI-separated over BOTH controls on MODERN non-synthetic gold: (a) a most-recent/last-mention floor recomputed on the same population which MUST LOSE on the multi-fact items; (b) the info-free SHUFFLED-RELATION twin LOSES CI-separated on ALL THREE. (3) Isolates the REASONING from extraction (ablate to a single-fact readout). (4) One-screen summary. A rigorous NEGATIVE is a FULL PASS."
-result: "Balanced yes/no, exact-match accuracy, paired bootstrap CI (half-width + null p95). ALL THREE inference types clear the bar CI-separated over BOTH controls on MODERN non-synthetic gold, with reasoning ISOLATED from extraction (gold relations supplied): CONTAINMENT (SpaceEval/ISO-Space gold, train n=1304): reasoner 1.000 vs last-mention 0.940, margin +0.060 CI[+0.047,+0.073], null p95 0.014; multi-fact subset (n=155) 1.000 vs 0.497 (last-mention at chance); shuffled-twin 0.508; two-level is_in_region ablation 0.896. RELATIVE POSITION (SpartQA-HUMAN gold SPRL, test n=1300): reasoner 1.000 vs last-mention 0.734, margin +0.266 CI[+0.242,+0.289]; multi-fact subset (n=828) 1.000 vs 0.582; shuffled-twin 0.143 (collapses). PATH/TRANSFER (SpaceEval gold MOVELINK, train n=32): reasoner 1.000 vs last-mention 0.500, margin +0.500 CI[+0.344,+0.656]; shuffled-twin 0.469; vacate-Source works. LOCATED NEGATIVE (end-to-end over the reader's OWN extraction, named with counts): the reader's parse+extractor recovers 22% of gold containment edges / 6% position / 2% moves on SpaceEval real prose (up from 13% after a net-positive brain-foundational extraction upgrade -- part-whole 'X of Y' + locative-verb constructions -- with NO end-to-end regression), and MULTI-HOP CONTAINMENT CHAIN SURVIVAL is 6/90 (6.7%, up from 1/90), so end-to-end >1-fact reasoning is still extraction-gated (the info-free twin still LOSES CI-separated, so the extracted relations are load-bearing; coverage, not the reasoner, is the cap)."
+result: "Balanced yes/no, exact-match accuracy, paired bootstrap CI (half-width + null p95). ALL THREE inference types clear the bar CI-separated over BOTH controls on MODERN non-synthetic gold, with reasoning ISOLATED from extraction (gold relations supplied): CONTAINMENT (SpaceEval/ISO-Space gold, train n=1304): reasoner 1.000 vs last-mention 0.940, margin +0.060 CI[+0.047,+0.073], null p95 0.014; multi-fact subset (n=155) 1.000 vs 0.497 (last-mention at chance); shuffled-twin 0.508; two-level is_in_region ablation 0.896. RELATIVE POSITION (SpartQA-HUMAN gold SPRL, test n=1300): reasoner 1.000 vs last-mention 0.734, margin +0.266 CI[+0.242,+0.289]; multi-fact subset (n=828) 1.000 vs 0.582; shuffled-twin 0.143 (collapses). PATH/TRANSFER (SpaceEval gold MOVELINK, train n=32): reasoner 1.000 vs last-mention 0.500, margin +0.500 CI[+0.344,+0.656]; shuffled-twin 0.469; vacate-Source works. END-TO-END over the reader's OWN extraction: RELATIVE POSITION now clears the bar end-to-end too -- SpartQA-HUMAN reasoner 0.276 vs last-mention 0.213 (margin +0.063 CI[+0.024,+0.110], sep) vs twin 0.095, coverage 0.339 (after implemented upgrades: part-whole + locative constructions, a canon_entity block-label fix, nested-frame inheritance). LOCATED NEGATIVE (named with counts): SpaceEval containment/path end-to-end is extraction-gated -- recall 22% containment / 6% position / 2% moves (up from 13% after the extraction upgrade), MULTI-HOP CONTAINMENT CHAIN SURVIVAL 6/90 (up from 1/90); and ReSQ (implicit real-world captions) stays at coverage 0.036 (83% entity-unresolved + ~17% commonsense). The info-free twin LOSES CI-separated throughout (extracted relations are load-bearing; coverage, not the reasoner, is the cap)."
 floor: "Most-recent/last-mention (strongest stateless), recomputed per population, per type: containment 0.940 (train) / 0.916 (trial); relative-position 0.734 (test) / 0.707 (train); path/transfer 0.500 (train). Each LOSES CI-separated to the reasoner, and each is at/near chance on its multi-fact subset (containment 0.497, position 0.582, path 0.500)."
 controls: "(1) SHUFFLED-RELATION twin (edges permuted, node set + counts kept) LOSES CI-separated on all three types (containment 0.508, position 0.143, path 0.469 vs reasoner 1.000) -- the relation CONTENT is load-bearing. (2) SINGLE-FACT readout ablation (depth-1 reasoner) == the last-mention floor (composition is the lift). (3) IS_IN_REGION ablation (the LocationRegister's two-level INDOORS/OUTDOORS containment) scores 0.896 on containment -- it cannot answer arbitrary nested containment. (4) GOLD-vs-EXTRACTED (isolates reasoning from extraction): the reasoner is near-perfect on gold relations and coverage-limited end-to-end -> the wall is extraction recall, not the reasoning. (5) POSITIVE control: a >=2-fact item vs a matched single-fact item (single-fact subset reasoner==last-mention==1.000)."
 files_changed: "experiments/fetch_spatial_relational_gold.py, experiments/spatial_relational_model.py, experiments/spatial_gold_loaders.py, experiments/spatial_relation_extractor.py, experiments/exp_spatial_reasoner_gold_relations_v1.py, experiments/exp_spatial_position_gold_v1.py, experiments/exp_spatial_position_qa_v1.py, experiments/exp_spatial_extraction_recall_v1.py, verification/test_spatial_relational_reasoning.py, notes/problems/reason_over_the_spatial_relational_model_containment_position_path_modern_gold/SOLVED.md (NO hdlab/ written -- Q111)"
@@ -67,11 +67,14 @@ train): the parse+extractor recovers **containment 0.223 (140/628), position 0.0
 **multi-hop containment CHAIN survival is 6/90 = 0.067** (trial 0/33). So end-to-end >1-fact reasoning is still
 severely limited on that prose -- not because the reasoner fails, but because the chains rarely survive extraction.
 (These are AFTER the extraction upgrade in Sec 4b; before it, recall was 0.129 and chain survival 1/90.) On
-SpartQA-HUMAN end-to-end QA (`exp_spatial_position_qa_v1`, n=127) the info-free twin still LOSES CI-separated
-(reasoner 0.158 vs twin 0.071, margin-vs-twin CI[+0.024,+0.150]) -- so the extracted relations ARE load-bearing --
-but the reasoner does NOT beat last-mention CI-separated end-to-end (coverage 0.213; margin CI touches 0). On ReSQ
-(real-world captions, n=610) 83% of items are entity-unresolved: the captions state relations implicitly and ~17% are
-explicitly commonsense (not derivable from stated relations).
+SpartQA-HUMAN end-to-end QA (`exp_spatial_position_qa_v1`, n=127), AFTER the upgrades in Sec 4b, the reasoner now
+beats BOTH controls CI-separated over the reader's OWN extraction: reasoner **0.276** vs last-mention **0.213**
+(margin +0.063 CI[+0.024,+0.110], sep) vs twin **0.095** (margin-vs-twin CI[+0.110,+0.260], sep), coverage 0.339;
+the multi-fact subset (n=82) also separates (0.329 vs 0.232). So the composition win HOLDS end-to-end for relative
+position, not only on gold relations -- it is still coverage-limited (66% abstain), but no longer un-separated. On
+ReSQ (real-world captions, n=610) coverage stays 0.036 and the margin is 0: 83% of items are entity-unresolved --
+the captions state relations implicitly and ~17% are explicitly commonsense (not derivable from stated relations).
+ReSQ, not SpartQA, is now the standing located negative for end-to-end.
 
 **Diagnosis of the SpartQA end-to-end losses (fully-stated scenes, so UNK = a fixable extraction gap, not missing
 info):** REL_UNDETERMINED 45% (mostly missing-edge composition gaps + wrong resolution), ENTITY_UNRESOLVED 20%,
@@ -87,29 +90,51 @@ text -- a ~27-point collapse -- and MOVELINK (source/goal binding) is the hardes
 reasoning-sound / extraction-weak split I measured. SpartQA/SpaRTUN report the same human-vs-machine gap localized to
 relation-representation construction, not compositional inference.
 
-## 4b. Extraction upgrade IMPLEMENTED (the phase-diagram knob, moved and measured -- net-positive, no regression)
-Decomposing WHY gold containment edges are missed (per missed edge, on SpaceEval train): 40% NEITHER endpoint
-extracted, 34% ONE endpoint, 13% recovered, **10% BOTH endpoints extracted but not linked** (attachment/pattern),
-3% endpoint-not-in-text. So the loss is dominated by ENTITY RECOGNITION + CONSTRUCTION COVERAGE (74%), NOT
-PP-attachment (10%) -- and a large share of the 74% is proper-noun place names, part-whole ("heart of Shitamachi"),
-and event/inferential gold ("stay in home"). I added two brain-foundational constructions to the extractor:
-**part-whole "X of Y"** (region-nesting, place-gated so it never fires on "number of people") and **locative
-predication** ("X is located/situated/lies in Y", the Basic Locative Construction). Measured effect: SpaceEval
-containment recall **0.129 -> 0.223** and multi-hop chain survival **1/90 -> 6/90**, with the end-to-end position QA
-UNCHANGED on SpartQA/ReSQ (those grid/caption scenes use explicit "X is above Y", not part-whole/locative-verb -- so
-the upgrade is neutral there, not a regression; the info-free twin stays collapsed). This proves the wall is MOVABLE
-and quantifies the lever; the remaining recall gap is proper-noun/multiword place recognition + event-participant
-location grounding + inferential gold, i.e. the extraction organ (below), not the reasoner.
+## 4b. UPGRADES IMPLEMENTED (each brain-foundational, measured, kept only if net-positive; walls researched)
+Decomposing WHY gold containment edges are missed (per missed edge, SpaceEval train): 40% NEITHER endpoint
+extracted, 34% ONE, 13% recovered, **10% BOTH extracted but not linked** (attachment), 3% endpoint-not-in-text --
+so the loss is ENTITY RECOGNITION + CONSTRUCTION COVERAGE (74%), NOT PP-attachment (10%). Acting on that:
+- **Extraction constructions (KEPT, net-positive):** part-whole "X of Y" (region-nesting, place-gated so it never
+  fires on "number of people") + locative predication "X is located/situated/lies in Y". SpaceEval containment
+  recall **0.129 -> 0.223**, chain survival **1/90 -> 6/90**; neutral (no regression) on SpartQA/ReSQ.
+- **`canon_entity` bug FIX (KEPT, unlocked the end-to-end win):** a standalone block label "A" was being
+  article-stripped to the empty node (only strip a leading determiner when a content word follows), silently
+  dropping ~half of SpartQA's block containments. Fixing it raised SpartQA end-to-end coverage 0.213 -> 0.339 and
+  the reasoner-vs-last-mention margin from un-separated to **CI-SEPARATED (+0.063 [+0.024,+0.110])**. Found by
+  drilling a failing witness -- researching a wall surfaced a latent capping bug.
+- **Reasoner completeness (KEPT, brain-foundational, witnessed W9):** principled ABSTENTION (`relative_status` ->
+  yes/no/indeterminate/unknown -- distinguishes a genuinely under-specified scene, the brain-correct "can't tell",
+  from a missing entity; Byrne & Johnson-Laird); CONSISTENCY detection (`is_consistent` flags impossible layouts --
+  containment/axis cycles -- doubling as an extraction-error signal); QUANTIFIER capability (`all_rel`/`exists_rel`,
+  Ragni & Knauff).
+- **Efficiency (KEPT):** memoized containment reachability (`_reachable_contain`, per-depth, cleared on edit) --
+  O(1) repeat queries; determinism preserved (witness byte-identical across two processes after also making entity
+  resolution iterate a SORTED set -- Python set order is PYTHONHASHSEED-randomized, which had made the reverify
+  drift across processes).
+- **Nested-frame position inheritance (KEPT, earlier):** object-in-L + L-left-R + object-in-R => object left-of
+  object (SpartQA transitivity is cross-block; a "go deeper" fix, not a patch).
+
+Two upgrades RESEARCHED and REVERTED (walls understood, not ceilings):
+- **Event-participant location grounding:** NEUTRAL on every metric -- redundant with the "in" scan, and SpaceEval
+  gold uses EVENT trajectors ("stay in home" -> gold (stay,home)) so an object-subject edge (family,home) can't be
+  credited. Finding: the recall metric UNDERCOUNTS reasoner-relevant extraction, so true recall exceeds 0.22.
+- **Quantifier/existential in the SCORED end-to-end:** raised raw accuracy/coverage but ELIMINATED the
+  composition margin (the single-fact floor answers quantifier Qs equally -- no multi-hop needed) AND raised the
+  twin (an existential is easily satisfied on shuffled relations). It measures a DIFFERENT competence (set
+  aggregation), so it corrupts the composition metric this problem targets -- kept as a model capability, not scored.
 
 ## 5. Why this clears the bar (and where I deflate)
 Bar (1) three-type glass-box reasoner: MET. (2) CI-separated over BOTH controls on modern non-synthetic gold, floor
 loses on multi-fact, twin loses on all three: MET on the gold-relation condition for all three types. (3) isolate
 reasoning from extraction: MET (gold-vs-extracted + single-fact + is_in_region ablations). (4) one-screen summary:
 Sec 3. And a rigorous located NEGATIVE (the extraction wall, named with counts) -- which the bar calls a FULL PASS --
-is ALSO delivered. **Deflation:** the CI-separated wins supply the relations (gold); end-to-end over the reader's own
-noisy extraction is coverage-limited (the located negative). I would WITHDRAW FIRST any claim that the reader reasons
-over real narrative prose end-to-end today -- it cannot, until the extraction organ improves; what is proven is that
-the REASONER is the correct, brain-faithful mechanism and that extraction is the sole remaining lever.
+is ALSO delivered. **Deflation:** the containment + path CI-separated wins supply the relations (gold); the
+relative-position win holds BOTH on gold AND end-to-end over the reader's own extraction (SpartQA, coverage 0.339).
+The remaining located negative is (a) SpaceEval containment/path END-TO-END (extraction recall 0.22, chain survival
+6/90) and (b) ReSQ (implicit + commonsense). I would WITHDRAW FIRST any claim that the reader reasons over arbitrary
+real prose end-to-end -- it is coverage-limited on terse/implicit text; what is proven is that the REASONER is the
+correct, brain-faithful mechanism, it holds end-to-end where extraction is adequate, and extraction is the sole
+remaining lever elsewhere.
 
 ## 6. Isolation vs capability -- the honest line (the trap this project keeps hitting)
 A gold-relation win is, by itself, a construction proof. It becomes a capability claim only in the exact scope proven:
@@ -146,6 +171,13 @@ side by side; neither number crosses into the other's territory.
 - **"Sparse" here was in my EXTRACTION, not the data.** SpartQA scenes state every relation; the sparsity was my
   lossy extractor under-recovering a dense text. The phase-diagram knob I could move was extraction completeness --
   and moving it (resolution + inheritance + possession) raised coverage, confirming the wall is extraction, not data.
+- **A failing witness is a latent-bug detector, not just a red mark.** Drilling why a completeness check failed
+  surfaced the `canon_entity` article-stripping bug (standalone block "A" -> empty node), which had been silently
+  capping SpartQA end-to-end coverage; fixing it flipped the end-to-end position margin from un-separated to
+  CI-separated. Researching the wall (not routing around the failure) was what found it.
+- **A raw-accuracy upgrade can be a controls REGRESSION.** Quantifier/existential scoring raised accuracy but
+  zeroed the composition margin (the single-fact floor answers them too) and lifted the info-free twin (existential
+  is easy to satisfy on shuffled edges). The number that matters is the margin over the controls, not raw accuracy.
 
 ## AUDIT UPDATE (for notes/BRAIN_FOUNDATIONAL_AUDIT.md, SPACE entry)
 - NEW reasoning layer over the LOCATION REGISTER: a glass-box relational reasoner (transitive containment; spatial-
