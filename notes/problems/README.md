@@ -52,6 +52,15 @@ the brief.*
   (compare to a competent reader, where along the chain we lose signal, itemized mechanism-diff); (7) ADJACENT
   COMPONENTS (capabilities/limitations/opportunities/brain-status → seeds the next problems); (8) COMPLETION BAR (is
   it complete, excellent, FULLY brain-foundational conveying ALL the brain function's benefits? else keep pushing).
+  The checklist ALSO carries two closing notes the owner added (2026-09-06), appended after item (8): a PHASE-DIAGRAM
+  note (the substrate's operating point -- store density/sparsity, dimensionality, binding regime, capacity, decay/gain,
+  indexed-vs-superposed organization -- is FREE to SWEEP per organ, never a fixed constraint, so a wall at one
+  configuration is a cue to MOVE the operating point on the phase diagram before calling it a ceiling); and a
+  FULL-STACK-UPSTREAM directive (fully prototype THIS component AND the upstream brain-foundational component it depends
+  on, all the way up, and show the capability can EXCEL and EXCEED -- then confirm no other downstream consumer
+  REGRESSES, whether those consumers should be REVISITED to use the newly-optimized upstream, and, via research, that
+  the upstream change is genuinely brain-foundational: the only way past the wall is EVERY component, you and upstream,
+  being brain-foundational).
   Copy the canonical block verbatim from any recent brief (e.g. `upgrade_the_pos_tagger_to_a_calibrated_joint_decoded_posterior/PROBLEM.md`).
 
 ## 🔢 **PRIORITY -- OWNER INSTRUCTION 2026-08-22: *"I also want a priority for what problems to tackle first, on the problem page"***
