@@ -42,7 +42,7 @@ from typing import Dict, List, Optional, Sequence
 import numpy as np
 
 from hdlab.animacy_lexicon import lookup_animacy
-from hdlab.graded_competition import map_pick, net_activation
+from hdlab.graded_competition import map_pick, net_activation, softmax
 from hdlab.relcl_resolver import (
     BE_AUX, RELATIVIZERS, _cands, is_object_gap, precise_passive, resolve_patient,
 )
@@ -487,8 +487,42 @@ def agent_competition_pick(toks, pos, v, cands, cluster_freq=None,
     return c[int(np.argmax(A))][1]
 
 
+def agent_competition_pick_conf(toks, pos, v, cands, cluster_freq=None,
+                                weights: Optional[Dict[str, float]] = None, gaz=None, twin_seed=None,
+                                subj_before=None, byhead_agent_cue=False):
+    """Like `agent_competition_pick`, but ALSO returns the competition's own RELIABILITY -- so the AGENT pick
+    carries a precision the reasoning phase can defer on (Lewis-Vasishth activation gap). Returns
+    (pick_head, margin, conf):
+      * pick_head : IDENTICAL to agent_competition_pick (same S, same A, same argmax int(np.argmax(A))).
+      * margin    : tanh((A_top1 - A_top2)/3.0) in [0,1) -- the competition MARGIN, the AUC~0.76 right-vs-wrong
+                    agent reliability (exp_defer_agent_v1); a STRONG raw signal (NO calibration needed -- the
+                    Competition Model maintains the full candidate distribution, unlike a greedy parse arc).
+      * conf      : 1 - normalized softmax entropy of A (a competing readout; margin is the deployed one).
+    This only SURFACES the margin the competition already computed -- the pick is byte-identical, so it is a pure
+    ADDITIVE readout. Returns ("?", None, None) when there is no candidate. twin_seed / subj_before /
+    byhead_agent_cue behave exactly as in agent_competition_pick."""
+    w = AGENT_VALIDITIES if weights is None else weights
+    c = [(m["wtok_start"], m["head"], m.get("cluster"), m.get("wtok_end", m.get("wtok_start"))) for m in cands]
+    if not c:
+        return "?", None, None
+    S = agent_supports(toks, pos, v, c, gaz, cluster_freq, subj_before=subj_before,
+                       byhead_agent_cue=byhead_agent_cue)
+    if twin_seed is not None:
+        rng = np.random.default_rng(twin_seed + v + len(c))
+        S = {k: list(np.asarray(vv)[rng.permutation(len(vv))]) for k, vv in S.items()}
+    A = net_activation(S, w)
+    pick = c[int(np.argmax(A))][1]                       # byte-identical to agent_competition_pick
+    As = np.sort(np.asarray(A, dtype=float))[::-1]       # descending activation VALUES (tie-break-robust gap)
+    if len(As) > 1:
+        top2 = float(As[0] - As[1])
+        p = softmax(A); ent = float(-(p * np.log(p + 1e-12)).sum() / np.log(len(A)))
+    else:
+        top2 = float(abs(As[0]) + 1.0); ent = 0.0
+    return pick, float(np.tanh(top2 / 3.0)), float(1.0 - ent)
+
+
 __all__ = ["hybrid_role_patient", "competition_pick", "cue_supports", "voice_cues", "robust_passive",
            "gap_config", "DEFAULT_VALIDITIES", "CUES", "UNACC",
-           "agent_competition_pick", "agent_supports", "clause_bounds", "AGENT_VALIDITIES", "STRUCT_W",
-           "NOMINATIVE_PRON", "_nominals_keep_pron",
+           "agent_competition_pick", "agent_competition_pick_conf", "agent_supports", "clause_bounds",
+           "AGENT_VALIDITIES", "STRUCT_W", "NOMINATIVE_PRON", "_nominals_keep_pron",
            "by_governs", "participle_bypp_gate", "BYHEAD_W"]

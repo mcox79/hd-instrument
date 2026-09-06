@@ -281,7 +281,7 @@ class EventRecord:
     # object -> the verb_subcat veto is overridden and the patient kept); None otherwise. The default reader never
     # sets it. Set in _read_events_wired where the toks-space verb + candidate indices are available.
     patient_is_bare_do: Optional[bool] = None
-    # PRECISION-WEIGHT (2026-09-06 wire, default-off precision_weight_roles), ADDITIVE metadata only -- the
+    # PRECISION-WEIGHT (2026-09-06 wire, default-ON precision_weight_roles), ADDITIVE metadata only -- the
     # CALIBRATED per-arc reliability (Friston precision, hdlab.parse_confidence) of the parse arc the who-did-what
     # PATIENT was read off, in [0,1]. Higher = a confident arc; a consumer can TRUST the confident half and DEFER
     # on the shaky one (selective patient acc 0.8789->0.9745 on the confident half, UD-EWT). patient_defer = the
@@ -290,6 +290,18 @@ class EventRecord:
     # reader never sets it -- exposing it is byte-identical to the incumbent (the patient PICK is unchanged).
     patient_conf: Optional[float] = None
     patient_defer: Optional[bool] = None
+    # AGENT reliability + per-EVENT joint precision (2026-09-06 precision-defer landing; default-on
+    # precision_weight_roles), ADDITIVE metadata only. agent_conf = the Competition-Model competition MARGIN of
+    # the agent pick (Lewis-Vasishth activation gap, AUC~0.76 right-vs-wrong; NO calibration -- the competition
+    # maintains the full candidate distribution, unlike the greedy patient parse arc). agent_defer = the abstain
+    # decision at precision_weight_tau (None unless a tau is set). event_conf = agent_conf * patient_conf = the
+    # product-of-role-precisions P(whole event correct) the reasoning phase defers on (precision propagation;
+    # predicts whole-event correctness better than either role alone). Each None when the flag is off, the
+    # signal is unavailable (positional/router agent; no structural patient arc), or the calibrator can't run
+    # (abstain, never a guess). The agent/patient PICKS are unchanged -- exposing these is byte-identical.
+    agent_conf: Optional[float] = None
+    agent_defer: Optional[bool] = None
+    event_conf: Optional[float] = None
 
 
 @dataclass
@@ -777,7 +789,7 @@ class SituationReader:
                  commonnoun_situation_gate: bool = True,
                  commonnoun_canonical: bool = True,
                  unified_referent: bool = False,
-                 precision_weight_roles: bool = False,
+                 precision_weight_roles: bool = True,
                  precision_weight_tau: Optional[float] = None) -> None:
         # === DEFAULTS FLIPPED ON 2026-09-03 (owner-authorized: "switch them on... 1 at a time, top down,
         # measure which are net positives"). The greedy forward-activation sweep (tools/flag_activation_sweep.py,
@@ -1092,19 +1104,25 @@ class SituationReader:
         # positional / by-phrase untouched -> byte-identical agent). Requires role_route='wired' to have effect
         # (the router path); default OFF -> the heuristic THEME, byte-identical. NO spaCy / NO LLM.
         self.structural_patient = bool(structural_patient)
-        # PRECISION-WEIGHT the head-driven patient readout (opt-in; default OFF = byte-identical). Landed
-        # 2026-09-06 from the owner-DONE precision_weight_the_head_driven_readers_on_calibrated_parse_confidence
-        # (Q111). The arc-eager parser emits a per-arc confidence NO live consumer reads; when ON, each wired
-        # event's PATIENT parse arc carries a CALIBRATED reliability (hdlab.parse_confidence -- Friston precision,
-        # the pinned graded_competition posterior) on EventRecord.patient_conf in [0,1], so a downstream can TRUST
-        # confident arcs + DEFER on the shaky half (selective patient acc 0.8789->0.9745 on the confident half of
-        # UD-EWT; random-confidence twin flat). ADDITIVE: read-only over the parse, changes NO head -> the patient
-        # PICK and every scored dim are byte-identical; only the new metadata field is added. Requires
-        # role_route='wired' (the router path). precision_weight_tau (default None) = the DEFER threshold; None ->
-        # patient_defer stays None (no abstain -- byte-identical). DEFAULT OFF because no live consumer reads the
-        # confidence yet (board-invisible -- the reasoning phase is its consumer); flip ON once a consumer defers
-        # on it AND the board read-cost / additive-no-regress check passes (no-more-default-off). Reuses
-        # hdlab.graded_competition (the role-competition entropy cue). NO spaCy / NO LLM.
+        # PRECISION-WEIGHT the head-driven readers (DEFAULT-ON 2026-09-06). Landed from the owner-DONE
+        # precision_weight_the_head_driven_readers_on_calibrated_parse_confidence (Q111) + the DEFER-CONSUMER
+        # wire (wire_a_defer_consumer_for_calibrated_confidence_and_realize_precision_weighting). The arc-eager
+        # parser + the Competition-Model agent emit per-role reliabilities NO consumer read; when ON, each wired
+        # event carries: patient_conf (CALIBRATED patient-arc reliability, FROZEN hdlab.parse_confidence -- Friston
+        # precision, the pinned graded_competition posterior, in [0,1]); agent_conf (the raw Competition-Model
+        # competition margin, AUC~0.76, no calibration); event_conf = agent_conf*patient_conf (the per-EVENT joint
+        # precision the reasoning phase defers on). So a downstream can TRUST confident roles + DEFER on the shaky
+        # ones -- deploying a dev-tau abstain lifts accuracy-on-answered CI-sep over the blanket reader (patient
+        # 0.8789->~0.966, agent +0.087, obl attachment +0.092; random-confidence twins flat).
+        # ADDITIVE / FLIP-ON: read-only over the parse, changes NO head -- the agent/patient PICKS and every SCORED
+        # board dim are byte-identical; only the new metadata fields are added. precision_weight_tau (default None)
+        # = the DEFER threshold; None -> all *_defer stay None (no abstain -- byte-identical). NET-NEUTRAL COST:
+        # the fold caches (heads,conf,marg) from the ONE shared parse (-0.84 ms/read) and the inert a2_marg cue is
+        # dropped (a2=0) -> the defer path issues ZERO extra parses; the agent margin is a free readout of the
+        # competition already run. FLIPPED ON (was default-off "no live consumer + ~2 parses/read") now the cost
+        # blocker is removed and the reliability substrate is the reasoning phase's consumer (no-more-default-off).
+        # all_capabilities_off() still sets it False. Requires role_route='wired'. Reuses hdlab.graded_competition
+        # + hdlab.graded_role_assigner. NO spaCy / NO LLM.
         self.precision_weight_roles = bool(precision_weight_roles)
         self.precision_weight_tau = precision_weight_tau
         # COPULAR is-a/attribute binding. When ON, read() adds a typed is-a/attribute read on sm.entity_states +
@@ -1437,13 +1455,19 @@ class SituationReader:
         return agent_sent_noms, agent_freq
 
     def _cm_agent_for(self, toks, agent_sent_noms, agent_freq, si, pred_idx):
-        """The Competition-Model AGENT head for the event at (si, pred_idx), or None to KEEP the positional/
-        wired agent (no tracked candidate in this sentence). Clause-bounded when clause_local. Reuses the
-        per-read tag cache for the sentence POS -- glass-box, reads only toks/POS + animacy + coref counts."""
+        """The Competition-Model AGENT for the event at (si, pred_idx). Returns (head, margin, conf), or
+        (None, None, None) to KEEP the positional/wired agent (no tracked candidate in this sentence).
+        Clause-bounded when clause_local. Reuses the per-read tag cache for the sentence POS -- glass-box, reads
+        only toks/POS + animacy + coref counts.
+
+        The HEAD is byte-identical to the pre-2026-09-06 agent_competition_pick (same S/A/argmax); `margin`/`conf`
+        (2026-09-06 precision-defer landing) are an ADDITIVE readout of the SAME competition -- the agent's
+        Competition-Model reliability (Lewis-Vasishth activation gap; AUC~0.76, no calibration). Callers that only
+        need the pick unpack the first element; the precision-weight emission reads the margin."""
         anoms = agent_sent_noms[si] if si < len(agent_sent_noms) else []
         if not anoms:
-            return None
-        from hdlab.graded_role_assigner import agent_competition_pick, clause_bounds
+            return None, None, None
+        from hdlab.graded_role_assigner import agent_competition_pick_conf, clause_bounds
         up = self._cached_tag(list(toks))
         acand = anoms
         if self.clause_local:                          # bound candidates to the verb's clause span (segmentation)
@@ -1451,16 +1475,16 @@ class SituationReader:
             acand = [m for m in anoms if lo <= m["wtok_start"] < hi] or anoms
         # STRUCTURE cue: the register-general incremental left-corner subject-before array (self-gating; the
         # weighted `structure` support votes only where the parse binds a subject onto a candidate). Default ON;
-        # OFF -> subj_before=None -> agent_competition_pick is byte-identical to the pre-structure competition.
+        # OFF -> subj_before=None -> the competition is byte-identical to the pre-structure competition.
         subj_before = None
         if self.cm_agent_struct:
             from hdlab.incremental_parser import incremental_subject_before
             subj_before = incremental_subject_before(toks, up)
         # BY-PHRASE CASE cue (cm_agent_byhead, default ON): the self-gating byhead support votes only on the
-        # participle+by-PP passive-agent construction; OFF -> agent_competition_pick is byte-identical.
-        return agent_competition_pick(toks, up, pred_idx, acand, cluster_freq=agent_freq,
-                                      weights=self.cm_weights, gaz=self.gaz, twin_seed=self.cm_twin_seed,
-                                      subj_before=subj_before, byhead_agent_cue=self.cm_agent_byhead)
+        # participle+by-PP passive-agent construction; OFF -> the competition is byte-identical.
+        return agent_competition_pick_conf(toks, up, pred_idx, acand, cluster_freq=agent_freq,
+                                           weights=self.cm_weights, gaz=self.gaz, twin_seed=self.cm_twin_seed,
+                                           subj_before=subj_before, byhead_agent_cue=self.cm_agent_byhead)
 
     # -- EVENTS: per-sentence predicate+agent+patient -> Cowan-4 bundle focus --
     def _read_events(self, sents, mentions, n_sents):
@@ -1486,7 +1510,7 @@ class SituationReader:
                 # CM-AGENT (cm_agent): recompute the AGENT by the Competition-Model competition over the
                 # TRACKED/given entities; PATIENT is left EXACTLY as _assign_roles produced it (byte-identical).
                 if agent_sent_noms is not None:
-                    cm_a = self._cm_agent_for(toks, agent_sent_noms, agent_freq, si, e.idx)
+                    cm_a, _cm_m, _cm_c = self._cm_agent_for(toks, agent_sent_noms, agent_freq, si, e.idx)
                     if cm_a is not None:
                         agent = cm_a
                 if verb_lows is not None and e.lemma not in verb_lows:
@@ -1558,25 +1582,30 @@ class SituationReader:
         ROLE heads are byte-identical either way (same arceager_parser.parse_with_conf + weights); only the
         front-end switches batch->incremental (the measured no-regress). When parser_arceager=False it is
         byte-identical to the historical batch-parser path. The batch parser stays loadable (_frontend_parser) as
-        a self-checkable byte-identity reference."""
+        a self-checkable byte-identity reference.
+
+        FOLD 2026-09-06 (precision-defer landing): when parser_arceager, the heads are DERIVED from the SINGLE
+        shared (heads,conf,marg) parse (_cached_parse_conf) -- parse_with_conf ALREADY computes conf/marg and this
+        method used to DISCARD them ([0]) then _cached_parse_conf re-parsed the SAME sentence to recover them. The
+        fold keeps them from the ONE parse (byte-identical heads -- same parse_with_conf, same weights), so the
+        precision-weight defer path reads per-arc reliability with ZERO extra parse (-0.84 ms/read; the flip-on
+        cost blocker). The parse_with_conf call is unchanged, so every non-consumer is byte-identical."""
         key = ("parse", tuple(toks))
         c = self._read_parse_cache
         if key not in c:
             if self.parser_arceager:
-                if self._ae_W is None:
-                    from hdlab.arceager_parser import load_model, parse_with_conf, MODEL_PATH
-                    self._ae_W = load_model(MODEL_PATH)
-                    self._ae_parse = parse_with_conf
-                c[key] = self._ae_parse(toks, pos, self._ae_W)[0]   # 1-based child->head (same shape as ArcParser)
+                heads, _cf, _mg = self._cached_parse_conf(toks, pos)   # ONE shared arc-eager parse (heads+conf+marg)
+                c[key] = heads                                          # 1-based child->head (same shape as ArcParser)
             else:
                 c[key] = self._frontend_parser().parse(toks, pos).heads
         return dict(c[key])
 
     def _cached_parse_conf(self, toks, pos):
-        """Per-read memoized (heads, conf, marg) from the arc-eager parse_with_conf -- the FULL per-arc
-        reliability the precision-weight readout consumes (the conf/marg that _cached_parse_heads discards).
-        Returns FRESH copies. Only invoked on the opt-in precision_weight_roles path; the default reader never
-        calls it (so the OFF path issues no extra parse -- byte-identical)."""
+        """Per-read memoized (heads, conf, marg) from the arc-eager parse_with_conf -- the SINGLE shared per-read
+        parse (FOLD 2026-09-06): _cached_parse_heads now DERIVES its heads from here (when parser_arceager), so
+        the default read path and the precision-weight defer path share ONE parse_with_conf call. Returns FRESH
+        copies. parse_with_conf ALWAYS computes conf/marg (it used to be discarded), so caching the full tuple
+        costs no extra parse -- byte-identical heads for every consumer."""
         key = ("parseconf", tuple(toks))
         c = self._read_parse_cache
         if key not in c:
@@ -1592,9 +1621,14 @@ class SituationReader:
         """CALIBRATED reliability in [0,1] of the who-did-what PATIENT parse arc (1-based `v`, `pk`), or None on
         any failure (abstain -- never breaks a read). The precision-weighting substrate: the reader can DEFER on
         a low-confidence patient (Friston precision; hdlab.parse_confidence, reusing graded_competition). Feature
-        inputs are byte-identical to the validated exp_precwt_live_whodidwhat_v1 row (arc-eager conf/marg + the
-        global arc_parser margin at pk + the role-competition entropy + the labeled-obj indicator + passive).
-        Read-only over the parse -- changes no head (ADDITIVE)."""
+        inputs are the validated exp_precwt_live_whodidwhat_v1 row (arc-eager conf/marg + the role-competition
+        entropy + the labeled-obj indicator + passive). Read-only over the parse -- changes no head (ADDITIVE).
+
+        A2-DROP 2026-09-06 (precision-defer landing): the a2_marg cue (the GLOBAL arc_parser margin at pk) is
+        passed 0.0 -- it is INERT for the patient by measurement (predecessor), so dropping it needs NO 2nd
+        parser (the defer path scores off the SINGLE shared arc-eager parse). The abstain/defer policy is
+        coverage/rank-based, so it is invariant to the resulting uniform confidence shift (a2_marg becomes a
+        constant feature; the right-vs-wrong ranking -- hence the dev-tau coverage split -- is preserved)."""
         try:
             from hdlab import parse_confidence as PC
             from hdlab.relcl_resolver import precise_passive
@@ -1602,10 +1636,8 @@ class SituationReader:
             heads, conf, marg = self._cached_parse_conf(list(toks), pos)
             labels = self._frontend_labeler().label(list(toks), list(pos), heads)
             passive = bool(precise_passive(list(toks), list(pos), v))
-            pr = self._frontend_parser().parse(list(toks), list(pos))  # global arc_parser margin (a2_marg cue)
-            a2m = float(pr.margins[pk]) if 0 <= pk < len(pr.margins) else 0.0
             return PC.calibrated_patient_confidence(list(toks), list(pos), heads, conf, marg, v, pk,
-                                                    labels, passive, a2_marg=a2m)
+                                                    labels, passive, a2_marg=0.0)
         except Exception:
             return None
 
@@ -1743,8 +1775,11 @@ class SituationReader:
                 # TRACKED/given entities, OVERRIDING the positional/quotative/router agent; PATIENT untouched
                 # (byte-identical). Runs after the wired agent so the same brain-foundational agent is used
                 # regardless of role_route (the SOLVED proof was on role_route='positional'; this extends it).
+                # cm_margin (2026-09-06 precision-defer) = the competition's RELIABILITY for THIS agent pick,
+                # read by the precision-weight emission below; None when no tracked candidate fired the override.
+                cm_margin = None
                 if agent_sent_noms is not None:
-                    cm_a = self._cm_agent_for(toks, agent_sent_noms, agent_freq, si, e.idx)
+                    cm_a, cm_margin, _cm_c = self._cm_agent_for(toks, agent_sent_noms, agent_freq, si, e.idx)
                     if cm_a is not None:
                         agent = cm_a
                 if verb_lows is not None and e.lemma not in verb_lows:
@@ -1771,19 +1806,38 @@ class SituationReader:
                         pib = bool(self._sdo.is_bare_do(toks, _up, vp, min(pcands)))
                     else:
                         pib = False   # patient is not a post-verbal nominal -> not a bare DO -> allow the veto
-                # PRECISION-WEIGHT (opt-in): attach the CALIBRATED reliability of the structural patient arc.
-                # Purely ADDITIVE metadata -- the patient PICK above is unchanged; a consumer DEFERS on the
-                # low-confidence half. None (abstain) when off / no structural theme / calibrator can't run.
-                p_conf = p_defer = None
-                if self.precision_weight_roles and theme_pos0 is not None and vp is not None:
-                    p_conf = self._patient_arc_confidence(list(toks), vp + 1, theme_pos0 + 1)
-                    if p_conf is not None and self.precision_weight_tau is not None:
-                        from hdlab.parse_confidence import defer as _pw_defer
-                        p_defer = _pw_defer(p_conf, self.precision_weight_tau)
+                # PRECISION-WEIGHT (default-ON 2026-09-06): attach per-role CALIBRATED reliability + a per-EVENT
+                # joint precision the reasoning phase can DEFER on. Purely ADDITIVE metadata -- the agent/patient
+                # PICKS above are unchanged; only a consumer that OPTS to defer (precision_weight_tau set) acts.
+                # None (abstain) when off / no signal / calibrator can't run. tau=None => defer False for all.
+                p_conf = p_defer = a_conf = a_defer = ev_conf = None
+                if self.precision_weight_roles:
+                    tau = self.precision_weight_tau
+                    # PATIENT arc reliability (Friston precision; FROZEN hdlab.parse_confidence, a2 dropped ->
+                    # scores off the single shared parse). Selective patient acc 0.8789->~0.966 on the confident
+                    # ~two-thirds (UD-EWT); random-confidence twin flat.
+                    if theme_pos0 is not None and vp is not None:
+                        p_conf = self._patient_arc_confidence(list(toks), vp + 1, theme_pos0 + 1)
+                        if p_conf is not None and tau is not None:
+                            from hdlab.parse_confidence import defer as _pw_defer
+                            p_defer = _pw_defer(p_conf, tau)
+                    # AGENT reliability = the Competition-Model competition MARGIN (raw; AUC~0.76, NO calibration
+                    # -- the competition maintains the full candidate distribution). None when the positional/
+                    # router agent was used (no tracked-candidate competition fired). Completes who-did-what.
+                    if cm_margin is not None:
+                        a_conf = float(cm_margin)
+                        if tau is not None:
+                            a_defer = bool(a_conf < tau)   # threshold on the raw margin (opt-in; tau=None => None)
+                    # JOINT-EVENT precision (10b -- the reasoning bridge): P(event correct) ~= product of the
+                    # bound-role precisions (agent margin x patient calibrated conf). Predicts whole-event
+                    # correctness better than either role alone; the reasoning phase defers on whole EVENTS.
+                    if p_conf is not None and a_conf is not None:
+                        ev_conf = float(a_conf * p_conf)
                 events.append(EventRecord(global_idx=gidx, sent_idx=si, predicate=e.lemma, agent=agent,
                                           patient=patient, tense=str(e.tense), subj_role=subj_role,
                                           obj_role=obj_role, affect=affect, pred_idx=e.idx,
-                                          patient_is_bare_do=pib, patient_conf=p_conf, patient_defer=p_defer))
+                                          patient_is_bare_do=pib, patient_conf=p_conf, patient_defer=p_defer,
+                                          agent_conf=a_conf, agent_defer=a_defer, event_conf=ev_conf))
                 role_fillers.append(rf)
                 if extra:
                     self.wired_extra_roles.append({"global_idx": gidx, **extra})

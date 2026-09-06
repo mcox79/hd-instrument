@@ -65,7 +65,7 @@ def main():
     # ============================ W1: the LIVE reader exposes the readout ============================
     doc = _pick_doc()
     assert doc is not None, "W1 FAIL: no litbank conll doc found"
-    off = SituationReader(gaz={}).read(doc)                                   # default -> flag OFF
+    off = SituationReader(gaz={}, precision_weight_roles=False).read(doc)     # explicit OFF (default flipped ON 2026-09-06)
     on = SituationReader(gaz={}, precision_weight_roles=True, precision_weight_tau=0.5).read(doc)
     assert len(off.events) == len(on.events), "W1 FAIL: event count changed"
     assert all(e.patient_conf is None and e.patient_defer is None for e in off.events), \
