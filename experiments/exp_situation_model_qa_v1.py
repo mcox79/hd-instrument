@@ -914,7 +914,7 @@ def run(docs: List[str], seed: int = 20260830, capable: bool = True,
         with_wic: bool = True, wic_mode: str = "smoke",
         with_common_noun: bool = True, common_noun_n: int = 24,
         with_bridging: bool = True, bridging_smoke: bool = True,
-        with_byhead: bool = True) -> dict:
+        with_byhead: bool = True, with_tom: bool = True) -> dict:
     """Score QA over the SituationModel per dimension vs floors + twin. `capable=True` (DEFAULT) scores
     the CAPABLE reader (build_reader) -- the correct baseline: extraction dimensions ON, temporal read off
     sm.timeline_order. `capable=False` reproduces the historical default-reader run for comparison.
@@ -1118,6 +1118,18 @@ def run(docs: List[str], seed: int = 20260830, capable: bool = True,
         except Exception as e:
             res["per_dimension"]["byhead_agent"] = None
             res["byhead_agent_detail"] = {"error": f"{type(e).__name__}: {e}"}
+    if with_tom:
+        # THEORY-OF-MIND board arm (realizes the reasoning phase's first mentalizing system): the landed
+        # hdlab.theory_of_mind chain's FALSE-BELIEF belief-prediction (BigToM) vs the reality-only floor (~0% on
+        # false belief) + the info-free twins. The board has NO ToM dim. Its own cell: exp_board_tom_v1.
+        try:
+            from experiments.exp_board_tom_v1 import board_tom_dimension
+            tomrow, tomdetail = board_tom_dimension(smoke=True)
+            res["per_dimension"]["theory_of_mind"] = tomrow
+            res["theory_of_mind_detail"] = tomdetail
+        except Exception as e:
+            res["per_dimension"]["theory_of_mind"] = None
+            res["theory_of_mind_detail"] = {"error": f"{type(e).__name__}: {e}"}
     res["reader_config"] = {
         "capable": bool(capable),
         "flags": ("tense_agnostic_events+preserve_tense+timeline_register+bind_entity_states" if capable else "default(off)"),
@@ -1750,7 +1762,7 @@ def _selftest() -> dict:
     docs = load_docs(2)
     # capable=True; small state_cap + the 4 new arms OFF (own witnesses + load UD/WordNet/entity-KB) keep the self-test fast
     res = run(docs, state_cap=150, with_patient=False, with_goal_hierarchy=False, with_wic=False,
-              with_common_noun=False, with_bridging=False, with_byhead=False)
+              with_common_noun=False, with_bridging=False, with_byhead=False, with_tom=False)
     assert res["aggregate"]["n"] >= 1, res
     assert res["per_dimension"].get("coref", {}).get("n", 0) >= 1, res["per_dimension"]
     td = res["per_dimension"].get("temporal")
