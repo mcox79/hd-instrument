@@ -4,10 +4,13 @@ status: SOLVED
 bar: "PASS = a glass-box DEFER-CONSUMER (a head-driven readout that DOWN-WEIGHTS / ABSTAINS on low-confidence arcs and falls back to its prior, driven by the landed calibrated confidence) that turns the landed signal into a CI-separated SELECTIVE-RELIABILITY or DEFER-POLICY accuracy gain on the LIVE reader over the current BLANKET reader (commit-on-all), on MODERN gold, with a RANDOM-confidence info-free TWIN LOSING (the calibration must be load-bearing, not \"abstaining-on-anything-helps\"), NO-regress on non-consumers (parse heads + every non-deferring dim byte-identical), AND the read-cost / additive no-regress check that lets strategy FLIP precision_weight_roles default-ON (net-positive on a live metric -- including whether the ~2 parses/read cost can be removed by reusing the shared parse). Report the risk-coverage curve + CI half-width + null p95, recompute floors per population. A rigorous located NEGATIVE -- the defer-consumer, faithfully built, does NOT lift a live reader's reliability (e.g. FALL-BACK adds nothing because the head-independent patient has no better prior to fall back to; ABSTAIN trades coverage without a defensible operating point), with the exact cause named -- is a FULL PASS."
 result: "POSITIVE. A glass-box DEFER-CONSUMER that ABSTAINS below a DEV-chosen threshold tau (chosen on UD-EWT train, applied on UD-EWT test + QA-SRL, unseen) -- consuming the FROZEN landed hdlab.parse_confidence calibrator -- lifts accuracy-on-ANSWERED over the BLANKET reader (commit-on-all) on THREE modern instruments: who-did-what PATIENT UD-EWT (n=1255) blanket 0.8789 -> answered 0.9662 at coverage 0.661 (+0.0873 CI[+0.0710,+0.1044]); PATIENT QA-SRL (n=8225) 0.2982 -> 0.3543 at coverage 0.468 (+0.0560 CI[+0.0456,+0.0664]); obl/spatial ATTACHMENT UD-EWT (n=2294) 0.7581 -> 0.8496 at coverage 0.629 (+0.0916 CI[+0.0770,+0.1067]). The RANDOM-confidence info-free twin at matched coverage does NOT gain (patient UD +0.0053 / QA -0.0024 / obl -0.0087). FLIP-ON cost: folding (heads,conf,marg) into the ONE shared parse removes the duplicate arc-eager parse for free (-0.840 ms/read) and the inert global-arc_parser a2_marg cue is droppable (obl AUC 0.7233->0.7181, -0.0052), so the defer path needs ZERO extra parses -- net-neutral flip-on. TWO located negatives, faithfully built + fully attributed (each a full-pass form): (a) FALL-BACK adds nothing (patient position fall-back -0.0016 UD / -0.0356 QA -- the head-independent patient has no better prior; obl locality fall-back nets 0 -- the parser beats locality even on its shakiest conf-quartile, 0.5436 vs 0.3537); (b) the UPSTREAM small-beam parse posterior (LOSS 1) does NOT out-calibrate the landed confidence -- across k=6/8/16 all three beam readouts (agreement/margin/Hale-entropy) are <= the greedy raw arc conf, because the parser is LOCALLY NORMALIZED (label bias; Andor 2016) and half its errors are SEARCH failures (gold in the beam on only 0.492 of wrong obl arcs)."
 floor: "Per population the strongest floor is the BLANKET live reader (commit-on-all, ignore confidence): who-did-what PATIENT 0.8789 (UD-EWT n=1255) / 0.2982 (QA-SRL n=8225); obl/spatial 0.7581 (UD-EWT obl/nmod n=2294). The RELIABILITY-SIGNAL floor is the RANDOM-confidence twin at matched coverage (what a naive abstain-on-anything reaches): +0.0053 / -0.0024 / -0.0087 -- the deployed defer gain CI-separates above it. For the FALL-BACK arms the floor is the PRIOR ALONE (always fall back): position 0.8422 (patient UD) / locality 0.4076 (obl) -- both far below the parser, which is why fall-back nets 0. For the UPSTREAM the floor is the greedy raw arc conf AUC 0.615 (patient) / 0.721 (obl) -- the beam does not clear it."
-controls: "(1) RANDOM-confidence info-free TWIN at matched coverage: patient UD +0.0053 / QA -0.0024 / obl -0.0087 -> the calibration is load-bearing, not abstaining-helps (its selective delta IS the null; the real effect clears it ~10-16x). (2) DEPLOYED tau chosen on DEV (UD-EWT train) applied on TEST (UD-EWT test + QA-SRL, unseen) -> a real operating point, not an in-sample top-k ranking (the predecessor's diagnostic). (3) FALL-BACK attribution: always-fall-back (prior alone) 0.8422/0.4076 loses to the parser, and on the shakiest conf-quartile the parse still beats the prior (obl 0.5436 vs locality 0.3537) -> the located negative is 'no head-independent prior is good enough', not a wiring bug. (4) UPSTREAM attribution: gold-in-beam-when-wrong 0.492 (half the errors are search failures the beam cannot reach) + QBC ensemble-agreement AUC 0.696 ~= raw 0.721 (an independent parser adds nothing) -> the wall is the parser's LOCAL normalization, not beam width. (5) ADDITIVE / no-regress: defer(conf, None) is False for all arcs + tau=-inf answered==blanket (byte-identical) -> every non-deferring consumer + parse head is unchanged."
-files_changed: "experiments/exp_defer_consumer_v1.py (the headline: the DEFER-CONSUMER -- abstain/fall-back/graded policies with a DEV-chosen tau on the LIVE readers, modern gold, twin + no-regress controls, sentence-clustered bootstrap CIs), experiments/exp_defer_upstream_smallbeam_v1.py (the UPSTREAM component: a faithful small-beam arc-eager decode + beam-marginal reliability + QBC ensemble agreement + oracle-coverage diagnostic -- the located negative for LOSS 1), experiments/exp_defer_readcost_v1.py (the FLIP-ON cost: the fold removes the duplicate parse; the a2_marg drop makes the defer path net-zero-parse), verification/test_defer_consumer_organ.py (scaffold-free witness, 6/6), notes/problems/wire_a_defer_consumer_for_calibrated_confidence_and_realize_precision_weighting/SOLVED.md. NO hdlab/ written (Q111 -- prototype; the proposed additive policy + fold wire is stated in section 6 for strategy to land)."
+controls: "(1) RANDOM-confidence info-free TWIN at matched coverage: patient UD +0.0053 / QA -0.0024 / obl -0.0087 -> the calibration is load-bearing, not abstaining-helps (its selective delta IS the null; the real effect clears it ~10-16x). (2) DEPLOYED tau chosen on DEV (UD-EWT train) applied on TEST (UD-EWT test + QA-SRL, unseen) -> a real operating point, not an in-sample top-k ranking (the predecessor's diagnostic). (3) FALL-BACK attribution: always-fall-back (prior alone) 0.8422/0.4076 loses to the parser, and on the shakiest conf-quartile the parse still beats the prior (obl 0.5436 vs locality 0.3537) -> the located negative is 'no head-independent prior is good enough', not a wiring bug. (4) UPSTREAM attribution: gold-in-beam-when-wrong 0.492 (half the errors are search failures the beam cannot reach) + QBC ensemble-agreement AUC 0.696 ~= raw 0.721 (an independent parser adds nothing) -> the wall is the parser's LOCAL normalization, not beam width. (5) ADDITIVE / no-regress: defer(conf, None) is False for all arcs + tau=-inf answered==blanket (byte-identical) -> every non-deferring consumer + parse head is unchanged. (6) DENSITY-PHASE robustness: stratifying real obl arcs by competition density, the abstain gain SCALES with density (+0.0599 sparse <=2 sites / +0.1030 mid / +0.1251 dense >=5) with the confidence AUC stable across strata (0.73-0.74) and twins flat -> the defer policy is not a single-density artifact; it earns its keep most where competition is densest, and a synthetic controllable-density sweep (real parser) shows the calibrated confidence DECREASES monotonically as density rises into the denser-than-corpus regime."
+files_changed: "experiments/exp_defer_consumer_v1.py (the headline: the DEFER-CONSUMER -- abstain/fall-back/graded policies with a DEV-chosen tau on the LIVE readers, modern gold, twin + no-regress controls, sentence-clustered bootstrap CIs), experiments/exp_defer_upstream_smallbeam_v1.py (the UPSTREAM component: a faithful small-beam arc-eager decode + beam-marginal reliability + QBC ensemble agreement + oracle-coverage diagnostic -- the located negative for LOSS 1), experiments/exp_defer_readcost_v1.py (the FLIP-ON cost: the fold removes the duplicate parse; the a2_marg drop makes the defer path net-zero-parse), experiments/exp_defer_density_sweep_v1.py (the DENSITY-PHASE robustness: the abstain gain scales with competition density on real gold + a synthetic controllable-density sweep), experiments/exp_defer_agent_v1.py (FURTHER UPGRADE: the AGENT defer-consumer -- completes the who-did-what channel + an efficiency, the raw competition margin needs no calibration), experiments/exp_defer_joint_event_v1.py (FURTHER UPGRADE: joint-EVENT precision propagation -- the event-level reliability the reasoning phase defers on, product-of-role-precisions), verification/test_defer_consumer_organ.py (scaffold-free witness, 9/9), notes/problems/wire_a_defer_consumer_for_calibrated_confidence_and_realize_precision_weighting/SOLVED.md. NO hdlab/ written (Q111 -- prototype; the proposed additive policy + fold wire is stated in section 6 for strategy to land)."
 reverify: ".venv/Scripts/python.exe verification/test_defer_consumer_organ.py"
 ---
+
+<!-- witness: verification/test_defer_consumer_organ.py 9/9 (W1 patient abstain, W2 obl abstain, W3 fall-back located negative, W4 upstream beam located negative, W5 read-cost/fold, W6 additive no-regress, W7 density-phase scaling, W8 AGENT abstain raw-margin no-calibration, W9 JOINT-EVENT precision propagation). -->
+
 
 ## SHORT VERSION
 
@@ -111,6 +114,32 @@ single most brain-foundational next lever is a globally-normalized parse scorer 
 (edge-factored Matrix-Tree marginals -- McDonald & Satta 2007 / Koo et al. 2007; or Andor-style beam-in-the-loop
 global training) -- a different model, filed as a separate problem, not an inference-time fix.**
 
+### 3c. DENSITY-PHASE ROBUSTNESS -- the defer policy scales with competition density (owner's phase-diagram lever)
+A reliability signal should track the DENSITY of competing attachment sites -- a Friston/graded_competition
+precision confidence should be HIGH when one head is clearly right (sparse) and LOW when many compete (dense), and
+DEFER should matter most in the dense regime. Two measurements a fixed corpus cannot give cleanly
+(`exp_defer_density_sweep_v1`):
+
+- **REAL UD-EWT obl arcs, stratified by density** (ncand = #candidate attachment sites), deployed tau, one operating
+  point across strata:
+
+  | stratum | n | blanket | conf AUC | abstain coverage | abstain delta | twin |
+  |---|---|---|---|---|---|---|
+  | sparse (<=2 sites) | 827 | 0.7799 | 0.7447 | 0.680 | +0.0599 | +0.0083 |
+  | mid (3-4) | 976 | 0.7480 | 0.7301 | 0.619 | +0.1030 | +0.0186 |
+  | dense (>=5) | 491 | 0.7413 | 0.7305 | 0.564 | **+0.1251** | +0.0204 |
+
+  The abstain gain MORE THAN DOUBLES from sparse (+0.060) to dense (+0.125) while the confidence AUC stays stable
+  (~0.73-0.74) and twins stay flat -- the defer policy is not a single-density artifact, and it earns its keep
+  most exactly where competition is densest (the regime that matters for a reasoning phase).
+- **SYNTHETIC controllable-density sweep** (templated items with D competing verbs before a PP, parsed by the REAL
+  arc-eager parser; glass-box closed-class vocab, NO LLM): the mean calibrated confidence DECREASES as density
+  rises -- 0.828 (D=1) -> 0.799 (D=3) -> 0.759 (D=4) -> 0.747 (D=8) -- into the denser-than-corpus regime the real
+  data lacks. The confidence is a genuine density-sensitive precision signal, not a corpus-specific correlation.
+
+This uses the owner's phase-diagram point (shift the density parameter at will) to PROVE the mechanism rather than
+just observe it on one corpus: the defer gain rises with the very knob a precision-weighting account predicts.
+
 ## 4. READ-COST / FLIP-ON EVIDENCE (net-neutral cost)
 
 Today the opt-in path issues extra parses: `_cached_parse_heads` (l.1527) calls `parse_with_conf(...)[0]` and
@@ -152,7 +181,14 @@ Purely ADDITIVE + a cost fix; default-safe, then flip-on.
    can pick its own coverage.
 3. **Flip `precision_weight_roles` default-ON** once (1) lands (net-neutral cost) -- the EMISSION is byte-identical
    to every scored dim (additive); the DEFER behavior is the consumer's opt-in via tau. Do NOT wire the RAW arc
-   margin (weak); do NOT wire the small-beam posterior (located negative); do NOT re-attach the parse.
+   margin FOR THE PATIENT (weak); do NOT wire the small-beam posterior (located negative); do NOT re-attach the parse.
+4. **Add the AGENT defer (section 10a) -- cheap.** The agent role already carries the Competition-Model margin;
+   emit it as the agent's reliability and ABSTAIN below an agent tau. NO calibration logistic needed (the raw
+   margin AUC 0.76 is strong) -- a threshold on the emitted margin. Completes the who-did-what channel.
+5. **Add a per-EVENT joint confidence (section 10b) -- the reasoning bridge.** On the EventRecord, expose
+   `event_conf = P(agent correct) * P(patient correct)` (product of the bound-role precisions; the principled
+   combiner, matches a learned one) so the reasoning phase defers on whole EVENTS, not just single arcs. The
+   agent precision is the calibrated margin; the patient precision is `calibrated_patient_confidence`.
 
 ## 7. ADJACENT COMPONENTS + WHAT I DID NOT ESTABLISH
 
@@ -161,8 +197,12 @@ Purely ADDITIVE + a cost fix; default-safe, then flip-on.
   (section 3b). *Brain-status:* an OUR-INVENTION greedy scorer standing in for a globally-normalized ranked-parallel
   grammar. **Follow-on: a globally-normalized parser with exact Matrix-Tree marginals** (the north-star; would also
   give the PATIENT arc a real competition margin and enable a genuine 2nd-best fall-back).
-- **the AGENT reader** (Competition-Model margin) -- already HAS the competition property (raw margin AUC 0.76);
-  the predecessor precision-weighted it. Not re-touched.
+- **the AGENT reader** (Competition-Model margin) -- already HAS the competition property (raw margin AUC 0.76).
+  Built the AGENT defer-consumer this round (section 10a): abstain on the raw margin, CI-sep, NO calibration
+  needed. Revisit: DONE (channel complete).
+- **the EVENT (agent+patient binding)** -- built the joint precision propagation this round (section 10b): a
+  per-event confidence = product of role precisions predicts whole-event correctness and supports an event-level
+  defer. Revisit: this is the bridge to the reasoning phase (the joint confidence should live on the EventRecord).
 - **NOT established**: (a) an ABSOLUTE-accuracy gain -- the deliverable is reliability (abstain), and fall-back
   does not raise absolute accuracy (section 3a, an expected located negative); (b) the live LitBank board number
   (19c, banned as load-bearing -- I measured modern UD-EWT + QA-SRL); (c) the SPACE register end-to-end (the obl
@@ -187,6 +227,11 @@ Purely ADDITIVE + a cost fix; default-safe, then flip-on.
   ms/read -- the confidence is already computed.
 - **Consume the FROZEN landed calibrator, don't re-fit.** Scoring with `hdlab.parse_confidence` (not a fresh
   logistic) proves the DEFER gain is the LANDED signal's live value, exactly what a flip-on decision needs.
+- **A controllable phase parameter turns an observation into a proof.** Rather than reporting the defer gain on
+  one corpus, dialing the competition-density knob (real strata + a synthetic sweep) shows the gain RISES with
+  density (+0.060 sparse -> +0.125 dense) exactly as a precision-weighting account predicts -- the mechanism, not
+  a correlation. The densest regime (where label bias is worst) is both where defer helps most AND where the
+  globally-normalized-parser north-star would pay off most.
 
 ## 9. AUDIT UPDATE (for BRAIN_FOUNDATIONAL_AUDIT.md section 2b -- parse_confidence / precision-weighting)
 
@@ -204,6 +249,66 @@ Purely ADDITIVE + a cost fix; default-safe, then flip-on.
 - **FALL-BACK confirmed as the expected negative**: neither the head-independent patient (position prior) nor the
   obl reader (locality prior) has a better prior to fall back to; ABSTAIN is the deployable action. Record: the
   robust defer action is ABSTAIN, not FALL-BACK.
+- **DENSITY-PHASE robustness (new)**: the abstain gain scales with competition density (+0.0599 sparse -> +0.1251
+  dense on real obl arcs, confidence AUC stable, twins flat) and the calibrated confidence tracks a controllable
+  synthetic density knob into the denser-than-corpus regime -> the precision-weighting is density-sensitive as its
+  Friston/graded_competition account predicts, and the defer policy matters most in dense competition (the regime
+  where the locally-normalized parser is weakest). Reinforces flipping ON.
+- **AGENT defer-consumer (new)**: completes the who-did-what channel -- an ABSTAIN gain on the agent's raw
+  Competition-Model margin (+0.0872 UD / +0.0635 QA, CI-sep, twin flat) with NO calibration (the margin AUC 0.760
+  is already strong, unlike the greedy-parser arc conf). Record: the agent defer path needs no logistic (efficiency).
+- **Joint-EVENT precision propagation (new)**: the event-level reliability = PRODUCT of its role precisions
+  (P(agent)*P(patient)) predicts whole-event correctness AUC 0.821 -- beating either role alone (0.752/0.642) and
+  matching a learned combiner (0.822); event-level defer lifts whole-event reliability 0.680->0.807 (+0.127 CI-sep,
+  twin flat). Record: precision PROPAGATES; the reasoning phase should carry a per-event confidence = product of
+  bound-role precisions and defer on it. This is the reliability substrate for the reasoning phase.
+
+## 10. FURTHER BRAIN-FOUNDATIONAL UPGRADES + EFFICIENCIES (this round)
+
+Two upgrades built and measured after the core landed (each a full-data CI-separated positive; no new walls):
+
+**10a. The AGENT defer-consumer -- completes the who-did-what channel AND is an efficiency**
+(`exp_defer_agent_v1`). The agent is assigned by the Competition-Model competition (graded_role_assigner +
+graded_competition), which MAINTAINS the full distribution over candidates -- so its reliability is the competition
+MARGIN (Lewis-Vasishth activation gap), already a strong signal (AUC 0.760 UD / 0.706 QA) UNLIKE the greedy-parser
+arc conf. Deployed dev-tau abstain, on modern gold:
+
+| agent gold | n | blanket | answered @ dev-tau (RAW margin, NO calibration) | delta CI | twin |
+|---|---|---|---|---|---|
+| UD-EWT active nsubj | 1409 | 0.7367 | **0.8238** (cov 0.798) | +0.0872 [+0.0698,+0.1049] | +0.0026 |
+| QA-SRL agent | 3454 | 0.4346 | **0.4981** (cov 0.768) | +0.0635 [+0.0543,+0.0725] | -0.0016 |
+
+**The EFFICIENCY**: the RAW competition margin alone gives this CI-separated abstain gain -- the agent defer needs
+NO calibration logistic (the calibrated path adds a little more on UD, +0.1048, but is not required). The parse-arc
+readers need the logistic; the competition reader gets a usable reliability for free. This is the fidelity map made
+operational: maintain co-active alternatives -> a meaningful margin at zero extra cost; commit greedily -> none.
+
+**10b. Joint-EVENT precision propagation -- the reliability substrate the reasoning phase stands on**
+(`exp_defer_joint_event_v1`). The defer-consumer gates ONE arc; the reasoning phase consumes whole EVENTS. Friston
+precision is HIERARCHICAL -- it PROPAGATES. For each UD-EWT event with a gold agent AND patient, calibrate each role
+to P(role correct) (agent margin logistic; patient = the FROZEN landed calibrator) and combine into a JOINT event
+confidence. On the whole-event-correct target (n=662, blanket 0.6798 = agent 0.760 x patient 0.887, roughly
+independent):
+
+| combiner | AUC(predict whole-event correct) |
+|---|---|
+| agent role alone | 0.752 |
+| patient role alone | 0.642 |
+| **PRODUCT** = P(agent)*P(patient) (independent conjunction) | **0.821** |
+| MIN (weakest-link) | 0.819 |
+| learned logistic (upper reference) | 0.822 |
+
+The PRINCIPLED product-of-precisions (0.821) BEATS either role alone and MATCHES the learned combiner (0.822) --
+precision propagation is real and its brain-foundational rule is optimal (no need to learn it). Deferring on
+low-joint-confidence EVENTS lifts whole-event reliability **0.6798 -> 0.8068 at 76% coverage (+0.1270
+CI[+0.1006,+0.1537]), twin flat (+0.0015)**. This is the per-EVENT reliability a reasoning step can defer on -- the
+brief's "an inference engine can only be trusted if every fact it reasons from carries a reliability it can defer
+on", realized: the event carries the combined precision of its bound roles.
+
+**Efficiency summary (all measured):** (E1) the fold removes the duplicate parse (-0.840 ms/read); (E2) drop the
+inert obl a2_marg cue (net-zero 2nd parser, -0.0052 AUC); (E3) the AGENT defer needs no calibration (raw margin);
+(E4) the product-of-precisions event combiner needs no learned model (matches the logistic). No new walls: 10a/10b
+are clean positives; the standing walls (fall-back; the beam/global-normalization) are unchanged.
 
 ---
 
@@ -222,8 +327,11 @@ simple default guess adds nothing -- when the grammar engine is unsure, the simp
 so there is nothing better to switch to; (2) I tried to make the grammar engine itself produce a richer certainty
 by having it keep several competing analyses instead of one -- and it doesn't help, because this engine was trained
 to make one greedy choice, so half the time the right analysis isn't even among the ones it keeps. The fix for
-that is a differently-built grammar engine (a known, separate piece of work). The payoff of what DID work: a reader
-that knows which of its answers to trust, which is exactly what any later reasoning has to stand on.
+that is a differently-built grammar engine (a known, separate piece of work). One more check, using the owner's
+point that we can dial how "crowded" a sentence is: the holding-back helps MOST when the sentence is crowded (many
+things the grammar could attach to) -- the reliability boost more than doubles from uncrowded to crowded -- which
+is exactly when a reader most needs to know what it does not know. The payoff of what DID work: a reader that knows
+which of its answers to trust, which is exactly what any later reasoning has to stand on.
 
 ### QUESTIONS
 None. (The consumer clears the bar's CI-separated + twin-losing + deployed-tau + net-neutral-cost conditions on
@@ -238,9 +346,14 @@ fall-back and upstream negatives as full-pass secondary findings, not the headli
    then flip `precision_weight_roles` default-ON (net-neutral cost, additive emission).
 2. **Add a MODERN selective-reliability board arm** so this live defer gain is board-VISIBLE (the board scores
    blanket accuracy on 19c gold; reuse this cell's answered-acc-at-dev-tau + twin).
-3. **File the globally-normalized parser** (exact Matrix-Tree marginals / Andor beam-in-the-loop) -- the north-star
+3. **LAND the AGENT defer + the JOINT-EVENT confidence (section 10).** The agent defer is the cheap raw-margin
+   threshold (no calibration) that completes the who-did-what channel; the EventRecord should carry a joint
+   confidence = product of its bound-role precisions (agent margin x patient calibrated conf) so the reasoning
+   phase defers per-EVENT. This is the direct bridge to the reasoning phase.
+4. **File the globally-normalized parser** (exact Matrix-Tree marginals / Andor beam-in-the-loop) -- the north-star
    that would give a genuine parse posterior (better confidence AND a real 2nd-best fall-back), recovering the
    ~half of parser errors that are search failures. This is where the remaining parse-confidence reliability lives.
-4. **DO NOT**: wire the RAW arc margin (weak); wire the small-beam posterior (located negative, label bias); use
-   FALL-BACK for the patient/obl defer (adds nothing -- ABSTAIN); re-attach the parse; or quote a fall-back
-   absolute-accuracy gain (there is none -- an expected located negative).
+5. **DO NOT**: wire the RAW arc margin FOR THE PATIENT (weak -- note the AGENT raw margin IS strong, use it);
+   wire the small-beam posterior (located negative, label bias); use FALL-BACK for any defer (adds nothing --
+   ABSTAIN); re-attach the parse; or quote a fall-back absolute-accuracy gain (there is none -- an expected
+   located negative).

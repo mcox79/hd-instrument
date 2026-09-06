@@ -5,7 +5,7 @@ bar: "PASS = a glass-box FORWARD PREDICTOR -- a transparent, hand-auditable proj
 result: "Glass-box forward continuation predictor on Story Cloze (MODERN, right-vs-wrong 5th sentence; MoE-UNC/story_cloze val 1871 + test 1871). The brain-faithful forward GENERALIZED-EVENT-KNOWLEDGE projection (Elman-style graded associative readout over the corpus's own forward transitions, self-supervised on ROCStories-train 98,161 stories) discriminates the coherent continuation val 0.5922 [0.5697,0.6147] / test 0.5815 [0.5585,0.6040], CI-SEPARATED over the majority-continuation floor (val +0.078 [+0.045,+0.110]; test +0.068 [+0.039,+0.099]); the cross-context info-free twin COLLAPSES to chance (val 0.4912 [0.468,0.514]; test 0.4885); and a calibrated precision (1 - normalized entropy of the graded_competition 2-way distribution) earns MONOTONICALLY RISING selective accuracy (val 0.592->0.654; test 0.582->0.630) while the random-confidence twin stays FLAT (val ->0.607; test ->0.560). LOCATED NEGATIVE (rigorous, triple-sourced) on the STRONGER claim: the projection does NOT robustly exceed a 1-step co-occurrence counter (val margin +0.0096 [-0.006,+0.024] NOT CI-sep; test +0.0176 [+0.004,+0.032]) and situation-model STRUCTURE does not lift it -- the multi-step successor HORIZON adds ~+0.01 (the successor_representation docstring's pre-registered outcome iii), the event-structured verb-chain grain is WEAKER (val 0.547/test 0.538), and the goal/causal registers FIRE ON ONLY ~27% of 5-sentence stories (measured). DOING IT RIGHT (v2): the artifact-free brain-foundational coherence engine (protagonist-centered CONTEXT-DEPENDENT contradiction + affect-arc-DIRECTION + causal-to-goal, learned cue validities, cross-validated) produces a GENUINE artifact-free lift over the counter (val 0.6002 +0.0176 [-0.002,+0.036]; test 0.5863 +0.0224 [+0.003,+0.043] CI-sep), twin collapses to 0.53, at the research-confirmed honest glass-box ceiling (~0.60; Mostafazadeh 2016 context baselines 0.52-0.585). The full CI with a cheap ending-only negation flag beat the counter CI-sep on BOTH splits (val +0.032/test +0.041) but a negation-ablation proved that was the Schwartz-2017 STYLE ARTIFACT, not coherence. Adding Friston PRECISION-WEIGHTING (v3: trust each cue by per-item reliability) tips it to paired-CI-separated over the counter on BOTH splits (val 0.6029 +0.0203 [+0.0005,+0.040]; test 0.5922 +0.0283 [+0.010,+0.047]), razor-thin on val. The dominant remaining gap is EXTRACTION density (a separate problem's lane), NOT the now-validated inference design."
 floor: "STRONGEST base-rate floors, recomputed on each split's own population: majority-continuation prior val 0.5142 [0.492,0.537] / test 0.5131; ending-only unigram plausibility val 0.5045 / test 0.5104; 1-step SYMMETRIC co-occurrence counter val 0.5826 [0.559,0.605] / test 0.5639 [0.541,0.586] (the SR docstring's named floor -- the strongest). The mechanism CI-separates over majority+unigram on both splits; it does NOT CI-separate over the 1-step counter on val (+0.0096, CI includes 0)."
 controls: "(1) cross-context twin (endings scored against a RANDOM other story's context, same shapes/balance) -> val 0.4912 / test 0.4885 = EXCLUDES 'uses only the endings / a style artifact', proves it USES this story. (2) random-confidence twin (precision permuted, same coverage) -> selective curve FLAT = EXCLUDES 'any abstention at this rate raises accuracy'. (3) 1-step co-occurrence counter floor = EXCLUDES 'the win needs a predictive HORIZON' (it does not; the horizon adds ~+0.01). (4) event-structured verb-chain / verb+patient arm (0.54) = EXCLUDES 'a finer event grain helps' (it is weaker). (5) register fire-rate on the full live-reader eval (Cell B, n=1871/split: goal fires 0.319/0.335, causal 0.285/0.277, mean 7.9 events per 4-sentence context; witness W6 corroborates 10/40 & 9/40) = LOCATES the extraction bottleneck. (6) held-out by construction: the transition store is ROCStories-train, disjoint from the Story Cloze eval stories."
-files_changed: "experiments/exp_forward_event_projection_v1.py (content-GEK spine, full-scale); experiments/exp_forward_event_projection_situation_model_v1.py (live SituationReader + graded_competition multi-cue combination); experiments/exp_forward_event_affect_coherence_v1.py (the affect/valence-trajectory cue); experiments/exp_forward_event_construction_integration_v1.py (the full Kintsch/Trabasso alternative + the negation-artifact ablation); experiments/exp_forward_event_situation_coherence_v2.py (the RIGHT artifact-free engine: protagonist-centered context-dependent contradiction + affect-arc-direction + causal-to-goal, learned cue validities); experiments/exp_forward_event_precision_weighted_v3.py (the Friston PRECISION-WEIGHTED integration upgrade); experiments/exp_forward_event_predictive_loop_v1.py (CLOSING THE PREDICTIVE-CODING LOOP: forward prediction error for coherence + event SEGMENTATION + reset-vs-reinstate); experiments/exp_forward_event_generalization_socialiqa_v1.py (cross-dataset generalization boundary on Social IQa); experiments/exp_forward_event_world_knowledge_v1.py (richer ConceptNet causal/script world-knowledge foundation -- prototype for blocker 2); experiments/exp_forward_event_density_phase_v1.py (the DENSITY phase-diagram sweep -- prototype for blocker 1); experiments/fetch_story_cloze_rocstories.py (pinned reproducible gold fetch); verification/test_forward_event_projection.py (scaffold-free witness); data/exp_forward_event_projection_v1/metrics.json; data/exp_forward_event_projection_situation_model_v1/metrics.json; data/exp_forward_event_affect_coherence_v1/metrics.json; data/corpora/story_cloze/ + data/corpora/roc_stories/ (materialized gold, gitignored). hdlab/ UNTOUCHED (Q111)."
+files_changed: "experiments/exp_forward_event_projection_v1.py (content-GEK spine, full-scale); experiments/exp_forward_event_projection_situation_model_v1.py (live SituationReader + graded_competition multi-cue combination); experiments/exp_forward_event_affect_coherence_v1.py (the affect/valence-trajectory cue); experiments/exp_forward_event_construction_integration_v1.py (the full Kintsch/Trabasso alternative + the negation-artifact ablation); experiments/exp_forward_event_situation_coherence_v2.py (the RIGHT artifact-free engine: protagonist-centered context-dependent contradiction + affect-arc-direction + causal-to-goal, learned cue validities); experiments/exp_forward_event_precision_weighted_v3.py (the Friston PRECISION-WEIGHTED integration upgrade); experiments/exp_forward_event_predictive_loop_v1.py (CLOSING THE PREDICTIVE-CODING LOOP: forward prediction error for coherence + event SEGMENTATION + reset-vs-reinstate); experiments/exp_forward_event_generalization_socialiqa_v1.py (cross-dataset generalization boundary on Social IQa); experiments/exp_forward_event_world_knowledge_v1.py (richer ConceptNet causal/script world-knowledge foundation -- prototype for blocker 2); experiments/exp_forward_event_density_phase_v1.py (the DENSITY phase-diagram sweep); experiments/exp_forward_event_dense_context_v1.py (THE DECISIVE dense-regime test: MCScript2 long-context forward-continuation with same-scenario hard negatives); experiments/exp_forward_event_ci_settling_v1.py (Kintsch Construction-Integration SETTLING -- the brain's integration mechanism, glass-box); notes/problems/.../research_drill_forward_coherence_wall_2026-09-06.md (aggressive 4-angle wall research); experiments/fetch_story_cloze_rocstories.py (pinned reproducible gold fetch); verification/test_forward_event_projection.py (scaffold-free witness); data/exp_forward_event_projection_v1/metrics.json; data/exp_forward_event_projection_situation_model_v1/metrics.json; data/exp_forward_event_affect_coherence_v1/metrics.json; data/corpora/story_cloze/ + data/corpora/roc_stories/ (materialized gold, gitignored). hdlab/ UNTOUCHED (Q111)."
 reverify: ".venv/Scripts/python.exe verification/test_forward_event_projection.py"
 ---
 
@@ -259,10 +259,59 @@ shared currency and measures it two ways:
   MEANING channel; forward coherence needs the (north-star-aligned, clean/typed) EVENT-KNOWLEDGE channel, which is
   what the proposed `generalized_event_knowledge` organ IS. The higher-fidelity version of MY store is a
   CLEAN/TYPED (sense-resolved) forward EVENT-transition store, not raw lemma co-occurrence.
-- **BOTH prototypes converge on the SAME reframe:** on short contexts there is too little narrative structure for
-  either denser extraction OR richer world knowledge to help -- so the honest next move is not "more knowledge/
-  extraction on short stories" but "evaluate in the DENSE-CONTEXT regime" (long narratives), which the phase-
-  diagram insight makes cheap to construct. That is the load-bearing next experiment, and it is verdict-independent.
+- **THE DECISIVE DENSE-REGIME TEST (`exp_forward_event_dense_context_v1`) -- and it REFUTES my "short-regime
+  artifact" speculation.** I built the dense-context forward-continuation gold (MCScript2, 6-sentence contexts,
+  same-scenario topic-matched hard negatives; dev n=273, test n=557). Density WORKS as predicted: on 6-sentence
+  contexts the registers fire densely (causal 0.74, goals 0.59, ~20 events/context vs 0.28/0.32 on short Story
+  Cloze). BUT the STRUCTURED situation-model mechanism (v3 cues, precision-weighted, cross-validated) STILL does
+  NOT beat the co-occurrence counter in the dense regime: dev STRUCTURED 0.550 vs counter 0.608 (-0.059
+  [-0.132,+0.015]); test 0.553 vs 0.546 (+0.007 [-0.034,+0.049], tied). The temporal-shuffle-context twin does
+  NOT collapse (0.55 ~ structured) -- the cues are largely order-invariant association even when the situation
+  model is dense. **So the counter's parity is NOT a short-regime artifact -- it persists in the dense regime.**
+  My earlier speculation was wrong, and the test the owner pushed me to run is what showed it. The honest,
+  corrected conclusion: denser EXTRACTION alone does not unlock the structured mechanism -- the ceiling is about
+  INFERENCE DEPTH (the deep causal-motivational entailment only a learned world model supplies, per the research),
+  not extraction sparsity. (Task caveat: the same-scenario hard negative controls topic at the SCENARIO level but
+  not at the VOCABULARY level -- different same-scenario stories use different specific words -- so the counter
+  retains a small vocabulary-overlap edge; the twin-not-collapsing + structured-not-beating-counter is the robust
+  finding regardless.)
+- **SO BOTH the density knob AND richer world knowledge are REAL levers that do NOT close this gap.** Density is a
+  controllable parameter (fire-rate 0.28->0.74), and richer typed causal knowledge fires densely (100%) -- but
+  neither lets the glass-box structured/associative cues exceed co-occurrence, in short OR dense regimes. This
+  CONVERGES with the research's honest ceiling (only a learned world model breaks it) and CLOSES the "density/
+  knowledge fixes it" hypothesis with a direct test rather than an assumption.
+
+## THE WALL, UNDERSTOOD: aggressive research + building the brain's integration mechanism (2026-09-06)
+Pushed to research the wall aggressively and build the brain's ACTUAL mechanism (not shallow cues), I ran a
+4-angle literature drill (`research_drill_forward_coherence_wall_2026-09-06.md`) and built the Kintsch
+Construction-Integration SETTLING mechanism (`exp_forward_event_ci_settling_v1`) -- settle a knowledge net to a
+coherent fixed point, read off which candidate INTEGRATES (not which is merely related). This is the genuinely
+non-single-shot brain mechanism (global coherence, not pairwise association).
+
+**Result: CI-settling plateaus too** -- val 0.5697 / test 0.5580 (at the counter; slightly below single-shot GEK;
+twin collapses to 0.49, so it USES the context but cannot exceed co-occurrence over an associative net).
+
+**And the research explains EXACTLY why, which turns the plateau into an understood, crossable wall:**
+- The brain's forward-coherence ENGINES -- CI-settling (Kintsch), causal-necessity (Trabasso counterfactual),
+  inverse-planning (Baker/IPOCL/Chandra) -- are ALL glass-box and buildable (running-code precedents; I built +
+  tested CI-settling). Their discriminative power is GATED by a RICH, STRUCTURED SCRIPT/EVENT-SCHEMA knowledge net
+  (Graesser: "a search finds nothing in an empty store").
+- Our available nets (co-occurrence, ConceptNet causal, meaning-similarity) are the WRONG KIND -- associative/
+  taxonomic, not script/event-schema-structured -- so EVERY mechanism over them plateaus (measured across ~12
+  mechanisms incl. CI-settling). **THE GAP IS THE STRUCTURED KNOWLEDGE FOUNDATION, NOT A MISSING MECHANISM.**
+- The SEM decomposition settles the "is a learned net irreducible?" question: SEM's schema-selection/segmentation
+  is glass-box + load-bearing (Nguyen 2024 confirms modularity); its learned GRU dynamics has NO ablation
+  justifying it, and Kumar et al. 2023 shows a GLASS-BOX Bayesian/KL-surprise over a FROZEN foundation predicts
+  human event boundaries with NO training at inference. So the learned piece is "cheap nonlinear compression,"
+  likely ONLINE-fittable -- human-level is NOT gated by a forbidden learned net.
+- Graesser 1994 (load-bearing): forecasting inferences are NOT spontaneous -- recruited ON-DEMAND under a forced
+  choice (exactly Story Cloze). So the faithful model is instrumental goal-directed graph COMPLETION at the choice.
+
+**The brain-foundational path across (buildable, invariant-compliant):** build the RICH SCRIPT/EVENT-SCHEMA
+knowledge FOUNDATION (offline static asset = admissible; the project's north-star clean/typed knowledge
+foundation, SPECIALIZED to event-schemas), THEN run the already-built glass-box engines (CI-settling +
+causal-necessity + inverse-planning) over IT. This is a FOUNDATION-scale build, not a mechanism tweak -- which is
+precisely why the built mechanisms plateau without it.
 
 ## Why this is a rigorous located negative -- and the sharpened diagnosis (TWO fidelity gaps, not one ceiling)
 Every faithful glass-box readout was built and tested -- GEK association (works over frequency floors), the
@@ -282,12 +331,13 @@ SIMILAR. So we do not show the brain's ~1.00 for TWO concrete, brain-foundationa
     ~30% goal/causal fire-rate is a property of the 4-sentence STORY CLOZE regime, NOT of the mechanism. Measured
     (`exp_forward_event_density_phase_v1`): the fire-rate climbs MONOTONICALLY with context length --
     goal 0.056->0.168->0.260->0.316->0.360 and causal 0.052->0.164->0.224->0.288->0.344 as L=1->5 -- and would keep
-    climbing on longer narratives. So the structured cues were UNDER-POWERED by a short-context eval, not
-    ceilinged. The co-occurrence counter's parity is very plausibly a SHORT-REGIME artifact (the counter needs no
-    structure, so it wins only where structure is sparse; in the dense regime the structured cues should pull
-    ahead). The definitive test is a DENSE-regime continuation gold (long contexts) -- cheap to construct, since
-    density is a knob we set -- which Story Cloze (capped at 4 sentences) cannot provide. This REPLACES "extraction
-    is a separate blocker" with "evaluate/deploy in the dense regime."
+    climbing on longer narratives. So the ~30% was a short-context artifact, NOT a mechanism limit. I speculated
+    the counter's parity was therefore a short-regime artifact and the structured cues would pull ahead in the
+    dense regime -- and I TESTED it (`exp_forward_event_dense_context_v1`, MCScript2 6-sentence contexts, causal
+    fires 0.74). THE TEST REFUTED THE SPECULATION: even with dense extraction the structured mechanism does not
+    beat the counter (dev -0.059, test +0.007 tied) and the twin does not collapse. So denser EXTRACTION alone does
+    not unlock it -- the ceiling is INFERENCE DEPTH (a learned world model), not extraction sparsity. Correct
+    takeaway: density is a real, controllable lever that raises fire-rate but does NOT close the coherence gap.
 The honest-ceiling literature is consistent (Chambers-Jurafsky disclaim human-solvability for SHALLOW event
 models; Story Cloze's 75.2% content-blind classifier is a style artifact), and the ONE model that reaches ~0.90 --
 SEM (Franklin/Gershman 2020, a gated RNN over HRR-bound scene vectors) and modern LMs -- brings a LEARNED deep
@@ -319,13 +369,25 @@ ours is a co-occurrence PPMI table, which captures scene association but not fin
 goal cue. The FIRST is the highest-leverage upstream fix (see ADJACENT).
 
 ## KEY REALIZATIONS
+- **THE WALL IS A KNOWLEDGE-FOUNDATION GAP, NOT A MECHANISM GAP (owner 2026-09-06).** I built the brain's actual
+  integration mechanism (Kintsch CI-settling) and it plateaued too. The 4-angle research explains it: the
+  glass-box engines (CI-settling, causal-necessity, inverse-planning) are all buildable, but their power is GATED
+  by a RICH SCRIPT/EVENT-SCHEMA knowledge net -- and our available nets are the wrong KIND (associative, not
+  schema-structured). And the SEM decomposition shows the learned dynamics is NOT irreducible (Kumar 2023:
+  glass-box KL-surprise over a frozen foundation predicts human boundaries). So human-level is reachable
+  glass-box -- the missing piece is the structured KNOWLEDGE FOUNDATION, a north-star offline build, not a
+  forbidden learned model. Generalizes: when every mechanism over a knowledge net plateaus, suspect the NET's
+  structure, not the mechanism.
 - **"SPARSE" IS A PHASE-DIAGRAM KNOB, NOT A WALL (owner 2026-09-06).** I twice labelled the ~30% goal/causal
   fire-rate a fixed blocker. It is not: density is a parameter we control (context length / corpus richness), and
   the fire-rate climbs monotonically with it (goal 0.06->0.36 as L=1->5). The situation-model mechanism was
-  UNDER-POWERED by a short-context eval, not ceilinged -- and a counter's parity in the sparse regime says nothing
-  about the dense regime. The fix is to evaluate/deploy in the dense regime (constructible cheaply), not to treat
-  short-context sparsity as an intrinsic limit. Generalizes: never report "sparse" as a ceiling without asking
-  which regime parameter set it and whether we control that parameter.
+  UNDER-POWERED by a short-context eval on the EXTRACTION side, not ceilinged. Generalizes: never report "sparse"
+  as a ceiling without asking which regime parameter set it and whether we control that parameter. **BUT the
+  follow-through test corrected my NEXT move too:** having fixed the density knob (MCScript2 6-sentence contexts,
+  causal fires 0.74), I speculated the structured cues would then beat the counter -- and the direct test REFUTED
+  it (structured ties/loses; the temporal-shuffle twin does not collapse). So the honest lesson is two-sided:
+  sparsity was not the wall (density is a knob), AND density is not the fix (the ceiling is inference DEPTH, not
+  extraction density). Both were settled by running the test, not by assuming -- which is the whole point.
 - **The exceed was the ARTIFACT until I ablated it; the CHEAP contradiction cue and the RIGHT one have OPPOSITE
   provenance.** The full CI beat the counter CI-separated on both splits -- but a negation-cue ablation caught it
   riding the Schwartz-2017 style artifact (an ending-ONLY negation flag, context-INDEPENDENT). Rebuilding the
@@ -460,12 +522,18 @@ gap in how much structure we extract from short stories -- not a broken guesser.
   island, no-regress) + the forward-error segmentation wire into `n400_coherence_monitor` (redirect its error to
   the forward prediction + add lambda~0.3 reinstatement), then measure the live-board lift. Lean extraction, the
   3 live cues, precision-weighting, 1-step transitions.
-- **GAP (A) EXTRACTION -- file the highest-leverage follow-on: DENSER event/goal/causal/affect EXTRACTION on
-  short modern narrative** (the ~0.28-0.32 fire-rate + ~7.9-events-per-4-sentences over-segmentation is the
-  measured bottleneck; it caps every forward cue). Prerequisite to everything above.
-- **GAP (B) INFERENCE -- BUILT + VALIDATED (v2), land it.** The forward causal-coherence inference engine
-  (protagonist-centered context-dependent contradiction + affect-arc-direction + causal-to-goal, learned cue
-  validities) is prototyped and produces a genuine artifact-free lift; land it as a default-off readout composing
-  the live registers. It is NOT the missing piece -- its cues are ready to consume denser extraction.
+- **GAP (A) EXTRACTION DENSITY -- TESTED, and it is NOT the fix (do not file it as the lever).** The dense-regime
+  test (MCScript2 6-sentence contexts, causal fires 0.74) shows denser extraction raises fire-rate but does NOT
+  let the structured mechanism beat the counter. Density is a real knob, but the coherence gap is not on the
+  extraction side.
+- **GAP (B) INFERENCE ENGINES -- BUILT + tested (v2/v3 cues + Kintsch CI-settling); they are NOT the missing
+  piece.** The glass-box engines are ready; they plateau ONLY because they run over associative nets.
+- **THE REAL LEVER -- build the RICH SCRIPT/EVENT-SCHEMA KNOWLEDGE FOUNDATION (north-star, offline static asset).**
+  Canonical ordered event structures per situation, causal/goal-typed (Schank scripts + Trabasso causal criteria +
+  Rashkin naive-psychology schema), then run the already-built CI-settling + causal-necessity + inverse-planning
+  over it, recruited on-demand at the forced choice (Graesser). This is a FOUNDATION-scale project (the project's
+  clean/typed knowledge north-star, specialized to event-schemas), and it is the brain-foundational, invariant-
+  compliant (NO inference-LLM) path across the wall. The SEM-style generative dynamics can be ONLINE-fitted per
+  schema (Kumar 2023 shows the learned piece is not irreducible), not batch-trained.
 - Revisit `predict_surprisal` (extend to event level) and `n400_coherence_monitor` (take its error against this
   forward prediction) to consume the new forward-event expectation -- the true predictive-coding loop.
