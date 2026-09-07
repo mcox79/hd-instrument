@@ -2,20 +2,25 @@
 problem: gate_the_eventive_nominal_event_channel_by_context_wsd_event_vs_result
 status: PARTIAL
 bar: "The WSD-gated nominal channel keeps the lift AND restores precision, CI-separated over the UNGATED channel, on MODERN gold (TB-Dense + MAVEN, the SAME populations p2 used) ... The gated arm must retain survival/recall NEAR the ungated 0.73/0.78 (state the fraction of the lift retained) WHILE precision rises toward the verb-only channel's level. The FLOOR is the UNGATED nominal channel recomputed on the SAME population ... The info-free twin LOSES CI-separated ... NO-regress + a positive control the type rule cannot get ... The abstention band is isolated."
-result: "Glass-box biased-competition per-token gate (parse-selected selectional context + selectional resting-bias), COMBINED arm. TB-Dense (22 docs, 333 multi-hop chains, TimeML gold): extraction precision 0.6517 (ungated FLOOR) -> 0.7142 gated, +0.0624 CI[+0.0419,+0.0802] SEP+ (toward verb-only 0.7871); whole-subgraph survival 0.7327 (ungated) -> 0.6577 gated (retains 77% of the lift over verb-only 0.4054), -0.0751 CI[-0.1051,-0.0480]. MAVEN-ERE (710 docs, 43599 chains): precision 0.4768 -> 0.5310, +0.0543 CI[+0.0515,+0.0573] SEP+; survival 0.7495 -> 0.6363 (retains 66% of the lift over 0.4134). Info-free twins LOSE CI-sep for the COMBINED arm on BOTH golds (shuffled-cue AND permuted-context; TB twinB +0.051, MAVEN twinB +0.0110), though the MAVEN margins are small; the FLAT-bag and parse-ONLY twins do NOT reliably lose at MAVEN scale -- the SELECTIONAL CUE is what carries the token-level signal (a required brain-foundational finding). Positive control (same lemma, both readings): the gate makes token-differentiated decisions a type lexicon cannot, but is keep-biased and only weakly separates genuinely-ambiguous polysemous tokens (the located encoding ceiling)."
+result: "Glass-box biased-competition per-token gate (parse-selected selectional context + selectional resting-bias), COMBINED arm. TB-Dense (22 docs, 333 multi-hop chains, TimeML gold): extraction precision 0.6517 (ungated FLOOR) -> 0.7142 gated, +0.0624 CI[+0.0419,+0.0802] SEP+ (toward verb-only 0.7871); whole-subgraph survival 0.7327 (ungated) -> 0.6577 gated (retains 77% of the lift over verb-only 0.4054), -0.0751 CI[-0.1051,-0.0480]. MAVEN-ERE (710 docs, 43599 chains): precision 0.4768 -> 0.5310, +0.0543 CI[+0.0515,+0.0573] SEP+; survival 0.7495 -> 0.6363 (retains 66% of the lift over 0.4134). Info-free twins LOSE CI-sep for the COMBINED arm on BOTH golds (shuffled-cue AND permuted-context; TB twinB +0.051, MAVEN twinB +0.0110), though the MAVEN margins are small; the FLAT-bag and parse-ONLY twins do NOT reliably lose at MAVEN scale -- the SELECTIONAL CUE is what carries the token-level signal (a required brain-foundational finding). Positive control (same lemma, both readings): the gate makes token-differentiated decisions a type lexicon cannot, but is keep-biased and only weakly separates genuinely-ambiguous polysemous tokens (the located encoding ceiling). DECISIVE END-TO-END TEST (Sec 4g): through the actual solved temporal reasoner (1586 gold pairs), answered-correct is joint_cop 0.3480 -> ungated joint_nom 0.4937 (87% of the 0.5681 gold ceiling) -> WSD-gated 0.4590 (-0.0347 CI-sep WORSE) -> dominance-gated 0.4470 (-0.0467 CI-sep worse); conditional accuracy is FLAT (~0.58). So the gate is net-NEGATIVE downstream (it only drops coverage); the brief's premise is REFUTED and the real problem is solved by turning the nominal channel ON UNGATED."
 floor: "UNGATED eventive-nominal channel (joint_nom) recomputed on each gold's own population: TB-Dense precision 0.6517 / survival 0.7327 ; MAVEN-710 precision 0.4768 / survival 0.7495. (Verb+copular reference joint_cop: TB precision 0.7871 / survival 0.4054 ; MAVEN 0.6208 / 0.4134.)"
 controls: "(1) info-free PERMUTED-CONTEXT twin (score the token against a random other token's sentence) -- for the COMBINED arm LOSES CI-sep on BOTH golds (TB +0.051, MAVEN +0.0110); the FLAT and parse-ONLY arms do NOT reliably lose at MAVEN scale (twinB +0.0006/+0.0007 NS). (2) SHUFFLED-CUE twin (permute the selectional cue onto wrong tokens) -- combined arm LOSES CI-sep (TB +0.018, MAVEN +0.0026). (3) info-free SHUFFLED-diagnosticity twin (permute the readout weights) -- LOSES with parse context on TB (+0.036), borderline on MAVEN. So the SELECTIONAL CUE is the load-bearing token-context signal at scale; the biased-competition readout alone is weak (the encoding ceiling). (4) NO-REGRESS additive subset property: recovered(joint_cop) SUBSET recovered(gated) SUBSET recovered(joint_nom) for every doc (the gate only ever DROPS NOM tokens; VERB/COP byte-identical). (5) CUE-ONLY reference (selectional sort, no readout): ~=ungated (TB 0.6526/0.7327; MAVEN 0.4795/0.7460) -- the cue alone does almost nothing; its value is as a resting bias combined with the readout. (6) type-level impossibility: same lemma KEPT in its event sentence and DROPPED in its object sentence."
-files_changed: "experiments/_nominal_wsd_gate.py (the gate organ + grounded readout path, self-test PASS); experiments/exp_nominal_wsd_gate_v1.py (the measurement: flat/parse/combined arms + floor + twins + theta sweep + positive control); experiments/exp_nominal_overfire_enumeration_v1.py (the over-firing population enumeration); experiments/exp_nominal_gate_representation_probe_v1.py (the WHY: event/object sig cosine w2v 0.93 vs grounded 0.51); experiments/exp_nominal_gate_grounded_v1.py (the grounded-representation prototype -- REFUTED at MAVEN power); experiments/_selectional_preference.py (the DERIVED selectional-preference organ from GUM gold parses) + experiments/exp_nominal_gate_selectional_v1.py (derived vs hand cue -- TIES, data-starved at MAVEN power); verification/test_nominal_wsd_gate.py (scaffold-free witness, W1-W4 PASS). NO hdlab write (Q111 -- proposed diff in Sec 7)."
+files_changed: "experiments/_nominal_wsd_gate.py (the gate organ + grounded readout path, self-test PASS); experiments/exp_nominal_wsd_gate_v1.py (the measurement: flat/parse/combined arms + floor + twins + theta sweep + positive control); experiments/exp_nominal_overfire_enumeration_v1.py (the over-firing population enumeration); experiments/exp_nominal_gate_representation_probe_v1.py (the WHY: event/object sig cosine w2v 0.93 vs grounded 0.51); experiments/exp_nominal_gate_grounded_v1.py (the grounded-representation prototype -- REFUTED at MAVEN power); experiments/_selectional_preference.py (the DERIVED selectional-preference organ from GUM gold parses) + experiments/exp_nominal_gate_selectional_v1.py (derived vs hand cue -- TIES, data-starved at MAVEN power); experiments/exp_nominal_gate_frequency_v1.py (the omitted FREQUENCY/DOMINANCE prior -- best single precision (dom_only) but same frontier, MAVEN 23653 chains); experiments/exp_nominal_gate_endtoend_v1.py (THE DECISIVE end-to-end reasoner test -- gating is net-NEGATIVE, ungated wins 0.4937=87% of ceiling); verification/test_nominal_wsd_gate.py (scaffold-free witness, W1-W4 PASS). NO hdlab write (Q111 -- proposed diff in Sec 7)."
 reverify: ".venv/Scripts/python.exe verification/test_nominal_wsd_gate.py"
 ---
 
 # Gating the eventive-nominal event channel by a per-token context/WSD gate (event vs result/object)
 
-**Status: PARTIAL — a genuinely brain-foundational gate that IMPROVES the precision/survival operating point
-CI-separated over the ungated floor with the info-free twins losing, PLUS two precisely-located residuals that
-bound how far a glass-box gate can go. Not a clean SOLVED because the gate does not fully restore precision to the
-verb-only level while holding survival at the ungated 0.73/0.78 — there is an inherent Pareto tradeoff, and I locate
-exactly why (below). No hdlab landed (Q111); the proposed diff + operating-point recommendation are in Sec 7-8.**
+**Status: PARTIAL — but the headline is a REFUTATION of the brief's premise, earned by the decisive end-to-end test
+(Sec 4g). I built the WSD gate faithfully (brain-foundational sense machinery: biased competition + selectional
+restriction + frequency/dominance; precision restored CI-separated at the extraction level, twins losing) — and then,
+running it through the ACTUAL solved temporal reasoner, the gate makes the reader answer FEWER timeline questions
+correctly (0.4937 ungated -> 0.4590 gated, CI-separated WORSE) because conditional accuracy is flat and gating only
+drops coverage. The precision "cost" the brief is built around is an EXTRACTION-INSTRUMENT ARTIFACT, not a downstream
+cost. The real goal — make the biggest temporal survival lever a safe default-ON gain — is achieved by turning the
+nominal channel ON UNGATED (already the downstream winner, 87% of the gold-event ceiling), NOT by gating it. The gate
+is a rigorously-built located NEGATIVE. No hdlab landed (Q111); the revised recommendation (flip default-ON, don't
+wire the gate) is in Sec 7.**
 
 ## 0. WHAT THE BRIEF ASKED, AND THE ONE-SCREEN ANSWER
 Turn the p2 joint front-end's eventive-NOMINAL channel from a default-OFF precision liability (survival 0.41->0.73/0.78
@@ -190,6 +195,43 @@ independent forms; the residual token-level ceiling is a DATA/COVERAGE limit on 
 distinct upstream organs — not this gate, not the representation, and not a neural model.** This meets the high bar for
 CONVERGENCE (the mechanism is identified, replicated, and the specific reason it does not fully separate is located).
 
+### 4f. FOUR brain-foundational cues, ONE frontier — the wall is not a missing cue (aggressive-research result).
+The single most robust lexical-access cue is sense FREQUENCY / DOMINANCE (Duffy/Morris/Rayner 1988 reordered access;
+the dominant sense is accessed first, context overrides). The SOLVED gate set prior_weight=0 -- omitting it -- so I
+added it (`event_margin(prior_weight>0)` via the landed diagnostic_context_wsd Bayesian log-prior; `dominant_event_mass`
+for the pure-dominance gate) and power-tested (`exp_nominal_gate_frequency_v1`, MAVEN 23653 chains). Dominance is REAL:
+`dom_only` (a cheap TYPE-level frequency rule, NO readout) gives the single best precision (0.5484, +0.0622 over the
+ungated floor -- it drops the huge non-event-DOMINANT over-firers forces/government for a precision gain). **But it does
+NOT break the precision/survival frontier -- it slides along it** (dom_only +0.062 precision / 0.6096 survival vs the
+SOLVED gate +0.054 / 0.6266; freq_ctx at high prior_weight trades back to +0.049 / 0.6480). **All FOUR brain-foundational
+cues now tested -- biased-competition context (w2v), grounded sensorimotor representation, derived selectional
+preference, and frequency/dominance -- land on the SAME frontier: precision +0.05-0.06 CI-sep, survival retained
+61-74%, no point restoring precision to verb-only without a survival cost.** Four independent brain-faithful mechanisms
+agreeing on one frontier is strong evidence the residual is NOT a missing cue. It is structural: (a) ~9-19% of the
+over-firing is event-DOMINANT nouns used as NAMED-EVENT REFERENCES (battle/war/storm -- Sec 4b; the frequency prior
+actually KEEPS these, so it cannot help), NOT a sense/frequency problem at all; and (b) the extraction-precision
+INSTRUMENT is annotation-confounded (MAVEN-ERE annotates only relation-participating triggers, so a kept true
+event-reading counts against precision) -- so "winning" may be UNMEASURABLE on this instrument. The decisive test is
+END-TO-END reasoner accuracy (does the gate change the timeline ANSWERS?), not extraction precision -- Sec 4d/8.
+
+### 4g. THE DECISIVE TEST — end-to-end through the SOLVED reasoner: the gate LOSES; the brief's premise is REFUTED.
+Extraction precision is the wrong target (p2 found over-extraction does not degrade reasoner accuracy), so I ran the
+gate through the ACTUAL solved temporal reasoner (`exp_nominal_gate_endtoend_v1`, TB-Dense, 1586 gold BEFORE/AFTER
+pairs; reasoner held FIXED, extraction the only variable). ANSWERED-CORRECT (cor/tot): incumbent 0.0971 -> joint_cop
+0.3480 -> **joint_nom (ungated) 0.4937** (87% of the gold-event ceiling 0.5681) -> joint_nom_wsd (gated) **0.4590**
+(-0.0347 CI[-0.0435,-0.0259], CI-separated WORSE) -> joint_nom_dom (dominance) 0.4470 (-0.0467 CI-sep worse).
+CONDITIONAL accuracy (cor/ans) is FLAT across arms (~0.58-0.60), so answered-correct is driven by COVERAGE
+(ans/tot: ungated 0.847 -> gated 0.781) -- gating only THROWS COVERAGE AWAY. **The ungated nominal channel is already
+the downstream winner; gating it -- by ANY brain-foundational cue (WSD or dominance) -- makes the reader answer FEWER
+timeline questions correctly, with no gain in answer quality.** This REFUTES the brief's premise (that the precision
+drop is a liability requiring a gate before default-ON): end-to-end, the precision drop is NOT a cost -- it is an
+artifact of the extraction-precision instrument (MAVEN/TB gold do not annotate every eventive nominal, so a kept true
+event-reading is scored as a false positive). **The real problem -- make the biggest temporal survival lever a safe
+default-ON gain -- is solved by turning the nominal channel ON UNGATED (0.4937 end-to-end, cond-acc not degraded), NOT
+by gating it.** The gate is a rigorously-built located NEGATIVE: faithful to the brain's sense mechanisms, it works at
+the extraction level but is net-NEGATIVE at the level that matters. (TB-Dense is the reasoner's validated home gold;
+a MAVEN end-to-end confirmation is a cheap follow-on.)
+
 ## 5. KEY REALIZATIONS (the enabling moves)
 - **The flat sentence-bag readout is INDISTINGUISHABLE FROM RANDOM NOM-DROPPING (the twin caught it).** Random dropping
   raises overall precision purely by down-weighting the low-precision NOM channel; the info-free twin exposed that the
@@ -239,12 +281,16 @@ almost nothing alone). The positive control (same lemma, two readings) excludes 
    `all_capabilities_off()` forces it False. **Additive + no-regress (proven, witness W2):** VERB/COP entries are
    untouched, so `recovered(gated)` is a strict subset of `recovered(ungated-nominal)` and a superset of
    `recovered(joint_cop)` — off-vs-on the VERB/COP event set is byte-identical.
-3. **Operating point (recommendation, Sec 8):** the permissive knee theta ~= -0.02 (drop only high-confidence
-   object-readings): +0.04 precision at ~78-92% survival retention (gold-dependent). The owner sets the final theta on
-   the end-to-end reasoner metric (Sec 4d).
-4. **Default-on decision for `joint_nominal_events` stays the owner's**, informed by the end-to-end measurement — the
-   gate makes the channel SAFER (precision-restoring, twin-validated) but the extraction-precision gain's downstream
-   value is not yet established here.
+3. **RECOMMENDATION, REVISED BY THE DECISIVE END-TO-END TEST (Sec 4g): turn `joint_nominal_events` DEFAULT-ON UNGATED;
+   do NOT wire the gate.** End-to-end the ungated channel is the winner (answered-correct 0.4937, 87% of ceiling,
+   conditional accuracy not degraded); the WSD gate and the dominance gate BOTH reduce answered-correct CI-separated
+   (they only drop coverage). The gate organ (`_nominal_wsd_gate.py`) is a rigorously-built located NEGATIVE, kept for
+   the record and for any consumer that genuinely needs extraction precision over coverage — but the temporal reasoner
+   does not. So the additive hook (items 1-2) is OPTIONAL and default-OFF; the load-bearing change is flipping
+   `joint_nominal_events` to True.
+4. **What this costs to be sure of:** confirm the end-to-end result on MAVEN (a cheap follow-on) and, if any OTHER
+   nominal-channel consumer is added later that weights precision over coverage, re-evaluate the gate for that consumer
+   specifically. For the temporal reasoner the evidence is decisive: ungated wins.
 - **No other consumers regress.** The only hdlab consumer of the nominal channel is `situation_reader`; spatial uses
   `joint_spatial_edges/frames` (untouched). Grep-confirmed.
 
@@ -286,16 +332,21 @@ distributional representation is genuinely non-brain-foundational for SORTAL dis
 does NOT fix the gating at power (MAVEN, refuted), because event-vs-result is an ARGUMENT-STRUCTURE distinction that the
 selectional/aspectual frame carries, not a lexical-similarity one in any representation.** The load-bearing token signal
 is the selectional cue, not the lexical readout. Plus ~9-19% of the precision defect is a trigger-vs-named-reference
-distinction (not WSD), and the hub COVERAGE fork is closed (0 uncovered). Net: the channel is SAFER to default-on
-(precision-restoring, additive, no-regress); the highest-leverage follow-on is a brain-foundational selectional/aspectual
-classifier (from event-knowledge + morphosyntax), NOT a richer sense-encoder, for the event/result distinction.
+distinction (not WSD), and the hub COVERAGE fork is closed (0 uncovered). **DECISIVE (Sec 4g): end-to-end through the
+solved temporal reasoner the gate is net-NEGATIVE — answered-correct ungated 0.4937 (87% of ceiling) vs gated 0.4590
+(CI-sep worse), conditional accuracy flat — so the eventive-nominal channel should go DEFAULT-ON UNGATED; the precision
+drop is an extraction-instrument artifact, not a downstream cost, and the WSD gate (though brain-faithful and
+precision-restoring at the extraction level) should NOT be wired.** The eventive-nominal channel is thus a safe default-ON
+gain as-is; the WSD-gate follow-on is retired for the temporal reasoner.
 
 ## WHAT I WOULD WITHDRAW FIRST IF WRONG
-The claim most exposed is "the gate restores precision CI-separated over the ungated floor." It is robust on BOTH golds
-and the CI is tight, but the precision INSTRUMENT is annotation-dependent (esp. MAVEN); if a denser modern
-nominal-event gold showed the "false positives" are largely unannotated true events, the precision gain would shrink and
-the honest verdict would collapse toward "the ungated channel is already fine; gate for safety only" (Sec 4d). The
-survival numbers and the twin/no-regress controls are not exposed to that.
+The load-bearing claim is now the end-to-end one (Sec 4g): "gating reduces answered-correct; ungated wins at 87% of the
+ceiling." It is CI-separated on TB-Dense (the reasoner's validated home gold, 1586 pairs) and mechanistically clear
+(conditional accuracy flat -> answered-correct tracks coverage -> gating cuts coverage), and it agrees with p2's
+independent cond-acc finding — but it is ONE gold; a MAVEN end-to-end confirmation is the cheap check that would most
+change the verdict if it disagreed (it should not, but it is unrun here). The earlier extraction-precision claim
+("gate restores precision +0.05-0.06 CI-sep") is robust but is precisely the instrument the end-to-end test shows is
+the WRONG target, so it is no longer load-bearing for the recommendation.
 
 ---
 

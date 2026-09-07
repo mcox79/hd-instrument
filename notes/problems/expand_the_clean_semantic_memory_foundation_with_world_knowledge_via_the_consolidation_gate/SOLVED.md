@@ -443,6 +443,14 @@ fairly good on that particular test (but it is wrong exactly where the real hier
 there the hierarchy wins); and the part-whole knowledge does not stretch to brand-new word pairs it has never seen,
 so the right design keeps the old relatedness sense too. Every check that had to fail (scrambled knowledge, a
 drop-the-reasoning version, a "shuffle the filter" version) did fail, and nothing the reader already does got worse.
+Building on the kind-of knowledge, I also gave the reader step-by-step "natural logic" reasoning (if you swap a word
+for a more general one, does the meaning still follow? -- and it flips correctly under "not"/"no"): using only the
+reader's OWN tools this now handles about 85 percent of a modern reasoning benchmark at roughly human level. And I
+added a FIFTH kind of fact -- opposites (good/bad, hot/cold) -- which the old single "relatedness" number gets
+exactly backwards (it rates opposites as MORE similar than near-synonyms), so a meaning that needs opposites now has
+the right, separate list. The one place we do not yet hit the very top score is a minority of sentences whose
+grammar our reader's parser mis-reads; research showed those are hard for people too, and closing them is a small
+add-on that needs one more curated grammar resource -- not a rebuild.
 
 ## QUESTIONS
 - None blocking. I set SOLVED: three knowledge families clear the bar over the pre-ingest foundation with the
@@ -453,15 +461,29 @@ drop-the-reasoning version, a "shuffle the filter" version) did fail, and nothin
   with the shuffled-filter twin losing. That non-circular consumer win is the answer to the circularity concern.
 
 ## NEXT STEPS (priority-ranked)
-- P1 (strategy, now): land `hdlab/typed_spokes.py` (C5 is-a directed + C6 part-whole/instrument directed) + register
-  the two spokes in the manifest. Wire them into TWO consumers, default-OFF -> measure live -> flip on if
-  net-positive: (i) `coref.py`/`commonnoun_binder.py` as a type-licensing FILTER on recency (DEMONSTRATED win); (ii)
-  `bridging_inference.py` as a HYBRID typed source. Fold the AUDIT UPDATE (incl. the common-noun-coref wall update).
-- P2 (new type): TYPE 9 event-scripts on story_cloze/tb_dense using the existing ROC generalized-event-knowledge
-  asset -- event order is directed, so a typed event-schema spoke is a clean next win.
-- P3 (new type): TYPE 10 thematic-fit (manifest L2 MAPPED) on UD-EWT/QA-SRL.
-- P4 (upstream): the HYBRID stored+distributional read for part-whole generalization (the bridging PPR-fuse is one
-  realization, already prototyped -- wire it as the C6 generalizer).
+- P1 (INTEGRATE, strategy now -- realize this session's proven gains): land `hdlab/typed_spokes.py` with the three
+  directed spokes -- C5 is-a, C6 part-whole/instrument, C7 antonymy -- keyed by synset, additive (C1 untouched);
+  register them in `knowledge_foundation_manifest.json`; fold the AUDIT UPDATE. Then wire each into its consumer
+  default-OFF -> measure the live board metric -> flip on if net-positive:
+    (i) COREF (`coref.py`/`commonnoun_binder.py`): C5+C6 as a type-licensing FILTER on recency (DEMONSTRATED
+        +0.0116 CI-sep over recency on GUM; recency stays the SELECTOR -- do not let the spoke select).
+    (ii) NATURAL-LOGIC MONOTONICITY reasoner (NEW consumer, `exp_natural_logic_monotonicity_med_v1`): C5 is-a spoke
+        + the PARSE-FREE sentence-level closed-class marker (the brain's fast register, 0.767 on MED, 85% coverage)
+        -- ship the parse-free marker as default (cheaper + more robust than any parser here).
+    (iii) BRIDGING (`bridging_inference.py`): C6 as a HYBRID typed source (typed where covered, distributional
+        fallback for novel).
+    (iv) AFFECT (`affect_register`): C7 antonym spoke for opposition-aware valence (a similarity read gives good/bad
+        the same sign; the typed antonym spoke flips it).
+- P2 (highest-leverage NEW type -- needs a KB acquisition): TYPE 2 entity instance-of for name_bridge COREF (common
+  noun -> PROPER NAME, "the artist" -> "Zurbaran", ~10% of anaphoric-common, unreachable by WordNet). Acquire
+  Wikidata P31 / DBpedia InstanceOf (reproducible pinned fetch under data/corpora/), build the entity-type spoke.
+- P3 (SLOW-REGISTER upgrade for natural logic -- needs a KB acquisition): acquire VerbNet PP-subcat frames and build
+  the BOUNDED RESTRICTOR-ATTACHMENT slow register (subcat-cued PP/RC attachment for the operator's restrictor NP
+  only; verdict C). Core prototyped (universal override +0.008); bounded ceiling ~0.767 -> ~0.84 (the hard tail is
+  hard for humans -- the human ceiling is well below 100%). Modest value; NOT a general parser upgrade.
+- P4 (more NEW types): TYPE 10 thematic-fit (manifest L2 MAPPED) on UD-EWT/QA-SRL; TYPE 5 attributes; TYPE 8 causal.
 - DO NOT re-file: reading-derived growth (closed); curated-store trimming (keep-all is the knee); a symmetric
   representation for a directed relation (provably capped); the bridging headline/PPR-fuse (already prototyped); the
-  common-noun-coref WALL as a "no-LLM limit" (built across -- offline-gated world knowledge is admissible + wins).
+  common-noun-coref WALL as a "no-LLM limit" (built across); TYPE 9 EVENT-SCRIPTS (ALREADY a landed organ --
+  `hdlab/generalized_event_knowledge.py`, Story Cloze 0.582 CI-sep; do NOT rebuild); a general PARSER UPGRADE or
+  heuristic/external scope for monotonicity (verdict C rejects the parser lever; six scope methods fail; spaCy barred).
