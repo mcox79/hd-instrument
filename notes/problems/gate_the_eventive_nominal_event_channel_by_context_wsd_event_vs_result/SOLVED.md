@@ -460,10 +460,22 @@ default-on-safe) is REFUTED end-to-end, and the real goal is met a different way
 first-class REFUTED-and-resolved outcome; I left the frontmatter at PARTIAL (a rigorously-built gate + a decisive
 refutation + the resolution) but REFUTED is defensible. Your call.
 
-**NEXT STEPS:** (1) **flip `joint_nominal_events` DEFAULT-ON UNGATED** (strategy; the decisive change — the channel is
-already the downstream winner, 87% of ceiling, cond-acc not degraded) and do NOT wire the gate; (2) confirm the
-end-to-end result on MAVEN (cheap follow-on); (3) the WSD gate + `_nominal_wsd_gate.py` are retired for the temporal
-reasoner but kept for any future consumer that weights extraction precision over coverage; (4) still-live upstream
-problems this drilling LOCATED, independent of the gate: a well-powered selectional-preference / thematic-fit organ
-(Sec 4e), parser UAS 0.79 (Sec 4e), the trigger-vs-named-reference discourse organ (Sec 4b), and the grounded
-representation for OTHER sortal distinctions (Sec 4c) — candidate NEW problems.
+**NEXT STEPS (prioritized).**
+- **HIGH — two ready hand-offs (integration, not research; strategy lands both):**
+  1. **Flip `joint_nominal_events` DEFAULT-ON UNGATED** and do NOT wire the gate (Sec 4g/7.3 — the decisive win: the
+     channel is already the downstream winner, 0.4937 = 87% of ceiling, cond-acc not degraded).
+  2. **Wire the latent `hdlab.temporal_script_schema` to the reasoner's IMPLICIT-EVENT / UNKNOWN path** (Sec 4j/7.5 —
+     confidence-gated; converts abstentions into 0.60 answers on the organ's validated turf; narrated path byte-identical).
+- **MEDIUM — a cheap confirmation + a real NEW problem:**
+  3. Confirm the gate-refutation end-to-end on MAVEN (cheap; TB-Dense already CI-separated).
+  4. **NEW PROBLEM (a real gap): grow a broad, glass-box CAUSAL / EVENT-ORDER knowledge store, wired to the
+     implicit-event path** — the script organ's ROCStories chains under-cover newswire/causal pairs (0.60 on 29%); a
+     broader store (irreversibility/entropy-typed verb-pair order, from more + causal-cue sources) lifts implicit-event
+     ordering where the reader abstains. Scope it INSIDE the knowledge-foundation north star (it is a knowledge-coverage
+     problem, not a reasoner problem), NOT as a standalone temporal problem. Brief prompt provided at hand-off.
+- **RETIRED / NOT problems:** the WSD gate itself (net-negative downstream; `_nominal_wsd_gate.py` kept only for a future
+  precision-over-coverage consumer); standalone NARRATED temporal ordering (already at the ~59-64% human noise ceiling —
+  Sec 4i; do NOT re-open).
+- **LOWER — located follow-ons (self-contained, minor):** the trigger-vs-named-reference discourse organ (Sec 4b); a
+  well-powered selectional-preference organ (Sec 4e, moot for this gate but may help other consumers); grounded
+  representation for OTHER sortal distinctions (Sec 4c → the encoding-ceiling fork); parser UAS 0.79 (Sec 4e).

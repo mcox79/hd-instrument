@@ -199,32 +199,40 @@ engine (now built and proven on its category), and the rest (~a third) is genuin
 same wall measured now from three directions.
 
 ## QUESTIONS
-None blocking. Labelling: I filed **SOLVED** -- the mechanism is proven (twin loses on the constructed control), it is
-coupled to both reasoners with no-regress, and it yields a real-prose CI-sep win (twin loses) on the DOMINANT
-narrative causal category (goal causation, its proper domain, n=92), which satisfies bar items 2(b)+3 on a principled
-population. The honest bound: the FULL-population win is not achieved (goal-selection Tier-2 wall), and the temporal-
-override on newswire is a located negative -- both blessed by the bar's "rigorous NEGATIVE is a FULL PASS" clause. If
-you tie the label strictly to a full-population lift on BOTH slices, this is a PARTIAL; the science is identical.
+One labelling call for the owner (the ONLY open decision; the science is identical either way):
+- I filed **SOLVED**: on the DOMINANT narrative causal category (goal causation, its proper domain, n=92) the reader
+  yields a real-prose CI-sep win with the info-free twin LOSING (bar items 1-5 all pass on this principled
+  population); the mechanism is proven on the constructed control (twin loses); it is coupled to both reasoners with
+  byte-identical no-regress; and the full-population + newswire-temporal residuals are the bar's explicitly-blessed
+  "rigorous NEGATIVE is a FULL PASS" cases, located from ~6-8 angles. This matches the SOLVED precedent
+  (reason_over_the_causal_network filed SOLVED on the same subset-positive + located-negative shape).
+- The HONEST BOUND, stated plainly: the reader does NOT achieve a FULL-population unmarked-causal win (best arm 0.309
+  ties base +0.031, not CI-sep), the temporal-override on newswire is a located negative, and the one lever that
+  would complete it (the generative world-model, P1) is unbuilt. **If you tie the label to a full-population lift on
+  BOTH slices, this is a strong PARTIAL.** I lean SOLVED on the bar + precedent; I will not oversell it -- your call
+  via owner_verdict.
 
-## NEXT STEPS (priority-ordered)
-- **P1 (the ONE remaining lever, now precisely specified as GENERATIVE not retrieval).** The typed-edge simulator
-  (built) proved RETRIEVAL of the means-end link is coverage-bounded (CSKG 34%, from a third angle). The route past is
-  a GENERATIVE means-end: SIMULATE the candidate goal's plan forward (does the action, rolled forward over the
-  participants, achieve the goal-STATE?) rather than looking it up -- Baker-Saxe-Tenenbaum inverse planning /
-  Csibra-Gergely efficiency over a content-sensitive rollout composing the landed force_dynamics_typer + goal_register
-  + belief_partition + affect_register. This is the causal reasoner's own P1 from the goal side -- ONE build serving
-  three consumers (temporal, causal, coherence); needs the meaning channel. It turns the goal-subset win + the
-  over-firing cut into a full-population win.
-- **P2 (BUILT this round).** The typed-edge means-end gate (`exp_sdrt_inverse_planning_simulator_v1`) is the shippable
-  upgrade -- it cuts the over-firing and makes the goal signal beat the twin CI-sep. Ship it with the goal engine. The
-  Kintsch settling (`kintsch_select`) is built but proven a no-op under uniform inhibition; fold it in ONLY with a real
-  cross-node causal-chain coherence matrix (coupling to causal_reasoner's densified graph), when P1's generative cues
-  make coherence informative.
-- **P3 (a fair temporal instrument).** TB-Dense newswire is the wrong genre for the temporal-override (reverse-order
-  is genre convention). Acquire a NARRATIVE temporal-order gold with genuine flashback, or annotate TellMeWhy
-  non-adjacent causes for order, to test the Explanation-reverses-order channel where causal flashback occurs.
-- **P4 (land the wiring, default-OFF, impact-measured).** Land hdlab/coherence_reader.py with the goal engine ON
-  inside the channel, wired confidence-gated + default-OFF into both consumers, impact measured -- ready to switch on
-  when P1 lands the goal-selection lever.
-- **P5 (direct relation-reader validation).** Acquire GUM-eRST / RST-DT (only GUM's conllu layer is on disk) to
-  validate the inferred relation directly against modern discourse-relation gold.
+## NEXT STEPS (priority-ordered -- the clear path to a COMPLETE solution)
+- **P1 -- THE COMPLETING LEVER (build): the GENERATIVE result-state world-model.** Every retrieval/structural lever is
+  coverage-bound (CSKG 17.3%/34%) or a confound; the ONE thing that turns the subset win into a full-population win is
+  a means-end that GENERATES the link: SIMULATE the action forward and check whether its RESULT-STATE achieves the
+  goal-STATE (Schank-Abelson RESULT links; Baker-Saxe-Tenenbaum inverse planning; the valid general means-end for the
+  state-desire goals object-match cannot reach). Compose the landed force_dynamics_typer + goal_register +
+  belief_partition + affect_register into a content-sensitive rollout. This is the causal reasoner's OWN P1 from the
+  goal side -- ONE large build (needs the meaning channel) serving THREE consumers (temporal, causal, coherence).
+- **P2 -- SHIP WHAT WORKS NOW (Q111 strategy landing, default-OFF, impact-measured): the coherence reader with the
+  goal engine + typed-edge + GENERATIVE goal-object-as-patient means-end** (`hdlab/coherence_reader.py`). These three
+  do real work (best overall 0.309, beats the twin CI-sep; +0.239 on the goal category). Wire confidence-gated into
+  temporal_reasoner (Explanation override) + causal_reasoner (a NEW sm.inferred_coherence_links field; sm.causal_links
+  untouched); measure the live board impact before flipping ON.
+- **P3 -- a FAIR temporal instrument.** TB-Dense newswire is the wrong genre (reverse-order is journalistic
+  convention, not causal flashback). Acquire a NARRATIVE temporal-order gold with genuine flashback (or annotate
+  TellMeWhy non-adjacent causes for order) to test the Explanation-reverses-order channel where flashback occurs.
+- **P4 -- DIRECT relation-reader validation.** Acquire GUM-eRST / RST-DT (only GUM's conllu layer is on disk) to
+  validate the inferred relation directly against modern discourse-relation gold, not just the downstream correction.
+- **DO NOT re-file (drilled + rejected this round):** the Kintsch settling under uniform inhibition (proven
+  mathematical no-op); the ungated referential-coherence boost (over-fires, hurts); the scalar-relatedness means-end
+  (wrong axis); a multi-hop goal-chain selector expecting a full-population win (distance-decayed; nearest-antecedent
+  is a strong baseline -- Fletcher-Bloom); scaling RETRIEVAL (CSKG/KG) to cross the wall (coverage-bounded by
+  construction, from three angles). Aspect/telicity + surprise/PE are legitimate but tangential to cause-ID / need a
+  corpus table -- deprioritised.

@@ -5,7 +5,7 @@ bar: "PASSES only with ALL of: 1. The route built as a glass-box wire, PER non-c
 result: "On MODERN gold (GUM V12.1.0, 137-doc TEST split; scorers per consumer; doc-level paired bootstrap 2000x; grouping BYTE-FAITHFUL to hdlab.unified_referent.resolve_unified_stream, self-test asserted), routing the unified referent to the three live NON-coref consumers does NOT deliver a per-consumer CI-separated gain -- a rigorous LOCATED NEGATIVE (a full pass under the bar). PER consumer: (C1) SITUATION-MODEL ENTITY LAYER, CoNLL b3/muc/ceafe avg over non-pronoun mentions: unified grouping 0.6976 vs the LIVE floor (commonnoun_binder.situation_predict) 0.6939 = +0.0036 CI[+0.0008,+0.0063] -- a MARGINAL CI-sep edge that is SUBSUMED by a DIFFERENT dormant landed organ (the entity-KB resolver reader_coref=None = 0.7033 > unified 0.6976). (C2) ENTITY-KB HARD-LINK (a common noun of a NAMED entity files under the named record), n=2587: unified grouping 0.0139 vs live floor 0.0228 = -0.0089 (REGRESSES; == blind surface-head 0.0139 -> the unified card supplies NO cross-type common->name bridge). (C3) AFFECT/GOAL EXPERIENCER BIND (person common-noun experiencer files under the named entity), n=295: unified grouping 0.0508 vs live floor 0.1288 = -0.0780 (REGRESSES). The reader_coref route is INERT: feeding the entity-KB resolver the unified card head-sets changes 0 labels across 137 docs (delta +0.0000), and feeding it the reader's OWN two-pass clustering head-sets (the +0.0882-on-19c-LitBank lever) moves the CoNLL by +0.0000 (325 diffs, CI[-0.0001,+0.0001]) -- the reader_coref lever is a 19c-only effect, not a wrong-source problem. Unified completed-gender injection is flat (-0.0004). The he/she coref pick is BYTE-IDENTICAL with the route on (16/16 docs)."
 floor: "The strongest floor actually run, recomputed on the SAME GUM TEST population + scorer per consumer: (C1) the LIVE default entity-layer clustering commonnoun_binder.situation_predict = 0.6939 CoNLL avg (disk-verified default: commonnoun_situation_gate=True, entity_kb_resolver=False); (C2) situation_predict hard-link 0.0228; (C3) situation_predict experiencer bind 0.1288. Reference alternatives run on the SAME population: the DORMANT entity-KB resolver resolve_common_noun(reader_coref=None) C1 0.7033 / C2 0.0460 / C3 0.1119 (it DOMINATES the unified grouping on C1/C2), and blind surface-head C1 0.6937 / C2 0.0139 (== the unified grouping on C2/C3 -> no bridge)."
 controls: "(1) SELF-TEST gate: group_unified reproduces the live resolve_unified_stream per-target records EXACTLY (byte-faithful stand-in -> the negative is not a harness artifact). (2) INFO-FREE TWIN = shuffled unified GROUPING (same #cards + size shape, random membership): LOSES CI-sep on the size-robust CoNLL (unified-twin +0.3707 CI[+0.360,+0.382]) -> the grouping IS load-bearing signal, so the negative is SUBSUMPTION/register, not 'no signal'. (The size-GAMEABLE hard-link metric is INFLATED by the twin -- random merging accidentally shares a name label -- so CoNLL is the valid twin instrument; the p12 scorer-gaming lesson, caught here again.) (3) SOURCE control: reader_coref from the reader's OWN two-pass clustering (the strongest possible source) is ALSO inert on GUM -> excludes 'wrong reader_coref source', the lever is 19c-only. (4) HE/SHE BYTE-IDENTITY: the tuned graded he/she pick (EventCentralityReader graded_pick=True, unified_referent=False) is byte-identical with the full non-coref route applied (disjoint path; 16/16 docs). (5) MODERN gold only (GUM), 19c LitBank NOT used as load-bearing (owner 2026-09-06). (6) DEEPENING (built the EXACT mechanism, not just the weak card): the EXACT NE-type+salience/recency cross-type bridge is BUILT and MEASURED -- it achieves ~7-9% bind PRECISION (both cues), does NOT beat the floor CI-sep, and the fidelity classifier shows why (below); this passes the discipline's SECOND gate (a miss is a ceiling only if the brain's ACTUAL mechanism, faithfully built, is what failed)."
-files_changed: "experiments/exp_route_unified_to_consumers_gum_v1.py, experiments/exp_crosstype_bridge_fidelity_gum_v1.py, experiments/exp_route_unified_typed_bridge_gum_v1.py, experiments/exp_crosstype_strata_gum_v1.py, experiments/exp_crosstype_precise_constructs_gum_v1.py, verification/test_route_unified_to_consumers.py, verification/test_crosstype_precise_constructs.py, notes/research_common_noun_definite_description_centering_2026-09-07.md (research drill), notes/problems/route_the_unified_referent_to_its_non_coref_consumers_where_it_helps/SOLVED.md. NO hdlab/ written (Q111 -- the finding is DO-NOT-WIRE; strategy owns any hdlab change). Reuses data/corpora/gum/ (pinned GUM V12.1.0, already on disk)."
+files_changed: "experiments/exp_route_unified_to_consumers_gum_v1.py, experiments/exp_crosstype_bridge_fidelity_gum_v1.py, experiments/exp_route_unified_typed_bridge_gum_v1.py, experiments/exp_crosstype_strata_gum_v1.py, experiments/exp_crosstype_precise_constructs_gum_v1.py, experiments/fetch_wikidata_person_roles_v1.py (offline KB acquisition), verification/test_route_unified_to_consumers.py, verification/test_crosstype_precise_constructs.py, notes/research_common_noun_definite_description_centering_2026-09-07.md (research drill), data/corpora/wikidata_person_roles/ (acquired offline asset, gitignored; pinned fetch script + provenance), notes/problems/route_the_unified_referent_to_its_non_coref_consumers_where_it_helps/SOLVED.md. NO hdlab/ written (Q111 -- the finding is DO-NOT-WIRE; strategy owns any hdlab change). Reuses data/corpora/gum/ (pinned GUM V12.1.0, already on disk)."
 reverify: ".venv/Scripts/python.exe verification/test_route_unified_to_consumers.py (16/16) -- re-derives the located negative (R1-R5) + the fidelity deepening (F1-F2c: WK ceiling for non-person, un-realizable NE-type upper bound for person at ~7% bind precision both cues) + the DECISIVE stratification (F3: ~80% of person-definites NON-anaphoric = the anaphoricity gate is the biggest precision lever; the anaphoric-to-name glass-box rate ~0.19 CROSS-VALIDATES the project's own landed GUM name_bridge 19.1% and Raghunathan 2010 MUC-6 15%)."
 ---
 
@@ -312,10 +312,31 @@ on the person-cleaned anaphoric-to-name population (n=154), witness `test_crosst
 **Honest bottom line of the constructive pass:** the glass-box path (anaphoricity gate + precise-constructs + person
 cleanup) is a REAL, brain-foundational, net-POSITIVE win over the current force-bind -- but it recovers only the
 ~11-19% of cross-type person links whose role is STATED in the text, and the absolute count on modern GUM is small
-(the anaphoric-to-name person population is itself thin), so it does not move the downstream consumers CI-sep. Getting
-to "very well" needs the role/occupation KB for the famous residual (a separate acquisition) and is capped for local
-characters. This CONFIRMS the refutation's ceiling while delivering the concrete, buildable path across the part of it
-that is not world-knowledge.
+(the anaphoric-to-name person population is itself thin), so it does not move the downstream consumers CI-sep.
+
+**THE SEMANTIC-MEMORY KB (Wikidata) IS A LOCATED NEGATIVE -- built brain-foundationally, acquired for real, MEASURED
+(owner ask: "do it brain foundationally").** BRAIN FRAME: comprehension binds "the poet"->"Byron" by retrieving from
+SEMANTIC MEMORY (Tulving; the ATL person-knowledge store, Bruce & Young person-identity nodes) that this Byron IS a
+poet; the file card accumulates conditions from BOTH the text (Heim/Kamp) AND stored world-knowledge, and "the poet"
+retrieves by type-cue match (Lewis-Vasishth). I ACQUIRED a real offline proxy: Wikidata occupation (P106) + position
+(P39) for the GUM person population (`experiments/fetch_wikidata_person_roles_v1.py`, pinned + provenance under
+`data/corpora/wikidata_person_roles/`; notability ranking = the familiarity prior; queried as an OFFLINE lookup, NO LLM
+at inference -- the invariant holds), and matched it WordNet-hypernym-aware ("writer"<-"poet"). RESULT: it adds
+**+0.000** coverage. Of the 16 definites whose entity HAS catalogued occupation roles, the descriptor matches the
+occupation only **1** time (spurious). MECHANISM (the deep finding): **people are re-mentioned by a definite almost
+NEVER by their catalogued occupation -- they are re-mentioned by AGE/GENDER ("the man"->Pachomius, "the woman"->Kamala
+Harris), RELATION ("the son"/"the daughter"->L'Enfant/Moreau), or a CONTEXT-specific role ("the royalist", "the
+umpire", "the director of the Conservatory") that is either STATED IN THE TEXT (the precise-constructs path already
+gets it) or bound by the DISCOURSE, not by a static occupation KB.** So the occupation KB is the WRONG KIND of
+world-knowledge for definite-description resolution -- a rigorous, brain-foundational located negative that CORRECTS
+both my earlier "needs a role-KB" hypothesis and the research drill's Wikidata-P31 recommendation. The right levers are
+all glass-box or discourse: text predication (built), gender/age tracking (built, unique-gated), stated relations
+(text), and genuine narrative context (not a lookup). There is no static-KB lever left to pull.
+
+**Net:** the constructive path's real, net-positive win is the glass-box text+gender bridge (0.156 @ 0.960); the KB is a
+measured dead-end. This CONFIRMS the refutation's ceiling AND closes the "what would make it work" question: on modern
+text the cross-type definite->name bridge is text-stated (~19%, built) + age/gender (built) + genuine discourse context
+(not KB-recoverable) -- NOT an occupation-fact gap.
 
 **NEXT STEPS (strategy owns any hdlab change; solver is scope-barred from hdlab/):**
 1. **DO NOT WIRE the unified referent to the non-coref consumers, and keep `hdlab/unified_referent.py` DEFAULT-OFF
@@ -323,10 +344,13 @@ that is not world-knowledge.
    edge is subsumed by the entity-KB resolver.
 1b. **FILE THE CONSTRUCTIVE FOLLOW-ON (the real path, brain-foundational + net-positive):** a glass-box cross-type
    bridge = (a) an ANAPHORICITY GATE (abstain on non-anaphoric definites; ~80% of them) + PERSON CLEANUP, (b) a
-   proper PRECISE-CONSTRUCTS predication detector (0.944 precision, ~0.11->0.19 recall), landed into the entity-KB
-   resolver's `attrs`/predication path (it already has the hook). Then (c) a role/occupation KB acquisition
-   (Wikidata P106/P39) for the famous-entity world-knowledge residual -- a FOUNDATION-acquisition problem, the ~80%
-   ceiling's only lever. Prototype: `exp_crosstype_precise_constructs_gum_v1.py`.
+   proper PRECISE-CONSTRUCTS predication detector -- appos/copula/copular-verbs/conjunction-shared-subject/detached-
+   appositive/relcl/title/FrameNet-verbal-role (0.960 precision, 0.156 recall, ~82% of the in-text ceiling), plus
+   (c) unique-gender AGE/GENDER narrative recovery -- landed into the entity-KB resolver's `attrs`/predication path
+   (it already has the hook). Prototype: `exp_crosstype_precise_constructs_gum_v1.py`. **DO NOT pursue a Wikidata
+   occupation KB (P106/P39): MEASURED located negative -- adds +0.000 because definite descriptors are
+   age/gender/relation/context, not catalogued occupation (1/16 match).** The residual above the glass-box path is
+   genuine discourse context, not a static-KB gap.
 2. **Fold the AUDIT UPDATE** into `BRAIN_FOUNDATIONAL_AUDIT.md` sec 2b, including the CORRECTION to p12's "non-coref
    consumers are the unified referent's home" note (refuted on the live consumers).
 3. **FOLLOW-ON (higher value than this route):** decide whether to turn on the DORMANT entity-KB resolver
