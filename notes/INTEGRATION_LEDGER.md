@@ -14,6 +14,22 @@
 
 ---
 
+## 2026-09-07 (CONT-22) — TYPED COMMON-NOUN COREF promoted to a committable hdlab organ (realization; resolves Q115 for this win)
+
+Realization work (fleet-independent, from the CONT-21 follow-on), verified first-hand, committed path-limited (NOTHING pushed). **Mechanism = audit §2b (newest).**
+
+### hdlab/typed_coref.py — promote the typed common-noun coref win to a committable organ  [REALIZED; verified EXACT parity + witness 9/9 through the organ]
+- **WHY:** the CONT-21 win (board `common_noun_coref` 0.5671 vs string-identity 0.5412) lived ONLY in the UNTRACKED, Q115-blocked board/reference cells → a fresh checkout could not reproduce it. Promoting the load-bearing algorithm to `hdlab/` makes it version-controlled + reproducible + wireable.
+- **WHAT LANDED:** `hdlab/typed_coref.py` — `TypedRef` (3-view card nominal/all/kb), `TypedCorefResolver` (=`TypedResolver` alias), `appos_copula_isa`. Self-contained: ZERO experiments/ imports, ZERO frozen-asset dep (typed-spokes lever reads only nltk-WordNet). Reuses `hdlab.salience_binder` / `hdlab.coref` / `hdlab.typed_spokes`. Corpus-free self-test (`python -m hdlab.typed_coref`): three-view de-pollution + non-writing typed bridge (car↔vehicle licensed).
+- **VERIFIED FIRST-HAND:** EXACT parity vs the reference `TypedResolver` (**0/137 docs mismatch, 9782 mentions** compared, identical per-mention tuples) + the headline witness `test_commonnoun_typed_identity.py` reproduces **9/9** (typed 0.5671 / string_id 0.5412 CI-sep, W2 twin loses, W5 pronoun/kb byte-identical, name +0.024, W6 typed_spokes>WordNet, W7 always-hold optimal). Committed `dd399f65b`.
+- **Q115:** RESOLVED for this win (option c) — hdlab is exempt from the experiment-cell hook. The untracked board/reference/witness cells still carry byte-identical copies (on-disk scratch; point them at the organ when next touched — NOT deleted: risky 220-line edit on uncommitted scratch, no committed benefit). The broader Q115 policy fork stays OPEN for the parser reverify cells + future board arms.
+- **STATUS: LATENT (committable).** The organ is committed but has NO live read()-time consumer yet — it is `gum_coref.Doc`-schema typed; the live reader's common-noun path (`hdlab/commonnoun_binder.py` / coref dict stream) is a different schema. **FOLLOW-ON (named, fidelity-risky): re-port `resolve_doc` onto the live stream → measure impact → flip if net-positive (no-more-default-off).** This converts the board-instrument proxy win into a LIVE-reader gain.
+
+### 📌 OWNER NOTE (2026-09-07): NO MORE PROBLEMS TO ASSIGN
+- The fleet problem queue is DRAINING (3 SOLVEDs in flight await owner review; nothing left to hand out). Center of gravity → (a) main-thread REALIZATION of latent wins (this organ done; queue: parser decode=exact flip + obl/spatial defer consumer 0.758→0.902; SEM segmenter live consumer) + (b) the pri-1 GENERATIVE WORLD-MODEL. Plan gate: once the 3 in-flight extraction SOLVEDs land → RE-RUN the end-to-end reasoning board.
+
+---
+
 ## 2026-09-07 (CONT-21) — COMMON-NOUN COREF now BEATS string-identity (a strategy-filed brief, solved) + 3 wins made BOARD-VISIBLE + the GENERATIVE WORLD-MODEL filed as the main event
 
 Owner-DONE + realization work, reverified first-hand, landed additive/no-regress, committed path-limited (NOTHING pushed). **Mechanism detail = audit §2b (newest).**
