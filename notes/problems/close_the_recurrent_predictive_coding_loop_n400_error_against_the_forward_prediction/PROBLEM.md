@@ -1,7 +1,6 @@
 ---
-priority: 1
 slug: close_the_recurrent_predictive_coding_loop_n400_error_against_the_forward_prediction
-status: CANDIDATE
+status: INTEGRATED
 review:
 review_text:
 ---

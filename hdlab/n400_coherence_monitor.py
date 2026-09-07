@@ -51,7 +51,7 @@ import os
 os.environ.setdefault("OMP_NUM_THREADS", "1")
 
 from dataclasses import dataclass
-from typing import List, Optional, Sequence, Tuple
+from typing import Callable, List, Optional, Sequence, Tuple
 
 import numpy as np
 
@@ -88,17 +88,42 @@ class N400CoherenceMonitor:
 
     Faithful to `exp_prediction_error_event_segmentation_v1.seg_relative_pe(mode='running')`: the
     running gist resets on a boundary, the baseline is updated only on non-boundary steps, and a
-    boundary needs `min_seg_len` items in the current event first."""
+    boundary needs `min_seg_len` items in the current event first.
+
+    TWO OPT-IN KNOBS (both default to the historical behaviour, so `N400CoherenceMonitor()` with no
+    args is BYTE-IDENTICAL to before -- load-bearing: `bound_event_backbone` (default-on) constructs
+    it default and any default change regresses a live chunking path):
+
+      * `forward_expect_fn` (default None) -- the PREDICTIVE-CODING LOOP CLOSURE (SOLVED SS2A/P2). When
+        supplied, the coherence/segmentation error at each step is taken against the caller's LIVE
+        FORWARD prediction instead of the backward running gist. It is called as
+        `forward_expect_fn(gist_mean)` where `gist_mean` is the mean content of the current event so
+        far (the context the forward model conditions on) and must return the predicted next-content
+        vector (np.ndarray) OR None (None => gracefully fall back to the backward gist for that step).
+        This is the +0.067 CI-separated COHERENCE win on Story Cloze (forward 0.5874 vs backward 0.52).
+        None => the error is `1 - cos(content, backward_gist)`, exactly as before.
+
+      * `reinstate` (default 0.0) -- the UPDATE-POLICY knob (SOLVED SS4c). 0.0 => the current HARD RESET
+        of the gist at a boundary (byte-identical). >0 => a decayed CARRY of the prior context across
+        the boundary (Pu 2022 gated blend / SEM reinstatement): `gist_sum <- reinstate*gist_sum + v`.
+        It is a DIRECTION-INDEPENDENT lever (helps BOTH error sources +0.04-0.09 F1 on dense boundaries,
+        HURTS on sparse) -- SWEEP per deployment, do NOT adopt a fixed value (e.g. 0.3)."""
 
     def __init__(self, tau: float = DEFAULT_TAU, *, decay: float = DEFAULT_DECAY,
-                 min_seg_len: int = DEFAULT_MIN_SEG_LEN) -> None:
+                 min_seg_len: int = DEFAULT_MIN_SEG_LEN,
+                 reinstate: float = 0.0,
+                 forward_expect_fn: Optional[Callable[[np.ndarray], Optional[np.ndarray]]] = None) -> None:
         if tau <= 0.0:
             raise ValueError(f"tau must be > 0; got {tau}")
         if not 0.0 < decay <= 1.0:
             raise ValueError(f"decay must be in (0, 1]; got {decay}")
+        if reinstate < 0.0:
+            raise ValueError(f"reinstate must be >= 0 (0 = hard reset); got {reinstate}")
         self.tau = float(tau)
         self.decay = float(decay)
         self.min_seg_len = int(min_seg_len)
+        self.reinstate = float(reinstate)
+        self.forward_expect_fn = forward_expect_fn
         self.reset()
 
     def reset(self) -> None:
@@ -115,7 +140,14 @@ class N400CoherenceMonitor:
             self._n = 1
             return N400Event(False, 0.0, 0.0, 0.0, self._segment)
         m = self._gist_sum / self._n
-        e = 1.0 - _cos(v, m)
+        # The reference the error is taken against: the backward gist mean `m` (default, byte-identical),
+        # OR the caller's LIVE FORWARD prediction when forward_expect_fn is supplied (loop closure).
+        ref = m
+        if self.forward_expect_fn is not None:
+            pred = self.forward_expect_fn(m)
+            if pred is not None:
+                ref = np.asarray(pred, dtype=float).reshape(-1)
+        e = 1.0 - _cos(v, ref)
         can_fire = self._n >= self.min_seg_len
         base = self._baseline
         fired = bool(can_fire and base is not None and base > _EPS and e >= self.tau * base)
@@ -125,8 +157,14 @@ class N400CoherenceMonitor:
             # boundary: open a new event at this item; baseline is NOT updated on a boundary step
             # (matches the cell -- a boundary spike must not contaminate its own baseline)
             self._segment += 1
-            self._gist_sum = v.copy()
-            self._n = 1
+            if self.reinstate > 0.0:
+                # decayed carry of the prior context across the boundary (Pu 2022 / SEM reinstatement)
+                self._gist_sum = self.reinstate * self._gist_sum + v
+                self._n = self.reinstate * self._n + 1.0
+            else:
+                # hard reset (the historical default -- byte-identical)
+                self._gist_sum = v.copy()
+                self._n = 1
         else:
             self._gist_sum = self._gist_sum + v
             self._n += 1
@@ -135,9 +173,13 @@ class N400CoherenceMonitor:
 
 
 def segment(contents: Sequence, tau: float = DEFAULT_TAU, *, decay: float = DEFAULT_DECAY,
-            min_seg_len: int = DEFAULT_MIN_SEG_LEN) -> Tuple[List[int], List[int]]:
-    """Batch convenience over a whole stream. Returns (segment_id_per_item, boundary_indices)."""
-    mon = N400CoherenceMonitor(tau, decay=decay, min_seg_len=min_seg_len)
+            min_seg_len: int = DEFAULT_MIN_SEG_LEN, reinstate: float = 0.0,
+            forward_expect_fn: Optional[Callable[[np.ndarray], Optional[np.ndarray]]] = None,
+            ) -> Tuple[List[int], List[int]]:
+    """Batch convenience over a whole stream. Returns (segment_id_per_item, boundary_indices).
+    `reinstate` / `forward_expect_fn` default to the historical behaviour (see N400CoherenceMonitor)."""
+    mon = N400CoherenceMonitor(tau, decay=decay, min_seg_len=min_seg_len,
+                               reinstate=reinstate, forward_expect_fn=forward_expect_fn)
     seg_of: List[int] = []
     boundaries: List[int] = []
     for i, c in enumerate(contents):

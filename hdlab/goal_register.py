@@ -539,7 +539,7 @@ def implicit_investment_goals(raw_sents, char):
     return out
 
 
-def track_status_thwart(goals: List[Goal], events, sents=None, canon=None) -> List[Goal]:
+def track_status_thwart(goals: List[Goal], events, sents=None, canon=None, matcher=None) -> List[Goal]:
     """STRICT SUPERSET of track_status. Sets each goal's status in {active, satisfied, failed}, adding a
     FAILURE-by-thwart branch (Lutz & Radvansky failed status) + two extraction generalizations the OCC
     appraisal needs on modern prose: (i) event-agent COREF canonicalization (canon(surface, si) -> canonical
@@ -548,10 +548,19 @@ def track_status_thwart(goals: List[Goal], events, sents=None, canon=None) -> Li
     iterable of .predicate/.agent/.sent_idx; `sents` optional token-lists for cue scanning; `canon` optional
     coref resolver.
 
-    Baseline-identical for satisfied + negated-construction WHEN canon is None and no irregular/thwart
-    applies; the additions only turn baseline-'active' goals into 'satisfied' (pronoun/irregular outcome) or
-    'failed' (thwart) -- a strict superset (never flips an existing satisfied/failed; 0 wants() regressions,
-    since wants() already skips satisfied/failed)."""
+    `matcher` (optional) is an injected hdlab.structured_matcher.StructuredMatcher -- the two-store split's
+    STRUCTURED relational store (SOLVED: structured_semantic_matching_for_event_goal...). When provided, a goal
+    still 'active' after the branches below is signed by the matcher's STRUCTURED converse/antonym edges: a later
+    same-agent CONVERSE outcome (a role-swap that keeps the goal-holder in their valued role -- wanted-to-SELL
+    satisfied by a BUY) -> 'satisfied'; a pure ANTONYM outcome (the goal-holder's OWN opposite -- win/lose) ->
+    'failed'. This is the signed relation the polarity-blind ATL hub cannot supply (rel(win,lose) ~= rel(sell,buy)).
+    matcher=None (the default; all_capabilities_off injects none) -> this branch is skipped entirely.
+
+    Baseline-identical for satisfied + negated-construction WHEN canon is None and no irregular/thwart/matcher
+    applies; the additions only turn baseline-'active' goals into 'satisfied' (pronoun/irregular/converse outcome)
+    or 'failed' (thwart/antonym) -- a strict superset (never flips an existing satisfied/failed; 0 wants()
+    regressions, since wants() already skips satisfied/failed). BYTE-IDENTICAL when matcher is None or abstains
+    (the matcher's hub fuzzy fallback is NOT consulted here -- only its structured edges)."""
     def _agent(surface, si):
         s = str(surface or "").lower()
         if canon is not None:
@@ -581,8 +590,63 @@ def track_status_thwart(goals: List[Goal], events, sents=None, canon=None) -> Li
         if _is_thwarted(g, ah, ga, ev, stexts):
             g.status = "failed"
             continue
+        # ---- NEW branch 4 (matcher injected): STRUCTURED converse/antonym SIGN via hdlab.structured_matcher ----
+        # A later same-agent event whose predicate is a CONVERSE of the goal head SATISFIES it (a role-swap -- the
+        # goal-holder keeps their valued role, sell/buy); a pure ANTONYM of the goal head THWARTS it (the goal-holder's
+        # OWN opposite outcome, win/lose). CONVERSE is checked BEFORE ANTONYM (WordNet lists buy as an antonym of sell,
+        # but for GOAL congruence sell/buy is converse-satisfy, not antonym-thwart; Cruse: converseness != antonymy).
+        # Fires ONLY on goals still 'active' after branches 1-3, uses ONLY the structured edges (never the hub fuzzy
+        # fallback) -> a STRICT SUPERSET, byte-identical when matcher is None or abstains.
+        if matcher is not None:
+            cv = _matcher_converse_antonym(g, ah, ga, ev, stexts, matcher)
+            if cv:
+                g.status = cv
+                continue
         g.status = "active"
     return goals
+
+
+# theme stopwords for the role-filler overlap gate (mirrors _occ_upstream_goal_status._theme_tokens)
+_THEME_STOP = {"the", "her", "his", "their", "for", "and", "with", "into", "over", "years", "this", "that",
+               "a", "an", "our", "its", "was", "had", "has", "been", "will", "would", "could"}
+
+
+def _matcher_converse_antonym(g, ah, ga, ev, stexts, matcher) -> Optional[str]:
+    """STRUCTURED converse/antonym sign for goal g from a later outcome event, via an injected
+    hdlab.structured_matcher.StructuredMatcher. Returns 'satisfied' (a converse role-swap realizes the goal),
+    'failed' (a pure antonym is the goal-holder's own opposite outcome), or None (abstain -> the caller leaves the
+    goal untouched -> byte-identical).
+
+    GATE (mirrors the validated experiments/_occ_upstream_goal_status._converse_resolve role-filler layer): the
+    outcome must share the goal's THEME (the goal-holder keeps their valued role over the SAME theme -- a converse
+    BUY by ANOTHER agent still realizes a SELL goal over the SAME painting, so this is a THEME overlap, NOT an agent
+    match). When no per-sentence text is available (stexts is None), fall back to requiring the SAME agent -- a
+    conservative gate so we never fire on an unrelated later event.
+
+    CONVERSE before ANTONYM, decided GLOBALLY over the candidate outcomes (a converse-satisfy ANYWHERE outranks an
+    antonym-thwart -- the key correctness invariant: a role-swap keeps the goal-holder's role; only their OWN
+    opposite is a thwart -- Cruse: converseness != antonymy). Only the STRUCTURED edges are consulted -- NEVER the
+    hub fuzzy fallback -- so an abstain never depends on distributional relatedness (the byte-identity guarantee)."""
+    theme = {t for t in _tokset(getattr(g, "goal_text", "") or "")
+             if len(t) > 2 and t != ah and t not in _THEME_STOP}
+    conv_hit = anto_hit = False
+    for (si, pl, ea) in ev:
+        if si <= g.sent_idx or not pl or pl == ah:
+            continue
+        if stexts is not None and si < len(stexts):
+            gate_ok = (not theme) or bool(theme & set(_tokset(stexts[si])))
+        else:
+            gate_ok = (ea == ga or ga in ("?", ""))
+        if not gate_ok:
+            continue
+        try:
+            if matcher.converse(ah, pl):
+                return "satisfied"          # converse-satisfy outranks any antonym-thwart -> commit immediately
+            if matcher.antonym(ah, pl):
+                anto_hit = True             # remember, but keep scanning for a converse elsewhere
+        except Exception:
+            continue
+    return "failed" if anto_hit else None
 
 
 def _is_thwarted(g, ah, ga, ev, stexts) -> bool:

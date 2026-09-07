@@ -1,7 +1,6 @@
 ---
-priority: 4
 slug: structured_semantic_matching_for_event_goal_and_type_converse_role_filler_knowledge_not_the_hub
-status: CANDIDATE
+status: INTEGRATED
 review:
 review_text:
 ---
