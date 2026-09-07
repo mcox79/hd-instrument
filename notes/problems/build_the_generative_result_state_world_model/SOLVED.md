@@ -5,8 +5,8 @@ bar: "A FULL-POPULATION CI-separated win on at least ONE consumer's MODERN gold 
 result: "LOCATED NEGATIVE (the bar's explicitly-blessed full pass), with the SUBSET positive delivered. Built the participant-bound GENERATIVE result-state rollout (compose world_state_register + possession_operators + goal_register: simulate the effect action forward to a result-STATE, CHECK type-matched achievement against the goal-STATE, suppress goal-DEFEATING actions). On modern TellMeWhy non-adjacent (Lal 2021, item-level paired bootstrap): GOAL-subset POSITIVE n=92 -- rollout 0.3804 vs base 0.2935 +0.0870 CI[0.0217,0.1522] AND vs topical 0.2391 +0.1413 CI[0.0652,0.2174], BOTH CI-sep; the many-shuffle info-free NULL loses (observed 0.3804 > null p95 0.3261, p=0.0). FULL population n=256: ties base (rollout-base +0.0156 CI[-0.0156,0.0469], NOT CI-sep) -- reproduces the prior gen_union 0.3086. THE WALL, QUANTIFIED: the single-step result-state schema covers only 8.7% of goal->action means-ends (8/92) and 91.2% of the GOAL-subset misses are COVERAGE-misses; VerbNet directed broadening raises nothing (type-matched coverage 6.5%) because 95.2% of the misses are genuine MULTI-STEP PLANS ('wanted milk'->'went to the store') with NO single-step result-state achieving the goal -- the wall is rollout DEPTH (plan/script chaining), NOT verb->result-state coverage. TOP-DOWN into extraction (bar item 4): a can-fail positive control -- the generated goal-state expectation discriminates achieve-vs-defeat 10/12 where the feed-forward surface silo (goal-object overlap) TIES 0/12."
 floor: "base plausibility engine (content+physics+psych, goal OFF) 0.2773 = the STRONGEST floor, recomputed on each population (GOAL subset 0.2935, OTHER 0.2475); topical (content-only argmax) 0.2500; CSKG typed-edge retrieval (coverage-bound 34%); GEK forward co-occurrence reachability (broad but directionless) 0.2969 (+0.0195 CI[-0.0039,0.043], ties base); info-free NULL by permuting the generated result-state across candidates (400 draws), GOAL null p95 0.3261 / full null p95 0.3047."
 controls: "(1) INFO-FREE NULL (permute the result-state signal across candidates, 400 draws -> null mean/p95/p-value): on the GOAL subset the rollout BEATS null p95 (obs 0.3804 > 0.3261, p=0.0 -> the generated state's placement is load-bearing); on the FULL population it does NOT (obs 0.293 < p95 0.305 -> the state fires on too few items, the located negative). (2) BASE ABLATION (goal OFF) -- rollout beats base CI-sep on the GOAL subset (+0.087), isolating the achievement check. (3) TOPICAL floor -- CI-sep on the GOAL subset (+0.141). (4) GEK-DIRECTIONLESS diagnostic -- learned forward co-occurrence scores a goal-DEFEATING action >= a goal-SERVING one ('wanted milk'->'spilled milk' 3.96 >= '->bought milk' 3.64); the broad GEK arm ties base -> co-occurrence is the WRONG axis. (5) UPSTREAM broadening (VerbNet directed result-states) ties base; the miss decomposition isolates the residual as MULTI-STEP plans (95.2%), NOT single-step coverage. (6) TOP-DOWN can-fail positive control -- surface silo ties 0/12, rollout 10/12. (7) NO-REGRESS -- the rollout is inert without an explicit goal marker (byte-identical to the goal-OFF base) and modifies no live reasoner (additive channel)."
-files_changed: "experiments/exp_genworldmodel_resultstate_v1.py (THE rollout: participant-bound result-state achievement check composing world_state_register + possession_operators + goal_register + force_dynamics; arms base/topical/objmatch/typed/gen_union/rs_refine/rs_strict/rs_bound/rs_union/gek_broad; null-p95 twin; GEK-directionless diagnostic; coverage enumeration; topdown_control(); no_regress()); experiments/exp_genworldmodel_upstream_verbnet_v1.py (the UPSTREAM VerbNet directed-result-state broadening + the single-step-vs-multi-step-plan miss decomposition; writes a VerbNet result-state cache); verification/test_genworldmodel_resultstate.py (8/8 witness); verification/test_genworldmodel_upstream_verbnet.py (3/3 witness); data/exp_genworldmodel_resultstate_v1/metrics.json; data/exp_genworldmodel_upstream_verbnet_v1/{metrics.json,verbnet_resultstates.json}. Gold reused: data/corpora/tellmewhy/. NO hdlab write (Q111 -- proposed landing stated below)."
-reverify: ".venv/Scripts/python.exe verification/test_genworldmodel_resultstate.py   # 8/8 (~10s): W1 reproduces disk baseline; W2 GOAL-subset CI-sep over base+topical; W3 info-free NULL loses (obs>p95,p=0); W4 full-pop located negative + coverage wall; W5 GEK co-occurrence ties base; W6 top-down can-fail control (silo ties, rollout discriminates); W7 no-regress/additive; W8 selectivity coverage-capped.  THEN .venv/Scripts/python.exe verification/test_genworldmodel_upstream_verbnet.py   # 3/3: VerbNet directed result-states, broadening ties base, 95% multi-step residual"
+files_changed: "experiments/exp_genworldmodel_resultstate_v1.py (THE rollout: participant-bound result-state achievement check composing world_state_register + possession_operators + goal_register + force_dynamics; arms base/topical/objmatch/typed/gen_union/rs_refine/rs_strict/rs_bound/rs_union/gek_broad; null-p95 twin; GEK-directionless diagnostic; coverage enumeration; topdown_control(); no_regress()); experiments/exp_genworldmodel_upstream_verbnet_v1.py (the UPSTREAM VerbNet directed-result-state broadening + the single-step-vs-multi-step-plan miss decomposition; writes a VerbNet result-state cache); experiments/exp_genworldmodel_signal_loss_ladder_v1.py (the BRAIN-FIDELITY SCAN: oracle ladder + per-stage recall diagnostics -- where the chain loses signal); experiments/exp_genworldmodel_topdown_stack_v1.py (the TOP-DOWN brain-foundational STACK prototype: C1 additive constraint-satisfaction decision layer + C2 directed multi-step forward model, wired to depend on each other; the interdependence measurement + null twin; w_m/K swept as phase-diagram params); verification/test_genworldmodel_resultstate.py (8/8 witness); verification/test_genworldmodel_upstream_verbnet.py (3/3 witness); verification/test_genworldmodel_signal_loss_ladder.py (4/4 witness); verification/test_genworldmodel_topdown_stack.py (5/5 witness); notes/problems/build_the_generative_result_state_world_model/RESEARCH_brain_fidelity_scan_2026-09-07.md (the itemized brain-vs-us mechanism-diff, per stage); data/exp_genworldmodel_resultstate_v1/metrics.json; data/exp_genworldmodel_upstream_verbnet_v1/{metrics.json,verbnet_resultstates.json}; data/exp_genworldmodel_signal_loss_ladder_v1/metrics.json; data/exp_genworldmodel_topdown_stack_v1/metrics.json. Gold reused: data/corpora/tellmewhy/. NO hdlab write (Q111 -- proposed landing stated below)."
+reverify: ".venv/Scripts/python.exe verification/test_genworldmodel_resultstate.py   # 8/8 (~10s): W1 reproduces disk baseline; W2 GOAL-subset CI-sep over base+topical; W3 info-free NULL loses (obs>p95,p=0); W4 full-pop located negative + coverage wall; W5 GEK co-occurrence ties base; W6 top-down can-fail control (silo ties, rollout discriminates); W7 no-regress/additive; W8 selectivity coverage-capped.  THEN .venv/Scripts/python.exe verification/test_genworldmodel_upstream_verbnet.py   # 3/3: VerbNet directed result-states, broadening ties base, 95% multi-step residual.  THEN .venv/Scripts/python.exe verification/test_genworldmodel_signal_loss_ladder.py   # 4/4: the fidelity scan -- forward-model depth is the dominant loss (+0.148), extraction is not the bottleneck (0.98), selection loses 25%.  THEN .venv/Scripts/python.exe verification/test_genworldmodel_topdown_stack.py   # 5/5: the TOP-DOWN stack -- C1 integration + C2 multi-step forward model compose (interdependence), GOAL subset 0.467 CI-sep (twin loses), above the single-step 0.380"
 ---
 
 # SOLVED (located negative + subset positive) -- the generative result-state world-model is BUILT and brain-faithful; the single-step rollout WINS its GOAL-subset domain but the full-population wall is NOT verb->result-state COVERAGE (the brief's guess) -- it is rollout DEPTH: 95% of the misses are MULTI-STEP PLANS that need script/plan chaining, and neither directed (VerbNet) nor learned (GEK) single-step broadening crosses it.
@@ -74,6 +74,55 @@ learned alternative (GEK forward co-occurrence), and the disk says the wall is O
   multi-step rollout lands: `causal_reasoner` (edge-correctness c), `coherence_reader` (the full-population
   unmarked-causal residual), the who-did-what parser (two-valid patient pick), the temporal reasoner
   (implicit-event order) -- all four named the same generative expectation.
+
+## Brain-foundational fidelity scan -- where EXACTLY we lose signal (checklist items 6 + 8; full note: RESEARCH_brain_fidelity_scan_2026-09-07.md)
+An ORACLE LADDER (`exp_genworldmodel_signal_loss_ladder_v1.py`, witness 4/4) grants each stage its perfect
+version so the GAP between rungs IS the signal lost there (TellMeWhy non-adj n=256):
+```
+base 0.277 -> +our surface means-end 0.293 -> +PERFECT goal simulator 0.441 -> +PERFECT all-type means-end 0.773 -> gold 1.000
+              (+0.016 ours)           (+0.148 FORWARD-MODEL DEPTH)   (+0.332 other engines)    (+0.227 extraction/selection)
+```
+Itemized brain-vs-us, ranked by measured loss:
+1. **Forward-model DEPTH (the dominant +0.148).** Brain: the meaning of an action is its result-state, simulated
+   forward over intuitive-theory engines with infinite coverage because COMPUTED, chaining MULTI-STEP
+   (Schank-Abelson scripts; Battaglia-Tenenbaum simulation). Us: SINGLE-STEP resource-coded lookup. Measured: the
+   gold goal means-end is DIRECT 27% / single-step-VerbNet 4% / **MULTI-STEP plan 68%** -- we structurally cannot
+   generate the 68%. THE gap; fix = directed multi-step plan/script rollout (not a bigger table, not co-occurrence).
+2. **Cue INTEGRATION / selection (~25%).** Brain: weighted PARALLEL constraint satisfaction with learned
+   validities (McClelland-Rumelhart; Kintsch; Competition Model). Us: multiplicative content-gate `content*(1+goal)`
+   -- a low-content gold cause cannot be rescued by the boost. Measured: even a PERFECT boost wins only 75% on the
+   GOAL subset (base overrides 25%). A tractable secondary fix.
+3. **Goal INFERENCE (~11%).** Brain: mPFC/TPJ recovers implicit goals; us: Tier-1 lexical markers only
+   (goal-detection recall 0.89). The 11% miss is unmarked goals needing ToM.
+4. **The other causal ENGINES (+0.332).** The goal engine is only ~1/3 of the means-end signal; physics/mental/
+   affect means-ends each need their own generative engine.
+5. **Extraction is NOT the bottleneck here (0.98 event recall)** -- a genuine finding; the extraction wall lives on
+   harder prose (SPACE's 25-35% motion recall), not clean modern TellMeWhy. So for THIS task the loss is
+   downstream (the forward model + integration), not the upstream parse.
+
+## Top-down brain-foundational stack prototype (owner: prototype the components top-down; they rely on each other) + the PHASE-DIAGRAM lens
+The fidelity scan surfaced two buildable brain-foundational components; I prototyped BOTH, wired to depend on
+each other, and measured the interdependence (`exp_genworldmodel_topdown_stack_v1.py`, witness 5/5):
+- **C1 (the TOP / decision layer) -- additive weighted CONSTRAINT SATISFACTION** replacing the multiplicative
+  content-gate (McClelland-Rumelhart / Competition Model). It recovers the measured selection loss: a PERFECT
+  forward model rises from oracle 0.441 (mult gate) to 0.461 (w_m=0.6) / 0.504 (w_m=0.8, +0.063 CI-sep).
+- **C2 (forward-model depth) -- a DIRECTED MULTI-STEP rollout** (K-hop over the CSKG cause/enable graph;
+  directed, unlike topical GEK). The 2-hop plan bridge fires ~89 vs the single-hop ~25 (broader coverage).
+- **THE INTERDEPENDENCE (the owner's point, measured):** the composition ladder is monotone -- base 0.277 ->
+  forward-model-alone 0.293 -> both-old-integration 0.309 -> **full stack 0.316**; on the GOAL subset base
+  0.293 -> fwd-alone 0.370 -> integ-alone (single-step) 0.380 -> **full stack 0.467**. Each component adds;
+  best TOGETHER. **GOAL subset: stack 0.467 vs base 0.293 = +0.174 CI[0.098,0.261] CI-sep, info-free NULL
+  loses (obs 0.467 > p95 0.326, p=0)** -- well above the single-step rollout's 0.380. Full population 0.316
+  (+0.039, borderline; twin p=0.08) -- improved over the prior 0.309 but not cleanly separated, because the
+  signal is goal-gated and the 64% non-goal items get no lift.
+- **PHASE-DIAGRAM lens (owner):** w_m (integration weight), K (rollout depth), and the hop-decay are SWEPT as
+  phase-diagram parameters (the GOAL win is robust across w_m 0.4-0.8; the full-pop peaks at w_m~0.6). The
+  remaining full-population wall is TWO movable operating points, NOT a ceiling: (1) the knowledge-store
+  COVERAGE/DENSITY -- the multi-step rollout rides on the sparse CSKG graph (single-hop 34%); densifying/
+  broadening that store (the curated result-state + plan foundation through the consolidation gate) is a
+  sparse->dense phase-diagram move; (2) the causal-engine BREADTH -- goals are ~36% of causes; extending the
+  directed forward model to physics/mental/affect result-states (the +0.332 "other engines" ladder gap) lifts
+  the non-goal 64%. Both are parameters to move next, not fixed limits.
 
 ## What I did NOT establish (withdraw-first if wrong)
 - I would withdraw first any claim of a FULL-POPULATION win: there is none; the full population ties base, a
@@ -158,6 +207,18 @@ One labelling call for the owner (the science is identical either way):
   plan-schema store) admitted offline through the consolidation gate; check goal-state reachability within K
   steps. This is the knowledge-foundation frontier the recurrent-loop SOLVED and the knowledge-lever note both
   name; it serves all four consumers.
+- **P1.5 -- DONE this round (the top-down stack prototype): cue INTEGRATION (additive constraint satisfaction) +
+  the DIRECTED MULTI-STEP forward model.** Both built + witnessed (5/5); they compose (GOAL 0.467 CI-sep, twin
+  loses). The integration fix recovers the selection loss (oracle 0.441->0.504); the multi-step 2-hop rollout
+  broadens coverage. What remains to cross the FULL population are two PHASE-DIAGRAM moves (below), not a ceiling.
+- **P1.6 -- PHASE-DIAGRAM move (store density): densify/broaden the multi-step rollout's knowledge store.** It
+  currently rides on the sparse CSKG cause/enable graph (single-hop 34%). Move the operating point sparse->dense:
+  a curated result-state + plan-schema foundation (VerbNet result predicates for single steps + plan/script chains)
+  admitted offline through the consolidation gate. This is the knowledge-foundation frontier, now with the ROLLOUT
+  ARCHITECTURE already built to consume it.
+- **P1.7 -- PHASE-DIAGRAM move (engine breadth): extend the directed forward model to the OTHER causal engines**
+  (physics/mental/affect result-states, the causal reasoner's U8 class-level seeds), so the means-end signal fires
+  on the non-goal 64% (the +0.332 "other engines" ladder gap) -- the lever for the full-population win.
 - **P2 -- wire the LATENT meaning channel live FIRST** (`meaning_foundation` has no read()-time consumer today);
   the multi-step rollout reads the resolved participants + result-state predicates over it.
 - **P3 -- once the multi-step rollout lands, REVISIT the four consumers** (causal edge-correctness c, coherence

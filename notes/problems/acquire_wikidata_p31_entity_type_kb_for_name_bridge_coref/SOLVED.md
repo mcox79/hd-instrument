@@ -5,8 +5,8 @@ bar: "PASSES only with ALL of: (1) a curated, pinned, OFFLINE entity-type KB acq
 result: "GUM OntoGUM coref (modern), name-bridge slice = anaphoric common-noun with a proper-name antecedent; ZERO fitted params (external KB) so ALL-GUM n=356 is the powered primary population (TEST split n=180 consistent). The brain-foundational TWO-ROUTE (CLS) system -- consolidated entity-type KB (DBpedia InstanceOf) UNION episodic in-text is-a (apposition/copula/head-in-name) -- with GRADED constraint-integration SELECTION (continuous type-strength x recency; MacDonald/McRae) + a THEMATIC deverbal-agent route (write->writer; Crutch-Warrington) answered-correct 0.5843 vs the strongest floor RECENCY 0.4719 = +0.1124 CI[+0.0702,+0.1573] CI-SEPARATED (shuffled-KB graded-twin loses +0.1742 CI-sep). Ablated: binary-license+recency 0.5674 (+0.0955); graded-select 0.5815 (+0.1096); +thematic 0.5843 -- each step more brain-foundational (a full top-down BF-upgrade sweep, s.2c, converges: mechanism at its knee, residual = encyclopedic coverage). The CONSOLIDATED KB is the essential half: it uniquely solves 28 name-bridge cases the discourse never states ('the city'<-San Francisco, 'the show'<-Game of Thrones) vs 27 in-text-unique (overlap 1 -> nearly disjoint routes), and on the LICENSED subpopulation (n=95, gold type licenses the anaphor) it lifts recency 0.5789 -> 0.8632 = +0.2842 CI[+0.1895,+0.3792] CI-sep. Whole-slice KB-alone = +0.0337 CI[-0.006,+0.073] NOT separated -- bounded by coverage (168/356 gold names not in this DBpedia snapshot), exactly the brief's predicted residual."
 floor: "Strongest floor actually run = RECENCY over the active NAME referents (pick the most-recent; Centering) = 0.4719 (n=356). string-identity = 0.000 and WordNet-only = 0.000 by construction (a common-noun anaphor never string-matches a name; proper names are not in WordNet) -- the brief's named floors, both weaker; reporting only vs those would be the cheating the project bars, so recency is the load-bearing floor. Ceiling = 1.000 (gold name is always in the candidate set)."
 controls: "(1) SHUFFLED-KB info-free twin LOSES: whole-slice kb 0.5056 > twin 0.4073 (+0.0983 CI[+0.0618,+0.1376] CI-sep); and the KB's 28 unique name-bridge wins COLLAPSE to 5 under the shuffled KB -- the correct encyclopedic types carry it, not 'any type-token'. (2) ABSTENTION-SAFE: on 214/356 items with NO type-licensed candidate the KB arm == recency EXACTLY (turning the spoke on can only narrow, never override recency with nothing) -> structural no-regress. (3) POSITIVE control neither string-identity nor WordNet can pass: 'the painter'/'the artist' <- Zurbaran resolved via the KB type (Artist is-a via C5); string-identity=wordnet=0.000. (4) COMPLEMENTARITY control: consolidated vs episodic routes are near-disjoint (28 vs 27 unique wins, overlap 1) -> both are load-bearing, the two-route win is not one route in disguise. (5) NO hdlab writes: the spoke is a NEW experiments/ module + a NEW additive asset; C5/C6/C7 consumers byte-untouched (verification/test_world_knowledge_typed_spokes.py 22/22 still PASS; typed_spokes self-test PASS)."
-files_changed: "experiments/fetch_dbpedia_instance_types_v1.py, experiments/build_entity_type_spoke_v1.py, experiments/_entity_type_spoke.py, experiments/exp_namebridge_enumerate_gum_v1.py, experiments/exp_namebridge_coref_kb_v1.py, experiments/fetch_wikidata_p31_coverage_probe_v1.py, verification/test_namebridge_entity_type_spoke.py; assets (gitignored): data/corpora/dbpedia_instance_types/{instance_types_en_specific.ttl.bz2,redirects_en.ttl.bz2,PROVENANCE.md}, data/frontend_assets/{entity_type_spoke_v1.sqlite,entity_type_class_lemmas_v1.json}; metrics under data/exp_namebridge_*"
-reverify: ".venv/Scripts/python.exe verification/test_namebridge_entity_type_spoke.py"
+files_changed: "experiments/fetch_dbpedia_instance_types_v1.py, experiments/build_entity_type_spoke_v1.py, experiments/_entity_type_spoke.py, experiments/exp_namebridge_enumerate_gum_v1.py, experiments/exp_namebridge_coref_kb_v1.py, experiments/fetch_wikidata_p31_coverage_probe_v1.py, experiments/exp_namebridge_brainfoundational_v1.py (the 100%-BF full-chain prototype, s.2d), verification/test_namebridge_entity_type_spoke.py, verification/test_namebridge_brainfoundational.py; assets (gitignored): data/corpora/dbpedia_instance_types/{instance_types_en_specific.ttl.bz2,redirects_en.ttl.bz2,wikidata_p31_probe_cache.json,PROVENANCE.md}, data/frontend_assets/{entity_type_spoke_v1.sqlite,entity_type_class_lemmas_v1.json}; metrics under data/exp_namebridge_*"
+reverify: ".venv/Scripts/python.exe verification/test_namebridge_entity_type_spoke.py && .venv/Scripts/python.exe verification/test_namebridge_brainfoundational.py"
 ---
 
 # Acquire an entity-type KB for name-bridge coref -- SOLVED via the brain-foundational TWO-ROUTE (CLS) completion
@@ -96,6 +96,35 @@ the residual is ENCYCLOPEDIC COVERAGE, not a mechanism to fix.
 route a genuine BF refinement; every deeper lever either CONFIRMS the current choice is already the brain-foundational
 one (discrete WordNet type-strength; recency salience) or re-attributes the residual to ENCYCLOPEDIC COVERAGE (the
 entity's specific facts -- occupation, works, roles), which is a KNOWLEDGE-FOUNDATION acquisition, not a mechanism.
+
+## 2d. THE 100%-BRAIN-FOUNDATIONAL FULL-CHAIN PROTOTYPE (owner: "prototype the 100% BF implementation for the
+## entire chain ... these are typically all interdependent") -- experiments/exp_namebridge_brainfoundational_v1.py
+I rebuilt the ENTIRE chain so every component is the brain's actual mechanism, reusing LANDED brain organs, as ONE
+interdependent constraint-satisfaction system -- and established each choice's brain-foundationality by ABLATION
+(the alternatives that SOUND more brain-foundational measure WORSE). GUM name-bridge, n=356:
+| chain variant | acc | verdict |
+|---|---|---|
+| recency floor | 0.4719 | -- |
+| DENSE distributed rep (Rogers-McClelland pure-PDP: C1 signature cosine) + flat blend | 0.3989 | **FAILS < floor** |
+| TYPED-spoke rep + FLAT additive blend (no hard gate) | 0.5337 | underperforms |
+| **TYPED-spoke GATE -> GRADED salience competition among survivors (the BF chain)** | **0.5702** | **+0.0983 CI[+0.0534,+0.1433] over floor; MATCHES the WordNet chain (-0.014 ns)** |
+- **The distributed-feature representation FAILS (0.399 < floor).** C1 meaning signatures are high-everywhere
+  (painter~artist 0.96 AND country~artist 0.91 -- the SUPERPOSITION CEILING the C5/C6 SOLVED proved), so a dense
+  blend cannot discriminate or gate types. This RECONCILES Rogers-McClelland (distributed hub) with Lambon-Ralph
+  (typed spokes): for a DIRECTED type-license you need the TYPED SPOKE, not the dense hub -- and it OVERTURNS my own
+  earlier worry that "WordNet-C5 is a non-brain-foundational crutch." The typed spoke IS the brain-foundational
+  store organization (the phase-diagram dense->indexed move); the dense signature is the LESS faithful rep here.
+- **The integration must be GATE-then-COMPETE, not a flat blend** (0.534 -> 0.570). This is the interdependence the
+  owner named: a hard type/agreement FILTER (Lappin-Leass) admits the type-compatible names, THEN a graded salience
+  competition (McClelland; the landed hdlab.graded_competition) picks among survivors. A flat additive blend lets an
+  off-type but salient name win. Recency (not ACT-R-with-count: count HURTS, validity 0.35<0.47) is the salience
+  cue; familiarity's brain role is RECOGNITION (which entity a name denotes), already served by the type-gate
+  top-down (Altmann-Kamide), so as a separate salience cue it is redundant (measured: adds noise).
+- **CONCLUSION: the 100%-BF chain CONVERGES on (essentially) the mechanism already submitted (kb_thematic).** The
+  prototype's value is that it VALIDATES every component as the brain's actual mechanism (typed spoke = the type
+  rep; graded_competition = the select; two-route CLS; ACT-R/recency) by showing the more-distributed / more-blended
+  alternatives measure WORSE, and it reuses three LANDED brain organs (typed_spokes C5, graded_competition,
+  meaning_foundation) with no reinvention. Witness: verification/test_namebridge_brainfoundational.py (3/3).
 
 ## 2b. THE "IF A BRAIN-FOUNDATIONAL UPGRADE FAILS, SOMETHING ELSE IS NOT BRAIN-FOUNDATIONAL" DRILL (owner principle)
 The coercion-tolerant license (more brain-faithful -- the neural type-prior is GRADED with metonymy tolerance,
