@@ -269,43 +269,60 @@ JOINT high-recall construction+entity extraction, not one more rule or a better 
 
 ## TLDR (plain English)
 We built three separate "thinkers" -- for space, for time, and for how a character feels -- and each works almost
-perfectly on clean facts but stalls on real stories because the reading step pulls out too few of the little "X relates
-to Y" facts, and a chain of reasoning needs every link. I built one reading step that reads a sentence ONCE and pulls
-out all the facts from that single reading, the way the brain does it. For TIME it works: the old step only counted
-past-tense happenings and threw away states ("the door was open") and present-tense happenings; mine keeps them all, so
-where the old step let the time-thinker answer 1 in 9 whole chains, mine lets it answer about 4 in 10 -- and a
-scrambled-facts version falls apart, proving the real facts are doing the work. For SPACE it does NOT yet work, and I
-found exactly why: getting "the book is in the box on the shelf" right needs the sentence's grammar parsed accurately,
-and our grammar-parser is only about 79% right on this kind of terse text -- so that is the next thing to fix, named and
-measured. The reading step changes nothing about the existing reader (it is a transparent add-on), and it feeds the
-"who did what" facts the feeling-thinker needs off the very same single reading.
+perfectly on clean facts but stalls on real stories, because the reading step pulls out too few of the little "X
+relates to Y" facts and a chain of reasoning needs every link. I built one reading step that reads each sentence ONCE
+and pulls out all the facts from that single reading, the way the brain does it. For TIME it works, and strongly: the
+old step only counted past-tense happenings and threw away states ("the door was open"), present-tense happenings, and
+things named as nouns ("the attack", "the construction"); mine keeps them all -- so where the old step let the
+time-thinker answer about 1 in 9 whole chains, mine lets it answer about 7 in 10, and end-to-end it now answers
+correctly nearly as often as if it had been handed perfect facts. This holds on two different modern sources (news and
+Wikipedia, the second a hundred times larger), and a scrambled-facts version falls apart, proving the real facts do the
+work. For the FEELING thinker, the same reading step makes sure the outcome of the story is always captured (the old
+step missed it on about 1 in 7 items, leaving nothing to feel about); what's left there is a separate
+common-sense step ("standing on the top step of the podium" means "won"), which belongs to a different part. For SPACE
+it does NOT yet clear the bar, and I corrected my own first explanation: it is not mainly the grammar parser -- it is
+that the reader knows fewer ways of SAYING where things are (it handles "in the box" but not "the box holds the key" or
+"there is a key in the box"); adding those back is the next step. The whole reading step changes nothing about the
+existing reader (a transparent add-on) and feeds all three thinkers off the very same single reading.
 
 ## QUESTIONS
-None blocking. One judgement call for the owner: I marked this PARTIAL because one of the three channels (TIME) lifted
-decisively on the headline metric, one (SPACE) is a rigorous located negative, and one (ROLE/appraisal) is served-but-
-not-separately-scored. The bar's own text gives my exact outcome ("copular/stative lifts temporal overlap survival
-CI-separated but spatial ... does not move ... located and counted") as an example of a FULL PASS, so a SOLVED reading
-is defensible; I chose the honest, deflated label.
+None blocking. One judgement call for the owner: I marked this PARTIAL, not SOLVED. The TIME channel clears the
+headline metric decisively on two modern golds and end-to-end through the actual solved reasoner; the FEELING channel's
+extraction lever is measured (every outcome event recovered); the SPACE channel is a rigorous, correctly-attributed
+located negative. The bar's own text gives this exact shape ("copular/stative lifts temporal overlap survival
+CI-separated but spatial ... does not move ... located and counted") as a FULL PASS, so a SOLVED reading is defensible
+-- I chose the honest, deflated label. Promote to SOLVED if you read the bar as met.
 
-## NEXT STEPS
-- **P1 (HIGH, strategy): land the joint temporal front-end (tense-agnostic + copular/stative) default-off and wire the
-  temporal_reasoner to consume it** -- the +0.2943 survival / +0.2478 end-to-end gain is board-invisible until wired.
-  Additive, no-regress confirmed. Witness `verification/test_joint_temporal_survival.py`.
-- **P2 (HIGH, follow-on problem): the SPATIAL channel's real lever is JOINT construction+entity coverage, NOT the
-  parser** (corrected: 74% construction coverage / 10% parse-attachment). Fold the incumbent's full construction set
-  (grid-frame/possession/existential/locative-verb) onto the parse-based binder (which already recovers 8 edges the
-  linear scan misses) AND strengthen entity resolution -- per-construction returns diminish, so the target is the whole
-  sub-graph, not one more rule. A labeled/incremental parser is a SECONDARY lever (fixes the 10%).
-- **P3: eventive-nominal detection -- DONE this session** (WordNet eventive-sense + deverbal test; NOUN-event recall
-  0.10 -> 0.70; survival 0.41 -> 0.73/0.78). Residual: TOKEN-level disambiguation of polysemous event nouns
-  ("building" the act vs the object) -- wire the context/WSD channel to gate the nominal fires (the meaning channel's
-  job, a named adjacent organ), which recovers the precision without losing recall.
-- **P4: the OCC appraisal reasoner's extraction lever is MEASURED** (the joint pass guarantees the outcome event
-  exists: 37-39/44 -> 44/44). Wire the enriched event detector into the appraisal path so it stops abstaining for want
-  of an outcome event; the remaining appraisal wall is SEMANTIC goal<->outcome matching (converse verbs / world
-  knowledge -- the appraisal SOLVED's own named next-problem, NOT this front-end).
-- **P5: the NOMINAL precision residual is token-level WSD** (drilled: Grimshaw syntactic gating fails). Gate the
-  nominal event fires on the context/WSD channel (event-vs-result nominal reading in context) to recover precision
-  without the recall loss -- the meaning channel's job, a named adjacent organ.
-- **DO NOT re-file:** the temporal reasoner (solved), the role front-end (landed live), or a parse-based spatial
-  extractor as a capability wire (UAS-gated, measured).
+## NEXT STEPS (priority-ordered; the mechanism work is done -- what remains is LANDING + three located follow-on organs)
+
+**P1 -- HIGHEST, and it is STRATEGY's (Q111 landing, ready now).** Land the enriched joint temporal event detector
+(tense-agnostic + copular/stative + WordNet eventive-nominal) as an additive, default-off pass in `situation_reader`,
+and wire `temporal_reasoner` to consume it. This is the ONLY step that converts the proven gain into a board-visible
+number: whole-subgraph survival 0.11 -> 0.73, end-to-end 0.10 -> 0.49 (87% of ceiling), on two modern golds. Additive
++ no-regress CONFIRMED (live reader byte-identical when off). Proposed diff: SOLVED.md Sec 7. Witness:
+`verification/test_joint_temporal_survival.py`. Nothing else here unblocks value the way this does.
+
+**P2 -- follow-on PROBLEM (space): a whole-sub-graph SPATIAL construction+entity extractor.** The corrected lever is
+CONSTRUCTION COVERAGE + entity resolution (74% of the deficit), not the parser (10%). Fold the full construction
+inventory onto the unified parse-bound Figure-Ground binder (built here: `joint_spatial_frames`) AND strengthen
+coreference-lite entity resolution; the target is the whole sub-graph (per-construction returns MEASURED to diminish),
+so it is one organ, not more rules. File as its own brief (it is the parent SPACE line's, not this front-end's).
+
+**P3 -- follow-on PROBLEM (meaning): the nominal event-vs-result WSD gate.** The nominal channel is a huge survival
+lever (0.41 -> 0.73/0.78) but over-fires on polysemous nouns ("building" the act vs the object); the syntactic shortcut
+(Grimshaw argument-structure) was DRILLED and FAILS (recall 0.70 -> 0.20). So the precision fix is a context/WSD gate
+-- the meaning channel's organ. Wiring it makes the nominal channel a safe production default.
+
+**P4 -- follow-on PROBLEM (affect): appraisal SEMANTIC goal<->outcome matching.** This front-end's extraction lever for
+appraisal is DONE and measured (outcome event 37-39/44 -> 44/44). The remaining appraisal wall is semantic matching
+(stood-on-podium => won) -- converse verbs / world knowledge -- which is the appraisal SOLVED's OWN named next-problem,
+already located; not this front-end.
+
+**P5 -- lower: the upstream labeled/incremental parser.** The SECONDARY spatial lever (the 10% parse-attachment slice)
+and a longer-horizon fidelity gain (arc_parser is UAS 0.79, unlabeled, batch -- OUR-INVENTION, not brain-faithful).
+Already a filed PARTIAL problem (`wire_the_incremental_parser...`); do not duplicate.
+
+**DONE THIS PROBLEM (do NOT re-file):** the joint one-parse front-end; tense-agnostic + copular/stative + WordNet-
+nominal temporal detection; whole-subgraph survival on TB-Dense + MAVEN; end-to-end through the actual solved reasoner;
+the unified Figure-Ground frame binder; the three-reasoner extraction-lever map; the determinism guard. Also do not
+re-file the temporal reasoner (solved) or the role front-end (landed live).

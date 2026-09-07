@@ -1,5 +1,19 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🟢 **STATE AS OF 2026-09-07 -- THE REASONING PHASE IS LIVE. THE LIVE ANCHOR IS `notes/STATUS.md` (CONT-16); read it first; this file's 08-24 block below is SUPERSEDED context, kept for lineage.**
+> Since the 2026-08-24 block below (the meaning-chain / substitutability-wall state), the situation model went from
+> REPRESENTATION to REASONING. INTEGRATED (owner-DONE, each reverified first-hand + §2b + committed, NOTHING pushed):
+> the 19c-free MODERN comprehension board (agg 0.6052, board FULLY REALIZED -- all reasoning arms scored CI-sep);
+> **infer-unstated-emotion (OCC appraisal), spatial-relational reasoning, temporal reasoning (before/after+overlap+duration),
+> negation/quantifier (truth-conditional polarity), a +0.082 CI-sep live coref stack (p12), and IN-FLIGHT the joint
+> relation-extraction front-end (p2 -- temporal whole-subgraph survival 0.11->0.73).** The 3 reasoners CONVERGED on ONE
+> wall -- EXTRACTION from prose -- so the open fleet queue targets it: p1 predictive-coding LOOP CLOSURE (the north-star,
+> the single biggest lever), p2 relation-extraction (integrating), p3 globally-normalized parser, p4 semantic-matching,
+> p7 SDRT discourse, p11 world-knowledge, + recorded follow-ons. A keep-moving Stop-hook loop is ARMED (autoloop, cap 50;
+> `python tools/autoloop.py disarm` to stop). Full solution-by-solution inventory = `notes/INTEGRATION_LEDGER.md`
+> (CONT-14/15) + audit `notes/BRAIN_FOUNDATIONAL_AUDIT.md` §2b. **Do NOT operate off the 08-24 block for current work --
+> it predates all of the above.**
+
 > # 📍 **STATE AS OF 2026-08-24. ONE BLOCK, CURRENT ONLY. DO NOT APPEND -- FOLD.**
 > *This block blew past its own 160-line cap twice by appending. **Consolidated 08-24
 > STRUCTURALLY: anything `tools/substrate_map.py` now DERIVES was DELETED from here rather than

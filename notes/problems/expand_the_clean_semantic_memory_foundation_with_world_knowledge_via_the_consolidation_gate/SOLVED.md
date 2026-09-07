@@ -353,10 +353,17 @@ proven load-bearing.
   operators ("at most", the conditional "if" antecedent) and (ii) OVER-triggering ("a few" is UPWARD not downward;
   blanket "every/all/each/any" over-fired via the restrictor/body asymmetry). Calibrating the marker (add phrase
   operators + "if"; guard "a few"; drop the noisy positional operators) raised agreement 0.762 -> 0.839 and
-  natural-logic acc 0.744 -> 0.767. RESIDUAL WALL (named, not closed here): the gap to the ORACLE-monotonicity upper
-  bound 0.879 is POSITIONAL scope -- a sentence-level polarity marker cannot handle the quantifier restrictor/body
-  asymmetry (downward in the restrictor of "every", upward in its body); closing it needs a per-position
-  monotonicity-marking PARSE (MacCartney projectivity) = the next upstream build.
+  natural-logic acc 0.744 -> 0.767. RESIDUAL WALL, NOW BUILT ACROSS: the gap to the ORACLE-monotonicity upper bound
+  0.879 is POSITIONAL scope -- a sentence-level polarity marker cannot handle the quantifier restrictor/body
+  asymmetry (downward in the restrictor of "every", upward in its body). I built the brain's actual mechanism --
+  MacCartney PROJECTIVITY over a real DEPENDENCY PARSE (each operator projects its monotonicity over the tokens it
+  syntactically SCOPES; a universal is downward in its head-noun subtree = restrictor, upward in the body). A LINEAR-
+  scope heuristic FAILED (0.514 < 0.762 -- linear position is not syntactic scope), but real parse projectivity
+  lifts the marker 0.762 -> 0.810 (+0.048), closing MOST of the gap to the oracle 0.879 -- confirming the brain
+  mechanism (monotonicity is positional/syntactic). (parse_projectivity_report() in the cell; witness W15. Uses
+  spaCy en_core_web_sm as a glass-box statistical-parser STAND-IN for the reader's own hdlab.arc_parser = the
+  production upstream, lazily imported + graceful-degrade. Residual to 0.879 = parser errors + fuller projectivity
+  rules for conditionals/disjunction/NPI/non-monotone "most".)
 
 ### NEW RELATION FAMILY SPOTTED + CONFIRMED (a 5th typed spoke): ANTONYMY (lexical opposition)
 (built + validated this session: experiments/exp_antonym_typed_spoke_valence_v1.py)

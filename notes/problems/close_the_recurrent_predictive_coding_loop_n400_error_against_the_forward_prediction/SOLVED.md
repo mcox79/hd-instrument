@@ -5,7 +5,7 @@ bar: "PASSES only with ALL of: (1) the loop CLOSED as a glass-box wire -- redire
 result: "COHERENCE loop-closure PASSES on a MODERN gold: the forward prediction-error discrimination beats the backward-gist discrimination on Story Cloze val+test (n=3742), forward 0.5874 [0.5714,0.6034] vs backward-gist 0.52 [0.5035,0.5358], paired margin +0.0673 [+0.0468,+0.0879] CI-SEPARATED (half-width 0.021); cross-context twin collapses to 0.4971, forward-vs-twin +0.0903 [+0.0689,+0.1128]. SEGMENTATION loop-closure is a LOCATED NEGATIVE on the MODERN human gold (GUM V12.1.0 paragraph boundaries; narrative n=81 docs/3433 sents, all-genre n=272 docs/15205 sents): the CONTENT-only forward error does NOT beat the content-backward gist -- boundary-detection AUC forward 0.5447 vs backward 0.5603 (narrative, margin -0.0156 [-0.0453,+0.0164], tied), forward 0.5199 vs 0.5593 (all-genre, -0.0394). The forward DIRECTION is validated once the prediction is MULTI-DIMENSIONAL (Zwaan event-indexing): a content+protagonist/entity forward error beats the same multi-dimensional BACKWARD error CI-separated (narrative +0.0156 [+0.0056,+0.0261]; all-genre +0.0142 [+0.0074,+0.0208]); the PROTAGONIST/ENTITY dimension (gold GUM coref) is the lever (single-signal AUC 0.5507 > content-forward 0.5165). The CONSTRUCTION control (concat ROCStories, near-orthogonal story-start boundaries) reproduces the SOLVED loop-cell direction: forward F1 0.8025 vs backward 0.2717, shuffled-stream twin 0.1630. P2 UPGRADE PROTOTYPE (live-realizable, exp_predictive_loop_dimensional_v2/v3): the protagonist signal read from the reader's OWN PARSE LAYER (PROPN+NOUN participant novelty, NO coref gold) is the strongest single boundary detector (AUC 0.5666 narrative / 0.5596 all-genre), beating BOTH the content-backward incumbent (0.5418/0.5338) AND gold coref (0.5507/0.5425); an equal-weight content-forward + live-protagonist multi-dimensional forward monitor beats the content-backward incumbent CI-separated on all-genre (+0.0311 [+0.012,+0.048]) and positively on narrative (+0.0233) -- so the segmentation loop closure is REALIZABLE in the live substrate. (Honest negative: cross-validated LEARNED cue-validity weighting does NOT transfer across the 17 genres -- held-out it underperforms the unfitted single protagonist signal; the robust lever is the unfitted parse-layer protagonist novelty.)"
 floor: "The incumbent BACKWARD-gist monitor recomputed on each slice's OWN population. COHERENCE: backward-gist discrimination 0.52 [0.5035,0.5358] on Story Cloze val+test (forward CI-separates over it, +0.0673). SEGMENTATION (GUM narrative): content-backward-gist boundary AUC 0.5603 (matched EST z-score machinery) -- the content-forward error TIES it (-0.0156, CI incl 0); the landed n400 organ's NATIVE ratio-threshold F1 0.1183; the random-boundary floor (matched count) F1 0.4341 [p95 0.4502] -- both monitors' fixed-kz F1 (fwd 0.132 / bwd 0.193) fall BELOW it because the EST z-threshold is mis-set for the dense ~40% paragraph-boundary regime, so AUC/F1@count are the fair views (F1@count fwd 0.4574 > bwd 0.4339). The forward label-permutation null p95 = 0.1256."
 controls: "(1) cross-context twin (coherence: endings scored against a RANDOM other story's context) -> 0.4971 = EXCLUDES the Schwartz-2017 style artifact, proves it uses THIS story. (2) shuffled-forward twin (segmentation: scramble the sentence order, recompute the forward signal) -> multidim-forward AUC 0.5344 (narrative) / 0.5197 (all) collapses toward 0.5 = EXCLUDES a shape artifact. (3) random-boundary floor (matched count) F1 0.4341 p95 0.4502 = the true dense-regime floor. (4) construction control (concat ROCStories, near-orthogonal boundaries) forward 0.8025 vs backward 0.2717 = EXCLUDES 'the mechanism has no boundary signal' -- it wins 3x when boundaries are genuine situation-changes. (5) 2x2 decomposition (forward/backward x content/multidim) + leave-one-dimension-out ablation = LOCATES the win in the protagonist/entity representation, not the forward direction alone. (6) upstream store-broadening (GUM-in-domain prose + ROC, narrative held out) lifts content-forward AUC 0.5293->0.5470 but REGRESSES coherence -0.0334 = EXCLUDES 'a bigger store closes it for free'. (7) reset-vs-reinstate sweep on GUM narrative + the construction gold = isolates reinstatement. (8) live-consumer enumeration (grep) = the redirect's no-regress reality."
-files_changed: "experiments/build_gum_segmentation_gold.py (reproducible normalizer of the pinned on-disk GUM V12.1.0 into a modern paragraph-boundary gold); experiments/_predictive_loop.py (the glass-box closed-loop monitor module -- forward/backward EST, reinstatement, AUC/AP/F1/Pk, coherence, twins, consuming the LIVE hdlab.generalized_event_knowledge.GEKProjector); experiments/exp_predictive_loop_modern_gold_v1.py (THE HEADLINE -- coherence + segmentation + construction control + reset/reinstate + twins + positive control + null p95); experiments/exp_predictive_loop_dimensional_v1.py (BUILD ACROSS -- the multi-dimensional Zwaan-index forward error, gold GUM entities, 2x2 + ablation); experiments/exp_predictive_loop_dimensional_v2.py (P2 UPGRADE -- LIVE-realizable protagonist from the parse layer PROPN+NOUN, live-vs-gold, + gold <date> temporal); experiments/exp_predictive_loop_dimensional_v3.py (P2 CAPSTONE -- cross-validated cue-validity weighting; honest cross-genre non-transfer negative); experiments/exp_predictive_loop_upstream_store_v1.py (FULL-STACK UPSTREAM -- broaden the forward-transition store, segmentation lift vs coherence regress); experiments/exp_predictive_loop_boundary_type_v1.py (CEILING DRILL -- within-doc paragraph vs doc-concat topic-jump: the ceiling is the GOLD's subtlety, mechanism sound); experiments/exp_predictive_loop_policy_isolation_v1.py (POLICY ISOLATION -- the 2x2 error-source x update-policy: forward-vs-backward is regime-specific, reinstatement is direction-independent); experiments/exp_predictive_loop_brain_foundational_v1.py (100%-BRAIN-FOUNDATIONAL RULE -- precision-weighted Bayesian surprise beats the raw-error incumbent CI-sep, Kumar 2023 / SEM); experiments/_lean_event_monitor.py (LANDING-READY drop-in reference -- LeanEventMonitor: precision-weighted Bayesian surprise + reinstatement, no GEK store, no fitting; self-test beats incumbent); experiments/exp_predictive_loop_online_ensemble_v1.py (research follow-on PROTOTYPE -> rigorous NEGATIVE: oracle-weight = best-single, ensemble is the wrong abstraction); experiments/fetch_human_event_boundaries.py (pinned reproducible fetch of the HUMAN perceived-boundary gold, Kumar 2023 Zenodo); experiments/exp_human_boundary_validation_v1.py (THE 100%-BRAIN-FOUNDATIONAL VALIDATION vs actual human boundaries -- the proxy-misled flagship finding); experiments/exp_online_forward_model_v1.py (build-across: online Rao-Ballard predictive-coding forward model, marginal -- the wall needs offline pretraining); verification/test_predictive_loop.py (scaffold-free witness, 9/9); data/corpora/gum_segmentation/ (materialized gold + provenance, gitignored); data/exp_predictive_loop_modern_gold_v1/ + data/exp_predictive_loop_dimensional_v1|v2|v3/ + data/exp_predictive_loop_upstream_store_v1/ (metrics). hdlab/ UNTOUCHED (Q111)."
+files_changed: "experiments/build_gum_segmentation_gold.py (reproducible normalizer of the pinned on-disk GUM V12.1.0 into a modern paragraph-boundary gold); experiments/_predictive_loop.py (the glass-box closed-loop monitor module -- forward/backward EST, reinstatement, AUC/AP/F1/Pk, coherence, twins, consuming the LIVE hdlab.generalized_event_knowledge.GEKProjector); experiments/exp_predictive_loop_modern_gold_v1.py (THE HEADLINE -- coherence + segmentation + construction control + reset/reinstate + twins + positive control + null p95); experiments/exp_predictive_loop_dimensional_v1.py (BUILD ACROSS -- the multi-dimensional Zwaan-index forward error, gold GUM entities, 2x2 + ablation); experiments/exp_predictive_loop_dimensional_v2.py (P2 UPGRADE -- LIVE-realizable protagonist from the parse layer PROPN+NOUN, live-vs-gold, + gold <date> temporal); experiments/exp_predictive_loop_dimensional_v3.py (P2 CAPSTONE -- cross-validated cue-validity weighting; honest cross-genre non-transfer negative); experiments/exp_predictive_loop_upstream_store_v1.py (FULL-STACK UPSTREAM -- broaden the forward-transition store, segmentation lift vs coherence regress); experiments/exp_predictive_loop_boundary_type_v1.py (CEILING DRILL -- within-doc paragraph vs doc-concat topic-jump: the ceiling is the GOLD's subtlety, mechanism sound); experiments/exp_predictive_loop_policy_isolation_v1.py (POLICY ISOLATION -- the 2x2 error-source x update-policy: forward-vs-backward is regime-specific, reinstatement is direction-independent); experiments/exp_predictive_loop_brain_foundational_v1.py (100%-BRAIN-FOUNDATIONAL RULE -- precision-weighted Bayesian surprise beats the raw-error incumbent CI-sep, Kumar 2023 / SEM); experiments/_lean_event_monitor.py (LANDING-READY drop-in reference -- LeanEventMonitor: precision-weighted Bayesian surprise + reinstatement, no GEK store, no fitting; self-test beats incumbent); experiments/exp_predictive_loop_online_ensemble_v1.py (research follow-on PROTOTYPE -> rigorous NEGATIVE: oracle-weight = best-single, ensemble is the wrong abstraction); experiments/fetch_human_event_boundaries.py (pinned reproducible fetch of the HUMAN perceived-boundary gold, Kumar 2023 Zenodo); experiments/exp_human_boundary_validation_v1.py (THE 100%-BRAIN-FOUNDATIONAL VALIDATION vs actual human boundaries -- the proxy-misled flagship finding); experiments/exp_online_forward_model_v1.py (build-across: online Rao-Ballard predictive-coding forward model, marginal -- the wall needs offline pretraining); experiments/exp_bayesian_surprise_kl_v1.py (the EXACT Kumar rule: Bayesian surprise = KL between successive forward distributions vs surprisal -- correct computation, needs a rich distribution); experiments/exp_minimal_sem_v1.py (STRUCTURED brain segmenter -- minimal SEM schema-switch; BEATS the incumbent vs ACTUAL HUMANS 0.60-0.65 vs 0.53, cross-story + default-param robust, worse on proxy); experiments/exp_sem_episodic_v1.py (episodic Minerva-2 per-schema forward model -- IDENTICAL to linear: the win is the architecture, the richness wall is offline-pretraining, confirmed 3 ways); notes/problems/.../research_event_segmentation_mechanism_2026-09-07.md (the mechanism drill -- exact equations, Kumar/SEM/Reynolds); verification/test_predictive_loop.py (scaffold-free witness, 9/9); data/corpora/gum_segmentation/ (materialized gold + provenance, gitignored); data/exp_predictive_loop_modern_gold_v1/ + data/exp_predictive_loop_dimensional_v1|v2|v3/ + data/exp_predictive_loop_upstream_store_v1/ (metrics). hdlab/ UNTOUCHED (Q111)."
 reverify: ".venv/Scripts/python.exe verification/test_predictive_loop.py"
 ---
 
@@ -348,6 +348,67 @@ forward model -- so a revision trigger built on it would be weak for the same re
 would only pretend to work; it is gated by the forward-model frontier (§4i), and becomes worth building once a rich
 offline forward model exists. (Its content route was also already measured weak: prior SOLVED verb+patient grain 0.547.)
 
+## §4k THE MECHANISM DRILL -- how the brain does it, and how we differed EXACTLY (owner: "research and drill aggressively")
+A full-text research drill (Kumar/Toneva/Norman 2023; Reynolds/Zacks/Braver 2007; Franklin/Norman/Ranganath/Zacks/
+Gershman SEM 2020; Baldassano 2017; `research_event_segmentation_mechanism_2026-09-07.md`) pinned the EXACT brain
+computation and the EXACT way our substrate differs:
+- **The brain's boundary signal is BAYESIAN SURPRISE = KL(P_t || P_{t-1}) between SUCCESSIVE FORWARD DISTRIBUTIONS**
+  (Kumar 2023: `BS = -sum_v p_v log(q_v/p_v)`, p=posterior P_t, q=prior P_{t-1}) -- "how much did my forecast of what
+  comes next just SHIFT." Critically, **SURPRISAL (-log p of the observed item = prediction error) does NOT predict
+  human boundaries** (near-zero/negative); only the distribution SHIFT does. A high-surprisal word that leaves the
+  forecast unchanged is NOT a boundary; a boundary is a MODEL UPDATE (Itti-Baldi surprise, not Shannon surprise).
+- **The brain's segmenter is SEM (Franklin/Gershman): a LIBRARY of event SCHEMAS (each a learned forward dynamical
+  system), online latent-schema inference via a sticky-CRP prior + Gaussian likelihood (local MAP), and a BOUNDARY iff
+  the MAP schema SWITCHES** (`e_hat_{n+1} != e_hat_n`). Reynolds 2007 is the ancestor: gate fires when SSE/running-
+  baseline > 1.5 (a transient RATIO), overwrite the event layer on a gate.
+- **HOW WE DIFFERED, EXACTLY:** our `n400_coherence_monitor` (and every monitor I built) computes (1) PREDICTION
+  ERROR (surprisal/cosine), the Kumar-refuted quantity, over (2) a POINT prediction, not a DISTRIBUTION (so KL is
+  literally uncomputable), with (3) a FLAT gist, not a latent-schema library with switch detection. Three exact gaps.
+
+## §4l THE 100%-BRAIN-FOUNDATIONAL IMPLEMENTATIONS -- and the STRUCTURED architecture WINS vs actual humans
+I implemented all three brain mechanisms glass-box (NO LLM) and tested them against ACTUAL HUMAN boundaries:
+- **(a) KL Bayesian surprise** (`exp_bayesian_surprise_kl_v1`): forward distribution `P_t = c @ T` from the frozen GEK
+  transition matrix (a static offline asset), `BS = KL(P_t||P_{t-1})`, transient = BS/running-baseline. On the GUM
+  proxy it is the BEST arm (0.564 > point-error 0.542 > surprisal 0.490 -- it reproduces the Kumar ordering there).
+  But vs HUMANS it is BELOW chance -- because our glass-box forward DISTRIBUTION (sparse 8k-lemma PPMI) is too weak;
+  Kumar's KL worked on GPT-2's rich 50k distribution. So the correct COMPUTATION needs a RICH distribution -- proven.
+- **(b) MINIMAL SEM** (`exp_minimal_sem_v1`): a schema library, per-schema linear dynamics (ridge, online delta-rule),
+  sticky-CRP + Gaussian MAP, boundary = MAP schema switch; the continuous signal = the model-comparison margin
+  (best-alternative minus current schema score). **THIS WINS vs ACTUAL HUMANS:**
+
+  | SEM schema-switch vs HUMAN boundaries | AUC | vs point-error incumbent |
+  |---|---|---|
+  | Tunnel (n=473, default params) | **0.649** | 0.531 |
+  | Pieman (n=61, default params) | **0.599** | 0.391 |
+  | CROSS-STORY tune-Tunnel -> test-Pieman | **0.601** | -- |
+  | CROSS-STORY tune-Pieman -> test-Tunnel | **0.652** | -- |
+  | GUM PROXY | 0.480 (WORSE) | 0.542 |
+
+  Robust: NO-tune default params (alpha=1,lam=2,sigma2=1) give ~0.60/0.65 -- identical to tuned, so it is NOT param
+  overfitting; and it is CROSS-STORY validated both directions. **The STRUCTURED brain architecture (latent-schema
+  switch) predicts actual human boundaries where every FLAT content monitor is near chance** (incumbent 0.53, KL
+  below chance) -- a +0.10-0.12 AUC lift over the incumbent against the real instrument. And it is WORSE on the GUM
+  proxy (0.48), which DOUBLY confirms the proxy misled us: SEM is genuinely human-aligned, not proxy-aligned.
+- **CAVEAT (deflated):** 2 narratives only; AUC ~0.62 is still well below human/GPT-2 -- the glass-box per-schema
+  linear dynamics learned online on hundreds of scenes is a weak forward model. But it is the RIGHT ARCHITECTURE,
+  robust across stories + params, and the first thing here to beat the incumbent against ACTUAL HUMAN perception.
+- **(c) THE FORWARD-MODEL RICHNESS IS AN OFFLINE-PRETRAINING WALL, confirmed THREE ways (`exp_sem_episodic_v1`).** I
+  upgraded SEM's per-schema dynamics from a linear map to a HIPPOCAMPAL EPISODIC (Minerva-2 / Hintzman echo) forward
+  model -- the brain's actual runtime learner (cortical schema SELECTION + hippocampal episodic PREDICTION, Baldassano
+  hippocampal-vmPFC). Result: IDENTICAL to linear SEM (Tunnel 0.6487 vs 0.6486; Pieman 0.601 vs 0.599; cross-story
+  0.6487). So the SEM win is carried by the SCHEMA-SWITCH ARCHITECTURE, NOT the forward-model details, and richer
+  ONLINE dynamics (Rao-Ballard SS4i, linear SS4l, episodic here -- 3 variants) all cap at ~0.62 because online-on-one-
+  story learns too little. The gap to human-level (~0.9) needs an OFFLINE-PRETRAINED per-schema forward model (a
+  lifetime/GPT-2-scale asset -- admissible, offline) OR a structured FHRR-bound scene representation (Zwaan roles, not
+  a content bag) -- both foundation-scale, a SEPARATE problem. The ARCHITECTURE lands now; the richness is next.
+
+**LANDING CONSEQUENCE (revises §8):** the brain-foundational segmenter is SEM schema-switch, NOT the flat content
+monitor and NOT the KL monitor over a weak distribution. The incumbent `n400_coherence_monitor` computes the WRONG
+quantity (prediction error over a flat gist). Strategy should land a SEM-style latent-schema-switch monitor (glass-
+box, the FHRR binding already in the substrate IS SEM's HRR scene representation -- a natural fit) as the segmentation
+organ; the lean/KL monitors are cost-efficient but only proxy-aligned. Human-level awaits a richer per-schema forward
+model (the knowledge-foundation frontier), but the ARCHITECTURE upgrade (schema-switch) is real and validated now.
+
 ## §5 PERFORMANCE vs the brain / where signal is lost
 A competent reader segments narrative near-perfectly and uses ALL five Zwaan indices at once. Our loss is localized:
 (a) the forward projector predicts only CONTENT (Elman GEK) -- one Zwaan dimension (causation/semantics) -- so on
@@ -359,6 +420,14 @@ carries ~no signal). The itemized fix: give the forward projector the protagonis
 FORWARD prediction error over the full situation model is the boundary signal EST describes.
 
 ## §6 KEY REALIZATIONS
+- **THE BRAIN'S BOUNDARY IS A SCHEMA SWITCH + A DISTRIBUTION SHIFT, NOT A PREDICTION ERROR (the mechanism the whole
+  substrate got wrong).** Kumar 2023: surprisal (prediction error) does NOT predict human boundaries; Bayesian
+  surprise (KL between successive FORWARD DISTRIBUTIONS) does. SEM: the boundary is a latent-SCHEMA SWITCH. Our
+  `n400_coherence_monitor` computes prediction error over a flat point-gist -- three exact gaps. Implementing the
+  STRUCTURED architecture (SEM schema-switch) glass-box beats the incumbent vs ACTUAL HUMANS (AUC 0.60-0.65 vs 0.53,
+  cross-story + default-param robust) while every flat/prediction-error monitor is near chance -- and it is WORSE on
+  the GUM proxy, so it is genuinely human-aligned, not proxy-aligned. This is the payoff of drilling the real
+  mechanism instead of iterating the convenient one.
 - **THE PROXY MISLED US -- validate against the brain's ACTUAL BEHAVIOUR, not a cheap modern proxy (the deepest
   lesson, §4h).** A mechanism refinement (precision-weighted Bayesian surprise) that beat the incumbent CI-separated
   on GUM PARAGRAPH boundaries (+0.036) LOSES to it against ACTUAL HUMAN perceived boundaries (-0.035). The modern,
@@ -434,6 +503,26 @@ FORWARD prediction error over the full situation model is the boundary signal ES
    for segmentation only helps IN-DOMAIN / short segments (the ROCStories construction regime).
 4. **Do NOT redirect the DEFAULT monitor** (it feeds the default-on `bound_event_backbone`); land the new modes for a
    NEW event-segmentation consumer, and let strategy separately measure the backbone.
+5. **THE HEADLINE LANDING (supersedes 1-4 for SEGMENTATION, per §4k/§4l -- the human-validated brain-foundational
+   organ): a new `hdlab/sem_event_segmenter.py` (SEM schema-switch), NOT a fix to the prediction-error monitor.**
+   Reference impl is `experiments/exp_minimal_sem_v1.py` (glass-box, NO LLM, ~120 lines). Spec:
+   - **State:** a list of event SCHEMAS, each `{W (d x d linear dynamics), b (d), C (count), prev_scene}`; a global
+     initial-condition `f_0`; `cur` = index of the active schema. Scene embedding `x_n` = the reader's content vector
+     (grounded-hub, reduced to d~=50) -- OR, higher-fidelity, the substrate's FHRR-bound scene (agent(x)AGENT +
+     verb(x)VERB + patient(x)PATIENT): SEM's HRR IS the substrate's FHRR, so this reuses existing binding, no new organ.
+   - **Per scene:** `score(k) = log(C_k + lam*I[k==cur]) - ||x_n - (W_k prev_k + b_k)||^2 / (2 sigma^2)` for existing k;
+     `score(new) = log(alpha) - ||x_n - f_0||^2/(2 sigma^2)`. `cur_next = argmax`. **BOUNDARY iff `cur_next != cur`.**
+     Continuous surprise read-out (for a graded signal / board arm) = `max_{k!=cur} score(k) - score(cur)`.
+   - **Online update** of the winning schema's dynamics by the delta rule `W += eta*(x - pred) prev^T; b += eta*(x-pred)`
+     and `C += 1`. (Invariant-clean: online; OR freeze an offline-pretrained schema library and disable the update.)
+   - **Params `alpha, lam, sigma^2` are phase-diagram knobs to SWEEP** (defaults alpha=1, lam=2, sigma^2=1 already give
+     the human-validated AUC ~0.60-0.65 -- not tuned). **VALIDATION BAR (met): SEM switch AUC vs ACTUAL HUMAN boundaries
+     0.60-0.65 (Tunnel/Pieman) vs the point-error incumbent 0.53, cross-story + default-param robust; worse on the GUM
+     proxy (0.48), so it is human-aligned not proxy-aligned.** This is a NEW island organ (no live consumer) -> no
+     regress; `bound_event_backbone` could later be revisited to chunk with it (a follow-on, measured on its own metric).
+   - **DEFERRED to the forward-model frontier:** the per-schema dynamics `W_k` are weak (linear, online, hundreds of
+     scenes) -> AUC ~0.62 not human-level. A rich OFFLINE-PRETRAINED per-schema forward model lifts it (a separate
+     foundation problem). Land the ARCHITECTURE now; the forward-model richness is the next problem.
 
 ## §9 ADJACENT COMPONENTS (brain-fidelity + optimization -- seeds for the next problems)
 - **The MULTI-DIMENSIONAL forward projector is the highest-leverage next build (candidate problem).** The forward
