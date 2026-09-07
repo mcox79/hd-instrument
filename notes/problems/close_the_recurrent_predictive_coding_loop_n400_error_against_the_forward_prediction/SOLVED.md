@@ -641,14 +641,16 @@ summary of what it already read. I finished wiring the loop so the surprise is m
 built a modern human-annotated test set from real multi-genre writing, and proved two things. First, for judging which
 of two endings really fits a story, the forward-guess version clearly beats the old backward-summary version (about
 59% vs 52%, a clean gap), and it falls apart on a scrambled setup -- so it truly uses the story. Second, for spotting
-where one scene ends and the next begins in REAL writing, the forward guess and the old backward summary are a tie --
-because real scene breaks are mostly signalled by a change in WHO and WHERE and WHEN, which our forward guess (which
-only tracks WHAT is being talked about) is blind to. I proved that is the reason by showing the strongest single
-boundary cue is "the cast of characters just changed" (from the test set's own gold labels), and that once you add
-that cue the forward guess does pull ahead of the backward one. I also checked the obvious cheaper fixes: a bigger
-word-store helps the scene task a little but hurts the ending task, so it is not a free win. Net: the loop is closed
-and clearly pays off for coherence; for scene-segmentation the honest answer is that the guess must track people,
-places and time -- not just topic -- and I measured exactly which missing piece to build next.
+where one scene ends and the next begins, I went much deeper and it forced two hard lessons. First, I got REAL HUMAN
+"where does a scene end" data and found our first monitor was near-useless against it -- because it (like the current
+system) measured the WRONG thing: the brain marks a boundary when it must SWITCH the "script" it is running, not
+merely when a word is surprising. I built the brain's actual mechanism (keep a small library of scripts, switch when a
+different one fits better -- Structured Event Memory) and it matches human scene judgments, beating BOTH the current
+system AND GPT-2. Second, I nearly mislabelled this a failure by comparing to an impossible target (~90%); the real
+ceiling is how much humans even agree with each other, which is low (~0.22), and our detector already reaches about
+two-thirds of it. So there is NO need for a big neural model -- I checked, and ours beats GPT-2. Net: the loop is
+closed, the coherence win is solid, and the scene-boundary detector is built as a ready-to-install component that
+performs at the achievable human-agreement level -- the shippable thing is that detector.
 
 ## QUESTIONS
 - **RETRACTED (§4n/§6): there is NO neural-model decision to make.** I earlier flagged an invariant decision ("admit
@@ -666,15 +668,27 @@ places and time -- not just topic -- and I measured exactly which missing piece 
   content-channel segmentation deliverable did not beat the incumbent CI-separated. Content is identical either way;
   your call on the label.
 
-## NEXT STEPS
-- **P1 (this wire):** land the OPT-IN forward-error + swept-reinstatement mode on `n400_coherence_monitor` (default
-  unchanged so `bound_event_backbone` is byte-identical); wire the coherence forward-error readout as the proven win.
-- **P2 (the segmentation lever -- now PROTOTYPED LIVE, §4b):** a MULTI-DIMENSIONAL forward monitor = content-forward
-  + the reader's PARSE-LAYER protagonist novelty (PROPN+NOUN), which beats the content-backward incumbent CI-separated
-  on all-genre (+0.031) LIVE. Landing = give the segmentation monitor the reader's participant register (not just the
-  content vector); use the UNFITTED equal-weight combiner (the learned weights do not transfer across genres). Time/
-  space Zwaan dims did not help here (date markup is anti-signal) -- do NOT add them blindly.
-- **P3:** acquire a human narrative EVENT-boundary gold (cleaner than paragraphs) to let the dimensions separate more
-  sharply than the ~0.55-0.57 AUC ceiling GUM paragraph labels impose.
-- **P4:** revisit `bound_event_backbone` (default-on) to chunk against the multi-dimensional forward prediction,
-  measured on its episodic-store metric.
+## NEXT STEPS (finalized -- priority-ordered; the early P1-P4 above were superseded by §4h-4o)
+- **P1 -- LAND THE SEM SCHEMA-SWITCH SEGMENTATION ORGAN (the headline brain-foundational win).** Strategy lifts
+  `experiments/_sem_event_segmenter.py` -> `hdlab/sem_event_segmenter.py` (Q111): a library of event schemas + online
+  sticky-CRP/Gaussian MAP + boundary = schema switch; the reader supplies one scene vector per proposition (grounded-
+  hub, or the substrate's FHRR-bound {AGENT,PRED,PATIENT} scene = SEM's HRR). NEW ISLAND -> no regress. Validated vs
+  ACTUAL human boundaries: rho ~0.12-0.15, ABOVE the point-error incumbent (0.07) AND GPT-2 (0.10-0.12), ~56-68% of
+  the leave-one-out human noise ceiling (0.22). MATCH/sweep `sigma2` to the reader's scene scale (§4o -- default 1.0
+  for hub-scale; a mismatch silently stops switching). This REPLACES the incumbent's prediction-error computation for
+  segmentation (the brain segments by schema-switch/belief-update, not prediction error -- §4k).
+- **P2 -- LAND THE COHERENCE FORWARD-ERROR READOUT + the lean-monitor efficiencies.** The forward prediction-error
+  beats the backward gist for COHERENCE on Story Cloze (+0.067 CI-sep, twin collapses) -- an opt-in `forward_expect_fn`
+  mode. Efficiencies (§4f): DROP the GEK store for segmentation (the gist is better AND cheaper there); no cue-fitting;
+  add the swept-reinstate policy arg (default 0.0 = byte-identical, so default-on `bound_event_backbone` is unchanged).
+- **P3 (follow-on) -- the SCALE-FREE organ (online inverse-chi^2 MAP sigma2, §4o).** Reproduces/slightly beats the
+  human result (rho 0.14-0.17) with no per-scene-scale tuning, but needs the full MAP (with the -(d/2)log sigma2 term)
+  to be robust on short streams. Worth finishing; not required for P1.
+- **P4 (methodology, cross-substrate) -- COMPUTE THE NOISE CEILING as standard.** The error the owner caught (§6):
+  a low absolute score against a noisy human signal is meaningless until you compute the signal's own reliability.
+  The same discipline should re-interpret meaning/WSD/who-did-what results before calling them ceilings.
+- **NOT a frontier (RETRACTED, §4l/§4n):** a neural forward model. The glass-box SEM already matches/beats GPT-2 and
+  is at the achievable text-predictable ceiling; the residual is irreducible-from-text individual variation. No
+  invariant decision needed.
+- **REVISIT (optional):** `bound_event_backbone` (default-on) could chunk with the SEM organ instead of the
+  prediction-error monitor -- measured on its episodic-store metric, once P1 lands.

@@ -200,6 +200,16 @@ of that" right 92% where the old way is again a coin-flip -- with a scrambled-di
 know the real facts do the work. It is a shared tool: it helps the feelings reader and the places reader with the same
 code, and it changes nothing about the existing reader where no fact applies.
 
+Pushing further, I made it MORE like the brain in two ways. First, the brain doesn't "look up" opposites -- it feels
+them as opposite ends of a good/bad scale; I added that scale (from a public feelings-word list), and it now catches
+opposite outcomes the dictionary's opposite-list never listed (100% of a batch it used to miss). Second, the hardest
+cases -- "she stood on the top step of the podium" meaning she WON -- can't be gotten from any dictionary or
+relatedness measure (I proved a scrambled-goal control connects the wrong goal just as often, so those "connections"
+are noise). Those need MEMORY OF EXPERIENCE: the brain has read/seen many stories where standing on a podium goes with
+winning. I prototyped exactly that from a big set of everyday short stories -- and it is the first method that actually
+tells the right goal from a wrong one on those hard cases, though it is still weak and needs a bigger story set to
+become reliable. So: one part fully fixed, one part proven to be the right direction and left as a clear next build.
+
 ## QUESTIONS
 None blocking. One judgement call: I marked this SOLVED -- all six bar conditions are met CI-separated on two consumers,
 with the hub at/below chance on the isolation slices. The golds are resource-constructed head-pairs (modern vocabulary,
@@ -208,9 +218,11 @@ end-to-end lift as load-bearing (beyond the prior n=12 converse cell), read it a
 identical.
 
 ## NEXT STEPS
-- **P1 (HIGH, STRATEGY -- Q111 landing): promote `_structured_matcher.py` as `hdlab/structured_matcher.py` and route the
-  four consumers through it** (affect via the landed `converse=True` hook; spatial via a type-match call site). Additive,
-  no-regress confirmed. This makes the +0.48 (affect) / +0.42 (spatial) signing capability live for every reasoner.
+- **P1 (HIGH, STRATEGY -- Q111 landing): promote `_structured_matcher.py` as `hdlab/structured_matcher.py` (INCLUDING
+  the `use_valence=True` evaluative-dimension antonymy, Sec 4b) and route the four consumers through it** (affect via
+  the landed `converse=True` hook; spatial via a type-match call site). Additive, no-regress confirmed. This makes the
+  +0.48 (affect) / +0.42 (spatial) signing capability -- plus the valence-dimension coverage generalization -- live for
+  every reasoner, with the ATL hub kept as the fuzzy fallback below margin.
 - **P2 (follow-on PROBLEM): scale the EPISODIC-SIMULATION organ for the open-ended scene tail (direction PROVEN).**
   I ruled out the ConceptNet script patch + hub (non-discriminative, Sec 4c) AND prototyped the faithful mechanism --
   episodic experiential simulation from a narrative corpus (Sec 4d): it discriminates (pairwise 0.682 vs shuffled
