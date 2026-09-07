@@ -1,9 +1,9 @@
 ---
 priority: 6
 slug: reason_over_the_spatial_relational_model_containment_position_path_modern_gold
-status: CANDIDATE
-review:
-review_text:
+status: INTEGRATED
+review: EXCELLENT
+review_text: "INTEGRATED 2026-09-06 (strategy; owner_verdict DONE). Reverified 11/11 first-hand + landing witness 17/17. Landed hdlab/spatial_relational_model.py (byte-faithful promotion, no experiments dep) over sm.locations + sm.spatial_* default-ON additive read-out (mirror _read_causal_reasoning; existing dims + sm.locations byte-identical off vs on) + board_spatial_relational_dimension arm. All 3 inference types 1.000 vs floors CI-sep on modern gold (containment +0.060, position +0.266, path +0.500); position end-to-end 0.276 vs 0.213 (+0.063 CI-sep). SPACE cap now DOUBLY located = named-ground binding + relation extraction recall (reasoning is not the bottleneck). Folded 2 SPACE audit corrections (metric-on-demand; vacate-Source automaticity contested). Committed fcf7dc93e (code) + notes, NOTHING pushed. Follow-ons: P2 joint text->relation extractor (sole end-to-end lever), P3 perceptual-simulation orientation organ, P4 default-off ConceptNet gap-filler."
 ---
 
 # PROBLEM: the reader EXTRACTS a per-entity location (where is X now) but never REASONS over a spatial model -- it cannot answer questions no single location fact settles: CONTAINMENT ("is the key in the drawer" given the key is in the box and the box is in the drawer), RELATIVE POSITION (A left-of / above / near B, composed), or PATH/TRANSFER ("A moved from the kitchen into the garden -> where is A; is A still in the kitchen"). Build a glass-box RELATIONAL SPATIAL MODEL over the already-extracted locations: maintain a small updatable relational graph (containment edges, relative-position edges, moves) and answer by composing it (transitive containment, position composition, post-move location + the no-longer inference), CI-separated over a most-recent/last-mention floor (which must LOSE on the multi-fact items) and an info-free shuffled-relation twin, on MODERN non-synthetic spatial gold.
