@@ -136,9 +136,13 @@ Two upgrades RESEARCHED and REVERTED (walls understood, not ceilings):
   world knowledge/simulation (Barsalou). Prototyped a glass-box, NO-LLM fallback (ConceptNet AtLocation) for when
   the passage reasoner abstains: ReSQ commonsense accuracy 0.019 -> 0.126 (+11 items), CI-separated over BOTH the
   passage-only baseline (+0.107 [+0.049,+0.175]) AND a SHUFFLED-ConceptNet control (+0.097 [+0.049,+0.155]) -- the
-  world-knowledge signal is load-bearing. CEILING: a lexical KB reaches only CONTAINMENT (2/23) + PROXIMITY (9/37);
-  ORIENTATION commonsense (26 items: is-the-rail-above-the-chairs) has NO KB signal and needs PERCEPTUAL SIMULATION
-  -- the honestly-named missing FACULTY, not a stronger reasoner or a bigger KB.
+  world-knowledge signal is load-bearing. CEILING (VERIFIED, not asserted): a lexical KB reaches only CONTAINMENT
+  (2/23) + PROXIMITY (9/37). ORIENTATION commonsense is structurally KB-UNREACHABLE -- ConceptNet (the only spatial
+  KB on disk) encodes AtLocation (region: "chairs at bar/building") but ZERO vertical signal (rail->{race track,
+  subway}, lamp->{apartment, desk} -- none height-orderable), and ~half the ReSQ orientation items are UNDER-SPECIFIED
+  ("is the THING below the door", answerable only from the image). So it needs a PERCEPTUAL-SIMULATION / visual-
+  spatial-statistics faculty (a grounded asset -- e.g. Visual Genome relation frequencies -- glass-box, NO LLM), a
+  full follow-on build, not a KB lookup. The honestly-named missing FACULTY, not a stronger reasoner or bigger KB.
 
 ## 5. Why this clears the bar (and where I deflate)
 Bar (1) three-type glass-box reasoner: MET. (2) CI-separated over BOTH controls on modern non-synthetic gold, floor

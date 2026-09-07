@@ -5,7 +5,7 @@ bar: "A glass-box polarity + quantity OPERATOR over the extracted proposition ..
 result: "NEGATION reader-native (UD-EWT sm.events, n=131): net factuality 0.9313 vs polarity-blind 0.5038 (+0.4275 CI[0.3435,0.5115]); negated-recall 0.8769 vs blind 0.0000; over-negation 0.0000 clean / 0.0152 all -- BEATS the prior negation_factuality_gate MIDDLE_BAND (0.0303). NEGATION well-powered (MoNLI NMoNLI n=1202): operator 0.9965 vs blind 0.0035 (+0.9929 CI[0.9876,0.9973]); PMoNLI op==blind 1.0 (no positive regression); detection 1.0. QUANTIFIER reader-native (n=585, 210 passages, verb-extraction 1.0): 1.0000 vs quantity-blind 0.5385 (+0.4615 CI[0.4205,0.5026]); specific-exception 1.0 vs blind 0.0. QUANTIFIER well-powered (MED downward-monotone n=563): 0.8259 vs monotone-blind 0.1741 (+0.6519 CI[0.5879,0.7123])."
 floor: "POLARITY/QUANTITY-BLIND floor (every extracted proposition stored positive+singular), recomputed per population: MoNLI-NMoNLI 0.0035 (inverts), EWT 0.5038, reader-native quantifier 0.5385, MED-downward 0.1741. Second floor: majority (MoNLI 0.5). All lose CI-separated on the negated/quantified subset."
 controls: "(1) polarity/quantity-blind floor -- LOSES CI-sep on every negated/quantified population, and INVERTS on the monotonicity golds (MoNLI 0.0035, MED-down 0.1741) = the positive control (polarity-respecting answer OPPOSITE the blind one). (2) info-free shuffled-token twin (permute negation cues / determiners across items, matched shapes) -- LOSES CI-sep, beats null p95 on all four. (3) ADDITIVE isolation -- operator applied to sm.events leaves predicate/agent/patient/tense/pred_idx BYTE-IDENTICAL (no downstream regress). (4) ablation direct-only vs full scope -- the coordination/implicative/inversion machinery adds +0.053 net on EWT and drives over-negation 0.0303->0.0000."
-files_changed: "experiments/_polarity_operator.py (operator core + parse-aware resolver + unified state_match query), experiments/fetch_negation_quantifier_gold_v1.py, experiments/exp_polarity_operator_monli_v1.py, experiments/exp_polarity_operator_ewt_v1.py, experiments/exp_quantifier_operator_v1.py, experiments/exp_quantifier_operator_med_v1.py, experiments/exp_polarity_wired_reader_v1.py (P1 landing prototype), experiments/exp_negation_scanner_consolidation_v1.py (P4), experiments/exp_polarity_operator_parsed_ewt_v1.py (parse-aware wall research), experiments/exp_coordination_parallelism_parser_repair_v1.py (brain-foundational parser fix), verification/test_polarity_operator_{core,monli,ewt,parsed,upgrades}.py, verification/test_quantifier_operator.py, verification/test_coordination_parallelism_parser_repair.py (7 witnesses / 23 checks), data/corpora/{monli,med}/ (fetched, gitignored), notes/problems/represent_negation_and_quantifier_scope_for_truth_conditional_reading_modern_gold/SOLVED.md"
+files_changed: "experiments/_polarity_operator.py (operator core + parse-aware resolver + unified state_match query), experiments/fetch_negation_quantifier_gold_v1.py, experiments/exp_polarity_operator_monli_v1.py, experiments/exp_polarity_operator_ewt_v1.py, experiments/exp_quantifier_operator_v1.py, experiments/exp_quantifier_operator_med_v1.py, experiments/exp_polarity_wired_reader_v1.py (P1 landing prototype), experiments/exp_negation_scanner_consolidation_v1.py (P4), experiments/exp_polarity_operator_parsed_ewt_v1.py (parse-aware wall research), experiments/exp_coordination_parallelism_parser_repair_v1.py (brain-foundational parser fix), experiments/exp_parser_repair_pos_recovery_v1.py (generality check on UD-EWT), verification/test_polarity_operator_{core,monli,ewt,parsed,upgrades}.py, verification/test_quantifier_operator.py, verification/test_coordination_parallelism_parser_repair.py, verification/test_parser_repair_generality.py (8 witnesses / 25 checks), data/corpora/{monli,med}/ (fetched, gitignored), notes/problems/represent_negation_and_quantifier_scope_for_truth_conditional_reading_modern_gold/SOLVED.md"
 reverify: ".venv/Scripts/python.exe verification/test_polarity_operator_ewt.py && .venv/Scripts/python.exe verification/test_quantifier_operator.py && .venv/Scripts/python.exe verification/test_polarity_operator_upgrades.py"
 ---
 
@@ -91,8 +91,17 @@ fires where polarity/quantity bites). Witnesses: `verification/test_polarity_ope
   the SHARED-SUBJECT constraint (a conjunct with its own subject is a separate clause / reduced relative, not a
   VP-coordinate). It recovers negation recall to the surface level (0.8333 -> 0.8788) and lifts the structural
   resolver net **0.8864 -> 0.9318 = the surface operator EXACTLY, over-negation 0.0385 = surface** (both only the
-  single gold-noise item) -> **CLEAN WIN**: the structural resolver fully crosses the parse-error wall using only
+  single gold-noise item) -> the structural resolver crosses the parse-error wall ON THE NEGATION GOLD using only
   retrieved lexical/structural knowledge, no training.
+  - **HONEST GENERALITY CHECK (`exp_parser_repair_pos_recovery_v1.py`, measured against GOLD UPOS on UD-EWT test,
+    n=2000 sents / 24,185 tokens): the repair is NET-NEGATIVE on general text** — POS accuracy 0.9443 -> 0.9375, of
+    188 retags only 7 FIXED vs 172 BROKE (precision 0.04); decomposed, the WordNet-verb-sense coordination retag
+    is the culprit (most nouns/adjectives have a verb sense). The negation-gold "clean win" is CONSTRUCTION-
+    SPECIFIC (that gold is enriched for coordination-negation). **So the parse repair must NOT be deployed as a
+    default;** the SURFACE operator (which never touches the parse) is the correct GENERAL primary. This negative
+    PREVENTS a mistake (landing an overfit repair). The genuine general parser fix needs a PRECISE lexical
+    resource (VerbNet subcategorization frames + frequency priors), a FOUNDATION build — not a permissive WordNet
+    heuristic and not training.
 
 ## The wall, fully researched (owner: research every wall; the brain does it WITHOUT training)
 
@@ -151,6 +160,12 @@ the headline (they clear the bar) and name the noise items rather than quietly e
    coordination parallelism, subcategorization, shared-subject) lifted the structural resolver 0.8864 → 0.9318 —
    EXACTLY equalling the robust surface operator. The "fix the parser" answer is "give the parser more of the
    lexicon it retrieves from", never "train it".
+7. **But measure the "fix" for GENERALITY before deploying it — it was overfit.** The parse repair that cleanly
+   matched surface on the negation gold is NET-NEGATIVE on general UD-EWT POS (precision 0.04, breaks 172 tags to
+   fix 7): the WordNet-verb-sense signal is too permissive (nearly every word has a verb sense). An isolation win
+   on an enriched gold is not a general capability. The deployable primary is the SURFACE operator (parse-free);
+   the general parser fix needs a PRECISE lexical resource (VerbNet frames), not a heuristic. Measuring this
+   prevented landing a regression — the same "isolation win ≠ capability" discipline that runs through this project.
 
 ## AUDIT UPDATE (`notes/BRAIN_FOUNDATIONAL_AUDIT.md` — event-stream / state-register entries)
 
@@ -229,9 +244,11 @@ load-bearing numbers and the constructed set as illustrative.
   questions off it — the downstream that makes the gain board-visible.
 - **P2 (this operator, next build):** unify `state_register` copular polarity and event polarity under one
   representation (revisit the adjacent component to REUSE this operator) — one truth-conditional layer.
-- **P3 (upstream lever, PROTOTYPED):** the parse-aware resolver + brain-foundational parser fix are built; the
-  residual is closed by encoding MORE STORED lexical knowledge (subcategorization frames, reduced-relative
-  structure, thematic plausibility) applied by constraint satisfaction — a FOUNDATION build, NO training; a candidate
+- **P3 (upstream lever, PROTOTYPED + MEASURED — do NOT deploy the cheap repair):** the parse-aware resolver + the
+  parser repair are built and match the surface operator on the negation gold, but the repair is MEASURED
+  net-negative on general UD-EWT POS (precision 0.04) — overfit to the negation gold. The deployable primary stays
+  the SURFACE operator. The genuine general parser fix is a PRECISE lexical resource (VerbNet subcategorization
+  frames + frequency priors) applied by constraint satisfaction — a FOUNDATION acquisition, NO training/heuristic; a candidate
   follow-on problem, itemized with counts.
 - **P4 (adjacent):** consolidate the ≥5 scattered clause-local negation scanners in hdlab under this operator
   (fragmentation named in the AUDIT UPDATE) — removes duplicated, divergent negation logic.
