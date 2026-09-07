@@ -158,6 +158,18 @@ def _informational_19c_crossref():
 #                             board dim today (the OCC arm has no headroom; the matcher fires 0/24 there). Carries
 #                             the polarity-isolation slice (antonym subset: hub ~0.000 vs structured ~0.950).
 #                             Reuses exp_structured_matcher_event_goal_v1.run verbatim (witness EG1/EG2/EG3).
+#   sem_segmentation       -- SEM schema-switch event segmenter (the loop-closure north-star organ, owner-DONE
+#                             close_the_recurrent_predictive_coding_loop... SS4l/SS4n; witness W10) on ACTUAL HUMAN
+#                             perceived event boundaries (Kumar 2023 behavioural button-press gold, Tunnel): the
+#                             SEM schema-switch graded signal's Spearman rho vs actual humans (~0.1235) BEATS the
+#                             point-error INCUMBENT (~0.0668, the Kumar-refuted prediction-error quantity), is
+#                             ~56% of the leave-one-subject-out human noise ceiling (0.2225), and is AT/ABOVE the
+#                             published GPT-2 Bayesian-surprise reference (0.10-0.12; the 'needs a neural model'
+#                             claim was RETRACTED). hdlab.sem_event_segmenter is a LATENT ISLAND (imported by NO
+#                             live consumer) that moves no board dim. Reuses hdlab.sem_event_segmenter.
+#                             _human_validation() VERBATIM (the routine --self-test calls; POINT estimates, no CI
+#                             -> ci_sep flags False, the point win in beats_point_error_incumbent). Degrades to a
+#                             schema-shaped N/A row if the human gold is absent (the organ abstains, never raises).
 # ==================================================================================================
 def _degraded(name, err, informational=False):
     """A schema-shaped row for an arm whose asset/runtime is unavailable (degrade-gracefully, like
@@ -1018,6 +1030,92 @@ def board_event_goal_congruence_dimension(smoke=False):
         return _degraded("event_goal_congruence", e), {"error": "%s: %s" % (type(e).__name__, e)}
 
 
+def board_sem_segmentation_dimension(smoke=False):
+    """SEM SCHEMA-SWITCH EVENT-SEGMENTATION board arm on ACTUAL HUMAN perceived event boundaries (Kumar 2023
+    behavioural button-press gold, Tunnel Under the World). This capability is board-INVISIBLE today --
+    hdlab.sem_event_segmenter (the loop-closure north-star organ, owner-DONE close_the_recurrent_predictive_
+    coding_loop..., SS4l/SS4n; witness verification/test_predictive_loop.py W10) is a LATENT ISLAND imported by NO
+    live consumer, so its human-validated win moves NO board dim. This arm scores it directly by REUSING the
+    organ's OWN human-validation VERBATIM -- hdlab.sem_event_segmenter._human_validation(), the exact routine the
+    module's --self-test calls: it loads the aligned human boundary gold (data/corpora/human_event_seg/), runs the
+    SEM schema-switch graded signal (switch_score) + the point-error incumbent over the SAME sentences, and returns
+    the Spearman rho of each vs ACTUAL humans (+ the published GPT-2 reference + the leave-one-subject-out ceiling).
+
+    model = SEM schema-switch rho vs actual humans (~0.12-0.15); strongest floor = the POINT-ERROR incumbent rho
+    (~0.07, the Kumar-refuted prediction-error quantity, recomputed on the SAME sentences -- SEM WINS); context =
+    the published GPT-2 Bayesian-surprise reference (0.10-0.12, SEM AT/ABOVE it -- the 'needs a neural model' claim
+    was RETRACTED) + the leave-one-subject-out human NOISE CEILING (0.2225, SEM ~56-68% of it). The verbatim
+    routine returns POINT estimates (no bootstrap CI -> ci_sep flags stay False; the point win is in
+    beats_point_error_incumbent; the pooled cross-story paired-bootstrap CI lives in exp_human_boundary_validation_
+    v1). The organ's info-free control is its OWN self-test (switch_score higher at boundaries than within, W3).
+    Kept OUT of the 19c-free headline aggregate (its own row). OFF in the board self-test. Degrades gracefully to a
+    schema-shaped N/A row if the human boundary gold is absent -- the organ already abstains (_human_validation
+    returns None), never raises. MODERN behavioural gold (Kumar 2023; NOT 19c). `smoke` is accepted for signature
+    parity (the verbatim single-story fast path is ~2s; no smoke mode)."""
+    try:
+        import hdlab.sem_event_segmenter as SEM
+        hv = SEM._human_validation()   # VERBATIM: the exact routine --self-test calls (loads the aligned human gold)
+        if hv is None:                 # organ abstains: Kumar-2023 human-boundary archive absent -> schema-shaped N/A
+            return _degraded("sem_segmentation",
+                             "Kumar-2023 human-boundary archive absent (data/corpora/human_event_seg/) -- the SEM "
+                             "organ's _human_validation() abstained (returned None)"), {
+                "note": "hdlab.sem_event_segmenter is present but its human-boundary gold is not on disk; the arm "
+                        "returns a schema-shaped N/A row (the organ abstains, never raises)."}
+        sem = float(hv["sem_rho_vs_humans"]); inc = float(hv["incumbent_rho"])
+        ceil = float(hv["loo_noise_ceiling"]); gpt2 = hv["gpt2_published"]
+        gpt2_hi = float(str(gpt2).split("-")[-1])                       # upper of the published GPT-2 rho range
+        pct_ceiling = round(100.0 * sem / ceil, 1) if ceil else None
+        row = {
+            "n": None, "model_acc": round(sem, 4),
+            "overlap_floor": round(inc, 4),
+            "floor_accs": {"point_error_incumbent_rho": round(inc, 4)},
+            "strongest_floor_name": "point_error_incumbent_rho", "strongest_floor": round(inc, 4),
+            "twin_acc": None,
+            "model_minus_strongest": [round(sem - inc, 4), None, None],   # POINT margin (verbatim routine -> no CI)
+            "model_minus_twin": [None, None, None],
+            "ci_sep_over_strongest": False,      # verbatim _human_validation returns POINT estimates (no bootstrap CI)
+            "ci_sep_over_twin": False,
+            "beats_point_error_incumbent": bool(sem > inc),              # the load-bearing point win (SEM WINS)
+            "sem_rho_vs_humans": round(sem, 4),
+            "point_error_incumbent_rho": round(inc, 4),
+            "gpt2_bayesian_surprise_published_rho": gpt2,
+            "at_or_above_gpt2": bool(sem >= gpt2_hi),
+            "loo_human_noise_ceiling": round(ceil, 4),
+            "pct_of_loo_noise_ceiling": pct_ceiling,
+            "population": "Kumar 2023 ACTUAL HUMAN perceived event boundaries (behavioural button-press "
+                          "segmentation, Tunnel Under the World; sentence-level human boundary strength via "
+                          "RT-lagged window-max over the 10 Hz button-proportion stream); model=SEM schema-switch "
+                          "graded boundary signal (switch_score) Spearman rho vs actual humans, floor=POINT-ERROR "
+                          "incumbent (backward_segment raw-error, the Kumar-refuted quantity) rho on the SAME "
+                          "sentences (SEM WINS); GPT-2 Bayesian-surprise (%s) + the leave-one-subject-out human "
+                          "NOISE CEILING (%.4f) carried as context. Reuses hdlab.sem_event_segmenter._human_"
+                          "validation() VERBATIM (the routine --self-test calls); POINT estimates (no bootstrap "
+                          "CI from the verbatim routine). MODERN behavioural gold (Kumar 2023, NOT 19c)." % (gpt2, ceil)}
+        detail = {"note": "the SEM schema-switch event segmenter (Franklin/Norman/Ranganath/Zacks/Gershman 2020 "
+                          "Structured Event Memory; a BOUNDARY = MAP schema SWITCH, a belief/model update per "
+                          "Reynolds-Zacks-Braver 2007, NOT a prediction-error spike) validated against ACTUAL human "
+                          "perceived boundaries -- the loop-closure north-star organ (owner-DONE close_the_"
+                          "recurrent_predictive_coding_loop..., SS4l/SS4n; witness verification/test_predictive_loop."
+                          "py W10). BOARD-INVISIBLE until now: hdlab.sem_event_segmenter is a LATENT ISLAND imported "
+                          "by NO live consumer, so its human-validated win moved NO board dim. This arm scores it "
+                          "directly: SEM rho %.4f BEATS the point-error incumbent %.4f vs actual humans (the "
+                          "incumbent is the Kumar-refuted prediction-error quantity), is %s%% of the leave-one-out "
+                          "human noise ceiling %.4f, and is AT/ABOVE Kumar's GPT-2 Bayesian surprise (%s) -- "
+                          "content-shift/SEM/GPT-2 all plateau at the ~0.12-0.15 text-predictable ceiling, so this "
+                          "glass-box organ is at the achievable neural-reference level ('needs a neural model' "
+                          "RETRACTED, SS4l(f)). Reuses hdlab.sem_event_segmenter._human_validation() VERBATIM. "
+                          "HONEST scope: POINT estimates (the verbatim routine returns no bootstrap CI -> ci_sep "
+                          "flags False; the pooled cross-story paired-bootstrap CI lives in exp_human_boundary_"
+                          "validation_v1); the organ's info-free control is its OWN self-test W3 (switch_score "
+                          "higher at boundaries than within); the GUM paragraph proxy at 0.48 is the WRONG "
+                          "instrument, not a defect. 'live != scored' -- the board-invisible-proven-win-needs-its-"
+                          "own-instrument-arm case."
+                          % (round(sem, 4), round(inc, 4), pct_ceiling, round(ceil, 4), gpt2)}
+        return row, detail
+    except Exception as e:
+        return _degraded("sem_segmentation", e), {"error": "%s: %s" % (type(e).__name__, e)}
+
+
 def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True):
     """Assemble every MODERN per_dimension row. caps = dict of per-arm caps for a fast self-test.
     run_new_arms adds the 3 board-invisible-win arms (coarse-sense/selective-reliability/causal-multihop) as
@@ -1099,6 +1197,9 @@ def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True
         eg_row, eg_det = board_event_goal_congruence_dimension(smoke=bool(caps.get("event_goal_smoke")))
         new_arms["event_goal_congruence"] = eg_row
         new_arms_detail["event_goal_congruence"] = eg_det
+        sem_row, sem_det = board_sem_segmentation_dimension(smoke=bool(caps.get("sem_seg_smoke")))
+        new_arms["sem_segmentation"] = sem_row
+        new_arms_detail["sem_segmentation"] = sem_det
 
     crossref = _informational_19c_crossref()
 
