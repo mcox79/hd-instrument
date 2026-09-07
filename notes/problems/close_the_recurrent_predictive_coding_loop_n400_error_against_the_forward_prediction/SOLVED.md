@@ -5,7 +5,7 @@ bar: "PASSES only with ALL of: (1) the loop CLOSED as a glass-box wire -- redire
 result: "COHERENCE loop-closure PASSES on a MODERN gold: the forward prediction-error discrimination beats the backward-gist discrimination on Story Cloze val+test (n=3742), forward 0.5874 [0.5714,0.6034] vs backward-gist 0.52 [0.5035,0.5358], paired margin +0.0673 [+0.0468,+0.0879] CI-SEPARATED (half-width 0.021); cross-context twin collapses to 0.4971, forward-vs-twin +0.0903 [+0.0689,+0.1128]. SEGMENTATION loop-closure is a LOCATED NEGATIVE on the MODERN human gold (GUM V12.1.0 paragraph boundaries; narrative n=81 docs/3433 sents, all-genre n=272 docs/15205 sents): the CONTENT-only forward error does NOT beat the content-backward gist -- boundary-detection AUC forward 0.5447 vs backward 0.5603 (narrative, margin -0.0156 [-0.0453,+0.0164], tied), forward 0.5199 vs 0.5593 (all-genre, -0.0394). The forward DIRECTION is validated once the prediction is MULTI-DIMENSIONAL (Zwaan event-indexing): a content+protagonist/entity forward error beats the same multi-dimensional BACKWARD error CI-separated (narrative +0.0156 [+0.0056,+0.0261]; all-genre +0.0142 [+0.0074,+0.0208]); the PROTAGONIST/ENTITY dimension (gold GUM coref) is the lever (single-signal AUC 0.5507 > content-forward 0.5165). The CONSTRUCTION control (concat ROCStories, near-orthogonal story-start boundaries) reproduces the SOLVED loop-cell direction: forward F1 0.8025 vs backward 0.2717, shuffled-stream twin 0.1630. P2 UPGRADE PROTOTYPE (live-realizable, exp_predictive_loop_dimensional_v2/v3): the protagonist signal read from the reader's OWN PARSE LAYER (PROPN+NOUN participant novelty, NO coref gold) is the strongest single boundary detector (AUC 0.5666 narrative / 0.5596 all-genre), beating BOTH the content-backward incumbent (0.5418/0.5338) AND gold coref (0.5507/0.5425); an equal-weight content-forward + live-protagonist multi-dimensional forward monitor beats the content-backward incumbent CI-separated on all-genre (+0.0311 [+0.012,+0.048]) and positively on narrative (+0.0233) -- so the segmentation loop closure is REALIZABLE in the live substrate. (Honest negative: cross-validated LEARNED cue-validity weighting does NOT transfer across the 17 genres -- held-out it underperforms the unfitted single protagonist signal; the robust lever is the unfitted parse-layer protagonist novelty.)"
 floor: "The incumbent BACKWARD-gist monitor recomputed on each slice's OWN population. COHERENCE: backward-gist discrimination 0.52 [0.5035,0.5358] on Story Cloze val+test (forward CI-separates over it, +0.0673). SEGMENTATION (GUM narrative): content-backward-gist boundary AUC 0.5603 (matched EST z-score machinery) -- the content-forward error TIES it (-0.0156, CI incl 0); the landed n400 organ's NATIVE ratio-threshold F1 0.1183; the random-boundary floor (matched count) F1 0.4341 [p95 0.4502] -- both monitors' fixed-kz F1 (fwd 0.132 / bwd 0.193) fall BELOW it because the EST z-threshold is mis-set for the dense ~40% paragraph-boundary regime, so AUC/F1@count are the fair views (F1@count fwd 0.4574 > bwd 0.4339). The forward label-permutation null p95 = 0.1256."
 controls: "(1) cross-context twin (coherence: endings scored against a RANDOM other story's context) -> 0.4971 = EXCLUDES the Schwartz-2017 style artifact, proves it uses THIS story. (2) shuffled-forward twin (segmentation: scramble the sentence order, recompute the forward signal) -> multidim-forward AUC 0.5344 (narrative) / 0.5197 (all) collapses toward 0.5 = EXCLUDES a shape artifact. (3) random-boundary floor (matched count) F1 0.4341 p95 0.4502 = the true dense-regime floor. (4) construction control (concat ROCStories, near-orthogonal boundaries) forward 0.8025 vs backward 0.2717 = EXCLUDES 'the mechanism has no boundary signal' -- it wins 3x when boundaries are genuine situation-changes. (5) 2x2 decomposition (forward/backward x content/multidim) + leave-one-dimension-out ablation = LOCATES the win in the protagonist/entity representation, not the forward direction alone. (6) upstream store-broadening (GUM-in-domain prose + ROC, narrative held out) lifts content-forward AUC 0.5293->0.5470 but REGRESSES coherence -0.0334 = EXCLUDES 'a bigger store closes it for free'. (7) reset-vs-reinstate sweep on GUM narrative + the construction gold = isolates reinstatement. (8) live-consumer enumeration (grep) = the redirect's no-regress reality."
-files_changed: "experiments/build_gum_segmentation_gold.py (reproducible normalizer of the pinned on-disk GUM V12.1.0 into a modern paragraph-boundary gold); experiments/_predictive_loop.py (the glass-box closed-loop monitor module -- forward/backward EST, reinstatement, AUC/AP/F1/Pk, coherence, twins, consuming the LIVE hdlab.generalized_event_knowledge.GEKProjector); experiments/exp_predictive_loop_modern_gold_v1.py (THE HEADLINE -- coherence + segmentation + construction control + reset/reinstate + twins + positive control + null p95); experiments/exp_predictive_loop_dimensional_v1.py (BUILD ACROSS -- the multi-dimensional Zwaan-index forward error, gold GUM entities, 2x2 + ablation); experiments/exp_predictive_loop_dimensional_v2.py (P2 UPGRADE -- LIVE-realizable protagonist from the parse layer PROPN+NOUN, live-vs-gold, + gold <date> temporal); experiments/exp_predictive_loop_dimensional_v3.py (P2 CAPSTONE -- cross-validated cue-validity weighting; honest cross-genre non-transfer negative); experiments/exp_predictive_loop_upstream_store_v1.py (FULL-STACK UPSTREAM -- broaden the forward-transition store, segmentation lift vs coherence regress); experiments/exp_predictive_loop_boundary_type_v1.py (CEILING DRILL -- within-doc paragraph vs doc-concat topic-jump: the ceiling is the GOLD's subtlety, mechanism sound); experiments/exp_predictive_loop_policy_isolation_v1.py (POLICY ISOLATION -- the 2x2 error-source x update-policy: forward-vs-backward is regime-specific, reinstatement is direction-independent); experiments/exp_predictive_loop_brain_foundational_v1.py (100%-BRAIN-FOUNDATIONAL RULE -- precision-weighted Bayesian surprise beats the raw-error incumbent CI-sep, Kumar 2023 / SEM); experiments/_lean_event_monitor.py (LANDING-READY drop-in reference -- LeanEventMonitor: precision-weighted Bayesian surprise + reinstatement, no GEK store, no fitting; self-test beats incumbent); experiments/exp_predictive_loop_online_ensemble_v1.py (research follow-on PROTOTYPE -> rigorous NEGATIVE: oracle-weight = best-single, ensemble is the wrong abstraction); experiments/fetch_human_event_boundaries.py (pinned reproducible fetch of the HUMAN perceived-boundary gold, Kumar 2023 Zenodo); verification/test_predictive_loop.py (scaffold-free witness, 9/9); data/corpora/gum_segmentation/ (materialized gold + provenance, gitignored); data/exp_predictive_loop_modern_gold_v1/ + data/exp_predictive_loop_dimensional_v1|v2|v3/ + data/exp_predictive_loop_upstream_store_v1/ (metrics). hdlab/ UNTOUCHED (Q111)."
+files_changed: "experiments/build_gum_segmentation_gold.py (reproducible normalizer of the pinned on-disk GUM V12.1.0 into a modern paragraph-boundary gold); experiments/_predictive_loop.py (the glass-box closed-loop monitor module -- forward/backward EST, reinstatement, AUC/AP/F1/Pk, coherence, twins, consuming the LIVE hdlab.generalized_event_knowledge.GEKProjector); experiments/exp_predictive_loop_modern_gold_v1.py (THE HEADLINE -- coherence + segmentation + construction control + reset/reinstate + twins + positive control + null p95); experiments/exp_predictive_loop_dimensional_v1.py (BUILD ACROSS -- the multi-dimensional Zwaan-index forward error, gold GUM entities, 2x2 + ablation); experiments/exp_predictive_loop_dimensional_v2.py (P2 UPGRADE -- LIVE-realizable protagonist from the parse layer PROPN+NOUN, live-vs-gold, + gold <date> temporal); experiments/exp_predictive_loop_dimensional_v3.py (P2 CAPSTONE -- cross-validated cue-validity weighting; honest cross-genre non-transfer negative); experiments/exp_predictive_loop_upstream_store_v1.py (FULL-STACK UPSTREAM -- broaden the forward-transition store, segmentation lift vs coherence regress); experiments/exp_predictive_loop_boundary_type_v1.py (CEILING DRILL -- within-doc paragraph vs doc-concat topic-jump: the ceiling is the GOLD's subtlety, mechanism sound); experiments/exp_predictive_loop_policy_isolation_v1.py (POLICY ISOLATION -- the 2x2 error-source x update-policy: forward-vs-backward is regime-specific, reinstatement is direction-independent); experiments/exp_predictive_loop_brain_foundational_v1.py (100%-BRAIN-FOUNDATIONAL RULE -- precision-weighted Bayesian surprise beats the raw-error incumbent CI-sep, Kumar 2023 / SEM); experiments/_lean_event_monitor.py (LANDING-READY drop-in reference -- LeanEventMonitor: precision-weighted Bayesian surprise + reinstatement, no GEK store, no fitting; self-test beats incumbent); experiments/exp_predictive_loop_online_ensemble_v1.py (research follow-on PROTOTYPE -> rigorous NEGATIVE: oracle-weight = best-single, ensemble is the wrong abstraction); experiments/fetch_human_event_boundaries.py (pinned reproducible fetch of the HUMAN perceived-boundary gold, Kumar 2023 Zenodo); experiments/exp_human_boundary_validation_v1.py (THE 100%-BRAIN-FOUNDATIONAL VALIDATION vs actual human boundaries -- the proxy-misled flagship finding); experiments/exp_online_forward_model_v1.py (build-across: online Rao-Ballard predictive-coding forward model, marginal -- the wall needs offline pretraining); verification/test_predictive_loop.py (scaffold-free witness, 9/9); data/corpora/gum_segmentation/ (materialized gold + provenance, gitignored); data/exp_predictive_loop_modern_gold_v1/ + data/exp_predictive_loop_dimensional_v1|v2|v3/ + data/exp_predictive_loop_upstream_store_v1/ (metrics). hdlab/ UNTOUCHED (Q111)."
 reverify: ".venv/Scripts/python.exe verification/test_predictive_loop.py"
 ---
 
@@ -256,6 +256,12 @@ Every item below is grounded in a measurement above, not a guess:
    direction-independent; sweep lambda (hurts on sparse boundaries).
 5. **The GEK forward projection is LAZY / zero-cost unless invoked** -- leave it default-on for the coherence readout,
    but wire it into NO segmentation consumer.
+**HUMAN-VALIDATION CAVEAT ON THE EFFICIENCIES (§4h -- read before landing):** the STRUCTURAL efficiencies (drop the
+GEK store for segmentation; no fitting; the O(d) lean form) HOLD -- they are about cost, and every glass-box arm is
+weak vs humans anyway. But the precision-weighted Bayesian surprise is NOT a human-aligned improvement: it beat the
+incumbent on GUM paragraphs and LOSES to it vs actual human boundaries. So land the lean monitor for its COST /
+simplicity, but do NOT claim it segments closer to humans than the incumbent -- no glass-box monitor does yet. If the
+goal is human-aligned segmentation, that awaits the richer offline forward model (§4i), not this landing.
 The efficiencies are packaged as a LANDING-READY drop-in: `experiments/_lean_event_monitor.py` (`LeanEventMonitor`,
 mirroring the hdlab `N400CoherenceMonitor` observe/segment API) -- precision-weighted Bayesian surprise + swept
 reinstatement, NO GEK store, NO fitting. Its self-test measures AUC 0.566 vs the raw-error incumbent 0.530, F1 0.207
@@ -292,6 +298,56 @@ architecture is regime-appropriate SELECTION, not blending, and since DEPLOYMENT
 predictors were complementary (they are not) OR with a boundary-supervised reliability signal (which needs the human
 gold / an online boundary teacher -- not label-free). I did not land a version that only pretends to work.
 
+## §4h THE 100%-BRAIN-FOUNDATIONAL VALIDATION vs ACTUAL HUMAN PERCEIVED BOUNDARIES -- and the PROXY MISLED US (owner: "do it all, brain foundationally")
+I acquired + aligned the genuinely brain-foundational instrument: HUMAN behavioural event boundaries (Kumar 2023
+Zenodo -- button-press segmentation of spoken narratives; the 3.8GB transcript archive completed, word-onset +
+sentence alignment built, `exp_human_boundary_validation_v1`). Tunnel Under the World (n=473 sentences, 10Hz human
+signal) + Pieman (n=61, ~1kHz); Monkey excluded (corrupt onset units). Human boundary strength per sentence = the
+button-press proportion in a reaction-time window (onset+1.5s, +2s max) -- validated positive control: adjacent
+content distance correlates rho~0.15 with human boundaries under this alignment.
+
+**THE RESULT IS HUMBLING AND LOAD-BEARING: every glass-box content monitor is NEAR CHANCE vs actual human boundaries.**
+
+| arm (vs HUMAN boundaries) | Tunnel AUC | Pieman AUC | pooled AUC | pooled rho |
+|---|---|---|---|---|
+| precision-weighted Bayesian (LEAN, my §4d "win") | 0.489 | 0.434 | **0.479** | -0.038 |
+| raw-error incumbent | 0.531 | 0.391 | 0.514 | +0.046 |
+| GEK forward | 0.554 | 0.410 | 0.538 | -- |
+
+**THE GUM-PARAGRAPH PROXY MISLED US -- the single most important finding of this whole line.** On GUM paragraphs the
+precision-weighted lean monitor BEAT the incumbent (+0.036 CI-separated, §4d/§4f). Against ACTUAL HUMANS it LOSES to
+the incumbent (-0.035, pooled). The mechanism refinement I validated on typography does NOT predict human event
+perception -- it was partly overfitting paragraph structure. On Pieman (a spoken personal story) content signals are
+ANTI-correlated with human boundaries (rho -0.24) -- humans there segment on discourse/prosodic/narrative-structure
+cues a content model is blind to. This VINDICATES the push for the real instrument: a proxy that is cheap and modern
+(GUM) still validated a mechanism that fails against the brain's actual behaviour.
+
+**WHY (the located cause, and it is the SAME as the prior forward-projection SOLVED):** Kumar 2023 predicts these
+exact human boundaries with GPT-2's Bayesian surprise -- a RICH LEARNED language model. My glass-box hub/GEK forward
+model is far too weak; the mechanism (Bayesian surprise) is right but the FORWARD MODEL feeding it is the binding
+constraint. The no-inference-LLM invariant caps this -- UNLESS a rich OFFLINE-PRETRAINED glass-box forward/event model
+is built (the knowledge-foundation north-star). CAVEAT: 2 stories (1 medium, 1 small) -- limited power; but the
+direction is consistent across them, across every content arm, and with the prior SOLVED + Kumar 2023.
+
+## §4i BUILD-ACROSS ATTEMPT: an ONLINE predictive-coding forward model (Rao-Ballard, glass-box, NO LLM)
+Since the constraint is forward-model richness and the brain learns its forward model ONLINE (not batch, not an
+inference LLM), I built a glass-box ONLINE PREDICTIVE-CODING forward map (`exp_online_forward_model_v1`): W(context ->
+next content) updated per sentence by the delta rule `W += lr*(x - W c)c^T` (Rao-Ballard error-driven learning),
+surprise = 1 - cos(x, W c). Result: MARGINAL -- on GUM narrative AUC 0.583 vs persistence 0.570 (+0.013); on the
+human story 0.566 vs persistence 0.561 (neutral). **Online-learning-on-one-narrative cannot match pretraining-scale**
+(473 sentences is far too little to learn a 200x200 forward map). The honest conclusion: the forward-model wall is
+crossed only by a RICH OFFLINE-PRETRAINED glass-box model (admissible foundation -- a static offline asset is allowed;
+the invariant is no LLM at INFERENCE), i.e. the knowledge-foundation frontier, not online-on-one-story and not a
+mechanism tweak. This CONVERGES all three frontiers (human validation, richer forward model, and the revision-trigger
+below) onto ONE binding constraint.
+
+## §4j FRONTIER 1 (the STRETCH revision-trigger) -- gated by the same constraint, named not built-weak
+The predict-and-revise trigger (high forward Bayesian surprise -> re-analyze the parse; Kuperberg two-stage) relies on
+the forward prediction ERROR being reliable. §4h shows that error is near-chance vs human perception with a glass-box
+forward model -- so a revision trigger built on it would be weak for the same reason. I did NOT build a version that
+would only pretend to work; it is gated by the forward-model frontier (§4i), and becomes worth building once a rich
+offline forward model exists. (Its content route was also already measured weak: prior SOLVED verb+patient grain 0.547.)
+
 ## §5 PERFORMANCE vs the brain / where signal is lost
 A competent reader segments narrative near-perfectly and uses ALL five Zwaan indices at once. Our loss is localized:
 (a) the forward projector predicts only CONTENT (Elman GEK) -- one Zwaan dimension (causation/semantics) -- so on
@@ -303,6 +359,17 @@ carries ~no signal). The itemized fix: give the forward projector the protagonis
 FORWARD prediction error over the full situation model is the boundary signal EST describes.
 
 ## §6 KEY REALIZATIONS
+- **THE PROXY MISLED US -- validate against the brain's ACTUAL BEHAVIOUR, not a cheap modern proxy (the deepest
+  lesson, §4h).** A mechanism refinement (precision-weighted Bayesian surprise) that beat the incumbent CI-separated
+  on GUM PARAGRAPH boundaries (+0.036) LOSES to it against ACTUAL HUMAN perceived boundaries (-0.035). The modern,
+  human-annotated proxy (GUM) was still the wrong instrument -- paragraph typography is not perceived event structure.
+  Generalizes hard: a "brain-foundational" mechanism win on a convenient gold can be a proxy artifact; only the brain's
+  own behaviour (human segmentation) adjudicates. This is why the owner's "100% brain-foundational" push mattered --
+  it flipped a proxy "win" into an honest near-chance result and relocated the constraint to the forward model.
+- **The binding constraint is FORWARD-MODEL RICHNESS, confirmed against humans (§4h/§4i).** Every glass-box content
+  monitor is near chance vs human boundaries; Kumar 2023 predicts them with GPT-2. The mechanism (Bayesian surprise/
+  EST/Zwaan) is right; the glass-box forward model is too weak, and online-on-one-story can't fix it -- only a rich
+  OFFLINE-pretrained glass-box model (the knowledge foundation) can. All three frontiers converge here.
 - **The loop-closure win is representation-gated, not direction-gated (the deepest realization).** "Take the error
   against the forward prediction" beats "against the backward gist" for COHERENCE (where the signal is content
   association) but TIES for real-prose SEGMENTATION -- until the forward prediction is made MULTI-DIMENSIONAL. The

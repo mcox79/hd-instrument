@@ -2,10 +2,10 @@
 problem: extract_relations_from_prose_whole_subgraph_survival_the_shared_reasoner_bottleneck
 status: PARTIAL
 bar: "PASSES only with ALL of: (1) A glass-box RELATION-extraction front-end ... It lifts the SHARED relational structure a JOINT pass over the reader's OWN parse produces -- (a) spatial edges, (b) temporal links (before/after + Allen overlap endpoints, INCLUDING the DROPPED copular/stative channel), (c) event->argument/role structure -- as ONE structured extraction, not N independent per-edge rules. NO external LLM. (2) The front-end beats the INCUMBENT extraction path CI-separated on MODERN gold, reported per channel AND aggregated, with WHOLE-SUBGRAPH SURVIVAL as the headline metric ... The FLOOR is the current live extraction path recomputed on the SAME population; gate on the floor's UPPER CI bound. (3) The info-free twin LOSES CI-separated. (4) Extraction quality is ISOLATED. (5) NO-regress full-stack (FULL-STACK UPSTREAM). (6) One-screen summary. A rigorous NEGATIVE is a FULL PASS (e.g. 'the copular/stative channel lifts temporal overlap survival CI-separated but spatial path survival does not move because motion source/goal binding is gated by PP-attachment, located and counted')."
-result: "WHOLE-SUBGRAPH SURVIVAL, fraction of gold multi-hop chains (>=2 edges) whose EVERY event/edge is recovered, paired bootstrap over chains (half-width + null p95), extraction ISOLATED (reasoner held at gold-perfect). TEMPORAL channel (TB-Dense, 22 docs, 333 multi-hop BEFORE/AFTER chains, MODERN dense gold) -- CLEARS: joint pass 135/333 = 0.4054 vs incumbent tense-gated floor 37/333 = 0.1111, margin +0.2943 CI[0.2462,0.3453] null_p95 0.0601 (gate on floor upper bound: 0.1111's CI is far below 0.246); event recall 0.320 -> 0.756; the COPULAR/STATIVE channel specifically lifts stative-touching OVERLAP-edge survival +0.0413 CI[0.0206,0.0649] (0.4897 -> 0.5310); end-to-end before/after reasoning over the front-end's OWN extraction 0.0851 -> 0.3329 answered-correct, +0.2478 CI[0.2270,0.2686], toward the gold ceiling 0.5485. GENERALIZED at 100x power on MAVEN-ERE (710 MODERN Wikipedia docs, 43599 multi-hop chains via transitive reduction, NO LDC caveat): recall 0.473 -> 0.756, whole-subgraph survival 0.0859 -> 0.4134 (+0.3275 CI[0.3230,0.3320] null_p95 0.0055), info-free twin 0.3209 loses (+0.0925 CI[0.0871,0.0980]); decay curve holds to 24 hops. SPATIAL channel (SpaceEval train, 90 multi-hop containment chains) -- LOCATED NEGATIVE: parse-based joint binding does NOT beat the incumbent LINEAR scan (recall 0.1704 vs 0.2245; survival 4/90 vs 6/90), cue-union hybrid only marginal (7/90, NOT CI-separable). CORRECTED ATTRIBUTION (drilled): the joint's spatial deficit is 74% CONSTRUCTION COVERAGE (grid-frame/possession/existential/locative-verb the joint lacks), only 10% parse-attachment -- NOT primarily parse UAS. ROLE channel -- served LIVE off the same one parse (13 core agent/patient/goal/... fills on the demo)."
-floor: "Per channel, recomputed on the item's OWN population. TEMPORAL: the incumbent tense-gated extractor (_temporal_ordering_multiframe.extract_events_punct: VBD / had+VBN / be+VBN only), whole-subgraph survival 37/333 = 0.1111 (event recall 0.320); the joint arm CI-separates above its upper bound. SPATIAL: the incumbent LINEAR spatial_relation_extractor.extract_edges, containment chain survival 6/90 = 0.0667 (REPRODUCED exactly from the spatial SOLVED) -- neither joint nor hybrid CI-separates above it. Extra control floor TEMPORAL: nltk_tense_agnostic (SAME tagger, tense-gate removed) = 0.4174 -- isolates the tense-gate from the tagger (so the win is NOT a better tagger)."
+result: "WHOLE-SUBGRAPH SURVIVAL, fraction of gold multi-hop chains (>=2 edges) whose EVERY event/edge is recovered, paired bootstrap over chains (half-width + null p95), extraction ISOLATED (reasoner held at gold-perfect). TEMPORAL channel (TB-Dense, 22 docs, 333 multi-hop BEFORE/AFTER chains, MODERN dense gold) -- CLEARS: joint pass 135/333 = 0.4054 vs incumbent tense-gated floor 37/333 = 0.1111, margin +0.2943 CI[0.2462,0.3453] null_p95 0.0601 (gate on floor upper bound: 0.1111's CI is far below 0.246); event recall 0.320 -> 0.756; the COPULAR/STATIVE channel specifically lifts stative-touching OVERLAP-edge survival +0.0413 CI[0.0206,0.0649] (0.4897 -> 0.5310). Adding the eventive-NOMINAL channel (WordNet: eventive sense + deverbal link -- nominalizations ARE events) lifts TB-Dense survival to 0.7327 (+0.6216 CI[0.5706,0.6727] over incumbent), recall to 0.891. Through the ACTUAL solved connective+tense reasoner (NOT the iconicity proxy), end-to-end answered-correct is incumbent 0.0971 -> joint_cop 0.3480 (+0.2509 CI[0.2295,0.2718]) -> joint_nom 0.4937 (+0.3966 CI[0.3720,0.4218]) = 87% of the gold-event CEILING 0.5681, conditional accuracy NOT degraded (nom 0.583 vs cop 0.598 -- nominal over-extraction raises coverage 0.58 -> 0.85 for free). GENERALIZED at 100x power on MAVEN-ERE (710 MODERN Wikipedia docs, 43599 multi-hop chains via transitive reduction, NO LDC caveat): recall 0.473 -> 0.756 (cop) / 0.921 (nom), survival 0.0859 -> 0.4134 (+0.3275 CI[0.3230,0.3320] null_p95 0.0055) / 0.7766 (nom), info-free twin 0.3209 loses (+0.0925 CI[0.0871,0.0980]); decay to 24 hops. SPATIAL channel (SpaceEval train, 90 multi-hop containment chains) -- LOCATED NEGATIVE: the UNIFIED Figure-Ground frame binder (one relator frame, parse-bound) matches the incumbent (6/90) with FEWER constructions; the hybrid (construction coverage + parse frames) modestly improves to 9/90 (recall 0.2404), a real but small gain (n=90, not dramatic CI-sep). CORRECTED ATTRIBUTION (drilled): the joint's spatial deficit is 74% CONSTRUCTION COVERAGE (grid-frame/possession/existential/locative-verb the joint lacks), only 10% parse-attachment -- NOT primarily parse UAS. ROLE channel -- served LIVE off the same one parse (13 core agent/patient/goal/... fills on the demo)."
+floor: "Per channel, recomputed on the item's OWN population. TEMPORAL: the incumbent tense-gated extractor (_temporal_ordering_multiframe.extract_events_punct: VBD / had+VBN / be+VBN only), whole-subgraph survival 37/333 = 0.1111 (event recall 0.320); the joint arm CI-separates above its upper bound. SPATIAL: the incumbent LINEAR spatial_relation_extractor.extract_edges, containment chain survival 6/90 = 0.0667 (REPRODUCED exactly from the spatial SOLVED) -- the unified frame binder matches it (6/90) and the hybrid reaches 9/90, a modest gain not dramatically CI-separable at n=90. Extra control floor TEMPORAL: nltk_tense_agnostic (SAME tagger, tense-gate removed) = 0.4174 -- isolates the tense-gate from the tagger (so the win is NOT a better tagger)."
 controls: "(1) INFO-FREE TWIN, survival level: recover a RANDOM same-size event set -> 0.0000 survival, joint vs twin +0.4054 CI[0.3544,0.4595] (the recovered event SET, not the count, is load-bearing). (2) INFO-FREE TWIN, reasoner level: shuffle the extracted event->text-position map -> end-to-end collapses to chance, joint vs twin +0.0353 CI[0.0095,0.0618] (the extracted ORDER structure is load-bearing). (3) EXTRACTION ISOLATED: survival is recall-based with the reasoner held at gold-perfect; gold-event condition is the CEILING (end-to-end 0.5485); recall-by-class shows the lift is recovered events. (4) SAME-TAGGER control (nltk_tense_agnostic 0.4174) isolates the tense-gate mechanism from the tagger. (5) DECAY CURVE (the exponent wall): incumbent 2h 0.13 / 3h 0.03 -> joint 2h 0.45 / 3h 0.21. (6) NO-REGRESS: joint front-end writes NOTHING to hdlab; live SituationReader reads intact (35 events). Each control EXCLUDES: twin-survival = count artifact; twin-reasoner = coverage artifact; gold-ceiling/recall-by-class = a strong reasoner masquerading as extraction; same-tagger = a tagger artifact; no-regress = a downstream regression."
-files_changed: "experiments/_tbdense_loader.py, experiments/_joint_relation_frontend.py, experiments/_hashseed_guard.py, experiments/exp_temporal_extraction_recall_v1.py, experiments/exp_joint_temporal_survival_v1.py, experiments/exp_joint_temporal_survival_maven_v1.py, experiments/exp_joint_temporal_endtoend_v1.py, experiments/exp_joint_spatial_survival_v1.py, experiments/exp_joint_spatial_miss_decomp_v1.py, experiments/exp_joint_upstream_noregress_v1.py, verification/test_joint_temporal_survival.py, verification/test_joint_temporal_survival_maven.py, verification/test_joint_temporal_endtoend.py, verification/test_joint_spatial_located_negative.py, verification/test_joint_upstream_roles_noregress.py, notes/problems/extract_relations_from_prose_whole_subgraph_survival_the_shared_reasoner_bottleneck/SOLVED.md (NO hdlab/ written -- Q111: proposed diff in Sec 7)"
+files_changed: "experiments/_tbdense_loader.py, experiments/_joint_relation_frontend.py, experiments/_hashseed_guard.py, experiments/exp_temporal_extraction_recall_v1.py, experiments/exp_joint_temporal_survival_v1.py, experiments/exp_joint_temporal_survival_maven_v1.py, experiments/exp_joint_temporal_endtoend_v1.py, experiments/exp_joint_temporal_realreasoner_v1.py, experiments/exp_joint_spatial_survival_v1.py, experiments/exp_joint_spatial_miss_decomp_v1.py, experiments/exp_joint_upstream_noregress_v1.py, verification/test_joint_temporal_survival.py, verification/test_joint_temporal_survival_maven.py, verification/test_joint_temporal_realreasoner.py, verification/test_joint_temporal_endtoend.py, verification/test_joint_spatial_located_negative.py, verification/test_joint_upstream_roles_noregress.py, notes/problems/extract_relations_from_prose_whole_subgraph_survival_the_shared_reasoner_bottleneck/SOLVED.md (NO hdlab/ written -- Q111: proposed diff in Sec 7)"
 reverify: ".venv/Scripts/python.exe verification/test_joint_temporal_survival.py"
 ---
 
@@ -103,6 +103,25 @@ multi-hop path is genuinely necessary) -- 43599 chains.
   net-positive on nominal-heavy text, precision-costly on newswire; a proper deverbal-nominalization LEXICON (not the
   suffix heuristic) is the brain-foundational version (follow-on).
 
+## 4b. DEEPENING UPGRADES (this session's second pass -- each brain-foundational, measured)
+- **Eventive-NOMINAL detection via WordNet (the single biggest lever).** A nominalization denotes the EVENT of its
+  source verb (Grimshaw argument-structure nominals; the ATL codes it as an event frame). Glass-box test: a NOUN is
+  eventive iff it has an ACT/EVENT/PROCESS sense AND a derivationally-related verb -- so attack/assistance/construction/
+  arrival fire, nation/station/region/nurse do not. NOUN-event recall 0.105 -> 0.703 (vs the old suffix rule 0.356);
+  whole-subgraph survival TB-Dense 0.4054 -> **0.7327**, MAVEN 0.4134 -> **0.7766**. Precision drops (0.79 -> 0.65) from
+  POLYSEMY ("building" has an act sense) -- a TOKEN-level WSD residual (the context channel's job), NOT type-level error;
+  and it does NOT hurt the reasoner (end-to-end cond-acc unchanged). Replaces the suffix heuristic as the default.
+- **The ACTUAL solved reasoner end-to-end (replaces the iconicity proxy).** Running the SOLVED connective+tense
+  mechanism (hard subordinating-connective edges override soft past-perfect anteriority) over each front-end's own
+  extraction: incumbent 0.0971 -> joint_cop 0.3480 -> joint_nom 0.4937 answered-correct, vs the gold-event ceiling
+  0.5681 -- joint_nom reaches 87% of the ceiling, and the reasoner's conditional accuracy is NOT degraded by the
+  nominal over-extraction (0.583 vs 0.598). So the front-end unstarves the SOLVED reasoner, not just a proxy.
+- **Unified Figure-Ground FRAME binder for spatial (brain-foundational, replaces N rules).** The incumbent's N spatial
+  constructions (prep/possession/locative-verb/existential) are ONE Place-function frame (Talmy/Jackendoff) with
+  relator-specific role mappings, bound off the parse. The unified binder matches the incumbent's survival (6/90) with
+  FEWER constructions; the hybrid (construction coverage + parse frames) reaches 9/90 -- confirming the wall is coverage
+  and that the parse-based cue INTEGRATES with the linear cue (Competition Model), a modest measured gain.
+
 **SPATIAL -- SpaceEval train (59 docs, 90 multi-hop containment chains) -- LOCATED NEGATIVE:**
 - Incumbent LINEAR extractor: recall 0.2245, chain survival **6/90 = 0.0667** (reproduces the spatial SOLVED exactly).
 - Joint PARSE-based binding: recall 0.1704, survival 4/90 (WORSE -- parse noise). Cue-union HYBRID: recall 0.2373,
@@ -146,10 +165,12 @@ JOINT high-recall construction+entity extraction, not one more rule or a better 
 1. Promote `_joint_relation_frontend.py` as a shared `hdlab/joint_relation_frontend.py` that parses each sentence ONCE
    and exposes events (tense-agnostic + copular/stative), spatial edges, and roles from that single ParseResult -- the
    anti-fragmentation organ (today three front-ends re-parse/ignore-parse independently).
-2. In `situation_reader`, route the TEMPORAL event detector through the tense-agnostic + copular/stative pass
-   (default-off flag), and feed the temporal_reasoner the enriched event set. This is the wire that makes the +0.2943
-   survival / +0.2478 end-to-end gain board-visible. Additive: leaves the existing event/role output byte-identical
-   when off (confirmed: live reader reads 35 events intact, no hdlab write).
+2. In `situation_reader`, route the TEMPORAL event detector through the tense-agnostic + copular/stative + eventive-
+   NOMINAL pass (default-off flag), and feed the temporal_reasoner the enriched event set. This is the wire that makes
+   the survival gain (0.1111 -> 0.7327 with nominals) and the end-to-end gain (0.0971 -> 0.4937 through the SOLVED
+   reasoner, 87% of ceiling) board-visible. Gate the nominal channel on the context/WSD channel to recover the
+   polysemy precision. Additive: leaves the existing event/role output byte-identical when off (confirmed: live reader
+   reads 35 events intact, no hdlab write).
 3. Do NOT land the parse-based SPATIAL extractor as a capability wire: it does not beat the linear scan on terse prose
    (UAS-0.79 gated). It belongs behind the upstream parse organ (incremental/labeled parser -- another line's p2).
 4. The three reasoners should be REVISITED to consume the enriched extraction: the temporal_reasoner already benefits
@@ -179,9 +200,16 @@ JOINT high-recall construction+entity extraction, not one more rule or a better 
   BEFORE graph is near-transitively-CLOSED, so naive shortest-path chains vanish (0/16301); the TRANSITIVE REDUCTION
   recovers the necessary-spine chains (43599) and the joint separates +0.3275 CI-sep. The metric, not the data, was the
   first obstacle -- a dense gold needs the reduction to make "multi-hop" meaningful.
-- **The nominal-event channel is register-dependent.** +0.05 recall / +0.08 survival on Wikipedia (nominal-heavy), but
-  -0.10 precision on newswire -- so "recover more event types" is not free; a proper nominalization lexicon (not a
-  suffix rule) is the brain-foundational form.
+- **The eventive-NOMINAL channel is the single biggest lever, once detected by MEANING not morphology.** The suffix
+  rule was register-dependent and precision-costly; the WordNet lexical-semantic test (eventive sense + deverbal) took
+  NOUN-event recall 0.105 -> 0.703 and survival 0.405 -> 0.733 (TB-Dense) / 0.413 -> 0.777 (MAVEN) -- because news and
+  Wikipedia narrate events as NOUNS (attack/assistance/takeover), and those nominal events sit ON the chains. The
+  precision cost is pure POLYSEMY (token-level WSD), and it does NOT hurt the reasoner. "A state is an event" and "a
+  nominalization is an event" were the two tense/POS artifacts hiding the same brain fact: the event variable is
+  category-agnostic.
+- **Use the ACTUAL solved reasoner, not a proxy, or the end-to-end claim is soft.** Swapping the iconicity proxy for
+  the SOLVED connective+tense reasoner raised joint_nom end-to-end to 0.4937 = 87% of the gold ceiling and showed the
+  nominal over-extraction does not degrade conditional accuracy -- the coverage lift is nearly free.
 - **The parse feature-hashing is PYTHONHASHSEED-dependent** -- survival drifted ~+-5 chains across processes until pinned
   (the spatial SOLVED's documented class of bug). A witness that passes in one process is not reproducible until it
   passes in a fresh one.
@@ -189,10 +217,13 @@ JOINT high-recall construction+entity extraction, not one more rule or a better 
 ## AUDIT UPDATE (for notes/BRAIN_FOUNDATIONAL_AUDIT.md)
 - **TIME (sec.2b):** the temporal front-end's DROPPED channels are now measured on MODERN dense gold (TB-Dense): the
   incumbent tense-gated extractor recovers only 0.320 of gold events (STATE 0.173) and 0.1111 of multi-hop chains; a
-  tense-agnostic + copular/stative pass off the same parse lifts these to 0.756 / 0.4054 CI-separated (twin 0.000),
-  end-to-end before/after 0.0851 -> 0.3329. The copular/stative overlap lever (the temporal SOLVED's named P2) is
-  recovered (+0.0413 CI-sep on stative-touching overlap edges). The front-end extraction wall for TIME is now partly
-  CLOSED and measured via whole-subgraph survival.
+  tense-agnostic + copular/stative + eventive-NOMINAL pass off the same parse lifts recall to 0.756/0.891 and survival
+  to 0.4054 (copular) / 0.7327 (nominal), CI-separated (twin loses); through the SOLVED connective+tense reasoner
+  end-to-end reaches 0.4937 = 87% of the gold ceiling. GENERALIZED on MAVEN-ERE (710 modern Wikipedia docs, 43599
+  chains): survival 0.086 -> 0.777. The copular/stative overlap lever (the temporal SOLVED's named P2) is recovered
+  (+0.0413 CI-sep on stative-touching overlap edges); the eventive-nominal channel (WordNet) is the single biggest
+  lever. The front-end extraction wall for TIME is now largely CLOSED and measured via whole-subgraph survival on TWO
+  modern golds.
 - **SPACE (sec.2b):** the spatial extraction wall is CONSTRUCTION COVERAGE + entity resolution (74% of the joint's
   deficit), NOT parse attachment (10%) and NOT primarily parse UAS -- corroborating the spatial SOLVED's own
   decomposition (74% entity/construction, 10% PP-attachment) on a fresh measurement. Parse-based joint binding (UAS
@@ -246,9 +277,10 @@ is defensible; I chose the honest, deflated label.
   (grid-frame/possession/existential/locative-verb) onto the parse-based binder (which already recovers 8 edges the
   linear scan misses) AND strengthen entity resolution -- per-construction returns diminish, so the target is the whole
   sub-graph, not one more rule. A labeled/incremental parser is a SECONDARY lever (fixes the 10%).
-- **P3: eventive-nominal detection via a deverbal-nominalization LEXICON** (glass-box, NO LLM) -- the suffix heuristic
-  is register-dependent (+0.05 recall / -0.10 precision on newswire; net-positive survival on Wikipedia). A proper
-  lexicon (event nouns vs non-event nouns) turns joint_nom into a safe default and closes the remaining recall.
+- **P3: eventive-nominal detection -- DONE this session** (WordNet eventive-sense + deverbal test; NOUN-event recall
+  0.10 -> 0.70; survival 0.41 -> 0.73/0.78). Residual: TOKEN-level disambiguation of polysemous event nouns
+  ("building" the act vs the object) -- wire the context/WSD channel to gate the nominal fires (the meaning channel's
+  job, a named adjacent organ), which recovers the precision without losing recall.
 - **P4: wire the OCC appraisal reasoner to the joint pass's event + goal-role fills** (the event<->goal binding it
   needs, served off the same parse) and measure appraisal end-to-end.
 - **DO NOT re-file:** the temporal reasoner (solved), the role front-end (landed live), or a parse-based spatial

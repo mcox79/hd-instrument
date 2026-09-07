@@ -5,7 +5,7 @@ bar: "For AT LEAST N (solver's choice, N >= 2) high-leverage knowledge TYPES fro
 result: "N=3 knowledge families, each on ITS OWN consumer's MODERN instrument. TYPE 3 (is-a, directed) on TWO consumers: (a) MoNLI lexical entailment n=1676 -- typed directed spoke + monotonicity 0.817 vs the PRE-INGEST symmetric-signature foundation 0.500 (+0.317 CI[+0.299,+0.335]); (b) GUM common-noun COREFERENCE (modern, INDEPENDENT of WordNet -- the non-circular downstream consumer) -- the is-a/part-whole spoke as a type-licensing FILTER on recency lifts coref 0.6883 -> 0.6998 (+0.0116 CI[+0.0056,+0.0182]) over the strongest floor (recency/Centering), building across the wall exp_commonnoun_wall_gum_v1 located and deferred to 'world knowledge'. TYPES 4+6 (part-whole + instrument, directed) on the LIVE bridging instrument: typed spoke bridges COVERED facts 0.926/0.828 vs the symmetric read 0.095/0.027 on confusable distractors (+0.832/+0.801 CI-sep), with a GENERALIZATION located-negative (held-out 0.272/0.203)."
 floor: "TYPE 3 / MoNLI: symmetric-signature cosine best-oracle-threshold 0.500 (analytically capped on a balanced directional set) AND a frequency-generality asymmetric heuristic 0.865 (competitive OVERALL but WRONG where it disagrees: on the 226 freq-wrong pairs typed 0.766 MFS / 0.982 union vs freq 0.000 -> the graph is the correct mechanism). TYPE 3 / GUM coref: strongest floor = recency/Centering 0.6883 (blind head-identity, the reader today, is 0.6119). TYPES 4+6: no-inference random 0.200; symmetric hub/MFS read 0.095/0.386 (part) 0.027/0.219 (instrument) on confusable distractors."
 controls: "(1) INFO-FREE TWIN loses CI-sep on every type: is-a shuffled-graph 0.499 (vs 0.817); part-whole shuffled-graph 0.214 (vs 0.926); instrument shuffled-graph 0.166 (vs 0.828); coref shuffled-FILTER twin 0.6904 (vs 0.6998, +0.0095 CI[+0.0039,+0.0151]) -- the coref win is CORRECT knowledge, not 'any filter'. (2) NO REGRESSION: spokes are ADDITIVE; the frozen C1 signature is byte-untouched, so diagnostic_context_wsd is unchanged (test_knowledge_factory_meaning_store.py 6/6; W8 asserts store intact). (3) REASONING ablation: dropping monotonicity collapses the is-a negation subset 0.875 -> 0.125. (4) ARCHITECTURE ablation (coref): the is-a spoke as a SELECTOR (0.641) is DOMINATED by recency (0.688); as a type-licensing FILTER on recency it WINS (0.700) -- the consumer's architecture decides whether the knowledge helps. (5) GATE admission quality: schema-margin separates clean from injected-wrong is-a edges AUC 0.942 (deterministic; reuses the upstream meaning_foundation signatures). (6) RESOLUTION guard: the raw lemma-string (union) key over-generates cross-sense is-a on 100% of polysemous nouns; on MoNLI's low-polysemy pairs this does not cost accuracy (union 0.996 >= MFS 0.817), an honest disk-outranks-brief finding."
-files_changed: "experiments/exp_isa_typed_spoke_monli_v1.py, experiments/exp_partwhole_typed_spoke_bridging_v1.py, experiments/exp_isa_spoke_commonnoun_coref_gum_v1.py, experiments/exp_antonym_typed_spoke_valence_v1.py, verification/test_world_knowledge_typed_spokes.py, notes/problems/expand_the_clean_semantic_memory_foundation_with_world_knowledge_via_the_consolidation_gate/SOLVED.md (also: notes/research_semantic_memory_generalization_walls_2026-09-06.md by the research drill)"
+files_changed: "experiments/exp_isa_typed_spoke_monli_v1.py, experiments/exp_partwhole_typed_spoke_bridging_v1.py, experiments/exp_isa_spoke_commonnoun_coref_gum_v1.py, experiments/exp_antonym_typed_spoke_valence_v1.py, experiments/exp_natural_logic_monotonicity_med_v1.py, verification/test_world_knowledge_typed_spokes.py, notes/problems/expand_the_clean_semantic_memory_foundation_with_world_knowledge_via_the_consolidation_gate/SOLVED.md (also: notes/research_semantic_memory_generalization_walls_2026-09-06.md by the research drill)"
 reverify: ".venv/Scripts/python.exe verification/test_world_knowledge_typed_spokes.py"
 ---
 
@@ -333,6 +333,30 @@ I then ran (all reproducible from the cells):
   DEPTH-AWARE threshold is the fix. The research's proposed consensus-across-known-children check I built + tested
   does NOT beat schema-margin on superordinate edges (consensus AUC 0.889 == schema-margin 0.889). => refine the
   gate with a depth-calibrated threshold; consensus is not needed. (Reproducible: the gate block in the is-a cell.)
+
+### BUILT ACROSS THE MED COVERAGE WALL: GLASS-BOX NATURAL LOGIC over the is-a spoke
+(built + validated this session: experiments/exp_natural_logic_monotonicity_med_v1.py; witness W13/W14)
+The MED coverage wall (single-is-a-substitution = only ~15% of monotonicity NLI) is a FIDELITY GAP with a PINNED
+mechanism: natural logic / monotonicity calculus (van Benthem; Sanchez-Valencia; MacCartney-Manning 2009). I built
+it glass-box: (a) MONOTONICITY MARKING self-detected from downward-entailing operators (odd DE-count => downward),
+(b) EDIT DETECTION (substitution / deletion / insertion via content-word diff), (c) NATURAL-LOGIC RULES (sub -> is-a
+spoke per polarity; DEL upward->entail / downward->neutral; INS upward->neutral / downward->entail). RESULT on MED
+(n=5382): coverage 0.855 (up from ~0.15), self-detected-monotonicity acc 0.767 vs majority 0.503 (+0.264 CI-sep)
+and vs a SYMMETRIC sentence-cosine oracle 0.535 (+0.232 CI-sep -- distributional similarity cannot do the directed/
+structural edit); the SHUFFLED-monotonicity info-free twin collapses to 0.540 (CI-sep -- the POLARITY is load-
+bearing, not just the edit type); per-edit sub 0.720 / del 0.766 / ins 0.786. So the is-a typed spoke + natural-
+logic composition is a DOWNSTREAM CONSUMER that generalizes from the 15% lexical slice to ~85% of broad monotonicity
+NLI, on a modern gold, CI-separated over both a majority and a distributional floor, with the compositional polarity
+proven load-bearing.
+- MONOTONICITY-MARKER OPTIMIZATION (drilled the residual wall this session): the self-detected marker started at
+  0.744 (agreement with gold monotonicity 0.762). Drilling the disagreements showed the failures were (i) MISSED
+  operators ("at most", the conditional "if" antecedent) and (ii) OVER-triggering ("a few" is UPWARD not downward;
+  blanket "every/all/each/any" over-fired via the restrictor/body asymmetry). Calibrating the marker (add phrase
+  operators + "if"; guard "a few"; drop the noisy positional operators) raised agreement 0.762 -> 0.839 and
+  natural-logic acc 0.744 -> 0.767. RESIDUAL WALL (named, not closed here): the gap to the ORACLE-monotonicity upper
+  bound 0.879 is POSITIONAL scope -- a sentence-level polarity marker cannot handle the quantifier restrictor/body
+  asymmetry (downward in the restrictor of "every", upward in its body); closing it needs a per-position
+  monotonicity-marking PARSE (MacCartney projectivity) = the next upstream build.
 
 ### NEW RELATION FAMILY SPOTTED + CONFIRMED (a 5th typed spoke): ANTONYMY (lexical opposition)
 (built + validated this session: experiments/exp_antonym_typed_spoke_valence_v1.py)
