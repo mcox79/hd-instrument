@@ -249,6 +249,73 @@ directed (the strongest case) and have modern on-disk instruments.
   architecture artifact until the brain-faithful integration is tested -- and the shuffled-filter twin proves the
   correct edges, not "any filter", carry the +0.0116.
 
+## DEEPENING: WALLS DRILLED FOR MECHANISM + OPTIMIZATIONS ATTEMPTED (this session)
+Every wall was drilled >=2x for the MECHANISM (not just the number); a literature research drill on the four open
+walls (PINNED-limit vs fidelity-gap) is in flight and will be folded in.
+- WALL: the SUPERPOSITION CEILING (core). UNDERSTOOD, not a limit: symmetric cosine is analytically incapable of a
+  DIRECTED relation (capped 0.5 on MoNLI direction; fooled below chance on confusable part-whole). Built across
+  with typed directed spokes. Independently CORROBORATED by an already-landed organ: hdlab/generalized_event_
+  knowledge.py is a typed DIRECTED event-transition spoke (forward PPMI over ROCStories) validated on Story Cloze
+  (val 0.592/test 0.582 CI-sep, twin at chance) -- a 4th relation family where the typed-directed-spoke architecture
+  works. The architecture is the fix, and it is already precedented in the substrate.
+- WALL: PART-WHOLE GENERALIZATION (held-out 0.27). Drilled: (i) density -- denser graph (WordNet meronymy +
+  ConceptNet PartOf/HasA/MadeOf) did not lift held-out; (ii) is-a INHERITANCE (Collins-Quillian property
+  inheritance: a whole inherits its hypernyms' parts; composes the is-a x part-whole spokes) lifts held-out only
+  DIRECTIONALLY 0.2724 -> 0.2843 (+0.0119 CI incl 0). MECHANISM: is-a generalizes by TRANSITIVE closure to the
+  right node; part-whole has no transitive closure to the antecedent, so a meronym-prototype cannot discriminate the
+  gold whole from the target's own confusable hub-neighbours. Stored spoke is authoritative for COVERED facts; novel
+  pairs are the distributional read's job (hybrid). (Reproducible: generalization_report() in the bridging cell.)
+- WALL: the RAW-STRING / SENSE-RESOLUTION guard (the brief's load-bearing guard). Drilled 2x: on MoNLI the
+  unresolved lemma-union even WINS (0.996) -- WordNet-derived, low-polysemy gold; on GUM coref (a CONTEXT-SENSITIVE
+  consumer) the MFS-RESOLVED filter beats the RAW-UNION filter only +0.0028 (CI incl 0). MECHANISM: the raw-string
+  key over-generates cross-sense edges on 100% of polysemous nouns (knowledge-level real), but a recency-PRIMARY
+  consumer absorbs the over-generation, so the consumer-cost is small unless the consumer is adversarial / high-
+  polysemy. (Reproducible: resolution_MFS_resolved vs resolution_RAW_union in optimization_report().)
+- WALL: the coref licensing OPTIMIZATIONS. Two upgrades to the +0.0116 filter win, both located negatives: GRADED
+  taxonomic re-ranking 0.6956 < binary 0.6998 (recency must SELECT, type only LICENSES); ConceptNet-BROADENED
+  licensing 0.6988 (-0.0011 CI incl 0). The recency-primary binary-license is at its KNEE. (Reproducible:
+  optimization_report().)
+- REMAINING HEADROOM (needs a new KB, not on disk): name_bridge coref (common noun -> PROPER NAME, ~10%) needs an
+  entity-type KB (Wikidata P31 / DBpedia InstanceOf). That is the next FOUNDATION acquisition, not a prototype.
+
+### LITERATURE RESEARCH on the walls (PINNED vs fidelity-gap; full note + citations: notes/research_semantic_memory_generalization_walls_2026-09-06.md)
+A research drill audited the four walls against the cognitive-science literature. Verdicts, and the MECHANISM tests
+I then ran (all reproducible from the cells):
+- WALL C (coref recency-primary + type-as-filter): PINNED. Lappin-Leass 1994 (hard filters then salience rank),
+  Centering (Grosz-Joshi-Weinstein), Lewis-Vasishth cue-based retrieval -- our architecture is the dominant/default
+  account. Coherence-relation cues (Kehler 2008) are future headroom, not a current defect. => our build is correct.
+- WALL D (raw-string sense-conflation, small cost): PINNED for the measured near-zero cost. Swinney 1979 /
+  Onifer-Swinney (both senses activate immediately; irrelevant sense decays), Duffy-Morris-Rayner 1988 (cost small
+  when one sense dominates + context agrees = our low-polysemy regime). Kintsch 1988 construction-integration: the
+  brain OVER-generates (union-like) then PRUNES to one sense before cross-sentence inference; our store does
+  construction but not integration-at-commit. => deferred fidelity gap (build sense-pruning only when a HIGH-POLYSEMY
+  consumer is targeted); our small measured cost is exactly brain-predicted.
+- WALL A (part-whole generalization): FIDELITY GAP with a partially-PINNED residual. The brain does NOT use is-a
+  transitive closure for meronymy (Collins-Loftus 1975 overturned strict hierarchy; Winston-Chaffin-Herrmann 1987:
+  6 subtypes, transitive only within-subtype; Tversky-Hemenway 1984: partonomies shallow, ~5.8 parts basic /
+  ~0.4 superordinate; Gentner/Osherson/Sloman: novel-property generalization is similarity-weighted nearest-exemplar
+  transfer). I BUILT + TESTED the named replacement (nearest-exemplar similarity-coverage transfer): on held-out
+  confusable it scored 0.216 < plain 0.272 (-0.056 CI-sep) -- naive neighbour-part pooling DILUTES discrimination
+  where distractors are the target's own neighbours. => meronymy generalization is a genuine partially-pinned limit
+  (shallow, subtype-heterogeneous); the stored spoke authoritative-for-covered + distributional-for-novel HYBRID is
+  the right design, confirmed by the literature.
+- WALL B (basic-level admission gate): PINNED effect (Rosch 1976 cue-validity; superordinates lack shared features;
+  Rogers-Lambon-Ralph 2004 coarse-coded, survive degradation longer), but my earlier "gate prunes superordinate"
+  was a THRESHOLD artifact, not an AUC failure: schema-margin's RANKING AUC on superordinate edges is fine (0.923);
+  the earlier consumer-collapse came from a fixed margin=0.05 too strict for abstract parents -> a DEPTH-AWARE
+  threshold is the fix. The research's proposed consensus-across-known-children check I built + tested does NOT beat
+  schema-margin (superordinate consensus AUC 0.889 < 0.923). => refine the gate with a depth-calibrated threshold;
+  consensus is not needed.
+
+### NEW RELATION FAMILY SPOTTED + CONFIRMED (a 5th typed spoke): ANTONYMY (lexical opposition)
+The symmetric signature is not merely capped on opposition -- it is ANTI-PREDICTIVE: ConceptNet antonym pairs have
+HIGHER hub cosine (0.153) than WordNet synonym pairs (0.089), so AUC(symmetric cosine separates synonym from
+antonym) = 0.391 (BELOW chance) -- antonyms co-occur in the same contexts ("hot"/"cold" with "weather"). A typed
+antonym spoke (ConceptNet Antonym, 19,066 edges on disk) is REQUIRED to represent opposition. This threatens a LIVE
+consumer: valence/affect (a similarity-keyed valence read gives "good"/"bad" the SAME sign). This is the cleanest
+next typed-spoke build (consumer: valence-sign propagation over Warriner, the live C3a lexicon; the brain represents
+antonymy as a distinct lexical relation -- Deese, Murphy, Mohammad -- not derivable from similarity).
+
 ## AUDIT UPDATE (for notes/BRAIN_FOUNDATIONAL_AUDIT.md sec 2b / sec 7 -- strategy folds in)
 - The meaning-store entry (C1) should note a NEW, measured deviation: the frozen store's SUPERPOSED single
   signature is analytically incapable of DIRECTED/TYPED relational reads (is-a direction: symmetric cap 0.500 on

@@ -135,6 +135,9 @@ def _informational_19c_crossref():
 #                             the 1-hop adjacency floor + shuffled-edge twin CI-sep.
 #   occ_appraisal          -- inferred-emotion p3 (constructed MODERN OCC gold): the UNSTATED emotion the reader
 #                             now infers (sm.infer_emotion) -- TYPE acc vs the strongest floor + goal<->event twin.
+#   negation_quantifier    -- truth-conditional p9 (UD-EWT negation net-factuality + MED downward-monotone
+#                             quantifier; MODERN): the landed read_polarity field scored vs the polarity/quantity-
+#                             blind floor (which INVERTS under negation) + the info-free shuffled-cue twin.
 # ==================================================================================================
 def _degraded(name, err, informational=False):
     """A schema-shaped row for an arm whose asset/runtime is unavailable (degrade-gracefully, like
@@ -592,6 +595,93 @@ def board_temporal_overlap_dimension(smoke=False):
         return _degraded("temporal_overlap", e), {"error": "%s: %s" % (type(e).__name__, e)}
 
 
+def board_negation_quantifier_dimension(seed=SEED):
+    """TRUTH-CONDITIONAL NEGATION + QUANTIFIER board arm on MODERN gold (owner-DONE p9,
+    represent_negation_and_quantifier_scope...). This capability is board-INVISIBLE today -- no dimension scores
+    whether a stored proposition HOLDS (polarity) or over how many of its arguments it ranges (quantity); every
+    event was filed POSITIVE + SINGULAR, which INVERTS the truth value under negation / downward-monotone
+    quantifiers. The landed reader now exposes it (read_polarity -> EventRecord.polarity/quantity). Reuses the
+    solver's OWN measurement verbatim -- two per_dimension rows:
+      negation_ewt   -- exp_polarity_operator_ewt_v1: reader-native net-factuality over the LIVE reader's sm.events
+                        vs the polarity-blind floor (must LOSE -- realized-only) + the info-free shuffled-cue twin.
+      quantifier_med -- exp_quantifier_operator_med_v1: MED downward-monotone subset vs the monotone-blind floor
+                        (INVERTS <0.30) + the shuffled-monotonicity twin; carries the well-powered full-unified
+                        aggregate (negation+quantifier ONE operator) CI-sep over blind AND twin.
+    Kept OUT of the 19c-free headline aggregate (its own rows). OFF in the board self-test. Degrades gracefully
+    (missing gold -> a schema-shaped degraded row, never crashes the board). MODERN (UD-EWT + MED)."""
+    out = {}
+    # -- NEGATION (UD-EWT reader-native net-factuality) --
+    try:
+        import experiments.exp_polarity_operator_ewt_v1 as EW
+        if not os.path.exists(EW.GOLD_PATH):
+            out["negation_ewt"] = _degraded("negation_ewt", "gold_negation_factuality_ewt_v1 not on disk")
+        else:
+            o = EW.run(shuffle_seed=seed)
+            na, omb, omt = o["net_accuracy"], o["operator_minus_blind"], o["operator_minus_twin"]
+            out["negation_ewt"] = {
+                "n": o["n_scored"], "model_acc": na["operator_full"],
+                "overlap_floor": na["blind_floor"],
+                "floor_accs": {"polarity_blind": na["blind_floor"]},
+                "strongest_floor_name": "polarity_blind", "strongest_floor": na["blind_floor"],
+                "twin_acc": na["shuffle_twin"],
+                "model_minus_strongest": [omb["delta"], omb["ci"][0], omb["ci"][1]],
+                "model_minus_twin": [omt["delta"], None, None],
+                "ci_sep_over_strongest": bool(omb["ci_sep"]), "ci_sep_over_twin": bool(omt["beats_twin"]),
+                "twin_null_p95": omt["null_p95"],
+                "negated_recall": {"operator": o["negated_recall"]["operator_full"],
+                                   "blind": o["negated_recall"]["blind_floor"]},
+                "over_negation_clean": o["affirmative_regression"]["operator_full_clean"],
+                "align_fail": o["align_fail"],
+                "population": "UD-EWT reader-native negation net-factuality (gold_negation_factuality_ewt_v1, "
+                              "modern web text, n=%d align_fail=%d); model=truth-conditional polarity operator over "
+                              "the LIVE reader's sm.events (event_polarity: clause-local negation + coordination "
+                              "sharing + implicative/factive complement gate), floor=polarity-blind (every event "
+                              "stored positive -> realized -- MUST lose on negated items), twin=shuffled negation "
+                              "cues (info-free, matched shape). Paired doc-level bootstrap CI; twin null p95. MODERN."
+                              % (o["n_scored"], o["align_fail"])}
+    except Exception as e:
+        out["negation_ewt"] = _degraded("negation_ewt", e)
+    # -- QUANTIFIER (MED downward-monotone + the well-powered unified aggregate) --
+    try:
+        import experiments.exp_quantifier_operator_med_v1 as MED
+        if not os.path.exists(MED.MED_PATH):
+            out["quantifier_med"] = _degraded("quantifier_med", "MED.tsv not on disk (fetch_negation_quantifier_gold_v1.py)")
+        else:
+            m = MED.run()
+            ad, ombd = m["acc_downward"], m["operator_minus_blind_DOWNWARD"]
+            fb, ft = m["full_operator_vs_blind_ALL"], m["full_operator_vs_twin_ALL"]
+            out["quantifier_med"] = {
+                "n": ad["n"], "model_acc": ad["operator"],
+                "overlap_floor": ad["monotone_blind"],
+                "floor_accs": {"monotone_blind": ad["monotone_blind"]},
+                "strongest_floor_name": "monotone_blind", "strongest_floor": ad["monotone_blind"],
+                "twin_acc": None,
+                "model_minus_strongest": [ombd["delta"], ombd["ci"][0], ombd["ci"][1]],
+                "model_minus_twin": [None, None, None],
+                "ci_sep_over_strongest": bool(ombd["ci_sep"]),
+                "ci_sep_over_twin": bool(m["operator_beats_twin_downward"]),
+                "twin_downward_null_p95": m["twin_downward_null_p95"], "coverage": m["coverage"],
+                "full_unified_aggregate": {  # negation+quantifier ONE downward-monotone operator (well-powered)
+                    "n": ft["n"], "operator": ft["a"], "twin": ft["b"],
+                    "operator_minus_blind": {"delta": fb["delta"], "ci": fb["ci"], "ci_sep": bool(fb["ci_sep"])},
+                    "operator_minus_twin": {"delta": ft["delta"], "ci": ft["ci"], "ci_sep": bool(ft["ci_sep"])}},
+                "population": "MED downward-monotone subset (Yanaka 2019 monotonicity NLI, modern, n=%d); "
+                              "model=quantifier monotonicity operator (subject cardinality x edit direction), "
+                              "floor=monotone-blind (assume upward -> INVERTS on downward), twin=shuffled "
+                              "monotonicity (downward null p95). Paired bootstrap CI. The well-powered full-unified "
+                              "aggregate (negation+quantifier ONE operator, n=%d) is CI-sep over blind AND the "
+                              "info-free twin (see full_unified_aggregate). MODERN." % (ad["n"], ft["n"])}
+    except Exception as e:
+        out["quantifier_med"] = _degraded("quantifier_med", e)
+    return out, {"note": "truth-conditional NEGATION + QUANTIFIER (Kaup-Zwaan two-step operator; Johnson-Laird "
+                         "cardinality; Ladusaw downward-monotonicity unifying negation with 'none') -- the FIRST "
+                         "board arms that score whether a stored proposition HOLDS and over how many arguments it "
+                         "ranges (live != scored before this: the landed read_polarity field). Load-bearing claim "
+                         "scoped to the polarity/quantity-blind floor (which INVERTS under negation/downward "
+                         "quantifiers) + the info-free shuffled-cue twin. Reuses exp_polarity_operator_ewt_v1 + "
+                         "exp_quantifier_operator_med_v1 verbatim."}
+
+
 def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True):
     """Assemble every MODERN per_dimension row. caps = dict of per-arm caps for a fast self-test.
     run_new_arms adds the 3 board-invisible-win arms (coarse-sense/selective-reliability/causal-multihop) as
@@ -661,6 +751,8 @@ def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True
         new_arms["temporal_before_after"] = tb_row; new_arms_detail["temporal_before_after"] = tb_det
         to_row, to_det = board_temporal_overlap_dimension(smoke=bool(caps.get("temporal_smoke")))
         new_arms["temporal_overlap"] = to_row; new_arms_detail["temporal_overlap"] = to_det
+        nq_rows, nq_det = board_negation_quantifier_dimension(seed=seed)
+        new_arms["negation_quantifier"] = nq_rows; new_arms_detail["negation_quantifier"] = nq_det
 
     crossref = _informational_19c_crossref()
 

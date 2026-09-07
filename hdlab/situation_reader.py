@@ -302,6 +302,21 @@ class EventRecord:
     agent_conf: Optional[float] = None
     agent_defer: Optional[bool] = None
     event_conf: Optional[float] = None
+    # TRUTH-CONDITIONAL POLARITY + QUANTITY (2026-09-06 wire, read_polarity), ADDITIVE metadata only -- from the
+    # owner-DONE represent_negation_and_quantifier_scope_for_truth_conditional_reading_modern_gold (p9). Every event
+    # is otherwise stored POSITIVE + SINGULAR, which INVERTS the truth value under negation / downward-monotone
+    # quantifiers (MoNLI blind 0.0035, MED-down 0.1741 -- CI-sep). polarity = the glass-box truth-conditional
+    # operator's decision over the event proposition (+1 holds / -1 does-not-hold / 0 undetermined-abstain);
+    # quantity = the subject quantifier's cardinality class over the argument set (ALL/SOME/ZERO/MOST/FEW/EXC/None);
+    # quantity_exception = the excepted individual for 'everyone but X'; polarity_provenance = the glass-box reason
+    # (direct_negator / neg_quant_subject / coord_shared / implicative:<v> / factive:<v> / positive / ...). Set ONLY
+    # by the _read_polarity post-read pass (read_polarity flag) via hdlab.polarity_operator over the sentence tokens
+    # + this event's pred_idx (extraction UNCHANGED). None when the flag is off. The default reader never sets these
+    # -- exposing them leaves predicate/agent/patient/tense/subj_role/obj_role/affect/patient_conf byte-identical.
+    polarity: Optional[int] = None
+    quantity: Optional[str] = None
+    quantity_exception: Optional[str] = None
+    polarity_provenance: Optional[str] = None
 
 
 @dataclass
@@ -868,6 +883,7 @@ class SituationReader:
                  track_causal_reasoning: bool = True,
                  track_spatial_reasoning: bool = True,
                  track_temporal_reasoning: bool = True,
+                 read_polarity: bool = True,
                  parser_arceager: bool = True,
                  np_head_reduce: bool = True,
                  structural_patient: bool = True,
@@ -1290,6 +1306,25 @@ class SituationReader:
         # magnitude-line primitive is available for a caller that supplies duration premises). NO spaCy / NO external
         # LLM at inference. flag-off (track_temporal_reasoning=False) = the pre-landing reader.
         self.track_temporal_reasoning = bool(track_temporal_reasoning)
+        # TRUTH-CONDITIONAL POLARITY + QUANTITY read-out (default-ON read_polarity; wired 2026-09-06 from the
+        # owner-DONE represent_negation_and_quantifier_scope_for_truth_conditional_reading_modern_gold, p9). A POST-
+        # READ pass (mirrors _read_surprisal) that runs the glass-box hdlab.polarity_operator over each event: the
+        # truth-conditional negation operator (event_polarity: clause-local do-support/modal/adverbial negation +
+        # negative-existential subject + coordination sharing + implicative/factive complement gate -- Kaup-Zwaan
+        # two-step, Karttunen implicatives) over the sentence tokens + the event's pred_idx, and read_quantifier
+        # (Johnson-Laird cardinality: ALL/SOME/ZERO/EXC over the argument set) over the coref-resolved subject NP.
+        # Sets ONLY the ADDITIVE EventRecord fields polarity/quantity/quantity_exception/polarity_provenance --
+        # extraction is UNCHANGED (predicate/agent/patient/tense/subj_role/obj_role/affect/patient_conf byte-
+        # identical off vs on; the pass never mutates an existing field). Proven CI-sep on MODERN gold: EWT reader-
+        # native negation net-factuality 0.9313 vs polarity-blind 0.5038 (blind INVERTS under negation); MED
+        # downward-monotone quantifier 0.8259 vs 0.1741. Event-proposition polarity unifies with copular state via
+        # hdlab.state_register.state_match (P2 -- one truth-conditional representation). DEFAULT-ON: the pass is a
+        # pure-symbolic per-event token scan (event_polarity backward-scans <=5 tokens + a light verb-index scan;
+        # read_quantifier scans the subject region) -- MODEST read-cost (measured well under the 10% warm-read bar),
+        # so it lands ON per no-more-default-off (the QA/coref/goal/causal consumers read propositions polarity-blind
+        # today -> this is the field they will consume; additive + no-regress). all_capabilities_off() sets it False
+        # (the pre-landing reader is byte-identical). NO spaCy / NO external LLM / NO learned NLI (the invariant).
+        self.read_polarity = bool(read_polarity)
         # IMPROVED PARSER (opt-in; default OFF = byte-identical). Wired 2026-09-02 from the owner-DONE parser problem
         # the_extraction_front_end_parser_is_the_cross_task_bottleneck...: route the WIRED who-did-what front-end
         # through the promoted arc-eager parser (hdlab.arceager_parser, UD-EWT UAS 0.775->0.842) instead of the
@@ -1560,6 +1595,7 @@ class SituationReader:
         "track_goals", "track_goal_thwart", "track_affect", "track_tom_action", "track_infer_emotion",
         "track_bridges", "track_senses",
         "track_prediction", "track_causal_reasoning", "track_spatial_reasoning", "track_temporal_reasoning",
+        "read_polarity",
         "structural_patient", "causal_mental_bridge", "goal_purpose_filter", "entity_kb_resolver",
         "commonnoun_situation_gate", "commonnoun_canonical", "unified_referent", "precision_weight_roles")
 
@@ -2397,6 +2433,35 @@ class SituationReader:
             e.pred_precision = pr.precision(verb, "PATIENT")
             if e.patient_surprisal is not None and self.surprisal_abstain_tau is not None:
                 e.low_confidence = bool(e.patient_surprisal > self.surprisal_abstain_tau)
+
+    def _read_polarity(self, sm, sents) -> None:
+        """Opt-in TRUTH-CONDITIONAL POLARITY + QUANTITY read-out (default-ON read_polarity; wired 2026-09-06 from
+        the owner-DONE represent_negation_and_quantifier_scope_for_truth_conditional_reading_modern_gold, p9).
+        POST-READ pass (mirrors _read_surprisal): for each event, run the glass-box truth-conditional operator
+        (hdlab.polarity_operator.event_polarity over the sentence tokens + the event's pred_idx) and the quantifier
+        cardinality reader (read_quantifier over the coref-resolved subject NP = the pre-predicate region), and set
+        the ADDITIVE EventRecord fields polarity / polarity_provenance / quantity / quantity_exception. Sets ONLY the
+        new fields -- extraction is UNCHANGED (every existing field byte-identical off vs on; the pass mutates no
+        existing field). The per-sentence verb set is the reader's OWN extracted predicates (the light scope lexicon
+        -- exactly the wired-reader landing prototype's config). polarity in {+1 holds, -1 does-not-hold, 0 abstain};
+        a 0 (undetermined complement, e.g. 'want to X') is stored AS 0 (a consumer maps it per its own factuality
+        policy -- the operator never over-negates). Glass-box: pure symbolic; NO spaCy / NO external LLM / NO learned
+        NLI (the invariant). event_polarity/read_quantifier import nothing at inference beyond stdlib (the unified
+        state_match path is used only by a query consumer, not by this metadata pass)."""
+        from hdlab.polarity_operator import event_polarity, read_quantifier, canon
+        verbs_by_sent: Dict[int, set] = {}
+        for e in sm.events:
+            verbs_by_sent.setdefault(e.sent_idx, set()).add(canon(e.predicate))
+        for e in sm.events:
+            si = e.sent_idx
+            toks = sents[si] if 0 <= si < len(sents) else []
+            pidx = e.pred_idx if e.pred_idx is not None else -1
+            pol = event_polarity(toks, pidx, e.predicate, verb_lows=verbs_by_sent.get(si))
+            e.polarity = pol.polarity
+            e.polarity_provenance = pol.provenance
+            q = read_quantifier(toks, subject_region=(0, pidx if pidx >= 0 else len(toks)))
+            e.quantity = q.card
+            e.quantity_exception = q.exception
 
     # -- CAUSATION: cause->outcome on the passage's causal-connective sentences --
     def _read_causation(self, sents) -> List[CausalLink]:
@@ -3538,6 +3603,17 @@ class SituationReader:
             # NO TIMEX date channel + NO duration extractor today -> before/after rides on cue+iconicity, longer
             # abstains (the honest gaps, the SOLVED named follow-ons).
             self._read_temporal_reasoning(sm, sents)
+        if self.read_polarity:
+            # TRUTH-CONDITIONAL POLARITY + QUANTITY dimension: set the ADDITIVE EventRecord fields polarity /
+            # polarity_provenance / quantity / quantity_exception via the glass-box hdlab.polarity_operator (event
+            # negation operator + Johnson-Laird quantifier cardinality) over each event's sentence tokens + pred_idx.
+            # Runs LAST so it reads the FINAL event set (predicate/pred_idx are extraction-fixed; polarity depends on
+            # the tokens + pred_idx, not the patient, so order is immaterial to the values). PURE ADD -- sets ONLY the
+            # four new fields; predicate/agent/patient/tense/subj_role/obj_role/affect/patient_conf are byte-identical
+            # off vs on. From the owner-DONE p9 (represent_negation_and_quantifier_scope...). The QA/coref/goal/causal
+            # consumers read propositions polarity-blind today -> this is the field they will consume (flip-on: additive
+            # + no-regress). NO spaCy / NO LLM. flag-off (read_polarity=False) = the pre-landing reader (byte-identical).
+            self._read_polarity(sm, sents)
         return sm
 
 
