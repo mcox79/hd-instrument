@@ -149,6 +149,15 @@ def _informational_19c_crossref():
 #                             the flag-OFF incumbent (~0.5032) + the info-free shuffled-identity twin -- the
 #                             +0.082 CI-sep gain the board's URG-resolver `coref` tile does NOT show (a DIFFERENT
 #                             resolver). Reuses verification/test_coref_stack_landing's W1 measurement verbatim.
+#   event_goal_congruence  -- structured-matcher p4 (WordNet-antonym-thwart + FrameNet-converse-satisfy, MODERN
+#                             head-pairs): the STRUCTURED SIGN matcher (hdlab.structured_matcher.congruence) that
+#                             signs event<->goal satisfy/thwart (~0.9750) vs the polarity-blind ATL-hub baseline
+#                             (bridging_inference relatedness thresholded, SWEPT to best on this population ~0.4917
+#                             -- chance, rel(win,lose)~=rel(sell,buy)) CI-sep + the info-free shuffled-KB twin
+#                             (~0.4917, loses -> the EDGES carry the sign) -- the +0.483 signing win that moves NO
+#                             board dim today (the OCC arm has no headroom; the matcher fires 0/24 there). Carries
+#                             the polarity-isolation slice (antonym subset: hub ~0.000 vs structured ~0.950).
+#                             Reuses exp_structured_matcher_event_goal_v1.run verbatim (witness EG1/EG2/EG3).
 # ==================================================================================================
 def _degraded(name, err, informational=False):
     """A schema-shaped row for an arm whose asset/runtime is unavailable (degrade-gracefully, like
@@ -938,6 +947,77 @@ def board_natural_logic_monotonicity_dimension(smoke=False):
         return _degraded("natural_logic_monotonicity", e), {"error": "%s: %s" % (type(e).__name__, e)}
 
 
+def board_event_goal_congruence_dimension(smoke=False):
+    """EVENT<->GOAL CONGRUENCE board arm on a relatedness-MATCHED MODERN-vocabulary gold (n=120: 60 WordNet-
+    antonym-thwart + 60 FrameNet-converse-satisfy, all ATL-hub-related). This capability is board-INVISIBLE today
+    -- the OCC-appraisal arm has NO headroom for it (the structured matcher fires 0/24 there), so the proven
+    event<->goal SIGN win (structured_semantic_matching_for_event_goal..., owner-DONE p4; landed
+    hdlab.structured_matcher) moves NO board dim. This arm scores it directly by REUSING the solver's OWN
+    measurement verbatim (exp_structured_matcher_event_goal_v1.run, the exact path witness EG1/EG2/EG3 asserts):
+    build the relatedness-matched held-out gold, run the STRUCTURED matcher congruence() sign vs the polarity-blind
+    ATL-hub baseline (bridging_inference relatedness thresholded, SWEPT to its best on this population) + the
+    info-free shuffled-KB twin, paired bootstrap over items.
+
+    model = STRUCTURED signed acc (~0.9750, the brain's structured relational store -- Binder-Desai combinatorial
+    semantics); strongest floor = the SWEPT HUB baseline (~0.4917 -- chance; the polarity-blind ATL hub cannot sign
+    matched-relatedness opposite-label pairs, rel(win,lose) ~= rel(sell,buy)); twin = shuffled-KB (~0.4917, permute
+    the edge maps -> the sign becomes random, loses -> the EDGES carry the sign, not merely 'having a KB'). Carries
+    the polarity-isolation slice (on the antonym subset the hub is at/below chance while structured is high).
+    Bootstrap CIs come straight from the cell's paired bootstrap. Kept OUT of the 19c-free headline aggregate (its
+    own row). OFF in the board self-test. Degrades gracefully (WordNet/FrameNet/ConceptNet absent -> a schema-shaped
+    degraded row, never crashes the board). MODERN (WordNet/FrameNet modern-vocabulary head-pairs, NOT 19c)."""
+    try:
+        import experiments._hashseed_guard  # noqa: F401  (pins PYTHONHASHSEED=0 -> reproducible WordNet/FrameNet sampling)
+        import experiments.exp_structured_matcher_event_goal_v1 as EG
+        r = EG.run(smoke=smoke)
+        vh = r["margins"]["vs_hub"]; vt = r["margins"]["vs_twin"]
+        ant = r["by_slice"]["antonym_thwart"]; con = r["by_slice"]["converse_satisfy"]
+        row = {
+            "n": r["n"], "model_acc": round(float(r["acc"]["structured"]), 4),
+            "overlap_floor": round(float(r["acc"]["hub_baseline"]), 4),
+            "floor_accs": {"hub_baseline_swept": round(float(r["acc"]["hub_baseline"]), 4)},
+            "strongest_floor_name": "hub_baseline_swept",
+            "strongest_floor": round(float(r["acc"]["hub_baseline"]), 4),
+            "twin_acc": round(float(r["acc"]["twin"]), 4),
+            "model_minus_strongest": [round(float(vh["delta"]), 4), round(float(vh["ci"][0]), 4),
+                                      round(float(vh["ci"][1]), 4)],
+            "model_minus_twin": [round(float(vt["delta"]), 4), round(float(vt["ci"][0]), 4),
+                                 round(float(vt["ci"][1]), 4)],
+            "ci_sep_over_strongest": bool(vh["ci_sep"]),
+            "ci_sep_over_twin": bool(vt["ci_sep"]),
+            "hub_best_threshold": r["hub_best_thr"],
+            "vs_hub_null_p95": vh["null_p95"], "vs_twin_null_p95": vt["null_p95"],
+            "polarity_isolation": {
+                "antonym_thwart": {"n": ant["n"], "structured": ant["structured"], "hub": ant["hub_baseline"]},
+                "converse_satisfy": {"n": con["n"], "structured": con["structured"], "hub": con["hub_baseline"]}},
+            "population": "relatedness-MATCHED modern-vocabulary held-out gold (n=%d: %d WordNet-antonym-thwart + "
+                          "%d FrameNet-converse-satisfy, all ATL-hub-related); model=STRUCTURED matcher "
+                          "congruence() sign (converse->satisfy, antonym->thwart, else hub-fuzzy/abstain), "
+                          "floor=polarity-blind ATL hub (bridging_inference relatedness thresholded, SWEPT to best "
+                          "on this population -> chance), twin=info-free shuffled-KB (permute the edge maps). "
+                          "Paired bootstrap over items. MODERN (WordNet/FrameNet head-pairs, NOT 19c)."
+                          % (r["n"], ant["n"], con["n"])}
+        detail = {"note": "the brain's TWO-STORE split as a SCORED organ (structured_semantic_matching_for_event_"
+                          "goal..., owner-DONE p4; landed hdlab.structured_matcher): the ATL hub (bridging_inference) "
+                          "supplies fuzzy relatedness but is BLIND to the SIGN/direction of a relation (rel(win,lose) "
+                          "~= rel(sell,buy)); the structured relational store reads the SIGN off WordNet antonymy + "
+                          "FrameNet Perspective_on converse + ConceptNet (Binder-Desai combinatorial semantics; "
+                          "Lambon-Ralph hub-and-spoke). The FIRST board arm scoring event<->goal congruence: model "
+                          "%.4f vs the swept hub floor %.4f (%+.4f CI-sep) + the shuffled-KB twin %.4f (loses -> the "
+                          "EDGES carry the sign). POLARITY ISOLATION: on the antonym subset the hub is %.4f (at/below "
+                          "chance -- it predicts satisfy for every high-related antonym) while structured is %.4f. "
+                          "BOARD-INVISIBLE until now: the OCC-appraisal arm has no headroom (the matcher fires 0/24 "
+                          "there), so this proven +0.48 signing win moved no board dim. This arm ALSO gives the "
+                          "deferred affect flip-gate a live instrument to re-measure on. Reuses exp_structured_"
+                          "matcher_event_goal_v1.run verbatim (witness EG1/EG2/EG3). 'live != scored' -- the "
+                          "board-invisible-proven-win-needs-its-own-instrument-arm case."
+                          % (row["model_acc"], row["strongest_floor"], row["model_minus_strongest"][0],
+                             row["twin_acc"], ant["hub_baseline"], ant["structured"])}
+        return row, detail
+    except Exception as e:
+        return _degraded("event_goal_congruence", e), {"error": "%s: %s" % (type(e).__name__, e)}
+
+
 def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True):
     """Assemble every MODERN per_dimension row. caps = dict of per-arm caps for a fast self-test.
     run_new_arms adds the 3 board-invisible-win arms (coarse-sense/selective-reliability/causal-multihop) as
@@ -1016,6 +1096,9 @@ def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True
         nl_row, nl_det = board_natural_logic_monotonicity_dimension(smoke=bool(caps.get("natlog_smoke")))
         new_arms["natural_logic_monotonicity"] = nl_row
         new_arms_detail["natural_logic_monotonicity"] = nl_det
+        eg_row, eg_det = board_event_goal_congruence_dimension(smoke=bool(caps.get("event_goal_smoke")))
+        new_arms["event_goal_congruence"] = eg_row
+        new_arms_detail["event_goal_congruence"] = eg_det
 
     crossref = _informational_19c_crossref()
 
