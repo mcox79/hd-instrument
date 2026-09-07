@@ -1,7 +1,6 @@
 ---
-priority: 11
 slug: expand_the_clean_semantic_memory_foundation_with_world_knowledge_via_the_consolidation_gate
-status: CANDIDATE
+status: INTEGRATED
 review:
 review_text:
 ---
