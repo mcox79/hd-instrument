@@ -1,7 +1,6 @@
 ---
-priority: 4
 slug: improve_the_common_noun_coref_candidate_quality_the_resolver_trails_string_identity
-status: CANDIDATE
+status: INTEGRATED
 review:
 review_text:
 ---

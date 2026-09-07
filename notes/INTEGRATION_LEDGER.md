@@ -14,6 +14,26 @@
 
 ---
 
+## 2026-09-07 (CONT-21) — COMMON-NOUN COREF now BEATS string-identity (a strategy-filed brief, solved) + 3 wins made BOARD-VISIBLE + the GENERATIVE WORLD-MODEL filed as the main event
+
+Owner-DONE + realization work, reverified first-hand, landed additive/no-regress, committed path-limited (NOTHING pushed). **Mechanism detail = audit §2b (newest).**
+
+### improve_the_common_noun_coref_candidate_quality_the_resolver_trails_string_identity  [INTEGRATED; EXCELLENT; reverified 6 suites / 28 checks]  *(a brief STRATEGY filed from the p11 coref flip-gate finding — the fleet solved it; the located leverage is now CLOSED)*
+- **THE WIN:** the board's `common_noun_coref` dim FLIPS from a located-negative to a WIN — **0.5671 vs same-head string-identity 0.5412 (+0.0259 CI-sep)**, +0.0792 over the incumbent 0.4879, twin loses, pronoun/kb byte-identical, name +0.024. 3 brain-faithful levers each unearthed by diagnosing WHY the naive fix failed: (1) TYPED CARD IDENTITY (nominal vs full card — ~47%-accurate pronoun binding was polluting the shared DRT card; +0.0439, pronoun byte-identical); (2) NON-WRITING (Nref) different-head bridge (resolve for THIS reference, don't commit the merge — the WRITE crashes the same-head chain 0.769→0.694, always-hold REQUIRED); (3) seed from the landed `hdlab.typed_spokes.coref_type_license`.
+- **VINDICATES the p11 coref flip-gate:** the SAME typed_spokes organ that was net-NEGATIVE as a WRITING FILTER on the live pick is net-POSITIVE here as a NON-WRITING candidate SEED — the write was the cost, confirmed both directions.
+- **LANDED (board-visible, not latent):** the 4 levers wired into the URG `Resolver` (`exp_unified_referent_gum_v1.py`, the board instrument) as opt-in flags (default OFF byte-identical) + the board common-row (`exp_board_coref_gum_v1.py`) calls them ON; memoized comparator ~7x. A BOARD-INSTRUMENT (URG proxy) landing, NOT the live `commonnoun_binder` path. Both files untracked-but-not-ignored → plain git add.
+- **HONEST SCOPE:** a per-mention RESOLUTION-accuracy win (board's metric + downstream binding), NOT cluster-F1; the different-head residual is 84% world-knowledge → the sibling P31 entity-type-KB (filed pri 8) is the ONLY remaining accuracy lever (ranking is headroom-free). **FOLLOW-ONS: promote the typed-coref path to a hdlab organ (dedup + live-reader propagation); eval other card consumers on the nominal view; P31 KB.**
+
+### 3 PROVEN WINS made BOARD-VISIBLE (realization — the plan's "show the wins" prep)
+- **natural-logic monotonicity** arm 0.767 vs 0.535/0.503 CI-sep (+ live sm.natural_logic/entails query) — `870cf57ed`.
+- **event↔goal congruence** arm 0.9750 vs 0.4917 (+0.4833 CI-sep, twin loses) — `21515fce7`.
+- **SEM segmentation** arm — the loop-closure north-star: SEM rho 0.1235 vs incumbent 0.0668 vs ACTUAL humans, 55.5% of the noise ceiling, ≥ GPT-2 (honest point estimate, no CI) — `56f55e084`.
+
+### FILED — the MAIN EVENT (owner-endorsed 2026-09-07)
+- `build_the_generative_result_state_world_model` (PRIORITY 1, cert 8/8) — the generative result-state world-model / recurrent top-down loop that 5 SOLVEDs named as the shared completing lever. First slice = SDRT full non-adjacent TellMeWhy; bar = subset-win → full-population CI-sep win. **STOP filing it as a follow-on; it is now the #1 problem.** [[reasoning-machinery-shown-not-end-to-end-build-the-generative-world-model]]
+
+---
+
 ## 2026-09-07 (CONT-20) — p7 (SDRT coherence reader) + p6 (eventive-NOMINAL channel → default-ON + script wire) INTEGRATED + p11 natural-logic REALIZED + 1 follow-on FILED
 
 All owner-DONE / realization work, reverified first-hand, landed ADDITIVE/byte-identical, committed path-limited (NOTHING pushed). **Mechanism detail = audit §2b (newest entries).**
