@@ -138,6 +138,12 @@ def _informational_19c_crossref():
 #   negation_quantifier    -- truth-conditional p9 (UD-EWT negation net-factuality + MED downward-monotone
 #                             quantifier; MODERN): the landed read_polarity field scored vs the polarity/quantity-
 #                             blind floor (which INVERTS under negation) + the info-free shuffled-cue twin.
+#   natural_logic_monotonicity -- natural-logic p11 (MED downward/upward monotonicity; MODERN): the parse-free
+#                             closed-class monotonicity reasoner over the C5 is-a spoke (hdlab.typed_spokes.
+#                             natural_logic_label) -- self-detected-monotonicity acc ~0.767 vs a symmetric-cosine
+#                             oracle (~0.535) + majority (~0.503) CI-sep + the shuffled-monotonicity twin (~0.540,
+#                             loses -> polarity load-bearing), ~85% coverage. Reuses exp_natural_logic_monotonicity_
+#                             med_v1.run(light=True) verbatim (witness W13/W14).
 #   coref_via_reader       -- p12 coref stack (GUM he/she; MODERN): the LIVE EventCentralityReader pronoun pick
 #                             with the phi_person_filter/narrow_him/soften_generic_suppress wires ON (~0.5855) vs
 #                             the flag-OFF incumbent (~0.5032) + the info-free shuffled-identity twin -- the
@@ -853,6 +859,81 @@ def board_coref_via_reader_dimension(n_docs=None, seed=13, n_boot=2000):
         return _degraded("coref_via_reader", e), {"error": "%s: %s" % (type(e).__name__, e)}
 
 
+def board_natural_logic_monotonicity_dimension(smoke=False):
+    """NATURAL-LOGIC MONOTONICITY board arm on MODERN gold (MED, Yanaka 2019). This capability is board-INVISIBLE
+    today -- no dimension scores the parse-free natural-logic entailment reasoner (p11, landed into
+    hdlab.typed_spokes: is_downward / entails / natural_logic_label), even though it validated near-human on MED
+    (self-detected-monotonicity acc 0.767 vs majority 0.503 + a symmetric-cosine oracle 0.535, 85% coverage, the
+    shuffled-monotonicity twin loses -> polarity load-bearing). This arm scores it directly by REUSING the solver's
+    OWN measurement verbatim (exp_natural_logic_monotonicity_med_v1.run, light=True -- the exact path witness
+    W13/W14 asserts: the MED gold-loading + the typed_spokes natural_logic_label scoring; the POS/parser-heavy
+    informational drills are skipped for speed, ~4s full).
+
+    model = self-detected-monotonicity acc (the brain's FAST closed-class operator-recognition register); strongest
+    floor = the SYMMETRIC sentence-cosine oracle (0.535 -- distributional similarity cannot do the directed/structural
+    edit) with the majority floor (0.503) carried alongside (both CI-sep); twin = the shuffled-monotonicity info-free
+    control (permute the up/down polarity labels -> collapses, proving the POLARITY is load-bearing not just the edit
+    type). Bootstrap CIs come straight from the cell's boot_margin. Kept OUT of the 19c-free headline aggregate (its
+    own row). OFF in the board self-test. Degrades gracefully (MED gold absent -> a schema-shaped degraded row, never
+    crashes the board). MODERN (MED = FraCaS + GLUE-diagnostic + hand-built, NOT 19c)."""
+    try:
+        import experiments.exp_natural_logic_monotonicity_med_v1 as NL
+        if not os.path.exists(NL.MED):
+            return _degraded("natural_logic_monotonicity", "MED.tsv not on disk (data/corpora/med/MED.tsv)"), {}
+        r = NL.run(smoke=smoke, light=True)   # light: skip the POS/parser-heavy informational drills (~4s full)
+        acc, mg = r["acc"], r["margins"]
+        self_acc = acc["natural_logic_self_detected_monotonicity"][0]
+        maj = acc["majority_floor"]
+        sym = acc["symmetric_sentence_cosine_oracle"]
+        twin = acc["shuffled_monotonicity_twin"][0]
+        m_sym = mg["natlog_vs_symmetric"]; m_maj = mg["natlog_vs_majority"]; m_tw = mg["natlog_vs_shuffled_twin"]
+        # strongest floor = the higher of {majority, symmetric-cosine oracle}
+        floor_accs = {"majority": round(float(maj), 4), "symmetric_cosine_oracle": round(float(sym), 4)}
+        fname = max(floor_accs, key=floor_accs.get)
+        m_strong = m_sym if fname == "symmetric_cosine_oracle" else m_maj
+        row = {
+            "n": r["n_covered"], "model_acc": round(float(self_acc), 4),
+            "overlap_floor": floor_accs[fname],
+            "floor_accs": floor_accs, "strongest_floor_name": fname, "strongest_floor": floor_accs[fname],
+            "twin_acc": round(float(twin), 4),
+            "model_minus_strongest": [m_strong["delta"], m_strong["lo"], m_strong["hi"]],
+            "model_minus_twin": [m_tw["delta"], m_tw["lo"], m_tw["hi"]],
+            "ci_sep_over_strongest": bool(m_strong["sep"]),
+            "ci_sep_over_twin": bool(m_tw["sep"]),
+            "model_minus_majority": [m_maj["delta"], m_maj["lo"], m_maj["hi"]],
+            "ci_sep_over_majority": bool(m_maj["sep"]),
+            "model_minus_symmetric": [m_sym["delta"], m_sym["lo"], m_sym["hi"]],
+            "ci_sep_over_symmetric": bool(m_sym["sep"]),
+            "coverage": r["coverage"],
+            "oracle_monotonicity_upperbound": acc["natural_logic_ORACLE_monotonicity_upperbound"][0],
+            "per_edit_acc": r["per_edit_acc"],
+            "population": "MED entailment/neutral (Yanaka 2019 monotonicity NLI = FraCaS + GLUE-diagnostic + "
+                          "hand-built, MODERN; n_covered=%d, coverage %.3f = ~85%% of MED via full natural logic, up "
+                          "from the ~15%% single-is-a-substitution slice); model=self-detected-monotonicity natural-"
+                          "logic judge (parse-free closed-class is_downward marker x edit-direction over the C5 is-a "
+                          "spoke, hdlab.typed_spokes.natural_logic_label), floor=SYMMETRIC sentence-cosine oracle "
+                          "(best threshold -- cannot do the directed/structural edit) + majority (both carried CI-sep), "
+                          "twin=shuffled-monotonicity (permute up/down polarity -> collapses). Bootstrap CI. MODERN."
+                          % (r["n_covered"], r["coverage"]),
+        }
+        detail = {"note": "glass-box NATURAL LOGIC / monotonicity calculus (van Benthem; Sanchez-Valencia; "
+                          "MacCartney-Manning 2009) over the C5 is-a typed spoke -- the FIRST board arm scoring the "
+                          "parse-free monotonicity reasoner (the brain's FAST closed-class operator-recognition "
+                          "register; Neville 1992, Pulvermuller 1995). Load-bearing claim scoped to BOTH the "
+                          "distributional (symmetric-cosine oracle %.3f, +%.4f CI-sep) and the majority (%.3f, +%.4f "
+                          "CI-sep) floors; the shuffled-monotonicity twin (%.3f, +%.4f CI-sep) proves the POLARITY is "
+                          "load-bearing, not just the edit type. The ORACLE-monotonicity upper bound is %.3f (the "
+                          "residual = positional restrictor/body scope, the SLOW register -- a bounded parser lever, "
+                          "not a ceiling). Reuses exp_natural_logic_monotonicity_med_v1.run(light=True) verbatim "
+                          "(witness W13/W14). 'live != scored' -- the board-invisible-proven-win-needs-its-own-"
+                          "instrument-arm case."
+                          % (sym, m_sym["delta"], maj, m_maj["delta"], twin, m_tw["delta"],
+                             row["oracle_monotonicity_upperbound"])}
+        return row, detail
+    except Exception as e:
+        return _degraded("natural_logic_monotonicity", e), {"error": "%s: %s" % (type(e).__name__, e)}
+
+
 def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True):
     """Assemble every MODERN per_dimension row. caps = dict of per-arm caps for a fast self-test.
     run_new_arms adds the 3 board-invisible-win arms (coarse-sense/selective-reliability/causal-multihop) as
@@ -928,6 +1009,9 @@ def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True
         new_arms["negation_quantifier"] = nq_rows; new_arms_detail["negation_quantifier"] = nq_det
         cvr_row, cvr_det = board_coref_via_reader_dimension(n_docs=caps.get("gum"))
         new_arms["coref_via_reader"] = cvr_row; new_arms_detail["coref_via_reader"] = cvr_det
+        nl_row, nl_det = board_natural_logic_monotonicity_dimension(smoke=bool(caps.get("natlog_smoke")))
+        new_arms["natural_logic_monotonicity"] = nl_row
+        new_arms_detail["natural_logic_monotonicity"] = nl_det
 
     crossref = _informational_19c_crossref()
 

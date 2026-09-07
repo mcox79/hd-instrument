@@ -562,6 +562,23 @@ class SituationModel:
     temporal_before: Optional[object] = None
     overlaps: Optional[object] = None
     longer: Optional[object] = None
+    # opt-in NATURAL-LOGIC MONOTONICITY dimension (DOES-S1-ENTAIL-S2 by the parse-free monotonicity calculus):
+    # read-only CALLABLES bound at read time when the reader is built with track_natural_logic=True (default-on).
+    # The MEANING-channel sibling of the causal/spatial/temporal reasoners -- a glass-box natural-logic judge
+    # (van Benthem; Sanchez-Valencia; MacCartney-Manning 2009) over the C5 is-a typed spoke via the promoted
+    # hdlab.typed_spokes (is_downward = the brain's FAST closed-class operator-recognition register PINNED --
+    # Neville 1992, Pulvermuller 1995; natural_logic_label = single-edit detection x monotonicity rule over the
+    # is-a spoke). natural_logic(s1, s2) -> 'entailment' | 'neutral' | None (abstain on complex/uncovered edits);
+    # entails(s1, s2) -> True (entailment) | False (neutral) | None (abstain) -- the boolean convenience read.
+    # PURE ADD -- new read-only callables via hdlab.typed_spokes; reads only the two supplied sentences, mutates
+    # NO existing field (byte-identical off vs on). LAZY -- imports/reads nothing until a callable is invoked
+    # (default read byte-identical). A NEW ISLAND (no downstream consumer today -> no regression). ABSTAINS
+    # cleanly (returns None) on complex/uncovered edits or when WordNet/the spoke is absent (never raises). It
+    # validated near-human on MED (self-detected-monotonicity acc 0.767 vs majority 0.503 + a symmetric-cosine
+    # oracle 0.535, ~85% coverage, the shuffled-monotonicity twin loses). From the natural-logic p11 SOLVED
+    # (expand_the_clean_semantic_memory_foundation_with_world_knowledge_via_the_consolidation_gate).
+    natural_logic: Optional[object] = None
+    entails: Optional[object] = None
     memory_roundtrip: Dict[str, float] = field(default_factory=dict)
     # per-dimension honest accuracy (coref only; scored vs LitBank gold on this passage)
     coref_acc: Optional[float] = None
@@ -884,6 +901,7 @@ class SituationReader:
                  track_causal_reasoning: bool = True,
                  track_spatial_reasoning: bool = True,
                  track_temporal_reasoning: bool = True,
+                 track_natural_logic: bool = True,
                  joint_temporal_events: bool = True,
                  joint_nominal_events: bool = False,
                  read_polarity: bool = True,
@@ -1328,6 +1346,22 @@ class SituationReader:
         # magnitude-line primitive is available for a caller that supplies duration premises). NO spaCy / NO external
         # LLM at inference. flag-off (track_temporal_reasoning=False) = the pre-landing reader.
         self.track_temporal_reasoning = bool(track_temporal_reasoning)
+        # NATURAL-LOGIC MONOTONICITY stage (default-on track_natural_logic; wired 2026-09-07 from the natural-logic
+        # p11 SOLVED, expand_the_clean_semantic_memory_foundation_with_world_knowledge_via_the_consolidation_gate).
+        # Binds the MEANING-channel inference organ -- read-only callables (sm.natural_logic(s1,s2) + sm.entails(s1,s2))
+        # that judge sentence-pair entailment by the glass-box natural-logic / monotonicity calculus (van Benthem;
+        # Sanchez-Valencia; MacCartney-Manning 2009) over the C5 is-a typed spoke via the promoted hdlab.typed_spokes:
+        # the PARSE-FREE closed-class monotonicity marker is_downward (the brain's FAST operator-recognition register --
+        # Neville 1992, Pulvermuller 1995) x single-edit detection (sub/del/ins) x the monotonicity rule over the is-a
+        # spoke (natural_logic_label). Validated near-human on MED (self-detected-monotonicity acc 0.767 vs majority
+        # 0.503 + a symmetric-cosine oracle 0.535, ~85% coverage; the shuffled-monotonicity twin loses -> polarity
+        # load-bearing). LAZY + ADDITIVE: the closures import/read NOTHING until a callable is invoked (zero read-time
+        # cost -> default read BYTE-IDENTICAL), sm.natural_logic / sm.entails stay None until a callable is invoked, and
+        # every readout DEGRADES GRACEFULLY -- abstains (returns None) on complex/uncovered edits or when WordNet/the
+        # spoke asset is absent, never raises. It reads only the two supplied sentences + mutates NO existing field. A
+        # NEW ISLAND / query layer (no downstream consumer today -> no regression). NO spaCy / NO external LLM at
+        # inference. flag-off (track_natural_logic=False) = the pre-landing reader.
+        self.track_natural_logic = bool(track_natural_logic)
         # JOINT TENSE-AGNOSTIC TEMPORAL EVENT SET (default-ON joint_temporal_events; wired 2026-09-07 from the
         # owner-DONE extract_relations_from_prose_whole_subgraph_survival_the_shared_reasoner_bottleneck, Q111 P1).
         # ROUTES the TEMPORAL-channel event DETECTOR (the set the TemporalReasoner is built over) through the promoted
@@ -1689,6 +1723,7 @@ class SituationReader:
         "affect_structured_matcher",
         "track_bridges", "track_senses",
         "track_prediction", "track_causal_reasoning", "track_spatial_reasoning", "track_temporal_reasoning",
+        "track_natural_logic",
         "joint_temporal_events", "joint_nominal_events",
         "read_polarity",
         "structural_patient", "causal_mental_bridge", "goal_purpose_filter", "entity_kb_resolver",
@@ -3525,6 +3560,51 @@ class SituationReader:
         sm.longer = longer
         # the TemporalReasoner is built LAZILY inside the closures on first invocation -- zero read-time cost / no build.
 
+    def _read_natural_logic(self, sm, sents) -> None:
+        """Opt-in NATURAL-LOGIC MONOTONICITY dimension (default-on track_natural_logic; wired 2026-09-07 from the
+        natural-logic p11 SOLVED). MIRRORS _read_causal_reasoning / _read_temporal_reasoning (the MEANING-channel
+        inference organ). Bind read-only QUERY callables that JUDGE sentence-pair entailment by the glass-box
+        natural-logic / monotonicity calculus (van Benthem; Sanchez-Valencia; MacCartney-Manning 2009) over the C5
+        is-a typed spoke, via the promoted hdlab.typed_spokes:
+
+          sm.natural_logic(s1, s2) -> 'entailment' | 'neutral' | None  (the full glass-box readout: detect the single
+                                      edit sub/del/ins, mark the polarity with the PARSE-FREE closed-class is_downward
+                                      marker -- the brain's FAST operator-recognition register -- apply the
+                                      monotonicity rule over the is-a spoke; None = abstain on complex/uncovered edits)
+          sm.entails(s1, s2)       -> True (entailment) | False (neutral) | None (abstain) -- the boolean convenience
+
+        HOW IT COMPUTES (no reader state consumed): the judge is a function of the TWO SUPPLIED SENTENCES only (the
+        edit between them + their closed-class polarity operators + the frozen C5 is-a spoke) -- it does NOT read
+        sm.events / sm.entities / any extracted field, so it composes cleanly at read time as a pure query surface
+        (unlike the causal/spatial/temporal reasoners which walk the reader's OWN extracted graph). Validated
+        near-human on MED (self-detected-monotonicity acc 0.767 vs majority 0.503 + a symmetric-cosine oracle 0.535,
+        ~85% coverage; the shuffled-monotonicity twin loses -> the compositional polarity is load-bearing).
+
+        PURE ADD: sets ONLY sm.natural_logic + sm.entails; touches NO existing field (byte-identical off vs on). LAZY
+        -- the closures import hdlab.typed_spokes + read WordNet/the spoke only when a callable is INVOKED (zero
+        read-time cost -> default read byte-identical), and sm.natural_logic / sm.entails stay None until invoked.
+        DEGRADES GRACEFULLY -- abstains (returns None) on complex/uncovered edits or when WordNet / the frozen spoke
+        asset is absent, never raises. A NEW ISLAND (no downstream consumer today -> no regression). NO spaCy / NO
+        external LLM at inference (a transparent closed-class marker + is-a lookup over the two sentences)."""
+
+        def natural_logic(s1, s2):
+            if s1 is None or s2 is None:
+                return None
+            try:
+                from hdlab.typed_spokes import natural_logic_label
+                return natural_logic_label(str(s1), str(s2))
+            except Exception:
+                return None
+
+        def entails(s1, s2):
+            lab = natural_logic(s1, s2)
+            return None if lab is None else (lab == "entailment")
+
+        sm.natural_logic = natural_logic
+        sm.entails = entails
+        # the typed_spokes import + WordNet/spoke read happen LAZILY inside the closures on first invocation --
+        # zero read-time cost / nothing loaded until a callable is invoked.
+
     def _read_entity_states(self, sm, sents) -> None:
         """COPULAR is-a/attribute BINDING (default-off bind_entity_states; wired 2026-09-03 from the owner-DONE
         the_reader_has_no_copular_is_a_binding_schema, 10/10+6/6). For each sentence, recover the labeled copular
@@ -3826,6 +3906,16 @@ class SituationReader:
             # NO TIMEX date channel + NO duration extractor today -> before/after rides on cue+iconicity, longer
             # abstains (the honest gaps, the SOLVED named follow-ons).
             self._read_temporal_reasoning(sm, sents)
+        if self.track_natural_logic:
+            # NATURAL-LOGIC MONOTONICITY dimension: bind sm.natural_logic(s1,s2) + sm.entails(s1,s2) -- the
+            # MEANING-channel inference organ (glass-box natural-logic / monotonicity calculus over the C5 is-a
+            # typed spoke via hdlab.typed_spokes: the parse-free closed-class is_downward marker x single-edit
+            # detection x the monotonicity rule -- validated near-human on MED, 0.767 vs 0.503/0.535 floors, twin
+            # loses). PURE ADD -- lazy closures only (imports/reads NOTHING until a callable is invoked); sets ONLY
+            # the two callables + leaves sm.natural_logic / sm.entails None until invoked (byte-identical off vs on).
+            # NEW ISLAND -- no downstream consumer today. Abstains cleanly (returns None) on complex/uncovered edits
+            # or an absent spoke. The judge reads only the two supplied sentences (mutates NO existing field).
+            self._read_natural_logic(sm, sents)
         if self.read_polarity:
             # TRUTH-CONDITIONAL POLARITY + QUANTITY dimension: set the ADDITIVE EventRecord fields polarity /
             # polarity_provenance / quantity / quantity_exception via the glass-box hdlab.polarity_operator (event
