@@ -4,9 +4,9 @@ status: REFUTED
 bar: "PASSES only with ALL of: 1. The route built as a glass-box wire, PER non-coref consumer ... 2. Per routed consumer, the unified-referent input beats that consumer's CURRENT input CI-separated on MODERN gold (GUM), reported separately per consumer. The FLOOR is the consumer's CURRENT live input ... gate on the floor's UPPER CI bound. 3. The info-free twin LOSES CI-separated, per consumer ... 4. The he/she coref pick is BYTE-IDENTICAL (untouched). 5. No other downstream consumer regresses. ... A rigorous NEGATIVE is a FULL PASS on any consumer (e.g. '... the affect-experiencer binding does NOT move because the live experiencer subpopulation is already near-ceiling ~0.90 ...'; OR '... the situation-model entity layer already runs the situation-gated common-noun former, which captures the same individuation the unified card would supply, so the route is redundant -- subsumption by a DIFFERENT landed organ, located and counted')."
 result: "On MODERN gold (GUM V12.1.0, 137-doc TEST split; scorers per consumer; doc-level paired bootstrap 2000x; grouping BYTE-FAITHFUL to hdlab.unified_referent.resolve_unified_stream, self-test asserted), routing the unified referent to the three live NON-coref consumers does NOT deliver a per-consumer CI-separated gain -- a rigorous LOCATED NEGATIVE (a full pass under the bar). PER consumer: (C1) SITUATION-MODEL ENTITY LAYER, CoNLL b3/muc/ceafe avg over non-pronoun mentions: unified grouping 0.6976 vs the LIVE floor (commonnoun_binder.situation_predict) 0.6939 = +0.0036 CI[+0.0008,+0.0063] -- a MARGINAL CI-sep edge that is SUBSUMED by a DIFFERENT dormant landed organ (the entity-KB resolver reader_coref=None = 0.7033 > unified 0.6976). (C2) ENTITY-KB HARD-LINK (a common noun of a NAMED entity files under the named record), n=2587: unified grouping 0.0139 vs live floor 0.0228 = -0.0089 (REGRESSES; == blind surface-head 0.0139 -> the unified card supplies NO cross-type common->name bridge). (C3) AFFECT/GOAL EXPERIENCER BIND (person common-noun experiencer files under the named entity), n=295: unified grouping 0.0508 vs live floor 0.1288 = -0.0780 (REGRESSES). The reader_coref route is INERT: feeding the entity-KB resolver the unified card head-sets changes 0 labels across 137 docs (delta +0.0000), and feeding it the reader's OWN two-pass clustering head-sets (the +0.0882-on-19c-LitBank lever) moves the CoNLL by +0.0000 (325 diffs, CI[-0.0001,+0.0001]) -- the reader_coref lever is a 19c-only effect, not a wrong-source problem. Unified completed-gender injection is flat (-0.0004). The he/she coref pick is BYTE-IDENTICAL with the route on (16/16 docs)."
 floor: "The strongest floor actually run, recomputed on the SAME GUM TEST population + scorer per consumer: (C1) the LIVE default entity-layer clustering commonnoun_binder.situation_predict = 0.6939 CoNLL avg (disk-verified default: commonnoun_situation_gate=True, entity_kb_resolver=False); (C2) situation_predict hard-link 0.0228; (C3) situation_predict experiencer bind 0.1288. Reference alternatives run on the SAME population: the DORMANT entity-KB resolver resolve_common_noun(reader_coref=None) C1 0.7033 / C2 0.0460 / C3 0.1119 (it DOMINATES the unified grouping on C1/C2), and blind surface-head C1 0.6937 / C2 0.0139 (== the unified grouping on C2/C3 -> no bridge)."
-controls: "(1) SELF-TEST gate: group_unified reproduces the live resolve_unified_stream per-target records EXACTLY (byte-faithful stand-in -> the negative is not a harness artifact). (2) INFO-FREE TWIN = shuffled unified GROUPING (same #cards + size shape, random membership): LOSES CI-sep on the size-robust CoNLL (unified-twin +0.3707 CI[+0.360,+0.382]) -> the grouping IS load-bearing signal, so the negative is SUBSUMPTION/register, not 'no signal'. (The size-GAMEABLE hard-link metric is INFLATED by the twin -- random merging accidentally shares a name label -- so CoNLL is the valid twin instrument; the p12 scorer-gaming lesson, caught here again.) (3) SOURCE control: reader_coref from the reader's OWN two-pass clustering (the strongest possible source) is ALSO inert on GUM -> excludes 'wrong reader_coref source', the lever is 19c-only. (4) HE/SHE BYTE-IDENTITY: the tuned graded he/she pick (EventCentralityReader graded_pick=True, unified_referent=False) is byte-identical with the full non-coref route applied (disjoint path; 16/16 docs). (5) MODERN gold only (GUM), 19c LitBank NOT used as load-bearing (owner 2026-09-06)."
-files_changed: "experiments/exp_route_unified_to_consumers_gum_v1.py, verification/test_route_unified_to_consumers.py, notes/problems/route_the_unified_referent_to_its_non_coref_consumers_where_it_helps/SOLVED.md. NO hdlab/ written (Q111 -- the finding is DO-NOT-WIRE; strategy owns any hdlab change). Reuses data/corpora/gum/ (pinned GUM V12.1.0, already on disk)."
-reverify: ".venv/Scripts/python.exe verification/test_route_unified_to_consumers.py (8/8) -- re-derives the located negative + the byte-faithful grouping self-test + the he/she byte-identity from experiments.exp_route_unified_to_consumers_gum_v1.run() on the GUM TEST split."
+controls: "(1) SELF-TEST gate: group_unified reproduces the live resolve_unified_stream per-target records EXACTLY (byte-faithful stand-in -> the negative is not a harness artifact). (2) INFO-FREE TWIN = shuffled unified GROUPING (same #cards + size shape, random membership): LOSES CI-sep on the size-robust CoNLL (unified-twin +0.3707 CI[+0.360,+0.382]) -> the grouping IS load-bearing signal, so the negative is SUBSUMPTION/register, not 'no signal'. (The size-GAMEABLE hard-link metric is INFLATED by the twin -- random merging accidentally shares a name label -- so CoNLL is the valid twin instrument; the p12 scorer-gaming lesson, caught here again.) (3) SOURCE control: reader_coref from the reader's OWN two-pass clustering (the strongest possible source) is ALSO inert on GUM -> excludes 'wrong reader_coref source', the lever is 19c-only. (4) HE/SHE BYTE-IDENTITY: the tuned graded he/she pick (EventCentralityReader graded_pick=True, unified_referent=False) is byte-identical with the full non-coref route applied (disjoint path; 16/16 docs). (5) MODERN gold only (GUM), 19c LitBank NOT used as load-bearing (owner 2026-09-06). (6) DEEPENING (built the EXACT mechanism, not just the weak card): the EXACT NE-type+salience/recency cross-type bridge is BUILT and MEASURED -- it achieves ~7-9% bind PRECISION (both cues), does NOT beat the floor CI-sep, and the fidelity classifier shows why (below); this passes the discipline's SECOND gate (a miss is a ceiling only if the brain's ACTUAL mechanism, faithfully built, is what failed)."
+files_changed: "experiments/exp_route_unified_to_consumers_gum_v1.py, experiments/exp_crosstype_bridge_fidelity_gum_v1.py, experiments/exp_route_unified_typed_bridge_gum_v1.py, verification/test_route_unified_to_consumers.py, notes/problems/route_the_unified_referent_to_its_non_coref_consumers_where_it_helps/SOLVED.md. NO hdlab/ written (Q111 -- the finding is DO-NOT-WIRE; strategy owns any hdlab change). Reuses data/corpora/gum/ (pinned GUM V12.1.0, already on disk)."
+reverify: ".venv/Scripts/python.exe verification/test_route_unified_to_consumers.py (13/13) -- re-derives the located negative (R1-R5) + the brain-foundational fidelity deepening (F1-F2c: the cross-type gap is a WK ceiling for non-person + an UN-realizable NE-type upper bound for person, ~7% bind precision both cues) from the three cells on the GUM TEST split."
 ---
 
 # REFUTED -- route the unified referent to its non-coref consumers
@@ -99,6 +99,62 @@ source), completed-gender prior, and the search for a non-tuned pronoun consumer
 capability (extend coref TARGETS to they/it/plural pronouns the tuned he/she pick does not cover) -- that is a different
 problem (a new pronoun-population organ), not "route to non-coref consumers," and I name it as a candidate follow-on.
 
+## DEEPENING -- "if we were EXACT this would perform very well" (aggressive brain-foundational fidelity pass)
+The owner pushed back: a fair test of a WEAK implementation is not proof of a ceiling; the brain plainly keeps
+"Elizabeth", "the doctor", "she" on one card. So I went past the port-faithful card and asked whether an EXACT
+brain-faithful cross-type bridge would perform well. It does NOT on modern gold -- and now for a MEASURED,
+mechanism-level, brain-foundational reason (not an implementation shortcut). This is the discipline's second gate:
+a located negative counts only if the brain's ACTUAL mechanism, faithfully built, is what failed.
+
+**Step 1 -- research (a research-drill agent).** The prior "~81% needs world knowledge" framing (from p11) is NOT
+literature-supported: the Stanford deterministic-sieve OntoNotes error analysis attributes only 41.7% of its
+residual to semantics/discourse; Poesio & Vieira (1998) class the proper-name<->role-noun case as solvable by
+NAMED-ENTITY TYPING (not open-ended lexical bridging); for INVENTED fictional characters no external
+world-knowledge source could even exist. So the gap MIGHT be a narrow-detector coverage ceiling, not an LLM wall.
+(The agent's prose report did not persist to disk -- I did not rely on it; I disk-verified every claim by
+measurement below.)
+
+**Step 2 -- the decisive residual classifier (`exp_crosstype_bridge_fidelity_gum_v1.py`).** Using GUM's GOLD UD
+syntax (deprel/head) + gold coref, I partitioned the common->name hard-link population by RECOVERY MECHANISM
+(glass-box first, an UPPER BOUND per bucket): PRED (explicit apposition/copula/title predication) / TYPE (person
+role-noun + a named person, Poesio-Vieira NE-typing) / KB (ConceptNet/WordNet role-scenario) / WK (genuine
+encyclopedic). Result (275 docs, 1495 hard-links):
+- **NON-PERSON entities (org/place): glass-box ceiling 0.126, WK residual 0.874** -- a genuine WORLD-KNOWLEDGE
+  wall (Argentina->"the country", Frontiers->"the publisher"). p11 was right HERE. LLM-barred.
+- **PERSON entities: glass-box UPPER BOUND 0.769, dominated by TYPE = 494/707 (70%)** -- the optimistic reframe.
+  BUT PRED is only 16/707 and KB 34/707; the 70% is entirely the TYPE bucket, an upper bound that assumes NE-type
+  + salience can DISAMBIGUATE among compatible named persons.
+
+**Step 3 -- build the EXACT NE-type bridge and test whether the upper bound REALIZES
+(`exp_route_unified_typed_bridge_gum_v1.py`).** I built the exact mechanism into the unified card: a person
+role-noun DEFINITE ("the doctor") binds to a gender/number-compatible NAMED-person card by the card's OWN cue --
+swept over BOTH salience (ACT-R base-level activation, the port already computes it) and recency (the Ariel
+definite-description cue), margin-gated, then FILES the descriptor onto the card (Heim/Kamp file-change). Measured
+on GUM (the oracle arm = gold clusters confirms the headroom is real, 1.000):
+- **Bind PRECISION ~7-9% for BOTH cues** (salience 0.072, recency 0.062; margin-swept 0.0-1.5, precision tops out
+  ~0.10). So the 0.769 upper bound does NOT realize: the bridge binds the WRONG named person ~90% of the time.
+- **WHY (two counted causes):** (a) **~77% of person-definites are NOT anaphoric to any name** (achievable = 23%)
+  -> firing on all definites over-fires massively; (b) among the ~23% achievable, neither salience NOR recency
+  identifies the right named person (recall of achievable ~15%) -- multiple compatible persons, and the correct
+  antecedent is not the most-salient/most-recent one.
+- **The exact bridge is net flat-to-NEGATIVE on every consumer** (C1 -0.0036, C2 -0.0008, C3 -0.0068; none CI-sep)
+  -- it introduces more wrong merges than right ones.
+
+**Step 4 -- the brain-foundational reconciliation (this is the real answer).** Ariel (1990) Accessibility
+Hierarchy: a DEFINITE DESCRIPTION is a LOW-accessibility marker, retrieved by DESCRIPTIVE CONTENT (+ recency),
+NOT by salience (the high-accessibility PRONOUN cue). The faithful cue for "the doctor"->"Elizabeth" is therefore
+the file card's DESCRIPTIVE CONDITION -- the entity the text PREDICATED to be a doctor ("Elizabeth, a doctor" /
+"Elizabeth was a doctor"). That predication is the PRED bucket: **~2% of GUM cases (25/1495)**. It is COMMON in
+19c narrative ("Elizabeth, the eldest Miss Bennet, ...") -- the register that is BANNED as load-bearing (owner
+2026-09-06) -- and RARE in modern multi-genre prose. So on modern gold the cross-type definite->name bridge is
+either explicit predication (~2%, glass-box, and already captured by the DORMANT entity-KB resolver's `attrs`
+apposition path) or genuine world-knowledge/unstated (LLM-barred). **NE-type + salience/recency -- the mechanism
+the optimistic upper bound pointed to -- is NOT the brain's cue for definites and does not work (7% precision).**
+The "if we were exact this would perform very well" intuition is TRUE for 19c protagonist-narrative and does NOT
+transfer to modern gold, precisely because the licensing descriptive content is not stated. This CORRECTS the
+research reframe: it IS a wall on modern gold; the "narrow-detector" story holds only for the ~2% predication,
+which a landed organ already handles.
+
 ## What I did NOT establish / would withdraw first if wrong
 - **The marginal C1 +0.0036 CI-sep edge over `situation_predict` is the closest thing to a positive, and the first thing
   I would withdraw.** It is within a hair of its own half-width (0.0028), it is SUBSUMED by the entity-KB resolver, and it
@@ -126,6 +182,16 @@ problem (a new pronoun-population organ), not "route to non-coref consumers," an
 - **The twin re-caught the p12 scorer-gaming trap.** The shuffled twin WON on the hard-link metric (random merging shares
   a name label) but LOST hard on CoNLL -- confirming CoNLL is the size-robust instrument and the hard-link metric must not
   be used for the twin control. Validating the twin against the metric before trusting it is what kept the negative honest.
+- **A glass-box CEILING upper-bound is not a capability -- build the mechanism and measure whether it REALIZES.** The
+  fidelity classifier said "77% of the person gap is NE-type-recoverable," which looked like the refutation was premature.
+  Building the EXACT NE-type bridge and measuring its PRECISION (7%, both cues) is what turned the optimistic upper bound
+  into the real finding: type-COMPATIBILITY is not type-RESOLUTION. The upper bound assumed perfect disambiguation; the
+  faithful mechanism can't disambiguate on modern multi-person text. Always test whether an upper bound realizes.
+- **Ariel's cue-specificity is the whole answer, and I nearly applied the wrong cue.** A definite description resolves by
+  DESCRIPTIVE CONTENT + recency, NOT salience (that is the pronoun cue). "Make the card do salience-binding for the doctor"
+  is LESS brain-faithful, not more -- and testing BOTH cues (both 7%) proved the wall is not wrong-cue but missing-content:
+  the licensing predication is a 19c-narrative feature, banned, and rare on modern gold. Cue-specificity (Ariel) predicted
+  the whole result.
 
 ## AUDIT UPDATE (for BRAIN_FOUNDATIONAL_AUDIT.md sec 2b, E3 coreference / entity tracking)
 - The 2026-09-06 unified-referent DEFAULT-OFF disposition is CONFIRMED and EXTENDED: not only is it subsumed at the he/she
@@ -140,6 +206,14 @@ problem (a new pronoun-population organ), not "route to non-coref consumers," an
 - **NEW deviation to fold in:** the entity-KB resolver's `reader_coref` Step-3 lever (+0.0882 CoNLL on 19c LitBank) does
   NOT transfer to modern GUM (+0.0000, both from the unified card AND from the reader's own two-pass clustering) -- a
   19c-vs-modern register effect on the common->name bridge, which is world-knowledge-bound on modern multi-genre text.
+- **NEW (the fidelity deepening) -- the cross-type common->name bridge on modern gold, decomposed and measured:**
+  NON-PERSON entities are a world-knowledge ceiling (glass-box 0.13 / WK 0.87). PERSON entities have a 0.77 NE-type
+  UPPER BOUND that does NOT realize -- the EXACT NE-type bridge (person-definite -> named person by salience OR recency)
+  achieves ~7% bind precision because ~77% of person-definites are non-anaphoric and the achievable rest is
+  undisambiguable without STATED predication (~2% of GUM, a banned-19c-register feature). The brain-faithful cue for a
+  definite description is DESCRIPTIVE CONTENT + recency (Ariel), not salience; on modern gold the licensing content is
+  either explicitly predicated (~2%, glass-box, already in the dormant entity-KB resolver's `attrs`) or world-knowledge
+  (LLM-barred). So the unified referent -- even made exact -- cannot supply the cross-type bridge on modern gold.
 
 ## Adjacent components (seeds for the next problems -- evaluated for brain-foundational fidelity)
 - **The DORMANT entity-KB resolver (`entity_kb_resolver=False`)** dominates the unified grouping on the entity layer
@@ -175,6 +249,16 @@ tool, while the other two jobs regress -- so the brief's promise (a per-consumer
 the reference-harness lifts transfer to the live jobs) is disproven. If you'd rather log the marginal entity-layer edge as
 a micro-PARTIAL, the actionable recommendation is unchanged: do NOT route the unified referent; if the entity layer is to
 improve, evaluate turning on the dormant entity-KB resolver instead.
+
+Deepening answer to "if we were EXACT this would perform very well": I took that seriously and built the exact
+brain-faithful cross-type bridge (NE-type + salience AND + recency, filing descriptive conditions onto the file card).
+It performs POORLY on modern gold -- ~7% bind precision, net-negative -- for a measured, principled reason: a definite
+description resolves by DESCRIPTIVE CONTENT (Ariel), and the content that licenses "the doctor"->"Elizabeth" is stated
+in only ~2% of modern GUM (it IS common in 19c narrative, which is banned as load-bearing). "Exact" WOULD perform well
+on 19c protagonist-narrative; it does not transfer to modern multi-genre text because the licensing content is not there
+(non-person cases are outright world-knowledge). The one glass-box lever that DOES exist (the ~2% explicit predication)
+is already captured by the dormant entity-KB resolver -- so the actionable path is to evaluate/strengthen THAT organ's
+predication + NE-typing, not to route the unified referent.
 
 **NEXT STEPS (strategy owns any hdlab change; solver is scope-barred from hdlab/):**
 1. **DO NOT WIRE the unified referent to the non-coref consumers, and keep `hdlab/unified_referent.py` DEFAULT-OFF
