@@ -1,9 +1,9 @@
 ---
 priority: 5
 slug: reason_over_event_time_order_and_duration_on_a_modern_gold
-status: CANDIDATE
-review:
-review_text:
+status: INTEGRATED
+review: EXCELLENT
+review_text: "INTEGRATED 2026-09-06 (strategy; owner_verdict DONE). Reverified 18/18 first-hand + landing witness ALL PASS. Landed hdlab/aspect_interval.py (aspect->interval upstream, point-order event set BYTE-IDENTICAL, recovers the dropped progressive) + hdlab/temporal_reasoner.py (integrated before/after with TIMEX event-local anchoring+closure+provenance, Allen overlap, relative-duration) + hdlab/uds_time_duration.py + hdlab/temporal_script_schema.py (2 knowledge organs, latent) + sm.temporal_before/overlaps/longer default-ON additive read-out + 2 board arms. Before/after TB-Dense 0.5933 vs 0.5236 (integrated 0.6225 +0.099 CI-sep); NEW Allen overlap 0.994 vs 0.5 constructed / 0.397 vs 0.0 real-prose subset; relative-duration 1.000; UDS-Time dissolves the typical-duration negative (-0.090->-0.019 +2x cov); script organ TRACIE 0.6022 covered. Text-mined typical-duration NOT landed (located negative). Committed 119f8f0ad (code) + notes, NOTHING pushed. Known pre-existing layering: temporal organs reuse experiments._temporal_ordering (same front-end the reader already imports). Follow-ons: copular/stative overlap channel (P2), UDS-Time rank-corr + script board arms (P3), SDRT world-knowledge reader (P4), live TIMEX/DCT + text->duration extractors, hdlab-purity front-end promotion."
 ---
 
 # PROBLEM: the reader EXTRACTS an event timeline (whole-passage chronological order, flashbacks resolved) but never REASONS over TIME -- it cannot answer before/after/overlap/duration questions when surface order != event order ("before/after/while/since/by the time" + tense+aspect + flashback), and its one timeline test is extraction-level, on 19c LitBank (BANNED) plus a circular board gold. Build a glass-box temporal reasoner OVER the already-extracted timeline: query it for before/after (Reichenbach place over the reordered timeline), OVERLAP (interval intersection, "while/during"), and DURATION (relative + typical), CI-separated over BOTH a surface-order (iconicity) floor that LOSES on the flashback/marker items AND an info-free twin (shuffled temporal markers / shuffled tense), on a MODERN non-circular temporal-reasoning gold.
