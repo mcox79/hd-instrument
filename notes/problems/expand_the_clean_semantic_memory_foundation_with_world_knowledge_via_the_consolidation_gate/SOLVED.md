@@ -353,17 +353,26 @@ proven load-bearing.
   operators ("at most", the conditional "if" antecedent) and (ii) OVER-triggering ("a few" is UPWARD not downward;
   blanket "every/all/each/any" over-fired via the restrictor/body asymmetry). Calibrating the marker (add phrase
   operators + "if"; guard "a few"; drop the noisy positional operators) raised agreement 0.762 -> 0.839 and
-  natural-logic acc 0.744 -> 0.767. RESIDUAL WALL, NOW BUILT ACROSS: the gap to the ORACLE-monotonicity upper bound
-  0.879 is POSITIONAL scope -- a sentence-level polarity marker cannot handle the quantifier restrictor/body
-  asymmetry (downward in the restrictor of "every", upward in its body). I built the brain's actual mechanism --
-  MacCartney PROJECTIVITY over a real DEPENDENCY PARSE (each operator projects its monotonicity over the tokens it
-  syntactically SCOPES; a universal is downward in its head-noun subtree = restrictor, upward in the body). A LINEAR-
-  scope heuristic FAILED (0.514 < 0.762 -- linear position is not syntactic scope), but real parse projectivity
-  lifts the marker 0.762 -> 0.810 (+0.048), closing MOST of the gap to the oracle 0.879 -- confirming the brain
-  mechanism (monotonicity is positional/syntactic). (parse_projectivity_report() in the cell; witness W15. Uses
-  spaCy en_core_web_sm as a glass-box statistical-parser STAND-IN for the reader's own hdlab.arc_parser = the
-  production upstream, lazily imported + graceful-degrade. Residual to 0.879 = parser errors + fuller projectivity
-  rules for conditionals/disjunction/NPI/non-monotone "most".)
+  natural-logic acc 0.744 -> 0.767. THE RESIDUAL WALL, FULLY DIAGNOSED + 100%-BRAIN-FOUNDATIONAL: the gap to the
+  ORACLE-monotonicity upper bound 0.879 is POSITIONAL scope (a universal is downward in its restrictor, upward in
+  its body). The brain's mechanism is MacCartney PROJECTIVITY over the SYNTACTIC parse. I built it four ways and
+  drilled the WHY:
+    (a) LINEAR-scope heuristic: 0.514 -- FAILED (linear position is not syntactic scope).
+    (b) SHALLOW-scope (reader POS tagger, subject/predicate split): 0.669 -- FAILED (shallow split over-fires).
+    (c) READER'S OWN PARSER projectivity (hdlab.arc_parser+arc_labeler, 100%-brain-foundational, NO external tool):
+        0.505 -- UNDERPERFORMS. NOT a bug (its monotonicity decisions agree with a robust parser's 0.811 of the
+        time); the reader's UD-EWT parser is OUT-OF-DOMAIN on MED's formal/quantified text (garbles "at most ten
+        commissioners..." with a head CYCLE), matching the oracle monotonicity only 0.714.
+    (d) MECHANISM CEILING with a robust parser (spaCy, EXTERNAL -> NON-ADMISSIBLE, informational only): 0.810 --
+        matches the oracle monotonicity 0.863. This PROVES the mechanism is right and the LEVER is the PARSER.
+  CONCLUSION (brain-foundational): the fully-brain-foundational natural-logic headline is the SENTENCE-LEVEL
+  CLOSED-CLASS marker (0.767) -- it matches the oracle monotonicity 0.839, MORE robustly than the reader's own
+  full parse (0.714), because the brain processes CLOSED-CLASS operators (quantifiers/negation) reliably and does
+  not depend on a fragile full content-parse. Neither shallow nor full-parse scope beats it with the reader's own
+  tools. The ONE upstream lever to close 0.767 -> 0.810+ is the READER'S PARSER robustness on FORMAL/quantified
+  text (a competent reader parses it trivially) -- a parser-improvement build, NOT an external parser (barred) and
+  NOT a heuristic (both fail). (reader_parse_projectivity_report [admissible] + parse_projectivity_report [spaCy,
+  non-admissible ceiling] in the cell; witness W15.)
 
 ### NEW RELATION FAMILY SPOTTED + CONFIRMED (a 5th typed spoke): ANTONYMY (lexical opposition)
 (built + validated this session: experiments/exp_antonym_typed_spoke_valence_v1.py)

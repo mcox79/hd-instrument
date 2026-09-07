@@ -5,7 +5,7 @@ bar: "PASSES only with ALL of: (1) A glass-box STRUCTURED SEMANTIC-MATCHING orga
 result: "Signed accuracy (satisfy/thwart; is-a/not), paired bootstrap over items (half-width + null p95), on relatedness-MATCHED modern-vocabulary golds drawn from free resources + HELD OUT from the hand-seed. EVENT<->GOAL congruence (n=120: 60 WordNet-antonym-thwart + 60 FrameNet-converse-satisfy, all hub-related): STRUCTURED 0.9750 vs HUB-BASELINE (bridging_inference relatedness thresholded, swept) 0.4917 (+0.4833 CI[0.4000,0.5750] null_p95 0.1167) vs SHUFFLED-KB TWIN 0.4917 (+0.4833 CI[0.4000,0.5750]) -- CI-separated over BOTH. Polarity isolation: on the antonym subset the hub is 0.0000 (predicts satisfy for every high-related antonym -- below chance) while STRUCTURED is 0.9500. TRANSFER to the SPATIAL TYPE consumer (type-membership, n=120: 60 WordNet is-a + 60 co-hyponym-not-isa, all hub-related): STRUCTURED 0.9167 vs HUB 0.5000 (+0.4167 CI[0.3333,0.5083]) vs TWIN 0.4917 (+0.4250 CI[0.3083,0.5417]) -- CI-separated over both; on the co-hyponym negatives the hub is 0.0000 vs STRUCTURED 0.8333 (the structured NOT-a-kind-of sibling edge). The hub relatedness is MATCHED across slices (antonym 0.286 ~= converse 0.178; is-a 0.211 ~= related-not-isa 0.256) -- so the sign/type comes from the EDGE, not the magnitude."
 floor: "Per consumer, recomputed on the item's OWN population, gated on the floor's swept-best value. EVENT<->GOAL: the DISTRIBUTIONAL-HUB baseline = hdlab.bridging_inference relatedness thresholded to a sign, threshold SWEPT to its best on this population = 0.4917 (chance -- it cannot sign matched-relatedness opposite-label pairs). TYPE: the same hub-relatedness baseline swept = 0.5000. Both LOSE CI-separated. Second floor: the info-free SHUFFLED-KB twin (0.4917 / 0.4917)."
 controls: "(1) SHUFFLED-KB TWIN (permute node identities over the gold vocab, keep counts) LOSES CI-separated on BOTH consumers -- the specific EDGES carry the sign, not merely 'having a KB'. (2) POLARITY/TYPE ISOLATION (can-fail): on the antonym subset the hub is 0.0000 (below chance) and on the co-hyponym subset the hub is 0.0000, while the structured matcher is 0.95 / 0.83 -- the sign comes from the edge, and the hub relatedness is matched across slices so no threshold can separate them. (3) POSITIVE CONTROL the hub cannot get: rel(win,lose)=0.259 ~= rel(sell,buy)=0.285 (high, matched) but the structured matcher signs them -1 vs +1. (4) NO-REGRESS: where the structured store has no edge the organ ABSTAINS and falls back to the ATL hub (hub NOT removed, organ additive); the organ writes NOTHING to hdlab. Each control EXCLUDES: twin = a KB-shape artifact; polarity isolation = the win coming from similarity; positive control = the hub secretly signing; no-regress = a downstream regression."
-files_changed: "experiments/_structured_matcher.py, experiments/exp_structured_matcher_event_goal_v1.py, experiments/exp_structured_matcher_type_transfer_v1.py, experiments/_hashseed_guard.py (reused), verification/test_structured_matcher_core_noregress.py, verification/test_structured_matcher_event_goal.py, verification/test_structured_matcher_type_transfer.py, notes/problems/structured_semantic_matching_for_event_goal_and_type_converse_role_filler_knowledge_not_the_hub/SOLVED.md (NO hdlab/ written -- Q111: proposed diff in Sec 7)"
+files_changed: "experiments/_structured_matcher.py, experiments/exp_structured_matcher_event_goal_v1.py, experiments/exp_structured_matcher_type_transfer_v1.py, experiments/exp_structured_matcher_valence_antonym_v1.py, experiments/_hashseed_guard.py (reused), verification/test_structured_matcher_core_noregress.py, verification/test_structured_matcher_event_goal.py, verification/test_structured_matcher_type_transfer.py, verification/test_structured_matcher_valence_antonym.py, notes/problems/structured_semantic_matching_for_event_goal_and_type_converse_role_filler_knowledge_not_the_hub/SOLVED.md (NO hdlab/ written -- Q111: proposed diff in Sec 7)"
 reverify: ".venv/Scripts/python.exe verification/test_structured_matcher_event_goal.py"
 ---
 
@@ -70,6 +70,22 @@ shuffled-KB twin (which destroys the edge alignment) collapses to chance. The hu
 is-a positives, which are related) but scores 0.000 on the "hard" half (antonym / sibling, equally related, opposite
 sign) -- the exact polarity/type blindness the brief names.
 
+## 4b. FIDELITY DEEPENING -- the antonym SIGN is a signed DIMENSION, not a symbolic edge (a more brain-faithful upgrade, built + measured)
+The SOLVED matcher signs antonym-thwart via a WordNet/ConceptNet antonym EDGE. That is NOT how the brain does it: the
+brain represents opposites as OPPOSITE POLES on a shared EVALUATIVE dimension (Osgood evaluative axis; vmPFC valence),
+not a lookup. I built the faithful mechanism (`valence_antonym`: HIGH relatedness [same field, per the hub] AND OPPOSITE
+Warriner valence sign, via `hdlab/affect_lexicon`) and measured it (`exp_structured_matcher_valence_antonym_v1`, n=60/set):
+- **GENERALIZATION (the payoff):** on high-related OPPOSITE-VALENCE verb pairs that the symbolic edge MISSES (not in
+  WordNet's antonym list), the valence dimension recovers the thwart sign **1.000** (symbolic 0.000 there by
+  construction; hub 0.000) -- it covers the coverage residual the lookup leaves, via the axis the brain actually uses.
+- **COMPLEMENTARY, not a replacement:** on WordNet-antonym pairs the valence dimension agrees only **0.500** -- because
+  antonymy spans MULTIPLE opposition dimensions and valence is the EVALUATIVE one (win/lose, succeed/fail); non-evaluative
+  opposites (arrive/depart, rise/fall) need the symbolic edge. The UNION covers both sets 1.000. So the organ takes
+  BOTH (the evaluative axis is the brain-faithful signal for GOAL congruence -- a goal is a desired = positively-valenced
+  state -- and it generalizes; the symbolic edge is the complementary lexical source for other opposition dimensions).
+This RESOLVES the antonym-edge fidelity gap named below: the sign is now available from the brain's signed dimension,
+generalizing beyond the hand-curated list. It is opt-in (`use_valence=True`) and unioned into `antonym()`.
+
 ## 5. HIT-A-WALL, researched to mechanism
 - **Converse vs antonym ordering (the key correctness fix).** My first `congruence(sell,buy)` returned antonym-thwart,
   because WordNet lists buy as an antonym of sell. The brain-foundational distinction: a CONVERSE is a role-swap of the
@@ -116,6 +132,12 @@ sign) -- the exact polarity/type blindness the brief names.
   transfer clear.
 - **The organ is the shared SHAPE, proven twice.** The identical matcher signs event<->goal (affect) AND type-membership
   (spatial) -- the OCC SOLVED's "every structured relation is a knowledge-asset job" lesson, now a scored, reusable organ.
+- **The antonym SIGN is a signed DIMENSION, not a symbolic edge -- and building the faithful version raised coverage.**
+  The brain represents opposites as opposite poles on a shared evaluative axis (Osgood/vmPFC), not a lookup. The
+  valence-signed mechanism GENERALIZES the thwart sign to evaluative opposites WordNet's list misses (1.000 on the
+  coverage residual) while agreeing with only ~half of WordNet antonyms -- revealing antonymy is MULTI-DIMENSIONAL and
+  valence is the (goal-relevant) evaluative one. The more brain-faithful mechanism was also the higher-coverage one:
+  fidelity and performance moved together, which is the project's thesis.
 
 ## AUDIT UPDATE (for notes/BRAIN_FOUNDATIONAL_AUDIT.md)
 - The two-store split is now a SCORED organ: `bridging_inference` (ATL hub) supplies fuzzy relatedness; a NEW structured
