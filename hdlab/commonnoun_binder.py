@@ -201,7 +201,7 @@ def _num_of(m):
 
 # =========================== the situation-gated former (VERBATIM situation_predict) =================
 def situation_predict(mentions, gaz, *, window=8, n_dim=4096, mem_seed=7, headmatch_gate=False,
-                      relational=False):
+                      relational=False, type_license=False):
     """Incremental referent former + HD event-memory situation gate on definite common-noun descriptions.
     headmatch_gate=True = the DEPLOYABLE recipe: restrict candidates to head-lemma matches (net-safe recall,
     like surface_head) + modifier-split + the situation-gate tie-break among >=2 head-match candidates.
@@ -289,6 +289,17 @@ def situation_predict(mentions, gaz, *, window=8, n_dim=4096, mem_seed=7, headma
                 if headmatch_gate and hl in r.hls and mods and r.mods and mods.isdisjoint(r.mods):
                     continue                  # modifier-split: 'the old man' != 'the young man'
                 cand_refs.append(r)
+        if type_license and not cand_refs and defn != "indef":
+            # C5+C6 TYPE-LICENSING FILTER (commonnoun_type_license, default OFF -> byte-identical): with NO head-match
+            # candidate, reach for the most-recent gn-compatible person referent whose head is is-a/part-whole/synonym
+            # compatible with the anaphor head (recency SELECTS among the licensed set; the typed spoke only LICENSES,
+            # binary). "the animal" resumes "a dog" (Lambon-Ralph typed spokes; Sanford-Garrod scenario binding).
+            from hdlab.typed_spokes import coref_type_license
+            lic = [r for r in refs if r.person and not (window and (si - r.last_sent) > window)
+                   and _gender_ok(g, r.gender) and _number_ok(num, r.number)
+                   and any(coref_type_license(hl, h) for h in r.hls)]
+            if lic:
+                cand_refs = [max(lic, key=lambda r: r.last_midx)]
         chosen = None
         if len(cand_refs) == 1:
             chosen = cand_refs[0]

@@ -909,6 +909,7 @@ class SituationReader:
                  entity_kb_resolver: bool = False,
                  commonnoun_situation_gate: bool = True,
                  commonnoun_canonical: bool = True,
+                 commonnoun_type_license: bool = False,
                  unified_referent: bool = False,
                  phi_person_filter: bool = True,
                  narrow_him: bool = True,
@@ -1624,6 +1625,17 @@ class SituationReader:
         # Default OFF pending the strategy's cross-consumer measurement (no-more-default-off). NO external LLM.
         self.commonnoun_situation_gate = bool(commonnoun_situation_gate)
         self.commonnoun_canonical = bool(commonnoun_canonical)
+        # (c) commonnoun_type_license: C5+C6 typed-spoke as a binary TYPE-LICENSING FILTER on the common-noun pick
+        #     -- with NO head-match candidate, reach for the most-recent gn-compatible is-a/part-whole/synonym-
+        #     licensed different-head person referent ("the animal" resumes "a dog"; recency SELECTS, the spoke only
+        #     LICENSES). DEFAULT OFF -> byte-identical. MEASURED-OFF (flip-gate Q111): on the board's OWN
+        #     common_noun_coref instrument (URG unified) the filter REGRESSES the live pick 0.4879 -> 0.4683
+        #     (-0.0196 CI-sep) and the shuffled-graph info-free twin is indistinguishable (+0.0049 CI incl 0) -- the
+        #     SOLVED's +0.0116 was measured on a DIFFERENT non-merging recency-baseline (p12 pattern). Kept OFF for
+        #     that measured reason; the live-reader's-own-scorer effect is a filed follow-on. all_capabilities_off()
+        #     forces it False (byte-identity reference). See experiments.exp_board_coref_gum_v1.
+        #     board_commonnoun_typelicense_dimension. NO external LLM (WordNet lexical spoke only).
+        self.commonnoun_type_license = bool(commonnoun_type_license)
         self._cn_binder_mod = None     # lazy hdlab.commonnoun_binder
         # unified_referent (DEFAULT OFF -> byte-identical to the landed reader): ON re-keys the pronoun
         # overlay to ONE DRT file-change discourse referent per entity (merged across name/common/pronoun via
@@ -1680,7 +1692,7 @@ class SituationReader:
         "joint_temporal_events", "joint_nominal_events",
         "read_polarity",
         "structural_patient", "causal_mental_bridge", "goal_purpose_filter", "entity_kb_resolver",
-        "commonnoun_situation_gate", "commonnoun_canonical", "unified_referent",
+        "commonnoun_situation_gate", "commonnoun_canonical", "commonnoun_type_license", "unified_referent",
         "phi_person_filter", "narrow_him", "soften_generic_suppress", "precision_weight_roles")
 
     @classmethod
@@ -3591,7 +3603,8 @@ class SituationReader:
             from hdlab.entity_world_model_resolver import resolve_common_noun
             labels = resolve_common_noun(role_mentions, self.gaz, reader_coref=None)
         else:
-            labels = _CN.situation_predict(role_mentions, self.gaz, window=16, headmatch_gate=True)
+            labels = _CN.situation_predict(role_mentions, self.gaz, window=16, headmatch_gate=True,
+                                           type_license=self.commonnoun_type_license)
         anchored = {m["cluster"] for m in (self._coref_mentions or []) if not m["is_pronoun"]}
         members = defaultdict(list)
         for m in role_mentions:

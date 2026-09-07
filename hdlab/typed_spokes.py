@@ -190,6 +190,70 @@ def entails(lex1: str, lex2: str, negated: bool = False, resolve: bool = True) -
     return is_a(lex2, lex1, resolve=resolve) if negated else is_a(lex1, lex2, resolve=resolve)
 
 
+# ------------------------------------------- the TYPE-LICENSING read for common-noun coreference (C5 is-a + C6 mero)
+# The brain-faithful use of the taxonomic/part-whole spokes in reference: type knowledge LICENSES a candidate
+# antecedent; it does NOT SELECT one (recency/Centering selects). Promoted byte-faithfully from
+# exp_isa_spoke_commonnoun_coref_gum_v1.wk_related (the SOLVED's reference filter). Lemma-level MFS reads.
+_MERO_MFS: Dict[str, frozenset] = {}
+
+
+def _mfs_anc(lemma: str) -> frozenset:
+    """MFS hypernym closure (synset-name set) of a lemma -- the directed is-a spoke read used for licensing.
+    == exp_isa_spoke_commonnoun_coref_gum_v1._anc (isa_ancestors of the lemma's MFS synset)."""
+    ms = _mfs_synset(lemma)
+    return isa_ancestors(ms) if ms else frozenset()
+
+
+def _mfs_mero_holo(lemma: str) -> frozenset:
+    """MFS part/substance/member meronyms + holonyms (synset-name set) of a lemma -- the part-whole spoke read used
+    for licensing. Byte-faithful to exp_isa_spoke_commonnoun_coref_gum_v1._mero_holo. Empty if WordNet absent."""
+    if lemma in _MERO_MFS:
+        return _MERO_MFS[lemma]
+    wn = _wordnet()
+    acc: Set[str] = set()
+    if wn is not None:
+        ss = wn.synsets(lemma, pos=wn.NOUN)
+        if ss:
+            s = ss[0]
+            for rel in (s.part_meronyms(), s.substance_meronyms(), s.member_meronyms(),
+                        s.part_holonyms(), s.substance_holonyms(), s.member_holonyms()):
+                for x in rel:
+                    acc.add(x.name())
+    fs = frozenset(acc)
+    _MERO_MFS[lemma] = fs
+    return fs
+
+
+def coref_type_license(head_a: str, head_b: str, anc_fn=None, mero_fn=None, syn_fn=None) -> bool:
+    """The binary TYPE-LICENSING predicate for common-noun coreference (Lambon-Ralph typed spokes; Sanford-Garrod
+    scenario binding): may an anaphor head `head_a` co-refer with a DIFFERENT-head candidate antecedent `head_b`
+    on TYPE grounds?  True iff they share a synset (synonym), stand in an is-a relation EITHER direction (MFS
+    hypernym closure -- "the animal" resumes "a dog"), or a part-whole/member relation either direction. The
+    consumer keeps recency/Centering as the SELECTOR among the licensed set; this only LICENSES, BINARY (the SOLVED
+    proved graded HURTS). Byte-faithful to exp_isa_spoke_commonnoun_coref_gum_v1.wk_related. anc_fn/mero_fn/syn_fn
+    are injectable so the shuffled-graph info-free twin can pass remapped closures. Degrades to False (never raises)
+    when WordNet is absent or either head is out-of-vocabulary -- an unknown head is NOT licensed to bridge
+    (recall-safe: same-head identity remains the linker's job)."""
+    if head_a == head_b:
+        return False                     # same head is the head-identity linker's job, not the typed spoke's
+    if _wordnet() is None:
+        return False
+    syn = syn_fn or _synset_names
+    anc = anc_fn or _mfs_anc
+    mero = mero_fn or _mfs_mero_holo
+    a_syn = syn(head_a)
+    b_syn = syn(head_b)
+    if not a_syn or not b_syn:
+        return False
+    if a_syn & b_syn:
+        return True                      # synonym / shared sense
+    if (b_syn & anc(head_a)) or (a_syn & anc(head_b)):
+        return True                      # is-a either direction
+    if (b_syn & mero(head_a)) or (a_syn & mero(head_b)):
+        return True                      # part-whole / member either direction
+    return False
+
+
 # --------------------------------------------------------- parse-free monotonicity marker + natural-logic readout
 # byte-faithful to exp_natural_logic_monotonicity_med_v1 (MED-calibrated closed-class operators).
 _NL_STOP = set("a an the is are was were be been being to of in on at and or this that s".split())
@@ -670,6 +734,10 @@ def self_test() -> bool:
     assert not is_downward("a few delegates finished"), "'a few' is UPWARD (article guard)"
     assert natural_logic_label("a taxi arrived", "a car arrived") == "entailment"
     assert natural_logic_label("a man won the big prize", "a man won the prize") == "entailment"  # upward del
+    # C5+C6 TYPE-LICENSING for coref: is-a either direction / part-whole license; same-head + unrelated do NOT.
+    assert coref_type_license("animal", "dog") and coref_type_license("dog", "animal"), "is-a either direction"
+    assert not coref_type_license("dog", "dog"), "same head is the head-identity linker's job"
+    assert not coref_type_license("dog", "democracy"), "unrelated heads are NOT licensed to bridge"
     # gate + closure shape.
     admitted = gate_isa_edges([("dog.n.01", "mammal.n.01")])
     anc_map = close_isa({("dog.n.01", "mammal.n.01"), ("mammal.n.01", "animal.n.01")})
