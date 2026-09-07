@@ -1,9 +1,8 @@
 ---
-priority: 2
 slug: extract_relations_from_prose_whole_subgraph_survival_the_shared_reasoner_bottleneck
-status: CANDIDATE
-review:
-review_text:
+status: INTEGRATED
+review: EXCELLENT
+review_text: "INTEGRATED 2026-09-07 (strategy; owner_verdict DONE). Reverified 22 checks/7 witnesses first-hand + landing witness 6/6. Promoted hdlab/joint_relation_frontend.py (parse-once, tense-agnostic+copular temporal events; byte-identical core, no experiments dep) + wired behind joint_temporal_events/joint_nominal_events flags (DEFAULT-OFF, byte-identical when off: sm.events/timeline/causal_links/goals identical) + board_temporal_survival_dimension arm. Whole-subgraph survival 0.1111->0.4054 (+0.2943 CI-sep) -> +nominal 0.7327; live recall 0.3203->0.7562; end-to-end 0.0971->0.4937 (87% of ceiling); MAVEN 0.086->0.777. Committed 102641f3b (code) + notes, NOTHING pushed. DEFAULT-OFF = flip-on-find-the-break: ON is byte-identical for all board dims but regresses the W3 synthetic-OOD probe (joint UD parser weaker on throwaway sentences, not yet a strict superset of NLTK) -> flip-on enabler = UNION the NLTK aspect events with the joint-only events (a follow-on). Spatial NOT landed (located negative: construction coverage 74% not parse UAS 10%). Follow-ons: the UNION flip-on enabler; a live reader-consumer of the enriched temporal reasoner; p6 nominal-WSD-gate (filed); spatial construction+entity extractor; appraisal semantic-matching (=p4, filed)."
 ---
 
 # PROBLEM: three reasoning organs are solved but STARVED -- build ONE glass-box RELATION-extraction front-end that lifts the SHARED relational structure they consume (spatial containment/position/path edges, temporal before/after/overlap links + the DROPPED copular/stative channel, and event->argument/role structure) from real MODERN prose, and prove it on WHOLE-SUBGRAPH SURVIVAL (every edge of a multi-hop chain, not per-edge recall) -- NO external LLM, glass-box.
