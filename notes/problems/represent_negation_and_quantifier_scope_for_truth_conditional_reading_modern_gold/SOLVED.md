@@ -5,7 +5,7 @@ bar: "A glass-box polarity + quantity OPERATOR over the extracted proposition ..
 result: "NEGATION reader-native (UD-EWT sm.events, n=131): net factuality 0.9313 vs polarity-blind 0.5038 (+0.4275 CI[0.3435,0.5115]); negated-recall 0.8769 vs blind 0.0000; over-negation 0.0000 clean / 0.0152 all -- BEATS the prior negation_factuality_gate MIDDLE_BAND (0.0303). NEGATION well-powered (MoNLI NMoNLI n=1202): operator 0.9965 vs blind 0.0035 (+0.9929 CI[0.9876,0.9973]); PMoNLI op==blind 1.0 (no positive regression); detection 1.0. QUANTIFIER reader-native (n=585, 210 passages, verb-extraction 1.0): 1.0000 vs quantity-blind 0.5385 (+0.4615 CI[0.4205,0.5026]); specific-exception 1.0 vs blind 0.0. QUANTIFIER well-powered (MED downward-monotone n=563): 0.8259 vs monotone-blind 0.1741 (+0.6519 CI[0.5879,0.7123])."
 floor: "POLARITY/QUANTITY-BLIND floor (every extracted proposition stored positive+singular), recomputed per population: MoNLI-NMoNLI 0.0035 (inverts), EWT 0.5038, reader-native quantifier 0.5385, MED-downward 0.1741. Second floor: majority (MoNLI 0.5). All lose CI-separated on the negated/quantified subset."
 controls: "(1) polarity/quantity-blind floor -- LOSES CI-sep on every negated/quantified population, and INVERTS on the monotonicity golds (MoNLI 0.0035, MED-down 0.1741) = the positive control (polarity-respecting answer OPPOSITE the blind one). (2) info-free shuffled-token twin (permute negation cues / determiners across items, matched shapes) -- LOSES CI-sep, beats null p95 on all four. (3) ADDITIVE isolation -- operator applied to sm.events leaves predicate/agent/patient/tense/pred_idx BYTE-IDENTICAL (no downstream regress). (4) ablation direct-only vs full scope -- the coordination/implicative/inversion machinery adds +0.053 net on EWT and drives over-negation 0.0303->0.0000."
-files_changed: "experiments/_polarity_operator.py (operator core + parse-aware resolver + unified state_match query), experiments/fetch_negation_quantifier_gold_v1.py, experiments/exp_polarity_operator_monli_v1.py, experiments/exp_polarity_operator_ewt_v1.py, experiments/exp_quantifier_operator_v1.py, experiments/exp_quantifier_operator_med_v1.py, experiments/exp_polarity_wired_reader_v1.py (P1 landing prototype), experiments/exp_negation_scanner_consolidation_v1.py (P4), experiments/exp_polarity_operator_parsed_ewt_v1.py (parse-aware wall research), experiments/exp_coordination_parallelism_parser_repair_v1.py (brain-foundational parser fix), experiments/exp_parser_repair_pos_recovery_v1.py (generality check on UD-EWT; upgrade D precise signal), verification/test_polarity_operator_{core,monli,ewt,parsed,upgrades}.py, verification/test_quantifier_operator.py (incl. upgrades B/C), verification/test_coordination_parallelism_parser_repair.py, verification/test_parser_repair_generality.py (8 witnesses / 27 checks), data/corpora/{monli,med,ud_english_ewt}/ (gold, gitignored), notes/problems/represent_negation_and_quantifier_scope_for_truth_conditional_reading_modern_gold/SOLVED.md"
+files_changed: "experiments/_polarity_operator.py (operator core + parse-aware resolver + unified state_match query), experiments/fetch_negation_quantifier_gold_v1.py, experiments/exp_polarity_operator_monli_v1.py, experiments/exp_polarity_operator_ewt_v1.py, experiments/exp_quantifier_operator_v1.py, experiments/exp_quantifier_operator_med_v1.py, experiments/exp_polarity_wired_reader_v1.py (P1 landing prototype), experiments/exp_negation_scanner_consolidation_v1.py (P4), experiments/exp_polarity_operator_parsed_ewt_v1.py (parse-aware wall research), experiments/exp_coordination_parallelism_parser_repair_v1.py (brain-foundational parser fix), experiments/exp_parser_repair_pos_recovery_v1.py (generality check on UD-EWT; upgrade D precise signal), verification/test_polarity_operator_{core,monli,ewt,parsed,upgrades}.py, verification/test_quantifier_operator.py (incl. upgrades B/C), verification/test_coordination_parallelism_parser_repair.py, verification/test_parser_repair_generality.py (8 witnesses / 28 checks), data/corpora/{monli,med,ud_english_ewt}/ (gold, gitignored), notes/problems/represent_negation_and_quantifier_scope_for_truth_conditional_reading_modern_gold/SOLVED.md"
 reverify: ".venv/Scripts/python.exe verification/test_polarity_operator_ewt.py && .venv/Scripts/python.exe verification/test_quantifier_operator.py && .venv/Scripts/python.exe verification/test_polarity_operator_upgrades.py"
 ---
 
@@ -35,7 +35,7 @@ topped out at MIDDLE_BAND, blocked by parse conj/complement edge-typing; this re
   the quantifier→cardinality table, the "but/except X" exception construction, interrogative-inversion and
   post-verbal neg-quant-object routes. **The operator↔representation composition is OUR-SYNTHESIS.**
 
-## What I built (`experiments/_polarity_operator.py`, 23/23 self-test)
+## What I built (`experiments/_polarity_operator.py`, 26/26 self-test)
 
 A pure-symbolic operator that CONSUMES a proposition (predicate token index + sentence tokens + argument set)
 and returns polarity ∈ {+1 holds, −1 does-not-hold, 0 undetermined} and a quantifier cardinality readout. It
@@ -112,7 +112,11 @@ fires where polarity/quantity bites). Witnesses: `verification/test_polarity_ope
   downward-monotone context (Ladusaw 1979 — it is what licenses NPIs like any/ever). The MED operator read only
   determiners and missed it. Adding it (reusing the negation operator — the same "none = ¬∃" unification) lifts the
   **NPI subset 0.2656 → 0.7409** and the **FULL quantifier operator from coverage 0.490 / acc 0.5112 to coverage
-  0.704 / acc 0.8225** on MED. Negation and quantification are one truth-conditional downward operator.
+  0.704 / acc 0.8225** on MED. As a well-powered aggregate the unified operator is **0.8225 vs blind 0.2849
+  (+0.5376 CI[0.517, 0.558], n=3791) and CI-separated over the info-free twin (+0.2464)** — negation and
+  quantification are ONE truth-conditional downward-monotonicity operator, and that is the headline the unification
+  earns (the downward-subset CI-sep under-reported it). Conjunction is already handled (0.747) via the same
+  GEN/upward path (conjunction-elimination = deletion = upward), no special-casing — measured, not assumed.
 - **C — restrictor-vs-scope monotonicity for universals** (every/all/each restrictor is downward — Barwise & Cooper
   1981 generalized-quantifier profile, stored determiner knowledge). Universal subset **0.3753 → 0.4282** on MED.
 - **D — PRECISE lexical-category signal for the parser fix:** replaced the permissive "has any WordNet verb sense"
@@ -269,17 +273,29 @@ constructed (templated) modern set — I lead with it per the brief's "reader-na
 back it with the naturalistic MED companion; if you prefer, treat MED + the EWT negation headline as the
 load-bearing numbers and the constructed set as illustrative.
 
-**NEXT STEPS (priority-ordered):**
-- **P1 (strategy-owned, ready now):** land the additive default-off `read_polarity` field + promote
-  `hdlab/polarity_operator.py` (the Q111 diff above); wire the QA capstone to answer polarity/quantity-sensitive
-  questions off it — the downstream that makes the gain board-visible.
-- **P2 (this operator, next build):** unify `state_register` copular polarity and event polarity under one
-  representation (revisit the adjacent component to REUSE this operator) — one truth-conditional layer.
-- **P3 (upstream lever, PROTOTYPED + MEASURED — do NOT deploy the cheap repair):** the parse-aware resolver + the
-  parser repair are built and match the surface operator on the negation gold, but the repair is MEASURED
-  net-negative on general UD-EWT POS (precision 0.04) — overfit to the negation gold. The deployable primary stays
-  the SURFACE operator. The genuine general parser fix is a PRECISE lexical resource (VerbNet subcategorization
-  frames + frequency priors) applied by constraint satisfaction — a FOUNDATION acquisition, NO training/heuristic; a candidate
-  follow-on problem, itemized with counts.
-- **P4 (adjacent):** consolidate the ≥5 scattered clause-local negation scanners in hdlab under this operator
-  (fragmentation named in the AUDIT UPDATE) — removes duplicated, divergent negation logic.
+**NEXT STEPS (priority-ordered).**
+
+> 🔴 **HIGH PRIORITY — do these first (they realize the value; both strategy-owned, ready now):**
+> - **P1 — LAND the operator + WIRE the QA capstone.** Promote `experiments/_polarity_operator.py` as
+>   `hdlab/polarity_operator.py` and add the additive default-off `read_polarity` field to `EventRecord` (the Q111
+>   diff above), then wire the QA capstone to answer polarity/quantity-sensitive questions off it. This is the step
+>   that turns a proven operator into a **board-visible gain** — every downstream organ (coref, who-did-what,
+>   state, goal, causal, QA) currently reads propositions polarity-blind, so this is where the aggregate value is
+>   realized. Additive + default-off = byte-identical fallback (no regress); the wired-reader prototype
+>   (`exp_polarity_wired_reader_v1.py`) shows the exact shape and a working downstream QA (aware 1.00 vs blind 0.40).
+> - **P2 — UNIFY `state_register` copular polarity with event polarity** under one `state_match` representation
+>   (the P2 prototype + AUDIT UPDATE fragmentation finding). One truth-conditional layer over copular AND event
+>   propositions; also folds in the ≥5 scattered clause-local negation scanners (old P4) — the consolidation proof
+>   (`exp_negation_scanner_consolidation_v1.py`) shows the operator subsumes them (3-way agreement 1.0; extended
+>   1.0 vs 0.20/0.60), so this removes duplicated, divergent negation logic at the same time.
+
+- **P3 (lower priority — upstream lever, PROTOTYPED + MEASURED):** the parse-aware structural resolver + the
+  brain-foundational parser fix are built and match the surface operator on the negation gold (0.9318). Upgrade D
+  (precise predominant-verb signal) cut the general-text over-firing 12× (precision 0.04 → 0.208, POS damage
+  −165 → −14 tokens) but it is still marginally net-negative on general UD-EWT — so **the deployable primary stays
+  the parse-free SURFACE operator; do NOT default the repair.** The genuinely-general fix is (a) a PRECISE lexical
+  resource (VerbNet subcategorization frames) and (b) TAGGER-CONFIDENCE gating (override only an unconfident tag) —
+  a FOUNDATION build, NO training/heuristic. A candidate follow-on problem, itemized with counts.
+- **P4 (optional coverage extension — only on request):** extend the natural-logic engine to conditional
+  monotonicity (antecedent downward / consequent upward) and phrase-level edit-direction; raises MED coverage
+  beyond 0.704. Conjunction is ALREADY handled (0.747, measured). NOT needed for the bar.

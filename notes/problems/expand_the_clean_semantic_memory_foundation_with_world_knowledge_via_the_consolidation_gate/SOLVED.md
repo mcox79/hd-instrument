@@ -143,6 +143,14 @@ instrument (n=2855 anaphoric-common, GUM test split), MODERN gold independent of
   by recency (0.688). Coref selection is recency/salience-driven; type knowledge LICENSES, it does not SELECT.
   Whether ingested knowledge helps a consumer depends on the consumer's architecture -- an adjacent-component
   finding that seeds the coref follow-on.
+- OPTIMIZATION ATTEMPTS (measured, reproducible via optimization_report(); both LOCATED NEGATIVES): (i) GRADED
+  taxonomic re-ranking -- prefer the Wu-Palmer-CLOSEST compatible antecedent instead of the most-recent -- SCORES
+  0.6956 < binary 0.6998 (grading HURTS; recency must select, type only licenses). (ii) BROADENED licensing --
+  add ConceptNet part-whole relations to the WordNet is-a/part-whole filter -- 0.6988 (-0.0011, CI incl 0, no
+  gain). So the recency-primary BINARY WordNet-type-license is at its KNEE. The remaining headroom is the
+  name_bridge cases (common noun -> PROPER NAME, "the artist" -> "Zurbaran", 10.1% of anaphoric-common) which
+  WordNet cannot reach (proper names are not in it) -- that needs an ENTITY-TYPE KB (Wikidata P31 / DBpedia
+  InstanceOf), NOT on disk => the clear next FOUNDATION acquisition (type-2 encyclopedic entity types).
 
 ## 5. CONSTRAINTS (bar item 3 -- stated and held)
 (a) GLASS-BOX, NO external LLM at inference OR in gold construction. All sources are curated structured KBs
@@ -179,7 +187,7 @@ symmetric signature is analytically incapable (the strongest case for a typed sp
 | 4 | part-whole | bridging | bridging gold | YES | DONE (covered WIN + generalization located-neg) |
 | 6 | instrument/affordance | bridging | bridging gold | YES | DONE (covered WIN + generalization located-neg) |
 | 1 | lexical sense sig | WSD/meaning | SemCor/WiC | no | PROVEN (prior: +0.0755) |
-| 2 | entity instance-of | common-noun coref/entity-KB | GUM coref (modern, on disk) | YES | NEXT (highest new leverage; is-a spoke transfers directly) |
+| 2 | entity/common-noun is-a | common-noun coref | GUM coref (modern, on disk) | YES | DONE (WIN, this work: is-a spoke as type-licensing filter, +0.0116 over recency CI-sep) |
 | 9 | event scripts | temporal/predictive | story_cloze, tb_dense, ROC GEK asset on disk | YES (sequence) | NEXT (asset generalized_event_knowledge_roc_fwd.npz exists) |
 | 10 | thematic-fit | who-did-what/parser | UD-EWT/QA-SRL | partial | candidate (manifest L2 MAPPED) |
 | 5 | attributes | affect/plausibility | Warriner (live) | no | candidate (affect largely covered) |
@@ -189,12 +197,11 @@ symmetric signature is analytically incapable (the strongest case for a typed sp
 | 12 | kinship/role | coref | GUM | YES | candidate (small KB) |
 | 13 | numeric/temporal commonsense | duration/quantifier | mctaco | partial | candidate |
 
-PRIORITY for the NEXT problems (my recommendation): (P-a) TYPE 2 entity instance-of for COMMON-NOUN COREF on GUM --
-the is-a directed spoke I built transfers DIRECTLY (an entity's type chain resolves "the animal" <- "the dog"), GUM
-is modern and on disk, and coref is a scored board consumer; highest new leverage. (P-b) TYPE 9 event-scripts on
-story_cloze/tb_dense -- the ROC generalized-event-knowledge asset already exists and event order is directed
-(symmetric fails), so a typed event-schema spoke is a clean next win. These two are directed (the strongest case)
-and have modern on-disk instruments.
+PRIORITY for the NEXT problems (my recommendation): TYPE 2 common-noun coref is now DONE here (the is-a spoke as a
+type-licensing filter beats recency CI-sep on GUM). (P-a) TYPE 9 event-scripts on story_cloze/tb_dense -- the ROC
+generalized-event-knowledge asset already exists and event order is directed (symmetric fails), so a typed
+event-schema spoke is a clean next win. (P-b) TYPE 10 thematic-fit (manifest L2 MAPPED) on UD-EWT/QA-SRL. Both are
+directed (the strongest case) and have modern on-disk instruments.
 
 ## 8. PROPOSED hdlab CHANGE (strategy lands it -- Q111; NOT landed here)
 - ADD `hdlab/typed_spokes.py`: a frozen typed-spoke store keyed by WordNet synset (same hub nodes as C1/C2),
@@ -210,7 +217,9 @@ and have modern on-disk instruments.
   and turns it on (per the no-more-default-off rule: measure the consumer's live metric, flip on if net-positive).
 - NO change to C1 (meaning_sense_signatures_v1.npz) -- spokes are additive; WSD is untouched.
 - REVISIT downstream consumers to read the new spokes (brain-foundational upgrade): `coref.py`/`commonnoun_binder.py`
-  should read C5 (is-a) for common-noun anchoring; `bridging_inference.py` should read C6; `grounded_semantic_graph.py`
+  should read C5 (is-a) + C6 (part-whole) as a type-licensing FILTER on recency-ranked candidates (DEMONSTRATED here:
+  +0.0116 over recency CI-sep on GUM; recency stays the primary SELECTOR -- do NOT use the spoke to select);
+  `bridging_inference.py` should read C6 (hybrid: typed where covered, distributional fallback); `grounded_semantic_graph.py`
   (C2, already PPR over the relation graph) can add the DIRECTED is-a projection. `animacy_lexicon.py` already uses a
   narrow hypernym-closure -- it is a proto-typed-spoke and could be unified under C5.
 
@@ -230,51 +239,65 @@ and have modern on-disk instruments.
   fooled on confusable links. The brain uses both; the hybrid is the design, and "held-out drops" is a located
   negative that MAPS the follow-on, not a failure.
 - THE GATE'S SCHEMA-MARGIN IS A BASIC-LEVEL CRITERION (Rosch): it validates distributionally-coherent basic-level
-  is-a edges (AUC 0.948) but abstains on superordinate ones -- so a clean curated KB is admitted by
+  is-a edges (AUC 0.942) but abstains on superordinate ones -- so a clean curated KB is admitted by
   provenance+resolution (gate degenerates to keep-all, the proven result) and the schema-margin filters NOISY
   sources. Do not prune a clean taxonomy with a distributional coherence gate.
+- THE CONSUMER'S ARCHITECTURE DECIDES WHETHER INGESTED KNOWLEDGE HELPS. On common-noun coref, the is-a spoke as a
+  standalone SELECTOR (0.641) is DOMINATED by recency/Centering (0.688) -- yet as a type-licensing FILTER on
+  recency-ranked candidates it WINS (0.700). Same knowledge, same spoke; the win appears only when the knowledge
+  is used the brain-faithful way (LICENSE, do not SELECT). A "the knowledge does not help" reading is an
+  architecture artifact until the brain-faithful integration is tested -- and the shuffled-filter twin proves the
+  correct edges, not "any filter", carry the +0.0116.
 
 ## AUDIT UPDATE (for notes/BRAIN_FOUNDATIONAL_AUDIT.md sec 2b / sec 7 -- strategy folds in)
 - The meaning-store entry (C1) should note a NEW, measured deviation: the frozen store's SUPERPOSED single
   signature is analytically incapable of DIRECTED/TYPED relational reads (is-a direction: symmetric cap 0.500 on
   MoNLI; part-whole: symmetric fooled below chance on confusable distractors). The brain's ATL organization is
   hub-and-TYPED-SPOKE; C1 realizes only the superposed hub. Fidelity gap = the typed spokes (C5 is-a directed, C6
-  part-whole/instrument directed), demonstrated brain-foundational + CI-separated here. The manifest already
-  DECLARES hub-and-spoke; the meaning CONSUMERS read only C1's superposition -- that is the gap to close.
-- The consolidation-gate entry: schema-margin admission reproduces on a NEW KB (is-a, AUC 0.948) and is confirmed a
+  part-whole/instrument directed), demonstrated brain-foundational + CI-separated here on THREE consumers. The
+  manifest already DECLARES hub-and-spoke; the meaning CONSUMERS read only C1's superposition -- that is the gap.
+- The consolidation-gate entry: schema-margin admission reproduces on a NEW KB (is-a, AUC 0.942) and is confirmed a
   BASIC-LEVEL (Rosch) criterion -- add the note that it abstains on superordinate edges and that a clean curated KB
   is admitted by provenance+resolution (keep-all), the schema-margin filtering NOISY sources.
+- The common-noun coref entry (or exp_commonnoun_wall_gum_v1's located negative): UPDATE -- the "0.809 needs world
+  knowledge, the no-LLM limit" is NOT a limit; OFFLINE-gated world-knowledge is admissible, and the typed is-a/
+  part-whole spoke used as a type-licensing FILTER on recency lifts GUM common-noun coref 0.6883 -> 0.6998 CI-sep
+  (shuffled-filter twin loses). Coref should read the C5/C6 spokes as a licensing filter (recency stays primary).
 
 ## TLDR
 The reader's world-knowledge store crushes every kind of fact into one "relatedness" number per word, from which
-you cannot tell a dog is a KIND of animal (not the reverse) or that a wheel is PART of a car. I re-filed two kinds
+you cannot tell a dog is a KIND of animal (not the reverse) or that a wheel is PART of a car. I re-filed three kinds
 of knowledge the way a brain does -- one clean, directed list per kind of fact -- and showed the reader can then do
 what it provably could not before. On a modern word-entailment test it goes from coin-flip (the old store is
-mathematically stuck at 50 percent on direction) to about 82 percent; and on a "which whole does this part belong
-to" test with tempting look-alikes, it goes from worse-than-chance to over 90 percent for facts the knowledge base
-knows. Two honest limits: for word-entailment a cheap word-frequency trick is also fairly good on this particular
-test (but it is wrong exactly where the real hierarchy and frequency disagree, and there the hierarchy wins); and
-the part-whole knowledge does not stretch to brand-new word pairs it has never seen -- for those the reader still
-needs its old relatedness sense, so the right design keeps both. Every check that had to fail (a scrambled-knowledge
-version, a drop-the-reasoning version) did fail, and nothing the reader already does got worse.
+mathematically stuck at 50 percent on direction) to about 82 percent. On a "which whole does this part belong to"
+test with tempting look-alikes it goes from worse-than-chance to over 90 percent for facts the knowledge base knows.
+And on a modern text where the reader must tell that "the animal" refers back to "a dog", adding the kind-of
+knowledge (used the brain's way, as a filter on the most-recent candidate) beats the best simple rule -- and this
+last test is on ordinary text with no connection to the dictionary the knowledge came from, so it answers the main
+"did you just look up the answer" worry. Two honest limits: for word-entailment a cheap word-frequency trick is also
+fairly good on that particular test (but it is wrong exactly where the real hierarchy and frequency disagree, and
+there the hierarchy wins); and the part-whole knowledge does not stretch to brand-new word pairs it has never seen,
+so the right design keeps the old relatedness sense too. Every check that had to fail (scrambled knowledge, a
+drop-the-reasoning version, a "shuffle the filter" version) did fail, and nothing the reader already does got worse.
 
 ## QUESTIONS
-- One labelling call for the owner: I set SOLVED because both knowledge families clear the bar over the PRE-INGEST
-  foundation with the required controls (info-free twin loses, no regression), and a directed relation is exactly
-  where a typed spoke is provably necessary. A stricter reading could call TYPE 3 PARTIAL on the ground that a
-  frequency heuristic (0.865) edges the MFS-resolved spoke (0.817) OVERALL on this WordNet-derived gold -- though
-  the graph wins decisively where they disagree (0.766/0.982 vs 0.000) and the sense-agnostic union is 0.996. The
-  content is identical either way; only the label moves.
+- None blocking. I set SOLVED: three knowledge families clear the bar over the pre-ingest foundation with the
+  required controls (info-free twin loses on every type, no regression). The one caveat worth flagging is now
+  much weaker than in the first submission: TYPE 3's MoNLI gold is WordNet-derived (so its absolute magnitude /
+  the union upper bound are near-circular), but the SAME is-a spoke now also wins on GUM common-noun COREFERENCE
+  -- a real downstream consumer on modern gold that is INDEPENDENT of WordNet, over the strongest floor (recency),
+  with the shuffled-filter twin losing. That non-circular consumer win is the answer to the circularity concern.
 
 ## NEXT STEPS (priority-ranked)
 - P1 (strategy, now): land `hdlab/typed_spokes.py` (C5 is-a directed + C6 part-whole/instrument directed) + register
-  the two spokes in the manifest + add the HYBRID typed source to bridging_inference (default-OFF -> measure live ->
-  flip on if net-positive). Fold the AUDIT UPDATE.
-- P2 (highest-value new type): TYPE 2 entity instance-of for COMMON-NOUN COREF on GUM -- the is-a directed spoke
-  transfers directly; modern on-disk gold; scored consumer.
-- P3 (new type): TYPE 9 event-scripts on story_cloze/tb_dense using the existing ROC generalized-event-knowledge
+  the two spokes in the manifest. Wire them into TWO consumers, default-OFF -> measure live -> flip on if
+  net-positive: (i) `coref.py`/`commonnoun_binder.py` as a type-licensing FILTER on recency (DEMONSTRATED win); (ii)
+  `bridging_inference.py` as a HYBRID typed source. Fold the AUDIT UPDATE (incl. the common-noun-coref wall update).
+- P2 (new type): TYPE 9 event-scripts on story_cloze/tb_dense using the existing ROC generalized-event-knowledge
   asset -- event order is directed, so a typed event-schema spoke is a clean next win.
+- P3 (new type): TYPE 10 thematic-fit (manifest L2 MAPPED) on UD-EWT/QA-SRL.
 - P4 (upstream): the HYBRID stored+distributional read for part-whole generalization (the bridging PPR-fuse is one
   realization, already prototyped -- wire it as the C6 generalizer).
 - DO NOT re-file: reading-derived growth (closed); curated-store trimming (keep-all is the knee); a symmetric
-  representation for a directed relation (provably capped); the bridging headline/PPR-fuse (already prototyped).
+  representation for a directed relation (provably capped); the bridging headline/PPR-fuse (already prototyped); the
+  common-noun-coref WALL as a "no-LLM limit" (built across -- offline-gated world knowledge is admissible + wins).

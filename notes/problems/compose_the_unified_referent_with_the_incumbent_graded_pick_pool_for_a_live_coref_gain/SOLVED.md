@@ -5,8 +5,8 @@ bar: "Beats the LIVE incumbent CI-separated on the MODERN GUM he/she pronoun-pic
 result: "TWO findings on MODERN gold (GUM V12.1.0, 137-doc TEST, n=1240 he/she anaphoric targets; primary scorer = last-nominal-mention identity, which is size-robust and == the live reader's head_to_cluster on the fragmented arm). (1) LOCATED NEGATIVE (the brief's compose mechanism): the HYBRID (unified pool -> incumbent graded_antecedent_pick + suppression pool) scores 0.4750 vs the LIVE incumbent 0.5032, delta -0.0282 CI[-0.123,+0.056] -- does NOT beat the incumbent; the shuffled-grouping twin LOSES (0.3556, hybrid-twin +0.119 CI-sep, so the merges ARE real signal); ORACLE (perfect gold-cluster unification) also fails (0.4661 vs 0.5032); no ACT-R decay d in {2..6} recovers it. Unification MONOTONICALLY helps the weak isolation scorer (frag 0.3411 -> uni 0.3935 -> oracle 0.4065) but HURTS the strong incumbent scorer (frag 0.5032 -> uni 0.4750 -> oracle 0.4661): the two systems are ANTAGONISTIC on this population, so keep hdlab/unified_referent.py DEFAULT-OFF. (2) LIVE GAIN via a DIFFERENT lever: the brief ASSUMED person-feature exclusion is in the incumbent pool, but graded_coref_pick.phi_agreement_keep is LANDED-but-DORMANT (never called by _graded_pool_pick). Wiring it into the ACTUAL EventCentralityReader lifts the live he/she coref (native head_to_cluster) 0.5032 -> 0.5419, PAIRED doc-bootstrap delta +0.0387 CI[+0.0115,+0.0745] CI-SEPARATED; the random-drop twin (drop the same COUNT at random) LOSES (0.4637, phi-twin +0.0815 CI-sep) so it removes person-feature POLLUTION not pool size; named-antecedent no-regress (it RISES +0.036)."
 floor: "The strongest floor actually run, recomputed on the SAME he/she GUM TEST population + the SAME primary scorer as each comparison: for the compose question, the LIVE incumbent = 0.5032 (native head_to_cluster; identical under the size-robust last-nominal scorer since the incumbent pool is fragmented); the hybrid does NOT clear it. Info-free floors: shuffled-grouping twin 0.3556, fragmented-x-isolation 0.3411. For the phi live-gain, the floor is the same LIVE incumbent 0.5032; phi clears it +0.0387 CI-sep. Perfect-unification ceiling under the incumbent scorer = oracle 0.4661 (BELOW the incumbent -- subsumption)."
 controls: "COMPOSE negative: (1) pool x scorer 2x2 on ONE population, identical scorer machinery per cell -- isolates the pool-representation factor; (2) info-free TWIN = shuffled unified grouping (same #entities + size shape), LOSES CI-sep -> the grouping is load-bearing, the negative is subsumption not 'any re-keying'; (3) ORACLE = perfect gold-cluster unification fed to the incumbent scorer -> STILL loses -> the ceiling is SUBSUMPTION, not clustering quality (excludes 'better upstream clustering would fix it'); (4) phase-diagram d-sweep {2.0..6.0} dev-tuned/test-reported -> no decay recovers (excludes 'a tuning gap'); (5) NO-regress named subset; (6) POSITIVE control on the fragmented-protagonist subset (name variants that split the surface-head pool) -> hybrid still does NOT beat the incumbent there. PHI gain: (7) random-drop info-free twin (same drop COUNT, random which) LOSES CI-sep -> pollution-removal not pool-shrink; (8) named-antecedent no-regress (RISES); (9) the gain reproduces on the ACTUAL EventCentralityReader (native scorer), not only the reimplementation. FAITHFULNESS: the 2x2 arms reproduce the live substrate EXACTLY -- fragmented x incumbent == real EventCentralityReader (0.5342 slice / 0.5032 full, byte-exact) and unified x isolation == real resolve_unified_stream (0.4868 slice)."
-files_changed: "experiments/exp_hybrid_unified_incumbent_coref_gum_v1.py, verification/test_hybrid_unified_incumbent_coref.py, notes/problems/compose_the_unified_referent_with_the_incumbent_graded_pick_pool_for_a_live_coref_gain/SOLVED.md. NO hdlab/ writes (Q111 -- proposed wires stated below). Reuses data/corpora/gum/ (already on disk, pinned V12.1.0)."
-reverify: ".venv/Scripts/python.exe verification/test_hybrid_unified_incumbent_coref.py  (11/11; includes the faithfulness self-test that reproduces the live incumbent 0.5032 and the port 0.4331 exactly)"
+files_changed: "experiments/exp_hybrid_unified_incumbent_coref_gum_v1.py, experiments/exp_person_feature_coref_optimize_gum_v1.py, verification/test_hybrid_unified_incumbent_coref.py, verification/test_person_feature_coref_optimize.py, notes/problems/compose_the_unified_referent_with_the_incumbent_graded_pick_pool_for_a_live_coref_gain/SOLVED.md. NO hdlab/ writes (Q111 -- proposed wires stated below). Reuses data/corpora/gum/ (already on disk, pinned V12.1.0)."
+reverify: ".venv/Scripts/python.exe verification/test_hybrid_unified_incumbent_coref.py  (11/11; faithfulness self-test reproduces the live incumbent 0.5032 and the port 0.4331 exactly)  AND  .venv/Scripts/python.exe verification/test_person_feature_coref_optimize.py  (6/6; the optimized + hardened person-feature live gain on the ACTUAL reader)"
 ---
 
 # SOLVED (PARTIAL) -- compose the unified referent with the incumbent graded-pick pool
@@ -107,17 +107,51 @@ head_to_cluster scorer, n=1240):
 - **No-regress on the named subset** (it RISES +0.036). Composing phi with the unified pool does NOT help further
   (hybrid+phi 0.5282 < incumbent+phi 0.5452) -- unification stays antagonistic even after cleaning the pool.
 
+## Finding 2b -- the phi gain PROTOTYPED + OPTIMIZED + hardened (the "excel and exceed" pass)
+`exp_person_feature_coref_optimize_gum_v1.py` prototypes the wire on the ACTUAL `EventCentralityReader`
+(subclass injecting the filter as a pool pre-filter in `_graded_pool_pick`; `filter=off` is byte-identical to
+the live reader, asserted) and optimizes it. Witness `test_person_feature_coref_optimize.py` **6/6**.
+
+| filter (in _graded_pool_pick) | live he/she coref (native) | delta vs live incumbent |
+|---|---|---|
+| off (= live incumbent) | 0.5032 | -- |
+| **tier1** (participant-only, recall-safe) | **0.5419** | **+0.0387 CI[+0.012,+0.075] CI-SEP** |
+| tier2 (+ animacy-from-gender) | 0.5419 | +0.0387 (**identical -> animacy is REDUNDANT with gender agreement on he/she**, confirming the reference) |
+| cleanup (older `keep_after_pool_cleanup`) | 0.5419 | +0.0387 (identical to tier1 on this population) |
+| random-drop twin (same COUNT) | 0.4935 | -0.0097 (does NOT beat off) |
+
+- **Deployable choice = TIER1** (the simplest recall-safe `phi_agreement_keep`, animacy all-None). TIER2 adds
+  nothing because the pool reaching a he/she pick has no confirmed-inanimate candidate (gender agreement already
+  excludes neuter) -- a clean confirmation of the reference's "animacy redundant with English gender".
+- **MECHANISM PROOF (excel):** the gain concentrates exactly where speaker pollution lives. **First-person genres
+  (conversation/interview/vlog/reddit/podcast/letter/speech) gain +0.0906 CI[+0.012,+0.168] (n=342); third-person
+  genres gain +0.0189 CI[+0.002,+0.045] (n=898)** -- a ~5x concentration, both above zero but far larger where the
+  narrator/speaker is a discourse participant. Top per-genre gains: conversation +0.142, letter +0.129, speech
+  +0.100, vlog +0.067 (all first-person) + whow +0.300 / court +0.063 (2nd-person imperative / 1st-person testimony
+  pollution). This is the brain-foundational prediction (a first-person speaker is never a 3rd-person referent) borne
+  out genre-by-genre.
+- **NO-REGRESS + it GROWS with distance:** by antecedent-distance bucket the delta is +0.027 (same) / +0.037 (+1) /
+  +0.091 (+2) / +0.106 (long) -- no bucket regresses, and the gain rises with distance (more candidates accumulate,
+  so pollution bites harder). Recall-safe by construction (a speaker is never the gold he/she antecedent, so dropping
+  it cannot remove a correct answer) -- confirmed: the filter never regresses on any slice.
+
 ## PROPOSED hdlab WIRES (Q111 -- STRATEGY lands them; solver is scope-barred from hdlab/)
 > I cannot land these. Reference implementations: `exp_hybrid_unified_incumbent_coref_gum_v1.py`
 > (`resolve_arm`, the `_PhiReader` subclass in `real_reader_phi_gain`).
 
-1. **LAND THE PHI GAIN (the actionable win).** In `hdlab/event_centrality_coref.EventCentralityReader._graded_pool_pick`,
-   apply `graded_coref_pick.phi_agreement_keep(pronoun_low, prior_mention_heads, animacy=None)` as a **pool pre-filter**
-   before `graded_antecedent_pick` (TIER1, animacy all-None = recall-safe, never empties the pool). It needs the pronoun's
+1. **LAND THE PHI GAIN (the actionable win -- prototyped on the real reader, optimized, hardened).** In
+   `hdlab/event_centrality_coref.EventCentralityReader._graded_pool_pick`, apply
+   `graded_coref_pick.phi_agreement_keep(pronoun_low, prior_mention_heads, animacy=None)` as a **pool pre-filter** before
+   `graded_antecedent_pick` (TIER1, animacy all-None = recall-safe, never empties the pool). It needs the pronoun's
    surface form and each candidate's prior mention-head list -- thread a `midx -> head` map through `resolve_stream`
-   (already builds `midx_to_role` the same way). Measured live gain +0.0387 CI-sep on modern GUM he/she, twin loses, named
-   no-regress. Put it behind a `phi_person_filter` flag; per no-more-default-off, default-ON is justified (CI-sep win +
-   recall-safe + no-regress). This is a **dormant-organ activation**, not a new organ.
+   (already builds `midx_to_role` the same way). Reference implementation: the `CleanReader` subclass in
+   `exp_person_feature_coref_optimize_gum_v1.py` (`filter=off` is byte-identical to the live reader; `filter=tier1` is the
+   wire). **Measured live gain +0.0387 CI[+0.012,+0.075] CI-sep on modern GUM he/she (native scorer); random-drop twin
+   loses; named no-regress; no distance-bucket regresses; +0.091 in first-person genres.** Use TIER1 (TIER2 animacy is
+   redundant with gender agreement; `keep_after_pool_cleanup` is equivalent). Put it behind a `phi_person_filter` flag;
+   per no-more-default-off, default-ON is justified (CI-sep win + recall-safe + no-regress). This is a **dormant-organ
+   activation**, not a new organ. TIER2 with a REAL animacy signal (NER person/place, not gender) is a future extension
+   (adjacent below), not needed for this gain.
 2. **KEEP `unified_referent` DEFAULT-OFF (do NOT land the hybrid path).** The compose is a measured located negative even
    with perfect clustering and a swept decay. Do NOT add a `unified_referent_hybrid` path -- it would regress the live
    incumbent (-0.028) for the same reason the faithful port did. The audit's DEFAULT-OFF disposition for
@@ -165,10 +199,12 @@ head_to_cluster scorer, n=1240):
   follow-on.
 
 ## Adjacent components (seeds for the next problems)
-- **`phi_agreement_keep` / `keep_after_pool_cleanup` -- DORMANT in the live coref pick.** Brain-foundational (person +
-  animacy agreement), measured live gain, ready to wire. **The recommended next problem.** TIER2 (add animacy exclusion:
-  no place for "he", no person for "it") needs a candidate-animacy signal the reader can supply from NER/lexical animacy --
-  a further lever untested here.
+- **`phi_agreement_keep` / `keep_after_pool_cleanup` -- DORMANT in the live coref pick, now PROTOTYPED + OPTIMIZED.**
+  Brain-foundational (person-feature agreement), CI-sep live gain (+0.039), ready to wire (TIER1). **The recommended
+  thing to land.** TIER2-with-gender is measured REDUNDANT here; TIER2 with a REAL animacy signal (NER person/place --
+  "no place for he", "no person for it") is untested and needs an animacy organ the reader does not yet supply -- a
+  further lever and a candidate follow-on. The gain is register-sensitive (first-person genres +0.091 vs third-person
+  +0.019), so on a first-person-heavy deployment (dialogue / social) it is worth more than the headline average.
 - **The unified referent's real home is the WEAK scorer / non-coref consumers.** Unification helps the isolation scorer
   (+0.052) and helped the reference's intrinsic pronoun pick (+0.106) and the entity-KB hard-link -- so its value is for
   consumers that do NOT already have the tuned graded pool (entity-KB, affect-experiencer, the situation-model entity

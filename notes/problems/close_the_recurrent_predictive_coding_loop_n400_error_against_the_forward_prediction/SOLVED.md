@@ -5,7 +5,7 @@ bar: "PASSES only with ALL of: (1) the loop CLOSED as a glass-box wire -- redire
 result: "COHERENCE loop-closure PASSES on a MODERN gold: the forward prediction-error discrimination beats the backward-gist discrimination on Story Cloze val+test (n=3742), forward 0.5874 [0.5714,0.6034] vs backward-gist 0.52 [0.5035,0.5358], paired margin +0.0673 [+0.0468,+0.0879] CI-SEPARATED (half-width 0.021); cross-context twin collapses to 0.4971, forward-vs-twin +0.0903 [+0.0689,+0.1128]. SEGMENTATION loop-closure is a LOCATED NEGATIVE on the MODERN human gold (GUM V12.1.0 paragraph boundaries; narrative n=81 docs/3433 sents, all-genre n=272 docs/15205 sents): the CONTENT-only forward error does NOT beat the content-backward gist -- boundary-detection AUC forward 0.5447 vs backward 0.5603 (narrative, margin -0.0156 [-0.0453,+0.0164], tied), forward 0.5199 vs 0.5593 (all-genre, -0.0394). The forward DIRECTION is validated once the prediction is MULTI-DIMENSIONAL (Zwaan event-indexing): a content+protagonist/entity forward error beats the same multi-dimensional BACKWARD error CI-separated (narrative +0.0156 [+0.0056,+0.0261]; all-genre +0.0142 [+0.0074,+0.0208]); the PROTAGONIST/ENTITY dimension (gold GUM coref) is the lever (single-signal AUC 0.5507 > content-forward 0.5165). The CONSTRUCTION control (concat ROCStories, near-orthogonal story-start boundaries) reproduces the SOLVED loop-cell direction: forward F1 0.8025 vs backward 0.2717, shuffled-stream twin 0.1630. P2 UPGRADE PROTOTYPE (live-realizable, exp_predictive_loop_dimensional_v2/v3): the protagonist signal read from the reader's OWN PARSE LAYER (PROPN+NOUN participant novelty, NO coref gold) is the strongest single boundary detector (AUC 0.5666 narrative / 0.5596 all-genre), beating BOTH the content-backward incumbent (0.5418/0.5338) AND gold coref (0.5507/0.5425); an equal-weight content-forward + live-protagonist multi-dimensional forward monitor beats the content-backward incumbent CI-separated on all-genre (+0.0311 [+0.012,+0.048]) and positively on narrative (+0.0233) -- so the segmentation loop closure is REALIZABLE in the live substrate. (Honest negative: cross-validated LEARNED cue-validity weighting does NOT transfer across the 17 genres -- held-out it underperforms the unfitted single protagonist signal; the robust lever is the unfitted parse-layer protagonist novelty.)"
 floor: "The incumbent BACKWARD-gist monitor recomputed on each slice's OWN population. COHERENCE: backward-gist discrimination 0.52 [0.5035,0.5358] on Story Cloze val+test (forward CI-separates over it, +0.0673). SEGMENTATION (GUM narrative): content-backward-gist boundary AUC 0.5603 (matched EST z-score machinery) -- the content-forward error TIES it (-0.0156, CI incl 0); the landed n400 organ's NATIVE ratio-threshold F1 0.1183; the random-boundary floor (matched count) F1 0.4341 [p95 0.4502] -- both monitors' fixed-kz F1 (fwd 0.132 / bwd 0.193) fall BELOW it because the EST z-threshold is mis-set for the dense ~40% paragraph-boundary regime, so AUC/F1@count are the fair views (F1@count fwd 0.4574 > bwd 0.4339). The forward label-permutation null p95 = 0.1256."
 controls: "(1) cross-context twin (coherence: endings scored against a RANDOM other story's context) -> 0.4971 = EXCLUDES the Schwartz-2017 style artifact, proves it uses THIS story. (2) shuffled-forward twin (segmentation: scramble the sentence order, recompute the forward signal) -> multidim-forward AUC 0.5344 (narrative) / 0.5197 (all) collapses toward 0.5 = EXCLUDES a shape artifact. (3) random-boundary floor (matched count) F1 0.4341 p95 0.4502 = the true dense-regime floor. (4) construction control (concat ROCStories, near-orthogonal boundaries) forward 0.8025 vs backward 0.2717 = EXCLUDES 'the mechanism has no boundary signal' -- it wins 3x when boundaries are genuine situation-changes. (5) 2x2 decomposition (forward/backward x content/multidim) + leave-one-dimension-out ablation = LOCATES the win in the protagonist/entity representation, not the forward direction alone. (6) upstream store-broadening (GUM-in-domain prose + ROC, narrative held out) lifts content-forward AUC 0.5293->0.5470 but REGRESSES coherence -0.0334 = EXCLUDES 'a bigger store closes it for free'. (7) reset-vs-reinstate sweep on GUM narrative + the construction gold = isolates reinstatement. (8) live-consumer enumeration (grep) = the redirect's no-regress reality."
-files_changed: "experiments/build_gum_segmentation_gold.py (reproducible normalizer of the pinned on-disk GUM V12.1.0 into a modern paragraph-boundary gold); experiments/_predictive_loop.py (the glass-box closed-loop monitor module -- forward/backward EST, reinstatement, AUC/AP/F1/Pk, coherence, twins, consuming the LIVE hdlab.generalized_event_knowledge.GEKProjector); experiments/exp_predictive_loop_modern_gold_v1.py (THE HEADLINE -- coherence + segmentation + construction control + reset/reinstate + twins + positive control + null p95); experiments/exp_predictive_loop_dimensional_v1.py (BUILD ACROSS -- the multi-dimensional Zwaan-index forward error, gold GUM entities, 2x2 + ablation); experiments/exp_predictive_loop_dimensional_v2.py (P2 UPGRADE -- LIVE-realizable protagonist from the parse layer PROPN+NOUN, live-vs-gold, + gold <date> temporal); experiments/exp_predictive_loop_dimensional_v3.py (P2 CAPSTONE -- cross-validated cue-validity weighting; honest cross-genre non-transfer negative); experiments/exp_predictive_loop_upstream_store_v1.py (FULL-STACK UPSTREAM -- broaden the forward-transition store, segmentation lift vs coherence regress); verification/test_predictive_loop.py (scaffold-free witness, 8/8); data/corpora/gum_segmentation/ (materialized gold + provenance, gitignored); data/exp_predictive_loop_modern_gold_v1/ + data/exp_predictive_loop_dimensional_v1|v2|v3/ + data/exp_predictive_loop_upstream_store_v1/ (metrics). hdlab/ UNTOUCHED (Q111)."
+files_changed: "experiments/build_gum_segmentation_gold.py (reproducible normalizer of the pinned on-disk GUM V12.1.0 into a modern paragraph-boundary gold); experiments/_predictive_loop.py (the glass-box closed-loop monitor module -- forward/backward EST, reinstatement, AUC/AP/F1/Pk, coherence, twins, consuming the LIVE hdlab.generalized_event_knowledge.GEKProjector); experiments/exp_predictive_loop_modern_gold_v1.py (THE HEADLINE -- coherence + segmentation + construction control + reset/reinstate + twins + positive control + null p95); experiments/exp_predictive_loop_dimensional_v1.py (BUILD ACROSS -- the multi-dimensional Zwaan-index forward error, gold GUM entities, 2x2 + ablation); experiments/exp_predictive_loop_dimensional_v2.py (P2 UPGRADE -- LIVE-realizable protagonist from the parse layer PROPN+NOUN, live-vs-gold, + gold <date> temporal); experiments/exp_predictive_loop_dimensional_v3.py (P2 CAPSTONE -- cross-validated cue-validity weighting; honest cross-genre non-transfer negative); experiments/exp_predictive_loop_upstream_store_v1.py (FULL-STACK UPSTREAM -- broaden the forward-transition store, segmentation lift vs coherence regress); experiments/exp_predictive_loop_boundary_type_v1.py (CEILING DRILL -- within-doc paragraph vs doc-concat topic-jump: the ceiling is the GOLD's subtlety, mechanism sound); experiments/exp_predictive_loop_policy_isolation_v1.py (POLICY ISOLATION -- the 2x2 error-source x update-policy: forward-vs-backward is regime-specific, reinstatement is direction-independent); verification/test_predictive_loop.py (scaffold-free witness, 8/8); data/corpora/gum_segmentation/ (materialized gold + provenance, gitignored); data/exp_predictive_loop_modern_gold_v1/ + data/exp_predictive_loop_dimensional_v1|v2|v3/ + data/exp_predictive_loop_upstream_store_v1/ (metrics). hdlab/ UNTOUCHED (Q111)."
 reverify: ".venv/Scripts/python.exe verification/test_predictive_loop.py"
 ---
 
@@ -178,6 +178,37 @@ the win survives with LIVE, reader-realizable extraction. It does -- and better:
 **Net:** P2 is prototyped and works LIVE. The segmentation loop closure is achievable with the reader's own parse
 layer; the landing is a multi-dimensional forward monitor (content + parse-layer protagonist), NOT content alone.
 
+## §4c POLICY ISOLATION -- the loop-closure conflated TWO variables; "forward" is regime-specific, reinstatement is the direction-independent lever (a partial CORRECTION to the brief)
+The brief/SOLVED-loop-cell changed TWO things at once and credited "forward": the ERROR SOURCE (GEK forward vs
+backward gist) AND the UPDATE POLICY (reinstate vs hard reset). `exp_predictive_loop_policy_isolation_v1` runs the
+full 2x2 x 3 golds, with fired-boundary F1 AND raw-signal AUC:
+
+| gold | fwd raw AUC | bwd raw AUC | reinstate effect (F1) |
+|---|---|---|---|
+| construction concat-ROCStories | **0.882** | 0.523 | fwd 0.765->0.803, bwd 0.272->0.367 (helps both) |
+| GUM within-doc paragraphs | 0.5165 | **0.5418** | fwd 0.115->0.127, bwd 0.160->0.203 (helps both) |
+| GUM doc-concat topic jumps | 0.5403 | **0.8228** | fwd 0.102->0.096, bwd 0.228->0.184 (HURTS both, sparse) |
+
+Three corrections fall out:
+- **"Forward beats backward" is NOT general -- it is regime-specific.** Forward's raw signal wins BIG on
+  concat-ROCStories (AUC 0.88 vs 0.52) because the GEK store is IN-DOMAIN (ROCStories-trained) and segments are
+  short; it LOSES on real GUM prose (0.52-0.54 vs 0.54-0.82) because the GEK store is OOD and long segments make the
+  backward gist a strong anchor. So the motivating 3x construction win does NOT transfer to real prose -- exactly the
+  "the number did not travel" lesson, now isolated to the store-domain + segment-length regime.
+- **Reinstatement is a DIRECTION-INDEPENDENT lever, not a forward-loop benefit.** It improves BOTH forward and
+  backward F1 by ~+0.04-0.09 on dense boundaries (and HURTS both on sparse) -- so the SOLVED-cell's reinstate gain is
+  real but has nothing to do with "forward"; it is a better UPDATE POLICY for the incumbent whichever error it uses.
+- **The incumbent's construction F1 collapse (0.27) is the HARD RESET, not the backward direction** -- backward's raw
+  AUC on ROC is only 0.52 (a genuinely weak signal there), but on GUM the backward gist is the STRONGER signal, and
+  reinstatement recovers a chunk of the reset loss.
+- **BRAIN-FAITHFUL REFRAME (the deepest point):** the "backward gist" is itself a zeroth-order FORWARD predictor --
+  it predicts the next input = the running event-model mean (a persistence/nowcast forward model, exactly the EST
+  event model). So there is no true forward/backward dichotomy: the incumbent already takes its error against a
+  forward (persistence) prediction; the loop-closure question is WHICH forward predictor -- a LEARNED associative one
+  (GEK) or the PERSISTENCE one (gist) -- and on real modern prose the persistence predictor WINS because the learned
+  GEK is OOD. The genuinely brain-faithful upgrade for real-prose segmentation is therefore REINSTATEMENT +
+  MULTI-DIMENSIONAL (protagonist) prediction, NOT swapping the persistence forward-model for the OOD learned one.
+
 ## §5 PERFORMANCE vs the brain / where signal is lost
 A competent reader segments narrative near-perfectly and uses ALL five Zwaan indices at once. Our loss is localized:
 (a) the forward projector predicts only CONTENT (Elman GEK) -- one Zwaan dimension (causation/semantics) -- so on
@@ -209,6 +240,12 @@ FORWARD prediction error over the full situation model is the boundary signal ES
 - **Broadening the forward store is a domain-specialization trade, not a free lever.** In-domain prose lifts
   segmentation (+0.018 AUC) but regresses ROC-domain coherence (-0.033). The store cannot serve both without
   specialization; the representational (entity) lever avoids the trade.
+- **"Forward beats backward" was TWO variables in a trenchcoat, and the ceiling is the gold (the two deepest drills).**
+  Isolating error-source from update-policy (§4c) showed the forward win is regime-specific (in-domain store + short
+  segments) and REVERSES on real prose, while reinstatement is a direction-INDEPENDENT lever; and the boundary-type
+  drill (§4b/§4c) showed the same signals hit AUC 0.77-0.89 on real topic jumps but ~0.55 on subtle paragraphs -- so
+  the ceiling is the GOLD's subtlety, not the mechanism. Generalizes: when a headline changes two knobs at once,
+  isolate them before crediting one; and probe whether a low ceiling is the signal or the instrument.
 - **The LIVE parse-layer protagonist signal EXCEEDS gold coref -- and the fitted combiner underperforms the unfitted
   one (P2).** Two upgrade surprises: (i) PROPN+NOUN participant novelty from the reader's own parser is a BETTER
   boundary detector (AUC 0.567) than gold coref entity chains (0.551), because noun-introduction captures topic/
@@ -232,20 +269,21 @@ FORWARD prediction error over the full situation model is the boundary signal ES
 - **reset-vs-reinstate is regime-dependent:** heavy reinstatement hurts on near-orthogonal boundaries (construction)
   but helps on dense soft paragraph boundaries -- SWEEP, do not adopt 0.3.
 
-## §8 Q111 -- proposed hdlab diff (strategy lands + witnesses; I did NOT write hdlab)
-1. **Add an OPT-IN forward-error mode to `hdlab/n400_coherence_monitor.py`.** A constructor arg
-   `forward_expect_fn: Optional[Callable]=None` (default None -> the current backward-gist behaviour, so
-   `bound_event_backbone`'s `N400CoherenceMonitor()` is BYTE-IDENTICAL -> no-regress by construction). When provided,
-   `observe(content, *, ctx=...)` computes the error as `1 - forward_expect_fn(ctx, content)` (the GEKProjector
-   forward expectedness) instead of `1 - cos(content, running gist)`, and REINSTATES the running context at a
-   boundary with a swept lambda (`reinstate: float=0.0`) rather than hard-resetting. Copy the EST/predictive-coding
-   COMPUTATION; SWEEP lambda, tau, decay. NO external LLM.
-2. **Do NOT redirect the DEFAULT monitor** (it feeds the default-on `bound_event_backbone`); the forward-error mode is
-   for the NEW event-segmentation consumer. Strategy can separately measure whether the backbone benefits.
-3. **The load-bearing fix for real-prose segmentation is UPSTREAM:** extend the forward projector
-   (`generalized_event_knowledge`) / a new situation-model forward prediction to the PROTAGONIST/entity (and time/
-   space) Zwaan dimensions, reading the reader's OWN entity/agent registers, so the forward error is multi-dimensional
-   (the measured lever). That is a NEW problem (below), not this wire.
+## §8 Q111 -- proposed hdlab diff (strategy lands + witnesses; I did NOT write hdlab; revised by §4c)
+1. **Add a swept-`reinstate` UPDATE-POLICY arg to `hdlab/n400_coherence_monitor.py`** (`reinstate: float=0.0`,
+   default 0.0 = the current hard reset, so `bound_event_backbone`'s `N400CoherenceMonitor()` is BYTE-IDENTICAL ->
+   no-regress by construction). This is the DIRECTION-INDEPENDENT lever (§4c: +0.04-0.09 F1 on dense boundaries for
+   BOTH error sources; HURTS on sparse -> SWEEP per deployment, do NOT adopt 0.3).
+2. **For COHERENCE, the GEK forward-error is the proven win** -- an opt-in `forward_expect_fn` mode (as before) that
+   scores the ending against the live forward prediction. This is the clear +0.067 CI-sep result.
+3. **For real-prose SEGMENTATION, do NOT swap the persistence gist for the OOD GEK forward predictor** (§4c: on GUM
+   the backward-gist raw signal 0.54-0.82 BEATS the OOD GEK forward 0.52-0.54). The gist IS already a zeroth-order
+   forward (persistence) predictor; the load-bearing lever is the MULTI-DIMENSIONAL error -- feed the segmentation
+   monitor the reader's PARSE-LAYER protagonist register (PROPN+NOUN participant novelty; §4b -- beats the incumbent
+   CI-sep on all-genre, live-realizable) alongside the content error. Swapping to the learned GEK forward predictor
+   for segmentation only helps IN-DOMAIN / short segments (the ROCStories construction regime).
+4. **Do NOT redirect the DEFAULT monitor** (it feeds the default-on `bound_event_backbone`); land the new modes for a
+   NEW event-segmentation consumer, and let strategy separately measure the backbone.
 
 ## §9 ADJACENT COMPONENTS (brain-fidelity + optimization -- seeds for the next problems)
 - **The MULTI-DIMENSIONAL forward projector is the highest-leverage next build (candidate problem).** The forward
