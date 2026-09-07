@@ -145,6 +145,14 @@ Reference implementation: `experiments/exp_commonnoun_typed_identity_gum_v1.Type
 Combined: 0.4879 -> 0.5671, BEATING string-identity 0.5412 (+0.0259 CI-sep), twin loses, no consumer regresses. Note the
 scope: this is a resolution-accuracy wire (the board's dim + downstream binding), not a cluster-F1 change.
 
+**EFFICIENCY (measured).** The bridge's only cost is the type comparator. Memoizing `coref_type_license` (symmetric key,
+pure) cuts the full-test bridge cost from 3.41s (cold) to ~0.48s (warm) -- a ~7x speedup, only +0.13s over the no-bridge
+baseline; the 25,398-pair type-compatibility closure for GUM's head vocabulary warms once. For deployment this closure
+can be PRECOMPUTED OFFLINE as a static asset (foundation-building, invariant-safe) so the bridge is an O(set-lookup) with
+ZERO inference-time WordNet work. The bridge fires only on the different-head slice (no same-head candidate), so it does
+not touch the 66% same-head path. Cascade (same-head first, then type-bridge) == weighted parallel constraint satisfaction
+with head-match as the dominant cue (Ariel) -- the efficient AND faithful form (same-head-override was measured net-negative).
+
 ## 7. AUDIT UPDATE (for `notes/BRAIN_FOUNDATIONAL_AUDIT.md` sec 2b, E3 coreference / common-noun)
 - **Common-noun coref now BEATS same-head string-identity on modern GUM (0.5618 vs 0.5412, CI-sep)** via two brain-faithful
   levers: a TYPED card identity (nominal vs full mention set -- de-pollutes the common read from weak pronoun bindings) and
@@ -231,13 +239,24 @@ resolution correctness. If you want a clustering-F1 win too, that needs the comm
 pollution; I recommend keeping the resolution-accuracy win (it is what the board and downstream measure).
 
 ## NEXT STEPS (priority-ordered; strategy owns any hdlab landing, Q111)
-1. **LAND the two levers** (§6): typed card identity (nominal vs full) + non-writing (Nref) type bridge, on the URG common
-   path. 0.4879 -> 0.5618, beats string-identity CI-sep, twin loses, no consumer regress. Re-verify the 6 witnesses.
-2. **Evaluate the OTHER card consumers on the typed identity view** (affect experiencer, goal/relational binding) -- the
-   nominal-vs-full split likely helps them too (they currently read the polluted full card). Candidate follow-on.
-3. **Complementary upstream:** land the sibling compose SOLVED's pronoun stack (+0.082) to further clean the full-card read.
-4. **Close the rest of the headroom to the oracle (0.5825):** the sibling P31 entity-type-KB for the 84% world-knowledge
-   different-head residual (offline, invariant-safe).
-5. **DO NOT REDO (measured-capped):** same-head splitting (net-negative on both metrics); the WRITING different-head bridge
-   (pollutes -> use non-writing); recall-safe vs hard agreement on common nouns (gender ~6%-sparse); the weighted-CS
-   same-head ranking (twin ties -> no headroom). All on disk with their capping reason.
+🎯 **HIGH -- LAND THE WIN (the four wires of §6), on the URG common-noun path behind the board's `common_noun_coref` dim.**
+   0.4879 -> **0.5671, BEATS string-identity 0.5412 (+0.0259 CI-sep)**, twin loses, pronoun/kb byte-identical, name +0.024.
+   The four wires are one coherent change: (1) TYPED CARD IDENTITY (nominal vs full view); (2) NON-WRITING (Nref) type
+   bridge; (3) seed the bridge from the LANDED `hdlab.typed_spokes.coref_type_license` organ (not WordNet); (4) the
+   read-only entity-merge (kb) view for the entity-KB consumer. Include the type-comparator MEMO (or its offline-precomputed
+   closure) -- ~7x speedup, zero inference-time WordNet work. Re-verify the 6 witness suites (28 checks). Reference impl:
+   `experiments/exp_commonnoun_typed_identity_gum_v1.TypedResolver(binding='incumbent', bridge=True, bridge_write=False,
+   type_comparator='typed_spokes')`.
+🎯 **HIGH -- the ONLY remaining accuracy lever is world-knowledge content: the sibling P31 entity-type-KB** for the 84%
+   world-knowledge different-head residual. Proven: ranking has zero glass-box headroom, content is the entire signal, so
+   the P31 KB is what closes the rest of the headroom to the oracle 0.5825 (and raises the merge-view's common->named-entity
+   yield above the 43% glass-box bridge precision). Not a ranking/gate/agreement tweak -- those are all measured washes.
+MEDIUM -- **evaluate the OTHER card consumers on the typed identity view** (affect experiencer, goal/relational binding):
+   they currently read the pronoun-polluted full card; the nominal view likely lifts them the way it lifted name coref
+   (+0.024). A scoped follow-on (separate pipelines/gold).
+MEDIUM -- **complementary upstream:** land the sibling compose SOLVED's pronoun stack (+0.082) to clean the FULL-card read
+   (helps the pronoun dim and the entity-KB pick; common-noun is already robust to pronoun quality via the typed view).
+DO NOT REDO (measured-capped, each on disk with its reason): same-head splitting (net-negative on BOTH the board metric and
+   CoNLL); the WRITING different-head bridge (corrupts the same-head chain: same-head 0.769->0.694); graded commit-gate
+   (same corruption); recall-safe/soft agreement + ACT-R selector on common nouns (washes -- ranking is not the lever,
+   gender is ~6%-sparse); the world-knowledge type-license as a WRITING FILTER (net-negative -- use it NON-writing).
