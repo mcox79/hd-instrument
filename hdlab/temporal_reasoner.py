@@ -58,6 +58,31 @@ BEFORE, AFTER, ABSTAIN = R.BEFORE, R.AFTER, R.ABSTAIN
 
 UNKNOWN = "unknown -- needs world knowledge"   # the honest implicit-event abstention (glass-box)
 
+# --- IMPLICIT-EVENT script/schema override (Q111 p6 wire; Sec 4j/7.5 of the SOLVED). The story-internal
+# timeline can only order events the text NARRATES; on an IMPLICIT-event query (an event not on the narrated
+# timeline) the reader abstains (UNKNOWN). The LATENT hdlab.temporal_script_schema (177,800 Chambers-Jurafsky
+# narrative-chain verb-pair orders mined from ROCStories, a STATIC ADMISSIBLE FOUNDATION asset) answers exactly
+# those queries at its validated turf (TRACIE implicit-event 0.60 on the covered 29%, vs today's abstention).
+# It is consulted ONLY in the abstention branch, gated on CONFIDENCE (enough evidence + a decisive margin), so
+# the NARRATED path (cue/date/iconicity) is BYTE-IDENTICAL and an asset-less environment abstains as before.
+# The thresholds are OUR-INVENTION-UNDER-TEST (swept in exp_temporal_script_override_v1; the validated confident
+# subset is evidence>=30 / |p-0.5|>=0.1 at 0.625; E_MIN=10 is the permissive-but-confident operating point in the
+# recommended 10-30 band).
+SCRIPT_E_MIN = 10     # min two-directional co-occurrence evidence to trust the mined verb-pair order
+SCRIPT_M_MIN = 0.1    # min |p_before - 0.5| margin (confidence) required to override the honest abstention
+
+_SCRIPT_SCHEMA = None  # process-wide cache of the frozen script/schema organ (loaded at most once; ~3MB asset)
+
+
+def _script_schema():
+    """Lazily load + cache the frozen temporal_script_schema organ. Returns an EMPTY (abstaining) organ when the
+    asset is absent -- so consulting it is asset-less-safe (every readout -> None -> the reasoner keeps UNKNOWN)."""
+    global _SCRIPT_SCHEMA
+    if _SCRIPT_SCHEMA is None:
+        from hdlab.temporal_script_schema import TemporalScriptSchema
+        _SCRIPT_SCHEMA = TemporalScriptSchema.load()
+    return _SCRIPT_SCHEMA
+
 
 # ---------------------------------------------------------------------------
 # BEFORE/AFTER core -- promoted VERBATIM from exp_temporal_reason_integrated_v1
@@ -112,7 +137,8 @@ class TemporalReasoner:
     given stated duration premises -- relative duration off the magnitude line. Never re-extracts."""
 
     def __init__(self, events: Sequence["AI.AspectualEvent"], tagged, rank: Dict[str, int],
-                 cue_adj: Dict[str, set], date_adj: Dict[str, set], span: float = 1.0) -> None:
+                 cue_adj: Dict[str, set], date_adj: Dict[str, set], span: float = 1.0,
+                 use_script_schema: bool = True) -> None:
         self.events = list(events)
         self.tagged = tagged
         self.rank = rank
@@ -120,10 +146,14 @@ class TemporalReasoner:
         self.date_adj = date_adj
         self.span = float(span)
         self._idx = {e.lemma: e.idx for e in self.events}
+        # consult the latent script/schema organ on the IMPLICIT-event abstention branch (default-on; ADDITIVE +
+        # narrated-path byte-identical). Pass False for the pure story-internal reasoner (or an asset-less witness).
+        self.use_script_schema = bool(use_script_schema)
 
     @classmethod
     def from_text(cls, text: str, lexical_aspect: bool = True,
-                  date_anchors: Optional[Dict[str, float]] = None, span: float = 1.0) -> "TemporalReasoner":
+                  date_anchors: Optional[Dict[str, float]] = None, span: float = 1.0,
+                  use_script_schema: bool = True) -> "TemporalReasoner":
         """Build the reasoner from raw passage text. `date_anchors` (optional) maps an event key -> a
         comparable event-LOCAL date value (Reichenbach R via TIMEX); when absent, the date channel is
         empty and before/after rides on cue closure + the iconicity fallback (the reader has no TIMEX
@@ -148,17 +178,41 @@ class TemporalReasoner:
                         continue
                     if local[lems[i]] < local[lems[j]]:
                         date_adj[lems[i]].add(lems[j])
-        return cls(ev, tg, rank, cue_adj, date_adj, span=span)
+        return cls(ev, tg, rank, cue_adj, date_adj, span=span, use_script_schema=use_script_schema)
+
+    def _script_order(self, la, lb) -> Optional[str]:
+        """Consult the latent SCRIPT/SCHEMA organ for the typical order of two event TYPES (Chambers-Jurafsky
+        narrative chains). Returns 'before'/'after' ONLY when the mined evidence is CONFIDENT (>= SCRIPT_E_MIN
+        two-directional count AND |p_before-0.5| >= SCRIPT_M_MIN margin), else None (keep the honest abstention).
+        Asset-less-safe: the organ abstains (p_before None) when the frozen counts are absent -> None."""
+        org = _script_schema()
+        p = org.p_before(la, lb)
+        if p is None:
+            return None
+        if org.evidence(la, lb) < SCRIPT_E_MIN or abs(p - 0.5) < SCRIPT_M_MIN:
+            return None
+        return "before" if p >= 0.5 else "after"
 
     # -- BEFORE / AFTER (with glass-box signal-class provenance) --
     def before(self, a, b) -> Tuple[str, str]:
         """'Did A happen before or after B?' Returns (label, signal_class).
-        label in {'before', 'after', UNKNOWN}; signal in {'cue', 'date', 'iconicity', 'vague'}.
+        label in {'before', 'after', UNKNOWN}; signal in {'cue', 'date', 'iconicity', 'script', 'vague'}.
         Priority: explicit tense/connective CUE path -> TIMEX DATE path -> iconicity (telling order)
-        fallback. Returns (UNKNOWN, 'vague') when either event is not on the narrated timeline (an
-        implicit-event query the story-internal reader cannot place)."""
+        fallback. On an IMPLICIT-event query (an event not on the narrated timeline) the story-internal reader
+        cannot place it -- it consults the latent script/schema organ (typical event-type order) and returns its
+        verdict with signal 'script' when confident, else returns (UNKNOWN, 'vague'). The NARRATED path (both
+        events on the timeline) is BYTE-IDENTICAL to the pre-wire reasoner (the script consult is unreachable
+        there)."""
         la, lb = _key(a), _key(b)
-        if la is None or lb is None or la not in self._idx or lb not in self._idx:
+        if la is None or lb is None:
+            return UNKNOWN, "vague"
+        if la not in self._idx or lb not in self._idx:
+            # IMPLICIT-EVENT path: at least one event is not on the narrated timeline. Consult the script/schema
+            # organ (typical event-type order) when confident; else keep the honest abstention. ADDITIVE.
+            if self.use_script_schema:
+                so = self._script_order(la, lb)
+                if so is not None:
+                    return so, "script"
             return UNKNOWN, "vague"
         pred, sig = integrated_order(la, lb, self.cue_adj, self.date_adj)
         if pred == BEFORE:
@@ -237,9 +291,42 @@ def _selftest() -> None:
     lbl, sig = tr2.before("left", "arrived")
     assert lbl == "before" and sig in ("cue", "date"), f"cue before/after failed: {lbl}/{sig}"
 
-    # (C) IMPLICIT-EVENT abstention: an event not on the narrated timeline -> UNKNOWN / vague.
-    lbl3, sig3 = tr2.before("left", "vanished")
+    # (B2) NARRATED-path BYTE-IDENTITY under the script wire: when both events are on the timeline the script
+    # consult is UNREACHABLE, so before() is identical whether the script organ is on or off.
+    on_r = TemporalReasoner.from_text("He arrived . She had left .", use_script_schema=True)
+    off_r = TemporalReasoner.from_text("He arrived . She had left .", use_script_schema=False)
+    for pr in (("left", "arrived"), ("arrived", "left")):
+        assert on_r.before(*pr) == off_r.before(*pr), \
+            ("narrated path not byte-identical under script wire", pr, on_r.before(*pr), off_r.before(*pr))
+
+    # (C) IMPLICIT-EVENT abstention (pure story-internal, script organ OFF): an event not on the narrated timeline
+    # -> UNKNOWN / vague. The pre-wire behaviour, preserved under use_script_schema=False (asset-INDEPENDENT).
+    tr2b = TemporalReasoner.from_text("He arrived . She had left .", use_script_schema=False)
+    lbl3, sig3 = tr2b.before("left", "vanished")
     assert lbl3 == UNKNOWN and sig3 == "vague", f"implicit-event query not abstained: {lbl3}/{sig3}"
+
+    # (C2) SCRIPT/SCHEMA wire (the NEW capability, Sec 4j/7.5): on an IMPLICIT-event query (neither event on the
+    # timeline) the reasoner consults the latent temporal_script_schema and answers with signal 'script' when the
+    # mined order is CONFIDENT; else it keeps the honest abstention. Asset-gated + graceful.
+    from hdlab.temporal_script_schema import TemporalScriptSchema
+    if TemporalScriptSchema.available():
+        org = _script_schema()
+        pa, pb = "offered", "accepted"                                 # a confident mined pair (offer BEFORE accept)
+        p_ab = org.p_before(pa, pb)
+        conf = (p_ab is not None and org.evidence(pa, pb) >= SCRIPT_E_MIN and abs(p_ab - 0.5) >= SCRIPT_M_MIN)
+        tri = TemporalReasoner.from_text("It rained all day .")        # narrates neither pa nor pb -> implicit path
+        lbl4, sig4 = tri.before(pa, pb)
+        if conf:
+            assert sig4 == "script" and lbl4 == org.order(pa, pb), \
+                f"script wire did not fire on a confident pair: {lbl4}/{sig4} (expected {org.order(pa, pb)}/script)"
+            lbl5, sig5 = TemporalReasoner.from_text("It rained all day .", use_script_schema=False).before(pa, pb)
+            assert lbl5 == UNKNOWN and sig5 == "vague", f"script-off did not keep abstention: {lbl5}/{sig5}"
+            print("[selftest] script wire: implicit before('%s','%s') = %s/%s (organ confident); off-switch "
+                  "abstains -> %s/%s" % (pa, pb, lbl4, sig4, lbl5, sig5))
+        else:
+            print("[selftest] script wire: chosen pair not confident in this asset -> positive assertion skipped")
+    else:
+        print("[selftest] script asset absent -> implicit-event path abstains (asset-less safe)")
 
     # (D) RELATIVE DURATION: an adjacent chain integrates transitively; an un-stated pair reads correctly.
     items = ["blink", "sip", "song", "meal", "movie", "flight", "war", "era"]
@@ -248,8 +335,8 @@ def _selftest() -> None:
     assert line.longer("era", "blink") is True, "un-stated transitive relative-duration failed"
     assert line.longer("blink", "war") is False, "un-stated transitive relative-duration failed (reverse)"
 
-    print("[hdlab.temporal_reasoner] self-test PASS: overlap + before/after(provenance) + implicit-event "
-          "abstain + relative-duration magnitude line")
+    print("[hdlab.temporal_reasoner] self-test PASS: overlap + before/after(provenance) + narrated byte-identity "
+          "+ implicit-event abstain + script/schema wire + relative-duration magnitude line")
 
 
 if __name__ == "__main__":

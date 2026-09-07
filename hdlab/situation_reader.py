@@ -903,7 +903,7 @@ class SituationReader:
                  track_temporal_reasoning: bool = True,
                  track_natural_logic: bool = True,
                  joint_temporal_events: bool = True,
-                 joint_nominal_events: bool = False,
+                 joint_nominal_events: bool = True,
                  read_polarity: bool = True,
                  parser_arceager: bool = True,
                  np_head_reduce: bool = True,
@@ -1396,13 +1396,25 @@ class SituationReader:
         # False (byte-identity for the historical-weak reader). Has effect ONLY when track_temporal_reasoning is also
         # on. NO spaCy / NO external LLM. flag-off = the pre-landing tense-gated (from_text) reasoner.
         self.joint_temporal_events = bool(joint_temporal_events)
-        # EVENTIVE-NOMINAL sub-channel (default-OFF joint_nominal_events; MEASURED reason, NOT an oversight). The
-        # WordNet eventive-nominal channel (a deverbal ACT/EVENT/PROCESS noun -- attack/construction/arrival -- IS an
-        # event, the biggest single survival lever: 0.4054 -> 0.7327 on TB-Dense) OVER-EXTRACTS on polysemous nouns
-        # ("building" the act vs the object), costing precision 0.79 -> 0.65 (SOLVED). The precision fix is a
-        # context/WSD gate (a filed follow-on, meaning-channel P3; the syntactic Grimshaw shortcut was DRILLED and
-        # FAILS -- crushes recall 0.70 -> 0.20), so the nominal channel stays OFF pending that gate. No effect unless
-        # joint_temporal_events is also on. all_capabilities_off() forces it False.
+        # EVENTIVE-NOMINAL sub-channel (FLIPPED DEFAULT-ON UNGATED 2026-09-07, Q111 p6 landing
+        # gate_the_eventive_nominal_event_channel_by_context_wsd_event_vs_result). The WordNet eventive-nominal channel
+        # (a deverbal ACT/EVENT/PROCESS noun -- attack/construction/arrival -- IS an event, the biggest single survival
+        # lever: 0.4054 -> 0.7327 on TB-Dense, nominal-event recall 0.105 -> 0.703) OVER-EXTRACTS on polysemous nouns
+        # ("building" the act vs the object), costing EXTRACTION precision 0.79 -> 0.65. The brief premised that a
+        # context/WSD gate was needed before default-ON -- but the p6 SOLVE built the gate brain-faithfully (biased
+        # competition + selectional restriction; extraction precision restored +0.062 CI-sep, twins losing) and then
+        # RAN IT END-TO-END through the ACTUAL solved temporal reasoner (TB-Dense, 1586 gold BEFORE/AFTER pairs): the
+        # UNGATED nominal channel answered-correct 0.4937 (87% of the gold-event ceiling 0.5681) vs the WSD-gated 0.4590
+        # (CI-sep WORSE) -- conditional accuracy is FLAT, so gating only DROPS COVERAGE. The precision "cost" is an
+        # EXTRACTION-INSTRUMENT ARTIFACT (MAVEN/TB gold do not annotate every eventive nominal, so a kept true event
+        # counts as a FP), NOT a downstream cost; the reasoner is robust to over-extraction. So the channel goes ON
+        # UNGATED (the WSD gate is a rigorously-built located NEGATIVE, retired for this consumer). ADDITIVE + NO-REGRESS
+        # + LATENT-consumer-only: the flag changes ONLY the JOINT TemporalReasoner's event set
+        # (_build_joint_temporal_reasoner, nominal=self.joint_nominal_events) -- sm.events and every other reader field
+        # are BYTE-IDENTICAL off vs on; the ONLY consumer is sm.temporal_reasoner() (a NEW ISLAND, no board dim reads
+        # it), so flipping cannot regress a board dimension (the survival gain is scored INDEPENDENTLY by the board's
+        # temporal_survival arm). No effect unless joint_temporal_events is also on. all_capabilities_off() forces it
+        # False (byte-identity for the historical-weak reader). NO spaCy / NO external LLM.
         self.joint_nominal_events = bool(joint_nominal_events)
         # TRUTH-CONDITIONAL POLARITY + QUANTITY read-out (default-ON read_polarity; wired 2026-09-06 from the
         # owner-DONE represent_negation_and_quantifier_scope_for_truth_conditional_reading_modern_gold, p9). A POST-

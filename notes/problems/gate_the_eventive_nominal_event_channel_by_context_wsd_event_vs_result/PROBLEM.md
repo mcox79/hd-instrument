@@ -1,7 +1,6 @@
 ---
-priority: 6
 slug: gate_the_eventive_nominal_event_channel_by_context_wsd_event_vs_result
-status: CANDIDATE
+status: INTEGRATED
 review:
 review_text:
 ---

@@ -14,6 +14,27 @@
 
 ---
 
+## 2026-09-07 (CONT-20) — p6 (eventive-NOMINAL channel → default-ON + script wire) INTEGRATED + p11 natural-logic REALIZED + 1 follow-on FILED
+
+All owner-DONE / realization work, reverified first-hand, landed ADDITIVE/byte-identical, committed path-limited (NOTHING pushed). **Mechanism detail = audit §2b (newest entries).**
+
+### p6 — gate_the_eventive_nominal_event_channel_by_context_wsd_event_vs_result  [INTEGRATED; EXCELLENT (REFUTED-and-resolved); reverified W1-W4 + landing witnesses]  *(the follow-on I filed for p2's eventive-nominal precision hold-off — the answer is: don't gate, flip it on)*
+- **THE REFUTATION (headline):** the WSD gate the brief asked for is NET-NEGATIVE downstream. The gate restores EXTRACTION precision CI-sep (TB-Dense 0.6517→0.7142, twins losing) but through the ACTUAL temporal reasoner it LOSES — answered-correct ungated **0.4937 (87% of the gold ceiling)** vs WSD-gated 0.4590 CI-sep WORSE; conditional accuracy FLAT → gating only drops coverage (the reasoner is robust to over-extraction, confirming p2). The precision "cost" is an EXTRACTION-INSTRUMENT ARTIFACT (gold doesn't annotate every eventive nominal).
+- **WHY (drilled): event-vs-object sigs are cos 0.93 COLLINEAR in w2v (grounded 0.51) — but the grounded swap is REFUTED at power; event-vs-result is an ARGUMENT-STRUCTURE distinction, not lexical in ANY representation; all 4 brain cues (biased-competition / grounded / derived selectional-pref / frequency-dominance) land on ONE frontier → the residual is structural (~9-19% trigger-vs-named-reference) + the instrument, not a missing cue.**
+- **§4i SELF-CORRECTION (owned):** overstated a "35-point reasoner gap" (invented a 90% human number + a weakened reasoner); the landed temporal_reasoner is at 0.6225 = the top of the 59-64% human agreement noise ceiling → essentially AT the achievable ceiling on narrated ordering (do NOT reopen).
+- **LANDED (verified first-hand): (1) `joint_nominal_events` DEFAULT-ON UNGATED** — the load-bearing win, realizing p2's biggest held-off lever (nominal recall 0.105→0.703, survival to 0.73). Flip-on MEASURED byte-safe: sm.events + every board field BYTE-IDENTICAL ON-vs-OFF (the +48/+54 nominal events only enrich the latent `sm.temporal_reasoner()`, the sole consumer — no board dim reads it today); `all_capabilities_off` forces False. **(2) `temporal_reasoner.before()` wires the latent `temporal_script_schema`** (177,800 verb-pair orders) on the IMPLICIT-EVENT/UNKNOWN branch only (evidence≥10, |p−0.5|≥0.1) — narrated path BYTE-IDENTICAL, asset-absent abstains; converts UNKNOWNs into 0.60-on-TRACIE answers.
+- **DEFERRED correctly:** the gate organ NOT promoted (a located negative with no consumer; promoting default-off = the latent-island anti-pattern — kept in experiments/ for a future precision-over-coverage consumer).
+- **PRE-EXISTING FAILURES (proven p6-independent → maintenance follow-on):** `test_situation_model_qa.py::test_temporal_survives_the_keystone` (stale vs `preserve_tense` default-on since 2026-09-03) + `::test_causal_..._loses_to_adjacency` (causal 0.76>0.51 now) — re-baseline vs the current capable defaults.
+- **PEAK:** the eventive-nominal channel is a safe default-ON gain as-is (the biggest temporal-survival lever, now live); narrated temporal ordering is at the human noise ceiling; the implicit-event path is newly answerable via the script organ. **FOLLOW-ONS: the broad causal/event-order store (FILED, pri 12); a well-powered selectional-preference organ; the trigger-vs-named-reference discourse organ; the 2 stale-witness re-baseline.**
+
+### p11 NATURAL-LOGIC monotonicity reasoner — REALIZED (the CONT-18 follow-on (ii), now live+scored)
+- Made the already-integrated typed-spokes natural-logic result board-visible + queryable: `board_natural_logic_monotonicity` arm (behind run_new_arms, OFF in self-test) — model **0.767** vs symmetric-cosine oracle 0.535 (+0.232 CI-sep) + majority 0.503 (+0.264 CI-sep), shuffled-monotonicity twin 0.540 loses, coverage 0.855; + live `sm.natural_logic(s1,s2)`/`sm.entails(s1,s2)` (track_natural_logic default-on lazy, byte-identical off). Reverify 22/22, byte-identical. Committed `870cf57ed`.
+
+### FOLLOW-ON FILED (owner-requested, overlap-confirmed DISTINCT)
+- `grow_a_broad_causal_event_order_knowledge_store_for_the_implicit_event_path` (pri 12, cert 8/8) — grow the temporal_script_schema verb-pair-ORDER store's coverage (29%→broader, irreversibility/entropy-typed) + keep it wired to the implicit-event path; scoped INSIDE the knowledge-foundation north star. An 8-candidate overlap sweep confirmed it is not subsumed (umbrella = the consolidation-gate foundation; parent = the temporal reasoner that built the seed; fenced vs the predictive forward-simulator + the SDRT reader).
+
+---
+
 ## 2026-09-07 (CONT-19) — THE GLOBALLY-NORMALIZED GRADED PARSER (the Matrix-Tree north-star) INTEGRATED + 3 high-priority briefs FILED
 
 Owner-DONE, reverified first-hand (5 core witnesses + full 14-chain green), landed ADDITIVE/opt-in (default byte-identical, heads unchanged 200/200), committed path-limited (NOTHING pushed). The measured wins are wired-AVAILABLE; the live flips are deferred to strategy with measured reasons (see below). **Full mechanism = audit §2b (newest entry).**

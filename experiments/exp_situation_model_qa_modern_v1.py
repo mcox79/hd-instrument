@@ -668,8 +668,12 @@ def board_temporal_survival_dimension(smoke=False):
                           "the exponent rate). Wired LIVE behind joint_temporal_events (default-ON, reasoner-side + "
                           "ADDITIVE: sm.events byte-identical off vs on -- this arm scores the gain directly, not "
                           "through a live reader consumer). The eventive-NOMINAL channel lifts survival further "
-                          "(0.41 -> 0.73) but is DEFAULT-OFF (joint_nominal_events) pending a WSD precision gate "
-                          "(the meaning-channel follow-on). Reuses exp_joint_temporal_survival_v1 + "
+                          "(0.41 -> 0.73, nominal-event recall 0.105 -> 0.703) and is FLIPPED DEFAULT-ON UNGATED "
+                          "(joint_nominal_events, 2026-09-07 p6): end-to-end through the ACTUAL solved reasoner the "
+                          "UNGATED channel is the winner (answered-correct 0.4937 = 87%% of the gold-event ceiling vs "
+                          "the WSD-gated 0.4590 CI-sep WORSE -- gating only drops coverage), so the precision drop is "
+                          "an extraction-instrument artifact, not a downstream cost; the WSD gate is a located "
+                          "NEGATIVE, retired for this consumer. Reuses exp_joint_temporal_survival_v1 + "
                           "exp_joint_temporal_realreasoner_v1 verbatim."}
         return row, detail
     except Exception as e:
