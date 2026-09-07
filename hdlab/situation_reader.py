@@ -874,6 +874,7 @@ class SituationReader:
                  track_affect: bool = True,
                  track_tom_action: bool = True,
                  track_infer_emotion: bool = True,
+                 affect_structured_matcher: bool = False,
                  track_bridges: bool = True,
                  bridge_source: str = "hub", bridge_beta: float = 0.0, bridge_tau: float = 0.0,
                  track_senses: bool = True,
@@ -1189,6 +1190,21 @@ class SituationReader:
         # registers). Requires track_affect + track_goals (both default-on) for a non-None answer; degrades to None
         # gracefully if either is off. all_capabilities_off forces it False. NO spaCy / NO LLM at inference.
         self.track_infer_emotion = bool(track_infer_emotion)
+        # STRUCTURED-MATCHER SIGN for goal STATUS (DEFAULT-OFF, measure-then-decide flip-on gate 2026-09-07). When
+        # ON, the goal-status generalization hdlab.goal_register.track_status_thwart is passed an injected
+        # hdlab.structured_matcher.StructuredMatcher (use_valence=True) so a goal still 'active' after the
+        # negated/satisfied/thwart branches is signed by the STRUCTURED two-store relational edges: a later
+        # same-agent CONVERSE outcome (a role-swap that keeps the goal-holder in their valued role -- wanted-to-SELL
+        # satisfied by a BUY) -> 'satisfied'; a pure ANTONYM outcome (the goal-holder's OWN opposite -- win/lose) ->
+        # 'failed'. This is the SIGNED relation the polarity-blind ATL hub cannot supply (SOLVED
+        # structured_semantic_matching_for_event_goal...). It is a STRICT SUPERSET (byte-identical when the matcher
+        # is None or abstains -- only the structured edges are consulted, never the hub fuzzy fallback), wired at
+        # BOTH the live _read_goals status call and the sm.infer_emotion OCC status_fn. DEFAULT-OFF pending the
+        # measured flip-on gate (the OCC arm gold is already saturated at ~0.94 with no converse/antonym headroom;
+        # see notes). all_capabilities_off forces it False -> matcher=None is the byte-identity reference. The
+        # matcher is constructed lazily ONCE per reader (self._structured_matcher()). NO spaCy / NO LLM at inference.
+        self.affect_structured_matcher = bool(affect_structured_matcher)
+        self._sm_matcher = None      # lazy hdlab.structured_matcher.StructuredMatcher (built once when the flag is on)
         # BRIDGING-INFERENCE dimension (DEFAULT-ON 2026-09-06, no-default-off: additive + lazy). Wired from the
         # owner-DONE problem bridging_inference_infer_the_unstated_link_between_adjacent_sentences (Q111). read()
         # binds sm.bridge(target, candidates=None, source=None, beta=None, tau=None) + sm.infer_bridges(...) --
@@ -1658,6 +1674,7 @@ class SituationReader:
         "case_filter", "clause_local", "cm_agent_struct", "cm_agent_byhead", "agent_hybrid",
         "agent_hybrid_construction", "predicate_recall",
         "track_goals", "track_goal_thwart", "track_affect", "track_tom_action", "track_infer_emotion",
+        "affect_structured_matcher",
         "track_bridges", "track_senses",
         "track_prediction", "track_causal_reasoning", "track_spatial_reasoning", "track_temporal_reasoning",
         "joint_temporal_events", "joint_nominal_events",
@@ -2657,7 +2674,10 @@ class SituationReader:
             # normalization, so a goal thwarted by an adverse event gets status='failed'. Never flips an existing
             # satisfied/failed; 0 wants() regressions (wants() already skips satisfied/failed). track_goal_thwart=
             # False (all_capabilities_off) -> the baseline track_status (byte-identity reference).
-            GR.track_status_thwart(goals, sm.events, sents=sents, canon=canon)
+            # affect_structured_matcher ON -> also sign still-'active' goals by the STRUCTURED converse/antonym edges
+            # (a strict superset; matcher=None -> byte-identical). Lazy-built once per reader.
+            _sm = self._structured_matcher() if self.affect_structured_matcher else None
+            GR.track_status_thwart(goals, sm.events, sents=sents, canon=canon, matcher=_sm)
         else:
             GR.track_status(goals, sm.events)
         reg = GR.GoalRegister(goals)
@@ -2802,6 +2822,17 @@ class SituationReader:
         sm.will_act_on = will_act_on
         sm.attribute_belief = attribute_belief
 
+    def _structured_matcher(self):
+        """Lazily build (ONCE per reader) the injected hdlab.structured_matcher.StructuredMatcher used to SIGN
+        goal status via the two-store STRUCTURED converse/antonym edges when affect_structured_matcher is ON.
+        use_valence=True enables the brain's evaluative-dimension antonymy; with no hub injected that path is a
+        graceful no-op (WordNet/ConceptNet/FrameNet structured edges carry the load-bearing converse/antonym sign).
+        Byte-identity when the flag is off: this is never called (matcher=None passed at the call sites)."""
+        if self._sm_matcher is None:
+            from hdlab.structured_matcher import StructuredMatcher
+            self._sm_matcher = StructuredMatcher(use_valence=True)
+        return self._sm_matcher
+
     def _read_infer_emotion(self, sm, sents) -> None:
         """Opt-in OCC-APPRAISAL INFERRED-EMOTION read-out (default-on track_infer_emotion; wired 2026-09-06 from
         the owner-DONE infer_unstated_emotion_via_occ_appraisal_over_event_goal_congruence, Q111). Bind ONE
@@ -2831,13 +2862,22 @@ class SituationReader:
         from hdlab import occ_appraisal as OCC
         from hdlab.goal_register import track_status_thwart, make_canonicalizer
 
+        # affect_structured_matcher ON -> pre-bind the STRUCTURED matcher into the OCC status_fn (converse/antonym
+        # sign for goals still 'active' after negated/satisfied/thwart). matcher=None (default) -> the status_fn is
+        # bare track_status_thwart, byte-identical to the pre-flip read-out (routing witness L2a reference).
+        if self.affect_structured_matcher:
+            from functools import partial
+            _status_fn = partial(track_status_thwart, matcher=self._structured_matcher())
+        else:
+            _status_fn = track_status_thwart
+
         def infer_emotion(char, t=None, *, canon=None, sents=sents):
             if getattr(sm, "goal_register", None) is None and getattr(sm, "affect_register", None) is None:
                 return None                                  # track_goals + track_affect both off -> no signal
             _canon = canon
             if _canon is None:
                 _canon, _ = make_canonicalizer(sm, commonnoun_canonical=self.commonnoun_canonical)
-            return OCC.infer_emotion(sm, char, sents=sents, status_fn=track_status_thwart, canon=_canon)
+            return OCC.infer_emotion(sm, char, sents=sents, status_fn=_status_fn, canon=_canon)
 
         sm.infer_emotion = infer_emotion
 
