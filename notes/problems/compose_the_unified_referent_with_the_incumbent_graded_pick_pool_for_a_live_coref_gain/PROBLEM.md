@@ -1,9 +1,8 @@
 ---
-priority: 12
 slug: compose_the_unified_referent_with_the_incumbent_graded_pick_pool_for_a_live_coref_gain
-status: CANDIDATE
-review:
-review_text:
+status: INTEGRATED
+review: EXCELLENT
+review_text: "INTEGRATED 2026-09-07 (strategy; owner_verdict DONE). Reverified 39/39 first-hand (6 witnesses) + landing witness 4/4. DUAL result: (1) the brief's COMPOSE is a rigorous LOCATED NEGATIVE (hybrid 0.475 vs incumbent 0.503, even ORACLE fails -> subsumption+antagonism; kept hdlab/unified_referent.py DEFAULT-OFF, untouched). (2) THE REAL WIN = a +0.0823 CI-sep LIVE he/she coref stack (0.5032->0.5855, 16% rel) from 3 fixes to EXISTING machinery in hdlab/event_centrality_coref: phi_person_filter (dormant phi_agreement_keep pre-filter, +0.039) + narrow_him (+0.013) + soften_generic_suppress (use_struct=False, +0.027); flags default-OFF on the reader class / default-ON on SituationReader / in CAPABILITY_FLAGS; wires-off byte-identical; named no-regress (0.602->0.656); net-positive on 19c too (+0.0126, no flip-on break). + hdlab/gender_organ.py (glass-box, matches gold; the gold-gender leak was EVAL-HARNESS-ONLY, live path already glass-box). Committed 674fc61f2 (code) + notes, NOTHING pushed. Follow-ons: (a) modern coref-via-reader board arm (the +0.082 is board-invisible, tile uses URG resolver); (b) route unified_referent to non-coref consumers = a new problem; (c) richer gender organ; (d) brain-faithful deixis."
 ---
 
 # PROBLEM: the unified discourse referent lifts the GUM pronoun pick +0.106 in isolation but REGRESSES the LIVE incumbent when landed as a faithful port (0.433 vs the live graded_pick 0.503 on modern GUM) because the port SWAPS the scorer -- it throws away the incumbent's strong pool machinery (generic-distractor suppression + agreement-narrow + tuned weights + ACT-R d=3.0) for the reference's isolation config (pure ACT-R d=2.0, recall-safe gn, no suppression); realize the win LIVE by COMPOSING the two complementary brain systems -- re-key the overlay to ONE unified referent per entity (file-change history) while KEEPING the incumbent graded_antecedent_pick + suppression pool -- so the merged referent history feeds the STRONG incumbent scorer instead of replacing it.
