@@ -883,6 +883,8 @@ class SituationReader:
                  track_causal_reasoning: bool = True,
                  track_spatial_reasoning: bool = True,
                  track_temporal_reasoning: bool = True,
+                 joint_temporal_events: bool = False,
+                 joint_nominal_events: bool = False,
                  read_polarity: bool = True,
                  parser_arceager: bool = True,
                  np_head_reduce: bool = True,
@@ -1309,6 +1311,44 @@ class SituationReader:
         # magnitude-line primitive is available for a caller that supplies duration premises). NO spaCy / NO external
         # LLM at inference. flag-off (track_temporal_reasoning=False) = the pre-landing reader.
         self.track_temporal_reasoning = bool(track_temporal_reasoning)
+        # JOINT TENSE-AGNOSTIC TEMPORAL EVENT SET (default-OFF joint_temporal_events; wired 2026-09-07 from the
+        # owner-DONE extract_relations_from_prose_whole_subgraph_survival_the_shared_reasoner_bottleneck, Q111 P1).
+        # ROUTES the TEMPORAL-channel event DETECTOR (the set the TemporalReasoner is built over) through the promoted
+        # glass-box hdlab.joint_relation_frontend (see _build_joint_temporal_reasoner): parse each sentence ONCE and
+        # read events TENSE-AGNOSTICALLY (any UPOS==VERB, present/progressive/infinitive alike) PLUS the DROPPED
+        # copular/stative channel (a `be` whose parse HEAD is an ADJ/NOUN predicate = a STATE event) -- because a
+        # STATE is an event the brain represents (Reichenbach/Bach neo-Davidsonian event variable, PINNED); the
+        # incumbent aspect extractor's tense-gate (VBD / had+VBN / be+VBN only) is an OUR-INVENTION implementation
+        # artifact, NOT the brain's mechanism. On REAL modern gold this WINS decisively -- TB-Dense whole-subgraph
+        # SURVIVAL 0.1111 -> 0.4054 (copular), event recall 0.320 -> 0.756, end-to-end through the SOLVED reasoner
+        # 0.0971 -> 0.3480 (SOLVED, CI-sep, info-free twin loses; generalized 100x on MAVEN-ERE); the gain is made
+        # board-visible by the survival ARM (exp_situation_model_qa_modern_v1.board_temporal_survival_dimension),
+        # INDEPENDENT of this reader default. ADDITIVE + LAZY: it swaps ONLY which builder the sm.temporal_reasoner()
+        # closure uses on FIRST invocation -- read() sets the SAME four callables regardless, sm.events /
+        # sm.timeline_order / every other field are BYTE-IDENTICAL off vs on (the landing witness asserts it), the
+        # closure still builds NOTHING until invoked (zero read-time cost), and the TemporalReasoner is a NEW ISLAND
+        # (no board/reader consumer -> flipping this cannot regress a board DIMENSION).
+        #
+        # DEFAULT-OFF (flip-on-find-the-break, measured 2026-09-07): flipping ON breaks the LANDED witness
+        # verification/test_temporal_reasoner_landing.py W3 on its tiny SYNTHETIC probe sentences -- the joint pass
+        # uses the hdlab UD arc-parser/pos-tagger, which is WEAKER than the incumbent NLTK PerceptronTagger on 3-4
+        # word out-of-distribution constructions: it mis-tags "The alarm rang ." rang -> NOUN (dropping the event, so
+        # W3c before('entered','rang') -> UNKNOWN/vague instead of ('before','cue')) and drops the progressive-overlap
+        # aspect (W3b overlaps('watching','slipped') True -> False). This is a DOWNSTREAM to fix, a follow-on -- NOT a
+        # reason to weaken anything: the fix is to UNION the incumbent aspect events with the joint-only events so the
+        # reasoner is a strict SUPERSET (never LOSES an NLTK-caught event) and/or close the joint-pass OOD tagger/aspect
+        # gap; then re-flip. Kept OFF only for that measured reason; a real-prose consumer that wants the survival gain
+        # opts in explicitly (or via the board arm). all_capabilities_off() forces it False (byte-identity). Has effect
+        # ONLY when track_temporal_reasoning is also on. NO spaCy / NO external LLM. flag-off = the pre-landing reader.
+        self.joint_temporal_events = bool(joint_temporal_events)
+        # EVENTIVE-NOMINAL sub-channel (default-OFF joint_nominal_events; MEASURED reason, NOT an oversight). The
+        # WordNet eventive-nominal channel (a deverbal ACT/EVENT/PROCESS noun -- attack/construction/arrival -- IS an
+        # event, the biggest single survival lever: 0.4054 -> 0.7327 on TB-Dense) OVER-EXTRACTS on polysemous nouns
+        # ("building" the act vs the object), costing precision 0.79 -> 0.65 (SOLVED). The precision fix is a
+        # context/WSD gate (a filed follow-on, meaning-channel P3; the syntactic Grimshaw shortcut was DRILLED and
+        # FAILS -- crushes recall 0.70 -> 0.20), so the nominal channel stays OFF pending that gate. No effect unless
+        # joint_temporal_events is also on. all_capabilities_off() forces it False.
+        self.joint_nominal_events = bool(joint_nominal_events)
         # TRUTH-CONDITIONAL POLARITY + QUANTITY read-out (default-ON read_polarity; wired 2026-09-06 from the
         # owner-DONE represent_negation_and_quantifier_scope_for_truth_conditional_reading_modern_gold, p9). A POST-
         # READ pass (mirrors _read_surprisal) that runs the glass-box hdlab.polarity_operator over each event: the
@@ -1616,6 +1656,7 @@ class SituationReader:
         "track_goals", "track_goal_thwart", "track_affect", "track_tom_action", "track_infer_emotion",
         "track_bridges", "track_senses",
         "track_prediction", "track_causal_reasoning", "track_spatial_reasoning", "track_temporal_reasoning",
+        "joint_temporal_events", "joint_nominal_events",
         "read_polarity",
         "structural_patient", "causal_mental_bridge", "goal_purpose_filter", "entity_kb_resolver",
         "commonnoun_situation_gate", "commonnoun_canonical", "unified_referent",
@@ -3240,6 +3281,71 @@ class SituationReader:
         sm.spatial_where_after = spatial_where_after
         # the SpatialModel is built LAZILY inside the closures on first invocation -- zero read-time cost / no build.
 
+    def _build_joint_temporal_reasoner(self, sents):
+        """Build a hdlab.temporal_reasoner.TemporalReasoner whose EVENT SET is the JOINT tense-agnostic +
+        copular/stative (+ optional eventive-nominal, joint_nominal_events) detection read off ONE
+        hdlab.joint_relation_frontend parse per sentence -- the Q111 wire (owner-DONE
+        extract_relations_from_prose_whole_subgraph_survival_the_shared_reasoner_bottleneck). REPLACES the
+        tense-gated aspect extractor (VBD / had+VBN / be+VBN only) that TemporalReasoner.from_text builds over; the
+        reasoner's before/after (integrated cue+date closure + iconicity) and Allen overlap logic are UNCHANGED --
+        only the events (and hence the constraint graph) are the enriched joint set, which is what lifts survival
+        0.1111 -> 0.4054 / recall 0.320 -> 0.756. Returns the reasoner, or None to FALL BACK to from_text (empty
+        passage / no joint events -> the caller degrades gracefully to the pre-landing path).
+
+        Events are built over the reader's OWN concatenated sentence tokens (index space = the punct-preserving token
+        stream), with the SAME trivial (surface, low, X/PUNC) tag stream the SOLVED end-to-end reasoner cell used
+        (verification/test_joint_temporal_realreasoner reproduces the numbers with it), so M.build_constraint_edges
+        finds the connectives + tense edges. Aspect is assigned by the incumbent's OWN local rules (had->perfect,
+        be+V-ing->imperfective, Vendler-durative lemma->durative, else perfective) so the OVERLAP channel keeps the
+        aspect signal for events it shares with the aspect extractor. Reuses the module-level shared temporal
+        front-end (M / T -- the SAME experiments modules from_text already builds over; honest deviation documented
+        in hdlab.temporal_reasoner). Glass-box, NO spaCy / NO external LLM."""
+        from hdlab import joint_relation_frontend as JF
+        from hdlab import aspect_interval as AI
+        from hdlab.temporal_reasoner import TemporalReasoner
+        _PUNC = set(".,;:!?()")
+        full = [tok for toks in sents for tok in toks]
+        if not full:
+            return None
+        lows = [t.lower() for t in full]
+        tagged = [(t, lows[i], M._PUNC_POS if t in _PUNC else "X") for i, t in enumerate(full)]
+        # JOINT event token indices over the concatenated stream (running base offset per sentence -> full index)
+        ev_prov = {}
+        base = 0
+        for toks in sents:
+            n = len(toks)
+            if toks and n <= 160:
+                up, hd = JF.parse_sentence(list(toks))
+                loc = JF.joint_event_ranks(list(toks), up, hd, copular=True,
+                                           nominal=self.joint_nominal_events, nominal_wordnet=True)
+                for j in loc:
+                    ev_prov[base + j] = loc[j]
+            base += n
+        if not ev_prov:
+            return None
+
+        def _mk(i):
+            low = lows[i]
+            had = any(lows[j] == "had" for j in range(max(0, i - 3), i))               # past-perfect (flashback)
+            prog = (low.endswith("ing") and low not in AI._GERUND_STOP and
+                    any(lows[j] in AI._PROG_BE for j in range(max(0, i - 3), i)))       # finite progressive
+            if had:
+                return AI.AspectualEvent(low, i, "VB", T.TENSE_PAST_PERFECT, AI.ASP_PERFECT, True)
+            if prog:
+                return AI.AspectualEvent(low, i, "VB", T.TENSE_SIMPLE_PAST, AI.ASP_IMPERFECTIVE, False)
+            asp = AI.ASP_DURATIVE if low in AI.DURATIVE_LEMMAS else AI.ASP_PERFECTIVE
+            return AI.AspectualEvent(low, i, "VB", T.TENSE_SIMPLE_PAST, asp, False)
+
+        events = [_mk(i) for i in sorted(ev_prov)]
+        rank = AI.build_rank(events, tagged)
+        cue_edges = M.build_constraint_edges([e.as_event() for e in events], tagged,
+                                             use_connectives=True, cross_sentence=True)
+        cue_adj, date_adj = {}, {}
+        for (u, v) in cue_edges:
+            cue_adj.setdefault(u, set()).add(v)
+            date_adj.setdefault(u, set()).add(v)   # cue+date union closure (no TIMEX date anchors; matches from_text)
+        return TemporalReasoner(events, tagged, rank, cue_adj, date_adj, span=1.0)
+
     def _read_temporal_reasoning(self, sm, sents) -> None:
         """Opt-in TEMPORAL-REASONING dimension (default-on track_temporal_reasoning; wired 2026-09-06 from the
         owner-DONE problem reason_over_event_time_order_and_duration_on_a_modern_gold, p5). MIRRORS
@@ -3295,8 +3401,15 @@ class SituationReader:
         def _reasoner():
             tr = holder.get("tr")
             if tr is None:
-                text = " ".join(" ".join(toks) for toks in sents)
-                tr = TemporalReasoner.from_text(text, lexical_aspect=True)
+                if self.joint_temporal_events:
+                    # JOINT tense-agnostic + copular/stative event set off ONE parse/sentence (Q111 P1): the
+                    # TemporalReasoner is built over the ENRICHED event set instead of the tense-gated aspect
+                    # extractor. Same reasoning core (integrated cue+date closure / Allen overlap); only the events
+                    # (and hence the constraint graph) change -> the survival/recall gain. Degrades to from_text.
+                    tr = self._build_joint_temporal_reasoner(sents)
+                if tr is None:
+                    text = " ".join(" ".join(toks) for toks in sents)
+                    tr = TemporalReasoner.from_text(text, lexical_aspect=True)
                 holder["tr"] = tr
             return tr
 

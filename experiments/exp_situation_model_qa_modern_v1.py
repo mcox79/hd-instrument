@@ -595,6 +595,76 @@ def board_temporal_overlap_dimension(smoke=False):
         return _degraded("temporal_overlap", e), {"error": "%s: %s" % (type(e).__name__, e)}
 
 
+def board_temporal_survival_dimension(smoke=False):
+    """TEMPORAL WHOLE-SUBGRAPH SURVIVAL board arm on MODERN dense gold (TB-Dense, 1990s newswire): the JOINT
+    parse-based front-end (parse each sentence ONCE, read events TENSE-AGNOSTICALLY + the DROPPED copular/stative
+    channel off the SINGLE dependency structure) vs the INCUMBENT tense-gated extractor (VBD/had+VBN/be+VBN only), the
+    reasoner held at gold-perfect (extraction ISOLATED). This capability is board-INVISIBLE otherwise -- the
+    temporal_before_after + temporal_overlap arms score the REASONER over the incumbent extraction; NO arm scored the
+    FRONT-END's whole-subgraph survival, the HEADLINE metric of the owner-DONE
+    extract_relations_from_prose_whole_subgraph_survival_the_shared_reasoner_bottleneck (a STATE is an event: the
+    tense-gate drops present/copular/stative events, so multi-hop chains die at the exponent rate). Makes the wired
+    joint_temporal_events gain a SCORED number, INDEPENDENT of the reader flag (reuses the solver's OWN measurement
+    verbatim: exp_joint_temporal_survival_v1 + exp_joint_temporal_realreasoner_v1). model = joint_cop whole-subgraph
+    survival; floor = incumbent tense-gated survival (recomputed on the SAME chains); twin = info-free random
+    same-size event set (must LOSE). Paired bootstrap over chains. Kept OUT of the 19c-free headline aggregate.
+    Degrades gracefully (TB-Dense gold absent/unloadable -> a schema-shaped degraded row). MODERN (Cassidy 2014)."""
+    try:
+        import experiments._hashseed_guard  # noqa: F401  (pins PYTHONHASHSEED=0 -> reproducible parse)
+        from experiments.exp_joint_temporal_survival_v1 import run as surv_run
+        sv = surv_run(smoke=smoke)
+        s = sv["survival"]; mg = sv["margins"]; rc = sv["recall"]
+        m_inc = mg["joint_cop_vs_incumbent"]; m_tw = mg["joint_cop_vs_twin"]
+        # END-TO-END through the ACTUAL SOLVED reasoner (connective+tense), extraction the only variable
+        e2e = None
+        try:
+            from experiments.exp_joint_temporal_realreasoner_v1 import run as rr_run
+            rr = rr_run(smoke=smoke)
+            ceil = rr["gold_ceiling"]["answered_correct"]
+            e2e = {"incumbent": rr["incumbent"]["answered_correct"],
+                   "joint_cop": rr["joint_cop"]["answered_correct"],
+                   "joint_nom": rr["joint_nom"]["answered_correct"],
+                   "gold_ceiling": ceil,
+                   "joint_cop_vs_incumbent": rr["margins"]["joint_cop_vs_incumbent"],
+                   "joint_cop_vs_twin": rr["margins"]["joint_cop_vs_twin"],
+                   "pct_of_ceiling_joint_nom": (round(rr["joint_nom"]["answered_correct"] / ceil, 4) if ceil else None)}
+        except Exception as ie:
+            e2e = {"error": "%s: %s" % (type(ie).__name__, ie)}
+        row = {
+            "n": s["joint_cop"]["total"], "model_acc": round(float(s["joint_cop"]["rate"]), 4),
+            "overlap_floor": round(float(s["incumbent"]["rate"]), 4),
+            "floor_accs": {"incumbent_tense_gated_survival": round(float(s["incumbent"]["rate"]), 4),
+                           "nltk_tense_agnostic_survival": round(float(s["nltk_tenseagn"]["rate"]), 4)},
+            "strongest_floor_name": "incumbent_tense_gated_survival",
+            "strongest_floor": round(float(s["incumbent"]["rate"]), 4),
+            "twin_acc": round(float(s["joint_twin"]["rate"]), 4),
+            "model_minus_strongest": [m_inc["delta"], m_inc["ci"][0], m_inc["ci"][1]],
+            "model_minus_twin": [m_tw["delta"], m_tw["ci"][0], m_tw["ci"][1]],
+            "ci_sep_over_strongest": bool(m_inc["ci_sep"]),
+            "ci_sep_over_twin": bool(m_tw["ci_sep"]),
+            "null_p95": m_inc.get("null_p95"),
+            "event_recall": {"incumbent": round(float(rc["incumbent"]), 4),
+                             "joint_cop": round(float(rc["joint_cop"]), 4)},
+            "joint_nom_survival": round(float(s["joint_nom"]["rate"]), 4),
+            "end_to_end_through_solved_reasoner": e2e,
+            "population": "TB-Dense multi-hop BEFORE/AFTER chains (1990s newswire, MODERN dense gold, n_chains=%d); "
+                          "model=JOINT tense-agnostic + copular/stative front-end whole-subgraph survival (parse once, "
+                          "read all events off the single dependency structure), floor=INCUMBENT tense-gated extractor "
+                          "(VBD/had+VBN/be+VBN) on the SAME chains, twin=info-free random same-size event set. Reasoner "
+                          "held gold-perfect (extraction ISOLATED). Paired bootstrap over chains. MODERN." % s["joint_cop"]["total"]}
+        detail = {"note": "the FIRST board arm scoring the FRONT-END's whole-subgraph SURVIVAL (a STATE is an event; "
+                          "the incumbent tense-gate drops present/copular/stative events, so multi-hop chains die at "
+                          "the exponent rate). Wired LIVE behind joint_temporal_events (default-ON, reasoner-side + "
+                          "ADDITIVE: sm.events byte-identical off vs on -- this arm scores the gain directly, not "
+                          "through a live reader consumer). The eventive-NOMINAL channel lifts survival further "
+                          "(0.41 -> 0.73) but is DEFAULT-OFF (joint_nominal_events) pending a WSD precision gate "
+                          "(the meaning-channel follow-on). Reuses exp_joint_temporal_survival_v1 + "
+                          "exp_joint_temporal_realreasoner_v1 verbatim."}
+        return row, detail
+    except Exception as e:
+        return _degraded("temporal_survival", e), {"error": "%s: %s" % (type(e).__name__, e)}
+
+
 def board_negation_quantifier_dimension(seed=SEED):
     """TRUTH-CONDITIONAL NEGATION + QUANTIFIER board arm on MODERN gold (owner-DONE p9,
     represent_negation_and_quantifier_scope...). This capability is board-INVISIBLE today -- no dimension scores
@@ -751,6 +821,8 @@ def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True
         new_arms["temporal_before_after"] = tb_row; new_arms_detail["temporal_before_after"] = tb_det
         to_row, to_det = board_temporal_overlap_dimension(smoke=bool(caps.get("temporal_smoke")))
         new_arms["temporal_overlap"] = to_row; new_arms_detail["temporal_overlap"] = to_det
+        ts_row, ts_det = board_temporal_survival_dimension(smoke=bool(caps.get("temporal_smoke")))
+        new_arms["temporal_survival"] = ts_row; new_arms_detail["temporal_survival"] = ts_det
         nq_rows, nq_det = board_negation_quantifier_dimension(seed=seed)
         new_arms["negation_quantifier"] = nq_rows; new_arms_detail["negation_quantifier"] = nq_det
 
