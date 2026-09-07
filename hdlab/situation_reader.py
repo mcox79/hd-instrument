@@ -505,6 +505,29 @@ class SituationModel:
     counterfactual: Optional[object] = None
     graded_necessity: Optional[object] = None
     signed_effect: Optional[object] = None
+    # opt-in SPATIAL-RELATIONAL REASONING dimension (IS-X-INSIDE-Y / IS-A-rel-B / IS-A-STILL-IN-K): read-only
+    # CALLABLES bound at read time when the reader is built with track_spatial_reasoning=True (default-on). The
+    # SPACE-channel sibling of the causal reasoner -- a glass-box relational reasoner over the reader's OWN
+    # location tracking (sm.locations, the hdlab.location_register.LocationRegister) via the promoted
+    # hdlab.spatial_relational_model.SpatialModel (Johnson-Laird mental-model inspection PINNED; transitive
+    # region-nesting containment -- Wiener & Mallot; Franklin-Tversky spatial-framework relative position;
+    # Goal-over-Source PATH/TRANSFER with the vacate-Source 'no longer' read -- Lakusta & Landau). It COMPOSES
+    # sm.locations: the PATH readouts reason directly over the LIVE register (spatial_still_at = the vacate-Source
+    # read; spatial_where_after = the post-move node), and the containment graph is seeded from the register's
+    # two-level region membership (the register's only prior relational move). spatial_reasoner() lazily builds +
+    # returns the SpatialModel on first use (None until invoked); spatial_contains(figure,ground) /
+    # spatial_relative(a,rel,b) / spatial_still_at(entity,place) / spatial_where_after(entity) are the readouts.
+    # PURE ADD -- new read-only callables; consumes sm.locations, mutates NO existing field (byte-identical off vs
+    # on; landing witness W2). LAZY -- builds nothing until a callable is invoked (default read byte-identical). A
+    # NEW ISLAND (no downstream consumer today -> no regression). ABSTAINS cleanly (returns None / False) on an
+    # absent/empty register. PROJECTIVE position is not in the tracking core (the text->relation EXTRACTOR is the
+    # SOLVED named follow-on, NOT landed) so spatial_relative abstains until that upstream lands -- the honest gap.
+    # From the owner-DONE reason_over_the_spatial_relational_model_containment_position_path_modern_gold (Q111).
+    spatial_reasoner: Optional[object] = None
+    spatial_contains: Optional[object] = None
+    spatial_relative: Optional[object] = None
+    spatial_still_at: Optional[object] = None
+    spatial_where_after: Optional[object] = None
     memory_roundtrip: Dict[str, float] = field(default_factory=dict)
     # per-dimension honest accuracy (coref only; scored vs LitBank gold on this passage)
     coref_acc: Optional[float] = None
@@ -824,6 +847,7 @@ class SituationReader:
                  sense_topk: Optional[int] = None, sense_prior_weight: float = 0.0,
                  track_prediction: bool = True,
                  track_causal_reasoning: bool = True,
+                 track_spatial_reasoning: bool = True,
                  parser_arceager: bool = True,
                  np_head_reduce: bool = True,
                  structural_patient: bool = True,
@@ -1200,6 +1224,28 @@ class SituationReader:
         # is the DEFAULT-OFF follow-on, held until its edge CORRECTNESS is validated on directed causal QA gold. NO
         # spaCy / NO external LLM at inference. flag-off (track_causal_reasoning=False) = the pre-landing reader.
         self.track_causal_reasoning = bool(track_causal_reasoning)
+        # SPATIAL-RELATIONAL REASONING stage (default-on track_spatial_reasoning; wired 2026-09-06 from the
+        # owner-DONE problem reason_over_the_spatial_relational_model_containment_position_path_modern_gold, Q111).
+        # Binds the SPACE-channel inference organ -- read-only callables (sm.spatial_reasoner() + spatial_contains /
+        # spatial_relative / spatial_still_at / spatial_where_after) that REASON over the reader's OWN location
+        # tracking (sm.locations, the hdlab.location_register.LocationRegister) via the promoted glass-box
+        # hdlab.spatial_relational_model.SpatialModel: TRANSITIVE region-nesting CONTAINMENT (Wiener & Mallot;
+        # Dusek & Eichenbaum hippocampal transitive inference PINNED), Franklin-Tversky RELATIVE POSITION (per-axis
+        # closure + converse + nested-frame inheritance PINNED), and Goal-over-Source PATH/TRANSFER with the
+        # vacate-Source 'no longer' read (Lakusta & Landau PINNED). Proven near-perfect + CI-separated on GOLD
+        # relations for all three types on MODERN gold (containment/position/path), and CI-separated END-TO-END for
+        # relative position over the reader's OWN extraction (SpartQA-HUMAN). LAZY + ADDITIVE: the closures build
+        # the SpatialModel over sm.locations only on FIRST invocation (zero read-time cost -> default read
+        # BYTE-IDENTICAL; landing witness W2), sm.spatial_reasoner stays None until a callable is invoked, and every
+        # readout DEGRADES GRACEFULLY -- abstains (None / False) on an absent/empty register, never raises. It
+        # COMPOSES sm.locations (path readouts reason over the LIVE register; the containment graph is seeded from
+        # the register's two-level region membership -- its only prior relational move) and mutates NO existing
+        # field (sm.locations is read-only here). A NEW ISLAND / query layer (no downstream consumer today -> no
+        # regression). NOTE (honest bound): PROJECTIVE position is NOT in the tracking core -- the text->relation
+        # EXTRACTOR (the SOLVED named follow-on, recall 0.22/0.06/0.02) is NOT landed, so spatial_relative abstains
+        # until that upstream organ lands (the gold-vs-extracted gap IS the expected gain curve). NO spaCy / NO
+        # external LLM at inference. flag-off (track_spatial_reasoning=False) = the pre-landing reader.
+        self.track_spatial_reasoning = bool(track_spatial_reasoning)
         # IMPROVED PARSER (opt-in; default OFF = byte-identical). Wired 2026-09-02 from the owner-DONE parser problem
         # the_extraction_front_end_parser_is_the_cross_task_bottleneck...: route the WIRED who-did-what front-end
         # through the promoted arc-eager parser (hdlab.arceager_parser, UD-EWT UAS 0.775->0.842) instead of the
@@ -1469,7 +1515,7 @@ class SituationReader:
         "agent_hybrid_construction", "predicate_recall",
         "track_goals", "track_goal_thwart", "track_affect", "track_tom_action", "track_infer_emotion",
         "track_bridges", "track_senses",
-        "track_prediction", "track_causal_reasoning",
+        "track_prediction", "track_causal_reasoning", "track_spatial_reasoning",
         "structural_patient", "causal_mental_bridge", "goal_purpose_filter", "entity_kb_resolver",
         "commonnoun_situation_gate", "commonnoun_canonical", "unified_referent", "precision_weight_roles")
 
@@ -2964,6 +3010,105 @@ class SituationReader:
         sm.signed_effect = signed_effect
         # the CausalGraph is built LAZILY inside the closures on first invocation -- zero read-time cost / no build.
 
+    def _read_spatial_reasoning(self, sm, sents) -> None:
+        """Opt-in SPATIAL-RELATIONAL REASONING dimension (default-on track_spatial_reasoning; wired 2026-09-06 from
+        the owner-DONE problem reason_over_the_spatial_relational_model_containment_position_path_modern_gold, Q111).
+        MIRRORS _read_causal_reasoning (the SPACE-channel sibling). Bind read-only QUERY callables that REASON over
+        the reader's OWN location tracking (sm.locations, the hdlab.location_register.LocationRegister) via the
+        promoted glass-box hdlab.spatial_relational_model.SpatialModel (Johnson-Laird mental-model inspection
+        PINNED; transitive region-nesting containment -- Wiener & Mallot / Dusek & Eichenbaum; Franklin-Tversky
+        relative position; Goal-over-Source PATH with the vacate-Source 'no longer' read -- Lakusta & Landau):
+
+          sm.spatial_reasoner()                 -> the hdlab.spatial_relational_model.SpatialModel built over
+                                                   sm.locations, lazily BUILT + cached on first call (full readout
+                                                   surface: contains_path / relative / relative_status /
+                                                   containment_hops / is_consistent / all_rel / exists_rel / twin)
+          sm.spatial_contains(figure, ground)   -> TRUE iff figure is (transitively) inside ground (region-nesting)
+          sm.spatial_relative(a, rel, b)        -> 'is A rel B?' by framework closure -> True / False / None
+          sm.spatial_still_at(entity, place)    -> the vacate-Source read over the LIVE register: True iff entity's
+                                                   current node == place or nests inside it; False once it moved out
+          sm.spatial_where_after(entity)        -> the entity's current named location node after all its moves
+
+        HOW IT COMPOSES sm.locations (no rebuild of the tracking core, read-only): the PATH readouts pass the LIVE
+        register straight through (spatial_still_at/where_after reason over sm.locations exactly as tracked -- the
+        genuine live capability driven by the reader's OWN motion extraction), and the SpatialModel's CONTAINMENT
+        graph is seeded from the register's TWO-LEVEL region membership (each named node -> INDOORS/OUTDOORS via
+        hdlab.location_register.spatial_region -- the register's ONLY prior relational move, SOLVED-confirmed) so
+        contains_path / the still_at nesting-check compose at the region granularity the register already computes.
+
+        ID SPACES (both from the reader's OWN extraction): the ENTITY arg of spatial_still_at / spatial_where_after
+        is a register track key -- a coref CLUSTER id string (enumerate sm.locations.tracks for the exact space) --
+        and the PLACE / figure / ground args are location nodes as the register stores them (place keys, already
+        lowercased canonical spans); query args are canonicalised the SAME way by the SpatialModel (canon_entity) so
+        a caller may pass the place name directly. The PROJECTIVE-position graph is EMPTY (not in the tracking core --
+        the text->relation EXTRACTOR is the SOLVED named follow-on, NOT landed), so spatial_relative abstains
+        (returns None) until that upstream organ lands: the honest gap the SOLVED located, not a reasoner failure.
+
+        PURE ADD: sets ONLY sm.spatial_reasoner + the convenience callables; touches NO existing field (byte-
+        identical off vs on -- the landing witness W2 asserts it; in particular sm.locations is UNCHANGED -- this
+        only READS it). LAZY -- the closures build NOTHING until a callable is invoked, and the SpatialModel is
+        built at most once per read and cached (zero read-time cost -> default read byte-identical). DEGRADES
+        GRACEFULLY -- every readout abstains (None / False) on an absent/empty register, never raises. A NEW ISLAND
+        (no downstream consumer today -> no regression). NO spaCy / NO external LLM at inference (a transparent
+        graph walk over the reader's OWN location tracking). Runs LAST in read() so it sees the FINAL sm.locations."""
+        from hdlab.spatial_relational_model import SpatialModel
+        from hdlab.location_register import spatial_region, DEICTIC_SCENE, AWAY
+
+        holder = {}   # lazy single-build cache of the SpatialModel over sm.locations (built at most once)
+
+        def _model():
+            m = holder.get("m")
+            if m is None:
+                m = SpatialModel()
+                reg = getattr(sm, "locations", None)
+                if reg is not None:
+                    # seed the register's TWO-LEVEL region containment (node -> INDOORS/OUTDOORS) so contains_path
+                    # / the still_at nesting-check compose at the region granularity the register already computes.
+                    seen = set()
+                    for _ent, tr in getattr(reg, "tracks", {}).items():
+                        for iv in getattr(tr, "intervals", ()):
+                            node = getattr(iv, "node", None)
+                            if node in (None, DEICTIC_SCENE, AWAY) or node in seen:
+                                continue
+                            seen.add(node)
+                            region = spatial_region(node)
+                            if region is not None:
+                                m.add_containment(node, region)
+                holder["m"] = m
+            return m
+
+        def spatial_reasoner():
+            return _model()
+
+        def spatial_contains(figure, ground):
+            if figure is None or ground is None:
+                return False
+            return _model().contains_path(figure, ground)
+
+        def spatial_relative(a, rel, b):
+            if a is None or rel is None or b is None:
+                return None
+            return _model().relative(a, rel, b)
+
+        def spatial_still_at(entity, place):
+            reg = getattr(sm, "locations", None)
+            if reg is None or entity is None or place is None:
+                return None
+            return _model().still_at(entity, place, reg=reg)
+
+        def spatial_where_after(entity):
+            reg = getattr(sm, "locations", None)
+            if reg is None or entity is None:
+                return None
+            return _model().where_after(entity, reg=reg)
+
+        sm.spatial_reasoner = spatial_reasoner
+        sm.spatial_contains = spatial_contains
+        sm.spatial_relative = spatial_relative
+        sm.spatial_still_at = spatial_still_at
+        sm.spatial_where_after = spatial_where_after
+        # the SpatialModel is built LAZILY inside the closures on first invocation -- zero read-time cost / no build.
+
     def _read_entity_states(self, sm, sents) -> None:
         """COPULAR is-a/attribute BINDING (default-off bind_entity_states; wired 2026-09-03 from the owner-DONE
         the_reader_has_no_copular_is_a_binding_schema, 10/10+6/6). For each sentence, recover the labeled copular
@@ -3241,6 +3386,17 @@ class SituationReader:
             # leaves sm.causal_reasoner None until invoked (byte-identical off vs on). NEW ISLAND -- no downstream
             # consumer today. Abstains cleanly on an empty/sparse network. sm.causal_links is UNCHANGED (read-only).
             self._read_causal_reasoning(sm, sents)
+        if self.track_spatial_reasoning:
+            # SPATIAL-RELATIONAL REASONING dimension: bind sm.spatial_reasoner() + spatial_contains /
+            # spatial_relative / spatial_still_at / spatial_where_after -- the SPACE-channel inference organ
+            # (glass-box transitive region-nesting containment + Franklin-Tversky relative position + Goal-over-
+            # Source path/transfer with the vacate-Source read, over the reader's OWN sm.locations, via the
+            # promoted hdlab.spatial_relational_model). Runs LAST so the reasoner reads the FINAL sm.locations. PURE
+            # ADD -- lazy closures only (builds the SpatialModel only when a callable is invoked, at most once per
+            # read); sets ONLY the new callables + leaves sm.spatial_reasoner None until invoked (byte-identical off
+            # vs on). NEW ISLAND -- no downstream consumer today. Abstains cleanly on an absent/empty register.
+            # sm.locations is UNCHANGED (read-only). PROJECTIVE position abstains until the un-landed extractor.
+            self._read_spatial_reasoning(sm, sents)
         return sm
 
 

@@ -406,6 +406,70 @@ def board_occ_appraisal_dimension(cap=None, seed=20260906):
         return _degraded("occ_appraisal", e), {"error": "%s: %s" % (type(e).__name__, e)}
 
 
+def board_spatial_relational_dimension(cap=None, seed=0):
+    """SPATIAL-RELATIONAL (relative position) board arm on MODERN human gold: SpartQA-HUMAN YN, END-TO-END over the
+    reader's OWN extraction. Reuses the solver's OWN measurement verbatim (exp_spatial_position_qa_v1.score_corpus):
+    extract the spatial relations from each context with the reader's OWN parse, build the relational model, and
+    answer natural-language yes/no questions by composing it (Franklin-Tversky per-axis closure + converse +
+    nested-frame inheritance). model = REASONER (full-depth composition); floor = LAST-MENTION (depth-1: only a
+    directly-stated relation answers) -- MUST lose where >=2 facts compose; twin = SHUFFLED-RELATION (node set +
+    counts kept, edges permuted -- the info-free control). Paired bootstrap CI. This capability is board-INVISIBLE
+    today (no dimension scores relative-position composition); the SOLVED proved it CI-separated end-to-end. Kept OUT
+    of the 19c-free headline aggregate (its own row). Degrades gracefully (never crashes the board). MODERN
+    (SpartQA-HUMAN human-authored; NOT 19c)."""
+    try:
+        import experiments.exp_spatial_position_qa_v1 as SPQ
+        from experiments.spatial_gold_loaders import load_spartqa_human
+        sp = load_spartqa_human("test", q_types=("YN",))
+        if cap:
+            sp = sp[:cap]
+
+        def sp_gold(it):
+            a = it["answer"]
+            if isinstance(a, list) and a and str(a[0]).strip().lower() in ("yes", "no"):
+                return str(a[0]).strip().lower() == "yes"
+            return None
+
+        def sp_subset(it):
+            rt = it.get("reasoning", [])
+            return "multi" if any(r in ("transitivity", "converse") for r in rt) else "single"
+
+        res, _meta = SPQ.score_corpus(sp, sp_gold, sp_subset, seed=seed)
+        ms = res["margin_reasoner_minus_lastmention"]
+        mt = res["margin_reasoner_minus_twin"]
+        multi = res["by_subset"].get("multi", {})
+        row = {
+            "n": res["n"], "model_acc": round(float(res["reasoner"][0]), 4),
+            "overlap_floor": round(float(res["lastmention"][0]), 4),
+            "floor_accs": {"last_mention_depth1": round(float(res["lastmention"][0]), 4)},
+            "strongest_floor_name": "last_mention_depth1",
+            "strongest_floor": round(float(res["lastmention"][0]), 4),
+            "twin_acc": round(float(res["twin"][0]), 4),
+            "model_minus_strongest": [ms["margin"], ms["lo"], ms["hi"]],
+            "model_minus_twin": [mt["margin"], mt["lo"], mt["hi"]],
+            "ci_sep_over_strongest": bool(ms["sep"]),
+            "ci_sep_over_twin": bool(mt["sep"]),
+            "coverage": res.get("coverage_reasoner"),
+            "multi_fact_subset": {"n": multi.get("n"),
+                                  "reasoner": (multi.get("reasoner") or [None])[0],
+                                  "last_mention": (multi.get("lastmention") or [None])[0]},
+            "population": "SpartQA-HUMAN test YN (human-authored), RELATIVE POSITION end-to-end over the reader's OWN "
+                          "extraction; model=reasoner (full-depth Franklin-Tversky composition), floor=last-mention "
+                          "(depth-1), twin=shuffled-relation (node set + counts kept). Paired bootstrap CI; UNK=wrong; "
+                          "coverage-limited (extraction cap, not the reasoner). MODERN (Mirzaee 2021)."}
+        detail = {"note": "glass-box relational spatial reasoner (Johnson-Laird mental-model inspection; "
+                          "Franklin-Tversky spatial framework) -- the FIRST board arm that scores relative-position "
+                          "COMPOSITION end-to-end. The load-bearing claim is scoped to the last-mention (position) + "
+                          "shuffled-relation (info-free) floors; the composition holds over the reader's OWN "
+                          "extraction (coverage %s). Reuses exp_spatial_position_qa_v1 verbatim. HONEST scope: "
+                          "CONTAINMENT/PATH end-to-end on terse real prose stay extraction-gated (recall 0.22/0.02; "
+                          "the SOLVED located negative) -- the text->relation EXTRACTOR is the named follow-on."
+                          % row["coverage"]}
+        return row, detail
+    except Exception as e:
+        return _degraded("spatial_relational", e), {"error": "%s: %s" % (type(e).__name__, e)}
+
+
 def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True):
     """Assemble every MODERN per_dimension row. caps = dict of per-arm caps for a fast self-test.
     run_new_arms adds the 3 board-invisible-win arms (coarse-sense/selective-reliability/causal-multihop) as
@@ -469,6 +533,8 @@ def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True
         new_arms["causal_multihop"] = ca_rows; new_arms_detail["causal_multihop"] = ca_det
         occ_row, occ_det = board_occ_appraisal_dimension(cap=caps.get("occ"))
         new_arms["occ_appraisal"] = occ_row; new_arms_detail["occ_appraisal"] = occ_det
+        sp_row, sp_det = board_spatial_relational_dimension(cap=caps.get("spatial"))
+        new_arms["spatial_relational"] = sp_row; new_arms_detail["spatial_relational"] = sp_det
 
     crossref = _informational_19c_crossref()
 
