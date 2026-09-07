@@ -425,6 +425,188 @@ def track_status(goals: List[Goal], events) -> List[Goal]:
 
 
 # ===========================================================================
+# GOAL-FAILURE-BY-THWART generalization (Q111, promoted VERBATIM from
+# experiments/_occ_upstream_goal_status.track_status_thwart, thwart-branch focus). A STRICT SUPERSET of
+# the baseline track_status above: it adds a FAILURE-by-thwart branch + two extraction generalizations
+# the OCC-appraisal inference needs on modern prose -- (i) event-agent COREF canonicalization (an outcome
+# clause with a PRONOUN subject binds to the goal's named agent) and (ii) IRREGULAR-PAST normalization of
+# the realizing predicate ("won"->"win"). Every goal the baseline marked satisfied/failed KEEPS that
+# verdict; the ONLY change is some baseline-'active' goals become 'satisfied' (pronoun/irregular outcome)
+# or 'failed' (thwart). Gated behind the reader's track_goal_thwart flag (default-on); all_capabilities_off
+# forces it False -> the baseline track_status is the byte-identity reference.
+#
+# THE BRAIN (PINNED -- Lutz & Radvansky 1997): narrative goal structure carries a STATUS field
+# active/satisfied/FAILED; a failed goal is not deleted -- it is tracked and lingered on. track_status
+# implemented satisfied + negated-construction but NOT thwart-by-event -- an INCOMPLETE realization of the
+# PINNED status field, not a new mechanism. This completes it. Deterministic, glass-box, stdlib+hdlab. NO LLM.
+# ===========================================================================
+# THWART lexicon (OUR-INVENTION-UNDER-TEST -- swept, not adopted; the PRINCIPLE that a thwarting event sets
+# failed is PINNED). Failure/thwart predicates + adverse-resultant cues.
+FAILURE_VERBS = {
+    "miss", "missed", "misses", "lose", "lost", "loses", "fail", "failed", "fails", "forfeit",
+    "forfeited", "forfeits", "abandon", "abandoned", "abandons", "surrender", "surrendered",
+    "flunk", "flunked", "botch", "botched", "blow", "blew", "blown",
+}
+_THWART_NEG = {"not", "n't", "never", "no", "n't.", "cannot", "couldn't", "wouldn't", "didn't", "doesn't",
+               "won't", "can't", "failed"}
+# adverse-resultant cues: the target state was lost / the deadline passed / access denied
+ADVERSE_RESULTANT = {
+    "gone", "closed", "shut", "empty", "late", "away", "last", "denied", "refused", "rejected",
+    "cancelled", "canceled", "lost", "locked", "sold", "vanished", "slammed", "pulled", "escaped",
+    "missed", "without", "unable", "impossible", "hopeless", "ruined", "spoiled", "wasted", "over",
+    "withered", "died", "fell", "left", "off", "outside", "cloud",
+}
+# IRREGULAR PAST -> base (a standard morphology asset; _lemma only strips -ed/-s/-ing, so it leaves
+# irregular past forms uncanonicalized -> a later "won"/"bought"/"lost" never matches the goal head
+# "win"/"buy"/"lose"). Closed, high-frequency English strong-verb list. Foundation morphology.
+IRREG_PAST = {
+    "won": "win", "bought": "buy", "sold": "sell", "found": "find", "caught": "catch", "made": "make",
+    "got": "get", "gotten": "get", "took": "take", "taken": "take", "ran": "run", "run": "run",
+    "came": "come", "lost": "lose", "met": "meet", "paid": "pay", "built": "build", "held": "hold",
+    "went": "go", "gone": "go", "left": "leave", "kept": "keep", "sent": "send", "spent": "spend",
+    "brought": "bring", "taught": "teach", "wrote": "write", "written": "write", "drove": "drive",
+    "rose": "rise", "chose": "choose", "chosen": "choose", "grew": "grow", "grown": "grow",
+    "flew": "fly", "flown": "fly", "drew": "draw", "threw": "throw", "thrown": "throw", "knew": "know",
+    "saw": "see", "seen": "see", "fell": "fall", "fallen": "fall", "swam": "swim", "swum": "swim",
+    "sang": "sing", "sung": "sing", "began": "begin", "begun": "begin", "did": "do", "done": "do",
+    "led": "lead", "read": "read", "fed": "feed", "shut": "shut", "hit": "hit", "cut": "cut", "put": "put",
+    "forgot": "forget", "forgotten": "forget",
+}
+# IMPLICIT-GOAL / INVESTMENT feeder (the OCC ATTRIBUTION anger antecedent; consumed only by the default-off
+# social/attribution branch of hdlab.occ_appraisal.infer_emotion -- ported so occ_appraisal has NO
+# experiments/ dependency). Posits an unstated MAINTAIN/OBTAIN goal from effort/possession (Trabasso
+# causal-necessity implicit goals; Liu et al. 2017 effort->goal-value; Friedman first-possession).
+INVESTMENT_VERBS = {"saved", "prepared", "grown", "grew", "built", "queued", "trusted", "kept", "guarded",
+                    "tended", "parked", "earned", "held", "owned", "planted", "packed", "arranged", "reserved",
+                    "cooked", "made", "raised", "wrote", "written", "waited"}
+
+
+def _norm_pred(w: str) -> str:
+    """Normalize a predicate surface to its base: irregular map first, then the register's -ed/-s/-ing strip."""
+    wl = str(w).lower()
+    return IRREG_PAST.get(wl, _lemma(wl))
+
+
+def _tokset(text: str) -> List[str]:
+    return re.findall(r"[a-z']+", str(text).lower())
+
+
+def _tokset_raw(text):
+    return [t.strip(".,;:!?\"'").lower() for t in str(text).split()]
+
+
+def _sent_texts(events, sents=None):
+    """Best-effort per-sentence surface for cue scanning. If `sents` (a list of token-lists) is given, use
+    it; else None -> the caller relies on event predicates only."""
+    if sents is None:
+        return None
+    return [" ".join(str(t) for t in toks) for toks in sents]
+
+
+def implicit_investment_goals(raw_sents, char):
+    """Instantiate implicit MAINTAIN/OBTAIN goals for `char` from effort/possession patterns (the anger
+    antecedent the explicit goal register misses). Returns a list of lightweight Goal objects routed into
+    the same store. Used only by the default-off attribution branch of the OCC appraisal read-out."""
+    cl = (char or "").lower()
+    out = []
+    for si, s in enumerate(raw_sents):
+        toks = _tokset_raw(s)
+        if not toks:
+            continue
+        subj_is_char = (cl in toks[:3]) or (toks[0] in ("he", "she", "they", "i", "we"))
+        if not subj_is_char:
+            continue
+        vi = next((i for i, t in enumerate(toks) if t in INVESTMENT_VERBS), None)
+        if vi is None:
+            continue
+        # object = the HEAD noun of the NP after the verb (skip det/poss/adjectives/adverbs; stop at a
+        # preposition or clause boundary) -> "saved the front SEAT for..." -> "seat", not "front".
+        tail = []
+        for t in toks[vi + 1:vi + 8]:
+            if t in ("for", "with", "within", "in", "at", "since", "to", "by", "and", "but", "all", "that", "who"):
+                break
+            if t in ("the", "a", "an", "her", "his", "their", "my", "our", "own", "some", "carefully", "quietly",
+                     "quickly", "slowly", "just"):
+                continue
+            tail.append(t)
+        obj = tail[-1] if tail else None
+        if obj is None or len(obj) < 3:
+            continue
+        g = Goal(agent=cl, goal_head="keep", goal_text="keep " + obj, kind="implicit_investment",
+                 source_verb=toks[vi], sent_idx=si, verb_tok=vi, to_tok=-1)
+        g.agent_canonical = char
+        out.append(g)
+    return out
+
+
+def track_status_thwart(goals: List[Goal], events, sents=None, canon=None) -> List[Goal]:
+    """STRICT SUPERSET of track_status. Sets each goal's status in {active, satisfied, failed}, adding a
+    FAILURE-by-thwart branch (Lutz & Radvansky failed status) + two extraction generalizations the OCC
+    appraisal needs on modern prose: (i) event-agent COREF canonicalization (canon(surface, si) -> canonical
+    entity, so an outcome clause with a PRONOUN subject -- "he passed" -- still binds to the goal's named
+    agent), and (ii) IRREGULAR-PAST normalization of the realizing predicate ("won" -> "win"). `events`
+    iterable of .predicate/.agent/.sent_idx; `sents` optional token-lists for cue scanning; `canon` optional
+    coref resolver.
+
+    Baseline-identical for satisfied + negated-construction WHEN canon is None and no irregular/thwart
+    applies; the additions only turn baseline-'active' goals into 'satisfied' (pronoun/irregular outcome) or
+    'failed' (thwart) -- a strict superset (never flips an existing satisfied/failed; 0 wants() regressions,
+    since wants() already skips satisfied/failed)."""
+    def _agent(surface, si):
+        s = str(surface or "").lower()
+        if canon is not None:
+            c = canon(surface, si)
+            if c:
+                return str(c).lower()
+        return s
+    ev = [(getattr(e, "sent_idx", 0), _norm_pred(getattr(e, "predicate", "")),
+           _agent(getattr(e, "agent", ""), getattr(e, "sent_idx", 0))) for e in events]
+    stexts = _sent_texts(events, sents)
+    for g in goals:
+        # ---- baseline branch 1: negated goal construction -> failed (UNCHANGED) ----
+        if g.negated:
+            g.status = "failed"
+            continue
+        ah = _norm_pred(g.goal_head)
+        # canonicalize the GOAL agent through the SAME resolver as the event agent (else a pronoun goal-agent
+        # "we/they" mismatches an event-agent that canonicalized to the protagonist name).
+        ga = _agent(g.agent_canonical or g.agent or "", getattr(g, "sent_idx", 0))
+        # ---- baseline branch 2: satisfaction (agent-canon + irregular-normalized head match) ----
+        realized = any(si > g.sent_idx and pl == ah and (ea == ga or ga in ("?", ""))
+                       for (si, pl, ea) in ev)
+        if realized:
+            g.status = "satisfied"
+            continue
+        # ---- NEW branch 3: FAILURE by thwart (the generalization) ----
+        if _is_thwarted(g, ah, ga, ev, stexts):
+            g.status = "failed"
+            continue
+        g.status = "active"
+    return goals
+
+
+def _is_thwarted(g, ah, ga, ev, stexts) -> bool:
+    """A later event/clause thwarts goal g. Three cues (any fires)."""
+    # (1) later same-agent FAILURE verb (predicate normalized; also match raw failure surface forms)
+    for (si, pl, ea) in ev:
+        if si > g.sent_idx and (ea == ga or ga in ("?", "")) and (pl in FAILURE_VERBS or _norm_pred(pl) in FAILURE_VERBS):
+            return True
+    if stexts is None:
+        return False
+    goal_obj = {t for t in _tokset(getattr(g, "goal_text", "") or "") if t != ah and len(t) > 2}
+    for si in range(g.sent_idx + 1, len(stexts)):
+        toks = _tokset(stexts[si])
+        ts = set(toks)
+        # (2) later sentence NEGATES the goal head
+        if ah in ts and (ts & _THWART_NEG):
+            return True
+        # (3) the goal OBJECT + an adverse-resultant cue in the same later sentence
+        if goal_obj and (goal_obj & ts) and (ts & ADVERSE_RESULTANT):
+            return True
+    return False
+
+
+# ===========================================================================
 # READER-INTEGRATION HELPERS (ported VERBATIM from the validated QA cells so hdlab has NO dependency on
 # experiments/): the canonical entity naming + agent canonicalization + passive-agent guard that
 # experiments/exp_goal_register_qa_v1.py::read_doc runs around extract_goals. _norm / _PRONOUNS /

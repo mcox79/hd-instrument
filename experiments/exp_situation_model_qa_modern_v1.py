@@ -126,13 +126,15 @@ def _informational_19c_crossref():
 
 
 # ==================================================================================================
-# THREE NEW BOARD ARMS (step B): make this session's board-INVISIBLE proven wins SCORED, each reusing the
+# NEW BOARD ARMS (step B): make this session's board-INVISIBLE proven wins SCORED, each reusing the
 # solver's OWN measurement. Kept OUT of the 19c-free headline aggregate (`_agg` reads only the 7 core dims);
 # these live in res["new_board_arms"] as their own per_dimension rows. OFF in the board self-test.
 #   coarse_sense           -- word-sense p7 coarse a_s (SemCor; INFORMATIONAL under the 19c ban, mid-20c).
 #   selective_reliability  -- precision-defer p4 (UD-EWT; MODERN): answered-acc gain at dev-tau, twin flat.
 #   causal_multihop        -- causal p10 (WIQA multi-hop + TellMeWhy non-adjacent; MODERN): traversal beats
 #                             the 1-hop adjacency floor + shuffled-edge twin CI-sep.
+#   occ_appraisal          -- inferred-emotion p3 (constructed MODERN OCC gold): the UNSTATED emotion the reader
+#                             now infers (sm.infer_emotion) -- TYPE acc vs the strongest floor + goal<->event twin.
 # ==================================================================================================
 def _degraded(name, err, informational=False):
     """A schema-shaped row for an arm whose asset/runtime is unavailable (degrade-gracefully, like
@@ -331,6 +333,79 @@ def board_coarse_sense_dimension(max_files=12, seed=0):
         return _degraded("coarse_sense", e, informational=True), {"error": "%s: %s" % (type(e).__name__, e)}
 
 
+def board_occ_appraisal_dimension(cap=None, seed=20260906):
+    """OCC-APPRAISAL INFERRED-EMOTION board arm on the solver's OWN constructed MODERN OCC gold
+    (experiments/data/occ_appraisal_gold_v1.jsonl). This capability is board-INVISIBLE today -- no dimension
+    scores the UNSTATED emotion the reader now infers (the landed sm.infer_emotion read-out). Reuses the solver's
+    OWN measurement verbatim (exp_occ_appraisal_emotion_v1): drive the LIVE reader once per item, run the glass-box
+    OCC appraisal (desirability x prospect -> OCC type + valence) over the extracted affect+goal(thwart)+event
+    registers, and score TYPE accuracy vs the strongest floor + the info-free goal<->event-shuffle twin (paired
+    bootstrap over items). model = TYPE acc; floor = strongest type floor (most-frequent-type / last-stated-word /
+    valence-only-oracle); twin = goal<->event-shuffle. Degrades gracefully (never crashes the board)."""
+    try:
+        import numpy as np
+        import experiments.exp_occ_appraisal_emotion_v1 as M
+        from experiments._occ_probe import load_gold
+        gold = load_gold()
+        if cap:
+            gold = gold[:cap]
+        rows = M.extract_all(gold)
+        n = len(rows)
+        rng = np.random.RandomState(seed)
+        twin_perm = M._derange(n, rng)
+        mft = M._mft(rows); majtype = M._majority_type_of_valence(rows)
+        mfv = 1 if sum(r["gold_val"] for r in rows) >= 0 else -1
+        idx_ps = np.array([r["is_prospect_subset"] for r in rows], bool)
+        T = {a: M.arm_type_correct(rows, a, mft=mft, majtype=majtype, twin_perm=twin_perm)
+             for a in ["APPRAISAL", "APPRAISAL_ORACLE", "NOFIX", "FLOOR_MFT", "FLOOR_LASTWORD", "FLOOR_VAL_TYPE", "TWIN"]}
+        V = {a: M.arm_val_correct(rows, a, mfv=mfv, twin_perm=twin_perm)
+             for a in ["APPRAISAL", "FLOOR_MFV", "TWIN"]}
+        floor_accs = {"most_frequent_type": round(float(T["FLOOR_MFT"].mean()), 4),
+                      "last_stated_word": round(float(T["FLOOR_LASTWORD"].mean()), 4),
+                      "valence_only_oracle": round(float(T["FLOOR_VAL_TYPE"].mean()), 4)}
+        fname = max(floor_accs, key=floor_accs.get)
+        strongest = {"most_frequent_type": "FLOOR_MFT", "last_stated_word": "FLOOR_LASTWORD",
+                     "valence_only_oracle": "FLOOR_VAL_TYPE"}[fname]
+
+        def ci(a, b):
+            d, lo, hi, _hw, _p95 = M._paired_ci(a, b, rng)
+            return [round(d, 4), round(lo, 4), round(hi, 4)]
+        ms = ci(T["APPRAISAL"], T[strongest])
+        mt = ci(T["APPRAISAL"], T["TWIN"])
+        vs = ci(V["APPRAISAL"], V["FLOOR_MFV"])
+        row = {
+            "n": n, "model_acc": round(float(T["APPRAISAL"].mean()), 4),
+            "overlap_floor": floor_accs[fname],
+            "floor_accs": floor_accs, "strongest_floor_name": fname, "strongest_floor": floor_accs[fname],
+            "twin_acc": round(float(T["TWIN"].mean()), 4),
+            "model_minus_strongest": ms, "model_minus_twin": mt,
+            "ci_sep_over_strongest": bool(ms[1] > 0), "ci_sep_over_twin": bool(mt[1] > 0),
+            "val_acc": round(float(V["APPRAISAL"].mean()), 4), "val_floor": round(float(V["FLOOR_MFV"].mean()), 4),
+            "val_minus_floor": vs,
+            "type_acc_prospect_subset": (round(float(T["APPRAISAL"][idx_ps].mean()), 4) if idx_ps.any() else None),
+            "valence_only_floor_prospect_subset": (round(float(T["FLOOR_VAL_TYPE"][idx_ps].mean()), 4)
+                                                   if idx_ps.any() else None),
+            "oracle_acc": round(float(T["APPRAISAL_ORACLE"].mean()), 4),
+            "nofix_acc": round(float(T["NOFIX"].mean()), 4),
+            "population": "constructed MODERN OCC gold (occ_appraisal_gold_v1, n=%d, named characters, balanced "
+                          "25/25 valence); model=glass-box OCC appraisal (desirability x prospect -> OCC type) over "
+                          "the LIVE reader's affect+goal(thwart)+event registers; floor=strongest type floor "
+                          "(most-frequent-type/last-stated-word/valence-only-oracle); twin=goal<->event-shuffle. "
+                          "MODERN, self-authored (SOLVED sec 8 caveat)." % n}
+        detail = {"note": "OCC forward appraisal (Ortony/Clore/Collins 1988 prospect-based emotions; Scherer "
+                          "goal-conduciveness) -- the FIRST board arm that scores the UNSTATED inferred emotion "
+                          "(live != scored before this). The load-bearing prospect subset {relief,fears_confirmed} "
+                          "(TYPE %s) is provably 0 for the valence-only floor (%s). Composition exact (oracle %s); "
+                          "the current substrate w/o the upstream thwart+prospect (NOFIX %s) collapses. Reuses "
+                          "exp_occ_appraisal_emotion_v1 verbatim. INFORMATIONAL caveat: gold is self-authored (no "
+                          "external MODERN OCC gold on disk; SOLVED sec 8)."
+                          % (row["type_acc_prospect_subset"], row["valence_only_floor_prospect_subset"],
+                             row["oracle_acc"], row["nofix_acc"])}
+        return row, detail
+    except Exception as e:
+        return _degraded("occ_appraisal", e), {"error": "%s: %s" % (type(e).__name__, e)}
+
+
 def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True):
     """Assemble every MODERN per_dimension row. caps = dict of per-arm caps for a fast self-test.
     run_new_arms adds the 3 board-invisible-win arms (coarse-sense/selective-reliability/causal-multihop) as
@@ -392,6 +467,8 @@ def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True
         ca_rows, ca_det = board_causal_multihop_dimension(cap=None, wiqa_cap=caps.get("wiqa"),
                                                           tmw_n=caps.get("tmw", 1500))
         new_arms["causal_multihop"] = ca_rows; new_arms_detail["causal_multihop"] = ca_det
+        occ_row, occ_det = board_occ_appraisal_dimension(cap=caps.get("occ"))
+        new_arms["occ_appraisal"] = occ_row; new_arms_detail["occ_appraisal"] = occ_det
 
     crossref = _informational_19c_crossref()
 

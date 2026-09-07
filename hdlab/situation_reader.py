@@ -453,6 +453,20 @@ class SituationModel:
     predict_action: Optional[object] = None
     will_act_on: Optional[object] = None
     attribute_belief: Optional[object] = None
+    # opt-in OCC-APPRAISAL INFERRED-EMOTION read-out (WHAT-DOES-X-FEEL-UNSAID): the CALLABLE
+    # sm.infer_emotion(char[, t]) bound at read time when the reader is built with track_infer_emotion=True
+    # (default-on). The glass-box forward OCC appraisal (desirability x prospect -> OCC type + valence,
+    # hdlab.occ_appraisal) COMPOSES the two LIVE registers the reader already builds -- sm.affect_register (STATED
+    # fear/hope, the prospect) x sm.goal_register (thwart-generalized status, the desirability) -- + the event
+    # stream into the UNSTATED emotion the text leaves unsaid (goal won -> satisfaction; thwarted ->
+    # disappointment; a feared bad averted -> relief; a feared bad confirmed -> fears_confirmed). The exact sibling
+    # of predict_action (believes x wants -> action). It FILLS THE GAP the affect register leaves (STATED emotion
+    # only) -- NEVER writes to sm.affect_register / sm.feels, so it cannot overwrite a stated feeling. Returns an
+    # hdlab.occ_appraisal.AppraisedEmotion or None (the honest gap). PURE ADD -- a new read-only callable via
+    # hdlab.occ_appraisal + hdlab.goal_register.track_status_thwart; infer_emotion stays None until read() binds
+    # it, and no extraction is touched (byte-identical off vs on; landing witness). From the owner-DONE
+    # infer_unstated_emotion_via_occ_appraisal_over_event_goal_congruence (Q111).
+    infer_emotion: Optional[object] = None
     # opt-in FORWARD-EVENT-PREDICTION dimension (WHAT-COMES-NEXT): the CALLABLE sm.predict_next_event(candidates=
     # None, t=None) bound at read time when the reader is built with track_prediction=True (default-on). The missing
     # FORWARD half of the discourse/event predictive hierarchy -- the reader builds a rich BACKWARD situation model
@@ -799,8 +813,10 @@ class SituationReader:
                  track_world_state: bool = True,
                  densify_world_state: bool = True,
                  track_goals: bool = True,
+                 track_goal_thwart: bool = True,
                  track_affect: bool = True,
                  track_tom_action: bool = True,
+                 track_infer_emotion: bool = True,
                  track_bridges: bool = True,
                  bridge_source: str = "hub", bridge_beta: float = 0.0, bridge_tau: float = 0.0,
                  track_senses: bool = True,
@@ -1045,6 +1061,20 @@ class SituationReader:
         # most-recent-action floor + shuffled-agent twin loses; WHY 0.97 where physical-cause cannot), zero regression
         # (additive by construction), +~0.24s/read. NO spaCy / NO LLM.
         self.track_goals = bool(track_goals)
+        # GOAL-FAILURE-BY-THWART generalization of the goal register's STATUS field (DEFAULT-ON 2026-09-06, wired
+        # from the owner-DONE infer_unstated_emotion_via_occ_appraisal_over_event_goal_congruence, Q111). When ON,
+        # _read_goals sets goal .status via hdlab.goal_register.track_status_thwart (a STRICT SUPERSET of the
+        # baseline track_status: adds a FAILURE-by-thwart branch + event-agent coref-canon + irregular-past
+        # normalization, so a goal THWARTED by an adverse event -- "Leo needed to catch the train / the doors shut"
+        # -- gets status='failed' where the baseline left it 'active'; PINNED Lutz & Radvansky failed status). This
+        # is the upstream lever the OCC-appraisal inference needs (negative goal-based emotions). Strict superset:
+        # every baseline satisfied/failed verdict is preserved, only baseline-'active' goals gain
+        # satisfied/failed, and wants() already skips satisfied/failed -> 0 wants() regressions (verified on ROC +
+        # the OCC gold, exp_occ_upstream_no_regression_v1). Only sm.goal_register goal .status (+ the derived
+        # goal_graph) change; NO scored board dimension reads goal status -> the modern-board dims are
+        # byte-identical thwart on vs off. all_capabilities_off forces it False -> the baseline track_status is the
+        # byte-identity reference. NO spaCy / NO LLM.
+        self.track_goal_thwart = bool(track_goal_thwart)
         # AFFECT/EMOTION dimension (DEFAULT-ON 2026-09-04, no-default-off: additive + net-positive). Wired from
         # the owner-DONE problem the_situation_model_has_no_affect_emotion_dimension (Q111). read() builds a
         # per-character AFFECT REGISTER (the missing emotion dimension -- a DISTINCT appraisal/affect system,
@@ -1076,6 +1106,24 @@ class SituationReader:
         # this default-OFF; landed DEFAULT-ON per the no-default-off discipline (additive + lazy -> zero read-time
         # cost, cannot regress any dimension) -- flag-off (track_tom_action=False) = the pre-landing reader.
         self.track_tom_action = bool(track_tom_action)
+        # OCC-APPRAISAL INFERRED-EMOTION read-out (DEFAULT-ON 2026-09-06, no-default-off: additive + lazy). Wired
+        # from the owner-DONE infer_unstated_emotion_via_occ_appraisal_over_event_goal_congruence (Q111). read()
+        # binds ONE read-only callable -- sm.infer_emotion(char[, t]) -> an AppraisedEmotion (occ_type + valence)
+        # or None -- that COMPOSES the two LIVE registers the reader already builds (sm.affect_register STATED
+        # fear/hope + sm.goal_register thwart-generalized status) + the event stream into the UNSTATED emotion the
+        # text leaves unsaid, via the promoted glass-box forward OCC appraisal hdlab.occ_appraisal (desirability x
+        # prospect -> OCC type; Ortony/Clore/Collins 1988 prospect-based emotions; Scherer goal-conduciveness;
+        # Barrett core-affect-plus-conceptualization). The exact SIBLING of the landed ToM chain (believes x wants
+        # -> action; here EVENT x GOAL -> felt emotion). It FILLS THE GAP the affect register leaves (which reads
+        # only STATED emotion) -- a DISTINCT read-out that NEVER writes to sm.affect_register / sm.feels, so it can
+        # never overwrite a stated feeling. Validated on a constructed MODERN OCC gold: TYPE 0.940 vs strongest
+        # floor 0.440 (+0.500 CI-sep), the load-bearing prospect subset (relief vs fears_confirmed) 1.000 over
+        # provably-0 valence floors, the goal<->event twin loses, composition exact with oracle. PURE ADD -- LAZY
+        # (computes nothing until sm.infer_emotion is invoked), binds ONLY sm.infer_emotion; touches NO existing
+        # field (byte-identical off vs on; landing witness). Runs LAST in read() (needs the FINAL affect + goal
+        # registers). Requires track_affect + track_goals (both default-on) for a non-None answer; degrades to None
+        # gracefully if either is off. all_capabilities_off forces it False. NO spaCy / NO LLM at inference.
+        self.track_infer_emotion = bool(track_infer_emotion)
         # BRIDGING-INFERENCE dimension (DEFAULT-ON 2026-09-06, no-default-off: additive + lazy). Wired from the
         # owner-DONE problem bridging_inference_infer_the_unstated_link_between_adjacent_sentences (Q111). read()
         # binds sm.bridge(target, candidates=None, source=None, beta=None, tau=None) + sm.infer_bridges(...) --
@@ -1419,7 +1467,8 @@ class SituationReader:
         "bind_entity_states", "structural_do_recover", "referent_per_np", "cm_agent", "include_pron_agents",
         "case_filter", "clause_local", "cm_agent_struct", "cm_agent_byhead", "agent_hybrid",
         "agent_hybrid_construction", "predicate_recall",
-        "track_goals", "track_affect", "track_tom_action", "track_bridges", "track_senses",
+        "track_goals", "track_goal_thwart", "track_affect", "track_tom_action", "track_infer_emotion",
+        "track_bridges", "track_senses",
         "track_prediction", "track_causal_reasoning",
         "structural_patient", "causal_mental_bridge", "goal_purpose_filter", "entity_kb_resolver",
         "commonnoun_situation_gate", "commonnoun_canonical", "unified_referent", "precision_weight_roles")
@@ -2380,7 +2429,15 @@ class SituationReader:
         canon, _names = GR.make_canonicalizer(sm, commonnoun_canonical=self.commonnoun_canonical)
         GR.passive_agent_guard(goals, sm, sents, pos)
         GR.bind_agents(goals, canon)
-        GR.track_status(goals, sm.events)
+        if self.track_goal_thwart:
+            # GOAL-FAILURE-BY-THWART generalization (Q111): a STRICT SUPERSET of baseline track_status -- adds a
+            # failure-by-thwart branch + event-agent coref-canon (the reader's OWN resolver) + irregular-past
+            # normalization, so a goal thwarted by an adverse event gets status='failed'. Never flips an existing
+            # satisfied/failed; 0 wants() regressions (wants() already skips satisfied/failed). track_goal_thwart=
+            # False (all_capabilities_off) -> the baseline track_status (byte-identity reference).
+            GR.track_status_thwart(goals, sm.events, sents=sents, canon=canon)
+        else:
+            GR.track_status(goals, sm.events)
         reg = GR.GoalRegister(goals)
         sm.goal_register = reg
         sm.wants = lambda agent: reg.wants(agent)
@@ -2522,6 +2579,45 @@ class SituationReader:
         sm.predict_action = predict_action
         sm.will_act_on = will_act_on
         sm.attribute_belief = attribute_belief
+
+    def _read_infer_emotion(self, sm, sents) -> None:
+        """Opt-in OCC-APPRAISAL INFERRED-EMOTION read-out (default-on track_infer_emotion; wired 2026-09-06 from
+        the owner-DONE infer_unstated_emotion_via_occ_appraisal_over_event_goal_congruence, Q111). Bind ONE
+        read-only QUERY callable that COMPOSES the two LIVE registers into the UNSTATED emotion, via the promoted
+        glass-box forward OCC appraisal organ hdlab.occ_appraisal (Ortony/Clore/Collins 1988 prospect-based
+        emotions; Scherer goal-conduciveness; Barrett core-affect + conceptualization):
+
+          sm.infer_emotion(char[, t])  -> hdlab.occ_appraisal.AppraisedEmotion | None
+
+        desirability <- sm.goal_register goal STATUS (satisfied/failed), read via the thwart-aware generalization
+        hdlab.goal_register.track_status_thwart; prospect <- sm.affect_register STATED fear/hope + whether the
+        event stream CONFIRMED/DISCONFIRMED it; appraise(desirability, prospect) -> the OCC type (+ valence). It
+        FILLS THE GAP the affect register leaves (which reads only STATED emotion): a distinct read-out that
+        NEVER writes to sm.affect_register / sm.feels, so it can never overwrite a stated feeling (the stated
+        fear/hope is CONSUMED as the prospect INPUT, not overwritten -- that is exactly what yields relief).
+
+        Optional kwargs (default = the LIVE reader's own signals; the witness injects the measurement's
+        single-protagonist gold coref to reproduce the headline): `canon` (surface, si) coref resolver -- default
+        the reader's OWN make_canonicalizer; `sents` token-lists -- default the reader's OWN read sentences.
+        `t` (story-time) is accepted for API-parity with sm.predict_action and reserved (the appraisal is over the
+        whole event stream).
+
+        PURE ADD: sets ONLY sm.infer_emotion; touches NO existing field (byte-identical off vs on -- the landing
+        witness asserts it). LAZY -- the closure computes nothing until invoked. Requires track_affect +
+        track_goals (both default-on) for a non-None answer; degrades to None gracefully if either register is
+        absent. NO spaCy / NO LLM at inference."""
+        from hdlab import occ_appraisal as OCC
+        from hdlab.goal_register import track_status_thwart, make_canonicalizer
+
+        def infer_emotion(char, t=None, *, canon=None, sents=sents):
+            if getattr(sm, "goal_register", None) is None and getattr(sm, "affect_register", None) is None:
+                return None                                  # track_goals + track_affect both off -> no signal
+            _canon = canon
+            if _canon is None:
+                _canon, _ = make_canonicalizer(sm, commonnoun_canonical=self.commonnoun_canonical)
+            return OCC.infer_emotion(sm, char, sents=sents, status_fn=track_status_thwart, canon=_canon)
+
+        sm.infer_emotion = infer_emotion
 
     def _read_bridges(self, sm, sents) -> None:
         """Opt-in BRIDGING-INFERENCE dimension (default-on track_bridges; wired 2026-09-06 from the owner-DONE
@@ -3103,6 +3199,14 @@ class SituationReader:
             # LAST so it composes the FINAL belief + goal registers. PURE ADD -- lazy closures only; sets no
             # existing field (byte-identical off vs on). Needs track_belief + track_goals for a non-None answer.
             self._read_tom_action(sm, sents)
+        if self.track_infer_emotion:
+            # OCC-APPRAISAL INFERRED-EMOTION read-out: bind sm.infer_emotion(char[, t]), the forward OCC appraisal
+            # (desirability x prospect -> OCC type + valence) composing the LIVE affect (STATED fear/hope) + goal
+            # (thwart-generalized status) + event registers into the UNSTATED emotion. Runs LAST so it composes the
+            # FINAL affect + goal registers. PURE ADD -- lazy closure only; sets ONLY sm.infer_emotion (byte-
+            # identical off vs on). Needs track_affect + track_goals for a non-None answer. Fills the affect
+            # register's gap; never overwrites a stated feeling (it writes to no existing field).
+            self._read_infer_emotion(sm, sents)
         if self.track_bridges:
             # BRIDGING-INFERENCE dimension: bind sm.bridge(target, ...) + sm.infer_bridges(), the meaning
             # channel's FIRST live read()-time consumer (construction-integration antecedent selection over the
