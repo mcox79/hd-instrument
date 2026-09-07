@@ -251,17 +251,24 @@ negative is delivered for the rest -- the bar treats each as a pass. A stricter 
 end-to-end for ALL three types (containment/path are still extraction-gated on terse prose) would make it PARTIAL.
 Content is identical either way.)
 
-## NEXT STEPS
-1. Land the `SpatialModel` reasoning organ default-OFF over `sm.locations` (Sec 7.1); additive, no consumer regresses.
-2. File the follow-on with the PROTOTYPE evidence in hand (Sec 4c): JOINT text->spatial-relation extraction
-   (PP-attachment + motion source/goal + block/frame membership + proper-noun place recognition) -- diminishing
-   per-construction returns proven, so the target is whole-sub-graph survival; downstream consumer + target curve
-   ready. Coordinate with the parent SPACE line, do not duplicate.
-3. Optionally land the commonsense gap-filler (`exp_spatial_commonsense_gapfill_v1`) as a default-OFF glass-box
-   fallback behind the passage reasoner; file PERCEPTUAL SIMULATION (orientation commonsense) as the genuinely-new
-   faculty (must be glass-box / NO LLM, must preserve abstention).
-4. Fold the AUDIT UPDATE (new reasoning layer; the two overstated SPACE phrasings; chain-survival as the wall metric)
-   into BRAIN_FOUNDATIONAL_AUDIT.md.
-5. Do NOT re-file: denser dataset (the sparsity is extraction, not data), metric coordinates (categorical by
-   default), a third bridging variant, or event-participant grounding / quantifier-in-scorer (both researched dead
-   ends -- Sec 4b).
+## NEXT STEPS (priority-ranked)
+- **P1 -- INTEGRATE THIS (strategy, now): land the `SpatialModel` reasoning organ default-OFF over `sm.locations`**
+  (Sec 7.1). It is additive (a read-time query API: `contains_path`/`relative`/`still_at`/`is_consistent`; emits no
+  events), provably no consumer regresses, and it makes the demonstrated capability live. Witness
+  `verification/test_spatial_relational_reasoning.py` (11/11). Fold the AUDIT UPDATE (Sec) into
+  `BRAIN_FOUNDATIONAL_AUDIT.md` at the same time.
+- **P2 -- THE HIGH-VALUE FOLLOW-ON PROBLEM: joint text->spatial-relation EXTRACTION quality** (parent SPACE line).
+  This is the sole lever that makes containment/path reason end-to-end on real prose; recall 0.22 / chain survival
+  6/90 is the bottleneck. Prototype evidence + a target curve (gold-vs-extracted gap) are ready (Sec 4c); the target
+  is whole-SUB-GRAPH survival (per-construction returns diminish), i.e. parse UAS + relation binding jointly. Do NOT
+  duplicate -- coordinate with the parent line's Ground-aware attachment problem.
+- **P3 -- THE GENUINELY-NEW FACULTY: a glass-box PERCEPTUAL-SIMULATION / visual-spatial-statistics organ** for
+  orientation commonsense (verified KB-unreachable, Sec 4c). Needs a grounded asset (e.g. Visual Genome relation
+  frequencies), NO LLM, must preserve correct abstention. File as its own problem; lower priority than P2 (smaller
+  slice, bigger build).
+- **P4 -- OPTIONAL: land the commonsense gap-filler** (`exp_spatial_commonsense_gapfill_v1`) default-OFF as a
+  glass-box fallback BEHIND the passage reasoner (world-knowledge fill, not passage evidence); it reaches
+  containment/proximity commonsense and abstains elsewhere.
+- **DO NOT re-file:** denser dataset (the sparsity is extraction, not data), metric coordinates (categorical by
+  default), a third bridging variant, or event-participant grounding / quantifier-in-scorer (both researched dead
+  ends, Sec 4b).
