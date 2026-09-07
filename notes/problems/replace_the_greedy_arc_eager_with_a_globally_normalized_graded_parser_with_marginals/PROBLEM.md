@@ -1,7 +1,6 @@
 ---
-priority: 3
 slug: replace_the_greedy_arc_eager_with_a_globally_normalized_graded_parser_with_marginals
-status: CANDIDATE
+status: INTEGRATED
 review:
 review_text:
 ---
