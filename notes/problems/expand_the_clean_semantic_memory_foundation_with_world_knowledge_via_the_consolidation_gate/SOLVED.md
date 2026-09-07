@@ -5,7 +5,7 @@ bar: "For AT LEAST N (solver's choice, N >= 2) high-leverage knowledge TYPES fro
 result: "N=3 knowledge families, each on ITS OWN consumer's MODERN instrument. TYPE 3 (is-a, directed) on TWO consumers: (a) MoNLI lexical entailment n=1676 -- typed directed spoke + monotonicity 0.817 vs the PRE-INGEST symmetric-signature foundation 0.500 (+0.317 CI[+0.299,+0.335]); (b) GUM common-noun COREFERENCE (modern, INDEPENDENT of WordNet -- the non-circular downstream consumer) -- the is-a/part-whole spoke as a type-licensing FILTER on recency lifts coref 0.6883 -> 0.6998 (+0.0116 CI[+0.0056,+0.0182]) over the strongest floor (recency/Centering), building across the wall exp_commonnoun_wall_gum_v1 located and deferred to 'world knowledge'. TYPES 4+6 (part-whole + instrument, directed) on the LIVE bridging instrument: typed spoke bridges COVERED facts 0.926/0.828 vs the symmetric read 0.095/0.027 on confusable distractors (+0.832/+0.801 CI-sep), with a GENERALIZATION located-negative (held-out 0.272/0.203)."
 floor: "TYPE 3 / MoNLI: symmetric-signature cosine best-oracle-threshold 0.500 (analytically capped on a balanced directional set) AND a frequency-generality asymmetric heuristic 0.865 (competitive OVERALL but WRONG where it disagrees: on the 226 freq-wrong pairs typed 0.766 MFS / 0.982 union vs freq 0.000 -> the graph is the correct mechanism). TYPE 3 / GUM coref: strongest floor = recency/Centering 0.6883 (blind head-identity, the reader today, is 0.6119). TYPES 4+6: no-inference random 0.200; symmetric hub/MFS read 0.095/0.386 (part) 0.027/0.219 (instrument) on confusable distractors."
 controls: "(1) INFO-FREE TWIN loses CI-sep on every type: is-a shuffled-graph 0.499 (vs 0.817); part-whole shuffled-graph 0.214 (vs 0.926); instrument shuffled-graph 0.166 (vs 0.828); coref shuffled-FILTER twin 0.6904 (vs 0.6998, +0.0095 CI[+0.0039,+0.0151]) -- the coref win is CORRECT knowledge, not 'any filter'. (2) NO REGRESSION: spokes are ADDITIVE; the frozen C1 signature is byte-untouched, so diagnostic_context_wsd is unchanged (test_knowledge_factory_meaning_store.py 6/6; W8 asserts store intact). (3) REASONING ablation: dropping monotonicity collapses the is-a negation subset 0.875 -> 0.125. (4) ARCHITECTURE ablation (coref): the is-a spoke as a SELECTOR (0.641) is DOMINATED by recency (0.688); as a type-licensing FILTER on recency it WINS (0.700) -- the consumer's architecture decides whether the knowledge helps. (5) GATE admission quality: schema-margin separates clean from injected-wrong is-a edges AUC 0.942 (deterministic; reuses the upstream meaning_foundation signatures). (6) RESOLUTION guard: the raw lemma-string (union) key over-generates cross-sense is-a on 100% of polysemous nouns; on MoNLI's low-polysemy pairs this does not cost accuracy (union 0.996 >= MFS 0.817), an honest disk-outranks-brief finding."
-files_changed: "experiments/exp_isa_typed_spoke_monli_v1.py, experiments/exp_partwhole_typed_spoke_bridging_v1.py, experiments/exp_isa_spoke_commonnoun_coref_gum_v1.py, verification/test_world_knowledge_typed_spokes.py, notes/problems/expand_the_clean_semantic_memory_foundation_with_world_knowledge_via_the_consolidation_gate/SOLVED.md"
+files_changed: "experiments/exp_isa_typed_spoke_monli_v1.py, experiments/exp_partwhole_typed_spoke_bridging_v1.py, experiments/exp_isa_spoke_commonnoun_coref_gum_v1.py, experiments/exp_antonym_typed_spoke_valence_v1.py, verification/test_world_knowledge_typed_spokes.py, notes/problems/expand_the_clean_semantic_memory_foundation_with_world_knowledge_via_the_consolidation_gate/SOLVED.md (also: notes/research_semantic_memory_generalization_walls_2026-09-06.md by the research drill)"
 reverify: ".venv/Scripts/python.exe verification/test_world_knowledge_typed_spokes.py"
 ---
 
@@ -73,6 +73,13 @@ under negation: not-a-mammal entails not-a-dog). Every subset is exactly balance
   structure (Collins-Quillian), not frequency in disguise. (NON-CIRCULAR.)
 - SENSE-AGNOSTIC UNION upper bound: 0.996. This is near-circular (MoNLI is WordNet-derived, so lemma-union closure
   approximates the gold-generation rule) and is reported as an upper bound, NOT the headline.
+- SECOND GOLD (less WordNet-circular; med_second_gold_report()): on MED (Monotonicity Entailment Dataset,
+  verypluming/MED, FraCaS/GLUE-diagnostic sources) the is-a spoke + monotonicity REPLICATES -- 0.760 CI[0.732,0.789]
+  vs majority 0.563 (+0.197 CI-sep) on MED's single-noun-is-a-substitution subset (n=801). NEW quantified COVERAGE
+  WALL: that subset is only 14.9% of MED; the other 85% needs FULL natural logic (modifier/quantifier/verb
+  monotonicity over the parse -- MacCartney-Manning), the broad adjacent lever the single-substitution judge does
+  not reach. So the is-a-spoke win is confirmed on a second gold; the ceiling of THIS mechanism is the lexical-is-a
+  slice of monotonicity reasoning.
 - INFO-FREE TWIN (shuffled is-a graph): 0.499 -- collapses to chance. The win is the CORRECT edges resolved to the
   right nodes, not "having a graph." Margin +0.318 CI[+0.295,+0.341].
 - REASONING ablation (drop monotonicity): the negation subset collapses 0.875 -> 0.125 (below chance) -- the
@@ -301,20 +308,24 @@ I then ran (all reproducible from the cells):
   the right design, confirmed by the literature.
 - WALL B (basic-level admission gate): PINNED effect (Rosch 1976 cue-validity; superordinates lack shared features;
   Rogers-Lambon-Ralph 2004 coarse-coded, survive degradation longer), but my earlier "gate prunes superordinate"
-  was a THRESHOLD artifact, not an AUC failure: schema-margin's RANKING AUC on superordinate edges is fine (0.923);
-  the earlier consumer-collapse came from a fixed margin=0.05 too strict for abstract parents -> a DEPTH-AWARE
-  threshold is the fix. The research's proposed consensus-across-known-children check I built + tested does NOT beat
-  schema-margin (superordinate consensus AUC 0.889 < 0.923). => refine the gate with a depth-calibrated threshold;
-  consensus is not needed.
+  was a THRESHOLD artifact, not an AUC failure: schema-margin's RANKING AUC on superordinate edges is fine (0.889;
+  basic 0.952); the earlier consumer-collapse came from a fixed margin=0.05 too strict for abstract parents -> a
+  DEPTH-AWARE threshold is the fix. The research's proposed consensus-across-known-children check I built + tested
+  does NOT beat schema-margin on superordinate edges (consensus AUC 0.889 == schema-margin 0.889). => refine the
+  gate with a depth-calibrated threshold; consensus is not needed. (Reproducible: the gate block in the is-a cell.)
 
 ### NEW RELATION FAMILY SPOTTED + CONFIRMED (a 5th typed spoke): ANTONYMY (lexical opposition)
+(built + validated this session: experiments/exp_antonym_typed_spoke_valence_v1.py)
 The symmetric signature is not merely capped on opposition -- it is ANTI-PREDICTIVE: ConceptNet antonym pairs have
 HIGHER hub cosine (0.153) than WordNet synonym pairs (0.089), so AUC(symmetric cosine separates synonym from
-antonym) = 0.391 (BELOW chance) -- antonyms co-occur in the same contexts ("hot"/"cold" with "weather"). A typed
-antonym spoke (ConceptNet Antonym, 19,066 edges on disk) is REQUIRED to represent opposition. This threatens a LIVE
-consumer: valence/affect (a similarity-keyed valence read gives "good"/"bad" the SAME sign). This is the cleanest
-next typed-spoke build (consumer: valence-sign propagation over Warriner, the live C3a lexicon; the brain represents
-antonymy as a distinct lexical relation -- Deese, Murphy, Mohammad -- not derivable from similarity).
+antonym) = 0.391 (BELOW chance) -- antonyms co-occur in the same contexts ("hot"/"cold" with "weather"). CONSUMER
+(grounded in the LIVE Warriner valence lexicon, C3a): on a BALANCED same-vs-opposite-valence discrimination
+(majority floor 0.5), the symmetric-cosine ORACLE-threshold scores only 0.547 (~chance -- it cannot tell opposition
+from similarity), the shuffled-label twin 0.509, while a typed antonym spoke resolves it (1.000 -- by construction,
+so the load-bearing result is the SYMMETRIC FAILURE at 0.547 + the twin at chance, not the typed 1.0). A typed
+antonym spoke (ConceptNet Antonym, 19,066 edges on disk) is REQUIRED for opposition-aware valence -- the brain
+represents antonymy as a distinct lexical relation (Deese, Murphy, Mohammad), NOT derivable from similarity. This is
+a clean next typed-spoke build for the affect channel.
 
 ## AUDIT UPDATE (for notes/BRAIN_FOUNDATIONAL_AUDIT.md sec 2b / sec 7 -- strategy folds in)
 - The meaning-store entry (C1) should note a NEW, measured deviation: the frozen store's SUPERPOSED single
