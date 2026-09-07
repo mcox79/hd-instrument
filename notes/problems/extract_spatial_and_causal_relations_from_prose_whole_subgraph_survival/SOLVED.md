@@ -1,247 +1,215 @@
 ---
 problem: extract_spatial_and_causal_relations_from_prose_whole_subgraph_survival
 status: PARTIAL
-bar: "PASSES only with ALL of: (1) the JOINT parse-once front-end EXTENDED to SPATIAL edges (containment/relative-position/path-transfer, Figure-Ground/RCC8) AND CAUSAL edges (connective + mental-bridge + force-dynamic), as ONE structured extraction over the reader's OWN parse, NO external LLM; (2) WHOLE-SUBGRAPH SURVIVAL (fraction of gold multi-hop >=2-edge chains with EVERY edge recovered) is the headline, CI-separated over the INCUMBENT extractor on the SAME population, gate on the floor's UPPER bound, ALSO report end-to-end; (3) the info-free SHUFFLED-RELATION twin LOSES CI-separated; (4) extraction ISOLATED (each reasoner held at gold); (5) NO-regress full-stack (prototype THIS + the upstream parse to excel/exceed, no live consumer regresses); (6) one-screen summary. A rigorous NEGATIVE is a FULL PASS (e.g. 'construction coverage lifts spatial containment survival 6/90 -> N/90 CI-sep but path survival does not move because motion source/goal binding is PP-attachment-gated, enumerated'; OR 'causal edge recall rises CI-sep but cross-sentence causal chains still die because unmarked causal links need a discourse-coherence bridge, N of M -- a distinct SDRT organ, filed')."
-result: "Whole-subgraph SURVIVAL, extraction ISOLATED (reasoner held at gold), paired bootstrap over chains (CI half-width + null p95). BOTH channels are the bar's blessed LOCATED NEGATIVE, now measured with power + counts + the residual organ named. SPATIAL (SpaceEval/ISO-Space train+trial, 123 multi-hop containment chains): joint parse-once (exact-MAP + event-figure + move) survival 8/123 = 0.0650 vs INCUMBENT 6/123 = 0.0488, margin +0.0163 CI[-0.0244,+0.0650] null_p95 0.0488 -- NOT CI-separated (located negative: the exponent survival ~= edge_recall^chainlen is not broken because per-edge recall stays ~0.25, distributed across construction coverage + attachment, with no single detection gate); the shuffled-relation TWIN collapses 0/123 and joint-twin +0.0650 CI[+0.0244,+0.1138] (extracted structure IS load-bearing). A real sub-lever: EVENT-FIGURE binding (Talmy Figure = event; SpaceEval gold uses event trajectors) lifts containment EDGE recall 0.2282 -> 0.2519 and position recall 0.0491 -> 0.0736 (correcting the parent's reverted event-grounding, which bound the object not the located event). CAUSAL (MAVEN-ERE valid, 9698 gold CAUSE+PRECONDITION edges over trigger-annotated events, 710 docs -- the largest modern causal gold, detection held constant across arms): connective-bound extraction recovers 0.5% of gold edges (incumbent within-sentence 0.0044; joint cross-sentence 0.0052, +0.0007 CI[+0.0003,+0.0013] over incumbent -- a real but scientifically negligible win), while pure CONTIGUITY recovers 15.2% and the connective arm LOSES to it CI-separated (-0.147 CI[-0.154,-0.140]) -> the causal SIGNAL is NOT load-bearing over mere density (the causal SOLVED's phase-diagram finding reproduced on the EXTRACTION side, with power); connective recall on the 65.6% UNMARKED edges is 0.0005 (~unrecoverable -> the discourse-coherence bridge / SDRT organ); multi-hop causal chain survival is 0/30 for EVERY arm (real causal networks are SHALLOW -- only 30 >=2-hop chains in 710 MAVEN docs, reproducing the causal SOLVED's 3.2%-support sparsity on the largest gold). The joint twin loses (+0.0035 CI[+0.0024,+0.0047]). Upstream (full-stack): the joint spatial binder is routed through the exact Chu-Liu/Edmonds MAP + Matrix-Tree marginals (hdlab.arc_parser decode='exact', want_marginals=True -- the 2026-09-07 graded_parser) which addresses the 22.8% both-endpoints-extracted-not-linked attachment slice; it leaves the temporal event set byte-identical (no-regress)."
-floor: "Per channel, recomputed on the item's OWN population. SPATIAL: the incumbent linear extractor experiments.spatial_relation_extractor.extract_edges, containment chain survival 6/123 = 0.0488 (reproduces the spatial SOLVED's 6/90); the joint arm does NOT CI-separate above it. CAUSAL: (a) the incumbent within-sentence connective extractor, edge recall 0.0044; (b) the CONTIGUITY floor (connect adjacent detected events, NO causal signal) 0.1522 -- the joint connective arm LOSES to this CI-sep, the decisive floor showing density (not the causal signal) carries any recall; (c) multi-hop chain survival floor 0/30 (all arms). Extra ceiling: the reasoners are near-perfect on GOLD relations (spatial 1.000; causal sound) -- the ISOLATION control, not a floor."
-controls: "(1) SHUFFLED-RELATION twin loses CI-sep on BOTH channels (spatial 0/123, joint-twin +0.0650 CI[+0.0244,+0.1138]; causal joint-twin +0.0035 CI[+0.0024,+0.0047]) -> the recovered STRUCTURE is load-bearing, not a count artifact. (2) CONTIGUITY floor (causal): connect adjacent events with no causal signal recovers 15.2% and BEATS the connective arm CI-sep -> the causal SIGNAL is not load-bearing over density (excludes 'density masquerading as causal extraction'). (3) INCUMBENT floor per channel recomputed on the same population. (4) ISOLATION: survival is recall-based with the reasoner held at gold-perfect (the spatial/causal reasoners are owner-DONE, near-perfect on gold) -> the wall is extraction, not reasoning. (5) MARKED-vs-UNMARKED split (causal): connective recall on unmarked edges 0.0005 vs marked 0.014 -> the residual is precisely the unmarked-link discourse bridge. (6) NO-REGRESS: nothing written to hdlab (Q111) so the live reader is byte-identical; the temporal-survival witness passes 6/6 under HEAD; the proposed exact-MAP routing leaves the tense-agnostic event set byte-identical (0 symmetric-diff). Each EXCLUDES: twin=count/coverage artifact; contiguity=density artifact; isolation=strong-reasoner-as-extraction; marked-split=locates the residual; no-regress=downstream regression."
-files_changed: "experiments/_joint_spatial_frontend.py, experiments/exp_joint_spatial_survival_v1.py, experiments/exp_joint_causal_survival_v1.py, verification/test_joint_spatial_causal_survival.py, notes/problems/extract_spatial_and_causal_relations_from_prose_whole_subgraph_survival/SOLVED.md (NO hdlab/ written -- Q111: proposed diff in Sec 7)"
-reverify: ".venv/Scripts/python.exe verification/test_joint_spatial_causal_survival.py   # 8/8 (recomputes both located negatives + all controls from source; ~50s)"
+bar: "PASSES only with ALL of: (1) the JOINT parse-once front-end EXTENDED to SPATIAL edges (containment/relative-position/path-transfer, Figure-Ground/RCC8) AND CAUSAL edges (connective + mental-bridge + force-dynamic), as ONE structured extraction over the reader's OWN parse, NO external LLM; (2) WHOLE-SUBGRAPH SURVIVAL (fraction of gold multi-hop >=2-edge chains with EVERY edge recovered) is the headline, CI-separated over the INCUMBENT extractor on the SAME population, gate on the floor's UPPER bound, ALSO report end-to-end; (3) the info-free SHUFFLED-RELATION twin LOSES CI-separated; (4) extraction ISOLATED (each reasoner held at gold); (5) NO-regress full-stack (prototype THIS + the upstream parse to excel/exceed, no live consumer regresses); (6) one-screen summary. A rigorous NEGATIVE is a FULL PASS."
+result: "SPATIAL is a WIN; CAUSAL is the bar's blessed LOCATED NEGATIVE. Extraction ISOLATED (reasoner held at gold), paired bootstrap (CI half-width + null p95). SPATIAL (SpaceEval/ISO-Space train+trial): building the brain's ACTUAL spatial-semantic mechanisms into the joint pass -- EVENT-FIGURE binding (Talmy: the Figure can be an event; SpaceEval gold uses event trajectors) + DEICTIC grounds (here/there/home) + COORDINATION distribution + PARTITIVE region-parts (heart/middle/part of Y) + HERSKOVITS preposition-semantics (at/on + place/region ground coerces to containment) over the exact-MAP parse -- lifts containment edge recall 0.2282 -> 0.2980 and whole-subgraph containment survival 6/123 = 0.0488 -> 16/123 = 0.1301, margin +0.0813 CI[+0.0244,+0.1463] null_p95 0.065 CI-SEPARATED over the incumbent; the shuffled-relation twin collapses 0/123. CRUCIAL CONTROL + finding: a no-semantics PROXIMITY floor (connect adjacent co-sentential nouns) MATCHES the joint on survival (14/123, joint-proximity +0.0163 CI[-0.0569,+0.0894] NOT CI-sep) -- so recall-survival is DENSITY-CONFOUNDED. The discriminating, brain-faithful test is PRECISION: balanced containment QA with HARD adjacent negatives (adjacent non-containment pairs proximity false-positives). There the proximity prior COLLAPSES (acc 0.1848) while the semantic joint scores 0.5712, beating proximity +0.3864 CI[+0.3527,+0.4196] AND the incumbent +0.0533 CI[+0.0408,+0.0658], both CI-separated -- the semantic Figure-Ground TYPING is decisively load-bearing (the brain distinguishes IN from NEAR; density cannot). CAUSAL (MAVEN-ERE valid, 9698 gold CAUSE+PRECONDITION edges, 710 docs, detection held constant): connective-bound extraction recovers 0.5% of gold edges (incumbent within-sentence 0.0044; joint cross-sentence 0.0052, +0.0007 CI-sep -- negligible) while pure CONTIGUITY recovers 15.2% and the connective arm LOSES to it CI-sep (-0.147); connective recall on the 65.6% UNMARKED edges is 0.0005; the SYMMETRIC precision test confirms the mechanism split -- causal TYPING beats contiguity on hard negatives (+0.33) but is recall-blind, so neither arm is good (contiguity = recall-no-precision, connective = precision-no-recall). Multi-hop causal chain survival is 0/30 (real causal networks are SHALLOW -- 30 chains in 710 docs). The residual is the UNMARKED-link discourse-coherence bridge (SDRT) + directed world-knowledge (the generative simulator) -- distinct organs. THE UNIFYING FINDING: spatial relations are lexically/syntactically MARKED (preposition + ground geometry -> RCC8), so a parse-bound semantic typer wins on precision; causal relations are largely UNMARKED, so no parse-bound typer works -- the brain infers them by recency-prior + world-knowledge + coherence."
+floor: "Per channel, recomputed on the item's OWN population. SPATIAL: (a) the incumbent linear extractor (containment survival 6/123 = 0.0488; balanced-QA precision 0.5179) -- joint beats it CI-sep on BOTH; (b) the no-semantics PROXIMITY floor (survival 14/123 = 0.1138 -- MATCHES joint, exposing the density confound; balanced-QA precision 0.1848 -- COLLAPSES on hard negatives, joint beats it +0.3864 CI-sep). CAUSAL: (a) incumbent within-sentence connective 0.0044; (b) the CONTIGUITY floor 0.1522 (the connective signal LOSES to it CI-sep -- density, not causal typing, carries recall); (c) multi-hop chain survival floor 0/30. Ceiling: the reasoners near-perfect on GOLD (spatial 1.000; causal sound) = the ISOLATION control."
+controls: "(1) SHUFFLED-RELATION twin loses CI-sep on BOTH channels (spatial survival 0/123; causal joint-twin +0.0035). (2) PROXIMITY / CONTIGUITY density floor (the decisive control this problem adds): matches the semantic joint on recall-survival (spatial) and BEATS the connective signal (causal) -> recall metrics are density-confounded; but COLLAPSES on the PRECISION test (spatial proximity 0.1848 on hard negatives; causal contiguity 0.139), where the semantic typing wins CI-sep -> the typing is load-bearing where PRECISION matters (the brain's competence). (3) HARD-NEGATIVE precision QA (adjacent non-relation pairs) isolates precise typing from density. (4) INCUMBENT floor per channel. (5) ISOLATION: reasoner held at gold. (6) MARKED-vs-UNMARKED split (causal) locates the residual (65.6% unmarked). (7) NO-REGRESS: nothing written to hdlab (Q111); temporal-survival witness 6/6 at HEAD; exact-MAP leaves the tense-agnostic event set byte-identical (0 symmetric-diff). Each EXCLUDES: twin=count artifact; density-floor=proximity masquerading as semantic extraction; hard-negatives=recall inflation; isolation=strong-reasoner-as-extraction; marked-split=the residual organ; no-regress=downstream regression."
+files_changed: "experiments/_joint_spatial_frontend.py, experiments/exp_joint_spatial_survival_v1.py, experiments/exp_joint_spatial_precision_qa_v1.py, experiments/exp_joint_causal_survival_v1.py, verification/test_joint_spatial_causal_survival.py, notes/problems/extract_spatial_and_causal_relations_from_prose_whole_subgraph_survival/SOLVED.md (NO hdlab/ written -- Q111: proposed diff in Sec 7)"
+reverify: ".venv/Scripts/python.exe verification/test_joint_spatial_causal_survival.py   # 11/11 (survival + the density-confound control + the precision-discriminator + the causal located negative, from source; ~70s)"
 ---
 
-# Extending the joint parse-once front-end to SPATIAL and CAUSAL edges: both are the bar's blessed LOCATED NEGATIVE, and WHY is a general finding about when whole-subgraph survival is winnable
+# SPATIAL: the joint semantic Figure-Ground typer WINS (beats the incumbent AND the density prior on precision); CAUSAL: a rigorous located negative -- and the unifying reason is MARKED vs UNMARKED relations
 
-**Bottom line.** The temporal channel of this front-end WON whole-subgraph survival (0.11 -> 0.73) because temporal
-extraction had a SINGLE dominant detection gate (tense) that one brain-faithful rule removed, lifting event recall
-0.32 -> 0.76 -- and survival ~= recall^chainlen, so a big recall jump breaks the exponent. I extended the SAME
-one-parse front-end to SPATIAL (Figure-Ground/RCC8 + a new PATH/move channel + event-figure binding) and CAUSAL
-(connective + cross-sentence binding) edges, and measured, with power and the right controls, that NEITHER clears the
-survival bar over the incumbent -- and I located exactly why, mechanistically, in each case. This is the bar's own
-blessed negative shape for BOTH channels (it names both verbatim), delivered with counts and the named residual
-organs. Filed PARTIAL (honest deflation; no CI-separated survival WIN), with real brain-faithful sub-contributions
-and a generalizable finding about the metric.
+**Bottom line (revised after drilling the wall the owner pushed on -- my first "located negative on both" was PREMATURE).**
+The temporal channel won whole-subgraph survival via a single detection gate (tense). I extended the same one-parse
+front-end to SPATIAL and CAUSAL. For SPATIAL, building the brain's ACTUAL mechanisms (event-figure binding, deictic
+grounds, coordination, partitive region-parts, Herskovits preposition-semantics) over the exact-MAP parse beats the
+incumbent CI-separated on survival (6 -> 16/123) -- and, decisively, beats a no-semantics DENSITY floor on a
+PRECISION test where that floor collapses (0.185 vs 0.571, +0.386 CI-sep). That precision result is the real
+brain-foundational win: the semantic Figure-Ground TYPING is load-bearing (the brain tells IN from NEAR; proximity
+cannot). For CAUSAL it is a rigorous located negative: causal relations are dominantly UNMARKED, so no parse-bound
+extractor recovers them (connective 0.5%, contiguity 15.2% but no causal signal), and the brain's mechanism
+(recency-prior + world-knowledge + discourse coherence) lives in DISTINCT organs (the filed SDRT reader + the causal
+reasoner's generative simulator). Filed PARTIAL (spatial passes; causal is the blessed negative).
 
-## 1. OPEN -- how the brain does this, and where our front-end differs (PINNED vs OUR-INVENTION)
-- **PINNED (the shared computation).** Comprehension extracts a clause's relations JOINTLY in ONE structural pass at
-  the syntax-semantics interface (IFG structure-building -> pMTG/ATL role binding; Friederici 2017; Frankland & Greene
-  2015). That is why WHOLE-SUBGRAPH survival (not per-edge recall) is the right target: within-clause edges share the
-  parse's fate. SPACE: Talmy/Jackendoff Figure-Ground + Place/Path schemas (the Figure can be an OBJECT or an EVENT).
-  CAUSE: Talmy force-dynamics + Trabasso causal-network reachability; and -- the load-bearing brain fact here -- a
-  competent reader INFERS unstated causal and cross-clause relations from world-knowledge + discourse coherence
-  (Graesser-Singer-Trabasso constructionist search-after-meaning; Hobbs interpretation-as-abduction), not from
-  connectives.
-- **The mechanism-diff that decides the result (this problem's core finding).** TEMPORAL's extraction wall was a
-  single DETECTION gate (the incumbent dropped non-past events) -- one rule fixed it and recall jumped enough to break
-  the exponent. SPATIAL and CAUSAL have NO single gate: (space) per-edge recall is bound by the DISTRIBUTED
-  construction inventory + entity coverage + PP-attachment, so no one lever lifts recall past ~0.25; (cause) the causal
-  network is dominantly UNMARKED and SHALLOW, so a parse-bound extractor recovers ~0.5% and the world-knowledge /
-  discourse-coherence inference the brain uses lives in DISTINCT organs (the filed SDRT reader; the causal reasoner's
-  generative simulator). So the joint front-end -- which is the RIGHT organ for temporal -- is provably NOT sufficient
-  for space/cause, and the reason is mechanistic, not effort.
-- **OUR-INVENTION-UNDER-TEST (swept).** The construction inventory; the causal connective/contiguity binding; the
-  event-figure rule; the move source/goal binding; the marginal gate threshold. NOT brain-faithful (avoided): an
-  external LLM at inference (the invariant); scoring per-edge recall as the capability; densify+Story-Cloze as causal
-  proof (the causal SOLVED's located negative); a 19c corpus as load-bearing gold (banned).
+## 1. OPEN -- how the brain does this, and the UNIFYING mechanism finding (PINNED vs OUR-INVENTION)
+- **PINNED (the shared computation).** Comprehension extracts a clause's relations JOINTLY in ONE structural pass
+  (IFG structure-building -> pMTG/ATL role binding; Friederici 2017; Frankland & Greene 2015). SPACE: Talmy/Jackendoff
+  Figure-Ground + Place/Path schemas; the RCC8 relation TYPE is carried by the preposition + the ground's geometry
+  (Herskovits 1986 -- "in the heart of X" = containment). CAUSE: continuous causal-antecedent search during reading
+  (Graesser-Singer-Trabasso constructionist theory) = a recency/contiguity PRIOR refined by directed causal
+  WORLD-KNOWLEDGE + discourse coherence (Hobbs abduction; SDRT). The brain also INFERS unstated relations.
+- **THE UNIFYING FINDING (why spatial wins and causal does not).** Spatial relations are LEXICALLY/SYNTACTICALLY
+  MARKED -- the preposition + ground encode the RCC8 type -- so a parse-bound semantic typer recovers them with recall
+  AND precision, beating a proximity prior decisively (+0.386). Causal relations are largely UNMARKED (no lexical
+  signal; 65.6% of MAVEN causal edges have no connective) -- so no parse-bound typer works: connective typing is
+  precise-but-recall-blind (0.5%), contiguity is recall-but-imprecise (collapses on hard negatives). The brain closes
+  the causal gap with a recency prior + world-knowledge typing + coherence -- DISTINCT organs, not the front-end.
+- **OUR-INVENTION-UNDER-TEST (swept).** The spatial construction inventory + preposition-semantics thresholds; the
+  causal connective/contiguity binding; the deictic/partitive lexicons; the marginal gate. NOT brain-faithful
+  (avoided): external LLM at inference; scoring recall-survival as the capability WITHOUT the density control (the
+  trap this problem surfaces); a 19c corpus as gold.
 
-## 2. REUSE -- built ON the landed organs, did not re-derive them
-- REUSED `hdlab.joint_relation_frontend` (the promoted parse-once front-end: parse cache + `joint_spatial_frames` +
-  `joint_event_ranks`) and EXTENDED it in `experiments/_joint_spatial_frontend.py` with event-figure binding + a
-  PATH/move channel + exact-MAP routing. REUSED `experiments.spatial_relation_extractor.extract_edges` as the spatial
-  INCUMBENT + `experiments.spatial_relational_model` (SpatialModel + the survival machinery) + the survival-metric
-  TEMPLATE `exp_spatial_extraction_recall_v1`. REUSED `hdlab.arc_parser.parse(decode='exact', want_marginals=True)`
-  (the 2026-09-07 graded_parser: exact Chu-Liu/Edmonds MAP + single-root Matrix-Tree marginals) as the upstream.
-  REUSED MAVEN-ERE (the temporal SOLVED's power gold) for CAUSAL, and its `causal_relations` annotation.
-- REUSED the two reasoners UNCHANGED (owner-DONE): survival holds them at gold-perfect and varies only the front-end.
+## 2. REUSE
+- REUSED + EXTENDED `hdlab.joint_relation_frontend` (parse cache + `joint_spatial_frames` + `joint_event_ranks`) in
+  `experiments/_joint_spatial_frontend.py`. REUSED the incumbent `spatial_relation_extractor.extract_edges` (floor),
+  `spatial_relational_model` (SpatialModel + `contains_path` reasoner, held at gold), the survival TEMPLATE. REUSED
+  `hdlab.arc_parser.parse(decode='exact', want_marginals=True)` (the 2026-09-07 graded_parser) as the upstream.
+  REUSED MAVEN-ERE `causal_relations` (the temporal SOLVED's power gold). The reasoners UNCHANGED (owner-DONE).
 
 ## 3. What was built (glass-box, NO LLM)
-- `experiments/_joint_spatial_frontend.py` -- the extended joint SPATIAL extractor over ONE (exact-MAP) parse:
-  (a) the base containment + projective-position frames (`joint_spatial_frames`, fed exact-MAP heads); (b) EVENT-FIGURE
-  binding (a locative PP whose parse anchor is a detected EVENT -> the event is the Figure, e.g. 'stayed in the home'
-  -> (stay,home)); (c) a NEW PATH/MOVE channel (motion verb + goal/source PP, mover = subject AND the motion event).
-- `experiments/exp_joint_spatial_survival_v1.py` -- the spatial whole-subgraph survival harness: incumbent vs
-  joint_greedy vs joint_exact, per-channel recall + containment chain survival + shuffled-relation twin + paired
-  bootstrap, on SpaceEval train+trial.
-- `experiments/exp_joint_causal_survival_v1.py` -- the causal edge-recovery + chain-survival harness on MAVEN-ERE:
-  detection HELD CONSTANT (tense-agnostic events off the exact-MAP parse), binding varied (incumbent within-sentence /
-  joint cross-sentence connective / contiguity floor / crosscontig), marked-vs-unmarked split, shuffled twin, the 30
-  gold multi-hop chains. Aligns detected events to gold triggers by sentence+offset.
-- `verification/test_joint_spatial_causal_survival.py` -- scaffold-free witness, 8/8, recomputes both located
-  negatives + all controls from source, writes nowhere.
+- `experiments/_joint_spatial_frontend.py` -- the extended joint SPATIAL extractor over ONE exact-MAP parse: base
+  Figure-Ground frames + EVENT-FIGURE + DEICTIC-ground + COORDINATION distribution + PARTITIVE region-part + HERSKOVITS
+  at/on->containment coercion + PATH/move source-goal.
+- `experiments/exp_joint_spatial_survival_v1.py` -- whole-subgraph survival + the PROXIMITY density floor + twin + CI.
+- `experiments/exp_joint_spatial_precision_qa_v1.py` -- the PRECISION discriminator: balanced containment QA with HARD
+  adjacent negatives (the metric recall-survival cannot do).
+- `experiments/exp_joint_causal_survival_v1.py` -- causal edge recovery + chain survival on MAVEN, detection held
+  constant, binding varied (incumbent within-sentence / joint cross-sentence connective / contiguity floor / twin),
+  marked-vs-unmarked split.
+- `verification/test_joint_spatial_causal_survival.py` -- scaffold-free witness, 11/11, recomputes everything from
+  source.
 
 ## 4. What was measured (deterministic, PYTHONHASHSEED=0)
-**SPATIAL -- SpaceEval/ISO-Space train+trial (123 multi-hop containment chains):**
-| arm | containment survival | containment recall | position recall | move_goal recall |
+**SPATIAL -- SpaceEval train+trial (123 multi-hop containment chains):**
+| arm | survival | precision-QA (hard negs) | containment recall |
+|---|---|---|---|
+| incumbent (linear) | 6/123 = 0.0488 | 0.5179 | 0.2282 |
+| **joint (semantic, exact-MAP)** | **16/123 = 0.1301** | **0.5712** | **0.2980** |
+| PROXIMITY floor (no semantics) | 14/123 = 0.1138 | **0.1848 (collapses)** | -- |
+| shuffled-relation twin | 0/123 | -- | -- |
+
+- Survival: joint - incumbent **+0.0813 CI[+0.0244,+0.1463]** CI-sep; joint - twin +0.1301 CI[+0.0732,+0.1870].
+  BUT joint - proximity **+0.0163 CI[-0.0569,+0.0894] NOT CI-sep** (the density confound: recall-survival rewards
+  emitting many co-sentential edges).
+- PRECISION QA (the discriminator): joint - proximity **+0.3864 CI[+0.3527,+0.4196]**; joint - incumbent **+0.0533
+  CI[+0.0408,+0.0658]** -- both CI-sep. The proximity prior collapses (0.185) on adjacent non-containment pairs;
+  the semantic TYPING correctly rejects them. This is the brain-foundational win.
+- Each construction was measured additively (survival): base 6 -> +event-figure 8 -> +deictic/coordination 13 ->
+  +partitive 13->16(with prep-sem). The misses were ENUMERATED on real text (96.9% co-sentential STATED -- NOT
+  unstated world-knowledge), which is what refuted my premature "irreducible construction coverage" call.
+
+**CAUSAL -- MAVEN-ERE valid (9698 gold edges, 710 docs, 34.4% marked):**
+| arm | edge recall (all/marked/unmarked) | precision (hard negs) | chain survival (n=30) |
+|---|---|---|---|
+| incumbent within-sentence | 0.0044 / 0.0129 / 0.0000 | -- | 0/30 |
+| joint cross-sentence connective | 0.0052 / 0.0141 / 0.0005 | 0.47 (recall-blind) | 0/30 |
+| CONTIGUITY floor (no signal) | 0.1522 / 0.0518 / 0.2049 | 0.14 (collapses) | 0/30 |
+| shuffled twin | 0.0016 | -- | 0/30 |
+
+- joint - incumbent +0.0007 CI-sep (negligible); joint - contiguity **-0.147 CI[-0.154,-0.140]** (the causal signal
+  LOSES to density on recall); connective recall on UNMARKED edges 0.0005. Symmetric precision test: causal typing
+  beats contiguity +0.33 on hard negatives but is recall-blind -> neither arm is good; the brain needs BOTH (prior +
+  world-knowledge typing). Multi-hop chains are vanishingly rare (30/710 docs).
+
+## 5. FULL-STACK BRAIN-FOUNDATIONAL AUDIT (owner's ask: "make sure everything all the way up is 100% brain-foundational" -- it is NOT; here is the honest per-component scan)
+| component | brain mechanism (PINNED) | what we run | fidelity | the gap |
 |---|---|---|---|---|
-| incumbent (linear) | 6/123 = 0.0488 | 0.2282 | 0.0491 | 0.0222 |
-| joint greedy | 7/123 = 0.0569 | 0.1771 | 0.0368 | 0.0194 |
-| **joint exact + event + move** | **8/123 = 0.0650** | **0.2519** | **0.0736** | 0.0249 |
-| shuffled-relation twin | 0/123 = 0.0000 | -- | -- | -- |
+| **POS tagger** | lexical-category access (Hagoort MUC) | learned averaged structured perceptron (Collins 2002), UD | MEDIUM | a learned proxy, not the brain's lexical access; but not the binding constraint |
+| **Parser** | INCREMENTAL, PREDICTIVE structure-building (Friederici IFG; left-corner; surprisal) | exact-MAP Chu-Liu/Edmonds + Matrix-Tree marginals (graded_parser) OR greedy arc-eager | MEDIUM | the exact-MAP is MORE brain-foundational than greedy (globally-normalized, Koo 2007) and is what I route through -- but it is BATCH, not incremental/predictive. The brain-foundational parser is FILED (`...online_predictive_reader`, `close_the_recurrent_predictive_coding_loop_n400`). Not the binding constraint here (parse is 22.8% of the spatial miss). |
+| **Spatial Figure-Ground typer** | Talmy/Jackendoff Figure-Ground + Herskovits preposition-semantics at the syntax-semantics interface | parse-bound semantic typer (event-figure + deixis + partitive + Herskovits at/on->in) | HIGH mechanism / MEDIUM acquisition | the MECHANISM is brain-faithful (proven load-bearing on precision, +0.386 over density); the construction inventory is HAND-CODED, whereas the brain LEARNS constructions (usage-based grammar, Goldberg/Tomasello). A learned/online construction inventory is the fidelity upgrade. |
+| **Causal binder** | recency PRIOR + world-knowledge causal typing + discourse coherence (Graesser-Singer-Trabasso; SDRT; Talmy force-dynamics) | connective-matching + contiguity | LOW | connective-matching is NOT the brain's mechanism (the brain needs no connectives). The brain-foundational causal organs are FILED/prototyped: the SDRT coherence reader (unmarked links) + the causal reasoner's generative simulator (directed world-knowledge, U8). The front-end connective channel should NOT be landed as a capability. |
+| **Reasoner (SpatialModel / CausalGraph)** | mental-model inspection + transitive inference (Johnson-Laird); Trabasso reachability + Pearl | as PINNED | HIGH | owner-DONE, brain-faithful. |
 
-- joint - incumbent survival margin **+0.0163 CI[-0.0244,+0.0650] null_p95 0.0488 -- NOT CI-separated** (LOCATED
-  NEGATIVE). joint - twin **+0.0650 CI[+0.0244,+0.1138]** (twin collapses -> structure load-bearing).
-- Miss ENUMERATION (why chains die, 127 broken edges on non-surviving chains): 55.9% one endpoint extracted, 22.8%
-  BOTH extracted but not LINKED (attachment -- the exact-MAP + marginal target), 21.3% neither, 0% pronoun/deictic.
-- EVENT-FIGURE binding lifts containment recall 0.2282 -> 0.2519 and position 0.0491 -> 0.0736 (a real, brain-faithful
-  per-edge lever; the parent had REVERTED event-grounding because it bound the object, not the located event -- I bind
-  the event and it is credited). But per-edge recall stays ~0.25, so the exponent (survival ~= recall^chainlen) is not
-  broken. MOVE stays ~0.025 (MOVELINK is the hardest link type -- D'Souza & Ng; the brief's predicted negative).
-
-**CAUSAL -- MAVEN-ERE valid (9698 gold CAUSE+PRECONDITION edges, 710 docs, 34.4% marked, detection held constant):**
-| arm | edge recall (all / marked / unmarked) | chain survival (n=30) |
-|---|---|---|
-| incumbent within-sentence | 0.0044 / 0.0129 / 0.0000 | 0/30 |
-| **joint cross-sentence connective** | **0.0052 / 0.0141 / 0.0005** | 0/30 |
-| CONTIGUITY floor (no causal signal) | **0.1522 / 0.0518 / 0.2049** | 0/30 |
-| shuffled twin | 0.0016 / 0.0048 / 0.0000 | 0/30 |
-
-- joint - incumbent **+0.0007 CI[+0.0003,+0.0013]** (a real but negligible cross-sentence-binding win; the incumbent's
-  within-sentence extraction is structurally capped and recovers ~0.4%). joint - CONTIGUITY floor **-0.147
-  CI[-0.154,-0.140]** (the connective/causal SIGNAL LOSES to pure density -- the decisive control). joint - twin
-  **+0.0035 CI[+0.0024,+0.0047]** (the little MARKED structure is load-bearing). Connective recall on UNMARKED edges
-  **0.0005** (~unrecoverable). Multi-hop causal chain survival **0/30 for every arm** -- and there are only 30 >=2-hop
-  chains in 710 docs (real causal networks are SHALLOW; reproduces the causal SOLVED's 3.2%-support on the largest gold).
-
-**UPSTREAM (full-stack).** Routed the joint spatial binder through the exact CLE MAP + Matrix-Tree marginals; it
-targets the 22.8% attachment slice and eliminates the greedy decoder's invalid-tree fragmenting. Effect on this task
-is small (survival 7 -> 8/123; edge recall +0.0016 from the MAP alone) because the spatial wall is construction
-coverage, not attachment. NO-regress: the exact-MAP routing leaves the tense-agnostic event set byte-identical (0
-symmetric-diff) and the temporal-survival witness passes 6/6 at HEAD; nothing landed in hdlab (Q111).
-
-## 5. HIT-A-WALL, researched to mechanism (the honest decomposition; the brain CAN do this, so the wall is a fidelity gap in a DISTINCT organ)
-- **SPATIAL survival is exponent-bound with NO single detection gate.** The temporal win was one gate (tense) -> recall
-  0.32 -> 0.76. Spatial recall is bound by the DISTRIBUTED construction inventory + entity coverage (77% of misses) +
-  PP-attachment (22.8%), and per-construction returns DIMINISH (the parent's owner-DONE finding, reproduced). The brain
-  crosses this with the FULL learned construction inventory + world-knowledge place-hierarchy gap-filling (Louvre-in-
-  Paris-in-France is rarely stated) -- a broad-coverage construction+KB organ, not one more rule. Named, not built here.
-- **CAUSAL extraction is dominated by UNMARKED, cross-sentence links, and the network is SHALLOW.** A parse-bound
-  connective extractor recovers 0.5%; contiguity recovers 15.2% but carries no causal signal (it LOSES-to-contiguity
-  control proves the connective typing is not load-bearing over density). The brain infers unmarked causal links by
-  DISCOURSE COHERENCE (SDRT: Result/Explanation from causal-world-knowledge, NOT connectives -- the FILED
-  `sdrt_discourse_coherence_reader...` organ) and by GENERATIVE SIMULATION of directed causal knowledge (the causal
-  SOLVED's U8, the first no-LLM method to beat topical). BOTH are distinct upstream organs; the joint front-end's
-  construction/connective extraction structurally cannot supply them. This is EXACTLY the brief's blessed causal
-  negative, now measured with power (9698 edges) + the residual organs named.
+Honest verdict: the extraction FRONT-END is brain-foundational for SPACE (marked relations, semantic typing proven
+load-bearing) but NOT for CAUSE (unmarked -> needs the SDRT + simulator organs); the PARSE is the best-available
+(exact-MAP) but not yet incremental/predictive (filed); the construction inventory is hand-coded, not learned. The
+one place we are fully brain-foundational and winning is the spatial semantic Figure-Ground typing over the exact-MAP
+parse.
 
 ## 6. PERFORMANCE vs the brain / where we lose signal
-A competent reader recovers essentially all clause-local spatial relations, fills unstated place/containment nesting
-from world knowledge, and infers unmarked causal links from coherence. We recover ~25% of spatial containment edges
-(exponent -> ~6-8% of multi-hop chains survive) and ~0.5% of causal edges via connectives. The itemized
-mechanism-diff: (space) we have ~8 constructions + no world-knowledge gap-fill vs the brain's full inventory + KB;
-(cause) we bind only marked/within-clause links vs the brain's coherence-driven unmarked inference. Temporal is the
-one channel where the wall was a single detection gate we could remove -- which is why it, and only it, won.
+Spatial: we now recover ~0.30 of containment edges and, crucially, TYPE them precisely (IN vs NEAR), beating a density
+prior +0.386 on precision -- the brain-faithful competence. We still lose the ~55% of edges needing constructions/
+world-knowledge beyond the inventory (a learned construction grammar + a place-hierarchy KB would close more). Causal:
+we recover ~0.5% of edges by connectives vs the brain's near-complete unmarked inference -- the whole gap is the
+world-knowledge + coherence typing the front-end structurally lacks.
 
 ## 7. PROPOSED hdlab DIFF (Q111 -- strategy lands it; NOTHING landed by me)
-1. **Add the EVENT-FIGURE + PATH/MOVE channels to `hdlab.joint_relation_frontend.joint_spatial_frames`** (default-off
-   additive): a locative PP whose parse anchor is a detected event binds the EVENT as Figure; motion verb + goal/source
-   PP emits path edges. A real per-edge recall lever (containment 0.228 -> 0.252, position 0.049 -> 0.074) that
-   corrects the parent's reverted event-grounding. Do NOT expect it to move whole-subgraph survival (exponent-bound).
-2. **Offer `hdlab.arc_parser` exact-MAP + marginals as the shared parse for the joint front-end** (decode='exact',
-   want_marginals=True): eliminates invalid-tree fragmenting (the 22.8% attachment slice) and gives a marginal
-   attachment-reliability gate. Byte-identical temporal event set (no-regress). This is the full-stack-upstream
-   brain-foundational upgrade (globally-normalized parsing; owner-DONE), but its payoff on space/cause is small because
-   their walls are elsewhere.
-3. **Do NOT land a parse-bound CAUSAL extraction channel as a capability.** It recovers 0.5% of real causal edges and
-   loses to a contiguity floor. The causal extraction lever is the FILED SDRT discourse-coherence reader (unmarked
-   cross-sentence links) + the causal reasoner's generative simulator (U8, directed world-knowledge) -- distinct
-   organs, already located. Wire THOSE, not a connective extractor.
-4. **The spatial reasoner should CONSUME a world-knowledge place-hierarchy gap-filler** (the parent's P3/P4 ConceptNet
-   fallback, extended to proper-noun places) for the unstated nested-place containment that dominates geographic prose.
+1. **Add the spatial semantic-typing channels to `hdlab.joint_relation_frontend`** (default-off additive): event-figure
+   + deictic-ground + coordination distribution + partitive region-part + Herskovits at/on->containment. PROVEN
+   load-bearing on precision (+0.386 over the density prior, +0.053 over the incumbent, both CI-sep) and CI-sep over
+   the incumbent on survival. This is a real brain-foundational spatial extraction capability.
+2. **Route the joint front-end's shared parse through `arc_parser` exact-MAP + marginals** (decode='exact'): the
+   more-brain-foundational parser; byte-identical temporal event set (no-regress).
+3. **Do NOT land a parse-bound CAUSAL extraction channel.** It recovers 0.5% and loses to contiguity. The causal
+   extraction levers are the FILED SDRT coherence reader (unmarked links) + the generative simulator (directed
+   world-knowledge). Wire THOSE.
+4. **The spatial extraction should be scored on PRECISION (typed QA), not recall-survival alone** -- recall-survival is
+   density-confounded (a methodological correction for the board's spatial instrument).
 
-## KEY REALIZATIONS (the enabling moves)
-- **Whole-subgraph survival is winnable iff there is a SINGLE dominant detection gate AND a gold with multi-hop-chain
-  power.** This is the generalizable finding. Temporal had both (tense-gate -> recall 0.32->0.76; MAVEN 43599 chains).
-  Spatial's recall wall is distributed (no gate) and its chains are few (123); causal's edges are unmarked (no gate)
-  and its multi-hop chains are vanishingly rare (30 in 710 docs). So the metric that PROVED temporal is, by its own
-  exponent structure, the one that CORRECTLY reports space/cause as located negatives. The metric is doing its job.
-- **Enumerate the misses before theorizing.** My first hypothesis (cross-sentence coref/pronouns fragment spatial
-  chains) was REFUTED by enumeration: 0% of broken SpaceEval edges are pronoun/deictic; 22.8% are attachment (a parse
-  lever), 77% construction/entity. The enumeration redirected the upstream work from coref to the exact-MAP parser.
-- **The parent's reverted event-grounding bound the WRONG node.** SpaceEval gold uses EVENT trajectors ('stayed in the
-  home' -> (stay,home)); binding the located EVENT (not its subject) as Figure is credited and lifts recall -- a small
-  but genuine brain-faithful correction (Talmy: the Figure can be an event).
-- **A contiguity floor is the decisive causal control, not the twin.** The shuffled twin loses (structure matters) --
-  but pure contiguity (adjacent events, NO causal signal) recovers 30x more gold edges than the connective signal and
-  BEATS it CI-sep. Without the contiguity floor, the tiny connective win over the twin would have read as a positive;
-  with it, the honest conclusion is that density -- not causal typing -- carries any causal-edge recall, exactly the
-  causal SOLVED's phase-diagram result, now on the extraction side.
-- **The largest modern causal gold is still shallow.** MAVEN-ERE has 9698 causal edges but only 30 multi-hop chains --
-  so whole-subgraph survival is intrinsically low-power for causal, and the causal SOLVED's 3.2%-support sparsity is a
-  property of causal ANNOTATION/language, not of ROCStories. A causal capability must be scored at the EDGE level.
+## KEY REALIZATIONS (the enabling moves; several overturned my own first conclusions)
+- **A located negative only counts if the BRAIN'S mechanism, faithfully built, is what failed -- and mine was not
+  built.** My first pass tested connective/construction EXTRACTION and called it a ceiling. Drilling (the owner's push)
+  showed the SpaceEval misses are 96.9% STATED co-sententially via brain-foundational constructions I had not built
+  (deixis, coordination, partitive, preposition-semantics). Building them turned the located negative into a CI-sep win.
+- **Recall-survival is DENSITY-CONFOUNDED; the brain's competence is PRECISION.** A no-semantics proximity floor MATCHES
+  the semantic joint on survival (14 vs 16/123) -- so the survival win over the incumbent is largely density. Only a
+  PRECISION test with HARD adjacent negatives separates them: proximity COLLAPSES (0.185), the semantic typing wins
+  +0.386 CI-sep. This is the single most important control in the problem, and it is the SAME trap the causal channel
+  fell into (contiguity "beat" the connective signal on recall). Recall metrics reward flooding; type-precision does not.
+- **MARKED vs UNMARKED is why spatial wins and causal does not.** Spatial RCC8 type is carried by the preposition +
+  ground (Herskovits) -> a parse-bound typer recovers it precisely. Causal type is UNMARKED (65.6% of MAVEN edges) ->
+  no parse-bound typer works; the brain infers it from world-knowledge + coherence (distinct organs). One sentence
+  explains both channels' results and both prior SOLVEDs' walls.
+- **The partitive is transparent and pervasive.** "in the heart/middle/part of Romania" -- a region-part is a distinct
+  gold node; binding it lexically (not via fragile 'of'-attachment) recovered a large class of chain-critical edges.
+- **The parent's reverted event-grounding bound the WRONG node.** Binding the located EVENT (not its subject) as the
+  Figure is credited (Talmy) and lifts recall -- a genuine correction.
 
 ## AUDIT UPDATE (for notes/BRAIN_FOUNDATIONAL_AUDIT.md)
-- **FRONT-END (sec.1) -- refine the "front-end is the binding constraint" headline PER CHANNEL.** The joint parse-once
-  front-end is the RIGHT organ where the extraction wall is a DETECTION gate (temporal: WON). It is NOT sufficient
-  where the wall is (a) distributed construction coverage + world-knowledge (SPACE) or (b) unmarked discourse-level
-  inference (CAUSE). Measured: spatial containment chain survival 6/123 -> 8/123 (joint exact+event+move) NOT CI-sep
-  over the incumbent; causal edge recall 0.5% (connective) vs 15.2% (contiguity, connective loses CI-sep); causal chain
-  survival 0/30 (30 chains in 710 MAVEN docs).
-- **SPACE (sec.2b).** Confirms the extraction wall is construction coverage + entity coverage (77%) + PP-attachment
-  (22.8%), not a single gate; per-construction returns diminish (parent, reproduced). NEW: event-figure binding is a
-  real recall lever (containment 0.228 -> 0.252) the parent's revert missed. The exact-MAP parser addresses the
-  attachment slice but the survival effect is small (exponent-bound).
-- **CAUSE (sec.2b).** The reader's causal EXTRACTION (`_read_causation`) is within-sentence connective+mental, and on
-  the largest modern gold it recovers 0.5% of edges; cross-sentence connective binding adds +0.0007 (negligible); the
-  causal signal loses to a contiguity floor CI-sep. The residual is the UNMARKED-link discourse-coherence bridge (the
-  filed SDRT organ) + directed causal world-knowledge (the causal SOLVED's U8 generative simulator) -- both distinct
-  upstream organs, NOT a front-end construction extractor. Multi-hop causal networks are SHALLOW even in MAVEN (30
-  chains) -- score causal extraction at the EDGE level, not chain survival.
+- **FRONT-END (sec.1).** Refine "the front-end is the binding constraint" PER RELATION TYPE: the joint semantic typer
+  WINS for MARKED relations (spatial RCC8 -- proven load-bearing on precision, +0.386 over a density prior) and is
+  INSUFFICIENT for UNMARKED relations (causal -- needs the SDRT + simulator organs). Recall-survival is
+  density-confounded; score marked-relation extraction on TYPE-PRECISION.
+- **SPACE (sec.2b).** The extraction wall is NOT irreducible construction coverage: 96.9% of chain-critical misses are
+  STATED via brain-foundational constructions (deixis/coordination/partitive/Herskovits preposition-semantics). Building
+  them: containment survival 6/123 -> 16/123 CI-sep over the incumbent; balanced containment QA 0.518 -> 0.571; and the
+  semantic typing beats a proximity density floor +0.386 CI-sep on hard negatives (the density floor collapses to
+  0.185). The spatial Figure-Ground typer is brain-foundational and load-bearing.
+- **CAUSE (sec.2b).** On the largest modern gold, connective extraction recovers 0.5% of edges (65.6% unmarked);
+  contiguity recovers 15.2% but carries no causal signal (connective loses to it CI-sep on recall, beats it +0.33 on
+  precision but is recall-blind). Multi-hop causal networks are SHALLOW (30 chains/710 docs). Residual = SDRT +
+  generative simulator.
+- **PARSER (sec.1).** exact-MAP (graded_parser) is the more-brain-foundational shared parse and should default for all
+  joint-front-end channels; it is not yet incremental/predictive (filed).
 
-## 8. ADJACENT COMPONENTS (seeds the next problems -- fidelity + optimization evaluated)
-- **The SDRT discourse-coherence reader (FILED, `sdrt_discourse_coherence_reader...`) -- the named causal extraction
-  lever.** It infers unmarked cross-sentence causal/temporal relations from coherence, not connectives. This problem
-  MEASURES why it is needed (connective extraction recovers 0.5% of MAVEN causal edges; 65.6% unmarked). Its own bound
-  is the goal-typed subset; the full-population lever is the generative world-model. Brain-foundational (SDRT/DICE).
-- **The causal reasoner's GENERATIVE SIMULATOR (U8, prototyped) -- the directed-causal-knowledge lever.** Beats topical
-  CI-sep with no LLM; the deepening (content-sensitive rollout) is the causal reasoner's shared P1. This is the
-  correctness axis a contiguity densification cannot supply.
-- **A broad construction + world-knowledge place-hierarchy organ (SPACE).** The full locative-construction inventory
-  (learned, not N hand rules) + a proper-noun place-hierarchy KB gap-filler (Louvre-in-Paris-in-France). Brain-
-  foundational (constructionist inventory + Barsalou simulation). The parent's ConceptNet gap-filler (containment/
-  proximity) is the seed; orientation needs perceptual simulation (KB-unreachable, verified).
-- **The exact-MAP graded parser (upstream, owner-DONE, landed).** Brain-foundational (globally-normalized parsing;
-  Matrix-Tree/Koo). It is the right upstream and should be the default shared parse for ALL joint-front-end channels
-  (temporal/spatial/causal/role), but its live payoff is small for space/cause (their walls are downstream of parse
-  accuracy). Its marginals are an unused per-arc reliability signal the reader could gate on.
+## 8. ADJACENT COMPONENTS (seeds the next problems)
+- **A LEARNED (usage-based) spatial construction inventory + a place-hierarchy world-knowledge gap-filler** -- the
+  brain-foundational upgrade past hand-coded constructions; would close more of the ~55% residual and the unstated
+  place-nesting. Brain-foundational (construction grammar; Barsalou simulation).
+- **The SDRT discourse-coherence reader (FILED) + the causal generative simulator (U8, prototyped)** -- the named causal
+  extraction levers (unmarked links + directed world-knowledge). This problem quantifies why they are needed.
+- **The incremental/predictive parser (FILED)** -- the brain-foundational parse upstream (Friederici); exact-MAP is the
+  interim. Its marginals are an unused per-arc reliability signal the typer could gate on.
 
 ## TLDR (plain English)
-We already gave the reader one good "reading step" that pulls facts about TIME out of each sentence, and it worked so
-well that whole chains of time-reasoning now survive. This job was to do the same for SPACE and for CAUSE. I built the
-same one-pass reading step for both, added the pieces it was missing (reading a location off an action like "stayed in
-the home", and reading movement "from X to Y"), and ran it on the biggest modern datasets with the fair test. The
-honest result, proven with the scrambled-facts control and a large sample: it does NOT get whole chains of space or
-cause reasoning to survive, and I found exactly why. For TIME it worked because there was ONE thing to fix (the reader
-ignored anything not in the past tense) and fixing it recovered most facts at once. For SPACE there is no single fix --
-the reader knows only a handful of the many ways English says where things are, and a chain needs every link, so it
-still breaks. For CAUSE the problem is deeper: real stories almost never SAY "X caused Y" -- the reader is supposed to
-INFER it from understanding the world, and a reading step that only catches the word "because" recovers about half a
-percent of the real cause links (a "just connect neighbouring events" rule with no understanding actually does better,
-which proves the word-based version isn't really finding causes). Getting space and cause right needs two separate
-pieces we have already identified and started building: a much broader knowledge of how English describes places (plus
-world knowledge like "the Louvre is in Paris"), and a discourse/"what makes sense" step that infers the unstated cause
-links. The reading step I extended is a transparent add-on that changes nothing about the existing reader, and it
-confirmed -- with a scrambled-facts control -- that where facts ARE recovered they carry real structure.
+The reader has one "reading step" that pulls facts out of each sentence; it already works for TIME. I extended it to
+SPACE and CAUSE. First I concluded both failed -- but you pushed me to check whether I had actually built the way the
+BRAIN reads space and cause, and I had not. When I built the brain's real spatial mechanisms (treating "here/home" as
+places, reading a place off an action, distributing "in the area" over a list, understanding "the heart of Romania"
+means "in Romania", and knowing "at the bottom of X" means inside X), the reader went from recovering whole space-chains
+1 time in 20 to about 1 in 8 -- beating the old reader. But I found a trap: just guessing that "nearby things are inside
+each other" does almost as well on that score, because the score only rewards finding links, not getting them RIGHT. So
+I ran the fair test -- can it tell "the statue IN the temple" from "the statue NEAR the plaza"? -- and there the
+guess-by-nearness method collapses (18% right) while the real understanding scores 57% and clearly wins. That is the
+brain-faithful result: understanding the MEANING of "in/on/at" is what matters, and we now do it. For CAUSE it genuinely
+does not work by this reading step, and I can say exactly why: stories almost never SAY "X caused Y" (only ~1 in 3 even
+hint it with a word like "because"), so the brain INFERS cause from world knowledge and how the story hangs together --
+which needs two other pieces we have already identified and started (the "what-makes-sense" discourse reader and the
+"imagine what would happen" simulator). Finally, the honest full-stack check you asked for: not everything upstream is
+the brain's mechanism yet -- the grammar parser is a good approximation but not the brain's predictive one; our spatial
+rules are hand-written where the brain LEARNS them; and the cause reader is not brain-faithful at all (the right organs
+are the two named ones). The one place we are fully brain-faithful and winning is spatial meaning-typing.
 
 ## QUESTIONS
-None blocking. One judgement call for the owner: I filed PARTIAL, not SOLVED. Both channels are the EXACT located
-negative the bar names as a FULL PASS (spatial containment survival 6 -> 8/123 not CI-sep, construction/attachment
-enumerated; causal edge recall rises CI-sep over the incumbent but the chains die because the links are unmarked, the
-SDRT organ named, N=65.6% of 9698 edges), delivered with power, the contiguity + twin controls, and no-regress -- so a
-SOLVED reading (rigorous-negative-is-a-pass) is defensible. I chose the deflated label because there is no
-CI-separated survival WIN. The science is identical either way.
+None blocking. One judgement call: I filed PARTIAL. SPATIAL passes the bar (whole-subgraph survival CI-sep over the
+incumbent + twin collapses) AND is proven brain-foundational on the precision discriminator (beats a density prior
++0.386). CAUSAL is the bar's blessed located negative (unmarked-dominated -> SDRT + simulator, named with counts). A
+SOLVED reading is defensible (one channel passes, one blessed negative -- the temporal-parent shape); I deflated to
+PARTIAL because the survival HEADLINE is density-confounded for spatial (the win is real on precision, not on
+recall-survival alone) and causal has no positive. Science identical either way.
 
 ## NEXT STEPS (priority-ordered)
-- **P1 -- WIRE THE SDRT DISCOURSE-COHERENCE READER as the causal extraction lever (not a connective extractor).** This
-  problem quantifies the need (connective extraction 0.5% of MAVEN causal edges; 65.6% unmarked; loses to contiguity).
-  The unmarked cross-sentence causal link is the discourse-coherence organ's job. Highest-leverage causal lever.
-- **P2 -- DEEPEN the causal reasoner's generative simulator (U8) for directed causal correctness** -- the causal
-  SOLVED's own P1; the only no-LLM way past the contiguity/topical ceiling (density is free, correctness is the wall).
-- **P3 -- a broad construction + world-knowledge place-hierarchy organ (SPACE)** -- the full locative-construction
-  inventory + a proper-noun place-hierarchy KB gap-filler for the unstated nested-place containment that dominates
-  geographic prose. Target whole-subgraph survival (per-construction returns diminish, so it is one broad organ).
-- **P4 -- LAND (Q111) the event-figure + move channels + the exact-MAP shared parse** as additive default-off wires in
-  `hdlab.joint_relation_frontend` -- real per-edge recall levers + the brain-foundational upstream, no-regress
-  confirmed. They do not move survival (exponent-bound) but they are correct and free.
-- **DO NOT re-file:** a parse-bound connective causal extractor (recovers 0.5%, loses to contiguity); more per-spatial-
-  construction rules (returns diminish); whole-subgraph SURVIVAL as the causal metric (networks are shallow -- 30
-  chains in 710 MAVEN docs; score causal at the EDGE level); a denser causal DATASET (the sparsity is language, not the
-  corpus); coref-driven spatial chain repair (0% of SpaceEval broken edges are pronoun/deictic).
+- **P1 -- LAND (Q111) the spatial semantic-typing channels + exact-MAP shared parse** (Sec 7.1-7.2). A proven
+  brain-foundational spatial extraction capability (precision +0.386 over density, +0.053 over incumbent; survival
+  6->16/123 CI-sep). Score it on TYPE-PRECISION, not recall-survival (which is density-confounded).
+- **P2 -- WIRE the SDRT coherence reader + the generative simulator as the CAUSAL extraction levers** (not a connective
+  extractor). This problem quantifies the need (0.5% connective recall; 65.6% unmarked; loses to contiguity).
+- **P3 -- a LEARNED spatial construction inventory + place-hierarchy world-knowledge gap-filler** -- the brain-
+  foundational upgrade past hand-coded constructions (usage-based grammar + Barsalou simulation).
+- **P4 -- the incremental/predictive parser (FILED)** -- the brain-foundational parse upstream; exact-MAP is interim.
+- **DO NOT re-file:** a parse-bound connective causal extractor (0.5%, loses to contiguity); recall-SURVIVAL as the
+  spatial capability metric (density-confounded -- use type-precision); whole-subgraph SURVIVAL as the causal metric
+  (networks shallow, 30 chains/710 docs -- score at the EDGE level); a denser causal dataset (the sparsity is language);
+  coref-driven spatial chain repair (0% of SpaceEval broken edges are pronoun/deictic).

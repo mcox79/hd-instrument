@@ -6,7 +6,7 @@ result: "BEATS the floor. On the board's OWN common_noun_coref instrument (URG r
 floor: "Strongest floor actually run, recomputed on the SAME n=2855 GUM-TEST common-noun population + the SAME board scorer: same-head STRING-IDENTITY = 0.5412 (the floor to beat -- the win clears it +0.0189 CI[+0.0084,+0.0325]). Live incumbent URG unified = 0.4879 (also cleared, +0.0739). Other floors: recency 0.0855; separate 0.4872. Ceilings on the same population: typed-view-only (de-pollution) 0.5317; gold-cluster oracle 0.5825; correct-pronoun-binding upstream ceiling 0.5124."
 controls: "(1) INFO-FREE TWIN = when the type-bridge fires, resolve to a RANDOM gn-compatible prior referent (the reach STRUCTURE is preserved, the TYPE information destroyed): LOSES CI-sep (win-twin +0.0206 CI[+0.0146,+0.0268]) -> the gain is the type-compatibility signal, NOT 'any different-head reach helps'. (2) WRITE-vs-NOWRITE ablation isolating the failure mechanism: the WRITING bridge (merges the resolved mention into the shared card) does NOT beat the typed base (0.5236, delta CI incl 0), the NON-WRITING bridge does (+0.0301 CI-sep) -> the cost was the merge-pollution, not the resolution (Nref hold-under-uncertainty is the fix). (3) TYPED-VIEW isolation: the typed view alone recovers the incumbent +0.0439 CI-sep but only TIES string-identity (CI[-0.0203,+0.0007]) -> the de-pollution is not itself the beat; the BEAT is the candidate-generation bridge (excludes 'de-pollution did it'). (4) NO-REGRESS on every other live consumer, mirrored-incumbent common binding making the referent structure byte-identical for pronouns: pronoun +0.0000, kb-hardlink +0.0000, named-antecedent +0.0241 (improves) -> the win costs no consumer. (5) GOLD-CLUSTER ORACLE 0.5825 -> the win (0.5618) closes ~53% of the glass-box-reachable headroom above string-identity; the residual is world-knowledge (the different-head slice is 84.3% world-knowledge / abstract-anaphora, measured -> the sibling P31 entity-type-KB brief). (6) NO test-tuned parameters (structural mechanisms; decay = DEFAULT; bridge is deterministic)."
 files_changed: "experiments/exp_commonnoun_candidate_diagnostic_gum_v1.py, experiments/exp_commonnoun_lever_ceilings_gum_v1.py, experiments/exp_commonnoun_clustering_probe_gum_v1.py, experiments/exp_commonnoun_bridge_probe_gum_v1.py, experiments/exp_commonnoun_metric_audit_gum_v1.py, experiments/exp_commonnoun_weighted_cs_resolver_gum_v1.py, experiments/exp_commonnoun_recallsafe_bridge_resolver_gum_v1.py, experiments/exp_commonnoun_diffhead_anatomy_gum_v1.py, experiments/exp_commonnoun_typed_identity_gum_v1.py, verification/test_commonnoun_candidate_diagnostic.py, verification/test_commonnoun_lever_ceilings.py, verification/test_commonnoun_metric_audit.py, verification/test_commonnoun_recallsafe_bridge_resolver.py, verification/test_commonnoun_diffhead_anatomy.py, verification/test_commonnoun_typed_identity.py, data/exp_commonnoun_candidate_diagnostic_gum_v1/metrics.json, data/exp_commonnoun_lever_ceilings_gum_v1/metrics.json, data/exp_commonnoun_clustering_probe_gum_v1/metrics.json, data/exp_commonnoun_bridge_probe_gum_v1/metrics.json, data/exp_commonnoun_metric_audit_gum_v1/metrics.json, data/exp_commonnoun_weighted_cs_resolver_gum_v1/metrics.json, data/exp_commonnoun_recallsafe_bridge_resolver_gum_v1/metrics.json, data/exp_commonnoun_diffhead_anatomy_gum_v1/metrics.json, data/exp_commonnoun_typed_identity_gum_v1/metrics.json, notes/problems/improve_the_common_noun_coref_candidate_quality_the_resolver_trails_string_identity/SOLVED.md. NO hdlab/ writes (Q111 -- proposed wires stated below). Reuses data/corpora/gum/ (pinned V12.1.0, on disk)."
-reverify: ".venv/Scripts/python.exe verification/test_commonnoun_typed_identity.py (6/6, the WIN)  AND  test_commonnoun_candidate_diagnostic.py (4/4)  AND  test_commonnoun_lever_ceilings.py (3/3)  AND  test_commonnoun_metric_audit.py (3/3)  AND  test_commonnoun_recallsafe_bridge_resolver.py (6/6)  AND  test_commonnoun_diffhead_anatomy.py (3/3)"
+reverify: ".venv/Scripts/python.exe verification/test_commonnoun_typed_identity.py (9/9, the WIN + optimality/mechanism controls + the consumer-specific merge-view prototype)  AND  test_commonnoun_candidate_diagnostic.py (4/4)  AND  test_commonnoun_lever_ceilings.py (3/3)  AND  test_commonnoun_metric_audit.py (3/3)  AND  test_commonnoun_recallsafe_bridge_resolver.py (6/6)  AND  test_commonnoun_diffhead_anatomy.py (3/3)"
 ---
 
 # SOLVED -- common-noun coref BEATS string-identity via a typed identity view + a non-writing (Nref) type bridge
@@ -138,6 +138,10 @@ Reference implementation: `experiments/exp_commonnoun_typed_identity_gum_v1.Type
    organ the brief flagged as net-negative AS A WRITING FILTER on the live pick; here it is a NON-WRITING candidate-
    generation seed on the different-head slice only, which is why it is net-POSITIVE (the write, not the type cue, was the
    earlier cost -- confirmed: the writing version regresses).
+4. **(OPTIONAL, additive) EXPOSE A THIRD ENTITY-MERGE (kb) VIEW for the entity-KB / downstream-binding consumer.** Record
+   the bridge's common->named-entity resolution in a read-only `kb_eids` view (`TRef.kb_eids`); the common-noun and
+   pronoun views are untouched (byte-identical). Lets the entity-KB consumer bind "the company felt X" -> Google (+0.034
+   on common->named-entity resolution from a 0.000 floor, no regress). Pollution-free; scales with the P31 KB.
 Combined: 0.4879 -> 0.5671, BEATING string-identity 0.5412 (+0.0259 CI-sep), twin loses, no consumer regresses. Note the
 scope: this is a resolution-accuracy wire (the board's dim + downstream binding), not a cluster-F1 change.
 
@@ -153,7 +157,35 @@ scope: this is a resolution-accuracy wire (the board's dim + downstream binding)
 - CONFIRMS E3's brain-math correction: weighted parallel candidate generation (not hard filter-then-rank) is what reaches
   the different-head slice; the ranking within same-head has no glass-box headroom (twin ties there).
 
+## 7b. Optimality drills -- WHY the further upgrades don't pan out (owner: research why -> uncovers the real lever)
+Two candidate optimizations were built and MEASURED; both refuted, and the refutations pin down the mechanism and the
+next lever (`exp_commonnoun_typed_identity_gum_v1`, witnessed W7/W8):
+- **Graded-Nref commit-gate (commit the "unambiguous" bridges, hold the rest) REGRESSES CI-sep** (0.5671 -> 0.5145). The
+  decomposition shows exactly why: committing leaves the BRIDGE items themselves unchanged (0.433 -> 0.425 -- scored
+  against the same target either way) but CRASHES the SAME-HEAD items (0.769 -> 0.694, 148 lost), because committing
+  writes the bridged HEAD into the target card, so every LATER same-head mention inherits the uncertain bridge and the
+  whole same-head chain is corrupted. **So always-hold is not a limitation -- it is REQUIRED**: the glass-box bridge
+  precision is only **0.433** (world-knowledge-bound), and holding a 43%-precise merge protects the same-head chain.
+- **Soft (recall-safe + ACT-R-salience) binding is a WASH** (0.5643 vs 0.5671) AND regresses pronoun. The bridge SELECTOR
+  sweep explains it: ranking the type-compatible candidates by ACT-R / most-recent / least-recent / first-mention all give
+  ~the same score (0.5646-0.5674), because type-compatibility usually yields ONE dominant candidate. **The ranking carries
+  no signal; the CONTENT/TYPE cue is the entire lever** (Ariel: definites are content-addressable, not accessibility-ranked
+  like pronouns -- confirmed independently by the same-head twin tying). Most-recent is anyway the faithful selector for a
+  definite (recency-driven), so the current design is the faithful one.
+- **THE REAL NEXT LEVER, now proven:** since ranking has ZERO headroom and content is everything, the only way above 0.5671
+  is RICHER TYPE/CONTENT knowledge -- i.e. the world-knowledge P31 entity-type KB (the sibling brief), which raises the
+  bridge precision above the 0.433 glass-box ceiling toward the oracle 0.5825. Not a ranking/agreement/gate tweak.
+
 ## 8. Adjacent components (evaluated for brain-fidelity + optimization -> next problems)
+- **CONSUMER-SPECIFIC MERGE VIEW (PROTOTYPED + VALIDATED, witness W9):** the entity-KB consumer wants the bridge merge
+  ("the company"->Google) that the common-noun view must HOLD. The typed-view principle extends to a THIRD card view
+  (`TRef.kb_eids`): the bridge's common->NAMED-ENTITY resolution is EXPOSED to the entity-KB consumer, additive/read-only,
+  while the common-noun view keeps the head protected. Measured on the 559 anaphoric common-noun mentions of NAMED
+  entities: baseline (no bridge) resolves 0.000 of them to their named entity; the kb-view bridge resolves 0.034 (+0.034
+  from a zero floor, e.g. "the company"->Google), and common-noun (0.5671) + pronoun (0.4681) are BYTE-UNCHANGED (the view
+  is additive). Pollution-free in practice (clean == merge). Small (glass-box bridge precision caps it) but a real, clean,
+  no-regress downstream capability that scales as the P31 KB raises bridge reach. Reference impl: `kb_merge_view_eval` +
+  `TRef.kb_eids` in `exp_commonnoun_typed_identity_gum_v1.py`.
 - **The shared DRT card (unification):** the typed identity view (nominal vs full) is a general fix for cross-consumer
   antagonism -- it likely helps other consumers that read the card (affect experiencer, goal binding) by giving them the
   clean nominal identity. Worth evaluating those consumers on the typed view (candidate follow-on).
