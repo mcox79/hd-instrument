@@ -883,7 +883,7 @@ class SituationReader:
                  track_causal_reasoning: bool = True,
                  track_spatial_reasoning: bool = True,
                  track_temporal_reasoning: bool = True,
-                 joint_temporal_events: bool = False,
+                 joint_temporal_events: bool = True,
                  joint_nominal_events: bool = False,
                  read_polarity: bool = True,
                  parser_arceager: bool = True,
@@ -1311,7 +1311,7 @@ class SituationReader:
         # magnitude-line primitive is available for a caller that supplies duration premises). NO spaCy / NO external
         # LLM at inference. flag-off (track_temporal_reasoning=False) = the pre-landing reader.
         self.track_temporal_reasoning = bool(track_temporal_reasoning)
-        # JOINT TENSE-AGNOSTIC TEMPORAL EVENT SET (default-OFF joint_temporal_events; wired 2026-09-07 from the
+        # JOINT TENSE-AGNOSTIC TEMPORAL EVENT SET (default-ON joint_temporal_events; wired 2026-09-07 from the
         # owner-DONE extract_relations_from_prose_whole_subgraph_survival_the_shared_reasoner_bottleneck, Q111 P1).
         # ROUTES the TEMPORAL-channel event DETECTOR (the set the TemporalReasoner is built over) through the promoted
         # glass-box hdlab.joint_relation_frontend (see _build_joint_temporal_reasoner): parse each sentence ONCE and
@@ -1329,17 +1329,21 @@ class SituationReader:
         # closure still builds NOTHING until invoked (zero read-time cost), and the TemporalReasoner is a NEW ISLAND
         # (no board/reader consumer -> flipping this cannot regress a board DIMENSION).
         #
-        # DEFAULT-OFF (flip-on-find-the-break, measured 2026-09-07): flipping ON breaks the LANDED witness
-        # verification/test_temporal_reasoner_landing.py W3 on its tiny SYNTHETIC probe sentences -- the joint pass
-        # uses the hdlab UD arc-parser/pos-tagger, which is WEAKER than the incumbent NLTK PerceptronTagger on 3-4
-        # word out-of-distribution constructions: it mis-tags "The alarm rang ." rang -> NOUN (dropping the event, so
-        # W3c before('entered','rang') -> UNKNOWN/vague instead of ('before','cue')) and drops the progressive-overlap
-        # aspect (W3b overlaps('watching','slipped') True -> False). This is a DOWNSTREAM to fix, a follow-on -- NOT a
-        # reason to weaken anything: the fix is to UNION the incumbent aspect events with the joint-only events so the
-        # reasoner is a strict SUPERSET (never LOSES an NLTK-caught event) and/or close the joint-pass OOD tagger/aspect
-        # gap; then re-flip. Kept OFF only for that measured reason; a real-prose consumer that wants the survival gain
-        # opts in explicitly (or via the board arm). all_capabilities_off() forces it False (byte-identity). Has effect
-        # ONLY when track_temporal_reasoning is also on. NO spaCy / NO external LLM. flag-off = the pre-landing reader.
+        # DEFAULT-ON (flipped 2026-09-07 after the UNION FIX). Flipping ON originally broke the LANDED witness
+        # verification/test_temporal_reasoner_landing.py W3 on its tiny SYNTHETIC probe sentences -- the joint pass uses
+        # the hdlab UD arc-parser/pos-tagger, WEAKER than the incumbent NLTK PerceptronTagger on 3-4 word out-of-
+        # distribution constructions: it mis-tagged "The alarm rang ." rang -> NOUN (dropping the event, so W3c
+        # before('entered','rang') -> UNKNOWN/vague) and drops a progressive-overlap aspect (W3b -> False), i.e. the
+        # joint set was NOT a strict superset of the incumbent. THE FIX (_build_joint_temporal_reasoner): the reasoner's
+        # event set is now the UNION incumbent-aspect-events + joint-only-events -- a STRICT SUPERSET of the incumbent
+        # (proven: on 22 TB-Dense docs union keys 851 >= incumbent 302 and inc_keys <= union_keys on every doc; on the
+        # W3 probes it restores 'rang' + the progressive), so it can NEVER lose an NLTK-caught event AND keeps the
+        # survival/recall gain (union recall 0.7629 >= joint-only 0.7562 >> incumbent 0.3203). W3 now PASSES under ON.
+        # STILL ADDITIVE + LAZY (below): sm.events / sm.timeline_order / every other field remain BYTE-IDENTICAL off vs
+        # on, and the TemporalReasoner is a NEW ISLAND (no board/reader consumer reads it -> flipping cannot regress a
+        # board DIMENSION; the survival gain is scored INDEPENDENTLY by the board arm). all_capabilities_off() forces it
+        # False (byte-identity for the historical-weak reader). Has effect ONLY when track_temporal_reasoning is also
+        # on. NO spaCy / NO external LLM. flag-off = the pre-landing tense-gated (from_text) reasoner.
         self.joint_temporal_events = bool(joint_temporal_events)
         # EVENTIVE-NOMINAL sub-channel (default-OFF joint_nominal_events; MEASURED reason, NOT an oversight). The
         # WordNet eventive-nominal channel (a deverbal ACT/EVENT/PROCESS noun -- attack/construction/arrival -- IS an
@@ -3282,24 +3286,34 @@ class SituationReader:
         # the SpatialModel is built LAZILY inside the closures on first invocation -- zero read-time cost / no build.
 
     def _build_joint_temporal_reasoner(self, sents):
-        """Build a hdlab.temporal_reasoner.TemporalReasoner whose EVENT SET is the JOINT tense-agnostic +
-        copular/stative (+ optional eventive-nominal, joint_nominal_events) detection read off ONE
-        hdlab.joint_relation_frontend parse per sentence -- the Q111 wire (owner-DONE
-        extract_relations_from_prose_whole_subgraph_survival_the_shared_reasoner_bottleneck). REPLACES the
-        tense-gated aspect extractor (VBD / had+VBN / be+VBN only) that TemporalReasoner.from_text builds over; the
-        reasoner's before/after (integrated cue+date closure + iconicity) and Allen overlap logic are UNCHANGED --
-        only the events (and hence the constraint graph) are the enriched joint set, which is what lifts survival
-        0.1111 -> 0.4054 / recall 0.320 -> 0.756. Returns the reasoner, or None to FALL BACK to from_text (empty
-        passage / no joint events -> the caller degrades gracefully to the pre-landing path).
+        """Build a hdlab.temporal_reasoner.TemporalReasoner whose EVENT SET is the UNION of (a) the INCUMBENT
+        tense-gated aspect events (the exact set TemporalReasoner.from_text builds over -- VBD / had+VBN / be+VBN /
+        finite progressive) and (b) the JOINT tense-agnostic + copular/stative (+ optional eventive-nominal,
+        joint_nominal_events) detection read off ONE hdlab.joint_relation_frontend parse per sentence -- the Q111 wire
+        (owner-DONE extract_relations_from_prose_whole_subgraph_survival_the_shared_reasoner_bottleneck). The union is
+        a STRICT SUPERSET of the incumbent: it can NEVER lose an event the NLTK PerceptronTagger caught (the joint UD
+        arc-parser is weaker on tiny OOD probes -- e.g. it mistags "The alarm rang ." rang -> NOUN and drops it, or
+        drops a progressive-overlap), and it ADDS the copular/present/tense-agnostic events the tense-gate drops -- so
+        it BOTH restores the incumbent's coverage AND keeps the survival/recall gain (survival 0.1111 -> 0.4054 /
+        recall 0.320 -> 0.756). The reasoner's before/after (integrated cue+date closure + iconicity) and Allen overlap
+        logic are UNCHANGED -- only the event set (and hence the constraint graph) is the enriched union. Returns the
+        reasoner, or None to FALL BACK to from_text (empty passage / no joint events / a token-alignment failure ->
+        the caller degrades gracefully to the incumbent, itself trivially a superset of itself).
 
         Events are built over the reader's OWN concatenated sentence tokens (index space = the punct-preserving token
-        stream), with the SAME trivial (surface, low, X/PUNC) tag stream the SOLVED end-to-end reasoner cell used
-        (verification/test_joint_temporal_realreasoner reproduces the numbers with it), so M.build_constraint_edges
-        finds the connectives + tense edges. Aspect is assigned by the incumbent's OWN local rules (had->perfect,
-        be+V-ing->imperfective, Vendler-durative lemma->durative, else perfective) so the OVERLAP channel keeps the
-        aspect signal for events it shares with the aspect extractor. Reuses the module-level shared temporal
-        front-end (M / T -- the SAME experiments modules from_text already builds over; honest deviation documented
-        in hdlab.temporal_reasoner). Glass-box, NO spaCy / NO external LLM."""
+        stream `full`), with the SAME trivial (surface, low, X/PUNC) tag stream the SOLVED end-to-end reasoner cell
+        used (verification/test_joint_temporal_realreasoner reproduces the numbers with it), so M.build_constraint_edges
+        finds the connectives + tense edges. The incumbent extractor tokenises/tags RAW TEXT via M.tag_punct -- a
+        DIFFERENT index space from `full` -- so each incumbent event is MAPPED onto its `full` position before merging
+        (M._TOK_RE never matches across a space, so tokenising the space-joined text whole == tokenising each `full`
+        token in turn -> inc-token k originates from full[inc_to_full[k]]; asserted, else degrade). Incumbent events
+        keep their OWN aspect/tense/is_pp (preserving from_text overlap behaviour); joint-only positions get the
+        incumbent's local aspect rule (_mk: had->perfect, be+V-ing->imperfective, Vendler-durative lemma->durative,
+        else perfective). Positions detected by BOTH keep the incumbent spec (which _mk reproduces up to lexical
+        aspect), so the union is a superset of BOTH sets and the constraint graph stays on ONE consistent
+        (events, tag-stream, index) space. Reuses the module-level shared temporal front-end (M / T -- the SAME
+        experiments modules from_text already builds over; honest deviation documented in hdlab.temporal_reasoner).
+        Glass-box, NO spaCy / NO external LLM."""
         from hdlab import joint_relation_frontend as JF
         from hdlab import aspect_interval as AI
         from hdlab.temporal_reasoner import TemporalReasoner
@@ -3336,7 +3350,28 @@ class SituationReader:
             asp = AI.ASP_DURATIVE if low in AI.DURATIVE_LEMMAS else AI.ASP_PERFECTIVE
             return AI.AspectualEvent(low, i, "VB", T.TENSE_SIMPLE_PAST, asp, False)
 
-        events = [_mk(i) for i in sorted(ev_prov)]
+        # UNION with the INCUMBENT tense-gated aspect events so the reasoner is a STRICT SUPERSET of from_text
+        # (never loses an NLTK-caught event the joint UD tagger drops). extract_events_aspect tokenises RAW text via
+        # M.tag_punct -- a DIFFERENT index space from `full` -- so MAP each incumbent event onto its `full` position.
+        text = " ".join(full)
+        inc_events, inc_tagged = AI.extract_events_aspect(text, lexical_aspect=True)
+        inc_to_full, raw_replay = [], []
+        for fi, tok in enumerate(full):
+            for _m in M._TOK_RE.finditer(tok):          # per-token == whole-text (regex never matches across a space)
+                raw_replay.append(_m.group(0)); inc_to_full.append(fi)
+        if len(inc_to_full) != len(inc_tagged) or raw_replay != [t[0] for t in inc_tagged]:
+            return None   # alignment failed (should never happen) -> degrade to from_text (the incumbent), not a
+                          # NON-superset joint-only set
+        by_idx = {}
+        for e in inc_events:                            # incumbent events, remapped onto the `full` index space
+            p = inc_to_full[e.idx]
+            if 0 <= p < len(full):
+                by_idx[p] = AI.AspectualEvent(e.lemma, p, e.pos, e.tense, e.aspect, e.is_pp)
+        for p in ev_prov:                               # joint-only additions (copular/present/tense-agnostic events)
+            if p not in by_idx:
+                by_idx[p] = _mk(p)
+
+        events = [by_idx[p] for p in sorted(by_idx)]
         rank = AI.build_rank(events, tagged)
         cue_edges = M.build_constraint_edges([e.as_event() for e in events], tagged,
                                              use_connectives=True, cross_sentence=True)
