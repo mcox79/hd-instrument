@@ -1,5 +1,4 @@
 ---
-priority: 5
 slug: reason_over_event_time_order_and_duration_on_a_modern_gold
 status: INTEGRATED
 review: EXCELLENT

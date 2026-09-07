@@ -1,9 +1,8 @@
 ---
-priority: 9
 slug: represent_negation_and_quantifier_scope_for_truth_conditional_reading_modern_gold
-status: CANDIDATE
-review:
-review_text:
+status: INTEGRATED
+review: EXCELLENT
+review_text: "INTEGRATED 2026-09-06 (strategy; owner_verdict DONE). Reverified 10/10 first-hand + landing witness 4/4. Landed hdlab/polarity_operator.py (byte-identical, reuses state_register.state_match) + EventRecord.polarity/quantity/quantity_exception/polarity_provenance + read_polarity default-ON (measured +1.42% read) + _read_polarity post-read pass + board_negation_quantifier arm. Negation EWT net 0.9313 vs 0.5038 (+0.4275 CI-sep) / MoNLI 0.9965 vs 0.0035 (INVERTS); quantifier MED 0.8259 vs 0.1741; NPI unification n=3791 0.8225 vs 0.2849. Reading polarity-blind INVERTS truth. Existing fields+dims byte-identical ON vs OFF. Parser-repair NOT landed (net-negative overfit -> feeds the parser problem). U1 premise-stale (field now first-class). Committed 200a2ed70 (code) + notes, NOTHING pushed. Follow-ons: wire the QA-capstone polarity consumer; unify state_register copular+event polarity; precise-lexical parser fix."
 ---
 
 # PROBLEM: the reader stores every extracted fact as if it were POSITIVE and SINGULAR -- it drops negation ("no one left", "she didn't take the key", "never") and quantifier scope ("everyone but Mary", "none of the guards", "each"), so it records "someone left" / "she took the key" as true and downstream QA answers polarity- and scope-sensitive questions WRONG. Attach a glass-box polarity + quantity OPERATOR to the reader's existing event/entity/who-did-what representation (do NOT rebuild extraction): flip the truth conditions of a negated proposition and scope a quantified one over its argument set, and prove on MODERN negation/quantifier gold that comprehension respects polarity and cardinality, CI-separated over BOTH a polarity-blind floor (which MUST LOSE on the negated/quantified items) AND an info-free shuffled-token twin, or a rigorous located negative naming the exact cause.

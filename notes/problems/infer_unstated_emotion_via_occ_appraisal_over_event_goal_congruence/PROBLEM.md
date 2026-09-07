@@ -1,5 +1,4 @@
 ---
-priority: 3
 slug: infer_unstated_emotion_via_occ_appraisal_over_event_goal_congruence
 status: INTEGRATED
 review: EXCELLENT

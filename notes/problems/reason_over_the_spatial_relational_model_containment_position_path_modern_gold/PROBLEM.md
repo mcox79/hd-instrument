@@ -1,5 +1,4 @@
 ---
-priority: 6
 slug: reason_over_the_spatial_relational_model_containment_position_path_modern_gold
 status: INTEGRATED
 review: EXCELLENT

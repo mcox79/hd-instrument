@@ -50,7 +50,7 @@
 
 ## 2026-09-06 (CONT-15) — BATCH 3: FULL SOLVER-WORK INVENTORY (continuing the "miss nothing" practice)
 
-### p9 — represent_negation_and_quantifier_scope_for_truth_conditional_reading_modern_gold  [reverified 10/10; landing IN-FLIGHT; EXCELLENT]
+### p9 — represent_negation_and_quantifier_scope_for_truth_conditional_reading_modern_gold  [INTEGRATED `200a2ed70`; EXCELLENT; reverified 10/10 + landing 4/4]
 - **HEADLINE (to land, additive):** a glass-box, NO-LLM truth-conditional POLARITY + QUANTITY operator over the reader's `sm.events` (`hdlab/polarity_operator.py`, promoted). Negation reader-native (UD-EWT `sm.events`, n=131): net factuality 0.9313 vs polarity-blind 0.5038 (+0.4275 CI-sep), negated-recall 0.8769 vs 0.0000, over-negation **0.0000 clean** (BEATS the prior `negation_factuality_gate` MIDDLE_BAND 0.0303). Negation well-powered (MoNLI NMoNLI n=1202): 0.9965 vs blind **0.0035 (INVERTS)**. Quantifier reader-native (n=585): 1.0000 vs 0.5385. Quantifier well-powered (MED downward n=563): 0.8259 vs **0.1741 (INVERTS)**.
 - **REUSE (not rebuild):** extends `hdlab/state_register.py` VERBATIM — the copular-state polarity primitive (`StateSpan.polarity`, `incompatible`/`_contradictory_pair`, the ATL-hub WordNet entailment `state_match`) EXTENDED onto EVENT propositions + a quantifier layer. Does not re-extract/re-type/re-parse.
 - **PINNED:** negation = an OPERATOR that TOGGLES a proposition's truth (Kaup & Zwaan two-step; Tettamanti/Tomasino suppression); quantification = CARDINALITY over the token set (Johnson-Laird — none/no = ¬∃, unifying negation and "none"); scope = clause-local c-command, complement factuality from the matrix verb's IMPLICATIVE/FACTIVE signature (Karttunen; Kiparsky), NOT propagation.
