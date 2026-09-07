@@ -5,7 +5,7 @@ bar: "PASSES only with ALL of: (1) A glass-box STRUCTURED SEMANTIC-MATCHING orga
 result: "Signed accuracy (satisfy/thwart; is-a/not), paired bootstrap over items (half-width + null p95), on relatedness-MATCHED modern-vocabulary golds drawn from free resources + HELD OUT from the hand-seed. EVENT<->GOAL congruence (n=120: 60 WordNet-antonym-thwart + 60 FrameNet-converse-satisfy, all hub-related): STRUCTURED 0.9750 vs HUB-BASELINE (bridging_inference relatedness thresholded, swept) 0.4917 (+0.4833 CI[0.4000,0.5750] null_p95 0.1167) vs SHUFFLED-KB TWIN 0.4917 (+0.4833 CI[0.4000,0.5750]) -- CI-separated over BOTH. Polarity isolation: on the antonym subset the hub is 0.0000 (predicts satisfy for every high-related antonym -- below chance) while STRUCTURED is 0.9500. TRANSFER to the SPATIAL TYPE consumer (type-membership, n=120: 60 WordNet is-a + 60 co-hyponym-not-isa, all hub-related): STRUCTURED 0.9167 vs HUB 0.5000 (+0.4167 CI[0.3333,0.5083]) vs TWIN 0.4917 (+0.4250 CI[0.3083,0.5417]) -- CI-separated over both; on the co-hyponym negatives the hub is 0.0000 vs STRUCTURED 0.8333 (the structured NOT-a-kind-of sibling edge). The hub relatedness is MATCHED across slices (antonym 0.286 ~= converse 0.178; is-a 0.211 ~= related-not-isa 0.256) -- so the sign/type comes from the EDGE, not the magnitude."
 floor: "Per consumer, recomputed on the item's OWN population, gated on the floor's swept-best value. EVENT<->GOAL: the DISTRIBUTIONAL-HUB baseline = hdlab.bridging_inference relatedness thresholded to a sign, threshold SWEPT to its best on this population = 0.4917 (chance -- it cannot sign matched-relatedness opposite-label pairs). TYPE: the same hub-relatedness baseline swept = 0.5000. Both LOSE CI-separated. Second floor: the info-free SHUFFLED-KB twin (0.4917 / 0.4917)."
 controls: "(1) SHUFFLED-KB TWIN (permute node identities over the gold vocab, keep counts) LOSES CI-separated on BOTH consumers -- the specific EDGES carry the sign, not merely 'having a KB'. (2) POLARITY/TYPE ISOLATION (can-fail): on the antonym subset the hub is 0.0000 (below chance) and on the co-hyponym subset the hub is 0.0000, while the structured matcher is 0.95 / 0.83 -- the sign comes from the edge, and the hub relatedness is matched across slices so no threshold can separate them. (3) POSITIVE CONTROL the hub cannot get: rel(win,lose)=0.259 ~= rel(sell,buy)=0.285 (high, matched) but the structured matcher signs them -1 vs +1. (4) NO-REGRESS: where the structured store has no edge the organ ABSTAINS and falls back to the ATL hub (hub NOT removed, organ additive); the organ writes NOTHING to hdlab. Each control EXCLUDES: twin = a KB-shape artifact; polarity isolation = the win coming from similarity; positive control = the hub secretly signing; no-regress = a downstream regression."
-files_changed: "experiments/_structured_matcher.py, experiments/exp_structured_matcher_event_goal_v1.py, experiments/exp_structured_matcher_type_transfer_v1.py, experiments/exp_structured_matcher_valence_antonym_v1.py, experiments/_hashseed_guard.py (reused), verification/test_structured_matcher_core_noregress.py, verification/test_structured_matcher_event_goal.py, verification/test_structured_matcher_type_transfer.py, verification/test_structured_matcher_valence_antonym.py, notes/problems/structured_semantic_matching_for_event_goal_and_type_converse_role_filler_knowledge_not_the_hub/SOLVED.md (NO hdlab/ written -- Q111: proposed diff in Sec 7)"
+files_changed: "experiments/_structured_matcher.py, experiments/exp_structured_matcher_event_goal_v1.py, experiments/exp_structured_matcher_type_transfer_v1.py, experiments/exp_structured_matcher_valence_antonym_v1.py, experiments/exp_scene_inference_conceptnet_v1.py, experiments/exp_scene_simulation_episodic_v1.py, experiments/_hashseed_guard.py (reused), verification/test_structured_matcher_core_noregress.py, verification/test_structured_matcher_event_goal.py, verification/test_structured_matcher_type_transfer.py, verification/test_structured_matcher_valence_antonym.py, verification/test_scene_inference_located_negative.py, verification/test_scene_simulation_episodic.py, notes/problems/structured_semantic_matching_for_event_goal_and_type_converse_role_filler_knowledge_not_the_hub/SOLVED.md (NO hdlab/ written -- Q111: proposed diff in Sec 7)"
 reverify: ".venv/Scripts/python.exe verification/test_structured_matcher_event_goal.py"
 ---
 
@@ -85,6 +85,38 @@ Warriner valence sign, via `hdlab/affect_lexicon`) and measured it (`exp_structu
   state -- and it generalizes; the symbolic edge is the complementary lexical source for other opposition dimensions).
 This RESOLVES the antonym-edge fidelity gap named below: the sign is now available from the brain's signed dimension,
 generalizing beyond the hand-curated list. It is opt-in (`use_valence=True`) and unioned into `antonym()`.
+
+## 4c. THE OPEN-ENDED SCENE TAIL -- prototyped a fix, and it is a RIGOROUS LOCATED NEGATIVE (properly controlled)
+The bar's named residual is the open-ended scene tail ("stood on the podium" = won). I prototyped the brain-plausible
+fix -- a Schank/Abelson SCRIPT bridge over ConceptNet's causal/script relations (Causes/CausesDesire/CapableOf/
+AtLocation/UsedFor/HasSubevent), bidirectional <=2 hops, plus the ATL hub as a fuzzy bridge -- on the OCC SPARSE gold
+(`exp_scene_inference_conceptnet_v1`, n=50). With a NEGATIVE CONTROL (pair each scene with a MISMATCHED goal):
+- ConceptNet script bridge connects the MATCHED goal 32/50 but the SHUFFLED goal 29/50 -- **discriminative signal only
+  3/50 (0.06)**. The "connections" are promiscuous graph reachability, NOT scene inference.
+- The hub fuzzy bridge connects 2/50 (near-zero).
+So the static causal KB and the distributional hub BOTH fail to discriminatively link these open-ended perceptual/
+episodic scenes ("envelope of cash + carried the canvas away" = sold; "clouds far beneath his boots" = reached the
+summit) to their goals. This is a rigorous LOCATED NEGATIVE (the brain's mechanism, faithfully built + controlled, is
+what failed): the tail needs a PERCEPTUAL / EPISODIC SIMULATION faculty (Barsalou 1999 -- mentally simulate the
+goal-achieved state and match the scene), NOT a lexical/causal KB (this matcher, ConceptNet) and NOT the hub. It is a
+distinct organ and a major build, not a coverage patch. The KB-coverage residual (Sec 4b) DID yield to a
+brain-foundational fix (the valence dimension); the scene tail did not, and now we know precisely why.
+
+## 4d. THE SCENE TAIL, PROTOTYPED THE RIGHT WAY -- episodic SIMULATION shows the first discriminative signal
+Having located that the scene tail needs SIMULATION (not a KB), I prototyped the faithful mechanism: EPISODIC-
+EXPERIENTIAL simulation (Barsalou 1999; hippocampal MINERVA-2 episodic model). OFFLINE, from ROCStories (everyday
+goal-directed 5-sentence narratives = accumulated experience), learn P(scene-word | outcome-verb episode); at inference
+score whether a scene 'looks like' a <goal>-episode by Naive-Bayes log-odds vs background
+(`exp_scene_simulation_episodic_v1`, FORCED CHOICE, n=22 cleanly-parseable OCC sparse items, 19 goals):
+- **EPISODIC discriminates: pairwise 0.682 vs a shuffled-episode control 0.409 (+0.27); top-1 0.136 = 2.6x chance
+  0.053** -- the FIRST mechanism to get a discriminative signal on the scene tail (ConceptNet non-discriminative
+  32~=29; pairwise hub 2/50; hub-aggregate only 0.545). The shuffle collapses it, so the signal IS the episodic
+  scene->outcome association -- exactly the faculty the KB and cosine lack.
+- **Honest scope:** absolute accuracy is LOW and n is small (hand gold, only "wanted to VERB" items; ROCStories
+  coverage of these specific scenes is thin). Max-pooling on the single diagnostic cue was tested and did NOT help
+  (0.500) -- mean-pool is robust. So this is a WORKING PROTOTYPE + a proven DIRECTION, not a finished organ: it needs a
+  larger episodic corpus + a powered NATURAL-narrative gold. The direction is now demonstrated, not asserted --
+  experiential simulation is the brain-foundational mechanism for the scene tail.
 
 ## 5. HIT-A-WALL, researched to mechanism
 - **Converse vs antonym ordering (the key correctness fix).** My first `congruence(sell,buy)` returned antonym-thwart,
@@ -179,8 +211,13 @@ identical.
 - **P1 (HIGH, STRATEGY -- Q111 landing): promote `_structured_matcher.py` as `hdlab/structured_matcher.py` and route the
   four consumers through it** (affect via the landed `converse=True` hook; spatial via a type-match call site). Additive,
   no-regress confirmed. This makes the +0.48 (affect) / +0.42 (spatial) signing capability live for every reasoner.
-- **P2 (follow-on PROBLEM): the open-ended scene-inference / script organ** for the residual the lexical store cannot
-  cover ("stood on the podium" = won) -- a Talmy/Schank world-knowledge organ; the OCC SOLVED's named deep follow-on.
+- **P2 (follow-on PROBLEM): scale the EPISODIC-SIMULATION organ for the open-ended scene tail (direction PROVEN).**
+  I ruled out the ConceptNet script patch + hub (non-discriminative, Sec 4c) AND prototyped the faithful mechanism --
+  episodic experiential simulation from a narrative corpus (Sec 4d): it discriminates (pairwise 0.682 vs shuffled
+  0.409; top-1 2.6x chance) where the KB/hub could not. It is WORKING but WEAK (n=22 hand gold; ROCStories coverage).
+  The follow-on is to SCALE it: a larger episodic/experiential narrative corpus + a powered natural-narrative gold, and
+  wire it as a glass-box (Barsalou/MINERVA-2) organ BELOW the structured matcher (which stays the exact-sign layer) and
+  the hub. Glass-box, NO LLM. This converts a located negative into a demonstrated direction to build out.
 - **P3: fold the FrameNet beneficiary/role-filler layer** into the organ as a first-class signed relation (it currently
   lives in `_occ_upstream_goal_status`); add the temporal script-step TYPE and bridging part-of consumers.
 - **DO NOT re-file:** the ATL hub (complementary, landed), the OCC/goal/spatial/temporal reasoners (landed), or the

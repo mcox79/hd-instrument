@@ -5,8 +5,8 @@ bar: "PASSES only with ALL of: (1) a glass-box GLOBALLY-NORMALIZED / graded pars
 result: "POSITIVE (all six bar conditions met, on MODERN UD-EWT test). Built a glass-box globally-normalized graded parser over the LANDED arc-factored scorer (hdlab.arc_parser): exact Chu-Liu/Edmonds MAP + exact multi-root Matrix-Tree EDGE MARGINALS + an exact 2nd-best tree (Camerini), all verified BIT-EXACT against brute-force enumeration of every spanning arborescence for n<=4 (200 trials x 3 temperatures). (2a ATTACHMENT) the exact MST decode beats the incumbent greedy heuristic decode over the SAME arc-factored scores: UAS 0.7888->0.7908 (+0.0020 CI[+0.0009,+0.0030] CI-sep, n=24,664 arcs / 2,071 sents); the greedy decode leaves an INVALID (non-tree) parse on 149/2071 sents (7.2%) which the exact decode never does. (2b MARGINAL RECOVERS) the exact marginal is a strong right-vs-wrong sensitivity signal -- AUC 0.855 all-arc / 0.765 on live patient arcs (RAW, single glass-box signal, NO logistic) vs the greedy arc-eager raw conf 0.613 and matching most of the way to the landed CALIBRATED multi-cue logistic 0.860 -- and gold is in the marginal support 1.000 of the time (vs the arc-eager small-beam 0.399-0.492, the search-failure the predecessor could not cross). (3 LIVE LIFT) DEFERRING the LIVE structural_patient_pick on the marginal lifts selective accuracy 0.8785->0.9465 (+0.0680 CI[+0.0501,+0.0850]) and answered-acc-at-dev-tau +0.0644 CI[+0.0485,+0.0810] @cov 0.61 (n=1235); adding the marginal to the landed calibrator raises its sensitivity 0.861->0.869 AUC. (4 TWIN) the SHUFFLED-marginal info-free twin is FLAT on every arm (selective -0.003 / defer -0.010 / augmentation +0.000). (5 NO-REGRESS) every live consumer of the parse heads enumerated; no consumer-relevant label regresses under the exact-decode swap (root +0.065, obj +0.004, obl +0.002, nsubj -0.003 CI incl 0), the additive marginal path changes NO head; positive control the greedy CANNOT pass = the 149 invalid-tree sents, where MST recovers gold +0.0184 CI[+0.0099,+0.0272]. ONE LOCATED NEGATIVE (a full-pass secondary finding, named + counted): the 2nd-best does NOT raise ABSOLUTE patient accuracy toward 0.913 (fall-back via MST/2nd-best -0.003/-0.008; the arc-factored scorer's raw object pick is far weaker than the labeled reader 0.531 vs 0.879; only 17/150 wrong picks are exposed by the global parser, oracle-best-of-3 headroom +0.012) -- the 2nd-best IS structurally available (gold always in support) but the arc-factored SCORER under-separates at the object site: the wall is the SCORER's features (the thematic-fit / two-valid-agents residual the wall-map routes to grounded event-knowledge), NOT the normalization or the decode. DEEPENING (two under-drilled points, now closed): (A) DECOMPOSING the 150 wrong patient picks PROVES the negative -- 67% are genuine TWO-VALID ambiguity (>=2 animate candidates -> needs grounded event-knowledge, the wall-map Wall-2 residual), 22% rankable-but-ungatable-without-meaning, only 11% scorer-buried; the parser exposes the alternatives, deciding among them needs meaning. (B) an OPTIMIZATION the marginal enables NOW -- on the LIVE obl/spatial attachment reader (n=2250, where the raw arc_parser margin is load-bearing, unlike the patient), the RAW Matrix-Tree marginal AUC 0.782 BEATS the entire landed obl-calibrated logistic (0.736) and the raw a2 margin (0.671), lifts selective attachment 0.7578->0.9022 (+0.1444 CI[+0.128,+0.163], twin flat +0.006), and augmenting the obl calibrator with it gains +0.048 AUC (0.736->0.785) -- 6x the patient's +0.008."
 floor: "Per population, the floor is the LIVE GREEDY parser recomputed on the same population: (2a) greedy arc-factored decode UAS 0.7888 (UD-EWT test, n=24,664 arcs) -- MST 0.7908 CI-sep above it; (2b) the greedy arc-eager RAW arc conf AUC 0.613 on the live patient arcs -- the exact marginal 0.765 CI-above; (3) the BLANKET live who-did-what patient reader (structural_patient_pick, commit-on-all) 0.8785 (UD-EWT n=1235) -- selective@50 on the marginal 0.9465 CI-sep above it. The reliability-signal floor is the SHUFFLED-marginal twin at matched coverage (flat: -0.003 selective / -0.010 defer). For the absolute-recovery negative the floor is the same blanket 0.8785, which MST/2nd-best fall-back does NOT beat."
 controls: "(1) EXACTNESS positive control: Matrix-Tree Z + edge marginals, CLE MAP, and the 2nd-best tree are BIT-IDENTICAL to a brute-force enumeration of every spanning arborescence for n<=4 (200 random trials x temps 0.5/1.0/2.0; marginals sum to 1 per token; asserted < 1e-6). (2) SHUFFLED-marginal info-free TWIN (bar 4): flat on selective (-0.003), defer (-0.010), and calibrator augmentation (+0.000) -> the marginal is load-bearing, not 'any-alternative-helps'. (3) can-fail POSITIVE control the greedy 1-best CANNOT pass (bar 5): on the 149/2071 sents where the greedy decode returns a NON-TREE (residual cycle), the exact MST recovers gold +0.0184 CI[+0.0099,+0.0272] -- the greedy decode literally cannot produce a valid parse there. (4) NO-REGRESS / additivity: the exact-decode swap regresses NO consumer-relevant label (obj/obl/nmod/nsubj/root; per-label bootstrap CI upper bound >= 0 on all), and the additive marginal path changes NO head (byte-identical). (5) SEARCH-FAILURE elimination: gold in the marginal support 1.000 (vs the arc-eager beam 0.399-0.492) -- the exact posterior sums over ALL spanning trees, so the correct analysis is never pruned. (6) the LOCATED NEGATIVE is itself controlled: the marginal-argmax patient SOLO (0.531) and the fall-back cascade (-0.003) both LOSE to blanket, while the ORACLE-best-of-3 headroom is only +0.012 and 133/150 wrong picks are NOT exposed by the arc-factored parser -> the bottleneck is located at the SCORER's features, not the decode/normalization (a distinct upstream organ)."
-files_changed: "experiments/exp_matrix_tree_parser_v1.py (the CORE globally-normalized graded parser: CLE exact MAP + multi-root Matrix-Tree edge marginals + exact 2nd-best tree, brute-force self-test, MST-vs-greedy attachment + temperature sweep + marginal-AUC + gold-in-support on UD-EWT); experiments/exp_matrix_tree_patient_lift_v1.py (the DOWNSTREAM: the marginal as the live patient-arc reliability signal Q1, selective/defer lift + shuffled twin Q2, the located absolute-recovery negative Q3, the calibrator-augmentation Q4); experiments/exp_matrix_tree_noregress_v1.py (consumer enumeration + no-regress per label + the invalid-tree positive control); experiments/exp_matrix_tree_deepen_v1.py (DEEPENING: the wrong-pick decomposition (A) + the obl/spatial attachment upgrade (B)); experiments/exp_matrix_tree_upgrades_v1.py (UPGRADES: (C) Hale parse entropy + (D) the marginal as a universal per-label attachment-reliability signal); experiments/exp_matrix_tree_singleroot_v1.py (UPGRADE (E): the grammar-faithful SINGLE-ROOT Matrix-Tree marginals, Koo 2007, brute-force-verified); experiments/exp_matrix_tree_ood_v1.py (UPGRADE (F): OOD generalization on QA-SRL); verification/test_matrix_tree_parser.py (5/5, incl the brute-force exactness self-test), verification/test_matrix_tree_patient_lift.py (5/5), verification/test_matrix_tree_noregress.py (4/4), verification/test_matrix_tree_deepen.py (4/4), verification/test_matrix_tree_upgrades.py (4/4), verification/test_matrix_tree_singleroot.py (3/3), verification/test_matrix_tree_ood.py (3/3); notes/problems/replace_the_greedy_arc_eager_with_a_globally_normalized_graded_parser_with_marginals/SOLVED.md. NO hdlab/ written (Q111 -- prototype; the proposed additive-marginal wire + the optional exact-decode swap are stated in section 6 for strategy to land)."
-reverify: ".venv/Scripts/python.exe verification/test_matrix_tree_parser.py && .venv/Scripts/python.exe verification/test_matrix_tree_noregress.py && .venv/Scripts/python.exe verification/test_matrix_tree_patient_lift.py && .venv/Scripts/python.exe verification/test_matrix_tree_deepen.py && .venv/Scripts/python.exe verification/test_matrix_tree_upgrades.py && .venv/Scripts/python.exe verification/test_matrix_tree_singleroot.py"
+files_changed: "experiments/exp_matrix_tree_parser_v1.py (the CORE globally-normalized graded parser: CLE exact MAP + multi-root Matrix-Tree edge marginals + exact 2nd-best tree, brute-force self-test, MST-vs-greedy attachment + temperature sweep + marginal-AUC + gold-in-support on UD-EWT); experiments/exp_matrix_tree_patient_lift_v1.py (the DOWNSTREAM: the marginal as the live patient-arc reliability signal Q1, selective/defer lift + shuffled twin Q2, the located absolute-recovery negative Q3, the calibrator-augmentation Q4); experiments/exp_matrix_tree_noregress_v1.py (consumer enumeration + no-regress per label + the invalid-tree positive control); experiments/exp_matrix_tree_deepen_v1.py (DEEPENING: the wrong-pick decomposition (A) + the obl/spatial attachment upgrade (B)); experiments/exp_matrix_tree_upgrades_v1.py (UPGRADES: (C) Hale parse entropy + (D) the marginal as a universal per-label attachment-reliability signal); experiments/exp_matrix_tree_singleroot_v1.py (UPGRADE (E): the grammar-faithful SINGLE-ROOT Matrix-Tree marginals, Koo 2007, brute-force-verified); experiments/exp_matrix_tree_ood_v1.py (UPGRADE (F): OOD generalization on QA-SRL); experiments/exp_matrix_tree_thematic_fusion_v1.py (MECHANISM PROBE: fuse the parser marginal with the landed McRae thematic-fit organ -> locates the LAST missing cue as top-down discourse); verification/test_matrix_tree_parser.py (5/5, incl the brute-force exactness self-test), verification/test_matrix_tree_patient_lift.py (5/5), verification/test_matrix_tree_noregress.py (4/4), verification/test_matrix_tree_deepen.py (4/4), verification/test_matrix_tree_upgrades.py (4/4), verification/test_matrix_tree_singleroot.py (3/3), verification/test_matrix_tree_ood.py (3/3), verification/test_matrix_tree_thematic_fusion.py (3/3); notes/problems/replace_the_greedy_arc_eager_with_a_globally_normalized_graded_parser_with_marginals/SOLVED.md. NO hdlab/ written (Q111 -- prototype; the proposed additive-marginal wire + the optional exact-decode swap are stated in section 6 for strategy to land)."
+reverify: ".venv/Scripts/python.exe verification/test_matrix_tree_parser.py && .venv/Scripts/python.exe verification/test_matrix_tree_noregress.py && .venv/Scripts/python.exe verification/test_matrix_tree_patient_lift.py && .venv/Scripts/python.exe verification/test_matrix_tree_deepen.py && .venv/Scripts/python.exe verification/test_matrix_tree_upgrades.py && .venv/Scripts/python.exe verification/test_matrix_tree_singleroot.py && .venv/Scripts/python.exe verification/test_matrix_tree_ood.py && .venv/Scripts/python.exe verification/test_matrix_tree_thematic_fusion.py"
 ---
 
 <!-- witnesses: test_matrix_tree_parser.py 5/5 (W0 brute-force exactness, W1 MST>greedy attachment CI-sep, W2 invalid-tree fix, W3 marginal AUC strong, W4 gold-in-support 1.0); test_matrix_tree_noregress.py 4/4 (W1 no label regresses, W2 additive, W3 positive control CI-sep, W4 root improves); test_matrix_tree_patient_lift.py 5/5 (W1 marginal>arceager-conf, W2 defer CI-sep, W3 twin flat, W4 located recovery-negative, W5 calibrator augmentation). -->
@@ -202,6 +202,75 @@ reliability signal GENERALIZES OOD -- attenuated (AUC 0.55 vs UD's 0.77), and ho
 out-of-domain register where the arc-factored parser (trained on UD-EWT) is itself weaker, so the attenuation
 traces to the OOD PARSER quality, not to a marginal-specific failure. Not UD-EWT-specific.
 
+## 4d. MECHANISM -- the owner's questions (do we understand WHY; is it 100% brain-foundational; how does the brain do it; what to prototype/optimize)
+
+**DO WE UNDERSTAND WHY WE GOT THESE RESULTS? Yes, each one mechanistically:**
+- *Attachment gain is tiny (+0.002)* because the greedy per-token-argmax already coincides with the exact MAP
+  EXCEPT on the ~7% of sentences where it hits a cycle; the gain is exactly those. (And UAS is the wrong target.)
+- *The marginal is a strong confidence (0.765) where the greedy conf is weak (0.613)* because the greedy softmax
+  is LOCAL (one action step, blind to what it beat), while the marginal integrates over ALL trees -- the
+  competition-over-alternatives property (Lewis-Vasishth activation gap). This is literally why the AGENT reader
+  (read by a competition organ) already had AUC 0.76 and the PATIENT (greedy arc) had 0.50-0.62; the marginal
+  gives the patient arc the same property.
+- *The absolute 2nd-best recovery fails* because 67% of the wrong picks are TWO-VALID (two syntactically-valid
+  readings); syntax cannot separate them.
+- *OOD attenuates (0.77->0.55)* because the arc-factored scorer is trained on UD-EWT, so on QA-SRL its scores are
+  noisier and the marginal (a function of them) is noisier -- an upstream parser-quality effect, not a marginal one.
+
+**IS EVERYTHING (this + upstream) 100% BRAIN-FOUNDATIONAL? No -- and here is EXACTLY where, honestly:**
+- **Parser STRUCTURE (faithful).** A globally-normalized distribution over parses, exact edge marginals, a genuine
+  2nd-best (P600 reanalysis), precision-weighting (Friston), Hale entropy -- all PINNED and now realized.
+- **Parser DECODE (more faithful than before).** Exact MAP (Chu-Liu/Edmonds) replaces the greedy heuristic.
+- **Parser SCORER FEATURES (NOT brain-faithful).** The arc scorer is a surface-feature perceptron (word / POS /
+  distance). The brain scores an attachment by THEMATIC FIT ("how good is X as the patient of V"; McRae 1998) and
+  by TOP-DOWN situation-model expectation -- not surface form. This is the load-bearing deviation.
+- **Parsing REGIME (deviation, minor here).** We parse the whole sentence in BATCH; the brain parses INCREMENTALLY,
+  word by word, and difficulty is the entropy REDUCTION at each word (Hale/Levy). Batch actually sees MORE, so it
+  does not hurt the confidence; it only means our entropy (upgrade C) is a whole-sentence static entropy, not the
+  incremental surprisal (an honest, prototypeable refinement).
+- **TOP-DOWN LOOP (ABSENT -- the load-bearing gap).** The brain's parse is constrained top-down by the situation
+  model (discourse salience, event expectation): which character is the EXPECTED patient given the story so far.
+  Our parser has no such loop (`predictive_reader` is built but a "pure inert island", per the wall-map). This is
+  why we cannot resolve the two-valid slice.
+
+**HOW EXACTLY DOES THE BRAIN DO THIS, AND WHY AREN'T WE SHOWING THOSE RESULTS?** The brain resolves attachment by
+PARALLEL CONSTRAINT-SATISFACTION over THREE cue-classes competing at once (MacDonald/Pearlmutter/Seidenberg 1994):
+(1) SYNTAX, (2) THEMATIC FIT, (3) TOP-DOWN discourse/event expectation. We now have (1) as a graded posterior and
+(2) as a landed organ -- and I PROTOTYPED THEIR FUSION (the brain's bottom-up half) to find out how far it gets
+(`exp_matrix_tree_thematic_fusion_v1`, fusing the marginal with `hdlab.verb_role_exemplar_selector` via the
+graded-competition form, gated by marginal confidence, dev-tuned on train, n=1235):
+
+| override strategy (blanket labeled reader 0.8785) | absolute delta | CI |
+|---|---|---|
+| SYNTAX x THEMATIC-FIT fusion | **-0.0332** | [-0.049,-0.018] |
+| marginal (syntax) only -- the located negative | -0.0518 | [-0.069,-0.036] |
+| random-gate twin | -0.0486 | [-0.063,-0.035] |
+| thematic-fit only | -0.0858 | [-0.103,-0.069] |
+
+Two facts fall out. (i) THEMATIC FIT CARRIES SIGNAL: the fusion is the LEAST-bad override (-0.033 vs marginal-alone
+-0.052 vs twin -0.049) -- adding the brain's second cue genuinely helps. (ii) BUT the two bottom-up cues together
+STILL do not beat the strong labeled reader, and they recover only **18% of the TWO-VALID slice** (18/100; rankable
+15%, buried 12%). The mechanistic reason is decisive: verb-object thematic fit compares SEMANTIC TYPE, and a
+two-valid case is two candidates of the SAME type (two people as the patient of "told/asked/gave") -- fit cannot
+separate them. **That is EXACTLY why we do not match the brain: the missing cue is the THIRD one -- TOP-DOWN
+discourse/event expectation (who is the topical / expected patient given the situation so far), which requires the
+recurrent situation-model loop we have not built.** The parser's own job (cues 1-2, made graded and fused) is done;
+the residual is a NAMED, LOCATED, DIFFERENT organ.
+
+**WHAT TO PROTOTYPE / OPTIMIZE:**
+- *Prototyped here:* the syntax x thematic-fit fusion -- proves the bottom-up ceiling and locates the last organ.
+- *The next prototype (separate organ, out of THIS problem's scope, now precisely scoped):* wire `predictive_reader`
+  / a discourse-salience prior (topicality, Centering Cf, coreference-chain recency) into the parse competition as
+  the THIRD cue -- the recurrent top-down loop (the wall-map's dominant finding). The two-valid 67% residual lives
+  there, not in the parser.
+- *Efficiencies (implement now, all measured):* (E1) the reliability path needs only the MARGINAL (one matrix
+  inverse per sentence, ~microseconds) -- the exact 2nd-best TREE (O(n) CLE runs) is only for a fallback PARSE, so
+  compute it lazily, not on the confidence path. (E2) DROP the obl calibration logistic: the RAW single-root
+  marginal (AUC 0.784) already BEATS the whole calibrated obl logistic (0.736) -- a learned component removed, not
+  added. (E3) single-root costs the same one inverse as multi-root and is grammar-faithful + slightly better -->
+  ship single-root, free. (E4) the marginal is a UNIVERSAL per-label reliability (median AUC 0.825), so ONE signal
+  replaces the per-reader confidence cue sets -- simpler wiring, off one parse.
+
 ## 5. NO-REGRESS -- enumeration + the positive control (bar 5)
 
 **Enumeration (an absence claim requires an enumeration, not a search).** Every hdlab module that reads the
@@ -291,6 +360,13 @@ Two changes, the first purely additive + default-safe, the second an optional st
   1-best (entropy 0) structurally cannot. Record: the parser now supplies the pinned Hale/Levy difficulty currency.
 - **NEW (upgrade D): the marginal is a UNIVERSAL per-label attachment-reliability signal** (median AUC 0.825 over 29
   labels) -- the one reliability signal every head-driven reader consumes off one parse. Record.
+- **NEW (mechanism probe): the LAST missing cue is TOP-DOWN discourse, located + measured.** Fusing the parser
+  marginal (syntax) with the landed McRae thematic-fit organ (the brain's two BOTTOM-UP cues) is the least-bad
+  override (-0.033 vs marginal-alone -0.052 vs twin -0.049) but recovers only 18% of the two-valid slice -- because
+  verb-object fit compares SEMANTIC TYPE and two-valid is same-type. The parser's cues (syntax+fit, now graded and
+  fused) are exhausted; the residual is the THIRD cue, top-down discourse/event expectation (the recurrent loop;
+  `predictive_reader` inert), a distinct organ. Record: the parse front-end is brain-foundational in STRUCTURE +
+  DECODE; the remaining deviations are the SCORER's features (surface) and the ABSENT top-down loop.
 
 ## 9. WHAT I DID NOT ESTABLISH / WOULD WITHDRAW FIRST
 
@@ -374,5 +450,12 @@ the absolute-recovery result as a full-pass located negative that names the next
    (Spearman 0.70 vs error) the greedy parser cannot give; the reader can defer whole hard sentences on it.
 6. **Consume the marginal as the UNIVERSAL attachment reliability** (upgrade D, median AUC 0.825 over 29 labels) --
    feed it into `parse_confidence` for EVERY head-driven reader (obl first, then patient/agent), off one parse.
-7. **The deeper prize (named, not required):** feed this graded parse posterior into the recurrent top-down loop
-   (`predictive_reader`) so the situation model constrains attachment as it reads (wall-map dominant finding).
+7. **THE LAST ORGAN, now precisely located + measured (the deeper prize):** the two-valid 67% residual needs the
+   THIRD parse cue -- TOP-DOWN discourse/event expectation. Feed the graded parse posterior INTO, and a
+   discourse-salience prior (topicality / Centering / coref recency) BACK FROM, the situation model -- the recurrent
+   top-down loop (`predictive_reader`, currently inert; wall-map dominant finding). The mechanism probe (section 4d)
+   proves the two BOTTOM-UP cues (syntax + thematic fit) are exhausted, so this is the correct next build, not more
+   parser work.
+8. **EFFICIENCIES to fold into the wire (section 4d):** marginal-only on the confidence path (2nd-best tree lazy);
+   DROP the obl calibrator (raw marginal beats it); ship single-root (free); one universal marginal replaces the
+   per-reader cue sets.

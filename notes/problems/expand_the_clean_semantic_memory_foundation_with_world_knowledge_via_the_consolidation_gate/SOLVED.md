@@ -359,6 +359,10 @@ proven load-bearing.
   drilled the WHY:
     (a) LINEAR-scope heuristic: 0.514 -- FAILED (linear position is not syntactic scope).
     (b) SHALLOW-scope (reader POS tagger, subject/predicate split): 0.669 -- FAILED (shallow split over-fires).
+    (b2) CLOSED-CLASS + NP-RESTRICTOR chunking (Barwise-Cooper generalized-quantifier restrictor = the operator's
+         NP complement, via the reader's own POS tagger; the function-word-grammar approach the neuroscience of
+         closed-class processing predicts): 0.672 -- FAILED. Precise restrictor/body helps universals but our NP-
+         boundary + per-operator scope (no/few/negation/at-most) is imperfect enough to net-lose vs sentence-level.
     (c) READER'S OWN PARSER projectivity (hdlab.arc_parser+arc_labeler, 100%-brain-foundational, NO external tool):
         0.505 -- UNDERPERFORMS. NOT a bug (its monotonicity decisions agree with a robust parser's 0.811 of the
         time); the reader's UD-EWT parser is OUT-OF-DOMAIN on MED's formal/quantified text (garbles "at most ten
