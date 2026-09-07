@@ -181,6 +181,18 @@ in a problem's clothes.
   + the downstream role read.
 - Do NOT "train a better parser" as a deep model -- trained loses OOD (wall-map Wall 2 fix line). Glass-box, offline-fit
   static asset only.
+- **Do NOT repair attachment with a permissive lexical heuristic -- this is the p9 negation/quantifier SOLVED's fully-drilled
+  LOCATED NEGATIVE (integrated 2026-09-07, `hdlab/polarity_operator.py`).** That solver built a glass-box parse-repair
+  (WordNet lexical-category + Frazier coordination-parallelism + verb subcategorization + shared-subject constraints, NO
+  training) that matched the surface operator on its negation gold (structural resolver 0.8864 -> 0.9318) -- but the HONEST
+  GENERALITY CHECK on GOLD UPOS (UD-EWT test, n=2000 sents / 24,185 tokens) proved it **NET-NEGATIVE on general text**: POS
+  0.9443 -> 0.9375, of 188 retags only 7 FIXED vs 172 BROKE (precision 0.04). The culprit is the "any-WordNet-verb-sense"
+  signal (most nouns/adjectives have a verb sense). A precise PREDOMINANT-verb signal (upgrade D) cut the damage 12x
+  (precision 0.037 -> 0.208, POS damage -165 -> -14 tokens) but was STILL marginally net-negative. **DIRECT EVIDENCE FOR
+  THIS PROBLEM: the genuinely-general fix needs (a) a PRECISE lexical resource -- VerbNet subcategorization frames + frequency
+  priors -- and (b) TAGGER-CONFIDENCE GATING (override a tag ONLY when the tagger is unconfident), NOT a permissive
+  heuristic and NOT training. An isolation win on a construction-enriched gold is not a general capability -- measure the
+  fix for GENERALITY on gold UPOS before deploying it (that measurement is what PREVENTED landing an overfit repair).**
 - Run `python tools/before_you_start.py "<what you are about to do>"` and `tools/experiment_index.py query "parser"` /
   `"marginal"` / `"beam"` / `"attachment"` / `"global"` (SINGLE keywords) before building.
 
