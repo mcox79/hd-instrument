@@ -5,7 +5,7 @@ bar: "For AT LEAST N (solver's choice, N >= 2) high-leverage knowledge TYPES fro
 result: "N=3 knowledge families, each on ITS OWN consumer's MODERN instrument. TYPE 3 (is-a, directed) on TWO consumers: (a) MoNLI lexical entailment n=1676 -- typed directed spoke + monotonicity 0.817 vs the PRE-INGEST symmetric-signature foundation 0.500 (+0.317 CI[+0.299,+0.335]); (b) GUM common-noun COREFERENCE (modern, INDEPENDENT of WordNet -- the non-circular downstream consumer) -- the is-a/part-whole spoke as a type-licensing FILTER on recency lifts coref 0.6883 -> 0.6998 (+0.0116 CI[+0.0056,+0.0182]) over the strongest floor (recency/Centering), building across the wall exp_commonnoun_wall_gum_v1 located and deferred to 'world knowledge'. TYPES 4+6 (part-whole + instrument, directed) on the LIVE bridging instrument: typed spoke bridges COVERED facts 0.926/0.828 vs the symmetric read 0.095/0.027 on confusable distractors (+0.832/+0.801 CI-sep), with a GENERALIZATION located-negative (held-out 0.272/0.203)."
 floor: "TYPE 3 / MoNLI: symmetric-signature cosine best-oracle-threshold 0.500 (analytically capped on a balanced directional set) AND a frequency-generality asymmetric heuristic 0.865 (competitive OVERALL but WRONG where it disagrees: on the 226 freq-wrong pairs typed 0.766 MFS / 0.982 union vs freq 0.000 -> the graph is the correct mechanism). TYPE 3 / GUM coref: strongest floor = recency/Centering 0.6883 (blind head-identity, the reader today, is 0.6119). TYPES 4+6: no-inference random 0.200; symmetric hub/MFS read 0.095/0.386 (part) 0.027/0.219 (instrument) on confusable distractors."
 controls: "(1) INFO-FREE TWIN loses CI-sep on every type: is-a shuffled-graph 0.499 (vs 0.817); part-whole shuffled-graph 0.214 (vs 0.926); instrument shuffled-graph 0.166 (vs 0.828); coref shuffled-FILTER twin 0.6904 (vs 0.6998, +0.0095 CI[+0.0039,+0.0151]) -- the coref win is CORRECT knowledge, not 'any filter'. (2) NO REGRESSION: spokes are ADDITIVE; the frozen C1 signature is byte-untouched, so diagnostic_context_wsd is unchanged (test_knowledge_factory_meaning_store.py 6/6; W8 asserts store intact). (3) REASONING ablation: dropping monotonicity collapses the is-a negation subset 0.875 -> 0.125. (4) ARCHITECTURE ablation (coref): the is-a spoke as a SELECTOR (0.641) is DOMINATED by recency (0.688); as a type-licensing FILTER on recency it WINS (0.700) -- the consumer's architecture decides whether the knowledge helps. (5) GATE admission quality: schema-margin separates clean from injected-wrong is-a edges AUC 0.942 (deterministic; reuses the upstream meaning_foundation signatures). (6) RESOLUTION guard: the raw lemma-string (union) key over-generates cross-sense is-a on 100% of polysemous nouns; on MoNLI's low-polysemy pairs this does not cost accuracy (union 0.996 >= MFS 0.817), an honest disk-outranks-brief finding."
-files_changed: "experiments/exp_isa_typed_spoke_monli_v1.py, experiments/exp_partwhole_typed_spoke_bridging_v1.py, experiments/exp_isa_spoke_commonnoun_coref_gum_v1.py, experiments/exp_antonym_typed_spoke_valence_v1.py, experiments/exp_natural_logic_monotonicity_med_v1.py, verification/test_world_knowledge_typed_spokes.py, notes/problems/expand_the_clean_semantic_memory_foundation_with_world_knowledge_via_the_consolidation_gate/SOLVED.md (also: notes/research_semantic_memory_generalization_walls_2026-09-06.md by the research drill)"
+files_changed: "experiments/exp_isa_typed_spoke_monli_v1.py, experiments/exp_partwhole_typed_spoke_bridging_v1.py, experiments/exp_isa_spoke_commonnoun_coref_gum_v1.py, experiments/exp_antonym_typed_spoke_valence_v1.py, experiments/exp_natural_logic_monotonicity_med_v1.py, verification/test_world_knowledge_typed_spokes.py, notes/problems/expand_the_clean_semantic_memory_foundation_with_world_knowledge_via_the_consolidation_gate/SOLVED.md, notes/problems/expand_the_clean_semantic_memory_foundation_with_world_knowledge_via_the_consolidation_gate/RESEARCH_monotonicity_scope_2026-09-07.md (also: notes/research_semantic_memory_generalization_walls_2026-09-06.md by the research drill)"
 reverify: ".venv/Scripts/python.exe verification/test_world_knowledge_typed_spokes.py"
 ---
 
@@ -380,6 +380,25 @@ proven load-bearing.
   text (a competent reader parses it trivially) -- a parser-improvement build, NOT an external parser (barred) and
   NOT a heuristic (both fail). (reader_parse_projectivity_report [admissible] + parse_projectivity_report [spaCy,
   non-admissible ceiling] in the cell; witness W15.)
+
+  WALL RESEARCHED + RESOLVED (notes/problems/expand_the_clean_semantic_memory_foundation_with_world_knowledge_via_the_consolidation_gate/RESEARCH_monotonicity_scope_2026-09-07.md) -- VERDICT (C),
+  which UPGRADES the paragraph above: the brain uses a DUAL REGISTER, so the lever is NEITHER a general parser
+  upgrade (A) NOR "sentence-level is the hard ceiling" (B). (1) A FAST operator-RECOGNITION register (closed-class
+  is robust at RECOGNITION -- Neville 1992, Pulvermuller 1995) functionally ~= our sentence-level marker (0.767) --
+  so 0.767 is BRAIN-FAITHFUL, not a defect. (2) A SLOW, effortful STRUCTURE-BUILDING register for nested/mixed
+  cases (Geurts 2003: monotonicity inference is genuinely COMPUTED and COSTLY; the hard tail is hard for HUMANS
+  too, so the human ceiling is well below 100% and 0.767-0.84 is plausibly near-human). WHY every positional method
+  failed is the Cuetos-Mitchell (1988) PP/RC ATTACHMENT AMBIGUITY: local NP-boundary chunking is provably
+  insufficient when a restrictor carries a trailing modifier ("at most ten commissioners WITH voting rights") --
+  it needs non-local subcategorization cues, not boundary-closing (and closed-class is robust at recognition but
+  FRAGILE at structure-building -- Bradley's dual-route failed to replicate, Gordon-Caramazza 1982). THE
+  brain-foundational build to close 0.767 -> ~0.84 is a BOUNDED RESTRICTOR-ATTACHMENT slow register: resolve
+  trailing PP/RC attachment for the operator's restrictor NP ONLY, reusing THIS project's own verb-subcat/
+  selectional PP-attachment finding (Britt 1994; this project's prior selectional-vs-lexical PP-attachment research) re-scoped from verb-PP to restrictor-NP, never touching open-class parsing elsewhere. Its CORE is
+  already prototyped (the universal restrictor/body override, +0.008, positional_universal_report()); the
+  ambiguous-modifier cases are the named next refinement. NET: the chain is 100% brain-foundational at the fast
+  register (0.767, near-human), and the remaining gap is a SMALL BOUNDED module (the slow register), NOT a parser
+  overhaul and NOT an external tool.
 
 ### NEW RELATION FAMILY SPOTTED + CONFIRMED (a 5th typed spoke): ANTONYMY (lexical opposition)
 (built + validated this session: experiments/exp_antonym_typed_spoke_valence_v1.py)

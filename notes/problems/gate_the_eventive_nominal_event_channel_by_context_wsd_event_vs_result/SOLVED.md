@@ -5,7 +5,7 @@ bar: "The WSD-gated nominal channel keeps the lift AND restores precision, CI-se
 result: "Glass-box biased-competition per-token gate (parse-selected selectional context + selectional resting-bias), COMBINED arm. TB-Dense (22 docs, 333 multi-hop chains, TimeML gold): extraction precision 0.6517 (ungated FLOOR) -> 0.7142 gated, +0.0624 CI[+0.0419,+0.0802] SEP+ (toward verb-only 0.7871); whole-subgraph survival 0.7327 (ungated) -> 0.6577 gated (retains 77% of the lift over verb-only 0.4054), -0.0751 CI[-0.1051,-0.0480]. MAVEN-ERE (710 docs, 43599 chains): precision 0.4768 -> 0.5310, +0.0543 CI[+0.0515,+0.0573] SEP+; survival 0.7495 -> 0.6363 (retains 66% of the lift over 0.4134). Info-free twins LOSE CI-sep for the COMBINED arm on BOTH golds (shuffled-cue AND permuted-context; TB twinB +0.051, MAVEN twinB +0.0110), though the MAVEN margins are small; the FLAT-bag and parse-ONLY twins do NOT reliably lose at MAVEN scale -- the SELECTIONAL CUE is what carries the token-level signal (a required brain-foundational finding). Positive control (same lemma, both readings): the gate makes token-differentiated decisions a type lexicon cannot, but is keep-biased and only weakly separates genuinely-ambiguous polysemous tokens (the located encoding ceiling)."
 floor: "UNGATED eventive-nominal channel (joint_nom) recomputed on each gold's own population: TB-Dense precision 0.6517 / survival 0.7327 ; MAVEN-710 precision 0.4768 / survival 0.7495. (Verb+copular reference joint_cop: TB precision 0.7871 / survival 0.4054 ; MAVEN 0.6208 / 0.4134.)"
 controls: "(1) info-free PERMUTED-CONTEXT twin (score the token against a random other token's sentence) -- for the COMBINED arm LOSES CI-sep on BOTH golds (TB +0.051, MAVEN +0.0110); the FLAT and parse-ONLY arms do NOT reliably lose at MAVEN scale (twinB +0.0006/+0.0007 NS). (2) SHUFFLED-CUE twin (permute the selectional cue onto wrong tokens) -- combined arm LOSES CI-sep (TB +0.018, MAVEN +0.0026). (3) info-free SHUFFLED-diagnosticity twin (permute the readout weights) -- LOSES with parse context on TB (+0.036), borderline on MAVEN. So the SELECTIONAL CUE is the load-bearing token-context signal at scale; the biased-competition readout alone is weak (the encoding ceiling). (4) NO-REGRESS additive subset property: recovered(joint_cop) SUBSET recovered(gated) SUBSET recovered(joint_nom) for every doc (the gate only ever DROPS NOM tokens; VERB/COP byte-identical). (5) CUE-ONLY reference (selectional sort, no readout): ~=ungated (TB 0.6526/0.7327; MAVEN 0.4795/0.7460) -- the cue alone does almost nothing; its value is as a resting bias combined with the readout. (6) type-level impossibility: same lemma KEPT in its event sentence and DROPPED in its object sentence."
-files_changed: "experiments/_nominal_wsd_gate.py (the gate organ, self-test PASS); experiments/exp_nominal_wsd_gate_v1.py (the measurement: flat/parse/combined arms + floor + twins + theta sweep + positive control); experiments/exp_nominal_overfire_enumeration_v1.py (the over-firing population enumeration); verification/test_nominal_wsd_gate.py (scaffold-free witness, W1-W4 PASS). NO hdlab write (Q111 -- proposed diff in Sec 7)."
+files_changed: "experiments/_nominal_wsd_gate.py (the gate organ + grounded readout path, self-test PASS); experiments/exp_nominal_wsd_gate_v1.py (the measurement: flat/parse/combined arms + floor + twins + theta sweep + positive control); experiments/exp_nominal_overfire_enumeration_v1.py (the over-firing population enumeration); experiments/exp_nominal_gate_representation_probe_v1.py (the WHY: event/object sig cosine w2v 0.93 vs grounded 0.51); experiments/exp_nominal_gate_grounded_v1.py (the grounded-representation prototype -- REFUTED at MAVEN power); verification/test_nominal_wsd_gate.py (scaffold-free witness, W1-W4 PASS). NO hdlab write (Q111 -- proposed diff in Sec 7)."
 reverify: ".venv/Scripts/python.exe verification/test_nominal_wsd_gate.py"
 ---
 
@@ -138,19 +138,32 @@ the gate fires them by construction. This is a trigger-vs-named-reference (disco
 organ (referring-expression / discourse-status), and it caps the achievable extraction-precision gain independent of WSD
 quality.
 
-### 4c. The residual same-lemma separation sits at the contextual-input-encoding ceiling (the named upstream fork).
-On genuinely event-vs-object POLYSEMOUS both-reading lemmas, the gate separates event- from object-readings only weakly
-and is KEEP-biased (TB-Dense combined: event-kept 0.43, object-dropped 0.585; MAVEN-710 combined n=301: event-kept 0.641,
-object-dropped 0.371 -- it fires ~63% of object-readings too). The biased-competition readout alone barely uses the
-context (its info-free twins are NS at MAVEN scale); the object sense is often w2v-dominant so it wins even in event
-contexts. It is the selectional-cue that supplies what token-level signal there is.
-The readout's own documented ceiling is ~0.35 (a SINGLE static sense-conflated w2v vector per surface form —
-`diagnostic_context_wsd`'s docstring names this the CONTEXT-INPUT-ENCODING wall, a separate contextual-encoder fork, NOT
-the readout). We moved the frontier as far as the current substrate allows with the two biggest brain-faithful levers
-(structure-selected context; selectional resting-bias — flat->parse->combined survival retention 0.607->0.640->0.658 at
-equal precision), and the remaining gap is that named upstream organ:
-`break_the_contextual_input_encoding_ceiling_for_specific_sense_selection`. **We did NOT conclude "needs a neural model"
-— we located a specific glass-box encoding organ as the next lever.**
+### 4c. The distinction is ARGUMENT-STRUCTURAL, not lexical — drilled to the representation and back (the deep finding).
+On genuinely event-vs-object POLYSEMOUS both-reading lemmas the gate separates event- from object-readings only weakly
+and (in w2v) is KEEP-biased (TB-Dense combined event-kept 0.43 / object-dropped 0.585; MAVEN-710 n=301 event-kept 0.641 /
+object-dropped 0.371). I drilled WHY to the representation and it is a decisive, measured result
+(`exp_nominal_gate_representation_probe_v1`): **the event-sense and object-sense signatures of the same nominal are cos
+0.93 COLLINEAR in the w2v space the readout uses** (n=29) — the readout is handed two near-identical vectors, so no
+context weighting can separate them. In the GROUNDED sensorimotor space (Lancaster action/perception + Brysbaert
+concreteness, `hdlab.grounded_similarity`) the same signatures are cos **0.51** (many near-orthogonal: operation -0.06,
+match -0.12, attack 0.17) — because an ACT (action/temporal features) and an OBJECT (visual/spatial/concrete) are a
+sensorimotor-feature distinction, which is exactly what COLLAPSES in a distributional co-occurrence space. So the readout
+OPERATION is brain-foundational but its INPUT representation (distributional w2v/PPMI) is NOT the ATL's grounded
+hub-and-spoke representation (Lambon-Ralph) — a genuine, located non-brain-foundational choice.
+**BUT: swapping the readout to grounded signatures does NOT fix the gating at power (`exp_nominal_gate_grounded_v1`).**
+TB-Dense (n=76) misleadingly un-biased (event-kept 0.43->0.60) — but MAVEN at power (18622 chains, 1874 control tokens)
+REFUTES it: the grounded gate is WORSE than w2v on precision (0.536 vs 0.542), survival (0.604 vs 0.636), and its
+permuted-context twin does NOT lose (d -0.021 ns) whereas the w2v-COMBINED twin DOES (+0.030 SEP). The reason: separating
+the SIGNATURES is necessary but not sufficient — the CONTEXT must select between them, and the context->sense selection
+signal is too weak in BOTH spaces. **Conclusion: event-vs-result is not a lexical-similarity distinction in ANY
+representation; it is an ARGUMENT-STRUCTURE / selectional-restriction computation. The lexical readout is a weak
+tiebreaker; the SELECTIONAL cue (argument frame) is the primary carrier of the reliable token signal (its twin loses at
+power; the readout's does not).** The brain-foundational lever is therefore to make the selectional/aspectual mechanism
+PRIMARY and itself brain-foundational (derive it from the substrate's event-knowledge / thematic-role organs +
+morphosyntactic aspectual cues), NOT to swap the lexical representation. This RE-DIRECTS the named upstream fork
+`break_the_contextual_input_encoding_ceiling_for_specific_sense_selection`: for SORTAL/aspectual distinctions the lever is
+the argument-structure system, not a richer contextual sense-encoder. **We did NOT conclude "needs a neural model"; we
+drilled the representation, refuted the obvious swap at power, and located the real mechanism.**
 
 ### 4d. The downstream VALUE of the precision gain is not established here (a premise caveat).
 p2 measured that the nominal over-extraction does NOT degrade the temporal reasoner's conditional accuracy (0.583 vs
@@ -163,9 +176,9 @@ measurement) — not just the extraction triple measured here. We recommend the 
 ## 5. KEY REALIZATIONS (the enabling moves)
 - **The flat sentence-bag readout is INDISTINGUISHABLE FROM RANDOM NOM-DROPPING (the twin caught it).** Random dropping
   raises overall precision purely by down-weighting the low-precision NOM channel; the info-free twin exposed that the
-  naive gate's "precision gain" was this artifact. The fix — and the load-bearing brain-foundational move — was to make
-  the context the SYNTACTICALLY-SELECTED selectional neighborhood (reusing the upstream p2 parse), which made the twins
-  LOSE. Structure-selected context, not context averaging, is how controlled semantic cognition works.
+  naive gate's "precision gain" was this artifact. Adding parse-selected context helped on TB-Dense but NOT at MAVEN
+  power; it was the SELECTIONAL-RESTRICTION cue (argument structure) that made the twins reliably LOSE on both golds —
+  i.e. the load-bearing token signal is the governor's argument-frame, not context averaging (Sec 4c).
 - **The committed reading is the ARGMAX sense's cluster, not the summed cluster mass.** An early summed-event-mass rule
   fired on "painting"-object because WordNet has more act-senses than artifact-senses, so mass summed high even when the
   single best sense was the artifact. Switching to the EVENT-vs-OBJECT margin (best event sense vs best object sense;
@@ -177,6 +190,16 @@ measurement) — not just the extraction triple measured here. We recommend the 
 - **MAVEN precision is annotation-confounded; TB-Dense is the clean instrument.** MAVEN-ERE annotates only
   relation-participating triggers, so its NOM "precision" is depressed for both arms equally — valid for the GAIN, not
   for the absolute level.
+- **The w2v sense signatures for event vs object are cos 0.93 collinear — the readout literally cannot see the
+  distinction.** Measuring the representation (not just the accuracy) was what turned "the readout is weak" into "the
+  readout is fed two identical vectors." The grounded space separates them (cos 0.51) — a decisive brain-foundational
+  diagnosis of WHY.
+- **But the obvious fix (grounded signatures) was REFUTED at power — and the small-n gold nearly fooled me.** TB-Dense
+  (n=76) said grounded un-biases the gate; MAVEN (n=1874) said it does not (worse precision/survival, twin does not
+  lose). Separating the signatures is necessary but not sufficient; the context->sense selection is the real bottleneck,
+  in BOTH spaces. **The enabling realization: event-vs-result is an ARGUMENT-STRUCTURE distinction, not a lexical one —
+  no representation swap fixes it; the selectional/aspectual frame is the primary mechanism.** (Always power-test a
+  representation claim on the larger gold before believing it.)
 
 ## 6. CONTROLS (what each excludes) — see frontmatter `controls`
 Shuffled-diagnosticity, permuted-context, and shuffled-cue twins each destroy a different part of the token->context
@@ -209,10 +232,20 @@ almost nothing alone). The positive control (same lemma, two readings) excludes 
   `joint_spatial_edges/frames` (untouched). Grep-confirmed.
 
 ## 8. ADJACENT COMPONENTS (brain-foundational status + what they seed)
-- **The contextual sense encoder (`break_the_contextual_input_encoding_ceiling...`) — THE bottleneck (Sec 4c).** A single
-  static w2v vector per surface form caps same-lemma event/object separation at ~0.35. A context-shaped, glass-box sense
-  encoder is the next lever; it would raise this gate AND every other consumer of the biased-competition readout. Named
-  fork, not this problem.
+- **THE MECHANISM FIX (Sec 4c) is a brain-foundational SELECTIONAL/ASPECTUAL classifier, NOT a representation swap.**
+  Drilled and power-tested: event-vs-result is an argument-structure distinction, so the lever is to make the selectional
+  cue PRIMARY and itself brain-foundational — derive the governor's argument-sort from the substrate's event-knowledge /
+  thematic-role organs (`hdlab.generalized_event_knowledge`, `hdlab.thematic_role_labeler`, `hdlab.aspect_interval`)
+  instead of the hand list in `sort_cue`, and add the morphosyntactic aspectual cues the brain also uses (determiner
+  mass-vs-count, number singular-vs-plural — Grimshaw's non-argument diagnostics) read off the parse. This is the
+  highest-leverage follow-on and it is a candidate NEW problem.
+- **The distributional sense representation is not the ATL's — but grounded signatures are NOT the fix here (Sec 4c).**
+  Measured: event/object w2v sigs are cos 0.93 collinear (grounded 0.51), so the distributional space is genuinely
+  non-brain-foundational for SORTAL distinctions; but the grounded swap was REFUTED at power for THIS gate (the context
+  selection, not the signature separation, is the bottleneck). For the named fork
+  `break_the_contextual_input_encoding_ceiling_for_specific_sense_selection`, the grounded representation is a real lever
+  for OTHER (sortal) distinctions and worth a controlled test there; for event-vs-result the argument-structure system is
+  the answer. We did NOT conclude "needs a neural model".
 - **The p2 parse (`arc_parser`, UAS 0.79) — the selectional context/cue depend on it.** A stronger parser directly
   improves the governor/argument selection. OUR-INVENTION-quality (a hashed-feature UD parser), a live optimization
   target.
@@ -228,11 +261,15 @@ The eventive-nominal channel now has a brain-foundational per-token context/WSD 
 hub + selectional restriction, over the parse-selected neighborhood). It RESTORES extraction precision CI-separated over
 the ungated channel on both modern golds (TB-Dense +0.062, MAVEN +0.054) with the info-free twins LOSING for the
 combined (readout + selectional-cue) arm, retaining 66-77% of the survival lift — but does NOT fully close the precision
-gap to verb-only (an inherent Pareto tradeoff) because the
-residual same-lemma event/object separation sits at the readout's ~0.35 CONTEXTUAL-INPUT-ENCODING ceiling (a distinct
-upstream organ) and ~9-19% of the precision defect is a trigger-vs-named-reference distinction (not WSD). The hub
-COVERAGE fork is closed (0 uncovered FP mass). Net: the channel is SAFER to default-on (precision-restoring, additive,
-no-regress) but the extraction-precision gain's downstream value on the temporal reasoner is not yet established.
+gap to verb-only, and I drilled WHY to the representation and back: **the event-vs-object sense signatures are cos 0.93
+COLLINEAR in the distributional w2v space the meaning channel uses (grounded sensorimotor space: cos 0.51), so the
+distributional representation is genuinely non-brain-foundational for SORTAL distinctions — but a grounded-signature swap
+does NOT fix the gating at power (MAVEN, refuted), because event-vs-result is an ARGUMENT-STRUCTURE distinction that the
+selectional/aspectual frame carries, not a lexical-similarity one in any representation.** The load-bearing token signal
+is the selectional cue, not the lexical readout. Plus ~9-19% of the precision defect is a trigger-vs-named-reference
+distinction (not WSD), and the hub COVERAGE fork is closed (0 uncovered). Net: the channel is SAFER to default-on
+(precision-restoring, additive, no-regress); the highest-leverage follow-on is a brain-foundational selectional/aspectual
+classifier (from event-knowledge + morphosyntax), NOT a richer sense-encoder, for the event/result distinction.
 
 ## WHAT I WOULD WITHDRAW FIRST IF WRONG
 The claim most exposed is "the gate restores precision CI-separated over the ungated floor." It is robust on BOTH golds
@@ -251,16 +288,23 @@ meaning-in-context machinery the reader already has, and — crucially — feedi
 out by the sentence's structure rather than the whole sentence. It makes the reader measurably more accurate about which
 nouns are happenings (a real, statistically-clean gain that a scrambled-context version does NOT reproduce) while keeping
 most of the big timeline improvement. It does not make it perfect: about a fifth of the mistakes are a different kind of
-problem (naming a known event vs reporting a new one), and telling the two meanings of the SAME word apart is limited by
-how the reader currently encodes word meaning (a known, separate part to improve). So the improvement can be switched on
-more safely than before, at a setting that keeps most of the timeline gain (~78-92% depending on the text), but it is a
-solid step, not a finished job.
+problem (naming a known event vs reporting a new one), and telling the two meanings of the SAME word apart is genuinely
+hard — I found the reason: the reader judges word meaning by which words tend to appear together, and in that view the
+two meanings of "building" look 93% identical (both live around construction talk). The brain instead judges by what you
+do and see (an action vs a solid visible thing), where they clearly differ — but I tested feeding the reader that
+grounded view and, at scale, it did NOT help, because deciding which meaning applies is really a matter of grammar (what
+the surrounding verb expects), not word-similarity in any view. So the real fix is a grammar/role-based judge, not a
+different word representation. The improvement can be switched on more safely than before (keeps ~78-92% of the timeline
+gain), but it is a solid step, not a finished job.
 
 **QUESTIONS:** none — but one decision is the owner's: whether to accept the operating-point framing (the gate improves
 the precision/survival tradeoff and is safe to default-on at the permissive knee) as SOLVED, or to hold at PARTIAL until
 the end-to-end reasoner accuracy under gated-vs-ungated is measured (Sec 4d).
 
 **NEXT STEPS:** (1) strategy lands the additive gate hook (Sec 7) and measures end-to-end reasoner accuracy gated vs
-ungated to set theta and the default-on decision; (2) the contextual sense-encoder fork (Sec 8) is the real lever for
-the residual same-lemma separation; (3) the trigger-vs-named-reference distinction (Sec 4b) is a candidate follow-on;
-(4) revisit the other `diagnostic_context_wsd` consumers to adopt parse-selected context (Sec 8).
+ungated to set theta and the default-on decision; (2) THE highest-leverage follow-on (Sec 4c/8): a brain-foundational
+SELECTIONAL/ASPECTUAL classifier for event-vs-result — derive the governor's argument-sort from the event-knowledge /
+thematic-role organs + morphosyntactic cues, not a hand list, and not a representation swap (grounded refuted at power);
+(3) the trigger-vs-named-reference distinction (Sec 4b) is a candidate follow-on; (4) the w2v-collinearity finding
+(cos 0.93) is a concrete brain-foundational input for the `break_the_contextual_input_encoding_ceiling...` fork for
+OTHER (sortal) distinctions.
