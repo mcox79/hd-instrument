@@ -907,6 +907,9 @@ class SituationReader:
                  commonnoun_situation_gate: bool = True,
                  commonnoun_canonical: bool = True,
                  unified_referent: bool = False,
+                 phi_person_filter: bool = True,
+                 narrow_him: bool = True,
+                 soften_generic_suppress: bool = True,
                  precision_weight_roles: bool = True,
                  precision_weight_tau: Optional[float] = None) -> None:
         # === DEFAULTS FLIPPED ON 2026-09-03 (owner-authorized: "switch them on... 1 at a time, top down,
@@ -1570,6 +1573,21 @@ class SituationReader:
         # CI-sep over the separate-tracking reader (twin loses, named coref no-regress). Landed default-off;
         # strategy flips on after first-hand verify. all_capabilities_off() sets it False.
         self.unified_referent = bool(unified_referent)
+        # -- LANDED coref-stack wires (2026-09-07, owner-DONE p12 compose_the_unified_referent...): the
+        #    +0.0823 CI-sep modern-GUM he/she coref gain (0.5032 -> 0.5855) from three stacking brain-
+        #    foundational fixes to EXISTING machinery, wired into the live EventCentralityReader pool pick.
+        #    DEFAULT-ON here (the live consumer) per no-more-default-off: each rung is CI-separated on the
+        #    RIGHT modern instrument (GUM), recall-safe, and named-antecedent no-regress (0.6019 -> 0.6555).
+        #    The board's 19c LitBank coref dim is the standing-to-retire instrument (19c is banned from
+        #    requirements); the soften-suppress rung drops a 19c-calibrated proxy, so its LitBank movement is
+        #    INFORMATIONAL, not a requirement. all_capabilities_off() forces all three False (byte-identity
+        #    reference == the pre-landing incumbent, EventCentralityReader wire flags default-OFF).
+        #      phi_person_filter  = person-feature exclusion pool pre-filter (dormant phi_agreement_keep).
+        #      narrow_him         = apply _agreement_narrow to `him` too (agreement is a general constraint).
+        #      soften_generic_suppress = drop the never-subject STRUCT referentiality proxy (use_struct=False).
+        self.phi_person_filter = bool(phi_person_filter)
+        self.narrow_him = bool(narrow_him)
+        self.soften_generic_suppress = bool(soften_generic_suppress)
         # persistent readers (the banked backbone + single-sentence validity baseline).
         # graded_pick=True (LANDED 2026-09-06, owner-DONE strengthen_the_cue_based_pronoun_coreference_
         # resolver...): the live pronoun pick is the PINNED graded ACT-R cue-based retrieval (recency
@@ -1578,7 +1596,10 @@ class SituationReader:
         # live pooled he/she coref_acc 0.4693 -> 0.6019 (+0.1327 CI-sep), named coref no-regress. Brain-
         # fidelity correction (register-general recency mechanism); graded_pick=False = incumbent fallback.
         self.reader_ec = EventCentralityReader(n_dim=EVENT_N_DIM, mem_seed=MEM_SEED, graded_pick=True,
-                                               unified_referent=self.unified_referent)
+                                               unified_referent=self.unified_referent,
+                                               phi_person_filter=self.phi_person_filter,
+                                               narrow_him=self.narrow_him,
+                                               soften_generic_suppress=self.soften_generic_suppress)
         self.reader_ss = CorefReader()
 
     # ONE authoritative capability-flag list (the ONLY hand-maintained bit). Every "flags-off historical
@@ -1597,7 +1618,8 @@ class SituationReader:
         "track_prediction", "track_causal_reasoning", "track_spatial_reasoning", "track_temporal_reasoning",
         "read_polarity",
         "structural_patient", "causal_mental_bridge", "goal_purpose_filter", "entity_kb_resolver",
-        "commonnoun_situation_gate", "commonnoun_canonical", "unified_referent", "precision_weight_roles")
+        "commonnoun_situation_gate", "commonnoun_canonical", "unified_referent",
+        "phi_person_filter", "narrow_him", "soften_generic_suppress", "precision_weight_roles")
 
     @classmethod
     def all_capabilities_off(cls, gaz=None, **overrides):

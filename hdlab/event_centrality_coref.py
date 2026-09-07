@@ -67,7 +67,8 @@ from hdlab.situation_focus import ChunkedFocus
 # PINNED graded ACT-R cue-based antecedent retrieval (recency load-bearing) -- the live pronoun pick
 # (landed 2026-09-06, replacing the anti-brain-foundational rolemass topical pick + event-centrality
 # override). See graded_pick note on EventCentralityReader below.
-from hdlab.graded_coref_pick import graded_antecedent_pick, TUNED_WEIGHTS
+# phi_agreement_keep = the DORMANT person-feature exclusion pool pre-filter wired in 2026-09-07 (WIRE 1).
+from hdlab.graded_coref_pick import graded_antecedent_pick, TUNED_WEIGHTS, phi_agreement_keep
 
 # UNIFIED discourse referent (DRT file-change): ONE card per entity, merged across name/common/pronoun,
 # pronoun pick by ACT-R base-level activation over the unified referents (landed behind unified_referent,
@@ -210,6 +211,8 @@ class EventCentralityReader(SceneProtagonistReader):
 
     def __init__(self, *, n_dim: int = EVENT_N_DIM, capacity: int = 4, fanout: int = 2,
                  mem_seed: int = 0, graded_pick: bool = True, unified_referent: bool = False,
+                 phi_person_filter: bool = False, narrow_him: bool = False,
+                 soften_generic_suppress: bool = False,
                  **kw) -> None:
         super().__init__(**kw)
         self._n_dim = int(n_dim)
@@ -222,7 +225,33 @@ class EventCentralityReader(SceneProtagonistReader):
         # unified referent (hdlab.unified_referent) -- ONE card per entity across name/common/pronoun, ACT-R
         # d=2.0 pick. Landed default-off (strategy flips on after first-hand verify).
         self.unified_referent = bool(unified_referent)
+        # -- LANDED coref-stack wires (2026-09-07, owner-DONE p12 compose_the_unified_referent...; the
+        #    +0.0823 CI-sep modern-GUM he/she gain 0.5032 -> 0.5855 from THREE stacking brain-foundational
+        #    fixes to EXISTING machinery). DEFAULT-OFF at the CLASS level: a bare EventCentralityReader(
+        #    graded_pick=True) stays byte-identical to the pre-landing incumbent (0.5032), so (a) it is the
+        #    byte-identity reference and (b) the prototype cells/witnesses that construct the reader directly
+        #    keep measuring the 0.5032 baseline. The LIVE consumer SituationReader turns all three ON by
+        #    default (CAPABILITY_FLAGS) -> the gain is realized on the board path; all_capabilities_off()
+        #    forces them False. Each wire is a SUBSET filter -> flag-off == the historical code path exactly.
+        #      (1) phi_person_filter -- person-feature exclusion POOL PRE-FILTER in _graded_pool_pick
+        #          (graded_coref_pick.phi_agreement_keep, TIER1 animacy-None -> recall-safe, never empties):
+        #          a 1st/2nd-person SPEAKER is never a 3rd-person referent (Benveniste 1966). Wiring the
+        #          DORMANT organ = +0.0387 CI-sep. Ref: exp_person_feature_coref_optimize_gum_v1.CleanReader.
+        #      (2) narrow_him -- apply _agreement_narrow to `him` too (route it through the topical/narrow
+        #          path instead of the un-narrowed adaptive path): gender agreement is a GENERAL violable
+        #          constraint (Carminati 2002), not slot-specific. +0.0129 CI-sep on top of phi.
+        #      (3) soften_generic_suppress -- drop the never-subject STRUCT referentiality proxy
+        #          (GenericDistractorFilter use_struct=False; KEEP the quantifier NONREF sub-test): the STRUCT
+        #          proxy is 19c-calibrated and over-fires on modern common-noun antecedents (97% of its
+        #          over-removals are real common nouns). +0.0274 CI-sep on top of phi+him.
+        #    Cumulative ladder = 0.5032 -> +phi 0.5419 -> +him 0.5581 -> +soften 0.5855. Refs (the +0.082
+        #    stack): exp_coref_gender_suppress_gum_v1.resolve; exp_gender_organ_gum_v1 (no-gold 0.5887).
+        self.phi_person_filter = bool(phi_person_filter)
+        self.narrow_him = bool(narrow_him)
+        self.soften_generic_suppress = bool(soften_generic_suppress)
         self._midx_to_sent: Dict[int, int] = {}  # per-mention sentence index (graded ACT-R distance term)
+        self._midx_to_head: Dict[int, str] = {}  # per-mention lowercased head (WIRE 1 phi prior-head list)
+        self._cur_pronoun: str = "he"            # the target pronoun in-flight (threaded to WIRE 1 phi)
 
     def resolve_stream(self, mentions: List[dict], targets: List[dict], *,
                        scene_ids: Optional[List[int]] = None,
@@ -246,14 +275,23 @@ class EventCentralityReader(SceneProtagonistReader):
             # measurably hurts: 0.4876 EC-off vs 0.4693 EC-on). Byte-faithful to the validated GRADED arm
             # (exp_coref_graded_live_transfer_v1.GradedPickReader.resolve_stream, _use_graded clean path).
             self._midx_to_sent = {m["midx"]: m.get("sent_idx", 0) for m in mentions}
+            # WIRE 1: per-mention head map for the phi person-feature pre-filter (candidate prior-head lists).
+            self._midx_to_head = {m["midx"]: m["head"].lower() for m in mentions}
             query_memory = False
         if topical_heads is None:
             topical_heads = TOPICAL_SLOT_HEADS
+        # WIRE 1b: agreement-narrow `him` too (route it through the topical/narrow path; flag-off -> `him`
+        # keeps the un-narrowed adaptive path exactly as before). Gender agreement is a general constraint.
+        if self.narrow_him:
+            topical_heads = topical_heads | {"him"}
         if scene_ids is None:
             raise ValueError("EventCentralityReader requires scene_ids (fixed-window baseline)")
         ever_subj = build_ever_subject_heads(mentions)
+        # WIRE 1c: soften generic-suppress -> drop the never-subject STRUCT proxy (use_struct=False), KEEP the
+        # quantifier NONREF sub-test. flag-off -> eff_use_struct == the caller's use_struct (byte-identical).
+        eff_use_struct = use_struct and not self.soften_generic_suppress
         filt = GenericDistractorFilter(ever_subj, use_nonref=use_nonref,
-                                       use_struct=use_struct)
+                                       use_struct=eff_use_struct)
         midx_to_role = {m["midx"]: m.get("sent_role_rank", 99) for m in mentions}
         target_by_midx = {t["target"]["midx"]: t for t in targets}
 
@@ -309,6 +347,7 @@ class EventCentralityReader(SceneProtagonistReader):
             topical_fired = False
             mem_changed = False
             if m["is_pronoun"] and m["head"] in TARGET_PRONOUNS:
+                self._cur_pronoun = m["head"].lower()   # WIRE 1: thread the target pronoun to the phi filter
                 now = overlay.n_observed
                 sc = PRONOUN_SCOPE[m["head"]]
                 cands = overlay._compatible_entities(sc["gender"], sc["number"])
@@ -422,10 +461,21 @@ class EventCentralityReader(SceneProtagonistReader):
     def _graded_pool_pick(self, pool, midx_to_role):
         """The landed graded ACT-R cue-based antecedent retrieval over the (agreement-narrowed) pool
         (hdlab.graded_coref_pick.graded_antecedent_pick, TUNED_WEIGHTS). Single-candidate pool -> that
-        candidate; empty -> None. Clean validated arm (no twin / propagate / soft-gender)."""
+        candidate; empty -> None. Clean validated arm (no twin / propagate / soft-gender).
+
+        WIRE 1 (phi_person_filter, default OFF at the class level): person-feature exclusion pre-filter --
+        drop candidate clusters that are discourse participants (a 1st/2nd-person SPEAKER is never a
+        3rd-person referent; Benveniste 1966). TIER1 (animacy all-None) is recall-safe: phi_agreement_keep
+        never returns an empty keep-set, so the pool is never emptied. Byte-faithful to the reference
+        exp_person_feature_coref_optimize_gum_v1.CleanReader / exp_hybrid..._PhiReader (which hardcode a
+        3rd-person person pronoun; self._cur_pronoun is always one here, so it is threaded identically)."""
         pool = list(pool)
         if not pool:
             return None
+        if self.phi_person_filter and len(pool) > 1:
+            ph = [[self._midx_to_head.get(mx, "") for mx in e.mention_midxs] for e in pool]
+            keep = phi_agreement_keep(self._cur_pronoun, ph, None)
+            pool = [pool[i] for i in keep]
         if len(pool) == 1:
             return pool[0]
         priors = self._priors_of(pool, midx_to_role)
@@ -619,14 +669,52 @@ def _selftest_unified_referent_routes_and_resolves() -> None:
         assert a["resolved_cluster"] == b["resolved_cluster"] and a["correct"] == b["correct"], "OFF path drift"
 
 
+def _selftest_coref_stack_wires_default_off_and_byte_identical() -> None:
+    """The three landed coref-stack wires (WIRE 1/1b/1c) DEFAULT OFF at the class level, and with them OFF the
+    reader is byte-identical to the default reader (they are subset filters, guarded by their flags). A
+    wires-ON reader runs on the same doc and returns one record per target (does not crash / drop targets)."""
+    from hdlab.coref import build_pronoun_targets
+
+    default_reader = EventCentralityReader()
+    assert default_reader.phi_person_filter is False, "phi_person_filter must default OFF at the class level"
+    assert default_reader.narrow_him is False, "narrow_him must default OFF at the class level"
+    assert default_reader.soften_generic_suppress is False, "soften_generic_suppress must default OFF"
+
+    # Two fem characters + cross-sentence he/she + a `him` target; the wires-ON path must run cleanly.
+    mentions = []
+    mi = 0
+    mentions.append(_mk("anna", 1, False, 0, mi, "fem", 0, name_gender="fem")); mi += 1
+    mentions.append(_mk("bella", 2, False, 1, mi, "fem", 0, name_gender="fem")); mi += 1
+    mentions.append(_mk("she", 1, True, 2, mi, "fem", 0)); mi += 1
+    mentions.append(_mk("john", 3, False, 3, mi, "masc", 0, name_gender="masc")); mi += 1
+    mentions.append(_mk("him", 3, True, 4, mi, "masc", 1)); mi += 1
+    targets = build_pronoun_targets(mentions)
+    n_sents = max(m["sent_idx"] for m in mentions) + 1
+    scene_ids = [i // 5 for i in range(n_sents)]
+    kw = dict(scene_ids=scene_ids, topical_mode="rolemass", query_memory=True, centrality_mode="event_role")
+
+    base = EventCentralityReader().resolve_stream(mentions, targets, **kw)
+    off = EventCentralityReader(phi_person_filter=False, narrow_him=False,
+                                soften_generic_suppress=False).resolve_stream(mentions, targets, **kw)
+    assert len(base) == len(off) == len(targets), "wires-off record count mismatch"
+    for b, o in zip(base, off):
+        assert b["resolved_cluster"] == o["resolved_cluster"], "wires-OFF diverged from the default reader"
+    on = EventCentralityReader(phi_person_filter=True, narrow_him=True,
+                               soften_generic_suppress=True).resolve_stream(mentions, targets, **kw)
+    assert len(on) == len(targets), "wires-ON dropped a target"
+
+
 def _run_all_selftests() -> dict:
     _selftest_memory_roundtrips_and_bounds()
     _selftest_query_off_reproduces_parent()
     _selftest_event_role_beats_recency_when_structure_decisive()
     _selftest_graded_pick_default_on_prefers_recent()
     _selftest_unified_referent_routes_and_resolves()
+    _selftest_coref_stack_wires_default_off_and_byte_identical()
     return {"n_dim": EVENT_N_DIM, "agent_w": AGENT_W, "patient_w": PATIENT_W, "graded_pick_default": True,
             "unified_referent_default": False,
+            "coref_stack_wires_default": {"phi_person_filter": False, "narrow_him": False,
+                                          "soften_generic_suppress": False},
             "reuse": ["SceneProtagonistReader", "EventBundleCodec", "ChunkedFocus", "graded_coref_pick",
                       "unified_referent"]}
 
