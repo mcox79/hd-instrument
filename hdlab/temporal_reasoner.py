@@ -138,7 +138,8 @@ class TemporalReasoner:
 
     def __init__(self, events: Sequence["AI.AspectualEvent"], tagged, rank: Dict[str, int],
                  cue_adj: Dict[str, set], date_adj: Dict[str, set], span: float = 1.0,
-                 use_script_schema: bool = True) -> None:
+                 use_script_schema: bool = True,
+                 use_coherence: bool = False, coherence_reader=None) -> None:
         self.events = list(events)
         self.tagged = tagged
         self.rank = rank
@@ -149,11 +150,20 @@ class TemporalReasoner:
         # consult the latent script/schema organ on the IMPLICIT-event abstention branch (default-on; ADDITIVE +
         # narrated-path byte-identical). Pass False for the pure story-internal reasoner (or an asset-less witness).
         self.use_script_schema = bool(use_script_schema)
+        # SDRT-lite COHERENCE OVERRIDE of the iconicity fallback (Q111 p7 wire; the SDRT discourse-coherence
+        # reader). DEFAULT-OFF (the coherence channel lands off, per the SOLVED's measured not-yet-full-population
+        # net-win): when off, before() is BYTE-IDENTICAL to the pre-wire reasoner (the entire override path is
+        # gated + unreachable). When on, an ICONICITY judgment (and ONLY an iconicity judgment -- never a cue/date
+        # judgment, never the p6 script/implicit-event branch) is REVERSED when hdlab.coherence_reader confidently
+        # infers EXPLANATION (the later-narrated clause CAUSES the earlier -> event order reverses telling order).
+        self.use_coherence = bool(use_coherence)
+        self._coherence = coherence_reader   # a hdlab.coherence_reader.CoherenceReader; lazily default-built when on
 
     @classmethod
     def from_text(cls, text: str, lexical_aspect: bool = True,
                   date_anchors: Optional[Dict[str, float]] = None, span: float = 1.0,
-                  use_script_schema: bool = True) -> "TemporalReasoner":
+                  use_script_schema: bool = True,
+                  use_coherence: bool = False, coherence_reader=None) -> "TemporalReasoner":
         """Build the reasoner from raw passage text. `date_anchors` (optional) maps an event key -> a
         comparable event-LOCAL date value (Reichenbach R via TIMEX); when absent, the date channel is
         empty and before/after rides on cue closure + the iconicity fallback (the reader has no TIMEX
@@ -178,7 +188,8 @@ class TemporalReasoner:
                         continue
                     if local[lems[i]] < local[lems[j]]:
                         date_adj[lems[i]].add(lems[j])
-        return cls(ev, tg, rank, cue_adj, date_adj, span=span, use_script_schema=use_script_schema)
+        return cls(ev, tg, rank, cue_adj, date_adj, span=span, use_script_schema=use_script_schema,
+                   use_coherence=use_coherence, coherence_reader=coherence_reader)
 
     def _script_order(self, la, lb) -> Optional[str]:
         """Consult the latent SCRIPT/SCHEMA organ for the typical order of two event TYPES (Chambers-Jurafsky
@@ -196,13 +207,15 @@ class TemporalReasoner:
     # -- BEFORE / AFTER (with glass-box signal-class provenance) --
     def before(self, a, b) -> Tuple[str, str]:
         """'Did A happen before or after B?' Returns (label, signal_class).
-        label in {'before', 'after', UNKNOWN}; signal in {'cue', 'date', 'iconicity', 'script', 'vague'}.
+        label in {'before', 'after', UNKNOWN}; signal in {'cue','date','iconicity','coherence','script','vague'}.
         Priority: explicit tense/connective CUE path -> TIMEX DATE path -> iconicity (telling order)
         fallback. On an IMPLICIT-event query (an event not on the narrated timeline) the story-internal reader
         cannot place it -- it consults the latent script/schema organ (typical event-type order) and returns its
         verdict with signal 'script' when confident, else returns (UNKNOWN, 'vague'). The NARRATED path (both
-        events on the timeline) is BYTE-IDENTICAL to the pre-wire reasoner (the script consult is unreachable
-        there)."""
+        events on the timeline) is BYTE-IDENTICAL to the pre-wire reasoner when the coherence channel is off (the
+        script consult + the coherence override are unreachable there); with use_coherence ON, an ICONICITY
+        judgment (and ONLY an iconicity judgment) is reversed to signal 'coherence' when the SDRT-lite reader
+        confidently infers EXPLANATION."""
         la, lb = _key(a), _key(b)
         if la is None or lb is None:
             return UNKNOWN, "vague"
@@ -220,7 +233,67 @@ class TemporalReasoner:
         if pred == AFTER:
             return "after", sig
         # iconicity fallback: EXACT mention order (telling order == event order)
-        return ("before" if self._idx[la] < self._idx[lb] else "after"), "iconicity"
+        label = "before" if self._idx[la] < self._idx[lb] else "after"
+        # SDRT-lite COHERENCE OVERRIDE (default-OFF; ADDITIVE): on a NO-CUE narrated pair where the coherence
+        # reader confidently infers EXPLANATION (later-narrated clause CAUSES the earlier), the event order is the
+        # REVERSE of the telling order -> flip the iconicity label. Reachable ONLY here (never a cue/date judgment,
+        # never the implicit-event/script branch above) -> BYTE-IDENTICAL to the pre-wire reasoner when off.
+        if self.use_coherence:
+            ov = self._coherence_override(la, lb, label)
+            if ov is not None:
+                return ov, "coherence"
+        return label, "iconicity"
+
+    def _clause_span(self, key):
+        """(words, lemmas) of the clause/sentence containing the narrated event `key`, reconstructed from the
+        (surface, low, pos) tagged token stream for the coherence reader. The tagged stream's `low` field is the
+        lowercased surface form -- exactly the key space the reader's force/goal engines + self._idx use. Falls
+        back to [key] when the stream is unavailable (matching the SOLVED's single-lemma no-regress spans)."""
+        idx = self._idx.get(key)
+        tagged = self.tagged
+        if idx is None or not tagged or idx >= len(tagged):
+            return [key], [key]
+        _ends = (".", "!", "?", ";")
+        lo = 0
+        for i in range(idx - 1, -1, -1):
+            if tagged[i][0] in _ends:
+                lo = i + 1
+                break
+        hi = len(tagged)
+        for i in range(idx, len(tagged)):
+            if tagged[i][0] in _ends:
+                hi = i
+                break
+        words = [tagged[i][0] for i in range(lo, hi) if str(tagged[i][0]).isalpha()]
+        lemmas = [tagged[i][1] for i in range(lo, hi) if str(tagged[i][1]).isalpha()]
+        if not words or not lemmas:
+            return [key], [key]
+        return words, lemmas
+
+    def _coherence_override(self, la, lb, base_label) -> Optional[str]:
+        """Consult the SDRT-lite hdlab.coherence_reader on the two NARRATED events (fed in TELLING order);
+        if it confidently infers EXPLANATION (the later-narrated clause CAUSES the earlier -> the event order
+        is the reverse of the telling order), return the FLIPPED before/after label; else None (keep iconicity).
+        Reachable ONLY on the iconicity fallback of a narrated pair -- the cue/date + p6 script branches are
+        never routed here. Degrades gracefully (returns None) if the coherence organ / its assets are absent."""
+        try:
+            from hdlab.coherence_reader import CoherenceReader, CoherenceConfig, PlausibilityConfig, EXPLANATION
+            rd = self._coherence
+            if rd is None:
+                # the goal engine is default-ON WITHIN the coherence channel (the net-positive addition); the
+                # channel itself is default-off (this whole path is gated on use_coherence).
+                rd = CoherenceReader(CoherenceConfig(plaus=PlausibilityConfig(goal=True)))
+                self._coherence = rd
+            # feed the reader in TELLING order (first-narrated unit = the reader's `a`)
+            first, second = (la, lb) if self._idx[la] <= self._idx[lb] else (lb, la)
+            aw, al = self._clause_span(first)
+            bw, bl = self._clause_span(second)
+            rel = rd.relate(aw, al, bw, bl)
+            if rel.label == EXPLANATION:
+                return "after" if base_label == "before" else "before"
+        except Exception:
+            return None
+        return None
 
     def order_signal(self, a, b) -> str:
         """The signal class that resolved (or would resolve) the before/after judgment, without the label."""
@@ -327,6 +400,31 @@ def _selftest() -> None:
             print("[selftest] script wire: chosen pair not confident in this asset -> positive assertion skipped")
     else:
         print("[selftest] script asset absent -> implicit-event path abstains (asset-less safe)")
+
+    # (C3) COHERENCE OVERRIDE wire (Q111 p7): default-OFF is BYTE-IDENTICAL to the pre-wire reasoner on every
+    # narrated pair; ON reverses the iconicity fallback to signal 'coherence' when the SDRT-lite reader confidently
+    # infers EXPLANATION. "Max fell . John pushed him ." -- no causal cue, so before() rides iconicity; the reader
+    # infers EXPLANATION (pushed CAUSES fell) -> event order reverses telling order -> before(fell,pushed)='after'.
+    coh_text = "Max fell . John pushed him ."
+    off_c = TemporalReasoner.from_text(coh_text, use_coherence=False)
+    on_c = TemporalReasoner.from_text(coh_text, use_coherence=True)
+    for pr in (("fell", "pushed"), ("pushed", "fell")):
+        assert off_c.before(*pr)[1] == "iconicity", f"expected iconicity base for {pr}, got {off_c.before(*pr)}"
+    # OFF byte-identical to a from_text reasoner with NO coherence kwarg at all:
+    plain_c = TemporalReasoner.from_text(coh_text)
+    for pr in (("fell", "pushed"), ("pushed", "fell")):
+        assert off_c.before(*pr) == plain_c.before(*pr), \
+            ("coherence-OFF not byte-identical", pr, off_c.before(*pr), plain_c.before(*pr))
+    # ON fires: the iconicity verdict is REVERSED to 'coherence' on this Explanation pair.
+    lbl_c, sig_c = on_c.before("fell", "pushed")
+    base_lbl, _ = off_c.before("fell", "pushed")
+    assert sig_c == "coherence" and lbl_c != base_lbl, \
+        f"coherence override did not fire/reverse: on={lbl_c}/{sig_c} base={base_lbl}"
+    # a NON-causal narrated pair is NOT overridden even with the channel on (stays iconicity) -> selective.
+    nn = TemporalReasoner.from_text("Max walked in . He sat down .", use_coherence=True)
+    assert nn.before("walked", "sat")[1] == "iconicity", "coherence over-fired on a non-causal Narration pair"
+    print("[selftest] coherence override: OFF byte-identical; ON reverses before('fell','pushed') -> %s/%s "
+          "(base %s/iconicity); non-causal pair keeps iconicity (selective)" % (lbl_c, sig_c, base_lbl))
 
     # (D) RELATIVE DURATION: an adjacent chain integrates transitively; an un-stated pair reads correctly.
     items = ["blink", "sip", "song", "meal", "movie", "flight", "war", "era"]

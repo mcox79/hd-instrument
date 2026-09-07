@@ -1,7 +1,6 @@
 ---
-priority: 7
 slug: sdrt_discourse_coherence_reader_for_temporal_order_and_unmarked_causal_inference_on_real_prose
-status: CANDIDATE
+status: INTEGRATED
 review:
 review_text:
 ---

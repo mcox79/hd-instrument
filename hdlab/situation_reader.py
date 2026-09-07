@@ -384,6 +384,13 @@ class SituationModel:
     # opt-in TYPED within-clause causation (hdlab.causation_typing.TypedCausalLink); empty unless
     # the reader is built with causation_typed=True. Additive -- never replaces causal_links.
     typed_causal_links: list = field(default_factory=list)
+    # opt-in SDRT-lite COHERENCE-TYPED unmarked causal edges (hdlab.coherence_reader; Q111 p7): the
+    # RESULT/EXPLANATION edges inferred cross-sentence from causal-world-knowledge (NOT connectives), each
+    # weighted by the directed-plausibility confidence. Empty unless the reader is built with
+    # track_coherence=True (DEFAULT-OFF -- the coherence channel lands off, per the SOLVED's measured
+    # not-yet-full-population net-win). Additive -- sm.causal_links is UNTOUCHED (a SEPARATE field the
+    # causal_reasoner can traverse via sm.coherence_graded_necessity; the connective causal QA never sees it).
+    inferred_coherence_links: list = field(default_factory=list)
     # opt-in SPACE dimension: a hdlab.location_register.LocationRegister (where_is(entity,t) /
     # present_in_scene per entity over story-time); None unless the reader is built with track_space=True.
     # Additive -- the 4th situation-model dimension (WHERE), after entities/time/causation.
@@ -902,6 +909,7 @@ class SituationReader:
                  track_spatial_reasoning: bool = True,
                  track_temporal_reasoning: bool = True,
                  track_natural_logic: bool = True,
+                 track_coherence: bool = False,
                  joint_temporal_events: bool = True,
                  joint_nominal_events: bool = True,
                  read_polarity: bool = True,
@@ -1362,6 +1370,19 @@ class SituationReader:
         # NEW ISLAND / query layer (no downstream consumer today -> no regression). NO spaCy / NO external LLM at
         # inference. flag-off (track_natural_logic=False) = the pre-landing reader.
         self.track_natural_logic = bool(track_natural_logic)
+        # SDRT-lite DISCOURSE-COHERENCE stage (DEFAULT-OFF track_coherence; wired 2026-09-07 from the owner-DONE
+        # sdrt_discourse_coherence_reader..., Q111 p7). Populates sm.inferred_coherence_links (the RESULT/EXPLANATION
+        # unmarked causal edges inferred cross-sentence from causal-world-knowledge via hdlab.coherence_reader, NOT
+        # connectives) + binds sm.coherence_reasoner()/coherence_graded_necessity/coherence_causal_edges over a
+        # SEPARATE hdlab.causal_reasoner.CausalGraph -- sm.causal_links is UNTOUCHED (the connective causal QA never
+        # sees the inferred edges). The GOAL engine is ON within the channel (the net-positive addition, load-bearing
+        # on the 36% goal-typed subset, twin loses CI-sep); the channel ITSELF lands DEFAULT-OFF with a MEASURED
+        # reason (per no-more-default-off: the full-population trade-off is only +0.016, NOT CI-sep -- the goal engine
+        # over-fires on the ~40% non-goal subset, and the completing lever, the generative world-model, is unbuilt).
+        # LAZY + ADDITIVE: when off (the default) the field stays [] + no callable is bound -> BYTE-IDENTICAL to the
+        # pre-wire reader; when on it reads only the reader's OWN extracted events + mutates NO existing field. NO
+        # external LLM at inference. all_capabilities_off() also forces it False (the byte-identity reference).
+        self.track_coherence = bool(track_coherence)
         # JOINT TENSE-AGNOSTIC TEMPORAL EVENT SET (default-ON joint_temporal_events; wired 2026-09-07 from the
         # owner-DONE extract_relations_from_prose_whole_subgraph_survival_the_shared_reasoner_bottleneck, Q111 P1).
         # ROUTES the TEMPORAL-channel event DETECTOR (the set the TemporalReasoner is built over) through the promoted
@@ -1735,7 +1756,7 @@ class SituationReader:
         "affect_structured_matcher",
         "track_bridges", "track_senses",
         "track_prediction", "track_causal_reasoning", "track_spatial_reasoning", "track_temporal_reasoning",
-        "track_natural_logic",
+        "track_natural_logic", "track_coherence",
         "joint_temporal_events", "joint_nominal_events",
         "read_polarity",
         "structural_patient", "causal_mental_bridge", "goal_purpose_filter", "entity_kb_resolver",
@@ -3572,6 +3593,108 @@ class SituationReader:
         sm.longer = longer
         # the TemporalReasoner is built LAZILY inside the closures on first invocation -- zero read-time cost / no build.
 
+    def _read_coherence(self, sm, sents) -> None:
+        """Opt-in SDRT-lite DISCOURSE-COHERENCE dimension (DEFAULT-OFF track_coherence; wired 2026-09-07 from the
+        owner-DONE sdrt_discourse_coherence_reader_for_temporal_order_and_unmarked_causal_inference_on_real_prose,
+        Q111 p7). MIRRORS _read_causal_reasoning (the causation sibling). Populate sm.inferred_coherence_links -- the
+        RESULT / EXPLANATION UNMARKED causal edges inferred cross-sentence from causal-world-knowledge (NOT surface
+        connectives) via the promoted glass-box hdlab.coherence_reader.CoherenceReader (Hobbs 1985 abductive
+        coherence + SDRT/DICE 'Causes Precede Effects' PINNED, Lascarides & Asher 1993; the physics force-dynamics +
+        psychology appraisal/cascade + GOAL/INTENTIONAL causal-plausibility engines) -- and bind read-only callables
+        that let the causal reasoner CONSUME them WITHOUT touching sm.causal_links:
+
+          sm.coherence_reasoner()                       -> a hdlab.causal_reasoner.CausalGraph over ONLY the inferred
+                                                           coherence edges (SEPARATE from sm.causal_reasoner, which is
+                                                           over sm.causal_links), lazily built + cached on first call
+          sm.coherence_graded_necessity(cause, outcome) -> graded_necessity over the inferred coherence graph (the
+                                                           coupling the SOLVED proved reproduces the unmarked cause-ID)
+          sm.coherence_causal_edges()                   -> the inferred edges (dicts: cause / effect / relation /
+                                                           confidence / sent_cause / sent_effect)
+
+        THE INFERENCE: over ADJACENT sentence units, infer the coherence relation from a directed causal-plausibility
+        ASYMMETRY (confidence-gated: NARRATION unless a CONFIDENT direction); a RESULT (a->b) or EXPLANATION (b->a)
+        emits the DICE unmarked causal edge, weighted by the directed-asymmetry confidence. Node ids are the unit's
+        representative event LEMMA (the same bare-lemma space as sm.causal_links / the causal reasoner), so a caller
+        may query sm.coherence_graded_necessity by lemma. The GOAL engine is ON within the channel (the net-positive
+        addition, load-bearing on the 36% goal-typed subset -- the twin loses CI-sep).
+
+        DEFAULT-OFF (the flag) with a MEASURED reason (per no-more-default-off): the goal engine is CI-sep
+        net-positive on its category but the FULL-population trade-off is only +0.016 (NOT CI-sep -- it over-fires on
+        the ~40% non-goal subset), and the completing lever (the generative world-model) is unbuilt -> the channel
+        stays off until that lands. PURE ADD: sets ONLY sm.inferred_coherence_links + the new callables; sm.causal_links
+        is UNTOUCHED (byte-identical off vs on). DEGRADES GRACEFULLY -- abstains (empty edges / 0.0) on an empty
+        passage or an absent associative asset, never raises. NO spaCy / NO external LLM at inference. Runs LAST so it
+        reads the FINAL passage. flag-off (track_coherence=False, the default) = the pre-wire reader (empty field)."""
+        from hdlab.coherence_reader import (CoherenceReader, CoherenceConfig, PlausibilityConfig,
+                                            RESULT, EXPLANATION)
+
+        def _node(x):
+            if x is None:
+                return None
+            tok = str(x).strip().split()
+            return tok[-1].lower() if tok else None
+
+        rd = CoherenceReader(CoherenceConfig(plaus=PlausibilityConfig(goal=True)))
+        # ADJACENT sentence units: (content words, event lemmas, representative lemma). Reuse the reader's OWN
+        # glass-box event detector so the inferred network is over the SAME events the reader sees.
+        units = []
+        for si, toks in enumerate(sents):
+            try:
+                events, _tg = self._extract_events(" ".join(toks))
+            except Exception:
+                events = []
+            lemmas = [str(e.lemma).lower() for e in events]
+            words = [str(t).lower() for t in toks if str(t).isalpha()]
+            if lemmas:
+                units.append({"si": si, "words": words, "lemmas": lemmas, "key": lemmas[-1]})
+        edges = []
+        for i in range(len(units) - 1):
+            a, b = units[i], units[i + 1]
+            if a["key"] == b["key"]:
+                continue
+            try:
+                rel = rd.relate(a["words"], a["lemmas"], b["words"], b["lemmas"])
+            except Exception:
+                continue
+            if rel.label not in (RESULT, EXPLANATION):
+                continue
+            ce = CoherenceReader.causal_edge(rel, a["key"], b["key"])
+            if ce is None or ce[0] == ce[1]:
+                continue
+            conf = max(0.05, min(1.0, float(rel.confidence)))
+            edges.append({"cause": ce[0], "effect": ce[1], "relation": rel.label,
+                          "confidence": round(conf, 4),
+                          "sent_cause": (a["si"] if rel.label == RESULT else b["si"]),
+                          "sent_effect": (b["si"] if rel.label == RESULT else a["si"])})
+        sm.inferred_coherence_links = edges
+
+        holder = {}   # lazy single-build cache of the CausalGraph over ONLY the inferred coherence edges
+
+        def _graph():
+            g = holder.get("g")
+            if g is None:
+                from hdlab.causal_reasoner import CausalGraph
+                g = CausalGraph()
+                for e in edges:
+                    g.add_edge(e["cause"], e["effect"], 1, e["confidence"])
+                holder["g"] = g
+            return g
+
+        def coherence_reasoner():
+            return _graph()
+
+        def coherence_graded_necessity(cause, outcome):
+            c, o = _node(cause), _node(outcome)
+            return _graph().graded_necessity(c, o) if (c and o) else 0.0
+
+        def coherence_causal_edges():
+            return list(sm.inferred_coherence_links)
+
+        sm.coherence_reasoner = coherence_reasoner
+        sm.coherence_graded_necessity = coherence_graded_necessity
+        sm.coherence_causal_edges = coherence_causal_edges
+        # the CausalGraph is built LAZILY inside the closures on first invocation -- zero read-time cost / no build.
+
     def _read_natural_logic(self, sm, sents) -> None:
         """Opt-in NATURAL-LOGIC MONOTONICITY dimension (default-on track_natural_logic; wired 2026-09-07 from the
         natural-logic p11 SOLVED). MIRRORS _read_causal_reasoning / _read_temporal_reasoning (the MEANING-channel
@@ -3928,6 +4051,17 @@ class SituationReader:
             # NEW ISLAND -- no downstream consumer today. Abstains cleanly (returns None) on complex/uncovered edits
             # or an absent spoke. The judge reads only the two supplied sentences (mutates NO existing field).
             self._read_natural_logic(sm, sents)
+        if self.track_coherence:
+            # SDRT-lite DISCOURSE-COHERENCE dimension: populate sm.inferred_coherence_links (the RESULT/EXPLANATION
+            # unmarked causal edges inferred cross-sentence from causal-world-knowledge, NOT connectives, via
+            # hdlab.coherence_reader) + bind sm.coherence_reasoner()/coherence_graded_necessity/coherence_causal_edges
+            # over a SEPARATE hdlab.causal_reasoner.CausalGraph. Runs LAST so it reads the FINAL passage. PURE ADD --
+            # sm.causal_links is UNTOUCHED (a separate field the causal reasoner traverses for the unmarked cause-ID);
+            # the connective causal QA never sees the inferred edges. DEFAULT-OFF (track_coherence=False) with a
+            # MEASURED reason (the goal engine is CI-sep net-positive on its 36% category, twin loses, but the
+            # full-population trade-off is only +0.016, not CI-sep; the completing generative world-model is unbuilt).
+            # NO spaCy / NO external LLM. flag-off (the default) = the pre-wire reader (empty field, no callables).
+            self._read_coherence(sm, sents)
         if self.read_polarity:
             # TRUTH-CONDITIONAL POLARITY + QUANTITY dimension: set the ADDITIVE EventRecord fields polarity /
             # polarity_provenance / quantity / quantity_exception via the glass-box hdlab.polarity_operator (event
