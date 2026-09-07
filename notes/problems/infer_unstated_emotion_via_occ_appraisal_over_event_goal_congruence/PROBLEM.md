@@ -1,9 +1,9 @@
 ---
 priority: 3
 slug: infer_unstated_emotion_via_occ_appraisal_over_event_goal_congruence
-status: CANDIDATE
-review:
-review_text:
+status: INTEGRATED
+review: EXCELLENT
+review_text: "INTEGRATED 2026-09-06 (strategy; owner_verdict DONE). Reverified first-hand 9/9 + landing witness 12/12. Landed hdlab/occ_appraisal.py (promoted) + thwart-generalized hdlab/goal_register.track_status (strict superset, 0 regress: goal-dim/goal_hier/ToM identical ON vs OFF) + sm.infer_emotion(char) default-ON additive read-out (fills only unstated affect, never overwrites; existing dims byte-identical) + board_occ_appraisal_dimension arm. LIVE TYPE 0.940 vs 0.440 floor +0.500 CI-sep, prospect subset 1.000 vs provably-0.000, twin 0.220 loses, all on a modern constructed OCC gold. Ceiling correctly located = event<->goal extraction density (rule oracle-invariant 1.000). Committed 2a927deee (code) + notes, NOTHING pushed. Follow-ons: converse/role-filler layer (P2), goal-script KB (P3), intensity organ, and the recommended unified-resolver engine-swap (SOLVED 6b)."
 ---
 
 # PROBLEM: the reader tracks STATED emotion ("she was angry") bound to a coref-resolved experiencer, but it cannot INFER the UNSTATED emotion a competent reader attributes from the SITUATION (a character whose goal is achieved feels satisfaction; a goal thwarted -> frustration/disappointment; a feared prospect confirmed -> fear) -- build the glass-box OCC-appraisal inference that reads a character's unstated emotion off an event appraised against that character's active goals, prove it beats a valence-only / most-frequent-emotion floor CI-separated on a MODERN gold with an info-free twin (shuffled goal<->event binding) LOSING, or a rigorous located negative naming the exact cause.
