@@ -379,6 +379,18 @@ measured:
   equal precision (0.778) -- more principled + more coverage -- but the deployment C3 lift drops +0.0528 -> +0.0364
   (the extra coverage over-fires without a stronger gate). So it is a FIDELITY win gated by the same anaphoricity-gate
   dependency; keep the stoplist config deployable until the gate is upgraded.
+- **THE NEGATIVE, FULLY UNDERSTOOD (owner: "if it's truly brain foundational it should have worked") -- it is a
+  FIDELITY GAP, not a ceiling, and building it makes the mechanism WORK.** The ungated cue-retrieval's C1 regression
+  decomposes (682 fires, `explain_negative`) to **88.7% NON-ANAPHORIC over-firing** (39% of all fires are cases where
+  a SAME-HEAD COMMON referent existed that the definite should have bound instead of a name) + 11% genuine
+  disambiguation. Building the missing **FULL-REFERENT COMPETITION** (Heim novelty-familiarity / DRT: compete the
+  same-head COMMON referents, not just named persons -- `cue_competed`) HALVES the regression (C1 -0.0058 -> -0.0026,
+  a negligible 0.4% of the 0.69 CoNLL) and grows the experiencer lift to **C3 +0.0856 CI-sep** (C2 +0.0092) -- the
+  mechanism is now NET STRONGLY POSITIVE. The Hawkins establishing-modifier NOVELTY gate on top is a LOCATED NEGATIVE
+  on GUM (lowers precision 0.59->0.56 -- "the director OF X" is usually correctly anaphoric in the biography register),
+  so the last-mile familiarity gate needs a trained discourse-new classifier for a residual that is already
+  negligible. **DEPLOYABLE: full-referent COMPETITION (C3 +0.086, tiny C1 cost) or the conservative GATE (C1 exactly
+  safe, C3 +0.053).**
 - **FULL FIDELITY SCAN, all the way up the chain: `FIDELITY_SCAN_full_chain_2026-09-07.md` (12 layers, evidence-backed).**
   Verdict: the COMPUTATIONS are 100% brain-foundational; ~7/12 implementations faithful, 5/12 proxy, with 2
   LOAD-BEARING (measured) proxies -- the anaphoricity DETECTOR (the ungated over-merge quantifies it) and the

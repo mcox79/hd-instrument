@@ -101,6 +101,13 @@ DEPENDS ON is not brain-foundational. I traced the dependency chain and found TW
   on them, and the true residual is a THEMATIC-KNOWLEDGE foundation gap -- a different acquisition, not a license
   tolerance. Net: the principle upgraded the SELECTION (a real brain-foundational win) and correctly re-attributed
   the coercion residual to thematic knowledge.
+- **Two more brain-foundational upgrades TESTED under the principle (owner follow-up).** (i) GENDER as a hard
+  agreement FILTER (Lappin-Leass) = EXACTLY NEUTRAL (0.5815 -> 0.5815): a no-op here because most name candidates
+  lack gazetteer gender and the few gendered-anaphor cases are already resolved by type+recency. (ii) CENTERING
+  grammatical-role (subject) salience = HURTS (-0.0449 CI-sep). Principle applied: the non-brain-foundational
+  dependency is that I used a GLOBAL "ever-appeared-as-subject" flag, whereas Centering (Grosz-Joshi-Weinstein) is
+  LOCAL -- the Cf/Cb ranking of the IMMEDIATELY PRECEDING utterance. Recency already proxies the local center; a
+  proper local-Centering transition model is a bounded larger lever (noted, not built -- likely small over recency).
 
 ## 3. CONTROLS (each EXCLUDES something)
 - **Shuffled-KB info-free twin LOSES** (kb 0.5056 > twin 0.4073, +0.0983 CI-sep) and the **28 KB-unique wins

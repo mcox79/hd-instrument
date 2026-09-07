@@ -34,6 +34,29 @@ the chain is load-bearing:
    instead of gold UD drops coverage 0.156->0.123 and precision 0.96->0.86. The bridge is only as faithful as the
    upstream parse; the parser's statistical scoring (not surprisal/prediction) is the reader-wide ceiling.
 
+## THE NEGATIVE, FULLY UNDERSTOOD (owner: "if it's truly brain foundational it should have worked")
+The C1 regression of the ungated cue-retrieval is a **FIDELITY GAP, not a ceiling** -- decomposed on disk
+(`explain_negative`, 682 fires): **88.7% of the errors are NON-ANAPHORIC over-firing** (the definite's gold entity
+has no prior name -> the brain would ABSTAIN or bind a COMMON referent), and **39% of ALL fires are cases where a
+SAME-HEAD COMMON entity exists** ("a doctor ... the doctor") the definite should have bound instead of a name; only
+11% are genuine same-type disambiguation. So the mechanism is right; two upstream fidelity components the brain has
+are missing:
+1. **FULL-REFERENT COMPETITION (Heim novelty-familiarity; DRT all-referents-compete).** BUILT (`cue_competed`):
+   competing the same-head common referents (not just named persons) HALVED the regression (C1 -0.0058 -> -0.0026)
+   and grew the experiencer lift (C3 +0.0528 -> +0.0856), coverage 0.201 -> 0.325 -- the fidelity-gap hypothesis
+   CONFIRMED (building it makes it work better).
+2. **A NOVELTY/FAMILIARITY DETECTOR (Heim 1982; Hawkins 1978 establishing-modifier; Ng-Cardie discourse-new).**
+   BUILT the Hawkins ESTABLISHING-MODIFIER gate (abstain on a non-predicated definite with a restrictive relcl /
+   post-head PP / superlative-ordinal = first-mention). MEASURED a LOCATED NEGATIVE on GUM: it LOWERED precision
+   (0.59 -> 0.56) -- it abstained on CORRECT binds, because in GUM's BIOGRAPHY register "the director OF X" / "the
+   star OF X" (establishing modifiers) are usually correctly anaphoric. Hawkins' heuristic does not transfer to this
+   register. So the last-mile familiarity gate is NOT a cheap glass-box heuristic; a real discourse-new classifier
+   (Ng-Cardie, trained) would be needed, and the residual C1 cost it would recover is already NEGLIGIBLE (-0.0026 =
+   0.4% of the 0.69 CoNLL). NET: the full-referent competition made the faithful mechanism WORK (net strongly
+   positive: C3 +0.0856, C2 +0.0092, C1 -0.0026 negligible); the negative was a fidelity gap, confirmed + built across.
+   **DEPLOYABLE choice: full-referent COMPETITION (C3 +0.086, tiny C1 cost) if downstream gain is prioritized, or the
+   conservative GATE (C1 -0.0004 exactly safe, C3 +0.053) if clustering purity is prioritized.**
+
 ## Overall verdict
 - **Computations: 100% brain-foundational** (DRT file-change, Centering Cf, ACT-R cue-based retrieval, Heim
   familiarity, Almor descriptive-override, frequency-prior animacy -- every layer's OPERATION is the brain's).
