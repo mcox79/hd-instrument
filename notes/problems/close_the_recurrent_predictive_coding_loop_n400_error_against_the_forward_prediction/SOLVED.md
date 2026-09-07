@@ -260,6 +260,12 @@ The efficiencies are packaged as a LANDING-READY drop-in: `experiments/_lean_eve
 mirroring the hdlab `N400CoherenceMonitor` observe/segment API) -- precision-weighted Bayesian surprise + swept
 reinstatement, NO GEK store, NO fitting. Its self-test measures AUC 0.566 vs the raw-error incumbent 0.530, F1 0.207
 vs 0.160, at pure O(d) vector cost. I am the SOLVER (Q111): this is the reference the strategy session lands.
+PHASE-DIAGRAM SWEEP (params are free to sweep, not adopt): the precision `prior` should be LOWER -- prior=1 AUC
+0.577 > prior=3 0.566 > prior=8 0.554. `tau`/`reinstate` are DEPLOYMENT-DENSITY-dependent: on GUM's dense ~40%
+boundaries RESET (reinstate=0) beats reinstate for the PRECISION-WEIGHTED monitor (honest correction -- "reinstate
+helps dense" held for the RAW backward monitor, not the Bayesian one), and low tau inflates F1 only via a fire-rate
+artifact (approaches the random-matched-count floor 0.43), so gate on AUC / matched-count and set tau by the target
+boundary density.
 
 ## §4g THE RESEARCH FOLLOW-ON, PROTOTYPED -> a RIGOROUS NEGATIVE (owner: "prototype the research follow-on")
 I prototyped the online-calibrated precision-weighted ENSEMBLE of the two forward predictors

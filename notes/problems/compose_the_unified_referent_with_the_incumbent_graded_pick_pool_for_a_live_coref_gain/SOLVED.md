@@ -2,11 +2,11 @@
 problem: compose_the_unified_referent_with_the_incumbent_graded_pick_pool_for_a_live_coref_gain
 status: PARTIAL
 bar: "Beats the LIVE incumbent CI-separated on the MODERN GUM he/she pronoun-pick population (n~1240; the incumbent ~0.503 recomputed on the SAME population + scorer as the hybrid), with (a) the info-free TWIN ... LOSING CI-separated ... (b) NO-regress on NAMED coref ... A rigorous NEGATIVE is a FULL PASS (e.g. 'the hybrid TIES the live incumbent, Delta within CI of 0, because the generic-suppress + agreement-narrow pool already prunes exactly the fragments the unification merges -- the merged cross-type history is redundant with the tuned graded retrieval on this population; the unification value is SUBSUMED by the live pool ... keep hdlab/unified_referent.py correctly DEFAULT-OFF')."
-result: "TWO findings on MODERN gold (GUM V12.1.0, 137-doc TEST, n=1240 he/she anaphoric targets; primary scorer = last-nominal-mention identity, which is size-robust and == the live reader's head_to_cluster on the fragmented arm). (1) LOCATED NEGATIVE (the brief's compose mechanism): the HYBRID (unified pool -> incumbent graded_antecedent_pick + suppression pool) scores 0.4750 vs the LIVE incumbent 0.5032, delta -0.0282 CI[-0.123,+0.056] -- does NOT beat the incumbent; the shuffled-grouping twin LOSES (0.3556, hybrid-twin +0.119 CI-sep, so the merges ARE real signal); ORACLE (perfect gold-cluster unification) also fails (0.4661 vs 0.5032); no ACT-R decay d in {2..6} recovers it. Unification MONOTONICALLY helps the weak isolation scorer (frag 0.3411 -> uni 0.3935 -> oracle 0.4065) but HURTS the strong incumbent scorer (frag 0.5032 -> uni 0.4750 -> oracle 0.4661): the two systems are ANTAGONISTIC on this population, so keep hdlab/unified_referent.py DEFAULT-OFF. (2) LIVE GAIN via a DIFFERENT lever: the brief ASSUMED person-feature exclusion is in the incumbent pool, but graded_coref_pick.phi_agreement_keep is LANDED-but-DORMANT (never called by _graded_pool_pick). Wiring it into the ACTUAL EventCentralityReader lifts the live he/she coref (native head_to_cluster) 0.5032 -> 0.5419, PAIRED doc-bootstrap delta +0.0387 CI[+0.0115,+0.0745] CI-SEPARATED; the random-drop twin (drop the same COUNT at random) LOSES (0.4637, phi-twin +0.0815 CI-sep) so it removes person-feature POLLUTION not pool size; named-antecedent no-regress (it RISES +0.036)."
+result: "TWO findings on MODERN gold (GUM V12.1.0, 137-doc TEST, n=1240 he/she anaphoric targets; primary scorer = last-nominal-mention identity, which is size-robust and == the live reader's head_to_cluster on the fragmented arm). (1) LOCATED NEGATIVE (the brief's compose mechanism): the HYBRID (unified pool -> incumbent graded_antecedent_pick + suppression pool) scores 0.4750 vs the LIVE incumbent 0.5032, delta -0.0282 CI[-0.123,+0.056] -- does NOT beat the incumbent; the shuffled-grouping twin LOSES (0.3556, hybrid-twin +0.119 CI-sep, so the merges ARE real signal); ORACLE (perfect gold-cluster unification) also fails (0.4661 vs 0.5032); no ACT-R decay d in {2..6} recovers it. Unification MONOTONICALLY helps the weak isolation scorer (frag 0.3411 -> uni 0.3935 -> oracle 0.4065) but HURTS the strong incumbent scorer (frag 0.5032 -> uni 0.4750 -> oracle 0.4661): the two systems are ANTAGONISTIC on this population, so keep hdlab/unified_referent.py DEFAULT-OFF. (2) LIVE GAIN via a DIFFERENT lever: the brief ASSUMED person-feature exclusion is in the incumbent pool, but graded_coref_pick.phi_agreement_keep is LANDED-but-DORMANT (never called by _graded_pool_pick). Wiring it into the ACTUAL EventCentralityReader lifts the live he/she coref (native head_to_cluster) 0.5032 -> 0.5419, PAIRED doc-bootstrap delta +0.0387 CI[+0.0115,+0.0745] CI-SEPARATED; the random-drop twin (drop the same COUNT at random) LOSES (0.4637, phi-twin +0.0815 CI-sep) so it removes person-feature POLLUTION not pool size; named-antecedent no-regress (it RISES +0.036). (3) DEEPENED to a CUMULATIVE STACK of THREE stacking brain-foundational fixes: phi + agreement-narrow-on-`him` (+0.013) + soften-generic-suppress (drop the never-subject STRUCT proxy, +0.027) = LIVE incumbent 0.5032 -> 0.5855, +0.0823 CI[+0.066,+0.098] CI-SEP, a 16% relative lift, all recall-safe/register-fidelity, no new organ. (4) A glass-box GENDER ORGAN (name gazetteer + role lexicon + morphology) MATCHES a discovered gold-gender leak (+0.003, 100% agreement where both fire) so the whole stack runs with NO gold at inference; CAP = gender is ~6%-sparse on modern nominals. (5) CLOSE-OUT: the full-stack residual is the genuine glass-box floor -- 67% of reachable mispicks are same-gender ambiguity, the topicality cue is not a lever (dev picks the baseline weight), so no cue/organ lever remains (the rest is world-knowledge / coherence, both barred / owner-DONE-dead)."
 floor: "The strongest floor actually run, recomputed on the SAME he/she GUM TEST population + the SAME primary scorer as each comparison: for the compose question, the LIVE incumbent = 0.5032 (native head_to_cluster; identical under the size-robust last-nominal scorer since the incumbent pool is fragmented); the hybrid does NOT clear it. Info-free floors: shuffled-grouping twin 0.3556, fragmented-x-isolation 0.3411. For the phi live-gain, the floor is the same LIVE incumbent 0.5032; phi clears it +0.0387 CI-sep. Perfect-unification ceiling under the incumbent scorer = oracle 0.4661 (BELOW the incumbent -- subsumption)."
 controls: "COMPOSE negative: (1) pool x scorer 2x2 on ONE population, identical scorer machinery per cell -- isolates the pool-representation factor; (2) info-free TWIN = shuffled unified grouping (same #entities + size shape), LOSES CI-sep -> the grouping is load-bearing, the negative is subsumption not 'any re-keying'; (3) ORACLE = perfect gold-cluster unification fed to the incumbent scorer -> STILL loses -> the ceiling is SUBSUMPTION, not clustering quality (excludes 'better upstream clustering would fix it'); (4) phase-diagram d-sweep {2.0..6.0} dev-tuned/test-reported -> no decay recovers (excludes 'a tuning gap'); (5) NO-regress named subset; (6) POSITIVE control on the fragmented-protagonist subset (name variants that split the surface-head pool) -> hybrid still does NOT beat the incumbent there. PHI gain: (7) random-drop info-free twin (same drop COUNT, random which) LOSES CI-sep -> pollution-removal not pool-shrink; (8) named-antecedent no-regress (RISES); (9) the gain reproduces on the ACTUAL EventCentralityReader (native scorer), not only the reimplementation. FAITHFULNESS: the 2x2 arms reproduce the live substrate EXACTLY -- fragmented x incumbent == real EventCentralityReader (0.5342 slice / 0.5032 full, byte-exact) and unified x isolation == real resolve_unified_stream (0.4868 slice)."
-files_changed: "experiments/exp_hybrid_unified_incumbent_coref_gum_v1.py, experiments/exp_person_feature_coref_optimize_gum_v1.py, experiments/exp_coref_ceiling_drill_gum_v1.py, experiments/exp_coref_gender_suppress_gum_v1.py, experiments/exp_gender_organ_gum_v1.py, verification/test_hybrid_unified_incumbent_coref.py, verification/test_person_feature_coref_optimize.py, verification/test_coref_ceiling_drill.py, verification/test_coref_gender_suppress.py, verification/test_gender_organ.py, notes/problems/compose_the_unified_referent_with_the_incumbent_graded_pick_pool_for_a_live_coref_gain/SOLVED.md. NO hdlab/ writes (Q111 -- proposed wires stated below). Reuses data/corpora/gum/ (already on disk, pinned V12.1.0)."
-reverify: ".venv/Scripts/python.exe verification/test_hybrid_unified_incumbent_coref.py (11/11)  AND  test_person_feature_coref_optimize.py (6/6)  AND  test_coref_ceiling_drill.py (6/6)  AND  test_coref_gender_suppress.py (6/6; the CUMULATIVE +0.082 upgrade ladder)  AND  test_gender_organ.py (6/6; the glass-box gender organ removes the gold-gender leak with no loss)"
+files_changed: "experiments/exp_hybrid_unified_incumbent_coref_gum_v1.py, experiments/exp_person_feature_coref_optimize_gum_v1.py, experiments/exp_coref_ceiling_drill_gum_v1.py, experiments/exp_coref_gender_suppress_gum_v1.py, experiments/exp_gender_organ_gum_v1.py, experiments/exp_coref_closeout_drill_gum_v1.py, verification/test_hybrid_unified_incumbent_coref.py, verification/test_person_feature_coref_optimize.py, verification/test_coref_ceiling_drill.py, verification/test_coref_gender_suppress.py, verification/test_gender_organ.py, verification/test_coref_closeout_drill.py, notes/problems/compose_the_unified_referent_with_the_incumbent_graded_pick_pool_for_a_live_coref_gain/SOLVED.md. NO hdlab/ writes (Q111 -- proposed wires stated below). Reuses data/corpora/gum/ (already on disk, pinned V12.1.0)."
+reverify: ".venv/Scripts/python.exe verification/test_hybrid_unified_incumbent_coref.py (11/11)  AND  test_person_feature_coref_optimize.py (6/6)  AND  test_coref_ceiling_drill.py (6/6)  AND  test_coref_gender_suppress.py (6/6; the CUMULATIVE +0.082 upgrade ladder)  AND  test_gender_organ.py (6/6; the glass-box gender organ removes the gold-gender leak with no loss)  AND  test_coref_closeout_drill.py (4/4; the full-stack residual is the genuine glass-box floor -- no cue lever left)"
 ---
 
 # SOLVED (PARTIAL) -- compose the unified referent with the incumbent graded-pick pool
@@ -224,6 +224,20 @@ replace it.
   margin gate)** -- confirming the strengthen-SOLVED finding: the graded pick is not confident enough often enough
   for propagating its (35-40%-wrong) gender onto the entity to be net-positive. Do NOT wire propagation.
 
+## Finding 6 -- the CLOSE-OUT: the residual is the genuine glass-box floor (levers exhausted)
+`exp_coref_closeout_drill_gum_v1.py` (witness `test_coref_closeout_drill.py` **4/4**) re-decomposes the residual
+on the FULL stack (0.5887, no gold) and drills the reachable-but-mispicked core to decide: last cue lever, or
+floor? Of 510 misses, only 167 have the gold in the final pool; of those, **67% are genuine SAME-GENDER
+AMBIGUITY** (>=2 same-gender candidates -- glass-box cues underdetermine), 11% a recency/topicality tension, 22%
+other. **The topicality cue is NOT a lever:** dev-sweeping the subjecthood/Cf weight picks the BASELINE value
+(0.25), delta +0.0000 -- upweighting it does not convert the recency-trap cases without regressing the
+recency-correct ones. VERDICT: **the residual is the genuine glass-box floor.** The two components of it are
+(a) genderless/gender-unknown antecedents the hard narrow removes, which no glass-box gender source can recover
+(gender is ~6%-sparse) and soft agreement floods, and (b) same-gender ambiguity in the pick that only
+world-knowledge or a coherence next-mention prior could break -- both BARRED (no-LLM) / owner-DONE-dead x2. So
+every wall on this problem is now drilled to EITHER a shipped fix (the +0.082 stack + gold-leak removal) OR the
+genuine floor; there is no remaining cue-tuning or organ lever on modern GUM he/she coref.
+
 ## PROPOSED hdlab WIRES (Q111 -- STRATEGY lands them; solver is scope-barred from hdlab/)
 > I cannot land these. Reference implementations: `exp_hybrid_unified_incumbent_coref_gum_v1.py`
 > (`resolve_arm`, the `_PhiReader` subclass in `real_reader_phi_gain`).
@@ -350,27 +364,34 @@ because the strong guesser already throws out the obvious wrong candidates and r
 which merging actually blurs. So the shared-record idea, which helps a weaker guesser, is redundant with (and slightly
 fights) the strong one here -- the shelved feature stays correctly turned off. **But we found a real win a different way:**
 the reader was supposed to ignore the speaker ("I"/"we") when resolving "he"/"she", and a piece that does exactly that was
-already built but never plugged in. Plugging it in makes the live guess clearly better (about 50 -> 54 right in 100, a
-clean gap a scrambled control can't fake, and it never hurts named characters) -- especially on modern first-person-heavy
-text like interviews and forums. That is a one-function change for the other session to land.
+already built but never plugged in. Plugging that in -- plus two more small brain-faithful fixes (apply the same
+gender-agreement check to "him", and stop over-filtering ordinary nouns like "the woman") -- takes the live guess from
+about **50 to 59 right in 100** (a clean, controlled 16% jump that a scrambled version can't fake and that never hurts
+named characters). It helps most on modern first-person-heavy text (interviews, forums). I also built a small glass-box
+"gender guesser" that lets the whole thing run WITHOUT peeking at any answer key, and I chased the leftover mistakes to
+the bottom: they are genuine ambiguities ("two men in the room, which one is 'he'?") that need outside world-knowledge our
+no-outside-AI rule forbids -- so this is the honest ceiling. All of it is a handful of one-line changes for the other
+session to land.
 
 **QUESTIONS:** none blocking. One judgement call: the filed problem is about the shared-record composition (a located
 negative); the actual live gain comes from a *different* dormant piece (the speaker filter). If you want that landed under
 its own problem slug rather than this one, say so -- the measurement and proposed wire are ready either way.
 
-**NEXT STEPS:**
-1. Strategy lands the **person-feature filter** into `hdlab/event_centrality_coref._graded_pool_pick` (pool pre-filter,
-   recall-safe, default-ON) and re-verifies the +0.039 live gain + named no-regress on the board.
-2. Keep `hdlab/unified_referent.py` **DEFAULT-OFF**; do NOT add a hybrid path (measured located negative + oracle
-   control). Fold the mechanistic reason into the audit.
-3. Land the **FULL STACK together** (all three CI-sep, brain-foundational, recall-safe): phi + agreement-narrow
-   on `him` + soften generic-suppress (use_struct=False). Cumulative **0.5032 -> 0.5855, +0.082 CI-sep** on modern
-   GUM he/she -- a 16% relative lift with no new organ.
-4. **GENDER ORGAN -- PROTOTYPED (Finding 5), land it as a FIDELITY fix.** The glass-box organ (name gazetteer +
-   role lexicon + morphology) MATCHES the gold-gender leak with no loss, so the whole stack goes no-gold. It is
-   NOT a big accuracy lever because gender is ~6%-sparse on modern nominals (the cap), and coreferent propagation
-   is a located negative. So the agreement-narrow's genderless-common-noun over-removal is NOT gender-fixable --
-   the remaining lever there is a better graded-agreement PICK cue (strengthen-SOLVED measured it marginal), i.e.
-   the residual is genuine same-gender/genderless ambiguity, not a missing organ.
-5. Revisit the **non-coref consumers** (entity-KB hard-link, affect-experiencer, the situation-model entity layer) to draw
-   on the unified referent -- that is where the +0.052-to-+0.106 unification lever actually lives, not the tuned he/she pick.
+**NEXT STEPS (priority-ordered; strategy lands, Q111):**
+1. 🎯 **HIGH -- LAND THE FULL STACK as one default-ON change** in `hdlab/event_centrality_coref` (all three fixes are
+   CI-sep, brain-foundational, recall-safe, additive): (a) `phi_agreement_keep` pool pre-filter in `_graded_pool_pick`
+   (wire 1); (b) `_agreement_narrow` on `him` (wire 1b); (c) `GenericDistractorFilter(..., use_struct=False)` (wire 1c).
+   Cumulative **0.5032 -> 0.5855, +0.082 CI-sep** on modern GUM he/she (16% relative). Re-verify the four witnesses +
+   named no-regress on the live board. This is THE deliverable.
+2. 🎯 **HIGH -- KEEP `hdlab/unified_referent.py` DEFAULT-OFF** (do NOT add a hybrid path): measured located negative,
+   subsumption confirmed by the oracle + d-sweep. Fold the mechanistic reason into `BRAIN_FOUNDATIONAL_AUDIT.md` sec 2b.
+3. **MEDIUM -- replace the gold-gender leak with the glass-box GENDER ORGAN** (wire 1d): a fidelity/invariant win
+   (matches gold, makes the stack no-gold-at-inference), NOT an accuracy lever (gender is ~6%-sparse). Do NOT wire
+   coreferent gender propagation (measured net-negative).
+4. **FOLLOW-ON PROBLEM (the next lever is a DIFFERENT problem, not this one):** the unified referent's real home is the
+   **non-coref consumers** (entity-KB hard-link, affect-experiencer, situation-model entity layer) -- unification helps the
+   weak scorer (+0.052) and the intrinsic pronoun pick (+0.106) there, not the tuned he/she pick. File a problem to route
+   those consumers to the unified referent.
+5. **DO-NOT-REOPEN:** the he/she coref residual is the genuine glass-box floor (same-gender ambiguity + genderless
+   antecedents). Its only remaining levers are world-knowledge / a coherence next-mention prior -- both no-LLM-barred /
+   owner-DONE-dead x2. That is the priority-1 individuation North Star, a separate program, not a knob on this problem.

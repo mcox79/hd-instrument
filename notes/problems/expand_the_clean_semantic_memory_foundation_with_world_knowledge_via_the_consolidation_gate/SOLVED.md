@@ -223,6 +223,15 @@ directed (the strongest case) and have modern on-disk instruments.
   covered, else the existing hub/mfnd read. Default-OFF until the strategy session measures the live-board impact
   and turns it on (per the no-more-default-off rule: measure the consumer's live metric, flip on if net-positive).
 - NO change to C1 (meaning_sense_signatures_v1.npz) -- spokes are additive; WSD is untouched.
+- STORE-ORGANIZATION PRINCIPLE (earned by drilling the gate wall; a design upgrade): organize each typed spoke by
+  whether its relation is TRANSITIVELY CLOSED. is-a (C5) is a CLOSURE store -- do NOT edge-filter it (pruning any
+  clean edge disconnects its ancestors, which broke the gated closure to 0.52); admit by provenance + resolution
+  and recompute the closure, using schema-margin only to REJECT wrong edges before closure (edge-level, AUC 0.94 /
+  100% wrong-filtered). part-whole/instrument (C6) is a NON-closure typed lookup -- edge-filter freely (no chain to
+  break). The gate's ROLE is thus store-type-dependent: schema-margin filtering for non-closure stores; provenance +
+  reject-then-close for closure stores. (Consumers that query SPECIFIC pairs, e.g. is-a->MoNLI, are robust to
+  scattered KB noise; consumers that AGGREGATE, e.g. confusable bridging, are not -- calibrate the gate to the
+  consumer, not globally.)
 - REVISIT downstream consumers to read the new spokes (brain-foundational upgrade): `coref.py`/`commonnoun_binder.py`
   should read C5 (is-a) + C6 (part-whole) as a type-licensing FILTER on recency-ranked candidates (DEMONSTRATED here:
   +0.0116 over recency CI-sep on GUM; recency stays the primary SELECTOR -- do NOT use the spoke to select);
@@ -282,6 +291,17 @@ walls (PINNED-limit vs fidelity-gap) is in flight and will be folded in.
   taxonomic re-ranking 0.6956 < binary 0.6998 (recency must SELECT, type only LICENSES); ConceptNet-BROADENED
   licensing 0.6988 (-0.0011 CI incl 0). The recency-primary binary-license is at its KNEE. (Reproducible:
   optimization_report().)
+- WALL (FULLY DRILLED): the GATE's consumer-level "raw admission regresses" guard for is-a. I injected 50%
+  adversarial wrong is-a edges over the MoNLI vocabulary and measured the consumer: clean 0.8174, RAW-NOISY 0.8186
+  (NO regression -- the consumer is ROBUST: scattered wrong edges rarely hit the specific pairs queried), and the
+  schema-margin gate FILTERS 100% of the wrong edges at the edge level -- but applying that edge-filter to a
+  TRANSITIVE CLOSURE BREAKS it (0.5215; pruning any clean edge disconnects its ancestors). MECHANISM/CONCLUSION:
+  the brief's "raw regresses at the consumer" guard genuinely does NOT hold for is-a->MoNLI (robust consumer); the
+  gate's value is EDGE-LEVEL (AUC 0.94 / 100% wrong-filtered), NOT consumer-level; and a transitive-closure store
+  must NOT edge-filter (filter, then keep the closure of the HIGH-CONFIDENCE + provenance edges). So the is-a
+  load-bearing consumer control is the INFO-FREE shuffled-graph twin (which loses), not a raw-noisy regression --
+  and this is exactly why the earlier gated-closure demo "backfired": a property (closure fragility + consumer
+  robustness), not a bug. (Reproducible: gate_consumer_robustness() in the is-a cell.)
 - REMAINING HEADROOM (needs a new KB, not on disk): name_bridge coref (common noun -> PROPER NAME, ~10%) needs an
   entity-type KB (Wikidata P31 / DBpedia InstanceOf). That is the next FOUNDATION acquisition, not a prototype.
 
