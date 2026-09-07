@@ -363,19 +363,23 @@ hard — I found the reason: the reader judges word meaning by which words tend 
 two meanings of "building" look 93% identical (both live around construction talk). The brain instead judges by what you
 do and see (an action vs a solid visible thing), where they clearly differ — but I tested feeding the reader that
 grounded view and, at scale, it did NOT help, because deciding which meaning applies is really a matter of grammar (what
-the surrounding verb expects), not word-similarity in any view. So the real fix is a grammar/role-based judge, not a
-different word representation. The improvement can be switched on more safely than before (keeps ~78-92% of the timeline
-gain), but it is a solid step, not a finished job.
+the surrounding verb expects), not word-similarity in any view. I even added the strongest cue the brain uses — how
+COMMON each meaning is — and it still didn't win. **The decisive discovery came from testing the thing that actually
+matters: does any of this change the reader's timeline ANSWERS? It does not — in fact every version of the "be pickier"
+gate makes the reader answer FEWER questions right, because it removes useful events, and the reader was already robust
+to the occasional wrong one.** So the honest conclusion flips the original plan: the biggest timeline improvement should
+simply be switched ON as-is; the "it's too imprecise" worry was an artifact of how we were scoring, not a real cost to
+the reader. The gate was a well-built answer to the wrong question.
 
-**QUESTIONS:** none — but one decision is the owner's: whether to accept the operating-point framing (the gate improves
-the precision/survival tradeoff and is safe to default-on at the permissive knee) as SOLVED, or to hold at PARTIAL until
-the end-to-end reasoner accuracy under gated-vs-ungated is measured (Sec 4d).
+**QUESTIONS:** one decision is the owner's — the label. The brief's mechanism (a WSD gate to make the channel
+default-on-safe) is REFUTED end-to-end, and the real goal is met a different way (default-ON UNGATED). That is a
+first-class REFUTED-and-resolved outcome; I left the frontmatter at PARTIAL (a rigorously-built gate + a decisive
+refutation + the resolution) but REFUTED is defensible. Your call.
 
-**NEXT STEPS:** (1) strategy lands the additive gate hook (Sec 7) and measures end-to-end reasoner accuracy gated vs
-ungated to set theta and the default-on decision; (2) THE highest-leverage follow-on (Sec 4e/8): a WELL-POWERED
-selectional-preference / thematic-fit organ (from a large parsed corpus or `generalized_event_knowledge`) + the
-morphosyntactic aspectual cues + a non-verb-governor cue — the mechanism is right and built (`_selectional_preference.py`)
-but data-starved (GUM 0.44 coverage, ties the hand list); this is a candidate NEW problem, NOT a representation swap
-(grounded refuted) and NOT a neural model; (3) parser UAS 0.79 caps governor extraction (Sec 4e); (4) the
-trigger-vs-named-reference distinction (Sec 4b) and (5) the w2v-collinearity finding (cos 0.93) feeding the
-`break_the_contextual_input_encoding_ceiling...` fork for OTHER sortal distinctions are candidate follow-ons.
+**NEXT STEPS:** (1) **flip `joint_nominal_events` DEFAULT-ON UNGATED** (strategy; the decisive change — the channel is
+already the downstream winner, 87% of ceiling, cond-acc not degraded) and do NOT wire the gate; (2) confirm the
+end-to-end result on MAVEN (cheap follow-on); (3) the WSD gate + `_nominal_wsd_gate.py` are retired for the temporal
+reasoner but kept for any future consumer that weights extraction precision over coverage; (4) still-live upstream
+problems this drilling LOCATED, independent of the gate: a well-powered selectional-preference / thematic-fit organ
+(Sec 4e), parser UAS 0.79 (Sec 4e), the trigger-vs-named-reference discourse organ (Sec 4b), and the grounded
+representation for OTHER sortal distinctions (Sec 4c) — candidate NEW problems.
