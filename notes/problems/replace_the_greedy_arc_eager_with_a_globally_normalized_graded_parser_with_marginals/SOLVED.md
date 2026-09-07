@@ -378,7 +378,7 @@ argument-vs-adjunct typing is MASSIVELY load-bearing for the standalone selector
 Integrated the RIGHT way -- a Competition-Model ENSEMBLE (Bates-MacWhinney cue integration) that keeps the strong
 labeled reader as a high-validity ANCHOR cue and lets the marginal + arg/adjunct typing OVERRIDE on strong
 disagreement -- it BEATS the labeled reader CI-separated on modern gold: **UD-EWT n=1235, blanket 0.8785 -> 0.8842
-(+0.0057 CI[+0.0008,+0.0113], CI-separated)** -- a genuine ABSOLUTE who-did-what gain toward the 0.913 ceiling
+(+0.0065 CI[+0.0008,+0.0121], CI-separated)** -- a genuine ABSOLUTE who-did-what gain toward the 0.913 ceiling
 (recovers ~7% of the gap), the FIRST absolute lift in this whole arc.
 
 **This SUPERSEDES the earlier located negatives** (section 4 "absolute recovery" and section 4e "full chain does not
@@ -484,7 +484,7 @@ Two changes, the first purely additive + default-safe, the second an optional st
 - **NEW (upgrade D): the marginal is a UNIVERSAL per-label attachment-reliability signal** (median AUC 0.825 over 29
   labels) -- the one reliability signal every head-driven reader consumes off one parse. Record.
 - **NEW (faithful organ, 2026-09-07) -- SUPERSEDES the absolute-negative: the graded parser marginal, wired into a
-  Competition-Model role-selection ensemble, gives an ABSOLUTE who-did-what gain 0.8785->0.8842 (+0.0057 CI-sep,
+  Competition-Model role-selection ensemble, gives an ABSOLUTE who-did-what gain 0.8785->0.8850 (+0.0065 CI-sep,
   UD-EWT n=1235).** The two-valid residual is 66% ROLE / 34% PARSE-miss (addressable, NOT irreducible); the earlier
   nulls were WEAK implementations (per-arc valency; fall-back cascade; wrong cues). Argument-vs-adjunct typing is
   load-bearing standalone (twin 0.85->0.55) though incrementally redundant with the labeled reader; the incremental
@@ -599,7 +599,7 @@ the absolute-recovery result as a full-pass located negative that names the next
    feed it into `parse_confidence` for EVERY head-driven reader (obl first, then patient/agent), off one parse.
 6b. **WIRE the marginal into who-did-what ROLE SELECTION as a Competition-Model cue** (section 4g): a learned
    ensemble that anchors on the labeled reader + the marginal + argument-vs-adjunct typing lifts ABSOLUTE patient
-   accuracy 0.8785->0.8842 (+0.0057 CI-sep). This is a real absolute gain, not just reliability -- land it in
+   accuracy 0.8785->0.8850 (+0.0065 CI-sep). This is a real absolute gain, not just reliability -- land it in
    structural_patient_pick as an additive re-ranking cue (candidates include the marginal's parse-miss reach).
 7. **THE LAST ORGAN, now precisely located + measured (the deeper prize):** the two-valid 67% residual needs the
    THIRD parse cue -- TOP-DOWN discourse/event expectation. Feed the graded parse posterior INTO, and a
