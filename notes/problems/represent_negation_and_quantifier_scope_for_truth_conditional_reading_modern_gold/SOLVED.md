@@ -148,12 +148,23 @@ the headline (they clear the bar) and name the noise items rather than quietly e
   is a construction-faithfulness proof, not free-narrative robustness. The MED companion (naturalistic,
   CI-sep +0.65 on the downward subset) is the honest well-powered check; **withdraw the 1.0000 headline first**
   if pressed, and stand on MED + the EWT negation headline.
-- MED coverage is **0.490** (the operator decides clean subset-diff / single-lex-replacement edits; conjunctions,
-  conditionals, NPIs, multi-word edits are out of the glass-box operator's scope — stated, not hidden). On the
-  UPWARD subset operator == blind (0.4258) — the operator adds nothing where the quantifier is trivial; its value
-  is concentrated on the DOWNWARD subset, which is the point.
+- MED base coverage was **0.490** → **0.704** after upgrade B (NPI/negation-licensing). NPIs are now handled;
+  conjunctions, conditionals, and multi-word edits remain out of the glass-box operator's scope (the same
+  monotonicity calculus extends to them — a named foundation follow-on, not a hidden gap).
+- **CORRECTED (drilled, was a hand-wave): the base "UPWARD 0.4258" was NOT "the operator adds nothing" — it was
+  NEGATION CONTAMINATION.** 889 of 2076 base-"upward" items actually contain a negation licensor (secretly
+  downward); the determiner-only base mislabelled them upward (acc 0.110), and upgrade B recovers them (0.890).
+  The genuinely-upward residual is **0.662**, bounded by the crude token-subset edit-direction detector (GEN vs
+  SPEC) — a named residual, not the monotonicity operator. I was wrong to call it "edit-noise"; diagnosing it
+  showed the base arm was incomplete, exactly what upgrade B fixes.
+- **Quantifier-QUANTIFIER scope ambiguity** ("every student read a book" — ∀∃ vs ∃∀) is NOT addressed. Reading the
+  brief, its "scope" = the quantifier scoping over ITS argument set (cardinality: some/all/none/every-but-X),
+  which IS built; the ∀∃ inverse-scope ambiguity is a distinct, deeper phenomenon the brief does not ask for
+  (brain: surface-scope-first preference + plausibility, Kurtzman & MacDonald 1993). An honest adjacent gap.
+- **Double negation / negative concord** ("didn't do nothing") is not modelled beyond single negation + a
+  post-verbal neg-quant object; an adjacent capability, out of the single-negation bar.
 - The operator depends on the reader recovering the predicate (EWT align_fail 1/132; quantifier verb-extraction
-  1.0) and, for the hardest coordination/relative-clause cases, on a labelled parse — the upstream lever below.
+  1.0); the parser-attachment residual is characterised below.
 
 ## KEY REALIZATIONS (the enabling moves)
 
