@@ -138,6 +138,11 @@ def _informational_19c_crossref():
 #   negation_quantifier    -- truth-conditional p9 (UD-EWT negation net-factuality + MED downward-monotone
 #                             quantifier; MODERN): the landed read_polarity field scored vs the polarity/quantity-
 #                             blind floor (which INVERTS under negation) + the info-free shuffled-cue twin.
+#   coref_via_reader       -- p12 coref stack (GUM he/she; MODERN): the LIVE EventCentralityReader pronoun pick
+#                             with the phi_person_filter/narrow_him/soften_generic_suppress wires ON (~0.5855) vs
+#                             the flag-OFF incumbent (~0.5032) + the info-free shuffled-identity twin -- the
+#                             +0.082 CI-sep gain the board's URG-resolver `coref` tile does NOT show (a DIFFERENT
+#                             resolver). Reuses verification/test_coref_stack_landing's W1 measurement verbatim.
 # ==================================================================================================
 def _degraded(name, err, informational=False):
     """A schema-shaped row for an arm whose asset/runtime is unavailable (degrade-gracefully, like
@@ -752,6 +757,102 @@ def board_negation_quantifier_dimension(seed=SEED):
                          "exp_quantifier_operator_med_v1 verbatim."}
 
 
+def board_coref_via_reader_dimension(n_docs=None, seed=13, n_boot=2000):
+    """COREF-VIA-READER board arm on MODERN GUM he/she (n~1240): the LIVE EventCentralityReader pronoun pick
+    with the p12 coref STACK flags ON (phi_person_filter + narrow_him + soften_generic_suppress) vs the
+    flag-OFF incumbent -- the +0.0823 CI-sep gain that is board-INVISIBLE today because the modern-board `coref`
+    tile is computed by a DIFFERENT resolver (URG.Resolver, the unified-referent pronoun pick, +0.106). This arm
+    scores the DEPLOYED reader's OWN he/she-pick stack directly, so the landed +0.082 (0.5032 -> 0.5855) shows.
+
+    Reuses verification/test_coref_stack_landing's W1 measurement VERBATIM (same GUM loaders, TEST=odd split,
+    the module's _score/_acc/_doc_paired_boot, the FULL flag dict, _KW): model = full-stack reader (all three
+    wires ON, ~0.5855), strongest floor = the flag-OFF incumbent reader (~0.5032, byte-identical to the
+    pre-landing default -- witness W3), doc-paired bootstrap CI (seed=13, n_boot=2000 -> reproduces W1's CI
+    exactly). ADDS the info-free shuffled-identity twin (within-doc permutation of the full reader's cluster
+    picks, re-scored vs gold -- must LOSE). Kept OUT of the 19c-free headline aggregate (its own row). OFF in
+    the board self-test. Degrades gracefully (GUM gold absent -> a schema-shaped degraded row + report).
+    MODERN (GUM, Zeldes 2017)."""
+    try:
+        import random as _random
+        import experiments.gum_coref as G
+        from experiments.exp_name_entity_clustering_v1 import load_given_gazetteer
+        from experiments.exp_hybrid_unified_incumbent_coref_gum_v1 import gum_to_live, _named_clusters
+        from hdlab.coref import build_pronoun_targets
+        from hdlab.event_centrality_coref import EventCentralityReader
+        from verification.test_coref_stack_landing import _score, _acc, _doc_paired_boot, FULL, _KW
+
+        gaz = load_given_gazetteer()
+        docs = G.load_docs(gum_only=True, limit=n_docs, name_gazetteer=gaz)
+        test = [d for i, d in enumerate(docs) if i % 2 == 1]
+        if not test:
+            return _degraded("coref_via_reader", "no GUM test docs on disk (gum_only load empty)"), {
+                "error": "GUM gold absent -> degraded row (REPORT: gum_coref.load_docs returned no docs)"}
+
+        incumbent = EventCentralityReader(graded_pick=True)              # p12 wire flags default OFF -> the floor
+        full = EventCentralityReader(graded_pick=True, **FULL)           # all three p12 wires ON -> the model
+
+        p_inc = _score(incumbent, test)                                 # strongest floor (flag-OFF incumbent)
+        # ONE full-reader pass: p_full (the SAME loop as _score, deterministic reader -> identical rows) plus the
+        # captured gold_cluster per target, so the info-free twin re-scores without a second full-reader pass.
+        p_full, gold_rows = [], []
+        for d in test:
+            ms = gum_to_live(d)
+            tg = build_pronoun_targets(ms)
+            sid = [0] * (max((m["sent_idx"] for m in ms), default=0) + 1)
+            recs = full.resolve_stream(ms, tg, scene_ids=sid, **_KW)
+            named = _named_clusters(ms)
+            p_full.append([(bool(r["correct"]), r["gold_cluster"] in named, r["resolved_cluster"]) for r in recs])
+            gold_rows.append([(r["gold_cluster"], r["gold_cluster"] in named, r["resolved_cluster"]) for r in recs])
+        # info-free shuffled-identity twin: within-doc permutation of the reader's picks, re-scored vs gold. The
+        # per-target signal (which cluster THIS pronoun picks) is destroyed; the pick marginal is preserved.
+        rng = _random.Random(seed)
+        p_twin = []
+        for rows in gold_rows:
+            picks = [rc for (_g, _isn, rc) in rows]
+            perm = picks[:]; rng.shuffle(perm)
+            p_twin.append([(bool(perm[i] is not None and perm[i] == rows[i][0]), rows[i][1], perm[i])
+                           for i in range(len(rows))])
+
+        a_inc, n = _acc(p_inc)
+        a_full, _ = _acc(p_full)
+        a_twin, _ = _acc(p_twin)
+        lo, hi = _doc_paired_boot(p_inc, p_full, seed=seed, n_boot=n_boot)     # full - incumbent (witness W1 CI)
+        lot, hit = _doc_paired_boot(p_twin, p_full, seed=seed, n_boot=n_boot)  # full - twin (info-free control)
+        row = {
+            "n": n, "model_acc": round(a_full, 4),
+            "overlap_floor": round(a_inc, 4),
+            "floor_accs": {"flag_off_incumbent_reader": round(a_inc, 4)},
+            "strongest_floor_name": "flag_off_incumbent_reader", "strongest_floor": round(a_inc, 4),
+            "twin_acc": round(a_twin, 4),
+            "model_minus_strongest": [round(a_full - a_inc, 4), round(lo, 4), round(hi, 4)],
+            "model_minus_twin": [round(a_full - a_twin, 4), round(lot, 4), round(hit, 4)],
+            "ci_sep_over_strongest": bool(lo > 0),
+            "ci_sep_over_twin": bool(lot > 0),
+            "population": "GUM TEST he/she pronoun pick through the LIVE hdlab.event_centrality_coref."
+                          "EventCentralityReader (native head_to_cluster scorer, n=%d); model=full p12 coref "
+                          "stack (phi_person_filter + narrow_him + soften_generic_suppress ON), floor=flag-OFF "
+                          "incumbent reader (byte-identical to the pre-landing default, witness W3), twin=info-"
+                          "free shuffled-identity (within-doc permutation of the picks, re-scored vs gold). "
+                          "Doc-paired bootstrap CI (verification/test_coref_stack_landing, seed=%d, n_boot=%d). "
+                          "MODERN (GUM, Zeldes 2017)." % (n, seed, n_boot),
+        }
+        detail = {"note": "the p12 coref-stack gain (compose_the_unified_referent_with_the_incumbent_graded_pick_"
+                          "pool_for_a_live_coref_gain, owner-DONE) wired LIVE into EventCentralityReader "
+                          "(SituationReader turns all three wires ON by default). BOARD-INVISIBLE until now: the "
+                          "modern-board `coref` tile is scored by a DIFFERENT resolver (the URG unified-referent "
+                          "pronoun pick, +0.106), so the deployed reader's OWN he/she stack gain never showed. "
+                          "This arm scores it directly (model %.4f vs flag-off floor %.4f = %+.4f, doc-paired "
+                          "bootstrap CI[%.4f,%.4f]; info-free twin %.4f loses). Reuses verification/"
+                          "test_coref_stack_landing's W1 measurement verbatim (same loaders, _score/_acc/"
+                          "_doc_paired_boot, FULL flags); adds the shuffled-identity twin. 'live != scored' -- the "
+                          "board-invisible-proven-win-needs-its-own-instrument-arm case."
+                          % (row["model_acc"], row["strongest_floor"], row["model_minus_strongest"][0],
+                             lo, hi, row["twin_acc"])}
+        return row, detail
+    except Exception as e:
+        return _degraded("coref_via_reader", e), {"error": "%s: %s" % (type(e).__name__, e)}
+
+
 def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True):
     """Assemble every MODERN per_dimension row. caps = dict of per-arm caps for a fast self-test.
     run_new_arms adds the 3 board-invisible-win arms (coarse-sense/selective-reliability/causal-multihop) as
@@ -825,6 +926,8 @@ def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True
         new_arms["temporal_survival"] = ts_row; new_arms_detail["temporal_survival"] = ts_det
         nq_rows, nq_det = board_negation_quantifier_dimension(seed=seed)
         new_arms["negation_quantifier"] = nq_rows; new_arms_detail["negation_quantifier"] = nq_det
+        cvr_row, cvr_det = board_coref_via_reader_dimension(n_docs=caps.get("gum"))
+        new_arms["coref_via_reader"] = cvr_row; new_arms_detail["coref_via_reader"] = cvr_det
 
     crossref = _informational_19c_crossref()
 
