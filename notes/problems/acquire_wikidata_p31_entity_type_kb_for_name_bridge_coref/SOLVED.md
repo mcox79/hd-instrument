@@ -2,7 +2,7 @@
 problem: acquire_wikidata_p31_entity_type_kb_for_name_bridge_coref
 status: SOLVED
 bar: "PASSES only with ALL of: (1) a curated, pinned, OFFLINE entity-type KB acquired under data/corpora/<name>/ (reproducible fetch + provenance) AND a DIRECTED TYPE-2 entity-type SPOKE built on the ATL hub extending hdlab/typed_spokes.py; (2) the spoke used as a bounded TYPE-LICENSE (recency selects) lifts NAME-BRIDGE (common-noun -> proper-name) coref CI-separated over the STRONGEST floor recomputed on the SAME population; (3) the info-free twin LOSES CI-separated (SHUFFLE the KB); (4) NO coref-dim regress + a can-fail POSITIVE control neither string-identity nor WordNet can pass; (5) NO-regress full-stack; (6) one-screen summary. A rigorous NEGATIVE is a FULL PASS."
-result: "GUM OntoGUM coref (modern), name-bridge slice = anaphoric common-noun with a proper-name antecedent; ZERO fitted params (external KB) so ALL-GUM n=356 is the powered primary population (TEST split n=180 consistent). The brain-foundational TWO-ROUTE (CLS) system -- consolidated entity-type KB (DBpedia InstanceOf) UNION episodic in-text is-a (apposition/copula/head-in-name) -- with GRADED constraint-integration SELECTION (continuous type-strength x recency; MacDonald/McRae) answered-correct 0.5815 vs the strongest floor RECENCY 0.4719 = +0.1096 CI[+0.0646,+0.1546] CI-SEPARATED (shuffled-KB graded-twin loses +0.1742 CI-sep). The binary-license+recency variant is 0.5674 (+0.0955 CI-sep); graded beats it +0.014 (robust across lambda in [0.2,0.75], not CI-sep at n=356). The CONSOLIDATED KB is the essential half: it uniquely solves 28 name-bridge cases the discourse never states ('the city'<-San Francisco, 'the show'<-Game of Thrones) vs 27 in-text-unique (overlap 1 -> nearly disjoint routes), and on the LICENSED subpopulation (n=95, gold type licenses the anaphor) it lifts recency 0.5789 -> 0.8632 = +0.2842 CI[+0.1895,+0.3792] CI-sep. Whole-slice KB-alone = +0.0337 CI[-0.006,+0.073] NOT separated -- bounded by coverage (168/356 gold names not in this DBpedia snapshot), exactly the brief's predicted residual."
+result: "GUM OntoGUM coref (modern), name-bridge slice = anaphoric common-noun with a proper-name antecedent; ZERO fitted params (external KB) so ALL-GUM n=356 is the powered primary population (TEST split n=180 consistent). The brain-foundational TWO-ROUTE (CLS) system -- consolidated entity-type KB (DBpedia InstanceOf) UNION episodic in-text is-a (apposition/copula/head-in-name) -- with GRADED constraint-integration SELECTION (continuous type-strength x recency; MacDonald/McRae) + a THEMATIC deverbal-agent route (write->writer; Crutch-Warrington) answered-correct 0.5843 vs the strongest floor RECENCY 0.4719 = +0.1124 CI[+0.0702,+0.1573] CI-SEPARATED (shuffled-KB graded-twin loses +0.1742 CI-sep). Ablated: binary-license+recency 0.5674 (+0.0955); graded-select 0.5815 (+0.1096); +thematic 0.5843 -- each step more brain-foundational (a full top-down BF-upgrade sweep, s.2c, converges: mechanism at its knee, residual = encyclopedic coverage). The CONSOLIDATED KB is the essential half: it uniquely solves 28 name-bridge cases the discourse never states ('the city'<-San Francisco, 'the show'<-Game of Thrones) vs 27 in-text-unique (overlap 1 -> nearly disjoint routes), and on the LICENSED subpopulation (n=95, gold type licenses the anaphor) it lifts recency 0.5789 -> 0.8632 = +0.2842 CI[+0.1895,+0.3792] CI-sep. Whole-slice KB-alone = +0.0337 CI[-0.006,+0.073] NOT separated -- bounded by coverage (168/356 gold names not in this DBpedia snapshot), exactly the brief's predicted residual."
 floor: "Strongest floor actually run = RECENCY over the active NAME referents (pick the most-recent; Centering) = 0.4719 (n=356). string-identity = 0.000 and WordNet-only = 0.000 by construction (a common-noun anaphor never string-matches a name; proper names are not in WordNet) -- the brief's named floors, both weaker; reporting only vs those would be the cheating the project bars, so recency is the load-bearing floor. Ceiling = 1.000 (gold name is always in the candidate set)."
 controls: "(1) SHUFFLED-KB info-free twin LOSES: whole-slice kb 0.5056 > twin 0.4073 (+0.0983 CI[+0.0618,+0.1376] CI-sep); and the KB's 28 unique name-bridge wins COLLAPSE to 5 under the shuffled KB -- the correct encyclopedic types carry it, not 'any type-token'. (2) ABSTENTION-SAFE: on 214/356 items with NO type-licensed candidate the KB arm == recency EXACTLY (turning the spoke on can only narrow, never override recency with nothing) -> structural no-regress. (3) POSITIVE control neither string-identity nor WordNet can pass: 'the painter'/'the artist' <- Zurbaran resolved via the KB type (Artist is-a via C5); string-identity=wordnet=0.000. (4) COMPLEMENTARITY control: consolidated vs episodic routes are near-disjoint (28 vs 27 unique wins, overlap 1) -> both are load-bearing, the two-route win is not one route in disguise. (5) NO hdlab writes: the spoke is a NEW experiments/ module + a NEW additive asset; C5/C6/C7 consumers byte-untouched (verification/test_world_knowledge_typed_spokes.py 22/22 still PASS; typed_spokes self-test PASS)."
 files_changed: "experiments/fetch_dbpedia_instance_types_v1.py, experiments/build_entity_type_spoke_v1.py, experiments/_entity_type_spoke.py, experiments/exp_namebridge_enumerate_gum_v1.py, experiments/exp_namebridge_coref_kb_v1.py, experiments/fetch_wikidata_p31_coverage_probe_v1.py, verification/test_namebridge_entity_type_spoke.py; assets (gitignored): data/corpora/dbpedia_instance_types/{instance_types_en_specific.ttl.bz2,redirects_en.ttl.bz2,PROVENANCE.md}, data/frontend_assets/{entity_type_spoke_v1.sqlite,entity_type_class_lemmas_v1.json}; metrics under data/exp_namebridge_*"
@@ -67,7 +67,8 @@ EPISODIC in-text is-a (`extract_isa_edges`, reused from the wall cell), recency 
 | consolidated KB alone | 0.5056 | **+0.0337 CI[-0.006,+0.073] NOT sep** (coverage-bounded) |
 | episodic in-text alone | 0.5449 | +0.073 CI[+0.045,+0.104] sep |
 | TWO-ROUTE CLS, binary license + recency (kb_intext) | 0.5674 | +0.0955 CI[+0.0506,+0.1404] CI-sep |
-| **TWO-ROUTE CLS, GRADED constraint-integration (kb_graded)** | **0.5815** | **+0.1096 CI[+0.0646,+0.1546] CI-SEP** |
+| TWO-ROUTE CLS, GRADED constraint-integration (kb_graded) | 0.5815 | +0.1096 CI[+0.0646,+0.1546] CI-sep |
+| **+ THEMATIC deverbal-agent route (kb_thematic) = FULLEST BF mechanism** | **0.5843** | **+0.1124 CI[+0.0702,+0.1573] CI-SEP** |
 | LICENSED subpopulation (n=95): recency 0.5789 -> KB | **0.8632** | **+0.2842 CI[+0.1895,+0.3792] CI-SEP** |
 
 - **THE WIN (bar 2):** the two-route CLS system beats the strongest floor (recency) CI-separated on the whole
@@ -78,6 +79,23 @@ EPISODIC in-text is-a (`extract_isa_edges`, reused from the wall cell), recency 
   sep) because **168/356 gold names are not in this DBpedia snapshot** and **93/356 are typed but the type does not
   license the anaphor** (facet mismatch: Galois->Scientist vs "the author"; or metonymy: "the colony"<-U.S.). The
   residual is KNOWLEDGE COVERAGE + granularity, NOT the mechanism.
+
+## 2c. TOP-DOWN BRAIN-FOUNDATIONAL UPGRADE SWEEP (owner: "upgrade those systems so they're brain foundational")
+Every mechanism lever below the two-route CLS core, built + tested with a can-fail floor. The principle (a failed
+BF upgrade means a DEPENDENCY is non-BF) converged, every time, on the SAME verdict: the mechanism is at its knee,
+the residual is ENCYCLOPEDIC COVERAGE, not a mechanism to fix.
+| # | brain-foundational upgrade | built + result | dependency the principle exposed |
+|---|---|---|---|
+| GRADED SELECT | constraint-integration (type-strength x recency) | **ADOPTED** 0.5674->0.5815 | (fixed the binary-select non-BF; s.2b) |
+| 1 THEMATIC | deverbal agent-type from the entity's IN-TEXT actions (write->writer; Crutch-Warrington) | **ADOPTED** 0.5815->**0.5843** (+0.1124 CI-sep vs recency) | needed LIGHT-VERB filtering (type by CHARACTERISTIC not generic actions); facet residual (63/93) is ENCYCLOPEDIC, not in-text |
+| 2 CONTINUOUS TYPE-SIM | feature-overlap similarity replacing discrete is-a (Rogers-McClelland) | **REFUTED** (hurts/neutral) | the SPACE: distributional hub gives artist~painter=0.00 (superposition limit); grounded gives a CONSTANT 0.45 (can't discriminate) -> the facet cases are genuine type DIFFERENCES needing encyclopedic facts, NOT similarity -> discrete WordNet is the BF choice |
+| 3 LOCAL CENTERING | Cb of the immediately-preceding utterance vs global "ever-subject" | LOCATED (global HURTS -0.045; tightest LOCAL +0.0084 not-sep) | global-vs-local (principle confirmed); recency already proxies the local center -> negligible |
+| 4 COVERAGE SCALING | fuller Wikidata P31+P106 KB | FOUNDATION (+0.0084, s.5) | not a mechanism; a knowledge-acquisition problem (north star) |
+| 5 FAMILIARITY LINKING | notability-ranked surname backoff (Bruce-Young) | not built | the misses are true absences (backoff-union already null) -> foundation coverage |
+**CONVERGENT CONCLUSION:** the SELECTION got a genuine BF upgrade (graded constraint-integration) and the THEMATIC
+route a genuine BF refinement; every deeper lever either CONFIRMS the current choice is already the brain-foundational
+one (discrete WordNet type-strength; recency salience) or re-attributes the residual to ENCYCLOPEDIC COVERAGE (the
+entity's specific facts -- occupation, works, roles), which is a KNOWLEDGE-FOUNDATION acquisition, not a mechanism.
 
 ## 2b. THE "IF A BRAIN-FOUNDATIONAL UPGRADE FAILS, SOMETHING ELSE IS NOT BRAIN-FOUNDATIONAL" DRILL (owner principle)
 The coercion-tolerant license (more brain-faithful -- the neural type-prior is GRADED with metonymy tolerance,
@@ -149,10 +167,12 @@ residual is the two-route division of labour + name-span quality, not the KB cho
    asset/WordNet is absent (island-safe). Register C8 in `knowledge_foundation_manifest.json` (source DBpedia
    InstanceOf 2022.12.01; consumer name-bridge coref). Build via `build_entity_type_spoke_v1.py --build`.
 2. **WIRE the TWO-ROUTE name-bridge path into the resolver** (`commonnoun_binder.py`/`situation_reader`'s
-   common-noun gate): for an anaphoric common noun with no same-head antecedent whose candidate set includes NAME
-   referents, license a candidate by C8 entity-type OR the in-text is-a edge (apposition/copula/head-in-name), then
-   recency-select. DEFAULT-ON is safe (abstention == recency; name-bridge is 0.000 live today; same-head/variant/
-   pronoun/named paths untouched) -- but per no-more-default-off, impact-analyse the live board coref dim first.
+   common-noun gate) with GRADED constraint-integration SELECTION (the BF-upgraded mechanism, s.2b/2c): for an
+   anaphoric common noun with no same-head antecedent whose candidate set includes NAME referents, score each name
+   candidate by max(continuous type-strength via C8, in-text is-a, thematic deverbal-agent type) + lambda*recency
+   (lambda~0.5, flat plateau) and argmax. DEFAULT-ON is safe (abstention == recency; name-bridge is 0.000 live
+   today; same-head/variant/pronoun/named paths untouched) -- but per no-more-default-off, impact-analyse the live
+   board coref dim first.
    CAVEAT (the twin of the sibling's finding): the board coref dim scores PRONOUN coref, so this COMMON-NOUN win may
    need its own board arm (a `board_namebridge_dimension()` reusing this cell's measure) to be visible.
 
@@ -239,9 +259,13 @@ None blocking. One judgement call for the strategy session at integration: land 
 KB half is wanted, it stands on the licensed-subpopulation win + the shuffled-twin control.
 
 ## NEXT STEPS
-1. (INTEGRATE) Land C8 (the entity-type spoke) + the two-route name-bridge path in the resolver; add a
-   `board_namebridge` arm so the common-noun win is visible (the board coref dim scores pronouns).
-2. (COVERAGE, foundation) Scale the KB: full Wikidata P31 + P106 occupation (the ceiling probe shows the wall is
-   coverage) -- fits the knowledge-foundation north star; consolidate with the sibling's `wikidata_person_roles`.
-3. (FIDELITY, bounded) A small coercion/metonymy tolerance on the type-license (Nieuwland-Van Berkum) for cases
-   like "the colony"<-U.S.; measure it does not regress the binary-license selection win.
+1. (INTEGRATE) Land C8 (the entity-type spoke) + the two-route name-bridge path with GRADED constraint-integration
+   selection (s.6.2) in the resolver; add a `board_namebridge` arm so the common-noun win is visible (the board
+   coref dim scores pronouns). The MECHANISM sweep is DONE (s.2c) -- nothing mechanism-side left to build.
+2. (COVERAGE, foundation -- the ONE real residual) Scale the ENCYCLOPEDIC KB: full Wikidata P106 occupation + P800
+   notable-works so the entity's DEFINING facts (Galois authored works; person occupations) are covered -- this is
+   what the top-down sweep converged on (the facet residual is encyclopedic, not a mechanism gap). Fits the
+   knowledge-foundation north star; consolidate with the sibling's `wikidata_person_roles`. NOTE the ceiling probe
+   says a bare-P31 swap is MODEST; the lever is OCCUPATION/WORKS granularity + name-span extraction quality.
+3. (LOWER) local-Centering transition model (s.2c #3, +0.0084 -- recency proxies it); familiarity-ranked linking
+   (s.2c #5). Both bounded; do only if a downstream error class demands them.

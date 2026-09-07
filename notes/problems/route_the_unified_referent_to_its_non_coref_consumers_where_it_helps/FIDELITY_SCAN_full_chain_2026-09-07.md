@@ -45,17 +45,21 @@ are missing:
    competing the same-head common referents (not just named persons) HALVED the regression (C1 -0.0058 -> -0.0026)
    and grew the experiencer lift (C3 +0.0528 -> +0.0856), coverage 0.201 -> 0.325 -- the fidelity-gap hypothesis
    CONFIRMED (building it makes it work better).
-2. **A NOVELTY/FAMILIARITY DETECTOR (Heim 1982; Hawkins 1978 establishing-modifier; Ng-Cardie discourse-new).**
-   BUILT the Hawkins ESTABLISHING-MODIFIER gate (abstain on a non-predicated definite with a restrictive relcl /
-   post-head PP / superlative-ordinal = first-mention). MEASURED a LOCATED NEGATIVE on GUM: it LOWERED precision
-   (0.59 -> 0.56) -- it abstained on CORRECT binds, because in GUM's BIOGRAPHY register "the director OF X" / "the
-   star OF X" (establishing modifiers) are usually correctly anaphoric. Hawkins' heuristic does not transfer to this
-   register. So the last-mile familiarity gate is NOT a cheap glass-box heuristic; a real discourse-new classifier
-   (Ng-Cardie, trained) would be needed, and the residual C1 cost it would recover is already NEGLIGIBLE (-0.0026 =
-   0.4% of the 0.69 CoNLL). NET: the full-referent competition made the faithful mechanism WORK (net strongly
-   positive: C3 +0.0856, C2 +0.0092, C1 -0.0026 negligible); the negative was a fidelity gap, confirmed + built across.
-   **DEPLOYABLE choice: full-referent COMPETITION (C3 +0.086, tiny C1 cost) if downstream gain is prioritized, or the
-   conservative GATE (C1 -0.0004 exactly safe, C3 +0.053) if clustering purity is prioritized.**
+2. **A NOVELTY/FAMILIARITY DETECTOR -- the BRAIN's mechanism is RETRIEVAL CONFIDENCE, NOT a trained classifier
+   (Heim 1982 familiarity = a referent is familiar iff it is RETRIEVABLE; McElree 2003 / Lewis-Vasishth 2005 = a
+   LOW-ACTIVATION retrieval means NO referent found -> NOVEL -> accommodate).** BUILT (`cue_conf`): abstain when the
+   best NON-predicated candidate's ACT-R activation is below a threshold -- a SWEPT parameter (the McElree
+   speed-accuracy tradeoff), ONLINE, NO training. MEASURED (GOLD): precision rises 0.735 -> 0.95 as the threshold
+   rises (the confidence gate correctly removes the non-anaphoric over-fires); on LIVE it CLOSES the C1 regression
+   (-0.0026 -> +0.0000, safe). The threshold sets the operating point: conservative -> C1 exactly safe + C3 +0.031;
+   liberal (no conf gate = the competition alone) -> C1 -0.0026 + C3 +0.086. **CORRECTION of an earlier wrong claim
+   in this doc: I had said the last gap "would need a trained discourse-new classifier" -- that was NON-brain-
+   foundational; the brain uses the retrieval's own confidence, which is what is now built.** (The Hawkins
+   establishing-modifier heuristic was ALSO tried and is a located negative on GUM -- it lowered precision 0.59->0.56
+   because "the director OF X" is usually correctly anaphoric in the biography register.)
+   NET: the negative was a FIDELITY GAP, confirmed + built across with the brain's own mechanisms (full-referent
+   competition + retrieval-confidence gate). **DEPLOYABLE: the competition + a live-tuned confidence threshold (the
+   SAT operating point) -- C3 up to +0.086, C1 safe at the conservative end -- all glass-box, online, no training.**
 
 ## Overall verdict
 - **Computations: 100% brain-foundational** (DRT file-change, Centering Cf, ACT-R cue-based retrieval, Heim
