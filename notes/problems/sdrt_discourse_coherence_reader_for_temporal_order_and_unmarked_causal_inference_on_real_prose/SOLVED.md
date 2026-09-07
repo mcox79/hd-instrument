@@ -5,8 +5,8 @@ bar: "PASSES only with ALL of: 1. A glass-box SDRT-lite coherence reader (INFER 
 result: "The mechanism is built + brain-faithful + PROVEN, coupled to BOTH landed reasoners with no-regress, AND (after drilling the located negative aggressively) it yields a REAL-PROSE CI-sep positive on the DOMINANT narrative causal category. (MECHANISM, constructed Lascarides-Asher minimal pairs n=48, NO connectives): relation-4way reader 0.8125 vs connective-only 0.2500 (+0.5625 CI[0.375,0.729]) AND vs the shuffled-label twin 0.2917 (+0.5208 CI[0.333,0.688], twin LOSES); order-edit 0.8750 vs iconicity 0.5000 (+0.3750). (THE DRILL -- causation-type decomposition, TellMeWhy non-adjacent n=256): GOAL/intentional causation is the DOMINANT category (35.9%; the largest single type), and the base physics+psych simulator was BLIND to it (0.293). The substrate already had landed GOAL organs the simulator never composed; adding a brain-faithful GOAL-causation engine (Malle reason-cause; Trabasso goal chains; the PINNED desire/intention lexicon from hdlab.goal_register) LIFTS the GOAL subset 0.293 -> 0.533. (THE POSITIVE -- GOAL-typed subset, n=92, the engine's proper domain): goal-engine 0.5326 CI-sep over the base engine 0.2935 (+0.2391 CI[0.141,0.337]), the TOPICAL baseline 0.2391 (+0.2935 CI[0.196,0.391]), AND the info-free TWIN 0.2717 (+0.2609 CI[0.120,0.402]) -- the twin LOSES CI-sep, on modern narrative gold. (COUPLING): the causal_reasoner graded_necessity over the inferred coherence-typed edges reproduces the cause-ID. (LOCATED RESIDUAL, honest bound): the goal engine does NOT win the FULL non-adjacent population (base +0.016; it TRADES OFF: +0.239 on the 36% GOAL subset, -0.108 on the 40% OTHER subset by over-firing), and the means-end precision gate does NOT fix the over-firing -- because SELECTING which of several stated goals motivates THIS action is Tier-2 inverse planning, the world-knowledge wall the goal_register itself flags. (TB-DENSE temporal-override): a rigorous LOCATED NEGATIVE -- flip precision 0.4130 NOT CI-sep above base-rate-reverse 0.4368; newswire reverse-order is genre convention, not causal flashback (Zhang & Xue 2018; 47.7% VAGUE)."
 floor: "MECHANISM: connective-only 0.2500 (=majority), shuffled-label twin 0.2917, iconicity order-edit 0.5000 -- reader CI-sep above all three. GOAL-typed subset (the positive): base engine (physics+psych, no goal) 0.2935, TOPICAL 0.2391, shuffled-score TWIN 0.2717 -- the goal engine CI-sep above ALL THREE. TellMeWhy full non-adjacent: adjacency/connective 0.0000 (CI-sep) but TOPICAL 0.2500 / TWIN 0.2617 TIE the base engine (the residual = the causation-TYPE it cannot type + Tier-2 selection). TB-DENSE: base-rate-reverse 0.4368 vs flip_precision 0.4130 (NOT selective) -- the honest floor (the reverse-order-subset iconicity=0 is a degenerate positive control)."
 controls: "(1) INFO-FREE TWIN (shuffled labels / shuffled scores) LOSES CI-sep on the MECHANISM control (0.2917 << 0.8125) AND on the GOAL-typed subset (goal-twin +0.2609 CI[0.120,0.402]); TIES on the FULL non-adjacent population (honest residual). (2) BASE-ENGINE ABLATION -- the goal engine beats the base physics+psych engine CI-sep on the goal subset (+0.2391), isolating the goal engine's contribution (the missing brain-faithful engine). (3) TOPICAL baseline -- CI-sep on the goal subset (+0.2935). (4) CONNECTIVE-ONLY -- 0.0000 on TellMeWhy non-adjacent (marker channel structurally absent cross-sentence); 0.2500 on the mechanism control (blind without markers). (5) OVER-FIRE / MEANS-END CHECK -- the OTHER subset base 0.247 -> goal 0.139 (goal engine over-fires on non-goal pairs) and the means-end gate does NOT recover it (0.139) -- locating the residual as Tier-2 goal SELECTION, not detection. (6) FLIP-SELECTIVITY (TB-Dense) -- flip_precision NOT CI-sep above base rate (the located negative). (7) NO-REGRESSION -- temporal_reasoner.before() channel-OFF BYTE-IDENTICAL (10/10); ON differs only on Explanation-over-iconicity; causal sm.causal_links byte-identical. (8) c-AXIS ABLATION -- content-only (symmetric) 0.000 directional correctness; engines add the directed signal."
-files_changed: "experiments/_sdrt_coherence.py (the reusable SDRT-lite coherence reader: DICE relation inference via directed causal-plausibility asymmetry + aspect + a GOAL/INTENTIONAL causation engine with a means-end satisfaction gate, confidence-gated); experiments/exp_sdrt_coherence_mechanism_v1.py (constructed minimal-pair mechanism control); experiments/exp_sdrt_temporal_override_tbdense_v1.py (TB-Dense temporal-override located negative + flip-selectivity); experiments/exp_sdrt_unmarked_causal_tellmewhy_v1.py (TellMeWhy unmarked-causal + causal_reasoner coupling; base/goal/means-end configs); experiments/exp_sdrt_causation_type_diagnostic_v1.py (the DRILL: causation-type decomposition, base-vs-goal-vs-means-end per type); experiments/exp_sdrt_goal_causation_subset_v1.py (the POSITIVE: goal engine vs base/topical/twin on the goal-typed subset); experiments/exp_sdrt_kintsch_integration_v1.py (the P2 divergence BUILT: Kintsch construction-integration settling + corroboration/inhibition -- confirms the residual is Tier-2 not integration); experiments/exp_sdrt_deepen_simulator_v1.py (c-is-binding-axis ablation ladder); experiments/exp_sdrt_no_regress_v1.py (byte-identity no-regress); verification/test_sdrt_coherence_reader.py (scaffold-free witness, 12/12); notes/problems/.../{SOLVED.md, RESEARCH_coherence_mechanism_and_coverage_2026-09-07.md, RESEARCH_goal_causation_the_missing_engine_2026-09-07.md}. Gold reused: data/corpora/{tb_dense,tellmewhy}. NO hdlab write (Q111)."
-reverify: ".venv/Scripts/python.exe verification/test_sdrt_coherence_reader.py   # 12/12 PASS (~15s): W0 module mechanism; W1 mechanism control CI-sep over connective+twin+iconicity; W2 TB-Dense LOCATED NEGATIVE (flip not selective); W3 TB-Dense mechanism fires; W4 TellMeWhy CI-sep over adjacency+connective; W5 full-pop base ties topical/twin; W6 DIAGNOSTIC (GOAL is 36% dominant, base blind, goal engine +0.239); W7 GOAL-SUBSET POSITIVE (goal engine CI-sep over base+topical+twin, twin LOSES); W-kintsch P2 integration BUILT (Kintsch settling ~ base -> residual is Tier-2 not integration); W8 c is binding axis; W9 no-regress byte-identical; W10 causal_reasoner coupling"
+files_changed: "experiments/_sdrt_coherence.py (the reusable SDRT-lite coherence reader: DICE relation inference via directed causal-plausibility asymmetry + aspect + a GOAL/INTENTIONAL causation engine with a means-end satisfaction gate, confidence-gated); experiments/exp_sdrt_coherence_mechanism_v1.py (constructed minimal-pair mechanism control); experiments/exp_sdrt_temporal_override_tbdense_v1.py (TB-Dense temporal-override located negative + flip-selectivity); experiments/exp_sdrt_unmarked_causal_tellmewhy_v1.py (TellMeWhy unmarked-causal + causal_reasoner coupling; base/goal/means-end configs); experiments/exp_sdrt_causation_type_diagnostic_v1.py (the DRILL: causation-type decomposition, base-vs-goal-vs-means-end per type); experiments/exp_sdrt_goal_causation_subset_v1.py (the POSITIVE: goal engine vs base/topical/twin on the goal-typed subset); experiments/exp_sdrt_kintsch_integration_v1.py (the P2 settling BUILT + proven a mathematical no-op with uniform inhibition); experiments/exp_sdrt_inverse_planning_simulator_v1.py (THE SIMULATOR: typed-edge inverse-planning means-end via CSKG -- cuts over-firing + beats the twin CI-sep, coverage-bound at CSKG 34%); experiments/exp_sdrt_deepen_simulator_v1.py (c-is-binding-axis ablation ladder); experiments/exp_sdrt_no_regress_v1.py (byte-identity no-regress); verification/test_sdrt_coherence_reader.py (scaffold-free witness, 12/12); notes/problems/.../{SOLVED.md, RESEARCH_coherence_mechanism_and_coverage_2026-09-07.md, RESEARCH_goal_causation_the_missing_engine_2026-09-07.md, RESEARCH_why_the_upgrades_were_inert_and_the_simulator_2026-09-07.md}. Gold reused: data/corpora/{tb_dense,tellmewhy,cskg_foundation_v1}. NO hdlab write (Q111)."
+reverify: ".venv/Scripts/python.exe verification/test_sdrt_coherence_reader.py   # 13/13 PASS (~30s incl. CSKG load): W0 module mechanism; W1 mechanism control CI-sep over connective+twin+iconicity; W2 TB-Dense LOCATED NEGATIVE (flip not selective); W3 TB-Dense mechanism fires; W4 TellMeWhy CI-sep over adjacency+connective; W5 full-pop base ties topical/twin; W6 DIAGNOSTIC (GOAL is 36% dominant, base blind, goal engine +0.239); W7 GOAL-SUBSET POSITIVE (goal engine CI-sep over base+topical+twin, twin LOSES); W-kintsch P2 settling BUILT + proven a no-op with uniform inhibition; W-sim THE SIMULATOR (typed-edge means-end cuts over-firing + beats the twin CI-sep, coverage-bound at CSKG 34%); W8 c is binding axis; W9 no-regress byte-identical; W10 causal_reasoner coupling"
 ---
 
 # SOLVED -- the SDRT-lite coherence reader is built + brain-faithful + coupled; drilling the located negative found the MISSING brain-faithful engine (GOAL causation) and turned it into a real-prose CI-sep win on the dominant category
@@ -62,33 +62,45 @@ The goal engine wins on its category but does NOT win the full non-adjacent popu
 100%-brain-foundational spec and measured them -- and BOTH confirm the residual is NOT the architecture but the
 Tier-2 world-knowledge:
 
-1. **Tier-2 goal SELECTION -- the MEANS-END satisfaction match (Csibra-Gergely teleological efficiency: does THIS
-   action serve THAT goal?), BUILT.** It does NOT fix the over-firing (OTHER subset 0.139 with and without it),
-   because the means-end relatedness is satisfied by topical coincidence -- a stricter no-LLM means-end cannot
-   distinguish "the action serves this goal" from "the action is topically near this goal". SELECTING which of
-   several stated goals actually motivates THIS action is full INVERSE PLANNING (Baker-Saxe-Tenenbaum) over latent
-   goals -- the Tier-2 world-knowledge wall goal_register itself flags as requiring the meaning channel.
-2. **The cue INTEGRATION -- a KINTSCH construction-integration SETTLING step, BUILT** (`kintsch_select`: construction
-   = candidate evidence with the goal cue trusted in proportion to its content CORROBORATION; integration = interactive
-   activation with LATERAL INHIBITION to a settled pattern; "resonance proposes, necessity/coherence disposes" --
-   Myers-O'Brien + Trabasso). Measured (n=256): settling 0.297 ~ base 0.293 (flat), keeps the GOAL subset (0.51),
-   over-fire not recovered (OTHER 0.14 -> 0.16). So the integration ARCHITECTURE is NOT the bottleneck -- with the
-   current weak Tier-2 cues there is nothing for the settling to VETO. The settling is the RIGHT architecture and will
-   pay off ONCE the Tier-2 goal-selection cues are real (a cue that does not cohere will then be suppressed) -- but it
-   is not the lever today.
+A theory research drill + direct instrumentation showed the FIRST two upgrade attempts were DEGENERATE (owner's
+skepticism -- "does it make sense this system isn't doing anything?" -- was correct), and the properly-built
+STRUCTURAL simulator DOES do something but is coverage-bound:
 
-**So the precise mechanism-diff, now measured from both sides:** we replicate Tier-1 goal DETECTION (done, +0.239 on
-its category) and the correct INTEGRATION architecture (built, inert until the cues improve); what we do NOT yet
-replicate is Tier-2 goal SELECTION by inverse planning over the agent's plan -- which requires the meaning channel /
-a plan model (the causal reasoner's shared "content-sensitive generative rollout" P1, a large build). Two independent
-research drills converge: **~60-75% of the real-prose gap is the goal engine (Tier-1 built) + its Tier-2 completion;
-~25-40% is genuinely idiosyncratic world-knowledge** (GLUCOSE dim-5/10 facts) -- the wall is MAJORITY a fidelity gap.
+1. **The KINTSCH settling I first built was a PROVEN mathematical no-op** -- with uniform lateral inhibition and no
+   cross-node excitatory links the settled winner is ALWAYS argmax(evidence) (Amari 1977 / Grossberg
+   order-preservation: activation is a common monotone transform of each node's own evidence, which cannot reorder).
+   CONFIRMED empirically: it changed 3/68 predictions (all ties). To change a winner the integration matrix needs
+   SIGNED, PAIRWISE-SPECIFIC off-diagonal terms (the convergent-coalition effect); a scalar -inhib*Sum fails by
+   construction. Fixing it needs cross-node causal-CHAIN coherence = coupling to the causal_reasoner's densified graph
+   (which the causal SOLVED already showed is CORRECTNESS-bound) -- so it is NOT the tractable lever.
+2. **The scalar MEANS-END gate I first built measured the WRONG AXIS** -- lexical relatedness is topical co-occurrence,
+   not means-end structure ("hungry"/"kitchen renovation" are topically close but not means-end related); it fired on
+   97.3% of goal pairs (never suppressed). The theory (Baker-Saxe-Tenenbaum inverse planning; Csibra-Gergely teleology;
+   Schank-Abelson plans) says means-end is a STRUCTURAL judgement -- a TYPED causal/enabling-edge test.
+3. **THE SIMULATOR -- typed-edge inverse-planning means-end, BUILT + MEASURED** (`exp_sdrt_inverse_planning_simulator_v1`).
+   Replaced scalar relatedness with the CSKG typed-edge membership test (MotivatedByGoal/UsedFor/HasSubevent/
+   HasPrerequisite/Causes -- a STATIC offline asset, the invariant is no external LLM AT INFERENCE) as the goal cue's
+   means-end gate. On TellMeWhy non-adjacent (n=256): it CUTS the over-firing (OTHER subset raw 0.139 -> typed 0.208,
+   toward base 0.247), keeps a partial goal-subset win (base 0.293 -> typed 0.391), and -- the real gain -- the typed
+   version now BEATS the info-free twin CI-sep (+0.0742 [0.004,0.144]), which the raw goal engine did NOT: the
+   structural gate makes the goal signal SELECTIVE. BUT it is COVERAGE-BOUND: CSKG has the goal->action typed edge for
+   only ~34% of goals, so gating on it loses the 66% CSKG cannot see, and overall it ties base (0.277). This is the
+   SAME coverage wall the causal reasoner hit at CSKG 17.3%, now confirmed from the goal-SELECTION side -- a THIRD angle.
 
-**Efficiency call (owner: "any efficiencies?"):** KEEP the goal engine (net-positive, load-bearing on 36% of narrative
-causes); do NOT layer the means-end gate or the Kintsch settling into the default yet -- both are built and correct
-but add cost without benefit on the current cues (they pay off only once the Tier-2 inverse-planning cues exist).
-Wiring them in now would be the "cheap thing that is less brain-faithful in effect"; the disciplined move is to hold
-them ready for P1.
+**So the precise mechanism-diff, now measured from THREE angles:** we replicate Tier-1 goal DETECTION (+0.239 on its
+category) AND the correct STRUCTURAL means-end axis (built; cuts over-firing; beats the twin) -- but RETRIEVAL of the
+means-end link is coverage-bounded by construction (CSKG cause-pairs 17.3%, newswire flip-precision, goal->action
+edges 34%). What we do NOT replicate is a means-end that GENERATES the link rather than retrieving it: the brain does
+not look up "does this action serve this goal", it SIMULATES the action forward and checks the goal-state -- the
+causal reasoner's own "content-sensitive generative rollout" P1 (force_dynamics + goal_register + belief_partition +
+affect_register), the ONE remaining lever, shared by three consumers, needing the meaning channel. Two independent
+research drills converge: ~60-75% of the real-prose gap is the goal engine (Tier-1 built) + its generative Tier-2
+completion; ~25-40% is genuinely idiosyncratic world-knowledge.
+
+**Efficiency call (owner: "any efficiencies?"):** KEEP the goal engine (Tier-1, load-bearing on 36% of narrative
+causes) AND the typed-edge means-end gate (it makes the signal selective -> beats the twin, cuts over-firing).
+Do NOT layer the Kintsch settling in (proven no-op without a causal-chain coherence graph). The disciplined move:
+ship the goal engine + typed means-end (both do real work); hold the settling for the generative-rollout P1.
 
 ## What I did NOT establish (withdraw-first if wrong)
 - **I would withdraw first any claim of a FULL-population real-prose win.** The clean CI-sep positive (twin loses) is
@@ -177,17 +189,19 @@ override on newswire is a located negative -- both blessed by the bar's "rigorou
 you tie the label strictly to a full-population lift on BOTH slices, this is a PARTIAL; the science is identical.
 
 ## NEXT STEPS (priority-ordered)
-- **P1 (the ONE remaining lever, shared by three consumers -- both cheaper divergences are already BUILT).** Build
-  goal SELECTION by INVERSE PLANNING: among several stated goals, pick the one whose plan THIS action most efficiently
-  serves (Baker-Saxe-Tenenbaum / Csibra-Gergely over the reader's goal_hierarchy_graph + a means-end plan model). This
-  is what turns the goal-subset win into a full-population win; the Kintsch settling (built, P2 below) is ALREADY in
-  place to receive it (a real Tier-2 cue that coheres will be reinforced, a spurious one vetoed). Needs the meaning
-  channel (goal_register's flagged Tier-2); it is the causal reasoner's own "content-sensitive generative rollout" P1
-  from the goal side -- so building it once serves three consumers (temporal, causal, coherence).
-- **P2 (BUILT this round -- the integration divergence).** The Kintsch construction-integration SETTLING step
-  (`kintsch_select`: corroboration-gated construction + lateral-inhibition integration) is built and validated as
-  inert-but-correct on the current cues (settling ~ base). Fold it into the reader's composition WHEN P1 lands, so an
-  over-firing goal cue is vetoed by the global chain. Until then keep it default-OFF (no benefit on current cues).
+- **P1 (the ONE remaining lever, now precisely specified as GENERATIVE not retrieval).** The typed-edge simulator
+  (built) proved RETRIEVAL of the means-end link is coverage-bounded (CSKG 34%, from a third angle). The route past is
+  a GENERATIVE means-end: SIMULATE the candidate goal's plan forward (does the action, rolled forward over the
+  participants, achieve the goal-STATE?) rather than looking it up -- Baker-Saxe-Tenenbaum inverse planning /
+  Csibra-Gergely efficiency over a content-sensitive rollout composing the landed force_dynamics_typer + goal_register
+  + belief_partition + affect_register. This is the causal reasoner's own P1 from the goal side -- ONE build serving
+  three consumers (temporal, causal, coherence); needs the meaning channel. It turns the goal-subset win + the
+  over-firing cut into a full-population win.
+- **P2 (BUILT this round).** The typed-edge means-end gate (`exp_sdrt_inverse_planning_simulator_v1`) is the shippable
+  upgrade -- it cuts the over-firing and makes the goal signal beat the twin CI-sep. Ship it with the goal engine. The
+  Kintsch settling (`kintsch_select`) is built but proven a no-op under uniform inhibition; fold it in ONLY with a real
+  cross-node causal-chain coherence matrix (coupling to causal_reasoner's densified graph), when P1's generative cues
+  make coherence informative.
 - **P3 (a fair temporal instrument).** TB-Dense newswire is the wrong genre for the temporal-override (reverse-order
   is genre convention). Acquire a NARRATIVE temporal-order gold with genuine flashback, or annotate TellMeWhy
   non-adjacent causes for order, to test the Explanation-reverses-order channel where causal flashback occurs.

@@ -282,10 +282,51 @@ on 19c protagonist-narrative; it does not transfer to modern multi-genre text be
 is already captured by the dormant entity-KB resolver -- so the actionable path is to evaluate/strengthen THAT organ's
 predication + NE-typing, not to route the unified referent.
 
+## CONSTRUCTIVE FOLLOW-ON -- the two glass-box pieces that DO generalize (prototyped, `exp_crosstype_precise_constructs_gum_v1.py`)
+The owner asked to prototype the path that WOULD make cross-type work on modern text. Built + measured on GUM,
+on the person-cleaned anaphoric-to-name population (n=154), witness `test_crosstype_precise_constructs.py` 3/3:
+| mechanism | hit rate | precision | net effect |
+|---|---|---|---|
+| FLOOR (situation_predict, blind head) | 0.084 | -- | current live |
+| FORCE-bind (recency/salience, NO gate) | 0.227 | **0.324** | floods wrong merges -> **NET-NEGATIVE** |
+| **GATED precise-constructs (OPTIMIZED)** | **0.156** | **0.960** | clean -> **NET-POSITIVE** |
+| ORACLE (gold) | 1.000 | -- | ceiling |
+- **Piece 1 -- the ANAPHORICITY GATE + PERSON CLEANUP is the fix that flips net-negative to net-positive.** Firing
+  only when a role is licensed (predication) to a named person, and excluding org/thing false-positives ("the
+  publisher"=Frontiers, "the respondent"=PAC), raises precision from 0.324 (force-bind floods) to **0.960**. The
+  brain does exactly this (Heim familiarity: is this definite even anaphoric?) -- my original mechanism did not.
+- **Piece 2 -- a PROPER PRECISE-CONSTRUCTS detector, OPTIMIZED** through a glass-box construction ladder
+  (0.004 narrow -> 0.110 [appos/copula/copular-verbs/title/relcl + person cleanup] -> 0.117 [conjunction-shared
+  subjects: "Dvorak moved and became the director"] -> 0.123 [FrameNet-style VERBAL role predication: "Moreau
+  starred / Galois wrote"] -> **0.156** [unique-gender AGE/GENDER narrative recovery: "the boy"=the unique prior
+  compatible named male]) = a **39x recall gain** over the narrow detector, at **0.960 precision**, reaching 82% of
+  the project's landed ~0.191 in-text ceiling. Every rung is glass-box, NO LLM, and net-positive (no flooding). The
+  detached-appositive + verbal + age/gender rungs are the ones a naive "apposition only" detector (and the project's
+  prior 19.1% measurement) leaves on the table.
+- **The residual (~0.89) is genuine WORLD-KNOWLEDGE** and splits two ways (residual dump): FAMOUS-person roles
+  ("the boy"=Byron, "the author"=Galois, "the star"=Jeanne Moreau, "the director"=Dvorak) that a role/occupation
+  KB (Wikidata P106/P39) WOULD supply -- but no Wikidata is on disk, so this is a FOUNDATION ACQUISITION (admissible:
+  static offline KB, the invariant is no-LLM-at-inference); and LOCAL/fictional characters ("the old man"=Pachomius)
+  whose role is only loosely in the discourse -- genuinely unrecoverable unless stated. So a role-KB helps the bio
+  subset, not the interview/reddit/how-to subset.
+**Honest bottom line of the constructive pass:** the glass-box path (anaphoricity gate + precise-constructs + person
+cleanup) is a REAL, brain-foundational, net-POSITIVE win over the current force-bind -- but it recovers only the
+~11-19% of cross-type person links whose role is STATED in the text, and the absolute count on modern GUM is small
+(the anaphoric-to-name person population is itself thin), so it does not move the downstream consumers CI-sep. Getting
+to "very well" needs the role/occupation KB for the famous residual (a separate acquisition) and is capped for local
+characters. This CONFIRMS the refutation's ceiling while delivering the concrete, buildable path across the part of it
+that is not world-knowledge.
+
 **NEXT STEPS (strategy owns any hdlab change; solver is scope-barred from hdlab/):**
 1. **DO NOT WIRE the unified referent to the non-coref consumers, and keep `hdlab/unified_referent.py` DEFAULT-OFF
    everywhere.** The route is flat-to-negative on modern gold; the reader_coref lever is 19c-only; the marginal entity-layer
    edge is subsumed by the entity-KB resolver.
+1b. **FILE THE CONSTRUCTIVE FOLLOW-ON (the real path, brain-foundational + net-positive):** a glass-box cross-type
+   bridge = (a) an ANAPHORICITY GATE (abstain on non-anaphoric definites; ~80% of them) + PERSON CLEANUP, (b) a
+   proper PRECISE-CONSTRUCTS predication detector (0.944 precision, ~0.11->0.19 recall), landed into the entity-KB
+   resolver's `attrs`/predication path (it already has the hook). Then (c) a role/occupation KB acquisition
+   (Wikidata P106/P39) for the famous-entity world-knowledge residual -- a FOUNDATION-acquisition problem, the ~80%
+   ceiling's only lever. Prototype: `exp_crosstype_precise_constructs_gum_v1.py`.
 2. **Fold the AUDIT UPDATE** into `BRAIN_FOUNDATIONAL_AUDIT.md` sec 2b, including the CORRECTION to p12's "non-coref
    consumers are the unified referent's home" note (refuted on the live consumers).
 3. **FOLLOW-ON (higher value than this route):** decide whether to turn on the DORMANT entity-KB resolver
