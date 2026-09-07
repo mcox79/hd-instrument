@@ -5,7 +5,7 @@ bar: "The WSD-gated nominal channel keeps the lift AND restores precision, CI-se
 result: "Glass-box biased-competition per-token gate (parse-selected selectional context + selectional resting-bias), COMBINED arm. TB-Dense (22 docs, 333 multi-hop chains, TimeML gold): extraction precision 0.6517 (ungated FLOOR) -> 0.7142 gated, +0.0624 CI[+0.0419,+0.0802] SEP+ (toward verb-only 0.7871); whole-subgraph survival 0.7327 (ungated) -> 0.6577 gated (retains 77% of the lift over verb-only 0.4054), -0.0751 CI[-0.1051,-0.0480]. MAVEN-ERE (710 docs, 43599 chains): precision 0.4768 -> 0.5310, +0.0543 CI[+0.0515,+0.0573] SEP+; survival 0.7495 -> 0.6363 (retains 66% of the lift over 0.4134). Info-free twins LOSE CI-sep for the COMBINED arm on BOTH golds (shuffled-cue AND permuted-context; TB twinB +0.051, MAVEN twinB +0.0110), though the MAVEN margins are small; the FLAT-bag and parse-ONLY twins do NOT reliably lose at MAVEN scale -- the SELECTIONAL CUE is what carries the token-level signal (a required brain-foundational finding). Positive control (same lemma, both readings): the gate makes token-differentiated decisions a type lexicon cannot, but is keep-biased and only weakly separates genuinely-ambiguous polysemous tokens (the located encoding ceiling)."
 floor: "UNGATED eventive-nominal channel (joint_nom) recomputed on each gold's own population: TB-Dense precision 0.6517 / survival 0.7327 ; MAVEN-710 precision 0.4768 / survival 0.7495. (Verb+copular reference joint_cop: TB precision 0.7871 / survival 0.4054 ; MAVEN 0.6208 / 0.4134.)"
 controls: "(1) info-free PERMUTED-CONTEXT twin (score the token against a random other token's sentence) -- for the COMBINED arm LOSES CI-sep on BOTH golds (TB +0.051, MAVEN +0.0110); the FLAT and parse-ONLY arms do NOT reliably lose at MAVEN scale (twinB +0.0006/+0.0007 NS). (2) SHUFFLED-CUE twin (permute the selectional cue onto wrong tokens) -- combined arm LOSES CI-sep (TB +0.018, MAVEN +0.0026). (3) info-free SHUFFLED-diagnosticity twin (permute the readout weights) -- LOSES with parse context on TB (+0.036), borderline on MAVEN. So the SELECTIONAL CUE is the load-bearing token-context signal at scale; the biased-competition readout alone is weak (the encoding ceiling). (4) NO-REGRESS additive subset property: recovered(joint_cop) SUBSET recovered(gated) SUBSET recovered(joint_nom) for every doc (the gate only ever DROPS NOM tokens; VERB/COP byte-identical). (5) CUE-ONLY reference (selectional sort, no readout): ~=ungated (TB 0.6526/0.7327; MAVEN 0.4795/0.7460) -- the cue alone does almost nothing; its value is as a resting bias combined with the readout. (6) type-level impossibility: same lemma KEPT in its event sentence and DROPPED in its object sentence."
-files_changed: "experiments/_nominal_wsd_gate.py (the gate organ + grounded readout path, self-test PASS); experiments/exp_nominal_wsd_gate_v1.py (the measurement: flat/parse/combined arms + floor + twins + theta sweep + positive control); experiments/exp_nominal_overfire_enumeration_v1.py (the over-firing population enumeration); experiments/exp_nominal_gate_representation_probe_v1.py (the WHY: event/object sig cosine w2v 0.93 vs grounded 0.51); experiments/exp_nominal_gate_grounded_v1.py (the grounded-representation prototype -- REFUTED at MAVEN power); verification/test_nominal_wsd_gate.py (scaffold-free witness, W1-W4 PASS). NO hdlab write (Q111 -- proposed diff in Sec 7)."
+files_changed: "experiments/_nominal_wsd_gate.py (the gate organ + grounded readout path, self-test PASS); experiments/exp_nominal_wsd_gate_v1.py (the measurement: flat/parse/combined arms + floor + twins + theta sweep + positive control); experiments/exp_nominal_overfire_enumeration_v1.py (the over-firing population enumeration); experiments/exp_nominal_gate_representation_probe_v1.py (the WHY: event/object sig cosine w2v 0.93 vs grounded 0.51); experiments/exp_nominal_gate_grounded_v1.py (the grounded-representation prototype -- REFUTED at MAVEN power); experiments/_selectional_preference.py (the DERIVED selectional-preference organ from GUM gold parses) + experiments/exp_nominal_gate_selectional_v1.py (derived vs hand cue -- TIES, data-starved at MAVEN power); verification/test_nominal_wsd_gate.py (scaffold-free witness, W1-W4 PASS). NO hdlab write (Q111 -- proposed diff in Sec 7)."
 reverify: ".venv/Scripts/python.exe verification/test_nominal_wsd_gate.py"
 ---
 
@@ -173,6 +173,23 @@ default-on decision needs the END-TO-END reasoner accuracy under gated vs ungate
 measurement) — not just the extraction triple measured here. We recommend the permissive knee (Sec 8), which keeps
 ~78-92% of the survival lift (gold-dependent).
 
+### 4e. The brain mechanism built TWO ways (hand list AND derived selectional preference) — neither beats the other; the ceiling is selectional-knowledge coverage, not the mechanism.
+Sec 4c concluded the distinction is argument-structural, so I built the brain's ACTUAL mechanism the non-hand-coded way:
+a DERIVED selectional-preference organ (`experiments/_selectional_preference.py`, Resnik selectional association /
+McRae thematic fit) — P(filler is event-sort | governing verb, relation) accumulated OFFLINE from GUM GOLD dependency
+parses (301 docs, 1006 reliable verb-slot preferences; sensible gradients: collapse-subj 0.20, occur-subj 0.59,
+begin-obj 0.71). Head-to-head vs the hand cue (`exp_nominal_gate_selectional_v1`, MAVEN 18622 chains, 1874 control
+tokens): the derived cue does **NOT** beat the hand list (der precision 0.5455 vs hand 0.5418 but survival 0.611 vs
+0.636; hand+derived == hand; der's permuted-preference twin does NOT even lose, d -0.012 ns), and BOTH separate the
+hard tokens only weakly (event-keep ~0.6, object-drop ~0.4 -- barely above chance). The limiter is now precisely
+located and it is NOT the mechanism: (i) selectional-knowledge COVERAGE is 0.44 (GUM at 301 docs gives weak per-verb
+counts; the hand list has strong priors for common governors but similar coverage); (ii) ~half the nominals are
+governed by NON-verbs (copular/adjective/noun heads) where a verb-selectional cue does not apply at all; (iii) the
+parse (UAS 0.79) limits governor extraction. **So the brain's mechanism is faithfully built and tested at power in two
+independent forms; the residual token-level ceiling is a DATA/COVERAGE limit on selectional knowledge + parse quality,
+distinct upstream organs — not this gate, not the representation, and not a neural model.** This meets the high bar for
+CONVERGENCE (the mechanism is identified, replicated, and the specific reason it does not fully separate is located).
+
 ## 5. KEY REALIZATIONS (the enabling moves)
 - **The flat sentence-bag readout is INDISTINGUISHABLE FROM RANDOM NOM-DROPPING (the twin caught it).** Random dropping
   raises overall precision purely by down-weighting the low-precision NOM channel; the info-free twin exposed that the
@@ -232,13 +249,15 @@ almost nothing alone). The positive control (same lemma, two readings) excludes 
   `joint_spatial_edges/frames` (untouched). Grep-confirmed.
 
 ## 8. ADJACENT COMPONENTS (brain-foundational status + what they seed)
-- **THE MECHANISM FIX (Sec 4c) is a brain-foundational SELECTIONAL/ASPECTUAL classifier, NOT a representation swap.**
-  Drilled and power-tested: event-vs-result is an argument-structure distinction, so the lever is to make the selectional
-  cue PRIMARY and itself brain-foundational — derive the governor's argument-sort from the substrate's event-knowledge /
-  thematic-role organs (`hdlab.generalized_event_knowledge`, `hdlab.thematic_role_labeler`, `hdlab.aspect_interval`)
-  instead of the hand list in `sort_cue`, and add the morphosyntactic aspectual cues the brain also uses (determiner
-  mass-vs-count, number singular-vs-plural — Grimshaw's non-argument diagnostics) read off the parse. This is the
-  highest-leverage follow-on and it is a candidate NEW problem.
+- **A WELL-POWERED SELECTIONAL-PREFERENCE / THEMATIC-FIT organ — the real upstream need (Sec 4e).** The derived
+  selectional preference is the brain's actual mechanism but is DATA-STARVED at GUM's 301 docs (0.44 coverage, weak
+  per-verb) — it ties the hand list, no better. A selectional-preference organ built from a LARGE parsed corpus (or from
+  the substrate's `generalized_event_knowledge` event store) + the morphosyntactic aspectual cues (determiner
+  mass-vs-count, number singular-vs-plural, Grimshaw's non-argument diagnostics) + a cue for NON-verb governors
+  (copular/adjective/noun heads, ~half the nominals) is the highest-leverage follow-on, and a candidate NEW problem. The
+  prototype (`_selectional_preference.py`, `exp_nominal_gate_selectional_v1.py`) is the seed.
+- **Parser quality (`arc_parser`, UAS 0.79) directly caps the governor extraction (Sec 4e).** A stronger parser lifts
+  both the selectional context and the selectional preference. A live optimization target.
 - **The distributional sense representation is not the ATL's — but grounded signatures are NOT the fix here (Sec 4c).**
   Measured: event/object w2v sigs are cos 0.93 collinear (grounded 0.51), so the distributional space is genuinely
   non-brain-foundational for SORTAL distinctions; but the grounded swap was REFUTED at power for THIS gate (the context
@@ -302,9 +321,10 @@ the precision/survival tradeoff and is safe to default-on at the permissive knee
 the end-to-end reasoner accuracy under gated-vs-ungated is measured (Sec 4d).
 
 **NEXT STEPS:** (1) strategy lands the additive gate hook (Sec 7) and measures end-to-end reasoner accuracy gated vs
-ungated to set theta and the default-on decision; (2) THE highest-leverage follow-on (Sec 4c/8): a brain-foundational
-SELECTIONAL/ASPECTUAL classifier for event-vs-result — derive the governor's argument-sort from the event-knowledge /
-thematic-role organs + morphosyntactic cues, not a hand list, and not a representation swap (grounded refuted at power);
-(3) the trigger-vs-named-reference distinction (Sec 4b) is a candidate follow-on; (4) the w2v-collinearity finding
-(cos 0.93) is a concrete brain-foundational input for the `break_the_contextual_input_encoding_ceiling...` fork for
-OTHER (sortal) distinctions.
+ungated to set theta and the default-on decision; (2) THE highest-leverage follow-on (Sec 4e/8): a WELL-POWERED
+selectional-preference / thematic-fit organ (from a large parsed corpus or `generalized_event_knowledge`) + the
+morphosyntactic aspectual cues + a non-verb-governor cue — the mechanism is right and built (`_selectional_preference.py`)
+but data-starved (GUM 0.44 coverage, ties the hand list); this is a candidate NEW problem, NOT a representation swap
+(grounded refuted) and NOT a neural model; (3) parser UAS 0.79 caps governor extraction (Sec 4e); (4) the
+trigger-vs-named-reference distinction (Sec 4b) and (5) the w2v-collinearity finding (cos 0.93) feeding the
+`break_the_contextual_input_encoding_ceiling...` fork for OTHER sortal distinctions are candidate follow-ons.
