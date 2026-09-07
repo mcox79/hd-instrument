@@ -528,6 +528,25 @@ class SituationModel:
     spatial_relative: Optional[object] = None
     spatial_still_at: Optional[object] = None
     spatial_where_after: Optional[object] = None
+    # opt-in TEMPORAL-REASONING dimension (DID-X-HAPPEN-BEFORE-OR-AFTER-Y / DO-X-AND-Y-OVERLAP / WHICH-LASTED-
+    # LONGER): read-only CALLABLES bound at read time when the reader is built with track_temporal_reasoning=True
+    # (default-on). The TIME-channel sibling of the causal + spatial reasoners -- a glass-box reasoner over the
+    # reader's OWN extracted timeline (the passage's aspect events + constraint graph) via the promoted
+    # hdlab.temporal_reasoner.TemporalReasoner (Reichenbach E/R/S + transitive closure PINNED: integrated
+    # before/after with signal-class provenance; Allen 1983 interval algebra PINNED: overlap over aspect-derived
+    # endpoints -- via the promoted hdlab.aspect_interval upstream). temporal_reasoner() lazily builds + returns the
+    # TemporalReasoner on first use (None until invoked); temporal_before(x,y) -> (label, signal_class),
+    # overlaps(x,y) -> True/False/None (the capability the point-order reader could not answer), longer(x,y) ->
+    # 'unknown -- needs world knowledge' (no read()-time duration extractor; the proven magnitude-line primitive is
+    # available for a caller that supplies duration premises). PURE ADD -- new read-only callables; reads only the
+    # passage text, mutates NO existing field (byte-identical off vs on; landing witness). LAZY -- builds nothing
+    # until a callable is invoked (default read byte-identical). A NEW ISLAND (no downstream consumer today -> no
+    # regression). ABSTAINS cleanly (unknown / None) on an empty/OOV timeline. From the owner-DONE
+    # reason_over_event_time_order_and_duration_on_a_modern_gold (p5).
+    temporal_reasoner: Optional[object] = None
+    temporal_before: Optional[object] = None
+    overlaps: Optional[object] = None
+    longer: Optional[object] = None
     memory_roundtrip: Dict[str, float] = field(default_factory=dict)
     # per-dimension honest accuracy (coref only; scored vs LitBank gold on this passage)
     coref_acc: Optional[float] = None
@@ -848,6 +867,7 @@ class SituationReader:
                  track_prediction: bool = True,
                  track_causal_reasoning: bool = True,
                  track_spatial_reasoning: bool = True,
+                 track_temporal_reasoning: bool = True,
                  parser_arceager: bool = True,
                  np_head_reduce: bool = True,
                  structural_patient: bool = True,
@@ -1246,6 +1266,30 @@ class SituationReader:
         # until that upstream organ lands (the gold-vs-extracted gap IS the expected gain curve). NO spaCy / NO
         # external LLM at inference. flag-off (track_spatial_reasoning=False) = the pre-landing reader.
         self.track_spatial_reasoning = bool(track_spatial_reasoning)
+        # TEMPORAL-REASONING stage (default-on track_temporal_reasoning; wired 2026-09-06 from the owner-DONE
+        # problem reason_over_event_time_order_and_duration_on_a_modern_gold, p5). Binds the TIME-channel inference
+        # organ -- read-only callables (sm.temporal_reasoner() + temporal_before / overlaps / longer) that REASON
+        # over the reader's OWN extracted timeline (the passage aspect events + constraint graph) via the promoted
+        # glass-box hdlab.temporal_reasoner.TemporalReasoner: INTEGRATED before/after (cue closure + iconicity
+        # fallback + per-judgment SIGNAL-CLASS provenance -- Reichenbach E/R/S + transitive closure PINNED) and Allen
+        # OVERLAP over aspect-derived START/END intervals (Allen 1983 PINNED), built via the promoted
+        # hdlab.aspect_interval UPSTREAM (recovers the DROPPED finite progressive as an imperfective open interval +
+        # Vendler durative situation-type, keeping the point-order TENSE SET byte-identical -> the existing
+        # timeline/order register is unchanged; the interval character is consumed ONLY by overlap). Proven on MODERN
+        # gold: before/after beats iconicity CI-separated on TB-Dense newswire (integrated +0.099); constructed Allen
+        # overlap 0.994 vs the point-order control 0.5 (twin loses), real-prose overlap-gold subset recovers 0.397
+        # of the inclusions the point-order control gets 0.0; relative-duration magnitude line 1.0 on un-stated
+        # transitive pairs. LAZY + ADDITIVE: the closures build the TemporalReasoner over the passage text only on
+        # FIRST invocation (zero read-time cost -> default read BYTE-IDENTICAL; landing witness), sm.temporal_reasoner
+        # stays None until a callable is invoked, and every readout DEGRADES GRACEFULLY -- abstains (unknown / None)
+        # on an empty/OOV timeline, never raises. It reads only the passage text + mutates NO existing field
+        # (sm.events / sm.timeline_order UNCHANGED). A NEW ISLAND / query layer (no downstream consumer today -> no
+        # regression). NOTE (honest bound): the reader has NO TIMEX/reference-time-anchoring extractor (the highest-
+        # value shared upstream, the SOLVED named follow-on) so the date channel is empty and before/after rides on
+        # cue closure + iconicity; and NO read()-time duration extractor, so sm.longer abstains (the proven
+        # magnitude-line primitive is available for a caller that supplies duration premises). NO spaCy / NO external
+        # LLM at inference. flag-off (track_temporal_reasoning=False) = the pre-landing reader.
+        self.track_temporal_reasoning = bool(track_temporal_reasoning)
         # IMPROVED PARSER (opt-in; default OFF = byte-identical). Wired 2026-09-02 from the owner-DONE parser problem
         # the_extraction_front_end_parser_is_the_cross_task_bottleneck...: route the WIRED who-did-what front-end
         # through the promoted arc-eager parser (hdlab.arceager_parser, UD-EWT UAS 0.775->0.842) instead of the
@@ -1515,7 +1559,7 @@ class SituationReader:
         "agent_hybrid_construction", "predicate_recall",
         "track_goals", "track_goal_thwart", "track_affect", "track_tom_action", "track_infer_emotion",
         "track_bridges", "track_senses",
-        "track_prediction", "track_causal_reasoning", "track_spatial_reasoning",
+        "track_prediction", "track_causal_reasoning", "track_spatial_reasoning", "track_temporal_reasoning",
         "structural_patient", "causal_mental_bridge", "goal_purpose_filter", "entity_kb_resolver",
         "commonnoun_situation_gate", "commonnoun_canonical", "unified_referent", "precision_weight_roles")
 
@@ -3109,6 +3153,91 @@ class SituationReader:
         sm.spatial_where_after = spatial_where_after
         # the SpatialModel is built LAZILY inside the closures on first invocation -- zero read-time cost / no build.
 
+    def _read_temporal_reasoning(self, sm, sents) -> None:
+        """Opt-in TEMPORAL-REASONING dimension (default-on track_temporal_reasoning; wired 2026-09-06 from the
+        owner-DONE problem reason_over_event_time_order_and_duration_on_a_modern_gold, p5). MIRRORS
+        _read_causal_reasoning / _read_spatial_reasoning (the TIME-channel inference organ). Bind read-only QUERY
+        callables that REASON over the reader's OWN extracted timeline (the passage's aspect events + constraint
+        graph) via the promoted glass-box hdlab.temporal_reasoner.TemporalReasoner (Reichenbach E/R/S + tense-as-
+        anaphora reference time PINNED; Allen 1983 interval algebra PINNED; the transitive-closure relational
+        integration PINNED; source-monitoring signal-class provenance -- Johnson 1993):
+
+          sm.temporal_reasoner()             -> the hdlab.temporal_reasoner.TemporalReasoner built over the passage's
+                                                aspect events, lazily BUILT + cached on first call (full surface:
+                                                before(with provenance) / overlaps / allen / event_keys)
+          sm.temporal_before(x, y)           -> (label, signal_class): label in {'before','after','unknown -- needs
+                                                world knowledge'}, signal in {'cue','date','iconicity','vague'}. The
+                                                integrated reasoner reads order off the closed constraint graph (cue
+                                                closure), falling back to iconicity (telling order); returns the
+                                                UNKNOWN abstention on an implicit-event query it cannot place.
+          sm.overlaps(x, y)                  -> Allen interval overlap: True (co-temporal/inclusion), False (strict
+                                                precedence), None (abstain) -- the capability the point-order reader
+                                                could NOT answer (it treats while/as/when as NEUTRAL and abstains).
+          sm.longer(x, y)                    -> RELATIVE duration. The reader extracts NO event durations, so this
+                                                abstains with 'unknown -- needs world knowledge' (the honest gap, the
+                                                same shape as spatial_relative's projective-position abstention). The
+                                                PROVEN magnitude-line relative-duration primitive
+                                                (hdlab.temporal_reasoner.RelativeDurationLine, 1.0 on un-stated
+                                                transitive pairs) is available for a caller that supplies duration
+                                                premises -- it is not driven by the reader's own extraction today.
+
+        NODE IDS are the reader's OWN event surface tokens (Event.lemma=low, e.g. 'arrived'); query args are
+        normalised the SAME way (rightmost token, lowercased) so a caller may pass the token directly; enumerate
+        sm.temporal_reasoner().event_keys() for the exact id space.
+
+        UPSTREAM: the reasoner is built via hdlab.aspect_interval (the promoted aspect->interval extractor -- a
+        strict ADDITIVE SUPERSET of the point-order extractor: it recovers the DROPPED finite progressive as an
+        imperfective OPEN interval + Vendler durative situation-type, keeping the point-order TENSE SET byte-identical
+        so the existing timeline/order register is unchanged; the new interval character is consumed ONLY by the
+        overlap reasoner). lexical_aspect=True is used for the overlap channel only.
+
+        PURE ADD: sets ONLY sm.temporal_reasoner + the convenience callables; touches NO existing field (byte-
+        identical off vs on -- the landing witness asserts it; sm.events / sm.timeline_order are UNCHANGED -- this
+        only READS the passage text). LAZY -- the closures build NOTHING until a callable is invoked, and the
+        TemporalReasoner is built at most once per read and cached (zero read-time cost -> default read byte-
+        identical). DEGRADES GRACEFULLY -- every readout abstains (unknown / None) on an empty/OOV timeline, never
+        raises. A NEW ISLAND (no downstream consumer today -> no regression). NO spaCy / NO external LLM at inference
+        (a transparent graph walk over the reader's OWN extracted timeline). Runs LAST in read() so it sees the FINAL
+        passage. flag-off (track_temporal_reasoning=False) = the pre-landing reader."""
+        from hdlab.temporal_reasoner import TemporalReasoner, UNKNOWN
+
+        # reconstruct the passage text from the reader's tokenised sentences (same shape _read_timeline uses:
+        # tag_punct re-tokenises, so a space-joined stream is faithful). Built lazily on first callable invocation.
+        holder = {}
+
+        def _reasoner():
+            tr = holder.get("tr")
+            if tr is None:
+                text = " ".join(" ".join(toks) for toks in sents)
+                tr = TemporalReasoner.from_text(text, lexical_aspect=True)
+                holder["tr"] = tr
+            return tr
+
+        def temporal_reasoner():
+            return _reasoner()
+
+        def temporal_before(x, y):
+            if x is None or y is None:
+                return UNKNOWN, "vague"
+            return _reasoner().before(x, y)
+
+        def overlaps(x, y):
+            if x is None or y is None:
+                return None
+            return _reasoner().overlaps(x, y)
+
+        def longer(x, y):
+            # the reader extracts NO event durations -> the relative-duration readout honestly abstains (the
+            # magnitude-line primitive is proven + available via hdlab.temporal_reasoner.RelativeDurationLine for
+            # a caller that supplies duration premises; there is no read()-time duration extractor today).
+            return UNKNOWN
+
+        sm.temporal_reasoner = temporal_reasoner
+        sm.temporal_before = temporal_before
+        sm.overlaps = overlaps
+        sm.longer = longer
+        # the TemporalReasoner is built LAZILY inside the closures on first invocation -- zero read-time cost / no build.
+
     def _read_entity_states(self, sm, sents) -> None:
         """COPULAR is-a/attribute BINDING (default-off bind_entity_states; wired 2026-09-03 from the owner-DONE
         the_reader_has_no_copular_is_a_binding_schema, 10/10+6/6). For each sentence, recover the labeled copular
@@ -3397,6 +3526,18 @@ class SituationReader:
             # vs on). NEW ISLAND -- no downstream consumer today. Abstains cleanly on an absent/empty register.
             # sm.locations is UNCHANGED (read-only). PROJECTIVE position abstains until the un-landed extractor.
             self._read_spatial_reasoning(sm, sents)
+        if self.track_temporal_reasoning:
+            # TEMPORAL-REASONING dimension: bind sm.temporal_reasoner() + temporal_before / overlaps / longer --
+            # the TIME-channel inference organ (glass-box integrated before/after with signal-class provenance +
+            # Allen interval OVERLAP over aspect-derived endpoints, over the reader's OWN extracted timeline, via the
+            # promoted hdlab.temporal_reasoner + hdlab.aspect_interval). Runs LAST so the reasoner reads the FINAL
+            # passage. PURE ADD -- lazy closures only (builds the TemporalReasoner only when a callable is invoked,
+            # at most once per read); sets ONLY the new callables + leaves sm.temporal_reasoner None until invoked
+            # (byte-identical off vs on). NEW ISLAND -- no downstream consumer today. Abstains cleanly (unknown /
+            # None) on an empty/OOV timeline. sm.events / sm.timeline_order UNCHANGED (reads only the passage text).
+            # NO TIMEX date channel + NO duration extractor today -> before/after rides on cue+iconicity, longer
+            # abstains (the honest gaps, the SOLVED named follow-ons).
+            self._read_temporal_reasoning(sm, sents)
         return sm
 
 

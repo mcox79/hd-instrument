@@ -470,6 +470,128 @@ def board_spatial_relational_dimension(cap=None, seed=0):
         return _degraded("spatial_relational", e), {"error": "%s: %s" % (type(e).__name__, e)}
 
 
+def board_temporal_before_after_dimension(smoke=False):
+    """TEMPORAL BEFORE/AFTER board arm on MODERN newswire: TB-Dense event-event BEFORE/AFTER TLINKs (1990s
+    newswire, NOT 19c). Reuses the solver's OWN measurement verbatim (exp_temporal_reason_before_after_v1):
+    the promoted timeline register answers 'did X happen before/after Y?' over the reordered timeline
+    (Reichenbach place, not telling order). model = register acc; floor = ICONICITY (telling order == event
+    order, recomputed on the SAME pairs -- MUST lose on the reverse-order/flashback items); twin = shuffled
+    tense/marker labels (info-free). Paired sentence-cluster bootstrap CI. This capability is board-INVISIBLE
+    today (temporal is a NAMED GAP -- 19c board gold shares the tense signal, circular); TB-Dense is the
+    independent MODERN temporal-order gold the gap named. Kept OUT of the 19c-free headline aggregate.
+    Degrades gracefully (never crashes the board). Also reports the INTEGRATED reasoner (+TIMEX date channel
+    + transitive closure) as the stronger headline in the note."""
+    try:
+        from experiments import exp_temporal_reason_before_after_v1 as BA
+        from experiments import _temporal_eval as EV
+        items, _items_base, ndoc = BA.tbdense_before_after(smoke=smoke)
+        if not items:
+            return _degraded("temporal_before_after", "no TB-Dense before/after pairs (gold absent)"), {}
+        full = BA._block(items, "full")
+        rev = BA._block([it for it in items if it["reverse"]], "reverse")
+        d_tw = EV.cluster_bootstrap_delta(items, "reg_correct", "twin_correct", seed=7)
+        # integrated reasoner (stronger headline: cue + TIMEX event-local date + transitive closure)
+        integ = None
+        try:
+            from experiments import exp_temporal_reason_integrated_v1 as IN
+            ig = IN.run(smoke=smoke)
+            integ = {"integrated_acc": ig["accuracy"]["integrated"], "iconicity": ig["accuracy"]["iconicity"],
+                     "delta_vs_iconicity": ig["integrated_vs_iconicity"]["delta"],
+                     "ci": ig["integrated_vs_iconicity"]["ci"], "sep": ig["integrated_vs_iconicity"]["sep"],
+                     "date_channel_acc": ig["signal_class_provenance"]["date"]["acc"]}
+        except Exception as ie:
+            integ = {"error": "%s: %s" % (type(ie).__name__, ie)}
+        row = {
+            "n": full["n"], "model_acc": full["reg_acc"],
+            "overlap_floor": full["icon_acc"],
+            "floor_accs": {"iconicity_telling_order": full["icon_acc"]},
+            "strongest_floor_name": "iconicity_telling_order", "strongest_floor": full["icon_acc"],
+            "twin_acc": full["twin_acc"],
+            "model_minus_strongest": [full["delta_vs_icon"], full["ci"][0], full["ci"][1]],
+            "model_minus_twin": [round(d_tw["delta"], 4), round(d_tw["ci_lo"], 4), round(d_tw["ci_hi"], 4)],
+            "ci_sep_over_strongest": bool(full["sep"]),
+            "ci_sep_over_twin": bool(d_tw["sep"]),
+            "reverse_order_subset": {"n": rev["n"], "reg": rev["reg_acc"], "iconicity": rev["icon_acc"],
+                                     "delta": rev["delta_vs_icon"], "sep": rev["sep"]},
+            "integrated_reasoner": integ,
+            "population": "TB-Dense event-event BEFORE/AFTER TLINKs (1990s newswire, MODERN non-circular); "
+                          "model=promoted timeline register (mechanism-if-cue-else-iconicity), floor=iconicity "
+                          "(telling order==event order, recomputed on the SAME pairs), twin=shuffled tense/markers. "
+                          "Paired sentence-cluster bootstrap. MODERN (Cassidy 2014)."}
+        detail = {"note": "glass-box temporal BEFORE/AFTER reasoner (Reichenbach E/R/S; the register overrides "
+                          "telling order only on the ~12%% cue-bearing pairs) -- the FIRST board arm scoring "
+                          "temporal-order QUERY on modern gold. Load-bearing claim scoped to the iconicity "
+                          "(position) + shuffled-label (info-free) floors; by construction it WINS on the "
+                          "reverse-order subset where iconicity=0. The INTEGRATED reasoner (+TIMEX event-local "
+                          "date + transitive closure) is the stronger headline (+0.099 vs iconicity, date "
+                          "channel 0.83). Reuses exp_temporal_reason_before_after_v1 verbatim. HONEST scope: "
+                          "TRACIE implicit-event is a SEPARATE script/schema organ (hdlab.temporal_script_schema)."}
+        return row, detail
+    except Exception as e:
+        return _degraded("temporal_before_after", e), {"error": "%s: %s" % (type(e).__name__, e)}
+
+
+def board_temporal_overlap_dimension(smoke=False):
+    """TEMPORAL OVERLAP board arm: the Allen interval-intersection reasoner over aspect-derived START/END
+    intervals -- the capability the point-order reader could NOT answer (it treats while/as/when as NEUTRAL
+    and abstains, and DROPS the progressive that supplies an ongoing interval). Reuses the solver's OWN
+    measurement verbatim (exp_temporal_reason_overlap_v1): a CONSTRUCTED can-fail gold isolates the Allen
+    mechanism (like the SPACE organ's construction gold). model = Allen reasoner acc; floor = POINT-ORDER
+    control (no interval -> no overlap category -> 0.5 on the balanced gold); twin = shuffled aspect labels +
+    neutralised markers (info-free). This capability is board-INVISIBLE today (temporal NAMED GAP). Kept OUT
+    of the 19c-free headline aggregate. Degrades gracefully. Also reports the REAL-PROSE TB-Dense overlap-gold
+    subset (positive control: point-order control=0) + the honest full-population located negative in the note."""
+    try:
+        from experiments import exp_temporal_reason_overlap_v1 as OV
+        con = OV.constructed_block(smoke=smoke)
+        if not con or con.get("n", 0) == 0:
+            return _degraded("temporal_overlap", "no constructed overlap gold"), {}
+        # real-prose serve (modern newswire): the overlap-gold subset positive control + full-pop located negative
+        tb = None
+        try:
+            tb = OV.tbdense_overlap(smoke=smoke, lexical=True)
+        except Exception as te:
+            tb = {"error": "%s: %s" % (type(te).__name__, te)}
+        # model_minus_twin from the constructed block (twin p95; reasoner must beat it)
+        twin_delta = round(con["allen_acc"] - con["twin_acc"], 4)
+        row = {
+            "n": con["n"], "model_acc": con["allen_acc"],
+            "overlap_floor": con["point_acc"],
+            "floor_accs": {"point_order_control": con["point_acc"]},
+            "strongest_floor_name": "point_order_control", "strongest_floor": con["point_acc"],
+            "twin_acc": con["twin_acc"],
+            "model_minus_strongest": [con["delta_vs_point"], con["ci"][0], con["ci"][1]],
+            "model_minus_twin": [twin_delta, None, None],
+            "ci_sep_over_strongest": bool(con["sep"]),
+            "ci_sep_over_twin": bool(con["allen_acc"] - con["twin_p95"] > 0),
+            "twin_p95": con["twin_p95"],
+            "real_prose_tbdense": ({"n_overlap_gold": tb.get("n_overlap_gold"),
+                                    "allen_recall_on_overlap": tb.get("allen_recall_on_overlap"),
+                                    "point_order_control": 0.0,
+                                    "overlap_subset_delta_vs_point": tb.get("overlap_subset_delta_vs_point"),
+                                    "overlap_subset_sep": tb.get("overlap_subset_sep"),
+                                    "full_pop_beats_never_overlap_floor": tb.get("sep"),
+                                    "fire_precision": tb.get("fire_precision"),
+                                    "overlap_base_rate": tb.get("overlap_base_rate")}
+                                   if isinstance(tb, dict) and "error" not in tb else tb),
+            "population": "CONSTRUCTED balanced overlap-vs-precedence can-fail gold (real tagger, NO LLM); "
+                          "model=Allen interval reasoner over aspect-derived endpoints, floor=point-order control "
+                          "(no overlap category -> 0.5), twin=shuffled aspect labels + neutralised markers. The "
+                          "MECHANISM isolation gold (MODERN construction, NOT 19c)."}
+        detail = {"note": "glass-box Allen (1983) interval-intersection overlap reasoner over Smith-1991 "
+                          "aspect-derived START/END intervals -- the FIRST board arm scoring temporal OVERLAP "
+                          "(a capability the point-order reader structurally lacked). Load-bearing claim scoped "
+                          "to the point-order-control + shuffled-label floors. On the REAL-PROSE TB-Dense "
+                          "overlap-gold subset the reasoner recovers ~0.40 of the inclusions the point-order "
+                          "control gets 0.0 of (positive control, CI-sep); it does NOT beat the trivial "
+                          "'never-overlap' majority on the FULL mixed population (a LOCATED NEGATIVE -- the "
+                          "DCT/discourse channel + the ~60%% INCLUDES/SIMULTANEOUS human-IAA ceiling, the named "
+                          "next-organs). Reuses exp_temporal_reason_overlap_v1 verbatim."}
+        return row, detail
+    except Exception as e:
+        return _degraded("temporal_overlap", e), {"error": "%s: %s" % (type(e).__name__, e)}
+
+
 def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True):
     """Assemble every MODERN per_dimension row. caps = dict of per-arm caps for a fast self-test.
     run_new_arms adds the 3 board-invisible-win arms (coarse-sense/selective-reliability/causal-multihop) as
@@ -535,6 +657,10 @@ def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True
         new_arms["occ_appraisal"] = occ_row; new_arms_detail["occ_appraisal"] = occ_det
         sp_row, sp_det = board_spatial_relational_dimension(cap=caps.get("spatial"))
         new_arms["spatial_relational"] = sp_row; new_arms_detail["spatial_relational"] = sp_det
+        tb_row, tb_det = board_temporal_before_after_dimension(smoke=bool(caps.get("temporal_smoke")))
+        new_arms["temporal_before_after"] = tb_row; new_arms_detail["temporal_before_after"] = tb_det
+        to_row, to_det = board_temporal_overlap_dimension(smoke=bool(caps.get("temporal_smoke")))
+        new_arms["temporal_overlap"] = to_row; new_arms_detail["temporal_overlap"] = to_det
 
     crossref = _informational_19c_crossref()
 
