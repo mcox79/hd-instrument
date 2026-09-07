@@ -367,6 +367,9 @@ proven load-bearing.
         0.505 -- UNDERPERFORMS. NOT a bug (its monotonicity decisions agree with a robust parser's 0.811 of the
         time); the reader's UD-EWT parser is OUT-OF-DOMAIN on MED's formal/quantified text (garbles "at most ten
         commissioners..." with a head CYCLE), matching the oracle monotonicity only 0.714.
+    (c2) FUNCTION-WORD-GRAMMAR PARSE-REPAIR of the reader's parse (break head cycles; attach determiners to their
+         NP head, negation to the main verb): 0.651 -- FAILED. Repairing a weak statistical parse with grammar
+         rules breaks more than it fixes; it does not recover competent-reader parse quality.
     (d) MECHANISM CEILING with a robust parser (spaCy, EXTERNAL -> NON-ADMISSIBLE, informational only): 0.810 --
         matches the oracle monotonicity 0.863. This PROVES the mechanism is right and the LEVER is the PARSER.
   CONCLUSION (brain-foundational): the fully-brain-foundational natural-logic headline is the SENTENCE-LEVEL
