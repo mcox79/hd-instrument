@@ -277,8 +277,141 @@ def labeled_pick(toks, pos, v, heads, labels, is_passive, valency=False):
     return position_pick(toks, pos, v, heads, is_passive)
 
 
+def _has_case_child(heads: Dict[int, int], upos: Sequence[str], c: int, n: int) -> bool:
+    """True if nominal c carries a case marker (an ADP child) -> it is an OBLIQUE/ADJUNCT, not the core object.
+    The load-bearing argument-vs-adjunct typing (non-local: depends on the whole dependent set). Copied from
+    exp_argstructure_unification_organ_v1.has_case_child."""
+    for d in range(1, n + 1):
+        if heads.get(d) == c and upos[d - 1] == "ADP":
+            return True
+    return False
+
+
+def _argstruct_marginal_override(tokens: Sequence[str], upos: Sequence[str], heads: Dict[int, int],
+                                 marginals: Dict[int, Dict[int, float]], v: int, pk_live: Optional[int],
+                                 passive: bool) -> Optional[int]:
+    """SURGICAL, faithful Competition-Model override ANCHORED on the labeled reader (never a blunt replacement).
+    Keeps the strong labeled pick UNLESS it selected a CASE-MARKED ADJUNCT while a BARE post-verbal core object is
+    available for a TRANSITIVE verb -- the diagnosed argument-vs-adjunct role error -- and re-selects that core
+    object, broken by the exact single-root Matrix-Tree marginal mu(v->c). Candidates INCLUDE the marginal's top-2
+    parse-miss reach (a bare object the greedy 1-best did not attach to v but the exact posterior still ranks high),
+    so it also fills an empty core slot (valency saturation). Copied from
+    exp_argstructure_unification_organ_v1.gated_override, with the frame-prior gate replaced by the landed valency
+    organ (_transitive) so no new asset is needed. `marginals` = hdlab.graded_parser marginals over the arc-factored
+    scorer (the cross-parser reliability the witnessed organ used with arc-eager heads)."""
+    n = len(tokens)
+    if passive or pk_live is None:
+        return pk_live
+    if not _has_case_child(heads, upos, pk_live, n):
+        return pk_live                                   # live pick is already a bare argument -> keep (anchor)
+    if not _transitive(lemma_verb(tokens[v - 1])):
+        return pk_live                                   # verb rarely takes an object -> keep
+    core = []
+    for c in range(1, n + 1):
+        if upos[c - 1] not in NOMINAL or c == v or c <= v or _has_case_child(heads, upos, c, n):
+            continue
+        order = sorted(marginals[c].items(), key=lambda kv: kv[1], reverse=True) if c in marginals else []
+        top2 = [h for h, _ in order[:2]]
+        if heads.get(c) == v or v in top2:
+            core.append(c)
+    if not core:
+        return pk_live
+    return max(core, key=lambda c: float(marginals[c].get(v, 0.0)) if c in marginals else 0.0)
+
+
+# ------------------------------------------------------------------------------------------------
+# THE FAITHFUL COMPETITION-MODEL ROLE-SELECTION ENSEMBLE (Q111 graded_parser landing 2026-09-07). The
+# witnessed ABSOLUTE who-did-what gain (0.8785->0.8850, +0.0065 CI[+0.0008,+0.0121] CI-sep, UD-EWT n=1235):
+# a Bates-MacWhinney cue-integration ranker that ANCHORS on the strong labeled reader (is_live, the highest-
+# validity cue) and lets the exact graded-parser marginal + argument-vs-adjunct typing OVERRIDE on strong
+# disagreement, over v's candidates INCLUDING the marginal's top-2 parse-miss reach. `_argstruct_cue_rows`
+# and `_argstruct_logp` are byte-copied VERBATIM from exp_argstructure_unification_organ_v1 (cue_rows/_logp;
+# hdlab/ must not import experiments/); the frozen logistic (weights) + the mined frame-valency lexicon are the
+# STATIC OFFLINE asset argstruct_patient_ranker_ud_ewt.json (admissible: no training at inference). The
+# incremental lever is the MARGINAL itself (validity 1.20; reaching parse-miss gold); the arg/adjunct typing is
+# load-bearing standalone (twin collapses 0.85->0.55) but incrementally redundant with the labeled reader.
+# ------------------------------------------------------------------------------------------------
+_ARGSTRUCT_ASSET = os.path.join(_REPO, "data", "frontend_assets", "argstruct_patient_ranker_ud_ewt.json")
+_ARGSTRUCT_RANKER = None
+_ANIMATE_POS = ("PROPN", "PRON")
+
+
+def _argstruct_ranker():
+    """Lazy singleton: the frozen (cues, w, mu, sd, frame_obj) argument-structure ranker asset. Returns None if
+    the asset is absent (then the marginal path is a safe no-op -> byte-identical to the labeled pick)."""
+    global _ARGSTRUCT_RANKER
+    if _ARGSTRUCT_RANKER is None:
+        try:
+            import json
+            with open(_ARGSTRUCT_ASSET, encoding="utf-8") as fh:
+                a = json.load(fh)
+            import numpy as _np
+            _ARGSTRUCT_RANKER = {"cues": a["cues"], "w": _np.asarray(a["w"], float),
+                                 "mu": _np.asarray(a["mu"], float), "sd": _np.asarray(a["sd"], float),
+                                 "frame_obj": a["frame_obj"]}
+        except Exception:
+            _ARGSTRUCT_RANKER = False   # sentinel: tried + unavailable
+    return _ARGSTRUCT_RANKER or None
+
+
+def _argstruct_cue_rows(toks, pos, heads, marg, v, frame_obj, pk_live=None):
+    """FAITHFUL argument-structure cues per candidate. Byte-copied VERBATIM from
+    exp_argstructure_unification_organ_v1.cue_rows. Candidates include the high-marginal (top-2) parse-miss reach."""
+    n = len(toks)
+    dep = set(c for c in range(1, n + 1) if heads.get(c) == v and pos[c - 1] in NOMINAL)
+    for c in range(1, n + 1):
+        if pos[c - 1] not in NOMINAL or c == v:
+            continue
+        order = sorted(marg[c].items(), key=lambda kv: kv[1], reverse=True) if c in marg else []
+        if v in [h for h, _ in order[:2]]:
+            dep.add(c)
+    cands = sorted(dep)
+    fo = frame_obj.get(toks[v - 1].lower(), 0.5)
+    has_core_dep = any(heads.get(c) == v and c > v and pos[c - 1] in NOMINAL and not _has_case_child(heads, pos, c, n)
+                       for c in range(1, n + 1))
+    transitive = fo >= 0.4
+    rows = []
+    for c in cands:
+        hc = _has_case_child(heads, pos, c, n)
+        is_bare_core = (c > v and not hc)
+        fills_empty = 1.0 if (transitive and not has_core_dep and is_bare_core and heads.get(c) != v) else 0.0
+        rows.append({"c": c,
+                     "is_live": 1.0 if c == pk_live else 0.0,
+                     "marg": float(marg[c].get(v, 0.0)) if c in marg else 0.0,
+                     "has_case": 1.0 if hc else 0.0,
+                     "core_obj": 1.0 if is_bare_core else 0.0,
+                     "fills_empty_core": fills_empty,
+                     "postverb": 1.0 if c > v else 0.0,
+                     "locality": 1.0 / (1.0 + abs(c - v)),
+                     "frame_obj": float(fo),
+                     "is_vdep": 1.0 if heads.get(c) == v else 0.0,
+                     "anim": 1.0 if pos[c - 1] in _ANIMATE_POS else 0.0})
+    return cands, rows
+
+
+def _argstruct_logp(X, w, mu, sd):
+    """Frozen-logistic P(candidate is the patient). Byte-copied VERBATIM from ..._logp."""
+    import numpy as _np
+    return 1.0 / (1.0 + _np.exp(-(_np.hstack([(_np.asarray(X, float) - mu) / sd, _np.ones((len(X), 1))]) @ w)))
+
+
+def _argstruct_learned_pick(tokens, upos, heads, marginals, v, pk_live):
+    """The witnessed learned Competition-Model re-selection over v's candidates (anchored on pk_live via the
+    is_live cue). Returns pk_live unchanged if the frozen asset is absent or no candidate is available."""
+    import numpy as _np
+    R = _argstruct_ranker()
+    if R is None:
+        return pk_live
+    cands, rows = _argstruct_cue_rows(tokens, upos, heads, marginals, v, R["frame_obj"], pk_live)
+    if not cands:
+        return pk_live
+    XL = _np.asarray([[r[k] for k in R["cues"]] for r in rows], float)
+    return cands[int(_np.argmax(_argstruct_logp(XL, R["w"], R["mu"], R["sd"])))]
+
+
 def structural_patient_pick(tokens: Sequence[str], upos: Sequence[str], heads: Dict[int, int], v: int,
-                            cands: Optional[List[int]] = None, np_head_reduce: bool = False) -> Optional[int]:
+                            cands: Optional[List[int]] = None, np_head_reduce: bool = False,
+                            marginals: Optional[Dict[int, Dict[int, float]]] = None) -> Optional[int]:
     """The DEPLOYABLE who-did-what PATIENT (1-based, or None), read the brain's way off the LABELED parse:
     the verb's obj (active) / nsubj:pass (passive) grammatical relation with a PRECISE voice remapping +
     VALENCY-gated binding of a missed argument (labeled_pick, valency=True); net-safe fallback to the
@@ -287,7 +420,16 @@ def structural_patient_pick(tokens: Sequence[str], upos: Sequence[str], heads: D
     clean UD-EWT (0.745->0.831), register-general (+0.097 on 19c clean-DO), head-independent, zero tuned
     parameters (owner-DONE improve_the_parser_verb_argument_attachment_for_who_did_what, 2026-09-04). Body
     promoted VERBATIM from exp_valency_labeled_live_reader_v1.improved_structural_patient_pick (the drop-in
-    that passed the live-reader no-regress) + exp_valency_labeled_patient_v1.labeled_pick."""
+    that passed the live-reader no-regress) + exp_valency_labeled_patient_v1.labeled_pick.
+
+    Q111 graded_parser landing 2026-09-07: pass `marginals` (hdlab.graded_parser.GradedParse(...).marginals or
+    ArcParser.parse(..., want_marginals=True).marginals) to re-select the patient with the FAITHFUL learned
+    Competition-Model ranker ANCHORED on this labeled pick (_argstruct_learned_pick + the frozen
+    argstruct_patient_ranker asset): the exact Matrix-Tree marginal + argument-vs-adjunct typing over v's
+    candidates INCLUDING the marginal's top-2 parse-miss reach. The witnessed ensemble lifts ABSOLUTE who-did-what
+    0.8785->0.8850 (+0.0065 CI-sep, UD-EWT n=1235). Default (marginals=None), or the asset absent -> BYTE-IDENTICAL
+    to the pre-landing labeled pick. (The parameter-free surgical arm _argstruct_marginal_override is FLAT on its
+    own -- the incremental lever is the learned ranker's marginal cue, not the arg/adjunct override.)"""
     labels = _labeler().label(list(tokens), list(upos), heads)
     pp = precise_passive(tokens, upos, v)
     pick = labeled_pick(tokens, upos, v, heads, labels, pp, valency=True)
@@ -295,6 +437,8 @@ def structural_patient_pick(tokens: Sequence[str], upos: Sequence[str], heads: D
         if cands is None:
             cands = _cands(upos)
         pick = hybrid_role_patient(tokens, upos, v, cands=cands, np_head_reduce=np_head_reduce)
+    if marginals is not None:
+        pick = _argstruct_learned_pick(tokens, upos, heads, marginals, v, pick)
     return pick
 
 
@@ -521,7 +665,8 @@ def route_predicate_arguments(tokens: Sequence[str], upos: Sequence[str], heads:
                               event_classes_fn=None, dest_fn=None,
                               animacy_fn=lookup_animacy, max_hops: int = MAX_HOPS,
                               quotative: bool = True, np_head_reduce: bool = False,
-                              structural_patient: bool = False) -> dict:
+                              structural_patient: bool = False,
+                              marginals: Optional[Dict[int, Dict[int, float]]] = None) -> dict:
     """The SHARED event-semantic predicate-argument router. Returns 1-based token indices (or None):
     {agent, theme, goal, location, path, source, recipient, direction, instrument, goal_belongs_to}.
     prep_to_base / event_classes_fn / dest_fn are override points ONLY for the info-free TWIN control; the
@@ -549,7 +694,8 @@ def route_predicate_arguments(tokens: Sequence[str], upos: Sequence[str], heads:
     # untouched. The heuristic fallback inside structural_patient_pick uses the SAME hybrid_role_patient call, so
     # uncovered items (no parse object) stay byte-identical to the OFF path.
     if structural_patient:
-        theme_idx = structural_patient_pick(tokens, upos, heads, v, cands=cands, np_head_reduce=np_head_reduce)
+        theme_idx = structural_patient_pick(tokens, upos, heads, v, cands=cands, np_head_reduce=np_head_reduce,
+                                            marginals=marginals)
     else:
         theme_idx = hybrid_role_patient(tokens, upos, v, cands=cands, np_head_reduce=np_head_reduce)
     pp_args = _pp_args_for_verb(tokens, upos, heads, v, max_hops=max_hops)

@@ -134,8 +134,12 @@ def patient_row(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int], 
                 marg: Dict[int, float], v: int, pk: int, labels: Dict[int, str],
                 passive: bool, a2_marg: float = 0.0) -> Dict[str, float]:
     """Build the glass-box reliability row for the patient arc `pk` of verb `v` (both 1-based). Byte-identical
-    to exp_precwt_live_whodidwhat_v1.build_rows' per-row dict. `a2_marg` = the global arc_parser margin at pk
-    (an attachment-site cue; INERT for the patient by measurement -- pass 0.0 if unavailable, byte-safe)."""
+    to exp_precwt_live_whodidwhat_v1.build_rows' per-row dict. `a2_marg` = the attachment-site margin at pk.
+    Q111 graded_parser landing 2026-09-07: feed the EXACT single-root Matrix-Tree marginal mu(v->pk) here
+    (hdlab.graded_parser.patient_confidence_cue) rather than the greedy arc_parser margin -- the raw greedy
+    margin is INERT for the patient, but adding the exact marginal to the 8-feature calibrator raises its
+    right-vs-wrong sensitivity 0.861->0.869 AUC (+0.008; ~6x smaller than the obl gain, since the patient is
+    read off the LABELED relation). Pass 0.0 if unavailable (byte-safe)."""
     ncand = sum(1 for c in range(1, len(toks) + 1) if heads.get(c) == v and pos[c - 1] in NOMINAL)
     gc_conf, _gc_marg = _role_entropy(toks, pos, v, heads, labels, passive)
     return {"ae_conf": float(conf.get(pk, 0.0)), "ae_marg": float(marg.get(pk, 0.0)), "a2_marg": float(a2_marg),
@@ -204,6 +208,28 @@ def calibrated_obl_confidence(toks, pos, conf, marg, c: int, ph: int, a2_marg: f
     return obl_confidence(obl_row(toks, pos, conf, marg, c, ph, a2_marg))
 
 
+# ------------------------------------------------------------------------------------------------
+# GRADED-PARSER MARGINAL as the obl attachment reliability (Q111 graded_parser landing 2026-09-07).
+# The exact SINGLE-ROOT Matrix-Tree marginal mu(head->dep) (hdlab.graded_parser.single_root_marginals /
+# patient_confidence_cue) is the exact, globally-normalized version of the a2 attachment margin the obl
+# calibrator already leans on. MEASURED (owner-DONE parser problem, UD-EWT test): the RAW marginal separates
+# right-from-wrong obl/nmod attachment at AUC 0.782 -- BEATING the whole landed obl-calibrated logistic (0.736)
+# and the raw a2 margin (0.671) -- and deferring the live obl attachment on it lifts selective accuracy
+# 0.7578->0.9022 (shuffled-marginal twin flat +0.006). So for the obl reader the raw marginal REPLACES the
+# logistic (a learned component removed, not added). For any caller that keeps the logistic, feed the marginal
+# into the obl_row `a2_marg` slot instead of the greedy arc_parser margin: augmenting the calibrator with it
+# gains +0.048 AUC (0.736->0.785). NOTE (landed-not-live): the obl calibrator has NO live hdlab consumer yet
+# (situation_reader wires only the PATIENT defer), so this is the recommended reliability for the obl/spatial
+# reader when it is wired -- a dormant-organ upgrade, board-visible once an obl defer consumer exists.
+# ------------------------------------------------------------------------------------------------
+def obl_reliability_marginal(marginals: Dict[int, Dict[int, float]], c: int, ph: int) -> float:
+    """The RECOMMENDED obl/nmod attachment reliability: the raw single-root Matrix-Tree marginal mu(ph->c)
+    that the picked head ph attaches the nominal c (both 1-based). Drops the obl logistic (raw marginal AUC
+    0.782 > calibrator 0.736). `marginals` = hdlab.graded_parser.GradedParse(...).marginals(toks, pos) (or
+    ArcParser.parse(..., want_marginals=True).marginals). Returns 0.0 if the arc is absent (byte-safe)."""
+    return float(marginals.get(c, {}).get(ph, 0.0))
+
+
 def defer(confidence: float, threshold: Optional[float]) -> bool:
     """The precision-weighting decision: DEFER (abstain / fall back to the robust readout) when the arc's
     calibrated reliability is below `threshold`. threshold=None (the default) -> never defer (byte-identical to
@@ -215,4 +241,4 @@ def defer(confidence: float, threshold: Optional[float]) -> bool:
 
 __all__ = ["logistic_p", "patient_row", "patient_feats", "patient_feats_parseonly", "patient_confidence",
            "calibrated_patient_confidence", "obl_row", "obl_feats", "obl_confidence",
-           "calibrated_obl_confidence", "defer", "NOMINAL", "LABELED_PATIENT_RELS"]
+           "calibrated_obl_confidence", "obl_reliability_marginal", "defer", "NOMINAL", "LABELED_PATIENT_RELS"]

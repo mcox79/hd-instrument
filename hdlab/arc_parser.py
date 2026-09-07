@@ -22,7 +22,7 @@ NO LLM. NO nltk. NO torch. numpy + pure-python only. ASCII-only.
 from __future__ import annotations
 
 import zlib
-from typing import Dict, List, NamedTuple, Sequence, Tuple
+from typing import Dict, List, NamedTuple, Optional, Sequence, Tuple
 
 import numpy as np
 
@@ -441,6 +441,32 @@ def decode_from_scores(Sc, n):
 
 
 # ---------------------------------------------------------------------------
+# Exact globally-normalized graded-parse algorithms (Q111 graded_parser landing 2026-09-07). The canonical
+# implementations live in hdlab.graded_parser (self-contained, brute-force-verified); these module-level names
+# are the API surface SOLVED section 6.1 names on arc_parser, delegating lazily to avoid an import cycle
+# (graded_parser imports arc_parser's scorer only inside its methods). All take the dense score array
+# A[h][i] = graded_parser.dense_scores(Sc, n).
+# ---------------------------------------------------------------------------
+def chu_liu_edmonds(A, n):
+    """Exact maximum spanning arborescence (the exact MAP the greedy decode_from_scores approximates)."""
+    from hdlab.graded_parser import chu_liu_edmonds as _f
+    return _f(A, n)
+
+
+def matrix_tree_marginals(A, n, temp=1.0):
+    """Exact MULTI-ROOT Matrix-Tree edge marginals mu[i][h]. See graded_parser.single_root_marginals for the
+    grammar-faithful single-root normalization (the one to ship)."""
+    from hdlab.graded_parser import matrix_tree_marginals as _f
+    return _f(A, n, temp)
+
+
+def second_best_tree(A, n, map_head=None):
+    """Exact 2nd-best arborescence (Camerini). WEAK live lever -- offline/analysis only, not the read path."""
+    from hdlab.graded_parser import second_best_tree as _f
+    return _f(A, n, map_head)
+
+
+# ---------------------------------------------------------------------------
 # BYTE-IDENTICAL vectorized POS-feature construction (promoted verbatim from
 # experiments/exp_arc_parser_posfeat_vectorize_v1.py, Q111). Rebuilds the SAME flat int64 id array
 # (same values, SAME ORDER) as sentence_flat via numpy scatter of precomputed-table gathers instead
@@ -841,6 +867,12 @@ class ParseResult(NamedTuple):
     arcs: List[Tuple[int, int]]        # list of (head_idx, dep_idx); indices are 1-based, head 0 = ROOT
     margins: Dict[int, float]          # per dep_idx greedy head-score margin (best - second); calibrated abstain signal
     heads: Dict[int, int]              # dep_idx -> head_idx
+    # ADDITIVE (Q111 graded_parser landing 2026-09-07): the exact SINGLE-ROOT Matrix-Tree edge marginals
+    # mu[dep][head] (hdlab.graded_parser, Koo 2007; brute-force-verified). None by default -> parse() is
+    # BYTE-IDENTICAL to the pre-landing output for every head-consumer (the marginal is a NEW output computed
+    # ONLY when parse(want_marginals=True); heads/margins/arcs are unchanged). This is the universal per-arc
+    # reliability signal (median AUC 0.825/29 labels) the head-driven readers can consume off ONE parse.
+    marginals: Optional[Dict[int, Dict[int, float]]] = None
 
 
 class ArcParser:
@@ -867,20 +899,40 @@ class ArcParser:
         with np.load(path) as z:
             return cls(z["avg"].astype(np.float64))
 
-    def parse(self, tokens: Sequence[str], pos_tags: Sequence[str]) -> ParseResult:
+    def parse(self, tokens: Sequence[str], pos_tags: Sequence[str],
+              want_marginals: bool = False, decode: str = "greedy") -> ParseResult:
         """tokens + UPOS (from Asset 1) -> dependency arcs + per-arc confidence margins.
 
-        Uses the memoized fast path (sentence_scores + decode_from_scores). Output is bit-identical
-        to _parse_reference by construction (identical feature-id stream, reduceat == per-arc .sum());
-        the landing witness proves it at scale."""
+        Uses the memoized fast path (sentence_scores + decode_from_scores). With the DEFAULTS
+        (want_marginals=False, decode="greedy") the output is bit-identical to _parse_reference by
+        construction (identical feature-id stream, reduceat == per-arc .sum()); the landing witness proves it
+        at scale. The two opt-in graded-parse levers (Q111 graded_parser landing 2026-09-07) are ADDITIVE:
+
+          want_marginals=True -> also attach the exact SINGLE-ROOT Matrix-Tree edge marginals
+            (hdlab.graded_parser.single_root_marginals; ONE matrix inverse, computed once and reused) on
+            ParseResult.marginals. Heads/margins are UNCHANGED (the marginal is a new output, no head change).
+          decode="exact" -> heads via the exact Chu-Liu/Edmonds MAP (hdlab.graded_parser.chu_liu_edmonds)
+            instead of the greedy per-token-argmax + heuristic cycle-break. Strict improvement: heads change
+            ONLY on the ~7% of sentences where the greedy heuristic left a cycle/invalid tree (UAS +0.002
+            CI-sep, no consumer-label regress); the per-token margins (best-second, a column property) are
+            unchanged. Default "greedy" keeps the byte-identical landed decode (flip via no-more-default-off).
+        """
         if len(tokens) != len(pos_tags):
             raise ValueError("tokens (%d) and pos_tags (%d) length mismatch" % (len(tokens), len(pos_tags)))
         sent = [(k + 1, tokens[k], pos_tags[k], 0, "_") for k in range(len(tokens))]
         n = len(sent)
         Sc = sentence_scores_auto(sent, self.avg, self._C, self._tables())
         head, margin = decode_from_scores(Sc, n)
+        marginals = None
+        if want_marginals or decode == "exact":
+            from hdlab.graded_parser import dense_scores, chu_liu_edmonds, single_root_marginals
+            A = dense_scores(Sc, n)          # built ONCE, reused across the exact decode + the marginal
+            if decode == "exact":
+                head = chu_liu_edmonds(A, n)  # exact MAP; margin (best-second) is head-independent -> kept
+            if want_marginals:
+                marginals = single_root_marginals(A, n, 1.0)
         arcs = [(head[i], i) for i in range(1, n + 1)]
-        return ParseResult(arcs=arcs, margins=margin, heads=head)
+        return ParseResult(arcs=arcs, margins=margin, heads=head, marginals=marginals)
 
     def _parse_reference(self, tokens: Sequence[str], pos_tags: Sequence[str]) -> ParseResult:
         """Stock reference parse (arc matrix via _arc_ids + _decode), kept UNCHANGED as the byte-identity
