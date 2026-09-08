@@ -161,6 +161,30 @@ def _wn_synonyms(word: str) -> frozenset:
     return _wn_syn_cache[word]
 
 
+_wn_ant_cache: Dict[str, frozenset] = {}
+
+
+def _wn_adj_antonyms(word: str) -> frozenset:
+    """WordNet CORE-ADJECTIVE antonyms of `word` (top-1 'a' synset; satellites + derivational forms EXCLUDED
+    as too noisy -- exp_state_closure_wordnet_v1 sweep). The FOUNDATION route for state antonymy: the brain
+    derives opposition from the semantic hub, it does not hand-enumerate it. Precision-biased (closure
+    RETRACTS a state): opp-recall 1.00 / false-close 0.133 on the vetted probe."""
+    if word in _wn_ant_cache:
+        return _wn_ant_cache[word]
+    out = set()
+    try:
+        from nltk.corpus import wordnet as wn
+        for syn in [s for s in wn.synsets(word) if s.pos() == "a"][:1]:
+            for lm in syn.lemmas():
+                for a in lm.antonyms():
+                    out.add(a.name().replace("_", " ").lower())
+    except Exception:
+        pass
+    out.discard(word)
+    _wn_ant_cache[word] = frozenset(out)
+    return _wn_ant_cache[word]
+
+
 def _wn_hypernym_entails(specific: str, general: str) -> bool:
     """True iff NOUN `specific` is a hyponym of `general` within 3 steps (so 'specific' entails 'general':
     a soldier is-a serviceman). Nouns/verbs only -- adjectives have no hypernymy (use _SCALAR_ENTAILS)."""
@@ -237,6 +261,10 @@ def incompatible(v1: str, v2: str) -> bool:
             return True
         if x.startswith("in") and x[2:] == y:
             return True
+    # FOUNDATION fallback (additive): WordNet core-adjective antonymy -- fires only if the hand list +
+    # morphology did not, so coverage is never removed. Derives opposition rather than hand-listing it.
+    if b in _wn_adj_antonyms(a) or a in _wn_adj_antonyms(b):
+        return True
     return False
 
 
