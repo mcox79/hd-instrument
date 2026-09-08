@@ -385,21 +385,39 @@ strategy (2026-09-08): it is a **LEAK** (the brain has no coreference answer key
 the real floor, this problem's headline is the **+0.0528 CI-sep experiencer lift on that floor**, and the de-leaked
 binder + the world-knowledge residual are handed to their own posted problems (see NEXT STEPS).
 
-**NEXT STEPS (updated for the STRATEGY RULING 2026-09-08):** the leak question is RULED -- gold-coref inheritance is
-a LEAK; the honest de-leaked floor is the real floor, so the headline result of this problem is the **+0.0528
-CI-separated experiencer lift on the honest floor** (finalize on that; do NOT quote the ~0.80 gold-anchored number).
-Strategy split the remaining work into two posted problems, and this wire hands off to both rather than building them:
-1. **`replace_the_entity_gate_gold_coref_inheritance_with_online_cue_based_clustering`** -- strategy lands the
-   de-leaked binder. HAND-OFF from here: the two-part hdlab diff (opt-in bridge wire + de-leak), the pronoun
-   downstream-no-regress proof (25/25 byte-identical), AND upgrade A (`exp_crosstype_cuebased_cluster_gum_v1.py`) --
-   the brain-foundational cue-based clustering (+0.0036 CI-sep, twin loses) is exactly the online cue-based binder
-   that problem needs.
-2. **`world_knowledge_common_noun_to_name_bridge_the_81_percent_residual`** -- the ~81% world-knowledge residual
-   (do NOT solve it inside this wire; do NOT reuse the occupation-KB axis, a located negative). **The owner's
-   "ping-an-encyclopedia / learning-organ" idea (2026-09-08) is this problem's mechanism**, and the brain-foundational
-   shape is already scoped: (a) OFFLINE-consolidate a broad encyclopedia into the store (a static asset, owner 08-16;
-   NOT a live external API -- the brain has no internet oracle) -> the famous-entity slice; (b) ONLINE episodic
-   learning of in-text facts via `consolidation_gate` + the propose-verify grow loop (`hdlab/consolidation_gate.py`,
-   `hdlab/learner/`, `hdlab/meaning_foundation.py`, and the sister problem's entity->type-synset consolidation write
-   path) -> the local/fictional bulk that no encyclopedia contains. The two-route KB result here
-   (`exp_crosstype_kb_route_gum_v1.py`, +0.0055 not CI-sep) is the coverage-bounded starting point that problem grows.
+**NEXT STEPS (FINAL, updated 2026-09-08).** The leak question is RULED -- gold-coref inheritance is a LEAK; the honest
+de-leaked floor is the real floor, so the headline result of this problem is the **+0.0528 CI-separated experiencer
+lift on the honest floor** (+0.0394 end-to-end through the whole `reader.read()`; +0.0874 for the full brain-foundational
+chain). Finalize on those; do NOT quote the ~0.80 gold-anchored number. Solver scope is COMPLETE -- nothing further to
+build here. Three ordered moves, all owner/strategy-owned:
+
+**A. AT INTEGRATION (once owner marks `owner_verdict: DONE`) -- the exact landing recipe (Q111, strategy lands hdlab).**
+Implement the full upstream chain, not just the headline wire (per the implement-all-upstream-chain-fixes directive):
+  1. Swap the `situation_predict` former for the brain-foundational **cue-based clustering** (upgrade A) in
+     `_apply_commonnoun_gate`'s `else` branch -- +0.0036 CI-sep entity layer, twin loses, gives the bridge principled
+     ACT-R disambiguation. (`exp_crosstype_cuebased_cluster_gum_v1.py`)
+  2. Add the opt-in `crosstype_bridge` flag (default False, byte-identical off) -- Doc adapter over the reader's OWN
+     `_read_parse_cache` (NO second parse), call `crosstype_bridge_links(doc, self.gaz, conf_thr=-3.0)`.
+  3. **De-leak the gate** -- restrict gold-cluster inheritance to NAME/PRONOUN-anchored groups; give COMMON-only groups
+     a fresh **NEGATIVE-INTEGER** id (NOT a `CN:` string, or `_read_world_state`/`_resolve_commonnouns` crash on `rc>=0`).
+     Part 3 is the load-bearing fix -- Part 2 without it changes no board number; EXPECT + fix downstream breakage.
+  4. Re-measure through the full `reader.read()` (incl. the pronoun consumers, proven 25/25 byte-identical) and flip ON
+     per no-more-default-off. Then reverify (4 witness suites), grade, markers, §2b, commit (NO push).
+
+**B. HAND-OFF to two posted problems (do NOT build them inside this wire):**
+  1. **`replace_the_entity_gate_gold_coref_inheritance_with_online_cue_based_clustering`** -- strategy lands the de-leaked
+     binder. Give it the 3-part diff above + the pronoun downstream-no-regress proof + upgrade A (the cue-based binder it
+     needs is already built).
+  2. **`world_knowledge_common_noun_to_name_bridge_the_81_percent_residual`** -- the coverage lever (the ONE real upgrade;
+     the KB converts reach->win at 89%, so added coverage buys correct binds near-linearly). Do NOT reuse the occupation-KB
+     axis (located negative). Owner's "ping-an-encyclopedia / learning-organ" idea is this problem's mechanism:
+     (a) OFFLINE-consolidate a broad encyclopedia into the store (a static asset -- NOT a live API; the brain has no
+     internet oracle) for the famous-entity slice; (b) ONLINE episodic learning of in-text facts via `consolidation_gate`
+     + the propose-verify grow loop (`hdlab/learner/`, `hdlab/meaning_foundation.py`) for the local/fictional bulk. The
+     two-route KB result here (`exp_crosstype_kb_route_gum_v1.py`, +0.0055 not CI-sep) is the coverage-bounded start.
+
+**C. COORDINATE with the SIBLING name-bridge wire (surfaced from `notes/INTEGRATION_LEDGER.md` this session).** A sibling
+name-bridge solution has its own filed live-wire follow-on that "mirrors the filed `wire_the_crosstype...` brief" and
+shares the SAME reader-dict<->GUM-Doc adapter risk + the SAME de-leak dependency (its entropy->coref confidence rides on
+name-bridge coref being live). RECOMMENDATION: land the Doc adapter + the de-leak ONCE and let both wires consume it,
+rather than building the adapter/de-leak twice. Sequence the de-leak first (both wires depend on it), then the two wires.

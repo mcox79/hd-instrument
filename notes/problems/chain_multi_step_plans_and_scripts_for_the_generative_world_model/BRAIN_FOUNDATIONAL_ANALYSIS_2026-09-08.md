@@ -1,0 +1,107 @@
+# Brain-foundational analysis: multi-step means-ends chaining for the generative world-model
+
+**problem:** chain_multi_step_plans_and_scripts_for_the_generative_world_model | **date:** 2026-09-08 |
+**gold:** TellMeWhy non-adjacent (Lal 2021), n=256 | **witness:** verification/test_multistep_meansend_chain.py 12/12
+
+Detailed backing for SOLVED.md checklist items 6 (performance vs the brain / where we lose signal) and 7
+(adjacent components). Every number is on disk (data/exp_multistep_meansend_chain_v1/metrics.json).
+
+## 1. How the brain does this (PINNED vs OUR-INVENTION)
+Reading "why did she go to the store?" with "she wanted milk" earlier, a competent reader:
+1. Maintains a SITUATION MODEL (Zwaan-Radvansky; Kintsch C-I) with COREF-RESOLVED participants and their goals.
+2. Runs MULTIPLE intuitive-theory engines IN PARALLEL as generative PRIORS over one shared event model
+   (Franklin 2020 SEM; Kuperberg 2021; Rabovsky 2018): psychology (goals/beliefs, Baker-Saxe-Tenenbaum;
+   Csibra-Gergely), physics (force dynamics, Talmy/Wolff), affect (appraisal, OCC; Barrett).
+3. Does INVERSE PLANNING: a FORWARD ROLLOUT (hippocampal, Pfeiffer-Foster; Mattar-Daw) through plan/script
+   knowledge to a goal-state test.
+4. The plan/script knowledge is the amodal ATL SEMANTIC HUB (Lambon-Ralph): a LOW-DIMENSIONAL distributed code
+   where means-end relations are GEOMETRIC PROXIMITY (generate, not retrieve).
+5. The engines COMPETE by explanatory coherence (Thagard ECHO): a COALITION beats a lone strong cue.
+6. All inside a RECURRENT top-down loop (Rao-Ballard; Friston; Kuperberg-Jaeger).
+
+## 2. Fidelity verdict per stage
+| stage | brain (PINNED) | ours | fidelity |
+|---|---|---|---|
+| extraction | incremental predictive parse | spaCy arc-eager (greedy) | deviation; NOT the loss here (recall 0.98) |
+| coref / binding | resolved discourse referents (Heim/Kamp) | SURFACE lemmas, no live coref | deviation (E3 NEEDS_ADAPTER) -- MEASURED as the dominant full-pop loss |
+| plan/script knowledge | ATL amodal low-rank hub | PPMI+SVD over ATOMIC (offline) | FAITHFUL IN KIND; online-learning is the deviation |
+| rollout | hippocampal model-based rollout | hub implicit closure; explicit chain hurts | faithful for 2-endpoint reachability |
+| goal-state test | inverse planning (Baker-Saxe-Tenenbaum) | diagnosticity = P(a|g)/P(a) | FAITHFUL |
+| decision | additive + signed-pairwise coherence + DDM | additive only | partial; coherence/commit unbuilt |
+| architecture | ONE recurrent generative loop | feed-forward late-fused scorers | deviation (parent-flagged) |
+| engines | goal + physics + mental + affect competing | goal excellent; affect weak; physics/mental unbuilt | 1 of 4 |
+
+## 3. Performance vs the brain, and WHERE we lose signal (oracle ladder, parent, n=256)
+```
+base 0.277
+  +0.016  parent surface means-end        -> 0.293
+  +0.148  PERFECT goal simulator (DEPTH)   -> 0.441   <- COVERAGE HALF NOW CLOSED (8.7->88%, win doubled)
+  +0.332  PERFECT all-type means-end       -> 0.773   <- the OTHER engines; bounded by the 39% associative slice
+  +0.227  gold (extraction/selection)      -> 1.000
+```
+This work moves the first rung (the goal-engine coverage). The residual within the goal engine is (a) the hub's
+edge-correctness (held-out AUC 0.68) and (b) -- dominant on the full population -- the missing COREF (section 8).
+
+## 4. Why the full population ties -- cause-type composition (n=256)
+| type | n | share | addressable by |
+|---|---|---|---|
+| OTHER (untypeable/associative) | 101 | 39% | base topical/Trabasso connectivity -- NO directed engine |
+| GOAL | 92 | 36% | the goal engine (now excellent) |
+| PHYSICAL | 29 | 11% | a physics engine (unbuilt) |
+| MENTAL | 20 | 8% | a mental/ToM engine (unbuilt) |
+| AFFECTIVE | 14 | 5% | the affect engine (built, weak) |
+The goal engine false-fires on the non-goal 64% (69.5% carry a goal-marked distractor); even a perfect
+multi-engine means-end caps at 0.773 because 39% of causes are associative (base is the ceiling there).
+
+## 5. Adjacent components (candidate next problems -- fidelity + optimization)
+- RESOLVED COREF (E3) -- the dominant, MEASURED upstream (section 8). Being updated by the strategy session now.
+- The MULTI-ENGINE COMPETITION: physics (force_dynamics_typer + world_state_register directed) + mental
+  (_tom_chain inverse) as competing cues; the signed-pairwise ECHO coherence decision + DDM commit (NEW organ).
+- The ATL hub edge-correctness (AUC 0.68): sweep SVD dim / relations / WordNet backoff (movable operating point).
+- The recurrent generative loop over a shared event model (bound_event_backbone + predictive_reader/n400).
+
+## 6. Controls (summary; full in SOLVED.md)
+info-free twin (GOAL loses p=0, FULL not beaten); base ablation; topical floor; parent-rollout (rs) reproduced;
+binary-CSKG (ms2) reproduced; OTHER-subset ablation (cross-type damage); teleological router (does not separate);
+affect engine (domain too small); multiplicative gate (still damages OTHER); no-regress; from-source
+generalization (AUC 0.68 + direction-faithful 6/6); the temporal/script order store (located negative);
+the participant-binding UPSTREAM TRACE (section 8).
+
+## 7. The temporal/script order store (strategy's asset), tested
+Strategy flagged a landed broadened order store (hdlab.temporal_script_schema, 454k pairs, coverage 0.84 here)
+that lifts TRACIE implicit-event ORDERING +0.036. Tested here as a directed cross-type engine (a cause
+canonically precedes its effect: torder = 2*(p_before(cand,q)-0.5)). VERDICT: a LOCATED NEGATIVE for cause-
+SELECTION -- torder alone full -0.0508 (not sep), and the goal+affect+temporal competition WORSENS OTHER (-0.122
+vs goal-alone -0.079). WHY: the context-free SCRIPT PRIOR discriminates canonical ORDER, not which preceding
+event is the CAUSE; among candidates that all precede q, order does not separate the cause. This is strategy's
+own scope caveat, confirmed. The store is right for its HOME task (implicit-event ordering); not a cause-selection
+engine. A high-coverage directed cross-type signal that still does not cross -- because cause comprehension needs
+story-specific content, not a canonical prior.
+
+## 8. THE UPSTREAM TRACE -- the full-population residual localized to resolved COREF (the owner's principle, measured)
+Owner's principle: a brain-foundational component that fails almost always relies on a non-brain-foundational
+upstream. The goal means-end engine IS brain-foundational (ATL hub + inverse-planning diagnosticity), so I traced
+the signals it expects back up the chain and MEASURED where they are lost.
+
+The goal engine expects, per candidate: (a) the candidate's GOAL-OBJECT (goal_register / _goal_span), (b) q's
+ACTION terms (event extraction, 0.98), (c) the goal to be bound to q's AGENT (the brain binds "who wanted X" to
+"who did Y", Heim/Kamp file-cards), (d) hub means-end scores. (c) is the deviation: we have NO live coref
+(E3 NEEDS_ADAPTER); the engine uses SURFACE terms and cannot check agent identity.
+
+TEST (a crude surface agent proxy = first pronoun/proper-noun subject, used ONLY to attribute the loss):
+- Agent-gating the goal means-end (suppress a candidate whose known surface agent differs from q's) RECOVERS
+  ~61% of the OTHER damage: me_diag OTHER -0.0793 -> -0.0305 (CI now includes 0).
+- 67% of the goal engine's non-goal false-flips (base right -> me_diag wrong) are DIFFERENT-agent goals (10/15);
+  NONE were valid-but-secondary causes (boosted-in-helpful = 0) -> the damage is NOT gold-incompleteness or an
+  intrinsic means-end flaw; it is the engine boosting a DIFFERENT participant's goal.
+- 97% of non-goal stories are multi-agent -> coref genuinely CAN disambiguate.
+- BUT the surface proxy HALVES the goal-subset win (+0.174 -> +0.098) because it cannot resolve she==Mary (a
+  pronoun in q vs a proper name in the goal sentence) -> the fix needs RESOLVED coref, not surface matching.
+
+CONCLUSION: the exact signal-loss point on the full population is MISSING RESOLVED COREF (participant-binding).
+The brain-foundational means-end engine is starved by a non-brain-foundational upstream (surface/absent coref).
+PROJECTED CROSSING: if resolved coref recovers OTHER to ~base while keeping the goal-subset lift, full population
+~= 0.277 + (92/256)*~0.20 ~= 0.35 (plausibly CI-separated). This is an ESTIMATE, unmeasured until E3 is wired.
+The strategy session is CURRENTLY updating coref -- the clean next test is to re-bind the goal means-end on the
+reader's resolved participants and re-measure OTHER (expected: recovers without the goal-subset regression the
+surface proxy causes).

@@ -330,3 +330,28 @@ witnesses (all green); 24 cells / 24 witnesses total.
     accuracy; the frontier lever is reading the specific story's CONTEXT (Q111), not another static store.
   * Reverify: test_genworldmodel_{directed_kb_rollout, entropy_gated_integrator, script_order_cue}.py.
 ================================================================================
+
+================================================================================
+## >>> CYCLE-12/13 (2026-09-08) -- script-order CONFIRMED at power + the CONTEXT-CONDITIONED structure <<<
+================================================================================
+CYCLE-12: the cycle-11 script-order TellMeWhy lead, POWERED on pooled TellMeWhy train+val+test GOAL (n=935,
+test 467), is CONFIRMED: adding strategy's broad script-order cue (temporal_script_schema p_before) to the
+Competition-Model integrator lifts 4cue 0.499 -> 5cue 0.559 (+0.060 CI[0.024,0.096] CI-sep) AND beats a
+shuffled-script twin (+0.062 CI[0.019,0.105] = load-bearing). SECOND live load-bearing win from existing organs.
+Cell exp_genworldmodel_script_order_power_v1.py + witness (3/3).
+
+CYCLE-13: RESEARCHED (note research_context_conditioned_cause_selection_2026-09-08.md, 46 sources) + PROTOTYPED
+the context-conditioned structure. The research is DECISIVE: 3 independent literatures (Trabasso&van den Broek
+1985; Mackie INUS; Batusov-Soutchanski STRIPS actual-causality) converge on LEAVE-ONE-OUT COUNTERFACTUAL
+NECESSITY -- remove candidate, does E's precondition flip met->unmet, conditioned on the whole story's folded
+world-state. Ranked shortlist in the note: #1 LOO world-state necessity (P=0.40), #2 Kintsch coherence-settling
+(P=0.35), #3 LOO surprisal-reduction (P=0.25). predictive_reader is already-fitted on disk (no fit needed).
+Prototyped #1 (exp_genworldmodel_loo_necessity_v1.py + witness 4/4) reusing hdlab.world_state_register fold +
+precondition state. RESULT = LOCATED NEGATIVE, blocker QUANTIFIED: HARD-FAIL on real narrative (no CI-sep lift;
+~4% firing; doesn't beat null/order-shuffle twins) because CROSS-SENTENCE OBJECT IDENTITY is only ~10%
+(E_has_goalobj ~0.63, op_reach ~0.6, but object-match ~0.10) -- the object E needs is named differently than the
+candidate that establishes it -> needs RESOLVED DISCOURSE REFERENTS (coref/meaning-foundation, Q111). Same wall,
+9th angle, now quantified; mirrors cycle-3 (ORACLE binding EXCELs +0.035). NEXT arms if a resolved-referent
+front-end lands: mechanism #2 (Kintsch settling over CausalLinkRegister typed bindings) + #3 (LOO
+surprisal-reduction over n400_coherence_monitor running gist). 26 cells/witnesses.
+================================================================================
