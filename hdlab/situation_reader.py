@@ -900,7 +900,7 @@ class SituationReader:
                  track_infer_emotion: bool = True,
                  affect_structured_matcher: bool = False,
                  track_bridges: bool = True,
-                 bridge_source: str = "hub", bridge_beta: float = 0.0, bridge_tau: float = 0.0,
+                 bridge_source: str = "c6pw", bridge_beta: float = 0.0, bridge_tau: float = 0.0,
                  track_senses: bool = True,
                  sense_mode: str = "underspecified", sense_gamma: float = 1.0,
                  sense_topk: Optional[int] = None, sense_prior_weight: float = 0.0,

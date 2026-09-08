@@ -161,7 +161,7 @@ class BridgeInference:
     LIVE ATL hub / curated meaning foundation; never rebuilds a store. Stateless apart from the process-level
     asset singletons -- one instance per reader is fine."""
 
-    VALID_SOURCES = ("hub", "mfnd", "cond")
+    VALID_SOURCES = ("hub", "mfnd", "cond", "c6pw")
 
     def __init__(self, source: str = "hub", beta: float = 0.0, tau: float = 0.0) -> None:
         if source not in self.VALID_SOURCES:
@@ -188,6 +188,27 @@ class BridgeInference:
             return None
         return float(tv @ cv)
 
+    def _c6_typed_bridge(self, target: str, cands: List[str], tau: float) -> Optional[Bridge]:
+        """C6 TYPED-DIRECTED PART-WHOLE selection when the landed spoke COVERS the decision (any candidate whole has
+        a stored part-set), else None (caller falls back to the symmetric read). The directed meronym-prototype
+        discriminates where the symmetric dense read picks the DISTRACTOR (keyboard/computer 0.949 vs desk 0.951).
+        Byte-faithful to exp_partwhole_typed_spoke_bridging_v1's HYBRID_typed_or_symmetric arm on the live path
+        (ho=none, so hdlab.typed_spokes.part_whole_score/covers_whole == the cell's sp/covered exactly)."""
+        from hdlab import typed_spokes as TS
+        if not TS.available_partwhole():
+            return None
+        sp = [TS.part_whole_score(target, c) for c in cands]
+        covered = any(TS.covers_whole(c) for c in cands)
+        if not (covered and max(sp) > -9.0):
+            return None
+        order = sorted(range(len(cands)), key=lambda i: (-sp[i], cands[i]))   # deterministic tie-break by word
+        top_i = order[0]; top_s = sp[top_i]
+        runner = sp[order[1]] if len(order) > 1 else float("-inf")
+        margin = top_s - runner if len(order) > 1 else float("inf")
+        return Bridge(target=target, antecedent=cands[top_i], source="c6pw", score=round(float(top_s), 6),
+                      margin=(round(float(margin), 6) if margin != float("inf") else float("inf")),
+                      abstained=bool(margin < tau), ranked=[(cands[i], round(float(sp[i]), 6)) for i in order])
+
     def select(self, target: str, candidates: Sequence[str], *, source: Optional[str] = None,
                beta: Optional[float] = None, tau: Optional[float] = None) -> Optional[Bridge]:
         """SELECT the candidate antecedent best supported by meaning-store relatedness to `target` (Kintsch
@@ -208,6 +229,13 @@ class BridgeInference:
             cands.append(c)
         if not cands:
             return None
+        if src == "c6pw":
+            # C6 typed part-whole HYBRID: select by the landed directed spoke where it COVERS the decision, else
+            # fall back to the symmetric relatedness (the reference cell's HYBRID_typed_or_symmetric; fallback=hub).
+            tb = self._c6_typed_bridge(target, cands, t)
+            if tb is not None:
+                return tb
+            src = "hub"
         sal = _salience() if (src == "cond" and b != 0.0) else None
         scored: List[Tuple[str, float]] = []
         for c in cands:
