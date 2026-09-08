@@ -124,3 +124,23 @@ engine for the actual non-goal cause out-competing the goal boost on the same ag
 gender/number-aware coref lifts FULL to ~0.33 (borderline; the A residual caps it); the full crossing needs coref
 AND the competition. The strategy session is CURRENTLY building coref -- the clean next test is to re-bind on the
 reader's GENDER/NUMBER-aware resolved participants and re-measure, then add the competing engines for the A residual.
+
+## 10. CORRECTION (reading the actual items SUPERSEDES the surface decomposition of sections 8-9)
+I plugged in the LANDED gender/number-aware resolver (WorkingOverlay phi-agreement + Centering salience + name-gender
+gazetteer): plumbing SOUND (subject-found 97%, pronoun-resolution 95%, gazetteer 62%) but it did NOT beat recency
+(OTHER -0.085 vs -0.061; GOAL +0.130 vs +0.152; FULL ties). That tell prompted DUMPING AND READING all 15 flips
+(metrics.json flip_items), which CORRECTS sections 8-9:
+- The "different surface agents" (q="he", boosted="Ike") are the SAME PERSON; recency merges them correctly. So the
+  "C recency-merged / needs gender-aware coref" slice is NOT a coref error, and gender-aware coref does not fix it --
+  exactly why the landed resolver did not help. COREF IS NOT THE LEVER on this gold; the surface-agent decomposition
+  misattributed the damage.
+- The true non-goal signal loss, from reading: (1) GOLD-INCOMPLETENESS ~4/15 -- the engine finds a VALID goal-cause
+  the sparse TellMeWhy gold did not annotate ("Ike loved to fish"; "Brian wanted to play golf"; "Derek wanted to
+  cook") -> scored wrong, arguably right, so the full-pop tie UNDERSTATES true quality; (2) SHALLOW LEXICAL-OVERLAP
+  OVER-FIRE ~4/15 -- the hub fires on a shared WORD without verified causal DIRECTION ("give up on a TREE" <- "buy a
+  christmas TREE") = a hub precision problem; (3) DEGENERATE items ~2/15 (non-causal q; base picking an effect).
+- CORRECTED LEVERS: (a) a directional CAUSE->EFFECT gate on the hub; (b) a COMPLETE / multi-reference eval;
+  (c) the multi-engine competition for the 36%-scope. NOT coref (demoted for this gold).
+- LESSON: reading the items beat the aggregate decomposition -- an audit checks the shape you thought to check;
+  reading the data checks all of them. Sections 8-9 (the surface/recency decomposition) are retained for the trail
+  but are SUPERSEDED by this item-level reading.
