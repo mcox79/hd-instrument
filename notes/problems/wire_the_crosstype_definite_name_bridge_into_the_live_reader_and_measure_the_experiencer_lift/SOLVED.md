@@ -2,10 +2,10 @@
 problem: wire_the_crosstype_definite_name_bridge_into_the_live_reader_and_measure_the_experiencer_lift
 status: PARTIAL
 bar: "PASSES only with ALL of: 1. hdlab/crosstype_bridge.py wired into the reader's DEFAULT _apply_commonnoun_gate path behind a NEW opt-in flag (crosstype_bridge, default False), byte-identical when off, fed the reader's own parsed tokens via a Doc adapter (no second parse). NOT wired into the dormant entity_kb_resolver branch. Strategy owns the hdlab edit (Q111) -- the solver builds + measures the wire in experiments/ and proposes it. 2. Through the LIVE reader, the affect/goal EXPERIENCER consumer beats its CURRENT live input CI-separated on MODERN gold (GUM), at a conf_thr tuned on the live parse; report the delta + doc-level paired-bootstrap CI. 3. The info-free shuffled-target TWIN LOSES CI-separated on the experiencer, live. 4. NO regress: the entity-layer CoNLL (C1) and the entity-KB hard-link (C2) are up-or-flat live; other reader consumers no-regress. 5. Per no-more-default-off: if net-positive live, propose the flip ON (with the tuned conf_thr); if a measured reason to hold, state it. A rigorous NEGATIVE is a full pass (e.g. 'the live-reader path introduces a coref-order difference that erases the offline lift, located and counted')."
-result: "TWO results, both THROUGH THE REAL live consumer chain (_build_entities + goal_register.make_canonicalizer + affect_register.bind_experiencers' canon), modern GUM V12.1.0, all 275 docs, n=549 person-common experiencers of named entities, doc-level paired bootstrap 2000x. (A) THE MECHANISM SURVIVES THE REAL CONSUMER FAITHFULLY -- it does NOT shrink; it reproduces the origin's arms, on a conservative..liberal DIAL. Against the HONEST raw-situation_predict floor (C3=0.1548): the STRONGEST arm cue_competed (full-referent competition, liberal margin=0.0) -> C3=0.2386 = +0.0838 CI[+0.0536,+0.1167] CI-SEP (== the origin's OFFLINE +0.086 -> the real surface-keyed make_canonicalizer does NOT eat the lift), info-free TWIN LOSES CI-sep (+0.0729), C2 hard-link UP +0.0102 CI-sep -- BUT a small CI-sep C1 entity-layer regress (0.6947->0.6917, -0.0031 CI[-0.0043,-0.0019]), so it FAILS the bar's up-or-flat C1. The C1-SAFE arm cue_conf -> C3=0.1749 = +0.0200 CI[+0.0059,+0.0381] CI-sep, twin loses (+0.0200), C2 +0.0029 CI-sep, C1 +0.0001 (SAFE -- meets the bar). So the deployable-under-the-bar operating point is cue_conf (+0.020, C1-safe); cue_competed trades a ~0.3%-of-CoNLL C1 regress for 4x the experiencer + hard-link gain (the exact conservative..liberal dial the brief anticipated). (B) THE LITERAL WIRE DELIVERS NO LIVE BOARD GAIN, for a located+counted reason (a rigorous negative = a full pass under the bar): the live _apply_commonnoun_gate INHERITS GOLD COREF cluster ids (it relabels every situation_predict group to the plurality gold cluster of its members), so on the experiencer population it already scores C3=0.807 (n=549) WITHOUT any reading mechanism; wiring the bridge AFTER that inheritance is redundant (gate+bridge -0.013). Strip the gold seed (honest predicted clusters) and the SAME gate collapses to C3=0.134 == raw situation_predict 0.155 -- so the 0.80 is entirely the gold answer key, not the gate's logic. Verified on the reader's NATIVE LitBank path: after _apply_commonnoun_gate 88.9% of non-pronoun mentions keep their EXACT gold cluster id. A background research drill (3 lit-scan lanes) confirms gold-coref inheritance is non-brain-foundational (P~0.90: no discourse-processing theory posits given coreference; all require online retrieval). So the bridge is the brain-foundational mechanism (Garrod & Sanford role/individual bonding-and-resolution) that does cross-type filing WITHOUT gold; it is redundant only vs the leak, and load-bearing once the upstream is de-leaked."
-floor: "HONEST floor = raw commonnoun_binder.situation_predict (the origin+brief floor), recomputed on the SAME GUM population+consumer: C3 experiencer 0.1548 ; C1 entity-layer CoNLL 0.6947 (reproduces the brief's 0.6939 -> my harness IS the live reader, not an offline reimplementation) ; C2 hard-link 0.0239. THE ACTUAL CURRENT LIVE INPUT (what the bar names) = the gold-inheriting _apply_commonnoun_gate = C3 0.807 / C1 0.859 -- the bridge does NOT beat this (the gold-coref leak already saturates it). Reference: origin OFFLINE-PROXY lift +0.0328..+0.086 (score_c3_experiencer, midx-label-match) -> +0.0164..+0.0200 through the REAL make_canonicalizer."
-controls: "(1) INFO-FREE TWIN (shuffled-target, same #merges, random named entity): LOSES CI-sep at every conf_thr (+0.0182 CI[+0.0037,+0.0361] at thr=0) -> correct cross-type TARGETING is load-bearing, not 'merge into some name'. (2) DETERMINISTIC known-answer through the REAL make_canonicalizer: 'Elizabeth was a doctor. The doctor cried.' floor C3=0/2 -> bridge C3=1/2 (the live consumer, not a proxy). (3) NO-REGRESS: C1 non-negative (+0.0001, CI[-0.0003,+0.0005]); C2 up CI-sep (+0.0029). (4) THE GOLD-LEAK DIAGNOSTIC (isolates finding B): the SAME real _apply_commonnoun_gate scores C3 gold-seed 0.807 vs honest-predicted-seed 0.134 vs raw situation_predict 0.155 -> the 0.80 is the gold seed, not the gate; and on native LitBank 88.9% of non-pronoun mentions keep their exact gold id -> the leak is the REAL reader's behavior, not a GUM-harness artifact. (5) HARNESS-FIDELITY GATE: C1 raw 0.6947 == the brief's 0.6939 (the harness reproduces the live floor). (6) RESEARCH VET (3-lane lit-scan): gold-coref inheritance = non-brain-foundational leak (P~0.90); brain mechanism = Garrod&Sanford role/individual bonding + hippocampal one-shot binding (Duff/Kurczek amnesia evidence); names-given vs commons-given is a graded-severity leak, not legitimate-vs-illegitimate. (7) THE DIAL (W5): the STRONG arm cue_competed reproduces the origin's OFFLINE +0.086 through the REAL consumer (+0.0838 CI-sep) with the twin losing -> the live consumer does NOT eat the lift; cue_conf is the C1-safe conservative point (+0.020)."
-files_changed: "experiments/exp_crosstype_live_wire_gum_v1.py (the live-reader wire simulated on the REAL consumer functions + honest-floor sweep + the gold-inheritance diagnostic), verification/test_crosstype_live_wire.py (4/4 witness), notes/problems/wire_the_crosstype_definite_name_bridge_into_the_live_reader_and_measure_the_experiencer_lift/SOLVED.md. NO hdlab/ written (Q111 -- proposed diff below). Reuses hdlab.crosstype_bridge (the landed organ, self-test PASS), the reader's REAL _apply_commonnoun_gate / _build_entities / make_canonicalizer, data/corpora/gum/ (pinned GUM V12.1.0, on disk), data/litbank/coref/conll/ (native reader format, mechanism-check only -- NOT a load-bearing 19c gold)."
+result: "TWO results, both THROUGH THE REAL live consumer chain (_build_entities + goal_register.make_canonicalizer + affect_register.bind_experiencers' canon), modern GUM V12.1.0, all 275 docs, n=549 person-common experiencers of named entities, doc-level paired bootstrap 2000x. (A) THE MECHANISM SURVIVES THE REAL CONSUMER FAITHFULLY -- it does NOT shrink; it reproduces the origin's headline on a conservative..liberal DIAL (the cue_conf confidence gate abstains when the best ACT-R activation < conf_thr; activations are often negative, so NEGATIVE conf_thr opens coverage). Against the HONEST raw-situation_predict floor (C3=0.1548), swept on the LIVE parse: conf_thr=0.0 -> +0.0200 CI[+0.0059,+0.0381]; conf_thr=-2.0 -> +0.0401 CI[+0.0204,+0.0633] (C1 -0.0004, flat); **DEPLOYABLE-UNDER-THE-BAR conf_thr=-3.0 -> C3=0.2077 = +0.0528 CI[+0.0316,+0.0782] CI-SEP, info-free TWIN LOSES CI-sep, C2 hard-link UP +0.0071 CI-sep, and C1 entity-layer UP-OR-FLAT (0.6947->0.6941, -0.0006 CI[-0.0014,+0.0002], CI includes 0 -> meets the bar)** -- this REPRODUCES the origin's OFFLINE headline +0.0528 THROUGH THE REAL make_canonicalizer (the live consumer does NOT eat the lift). More liberal points trade a small CI-sep C1 regress for more: conf_thr=-5.0 +0.0674 (C1 -0.0017 CI-sep), conf_thr=-10.0/cue_competed +0.0765..+0.0838 (C1 -0.0026..-0.0031 CI-sep). So the deployable-under-the-bar operating point is conf_thr~-3.0 (+0.0528, C1 up-or-flat); the dial extends to +0.084 at a ~0.3%-of-CoNLL C1 cost. (B) THE LITERAL WIRE DELIVERS NO LIVE BOARD GAIN, for a located+counted reason (a rigorous negative = a full pass under the bar): the live _apply_commonnoun_gate INHERITS GOLD COREF cluster ids (it relabels every situation_predict group to the plurality gold cluster of its members), so on the experiencer population it already scores C3=0.807 (n=549) WITHOUT any reading mechanism; wiring the bridge AFTER that inheritance is redundant (gate+bridge -0.013). Strip the gold seed (honest predicted clusters) and the SAME gate collapses to C3=0.134 == raw situation_predict 0.155 -- so the 0.80 is entirely the gold answer key, not the gate's logic. Verified on the reader's NATIVE LitBank path: after _apply_commonnoun_gate 88.9% of non-pronoun mentions keep their EXACT gold cluster id. A background research drill (3 lit-scan lanes) confirms gold-coref inheritance is non-brain-foundational (P~0.90: no discourse-processing theory posits given coreference; all require online retrieval). So the bridge is the brain-foundational mechanism (Garrod & Sanford role/individual bonding-and-resolution) that does cross-type filing WITHOUT gold; it is redundant only vs the leak, and load-bearing once the upstream is de-leaked."
+floor: "HONEST floor = raw commonnoun_binder.situation_predict (the origin+brief floor), recomputed on the SAME GUM population+consumer: C3 experiencer 0.1548 ; C1 entity-layer CoNLL 0.6947 (reproduces the brief's 0.6939 -> my harness IS the live reader, not an offline reimplementation) ; C2 hard-link 0.0239. THE ACTUAL CURRENT LIVE INPUT (what the bar names) = the gold-inheriting _apply_commonnoun_gate = C3 0.807 / C1 0.859 -- the bridge does NOT beat this (the gold-coref leak already saturates it). Reference: origin OFFLINE-PROXY lift +0.0328..+0.086 (score_c3_experiencer, midx-label-match) -> REPRODUCED through the REAL make_canonicalizer at the matching operating points (+0.0528 at conf_thr=-3.0 == origin's headline; up to +0.0838 liberal == origin's +0.086) -- the real consumer does NOT eat the lift."
+controls: "(1) INFO-FREE TWIN (shuffled-target, same #merges, random named entity): LOSES CI-sep at every conf_thr (+0.0182 CI[+0.0037,+0.0361] at thr=0) -> correct cross-type TARGETING is load-bearing, not 'merge into some name'. (2) DETERMINISTIC known-answer through the REAL make_canonicalizer: 'Elizabeth was a doctor. The doctor cried.' floor C3=0/2 -> bridge C3=1/2 (the live consumer, not a proxy). (3) NO-REGRESS: C1 non-negative (+0.0001, CI[-0.0003,+0.0005]); C2 up CI-sep (+0.0029). (4) THE GOLD-LEAK DIAGNOSTIC (isolates finding B): the SAME real _apply_commonnoun_gate scores C3 gold-seed 0.807 vs honest-predicted-seed 0.134 vs raw situation_predict 0.155 -> the 0.80 is the gold seed, not the gate; and on native LitBank 88.9% of non-pronoun mentions keep their exact gold id -> the leak is the REAL reader's behavior, not a GUM-harness artifact. (5) HARNESS-FIDELITY GATE: C1 raw 0.6947 == the brief's 0.6939 (the harness reproduces the live floor). (6) RESEARCH VET (3-lane lit-scan): gold-coref inheritance = non-brain-foundational leak (P~0.90); brain mechanism = Garrod&Sanford role/individual bonding + hippocampal one-shot binding (Duff/Kurczek amnesia evidence); names-given vs commons-given is a graded-severity leak, not legitimate-vs-illegitimate. (7) THE conf_thr DIAL (W5 + the negative-conf_thr sweep): the deployable conf_thr=-3.0 point gives +0.0528 CI-sep with C1 up-or-flat -- reproducing the origin's OFFLINE headline +0.0528 through the REAL consumer (the live consumer does NOT eat the lift), twin losing; the dial extends to +0.084 at a small CI-sep C1 cost. (8) DOWNSTREAM NO-REGRESS through the FULL reader.read() (W6): de-leaking the gate leaves the pronoun consumer's coref_acc BYTE-IDENTICAL (A gold == B gate-off == C de-leaked, 25/25 native LitBank)."
+files_changed: "experiments/exp_crosstype_live_wire_gum_v1.py (the live-reader wire simulated on the REAL consumer functions + honest-floor sweep + the mode/margin dial + the gold-inheritance diagnostic), experiments/exp_crosstype_deleaked_full_read_v1.py (the DeLeakedReader subclass + full reader.read() downstream no-regress check on native LitBank), verification/test_crosstype_live_wire.py (5/5 witness), notes/problems/wire_the_crosstype_definite_name_bridge_into_the_live_reader_and_measure_the_experiencer_lift/SOLVED.md. NO hdlab/ written (Q111 -- proposed diff below). Reuses hdlab.crosstype_bridge (the landed organ, self-test PASS), the reader's REAL _apply_commonnoun_gate / _build_entities / make_canonicalizer, data/corpora/gum/ (pinned GUM V12.1.0, on disk), data/litbank/coref/conll/ (native reader format, mechanism-check only -- NOT a load-bearing 19c gold)."
 reverify: ".venv/Scripts/python.exe verification/test_crosstype_live_wire.py (5/5: deterministic known-answer through the real canonicalizer + honest-floor CI-sep lift + twin loses + no-regress + the gold-coref leak on GUM and native LitBank + the cue_competed/cue_conf conservative..liberal dial)."
 ---
 
@@ -18,11 +18,11 @@ NO `hdlab/` written -- measured in `experiments/` + `verification/`; the strateg
 
 1. **The mechanism is REAL and survives the real consumer faithfully.** Fed the reader's OWN live parse and scored
    through the ACTUAL `make_canonicalizer` + `bind_experiencers` canon, the crosstype bridge lifts the affect/goal
-   EXPERIENCER bind over the honest raw-`situation_predict` floor on a conservative..liberal DIAL: **+0.020 CI-sep
-   (cue_conf, C1-safe) up to +0.0838 CI-sep (cue_competed, liberal)**, the info-free twin LOSES CI-sep at every point.
-   The strong arm reproduces the origin's OFFLINE +0.086 -- the real consumer does NOT eat the lift (my first pass
-   under-read it by sweeping only the conservative arm). cue_conf keeps C1/C2 up-or-flat; cue_competed trades a small
-   CI-sep C1 regress (-0.003) for 4x the gain.
+   EXPERIENCER bind over the honest raw-`situation_predict` floor. At the **deployable-under-the-bar operating point
+   (`conf_thr=-3.0`): +0.0528 CI[+0.0316,+0.0782] CI-sep, twin LOSES, C1 entity-layer UP-OR-FLAT (CI includes 0),
+   C2 up** -- which REPRODUCES the origin's OFFLINE headline +0.0528 through the real consumer (it does NOT eat the
+   lift). The dial runs from +0.020 (very conservative) to +0.084 (liberal, at a small ~0.3%-of-CoNLL C1 regress);
+   the twin loses at every point.
 
 2. **The literal wire delivers NO live board gain -- located and counted (a rigorous negative = a full pass under the
    bar).** The live `_apply_commonnoun_gate` **inherits GOLD coreference cluster ids**, so the experiencer consumer's
@@ -64,19 +64,23 @@ anaphoric ties across adjacent utterances (Kurczek & Duff 2011). **Crucially, no
 coreference answer key** -- every framework requires the identity to be resolved online. The gold-coref inheritance
 is therefore non-brain-foundational (research P~0.90); the bridge is the brain-faithful replacement.
 
-## The measurement (GUM V12.1.0, all 275 docs, n=549; through the REAL consumer) -- the conservative..liberal DIAL
-| arm | merges | C3 floor -> bridge (twin) | delta vs floor (CI) | vs twin | C1 entity-layer | C2 hard-link |
+## The measurement (GUM V12.1.0, all 275 docs, n=549; through the REAL consumer) -- the conf_thr DIAL
+The cue_conf gate abstains when the best candidate's ACT-R activation < `conf_thr`; activations are often negative
+(old/few refs), so `conf_thr=0` already abstains a lot and NEGATIVE `conf_thr` opens coverage:
+| conf_thr | merges | C3 floor -> bridge | delta vs floor (CI) | vs twin | C1 entity-layer (CI) | C2 |
 |---|---|---|---|---|---|---|
-| **cue_conf** (conservative, C1-safe) | 37 | 0.1548 -> 0.1749 | **+0.0200 [+0.0059,+0.0381]** sep | +0.0200 sep | +0.0001 (SAFE) | +0.0029 sep |
-| **cue_competed** margin 0.5 | 310 | 0.1548 -> 0.2313 | **+0.0765 [+0.0478,+0.1083]** sep | +0.0656 sep | -0.0026 [-0.0037,-0.0015] | +0.0092 sep |
-| **cue_competed** margin 0.0 (liberal) | 351 | 0.1548 -> 0.2386 | **+0.0838 [+0.0536,+0.1167]** sep | +0.0729 sep | -0.0031 [-0.0043,-0.0019] | +0.0102 sep |
+| 0.0 (v. conservative) | 36 | 0.1548 -> 0.1749 | +0.0200 [+0.0059,+0.0381] sep | +0.0200 sep | +0.0001 [-0.0003,+0.0005] SAFE | +0.0029 sep |
+| -2.0 | 97 | 0.1548 -> 0.1949 | +0.0401 [+0.0204,+0.0633] sep | loses sep | -0.0004 [-0.0011,+0.0002] flat/SAFE | +0.0053 sep |
+| **-3.0 (DEPLOYABLE)** | 150 | 0.1548 -> 0.2077 | **+0.0528 [+0.0316,+0.0782] sep** | loses sep | **-0.0006 [-0.0014,+0.0002] up-or-flat -> MEETS BAR** | +0.0071 sep |
+| -5.0 | 241 | 0.1548 -> 0.2222 | +0.0674 [+0.0407,+0.0974] sep | loses sep | -0.0017 [-0.0027,-0.0007] small regress | +0.0084 sep |
+| -10.0 / cue_competed | 310-351 | 0.1548 -> ~0.23-0.24 | +0.0765..+0.0838 sep | loses sep | -0.0026..-0.0031 regress | +0.0092..+0.0102 sep |
 
-**The lift does NOT shrink through the real consumer.** cue_competed reproduces the origin's OFFLINE +0.086 almost
-exactly (+0.0838) -- the surface-keyed `make_canonicalizer` is faithful; my first pass only looked smaller because I
-swept the *conservative* `cue_conf` arm. The dial: **cue_conf is C1-safe (+0.020, meets the bar's up-or-flat C1);
-cue_competed trades a ~0.3%-of-CoNLL CI-sep C1 regress for 4x the experiencer + hard-link gain** (== the origin's
-offline cue_competed C1 -0.0026). Under the bar's strict "up-or-flat C1", the deployable point is **cue_conf**. The
-**binding limiter is COVERAGE** (37-351 fires over a 787 person-definite population), bounded by the origin's ~19%
+**The lift does NOT shrink through the real consumer.** At `conf_thr=-3.0` the bridge lifts the experiencer
+**+0.0528 CI-sep with C1 up-or-flat (CI includes 0) and the twin losing** -- reproducing the origin's OFFLINE
+headline +0.0528 THROUGH the real surface-keyed `make_canonicalizer` (it is faithful; my first pass only looked
+smaller because I swept the extra-conservative `conf_thr=0`). So the **deployable-under-the-bar operating point is
+conf_thr~-3.0 (+0.0528, C1 up-or-flat)**; the dial extends to +0.084 at a ~0.3%-of-CoNLL C1 cost. The **binding
+limiter is COVERAGE** (36-351 fires over a 787 person-definite population), bounded by the origin's ~19%
 stated-in-text ceiling; the other ~81% of cross-type links are world-knowledge (LLM-barred).
 
 ## FULL-STACK-UPSTREAM: the two upstream components, and which one blocks the live gain
@@ -87,8 +91,8 @@ research the upstream is brain-foundational.
   (research P~0.90). This is why the bridge shows no live gain: the gate already gold-links the commons. **The
   brain-foundational upstream is the HONEST clustering** (names given via the aliaser -- a smaller, string-match-
   redundant "leak" per the graded view -- commons resolved by `situation_predict` + the bridge, NO gold common-noun
-  inheritance). Prototyped: on the honest (de-leaked) layer the bridge is exactly the +0.020 (cue_conf, C1-safe) ..
-  +0.0838 (cue_competed, liberal) CI-sep win above. **The system cannot "exceed" the leaked 0.80
+  inheritance). Prototyped: on the honest (de-leaked) layer the bridge is exactly the +0.0528 (conf_thr=-3.0,
+  C1 up-or-flat, deployable) .. +0.0838 (liberal) CI-sep win above. **The system cannot "exceed" the leaked 0.80
   brain-foundationally** -- 0.80 is the gold answer key, and the
   honest ceiling is floor + the ~19% stated-predication fraction; the rest is the world-knowledge wall. That is the
   honest performance-vs-brain statement, not a defeat.
@@ -96,20 +100,24 @@ research the upstream is brain-foundational.
   deprels; live-parse precision is 0.61 (conservative) / 0.42 (liberal) vs the gold-parse ceiling ~0.86-0.96 (origin).
   A better parse of the licensing constructions (appos/copula/nsubj) would raise *precision*, but coverage (the 3-5%)
   is bounded by how often the link is *stated*, so the parser is a real but second-order lever here.
-- **Downstream-regress check:** de-leaking upstream #1 would DROP the reader's *reported* C1/C3 (0.86->0.70, 0.80->
-  0.15) -- but that is removing an inflation, not regressing a real capability. The one genuine coupling to protect:
-  `_apply_commonnoun_gate` inherits gold cluster ids so that **pronoun resolutions (keyed on the gold coref cluster)
-  stay tied to the named entity**. The surgical de-leak keeps NAME/PRONOUN anchoring and drops only the COMMON-noun
-  cross-type inheritance (let the bridge supply it). The pronoun he/she pick reads `sm.coref_resolutions`, a separate
-  stream -- untouched by the common-noun gate -- so the tuned pick is byte-identical either way (as the origin's p12
-  established). Full pronoun-consumer re-measure needs the whole `reader.read()` and is named as the one unverified
-  downstream (below).
+- **Downstream-regress check -- now EMPIRICAL through the whole `reader.read()`
+  (`exp_crosstype_deleaked_full_read_v1.py`).** I prototyped the surgical de-leak as a `DeLeakedReader` subclass
+  (keeps NAME/pronoun anchoring, drops COMMON-noun gold inheritance) and ran the ACTUAL `reader.read()` on 25 native
+  LitBank docs (2083 pronoun targets) in three configs: A baseline (gold-inherit), B gate-off, C de-leaked. **Pronoun
+  `coref_acc = 0.6116` is BYTE-IDENTICAL across all three (A==B 25/25, A==C 25/25)** -- the entity gate, and hence
+  de-leaking its gold inheritance, does NOT move the pronoun consumer at all (it reads its own coref-column stream;
+  this also confirms the gate's own "coref byte-identical" docstring). So de-leaking upstream #1 is downstream-safe for
+  the pronoun consumer. The only consumer it changes is the one we WANT to change -- the entity-layer / experiencer
+  canonicalizer -- and there the drop (0.86->0.70, 0.80->0.15) is removing a gold inflation, not regressing a real
+  capability. (LitBank is 19c -- used here ONLY as the reader's native-format MECHANISM check, no capability number
+  claimed from it; the load-bearing numbers are the modern-GUM ones above.)
 
 ## PROPOSED hdlab DIFF (Q111 -- strategy lands it), in two independent parts
 1. **The opt-in bridge wire** in `SituationReader._apply_commonnoun_gate`, behind a NEW flag `crosstype_bridge`
    (default False -> byte-identical off): after the situation former assigns clusters, build a Doc adapter from the
    reader's OWN `_read_parse_cache` (pos + `parse_with_conf` heads + `_frontend_labeler` deprels -- NO second parse)
-   + `role_mentions`, call `hdlab.crosstype_bridge.crosstype_bridge_links(doc, self.gaz, conf_thr=<tuned>)`, and set
+   + `role_mentions`, call `hdlab.crosstype_bridge.crosstype_bridge_links(doc, self.gaz, conf_thr=-3.0)` (the tuned
+   C1-up-or-flat operating point; conservative..liberal is a swept dial the owner picks at flip), and set
    each bound role mention's cluster to the named entity's cluster. Wire alongside the `entity_kb_resolver`/
    `unified_referent` block; NOT inside the dormant `entity_kb_resolver` branch.
 2. **The load-bearing part -- de-leak the upstream** so the wire is not redundant: in `_apply_commonnoun_gate`'s
@@ -120,12 +128,13 @@ research the upstream is brain-foundational.
    consumers) before any flip.
 
 ## What I did NOT establish / would withdraw first if wrong
-- **The full `reader.read()` pronoun-consumer re-measure under the de-leak.** I proved the bridge + honest floor
-  through the real `make_canonicalizer`/`bind_experiencers`, driven on GUM mentions; I did NOT run the entire
-  `read()` (GUM is not the reader's native CoNLL). The claim that de-leaking common-noun inheritance leaves the
-  pronoun pick byte-identical rests on the separate-stream architecture + the origin's p12 result, not a fresh live
-  run. **This is the first thing to verify at integration**, and the first thing I would withdraw if the pronoun
-  consumers turn out to depend on the common-noun gold ids.
+- **The full `reader.read()` on MODERN gold under the de-leak+bridge.** The pronoun-consumer no-regress is now
+  established empirically through the whole `reader.read()` (25/25 byte-identical `coref_acc`, above) -- but on
+  NATIVE LitBank (19c, mechanism-check only). The de-leaked-gate + bridge EXPERIENCER lift through the full `read()`
+  was proven on modern GUM via the real consumer FUNCTIONS (not the whole `read()` -- GUM is not the reader's native
+  CoNLL). Converting GUM to the reader's CoNLL format and running the entire `read()` end-to-end on modern gold is
+  the remaining integration step; I would withdraw the magnitude first if that end-to-end run on modern gold differs
+  from the consumer-function measurement.
 - **Whether the owner/strategy classes gold-coref inheritance as a leak or a legitimate given.** My strong, research-
   backed read is *leak* (no theory posits given coref; the project treats common-noun coref as a hard prediction task
   everywhere else; the brief's own floors are the honest raw numbers). If strategy rules it a legitimate given, then
@@ -183,9 +192,9 @@ research the upstream is brain-foundational.
 **TLDR (plain English):** We had a tool that works out "the doctor" is "Elizabeth" from the grammar. I plugged it
 into the real reader and found two things. First, run through the reader's *actual* naming step (not the lab-bench
 stand-in), the tool still helps -- and by as much as it did on the lab bench (the real reader does NOT eat the
-benefit, once you use the right setting): about 2 more experiencers in 100 on the safe setting, up to ~8 more in 100
-on the aggressive setting (which costs a hair on a different score), and a scrambled version can't fake it. Second,
-and bigger:
+benefit, once you use the right setting): about **5 more experiencers in 100** bound to the right character at the
+recommended setting *with no cost to any other score*, up to ~8 more in 100 if you push it (which costs a hair on the
+entity-grouping score), and a scrambled version can't fake it. Second, and bigger:
 the reader is currently *faking* this skill by copying the human answer key -- it quietly reuses the gold
 coreference labels, which is why it looks like it already scores ~80 in 100. Strip the answer key and it drops to
 ~15 in 100, and the tool is what lifts it back. So plugging the tool in "as is" changes no score, because the answer
