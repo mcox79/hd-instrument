@@ -5,7 +5,7 @@ bar: "PASS = a brain-faithful GENERATIVE causal-antecedent reader (glass-box, NO
 result: "TWO instruments + full-chain drill. (1) NARRATIVE -- TellMeWhy cause-ID, non-adjacent, ALL items n=299: the reader beats topical 0.254 (+0.067 CI-sep), info-free twin 0.238 (+0.084 CI-sep), adjacency 0.000 (+0.314 CI-sep); on the GOAL subset n=114 it scores 0.570 vs topical 0.254 (+0.316) / twin 0.316 (+0.254) CI-sep -- EXCEEDS the prior SDRT tie. BUT the comprehension control shows this win is MARKER DETECTION (marker+content 0.632 >= means-end 0.570; means-end vs marker NOT CI-sep), not generative simulation. (2) MAVEN-ERE n=710/9698 gold: entity-bound reader precision-on-fired 0.556 vs class-gen 0.363 vs twin 0.178 (+0.378 over twin CI-sep), but unmarked recall 0.0266 CI-sep BELOW the class-gen over-linking bound 0.0552. (3) The 100%-grounded FULL CHAIN (no co-occurrence, no LLM) is WORSE than the twin where it fires (0.230 vs 0.324; physical operators, goal/mental task). (4) The CORRECTED generative inverse-planning operator (VerbNet telic) 0.264 FULL and the CSKG goal-knowledge CEILING 0.268 BOTH tie co-occurrence 0.254 -- knowledge is NOT the bottleneck."
 floor: "MAVEN: contiguity balanced-precision 0.1395 (reader 0.4565, +0.317 CI-sep) + connective + twin. NARRATIVE: topical 0.254 + adjacency 0.000 + info-free twin 0.238 (full) / 0.316 (goal). Residual: co-occurrence 0.255 ~ twin 0.164 on OTHER; SIX knowledge channels (co-occ, conceptual, GEK-entropy, script-order, VerbNet-telic, CSKG-goal) all ~twin on the unmarked residual."
 controls: "info-free TWIN (loses on the marked-goal win, MATCHES on the unmarked residual); CONTIGUITY + CONNECTIVE floors recomputed per population; ADJACENCY position floor (=0 on non-adjacent); COMPREHENSION control (marker vs means-end -- the win is marker-anchored, not simulation); per-CAUSAL-TYPE breakdown; CONTENT-CHANNEL swap (6 channels); FULL-CHAIN prototype (grounded physical operators regress below twin on narrative); INVERSE-PLANNING operator + CSKG knowledge CEILING (knowledge does not clear it); participant COREF ON (86->221 fires 3.29x, prec 0.465->0.593)."
-files_changed: "experiments/exp_causal_antecedent_reader_v1.py, experiments/exp_causal_antecedent_reader_tellmewhy_v1.py, experiments/exp_causal_antecedent_reader_tellmewhy_v2.py, experiments/exp_causal_antecedent_reader_tellmewhy_v3.py, experiments/exp_causal_antecedent_content_channel_v1.py, experiments/exp_causal_antecedent_meansend_control_v1.py, experiments/exp_causal_antecedent_full_chain_v1.py, experiments/exp_causal_antecedent_inverse_planning_v1.py, experiments/exp_causal_antecedent_tom_endtoend_v1.py, experiments/exp_causal_antecedent_signal_loss_v1.py, experiments/exp_causal_antecedent_solution_v2.py, experiments/exp_causal_antecedent_solution_v3_bf.py, experiments/exp_causal_antecedent_signal_loss_v2.py, experiments/exp_causal_antecedent_solution_v4_opt.py, experiments/exp_causal_antecedent_solution_v5_all.py, experiments/exp_causal_antecedent_solution_v6_bf_full.py, verification/test_causal_antecedent_reader.py"
+files_changed: "experiments/exp_causal_antecedent_reader_v1.py, experiments/exp_causal_antecedent_reader_tellmewhy_v1.py, experiments/exp_causal_antecedent_reader_tellmewhy_v2.py, experiments/exp_causal_antecedent_reader_tellmewhy_v3.py, experiments/exp_causal_antecedent_content_channel_v1.py, experiments/exp_causal_antecedent_meansend_control_v1.py, experiments/exp_causal_antecedent_full_chain_v1.py, experiments/exp_causal_antecedent_inverse_planning_v1.py, experiments/exp_causal_antecedent_tom_endtoend_v1.py, experiments/exp_causal_antecedent_signal_loss_v1.py, experiments/exp_causal_antecedent_solution_v2.py, experiments/exp_causal_antecedent_solution_v3_bf.py, experiments/exp_causal_antecedent_signal_loss_v2.py, experiments/exp_causal_antecedent_solution_v4_opt.py, experiments/exp_causal_antecedent_solution_v5_all.py, experiments/exp_causal_antecedent_solution_v6_bf_full.py, experiments/exp_causal_antecedent_topdown_glucose_v1.py, verification/test_causal_antecedent_reader.py"
 reverify: ".venv/Scripts/python.exe verification/test_causal_antecedent_reader.py"
 ---
 
@@ -26,6 +26,19 @@ reverify: ".venv/Scripts/python.exe verification/test_causal_antecedent_reader.p
 > means-end/inverse-planning operators are inert); the marker-detection-vs-simulation control; the signal-loss
 > extraction/role autopsy; the brain-foundational component audit; and THIS control itself. The honesty lesson: the
 > shuffled-score TWIN under-controls -- a POSITION/recency floor is mandatory on any span-selection task.
+>
+> ## ⚠️ AND MAVEN-ERE IS CONFIRMED NOT BRAIN-FOUNDATIONAL (owner was right; research 2026-09-08).
+> MAVEN-ERE is Wikipedia/encyclopedic EVENT-RELATION annotation (institutional causation between entity-disjoint
+> events over encyclopedic prose), used in-repo as a benchmark TRAP-CHECK target, NOT a reader gold. The
+> BRAIN_FOUNDATIONAL_AUDIT already flags it: force-dynamics fires on only 16.1% of its causal relations
+> (twin-indistinguishable), and the covariation typer's open-text transfer is a rigorous negative with "NO
+> live-reader landing". So the "MAVEN located ceiling" is NOT a brain-foundational result -- it is a result on a
+> non-brain-foundational instrument, and I RETRACT it as evidence of a reading capability. The brain-foundational
+> narrative instrument is GLUCOSE (ROCStories causal), evaluated against a POSITION floor. WHAT ACTUALLY SURVIVES:
+> the located NEGATIVES (no knowledge channel beats co-occurrence on the residual); the marker-vs-simulation and
+> physical-misfire controls; the signal-loss/role autopsy; the brain-foundational component audit; the position
+> confound; and the finding that POSITION (temporal iconicity + narrative primacy) is itself the dominant
+> brain-foundational causal-antecedent signal (below).
 
 **PARTIAL.** The brief's literal bar (break the ~5% UNMARKED recall bound on MAVEN at held precision) is a located
 NEGATIVE with a number and a mechanism (the brief calls that a full pass). The problem underneath is partially
@@ -211,6 +224,25 @@ remaining-opportunity fixes and tested the FROZEN-threshold solution on held-out
   are the SAME grounded-meaning frontier located throughout this solve -- co-occurrence stands in for grounded
   coherence. So the CORE causal-reading mechanism is 100% brain-foundational; three peripheral components (routing +
   two co-occurrence leans) are not, and each maps to a named upgrade (WSD; grounded meaning channel).
+
+**12. TOP-DOWN reader on GLUCOSE vs the POSITION floor -- POSITION (iconicity+primacy) is the dominant
+brain-foundational signal (`topdown_glucose_v1`).** Owner directive: read causation TOP-DOWN (global story
+causal/goal NETWORK), and MAVEN is not brain-foundational. Confirmed MAVEN retracted (finding above). Built the
+top-down global GOAL-HIERARCHY reader (compose goal_register -> `hdlab.goal_hierarchy_graph.build_goal_graph` ->
+superordinate/most-connected antecedent) on GLUCOSE (ROCStories causal, position-robust). RESULT (non-adjacent,
+n=619): topdown_goalgraph **0.590 is CI-sep BELOW the `earliest` POSITION floor 0.679** (-0.089 CI[-0.118,-0.060]);
+it fires 27% and predicts a LATER sentence (1.53) than the gold cause (mean sentence 0.75). So on BOTH narrative
+instruments position dominates: TMW cause~=q-2 (recency, floor 0.68); GLUCOSE cause~=sentence-0 (primacy, floor
+0.68-0.71). **THE BRAIN-GROUNDED SYNTHESIS: the top-down brain-foundational causal-antecedent signal IS POSITION --
+temporal ICONICITY (causes precede effects; Trabasso & van den Broek) + narrative PRIMACY / foundation-laying (the
+initiating event is the causal root; Gernsbacher structure-building) -- both PINNED. It scores 0.68-0.71 and
+DOMINATES every content/structure mechanism (semantic knowledge channels, generative operators, AND the goal
+hierarchy). The owner's "read top-down -> high performance" is VALIDATED in the honest sense: the GLOBAL narrative
+position/foundation structure IS the high-performance reader (0.68-0.71) and my earlier BOTTOM-UP local operators
+(0.25-0.41) were the wrong frame -- BUT the top-down GOAL-HIERARCHY specifically does NOT beat the simpler position
+prior, because these narratives encode causation in POSITION, not in an extractable goal hierarchy.** The genuine
+open frontier is the ~30% of causes that DEVIATE from the position prior; no content OR structure mechanism I built
+beats position there (the position-floor prior-work cell already found position+semantic combos do not beat position).
 
 ## What I did NOT establish (and would withdraw first if wrong)
 

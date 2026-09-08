@@ -144,3 +144,24 @@ gazetteer): plumbing SOUND (subject-found 97%, pronoun-resolution 95%, gazetteer
 - LESSON: reading the items beat the aggregate decomposition -- an audit checks the shape you thought to check;
   reading the data checks all of them. Sections 8-9 (the surface/recency decomposition) are retained for the trail
   but are SUPERSEDED by this item-level reading.
+
+## 11. THE DECISIVE MEASUREMENT -- per-engine signal-loss ladder + the built competition (identifies the fix)
+Owner directive: measure signal loss to identify the correct fix. Granting each ENGINE its PERFECT version
+(boost the gold cause iff its type is granted), n=256:
+```
+base 0.277 -> +goal 0.527 (+0.250) -> +physics 0.613 (+0.086) -> +mental 0.660 (+0.047) -> +affect 0.703 (+0.043) -> +associative 1.000 (+0.297)
+```
+This CORRECTS the pessimism: a PERFECT GOAL engine ALONE lifts full-pop +0.25 -- the goal signal is present, lost
+to lack of ROUTING (my real engine fires on non-goal items; OTHER damage cancels the GOAL gain). The correct fix
+is the MULTI-ENGINE COMPETITION (each engine self-routes; on a non-goal item the physics/mental engine fires on
+the true cause and OUT-COMPETES the goal engine's distractor-fire, recovering the +0.25 plus physics/mental/affect).
+BUILT it (goal me_diag + FrameNet-physics + event-type-mental + valence-affect, self-routing, landed U8 engines):
+it TIES (compete-base +0.0156, not CI-sep; OTHER -0.073 vs -0.079, +0.006 not sig; GOAL kept +0.174). WHY: the
+real engines have COVERAGE but not PRECISION -- physics fires 145x, mental 184x, PROMISCUOUSLY, so the max-union
+does not discriminate the true cause. The gap between the ladder's +0.25 and the built +0.0156 IS the engine-
+PRECISION gap (the parent's precision-coverage wall). The PRECISE engine = the parent's LANDED compute_causal_link
+(exp_joint_causal_simulate_v1): STRIPS result-state -> precondition matching over RESOLVED PARTICIPANTS (the object
+C affects must be the object q NEEDS) -- selective, not broad verb-typing. Wiring it (frame-based dep-parse) is the
+concrete next build, MEASURED target +0.25. RESEARCH REUSE: I mapped compute_causal_link + build_frames rather than
+rebuild -- the composer is landed; the build is frame construction + feeding it as the competition's physics/mental
+engine.
