@@ -98,10 +98,29 @@ TEST (a crude surface agent proxy = first pronoun/proper-noun subject, used ONLY
 - BUT the surface proxy HALVES the goal-subset win (+0.174 -> +0.098) because it cannot resolve she==Mary (a
   pronoun in q vs a proper name in the goal sentence) -> the fix needs RESOLVED coref, not surface matching.
 
-CONCLUSION: the exact signal-loss point on the full population is MISSING RESOLVED COREF (participant-binding).
-The brain-foundational means-end engine is starved by a non-brain-foundational upstream (surface/absent coref).
-PROJECTED CROSSING: if resolved coref recovers OTHER to ~base while keeping the goal-subset lift, full population
-~= 0.277 + (92/256)*~0.20 ~= 0.35 (plausibly CI-separated). This is an ESTIMATE, unmeasured until E3 is wired.
-The strategy session is CURRENTLY updating coref -- the clean next test is to re-bind the goal means-end on the
-reader's resolved participants and re-measure OTHER (expected: recovers without the goal-subset regression the
-surface proxy causes).
+## 9. THE COMPLETING TEST -- resolved coref, MEASURED, and WHY it only partially recovers (deep decomposition)
+I did not stop at the surface proxy. I built a RECENCY-CENTERING resolver (a pronoun binds to the most-recent
+name -- the PINNED Centering cue) and re-bound the goal means-end on RESOLVED participants. MEASURED (n=256):
+- recency coref KEEPS the goal-subset win CI-separated (+0.152 vs the surface proxy's halved +0.098) -- it
+  correctly keeps she==Mary when they are the same protagonist.
+- it PARTIALLY recovers OTHER (-0.061 from -0.079) but the FULL population STILL TIES (+0.0156, twin not beaten).
+
+DECOMPOSITION of the 15 OTHER-subset flips (goal boost turned a correct base pick wrong), the deep WHY:
+- A = SAME-REFERENT OVER-FIRE: 5/15 (33%). The boosted wrong goal belongs to the SAME participant as q; the goal
+  engine fires on a non-causal goal the agent genuinely has. COREF CANNOT FIX THIS.
+- B = DIFFERENT-AGENT, recency keeps distinct: 2/15 (13%). Recency coref suppresses these.
+- C = RECENCY-MERGED a different surface agent: 8/15 (53%). Different agents (she/he/different names) that recency
+  WRONGLY merges, so recency binding fails. A GENDER/NUMBER-AWARE coref would separate + suppress these.
+- boosted-in-helpful = 0 -> none were valid-but-unmarked gold causes (NOT gold-incompleteness; genuinely wrong).
+
+So the OTHER damage is 67% COREF-ADDRESSABLE (B+C = 10/15) and 33% INTRINSIC over-fire (A). This maps exactly to
+the numbers: recency recovers only B (2) -> OTHER -0.061; the surface-gate recovers B+C (10) -> OTHER -0.031 but
+wrongly hits same-referent goal-causes on GOAL (halving +0.174 -> +0.098). The two proxies bracket the tradeoff.
+
+CONCLUSION -- the exact signal-loss points, quantified: (i) MISSING GENDER/NUMBER-AWARE COREF (E3) for the 67%
+(recency is insufficient -- the 53% C slice is exactly what recency cannot separate); (ii) the goal engine's own
+PROMISCUITY for the 33% (A), which no coref touches and which needs the MULTI-ENGINE COMPETITION (the correct
+engine for the actual non-goal cause out-competing the goal boost on the same agent). CORRECTED crossing estimate:
+gender/number-aware coref lifts FULL to ~0.33 (borderline; the A residual caps it); the full crossing needs coref
+AND the competition. The strategy session is CURRENTLY building coref -- the clean next test is to re-bind on the
+reader's GENDER/NUMBER-aware resolved participants and re-measure, then add the competing engines for the A residual.

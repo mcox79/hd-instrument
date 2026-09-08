@@ -332,6 +332,27 @@ witnesses (all green); 24 cells / 24 witnesses total.
 ================================================================================
 
 ================================================================================
+## >>> CYCLE-14 (2026-09-08) -- FULLY UNDERSTOOD the LOO failure: world-state TOO PHYSICAL <<<
+================================================================================
+2 cells + witnesses (loo_resolved 3/3, causal_type_census 4/4); 28 cells/witnesses. Owner: "keep researching,
+we need to fully understand" + "we have psychology databases historically -- how does this need to be represented".
+  * STRONGER LOO (loo_resolved): resolving cross-sentence object identity via LANDED ACT-R object-anaphora coref
+    + a semantic-relatedness bridging arm does NOT unblock LOO (obj_match 0.073->0.086; no CI-sep lift) ->
+    pronoun-coref RULED OUT as the blocker.
+  * CENSUS (causal_type_census, the decisive why): gold cause->effect causal TYPES -- GLUCOSE GOAL 41%/OTHER
+    36%/PHYSICAL 12%/MENTAL 6%/AFFECTIVE 5%; TellMeWhy GOAL 37%/OTHER 40%/PHYSICAL 9%/MENTAL 9%/AFFECTIVE 5%.
+    Psychological (GOAL+MENTAL+AFFECTIVE) ~52% vs PHYSICAL ~9-12%. world_state_register models ONLY physical
+    possession/toggle -> represents only 5.6%/2.5% of gold pairs = the exact LOO ~5% coverage ceiling.
+  * UNDERSTANDING: LOO counterfactual-necessity is the RIGHT mechanism but folds the WRONG ontology (physical,
+    not psychological). Right substrate = a MUTABLE PSYCHOLOGICAL STATE (goals/beliefs/desires/emotions; inverse
+    planning Baker-Saxe-Tenenbaum + ToM + OCC appraisal), folded + LOO-tested identically.
+  * NEXT (dispatched research cycle-15): sweep the landed PSYCHOLOGY DATABASES (goal_register, occ_appraisal,
+    affect_lexicon, _tom_chain/BigToM, emotion/appraisal KBs) + design the psychological-state register LOO must
+    fold. SAME mechanism, RIGHT ontology (52% coverage). Reverify:
+    test_genworldmodel_{loo_resolved, causal_type_census}.py.
+================================================================================
+
+================================================================================
 ## >>> CYCLE-12/13 (2026-09-08) -- script-order CONFIRMED at power + the CONTEXT-CONDITIONED structure <<<
 ================================================================================
 CYCLE-12: the cycle-11 script-order TellMeWhy lead, POWERED on pooled TellMeWhy train+val+test GOAL (n=935,

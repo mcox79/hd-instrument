@@ -14,6 +14,18 @@
 
 ---
 
+## 🔭 GO-FORWARD PLAN (recorded 2026-09-08 for the next session — the substantive backlog; owner agreed it's large + sequenced fresh)
+
+The owner-DONE integration gate is CLEAR of recent solutions (all folded in this session). The remaining work is REALIZATION + OPTIMIZATION (mine, independent of solvers), measurement-gated and board-touching — do it as FOCUSED FRESH passes (one unit at a time; a fresh agent per unit is fine; gate every flip on net-positive + no-regress; NEVER botch at deep context). Ordered:
+
+- **(A) DORMANT-ORGAN FLIP-TREATMENT BURN-DOWN [highest-value "is it optimal" work].** The live reader imports **~52 of 182** hdlab modules (up from 19 at the 08-30 WIRING_MAP — the reasoning-phase wave wired a lot live). Still **~137 island-only capabilities + 24 ISLAND** (`tools/wiring_debt.py`, `data/capability_registry.jsonl`, `notes/WIRING_MAP.md`). ⚠️ **MANY are LATENT BY DESIGN — flip-tested net-neutral/negative and correctly kept off; do NOT re-flip those.** Per organ: measure its LIVE board impact → turn on IFF net-positive + no-regress (the flip-treatment). Drive one organ at a time.
+- **(B) LEDGER/MARKER + CASUALTY AUDIT.** `problem_ledger.py --check` shows **31 "awaiting integration"** = historical integrations MISSING the `INTEGRATED_BY_STRATEGY` SOLVED.md append (recorded instead via PROBLEM.md reviews + this ledger). Verify each has a SOLVER REVIEW / ledger entry (→ append the marker) vs a GENUINE miss (→ integrate). Restore `theory_of_mind_is_proven_only_in_a_synthetic_microworld/PROBLEM.md` (a git-incident casualty, flagged MALFORMED; SOLVED intact) OR confirm-leave (old + solved). Bookkeeping, low-risk.
+- **(C) P1 ONE-PARSE read() RESTRUCTURE [deferred optimization].** 4× fewer parses, byte-identical target; P4 exact-MAP already landed (`ff8008131`). A read()-architecture change, not a capability gap.
+- **SOLVER-SIDE (integrate PROMPTLY on owner-DONE, full-inventory per [[implement-all-upstream-chain-fixes-in-incoming-solutions]]):** the **de-leak** `replace_the_entity_gate_gold_coref_inheritance_with_online_cue_based_clustering` (pri 6) is the SHARED unblocker that turns crosstype (+0.0528) AND typed_coref's honest-floor wins into LIVE board gains — HIGHEST-leverage. Awaiting owner review (SOLVED, NOT owner-DONE → not mine yet): `build_the_generative_result_state_world_model` (pri 1), `chain_multi_step_plans_and_scripts...` (pri 8), `generate_dont_retrieve_causal_edges...` (pri 4).
+- **⚠️ PROCESS (USER 09-08, [[be-careful-with-projects-in-process]]):** never delete a `notes/problems` folder with a SOLVED.md/analysis (it's ACTIVE, not a stray — a solver may have adopted it); commit strategy PROBLEM.md's to git IMMEDIATELY (a concurrent git op silently deleted 2-3 untracked briefs this session — restored + now tracked).
+
+---
+
 ## 2026-09-08 (CONT-26) — INTEGRATED owner-DONE `report_the_typed_coref...` (EXCELLENT, reverified 19/19) + LANDED P2 spatial semantic-typing (of the CONT-25 chain). FULL fix/prototype inventory tracked per the implement-all-upstream directive (owner re-emphasized: "keep track of ALL fixes + prototypes; I had them rigorously evaluate the brain-foundationality of ALL upstream components").
 
 ### report_the_typed_coref_organ_onto_the_live_reader_common_noun_path_and_measure  [INTEGRATED; EXCELLENT; reverified 19/19; PARTIAL/located-negative; realization wire tracked]

@@ -5,7 +5,7 @@ bar: "PASS = a brain-faithful GENERATIVE causal-antecedent reader (glass-box, NO
 result: "TWO instruments + full-chain drill. (1) NARRATIVE -- TellMeWhy cause-ID, non-adjacent, ALL items n=299: the reader beats topical 0.254 (+0.067 CI-sep), info-free twin 0.238 (+0.084 CI-sep), adjacency 0.000 (+0.314 CI-sep); on the GOAL subset n=114 it scores 0.570 vs topical 0.254 (+0.316) / twin 0.316 (+0.254) CI-sep -- EXCEEDS the prior SDRT tie. BUT the comprehension control shows this win is MARKER DETECTION (marker+content 0.632 >= means-end 0.570; means-end vs marker NOT CI-sep), not generative simulation. (2) MAVEN-ERE n=710/9698 gold: entity-bound reader precision-on-fired 0.556 vs class-gen 0.363 vs twin 0.178 (+0.378 over twin CI-sep), but unmarked recall 0.0266 CI-sep BELOW the class-gen over-linking bound 0.0552. (3) The 100%-grounded FULL CHAIN (no co-occurrence, no LLM) is WORSE than the twin where it fires (0.230 vs 0.324; physical operators, goal/mental task). (4) The CORRECTED generative inverse-planning operator (VerbNet telic) 0.264 FULL and the CSKG goal-knowledge CEILING 0.268 BOTH tie co-occurrence 0.254 -- knowledge is NOT the bottleneck."
 floor: "MAVEN: contiguity balanced-precision 0.1395 (reader 0.4565, +0.317 CI-sep) + connective + twin. NARRATIVE: topical 0.254 + adjacency 0.000 + info-free twin 0.238 (full) / 0.316 (goal). Residual: co-occurrence 0.255 ~ twin 0.164 on OTHER; SIX knowledge channels (co-occ, conceptual, GEK-entropy, script-order, VerbNet-telic, CSKG-goal) all ~twin on the unmarked residual."
 controls: "info-free TWIN (loses on the marked-goal win, MATCHES on the unmarked residual); CONTIGUITY + CONNECTIVE floors recomputed per population; ADJACENCY position floor (=0 on non-adjacent); COMPREHENSION control (marker vs means-end -- the win is marker-anchored, not simulation); per-CAUSAL-TYPE breakdown; CONTENT-CHANNEL swap (6 channels); FULL-CHAIN prototype (grounded physical operators regress below twin on narrative); INVERSE-PLANNING operator + CSKG knowledge CEILING (knowledge does not clear it); participant COREF ON (86->221 fires 3.29x, prec 0.465->0.593)."
-files_changed: "experiments/exp_causal_antecedent_reader_v1.py, experiments/exp_causal_antecedent_reader_tellmewhy_v1.py, experiments/exp_causal_antecedent_reader_tellmewhy_v2.py, experiments/exp_causal_antecedent_reader_tellmewhy_v3.py, experiments/exp_causal_antecedent_content_channel_v1.py, experiments/exp_causal_antecedent_meansend_control_v1.py, experiments/exp_causal_antecedent_full_chain_v1.py, experiments/exp_causal_antecedent_inverse_planning_v1.py, verification/test_causal_antecedent_reader.py"
+files_changed: "experiments/exp_causal_antecedent_reader_v1.py, experiments/exp_causal_antecedent_reader_tellmewhy_v1.py, experiments/exp_causal_antecedent_reader_tellmewhy_v2.py, experiments/exp_causal_antecedent_reader_tellmewhy_v3.py, experiments/exp_causal_antecedent_content_channel_v1.py, experiments/exp_causal_antecedent_meansend_control_v1.py, experiments/exp_causal_antecedent_full_chain_v1.py, experiments/exp_causal_antecedent_inverse_planning_v1.py, experiments/exp_causal_antecedent_tom_endtoend_v1.py, verification/test_causal_antecedent_reader.py"
 reverify: ".venv/Scripts/python.exe verification/test_causal_antecedent_reader.py"
 ---
 
@@ -82,6 +82,26 @@ construction (extract + bind THIS story's events/entities/goals), not decontextu
 "reasoning shown, not end-to-end; extraction is the shared wall", now proven for causation by exhausting the
 knowledge side.
 
+**6. THE FULL SOLUTION, prototyped end-to-end (`exp_causal_antecedent_tom_endtoend_v1.py`).** The capability = read
+goal/mental causation; the proper organ EXISTS (`hdlab.theory_of_mind`, owner-DONE inverse planning over
+`belief_timeline` rTPJ + `goal_register` dmPFC) -- but it is MICROWORLD-INDEXED (Sally-Anne discrete belief/desire
+spaces), so it does NOT apply to open narrative. My causal finding CONVERGES with three landed briefs
+(`theory_of_mind_is_proven_only_in_a_synthetic_microworld`, `..._residual_is_the_observation_cue_front_end`,
+`the_belief_dimension_is_never_driven_by_the_readers_own_extraction_on_real_prose`): the mentalizing COMPUTATION is
+not the bottleneck; the FRONT-END that populates the registers from real prose is. So the full solution DRIVES the
+goal register from the reader's own real-prose extraction (`goal_register.extract_goals` + agent binding +
+`track_status`) and reads the causal antecedent off it via PURPOSE (`why`) then Suh-Trabasso REINSTATEMENT (`wants`,
+the untested latent-goal lever). RESULT (TellMeWhy non-adj): on the GOAL subset (n=114) the end-to-end register
+solution scores **0.360 vs co-occurrence 0.254 (+0.105 CI[0.044,0.167] CI-sep)** -- the FIRST real-prose-driven
+intention-register causal win. BUT it does NOT beat the info-free twin (+0.088, CI incl 0), the explicit marker is
+still higher (0.491), and on OTHER it does NOT help (reinstatement 0.239 ~ cooc 0.258). REINSTATEMENT matches
+`why()` and adds nothing -- on this corpus the reinstated goal IS the explicitly-stated one; genuinely never-stated
+goals stay unrecovered. (Type-routing with a physical fallback HURT, 0.251 < 0.284 -- do NOT route to physical on
+narrative, confirming finding 4/6.) **CONCLUSION: the full brain-foundational architecture is right and beats
+co-occurrence CI-sep where goals are extractable, but it is EXTRACTION-BOUND: the unmarked majority needs goals that
+are never stated, and neither world-knowledge (six channels) nor reinstatement recovers them -- the frontier is the
+generative situation model that INFERS a latent goal, not the intention register or a knowledge asset.**
+
 ## What I did NOT establish (and would withdraw first if wrong)
 
 - I did NOT break the 5% MAVEN recall bound (entity-bound generation caps it on newswire; the entity channel is thin
@@ -118,6 +138,12 @@ knowledge (goal/intent) does not clear the wall, which is upstream (situation-mo
 7. **Even the RIGHT dimension (goal/intent), generated OR retrieved, does not clear it.** The corrected
    inverse-planning operator and the CSKG knowledge ceiling both sit at the co-occurrence floor. The missing
    capability is the generative SITUATION MODEL that binds knowledge to the specific story -- not a knowledge asset.
+8. **The proper organ already EXISTS and the finding converges with its own briefs.** `hdlab.theory_of_mind`
+   (inverse planning, owner-DONE) is the goal/mental causal reasoner; it is microworld-scoped, and its landed
+   residual briefs already name the front-end (real-prose extraction) as the wall. Driving `goal_register` from real
+   prose beats co-occurrence CI-sep on goals (+0.105) -- the architecture is right -- but is EXTRACTION-BOUND:
+   reinstatement recovers no never-stated goal. Two subsystems (causal reading, mentalizing) hit the SAME front-end
+   wall; the next build is the generative situation model that infers latent goals, not another operator/organ.
 
 ## AUDIT UPDATE (for notes/BRAIN_FOUNDATIONAL_AUDIT.md)
 
