@@ -5,7 +5,7 @@ bar: "PASSES only with ALL of: 1. A BROADER glass-box causal / event-order KNOWL
 result: "TRACIE iid TEST (implicit-event before/after, n=1924, MODERN ROCStories-derived gold; paired clustered bootstrap over stories). BROADER store (tense-agnostic UPOS re-mine of 98,161 ROCStories -> 454,129 ordered verb-pairs, +causal-cue blend), UNGATED headline: FULL accuracy 0.5655 vs SEED floor 0.5296 delta +0.0359 CI[+0.0117,+0.0616] CI-SEP (hw 0.025, null_p95 0.0217); vs ABSTENTION floor 0.5000 delta +0.0655 CI[+0.0403,+0.0911] CI-SEP. COVERAGE 0.29 -> 0.607 (2.1x); per-covered-pair accuracy 0.606 (ungated) rising to 0.65-0.68 under the confidence gate (matches/exceeds the seed's 0.6022). AS-WIRED under the reasoner's EXISTING gate (evidence>=10, |p-0.5|>=0.10, zero code change): 0.5582 @ cov 0.326, +0.0286 CI[+0.0080,+0.0496] CI-SEP."
 floor: "SEED store full accuracy 0.5296 @ cov 0.29 (the landed tense-gated mine, recomputed here on the SAME n=1924 population, abstain->majority) -- the strongest floor actually run; ABSTENTION baseline 0.5000 (majority). The seed's per-covered 0.6022@29% is matched-or-beaten on covered pairs (0.606 ungated / 0.65-0.68 gated) while coverage more than doubles."
 controls: "(1) INFO-FREE TWIN -- shuffle each pair's directional orientation, node set + counts kept: collapses to 0.4896 (below chance), headline beats it +0.0759 CI[+0.0434,+0.1103] CI-SEP -> the EXTRACTED ORDER is load-bearing, not corpus frequency. (2) NARRATED BYTE-IDENTITY -- swapping the store cannot touch the narrated path (the reasoner consults the store ONLY when a key is off the timeline); verified identical before() on all both-on-timeline pairs across 3 texts; landed reasoner witness 18/18 unchanged (hdlab untouched). (3) POSITIVE CONTROL -- 41 pairs the broader store places correctly where the seed ABSTAINS (e.g. hold-before-hand: you hold the paper before handing it). (4) TRAIN/TEST SEPARATION -- the confidence-gate operating point is tuned on TRACIE TRAIN and reported on TEST; the UNGATED headline needs zero tuning. (5) LOCATED NEGATIVE -- transitive closure adds +0.077 coverage but tail-accuracy ~chance (net full-acc -0.004), and the causal-cue blend from ROCStories is a hair (+0.001) -- both honestly bounded, matching the literature."
-files_changed: "experiments/exp_causal_order_enumerate_v1.py (the required WHERE-signal-is-lost enumeration); experiments/_causal_order_store.py (the tense-agnostic mine + gate + causal-cue store); experiments/exp_broaden_causal_order_store_v1.py (mine + eval + arms + paired clustered bootstrap + twin); experiments/exp_broaden_causal_order_sweep_v1.py (train-tuned operating-point sweep); experiments/exp_broaden_causal_order_final_v1.py (consolidated one-screen measurement); verification/test_broaden_causal_order_store.py (witness 8/8); data/exp_broaden_causal_order_store_v1/chains_broad.json (the DROP-IN broader asset for strategy to land, temporal_script_schema format, 454,129 pairs); notes/problems/grow_a_broad_causal_event_order_knowledge_store_for_the_implicit_event_path/SOLVED.md. Mine caches + metrics under data/exp_broaden_causal_order_store_v1/ (gitignored, re-mineable via --remine). NO hdlab/ written (Q111)."
+files_changed: "experiments/exp_causal_order_enumerate_v1.py (the required WHERE-signal-is-lost enumeration); experiments/_causal_order_store.py (the tense-agnostic mine + gate + causal-cue store + crude/WN lemmatizers); experiments/exp_broaden_causal_order_store_v1.py (mine + eval + arms + paired clustered bootstrap + twin); experiments/exp_broaden_causal_order_sweep_v1.py (train-tuned operating-point sweep); experiments/exp_broaden_causal_order_final_v1.py (consolidated one-screen measurement); experiments/exp_broaden_causal_order_wnlemma_v1.py (the WordNet verb-concept re-mine + measurement); experiments/exp_causal_order_story_grounded_v1.py + exp_causal_order_grounded_v2.py (the story-grounding DRILL -- located negatives); verification/test_broaden_causal_order_store.py (witness 8/8); data/exp_broaden_causal_order_store_v1/chains_broad_wn.json (RECOMMENDED drop-in asset -- WN-lemma keyed, 335,853 pairs) + chains_broad.json (crude-stem, 454,129 pairs); notes/problems/grow_a_broad_causal_event_order_knowledge_store_for_the_implicit_event_path/SOLVED.md. Mine caches + metrics under data/exp_broaden_causal_order_store_v1/ (gitignored, re-mineable via --remine). NO hdlab/ written (Q111)."
 reverify: ".venv/Scripts/python.exe verification/test_broaden_causal_order_store.py   # 8/8 (extraction 2x, coverage+acc lift, twin loses, narrated byte-identical, positive control); full one-screen numbers: .venv/Scripts/python.exe experiments/exp_broaden_causal_order_final_v1.py"
 ---
 
@@ -113,22 +113,36 @@ before leave" holds across ALL restaurant stories). So for the ~60% majority whe
 context-free lookup already EQUALS the story-grounded answer. That is why the aggregate is a strong prior -- and it is
 the brain's own DEFAULT (Zwaan iconicity/script default, overridden only on a confident causal signal).
 
-**(3) THREE faithful prototypes of the brain's story-grounding ALL fail to beat the prior -- so the store ceiling is
-real (measured, not conceded).**
-- **Averaging grounding** (place X by the evidence-weighted mean of its order to ALL narrated events): 0.5468 < 0.5655
-  -- it REPLACED the strong prior with noise. `exp_causal_order_story_grounded_v1`.
-- **Confident, SELECTIVE, transitive grounding** (anchor X to its SINGLE most script-related narrated event Z, place
-  transitively through the story timeline, override the prior only when the anchor is strong): 0.5535 < 0.5650, ns --
-  the transitive step compounds the store's own ~0.6 reliability and the deviation is SEMANTIC, not recoverable from
-  shallow co-occurrence. `exp_causal_order_grounded_v2`.
-- **Main-verb-only extraction** (reduce each clause to its main predication, Zwaan): 0.5629, ns -- the
-  strongest-evidence selection already handles multi-verb noise.
-CONCLUSION (converged by the HIGH bar -- the brain's mechanism identified AND faithfully prototyped): a store-level or
-SHALLOW-grounding method CANNOT exceed the context-free script prior. Exceeding it needs DEEP story comprehension --
-read the story, build the causal network, instantiate the specific script, place the implicit event -- i.e. the FULL
-situation-model reader, which the brief correctly FENCES as a separate organ. This matches the field: McKoon & Ratcliff
-(1992) (multi-step causal links are NOT constructed online from shallow cues); TRACIE SOTA (SymTime) needs ~3.5M
-distantly-supervised examples precisely because the signal is deep learned comprehension, not aggregate statistics.
+**(3) THE NEGATIVES DRILLED HARD (owner: "the brain can do it; if a brain-foundational mechanism fails, something
+UPSTREAM is not").** I hunted the upstream gap across ELEVEN variants. First the anatomy (measured, not asserted):
+of the covered-WRONG cases, **75% are LOW-margin coin-flips** (the aggregate has no real signal -- narrative order
+genuinely does not determine the answer; the confidence gate correctly abstains, trading coverage) and only **25% are
+HIGH-margin confidently-wrong**. I tested every upstream component I could name as the culprit:
+  - STATE/NEGATION representation (states + negated events the verb-order store cannot hold): **REFUTED as the driver
+    by measurement** -- state/neg is 25% of confident-wrong but 30% of confident-CORRECT (NOT enriched); abstaining on
+    it HURTS (-0.0156). The examples LOOK like states; the denominator says otherwise.
+  - ORDER SIGNAL = narrative-adjacency frequency vs a POSITIONAL script-timeline (each event-type's canonical slot):
+    position ordering 0.5468 < 0.5619; hybrid store|position +0.0005 ns -- position is a WEAKER signal (common verbs
+    sit mid-timeline).
+  - CAUSAL-CUE blend: near-empty from ROCStories (connective-sparse) and can FLIP a correct prediction (caught it
+    turning graduate/go 0.48->0.508 wrong) -- dropped.
+  - VERB SELECTION: margin (most-confident) +0.0031 ns; exclude-light-verbs -0.0099 (light verbs carry signal);
+    main-verb-only 0.5629 ns.
+  - STORY-GROUNDING two ways: averaging (0.5468, REPLACED the prior with noise) + confident selective transitive
+    (0.5535 ns, the transitive step compounds the store's own ~0.6 reliability).
+  - Transitive closure: coverage +0.077 but tail ~chance; WN-lemma: tie (fidelity/efficiency win).
+**THE DRILLED CONCLUSION (converged by the HIGH bar).** NONE of the upstream COMPONENTS is the fixable culprit --
+each (tense-agnostic extraction, verb-concept lemma, script prior, confidence gate, margin selection) is
+brain-foundational and near its own ceiling. The gap is not a BROKEN component; it is a MISSING ORGAN: the
+implicit-event placement is fed ONLY the context-free script PRIOR, never the COMPREHENDED story. The brain COMBINES
+the script prior with the situation model it built by reading THIS story's actual causal chain -- and that combination
+is the entire residual. We even HAVE a situation-model reader (`situation_reader` builds the narrated timeline + causal
+edges) -- it is simply not COUPLED to implicit-event placement. That coupling (script-prior x situation-model
+instantiation) is a distinct, larger organ the brief correctly FENCES, and it is the precise, on-disk-evidenced
+next-problem. Field-consistent: McKoon & Ratcliff (1992) (multi-step causal links are NOT built online from shallow
+cues -- so no shallow method can); TRACIE glass-box SOTA ~0.60, SymTime needs ~3.5M distantly-supervised examples for
+0.80 -- because the signal is COMPREHENSION, not aggregate statistics. The brain reaches ~0.94 with a lifetime of
+embodied experience + full story comprehension, which is the whole project's north star, not a store-level fix.
 
 **(4) A brain-foundational FIDELITY + EFFICIENCY upgrade that IS worth adopting: key the store on the verb CONCEPT
 (WordNet lemma = the ATL lexical-conceptual hub), not a surface stem.** The crude suffix-stripper diverges from the
@@ -230,9 +244,20 @@ modest lever. If you would prefer this filed as "the brief's lever REFUTED, the 
 one-line status change; SOLVED reflects that the underlying goal (broaden + lift the implicit-event path) is met.
 
 ## NEXT STEPS (ranked; strategy owns hdlab landing, Q111)
-1. **HIGH -- Strategy: LAND the tense-agnostic mine** (drop-in `chains_broad.json` or switch `build_chains` to UPOS).
-   As-wired +0.0286 CI-sep with the existing gate; retune `SCRIPT_M_MIN` down for the full +0.0359. Narrated byte-identical.
-2. **HIGH -- file the STATE-ONSET ordering organ** (the ~30% copular-state hypotheses the verb store cannot touch).
-3. **MEDIUM -- causal-dense corpora** (wiqa / tellmewhy / process / ATOMIC) to strengthen the causal-cue typing.
-4. **LOW / DO-NOT:** transitive closure (located negative -- coverage up, accuracy ~chance); a 19c mining source
-   (banned as gold; archaic verbs); an external LLM at inference (the invariant).
+1. **HIGH -- Strategy: LAND the tense-agnostic + verb-concept mine** (drop-in `chains_broad_wn.json`, RECOMMENDED --
+   26% smaller, verb-concept keyed, higher coverage; or switch `build_chains` to UPOS + `wn.morphy`). As-wired +0.0286
+   CI-sep with the existing gate; retune `SCRIPT_M_MIN` down for the full +0.0359. Narrated byte-identical. Optionally
+   adopt margin-based pair selection (+0.0031 ns, cleaner). This is the WHOLE store-level win, drilled to convergence.
+2. **HIGH -- file the IMPLICIT-EVENT x SITUATION-MODEL COUPLING** (the drilled residual, on-disk evidenced). NOT a
+   state-onset organ (measured: state/neg is not the confident-wrong driver) and NOT a store fix (11 variants fail).
+   The organ: read THIS story with `situation_reader` (narrated timeline + causal edges already built) and INSTANTIATE
+   the retrieved script in it -- align the script's events to the narrated chain, place the implicit event by the
+   story's actual causal structure, override the aggregate prior only when the comprehended story is confident (the
+   Bayesian prior x evidence combination the brain uses; naive averaging/replacement was measured to HURT). This is the
+   ~0.60 -> toward-0.94 lever and couples to the SDRT `coherence_reader` + `causal_reasoner` already landed.
+3. **MEDIUM -- causal-dense corpora** (wiqa / tellmewhy / process / ATOMIC) to strengthen the causal-cue directional
+   signal for the abstract/social pairs where narrative adjacency is a coin-flip (ROCStories is connective-sparse).
+4. **LOW / DO-NOT (all measured located negatives):** transitive closure (coverage up, accuracy ~chance); position-only
+   ordering (weaker than pairwise); state/neg abstain (hurts -- not the driver); light-verb exclusion (hurts); the
+   causal-cue blend at high weight (flips correct predictions); a 19c mining source (banned; archaic verbs); an
+   external LLM at inference (the invariant).

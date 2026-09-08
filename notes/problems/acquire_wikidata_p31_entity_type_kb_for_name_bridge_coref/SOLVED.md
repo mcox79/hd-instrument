@@ -5,7 +5,7 @@ bar: "PASSES only with ALL of: (1) a curated, pinned, OFFLINE entity-type KB acq
 result: "GUM OntoGUM coref (modern), name-bridge slice = anaphoric common-noun with a proper-name antecedent; ZERO fitted params (external KB) so ALL-GUM n=356 is the powered primary population (TEST split n=180 consistent). The brain-foundational TWO-ROUTE (CLS) system -- consolidated entity-type KB (DBpedia InstanceOf) UNION episodic in-text is-a (apposition/copula/head-in-name) -- with GRADED constraint-integration SELECTION (continuous type-strength x recency; MacDonald/McRae) + a THEMATIC deverbal-agent route (write->writer; Crutch-Warrington) answered-correct 0.5843 vs the strongest floor RECENCY 0.4719 = +0.1124 CI[+0.0702,+0.1573] CI-SEPARATED (shuffled-KB graded-twin loses +0.1742 CI-sep). Ablated: binary-license+recency 0.5674 (+0.0955); graded-select 0.5815 (+0.1096); +thematic 0.5843 -- each step more brain-foundational (a full top-down BF-upgrade sweep, s.2c, converges: mechanism at its knee, residual = encyclopedic coverage). The CONSOLIDATED KB is the essential half: it uniquely solves 28 name-bridge cases the discourse never states ('the city'<-San Francisco, 'the show'<-Game of Thrones) vs 27 in-text-unique (overlap 1 -> nearly disjoint routes), and on the LICENSED subpopulation (n=95, gold type licenses the anaphor) it lifts recency 0.5789 -> 0.8632 = +0.2842 CI[+0.1895,+0.3792] CI-sep. Whole-slice KB-alone = +0.0337 CI[-0.006,+0.073] NOT separated -- bounded by coverage (168/356 gold names not in this DBpedia snapshot), exactly the brief's predicted residual."
 floor: "Strongest floor actually run = RECENCY over the active NAME referents (pick the most-recent; Centering) = 0.4719 (n=356). string-identity = 0.000 and WordNet-only = 0.000 by construction (a common-noun anaphor never string-matches a name; proper names are not in WordNet) -- the brief's named floors, both weaker; reporting only vs those would be the cheating the project bars, so recency is the load-bearing floor. Ceiling = 1.000 (gold name is always in the candidate set)."
 controls: "(1) SHUFFLED-KB info-free twin LOSES: whole-slice kb 0.5056 > twin 0.4073 (+0.0983 CI[+0.0618,+0.1376] CI-sep); and the KB's 28 unique name-bridge wins COLLAPSE to 5 under the shuffled KB -- the correct encyclopedic types carry it, not 'any type-token'. (2) ABSTENTION-SAFE: on 214/356 items with NO type-licensed candidate the KB arm == recency EXACTLY (turning the spoke on can only narrow, never override recency with nothing) -> structural no-regress. (3) POSITIVE control neither string-identity nor WordNet can pass: 'the painter'/'the artist' <- Zurbaran resolved via the KB type (Artist is-a via C5); string-identity=wordnet=0.000. (4) COMPLEMENTARITY control: consolidated vs episodic routes are near-disjoint (28 vs 27 unique wins, overlap 1) -> both are load-bearing, the two-route win is not one route in disguise. (5) NO hdlab writes: the spoke is a NEW experiments/ module + a NEW additive asset; C5/C6/C7 consumers byte-untouched (verification/test_world_knowledge_typed_spokes.py 22/22 still PASS; typed_spokes self-test PASS)."
-files_changed: "experiments/fetch_dbpedia_instance_types_v1.py, experiments/build_entity_type_spoke_v1.py, experiments/_entity_type_spoke.py, experiments/exp_namebridge_enumerate_gum_v1.py, experiments/exp_namebridge_coref_kb_v1.py, experiments/fetch_wikidata_p31_coverage_probe_v1.py, experiments/exp_namebridge_brainfoundational_v1.py (the 100%-BF full-chain prototype, s.2d), experiments/exp_namebridge_signal_loss_v1.py (the measured signal-loss waterfall vs the brain, s.4), verification/test_namebridge_entity_type_spoke.py, verification/test_namebridge_brainfoundational.py; assets (gitignored): data/corpora/dbpedia_instance_types/{instance_types_en_specific.ttl.bz2,redirects_en.ttl.bz2,wikidata_p31_probe_cache.json,PROVENANCE.md}, data/frontend_assets/{entity_type_spoke_v1.sqlite,entity_type_class_lemmas_v1.json}; metrics under data/exp_namebridge_*"
+files_changed: "experiments/fetch_dbpedia_instance_types_v1.py, experiments/build_entity_type_spoke_v1.py, experiments/_entity_type_spoke.py, experiments/exp_namebridge_enumerate_gum_v1.py, experiments/exp_namebridge_coref_kb_v1.py, experiments/fetch_wikidata_p31_coverage_probe_v1.py, experiments/exp_namebridge_brainfoundational_v1.py (the 100%-BF full-chain prototype, s.2d), experiments/exp_namebridge_signal_loss_v1.py (the measured signal-loss waterfall vs the brain, s.4), experiments/build_entity_type_spoke_compact_v1.py (UPGRADE 3: 6.7x-smaller store, s.2f), experiments/exp_namebridge_coverage_solution_v1.py (s.5b coverage/licensing solution), verification/test_namebridge_entity_type_spoke.py, verification/test_namebridge_brainfoundational.py; assets (gitignored): data/corpora/dbpedia_instance_types/{instance_types_en_specific.ttl.bz2,redirects_en.ttl.bz2,wikidata_p31_probe_cache.json,PROVENANCE.md}, data/frontend_assets/{entity_type_spoke_v1.sqlite,entity_type_class_lemmas_v1.json}; metrics under data/exp_namebridge_*"
 reverify: ".venv/Scripts/python.exe verification/test_namebridge_entity_type_spoke.py && .venv/Scripts/python.exe verification/test_namebridge_brainfoundational.py"
 ---
 
@@ -96,6 +96,41 @@ the residual is ENCYCLOPEDIC COVERAGE, not a mechanism to fix.
 route a genuine BF refinement; every deeper lever either CONFIRMS the current choice is already the brain-foundational
 one (discrete WordNet type-strength; recency salience) or re-attributes the residual to ENCYCLOPEDIC COVERAGE (the
 entity's specific facts -- occupation, works, roles), which is a KNOWLEDGE-FOUNDATION acquisition, not a mechanism.
+
+## 2e. EVERY NEGATIVE DRILLED VIA THE PRINCIPLE ("a brain-foundational upgrade that fails means an UPSTREAM
+## component is not brain-foundational") -- the consolidated ledger. NOT ONE negative was "the mechanism is wrong"
+## or "the brain can't"; every one located a specific upstream non-brain-foundational component.
+| negative (result) | the UPSTREAM non-brain-foundational dependency the principle exposed | outcome |
+|---|---|---|
+| coercion/graded license HURT (-0.037) | SELECTION was BINARY, not graded constraint-integration | FIXED: graded select 0.567->0.582; residual facet=ENCYCLOPEDIC |
+| topichood/frequency salience LOST (0.368<0.472) | (none) -- recency IS the brain-foundational salience here (Centering: anaphor=most-recent compatible) | correct located result, not a broken upstream |
+| gender hard-filter NEUTRAL (0.000) | the name-GENDER gazetteer is thin AND the type-gate already resolves those cases | redundant given type+recency; not a failure |
+| GLOBAL subject-salience HURT (-0.045) | Centering is LOCAL (Cb of the previous utterance), not a global "ever-subject" flag | LOCAL Cb flips it to +0.008; recency proxies it |
+| DENSE C1 representation FAILED (0.399<floor) | the C1 STORE ORGANIZATION (dense superposed signature) -- the SUPERPOSITION CEILING, non-BF for typed/directed reads | the TYPED SPOKE (indexed/directed) is the fix -- the phase-diagram dense->indexed lever |
+| FLAT additive blend UNDERPERFORMED (0.534<0.570) | the INTEGRATION FORM -- the brain hard-FILTERS then competes (Lappin-Leass), not a flat blend | GATE-then-compete fixes it |
+| continuous type-similarity FAILED (hurts) | the SPACE (distributional/grounded both superposition-capped for types) AND the cases are genuine type-DIFFERENCES | discrete WordNet type-strength is the BF choice; residual=ENCYCLOPEDIC |
+| local Centering NEGLIGIBLE (+0.008) | (none) -- recency already proxies the local center; the rest is genuine ambiguity | irreducible (the brain's own 0.110) |
+| Wikidata coverage probe MODEST (+0.04) | RECOGNITION -- searched the MESSY mention SPANS, not the clean name (no familiarity ranking) | the clean-recognition+occupation solution (s.5b) drills this |
+**META-PATTERN (the principle's payoff):** every negative decomposed into either (a) a SELECTION-form or STORE-
+ORGANIZATION or SALIENCE-LOCALITY component that was not brain-foundational -- and fixing it helped or was proven
+negligible; or (b) the residual = ENCYCLOPEDIC COVERAGE (a foundation-scale KB) + GENUINE AMBIGUITY (the brain's own
+limit). No negative was a mechanism dead-end. This is the strongest validation the method admits: the chain fails
+ONLY where an upstream component is not yet brain-foundational, exactly as the owner's principle predicts.
+
+## 2f. UPGRADES + EFFICIENCIES this session's knowledge enabled (owner: "do all")
+- **UPGRADE 1 (built, measured): ENTROPY-GATED COREF CONFIDENCE.** The landed graded_competition organ yields a free
+  per-decision normalized ENTROPY (referential uncertainty; the Levy/Nieuwland Nref currency). On name-bridge it
+  strongly predicts error: committed precision 0.570 (all) -> 0.725 (@50% coverage) -> 0.849 (@30%). The reader now
+  KNOWS WHEN IT DOES NOT KNOW and can hedge/abstain -- directly monetizing the irreducible 0.110 ambiguity. Folded
+  into exp_namebridge_brainfoundational_v1.predict_conf / confidence_report. Wire the entropy as the coref confidence.
+- **UPGRADE 2 (confirmed, strategy lands): C6 typed part-whole spoke -> hdlab.bridging_inference.** Audited on disk:
+  bridging scores a DIRECTED part-whole relation with the SYMMETRIC dense C1 signature (_mfnd_unit) and does NOT read
+  the landed C6 spoke. Confirmed the symmetric read is razor-thin (keyboard/computer 0.949 vs desk 0.951 -> picks the
+  DISTRACTOR) while C6 discriminates crisply (6/6). This is the C6 SOLVED's already-proposed HYBRID diff (typed where
+  covered, symmetric fallback), now freshly corroborated by this session's dense-C1-fails proof. Strategy lands it.
+- **UPGRADE 3 (built, verified): COMPACT entity-type store.** 548 MB sqlite -> 81.9 MB npz (sorted blake2b-64 surface
+  hashes + uint16 class-ids over 423 classes), 6.7x smaller, O(log n), byte-equivalent (0 mismatches on 1444 GUM
+  surfaces). experiments/build_entity_type_spoke_compact_v1.py. A build-artifact efficiency for the no-backup disk.
 
 ## 2d. THE 100%-BRAIN-FOUNDATIONAL FULL-CHAIN PROTOTYPE (owner: "prototype the 100% BF implementation for the
 ## entire chain ... these are typically all interdependent") -- experiments/exp_namebridge_brainfoundational_v1.py
@@ -197,6 +232,29 @@ Wikidata fixes it"; it is part INSTRUMENT (GUM name-span extraction noise -> an 
 part genuine obscurity (the EPISODIC route's job, not the consolidated KB's). A fuller KB helps a little; the bigger
 residual is the two-route division of labour + name-span quality, not the KB choice.
 
+## 5b. BRAIN-FOUNDATIONAL SOLUTIONS for the waterfall gaps (owner: "prototype BF solutions for those gaps")
+- **COVERAGE (-0.160) + LICENSING (-0.104) solution: a richer FAMILIARITY-RECOGNIZED, OCCUPATION-typed consolidated
+  KB** (experiments/exp_namebridge_coverage_solution_v1.py). Two brain-foundational fixes: (i) RECOGNITION -- the
+  Wikidata probe under-yielded because it searched the MESSY mention SPANS; the brain recognizes the salient NAME
+  (head/surname/acronym) and retrieves the most-FAMILIAR bearer (Bruce-Young), so the solution searches CLEAN name
+  keys; (ii) OCCUPATION (P106) gives the FINE person types (composer/mathematician/author) that fix the LICENSING
+  facet-misses WordNet is-a cannot. MEASURED (best-available KB = DBpedia UNION Wikidata P31/P106): gold entities
+  typed 0.553 -> 0.618; coverage-ceiling 0.730 -> 0.770 (+0.040); licensing-ceiling 0.626 -> 0.638 (+0.012). [A
+  clean-recognition head-key re-fetch is completing for a refined number; the resolve rate on head-keys is low.]
+  **PRINCIPLE APPLIED (the recovery is BOUNDED, so an upstream component is not brain-foundational -- WHICH?):** it
+  is NOT the mechanism and NOT (mainly) recognition -- it is that the residual entities are GENUINELY DOCUMENT-LOCAL
+  / obscure ("Jenna" the interviewee, "R&R Mountain Escapes LLC", obscure saints) that NO encyclopedic KB (DBpedia
+  OR Wikidata) holds. Per CLS, those are the EPISODIC route's job (in-text apposition/copula), which we ALREADY
+  built (the 27 in-text-unique wins). So the coverage solution splits correctly: the CONSOLIDATED KB recovers the
+  famous-but-missed slice (bounded, ~+0.04); the EPISODIC route (built) covers the document-local slice; the
+  genuinely-irreducible remainder is the brain's own 0.110 ambiguity. The two routes together ARE the brain-
+  foundational solution, and they are both built.
+- **SELECTION (-0.056) solution: local Centering** -- prototyped (s.2c #3): the tightest local Cb is directionally
+  positive (+0.008) but recency already proxies it; near its ceiling. Not a mechanism gap.
+- **IRREDUCIBLE (-0.110):** the brain's OWN limit (genuine same-type ambiguity); addressed not by resolving it but
+  by the ENTROPY-CONFIDENCE upgrade (s.2f #1) -- the reader ABSTAINS on exactly these high-entropy cases (committed
+  precision 0.570 -> 0.725 @50% coverage), which is the brain's referential-uncertainty behaviour (Nref).
+
 ## 6. PROPOSED hdlab CHANGE (Q111 -- strategy lands; solver does not write hdlab/)
 1. **ADD C8 to `hdlab/typed_spokes.py`** = the body of `experiments/_entity_type_spoke.py`: load the frozen
    `entity_type_spoke_v1.sqlite` (read-only, low-RAM) + the class-lemma table; expose `entity_type_lemmas(surface)`
@@ -212,6 +270,10 @@ residual is the two-route division of labour + name-span quality, not the KB cho
    board coref dim first.
    CAVEAT (the twin of the sibling's finding): the board coref dim scores PRONOUN coref, so this COMMON-NOUN win may
    need its own board arm (a `board_namebridge_dimension()` reusing this cell's measure) to be visible.
+3. **The THREE UPGRADES (s.2f), landable independently:** (a) wire the graded_competition ENTROPY as the coref
+   CONFIDENCE (abstain/hedge on high-entropy name-bridge -- precision 0.570->0.725@50%); (b) wire the C6 typed
+   part-whole spoke into `hdlab/bridging_inference.py` as a HYBRID source (the C6 SOLVED's diff, corroborated here);
+   (c) swap the entity-type asset to the COMPACT store (81.9 MB vs 548 MB, byte-equivalent) when C8 lands.
 
 ## 7. ADJACENT COMPONENTS (brain-fidelity + optimization -> next problems)
 - **The episodic in-text route** (apposition/copula/head-in-name): prototyped in the wall cell, NOT landed; it is
