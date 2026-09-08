@@ -574,6 +574,46 @@ residual_decomposition (4/4), atomic_commonsense (4/4). 35 cells/witnesses.
   meaning_foundation LATENT->live wire + in-context bridging = Q111 (strategy/hdlab); the substrate's own
   consolidation-gate finding says use the CURATED foundation, NOT reading-derived growth.
 
+**DEEPENING cycle-20 (2026-09-08) -- APPLIED commonsense in-context (owner: "do it") -> the definitive closure:
+RETRIEVAL is the wrong shape; the residual needs GENERATIVE SIMULATION.** `exp_genworldmodel_applied_commonsense_v1.py`
+(witness 4/4). Corrected the premise: meaning_foundation is WSD sense-signatures (associative), NOT causal
+commonsense -- so applying it = the already-refuted semantic-relatedness bridging. The real in-context fix =
+apply the commonsense CAUSAL KB (ATOMIC) DISCRIMINATIVELY: weight edges by confidence (row frequency, 40990
+edges, weights to 1843) and score each candidate by its STRONGEST weighted commonsense link to the effect,
+normalized ACROSS this story's candidates (not context-free reachability). RESULT (pooled TellMeWhy-GOAL): solo
+improves (0.255 naive -> 0.310 weighted) but STILL no integrator lift (+0.006 CI[-0.017,0.032]); does NOT recover
+the zero-overlap residual (0.333 vs base ~0.54); and DECISIVELY the specific commonsense CONFIDENCES are NOT
+load-bearing -- a weight-SHUFFLE twin (same graph, permuted weights) MATCHES/BEATS it (-0.009). So only raw graph
+DENSITY carries, not the knowledge. **CONCLUSION (across the whole arc, ~7 knowledge forms tested: associative,
+directed causal-KB, script, LOO-surface, semantic goal-resolution, ATOMIC naive, ATOMIC weighted-discriminative
+-- ALL fail to recover the residual):** a STATIC commonsense KB is CONTEXT-FREE at ANY application (naive or
+weighted-discriminative); RETRIEVAL is fundamentally the wrong shape. The residual (zero-overlap implicit links)
+needs SITUATION-SPECIFIC GENERATIVE SIMULATION -- the brain simulates THIS person/test/context forward, it does
+not retrieve general 'study->pass'. This IS the original problem (the generative result-state world-model) + the
+'generate don't retrieve' thesis (SOLVED cycle-1), now proven from the commonsense-KB side. The true missing
+capability = a GENERATIVE, situation-conditioned forward-simulation over a world-model, applied GENERATIVELY at
+read time (the recurrent loop + meaning_foundation wired live + APPLIED, not retrieved) = Q111. 36 cells/witnesses.
+
+**DEEPENING cycle-21 (2026-09-08) -- PROTOTYPED the proper brain-foundational GENERATIVE solution (owner: "can
+we prototype a proper brain-foundational solution? reuse close done components").**
+`exp_genworldmodel_generative_simulation_v1.py` (witness 3/3). The arc proved retrieval is the wrong shape; the
+brain GENERATES -- predicts the next state from the running situation model, cause = the event that most reduces
+the effect's prediction error (predictive coding, Rao-Ballard/Friston; N400 = graded prediction error, Rabovsky
+2018; EST, Reynolds-Zacks-Braver; reference = running situation model, Zwaan-Radvansky). Built by REUSING landed
+components (NO training, "the brain does not do long training runs"): the N400 content prediction-error
+`e=1-cos(content, running_gist)` (hdlab.n400_coherence_monitor) over GROUNDED content vectors
+(hdlab.grounded_similarity, Barsalou). Per candidate: gen_sim = the RISE in the effect's prediction error when the
+candidate is removed from the situation gist (LOO surprisal-reduction). RESULT (pooled TellMeWhy-GOAL): the
+generative signal BEATS the cheap raw-overlap cue CI-sep (solo 0.270 vs 0.188, +0.081 CI[0.032,0.131]) --
+GENERATE > RETRIEVE confirmed even for content, and it FIRES EVERYWHERE (1.0, no coverage wall, unlike every
+retrieval approach). BUT at 12-d GROUNDED content resolution it is too COARSE: no integrator lift (+0.004), does
+NOT recover the zero-overlap residual (0.227 < base 0.54). **THE PRECISE FINAL GAP: the generative MECHANISM is
+correct + brain-foundational + reuses done organs + has NO coverage wall; the remaining gap is content-
+REPRESENTATION RESOLUTION -- run the SAME generative loop over the RICHER CURATED meaning_foundation (200-d
+sense-signatures, owner-DONE, currently LATENT) instead of the coarse 12-d grounded space.** That is the concrete
+final wire: predictive-coding generative loop (built/reusable) x curated meaning_foundation (built, latent) =
+Q111, now fully specified. 37 cells/witnesses.
+
 **TRIANGULATION (5 independent builds converge on ONE wall):** coverage-tiers (DEEP_MULTISTEP 51%),
 precise-trace (topical dominance; extraction not the issue), ECHO decision (mechanism proven, real-data flat),
 generative edges (generate>retrieve + phase-diagram optimum, class-level engines precision-coverage-bound),
