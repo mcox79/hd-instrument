@@ -34,6 +34,13 @@ the brief.*
 **Two standing rules for how STRATEGY writes a brief, and what it asks the SOLVER to do first:**
 - **Require the brain's actual mechanism + REUSE existing organs where possible.** Do not invent a new organ for a
   job the substrate already does; do not reach for what is lying around instead of the brain-faithful method.
+- **🚫🔧 STATE IN EVERY BRIEF (owner 2026-09-08, OVERARCHING): all components must be 100% BRAIN-FOUNDATIONAL, and
+  NEVER reach for a convenient/easy tool without careful brain-foundational consideration.** Name it concretely --
+  **spaCy, GLUCOSE, MAVEN, and ANY off-the-shelf parser/dataset/model are NOT brain-foundational**; a vetted static
+  offline FOUNDATION asset (WordNet/FrameNet/norms / an open MODERN gold) is admissible SUPPLY, but an external tool
+  AT INFERENCE (e.g. spaCy parsing at read-time) or a convenient dataset/model reached for as a shortcut/crutch is a
+  DEFECT THAT BLOCKS. This line goes verbatim in the SOLVER OPERATING PROTOCOL block of every new brief (and is
+  retro-added to open briefs); the standing-rules section below carries the full statement.
 - **The solver's FIRST STEPS (stated in VERIFY BEFORE YOU START, not buried):** (1) **understand ALL the existing
   organs available** — `python tools/substrate_map.py`, `python tools/reader_capabilities.py`, skim `hdlab/`; (2)
   **read the related previous SOLVED solutions IN THEIR ENTIRETY** (the brief names them) before proposing anything.
@@ -419,6 +426,16 @@ Each `PROBLEM.md` has the same eight sections, in this order:
 - **⚙️ DO THE RIGHT THING, NOT THE CHEAP OR EASY THING (owner 2026-08-25 -- applies to ALL project
   instructions, not just briefs).** The mission is the most brain-faithful substrate, not the fastest
   green check. A cheaper path that is less brain-faithful is the wrong path even when it clears the floor.
+- **🚫🔧 EVERY COMPONENT MUST BE 100% BRAIN-FOUNDATIONAL, AND spaCy / GLUCOSE / MAVEN (and ANY off-the-shelf
+  parser, dataset, model, or library reached for because it is convenient) ARE NOT BRAIN-FOUNDATIONAL (owner
+  2026-09-08, OVERARCHING).** NEVER reach for a convenient/easy tool without CAREFUL brain-foundational
+  CONSIDERATION -- this is a hard PASS/FAIL requirement for the substrate to work, not a preference. The line:
+  a vetted STATIC OFFLINE FOUNDATION asset (WordNet/FrameNet/valence norms / an open MODERN eval gold -- built
+  once, supplying knowledge the brain already has) is ADMISSIBLE; an external TOOL AT INFERENCE (e.g. spaCy
+  parsing at read-time) or a convenient dataset/model reached for as a shortcut or crutch is NOT -- it is a
+  non-brain-foundational component and a DEFECT THAT BLOCKS. Use the brain's own mechanism (the in-substrate
+  parser, the brain-faithful computation), never the easy reach. A component is not done until it AND its whole
+  upstream chain are 100% brain-foundational. [ref memory: every-component-must-be-100-percent-brain-foundational]
 - **🔁 ITERATE TO THE OPTIMAL BRAIN-FOUNDATIONAL SOLUTION -- do NOT submit the first thing that clears
   (owner 2026-08-25; STRENGTHENED 2026-08-26 after a solver called a problem "converged" having only
   exhausted engineering variations -- self-consistency / response-shape / evidence / learned-gate, all
