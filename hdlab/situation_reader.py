@@ -2429,14 +2429,14 @@ class SituationReader:
         sm.knows = knows
 
     def _read_bound_event_tokens(self, sm) -> None:
-        """Opt-in BOUND-EVENT-TOKEN backbone (default-off; wired 2026-09-01 from the owner-DONE problem
+        """BOUND-EVENT-TOKEN backbone (DEFAULT-ON since 2026-09-03; wired 2026-09-01 from the owner-DONE problem
         the_assembled_reader_is_parallel_silos_assemble_the_tiered_bound_event_token, p4). Build ONE FHRR
         bound token per event over {AGENT,PATIENT,PRED,TENSE} (the JOINT the parallel-silo dimensions never
         store) + a tiered episodic store (N400-chunked + DG/CA3), via the promoted thin assembler
         hdlab.bound_event_backbone.BoundEventBackbone (COMPOSES existing organs only; the tokens are
         torch-equal to the validated cell's). sm.episodic_store.resolve/corefer answers 'does this exact
-        event -- this agent, this action -- occur?' from a partial mention. Lazy -> the default (OFF) reader
-        imports NONE of this. NO spaCy / NO LLM."""
+        event -- this agent, this action -- occur?' from a partial mention. Lazy -> flag-OFF
+        (bind_event_tokens=False) imports NONE of this. NO spaCy / NO LLM."""
         if self._beb_mod is None:
             from hdlab import bound_event_backbone as _BEB
             self._beb_mod = _BEB
