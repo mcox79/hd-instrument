@@ -1145,7 +1145,10 @@ def board_crosstype_experiencer_dimension(smoke=False):
         from hdlab.crosstype_bridge import crosstype_bridge_links
         from hdlab.coref import name_content_tokens
         gaz = load_given_gazetteer()
-        docs = G.load_docs(gum_only=True, limit=(40 if smoke else None), name_gazetteer=gaz)
+        # CAP the full-run doc count: this arm live_reparse's every sentence (slow); an uncapped 275-doc run made
+        # the full board intractable. 120 docs is representative + bounded (~the TEST-split size), like the other
+        # heavy new arms which cap.
+        docs = G.load_docs(gum_only=True, limit=(40 if smoke else 120), name_gazetteer=gaz)
         rng = random.Random(13)
         C3 = {"floor": [], "bridge": [], "twin": []}
         C1 = {"floor": [], "bridge": []}
@@ -1248,7 +1251,8 @@ def board_namebridge_dimension(smoke=False):
         if not NB.ES.available():
             return _degraded("namebridge", "entity-type spoke asset absent (build_entity_type_spoke_v1 --build)"), {}
         gaz = load_given_gazetteer()
-        docs = G.load_docs(gum_only=True, limit=(60 if smoke else None), name_gazetteer=gaz)
+        # CAP the full-run doc count (bounded, representative) -- see board_crosstype_experiencer_dimension.
+        docs = G.load_docs(gum_only=True, limit=(60 if smoke else 150), name_gazetteer=gaz)
         items = NB.collect_items(docs)
         if not items:
             return _degraded("namebridge", "no name-bridge items in sample"), {}
