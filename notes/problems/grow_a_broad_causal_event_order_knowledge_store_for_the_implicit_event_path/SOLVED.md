@@ -5,7 +5,7 @@ bar: "PASSES only with ALL of: 1. A BROADER glass-box causal / event-order KNOWL
 result: "TRACIE iid TEST (implicit-event before/after, n=1924, MODERN ROCStories-derived gold; paired clustered bootstrap over stories). BROADER store (tense-agnostic UPOS re-mine of 98,161 ROCStories -> 454,129 ordered verb-pairs, +causal-cue blend), UNGATED headline: FULL accuracy 0.5655 vs SEED floor 0.5296 delta +0.0359 CI[+0.0117,+0.0616] CI-SEP (hw 0.025, null_p95 0.0217); vs ABSTENTION floor 0.5000 delta +0.0655 CI[+0.0403,+0.0911] CI-SEP. COVERAGE 0.29 -> 0.607 (2.1x); per-covered-pair accuracy 0.606 (ungated) rising to 0.65-0.68 under the confidence gate (matches/exceeds the seed's 0.6022). AS-WIRED under the reasoner's EXISTING gate (evidence>=10, |p-0.5|>=0.10, zero code change): 0.5582 @ cov 0.326, +0.0286 CI[+0.0080,+0.0496] CI-SEP."
 floor: "SEED store full accuracy 0.5296 @ cov 0.29 (the landed tense-gated mine, recomputed here on the SAME n=1924 population, abstain->majority) -- the strongest floor actually run; ABSTENTION baseline 0.5000 (majority). The seed's per-covered 0.6022@29% is matched-or-beaten on covered pairs (0.606 ungated / 0.65-0.68 gated) while coverage more than doubles."
 controls: "(1) INFO-FREE TWIN -- shuffle each pair's directional orientation, node set + counts kept: collapses to 0.4896 (below chance), headline beats it +0.0759 CI[+0.0434,+0.1103] CI-SEP -> the EXTRACTED ORDER is load-bearing, not corpus frequency. (2) NARRATED BYTE-IDENTITY -- swapping the store cannot touch the narrated path (the reasoner consults the store ONLY when a key is off the timeline); verified identical before() on all both-on-timeline pairs across 3 texts; landed reasoner witness 18/18 unchanged (hdlab untouched). (3) POSITIVE CONTROL -- 41 pairs the broader store places correctly where the seed ABSTAINS (e.g. hold-before-hand: you hold the paper before handing it). (4) TRAIN/TEST SEPARATION -- the confidence-gate operating point is tuned on TRACIE TRAIN and reported on TEST; the UNGATED headline needs zero tuning. (5) LOCATED NEGATIVE -- transitive closure adds +0.077 coverage but tail-accuracy ~chance (net full-acc -0.004), and the causal-cue blend from ROCStories is a hair (+0.001) -- both honestly bounded, matching the literature."
-files_changed: "experiments/exp_causal_order_enumerate_v1.py (the required WHERE-signal-is-lost enumeration); experiments/_causal_order_store.py (the tense-agnostic mine + gate + causal-cue store + crude/WN lemmatizers); experiments/exp_broaden_causal_order_store_v1.py (mine + eval + arms + paired clustered bootstrap + twin); experiments/exp_broaden_causal_order_sweep_v1.py (train-tuned operating-point sweep); experiments/exp_broaden_causal_order_final_v1.py (consolidated one-screen measurement); experiments/exp_broaden_causal_order_wnlemma_v1.py (the WordNet verb-concept re-mine + measurement); experiments/exp_causal_order_story_grounded_v1.py + exp_causal_order_grounded_v2.py (the story-grounding DRILL -- located negatives); experiments/exp_causal_order_coupling_v1.py (the MISSING-ORGAN prototype: script prior + situation-model confident overrides, +0.006 ns -- pinpoints the deep-comprehension residual); verification/test_broaden_causal_order_store.py (witness 8/8); data/exp_broaden_causal_order_store_v1/chains_broad_wn.json (RECOMMENDED drop-in asset -- WN-lemma keyed, 335,853 pairs) + chains_broad.json (crude-stem, 454,129 pairs); notes/problems/grow_a_broad_causal_event_order_knowledge_store_for_the_implicit_event_path/SOLVED.md. Mine caches + metrics under data/exp_broaden_causal_order_store_v1/ (gitignored, re-mineable via --remine). NO hdlab/ written (Q111)."
+files_changed: "experiments/exp_causal_order_enumerate_v1.py (the required WHERE-signal-is-lost enumeration); experiments/_causal_order_store.py (the tense-agnostic mine + gate + causal-cue store + crude/WN lemmatizers); experiments/exp_broaden_causal_order_store_v1.py (mine + eval + arms + paired clustered bootstrap + twin); experiments/exp_broaden_causal_order_sweep_v1.py (train-tuned operating-point sweep); experiments/exp_broaden_causal_order_final_v1.py (consolidated one-screen measurement); experiments/exp_broaden_causal_order_wnlemma_v1.py (the WordNet verb-concept re-mine + measurement); experiments/exp_causal_order_story_grounded_v1.py + exp_causal_order_grounded_v2.py (the story-grounding DRILL -- located negatives); experiments/exp_causal_order_coupling_v1.py (the MISSING-ORGAN prototype: script prior + situation-model confident overrides incl. instance-grounded event-coreference, +0.007 ns, operator_coref 0.833 -- validates the mechanism, pinpoints the coverage-of-comprehension residual); experiments/_causal_knowledge_store.py (the CSKG ConceptNet/ATOMIC causal-KB store -- a LITERATURE-CONFIRMED located negative: worse than narrative frequency, degrades with confidence); verification/test_broaden_causal_order_store.py (witness 8/8); data/exp_broaden_causal_order_store_v1/chains_broad_wn.json (RECOMMENDED drop-in asset -- WN-lemma keyed, 335,853 pairs) + chains_broad.json (crude-stem, 454,129 pairs); notes/problems/grow_a_broad_causal_event_order_knowledge_store_for_the_implicit_event_path/SOLVED.md. Mine caches + metrics under data/exp_broaden_causal_order_store_v1/ (gitignored, re-mineable via --remine). NO hdlab/ written (Q111)."
 reverify: ".venv/Scripts/python.exe verification/test_broaden_causal_order_store.py   # 8/8 (extraction 2x, coverage+acc lift, twin loses, narrated byte-identical, positive control); full one-screen numbers: .venv/Scripts/python.exe experiments/exp_broaden_causal_order_final_v1.py"
 ---
 
@@ -157,22 +157,48 @@ stem), MORE efficient (26% smaller, 6.5MB vs 8.6MB), and higher-coverage. **Reco
 **(5) THE MISSING ORGAN, PROTOTYPED (owner: "prototype that missing organ brain-foundationally").** Built
 `exp_causal_order_coupling_v1` -- the situation-model x script-prior coupling with the CORRECT brain-foundational
 architecture: the script prior is the DEFAULT, and the comprehended story is a CONFIDENT OVERRIDE (combine, never
-replace -- naive replacement was measured to hurt). Three overrides, each a real brain mechanism: RULE 1 both-narrated
--> the story's own timeline order (Zwaan situation model); RULE 2 PHASAL composition ("stop V" is after V's onset --
-Vendler/Smith aspect + event coreference); RULE 2b topological INSERTION (place the implicit event into the narrated
-chain by store votes constrained by the known narrated order). RESULT: organ 0.5681 vs prior 0.5619, **+0.0062
-CI[-0.0252,+0.0402] -- positive point estimate but NOT CI-separated.** The PROVENANCE pinpoints why, and it is the
-deepest finding of the whole drill: the both-narrated override genuinely beats the prior (story_order fires 245 @
-**0.6245** vs prior ~0.60), but it reaches only ~13% of items; the implicit-X insertion fires 785 @ **0.5987 ~ the
-prior's 0.60** -- i.e. placing an implicit event via the narrated TIMELINE just recomputes the same aggregate, because
-the narrated POSITIONS do not tell you where an unstated event goes UNLESS you comprehend its CAUSAL/SEMANTIC relation
-to the narrated content. **So the missing organ is now specified precisely: not "couple with the narrated timeline"
+replace -- naive replacement was measured to hurt). Four overrides, each a real brain mechanism: RULE 1 both-narrated
+-> the story's own timeline order (Zwaan situation model); RULE 2 PHASAL composition ("stop V" after V's onset);
+RULE 2c INSTANCE-GROUNDED OPERATOR -- an INTENT/AFTER operator SCOPES a referenced event E ("want to swim" precedes the
+swimming; "stop talking" follows the talking), placed via EVENT COREFERENCE to the narrated/other event (Trabasso goal
+chains + ATOMIC xNeed->before); RULE 2b topological INSERTION (place the implicit event in the narrated chain by store
+votes). RESULT: organ 0.5691 vs prior 0.5619, **+0.0073 CI[-0.0247,+0.0411] -- positive point estimate, NOT
+CI-separated.** The PROVENANCE is the deepest finding of the whole drill AND it VALIDATES the brain mechanism: the
+instance-grounded rules are FAR more accurate than the aggregate WHERE THEY FIRE -- **operator_coref (event coreference)
+fires 12 @ 0.8333**, **story_order (both-narrated) fires 245 @ 0.6245** (separately, operator-over-narrated fires ~4% @
+0.722, pure coref ~1% @ 0.778) -- CONSISTENTLY 0.72-0.83 vs the prior's ~0.60. But the implicit-X insertion fires 781 @
+**0.6018 ~ the prior's 0.60** (placing an implicit event via the narrated TIMELINE just recomputes the aggregate unless
+its causal/semantic relation is actually resolved). **So the brain-faithful mechanism (instance-grounded event
+coreference + operator/causal semantics) is VALIDATED at 0.72-0.83 -- what is missing is NOT the mechanism but the
+COVERAGE of event coreference: the brain resolves the coreference/causal relation for EVERY implicit event via full
+comprehension; our shallow detector reaches only ~1-13%. **So the missing organ is now specified precisely: not "couple with the narrated timeline"
 (done, +0.006 ns) but "couple with the COMPREHENDED CAUSAL STRUCTURE + resolve the implicit event's meaning" -- event
 coreference (does "stop talking" refer to the narrated "talked"?) + world-knowledge causal inference. That is the deep
 comprehension organ (why glass-box SOTA is ~0.60 and SymTime needs ~3.5M supervised examples), and it is the project's
 north star, not a store- or timeline-level fix. The prototype's VALUE: it proves the architecture (prior + confident
 override) is right, shows the both-narrated override is a real +0.01 lever, and rules out the "narrated timeline is
 enough" hypothesis with a measured provenance.**
+
+**(6) THE CAUSAL-KNOWLEDGE KB OVERRIDE -- a LITERATURE-CONFIRMED LOCATED NEGATIVE (owner: "the order signal is the
+weak link; research why").** Hypothesis: narrative co-occurrence FREQUENCY is a weak proxy; a curated CAUSAL /
+PRECONDITION KB (the brief's own §3 source: ConceptNet Causes + ATOMIC, here via CSKG) is the brain-foundational fix
+(Trabasso causal network -- temporal priority is a DEFINING criterion of a causal link). BUILT it
+(`_causal_knowledge_store.py`: 62,763 CSKG causal/precondition edges -> 65,018 verb-concept-keyed directed pairs;
+mapping Causes->before, HasPrerequisite->reversed, First/Last-subevent->script order). **MEASURED (TRACIE): the causal
+KB is WORSE than narrative frequency and DEGRADES with confidence** -- per-pair ev>=1 0.546, ev>=5 0.490, ev>=10 0.474
+(below chance); as an override it drops full accuracy 0.5619->0.5364; on disagreements narrative wins 170-120. TWO
+research drills (majority full-text) CONFIRM this is correct, not a bug: (a) DECONTEXTUALIZATION -- ConceptNet/ATOMIC
+edges are GENERAL type-level commonsense facts, not instance-specific to THIS story's causal chain, so they transfer
+NEGATIVELY (CSKG is further from TRACIE's genre than ROCStories, which IS the genre); (b) DIRECT PRECEDENT -- Wang,
+Chen, Zhang & Roth (2020) independently found ConceptNet causal/subevent edges USELESS for before/after ordering and
+fell back to TEMPROB, a FREQUENCY-mined verb-pair table (the SAME species as Chambers-Jurafsky); Weber, Rudinger & Van
+Durme (2020) confirm frequency!=causal-validity but as a confounding critique; NO SOTA ordering system (TRACIE, MATRES)
+uses a causal KB. Mapping CORRECTION from the drill: HasFirstSubevent/HasLastSubevent/HasSubevent are CONTAINMENT, not
+precedence -- only ATOMIC xNeed(before)/xEffect/isBefore/isAfter are verbatim-documented precedence. **CONCLUSION: the
+narrative-script frequency store IS the brain-foundational order signal (the Schank-Abelson script order acquired from
+narrative experience); the "order signal is the weak link" hypothesis is REFUTED. The load-bearing residual is
+INSTANCE-GROUNDED coupling (event coreference + situation-model instantiation of the script in THIS story's causal
+chain), NOT a better KB -- the literature (McKoon & Ratcliff 1992) and our own coupling result (+0.006 ns) agree.**
 
 **Is everything 100% brain-foundational?** The COMPUTATIONS are: tense-agnostic event detection (Zwaan 1995, PINNED);
 verb-concept keying (ATL hub, PINNED); narrative event chains as the script prior (Chambers-Jurafsky / Schank-Abelson,

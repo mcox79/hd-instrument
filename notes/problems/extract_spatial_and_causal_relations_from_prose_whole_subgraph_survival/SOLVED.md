@@ -5,7 +5,7 @@ bar: "PASSES only with ALL of: (1) the JOINT parse-once front-end EXTENDED to SP
 result: "SPATIAL is a WIN; CAUSAL is the bar's blessed LOCATED NEGATIVE. Extraction ISOLATED (reasoner held at gold), paired bootstrap (CI half-width + null p95). SPATIAL (SpaceEval/ISO-Space train+trial): building the brain's ACTUAL spatial-semantic mechanisms into the joint pass -- EVENT-FIGURE binding (Talmy: the Figure can be an event; SpaceEval gold uses event trajectors) + DEICTIC grounds (here/there/home) + COORDINATION distribution + PARTITIVE region-parts (heart/middle/part of Y) + HERSKOVITS preposition-semantics (at/on + place/region ground coerces to containment) over the exact-MAP parse -- lifts containment edge recall 0.2282 -> 0.2980 and whole-subgraph containment survival 6/123 = 0.0488 -> 16/123 = 0.1301, margin +0.0813 CI[+0.0244,+0.1463] null_p95 0.065 CI-SEPARATED over the incumbent; the shuffled-relation twin collapses 0/123. CRUCIAL CONTROL + finding: a no-semantics PROXIMITY floor (connect adjacent co-sentential nouns) MATCHES the joint on survival (14/123, joint-proximity +0.0163 CI[-0.0569,+0.0894] NOT CI-sep) -- so recall-survival is DENSITY-CONFOUNDED. The discriminating, brain-faithful test is PRECISION: balanced containment QA with HARD adjacent negatives (adjacent non-containment pairs proximity false-positives). There the proximity prior COLLAPSES (acc 0.1848) while the semantic joint scores 0.5712, beating proximity +0.3864 CI[+0.3527,+0.4196] AND the incumbent +0.0533 CI[+0.0408,+0.0658], both CI-separated -- the semantic Figure-Ground TYPING is decisively load-bearing (the brain distinguishes IN from NEAR; density cannot). CAUSAL (MAVEN-ERE valid, 9698 gold CAUSE+PRECONDITION edges, 710 docs, detection held constant). PHASE-DIAGRAM FRAME (owner): extraction DENSITY is a FREE knob (the causal SOLVED's U6 densified 3%->95% trivially), so RECALL/survival -- which a density flood matches for free -- is the FREE axis; CORRECTNESS/PRECISION is the BINDING axis. On the binding axis the BRAIN-FOUNDATIONAL fidelity upgrade WINS: replacing connective-matching (NOT the brain's mechanism) with the brain's actual Graesser-Singer-Trabasso causal-antecedent search = a recency PRIOR + directed GENERATIVE world-model TYPING (reuse the U8 engines: intuitive-physics force-dynamics FORCE_ACTION->RESULT_STATE + intuitive-psychology MENTAL_TRIGGER->MENTAL_OUTCOME + affect valence-congruence; glass-box, NO LLM). The generative typer scores balanced PRECISION 0.478 (highest, but abstention-dominated ~= chance discrimination -- see the honesty note in KEY REALIZATIONS) vs the contiguity density flood 0.140 (+0.339 CI[+0.326,+0.351]) and beats the CONNECTIVE shortcut on RECALL 0.045 vs 0.005 (+0.040 CI[+0.035,+0.044]); crucially it recovers UNMARKED edges 0.055 > marked 0.025 -- world-knowledge, not markers (connectives recover ~0 unmarked). Its COVERAGE is bounded to ~5% because the CLASS-LEVEL engines type only force/affect/mental pairs, not all specific causal knowledge -- the CONTENT-SENSITIVE generative rollout (the causal SOLVED's P1, needs the meaning channel) is the named deepening, NOT a ceiling. Multi-hop chain survival is 0/30 but that is the FREE density axis (densify with the typed prior). THE UNIFYING FINDING: spatial relations are lexically MARKED (preposition + ground -> RCC8), so a parse-bound semantic typer supplies correctness directly; causal relations are largely UNMARKED, so correctness comes from a GENERATIVE world-model typer (recency-prior + physics/psychology) -- both brain-foundational, both WIN on the binding correctness axis, both coverage-bound (construction inventory / class-engine coverage)."
 floor: "Per channel, recomputed on the item's OWN population. SPATIAL: (a) the incumbent linear extractor (containment survival 6/123 = 0.0488; balanced-QA precision 0.5179) -- joint beats it CI-sep on BOTH; (b) the no-semantics PROXIMITY floor (survival 14/123 = 0.1138 -- MATCHES joint, exposing the density confound; balanced-QA precision 0.1848 -- COLLAPSES on hard negatives, joint beats it +0.3864 CI-sep). CAUSAL: (a) incumbent within-sentence connective 0.0044; (b) the CONTIGUITY floor 0.1522 (the connective signal LOSES to it CI-sep -- density, not causal typing, carries recall); (c) multi-hop chain survival floor 0/30. Ceiling: the reasoners near-perfect on GOLD (spatial 1.000; causal sound) = the ISOLATION control."
 controls: "(1) SHUFFLED-RELATION twin loses CI-sep on BOTH channels (spatial survival 0/123; causal joint-twin +0.0035). (2) PROXIMITY / CONTIGUITY density floor (the decisive control this problem adds): matches the semantic joint on recall-survival (spatial) and BEATS the connective signal (causal) -> recall metrics are density-confounded; but COLLAPSES on the PRECISION test (spatial proximity 0.1848 on hard negatives; causal contiguity 0.139), where the semantic typing wins CI-sep -> the typing is load-bearing where PRECISION matters (the brain's competence). (3) HARD-NEGATIVE precision QA (adjacent non-relation pairs) isolates precise typing from density. (4) INCUMBENT floor per channel. (5) ISOLATION: reasoner held at gold. (6) MARKED-vs-UNMARKED split (causal) locates the residual (65.6% unmarked). (7) NO-REGRESS: nothing written to hdlab (Q111); temporal-survival witness 6/6 at HEAD; exact-MAP leaves the tense-agnostic event set byte-identical (0 symmetric-diff). Each EXCLUDES: twin=count artifact; density-floor=proximity masquerading as semantic extraction; hard-negatives=recall inflation; isolation=strong-reasoner-as-extraction; marked-split=the residual organ; no-regress=downstream regression."
-files_changed: "experiments/_joint_spatial_frontend.py, experiments/exp_joint_spatial_survival_v1.py, experiments/exp_joint_spatial_precision_qa_v1.py, experiments/exp_joint_causal_survival_v1.py, verification/test_joint_spatial_causal_survival.py, notes/problems/extract_spatial_and_causal_relations_from_prose_whole_subgraph_survival/SOLVED.md (NO hdlab/ written -- Q111: proposed diff in Sec 7)"
+files_changed: "SPATIAL: experiments/_joint_spatial_frontend.py (event-figure+deixis+partitive+Herskovits+move+thematic+marginal, all default-off additive), exp_joint_spatial_survival_v1.py, exp_joint_spatial_precision_qa_v1.py, exp_joint_spatial_thematic_v1.py (thematic-event nested binding WIN), exp_spatial_construction_mining_v1.py (learned inventory WIN), exp_joint_spatial_frontend_upstream_v1.py (marginal-attachment refuted). CAUSAL: exp_joint_causal_survival_v1.py (generative typer + gen_causal_type + precision-on-fired), exp_joint_event_detection_ceiling_v1.py (nominal-on 0.61->0.85), exp_joint_causal_cskg_v1.py (retrieval refuted 2%), exp_joint_causal_simulate_v1.py (content-sensitive simulator), exp_joint_causal_coref_ceiling_v1.py (coref PROVEN 3.29x), exp_joint_causal_grounding_ceiling_v1.py (grounding register-bound). CROSS-CHANNEL: exp_channel_prior_correctness_v1.py (the unifying law), exp_joint_unified_pass_v1.py (one-parse-all-channels WIN), exp_true_brain_foundational_chain_v1.py (chain composition), exp_predictive_frontend_proof_v1.py (segmentation meaning-starved), exp_pos_emission_memo_v1.py (memo refuted). exp_meaning_consumption_full_fix_v1.py (the keystone full-fix: coref+sense-commit+control-gate wired to causal+spatial -- DONE; result is CHANNEL-SPECIFIC: coref carries causal [recall 3x, prec 0.465->0.535], sense/gate marginal on causal, coref a NO-OP on spatial [thematic already captures it], sense-half pays off on the meaning readout not extraction). WITNESS: verification/test_joint_spatial_causal_survival.py (11/11). NOTES (this folder): SOLVED.md, FULL_CHAIN_BRAIN_FIDELITY_SCAN_2026-09-07.md, WALLS_FULLY_UNDERSTOOD_2026-09-08.md; + notes/research_causal_content_sensitive_generative_simulation_2026-09-07.md. NO hdlab/ written -- Q111: proposed diffs in Sec 7 + the per-cell SOLVED verdicts."
 reverify: ".venv/Scripts/python.exe verification/test_joint_spatial_causal_survival.py   # 11/11 (survival + the density-confound control + the precision-discriminator + the causal located negative, from source; ~70s)"
 ---
 
@@ -236,18 +236,46 @@ SOLVED reading is defensible (one channel passes, one blessed negative -- the te
 PARTIAL because the survival HEADLINE is density-confounded for spatial (the win is real on precision, not on
 recall-survival alone) and causal has no positive. Science identical either way.
 
-## NEXT STEPS (priority-ordered)
-- **P1 -- LAND (Q111) the spatial semantic-typing channels + exact-MAP shared parse** (Sec 7.1-7.2). A proven
-  brain-foundational spatial extraction capability (precision +0.386 over density, +0.053 over incumbent; survival
-  6->16/123 CI-sep). Score it on TYPE-PRECISION, not recall-survival (which is density-confounded).
-- **P2 -- LAND the CAUSAL generative world-model typer** (built this pass; wins the binding correctness axis:
-  balanced precision 0.478 vs density 0.140, +0.040 recall over connective, recovers unmarked edges) and DEEPEN its coverage
-  (~5% class-engine reach) via the content-sensitive rollout (meaning channel) + the FILED SDRT coherence reader.
-  Do NOT land a connective extractor (0.5%, not the brain's mechanism).
-- **P3 -- a LEARNED spatial construction inventory + place-hierarchy world-knowledge gap-filler** -- the brain-
-  foundational upgrade past hand-coded constructions (usage-based grammar + Barsalou simulation).
-- **P4 -- the incremental/predictive parser (FILED)** -- the brain-foundational parse upstream; exact-MAP is interim.
-- **DO NOT re-file:** a parse-bound connective causal extractor (0.5%, loses to contiguity); recall-SURVIVAL as the
-  spatial capability metric (density-confounded -- use type-precision); whole-subgraph SURVIVAL as the causal metric
-  (networks shallow, 30 chains/710 docs -- score at the EDGE level); a denser causal dataset (the sparsity is language);
-  coref-driven spatial chain repair (0% of SpaceEval broken edges are pronoun/deictic).
+## NEXT STEPS -- THE FIXES, priority-ordered (final; full detail in FULL_CHAIN_BRAIN_FIDELITY_SCAN + WALLS_FULLY_UNDERSTOOD in this folder)
+
+### A. LAND NOW -- proven WINs, all default-off/additive + no-regress (witness 11/11); strategy owns the hdlab wire (Q111)
+- **P1 -- UNIFIED one-parse front-end.** ONE exact-MAP parse feeds all 4 channels (temporal/spatial/causal/role),
+  byte-identical to every standalone extractor, **4x fewer parses / 2.8x faster**. Efficiency + fidelity in one.
+  (exp_joint_unified_pass_v1)
+- **P2 -- SPATIAL semantic typing:** thematic-event nested binding + event-figure + the LEARNED construction inventory.
+  containment recall 0.298->0.369, whole-subgraph survival 16->20/123 CI-sep, **precision held exactly**; the learned
+  inventory matches the hand-lists + GENERALIZES to unseen containers. Score spatial on TYPE-PRECISION (recall-survival
+  is density-confounded). (exp_joint_spatial_thematic_v1 + exp_spatial_construction_mining_v1)
+- **P3 -- NOMINAL-event detection flip-on.** Lifts the causal-edge detectable ceiling **0.61 -> 0.85** (a flag flip;
+  nominalizations are events). (exp_joint_event_detection_ceiling_v1)
+- **P4 -- exact-MAP decode as the shared-parse default** (removes 7.2% invalid-tree parses; temporal event set
+  byte-identical) after the 8-consumer no-regress check.
+- **P5 -- COREF -> the causal simulator.** PROVEN: participant coref lifts the content-sensitive simulator 3.29x
+  (86->221 fires) with precision UP 0.465->0.535 (to near the recency prior). Needs the coref organ wired -- the
+  ENTITY half of the meaning channel. (exp_joint_causal_coref_ceiling_v1)
+
+### B. BUILD -- the two remaining residuals (out of solver write-scope; the real open work)
+- **P6 -- THE KEYSTONE: the read()-time MEANING-CONSUMPTION + CONTROL-NETWORK stage** (word-sense/meaning-channel
+  problem + strategy). Commit a context sense over the frequency default only on CONFLICT (Controlled Semantic
+  Cognition). Cashes 5 separately-proven meaning gains on the meaning READOUT. FULL-FIX FINDING (measured,
+  exp_meaning_consumption_full_fix_v1): the sense half is CHANNEL-SPECIFIC -- it pays off on the meaning READOUT, NOT
+  on causal/spatial extraction (there, coref carries causal, thematic carries spatial). So this is the meaning-readout
+  fix, not a blanket extraction fix.
+- **P7 -- SPATIAL parser residual.** After thematic binding, the remaining ~2/3 of the miss slice is PARSER-side:
+  span-head canonicalization ("Museum of Modern Art" gold head=art vs extracted museum), participle-as-head, PP-scope.
+  The brain-foundational parse upstream is the incremental/predictive parser (FILED); exact-MAP is the interim.
+- **P8 -- FULL causal reader = recency/iconicity PRIOR (high recall, brain-foundational; 84% ordering) + the
+  coref-unlocked SIMULATOR (high precision on its subset), as a GRADED causal graph.** ACCEPT the causal-recall ceiling
+  on genuinely-UNMARKED abstract edges as the honest no-LLM limit (CSKG refuted at 2%; class engines ~5%; the recency
+  prior is the brain-foundational recall path). This is not a fidelity hole -- it is where glass-box causal inference
+  stops without an LLM.
+
+### C. DO NOT land / re-file -- refuted or register-bound (measured)
+- CSKG / bigger generic KB for causal (2% coverage; EDGE gap not vocab gap; retrieval is coverage-bounded by construction).
+- parse-marginal-attachment for spatial (the exact-MAP parse is already ~99.9% confident; the misses are thematic/parser).
+- object-affordance grounding for causal (register-bound tradeoff on abstract text; gate OFF).
+- a parse-bound connective causal extractor (0.5%; not the brain's mechanism).
+- POS emission memoization (0.94x; contexts 88.6% unique -- vectorization is the only remaining efficiency lever, low priority).
+- recall-SURVIVAL as the spatial capability metric (density-confounded -> type-precision); whole-subgraph SURVIVAL as
+  the causal metric (networks shallow -- 30 chains/710 docs -> score at the EDGE level); a denser causal dataset
+  (the sparsity is the language, not the corpus).

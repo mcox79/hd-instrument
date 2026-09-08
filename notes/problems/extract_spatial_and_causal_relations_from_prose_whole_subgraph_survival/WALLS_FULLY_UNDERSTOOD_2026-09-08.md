@@ -93,6 +93,23 @@ needs the semantic Figure-Ground typer. Everything downstream converges on the E
   participle-as-head, PP-scope) is real but small. Not the binding constraint (that is Walls 7/coref). Understood;
   the incremental parser is a longer-horizon fidelity gain, not the lever now.
 
+## WALL 7 UPDATE -- the FULL-FIX prototype refines the keystone: the meaning channel's read()-time value is CHANNEL-SPECIFIC, not one blanket wire.
+Measured (`exp_meaning_consumption_full_fix_v1`, disk; agent report lost to an auth error, metrics verified, positive
+control surface==landed-simulate 86/40 passes). The read()-time consumption stage (coref + control-gated sense-commit),
+wired to both downstream channels:
+- CAUSAL: the COREF (entity) half is the lever -- recall 3x, precision-on-fired 0.465->0.535 (near the recency prior
+  0.568). The SENSE-commit half is MARGINAL: both-vs-coref precision +0.0069 CI[-0.005,0.019] NOT CI-sep; and the
+  control GATE is a wash (gated ~= commit-always ~= commit-MFS, all ties) -- MAVEN event triggers are low-polysemy for
+  causal typing, so committing a context sense barely changes event_type. So on CAUSAL extraction the meaning channel
+  = its COREF half only.
+- SPATIAL: coref is a NO-OP -- survival 20/123, containment recall 0.369, QA 0.584 ALL IDENTICAL to thematic
+  (margin 0 CI[0,0]); 200 pronoun figures resolved but 0 cross-sentence gold chains completed. The spatial extraction
+  lever is the THEMATIC BINDING, not coref.
+- CONCLUSION: the keystone is not one blanket wire. It is COREF -> causal (proven), THEMATIC binding -> spatial (coref
+  no-op on this gold), and the SENSE-consumption/control-gate half -> the MEANING READOUT (the word-sense solver's 5
+  gains), NOT causal/spatial extraction. Three distinct consumers; the earlier "everything converges on one wire" was
+  the right root but too coarse -- the value is channel-specific.
+
 ## SUMMARY: 8 of 9 walls FULLY understood + fix identified (WON/PROVEN/refuted/register-bound). The ONE open wall is
 WALL 7 -- the read()-time consumption mechanism of the meaning/entity channel (the keystone), which everything
 downstream converges on. Its ENTITY half (participant coref) is a proven clean lever; its SENSE-consumption/control
