@@ -6,7 +6,7 @@ result: "The brief's mechanism (re-port the two levers onto hdlab.commonnoun_bin
 floor: "Strongest floor actually run on the SAME n=2855 GUM-TEST anaphoric common-noun population: same-head STRING-IDENTITY keyed by the GUM gold lemma = 0.5412 (POSITIVE CONTROL: identical to the URG board floor 0.5412 -- confirms the dict-schema scorer reproduces the board instrument). Binder's own-lemmatizer string-identity = 0.5156. Deployed binder = 0.4904 (below both). typed_coref organ = 0.5671 (beats the floor CI-sep)."
 controls: "(1) POSITIVE CONTROL: dict-schema string-identity == URG board floor 0.5412 exactly (population + scorer match). (2) FAITHFULNESS: the resolve mirror (bridge=off) is BYTE-IDENTICAL to hdlab.commonnoun_binder.situation_predict on all 137 test docs (9065 labels) -> the measured binder_base IS the deployed binder. (3) NO-REGRESS BY CONSTRUCTION: the non-writing bridge arms produce byte-identical CLUSTER LABELS to base -> sm.entities + the separate reader pronoun stream are byte-unchanged (the WRITING type-license changes labels, which is exactly why p11 measured a pronoun drag -0.0172). (4) INFO-FREE TWIN (bridge fires but resolves to a RANDOM gn-compatible prior referent) LOSES CI-sep under BOTH the binder binding (+0.0210) and the URG binding (+0.0259) -> the type signal is load-bearing, not 'any reach'. (5) NAME no-regress: generalized bridge vs base +0.0024 CI[+0.0008,+0.0045] (improves, not a regress). (6) p11 WRITING type-license is a wash-to-negative on resolution (+0.0021 CI incl 0). (7) De-pollution SUBSUMED: the binder never writes pronouns to its referents, so nominal-dominant == full-dominant by construction (measured no-op). (8) OOD GENERALIZATION (GENTLE, out-of-domain, n=275): the defect + fix replicate (binder 0.5273 < floor 0.5709; fix 0.5964, +0.0255 = the GUM +0.0252) -- direction+magnitude, underpowered for CI-sep."
 files_changed: "experiments/exp_commonnoun_binder_live_report_v1.py, verification/test_commonnoun_binder_live_report.py, data/exp_commonnoun_binder_live_report_v1/metrics.json, notes/problems/report_the_typed_coref_organ_onto_the_live_reader_common_noun_path_and_measure/SOLVED.md. NO hdlab/ writes (Q111 -- proposed wire stated in section 6). Reuses data/corpora/gum/ (pinned V12.1.0, on disk) + hdlab.{commonnoun_binder,typed_coref,typed_spokes,coref,event_centrality_coref} + experiments.{gum_coref,exp_unified_referent_gum_v1}."
-reverify: ".venv/Scripts/python.exe verification/test_commonnoun_binder_live_report.py    # 15/15 (+ W1 faithfulness + W2 no-regress asserted inline; incl W10 full-fix-on-live-schema + W12 OOD-GENTLE generalization); recomputes every headline from source on the full GUM modern TEST"
+reverify: ".venv/Scripts/python.exe verification/test_commonnoun_binder_live_report.py    # 16/16 (+ W1 faithfulness + W2 no-regress asserted inline; incl W10 full-fix-on-live-schema, W12 OOD-GENTLE, W13 world-knowledge-headroom oracle); recomputes every headline from source on the full GUM modern TEST"
 ---
 
 # PARTIAL -- the levers do NOT survive a re-port onto the DEPLOYED binder; the deficit is the binder's BINDING, and the committed typed_coref organ is the fix
@@ -35,6 +35,7 @@ located WHY, and the answer changes the recommended wire.
 | URG binding on the SAME live schema + generalized bridge (REDUCED port) | 0.5485 | +0.0074 CI[-0.0147,+0.0271] (parity); +0.0581 over the deployed binder CI-sep |
 | **FULL fix on the EXACT live dict SCHEMA (typed_coref_liveschema)** | **0.5664** | **+0.0252 CI[+0.0126,+0.0375] CI-SEP (BEATS); +0.0179 over the reduced port CI-sep (the appos/name seeds); twin loses +0.0256 CI-sep** |
 | **committed hdlab.typed_coref organ (Doc schema; the fix)** | **0.5671** | **+0.0259 CI[+0.0134,+0.0385] CI-SEP (BEATS); +0.0767 over the deployed binder CI-sep** |
+| _ORACLE type comparator (perfect world knowledge; CEILING)_ | _0.7492_ | _+0.2081 CI[+0.1847,+0.2344] over floor; +0.1828 over the fix -> the world-knowledge headroom_ |
 
 **NAME no-regress:** generalized bridge vs base +0.0024 (improves). **De-pollution:** structurally SUBSUMED (no-op).
 
@@ -129,11 +130,30 @@ same n=2855 population.
   the person-gate (excludes the bridge on objects, ~half the different-head slice), modifier-split (splits correct
   same-head merges on GUM), and the event-centrality tie-break (a LitBank-scene heuristic). Each is a fidelity gap vs the
   brain's content/recency-addressed definite resolution.
-- **Upstream is clean:** the mention detector = gold (GUM), the POS/parse = gold (GUM) -- not the bottleneck. The
-  non-brain-foundational component is the binder's OWN binding design, applied to a task (resolution) it was not built
-  for (it was built for character clustering). Per the owner's principle -- a brain-foundational lever underperforming
-  means something it relies on is not brain-foundational -- the culprit is the binder's binding, and the fix is the
-  already-brain-foundational typed_coref binding.
+- **WHERE WE LOSE THE MOST SIGNAL, QUANTIFIED (oracle type comparator, witness W13):** with a PERFECT type comparator
+  (bridge licenses iff gold-coreferent = perfect encyclopedic/taxonomic/scenario knowledge, SAME bridge structure), the
+  live-schema fix would score 0.7492 -- +0.2081 over string-identity CI[+0.1847,+0.2344] and +0.1828 over our
+  WordNet-seeded fix CI[+0.1625,+0.2059]. So the type comparator is the DOMINANT lever, and ~88% of the achievable
+  headroom (0.183 of 0.208) is WORLD KNOWLEDGE the WordNet(C5) comparator misses. The comparator's OPERATION is
+  brain-foundational (content-addressed different-head retrieval from the ATL semantic hub -- the oracle uses the
+  identical structure); the KNOWLEDGE BASE is the gap. The missing knowledge is (a) ENCYCLOPEDIC instance-of
+  ("Google"->company, "Argentina"->country) and (b) SCHEMA/SCENARIO associative anaphora ("restaurant"->"the waiter";
+  Sanford-Garrod). The residual to ~1.0 above 0.749 is anaphors with no antecedent-linkable prior (first-mention
+  definites, bridging inference, split/plural antecedents) -- genuine situation-model inference, not antecedent-linking.
+- **The encyclopedic KB is BUILT and brain-foundational but NOT WIRED (and its asset is unshipped here).** `hdlab.typed_spokes`
+  carries the C8 DIRECTED ENTITY-TYPE SPOKE (DBpedia InstanceOf 2022.12.01: `entity_type_lemmas`/`type_licenses`/
+  `available_entity_type`) -- the ATL's encyclopedic route, a static offline asset (invariant-safe, no inference LLM). The
+  sibling problem `acquire_wikidata_p31_entity_type_kb_for_name_bridge_coref` already measured the two-route
+  (KB UNION in-text is-a, a CLS design) name-bridge lift at +0.0955 CI-sep on the name-bridge slice. BUT `typed_coref`
+  imports only `coref_type_license` (C5/WordNet) -- it does NOT use the C8 encyclopedic route, and `data/frontend_assets/`
+  is empty in this working copy (the 548MB asset is gitignored / not rebuilt), so `available_entity_type()` abstains here.
+  So the type comparator upstream of the resolution bridge is a brain-foundational component that is HALF-WIRED (taxonomic
+  route only) -- exactly the "a brain-foundational lever underperforms because an upstream component is not fully wired /
+  present" pattern.
+- **Upstream mention/parse is clean on GUM:** the mention detector = gold, the POS/parse = gold -- not the bottleneck
+  here. The non-brain-foundational components are (i) the deployed binder's BINDING (person-gate + modifier-split +
+  event-centrality, LitBank-clustering OUR-INVENTIONS applied to resolution -- fixed by the typed_coref binding) and
+  (ii) the type comparator's INCOMPLETE KNOWLEDGE (WordNet only, missing the encyclopedic + schema routes).
 - **No downstream consumer regresses** from the proposed direction: the binder stays exactly as-is for the clustering
   (`sm.entities`) consumer; the resolution stream is ADDITIVE (a new consumer), and the non-writing bridge is
   byte-identical in clustering.
@@ -208,7 +228,18 @@ equally defensible.
    seeds + generalized bridge). Proven ceiling on the live population: 0.5671, +0.0259 over string-identity CI-sep.
 2. **HIGH -- add the `board_commonnoun_resolution` instrument-arm (section 6.2)** so the win is board-visible; the reader
    has no scored common-noun resolution dim today.
-3. **MEDIUM -- de-restrict the binder's person-gate for the clustering path too** (measured +0.0235 CI-sep even inside the
+3. **HIGHEST LEVERAGE (the world-knowledge headroom, +0.18 oracle-measured) -- wire the ENCYCLOPEDIC route into the
+   resolution bridge.** The type comparator is the dominant lever and ~88% of its headroom is world knowledge WordNet
+   lacks. `hdlab.typed_spokes` ALREADY has the brain-foundational C8 DBpedia entity-type spoke (`type_licenses`/
+   `entity_type_lemmas`); the sibling problem measured +0.0955 CI-sep (two-route KB+in-text) on the name-bridge slice.
+   ADD it to the bridge candidate set for common->named-entity bridges (union with the C5/WordNet route -- a CLS
+   two-route design). Prerequisite: rebuild/ship the C8 asset to `data/frontend_assets/` (empty in this working copy);
+   it is a static offline asset (invariant-safe). This is the single biggest remaining resolution lever.
+4. **HIGH-VALUE fidelity build -- a SCHEMA/SCENARIO route for associative (bridging) anaphora** ("restaurant"->"the
+   waiter"; Sanford-Garrod scenario mapping). This is a distinct brain mechanism (script/frame knowledge, not taxonomy)
+   that the oracle headroom includes and neither WordNet nor the instance-of KB fully covers. Candidate: a static
+   frame/script association store (e.g. FrameNet/ConceptNet AtLocation/UsedFor slices; offline, invariant-safe).
+5. **MEDIUM -- de-restrict the binder's person-gate for the clustering path too** (measured +0.0235 CI-sep even inside the
    binder) and re-evaluate the binder on cluster-F1 -- a separate, brain-fidelity follow-on for the `sm.entities` consumer.
 4. **DO NOT REDO:** the p11 WRITING type-license (wash on resolution + pronoun drag); de-pollution on the binder (no-op by
    construction); the person-scoped bridge alone (the person-gate is the ceiling); adding the levers to `commonnoun_binder`

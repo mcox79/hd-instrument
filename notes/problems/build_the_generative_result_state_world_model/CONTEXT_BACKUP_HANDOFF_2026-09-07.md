@@ -141,3 +141,16 @@ The generative result-state world-model: mechanism corrected to a recurrent gene
 prediction-error loop + model-based rollout + ECHO decision); SR/PPR is the wrong reachability primitive; GEK is
 directionless; the binding wall is upstream edge-correctness c (participant-bound generation over coref-resolved
 participants + the latent meaning channel). Solver mechanisms built+proven; upstream wiring = strategy (Q111).
+
+## CYCLE-5 UPDATE (2026-09-08) -- OPTIMIZED coref built; MECHANISM-TASK MISMATCH found
+`exp_genworldmodel_optimized_coref_v1.py` (witness 4/4): ACT-R base-level-activation object-anaphora resolver
+(Lewis-Vasishth, PINNED) resolves 181 anaphora vs recency 73 (2.5x = real organ-level win) but is FLAT on the
+TellMeWhy causal-coherence decision (ACT-R 0.285 == recency == additive == twin), while the ORACLE excels
+(+0.066 CI[0.027,0.106]). KEY: improving coref to fidelity did NOT move the decision because TellMeWhy cause-ID
+is SINGLE-ANTECEDENT -- the multi-candidate object-CHAIN structure the ECHO coherence + participant-binding
+machinery needs is rarely present. The earlier GOAL-subset win (0.380) was from the RESULT-STATE ROLLOUT, not the
+coherence machinery. To show the coherence + coref chain EXCELS, use a MULTI-CANDIDATE causal-CHAIN gold (WIQA
+multi-hop / who-did-what two-valid / narrative-chain), NOT TellMeWhy single-cause-ID. Coref upgrade is real +
+no-regress; payoff is consumer-dependent. 11 cells + 11 witnesses (all green). The two live win-mechanisms on
+TellMeWhy remain: result-state rollout (GOAL-subset +0.087 CI-sep) + the corrected chain at oracle binding
+(+0.035-0.066 CI-sep); the coherence-chain machinery awaits a chain-structured consumer.
