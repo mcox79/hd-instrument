@@ -4459,6 +4459,8 @@ def _selftest_affect_wiring() -> dict:
         (0, 0, "John", "(0)"), (0, 1, "saw", "_"), (0, 2, "Mary", "(1)"), (0, 3, ".", "_"),
         (1, 0, "She", "(1)"), (1, 1, "battered", "_"), (1, 2, "her", "(1)"),
         (1, 3, "nephew", "(2)"), (1, 4, ".", "_"),
+        (2, 0, "A", "_"), (2, 1, "soldier", "(3)"), (2, 2, "rescued", "_"),
+        (2, 3, "the", "_"), (2, 4, "hostage", "(4)"), (2, 5, ".", "_"),
     ]
     path = _write_temp_conll(rows)
     try:
@@ -4476,11 +4478,14 @@ def _selftest_affect_wiring() -> dict:
     assert "battered" in by_pred, f"in-scope force event missing: {[e.predicate for e in sm.events]}"
     assert by_pred["battered"].affect == "HARM", (
         f"in-scope animate-patient force event should be HARM, got {by_pred['battered'].affect}")
+    assert "rescued" in by_pred, f"prevent-class event missing: {[e.predicate for e in sm.events]}"
+    assert by_pred["rescued"].affect == "HELP", (
+        f"prevent-class force event should surface HELP, got {by_pred['rescued'].affect}")
     # non-regression: agent/patient positional selection and event count untouched by the wire.
     assert by_pred["saw"].agent.lower() == "john", by_pred["saw"]
     assert by_pred["battered"].patient.lower() == "nephew", by_pred["battered"]
-    assert len(sm.events) == 2, f"events={len(sm.events)}"
-    assert sm.n_sentences == 2, f"n_sentences={sm.n_sentences}"
+    assert len(sm.events) == 3, f"events={len(sm.events)}"
+    assert sm.n_sentences == 3, f"n_sentences={sm.n_sentences}"
     return {"saw_affect": by_pred["saw"].affect, "battered_affect": by_pred["battered"].affect,
             "n_events": len(sm.events)}
 

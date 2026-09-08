@@ -62,6 +62,7 @@ import experiments.exp_grounded_appraisal_sim_earned_v1 as _sim  # noqa: E402 (R
 import experiments.exp_bridge1_governor_grounding_v1 as _gov  # noqa: E402 (REUSE: stage 1, cert 96e8e8404)
 import experiments.exp_bridge1_event_assembly_open_vocab_v1 as _ea  # noqa: E402 (REUSE: stage 2, cert c555bdb34)
 import experiments.exp_bridge1_twostage_event_situation_v2 as _v2  # noqa: E402 (REUSE: combine_biased_competition)
+import hdlab.force_dynamics_valence as _fdv  # noqa: E402 (force-dynamics harm/help decision -- retires FORCE_CLASS_HARM_REAL)
 
 FULL_N_TRAIN_THETA = _gov.FULL_N_TRAIN_THETA
 SMOKE_N_TRAIN_THETA = _gov.SMOKE_N_TRAIN_THETA
@@ -207,8 +208,8 @@ def score_item(tokens: list, pos: list, target_idx: int, target_word: Optional[s
             a = _ea.real_animacy_lookup(target_word, pos_tag)
             w = target_word.lower().strip(".,\"'();:")
             amap = {w: a} if a is not None else {}
-        event_type, category, gov_word = _ea.event_type_for_item_real(
-            item, amap, _ea.FORCE_CLASS_HARM_REAL, _gov.GOVERNOR_VERB_CLASS)
+        event_type, category, gov_word = _fdv.force_dynamics_event_type(
+            item, amap, _gov.GOVERNOR_VERB_CLASS)
 
     # situation/discourse-bias stage: `situation_type` defaults to None here (byte-identical to the
     # pre-wire hard-coded None, exactly like the certified event-assembly cell's own run_seed did) --
