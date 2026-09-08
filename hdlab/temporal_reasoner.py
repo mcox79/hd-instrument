@@ -76,11 +76,23 @@ _SCRIPT_SCHEMA = None  # process-wide cache of the frozen script/schema organ (l
 
 def _script_schema():
     """Lazily load + cache the frozen temporal_script_schema organ. Returns an EMPTY (abstaining) organ when the
-    asset is absent -- so consulting it is asset-less-safe (every readout -> None -> the reasoner keeps UNKNOWN)."""
+    asset is absent -- so consulting it is asset-less-safe (every readout -> None -> the reasoner keeps UNKNOWN).
+    PREFERS the BROADER tense-agnostic-mined store (454,129 verb-pairs; owner-DONE
+    grow_a_broad_causal_event_order_store, Q111 landing 2026-09-08; +0.036 CI-sep on TRACIE implicit-event
+    ordering over the 177,800-pair seed, coverage 0.29->0.607) when present, falling back to the seed, then empty.
+    Same gitignored-asset posture as the seed (degrades gracefully; rebuild via
+    experiments/exp_broaden_causal_order_store_v1.py). The NARRATED timeline path stays byte-identical either way --
+    the store fires ONLY on off-timeline implicit-event queries, confident-gated (SCRIPT_E_MIN + SCRIPT_M_MIN);
+    the swap enriches only the implicit-event branch (blast radius = that branch; test_temporal_reasoner_organ
+    18/18 unchanged)."""
     global _SCRIPT_SCHEMA
     if _SCRIPT_SCHEMA is None:
-        from hdlab.temporal_script_schema import TemporalScriptSchema
-        _SCRIPT_SCHEMA = TemporalScriptSchema.load()
+        import os as _os
+        from hdlab.temporal_script_schema import TemporalScriptSchema, CHAINS_ASSET
+        _broad = _os.path.join(_os.path.dirname(_os.path.dirname(CHAINS_ASSET)),
+                               "exp_broaden_causal_order_store_v1", "chains_broad.json")
+        _SCRIPT_SCHEMA = (TemporalScriptSchema.load(_broad) if TemporalScriptSchema.available(_broad)
+                          else TemporalScriptSchema.load())
     return _SCRIPT_SCHEMA
 
 
