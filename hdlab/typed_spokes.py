@@ -584,8 +584,11 @@ _C8_DB = os.path.join(_REPO, "data", "frontend_assets", "entity_type_spoke_v1.sq
 _C8_LEMMAS_PATH = os.path.join(_REPO, "data", "frontend_assets", "entity_type_class_lemmas_v1.json")
 _C8_PUNCT = re.compile(r"[^a-z0-9 ]")
 _C8_WS = re.compile(r"\s+")
+_C8_COMPACT = os.path.join(_REPO, "data", "frontend_assets", "entity_type_spoke_compact_v1.npz")
 _C8_CON = None
 _C8_CON_MISSING = False
+_C8_COMPACT_Z = None
+_C8_COMPACT_MISSING = False
 _C8_LEMMAS: Optional[Dict[str, List[str]]] = None
 _C8_CLASS_CACHE: Dict[str, frozenset] = {}
 
@@ -625,30 +628,64 @@ def _c8_lemmas() -> Dict[str, List[str]]:
     return _C8_LEMMAS
 
 
+def _c8_hash(surf: str) -> int:
+    import hashlib
+    return int.from_bytes(hashlib.blake2b(surf.encode("utf-8"), digest_size=8).digest(), "big") & ((1 << 64) - 1)
+
+
+def _c8_compact():
+    """(hashes, cids, classes) from the COMPACT npz store (7x smaller than the sqlite: sorted blake2b-64 surface
+    hashes + uint16 class-ids over the class vocab), or None if absent. Preferred over the 548 MB sqlite."""
+    global _C8_COMPACT_Z, _C8_COMPACT_MISSING
+    if _C8_COMPACT_Z is None and not _C8_COMPACT_MISSING:
+        if not os.path.exists(_C8_COMPACT):
+            _C8_COMPACT_MISSING = True
+            return None
+        z = np.load(_C8_COMPACT, allow_pickle=False)
+        _C8_COMPACT_Z = (z["hashes"], z["cids"], [str(c) for c in z["classes"].tolist()])
+    return _C8_COMPACT_Z
+
+
+def _c8_classes_for_key(key: str) -> set:
+    """dbo classes for a NORMALIZED surface key -- the COMPACT npz store (binary search over sorted blake2b-64
+    hashes) PREFERRED (7x smaller, byte-equivalent/verified), sqlite fallback. Byte-faithful to
+    build_entity_type_spoke_compact_v1.classes_of / _entity_type_spoke.entity_classes."""
+    z = _c8_compact()
+    if z is not None:
+        hashes, cids, classes = z
+        hq = np.uint64(_c8_hash(key))
+        lo = int(np.searchsorted(hashes, hq, side="left"))
+        hi = int(np.searchsorted(hashes, hq, side="right"))
+        return {classes[cids[j]] for j in range(lo, hi)}
+    con = _c8_con()
+    if con is None:
+        return set()
+    return {r[0] for r in con.execute("SELECT cls FROM types WHERE surf=?", (key,)).fetchall()}
+
+
 def available_entity_type() -> bool:
-    """Whether the frozen C8 entity-type spoke asset is present. False -> the C8 reads abstain, never raise."""
-    return _c8_con() is not None
+    """Whether a frozen C8 entity-type spoke asset is present (compact npz preferred, sqlite fallback). False -> the
+    C8 reads abstain, never raise."""
+    return _c8_compact() is not None or _c8_con() is not None
 
 
 def entity_classes(surface: str, backoff: bool = False) -> frozenset:
     """The dbo class(es) DBpedia records for a proper-name surface (exact normalized match; redirect aliases already
     folded into the store). backoff=True falls back to the LAST token (surname/head-word; higher recall / lower
-    precision). Empty frozenset = abstain. Byte-faithful to experiments/_entity_type_spoke.entity_classes."""
-    con = _c8_con()
-    if con is None:
+    precision). Empty frozenset = abstain. Reads the COMPACT store (sqlite fallback). Byte-faithful to
+    experiments/_entity_type_spoke.entity_classes."""
+    if not available_entity_type():
         return frozenset()
     key = entity_type_norm_surface(surface)
     if not key:
         return frozenset()
     if key in _C8_CLASS_CACHE:
         return _C8_CLASS_CACHE[key]
-    rows = con.execute("SELECT cls FROM types WHERE surf=?", (key,)).fetchall()
-    cls = {r[0] for r in rows}
+    cls = set(_c8_classes_for_key(key))
     if not cls and backoff:
         toks = key.split()
         if len(toks) > 1:
-            rows = con.execute("SELECT cls FROM types WHERE surf=?", (toks[-1],)).fetchall()
-            cls = {r[0] for r in rows}
+            cls = set(_c8_classes_for_key(toks[-1]))
     fs = frozenset(cls)
     _C8_CLASS_CACHE[key] = fs
     return fs
