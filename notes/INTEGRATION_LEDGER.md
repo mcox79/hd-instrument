@@ -14,6 +14,21 @@
 
 ---
 
+## 2026-09-08 (CONT-28) — the 100%-BRAIN-FOUNDATIONAL REFRAME + dormant-organ research + a clean located negative
+
+**OWNER DIRECTIVE (load-bearing, 09-08, emphatic twice):** "every component in substrate has to be 100% brain-foundational — a requirement for this to work"; "we cannot supplement cheap things because it's easy." → brain-foundationality is now a HARD PASS/FAIL GATE per component (not a rating): a non-brain-foundational component is a DEFECT that BLOCKS → fix-to-brain-faithful or REMOVE, never keep for a metric, never supplement a gap with a cheap/easy stand-in. **The brain-foundational audit-and-fix is now the SPINE; board-movement is downstream of the gate.** [[every-component-must-be-100-percent-brain-foundational]]
+
+**This session:**
+- **Plan B DONE (`b619bf1cf`):** 28 `INTEGRATED_BY_STRATEGY` markers backfilled → `problem_ledger` accurate (awaiting 31→3; the 3 are not-owner-DONE). 0 genuine integration misses.
+- **Docstring fix (`af1f825a2`):** `bind_event_tokens` is DEFAULT-ON (stale "default-off" doc corrected; zero behavior change).
+- **Dormant-organ brain-foundationality research (5 candidates) — the "flip a dormant organ" premise mostly DISSOLVED:** typed_coref resolution-consumer + graded_coref_pick pick are ALREADY LIVE; register readouts (decode_serial/gated/divnorm) are ORPHANED by design (live path uses a different codec `bound_event_backbone`; a book-scale capacity lever only → leave dormant). **crf_tagger REVERSED under the gate:** an offline CRF/forward-backward POS decoder is a CHEAP ML SUPPLEMENT for a pinned property (calibrated graded lexical-category belief) → do NOT wire; the property must come from the brain-faithful mechanism (parallel constraint-satisfaction / the incremental parser). structural_do: the brain-faithful move is ABSTAIN (Ferreira good-enough), keep default-off.
+- **The two biggest latent wins are BLOCKED on the de-leak (pri 6):** typed_coref's `sm.commonnoun_resolution.resolved_ref` is written+read-by-nothing (rightful consumer = affect/OCC + crosstype experiencer binding); the crosstype live-wire is deferred pending the same de-leak. The de-leak has ONLY a PROBLEM.md — UNPICKED by the fleet (owner fleet-routing flag). C8 encyclopedic type-comparator is half-wired (asset absent) = typed_coref's dominant fidelity gap (~88% of headroom = missing world knowledge).
+- **COREF-DEFER = rigorous LOCATED NEGATIVE (keep OFF; LANDED NOTHING).** `exp_coref_defer_consumer_gum_v1.py`: selective-reliability defer on the graded pick's entropy, modern GUM he/she n=1240 → answered-acc 0.6014 @cov 0.68 vs blanket 0.5855 = +0.0159 NOT CI-sep [−0.029,+0.058], loses the twin null p95 (+0.0163); entropy right-vs-wrong AUC 0.527 (raw recency 0.5546 BEATS it). Deferring drops MORE correct than wrong → net-corrupts who-has-what. The 0.806 "entropy predicts its own errors" was 19c; DOESN'T transfer. Real finding: the modern he/she residual is a CANDIDATE-SET / gender-agreement (φ) QUALITY problem, not a confidence-gating one; upstream fidelity note — `TUNED_WEIGHTS` recency=0 yet raw recency out-predicts entropy (difficulty currency diluted by candidate count on modern's larger pools). Landed nothing (no default-off flag, no uncalibrated field — per no-more-default-off + the gate). Witness + metrics on disk. NOTHING pushed.
+
+---
+
+> **⚠️ REFRAMED (CONT-28, owner 09-08): the brain-foundational audit-and-fix is now the SPINE. The GO-FORWARD PLAN below (dormant-flip/realization ordered by board-value) is SUBORDINATE + gated on the 100%-brain-foundational check per component.**
+
 ## 🔭 GO-FORWARD PLAN (recorded 2026-09-08 for the next session — the substantive backlog; owner agreed it's large + sequenced fresh)
 
 The owner-DONE integration gate is CLEAR of recent solutions (all folded in this session). The remaining work is REALIZATION + OPTIMIZATION (mine, independent of solvers), measurement-gated and board-touching — do it as FOCUSED FRESH passes (one unit at a time; a fresh agent per unit is fine; gate every flip on net-positive + no-regress; NEVER botch at deep context). Ordered:
