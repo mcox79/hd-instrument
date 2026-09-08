@@ -570,6 +570,160 @@ def antonym(a: str, b: str) -> bool:
 
 
 # =========================================================================================================
+# C8 -- DIRECTED ENTITY-TYPE SPOKE (proper-name entities onto the C5 taxonomy; DBpedia InstanceOf 2022.12.01).
+# Extends the ATL typed store to PROPER NAMES (which WordNet omits), licensing name-bridge coref ("the artist" <-
+# Zurbaran; the ~6-10% of anaphoric common nouns whose antecedent is a proper name). A proper name's TYPE is a
+# directed instance-of edge (name -> dbo type -> WordNet type lemma), and coref LICENSING reuses the C5 is-a closure
+# above -- NO new taxonomy, just proper-name nodes onto the existing one. Ported byte-faithfully from the owner-DONE
+# `acquire_wikidata_p31_entity_type_kb_for_name_bridge_coref` (experiments/_entity_type_spoke.py +
+# build_entity_type_spoke_v1.norm_surface). Island-safe: every read abstains (empty/False) if the asset or WordNet
+# is absent, never raises. THE consumer is the two-route name-bridge coref path (consolidated C8 UNION episodic
+# in-text is-a); a KB alone is coverage-bounded (+0.034 not-sep), the two-route CLS system is +0.0955 CI-sep.
+# =========================================================================================================
+_C8_DB = os.path.join(_REPO, "data", "frontend_assets", "entity_type_spoke_v1.sqlite")
+_C8_LEMMAS_PATH = os.path.join(_REPO, "data", "frontend_assets", "entity_type_class_lemmas_v1.json")
+_C8_PUNCT = re.compile(r"[^a-z0-9 ]")
+_C8_WS = re.compile(r"\s+")
+_C8_CON = None
+_C8_CON_MISSING = False
+_C8_LEMMAS: Optional[Dict[str, List[str]]] = None
+_C8_CLASS_CACHE: Dict[str, frozenset] = {}
+
+
+def entity_type_norm_surface(s: str) -> str:
+    """Normalize a proper-name surface for C8 keying: URL-decode, underscores->spaces, strip accents (NFKD),
+    lowercase, drop non-alphanumerics, collapse whitespace. MUST be byte-identical between build and read
+    (byte-faithful to experiments/build_entity_type_spoke_v1.norm_surface)."""
+    import unicodedata
+    import urllib.parse
+    s = urllib.parse.unquote(s)
+    s = s.replace("_", " ")
+    s = unicodedata.normalize("NFKD", s)
+    s = "".join(c for c in s if not unicodedata.combining(c))
+    s = s.lower()
+    s = _C8_PUNCT.sub(" ", s)
+    return _C8_WS.sub(" ", s).strip()
+
+
+def _c8_con():
+    """Read-only sqlite connection to the frozen entity-type spoke, or None if the asset is absent (abstain)."""
+    global _C8_CON, _C8_CON_MISSING
+    if _C8_CON is None and not _C8_CON_MISSING:
+        if not os.path.exists(_C8_DB):
+            _C8_CON_MISSING = True
+            return None
+        import sqlite3
+        _C8_CON = sqlite3.connect("file:%s?mode=ro" % _C8_DB.replace(os.sep, "/"), uri=True,
+                                  check_same_thread=False)
+    return _C8_CON
+
+
+def _c8_lemmas() -> Dict[str, List[str]]:
+    global _C8_LEMMAS
+    if _C8_LEMMAS is None:
+        _C8_LEMMAS = json.load(open(_C8_LEMMAS_PATH, encoding="ascii")) if os.path.exists(_C8_LEMMAS_PATH) else {}
+    return _C8_LEMMAS
+
+
+def available_entity_type() -> bool:
+    """Whether the frozen C8 entity-type spoke asset is present. False -> the C8 reads abstain, never raise."""
+    return _c8_con() is not None
+
+
+def entity_classes(surface: str, backoff: bool = False) -> frozenset:
+    """The dbo class(es) DBpedia records for a proper-name surface (exact normalized match; redirect aliases already
+    folded into the store). backoff=True falls back to the LAST token (surname/head-word; higher recall / lower
+    precision). Empty frozenset = abstain. Byte-faithful to experiments/_entity_type_spoke.entity_classes."""
+    con = _c8_con()
+    if con is None:
+        return frozenset()
+    key = entity_type_norm_surface(surface)
+    if not key:
+        return frozenset()
+    if key in _C8_CLASS_CACHE:
+        return _C8_CLASS_CACHE[key]
+    rows = con.execute("SELECT cls FROM types WHERE surf=?", (key,)).fetchall()
+    cls = {r[0] for r in rows}
+    if not cls and backoff:
+        toks = key.split()
+        if len(toks) > 1:
+            rows = con.execute("SELECT cls FROM types WHERE surf=?", (toks[-1],)).fetchall()
+            cls = {r[0] for r in rows}
+    fs = frozenset(cls)
+    _C8_CLASS_CACHE[key] = fs
+    return fs
+
+
+def entity_type_lemmas(surface: str, backoff: bool = False) -> frozenset:
+    """The WordNet-resolvable type LEMMA(s) of a proper-name surface (its dbo classes mapped through the
+    class->lemma table). Empty = abstain. Byte-faithful to experiments/_entity_type_spoke.entity_type_lemmas."""
+    lm = _c8_lemmas()
+    out: Set[str] = set()
+    for c in entity_classes(surface, backoff=backoff):
+        out.update(lm.get(c, ()))
+    return frozenset(out)
+
+
+def entity_type_synsets(surface: str, backoff: bool = False) -> frozenset:
+    """The MFS synset(s) of the entity's type lemmas -- the SYNSET-KEYED read: the type nodes the entity's directed
+    instance-of edges point to, read through the SAME C5 taxonomy as lexical knowledge (encyclopedic + lexical
+    semantic memory unified in one hub, exactly the ATL). Empty = abstain."""
+    out: Set[str] = set()
+    for tl in entity_type_lemmas(surface, backoff=backoff):
+        ms = _mfs_synset(tl)
+        if ms:
+            out.add(ms)
+    return frozenset(out)
+
+
+def _entity_license_lemma(anaphor_head: str, type_lemma: str) -> bool:
+    """Does a proper-name entity typed `type_lemma` satisfy an anaphor headed `anaphor_head`? True iff equal,
+    synonym, or an is-a relation EITHER direction (reuses the C5 closure: painter is-a artist; poet is-a person).
+    Unlike coref_type_license this ADMITS exact type match. Byte-faithful to _entity_type_spoke._license_lemma."""
+    if anaphor_head == type_lemma:
+        return True
+    if _wordnet() is None:
+        return False
+    a = _synset_names(anaphor_head)
+    b = _synset_names(type_lemma)
+    if not a or not b:
+        return False
+    if a & b:
+        return True                                   # synonym
+    if is_a(type_lemma, anaphor_head) or is_a(anaphor_head, type_lemma):
+        return True                                   # is-a either direction (C5)
+    return False
+
+
+def entity_is_a(surface: str, type_word: str, backoff: bool = False) -> bool:
+    """The DIRECTED C8 instance-of read: is the proper-name entity `surface` a KIND OF `type_word`, via the C5
+    closure over its recorded type(s)? 'Zurbaran is-a artist' YES (painter is-a artist); 'Argentina is-a artist' NO.
+    Equal/synonym also True. Abstains (False) if the asset/WordNet is absent."""
+    for tl in entity_type_lemmas(surface, backoff=backoff):
+        if tl == type_word:
+            return True
+        if _wordnet() is not None:
+            if _synset_names(tl) & _synset_names(type_word):
+                return True
+            if is_a(tl, type_word):                   # the entity's specific type is a KIND OF type_word
+                return True
+    return False
+
+
+def type_licenses(anaphor_head: str, surface: str, backoff: bool = False,
+                  lemmas_override: Optional[frozenset] = None) -> bool:
+    """The bounded TYPE-LICENSE for a name-bridge link: may a common-noun anaphor headed `anaphor_head` co-refer
+    with the proper-name antecedent `surface` on entity-type grounds? True iff ANY of the entity's type lemmas
+    licenses the anaphor head (equal / synonym / is-a either direction). `lemmas_override` lets the shuffled-KB twin
+    inject remapped types. Byte-faithful to experiments/_entity_type_spoke.type_licenses. THE name-bridge consumer."""
+    lems = lemmas_override if lemmas_override is not None else entity_type_lemmas(surface, backoff=backoff)
+    for tl in lems:
+        if _entity_license_lemma(anaphor_head, tl):
+            return True
+    return False
+
+
+# =========================================================================================================
 # OFFLINE BUILD (static admissible foundation assets; run once, gitignored)
 # =========================================================================================================
 def _load_cn_pairs(rel: str) -> List[Tuple[str, str]]:
