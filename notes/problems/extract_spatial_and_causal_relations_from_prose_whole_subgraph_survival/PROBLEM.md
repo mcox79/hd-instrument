@@ -1,10 +1,19 @@
 ---
-priority: 2
 slug: extract_spatial_and_causal_relations_from_prose_whole_subgraph_survival
-status: CANDIDATE
-review:
-review_text:
+status: INTEGRATED
+review: EXCELLENT
+review_text: Reverified 11/11. THE UNIFYING LAW (a joint-front-end channel clears iff its cheap positional prior solves its sub-task). SPATIAL = brain-foundational WIN (Figure-Ground TYPE-precision +0.0533 CI-sep); CAUSAL = blessed located-negative (unmarked 65.6%, generative simulator wins precision but coverage-capped, coref-unlocked 3.29x); the KEYSTONE (reader reads meaning-blind). Landed across continuations: P2+P4 live+scored, P3 already-live, P5 delegated, P1 deferred.
 ---
+
+> ## SOLVER REVIEW -- EXCELLENT (integrated across CONT-25/26, 2026-09-08; the large spatial+causal chain)
+> Reverified FIRST-HAND **11/11**. **THE UNIFYING LAW (measured):** a joint-front-end channel clears the bar iff its cheap positional prior solves its sub-task — temporal iconicity 84% (detection wins), spatial proximity collapses to 0.185 (needs the semantic typer), causal has no cheap high-coverage+high-precision prior (needs world-knowledge). **SPATIAL = brain-foundational WIN:** the Figure-Ground semantic typer beats the incumbent +0.0533 CI-sep on TYPE-PRECISION + a density floor +0.3864 on hard negatives (recall-survival is DENSITY-CONFOUNDED → score on precision). **CAUSAL = the blessed LOCATED NEGATIVE:** causal type is UNMARKED (65.6% MAVEN), the generative causal-antecedent simulator wins binding precision +0.339 but is coverage-capped ~5% (CSKG refuted at 2%), coref lifts it 3.29×. **THE KEYSTONE (owner's root principle):** the meaning/entity channel is built but never CONSUMED in read() — the reader reads meaning-blind; the fix is CHANNEL-SPECIFIC.
+> **FINAL LANDING STATE (the P1-P5 chain, landed carefully across continuations — full detail: ledger CONT-25/26 + audit §2b):**
+> - **P2 spatial semantic-typing — LANDED + LIVE + SCORED** (`891d13861` `joint_spatial_frames_ext` byte-parity 0/12; wired into `_read_spatial_reasoning` — 109 edges from a real Bleak House read; board arm `board_spatial_extraction_precision` `4c8413cab`, 0.5913 vs 0.5147 CI-sep). Finding: the board's SpartQA `spatial_relational` dim is a DIFFERENT vocabulary/domain (the ext craters on it) — the reader's win is narrative extraction PRECISION, its own arm.
+> - **P4 exact-MAP decode — LANDED** (`ff8008131`, byte-identical temporal, prior).
+> - **P3 nominal-event for causal detection — ALREADY LIVE** (`joint_nominal_events` default-on since CONT-20; the causal channel's event set includes nominals → the 0.61→0.85 detectable ceiling is realized). No new landing.
+> - **P5 coref→causal generative simulator — DELEGATED** to the active `generate_dont_retrieve_causal_edges_for_unmarked_narrative_causation` solver (which built exactly this — a generative causal-antecedent reader over coref-resolved participants; owner-DONE-pending).
+> - **P1 one-parse read() restructure — DEFERRED** (a byte-identical read()-architecture optimization: 4× fewer parses; the exact-MAP decode P4 already landed; deep, not a capability gap).
+> - **BUILD follow-ons P6-P8** map to filed problems (P6 meaning-consumption keystone; P7 spatial parser residual; P8 full causal reader = the causal-edges solver). **status:INTEGRATED, priority 2 dropped.**
 
 # PROBLEM: the temporal half of relation extraction was SOLVED (a joint parse-once front-end lifted whole-subgraph survival 0.11 -> 0.73) but the SPATIAL and CAUSAL reasoners are still STARVED -- near-perfect on gold relations yet end-to-end extraction-capped (spatial edge recall 0.22 containment / 0.06 position / 0.02 move, multi-hop chain survival 6/90; the real narrative causal network is SPARSE, only 3.2% of stories support a >=2-hop chain) -- so extend the SAME whole-subgraph-survival joint front-end to SPATIAL (Figure-Ground / RCC8) and CAUSAL edges and prove whole-subgraph survival CI-separated over the incumbent extractor on modern gold, extraction ISOLATED (each reasoner held at gold), with a shuffled-relation info-free twin LOSING -- NO external LLM, glass-box.
 
