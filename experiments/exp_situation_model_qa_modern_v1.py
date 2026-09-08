@@ -1116,6 +1116,116 @@ def board_sem_segmentation_dimension(smoke=False):
         return _degraded("sem_segmentation", e), {"error": "%s: %s" % (type(e).__name__, e)}
 
 
+def board_crosstype_experiencer_dimension(smoke=False):
+    """CROSS-TYPE DEFINITE->NAME BRIDGE -> affect/goal EXPERIENCER bind board arm on modern GUM. Board-INVISIBLE
+    today: the landed hdlab.crosstype_bridge organ (route_the_unified_referent WIN, owner-DONE) resolves a person
+    role-noun definite ("the doctor") to a prior NAMED person by an in-text descriptive condition + cue-based ACT-R
+    retrieval + full-referent competition + retrieval-confidence gate (NO classifier, NO LLM), and offline it lifts
+    the affect/goal experiencer bind CI-separated -- but nothing in the live read path calls the organ, so no board
+    dim scores it. This arm scores the LANDED ORGAN directly on the reader's OWN path: the reader's front-end LIVE
+    parse (live_reparse: hdlab.pos_tagger + arceager_parser + arc_labeler) feeds the organ, whose definite->name binds
+    are merged onto the situation_predict floor clustering the reader ACTUALLY runs (_apply_commonnoun_gate,
+    entity_kb_resolver=False default), and the experiencer bind is scored floor vs floor+bridge, doc-level paired
+    bootstrap, with the info-free RANDOM-target twin as the control.
+
+    model = C3 experiencer bind acc WITH the organ bridge; strongest floor = the live situation_predict clustering
+    (the reader's ACTUAL input); twin = the same #merges to RANDOM named entities (correct targeting load-bearing).
+    Config = the deployable full-referent-competition (cue_competed). Kept OUT of the 19c-free headline aggregate (its
+    own row). OFF in the self-test. Degrades gracefully (GUM/gazetteer/front-end absent -> a schema-shaped row, never
+    crashes the board). MODERN (GUM). 'live != scored' -- the board-invisible-proven-win-needs-its-own-instrument-arm
+    case; the ACTUAL live-reader wire (into _apply_commonnoun_gate) is the filed pri-3 follow-on."""
+    try:
+        import random
+        from collections import defaultdict
+        import numpy as _np
+        import experiments.gum_coref as G
+        from experiments.exp_name_entity_clustering_v1 import load_given_gazetteer
+        import experiments.exp_crosstype_landable_validation_gum_v1 as CL
+        import experiments.exp_route_unified_to_consumers_gum_v1 as RU
+        from hdlab.crosstype_bridge import crosstype_bridge_links
+        from hdlab.coref import name_content_tokens
+        gaz = load_given_gazetteer()
+        docs = G.load_docs(gum_only=True, limit=(40 if smoke else None), name_gazetteer=gaz)
+        rng = random.Random(13)
+        C3 = {"floor": [], "bridge": [], "twin": []}
+        C1 = {"floor": [], "bridge": []}
+        C2 = {"floor": [], "bridge": []}
+        n_merges = 0
+        for d in docs:
+            ms = RU._gum_to_live(d)
+            floor_lab = RU._situation_predict_labels(ms, gaz)
+            ld = CL.live_reparse(d)                                   # the reader's OWN front-end parse
+            binds = crosstype_bridge_links(ld, gaz, conf_thr=0.0, mode="cue_competed")
+            name_floor = defaultdict(set)
+            for mm in ms:
+                if mm["is_pronoun"]:
+                    continue
+                if mm.get("mtype") == "name" or name_content_tokens(mm.get("span_toks", [mm["head"]])):
+                    if floor_lab.get(mm["midx"]) is not None:
+                        name_floor[mm["cluster"]].add(floor_lab[mm["midx"]])
+            merged_lab = dict(floor_lab)
+            for i, eid in binds.items():
+                labs = name_floor.get(eid)
+                if labs:
+                    merged_lab[i] = sorted(str(x) for x in labs)[0]   # merge the role mention into the named cluster
+                    n_merges += 1
+            named_eids = [e for e in name_floor if name_floor[e]]
+            twin_lab = dict(floor_lab)
+            for i in binds:
+                if named_eids:
+                    e = rng.choice(named_eids)
+                    labs = name_floor.get(e)
+                    if labs:
+                        twin_lab[i] = sorted(str(x) for x in labs)[0]
+            C3["floor"].append(RU.score_c3_experiencer(ms, floor_lab))
+            C3["bridge"].append(RU.score_c3_experiencer(ms, merged_lab))
+            C3["twin"].append(RU.score_c3_experiencer(ms, twin_lab))
+            C2["floor"].append(RU.score_c2_hardlink(ms, floor_lab))
+            C2["bridge"].append(RU.score_c2_hardlink(ms, merged_lab))
+            c1f = RU.score_c1_entity_layer(ms, floor_lab); c1b = RU.score_c1_entity_layer(ms, merged_lab)
+            if c1f is not None and c1b is not None:
+                C1["floor"].append(c1f["conll_avg"]); C1["bridge"].append(c1b["conll_avg"])
+        floor_acc = round(RU._pooled_acc(C3["floor"]), 4)
+        bridge_acc = round(RU._pooled_acc(C3["bridge"]), 4)
+        twin_acc = round(RU._pooled_acc(C3["twin"]), 4)
+        d_floor = RU._paired_boot(C3["bridge"], C3["floor"])
+        d_twin = RU._paired_boot(C3["bridge"], C3["twin"])
+        n = int(sum(x[1] for x in C3["floor"]))
+        c2f = round(RU._pooled_acc(C2["floor"]), 4); c2b = round(RU._pooled_acc(C2["bridge"]), 4)
+        c1f_m = round(float(_np.mean(C1["floor"])), 4) if C1["floor"] else None
+        c1b_m = round(float(_np.mean(C1["bridge"])), 4) if C1["bridge"] else None
+        row = {
+            "n": n, "model_acc": bridge_acc,
+            "overlap_floor": floor_acc, "strongest_floor_name": "situation_predict_live_floor",
+            "strongest_floor": floor_acc, "twin_acc": twin_acc,
+            "model_minus_strongest": [d_floor["delta"], d_floor["ci"][0], d_floor["ci"][1]],
+            "model_minus_twin": [d_twin["delta"], d_twin["ci"][0], d_twin["ci"][1]],
+            "ci_sep_over_strongest": bool(d_floor["ci_sep"]),
+            "ci_sep_over_twin": bool(d_twin["ci_sep"]),
+            "n_merges": n_merges,
+            "no_regress_C1_entity_layer": {"floor": c1f_m, "bridge": c1b_m},
+            "no_regress_C2_hardlink": {"floor": c2f, "bridge": c2b},
+            "population": "GUM person-common-noun experiencer bind (n=%d): does a person role-noun definite of a NAMED "
+                          "gold entity ('the doctor'->Elizabeth) canonicalize to that name so the affect/goal register "
+                          "attaches the experiencer correctly? model = the LANDED hdlab.crosstype_bridge organ "
+                          "(cue_competed: precise-constructs predication + anaphoricity gate + cue-based ACT-R retrieval "
+                          "+ full-referent competition) fed the reader's OWN live parse (live_reparse), binds merged "
+                          "onto the situation_predict floor; floor = that live situation_predict clustering; twin = the "
+                          "same merges to RANDOM named entities. Doc-level paired bootstrap. MODERN (GUM). No-regress "
+                          "carried on the C1 entity-layer CoNLL + C2 hard-link." % n,
+        }
+        detail = {"note": "glass-box CROSS-TYPE definite->name bridge (Ariel accessibility + Almor descriptive boost + "
+                          "Lewis-Vasishth cue-based retrieval + Heim/DRT full-referent competition + McElree "
+                          "retrieval-confidence gate; NO trained classifier, NO LLM). The FIRST board arm scoring the "
+                          "landed hdlab.crosstype_bridge organ on the reader's OWN live-parse path. 'live != scored' -- "
+                          "the actual live-reader wire into _apply_commonnoun_gate is the filed pri-3 follow-on "
+                          "(wire_the_crosstype_definite_name_bridge_into_the_live_reader_and_measure_the_experiencer_lift).",
+                  "n_merges": n_merges}
+        return row, detail
+    except Exception as e:
+        return _degraded("crosstype_experiencer", e), {"error": "%s: %s" % (type(e).__name__, e)}
+
+
 def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True):
     """Assemble every MODERN per_dimension row. caps = dict of per-arm caps for a fast self-test.
     run_new_arms adds the 3 board-invisible-win arms (coarse-sense/selective-reliability/causal-multihop) as
@@ -1200,6 +1310,9 @@ def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True
         sem_row, sem_det = board_sem_segmentation_dimension(smoke=bool(caps.get("sem_seg_smoke")))
         new_arms["sem_segmentation"] = sem_row
         new_arms_detail["sem_segmentation"] = sem_det
+        cx_row, cx_det = board_crosstype_experiencer_dimension(smoke=bool(caps.get("crosstype_smoke")))
+        new_arms["crosstype_experiencer"] = cx_row
+        new_arms_detail["crosstype_experiencer"] = cx_det
 
     crossref = _informational_19c_crossref()
 
