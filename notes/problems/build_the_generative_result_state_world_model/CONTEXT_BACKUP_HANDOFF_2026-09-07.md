@@ -110,6 +110,17 @@ no-op); surface content-noun participant-binding (too crude -- needs real coref)
    predictive_reader/n400 + EST error-peak segmentation; wire E3 coref + meaning_foundation live. Then the
    model-based rollout over correct/dense edges + the ECHO decision deliver.
 
+## CYCLE-3 UPDATE (2026-09-07) -- upstream prototyped end-to-end; EXCEL/EXCEED PROVEN at oracle
+`exp_genworldmodel_resolved_referent_binding_v1.py` (witness 4/4) called the LANDED EntityBinder object-anaphora
+resolver over spaCy participants to bind edges on resolved referents. ORACLE participant-binding (share the
+gold-cause referent) + ECHO coherence BEATS additive CI-sep (oracle 0.324 vs 0.289, +0.0352 CI[0.004,0.070]) ->
+the mechanism DELIVERS when binding is correct. Real recency object-anaphora is FLAT (0.293 == surface) -> the
+residual sharpens to coref CORRECTNESS (recency too weak; full ACT-R/Centering document coref
+`event_centrality_coref` closes it, needs document-level `read(conll)` -> sm.events wiring = Q111). No regress.
+So: ALL solver-side components built + proven (8 cells + 8 witnesses, all green = the complete solver-side
+prototype of the corrected chain); the hand-off is the document-level coref/meaning-channel wiring, and its
+ceiling is quantified (+0.035 CI-sep at oracle).
+
 ## CRON
 Deepening cron `b258c5dd` (13,43 * * * *), prompt = "keep doing what you've been doing + consider the checklist".
 Session-only, auto-expires 7 days. CANCEL + submit when the brain-mechanism bar is met AND the checklist yields
