@@ -936,6 +936,7 @@ class SituationReader:
                  commonnoun_situation_gate: bool = True,
                  commonnoun_canonical: bool = True,
                  commonnoun_type_license: bool = False,
+                 resolve_commonnouns: bool = True,        # Q111 wire #1 (report_the_typed_coref): additive/default-on
                  unified_referent: bool = False,
                  phi_person_filter: bool = True,
                  narrow_him: bool = True,
@@ -1704,6 +1705,11 @@ class SituationReader:
         #     board_commonnoun_typelicense_dimension. NO external LLM (WordNet lexical spoke only).
         self.commonnoun_type_license = bool(commonnoun_type_license)
         self._cn_binder_mod = None     # lazy hdlab.commonnoun_binder
+        # (Q111 wire #1, report_the_typed_coref) LIVE per-mention common-noun RESOLUTION served by the typed_coref
+        # BINDING (NOT commonnoun_binder, which stays the CLUSTERING organ for sm.entities). Stored as the ADDITIVE
+        # field sm.commonnoun_resolution; never mutates sm.entities / clustering / coref_acc -> default ON (safe).
+        self.resolve_commonnouns = bool(resolve_commonnouns)
+        self._cn_type_cache = {}       # memoized coref_type_license (symmetric key) -- the C5 taxonomic bridge
         # unified_referent (DEFAULT OFF -> byte-identical to the landed reader): ON re-keys the pronoun
         # overlay to ONE DRT file-change discourse referent per entity (merged across name/common/pronoun via
         # hdlab.unified_referent), resolving pronouns by ACT-R base-level activation (d=2.0) over the unified
@@ -1760,7 +1766,8 @@ class SituationReader:
         "joint_temporal_events", "joint_nominal_events",
         "read_polarity",
         "structural_patient", "causal_mental_bridge", "goal_purpose_filter", "entity_kb_resolver",
-        "commonnoun_situation_gate", "commonnoun_canonical", "commonnoun_type_license", "unified_referent",
+        "commonnoun_situation_gate", "commonnoun_canonical", "commonnoun_type_license", "resolve_commonnouns",
+        "unified_referent",
         "phi_person_filter", "narrow_him", "soften_generic_suppress", "precision_weight_roles")
 
     @classmethod
@@ -3865,6 +3872,173 @@ class SituationReader:
                 m["cluster"] = lab_to_cluster[lab]
         return role_mentions
 
+    def _cn_type_rel(self, ha, hb):
+        """C5/WordNet taxonomic type-compatibility (hdlab.typed_spokes.coref_type_license), memoized on a
+        symmetric key -- the bridge comparator (identical to hdlab.typed_coref). Static offline lexical
+        foundation (nltk WordNet), NO inference LLM. The C8 encyclopedic route abstains when the DBpedia asset
+        is absent (expected; a separate tracked fix)."""
+        if ha == hb:
+            return True
+        from hdlab.typed_spokes import coref_type_license
+        key = (ha, hb) if ha <= hb else (hb, ha)
+        c = self._cn_type_cache.get(key)
+        if c is None:
+            c = coref_type_license(ha, hb)
+            self._cn_type_cache[key] = c
+        return c
+
+    def _commonnoun_appos_map(self, sents):
+        """In-text is-a edges (apposition + copula 'X is/are a Y') from the reader's OWN parse, keyed by
+        head_lemma -- the appos/copula bridge seed (byte-faithful to TC.appos_copula_isa, but on the reader's
+        arc-labeler output instead of a gum_coref.Doc). REUSES the shared per-read tag/head cache
+        (_cached_tag / _cached_parse_heads are HITS -- the events/roles path already parsed these sentences),
+        so NO second parse: the only new work is arc LABELING, gated to sentences with >=2 nominal tokens
+        (both appos and copula need two nominals -> byte-safe skip)."""
+        from hdlab.commonnoun_binder import head_lemma
+        lab = self._frontend_labeler()
+        typed = {}
+        for toks in sents:
+            toks = list(toks)
+            n = len(toks)
+            if n < 2:
+                continue
+            up = self._cached_tag(toks)
+            if sum(1 for t in up if t in ("NOUN", "PROPN")) < 2:
+                continue                                    # cannot yield an is-a edge -> skip (byte-safe)
+            heads = self._cached_parse_heads(toks, up)      # {dep(1-based): head(1-based), 0=ROOT}
+            deprels = lab.label(toks, up, heads)            # {dep(1-based): deprel}
+            links = set()
+            for i in range(1, n + 1):
+                dep = deprels.get(i, "")
+                h = heads.get(i, 0)
+                # apposition: dep i -> head h, both nominal
+                if dep.startswith("appos") and 1 <= h <= n \
+                        and up[i - 1] in ("NOUN", "PROPN") and up[h - 1] in ("NOUN", "PROPN"):
+                    links.add(frozenset((head_lemma(toks[i - 1]), head_lemma(toks[h - 1]))))
+                # copula: token i is 'be' with deprel 'cop'; head h = predicate nominal; find its nsubj subject
+                if toks[i - 1].lower() in ("be", "is", "are", "was", "were", "been", "being", "'s", "'re") \
+                        and dep == "cop" and 1 <= h <= n and up[h - 1] in ("NOUN", "PROPN"):
+                    subj = None
+                    for u in range(1, n + 1):
+                        if heads.get(u, 0) == h and deprels.get(u, "").startswith("nsubj"):
+                            subj = u
+                    if subj is not None and up[subj - 1] in ("NOUN", "PROPN"):
+                        links.add(frozenset((head_lemma(toks[h - 1]), head_lemma(toks[subj - 1]))))
+            for l in links:
+                a, b = tuple(l) if len(l) == 2 else (next(iter(l)), next(iter(l)))
+                if not a or not b:
+                    continue
+                typed.setdefault(a, set()).add(b)
+                typed.setdefault(b, set()).add(a)
+        return typed
+
+    def _resolve_commonnouns(self, role_mentions, sents):
+        """LIVE per-mention common-noun RESOLUTION via the typed_coref BINDING on the reader's OWN dict-mention
+        stream (Q111 wire #1). Consumes ONLY the reader's mention fields (is_pronoun / span_toks / head /
+        gender / name_gender / number / sent_idx / sent_role_rank / midx) + an in-text is-a map from the
+        reader's OWN parse. Returns a list of per-NON-PRONOUN-mention records (midx order):
+            {"midx", "mtype": "name"|"common", "own_ref": int, "resolved_ref": int|None}
+        own_ref = the referent this mention writes its NOMINAL card into; resolved_ref = the referent THIS
+        reference resolves to (same-head pick / name match / non-writing type bridge), or None (opened a new
+        referent -> unresolved). GOLD-FREE (no cluster / eid read in ANY decision). Pronouns write the salience
+        card only (Ariel/Nieuwland de-pollution). NO person-gate (the brain type-bridges objects)."""
+        import numpy as _np
+        import hdlab.typed_coref as _TC
+        from hdlab.commonnoun_binder import head_lemma, is_name, _num_of
+        from hdlab.salience_binder import actr_activation, ROLE_PROMINENCE, DEFAULT_DECAY
+        from hdlab.coref import EntityAliaser
+        import experiments.exp_unified_referent_gum_v1 as _URG   # _pron_gn only (pure lexical; no corpus)
+
+        appos_map = self._commonnoun_appos_map(sents)
+        _g2mfn = {"masc": "m", "fem": "f", "neut": "n"}
+
+        class _Ref:
+            __slots__ = ("rid", "history", "heads", "name_tokens", "gender", "number", "has_name", "last_midx")
+
+            def __init__(self, rid):
+                self.rid = rid; self.history = []; self.heads = set(); self.name_tokens = set()
+                self.gender = ""; self.number = ""; self.has_name = False; self.last_midx = -1
+
+            def write(self, order, role, mtype, hl, mg, mn, ntoks_):
+                self.history.append((order, role)); self.last_midx = order
+                if mg and not self.gender:
+                    self.gender = mg
+                if mn and not self.number:
+                    self.number = mn
+                if mtype == "name":
+                    self.has_name = True; self.name_tokens |= ntoks_
+                elif mtype == "common":
+                    self.heads.add(hl)
+
+        def mfn(m):
+            return _g2mfn.get(m.get("gender") or m.get("name_gender") or "", "")
+
+        def gn_ok(rg, rn, mg, mn):
+            if mg and rg and mg != rg:
+                return False
+            if mn and rn and mn != rn:
+                return False
+            return True
+
+        def ntoks(span):
+            return {w.lower() for w in span if w.lower() not in _TC.TITLES and any(c.isalpha() for c in w)}
+
+        aliaser = EntityAliaser(); canon2ref = {}; name_surf = {}
+        refs = []; out = []; nid = [0]
+
+        def new_ref():
+            r = _Ref(nid[0]); nid[0] += 1; refs.append(r); return r
+
+        def act(r, now):
+            a = actr_activation(r.history, float(now), decay=DEFAULT_DECAY, role_prominence=ROLE_PROMINENCE)
+            return a if a != float("-inf") else -1e9
+
+        for m in sorted(role_mentions, key=lambda x: x["midx"]):
+            order = m["midx"]
+            role = "SUBJECT" if m.get("sent_role_rank", 99) == 0 else "OTHER"
+            span = m.get("span_toks", [m["head"]])
+            if m["is_pronoun"]:
+                mg, mn = _URG._pron_gn(m["head"].lower())
+                cands = [r for r in refs if r.last_midx < order and gn_ok(r.gender, r.number, mg, mn)]
+                if cands:
+                    cands[int(_np.argmax([act(r, order) for r in cands]))].write(
+                        order, role, "pronoun", "", mg, mn, set())
+                continue
+            hl = head_lemma(m["head"]); mg, mn = mfn(m), _num_of(m)
+            if is_name(m, None):
+                canon = aliaser.assign(span, (m.get("gender") or m.get("name_gender")) or None)
+                if canon is not None and canon in canon2ref:
+                    r = canon2ref[canon]; opened = False
+                elif hl in name_surf:
+                    r = name_surf[hl]; opened = False
+                else:
+                    r = new_ref(); opened = True
+                    if canon is not None:
+                        canon2ref[canon] = r
+                    name_surf[hl] = r
+                out.append({"midx": order, "mtype": "name", "own_ref": r.rid,
+                            "resolved_ref": (None if opened else r.rid)})
+                r.write(order, role, "name", hl, mg, mn, ntoks(span))
+                continue
+            same = [r for r in refs if r.last_midx < order and hl in r.heads and gn_ok(r.gender, r.number, mg, mn)]
+            picked = None; opened = True; nowrite = None
+            if same:
+                picked = max(same, key=lambda r: r.last_midx); opened = False
+            else:
+                tset = appos_map.get(hl, set())
+                prior_gn = [r for r in refs if r.last_midx < order and gn_ok(r.gender, r.number, mg, mn)]
+                br = [r for r in prior_gn if (r.heads & tset)
+                      or (r.has_name and any(t in r.name_tokens for t in tset))
+                      or any(self._cn_type_rel(hl, h) for h in r.heads)]
+                if br:
+                    nowrite = max(br, key=lambda r: act(r, order))          # non-writing (Nref hold): resolve, do not merge
+            if picked is None:
+                picked = new_ref()
+            resolved = (nowrite.rid if nowrite is not None else (None if opened else picked.rid))
+            out.append({"midx": order, "mtype": "common", "own_ref": picked.rid, "resolved_ref": resolved})
+            picked.write(order, role, "common", hl, mg, mn, set())
+        return out
+
     def read(self, conll_path: str) -> SituationModel:
         self._read_parse_cache = {}   # per-read tag/parse memo (bound memory; safe if the reader is reused)
         if self.referent_per_np:
@@ -3903,6 +4077,12 @@ class SituationReader:
             # byte-identical). Runs BEFORE _build_entities so sm.entities reflects the former's grouping.
             self._apply_commonnoun_gate(role_mentions)
         sm.entities = _build_entities(role_mentions)   # the FULL referent set (who-has-what / entities)
+        if self.resolve_commonnouns:
+            # ADDITIVE (Q111 wire #1): per-mention common-noun RESOLUTION via the typed_coref binding on the
+            # reader's OWN dict-mention stream + an in-text is-a map from the reader's OWN parse. Reads
+            # role_mentions READ-ONLY; writes ONLY sm.commonnoun_resolution (a new field). sm.entities/coref_acc
+            # unchanged (byte-identical off vs on -> default-on-safe per no-more-default-off).
+            sm.commonnoun_resolution = self._resolve_commonnouns(role_mentions, sents)
 
         targets = build_pronoun_targets(coref_mentions)   # pronoun anaphora reads the coref-column source
         if targets:
