@@ -14,6 +14,22 @@
 
 ---
 
+## 2026-09-07 (CONT-23) — INTEGRATED owner-DONE `route_the_unified_referent`: REFUTED (unified_referent stays default-off) + WIN LANDED (cross-type definite→name bridge) + filed the next brief wave
+
+Owner-DONE (marked 19:36 — the gate was NOT empty at recovery), reverified first-hand 29/29, landed additive, committed path-limited (NOTHING pushed). **Mechanism = audit §2b (newest, E3).**
+
+### route_the_unified_referent_to_its_non_coref_consumers_where_it_helps  [INTEGRATED; two-part; reverified 29/29]
+- **PART 1 — REFUTED (a rigorous located negative):** routing the landed unified referent to the 3 live non-coref consumers is flat-to-negative on modern GUM (137-doc TEST): C1 entity-layer +0.0036 (marginal, SUBSUMED by the dormant entity-KB resolver 0.7033); C2 hard-link −0.0089; C3 experiencer −0.078. The `reader_coref` lever is INERT on GUM regardless of source (a 19c-only effect); he/she byte-identical (16/16); twin loses on CoNLL. The reference-harness "non-coref lifts" (+0.072/+0.106) were the PRONOUN pick under a different scorer (Ariel cue-specificity). → **Keep `hdlab/unified_referent.py` DEFAULT-OFF everywhere** (already default at `situation_reader.py:939` — no code change). **CORRECTS the p12 note** that the unified referent's home is the non-coref consumers.
+- **PART 2 — WIN LANDED: `hdlab/crosstype_bridge.py` (`7545f2a34`).** The goal (a per-consumer CI-sep gain) achieved a DIFFERENT brain-foundational way: a glass-box cross-type definite→name bridge. Deployable config `gated_binds(bind_mode="cue_conf")`: (1) precise-constructs predication detector (appos/copula/cop-verb/conj-shared-subject/detached/relcl/title/FrameNet-verbal + unique-gender age/gender; 0.96 precision) → (2) anaphoricity/familiarity gate (Heim; ~80% of definites non-anaphoric) → (3) cue-based ACT-R retrieval (Lewis-Vasishth; Almor desc-boost + Centering ROLE_PROMINENCE + gender + recency) → (4) full-referent competition (Heim/DRT: a NAME bind fires only when it out-competes the same-head COMMON referent) → (5) retrieval-confidence gate (McElree SAT; swept `conf_thr` = the tunable operating point). NO trained classifier, NO LLM.
+- **VERIFIED FIRST-HAND:** full witness suite **29/29** (landable 4/4, upgrades 3/3, chain 2/2, precise-constructs 4/4, refutation 16/16) + **EXACT organ-vs-reference parity** (precise_constructs 0/120 docs, gated_binds 0/600 calls across 5 conf thresholds, cue_competed 0/120) + corpus-free self-test. **Measured: affect/goal EXPERIENCER lift +0.0528 (conservative) → +0.086 (liberal, full-referent competition) CI-sep** on modern GUM (275 docs), info-free twin loses, live-parse survives at 0.86 precision.
+- **LOCATED NEGATIVE (in the same solution — do NOT re-pursue):** a Wikidata occupation KB (P106/P39) adds +0.000 — people are re-mentioned by AGE/GENDER/RELATION/context, not catalogued occupation (1/16 descriptor-matches-occupation). The right levers are all glass-box or discourse; there is no static-KB lever left.
+- **STATUS: committable but LATENT.** The organ is `gum_coref.Doc`-schema typed; no live consumer reads it yet. **FOLLOW-ON (filed): the LIVE WIRING** — into the reader's DEFAULT `_apply_commonnoun_gate` path (NOT the dormant `entity_kb_resolver` branch), behind a new `crosstype_bridge` opt-in flag, byte-identical off, via a Doc adapter over the reader's parsed tokens → measure the live C3 experiencer lift + no-regress on C1/C2 → flip per no-more-default-off. The live consumer chain is `goal_register.make_canonicalizer` → `affect_register.bind_experiencers`.
+
+### 📌 OWNER (flagged 2×): NO UNASSIGNED PROBLEMS on the dashboard → next brief wave FILED (idle fleet)
+- The fleet's assignable queue is empty (3 SOLVEDs await owner review incl the pri-1 generative WM). Filed the next wave from the named follow-ons across recent SOLVEDs (crosstype-bridge live-wire + others) so the fleet has work; see the problems dir.
+
+---
+
 ## 2026-09-07 (CONT-22) — TYPED COMMON-NOUN COREF promoted to a committable hdlab organ (realization; resolves Q115 for this win)
 
 Realization work (fleet-independent, from the CONT-21 follow-on), verified first-hand, committed path-limited (NOTHING pushed). **Mechanism = audit §2b (newest).**

@@ -1,10 +1,18 @@
 ---
-priority: 5
+priority:
 slug: route_the_unified_referent_to_its_non_coref_consumers_where_it_helps
-status: CANDIDATE
+status: INTEGRATED
 review:
 review_text:
 ---
+
+<!-- INTEGRATED 2026-09-07 (CONT-23). Owner-DONE, two-part result. Part 1 REFUTED (keep hdlab/unified_referent.py
+default-off everywhere — already the default). Part 2 WIN LANDED: hdlab/crosstype_bridge.py (7545f2a34), the glass-box
+cross-type definite->name bridge (precise-constructs + anaphoricity gate + cue-based ACT-R retrieval + full-referent
+competition + retrieval-confidence gate), parity-exact vs the reference, reverified 29/29. Experiencer lift +0.0528..
++0.086 CI-sep. LIVE wiring into the reader's commonnoun gate = the filed realization follow-on. Priority dropped per
+the integrated-problem hygiene rule. Detail = ledger CONT-23 + audit §2b(E3). -->
+
 
 # PROBLEM: `hdlab/unified_referent.py` (the Heim/Kamp file-change discourse-referent store) is LANDED but correctly DEFAULT-OFF because it is SUBSUMED by the tuned graded he/she coref pick (three solutions agree; even ORACLE unification loses); the SAME measurements show it HELPS consumers that lack that tuned pool -- so build the wire that routes the unified referent to its NON-COREF consumers (the entity-KB hard-link, the affect-EXPERIENCER binding, the situation-model ENTITY layer), proving a per-consumer CI-separated gain on MODERN gold with the info-free shuffled-grouping twin LOSING and the he/she coref pick left BYTE-IDENTICAL (it keeps the graded pick).
 
