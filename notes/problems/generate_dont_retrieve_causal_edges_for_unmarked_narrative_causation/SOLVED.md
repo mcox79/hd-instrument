@@ -2,10 +2,10 @@
 problem: generate_dont_retrieve_causal_edges_for_unmarked_narrative_causation
 status: PARTIAL
 bar: "PASS = a brain-faithful GENERATIVE causal-antecedent reader (glass-box, NO external LLM at inference; an offline static world-model / force-dynamics asset is admissible) that, on a MODERN causal gold (MAVEN-ERE causal / a modern narrative causal gold / TellMeWhy causal-relation subset -- 19c is BANNED), MATERIALLY breaks the ~5% coverage bound for the UNMARKED majority while HOLDING binding precision CI-separated over (a) the CONTIGUITY floor (0.140, recomputed on the item's own population) AND (b) the CONNECTIVE floor -- with participant COREF ON, the info-free TWIN LOSING CI-sep, and NO live reasoner regressing"
-result: "A REFUTATION of the benchmark-evaluation FRAME + a constructive brain-foundational WIN. (A) THE EXTERNAL BENCHMARKS ARE NON-BRAIN-FOUNDATIONAL POSITION-ARTIFACT TRAPS: MAVEN-ERE (Wikipedia event-relation annotation), TellMeWhy + GLUCOSE (crowdsourced) -- a trivial POSITION floor beats EVERY brain-faithful mechanism (TMW nearest-non-adjacent 0.679/0.713; GLUCOSE earliest 0.668-0.694; all mechanisms 0.25-0.59). The intrinsic eval proves the GLUCOSE gold is ORTHOGONAL to predictive coherence (earliest gold-acc 0.668 vs the brain's predictive-coding criterion 0.236; position-antecedent predictability ~= random, not CI-sep). So the benchmarks measure POSITION, not causal comprehension -- the position-dominance was the symptom of evaluating brain-faithful mechanisms against non-brain-faithful instruments. (B) LOCATED NEGATIVE on those instruments: no knowledge channel (co-occ / conceptual / GEK-entropy / script-order / VerbNet-telic / 6M-edge CSKG) beats co-occurrence on the unmarked residual; generative means-end + inverse-planning are inert; the physical grounded chain misfires on narrative; the marked-goal 'win' is Tier-1 MARKER detection, not simulation. (C) CONSTRUCTIVE BRAIN-FOUNDATIONAL WIN (the answer the arc pointed to): an ONLINE PREDICTIVE-CODING world-model (glass-box perceptron tagger; Rescorla-Wagner delta-rule; ACT-R recency; NO LLM, NO batch training; simplewiki) beats static counting +0.247 bits CI[0.221,0.274] on held-out surprisal (n=45,386 events); and the INTRINSIC CAUSAL READER -- counterfactual NECESSITY (Gerstenberg) over predictive coding (Kuperberg N400) -- finds REAL causal antecedents (removal raises the effect's surprisal +0.308 bits CI[0.299,0.318] over removing a random event) that ESCAPE the position confound (the causal antecedent is the nearest event only 32% of the time; it beats the nearest by +0.233 bits CI-sep). Validated INTRINSICALLY (NO external gold -> trap-proof) on a 100%-brain-foundational stack."
+result: "A REFUTATION of the benchmark-evaluation FRAME + a constructive brain-foundational WIN. (A) THE EXTERNAL BENCHMARKS ARE NON-BRAIN-FOUNDATIONAL POSITION-ARTIFACT TRAPS: MAVEN-ERE (Wikipedia event-relation annotation), TellMeWhy + GLUCOSE (crowdsourced) -- a trivial POSITION floor beats EVERY brain-faithful mechanism (TMW nearest-non-adjacent 0.679/0.713; GLUCOSE earliest 0.668-0.694; all mechanisms 0.25-0.59). The intrinsic eval proves the GLUCOSE gold is ORTHOGONAL to predictive coherence (earliest gold-acc 0.668 vs the brain's predictive-coding criterion 0.236; position-antecedent predictability ~= random, not CI-sep). So the benchmarks measure POSITION, not causal comprehension -- the position-dominance was the symptom of evaluating brain-faithful mechanisms against non-brain-faithful instruments. (B) LOCATED NEGATIVE on those instruments: no knowledge channel (co-occ / conceptual / GEK-entropy / script-order / VerbNet-telic / 6M-edge CSKG) beats co-occurrence on the unmarked residual; generative means-end + inverse-planning are inert; the physical grounded chain misfires on narrative; the marked-goal 'win' is Tier-1 MARKER detection, not simulation. (C) CONSTRUCTIVE BRAIN-FOUNDATIONAL WIN (the answer the arc pointed to): an ONLINE PREDICTIVE-CODING world-model (glass-box perceptron tagger; Rescorla-Wagner delta-rule; ACT-R recency; NO LLM, NO batch training; simplewiki) beats static counting +0.247 bits CI[0.221,0.274] on held-out surprisal (n=45,386 events); and the INTRINSIC CAUSAL READER -- counterfactual NECESSITY (Gerstenberg) over predictive coding (Kuperberg N400) -- finds REAL causal antecedents (removal raises the effect's surprisal +0.308 bits CI[0.299,0.318] over removing a random event) that ESCAPE the position confound (the causal antecedent is the nearest event only 32% of the time; it beats the nearest by +0.233 bits CI-sep). Validated INTRINSICALLY (NO external gold -> trap-proof) on a 100%-brain-foundational stack. (D) RECONCILED with the substrate's landed multi-hop reasoner (owner flag): the intrinsic causal edges ingest into `hdlab.kg_traversal.KGStore` (VSA n-hop, CERT-585 chain-grade) and it COMPOSES them 2-hop CI-sep over random (held-out A->B->C, direct A->C removed: 0.075 vs 0.024 top-10) -- exercising the VSA/FHRR binding; the gain is modest and DIAGNOSED to causal fan-out (6.67; a dimension sweep does not recover it), which names participant-BINDING as the shared sharpening lever for both necessity and composition."
 floor: "The MANDATORY floor is the POSITION floor (temporal ICONICITY + narrative PRIMACY -- themselves brain-foundational), which every earlier cell OMITTED and which BEATS every mechanism on every benchmark (TMW nearest-non-adjacent 0.679/0.713; GLUCOSE earliest 0.668-0.694). CONSTRUCTIVE-win floors, all BEATEN CI-sep: world-model vs static bigram-counting 7.495 + frequency 7.531 + uniform 8.229 bits; causal reader vs random-context-event necessity 0.036 + nearest-event necessity 0.111 bits. RETRACTED/superseded position-BLIND floors: TMW topical 0.254 / info-free twin 0.21; MAVEN contiguity balanced-precision 0.14 (the shuffled twin UNDER-controls -- it does not catch position)."
 controls: "THE POSITION FLOOR (the mandatory, previously-OMITTED control that beats all mechanisms -- iconicity+primacy); the shuffled-score TWIN (UNDER-controls -- flagged); per-population floor recomputation; COMPREHENSION control (marker vs means-end -> the goal 'win' is marker-anchored); CONTENT-CHANNEL swap (6 knowledge channels, none clears the residual); FULL-CHAIN grounded prototype (physical operators regress below twin on narrative); INVERSE-PLANNING + CSKG knowledge CEILING (knowledge is not the bottleneck); SIGNAL-LOSS role/coref autopsy; GENERALIZATION (frozen thresholds on held-out TRAIN n=1972 + VALIDATION); INTRINSIC surprisal (trap-proof, no gold) + COUNTERFACTUAL-NECESSITY ablation (non-circular); component-by-component BRAIN-FOUNDATIONAL AUDIT (glass-box tagger, no spaCy / no LLM / no co-occurrence -- grep-verified)."
-files_changed: "experiments/exp_causal_antecedent_reader_v1.py, experiments/exp_causal_antecedent_reader_tellmewhy_v1.py, experiments/exp_causal_antecedent_reader_tellmewhy_v2.py, experiments/exp_causal_antecedent_reader_tellmewhy_v3.py, experiments/exp_causal_antecedent_content_channel_v1.py, experiments/exp_causal_antecedent_meansend_control_v1.py, experiments/exp_causal_antecedent_full_chain_v1.py, experiments/exp_causal_antecedent_inverse_planning_v1.py, experiments/exp_causal_antecedent_tom_endtoend_v1.py, experiments/exp_causal_antecedent_signal_loss_v1.py, experiments/exp_causal_antecedent_solution_v2.py, experiments/exp_causal_antecedent_solution_v3_bf.py, experiments/exp_causal_antecedent_signal_loss_v2.py, experiments/exp_causal_antecedent_solution_v4_opt.py, experiments/exp_causal_antecedent_solution_v5_all.py, experiments/exp_causal_antecedent_solution_v6_bf_full.py, experiments/exp_causal_antecedent_topdown_glucose_v1.py, experiments/exp_causal_antecedent_intrinsic_v1.py, experiments/exp_causal_antecedent_worldmodel_v1.py, experiments/exp_causal_antecedent_intrinsic_reader_v1.py, experiments/exp_causal_antecedent_enriched_v1.py, experiments/exp_causal_antecedent_enriched_v2.py, experiments/exp_causal_antecedent_multihop_v1.py, experiments/exp_causal_antecedent_continuous_v1.py, verification/test_causal_antecedent_reader.py"
+files_changed: "experiments/exp_causal_antecedent_reader_v1.py, experiments/exp_causal_antecedent_reader_tellmewhy_v1.py, experiments/exp_causal_antecedent_reader_tellmewhy_v2.py, experiments/exp_causal_antecedent_reader_tellmewhy_v3.py, experiments/exp_causal_antecedent_content_channel_v1.py, experiments/exp_causal_antecedent_meansend_control_v1.py, experiments/exp_causal_antecedent_full_chain_v1.py, experiments/exp_causal_antecedent_inverse_planning_v1.py, experiments/exp_causal_antecedent_tom_endtoend_v1.py, experiments/exp_causal_antecedent_signal_loss_v1.py, experiments/exp_causal_antecedent_solution_v2.py, experiments/exp_causal_antecedent_solution_v3_bf.py, experiments/exp_causal_antecedent_signal_loss_v2.py, experiments/exp_causal_antecedent_solution_v4_opt.py, experiments/exp_causal_antecedent_solution_v5_all.py, experiments/exp_causal_antecedent_solution_v6_bf_full.py, experiments/exp_causal_antecedent_topdown_glucose_v1.py, experiments/exp_causal_antecedent_intrinsic_v1.py, experiments/exp_causal_antecedent_worldmodel_v1.py, experiments/exp_causal_antecedent_intrinsic_reader_v1.py, experiments/exp_causal_antecedent_enriched_v1.py, experiments/exp_causal_antecedent_enriched_v2.py, experiments/exp_causal_antecedent_multihop_v1.py, experiments/exp_causal_antecedent_continuous_v1.py, experiments/exp_causal_antecedent_kgstore_multihop_v1.py, verification/test_causal_antecedent_reader.py"
 reverify: ".venv/Scripts/python.exe verification/test_causal_antecedent_reader.py"
 ---
 
@@ -342,6 +342,30 @@ and entity-threading ARE brain-foundational STRUCTURAL validations (Trabasso), s
 world-model already captures entity-coherence implicitly, so binding is expected to sharpen, not create, the signal)
 and the 2-layer hierarchical (Rao-Ballard) predictive-coding world-model.
 
+**17b. RECONCILED with the substrate's LANDED multi-hop reasoner -- the VSA KGStore COMPOSES the intrinsic causal
+edges (owner flag; `kgstore_multihop_v1`).** Finding 17 built causal chains ad-hoc (greedy necessity backtrace)
+without leveraging the project's existing multi-hop capability. This cell reconciles them: the counterfactual-necessity
+reader emits directed **concept-level causal edges** (cause->effect, aggregated over reading, kept at count>=3 --
+100% intrinsic, no gold, no LLM), which are then ingested into the landed **`hdlab.kg_traversal.KGStore`** -- the
+substrate-native bipolar-HD n-hop chain reasoner (CERT-585 chain-grade, 36.49x over frozen-encoder). This ALSO
+exercises the owner-flagged VSA/FHRR binding: KGStore is the substrate's binding store (key = E[s]*R[p]*sqrt(n_dim);
+Hebbian W; scores = E @ (W @ key)). TEST (held-out 2-hop composition): for chains A->B->C where the DIRECT A->C edge
+is HELD OUT, does the composed VSA path `predict_two_hop(A, CAUSES, CAUSES)` retrieve C? RESULT (simplewiki, 400
+concepts, 1,747 causal edges, mean fan-out 6.67, 4,000 held-out 2-hop chains): composition top-10 **0.075 vs random
+top-10 0.024 (+0.051 CI[0.042,0.061] CI-sep)** -- the substrate's proven n-hop mechanism GENUINELY COMPOSES the
+intrinsically-read causal edges (CERT-585 composition-gain shape, now on causal edges read by surprisal-necessity, not
+ConceptNet triples). It is a REAL binding gain (~3x random) but MODEST, and the cause is diagnosed on disk: hop-1
+intermediate recall is only 0.048 because mean causal fan-out is 6.67 -- a bare-verb cause has ~7 effects, so the
+store's top-1 rarely lands on the SPECIFIC held-out intermediate. RESEARCH-INTO-THE-WALL: an `n_dim` sweep
+(2048->8192->16384 = comp 0.075->0.084->0.065) is NON-MONOTONIC and does NOT materially recover capacity -- so the
+limiter is NOT dimensional superposition (the phase-diagram lever is inert here) but the causal FAN-OUT of bare-verb
+edges. This points STRAIGHT BACK to the owner-endorsed next step: **participant-BINDING** -- binding coref participants
+into each event (John-brewed, not bare brew) makes edges SPECIFIC, which SHARPENS composition by collapsing fan-out.
+The multi-hop wall and the #1 next step are the SAME upgrade. Two independent lines (necessity<->entity convergence in
+17, and now the fan-out limiter here) both name participant-binding as the sharpening lever. NET: finding 17's chaining
+is validated by, and reconciled with, the historical CERT-585 n-hop reasoner; the VSA/FHRR binding is now exercised on
+this problem; and the modest composition is an honest, diagnosed fan-out ceiling that motivates the binding upgrade.
+
 **18. NO TRAINING PHASE -- fully CONTINUOUS online learn-and-read (owner check "training?"; `continuous_v1`).** The
 world-model's learning was always ONLINE predictive coding (Rescorla-Wagner delta-rule, single pass, no batch, no
 epochs -- brain-foundational), but earlier cells used a train/FREEZE split for measurement. The brain never freezes.
@@ -406,6 +430,9 @@ knowledge (goal/intent) does not clear the wall, which is upstream (situation-mo
   bottleneck is story-specific situation-model construction (extraction + binding), NOT the knowledge source.
 - MAVEN-ERE flagged genre-limited for narrative causation (owner-confirmed).
 - `event_type` routing is MFS, not contextual WSD (its own flagged gap) -- a secondary cap.
+- `hdlab.kg_traversal.KGStore` (VSA n-hop, CERT-585) composes intrinsically-read concept-level causal edges 2-hop
+  CI-sep over random, but is causal-fan-out-limited on bare-verb edges (mean 6.67; dimension sweep inert) -> the
+  participant-BINDING upgrade (lower-fan-out situation-specific edges) is the lever for both necessity and composition.
 
 ## Proposed hdlab wire (Q111 -- strategy lands; ADDITIVE, no-regress)
 
@@ -438,23 +465,29 @@ refuted (MAVEN is not brain-foundational), and the constructive win (the intrins
 FOUNDATION -- a real CI-separated result, but not yet a complete narrative causal reader. (3) OWNER-ENDORSED NEXT
 STEP: address the explicit VSA/FHRR participant-BINDING (next steps #1) -- the strong world-model already captures
 entity-coherence implicitly (necessity converges with participants), so binding is expected to SHARPEN it. (4)
-OWNER FLAG -- THE MULTI-HOP WORK (finding 17 / `multihop_v1`) WAS BUILT WITHOUT LEVERAGING THE PROJECT'S EXISTING
-LARGE, SUCCESSFUL MULTI-HOP CAPABILITY: the **CLUTRR** multi-hop relational corpus (`data/corpora/clutrr`) and the
-landed **`hdlab.kg_traversal.KGStore`** substrate-native n-hop chain-prediction reasoner (CERT-585 chain-grade,
-36.49x over frozen-encoder, n=2). My causal-chain necessity should be RECONCILED with these -- the historical n-hop
-reasoner may already provide (or better validate) the chaining, and CLUTRR is a larger, established multi-hop
-instrument. This is a limitation of finding 17, flagged honestly, not a claim of novelty.
+OWNER FLAG NOW ADDRESSED (finding 17b / `kgstore_multihop_v1`): the multi-hop work was built without leveraging the
+project's existing capability; it is now RECONCILED with the landed **`hdlab.kg_traversal.KGStore`** n-hop reasoner
+(CERT-585 chain-grade). The intrinsic necessity edges are ingested into the substrate VSA store and it COMPOSES them
+2-hop CI-sep over random (0.075 vs 0.024) -- validating finding 17's chaining with the historical reasoner AND
+exercising the VSA/FHRR binding. The gain is modest and DIAGNOSED (fan-out 6.67; dimension sweep does not recover),
+which points back to flag (3) participant-binding as the shared sharpening lever. REMAINING (honest): the **CLUTRR**
+corpus (`data/corpora/clutrr`) as a larger external multi-hop instrument is not yet used -- but CLUTRR is a
+crowd-authored relational benchmark, so it should be treated as a position/shortcut-artifact risk like the other
+external benchmarks, and the intrinsic composition test here is the trap-proof measure.
 
 **NEXT STEPS (all on the clean brain-foundational stack).**
 1. HIGHEST -- **OWNER-ENDORSED: the explicit VSA/FHRR participant-BINDING.** Bind participants (coref) + goal/affect
    state into each event via the substrate's FHRR binding so necessity is estimated over SPECIFIC situations
    (John-wanted-coffee -> John-brewed), not bare verb-concepts. The strong world-model already captures entity-
    coherence IMPLICITLY (necessity converges with participants, +0.038 CI-sep), so explicit binding is expected to
-   SHARPEN, not create, the signal. The #1 envelope-push.
-1b. HIGH -- **RECONCILE the multi-hop work (finding 17) with the project's existing MULTI-HOP capability** (OWNER
-   FLAG): the CLUTRR corpus + the landed `hdlab.kg_traversal.KGStore` n-hop chain-prediction reasoner (CERT-585
-   chain-grade, 36.49x). My causal-chain necessity was built without awareness of these; check whether the historical
-   n-hop reasoner already provides/validates the chaining and whether CLUTRR is the right larger instrument.
+   SHARPEN, not create, the signal. **NOW DOUBLY MOTIVATED (finding 17b):** the VSA-composition of the intrinsic
+   causal edges is fan-out-limited (mean 6.67 effects per bare-verb cause; dimension does not recover it) -- specific
+   participant-bound edges have far lower fan-out, so binding is the lever that sharpens BOTH the necessity estimate
+   AND the 2-hop composition. The #1 envelope-push, and the single upgrade both open lines converge on.
+1b. DONE -- **RECONCILED the multi-hop work with the landed `hdlab.kg_traversal.KGStore` n-hop reasoner** (finding
+   17b / `kgstore_multihop_v1`): the substrate VSA store COMPOSES the intrinsic causal edges 2-hop CI-sep over random
+   (0.075 vs 0.024). Remaining: CLUTRR as an external instrument is untouched -- but as a crowd-authored benchmark it
+   carries the same position/shortcut-artifact risk; the intrinsic composition test is the trap-proof measure.
 2. HIGH -- learn/read on naturalistic NARRATIVE (GUM fiction / a modern narrative corpus), not encyclopedic
    simplewiki, for richer causal event-chaining.
 3. MEDIUM -- extend the counterfactual-necessity reader to MULTI-HOP chains (A->B->C = the full intrinsic causal
