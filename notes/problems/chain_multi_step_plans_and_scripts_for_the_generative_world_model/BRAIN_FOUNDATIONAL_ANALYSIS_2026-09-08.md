@@ -165,3 +165,18 @@ C affects must be the object q NEEDS) -- selective, not broad verb-typing. Wirin
 concrete next build, MEASURED target +0.25. RESEARCH REUSE: I mapped compute_causal_link + build_frames rather than
 rebuild -- the composer is landed; the build is frame construction + feeding it as the competition's physics/mental
 engine.
+
+## 12. COMPLETE PER-COMPONENT BRAIN-FIDELITY AUDIT (owner's 4-step re-frame; END -> up, verified on-disk + research)
+The final component's INPUT is the causal network; tracing every input up the chain, verified with file:line + citations:
+| # | component | brain mechanism (PINNED, cited) | ours (on-disk) | brain-foundational? | signal |
+|---|---|---|---|---|---|
+| END | "why q?" selection | causal-network retrieval (Trabasso-van den Broek 1985; Graesser-Singer-Trabasso 1994) | sm.ultimate_cause/graded_necessity over sm.causal_links (situation_reader.py:3278) | YES in FORM | faithful traversal |
+| I1 | causal LINKS (the input) | predictive integration -- cause minimizes prediction error/N400 (Kuperberg-Jaeger 2016; Rabovsky 2018; Kintsch) | _read_causation->causal_net_cause = connective-position + hardcoded force sets + recency (_causal_network.py:143) | NO (cheap cascade) | LOST HERE |
+| I2 | forward prediction + N400 error | forward top-down expectation (Rao-Ballard; Friston) + N400 (Kutas-Hillyard 1980; Rabovsky 2018) | predictive_reader (patient-feature grain, discarded); n400_monitor backward-only forward_expect_fn=None, unwired to causation | HALF + unwired | LOST (forward half) -- prototype-confirmed anti-selective (predint -0.14) |
+| I3 | grounded meaning to predict over | ATL amodal semantic hub (Lambon-Ralph) | meaning_foundation LATENT (no live consumer) | not live | LOST (nothing to predict over) |
+| I4 | participant binding | resolved discourse referents (Heim/Kamp file-cards) | surface positional / recency; coref-blind | deviation (measured NOT the cap -- object-sharing != causation) | partial |
+| I5 | parse / extraction | incremental PREDICTIVE parse (left-corner; Bornkessel-Schlesewsky eADM) | spaCy arc-eager hard-commit; parse_once decode=exact = graded parser HARD MAP, marginals discarded (graded_parser.py:29) | hard-commit (posterior discarded) | not the loss here (0.98) but non-faithful |
+| I6 | means-end knowledge (goal engine) | ATL low-dim distributed hub (Lambon-Ralph) | ATOMIC PPMI+SVD hub | YES (this work; coverage 8.7->88%) | the one good input |
+| ARCH | the loop | ONE recurrent predict->error->update loop (Rao-Ballard; Friston; Kuperberg) | feed-forward pipeline; predictive loop unclosed | NO (dominant deviation) | LOST (no top-down) |
+| DEC | decision | additive + signed-pairwise ECHO coherence + DDM commit (McClelland-Rumelhart; Thagard 1989; Gold-Shadlen) | additive / max-union | partial (ECHO/DDM unbuilt) | coalitions impossible |
+VERDICT: only 3/9 (END-form, I6, diagnosticity) are 100% brain-foundational; the entire predictive-generative input chain (I1->I2->I3->ARCH) is not live; the signal is lost at every predictive stage and the deviations COMPOUND. The prototype (predint backward-N400 anti-selective, -0.1445 CI-sep) confirms the forward-prediction half is essential. The crossing = close the N400 forward loop (forward event-transition prediction) over the grounded meaning channel, consumed by causal-link inference, inside the recurrent loop.
