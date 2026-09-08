@@ -701,6 +701,235 @@ def board_temporal_survival_dimension(smoke=False):
         return _degraded("temporal_survival", e), {"error": "%s: %s" % (type(e).__name__, e)}
 
 
+def board_spatial_extraction_precision_dimension(cap=None):
+    """SPATIAL EXTRACTION TYPE-PRECISION board arm on MODERN human gold (SpaceEval/ISO-Space train+trial). This is a
+    SEPARATE capability from the spatial_relational arm (which scores relative-POSITION composition on SYNTHETIC
+    SpartQA left/right): the owner-DONE extract_spatial_and_causal SPATIAL win is the joint semantic Figure-Ground
+    EXTRACTOR's TYPE-PRECISION on HARD adjacent negatives -- can it tell 'the statue IN the temple' from 'the statue
+    NEAR the plaza'? The ext CRATERS SpartQA (synthetic left/right, coverage 2.8%), so recall-survival is
+    density-confounded; the load-bearing axis is TYPE-PRECISION on its OWN gold. Scores the LANDED extractor the LIVE
+    reader's spatial consumer now calls (hdlab.joint_relation_frontend.joint_spatial_frames_ext, use_thematic=True --
+    the reader default, situation_reader._read_spatial_reasoning). Reuses the solver's OWN measurement verbatim
+    (exp_joint_spatial_precision_qa_v1.build_model/gold_closure/qa/model_from_proximity + the survival cell's
+    proximity_floor/boot_margin): build a SpatialModel from each extractor, answer balanced YES/NO containment queries
+    (gold transitive closure = YES; HARD adjacent co-sentential non-containment pairs = NO) via the reasoner's
+    transitive contains_path, reasoner held FIXED. Arms: ext-semantic (joint_spatial_frames_ext, LIVE reader config
+    use_thematic=True) vs incumbent-linear (spatial_relation_extractor.extract_edges) vs the density/PROXIMITY floor
+    (connect adjacent co-sentential nouns -- collapses on hard negatives); info-free twin = SHUFFLED-RELATION (permute
+    the ext's grounds, node set + counts kept). model = ext-semantic TYPE-precision; strongest floor = incumbent-linear;
+    density floor reported separately; paired bootstrap over queries. Kept OUT of the 19c-free headline aggregate (its
+    own row). Degrades gracefully. MODERN (Pustejovsky 2015 SpaceEval, NOT 19c). Reproduces the SOLVED win (current
+    on-disk: ext 0.5913 vs incumbent 0.5147 CI-sep, twin loses; the use_thematic=False base 0.5701 is byte-faithful to
+    the SOLVED-filed joint 0.5712 vs incumbent 0.5179 -- a ~0.005 upstream-parse drift, win + CI-sep intact)."""
+    try:
+        import numpy as np
+        from experiments.spatial_gold_loaders import load_spaceeval_docs
+        from experiments.spatial_relation_extractor import extract_edges, tokenize_sents
+        from experiments.exp_joint_spatial_survival_v1 import proximity_floor, boot_margin
+        from experiments.exp_joint_spatial_precision_qa_v1 import (build_model, model_from_proximity,
+                                                                   gold_closure, qa)
+        from experiments.spatial_relational_model import SpatialModel, CONTAIN_RELTYPES, canon_entity
+        from hdlab.joint_relation_frontend import parse_sentence, joint_spatial_frames_ext
+
+        def _ext_triples(text, use_thematic):
+            # MIRROR the LIVE reader's spatial loop (situation_reader._read_spatial_reasoning): tokenize -> parse each
+            # sentence ONCE (cached) -> joint_spatial_frames_ext; keep the (fig, rel, gnd) triples (self-loops dropped).
+            out = []
+            for toks in tokenize_sents(text):
+                toks = list(toks)
+                if not toks or len(toks) > 120:
+                    continue
+                up, hd = parse_sentence(toks)
+                for (f, r, g, _i, _p) in joint_spatial_frames_ext(toks, up, hd, use_thematic=use_thematic):
+                    if canon_entity(f) == canon_entity(g):
+                        continue
+                    out.append((f, r, g))
+            return out
+
+        def _twin_model(triples, trng):
+            # info-free SHUFFLED-RELATION twin: permute the grounds of the ext's containment edges (node set + counts
+            # kept), then build the model the SAME way build_model does.
+            cont = [(f, g) for (f, r, g) in triples if r == "in"]
+            M = SpatialModel(max_depth=8)
+            if len(cont) < 2:
+                for (f, g) in cont:
+                    M.add_containment(f, g)
+                return M
+            gnds = [g for (_f, g) in cont]
+            perm = trng.permutation(len(gnds))
+            for i, (f, _g) in enumerate(cont):
+                M.add_containment(f, gnds[perm[i]])
+            return M
+
+        rng = np.random.default_rng(0)         # EXACTLY the SOLVED precision-QA hard-negative sampler (do NOT perturb)
+        twin_rng = np.random.default_rng(7)    # SEPARATE stream for the shuffled-relation twin (isolates the sampler)
+        arms = {"incumbent": [], "ext": [], "ext_base": [], "proximity": [], "twin": []}
+        n_yes = n_no = n_doc = 0
+        stop = False
+        for split in ("train", "trial"):
+            if stop:
+                break
+            for d in load_spaceeval_docs(split):
+                Mg = SpatialModel(max_depth=8)
+                for (fig, gnd, rel) in d["qslinks"]:
+                    if rel in CONTAIN_RELTYPES:
+                        Mg.add_containment(fig, gnd)
+                yes, heads = gold_closure(Mg)
+                if len(yes) < 1 or len(heads) < 3:
+                    continue
+                if cap and n_doc >= cap:
+                    stop = True
+                    break
+                n_doc += 1
+                prox_pairs = proximity_floor(d["text"])
+                no = set()
+                for (a, b) in prox_pairs:
+                    if a != b and (a, b) not in yes and (b, a) not in yes:
+                        no.add((a, b))
+                no = list(no)
+                if len(no) > len(yes):
+                    sel = rng.choice(len(no), size=len(yes), replace=False)
+                    no = [no[i] for i in sel]
+                no = set(no)
+                queries = [(x, y, 1) for (x, y) in yes] + [(x, y, 0) for (x, y) in no]
+                n_yes += len(yes); n_no += len(no)
+                t_thematic = _ext_triples(d["text"], use_thematic=True)   # the LIVE reader config
+                t_base = _ext_triples(d["text"], use_thematic=False)      # byte-faithful to the SOLVED joint arm
+                models = {"incumbent": build_model(extract_edges(d["text"])[1]),
+                          "ext": build_model(t_thematic),
+                          "ext_base": build_model(t_base),
+                          "proximity": model_from_proximity(d["text"]),
+                          "twin": _twin_model(t_thematic, twin_rng)}
+                for a in arms:
+                    arms[a].extend(qa(models[a], queries))
+        if not arms["ext"]:
+            return _degraded("spatial_extraction_precision", "no scorable SpaceEval containment docs"), {}
+        A = {a: np.array(arms[a], float) for a in arms}
+        acc = {a: round(float(A[a].mean()), 4) for a in arms}
+        m_inc = boot_margin(A["ext"], A["incumbent"])
+        m_prox = boot_margin(A["ext"], A["proximity"])
+        m_tw = boot_margin(A["ext"], A["twin"])
+        m_base_inc = boot_margin(A["ext_base"], A["incumbent"])
+
+        def _sep(m):
+            return bool(m.get("lo") is not None and m["lo"] > 0)
+
+        row = {
+            "n": len(arms["ext"]), "model_acc": acc["ext"],
+            "overlap_floor": acc["incumbent"],
+            "floor_accs": {"incumbent_linear": acc["incumbent"], "density_proximity": acc["proximity"]},
+            "strongest_floor_name": "incumbent_linear", "strongest_floor": acc["incumbent"],
+            "twin_acc": acc["twin"],
+            "model_minus_strongest": [m_inc.get("margin"), m_inc.get("lo"), m_inc.get("hi")],
+            "model_minus_twin": [m_tw.get("margin"), m_tw.get("lo"), m_tw.get("hi")],
+            "ci_sep_over_strongest": _sep(m_inc), "ci_sep_over_twin": _sep(m_tw),
+            "null_p95_over_strongest": m_inc.get("null_p95"),
+            "density_floor_acc": acc["proximity"],
+            "model_minus_density": [m_prox.get("margin"), m_prox.get("lo"), m_prox.get("hi")],
+            "ci_sep_over_density": _sep(m_prox),
+            "ext_base_reproduces_solved": {
+                "ext_base_acc": acc["ext_base"], "incumbent_acc": acc["incumbent"],
+                "delta": m_base_inc.get("margin"), "ci": [m_base_inc.get("lo"), m_base_inc.get("hi")],
+                "ci_sep": _sep(m_base_inc),
+                "note": "use_thematic=False = byte-faithful to the SOLVED joint arm (SOLVED-filed 0.5712 vs 0.5179; "
+                        "current on-disk ~0.5701 vs 0.5147, a ~0.005 upstream-parse drift, win + CI-sep intact)"},
+            "n_yes": n_yes, "n_no": n_no, "n_docs_scored": n_doc,
+            "population": "SpaceEval/ISO-Space train+trial balanced containment QA (%d YES + %d NO = %d queries over %d "
+                          "docs): model = ext-semantic TYPE-precision (hdlab.joint_relation_frontend."
+                          "joint_spatial_frames_ext, use_thematic=True -- the LIVE reader config), strongest floor = "
+                          "incumbent-linear (spatial_relation_extractor.extract_edges), density floor = PROXIMITY "
+                          "(adjacent co-sentential nouns -> collapses on hard negatives), twin = shuffled-relation "
+                          "(ext grounds permuted). Reasoner (SpatialModel.contains_path) held FIXED; paired bootstrap "
+                          "over queries. cap=%s. MODERN (Pustejovsky 2015 SpaceEval, NOT 19c)."
+                          % (n_yes, n_no, len(arms["ext"]), n_doc, cap)}
+        detail = {"note": "glass-box spatial Figure-Ground TYPING (Talmy/Jackendoff; Herskovits preposition-semantics) "
+                          "-- the FIRST board arm scoring the joint EXTRACTOR's TYPE-precision on hard adjacent "
+                          "negatives (the discriminating test recall-survival cannot do: the brain tells IN from NEAR; "
+                          "a proximity flood cannot). Load-bearing claim scoped to the incumbent-linear (position) + "
+                          "density-proximity + shuffled-relation (info-free) floors; the density floor COLLAPSES to "
+                          "%.4f on hard negatives while the semantic ext holds %.4f (+%.4f). SEPARATE from the "
+                          "spatial_relational arm (SpartQA left/right composition -- the ext craters there, coverage "
+                          "2.8%%). Scores the LANDED extractor the LIVE reader consumes (use_thematic=True). Reuses "
+                          "exp_joint_spatial_precision_qa_v1 verbatim. HONEST scope: CONTAINMENT/PATH end-to-end on "
+                          "terse prose stay extraction-gated (the SOLVED located negative)."
+                          % (acc["proximity"], acc["ext"], m_prox.get("margin"))}
+        return row, detail
+    except Exception as e:
+        return _degraded("spatial_extraction_precision", e), {"error": "%s: %s" % (type(e).__name__, e)}
+
+
+def board_temporal_implicit_order_dimension(smoke=False):
+    """TEMPORAL IMPLICIT-EVENT ORDERING board arm on MODERN gold (TRACIE iid test, ROCStories-derived, n=1924). This
+    capability is board-INVISIBLE today -- the temporal_before_after / temporal_overlap / temporal_survival arms score
+    the EXPLICIT narrated timeline + the extractor's survival; NONE scores the IMPLICIT-event / abstention path (place
+    an UNSTATED event X before/after a narrated event Y from world knowledge -- the owner-DONE
+    grow_a_broad_causal_event_order_knowledge_store...). That store is now LIVE in hdlab.temporal_reasoner
+    (_script_schema() loads data/exp_broaden_causal_order_store_v1/chains_broad.json, the broader 454k-pair store, as a
+    confidence-gated OVERRIDE on the implicit-event branch). Reuses the solver's OWN measurement verbatim
+    (exp_broaden_causal_order_final_v1.run -> paired CLUSTERED bootstrap over stories): model = the BROADER store
+    (tense-agnostic UPOS re-mine, UNGATED headline), strongest floor = the SEED store (177,800-pair tense-gated mine,
+    recomputed on the SAME n=1924 population, abstain->majority); second floor = abstain-majority; info-free twin =
+    SHUFFLED-ORDER (each pair's directional orientation permuted, node set + counts kept). Kept OUT of the 19c-free
+    headline aggregate (its own row). Degrades gracefully (mine/gold absent -> schema-shaped degraded row). MODERN
+    (Zhou 2021 TRACIE, ROCStories-derived; NOT 19c). Reproduces the SOLVED win: broader 0.5655 vs seed 0.5296 (+0.0359
+    CI-sep), vs abstain +0.0655 CI-sep, twin loses (+0.0759 CI-sep). n=1924 is the FULL modern gold (the mine is a
+    precomputed on-disk asset -- NOT a live re-parse), so no cap is needed; ~10s."""
+    try:
+        import os as _os
+        import experiments.exp_broaden_causal_order_final_v1 as FIN
+        # CONFIRM the win is LIVE: the broad store is exactly what hdlab.temporal_reasoner._script_schema() consults on
+        # the implicit-event branch (the same on-disk asset), so this arm scores the wired capability, not an island.
+        live_broad = None
+        try:
+            from hdlab.temporal_script_schema import CHAINS_ASSET
+            _broad = _os.path.join(_os.path.dirname(_os.path.dirname(CHAINS_ASSET)),
+                                   "exp_broaden_causal_order_store_v1", "chains_broad.json")
+            live_broad = _os.path.exists(_broad)
+        except Exception:
+            live_broad = None
+        R = FIN.run()
+        u = R["arms"]["ungated_headline"]
+        vs_seed = u["vs_seed"]; vs_tw = u["vs_twin"]; vs_abs = u["vs_abstain"]
+        row = {
+            "n": R["n"], "model_acc": round(float(u["acc"]), 4),
+            "overlap_floor": round(float(R["seed_floor"]), 4),
+            "floor_accs": {"seed_store_tense_gated": round(float(R["seed_floor"]), 4),
+                           "abstain_majority": round(float(R["abstain_floor"]), 4)},
+            "strongest_floor_name": "seed_store_tense_gated",
+            "strongest_floor": round(float(R["seed_floor"]), 4),
+            "twin_acc": round(float(R["twin_acc"]), 4),
+            "model_minus_strongest": [vs_seed["delta"], vs_seed["lo"], vs_seed["hi"]],
+            "model_minus_twin": [vs_tw["delta"], vs_tw["lo"], vs_tw["hi"]],
+            "ci_sep_over_strongest": bool(vs_seed["ci_sep"]),
+            "ci_sep_over_twin": bool(vs_tw["ci_sep"]),
+            "null_p95_over_strongest": vs_seed.get("null_p95"),
+            "coverage": round(float(u["cov"]), 4),
+            "abstain_floor_acc": round(float(R["abstain_floor"]), 4),
+            "model_minus_abstain": [vs_abs["delta"], vs_abs["lo"], vs_abs["hi"]],
+            "ci_sep_over_abstain": bool(vs_abs["ci_sep"]),
+            "live_broad_store_wired": live_broad,
+            "population": "TRACIE iid TEST implicit-event before/after (n=%d, %d ROCStories mined, MODERN "
+                          "ROCStories-derived gold): model = BROADER store (tense-agnostic UPOS re-mine, 454k pairs, "
+                          "UNGATED headline, coverage %.3f); strongest floor = SEED store (177,800-pair tense-gated "
+                          "mine, recomputed on the SAME population, abstain->majority); abstain-majority floor 0.5000; "
+                          "twin = shuffled-ORDER (directional orientation permuted). Paired CLUSTERED bootstrap over "
+                          "stories. LIVE in hdlab.temporal_reasoner (broad store wired=%s). MODERN (Zhou 2021 TRACIE)."
+                          % (R["n"], R["n_docs"], u["cov"], live_broad)}
+        detail = {"note": "glass-box implicit-event ordering (Zwaan Event-Indexing -- time is a graded CUE, not a gate; "
+                          "Schank-Abelson script prior + confidence-gated override) -- the FIRST board arm scoring the "
+                          "IMPLICIT-event / abstention path. The win is an UPSTREAM extraction fix: the seed store's "
+                          "offline mine used a tense-gated event detector (drops present/bare/progressive verbs); "
+                          "re-mining through the brain-foundational tense-agnostic UPOS front-end DOUBLES coverage "
+                          "0.29->0.607 and lifts accuracy CI-sep over both the seed and abstain floors, the "
+                          "shuffled-order twin losing (the extracted ORDER is load-bearing, not corpus frequency). "
+                          "Reuses exp_broaden_causal_order_final_v1 verbatim. HONEST scope: the ~0.65 per-pair ceiling "
+                          "is story-conditioning (aggregate script prior vs instance-specific order); the deep "
+                          "situation-model reasoner over grounded state is the named follow-on."}
+        return row, detail
+    except Exception as e:
+        return _degraded("temporal_implicit_order", e), {"error": "%s: %s" % (type(e).__name__, e)}
+
+
 def board_negation_quantifier_dimension(seed=SEED):
     """TRUTH-CONDITIONAL NEGATION + QUANTIFIER board arm on MODERN gold (owner-DONE p9,
     represent_negation_and_quantifier_scope...). This capability is board-INVISIBLE today -- no dimension scores
@@ -1660,6 +1889,13 @@ def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True
                                                                  n_boot=min(2000, n_boot * 2))
         new_arms["commonnoun_resolution"] = cnr_row
         new_arms_detail["commonnoun_resolution"] = cnr_det
+        # -- this session's TWO board-invisible proven wins, each its OWN row (OUT of the headline aggregate) --
+        se_row, se_det = board_spatial_extraction_precision_dimension(cap=caps.get("spatial_precision"))
+        new_arms["spatial_extraction_precision"] = se_row
+        new_arms_detail["spatial_extraction_precision"] = se_det
+        ti_row, ti_det = board_temporal_implicit_order_dimension(smoke=bool(caps.get("temporal_smoke")))
+        new_arms["temporal_implicit_order"] = ti_row
+        new_arms_detail["temporal_implicit_order"] = ti_det
 
     crossref = _informational_19c_crossref()
 
