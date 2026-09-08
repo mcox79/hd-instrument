@@ -421,3 +421,6 @@ name-bridge solution has its own filed live-wire follow-on that "mirrors the fil
 shares the SAME reader-dict<->GUM-Doc adapter risk + the SAME de-leak dependency (its entropy->coref confidence rides on
 name-bridge coref being live). RECOMMENDATION: land the Doc adapter + the de-leak ONCE and let both wires consume it,
 rather than building the adapter/de-leak twice. Sequence the de-leak first (both wires depend on it), then the two wires.
+
+## INTEGRATED_BY_STRATEGY (2026-09-08) -- EXCELLENT (PARTIAL/located-negative)
+Reverified 6/6 first-hand (`test_crosstype_live_wire.py`). The landed `hdlab/crosstype_bridge.py` SURVIVES the real reader consumer chain on the HONEST floor (C3 experiencer 0.1548->0.2077, +0.0528 CI-sep, twin loses, full reader.read() no-regress) but the literal wire moves NO live board dim because the entity gate's GOLD-COREF INHERITANCE is a leak (owner ruled leak). The two-part live wire (opt-in bridge + de-leak) lands once `replace_the_entity_gate_gold_coref_inheritance_with_online_cue_based_clustering` (FILED) is solved. Full inventory + AUDIT UPDATE = ledger CONT-26 + audit S2b. status:INTEGRATED, priority dropped.

@@ -279,3 +279,6 @@ recall-survival alone) and causal has no positive. Science identical either way.
 - recall-SURVIVAL as the spatial capability metric (density-confounded -> type-precision); whole-subgraph SURVIVAL as
   the causal metric (networks shallow -- 30 chains/710 docs -> score at the EDGE level); a denser causal dataset
   (the sparsity is the language, not the corpus).
+
+## INTEGRATED_BY_STRATEGY (2026-09-08) -- EXCELLENT
+Reverified 11/11 across CONT-25/26. LANDED: P2 spatial semantic-typing (`hdlab.joint_relation_frontend.joint_spatial_frames_ext`, byte-parity 0/12; wired into `_read_spatial_reasoning`; board arm `board_spatial_extraction_precision` 0.5913 vs 0.5147 CI-sep; `891d13861`,`4c8413cab`) + P4 exact-MAP (`ff8008131`). P3 nominal-event for causal ALREADY LIVE (joint_nominal_events default-on). P5 coref->causal DELEGATED to the active `generate_dont_retrieve_causal_edges` solver. P1 one-parse restructure DEFERRED (byte-identical optimization). THE UNIFYING LAW + spatial WIN + causal located-negative + the KEYSTONE = ledger CONT-25/26 + audit S2b. status:INTEGRATED, priority dropped.

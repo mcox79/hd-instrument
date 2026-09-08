@@ -299,3 +299,6 @@ refuted, but the underlying goal (a brain-foundational live common-noun resoluti
   for THIS task (located negative, +0.0014 not-sep, ~6/2855 addressable -- re-recognition is knowledge-bound); the
   specific occupation-KB axis in the world-knowledge wire (strategy: located negative). MEDIUM/optional: de-restrict the
   binder's person-gate for its CLUSTERING consumer (+0.0235 CI-sep inside the binder) -- a separate `sm.entities` follow-on.
+
+## INTEGRATED_BY_STRATEGY (2026-09-08) -- EXCELLENT
+Reverified 19/19 first-hand. LANDED (Q111): a per-mention common-noun RESOLUTION consumer served by `hdlab.typed_coref` (`sm.commonnoun_resolution`, additive/default-on, clustering byte-identical) + the C8 encyclopedic route into the type comparator (live 0.5394->0.5482, +0.0326 CI-sep over the fair floor) + a board arm `board_commonnoun_resolution_dimension` (`0349d0dd1`, `27b3dc64e`; witness `test_commonnoun_resolution_wire.py` 5/5). AUDIT UPDATE folded (binder = cluster-F1 not resolution + person-gated; typed_coref = the BF resolution path). Full inventory = ledger CONT-26 + audit S2b. status:INTEGRATED, priority dropped.

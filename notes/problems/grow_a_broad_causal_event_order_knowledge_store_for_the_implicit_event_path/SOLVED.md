@@ -365,3 +365,6 @@ one-line status change; SOLVED reflects that the underlying goal (broaden + lift
    ordering (weaker than pairwise); state/neg abstain (hurts -- not the driver); light-verb exclusion (hurts); the
    causal-cue blend at high weight (flips correct predictions); a 19c mining source (banned; archaic verbs); an
    external LLM at inference (the invariant).
+
+## INTEGRATED_BY_STRATEGY (2026-09-08) -- EXCELLENT
+Reverified 8/8 first-hand. LANDED (Q111): `hdlab.temporal_reasoner._script_schema()` now prefers the broader 454,129-pair tense-agnostic store (`chains_broad.json`) over the 177,800 seed (narrated path byte-identical; blast radius = the implicit-event branch; `ec3d26ace`) + a board arm `board_temporal_implicit_order_dimension` (`4c8413cab`, TRACIE 0.5655 vs seed 0.5296 +0.0359 CI-sep, twin loses). Deep ceiling finding + 2 located negatives folded. Solver usage note: USAGE_FOR_SOLVERS.md. Full inventory = ledger CONT-26 + audit S2b. status:INTEGRATED, priority dropped.
