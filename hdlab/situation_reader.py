@@ -3948,15 +3948,35 @@ class SituationReader:
         from hdlab.salience_binder import actr_activation, ROLE_PROMINENCE, DEFAULT_DECAY
         from hdlab.coref import EntityAliaser
         import experiments.exp_unified_referent_gum_v1 as _URG   # _pron_gn only (pure lexical; no corpus)
+        # C8 ENCYCLOPEDIC name->type route (report_the_typed_coref fix 3, Q111 landing 2026-09-08): the ATL's
+        # encyclopedic spoke (DBpedia InstanceOf). ADDITIVE bridge license for common-noun -> PROPER-NAME
+        # ("the artist" -> Zurbaran-is-a-painter-is-a-artist). Does NOT touch coref_type_license (the C5 comparator),
+        # so the 3 C5 consumers (commonnoun_binder clustering, typed_coref, _cn_type_rel) stay byte-identical.
+        # Abstains (byte-identical to no-C8) when the asset is absent (available_entity_type()==False).
+        from hdlab.typed_spokes import type_licenses as _c8_type_licenses, available_entity_type as _c8_available
+        _c8_on = _c8_available()
+        _c8_cache = {}
+
+        def _c8_lic(head, surface):
+            if not _c8_on:
+                return False
+            k = (head, surface)
+            v = _c8_cache.get(k)
+            if v is None:
+                v = _c8_type_licenses(head, surface)
+                _c8_cache[k] = v
+            return v
 
         appos_map = self._commonnoun_appos_map(sents)
         _g2mfn = {"masc": "m", "fem": "f", "neut": "n"}
 
         class _Ref:
-            __slots__ = ("rid", "history", "heads", "name_tokens", "gender", "number", "has_name", "last_midx")
+            __slots__ = ("rid", "history", "heads", "name_tokens", "name_surfaces", "gender", "number",
+                         "has_name", "last_midx")
 
             def __init__(self, rid):
                 self.rid = rid; self.history = []; self.heads = set(); self.name_tokens = set()
+                self.name_surfaces = set()
                 self.gender = ""; self.number = ""; self.has_name = False; self.last_midx = -1
 
             def write(self, order, role, mtype, hl, mg, mn, ntoks_):
@@ -4019,6 +4039,7 @@ class SituationReader:
                 out.append({"midx": order, "mtype": "name", "own_ref": r.rid,
                             "resolved_ref": (None if opened else r.rid)})
                 r.write(order, role, "name", hl, mg, mn, ntoks(span))
+                r.name_surfaces.add(" ".join(span))     # C8 name-bridge: the surface for the encyclopedic lookup
                 continue
             same = [r for r in refs if r.last_midx < order and hl in r.heads and gn_ok(r.gender, r.number, mg, mn)]
             picked = None; opened = True; nowrite = None
@@ -4029,7 +4050,8 @@ class SituationReader:
                 prior_gn = [r for r in refs if r.last_midx < order and gn_ok(r.gender, r.number, mg, mn)]
                 br = [r for r in prior_gn if (r.heads & tset)
                       or (r.has_name and any(t in r.name_tokens for t in tset))
-                      or any(self._cn_type_rel(hl, h) for h in r.heads)]
+                      or any(self._cn_type_rel(hl, h) for h in r.heads)
+                      or (r.has_name and any(_c8_lic(hl, ns) for ns in r.name_surfaces))]   # C8 encyclopedic name->type
                 if br:
                     nowrite = max(br, key=lambda r: act(r, order))          # non-writing (Nref hold): resolve, do not merge
             if picked is None:

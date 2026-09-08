@@ -1553,10 +1553,10 @@ def _cn_type_rel(ha, hb):
 class _CNRef:
     """A live-schema typed-identity referent: nominal view (name+common) drives resolution; pronouns write the
     salience history only (de-pollution). Carries NO gold eid (the scorer reconstructs gold membership by ref id)."""
-    __slots__ = ("rid", "history", "heads", "name_tokens", "gender", "number", "has_name", "last_midx")
+    __slots__ = ("rid", "history", "heads", "name_tokens", "name_surfaces", "gender", "number", "has_name", "last_midx")
 
     def __init__(self, rid):
-        self.rid = rid; self.history = []; self.heads = set(); self.name_tokens = set()
+        self.rid = rid; self.history = []; self.heads = set(); self.name_tokens = set(); self.name_surfaces = set()
         self.gender = ""; self.number = ""; self.has_name = False; self.last_midx = -1
 
     def write(self, order, role, mtype, hl, mg, mn, name_toks):
@@ -1589,6 +1589,19 @@ def _reader_commonnoun_resolution(mentions, gaz, appos_map, *, bridge=True, brid
     from hdlab.salience_binder import actr_activation, ROLE_PROMINENCE, DEFAULT_DECAY
     from hdlab.coref import EntityAliaser
     import experiments.exp_unified_referent_gum_v1 as _URG
+    from hdlab.typed_spokes import type_licenses as _c8_type_licenses, available_entity_type as _c8_available
+    _c8_on = _c8_available()   # C8 encyclopedic name->type route (report_the_typed_coref fix 3); abstains if asset absent
+    _c8_cache = {}
+
+    def _c8_lic(head, surface):
+        if not _c8_on:
+            return False
+        k = (head, surface)
+        v = _c8_cache.get(k)
+        if v is None:
+            v = _c8_type_licenses(head, surface)
+            _c8_cache[k] = v
+        return v
 
     _g2mfn = {"masc": "m", "fem": "f", "neut": "n"}
 
@@ -1642,6 +1655,7 @@ def _reader_commonnoun_resolution(mentions, gaz, appos_map, *, bridge=True, brid
             out.append({"midx": order, "mtype": "name", "own_ref": r.rid,
                         "resolved_ref": (None if opened else r.rid)})
             r.write(order, role, "name", hl, mg, mn, name_toks(span))
+            r.name_surfaces.add(" ".join(span))     # C8 name-bridge: the surface for the encyclopedic lookup
             continue
         # COMMON: hard-gn + most-recent same-head; else generalized (NO person-gate) non-writing type bridge
         same = [r for r in refs if r.last_midx < order and hl in r.heads and gn_ok(r.gender, r.number, mg, mn)]
@@ -1653,7 +1667,8 @@ def _reader_commonnoun_resolution(mentions, gaz, appos_map, *, bridge=True, brid
             prior_gn = [r for r in refs if r.last_midx < order and gn_ok(r.gender, r.number, mg, mn)]
             br = [r for r in prior_gn if (r.heads & tset)
                   or (r.has_name and any(t in r.name_tokens for t in tset))
-                  or any(_cn_type_rel(hl, h) for h in r.heads)]
+                  or any(_cn_type_rel(hl, h) for h in r.heads)
+                  or (r.has_name and any(_c8_lic(hl, ns) for ns in r.name_surfaces))]   # C8 encyclopedic name->type
             if br:
                 if twin:
                     nowrite = rng.choice(prior_gn) if prior_gn else None

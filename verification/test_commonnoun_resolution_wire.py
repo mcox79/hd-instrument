@@ -54,7 +54,10 @@ def w1_w2_w3_gum():
     # W1 -- headline over the FAIR (same-lemmatizer) floor
     m = row["model_acc"]; f = row["strongest_floor"]
     assert row["strongest_floor_name"] == "same_lemmatizer_string_identity_head_lemma", row["strongest_floor_name"]
-    assert 0.535 <= m <= 0.545, "live wire acc drifted: %s (expected ~0.539)" % m
+    # C8 encyclopedic name->type route landed 2026-09-08 (report_the_typed_coref fix 3): 0.5394 -> 0.5482 (+0.0088),
+    # margin over the fair floor +0.0238 -> +0.0326 CI-sep; now EXCEEDS the gold-lemma floor 0.5412 point-estimate
+    # though the CI still includes 0 (W2 parity holds, honestly).
+    assert 0.543 <= m <= 0.554, "live wire acc drifted: %s (expected ~0.5482 with the C8 encyclopedic route)" % m
     assert abs(f - 0.5156) <= 0.004, "fair floor drifted: %s (expected ~0.5156)" % f
     assert row["ci_sep_over_strongest"] and row["model_minus_strongest"][1] > 0, \
         "wire does NOT beat the same-lemmatizer floor CI-sep: %s" % row["model_minus_strongest"]
