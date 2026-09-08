@@ -154,3 +154,179 @@ multi-hop / who-did-what two-valid / narrative-chain), NOT TellMeWhy single-caus
 no-regress; payoff is consumer-dependent. 11 cells + 11 witnesses (all green). The two live win-mechanisms on
 TellMeWhy remain: result-state rollout (GOAL-subset +0.087 CI-sep) + the corrected chain at oracle binding
 (+0.035-0.066 CI-sep); the coherence-chain machinery awaits a chain-structured consumer.
+
+## CYCLE-6 UPDATE (2026-09-08) -- GLUCOSE (the RIGHT gold): coalition REFUTED on real narrative; topical/Trabasso is the signal
+Owner: do the RIGHT gold (GLUCOSE narrative causal-chain, not the easy on-disk MAVEN-ERE), brain-foundationally
+(no leak). Acquired GLUCOSE (pinned fetch_glucose_v1.py; train 65522). Built the corrected chain on GLUCOSE
+>=3-candidate cause-selection (reasoner sees ONLY story+selected; dim-1..5 antecedents = offline gold).
+`exp_genworldmodel_glucose_chain_v1.py` (witness 4/4). RESULT = rigorous LOCATED NEGATIVE: on the non-adjacent
+coalition subset (n=735) TOPICAL connectivity 0.450 >> additive 0.376 > coherence 0.336 ~ coref 0.325;
+coherence-additive -0.040 CI[-0.064,-0.016] (BELOW); coherence <= shuffled-edge twin 0.355 -> generated causal
+edges NOT load-bearing. Coalition mechanism intact on the constructed control (W4) but REFUTED as the lever on
+real narrative (across BOTH TellMeWhy + GLUCOSE) because generating CORRECT causal edges from text is the wall
+(edge-correctness c, now confirmed on a CHAIN gold). KEY: the dominant BRAIN-FOUNDATIONAL signal for real
+narrative cause-ID is ASSOCIATIVE/TOPICAL connectivity (Trabasso & van den Broek; Collins-Loftus) -- the
+generative means-end + coalition ADD NOISE relative to it. Live win-mechanisms that carry: (a) topical/participant
+connectivity; (b) result-state achievement check on marked-goal causes (TellMeWhy GOAL-subset +0.087 CI-sep).
+Wall = edge-correctness = meaning-channel/knowledge-foundation (Q111). 12 cells + 12 witnesses (all green).
+
+## CYCLE-7 UPDATE (2026-09-08) -- the edge-correctness FIX + the SOT question (owner)
+`exp_genworldmodel_edge_correctness_fix_v1.py` (witness 4/4). SOT: no literal 'SOT' organ on disk -> read as
+STRUCTURE-OF-TIME (causes-precede-effects; `temporal_reasoner` + iconicity position order); STATE-OF-THINGS
+(`world_state_register`) already inside rs_fire. Built a DIRECTED causal-connectivity edge = topical *
+directed-force/psych, SOT-gated, + state. On GLUCOSE coalition subset (n=735): (1) SOT IS LOAD-BEARING (SOT-gated
+beats SOT-shuffled twin +0.060 CI[0.035,0.086]); (2) BUT does NOT beat raw TOPICAL connectivity (topical 0.450 >
+sot_pos 0.419, sot_state 0.433, not CI-sep); (3) directed force/psych typing HURTS (-0.079 CI-sep below); the
+TemporalReasoner ORGAN gives no lift (0.371) while the iconicity PRINCIPLE carries. ANSWER: yes incorporates SOT,
+SOT is real, but neither SOT nor the landed typing organs CLOSE the edge-correctness wall -> the fix needs CORRECT
+CAUSAL KNOWLEDGE (meaning-channel/foundation, Q111), not more typing/temporal organs.
+
+## META-CONCLUSION (across all 13 cycles -- the durable finding)
+On REAL narrative cause-ID (TellMeWhy + GLUCOSE), EVERY generated/typed causal signal (force/psych, CSKG, ECHO
+coalition, directed typing, SOT-organ, coref-coalition) is net-flat-or-NEGATIVE vs simple ASSOCIATIVE/TOPICAL
+connectivity, because generating CORRECT causal structure from text (edge-correctness c) is the unsolved wall.
+The TWO things that DO carry, brain-foundationally: (a) topical/participant connectivity (Trabasso & van den
+Broek causal-network connectivity; Collins-Loftus spreading activation); (b) the result-state achievement check
+on MARKED-goal causes (TellMeWhy GOAL-subset rollout +0.087 CI-sep). SOT (temporal order) is load-bearing but
+subordinate. The decision-layer coalition + generative typing are proven on CONSTRUCTED controls but refuted as
+levers on real data. The single remaining lever = correct causal KNOWLEDGE = the meaning-channel/knowledge
+foundation (Q111, strategy). 13 cells + 13 witnesses (all green). Reverify any via
+`.venv/Scripts/python.exe verification/test_genworldmodel_<name>.py`.
+
+## FULL FILE LIST (13 cells / 13 witnesses, all green; + 5 research/handoff notes + GLUCOSE fetch)
+cells: exp_genworldmodel_{resultstate, upstream_verbnet, signal_loss_ladder, signal_loss_precise, topdown_stack,
+coherence_decision, generative_edges, participant_bound_edges, resolved_referent_binding, goal_detection_fidelity,
+optimized_coref, glucose_chain, edge_correctness_fix}_v1.py + fetch_glucose_v1.py.
+witnesses: test_genworldmodel_{same 13 names}.py.
+notes: SOLVED.md, RESEARCH_brain_fidelity_scan_2026-09-07.md, RESEARCH_multistep_priors_and_options_2026-09-07.md,
+RESEARCH_full_chain_brain_foundationality_eval_2026-09-07.md, THIS backup.
+gold acquired: data/corpora/glucose/ (train 65522; pinned fetch_glucose_v1.py; CC-BY-NC).
+
+================================================================================
+## >>> RESUME HERE (2026-09-08, pre-compaction) -- READ THIS BLOCK FIRST <<<
+================================================================================
+HEADLINE POSITIVE (the session's biggest win): SOT = the SITUATION MODEL (state-of-mind, tracks story state
+across sentences) IS the missing piece. `exp_genworldmodel_sot_situation_model_v1.py` (witness
+`test_genworldmodel_sot_situation_model.py` 3/3): conditioning cause-selection on the ACCUMULATED situation
+model BEATS the pairwise topical baseline on GLUCOSE, LOAD-BEARING.
+  * sot_accum 0.610 vs topical 0.450 = +0.1592 CI[0.117,0.200] CI-SEP (coalition subset n=735).
+  * sot_accum vs PROPER info-free twin (marginal values permuted across candidates) 0.424 = +0.1850
+    CI[0.146,0.225] CI-SEP -> LOAD-BEARING (the candidate->contribution mapping carries real signal).
+  * sot_salience +0.034 CI-sep, sot_focal +0.027 CI-sep (secondary).
+  MECHANISM: sot_accum = the candidate whose ADDITION to the running accumulated gist contributes the most NEW
+  effect-relevant content = the event that INTRODUCES the effect's preconditions into the situation state
+  (Gernsbacher structure-building; Zwaan-Radvansky situation model; Kintsch C-I). Organs: hdlab.state_of_mind
+  WorkingOverlay (entity salience across sentences) + situation_model_accumulate.AccumulateRegister.
+  CAVEAT to chase: the ORDER-shuffle "twin" scored HIGHER (0.758) than real order -> real narrative order is
+  SUBOPTIMAL for this marginal (curiosity; the PROPER info-free value-permutation twin at 0.424 is the valid
+  load-bearing control and sot_accum beats it). NEXT: (a) strengthen sot_accum with the REAL AccumulateRegister
+  (FHRR event-history) not just content-stem accumulation; (b) re-run the SOT-conditioned decision on TellMeWhy
+  (does situation-model conditioning also lift the single-antecedent gold?); (c) combine sot_accum with the
+  result-state rollout; (d) propose sot_accum as the brain-foundational cause-selection wire (Q111).
+
+STRATEGY NOTE (2026-09-08) relevant to us: the reader's reuse of GOLD coref labels ("gold-coref inheritance" in
+the entity gate) is a LEAK -> report coref/name-bridge/experiencer on the HONEST de-leaked floor. OUR coref/SOT
+work is ALREADY honest-floor (used the reader's own coref + spaCy + WorkingOverlay, NEVER gold coref). Two NEW
+posted problems our located-negatives feed: replace_the_entity_gate_gold_coref_inheritance_with_online_cue_based_
+clustering (the de-leaked binder -- our resolved-referent-binding finding feeds it) and
+world_knowledge_common_noun_to_name_bridge_the_81_percent_residual (our edge-correctness/knowledge wall aligns).
+Do NOT reuse the occupation-KB axis (located negative).
+
+WHERE THINGS STAND (honest): the corrected chain's DECISION-layer coalition + generative-typing were REFUTED as
+levers on real narrative (TellMeWhy + GLUCOSE) -- they add noise vs topical. The THINGS THAT WIN on real gold:
+(1) SOT situation-model accumulation conditioning (sot_accum, GLUCOSE +0.159 CI-sep, load-bearing) <- NEW, the
+lever; (2) result-state achievement check on marked-goal causes (TellMeWhy GOAL-subset +0.087 CI-sep);
+(3) topical/Trabasso connectivity (the strong baseline SOT beats). The edge-correctness wall (correct causal
+KNOWLEDGE) remains for the coalition, but SOT does NOT need it -- SOT is a live win NOW.
+
+FILES NOW: 14 cells + 14 witnesses (all green). New since the cycle-7 list:
+  exp_genworldmodel_sot_situation_model_v1.py + test_genworldmodel_sot_situation_model.py (3/3, the SOT WIN).
+Also: exp_genworldmodel_edge_correctness_fix_v1.py + witness (4/4, SOT-temporal located negative),
+exp_genworldmodel_glucose_chain_v1.py + witness (4/4), fetch_glucose_v1.py, data/corpora/glucose/.
+REVERIFY THE WIN: .venv/Scripts/python.exe verification/test_genworldmodel_sot_situation_model.py  (3/3, ~2min).
+Ledger: `python tools/problem_ledger.py --check` -> malformed/incomplete: 0.
+CWD RESET each Bash call -> prefix `cd /c/AI/hd-instrument &&`; `export PYTHONIOENCODING=utf-8`.
+================================================================================
+
+================================================================================
+## >>> CYCLE-9 CORRECTION (2026-09-08, post-compaction adversarial audit) -- READ AFTER THE RESUME BLOCK <<<
+================================================================================
+Owner: "dig deeper into the solution to identify if you missed anything." I did, and it OVERTURNS the GLUCOSE SOT
+headline while STRENGTHENING the TellMeWhy result-state win. 4 new cells + witnesses (all green): sot_accum_
+diagnosis (4/4), distinct_confound_audit (3/3), position_floor (4/4), tellmewhy_position_floor (4/4). 18 cells /
+18 witnesses total now.
+  * MISSED FLOOR: a pure POSITION baseline (`earliest` = pick the first story sentence; brain-foundational =
+    causes-precede-effects iconicity + narrative primacy) was NEVER run in cycles 6/7/8. On GLUCOSE it scores
+    0.694, ABOVE the whole semantic stack (sot_accum 0.610, overlap_count 0.603, topical 0.450). Adding semantic
+    on top of position DEGRADES it (best combo -0.029 CI-sep below earliest). => GLUCOSE non-adj cause-selection
+    is POSITION-DEGENERATE. Per the measurement bar (CI-sep over the strongest floor ACTUALLY RUN), the SOT
+    +0.159-over-topical does NOT clear it -- topical was a WEAK baseline (max word-relatedness saturates, ties
+    broken by earliest, tie-rate ~1.8). **GLUCOSE SOT win WITHDRAWN as a headline.**
+  * MECHANISM MISLABEL x2: the 0.758 order-shuffle "twin" was a SINGLE-SEED artifact (40-order avg = 0.593 <
+    real 0.610, so ORDER is not the lever); and the 1/k_s "cue-distinctiveness" weighting is inert-to-harmful
+    (raw overlap_count 0.603 CI-beats distinct 0.580). The honest GLUCOSE signal is raw content-overlap count,
+    which itself loses to position.
+  * TELLMEWHY SURVIVES + STRENGTHENED: TellMeWhy non-adj is POSITION-USELESS (earliest/nearest/before_nearest =
+    0.000; latest 0.076 << base 0.293). So the result-state rollout GOAL-subset win rs_refine 0.380 CI-beats the
+    strongest POSITION floor by +0.3043 CI[0.196,0.424] (and base by +0.087). The PRIMARY positive is now
+    controlled against BOTH topical and position floors. SOLVED status intact (it was always anchored on the
+    TellMeWhy located-negative + subset positive, not the GLUCOSE SOT bonus).
+  * DURABLE: the dominant SIMPLE signal for real-narrative cause-ID is DATASET-DEPENDENT -- POSITION on GLUCOSE,
+    SEMANTIC/result-state on TellMeWhy. ALWAYS run a position floor AND a topical floor; the stronger is the bar.
+  * REVERIFY: test_genworldmodel_{tellmewhy_position_floor, position_floor, distinct_confound_audit,
+    sot_accum_diagnosis}.py.
+================================================================================
+
+================================================================================
+## >>> CYCLE-10 (2026-09-08) -- the two optimizations PROTOTYPED brain-foundationally + the PHASE-DIAGRAM move <<<
+================================================================================
+Owner: "prototype these solutions brain foundationally... look in existing capabilities, but always check for
+brain foundationality" + "remember the phase diagram". 3 new cells + witnesses (all green); 21 cells / 21
+witnesses total.
+  * OPT#1 competition_model_integrator (4/4): the position-vs-semantic combination the brain's way = the
+    COMPETITION MODEL (Bates-MacWhinney; PINNED), NOT a hand gate. Reuses the LANDED hdlab.graded_competition
+    (net_activation/map_pick; additive activation = Bayesian posterior). Cue weights = learned validities via an
+    error-driven delta rule on a train split (no leak). ONE integrator, robust best-of-both: GLUCOSE learns
+    position (matches the 0.71 floor, no dilution -> cycle-9 blend-hurts fixed), TellMeWhy learns result-state and
+    CI-BEATS the best single cue +0.130 CI[0.044,0.239] (synergy). Verdict ROBUST_BEST_OF_BOTH_WITH_SYNERGY.
+  * OPT#2 deep_rollout (4/4): deepen the result-state rollout (multi-step chaining; Schank-Abelson/Mattar-Daw;
+    reuse multistep_fire/_reach past K=2). Monotone lever (coverage 12->38%, acc 0.326->0.380, beats base +0.087)
+    but COVERAGE-bound on the sparse CSKG. Verdict DEPTH_COVERAGE_BOUND_ON_EXISTING_STORE.
+  * PHASE-DIAGRAM rollout_phase_diagram (4/4): treated the coverage bound as a movable DENSITY knob, not a
+    ceiling. Augment the causal graph with associative edges at swept density; op-point selected on train, scored
+    on test. Moving density LIFTS the rollout over base +0.152 / topical +0.196 / sparse (0.348 vs 0.304) CI-sep
+    -> NOT a ceiling. BUT raw-density not structure: an info-free SAME-DENSITY RANDOM-edge twin MATCHES it (0.391)
+    -> a load-bearing/structure win needs a denser CORRECT store (edge-correctness / meaning foundation, Q111).
+    Verdict DENSITY_MOVE_LIFTS_BUT_JUST_ASSOCIATIVE_DENSITY. (Fixed a set-iteration nondeterminism in _reach ->
+    sorted; smoke had over-claimed load-bearing, train/test+twin corrected it.)
+  * NET: the brain-foundational, reusable, no-regress deliverable is the COMPETITION-MODEL cue-validity
+    integrator (robust cause-selector, additive channel). Both depth and density are real but bounded by
+    edge-CORRECTNESS = the Q111 knowledge foundation. Reverify:
+    test_genworldmodel_{competition_model_integrator, deep_rollout, rollout_phase_diagram}.py.
+================================================================================
+
+================================================================================
+## >>> CYCLE-11 (2026-09-08) -- SWEEP existing organs for the correct-STRUCTURE lever + wire the ENTROPY organ <<<
+================================================================================
+Owner: "prototype those solutions now; sweep the organs/capabilities we have for the shortcomings." Explore-swept
+all directed causal-knowledge assets, prototyped the 3 most promising WITH the load-bearing twin. 3 new cells +
+witnesses (all green); 24 cells / 24 witnesses total.
+  * directed_kb_rollout (4/4): swapped associative edges for the LANDED directed causal-precedence store
+    (CausalKnowledgeStore, 65k CSKG Causes/HasPrerequisite). NOT load-bearing (0.283 vs random-directed twin
+    0.304). Beats topical (+0.130 = coverage) but not base, not its twin. Generic verb-pair KB lacks
+    item-specific structure.
+  * entropy_gated_integrator (4/4): wired hdlab.graded_competition entropy as the per-item availability gate. NO
+    accuracy lift (as the organ's MAP theorem predicts; net_activation already zeroes absent cues) BUT entropy is
+    a VALID gold-free confidence signal (CI-sep higher on errors: GLUCOSE +0.109, TellMeWhy +0.252). Use =
+    uncertainty, not accuracy.
+  * script_order_cue (4/4): strategy's broad order store (temporal_script_schema/chains_broad.json, 454k p_before
+    pairs) as a 5th cue. No CI-sep load-bearing lift: GLUCOSE flat; TellMeWhy 0.391->0.500 point-est but NOT
+    CI-sep (n=46 underpowered) + not load-bearing vs shuffle. Coverage high (0.87-0.91) -> limit is per-pair
+    correctness / story CONTEXT, exactly strategy's scope. (FOLLOW-UP: the TMW +0.109 point-estimate is worth a
+    larger-n GOAL sample to power.)
+  * CONSOLIDATED: every existing directed/order STORE adds coverage but is NOT load-bearing (twin matches) --
+    context-free stores can't supply the ITEM-SPECIFIC correct structure real cause-ID needs. The load-bearing
+    correct-structure we have stays the RESULT-STATE check (rs_fire); the entropy organ gives confidence not
+    accuracy; the frontier lever is reading the specific story's CONTEXT (Q111), not another static store.
+  * Reverify: test_genworldmodel_{directed_kb_rollout, entropy_gated_integrator, script_order_cue}.py.
+================================================================================
