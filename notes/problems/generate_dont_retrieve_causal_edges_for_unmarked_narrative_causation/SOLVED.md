@@ -431,16 +431,30 @@ line: the popular causal benchmarks are broken (they measure position); the righ
 validate causation is by surprise-reduction -- and on that we now have a first, genuinely working, 100%-brain-
 foundational causal reader. No outside AI at any step.
 
-**QUESTIONS.** None blocking. Two judgement calls flagged: (1) I RETRACTED the earlier TellMeWhy "narrative wins"
+**QUESTIONS.** None blocking. Judgement calls + OWNER FLAGS: (1) I RETRACTED the earlier TellMeWhy "narrative wins"
 after finding the POSITION CONFOUND -- they beat weak position-BLIND floors but LOSE to the position floor; the
 record now leads with what survived. (2) Graded PARTIAL: the brief's specific bar (break the ~5% MAVEN bound) is
-refuted (MAVEN is not brain-foundational), and the constructive win (the intrinsic causal reader) is a validated v1
-FOUNDATION on encyclopedic text -- a real CI-separated result, but not yet a complete narrative causal reader.
+refuted (MAVEN is not brain-foundational), and the constructive win (the intrinsic causal reader) is a validated
+FOUNDATION -- a real CI-separated result, but not yet a complete narrative causal reader. (3) OWNER-ENDORSED NEXT
+STEP: address the explicit VSA/FHRR participant-BINDING (next steps #1) -- the strong world-model already captures
+entity-coherence implicitly (necessity converges with participants), so binding is expected to SHARPEN it. (4)
+OWNER FLAG -- THE MULTI-HOP WORK (finding 17 / `multihop_v1`) WAS BUILT WITHOUT LEVERAGING THE PROJECT'S EXISTING
+LARGE, SUCCESSFUL MULTI-HOP CAPABILITY: the **CLUTRR** multi-hop relational corpus (`data/corpora/clutrr`) and the
+landed **`hdlab.kg_traversal.KGStore`** substrate-native n-hop chain-prediction reasoner (CERT-585 chain-grade,
+36.49x over frozen-encoder, n=2). My causal-chain necessity should be RECONCILED with these -- the historical n-hop
+reasoner may already provide (or better validate) the chaining, and CLUTRR is a larger, established multi-hop
+instrument. This is a limitation of finding 17, flagged honestly, not a claim of novelty.
 
 **NEXT STEPS (all on the clean brain-foundational stack).**
-1. HIGHEST -- ENRICH the event representation: bind participants (coref) + goal/affect state into each event
-   (compositional VSA/FHRR binding) so necessity is estimated over SPECIFIC situations (John-wanted-coffee ->
-   John-brewed), not bare verb-concepts. The #1 envelope-push.
+1. HIGHEST -- **OWNER-ENDORSED: the explicit VSA/FHRR participant-BINDING.** Bind participants (coref) + goal/affect
+   state into each event via the substrate's FHRR binding so necessity is estimated over SPECIFIC situations
+   (John-wanted-coffee -> John-brewed), not bare verb-concepts. The strong world-model already captures entity-
+   coherence IMPLICITLY (necessity converges with participants, +0.038 CI-sep), so explicit binding is expected to
+   SHARPEN, not create, the signal. The #1 envelope-push.
+1b. HIGH -- **RECONCILE the multi-hop work (finding 17) with the project's existing MULTI-HOP capability** (OWNER
+   FLAG): the CLUTRR corpus + the landed `hdlab.kg_traversal.KGStore` n-hop chain-prediction reasoner (CERT-585
+   chain-grade, 36.49x). My causal-chain necessity was built without awareness of these; check whether the historical
+   n-hop reasoner already provides/validates the chaining and whether CLUTRR is the right larger instrument.
 2. HIGH -- learn/read on naturalistic NARRATIVE (GUM fiction / a modern narrative corpus), not encyclopedic
    simplewiki, for richer causal event-chaining.
 3. MEDIUM -- extend the counterfactual-necessity reader to MULTI-HOP chains (A->B->C = the full intrinsic causal

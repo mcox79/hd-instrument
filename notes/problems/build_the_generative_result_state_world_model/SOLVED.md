@@ -614,6 +614,28 @@ sense-signatures, owner-DONE, currently LATENT) instead of the coarse 12-d groun
 final wire: predictive-coding generative loop (built/reusable) x curated meaning_foundation (built, latent) =
 Q111, now fully specified. 37 cells/witnesses.
 
+**DEEPENING cycle-22 (2026-09-08) -- the curated-generative negative is a BUILD ERROR (NON-brain-foundational),
+not a ceiling (owner: "research the crap out of that negative... or you built it wrong... and it's not brain
+foundational" -- CORRECT).** `exp_genworldmodel_curated_generative_v1.py` (witness 4/4 -- but the witnessed
+NEGATIVE fails the EXACTLY-LIKE-THE-BRAIN gate, so it is a broken experiment per discipline). SELF-CRITICAL
+DIAGNOSIS of why the shuffled-knowledge twin matched (curated content not load-bearing):
+  (1) MEAN-POOLING destroys event STRUCTURE -- I averaged word sense-signatures into a sentence 'gist'. The brain
+      represents events as STRUCTURED BOUND role-filler representations (agent-relation-patient; VSA/FHRR
+      binding), NOT a bag-of-words mean. A mean vector is a coarse topical direction -> nearly invariant to the
+      specific content -> shuffled-knowledge twin matches. NON-brain-foundational.
+  (2) COS-SIMILARITY is RETRIEVAL, not GENERATIVE PREDICTION -- I scored cos(effect, gist), a similarity, where
+      the brain runs a FORWARD MODEL that PREDICTS the next structured state and measures error (predictive
+      coding; Franklin SEM 2020 event model generates the next bound state). Similarity-to-an-average = retrieval
+      in disguise -- the refuted shape.
+  => the negative does NOT show 'generative simulation fails'; it shows a mean-pooled-cos NON-generative,
+  NON-structured build fails. The brain-foundational component must: represent events as STRUCTURED BOUND
+  representations (reuse the FHRR binding algebra + bound_event_backbone = Franklin SEM shared event-STATE), and
+  GENERATIVELY PREDICT the next bound state from the accumulated structured situation (predictive_reader forward +
+  n400 error over the STRUCTURED prediction), not average+cosine. RESEARCH dispatched to nail exactly what it must
+  perform + where mean-cos loses it + which landed components are ready; REBUILD the structured generative loop.
+  38 cells/witnesses (cycle-21's 12-d-grounded gen_sim shares the same mean-pool flaw -> its 'beats overlap' is a
+  smarter-topical, not the generative win).
+
 **TRIANGULATION (5 independent builds converge on ONE wall):** coverage-tiers (DEEP_MULTISTEP 51%),
 precise-trace (topical dominance; extraction not the issue), ECHO decision (mechanism proven, real-data flat),
 generative edges (generate>retrieve + phase-diagram optimum, class-level engines precision-coverage-bound),
