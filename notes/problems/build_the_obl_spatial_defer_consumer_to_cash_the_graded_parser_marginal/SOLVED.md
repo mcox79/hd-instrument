@@ -304,6 +304,26 @@ feeds ONLY _read_space, so no who-did-what/temporal consumer regresses.
 3. **Do NOT** land the raw marginal gate on the terse SpaceEval CONTAINMENT extractor (saturated -- the settled prior
    refutation), nor expect a net where_is lift without more modern narrative gold (n=47 is underpowered).
 
+### 6b. FINISH-UP BRAIN-FOUNDATIONAL OPTIMIZATIONS (measured + landable now -- bundle these)
+4. **COMMIT to the graded-competition posterior for the spatial-obl attachment (normalized-recurrence, not defer,
+   not the greedy local decode).** MEASURED: +0.0144 CI[+0.003,+0.026] CI-sep on UD-EWT spatial obl attachment, with
+   PERFECT no-regress (0/351 syntax-correct broken) (`exp_obl_spatial_optimize_v1` / `exp_obl_spatial_csx_scorer_v1`).
+   Brain-foundational (Chu-Liu/Edmonds global MAP + McRae/Spivey normalized recurrence, `graded_competition`). This is
+   the parser SOLVED's exact-decode swap, scoped + confirmed for the spatial consumer. It IMPROVES the ground binder's
+   input directly; safe (only changes heads the greedy decode got wrong).
+5. **DROP the obl logistic calibrator** -- the RAW single-root marginal (AUC 0.782) already BEATS the learned obl
+   calibrator (0.736). A learned component REMOVED: leaner AND more brain-foundational (no fitted logistic).
+6. **ONE marginal serves all head-driven consumers** -- the single-root Matrix-Tree marginal is a universal per-label
+   attachment reliability (median AUC 0.825 / 29 labels; parser SOLVED). Compute it ONCE per read (one matrix inverse)
+   and reuse for obl/spatial + patient + temporal; compute the exact 2nd-best TREE lazily (a weak lever, only on a
+   fallback path). Ship the SINGLE-ROOT marginal (grammar-faithful, same one inverse, slightly better -- free).
+7. **THEM cue = the brain-foundational selectional preference** (already the corpus-mined McRae/Hindle-Rooth version,
+   throughput 0.61), with the researched data-efficiency upgrade path when wanted: Erk-2007 distributional-similarity
+   backoff + preposition-conditioning (Zapirain +10 F1) + ConceptNet AtLocation FOUNDATION seed (reporting-bias
+   complement). NOTE (measured + researched): for LOCATIVE attachment the meaning cues have a DOCUMENTED low ceiling
+   (peripheral, aspect-gated role fillers; adjunct-only referential effects) -- so item 4 (the syntactic commit) is the
+   real optimization; 5-6 are efficiencies; 7 is a small refinement, diminishing returns for locatives.
+
 ## 7. WHAT I DID NOT ESTABLISH / would withdraw first
 
 - **Withdraw first:** any claim of a net live-spatial LIFT. The consumer is precision-positive and twin-beating, but
