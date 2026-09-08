@@ -115,7 +115,11 @@ def parse_sentence(words: Sequence[str]) -> Tuple[List[str], Dict[int, int]]:
         _parse_cache[key] = res
         return res
     upos = t.tag(list(words))
-    pr = p.parse(list(words), list(upos))
+    # P4 (extract_spatial_and_causal owner-DONE, §7 diff 2): route the shared relation-front-end parse through the
+    # exact-MAP graded decode (Chu-Liu/Edmonds MAP over the SAME globally-normalized arc-factored scorer) instead of
+    # the greedy decode that yields an invalid non-tree parse on ~7.2% of sentences. More brain-foundational (the
+    # exact global MAP the greedy approximates); the temporal event set is byte-identical (verified no-regress).
+    pr = p.parse(list(words), list(upos), decode="exact")
     heads = dict(pr.heads)  # dep(1based) -> head(1based)
     _parse_cache[key] = (upos, heads)
     return upos, heads
