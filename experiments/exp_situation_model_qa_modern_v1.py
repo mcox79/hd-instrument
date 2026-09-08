@@ -1226,6 +1226,71 @@ def board_crosstype_experiencer_dimension(smoke=False):
         return _degraded("crosstype_experiencer", e), {"error": "%s: %s" % (type(e).__name__, e)}
 
 
+def board_namebridge_dimension(smoke=False):
+    """NAME-BRIDGE COREF board arm on modern GUM. Board-INVISIBLE today: the landed hdlab.typed_spokes C8 entity-type
+    spoke (owner-DONE acquire_wikidata_p31) licenses a common-noun anaphor to a PROPER-NAME antecedent ("the artist"
+    <- Zurbaran; the ~6-10% of anaphoric common nouns whose antecedent is a name, unreachable by WordNet), via the
+    brain-foundational TWO-ROUTE CLS mechanism (consolidated C8 entity-type KB UNION episodic in-text is-a) with
+    GRADED constraint-integration selection + a thematic deverbal-agent route -- but nothing in the live read path
+    calls it (the board coref dim scores PRONOUN coref, not common->name), so no dim scores it. This arm scores the
+    two-route mechanism directly on the GUM name-bridge instrument, reusing the solver's OWN measure
+    (exp_namebridge_coref_kb_v1: collect_items + _vec + boot_delta).
+
+    model = the fullest two-route arm (kb_thematic: C8 type-license OR in-text is-a OR thematic, graded select);
+    strongest floor = RECENCY over active names (Centering; string-identity/WordNet are 0.000 by construction); twin =
+    the shuffled-KB info-free control (correct encyclopedic types are load-bearing). Kept OUT of the 19c-free headline
+    aggregate (its own row). OFF in the self-test. Degrades gracefully (spoke/GUM absent). MODERN (GUM). 'live !=
+    scored' -- the actual live-reader wire (the two-route path into _apply_commonnoun_gate) is the follow-on."""
+    try:
+        import experiments.exp_namebridge_coref_kb_v1 as NB
+        import experiments.gum_coref as G
+        from experiments.exp_name_entity_clustering_v1 import load_given_gazetteer
+        if not NB.ES.available():
+            return _degraded("namebridge", "entity-type spoke asset absent (build_entity_type_spoke_v1 --build)"), {}
+        gaz = load_given_gazetteer()
+        docs = G.load_docs(gum_only=True, limit=(60 if smoke else None), name_gazetteer=gaz)
+        items = NB.collect_items(docs)
+        if not items:
+            return _degraded("namebridge", "no name-bridge items in sample"), {}
+        twin = NB.build_twin_map(items, backoff=False, seed=0)
+        # model = kb_graded (the SOLVED's adopted GRADED constraint-integration KB mechanism, +0.1096 CI-sep vs
+        # recency) -- its shuffled-KB twin LOSES, so the twin control is VALID here (kb_thematic's twin is
+        # shuffle-robust because its thematic/in-text routes don't depend on the KB shuffle; kb_thematic +0.1124 is
+        # the peak, reported in the population). This arm's twin thus proves the encyclopedic KB is load-bearing.
+        v_model = NB._vec(items, "kb_graded", backoff=False)
+        v_floor = NB._vec(items, "recency", backoff=False)
+        v_twin = NB._vec(items, "kb_graded", backoff=False, twin=twin)
+        v_peak = NB._vec(items, "kb_thematic", backoff=False)
+        model = round(float(v_model.mean()), 4); floor = round(float(v_floor.mean()), 4)
+        twin_acc = round(float(v_twin.mean()), 4)
+        d_floor = NB.boot_delta(v_model, v_floor); d_twin = NB.boot_delta(v_model, v_twin)
+        row = {
+            "n": len(items), "model_acc": model,
+            "overlap_floor": floor, "strongest_floor_name": "recency_over_active_names",
+            "strongest_floor": floor, "twin_acc": twin_acc,
+            "model_minus_strongest": [d_floor["delta"], d_floor["lo"], d_floor["hi"]],
+            "model_minus_twin": [d_twin["delta"], d_twin["lo"], d_twin["hi"]],
+            "ci_sep_over_strongest": bool(d_floor["sep"] and d_floor["delta"] > 0),
+            "ci_sep_over_twin": bool(d_twin["sep"] and d_twin["delta"] > 0),
+            "peak_kb_thematic_acc": round(float(v_peak.mean()), 4),
+            "population": "GUM name-bridge (anaphoric common noun whose antecedent is a PROPER NAME, n=%d): model = "
+                          "kb_graded (GRADED constraint-integration over the consolidated hdlab.typed_spokes C8 "
+                          "entity-type KB; type-strength x recency); PEAK = kb_thematic (+ episodic in-text is-a + "
+                          "thematic deverbal-agent route, the fullest two-route CLS mechanism, ~+0.1124 vs recency); "
+                          "floor = recency over active names (string-identity/WordNet 0.000 by construction); twin = "
+                          "shuffled-KB (destroys the encyclopedic type signal). Bootstrap CI. MODERN (GUM)." % len(items),
+        }
+        detail = {"note": "glass-box NAME-BRIDGE coref via the landed C8 entity-type spoke (DBpedia InstanceOf on the "
+                          "ATL hub, read through the C5 is-a closure) -- the proper-name entities WordNet omits. The "
+                          "brain's TWO-ROUTE CLS completion (McClelland 1995): consolidated KB for famous entities + "
+                          "episodic in-text is-a for names met mid-document (near-disjoint, both load-bearing). FIRST "
+                          "board arm scoring name-bridge; the live-reader two-route wire into _apply_commonnoun_gate "
+                          "is the filed follow-on (the board coref dim scores PRONOUNS)."}
+        return row, detail
+    except Exception as e:
+        return _degraded("namebridge", e), {"error": "%s: %s" % (type(e).__name__, e)}
+
+
 def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True):
     """Assemble every MODERN per_dimension row. caps = dict of per-arm caps for a fast self-test.
     run_new_arms adds the 3 board-invisible-win arms (coarse-sense/selective-reliability/causal-multihop) as
@@ -1313,6 +1378,9 @@ def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True
         cx_row, cx_det = board_crosstype_experiencer_dimension(smoke=bool(caps.get("crosstype_smoke")))
         new_arms["crosstype_experiencer"] = cx_row
         new_arms_detail["crosstype_experiencer"] = cx_det
+        nb_row, nb_det = board_namebridge_dimension(smoke=bool(caps.get("namebridge_smoke")))
+        new_arms["namebridge"] = nb_row
+        new_arms_detail["namebridge"] = nb_det
 
     crossref = _informational_19c_crossref()
 
