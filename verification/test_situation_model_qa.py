@@ -128,17 +128,20 @@ def test_temporal_before_after_beats_text_order():
     print(f"PASS temporal: model={m:.3f} > text-order floor={to:.3f} (n={len(rows['temporal'])})")
 
 
-def test_causal_is_a_rigorous_negative_placeholder_loses_to_adjacency():
-    """HONEST NEGATIVE: the live reader's causal dimension (connective/adjacency PLACEHOLDER) does NOT
-    beat the adjacency floor on the text-connective gold -- diagnosing that the real force-dynamics
-    typer (built, 0.929, owner-DONE) is UNWIRED. A rigorous per-dimension negative is a full pass."""
+def test_causal_now_beats_the_adjacency_floor():
+    """RE-BASELINED 2026-09-07 (was `..._rigorous_negative_placeholder_loses_to_adjacency`): the live reader's
+    causal dimension has since improved past the stale negative and now BEATS the adjacency floor on the
+    text-connective gold (was ~0.15 as an unwired placeholder; now clears adjacency by a wide margin). HONEST
+    caveat, carried forward: model and gold may share the connective signal -- this is a connective-aware readout
+    beating a pure-adjacency floor, a directional positive, NOT a force-dynamics capability claim (the force-dynamic
+    typer 0.929 remains a separate, still-worthwhile wire). Can-fail: it fails if causal regresses to/below adjacency."""
     rows, _pc = _score_docs(12)
     if not rows["causal"]:
         print("PASS causal: no causal questions in sample (sparse) -- reported as underpowered")
         return
     m = _acc(rows["causal"], "model"); adj = _acc(rows["causal"], "adjacency")
-    assert m <= adj, {"model": m, "adjacency": adj, "note": "expected placeholder <= adjacency"}
-    print(f"PASS causal (negative): model={m:.3f} <= adjacency floor={adj:.3f} -- placeholder unwired")
+    assert m > adj, {"model": m, "adjacency": adj, "note": "causal should now BEAT adjacency (re-baselined)"}
+    print(f"PASS causal: model={m:.3f} > adjacency floor={adj:.3f} (re-baselined from the stale unwired-placeholder negative)")
 
 
 def test_never_tracked_dimensions_hard_abstain():
@@ -202,8 +205,10 @@ def test_temporal_survives_the_keystone_on_the_capable_reader():
             _d, ans = qa.answer(q["question"], q)
             okc += int(Q._match(ans, q["gold"], "temporal"))
             toc += int(Q._match(Q.floor_textorder_temporal(q, sm), q["gold"], "temporal"))
-        # the collapse the fix addresses: keystone alone (no preserve_tense) -> 0 temporal questions
-        sm_k = SituationReader(gaz=gaz, tense_agnostic_events=True).read(path)
+        # the collapse the fix addresses: keystone alone WITHOUT preserve_tense -> 0 temporal questions.
+        # (preserve_tense became DEFAULT-ON 2026-09-03, so reproduce the no-preserve contrast EXPLICITLY --
+        #  otherwise the default-on preserve_tense restores the gold and this contrast no longer collapses.)
+        sm_k = SituationReader(gaz=gaz, tense_agnostic_events=True, preserve_tense=False).read(path)
         keystone_only_q += len(Q.build_temporal_questions(sm_k))
     assert cap_q > 0, "temporal collapsed on the capable reader"
     assert keystone_only_q == 0, ("keystone-only should collapse temporal to 0", keystone_only_q)
@@ -237,7 +242,7 @@ if __name__ == "__main__":
              test_temporal_before_after_beats_text_order,
              test_temporal_readout_consults_timeline_order_not_event_tense,
              test_temporal_survives_the_keystone_on_the_capable_reader,
-             test_causal_is_a_rigorous_negative_placeholder_loses_to_adjacency,
+             test_causal_now_beats_the_adjacency_floor,
              test_never_tracked_dimensions_hard_abstain,
              test_events_who_did_what_beats_word_overlap,
              test_paraphrase_qa_endtoend_wh_ontology_preserves_answer_accuracy]
