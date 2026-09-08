@@ -469,6 +469,19 @@ LOO mechanism is correct on BOTH ontologies; it is starved by semantic state-ext
 goal-outcome SATISFACTION detector (goal_outcome_relation INSTANTIATES / structured_matcher) + what the gold
 labels actually encode + a signal-loss recovery ladder. 29 cells/witnesses.
 
+**DEEPENING cycle-16 (2026-09-08) -- CONSOLIDATED signal-loss ladder for cause-selection (owner: "measure where
+we're losing signal").** `exp_genworldmodel_signal_loss_ladder_cause_v1.py` (witness 4/4): every load-bearing
+signal on ONE integrator instrument (no-leak split), cumulative + solo + residual. FINDINGS: (1) the dominant
+signal is DATASET-DEPENDENT -- GLUCOSE ceiling = POSITION 0.711 (solo), TellMeWhy-GOAL ceiling = RESULT-STATE
+means_end 0.304 (position 0.000 there); (2) on GLUCOSE the semantic cues do NOT beat position (additive
+integration slightly DILUTES the dominant cue, cumulative 0.668 < position-solo 0.711); (3) on TellMeWhy-GOAL the
+accuracy jumps only when means_end enters (position+overlap ~0 -> +means_end 0.304), script-order adds nothing on
+top; (4) a LARGE IRREDUCIBLE RESIDUAL remains -- GLUCOSE 0.289, TellMeWhy-GOAL 0.696 of gold causes identified by
+NO combination of {position, overlap, result-state, script-order} = the deep semantic/world-knowledge gap
+(meaning foundation, Q111). This is the precise, consolidated "where we lose signal": ~29%/~70% is beyond every
+current signal. 30 cells/witnesses. (Cycle-17 research in flight: what the gold labels actually encode +
+semantic goal-resolution recovery + XAIP why-not.)
+
 **TRIANGULATION (5 independent builds converge on ONE wall):** coverage-tiers (DEEP_MULTISTEP 51%),
 precise-trace (topical dominance; extraction not the issue), ECHO decision (mechanism proven, real-data flat),
 generative edges (generate>retrieve + phase-diagram optimum, class-level engines precision-coverage-bound),
