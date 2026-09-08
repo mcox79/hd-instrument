@@ -14,6 +14,18 @@
 
 ---
 
+## 2026-09-07 (CONT-25) — INTEGRATING owner-DONE `extract_spatial_and_causal_relations...` (reverified 11/11; SPATIAL win + CAUSAL located-negative; P1-P5 LAND-NOW landing carefully across continuations)
+
+Owner-DONE (marked 21:38), reverified first-hand 11/11. A LARGE 5-landing chain (P1-P5) + 3 BUILD follow-ons (P6-P8) under the implement-all-upstream directive. Given the session depth, landing P1-P5 CAREFULLY across continuations (verify each), not in one exhausted burst. **Mechanism + the unifying law = audit §2b (newest).**
+
+### extract_spatial_and_causal_relations_from_prose_whole_subgraph_survival  [INTEGRATING; reverified 11/11; landings pending]
+- **SPATIAL = WIN (brain-foundational):** the semantic Figure-Ground typer (event-figure binding + deixis + coordination + partitive + Herskovits preposition-semantics + thematic nested binding over exact-MAP) beats the incumbent CI-sep on TYPE-PRECISION (0.5712 vs 0.5179, +0.0533) and a density/proximity floor +0.3864 CI-sep on hard negatives (floor collapses to 0.185). Recall-survival is DENSITY-CONFOUNDED → score marked-relation extraction on type-precision.
+- **CAUSAL = the blessed LOCATED NEGATIVE (resolved):** causal type is UNMARKED (65.6% MAVEN) → no parse-bound typer; the generative causal-antecedent search (recency prior + world-model typing) wins on binding precision (0.472 vs 0.140, +0.339 CI-sep) but coverage-capped ~5% (CSKG refuted at 2%); coref lifts it 3.29×. THE KEYSTONE: the meaning/entity channel is built but never CONSUMED in read().
+- **LANDING PLAN (P1-P5 LAND-NOW, additive/no-regress; P6-P8 BUILD):** P1 unified one-parse front-end / P2 spatial thematic binding + learned construction inventory / P3 nominal-event flip-on (0.61→0.85) / P4 exact-MAP decode default (after 8-consumer no-regress) / P5 coref→causal simulator (3.29×). P6 read()-time meaning-consumption keystone / P7 spatial parser residual / P8 full causal reader. DO-NOT: CSKG (2%), parse-marginal, object-affordance, connective causal.
+- **STATUS:** reverified + audited + plan set; **nothing landed in hdlab yet** (Q111). Landing P1-P5 carefully across continuations (each verified), then §2b/ledger/status:INTEGRATED. The extraction feed is the plan's critical path (feed extraction → re-run the reasoning board).
+
+---
+
 ## 2026-09-07 (CONT-24) — INTEGRATING owner-DONE `acquire_wikidata_p31` (FULL-CHAIN, per the new implement-all-upstream directive) — C8 spoke + board arm landed+verified; chain continuing
 
 Owner-DONE (marked 21:11), reverified first-hand 14/14, landing the FULL chain per the new owner directive ([[implement-all-upstream-chain-fixes-in-incoming-solutions]]: implement ALL upstream fixes, accept breakage). Committed path-limited (NOTHING pushed). **Mechanism = audit §2b (newest).**
