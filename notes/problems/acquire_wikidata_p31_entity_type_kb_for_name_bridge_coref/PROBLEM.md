@@ -1,10 +1,19 @@
 ---
-priority: 8
+priority:
 slug: acquire_wikidata_p31_entity_type_kb_for_name_bridge_coref
-status: CANDIDATE
+status: INTEGRATED
 review:
 review_text:
 ---
+
+<!-- INTEGRATED 2026-09-07 (CONT-24). Owner-DONE, reverified 14/14, FULL-CHAIN per the implement-all-upstream
+directive. Landed+verified: C8 directed entity-type spoke in hdlab/typed_spokes.py (664139141, DBpedia InstanceOf
+on the ATL hub, name-bridge coref "the artist"<-Zurbaran, two-route CLS +0.1124 CI-sep); board_namebridge arm
+(0e1fa55ba); compact-store swap (47ab3aec4, 523MB->79MB byte-equiv); C6 part-whole->bridging_inference HYBRID
+flipped live (a057a63bc, c6pw fixes the distractor-pick). Remaining follow-on: the two-route LIVE-reader wire
+(+entropy->coref confidence) = the careful reader-schema adapter task (mirrors the crosstype wire brief) + the
+gitignored manifest reg. Priority dropped. Detail = ledger CONT-24 + audit §2b(newest). -->
+
 
 # PROBLEM: common-noun-to-PROPER-NAME "name-bridge" coreference ("the artist" -> "Zurbaran"; ~10% of anaphoric common nouns on GUM) is UNREACHABLE by our WordNet typed spokes because proper names are not in WordNet -- so acquire a curated, pinned, OFFLINE entity-type KB (Wikidata P31 instance-of / DBpedia InstanceOf) under `data/corpora/`, build a DIRECTED TYPE-2 entity-type SPOKE on the ATL hub (extending `hdlab/typed_spokes.py`, keyed like C5/C6, admitted through the consolidation gate), and prove the spoke used as a bounded TYPE-LICENSING filter lifts name-bridge coref CI-separated over the strongest floor on modern gold, with a shuffled-KB info-free twin LOSING and no coref-dim regress -- glass-box, NO external LLM at inference.
 
