@@ -186,6 +186,20 @@ content-noun binding does NOT help -- it makes edges SPARSER (0.038 vs 0.084) AN
 store"/"wanted milk" share the protagonist, not a surface noun), so surface-overlap gating KILLS real causal
 edges. Faithful participant-binding needs REAL coref (E3, NEEDS_ADAPTER), not surface overlap.
 
+**RESEARCH of the cycle-2 negative (owner: research every negative fully; full digest in the handoff + probe
+transcript).** VERDICT: the negative is a FALSE NEGATIVE from a wrong upstream proxy, NOT a wrong mechanism --
+and the literature predicts surface-overlap MUST fail: the repeated-name penalty (Gordon-Grosz-Gilliom 1993 --
+the most causally-central participant is PRONOMINALIZED, not repeated, so surface-overlap is ANTI-correlated
+with centrality), the Givenness Hierarchy/Accessibility (Gundel 1993; Ariel -- focused referents -> pronoun/zero),
+and bridging (Clark 1975 -- definite descriptions, surface overlap=0). The shared participant is a RESOLVED
+DISCOURSE REFERENT (Heim file-card; Zwaan entity index; Cohen-Eichenbaum relational node), not a string. DISK
+CORROBORATION (already measured): resolved ACT-R binding 0.1739 beats string-identity 0.0589 CI-sep (twin loses);
+resolved coref lifts who-has-what 0.570->0.719 (+0.148 CI-sep); oracle-coref 0.62 vs surface 0.17 (~3.6x); the
+surface-blind binder is ACTIVELY HARMFUL (71.5% false-flags -> 0% with resolved binding). Faithful fix = SHARED
+DISCOURSE-REFERENT BINDING (bind the edge on resolved-referent index overlap over pronoun/zero/name/bridging),
+already built as `hdlab/world_state_entity_binding.py` (EntityBinder) + `graded_coref_pick` + `bound_event_backbone`;
+ceiling is COREF-RECALL-bound + the missing coherence next-mention prior (Kehler-Rohde 2013), not the mechanism.
+
 **TRIANGULATION (5 independent builds converge on ONE wall):** coverage-tiers (DEEP_MULTISTEP 51%),
 precise-trace (topical dominance; extraction not the issue), ECHO decision (mechanism proven, real-data flat),
 generative edges (generate>retrieve + phase-diagram optimum, class-level engines precision-coverage-bound),
