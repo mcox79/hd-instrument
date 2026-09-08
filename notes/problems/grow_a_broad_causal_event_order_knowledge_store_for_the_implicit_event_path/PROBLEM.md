@@ -1,10 +1,17 @@
 ---
-priority: 12
 slug: grow_a_broad_causal_event_order_knowledge_store_for_the_implicit_event_path
-status: CANDIDATE
-review:
-review_text:
+status: INTEGRATED
+review: EXCELLENT
+review_text: Reverified 8/8 first-hand. Broader tense-agnostic-mined store (454k verb-pairs) lifts TRACIE implicit-event ordering 0.5296->0.5655 (+0.0359 CI-sep), coverage 0.29->0.607, twin loses, narrated path byte-identical. Deep story-conditioning ceiling finding + 2 located negatives. Store-swap wire (reasoner implicit branch) tracked as the realization.
 ---
+
+> ## SOLVER REVIEW -- EXCELLENT (integrated 2026-09-08; store-swap wire tracked as the realization)
+> Reverified FIRST-HAND **8/8** (`verification/test_broaden_causal_order_store.py`): tense-agnostic re-mine recovery 2.06x (0.339->0.699); broader coverage 0.590>seed 0.295; broader acc 0.5650>seed 0.5275; shuffled-order twin 0.49 collapses (order load-bearing); narrated path byte-identical under store swap; positive control (41 pairs the seed abstains on).
+> **What makes it excellent:** it correctly LOCATED the seed store's limit as an UPSTREAM front-end gap (a tense-GATED offline mine), not a small corpus -- and proved the 4.9% corpus lever the brief guessed is the SMALL one, the extraction fix is the big one (coverage 2.1x). Re-mining 98,161 ROCStories through the ALREADY-LIVE tense-agnostic detector -> 454,129 ordered verb-pairs (seed 177,800) through the consolidation gate; TRACIE n=1924 ungated 0.5655 vs seed floor 0.5296 (+0.0359 CI[+0.0117,+0.0616] CI-sep), vs abstain +0.0655, twin loses +0.0759 CI-sep; both coverage AND per-pair accuracy hold-or-lift.
+> **Volunteered against itself + drilled DEEP (owner "why 0.61 not 0.94?"):** the ceiling is STORY-CONDITIONING, measured not asserted -- the aggregate store IS the context-free SCRIPT PRIOR (Schank-Abelson), right when a story follows its script (~60%), wrong on the ~40% deviations; closing that needs READING the implicit event's context (a categorically deeper mechanism, not a fidelity bug). Field-corroborated (Chambers-Jurafsky "typical not causal"; McKoon-Ratcliff online causal-link limit; SymTime needs 3.5M distant examples for 0.80).
+> **What did not reproduce under my check:** nothing -- 8/8 held.
+> **FULL FIX/PROTOTYPE INVENTORY tracked (ledger CONT-26; owner directive):** (1) FIX broader store (454k) + wire to the reasoner's implicit branch as a strength-gated override [realization, tracked]; (2) UPSTREAM the tense-agnostic extractor = the real coverage lever (already LIVE; this is an offline-mine fidelity fix); (3) LOCATED NEGATIVE transitive closure (coverage up, tail-accuracy chance); (4) LOCATED NEGATIVE causal-cue directional blend (+0.001, ROCStories connective-sparse); (5) the confidence gate (reasoner's `SCRIPT_M_MIN`) is the speed-accuracy SAT dial (margin up -> per-pair up, coverage down); (6) brain-fidelity: tense-agnostic detection = Zwaan-Langston-Graesser event-indexing (time is a CUE not a GATE); aspect = graded confidence feature not a filter; causal typing partially grounded (do not over-claim).
+> **AUDIT UPDATE folded (§2b):** the script/event-order store's ceiling is context-free script-prior (~0.61-0.68 per-pair); the residual is story-grounded instance-order needing the implicit event's context. **status:INTEGRATED, priority 12 dropped.** **Realization (tracked): rebuild the 454k store asset offline + point `hdlab/temporal_reasoner` implicit branch + `hdlab/temporal_script_schema` at it (narrated path byte-identical; blast radius = the implicit branch only).**
 
 # PROBLEM: the landed script/schema store that would place UNNARRATED events on the timeline is LATENT and thin -- it covers only ~29% of implicit-event verb-pairs at 0.60 and no reader consumes it, so the temporal reasoner ABSTAINS ("unknown -- needs world knowledge") on implicit-event ordering; GROW a BROADER glass-box CAUSAL / EVENT-ORDER knowledge store (irreversibility / entropy-typed verb-pair order, mined offline from more narrative + causal-cue corpora through the PROVEN consolidation gate) and WIRE it to the reasoner's implicit-event / abstention path as a strength-gated override on the iconicity default, and prove it lifts implicit-event ordering CI-separated over the current abstention AND the seed store's own floor on a modern gold, info-free twin LOSING, narrated-event path byte-identical.
 

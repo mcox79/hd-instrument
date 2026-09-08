@@ -1,10 +1,17 @@
 ---
-priority: 4
 slug: report_the_typed_coref_organ_onto_the_live_reader_common_noun_path_and_measure
-status: CANDIDATE
-review:
-review_text:
+status: INTEGRATED
+review: EXCELLENT
+review_text: Reverified 19/19 first-hand. Rigorous PARTIAL/located-negative -- refuted the brief's OWN mechanism, isolated the deficit to the binder's binding, proved the typed_coref resolution fix (0.5671 vs 0.5412 CI-sep, +0.0767 over the deployed binder) + a clean AUDIT UPDATE. Realization wire (typed_coref resolution consumer + board arm) tracked.
 ---
+
+> ## SOLVER REVIEW -- EXCELLENT (integrated 2026-09-08, as PARTIAL/located-negative; realization wire tracked)
+> Reverified FIRST-HAND: **19/19 witness checks reproduced** (`verification/test_commonnoun_binder_live_report.py`), every headline recomputed from source on the full GUM modern TEST (n=2855). Nothing failed under my check.
+> **What makes it excellent:** it followed the DISK over the brief. Asked to re-port two levers onto the live `commonnoun_binder`, it did so faithfully, found it reaches only PARITY (not a beat), and then LOCATED WHY -- the deployed binder is a LitBank cluster-F1 organ (person-gate + modifier-split + event-centrality) whose BINDING trails string-identity on per-mention RESOLUTION (0.4904 vs 0.5412), while the `typed_coref` binding on the identical schema BEATS it (+0.0767 CI-sep) and beats string-identity (0.5671, +0.0259 CI-sep). It proved the fix on the EXACT live dict schema (`typed_coref_liveschema_resolve` 0.5664, recovering the organ), with the info-free twin LOSING CI-sep, NAME no-regress (+0.0024), and an ORACLE-comparator ceiling (0.7492) that quantifies ~88% of the residual as WORLD KNOWLEDGE the WordNet comparator misses.
+> **Volunteered against itself:** the honest headline "no CI-separated win via the re-port the brief specified"; the win is board-INVISIBLE today (no live resolution dim); OOD (GENTLE) is a direction+magnitude replication, NOT a CI-separated claim (n=275 underpowered).
+> **What did not reproduce under my check:** nothing -- 19/19 held.
+> **Not-claimed-that-matters:** it CONFIRMED the de-leak (its numbers never use the gold-coref peek in a resolution decision) and RECONCILED the occupation-KB located negative -- its coarse person-typing (+0.0102 CI-sep) is a real TYPE constraint distinct from the specific occupation-KB, cleanly handed to the `world_knowledge_common_noun_to_name_bridge` problem.
+> **AUDIT UPDATE folded (§2b):** `commonnoun_binder` = a cluster-F1 organ, NOT a resolution organ, and person-gated (non-brain-foundational for coref); the `typed_coref` organ is the brain-foundational RESOLUTION path. **Realization (tracked):** the Q111 wire (serve the reader's common-noun RESOLUTION consumer from `hdlab.typed_coref`, additive/default-on-safe, + a `board_commonnoun_resolution_dimension` arm) -- lands next; the binder stays as-is for the clustering (`sm.entities`) consumer.
 
 # PROBLEM: `hdlab/typed_coref.py` beats same-head string-identity on common-noun coref (0.5671 vs 0.5412, CI-sep) but ONLY on the URG board-instrument proxy -- the LIVE reader common-noun path (`hdlab/commonnoun_binder.py`) is a DIFFERENT mention schema and never uses it -- so re-port the two brain-faithful levers (a typed NOMINAL card identity separate from the pronoun-polluted full card; a NON-WRITING different-head type bridge) onto the live reader's coref stream, prove the live common-noun RESOLUTION accuracy lifts CI-separated on modern GUM with pronoun/kb no-regress and the info-free twin LOSING, then flip per no-more-default-off.
 
