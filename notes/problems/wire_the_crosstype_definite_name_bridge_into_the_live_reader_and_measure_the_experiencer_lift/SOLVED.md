@@ -96,10 +96,12 @@ research the upstream is brain-foundational.
   brain-foundationally** -- 0.80 is the gold answer key, and the
   honest ceiling is floor + the ~19% stated-predication fraction; the rest is the world-knowledge wall. That is the
   honest performance-vs-brain statement, not a defeat.
-- **UPSTREAM #2 (secondary) -- the live PARSER/labeler.** The bridge reads the reader's arc-eager + arc-labeler
-  deprels; live-parse precision is 0.61 (conservative) / 0.42 (liberal) vs the gold-parse ceiling ~0.86-0.96 (origin).
-  A better parse of the licensing constructions (appos/copula/nsubj) would raise *precision*, but coverage (the 3-5%)
-  is bounded by how often the link is *stated*, so the parser is a real but second-order lever here.
+- **UPSTREAM #2 (measured NEAR-CEILING -- not the lever) -- the live PARSER/labeler.** The bridge reads the
+  reader's arc-eager + arc-labeler deprels. Quantified through the REAL consumer at the deployable conf_thr=-3.0:
+  GOLD-parse (oracle UD) lift **+0.0601 CI[+0.0356,+0.0886]** (161 fires) vs LIVE-parse **+0.0528 CI[+0.0316,+0.0782]**
+  (150 fires) -- **overlapping CIs, a ~0.007 / ~11-fire gap**: the live parser is essentially AT the gold-parse
+  ceiling for this task, so improving it recovers almost nothing here. The parser is a reader-wide OUR-INVENTION
+  proxy for the brain's incremental predictive parse (a filed reader-wide gap), but it is NOT this chain's limiter.
 - **Downstream-regress check -- now EMPIRICAL through the whole `reader.read()`
   (`exp_crosstype_deleaked_full_read_v1.py`).** I prototyped the surgical de-leak as a `DeLeakedReader` subclass
   (keeps NAME/pronoun anchoring, drops COMMON-noun gold inheritance) and ran the ACTUAL `reader.read()` on 25 native
@@ -140,8 +142,11 @@ research the upstream is brain-foundational.
   everywhere else; the brief's own floors are the honest raw numbers). If strategy rules it a legitimate given, then
   finding (B) stands as a clean located negative ("the bridge is redundant with the gold-anchored live input") and
   part 2 of the diff is moot -- but so is any board gain from the bridge.
-- **GUM only.** GENTLE OOD (26 docs, on disk) not run. The mechanism (Ariel cue-specificity + the world-knowledge
-  coverage wall) predicts the same OOD; measured only GUM.
+- **OOD is directionally consistent but UNDERPOWERED, not CI-separated.** Ran GENTLE (26 OOD docs, on disk) at the
+  deployable conf_thr=-3.0 through the real consumer: C3 0.0952 -> 0.1429 = **+0.0476 CI[+0.0000,+0.1042]** -- the
+  SAME direction and magnitude as GUM (+0.0528), but n=42 (only 9 merges) so the CI touches 0 and the twin is not
+  CI-sep either. So the mechanism GENERALIZES in point-estimate OOD, but GENTLE is too small to establish
+  CI-separation; I would not claim a CI-sep OOD win, only a consistent one.
 
 ## KEY REALIZATIONS (the enabling moves)
 - **Score through the REAL consumer -- and sweep the ARM, or you will under-read your own mechanism.** The origin's

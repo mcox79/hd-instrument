@@ -303,7 +303,7 @@ one-line status change; SOLVED reflects that the underlying goal (broaden + lift
    ~0.60 -> toward-0.94 lever and couples to the SDRT `coherence_reader` + `causal_reasoner` already landed.
 3. **MEDIUM -- causal-dense corpora** (wiqa / tellmewhy / process / ATOMIC) to strengthen the causal-cue directional
    signal for the abstract/social pairs where narrative adjacency is a coin-flip (ROCStories is connective-sparse).
-4. **LOW / DO-NOT (all measured located negatives):** transitive closure (coverage up, accuracy ~chance); position-only
+4. **LOW / DO-NOT (all measured located negatives):** the SDRT discourse-coherence channel + the reasoner's cue-closure HURT on TRACIE both-narrated (0.5521->0.5417; reasoner 0.5521 < simple narrative position 0.6245) -- TRACIE's genre is simple/ICONIC, so comprehension machinery built for complex discourse MISFIRES; the simplest signals (narrative position + aggregate script order) are best here; transitive closure (coverage up, accuracy ~chance); position-only
    ordering (weaker than pairwise); state/neg abstain (hurts -- not the driver); light-verb exclusion (hurts); the
    causal-cue blend at high weight (flips correct predictions); a 19c mining source (banned; archaic verbs); an
    external LLM at inference (the invariant).
