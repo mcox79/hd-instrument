@@ -115,6 +115,54 @@ other causal engines +0.332; and +0.227 is extraction/selection/irreducible.
 5. **Extraction (Stage 1) is NOT the bottleneck for this gold (0.98 recall)** -- a genuine finding; the
    extraction wall lives on harder prose, not clean modern TellMeWhy.
 
+## SECOND PASS -- the PRECISE, orthogonal trace + a fidelity audit of EVERY component (owner: "double-check brain-foundationality of all components; figure out exactly where we're losing")
+Instrument: `exp_genworldmodel_signal_loss_precise_v1.py` (witness `test_genworldmodel_signal_loss_precise.py`
+5/5). The first-pass ladder lumped stages and scored extraction as "any event found (0.98)"; this pass isolates
+each and audits the REUSED components (which the first pass took on trust). It CORRECTED one of my own
+hypotheses.
+
+### Exactly where the signal goes (measured, TellMeWhy non-adj n=256, GOAL 92)
+- **Generation coverage, EXACT by hop-distance (the dominant residual):** the gold goal->action means-end is
+  DIRECT (object/action reappears in q) **27%** / SINGLE_STEP (a directed result-state on q) **4%** / TWO_HOP
+  (a 2-hop CSKG cause/enable bridge) **15%** / **DEEP_MULTISTEP (>2 hops -- a genuine plan/script) 51%.** Our
+  mechanisms reach 46%; **51% is beyond a 2-hop reach.** This is the exact knowledge-depth wall, by distance.
+- **Topical ranking (a CORRECTED finding):** I suspected the base's topical-content cue was a removable
+  confound. It is NOT -- removing it CRASHES accuracy 0.277 -> 0.102 (-0.176 CI[-0.23,-0.12]); topical is the
+  LOAD-BEARING default cue (associative spreading activation, Collins-Loftus, IS brain-faithful). BUT it is also
+  the dominant ERROR source: **91% of the base's wrong picks are the max-topical NON-cause.** So the loss is not
+  "topical is bad" -- it is "the generative means-end must OVERRIDE topical and cannot, exactly on the 51% DEEP
+  slice where it is absent." Topical fills the vacuum the generative model leaves.
+- **Extraction is NOT the loss point (tightened):** main-verb recall 0.98, goal-marker recall 0.89. The
+  "goal object not present in q" (73%) is the MULTI-STEP phenomenon (the object legitimately isn't there --
+  "wanted milk"/"went to the store"), not a parse failure. So for THIS gold the upstream parse is not where we lose.
+- **Selection/integration:** even a correct means-end boost is overridden ~25% of the time by topical under the
+  old multiplicative gate (first-pass oracle 0.75); the additive layer recovers part of it.
+- **Irreducible:** ~9% of items have >1 gold cause (multi-cause / annotator latitude).
+
+### Component brain-fidelity audit (ALL components; does the (in)fidelity leak signal HERE?)
+| component | brain computation | PINNED / OUR-INVENTION | brain-faithful? | signal loss here |
+|---|---|---|---|---|
+| extraction (spaCy arc-eager) | incremental PREDICTIVE parse (LIFG/pMTG), eADM roles | OUR-INVENTION (greedy hard-commit) | NO in mechanism | ~2% (not the loss point on this gold) |
+| coref / participant binding | discourse referents; ATL/hippocampal | PINNED | partial (surface-head, pronoun-lenient) | small (single-protagonist gold) |
+| topical "content" cue | associative spreading activation (Collins-Loftus) | PINNED as a cue | PARTIAL -- right cue, WRONG ROLE (dominant ranker, not a weak prior) | load-bearing 0.277 BUT 91% of errors |
+| physics/psych engines (U8) | Talmy force dynamics; appraisal; mental cascade | PINNED computation | YES in kind, class-level (coarse) | modest |
+| goal_register | goal/intention (mPFC) + ToM | PINNED (Levin lexicon) | YES for marked, NO for implicit | 11% unmarked goals |
+| world_state / possession_operators / VerbNet result-states | Schank-Abelson RESULT; lexical event structure | OUR-INVENTION (FrameNet/VerbNet-seeded) | YES in kind, SINGLE-STEP only | single-step coverage (8.7%) |
+| **CSKG multi-step rollout knowledge** | generative script/plan SIMULATION | OUR-INVENTION | **NO -- RETRIEVAL over a static KB (the anti-pattern the brief names)** | reaches only TWO_HOP 15%; DEEP 51% beyond it |
+| integration (additive constraint satisfaction) | interactive activation / Competition Model / Kintsch settling | PINNED | PARTIAL -- additive combine, not full settling w/ signed pairwise coherence | recovers selection partially |
+| achievement check (inverse planning) | Baker-Saxe-Tenenbaum Bayesian ToM | PINNED | YES in kind (symbolic) | capped by generation |
+| recurrent top-down loop | predictive coding (Rao-Ballard, Friston) | PINNED | NO -- absent live | the whole loop (not wired) |
+
+### The two non-brain-foundational leaks the audit surfaced (beyond the known missing loop)
+1. **CSKG is RETRIEVAL, not generation** -- my multi-step rollout rides on a static ConceptNet-derived KB, the
+   exact "retrieve don't generate" architecture the problem exists to replace. It is a stopgap that reaches only
+   the TWO_HOP 15%; the DEEP 51% needs a GENERATIVE plan/script model, not a bigger/denser KB traversal (a denser
+   KB is a phase-diagram move that helps the traversal but does not change that traversal != simulation).
+2. **Topical content is the right cue in the WRONG ROLE** -- brain-faithful as a prior, but here it is the
+   dominant ranker and causes 91% of errors. The brain-faithful fix is not to remove it (load-bearing) but to let
+   the generative means-end OVERRIDE it via proper constraint satisfaction -- which is why the integration fix
+   AND the forward-model depth must land together (the interdependence).
+
 ## Verdict against the completion bar (checklist item 8)
 The component is brain-foundational in KIND at Stages 3 (goal lexicon, PINNED), 4-check (inverse-planning
 achievement, PINNED), and 5 (directed, not co-occurrence). It is NOT yet 100% brain-foundational at Stage 4

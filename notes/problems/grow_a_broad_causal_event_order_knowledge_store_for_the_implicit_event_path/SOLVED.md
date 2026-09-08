@@ -96,6 +96,57 @@ connective-marked cause->effect edges, reusing `_causal_network`'s connective-di
   order that CONTRADICTS the script prior, which no aggregate store can fix without reading the (implicit) event's
   context. SymTime reaches 0.80 only with ~3.5M distantly-supervised examples; a glass-box no-LLM store gets ~0.57-0.68.
 
+## UPGRADES + DEEPER UNDERSTANDING (owner drill: "why 0.61 not 0.94? is everything 100% brain-foundational? how does the brain do it?")
+The store fires at ~0.61 per-pair accuracy; a competent reader hits ~0.94 (TRACIE in-context human agreement). We
+now understand the gap PRECISELY, and it is NOT a fidelity bug in this store -- it is a categorically deeper mechanism.
+
+**(1) The ceiling is STORY-CONDITIONING, and it was measured, not asserted.** TRACIE places an IMPLICIT event X (in
+the story only 18%) relative to a NARRATED, story-anchored event Y (in the story 70%). The brain READS THE STORY and
+places X via the specific story's causal network + instantiated script (Trabasso; Zwaan situation model). Our store is
+CONTEXT-FREE: it uses only the aggregate type-order(X,Y), ignoring the story -- so it is right exactly when the story
+FOLLOWS its canonical script and wrong when the story DEVIATES (someone falls THEN stands, vs the canonical
+stand-then-fall). The ~40% covered-but-wrong ARE those deviations.
+
+**(2) WHY THE CONTEXT-FREE STORE DID SO WELL (owner's question) -- the key insight.** The aggregate store IS the
+SCRIPT PRIOR (Schank-Abelson canonical order), and scripts are, by design, CONTEXT-FREE REUSABLE knowledge ("pay
+before leave" holds across ALL restaurant stories). So for the ~60% majority where a story follows its script, the
+context-free lookup already EQUALS the story-grounded answer. That is why the aggregate is a strong prior -- and it is
+the brain's own DEFAULT (Zwaan iconicity/script default, overridden only on a confident causal signal).
+
+**(3) THREE faithful prototypes of the brain's story-grounding ALL fail to beat the prior -- so the store ceiling is
+real (measured, not conceded).**
+- **Averaging grounding** (place X by the evidence-weighted mean of its order to ALL narrated events): 0.5468 < 0.5655
+  -- it REPLACED the strong prior with noise. `exp_causal_order_story_grounded_v1`.
+- **Confident, SELECTIVE, transitive grounding** (anchor X to its SINGLE most script-related narrated event Z, place
+  transitively through the story timeline, override the prior only when the anchor is strong): 0.5535 < 0.5650, ns --
+  the transitive step compounds the store's own ~0.6 reliability and the deviation is SEMANTIC, not recoverable from
+  shallow co-occurrence. `exp_causal_order_grounded_v2`.
+- **Main-verb-only extraction** (reduce each clause to its main predication, Zwaan): 0.5629, ns -- the
+  strongest-evidence selection already handles multi-verb noise.
+CONCLUSION (converged by the HIGH bar -- the brain's mechanism identified AND faithfully prototyped): a store-level or
+SHALLOW-grounding method CANNOT exceed the context-free script prior. Exceeding it needs DEEP story comprehension --
+read the story, build the causal network, instantiate the specific script, place the implicit event -- i.e. the FULL
+situation-model reader, which the brief correctly FENCES as a separate organ. This matches the field: McKoon & Ratcliff
+(1992) (multi-step causal links are NOT constructed online from shallow cues); TRACIE SOTA (SymTime) needs ~3.5M
+distantly-supervised examples precisely because the signal is deep learned comprehension, not aggregate statistics.
+
+**(4) A brain-foundational FIDELITY + EFFICIENCY upgrade that IS worth adopting: key the store on the verb CONCEPT
+(WordNet lemma = the ATL lexical-conceptual hub), not a surface stem.** The crude suffix-stripper diverges from the
+proper lemma on 34% of TRACIE verbs (went!=go, bought!=buy, decided->decid, stopped->stopp!=stop), FRAGMENTING each
+verb concept across surface forms. Fixing it (`exp_broaden_causal_order_wnlemma_v1`, full 98k re-mine): the WN-lemma
+store MERGES 26% of the pairs (454,129 -> 335,853), lifts coverage 0.607 -> 0.616, still beats the seed CI-sep
+(+0.0353 [+0.0096,+0.0617]), and TIES the crude-stem store on accuracy (-0.0005, ns) -- the fragmentation cost is
+absorbed by data volume at 98k stories, but the WN-lemma store is MORE brain-foundational (the verb concept, not a
+stem), MORE efficient (26% smaller, 6.5MB vs 8.6MB), and higher-coverage. **Recommended asset:** `chains_broad_wn.json`
+(do the right thing even when the number ties). It would matter more in a lower-data / rarer-verb regime.
+
+**Is everything 100% brain-foundational?** The COMPUTATIONS are: tense-agnostic event detection (Zwaan 1995, PINNED);
+verb-concept keying (ATL hub, PINNED); narrative event chains as the script prior (Chambers-Jurafsky / Schank-Abelson,
+PINNED); the confidence-gated override (Zwaan default+override, PINNED). The remaining PROXY is the shared statistical
+POS tagger (a reader-wide gap, not specific to this store). The one thing that is NOT here -- and is the whole residual
+-- is the DEEP situation-model reader (the story-specific override), which is out of scope by design and is the named
+next-problem.
+
 ## KEY REALIZATIONS (the enabling moves)
 1. **The enumeration, not the brief, set the direction.** Splitting the loss into extraction / typing / corpus-coverage
    showed the brief's proposed lever (corpora, 4.9%) was the smallest and the real wall (extraction, 66%) was upstream.
@@ -122,11 +173,14 @@ a distinct STATE-ONSET ordering organ, the named next-problem. The causal/irreve
 (Trabasso representation; McKoon & Ratcliff online-construction caveat) -- a modest lever, not the main win.
 
 ## Proposed hdlab landing (strategy lands; Q111 -- I do not write hdlab/)
-1. **Rebuild the `temporal_script_schema` asset via the tense-agnostic mine.** Drop-in ready: copy
-   `data/exp_broaden_causal_order_store_v1/chains_broad.json` (temporal_script_schema `{"counts":...}` format, 454,129
-   pairs) over `data/exp_temporal_reason_tracie_script_v1/chains.json`, OR change `hdlab/temporal_script_schema.build_chains`
-   to extract via `hdlab.pos_tagger` UPOS==VERB (tense-agnostic) instead of `extract_events_punct`. ADDITIVE: the
-   reasoner code is unchanged; narrated path byte-identical; as-wired lift +0.0286 CI-sep with the existing gate.
+1. **Rebuild the `temporal_script_schema` asset via the tense-agnostic mine + verb-concept keying.** Drop-in ready:
+   copy `data/exp_broaden_causal_order_store_v1/chains_broad_wn.json` (RECOMMENDED -- WordNet-lemma keyed, 335,853
+   pairs, 26% smaller + higher coverage + more brain-foundational) OR `chains_broad.json` (crude-stem, 454,129 pairs,
+   same accuracy) over `data/exp_temporal_reason_tracie_script_v1/chains.json`, OR change
+   `hdlab/temporal_script_schema.build_chains` to extract via `hdlab.pos_tagger` UPOS==VERB (tense-agnostic) and key on
+   the WordNet verb lemma (`wn.morphy(w,'v')`) instead of `extract_events_punct` + the crude stem. The query path must
+   use the SAME lemmatizer (the live reader already UPOS-tags; add the lemma normalisation). ADDITIVE: reasoner code
+   unchanged; narrated path byte-identical; as-wired lift +0.0286 CI-sep with the existing gate.
 2. **Optionally retune the override confidence:** the UNGATED / lower-`SCRIPT_M_MIN` operating point gives higher
    coverage (0.61) and the best full accuracy (0.5655, +0.0359 CI-sep). The margin is the SAT dial; a lighter gate is
    net-positive here.
