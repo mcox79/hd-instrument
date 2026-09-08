@@ -457,3 +457,7 @@ alternative was tested and did not occur.)
    (section 11 -- located negative, they are a missing representational class); chase UAS / build a graded parser
    for accuracy (the parser submission refuted it); precision-weight the head-INDEPENDENT R_final patient; or claim
    strict calibration (measure sensitivity).
+
+
+## INTEGRATED_BY_STRATEGY (2026-09-08 backfill) -- EXCELLENT
+Marker backfilled so `problem_ledger.py` reads accurately. This problem was INTEGRATED in a prior session (PROBLEM.md `status: INTEGRATED`, `owner_verdict: DONE`); the integration + realization detail lives in the PROBLEM.md SOLVER REVIEW block, `notes/INTEGRATION_LEDGER.md`, and `notes/BRAIN_FOUNDATIONAL_AUDIT.md` (S2b). The `INTEGRATED_BY_STRATEGY` string was omitted from this SOLVED.md at integration time; appended now (bookkeeping only -- no code change, no re-grade).

@@ -269,3 +269,7 @@ tied strictly to an end-to-end narrative accuracy win, this is a PARTIAL; the sc
 **P4 (adjacent capability).** **Couple counterfactual necessity to the affect/regret organs** -- narrative coherence is
    affect-driven (the Story Cloze finding); the reasoner's necessity read-out is the substrate for a vmPFC-style
    regret/blame consumer.
+
+
+## INTEGRATED_BY_STRATEGY (2026-09-08 backfill) -- EXCELLENT
+Marker backfilled so `problem_ledger.py` reads accurately. This problem was INTEGRATED in a prior session (PROBLEM.md `status: INTEGRATED`, `owner_verdict: DONE`); the integration + realization detail lives in the PROBLEM.md SOLVER REVIEW block, `notes/INTEGRATION_LEDGER.md`, and `notes/BRAIN_FOUNDATIONAL_AUDIT.md` (S2b). The `INTEGRATED_BY_STRATEGY` string was omitted from this SOLVED.md at integration time; appended now (bookkeeping only -- no code change, no re-grade).

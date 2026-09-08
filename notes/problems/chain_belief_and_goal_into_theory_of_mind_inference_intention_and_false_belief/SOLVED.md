@@ -238,3 +238,7 @@ None.
 belief-dimension no-regress witness; (2) land the default-off `predict_action` read-out composing the two live
 registers (6.2); (3) build the goal->fact desired-VALUE binding to lift `sm.wants` (the action ceiling, 6.3);
 (4) fold the AUDIT UPDATE into BRAIN_FOUNDATIONAL_AUDIT.md.
+
+
+## INTEGRATED_BY_STRATEGY (2026-09-08 backfill) -- EXCELLENT
+Marker backfilled so `problem_ledger.py` reads accurately. This problem was INTEGRATED in a prior session (PROBLEM.md `status: INTEGRATED`, `owner_verdict: DONE`); the integration + realization detail lives in the PROBLEM.md SOLVER REVIEW block, `notes/INTEGRATION_LEDGER.md`, and `notes/BRAIN_FOUNDATIONAL_AUDIT.md` (S2b). The `INTEGRATED_BY_STRATEGY` string was omitted from this SOLVED.md at integration time; appended now (bookkeeping only -- no code change, no re-grade).

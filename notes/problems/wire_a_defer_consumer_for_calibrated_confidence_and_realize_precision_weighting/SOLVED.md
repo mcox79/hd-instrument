@@ -357,3 +357,7 @@ fall-back and upstream negatives as full-pass secondary findings, not the headli
    wire the small-beam posterior (located negative, label bias); use FALL-BACK for any defer (adds nothing --
    ABSTAIN); re-attach the parse; or quote a fall-back absolute-accuracy gain (there is none -- an expected
    located negative).
+
+
+## INTEGRATED_BY_STRATEGY (2026-09-08 backfill) -- EXCELLENT
+Marker backfilled so `problem_ledger.py` reads accurately. This problem was INTEGRATED in a prior session (PROBLEM.md `status: INTEGRATED`, `owner_verdict: DONE`); the integration + realization detail lives in the PROBLEM.md SOLVER REVIEW block, `notes/INTEGRATION_LEDGER.md`, and `notes/BRAIN_FOUNDATIONAL_AUDIT.md` (S2b). The `INTEGRATED_BY_STRATEGY` string was omitted from this SOLVED.md at integration time; appended now (bookkeeping only -- no code change, no re-grade).

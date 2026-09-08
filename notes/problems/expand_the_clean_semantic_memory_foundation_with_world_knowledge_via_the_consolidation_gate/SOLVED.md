@@ -487,3 +487,7 @@ add-on that needs one more curated grammar resource -- not a rebuild.
   common-noun-coref WALL as a "no-LLM limit" (built across); TYPE 9 EVENT-SCRIPTS (ALREADY a landed organ --
   `hdlab/generalized_event_knowledge.py`, Story Cloze 0.582 CI-sep; do NOT rebuild); a general PARSER UPGRADE or
   heuristic/external scope for monotonicity (verdict C rejects the parser lever; six scope methods fail; spaCy barred).
+
+
+## INTEGRATED_BY_STRATEGY (2026-09-08 backfill) -- REVIEW
+Marker backfilled so `problem_ledger.py` reads accurately. This problem was INTEGRATED in a prior session (PROBLEM.md `status: INTEGRATED`, `owner_verdict: DONE`); the integration + realization detail lives in the PROBLEM.md SOLVER REVIEW block, `notes/INTEGRATION_LEDGER.md`, and `notes/BRAIN_FOUNDATIONAL_AUDIT.md` (S2b). The `INTEGRATED_BY_STRATEGY` string was omitted from this SOLVED.md at integration time; appended now (bookkeeping only -- no code change, no re-grade).

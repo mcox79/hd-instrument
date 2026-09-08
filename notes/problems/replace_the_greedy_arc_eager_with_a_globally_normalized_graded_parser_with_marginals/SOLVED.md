@@ -639,3 +639,7 @@ Promote `experiments/graded_parser_promote_v1.py` verbatim to `hdlab/graded_pars
 **DO NOT:** chase UAS; use the exact 2nd-best TREE as a live lever; train a deep OOD-losing parser; use an external LLM
   at inference; re-attach the parse post-hoc; lean on 19c gold; replace the labeled reader (ensemble with it -- a
   standalone structural selector loses the easy cases).
+
+
+## INTEGRATED_BY_STRATEGY (2026-09-08 backfill) -- REVIEW
+Marker backfilled so `problem_ledger.py` reads accurately. This problem was INTEGRATED in a prior session (PROBLEM.md `status: INTEGRATED`, `owner_verdict: DONE`); the integration + realization detail lives in the PROBLEM.md SOLVER REVIEW block, `notes/INTEGRATION_LEDGER.md`, and `notes/BRAIN_FOUNDATIONAL_AUDIT.md` (S2b). The `INTEGRATED_BY_STRATEGY` string was omitted from this SOLVED.md at integration time; appended now (bookkeeping only -- no code change, no re-grade).

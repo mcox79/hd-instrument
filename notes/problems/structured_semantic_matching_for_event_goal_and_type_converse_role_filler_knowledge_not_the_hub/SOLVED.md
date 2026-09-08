@@ -234,3 +234,7 @@ identical.
   lives in `_occ_upstream_goal_status`); add the temporal script-step TYPE and bridging part-of consumers.
 - **DO NOT re-file:** the ATL hub (complementary, landed), the OCC/goal/spatial/temporal reasoners (landed), or the
   polarity-blindness finding (measured).
+
+
+## INTEGRATED_BY_STRATEGY (2026-09-08 backfill) -- REVIEW
+Marker backfilled so `problem_ledger.py` reads accurately. This problem was INTEGRATED in a prior session (PROBLEM.md `status: INTEGRATED`, `owner_verdict: DONE`); the integration + realization detail lives in the PROBLEM.md SOLVER REVIEW block, `notes/INTEGRATION_LEDGER.md`, and `notes/BRAIN_FOUNDATIONAL_AUDIT.md` (S2b). The `INTEGRATED_BY_STRATEGY` string was omitted from this SOLVED.md at integration time; appended now (bookkeeping only -- no code change, no re-grade).

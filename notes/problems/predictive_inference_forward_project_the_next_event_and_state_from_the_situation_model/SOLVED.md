@@ -571,3 +571,7 @@ project, not a broken guesser or a forbidden model.
 - Revisit `predict_surprisal` (extend to event level) and `n400_coherence_monitor` (take its error against the
   forward prediction + lambda~0.3 reinstatement) to consume the new forward-event expectation -- the true
   predictive-coding loop (the built loop cell shows forward error >> backward for both coherence and segmentation).
+
+
+## INTEGRATED_BY_STRATEGY (2026-09-08 backfill) -- STRONG
+Marker backfilled so `problem_ledger.py` reads accurately. This problem was INTEGRATED in a prior session (PROBLEM.md `status: INTEGRATED`, `owner_verdict: DONE`, SOLVED=PARTIAL, a partial outcome); the integration + realization detail lives in the PROBLEM.md SOLVER REVIEW block, `notes/INTEGRATION_LEDGER.md`, and `notes/BRAIN_FOUNDATIONAL_AUDIT.md` (S2b). The `INTEGRATED_BY_STRATEGY` string was omitted from this SOLVED.md at integration time; appended now (bookkeeping only -- no code change, no re-grade).

@@ -560,3 +560,7 @@ situation model with a good-enough parse, and our own disk shows a better parser
 5. **DO NOT** build a graded/probabilistic parser to chase UAS (the target is not brain-foundational; beam over
    the greedy model is already a located negative), and **DO NOT** relax the no-trained-encoder invariant. The
    graded competition is worth building ONLY for its CONFIDENCE (item 1), not its accuracy.
+
+
+## INTEGRATED_BY_STRATEGY (2026-09-08 backfill) -- EXCELLENT
+Marker backfilled so `problem_ledger.py` reads accurately. This problem was INTEGRATED in a prior session (PROBLEM.md `status: INTEGRATED`, `owner_verdict: DONE`, SOLVED=REFUTED, a located-negative / refuted outcome); the integration + realization detail lives in the PROBLEM.md SOLVER REVIEW block, `notes/INTEGRATION_LEDGER.md`, and `notes/BRAIN_FOUNDATIONAL_AUDIT.md` (S2b). The `INTEGRATED_BY_STRATEGY` string was omitted from this SOLVED.md at integration time; appended now (bookkeeping only -- no code change, no re-grade).

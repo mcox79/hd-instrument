@@ -479,3 +479,7 @@ refutation + the resolution) but REFUTED is defensible. Your call.
 - **LOWER — located follow-ons (self-contained, minor):** the trigger-vs-named-reference discourse organ (Sec 4b); a
   well-powered selectional-preference organ (Sec 4e, moot for this gate but may help other consumers); grounded
   representation for OTHER sortal distinctions (Sec 4c → the encoding-ceiling fork); parser UAS 0.79 (Sec 4e).
+
+
+## INTEGRATED_BY_STRATEGY (2026-09-08 backfill) -- REVIEW
+Marker backfilled so `problem_ledger.py` reads accurately. This problem was INTEGRATED in a prior session (PROBLEM.md `status: INTEGRATED`, `owner_verdict: DONE`, SOLVED=PARTIAL, a partial outcome); the integration + realization detail lives in the PROBLEM.md SOLVER REVIEW block, `notes/INTEGRATION_LEDGER.md`, and `notes/BRAIN_FOUNDATIONAL_AUDIT.md` (S2b). The `INTEGRATED_BY_STRATEGY` string was omitted from this SOLVED.md at integration time; appended now (bookkeeping only -- no code change, no re-grade).

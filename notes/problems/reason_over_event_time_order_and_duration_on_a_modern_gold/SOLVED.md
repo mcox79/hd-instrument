@@ -339,3 +339,7 @@ implicit-event queries.
   INFERRED from causal knowledge, not marked (the marker-only version is a proven located negative).
 - **P5 -- Richer script induction for the TRACIE tail** (the 0.60 chain organ -> SymTime-class start/end + duration
   decomposition) and an anchor-aware TORQUE overlap scorer (on top of P2).
+
+
+## INTEGRATED_BY_STRATEGY (2026-09-08 backfill) -- EXCELLENT
+Marker backfilled so `problem_ledger.py` reads accurately. This problem was INTEGRATED in a prior session (PROBLEM.md `status: INTEGRATED`, `owner_verdict: DONE`); the integration + realization detail lives in the PROBLEM.md SOLVER REVIEW block, `notes/INTEGRATION_LEDGER.md`, and `notes/BRAIN_FOUNDATIONAL_AUDIT.md` (S2b). The `INTEGRATED_BY_STRATEGY` string was omitted from this SOLVED.md at integration time; appended now (bookkeeping only -- no code change, no re-grade).

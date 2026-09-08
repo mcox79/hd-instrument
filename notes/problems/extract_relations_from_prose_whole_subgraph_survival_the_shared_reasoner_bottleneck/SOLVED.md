@@ -326,3 +326,7 @@ Already a filed PARTIAL problem (`wire_the_incremental_parser...`); do not dupli
 nominal temporal detection; whole-subgraph survival on TB-Dense + MAVEN; end-to-end through the actual solved reasoner;
 the unified Figure-Ground frame binder; the three-reasoner extraction-lever map; the determinism guard. Also do not
 re-file the temporal reasoner (solved) or the role front-end (landed live).
+
+
+## INTEGRATED_BY_STRATEGY (2026-09-08 backfill) -- EXCELLENT
+Marker backfilled so `problem_ledger.py` reads accurately. This problem was INTEGRATED in a prior session (PROBLEM.md `status: INTEGRATED`, `owner_verdict: DONE`, SOLVED=PARTIAL, a partial outcome); the integration + realization detail lives in the PROBLEM.md SOLVER REVIEW block, `notes/INTEGRATION_LEDGER.md`, and `notes/BRAIN_FOUNDATIONAL_AUDIT.md` (S2b). The `INTEGRATED_BY_STRATEGY` string was omitted from this SOLVED.md at integration time; appended now (bookkeeping only -- no code change, no re-grade).

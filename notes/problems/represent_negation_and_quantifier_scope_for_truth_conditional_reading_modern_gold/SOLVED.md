@@ -299,3 +299,7 @@ load-bearing numbers and the constructed set as illustrative.
 - **P4 (optional coverage extension — only on request):** extend the natural-logic engine to conditional
   monotonicity (antecedent downward / consequent upward) and phrase-level edit-direction; raises MED coverage
   beyond 0.704. Conjunction is ALREADY handled (0.747, measured). NOT needed for the bar.
+
+
+## INTEGRATED_BY_STRATEGY (2026-09-08 backfill) -- EXCELLENT
+Marker backfilled so `problem_ledger.py` reads accurately. This problem was INTEGRATED in a prior session (PROBLEM.md `status: INTEGRATED`, `owner_verdict: DONE`); the integration + realization detail lives in the PROBLEM.md SOLVER REVIEW block, `notes/INTEGRATION_LEDGER.md`, and `notes/BRAIN_FOUNDATIONAL_AUDIT.md` (S2b). The `INTEGRATED_BY_STRATEGY` string was omitted from this SOLVED.md at integration time; appended now (bookkeeping only -- no code change, no re-grade).

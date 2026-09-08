@@ -320,3 +320,7 @@ remaining lever for who-did-what.** This problem's role cue is the correct, comp
 **DO NOT:** pursue a graded voice-confidence weight (TESTED, −0.056 CI-sep — worse); add a grounded selectional-fit
 cue to the role competition (located negative here + in the fit-gate line — it does not beat the animacy cue
 already present); couple `meaning_foundation` whitening to this problem (its payoff is the WSD channel, not role).
+
+
+## INTEGRATED_BY_STRATEGY (2026-09-08 backfill) -- EXCELLENT
+Marker backfilled so `problem_ledger.py` reads accurately. This problem was INTEGRATED in a prior session (PROBLEM.md `status: INTEGRATED`, `owner_verdict: DONE`); the integration + realization detail lives in the PROBLEM.md SOLVER REVIEW block, `notes/INTEGRATION_LEDGER.md`, and `notes/BRAIN_FOUNDATIONAL_AUDIT.md` (S2b). The `INTEGRATED_BY_STRATEGY` string was omitted from this SOLVED.md at integration time; appended now (bookkeeping only -- no code change, no re-grade).

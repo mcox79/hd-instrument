@@ -260,3 +260,7 @@ DO NOT REDO (measured-capped, each on disk with its reason): same-head splitting
    CoNLL); the WRITING different-head bridge (corrupts the same-head chain: same-head 0.769->0.694); graded commit-gate
    (same corruption); recall-safe/soft agreement + ACT-R selector on common nouns (washes -- ranking is not the lever,
    gender is ~6%-sparse); the world-knowledge type-license as a WRITING FILTER (net-negative -- use it NON-writing).
+
+
+## INTEGRATED_BY_STRATEGY (2026-09-08 backfill) -- REVIEW
+Marker backfilled so `problem_ledger.py` reads accurately. This problem was INTEGRATED in a prior session (PROBLEM.md `status: INTEGRATED`, `owner_verdict: DONE`); the integration + realization detail lives in the PROBLEM.md SOLVER REVIEW block, `notes/INTEGRATION_LEDGER.md`, and `notes/BRAIN_FOUNDATIONAL_AUDIT.md` (S2b). The `INTEGRATED_BY_STRATEGY` string was omitted from this SOLVED.md at integration time; appended now (bookkeeping only -- no code change, no re-grade).

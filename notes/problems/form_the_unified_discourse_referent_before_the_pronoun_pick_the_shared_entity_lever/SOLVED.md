@@ -293,3 +293,7 @@ ban) — the mechanism is the same pronoun lift feeding it.
 2. Land the **P2 Competition-Model role assigner** alongside — measured load-bearing for the entity-KB hard-link.
 3. The remaining nominal residual is the world-knowledge bridging wall (Phase-1 `entity_world_model_resolver`), not a
    fidelity gap in this component.
+
+
+## INTEGRATED_BY_STRATEGY (2026-09-08 backfill) -- EXCELLENT
+Marker backfilled so `problem_ledger.py` reads accurately. This problem was INTEGRATED in a prior session (PROBLEM.md `status: INTEGRATED`, `owner_verdict: DONE`); the integration + realization detail lives in the PROBLEM.md SOLVER REVIEW block, `notes/INTEGRATION_LEDGER.md`, and `notes/BRAIN_FOUNDATIONAL_AUDIT.md` (S2b). The `INTEGRATED_BY_STRATEGY` string was omitted from this SOLVED.md at integration time; appended now (bookkeeping only -- no code change, no re-grade).

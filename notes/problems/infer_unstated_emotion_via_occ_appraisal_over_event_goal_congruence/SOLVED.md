@@ -425,3 +425,7 @@ step"~"podium") not the directional-edge store. BUILT + MEASURED (§9a.3): 13/22
 HARD-PASS met. Bounded core ~150-400 script-types (Zipfian) covers a majority; the long tail is correctly Phase-1.
 This RE-SCOPES the dominant ceiling: MUCH of "result-state world knowledge" is a bounded buildable script asset, not
 the general meaning channel -- so P3 (below) splits into a shippable goal-script KB + a smaller true-Phase-1 tail.
+
+
+## INTEGRATED_BY_STRATEGY (2026-09-08 backfill) -- EXCELLENT
+Marker backfilled so `problem_ledger.py` reads accurately. This problem was INTEGRATED in a prior session (PROBLEM.md `status: INTEGRATED`, `owner_verdict: DONE`); the integration + realization detail lives in the PROBLEM.md SOLVER REVIEW block, `notes/INTEGRATION_LEDGER.md`, and `notes/BRAIN_FOUNDATIONAL_AUDIT.md` (S2b). The `INTEGRATED_BY_STRATEGY` string was omitted from this SOLVED.md at integration time; appended now (bookkeeping only -- no code change, no re-grade).

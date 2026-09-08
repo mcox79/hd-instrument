@@ -409,3 +409,7 @@ reader's own mentions/parse is a post-integration confirmation (my validation is
 **DONE-AND-BANKED (nothing more to build):** the mechanism (two-route CLS + graded competition + thematic), the
 100%-BF full-chain prototype + ablations, the signal-loss waterfall, the negatives drill, the hub consolidation,
 and the three upgrades. Both witnesses green (8/8 entity-spoke, 6/6 BF-chain); ledger clean.
+
+
+## INTEGRATED_BY_STRATEGY (2026-09-08 backfill) -- REVIEW
+Marker backfilled so `problem_ledger.py` reads accurately. This problem was INTEGRATED in a prior session (PROBLEM.md `status: INTEGRATED`, `owner_verdict: DONE`); the integration + realization detail lives in the PROBLEM.md SOLVER REVIEW block, `notes/INTEGRATION_LEDGER.md`, and `notes/BRAIN_FOUNDATIONAL_AUDIT.md` (S2b). The `INTEGRATED_BY_STRATEGY` string was omitted from this SOLVED.md at integration time; appended now (bookkeeping only -- no code change, no re-grade).

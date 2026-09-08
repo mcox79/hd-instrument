@@ -692,3 +692,7 @@ performs at the achievable human-agreement level -- the shippable thing is that 
   invariant decision needed.
 - **REVISIT (optional):** `bound_event_backbone` (default-on) could chunk with the SEM organ instead of the
   prediction-error monitor -- measured on its episodic-store metric, once P1 lands.
+
+
+## INTEGRATED_BY_STRATEGY (2026-09-08 backfill) -- REVIEW
+Marker backfilled so `problem_ledger.py` reads accurately. This problem was INTEGRATED in a prior session (PROBLEM.md `status: INTEGRATED`, `owner_verdict: DONE`, SOLVED=PARTIAL, a partial outcome); the integration + realization detail lives in the PROBLEM.md SOLVER REVIEW block, `notes/INTEGRATION_LEDGER.md`, and `notes/BRAIN_FOUNDATIONAL_AUDIT.md` (S2b). The `INTEGRATED_BY_STRATEGY` string was omitted from this SOLVED.md at integration time; appended now (bookkeeping only -- no code change, no re-grade).

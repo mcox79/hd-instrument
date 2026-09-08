@@ -395,3 +395,7 @@ its own problem slug rather than this one, say so -- the measurement and propose
 5. **DO-NOT-REOPEN:** the he/she coref residual is the genuine glass-box floor (same-gender ambiguity + genderless
    antecedents). Its only remaining levers are world-knowledge / a coherence next-mention prior -- both no-LLM-barred /
    owner-DONE-dead x2. That is the priority-1 individuation North Star, a separate program, not a knob on this problem.
+
+
+## INTEGRATED_BY_STRATEGY (2026-09-08 backfill) -- EXCELLENT
+Marker backfilled so `problem_ledger.py` reads accurately. This problem was INTEGRATED in a prior session (PROBLEM.md `status: INTEGRATED`, `owner_verdict: DONE`, SOLVED=PARTIAL, a partial outcome); the integration + realization detail lives in the PROBLEM.md SOLVER REVIEW block, `notes/INTEGRATION_LEDGER.md`, and `notes/BRAIN_FOUNDATIONAL_AUDIT.md` (S2b). The `INTEGRATED_BY_STRATEGY` string was omitted from this SOLVED.md at integration time; appended now (bookkeeping only -- no code change, no re-grade).
