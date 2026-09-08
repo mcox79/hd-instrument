@@ -1,5 +1,6 @@
 """perceptual_access_ledger -- the brain-faithful OBSERVATION-CUE front-end for Theory of Mind.
 
+
 Replaces the landed lexical keyword extractor (extract_observed_from_text, 0.808) with a glass-box
 implementation of the brain's actual computation for "did agent A perceive / come to know event E?".
 
@@ -34,15 +35,21 @@ PINNED design choices (copy the operation):
 OUR-INVENTION-UNDER-TEST (labelled): the exact Path-satellite lexicon + the Allen-interval implementation +
   the addressee->knows rule (literature gaps we fill; parameters swept, operation copied).
 
-GLASS-BOX: pure symbolic inference over a spaCy dependency parse (the syntactic front-end, same as the litbank
-  reader cells). NO external LLM, NO network at inference. The parse is perception-of-syntax; the ledger is the
-  glass-box situation-model inference. ASCII only.
+GLASS-BOX: pure symbolic inference over the SUBSTRATE'S OWN in-substrate UD parse (hdlab.pos_tagger UPOS +
+  hdlab.arc_parser heads + hdlab.arc_labeler UD deprels -- the SAME frontend every other reader organ uses).
+  NO spaCy, NO external LLM, NO network at inference (owner 2026-09-08: an external tool at inference is NOT
+  brain-foundational). The parse is perception-of-syntax; the ledger is the glass-box situation-model
+  inference. Cues re-expressed over UD topology (copula-head inversion; PP = obl noun + case child; obj/iobj;
+  compound:prt). ASCII only.
 """
 from __future__ import annotations
 
+import os
 import re
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Sequence, Tuple
+
+from hdlab.thematic_role_labeler import lemma_verb
 
 # ---------------------------------------------------------------------------
 # Path-satellite / deixis lexicons (Talmy PATH lives in the SATELLITE, not the verb root).
@@ -127,10 +134,7 @@ _PRON = {"he", "she", "they", "him", "her", "them", "his", "hers", "their"}
 
 
 # ---------------------------------------------------------------------------
-# RULE 0 -- EXPLICIT narrator epistemic statement about the agent. The narrator directly asserting a mind-state
-# ("unbeknownst to her", "she did not see it", "he watched") is the MOST DIRECT evidence a reader has, and a
-# faithful reader uses it (it is testimony from the narrator). Highest priority; the marker NEAREST the event wins.
-# Copies the developmental "seeing/being-told = knowing" gate at the surface where the text states it outright.
+# RULE 0 -- EXPLICIT narrator epistemic statement about the agent.
 # ---------------------------------------------------------------------------
 def _epistemic_patterns(agent_re: str):
     a = agent_re
@@ -151,6 +155,73 @@ def _epistemic_patterns(agent_re: str):
         rf"\bin full view of {a}\b", rf"\b{a} (?:looked on|was present|stood by and)\b",
     ]
     return neg, pos
+
+
+# ---------------------------------------------------------------------------
+# In-substrate parse frontend (the SAME assets the reader uses). Loaded lazily + module-cached so importing
+# this module is free and a reader that never queries belief pays nothing.
+# ---------------------------------------------------------------------------
+_REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+_POS_ASSET = os.path.join(_REPO, "data", "frontend_assets", "pos_tagger_ud_ewt_upos.json")
+_ARC_ASSET = os.path.join(_REPO, "data", "frontend_assets", "arc_parser_hashed_ud_ewt.npz")
+_LAB_ASSET = os.path.join(_REPO, "data", "frontend_assets", "arc_labeler_hashed_ud_ewt.json")
+_FRONTEND: Dict[str, object] = {}
+
+
+def _frontend():
+    """The shared in-substrate parse frontend (tagger, parser, labeler). Loaded once, reused."""
+    if "t" not in _FRONTEND:
+        from hdlab.pos_tagger import PosTagger
+        from hdlab.arc_parser import ArcParser
+        from hdlab.arc_labeler import ArcLabeler
+        _FRONTEND["t"] = PosTagger.load(_POS_ASSET)
+        _FRONTEND["p"] = ArcParser.load(_ARC_ASSET)
+        _FRONTEND["l"] = ArcLabeler.load(_LAB_ASSET)
+    return _FRONTEND["t"], _FRONTEND["p"], _FRONTEND["l"]
+
+
+# lightweight deterministic tokenizer + sentence splitter (NO spaCy). The reader normally hands the ledger
+# text built from its OWN pre-tokenized sentences, so this reproduces that segmentation on the joined text.
+_ABBREV = {"mr", "mrs", "ms", "dr", "st", "mt", "jr", "sr", "prof", "rev", "gen", "col", "capt", "sgt"}
+_TOK_RE = re.compile(r"n't|'s|'re|'ve|'ll|'d|'m|[A-Za-z]+|[0-9]+|[^\sA-Za-z0-9]")
+
+
+def _tokenize(sentence: str) -> List[str]:
+    return _TOK_RE.findall(sentence)
+
+
+def _split_sentences(text: str) -> List[List[str]]:
+    toks_all = _tokenize(text)
+    sents: List[List[str]] = []
+    cur: List[str] = []
+    for i, tk in enumerate(toks_all):
+        cur.append(tk)
+        if tk in (".", "!", "?"):
+            prev = toks_all[i - 1].lower() if i >= 1 else ""
+            if tk == "." and prev in _ABBREV:
+                continue
+            nxt = toks_all[i + 1] if i + 1 < len(toks_all) else None
+            if nxt is None or nxt[0:1].isupper() or nxt[0:1] in ("\"", "'"):
+                sents.append(cur)
+                cur = []
+    if cur:
+        sents.append(cur)
+    return sents
+
+
+@dataclass
+class _ISent:
+    """One sentence's in-substrate parse (1-based dep indices). Exposes `.text` so the regex-only cue
+    methods (field / testimony / epistemic) run over it unchanged."""
+    toks: List[str]
+    upos: List[str]
+    heads: Dict[int, int]        # dep_idx(1-based) -> head_idx (0 = ROOT)
+    deprels: Dict[int, str]      # dep_idx(1-based) -> UD deprel
+    _text: str = ""
+
+    @property
+    def text(self) -> str:
+        return self._text
 
 
 @dataclass
@@ -178,24 +249,59 @@ class LedgerTrace:
 
 
 class PerceptualAccessLedger:
-    """Glass-box perceptual-access registration ledger over a spaCy parse.
+    """Glass-box perceptual-access registration ledger over the substrate's OWN in-substrate UD parse.
 
     Usage:
-        led = PerceptualAccessLedger(nlp)
+        led = PerceptualAccessLedger()
         trace = led.observed(text, agent_aliases=["Anna", "she", "her"], event_object="marble",
                              event_location=None, scene_reset_at=None)
         cue = trace.observed  # True iff RULE 1 (co-present & field-open at the move) or RULE 2 (informed) fired
     """
 
     def __init__(self, nlp=None):
-        self._nlp = nlp  # spaCy Language (lazy: caller passes it so one model is shared across a run)
+        # `nlp` is accepted for backward-compat with callers that used to pass a spaCy model; it is IGNORED
+        # (this ledger never touches spaCy). _nlp stays None so any `getattr(led, "_nlp", None)` consumer
+        # (e.g. the belief driver's STATUS reality path) routes to the in-substrate fallback, not spaCy.
+        self._nlp = None
+        self._t = None  # lazy in-substrate frontend handles (tagger, parser, labeler)
+        self._p = None
+        self._l = None
 
     # ---- parsing -------------------------------------------------------
-    def _nlp_or_load(self):
-        if self._nlp is None:
-            import spacy
-            self._nlp = spacy.load("en_core_web_sm")
-        return self._nlp
+    def _parse_sent(self, toks: Sequence[str]) -> _ISent:
+        if self._t is None:
+            self._t, self._p, self._l = _frontend()
+        toks = list(toks)
+        upos = self._t.tag(toks)
+        heads = self._p.parse(toks, upos).heads
+        deprels = self._l.label(toks, upos, heads)
+        return _ISent(toks=toks, upos=list(upos), heads=dict(heads), deprels=dict(deprels),
+                      _text=" ".join(toks))
+
+    def _parse_sents(self, text: str) -> List[_ISent]:
+        return [self._parse_sent(t) for t in _split_sentences(text) if t]
+
+    # ---- tree helpers over UD heads ------------------------------------
+    @staticmethod
+    def _descendants(sent: "_ISent", root: int) -> List[int]:
+        n = len(sent.toks)
+        children: Dict[int, List[int]] = {}
+        for k in range(1, n + 1):
+            children.setdefault(sent.heads.get(k, 0), []).append(k)
+        seen: set = set()
+        stack = [root]
+        while stack:
+            x = stack.pop()
+            if x in seen:
+                continue
+            seen.add(x)
+            for c in children.get(x, []):
+                if c not in seen:
+                    stack.append(c)
+        return sorted(seen)
+
+    def _subtree_text(self, sent: "_ISent", root: int) -> str:
+        return " ".join(sent.toks[i - 1] for i in self._descendants(sent, root))
 
     # ---- subject / agent resolution -----------------------------------
     @staticmethod
@@ -203,136 +309,113 @@ class PerceptualAccessLedger:
         parts = sorted({re.escape(a.strip()) for a in agent_aliases if a.strip()}, key=len, reverse=True)
         return re.compile(r"\b(" + "|".join(parts) + r")\b", re.IGNORECASE)
 
-    @staticmethod
-    def _root_subjects(sent):
-        """The MAIN-clause subject token(s): the nsubj/nsubjpass of the ROOT verb (+ its conjuncts). This is
-        the agent's OWN action -- a subordinate 'while Anna watched' subject is NOT the main subject and must
-        not count as the agent moving (the bug that mislocated the event on 'while Anna watched')."""
-        root = None
-        for t in sent:
-            if t.dep_ == "ROOT":
-                root = t
-                break
+    def _root_subjects(self, sent: "_ISent") -> List[int]:
+        """The MAIN-clause subject token index(es): the nsubj/nsubj:pass/csubj of the ROOT verb (head==0)
+        (+ its conjuncts). UD: the root is the token with head 0 (spaCy dep_=='ROOT'); the subject is its
+        nsubj child (not a subordinate 'while Anna watched' subject -- the bug that mislocated the event)."""
+        toks, upos, heads, deprels = sent.toks, sent.upos, sent.heads, sent.deprels
+        n = len(toks)
+        root = next((i for i in range(1, n + 1) if heads.get(i) == 0), None)
         if root is None:
             return []
-        subs = [t for t in sent if t.dep_ in ("nsubj", "nsubjpass") and t.head == root]
-        # include conjoined subjects ("Anna and Ben went")
+        subs = [k for k in range(1, n + 1)
+                if heads.get(k) == root and deprels.get(k) in ("nsubj", "nsubj:pass", "csubj", "csubj:pass")]
         out = list(subs)
         for s in subs:
-            out += [c for c in s.children if c.dep_ == "conj"]
+            out += [c for c in range(1, n + 1) if heads.get(c) == s and deprels.get(c) == "conj"]
         if not out:
-            # PARSE-FAILURE fallback (en_core_web_sm mis-tags sentence-initial proper nouns, e.g. "Molly"
-            # as ADV): take the leading nominal in English SVO subject position -- the first alphabetic,
-            # non-function token before the ROOT verb. On the corpus path GOLD coref removes this need.
-            for t in sent:
-                if t.i >= root.i:
-                    break
-                if t.is_punct or t.dep_ in ("mark", "cc", "det", "prep", "punct") or t.pos_ in ("SCONJ", "CCONJ", "ADP", "DET"):
+            # PARSE-FAILURE fallback: the leading nominal in English SVO subject position before the ROOT verb.
+            for i in range(1, root):
+                if upos[i - 1] in ("PUNCT", "SCONJ", "CCONJ", "ADP", "DET"):
                     continue
-                out = [t]
+                if deprels.get(i) in ("mark", "cc", "det", "case", "punct"):
+                    continue
+                out = [i]
                 break
         return out
 
-    def _subject_is_agent(self, sent, agent_aliases: Sequence[str], name_head: str) -> bool:
-        """True if the MAIN-clause subject of `sent` coref-resolves to the tracked agent. Glass-box coref
-        proxy: the ROOT subject is the agent NAME or a 3rd-person pronoun defaulting to the protagonist by
-        recency/salience (the state_of_mind overlay heuristic). For the corpus path, gold coref replaces this
-        proxy (agent_aliases already expanded to the gold mention surfaces)."""
+    def _subject_is_agent(self, sent: "_ISent", agent_aliases: Sequence[str], name_head: str) -> bool:
+        """True if the MAIN-clause subject of `sent` coref-resolves to the tracked agent (name or a pronoun
+        alias). For the corpus path, agent_aliases are already the gold mention surfaces."""
         low_aliases = {a.lower() for a in agent_aliases}
+        nh = name_head.lower()
         for s in self._root_subjects(sent):
-            if s.text.lower() in low_aliases or s.lemma_.lower() in low_aliases:
-                return True
-            if s.text.lower() == name_head.lower():
+            w = sent.toks[s - 1].lower()
+            if w in low_aliases or w == nh:
                 return True
         return False
 
-    # RULE 0 epistemic-marker locality: a marker applies only within +/- this many sentences of the event, so a
-    # marker about one change ("Anna watched" move 1) does not leak onto a later unseen change (seq-registration).
+    # RULE 0 epistemic-marker locality (see _epistemic_statement).
     EPI_WINDOW = 1
 
     # ---- motion frame: read PATH off the realized satellite/PP, not the verb ---
-    # Placement/transfer verbs move a THING (their dobj), not the agent -- their PP is the object's path.
     PLACEMENT_VERBS = {"put", "place", "set", "lay", "drop", "hide", "conceal", "carry", "take", "bring",
                        "transfer", "shift", "throw", "push", "pull", "stow", "deposit", "replace", "remove",
                        "swap", "move", "hang", "stick", "tuck", "pop", "fetch"}
-    # Grounds that ARE the current indoor scene -> arriving there = a RETURN to the scene (present).
     SCENE_GROUND = {"room", "house", "kitchen", "parlour", "parlor", "hall", "home", "chamber", "cottage",
                     "bedroom", "door", "doorway", "indoors", "inside", "cabin", "hut", "office", "study",
                     "library", "shop", "nursery", "sitting", "dining", "drawing", "bed"}
-
-    # Strong PATH satellites (adverbs/particles) that mark a location change. Deliberately excludes weak /
-    # posture-ambiguous ones ("up"/"down"/"in"/"on") so "sat down" is NOT read as leaving.
     DIRECTIONAL_ADV = {"out", "outside", "away", "off", "upstairs", "downstairs", "indoors", "outdoors",
                        "inside", "forth", "abroad", "aside", "back", "hence", "hither", "thither",
                        "homeward", "afield", "yonder", "home"}
     RETURN_ADV = {"back", "again"}
-    # Spatial PPs whose GROUND is a destination/source: going TO a place = leaving the current scene.
     DIRECTIONAL_PREPS = {"to", "into", "toward", "towards", "unto", "from", "onto"}
-    # PERCEPTION / STANCE verbs: the agent does NOT relocate, so a directional PP is a GAZE/POSTURE direction
-    # ("gazed into the fire", "stared out of the window", "stayed to dinner"), NOT locomotion. Suppress motion.
     STANCE_PERCEPTION = {"gaze", "stare", "look", "peer", "glance", "glare", "squint", "sit", "stand",
                          "remain", "stay", "lie", "lean", "kneel", "rest", "watch", "behold", "dwell",
                          "pause", "wait", "linger", "crouch", "recline", "loll", "perch"}
 
-    def _motion_signal(self, sent) -> Optional[Tuple[str, Optional[str]]]:
-        """Return ('depart'|'return', ground) for an AGENT SELF-motion in `sent`, else None.
-
-        PRINCIPLE (from the false-belief structure): the agent starts CO-PRESENT with the object it set down,
-        so ANY self-motion takes it AWAY from that scene EXCEPT an explicit RETURN. DEIXIS DOMINATES: come/
-        return/arrive = return; go/leave/withdraw/retire = depart -- regardless of the goal ground (fixes
-        'went upstairs to bed'). A non-deictic manner verb (hurry/step/ride/climb) is motion iff it carries a
-        directional satellite/PP; direction = return only for an explicit 'back'/'again', else depart (fixes
-        'hurried indoors' while the object is outdoors). Reads the PATH SATELLITE, NOT a manner-verb whitelist
-        (Talmy). Transitive placement (put/move a THING) is SKIPPED -- its PP is the object's path."""
-        verbs = [t for t in sent if t.pos_ == "VERB"]
+    def _motion_signal(self, sent: "_ISent") -> Optional[Tuple[str, Optional[str]]]:
+        """Return ('depart'|'return', ground) for an AGENT SELF-motion in `sent`, else None -- re-expressed
+        over UD. Deixis dominates (come/return=return; go/leave/withdraw=depart) regardless of ground. A
+        non-deictic manner verb is motion iff it carries a directional satellite (UD advmod/compound:prt in
+        DIRECTIONAL_ADV) or a directional PP (an obl/nmod/obj noun child with a `case` child in
+        DIRECTIONAL_PREPS). Transitive placement (put/move a THING) is SKIPPED -- its PP is the object's path."""
+        toks, upos, heads, deprels = sent.toks, sent.upos, sent.heads, sent.deprels
+        n = len(toks)
+        verbs = [i for i in range(1, n + 1) if upos[i - 1] == "VERB"]
         depart = ret = False
         ground = None
         for v in verbs:
-            lem = v.lemma_.lower()
-            vtext = v.text.lower()
-            dobjs = [c for c in v.children if c.dep_ in ("dobj", "obj", "dative")]
+            lem = lemma_verb(toks[v - 1]).lower()
+            vtext = toks[v - 1].lower()
+            dobjs = [k for k in range(1, n + 1) if heads.get(k) == v and deprels.get(k) in ("obj", "iobj")]
             deixis_away = lem in DEIXIS_AWAY or vtext in DEIXIS_AWAY
             deixis_toward = lem in DEIXIS_TOWARD or vtext in DEIXIS_TOWARD
-            # PERCEPTION / STANCE verb: the agent does not relocate -- a directional PP is gaze/posture
-            # direction, not locomotion. Suppress (unless the verb is ALSO a deixis motion verb, which it isn't).
             if lem in self.STANCE_PERCEPTION and not (deixis_away or deixis_toward):
                 continue
-            # leave/quit/exit + location dobj -> depart FROM that ground (Source realized as dobj)
             if lem in ("leave", "quit", "exit") and dobjs:
                 depart = True
-                ground = " ".join(w.text for w in dobjs[0].subtree)
+                ground = self._subtree_text(sent, dobjs[0])
                 continue
-            # DEIXIS DOMINATES (Talmy Path deixis component)
             if deixis_toward:
                 ret = True
                 continue
             if deixis_away:
                 depart = True
                 continue
-            # transitive placement/transfer with a THING object -> object path, NOT agent self-motion. Skip.
             if dobjs and lem in self.PLACEMENT_VERBS:
                 continue
-            # non-deictic manner verb: motion iff a directional satellite / spatial PP is realized. Scan the
-            # verb's SUBTREE (not just direct children): en_core_web_sm attaches "out" under "here" ("hurried
-            # out here") and parses "downstairs" as a dobj ("hastened downstairs") -- both must be caught.
             has_dir = False
             ret_cue = False
-            for c in v.subtree:
-                if c is v:
+            for c in self._descendants(sent, v):
+                if c == v:
                     continue
-                w = c.text.lower()
-                if c.pos_ in ("ADV", "ADP", "PART", "NOUN") and w in self.DIRECTIONAL_ADV \
-                        and c.dep_ in ("prt", "advmod", "npadvmod", "dobj", "obj", "advcl", "dep"):
+                w = toks[c - 1].lower()
+                dep = deprels.get(c)
+                if upos[c - 1] in ("ADV", "ADP", "PART", "NOUN") and w in self.DIRECTIONAL_ADV \
+                        and dep in ("compound:prt", "prt", "advmod", "obl", "obj", "advcl", "dep", "nmod"):
                     has_dir = True
                     if w in self.RETURN_ADV:
                         ret_cue = True
-                if c.dep_ == "prep" and c.head == v:
-                    twotok = (w + " " + (c.nbor().text.lower() if c.i + 1 < len(c.doc) else "")).strip()
-                    if w in self.DIRECTIONAL_PREPS or twotok == "out of":
-                        has_dir = True
-                        pobj = [g for g in c.children if g.dep_ == "pobj"]
-                        if pobj:
-                            ground = " ".join(x.text for x in pobj[0].subtree)
+            for k in range(1, n + 1):
+                if heads.get(k) == v and deprels.get(k) in ("obl", "nmod", "obj"):
+                    for c in range(1, n + 1):
+                        if heads.get(c) == k and deprels.get(c) == "case":
+                            cw = toks[c - 1].lower()
+                            twotok = (cw + " " + (toks[c].lower() if c < n else "")).strip()
+                            if cw in self.DIRECTIONAL_PREPS or twotok == "out of":
+                                has_dir = True
+                                ground = self._subtree_text(sent, k)
             if has_dir:
                 if ret_cue:
                     ret = True
@@ -346,27 +429,32 @@ class PerceptualAccessLedger:
             return ("return", ground)  # explicit return dominates a co-occurring depart cue
         return None
 
-    def _absence_predicate(self, sent, agent_aliases) -> Optional[bool]:
+    def _absence_predicate(self, sent: "_ISent", agent_aliases) -> Optional[bool]:
         """Detect a stative absence/presence predicate about the agent: 'Anna was gone/away/out' -> away;
-        'Anna was back/in/present/here' -> present. Returns True(=away), False(=present), or None."""
+        'Anna was back/in/present/here' -> present. Returns True(=away), False(=present), or None. UD copula
+        inversion: 'Anna was gone' = gone(root/cop-headed adj) + nsubj Anna. Regex parts are text-only."""
         low = sent.text.lower()
         arx = self._alias_regex(agent_aliases)
         if not arx.search(low):
             return None
         low_aliases = {a.lower() for a in agent_aliases}
-        # agent + be + {gone/away/out/absent} -- the AGENT must be the SUBJECT of the copula ("Anna was out"),
-        # NOT merely present in the sentence ("the candle was out" must NOT read as Anna absent).
-        for w in sent:
-            if w.lemma_.lower() in ABSENCE_PRED and w.dep_ in ("acomp", "advmod", "attr", "oprd", "amod", "ROOT"):
-                head = w.head
-                if head.lemma_ == "be" or head.pos_ == "AUX":
-                    subj = [c for c in head.children if c.dep_ in ("nsubj", "nsubjpass")]
-                    if any(s.text.lower() in low_aliases or s.text.lower() == (agent_aliases[0].lower() if agent_aliases else "")
-                           for s in subj):
-                        return True
-        # RESTORE presence only on an EXPLICIT return/present stative. NOT "was inside/indoors" -- that is
-        # ambiguous (inside is 'present' only if the event scene is indoors; when the object is outdoors,
-        # "while she was inside" means ABSENT). fixes fb_glove.
+        toks, upos, heads, deprels = sent.toks, sent.upos, sent.heads, sent.deprels
+        n = len(toks)
+        first = agent_aliases[0].lower() if agent_aliases else ""
+        for w in range(1, n + 1):
+            if toks[w - 1].lower() not in ABSENCE_PRED:
+                continue
+            has_cop = any(heads.get(c) == w and deprels.get(c) in ("cop", "aux") for c in range(1, n + 1))
+            is_pred = (heads.get(w) == 0) or has_cop or deprels.get(w) in ("advmod", "amod", "obl", "xcomp", "advcl", "root")
+            if not is_pred:
+                continue
+            subj = [c for c in range(1, n + 1) if heads.get(c) == w and deprels.get(c) in ("nsubj", "nsubj:pass")]
+            hh = heads.get(w)
+            if hh and 1 <= hh <= n and (lemma_verb(toks[hh - 1]).lower() == "be" or upos[hh - 1] == "AUX"):
+                subj += [c for c in range(1, n + 1) if heads.get(c) == hh and deprels.get(c) in ("nsubj", "nsubj:pass")]
+            if any(toks[s - 1].lower() in low_aliases or toks[s - 1].lower() == first for s in subj):
+                return True
+        # RESTORE presence only on an EXPLICIT return/present stative (text-only, unchanged).
         if re.search(r"\b(was|were|is|are|had been|being)\s+(back|present|here|at home again|returned)\b", low):
             return False
         if (re.search(r"\bin (his|her|their) absence\b", low)
@@ -380,9 +468,7 @@ class PerceptualAccessLedger:
         return any(re.search(p, text) for p in patterns)
 
     def _field_state_update(self, st: "PresenceState", low: str) -> List[Tuple[str, str]]:
-        """Update the agent's running PER-MODALITY state (awake / lit / attending) from a clause. Returns the
-        (component, new_value) changes for the trace. These persist until reversed (asleep until wake, dark
-        until light, inattentive until re-attend)."""
+        """Update the agent's running PER-MODALITY state (awake / lit / attending) from a clause."""
         changes = []
         if self._match_any(STATE_UNAVAIL_CUES, low):
             if st.awake:
@@ -405,31 +491,21 @@ class PerceptualAccessLedger:
         return changes
 
     def _perceptual_field(self, sents, ev: int, st: "PresenceState") -> Tuple[Optional[bool], str]:
-        """Compute whether the object-move event is IN the agent's field (per-modality gate over the ontology).
-        For a LOCATION-MOVE the property is 'occurrence' -> VISION or AUDITION can reveal it. Returns
-        (available, reason); available=None means UNKNOWN (unstated opacity -- a glass-box UNKNOWN, not a guess)."""
+        """Compute whether the object-move event is IN the agent's field (per-modality gate over the ontology)."""
         ev_low = sents[ev].text.lower()
-        # BLOCKING occluders (barrier / closed-opaque) must hold AT-OR-BEFORE the event to block perception of
-        # it -- a closure described AFTER the event ("...into the box. Then he shut the lid.") does NOT
-        # retroactively block the (already-perceived) entry. So the blocking window is prior+event ONLY, never
-        # the following sentence (motion-persistence: watched-it-go-in stays perceived). [seq-registration drill]
         win = " ".join(s.text.lower() for s in sents[max(0, ev - 1):ev + 1])  # prior + event, NOT ev+1
         barrier = self._match_any(BARRIER_CUES, win)
         transparent = self._match_any(TRANSPARENT_CUES, win)
         closed_opaque = self._match_any(CLOSED_OPAQUE_CUES, win) and not transparent
         silent = self._match_any(SILENT_CUES, win)
         loud = self._match_any(LOUD_CUES, win)
-        # VISION: co-present + awake + lit + attending + no opaque barrier + not in a closed-opaque container
         vision = (st.present and st.awake and st.lit and st.attending and not barrier and not closed_opaque)
-        # AUDITION: co-present (~earshot) + awake + a non-silent event (penetrates darkness / thin barrier / gaze)
         audition = (st.present and st.awake and not silent and (loud or not (barrier or closed_opaque)))
         available = bool(vision or audition)
         reason = (f"vision={vision}(lit={st.lit},attend={st.attending},barrier={barrier},closed_opaque={closed_opaque}) "
                   f"audition={audition}(silent={silent},loud={loud}) -> available={available}")
-        # UNKNOWN: a container is present with UNSTATED opacity/state -> glass-box UNKNOWN rather than a guess.
         container_hint = re.search(r"\b(bag|box|drawer|chest|case|basket|jar|pot|cupboard|trunk|sack|pouch|casket)\b", win)
         if container_hint and not (transparent or closed_opaque) and st.present and st.awake and st.lit and st.attending and not barrier:
-            # co-present and could see it, but if the move is INTO/inside a container of unknown opacity, flag UNKNOWN
             if re.search(r"\b(in|into|inside|within)\b .{0,20}" + re.escape(container_hint.group(0)), win):
                 return None, reason + " | UNKNOWN(container opacity unstated)"
         return available, reason
@@ -450,69 +526,57 @@ class PerceptualAccessLedger:
 
     # ---- RULE 0: explicit narrator epistemic statement ----------------
     def _epistemic_statement(self, sents, agent_aliases, event_idx: int) -> Optional[bool]:
-        """Return True/False if the narrator EXPLICITLY states the agent's knowledge of the event, else None.
-        The narrator directly asserting a mind-state is the most direct evidence; the marker NEAREST the event
-        wins (a later 'but she had seen it after all' overrides an earlier absence)."""
+        """Return True/False if the narrator EXPLICITLY states the agent's knowledge of the event, else None."""
         parts = sorted({re.escape(a) for a in agent_aliases if a and a.lower() not in _PRON}, key=len, reverse=True)
         agent_re = "(?:" + "|".join(parts + ["he", "she", "they"]) + r")" if parts else r"(?:he|she|they)"
         neg, pos = _epistemic_patterns(agent_re)
         hits = []  # (distance_to_event, idx, sign)
         for i, s in enumerate(sents):
             if abs(i - event_idx) > self.EPI_WINDOW:
-                continue  # an epistemic marker is EVENT-SPECIFIC: "Anna watched" (move 1) must NOT leak onto
-                          # a later move A did not see. Only markers LOCAL to this event apply. [seq-registration]
-            txt = s.text  # search case-INSENSITIVELY on the ORIGINAL text (agent names are capitalised)
+                continue
+            txt = s.text
             if any(re.search(p, txt, re.IGNORECASE) for p in neg):
                 hits.append((abs(i - event_idx), i, False))
             if any(re.search(p, txt, re.IGNORECASE) for p in pos):
                 hits.append((abs(i - event_idx), i, True))
         if not hits:
             return None
-        # nearest to the event; tie -> the later sentence (a correction supersedes)
         hits.sort(key=lambda h: (h[0], -h[1]))
         return hits[0][2]
 
     # ---- event localisation -------------------------------------------
     def _find_event_index(self, sents, event_object: Optional[str], mover_aliases: Sequence[str],
                           agent_aliases: Sequence[str], event_location: Optional[str] = None) -> int:
-        """Locate the clause where the change to `event_object` happens. The situation model (a separate organ)
-        legitimately supplies WHAT/WHERE the event is; the observation cue only decides whether A witnessed it.
-        Preference order: (1) the clause where the object reaches its FINAL location (event_location head noun),
-        (2) a clause with the object + a change verb by a NON-agent main subject, (3) any object+change clause."""
+        """Locate the clause where the change to `event_object` happens (over the in-substrate parse)."""
         change_verbs = {"move", "moved", "put", "placed", "place", "take", "took", "hid", "hide", "shift", "shifted",
                         "transfer", "transferred", "carry", "carried", "swap", "swapped", "replace", "replaced",
                         "remove", "removed", "slip", "slipped", "drop", "dropped", "set", "knock", "knocked",
                         "nose", "nosed", "roll", "rolled", "fell", "fall", "blow", "blew", "push", "pushed",
-                        "kick", "kicked", "throw", "threw", "left", "leave", "hang", "hung"}
+                        "kick", "kicked", "throw", "threw", "left", "leave", "hang", "hung", "stood", "stand"}
         obj = (event_object or "").lower()
         name = agent_aliases[0] if agent_aliases else ""
-        # (1) final-location arrival clause -- the most reliable event anchor (given by the situation model)
+
+        def has_change(s: "_ISent") -> bool:
+            return any(lemma_verb(t).lower() in change_verbs or t.lower() in change_verbs for t in s.toks)
+
         if event_location:
-            loc_head = event_location.lower().split()[-1]  # head noun of the final location phrase
+            loc_head = event_location.lower().split()[-1]
             hits = [i for i, s in enumerate(sents) if loc_head in s.text.lower()
                     and not self._subject_is_agent(s, agent_aliases, name)]
             if hits:
                 return hits[-1]
-        cand = []
-        for i, s in enumerate(sents):
-            low = s.text.lower()
-            has_obj = (obj in low) if obj else True
-            has_change = any(w.lemma_.lower() in change_verbs or w.text.lower() in change_verbs for w in s)
-            # the MOVE (not the agent's initial placement): change to the object by a NON-agent main subject.
-            if has_obj and has_change and not self._subject_is_agent(s, agent_aliases, name):
-                cand.append(i)
+        cand = [i for i, s in enumerate(sents)
+                if (not obj or obj in s.text.lower()) and has_change(s)
+                and not self._subject_is_agent(s, agent_aliases, name)]
         if cand:
-            return cand[-1]   # last such = the actual move, after any initial placement
-        # fallback: last object+change clause that is NOT the agent's own placement
+            return cand[-1]
         non_agent = [i for i, s in enumerate(sents)
-                     if (not obj or obj in s.text.lower())
-                     and any(w.lemma_.lower() in change_verbs for w in s)
+                     if (not obj or obj in s.text.lower()) and has_change(s)
                      and not self._subject_is_agent(s, agent_aliases, name)]
         if non_agent:
             return non_agent[-1]
         any_change = [i for i, s in enumerate(sents)
-                      if (not obj or obj in s.text.lower())
-                      and any(w.lemma_.lower() in change_verbs for w in s)]
+                      if (not obj or obj in s.text.lower()) and has_change(s)]
         if any_change:
             return any_change[-1]
         return len(sents) // 2
@@ -522,12 +586,9 @@ class PerceptualAccessLedger:
                  mover_aliases: Sequence[str] = (), event_index: Optional[int] = None,
                  event_location: Optional[str] = None, use_epistemic: bool = True) -> LedgerTrace:
         """Compute observed(agent, event) as RULE 1 (co-present & field-open at the move) OR RULE 2 (informed).
-        agent_aliases[0] is treated as the canonical agent name; include gold coref surfaces for the corpus path.
-        event_location (the move's FINAL location) + event_index are supplied by the situation model to anchor
-        the event clause -- the observation cue's job is the perceptual-access inference, not event extraction."""
-        nlp = self._nlp_or_load()
-        doc = nlp(text)
-        sents = list(doc.sents)
+        agent_aliases[0] is the canonical agent name; include gold coref surfaces for the corpus path.
+        event_location + event_index are supplied by the situation model to anchor the event clause."""
+        sents = self._parse_sents(text)
         if not sents:
             return LedgerTrace(observed=True, reason="empty")
         name_head = agent_aliases[0] if agent_aliases else ""
@@ -545,7 +606,6 @@ class PerceptualAccessLedger:
             s = sents[i]
             low = s.text.lower()
             is_agent_subj = self._subject_is_agent(s, agent_aliases, name_head)
-            # motion (only when the agent is the mover of themselves)
             if is_agent_subj:
                 mo = self._motion_signal(s)
                 if mo is not None:
@@ -559,7 +619,6 @@ class PerceptualAccessLedger:
                         st.location = ground
                         st.interval_open_at = i
                         trace.per_clause.append((i, "return", ground or "scene"))
-            # stative absence predicate about the agent (need not be the grammatical subject: "in her absence")
             ap = self._absence_predicate(s, agent_aliases)
             if ap is True and st.present:
                 st.present = False
@@ -568,15 +627,13 @@ class PerceptualAccessLedger:
                 st.present = True
                 st.interval_open_at = i
                 trace.per_clause.append((i, "present_pred", low[:40]))
-            # PER-MODALITY field state (awake / lit / attending) -- persistent occluder states about the agent
             if arx.search(low) or is_agent_subj:
                 for comp, val in self._field_state_update(st, low):
                     trace.per_clause.append((i, comp, val))
 
-        # per-modality field at the event (event-local barrier / container-opacity / loudness + running state)
+        # per-modality field at the event
         avail, field_reason = self._perceptual_field(sents, ev, st)
         trace.present_at_event = st.present
-        # UNKNOWN (unstated opacity) -> fall back to co-presence (do not fabricate an occluder we cannot read)
         trace.available_at_event = st.present and st.awake if avail is None else avail
         trace.per_clause.append((ev, "field", field_reason))
 
@@ -584,9 +641,7 @@ class PerceptualAccessLedger:
         inf_idx = self._informed_after(sents, agent_aliases, ev)
         trace.informed = inf_idx is not None
 
-        # 4) registration. RULE 0 (explicit narrator epistemic statement) OVERRIDES when present -- the narrator
-        # asserting the mind-state outright is the most direct evidence. Else observed iff (co-present AND
-        # field-open at the move = RULE 1) OR informed (RULE 2).
+        # 4) registration. RULE 0 overrides when present.
         rule1 = bool(trace.present_at_event and trace.available_at_event)
         epi = self._epistemic_statement(sents, agent_aliases, ev) if use_epistemic else None
         if epi is not None:
@@ -601,33 +656,14 @@ class PerceptualAccessLedger:
                             f"informed={trace.informed} -> RULE1={rule1} => observed={trace.observed}")
         return trace
 
-    # ---- SEQUENTIAL registration over a CHAIN of changes (from the sequential-registration drill) -------
+    # ---- SEQUENTIAL registration over a CHAIN of changes ---------------
     def sequential_registration(self, text: str, agents: Dict[str, Sequence[str]], changes: List[dict]):
-        """Fold `observed()` over a chronological CHAIN of changes to produce a per-agent REGISTRATION LEDGER.
-
-        This is the mechanism's completion: a single move needs only a boolean, but a SEQUENCE (A->B->C) needs a
-        sticky per-agent cell overwritten ONLY on changes the agent PERCEIVED (Butterfill&Apperly registration;
-        Baker/Saxe/Tenenbaum 2011 freeze-when-unobserved). No new theory -- the per-event `observed()` is reused.
-
-        agents : {name: aliases_list} (aliases[0] = the agent's canonical name).
-        changes: [{'obj':str, 'to':str, 'event_index':int, 'mover':name_or_None}, ...] in chronological order --
-                 supplied by the situation model / event-sequence extractor (the observation cue's job is the
-                 perceptual-access inference, not event extraction).
-        Returns (registration, world): registration[name][obj] = the LAST location the agent PERCEIVED the object
-                 reach, or ABSENT (never perceived any placement = IGNORANT, distinct from a false belief).
-        MOTION-PERSISTENCE falls out for free: an agent who watched the object ENTER an occluder registers the
-        destination (the entry was perceived); later hidden changes fail the field check and the cell stays frozen.
-        """
+        """Fold `observed()` over a chronological CHAIN of changes to produce a per-agent REGISTRATION LEDGER."""
         world: Dict[str, str] = {}
         reg: Dict[str, Dict[str, str]] = {a: {} for a in agents}
-        nlp = self._nlp_or_load()
-        sents = list(nlp(text).sents)
+        sents = self._parse_sents(text)
         for ch in changes:
             if ch.get("type", "move") == "tell":
-                # TESTIMONY event: the addressee registers the ASSERTED location -- = reality for HONEST testimony,
-                # but a LIE gives a FALSE belief matching what was asserted (Harris&Koenig: testimony is a channel
-                # to the ledger, its CONTENT need not be true). A DISTRUSTED source is DISCOUNTED (Koenig 2004
-                # reliability): the addressee keeps its prior belief. Does NOT change world_state (telling != moving).
                 addr = ch["addressee"]
                 trusted = ch.get("trusted")
                 if trusted is None:
@@ -635,21 +671,19 @@ class PerceptualAccessLedger:
                 if trusted:
                     reg.setdefault(addr, {})[ch["obj"]] = ch["asserted"]
                 continue
-            world[ch["obj"]] = ch["to"]                       # MOVE: world track updates on every change
+            world[ch["obj"]] = ch["to"]
             for a, aliases in agents.items():
                 if ch.get("mover") == a:
-                    perceived = True                          # the mover trivially perceives its own action
+                    perceived = True
                 else:
                     tr = self.observed(text, list(aliases), event_object=ch["obj"], event_index=ch["event_index"])
                     perceived = tr.observed
                 if perceived:
-                    reg[a][ch["obj"]] = ch["to"]              # OVERWRITE; else the sticky cell carries forward
+                    reg[a][ch["obj"]] = ch["to"]
         return reg, world
 
     def _testimony_trusted(self, sents, addr_aliases, event_idx: int) -> bool:
-        """False if the addressee DISTRUSTS/disbelieves the source near the telling (Koenig 2004 reliability
-        discounting) -- 'but Anna did not believe him', 'she doubted it'. Deception by the SOURCE is orthogonal
-        (a lie still produces belief unless the addressee distrusts) and is carried by the ASSERTED location."""
+        """False if the addressee DISTRUSTS/disbelieves the source near the telling (Koenig 2004)."""
         parts = sorted({re.escape(a) for a in addr_aliases if a and a.lower() not in _PRON}, key=len, reverse=True)
         a = "(?:" + "|".join(parts + ["he", "she", "they"]) + ")" if parts else "(?:he|she|they)"
         distrust = [rf"\b{a} (?:did not|did n't|didn't|would not|wouldn't|could not) believe\b",
@@ -661,7 +695,6 @@ class PerceptualAccessLedger:
 
     @staticmethod
     def belief_of(reg, agent: str, obj: str):
-        """The agent's believed location of obj, or None = IGNORANT (never registered)."""
         return reg.get(agent, {}).get(obj)
 
     @staticmethod
@@ -678,26 +711,19 @@ class PerceptualAccessLedger:
 # Self-test: the four canonical perceptual-access cases the STATELESS keyword list gets wrong.
 # ---------------------------------------------------------------------------
 def _self_test():
-    import spacy
-    nlp = spacy.load("en_core_web_sm")
-    led = PerceptualAccessLedger(nlp)
+    led = PerceptualAccessLedger()
     cases = [
-        # (text, aliases, object, expected_observed, note)
         ("Anna put her marble in the red box and went outside to play. While Anna was gone, her brother Ben "
          "moved the marble from the red box to the blue basket. Anna did not see him do it.",
          ["Anna", "she", "her"], "marble", False, "classic absence"),
-        # RE-ENTRY before the move: keyword list sees 'went outside' and wrongly says absent; ledger re-opens presence.
         ("Anna put her marble in the red box and went outside to play. Then Anna came back inside. "
          "Ben moved the marble from the red box to the blue basket while Anna watched.",
          ["Anna", "she", "her"], "marble", True, "re-entry then present"),
-        # OCCLUSION despite co-presence: asleep in the same room.
         ("Anna lay asleep on the couch in the room. Ben quietly moved the marble from the red box to the blue basket.",
          ["Anna", "she", "her"], "marble", False, "asleep = occluded"),
-        # TESTIMONY after absence: told about the move.
         ("Anna went outside to play. Ben moved the marble from the red box to the blue basket. "
          "Later, Ben told Anna that he had put it in the blue basket.",
          ["Anna", "she", "her"], "marble", True, "informed"),
-        # WENT TO A NEW PLACE (not 'outside'): the keyword list has no 'to the field' rule; ledger departs.
         ("Anna rode to the far field to see the horses. Meanwhile Ben moved the marble from the red box "
          "to the blue basket. Anna knew nothing of it.",
          ["Anna", "she", "her"], "marble", False, "went to a new place"),
