@@ -327,6 +327,413 @@ _PLACEISH = {"city", "town", "district", "quarter", "area", "region", "country",
              "cabinet", "container", "bag", "basket", "yard", "field", "floor", "wall", "roof"}
 
 
+# ===================================================================================================================
+# P2 SPATIAL SEMANTIC-TYPING (owner-DONE extract_spatial_and_causal_relations_from_prose_whole_subgraph_survival,
+# §7 PROPOSED hdlab DIFF item 1; Q111 strategy landing 2026-09-08). Ported BYTE-FAITHFULLY from
+# experiments/_joint_spatial_frontend.py's spatial_edges_ext MINUS the REFUTED marginal-attachment machinery
+# (marginals / marg_gate / use_marg_alt / in_coercer / no_coerce -- a LOCATED NEGATIVE: the exact-MAP parse is
+# ~99.9% confident, the 22.8% misses are thematic-figure/nested-model, NOT attachment-uncertainty). The Herskovits
+# at/on->in coercion uses the plain hand-list (the in_coercer=None branch). Brain-foundational: Talmy/Jackendoff
+# Figure-Ground bound at the syntax-semantics interface; Herskovits preposition-semantics; spatial deixis
+# (Fillmore; Levelt); PATH source/goal (Lakusta & Landau); THEMATIC figure = the located EVENT (Talmy: the Figure
+# can be an event) over ONE nested spatial situation model (Zwaan & Radvansky 1998; Johnson-Laird). Measured on
+# SpaceEval/ISO-Space: TYPE-precision on hard negatives 0.5712 vs incumbent 0.5179 (+0.0533 CI-sep) and +0.386 over
+# a density/proximity floor that collapses to 0.185 -- recall-survival is density-confounded, so the load-bearing
+# axis is TYPE-PRECISION. Consumed by situation_reader._read_spatial_reasoning (the spatial situation model whose
+# projective-position graph was empty -> spatial_relative abstained until this extractor landed). ASCII, NO LLM.
+_MOTION = {"go", "goes", "went", "gone", "going", "move", "moves", "moved", "moving", "walk", "walks", "walked",
+           "run", "runs", "ran", "running", "fly", "flew", "flown", "flies", "travel", "traveled", "travelled",
+           "drive", "drove", "driven", "come", "came", "return", "returned", "enter", "entered", "leave", "left",
+           "arrive", "arrived", "head", "headed", "proceed", "march", "marched", "rush", "rushed", "climb",
+           "climbed", "crawl", "crawled", "swim", "swam", "ride", "rode", "sail", "sailed", "jump", "jumped",
+           "step", "stepped", "wander", "wandered", "carry", "carried", "bring", "brought", "take", "took",
+           "put", "place", "placed", "throw", "threw", "send", "sent", "push", "pushed", "pull", "pulled",
+           "fall", "fell", "roll", "rolled", "slide", "slid", "flee", "fled", "escape", "escaped", "depart"}
+_GOAL_PREP = {"to": "to", "into": "into", "onto": "onto", "toward": "toward", "towards": "toward"}
+_SOURCE_PREP = {"from": "from"}
+_DEICTIC_GROUND = {"here", "there", "downstairs", "upstairs", "elsewhere", "inside", "outside", "indoors",
+                   "outdoors", "nearby", "abroad", "overhead", "underground", "home", "aboard", "ashore"}
+_LOC_ADV_VERB = {"located", "situated", "found", "held", "based", "housed", "set", "positioned", "placed",
+                 "stationed", "stayed", "stay", "lived", "live", "worked", "work", "opened", "open", "sits",
+                 "sit", "stands", "stand", "lies", "lie", "remained", "remain", "waited", "gathered"}
+_REGION_PART = {"heart", "middle", "centre", "center", "corner", "side", "bottom", "top", "edge", "end", "part",
+                "outskirts", "rest", "back", "front", "interior", "base", "foot", "summit", "tip", "mouth",
+                "core", "midst", "depths", "fringe", "fringes", "north", "south", "east", "west", "region",
+                "area", "section", "district", "quarter", "half", "portion", "remainder", "vicinity"}
+_GENERIC_LOC = {"town", "towns", "city", "cities", "village", "villages", "province", "provinces", "region",
+                "regions", "district", "districts", "county", "counties", "state", "states", "country",
+                "countries", "municipality", "port", "capital", "suburb", "borough", "commune", "settlement",
+                "hamlet", "kingdom", "republic", "department", "territory", "prefecture", "canton"}
+
+
+def _children(heads, n):
+    ch = {}
+    for dep in range(1, n + 1):
+        ch.setdefault(heads.get(dep, 0), []).append(dep)
+    return ch
+
+
+def _object_of(children, upos, verb1):
+    """Nearest FOLLOWING NOUN/PROPN child of the verb (dobj/theme-like); None if none."""
+    for c in children.get(verb1, []):
+        if c > verb1 and upos[c - 1] in ("NOUN", "PROPN"):
+            return c
+    return None
+
+
+def _governing_event(heads, upos, ev, gnd1, n):
+    """Climb from a locative ground's parse anchor to the governing EVENT verb (Talmy: the located figure is the
+    EVENT). The ground attaches to the event DIRECTLY (obl locative) or to a POST-verbal nominal argument of the
+    event. Climb only through a POST-verbal object noun, never a pre-verbal subject. Returns 1-based verb or None."""
+    anchor = heads.get(gnd1, 0)
+    if not (1 <= anchor <= n):
+        return None
+    if (anchor - 1) in ev:
+        return anchor
+    if upos[anchor - 1] in ("NOUN", "PROPN"):
+        h = heads.get(anchor, 0)
+        if 1 <= h <= n and (h - 1) in ev and anchor > h:
+            return h
+    return None
+
+
+def _coerce_ground_spans(words, upos, heads, gnd1):
+    """Ground-coercion (Talmy/Herskovits): the base span PLUS, additively -- APPOSITIVE proper name for a generic
+    'CLASSIFIER of PROPN' ('the town of Caucasia' -> also Caucasia); SUPERORDINATE class for an exemplar 'CLASS
+    like/such as INSTANCE' (locative on Lima in 'cities like Lima' -> also 'cities')."""
+    n = len(words); lows = [w.lower() for w in words]
+    spans = [_subtree_head_noun(words, upos, heads, gnd1)]
+    ghead = lows[gnd1 - 1]
+    if ghead in _GENERIC_LOC:
+        for k in range(gnd1 + 1, min(gnd1 + 3, n + 1)):
+            if lows[k - 1] == "of":
+                for j in range(k + 1, min(k + 4, n + 1)):
+                    if upos[j - 1] == "PROPN":
+                        spans.append(_subtree_head_noun(words, upos, heads, j)); break
+                    if upos[j - 1] not in ("DET", "ADJ"):
+                        break
+                break
+            if upos[k - 1] not in ("ADP", "DET"):
+                break
+    p = gnd1
+    while p - 1 >= 1 and upos[p - 2] in ("DET", "ADJ"):
+        p -= 1
+    if p - 1 >= 1 and lows[p - 2] in ("like", "as"):
+        conn = p - 2
+        ok = (lows[conn] == "like") or (conn - 1 >= 0 and lows[conn - 1] == "such")
+        if ok:
+            for q in range(conn - 1, max(conn - 5, -1), -1):
+                if upos[q] in ("NOUN", "PROPN"):
+                    spans.append(_subtree_head_noun(words, upos, heads, q + 1)); break
+    seen = set(); out = []
+    for s in spans:
+        if s and s not in seen:
+            seen.add(s); out.append(s)
+    return out
+
+
+def _conj_run(words, upos, heads, idx1):
+    """Coordinated NOUN/PROPN siblings of the head at 1-based idx1 (a flat 'A , B and C' run). Returns 1-based
+    indices INCLUDING idx1. The parser is UNLABELED, so detect coordination by adjacency of NOUN/PROPN heads
+    separated only by CCONJ / comma."""
+    n = len(words)
+    run = {idx1}
+    k = idx1 - 1
+    while k >= 1:
+        w = words[k - 1].lower()
+        if upos[k - 1] in ("NOUN", "PROPN"):
+            run.add(k); k -= 1; continue
+        if w in ("and", "or", ",", "&", "plus") or upos[k - 1] in ("CCONJ", "PUNCT", "DET", "ADJ"):
+            k -= 1; continue
+        break
+    k = idx1 + 1
+    while k <= n:
+        w = words[k - 1].lower()
+        if upos[k - 1] in ("NOUN", "PROPN"):
+            run.add(k); k += 1; continue
+        if w in ("and", "or", ",", "&", "plus") or upos[k - 1] in ("CCONJ", "PUNCT", "DET", "ADJ"):
+            k += 1; continue
+        break
+    return sorted(run)
+
+
+def joint_spatial_frames_ext(words, upos=None, heads=None, use_event=True, use_move=True, use_deictic=True,
+                             use_conj=True, use_thematic=False, thematic_subj=True, thematic_obj=False,
+                             thematic_coerce=True, thematic_relcl=True, thematic_deixis=True):
+    """joint_spatial_frames (containment + projective position) + the SEMANTIC-TYPING channels off ONE parse:
+    Herskovits at/on->in coercion, EVENT-figure, PARTITIVE region-part, DEICTIC ground, COORDINATION distribution,
+    PATH/MOVE goal/source, and (use_thematic) THEMATIC-figure binding of the located event over the nested spatial
+    model. Returns [(figure_span, rel, ground_span, idx, provenance)] with rel: 'in' | projective | 'goal' |
+    'source'. Byte-faithful to experiments/_joint_spatial_frontend.spatial_edges_ext with the REFUTED marginal
+    machinery removed (marginals=None, use_marg_alt=False, marg_gate=0, in_coercer=None, no_coerce=False)."""
+    if upos is None or heads is None:
+        upos, heads = parse_sentence(words)
+    from hdlab.spatial_relational_model import norm_rel
+    n = len(words)
+    lows = [w.lower() for w in words]
+    ch = _children(heads, n)
+    out = []
+    # base: containment + projective position bound by the (exact-MAP) parse
+    for (f, r, g, i) in joint_spatial_frames(words, upos, heads):
+        out.append((f, r, g, i, "frame"))
+        # HERSKOVITS preposition-semantics: 'at/on' + a PLACE/REGION-PART ground coerces to CONTAINMENT.
+        if r in ("at", "on"):
+            gh = g.split()[-1].lower() if g.split() else g.lower()
+            if gh in _PLACEISH or gh in _REGION_PART:
+                out.append((f, "in", g, i, "prep_sem"))
+    if use_event:
+        # EVENT-figure: a locative ADP whose parse anchor (heads[ground]) is an EVENT verb -> (event, rel, ground)
+        ev = joint_event_ranks(words, upos, heads, copular=False, nominal=False)
+        for i in range(n):
+            if lows[i] in _LOC_PREPS and upos[i] in ("ADP", "ADV"):
+                rel = _LOC_PREPS[lows[i]]
+                gnd1 = heads.get(i + 1, 0)
+                if not (1 <= gnd1 <= n) or upos[gnd1 - 1] not in ("NOUN", "PROPN"):
+                    continue
+                anchor = heads.get(gnd1, 0)
+                if 1 <= anchor <= n and (anchor - 1) in ev:
+                    ev_word = lows[anchor - 1]
+                    gnd = _subtree_head_noun(words, upos, heads, gnd1)
+                    if ev_word and gnd and ev_word != gnd:
+                        out.append((ev_word, rel, gnd, i, "event_fig"))
+    if use_deictic:
+        # PARTITIVE region-part: '{region-part} of {Y}' -> (region-part, in, Y). Lexical (parse-attachment robust).
+        for i in range(n):
+            if lows[i] in _REGION_PART and upos[i] in ("NOUN", "PROPN"):
+                for k in range(i + 1, min(i + 3, n)):
+                    if lows[k] == "of":
+                        gnd1 = None
+                        for j in range(k + 1, min(k + 4, n + 1)):
+                            if upos[j - 1] in ("NOUN", "PROPN"):
+                                gnd1 = j; break
+                            if lows[j - 1] in (".", ";", "!", "?", ","):
+                                break
+                        if gnd1:
+                            gnd = _subtree_head_noun(words, upos, heads, gnd1)
+                            if gnd and gnd != lows[i]:
+                                out.append((lows[i], "in", gnd, i, "partitive"))
+                        break
+                    if upos[k - 1] not in ("NOUN", "PROPN", "ADP", "DET"):
+                        break
+    if use_deictic:
+        # DEICTIC-GROUND: a locative ADVERB ('here'/'there'/'home'...) is a spatial GROUND. Bind the subject AND
+        # the located event of its governing verb to it.
+        for i in range(n):
+            low = lows[i]
+            if low in _DEICTIC_GROUND and upos[i] in ("ADV", "NOUN", "PROPN"):
+                h = heads.get(i + 1, 0)
+                verb = h if (1 <= h <= n and upos[h - 1] in ("VERB", "AUX")) else None
+                if verb is None:
+                    for k in range(i, 0, -1):
+                        if upos[k - 1] == "VERB":
+                            verb = k; break
+                        if lows[k - 1] in (".", ";", "!", "?"):
+                            break
+                if verb is None:
+                    continue
+                if lows[verb - 1] not in _LOC_ADV_VERB and h != verb:
+                    continue
+                subj = _subject_of(ch, upos, verb)
+                figs = []
+                if subj:
+                    figs.append(_subtree_head_noun(words, upos, heads, subj))
+                figs.append(lows[verb - 1])
+                for fg in figs:
+                    if fg and fg != low:
+                        out.append((fg, "in", low, i, "deictic"))
+    if use_conj:
+        # COORDINATION distribution: a containment/position edge whose FIGURE is part of a coordinated NP
+        # distributes to every conjunct.
+        base = list(out)
+        low_to_idx = {}
+        for i, w in enumerate(words):
+            low_to_idx.setdefault(w.lower(), []).append(i + 1)
+        for (f, r, g, i, prov) in base:
+            if prov != "frame" or r not in ("in",) and not norm_rel(r):
+                continue
+            fhead = f.split()[-1] if f.split() else f
+            cand = low_to_idx.get(fhead.lower(), [])
+            if not cand:
+                continue
+            f1 = min(cand, key=lambda c: abs(c - (i + 1)))
+            run = _conj_run(words, upos, heads, f1)
+            if len(run) > 1:
+                for c in run:
+                    span = _subtree_head_noun(words, upos, heads, c)
+                    if span and span != g:
+                        out.append((span, r, g, i, "conj"))
+    if use_move:
+        # PATH/MOVE: motion verb + goal/source PP -> (mover, goal/source, place). mover = subject; ALSO emit the
+        # motion EVENT as mover.
+        for v in range(1, n + 1):
+            if lows[v - 1] in _MOTION and upos[v - 1] in ("VERB", "AUX"):
+                subj = _subject_of(ch, upos, v)
+                mover_spans = []
+                if subj:
+                    mover_spans.append(_subtree_head_noun(words, upos, heads, subj))
+                mover_spans.append(lows[v - 1])
+                for i in range(v, min(v + 8, n)):
+                    if lows[i] in _GOAL_PREP or lows[i] in _SOURCE_PREP:
+                        gnd1 = heads.get(i + 1, 0)
+                        if not (1 <= gnd1 <= n) or upos[gnd1 - 1] not in ("NOUN", "PROPN"):
+                            gnd1 = None
+                            for k in range(i + 2, min(i + 5, n + 1)):
+                                if upos[k - 1] in ("NOUN", "PROPN"):
+                                    gnd1 = k; break
+                        if not gnd1:
+                            continue
+                        rel = "goal" if lows[i] in _GOAL_PREP else "source"
+                        place = _subtree_head_noun(words, upos, heads, gnd1)
+                        for ms in mover_spans:
+                            if ms and place and ms != place:
+                                out.append((ms, rel, place, i, "move"))
+    if use_thematic:
+        # THEMATIC-FIGURE spatial binding: bind the locative to the LOCATED EVENT/situation (Talmy: the Figure can
+        # be an event) over ONE nested spatial model (Zwaan & Radvansky 1998; Johnson-Laird).
+        evv = joint_event_ranks(words, upos, heads, copular=False, nominal=False)
+        for i in range(n):
+            if lows[i] not in _LOC_PREPS or upos[i] not in ("ADP", "ADV"):
+                continue
+            rel = _LOC_PREPS[lows[i]]
+            gnd1 = heads.get(i + 1, 0)
+            if not (1 <= gnd1 <= n) or upos[gnd1 - 1] not in ("NOUN", "PROPN"):
+                gnd1 = None
+                for k in range(i + 2, min(i + 6, n + 1)):
+                    if upos[k - 1] in ("NOUN", "PROPN"):
+                        gnd1 = k; break
+                    if lows[k - 1] in (".", ";", "!", "?"):
+                        break
+                if not gnd1:
+                    continue
+            grounds = _coerce_ground_spans(words, upos, heads, gnd1) if thematic_coerce \
+                else [_subtree_head_noun(words, upos, heads, gnd1)]
+            figs = []
+            ev_verb = _governing_event(heads, upos, evv, gnd1, n)
+            if ev_verb is not None:
+                figs.append(lows[ev_verb - 1])
+                if thematic_subj:
+                    s = _subject_of(ch, upos, ev_verb)
+                    if s:
+                        figs.append(_subtree_head_noun(words, upos, heads, s))
+                if thematic_obj:
+                    o = _object_of(ch, upos, ev_verb)
+                    if o and o != gnd1:
+                        figs.append(_subtree_head_noun(words, upos, heads, o))
+            anchor = heads.get(gnd1, 0)
+            if 1 <= anchor <= n:
+                if upos[anchor - 1] in ("NOUN", "PROPN"):
+                    figs.append(_subtree_head_noun(words, upos, heads, anchor))
+                elif upos[anchor - 1] in ("VERB", "AUX"):
+                    s2 = _subject_of(ch, upos, anchor)
+                    if s2:
+                        figs.append(_subtree_head_noun(words, upos, heads, s2))
+            seenf = set()
+            for fg in figs:
+                if not fg or fg in seenf:
+                    continue
+                seenf.add(fg)
+                for gnd in grounds:
+                    if gnd and fg != gnd:
+                        out.append((fg, rel, gnd, i, "thematic"))
+                        if rel in ("at", "on"):
+                            gh = gnd.split()[-1].lower() if gnd.split() else gnd.lower()
+                            if gh in _PLACEISH or gh in _REGION_PART:
+                                out.append((fg, "in", gnd, i, "thematic"))
+        if thematic_relcl:
+            # RELATIVE-CLAUSE / EXISTENTIAL locatives + stranded locative preposition.
+            for i in range(n):
+                if lows[i] != "where":
+                    continue
+                p = None
+                for k in range(i - 1, 0, -1):
+                    if upos[k - 1] in ("NOUN", "PROPN"):
+                        p = k; break
+                    if lows[k - 1] in (".", "!", "?", ";"):
+                        break
+                if not p:
+                    continue
+                antes = []
+                antes.extend(_coerce_ground_spans(words, upos, heads, p) if thematic_coerce
+                             else [_subtree_head_noun(words, upos, heads, p)])
+                ph = heads.get(p, 0)
+                if 1 <= ph <= n and upos[ph - 1] in ("NOUN", "PROPN") and ph < p:
+                    antes.extend(_coerce_ground_spans(words, upos, heads, ph) if thematic_coerce
+                                 else [_subtree_head_noun(words, upos, heads, ph)])
+                end = n
+                for k in range(i + 1, n):
+                    if lows[k] in (".", "!", "?", ";") or lows[k] == "where":
+                        end = k; break
+                mv = None
+                for k in range(i + 1, end):
+                    if k in evv:
+                        mv = k; break
+                emit_pairs = []
+                if mv is not None:
+                    emit_pairs.append(lows[mv])
+                for k in range(i + 1, end - 1):
+                    if lows[k] == "there":
+                        for j in range(k + 1, min(k + 6, end)):
+                            if upos[j] in ("NOUN", "PROPN"):
+                                emit_pairs.append(_subtree_head_noun(words, upos, heads, j + 1)); break
+                        break
+                for fg in emit_pairs:
+                    for a in antes:
+                        if fg and a and fg != a:
+                            out.append((fg, "in", a, i, "relcl"))
+            for i in range(n):
+                if lows[i] not in _LOC_PREPS or upos[i] not in ("ADP", "ADV"):
+                    continue
+                right_obj = False
+                for k in range(i + 1, min(i + 5, n + 1)):
+                    if upos[k - 1] in ("NOUN", "PROPN"):
+                        right_obj = True; break
+                    if lows[k - 1] in (".", ";", "!", "?", ","):
+                        break
+                if right_obj:
+                    continue
+                h = heads.get(i + 1, 0)
+                if not (1 <= h <= n and (h - 1) in evv):
+                    continue
+                ante1 = None
+                for k in range(h - 1, 0, -1):
+                    if upos[k - 1] in ("NOUN", "PROPN"):
+                        ante1 = k; break
+                    if lows[k - 1] in (".", ";", "!", "?"):
+                        break
+                if not ante1:
+                    continue
+                figs = [lows[h - 1]]
+                s = _subject_of(ch, upos, h)
+                if thematic_subj and s:
+                    figs.append(_subtree_head_noun(words, upos, heads, s))
+                for a in (_coerce_ground_spans(words, upos, heads, ante1) if thematic_coerce
+                          else [_subtree_head_noun(words, upos, heads, ante1)]):
+                    for fg in figs:
+                        if fg and a and fg != a:
+                            out.append((fg, "in", a, i, "stranded"))
+        if thematic_deixis:
+            # DEIXIS-IN-PLACE: 'here/there in/at PLACE' anchors the deictic locus to a named region.
+            for i in range(n):
+                if lows[i] not in ("here", "there") or upos[i] not in ("ADV", "PRON", "NOUN"):
+                    continue
+                if i + 1 >= n or lows[i + 1] not in ("in", "at", "within"):
+                    continue
+                k = i + 1
+                gnd1 = heads.get(k + 1, 0)
+                if not (1 <= gnd1 <= n and upos[gnd1 - 1] in ("NOUN", "PROPN")):
+                    gnd1 = None
+                    for j in range(k + 2, min(k + 5, n + 1)):
+                        if upos[j - 1] in ("NOUN", "PROPN"):
+                            gnd1 = j; break
+                if not gnd1:
+                    continue
+                for a in (_coerce_ground_spans(words, upos, heads, gnd1) if thematic_coerce
+                          else [_subtree_head_noun(words, upos, heads, gnd1)]):
+                    if a and a != lows[i]:
+                        out.append((lows[i], "in", a, i, "deixis_place"))
+    return out
+
+
 def clear_cache():
     _parse_cache.clear()
 

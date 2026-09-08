@@ -3347,8 +3347,9 @@ class SituationReader:
         GRACEFULLY -- every readout abstains (None / False) on an absent/empty register, never raises. A NEW ISLAND
         (no downstream consumer today -> no regression). NO spaCy / NO external LLM at inference (a transparent
         graph walk over the reader's OWN location tracking). Runs LAST in read() so it sees the FINAL sm.locations."""
-        from hdlab.spatial_relational_model import SpatialModel
+        from hdlab.spatial_relational_model import SpatialModel, norm_rel, canon_entity
         from hdlab.location_register import spatial_region, DEICTIC_SCENE, AWAY
+        from hdlab import joint_relation_frontend as _JF
 
         holder = {}   # lazy single-build cache of the SpatialModel over sm.locations (built at most once)
 
@@ -3370,6 +3371,30 @@ class SituationReader:
                             region = spatial_region(node)
                             if region is not None:
                                 m.add_containment(node, region)
+                # P2 (owner-DONE extract_spatial_and_causal, Q111 landing 2026-09-08): seed the FIGURE-GROUND +
+                # PROJECTIVE-POSITION graph from the sentence TEXT via the joint front-end's semantic-typing
+                # extractor (joint_spatial_frames_ext). This is the text->relation extractor this reasoner was
+                # explicitly built to wait for (the projective graph was empty, so spatial_relative abstained). The
+                # extractor is byte-faithful to the SpaceEval-validated arm (TYPE-precision 0.5712 vs incumbent
+                # 0.5179 CI-sep) minus the refuted marginal-attachment. Reuses the reader's OWN cached parse
+                # (_JF.parse_sentence is memoized per word-tuple -> a cache hit when the temporal reasoner already
+                # parsed the sentence; NO second parse). Gated by spatial_text_edges (default True) for ablation.
+                if getattr(self, "spatial_text_edges", True):
+                    for _toks in sents:
+                        _toks = list(_toks)
+                        if not _toks or len(_toks) > 120:
+                            continue
+                        _up, _hd = _JF.parse_sentence(_toks)
+                        for (_f, _r, _g, _i, _prov) in _JF.joint_spatial_frames_ext(
+                                _toks, _up, _hd, use_thematic=getattr(self, "spatial_thematic", True)):
+                            if canon_entity(_f) == canon_entity(_g):
+                                continue
+                            if _r == "in":
+                                m.add_containment(_f, _g)
+                            elif norm_rel(_r):
+                                m.add_position(_f, _r, _g)
+                            # goal/source PATH edges: not added to the static relational model here (the
+                            # location_register-enrichment consumer is the filed follow-on).
                 holder["m"] = m
             return m
 
