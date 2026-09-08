@@ -2,11 +2,11 @@
 problem: report_the_typed_coref_organ_onto_the_live_reader_common_noun_path_and_measure
 status: PARTIAL
 bar: "LIVE common-noun RESOLUTION accuracy beats the live floor CI-separated on MODERN gold (GUM), reported with a doc-level paired-bootstrap CI. The info-free twin (bridge fires to a RANDOM type-compatible antecedent) LOSES CI-separated. NO regress: pronoun and named-antecedent (kb) consumers byte-identical or up. A rigorous NEGATIVE is a full pass (e.g. 'the live path's same-head binding already captures the nominal view, so the re-port ties -- subsumption, located and counted')."
-result: "The brief's mechanism (re-port the two levers onto hdlab.commonnoun_binder) is REFUTED on the live path, and the real cause is LOCATED. On the DEPLOYED binder mention-schema + binding, per-mention common-noun RESOLUTION accuracy = 0.4904 (GUM modern TEST, n=2855 anaphoric common-noun mentions, metric = resolved-referent nominal-dominant gold eid == mention eid) -- BELOW same-head string-identity 0.5412 (delta -0.0508, CI[-0.0739,-0.0308]), REPLICATING the URG defect (0.4879) on the actual deployed binding. Re-porting the levers: de-pollution is a NO-OP (the binder clusters only non-pronoun mentions, so its dominants are already nominal -- subsumption, confirmed); the NON-WRITING type bridge, GENERALIZED past the binder's person-gate, is a real lever (0.5201, +0.0298 over base CI[+0.0234,+0.0372], twin LOSES +0.0210 CI[+0.0157,+0.0270], person-gate removal is +0.0235 CI[+0.0180,+0.0295] of the gain) -- but it only reaches PARITY with string-identity (delta -0.0210, CI[-0.0458,+0.0008] includes 0), NOT a CI-separated beat. The DEFICIT is the binder's BINDING, isolated: the URG/typed-coref resolution binding on the SAME live schema scores 0.5485, +0.0581 over the deployed binder CI[+0.0454,+0.0695]; and the COMMITTED hdlab.typed_coref organ BEATS string-identity +0.0259 CI[+0.0134,+0.0385] CI-sep on this exact population and beats the deployed binder +0.0767 CI[+0.0547,+0.0995]. So the live common-noun RESOLUTION consumer should be served by the typed_coref binding, NOT the LitBank-clustering binder; the live CI-separated win is achievable (organ, proven here) but requires a Q111 hdlab wire + a new resolution instrument-arm, not a re-port of levers onto the binder."
+result: "The brief's mechanism (re-port the two levers onto hdlab.commonnoun_binder) is REFUTED on the live path, and the real cause is LOCATED. On the DEPLOYED binder mention-schema + binding, per-mention common-noun RESOLUTION accuracy = 0.4904 (GUM modern TEST, n=2855 anaphoric common-noun mentions, metric = resolved-referent nominal-dominant gold eid == mention eid) -- BELOW same-head string-identity 0.5412 (delta -0.0508, CI[-0.0739,-0.0308]), REPLICATING the URG defect (0.4879) on the actual deployed binding. Re-porting the levers: de-pollution is a NO-OP (the binder clusters only non-pronoun mentions, so its dominants are already nominal -- subsumption, confirmed); the NON-WRITING type bridge, GENERALIZED past the binder's person-gate, is a real lever (0.5201, +0.0298 over base CI[+0.0234,+0.0372], twin LOSES +0.0210 CI[+0.0157,+0.0270], person-gate removal is +0.0235 CI[+0.0180,+0.0295] of the gain) -- but it only reaches PARITY with string-identity (delta -0.0210, CI[-0.0458,+0.0008] includes 0), NOT a CI-separated beat. The DEFICIT is the binder's BINDING, isolated: the URG/typed-coref resolution binding on the SAME live schema scores 0.5485, +0.0581 over the deployed binder CI[+0.0454,+0.0695]; and the COMMITTED hdlab.typed_coref organ BEATS string-identity +0.0259 CI[+0.0134,+0.0385] CI-sep on this exact population and beats the deployed binder +0.0767 CI[+0.0547,+0.0995]. The FULL fix ported onto the EXACT live dict-mention SCHEMA (typed_coref_liveschema_resolve: 3-view de-pollution + generalized non-writing bridge w/ appos/copula + name-token + typed-spokes seeds) = 0.5664, BEATS string-identity +0.0252 CI[+0.0126,+0.0375] CI-sep, recovers the organ (0.5671), beats the deployed binder +0.0760 CI-sep, beats the reduced port +0.0179 CI-sep (the seeds close the gap), twin loses +0.0256 CI-sep -- so the fix is proven on the exact schema the wire consumes, not just the population. So the live common-noun RESOLUTION consumer should be served by the typed_coref binding, NOT the LitBank-clustering binder; the live CI-separated win is achievable + PROVEN on the live schema, but requires a Q111 hdlab wire + a new resolution instrument-arm, not a re-port of levers onto the binder."
 floor: "Strongest floor actually run on the SAME n=2855 GUM-TEST anaphoric common-noun population: same-head STRING-IDENTITY keyed by the GUM gold lemma = 0.5412 (POSITIVE CONTROL: identical to the URG board floor 0.5412 -- confirms the dict-schema scorer reproduces the board instrument). Binder's own-lemmatizer string-identity = 0.5156. Deployed binder = 0.4904 (below both). typed_coref organ = 0.5671 (beats the floor CI-sep)."
-controls: "(1) POSITIVE CONTROL: dict-schema string-identity == URG board floor 0.5412 exactly (population + scorer match). (2) FAITHFULNESS: the resolve mirror (bridge=off) is BYTE-IDENTICAL to hdlab.commonnoun_binder.situation_predict on all 137 test docs (9065 labels) -> the measured binder_base IS the deployed binder. (3) NO-REGRESS BY CONSTRUCTION: the non-writing bridge arms produce byte-identical CLUSTER LABELS to base -> sm.entities + the separate reader pronoun stream are byte-unchanged (the WRITING type-license changes labels, which is exactly why p11 measured a pronoun drag -0.0172). (4) INFO-FREE TWIN (bridge fires but resolves to a RANDOM gn-compatible prior referent) LOSES CI-sep under BOTH the binder binding (+0.0210) and the URG binding (+0.0259) -> the type signal is load-bearing, not 'any reach'. (5) NAME no-regress: generalized bridge vs base +0.0024 CI[+0.0008,+0.0045] (improves, not a regress). (6) p11 WRITING type-license is a wash-to-negative on resolution (+0.0021 CI incl 0). (7) De-pollution SUBSUMED: the binder never writes pronouns to its referents, so nominal-dominant == full-dominant by construction (measured no-op)."
+controls: "(1) POSITIVE CONTROL: dict-schema string-identity == URG board floor 0.5412 exactly (population + scorer match). (2) FAITHFULNESS: the resolve mirror (bridge=off) is BYTE-IDENTICAL to hdlab.commonnoun_binder.situation_predict on all 137 test docs (9065 labels) -> the measured binder_base IS the deployed binder. (3) NO-REGRESS BY CONSTRUCTION: the non-writing bridge arms produce byte-identical CLUSTER LABELS to base -> sm.entities + the separate reader pronoun stream are byte-unchanged (the WRITING type-license changes labels, which is exactly why p11 measured a pronoun drag -0.0172). (4) INFO-FREE TWIN (bridge fires but resolves to a RANDOM gn-compatible prior referent) LOSES CI-sep under BOTH the binder binding (+0.0210) and the URG binding (+0.0259) -> the type signal is load-bearing, not 'any reach'. (5) NAME no-regress: generalized bridge vs base +0.0024 CI[+0.0008,+0.0045] (improves, not a regress). (6) p11 WRITING type-license is a wash-to-negative on resolution (+0.0021 CI incl 0). (7) De-pollution SUBSUMED: the binder never writes pronouns to its referents, so nominal-dominant == full-dominant by construction (measured no-op). (8) OOD GENERALIZATION (GENTLE, out-of-domain, n=275): the defect + fix replicate (binder 0.5273 < floor 0.5709; fix 0.5964, +0.0255 = the GUM +0.0252) -- direction+magnitude, underpowered for CI-sep."
 files_changed: "experiments/exp_commonnoun_binder_live_report_v1.py, verification/test_commonnoun_binder_live_report.py, data/exp_commonnoun_binder_live_report_v1/metrics.json, notes/problems/report_the_typed_coref_organ_onto_the_live_reader_common_noun_path_and_measure/SOLVED.md. NO hdlab/ writes (Q111 -- proposed wire stated in section 6). Reuses data/corpora/gum/ (pinned V12.1.0, on disk) + hdlab.{commonnoun_binder,typed_coref,typed_spokes,coref,event_centrality_coref} + experiments.{gum_coref,exp_unified_referent_gum_v1}."
-reverify: ".venv/Scripts/python.exe verification/test_commonnoun_binder_live_report.py    # 12/12 (+ W1 faithfulness + W2 no-regress asserted inline); recomputes every headline from source on the full GUM modern TEST"
+reverify: ".venv/Scripts/python.exe verification/test_commonnoun_binder_live_report.py    # 15/15 (+ W1 faithfulness + W2 no-regress asserted inline; incl W10 full-fix-on-live-schema + W12 OOD-GENTLE generalization); recomputes every headline from source on the full GUM modern TEST"
 ---
 
 # PARTIAL -- the levers do NOT survive a re-port onto the DEPLOYED binder; the deficit is the binder's BINDING, and the committed typed_coref organ is the fix
@@ -32,8 +32,9 @@ located WHY, and the answer changes the recommended wire.
 | **binder + NON-WRITING bridge, GENERALIZED to all nouns** | **0.5201** | **-0.0210 CI[-0.0458,+0.0008] -> PARITY, NOT a beat** |
 | binder + generalized bridge, info-free TWIN | 0.4991 | (type signal destroyed -> loses to the generalized bridge +0.0210 CI-sep) |
 | URG binding on the SAME live schema, no bridge | 0.5173 | -0.0239 |
-| **URG binding on the SAME live schema + generalized bridge** | **0.5485** | **+0.0074 CI[-0.0147,+0.0271] (parity/above); +0.0581 over the deployed binder CI-sep** |
-| **committed hdlab.typed_coref organ (the fix)** | **0.5671** | **+0.0259 CI[+0.0134,+0.0385] CI-SEP (BEATS); +0.0767 over the deployed binder CI-sep** |
+| URG binding on the SAME live schema + generalized bridge (REDUCED port) | 0.5485 | +0.0074 CI[-0.0147,+0.0271] (parity); +0.0581 over the deployed binder CI-sep |
+| **FULL fix on the EXACT live dict SCHEMA (typed_coref_liveschema)** | **0.5664** | **+0.0252 CI[+0.0126,+0.0375] CI-SEP (BEATS); +0.0179 over the reduced port CI-sep (the appos/name seeds); twin loses +0.0256 CI-sep** |
+| **committed hdlab.typed_coref organ (Doc schema; the fix)** | **0.5671** | **+0.0259 CI[+0.0134,+0.0385] CI-SEP (BEATS); +0.0767 over the deployed binder CI-sep** |
 
 **NAME no-regress:** generalized bridge vs base +0.0024 (improves). **De-pollution:** structurally SUBSUMED (no-op).
 
@@ -68,6 +69,12 @@ located WHY, and the answer changes the recommended wire.
 - **The committed organ arm**: runs `hdlab.typed_coref.TypedCorefResolver(bridge=True, bridge_write=False,
   type_comparator="typed_spokes")` on the same GUM population -- the resolution binding that SHOULD carry the live
   consumer.
+- **The FULL fix ported onto the EXACT live dict SCHEMA** (`typed_coref_liveschema_resolve`): the full typed_coref
+  logic -- routes by GUM gold mtype like the organ, 3-view card with NOMINAL de-pollution (pronouns write the full card
+  only), generalized (NO person-gate) non-writing type bridge seeded by `coref_type_license` + in-text appos/copula
+  is-a (from the Doc parse, which the live reader supplies) + name-token containment, ACT-R salience selector -- on the
+  reader's mention-dict stream. This is the drop-in reference for the Q111 wire; it recovers the organ (0.5664 vs
+  0.5671) and beats string-identity CI-sep on the exact schema the wire consumes.
 Scored with the URG doc-level paired bootstrap (`exp_unified_referent_gum_v1._paired_boot`), floor recomputed on the
 same n=2855 population.
 
@@ -105,10 +112,16 @@ same n=2855 population.
   and clusters entities (`sm.entities`); the common-noun gate is default OFF and only changes `sm.entities`. So this win
   is board-invisible today; realizing it needs a Q111 hdlab wire + a new resolution instrument-arm (section 6). If a
   reviewer requires a moved LIVE board dim, that clause is unmet until those two land.
-- **`urg_binding_resolve` (0.5485) is a REDUCED port** of typed_coref onto the dict schema (it skips the pronoun stream
-  and the appos/copula + name-token bridge seeds), which is why it lands below the full organ (0.5671). It is a
-  proof-of-concept that the binding swap recovers the gap on the live schema, not the final port.
-- **GUM only** (modern, TEST=odd docs); no OOD (GENTLE/reddit) arm. **No parameters tuned on TEST** (structural levers).
+- **The reduced vs full port is now RESOLVED, not a caveat.** `urg_binding_resolve` (0.5485) is a reduced port (skips
+  the appos/copula + name-token bridge seeds) and only reaches parity; the FULL port `typed_coref_liveschema_resolve`
+  (0.5664, +0.0179 over the reduced port CI-sep) BEATS string-identity CI-sep on the EXACT live dict schema and recovers
+  the organ. So the win is proven on the live schema, not only on the Doc/population -- the earlier "reduced port" caveat
+  is closed.
+- **OOD robustness (GENTLE, out-of-domain vs GUM, n=275 anaphoric common):** the defect + the fix GENERALIZE off GUM --
+  the deployed binder trails string-identity (0.5273 vs 0.5709) and the full live-schema fix beats it (0.5964, +0.0255
+  over the floor, matching the GUM effect +0.0252 almost exactly). The CI includes 0 (n=275 is underpowered: only 26
+  GENTLE docs), so this is a DIRECTION+MAGNITUDE replication, honestly NOT a CI-separated OOD claim. **No parameters
+  tuned on TEST** (structural levers).
 
 ## 5. Performance vs the brain + full-stack upstream (owner's directive)
 - **Where we lose signal, itemized:** a competent reader resolves the different-head slice ("the company"->Google) with
@@ -131,9 +144,11 @@ The recommendation is NOT the brief's (do not add the levers to `commonnoun_bind
    (`bridge=True, bridge_write=False, type_comparator="typed_spokes"`), NOT `commonnoun_binder`.** Port `resolve_doc` onto
    the reader's dict-mention stream (the FULL port: process pronouns writing to the full card only for salience/gender +
    the nominal de-pollution; seed the bridge with `coref_type_license` + apposition/copula is-a + name-token containment;
-   generalized to ALL common nouns -- no person-gate). Reference: `urg_binding_resolve` here is the reduced live-schema
-   proof (+0.0581 over the binder CI-sep); the full organ is +0.0767 over the binder and +0.0259 over string-identity
-   CI-sep. Keep `commonnoun_binder` for the CLUSTERING (`sm.entities`) consumer -- do not change it.
+   generalized to ALL common nouns -- no person-gate). **Drop-in reference:
+   `experiments/exp_commonnoun_binder_live_report_v1.typed_coref_liveschema_resolve` -- the FULL port already runs on the
+   reader's dict-mention schema and scores 0.5664 (+0.0252 over string-identity CI-sep, recovering the organ 0.5671).**
+   The `commonnoun_binder`-based `urg_binding_resolve` is the reduced proof that the binding swap alone is +0.0581 over
+   the binder CI-sep. Keep `commonnoun_binder` for the CLUSTERING (`sm.entities`) consumer -- do not change it.
 2. **Add a scored common-noun RESOLUTION instrument-arm to the reader** (`board_commonnoun_resolution_dimension`) reusing
    this cell's metric (resolved-referent nominal-dominant gold eid == mention eid) on GUM, so the win is board-VISIBLE.
    Today the reader has no such dim (a "board-invisible proven win needs its own instrument-arm").

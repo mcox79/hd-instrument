@@ -121,6 +121,16 @@ So: ALL solver-side components built + proven (8 cells + 8 witnesses, all green 
 prototype of the corrected chain); the hand-off is the document-level coref/meaning-channel wiring, and its
 ceiling is quantified (+0.035 CI-sep at oracle).
 
+## CYCLE-4 UPDATE (2026-09-07) -- goal-detection upstream AUDITED + CLEARED
+`exp_genworldmodel_goal_detection_fidelity_v1.py` (witness 3/3): goal_register's Levin-class goal DETECTION is
+LOAD-BEARING (twin->chance 0.496, Levin-twin +0.451 CI-sep) + HIGH-FIDELITY (balanced-acc 0.946, non-goal
+rejection 1.000) but TIES a naive lexical floor -> 100% brain-foundational + load-bearing but NOT the
+underperformance cause; CLEARED as an upstream suspect. Both upstream suspects now checked: goal-detection=clean;
+coref/participant-binding QUALITY = the SOLE remaining lever (excel/exceed proven at oracle; needs the
+document-level coref front-end, Q111). SOLVER-SIDE CONVERGED: 10 cells + 10 witnesses (all green); the only
+remaining lever is out of solver scope (hdlab document-level coref/meaning-channel wiring). Last un-audited item =
+occ_appraisal fidelity (not used in the rollout; needs emotion gold).
+
 ## CRON
 Deepening cron `b258c5dd` (13,43 * * * *), prompt = "keep doing what you've been doing + consider the checklist".
 Session-only, auto-expires 7 days. CANCEL + submit when the brain-mechanism bar is met AND the checklist yields
