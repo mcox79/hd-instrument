@@ -1,10 +1,16 @@
 ---
-priority: 3
 slug: wire_the_crosstype_definite_name_bridge_into_the_live_reader_and_measure_the_experiencer_lift
-status: CANDIDATE
-review:
-review_text:
+status: INTEGRATED
+review: EXCELLENT
+review_text: Reverified 6/6 first-hand. PARTIAL/located-negative -- the bridge SURVIVES the real consumer chain on the HONEST floor (+0.0528 experiencer CI-sep, twin loses, full reader.read() no-regress) but the literal wire yields no live BOARD gain because an UPSTREAM component -- the entity gate's GOLD-COREF INHERITANCE -- is a leak (owner ruled it a leak; filed as replace_the_entity_gate...). Full inventory tracked.
 ---
+
+> ## SOLVER REVIEW -- EXCELLENT (integrated 2026-09-08 as PARTIAL/located-negative; live wire gated on the de-leak problem)
+> Reverified FIRST-HAND **6/6** (`verification/test_crosstype_live_wire.py`): W1 deterministic known-answer through the REAL canonicalizer; W2 deployable conf_thr=-3.0 C3 experiencer 0.1548 -> 0.2077 (**+0.0528 CI[+0.0316,+0.0782] CI-sep**), twin LOSES (+0.0601 CI-sep, n=549); W3 no-regress (C1 up-or-flat, C2 +0.0071 CI-sep); W4 the gold-coref LEAK (real gate C3 gold-seed 0.828 vs honest-seed 0.134); W5 the cue_competed/cue_conf dial; W6 FULL `reader.read()` downstream no-regress (pronoun coref_acc byte-identical).
+> **What makes it excellent:** it followed the disk over the brief. Wired the bridge through the reader's ACTUAL consumer chain (`_build_entities` -> `make_canonicalizer` -> `affect_register.bind_experiencers`), found the mechanism SURVIVES on the honest floor (+0.0528), then LOCATED why the literal wire moves no board dim: the gate silently reuses GOLD coref labels (~0.80-0.86 looks solved; strip it -> ~0.13-0.15). Escalated the "is gold-coref a legitimate given or a leak?" judgment call — I ruled **leak**.
+> **What did not reproduce under my check:** nothing — 6/6 held.
+> **FULL FIX/PROTOTYPE/UPSTREAM INVENTORY tracked (ledger CONT-26):** (1) the crosstype bridge SURVIVES the real consumer on the honest floor (+0.0528, twin loses, no-regress) — but stays LATENT (the live board gain is gated); (2) **UPSTREAM #1 (the blocker) = the entity gate's GOLD-COREF INHERITANCE — non-brain-foundational leak** -> filed `replace_the_entity_gate_gold_coref_inheritance_with_online_cue_based_clustering`; (3) UPSTREAM #2 = the live parser/labeler (bridge precision 0.42-0.61 live vs 0.86-0.96 gold, near-ceiling, second-order); (4) LOCATED NEGATIVE: the Wikidata OCCUPATION KB is the wrong world-knowledge axis for this (people re-mentioned by relation/role/age-gender, not occupation) — reconciled with the coarse-person-typing route (a real distinct type constraint) -> `world_knowledge_common_noun_to_name_bridge`; (5) the cue_competed vs cue_conf conf-threshold dial (SAT operating point); (6) the ~81% world-knowledge residual = the honest name-bridge gap.
+> **AUDIT UPDATE folded (§2b):** the entity gate's gold-coref inheritance is a live non-brain-foundational LEAK that masks every coref/name-bridge/experiencer gain; the crosstype bridge is brain-foundational + survives the honest floor. **status:INTEGRATED, priority 3 dropped.** **Realization (tracked): the two-part live wire (opt-in bridge + de-leak) lands once `replace_the_entity_gate...` is solved.**
 
 # PROBLEM: `hdlab/crosstype_bridge.py` is landed and parity-exact but LATENT (no live consumer reads it) -- so wire it into the reader's DEFAULT common-noun gate behind an opt-in flag (byte-identical off), feeding it the reader's OWN parsed tokens, and prove the affect/goal EXPERIENCER consumer lifts CI-separated on modern GUM THROUGH THE LIVE READER (not the offline harness), with the info-free twin LOSING and no entity-layer/hard-link regress -- then flip per no-more-default-off.
 

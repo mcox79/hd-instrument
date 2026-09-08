@@ -3400,8 +3400,13 @@ class SituationReader:
                                 m.add_containment(_f, _g)
                             elif norm_rel(_r):
                                 m.add_position(_f, _r, _g)
-                            # goal/source PATH edges: not added to the static relational model here (the
-                            # location_register-enrichment consumer is the filed follow-on).
+                            # goal/source PATH edges: not added here. The location_register-enrichment follow-on
+                            # was MEASURED (2026-09-08) and is a LOCATED NEGATIVE: figure-ground/thematic ext edges
+                            # are the wrong TYPE for a per-entity location-STATE register (the type-compatible
+                            # goal/source edges collapse to ~4 redundant cases across 14 books, already caught by the
+                            # register's gated motion reader; the `in` edges pollute where_is -- broke 8/fixed 0, and
+                            # a shuffled-ground twin did BETTER = anti-informative). Do NOT feed the ext to the
+                            # register; the where_is lever is named-Ground SELECTION (the space_where_is SOLVED).
                 holder["m"] = m
             return m
 
