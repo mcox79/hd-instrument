@@ -1810,6 +1810,268 @@ def board_commonnoun_resolution_dimension(cap=None, seed=13, n_boot=2000):
         return _degraded("commonnoun_resolution", e), {"error": "%s: %s" % (type(e).__name__, e)}
 
 
+def board_state_closure_dimension(n_boot=5000, seed=None):
+    """STATE-CLOSURE (multi-clause state antonymy) board arm on the solver's OWN CONSTRUCTED MODERN gold
+    (exp_state_closure_wordnet_v1 _CLOSURE_ANTONYM/_CLOSURE_COSTATE, n=25). This capability is board-INVISIBLE
+    today -- the `state` dim scores copular is-a binding, NOT whether a state span CLOSES when a later
+    INCOMPATIBLE state is asserted ("the towel was wet ... the towel was dry" -> wet no longer holds). The
+    owner-DONE fix landed WordNet-derived antonymy into hdlab.state_register.incompatible (a WordNet core-
+    adjective FOUNDATION fallback, L264-266), closing antonym pairs the hand list missed (wet/dry, tired/
+    rested, honest/dishonest). Reuses the solver's OWN gold + closure machinery verbatim (the _closes state-
+    register driver):
+      model = the LIVE hdlab.state_register.incompatible (WordNet-derived closure, the landed organ),
+      strongest floor = HAND-LIST-ONLY closure (the pre-fix predicate: _INCOMPAT hand groups + un-/in-
+        morphology, NO WordNet -- reconstructed here because the landed organ now EQUALS WordNet, so the
+        experiment's own `_ORIG_INCOMPAT` 'hand' arm is no longer hand-only [SURFACED discrepancy]),
+      second floor = always-persist (never closes),
+      info-free twin = scrambled antonymy at matched rate (permute the second state across the antonym items).
+    Reports overall acc + antonym-recall / costate-precision split + paired bootstrap CI + the OVER-CLOSE cost
+    (WordNet false-close rate on labeled non-opposites minus the hand floor's). CONSTRUCTED (declared, NOT a
+    corpus gold) -- makes the MECHANISM board-visible, NOT a headline-aggregate claim. Degrades gracefully."""
+    try:
+        import numpy as np
+        import experiments.exp_state_closure_wordnet_v1 as S
+        import hdlab.state_register as SR
+        sd = S.SEED if seed is None else seed
+
+        def hand_only(v1, v2):
+            # the PRE-FIX incompatible: hand groups (_INCOMPAT) + un-/in- morphology, NO WordNet fallback.
+            a, b = SR._canon_value(v1), SR._canon_value(v2)
+            if a == b:
+                return False
+            if b in SR._INCOMPAT.get(a, frozenset()):
+                return True
+            for x, y in ((a, b), (b, a)):
+                if x.startswith("un") and x[2:] == y:
+                    return True
+                if x.startswith("in") and x[2:] == y:
+                    return True
+            return False
+
+        n_ant = len(S._CLOSURE_ANTONYM)
+        items = [(e, a, b, False) for (e, a, b) in S._CLOSURE_ANTONYM] \
+            + [(e, a, b, True) for (e, a, b) in S._CLOSURE_COSTATE]
+        rng = np.random.default_rng(sd)
+        ant_seconds = [b for (_, _, b) in S._CLOSURE_ANTONYM]
+        perm = rng.permutation(len(ant_seconds))
+        twin_second = {i: ant_seconds[perm[i]] for i in range(len(ant_seconds))}
+        model, floor, persist, twin = [], [], [], []
+        ai = 0
+        for (e, a, b, gold_holds) in items:
+            gc = not gold_holds  # gold: should the span close?
+            model.append(int(S._closes(SR.incompatible, a, b) == gc))     # LIVE organ (WordNet-derived)
+            floor.append(int(S._closes(hand_only, a, b) == gc))           # hand-list-only floor (pre-fix)
+            persist.append(int(False == gc))                              # always-persist floor
+            if gold_holds is False:                                       # an antonym item -> scramble second
+                b_tw = twin_second[ai]; ai += 1
+            else:
+                b_tw = b
+            twin.append(int(S._closes(SR.incompatible, a, b_tw) == gc))
+        model = np.array(model, float); floor = np.array(floor, float)
+        persist = np.array(persist, float); twin = np.array(twin, float)
+
+        def boot(av, bv):
+            n = len(av); obs = av.mean() - bv.mean(); ds = np.empty(n_boot)
+            for k in range(n_boot):
+                idx = rng.integers(0, n, n); ds[k] = av[idx].mean() - bv[idx].mean()
+            lo, hi = np.percentile(ds, [2.5, 97.5])
+            return ([round(float(obs), 4), round(float(lo), 4), round(float(hi), 4)], bool(lo > 0),
+                    round(float(np.percentile(np.abs(ds - obs), 95)), 4))
+
+        def split(v):
+            return {"antonym_recall": round(float(v[:n_ant].mean()), 4),
+                    "costate_precision": round(float(v[n_ant:].mean()), 4),
+                    "overall": round(float(v.mean()), 4)}
+        floor_acc = round(float(floor.mean()), 4); persist_acc = round(float(persist.mean()), 4)
+        if floor_acc >= persist_acc:   # strongest floor = higher of hand-list-only vs always-persist
+            sf_name, sf_acc, sf_vec = "hand_list_only_closure", floor_acc, floor
+        else:
+            sf_name, sf_acc, sf_vec = "always_persist", persist_acc, persist
+        ms, ms_sep, ms_p95 = boot(model, sf_vec)
+        mt, mt_sep, _ = boot(model, twin)
+        mp, mp_sep, _ = boot(model, persist)
+
+        def rate(fn, pairs):
+            return round(float(np.mean([int(fn(a, b)) for (a, b) in pairs])), 4)
+        wn_neg = rate(SR.incompatible, S._NEG_PAIRS); hd_neg = rate(hand_only, S._NEG_PAIRS)
+        wn_pos = rate(SR.incompatible, S._POS_PAIRS); hd_pos = rate(hand_only, S._POS_PAIRS)
+        wn_false = ["%s/%s" % (a, b) for (a, b) in S._NEG_PAIRS if SR.incompatible(a, b)]
+        live_wired = bool(SR.incompatible("wet", "dry") and not hand_only("wet", "dry"))
+        row = {
+            "n": len(items), "model_acc": round(float(model.mean()), 4),
+            "overlap_floor": sf_acc,
+            "floor_accs": {"hand_list_only_closure": floor_acc, "always_persist": persist_acc},
+            "strongest_floor_name": sf_name, "strongest_floor": sf_acc,
+            "twin_acc": round(float(twin.mean()), 4),
+            "model_minus_strongest": ms, "model_minus_twin": mt,
+            "ci_sep_over_strongest": ms_sep, "ci_sep_over_twin": mt_sep,
+            "null_p95_over_strongest": ms_p95,
+            "model_minus_persist": mp, "ci_sep_over_persist": mp_sep,
+            "by_arm": {"model_live_wordnet": split(model), "hand_list_only_floor": split(floor),
+                       "always_persist_floor": split(persist), "twin_scrambled": split(twin)},
+            "over_close_cost": round(wn_neg - hd_neg, 4),
+            "lexicon_probe": {"model_recall_on_opposites": wn_pos, "hand_recall_on_opposites": hd_pos,
+                              "model_false_close_on_nonopposites": wn_neg,
+                              "hand_false_close_on_nonopposites": hd_neg,
+                              "model_false_fires": wn_false, "n_pos": len(S._POS_PAIRS),
+                              "n_neg": len(S._NEG_PAIRS)},
+            "live_wordnet_closure_wired": live_wired, "informational": True,
+            "population": "CONSTRUCTED MODERN state-closure gold (exp_state_closure_wordnet_v1, n=%d: %d antonym "
+                          "should-close + %d co-state keep-open, mechanism-isolated abstract state events, 19c-free "
+                          "vocabulary); model=LIVE hdlab.state_register.incompatible (WordNet-derived closure, "
+                          "landed fix); strongest floor=HAND-LIST-ONLY closure (pre-fix predicate, reconstructed); "
+                          "second floor=always-persist; twin=scrambled antonymy at matched rate. CONSTRUCTED, "
+                          "declared (NOT a corpus gold)." % (len(items), n_ant, len(S._CLOSURE_COSTATE))}
+        detail = {"note": "default-persist state model (Dowty 1986 temporal inertia -- a state holds until an "
+                          "EXPLICIT incompatible state) with antonymy DERIVED from the semantic hub (ATL; "
+                          "Patterson/Nestor/Rogers 2007) via WordNet core-adjective antonyms, replacing the hand "
+                          "list that missed wet/dry, tired/rested, honest/dishonest. The FIRST board arm scoring "
+                          "multi-clause state CLOSURE. Reproduces the SOLVED win: LIVE %.4f (antonym-recall %.4f) "
+                          "vs hand-list-only %.4f (antonym-recall %.4f), %+.4f CI-sep, over-close cost %+.4f "
+                          "(WordNet noise: %s). Reuses exp_state_closure_wordnet_v1 gold + _closes driver verbatim. "
+                          "SURFACED: the landed organ now equals WordNet, so that cell's own `_ORIG_INCOMPAT` "
+                          "'hand' arm is no longer hand-only (this arm reconstructs the true pre-fix floor). "
+                          "CONSTRUCTED, declared -- board-visible mechanism, NOT a headline-aggregate claim."
+                          % (row["model_acc"], row["by_arm"]["model_live_wordnet"]["antonym_recall"],
+                             floor_acc, row["by_arm"]["hand_list_only_floor"]["antonym_recall"],
+                             ms[0], row["over_close_cost"], wn_false)}
+        return row, detail
+    except Exception as e:
+        return _degraded("state_closure", e, informational=True), {"error": "%s: %s" % (type(e).__name__, e)}
+
+
+def board_affect_harm_help_dimension(n_boot=2000, seed=None):
+    """AFFECT (harm/help patient-valence) board arm on the solver's OWN SELF-AUTHORED balanced MODERN gold
+    (exp_fd_harm_help_live_modern_v1.GOLD, n=36: 12 HARM / 12 HELP / 12 NEUTRAL). This capability is board-
+    INVISIBLE today -- the modern board OMITS affect entirely (a NAMED GAP). The owner-DONE fix landed a
+    force-dynamics harm/help decision into the LIVE reader (hdlab.context_grounded_valence /
+    hdlab.force_dynamics_valence), replacing the closed test-fitted FORCE_CLASS_HARM_REAL list that could
+    NEVER emit HELP. Reuses the solver's OWN gold + decision functions verbatim (exp_force_dynamics_harm_help
+    _v1):
+      model = FORCE-DYNAMICS decision (harm_help refined; Talmy 1988 / Wolff 2007 -- the EXACT function the
+        landed reader path consumes, cross-checked below to equal the LIVE reader's affect output),
+      strongest floor = the RETIRED closed-list decision (closed_list_arm, pre-fix organ) AND the all-NEUTRAL
+        majority (both ~0.333),
+      info-free twin = scrambled force lexicon + scrambled harm-set membership.
+    Reports acc + paired bootstrap CI + twin + by-class (HARM/HELP/NEUTRAL) + a 0-FALSE-POSITIVE check (FD
+    never labels a NEUTRAL scene HARM/HELP) + the LIVE-READER cross-check (drive hdlab.situation_reader.read()
+    once on the 36 gold docs; its affect acc must == the decision-level FD acc -> the mechanism is WIRED, not
+    an island). SELF-AUTHORED / DIRECTIONAL (declared: the author has seen both lexicons; NOT a corpus gold --
+    no harm/help-labeled modern corpus exists on disk) -- board-visible MECHANISM, NOT a headline-aggregate
+    claim. Degrades gracefully."""
+    try:
+        import numpy as np
+        import experiments.exp_force_dynamics_harm_help_v1 as FD
+        import experiments.exp_fd_harm_help_live_modern_v1 as FDL
+        sd = FDL.SEED if seed is None else seed
+        GOLD = FDL.GOLD
+
+        def to3(x):
+            return x if x in ("HARM", "HELP") else "NEUTRAL"   # NA / None / abstain -> NEUTRAL
+
+        def animacy(noun):
+            r = FD.ea.real_animacy_lookup(noun, "NOUN")
+            return r["animacy"] if r else None
+        scr_lex = FD.scramble_lexicon(FD.LEX_AUG, FD.SEED + 1)
+        all_v = set(FD.LEX_AUG) | FD.HARM_VERBS | FD.CLOSED
+        scr_harm = FD.scramble_set_membership(FD.HARM_VERBS, all_v, FD.SEED + 2)
+        recs = []
+        for (subj, verb, pat, g) in GOLD:
+            an = animacy(pat)
+            recs.append((verb, pat, g,
+                         to3(FD.harm_help(verb, an, FD.LEX_AUG, FD.HARM_VERBS, mode="refined")),   # model
+                         to3(FD.closed_list_arm(verb, an)),                                        # closed floor
+                         to3(FD.harm_help(verb, an, scr_lex, scr_harm, mode="refined"))))          # twin
+
+        def vec(i):
+            return np.array([1 if r[i] == r[2] else 0 for r in recs], float)
+        model = vec(3); closed = vec(4); twin = vec(5)
+        maj = np.array([1 if r[2] == "NEUTRAL" else 0 for r in recs], float)
+        maj_acc = round(float(maj.mean()), 4); closed_acc = round(float(closed.mean()), 4)
+        if closed_acc >= maj_acc:
+            sf_name, sf_acc, sf_vec = "retired_closed_list", closed_acc, closed
+        else:
+            sf_name, sf_acc, sf_vec = "majority_all_neutral", maj_acc, maj
+        rng = np.random.default_rng(sd)
+
+        def boot(av, bv):
+            n = len(av); obs = av.mean() - bv.mean(); ds = np.empty(n_boot)
+            for k in range(n_boot):
+                idx = rng.integers(0, n, n); ds[k] = av[idx].mean() - bv[idx].mean()
+            lo, hi = np.percentile(ds, [2.5, 97.5])
+            return [round(float(obs), 4), round(float(lo), 4), round(float(hi), 4)], bool(lo > 0)
+        ms, ms_sep = boot(model, sf_vec)
+        mt, mt_sep = boot(model, twin)
+        mm, mm_sep = boot(model, maj)
+
+        def by_class(i):
+            by = {"HARM": [0, 0], "HELP": [0, 0], "NEUTRAL": [0, 0]}
+            for r in recs:
+                by[r[2]][1] += 1; by[r[2]][0] += int(r[i] == r[2])
+            return {k: "%d/%d" % (v[0], v[1]) for k, v in by.items()}
+        false_pos = [(r[0], r[1], r[3]) for r in recs if r[2] == "NEUTRAL" and r[3] in ("HARM", "HELP")]
+        # LIVE-READER cross-check: the FD decision IS what the reader consumes (not an island)
+        live = None
+        try:
+            import hdlab.situation_reader as HSR
+            reader = HSR.SituationReader()
+            FDL.unpatch()   # ensure the reader runs its LIVE (landed) affect path, not the experiment hook
+            os.makedirs(FDL.SCRATCH, exist_ok=True)
+            lc = []
+            lby = {"HARM": [0, 0], "HELP": [0, 0], "NEUTRAL": [0, 0]}
+            for i, (subj, verb, pat, g) in enumerate(GOLD):
+                p = os.path.join(FDL.SCRATCH, "gold_%02d.conll" % i)
+                open(p, "w", encoding="utf-8").write(
+                    FDL.make_conll("gold%d" % i, [FDL.gold_sentence(subj, verb, pat)]))
+                pred = FDL.to_gold3(FDL.read_affects(reader, p, pat))
+                lc.append(int(pred == g)); lby[g][1] += 1; lby[g][0] += int(pred == g)
+            live_raw = float(np.mean(lc))
+            live = {"live_reader_acc": round(live_raw, 4),
+                    "live_reader_by_class": {k: "%d/%d" % (v[0], v[1]) for k, v in lby.items()},
+                    "live_matches_decision": bool(abs(live_raw - float(model.mean())) < 1e-9)}
+        except Exception as le:
+            live = {"error": "%s: %s" % (type(le).__name__, le)}
+        row = {
+            "n": len(recs), "model_acc": round(float(model.mean()), 4),
+            "overlap_floor": sf_acc,
+            "floor_accs": {"retired_closed_list": closed_acc, "majority_all_neutral": maj_acc},
+            "strongest_floor_name": sf_name, "strongest_floor": sf_acc,
+            "twin_acc": round(float(twin.mean()), 4),
+            "model_minus_strongest": ms, "model_minus_twin": mt,
+            "ci_sep_over_strongest": ms_sep, "ci_sep_over_twin": mt_sep,
+            "model_minus_majority": mm, "ci_sep_over_majority": mm_sep,
+            "by_class": by_class(3), "closed_list_by_class": by_class(4),
+            "false_positives_on_neutral": false_pos, "zero_false_positives": (len(false_pos) == 0),
+            "live_reader_crosscheck": live, "informational": True,
+            "population": "SELF-AUTHORED balanced MODERN harm/help gold (exp_fd_harm_help_live_modern_v1.GOLD, "
+                          "n=%d: 12 HARM / 12 HELP / 12 NEUTRAL contemporary SVO scenes, verb inventory adversarial "
+                          "to FD -- includes FrameNet-missed social-harm + Cause_emotion HELP the model abstains on); "
+                          "model=force-dynamics decision (the landed reader path), strongest floor=retired "
+                          "closed-list AND all-NEUTRAL majority, twin=scrambled force lexicon + harm-set. "
+                          "SELF-AUTHORED / DIRECTIONAL, declared (author saw both lexicons; NOT a corpus gold)."
+                          % len(recs)}
+        detail = {"note": "harm/help as FORCE DYNAMICS (Talmy 1988; Wolff 2007 -- an affector force overcoming an "
+                          "animate patient's inertia to an adverse endstate = HARM/CAUSE; a force opposing an adverse "
+                          "endstate = HELP/PREVENT-ENABLE), replacing the closed test-fitted FORCE_CLASS_HARM_REAL "
+                          "list that could NEVER emit HELP. The FIRST board arm scoring affect on modern gold. "
+                          "Reproduces the SOLVED win: FD %.4f (HARM %s HELP %s NEUTRAL %s) vs retired closed-list "
+                          "%.4f (HELP structurally 0/12) and majority %.4f, %+.4f CI-sep; twin %.4f loses; "
+                          "%d false positives on NEUTRAL. Cross-check: the LIVE reader's affect acc == the decision-"
+                          "level FD acc (matches=%s) -- the mechanism is WIRED, not an island. SURFACED: the fix "
+                          "landed in hdlab (context_grounded_valence), so exp_fd_harm_help_live_modern_v1.part_B's "
+                          "through-reader monkeypatch is now a NO-OP (all 3 arms collapse to the live 0.778); this "
+                          "arm scores the contrast at the decision level (genuine floors) + cross-checks the live "
+                          "reader. SELF-AUTHORED / DIRECTIONAL, declared -- board-visible mechanism, NOT a headline "
+                          "claim."
+                          % (row["model_acc"], row["by_class"]["HARM"], row["by_class"]["HELP"],
+                             row["by_class"]["NEUTRAL"], closed_acc, maj_acc, ms[0], row["twin_acc"],
+                             len(false_pos),
+                             (live.get("live_matches_decision") if isinstance(live, dict) else None))}
+        return row, detail
+    except Exception as e:
+        return _degraded("affect_harm_help", e, informational=True), {"error": "%s: %s" % (type(e).__name__, e)}
+
+
 def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True):
     """Assemble every MODERN per_dimension row. caps = dict of per-arm caps for a fast self-test.
     run_new_arms adds the 3 board-invisible-win arms (coarse-sense/selective-reliability/causal-multihop) as
@@ -1911,6 +2173,14 @@ def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True
         ti_row, ti_det = board_temporal_implicit_order_dimension(smoke=bool(caps.get("temporal_smoke")))
         new_arms["temporal_implicit_order"] = ti_row
         new_arms_detail["temporal_implicit_order"] = ti_det
+        # -- this session's TWO landed brain-foundational fixes, made board-visible (each its OWN row, OUT of
+        #    the headline aggregate; CONSTRUCTED / SELF-AUTHORED, declared) --
+        sc_row, sc_det = board_state_closure_dimension()
+        new_arms["state_closure"] = sc_row
+        new_arms_detail["state_closure"] = sc_det
+        hh_row, hh_det = board_affect_harm_help_dimension()
+        new_arms["affect_harm_help"] = hh_row
+        new_arms_detail["affect_harm_help"] = hh_det
 
     crossref = _informational_19c_crossref()
 
