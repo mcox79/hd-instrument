@@ -29,9 +29,11 @@ downstream consumer today -> no regression, and it mutates NO existing field (re
   W5 LIVE CONSUMER. Through SituationReader.read() on a doc whose OWN motion extraction moves an entity kitchen ->
      garden, sm.spatial_where_after returns the post-move node and sm.spatial_still_at applies the vacate-Source read
      (False at the vacated Source, True at the current Goal / a region that nests it), reasoning over the reader's
-     OWN sm.locations. spatial_relative ABSTAINS (projective position is not in the tracking core -- the un-landed
-     text->relation extractor is the SOLVED named follow-on), and every readout abstains cleanly on an absent
-     register, never raising -- the honest upstream gap, a named default-off follow-on, not a regression.
+     OWN sm.locations. spatial_relative on the LEFT/RIGHT axis ABSTAINS -- the P2 text->relation extractor
+     (joint_relation_frontend.joint_spatial_frames_ext, LANDED + wired 2026-09-08) is LIVE and populates the
+     figure-ground + projective graph from prose, but on the TOPOLOGICAL axis (in/on/above/below/behind +
+     containment/thematic, the SpaceEval narrative vocabulary) -- NOT left/right/front (the standalone SpartQA
+     extractor's domain). Every readout still abstains cleanly on an absent register, never raising.
 
 Glass-box, NO external LLM, deterministic, ASCII, CPU-only, threads capped.
 Reverify: .venv/Scripts/python.exe verification/test_spatial_relational_landing.py
@@ -274,10 +276,13 @@ def test_w5_live_consumer():
     else:
         check("W5b/W5c LIVE mover present", False, "no named-place track extracted (keys=%s)" % keys)
 
-    # projective position ABSTAINS (not in the tracking core -- the un-landed extractor is the SOLVED follow-on)
+    # LEFT/RIGHT axis ABSTAINS: the P2 text->relation extractor (joint_spatial_frames_ext, LANDED + wired
+    # 2026-09-08) is LIVE and populates the projective graph from prose, but on the TOPOLOGICAL axis (above/below/
+    # behind + in/on/containment, the SpaceEval narrative vocabulary) -- NOT left/right/front (the standalone
+    # SpartQA extractor's domain). So spatial_relative on 'left' abstains: a documented axis-vocabulary gap.
     rel = on.spatial_relative(mover or "0", "left", goal if mover else "garden")
-    check("W5d spatial_relative ABSTAINS (returns None) -- projective position is not in the tracking core; the "
-          "text->relation extractor is the SOLVED named follow-on (NOT landed) = the honest upstream gap",
+    check("W5d spatial_relative on the LEFT/RIGHT axis ABSTAINS (None) -- the landed P2 extractor covers the "
+          "topological/above-below narrative axis, not left/right (SpartQA's domain): a documented axis gap",
           rel is None, "spatial_relative=%r" % rel)
 
     # CLEAN ABSTENTION when the register is absent (track_space off) -> every readout None/False, never raises
