@@ -5,6 +5,20 @@ This is the entry point for resuming. Read this, then SOLVED.md + BRAIN_FOUNDATI
 complete component audit). Solver scope: write experiments/ + verification/ + this folder only; NO hdlab (Q111);
 NO external LLM at inference; heavy runs are ~110s CPU (inline OK).
 
+## 2026-09-08 POST-COMPACTION UPDATE -- BUILD-QUEUE STEP 1-2 DONE (located negative)
+Built the FORWARD EVENT-TRANSITION model (steps 1-2 below) to the research-pinned spec (SEM bound HRR role-filler
+rep + schema-conditioned nonlinear transition + Rabovsky N400-update-magnitude + inverse-planning diagnostic +
+closed forward loop; T over 141k-147k ATOMIC xEffect/oEffect/Causes pairs). Cell: exp_multistep_forward_transition_v1.py.
+Detail: FORWARD_TRANSITION_RESULT_2026-09-08.md. Witness EXTENDED to 23/23 (W20-W23).
+- The organ is CONSTRUCTION-VALIDATED: operator smoke-gate Cohen's d 0.26->0.68 (schema-conditioned PASSES >=0.5).
+- DECISIVE DISSOCIATION: doubling the operator strength (gate +164%) barely moved the task (+0.008->+0.019; every
+  variant TIES base 0.2773, none beats its info-free twin); the confound "+18pt" is a TWIN-FAILING ARTIFACT.
+- So the forward-prediction bet is a LOCATED NEGATIVE, proven NOT a weak-operator artifact: GENERAL-commonsense
+  forward prediction does not discriminate the causal edge at TellMeWhy granularity. The forward loop CAN now close
+  (forward_expect_fn ready) -- chain-fidelity progress -- but closing it alone does not cross this task.
+- REMAINING ROUTE (only one the evidence leaves open): the STORY-SPECIFIC recurrent generative loop (steps 4-5 below,
+  online-learned dynamics), NOT a general forward prior. Research pin: notes/research_forward_event_transition_n400_causal_2026-09-08.md.
+
 ## WHERE WE ARE (status)
 - STATUS: PARTIAL. Witness: `.venv/Scripts/python.exe verification/test_multistep_meansend_chain.py` (19/19, ~15s).
 - GENUINE ADVANCE (banked): the ATL-hub means-end (ATOMIC PPMI+SVD) cracked the parent's coverage wall 8.7%->88%

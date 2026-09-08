@@ -636,6 +636,26 @@ DIAGNOSIS of why the shuffled-knowledge twin matched (curated content not load-b
   38 cells/witnesses (cycle-21's 12-d-grounded gen_sim shares the same mean-pool flaw -> its 'beats overlap' is a
   smarter-topical, not the generative win).
 
+**DEEPENING cycle-23 (2026-09-08) -- REBUILT the generative loop RIGHT (structured, not mean-pool): the
+correction HELPS (owner was right it was built wrong).** Research (research_brain_foundational_generative_event_
+simulation_2026-09-08): cosine-to-a-MEAN is CATEGORICALLY a retrieval proxy -- a permutation-invariant mean
+collapses role structure (Smolensky 1990; Plate 1995) and has no generative operator (Franklin 2020 SEM;
+Rabovsky 2018 sentence-gestalt self-comparison). Minimal fix = BIND-FOLD-IN + DECODE-CONFIDENCE-RISE over the
+landed FHRR binder `hdlab.event_bundle.EventBundleCodec` (role-filler bind + glass-box unbind/decode), shuffled-
+binding twin built-in (`encode_scrambled_event`). Rebuilt (`exp_genworldmodel_structured_generative_v1.py`,
+witness 3/3): each sentence = a BOUND (PRED,AGENT,PATIENT) event; situation = bundle of context events; per
+candidate = the RISE in the effect's structured decode-confidence when it is folded in. RESULT (pooled
+TellMeWhy-GOAL, n=935): the structured cue gives a CI-SEP INTEGRATOR LIFT (base 0.559 -> +struct 0.595, +0.0364
+CI[0.004,0.069]) where the mean-pool version gave ~+0.0 -- THE REPRESENTATIONAL CORRECTION IS REAL (structured
+bind-decode > mean-cosine as a cause-selection cue; owner's "built wrong" partially vindicated). PARTIAL fix
+though: role-binding NOT decisively load-bearing (struct does not CI-beat its shuffled-binding twin, +0.038
+CI[-0.017,0.094]), and it does NOT recover the zero-overlap residual (0.282 < base 0.54) -- because pure
+bind-decode checks SHARED structure, not a forward TRANSITION (study->pass). REMAINING PIECE = a forward
+TRANSITION operator (untrained algebraic composition; the TRAINED SR-TD form was falsified, exp_event_level_sr_td
+_contrastive_relation_inference_phase2, margin +0.0025 vs required 0.05) = the research next-drill. 39
+cells/witnesses. NET: the generative loop, built structurally-correct, is the FIRST generative cue to lift the
+integrator; the last piece is the untrained forward transition over bound events.
+
 **TRIANGULATION (5 independent builds converge on ONE wall):** coverage-tiers (DEEP_MULTISTEP 51%),
 precise-trace (topical dominance; extraction not the issue), ECHO decision (mechanism proven, real-data flat),
 generative edges (generate>retrieve + phase-diagram optimum, class-level engines precision-coverage-bound),
