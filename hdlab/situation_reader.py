@@ -1681,7 +1681,7 @@ class SituationReader:
         # per read() via _cached_tag/_cached_parse_heads; reset each read -> no cross-read leak, byte-identical
         # (pure deterministic tagger/parser). Generalizable: every reader path that tags/parses reuses it.
         self._read_parse_cache: Dict[tuple, object] = {}
-        self._es_mod = None            # lazy experiments._copular_nominal_events
+        self._es_mod = None            # lazy hdlab.copular_binding (promoted; NOT the experiments scratch cell)
         self._es_typed = None          # lazy predicted_type (Higgins classifier)
         self._es_pos = None            # lazy PosTagger (the copular assets' tagger)
         self._es_arc = None            # lazy ArcParser (M._ARC_ASSET)
@@ -3891,8 +3891,9 @@ class SituationReader:
         """COPULAR is-a/attribute BINDING (default-off bind_entity_states; wired 2026-09-03 from the owner-DONE
         the_reader_has_no_copular_is_a_binding_schema, 10/10+6/6). For each sentence, recover the labeled copular
         (HOLDER, PROPERTY) pairs via the validated primitive
-        experiments._copular_nominal_events.extract_entity_states (the high-precision `cop`-label path -- read-back
-        recall 0.672 CI-sep over the most-recent-noun floor, shuffle twin loses), TYPE each with the glass-box
+        hdlab.copular_binding.extract_entity_states (the promoted organ; NOT the experiments scratch cell -- the
+        high-precision `cop`-label path, read-back recall 0.672 CI-sep over the most-recent-noun floor, shuffle twin
+        loses), TYPE each with the glass-box
         Higgins classifier (predicational property/is-a vs identificational identity), and record sm.entity_states.
         Predicational states are applied to sm.state_register (a landed hdlab.state_register.StateRegister) so
         "what is X" round-trips (state_at / is_in_state / had_been). Uses the copular solution's OWN validated
