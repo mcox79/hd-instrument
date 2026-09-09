@@ -78,8 +78,8 @@ concept is a MULTIMODAL hub. Research (this session, cited in the AUDIT UPDATE) 
 a LEARNED COVARIANCE-DISTILLATION CONVERGENCE (Rogers-McClelland 2004; Lambon Ralph 2017), with verbal (taxonomic) and
 sensorimotor (perceptual) spokes COMPLEMENTARY (verbal breaks the sensorimotor "sibling ceiling"; SimLex targets the
 taxonomic axis). Built it from on-disk brain-grounded norms — Lancaster sensorimotor (11 dims, 100% SimLex cov), Warriner
-VAD affective (98%), Brysbaert concreteness (100%); Binder-2016 is the gold brain feature set but only 535 words/0% cov,
-so these are the defensible partial approximation of its sensory/motor/affective quadrant. Method (verbatim from the
+VAD affective (98%), Brysbaert concreteness (100%); Binder-2016 is the gold brain feature set but only 535 words (of
+which 146 = 14% overlap SimLex; an early note that said 0% was a column-read bug, corrected). Method (verbatim from the
 research): per-block z-score -> verbal-dominant reliability weighting (experiential at a SWEPT weight lambda) -> concat,
 fit gold-blind on a SimLex-disjoint background (leakage guard). **Result (SimLex, n=977 pairs = ~all of SimLex):**
 - **The multimodal hub 0.569 BEATS the verbal spoke alone 0.527: +0.042 CI[0.024,0.062], frac_pos 1.0 — CI-separated —
@@ -89,8 +89,8 @@ fit gold-blind on a SimLex-disjoint background (leakage guard). **Result (SimLex
   verbal is the reliable dominant spoke; sensorimotor/affective are a 1/4-weight complement — the Ernst-Banks reliability
   weighting the research named as the legitimate secondary term.
 - **Honest limits:** the lossy linear SVD "hub" arm (0.50) slightly underperforms the weighted concat (a nonlinear
-  autoencoder is the untested closer-to-brain variant — a named follow-on); and the remaining 0.57->0.67 gap needs the
-  FULL Binder experiential space (spatial/temporal/social/cognitive quadrants), which is coverage-blocked here (535 words).
+  autoencoder is the untested closer-to-brain variant — a named follow-on); the remaining 0.57->0.67 gap is addressed
+  (and NOT closed) by the Binder-extension test below.
 - **=> The optimized fix now targets 0.57 (from a live 0.04):** wire the MULTIMODAL direct spoke (verbal + sensorimotor +
   affective norms, reliability-weighted) as the grounded read-out, coverage-aware fusion with context as fallback, online
   coverage growth. The multimodal hub is the lever that reaches toward the brain's ceiling.
@@ -103,9 +103,30 @@ are a SCORED SimLex pair) shows the gain is an ANSWER-KEY READ: the holdout drop
 hub (-0.041 CI[-0.074,-0.008])**. So retrofit-to-WordNet inflates SimLex by directly pulling the scored synonym pairs
 together, and without those edges it HURTS. **REJECTED by our leakage discipline** ("a floor is cleared by understanding,
 never adopted") -- the honest number stays the multimodal hub 0.575. Recorded as a located negative: the caught leakage
-is the deliverable. **Implication:** the residual 0.57->0.67 gap is NOT closable by relation-injection (leaks) or by the
-same-input nonlinear autoencoder (marginal); it needs NEW brain-grounded information -- broad Binder-style experiential
-coverage (a data-ACQUISITION lever, since Binder is only 535 words) -- which is the honest remaining opportunity.
+is the deliverable.
+
+### BINDER-EXTENSION lever, tested + a clean NEGATIVE (`exp_binder_extension_hub_v1.py`) -- corrects my own hypothesis
+I had hypothesised the residual gap needs the FULL Binder experiential space (spatial/temporal/social/cognitive quadrants
+our Lancaster/Warriner norms miss). Built the brain-foundational, LEAKAGE-FREE version: learn the map from our features
+(verbal + Lancaster + Warriner + concreteness) to the 65 Binder attributes on Binder's OWN 535 words, then EXTEND that
+brain-based representation to all vocab. The map is VALID (held-out R^2 **0.58** -- it genuinely predicts Binder). And it
+STILL does not help: **HUB+predicted-Binder 0.5785 vs HUB 0.5779 = +0.0006 CI[-0.004,+0.005], zero gain; predicted-Binder
+ALONE 0.44 < hub 0.58; twin loses.** Stronger still: the map was fit on 417 Binder words INCLUDING the 146 that overlap
+SimLex, so those 146 test words get their REAL Binder ratings -- and even real gold-brain experiential data for 14% of the
+vocab adds NOTHING. **This corrects my earlier claim:** experiential (Binder) coverage is NOT the missing lever. SimLex
+measures the TAXONOMIC axis; the verbal/taxonomic spoke already maxes it, and the experiential axis is simply weaker for
+this. The residual 0.575->0.67 is the taxonomic/verbal representation approaching the human NOISE CEILING, not missing
+experiential norms.
+
+### THE HONEST LOCATED CEILING (all levers to human tested, brain-foundational + leakage-guarded)
+- **Multimodal hub 0.575 (86% of human 0.67) is the honest ceiling** with the brain-grounded features we have.
+- Retrofit (relation-injection): REJECTED -- leakage (holdout CI-sep WORSE than the hub).
+- Binder extension (predict/extend the experiential space): NO GAIN -- bounded by inputs, and the experiential axis is
+  weaker than the taxonomic for SimLex (even real Binder for 14% of words adds nothing).
+- Same-input nonlinear autoencoder: marginal (can't exceed input information).
+=> The path from 6% -> 86% of human is DONE and every apparent win was stress-tested; the last 14% to the noise ceiling
+is not reachable by leakage-free reprojection of the assets we have -- it would need a fundamentally richer TAXONOMIC/
+verbal representation (or genuinely new data), which is a research program, not a quick lever. Honest stop.
 
 ## What I built
 1. **The denominator, by enumeration not comment-grep** (`experiments/exp_audit_grounding_subsystem_v1.py`). A runtime

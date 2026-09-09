@@ -36,6 +36,19 @@ verdicts to fold into the living audit.
 | `convergent_cue_reader` | (propose) "BF_SPIRIT" | "convergent-cue Bayes combination is BF; the fitted reliability weight w is OUR-INVENTION -> replace with the intrinsic per-query gain ratio (this problem)" |
 | `grounded_similarity` | "BF_SPIRIT" (unchanged) | ADD: "loads only the .mean columns; the per-word rater .SD (a behavioural reliability = population precision) is discarded at asset load -- carry it as the channel gain" |
 
+## 4b. Row 5b (the PARSER feeding the learned channel) -- NOT_BF, now with a MEASURED BF replacement
+- `pos_tagger` (NOT_BF) + `arceager_parser` (NOT_BF) fed the learned dependency channel (the one carrying the
+  earned-gain precision). This was the load-bearing NOT_BF upstream component.
+- BF FIX (built + measured, exp_all_bf_upstream_trace_v1): replace the supervised parse with a
+  DIRECTIONAL-SEQUENTIAL PPMI context (SEQ) learned from the RAW word stream -- direction+distance typing (order
+  coding, sequence_memory) + Hebbian-predictive PPMI (Levy-Goldberg) + divisive norm; NO treebank/POS/perceptron/
+  hard-decode. SEQ MATCHES the parser channel with NO loss (MRR 0.0905 vs 0.0872; diff +0.0033, CI [-0.018,+0.024]),
+  its gain tracks correctness (0.241), twin loses. So the learned channel can be made FULLY BF (parser-free).
+- TOP-DOWN LOSS TRACE on the all-BF learned chain: the BF machinery loses little vs its own oracle (0.123->0.112);
+  the dominant remaining loss is EXPOSURE (learned 0.112 vs supplied ontology 0.298, +0.186) -- reading volume, not
+  a non-BF stand-in. Add to the audit: the meaning chain has NO remaining NOT_BF component once SEQ replaces the
+  parser; the residual is knowledge to ACQUIRE (grow-by-reading).
+
 ## 5. The experience-quantity finding (durable, worth a line in the audit)
 Population gain is a valid precision ONLY for LEARNED representations (accumulated synaptic evidence). MEASURED
 contrast on the SimLex ranking: LEARNED dependency channel gain binned-Spearman +1.0 with correctness; CURATED

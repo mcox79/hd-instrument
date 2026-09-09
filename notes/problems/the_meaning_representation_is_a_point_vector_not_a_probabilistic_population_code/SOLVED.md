@@ -5,7 +5,7 @@ bar: "PASS = a brain-foundational PROBABILISTIC POPULATION-CODE meaning represen
 result: "Item 1 PASS: intrinsic gain (accumulated evidence) -> per-item Spearman with reciprocal-rank on the LEARNED channel (DEP) = 0.221, CI [0.114, 0.322], CI-separated ABOVE the point-vector peakedness baseline (rho -0.097; gain-minus-peakedness CI [0.141, 0.482]); binned-calibration Spearman 1.0; min-gain 0.370; n=338 SimLex-999 high-sim query directions. Item 3 PASS: uniform-gain fusion == equal-weight Bayes BIT-IDENTICAL; the recall cosine read is unchanged. Item 2 LOCATED NEGATIVE (with numbers): gain-weighted fusion MRR 0.304 does NOT beat equal-weight Bayes 0.324 -- because equal-weight is already at the per-query reweighting ceiling (a FITTED per-channel weight also fails: 0.317 < 0.324; GAIN matches FITTED with no fitting, diff -0.012 CI [-0.049,+0.023]), the ranking is dominated by a CURATED channel (WordNet taxonomic, MRR 0.267) whose gain ANTI-tracks correctness (binned Spearman -0.2), and the oracle per-query channel-selection headroom (0.330 vs best-single 0.267) is uncapturable by ANY scalar reliability (select-by-gain 0.137). BUT where the gain is EARNED (learned-only {G,DEP}, full-power n=338) gain-weighting BEATS equal-weight CI-separated (+0.0135, CI [0.0016, 0.0266]) -- so the negative is curated-channel dominance, not mechanism failure. n_test=169 for the calibrated fusion arms."
 floor: "Strongest floor actually run = equal-weight Bayes convergent fusion over the brain-foundational channels {grounded, learned-DEP, taxonomic}, MRR 0.3242 (the C7 all-BF chain, the current best, no fitted params). Also run: info-free gain-shuffle twin 0.2884, info-free rep-shuffle twins, FITTED-weight 0.3165, peakedness heuristic 0.2803, and (item 1) the point-vector peakedness precision baseline Spearman(peakedness, RR)=-0.097 and the gain-shuffle twin."
 controls: "(1) info-free twins -- gain shuffled across words collapses the gain->correctness signal and the gain-weighting to ~equal; rep rows shuffled collapse all channels. (2) byte-identity control -- uniform gain reproduces equal-weight Bayes bit-for-bit (INV1), and the recall cosine read is unchanged (INV2), so the change is additive. (3) FITTED control -- a train-calibrated per-channel weight ALSO fails to beat equal-weight (0.317<0.324), proving the item-2 ceiling is the TASK not the mechanism. (4) curated-vs-learned control -- gain tracks correctness ONLY for the LEARNED channel (DEP binned Spearman 1.0); the CURATED WordNet channel's gain ANTI-tracks (-0.2) and grounded reliability does not track (-0.4), so the effect is the experience-quantity signature, not a generic word-frequency artifact. (5) peakedness baseline -- the point-vector's only native precision (posterior concentration) is ~0 vs correctness, and gain CI-separates above it."
-files_changed: "experiments/exp_ppc_precision_tracks_correctness_v1.py, experiments/exp_ppc_fusion_v1.py, experiments/exp_ppc_grow_by_reading_v1.py, experiments/exp_ppc_no_regression_v1.py, experiments/exp_ppc_selective_prediction_v1.py, experiments/exp_ppc_all_v1.py (driver), verification/test_ppc_meaning_representation.py, notes/problems/the_meaning_representation_is_a_point_vector_not_a_probabilistic_population_code/{SOLVED.md,BF_AUDIT_UPDATE.md,_working_notes.md}. NO hdlab/ writes (Q111)."
+files_changed: "experiments/exp_ppc_precision_tracks_correctness_v1.py, experiments/exp_ppc_fusion_v1.py, experiments/exp_ppc_grow_by_reading_v1.py, experiments/exp_ppc_no_regression_v1.py, experiments/exp_ppc_selective_prediction_v1.py, experiments/exp_all_bf_upstream_trace_v1.py (fixes the NOT_BF parser BF-ly + top-down loss trace), experiments/exp_bf_learned_channel_landing_v1.py (the LANDABLE parser-free channel), experiments/exp_ppc_all_v1.py (driver), verification/test_ppc_meaning_representation.py (28/28), notes/problems/the_meaning_representation_is_a_point_vector_not_a_probabilistic_population_code/{SOLVED.md,BF_AUDIT_UPDATE.md,ALL_BF_UPSTREAM_TRACE.md,HDLAB_INTEGRATION_SPEC.md,_working_notes.md}. NO hdlab/ writes (Q111)."
 reverify: ".venv/Scripts/python.exe verification/test_ppc_meaning_representation.py"
 ---
 
@@ -129,6 +129,38 @@ cannot be cleared yet: the channel that HAS earned gain does not dominate.
 4. **Not cheap off-the-shelf.** The gain is the brain's own quantity (accumulated synaptic evidence), not a fitted
    heuristic; the upstream that earns it (dependency reading + PPMI) is itself brain-foundational, which is WHY the
    gain is a valid precision. No external model/tool at inference.
+
+### 3b. FIXING EVERY NOT-BF UPSTREAM COMPONENT, THEN TRACING THE LOSS FROM THE TOP (exp_all_bf_upstream_trace_v1; full detail in ALL_BF_UPSTREAM_TRACE.md)
+The located negative said the wall was UPSTREAM. It is. Fixed each NOT-BF upstream component brain-foundationally
+and re-traced:
+- **The PARSER (the load-bearing NOT_BF: `pos_tagger` + `arceager_parser`, both frozen supervised, hard-decode).**
+  The learned channel got its structured context from a supervised treebank parse. FIX: derive the structured
+  (substitutability) context from a **DIRECTIONAL-SEQUENTIAL PPMI context (SEQ) learned from the RAW word stream**
+  -- direction+distance typing = order coding (`sequence_memory`); PPMI = Hebbian-predictive surprise
+  (Levy-Goldberg); L2 = divisive norm; NO treebank/POS/perceptron/hard-decode. **Strictly more BF, and MEASURED to
+  MATCH the parser channel with NO loss: SEQ MRR 0.0905 vs parser-DEP 0.0872 (diff +0.0033, CI [-0.018,+0.024]);
+  SEQ's gain tracks correctness (0.241); twin loses.** The supervised parser is not needed for the identity signal.
+- **The BAG** (unordered, NOT_BF) -> dropped; SEQ (directional) supersedes it. **Fitted weight** -> gain ratio.
+  **L2-discard** -> carried gain. (Curated WordNet is BF_SPIRIT/admissible, not NOT_BF; the learned SEQ channel is
+  its acquired replacement.) Every fix's math is verified BF in ALL_BF_UPSTREAM_TRACE.md Section 2-3.
+- **TRACE FROM THE TOP (all-BF learned chain {G, SEQ}, no parser/ontology/bag):** oracle 0.123 -> gain-fusion
+  0.117 -> equal-fusion 0.112 -> SEQ 0.091 -> grounded 0.053; adding the supplied ontology jumps to 0.298. The BF
+  machinery loses almost nothing vs its own oracle (0.123->0.112); the DOMINANT remaining loss is the **EXPOSURE
+  GAP** between the learned channel and the supplied ontology (**+0.186**). With every upstream component now BF,
+  the remaining loss is READING VOLUME, not a residual non-BF stand-in -- the full-stack thesis vindicated.
+
+### 3c. THE LANDABLE IMPROVEMENT (ready for strategy to add at submission -- HDLAB_INTEGRATION_SPEC.md)
+`exp_bf_learned_channel_landing_v1`, held-out SimLex-999, n=338. The submission-ready brain-foundational change:
+**replace the NOT_BF-parser learned channel with the parser-free directional-sequential channel (SEQ).**
+- Parser-free chain {grounded, SEQ, WordNet} MRR **0.298** vs the current NOT_BF-parser chain {grounded, DEP,
+  WordNet} **0.294** (+0.004, CI [-0.011, +0.020]) -- NO accuracy cost, removes a NOT_BF component + the ~0.3s
+  read-time parser load + enables online learning; the SEQ channel's info-free twin LOSES (0.215 vs 0.284).
+- A brain-foundational sub-finding, measured: a SUPPLIED ontology's correct PPC gain is UNIFORM (constant), not its
+  feature count -- uniform beats the feature-count gain CI-separated (+0.0155 [0.003, 0.029]). Precision-weighting
+  the earned channels is net-neutral at current exposure (they are still weak), so land the channel now and turn ON
+  gain-weighting once the learned channel grows to ontology parity (the earned-only fusion already wins CI-sep).
+- `HDLAB_INTEGRATION_SPEC.md` carries the full copy-paste module (`hdlab/sequential_meaning_channel.py`), the wiring
+  point, the invariants (recall path byte-identical), the reverify command, and the BF-status deltas.
 
 ## 4. THE hdlab PROPOSAL (Q111 -- strategy lands; solver cannot write hdlab)
 The single most valuable landing is in **`convergent_cue_reader.convergent_pick`**, whose fitted weight `w =
