@@ -84,6 +84,26 @@ Inheriting the shared ledger where it already ruled, adding the organs this chai
 | `cleanup_family` (`iterative_attractor`) | "BF" | "graded L2-normalized soft-attractor for RECALL/completion (CA3; Treves-Rolls) -- correct job; NOT a ranker on the live path" |
 | `reading_grounding_loop.canonicalize_fast` | "BF" | "graded cosine population read (divisive-normalization) for sense-assignment ranking; GRADED_COMPARATOR on" |
 
+## NON-BF ITEMS FOUND + DISPOSITION (the consolidated register)
+Every non-brain-foundational item this audit surfaced across the chain, and exactly what was done about it.
+
+| # | non-BF item | where | found-as | DISPOSITION |
+|---|---|---|---|---|
+| 1 | attractor used as the RANKER (the brief's premise) | `cleanup_family`/`gap_detector` on the live path | **already remediated** -- the live ranking is `canonicalize_fast` (graded cosine read, GRADED_COMPARATOR on); attractor is confined to the exact-match recognition gate | **NO CHANGE NEEDED** (located-negative, disk-verified); attractor kept for recall (its correct job) |
+| 2 | unordered bag-of-words distributional channel | the reader's context bundle | NOT_BF (unordered pooling; relatedness not identity) | **REPLACED / DROPPED** -- superseded by the learned structured dependency channel; dropped from the all-BF chain, which then BEAT the bag-containing chain (+0.028 CI-sep) |
+| 3 | per-item precision via posterior peakedness | my fusion prototype | NOT_BF (peakedness tracks neighborhood crowding, not correctness; T1 rho 0.68-0.81 vs ~0) | **REPLACED** with equal-weight Bayes fusion (BF uniform prior, no fitted params) |
+| 4 | sign-quantized random-symbol content_key as the ranking cue | `gap_detector.content_key` | non-BF for ranking (rho ~0 to grounded meaning) | **REPLACED (proposed, Q111)** -- route the ranking over grounded/DEP/taxonomic meaning channels; the gate's exact-match recognition (a different, correct job) is kept |
+| 5 | grounded capped/plain COSINE read | `grounded_similarity` | BF_SPIRIT (discards per-dim signed magnitudes) | **TESTED a BF replacement (Euclidean-in-z), MEASURED NULL here** (-0.012, CI incl 0; far-field ranking favors cosine) -> kept cosine, documented |
+| 6 | DEP association computed in BATCH | my learned channel | BF_SPIRIT (brain learns online/incremental) | **PROPOSED** online Hebbian/predictive update (not built; NEXT STEP 4) |
+| 7 | DEP's dependency parse = `pos_tagger`+`arceager` | upstream of the learned channel | NOT_BF (frozen supervised, hard-decode; inherited ledger verdict) | **GAP -- no BF replacement exists** (`incremental_parser` is role-specialized, not a general parser); reported, not faked (NEXT STEP 4a) |
+| 8 | taxonomic identity is WordNet-SUPPLIED | `conceptual_meaning` (CM) | BF_SPIRIT (supplied, not learned) | **PARTIAL LEARNED REPLACEMENT BUILT** -- the DEP channel learns the same identity signal from reading (recovers ~half, rises with volume); foundation-plus-grow |
+| 9 | labeled deprels via the supervised `arc_labeler` | candidate DEP upgrade | would be NOT_BF (supervised) | **TESTED, MEASURED NULL/worse** (-0.013; fragments sparse counts) -> NOT adopted, documented |
+| 10 | point-vector meaning + cosine (not a probabilistic population code) | the whole representation layer | the DEEP non-BF root of the calibration failure | **IDENTIFIED as the deep architectural fix** (population code -> intrinsic precision); proposed, not built (NEXT STEP 4b) |
+
+Summary: **2 replaced/dropped in-experiment (bag, peakedness), 1 partial learned replacement built (DEP for supplied taxonomy),
+2 BF replacements tested-and-measured-null-then-kept (euclid grounded, labeled deprels), 3 proposed for strategy/architecture
+(identity-channel wiring, online learning, population code), 1 GAP (no BF general parser), 1 no-change-needed (already remediated).**
+
 ## THE PATH TO FULLY BF (residual fixes, ranked by how much non-BF they remove)
 1. **Route DEP through `incremental_parser`** (NOT_BF `pos_tagger`/`arceager` -> BF_SPIRIT incremental parse). Removes
    the single NOT_BF component the learned identity channel depends on. [biggest structural non-BF in the chain]

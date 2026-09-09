@@ -5,7 +5,7 @@ bar: "PASS = a brain-foundational GRADED POPULATION READ replacing the sign()+at
 result: "Two-part result. (1) LOCATED NEGATIVE on the brief's named mechanism: the live grounding-loop RANKING is ALREADY a graded population read (sense assignment routes through canonicalize_fast -- a cosine matvec, GRADED_COMPARATOR ON since 2026-08-14 -- NOT an attractor); the attractor is confined to the exact-match recognition GATE (gap_detector), where swapping it for a population read changes ranking fidelity by -1.4e-5 (95% boot CI [-2.9e-5,+3.4e-6], INCLUDES ZERO; n=400 queries, d=512) and hub over-promotion is ~0.02 for every arm at the gate's sharp temp (it only appears at soft temps the gate never uses: attractor rho 0.73 at temp=0.25 vs 0.995 at temp>=8). So 'replace the attractor readout' buys nothing. (2) SOLVED the real problem underneath -- the ranking's REPRESENTATION. On the loop's OWN sense-assignment ranking (canonicalize's job: rank the true synonym among the full covered vocab) against the INDEPENDENT SimLex-999 similarity gold, through the LIVE distributional channel (ConceptSpace context bundles) + the graded population read, a brain-foundational representation beats the distributional incumbent CI-separated: MRR CONVERGENT (reliability-weighted grounded+distributional fusion) 0.0812 vs incumbent 0.0241, +0.0571 CI[+0.0335,+0.0834] (ci_hw 0.0103); GROUNDED alone 0.0637 also beats it; hit@10 incumbent 0.047 -> grounded 0.154 -> convergent 0.189 (4x). Info-free twins LOSE decisively (MRR 0.0013 / 0.0009). n=4422 covered words, 169 high-sim SimLex test pairs (held-out; fusion weight w=16 calibrated on a disjoint train split), 3000-sample bootstrap. Recall/recognition path byte-identical (only the ranking's input representation changes)."
 floor: "Strongest floors actually run, recomputed on each population. SENSE-ASSIGNMENT (headline, n=4422 words / 169 SimLex test pairs): the DISTRIBUTIONAL incumbent itself (the loop's live canonicalize representation) MRR 0.0241 -- the brain-foundational reps beat it CI-separated (convergent +0.0571 CI[+0.0335,+0.0834]; grounded +0.0396). INFO-FREE TWINS (shuffled rep rows) MRR 0.0013 (distributional) / 0.0009 (grounded), both CI-below their real reps. Representation-level corroboration on the same SimLex SIMILARITY gold (prior cell exp_taxonomic_vs_thematic_gold_v1, re-cited): distributional co-occurrence Spearman 0.039 vs grounded 0.245. LOCATED-NEGATIVE floors (ranking-fidelity cell, n=400, d=512): incumbent sign+attractor Spearman-to-grounded-gold 0.9855, info-free twin 0.0007; readout isolation POP-minus-ATTRACTOR -1.4e-5 CI incl 0 (NULL); live random-hash content_key -0.003."
 controls: "INFO-FREE TWINS (shuffled rep-row <-> word correspondence) LOSE CI-separated in BOTH experiments -- the win carries real per-word meaning, not base-rate. HELD-OUT SPLIT: the convergent fusion weight w and the taus are calibrated on a disjoint TRAIN half of the SimLex pairs and evaluated on the TEST half (no leak). INDEPENDENT GOLD: SimLex-999 human SIMILARITY ratings are WordNet-independent and independent of every representation under test (no ground-by-X/grade-by-X). READOUT ISOLATION (attractor vs population, same format) excludes the readout as the harm (null, CI incl 0). FORMAT ISOLATION (graded vs sign, same read) attributes the residual to the sign-quantiser not the readout. TEMPERATURE SWEEP locates the attractor's harmful regime at soft temps the live gate never uses. GATE EXACT-MATCH AUC control: known/novel real-word separation stays 1.0 -- no regression to the attractor's correct recognition job. RECALL byte-identity: the proposal changes only what the ranking READS; hdlab.iterative_attractor.iterative_cleanup (recall/completion for ca3_completer + hippocampal_encoder) is UNTOUCHED (witness A4). Positive control: JL random projection preserves grounded geometry (self-test)."
-files_changed: "experiments/exp_sense_assignment_grounded_vs_distributional_v1.py (SOLVED headline: loop's own sense-assignment ranking, SimLex independent gold, distributional incumbent vs grounded vs reliability-weighted convergent, twins, held-out fusion weight), experiments/exp_graded_read_vs_attractor_ranker_v1.py (located-negative: 2x2 format x readout + live-hash fidelity + gate AUC + temp sweep), experiments/exp_richer_meaning_channel_v1.py (LARGEST-DELTA follow-on prototype: adds the taxonomic/relational identity channel + curated-w2v channel, ATL-hub fusion, on the same held-out SimLex ranking), experiments/exp_learned_structured_meaning_v1.py (remaining fixes: online-LEARNED relational identity via dependency-parsed reading with the glass-box parser -- NO WordNet -- + per-item precision-weighted fusion), experiments/exp_diagnose_meaning_negatives_v1.py (RESEARCH the two negatives to mechanism: reliability-estimator-vs-correctness + oracle headroom for NEG1; exposure curve + frequency bins for NEG2), experiments/exp_diagnose_calibration_v1.py (ROOT-CAUSE of the miscalibration: T1 peakedness tracks crowding not correctness; T2 cross-channel agreement is genuine but sparse; T3 agreement-gated fix gives no lift -> precision-weighting is downstream of channel fidelity; the non-BF component is the reliability estimator + the point-vector-not-population-code representation), experiments/exp_all_bf_chain_v1.py (composes ONLY BF/BF_SPIRIT components with equal-weight Bayes fusion; ALL-BF beats the mixed-with-NOT_BF chain +0.028 CI-sep and the pre-audit fix ~5.7x -- validates "all-BF is the best chain"; carries __bf_status__ tag), notes/problems/<this>/BF_AUDIT.md (top-down math-verified BF audit + proposed hdlab __bf_status__ tags), __bf_status__ tags added to the 5 mechanism cells (verification/test_bf_status_tags.py PASS 2/2), verification/test_graded_read_ranker.py (scaffold-free witness, 23/23: 10 disk-fact + 5 located-negative + 3 SOLVED-ranking + 3 largest-delta + 2 learned-structured checks), data/exp_sense_assignment_grounded_vs_distributional_v1/metrics.json, data/exp_graded_read_vs_attractor_ranker_v1/metrics.json, data/exp_richer_meaning_channel_v1/metrics.json, data/exp_learned_structured_meaning_v1/metrics.json. NO hdlab/ modified (Q111 -- the hdlab proposal is stated below for the strategy session to land)."
+files_changed: "experiments/exp_sense_assignment_grounded_vs_distributional_v1.py (SOLVED headline: loop's own sense-assignment ranking, SimLex independent gold, distributional incumbent vs grounded vs reliability-weighted convergent, twins, held-out fusion weight), experiments/exp_graded_read_vs_attractor_ranker_v1.py (located-negative: 2x2 format x readout + live-hash fidelity + gate AUC + temp sweep), experiments/exp_richer_meaning_channel_v1.py (LARGEST-DELTA follow-on prototype: adds the taxonomic/relational identity channel + curated-w2v channel, ATL-hub fusion, on the same held-out SimLex ranking), experiments/exp_learned_structured_meaning_v1.py (remaining fixes: online-LEARNED relational identity via dependency-parsed reading with the glass-box parser -- NO WordNet -- + per-item precision-weighted fusion), experiments/exp_diagnose_meaning_negatives_v1.py (RESEARCH the two negatives to mechanism: reliability-estimator-vs-correctness + oracle headroom for NEG1; exposure curve + frequency bins for NEG2), experiments/exp_diagnose_calibration_v1.py (ROOT-CAUSE of the miscalibration: T1 peakedness tracks crowding not correctness; T2 cross-channel agreement is genuine but sparse; T3 agreement-gated fix gives no lift -> precision-weighting is downstream of channel fidelity; the non-BF component is the reliability estimator + the point-vector-not-population-code representation), experiments/exp_all_bf_chain_v1.py (composes ONLY BF/BF_SPIRIT components with equal-weight Bayes fusion; ALL-BF beats the mixed-with-NOT_BF chain +0.028 CI-sep and the pre-audit fix ~5.7x -- validates "all-BF is the best chain"; carries __bf_status__ tag), notes/problems/<this>/BF_AUDIT.md (top-down math-verified BF audit + proposed hdlab __bf_status__ tags), experiments/exp_bf_residuals_v1.py (BF-residual upgrades measured: euclid-in-z grounded, labeled deprels, upgraded chain -- all null -> loss is knowledge not computation), experiments/exp_knowledge_lever_v1.py + notes/problems/<this>/KNOWLEDGE_LEVER.md (knowledge moves the bar ~214x; relational IS-A IDENTITY is the key kind, +0.227 leave-one-out; the idea-database spec), __bf_status__ tags added to the 7 mechanism cells (verification/test_bf_status_tags.py PASS), verification/test_graded_read_ranker.py (scaffold-free witness, 23/23: 10 disk-fact + 5 located-negative + 3 SOLVED-ranking + 3 largest-delta + 2 learned-structured checks), data/exp_sense_assignment_grounded_vs_distributional_v1/metrics.json, data/exp_graded_read_vs_attractor_ranker_v1/metrics.json, data/exp_richer_meaning_channel_v1/metrics.json, data/exp_learned_structured_meaning_v1/metrics.json. NO hdlab/ modified (Q111 -- the hdlab proposal is stated below for the strategy session to land)."
 reverify: ".venv/Scripts/python.exe verification/test_graded_read_ranker.py  (18/18; disk facts + located-negative numbers + SOLVED-ranking checks). Powered headline reproducer (own-dir only): .venv/Scripts/python.exe experiments/exp_sense_assignment_grounded_vs_distributional_v1.py --mode full"
 ---
 
@@ -191,6 +191,23 @@ brain-foundational composition is the best chain. NAMING CONVENTION applied: all
 machine-checkable `__bf_status__` tag (VERIFIED_BF_LEDGER.md convention; `verification/test_bf_status_tags.py` PASS 2/2);
 per-organ hdlab `__bf_status__` values proposed in `BF_AUDIT.md` for strategy to land (Q111).
 
+## BF RESIDUALS + KNOWLEDGE LEVER (owner: "fix those issues; show knowledge moves the bar; record what knowledge is key")
+`exp_bf_residuals_v1.py`: the remaining BF-fidelity tweaks do NOT move the bar -- grounded Euclidean-in-z vs cosine
+null (-0.012 CI incl 0; the sense-assignment is far-field where cosine >= euclid), labeled vs unlabeled deprels
+null/worse (-0.013; labeling fragments sparse counts + costs BF via a supervised labeler), upgraded chain null (-0.021).
+So the loss is KNOWLEDGE, not the computation. (Also reported: `incremental_parser` is role-specialized, not a general
+BF parser -- no clean BF-parser drop-in exists.)
+
+`exp_knowledge_lever_v1.py` + `KNOWLEDGE_LEVER.md`: KNOWLEDGE moves the bar decisively -- full-knowledge fusion MRR
+0.342 vs info-free (knowledge shuffled) 0.0016 (~214x). The KEY KIND is RELATIONAL / IS-A IDENTITY (taxonomic): alone
+0.318, and removing it collapses the fusion 3x (leave-one-out marginal +0.227 CI [+0.178, +0.280]); grounded adds a
+small real +0.013; the learned-substitutability and co-occurrence channels are redundant/null WITH the taxonomy
+present. MORE knowledge moves the bar: the LEARNED identity channel rises monotonically with reading volume (0.031 ->
+0.096 across 20->100% of the corpus, still climbing) and with per-word knowledge density (0.05 -> 0.21). THE IDEA
+DATABASE that is key: a RELATIONAL IDENTITY store (is-a / synonymy / kind-of) -- supply it now (WordNet), grow it by
+structured reading (the learned form converges toward the same ceiling with no ontology). Full catalog + priority in
+`KNOWLEDGE_LEVER.md`.
+
 ## The hdlab proposal (for the strategy session to land, Q111)
 A map + witnessed prototype, not a landed diff. All LOCAL to the ranking's READ; the store's
 recall/recognition path stays byte-identical.
@@ -242,40 +259,38 @@ co-occurrence (SimLex similarity rho 0.039); the brain-foundational fix is to re
 weighted convergent fusion of grounded meaning + distributional context (MRR 0.024 -> 0.081, CI-separated).
 
 ---
-## TLDR (plain language)
-When the system reads a new word, it has to decide which idea it already knows this word means. The worry
-was that it does this with a clumsy "snap to the nearest memory" process. I checked the live code: that part
-is already fixed -- it already uses a smooth, distance-preserving comparison, and the "snap to nearest" is
-only used to recognise an exact word it has seen, which is the right place for it. The real problem is one
-step earlier: it compares words only by which OTHER words they appear next to, which tells you two words are
-RELATED but not that they mean the SAME thing. I showed that if you instead compare words by their real
-grounded meaning, blended with that word-company signal the way the brain's meaning hub does, the system gets
-much better at picking the right idea for a new word -- more than three times better at a fair, independent
-test, with a scrambled version failing and the exact-word recognition left untouched. So the fix is not
-"change the ranker" -- it is "give the ranker real meaning to compare, not just word company."
+## TLDR (plain language) -- the final bottom line after the full investigation
+When the system reads a new word it must decide which idea it already knows this word means. The original worry --
+that it does this with a clumsy "snap to the nearest memory" -- turned out to be already fixed: that step uses the
+right smooth, distance-preserving comparison, and the "snap" is confined to recognising exact words, where it belongs.
+The thing actually holding it back is not HOW it computes but WHAT IT KNOWS. I verified the math of every step against
+the brain (all brain-foundational), then showed that knowledge moves the score ~200x, and that ONE kind of knowledge
+carries almost all of it: knowing which concepts ARE the same kind of thing (is-a / synonym relations). Grounded "how
+it looks/feels" adds a little; raw word-company adds nothing; and the tempting engineering tweaks (a fancier distance,
+labelling the grammar) measured as NO help. And the more it reads, the more it learns that same is-a knowledge on its
+own. So the fix is a relational IDENTITY knowledge base -- an "idea database" of what-is-a-kind-of-what -- supplied now
+and grown by reading. Honest status: much improved and brain-foundational, but still well below a person in absolute
+terms, because it simply does not yet KNOW enough (especially for rarely-read words).
 
 ## QUESTIONS
 None blocking.
 
-## NEXT STEPS (all four rungs now prototyped; measured deltas in hand)
-1. **(largest delta, prototyped -- hand-off to strategy, Q111)** Read the sense-assignment ranking over the
-   full ATL-hub fusion: grounded (perceptual) + distributional (relatedness) + IDENTITY. Best measured stack =
-   grounded+bag+taxonomic (WordNet supply) MRR 0.345 / hit@10 0.58 (~4.8x the SOLVED fix). Reserve the attractor
-   for recall; de-sign the reference `canonicalize` fallback. Recall path byte-identical.
-2. **(DONE brain-foundationally -- the identity signal, LEARNED, no ontology)** The dependency-parsed learned
-   identity channel (DEP) recovers ~half the WordNet ceiling with NO WordNet (grounded+bag+DEP MRR 0.157,
-   CI-beats the SOLVED fusion). Land it as the FOUNDATION-plus-grow stack: WordNet supplies the identity signal
-   now (foundation), the online DEP learner grows it as reading volume accumulates (runtime) -- they are
-   complementary, per the build-ideal-foundation-then-grow pivot. Closing the remaining half = reading VOLUME +
-   labeled deprels.
-3. **(compounds)** End-to-end: wire the fusion into `canonicalize_fast`, re-run a grounding pass, measure
-   downstream grounding coverage/quality (the growth metric) with the info-free twin losing.
-4. **(per-item weighting -- NULL, now diagnosed)** The reliability estimator was the problem: within-channel
-   confidence is uncorrelated with per-query correctness (|rho|<=0.15) and the oracle upside is small (~+0.07).
-   Reopen ONLY with a CALIBRATED reliability signal (hold-out calibration or cross-channel agreement); low
-   priority.
-5. **(NEG-2 diagnosis -> the highest-value further improvement) LABELED DEPRELS on the learned channel.** The
-   learned identity channel is exposure-limited (curve still rising; low-freq words carry the whole gap). Beyond
-   "read more," the buildable lever is richer context PER exposure: use LABELED dependency relations (dobj/nsubj
-   /amod) not just unlabeled head/dependent direction, so each parsed sentence teaches more. Needs a labeled
-   parse (graded_parser/arc_parser labels), then re-run the DEP channel.
+## NEXT STEPS (final, reconciled with ALL measured evidence including the residuals + knowledge lever)
+1. **(THE biggest live lever -- hand-off to strategy, Q111)** Wire the RELATIONAL / IS-A IDENTITY channel into
+   `canonicalize_fast`'s ranking (the taxonomic channel; the knowledge lever showed it is THE load-bearing kind,
+   leave-one-out +0.227). Fuse it (equal-weight Bayes) with grounded; reserve the attractor for recall; de-sign the
+   reference `canonicalize` fallback. Recall path byte-identical. Best measured stack: MRR 0.34 / hit@10 0.58.
+2. **(the brain-foundational trajectory) GROW the LEARNED identity channel by structured reading at VOLUME.** DEP
+   recovers ~half the ceiling with NO ontology and RISES monotonically with reading (still climbing at the full
+   corpus; well-read words reach 0.21 approaching the ontology's 0.35). Foundation-plus-grow: WordNet supplies now,
+   the learned store grows and converges toward the same ceiling -- eventually replacing the supplied ontology.
+3. **(compounds; the one measurement NOT yet done) End-to-end.** Wire the fusion into `canonicalize_fast`, re-run a
+   grounding pass, measure downstream grounding COVERAGE (the growth metric), info-free twin losing. This is the gap
+   between "proven on the sense-assignment ranking" and "proven on the live loop's outcome".
+4. **(deep BF residuals -- mapped, not a quick build)** (a) a BF GENERAL dependency parser (`incremental_parser` is
+   role-specialized; no drop-in exists) to remove DEP's NOT_BF parse dependency; (b) a PROBABILISTIC population-code
+   meaning representation so precision is intrinsic (the deep calibration fix).
+5. **(MEASURED DEAD ENDS -- do NOT pursue)** Labelled deprels and a magnitude-aware (Euclidean-in-z) grounded read
+   both measured NULL/worse at current exposure (`exp_bf_residuals_v1`: -0.013 / -0.012, CI incl 0; labelling
+   fragments sparse counts + costs BF). Per-item precision weighting measured NULL and root-caused (the reliability
+   estimator is non-BF; `exp_diagnose_calibration_v1`). Raw co-occurrence (bag) channel: retire (null marginal).

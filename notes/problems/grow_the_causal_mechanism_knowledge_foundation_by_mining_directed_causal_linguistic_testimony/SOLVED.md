@@ -9,6 +9,41 @@ files_changed: "experiments/exp_causal_testimony_{baseline,mine,eval,heldout}_v1
 reverify: ".venv/Scripts/python.exe verification/test_causal_testimony_foundation.py (intrinsic direction win); .venv/Scripts/python.exe verification/test_causal_selection_positionfree.py (position-free selection); .venv/Scripts/python.exe verification/test_causal_direction_signal.py (direction signal on direction-sensitive golds)"
 ---
 
+## SUPERSEDING FINDING + FIX (2026-09-09, owner: "aggressively evaluate the component itself down to the math; then fully fix all components to be brain-foundational")
+
+**An aggressive operation/math re-audit of the END COMPONENT ITSELF found the prior "BF-in-form" verdict was WRONG, and
+the fix is now BUILT + PROVEN.** Full write-up: `AGGRESSIVE_BF_AUDIT_OF_THE_COMPONENT_2026-09-09.md` (independent
+adversarial literature check confirmed it — 3 refutations attempted, all failed).
+
+- **THE DEFECT (headline):** `predictive_world_model.causal_antecedent`'s read is
+  `necessity(A,B)=surprisal(B|ctx∖A)−surprisal(B|ctx) = log[P(B|ctx)/P(B|ctx∖A)]` = **leave-one-out predictive
+  RELEVANCE = Pearl RUNG-1**. By the Causal Hierarchy Theorem (Bareinboim 2022) no rung-1 functional is the rung-2/3
+  counterfactual necessity it is NAMED for (CSM/Trabasso), REGARDLESS of what forward model feeds it. This is DEEPER
+  than "the input is associative": the READ operation itself is rung-1. (The prior sessions' whole "frontier = sign
+  source" conclusion was built on an END component that isn't computing the brain's counterfactual operation.)
+- **THE FIX (composition; hdlab is Q111):** the genuine rung-2/3 do-simulation ALREADY EXISTS in `causal_reasoner`
+  (abduct→do(cause absent)→re-propagate; Halpern-Pearl AC2). Compose IT over a BOUND situation graph whose edges are
+  hypothesized by the mined store — do NOT read leave-one-out. Every issue found is marked in AGGRESSIVE_BF_AUDIT §7
+  (fixes table) with the exact hdlab change in §8.
+- **PROVEN:**
+  - `exp_causal_rung_exposure_v1` (controlled, ground truth known): on a CONFOUND (barometer/storm) structure the
+    rung-1 reader names the NON-cause **100% of the time (acc 0.000)** while the rung-2 do-sim is **1.000**; POOLED
+    rung2−rung1 **+0.500 CI[0.45,0.55] CI-sep**, info-free shuffled-graph twin loses **+0.598**; over-determination AC2
+    **1.000** vs crude but-for **0.000**. On the CHAIN control rung-1 IS correct — its failure is SPECIFIC to
+    confounding (the rung distinction), not general incompetence.
+  - `exp_causal_necessity_bf_reader_v1` (real WIQA, sign-free necessity axis; FULL n=5005): the composed rung-2 reader
+    beats the DEPLOYED rung-1 leave-one-out operation **+0.061 CI[0.046,0.077] CI-sep** and the association floor
+    **+0.096 CI[0.084,0.108] CI-sep** (bf 0.705 vs rung1 0.644 vs assoc 0.609). KNOWLEDGE test (store-only graph, no
+    given order): the rung-2 reader over the mined-KNOWLEDGE graph beats its info-free shuffled-store twin
+    **+0.139 CI[0.115,0.163] CI-sep** (bf 0.577 vs twin 0.438) — the mined causal knowledge is LOAD-BEARING for the
+    necessity read. LOCATED NEGATIVES with numbers: on WIQA's GIVEN process order the info-free twin ties (bf−twin
+    −0.012 [−0.026,0.003] — that given order is a position artifact both exploit), and the store-only absolute (0.577)
+    is below association (0.609) — the KNOWN scale ceiling (~161k causal sentences vs web-scale). The more/less SIGN
+    (3-way bf 0.495) stays the proven grounded-quantity frontier (5 sources failed) — a separate program.
+  - Witness `verification/test_causal_rung_fix.py` 9/9 green.
+- **VERDICT CORRECTIONS:** `predictive_world_model` necessity read NOT-BF (rung-1), relabel → `predictive_relevance`;
+  `causal_reasoner` AUDITED → BF_SPIRIT (genuine rung-2/3, residual: no abduction / discrete ±1 / reachability-necessity).
+
 ## PERFORMANCE-PUSH ATTEMPTS (2026-09-09, owner: "focus on the REAL performance push, brain-foundational, do it right")
 
 Two levers pursued after the deep analysis:

@@ -18,38 +18,46 @@ Each channel IS a KIND of knowledge, drawn from an existing tool:
 | **perceptual / GROUNDED** | how a thing looks / feels / is acted on | **Lancaster+Brysbaert** sensorimotor+concreteness norms | ATL amodal hub over modality spokes |
 | **raw co-occurrence** | what words appear together | ConceptSpace context **bag** from reading | temporal-cortex statistical learning |
 
-## STUDY A -- which KIND of knowledge is key (`exp_knowledge_lever_v1`)
-Each knowledge kind ALONE, the equal-weight Bayes fusion of all, and LEAVE-ONE-OUT (fusion minus each kind = its
-marginal contribution). Info-free twin (knowledge<->word shuffled) must LOSE.
+## STUDY A -- which KIND of knowledge is key (`exp_knowledge_lever_v1`, n=4359 words, 169 test pairs, 3000-boot)
+Full-knowledge fusion MRR **0.342** (hit@10 0.604) vs the info-free twin (knowledge<->word shuffled) **0.0016** --
+a ~214x gap: KNOWLEDGE moves the bar, decisively. Which kind:
 
-<< FILL: STUDY_A_knowledge_type_ALONE (mrr/hit10 per kind), full_fusion_MRR, info_free_twin_MRR,
-   STUDY_A_leave_one_out_marginal (drop + CI per kind), ranking >>
+| knowledge kind | ALONE MRR | ALONE hit@10 | LEAVE-ONE-OUT marginal (remove it -> drop) |
+|---|---|---|---|
+| **relational / IS-A IDENTITY** (taxonomic) | **0.318** | 0.562 | **+0.227, CI [+0.178, +0.280]** -- removing it collapses the fusion 0.342 -> 0.115 (3x) |
+| learned SUBSTITUTABILITY (DEP) | 0.096 | 0.189 | -0.001, CI incl 0 (NULL -- redundant *with* the taxonomy present; it is the LEARNED form of the same identity signal) |
+| perceptual / GROUNDED | 0.075 | 0.178 | +0.013, CI [+0.00002, +0.025] (small but real) |
+| raw CO-OCCURRENCE (bag) | 0.023 | 0.041 | -0.004, CI incl 0 (NULL -- retire) |
 
-## STUDY B -- does MORE knowledge move the bar? (reading-volume exposure curve)
-Rebuild the LEARNED substitutability channel from 20/40/60/80/100% of the parsed corpus.
+Ranking by contribution: **relational IDENTITY >> grounded > (learned substitutability, redundant-when-supplied) > bag**.
+The one load-bearing kind is RELATIONAL / IS-A IDENTITY.
 
-<< FILL: STUDY_B_reading_volume_exposure_curve (DEP MRR vs corpus fraction) -- expect monotone rising, not plateaued >>
+## STUDY B -- does MORE knowledge move the bar? YES (reading-volume exposure curve, learned channel)
+DEP MRR vs corpus fraction: 0.031 (20%) -> 0.053 (40%) -> 0.059 (60%) -> 0.082 (80%) -> **0.096 (100%)** -- monotone
+rising, steepest in the last quarter, NOT plateaued. More reading -> more learned identity knowledge -> higher bar.
 
-## STUDY C -- knowledge DENSITY per word (does the bar rise where we KNOW more about the word?)
-Bin test pairs by how much dependency-reading knowledge exists for the words.
+## STUDY C -- knowledge DENSITY per word: the learned deficit is entirely low-knowledge words
+DEP MRR by dependency-context count: 0.050 (0-20) -> 0.070 (20-60) -> 0.086 (60-200) -> **0.213 (200+)**; the
+TAXONOMIC channel is flat ~0.30-0.35 across all bins (the ontology knows every word equally). So the learned
+channel is exposure/density-limited per word: well-read words approach the taxonomy's ceiling with NO ontology.
 
-<< FILL: STUDY_C_knowledge_density_by_reading_count (TAXONOMIC vs DEP MRR per density bin) >>
+## THE CATALOG -- what kinds of knowledge are key (quantified by STUDY A leave-one-out)
 
-## THE CATALOG -- what kinds of knowledge are key, ranked (the "idea database" to build/grow)
-(Ranking established across this session's runs; STUDY A above quantifies it head-to-head on one population.)
-
-1. **RELATIONAL / IS-A IDENTITY knowledge is the single biggest lever.** The taxonomic channel alone roughly
-   quadruples the pre-audit fix and dominates every fusion. *The key "idea database" is a relational knowledge base of
-   concept identity + hierarchy* (is-a, synonymy, part-of). We currently SUPPLY it from WordNet; the brain-foundational
-   end-state LEARNS it (see #2). Priority: acquire/grow a clean relational idea-database (WordNet now; learned later).
-2. **SUBSTITUTABILITY knowledge, LEARNED from structured reading, is the acquirable form of #1.** The dependency
-   channel recovers ~half the relational ceiling with NO ontology, and it SCALES WITH READING (Study B). *This is the
-   idea database the loop can GROW itself* -- the grow-by-reading north-star. Priority: read more, structured.
-3. **PERCEPTUAL / GROUNDED knowledge** adds a complementary axis (how things look/feel) but caps at the
-   sibling/synonym confound (cannot tell synonyms from perceptual cousins). Useful as a fusion channel, not sufficient
-   alone. Priority: keep as a channel; a richer/higher-dim grounded asset would raise its ceiling.
-4. **RAW CO-OCCURRENCE (bag)** is the weakest kind for IDENTITY (captures relatedness not sameness) and is NOT_BF
-   (unordered). Superseded by the structured/learned substitutability channel (#2). Priority: retire in favor of #2.
+1. **RELATIONAL / IS-A IDENTITY knowledge is THE load-bearing kind.** Alone 0.318; removing it collapses the fusion
+   3x (marginal +0.227 CI-sep). *The key "idea database" is a relational knowledge base of concept identity +
+   hierarchy* (is-a, synonymy, kind-of, part-of). Everything else is a rounding error next to it. We SUPPLY it now from
+   WordNet; the brain-foundational end-state LEARNS it (#2). **Priority 1: a clean relational IDENTITY idea-database.**
+2. **SUBSTITUTABILITY knowledge, LEARNED from structured reading, is the ACQUIRABLE form of #1 -- redundant with the
+   supplied taxonomy TODAY, but it is how the loop grows its own identity store.** Its leave-one-out marginal is ~0
+   ONLY because the WordNet taxonomy already occupies that role in the fusion; ALONE it is the 2nd-strongest single
+   kind (0.096) and it RISES with reading (Study B, still climbing) and per-word knowledge density (Study C: 0.05 ->
+   0.21). *This is the idea database the loop can build itself* -- the grow-by-reading north-star; at volume it
+   converges toward the taxonomy's ceiling and could REPLACE the supplied ontology. **Priority 2: read more, structured.**
+3. **PERCEPTUAL / GROUNDED knowledge** is the only kind with a real ADDITIVE marginal on top of the taxonomy
+   (+0.013 CI-sep) -- a complementary "how it looks/feels" axis -- but caps at the sibling/synonym confound alone.
+   **Priority 3: keep as a fused channel; a richer/higher-dim grounded asset raises its ceiling.**
+4. **RAW CO-OCCURRENCE (bag)** is the weakest for IDENTITY (0.023; relatedness not sameness) and NOT_BF (unordered);
+   its marginal is null-negative. **Priority 4: retire in favor of #2.**
 
 ## THE IDEA-DATABASE SPEC (what to acquire/grow, in priority order)
 - **A relational IDENTITY store** (concept is-a / synonymy / kind-of) -- the highest-value knowledge; supply from a

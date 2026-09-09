@@ -164,3 +164,53 @@ Mullally & Maguire 2014 (scene construction); Frank, Otten, Galli & Vigliocco 20
 McClelland 2018 (N400 = update, *Nat Hum Behav*); Kuperberg & Jaeger 2016; Myers & O'Brien 1998 (resonance);
 van den Broek / Tzeng et al. 2005 (Landscape Model); O'Brien & Cook 2016 (RI-Val two-stage). [CONTESTED: granular
 modularity of the causal circuit — it is additive, not disjoint; any CSM-specific fMRI localization.]
+
+---
+
+## 7. FIXES IMPLEMENTED (2026-09-09) — every issue found, and exactly how it was fixed + proven
+
+Owner: "fully fix all of those components so they're fully brain-foundational; any issues you find and fix, mark
+specifically." The `hdlab/` source is Q111 (strategy is sole writer) — so the fix is IMPLEMENTED + PROVEN as a
+composition prototype in `experiments/` (composing verified-BF organs, replacing the non-BF operations), and the exact
+`hdlab` change is specified for strategy to land (§8). Two cells + one witness (all green):
+`experiments/exp_causal_rung_exposure_v1.py`, `experiments/exp_causal_necessity_bf_reader_v1.py`,
+`verification/test_causal_rung_fix.py` (9/9). Numbers below: Cell 1 full n=800/family; Cell 2 full WIQA n=5005 (the
+witness asserts the smoke-scale directional facts, which are seed-stable).
+
+| # | ISSUE (from §1/§2/§3) | verdict before | FIX implemented | proven by | status |
+|---|---|---|---|---|---|
+| 1 | **the causal READ is rung-1 leave-one-out** `log[P(B\|ctx)/P(B\|ctx∖A)]` mislabeled counterfactual necessity | NOT-BF (rung-1) | **replaced with the genuine rung-2 do-simulation** (`causal_reasoner`: abduct→do(cause absent)→re-propagate) — compose the organ that already implements the operation, do NOT read leave-one-out | Cell 1 (controlled, ground truth known): rung-1 = **0.000** on CONFOUND (names the non-cause every time), rung-2 = **1.000**; pooled rung2−rung1 **+0.500 CI[0.476,0.524] CI-sep**; twin **+0.599**. Cell 2 (real WIQA, full n=5005): rung-2 beats the deployed rung-1 leave-one-out **+0.061 CI[0.046,0.077]** and association **+0.096 CI[0.084,0.108]**; store-only rung-2 beats info-free twin **+0.139 CI[0.115,0.163] CI-sep** | **FIXED (composition) + hdlab spec §8** |
+| 2 | **context = recency BAG of concept one-hots** (discards role binding) | NOT-BF (load-bearing) | **bound situation model as a `CausalGraph`** — each event a step-local concept frame (node), not a global bag; edges from the mined store | Cell 2 builds + reasons over the bound graph (avg edges reported); the necessity read no longer runs over a bag | **FIXED (composition)**; deeper full-FHRR `event_bundle` binding = hdlab deepening §8 |
+| 3 | **event grain = bare VERB lemma** (no arguments/state) | NOT-BF | concepts = VERB+NOUN via `span_concepts` (glass-box tagger+WordNet); nodes carry the step's concept set | Cell 2 | **PARTIAL fix**; full `(predicate, AGENT, PATIENT)` frame via `graded_role_assigner` = named hdlab deepening §8 |
+| 4 | **`causal_reasoner` never verified** (`BF_UNVERIFIED`, "AUDIT NEXT") | UNVERIFIED | **audited at operation/math precision** — genuine rung-2 graph-surgery (`is_necessary`, `intervene_and_compare`, `_realize` block/force) + rung-3 Halpern-Pearl AC2 (`is_actual_cause`, witness contingency) | Cell 1 over-determination: AC2 **1.000** vs but-for **0.000**; whole cell composes it | **VERIFIED → verdict BF_SPIRIT** (tag change §8) |
+| 5 | `causal_reasoner` **impoverishments**: no abduction (roots fixed +1), discrete ±1 signs (conflict→0), necessity = pure reachability | (within #4) | documented; the graded-necessity path (`graded_necessity`, max-product edge necessities) IS present and used for edge weights | Cell 2 uses graded edge necessities | **NOTED — residual hdlab deepening §8** (add exogenous abduction; graded SCM combination) |
+| 6 | **softmax single linear layer** (shallow); **hard argmax** selection | BF-SPIRIT | not changed (lower priority) | — | **NOTED** — the module's own named deepening (2-layer Rao-Ballard; graded constraint-satisfaction selection) |
+| 7 | **more/less SIGN** = grounded-quantity frontier (5 sources failed) | THE FRONTIER | confirmed unchanged; the composed reader's **necessity axis is SIGN-FREE** and works; the sign stays a separate program | Cell 2 3-way stays at the sign frontier (bf ~0.50); necessity axis is where rung-2 delivers | **CONFIRMED separate program** (do NOT build a 6th text-derived sign source) |
+
+**Honest scope of the fix.** Issues 1–4 are FIXED (or verified) by composing the verified-BF organs into the corrected
+reader and PROVING it (Cell 1 decisively; Cell 2 on real data with the info-free twin losing CI-sep). Issues 5–6 are
+documented residual `hdlab` deepenings. Issue 7 is confirmed a separate grounded-experience program. The `hdlab` source
+edits themselves are Q111 — see §8 for the exact change list handed to strategy.
+
+## 8. THE EXACT hdlab CHANGE FOR STRATEGY (Q111 — solver cannot write hdlab; this is the spec)
+
+1. **`predictive_world_model.py` — RELABEL + DESCOPE (issue 1).** The operation is rung-1 predictive relevance /
+   associative-antecedent reactivation (Frank 2015; Rabovsky 2018; Kuperberg-Jaeger 2016; Myers-O'Brien resonance),
+   NOT counterfactual necessity. Rename `causal_antecedent` → `predictive_relevance` (or
+   `associative_antecedent_reactivation`); strip the "Gerstenberg CSM / Trabasso necessity / counterfactual" language
+   from the docstring; re-cite the resonance/N400 literature. Correct `__bf_status__` note from "counterfactual-ablation
+   OPERATION faithful" → "rung-1 predictive-relevance (resonance/N400 surprisal), faithful at Layer 1; NOT the
+   counterfactual it was named for". Keep the organ — it is a genuine rung-1 stage.
+2. **`causal_reasoner.py` — RE-TAG (issue 4).** `__bf_status__` `BF_UNVERIFIED` → `BF_SPIRIT`; note: "genuine rung-2/3
+   do-surgery (is_necessary / intervene_and_compare) + Halpern-Pearl AC2 (is_actual_cause); residual: no exogenous
+   abduction, discrete ±1 signs, reachability-necessity". This is the organ that computes genuine causal necessity.
+3. **The composed reader (issues 1–3).** Route the live causal-necessity read (`situation_reader._read_predictive_causal`
+   / any consumer of `causal_antecedent` for CAUSE selection) through `causal_reasoner` over a bound situation graph
+   whose edges are hypothesized by the mined directed store (`store_v1.json`, offline foundation asset) — the prototype
+   is `experiments/exp_causal_necessity_bf_reader_v1.py`. Keep `predictive_relevance` as the always-on rung-1 resonance
+   stage that PROPOSES candidates; adjudicate necessity with the rung-2 organ (the RI-Val two-stage architecture).
+4. **Residual deepenings (issues 3,5,6), each its own problem:** full `(predicate,AGENT,PATIENT)` bound frame via
+   `event_bundle`+`graded_role_assigner`; exogenous-noise ABDUCTION + graded SCM combination in `causal_reasoner`;
+   2-layer Rao-Ballard forward model. And the grounded-quantity SIGN source (issue 7) — the deep frontier.
+5. **Registry.** Do NOT double-write `data/bf_status_registry.jsonl` (concurrent session owns it); hand it items 1–2 as
+   tag corrections. The two new cells are honestly tagged `BF_SPIRIT` for it to register.
