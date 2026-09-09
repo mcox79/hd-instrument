@@ -1,0 +1,3 @@
+# Research decisions log — 2026-09-08
+
+- Force-dynamics + type-conditioned + weighted-integration causal-edge extractor drill -> `notes/research_causal_edge_extraction_force_dynamics_2026-09-08.md`. Verdict: force dynamics is scope-mismatched (types a link once present, doesn't detect one); type-conditioning routing inherits the existing event_type MFS-not-WSD cap; noisy-OR/Bayesian weighting reweighs existing cues, adds no new signal; causal-power/causal-support formulas are undefined for single-instance narrative judgment. P_deflated=0.15-0.20 that this materially beats the promiscuous proxies — a likely 12th triangulation, one cheap noisy-OR precision test still pre-registered before closing the combination-layer family.
