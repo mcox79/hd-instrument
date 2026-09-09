@@ -6,6 +6,10 @@
 1. **THE RUNG CORRECTION (headline).** Relabel `hdlab.predictive_world_model.causal_antecedent` -> a rung-1
    `predictive_relevance` (associative resonance/N400, NOT counterfactual); route the live causal-NECESSITY read through
    `hdlab.causal_reasoner` (rung-2/3 do-sim). Prototype: `experiments/exp_causal_necessity_bf_reader_v1.py`. [Q111 hdlab]
+1a. **THE FORWARD SIMULATOR (proven operation).** Run the causal-necessity read as a per-item FORWARD SIMULATION over
+   the passage's given causal chain (`experiments/exp_causal_forward_simulator_v1.py`): the CORRECT brain-foundational
+   operation (Gerstenberg CSM), proven load-bearing by the CHAIN-SCRAMBLE falsifier (+0.188 CI-sep on necessity). This
+   is HOW the composed reader (item 1) should read a multi-step passage. [Q111 hdlab -- wire into `situation_reader`]
 2. **ABDUCTION upgrade to `causal_reasoner`** (rung-2 -> rung-3): abduct the actual-active exogenous state from evidence
    before do()+re-propagate. Prototype: `experiments/exp_causal_engine_deepening_v1.py`. [Q111 hdlab]
 3. **BF-TAG CORRECTIONS** (registry, concurrent session -- hand over, don't double-write): `predictive_world_model`
@@ -51,20 +55,35 @@ when the task requires token-level sign-PROPAGATION along the passage's own caus
   are non-monotonic); when a + and a - influence combine, QP/QPN sign algebra proves the net is genuinely "?" without
   magnitudes. This is the residual CEILING (opposing-influence + out-of-paragraph tail), not the chance-level floor.
 
-**CLOSABILITY:** NOT closable by any larger sign store (text or numeric) -- STOP mining stores. Closable for the
-in-paragraph MAJORITY by a **per-item forward causal-chain SIMULATOR over the parsed passage** (Gerstenberg's 3
-ingredients on WIQA's given influence structure). Grounded numeric Delta-Delta faces the SAME binding/instantiation
+**DIRECTION-READING RULED OUT (`exp_causal_sign_direction_extraction_v1`, 2026-09-09):** the last cheap alternative --
+that part of the sign gap is a DIRECTION-reading failure (sX/sY under-extracted) not the coupling -- is CLOSED. Better
+direction reading (negation-scope + scalar-change classes) does NOT help: improved sX*sY 0.490 <= crude 0.514, and
+0.503 (chance) even on the 46% where BOTH directions read cleanly. => even with correct stated directions sX*sY is at
+chance, so the coupling FLIPS too often for any monotone assumption: the per-edge coupling is the ENTIRE sign wall.
+
+**CLOSABILITY:** NOT closable by any larger sign store (text or numeric) -- STOP mining stores. NOT closable by better
+direction reading (just ruled out). NOT closable by the correct OPERATION alone (the forward simulator ties its
+chain-scramble twin on sign). Closable for the in-paragraph MAJORITY by a **per-item forward causal-chain SIMULATOR over
+the parsed passage** (Gerstenberg's 3 ingredients on WIQA's given influence structure) FOR NECESSITY. Grounded numeric Delta-Delta faces the SAME binding/instantiation
 wall (which coupling+regime applies to THIS token) -- so it is an EDGE-SIGN SUPPLIER feeding the simulator, not a
 standalone store. Intrinsically open only for the out-of-paragraph (missing-link ~56%) + opposing-influence ("?") tail.
 
-**NEXT BUILD (research-recommended, brain-foundational; the OPERATION is right, the per-edge sign is the residual):**
-a per-item forward simulator -- build the influence graph from the process steps (reuse `arc_parser`/`situation_reader`),
-bind X and Y to nodes (FHRR), propagate the sign along the X->Y path via `causal_reasoner.signed_effect`, compose with
-sX,sY. **The load-bearing control is the CHAIN-SCRAMBLE falsifier (scramble step order / flip passage edge signs -> must
-collapse), NOT scramble-the-store; plus the hop-decay signature (1-hop>2-hop>3-hop = genuine propagation) and the
-in- vs out-of-paragraph split.** HONEST CAVEAT: the per-EDGE sign still needs a source, and our data shows edge signs
-are regime-dependent (80% verb-flip) -> the simulator fixes the composition/operation but the edge-sign residual is the
-crux; expect a partial (in-paragraph) result, with the opposing-influence + out-of-paragraph tail as the named ceiling.
+**NEXT BUILD -- DONE + PROVEN (`exp_causal_forward_simulator_v1`, witness `test_causal_forward_simulator.py` 2/2):**
+built the per-item forward simulator -- influence graph from the process steps, bind X/Y to nodes, propagate via
+`causal_reasoner` (reachable=necessity, signed_effect=sign), compose sX,sY -- with the CORRECT controls. RESULT (WIQA
+n=5005):
+- **THE OPERATION IS RIGHT + LOAD-BEARING (necessity):** the simulator beats its **CHAIN-SCRAMBLE** twin
+  **+0.188 CI[0.164,0.212] CI-sep** -- scrambling the passage's step ORDER collapses it => causal comprehension =
+  RUNNING THE GIVEN MODEL is the correct, load-bearing operation (Gerstenberg CSM confirmed with the correct falsifier).
+- **THE SIGN IS NOT FIXED BY THE OPERATION:** on more/less the simulator is at chance (0.507) and TIES its chain-scramble
+  twin (-0.019) => running the given chain does NOT recover the sign, because the per-EDGE sign is regime-dependent
+  (our data: 80% verb-flip). **This precisely localizes the wall to the per-EDGE coupling sign, NOT the propagation.**
+- hop-decay ~flat and in-paragraph necessity is base-rate-dominated (~0.91 "effect"), so the necessity discrimination
+  lives across in/out-of-paragraph (already shown: bf_reader sim 0.705 > assoc 0.609), not within in-paragraph.
+=> INVESTIGATION CLOSED: the reader operation is correct and proven (rung-2/3 do-sim + abduction + given-model
+forward simulation); the SINGLE irreducible residual is the **per-edge token coupling sign**, which needs grounded
+interventional Delta-Delta PER EDGE + a binding/instantiation scaffold (the Q2 mechanism as an edge-sign supplier) --
+an embodiment-shaped program, not a text cell. ADD to the INCORPORATE manifest: the forward simulator (item 1a).
 
 ---
 

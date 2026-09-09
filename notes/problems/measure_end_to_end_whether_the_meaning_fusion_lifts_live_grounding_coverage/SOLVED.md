@@ -5,8 +5,8 @@ bar: "PASS = an END-TO-END measurement on the LIVE reading-grounding loop (a fai
 result: "TWO-PART. (1) LOCATED NEGATIVE on the loop's OWN coverage-COUNT metric: the sense-assignment representation does NOT cleanly move n_grounded -- it is decision-quality-BLIND. Genuine online loop over the full curriculum (4640 sentences, curriculum-ordered, process_sentence + consolidation_pass with a swapped sense-assignment gate): INCUMBENT (distributional) grounds 143 words; the fusion grounds 133 (strict accept) to 202 (accept-all) depending ONLY on the accept threshold -- the count tracks thresh-clearing/exposure, NOT ranking correctness. And the incumbent's 143 grounded links are co-occurrence garbage (artwork->happy, google->hope, owner->fine). (2) CI-SEPARATED WIN on coverage QUALITY (the instrument the count is blind to): ranking the true SimLex-999 sense-partner against the loop's ACTUAL 556-word seed-anchor pool through canonicalize's real decision, a brain-foundational meaning representation beats the distributional incumbent CI-separated -- GROUNDED-ATL MRR@cov0.5 +0.158 CI[+0.089,+0.252] and hit@1@cov0.5 +0.106 CI[+0.021,+0.191] (all-query, n=94; both parameter-free); full-coverage MRR +0.103 CI[+0.058,+0.153]; AUF-MRR grounded-distinctive 0.232 > grounded 0.198 > fusion 0.130 > incumbent 0.037 > twin 0.010. REFINEMENT of the brief's mechanism: the transfer is carried by the GROUNDED ATL identity channel, NOT the grounded+distributional FUSION -- on the live anchor pool the distributional channel is noise, so grounded-alone >= fusion (fusion still beats incumbent +0.096 CI[+0.022,+0.189] but trails grounded)."
 floor: "Strongest floor = the DISTRIBUTIONAL incumbent (the loop's live canonicalize representation): coverage-quality MRR@cov0.5 0.034, hit@1 0.000-0.033, AUF-MRR 0.037; live coverage count n_grounded 143. Info-free twins (shuffled representation rows): AUF-MRR 0.010 (fusion twin) / carries no per-word signal. On the true-BF representation prototype the sparse structured channel's own floors: bag-of-words AUF-MRR 0.030, its info-free twins 0.006-0.008."
 controls: "INFO-FREE TWIN (shuffled grounded/representation rows) LOSES CI-separated on every headline (grounded vs twin MRR@0.5 +0.195 CI[+0.106,+0.298]; fusion vs twin +0.122 CI[+0.028,+0.241]; DEP-structured vs twin +0.097 CI[+0.042,+0.178]) -> the win carries real per-word meaning, not base-rate. RECALL/RECOGNITION PATH BYTE-IDENTICAL: canonicalize_fast == reference canonicalize (witness W5; only what the ranking READS changed; no hdlab written). HARNESS FAITHFULNESS positive control: the cell's INCUMBENT gate decision == the live canonicalize (accept/refuse + chosen anchor) on 40/40 random query bundles (W4). INDEPENDENT GOLD: SimLex-999 human similarity (WordNet-independent, independent of every representation). HELD-OUT: the fusion weight w is calibrated on a disjoint train split and evaluated on test; grounded/incumbent are parameter-free (evaluated on all queries, no leak). FAITHFUL POOL: candidates restricted to the loop's ACTUAL seed-anchor field (not the full vocab) -- ranking against the whole 4678-word vocab drives hit@1 to floor for every arm and hides the transfer. THRESHOLD SWEEP: coverage count reported across accept thresholds (matched selectivity) so the count comparison is not a single confounded point. PHASE-DIAGRAM densification SWEEP (k in {50,100,200} x power in {0.5 SGNS, 0.0 whitened}) -- excludes 'the structured channel is just under-optimized'."
-files_changed: "experiments/exp_meaning_fusion_live_coverage_v1.py (the end-to-end transfer measurement: PART A genuine online coverage-count + PART B coverage-quality selective-prediction frontier, all arms, twins), experiments/exp_meaning_fusion_bf_representation_v1.py (the TRUE-BF representation prototype: ATL distinctive-feature whitened grounded + structured dependency/adjacency PPMI substitutability, convergent-cue Bayes, + the phase-diagram SVD-densification sweep), verification/test_meaning_fusion_live_coverage.py (scaffold-free witness, 5/5), data/exp_meaning_fusion_live_coverage_v1/metrics.json, data/exp_meaning_fusion_bf_representation_v1/metrics.json. NO hdlab/ modified (Q111 -- the hdlab proposal is stated below for the strategy session to land)."
-reverify: ".venv/Scripts/python.exe verification/test_meaning_fusion_live_coverage.py  (5/5: recomputes the transfer at limit=1500 + reads the full landed disk facts). Powered headline reproducer (own-dir only): .venv/Scripts/python.exe experiments/exp_meaning_fusion_live_coverage_v1.py --mode full --no-online"
+files_changed: "experiments/exp_meaning_fusion_live_coverage_v1.py (the end-to-end transfer measurement: PART A genuine online coverage-count + PART B coverage-quality selective-prediction frontier, all arms, twins), experiments/exp_meaning_fusion_bf_representation_v1.py (the TRUE-BF representation prototype -- FIX #3/#5: ATL distinctive-feature whitened grounded + structured dependency/adjacency PPMI substitutability, convergent-cue Bayes, + the phase-diagram SVD-densification sweep), experiments/exp_meaning_fusion_bf_accept_criterion_v1.py (FIX #7: the self-calibrating SDT accept criterion on the scale-free z_top standout, replacing the fixed cosine), verification/test_meaning_fusion_live_coverage.py (scaffold-free witness, 6/6), data/exp_meaning_fusion_live_coverage_v1/metrics.json, data/exp_meaning_fusion_bf_representation_v1/metrics.json, data/exp_meaning_fusion_bf_accept_criterion_v1/metrics.json. NO hdlab/ modified (Q111 -- the hdlab proposal is stated below for the strategy session to land)."
+reverify: ".venv/Scripts/python.exe verification/test_meaning_fusion_live_coverage.py  (6/6: recomputes the transfer at limit=1500 + reads the full landed disk facts, incl. the three fixes). Powered headline reproducer (own-dir only): .venv/Scripts/python.exe experiments/exp_meaning_fusion_live_coverage_v1.py --mode full --no-online"
 ---
 
 # What this is: the fusion does NOT lift the loop's coverage COUNT (the count is quality-blind), but a brain-foundational meaning representation lifts coverage QUALITY CI-separated -- and the lever is GROUNDED, not the grounded+distributional fusion
@@ -101,6 +101,39 @@ per-operation:
   not compression. (Recorded in memory: densify AND measure; whiten low-dim, do not low-rank-compress
   sparse-distinctive.)
 
+## THE THREE NON-BF WEAK LINKS -- FIXED, fully brain-foundational (owner: "fix them, right not easy")
+The performance-vs-brain audit named three components in the upstream chain that were NOT fully BF. They
+collapse into two real fixes (the representation fix sidesteps the parser), both prototyped + measured:
+
+**FIX #3 (unordered bag-of-words pooling = the total identity-signal loss) AND #5 (arc-eager parser = NOT_BF
+parse input) -- fixed by the SAME move: use the GROUNDED-DISTINCTIVE ATL representation, which needs NO bag
+and NO parser.** The bag carries relatedness not identity (live hit@1 ~ 0); the grounded-distinctive read
+(z-score = normalization, whitening = ATL privilege-distinctive-features decorrelation) beats it CI-separated
+(+0.182 MRR CI[+0.102,+0.275]) and uses only the PINNED Lancaster/Brysbaert norms -- no unordered pooling, no
+supervised parser. So the fully-BF representation SIDESTEPS both non-BF dependencies rather than patching
+them. (The structured-DISTRIBUTIONAL channel that WOULD need a BF parser is exposure-limited and not the
+lever; forcing a parser build there would be metric-chasing, not the right fix. The BF parser
+`incremental_parser` remains the mapped follow-on IF that channel is later pursued at reading volume.)
+
+**FIX #7 (the OUR-INVENTION fixed cosine `SENSE_MATCH_THRESH=0.45`) -- fixed by a self-calibrating SDT
+criterion on a scale-free familiarity standout** (`exp_meaning_fusion_bf_accept_criterion_v1.py`). MEASURED:
+the fixed cosine is representation-BROKEN -- 0.45 admits 22% of decisions in the distributional geometry (what
+it was tuned for) but 100% in the grounded geometry (grounded cosines cluster ~0.87-0.92), spread 0.78. The
+easy patch (re-sweep 0.45 per rep) is not the right fix. The BF fix: the accept decision is a FAMILIARITY
+signal exceeding a CRITERION on a DIVISIVELY-NORMALIZED axis -- z_top = (s1 - mean)/std over the candidate
+field (Carandini-Heeger gain control; scale-free), with the criterion set by SIGNAL-DETECTION THEORY (the
+z_top at a target false-alarm rate on the info-free null; Yonelinas 2002; Bruce-Young/IAC familiarity gate).
+Because z_top is scale-free, the criterion self-calibrates in ANY representation's geometry -- NO hand-set
+constant, NO re-tuning when the representation changes. MEASURED: on grounded-distinctive the SDT criterion
+gives a controllable precision-coverage knob (5% FA -> accept 5% at 0.600 hit@1; 20% FA -> accept 19% at
+0.278), z_top ordering costs NO ranking quality vs raw cosine (+0.000 hit@1@0.5), and accept-by-z_top beats
+the info-free twin CI-separated (+0.128 CI[+0.043,+0.234]). BF math verified per operation.
+
+So the fully-BF sense-assignment decision = read canonicalize's ranking over the GROUNDED-DISTINCTIVE ATL
+representation (no bag, no parser), accept by a SELF-CALIBRATING SDT familiarity criterion on the scale-free
+standout (no fixed cosine). Every operation in that path is a brain computation (see the BF ledgers in the
+two cells); nothing in it is an OUR-INVENTION constant or an external tool.
+
 ## The hdlab proposal (for the strategy session to land, Q111)
 A map + witnessed prototype, not a landed diff. All LOCAL to the ranking's READ; the recall/recognition path
 stays byte-identical (witness W5).
@@ -111,9 +144,13 @@ stays byte-identical (witness W5).
    **DOWN-WEIGHT the distributional channel to ~0 for this decision** (it is relatedness noise on the small
    anchor pool; grounded-alone >= the grounded+distributional fusion here) -- i.e. the C7 fusion-wire should
    land grounded-DOMINANT, not equal-weight, for canonicalize.
-2. **RE-SWEEP `SENSE_MATCH_THRESH` when the representation changes.** 0.45 is calibrated to the distributional
-   cosine geometry (an OUR-INVENTION parameter tied to a non-BF representation); the grounded read has a
-   different cosine scale, so the accept threshold must be recalibrated to matched selectivity (phase-diagram).
+2. **REPLACE the fixed `SENSE_MATCH_THRESH=0.45` with the self-calibrating SDT familiarity criterion** on the
+   scale-free z_top standout (`exp_meaning_fusion_bf_accept_criterion_v1.py`). 0.45 is representation-BROKEN
+   (admits 22% in the distributional geometry, 100% in the grounded one). The BF fix -- accept iff z_top =
+   (s1-mean)/std over the candidate field exceeds the criterion at a target false-alarm rate on the info-free
+   null -- is scale-free and self-calibrating, so it needs NO re-tuning when the representation changes (and no
+   hand-set constant). The FA rate is the precision-coverage knob (5% FA -> 0.60 hit@1 on grounded). This is
+   the BF replacement for the fixed threshold, not a re-sweep.
 3. **BUILD A COVERAGE-QUALITY INSTRUMENT** (correct-link rate against an independent gold), because the loop's
    current `n_grounded` COUNT is decision-quality-blind and will not show this win. Without it the lift is
    real but board-invisible.
@@ -176,9 +213,11 @@ RIGHT meaning far more often -- and to see that, we need to start scoring match 
 None blocking.
 
 ## NEXT STEPS
-1. **(hand-off to strategy, Q111)** Land the GROUNDED-ATL representation for `canonicalize`'s ranking
-   (grounded-dominant; distributional down-weighted to ~0 on this decision), and RE-SWEEP `SENSE_MATCH_THRESH`
-   to matched selectivity. Recall path byte-identical. This is the C7 fusion-wire, REFINED to grounded-dominant.
+1. **(hand-off to strategy, Q111)** Land the fully-BF sense-assignment decision: read `canonicalize`'s
+   ranking over the GROUNDED-DISTINCTIVE ATL representation (grounded-dominant; distributional down-weighted to
+   ~0 on this decision; no bag, no parser -- FIX #3/#5), and REPLACE the fixed `SENSE_MATCH_THRESH` with the
+   self-calibrating SDT familiarity criterion on the z_top standout (FIX #7). Recall path byte-identical. This
+   is the C7 fusion-wire, REFINED to grounded-dominant with a brain-foundational accept gate.
 2. **(the missing instrument -- prerequisite to a visible landing)** Build a coverage-QUALITY / correct-link
    metric (independent gold) into the loop's measurement, so a sense-assignment quality gain is scorable. The
    current `n_grounded` count will not show it.

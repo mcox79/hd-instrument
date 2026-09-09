@@ -5,7 +5,7 @@ bar: "PASS = a brain-foundational PROBABILISTIC POPULATION-CODE meaning represen
 result: "Item 1 PASS: intrinsic gain (accumulated evidence) -> per-item Spearman with reciprocal-rank on the LEARNED channel (DEP) = 0.221, CI [0.114, 0.322], CI-separated ABOVE the point-vector peakedness baseline (rho -0.097; gain-minus-peakedness CI [0.141, 0.482]); binned-calibration Spearman 1.0; min-gain 0.370; n=338 SimLex-999 high-sim query directions. Item 3 PASS: uniform-gain fusion == equal-weight Bayes BIT-IDENTICAL; the recall cosine read is unchanged. Item 2 LOCATED NEGATIVE (with numbers): gain-weighted fusion MRR 0.304 does NOT beat equal-weight Bayes 0.324 -- because equal-weight is already at the per-query reweighting ceiling (a FITTED per-channel weight also fails: 0.317 < 0.324; GAIN matches FITTED with no fitting, diff -0.012 CI [-0.049,+0.023]), the ranking is dominated by a CURATED channel (WordNet taxonomic, MRR 0.267) whose gain ANTI-tracks correctness (binned Spearman -0.2), and the oracle per-query channel-selection headroom (0.330 vs best-single 0.267) is uncapturable by ANY scalar reliability (select-by-gain 0.137). BUT where the gain is EARNED (learned-only {G,DEP}, full-power n=338) gain-weighting BEATS equal-weight CI-separated (+0.0135, CI [0.0016, 0.0266]) -- so the negative is curated-channel dominance, not mechanism failure. n_test=169 for the calibrated fusion arms."
 floor: "Strongest floor actually run = equal-weight Bayes convergent fusion over the brain-foundational channels {grounded, learned-DEP, taxonomic}, MRR 0.3242 (the C7 all-BF chain, the current best, no fitted params). Also run: info-free gain-shuffle twin 0.2884, info-free rep-shuffle twins, FITTED-weight 0.3165, peakedness heuristic 0.2803, and (item 1) the point-vector peakedness precision baseline Spearman(peakedness, RR)=-0.097 and the gain-shuffle twin."
 controls: "(1) info-free twins -- gain shuffled across words collapses the gain->correctness signal and the gain-weighting to ~equal; rep rows shuffled collapse all channels. (2) byte-identity control -- uniform gain reproduces equal-weight Bayes bit-for-bit (INV1), and the recall cosine read is unchanged (INV2), so the change is additive. (3) FITTED control -- a train-calibrated per-channel weight ALSO fails to beat equal-weight (0.317<0.324), proving the item-2 ceiling is the TASK not the mechanism. (4) curated-vs-learned control -- gain tracks correctness ONLY for the LEARNED channel (DEP binned Spearman 1.0); the CURATED WordNet channel's gain ANTI-tracks (-0.2) and grounded reliability does not track (-0.4), so the effect is the experience-quantity signature, not a generic word-frequency artifact. (5) peakedness baseline -- the point-vector's only native precision (posterior concentration) is ~0 vs correctness, and gain CI-separates above it."
-files_changed: "experiments/exp_ppc_precision_tracks_correctness_v1.py, experiments/exp_ppc_fusion_v1.py, experiments/exp_ppc_grow_by_reading_v1.py, experiments/exp_ppc_no_regression_v1.py, experiments/exp_ppc_selective_prediction_v1.py, experiments/exp_all_bf_upstream_trace_v1.py (fixes the NOT_BF parser BF-ly + top-down loss trace), experiments/exp_bf_learned_channel_landing_v1.py (the LANDABLE parser-free channel), experiments/exp_ppc_second_gold_powerup_v1.py (SimLex+SimVerb robustness), experiments/exp_ppc_grow_to_strength_v1.py (grow-by-reading on modern Simple-Wikipedia, executed), experiments/exp_ppc_all_v1.py (driver), verification/test_ppc_meaning_representation.py (38/38), notes/problems/the_meaning_representation_is_a_point_vector_not_a_probabilistic_population_code/{SOLVED.md,BF_AUDIT_UPDATE.md,ALL_BF_UPSTREAM_TRACE.md,HDLAB_INTEGRATION_SPEC.md,_working_notes.md}. NO hdlab/ writes (Q111)."
+files_changed: "experiments/exp_ppc_precision_tracks_correctness_v1.py, experiments/exp_ppc_fusion_v1.py, experiments/exp_ppc_grow_by_reading_v1.py, experiments/exp_ppc_no_regression_v1.py, experiments/exp_ppc_selective_prediction_v1.py, experiments/exp_all_bf_upstream_trace_v1.py (fixes the NOT_BF parser BF-ly + top-down loss trace), experiments/exp_bf_learned_channel_landing_v1.py (the LANDABLE parser-free channel), experiments/exp_ppc_second_gold_powerup_v1.py (SimLex+SimVerb robustness), experiments/exp_ppc_grow_to_strength_v1.py (grow-by-reading on modern Simple-Wikipedia, executed), experiments/exp_ppc_reliability_deferral_v1.py (convergent-agreement deferral), experiments/exp_ppc_population_reliability_v1.py (PHASE-DIAGRAM move: dense population-consensus reliability -> CI-sep deferral), experiments/exp_ppc_all_v1.py (driver), verification/test_ppc_meaning_representation.py (45/45), notes/problems/the_meaning_representation_is_a_point_vector_not_a_probabilistic_population_code/{SOLVED.md,BF_AUDIT_UPDATE.md,ALL_BF_UPSTREAM_TRACE.md,HDLAB_INTEGRATION_SPEC.md,_working_notes.md}. NO hdlab/ writes (Q111)."
 reverify: ".venv/Scripts/python.exe verification/test_ppc_meaning_representation.py"
 ---
 
@@ -172,10 +172,13 @@ Three follow-ons that make this fully BF, reuse-faithful, and settle the fusion 
 - **Second gold (robustness).** Pooling SimLex-999 + SimVerb-3500 (n=1342 query directions) keeps item 1
   CI-separated for BOTH the parser (DEP rho 0.237 [0.184,0.287]) and parser-free (SEQ rho 0.226 [0.172,0.277])
   channels -- not a single-gold artefact.
-- **Grow-by-reading EXECUTED (not projected).** Because SEQ is parser-free, reading is cheap: +499,969 modern
-  Simple-Wikipedia lines raised the learned channel's MRR **0.071 -> 0.126 -> 0.146** (`exp_ppc_grow_to_strength_v1`),
-  closing most of the gap to the ontology (CM 0.203) purely by reading more -- a real accuracy gain from the
-  north-star, and the fusion rose 0.227 -> 0.259.
+- **Grow-by-reading EXECUTED to the ceiling (not projected).** Because SEQ is parser-free, reading is cheap:
+  +1,499,899 modern Simple-Wikipedia lines (29M tokens) raised the learned channel's MRR
+  **0.071 -> 0.136 -> 0.146 -> 0.156 -> 0.163** (`exp_ppc_grow_to_strength_v1`), reaching **~80% of the supplied
+  WordNet ontology (CM 0.203) by reading ALONE (no ontology, no parser), and still RISING at 1.5M lines** -- a
+  strong demonstration that the substrate can learn most of the identity signal from reading; the fusion rose
+  0.227 -> 0.263. (The raw-count gain precision keeps saturating, rho 0.226 -> -0.088; the saturating/log form ties
+  equal-weight; the fusion route stays closed.)
 - **The fusion-reweighting route is now thoroughly closed (a settled located negative).** Across the FULL exposure
   range (34k -> 534k lines) and both precision forms, gain-weighting never beats equal-weight: (a) the gain->
   correctness Spearman is transform-invariant (log is monotone) and genuinely decays at high exposure (rho
@@ -186,6 +189,50 @@ Three follow-ons that make this fully BF, reuse-faithful, and settle the fusion 
   curated-dominated (low reading) or uniformly well-read (high reading), neither of which leaves reweighting
   headroom. The precision's genuine value is reliability-aware DEFERRAL + eliminating the fitted weight + removing
   the parser, NOT fusion accuracy.
+
+### 3e. THE RELIABILITY PAYOFF, DELIVERED BY A PHASE-DIAGRAM MOVE (the reader CAN tell when a read is reliable)
+The problem's core plain-language goal is "the reader cannot tell when a meaning read is RELIABLE." First cut:
+reliability-aware DEFERRAL by single-channel gain (directional) and by 3-cue CONVERGENT AGREEMENT
+(`exp_ppc_reliability_deferral_v1`: genuine -- unanimous agreement doubles accuracy, MRR 0.46 vs 0.23 -- but fires
+only 0.6% of the time). Reporting "sparse" as a limit was the error: that is a wall AT ONE OPERATING POINT (discrete
+agreement among 3 coarse cues), not a ceiling. **Moving on the phase diagram (population-size axis)** fixes it. The
+brain's reliability is a POPULATION consensus: many units vote, the read's variance is set by its gain
+(Poisson PPC: Var ~ 1/gain, Ma/Pouget). `exp_ppc_population_reliability_v1` draws N sub-read-outs perturbed by
+evidence-scaled sampling noise (std ~ 1/sqrt(gain), so low-evidence reads are unstable) and reads reliability as the
+population VOTE CONCENTRATION:
+| N (population size) | reliability density | deferral @50% cov vs random | CI-sep |
+|---|---|---|---|
+| 1 (deterministic) | 0% (trivially unanimous) | +0.015 | no |
+| 10 | 46% | +0.026 [0.003, 0.049] | **yes** |
+| **30** | **52%** | **+0.049 [0.023, 0.075]** (and +0.052 [0.010, 0.092] @25%) | **yes** |
+| 100 | 58% | +0.019 | no (over-concentrated) |
+At the right operating point (N~30) the reliability is DENSE (a graded value on 52% of reads, not 0.6% unanimous),
+tracks correctness (rho 0.10), and **deferral by population consensus beats random abstention CI-separated
+(+0.049)** -- the reader CAN tell when a meaning read is reliable. This is the population-code precision delivering
+its promised benefit as a CAPABILITY, achieved by moving the operating point, not by accepting the sparse wall.
+
+### 3f. PERFORMANCE vs THE BRAIN, AND WHERE THE CHAIN LOSES SIGNAL NOW (checklist item 6)
+Task = rank the true near-synonym among ~4,400 read words (the loop's own sense-assignment ranking), pooled
+SimLex-999 + SimVerb-3500, n=1342. Top-down trace with EVERY component now brain-foundational and the learned
+channel grown to 1.5M lines:
+| level (top -> down) | MRR | what is lost descending INTO this level |
+|---|---|---|
+| a competent reader (recognises near-synonyms) | ~0.7-1.0 (est.) | -- (the brain reference) |
+| **-> our-channels ORACLE (perfect per-query channel pick)** | **~0.33** | **THE DOMINANT LOSS (~0.4-0.7): REPRESENTATIONAL DEPTH.** Our channels are distributional / taxonomic / perceptual PROXIES; even a perfect pick among them caps at 0.33 -- they encode "which words pattern alike", not "what the word refers to / means". |
+| our best fusion {grounded, SEQ, ontology}, equal-weight | 0.263 | small (~0.07): equal-weight is near the oracle; the per-query selection headroom is tiny and, as established, uncapturable by any scalar reliability. |
+| ontology (WordNet taxonomic) alone | 0.203 | the strongest single channel (supplied). |
+| learned SEQ (parser-free, read 1.5M lines) | 0.163 | ~80% of the ontology, learned from reading ALONE; still rising -- reading is closing this. |
+| grounded (ATL perceptual) alone | ~0.05 | the sibling/synonym confound (a 12-d behavioural proxy) -- the weakest channel, and the one with the most headroom for a richer/higher-dim grounded asset. |
+
+**Where we lose signal NOW: not at any component -- at the REPRESENTATION's DEPTH.** Every operation is BF and each
+channel is at/near its own ceiling; the readout and fusion lose almost nothing vs the oracle. The channels are
+largely REDUNDANT (the full fusion 0.263 barely beats the best single channel 0.203), so we are NOT getting
+independent-cue gains -- all three capture the same distributional/relational identity axis. The ~0.4-0.7 gap to a
+competent reader is the difference between our PROXY meaning (co-occurrence + taxonomy + coarse perceptual) and the
+brain's GROUNDED, REFERENTIAL, COMPOSITIONAL meaning. **The frontier is therefore a COMPLEMENTARY, DEEPER meaning
+axis** (richer/higher-dimensional sensorimotor grounding; referential/situational meaning; compositional relational
+structure beyond pairwise similarity), NOT more of the same channel -- reading grows the learned channel toward the
+ontology, but both saturate at the proxy ceiling.
 
 ## 4. THE hdlab PROPOSAL (Q111 -- strategy lands; solver cannot write hdlab)
 The single most valuable landing is in **`convergent_cue_reader.convergent_pick`**, whose fitted weight `w =
