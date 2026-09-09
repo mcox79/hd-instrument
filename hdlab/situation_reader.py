@@ -550,6 +550,16 @@ class SituationModel:
     spatial_relative: Optional[object] = None
     spatial_still_at: Optional[object] = None
     spatial_where_after: Optional[object] = None
+    # opt-in FORWARD predictive-coding causal-antecedent reader (default-on track_predictive_causal; wired
+    # 2026-09-09 from owner-DONE generate_dont_retrieve_causal_edges). Read-only callables over the reader's OWN
+    # event-concept stream + the consolidated online predictive-coding world-model (hdlab.predictive_world_model):
+    # causal_antecedent(effect_event_index) = the event whose ablation most raises the effect's surprisal
+    # (Gerstenberg counterfactual necessity over Kuperberg N400 predictive coding). COMPLEMENTS sm.causal_reasoner
+    # (graph-necessity over extracted sm.causal_links) with the INTRINSIC SURPRISAL necessity that escapes the
+    # position confound. None until invoked / if the foundation asset is absent. PURE ADD, LAZY, byte-identical off.
+    predictive_world_model: Optional[object] = None
+    causal_antecedent: Optional[object] = None
+    predictive_necessity: Optional[object] = None
     # opt-in TEMPORAL-REASONING dimension (DID-X-HAPPEN-BEFORE-OR-AFTER-Y / DO-X-AND-Y-OVERLAP / WHICH-LASTED-
     # LONGER): read-only CALLABLES bound at read time when the reader is built with track_temporal_reasoning=True
     # (default-on). The TIME-channel sibling of the causal + spatial reasoners -- a glass-box reasoner over the
@@ -885,6 +895,7 @@ class SituationReader:
                  track_prediction: bool = True,
                  track_causal_reasoning: bool = True,
                  track_spatial_reasoning: bool = True,
+                 track_predictive_causal: bool = True,
                  track_temporal_reasoning: bool = True,
                  track_natural_logic: bool = True,
                  track_coherence: bool = False,
@@ -1307,6 +1318,14 @@ class SituationReader:
         # until that upstream organ lands (the gold-vs-extracted gap IS the expected gain curve). NO spaCy / NO
         # external LLM at inference. flag-off (track_spatial_reasoning=False) = the pre-landing reader.
         self.track_spatial_reasoning = bool(track_spatial_reasoning)
+        # FORWARD PREDICTIVE-CAUSAL stage (default-on track_predictive_causal; wired 2026-09-09 from owner-DONE
+        # generate_dont_retrieve_causal_edges, Q111). Binds sm.causal_antecedent / sm.predictive_necessity /
+        # sm.predictive_world_model -- counterfactual-necessity causal-antecedent inference (surprisal-increase on
+        # ablation, Gerstenberg over Kuperberg N400 predictive coding) over the reader's OWN event-concept stream +
+        # the consolidated predictive-coding world-model (hdlab.predictive_world_model). PURE ADD, LAZY (loads the
+        # foundation asset at most once on first invocation; abstains if absent), byte-identical off vs on. NEW
+        # ISLAND. flag-off (track_predictive_causal=False) = the pre-landing reader.
+        self.track_predictive_causal = bool(track_predictive_causal)
         # TEMPORAL-REASONING stage (default-on track_temporal_reasoning; wired 2026-09-06 from the owner-DONE
         # problem reason_over_event_time_order_and_duration_on_a_modern_gold, p5). Binds the TIME-channel inference
         # organ -- read-only callables (sm.temporal_reasoner() + temporal_before / overlaps / longer) that REASON
@@ -1736,7 +1755,7 @@ class SituationReader:
         "track_goals", "track_goal_thwart", "track_affect", "track_tom_action", "track_infer_emotion",
         "affect_structured_matcher",
         "track_bridges", "track_senses",
-        "track_prediction", "track_causal_reasoning", "track_spatial_reasoning", "track_temporal_reasoning",
+        "track_prediction", "track_causal_reasoning", "track_spatial_reasoning", "track_predictive_causal", "track_temporal_reasoning",
         "track_natural_logic", "track_coherence",
         "joint_temporal_events", "joint_nominal_events",
         "read_polarity",
@@ -3288,6 +3307,97 @@ class SituationReader:
         sm.signed_effect = signed_effect
         # the CausalGraph is built LAZILY inside the closures on first invocation -- zero read-time cost / no build.
 
+    def _read_predictive_causal(self, sm, sents) -> None:
+        """Opt-in FORWARD predictive-coding causal-antecedent reader (default-on track_predictive_causal; wired
+        2026-09-09 from the owner-DONE generate_dont_retrieve_causal_edges_for_unmarked_narrative_causation, Q111).
+        Binds read-only CALLABLES that infer, for each situation-model EVENT, its causal antecedent by COUNTERFACTUAL
+        NECESSITY over the reader's OWN event-concept stream and the consolidated online predictive-coding
+        WORLD-MODEL (hdlab.predictive_world_model, learned offline on simplewiki = the brain's consolidated
+        foundation + online growth). THE CAUSAL CRITERION (100% brain-foundational): an antecedent A causes effect B
+        iff, had A not occurred, B would have been more SURPRISING -- surprisal-increase on ABLATION (Gerstenberg
+        counterfactual necessity over Kuperberg-Jaeger predictive coding / the N400). This COMPLEMENTS
+        sm.causal_reasoner, which does GRAPH-reachability necessity over the EXTRACTED sm.causal_links -- this is the
+        INTRINSIC SURPRISAL necessity the extracted connective graph cannot express, and the solver proved it ESCAPES
+        the position confound that every external causal gold rewards. Validated (promoted organ, simplewiki
+        held-out): PC surprisal beats bigram +0.254 bits CI-sep; the argmax-necessity antecedent beats a random
+        context event +0.308 bits CI-sep.
+
+          sm.predictive_world_model()                 -> the loaded hdlab.predictive_world_model.PredictiveWorldModel
+                                                         (None until invoked / if the foundation asset is absent)
+          sm.causal_antecedent(effect_event_index)    -> {'antecedent', 'necessity_bits', 'context_index',
+                                                         'antecedent_event_index'} for the event at that index in
+                                                         sm.events, or None (asset absent / OOV / no in-vocab context)
+          sm.predictive_necessity(effect_idx, cause_idx) -> necessity bits of the cause event for the effect event
+
+        The document's event-concept stream = the WordNet-lemma of each sm.events predicate in reading order (the
+        world-model's own vocab basis). PURE ADD -- read-only callables, mutates NO existing field (byte-identical
+        off vs on); LAZY -- loads the world-model asset at most once, on first invocation, and abstains cleanly
+        (returns None) if the asset is absent. A NEW ISLAND (no downstream consumer today -> no regression). The DEEP
+        loop-closure -- wiring the N400 prediction-error against THIS forward model (the recurrent predictive-coding
+        loop) -- is the project's pri-1 north-star and is deliberately NOT wired here. NO spaCy / NO external LLM
+        (a glass-box perceptron tagger + WordNet + a linear read-out learned by the delta-rule)."""
+        holder = {}
+
+        def _wm():
+            if "m" not in holder:
+                try:
+                    from hdlab.predictive_world_model import PredictiveWorldModel
+                    holder["m"] = PredictiveWorldModel.load()
+                except Exception:
+                    holder["m"] = None
+            return holder["m"]
+
+        def _concepts():
+            from hdlab.predictive_world_model import _lemma
+            return [_lemma((getattr(e, "predicate", "") or "")) for e in (getattr(sm, "events", []) or [])]
+
+        def predictive_world_model():
+            return _wm()
+
+        def _window(cs, effect_event_index, hist, m):
+            """The in-vocab context window as (absolute_event_index, concept_id) pairs, oldest..newest, preserving
+            the ABSOLUTE event index through the vocab filter (so the antecedent maps back to the right event)."""
+            start = max(0, effect_event_index - hist)
+            return [(i, m.idx[cs[i]]) for i in range(start, effect_event_index) if cs[i] in m.idx]
+
+        def causal_antecedent(effect_event_index, hist=6):
+            m = _wm()
+            if m is None:
+                return None
+            cs = _concepts()
+            if not (0 <= effect_event_index < len(cs)) or cs[effect_event_index] not in m.idx:
+                return None
+            win = _window(cs, effect_event_index, hist, m)
+            if not win:
+                return None
+            necs = m.necessity_ids(m.idx[cs[effect_event_index]], [cid for _, cid in win])
+            if not necs:
+                return None
+            am = max(necs, key=lambda t: t[2])                    # (k, concept, bits); k indexes win
+            return {"antecedent": am[1], "necessity_bits": round(float(am[2]), 4),
+                    "context_index": am[0], "antecedent_event_index": win[am[0]][0]}
+
+        def predictive_necessity(effect_event_index, cause_event_index, hist=6):
+            m = _wm()
+            if m is None:
+                return None
+            cs = _concepts()
+            if not (0 <= cause_event_index < effect_event_index < len(cs)):
+                return None
+            if cs[effect_event_index] not in m.idx:
+                return None
+            win = _window(cs, effect_event_index, hist, m)
+            necs = m.necessity_ids(m.idx[cs[effect_event_index]], [cid for _, cid in win])
+            for k, _concept, bits in necs:
+                if win[k][0] == cause_event_index:
+                    return round(float(bits), 4)
+            return None
+
+        sm.predictive_world_model = predictive_world_model
+        sm.causal_antecedent = causal_antecedent
+        sm.predictive_necessity = predictive_necessity
+        # the world-model asset is loaded LAZILY inside the closures on first invocation -- zero read-time cost.
+
     def _read_spatial_reasoning(self, sm, sents) -> None:
         """Opt-in SPATIAL-RELATIONAL REASONING dimension (default-on track_spatial_reasoning; wired 2026-09-06 from
         the owner-DONE problem reason_over_the_spatial_relational_model_containment_position_path_modern_gold, Q111).
@@ -4231,6 +4341,15 @@ class SituationReader:
             # leaves sm.causal_reasoner None until invoked (byte-identical off vs on). NEW ISLAND -- no downstream
             # consumer today. Abstains cleanly on an empty/sparse network. sm.causal_links is UNCHANGED (read-only).
             self._read_causal_reasoning(sm, sents)
+        if self.track_predictive_causal:
+            # FORWARD PREDICTIVE-CAUSAL dimension: bind sm.causal_antecedent / sm.predictive_necessity /
+            # sm.predictive_world_model -- counterfactual-necessity causal-antecedent inference (surprisal-increase
+            # on ablation over the consolidated online predictive-coding world-model), the INTRINSIC surprisal
+            # necessity that complements sm.causal_reasoner's graph-necessity + escapes the position confound. Runs
+            # after the causal reasoner so it sees the FINAL sm.events. PURE ADD -- lazy closures only (loads the
+            # world-model asset at most once, on first callable invocation); sets ONLY the new callables (byte-
+            # identical off vs on). NEW ISLAND. Abstains (None) if the foundation asset is absent.
+            self._read_predictive_causal(sm, sents)
         if self.track_spatial_reasoning:
             # SPATIAL-RELATIONAL REASONING dimension: bind sm.spatial_reasoner() + spatial_contains /
             # spatial_relative / spatial_still_at / spatial_where_after -- the SPACE-channel inference organ

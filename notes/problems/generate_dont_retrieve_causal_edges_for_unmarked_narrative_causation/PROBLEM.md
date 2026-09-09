@@ -1,7 +1,8 @@
 ---
-priority: 4
-review:
-review_text:
+priority:
+status: INTEGRATED
+review: EXCELLENT
+review_text: "Owner-DONE, reverified 67/67. LANDED the NEW self-contained organ hdlab/predictive_world_model.py (online predictive-coding FORWARD event-transition world-model + counterfactual-necessity causal reader + persisted foundation asset) + the additive read pass situation_reader._read_predictive_causal (sm.causal_antecedent / sm.predictive_necessity / sm.predictive_world_model, default-on, byte-identical off). Promotion reproduces the solver EXACTLY (PC beats bigram +0.2543 CI-sep; necessity reader-vs-random +0.3084 CI-sep). Witness test_predictive_causal_wire.py 7/7. Board-invisible by design (external causal golds are position traps; value is intrinsic surprisal necessity). Follow-ons: intrinsic board arm, rich situation-event key, event_type MFS->WSD, the N400 loop-closure (= pri-1). See INTEGRATION_LEDGER.md + BRAIN_FOUNDATIONAL_AUDIT.md S2b (CONT-29)."
 ---
 
 > **⚠️ RESTORED 2026-09-08 by the strategy session.** This strategy-owned PROBLEM.md was lost from disk when the folder was removed during concurrent git/session activity (the solver's SOLVED.md survived + was recreated from context; see its RECOVERY NOTE). Recreated faithfully from the original brief spec + the solver's SOLVED — the mechanism, bar, and DO-NOT list are the original; numbers below reflect what the solver measured.

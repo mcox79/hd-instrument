@@ -621,3 +621,22 @@ narrative re-validation (b). 67/67 witness; ledger malformed 0.
 5. DO-NOT (established): any external causal BENCHMARK as load-bearing gold (all are position-artifact traps --
    MAVEN/TMW/GLUCOSE); any context-free knowledge prior (6 falsified); spaCy / any black-box parser; any external
    LLM; batch-trained models (the brain learns online).
+
+---
+
+INTEGRATED_BY_STRATEGY: 2026-09-09 (CONT-29). Owner-DONE, reverified 67/67. LANDED (hdlab, Q111): NEW self-contained
+organ `hdlab/predictive_world_model.py` -- the ONLINE predictive-coding FORWARD event-transition world-model
+(Rao-Ballard + Rescorla-Wagner delta-rule, glass-box hdlab.pos_tagger + WN concept extractor, NO LLM/gold/training) +
+the counterfactual-NECESSITY causal reader (surprisal-increase on ablation) + persisted foundation asset (learned on
+simplewiki, gitignored/rebuildable via `--build`, the predictive_reader precedent); organ self-test 3/3. The promotion
+reproduces the solver EXACTLY on simplewiki held-out: PC beats bigram +0.2543 CI[0.2282,0.2812] (solver +0.247),
+necessity reader-vs-random +0.3084 CI[0.2987,0.3184] (solver +0.308), both CI-sep. WIRED an ADDITIVE read-only pass
+`situation_reader._read_predictive_causal` -> `sm.causal_antecedent` / `sm.predictive_necessity` /
+`sm.predictive_world_model`, default-on (`track_predictive_causal`), lazy, byte-identical off vs on. Witness
+`verification/test_predictive_causal_wire.py` 7/7 (live read: causal_antecedent(died)='shot' +0.4554 bits >> 'walked'
++0.0141). RECONCILIATION (owner caution): the world-model is genuinely NEW -- the FORWARD event-sequence level,
+complementary to predictive_reader (feature/static), n400 (backward), and sm.causal_reasoner (graph-necessity); wired
+additive with NO downchain regression. Board-invisible by design (external causal golds are position-artifact traps;
+the value is INTRINSIC surprisal necessity). FOLLOW-ONS (not front-run): intrinsic-necessity board arm; the rich
+situation-event key (finding 23); event_type MFS->WSD; and the loop-closure (N400 error against this forward model =
+the pri-1 generative world-model north-star, owner-review-pending). Audit S2b + INTEGRATION_LEDGER (CONT-29). Nothing pushed.
