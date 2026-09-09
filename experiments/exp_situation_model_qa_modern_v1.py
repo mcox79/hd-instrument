@@ -41,6 +41,19 @@ from datetime import datetime, timezone
 
 os.environ.setdefault("OMP_NUM_THREADS", "2")
 os.environ.setdefault("OPENBLAS_NUM_THREADS", "2")
+# INSTRUMENT-SAFE DETERMINISM PIN (infra; fixes the board exiting mid-run with code 0).
+# Several arms transitively import experiments._hashseed_guard, whose module body calls
+# os.execv(sys.executable, [sys.executable] + sys.argv) whenever PYTHONHASHSEED != "0".
+# That whole-process re-exec is only safe at a standalone cell's ENTRY. Reached mid-run
+# here -- this aggregator runs 20+ arms, and run() is also imported as a LIBRARY by the
+# reproducer / situation_reader consumers -- it RESTARTS/KILLS the process (bypassing
+# normal returns and even sys.exit), so run() never returns its aggregate and the
+# canonical metrics.json is never written. Pinning the env var to "0" BEFORE any arm
+# imports makes every later _hashseed_guard import a no-op, so the board completes in
+# one process. Restores the pre-2026-09-07 behaviour (the guard imports were added that
+# day, commits 102641f3bb / 21515fce77, which introduced the mid-run re-exec regression).
+if os.environ.get("PYTHONHASHSEED") != "0":
+    os.environ["PYTHONHASHSEED"] = "0"
 _REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if _REPO not in sys.path:
     sys.path.insert(0, _REPO)
