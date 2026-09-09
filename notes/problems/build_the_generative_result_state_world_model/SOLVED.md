@@ -656,6 +656,26 @@ _contrastive_relation_inference_phase2, margin +0.0025 vs required 0.05) = the r
 cells/witnesses. NET: the generative loop, built structurally-correct, is the FIRST generative cue to lift the
 integrator; the last piece is the untrained forward transition over bound events.
 
+**DEEPENING cycle-24 (2026-09-08) -- the OTHER component: an untrained algebraic forward-TRANSITION operator,
+done RIGHT (owner: brain foundationally, right not easy).** `exp_genworldmodel_forward_transition_v1.py` (witness
+4/4). Built the GENERATIVE (not retrieval-lookup) forward transition over bound events: from candidate C's bound
+event, GENERATE a predicted bound next-event (participants PRESERVED, predicate transitioned to the ATOMIC-
+consequence distribution via the FHRR EventBundleCodec) and CHECK vs the effect (predictive-coding forward model;
+untrained, since trained SR-TD was falsified). TWO decisive powered findings (pooled TellMeWhy-GOAL, n=935):
+  (+) ROLE-BINDING STRUCTURE IS LOAD-BEARING: fwd CI-beats its BIND-SHUFFLE twin +0.084 CI[0.024,0.141] -- the
+      STRUCTURED bound representation carries real signal (the brain-foundational representational fix, now
+      confirmed TWICE: cycle-23 integrator lift + here). KEEP IT.
+  (-) the ATOMIC transition KNOWLEDGE is NOT load-bearing: fwd 0.341 ties its ATOM-SHUFFLE twin 0.349 (-0.009,
+      not CI-sep) -- context-free transition knowledge does NOT carry even in a generative VSA forward model; the
+      score reduces to structured PARTICIPANT matching. Does NOT recover the zero-overlap residual (0.333<0.557).
+  => the forward-transition MECHANISM + STRUCTURED representation are correct + load-bearing, but its KNOWLEDGE
+  input cannot be supplied CONTEXT-FREELY (ATOMIC not load-bearing) NOR TRAINED (SR-TD falsified) -> a working
+  transition needs SITUATION-SPECIFIC (context-conditioned) knowledge = the meaning-foundation-wired-live world
+  model (Q111). 40 cells/witnesses. META (now exhaustively established): STRUCTURED BOUND representation = the
+  confirmed brain-foundational carrier; CONTEXT-FREE knowledge in ANY form (associative / directed-KB / script /
+  ATOMIC, as retrieval OR generative-transition) = NOT load-bearing; the task needs CONTEXT-CONDITIONED
+  situation-specific structure (the live situation-model / meaning-foundation wire, Q111).
+
 **TRIANGULATION (5 independent builds converge on ONE wall):** coverage-tiers (DEEP_MULTISTEP 51%),
 precise-trace (topical dominance; extraction not the issue), ECHO decision (mechanism proven, real-data flat),
 generative edges (generate>retrieve + phase-diagram optimum, class-level engines precision-coverage-bound),

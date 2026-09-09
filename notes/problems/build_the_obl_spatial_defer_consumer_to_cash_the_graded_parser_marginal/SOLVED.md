@@ -252,6 +252,26 @@ established across ~15 citations, not a cheap-implementation artifact. The surfa
 real ceiling, but it is NOT closable by meaning cues for locatives; the honest levers remain the syntactic commit
 (landable), POS quality (+0.029), and construction/typing coverage (the dominant loss).
 
+## 4u. WHY THE UPGRADED THEM DID NOT HELP -- researched ON THE DATA (owner "research why them didn't help")
+
+`exp_obl_spatial_why_them_v1` decomposes the four hypotheses on UD-EWT spatial obl (n=973):
+- **H1 REDUNDANCY -- REFUTED.** THEM is ORTHOGONAL to the parser: THEM-argmax agrees with SYN-argmax only 32.7%,
+  THEM~SYN correlation 0.11. It carries genuinely different info (it CAN fix 29.5% of SYN's errors).
+- **H2 SYMMETRIC-PLAUSIBILITY -- REFUTED.** THEM gives CONFIDENT V-vs-N preferences (normalized gap 0.61; near-tie
+  only 20%). It is not indecisive -- it is CONFIDENTLY WRONG.
+- **H3 DATA-STARVATION -- CONFIRMED, and STRUCTURAL.** The (verb,prep,ground) fact is directly attested in only
+  **10.0%** of cases; the other 90% fall to the Erk-similarity + ConceptNet backoff, which is weakly predictive
+  (AUC 0.58) and confidently wrong -- so trusting THEM (it disagrees with the parser 67% of the time, right only ~30%
+  when it overrides) INJECTS more errors than it fixes. THAT is why the faithful integrator weights it to 0.
+- **ROOT (literature):** the 10% direct-seen rate is STRUCTURAL, not a corpus-size accident -- REPORTING BIAS
+  (Gordon & Van Durme 2013): text under-reports the obvious location facts THEM needs ("the spoon is in the drawer"),
+  so MORE raw text cannot fix it; and locations are PERIPHERAL / aspect-gated role fillers (Ferretti-McRae 2001/2007),
+  so the human selectional signal is itself thin. The fix is a CURATED location-typicality resource (Ferretti's 277
+  human ratings; ConceptNet done better), not more parsed corpus -- but the ceiling stays bounded by peripheral-role.
+
+VERDICT: THEM is a weak, miscalibrated, ORTHOGONAL cue -- real complementary signal (fixes ~30% of parser errors) but
+undeployable because you cannot tell WHEN to trust it (AUC 0.58), and its facts are structurally hidden from text.
+
 ## 5. THE FULL-CHAIN SIGNAL-LOSS AUDIT + PER-COMPONENT BRAIN-FIDELITY (owner: "evaluate the full chain")
 
 `exp_obl_spatial_chain_signalloss_v1` localizes, on modern gold (SpaceEval moves goals, n=390), the deepest chain
@@ -303,6 +323,18 @@ feeds ONLY _read_space, so no who-did-what/temporal consumer regresses.
    separately (each alone hits the precision/recall wall).
 3. **Do NOT** land the raw marginal gate on the terse SpaceEval CONTAINMENT extractor (saturated -- the settled prior
    refutation), nor expect a net where_is lift without more modern narrative gold (n=47 is underpowered).
+
+### 6c. ALL OPTIMIZATIONS IMPLEMENTED RIGHT (`exp_obl_spatial_resolver_v1` -- promotion-ready; owner "implement all, right not easy")
+The finish-up resolver implements EVERY optimization at full brain-fidelity: COMMIT via normalized-recurrence
+(McRae/Spivey) over the RAW single-root marginal (drop-logistic + one-inverse), plus the FULLY-upgraded THEM organ --
+Erk-2007 distributional-similarity backoff + preposition-conditioning + ConceptNet AtLocation foundation-seed +
+Ferretti-Kutas-McRae aspect-gate. MEASURED (UD-EWT spatial obl n=973): the syntactic COMMIT is the win (0.7061 ->
+0.7215); the fully-upgraded THEM, done completely right, adds NO GENERALIZABLE signal for locative attachment (its
+train-tuned weight overfits and does not beat syn-commit on test; aspect-gate contributes -0.003). So the faithful
+integrator weights THEM to 0 and the DEPLOYED resolver IS the syntactic commit. This is the honest completion: the
+meaning cue is implemented at full fidelity and the ceiling is confirmed a BRAIN FACT (peripheral/aspect-gated locative
+role fillers), not a cheap build. hdlab port = items 4-6 below (the commit + drop-logistic + one-marginal); item 7's
+THEM organ is available but weight-0 for the locative consumer.
 
 ### 6b. FINISH-UP BRAIN-FOUNDATIONAL OPTIMIZATIONS (measured + landable now -- bundle these)
 4. **COMMIT to the graded-competition posterior for the spatial-obl attachment (normalized-recurrence, not defer,

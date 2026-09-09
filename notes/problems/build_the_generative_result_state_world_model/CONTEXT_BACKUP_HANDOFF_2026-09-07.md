@@ -376,3 +376,70 @@ candidate that establishes it -> needs RESOLVED DISCOURSE REFERENTS (coref/meani
 front-end lands: mechanism #2 (Kintsch settling over CausalLinkRegister typed bindings) + #3 (LOO
 surprisal-reduction over n400_coherence_monitor running gist). 26 cells/witnesses.
 ================================================================================
+
+================================================================================
+## >>> RESUME HERE (2026-09-08, pre-compaction #2) -- cycles 15-24, THE REFRAME + THE GENERATIVE LOOP <<<
+================================================================================
+40 cells / 40 witnesses (all green), ledger malformed/incomplete: 0. SOLVED status INTACT (anchored on the
+TellMeWhy result-state GOAL-subset positive + located negatives, now strongest-floor-controlled). Reverify the
+whole chain: the SOLVED.md `reverify` field lists the ordered witness commands. CWD-reset each Bash call ->
+prefix `cd /c/AI/hd-instrument &&`; `export PYTHONIOENCODING=utf-8`.
+
+THE REFRAME (cycle-17, the big shift): the GLUCOSE/TellMeWhy gold labels elicit BEST-EXPLANATION / RELEVANCE
+(annotation protocols: "just give your intuition"; GLUCOSE self-cites Miller 2019 + Lombrozo 2006), NOT
+counterfactual necessity. So 16 cycles of "LOO/generated signals tie/lose to topical/position/result-state" have
+a PROTOCOL-LEVEL cause: those cheap signals PROXY the explanation construct; necessity targets a construct the
+golds never measured. GLUCOSE is ALSO position-degenerate + overlap-constructed-gold (retire it; TellMeWhy-GOAL
+is the meaningful instrument). Neither gold is brain-foundational.
+
+THE TWO CONFIRMED LOAD-BEARING WINS (from existing organs, no regress, witnessed):
+  1. Competition-Model cue-validity INTEGRATOR (graded_competition + delta-rule) -- robust best-of-both across
+     corpora + synergy on TellMeWhy (cycle-10, test_genworldmodel_competition_model_integrator 4/4).
+  2. SCRIPT-ORDER cue (temporal_script_schema p_before) -- CI-sep load-bearing +0.060 on pooled TellMeWhy-GOAL
+     (cycle-12, test_genworldmodel_script_order_power 3/3).
+  PLUS the primary result-state GOAL-subset win (rs_fire, TellMeWhy, beats BOTH topical AND a position floor).
+
+THE STRUCTURED BOUND REPRESENTATION = the confirmed brain-foundational CARRIER (cycles 23-24): a generative loop
+over FHRR bound (PRED,AGENT,PATIENT) events (hdlab.event_bundle.EventBundleCodec) gives a CI-sep integrator lift
+(+0.036) AND CI-beats its BIND-SHUFFLE twin (+0.084) -- role/participant structure carries. KEEP IT.
+
+THE EXHAUSTIVE NEGATIVE (established ~10 angles, all witnessed): CONTEXT-FREE knowledge in EVERY form is NOT
+load-bearing on real-narrative cause-ID -- associative density (rollout_phase_diagram, twin matches), directed
+causal-KB (directed_kb_rollout), naive + weighted-discriminative ATOMIC (atomic_commonsense / applied_commonsense,
+weight-shuffle twin matches), semantic goal-resolution (semantic_goal_resolution: recovers coverage 0.16->0.30
+but no lift), mean-pooled generative (generative_simulation / curated_generative: shuffled-KNOWLEDGE twin matches
+-- I BUILT IT WRONG, mean-pool = retrieval), and the untrained algebraic forward-TRANSITION (forward_transition:
+ATOM-shuffle twin matches -> transition KNOWLEDGE not load-bearing). Trained forward operators ALSO falsified
+(SR-TD, data/exp_event_level_sr_td_contrastive_relation_inference_phase2). => the task needs CONTEXT-CONDITIONED
+situation-specific knowledge; context-free (retrieval OR generative) does not carry.
+
+SIGNAL-LOSS DECOMPOSITION (cycle-16/19, witnessed): on TellMeWhy-GOAL the integrator ceiling ~0.56; the
+irreducible RESIDUAL ~0.44 is dominated by ZERO-lexical-overlap + IMPLICIT cause->effect links ("studied"->
+"passed") -- recoverable only by context-conditioned commonsense. The genuinely-BF result-state contributes only
+~0.18 solo; cheap proxies add ~+0.15.
+
+>>> NEXT (owner directive, pre-compaction): "trace this down -- where are we losing signal? maximize this
+capability." CONCRETE PLAN for the resumed session:
+  (a) TRACE the signal loss STAGE-BY-STAGE in the STRUCTURED loop (the confirmed carrier): extraction quality
+      (_roles_of = root-verb + nsubj/dobj is SPARSE/noisy -> many sentences lack clean AGENT/PATIENT) -> binding
+      -> decode/transition. Quantify the loss at EXTRACTION first (what fraction of gold cause/effect have clean
+      resolved participant bindings?).
+  (b) MAXIMIZE the structured/participant channel (the load-bearing part of cycle-24): wire the FULL
+      hdlab.coreference_resolver (MATCH-OR-ALLOCATE + Principle B -- I found it but only used recency/ACT-R
+      object-anaphora) to supply RESOLVED participant bindings into EventBundleCodec events; oracle-coref
+      established the ceiling (cycle-3, +0.035). Better participant resolution -> stronger bound representation.
+  (c) The transition-knowledge wall needs CONTEXT-CONDITIONED knowledge = the live situation-model / curated
+      meaning_foundation wired live at read time (Q111, hdlab/strategy). meaning_foundation is WSD sense-sigs
+      (associative), NOT causal -- do NOT reuse it for causal transitions.
+  KEY ORGANS: event_bundle.EventBundleCodec (bind/decode/encode_scrambled_event), coreference_resolver,
+  thematic_role_labeler / graded_role_assigner (better role extraction), bound_event_backbone (Franklin SEM),
+  goal_achievement.relation_channel (FEED THE GOAL SENTENCE not the span -- my cycle-18 bug fix).
+  DO NOT: rebuild any context-free KB approach (retrieval or generative -- refuted ~10x); mean-pool events
+  (=retrieval); train a forward operator (SR-TD falsified); reuse meaning_foundation for causal transitions.
+
+NEW CELLS/WITNESSES cycles 15-24 (all green): signal_loss_ladder_cause, bf_decomposition, residual_decomposition,
+ikn_blend, semantic_goal_resolution, atomic_commonsense, applied_commonsense, generative_simulation,
+curated_generative, structured_generative, forward_transition. RESEARCH notes: research_resolution_wall_and_gold_
+semantics_2026-09-08.md (the reframe), research_psychological_state_register_for_loo_2026-09-08.md,
+research_context_conditioned_cause_selection_2026-09-08.md.
+================================================================================
