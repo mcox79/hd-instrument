@@ -106,6 +106,13 @@ cue is live). `graded_parser` marginals are DORMANT (`"graded_parser" not in sit
 loop (pri-1).
 
 ## C4 — SELF-CONTAINMENT: `experiments/*` scratch cells imported AT INFERENCE on the live path
+> **PARTIALLY REMEDIATED at finalization (disk outranks — strategy CONT-29, 2026-09-09):** the reader's DIRECT imports
+> are GONE — `_space_reader`, `_belief_reader`, `_temporal_order_register`, `_forward_prediction_live` were promoted to
+> `hdlab/` (commits `3ed0c7f4a`/`6c49804fd`/`45fbe404f`/`9a845e700`). VERIFIED first-hand: importing `hdlab.situation_reader`
+> now transitively pulls **6** experiments modules (was more), ALL via **`context_grounded_valence`** (lines 61-64,
+> module-level) + **`temporal_reasoner`** (lines 54-55, read-path). So the residual C4 = those two files' module-level
+> imports; the rest is fixed. Witness W5b updated to assert the promotion.
+
 **(a) Brain structure+computation.** N/A (a hygiene/reproducibility property, not a computation). The rule: `hdlab/` must
 be reproducible from a clean checkout (the typed_coref/world_state promotion standard = ZERO `experiments/` imports; many
 organs deliberately byte-copy to honour it — e.g. `goal_owner_select.py:59` "hdlab/ must not import from experiments/").
