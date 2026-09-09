@@ -132,7 +132,7 @@ from hdlab.context_grounded_valence import (score_context_grounded_valence,
                                             score_context_grounded_valence_pretagged, to_ternary)
 
 # ---- banked TIME + CAUSATION mechanisms (reuse) ----
-from experiments import _temporal_ordering as T
+from hdlab import temporal_ordering as T
 from experiments import _temporal_ordering_multiframe as M
 from experiments import _causal_network as C
 
