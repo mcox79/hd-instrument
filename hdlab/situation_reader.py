@@ -2367,8 +2367,8 @@ class SituationReader:
 
     # -- TIME (opt-in whole-passage register): ONE chronological event order over the WHOLE passage --
     def _read_timeline_register(self, sents) -> list:
-        """Opt-in whole-passage TEMPORAL-ORDER register (default-off; wired 2026-08-31 from the validated
-        experiments/_temporal_order_register.py). Unlike _read_timeline -- which runs PER-SENTENCE and gates on
+        """Whole-passage TEMPORAL-ORDER register (default-ON timeline_register; wired 2026-08-31, promoted to
+        hdlab.temporal_order_register 2026-09-09 -- self-containment, byte-identical). Unlike _read_timeline -- which runs PER-SENTENCE and gates on
         `"had" in toks` (dropping connective-only reorderings) -- this reconstructs ONE chronological EVENT ORDER
         over the WHOLE passage using the brain-faithful clause-level pluperfect binder (clause_pluperfect=True,
         the validated config -- recovers pluperfects the fixed-window extractor mistags) + the discrete
@@ -2376,8 +2376,9 @@ class SituationReader:
         register's OWN chronological order as a serializable list of dicts, one per event in CHRONOLOGICAL order:
         {lemma, chrono_rank, text_rank}. NO new ordering logic -- this is exactly reg.order / reg.text_rank, so
         it is equivalence-checkable against a direct register build. Glass-box + deterministic (discrete toposort;
-        no torch/seed). Lazy import -> the default (OFF) reader never imports the register module."""
-        from experiments import _temporal_order_register as TOR
+        no torch/seed). Lazy import of the promoted hdlab organ (its deps hdlab.temporal_ordering[_multiframe] are
+        already landed) -> ZERO experiments imports on this path."""
+        from hdlab import temporal_order_register as TOR
         ev, tg, edges = TOR.extract_passage(sents, clause_pluperfect=True)
         reg = TOR.DiscreteOrderRegister(ev, tg, edges)
         return [{"lemma": lem, "chrono_rank": i, "text_rank": reg.text_rank.get(lem)}
