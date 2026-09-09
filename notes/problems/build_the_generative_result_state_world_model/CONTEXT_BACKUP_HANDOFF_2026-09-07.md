@@ -529,6 +529,32 @@ the amodal PC world-model (owner-DONE); score on position-artifact benchmarks.
 ================================================================================
 
 ================================================================================
+## >>> CYCLE-30 (2026-09-09) -- ORACLE-CEILING: quantifies EXACTLY what the component needs + PATH A's ceiling <<<
+================================================================================
+Owner: brain-faithful, prototype+test PATH A (online per-story world-model); is there a way to know EXACTLY what
+the brain-faithful component is looking for and whether the prototype will solve? RIGHT NOT EASY.
+`exp_genworldmodel_oracle_ceiling_v1.py` (witness `test_genworldmodel_oracle_ceiling.py`). Method: self-supervised
+next-event surprisal on naturalistic narrative (roc_stories, NO crowd labels/annotations -- NOT TellMeWhy/GLUCOSE),
+glass-box parse (NO spaCy), NO LLM, intrinsic (NO gold). Decompose predictability into tiers: T0 generic ->
+T1 story-context (= PATH A) -> T3 in-sample-experience oracle (lifetime-grounded-knowledge ceiling).
+POWERED RESULT (n=8000, 1594 held-out, fair best-link predictor):
+  T0 generic 7.905 -> T1best story-context 7.690 -> T3 in-sample oracle 7.230 bits. Total gap 0.675.
+  * Story context is LOAD-BEARING: T1best beats its STORY-SHUFFLE twin +0.152 CI[0.103,0.204] (real story-specific
+    signal exists -- path A has something to grab).
+  * PATH A ceiling: story context closes 0.215 bits = **32% of the gap**. Residual **0.46 bits = 68% needs having
+    EXPERIENCED the specific scenario** (lifetime-grounded knowledge; story-context alone cannot supply it).
+  * (T2 participant-bound WORSE 8.86 -- (verb,agent) transitions too sparse; a density/phase-diagram issue.)
+THE ANSWER to the owner's question: the brain-faithful target = surprisal-reducing STORY-SPECIFIC structure; PATH A
+(online per-story world-model) supplies a REAL but PARTIAL ~1/3; the other ~2/3 is the lifetime-experience frontier.
+Verdict PATH_A_PARTIAL. NOTE: path A's mechanism (online story-context world-model) is largely the converging
+solver's owner-DONE world-model (online RW predictive coding + recency); the oracle now BOUNDS its reach.
+NEXT (decision point, owner's call): (a) build the focused path-A prototype to cash the ~32% (real but partial,
+overlaps the converging solver's world-model); OR (b) route the 68% residual to the lifetime-learner /
+grounded-knowledge program (the meaning-channel / consolidation-gate north-star, Q111/strategy). The means-end
+necessity probe is the fallback if path A is built and underdelivers.
+================================================================================
+
+================================================================================
 ## >>> CYCLE-28 (2026-09-09) -- GROUNDING drilled: R2 negative, the wall is DIRECTED CAUSAL DYNAMICS <<<
 ================================================================================
 Owner cron: keep moving, everything 100% brain-foundational (mechanism AND knowledge/grounding), drill every wall

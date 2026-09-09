@@ -143,6 +143,14 @@ have, (3) the top-down loop for the genuine attachment residual, and (4) coverag
 4. and for the consumers where the general parse is harmful (filler-gap), keep the specialised constraint-satisfaction
    circuit rather than routing through the monolithic parser.
 
-The reliability tier's OOD collapse (0.82→0.55) is a named follow-on: any consumer that gates on parser confidence needs
-that confidence re-derived from the globally-normalized posterior (which is register-robust in-support) rather than the
-OOD-brittle calibrated logistic.
+**The reliability tier's OOD collapse (0.82→0.55) is NOT a readout problem — DRILLED + MEASURED (2026-09-09,
+`experiments/exp_parse_confidence_shape_vs_magnitude_ood_v1.py`).** I hypothesized (Hale precision) that the posterior's
+SHAPE (entropy) would be register-robust where its absolute MAGNITUDE is not, so a consumer could gate on entropy
+instead of the OOD-brittle logistic. It is **REFUTED at power** (QA-SRL n=8173): in-domain MAGNITUDE AUC 0.775 >
+SHAPE-entropy 0.62 (the peak is the *stronger* in-domain signal, not the shape); **OOD BOTH collapse — MAGNITUDE
+0.548 [0.534,0.563], SHAPE 0.536 [0.522,0.549], twin 0.502.** So the whole posterior (peak AND shape) is miscalibrated
+off-register — the wall is the **frozen, register-specific parser weights**, not the readout. The brain-faithful fix is
+therefore **continuous/adaptive parsing** (online Rescorla-Wagner update — the project's own "learning is online, never
+frozen" invariant) **+ top-down constraints from the situation model (pri-1)** — NOT a cleverer static confidence
+signal. This converges with C3 (unfreeze + close the loop) and the prior unfrozen-parser prototype. A rigorous located
+negative that names the mechanism, correcting my own earlier "re-derive from the register-robust posterior" line.
