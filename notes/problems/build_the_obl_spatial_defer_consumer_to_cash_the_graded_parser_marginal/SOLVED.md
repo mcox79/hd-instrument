@@ -252,16 +252,38 @@ established across ~15 citations, not a cheap-implementation artifact. The surfa
 real ceiling, but it is NOT closable by meaning cues for locatives; the honest levers remain the syntactic commit
 (landable), POS quality (+0.029), and construction/typing coverage (the dominant loss).
 
+## 4s. PROTOTYPE -- the UNIFIED, CONTINUOUSLY-LEARNING tag+attachment front-end (owner: "should both be linked, and shouldn't training be continuous/never frozen?")
+
+Both critiques are correct and brain-foundational: a separate tagger->parser handoff and frozen offline weights are TWO
+architectural deviations. `exp_obl_spatial_unified_online_v1` prototypes the faithful alternative -- ONE
+interactive-activation cell (McClelland-Rumelhart; MacDonald-Pearlmutter-Seidenberg "syntactic ambiguity IS lexical
+ambiguity") where lexical-CATEGORY activation (tagger emission P(VERB/NOUN)) and ATTACHMENT activation (the Matrix-Tree
+marginal) are fused as category-gated cues and SETTLE TOGETHER (normalized recurrence), with weights updated ONLINE by
+the delta rule (Rescorla-Wagner per-input plasticity -- NOT a batch training run; never frozen), from a uniform start.
+DEMONSTRATED (UD-EWT spatial obl stream, n=938): (1) LINKED -- it self-organized to weight the marginal PLUS a
+verb-category-gated attachment link ([syn 0.112, verb-gated 0.074, noun-gated 0.026]); (2) CONTINUOUS LEARNING -- the
+running accuracy RISES as it reads (0.676 -> 0.755, last third exceeding the frozen commit's 0.713). HONEST: whole-stream
+it ~ties the frozen commit (0.703 vs 0.713 -- the online learner pays a WARMUP cost the frozen snapshot does not), and a
+controlled non-stationarity shift did not cleanly show adaptation. So the ARCHITECTURE and its signature property
+(learning-as-it-reads, never frozen) are prototyped; the benefit over the frozen syntactic commit is marginal HERE
+because locative attachment has little residual signal (the session's intrinsic-ceiling finding). The value of the
+continuous, linked front-end (adaptation, recalibration) is a substrate-wide north-star, not a locative-attachment win.
+
 ## 4t. FIX-ALL-FIXABLE + LAND-ALL-OPTIMIZATIONS (owner) -- the POS fix result + the promotion-ready landing
 
 **POS tagger fix (the one in-remit un-built fixable lever, +0.0288 gold-POS oracle) -- LOCATED NEGATIVE, done right.**
 Built the brain-foundational fix: INTERACTIVE ACTIVATION / analysis-by-synthesis (McClelland-Rumelhart 1981) -- the
 SYNTACTIC level feeds back to disambiguate an ambiguous NOUN/VERB head, re-tagging only when the parse-coherence gain
 outweighs the emission cost (`exp_obl_spatial_pos_interactive_v1`). RESULT: interactive == baseline (+0.0000); the
-tuning collapses to "never flip" because gold-free parse-COHERENCE does not track POS CORRECTNESS (larger thresholds
-fire but HURT). So the POS loss is REAL but not recoverable by a gold-free coherence proxy -- the same session-wide
-lesson (gold-free top-down proxies cannot recover oracle ceilings). The genuine fix is a JOINTLY-TRAINED tag-parse
-model (a bigger, separate build), not a re-scoring heuristic.
+tuning collapses to "never flip" because the gold-free parse-COHERENCE signal I fed it does not track POS CORRECTNESS
+(larger thresholds fire but HURT). So the POS loss is REAL but not recovered by THIS top-down signal.
+CORRECTION (owner flag): the fix is NOT to "train a joint tag-parse model" -- that is off-the-shelf-ML framing and
+against the no-training-runs / online-learning invariant. The brain-foundational fix is ONLINE JOINT INFERENCE via
+interactive activation (McClelland-Rumelhart; no new parameters, using the front-end already in hand) -- which is
+exactly what was BUILT here. It fell short only because parse-coherence is a weak top-down signal; the brain's signal
+is MEANING/SITUATION coherence -- i.e. the same recurrent situation-model loop everything else routes to (and it is
+bounded by the same symmetric-plausibility ceiling for locatives). No training run is the fix; a stronger top-down
+semantic signal (the loop) is.
 
 **Landed the optimizations (my remit under Q111: promotion-ready + the exact hdlab diff; strategy copies).**
 `experiments/graded_spatial_obl_promote_v1.py` (self-test OK) packages: OPT-A `commit_obl_head` (the +0.0144 CI-sep
