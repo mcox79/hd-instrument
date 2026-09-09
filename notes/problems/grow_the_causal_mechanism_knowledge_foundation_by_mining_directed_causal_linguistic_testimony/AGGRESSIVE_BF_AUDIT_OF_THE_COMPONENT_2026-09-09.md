@@ -172,9 +172,10 @@ modularity of the causal circuit — it is additive, not disjoint; any CSM-speci
 Owner: "fully fix all of those components so they're fully brain-foundational; any issues you find and fix, mark
 specifically." The `hdlab/` source is Q111 (strategy is sole writer) — so the fix is IMPLEMENTED + PROVEN as a
 composition prototype in `experiments/` (composing verified-BF organs, replacing the non-BF operations), and the exact
-`hdlab` change is specified for strategy to land (§8). Three cells + one witness (all green):
+`hdlab` change is specified for strategy to land (§8). Four cells + two witnesses (all green):
 `experiments/exp_causal_rung_exposure_v1.py`, `experiments/exp_causal_necessity_bf_reader_v1.py`,
-`experiments/exp_causal_engine_deepening_v1.py`, `verification/test_causal_rung_fix.py` (12/12). Numbers below: Cell 1 full n=800/family; Cell 2 full WIQA n=5005 (the
+`experiments/exp_causal_engine_deepening_v1.py`, `experiments/exp_causal_sign_forcedynamic_v1.py`;
+`verification/test_causal_rung_fix.py` (12/12), `verification/test_causal_sign_forcedynamic.py` (3/3, located-negative). Numbers below: Cell 1 full n=800/family; Cell 2 full WIQA n=5005 (the
 witness asserts the smoke-scale directional facts, which are seed-stable).
 
 | # | ISSUE (from §1/§2/§3) | verdict before | FIX implemented | proven by | status |
@@ -186,7 +187,20 @@ witness asserts the smoke-scale directional facts, which are seed-stable).
 | 5 | `causal_reasoner` **no exogenous ABDUCTION** (roots fixed +1 = rung-2, not rung-3) | (within #4) | **built + proved the abductive fix**: infer the actual-active exogenous state from evidence, then do()+re-propagate (Pearl abduction→action→prediction; the brain's hippocampal/vmPFC constructive step, Van Hoeck 2015) | Cell 3 `exp_causal_engine_deepening_v1`: the current fixed-root engine is **WRONG on 62.9%** of evidence-conditioned counterfactuals; the abductive fix matches independent gold **1.000**, paired **+0.629 CI[0.603,0.653] CI-sep**, twin loses (+0.475) | **FIXED (prototype) + hdlab spec §8** |
 | 5b | `causal_reasoner` discrete ±1 signs; necessity = reachability | (within #4) | not changed (graded_necessity max-product path IS present) | — | **NOTED — residual deepening** (graded SCM combination pairs with the sign source, work item below) |
 | 6 | **softmax single linear layer** (shallow); **hard argmax** selection | BF-SPIRIT | not changed (lower priority) | — | **NOTED** — the module's own named deepening (2-layer Rao-Ballard; graded constraint-satisfaction selection) |
-| 7 | **more/less SIGN** = grounded-quantity frontier (5 sources failed) | THE FRONTIER | confirmed unchanged; the composed reader's **necessity axis is SIGN-FREE** and works; the sign stays a separate program | Cell 2 3-way stays at the sign frontier (bf ~0.50); necessity axis is where rung-2 delivers | **CONFIRMED separate program** (do NOT build a 6th text-derived sign source) |
+| 7 | **more/less SIGN** = grounded-quantity frontier | THE FRONTIER | **tested the BRAIN'S mechanism (research-directed): force-dynamic relation-type polarity** (produce/consume; Talmy/Levin scalar-change verb classes = compiled rung-2 lexical knowledge), composed via the do-sim (Forbus QP sign-propagation), with the proper **scrambled-lexicon falsifier** | Cell 4 `exp_causal_sign_forcedynamic_v1` (WIQA n=5005): the force-dynamic coupling **ties/LOSES its scrambled-lexicon twin** (arm−scrambled **−0.013 CI[−0.024,−0.002]** full; **−0.068 CI[−0.126,−0.007]** covered) and adds nothing over reading the embedded polarity words (coupling marginal −0.010 full / −0.113 covered). Witness `test_causal_sign_forcedynamic.py` 3/3 | **RIGOROUS LOCATED NEGATIVE** — the brain's actual mechanism, faithfully built, failed the falsifier ⇒ a FULL PASS per the owner protocol; the missing signal is NAMED (below). STOP chasing text/lexicon sign sources (now 6 failures). |
+
+**THE SIGN LOCATED-NEGATIVE, stated precisely (the #1 loss, definitively characterized).** Six sign sources have now
+failed, the last being the BRAIN'S OWN mechanism (force-dynamic relation-type polarity, per the hdi_research verdict)
+tested with the decisive falsifier (a scrambled-lexicon twin that preserves coverage but destroys force-dynamic
+content). The real lexicon **ties/loses** the scrambled twin — so the more/less sign of a specific causal coupling is
+**not carried by the relation-type lexicon**, and (by the CHT) not by any rung-1 text statistic. Notable sub-finding:
+reading the *embedded* polarity words in the X/Y phrases (sX·sY, the oriented more/less operator) reaches **0.575** on
+the covered subset — so the stated directions carry signal, but the causal **mechanism** sign does not. **The missing
+signal, named:** the sign of **corr(ΔX, ΔY)** — the correlation between the *change* in the cause magnitude and the
+*change* in the effect magnitude, observed across interventions (a rung-2 quantity). Neither text co-occurrence (rung-1)
+nor the lexicon (for the ~80% of edges with force-dynamically-neutral relations) supplies it; only **grounded
+interventional/observed Δ-Δ experience** does (Gopnik covariation learning; infant intuitive physics). That is the true,
+embodiment-shaped frontier — a research program, not a text cell. Per the research gate: file the negative and stop.
 
 **Honest scope of the fix.** Issues 1–4 are FIXED (or verified) by composing the verified-BF organs into the corrected
 reader and PROVING it (Cell 1 decisively; Cell 2 on real data with the info-free twin losing CI-sep). Issues 5–6 are

@@ -139,3 +139,21 @@ true frontier: a major research program, NOT a cell, and NOT derivable from the 
 BANKED + BF-READY: the entire upstream chain is verified-BF or composed-from-verified-BF; the do-simulation machinery
 (causal_reasoner.signed_effect) is BF and ready to consume signed edges the instant a grounded-experience sign source
 exists. The frontier is precisely isolated, named, and its cause proven.
+
+## ROUND 2 (2026-09-09) -- rung-3 abduction FIXED; the SIGN is now a rigorous BRAIN-MECHANISM located negative
+- **ABDUCTION (rung-2 -> rung-3), FIXED + proven** (`exp_causal_engine_deepening_v1`; witness `test_causal_rung_fix.py`
+  now 12/12): `causal_reasoner` fixes exogenous roots at +1, so it is rung-2, not rung-3. Prototyped the abductive fix
+  (infer the actual-active exogenous state from evidence, then do()+re-propagate). The current fixed-root engine is
+  **WRONG on 62.9%** of evidence-conditioned counterfactuals; abduction matches independent gold 1.000, +0.629 CI-sep,
+  twin loses. `causal_reasoner` residual downgraded: abduction now specified (Q111 §8 item 4).
+- **THE more/less SIGN -- 6th source, the BRAIN'S OWN mechanism, RIGOROUS LOCATED NEGATIVE** (`exp_causal_sign_
+  forcedynamic_v1`; witness `test_causal_sign_forcedynamic.py` 3/3): tested the force-dynamic relation-type polarity
+  (produce/consume; Talmy/Levin scalar-change verb classes = compiled rung-2 lexical knowledge, NOT rung-1 co-occurrence
+  -- the hdi_research verdict), composed via the do-sim (Forbus QP sign-propagation), with the decisive SCRAMBLED-
+  LEXICON falsifier. On WIQA (n=5005) the force-dynamic coupling **ties/LOSES the scrambled twin** (arm−scrambled
+  −0.013 CI[−0.024,−0.002] full; −0.068 covered) and adds nothing over the embedded polarity words. ⇒ the coupling sign
+  is NOT carried by the relation-type lexicon (and by CHT not by any rung-1 text statistic). MISSING SIGNAL NAMED: the
+  sign of corr(ΔX,ΔY) across interventions -- grounded interventional/observed Δ-Δ experience (embodiment), absent from
+  a text+static-norm substrate. Per the research gate: STOP chasing text/lexicon sign sources (6 failures). This is the
+  #1 loss, definitively characterized -- a FULL PASS per the owner protocol (the brain's actual mechanism, faithfully
+  built, failed the falsifier).

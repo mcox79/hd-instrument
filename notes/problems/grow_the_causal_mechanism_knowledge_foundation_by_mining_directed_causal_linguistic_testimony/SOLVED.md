@@ -44,6 +44,29 @@ adversarial literature check confirmed it — 3 refutations attempted, all faile
 - **VERDICT CORRECTIONS:** `predictive_world_model` necessity read NOT-BF (rung-1), relabel → `predictive_relevance`;
   `causal_reasoner` AUDITED → BF_SPIRIT (genuine rung-2/3, residual: no abduction / discrete ±1 / reachability-necessity).
 
+**PUT-IN-THE-EFFORT ROUND 2 (2026-09-09, owner: "do it, brain-foundationally, right not easy, really put effort in"):**
+went after the ranked losses with the brain's actual mechanisms.
+- **RUNG-3 ABDUCTION (engine deepening; `exp_causal_engine_deepening_v1`, witness 12/12):** the current `causal_reasoner`
+  fixes exogenous roots at +1 (rung-2). Built + proved the abductive fix (infer the actual-active exogenous state from
+  evidence, then do()+re-propagate = the brain's hippocampal/vmPFC constructive step, Van Hoeck 2015): the current
+  fixed-root engine is **WRONG on 62.9%** of evidence-conditioned counterfactuals; abduction matches independent gold
+  **1.000**, paired **+0.629 CI[0.603,0.653] CI-sep**, twin loses. Engine upgraded rung-2 → rung-3 (spec §8).
+- **THE more/less SIGN (#1 loss) — RIGOROUS LOCATED NEGATIVE (`exp_causal_sign_forcedynamic_v1`, witness 3/3):** deep
+  research (hdi_research) said the brain gets the coupling sign from FORCE-DYNAMIC relation-type polarity (produce/emit
+  = +, consume/deplete = −; Talmy/Levin scalar-change verb classes = COMPILED rung-2 lexical knowledge, NOT rung-1
+  co-occurrence), composed via the do-sim (Forbus QP). Built it faithfully and tested with the decisive **scrambled-
+  lexicon falsifier**. RESULT (WIQA n=5005): the force-dynamic coupling **ties/LOSES the scrambled twin** (arm−scrambled
+  −0.013 CI[−0.024,−0.002] full; −0.068 covered) and adds nothing over reading the embedded polarity words (coupling
+  marginal −0.010 / −0.113 covered). This is the **6th** sign source to fail and the FIRST to test the brain's ACTUAL
+  mechanism with a proper falsifier → a rigorous located negative (FULL PASS per the owner protocol). **Missing signal,
+  NAMED:** the sign of **corr(ΔX,ΔY)** across interventions — recoverable only from grounded interventional/observed
+  Δ-Δ experience (Gopnik covariation; infant intuitive physics), which a text+static-norm substrate does not have.
+  Per the research gate: STOP chasing text/lexicon sign sources. Sub-finding: the *embedded* more/less words (sX·sY)
+  reach 0.575 on covered — the stated directions carry signal, the causal mechanism sign does not.
+- **KNOWLEDGE lever (#2) — assessed:** the absolute necessity cap (store-only 0.577 < assoc 0.609) is largely a SCALE/
+  resource ceiling (~161k causal sentences vs web-scale billions), NOT a mechanism gap — a "get more corpus" lever, not
+  a brain-foundational fix. Framed as a separate focused effort, not chased here.
+
 ## PERFORMANCE-PUSH ATTEMPTS (2026-09-09, owner: "focus on the REAL performance push, brain-foundational, do it right")
 
 Two levers pursued after the deep analysis:
