@@ -157,6 +157,38 @@ all three now test the brain's real mechanism.
   signal that exists is too parse-noisy to net-help beyond +0.072, and the rest is genuinely encyclopedic. Lever 3's
   +0.072 ceiling is verified, not assumed.
 
+## UPSTREAM MATH AUDIT -- every upstream component's EQUATION vs the brain's (owner: "confirm ... down to the math")
+Audited each upstream component's actual math and re-tested the non-obvious ones (a stand-in equation is often why a
+brain-faithful mechanism caps). Two math fixes were real; the cap HELD under the corrected math (so it is genuine,
+not a math artifact).
+- **SALIENCE (the recency prior) -- FIXED + verified.** I had a LINEAR normalized recency. Tested the ACT-R
+  base-level activation B=ln(sum_k (t_now-t_k)^-d) (Anderson-Schooler power-law, recency+FREQUENCY). It HURTS:
+  recency floor 0.392->0.320, gen 0.488->0.432 -- a frequently-mentioned distractor wrongly wins. The brain-faithful
+  math for a DEFINITE anaphor->name is CENTERING recency (Grosz-Joshi-Weinstein: the most-RECENT type-compatible
+  entity), NOT ACT-R frequency. This reproduces the acquire_wikidata P31 SOLVED's measured 'recency 0.472 beats
+  topichood/frequency 0.368'. So the salience math is now the right equation WITH evidence (ACT-R is the right model
+  for a different computation -- general anaphora salience -- and the WRONG one here). `_salience` = Centering; the
+  ACT-R variant is kept (`_actr_salience`) with the measured-worse note.
+- **INTEGRATION FORM -- verified.** Tested three forms: FLAT additive blend (P31 SOLVED: loser), HARD gate-then-
+  compete (`cls_gate`, Lappin-Leass filter->salience: 0.5983), and GRADED constraint-integration (`cls_unified`,
+  MacDonald-McRae continuous type-strength + lambda*recency: 0.6067). Graded soft-weighted integration is the
+  faithful winner (> hard-gate > flat). The capped-sum evidence combination (min(sum,3) -- prevents a many-typed
+  distractor piling up) is the equal-footing competition; `max`-pool and raw-`sum` both measured worse.
+- **TYPE-LICENSE math** = WordNet is-a closure (C5), directed is-a either-direction. Vetted brain-foundational in the
+  P31 + de-leak SOLVEDs (discrete is-a beats continuous/coarse similarity; Collins-Quillian computational-level).
+- **PARSER math** (arc-eager transition parse + arc-labeler feeding the deprels my extractor reads): the crosstype
+  SOLVED quantified the LIVE parser at ~gold-parse ceiling for this task (bridge lift +0.0601 gold vs +0.0528 live,
+  overlapping CIs) -- NOT this chain's limiter. Noted, not re-derived.
+- **NAME-CLUSTERING math** (token-overlap merge) is an OUR-INVENTION heuristic, NOT brain-faithful (the brain
+  individuates by recognition, Bruce-Young) -- and it corrupts some candidate surfaces (coordination glue, IPA). But
+  it builds the candidate set IDENTICALLY for every arm, so it is a population property, not the arm-comparison
+  lever; a brain-faithful name individuation is a filed reader-wide precision follow-on.
+- **CONCLUSION:** the selection/integration math is now verified brain-foundational -- Centering recency + graded
+  constraint-integration -- with the alternatives (ACT-R frequency, hard-gate, flat-blend) MEASURED to lose. And the
+  whole-slice cap HELD under the corrected math (cls_unified +0.0225 not-sep). So the cap is NOT a math-fidelity
+  stand-in; it is the genuine knowledge ceiling. The math audit strengthened the win (cls_unified doc-local now
+  +0.0800 CI-sep) and confirmed the ceiling is real.
+
 ## (B) THE WHOLE-SLICE LOCATED NEGATIVE (the bar's full pass; why static routes stop where the generative one starts)
 The rest of this document is the located negative that MOTIVATES and BOUNDS result A: it names the axis with counts,
 proves the SELECT is fine and coverage is the wall, and shows every static route is capped -- which is exactly why
@@ -273,6 +305,27 @@ our static KB does not) + genuine same-type ambiguity (0.076, the brain's own li
 loses signal ONLY where its knowledge is a static consolidated KB and the brain's is an online situation model.
 
 ## PROPOSED hdlab DIFF (Q111 -- strategy lands; solver does not write hdlab)
+
+> ### STRATEGY: VERIFIED UPSTREAM-MATH FIXES TO IMPLEMENT (found by the math audit; flag any coref consumer that violates them)
+> These are corrections to the SELECTION math the whole coref/name-bridge line uses -- each MEASURED, not asserted:
+> - **FIX A (salience): use CENTERING recency (most-recent type-compatible), NOT ACT-R base-level activation, for
+>   DEFINITE-anaphor->name resolution.** ACT-R's frequency term HURTS here (measured: recency floor 0.392->0.320).
+>   Audit any coref/salience consumer using ACT-R-with-frequency or "topichood" for definite reference and switch it
+>   to Centering recency for this computation. (ACT-R remains right for GENERAL anaphora salience -- task-specific.)
+> - **FIX B (integration form): use GRADED constraint-integration (soft-weighted type-strength + lambda*recency),
+>   NOT a flat additive blend and NOT a hard gate-then-compete.** Measured: graded 0.6067 > hard-gate 0.5983 > flat.
+>   Any consumer doing a hard type FILTER then salience should move to the soft-weighted competition.
+> - **FIX C (evidence combination): CAPPED-SUM (min(sum, cap)) equal-footing competition**, so a many-typed famous
+>   distractor cannot pile up match-weight and swamp a document-local gold. (`max`-pool and raw-`sum` measured worse.)
+> - **FIX D (in-text is-a extractor): ADD the classifying-noun NAMING construction (flat/appos head noun)** --
+>   "the term NEXUS", "the Eegimaa LANGUAGE" (name is the DEPENDENT of a classifying common noun). Restrict to
+>   flat/appos: compound/nmod OVER-FIRE on modifier compounds ("Boxer Indemnity SCHOLARSHIP") and HURT (measured).
+> - **FIX E (KB access, Bruce-Young familiarity gate): a static entity-KB should ABSTAIN on non-confident matches
+>   (NIL-detection), not top-1-assert for every name.** NOTE: gating by NOTABILITY alone does NOT rescue a broad
+>   search KB (the noise is WRONG-ENTITY disambiguation -- notable-but-wrong -- not low-notability); the real need is
+>   disambiguation confidence, which is the entity-resolution component of the generative-world-model program.
+> All five are in `exp_namebridge_generative_typefile_v1.py` (the verified-faithful `predict`/`_salience`).
+
 1. **THE GENERATIVE ROUTE (result A -- the headline).** Add an ONLINE per-entity type-file to the name-bridge/C8 path:
    as entities are read, accrue graded FINE type evidence from the document's structured predicates (possessed-noun
    relational lexicon + deverbal agency + apposition/copula + title + gender; `exp_namebridge_generative_typefile_v1

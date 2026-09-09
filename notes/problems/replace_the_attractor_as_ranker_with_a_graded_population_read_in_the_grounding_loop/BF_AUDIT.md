@@ -58,7 +58,19 @@ the `hdlab/` organ values are proposed at the bottom for strategy to land, Q111 
 NOT_BF elements (the unordered bag channel; peakedness precision weighting). Compared to the MIXED chain (with the
 bag + gold-calibrated weights) and the pre-audit SOLVED fix (grounded+bag).
 
-<< RESULT FILLED FROM THE FULL RUN: data/exp_all_bf_chain_v1/metrics.json >>
+RESULT (n=4359 words, 169 held-out SimLex pairs, 3000-boot):
+| chain | MRR | hit@10 |
+|---|---|---|
+| **ALL-BF** (grounded + DEP + taxonomic; equal-weight Bayes; cosine readout; NO bag, NO fitted weights) | **0.332** | 0.586 |
+| MIXED (adds the NOT_BF bag channel + gold-calibrated weights G=1/D=2/DEP=0.5/CM=1) | 0.305 | 0.592 |
+| SOLVED (grounded + bag, the pre-audit fix) | 0.059 | 0.136 |
+| info-free twin (shuffled) | 0.013 | -- |
+
+The all-BF chain BEATS the mixed chain **+0.028 MRR, CI [+0.002, +0.054]** (CI-separated) -- even though the gold
+calibration KEPT and up-weighted the bag (D=2). So dropping the two NOT_BF components and using the assumption-free
+BF default (equal-weight Bayes = uniform prior) does not merely avoid harm, it WINS. Both crush the pre-audit SOLVED
+fix (+0.274, CI [+0.214, +0.336], ~5.7x) and the info-free twin. **The owner's thesis holds on the number: the
+fully brain-foundational composition is the best-performing chain, and it needs NO gold-fitted parameters.**
 
 ## PROPOSED `hdlab/` `__bf_status__` TAGS (Q111 -- strategy lands; solver cannot write hdlab)
 Inheriting the shared ledger where it already ruled, adding the organs this chain touches:

@@ -115,3 +115,26 @@ ties-random). The more/less SIGN of a SPECIFIC process transition is NOT recover
 Theorem: text=rung-1). The fully-BF version = GROUNDED MENTAL SIMULATION of the specific dynamics (generative world-
 model over grounded magnitudes) -- the deep north-star, a scoped program. Everything else = verified-BF or composed-
 from-verified-BF; this one grounded-simulation sign source is the entire remaining frontier, precisely isolated.
+
+## GROUNDED QP SIMULATION (4th sign source) + THE ENTROPY ORGAN -- the unified, definitive frontier (2026-09-09)
+- `exp_causal_qp_simulation_v1`: genuine Forbus QP grounded simulation (quantities + signed influences + grounded
+  perturbation/outcome matching via sensorimotor_spoke + causal_reasoner do-sim). FAILS WORST: WIQA more/less 0.255
+  (below chance) -- grounded matching mis-aligns, influence signs still noise.
+- ENTROPY ORGAN (owner reminder): `generalized_event_knowledge` (GEK, forward event prediction + entropy-reduction
+  precision, Hale/Kuperberg) and `predictive_world_model`/`predict_surprisal` -- CANNOT supply the sign: they key on
+  concept LEMMAS with "more"/"less" DROPPED as stop-words, so "more clouds" == "less clouds" == concept "cloud".
+  They have NO signed-quantity representation; entropy there is a confidence scalar over concept-IDENTITY, not a
+  signed magnitude. (Ledger already: GEK is DIRECTIONLESS -- scores goal-defeating >= goal-serving.)
+
+UNIFIED CONCLUSION (5 sources now: Wolff force-dynamics, marker-mined store, grounded increase/decrease directional,
+grounded QP simulation, entropy/GEK): EVERY available source fails the more/less SIGN for the SAME root reason -- none
+has a BOUND SIGNED-QUANTITY representation grounded in EXPERIENCE of the dynamics. The sign of a specific causal-process
+coupling is a rung-2/3 quantity (Causal Hierarchy Theorem) that a TEXT + STATIC-PERCEPTUAL-NORM substrate structurally
+cannot derive. The genuinely-BF sign source requires GROUNDED EXPERIENCE of quantity dynamics -- an intuitive-physics /
+action-conditioned forward model learned from embodied interaction or a physics-like generative model (Battaglia
+intuitive physics; Wolpert forward models; the generative world-model over grounded magnitudes). That is the deep,
+true frontier: a major research program, NOT a cell, and NOT derivable from the substrate's current inputs.
+
+BANKED + BF-READY: the entire upstream chain is verified-BF or composed-from-verified-BF; the do-simulation machinery
+(causal_reasoner.signed_effect) is BF and ready to consume signed edges the instant a grounded-experience sign source
+exists. The frontier is precisely isolated, named, and its cause proven.
