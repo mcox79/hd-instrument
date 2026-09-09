@@ -5,7 +5,7 @@ bar: "PASS = a brain-foundational GRADED POPULATION READ replacing the sign()+at
 result: "Two-part result. (1) LOCATED NEGATIVE on the brief's named mechanism: the live grounding-loop RANKING is ALREADY a graded population read (sense assignment routes through canonicalize_fast -- a cosine matvec, GRADED_COMPARATOR ON since 2026-08-14 -- NOT an attractor); the attractor is confined to the exact-match recognition GATE (gap_detector), where swapping it for a population read changes ranking fidelity by -1.4e-5 (95% boot CI [-2.9e-5,+3.4e-6], INCLUDES ZERO; n=400 queries, d=512) and hub over-promotion is ~0.02 for every arm at the gate's sharp temp (it only appears at soft temps the gate never uses: attractor rho 0.73 at temp=0.25 vs 0.995 at temp>=8). So 'replace the attractor readout' buys nothing. (2) SOLVED the real problem underneath -- the ranking's REPRESENTATION. On the loop's OWN sense-assignment ranking (canonicalize's job: rank the true synonym among the full covered vocab) against the INDEPENDENT SimLex-999 similarity gold, through the LIVE distributional channel (ConceptSpace context bundles) + the graded population read, a brain-foundational representation beats the distributional incumbent CI-separated: MRR CONVERGENT (reliability-weighted grounded+distributional fusion) 0.0812 vs incumbent 0.0241, +0.0571 CI[+0.0335,+0.0834] (ci_hw 0.0103); GROUNDED alone 0.0637 also beats it; hit@10 incumbent 0.047 -> grounded 0.154 -> convergent 0.189 (4x). Info-free twins LOSE decisively (MRR 0.0013 / 0.0009). n=4422 covered words, 169 high-sim SimLex test pairs (held-out; fusion weight w=16 calibrated on a disjoint train split), 3000-sample bootstrap. Recall/recognition path byte-identical (only the ranking's input representation changes)."
 floor: "Strongest floors actually run, recomputed on each population. SENSE-ASSIGNMENT (headline, n=4422 words / 169 SimLex test pairs): the DISTRIBUTIONAL incumbent itself (the loop's live canonicalize representation) MRR 0.0241 -- the brain-foundational reps beat it CI-separated (convergent +0.0571 CI[+0.0335,+0.0834]; grounded +0.0396). INFO-FREE TWINS (shuffled rep rows) MRR 0.0013 (distributional) / 0.0009 (grounded), both CI-below their real reps. Representation-level corroboration on the same SimLex SIMILARITY gold (prior cell exp_taxonomic_vs_thematic_gold_v1, re-cited): distributional co-occurrence Spearman 0.039 vs grounded 0.245. LOCATED-NEGATIVE floors (ranking-fidelity cell, n=400, d=512): incumbent sign+attractor Spearman-to-grounded-gold 0.9855, info-free twin 0.0007; readout isolation POP-minus-ATTRACTOR -1.4e-5 CI incl 0 (NULL); live random-hash content_key -0.003."
 controls: "INFO-FREE TWINS (shuffled rep-row <-> word correspondence) LOSE CI-separated in BOTH experiments -- the win carries real per-word meaning, not base-rate. HELD-OUT SPLIT: the convergent fusion weight w and the taus are calibrated on a disjoint TRAIN half of the SimLex pairs and evaluated on the TEST half (no leak). INDEPENDENT GOLD: SimLex-999 human SIMILARITY ratings are WordNet-independent and independent of every representation under test (no ground-by-X/grade-by-X). READOUT ISOLATION (attractor vs population, same format) excludes the readout as the harm (null, CI incl 0). FORMAT ISOLATION (graded vs sign, same read) attributes the residual to the sign-quantiser not the readout. TEMPERATURE SWEEP locates the attractor's harmful regime at soft temps the live gate never uses. GATE EXACT-MATCH AUC control: known/novel real-word separation stays 1.0 -- no regression to the attractor's correct recognition job. RECALL byte-identity: the proposal changes only what the ranking READS; hdlab.iterative_attractor.iterative_cleanup (recall/completion for ca3_completer + hippocampal_encoder) is UNTOUCHED (witness A4). Positive control: JL random projection preserves grounded geometry (self-test)."
-files_changed: "experiments/exp_sense_assignment_grounded_vs_distributional_v1.py (SOLVED headline: loop's own sense-assignment ranking, SimLex independent gold, distributional incumbent vs grounded vs reliability-weighted convergent, twins, held-out fusion weight), experiments/exp_graded_read_vs_attractor_ranker_v1.py (located-negative: 2x2 format x readout + live-hash fidelity + gate AUC + temp sweep), experiments/exp_richer_meaning_channel_v1.py (LARGEST-DELTA follow-on prototype: adds the taxonomic/relational identity channel + curated-w2v channel, ATL-hub fusion, on the same held-out SimLex ranking), verification/test_graded_read_ranker.py (scaffold-free witness, 21/21: 10 disk-fact + 5 located-negative-number + 3 SOLVED-ranking + 3 largest-delta checks), data/exp_sense_assignment_grounded_vs_distributional_v1/metrics.json, data/exp_graded_read_vs_attractor_ranker_v1/metrics.json, data/exp_richer_meaning_channel_v1/metrics.json. NO hdlab/ modified (Q111 -- the hdlab proposal is stated below for the strategy session to land)."
+files_changed: "experiments/exp_sense_assignment_grounded_vs_distributional_v1.py (SOLVED headline: loop's own sense-assignment ranking, SimLex independent gold, distributional incumbent vs grounded vs reliability-weighted convergent, twins, held-out fusion weight), experiments/exp_graded_read_vs_attractor_ranker_v1.py (located-negative: 2x2 format x readout + live-hash fidelity + gate AUC + temp sweep), experiments/exp_richer_meaning_channel_v1.py (LARGEST-DELTA follow-on prototype: adds the taxonomic/relational identity channel + curated-w2v channel, ATL-hub fusion, on the same held-out SimLex ranking), experiments/exp_learned_structured_meaning_v1.py (remaining fixes: online-LEARNED relational identity via dependency-parsed reading with the glass-box parser -- NO WordNet -- + per-item precision-weighted fusion), experiments/exp_diagnose_meaning_negatives_v1.py (RESEARCH the two negatives to mechanism: reliability-estimator-vs-correctness + oracle headroom for NEG1; exposure curve + frequency bins for NEG2), verification/test_graded_read_ranker.py (scaffold-free witness, 23/23: 10 disk-fact + 5 located-negative + 3 SOLVED-ranking + 3 largest-delta + 2 learned-structured checks), data/exp_sense_assignment_grounded_vs_distributional_v1/metrics.json, data/exp_graded_read_vs_attractor_ranker_v1/metrics.json, data/exp_richer_meaning_channel_v1/metrics.json, data/exp_learned_structured_meaning_v1/metrics.json. NO hdlab/ modified (Q111 -- the hdlab proposal is stated below for the strategy session to land)."
 reverify: ".venv/Scripts/python.exe verification/test_graded_read_ranker.py  (18/18; disk facts + located-negative numbers + SOLVED-ranking checks). Powered headline reproducer (own-dir only): .venv/Scripts/python.exe experiments/exp_sense_assignment_grounded_vs_distributional_v1.py --mode full"
 ---
 
@@ -107,6 +107,59 @@ fully brain-foundational version LEARNS that relational structure online from re
 north-star), rather than reading it from a curated ontology. The gold is human/WordNet-independent (SimLex)
 and the shuffled twin loses, so the signal is real, not an ontology artifact.
 
+## REMAINING FIXES PROTOTYPED (owner: "do all, brain foundationally, right not easy")
+`experiments/exp_learned_structured_meaning_v1.py`, same held-out SimLex ranking (n=4359 words, 169 test
+pairs, 33,841 corpus sentences PARSED BY THE SUBSTRATE'S OWN GLASS-BOX PARSER -- pos_tagger + arceager, NO
+WordNet, NO external tool -- 3000-boot):
+
+**FIX 1+2 (online-learned relational IDENTITY via structured context) -- WIN, and it removes the WordNet
+caveat for about half the signal.** The brain learns identity from SUBSTITUTABILITY (which words fill the same
+syntactic slot; Levy & Goldberg 2014). Building a dependency-context PPMI vector per lemma from parsed reading:
+
+| arm (rank the true synonym) | MRR | hit@10 |
+|---|---|---|
+| DISTRIBUTIONAL bag (incumbent) | 0.024 | 0.05 |
+| CONV grounded+bag (the SOLVED fix) | 0.072 | 0.14 |
+| DEP -- learned dependency identity (NO WordNet) | 0.133 | 0.24 |
+| CONV grounded+bag+DEP (learned, NO WordNet) | 0.157 | 0.29 |
+| CONV grounded+bag+CM (WordNet-taxonomy ceiling) | 0.314 | 0.56 |
+| info-free twin (DEP shuffled) | 0.0007 | -- |
+
+DEP beats the bag incumbent **+0.108, CI [+0.066, +0.154]** (~5.5x); grounded+bag+DEP beats the SOLVED fusion
+**+0.084, CI [+0.046, +0.127]**, twin losing. So the identity signal CAN be LEARNED from reading with the
+substrate's own parser -- no ontology. It recovers **~half** the WordNet ceiling (0.157 vs 0.314; the learned
+fusion is CI-BELOW the ceiling, -0.157 [-0.223,-0.097]). The honest remaining gap is (a) READING VOLUME (34k
+sentences is far below a human's exposure -- this is the grow-by-reading north-star, exposure-limited by
+construction) and (b) I used UNLABELED heads+direction, not labeled deprels (a richer structured context).
+
+**FIX 3 (per-item precision-weighted fusion; Ma/Pouget automatic gain) -- NULL (located negative).** Replacing
+the global fusion weight with per-query reliability (posterior concentration ^ gamma) gave EXACTLY +0.0 over
+global/equal weighting (calibration drove gamma->0; equal weighting already suffices on this task). The
+principle is brain-foundational; this concentration-based instantiation added nothing here. Not landed.
+
+## RESEARCHING THE NEGATIVES (owner: "research those negatives to fully understand -> further improvement")
+`experiments/exp_diagnose_meaning_negatives_v1.py` (n=4359 words, 169 test pairs, 33,841 parsed sentences).
+
+**NEG 1 (per-item weighting = null) -- fully explained: the reliability estimator does not track correctness.**
+Spearman(per-query estimator, per-query reciprocal-rank) is ~0 for every within-channel confidence signal
+(concentration/margin/zscore/neg-entropy; |rho| <= 0.15, best = taxonomic neg-entropy 0.148). A channel being
+CONFIDENT for a query says almost nothing about whether it is RIGHT -- the channels are miscalibrated. So
+automatic-gain weighting had no valid signal to run on. Headroom is also modest: oracle per-query
+channel-selection MRR = 0.408 vs best single channel 0.324 vs fusion ~0.335, and SELECTING by any estimator
+(0.24-0.31) falls BELOW always-taxonomic. POINTS TO: a CALIBRATED reliability signal (hold-out calibration or
+cross-channel agreement), but the ceiling is small (~+0.07) -- secondary.
+
+**NEG 2 (learned DEP recovers ~half the ceiling) -- fully explained: EXPOSURE VOLUME, not a ceiling.**
+(i) Exposure curve -- DEP MRR is still RISING at the full corpus: 0.032 (25%) -> 0.061 (50%) -> 0.064 (75%) ->
+0.096 (100%), steepest in the last quarter. (ii) Frequency bins -- the DEP<CM deficit is entirely at
+LOW-frequency words: DEP MRR climbs 0.050 -> 0.070 -> 0.086 -> 0.213 as the pair's min dependency-context count
+rises, while CM (WordNet) is flat ~0.31-0.35 at every frequency; at 200+ contexts the LEARNED channel reaches
+0.213, most of the way to WordNet's 0.349 with NO ontology. So the identity signal is acquirable from reading
+and simply under-exposed at 34k sentences. POINTS TO (the big lever): (a) MORE READING (grow-by-reading
+north-star, now empirically justified for this channel -- the curve rises and well-read words approach the
+ceiling); (b) LABELED DEPRELS (I used unlabeled heads+direction; labeled contexts raise signal PER exposure,
+effectively multiplying reading volume).
+
 ## The hdlab proposal (for the strategy session to land, Q111)
 A map + witnessed prototype, not a landed diff. All LOCAL to the ranking's READ; the store's
 recall/recognition path stays byte-identical.
@@ -173,15 +226,25 @@ test, with a scrambled version failing and the exact-word recognition left untou
 ## QUESTIONS
 None blocking.
 
-## NEXT STEPS (re-ranked by measured delta after the largest-delta prototype)
+## NEXT STEPS (all four rungs now prototyped; measured deltas in hand)
 1. **(largest delta, prototyped -- hand-off to strategy, Q111)** Read the sense-assignment ranking over the
-   full ATL-hub fusion INCLUDING the taxonomic/relational IDENTITY channel (conceptual_meaning), not grounded
-   +distributional alone: measured MRR 0.072 -> 0.345 (~4.8x), hit@10 0.14 -> 0.58, twins losing. Reserve the
-   attractor for recall; de-sign the reference `canonicalize` fallback. Recall path byte-identical.
-2. **(deepest brain-foundational version of #1)** Replace the curated-ontology taxonomic channel with one that
-   LEARNS relational/taxonomic structure online from reading (the learner/knowledge north-star), so the
-   identity signal is acquired, not read from WordNet. This is what removes the honest caveat above.
+   full ATL-hub fusion: grounded (perceptual) + distributional (relatedness) + IDENTITY. Best measured stack =
+   grounded+bag+taxonomic (WordNet supply) MRR 0.345 / hit@10 0.58 (~4.8x the SOLVED fix). Reserve the attractor
+   for recall; de-sign the reference `canonicalize` fallback. Recall path byte-identical.
+2. **(DONE brain-foundationally -- the identity signal, LEARNED, no ontology)** The dependency-parsed learned
+   identity channel (DEP) recovers ~half the WordNet ceiling with NO WordNet (grounded+bag+DEP MRR 0.157,
+   CI-beats the SOLVED fusion). Land it as the FOUNDATION-plus-grow stack: WordNet supplies the identity signal
+   now (foundation), the online DEP learner grows it as reading volume accumulates (runtime) -- they are
+   complementary, per the build-ideal-foundation-then-grow pivot. Closing the remaining half = reading VOLUME +
+   labeled deprels.
 3. **(compounds)** End-to-end: wire the fusion into `canonicalize_fast`, re-run a grounding pass, measure
    downstream grounding coverage/quality (the growth metric) with the info-free twin losing.
-4. **(smaller delta, next rung)** Structured/ordered context for the distributional channel (prior work: SimLex
-   0.075->0.112) and per-item (not global) reliability weighting in the fusion.
+4. **(per-item weighting -- NULL, now diagnosed)** The reliability estimator was the problem: within-channel
+   confidence is uncorrelated with per-query correctness (|rho|<=0.15) and the oracle upside is small (~+0.07).
+   Reopen ONLY with a CALIBRATED reliability signal (hold-out calibration or cross-channel agreement); low
+   priority.
+5. **(NEG-2 diagnosis -> the highest-value further improvement) LABELED DEPRELS on the learned channel.** The
+   learned identity channel is exposure-limited (curve still rising; low-freq words carry the whole gap). Beyond
+   "read more," the buildable lever is richer context PER exposure: use LABELED dependency relations (dobj/nsubj
+   /amod) not just unlabeled head/dependent direction, so each parsed sentence teaches more. Needs a labeled
+   parse (graded_parser/arc_parser labels), then re-run the DEP channel.
