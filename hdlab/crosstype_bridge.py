@@ -283,7 +283,8 @@ def precise_constructs(doc, gaz):
     return {rl: {e for e in es if e in ent_person} for rl, es in licensed.items()}, ent_person
 
 
-def gated_binds(doc, gaz, bind_mode="unique", margin=2, restrict_gold=True, animacy_wn=False, conf_thr=0.0):
+def gated_binds(doc, gaz, bind_mode="unique", margin=2, restrict_gold=True, animacy_wn=False, conf_thr=0.0,
+                salience="actr"):
     """Bridge binds -> (pop, fired, correct, {role_midx: eid}). The DEPLOYABLE config is bind_mode='cue_conf',
     margin=0.5, restrict_gold=False (deployment population), conf_thr=<swept operating point>. See module docstring for
     the five stacked stages. Ported byte-faithfully from exp_crosstype_upgrades_gum_v1.gated_binds."""
@@ -376,7 +377,16 @@ def gated_binds(doc, gaz, bind_mode="unique", margin=2, restrict_gold=True, anim
                     g = name_gender.get(e)
                     if g is not None and g != ag:
                         continue                               # gender-agreement filter
-                A = actr_activation(priors, float(i), DEFAULT_DECAY, ROLE_PROMINENCE)
+                if salience == "recency":
+                    # FIX A (name-bridge world-knowledge solver): CENTERING recency (Grosz-Joshi-Weinstein) --
+                    # the anaphor retrieves the MOST-RECENT type-compatible antecedent (role-weighted, decayed),
+                    # NOT ACT-R base-level which ACCUMULATES frequency (measured WORSE for definite->name: a
+                    # frequently-mentioned distractor wrongly wins). Same log-activation scale as actr (single
+                    # most-recent mention only) so margin/conf_thr transfer. Default stays 'actr' (byte-identical).
+                    o_star, r_star = max(priors, key=lambda pr: pr[0])
+                    A = actr_activation([(o_star, r_star)], float(i), DEFAULT_DECAY, ROLE_PROMINENCE)
+                else:
+                    A = actr_activation(priors, float(i), DEFAULT_DECAY, ROLE_PROMINENCE)
                 if e in named:
                     A += _DESC_BOOST                           # descriptive content overrides salience (Almor 1999)
                 cands.append((A, e))
@@ -419,11 +429,12 @@ def gated_binds(doc, gaz, bind_mode="unique", margin=2, restrict_gold=True, anim
 predication_licenses = precise_constructs
 
 
-def crosstype_bridge_links(doc, gaz, *, conf_thr, margin=0.5, mode="cue_conf", restrict_gold=False):
+def crosstype_bridge_links(doc, gaz, *, conf_thr, margin=0.5, mode="cue_conf", restrict_gold=False, salience="actr"):
     """THE deployable entry: return {role_midx: name_eid} cross-type definite->name links at the given confidence
-    operating point. conf_thr is the tunable speed-accuracy threshold (higher = more conservative)."""
+    operating point. conf_thr is the tunable speed-accuracy threshold (higher = more conservative). salience:
+    'actr' (ACT-R base-level, default) or 'recency' (Centering, FIX A -- measure before flipping the default)."""
     _pop, _fired, _correct, binds = gated_binds(
-        doc, gaz, bind_mode=mode, margin=margin, restrict_gold=restrict_gold, conf_thr=conf_thr)
+        doc, gaz, bind_mode=mode, margin=margin, restrict_gold=restrict_gold, conf_thr=conf_thr, salience=salience)
     return binds
 
 
