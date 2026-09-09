@@ -73,6 +73,24 @@ if [ -n "$ADDED" ]; then
     # shellcheck disable=SC2086
     "$PY" -X utf8 -W ignore tools/reproducibility_inventory.py --check-new $ADDED || exit 1
 fi
+
+# --- BF-status tagging convention (owner 2026-09-09: "make BF status apparent"). A staged hdlab organ
+#     or the BF registry must keep its __bf_status__ tag consistent with notes/bf_status_registry.jsonl.
+#     Fires ONLY when hdlab/*.py or the registry is staged; registry-driven (only the tagged organs are
+#     checked, ~1s AST parse -- no imports). Bypass deliberately with --no-verify and say so.
+if git diff --cached --name-only | grep -qE '^hdlab/.*\\.py$|^notes/bf_status_registry\\.jsonl$'; then
+    PY="$(git rev-parse --show-toplevel)/.venv/Scripts/python.exe"
+    [ -x "$PY" ] || PY=python
+    "$PY" -X utf8 verification/test_bf_status_tags.py >/dev/null
+    rc=$?
+    if [ $rc -ne 0 ]; then
+        echo ""
+        echo "COMMIT REFUSED: a staged hdlab organ / the BF registry has an inconsistent __bf_status__ tag (exit $rc)."
+        echo "  The tag must mirror notes/bf_status_registry.jsonl (bump tag + registry + __bf_corrections__ together)."
+        echo "  Fix it, or bypass with --no-verify and say so in the message."
+        exit 1
+    fi
+fi
 exit 0
 '''
 
@@ -132,8 +150,8 @@ def self_test() -> int:
 
     # NEGATIVE CONTROL: neither guard may fire on a commit that touches neither area. Checked
     # structurally -- every guarded action sits inside its own `if`, and the body ends at exit 0.
-    if BODY.count("\nif ") == 2 and BODY.strip().endswith("exit 0"):
-        print("[self-test] PASS both guards are conditional; an unrelated commit exits 0 immediately")
+    if BODY.count("\nif ") == 3 and BODY.strip().endswith("exit 0"):
+        print("[self-test] PASS all three guards are conditional; an unrelated commit exits 0 immediately")
     else:
         print("[self-test] FAIL a guard is not conditional -- it would run on every commit")
         ok = False
@@ -146,6 +164,13 @@ def self_test() -> int:
         print("[self-test] PASS the Q115 new-cell gate is present in the body this script installs")
     else:
         print("[self-test] FAIL the Q115 gate is MISSING -- installing would disarm it")
+        ok = False
+
+    # Same drift check for the BF-status gate (owner 2026-09-09): it must not be lost on re-install.
+    if "bf_status_registry" in BODY and "test_bf_status_tags.py" in BODY:
+        print("[self-test] PASS the BF-status tag gate is present in the body this script installs")
+    else:
+        print("[self-test] FAIL the BF-status gate is MISSING -- installing would disarm it")
         ok = False
 
     if os.path.isfile(HOOK):
