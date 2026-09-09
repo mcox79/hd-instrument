@@ -1,5 +1,4 @@
 ---
-priority: 99
 slug: replace_the_attractor_as_ranker_with_a_graded_population_read_in_the_grounding_loop
 status: INTEGRATED
 review: STRONG

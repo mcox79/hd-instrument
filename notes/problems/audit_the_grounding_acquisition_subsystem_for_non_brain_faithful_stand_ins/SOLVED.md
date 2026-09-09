@@ -128,6 +128,59 @@ experiential norms.
 is not reachable by leakage-free reprojection of the assets we have -- it would need a fundamentally richer TAXONOMIC/
 verbal representation (or genuinely new data), which is a research program, not a quick lever. Honest stop.
 
+## COMPONENTS MADE / EVALUATED + BRAIN-FOUNDATIONAL STATUS
+BF status vocabulary (project `data/bf_status_registry.jsonl`): **BF** = the brain's computation, pinned by evidence;
+**BF_UNPINNED** = defensible computational-level model, neural implementation unpinned; **BF_SPIRIT** = brain-motivated
+but the implementation is an approximation/convenience; **NOT_BF** = a stand-in, not the brain's computation.
+
+**MADE (this session -- experiments/ + verification/, NO hdlab writes, Q111):**
+| component | what it is | BF status | outcome |
+|---|---|---|---|
+| `exp_audit_grounding_subsystem_v1.py` | runtime import+call trace = the denominator | BF (glass-box disk trace) | 16 LIVE-CALLED / 23 inert / 6 dormant |
+| `verification/test_audit_grounding_subsystem.py` | pure-disk witness | BF | 15/15 PASS |
+| `exp_ground_readout_localization_v1.py` | #1 localization: dissociation on the loop's own metric | BF (measurement + ATL channel) | DISSOCIATION_CONFIRMED |
+| `exp_grounded_meaning_readout_v1.py` / `_structured_v1.py` | grounded read-out, upstream made BF (in-substrate UPOS tagger + ATL covariance distillation + paradigmatic dependency context) | BF | flips grounded from losing to best-arm |
+| `exp_grounded_meaning_readout_remote_sweep_v1.py` | optimization sweep (fusion/typed/dim + DIRECT ref) | BF (measurement) | DIRECT dominates ~10x |
+| `exp_grounded_meaning_readout_coverage_fusion_v1.py` | **coverage-aware precision-weighted fusion = the optimized fix** | BF (Ernst-Banks/Friston precision-weighting + hub-and-spoke) | +0.125 CI-sep over stand-in @40% coverage |
+| `exp_multimodal_hub_v1.py` | **multimodal ATL hub** (verbal+sensorimotor+affective, covariance distillation) | BF_UNPINNED (Rogers-McClelland; linear SVD/weighted-concat = computational-level approx of the nonlinear hub) | 0.575 = 86% of human, +0.042 CI-sep over verbal |
+| `exp_semantic_hub_retrofit_v1.py` | taxonomic relational retrofit (synonym/antonym/is-a) | BF idea (relational memory consolidation) — **REJECTED** | leakage: holdout CI-sep WORSE than hub |
+| `exp_binder_extension_hub_v1.py` | learn feature->Binder-65-attr map, extend the brain feature space | BF (extend the brain-based rep) — **NO GAIN** | bounded by inputs; experiential axis weaker than taxonomic for SimLex |
+
+**EVALUATED (existing live/dormant organs -- the catalog):**
+| organ | role | BF status | verdict |
+|---|---|---|---|
+| bag-of-words comparator (`canonicalize`/`context_vector`/`schema_consistency`) | live meaning read-out (#1) | **NOT_BF** (co-occurrence stand-in) | loses to counting on own metric; the #1 defect |
+| `grounded_similarity` | sensorimotor spoke (Lancaster+Brysbaert) | **BF_SPIRIT** (its own status; capped-cosine is wrong-metric) | LIVE-IMPORTED-**INERT** (imported, never called) |
+| `definitional_extraction` | ATL verbal/definitional spoke (WordNet) | **BF** (admissible supply) | LIVE but coverage-bound (genus-only) |
+| `gap_detector`->`cleanup_family`->`iterative_attractor` (C7) | attractor-as-RANKER in the gap gate | **NOT_BF as a ranker** (attractor is BF for recognition) | LIVE but bounded (margin honest); filed pri-5 |
+| `hd_fact_store` (C8) | source-trust vetting | BF-adjacent (correctness gated upstream) | remediated |
+| `StructuralEncoder` (N1) | dependency-structured encoder over RANDOM codes | BF idea, **refuted over random codes** | DORMANT + landed CI-sep negative |
+| `form_identity_vector`/VWFA (N2) | word-form code | **BF for recognition only** | DORMANT, correctly kept out of meaning |
+| `information_foraging`,`hippocampal_encoder`,`event_bundle`,`role_slot_summarizer`,`corpus_registry`,`closed_class_lexicon`,`thematic_role_labeler` | forager(MVT)/CA3/FHRR/supply | **BF / admissible** | cleared (do-not-over-fire) |
+| `pos_tagger`,`arc_parser`,`arc_labeler` (in-substrate parse stack, reused) | glass-box UPOS+dependency front end | **BF** (our own, no external tool) | used as the BF upstream |
+| `ConceptualChannel` + `_build_distillation` (reused from `exp_conceptual_meaning_channel_v1`) | ATL conceptual channel + Rogers-McClelland distillation | **BF / BF_UNPINNED** | the verbal spoke (0.52) |
+
+## LOAD-BEARING KNOWLEDGE / CORPUS -> FOR THE MAIN SUBSTRATE TO INGEST
+The optimized grounded read-out is a MULTIMODAL hub; its spokes are static offline FOUNDATION assets (admissible per
+the invariant: no external tool at inference, but curated offline supply is BF). **These are load-bearing and should be
+INGESTED into the substrate's grounded-meaning foundation** (several are on disk but UNWIRED/inert today):
+| asset | path (on disk) | role / spoke | BF | current wiring | INGEST? |
+|---|---|---|---|---|---|
+| **WordNet** (nltk) | nltk_data (glosses+hypernyms) | verbal/definitional spoke — the TAXONOMIC axis (the strongest SimLex signal) | BF supply | LIVE via `definitional_extraction` | keep + broaden coverage |
+| **Lancaster sensorimotor norms** | `data/grounding_testbed/Lancaster_sensorimotor_norms_for_39707_words.csv` | sensorimotor spoke (11 perceptual/action dims, 39,707 words) | BF supply | on-disk; via `grounded_similarity` but **INERT** | **INGEST** as the live sensorimotor spoke |
+| **Warriner VAD** | `data/frontend_assets/Ratings_Warriner_et_al.csv` | affective spoke (valence/arousal/dominance, 13,915 words) | BF supply | on-disk, **unwired** | **INGEST** as the affective spoke |
+| **Brysbaert concreteness** | `data/grounding_testbed/Concreteness_ratings_Brysbaert_et_al_BRM.txt` | concreteness dim (39,954 words) | BF supply | via `grounded_similarity`, inert | **INGEST** with the sensorimotor spoke |
+| **Binder-2016 experiential ratings** | `data/corpora/binder/binder2016_ratings.csv` | the GOLD brain-based feature basis (65 attrs, 535 words) + the feature->Binder map | BF (gold brain rep) | on-disk, unwired | **INGEST** as the experiential-attribute reference (didn't move SimLex, but it IS the brain basis) |
+| WordNet global-IDF cache (built here) | `data/_wn_global_idf_cache.json` | derived IDF weighting for the conceptual channel | BF-derived | built this session | ingest as a foundation artifact |
+| **ConceptNet gold** | `data/conceptnet_gold_v1/edges.jsonl` | the loop's own-metric = a RELATEDNESS gold | eval/metric | used for the dissociation | **NOT a representation** — flag it: the loop's OBJECTIVE is this relatedness gold, which is MIS-SPECIFIED (it rewards the co-occurrence stand-in); replace with a MEANING objective |
+| SimLex-999 / WordSim-353 | `data/encoder_eval_benchmarks/` | human grounded-similarity EVAL golds (the yardstick) | eval gold | measurement only | NOT ingested (the measuring stick, not a rep) |
+| modern reading corpora | `data/corpora/{simplewiki,textbook_*,process_articles_v1}` | context for the distributional arms | corpus supply | in `corpus_registry` | already ingestible; distributional-context arms shown weak vs direct grounding |
+
+**Bottom line for ingestion:** wire the four grounded spokes — **WordNet (verbal, live) + Lancaster (sensorimotor) + Warriner
+(affective) + Brysbaert (concreteness)**, plus **Binder** as the experiential reference — into the substrate's grounded-meaning
+foundation, and REPLACE the ConceptNet-relatedness growth objective with a grounded-MEANING objective. That is exactly the
+multimodal direct spoke + meaning objective the fix requires.
+
 ## What I built
 1. **The denominator, by enumeration not comment-grep** (`experiments/exp_audit_grounding_subsystem_v1.py`). A runtime
    **import trace** (5 fresh-subprocess closures) + a **settrace call trace** over the subsystem's live entry point
@@ -354,3 +407,12 @@ the audit deliverable is complete.
    store-side is source-trust by design.
 4. **[do-not-redo] Do NOT re-propose the on-disk dependency-structured encoder** (N1) — it is a landed CI-separated
    negative; only a non-starved, in-domain structured encoder is an open fair-test.
+
+---
+## INTEGRATED_BY_STRATEGY (2026-09-09) — STRONG
+Reverified `verification/test_audit_grounding_subsystem.py` **15/15** first-hand (runtime trace classification + landed numbers reproduce on disk). It is a MAP (NO hdlab writes) → integration = record + fold, no code landing:
+- **CATALOG.md is now the authoritative reference for the GROUNDING-ACQUISITION subsystem** (the reader-audit's disjoint second live entry point). §2b folded (E-grounding).
+- **CONVERGENCE (the key strategic read):** G1 (the meaning read-out is a bag-of-words co-occurrence cosine that LOSES to word-counting on the loop's own metric, 0.016–0.030 < 0.048–0.065; NOT_BF) independently confirms — by a different subsystem + a different instrument — the SAME wall as the C7 solver + pri-2 (population-code) + pri-5 (grounding-coverage measurement). Its prototyped fix (multimodal ATL hub + coverage-aware precision-weighted fusion + a MEANING objective; 6%→86% of human, leakage-guarded, twin loses) is measured on a SimLex REPRESENTATION PROXY, NOT the live loop → the hdlab wire is a careful measured landing, and **pri-5 IS its live-loop test**. So NO new solver problem is warranted (would duplicate pri-2/pri-5); the audit's value is the authoritative map + independent confirmation + the sharpened levers.
+- **CORRECTIONS/DEADENDS adopted:** G2 `grounded_similarity` is imported-but-INERT (funcs=0) — the grounded channel is not fed to the comparator (the LOCAL-FIX = wire it, part of the measured landing); G3=C7 (integrated); G4=C8 remediated upstream; N1 dependency-structured encoder = landed CI-sep NEGATIVE (do-not-rebuild); N2 VWFA form-code null; N3 six dormant orchestrators (adjacent-fidelity seeds, not live defects).
+- **INGEST LIST recorded (grounded-meaning foundation, on-disk but UNWIRED):** WordNet (live) + Lancaster sensorimotor + Warriner VAD + Brysbaert concreteness (+ Binder-2016 experiential reference); + replace the ConceptNet-RELATEDNESS growth objective with a grounded-MEANING objective. DO-NOT: ground the sentence bag; rebuild the random-code structured encoder; retrofit-to-WordNet (leaks).
+- **Priority dropped (4→99), status:INTEGRATED.** Committed path-limited, NOTHING pushed.
