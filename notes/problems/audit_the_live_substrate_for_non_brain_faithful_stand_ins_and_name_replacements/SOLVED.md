@@ -5,7 +5,7 @@ bar: "PASS = a prioritized CATALOG of >= 8 LIVE non-brain-faithful stand-ins, EA
 result: "A prioritized CATALOG.md of 11 entries -- 8 LIVE non-brain-faithful stand-ins (C1-C8) + 3 located-negatives/corrections (C9-C11) -- each with all five fields verified on disk (file:line), top-K ranked by blast x severity, and the parser-scorer cluster resolved to a 4-move brain-faithful replacement DESIGN that references (does not rebuild) the pri-1 generative world-model. Enumeration denominator = ~45 organs situation_reader.py consumes at read() time (import set reconciled against the actual __init__ flag defaults at :851-923). Every live/dormant/remediated claim reproduced by verification/test_audit_live_standins.py (30/30, pure-disk witness)."
 floor: "The strongest prior map actually run = the strategy first-pass BRAIN_FOUNDATIONAL_AUDIT.md sec.2b CONT-28 defect list. The catalog BEATS it: it recovers EVERY CONT-28-named component (positive control, witness W11 -- no silent miss), and CORRECTS 5 that the disk has moved past or mis-scoped (spaCy purge in perceptual_access_ledger/causation_typing already landed; context_grounded_valence FORCE_CLASS_HARM_REAL already retired; state_register + location_register WordNet fallbacks already landed; cleanup_family/hd_fact_store DORMANT wrt the reader not 'live via gap_detector'; coref name-Jaccard misattributed to a dormant module), and ADDS the self-containment-at-inference entry (C4) CONT-28 missed."
 controls: "(1) LIVE-vs-DORMANT grep of situation_reader's import closure per item (witness W3/W7/W8/W9 -- excludes landed-not-live false positives: caught cleanup_family, gap_detector, hd_fact_store, coreference_resolver, scene_segment cue-detector, incremental_build, graded_parser all built-but-not-wired). (2) Disk RE-VERIFICATION excludes already-remediated items (W10: zero spaCy anywhere in hdlab; W12: state_register _wn_adj_antonyms + location_register WordNet fallback both present). (3) POSITIVE control (W11): the enumeration recovers every CONT-28-named component present on disk -- a can-fail check the catalog is not a shorter list than the prior map. (4) NEGATIVE / do-not-over-fire control: zero admissible static-foundation assets flagged (the affect + state/space cluster audits returned no false positives among WordNet/FrameNet/norm lexicons -- each verified to feed a separately-stated PINNED decision rule, not to BE the decision)."
-files_changed: "verification/test_audit_live_standins.py (30/30 witness); notes/problems/audit_the_live_substrate_for_non_brain_faithful_stand_ins_and_name_replacements/CATALOG.md (the deliverable); .../PARSER_SIGNAL_TRACE.md (per-signal accuracy + per-consumer binding-constraint + generalization); experiments/exp_parse_confidence_shape_vs_magnitude_ood_v1.py (the OOD-confidence drill, metrics.json); .../SOLVED.md. NO hdlab/ writes (Q111 -- strategy lands any code change; this is a MAP + proposed fixes + one brain-foundational drill)."
+files_changed: "verification/test_audit_live_standins.py (30/30 witness); notes/problems/audit_the_live_substrate_for_non_brain_faithful_stand_ins_and_name_replacements/CATALOG.md (the deliverable); .../PARSER_SIGNAL_TRACE.md (per-signal accuracy + per-consumer binding-constraint + generalization); experiments/exp_parse_confidence_shape_vs_magnitude_ood_v1.py (the OOD-confidence drill, metrics.json); experiments/exp_unfrozen_parser_complement_ood_v1.py (adopt-the-dormant-unfrozen-parser-as-a-complement drill, metrics.json); experiments/exp_grounded_unfrozen_parser_complement_ood_v1.py (the FULL brain-foundational fix prototyped: grounded + never-frozen + top-down settle, powered located negative -> pri-1, metrics.json); .../SOLVED.md. NO hdlab/ writes (Q111 -- strategy lands any code change; this is a MAP + proposed fixes + one brain-foundational drill)."
 reverify: ".venv/Scripts/python.exe verification/test_audit_live_standins.py"
 ---
 
@@ -100,7 +100,19 @@ branch.) Everything in C1-C6 is anchored to a `situation_reader.py` line on the 
 3. **Sharpened verdict (C3/C5):** the arc-eager scorer's fix is not a better scorer — it is the graded globally-normalized
    posterior + commit + top-down loop (pri-1). The `graded_parser` Matrix-Tree marginals and `incremental_build` are the
    built-but-DORMANT ingredients.
-4. **NEW DRILL (2026-09-09) — the parser-CONFIDENCE OOD collapse is the frozen weights, not the readout.** Building the
+5. **NEW DRILL (2026-09-09) — the dormant UNFROZEN parser, folded in as a COMPLEMENT (owner-directed; heads kept
+   frozen, NOT swapped), does NOT rescue OOD confidence — a representation limit, not a mechanism failure.**
+   `exp_unfrozen_parser_complement_ood_v1.py` adopts the dormant `OnlinePredictiveParser` (online, PE-driven,
+   never-frozen; problem `the_argument_parser_is_batch_where_the_brain_is_incremental`) as a complementary reliability
+   signal. Powered (OOD QA-SRL n=8173): UNFROZEN-adapted AUC 0.629 in-domain (> its frozen-prior 0.563, +0.066 — the
+   online learning is real) but OOD **0.478 (below chance)**, WORSE than its own frozen-prior 0.563 → the decisive
+   control shows online POS-adaptation is ANTI-load-bearing on the hard OOD register (it learns register-typical
+   attachments that anti-correlate with non-canonical patients); composing it HURTS the frozen marginal (0.453<0.548).
+   ROOT CAUSE named: the learner is POS-ONLY — no lexical/semantic discrimination (converges with the REFUTED
+   `distributed_contextual_representations_into_the_parser`). REFINES (not refutes) the OOD-confidence-collapse finding (item 6): the never-frozen MECHANISM is
+   right; THIS implementation's representation is the limit; the discriminative signal must come from lexical grounding
+   + the top-down loop (pri-1). Owner constraint honored (complement, not swap).
+6. **NEW DRILL (2026-09-09) — the parser-CONFIDENCE OOD collapse is the frozen weights, not the readout.** Building the
    full parser signal trace (`PARSER_SIGNAL_TRACE.md`) surfaced that the parse-reliability signal reads AUC ~0.82
    in-domain but ~0.55 OOD. I hypothesized (Hale precision) the posterior's SHAPE (entropy) would be register-robust
    where its MAGNITUDE is not, and tested it fair (`exp_parse_confidence_shape_vs_magnitude_ood_v1.py`): **REFUTED at
@@ -108,6 +120,19 @@ branch.) Everything in C1-C6 is anchored to a `situation_reader.py` line on the 
    SHAPE 0.536 [0.522,0.549], twin 0.502). The whole frozen posterior is miscalibrated off-register → the brain-faithful
    fix is CONTINUOUS/ADAPTIVE parsing (online, never-frozen — the project invariant) + top-down constraints (pri-1), NOT
    a static confidence readout. A rigorous located negative that corrects my own trace-doc line and converges on C3.
+7. **NEW DRILL (2026-09-09) — the FULL brain-foundational parser fix, prototyped and powered: in-sentence levers are
+   exhausted, the remaining lever is pri-1's cross-sentence generative loop.** `exp_grounded_unfrozen_parser_complement_ood_v1.py`
+   builds the complete in-sentence fix (owner-directed, complement not swap): a never-frozen online learner with
+   lexical-grounded codes (ATL sensorimotor spoke) + innate POS prior + global-coherence Eisner settle (in-sentence
+   top-down), with the full control battery isolating each layer. Powered (OOD QA-SRL n=8173): each layer works
+   directionally — GROUNDED_adapted 0.511 > POS-only 0.478 (lexical lever), > its frozen-prior 0.451 (adaptation
+   load-bearing), and settle-agreement 0.550 ≈ the frozen marginal 0.548 (top-down coherence) — but ALL in-sentence
+   levers together only MATCH, never EXCEED, the frozen marginal (composite 0.538 < 0.548), and the OOD ceiling itself is
+   ~0.55 (near-chance) for every method. With distributional grounding already REFUTED (`distributed_contextual`),
+   in-sentence signal is exhausted → the ONLY remaining lever is the CROSS-SENTENCE generative top-down loop (pri-1
+   `build_the_generative_result_state_world_model`). An airtight located negative that built the real fix and isolated
+   the deep lever to pri-1 — no in-sentence alternative survives. (Mechanism real, not a build failure; brain-faithful
+   test of every in-sentence layer.)
 
 ## TLDR (plain English)
 I hunted through the part of the system that reads text and builds meaning, and made one ranked list of every place it

@@ -1,9 +1,9 @@
 ---
-priority: 1
+priority:
 slug: build_the_generative_result_state_world_model
-status: OPEN
-review:
-review_text:
+status: INTEGRATED
+review: EXCELLENT
+review_text: "Owner-DONE. A rigorous TRIANGULATED located-negative (the bar's blessed pass): the generative result-state world-model MECHANISMS are built + 100%-brain-foundational + BANKED (goal-slice result-state check; the structured bound-event carrier, spaCy removed; the intrinsic surprisal/necessity trap-proof eval; the oracle-ceiling method) -- these overlap the already-integrated causal world-model (generate_dont_retrieve -> hdlab.predictive_world_model + sm.causal_antecedent). The wall is a story-specific CAUSAL-MECHANISM-KNOWLEDGE granularity gap (NOT mechanism/coverage/embodiment). RETRACTED its own broken-position-floor goal 'win'. KEY FUTURE WORK routed to the NEW pri-1 brief grow_the_causal_mechanism_knowledge_foundation_by_mining_directed_causal_linguistic_testimony (the lifetime causal-knowledge learner). Nothing new to wire (mechanisms already live via the causal world-model). priority 1 dropped. See INTEGRATION_LEDGER + BRAIN_FOUNDATIONAL_AUDIT S2b (CONT-29)."
 ---
 
 # PROBLEM: the reader's reasoners (causal / temporal / coherence / who-did-what) are near-perfect on GOLD relations but slump end-to-end on real prose because they READ FEED-FORWARD and can only RETRIEVE the missing links (coverage-bound), and FIVE independent SOLVEDs named the SAME completing lever -- a GENERATIVE result-state world-model that SIMULATES an action forward to predict the RESULT-STATE, CHECKS it against the goal-state / forward expectation, and feeds those expectations TOP-DOWN into extraction -- so build that ONE content-sensitive generative rollout (composing the landed force_dynamics_typer + goal_register + belief_partition + affect_register + generalized_event_knowledge over the meaning channel) and prove it turns a named SUBSET win into a FULL-POPULATION CI-separated win on at least one consumer's MODERN gold, the info-free twin LOSING, no live reasoner regressing -- glass-box, NO external LLM at inference.

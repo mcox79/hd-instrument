@@ -555,6 +555,34 @@ necessity probe is the fallback if path A is built and underdelivers.
 ================================================================================
 
 ================================================================================
+## >>> CYCLE-31 (2026-09-09) -- BAR #4 tested (top-down into extraction): 3rd lever, SAME wall <<<
+================================================================================
+Owner: "yes on a" (build bar #4 top-down-into-extraction) IF world-model access. ACCESS FINDING: the converging
+solver's world-model is NOT cleanly importable (embedded in a monolithic run()); used a self-contained generative
+expectation component (legitimate -- new purpose, not re-deriving their result). Built bar #4 on the UNCLAIMED,
+non-duplicative slice the parser problem (owner-DONE) named: the two-valid ROLE_ERROR who-did-what residual (67% of
+wrong patient picks; "routes to top-down discourse/grounded event-knowledge, NOT the parse").
+`exp_genworldmodel_topdown_twovalid_v1.py` + witness. 100% BF: glass-box arc-eager parse (NOT spaCy) +
+structural_patient_pick silo over UD-EWT (admissible treebank, NOT TellMeWhy/GLUCOSE); top-down expectation =
+generative verb->patient tendency x Centering salience.
+POWERED RESULT (full UD-EWT, two-valid ROLE_ERROR slice n=82): top-down expectation RECOVERS 8/82 (9.8%,
+CI[0.037,0.171]) that the silo gets wrong -- BUT shuffle-twin 7/82 (8.5%) and SALIENCE-ONLY 8/82 (9.8%). So the
+recovery is SALIENCE (position/givenness), NOT the generative expectation (topdown-twin +0.012 = ONE case).
+RIGOROUS LOCATED NEGATIVE (a full pass): the recurrent-loop top-down expectation is NOT load-bearing on two-valid
+-- the discriminator needs grounded STORY-SPECIFIC knowledge, exactly the oracle-ceiling's 68% experience frontier.
+THE TRIANGULATION (now 3 independent solver-side levers, all converge on the grounded-knowledge GRANULARITY wall):
+  1. PATH A (online per-story world-model): closes ~32%; 68% needs lifetime experience (cycle-30 oracle).
+  2. FORWARD-MODEL / MEANING / GROUNDING (cycles 24-28): context-free knowledge in any form + grounding-as-
+     similarity not load-bearing.
+  3. BAR #4 (top-down into who-did-what two-valid): recovers ~10% but that's salience, not the expectation.
+  + the converging solver's coverage-maxed knowledge model (AUC 0.50 at 100% coverage) = same wall.
+=> The wall is FULLY CHARACTERIZED + TRIANGULATED: story-specific-knowledge GRANULARITY. Every solver-side lever
+hits it. The ceiling-mover is the strategic LIFETIME-LEARNER / grounded-knowledge program (B, Q111/strategy) --
+NOT another cell. RECOMMEND: close this problem as a fully-triangulated LOCATED NEGATIVE (the bar's blessed full
+pass) with the goal slice + intrinsic frame banked, and route (B) to strategy. Owner's call.
+================================================================================
+
+================================================================================
 ## >>> CYCLE-28 (2026-09-09) -- GROUNDING drilled: R2 negative, the wall is DIRECTED CAUSAL DYNAMICS <<<
 ================================================================================
 Owner cron: keep moving, everything 100% brain-foundational (mechanism AND knowledge/grounding), drill every wall
