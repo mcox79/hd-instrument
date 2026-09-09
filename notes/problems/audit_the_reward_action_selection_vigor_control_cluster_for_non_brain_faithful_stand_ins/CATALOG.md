@@ -134,6 +134,34 @@ built, shown to EXCEL (beats the strongest floor) and the reward-rate signal it 
 change, and the only downstream consumer (`self_manager` itself) has zero importers, so nothing
 regresses.
 
+### R1 -- COMPOSITION with the SHIPPED halting dial (joint EVC; proves the separable-scalar-bank thesis)
+
+`experiments/exp_reward_cluster_joint_evc_v1.py` composes the vigor dial with the REAL shipped
+`hdlab.self_manager.AdaptiveHaltController` (not a reimplementation) on a joint task heterogeneous on
+BOTH axes: item difficulty (halting has work) and a non-stationary reward rate (vigor has work). A 2x2
+factorial (240 sessions, paired bootstrap), total net reward per fixed-time session:
+
+| arm | net reward / session |
+|---|---|
+| NEITHER (both fixed = today's no-vigor state) | 54.0 |
+| HALTING-only (what ships) | 348.3 |
+| VIGOR-only (the missing dial alone) | 21.1 |
+| **BOTH (the full bank)** | **1013.2** |
+
+- **BOTH - HALTING = +664.8, CI[661.4, 668.2], CI-separated** -- adding the missing vigor dial ON TOP
+  of the shipped halting dial helps: the two are COMPLEMENTARY.
+- **BOTH - VIGOR = +992.1, CI-separated** -- neither dial subsumes the other.
+- **SEPARABILITY (the research note's central thesis, disk-proven):** the halting hop-decisions are
+  **byte-identical** whether the vigor dial is off or on (the halting rule reads only arrival
+  confidence; the vigor rule reads only the reward rate). The channels compose without reading each
+  other's telemetry -- exactly the "bank of independent one-scalar-in/one-scalar-out loops" the note
+  argues for, which is why R3 (build the other dials) is a low-risk additive program.
+- **HONEST REGIME NOTE (a located property, not a failure):** vigor's marginal is material only when
+  response latency is a MATERIAL fraction of total trial time. When deliberation cost dominates (each
+  compute hop expensive), the halting dial carries the win and vigor's leverage shrinks toward zero
+  (measured: at `hop_dt`=0.2 the vigor marginal falls to +155; at 0.08 it rises to +916). This is the
+  correct EVC prediction (vigor controls the response-latency term of the time budget), not a defect.
+
 ---
 
 ## R2 -- the consequence-learning TEACHER is a symbolic MET/UNMET lexicon vote for a computed affective value
@@ -186,7 +214,10 @@ actually coref).
 
 **(c) BF replacement.** BUILD the remaining dials as content-free scalar siblings (R1 is the
 highest-value one; the vigor prototype shows the pattern). Each is a one-scalar-in/one-scalar-out loop
-on telemetry already available -- not new bespoke machinery.
+on telemetry already available -- not new bespoke machinery. **The additive-independence assumption the
+bank rests on is now DISK-PROVEN** (R1 composition, `exp_reward_cluster_joint_evc_v1.py`): the vigor
+dial and the shipped halting dial compose CI-separated and their decisions are byte-independent, so
+building the remaining dials is a low-risk additive program, not a re-architecture.
 
 **(d) Blast / live.** DORMANT (0 importers). Coverage/mislabelling risk; low present blast.
 
