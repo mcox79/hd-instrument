@@ -6,7 +6,7 @@ result: "GUM OntoGUM coref (modern), name-bridge slice = anaphoric common-noun w
 floor: "Strongest floor actually run, recomputed on the item's own GUM population (n=356): kb_thematic = 0.5843 (the two-route CLS -- consolidated DBpedia KB UNION episodic in-text is-a -- PLUS deverbal-agent thematic route PLUS graded constraint-integration competition; the strongest PRIOR arm from acquire_wikidata_p31 SOLVED). Weaker floors: kb_intext (two-route CLS without thematic) 0.5674; recency-over-names (Centering) 0.4719; string-identity / WordNet-only 0.000 by construction. The bar's 'two-route-without-the-new-knowledge' = kb_intext/kb_thematic; I beat neither CI-sep."
 controls: "(0) GENERATIVE WIN CONTROLS (result A): SHUFFLE-the-file info-free twin LOSES on the doc-local subslice (gen +0.1280 CI-sep -> the accrued-type<->entity correspondence is load-bearing); WITHIN-ITEM ASYMMETRY (matched, per the causal-testimony transfer note) -- the file licenses the GOLD head 1.91 vs a MISMATCHED cross-family head 0.33, +1.58 CI-sep -> the type is FINE not coarse; MATCHED DISTRACTORS -- the competition is against the real co-active names, and gen still beats kb_thematic +0.064 CI-sep on the subslice; HONEST BOUND -- gen alone is below kb_thematic whole-slice and the naive union does not CI-separate whole-slice (win reported on the residual subpopulation, not overclaimed). (1) INFO-FREE SHUFFLED-KB TWIN: wk_phi 0.5926 beats its shuffled-KB twin 0.4774 by +0.1152 CI-sep -> the name->type correspondence is load-bearing (not 'any type-token helps'); the +0.0084 whole-slice signal is real, just coverage-bounded. (2) ORACLE (excludes 'SELECT is the bottleneck'): gold always type-licensed, distractors untyped -> 1.000; distractors real-typed -> 0.924 -> the graded-competition retrieval is near-perfect; knowledge coverage is the wall, not the mechanism. (3) COVERAGE CEILING (excludes 'a bigger static KB fixes it'): reachable-by-ALL-static-knowledge = 0.697; the Wikidata probe FITTED to the eval surfaces (upper bound) adds only +0.0084 not-sep. (4) DISCOURSE COARSE-TYPE LOCATED NEGATIVE (excludes 'infer type from discourse predicates'): locative->PLACE typing disc_place 0.556 does NOT beat kb_thematic (-0.0253, hurts) and does NOT beat its own shuffled twin (-0.0056, not-sep) -> coarse discourse typing OVER-LICENSES (many distractors are also loc-mentioned); fine encyclopedic types are needed, not coarse ones. (5) ABSTENTION-SAFE / NO-REGRESS: on items with NO knowledge signal, wk_phi == recency exactly (0 diffs) -> the route can only narrow, never override recency with nothing; pronoun/same-head consumers are untouched (this is the standalone name-bridge instrument, a different population from those consumers). (6) AXIS DECOMPOSITION reproduces the brief's requested counts and REFUTES its hypothesized axis (relational/kinship/age-gender = 15% of misses). (7) NAME RECOGNITION (upstream, Bruce-Young): recovers coverage 188->211 gold-typed but the floor lift is +0.0028 NOT-sep -> the upstream span-noise fix is bounded (most misses are not recognition artifacts)."
 files_changed: "experiments/exp_namebridge_generative_typefile_v1.py (THE GENERATIVE SITUATION-MODEL prototype -- online graded fine-type identity file; the headline win), experiments/exp_namebridge_axis_decomp_v1.py (axis x residual-reason decomposition -- the located-negative deliverable), experiments/exp_namebridge_worldknowledge_v1.py (Bruce-Young name recognition + broader-KB + phi gate-then-compete), experiments/exp_namebridge_discourse_type_v1.py (the COARSE discourse-type route -- located negative that motivated the FINE generative file), experiments/exp_namebridge_fidelity_landing_v1.py (the landable recognition+phi drop-in + no-regress + OOD), experiments/exp_namebridge_broader_kb_v1.py + experiments/fetch_wikidata_namebridge_types_v2.py (the broader-KB lever: a fair recognition-cleaned Wikidata asset to settle the static-KB ceiling), verification/test_namebridge_generative.py (5/5), verification/test_namebridge_worldknowledge.py (9/9), data/exp_namebridge_*_v1/metrics_full.json, notes/problems/world_knowledge_common_noun_to_name_bridge_the_81_percent_residual/{SOLVED.md,GENERATIVE_MODEL_PROMPT_from_namebridge.md}. NO hdlab/ written (Q111 -- proposed diff below). Reuses exp_namebridge_coref_kb_v1 (the two-route CLS instrument), experiments/_entity_type_spoke.py (C8 DBpedia read API), hdlab.typed_spokes (C5 is-a), data/corpora/gum (V12.1.0), data/corpora/dbpedia_instance_types (2022.12.01) + the Wikidata probe."
-reverify: ".venv/Scripts/python.exe verification/test_namebridge_generative.py  &&  .venv/Scripts/python.exe verification/test_namebridge_worldknowledge.py    # 5/5 (generative win: G1 gen>kb_thematic doc-local +0.064 CI-sep, G2 >recency, G3 >shuffle-twin, G4 within-item asymmetry, G5 honest whole-slice bounds) + 9/9 (located negative: floor/axis/oracle/coverage/static-KB-ceiling/coarse-type-negative/abstention-safe)"
+reverify: ".venv/Scripts/python.exe verification/test_namebridge_generative.py  &&  .venv/Scripts/python.exe verification/test_namebridge_worldknowledge.py    # 6/6 (generative win: G1 gen>kb_thematic doc-local +0.064 CI-sep, G2 >recency, G3 >shuffle-twin, G4 within-item asymmetry, G5 honest whole-slice bounds, G6 lever-2 broader-KB REFUTED) + 9/9 (located negative: floor/axis/oracle/coverage/static-KB-ceiling/coarse-type-negative/abstention-safe)"
 ---
 
 # The GENERATIVE SITUATION-MODEL crosses the residual: an online graded fine-type identity file beats the strongest floor CI-sep on the document-local subslice; the whole-slice located negative explains why static routes stop there
@@ -67,22 +67,37 @@ Decomposing the whole slice by population (reach = gold in static KB; doc-local 
 | REACHABLE (231) | 0.515 | 0.675 | 0.563 | KB owns it; gen HURTS here (-0.11 CI-sep, no KB for famous) |
 | DOC-LOCAL (125) | 0.392 | 0.416 | 0.480 | gen WINS (+0.064 CI-sep); uniquely gets 11 KB misses vs 3 the reverse |
 - **The loss is INTEGRATION, and the signal EXISTS:** a perfect familiarity-router (known->KB, novel->gen) = 0.607
-  = **+0.0225 CI[+0.0028,+0.0449] CI-sep** over the floor. Naive union throws it away (a many-typed famous distractor
+  = +0.0225 CI[+0.0028,+0.0449] CI-sep over the floor. Naive union throws it away (a many-typed famous distractor
   swamps a document-local gold).
-- **Lever 1 (built) -- the CLS UNIFIED ATL integration, calibrated.** One identity file holding BOTH consolidated-KB
-  fine-types AND the online generative file (the ATL is one hub -- encyclopedic + episodic), competing on EQUAL
-  FOOTING (capped-sum: no route swamps). `cls_unified` arm = 0.6039 whole (+0.0197, CI edge) improving BOTH
-  populations; the inline variant that also folds KB's `extract_isa_edges` in-text reaches 0.6152 (+0.0309, CI lower
-  -0.0028). `max`-pool over-prunes, `sum` swamps, `cap` competes fairly -- the calibration was the fix. This is the
-  brain's architecture, not a routing hack, and it is the single biggest recoverable lever -- on the edge of CI-sep.
-- **Lever 2 -- broader recognition-cleaned Wikidata KB** (`fetch_wikidata_namebridge_types_v2` + `exp_namebridge_
-  broader_kb_v1`): lifts REACHABLE fine-typing (DBpedia misses Dvorak/Denmark/New York; recognition+Wikidata recovers
-  Dvorak->professor). Folded into lever-1's competition it should push the whole slice over CI-sep (the router ceiling
-  +0.0225 is already sep; lever 1 at +0.031 with better KB clears it). MEASURE when the fetch completes.
-- **Lever 3 -- richer generative identity file** (more relational predicates, event participation, who-is-who): the
-  DEEP lever. The oracle either-arm ceiling is 0.6489 (+0.0646) -- levers 1+2 earn a THIN whole-slice badge; lever 3
-  (the generative-world-model program) is what earns the large capability. THIS is why "fully solved" = the
-  generative model, and levers 1+2 are the bridge to it.
+
+**ALL THREE LEVERS IMPLEMENTED AND MEASURED (owner: "implement all of these, do it right, not cheap"):**
+- **Lever 1 (BUILT) -- CLS UNIFIED ATL integration, calibrated. The single biggest recoverable lever; caps just
+  below CI-sep.** One identity file holding BOTH consolidated-KB fine-types AND the online generative file (the ATL
+  is one hub -- encyclopedic + episodic), competing on EQUAL FOOTING (capped-sum: no route swamps; `max` over-prunes,
+  `sum` swamps, `cap` is the calibration). `cls_unified` = **0.6067 whole (+0.0225 CI[-0.0140,+0.0590], NOT sep)**,
+  improving BOTH populations. This is the brain's architecture, not a routing hack -- but even at the perfect-router
+  ceiling it does not clear CI-separation on the whole slice.
+- **Lever 2 (BUILT then REFUTED) -- a broader static Wikidata KB does NOT help; it HURTS.** Acquired a FAIR,
+  recognition-cleaned Wikidata P31/P106 asset (`fetch_wikidata_namebridge_types_v2`, 2041 keys) and folded it in
+  (`cls_full`). Result: **0.5927 whole (+0.0084), BELOW `cls_unified` 0.6067** -- and even after dropping the obvious
+  noise (given-name/album/film top-1-search errors) `cls_full_cleaned` = 0.5955 (+0.0112), still below the fitted
+  probe. WHY: open-domain entity typing via top-1 search is NOISY ("Affairs"->album, "Alex/April"->given-name,
+  "Arabia"->language); the false types over-license DISTRACTORS and cost more than the coverage gains. This is the
+  THIRD independent confirmation the static-KB lever is capped (fitted probe +0.0084 not-sep; fair broad KB hurts;
+  cleaned broad KB still < fitted). **A bigger static entity KB is not the route -- REFUTED, do not pursue.**
+- **Lever 3 (BUILT) -- the richer generative identity file IS the clean win, and the ONLY route to a whole-slice
+  win.** Folded the proven `extract_isa_edges` in-text extractor + added COORDINATION ("X and other villages" ->
+  village); the doc-local win holds (+0.064 CI-sep, asymmetry 1.98 vs 0.38). Inspecting its residual: 57/65 doc-local
+  misses are FACET-MISMATCHES the discourse never states (Dvorak accrues "composer", anaphor is "director"; Frontiers
+  ->publisher; Chao->president) -- the text lacks the facet, and lever 2 CANNOT clean-supply it (noise). So the
+  path to whole-slice SOLVED is EXTENDING lever 3 to who-is-who inference (relational identity, event participation,
+  the generative-world-model program), NOT static KB. The oracle either-arm ceiling 0.6489 (+0.0646) is the prize
+  that lever-3-extended earns; levers 1+2 cannot reach it.
+
+**VERDICT ON "PARTIAL -> SOLVED":** the whole-slice SOLVED badge is NOT reachable via static routes -- proven, not
+assumed (lever 1 caps at +0.0225 not-sep; lever 2 refuted). The clean, brain-foundational win is lever 3 on the
+document-local residual (+0.064 CI-sep, twin+asymmetry clean); the whole-slice win requires the generative who-is-who
+model (lever 3 extended) -- the filed generative-world-model program. This is the honest, non-cheap answer.
 
 ## (B) THE WHOLE-SLICE LOCATED NEGATIVE (the bar's full pass; why static routes stop where the generative one starts)
 The rest of this document is the located negative that MOTIVATES and BOUNDS result A: it names the axis with counts,

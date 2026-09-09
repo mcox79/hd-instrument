@@ -5,9 +5,80 @@ bar: "PASS = a brain-faithful directed causal-mechanism knowledge foundation (mi
 result: "CONSTRUCTIVE INTRINSIC POSITIVE + a rigorous QUANTIFIED LOCATED NEGATIVE. (1) POSITIVE, trap-proof intrinsic frame (held-out causal testimony, no crowd gold, no position, n=10164): mined directed causal testimony RECOVERS causal DIRECTION that same-corpus co-occurrence provably cannot (Pearl rung-1) -- direction-accuracy (ranks cause->effect above the reverse effect->cause) CAUSAL 0.609 CI[0.597,0.620] vs same-corpus co-occurrence 0.513 CI[0.501,0.524] (at chance), paired +0.0973 CI[0.0802,0.1144] CI-SEP; and beats the info-free shuffled-effect TWIN massively on effect-prediction (+0.2338 CI[0.2286,0.2389]). So the SIGNAL TYPE thesis holds: testimony transmits directed causal knowledge adjacency cannot. (2) LOCATED NEGATIVE on the downstream narrative causal-antecedent SELECTION: the directed signal is real but WEAK in absolute terms (direction accuracy 0.609), and the standard benchmark (TellMeWhy answerable non-adjacent, n=273) is POSITION-CONFOUNDED -- the nearest-non-adjacent POSITION floor scores pairwise-AUC 0.910 on the zero-overlap slice, dominating every knowledge signal. The mined causal read gives only +0.041 CI[-0.026,0.106] over adjacency on the zero-overlap slice (NOT CI-sep) and ties chance on the full population. The granularity ceiling, with numbers: gold-link coverage reaches 0.502 at 1.29M edges (coverage is NOT the wall), but the recovered causal DIRECTION is only 0.609-accurate, and TMW rewards position (0.91), so the weak directed signal cannot lift full-population selection above the strongest floor."
 floor: "STRONGEST floors actually run, per population. Narrative selection (TMW answerable non-adjacent): POSITION nearest-non-adjacent pairwise-AUC 0.910 (zero-overlap slice) -- DOMINATES; adjacency-W (the current upstream, association) at chance 0.489 (zero-overlap) / 0.495 (full); lexical-overlap 0.286 (zero-overlap). Intrinsic held-out frame: same-corpus co-occurrence baseline (isolates direction from association) = direction 0.513 (chance) / effect-pred 0.711; shuffled-effect info-free TWIN = 0.499 (effect-pred) / 0.506 (store-native diagnostic). generic-ATOMIC chance ceiling ~0.50 (inherited, chain_multi_step exp_multistep_atomic_knowledge_necessity_v1)."
 controls: "SHUFFLED-EFFECT TWIN (info-free, equal coverage/degree) -- LOSES on the intrinsic frame (causal +0.234 CI-sep), ties on TMW; SAME-CORPUS CO-OCCURRENCE baseline (same corpus/vocab/pipeline, textual-order instead of marker-direction) -- isolates the causal-specific signal from association: causal beats it on DIRECTION +0.097 CI-sep and effect-pred +0.022 CI-sep, so the win is direction not association; POSITION floor (nearest-non-adjacent) -- exposes TMW as position-confounded (0.91); LEXICAL-overlap floor; HELD-OUT 90/10 sentence split -- generalization not memorization; ZERO-OVERLAP slice (gold cause shares 0 lexical content with effect, 54-59% of items) -- association blind by construction; PREVENT-class EXCLUDED from the miner (cause->effect-BLOCKED, a correctness trap)."
-files_changed: "experiments/exp_causal_testimony_{baseline,mine,eval,heldout}_v1.py, experiments/fetch_causal_selection_gold_v1.py, experiments/exp_causal_selection_{ecare_copa,framegrain,combined}_v1.py, verification/test_causal_testimony_foundation.py, verification/test_causal_selection_positionfree.py, data/exp_causal_testimony_mine_v1/store_v1.json (mined foundation asset, 1.29M edges), data/corpora/{copa,ecare}/ (acquired position-balanced golds), notes/problems/grow_the_causal_mechanism_knowledge_foundation_by_mining_directed_causal_linguistic_testimony/{DEAD_ENDS_AND_SIGNAL_MAP,RESEARCH_KNOWLEDGE_MAP,PATH_TO_SOLVED_RESEARCH,SOLVED}.md. NO hdlab write (Q111)."
-reverify: ".venv/Scripts/python.exe verification/test_causal_testimony_foundation.py  (intrinsic direction win); .venv/Scripts/python.exe verification/test_causal_selection_positionfree.py  (position-free COPA/e-CARE selection)"
+files_changed: "experiments/exp_causal_testimony_{baseline,mine,eval,heldout}_v1.py, experiments/fetch_causal_selection_gold_v1.py, experiments/exp_causal_selection_{ecare_copa,framegrain,combined}_v1.py, experiments/exp_causal_{direction_ecare,bcopa_ce}_v1.py, verification/test_causal_testimony_foundation.py, verification/test_causal_selection_positionfree.py, verification/test_causal_direction_signal.py, data/exp_causal_testimony_mine_v1/store_v1.json (mined foundation asset, 1.29M edges), data/corpora/{copa,ecare,bcopa_ce}/ (acquired position-balanced + direction-sensitive golds), notes/problems/<slug>/{DEAD_ENDS_AND_SIGNAL_MAP,RESEARCH_KNOWLEDGE_MAP,PATH_TO_SOLVED_RESEARCH,SOLVED}.md. NO hdlab write (Q111)."
+reverify: ".venv/Scripts/python.exe verification/test_causal_testimony_foundation.py (intrinsic direction win); .venv/Scripts/python.exe verification/test_causal_selection_positionfree.py (position-free selection); .venv/Scripts/python.exe verification/test_causal_direction_signal.py (direction signal on direction-sensitive golds)"
 ---
+
+## DEEP SIGNAL-CHAIN ANALYSIS (2026-09-09, owner: "determine what signals we're missing and why; fully unlock this")
+
+**The one-sentence answer: our score never left Pearl's rung 1, and the corpus is generated by the very selection
+mechanism we are trying to recover -- so the missing signal is not a better text statistic but the rung-2/3
+counterfactual-necessity SIMULATION, which the mined store must be RUN THROUGH, not scored by.** Established by three
+deep research drills (13 sub-lanes; notes/research_causal_{strength_signal_separation,antecedent_selection,...} +
+this session) plus an on-disk substrate-chain trace.
+
+### Why every text statistic (PMI, DeltaP, Cheng power) is insufficient
+- **Causal Hierarchy Theorem** (Bareinboim/Correa/Ibeling/Icard 2022): rung-1 (associational) data determines rung-2
+  (interventional) / rung-3 (counterfactual) answers only on a MEASURE-ZERO, nowhere-dense set of models -- generically
+  NO function maps rung-1 -> rung-2/3. Connective-filtering does NOT inject do-operator content; a "because"-filtered
+  co-occurrence statistic is still a functional of an observed joint distribution = rung-1. Empirical echo: LLMs are
+  "causal parrots" (Zecevic 2023); CLadder/Corr2Cause degrade to near-chance on the counterfactual rung.
+- **The corpus is biased by the selection mechanism, not just noisy.** Reporting bias (Gordon & Van Durme 2013: text
+  records the notable, not the frequent) + explanation-selection bias (Hilton-Slugoski 1986 abnormal-conditions;
+  Kahneman-Miller norm theory; Hesslow 1988) mean a "because" corpus samples "C stated as cause of E GIVEN C is
+  abnormal/salient" -- it never gives the ¬C cell needed for an unbiased DeltaP. NO causal-KB (ATOMIC/ASER/CausalNet/
+  CausalBank/GLUCOSE) has ever built a true 2x2 table. So DeltaP-from-testimony would be systematically biased, not a
+  clean separation. **Crucially, the abnormality-selection mechanism that biases the corpus IS the mechanism that
+  DEFINES causal selection** -- the signal is entangled in text because text was written BY it. This is WHY our store
+  is redundant with lexical association (e-CARE) and its direction is only weakly load-bearing.
+
+### The missing signal = the counterfactual-necessity SIMULATION (rung-2/3), a computation SEPARATE from the store
+Causal-antecedent selection is a computation distinct from the knowledge store (which is necessary-but-not-sufficient):
+- **Formal**: SCM = mechanism-equations (the knowledge) + a do()-procedure that severs edges (Pearl). Association is
+  compatible with many mechanisms -> can't answer intervention.
+- **Neural**: causal judgment recruits dlPFC/precuneus ON TOP of associative, same content (Satpute 2005); ATL/semantic
+  damage does NOT track counterfactual deficit -- mPFC/hippocampus does (Viard 2014; Mullally-Maguire 2014). So the
+  simulation is a separate circuit from the semantic (knowledge) hub.
+The simulation CONSUMES four ingredients PMI structurally lacks: (i) a **bound per-item situation model** at
+entity+attribute+value grain; (ii) **candidate mechanism edges** -- the store's CORRECT role (hypothesis source, not
+scorer); (iii) a **norm/comparison case** (two-stage: knowledge-selected reference class [Hilton-Slugoski] + within-
+class contrast [Forsterling]) -- this is why the ENABLER outscores the abnormal cause on PMI (the "oxygen problem");
+(iv) an **ablate-and-recompute operator** (remove candidate C's state-effect, recompute, check whether the target
+flips). PMI has none of these -- no bound state, no ablation, no norm, no simulation.
+
+### Substrate-chain trace (where the signal is lost, and the fix)
+| stage | brain-faithful | ours today | status |
+|---|---|---|---|
+| knowledge | structural PRIOR = candidate causal edges | mined store (1.29M edges) | ✅ built; MIS-USED as a scorer |
+| instantiation | bind edges to THIS item's participants/states (situation model) | decontextualized concept lookup | ❌ missing |
+| **selection** | ablate candidate over the bound model, check counterfactual necessity | **PMI score (rung-1)** | ❌ **wrong computation** |
+| engine | `predictive_world_model.necessity` / `WorldState.do()` | EXISTS, but starved (fed adjacency-W, not the store; no bound per-item model, no norm) | ⚠️ present, unfed |
+**The fix (brain-foundational): run the store's candidate edges THROUGH the necessity engine over a bound per-item
+situation model; PMI's only legitimate role is a cheap pre-filter to narrow candidates before the ablate-and-recompute.
+This is the generative-simulation world-model the three parent problems named the MAIN EVENT -- the store FEEDS it.**
+
+### What we DEMONSTRATED (the causal-specific signal the store DOES carry -- direction from causal MARKING)
+On three DIRECTION-SENSITIVE instruments where association is neutralized by construction (a similarity model is at
+chance), the store's DIRECTION beats the neutralized floor CI-separated:
+- held-out testimony (in-distribution): causal-direction 0.609 vs same-corpus co-occurrence 0.513, +0.097 CI-sep.
+- e-CARE gold causal pairs (modern human gold; assoc=0.5 by construction, n=2122): causal-direction 0.517 vs shuffled
+  twin 0.499, +0.018 CI[0.0002,0.036] CI-sep.
+- **BCOPA-CE** (Han & Wang 2021, the published direction-sensitive gold where PLMs COLLAPSE to ~51%; two alternatives =
+  true cause + true effect, n=1000): floors AT chance by construction (direction_blind 0.500, lexical 0.500, twin
+  0.499); causal_directed 0.522 beats direction_blind +0.022 CI[0.0015,0.042] (covered +0.035 CI[0.004,0.066]).
+=> The direction signal is REAL (CI-sep on all three) but WEAK in absolute terms (~0.52-0.61), and weakest on BCOPA-CE's
+everyday links -- the Gricean gap (obvious causes under-testified) + the scale + rung-1 ceilings. This is a genuine
+rung-1.5 contribution (causal MARKING carries a directional prior co-occurrence lacks -- consistent with the field
+treating testimony as a STRUCTURAL PRIOR), but it is not the rung-2 necessity signal.
+
+### Bottom line for "fully unlock"
+It is NOT a rescore (DeltaP/Cheng stay rung-1 and are corpus-biased). The unlock is the **rung-2 counterfactual-
+necessity simulation over a bound situation model, with the mined store as its edge-hypothesis source** -- i.e. the
+generative world-model program (the parents' main event). The store is now proven to carry a real directional prior
+(the piece testimony CAN supply); the remaining, decisive piece is the simulation ENGINE fed the store + a bound
+per-item model + a norm -- and a MULTI-EVENT trap-proof necessity instrument to score it on (single-premise 2AFC cannot
+exercise ablation). That is the next problem, and it is well-defined by this analysis.
+
 
 ## PHASE A/B UPDATE (2026-09-09) -- pursued PARTIAL -> SOLVED per owner; the strongest floor is not yet cleared on the primary instrument, so status stays PARTIAL (strengthened), with the exact remaining barrier QUANTIFIED.
 

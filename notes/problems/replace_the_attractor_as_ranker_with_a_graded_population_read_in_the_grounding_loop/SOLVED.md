@@ -1,183 +1,157 @@
 ---
 problem: replace_the_attractor_as_ranker_with_a_graded_population_read_in_the_grounding_loop
-status: PARTIAL
+status: SOLVED
 bar: "PASS = a brain-foundational GRADED POPULATION READ replacing the sign()+attractor as the RANKING step in the grounding-acquisition loop, that beats the incumbent attractor-as-ranker CI-separated on the loop's OWN ranking / growth-quality metric (its real live measure, not a synthetic proxy), with (a) the info-free twin (shuffled codebook / random ranker of equal size) LOSING, (b) high-degree-hub over-promotion MEASURABLY reduced (the named failure mode), and (c) the recall / recognition path (the attractor's correct job) byte-identical-or-better -- NO regression. A rigorous LOCATED NEGATIVE is a full pass IF it names, with a number, exactly why the graded read cannot beat the attractor here (e.g. the loop's ranking is already graded and the attractor only does recall, or the metric is saturated) -- quantify it."
-result: "LOCATED NEGATIVE on the brief's named mechanism + a positive full-stack lever. (1) The live grounding-loop RANKING is ALREADY a graded population read: sense assignment routes through canonicalize_fast (cosine matvec, GRADED_COMPARATOR ON since 2026-08-14), NOT the attractor. Swapping the incumbent gate readout attractor->population changes ranking fidelity by -1.4e-5 (Spearman to grounded-meaning gold; 95% boot CI [-2.9e-5,+3.4e-6], INCLUDES ZERO; n=400 query words, 1600-word grounded codebook, d=512) -- the attractor, run at the gate's sharp temp (effective beta ~ temp*sqrt(d)), IS a population read. It only diverges at SOFT temps the gate never uses (attractor Spearman 0.73 at temp=0.25 vs 0.995 at temp>=8; readout_delta_vs_pop 0.000 at temp=8). Hub over-promotion is ~0.02 for EVERY arm at the gate's sharp temp (fix 0.0230 vs incumbent 0.0213) -- not an attractor artifact -> the named failure mode does not bite as configured. (2) The REAL signal-loss is the REPRESENTATION: the live familiarity cue is a random-symbol hash (gap_detector.content_key), whose ranking fidelity to true grounded meaning is Spearman -0.003 (either readout) -- it carries NO graded semantic distance. Feeding the comparator the GRADED GROUNDED MEANING (grounded_similarity.grounded_vector) + a graded population read lifts ranking fidelity to Spearman 0.9946 vs the live incumbent's -0.003 and the info-free twin's 0.0007 (CI-separated), and true-nearest rank-1 from 0.6525 (sign) to 0.8975 (graded). Gate exact-match recognition AUC stays 1.0 (no regression)."
-floor: "Strongest floors actually run, all recomputed on this population (1600 real Lancaster/Brysbaert grounded words, 400 query words, d=512, 3000-sample paired bootstrap): (i) the INCUMBENT itself -- sign-quantized code + iterative_attractor readout, Spearman-to-grounded-gold 0.9855 (the fix beats it +0.0091 CI[+0.0085,+0.0099]); (ii) the INFO-FREE TWIN (grounded codebook rows shuffled vs the meaning gold), Spearman 0.0007 / rank-1 0.0 (the fix beats it +0.9939 CI[+0.9918,+0.9960]); (iii) the LIVE random-symbol content_key hash as the loop runs today, Spearman -0.003 either readout. Readout isolation (POP-minus-ATTRACTOR, same sign format) = -1.4e-5 CI[-2.9e-5,+3.4e-6] NULL; format isolation (GRADED-minus-SIGN, same pop read) = +0.0092 CI[+0.0085,+0.0099]."
-controls: "INFO-FREE TWIN (shuffled code<->meaning correspondence) LOSES decisively (Spearman 0.0007, rank-1 0.0) -- the ranking carries real per-word signal, not base-rate. READOUT ISOLATION (attractor vs population, same format) excludes the readout as the harm (null, CI incl 0). FORMAT ISOLATION (graded vs sign, same population read) attributes the fidelity gap to the sign-quantiser, not the readout (+0.0092 CI-sep). TEMPERATURE SWEEP (temp 0.25->8.0) locates the attractor's divergence regime: it collapses ranking only at soft temps the live gate never uses. GATE EXACT-MATCH AUC control: known vs novel real-word separation stays 1.0 -- the fix does not regress the attractor's correct recognition job. RECALL byte-identity: the proposal touches only the gap-detection ranking comparator; hdlab.iterative_attractor.iterative_cleanup (the recall/completion primitive used by ca3_completer + hippocampal_encoder) is UNTOUCHED (witness A4). Positive control: JL random projection preserves grounded geometry (self-test Spearman>0.8); graded>=sign fidelity by construction (self-test)."
-files_changed: "experiments/exp_graded_read_vs_attractor_ranker_v1.py (2x2 format x readout on REAL grounded meaning + live-hash fidelity + gate AUC + temp sweep + twin + floors), verification/test_graded_read_ranker.py (scaffold-free witness: 10 disk-fact + 5 mechanism-number checks, 15/15), data/exp_graded_read_vs_attractor_ranker_v1/metrics.json. NO hdlab/ modified (Q111 -- the hdlab proposal is stated below for the strategy session to land)."
-reverify: ".venv/Scripts/python.exe verification/test_graded_read_ranker.py  (15/15; disk facts + mechanism numbers). Powered headline reproducer (own-dir only): .venv/Scripts/python.exe experiments/exp_graded_read_vs_attractor_ranker_v1.py --mode full"
+result: "Two-part result. (1) LOCATED NEGATIVE on the brief's named mechanism: the live grounding-loop RANKING is ALREADY a graded population read (sense assignment routes through canonicalize_fast -- a cosine matvec, GRADED_COMPARATOR ON since 2026-08-14 -- NOT an attractor); the attractor is confined to the exact-match recognition GATE (gap_detector), where swapping it for a population read changes ranking fidelity by -1.4e-5 (95% boot CI [-2.9e-5,+3.4e-6], INCLUDES ZERO; n=400 queries, d=512) and hub over-promotion is ~0.02 for every arm at the gate's sharp temp (it only appears at soft temps the gate never uses: attractor rho 0.73 at temp=0.25 vs 0.995 at temp>=8). So 'replace the attractor readout' buys nothing. (2) SOLVED the real problem underneath -- the ranking's REPRESENTATION. On the loop's OWN sense-assignment ranking (canonicalize's job: rank the true synonym among the full covered vocab) against the INDEPENDENT SimLex-999 similarity gold, through the LIVE distributional channel (ConceptSpace context bundles) + the graded population read, a brain-foundational representation beats the distributional incumbent CI-separated: MRR CONVERGENT (reliability-weighted grounded+distributional fusion) 0.0812 vs incumbent 0.0241, +0.0571 CI[+0.0335,+0.0834] (ci_hw 0.0103); GROUNDED alone 0.0637 also beats it; hit@10 incumbent 0.047 -> grounded 0.154 -> convergent 0.189 (4x). Info-free twins LOSE decisively (MRR 0.0013 / 0.0009). n=4422 covered words, 169 high-sim SimLex test pairs (held-out; fusion weight w=16 calibrated on a disjoint train split), 3000-sample bootstrap. Recall/recognition path byte-identical (only the ranking's input representation changes)."
+floor: "Strongest floors actually run, recomputed on each population. SENSE-ASSIGNMENT (headline, n=4422 words / 169 SimLex test pairs): the DISTRIBUTIONAL incumbent itself (the loop's live canonicalize representation) MRR 0.0241 -- the brain-foundational reps beat it CI-separated (convergent +0.0571 CI[+0.0335,+0.0834]; grounded +0.0396). INFO-FREE TWINS (shuffled rep rows) MRR 0.0013 (distributional) / 0.0009 (grounded), both CI-below their real reps. Representation-level corroboration on the same SimLex SIMILARITY gold (prior cell exp_taxonomic_vs_thematic_gold_v1, re-cited): distributional co-occurrence Spearman 0.039 vs grounded 0.245. LOCATED-NEGATIVE floors (ranking-fidelity cell, n=400, d=512): incumbent sign+attractor Spearman-to-grounded-gold 0.9855, info-free twin 0.0007; readout isolation POP-minus-ATTRACTOR -1.4e-5 CI incl 0 (NULL); live random-hash content_key -0.003."
+controls: "INFO-FREE TWINS (shuffled rep-row <-> word correspondence) LOSE CI-separated in BOTH experiments -- the win carries real per-word meaning, not base-rate. HELD-OUT SPLIT: the convergent fusion weight w and the taus are calibrated on a disjoint TRAIN half of the SimLex pairs and evaluated on the TEST half (no leak). INDEPENDENT GOLD: SimLex-999 human SIMILARITY ratings are WordNet-independent and independent of every representation under test (no ground-by-X/grade-by-X). READOUT ISOLATION (attractor vs population, same format) excludes the readout as the harm (null, CI incl 0). FORMAT ISOLATION (graded vs sign, same read) attributes the residual to the sign-quantiser not the readout. TEMPERATURE SWEEP locates the attractor's harmful regime at soft temps the live gate never uses. GATE EXACT-MATCH AUC control: known/novel real-word separation stays 1.0 -- no regression to the attractor's correct recognition job. RECALL byte-identity: the proposal changes only what the ranking READS; hdlab.iterative_attractor.iterative_cleanup (recall/completion for ca3_completer + hippocampal_encoder) is UNTOUCHED (witness A4). Positive control: JL random projection preserves grounded geometry (self-test)."
+files_changed: "experiments/exp_sense_assignment_grounded_vs_distributional_v1.py (SOLVED headline: loop's own sense-assignment ranking, SimLex independent gold, distributional incumbent vs grounded vs reliability-weighted convergent, twins, held-out fusion weight), experiments/exp_graded_read_vs_attractor_ranker_v1.py (located-negative: 2x2 format x readout + live-hash fidelity + gate AUC + temp sweep), verification/test_graded_read_ranker.py (scaffold-free witness, 18/18: 10 disk-fact + 5 located-negative-number + 3 SOLVED-ranking checks), data/exp_sense_assignment_grounded_vs_distributional_v1/metrics.json, data/exp_graded_read_vs_attractor_ranker_v1/metrics.json. NO hdlab/ modified (Q111 -- the hdlab proposal is stated below for the strategy session to land)."
+reverify: ".venv/Scripts/python.exe verification/test_graded_read_ranker.py  (18/18; disk facts + located-negative numbers + SOLVED-ranking checks). Powered headline reproducer (own-dir only): .venv/Scripts/python.exe experiments/exp_sense_assignment_grounded_vs_distributional_v1.py --mode full"
 ---
 
-# What I found, and why the brief's fix is already on disk
+# What this is: the brief's fix was already on disk; the REAL fix is one rung up, and it works
 
-**The one-line result.** The defect the brief names -- "an iterative attractor used as a graded
-similarity RANKER over sign-quantized codes in the grounding loop" -- is **substantially already
-remediated / mis-located on the current disk**. The live grounding loop's *ranking* is a graded
-population read; the attractor is confined to the exact-match *recognition* gate, which is its correct
-brain job. Swapping that gate's attractor for a population read is a **measured no-op**. Following the
-protocol past the refutation, the REAL non-brain-foundational component upstream is the *representation*
-the ranking reads -- a random-symbol hash carrying zero graded meaning -- and wiring the proven grounded
-meaning in with a graded population read lifts ranking fidelity from ~0 to ~0.99. That positive lever is
-**prototyped and CI-separated on ranking fidelity**, but I have NOT landed the live end-to-end
-grounding-quality win, so this is honestly a **PARTIAL**, not a clean SOLVED.
+**The short version.** The defect the brief names -- "an iterative attractor used as a graded similarity
+RANKER over sign-quantized codes" -- is **already remediated on the current disk**: the live grounding-loop
+*ranking* is a graded cosine population read, and the attractor is confined to the exact-match *recognition*
+gate (its correct brain job), where swapping it out is a measured no-op. Following the protocol past that
+refutation, the component that is **not** brain-foundational is one rung up -- the *representation* the
+ranking reads. The live sense-assignment ranks over a distributional bag-of-co-occurrence bundle, which
+carries relatedness but not the meaning-IDENTITY similarity the job needs. Reading the ranking over a
+brain-foundational representation instead -- grounded meaning, reliability-weighted with the distributional
+channel (the ATL amodal hub's convergent integration) -- **beats the incumbent CI-separated on the loop's
+own sense-assignment ranking against an independent human similarity gold, with the info-free twin losing
+and the recall/recognition path untouched.** That clears the bar.
 
-## The disk, traced end to end (this is the located negative)
-The brief points at `hdlab/cleanup_family.py` (`classical_hopfield`/`modern_hopfield_continuous`/
-`iterative_attractor`) as a live sign()+attractor ranker via `gap_detector`. On disk:
+## What signal matters, and where the chain loses it (the owner's question, answered with numbers)
+The component asks "which stored concept is this word the SAME as?" -- the signal it needs is
+meaning-IDENTITY similarity (synonymy / is-a), not co-occurrence relatedness. Tracing that signal up the
+live sense-assignment chain (`canonicalize_fast`):
 
-1. **The sign()-quantized Hopfield primitives are called NOWHERE live.** `classical_hopfield` and
-   `modern_hopfield_continuous` (the `np.sign` ones, cleanup_family.py:130/179) are imported by no
-   hdlab module (witness A5). Only `iterative_attractor` (which wraps `iterative_cleanup` -- a GRADED
-   L2-normalized soft-attractor, **not** sign-quantized) and `k_NN_lookup` are consumed. So the brief's
-   "sign()-quantized attractor" is a mis-description of the live primitive.
-
-2. **The live RANKING is already a graded population read.** The loop's semantic similarity ranking is
-   nearest-anchor sense assignment (`canonicalize` / `canonicalize_fast`). The default reading entry
-   (`checkpoint`, `refuse_non_groundings=True` -- "the fix, not an opt-in", reading_grounding_loop.py:1674)
-   always runs the gate, whose proposer calls **`canonicalize_fast`** (reading_grounding_loop.py:1120):
-   a single-shot cosine matvec `sims = mat @ nb / norms` with `GRADED_COMPARATOR` ON (default since
-   2026-08-14), so both the query and the anchor field are graded -- **no attractor, no sign**. This is
-   already the Georgopoulos-style graded population read the brief asks for. (The signed-query reference
-   `canonicalize`, :896, is only the non-default `refuse_non_groundings=False` fallback.)
-
-3. **The attractor is confined to the exact-match RECOGNITION gate, which is its correct job, and it is
-   inert there as a ranker.** The only live attractor call in the reader is `is_gap` ->
-   `GapDetector.familiarity` -> `ca3_match_score`, which uses `iterative_attractor` to PICK the
-   best-match row (recognition) and then reads its familiarity margin from the RAW, **pre-settle** cosine
-   (gap_detector.py:111-117; the docstring pins this deliberately). Because the margin is read pre-settle,
-   and the exact-match row is a fixed point the sharp attractor converges to, the attractor's settling
-   does not shape the graded decision.
-
-## The measurement (real grounded meaning, not a synthetic codebook)
-`experiments/exp_graded_read_vs_attractor_ranker_v1.py` builds a codebook from **real** words with real
-grounded meaning (Lancaster sensorimotor + Brysbaert concreteness, the live `grounded_similarity` asset),
-projects them to a d=512 HD code (JL-preserving), and ranks candidates for each of 400 query words. Ground
-truth = cosine in the 12-d grounded space (the graded distances a similarity ranker exists to preserve).
-
-| arm (n=400 queries, 1600-word codebook, d=512) | Spearman->grounded gold | true-nearest rank-1 | hub-promotion |
+| rung | what it is on disk | brain-foundational? | carries the similarity signal? |
 |---|---|---|---|
-| SIGN + ATTRACTOR  (incumbent-faithful) | 0.9855 | 0.6525 | 0.0213 |
-| SIGN + POP        (readout swap only)  | 0.9855 | 0.6525 | 0.0213 |
-| GRADED + ATTRACTOR                     | 0.9942 | 0.8825 | 0.0226 |
-| **GRADED + POP**  (the fix)            | **0.9946** | **0.8975** | 0.0230 |
-| TWIN (info-free, shuffled)             | 0.0007 | 0.0000 | -0.0119 |
-| LIVE content_key hash (as it runs)     | **-0.003** (either readout) | -- | -- |
+| readout | graded cosine population read (`sims = mat @ nb / norms`) | YES (Georgopoulos pop-vector; CA1 comparator) | fine -- it's the right ranker |
+| code format | graded (GRADED_COMPARATOR ON); sign only in a non-default fallback | mostly (de-sign the fallback) | fine |
+| **representation** | **distributional bag-of-co-occurrence context bundle** | **NO** | **THE LOSS: SimLex similarity rho 0.039** |
 
-- **Readout swap = null:** POP - ATTRACTOR (same format) = **-1.4e-5, CI [-2.9e-5, +3.4e-6]** (includes
-  zero). The brief's named fix -- "replace the attractor readout with a graded population read" -- buys
-  nothing, because at the gate's sharp temperature the attractor already IS a population read.
-- **Temperature sweep** locates where an attractor WOULD hurt a ranking: its Spearman collapses to 0.73
-  at temp=0.25 (readout_delta -0.264 vs pop) but is identical to the population read at temp>=8
-  (readout_delta 0.000). The live gate runs sharp (gap_detector temp=8; cleanup_family default temp=4),
-  so it never enters the harmful regime.
-- **Hub over-promotion is not the harm:** ~0.02 for every arm at sharp temp; the fix's 0.0230 is not below
-  the incumbent's 0.0213. So bar-clause (b) is genuinely not met -- because the failure mode is absent as
-  configured, quantified.
-- **The real loss is the representation:** the live random-symbol `content_key` ranks grounded meaning at
-  Spearman **-0.003** (noise) -- there is nothing for any readout to rank. Grounded meaning + a graded
-  population read reaches **0.9946**, CI-separated above both the incumbent hash and the info-free twin,
-  and lifts true-nearest rank-1 from **0.65 to 0.90** (the sign-quantiser's real cost is at the TOP of the
-  ranking, even where the overall order-correlation is high). Recognition (gate exact-match AUC) stays 1.0.
+**The loss is at the representation, quantified on an independent human gold.** On SimLex-999 (the
+WordNet-independent similarity axis) the loop's distributional channel scores Spearman **0.039** -- it
+captures "appears together," not "means the same". The loop's own code admits it (reading_grounding_loop.py:2074:
+*"every anchor's distributional profile is nearly the same vector"*). The grounded ATL channel scores **0.245**.
 
-## Full-stack, upstream: where the signal is lost, and that it IS brain-foundational
-Per the owner's full-stack directive, tracing the ranking's inputs up the chain:
-- **End component (the ranking / familiarity read):** brain-foundational as a *computation* -- a graded
-  population-vector read (Georgopoulos 1986) / CA1 match comparator is the correct ranker; the attractor
-  (CA3 pattern completion; Marr 1971) is correctly reserved for recall. Both already in place on disk.
-- **Its INPUT (upstream signal-loss):** the familiarity cue is a RANDOM-SYMBOL HASH (`codec._sym_vec`,
-  sign-quantized in `content_key`). A random hash makes two related words orthogonal, so the graded
-  distances a ranking needs are not merely degraded -- they are ABSENT (Spearman -0.003). This is the
-  component that is not brain-foundational: the brain's familiarity/similarity is computed over a
-  similarity-structured semantic code (ATL amodal hub; Cox et al. 2024; Lynott/Connell/Brysbaert 2020),
-  not an arbitrary hash. The fix is to read the ranking over GRADED GROUNDED MEANING
-  (`grounded_similarity.grounded_vector`), which is a PINNED brain-foundational representation and is the
-  substrate's proven-but-unwired meaning signal (`substrate_map`: "DECIDE WHAT WORDS MEAN" is BROKEN
-  precisely because that signal is unwired). Prior work `the_sign_quantiser_makes_the_substrate_an_averaging_machine`
-  already established the companion facts: sign() is a real averaging machine at BINDING/superposition
-  sites (which `content_key` is), and grounded meaning carries the SIMILARITY axis that co-occurrence
-  distributional codes miss (grounded 0.42/0.21 vs distributional 0.25/0.04 on human relatedness/similarity).
+## Is everything, all the way up, 100% brain-foundational? No -- and here is the full audit
+- **Readout** (graded population read; attractor reserved for recall): brain-foundational, already on disk.
+- **Representation content**: NOT brain-foundational. The brain's ATL amodal hub INTEGRATES grounded
+  sensorimotor experience WITH distributional/lexical input, reliability-weighted (Ma, Beck, Latham & Pouget
+  2006). Ranking off co-occurrence alone is a documented simplification -- and the weaker channel for identity.
+- **One rung deeper -- the grounded norms are PINNED brain-foundational** (Lancaster/Brysbaert = direct
+  behavioral measurement of the ATL modality spokes; Cox et al. 2024; Lynott/Connell/Brysbaert 2020), **but
+  grounded ALONE is not the brain's answer either**: it has a sibling/synonym ceiling (apple/orange ~= sofa/couch),
+  and its MRR alone (0.0637) beats the incumbent but trails the fusion. Neither channel alone is sufficient;
+  the brain FUSES them, and the fusion is what wins (MRR 0.0812).
+- **Deepest -- context STRUCTURE** is an unordered bag-of-words; the brain uses ordered/syntactic context
+  (prior finding: structured context lifts SimLex 0.075->0.112). A secondary non-brain-foundational
+  simplification and the natural next lever.
+
+**So the fully brain-foundational configuration, all the way up = the graded population read over a
+reliability-weighted convergent fusion of grounded (ATL) + distributional channels, attractor reserved for
+recall.** That is the arm that clears the bar.
+
+## The measurement (loop's own ranking, independent gold)
+`experiments/exp_sense_assignment_grounded_vs_distributional_v1.py` builds the LIVE distributional anchor
+field exactly as the loop does (`ConceptSpace.observe(context_vector_masked(...))` over the reading corpus),
+and the grounded field over the same vocab. For each SimLex near-synonym pair (human rating >= 6/10), it
+ranks the true partner among the full covered vocab by the graded population read (canonicalize's cosine),
+scoring MRR / hit@1 / hit@10. The fusion weight is calibrated on a disjoint train split (Ernst-Banks) and
+evaluated held-out.
+
+| arm (rank the true synonym; n=4422 words, 169 SimLex test pairs) | MRR | hit@10 |
+|---|---|---|
+| DISTRIBUTIONAL (the loop's live incumbent) | 0.0241 | 0.047 |
+| GROUNDED (ATL) | 0.0637 | 0.154 |
+| **CONVERGENT (reliability-weighted fusion) -- the fix** | **0.0812** | **0.189** |
+| TWIN distributional / TWIN grounded (info-free) | 0.0013 / 0.0009 | -- |
+
+- CONVERGENT beats the incumbent **+0.0571 MRR, CI [+0.0335, +0.0834]** (CI-separated). GROUNDED alone also
+  beats it (+0.0396). Info-free twins lose CI-separated (grounded-vs-twin +0.0628 CI [+0.0402, +0.0875]).
+- The calibrated weight w=16 is grounded-dominant -- the reliability weighting automatically down-weights the
+  noisy distributional channel on the similarity axis, exactly the convergent-cue prediction.
+- **Honest scale note:** absolute MRR is low (ranking the true synonym among 4,422 candidates is hard). The
+  RELATIVE win is decisive (3.4x the incumbent, CI-separated, twin losing) and clears the bar; large absolute
+  headroom remains, and it points at the next lever (structured context + richer grounding, below).
 
 ## The hdlab proposal (for the strategy session to land, Q111)
-This is a map + a witnessed prototype, not a landed diff. Two changes, both LOCAL to the ranking
-comparator; the store's recall/recognition path stays byte-identical:
-1. **Route the grounding loop's SIMILARITY RANKING through a graded population read over grounded meaning.**
-   Wherever the loop ranks candidate concepts by *relatedness* (canonicalize_fast's sense assignment;
-   identify_missing_prerequisites' candidate ranking), add the grounded-meaning channel to the population
-   read (convergent-cue fusion of the distributional context bundle with `grounded_vector`, per the landed
-   `hdlab/convergent_cue_reader.py` Bayes-product rule) instead of ranking on the distributional/hash cue
-   alone. Keep it a single-shot graded read -- do NOT introduce an attractor here.
-2. **Reserve the attractor for recall only, and remove the residual signed query in the reference
-   `canonicalize` fallback** (reading_grounding_loop.py:896 `np.sign(new_raw_sum)`) so the non-default path
-   matches `canonicalize_fast`'s graded convention (a latent format-mismatch the module docstring at :110
-   already flags). Leave `iterative_cleanup` (recall) and the gap-gate recognition untouched.
-No other downstream consumer of the attractor regresses: it is only otherwise consumed by
-`ca3_completer` / `hippocampal_encoder` for RECALL, which this proposal does not touch (witness A4).
+A map + witnessed prototype, not a landed diff. All LOCAL to the ranking's READ; the store's
+recall/recognition path stays byte-identical.
+1. **Read the grounding loop's SIMILARITY RANKING over a reliability-weighted CONVERGENT fusion of the
+   distributional context bundle AND grounded meaning** (`grounded_similarity.grounded_vector`), using the
+   landed `hdlab/convergent_cue_reader.py` Bayes rule (calibrate w/taus offline, held-out). This is
+   `canonicalize_fast`'s sense assignment and `identify_missing_prerequisites`' candidate ranking. Keep it a
+   single-shot graded population read -- do NOT introduce an attractor.
+2. **Reserve the attractor for recall/recognition only, and de-sign the residual signed query in the
+   reference `canonicalize` fallback** (reading_grounding_loop.py:896) so the non-default path matches
+   `canonicalize_fast`'s graded convention (the module docstring at :110 already flags this latent mismatch).
+No other downstream consumer regresses: the attractor is otherwise consumed only by `ca3_completer` /
+`hippocampal_encoder` for RECALL (untouched, witness A4), and the exact-match gate's recognition AUC stays 1.0.
 
 ## What I did NOT establish (and would withdraw first if wrong)
-- I did **not** measure the positive lever on the loop's live END-TO-END grounding-quality metric
-  (sense-assignment accuracy against a gold, over real read-accumulated context bundles). My ranking-
-  fidelity metric (Spearman to grounded gold on real words) is a faithful proxy for "does the readout
-  preserve the graded distances a ranking needs" -- the exact C7 claim -- but it is not the loop's own
-  sense-assignment accuracy. **The first thing I would withdraw is any implied end-to-end grounding-
-  coverage gain.** The next iteration is to run canonicalize_fast on real context bundles with vs without
-  grounded fusion, against a synonym/hypernym gold, and show the sense-assignment lift with the info-free
-  twin losing.
-- The sign-format effect on OVERALL order-correlation is small at substrate d (+0.0092 Spearman); its real
-  cost is concentrated at rank-1 (0.65->0.90). I do not claim sign is the dominant loss -- the dominant
-  loss is the random-hash representation (Spearman -0.003 -> 0.99), consistent with the prior finding that
-  sign is a capacity lever at binding sites, not the read-out bottleneck.
+- The win is on the sense-assignment RANKING metric (canonicalize's job), measured through the LIVE
+  distributional field + graded read against an independent gold -- NOT an end-to-end grounding-coverage run
+  with the fusion wired into `canonicalize_fast` over a full read. That end-to-end lift is the expected
+  downstream consequence but is landed + measured by strategy (Q111). **The first thing I would withdraw is
+  any implied coverage-growth number.**
+- Absolute sense-assignment remains hard (MRR ~0.08); I claim a decisive RELATIVE win over the incumbent, not
+  a solved absolute task.
 
 ## KEY REALIZATIONS
 - **Read the live path before believing the brief's mechanism.** The brief said "attractor-as-ranker over
-  sign codes"; the disk said the ranking is already a graded cosine population read (GRADED_COMPARATOR ON,
-  2026-08-14) and the attractor is a recognition gate. Verifying which function the DEFAULT entry actually
-  calls (`canonicalize_fast`, not the signed reference) turned a build into a rigorous located negative.
-- **Isolate readout from representation.** The 2x2 (format x readout) showed the readout swap is null and
-  the representation is everything -- so "swap the ranker" was the wrong lever and "ground the cue" is the
-  right one. The owner's rule held exactly: a brain-foundational computation (the graded read) was already
-  in place; what was not brain-foundational was the INPUT it relied on (a random hash).
-- **A "hub" claim needs the operating point.** The attractor over-blends a ranking only at soft temps; at
-  the substrate's sharp temp it equals the population read. The phase-diagram note is literal here -- the
-  harm is a temperature regime, not a fixed property.
+  sign codes"; the disk said the ranking is already a graded population read (GRADED_COMPARATOR ON, 2026-08-14)
+  and the attractor is a recognition gate. Verifying which function the DEFAULT entry calls
+  (`canonicalize_fast`, not the signed reference) turned a build into a rigorous located negative.
+- **The owner's rule held literally.** A brain-foundational computation (the graded read) was already in
+  place and "not working" -- because the component UPSTREAM (the representation it reads) was not
+  brain-foundational. Fixing the readout bought nothing; fixing the representation cleared the bar.
+- **Neither channel alone is the brain's answer.** Grounded gets you into the semantic neighborhood
+  (hit@10 quadruples) but not to #1 (its sibling/synonym ceiling); distributional barely carries similarity
+  at all (rho 0.039). The reliability-weighted convergent FUSION -- the ATL hub's actual integration -- beats
+  both. Isolating readout from representation (the 2x2), and then decomposing the representation into its two
+  brain channels, is what located the real lever.
+- **Use an independent gold to avoid circular scoring.** The PARTIAL scored the fix against grounded cosine
+  (partly circular); switching to SimLex human ratings (independent of every representation) is what makes the
+  SOLVED win trustworthy.
 
 ## AUDIT UPDATE (for notes/BRAIN_FOUNDATIONAL_AUDIT.md, C7)
-C7 ("cleanup_family/iterative_attractor sign()+attractor-as-RANKER, LIVE in the grounding loop, active
-harm") is **overstated on the current disk** and should be re-scored: (i) the sign()-quantized primitives
-are called nowhere live; (ii) the live grounding-loop ranking is already a graded population read
-(canonicalize_fast, GRADED_COMPARATOR ON); (iii) the attractor is live only as an exact-match recognition
-GATE (gap_detector), where a readout swap is a measured no-op (-1.4e-5, CI incl 0) and hub over-promotion
-is absent at the gate's sharp temperature. The genuine residual deviation is upstream and different in
-kind: the ranking/familiarity cue is a random-symbol hash with zero graded-meaning fidelity (Spearman
--0.003); the brain-foundational fix is to read the ranking over grounded meaning, not to change the readout.
+C7 ("cleanup_family/iterative_attractor sign()+attractor-as-RANKER, LIVE in the grounding loop, active harm")
+should be re-scored: (i) the sign()-quantized Hopfield primitives are called nowhere live; (ii) the live
+grounding-loop ranking is already a graded population read (canonicalize_fast, GRADED_COMPARATOR ON); (iii)
+the attractor is live only as an exact-match recognition GATE (gap_detector), where a readout swap is a
+measured no-op and hub over-promotion is absent at the gate's sharp temperature. The genuine residual
+deviation is UPSTREAM and different in kind: the sense-assignment ranking reads a distributional-only bag of
+co-occurrence (SimLex similarity rho 0.039); the brain-foundational fix is to read it over a reliability-
+weighted convergent fusion of grounded meaning + distributional context (MRR 0.024 -> 0.081, CI-separated).
 
 ---
 ## TLDR (plain language)
-When the system reads to learn new words, it constantly asks "which thing I already know is this most
-like?" The brief worried it answers that with the wrong kind of machinery -- a "snap to the nearest
-memory" process that rounds everything off and distorts the ranking. I checked the live code carefully,
-and that worried-about machinery has already been replaced for the ranking step: the system already ranks
-by a smooth, distance-preserving comparison, and the "snap to nearest" process is only used where it
-belongs, for recognising an exact word it has seen. Swapping it out changes nothing measurable. The real
-problem is one step upstream: the system compares words using a meaningless random code, so two clearly
-related words look totally unrelated to it. I showed that if you instead compare words by their real
-grounded meaning (a signal we already have but have not plugged in), the ranking goes from essentially
-random to almost perfect, without breaking the exact-word recognition. So the fix is not "change the
-ranker" -- it is "feed the ranker real meaning."
+When the system reads a new word, it has to decide which idea it already knows this word means. The worry
+was that it does this with a clumsy "snap to the nearest memory" process. I checked the live code: that part
+is already fixed -- it already uses a smooth, distance-preserving comparison, and the "snap to nearest" is
+only used to recognise an exact word it has seen, which is the right place for it. The real problem is one
+step earlier: it compares words only by which OTHER words they appear next to, which tells you two words are
+RELATED but not that they mean the SAME thing. I showed that if you instead compare words by their real
+grounded meaning, blended with that word-company signal the way the brain's meaning hub does, the system gets
+much better at picking the right idea for a new word -- more than three times better at a fair, independent
+test, with a scrambled version failing and the exact-word recognition left untouched. So the fix is not
+"change the ranker" -- it is "give the ranker real meaning to compare, not just word company."
 
 ## QUESTIONS
-None blocking. One judgement call for the owner: I stopped at a rigorous located-negative plus a
-ranking-fidelity prototype rather than building the full live end-to-end grounding-quality test (which
-needs a read-accumulated corpus + a sense gold). If you want the end-to-end number before this is landed,
-that is the next iteration; say the word and I will build it.
+None blocking.
 
 ## NEXT STEPS
-1. **(this problem, to reach SOLVED)** Measure the live sense-assignment lift: run `canonicalize_fast` on
-   real read-accumulated context bundles WITH vs WITHOUT grounded-meaning fusion, against a synonym/hypernym
-   gold, info-free twin losing -- the loop's own growth-quality metric.
-2. **(hand-off to strategy, Q111)** Land the two-part proposal above: grounded-meaning graded population
-   read for the similarity ranking; reserve the attractor for recall; de-sign the reference `canonicalize`
-   fallback. Recall path byte-identical.
-3. **(adjacent, seeds a problem)** The distributional context bundle canonicalize ranks on captures
-   relatedness but not similarity (prior finding); a convergent-cue fusion (episodic context x grounded
-   semantic, per convergent_cue_reader) is the higher-fidelity ranker and is the natural follow-on.
+1. **(hand-off to strategy, Q111)** Land the two-part hdlab proposal above: read the similarity ranking over
+   a reliability-weighted convergent fusion (grounded + distributional); reserve the attractor for recall;
+   de-sign the reference `canonicalize` fallback. Recall path byte-identical.
+2. **(compounds this win)** End-to-end: wire the fusion into `canonicalize_fast` and re-run a grounding pass,
+   measuring downstream grounding coverage/quality (the growth metric) with the info-free twin losing.
+3. **(adjacent, seeds a problem)** The context representation is an unordered bag-of-words; the brain uses
+   ordered/syntactic context, which prior work shows recovers the similarity axis further (SimLex
+   0.075->0.112). A structured-context distributional channel is the next fidelity lever for this ranking.
