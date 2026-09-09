@@ -2421,7 +2421,7 @@ class SituationReader:
         (current/stale/ignorant). Byte-faithful to the validated driver (the witness asserts believes ==
         timeline_belief(*drive(...))). Lazy -> the default (OFF) reader imports NONE of this."""
         if self._belief_mod is None:
-            from experiments import _belief_reader as _BR
+            from hdlab import belief_reader as _BR
             self._belief_mod = _BR
         BR = self._belief_mod
         from hdlab.belief_timeline import timeline_belief, reality_at
