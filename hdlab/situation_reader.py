@@ -4224,6 +4224,32 @@ class SituationReader:
             # RE-CLUSTER common-noun referents via the landed situation-gated former (opt-in; default OFF ->
             # byte-identical). Runs BEFORE _build_entities so sm.entities reflects the former's grouping.
             self._apply_commonnoun_gate(role_mentions)
+        if getattr(self, "online_entity_cluster", False):
+            # DE-LEAK PART 1 of 2 -- LANDED DEFAULT-OFF PENDING PART 2 (owner-DONE
+            # replace_the_entity_gate_gold_coref_inheritance, Q111 2026-09-09). The online cue-clustering is
+            # verified (no crash on the negative-int ids; pronoun stream byte-identical; entities built), BUT it is
+            # only NET-POSITIVE *with* the crosstype bridge (part 2): alone it correctly removes the leak so the
+            # experiencer C3 drops from the FAKE-0.807 peek to the honest ~0.156 -- the +0.0838 recovery needs the
+            # bridge merged into make_canonicalizer. So per the SOLVED's "land clustering + bridge TOGETHER" plan
+            # (and no-more-default-off's measured-reason clause), this is DEFAULT-OFF until part 2 wires the crosstype
+            # bridge, then BOTH flip on together + re-measure. Set online_entity_cluster=True to exercise part 1 alone.
+            # (the entity layer
+            # (sm.entities -> make_canonicalizer -> the affect/goal EXPERIENCER) was GOLD-derived -- grouping by the
+            # gold coref column FAKED the cross-type experiencer bind at C3=0.807 WITHOUT reading (honest floor
+            # 0.155). Replace the GOLD clustering of NON-pronoun mentions with the brain-faithful ONLINE cue-based
+            # clustering (hdlab.online_entity_cluster: Heim file-change + Lewis-Vasishth ACT-R content-addressable
+            # retrieval; entity-layer CoNLL 0.6975 > honest floor 0.6939 CI-sep, twin collapses). Fresh
+            # NEGATIVE-INTEGER file ids (NOT the gold cluster, NOT a 'CN:' string -> _read_world_state /
+            # _resolve_commonnouns' `rc>=0` guard stays safe on an int). PRONOUN mentions KEEP their coref-column
+            # cluster (a SEPARATE stream -> pronoun consumers byte-identical). NO gold read in any decision.
+            from hdlab.online_entity_cluster import online_cluster
+            _online_lab = online_cluster(role_mentions, gaz=self.gaz)
+            for _m in role_mentions:
+                if _m.get("is_pronoun"):
+                    continue
+                _c = _online_lab.get(_m["midx"])
+                if _c is not None:
+                    _m["cluster"] = -(int(_c) + 1)             # fresh negative-int online file id
         sm.entities = _build_entities(role_mentions)   # the FULL referent set (who-has-what / entities)
         if self.resolve_commonnouns:
             # ADDITIVE (Q111 wire #1): per-mention common-noun RESOLUTION via the typed_coref binding on the
