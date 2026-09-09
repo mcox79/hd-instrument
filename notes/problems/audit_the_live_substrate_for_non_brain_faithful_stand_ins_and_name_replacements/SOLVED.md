@@ -177,3 +177,11 @@ entry point where C7/C8 are actually live — I named it as a follow-on rather t
 
 **NEW BREADTH FOLLOW-ON (this audit's denominator was `situation_reader`):**
 - **C7/C8 grounding-subsystem audit** — a second breadth pass over the OTHER live entry point (`reading_grounding_loop.py`/`substrate.py`), where the attractor-as-ranker and the 66%-junk fact store are actually live (dormant wrt this reader).
+
+---
+
+INTEGRATED_BY_STRATEGY: 2026-09-09 (CONT-29). Owner-DONE, REVERIFIED FIRST-HAND 30/30 (`verification/test_audit_live_standins.py` — the catalog's live/dormant/remediated claims reproduce on the current hdlab bytes). This is a MAP (NO hdlab writes, Q111); "integrating" it = accepting the ranked catalog + acting on its recommendations, which the strategy session is doing:
+- **#1 C1 gold-coref de-leak** (its top-ranked blast) = the in-progress `replace_the_entity_gate_gold_coref_inheritance…` (owner-DONE; part 1 online-clustering landed default-off, part 2 crosstype-bridge adapter recipe scoped in the ledger → completes it, unmasking the +0.0838 CI-sep experiencer the leak was faking).
+- **its NEW BREADTH FOLLOW-ON (C7/C8 grounding-subsystem)** → POSTED as two idle-solver problems (`de47d4fb3`): pri-4 `audit_the_grounding_acquisition_subsystem_for_non_brain_faithful_stand_ins` (the breadth catalog it named) + pri-5 `replace_the_attractor_as_ranker_with_a_graded_population_read_in_the_grounding_loop` (its C7, already located).
+- **C4 self-containment residual** (the reader still imports `context_grounded_valence` + `temporal_reasoner` from `experiments/` at inference) = noted for the de-leak-adjacent hdlab pass (the ledger CONT-29 self-containment bullet; low-urgency hygiene, no clean-checkout break — the reproducibility-critical reader dep was already severed this session).
+- Its 5 disk-corrections (spaCy purge, force-verb retirement, state/location WordNet fallbacks, cleanup_family/hd_fact_store dormant-wrt-reader, coref name-Jaccard misattribution) are ADOPTED into the audit's shared reference. priority 2 dropped.

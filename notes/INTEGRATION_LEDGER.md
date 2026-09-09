@@ -14,6 +14,17 @@
 
 ---
 
+## 2026-09-09 (CONT-29 CONTINUATION) — integrated the audit-CATALOG (owner-DONE) + POSTED 2 idle-solver problems from its recommendations
+
+- **`audit_the_live_substrate_for_non_brain_faithful_stand_ins_and_name_replacements` (pri2) INTEGRATED (`<this commit>`):** owner-DONE, REVERIFIED FIRST-HAND 30/30 (`verification/test_audit_live_standins.py`, pure-disk). A MAP (NO hdlab writes, Q111) — "integration" = accept the ranked 11-entry catalog + act on it. Its #1 blast (C1 gold-coref leak) = the in-progress de-leak (BATCH-2 below). Its 5 disk-corrections ADOPTED (spaCy purged, force-verb list retired, state/location WordNet fallbacks landed, cleanup_family/hd_fact_store DORMANT-wrt-reader, coref name-Jaccard misattributed). status→INTEGRATED, priority 2 dropped. Independent confirmation of the de-leak as the top blast-radius fix.
+- **POSTED 2 idle-solver problems (`de47d4fb3`, cert 8/8) from the audit's NEW BREADTH FOLLOW-ON (the second live entry point it excluded — the FOUNDATION/grounding-acquisition subsystem):**
+  - **pri4 `audit_the_grounding_acquisition_subsystem_for_non_brain_faithful_stand_ins`** — the breadth catalog for `reading_grounding_loop.py`/`substrate.py`/`gap_driven_reader.py`/`three_tier_loop.py`/`grounding_acquisition_loop.py`, same 5-field discipline + pure-disk witness (prerequisite hygiene before the learner turns on at scale).
+  - **pri5 `replace_the_attractor_as_ranker_with_a_graded_population_read_in_the_grounding_loop`** — C7: `cleanup_family` sign()+attractor (`classical_hopfield`/`modern_hopfield_continuous`/`iterative_attractor`) used as a graded RANKER, live via `gap_detector` in the grounding loop; replace with a graded population read, keep the attractor for recall. Parallelizable (already located).
+  - **DEDUP (Explore-agent map, first-hand):** every "obvious" follow-on is already filed/solved — generative world-model/Wall-2 salience→N400 = FILED-SOLVED across 5 owner-DONE (+ the completing lever is the open pri-1 `grow_the_causal_mechanism…`); bridging = solved (`bridging_inference`) + only ~0.1% of GUM residual; C3 parser local moves = mostly INTEGRATED; `world_knowledge_81_percent_residual` = PARTIAL located-negative, static-KB lever coverage-exhausted → folds into pri-1. So the 2 grounding-subsystem problems are the genuine unfiled frontier.
+- **de-leak part 2 (crown jewel)** remains the top go-forward — exact crosstype-live adapter recipe checkpointed in BATCH 2 below; do as a fresh focused hdlab pass (+ fold in the audit's C4 self-containment residual: promote `context_grounded_valence` + `temporal_reasoner` off `experiments/`).
+
+---
+
 ## 2026-09-09 (CONT-29 BATCH 2) — 3 MORE owner-DONE (chain_multi_step, world-model, de-leak) + the successor pri-1 posted
 
 - **chain_multi_step (pri8) INTEGRATED (`eeaee8316`):** located-negative + a banked goal-slice organ (MeansEnd ATL-hub, +0.239 CI-sep, coverage 8.7→88%) SHELVED (no live home — needs the multi-engine competition + resolved coref; do-not-wire full-pop, all tie). Recorded the per-component upstream brain-foundational scour (3/9 BF).

@@ -1,7 +1,7 @@
 ---
-priority: 2
+priority:
 review:
-review_text:
+review_text: "INTEGRATED 2026-09-09 (CONT-29): catalog accepted, reverified 30/30; its recommendations spawned pri-4 grounding-subsystem audit + pri-5 C7 attractor-as-ranker fix + the in-progress de-leak. See SOLVED.md INTEGRATED_BY_STRATEGY."
 ---
 
 # PROBLEM: systematically IDENTIFY every LIVE non-brain-foundational component in the reader (a cheap stand-in / surface-feature proxy / external tool AT INFERENCE / fitted-or-test-tuned heuristic / hand-lexicon standing in for a computation) and produce ONE prioritized CATALOG, each entry naming (a) the brain's actual structure+computation, (b) why the current thing is not it, (c) the brain-faithful replacement, (d) the blast radius (which live board dim), (e) LOCAL-FIX vs RE-ARCHITECTURE — a breadth pass whose re-architectures become their own follow-on problems.
