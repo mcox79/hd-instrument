@@ -195,6 +195,16 @@ def _pron_gn(low):
     return g, num
 
 
+# Inlined BYTE-FAITHFUL from experiments._forward_prediction_live (self-containment 2026-09-09): the predict_revise
+# drop-fill path imported that cell just for these two universal constant sets + a get_tagger() that duplicates the
+# reader's OWN _frontend_tagger() (same _FRONTEND_POS_ASSET), and _forward_prediction_live circularly imports
+# SituationReader. Inlining severs that import + the circular dependency.
+_FP_NOMINAL = {"NOUN", "PROPN", "PRON"}
+_FP_PRON_LOW = {"i", "you", "he", "she", "it", "we", "they", "me", "him", "her", "us", "them",
+                "myself", "yourself", "himself", "herself", "itself", "ourselves", "themselves",
+                "this", "that", "these", "those", "who", "whom", "which", "what"}
+
+
 def _stock_tense(a, TP):
     """Map a Reichenbach triple (from TP.assign_sentence) to a stock-compatible EventRecord.tense label,
     so downstream .tense stays meaningful when preserve_tense is on. Byte-identical to the validated ref
@@ -2468,12 +2478,12 @@ class SituationReader:
             self._pr_revise_rr = _RR
         RR = self._pr_revise_rr
         if self._pr_revise_tagger is None:
-            from experiments._forward_prediction_live import get_tagger
-            self._pr_revise_tagger = get_tagger()
+            # reuse the reader's OWN cached front-end tagger (same _FRONTEND_POS_ASSET as _forward_prediction_live's
+            # get_tagger -> byte-identical tags); severs the experiments import + its circular SituationReader import.
+            self._pr_revise_tagger = self._frontend_tagger()
         tagger = self._pr_revise_tagger
         if self._pr_revise_nom is None:
-            from experiments._forward_prediction_live import NOMINAL, PRON_LOW
-            self._pr_revise_nom = (NOMINAL, PRON_LOW)
+            self._pr_revise_nom = (_FP_NOMINAL, _FP_PRON_LOW)   # inlined byte-faithful (module constants above)
         NOMINAL, PRON_LOW = self._pr_revise_nom
         pos_cache: Dict[int, list] = {}
 
