@@ -172,10 +172,21 @@ modularity of the causal circuit — it is additive, not disjoint; any CSM-speci
 Owner: "fully fix all of those components so they're fully brain-foundational; any issues you find and fix, mark
 specifically." The `hdlab/` source is Q111 (strategy is sole writer) — so the fix is IMPLEMENTED + PROVEN as a
 composition prototype in `experiments/` (composing verified-BF organs, replacing the non-BF operations), and the exact
-`hdlab` change is specified for strategy to land (§8). Four cells + two witnesses (all green):
-`experiments/exp_causal_rung_exposure_v1.py`, `experiments/exp_causal_necessity_bf_reader_v1.py`,
-`experiments/exp_causal_engine_deepening_v1.py`, `experiments/exp_causal_sign_forcedynamic_v1.py`;
-`verification/test_causal_rung_fix.py` (12/12), `verification/test_causal_sign_forcedynamic.py` (3/3, located-negative). Numbers below: Cell 1 full n=800/family; Cell 2 full WIQA n=5005 (the
+`hdlab` change is specified for strategy to land (§8). Six cells + three witnesses (all green):
+`experiments/exp_causal_rung_exposure_v1.py`, `exp_causal_necessity_bf_reader_v1.py`,
+`exp_causal_engine_deepening_v1.py`, `exp_causal_sign_forcedynamic_v1.py`, `exp_causal_sign_grounded_ddyn_v1.py`
+(the grounded sign fix, PROTOTYPED), `exp_causal_corpus_scaling_v1.py` (the scaling + ideal-to-add analysis);
+`verification/test_causal_rung_fix.py` (12/12), `test_causal_sign_forcedynamic.py` (3/3, located-negative),
+`test_causal_grounded_sign_and_scaling.py` (6/6).
+
+**GROUNDED SIGN FIX — PROTOTYPED (`exp_causal_sign_grounded_ddyn_v1`).** The route the located negative named is
+demonstrated: on a grounded intuitive-physics micro-world, learning each coupling's sign from INTERVENTIONAL Δ-Δ
+(the brain's mechanism) recovers it **0.999** vs co-occurrence **0.745** (+0.254 CI-sep) vs twin 0.504; multi-hop path
+sign via `causal_reasoner` 0.996 vs 0.745. The grounded route IS the fix; the remaining gap is the GROUNDING BRIDGE
+(narrative quantity → grounded dynamical model), a scoped intuitive-physics-world-model program, not a text cell.
+**CORPUS SCALING (`exp_causal_corpus_scaling_v1`):** more corpus raises COVERAGE (0.31→0.63 at 5→100%, ~1.0 at web-
+scale) but NOT direction accuracy (0.62→0.55, intrinsic rung-1 cap); 98% of missing links are Gricean link-sparsity →
+add commonsense/procedural corpus, not encyclopedic. Numbers below: Cell 1 full n=800/family; Cell 2 full WIQA n=5005 (the
 witness asserts the smoke-scale directional facts, which are seed-stable).
 
 | # | ISSUE (from §1/§2/§3) | verdict before | FIX implemented | proven by | status |

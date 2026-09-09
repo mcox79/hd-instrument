@@ -95,6 +95,18 @@ fit gold-blind on a SimLex-disjoint background (leakage guard). **Result (SimLex
   affective norms, reliability-weighted) as the grounded read-out, coverage-aware fusion with context as fallback, online
   coverage growth. The multimodal hub is the lever that reaches toward the brain's ceiling.
 
+### LEAKAGE-REJECTED lever: taxonomic-relational RETROFIT (`exp_semantic_hub_retrofit_v1.py`) -- a caught answer-key read
+To close the last 0.57->0.67, I tried consolidating WordNet lexical relations (synonym-attract / antonym-repel /
+is-a-pull; Faruqui/Mrksic retrofitting = the brain's semantic-memory relational organisation) into the hub. With ALL
+WordNet edges it jumps to 0.613 (92% of human) -- but the LEAKAGE GUARD I built (drop every WordNet edge whose two words
+are a SCORED SimLex pair) shows the gain is an ANSWER-KEY READ: the holdout drops to **0.535, CI-separated WORSE than the
+hub (-0.041 CI[-0.074,-0.008])**. So retrofit-to-WordNet inflates SimLex by directly pulling the scored synonym pairs
+together, and without those edges it HURTS. **REJECTED by our leakage discipline** ("a floor is cleared by understanding,
+never adopted") -- the honest number stays the multimodal hub 0.575. Recorded as a located negative: the caught leakage
+is the deliverable. **Implication:** the residual 0.57->0.67 gap is NOT closable by relation-injection (leaks) or by the
+same-input nonlinear autoencoder (marginal); it needs NEW brain-grounded information -- broad Binder-style experiential
+coverage (a data-ACQUISITION lever, since Binder is only 535 words) -- which is the honest remaining opportunity.
+
 ## What I built
 1. **The denominator, by enumeration not comment-grep** (`experiments/exp_audit_grounding_subsystem_v1.py`). A runtime
    **import trace** (5 fresh-subprocess closures) + a **settrace call trace** over the subsystem's live entry point

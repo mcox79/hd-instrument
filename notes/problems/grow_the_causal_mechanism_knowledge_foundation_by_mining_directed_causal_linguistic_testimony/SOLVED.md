@@ -63,9 +63,26 @@ went after the ranked losses with the brain's actual mechanisms.
   Δ-Δ experience (Gopnik covariation; infant intuitive physics), which a text+static-norm substrate does not have.
   Per the research gate: STOP chasing text/lexicon sign sources. Sub-finding: the *embedded* more/less words (sX·sY)
   reach 0.575 on covered — the stated directions carry signal, the causal mechanism sign does not.
-- **KNOWLEDGE lever (#2) — assessed:** the absolute necessity cap (store-only 0.577 < assoc 0.609) is largely a SCALE/
-  resource ceiling (~161k causal sentences vs web-scale billions), NOT a mechanism gap — a "get more corpus" lever, not
-  a brain-foundational fix. Framed as a separate focused effort, not chased here.
+- **KNOWLEDGE lever (#2) — MEASURED (`exp_causal_corpus_scaling_v1`, witness 6/6):** subsampling the mined store
+  5→100% shows **more corpus RAISES coverage** of the direction golds (0.31→0.63; log-linear slope 0.26/decade;
+  extrapolates to ~0.93 at 10x and ~1.0 at 100x web-scale) — so coverage IS scale-limited. BUT **direction accuracy
+  does NOT improve with scale** (0.615→0.551) — it is intrinsically capped (~0.56-0.61, the rung-1 ceiling), so scale
+  buys HOW MANY links, not how RELIABLE their direction. IDEAL TO ADD: **98% of missing gold links are "link-sparsity"**
+  (both concepts present in the store, the everyday link untestified = the Gricean reporting gap), only 2% vocab/domain
+  gap → the ideal corpus is **commonsense / procedural / how-to text** (where everyday causal links ARE stated), NOT
+  more encyclopedic/technical text.
+
+- **GROUNDED SIGN FIX — PROTOTYPED + PROVEN (`exp_causal_sign_grounded_ddyn_v1`, witness 6/6):** the located negative
+  named the missing signal (sign of corr(ΔX,ΔY) from grounded interventional experience). Prototyped exactly that on a
+  grounded intuitive-physics micro-world (conservation-style signed dynamics = an embodiment stand-in): learn each
+  coupling's sign from INTERVENTIONAL Δ-Δ (do(cause), observe the sign of the effect's magnitude change), Rescorla-
+  Wagner over grounded CHANGES. RESULT (120 worlds, 2125 pairs): grounded Δ-Δ recovers the coupling sign **0.999** vs
+  the observational/co-occurrence text-analog **0.745** (paired **+0.254 CI[0.235,0.273] CI-sep**) vs random twin 0.504;
+  composed through `causal_reasoner.signed_effect`, multi-hop more/less PATH sign **0.996 vs 0.745**. ⇒ the grounded
+  interventional mechanism recovers the sign that co-occurrence (rung-1, confounded) provably cannot — the grounded
+  route IS the fix. The remaining real-text gap is the **GROUNDING BRIDGE** (mapping narrative quantities to a grounded
+  dynamical model), named explicitly; that bridge (an intuitive-physics world-model over grounded magnitudes) is the
+  scoped follow-on program, not a text cell.
 
 ## PERFORMANCE-PUSH ATTEMPTS (2026-09-09, owner: "focus on the REAL performance push, brain-foundational, do it right")
 
