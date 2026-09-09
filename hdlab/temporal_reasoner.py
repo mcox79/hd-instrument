@@ -33,10 +33,12 @@ BRAIN GROUNDING (all PINNED -- copy the COMPUTATION):
 OUR-INVENTION-UNDER-TEST (sweep, don't adopt): the event-local date-anchoring window, the edge-construction
 from dates, the ongoing-interval half-width `span`, the magnitude-line settling params.
 
-DEPENDENCY NOTE (honest deviation, reported at landing): imports the SHARED temporal front-end
-experiments._temporal_ordering_multiframe (M) + experiments._temporal_order_register (R) -- the SAME
-experiments modules hdlab.situation_reader itself imports; promoting them is a separate larger landing and
-OUT OF SCOPE for this ADDITIVE promotion. Introduces NO new cross-layer edge (the reader already has it).
+DEPENDENCY NOTE (self-containment, 2026-09-09): imports the SHARED temporal front-end from the
+PROMOTED hdlab organs hdlab.temporal_ordering_multiframe (M) + hdlab.temporal_order_register (R) --
+the SAME organs hdlab.situation_reader imports. Repointed off experiments/ (was the scratch cells; the
+hdlab twins are byte-faithful in the used paths: build_constraint_edges takes `tagged` as an arg so M's
+tagger source is irrelevant here, and R is used only for the BEFORE/AFTER/ABSTAIN constants) -> ZERO
+experiments imports (the typed_coref standard). Introduces NO new cross-layer edge (the reader already has it).
 Glass-box, deterministic, stdlib+numpy+torch (via transitive_ordering) -- NO external LLM (the invariant).
 """
 from __future__ import annotations
@@ -51,8 +53,8 @@ if _REPO not in sys.path:
     sys.path.insert(0, _REPO)
 
 from hdlab import aspect_interval as AI                       # noqa: E402  aspect -> interval + Allen overlap
-from experiments import _temporal_ordering_multiframe as M    # noqa: E402  build_constraint_edges (shared front-end)
-from experiments import _temporal_order_register as R         # noqa: E402  DiscreteOrderRegister + BEFORE/AFTER/ABSTAIN
+from hdlab import temporal_ordering_multiframe as M           # noqa: E402  build_constraint_edges (shared front-end)
+from hdlab import temporal_order_register as R                # noqa: E402  DiscreteOrderRegister + BEFORE/AFTER/ABSTAIN
 
 BEFORE, AFTER, ABSTAIN = R.BEFORE, R.AFTER, R.ABSTAIN
 
