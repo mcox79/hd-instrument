@@ -20,6 +20,12 @@ Usage (drop-in for the caller's on-the-fly gloss signatures):
 """
 from __future__ import annotations
 
+__bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 top-down math audit (BF_AUDIT.md, attractor-ranker solver; strategy first-hand)'
+__bf_note__ = 'curated 200-d w2v sense signatures = distributional relatedness (admissible foundation asset); not learned online'
+__bf_corrections__ = []
+
+
 import os
 from typing import List, Optional, Sequence
 

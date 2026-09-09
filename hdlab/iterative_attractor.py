@@ -32,6 +32,12 @@ Key design notes:
   - Returns final state + diagnostics: n_iterations, converged_bool, final_argmax_idx.
 """
 from __future__ import annotations
+
+__bf_status__ = 'BF'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 top-down math audit (BF_AUDIT.md, attractor-ranker solver; strategy first-hand)'
+__bf_note__ = 'graded L2-normalized soft-attractor for RECALL/completion (CA3 Treves-Rolls) -- correct job; NOT a ranker on the live path'
+__bf_corrections__ = []
+
 from typing import Optional
 import numpy as np
 

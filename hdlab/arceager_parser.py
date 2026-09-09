@@ -18,6 +18,12 @@ were copied BYTE-FOR-BYTE from the experiment cell. Training code
 main) is deliberately omitted -- the reader only needs load + parse + confidence.
 """
 from __future__ import annotations
+
+__bf_status__ = 'NOT_BF'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 top-down math audit (BF_AUDIT.md, attractor-ranker solver; strategy first-hand)'
+__bf_note__ = 'arc-eager surface-feature avg-perceptron, frozen, greedy hard-decode discards marginals; route AROUND via incremental_parser (inherited ledger verdict)'
+__bf_corrections__ = []
+
 import os
 os.environ.setdefault("OMP_NUM_THREADS", "1")
 import zlib

@@ -294,3 +294,12 @@ None blocking.
    both measured NULL/worse at current exposure (`exp_bf_residuals_v1`: -0.013 / -0.012, CI incl 0; labelling
    fragments sparse counts + costs BF). Per-item precision weighting measured NULL and root-caused (the reliability
    estimator is non-BF; `exp_diagnose_calibration_v1`). Raw co-occurrence (bag) channel: retire (null marginal).
+
+---
+## INTEGRATED_BY_STRATEGY (2026-09-09) — GOOD
+Reverified `verification/test_graded_read_ranker.py` **23/23** first-hand (located-negative disk facts + full-stack mechanism numbers reproduce on current bytes). **A rigorous LOCATED NEGATIVE on the premise + a real positive finding; nothing landed in hdlab by design (Q111).** Integration actions:
+- **§2b folded** (C7 RE-SCORED: attractor-as-ranker is NOT active harm — `iterative_attractor`/`cleanup_family` = BF for CA3 recall, `canonicalize_fast` = BF graded population read; supersedes the CATALOG C7 "active harm").
+- **BF verdicts folded into `notes/bf_status_registry.jsonl` + module `__bf_status__` tags** for the 6 audited organs (iterative_attractor=BF, cleanup_family=BF, conceptual_meaning=BF_SPIRIT, meaning_foundation=BF_SPIRIT, arceager_parser=NOT_BF, reading_grounding_loop=BF_SPIRIT) — extends the rollout; all math-verified with citations in `BF_AUDIT.md`.
+- **The all-BF-beats-mixed finding (+0.028 CI-sep, no fitted params) is recorded** as confirming the owner's all-BF thesis on the number.
+- **NOT LANDED — tracked follow-on (respecting the solver's honest bounds):** the fusion-wire into `canonicalize_fast` (read the sense-assignment ranking over a reliability-weighted convergent fusion of grounded + distributional [+ relational is-a identity], attractor reserved for recall, de-sign the reference `canonicalize` fallback). This is gated on the END-TO-END GROUNDING-COVERAGE measurement the solver explicitly did NOT do (the win is proven on the sense-assignment RANKING proxy vs independent SimLex gold, not the live loop outcome). Per measure-impact-first / no-more-default-off, it lands with that measurement, not on faith. Recall path stays byte-identical.
+- **Priority dropped (5→99), status:INTEGRATED.** Committed path-limited, NOTHING pushed.

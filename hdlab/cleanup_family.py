@@ -37,6 +37,12 @@ single-vector PRIMITIVES default path is unchanged. Real (HRR float32) and compl
 """
 from __future__ import annotations
 
+__bf_status__ = 'BF'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 top-down math audit (BF_AUDIT.md, attractor-ranker solver; strategy first-hand)'
+__bf_note__ = 'cleanup primitive library; attractor reserved for recognition/recall (k_NN_lookup live use), NOT a semantic ranker (C7 re-score)'
+__bf_corrections__ = []
+
+
 from typing import Tuple, Any, Dict
 
 import numpy as np

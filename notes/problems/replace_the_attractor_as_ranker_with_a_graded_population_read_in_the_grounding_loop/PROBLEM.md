@@ -1,9 +1,9 @@
 ---
-priority: 5
+priority: 99
 slug: replace_the_attractor_as_ranker_with_a_graded_population_read_in_the_grounding_loop
-status: OPEN
-review:
-review_text:
+status: INTEGRATED
+review: STRONG
+review_text: "Rigorous LOCATED NEGATIVE on the premise (attractor-readout swap = -1.4e-5 CI incl 0, proven no-op; the live ranking is already a graded population read) + a real positive finding (all-BF equal-weight composition beats the mixed chain +0.028 CI-sep; relational is-a identity = the ~214x knowledge lever). Reverified 23/23 first-hand. Integrated 2026-09-09: C7 re-scored, BF verdicts folded into the registry; the fusion-wire into canonicalize_fast is a tracked follow-on (gated on the end-to-end grounding-coverage measurement the solver flagged as not-yet-done)."
 ---
 
 # PROBLEM: in the FOUNDATION / grounding-acquisition subsystem (live via `hdlab/reading_grounding_loop.py` / `substrate.py` / `gap_driven_reader.py`, consuming `gap_detector`→`cleanup_family`), the concept-cleanup step uses a `sign()`-quantized iterative ATTRACTOR (`hdlab/cleanup_family.py` `classical_hopfield`/`modern_hopfield_continuous`/`iterative_attractor`) as a GRADED SIMILARITY RANKER. That is the wrong brain computation: attractor dynamics are for pattern-COMPLETION / RECOGNITION (Hopfield energy descent to the nearest stored pattern; Marr 1971 CA3 auto-association), NOT for producing a graded ranking of candidates — the `sign()` quantization + energy descent re-promotes high-degree concept HUBS and destroys the graded distances a ranking needs (the reader-audit catalogued this as C7, MEDIUM blast, "active harm in the grounding-acquisition pipeline"). REPLACE the attractor-as-ranker with a brain-foundational GRADED POPULATION READ for the ranking step (a graded similarity / population-vector readout that preserves distances), and RESERVE the attractor for the recognition/recall step where pattern-completion is the right job — measured on the grounding loop's OWN ranking metric, with the info-free twin losing and no regression to the recall path. NOT a change to `situation_reader.read()` (C7 is dormant there). NOT raising a threshold on the same quantized metric. Glass-box, NO external LLM.

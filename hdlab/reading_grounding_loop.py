@@ -76,6 +76,12 @@ compliant.
 """
 from __future__ import annotations
 
+__bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 top-down math audit (BF_AUDIT.md, attractor-ranker solver; strategy first-hand)'
+__bf_note__ = 'canonicalize_fast = BF graded cosine population read (divisive-normalization, GRADED_COMPARATOR on); the module is the FLAG->LIBRARY->CONSOLIDATE->GATE->BANK->PROMOTE grow-by-reading engine; the BF_SPIRIT residual is the representation the ranking reads (distributional bag; fusion-wire = tracked follow-on)'
+__bf_corrections__ = []
+
+
 import hashlib
 import math
 import os

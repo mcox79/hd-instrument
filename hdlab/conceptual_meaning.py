@@ -38,6 +38,12 @@ competitor + the twin losing + the dissociation, NOT the absolute rho (WordNet p
 """
 from __future__ import annotations
 
+__bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 top-down math audit (BF_AUDIT.md, attractor-ranker solver; strategy first-hand)'
+__bf_note__ = 'IDF-weighted taxonomic distinctive-feature cosine (ATL privilege-distinctive-features); knowledge SUPPLIED by curated WordNet (admissible foundation), not learned online; IDF batch'
+__bf_corrections__ = []
+
+
 import json
 import math
 import os
