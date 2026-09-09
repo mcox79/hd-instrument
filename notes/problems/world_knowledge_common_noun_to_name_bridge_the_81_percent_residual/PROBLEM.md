@@ -1,10 +1,12 @@
 ---
-priority: 7
+priority: 3
 review:
 review_text:
 ---
 
 # PROBLEM: linking an anaphoric common noun to its proper-name antecedent ("the artist" → Zurbarán) is only ~19% reachable from text-stated cues; the other ~81% needs ENCYCLOPEDIC / DISCOURSE world-knowledge, and the one KB tried for it (Wikidata occupation) is a located negative because people are re-mentioned by relation / role-in-situation / kinship / age-gender, NOT by catalogued occupation — build the brain-foundational world-knowledge route (the RIGHT axis, unified in the ATL person-identity hub, admitted through the consolidation gate) that lifts name-bridge coref CI-separated on the HONEST de-leaked floor, or a located negative naming which world-knowledge axis the residual actually needs.
+
+> **🟢 READY + MECHANISM-PROVEN + BUMPED 7→3 (strategy 2026-09-09).** Two blockers cleared: (1) the DE-LEAK it depended on for a clean floor is owner-DONE + landing (`replace_the_entity_gate_gold_coref_inheritance...`), so the HONEST de-leaked floor is available; (2) the de-leak's Wall-1 prototype (`exp_wall1_encyclopedic_kb_v1`) PROVED the encyclopedic-KB name-bridge MECHANISM works — fed the offline C8 DBpedia-InstanceOf KB, KB recall 0.0511 vs no-KB floor 0.0 (+0.0511 CI-sep), shuffled-KB twin LOSES, **conversion reached→correct 40%**, ORACLE (perfect knowledge, identical retrieval) = **1.0** → the +0.949 gap is PURE COVERAGE (the KB reaches only 10.6% of GUM's cases; its named persons are local/fictional, absent from DBpedia). So the mechanism is settled; **THE LEVER IS KNOWLEDGE BREADTH** — broaden the offline entity-type / person-identity KB beyond DBpedia (the ATL is broad), unified in the person-identity hub, admitted via the consolidation gate. This is the dominant remaining lever for name-bridge coref (typed_coref oracle-comparator headroom +0.18, ~88% encyclopedic). HIGH-value, ready for an idle solver — start from the Wall-1 cell + `hdlab.typed_spokes` C8 route.
 
 **slug:** `world_knowledge_common_noun_to_name_bridge_the_81_percent_residual` — **opened:** 2026-09-08 by the strategy session, the "honest performance-vs-brain gap" the in-flight `wire_the_crosstype_definite_name_bridge...` submission flagged as its top brain-foundational follow-on. **status:** OPEN. DEPENDS ON `replace_the_entity_gate_gold_coref_inheritance_with_online_cue_based_clustering` for a clean floor (measure on the DE-LEAKED honest floor, never the gold-coref peek). Strategy lands any hdlab wire (Q111, witnessed). Glass-box, NO external LLM at inference (an offline static KB asset is admissible and encouraged — foundation-building).
 
