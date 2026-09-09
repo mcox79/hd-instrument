@@ -72,8 +72,8 @@ _REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 if _REPO not in sys.path:
     sys.path.insert(0, _REPO)
 
-from experiments import _temporal_ordering as T            # noqa: E402  Event + tense tags
-from experiments import _temporal_ordering_multiframe as M  # noqa: E402  tag_punct / extract / edges / toposort
+from hdlab import temporal_ordering as T            # noqa: E402  Event + tense tags (self-contained)
+from hdlab import temporal_ordering_multiframe as M  # noqa: E402  tag_punct / extract / edges / toposort (self-contained)
 
 # ---- Viewpoint aspect (Smith 1991) -> interval character --------------------------------------
 ASP_PERFECTIVE = "PERFECTIVE"     # bounded closed interval  (simple past / passive; telic default)

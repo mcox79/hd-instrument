@@ -133,7 +133,7 @@ from hdlab.context_grounded_valence import (score_context_grounded_valence,
 
 # ---- banked TIME + CAUSATION mechanisms (reuse) ----
 from hdlab import temporal_ordering as T
-from experiments import _temporal_ordering_multiframe as M
+from hdlab import temporal_ordering_multiframe as M
 from hdlab import causal_network as C
 
 # The banked EventCentralityReader keyword bundle (29513/29514/29516 config).
