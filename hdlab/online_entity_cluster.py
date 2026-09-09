@@ -29,6 +29,11 @@ WIRE NOTE (for situation_reader): give each online file a FRESH NEGATIVE-INTEGER
 """
 from __future__ import annotations
 
+__bf_status__ = "BF_SPIRIT"   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = "2026-09-09 de-leak landing (strategy first-hand)"
+__bf_note__ = "Heim file-change + Lewis-Vasishth ACT-R content-addressable retrieval, GOLD-FREE, no fitted params; ACT-R DEFAULT_DECAY + Centering ROLE_PROMINENCE adopted (standard, not swept); exact-head type cue"
+__bf_corrections__ = []
+
 from hdlab.coref import name_content_tokens, EntityAliaser
 from hdlab.state_of_mind import compatible
 from hdlab.salience_binder import actr_activation, ROLE_PROMINENCE, DEFAULT_DECAY

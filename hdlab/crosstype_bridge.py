@@ -40,6 +40,11 @@ Ported byte-faithfully from experiments/exp_crosstype_precise_constructs_gum_v1.
 experiments/exp_crosstype_upgrades_gum_v1.gated_binds (the deployable cue_conf config).
 """
 from __future__ import annotations
+
+__bf_status__ = "BF_SPIRIT"   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = "2026-09-09 de-leak landing (strategy first-hand)"
+__bf_note__ = "precise-constructs predication + Lewis-Vasishth ACT-R cue retrieval + Almor desc-boost + Heim/DRT full-referent competition + McElree conf gate; NO classifier/LLM; hand-lexicons (_VERB_ROLE/_AGE_GENDER/_COP_VERBS) + swept conf_thr"
+__bf_corrections__ = []
 from collections import defaultdict
 
 from hdlab.salience_binder import actr_activation, ROLE_PROMINENCE, DEFAULT_DECAY

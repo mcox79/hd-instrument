@@ -36,6 +36,11 @@ cannot express.
 """
 from __future__ import annotations
 
+__bf_status__ = "BF_SPIRIT"   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = "2026-09-09 de-leak landing (strategy first-hand)"
+__bf_note__ = "adapter/plumbing (not a standalone brain mechanism): builds a crosstype Doc from the reader's OWN live parse with mention .eid = the ONLINE cluster label (NEVER gold), runs crosstype_bridge, merges; inherits crosstype_bridge's BF_SPIRIT"
+__bf_corrections__ = []
+
 import os
 
 from hdlab.coref import name_content_tokens
