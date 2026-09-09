@@ -498,6 +498,37 @@ FHRR-bound events). `exp_genworldmodel_bf_extraction_v1.py` + `test_genworldmode
 ================================================================================
 
 ================================================================================
+## >>> CYCLE-29 (2026-09-09) -- RETRACTION + BRAIN-FOUNDATIONAL RESET (read FIRST) <<<
+================================================================================
+🚨 THE SUBSET-POSITIVE (rs_refine 0.380 "beats position +0.304") IS RETRACTED. Reading the converging solver
+`generate_dont_retrieve_causal_edges...`'s SOLVED FIRSTHAND (not a subagent summary) surfaced a POSITION CONFOUND;
+adversarial recompute (glass-box, no spaCy) CONFIRMS: the gold cause is at q-2 in the plurality; NEAREST-NON-ADJACENT
+(q+-2) floor = 0.680 GOAL(n=935) / 0.670 full(n=2487), DOMINATES rs_refine 0.3804. Cycle-9's floor was BROKEN (picked
+the adjacent q+-1 -> trivially 0.000). Located-negative pass STANDS; subset-positive WITHDRAWN.
+🚫 OWNER 2026-09-09: TellMeWhy + GLUCOSE + spaCy (`_nlp`) are NOT brain-foundational -> DROP all three. Every
+genworldmodel cell's eval harness (base cues + GOAL typing via spaCy; TellMeWhy/GLUCOSE golds) is thus non-BF. The
+CARRIER's role extraction is glass-box (cycle-25, bf_roles) but the INSTRUMENT is not -> REPLACE the whole eval basis.
+✅ THE BRAIN-FOUNDATIONAL BASIS (converging solver proved it, owner-DONE): (1) EVAL = INTRINSIC surprisal-reduction /
+counterfactual-necessity (NO crowd gold -> trap-proof); (2) PARSE = glass-box hdlab.pos_tagger/arc_parser (NO spaCy);
+(3) CORPUS = naturalistic simplewiki (world-model learn) + GUM narrative (read); LLM-free. Their world-model
+(online Rescorla-Wagner predictive coding, +0.247 bits) + counterfactual necessity (+0.308 bits, escapes position
+32%) + participant binding (agent+patient, capacity-matched CI-sep) are BUILT -- do NOT rebuild; build ON.
+🧭 RESEARCH `notes/research_causal_knowledge_acquisition_2026-09-09.md`: directed causal knowledge is NOT a hard
+embodiment blocker. Covariation fails (no Pearl/LiNGAM identifiability in open text) but CAUSAL-LINGUISTIC TESTIMONY
+(connectives / counterfactuals / generics = author testimony, not co-occurrence) sidesteps it (Harris-Koenig;
+CausalNet/CausalBank +3-5pt COPA). Prototype: corpus-scale mining via hdlab/causal_network.py + kg_traversal.py;
+richest untested = COUNTERFACTUAL-TESTIMONY mining.
+🎯 INVERSE-PLANNING / MEANS-END STATUS (owner Q 2026-09-09): built 3x (my rs_refine; converging solver's means-end
+engine 0.570 but marker_content 0.632 >= it = INERT; sibling ATL-hub means-end +0.239 subset but position-suspect).
+The apparent goal-slice wins = MARKER-detection + POSITION, not simulation. THE CLEAN TEST (next build): MEANS-END
+COUNTERFACTUAL NECESSITY on the intrinsic frame -- does removing the means-establishing event raise the
+goal-achieving event's surprisal MORE than a position-matched / marker-matched control? Isolates simulation from
+marker+position. Glass-box, LLM-free, no crowd gold.
+DO NOT: TellMeWhy/GLUCOSE/spaCy; co-occurrence/associative/directed-static/grounding-similarity (refuted); rebuild
+the amodal PC world-model (owner-DONE); score on position-artifact benchmarks.
+================================================================================
+
+================================================================================
 ## >>> CYCLE-28 (2026-09-09) -- GROUNDING drilled: R2 negative, the wall is DIRECTED CAUSAL DYNAMICS <<<
 ================================================================================
 Owner cron: keep moving, everything 100% brain-foundational (mechanism AND knowledge/grounding), drill every wall
