@@ -5,9 +5,46 @@ bar: "PASS = a brain-faithful directed causal-mechanism knowledge foundation (mi
 result: "CONSTRUCTIVE INTRINSIC POSITIVE + a rigorous QUANTIFIED LOCATED NEGATIVE. (1) POSITIVE, trap-proof intrinsic frame (held-out causal testimony, no crowd gold, no position, n=10164): mined directed causal testimony RECOVERS causal DIRECTION that same-corpus co-occurrence provably cannot (Pearl rung-1) -- direction-accuracy (ranks cause->effect above the reverse effect->cause) CAUSAL 0.609 CI[0.597,0.620] vs same-corpus co-occurrence 0.513 CI[0.501,0.524] (at chance), paired +0.0973 CI[0.0802,0.1144] CI-SEP; and beats the info-free shuffled-effect TWIN massively on effect-prediction (+0.2338 CI[0.2286,0.2389]). So the SIGNAL TYPE thesis holds: testimony transmits directed causal knowledge adjacency cannot. (2) LOCATED NEGATIVE on the downstream narrative causal-antecedent SELECTION: the directed signal is real but WEAK in absolute terms (direction accuracy 0.609), and the standard benchmark (TellMeWhy answerable non-adjacent, n=273) is POSITION-CONFOUNDED -- the nearest-non-adjacent POSITION floor scores pairwise-AUC 0.910 on the zero-overlap slice, dominating every knowledge signal. The mined causal read gives only +0.041 CI[-0.026,0.106] over adjacency on the zero-overlap slice (NOT CI-sep) and ties chance on the full population. The granularity ceiling, with numbers: gold-link coverage reaches 0.502 at 1.29M edges (coverage is NOT the wall), but the recovered causal DIRECTION is only 0.609-accurate, and TMW rewards position (0.91), so the weak directed signal cannot lift full-population selection above the strongest floor."
 floor: "STRONGEST floors actually run, per population. Narrative selection (TMW answerable non-adjacent): POSITION nearest-non-adjacent pairwise-AUC 0.910 (zero-overlap slice) -- DOMINATES; adjacency-W (the current upstream, association) at chance 0.489 (zero-overlap) / 0.495 (full); lexical-overlap 0.286 (zero-overlap). Intrinsic held-out frame: same-corpus co-occurrence baseline (isolates direction from association) = direction 0.513 (chance) / effect-pred 0.711; shuffled-effect info-free TWIN = 0.499 (effect-pred) / 0.506 (store-native diagnostic). generic-ATOMIC chance ceiling ~0.50 (inherited, chain_multi_step exp_multistep_atomic_knowledge_necessity_v1)."
 controls: "SHUFFLED-EFFECT TWIN (info-free, equal coverage/degree) -- LOSES on the intrinsic frame (causal +0.234 CI-sep), ties on TMW; SAME-CORPUS CO-OCCURRENCE baseline (same corpus/vocab/pipeline, textual-order instead of marker-direction) -- isolates the causal-specific signal from association: causal beats it on DIRECTION +0.097 CI-sep and effect-pred +0.022 CI-sep, so the win is direction not association; POSITION floor (nearest-non-adjacent) -- exposes TMW as position-confounded (0.91); LEXICAL-overlap floor; HELD-OUT 90/10 sentence split -- generalization not memorization; ZERO-OVERLAP slice (gold cause shares 0 lexical content with effect, 54-59% of items) -- association blind by construction; PREVENT-class EXCLUDED from the miner (cause->effect-BLOCKED, a correctness trap)."
-files_changed: "experiments/exp_causal_testimony_baseline_v1.py, experiments/exp_causal_testimony_mine_v1.py, experiments/exp_causal_testimony_eval_v1.py, experiments/exp_causal_testimony_heldout_v1.py, verification/test_causal_testimony_foundation.py, data/exp_causal_testimony_mine_v1/store_v1.json (mined foundation asset, 1.29M edges), notes/problems/grow_the_causal_mechanism_knowledge_foundation_by_mining_directed_causal_linguistic_testimony/{DEAD_ENDS_AND_SIGNAL_MAP,RESEARCH_KNOWLEDGE_MAP,SOLVED}.md. NO hdlab write (Q111) -- the proposed hdlab change is stated below."
-reverify: ".venv/Scripts/python.exe verification/test_causal_testimony_foundation.py"
+files_changed: "experiments/exp_causal_testimony_{baseline,mine,eval,heldout}_v1.py, experiments/fetch_causal_selection_gold_v1.py, experiments/exp_causal_selection_{ecare_copa,framegrain,combined}_v1.py, verification/test_causal_testimony_foundation.py, verification/test_causal_selection_positionfree.py, data/exp_causal_testimony_mine_v1/store_v1.json (mined foundation asset, 1.29M edges), data/corpora/{copa,ecare}/ (acquired position-balanced golds), notes/problems/grow_the_causal_mechanism_knowledge_foundation_by_mining_directed_causal_linguistic_testimony/{DEAD_ENDS_AND_SIGNAL_MAP,RESEARCH_KNOWLEDGE_MAP,PATH_TO_SOLVED_RESEARCH,SOLVED}.md. NO hdlab write (Q111)."
+reverify: ".venv/Scripts/python.exe verification/test_causal_testimony_foundation.py  (intrinsic direction win); .venv/Scripts/python.exe verification/test_causal_selection_positionfree.py  (position-free COPA/e-CARE selection)"
 ---
+
+## PHASE A/B UPDATE (2026-09-09) -- pursued PARTIAL -> SOLVED per owner; the strongest floor is not yet cleared on the primary instrument, so status stays PARTIAL (strengthened), with the exact remaining barrier QUANTIFIED.
+
+**The #1 barrier was the INSTRUMENT (measurement), and I removed it.** TellMeWhy's gold cause IS the nearest sentence
+(position pairwise-AUC 0.91), so no causal-knowledge signal could ever register there. I acquired two POSITION-BALANCED
+2AFC causal-selection golds (reproducible fetch: `fetch_causal_selection_gold_v1.py`): **COPA** (drwiner/COPA gold XML,
+n=1000, 50/50 cause/effect, position cannot leak the answer) and **e-CARE** (Waste-Wood/e-CARE, MIT, dev n=2122, harder,
+lexically-rich). Scoring is direction-aware (ask-for=cause -> `cs_pmi(alt->premise)`; effect -> `cs_pmi(premise->alt)`).
+
+**RESULT on the position-free instrument:**
+- **COPA (weak-lexical regime, n=1000):** the mined causal store **BEATS the lexical-association floor CI-sep**
+  (causal_directed 0.538 vs lexical 0.485, paired +0.053 CI[0.022,0.084]) **and beats the info-free shuffled-effect
+  twin CI-sep** (twin 0.501, paired +0.037 CI[0.016,0.059]), and beats chance 0.50 CI-sep. **This is the causal-knowledge
+  win TMW's position-confound hid** -- directed causal testimony helps on a position-free causal-selection task.
+- **e-CARE (strong-lexical regime, n=2122):** causal beats the twin (+0.036 CI[0.018,0.054]) but **LOSES to the lexical
+  floor** (causal 0.540 vs lexical 0.588, -0.048 CI[-0.071,-0.024]); the association+causal COMBINATION (held-out
+  weight-tuned on train_full, `exp_causal_selection_combined_v1`) adds NOTHING over its twin-combination
+  (+0.000 CI[-0.028,0.022]). Where association is strong, the mined causal signal is REDUNDANT with it.
+
+**TWO QUANTIFIED BARRIERS to a clean full SOLVE (why the strongest floor is not yet cleared):**
+1. **SCALE.** Absolute accuracy ~0.54 is far below the non-LLM mined-KB ceiling **0.70-0.71** (CausalNet/Sasaki), which
+   was obtained by WEB-SCALE mining (billions of n-grams). My offline foundation is ~161k causal sentences / 1.29M
+   edges (~1000x smaller). The offline corpus cannot reach web-scale -> this is a hard resource ceiling, not a mechanism gap.
+2. **DIRECTION is not load-bearing on 2AFC.** causal_directed ties its own DIRECTION-BLIND use (COPA +0.009, e-CARE
+   -0.003) -- because the WRONG alternative is a non-cause, not the REVERSE-direction, so 2AFC does not exercise
+   direction. The directional signal IS real and CI-separated, but only on a direction-DISCRIMINATION task (the held-out
+   testimony test: causal 0.609 vs co-occurrence 0.513, +0.097 CI-sep). Standard 2AFC cannot showcase it.
+3. **GRAIN (tested, negative for the cheap fix).** Frame-structured lookup `(PRED,PATIENT)` on the bag-mined store does
+   NOT beat bag-of-concepts (coverage loss offsets precision; `exp_causal_selection_framegrain_v1`); a proper
+   frame-grain STORE would be sparser still. The brain-faithful state-grain is the right target but needs the store
+   re-mined at frame grain AND more scale to help -- capped by barrier 1.
+
+**Net:** the instrument barrier is removed and the causal-knowledge win is now DEMONSTRATED on a position-free
+instrument (COPA), but a decisive full SOLVE across instruments is blocked by a quantified SCALE ceiling (offline
+corpus ~1000x below web-scale) and the fact that 2AFC does not exercise the directional signal that is the store's
+brain-foundational contribution. Full pass per the located-negative provision; status PARTIAL (materially strengthened).
+
 
 # Directed causal-mechanism knowledge from mined causal-linguistic testimony
 
