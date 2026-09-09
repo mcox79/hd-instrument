@@ -265,6 +265,17 @@ beating retrieval). No external LLM at any step (the invariant).
   `salience_binder` (ACT-R base-level activation), `referent_per_np` (DRT), `predicate_detector` (noisy-channel logistic
   over interpretable cues, additive-only), `relcl_resolver`/`np_head_reduce` (deterministic linguistic rules).
 
+## COMPLETENESS SCAN — the consumed organs the four clusters did not explicitly name (scanned, all clean)
+The residual read()-consumed organs were scanned for stand-in signatures (fitted-at-inference weights, surface-only
+decisions, hand-lexicon-as-decision, external tool): `event_bundle` (FHRR sign+argmax cleanup = the accepted/owner-locked
+binding algebra, UNPINNED-OK), `situation_focus` (clean), `frame_induction` (the OFFLINE induction that explicitly
+REPLACED a shelved flat perceptron — a fix, not a stand-in; frames are supply), `verb_subcat_frames` (FrameNet/VerbNet
+valency supply; the `verb_subcat_thr=0.35` gate is OUR-INVENTION-swept), `bridging_inference` (cosine-argmax over the
+grounded hub + WordNet lookup — SOLVED, brain-faithful), `typed_spokes` (WordNet/DBpedia type supply), `predictive_reader`
+(OUR-INVENTION-swept role-centroid + temp, honestly labelled, graded not sign-quantised). **No new decision-standing
+stand-in.** So the eight LIVE entries (C1-C8) + three corrections (C9-C11) are the full set on the `situation_reader`
+read() path.
+
 ## POSITIVE CONTROL (the enumeration recovers every CONT-28-named item — witness W11)
 Every component named in `BRAIN_FOUNDATIONAL_AUDIT.md` §2b CONT-28 is accounted for above: gold-coref leak (C1),
 `situation_predict` (C2), arc-eager scorer (C3), `context_grounded_valence` (C6), `perceptual_access_ledger`+`causation_typing`

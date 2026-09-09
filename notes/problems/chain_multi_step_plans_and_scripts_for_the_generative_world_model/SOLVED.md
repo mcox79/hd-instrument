@@ -41,6 +41,28 @@ THE BUILD (right, not easy -- the structured-intervenable computation, genuinely
 RESULT: LOCATED NEGATIVE by KNOWLEDGE COVERAGE (the research's predicted P~0.15-0.20 ontology wall). The machinery WORKS (WorldState self-test) and is brain-foundational, but its PREDICATE COVERAGE on TMW is ~0% (0/256; diagnostic: 27% of items have a possession/toggle verb somewhere, only 3.9% have a q-USE precondition, only 1.6% produce any precheck even with a forced shared-object fold). TMW's causal links are goal/emotional/associative, NOT possession/toggle chains. So the structured-intervenable FIX is brain-foundational but KNOWLEDGE-CAPPED: it needs structured precondition/effect ontologies for TMW's causal TYPES, which is the 40-year-documented open-domain ontology wall (Schank-Abelson scripts / QPT-Companions / Mueller Event-Calculus all hit exactly this; LLM territory). It WORKS where we have the structured knowledge -- the GOAL slice (inverse planning over the means-end hub, the one win). Witness 33/33.
 THE COMPLETE ARC CONCLUSION: (1) the mechanism is now identified + verified brain-foundational (structured-intervenable causal simulation); (2) we HAVE the machinery (WorldState do(); PP-270 do-calculus; the goal inverse-planning simulator); (3) it WORKS where we have structured causal-type KNOWLEDGE (goal slice, banked); (4) it is KNOWLEDGE-CAPPED everywhere else because our world-knowledge is ASSOCIATIVE (the exposed non-brain-foundational system) and building structured causal-type ontologies for open-domain narrative is the fundamental wall (LLM territory). The banked GOAL win stands; the rest is a knowledge-acquisition program, not a mechanism gap.
 
+## 2026-09-08 UPDATE 6 -- GAVE IT MORE KNOWLEDGE (owner: "did you build the knowledge model? prototype giving it more knowledge"): the cap is GRANULARITY, not coverage (exp_multistep_atomic_knowledge_necessity_v1)
+BUILT + tested the broad knowledge model: ATOMIC xNeed(preconditions)/xEffect(effects) as a structured precondition/
+effect KB (4348 need-events / 4455 effect-events), fed into the structured-necessity machinery (q's preconditions =
+xNeed(q); C's effects = xEffect(C); STRIPS satisfy + Icard uniqueness-discount for necessity).
+RESULT (n=256): COVERAGE jumps ~0% (possession/toggle) -> 100% (broad ATOMIC knowledge applies to every item). BUT
+DISCRIMINATION stays at CHANCE: pairwise-AUC suf 0.502 / nec 0.513 (both ~0.5), nec-base -0.008 (ties), loses to its
+info-free twin (0.270 vs p95 0.316). Verdict ATOMIC_KNOWLEDGE_LIFTS_COVERAGE_BUT_TIES.
+THE REFINED DIAGNOSIS (sharper than "knowledge-capped"): the bottleneck is NOT knowledge QUANTITY or COVERAGE (now
+100%) -- it is knowledge GRANULARITY / STORY-SPECIFICITY. Generic commonsense preconditions/effects ("be happy",
+"have money", "go somewhere") are satisfied by MANY candidates -> the precondition-satisfaction signal is promiscuous
+even with the necessity uniqueness-discount. Discrimination needs STORY-SPECIFIC, FINE-GRAINED causal knowledge where
+C's effect UNIQUELY satisfies q's SPECIFIC precondition -- which is exactly why the GOAL slice works (the means-end
+hub + the story's explicit goal statement is specific enough) and generic knowledge everywhere else does not. This is
+the "story-specific generative world-model" the parent named, now measured to be a GRANULARITY requirement: adding
+MORE generic/associative knowledge cannot fix it (proven: 100% coverage, still chance); the knowledge must be
+instantiated for THIS story's specific entities/states -- the LLM-territory frontier. Witness 34/34.
+VS-BRAIN (oracle ladder, n=256): base 0.277; the brain (perfect) 1.000. We hold base except the GOAL slice (+0.24,
+where our knowledge is specific enough). The +0.72 gap decomposes as goal +0.25 (HAVE it, banked), physics +0.086,
+mental +0.047, affect +0.043, associative +0.297. WHERE we lose signal, refined: not coverage (100%), not mechanism
+(structured-intervenable built), but knowledge GRANULARITY -- generic knowledge can't discriminate the specific
+causal edge; only story-specific fine-grained causal knowledge (goal-type, which we have) can.
+
 ## The brain frame (how the brain does this; PINNED vs OUR-INVENTION)
 PINNED: action meaning = RESULT-STATE; goal-serving judged by INVERSE PLANNING (Schank-Abelson; Trabasso-van den Broek; Baker-Saxe-Tenenbaum). To DEPTH>1: instantiate SCRIPTS and chain SUBGOALS via MEANS-ENDS analysis (Schank-Abelson plan boxes; Newell-Simon), realized as a model-based FORWARD ROLLOUT with a goal-state test (hippocampal replay, Mattar-Daw). The plan/script KNOWLEDGE lives in the amodal ATL SEMANTIC HUB (Lambon-Ralph) -- a LOW-DIMENSIONAL distributed code where means-end relations are GEOMETRIC PROXIMITY (an unseen (action,goal) pair scored by position, not a stored edge = generate-not-retrieve). Participant binding = discourse referents (Heim/Kamp file-cards): "who wanted X" is bound to "who did Y". OUR-INVENTION-UNDER-TEST (swept): the hub realization (PPMI+SVD over ATOMIC), diagnostic normalization, rollout depth K, integration weight w_m, the teleological router, the affect/temporal cues, the surface agent proxy.
 

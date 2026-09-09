@@ -496,3 +496,32 @@ FHRR-bound events). `exp_genworldmodel_bf_extraction_v1.py` + `test_genworldmode
   NEXT (if resumed): the only remaining lever is the recurrent generative world-model (Q111/strategy) -- predict
     the cause's result-state from the situation and TEST against the effect, learned ONLINE (not a static store).
 ================================================================================
+
+================================================================================
+## >>> CYCLE-28 (2026-09-09) -- GROUNDING drilled: R2 negative, the wall is DIRECTED CAUSAL DYNAMICS <<<
+================================================================================
+Owner cron: keep moving, everything 100% brain-foundational (mechanism AND knowledge/grounding), drill every wall
+to 100%. Peeked at all solvers (Explore synthesis -> CROSS_SOLVER_GROUNDING_SYNTHESIS_2026-09-08.md). Key facts:
+the converging causal-edge solver ALREADY BUILT a working amodal online predictive-coding world-model
+(worldmodel_v1, +0.247 bits over counting) + counterfactual-necessity reader that ESCAPES position -- but it is
+INERT on the position-artifact/best-explanation gold. Grounding-as-causal-dynamics is genuinely ABSENT from the
+substrate (only perceptual SIMILARITY: 12-d Lancaster, capped; and text co-occurrence hubs).
+  * R2 DRILLED (`exp_genworldmodel_grounded_forward_v1.py` + witness): swapped amodal random fillers for GROUNDED
+    perceptual fillers (SimHash of the 12-d Lancaster sensorimotor vector) in the online forward model, tested on
+    Story Cloze. LOCATED NEGATIVE (smoke; powering): grounding does NOT beat amodal (slightly hurts, 0.523 vs
+    0.568) and is NOT load-bearing (ties its grounded-shuffle twin). Grounded SIMILARITY encodes "alike", not
+    "leads-to" -- it cannot supply directed causal DYNAMICS.
+  * TRIANGULATED WALL (now understood): BOTH named fixes fail -- R1 (contingency/ΔP, ~ the causal-edge solver's
+    RW model) works on intrinsic prediction but is inert on the gold; R2 (grounding the representation) = no
+    effect. The residual is DIRECTED CAUSAL/AFFORDANCE dynamics (store->milk, study->preparedness), which are
+    absent from every representation AND not recoverable from text (association/contingency != causation here) AND
+    the golds are anti-correlated. The brain learns these from EMBODIED INTERVENTION/sensorimotor contingency,
+    which we don't have.
+  * RESEARCH DISPATCHED (drill the wall to 100%): is there ANY brain-foundational, LLM-free, non-embodied path to
+    directed causal/affordance knowledge, or is embodied intervention strictly required (-> foundational blocker
+    to hand to strategy)? Lit: Gopnik/Schulz causal learning, Cheng power-PC, Battaglia intuitive physics,
+    Bramley intervention-based structure learning, developmental bootstrapping.
+  DO NOT: swap in another similarity representation (grounded or associative -- both R2-refuted); rebuild the
+    amodal PC world-model (causal-edge solver owns it, owner-DONE); optimize the anti-correlated golds.
+  Cells: exp_genworldmodel_{online_forward_model, cloze_forward, grounded_forward}_v1.py + witnesses.
+================================================================================
