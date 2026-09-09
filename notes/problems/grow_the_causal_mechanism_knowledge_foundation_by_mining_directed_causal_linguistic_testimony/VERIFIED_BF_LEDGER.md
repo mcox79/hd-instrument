@@ -87,3 +87,31 @@ EXACT PER-ORGAN TAG VALUES TO LAND (proposed hdlab change -- Q111, strategy land
 | `force_dynamics_valence` | "NOT_BF" | "harm/help = WordNet-animacy + verb-LIST membership (not a force simulation); HARM_BACKOFF = retired test-fitted list; in-process FrameNet parse on read path" |
 | `causal_reasoner` | (AUDIT NEXT; audit doc says EXCELLENT do-intervention necessity) | "Pearl abduction->do(cause=absent)->re-propagate over sm.causal_links; verify then tag" |
 | `quality_relation` (Ch.B) | (AUDIT NEXT) | "grounded oriented signed-magnitude + FPE-log Weber comparator; verify then tag" |
+
+## COMPOSITION RESULT (2026-09-09) -- composing the verified-BF organs ISOLATES the single remaining BF gap
+Built `exp_causal_wiqa_bfsim_v1`: the FAITHFUL BF do-simulation `causal_reasoner.signed_effect` (BF_SPIRIT; conflict-
+cancelling ±1 cone relaxation over the process graph) fed edge signs from the most-BF linguistic polarity source,
+`force_dynamics_lexicon` Wolff CAUSE/ENABLE=+1 / PREVENT=-1. Result on WIQA (the interventional more/less gold):
+**neg-edges = 0.0%** -- Wolff PREVENT fires on ZERO WIQA process steps (process language = "gains weight / uses its
+food stores / lives off body fat", not prevent/block/stop). So every edge is +1, `signed_effect` degenerates to
+more/no-effect, more-vs-less stays 0.410 (below chance) -- exactly the audit's "can never say less" prediction.
+
+=> THE SINGLE REMAINING BF GAP IS PRECISELY ISOLATED: not the reasoner, not the propagation, not the concept grain --
+it is the SIGNED-EDGE SOURCE (does a natural-process event PROMOTE or INHIBIT the effect QUANTITY). Each candidate fails
+for a NAMED reason: Wolff force-dynamics 0% on process language; marker-mined signed store = noise (0.34); grounded
+Weber magnitude (`scalar_adjective_operation`) has no quantity dimensions + is word-magnitude not edge-polarity. The
+mechanism that supplies it brain-foundationally = a GROUNDED MODEL OF QUANTITY DYNAMICS ("does this event drive
+quantity X up/down"), i.e. the generative world-model over grounded magnitudes -- the deep north-star. Everything
+UPSTREAM of the sign source is now either verified-BF or composable-from-verified-BF organs; the sign source is the wall.
+
+## GROUNDED QUANTITY-DYNAMICS SIGN SOURCE -- BUILT + full result (2026-09-09): third/final text-derived sign source, definitively at chance
+`exp_causal_quantity_dynamics_v1`: a LEARNED signed magnitude-transition (Rescorla-Wagner over INCREASE/DECREASE-
+grounded directional co-occurrence), composed via verified-BF causal_reasoner.signed_effect on WIQA. FULL (n=5005,
+store +88241/-14465): neg-edges 4.1% (fixes Wolff 0%), 3-WAY 0.552 (+0.13 = PURE reachability), but MORE-vs-LESS
+= 0.457 (below chance), TIES the random-sign twin EXACTLY (paired +0.0000). The learned grounded signs add nothing
+over random on the specific process more/less.
+=> EXHAUSTIVE: three text-derived sign sources all fail (Wolff 0% coverage / marker-mined 0.34 / grounded-directional
+ties-random). The more/less SIGN of a SPECIFIC process transition is NOT recoverable from text (Causal Hierarchy
+Theorem: text=rung-1). The fully-BF version = GROUNDED MENTAL SIMULATION of the specific dynamics (generative world-
+model over grounded magnitudes) -- the deep north-star, a scoped program. Everything else = verified-BF or composed-
+from-verified-BF; this one grounded-simulation sign source is the entire remaining frontier, precisely isolated.

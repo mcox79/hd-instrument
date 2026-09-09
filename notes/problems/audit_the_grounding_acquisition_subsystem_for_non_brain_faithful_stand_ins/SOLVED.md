@@ -2,10 +2,10 @@
 problem: audit_the_grounding_acquisition_subsystem_for_non_brain_faithful_stand_ins
 status: SOLVED
 bar: "PASS = a prioritized, DISK-VERIFIED CATALOG (CATALOG.md) of every LIVE non-brain-faithful stand-in in the grounding-acquisition subsystem, each with FIVE disk-verified fields (the brain structure+computation it should implement / why the current thing is not it / the brain-foundational replacement / blast + live-vs-dormant with the consuming file:line / fix class), top-K ranked by blast, denominator = the subsystem's actual live import+call closure (reconciled against flag defaults, not comments), explicitly distinguishing live-defective vs live-but-inert vs dormant -- PLUS a powered can-fail LOCALIZATION of the #1 item on the subsystem's OWN metric (the grounding loop's ranking / growth-quality measure), with a machine-checkable pure-disk witness (verification/test_audit_grounding_subsystem.py) that reproduces every LIVE/DORMANT classification from disk. NO hdlab/ writes (Q111)."
-result: "CATALOG.md = 4 LIVE stand-ins (G1 bag-of-content-words co-occurrence comparator; G2 grounded input channel imported-but-INERT; C7 attractor-as-ranker; C8 hd_fact_store trust-only vetting) + 3 located-negatives/corrections (N1 dormant+refuted structured encoder; N2 dormant VWFA; N3 six dormant-islanded orchestrators), each with all five disk-verified fields, top-K ranked. Denominator = the live import+call closure of Substrate.read() + the grounding-core run, classified by a runtime import+settrace trace (exp_audit_grounding_subsystem_v1.py): 16 LIVE-CALLED / 23 LIVE-IMPORTED-INERT / 6 DORMANT-ISLANDED, positive control fired. #1 LOCALIZATION (exp_ground_readout_localization_v1.py, n=999 SimLex pairs + n=1685 ConceptNet targets): a DISSOCIATION -- the brain-faithful ATL conceptual channel beats the co-occurrence family on grounded MEANING (SimLex rho 0.521 vs 0.371, +CI-sep, info-free twin loses) but does NOT beat it on the loop's OWN relatedness gold (ConceptNet prec@1 0.261 vs 0.248, CIs overlap; WordSim rho 0.432 vs 0.596, co-occurrence WINS) -> the #1 stand-in is locally optimal for a mis-specified (relatedness) objective over an ungrounded (co-occurrence) input. Witness 14/14."
+result: "CATALOG.md = 4 LIVE stand-ins (G1 bag-of-content-words co-occurrence comparator; G2 grounded input channel imported-but-INERT; C7 attractor-as-ranker; C8 hd_fact_store trust-only vetting) + 3 located-negatives/corrections (N1 dormant+refuted structured encoder; N2 dormant VWFA; N3 six dormant-islanded orchestrators), each with all five disk-verified fields, top-K ranked. Denominator = the live import+call closure of Substrate.read() + the grounding-core run, classified by a runtime import+settrace trace (exp_audit_grounding_subsystem_v1.py): 16 LIVE-CALLED / 23 LIVE-IMPORTED-INERT / 6 DORMANT-ISLANDED, positive control fired. #1 LOCALIZATION (exp_ground_readout_localization_v1.py, n=999 SimLex pairs + n=1685 ConceptNet targets): a DISSOCIATION -- the brain-faithful ATL conceptual channel beats the co-occurrence family on grounded MEANING (SimLex rho 0.521 vs 0.371, +CI-sep, info-free twin loses) but does NOT beat it on the loop's OWN relatedness gold (ConceptNet prec@1 0.261 vs 0.248, CIs overlap; WordSim rho 0.432 vs 0.596, co-occurrence WINS) -> the #1 stand-in is locally optimal for a mis-specified (relatedness) objective over an ungrounded (co-occurrence) input. The #1 FIX was ALSO prototyped (owner 'do all'): a powered LOCATED NEGATIVE (exp_grounded_meaning_readout_v1, n=888 targets/810 pairs) that grounding the DISTRIBUTIONAL context does NOT transfer for reading-learned words (GROUNDED_CTX SimLex rho 0.041 loses CI-sep to BAG 0.061 AND PPMI counting 0.064; info-free twin valid at -0.01) -> sharpens the fix to DIRECT grounding (the target's own definition/sensorimotor features) + a meaning objective + online coverage, with the exact hdlab diff given. Witness 15/15."
 floor: "Localization floors, all run: the co-occurrence STEELMAN = GloVe (ASSOC, a strong co-occurrence model; SimLex rho 0.371); the landed COUNTING floor on the live own metric = TOP_COOCCURRENT 0.0476/0.0653/0.0590 which the live bag read-out (SUBSTRATE 0.0159/0.0302/0.0272) LOSES to (disk-verified, data/exp_meaning_readout_own_metric_v1); the info-free TWIN = word->conceptual-vector permutation (near-chance, loses CI-separated). Catalog floor/positive-control: the reader-audit's C7/C8 handoff, both recovered as LIVE-CALLED and extended."
 controls: "(1) runtime import+call trace with a POSITIVE CONTROL (tracer fired, caught process_sentence) separating LIVE-CALLED from LIVE-IMPORTED-INERT from DORMANT-ISLANDED -- excludes the 'imported != executed' false positive (caught grounded_similarity imported-but-inert; caught StructuralEncoder/parser/vwfa/three_tier dormant despite being importable). (2) info-free TWIN (word->vec permutation) LOSES on meaning -> the conceptual channel reads distinctive features, not a population artifact. (3) co-occurrence STEELMAN (GloVe, stronger than the live bag) still loses on meaning -> the wall is the co-occurrence FAMILY, not a weak implementation. (4) the ConceptNet own-gold EXCLUDES WordNet provenance -> no circularity with the WordNet-sourced conceptual channel. (5) do-not-over-fire: every LIVE-CALLED organ scanned; the brain-faithful HD/CLS organs (foraging=MVT, hippocampal=CA3, event_bundle/role_slot=FHRR-recall, definitional=WordNet supply) verified admissible, not flagged."
-files_changed: "experiments/exp_audit_grounding_subsystem_v1.py (the import+call trace/denominator); experiments/exp_ground_readout_localization_v1.py (the #1 dissociation localization); verification/test_audit_grounding_subsystem.py (14/14 pure-disk witness); notes/problems/audit_the_grounding_acquisition_subsystem_for_non_brain_faithful_stand_ins/CATALOG.md (the deliverable) + SOLVED.md. NO hdlab/ writes (Q111 -- this is a MAP + proposed fixes + the #1 localization)."
+files_changed: "experiments/exp_audit_grounding_subsystem_v1.py (the import+call trace/denominator); experiments/exp_ground_readout_localization_v1.py (the #1 dissociation localization); experiments/exp_grounded_meaning_readout_v1.py (the #1 FIX prototyped -- a powered located negative that refines the fix to DIRECT grounding); verification/test_audit_grounding_subsystem.py (15/15 pure-disk witness); notes/problems/audit_the_grounding_acquisition_subsystem_for_non_brain_faithful_stand_ins/CATALOG.md (the deliverable) + SOLVED.md. NO hdlab/ writes (Q111 -- this is a MAP + proposed fixes + the #1 localization + the #1 fix prototyped)."
 reverify: ".venv/Scripts/python.exe verification/test_audit_grounding_subsystem.py"
 ---
 
@@ -80,6 +80,50 @@ wiring the grounded channel WITHOUT also fixing the co-occurrence objective woul
 own metric) — the two must land together. That is the full-stack-upstream conclusion: **every link (input AND objective)
 must be brain-foundational for the wall to fall.**
 
+## THE #1 FIX, PROTOTYPED (owner directive: "do all, brain-foundational, right not easy")
+The localization named the coupled fix (grounded input + meaning objective). I then built the INPUT half the
+hard way -- and it produced a decisive, powered LOCATED NEGATIVE that sharpens the fix.
+
+**What I built** (`experiments/exp_grounded_meaning_readout_v1.py`): the brain-faithful "learn a word's meaning
+by composing the GROUNDED representations of its reading contexts" mechanism (ATL hub; Rogers-McClelland
+covariance distillation). For each SimLex-999 target, gather its masked contexts from a MODERN corpus
+(simplewiki; 19c banned), build four read-outs -- **BAG** (the live random-code stand-in), **GROUNDED_CTX**
+(compose the context words' grounded conceptual vectors = the fix), **COUNTING** (a PPMI distributional floor),
+**TWIN** (info-free permutation) -- all informativeness-weighted (PPMI, Church-Hanks) and common-mode-removed
+(Carandini-Heeger divisive normalisation), scored on grounded MEANING (SimLex rho) + the loop's own ConceptNet
+metric. Powered: n=888 targets, 810 pairs.
+
+**The located negative (CI-separated, twin valid):** composing GROUNDED contexts does NOT transfer to
+reading-learned words -- `GROUNDED_CTX` (SimLex rho **0.041**) LOSES to BOTH the plain `BAG` (**0.061**, delta
+CI[-0.040,-0.0002]) AND the PPMI `COUNTING` floor (**0.064**, delta CI[-0.042,-0.008]); the info-free `TWIN`
+sits at **-0.01** (control valid -- common-mode removal was the enabling move: before it, the twin scored a
+spurious 0.055 and masked the result). **Mechanism, stated:** a word's CONTEXTS encode what it is RELATED to
+(co-occurrence); grounding that relatedness does not recover the word's OWN distinctive meaning. Grounding the
+DISTRIBUTIONAL context is the wrong lever -- which, with the two prior negatives (dependency-structure hurts;
+sensorimotor-context ties), means NO transform of the co-occurrence context is the fix.
+
+**Where the fix that EXCELS actually is (research-backed, already partly proven):** DIRECT grounding of the
+target's OWN features. The localization proved a direct grounded/conceptual representation beats co-occurrence
+on meaning (SimLex 0.521 vs 0.371, twin loses). For a word learned from reading that is: the on-page
+DEFINITION/genus (`definitional_extraction`, already LIVE, 32% vs 8% distributional) and the sensorimotor spoke
+(`grounded_similarity`, currently INERT), accumulated over encounters by ONLINE propose-verify (the north-star;
+the brain does not batch-train). The lever is COVERAGE + a MEANING objective, not a better distributional comparator.
+
+**The exact hdlab diff (for strategy to land, Q111 -- three coupled changes, landed TOGETHER):**
+1. **DIRECT grounded read-out (not context-composed).** In `reading_grounding_loop.canonicalize` /
+   `_make_grounding_gate` (`:1469`), compare the target's DIRECT grounded representation against grounded
+   anchors, not the co-occurrence bag: wire the currently-INERT `grounded_similarity` spoke (36,810-word
+   coverage) as the target's grounded code where covered, and keep/broaden `definitional_extraction` as the
+   on-page direct-grounding path.
+2. **MEANING objective.** Replace the growth-quality metric (ConceptNet-neighbour relatedness precision, on which
+   the stand-in is locally optimal -- the dissociation) with a grounded-MEANING objective (SimLex-type
+   substitutability); compute `schema_consistency_split_half` / `canonicalize` decisions in grounded space.
+3. **COVERAGE via online growth**, not a single-pass distributional guess -- grow direct grounding by online
+   propose-verify over encounters (MINERVA-2 episodic; the north-star), NOT the batch distributional composition
+   this prototype refuted.
+**DO NOT** (this prototype's located negative, plus the two prior ones): ground/structure the co-occurrence
+CONTEXT representation -- it ties or loses PPMI counting.
+
 ## What I did NOT establish (honest bounds)
 - I did **not** build the live grounding read-out's bag over a fresh corpus inside the drill; I used GloVe as a strong
   co-occurrence STEELMAN (so the argument is *a fortiori* — the live bag is weaker than GloVe) and quoted the landed live
@@ -113,6 +157,14 @@ over-claim to strike first — the localization is explicit that input AND objec
 - **A dormant-looking win can be a live *inert* input.** `grounded_similarity` is imported by the live path and never
   called — the grounded input the comparator needs is in the room and unused. "Imported ≠ consumed" is the input-side
   twin of the reader-audit's "computed-and-discarded."
+- **The control was the finding.** In the fix prototype, common-mode removal (Carandini-Heeger) was the move that made
+  the result readable: before it, the info-free twin scored a spurious 0.055 and would have let me mis-read a frequency
+  artifact as a win. Centring collapsed the twin to ~0 and revealed the honest negative (grounded-context composition
+  loses to counting). A brain-faithful *control* (divisive normalisation) rescued a brain-faithful *measurement*.
+- **"Ground the input" split into two very different claims.** Grounding the TARGET's own features excels on meaning
+  (localization, 0.52); grounding the target's CONTEXTS does not transfer (this prototype, a located negative). The
+  distinction — direct vs distributional grounding — is the whole fix: a word's contexts are what it's *related to*,
+  and relatedness stays relatedness however you encode it.
 
 ## AUDIT UPDATE (for BRAIN_FOUNDATIONAL_AUDIT.md §2b — strategy re-verifies + folds in)
 - **EXTENDS the existing "grounding ceiling is REPRESENTATION-bound" entry (2026-09-01):** the ceiling is representation
@@ -154,11 +206,12 @@ PARTIAL would be defensible — but per the brief ("this is a MAP + the one deep
 the audit deliverable is complete.
 
 ## NEXT STEPS (priority-ordered — the fixes this audit sets up; all are strategy-lands-it, Q111)
-1. **[the #1 fix] Couple a grounded input channel with a meaning objective.** Wire `grounded_similarity` (or the
-   conceptual distinctive-feature vector) as the comparator's input for words without an on-page definition, AND replace
-   the co-occurrence growth-quality objective with a grounded-meaning one — land TOGETHER (wiring alone ties the own
-   metric). This is the deepest fix and it gates the whole learn-by-reading line. *A new problem is worth filing:
-   `ground_the_meaning_readout_and_fix_the_cooccurrence_objective`.*
+1. **[the #1 fix — now prototyped + sharpened] DIRECT grounding + a meaning objective + online coverage.** The fix
+   is NOT to ground the distributional context (prototyped located negative above). It is the three coupled hdlab
+   changes in "THE #1 FIX, PROTOTYPED": (a) a DIRECT grounded read-out (wire the inert `grounded_similarity` spoke +
+   broaden `definitional_extraction`), (b) a grounded-MEANING objective (not ConceptNet relatedness), (c) COVERAGE by
+   online propose-verify, land TOGETHER. This is the deepest fix and it gates the whole learn-by-reading line. *Worth
+   filing: `ground_the_meaning_readout_directly_and_fix_the_cooccurrence_objective`.*
 2. **[filed pri-5] C7 attractor-as-ranker → graded population read** in the gap gate
    (`replace_the_attractor_as_ranker_with_a_graded_population_read_in_the_grounding_loop`). Bounded blast; do not
    duplicate — this audit confirms it LIVE and refines it to row-selection-only.
