@@ -65,6 +65,11 @@ No repo writes beyond this file. No git commit (the Director owns the commit for
 """
 from __future__ import annotations
 
+__bf_status__ = "BF_UNVERIFIED"   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors data/bf_status_registry.jsonl
+__bf_verified__ = "2026-09-09 UNVERIFIED (AUDIT NEXT per VERIFIED_BF_LEDGER)"
+__bf_note__ = "AUDIT NEXT: grounded oriented signed-magnitude + FPE-log Weber comparator; verify then re-tag"
+__bf_corrections__ = []   # append "YYYY-MM-DD <fix>: OLD -> NEW" when a fix RAISES the status
+
 import math
 from typing import Dict, Optional, Tuple
 

@@ -40,6 +40,11 @@ ASCII, NumPy + hdlab.pos_tagger + nltk.wordnet (an admissible static lexical fou
 """
 from __future__ import annotations
 
+__bf_status__ = "BF_SPIRIT"   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors data/bf_status_registry.jsonl
+__bf_verified__ = "2026-09-09 operation/math audit (VERIFIED_BF_LEDGER)"
+__bf_note__ = "counterfactual-ablation OPERATION faithful; over associative single-layer forward model on BARE UNBOUND verb bag (necessity over TYPES not world-STATE)"
+__bf_corrections__ = []   # append "YYYY-MM-DD <fix>: OLD -> NEW" when a fix RAISES the status
+
 import math
 import os
 import re

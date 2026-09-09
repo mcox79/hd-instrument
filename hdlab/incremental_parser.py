@@ -36,6 +36,11 @@ the relcl resolver). MEASURE on the live reader before any capability claim.
 """
 from __future__ import annotations
 
+__bf_status__ = "BF_SPIRIT"   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors data/bf_status_registry.jsonl
+__bf_verified__ = "2026-09-09 operation/math audit (VERIFIED_BF_LEDGER)"
+__bf_note__ = "left-corner Now-or-Never eager attach; discrete-not-graded; conflict_margin=0.15; inherits hard POS; predictor inert live"
+__bf_corrections__ = []   # append "YYYY-MM-DD <fix>: OLD -> NEW" when a fix RAISES the status
+
 from typing import Dict, List, Optional, Sequence, Set, Tuple
 
 import numpy as np

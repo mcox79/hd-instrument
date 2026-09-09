@@ -37,6 +37,11 @@ ASCII-only. All vectors torch.Tensor bipolar {-1,+1} float32.
 """
 from __future__ import annotations
 
+__bf_status__ = "BF"   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors data/bf_status_registry.jsonl
+__bf_verified__ = "2026-09-09 operation/math audit (VERIFIED_BF_LEDGER)"
+__bf_note__ = "FHRR/VSA bind+bundle+unbind+cleanup, random non-fitted keys; latent bipolar-sign() deviation tracked"
+__bf_corrections__ = []   # append "YYYY-MM-DD <fix>: OLD -> NEW" when a fix RAISES the status
+
 from typing import Dict, List, Optional, Sequence, Tuple
 
 import torch

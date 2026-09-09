@@ -13,6 +13,11 @@ checkout; no experiments/ dependency).
 """
 from __future__ import annotations
 
+__bf_status__ = "NOT_BF"   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors data/bf_status_registry.jsonl
+__bf_verified__ = "2026-09-09 operation/math audit (VERIFIED_BF_LEDGER)"
+__bf_note__ = "harm/help = WordNet-animacy + verb-LIST membership (not a force simulation); HARM_BACKOFF = retired test-fitted list; in-process FrameNet parse on read path"
+__bf_corrections__ = []   # append "YYYY-MM-DD <fix>: OLD -> NEW" when a fix RAISES the status
+
 import os
 import sys
 from typing import Dict, Optional, Set

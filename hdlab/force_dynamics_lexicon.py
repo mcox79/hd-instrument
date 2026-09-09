@@ -33,6 +33,11 @@ Promoted 2026-08-31 from experiments/_force_dynamics_lexicon.py (causation dimen
 """
 from __future__ import annotations
 
+__bf_status__ = "BF_SPIRIT"   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors data/bf_status_registry.jsonl
+__bf_verified__ = "2026-09-09 operation/math audit (VERIFIED_BF_LEDGER)"
+__bf_note__ = "Wolff/Talmy truth-table pinned; inputs=FrameNet lookup + hand ENABLE-split + backoff + hand NEG_CUES; ~16% coverage (physical only)"
+__bf_corrections__ = []   # append "YYYY-MM-DD <fix>: OLD -> NEW" when a fix RAISES the status
+
 import json
 import os
 import sys

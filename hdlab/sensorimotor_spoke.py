@@ -47,6 +47,11 @@ USAGE
 """
 from __future__ import annotations
 
+__bf_status__ = "BF_SPIRIT"   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors data/bf_status_registry.jsonl
+__bf_verified__ = "2026-09-09 operation/math audit (VERIFIED_BF_LEDGER)"
+__bf_note__ = "euclidean-in-z magnitude-aware (swept); symmetric distance not signed magnitude; nearest-selection unpinned"
+__bf_corrections__ = []   # append "YYYY-MM-DD <fix>: OLD -> NEW" when a fix RAISES the status
+
 import os
 
 os.environ.setdefault("OMP_NUM_THREADS", "1")

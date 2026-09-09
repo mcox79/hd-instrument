@@ -50,6 +50,11 @@ Envelope (chain-grade-confirmed; do not exceed without rescue cell):
 """
 from __future__ import annotations
 
+__bf_status__ = "BF"   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors data/bf_status_registry.jsonl
+__bf_verified__ = "2026-09-09 operation/math audit (VERIFIED_BF_LEDGER)"
+__bf_note__ = "same primitives + sharded per-role slots; no fitted params"
+__bf_corrections__ = []   # append "YYYY-MM-DD <fix>: OLD -> NEW" when a fix RAISES the status
+
 import math
 from dataclasses import dataclass
 from typing import Tuple
