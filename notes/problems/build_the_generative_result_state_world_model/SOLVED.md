@@ -741,6 +741,30 @@ the fix for the real lever").**
   recurrent predict->error->update loop), NOT more/better static knowledge of any kind. 42 cells/witnesses.
   Reverify: `test_genworldmodel_meaning_grounded_bridge.py`.
 
+**DEEPENING cycle-27 (2026-09-08) -- THE REAL LEVER, BUILT: online-learned directed GENERATIVE forward
+world-model (owner: go after the real lever, brain-foundationally, right not cheap, make it happen).**
+`exp_genworldmodel_online_forward_model_v1.py` (TellMeWhy) + `exp_genworldmodel_cloze_forward_v1.py` (Story Cloze).
+Built the most brain-foundational version: structured FHRR-bound events (100%-BF glass-box roles) + a transition
+model LEARNED ONLINE + UNSUPERVISED from narrative order (forward event pairs; "no long training runs") + MINERVA-2
+ECHO generative prediction (Hintzman; cubing = pattern completion) + predictive-coding scoring (Rabovsky N400).
+NO static KB, NO LLM, no-leak (test stories excluded from traces; no gold labels in learning).
+- **TellMeWhy-GOAL (n=935): LOCATED NEGATIVE, robust across 12k AND 40k traces (more data did NOT help -> not a
+  data limit).** No CI-sep lift over the strong base (FWD +0.000; CTX -0.002); learned transitions not CI-sep
+  load-bearing (CTX vs shuffle +0.05->+0.02 as traces grew). Best of all knowledge mechanisms but still negative.
+- **Story Cloze (n=1871, the world-model's NATIVE forward-prediction task, chance 0.5): AT CHANCE (acc 0.517
+  CI[0.495,0.539]); learned transitions NOT load-bearing (ties shuffle-transition twin -0.0005).** Even on the
+  task it is designed for, text-statistical transition knowledge does not predict real endings.
+- **THE DIAGNOSIS (why a brain-foundational mechanism gets no signal):** the ARCHITECTURE is brain-foundational
+  (binding + episodic echo + predictive coding), but its KNOWLEDGE SUBSTRATE is NOT: text-statistical event
+  co-occurrence over UNGROUNDED symbol fillers (each word = a random vector; "milk" and "store" orthogonal). The
+  brain's forward model is learned from GROUNDED sensorimotor/causal experience, not from reading that event-words
+  co-occur. So across the WHOLE knowledge sweep -- static-associative (cycle-26), static-directed (cycle-24),
+  online-learned-generative (this) -- the common failure is UNGROUNDED knowledge. STRUCTURE (role binding) is
+  load-bearing everywhere; KNOWLEDGE fails everywhere because every source we have is a text shadow of grounded
+  causal structure. The missing ingredient is GROUNDING (Barsalou; embodied causal world-model), not a better
+  mechanism or a bigger text KB. 44 cells/witnesses. Reverify:
+  `test_genworldmodel_online_forward_model.py`, `test_genworldmodel_cloze_forward.py`.
+
 **TRIANGULATION (5 independent builds converge on ONE wall):** coverage-tiers (DEEP_MULTISTEP 51%),
 precise-trace (topical dominance; extraction not the issue), ECHO decision (mechanism proven, real-data flat),
 generative edges (generate>retrieve + phase-diagram optimum, class-level engines precision-coverage-bound),
