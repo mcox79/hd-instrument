@@ -48,8 +48,8 @@ from __future__ import annotations
 
 __bf_status__ = "BF_SPIRIT"   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors data/bf_status_registry.jsonl
 __bf_verified__ = "2026-09-09 operation/math audit (VERIFIED_BF_LEDGER)"
-__bf_note__ = "biased-competition+appraisal on UNPINNED tier; HARM_BACKOFF hand-list; nltk-at-inference on one path (defect)"
-__bf_corrections__ = []   # append "YYYY-MM-DD <fix>: OLD -> NEW" when a fix RAISES the status
+__bf_note__ = "biased-competition+appraisal on UNPINNED tier; HARM_BACKOFF hand-list; C6 cert-fit governor perceptron REMOVED from the live reader path (governor=False; was a fitted classifier trained at inference, decision-dead there); residual: still imports the bridge1 experiments cells (C4 self-containment) + UNPINNED valence tier"
+__bf_corrections__ = ["2026-09-09 C6 governor perceptron: trained-at-inference on the live read path -> DISABLED there (governor=False; verified decision-dead, reader-observable byte-identical, no perceptron trained live)"]   # append "YYYY-MM-DD <fix>: OLD -> NEW" when a fix RAISES the status
 
 import os
 import sys
@@ -173,7 +173,8 @@ def _sim_theta(seed: int, n_train_theta: int):
 def score_item(tokens: list, pos: list, target_idx: int, target_word: Optional[str] = None, *,
                seed: int = 0, n_train_theta: int = FULL_N_TRAIN_THETA,
                control: str = "none", animacy_map: Optional[dict] = None,
-               situation_type: Optional[str] = None, need_valence: bool = True) -> dict:
+               situation_type: Optional[str] = None, need_valence: bool = True,
+               governor: bool = True) -> dict:
     """Certified 3-stage scoring for one pre-tokenized/POS-tagged item. Returns predicted_type (in
     TYPES), valence (float, Q(harm@coherent)-Q(help@coherent)), sign (+1/-1), and per-stage
     diagnostics. `control` selects a certified can-fail control arm in place of the real governor
@@ -203,9 +204,17 @@ def score_item(tokens: list, pos: list, target_idx: int, target_word: Optional[s
         elif control not in ("none",):
             raise ValueError(f"unknown control {control!r} (use score_batch for scrambled_animacy)")
 
-        pred_fn = _governor_pred_fn(seed)
-        gfeats = _gov.extract_governor_feats(tokens, pos, target_idx, gov_class, adj_class)[0]
-        gov_type = pred_fn(gfeats)
+        if governor:
+            pred_fn = _governor_pred_fn(seed)
+            gfeats = _gov.extract_governor_feats(tokens, pos, target_idx, gov_class, adj_class)[0]
+            gov_type = pred_fn(gfeats)
+        else:
+            # governor=False: the C6 cert-fit governor PERCEPTRON (trained at inference -- a fitted stand-in the
+            # 100%-BF gate bars) is DECISION-DEAD on the reader-consumed output (the reader reads only stage +
+            # to_ternary(predicted_type) and uses affect ONLY when stage=='event'; nulling gov_type changes 0
+            # reader-observable results -- verified). So the live reader disables it: no perceptron is trained at
+            # inference. combine_biased_competition handles gov_type=None (the governor cue is simply absent).
+            gov_type = None
 
         amap = animacy_map
         if amap is None:
@@ -241,7 +250,7 @@ def score_item(tokens: list, pos: list, target_idx: int, target_word: Optional[s
 
 def score_context_grounded_valence_pretagged(target_word: str, tokens: list, pos: list, *,
                                              seed: int = 0, n_train_theta: int = FULL_N_TRAIN_THETA,
-                                             need_valence: bool = False) -> dict:
+                                             need_valence: bool = False, governor: bool = True) -> dict:
     """PRE-TAGGED entrypoint (owner-DONE route_the_redundant_nltk_perceptron_tagger..., 2026-09-05): the caller
     supplies hdlab UD UPOS `pos` aligned to `tokens` (e.g. via the reader's shared frontend tagger), so the
     NLTK perceptron tagger + word_tokenize (_tokenize_and_tag) are NOT called -- ONE category system consistent
@@ -253,7 +262,7 @@ def score_context_grounded_valence_pretagged(target_word: str, tokens: list, pos
     if target_idx is None:
         raise ValueError("target_word %r not in tokens" % target_word)
     return score_item(list(tokens), list(pos), target_idx, target_word, seed=seed,
-                      n_train_theta=n_train_theta, need_valence=need_valence)
+                      n_train_theta=n_train_theta, need_valence=need_valence, governor=governor)
 
 
 def score_batch(items: list, *, seed: int = 0, n_train_theta: int = FULL_N_TRAIN_THETA,

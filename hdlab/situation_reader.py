@@ -870,7 +870,7 @@ def _assign_affect(patient: str, sentence_text: str) -> Optional[str]:
     toks = sentence_text.split(" ")
     pos = list(_affect_pos_cached(sentence_text))   # hdlab UD UPOS (memoized per string), one category system
     try:
-        result = score_context_grounded_valence_pretagged(patient, toks, pos)   # need_valence=False
+        result = score_context_grounded_valence_pretagged(patient, toks, pos, governor=False)  # need_valence=False; governor=False: the C6 cert-fit perceptron is decision-dead on this path (verified) -> no fitted classifier trained at inference (100%-BF gate)
     except ValueError:
         return None  # patient head not found -- abstain, not guess
     if result["stage"] != "event":
