@@ -650,30 +650,8 @@ def _sentence_nominals(mentions: List[dict], n_sents: int) -> List[List[dict]]:
     return per
 
 
-def _build_spacy_pred_gate():
-    """SUPPLIED-GRAMMAR predicate-validity gate (29522 confound-free L1 win, ADOPTED here).
-
-    Returns a callable pred_gate_fn(sentence_text) -> set[str] of the LOW surface tokens that
-    spaCy (en_core_web_sm) tags as a VERB (Penn tag VB*) anywhere in the sentence. An emitted
-    event whose predicate LOW token is NOT in this set is a POS mis-tag (proper-noun / adjective
-    read as a verb on 19c literary prose) and is suppressed. POST-HOC filter only: it does NOT
-    feed the substrate parser / role clf (no OOD) -- glass-box supplied preprocessing, exactly the
-    human "read via already-known grammar" frame. Lazy import so the default reader path never
-    needs spaCy; raises ImportError only when the gate is actually requested."""
-    from experiments.exp_read_events_supply_grammar_spacy_pos_litbank_v1 import make_spacy_tagger
-    from experiments.exp_oracle_mention_upperbound_reader_v1 import split_sentences
-
-    spacy_tag = make_spacy_tagger()
-
-    def pred_gate_fn(sentence_text: str):
-        verbs = set()
-        for clause in split_sentences(sentence_text):
-            for (_surf, low, pos) in spacy_tag(clause):
-                if pos.startswith("VB"):
-                    verbs.add(low)
-        return verbs
-
-    return pred_gate_fn
+# _build_spacy_pred_gate REMOVED 2026-09-08 (owner: ZERO spaCy in hdlab; the in-substrate
+# predicate_detector supersedes the dormant spaCy POS pred-gate). pred_gate_fn stays a default-None hook.
 
 
 _IRREGULAR_PARTICIPLES = frozenset({
@@ -872,7 +850,7 @@ class SituationReader:
 
     def __init__(self, *, gaz: Optional[Dict[str, str]] = None,
                  focus_n_dim: int = FOCUS_N_DIM,
-                 pred_gate_fn=None, spacy_pred_gate: bool = False,
+                 pred_gate_fn=None,
                  gate_intransitive: bool = True,
                  role_route: str = "wired",
                  tense_agnostic_events: bool = True,
@@ -965,8 +943,6 @@ class SituationReader:
         self.focus_n_dim = int(focus_n_dim)
         # OPTIONAL supplied-grammar predicate-validity gate (29522 L1 win, ADOPTED opt-in).
         # Default OFF -> byte-identical to the banked reader. pred_gate_fn(sentence_text)->set(low).
-        if pred_gate_fn is None and spacy_pred_gate:
-            pred_gate_fn = _build_spacy_pred_gate()
         self.pred_gate_fn = pred_gate_fn
         # FRAME-ARITY gate (2026-08-06, PROMOTED TO DEFAULT-ON 2026-08-06): mechanism can-fail
         # 16/16 (gold-independent structural cases, hdlab/situation_reader.py::_selftest_frame_arity_gate)
@@ -1676,7 +1652,6 @@ class SituationReader:
         self._es_arc = None            # lazy ArcParser (M._ARC_ASSET)
         self._es_lab = None            # lazy ArcLabeler (M._LAB_ASSET)
         self._es_reg_cls = None        # lazy hdlab.state_register.StateRegister
-        self._causation_nlp = None     # lazy spaCy handle (loaded once, only when causation_typed)
         self._causation_lex = None     # lazy force lexicon
         # COMMON-NOUN referent former + wiring (opt-in; default OFF -> byte-identical). Wired 2026-09-04 from the
         # owner-DONE form_a_discourse_referent_for_every_entity_not_just_named_ones_common_noun_coref (Q111, §5).
@@ -1754,7 +1729,7 @@ class SituationReader:
     CAPABILITY_FLAGS = (
         "tense_agnostic_events", "preserve_tense", "timeline_register", "verb_subcat_gate", "track_space",
         "predict_surprisal", "track_belief", "bind_event_tokens", "predict_revise", "track_world_state",
-        "densify_world_state", "np_head_reduce", "parser_arceager", "causation_typed", "spacy_pred_gate",
+        "densify_world_state", "np_head_reduce", "parser_arceager", "causation_typed",
         "bind_entity_states", "structural_do_recover", "referent_per_np", "cm_agent", "include_pron_agents",
         "case_filter", "clause_local", "cm_agent_struct", "cm_agent_byhead", "agent_hybrid",
         "agent_hybrid_construction", "predicate_recall",
@@ -4134,11 +4109,8 @@ class SituationReader:
         if self.track_space:
             sm.locations = self._read_space(conll_path)
         if self.causation_typed:
-            # opt-in TYPED causation read (default-off; lazy spaCy + experiment-side literalness gate).
+            # opt-in TYPED causation read (default-off; IN-SUBSTRATE parse + experiment-side literalness gate).
             from hdlab.causation_typing import read_typed_causation
-            if self._causation_nlp is None:
-                import spacy
-                self._causation_nlp = spacy.load("en_core_web_sm")
             if self._causation_lex is None:
                 from hdlab.force_dynamics_lexicon import build_force_lexicon
                 self._causation_lex = build_force_lexicon()
@@ -4149,7 +4121,7 @@ class SituationReader:
                 use_constructions=self.causation_use_constructions,
                 sense_gate=self.causation_sense_gate, sense_tau=self.causation_sense_tau,
                 foreground_gate=self.causation_foreground_gate,
-                nlp=self._causation_nlp, lexicon=self._causation_lex)
+                lexicon=self._causation_lex)
         if self.track_belief:
             # BELIEF/ToM dimension: bind sm.believes / sm.knows query callables to this passage
             self._read_belief(sm, sents)
@@ -4661,18 +4633,7 @@ def _selftest_frame_arity_gate() -> dict:
     return {"n_cases": 16, "all_pass": True, **results}
 
 
-def _selftest_pred_gate() -> dict:
-    """OPT-IN spaCy predicate-validity gate: a planted non-verb mis-tag is suppressed,
-    a real verb survives. SKIPS gracefully if spaCy is not installed (default-env)."""
-    try:
-        gate_fn = _build_spacy_pred_gate()
-    except ImportError:
-        return {"skipped": "spacy_not_installed"}
-    # "The red coat lay there ." -> a mis-tagger might read 'red' as a predicate; spaCy tags it JJ.
-    verbs = gate_fn("the red coat lay there")
-    assert "lay" in verbs, f"gate dropped a real verb: {verbs}"
-    assert "red" not in verbs, f"gate kept an adjective as verb: {verbs}"
-    return {"verbs_for_'the red coat lay there'": sorted(verbs)}
+# _selftest_pred_gate REMOVED 2026-09-08 (spaCy pred-gate removed).
 
 
 def _selftest_event_extraction_coverage() -> dict:
@@ -4809,7 +4770,6 @@ def _run_all_selftests() -> dict:
     out["role_assignment"] = _selftest_role_assignment()
     out["frame_arity_gate"] = _selftest_frame_arity_gate()
     out["read_end_to_end"] = _selftest_read_end_to_end()
-    out["pred_gate"] = _selftest_pred_gate()
     out["frame_primary_wiring"] = _selftest_frame_primary_wiring()
     out["affect_wiring"] = _selftest_affect_wiring()
     out["event_extraction_coverage"] = _selftest_event_extraction_coverage()

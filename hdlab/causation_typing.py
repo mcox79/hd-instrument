@@ -23,14 +23,17 @@ BRAIN MECHANISM (PINNED unless noted):
                 the exact feature legs, weights, and engage threshold theta (swept).
 
 DEFAULT-OFF in the reader: SituationReader gains a `causation_typed` flag delegating here. Plain
-`import hdlab.causation_typing` is cheap -- spaCy is loaded only on use, and the literalness/WSD gate is
-LAZILY imported from experiments/ (its own separate queued promotion; NOT promoted here). NO external
-LLM at inference (spaCy parse + NLTK FrameNet/WordNet only). ASCII only. Deterministic.
+`import hdlab.causation_typing` is cheap -- the parse is the IN-SUBSTRATE frontend (pos_tagger +
+arc_parser + arc_labeler; ZERO spaCy, owner 2026-09-08), and the literalness/WSD gate is LAZILY imported from
+experiments/ (its own separate queued promotion; NOT promoted here). NO external LLM/tool at inference
+(in-substrate parse + NLTK FrameNet/WordNet only). ASCII only. Deterministic.
 """
 from __future__ import annotations
 
+import os
+
 from dataclasses import dataclass
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Sequence
 
 from hdlab.force_dynamics_lexicon import (
     build_force_lexicon, force_dynamic_type, detect_endstate_reached)
@@ -561,11 +564,228 @@ def _type_clause(affector, vlem, patient, ctx, endstate, lex, construction="lexi
 # Lazy loaders (spaCy + the experiments literalness/WSD gate). Kept lazy so plain
 # `import hdlab.causation_typing` never pulls spaCy or the experiment WSD chain.
 # ===========================================================================
-def _nlp_or_load(nlp):
-    if nlp is None:
-        import spacy
-        nlp = spacy.load("en_core_web_sm")
-    return nlp
+# In-substrate parse frontend (the SAME assets the reader already loads for the copular/state path).
+# ---------------------------------------------------------------------------
+_REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+_POS_ASSET = os.path.join(_REPO, "data", "frontend_assets", "pos_tagger_ud_ewt_upos.json")
+_ARC_ASSET = os.path.join(_REPO, "data", "frontend_assets", "arc_parser_hashed_ud_ewt.npz")
+_LAB_ASSET = os.path.join(_REPO, "data", "frontend_assets", "arc_labeler_hashed_ud_ewt.json")
+_FRONTEND: Dict[str, object] = {}
+
+
+def _frontend():
+    if "t" not in _FRONTEND:
+        from hdlab.pos_tagger import PosTagger
+        from hdlab.arc_parser import ArcParser
+        from hdlab.arc_labeler import ArcLabeler
+        _FRONTEND["t"] = PosTagger.load(_POS_ASSET)
+        _FRONTEND["p"] = ArcParser.load(_ARC_ASSET)
+        _FRONTEND["l"] = ArcLabeler.load(_LAB_ASSET)
+    return _FRONTEND["t"], _FRONTEND["p"], _FRONTEND["l"]
+
+
+# ---------------------------------------------------------------------------
+# Lemmatization (spaCy .lemma_ replacement). Verbs via the substrate's lemma_verb; nouns via WordNet
+# morphy (already a dependency of causation_typing); function words -> lowered surface.
+# ---------------------------------------------------------------------------
+def _lemma(word: str, upos: str) -> str:
+    w = (word or "").lower()
+    if upos in ("VERB", "AUX"):
+        try:
+            from hdlab.thematic_role_labeler import lemma_verb
+            return lemma_verb(w).lower()
+        except Exception:
+            return w
+    if upos in ("NOUN", "PROPN"):
+        try:
+            from nltk.corpus import wordnet as wn
+            m = wn.morphy(w, wn.NOUN)
+            return m if m else w
+        except Exception:
+            return w
+    return w
+
+
+_IRREG_VBN = frozenset({
+    "done", "gone", "seen", "taken", "given", "known", "shown", "broken", "chosen", "driven", "eaten",
+    "written", "spoken", "stolen", "frozen", "hidden", "bitten", "beaten", "worn", "torn", "sworn",
+    "drawn", "thrown", "grown", "blown", "flown", "held", "built", "sent", "spent", "lost", "found",
+    "caught", "taught", "bought", "brought", "fought", "sought", "thought", "kept", "left", "felt",
+    "meant", "dealt", "made", "said", "paid", "laid", "led", "put", "set", "cost", "hurt", "shut",
+    "made", "become", "begun", "come", "run",
+})
+
+
+def _penn(word: str, upos: str) -> str:
+    """Reconstruct the Penn fine tag the causation legs read off .tag_ (VBG/VBN/VBD/VBZ/VBP/VB, NNS/NN,
+    JJ/RB/...). Morphological guess -- UPOS carries no fine tense/number, exactly the PAL .tag_ gap."""
+    w = (word or "").lower()
+    if upos in ("VERB", "AUX"):
+        if w.endswith("ing"):
+            return "VBG"
+        if w in _IRREG_VBN or w.endswith("en"):
+            return "VBN"
+        if w.endswith("ed"):
+            return "VBD"                       # simple past (canonical foreground tense) -- see _leg_aspect
+        if w.endswith("s") and not w.endswith("ss"):
+            return "VBZ"
+        if upos == "AUX" and w in ("am", "is", "are", "was", "were", "be", "been", "being",
+                                   "have", "has", "had", "do", "does", "did", "will", "would",
+                                   "can", "could", "may", "might", "must", "shall", "should"):
+            return "MD" if w in ("will", "would", "can", "could", "may", "might", "must",
+                                 "shall", "should") else "VBP"
+        return "VBP" if w not in ("be",) else "VB"
+    if upos == "PROPN":
+        return "NNP"
+    if upos == "NOUN":
+        return "NNS" if (w.endswith("s") and not w.endswith("ss") and len(w) > 3) else "NN"
+    if upos == "ADJ":
+        return "JJ"
+    if upos == "ADV":
+        return "RB"
+    if upos == "PRON":
+        return "PRP"
+    if upos == "ADP":
+        return "IN"
+    if upos == "PART":
+        return "RP"
+    if upos == "DET":
+        return "DT"
+    return upos
+
+
+# ---------------------------------------------------------------------------
+# spaCy-token-compatible ADAPTER over the in-substrate UD parse.
+# ---------------------------------------------------------------------------
+try:
+    from nltk.corpus import stopwords as _nltk_sw
+    _STOP = set(_nltk_sw.words("english"))
+except Exception:
+    _STOP = {"the", "a", "an", "of", "to", "in", "on", "at", "for", "with", "by", "and", "or", "but",
+             "is", "are", "was", "were", "be", "been", "being", "it", "this", "that", "he", "she",
+             "they", "i", "we", "you", "him", "her", "them", "his", "its", "their", "as", "so", "not",
+             "no", "do", "did", "does", "have", "has", "had", "will", "would", "can", "could"}
+
+
+class _AdaptTok:
+    __slots__ = ("i", "text", "lemma_", "pos_", "tag_", "dep_", "_children", "head")
+
+    def __init__(self, i, text, lemma, pos, tag, dep):
+        self.i = i
+        self.text = text
+        self.lemma_ = lemma
+        self.pos_ = pos
+        self.tag_ = tag
+        self.dep_ = dep
+        self._children: List["_AdaptTok"] = []
+        self.head: Optional["_AdaptTok"] = None
+
+    @property
+    def children(self):
+        return self._children
+
+    @property
+    def is_alpha(self):
+        return self.text.isalpha()
+
+    @property
+    def is_stop(self):
+        return self.text.lower() in _STOP
+
+    @property
+    def subtree(self):
+        seen = {}
+        stack = [self]
+        while stack:
+            x = stack.pop()
+            if id(x) in seen:
+                continue
+            seen[id(x)] = x
+            stack.extend(x._children)
+        return sorted(seen.values(), key=lambda t: t.i)
+
+
+class _AdaptSent(list):
+    """A sentence = an ordered list of _AdaptTok (iterating it yields the tokens, like a spaCy Span)."""
+    pass
+
+
+# UD deprel (subtype-collapsed by arc_labeler.norm_label) -> the ClearNLP label the cue functions read.
+_UD2DEP = {
+    "root": "ROOT", "nsubj": "nsubj", "nsubj:pass": "nsubjpass", "csubj": "csubj",
+    "obj": "dobj", "iobj": "dative", "obl": "obl", "obl:agent": "agent", "nmod": "nmod",
+    "advcl": "advcl", "acl": "relcl", "appos": "appos", "ccomp": "ccomp", "xcomp": "xcomp",
+    "amod": "amod", "advmod": "advmod", "det": "det", "mark": "mark", "aux": "aux", "cop": "cop",
+    "cc": "cc", "conj": "conj", "nummod": "nummod", "punct": "punct", "expl": "expl",
+    "compound": "compound", "case": "case", "vocative": "vocative", "discourse": "advmod",
+    "parataxis": "parataxis", "fixed": "fixed", "flat": "flat", "dep": "dep",
+}
+
+
+def _build_adapt_sent(toks: Sequence[str], t, p, l) -> _AdaptSent:
+    """Parse one already-tokenized sentence with the in-substrate frontend and present a spaCy-style Span.
+
+    Topology translations:
+      * UD `case` preposition (child of its nominal) -> re-parented to a spaCy prep->pobj chain under the
+        nominal's head (verb/noun). This is the one structural inversion spaCy vs UD.
+      * `acl` covers relative clauses (UD collapses acl:relcl -> acl); mapped to `relcl` (both are the
+        causation module's _BACKGROUND_DEPS anyway).
+      * an object-predicate NOMINAL (UD xcomp with NOUN/PROPN UPOS, "call X a pig") -> `attr` so the
+        naming-frame veto can see it; an object-predicate ADJ stays reachable via xcomp.
+    """
+    toks = list(toks)
+    upos = list(t.tag(toks))
+    heads = dict(p.parse(toks, upos).heads)          # 1-based dep -> head (0 = ROOT)
+    deprels = dict(l.label(toks, upos, heads))       # 1-based dep -> UD deprel
+    n = len(toks)
+    atoks = []
+    for k in range(1, n + 1):
+        w = toks[k - 1]
+        up = upos[k - 1]
+        dep = _UD2DEP.get(deprels.get(k, "dep"), "dep")
+        # object-predicate nominal -> naming-frame-visible attr
+        if deprels.get(k) == "xcomp" and up in ("NOUN", "PROPN"):
+            dep = "attr"
+        atoks.append(_AdaptTok(k - 1, w, _lemma(w, up), up, _penn(w, up), dep))
+    # wire heads (spaCy head links), skipping the prepositions we will re-parent below
+    ud_head = {k: heads.get(k, 0) for k in range(1, n + 1)}
+    is_case = {k for k in range(1, n + 1) if deprels.get(k) == "case"}
+    for k in range(1, n + 1):
+        if k in is_case:
+            continue
+        h = ud_head[k]
+        if h != 0:
+            atoks[k - 1].head = atoks[h - 1]
+            atoks[h - 1]._children.append(atoks[k - 1])
+    # re-parent each UD `case` preposition into a spaCy prep -> pobj chain:
+    #   verb/noun G  ->  prep(into)  ->  pobj(river)
+    for c in sorted(is_case):
+        noun = ud_head[c]                             # the nominal the preposition marks
+        if not (1 <= noun <= n):
+            continue
+        g = ud_head[noun]                             # the nominal's head (verb / noun)
+        prep_tok = atoks[c - 1]
+        noun_tok = atoks[noun - 1]
+        prep_tok.dep_ = "prep"
+        # detach the nominal from its UD head; attach it under the preposition as pobj
+        if noun_tok.head is not None and noun_tok in noun_tok.head._children:
+            noun_tok.head._children.remove(noun_tok)
+        noun_tok.dep_ = "pobj"
+        noun_tok.head = prep_tok
+        prep_tok._children.append(noun_tok)
+        # attach the preposition under the nominal's head (or ROOT)
+        if 1 <= g <= n:
+            prep_tok.head = atoks[g - 1]
+            atoks[g - 1]._children.append(prep_tok)
+        else:
+            prep_tok.head = None
+    return _AdaptSent(atoks)
+
+
+class _AdaptFrontend:
+    """Non-None sentinel handed to LiteralnessGate as `nlp` so it does not self-load spaCy (assess() reads
+    the passed adapter tokens, never this object)."""
+    pass
 
 
 def _gate_or_load(nlp, use_gate):
@@ -603,8 +823,8 @@ def read_typed_causation(reader, conll_path, sm, *, gate_mode="force", use_gate=
     """
     from hdlab.scene_segment import parse_conll_sentences
     sents = parse_conll_sentences(conll_path)
-    nlp = _nlp_or_load(nlp if nlp is not None else getattr(reader, "_nlp", None))
-    gate = _gate_or_load(nlp, use_gate)
+    t, p, l = _frontend()
+    gate = _gate_or_load(_AdaptFrontend(), use_gate)   # non-None -> gate never self-loads spaCy
     lex = lexicon if lexicon is not None else build_force_lexicon()
     links: List[TypedCausalLink] = []
     typed_debug: List[dict] = []
@@ -614,9 +834,7 @@ def read_typed_causation(reader, conll_path, sm, *, gate_mode="force", use_gate=
         for ev in sm.events:
             reader_roles.setdefault((ev.sent_idx, ev.predicate), (ev.agent, ev.patient))
     for si, toks in enumerate(sents):
-        text = " ".join(toks)
-        doc = nlp(text)
-        for sent in doc.sents:
+        for sent in (_build_adapt_sent(toks, t, p, l),):
             for vtok in sent:
                 # DETECT: verb tokens, OR a force-lexicon lemma the parser GARDEN-PATHED into a NOUN
                 # that still heads a direct object ("A firewall blocks hackers ..." -> blocks tagged NOUN).
