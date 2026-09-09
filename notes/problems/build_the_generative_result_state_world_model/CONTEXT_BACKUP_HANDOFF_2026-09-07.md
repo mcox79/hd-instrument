@@ -443,3 +443,29 @@ curated_generative, structured_generative, forward_transition. RESEARCH notes: r
 semantics_2026-09-08.md (the reframe), research_psychological_state_register_for_loo_2026-09-08.md,
 research_context_conditioned_cause_selection_2026-09-08.md.
 ================================================================================
+
+================================================================================
+## >>> CYCLE-25 (2026-09-08) -- THE 4-STEP FRAME: removed the spaCy-at-inference DEFECT at zero cost <<<
+================================================================================
+41 cells/witnesses. Owner's guiding frame (restated): (1) end component 100% BF + inputs + research; (2) trace
+signal loss on the inputs up the chain; (3) dig deep where lost -> it is where something is NOT brain-foundational;
+(4) tools right not easy. Applied to the CONFIRMED CARRIER (structured-generative decode-confidence cue over
+FHRR-bound events). `exp_genworldmodel_bf_extraction_v1.py` + `test_genworldmodel_bf_extraction.py` (4/4).
+  * THE NON-BF LINK FOUND (step 3/4): the cue's role-filler INPUTS were extracted by `_roles_of` = **spaCy at
+    read-time** = the owner-NAMED blocking defect. FIXED: replaced with the glass-box, spaCy-FREE parse stack
+    on disk -- `hdlab.pos_tagger` (averaged-perceptron UPOS) + `hdlab.arc_parser` (hashed arc-factored dep parse,
+    "NO LLM/nltk/torch"), assets data/frontend_assets/{pos_tagger_ud_ewt_upos.json, arc_parser_hashed_ud_ewt.npz}
+    (load 0.3s, ~instant/sentence) + `hdlab.coreference_resolver.run_principle_b`.
+  * RESULT (pooled TellMeWhy-GOAL n=935): the carrier SURVIVES BF extraction at NO measurable cost -- glass-box
+    +0.0278 CI[-0.004,0.058] vs spaCy +0.0343 CI[0.004,0.064]; **BF vs spaCy -0.0064 CI[-0.032,0.019] (includes 0,
+    NO extraction wall)**; BF solo actually HIGHER (0.321 vs 0.300). So the confirmed carrier is now 100%
+    brain-foundational END-TO-END (spaCy off the path). A real defect removed.
+  * COREF does NOT recover (-0.030 CI[-0.062,0.002]); dug deep -> (a) AGENT is a CONSTANT protagonist: gold-share
+    0.70 == non-gold-candidate 0.71 (no cause-discrimination); (b) PATIENT/object cause<->effect share 0.07 even
+    after coref (implicit/bridged objects) = the cross-sentence object-identity / bridging wall (Q111). So the
+    residual is NOT extraction coverage/coref quality -- it is the context-conditioned meaning/bridging knowledge.
+  * NET: swap `_roles_of`(spaCy) -> the glass-box parse stack in the structured-generative + forward-transition
+    cells to make them 100% BF with no loss (the promotable fix). The remaining lever stays Q111.
+  DO NOT: reintroduce spaCy on the input path; expect coref to fix a constant-protagonist AGENT or an implicit
+  object; rebuild any context-free KB (refuted ~10x).
+================================================================================
