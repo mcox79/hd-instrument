@@ -14,6 +14,13 @@ reverify: ".venv/Scripts/python.exe verification/test_namebridge_generative.py  
 **STATUS: PARTIAL** (solver scope; WIP until owner marks DONE). Glass-box, NO external LLM at inference (THE invariant).
 NO `hdlab/` written -- measured in `experiments/` + `verification/`; strategy lands any Q111 wire.
 
+> ## STRATEGY: INTEGRATION IN PROGRESS (2026-09-09, CONT-29 continuation) — reverified, graded STRONG, LARGE PARTIAL landing carefully
+> **Reverified FIRST-HAND: `test_namebridge_generative.py` 11/11 (G1-G11) + `test_namebridge_worldknowledge.py` 9/9 (W1-W9).** Grade **STRONG** (rigorous whole-slice located-negative + CI-sep doc-local win + reusable BF pieces incl. the `safe_kb_types` gate with a proven safety theorem; PARTIAL because the headline accuracy lever is world-model-gated). §2b folded (audit E3). **This is NOT yet fully landed — a large fidelity-sensitive chain being landed carefully (per the CONT-24/25 large-chain discipline), NOT rushed at loop-cap.** LANDING PLAN:
+> - **LAND-NOW (mine, Q111):** (1) promote `safe_kb_types` → a new `hdlab/` gate (additive, self-contained, latent-by-design — readies the world-model's knowledge supply); (2) the abstention confidence; (3) FIXES A–E into the C8/`crosstype_bridge` name-bridge SELECTION math (recency-not-ACT-R, graded-not-flat, capped-sum, classifying-noun is-a, familiarity-gate) **with a REQUIRED board no-regress on `crosstype_experiencer` + `namebridge` dims** (fidelity-sensitive — this is the de-leaked live path) + the `full_resolve` capstone.
+> - **WORLD-MODEL-GATED (coordinate with pri-1 `grow_the_causal_mechanism`, still in a solver):** the GENERATIVE who-is-who route (the doc-local accuracy lever, +0.064–0.080 CI-sep) — fed THROUGH the safe-KB gate. Spec: `GENERATIVE_MODEL_PROMPT_from_namebridge.md`.
+> - **FLAGGED NOT_BF (do at land):** replace token-overlap name-clustering with Bruce-Young individuation; NEVER an ungated broad-KB/top-1 search (wrap in `safe_kb_types`).
+> Until the LAND-NOW pieces land + verify no-regress, this problem stays on the owner-DONE gate as INTEGRATING (the reverify + plan are durable here + in §2b + the ledger).
+
 > ## ======== REUSABLE PROJECT-WIDE DELIVERABLE: THE SAFE-KB FAMILIARITY GATE (`safe_kb_types`) ========
 > **`experiments/exp_namebridge_safe_kb_gate_v1.py::safe_kb_types` -- a general, drop-in, BRAIN-FOUNDATIONAL gate
 > that makes ANY broad/noisy entity-type KB SAFE to use anywhere in the substrate.** Bruce-Young / Burton-Bruce-
