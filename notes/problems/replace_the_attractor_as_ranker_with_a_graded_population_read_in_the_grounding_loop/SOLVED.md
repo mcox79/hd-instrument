@@ -5,7 +5,7 @@ bar: "PASS = a brain-foundational GRADED POPULATION READ replacing the sign()+at
 result: "Two-part result. (1) LOCATED NEGATIVE on the brief's named mechanism: the live grounding-loop RANKING is ALREADY a graded population read (sense assignment routes through canonicalize_fast -- a cosine matvec, GRADED_COMPARATOR ON since 2026-08-14 -- NOT an attractor); the attractor is confined to the exact-match recognition GATE (gap_detector), where swapping it for a population read changes ranking fidelity by -1.4e-5 (95% boot CI [-2.9e-5,+3.4e-6], INCLUDES ZERO; n=400 queries, d=512) and hub over-promotion is ~0.02 for every arm at the gate's sharp temp (it only appears at soft temps the gate never uses: attractor rho 0.73 at temp=0.25 vs 0.995 at temp>=8). So 'replace the attractor readout' buys nothing. (2) SOLVED the real problem underneath -- the ranking's REPRESENTATION. On the loop's OWN sense-assignment ranking (canonicalize's job: rank the true synonym among the full covered vocab) against the INDEPENDENT SimLex-999 similarity gold, through the LIVE distributional channel (ConceptSpace context bundles) + the graded population read, a brain-foundational representation beats the distributional incumbent CI-separated: MRR CONVERGENT (reliability-weighted grounded+distributional fusion) 0.0812 vs incumbent 0.0241, +0.0571 CI[+0.0335,+0.0834] (ci_hw 0.0103); GROUNDED alone 0.0637 also beats it; hit@10 incumbent 0.047 -> grounded 0.154 -> convergent 0.189 (4x). Info-free twins LOSE decisively (MRR 0.0013 / 0.0009). n=4422 covered words, 169 high-sim SimLex test pairs (held-out; fusion weight w=16 calibrated on a disjoint train split), 3000-sample bootstrap. Recall/recognition path byte-identical (only the ranking's input representation changes)."
 floor: "Strongest floors actually run, recomputed on each population. SENSE-ASSIGNMENT (headline, n=4422 words / 169 SimLex test pairs): the DISTRIBUTIONAL incumbent itself (the loop's live canonicalize representation) MRR 0.0241 -- the brain-foundational reps beat it CI-separated (convergent +0.0571 CI[+0.0335,+0.0834]; grounded +0.0396). INFO-FREE TWINS (shuffled rep rows) MRR 0.0013 (distributional) / 0.0009 (grounded), both CI-below their real reps. Representation-level corroboration on the same SimLex SIMILARITY gold (prior cell exp_taxonomic_vs_thematic_gold_v1, re-cited): distributional co-occurrence Spearman 0.039 vs grounded 0.245. LOCATED-NEGATIVE floors (ranking-fidelity cell, n=400, d=512): incumbent sign+attractor Spearman-to-grounded-gold 0.9855, info-free twin 0.0007; readout isolation POP-minus-ATTRACTOR -1.4e-5 CI incl 0 (NULL); live random-hash content_key -0.003."
 controls: "INFO-FREE TWINS (shuffled rep-row <-> word correspondence) LOSE CI-separated in BOTH experiments -- the win carries real per-word meaning, not base-rate. HELD-OUT SPLIT: the convergent fusion weight w and the taus are calibrated on a disjoint TRAIN half of the SimLex pairs and evaluated on the TEST half (no leak). INDEPENDENT GOLD: SimLex-999 human SIMILARITY ratings are WordNet-independent and independent of every representation under test (no ground-by-X/grade-by-X). READOUT ISOLATION (attractor vs population, same format) excludes the readout as the harm (null, CI incl 0). FORMAT ISOLATION (graded vs sign, same read) attributes the residual to the sign-quantiser not the readout. TEMPERATURE SWEEP locates the attractor's harmful regime at soft temps the live gate never uses. GATE EXACT-MATCH AUC control: known/novel real-word separation stays 1.0 -- no regression to the attractor's correct recognition job. RECALL byte-identity: the proposal changes only what the ranking READS; hdlab.iterative_attractor.iterative_cleanup (recall/completion for ca3_completer + hippocampal_encoder) is UNTOUCHED (witness A4). Positive control: JL random projection preserves grounded geometry (self-test)."
-files_changed: "experiments/exp_sense_assignment_grounded_vs_distributional_v1.py (SOLVED headline: loop's own sense-assignment ranking, SimLex independent gold, distributional incumbent vs grounded vs reliability-weighted convergent, twins, held-out fusion weight), experiments/exp_graded_read_vs_attractor_ranker_v1.py (located-negative: 2x2 format x readout + live-hash fidelity + gate AUC + temp sweep), verification/test_graded_read_ranker.py (scaffold-free witness, 18/18: 10 disk-fact + 5 located-negative-number + 3 SOLVED-ranking checks), data/exp_sense_assignment_grounded_vs_distributional_v1/metrics.json, data/exp_graded_read_vs_attractor_ranker_v1/metrics.json. NO hdlab/ modified (Q111 -- the hdlab proposal is stated below for the strategy session to land)."
+files_changed: "experiments/exp_sense_assignment_grounded_vs_distributional_v1.py (SOLVED headline: loop's own sense-assignment ranking, SimLex independent gold, distributional incumbent vs grounded vs reliability-weighted convergent, twins, held-out fusion weight), experiments/exp_graded_read_vs_attractor_ranker_v1.py (located-negative: 2x2 format x readout + live-hash fidelity + gate AUC + temp sweep), experiments/exp_richer_meaning_channel_v1.py (LARGEST-DELTA follow-on prototype: adds the taxonomic/relational identity channel + curated-w2v channel, ATL-hub fusion, on the same held-out SimLex ranking), verification/test_graded_read_ranker.py (scaffold-free witness, 21/21: 10 disk-fact + 5 located-negative-number + 3 SOLVED-ranking + 3 largest-delta checks), data/exp_sense_assignment_grounded_vs_distributional_v1/metrics.json, data/exp_graded_read_vs_attractor_ranker_v1/metrics.json, data/exp_richer_meaning_channel_v1/metrics.json. NO hdlab/ modified (Q111 -- the hdlab proposal is stated below for the strategy session to land)."
 reverify: ".venv/Scripts/python.exe verification/test_graded_read_ranker.py  (18/18; disk facts + located-negative numbers + SOLVED-ranking checks). Powered headline reproducer (own-dir only): .venv/Scripts/python.exe experiments/exp_sense_assignment_grounded_vs_distributional_v1.py --mode full"
 ---
 
@@ -80,6 +80,33 @@ evaluated held-out.
   RELATIVE win is decisive (3.4x the incumbent, CI-separated, twin losing) and clears the bar; large absolute
   headroom remains, and it points at the next lever (structured context + richer grounding, below).
 
+## LARGEST-DELTA FIX PROTOTYPED (owner follow-on): the taxonomic / relational IDENTITY channel
+The brain-comparison named rung #1 -- the grounded channel's 12-d sibling/synonym confound -- as the
+dominant remaining loss. `experiments/exp_richer_meaning_channel_v1.py` prototypes the brain-foundational fix
+on the SAME held-out SimLex ranking (n=4363 words covered by all channels, 169 test pairs, 3000-boot). The
+brain's ATL hub integrates grounded PERCEPTUAL experience with TAXONOMIC / relational structure (is-a category
+organization; distinctive definitional features) -- synonyms share a taxonomic node, siblings do not. Adding
+that channel (conceptual_meaning's IDF-weighted definitional-feature cosine = "meaning-IDENTITY"):
+
+| arm (rank the true synonym) | MRR | hit@10 |
+|---|---|---|
+| CONV grounded+distributional (current SOLVED fix) | 0.072 | 0.14 |
+| MEANING_FOUNDATION (200-d curated w2v; richer *distributional*) | 0.142 | 0.24 |
+| CONCEPTUAL / taxonomic identity (alone) | 0.316 | 0.53 |
+| **CONV_ALL -- full ATL-hub fusion (grounded+distributional+curated+taxonomic)** | **0.345** | **0.58** |
+| info-free twins (shuffled) | 0.0015 | -- |
+
+The full ATL-hub fusion beats the current SOLVED convergent **+0.273 MRR, CI [+0.215, +0.330]** (~4.8x; hit@10
+0.14 -> 0.58), twins losing CI-separated. Decomposition confirms the mechanism: the richer *distributional*
+code (meaning_foundation) adds only +0.069 (relatedness), while the *taxonomic* code adds +0.244 -- **the
+missing signal is relational IDENTITY, not distributional richness**, exactly as the sibling/synonym theory
+predicts. HONEST CAVEAT: the taxonomic channel reads WordNet-derived distinctive features (an admissible
+offline FOUNDATION asset; taxonomic organization is brain-foundational -- ATL), and WordNet partly encodes the
+target synonymy, so this PROVES THE LEVER rather than delivering the final brain-foundational end-state. The
+fully brain-foundational version LEARNS that relational structure online from reading (the learner/knowledge
+north-star), rather than reading it from a curated ontology. The gold is human/WordNet-independent (SimLex)
+and the shuffled twin loses, so the signal is real, not an ontology artifact.
+
 ## The hdlab proposal (for the strategy session to land, Q111)
 A map + witnessed prototype, not a landed diff. All LOCAL to the ranking's READ; the store's
 recall/recognition path stays byte-identical.
@@ -146,12 +173,15 @@ test, with a scrambled version failing and the exact-word recognition left untou
 ## QUESTIONS
 None blocking.
 
-## NEXT STEPS
-1. **(hand-off to strategy, Q111)** Land the two-part hdlab proposal above: read the similarity ranking over
-   a reliability-weighted convergent fusion (grounded + distributional); reserve the attractor for recall;
-   de-sign the reference `canonicalize` fallback. Recall path byte-identical.
-2. **(compounds this win)** End-to-end: wire the fusion into `canonicalize_fast` and re-run a grounding pass,
-   measuring downstream grounding coverage/quality (the growth metric) with the info-free twin losing.
-3. **(adjacent, seeds a problem)** The context representation is an unordered bag-of-words; the brain uses
-   ordered/syntactic context, which prior work shows recovers the similarity axis further (SimLex
-   0.075->0.112). A structured-context distributional channel is the next fidelity lever for this ranking.
+## NEXT STEPS (re-ranked by measured delta after the largest-delta prototype)
+1. **(largest delta, prototyped -- hand-off to strategy, Q111)** Read the sense-assignment ranking over the
+   full ATL-hub fusion INCLUDING the taxonomic/relational IDENTITY channel (conceptual_meaning), not grounded
+   +distributional alone: measured MRR 0.072 -> 0.345 (~4.8x), hit@10 0.14 -> 0.58, twins losing. Reserve the
+   attractor for recall; de-sign the reference `canonicalize` fallback. Recall path byte-identical.
+2. **(deepest brain-foundational version of #1)** Replace the curated-ontology taxonomic channel with one that
+   LEARNS relational/taxonomic structure online from reading (the learner/knowledge north-star), so the
+   identity signal is acquired, not read from WordNet. This is what removes the honest caveat above.
+3. **(compounds)** End-to-end: wire the fusion into `canonicalize_fast`, re-run a grounding pass, measure
+   downstream grounding coverage/quality (the growth metric) with the info-free twin losing.
+4. **(smaller delta, next rung)** Structured/ordered context for the distributional channel (prior work: SimLex
+   0.075->0.112) and per-item (not global) reliability weighting in the fusion.
