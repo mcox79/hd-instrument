@@ -37,6 +37,22 @@ meaning objective + online coverage (rows 1-3, land together)**; paradigmatic gr
 supplement; rows 5-7 are the upstream-fidelity + adjacent fixes. Direct grounding (0.52) sits ABOVE the whole
 co-occurrence family's ceiling (~0.37), so no amount of tuning the distributional read-out substitutes for it.
 
+### OPTIMIZATION SWEEP now that the mechanism is brain-foundational (owner: "any optimizations now we're BF?")
+`exp_grounded_meaning_readout_remote_sweep_v1.py` sweeps the BF operating point over 6 MODERN corpora (opt A fuse
+direct+paradigmatic; opt B relation-TYPED Levy-Goldberg context; opt C distillation-dim) with a DIRECT reference arm.
+Smoke (dim=200, 6879 parsed, n=409 pairs) SimLex rho: **DIRECT 0.475** >> FUSED 0.403 >> COUNTING 0.046 / BAG 0.039 /
+GROUNDED_SENT 0.037 / GROUNDED_STRUCT 0.036 / STRUCT_TYPED 0.034 / TWIN 0.016. Findings that reshape the fix:
+- **DIRECT grounding dominates ~10x** — the decisive lever, reproduced a 3rd way (independent of the localization).
+- **Naive equal-weight FUSION HURTS** (−0.072 vs DIRECT): summing a near-noise context spoke DILUTES the strong direct
+  spoke. => the right optimization is **COVERAGE-AWARE fusion** (direct where the word is grounded, context ONLY as
+  the fallback for uncovered words), i.e. reliability-weighted hub integration — not a blind sum.
+- **Relation-typing (B) and dim (C) do NOT lift the distributional arms off counting-parity (~0.04)** — so tuning the
+  distributional read-out is not where the gain is; DIRECT-grounding COVERAGE is.
+- **Net:** the highest-value optimization is (1) maximise DIRECT-grounding coverage (definitional extraction + the
+  foundation + online growth) and (2) coverage-aware reliability-weighted fusion of the spokes; paradigmatic context is
+  a fallback, not a lever. A powered remote CI-run confirms the (already large) DIRECT-vs-distributional gap; the
+  distributional deltas are floor-level and not worth chasing.
+
 ## What I built
 1. **The denominator, by enumeration not comment-grep** (`experiments/exp_audit_grounding_subsystem_v1.py`). A runtime
    **import trace** (5 fresh-subprocess closures) + a **settrace call trace** over the subsystem's live entry point
