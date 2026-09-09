@@ -2072,6 +2072,103 @@ def board_affect_harm_help_dimension(n_boot=2000, seed=None):
         return _degraded("affect_harm_help", e, informational=True), {"error": "%s: %s" % (type(e).__name__, e)}
 
 
+def board_predictive_causal_necessity_dimension(held_lines=6000, seed=17):
+    """FORWARD predictive-causal INTRINSIC-NECESSITY board arm (owner-DONE generate_dont_retrieve_causal_edges,
+    CONT-29). The counterfactual-necessity causal reader is board-INVISIBLE by design: every external causal gold
+    (MAVEN/TellMeWhy/GLUCOSE) is a POSITION-ARTIFACT trap a trivial position floor beats, so the brain-foundational,
+    TRAP-PROOF measure is INTRINSIC surprisal-reduction (Kuperberg N400 predictive coding + Gerstenberg
+    counterfactual necessity), NOT a QA dim. This arm scores the LANDED hdlab.predictive_world_model directly on a
+    HELD-OUT simplewiki slice (lines the foundation asset was NOT trained on): for each event with >=3 context
+    events, the reader's argmax-necessity antecedent's necessity (surprisal-increase on ablation) vs (strongest
+    floor) a RANDOM context event and (position control / twin) the NEAREST context event. A REAL necessity signal
+    that ESCAPES position => model beats random CI-sep AND beats nearest CI-sep.
+
+    model = mean reader-argmax necessity (bits); strongest_floor = mean RANDOM-context-event necessity; twin =
+    mean NEAREST-event necessity (the position control the solver proved the benchmarks secretly reward). Paired
+    clustered bootstrap CI. Kept OUT of the 19c-free headline aggregate (its own INTRINSIC row -- no QA population).
+    Degrades gracefully to a schema-shaped N/A row if the foundation asset is absent (build via
+    `python -m hdlab.predictive_world_model --build`). NO spaCy / NO LLM (glass-box tagger + WordNet + a linear
+    read-out learned by the delta-rule)."""
+    try:
+        import os as _os
+        import math as _math
+        from collections import deque as _deque
+        import numpy as _np
+        try:
+            from hdlab.predictive_world_model import PredictiveWorldModel as _PWM, content_events as _ce
+            m = _PWM.load()
+        except Exception as e:
+            return _degraded("predictive_causal_necessity",
+                             "foundation asset absent -- build via `python -m hdlab.predictive_world_model --build` (%s)"
+                             % e), {"note": "the landed hdlab.predictive_world_model organ needs its simplewiki "
+                                    "foundation asset (gitignored/rebuildable); the arm returns a schema-shaped N/A row."}
+        _REPO2 = _os.path.abspath(_os.path.join(_os.path.dirname(__file__), ".."))
+        sw = _os.path.join(_REPO2, "data", "corpora", "simplewiki", "simplewiki_clean_v1.txt")
+        # HELD-OUT slice: lines AFTER the asset's 40000-line training window (honest -- not trained on).
+        stream = []
+        with open(sw, encoding="utf-8", errors="ignore") as f:
+            for i, ln in enumerate(f):
+                if i < 40000:
+                    continue
+                if i >= 40000 + held_lines:
+                    break
+                ln = ln.strip()
+                if len(ln) >= 8:
+                    stream.extend(_ce(ln))
+        ids = [m.idx[c] for c in stream if c in m.idx]
+        max_nec, rand_nec, near_nec = [], [], []
+        rng = _np.random.default_rng(seed)
+        win = _deque(maxlen=m.hist)
+        for nxt in ids:
+            ctx = list(win)
+            if len(ctx) >= 3:
+                necs = [t[2] for t in m.necessity_ids(nxt, ctx)]
+                if necs:
+                    max_nec.append(max(necs))
+                    rand_nec.append(necs[int(rng.integers(0, len(necs)))])
+                    near_nec.append(necs[-1])            # nearest = last context event (position control)
+            win.append(nxt)
+        n = len(max_nec)
+        if n < 100:
+            return _degraded("predictive_causal_necessity",
+                             "held-out necessity sample too small (%d)" % n), {"n": n}
+        a = _np.array(max_nec); r = _np.array(rand_nec); nr = _np.array(near_nec)
+
+        def _boot(hi, lo):
+            d = hi - lo
+            idx = rng.integers(0, len(d), (2000, len(d)))
+            s = d[idx].mean(1)
+            return float(d.mean()), float(_np.percentile(s, 2.5)), float(_np.percentile(s, 97.5))
+
+        dr = _boot(a, r); dn = _boot(a, nr)
+        row = {
+            "n": n, "model_acc": round(float(a.mean()), 4),
+            "overlap_floor": round(float(r.mean()), 4),
+            "floor_accs": {"random_context_event": round(float(r.mean()), 4),
+                           "nearest_event_position": round(float(nr.mean()), 4)},
+            "strongest_floor_name": "random_context_event", "strongest_floor": round(float(r.mean()), 4),
+            "twin_acc": round(float(nr.mean()), 4),                       # nearest = the position control
+            "model_minus_strongest": [round(dr[0], 4), round(dr[1], 4), round(dr[2], 4)],
+            "model_minus_twin": [round(dn[0], 4), round(dn[1], 4), round(dn[2], 4)],
+            "ci_sep_over_strongest": bool(dr[1] > 0),
+            "ci_sep_over_twin": bool(dn[1] > 0),                          # beats NEAREST => escapes position
+            "informational": True,
+            "population": ("simplewiki HELD-OUT (lines 40000-%d, not in the asset's training window); intrinsic "
+                           "counterfactual-necessity bits (surprisal-increase on ablation) over the landed "
+                           "hdlab.predictive_world_model; NO external gold -> trap-proof" % (40000 + held_lines)),
+            "metric": "mean counterfactual-necessity bits (reader-argmax antecedent)",
+        }
+        detail = {"reader_argmax_necessity": round(float(a.mean()), 4),
+                  "random_context_necessity": round(float(r.mean()), 4),
+                  "nearest_event_necessity": round(float(nr.mean()), 4),
+                  "reader_vs_random_ci": [round(dr[1], 4), round(dr[2], 4)],
+                  "reader_vs_nearest_ci": [round(dn[1], 4), round(dn[2], 4)],
+                  "n_effects_scored": n, "vocab_V": m.V}
+        return row, detail
+    except Exception as e:
+        return _degraded("predictive_causal_necessity", e, informational=True), {"error": "%s: %s" % (type(e).__name__, e)}
+
+
 def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True):
     """Assemble every MODERN per_dimension row. caps = dict of per-arm caps for a fast self-test.
     run_new_arms adds the 3 board-invisible-win arms (coarse-sense/selective-reliability/causal-multihop) as
@@ -2181,6 +2278,10 @@ def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True
         hh_row, hh_det = board_affect_harm_help_dimension()
         new_arms["affect_harm_help"] = hh_row
         new_arms_detail["affect_harm_help"] = hh_det
+        pcn_row, pcn_det = board_predictive_causal_necessity_dimension(
+            held_lines=(1500 if caps.get("predictive_causal_smoke") else 6000))
+        new_arms["predictive_causal_necessity"] = pcn_row
+        new_arms_detail["predictive_causal_necessity"] = pcn_det
 
     crossref = _informational_19c_crossref()
 
