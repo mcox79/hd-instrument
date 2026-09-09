@@ -246,3 +246,14 @@ leak) was owner-ruled 2026-09-08.
    is unbuilt and needs an acquired bridging gold (ARRAU / ISNotes, pre-authorized) to measure. Distinct from Wall 1/2.
 
 Nothing written to `hdlab/`.
+
+---
+
+INTEGRATED_BY_STRATEGY: 2026-09-09 (CONT-29). Owner-DONE. The full Q111 hdlab landing is DONE + verified + FLIPPED ON:
+- **PART 1** (`6d1330da3`): `hdlab/online_entity_cluster.py` (`online_cluster`) — the ONLINE ACT-R cue-clustering replacing the gold-coref-inherited entity layer; self-test 4/4, byte-faithful to the landed cue_cluster.
+- **PART 2** (this integration): `hdlab/crosstype_live_adapter.py` (NEW, self-contained, ZERO experiments/) — the GOLD-FREE crosstype definite→name bridge adapter: builds a crosstype Doc from the reader's OWN live parse with each mention's `.eid` = its ONLINE cluster label (NEVER `m["cluster"]`/`_gold_eid`), runs `crosstype_bridge_links(conf_thr=-3.0)`, and merges each bound definite under its bound NAME's online label. Wired into `situation_reader.read()`'s `online_entity_cluster` block (sub-flag `online_entity_cluster_bridge`, default True) BEFORE the negative-int assignment (merged labels stay int-safe).
+- **FLIPPED DEFAULT-ON** (`online_entity_cluster` default False→True) per no-more-default-off — the honest online+bridge entity layer is now the reader's default, removing the gold-coref leak.
+- **VERIFIED FIRST-HAND** (`verification/test_deleak_crosstype_live_adapter.py`, PASS): adapter self-contained (no experiments/), gold-free Doc (eids == online labels, not gold), non-mutating int-label merge, LIVE `reader.read()` with the full de-leak ON runs with NO crash + builds `sm.entities`, PRONOUN/coref stream BYTE-IDENTICAL floor vs part1 vs full, and the landed downstream +0.0838 CI-sep experiencer gain (n=549) reproduced from disk.
+- **BOARD NO-REGRESS** (smoke, de-leak ON): core aggregate stable (model 0.6294 vs floor 0.5882, no arm crash), coref FLAT (0.504 vs 0.506 — the leak was in the entity/experiencer path, NOT the separate pronoun coref stream), who-did-what/state/wic healthy. Full authoritative `--run` confirms.
+- Part-whole route NOT wired (located negative: meronymy is bridging, not identity). priority 6 dropped.
+The one owner-flagged judgement (SOLVED vs PARTIAL, the small CI-sep C2 hard-link trade 0.0310→0.0231) is owner-accepted: the LIVE named consumer (C3 experiencer) is up +0.0838, C1 up, pronoun byte-identical — a documented precision/recall trade on a dormant-KB diagnostic, not hidden.

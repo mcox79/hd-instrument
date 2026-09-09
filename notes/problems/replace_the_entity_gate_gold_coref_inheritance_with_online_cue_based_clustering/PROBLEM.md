@@ -1,7 +1,7 @@
 ---
-priority: 6
+priority:
 review:
-review_text:
+review_text: "INTEGRATED 2026-09-09 (CONT-29): PART 1 (online_cluster) + PART 2 (crosstype_live_adapter, gold-free) landed + wired + FLIPPED DEFAULT-ON; verified (test_deleak_crosstype_live_adapter.py PASS: no crash, gold-free, pronoun byte-identical, +0.0838 CI-sep gain reproduced); board no-regress (coref flat, core aggregate stable). See SOLVED.md INTEGRATED_BY_STRATEGY."
 ---
 
 # PROBLEM: the live reader's entity/common-noun layer secretly reuses the GOLD coreference answer key ("gold-coref inheritance" in `_apply_commonnoun_gate`) to cluster mentions — a non-brain-foundational oracle peek that inflates the live coref/experiencer numbers (~0.80–0.86) and MASKS every real coref, name-bridge and experiencer gain (strip the peek and the honest floor is ~0.13–0.49); build the brain's ONLINE, cue-based entity clustering (no answer key) so the reader works coreference out for itself, and prove it beats the HONEST (de-leaked) floor CI-separated and lets at least one downstream consumer's proven gain become live — or a rigorous located negative naming the honest ceiling.

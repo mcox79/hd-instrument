@@ -59,6 +59,31 @@ FAMILIARITY ROUTING (known -> consolidated KB; novel/document-local -> the gener
 gestures at it (0.5815 whole / 0.472 doc-local) but does not yet CI-separate whole-slice -- the concrete follow-on
 for the generative-model program. The win is honestly reported on the residual subpopulation.
 
+## PATH FROM PARTIAL TO SOLVED -- where signal is lost, and the brain-foundational fix (measured)
+The SOLVED bar is a WHOLE-SLICE CI-sep win over kb_thematic (0.5843). The SELECT is NOT the loss (oracle 0.924).
+Decomposing the whole slice by population (reach = gold in static KB; doc-local = not):
+| population | recency | kb_thematic | gen | note |
+|---|---|---|---|---|
+| REACHABLE (231) | 0.515 | 0.675 | 0.563 | KB owns it; gen HURTS here (-0.11 CI-sep, no KB for famous) |
+| DOC-LOCAL (125) | 0.392 | 0.416 | 0.480 | gen WINS (+0.064 CI-sep); uniquely gets 11 KB misses vs 3 the reverse |
+- **The loss is INTEGRATION, and the signal EXISTS:** a perfect familiarity-router (known->KB, novel->gen) = 0.607
+  = **+0.0225 CI[+0.0028,+0.0449] CI-sep** over the floor. Naive union throws it away (a many-typed famous distractor
+  swamps a document-local gold).
+- **Lever 1 (built) -- the CLS UNIFIED ATL integration, calibrated.** One identity file holding BOTH consolidated-KB
+  fine-types AND the online generative file (the ATL is one hub -- encyclopedic + episodic), competing on EQUAL
+  FOOTING (capped-sum: no route swamps). `cls_unified` arm = 0.6039 whole (+0.0197, CI edge) improving BOTH
+  populations; the inline variant that also folds KB's `extract_isa_edges` in-text reaches 0.6152 (+0.0309, CI lower
+  -0.0028). `max`-pool over-prunes, `sum` swamps, `cap` competes fairly -- the calibration was the fix. This is the
+  brain's architecture, not a routing hack, and it is the single biggest recoverable lever -- on the edge of CI-sep.
+- **Lever 2 -- broader recognition-cleaned Wikidata KB** (`fetch_wikidata_namebridge_types_v2` + `exp_namebridge_
+  broader_kb_v1`): lifts REACHABLE fine-typing (DBpedia misses Dvorak/Denmark/New York; recognition+Wikidata recovers
+  Dvorak->professor). Folded into lever-1's competition it should push the whole slice over CI-sep (the router ceiling
+  +0.0225 is already sep; lever 1 at +0.031 with better KB clears it). MEASURE when the fetch completes.
+- **Lever 3 -- richer generative identity file** (more relational predicates, event participation, who-is-who): the
+  DEEP lever. The oracle either-arm ceiling is 0.6489 (+0.0646) -- levers 1+2 earn a THIN whole-slice badge; lever 3
+  (the generative-world-model program) is what earns the large capability. THIS is why "fully solved" = the
+  generative model, and levers 1+2 are the bridge to it.
+
 ## (B) THE WHOLE-SLICE LOCATED NEGATIVE (the bar's full pass; why static routes stop where the generative one starts)
 The rest of this document is the located negative that MOTIVATES and BOUNDS result A: it names the axis with counts,
 proves the SELECT is fine and coverage is the wall, and shows every static route is capped -- which is exactly why
