@@ -179,6 +179,22 @@ _SURPRISAL_PRON_LOW = {"i", "you", "he", "she", "it", "we", "they", "me", "him",
 _FRONTEND_CACHE: Dict[str, object] = {}
 
 
+def _pron_gn(low):
+    """gender,number for a pronoun surface form. Inlined BYTE-FAITHFUL from
+    experiments.exp_unified_referent_gum_v1._pron_gn (self-containment 2026-09-09): the reader imported that whole
+    coref-SCRATCH web (gum_coref / exp_name_entity_clustering / 3x exp_commonnoun_*) just to call this tiny pure
+    function -- inlining it SEVERS that entire experiments dependency. GENDERED_PRON verified IDENTICAL to the
+    source (hdlab.typed_coref.GENDERED_PRON == experiments.gum_coref.GENDERED_PRON, 8/8)."""
+    from hdlab.typed_coref import GENDERED_PRON
+    g = GENDERED_PRON.get(low, "")
+    if low in ("it", "its", "itself"):
+        g = "n"
+    num = "plur" if low in ("they", "them", "their", "theirs", "themselves", "these", "those", "we", "us") else ""
+    if low in ("he", "him", "his", "himself", "she", "her", "hers", "herself", "it", "its", "itself"):
+        num = "sing"
+    return g, num
+
+
 def _stock_tense(a, TP):
     """Map a Reichenbach triple (from TP.assign_sentence) to a stock-compatible EventRecord.tense label,
     so downstream .tense stays meaningful when preserve_tense is on. Byte-identical to the validated ref
@@ -4046,7 +4062,6 @@ class SituationReader:
         from hdlab.commonnoun_binder import head_lemma, is_name, _num_of
         from hdlab.salience_binder import actr_activation, ROLE_PROMINENCE, DEFAULT_DECAY
         from hdlab.coref import EntityAliaser
-        import experiments.exp_unified_referent_gum_v1 as _URG   # _pron_gn only (pure lexical; no corpus)
         # C8 ENCYCLOPEDIC name->type route (report_the_typed_coref fix 3, Q111 landing 2026-09-08): the ATL's
         # encyclopedic spoke (DBpedia InstanceOf). ADDITIVE bridge license for common-noun -> PROPER-NAME
         # ("the artist" -> Zurbaran-is-a-painter-is-a-artist). Does NOT touch coref_type_license (the C5 comparator),
@@ -4117,7 +4132,7 @@ class SituationReader:
             role = "SUBJECT" if m.get("sent_role_rank", 99) == 0 else "OTHER"
             span = m.get("span_toks", [m["head"]])
             if m["is_pronoun"]:
-                mg, mn = _URG._pron_gn(m["head"].lower())
+                mg, mn = _pron_gn(m["head"].lower())
                 cands = [r for r in refs if r.last_midx < order and gn_ok(r.gender, r.number, mg, mn)]
                 if cands:
                     cands[int(_np.argmax([act(r, order) for r in cands]))].write(
