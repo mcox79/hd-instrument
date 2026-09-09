@@ -252,6 +252,24 @@ established across ~15 citations, not a cheap-implementation artifact. The surfa
 real ceiling, but it is NOT closable by meaning cues for locatives; the honest levers remain the syntactic commit
 (landable), POS quality (+0.029), and construction/typing coverage (the dominant loss).
 
+## 4t. FIX-ALL-FIXABLE + LAND-ALL-OPTIMIZATIONS (owner) -- the POS fix result + the promotion-ready landing
+
+**POS tagger fix (the one in-remit un-built fixable lever, +0.0288 gold-POS oracle) -- LOCATED NEGATIVE, done right.**
+Built the brain-foundational fix: INTERACTIVE ACTIVATION / analysis-by-synthesis (McClelland-Rumelhart 1981) -- the
+SYNTACTIC level feeds back to disambiguate an ambiguous NOUN/VERB head, re-tagging only when the parse-coherence gain
+outweighs the emission cost (`exp_obl_spatial_pos_interactive_v1`). RESULT: interactive == baseline (+0.0000); the
+tuning collapses to "never flip" because gold-free parse-COHERENCE does not track POS CORRECTNESS (larger thresholds
+fire but HURT). So the POS loss is REAL but not recoverable by a gold-free coherence proxy -- the same session-wide
+lesson (gold-free top-down proxies cannot recover oracle ceilings). The genuine fix is a JOINTLY-TRAINED tag-parse
+model (a bigger, separate build), not a re-scoring heuristic.
+
+**Landed the optimizations (my remit under Q111: promotion-ready + the exact hdlab diff; strategy copies).**
+`experiments/graded_spatial_obl_promote_v1.py` (self-test OK) packages: OPT-A `commit_obl_head` (the +0.0144 CI-sep
+normalized-recurrence commit), OPT-B `obl_reliability` (raw marginal, drop-logistic), OPT-C the one-inverse single-root
+reuse note, and the `AtLocationClassFit` THEM-organ (class-level ConceptNet AtLocation, coverage 10%->68%, deployable
+where location is not symmetric). WIRE POINTS documented in the module header + section 6. Landing INTO hdlab is
+strategy's (Q111); this is the copy-paste-ready module + diff.
+
 ## 4u. WHY THE UPGRADED THEM DID NOT HELP -- researched ON THE DATA (owner "research why them didn't help")
 
 `exp_obl_spatial_why_them_v1` decomposes the four hypotheses on UD-EWT spatial obl (n=973):
@@ -271,6 +289,18 @@ real ceiling, but it is NOT closable by meaning cues for locatives; the honest l
 
 VERDICT: THEM is a weak, miscalibrated, ORTHOGONAL cue -- real complementary signal (fixes ~30% of parser errors) but
 undeployable because you cannot tell WHEN to trust it (AUC 0.58), and its facts are structurally hidden from text.
+
+**THE REAL FIX, IMPLEMENTED (`exp_obl_spatial_atloc_class_fix_v1`):** the diagnosed root was data-starvation (10%
+direct-seen, driven by reporting bias). Fix = a CLASS-level location-typicality organ from ConceptNet AtLocation (the
+elicited, reporting-bias-free resource; P(ss_ground | ss_head) over WordNet supersenses -- Resnik generalization). It
+WORKS at its target: coverage **10% -> 68%**, and the cue goes from HARMFUL (corpus-THEM -0.0185) to HARMLESS/slightly
+positive (**+0.0010 over syn-commit**; whole system +0.0164 CI-sep over greedy). BUT fixing coverage REVEALS the
+deeper, now-FUNDAMENTAL ceiling: even at 68% coverage the cue adds ~0, because world-knowledge location-typicality is
+SYMMETRIC for most locative attachments -- a place plausibly hosts BOTH candidate sites (Kim et al. 2025: symmetric
+plausibility leaves the ambiguity unresolved), atop the peripheral-role ceiling (Ferretti). So: the real fix cured the
+data problem (THEM no longer hurts), and proved the residual is a FUNDAMENTAL symmetric-plausibility limit, not a data
+or implementation gap. The syntactic COMMIT remains the deployable win; the meaning cue's locative-attachment ceiling
+is now shown to be intrinsic.
 
 ## 5. THE FULL-CHAIN SIGNAL-LOSS AUDIT + PER-COMPONENT BRAIN-FIDELITY (owner: "evaluate the full chain")
 

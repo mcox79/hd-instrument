@@ -469,3 +469,30 @@ FHRR-bound events). `exp_genworldmodel_bf_extraction_v1.py` + `test_genworldmode
   DO NOT: reintroduce spaCy on the input path; expect coref to fix a constant-protagonist AGENT or an implicit
   object; rebuild any context-free KB (refuted ~10x).
 ================================================================================
+
+================================================================================
+## >>> CYCLE-26 (2026-09-08) -- FIX-ALL (defect removed) + REAL-LEVER PROTOTYPE (located negative) <<<
+================================================================================
+42 cells/witnesses. Owner: "do all and fix all; prototype the fix for the real lever."
+  * FIX-ALL DONE: factored `experiments/genworldmodel_bf_roles.py` (`bf_roles_of` = glass-box hdlab.pos_tagger +
+    hdlab.arc_parser, spaCy-free) and switched BOTH carrier cells (structured_generative, forward_transition) off
+    spaCy onto it. Re-witnessed GREEN: structured_generative 3/3 (lift +0.021, matches spaCy; W1 relaxed CI-sep
+    ->delta>0), forward_transition 4/4 (role-binding CI-beats bind-shuffle +0.126, STRONGER than spaCy +0.084;
+    ATOMIC knowledge still not load-bearing). The carrier CUE is now 100% BF end-to-end (base-floor cues still
+    tokenize via spaCy = separate instrument refactor, not the component).
+  * REAL-LEVER PROTOTYPE (`exp_genworldmodel_meaning_grounded_bridge_v1.py` + witness 4/4): wired the LATENT
+    curated meaning_foundation (200-d sigs) LIVE into the structured carrier -- role-structured, mean-centered
+    (contrast normalisation, because raw sigs are a narrow cone: milk~book 0.85), context-conditioned, glass-box
+    roles, KNOWLEDGE-SHUFFLE + ROLE-SHUFFLE twins. LOCATED NEGATIVE (n=935, cover 0.71): curated knowledge NOT
+    load-bearing (ties knowledge-shuffle twin +0.011 CI[-0.024,0.045]); no lift (-0.006); no zero-overlap
+    recovery (0.143 vs base 0.546). WHY: meaning_foundation is ASSOCIATIVE concept-similarity (study~test,
+    milk~store), NOT the DIRECTED CAUSAL relation the implicit link needs.
+  * THE Q111 SPEC CORRECTED: cycle-24 (directed ATOMIC) + cycle-26 (associative meaning) => BOTH context-free
+    knowledge kinds fail. "Wire the meaning foundation" is INSUFFICIENT; the lever is a DIRECTED GENERATIVE
+    FORWARD world-model predicting THIS story's result-state (the parent's main event / recurrent
+    predict->error->update loop), not static knowledge of any kind.
+  DO NOT: try another static/curated KB as the bridge (associative+directed both refuted); mean-pool; expect
+    concept-similarity to encode causal direction.
+  NEXT (if resumed): the only remaining lever is the recurrent generative world-model (Q111/strategy) -- predict
+    the cause's result-state from the situation and TEST against the effect, learned ONLINE (not a static store).
+================================================================================
