@@ -84,6 +84,21 @@ went after the ranked losses with the brain's actual mechanisms.
   dynamical model), named explicitly; that bridge (an intuitive-physics world-model over grounded magnitudes) is the
   scoped follow-on program, not a text cell.
 
+- **THE GROUNDING BRIDGE via TEXT — BUILT + TESTED + DEFINITIVE NEGATIVE (`exp_causal_signed_proportionality_mine_v1`
+  + `exp_causal_sign_proportionality_wiqa_v1`, witness `test_causal_sign_proportionality.py` 3/3):** the follow-on
+  research (hdi_research) said the bridge is achievable WITHOUT embodiment by mining EXPLICIT signed qualitative-
+  proportionality ("X increases/reduces Y") from quantitative/procedural text (Talmy/Wolff/Forbus; comprehension =
+  simulation; the failing-to-replicate ACE means motor resonance is NOT required). Built it right: 440,045 signed
+  edges (53.2% negative — balanced), mined from simplewiki+textbooks (INDEPENDENT of WIQA = no leakage), composed
+  sX·coupling·sY via Forbus sign-propagation. RESULT (WIQA n=5005, **78% coverage**): arm **0.500** vs co-occurrence
+  0.514 vs scrambled-store 0.496 — the arm **TIES the scrambled-store falsifier** (arm−scrambled +0.004 CI[−0.019,0.028])
+  and does NOT beat co-occurrence (−0.014). ⇒ **even explicit text-stated signs, at high coverage, do NOT transfer to
+  story-specific more/less.** This is the **7th** sign source to fail and the STRONGEST test yet. DEFINITIVE
+  CONCLUSION: **text is exhausted for the coupling sign** (the type-level proportionality doesn't instantiate to the
+  item's specific coupling — the same granularity wall the parents hit, now for the sign); the ONLY remaining route is
+  the NUMERIC/INTERVENTIONAL Δ-Δ grounding the Q2 prototype proved works (real quantity time-series / a physics-sim
+  world-model / embodiment). Per the research gate: STOP chasing text sign sources.
+
 ## PERFORMANCE-PUSH ATTEMPTS (2026-09-09, owner: "focus on the REAL performance push, brain-foundational, do it right")
 
 Two levers pursued after the deep analysis:

@@ -1,3 +1,73 @@
+# SUBSTRATE INCORPORATION MANIFEST (ON SUBMISSION) -- owner directive 2026-09-09
+> **OWNER STANDING DIRECTIVE:** any load-bearing content/knowledge distilled here is to be INCORPORATED INTO THE MAIN
+> SUBSTRATE on problem submission. This manifest marks exactly what is load-bearing (incorporate) vs not (shelve). Keep current.
+
+**INCORPORATE (load-bearing — wire on submission):**
+1. **THE RUNG CORRECTION (headline).** Relabel `hdlab.predictive_world_model.causal_antecedent` -> a rung-1
+   `predictive_relevance` (associative resonance/N400, NOT counterfactual); route the live causal-NECESSITY read through
+   `hdlab.causal_reasoner` (rung-2/3 do-sim). Prototype: `experiments/exp_causal_necessity_bf_reader_v1.py`. [Q111 hdlab]
+2. **ABDUCTION upgrade to `causal_reasoner`** (rung-2 -> rung-3): abduct the actual-active exogenous state from evidence
+   before do()+re-propagate. Prototype: `experiments/exp_causal_engine_deepening_v1.py`. [Q111 hdlab]
+3. **BF-TAG CORRECTIONS** (registry, concurrent session -- hand over, don't double-write): `predictive_world_model`
+   note = rung-1 (not counterfactual); `causal_reasoner` = **BF_SPIRIT** (verified rung-2/3 do-surgery + Halpern-Pearl AC2).
+4. **BANKED directed causal store** `data/exp_causal_testimony_mine_v1/store_v1.json` -- the structural PRIOR (proven
+   load-bearing for the necessity read: store-knowledge beats info-free twin +0.139 CI-sep).
+5. **CORPUS-ACQUISITION GUIDANCE** (load-bearing knowledge for the learner/north-star): coverage IS scale-limited
+   (rises to ~full at ~100x); direction accuracy is NOT (intrinsic ~0.61 cap); 98% of missing links are Gricean
+   link-sparsity -> the ideal corpus to add is **commonsense/procedural/how-to** text, not encyclopedic.
+6. **THE VALIDATED GROUNDED Delta-Delta SIGN MECHANISM** (`experiments/exp_causal_sign_grounded_ddyn_v1.py`) -- the
+   proven blueprint for the grounded-sign program (recovers the sign 0.999 given grounded interventional data). Carry
+   as the design for the grounded-sign follow-on (needs the grounding bridge -- see the DURABLE NEGATIVE).
+
+**INCORPORATE AS DURABLE NEGATIVE (record in `notes/BRAIN_FOUNDATIONAL_AUDIT.md` so no one re-treads):**
+7. **TEXT IS EXHAUSTED FOR THE COUPLING SIGN.** 7 sign sources failed, incl. the brain's force-dynamic mechanism and
+   explicit signed-proportionality mining at **78% coverage**, all TYING the scrambled falsifier. The story-specific
+   coupling sign is NOT recoverable from text (type-level knowledge does not instantiate to the item's specific
+   coupling). Do NOT mine another text sign source. The only open route = numeric/interventional Delta-Delta grounding.
+
+**DO NOT INCORPORATE (non-load-bearing / failed the falsifier -- keep only as documented negatives):** the signed-
+proportionality store (`signed_store_v1.json`), the force-dynamic sign lexicon. Shelve, do not wire.
+
+---
+
+# WHAT THE COUPLING-SIGN GAP IS -- decisive, triangulated (literature + our own data), 2026-09-09
+**THE GAP (definitive):** the more/less coupling sign is a **TOKEN-LEVEL, rung-2 quantity that is EMERGENT from
+running the specific situation model forward -- it is NOT retrievable from any type-level store (text OR numeric).**
+The 7 store failures are the signature of the **WRONG GRAIN + WRONG OPERATION**: type-level (rung-1) lookup by matching,
+when the task requires token-level sign-PROPAGATION along the passage's own causal chain. Triangulated:
+- **Literature (hdi_research, PINNED):** Causal Hierarchy Theorem (rung-2 is almost never a function of rung-1 -> no
+  co-occurrence store can supply it); causal comprehension is SIMULATION-not-retrieval (Gerstenberg CSM = generative
+  model of THIS situation + intervene + simulate; Kintsch construction-integration; Zwaan-Radvansky event-indexing;
+  Trabasso "necessary in the circumstances"); type/token causation dissociates (Hausman: token sign can reverse the
+  type). WIQA is by construction an influence-graph-over-ProPara task (in-paragraph answerable ~80%, out-of-paragraph
+  ~56%); models fail transitivity/symmetry + accuracy decays with hop-count = the signature of "not running the given
+  model." The Xun-2026 parallel: even interventionally-trained models copy the sign from context and reverse it.
+- **Our data (`exp_causal_sign_regime_diagnostic_v1`):** implied coupling sign backed out of gold=sX*coupling*sY on
+  the reliable-direction subset -> **VERB-level sign flips 80%** across items (a verb/type lexicon CANNOT work --
+  confirms the force-dynamic located negative); **CONCEPT-PAIR sign is partly stable (majority 0.858) but 43% of
+  recurring pairs still FLIP** -> a large regime residual no type-level store can fix. => the sign needs FINE
+  (bound-frame) grain AND per-item INSTANTIATION on the situation.
+- **Regime ceiling (H2):** for level/dose causes, sign-reversal (hormesis, inverted-U) is intrinsic (~37% of dose curves
+  are non-monotonic); when a + and a - influence combine, QP/QPN sign algebra proves the net is genuinely "?" without
+  magnitudes. This is the residual CEILING (opposing-influence + out-of-paragraph tail), not the chance-level floor.
+
+**CLOSABILITY:** NOT closable by any larger sign store (text or numeric) -- STOP mining stores. Closable for the
+in-paragraph MAJORITY by a **per-item forward causal-chain SIMULATOR over the parsed passage** (Gerstenberg's 3
+ingredients on WIQA's given influence structure). Grounded numeric Delta-Delta faces the SAME binding/instantiation
+wall (which coupling+regime applies to THIS token) -- so it is an EDGE-SIGN SUPPLIER feeding the simulator, not a
+standalone store. Intrinsically open only for the out-of-paragraph (missing-link ~56%) + opposing-influence ("?") tail.
+
+**NEXT BUILD (research-recommended, brain-foundational; the OPERATION is right, the per-edge sign is the residual):**
+a per-item forward simulator -- build the influence graph from the process steps (reuse `arc_parser`/`situation_reader`),
+bind X and Y to nodes (FHRR), propagate the sign along the X->Y path via `causal_reasoner.signed_effect`, compose with
+sX,sY. **The load-bearing control is the CHAIN-SCRAMBLE falsifier (scramble step order / flip passage edge signs -> must
+collapse), NOT scramble-the-store; plus the hop-decay signature (1-hop>2-hop>3-hop = genuine propagation) and the
+in- vs out-of-paragraph split.** HONEST CAVEAT: the per-EDGE sign still needs a source, and our data shows edge signs
+are regime-dependent (80% verb-flip) -> the simulator fixes the composition/operation but the edge-sign residual is the
+crux; expect a partial (in-paragraph) result, with the opposing-influence + out-of-paragraph tail as the named ceiling.
+
+---
+
 # AGGRESSIVE BRAIN-FOUNDATIONAL AUDIT OF *THE COMPONENT ITSELF* (2026-09-09)
 
 Owner directive: "get a very, very good sense of the component we're trying to build; then evaluate it AGGRESSIVELY
