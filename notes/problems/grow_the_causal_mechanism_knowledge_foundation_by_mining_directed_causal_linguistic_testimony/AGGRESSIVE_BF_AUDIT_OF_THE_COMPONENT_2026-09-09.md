@@ -172,9 +172,9 @@ modularity of the causal circuit — it is additive, not disjoint; any CSM-speci
 Owner: "fully fix all of those components so they're fully brain-foundational; any issues you find and fix, mark
 specifically." The `hdlab/` source is Q111 (strategy is sole writer) — so the fix is IMPLEMENTED + PROVEN as a
 composition prototype in `experiments/` (composing verified-BF organs, replacing the non-BF operations), and the exact
-`hdlab` change is specified for strategy to land (§8). Two cells + one witness (all green):
+`hdlab` change is specified for strategy to land (§8). Three cells + one witness (all green):
 `experiments/exp_causal_rung_exposure_v1.py`, `experiments/exp_causal_necessity_bf_reader_v1.py`,
-`verification/test_causal_rung_fix.py` (9/9). Numbers below: Cell 1 full n=800/family; Cell 2 full WIQA n=5005 (the
+`experiments/exp_causal_engine_deepening_v1.py`, `verification/test_causal_rung_fix.py` (12/12). Numbers below: Cell 1 full n=800/family; Cell 2 full WIQA n=5005 (the
 witness asserts the smoke-scale directional facts, which are seed-stable).
 
 | # | ISSUE (from §1/§2/§3) | verdict before | FIX implemented | proven by | status |
@@ -183,7 +183,8 @@ witness asserts the smoke-scale directional facts, which are seed-stable).
 | 2 | **context = recency BAG of concept one-hots** (discards role binding) | NOT-BF (load-bearing) | **bound situation model as a `CausalGraph`** — each event a step-local concept frame (node), not a global bag; edges from the mined store | Cell 2 builds + reasons over the bound graph (avg edges reported); the necessity read no longer runs over a bag | **FIXED (composition)**; deeper full-FHRR `event_bundle` binding = hdlab deepening §8 |
 | 3 | **event grain = bare VERB lemma** (no arguments/state) | NOT-BF | concepts = VERB+NOUN via `span_concepts` (glass-box tagger+WordNet); nodes carry the step's concept set | Cell 2 | **PARTIAL fix**; full `(predicate, AGENT, PATIENT)` frame via `graded_role_assigner` = named hdlab deepening §8 |
 | 4 | **`causal_reasoner` never verified** (`BF_UNVERIFIED`, "AUDIT NEXT") | UNVERIFIED | **audited at operation/math precision** — genuine rung-2 graph-surgery (`is_necessary`, `intervene_and_compare`, `_realize` block/force) + rung-3 Halpern-Pearl AC2 (`is_actual_cause`, witness contingency) | Cell 1 over-determination: AC2 **1.000** vs but-for **0.000**; whole cell composes it | **VERIFIED → verdict BF_SPIRIT** (tag change §8) |
-| 5 | `causal_reasoner` **impoverishments**: no abduction (roots fixed +1), discrete ±1 signs (conflict→0), necessity = pure reachability | (within #4) | documented; the graded-necessity path (`graded_necessity`, max-product edge necessities) IS present and used for edge weights | Cell 2 uses graded edge necessities | **NOTED — residual hdlab deepening §8** (add exogenous abduction; graded SCM combination) |
+| 5 | `causal_reasoner` **no exogenous ABDUCTION** (roots fixed +1 = rung-2, not rung-3) | (within #4) | **built + proved the abductive fix**: infer the actual-active exogenous state from evidence, then do()+re-propagate (Pearl abduction→action→prediction; the brain's hippocampal/vmPFC constructive step, Van Hoeck 2015) | Cell 3 `exp_causal_engine_deepening_v1`: the current fixed-root engine is **WRONG on 62.9%** of evidence-conditioned counterfactuals; the abductive fix matches independent gold **1.000**, paired **+0.629 CI[0.603,0.653] CI-sep**, twin loses (+0.475) | **FIXED (prototype) + hdlab spec §8** |
+| 5b | `causal_reasoner` discrete ±1 signs; necessity = reachability | (within #4) | not changed (graded_necessity max-product path IS present) | — | **NOTED — residual deepening** (graded SCM combination pairs with the sign source, work item below) |
 | 6 | **softmax single linear layer** (shallow); **hard argmax** selection | BF-SPIRIT | not changed (lower priority) | — | **NOTED** — the module's own named deepening (2-layer Rao-Ballard; graded constraint-satisfaction selection) |
 | 7 | **more/less SIGN** = grounded-quantity frontier (5 sources failed) | THE FRONTIER | confirmed unchanged; the composed reader's **necessity axis is SIGN-FREE** and works; the sign stays a separate program | Cell 2 3-way stays at the sign frontier (bf ~0.50); necessity axis is where rung-2 delivers | **CONFIRMED separate program** (do NOT build a 6th text-derived sign source) |
 
@@ -209,8 +210,13 @@ edits themselves are Q111 — see §8 for the exact change list handed to strate
    whose edges are hypothesized by the mined directed store (`store_v1.json`, offline foundation asset) — the prototype
    is `experiments/exp_causal_necessity_bf_reader_v1.py`. Keep `predictive_relevance` as the always-on rung-1 resonance
    stage that PROPOSES candidates; adjudicate necessity with the rung-2 organ (the RI-Val two-stage architecture).
-4. **Residual deepenings (issues 3,5,6), each its own problem:** full `(predicate,AGENT,PATIENT)` bound frame via
-   `event_bundle`+`graded_role_assigner`; exogenous-noise ABDUCTION + graded SCM combination in `causal_reasoner`;
-   2-layer Rao-Ballard forward model. And the grounded-quantity SIGN source (issue 7) — the deep frontier.
+4. **`causal_reasoner.py` — ADD ABDUCTION (issue 5, prototype proven in Cell 3).** `is_necessary` /
+   `intervene_and_compare` should abduct the actual-active exogenous state from the observed evidence (which roots
+   fired) BEFORE severing + re-propagating, instead of assuming all roots active. Prototype:
+   `experiments/exp_causal_engine_deepening_v1.py::abductive_necessary` (restrict bypass-support to the actual-active
+   roots). This upgrades the engine from rung-2 to rung-3.
+5. **Residual deepenings (issues 3,5b,6), each its own problem:** full `(predicate,AGENT,PATIENT)` bound frame via
+   `event_bundle`+`graded_role_assigner`; graded SCM sign-combination in `causal_reasoner` (pairs with the sign source);
+   2-layer Rao-Ballard forward model. And the grounded-quantity SIGN source (issue 7) — the deep frontier (research in flight).
 5. **Registry.** Do NOT double-write `data/bf_status_registry.jsonl` (concurrent session owns it); hand it items 1–2 as
    tag corrections. The two new cells are honestly tagged `BF_SPIRIT` for it to register.
