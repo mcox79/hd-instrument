@@ -1,6 +1,7 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
-> # 🟢 **STATE AS OF 2026-09-07 -- THE REASONING PHASE IS LIVE. THE LIVE ANCHOR IS `notes/STATUS.md` (CONT-16); read it first; this file's 08-24 block below is SUPERSEDED context, kept for lineage.**
+> # 🟢 **STATE AS OF 2026-09-09 (CONT-29) -- THE LIVE ANCHOR IS `notes/STATUS.md` (CONT-29); read it first. Since the CONT-16 block below: CONT-17..29 integrated the reasoning/parser/world-model owner-DONE wave (globally-normalized graded parser, typed-spoke + P31 entity-type KB, crosstype definite→name bridge, spatial-obl commit, forward predictive-causal reader, the generative-result-state world-model located-negatives). CURRENT CENTER OF GRAVITY: (1) DE-LEAK completion -- replace the gold-coref entity-layer peek with online cue-based clustering + the crosstype-bridge adapter, flip `online_entity_cluster` ON (unmasks +0.0838 CI-sep experiencer, owner-DONE); (2) the GENERATIVE WORLD-MODEL (Wall-2, ~98% of the residual) as the main-event program; (3) posting brain-foundational problems for idle solvers. This file's CONT-16 + 08-24 blocks below are SUPERSEDED context, kept for lineage.**
+> # 🟢 **(prior) STATE AS OF 2026-09-07 -- THE REASONING PHASE IS LIVE. THE LIVE ANCHOR IS `notes/STATUS.md` (CONT-16); read it first; this file's 08-24 block below is SUPERSEDED context, kept for lineage.**
 > Since the 2026-08-24 block below (the meaning-chain / substitutability-wall state), the situation model went from
 > REPRESENTATION to REASONING. INTEGRATED (owner-DONE, each reverified first-hand + §2b + committed, NOTHING pushed):
 > the 19c-free MODERN comprehension board (agg 0.6052, board FULLY REALIZED -- all reasoning arms scored CI-sep);
