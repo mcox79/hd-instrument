@@ -47,6 +47,8 @@ _POS = os.path.join(_REPO, "data/frontend_assets/pos_tagger_ud_ewt_upos.json")
 _ARC = os.path.join(_REPO, "data/frontend_assets/arc_parser_hashed_ud_ewt.npz")
 _cache = {}
 _parse_cache = {}
+_marg_cache = {}   # OPT-C (obl-spatial owner-DONE): per-sentence exact single-root marginals, populated as a
+                   # side-effect of parse_sentence (one inverse, reused). marg[dep][head] = P(head->dep).
 
 _BE = {"be", "is", "am", "are", "was", "were", "been", "being", "'s", "'re", "'m"}
 _AUX_LEMMAS = {"be", "is", "am", "are", "was", "were", "been", "being", "have", "has", "had",
@@ -113,16 +115,72 @@ def parse_sentence(words: Sequence[str]) -> Tuple[List[str], Dict[int, int]]:
     if not words or len(words) > 160:
         res = ([t.tag(list(words))[i] if words else "X" for i in range(len(words))], {})
         _parse_cache[key] = res
+        _marg_cache[key] = {}
         return res
     upos = t.tag(list(words))
     # P4 (extract_spatial_and_causal owner-DONE, §7 diff 2): route the shared relation-front-end parse through the
     # exact-MAP graded decode (Chu-Liu/Edmonds MAP over the SAME globally-normalized arc-factored scorer) instead of
     # the greedy decode that yields an invalid non-tree parse on ~7.2% of sentences. More brain-foundational (the
     # exact global MAP the greedy approximates); the temporal event set is byte-identical (verified no-regress).
-    pr = p.parse(list(words), list(upos), decode="exact")
+    # OPT-C (build_the_obl_spatial owner-DONE, 2026-09-08): also request the exact single-root Matrix-Tree edge
+    # marginals off the SAME score matrix (ONE extra inverse, computed once per read and cached here for reuse by
+    # every head-driven consumer). want_marginals does NOT change heads (arc_parser guarantee) -> the temporal event
+    # set stays byte-identical; the marginals are a NEW side-output the spatial-obl COMMIT (OPT-A) reads.
+    pr = p.parse(list(words), list(upos), decode="exact", want_marginals=True)
     heads = dict(pr.heads)  # dep(1based) -> head(1based)
     _parse_cache[key] = (upos, heads)
+    _marg_cache[key] = pr.marginals or {}   # marg[dep][head] = P(head->dep); {} for long/degenerate sentences
     return upos, heads
+
+
+_SPATIAL_GROUND_PREPS = frozenset(_LOC_PREPS) | {"to", "into", "onto", "toward", "towards", "from"}
+
+
+def _obl_marg_candidates(marg, c, pos, n, mapping_head, topk=3, win=6):
+    """The brain-faithful CANDIDATE SET of heads for the obl/nmod ground nominal `c` (the co-active analyses the
+    graded competition ranks over): the top-`topk` single-root-marginal heads + the exact-MAP head + every VERB +
+    a nearby NOUN/PROPN. VERBATIM shape from exp_obl_spatial_integrator_throughput_v1._cands (owner-DONE)."""
+    d = marg.get(c, {})
+    cc = set(h for h, _ in sorted(d.items(), key=lambda kv: kv[1], reverse=True)[:topk])
+    cc.add(mapping_head)
+    for h in range(1, n + 1):
+        if h == c:
+            continue
+        if pos[h - 1] == "VERB":
+            cc.add(h)
+        elif pos[h - 1] in ("NOUN", "PROPN") and (c - win) <= h <= (c + 2):
+            cc.add(h)
+    return [h for h in cc if 1 <= h <= n]
+
+
+def commit_spatial_ground_heads(words, upos, heads):
+    """OPT-A (build_the_obl_spatial_defer_consumer owner-DONE, 2026-09-08): RE-ATTACH each spatial-preposition GROUND
+    nominal to the argmax of the exact single-root Matrix-Tree MARGINAL over the brain-faithful candidate set -- the
+    McRae/Spivey-Knowlton normalized-recurrence COMMIT to the globally-normalized posterior, NOT the local exact-MAP
+    tree head (and NOT the refuted defer/abstain). MEASURED +0.0133 CI[0.0061,0.0204] over the LIVE exact-MAP decode
+    on UD-EWT gold-head spatial obl attachment (strategy reconciliation 2026-09-08; the solver's +0.0144 was vs the
+    stale greedy decode). The MAP tree maximizes the JOINT tree; the per-edge marginal integrates over ALL trees, so
+    it commits the ground's attachment more accurately on the ~1.9% of grounds where they disagree.
+
+    Returns a NEW heads dict (the caller's `heads` -- temporal's -- is untouched, so the event set stays
+    byte-identical). Reads the marginals cached by parse_sentence (OPT-C, no second parse); a NO-OP returning `heads`
+    unchanged when marginals are unavailable (long/degenerate sentence) -> default-safe."""
+    key = tuple(words)
+    marg = _marg_cache.get(key)
+    if not marg:
+        return heads
+    n = len(words)
+    lows = [w.lower() for w in words]
+    new_heads = dict(heads)
+    for i in range(n):
+        if lows[i] in _SPATIAL_GROUND_PREPS and upos[i] in ("ADP", "ADV"):
+            gnd = heads.get(i + 1, 0)             # the noun the preposition governs (its object = the ground)
+            if 1 <= gnd <= n and upos[gnd - 1] in ("NOUN", "PROPN"):
+                cands = _obl_marg_candidates(marg, gnd, upos, n, heads.get(gnd, 0))
+                d = marg.get(gnd, {})
+                if cands:
+                    new_heads[gnd] = max(cands, key=lambda h: d.get(h, 0.0))
+    return new_heads
 
 
 def _is_word(tok: str) -> bool:

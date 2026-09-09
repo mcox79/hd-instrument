@@ -1,9 +1,9 @@
 ---
-priority: 5
+priority:
 slug: build_the_obl_spatial_defer_consumer_to_cash_the_graded_parser_marginal
-status: CANDIDATE
-review:
-review_text:
+status: INTEGRATED
+review: EXCELLENT
+review_text: "Owner-DONE, reverified 12/12. LANDED OPT-A (marginal-argmax ground-attachment COMMIT) + OPT-C (one-marginal-reuse) into hdlab.joint_relation_frontend + situation_reader._read_spatial_reasoning, default-on, temporal byte-identical; witness test_obl_spatial_commit_landed.py 10/10; +0.0102-0.0133 CI-sep over the live exact-MAP. OPT-B moot (obl logistic dormant). See INTEGRATION_LEDGER.md + BRAIN_FOUNDATIONAL_AUDIT.md S2b (CONT-29)."
 ---
 
 # PROBLEM: the globally-normalized graded parser proved its RAW oblique-attachment marginal (AUC 0.782) BEATS the whole landed obl calibrator (0.736) and lifts obl SELECTIVE accuracy 0.758 -> 0.902 (+0.048, the biggest single parser win, 6x the patient gain) -- but there is NO live consumer that DEFERS on an unreliable oblique/locative attachment, so the win is dormant; build the brain-faithful defer consumer (the spatial/where-is reader abstains or down-weights when the obl marginal is low) and prove the live spatial/locative dimension lifts CI-separated on modern gold with the info-free twin LOSING, then flip per no-more-default-off.

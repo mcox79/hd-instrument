@@ -3367,6 +3367,15 @@ class SituationReader:
                         if not _toks or len(_toks) > 120:
                             continue
                         _up, _hd = _JF.parse_sentence(_toks)
+                        # OPT-A (build_the_obl_spatial_defer_consumer owner-DONE, 2026-09-08): COMMIT each spatial
+                        # GROUND nominal's attachment to the exact single-root marginal's argmax over the
+                        # brain-faithful candidate set (McRae/Spivey normalized-recurrence commit to the posterior,
+                        # not the local MAP-tree head; +0.0133 CI-sep over the live exact-MAP on UD-EWT gold-head
+                        # spatial obl). Returns a NEW heads dict -> temporal's _hd (the event set) is byte-identical;
+                        # only the spatial figure-ground binding sees the corrected ground attachment. Default-on
+                        # (spatial_obl_commit); a no-op when the sentence has no marginals.
+                        if getattr(self, "spatial_obl_commit", True):
+                            _hd = _JF.commit_spatial_ground_heads(_toks, _up, _hd)
                         for (_f, _r, _g, _i, _prov) in _JF.joint_spatial_frames_ext(
                                 _toks, _up, _hd, use_thematic=getattr(self, "spatial_thematic", True)):
                             if canon_entity(_f) == canon_entity(_g):

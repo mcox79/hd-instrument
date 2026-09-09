@@ -555,3 +555,19 @@ narrative gold acquired to give it power (n=47 today is too small).
 6. Route to their owners: the confident-wrong core -> the discourse referential loop; the POS loss -> a joint
    (linked) tag-parse; acquire a modern narrative where_is gold (n=47 is the power limit; 19c banned). None is a
    locative-attachment accuracy lever (each proven intrinsic-bounded or a different organ).
+
+---
+
+INTEGRATED_BY_STRATEGY: 2026-09-09 (CONT-29). Owner-DONE, reverified 12/12. LANDED (hdlab, Q111): OPT-A + OPT-C ---
+`hdlab.joint_relation_frontend.parse_sentence` now caches the exact single-root Matrix-Tree marginals as a
+side-effect of the same exact decode (OPT-C, one inverse/read reused; heads byte-identical, proven 0/400), and
+`commit_spatial_ground_heads` re-attaches each spatial-preposition GROUND nominal to the marginal-argmax over the
+brain-faithful candidate set (OPT-A, McRae/Spivey normalized-recurrence COMMIT), wired default-on
+(`spatial_obl_commit`) in `situation_reader._read_spatial_reasoning` scoped so temporal stays byte-identical.
+Witness `verification/test_obl_spatial_commit_landed.py` 10/10. RECONCILIATION (owner caution): OPT-A's +0.0144 was
+vs the STALE greedy decode; the true live headroom over the P4 exact-MAP is +0.0102-0.0133 CI-sep (they disagree on
+1.9% of obl edges), so OPT-A is a genuine live win NOT subsumed by P4. OPT-B (drop the obl logistic) is moot --
+`parse_confidence.obl_confidence` is DORMANT (no live consumer). Board-invisible (construction-coverage-dominated),
+a real brain-foundational upstream improvement. Follow-ons: AtLocationClassFit on who-did-what (measured, not
+landed); marginal precision-gate + Talmy broadening default-off behind where_is. Audit findings folded into
+BRAIN_FOUNDATIONAL_AUDIT.md S2b (CONT-29) + INTEGRATION_LEDGER.md (CONT-29). priority 5 dropped; review EXCELLENT.
