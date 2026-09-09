@@ -4224,15 +4224,15 @@ class SituationReader:
             # RE-CLUSTER common-noun referents via the landed situation-gated former (opt-in; default OFF ->
             # byte-identical). Runs BEFORE _build_entities so sm.entities reflects the former's grouping.
             self._apply_commonnoun_gate(role_mentions)
-        if getattr(self, "online_entity_cluster", False):
-            # DE-LEAK PART 1 of 2 -- LANDED DEFAULT-OFF PENDING PART 2 (owner-DONE
-            # replace_the_entity_gate_gold_coref_inheritance, Q111 2026-09-09). The online cue-clustering is
-            # verified (no crash on the negative-int ids; pronoun stream byte-identical; entities built), BUT it is
-            # only NET-POSITIVE *with* the crosstype bridge (part 2): alone it correctly removes the leak so the
-            # experiencer C3 drops from the FAKE-0.807 peek to the honest ~0.156 -- the +0.0838 recovery needs the
-            # bridge merged into make_canonicalizer. So per the SOLVED's "land clustering + bridge TOGETHER" plan
-            # (and no-more-default-off's measured-reason clause), this is DEFAULT-OFF until part 2 wires the crosstype
-            # bridge, then BOTH flip on together + re-measure. Set online_entity_cluster=True to exercise part 1 alone.
+        if getattr(self, "online_entity_cluster", True):
+            # DE-LEAK (owner-DONE replace_the_entity_gate_gold_coref_inheritance, Q111) -- FLIPPED DEFAULT-ON
+            # 2026-09-09 now that PART 2 (the crosstype bridge, below) is wired + verified. PART 1 alone correctly
+            # removes the leak but drops the experiencer C3 from the FAKE-0.807 peek to the honest ~0.156; PART 2's
+            # bridge recovers the +0.0838 CI-sep experiencer gain the peek was faking (twin loses). Both flip on
+            # together per the SOLVED's plan + no-more-default-off. Verified: no crash on the negative-int ids,
+            # pronoun stream byte-identical, gold-free (verification/test_deleak_crosstype_live_adapter.py). Set
+            # online_entity_cluster=False for the pre-de-leak (gold-derived) entity layer; online_entity_cluster_bridge
+            # =False exercises PART 1 (honest clustering) alone.
             # (the entity layer
             # (sm.entities -> make_canonicalizer -> the affect/goal EXPERIENCER) was GOLD-derived -- grouping by the
             # gold coref column FAKED the cross-type experiencer bind at C3=0.807 WITHOUT reading (honest floor
@@ -4244,6 +4244,22 @@ class SituationReader:
             # cluster (a SEPARATE stream -> pronoun consumers byte-identical). NO gold read in any decision.
             from hdlab.online_entity_cluster import online_cluster
             _online_lab = online_cluster(role_mentions, gaz=self.gaz)
+            if getattr(self, "online_entity_cluster_bridge", True):
+                # DE-LEAK PART 2 of 2 -- the GOLD-FREE crosstype definite->name BRIDGE (Q111). PART 1 (above) removed
+                # the gold-coref leak; alone that drops the cross-type experiencer bind to the honest floor (~0.156).
+                # The landed-latent crosstype bridge is what the gold peek used to FAKE -- it supplies the definite
+                # ("the doctor") -> prior NAME (Elizabeth) link via the brain's own machinery (Stanford
+                # precise-constructs predication + Lewis-Vasishth ACT-R cue retrieval), recovering the +0.0838 CI-sep
+                # experiencer gain the peek was hiding (twin loses, live-parse ~0.86 precision). GOLD-FREE: the adapter
+                # builds a crosstype Doc from the reader's OWN live parse (per-read cache; NO 2nd parse) with each
+                # mention's .eid = its ONLINE cluster label (NEVER m["cluster"]/_gold_eid), so the bridge returns
+                # {role_midx: name_ONLINE_label} and the merge re-files each bound definite under its NAME's online
+                # label. Both are ints -> the negative-int wire below stays int-safe. NON-pronoun midx only (pronoun
+                # coref column untouched). Sub-flag online_entity_cluster_bridge (default True) -> the full de-leak
+                # runs whenever online_entity_cluster is ON; set it False to exercise PART 1 alone.
+                from hdlab.crosstype_live_adapter import merge_crosstype_bridge
+                _online_lab = merge_crosstype_bridge(role_mentions, _online_lab, self.gaz, sents,
+                                                     reader=self, conf_thr=-3.0)
             for _m in role_mentions:
                 if _m.get("is_pronoun"):
                     continue
