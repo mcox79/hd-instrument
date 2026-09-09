@@ -2394,7 +2394,7 @@ class SituationReader:
         the ceiling is parser RECALL, not parse quality). Query with sm.locations.where_is(entity_id, t) /
         present_in_scene. NO spaCy (in-substrate). Lazy import -> the default (OFF) reader never imports it."""
         if self._space_mod is None:
-            from experiments import _space_reader as _SP
+            from hdlab import space_reader as _SP
             self._space_mod = _SP
         _SP = self._space_mod
         # PARSE DEDUP (2026-09-03): _read_space runs AFTER _read_events, so the reader's per-read tag/parse cache
