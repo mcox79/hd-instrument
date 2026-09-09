@@ -1,7 +1,8 @@
 ---
-priority: 8
-review:
-review_text:
+priority:
+status: INTEGRATED
+review: EXCELLENT
+review_text: "Owner-DONE, reverified 35/35 (MULTISTEP_GOAL_SUBSET_WIN_FULL_POP_LOCATED_NEGATIVE). Located-negative + banked goal-slice organ (MeansEnd ATL-hub, +0.239 CI-sep, coverage 8.7->88%) SHELVED (no live home: needs the multi-engine competition + resolved coref; do-not-wire full-pop, all tie). Upstream brain-foundational scour recorded (3/9 BF; predictive-generative input chain non-live). Dedup: loop-closure INTEGRATED, meaning-channel/eval owner-DONE, crossing=pri-1. New critical gap POSTED (live causal pipeline discards the forward-predictive signal). priority 8 dropped. See INTEGRATION_LEDGER + BRAIN_FOUNDATIONAL_AUDIT S2b (CONT-29)."
 ---
 
 # PROBLEM: The just-built generative result-state world-model wins its goal-subset but ties the base engine on the full population because 95.2% of the misses are genuine MULTI-STEP PLANS ("wanted milk" -> "went to the store" -> "bought milk"), so build the brain's hierarchical means-ends plan/script chaining to let the forward rollout compose intermediate steps and carry the win from the goal-subset to the full population.
