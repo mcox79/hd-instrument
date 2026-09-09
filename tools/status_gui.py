@@ -3098,8 +3098,11 @@ class StatusWindow:
             argv = [a for a in sys.argv[1:] if a]
             kw = {"cwd": os.path.dirname(os.path.dirname(script))}
             if os.name == "nt":
-                # DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP -- survives this process exiting.
-                kw["creationflags"] = 0x00000008 | 0x00000200
+                # RELAUNCH IN A BACKGROUNDED TERMINAL WINDOW (owner 2026-09-09: the bare DETACHED_PROCESS Popen
+                # spawned NO terminal window -- DETACHED_PROCESS gives the child NO console at all). CREATE_NEW_CONSOLE
+                # (0x10) gives the relaunched GUI its OWN terminal window; CREATE_NEW_PROCESS_GROUP (0x200) + the fact
+                # that Windows does NOT cascade-kill children on parent exit means it survives this window's destroy().
+                kw["creationflags"] = 0x00000010 | 0x00000200   # CREATE_NEW_CONSOLE | CREATE_NEW_PROCESS_GROUP
                 kw["close_fds"] = True
             else:
                 kw["start_new_session"] = True
