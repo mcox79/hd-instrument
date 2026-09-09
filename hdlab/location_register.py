@@ -44,6 +44,12 @@ _INDOOR_QUERY = {"house", "home", "dwelling", "building", "cottage", "cabin", "h
                  "inside", "hall", "manor", "residence", "abode", "lodging", "lodgings", "apartment"}
 _OUTDOOR_QUERY = {"outdoors", "outside", "grounds", "garden", "open", "air", "street", "road"}
 _region_cache: Dict[str, Optional[str]] = {}
+# WordNet-derived region typing (additive fallback to the hand lists above -- the brain derives region type from
+# the semantic hub, not a hand list; a vetted static offline supply). CANDIDATE_A2 (exp_region_typing_wordnet_v1).
+_INDOOR_CONTAINERS = {"house", "dwelling", "building", "mansion", "home", "room", "hospital", "hotel",
+                      "apartment", "office_building", "edifice", "hallway"}
+_INDOOR_HYPERNYMS = {"room", "building", "facility"}
+_OUTDOOR_HYPERNYMS = {"geographical_area", "tract", "land"}
 
 MOTION_KINDS = ("arrive", "return", "depart", "stative", "present", "absent")
 
@@ -58,8 +64,9 @@ def _canon(q: str) -> str:
 
 def spatial_region(node: Optional[str]) -> Optional[str]:
     """Coarse REGION of a fine location node: INDOORS, OUTDOORS, or None (unknown). Curated taxonomy first, then a
-    LAZY WordNet part-meronymy check (a room part_holonym a dwelling/house -> INDOORS). The nested cognitive-map level
-    above the specific place (Wiener & Mallot 2003 region-based navigation; Peer & Epstein 2025)."""
+    LAZY WordNet FOUNDATION check (part/member-holonym in a dwelling/building -> INDOORS; hypernym is-a room/building
+    -> INDOORS, is-a geographical_area/way -> OUTDOORS) -- derive-or-abstain, additive to the hand lists. The nested
+    cognitive-map level above the specific place (Wiener & Mallot 2003 region-based navigation; Peer & Epstein 2025)."""
     if node in (None, DEICTIC_SCENE, AWAY):
         return None
     if node in _region_cache:
@@ -72,11 +79,15 @@ def spatial_region(node: Optional[str]) -> Optional[str]:
     else:
         try:
             from nltk.corpus import wordnet as wn
+            hol, hyp = set(), set()
             for syn in wn.synsets(node, "n")[:2]:
-                hol = {h.name().split(".")[0] for h in syn.part_holonyms() + syn.member_holonyms()}
-                if hol & {"house", "dwelling", "building", "mansion", "home"}:
-                    ans = INDOORS
-                    break
+                hol |= {h.name().split(".")[0] for h in syn.part_holonyms() + syn.member_holonyms()}
+                for path in syn.hypernym_paths():
+                    hyp |= {h.name().split(".")[0] for h in path}
+            if (hol & _INDOOR_CONTAINERS) or (hyp & _INDOOR_HYPERNYMS):
+                ans = INDOORS
+            elif (hyp & _OUTDOOR_HYPERNYMS) or (("way" in hyp) and not (hyp & {"room", "building"})):
+                ans = OUTDOORS
         except Exception:
             ans = None
     _region_cache[node] = ans
