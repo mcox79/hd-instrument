@@ -1,6 +1,7 @@
 # STATUS -- THE RECOVERY ENTRY POINT. READ THIS, THEN THE PLAN.
 
 AS OF: 2026-09-10 (CONT-74, LATEST): 2 NEW owner-DONE INTEGRATED -- pri-6 reward-cluster AUDIT (31/31; decision core faithful-but-dormant, NO live stand-in; folded §2b) + pri-1 causal-mechanism (STRONG PARTIAL, all witnesses green) with THE GROWN CAUSAL KNOWLEDGE INGESTED LIVE per owner directive = hdlab/causal_sign_channel.py wired as sm.causal_sign (formal-model more/less sign, byte-faithful, board AGG 0.6294 NO-REGRESS). BF registry 83. RECOVERY: git log + INTEGRATION_LEDGER.md OUTRANK recollection. GO-FORWARD (pri-1 staged next-steps): forward-simulator wire + abduction; full Rhea/formal-DB ingest (sign cov 13->65%); the grounded Delta-Delta world-model for the everyday/social tail (the MAIN EVENT); pri-6 follow-on = the tonic-DA vigor dial (+579 reward, DORMANT activation). Autoloop ARMED.
+   >> PROCESS + ROADMAP (owner 2026-09-10 'own this project'): the front door is now **`python tools/substrate_health.py`** (the single DERIVED health view: BF status, integration backlog, gates, top-issues) + **`notes/SUBSTRATE_PROCESS_AND_ROADMAP.md`** (the maintenance cadence + prioritized roadmap + doc map). Run substrate_health FIRST each cycle; act on TOP ISSUES worst-first.
    🗺️ **DERIVED VIEWS -- DO NOT RESTATE THEM HERE, THEY ROT. `python tools/substrate_map.py`**
    joins the `38` organs, `10` pipeline stages, `22` briefs and the registry and rebuilds on every
    run: `--gaps` worst-first, `--organ B3`, `--brief <slug>`, `--progress`. **Solvers may use it.**
