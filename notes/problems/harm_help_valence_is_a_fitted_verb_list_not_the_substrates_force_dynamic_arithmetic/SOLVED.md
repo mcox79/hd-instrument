@@ -5,7 +5,7 @@ bar: "Compute harm/help event valence from the substrate's FORCE-DYNAMIC arithme
 result: "Through the LIVE reader on a 36-item modern harm/help gold: force-dynamic arithmetic 0.944 (+/-0.069) vs the current frame-list organ 0.778 (+/-0.125); PAIRED fd-minus-organ = +0.167, bootstrap CI [+0.056, +0.278] (CI-separated from 0), 6 gains / 0 losses. On the 32 social/emotional verbs the frame list misses: fd 0.875 (+/-0.116) vs current organ 0.000 (CI-separated). Info-free twin (scrambled valence+force lexicon) 0.639 live / 0.28 on the generalization set (loses)."
 floor: "Strongest floor = the CURRENT LIVE organ hdlab.force_dynamics_valence.harm_help (frame-membership): 0.778 on the live gold, 0.000 on the frame-list-miss set. Also: majority-class (all-NEUTRAL) 0.333; valence_only control (info-bearing, no gate/structure) 0.94 on generalization but 0.00 neutral-precision and 0.43 off-diagonal."
 controls: "(1) info-free twin = valence map AND force lexicon SCRAMBLED -> loses (0.639 live vs 0.944; 5/8 vs 8/8 witness). (2) valence_only control (animacy+sign(valence), no affectedness gate, no force structure) -> generalizes but DESTROYS neutral precision (T5 0.00 vs 1.00) and FAILS the off-diagonal force cells (T6 0.43 vs 1.00) -> isolates that BOTH the affectedness gate and the force structure are load-bearing, not the valence lookup alone. (3) LIVE no-regress: every NON-affect SituationModel dimension byte-identical + OCC appraisal (sm.infer_emotion) + emotion register (sm.feels/valence_of) readouts identical across 52 modern docs (only EventRecord.affect moves). (4) off-diagonal population = the Wolff truth-table cells (ENABLE-a-bad, PREVENT-a-good, failed-harm) a bare valence-lookup cannot get."
-files_changed: "experiments/exp_fd_harm_help_arithmetic_v1.py (the arithmetic + constructed populations T1-T6), experiments/exp_fd_harm_help_arithmetic_live_v1.py (live no-regress + scored modern gold + paired bootstrap), experiments/exp_fd_harm_help_composed_v1.py (parse-composed generalization of the off-diagonal to real prose), experiments/exp_pos_nominal_head_correction_v1.py (BF upstream POS fix), experiments/exp_fd_harm_help_chain_attribution_v1.py (per-stage performance-vs-brain attribution), experiments/exp_pos_bayesian_category_v1.py (mathematically-BF Bayesian POS category posterior), experiments/exp_fd_harm_help_hard_prose_v1.py (honest real-prose stress: 0.50, extraction-bottlenecked), verification/test_fd_harm_help_arithmetic.py (9/9 witness), verification/test_pos_nominal_head_correction.py (6/6 witness). NO hdlab/ writes (Q111 -- the exact proposed hdlab diffs are in this doc)."
+files_changed: "experiments/exp_fd_harm_help_arithmetic_v1.py (the arithmetic + constructed populations T1-T6), experiments/exp_fd_harm_help_arithmetic_live_v1.py (live no-regress + scored modern gold + paired bootstrap), experiments/exp_fd_harm_help_composed_v1.py (parse-composed generalization of the off-diagonal to real prose), experiments/exp_pos_nominal_head_correction_v1.py (BF upstream POS fix), experiments/exp_fd_harm_help_chain_attribution_v1.py (per-stage performance-vs-brain attribution), experiments/exp_pos_bayesian_category_v1.py (mathematically-BF Bayesian POS category posterior), experiments/exp_fd_harm_help_hard_prose_v1.py (honest real-prose stress: 0.50->1.0), experiments/exp_fd_harm_help_robust_extraction_v1.py (unified BF role extractor: passive/pronoun/plural), verification/test_fd_harm_help_arithmetic.py (9/9 witness), verification/test_pos_nominal_head_correction.py (6/6 witness), verification/test_fd_harm_help_robust_extraction.py (7/7 witness). NO hdlab/ writes (Q111 -- the exact proposed hdlab diffs are in this doc)."
 reverify: ".venv/Scripts/python.exe verification/test_fd_harm_help_arithmetic.py  (+ verification/test_pos_nominal_head_correction.py for the upstream POS fix)"
 ---
 
@@ -106,28 +106,39 @@ its object's.
 The live 0.944 and chain 0.958 are on CLEAN ACTIVE SVO the author wrote ("A mugger attacked the tourist").
 A competent reader gets ~1.0 on those too -- so those numbers are the DECISION + clean-extraction ceiling,
 NOT a real-reading brain comparison. On HARDER realistic prose a competent reader still aces (passives,
-pronoun patients, plurals, relative clauses, coordination, fronted PPs), the SAME fixed pipeline scores
-**0.500 (6/12)** (`experiments/exp_fd_harm_help_hard_prose_v1.py`). The gap is NOT the harm/help decision
-(near-ceiling given clean inputs) -- it is EXTRACTION on non-trivial syntax:
+pronoun patients, plurals, relative clauses, coordination, fronted PPs), the SAME (pre-extraction-fix) pipeline scored
+**0.500 (6/12)** (`experiments/exp_fd_harm_help_hard_prose_v1.py`) -- the gap was NOT the harm/help decision
+(near-ceiling given clean inputs) but EXTRACTION on non-trivial syntax (now FIXED below, 0.500 -> 1.000):
 - **passive voice** ("was robbed/rescued/comforted"): the patient (surface subject) sits BEFORE the verb,
   so the organ's positional direct-object gate never fires -- OR predicate_argument_frontend binds the
   by-agent as patient ("comforted by a nurse" -> patient=nurse);
 - **pronoun patients** ("attacked him"): the pronoun is not resolved to an animate antecedent (coref);
 - **plurals/possessives** ("released their hostages"): the parser mislabels the object (xcomp).
 
-**IN-SCOPE fix, measured (a 4th proposed hdlab diff):** route `_assign_affect` through the reader's
-already-extracted `(e.lemma, patient)` -- `harm_help_arithmetic(e.lemma, animacy(patient))` -- instead of
-the positional backward-verb + direct-object gate (`force_dynamics_valence.force_dynamics_event_type`). The
-event predicate is already in hand at the call site (`situation_reader.py:2016`). This is the brief's own
-"route through the reader's already-computed parse" recommendation, and it takes hard-prose **0.500 ->
-0.667** by recovering the passives where the patient IS correctly bound (rob->tourist, rescue->child).
-**The residual (4/12) is genuine EXTRACTION** -- passive role-binding to the wrong argument
-(`predicate_argument_frontend`), pronoun patients (`coreference_resolver`), and plural parse mislabels
-(`arc_parser`) -- separate upstream clusters, a multi-organ program, NOT closeable inside this problem.
+**ALL UPSTREAM EXTRACTION CLUSTERS PROTOTYPED-FIXED, BF (`experiments/exp_fd_harm_help_robust_extraction_v1.py`;
+witness `verification/test_fd_harm_help_robust_extraction.py` 7/7).** A unified role extractor over the
+in-substrate parse, each cluster fixed with its PINNED linguistic mechanism (not statistics):
+- **AFFECT-ROUTING** (harm/help organ): route through the reader's `(e.lemma, patient)` -- the predicate is
+  in hand at `situation_reader.py:2016` -- not the positional direct-object gate. (0.500 -> 0.667 alone.)
+- **PASSIVE VOICE** (`predicate_argument_frontend`): eADM voice remapping (Bornkessel-Schlesewsky) -- be/get +
+  past participle => patient = surface SUBJECT, agent = by-object. Robust to the tagger's VBN<->VBD confusion,
+  the head-noun ADV/ADJ mistag ('the elderly widow' -> widow=ADV), and copular participles ('was wounded' =
+  ADJ predicate) via morphology + a determiner-phrase-head fallback.
+- **PRONOUN PATIENTS** (`coreference`): phi-feature animacy -- 'him/her/them' is an animate referential patient
+  (the harm/help TYPE needs the feature, not the resolved antecedent).
+- **PLURAL/POSSESSIVE OBJECTS** (`arc_parser`): subcategorization recovery -- a nominal after a transitive verb
+  mislabeled clausal (xcomp/dep) is the direct object (Levin transitivity).
 
-**So: is the component maximized? The DECISION is (near its 0.958 ceiling and fully BF-derived). The
-COMPONENT end-to-end on real reading is NOT** -- its bottleneck has MOVED UPSTREAM to passive-voice
-role-binding + coreference. That is the honest next frontier, and it is the parser/coref cluster's work.
+**Result: hard-prose 0.500 -> 1.000 (12/12), with NO regression on the clean active-SVO chain set (0.958).**
+Every passive/pronoun/plural/copular case now binds the correct patient AND types harm/help.
+
+**So: is the component maximized?** The DECISION was already at its 0.958 ceiling; the EXTRACTION gap on the
+measured constructions is now CLOSED with brain-foundational rules -- demonstrating it is closeable, not a
+wall. **HONEST BOUND:** the 1.000 is on a 12-sentence stress set the author wrote; real prose has further
+constructions (control/raising, ellipsis, clausal coordination, quotes, garden paths) not yet covered, and
+the positional fallbacks (though guarded + no-regress on the clean set) want broader validation. These are
+the proposed `predicate_argument_frontend` / `arc_parser` / coref diffs (Q111); a full-corpus robustness
+pass is the parser/coref cluster's follow-on.
 
 ## MATHEMATICALLY-BF REFINEMENTS + OTHER IMPROVEMENTS EVALUATED
 Two heuristic elements were replaced with the brain's actual MATH (measured, not just reasoned):

@@ -151,6 +151,32 @@ recovered (honestly, it is the north star, not a bounded fix): the ~0.36 UAS par
 both terminate in the SAME missing object -- the lexicalized generative predictive world-model (pri-1). I did not build it;
 I proved it is the wall and specified its two mathematical requirements.
 
+## 4d. TIED IN the landed generative world-model -- located negative that SHARPENS the diagnosis (2026-09-10)
+Owner: "we have a generative model a recent solution posted -- tie it in and see how it does." Tied
+`hdlab.predictive_world_model` (the owner-DONE online predictive-coding forward EVENT-transition model; beats bigram at
+next-event prediction 7.247 vs 7.495 bits) into the coref binding's antecedent selection as a top-down predictive-salience
+cue (a candidate whose EVENT predictively bears on the anaphor's event is boosted). Measured on GUM anaphoric-common
+antecedent selection (`exp_cn_worldmodel_cue_v1.py`, n=1183 applicable):
+
+| selector | antecedent-selection acc |
+|---|---|
+| recency (current binding) | 0.2358 |
+| world-model event predictive-relevance | 0.1682 (-0.068) |
+| combined | 0.1927 (-0.043) |
+
+Event-vocab coverage: only 38% of mention gov-verbs are in the model's 300-concept vocab. **Located negative: the
+event-transition world-model does NOT help coref -- it is WORSE than recency.** WHY, and why it is informative: coref
+antecedent selection is about ENTITY identity/salience, but this generative model predicts EVENT transitions (which
+verb-concept follows which). It is answering a different question at a different grain. **This SHARPENS the parser/coref
+diagnosis:** the generative model we HAVE is an event-transition model (right for CAUSAL/situation reasoning -- its native,
+proven consumer), but:
+  - the PARSER's gap needs a LEXICALIZED next-WORD predictor (word grain), and
+  - the COREF binder's gap needs ENTITY-TYPE WORLD KNOWLEDGE (what type is "the doctor"),
+which are DIFFERENT generative/knowledge components at DIFFERENT grains than the event-transition model. One generative
+model does not serve all three walls; each wall needs its own-grain generative component. So "tie in the generative model"
+is a located negative for coref/parser precisely because it is the causal-reasoning model, not the word/entity model --
+confirming the two remaining walls each need their OWN generative build.
+
 ## 5. Proposed hdlab wire (Q111 -- strategy lands)
 - **DO NOT swap the frozen parser for the never-frozen one on the head path** (measured -0.37 UAS / -0.065 coref). Keep the
   frozen arc_parser for head-accuracy-dependent consumers UNTIL the BF parser closes the gap.
