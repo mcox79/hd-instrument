@@ -37,6 +37,12 @@ ASCII-only. Deterministic given fixed seeds. Substrate-only (no LLM at inference
 """
 from __future__ import annotations
 
+__bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 BF-certification pass (operation/math read of the pinned computation + key ops; strategy first-hand)'
+__bf_note__ = 'DiscreteOrderRegister/ContinuousOrderRegister queryable before/after over the toposorted timeline; composes the pinned discrete front-end; magnitude-line params swept'
+__bf_corrections__ = []
+
+
 import os
 import sys
 from dataclasses import dataclass

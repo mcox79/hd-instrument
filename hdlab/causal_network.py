@@ -25,6 +25,12 @@ primitive). ASCII-only, deterministic given a fixed codebook seed.
 """
 from __future__ import annotations
 
+__bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 BF-certification pass (operation/math read of the pinned computation + key ops; strategy first-hand)'
+__bf_note__ = 'Trabasso & van-den-Broek causal-network discourse model (on-chain vs dead-end; connective + temporal-contiguity cause->effect edges into KGStore); pinned model + connective heuristics'
+__bf_corrections__ = []
+
+
 import os
 import sys
 from dataclasses import dataclass

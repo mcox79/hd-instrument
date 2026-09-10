@@ -24,6 +24,12 @@ NO LLM. NO nltk. NO torch. numpy + pure-python only. ASCII-only.
 """
 from __future__ import annotations
 
+__bf_status__ = 'NOT_BF'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 BF-certification pass (operation/math read of the pinned computation + key ops; strategy first-hand)'
+__bf_note__ = 'multiclass averaged-perceptron dependency-RELATION labeler (nsubj/obj/obl...), FROZEN supervised hard-decode -- the SAME discipline/verdict as arc_parser/pos_tagger; route around via the graded parser marginals'
+__bf_corrections__ = []
+
+
 import json
 from collections import defaultdict
 from typing import Dict, List, Sequence, Tuple

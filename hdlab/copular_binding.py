@@ -15,6 +15,12 @@ experiments.exp_copular_is_a_binding_readout_v1.predicted_type (witness: test_co
 """
 from __future__ import annotations
 
+__bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 BF-certification pass (operation/math read of the pinned computation + key ops; strategy first-hand)'
+__bf_note__ = 'Higgins-1979/Mikkelsen/Maienborn copular predication (LATL property-attribution, Bemis-Pylkkanen 2011): cop-arc HOLDER+PROPERTY binding + Higgins predicational/specificational classifier; glass-box, owner-DONE'
+__bf_corrections__ = []
+
+
 import os
 from collections import defaultdict
 

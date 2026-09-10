@@ -21,6 +21,12 @@ ASCII-only. Deterministic given a fixed codebook seed. Substrate-only (no LLM at
 """
 from __future__ import annotations
 
+__bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 BF-certification pass (operation/math read of the pinned computation + key ops; strategy first-hand)'
+__bf_note__ = 'tense/aspect + temporal-connective cues -> chronological constraint order -> SequenceMatrix (Reichenbach-ish discourse ordering); pinned cue framework; POS via the separate NOT_BF tagger'
+__bf_corrections__ = []
+
+
 import os
 import re as _re
 import sys

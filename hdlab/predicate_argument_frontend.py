@@ -26,6 +26,12 @@ store-agnostic scoring core any caller can use.
 """
 from __future__ import annotations
 
+__bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 BF-certification pass (operation/math read of the pinned computation + key ops; strategy first-hand)'
+__bf_note__ = 'shallow event-semantic SRL: parsed clause -> agent/theme/goal/location/path/source/recipient/instrument (FrameNet-validated, +0.238 over the conflating inline rule); pinned event-semantic mapping + supply frames + an arc-label classifier dep'
+__bf_corrections__ = []
+
+
 import os
 from typing import Dict, FrozenSet, List, Optional, Sequence, Tuple
 

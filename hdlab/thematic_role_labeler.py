@@ -40,6 +40,12 @@ per the route-errors-by-flavor discipline.
 """
 from __future__ import annotations
 
+__bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 BF-certification pass (operation/math read of the pinned computation + key ops; strategy first-hand)'
+__bf_note__ = 'MacWhinney Competition Model cue-integration (word-order+animacy+voice weighted by cue VALIDITY) + verb selectional frame; pinned op; validities/frames hand-authored (same fitted-validity caveat as graded_role_assigner)'
+__bf_corrections__ = []
+
+
 import random
 import re
 from collections import defaultdict

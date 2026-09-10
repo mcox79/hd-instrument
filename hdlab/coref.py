@@ -36,6 +36,12 @@ GLASS-BOX: pure symbolic; NO torch, NO external LLM, NO network. ASCII-only.
 
 from __future__ import annotations
 
+__bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 BF-certification pass (operation/math read of the pinned computation + key ops; strategy first-hand)'
+__bf_note__ = 'Kintsch/van-Dijk entity/reference backbone SUPPLY primitives (name-content tokens [Ariel], gender lookup, CoNLL loading) + EntityAliaser given-name clustering = OUR-INVENTION token-overlap (flagged for Bruce-Young individuation -> the filed name_branch_shatters problem)'
+__bf_corrections__ = []
+
+
 import math
 import os
 from typing import Dict, List, Optional, Tuple
