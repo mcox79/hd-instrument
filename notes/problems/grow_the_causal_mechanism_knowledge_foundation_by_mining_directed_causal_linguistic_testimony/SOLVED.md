@@ -474,3 +474,6 @@ instrument-arm, because the constructive win is real and bankable but board-invi
    direction win is scorable on the live board (it is currently board-invisible).
 4. **Combine testimony-DIRECTION with the action-conditioned goal hub** (chain_multi_step MeansEnd) for GOAL-type
    causation -- the research says causal forward models are strongest when action-conditioned.
+
+---
+INTEGRATED_BY_STRATEGY 2026-09-10 (CONT-74, PARTIAL/staged): reverified ALL GREEN. Stage-1 rung reconcile (situation_reader causal_antecedent = rung-1; causal_reasoner rung-2/3 wired) + Stage-2 GROWN-KNOWLEDGE LIVE INGEST (owner directive) = hdlab/causal_sign_channel.py wired LIVE as sm.causal_sign (byte-faithful witness 3/3, board AGG 0.6294 no-regress); grown DBs registered (#5 LIVE couplings + #6 causal store). status INTEGRATING -- staged next-steps: forward-simulator wire + abduction upgrade; full Rhea/formal-DB ingest (sign cov 13->65%); the grounded Delta-Delta world-model for the everyday/social tail (the MAIN EVENT). review STRONG.
