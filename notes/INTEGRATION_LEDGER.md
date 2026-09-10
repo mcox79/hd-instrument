@@ -6,6 +6,8 @@
 
 **Key recurring pattern:** "landed ≠ live." A component can be promoted to `hdlab/` and even default-ON, yet its claimed gain sits on *its own instrument* while the board doesn't probe it (instrument gap), or it's capped by an unbuilt upstream (coref/parser/meaning-hub), or a downstream consumer isn't updated to *receive* its new signal. Those are the rows that matter for the pass.
 
+**🔗 THE REVERSE-INDEX (owner 2026-09-09): `notes/CROSS_SOLUTION_IMPROVEMENT_MAP.md`.** Improvements are NOT siloed — a handful of shared components (the parser ~16, the meaning representation ~15, coref/entity-binding ~14, the generative world-model ~9) are flagged as the wall again and again. That map is the BY-TARGET reverse-index: **when you improve component X, grep it there to find every already-"done" solution that CONSUMES or FLAGGED X, and reopen/re-measure them.** MAINTENANCE: when you integrate a new SOLVED here, also append its (consumes / flags) to the map's PART 1 + PART 2. Cross-ref `notes/bf_status_registry.jsonl` (79 organs certified; live set 100%) for each component's BF status.
+
 **Companion:** `notes/PROVISIONAL_WIRINGS.md` — everything wired in a TEMPORARY/non-final state (scoped workarounds, default-off holds, latent landings, provisional golds, lossy couplings) + what the pass resolves.
 
 **Status vocabulary:** `LIVE` (wired + default-on, reaching a consumer) · `LATENT` (in hdlab, no live read()-time consumer) · `DEFAULT-OFF` (wired, flag off with a reason) · `NO-WIRE` (located negative — a valid pass, nothing to land) · `INSTRUMENT-GAP` (live but no board arm probes it).

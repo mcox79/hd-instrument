@@ -480,6 +480,13 @@ Each `PROBLEM.md` has the same eight sections, in this order:
   deviation -- as an **`AUDIT UPDATE`** note in its submission. **INTEGRATION HAS A FOURTH STEP:** the strategy
   session re-verifies each `AUDIT UPDATE` and **folds it into `BRAIN_FOUNDATIONAL_AUDIT.md`** (updating the
   `updated:` date). The audit is living; it gets truer as the work proceeds, and it re-ranks what we build.
+- **🔗 EVERY SOLUTION FEEDS THE CROSS-SOLUTION REVERSE-INDEX (owner 2026-09-09): `notes/CROSS_SOLUTION_IMPROVEMENT_MAP.md`.**
+  Your `NEXT STEPS` / `ADJACENT COMPONENTS` sections name (a) what UPSTREAM component you flag as your wall and (b) what
+  INPUTS your component consumes. Those are correlated across all solutions so that when a shared component improves, every
+  solution that consumes/flagged it is reopened. **Before you build:** check the map for your target — your wall is very
+  likely one of the ~4 mega-clusters (the parser, the meaning representation, coref/entity-binding, the generative
+  world-model), already the fleet's biggest open problems. Name your consumed-inputs + flagged-needs EXPLICITLY so the
+  strategy session can index them. Cross-ref `notes/bf_status_registry.jsonl` for the BF status of every component you touch.
 - **🧠 PURSUE THE RIGHT, BRAIN-FOUNDATIONAL SOLUTION -- as good as we can get, not the convenient one
   (owner 2026-08-24).** Open the problem with *"how does the brain actually do this, and can we
   replicate that OPERATION as exactly as we can?"* -- BEFORE surveying available tools. The documented
