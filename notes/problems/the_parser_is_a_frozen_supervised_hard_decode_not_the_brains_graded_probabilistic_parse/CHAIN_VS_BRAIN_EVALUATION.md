@@ -106,6 +106,28 @@ NOT yet 100% mathematically BF end-to-end -- it is BF in decode + operations, fo
 learned weights, with the reading-learned acquisition proven-viable-but-ceilinged. That ceiling is the one
 fundamental (text-only) wall; everything else is BF or a fixable convention.
 
+## THE FULLY-BF CHAIN, END-TO-END (zero gold anywhere) -- BF upgrades to every component, measured
+Every component now has a prototyped BF upgrade (mathematically, where verifiable):
+- TOKENIZE: Saffran transitional-probability segmentation from reading (`exp_parser_bf_tokenizer_v1`) --
+  boundary F1 0.639 > over-segment floor 0.386, twin loses. ~0 chain loss on spaced English (mechanism prototyped).
+- POS: exact forward-backward graded posterior (decode, BF-exact) + reading-learned CATEGORY INDUCTION done
+  RIGHT (`exp_parser_brown_pos_bf_chain_v1`): BROWN clustering (maximize mutual info of adjacent class bigrams
+  -- the distributional-prediction optimum; exchange delta VERIFIED == full recompute, F monotonic) reaches
+  many-to-one **0.745** (the easy k-means was only 0.323; supervised 0.944).
+- ARC SCORE: reading-learned (PPMI-attachment + prior + soft EM), 0.463 with good POS.
+- DECODE: exact CLE + Matrix-Tree marginals (BF-exact).
+- The nsubj BF left-corner cue; the labeler graded readout (opt-in, entropy->err AUC 0.930).
+
+**The end-to-end fully-BF chain (induced POS -> reading scorer -> graded decode, ZERO gold):** with the EASY
+k-means induction (0.32) it DEGENERATED (UAS 0.034, below random -- confident-wrong categories mislead the
+parser worse than random); with the RIGHT Brown induction (0.745) it is UNBLOCKED to **0.122 (no prior) /
+0.238 (+prior)** -- a 7x jump, approaching the gold-POS-no-prior chain (0.267). So strong BF POS induction is
+achievable AND necessary. Honest residual: even at 0.745 many-to-one, ~20% POS error still COMPOUNDS
+(Brown+prior 0.238 vs gold-POS+prior 0.463), and on top sits the scorer's text-only ceiling (0.463 vs
+supervised 0.782). The two unsupervised ACQUISITION steps each shed signal that compounds. This is the honest
+end-to-end picture: exact-BF decode + operations, but the
+zero-gold ACQUISITION chain is ceiling-limited AND compounds.
+
 ## The synergy verdict (why ALL links must be BF)
 Made the POS posterior BF and let the parse disambiguate POS top-down (interactive/predictive-coding): it
 recovers the POS-link loss in the right direction but only ~4%, because the top-down signal is only as good
