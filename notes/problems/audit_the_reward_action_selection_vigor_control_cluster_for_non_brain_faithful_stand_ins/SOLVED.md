@@ -310,3 +310,6 @@ pinned organ, prototyped) is a full pass under the bar.
 4. **`action_selection` linear SR value read-out** (R4): add `V = M @ R` alongside the goal-cosine.
 5. **Theory of Mind is a clean unbuilt-organ target** (TPJ/mPFC false-belief; the Sally-Anne nested-HRR
    work sits in `experiments/`, never promoted) -- surfaced by the `state_of_mind` name trap.
+
+---
+INTEGRATED_BY_STRATEGY 2026-09-10 (CONT-74): reverified 31/31 + 5/5; the AUDIT is the deliverable -- folded to notes/BRAIN_FOUNDATIONAL_AUDIT.md §2b, reward-cluster BF status confirmed (PINNED decision core faithful but DORMANT; NO live unflagged decision stand-in); CATALOG.md is the authoritative map. Owner-directed prototypes NOT landed (bonus); the vigor dial (+579) + R4 linear-SR-value captured as follow-on fuel. review STRONG.
