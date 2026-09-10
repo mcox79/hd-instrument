@@ -5,7 +5,7 @@ bar: "Compute harm/help event valence from the substrate's FORCE-DYNAMIC arithme
 result: "Through the LIVE reader on a 36-item modern harm/help gold: force-dynamic arithmetic 0.944 (+/-0.069) vs the current frame-list organ 0.778 (+/-0.125); PAIRED fd-minus-organ = +0.167, bootstrap CI [+0.056, +0.278] (CI-separated from 0), 6 gains / 0 losses. On the 32 social/emotional verbs the frame list misses: fd 0.875 (+/-0.116) vs current organ 0.000 (CI-separated). Info-free twin (scrambled valence+force lexicon) 0.639 live / 0.28 on the generalization set (loses)."
 floor: "Strongest floor = the CURRENT LIVE organ hdlab.force_dynamics_valence.harm_help (frame-membership): 0.778 on the live gold, 0.000 on the frame-list-miss set. Also: majority-class (all-NEUTRAL) 0.333; valence_only control (info-bearing, no gate/structure) 0.94 on generalization but 0.00 neutral-precision and 0.43 off-diagonal."
 controls: "(1) info-free twin = valence map AND force lexicon SCRAMBLED -> loses (0.639 live vs 0.944; 5/8 vs 8/8 witness). (2) valence_only control (animacy+sign(valence), no affectedness gate, no force structure) -> generalizes but DESTROYS neutral precision (T5 0.00 vs 1.00) and FAILS the off-diagonal force cells (T6 0.43 vs 1.00) -> isolates that BOTH the affectedness gate and the force structure are load-bearing, not the valence lookup alone. (3) LIVE no-regress: every NON-affect SituationModel dimension byte-identical + OCC appraisal (sm.infer_emotion) + emotion register (sm.feels/valence_of) readouts identical across 52 modern docs (only EventRecord.affect moves). (4) off-diagonal population = the Wolff truth-table cells (ENABLE-a-bad, PREVENT-a-good, failed-harm) a bare valence-lookup cannot get."
-files_changed: "experiments/exp_fd_harm_help_arithmetic_v1.py (the arithmetic + constructed populations T1-T6), experiments/exp_fd_harm_help_arithmetic_live_v1.py (live no-regress + scored modern gold + paired bootstrap), experiments/exp_fd_harm_help_composed_v1.py (parse-composed generalization of the off-diagonal to real prose), experiments/exp_pos_nominal_head_correction_v1.py (BF upstream POS fix), experiments/exp_fd_harm_help_chain_attribution_v1.py (per-stage performance-vs-brain attribution), experiments/exp_pos_bayesian_category_v1.py (mathematically-BF Bayesian POS category posterior), experiments/exp_fd_harm_help_hard_prose_v1.py (honest real-prose stress: 0.50->1.0), experiments/exp_fd_harm_help_robust_extraction_v1.py (unified BF role extractor: passive/pronoun/plural, confidence-ranked), experiments/exp_fd_harm_help_role_corpus_validation_v1.py (UD-EWT at-scale role validation), verification/test_fd_harm_help_arithmetic.py (9/9 witness), verification/test_pos_nominal_head_correction.py (6/6 witness), verification/test_fd_harm_help_robust_extraction.py (7/7 witness). NO hdlab/ writes (Q111 -- the exact proposed hdlab diffs are in this doc)."
+files_changed: "experiments/exp_fd_harm_help_arithmetic_v1.py (the arithmetic + constructed populations T1-T6), experiments/exp_fd_harm_help_arithmetic_live_v1.py (live no-regress + scored modern gold + paired bootstrap), experiments/exp_fd_harm_help_composed_v1.py (parse-composed generalization of the off-diagonal to real prose), experiments/exp_pos_nominal_head_correction_v1.py (BF upstream POS fix), experiments/exp_fd_harm_help_chain_attribution_v1.py (per-stage performance-vs-brain attribution), experiments/exp_pos_bayesian_category_v1.py (mathematically-BF Bayesian POS category posterior), experiments/exp_fd_harm_help_hard_prose_v1.py (honest real-prose stress: 0.50->1.0), experiments/exp_fd_harm_help_robust_extraction_v1.py (unified BF role extractor: passive/pronoun/plural, confidence-ranked), experiments/exp_fd_harm_help_role_corpus_validation_v1.py (UD-EWT at-scale role validation), experiments/exp_fd_harm_help_coref_pronoun_v1.py (Opportunity 2: coref pronoun-patient attribution 0->0.917), verification/test_fd_harm_help_arithmetic.py (9/9 witness), verification/test_pos_nominal_head_correction.py (6/6 witness), verification/test_fd_harm_help_robust_extraction.py (8/8 witness), verification/test_fd_harm_help_coref_pronoun.py (2/2 witness). NO hdlab/ writes (Q111 -- the exact proposed hdlab diffs are in this doc)."
 reverify: ".venv/Scripts/python.exe verification/test_fd_harm_help_arithmetic.py  (+ verification/test_pos_nominal_head_correction.py for the upstream POS fix)"
 ---
 
@@ -157,6 +157,42 @@ are harder parse errors (raising/reporting "said to have been", long-distance pa
 precision cost of the fallbacks. These are the proposed `predicate_argument_frontend`/`arc_parser`/coref diffs
 (Q111); the deeper parser robustness is that cluster's program, but the harm/help-relevant extraction is now
 measured, generalizing, and brain-foundational, not a 12-item claim.
+
+## THE THREE OPPORTUNITIES -- RESEARCHED + IMPROVED (mathematically BF, walls researched)
+Pushed each named opportunity to a result, reusing the substrate's BF machinery and researching the walls:
+
+1. **PARSER undergoer accuracy -> marginals-aware recovery (RESEARCHED WALL, small lift).** Reused
+   `hdlab/graded_parser.py`'s exact single-root Matrix-Tree edge marginals (Koo et al. 2007 -- the
+   grammar-faithful Bayesian posterior over parses). Confirmed it recovers specific 1-best parse errors:
+   "A thief robbed the widow" (1-best mislabels widow=nmod<-thief) has marginal mu[widow<-robbed]=**0.459**
+   vs the subject thief=0.015 -- the posterior EXPOSES the object the MAP decode missed. But at scale the
+   lift is SMALL (my marginals-hybrid ~flat/noisier vs the confidence-ranked extractor; consistent with the
+   substrate's own `structural_patient_pick(marginals=...)` landing measuring only +0.0065 CI-sep). **The
+   located wall: the parser's arc-factored SCORER, not the decode -- marginalizing over parses recovers only
+   a modest slice because the scores themselves are the limit.** The concrete BF lever (pass marginals to
+   `structural_patient_pick`) is already supported; widening it (a better scorer) is the arc_parser cluster's
+   program.
+
+2. **COREFERENCE for pronoun patients -> BUILT (0.00 -> 0.917).** Reused `hdlab/coreference_resolver.py`
+   (Grosz/Joshi/Weinstein Centering Theory + Binding Principle B, glass-box) to resolve a pronoun harm/help
+   patient to its antecedent CHARACTER. phi-features already give the harm/help TYPE ("attacked him"=HARM);
+   coref adds ATTRIBUTION (WHO). On 12 gendered 2-sentence passages, attribution rises **0.00 (surface
+   pronoun) -> 0.917** (`exp_fd_harm_help_coref_pronoun_v1.py`; witness 2/2). REQUIRED a BF SUPPLY FIX: the
+   resolver's gender gazetteer misses gendered ROLE nouns (widow/priest/actor/waitress), so I added a
+   supplementary gendered-role-noun lexicon (a static offline asset; the proposed gazetteer extension,
+   WordNet-hypernym-scalable) -- ablating it drops attribution 0.92->0.67 (load-bearing). RESIDUAL: an
+   underspecified-gender competitor ("a soldier"... "her") needs a soft gender PRIOR -- a located boundary.
+
+3. **RESULTING-STATE valence for `scratch` -> RESEARCHED WALL (WSD-bound; narrow win).** The resultative
+   case ("beat him unconscious") is already handled (the composed cell reads the result-XP valence). For the
+   BARE verb, I researched reading the RESULT-STATE participle's valence instead of the action verb's:
+   Warriner mostly normalizes participles to the base lemma (scratched==scratch==-0.013), so it does NOT help
+   `scratch` -- **the near-zero valence is genuine sense-conflation (scratch-itch vs scratch-skin), WSD-bound.**
+   The ONE real win: verbs with a DISTINCT result-adjective entry -- "break" +0.025 (polysemous action) vs
+   "broken" **-0.562** (the resulting STATE) -- so a result-state-adjective read helps break/torn-type verbs.
+   The `scratch` bare case remains the `no_glass_box_verb_sense_disambiguation` program (and a bodily-integrity
+   "any change to an intact body = adverse" prior was tested and REJECTED -- it over-fires on neutral contact
+   like touch/tap/hold).
 
 ## DEEP DIVE: the role-extraction ceiling is PARSER-BOUNDED (learned-stack reuse investigated + measured)
 Pushing the corpus recall (0.73) deeper: the substrate ALREADY ships the brain-foundational learned
