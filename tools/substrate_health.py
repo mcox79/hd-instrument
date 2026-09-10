@@ -63,7 +63,8 @@ def _board_aggregate():
             try:
                 d = json.load(open(mp, encoding="utf-8"))
                 agg = d.get("aggregate_19c_free") or (d.get("aggregate") or {})
-                val = agg.get("model") if isinstance(agg, dict) else agg
+                # the board writes the aggregate accuracy under "model_acc" (fall back to "model" for older dumps)
+                val = (agg.get("model_acc") or agg.get("model")) if isinstance(agg, dict) else agg
                 age = (time.time() - os.path.getmtime(mp)) / 86400.0
                 if val is not None and (best is None or age < best[2]):
                     best = (name, val, age)
