@@ -1,5 +1,5 @@
 ---
-priority: 3
+priority: 6
 slug: consolidate_the_six_coreference_organs_into_one_cue_based_entity_resolver
 status: OPEN
 review:
