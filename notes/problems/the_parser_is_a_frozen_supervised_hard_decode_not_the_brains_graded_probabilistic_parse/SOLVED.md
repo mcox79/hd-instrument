@@ -2,10 +2,10 @@
 problem: the_parser_is_a_frozen_supervised_hard_decode_not_the_brains_graded_probabilistic_parse
 status: PARTIAL
 bar: "Route the reader's parse consumers through the GRADED probabilistic parse (globally-normalized marginals) replacing the hard-decode, and SHOW a downstream extraction / board dimension lifts CI-separated on REAL prose (strongest real floor, info-free twin LOSING) -- OR a rigorous LOCATED NEGATIVE naming exactly why the graded parse cannot beat the hard-decode on the reader's own metric (with a number, a fair test: the brain's actual mechanism faithfully built). EITHER outcome must also answer the ACQUISITION question with evidence: is a treebank-supervised parser an admissible offline FOUNDATION (justify computationally), or must the parse be learned-from-reading (name the brain-foundational acquisition mechanism + a first measured step)? Recall/downstream INVARIANT: any consumer not yet moved must be byte-identical; no external tool/LLM at inference."
-result: "Route-through on UD-EWT test (n=24,120 tokens/2061 sents): exact-graded decode UAS 0.7927 vs greedy hard-decode 0.7907, +0.00199 CI[0.0010,0.0029] CI-sep -- but the DECODE fixes only 95/5048 head errors (1.9%); ~99% is SCORER error the exact global normalization cannot touch (the LOCATED NEGATIVE, with a number: normalization is solved, the SCORER is the wall). Downstream (n=1065 gold patient arcs): reading the graded DISTRIBUTION (top-2 marginal reach) recovers args CI-sep, recall 0.9512->0.9906 (+0.0394 CI[0.028,0.052]), twin 0.4432 loses -- at a precision cost (+2.18 spurious pairs/arc). ACQUISITION (UD-EWT, no gold trees): first-step reading-learned attachment UAS 0.2117 is BELOW the strong right-branching floor 0.2849 (the documented right-branching trap), but the BRAIN'S ACTUAL MECHANISM -- Naseem universal structural prior (+0.056) + DMV-class EM re-estimation using the graded_parser marginal as the E-step (+0.066, 0.247->0.312) -- BREAKS the trap: UAS 0.3122 > floor 0.2849, CI-sep (+0.0273 [0.0145,0.0402]), twin 0.1763 loses. HONEST: the UAS win is root-finding-driven; non-root attachment 0.2755 ~ floor 0.3026 (the field-pinned text-only ceiling). Supervised treebank ceiling 0.782."
+result: "Route-through on UD-EWT test (n=24,120 tokens/2061 sents): exact-graded decode UAS 0.7927 vs greedy hard-decode 0.7907, +0.00199 CI[0.0010,0.0029] CI-sep -- but the DECODE fixes only 95/5048 head errors (1.9%); ~99% is SCORER error the exact global normalization cannot touch (the LOCATED NEGATIVE, with a number: normalization is solved, the SCORER is the wall). Downstream (n=1065 gold patient arcs): reading the graded DISTRIBUTION (top-2 marginal reach) recovers args CI-sep, recall 0.9512->0.9906 (+0.0394 CI[0.028,0.052]), twin 0.4432 loses -- at a precision cost (+2.18 spurious pairs/arc). ACQUISITION / THE SCORER FIX (UD-EWT, no gold trees): the brain-foundational reading-learned scorer (POS-attachment PPMI + Naseem structural prior + DMV-class EM using the graded_parser marginal as the E-step) reaches UAS 0.4631 (non-root 0.4428), BEATING the strong right-branching floor 0.2849 (non-root 0.3026) on BOTH metrics and recovering 35.9% of the floor->supervised gap; shuffled-embedding twin 0.4501 loses. Prototyping the surface-feature fix REFUTED the distributed-generalization hypothesis: adding lexical features HURTS attachment (sparse -0.151, distributed best=POS-only) -- attachment is POS-structural, not lexical-semantic (Klein-Manning). Remaining gap to supervised 0.782 = 0.319 (the text-only acquisition ceiling gold-tree supervision buys). NOTE: this 0.463 supersedes the earlier 0.3122 (which had a noisy lexical term ON)."
 floor: "arc-level UAS floor = greedy hard-decode 0.7907 (the live default). downstream floor = greedy-head patient recall 0.9512. acquisition STRONG floor = adjacency-RIGHT / right-branching UAS 0.2849 (full) / 0.3026 (non-root) -- unusually strong for English (Klein-Manning 2004); also random 0.0720 + left-adjacency 0.1137. exceed-lever floor = surface-scorer-alone UAS 0.7850. supervised treebank UPPER reference (not a floor) = 0.782."
 controls: "shuffled-SCORES control collapses UAS to 0.0666 (scorer carries the signal); shuffled-MARGINAL twin drops reliability AUC 0.8546->0.3607; top-2 shuffled-token twin drops recall 0.9906->0.4432; shuffled-TABLE twin drops first-step reading UAS 0.2117->0.1113 and EM UAS 0.3122->0.1763; semantic-augment shuffled twin does NOT beat the surface floor. Each twin is info-free with the same shape and LOSES. Ablations: EM helps (0.247->0.312) AND the structural prior is required (0.183->0.239) -- both isolated."
-files_changed: "experiments/exp_parser_graded_decode_regimes_v1.py, experiments/exp_parser_graded_downstream_whodidwhat_v1.py, experiments/exp_parser_learned_from_reading_v1.py, experiments/exp_parser_semantic_scorer_augment_v1.py, experiments/exp_parser_selfsup_em_v1.py, experiments/exp_parser_ood_gum_generalization_v1.py, experiments/exp_parser_graded_reliability_gated_patient_v1.py, experiments/exp_parser_chain_signal_loss_v1.py, experiments/exp_pos_graded_posterior_and_synergy_v1.py, verification/test_parser_graded_route_through.py, notes/problems/the_parser_is_a_frozen_supervised_hard_decode_not_the_brains_graded_probabilistic_parse/{SOLVED.md,_working_notes.md,HDLAB_INTEGRATION_SPEC.md,NEXT_GAP_learned_from_reading_scorer.md,BF_AUDIT_UPDATE.md,COMPONENT_REGISTER.md,UPSTREAM_CHAIN_BF_AUDIT.md}"
+files_changed: "experiments/exp_parser_graded_decode_regimes_v1.py, experiments/exp_parser_graded_downstream_whodidwhat_v1.py, experiments/exp_parser_learned_from_reading_v1.py, experiments/exp_parser_semantic_scorer_augment_v1.py, experiments/exp_parser_selfsup_em_v1.py, experiments/exp_parser_ood_gum_generalization_v1.py, experiments/exp_parser_graded_reliability_gated_patient_v1.py, experiments/exp_parser_chain_signal_loss_v1.py, experiments/exp_pos_graded_posterior_and_synergy_v1.py, experiments/exp_parser_readlearned_scorer_fix_v1.py, verification/test_parser_graded_route_through.py, notes/problems/the_parser_is_a_frozen_supervised_hard_decode_not_the_brains_graded_probabilistic_parse/{SOLVED.md,_working_notes.md,HDLAB_INTEGRATION_SPEC.md,NEXT_GAP_learned_from_reading_scorer.md,BF_AUDIT_UPDATE.md,COMPONENT_REGISTER.md,UPSTREAM_CHAIN_BF_AUDIT.md}"
 reverify: ".venv/Scripts/python.exe verification/test_parser_graded_route_through.py"
 ---
 
@@ -33,14 +33,15 @@ recall path byte-identical), and one big prize is filed as a follow-on:
    graded NORMALIZATION is solved; ~99% of the residual head error is **SCORER error** the exact decode
    cannot touch (UD-EWT AND out-of-domain GUM). So route-through is a small win, and the real lever is the
    SCORER -- which is the acquisition question. (The supervised scorer also degrades OOD, 0.79->0.74 on GUM.)
-4. **FILE the follow-on -- the reading-learned arc scorer (mechanism now PROVEN, not just hypothesized).**
-   A fully brain-foundational, fully-unsupervised parser -- Naseem universal structural prior + DMV-class
-   EM re-estimation using the substrate's own `graded_parser` marginal as the E-step, exact CLE decode --
-   BREAKS the right-branching trap on UD-EWT (UAS 0.312 > strong floor 0.285, CI-sep; the prior and EM are
-   each required and each help monotonically). It is far below supervised (0.78) and its pure-attachment
-   margin is at the field's text-only ceiling, but it INDUCES real structure with the brain's actual
-   acquisition mechanism and it IMPROVES by reading. The follow-on is to scale/lexicalize it and A/B its
-   scorer against the treebank asset into the SAME graded marginal. `NEXT_GAP_learned_from_reading_scorer.md`.
+4. **THE SCORER FIX -- prototyped, brain-foundational, reaching UAS 0.463 (36% of the floor->supervised
+   gap).** A fully brain-foundational, fully-unsupervised scorer -- POS-attachment PPMI + Naseem universal
+   structural prior + DMV-class EM re-estimation over the substrate's own `graded_parser` marginal, exact CLE
+   decode -- beats the strong right-branching floor on BOTH full (0.463 > 0.285) and non-root (0.443 > 0.303)
+   attachment, twin loses, and it IMPROVES by reading (the frozen perceptron cannot). Prototyping it REFUTED
+   the "distributed generalization fixes the surface features" hypothesis (lexical HURTS; attachment is
+   POS-structural, Klein-Manning). It stays 0.319 below the supervised 0.782 -- the text-only acquisition
+   ceiling. Follow-on: scale (full corpus + DMV valence) + A/B its scorer against the treebank asset into the
+   SAME graded marginal on a board dim. `NEXT_GAP_learned_from_reading_scorer.md`, `exp_parser_readlearned_scorer_fix_v1`.
 
 **Acquisition verdict:** a frozen glass-box arc SCORER is an **admissible offline FOUNDATION** (it supplies
 adult syntactic competence, as WordNet supplies adult lexical competence; frozen, glass-box, no external
@@ -102,17 +103,22 @@ organs and the deepest upchain component.
   documented right-branching trap; reproduces the substrate's own prior `exp_predictive_selfsup_parser_v1`).
   So the naive read is honestly sub-floor -- a wall.
 - **DRILLED THROUGH with the brain's actual mechanism:** the Naseem-2010 universal category-level structural
-  prior (blocks the linear-order shortcut -- Yedetore 2023; +0.056, 0.183->0.239) + DMV-class **EM
-  re-estimation** (Klein-Manning 2004) using the substrate's exact `graded_parser` **single-root marginal as
-  the E-step posterior** (soft expected arc counts; +0.066, 0.247->0.298->0.312) -> UAS **0.3122 BEATS the
-  strong right-branching floor 0.2849, CI-sep (+0.0273 [0.0145,0.0402])**; shuffled-table twin 0.1763 loses.
-  The right-branching trap is BROKEN, fully unsupervised, glass-box, reusing landed organs.
-- **HONEST:** the UAS win is root-finding-driven (the VERB-root prior nails roots the right-branching floor
-  misses); on pure non-root ATTACHMENT the reading-learned parser is at PARITY with the floor (0.2755 vs
-  0.3026) -- the field-pinned text-only ceiling (DMV's own margin over right-branching is small and shrinks
-  on long sentences; the residual needs signal a text corpus lacks -- prosody, joint attention, embodiment).
-  Supervised treebank UPPER reference 0.782 still leads (the acquisition gap is real, and now BOUNDED with a
-  mechanism, not a mystery).
+  prior (blocks the linear-order shortcut -- Yedetore 2023) + DMV-class **EM re-estimation** (Klein-Manning
+  2004) using the substrate's exact `graded_parser` **single-root marginal as the E-step posterior** (soft
+  expected arc counts). Prototyping the SURFACE-FEATURE FIX (`exp_parser_readlearned_scorer_fix_v1`) then
+  revealed the clean number: the reading-learned scorer (POS-attachment + prior + EM, NO lexical) reaches
+  **UAS 0.4631 (non-root 0.4428), beating the strong right-branching floor 0.2849 (non-root 0.3026) on BOTH
+  metrics** and recovering **35.9% of the floor->supervised gap**; shuffled-embedding twin 0.4501 loses.
+  (This SUPERSEDES the earlier 0.3122 -- that config had a noisy lexical term ON, dragging it down ~15 pts;
+  and it CORRECTS the earlier "non-root at parity" claim, which was the same lexical-pollution artifact.)
+- **The SURFACE fix is NOT lexical (my hypothesis refuted, honestly):** adding lexical features HURTS
+  attachment -- sparse word-pair PPMI -0.151, and a DISTRIBUTED PPMI-SVD embedding affinity (built to fix the
+  surface bigram's sparsity) also hurts (best weight = 0). Attachment is a POS-category + valence phenomenon,
+  not lexical-semantic (Klein-Manning). The surface perceptron's lexical richness is NOT the missing
+  brain-foundational signal; its POS-attachment discrimination is, and reading recovers ~59% of it.
+- **HONEST CEILING:** supervised treebank UPPER reference 0.782 still leads by 0.319 -- the text-only
+  acquisition ceiling gold-tree supervision buys (the residual needs signal a text corpus lacks: prosody,
+  joint attention, embodiment). The gap is now BOUNDED with a mechanism, not a mystery.
 
 ### Prong 4 -- second gold (GUM, out-of-domain) + the register question
 `exp_parser_ood_gum_generalization_v1` (GUM: modern multi-genre -- academic/fiction/conversation/reddit/

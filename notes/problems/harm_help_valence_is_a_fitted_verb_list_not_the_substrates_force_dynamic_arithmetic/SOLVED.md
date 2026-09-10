@@ -2,11 +2,11 @@
 problem: harm_help_valence_is_a_fitted_verb_list_not_the_substrates_force_dynamic_arithmetic
 status: SOLVED
 bar: "Compute harm/help event valence from the substrate's FORCE-DYNAMIC arithmetic (AGONIST tendency x ANTAGONIST force -> RESULT worse/better/unchanged, per Wolff), retiring the verb-LIST membership test AND the in-process read-path parse, and SHOW it matches-or-beats the verb-list on the harm/help metric while GENERALIZING to held-out verbs the list misses (info-free twin LOSING, no downstream regress to causation/affect dims) -- OR a rigorous LOCATED NEGATIVE naming exactly why the force computation cannot match the list on the reader's own metric (with a number; the brain's actual mechanism faithfully built). INVARIANT: recall path + non-valence consumers byte-identical off the changed decision; no external tool/LLM/read-path parse at inference."
-result: "Through the LIVE reader on a 36-item modern harm/help gold: force-dynamic arithmetic 0.944 (+/-0.069) vs the current frame-list organ 0.778 (+/-0.125); PAIRED fd-minus-organ = +0.167, bootstrap CI [+0.056, +0.278] (CI-separated from 0), 6 gains / 0 losses. On the 32 social/emotional verbs the frame list misses: fd 0.875 (+/-0.109) vs current organ 0.000 (CI-separated). Info-free twin (scrambled valence+force lexicon) 0.639 live / 0.28 on the generalization set (loses)."
+result: "Through the LIVE reader on a 36-item modern harm/help gold: force-dynamic arithmetic 0.944 (+/-0.069) vs the current frame-list organ 0.778 (+/-0.125); PAIRED fd-minus-organ = +0.167, bootstrap CI [+0.056, +0.278] (CI-separated from 0), 6 gains / 0 losses. On the 32 social/emotional verbs the frame list misses: fd 0.906 (+/-0.109) vs current organ 0.000 (CI-separated). Info-free twin (scrambled valence+force lexicon) 0.639 live / 0.28 on the generalization set (loses)."
 floor: "Strongest floor = the CURRENT LIVE organ hdlab.force_dynamics_valence.harm_help (frame-membership): 0.778 on the live gold, 0.000 on the frame-list-miss set. Also: majority-class (all-NEUTRAL) 0.333; valence_only control (info-bearing, no gate/structure) 0.94 on generalization but 0.00 neutral-precision and 0.43 off-diagonal."
 controls: "(1) info-free twin = valence map AND force lexicon SCRAMBLED -> loses (0.639 live vs 0.944; 5/8 vs 8/8 witness). (2) valence_only control (animacy+sign(valence), no affectedness gate, no force structure) -> generalizes but DESTROYS neutral precision (T5 0.00 vs 1.00) and FAILS the off-diagonal force cells (T6 0.43 vs 1.00) -> isolates that BOTH the affectedness gate and the force structure are load-bearing, not the valence lookup alone. (3) LIVE no-regress: every NON-affect SituationModel dimension byte-identical + OCC appraisal (sm.infer_emotion) + emotion register (sm.feels/valence_of) readouts identical across 52 modern docs (only EventRecord.affect moves). (4) off-diagonal population = the Wolff truth-table cells (ENABLE-a-bad, PREVENT-a-good, failed-harm) a bare valence-lookup cannot get."
-files_changed: "experiments/exp_fd_harm_help_arithmetic_v1.py (the arithmetic + constructed populations T1-T6), experiments/exp_fd_harm_help_arithmetic_live_v1.py (live no-regress + scored modern gold + paired bootstrap), experiments/exp_fd_harm_help_composed_v1.py (parse-composed generalization of the off-diagonal to real prose), verification/test_fd_harm_help_arithmetic.py (9/9 scaffold-free witness). NO hdlab/ writes (Q111 -- the exact proposed hdlab diff is in this doc)."
-reverify: ".venv/Scripts/python.exe verification/test_fd_harm_help_arithmetic.py"
+files_changed: "experiments/exp_fd_harm_help_arithmetic_v1.py (the arithmetic + constructed populations T1-T6), experiments/exp_fd_harm_help_arithmetic_live_v1.py (live no-regress + scored modern gold + paired bootstrap), experiments/exp_fd_harm_help_composed_v1.py (parse-composed generalization of the off-diagonal to real prose), experiments/exp_pos_nominal_head_correction_v1.py (BF upstream POS fix that unblocks harm/help), verification/test_fd_harm_help_arithmetic.py (9/9 witness), verification/test_pos_nominal_head_correction.py (6/6 witness). NO hdlab/ writes (Q111 -- the exact proposed hdlab diffs are in this doc)."
+reverify: ".venv/Scripts/python.exe verification/test_fd_harm_help_arithmetic.py  (+ verification/test_pos_nominal_head_correction.py for the upstream POS fix)"
 ---
 
 # Harm/help valence as the substrate's OWN force-dynamic arithmetic (not a fitted verb list)
@@ -55,11 +55,12 @@ verified: the decision function references no FrameNet frame).
 
 | population | current organ (frame-list, the floor) | valence_only (naive control) | **fd_arithmetic** | info-free twin |
 |---|---|---|---|---|
-| social/emotional HARM (frame-list miss) | **0.00** | 0.94 | **0.81** | 0.13 |
+| social/emotional HARM (frame-list miss) | **0.00** | 0.94 | **0.875** | 0.13 |
 | non-prevent HELP (frame-list miss) | **0.00** | 0.94 | **0.94** | 0.44 |
 | harm-frame HARM (keep the win) | 1.00 | 1.00 | **1.00** | 0.20 |
 | prevent/enable HELP (keep the win) | 1.00 | 1.00 | **1.00** | 0.80 |
-| NEUTRAL perception precision | 1.00 | **0.00** | **1.00** | 1.00 |
+| NEUTRAL perception precision (narrow) | 1.00 | **0.00** | **1.00** | 0.88 |
+| NEUTRAL precision (BROAD, +psych/minor-sense leaks) | 1.00 | **0.08** | **0.89** | 0.83 |
 | off-diagonal force cells | -- | **0.43** | **1.00** | 0.64 |
 | **LIVE reader, 36-item modern gold** | **0.778** | -- | **0.944** | 0.639 |
 
@@ -99,6 +100,40 @@ verb with no from-clause succeeds by default (endstate_reached=None, so "rescued
 prevention), and gerund complements are verb-lemmatized ("robbing"->rob) so the embedded EVENT valence beats
 its object's.
 
+## UPSTREAM FIX PROTOTYPED (BF): the POS tagger, root cause of BOTH named walls
+Tracing the two live misses to their root revealed BOTH reduce to ONE upstream error: the `pos_tagger`
+(itself flagged NOT_BF -- an interim supervised perceptron) mistags rare/OOV common nouns with
+adjectival-looking shape (medic, intern) as ADJ. That single POS error cascades -- the mistagged noun
+cannot attach as the verb's object, becomes a spurious ROOT, and the patient / from-clause structure
+collapses. **CORRECTION to my earlier attribution:** the "arc_parser from-clause attachment" wall was NOT
+a parser defect -- it was DOWNSTREAM of the POS mistag on "medic" (the disk outranked my hypothesis).
+
+**The fix (BF -- constraint-based lexical category resolution; Trueswell & Tanenhaus 1994; MacDonald et al.
+1994; the DP hypothesis: a determiner projects a noun phrase whose HEAD is nominal, a documented top-down
+category expectation).** A word tagged ADJ in DP-HEAD position (a determiner precedes with only ADJ/ADV
+between, and no nominal follows in the phrase) is re-tagged NOUN **iff its stored lexical category prior is
+dominantly nominal** (WordNet noun-vs-adjective senses = the mental lexicon's category knowledge). It
+integrates the two constraints the lexicalist model says the brain does -- the syntactic FRAME + the
+LEXICAL prior -- and leaves genuine nominalized adjectives (the poor/the rich) untouched.
+
+**Measured (UD-EWT test, modern gold; `verification/test_pos_nominal_head_correction.py` 6/6):**
+- GLOBAL UPOS accuracy 0.94198 -> 0.94208 (tiny -- the mistag is RARE in-distribution; honestly NOT a
+  global POS win). The value is the DOWNSTREAM cascade.
+- On the DP-head-ADJ TARGET population the lexical-prior fix beats the INFO-FREE random-retag control on
+  BOTH axes: recall 0.40 vs 0.20, precision-error 0.042 vs 0.083 (the lexical prior is load-bearing).
+- Harm/help patient-role nouns (medic/intern/tenant/refugee/...): 17/20 -> 19/20 correct NOUN.
+- **DOWNSTREAM (the point):** "blocked the medic from saving the wounded" recovers HELP->HARM (POS fix ->
+  medic binds as dobj -> from-clause attaches -> composed harm/help types PREVENT-a-good = HARM). And
+  "A coworker bullied the intern" recovers HARM through the REAL reader **only when BOTH fixes are live** --
+  the POS fix binds the patient (coworker->intern), the arithmetic types the social-harm verb (bully=HARM);
+  neither alone. This is the owner's principle demonstrated: the wall clears only when every component in
+  the chain -- upstream POS AND this organ -- is brain-foundational.
+
+**Proposed hdlab diff (Q111):** add a `nominal_head_correction(tokens, upos)` post-pass to
+`hdlab/pos_tagger.py` (or wrap `PosTagger.tag`) -- glass-box, WordNet lexical prior (admissible), no LLM.
+Deeper: the POS tagger being NOT_BF (supervised perceptron) is a standing item; the fully-BF route is
+distributional/unsupervised category induction (a separate program).
+
 ## WHAT WAS BUILT / MEASURED
 - `harm_help_arithmetic()` (the force-structure x grounded-valence decision, with the affectedness gate and the
   full endstate/embedded-endstate handling for the off-diagonal Wolff cells) -- a drop-in for the module-level
@@ -116,9 +151,11 @@ its object's.
   disk -- the prior work flagged the same). It is DIRECTIONAL live-path evidence; the load-bearing evidence is the
   constructed populations (transparent, adversarial to the gate), the LIVE no-regress, and the info-free twin. If
   one result had to go first, it is the absolute live-gold number (keep the paired direction + the no-regress).
-- **The affectedness gate is conservative on pure-communication-supersense verbs** (betray, slander abstain: their
-  first WordNet supersense is `communication`, so harm-via-social-consequence is missed). This is the same WSD
-  boundary `hdlab/causation_typing.py` faces; it is a NAMED upstream problem, not a mechanism failure.
+- **The affectedness gate has a residual WSD precision boundary.** After the strong-valence + subject-experiencer
+  refinements, on a BROAD 36-item neutral set fd holds 0.889 precision (vs valence_only 0.083) -- the 4 residual
+  leaks are pure perception/communication/stative verbs with a MINOR affecting sense (visit/call/see -> HELP,
+  mean -> HARM). Fully closing this needs the context-aware sense pick (`no_glass_box_verb_sense_disambiguation`),
+  the same WSD boundary `hdlab/causation_typing.py` faces -- a NAMED upstream problem, not a mechanism failure.
 - **`scratch`-class near-zero-valence verbs abstain** (Warriner valence ~= 0 for genuinely mild-harm verbs) -- a
   grounded-valence coverage boundary, reported.
 - I did **not** land any hdlab change (Q111). The exact diff is below; strategy lands + re-verifies.
@@ -128,7 +165,9 @@ In `hdlab/force_dynamics_valence.py`, replace the harm-frame-membership machiner
 - **REMOVE**: `HARM_FRAMES`, `HARM_BACKOFF`, `_harm_verbs()`, `_harm()`, and the `nltk.corpus.framenet` import
   (the in-process read-path FrameNet enumeration -- defect D2).
 - **ADD**: `from hdlab.affect_lexicon import AffectLexicon` (grounded endstate valence) + a cached WordNet
-  first-supersense lookup (affectedness gate) + `AFFECTING_SUPERSENSES`.
+  supersense lookup + `import hdlab.psych_verb_frames` (subject-experiencer exclusion) for the affectedness gate
+  (`is_affecting`: force-class OR affecting-first-supersense OR strong-valence+affecting-sense, minus
+  subject-experiencer psych verbs) + `AFFECTING_SUPERSENSES` + `TAU_STRONG`.
 - **REPLACE** the body of `harm_help(verb, animacy)` with `harm_help_arithmetic` (verbatim from
   `experiments/exp_fd_harm_help_arithmetic_v1.py`; the live bare-SVO path uses `endstate_reached=None`).
 - `force_dynamics_event_type` (the stage-2 structural gate + animacy) and `_lex()` (the disk-cached force lexicon)
@@ -167,10 +206,11 @@ In `hdlab/force_dynamics_valence.py`, replace the harm-frame-membership machiner
   resulting-state simulation.
 
 ## ADJACENT / UPSTREAM COMPONENTS (candidate follow-on problems, brain-fidelity + leverage)
-- **`hdlab/pos_tagger.py` / predicate-argument extraction (patient binding).** UPSTREAM WALL. Rare/OOV nouns
-  ("intern") mistagged ADJ -> patient binds to the agent -> the harm/help signal never reaches the decision (the
-  `bullied` live miss). This caps harm/help recall independently of the organ. Evidence: `A coworker bullied the
-  intern` -> `patient='coworker'`. In the mega-cluster "the parser" (`notes/CROSS_SOLUTION_IMPROVEMENT_MAP.md`).
+- **`hdlab/pos_tagger.py` (NOT_BF) -- UPSTREAM WALL, now PROTOTYPED-FIXED (see UPSTREAM FIX PROTOTYPED above).**
+  Rare/OOV nouns (intern/medic) mistagged ADJ -> patient binds to the agent / from-clause drops -> harm/help
+  signal lost. A BF nominal-head correction recovers it (witness 6/6); the stacked live check shows the wall
+  clears only with BOTH the POS fix and the organ fix. The deeper NOT_BF root (supervised POS) remains a
+  separate program (distributional category induction). In the mega-cluster "the parser".
 - **The verb-sense / literalness gate (`no_glass_box_verb_sense_disambiguation`).** The affectedness gate's
   context-free WordNet-supersense cut is the source of the betray/slander boundary; a context-aware sense pick
   (which the causation typer already lazily imports) would resolve harm-via-communication verbs.
@@ -179,6 +219,9 @@ In `hdlab/force_dynamics_valence.py`, replace the harm-frame-membership machiner
   (prevention-from, resultative, caused-motion). The richest landing is to compute harm/help ON TOP of its
   TypedCausalLinks (embedded-endstate valence from the complement clause) rather than the bare-SVO reduction --
   this is what unlocks the off-diagonal cells on REAL text, not just constructed items.
+- **`hdlab/psych_verb_frames.py` (BF_SPIRIT, PINNED).** Newly REUSED by the affectedness gate (subject- vs
+  object-experiencer split) -- the object-experiencer psych verbs (comfort/console/reassure) fire; the
+  subject-experiencer ones (admire/envy/love/fear) are correctly excluded (object = stimulus, not affected).
 - **`hdlab/affect_lexicon.py` (BF_SPIRIT).** The endstate-valence supplier; a resulting-STATE valence read (from
   an explicit resultative "beat him unconscious") would beat the verb-valence proxy on benefactive-negative verbs
   (surgery/dentistry: "cut"/"drill" negative valence but helpful) -- the one residual class the verb-valence proxy

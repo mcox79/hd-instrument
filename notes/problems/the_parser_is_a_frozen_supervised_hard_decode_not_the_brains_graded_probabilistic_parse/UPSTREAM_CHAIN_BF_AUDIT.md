@@ -32,10 +32,14 @@ mis-attached argument is what the who-did-what / roles / events / causal readers
 Every measurable loss sits at a NOT_BF link:
 - DECODE (0.2): non-BF greedy hard-decode -> **FIXED** (exact graded decode, BF, +0.002 CI-sep; recall path byte-identical).
 - POS tagger (3.0): non-BF supervised perceptron + hard Viterbi. BF path exists (SRN prediction category induction, HARD_PASS) -- a SIBLING acquisition follow-on, same shape as the scorer.
-- SCORER (20.7): non-BF supervised surface-feature perceptron. This solution proved the BF acquisition path
-  (Naseem prior + DMV-class EM over the graded marginal breaks the right-branching trap, fully unsupervised)
-  and located the residual text-only ceiling. The scorer's WEIGHTS being learned by supervised gradient on
-  gold trees -- not the brain's mechanism -- is the single largest BF gap in the whole reader.
+- SCORER (20.7): non-BF supervised surface-feature perceptron. This solution PROTOTYPED the BF fix
+  (`exp_parser_readlearned_scorer_fix_v1`): a reading-learned scorer (POS-attachment PPMI + Naseem prior +
+  DMV-class EM over the graded marginal, no gold trees) reaches **UAS 0.463 (non-root 0.443), beating the
+  strong right-branching floor on both**, recovering 36% of the floor->supervised gap, improving by reading;
+  it stays 0.319 below supervised (the text-only ceiling). Prototyping it REFUTED the distributed-lexical
+  hypothesis (lexical HURTS; attachment is POS-structural). The scorer's WEIGHTS being learned by supervised
+  gradient on gold trees -- not the brain's mechanism -- is the single largest BF gap in the whole reader,
+  now with a prototyped BF replacement + a bounded ceiling.
 
 ## THE SYNERGY THESIS -- measured (why ALL components must be BF, not just some)
 "The chain only synergizes if every component is BF." Tested top-down (`exp_pos_graded_posterior_and_synergy_v1`):

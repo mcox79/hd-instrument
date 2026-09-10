@@ -99,4 +99,37 @@ The non-BF-ness has two mathematically distinct costs:
 
 **So: our component is fully BF; the signal it needs is lost upstream in the NOT_BF frozen parse stack -- specifically head
 selection (dominant, measured, and prototype-fixed here) plus the discarded graded parse posterior (the parser mega-cluster,
-separate).** The grammatical-role and is-a-edge channels are identified but not yet separately quantified (next measurement).
+separate).**
+
+## 4. THE FIXES -- every upstream component now has a mathematically-BF replacement, measured (owner: "fix all upstream, top-down, from repo replacements")
+Each NOT_BF upstream is replaced by a BF organ ALREADY IN THE REPO; the effect on the resolution signal is measured
+(GUM modern TEST n=2855; `exp_cn_readerhead_endtoend_v1.py --bfsweep` + `exp_cn_bf_rolecue_v1.py`; reader-head + concept-key).
+
+| # | upstream (NOT_BF) | math defect | BF replacement (repo) | BF math | measured effect on resolution |
+|---|---|---|---|---|---|
+| 1 | `pos_tagger` | Viterbi HARD-decode, discards marginals | **`crf_tagger` (GlassBoxCRF)** | log-space forward-backward MARGINALS (graded posterior P(tag\|sent)) | head-neutral (argmax categories ~unchanged): crf_boundary 0.5436 vs boundary 0.5426; its BF value is the confidence signal, not heads |
+| 2 | `arc_parser` | greedy HARD-decode + cycle-break, discards marginals | **`graded_parser` (GradedParse)** | exact Chu-Liu/Edmonds MAP + exact Matrix-Tree edge MARGINALS | DECODE fix is head-neutral (graded_map 0.5100 vs greedy 0.5089) -- it SHARES the frozen weights, so exact MAP still mis-heads post-modified NPs; its BF value is the marginal/confidence, NOT head accuracy |
+| 3 | head selection (parser-dependent) | rides the frozen weights' NP-head errors (-0.049) | **`boundary_nphead` + `np_head_reduce`** | UD span-head = nominal BEFORE post-modification + Right-Hand-Head-Rule; parser-FREE, zero fitted params | **THE head fix: 0.5089 -> 0.5426, cost -0.049 -> -0.015; the ONLY arm whose raw-text binding BEATS the gold-head de-leaked floor CI-sep (+0.017)** |
+| 4 | `arc_labeler` (grammatical ROLE cue) | frozen supervised deprel (nsubj) | **`incremental_parser.incremental_subject_before`** | left-corner bounded-buffer subject (Now-or-Never); reads only toks/UPOS | INERT for resolution: BF-role 0.5587 vs gold-deprel 0.5580 (+0.0007, CI incl 0) -> cleanly replaceable, zero loss (ACT-R prominence is dominated by recency/same-head) |
+| 5 | `commonnoun_binder.head_lemma` (concept key) | crude regex: empty-collapse + over-strip | **`concept_lemma` (morphy)** | wordform -> ATL lemma-concept; non-alpha kept distinct | live win +0.0098; beats the honest de-leaked floor CI-sep |
+| - | THE BINDING (our component) | -- already BF -- | `typed_coref` | Ariel + Lewis-Vasishth cue retrieval + ACT-R + typed spokes + Nref | beats string-identity CI-sep at EVERY head-quality level |
+
+**FULLY-BF chain (crf_tagger + graded_parser marginals for confidence + boundary_nphead heads + incremental role + concept_lemma
++ typed binding) = 0.5436 reader-head, BEATS the gold-head de-leaked floor CI-sep (+0.0182), and beats string-identity at every
+level.** Every upstream component is now mathematically brain-foundational, and the resolution signal is preserved/improved.
+
+**THE KEY REALIZATION (do not conflate two different BF fixes):** "make the parse GRADED" (crf_tagger + graded_parser: replace
+hard-decode with marginals -- mathematically BF, and the right substrate-wide adoption because it supplies the confidence the
+frozen stack discards) is a DIFFERENT fix from "make head SELECTION accurate" (the frozen WEIGHTS mis-head post-modified NPs;
+exact-MAP over the same weights does not help). For coref, head selection is a shallow CONSISTENCY task solved parser-free by
+`boundary_nphead`; the graded parser's BF contribution is the marginal/confidence lever (a separate consumer). Both are BF; they
+address different defects (uncertainty representation vs weight accuracy). The NEVER-FROZEN weights fix (online/grounded parser)
+is the deeper axis (register-adaptation) and is the parser mega-cluster.
+
+## 5. What remains genuinely upstream-open (NOT fixable inside this problem)
+- **The frozen WEIGHTS themselves** (shared by arc_parser AND graded_parser): supervised, trained-once. The BF axis is
+  never-frozen online learning (`OnlinePredictiveParser`, UAS ~0.44 today -- reliability complement, not a head replacement).
+  This is the parser mega-cluster (`the_parser_is_a_frozen_supervised_hard_decode...`). Our binding is robust to it (beats
+  string-identity even on the weak unfrozen heads), so it is not blocking THIS component.
+- **The type-comparator KNOWLEDGE** (WordNet C5 + DBpedia C8): the OP is BF, the KB is incomplete -- the world-knowledge
+  problem (separate filed).

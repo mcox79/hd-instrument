@@ -35,8 +35,20 @@ bigram feature trained on gold arcs, so the unsupervised PPMI is a weaker estima
 the path is to REPLACE the acquisition (a full reading-learned scorer with valence + generalization), not
 to augment the frozen one.
 
+## The fix is PROTOTYPED in-session (UAS 0.463, brain-foundational, no gold trees)
+`exp_parser_readlearned_scorer_fix_v1`: the clean reading-learned scorer (POS-attachment PPMI + Naseem prior
++ DMV-class EM over the graded marginal) reaches **UAS 0.463 (non-root 0.443), beating the strong floor on
+both, recovering 36% of the floor->supervised gap**, twin loses, improves by reading. Prototyping REFUTED the
+distributed-generalization hypothesis: adding lexical features (sparse OR PPMI-SVD-distributed) HURTS -- attachment
+is POS-structural + valence, not lexical-semantic (Klein-Manning). The follow-on is to close more of the 0.319
+gap to supervised (DMV VALENCE -- the one ingredient not yet added; the generative stop/continue model that
+took Klein-Manning 33->43% -- + full-corpus scale + more EM rounds), then A/B the scorer into the SAME graded
+marginal on a board dim. Honest ceiling: text-only induction caps well below supervised (prosody/joint-attention/
+embodiment a corpus lacks), so the endgame is likely HYBRID -- treebank asset as the admissible offline
+foundation + an online reading-learned adaptation for register-generality (the OOD lever).
+
 ## The mechanism is already PROVEN in-session (drilled through the wall)
-Two measured steps in hand:
+Prior measured steps in hand:
 - `experiments/exp_parser_learned_from_reading_v1.py` -- first-step directional lexical+POS PPMI + locality
   prior, CLE-decoded, UNSUPERVISED. UAS 0.2117; grows with reading; BUT below the strong right-branching
   floor 0.2849 (the right-branching trap).
