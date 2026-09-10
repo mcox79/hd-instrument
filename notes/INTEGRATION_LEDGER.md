@@ -16,6 +16,13 @@
 
 ---
 
+## 2026-09-10 (CONT-30, post-compaction) — INTEGRATED the meaning-representation solver (owner-DONE) + 2 more grown assets
+### the_meaning_representation_is_a_point_vector_not_a_probabilistic_population_code  [pri2; STRONG PARTIAL; owner-DONE; reverified 57/57; status→INTEGRATED]
+- **CLAIMED:** item1 intrinsic precision (accumulated GAIN, Ma/Pouget) tracks correctness CI-sep where the point-vector baseline does not; item2 LOCATED NEGATIVE (reweighting lever does not exist); item3 recall byte-identical. 3 all-BF reuse LAND-NOW pieces.
+- **LANDED (all default-off/latent, recall byte-identical):** (1) directional ROUTE-B parser-free identity channel (`track_directional_context_counts`/`directional_context_lemmas`, af3e16e97, witness 6/6) — removes NOT_BF pos_tagger/arceager from the learned channel, grows by reading; (2) `hdlab/valence_polarity_channel.py` (576de44e6, witness 2/2, FUSED 0.878 vs 0.636 floor CI-sep) — un-blinds antonymy, no WordNet; (3) `convergent_cue_reader.intrinsic_gain_w` (ee7f81ab6, witness 3/3) — retires fitted DEFAULT_W. Registry 82.
+- **full_gain_realized: PARTIAL/GATED.** All 3 pieces are BF capabilities landed latent; the LIVE fusion-flip is gated on **pri-5 `measure_end_to_end_whether_the_meaning_fusion_lifts_live_grounding_coverage`** (the C7 fusion-wire's blocking measurement). GROWN-KNOWLEDGE: Warriner VAD + directional grow-store registered (`KNOWLEDGE_ASSET_REGISTER.md` #3,#4).
+- **CONSUMES:** reading_grounding_loop content-lemma stream, distributional PPMI, affect_lexicon/Warriner, grounded+SEQ channel gains. **FLAGS:** transfer-converse polarity (buy/sell) needs the role-binding generative world-model (pri-1) — a DIFFERENT axis, not this channel. → CROSS_SOLUTION map Target 2.
+
 ## 2026-09-10 (CONT-30, post-compaction) — INTEGRATED the name-bridge world-knowledge solver (owner-DONE) + first grown-knowledge incorporation
 ### world_knowledge_common_noun_to_name_bridge_the_81_percent_residual  [pri3; STRONG PARTIAL; owner-DONE; reverified 11/11 + 9/9; status→INTEGRATED]
 - **CLAIMED:** (A) generative who-is-who identity file beats strongest floor **+0.072/+0.080 CI-sep** on the document-local subslice (twin+within-item-asymmetry controlled); (B) whole-slice LOCATED NEGATIVE — residual = document-local COVERAGE (oracle 0.924 = knowledge wall; selection brain-OPTIMAL, 38/39 typed-but-lost irreducible); 66% of the brain (0.607/0.921).

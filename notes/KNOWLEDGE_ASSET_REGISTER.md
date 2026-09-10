@@ -49,6 +49,19 @@
   0.636), twin loses, WITHOUT WordNet. **LATENT** as a live channel (fusion-wire gated on pri-5); witness
   `verification/test_valence_polarity_channel.py` 2/2.
 
+### 4. `directional ROUTE-B co-occurrence store` — the parser-free learned IDENTITY channel (grows by reading)  ·  **BF_SPIRIT (mechanism)**  ·  LATENT→(fusion-wire, pri-5)
+- **Path:** the store lives on `ConceptSpace._ctx_counts` (`hdlab/reading_grounding_loop.py`); the typing mechanism is
+  `directional_context_lemmas` + the `track_directional_context_counts` flag (pri-2 piece 1).
+- **Provenance:** `the_meaning_representation_is_a_point_vector...` (owner-DONE 2026-09-10). This is a MECHANISM that GROWS
+  the asset by reading, not a static file: reading +500k Simple-Wiki lines raised SEQ MRR 0.071→0.146 (offline grow run).
+- **What it is:** a separable co-occurrence store typed by DIRECTION+DISTANCE (`L1__/R1__/L2__/R2__{lemma}`; temporal-order
+  coding, the `sequence_memory` S-matrix principle) → a PARSER-FREE identity/substitutability channel (removes the NOT_BF
+  pos_tagger/arceager from the learned meaning channel at no accuracy cost, MRR 0.298 vs 0.294). Consolidated offline with PPMI.
+- **BF basis:** statistical/predictive language acquisition (Saffran; Christiansen-Chater); PPMI = Hebbian-predictive fixed
+  point (Levy-Goldberg); order typing = theta-phase sequencing. **GROWS BY READING** — the north-star acquisition mode.
+- **Consumer:** the learned-identity meaning channel; live-wire gated on pri-5. **LATENT** (default-off flag); to grow +
+  persist the consolidated store, run the offline grow loop with the flag on. Witness `test_route_b_directional_typing.py` 6/6.
+
 ---
 
 ## KNOWN GROWN/CURATED ASSETS TO ENUMERATE + FOLD (work-list — not yet in this register)
@@ -56,11 +69,8 @@
   (548MB sqlite + 81.9MB compact npz; `hdlab.typed_spokes.available_entity_type`). Register + confirm it reads through `safe_kb_gate`.
 - **The curated meaning foundation** (`build_and_freeze_the_clean_curated_knowledge_foundation...`, owner-DONE) — the proven
   meaning lift; `hdlab.meaning_foundation` (LATENT→wire-live per the knowledge-lever map). Register + audit its live consumer.
-- **pri-2 grow-by-reading ROUTE-B store** (`the_meaning_representation_is_a_point_vector...`, owner-DONE, INTEGRATING) — the
-  parser-free directional co-occurrence store that grows by reading (SEQ MRR 0.071→0.146 on +500k Simple-Wiki lines). Fold at
-  its landing; this register's next entry.
-- **Warriner VAD affective norms** (pri-2 affective-valence channel) — on-disk `hdlab.affect_lexicon.valence`; register when the
-  antonymy channel lands.
+- *(done — see asset #4 below)* pri-2 grow-by-reading ROUTE-B store.
+- *(done — see asset #3 above)* Warriner VAD affective norms.
 
 ---
 *Maintenance: append one section per grown asset at each owner-DONE fold-in. Keep entries TIGHT (mirror the BF-registry style).
