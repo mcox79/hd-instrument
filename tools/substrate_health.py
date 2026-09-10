@@ -73,6 +73,38 @@ def _board_aggregate():
     return best
 
 
+def _bf_update_bearing(slug):
+    """True if this problem folder carries a BF component update (a BF side-doc, or an AUDIT UPDATE in SOLVED.md)."""
+    d = os.path.join(REPO, "notes", "problems", slug)
+    try:
+        for fn in os.listdir(d):
+            up = fn.upper()
+            if ("BF_AUDIT" in up or "UPSTREAM_BF" in up or "UPSTREAM_CHAIN_BF" in up
+                    or "COMPONENT_REGISTER" in up):
+                return True
+        sp = os.path.join(d, "SOLVED.md")
+        if os.path.exists(sp):
+            if "AUDIT UPDATE" in open(sp, encoding="utf-8", errors="ignore").read():
+                return True
+    except OSError:
+        pass
+    return False
+
+
+def _bf_ledger_missing(in_flight_slugs):
+    """In-review submissions that carry a BF component update but are NOT represented in the BF ledger."""
+    path = os.path.join(REPO, "notes", "BF_COMPONENT_UPDATE_LEDGER.md")
+    try:
+        ledger = open(path, encoding="utf-8").read()
+    except OSError:
+        return None  # ledger absent -> reported separately, not a per-slug miss
+    missing = []
+    for slug in in_flight_slugs:
+        if _bf_update_bearing(slug) and slug[:34] not in ledger:
+            missing.append(slug)
+    return missing
+
+
 def main(argv):
     gaps_only = "--gaps" in argv
     check = "--check" in argv
@@ -120,6 +152,9 @@ def main(argv):
                   "" if not owner_done_backlog else "%d awaiting fold-in: %s" % (len(owner_done_backlog), owner_done_backlog)))
     gates.append(("STATUS.md is fresh (<2 days)", status_age is not None and status_age < 2.0,
                   "" if (status_age is not None and status_age < 2.0) else "age=%.1fd" % (status_age or 99)))
+    bf_missing = _bf_ledger_missing([sl for _, _, sl in in_flight])
+    gates.append(("in-review BF-bearing submissions are tracked in BF_COMPONENT_UPDATE_LEDGER", not bf_missing,
+                  "" if not bf_missing else "MISSING from BF ledger: %s" % [s[:34] for s in bf_missing]))
     n_fail = sum(1 for _, ok, _ in gates if not ok)
 
     out = []
