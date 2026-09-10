@@ -565,6 +565,14 @@ class ConceptSpace:
         # lemma read, not just seed-known ones -- giving the distributional channel live coverage to
         # score comprehension. ADDITIVE; touches only `_ctx_counts`.
         self.track_all_content_lemmas: bool = False
+        # ROUTE B DIRECTIONAL TYPING (pri-2 meaning-representation SOLVED; default-OFF, TYPING MODIFIER): when set,
+        # the co-occurrence context fed to `observe_context_counts` is DIRECTION+DISTANCE typed
+        # (f"L1__/R1__/L2__/R2__{lemma}", temporal-order coding -- the sequence_memory S-matrix principle) instead
+        # of the unordered bag. This turns the existing relatedness store into a PARSER-FREE IDENTITY /
+        # substitutability channel that grows by reading (SEQ MRR 0.071->0.146 on +500k Simple-Wiki lines), removing
+        # the NOT_BF supervised parser from the learned meaning channel. Composes with either tracking mode above;
+        # BYTE-IDENTICAL when OFF (only the separable `_ctx_counts` store is touched, never `_sums`/the recall path).
+        self.track_directional_context_counts: bool = False
 
     def observe(self, lemma: str, ctx_vec: np.ndarray) -> None:
         if lemma not in self._sums:
@@ -581,7 +589,8 @@ class ConceptSpace:
         a normal read pays nothing. `ctx_lemmas` is the masked context multiset -- the SAME content
         lemmas that built the ctx_vec passed to `observe`, target excluded. ADDITIVE; touches only
         `_ctx_counts`."""
-        if not (self.track_context_counts or self.track_all_content_lemmas):
+        if not (self.track_context_counts or self.track_all_content_lemmas
+                or self.track_directional_context_counts):
             return
         c = self._ctx_counts.get(lemma)
         if c is None:
@@ -1310,6 +1319,28 @@ def is_gap(state: ReadingLoopState, lemma: str) -> bool:
     return r.is_gap
 
 
+_DIRECTIONAL_OFFSETS = (-1, 1, -2, 2)   # neighbours typed L1/R1/L2/R2 (theta-phase sequence window)
+
+
+def directional_context_lemmas(ctx_seq: Sequence[str], target: str) -> list:
+    """ROUTE-B DIRECTIONAL TYPING (pri-2 meaning-representation): given the ordered content-lemma sequence of a
+    sentence and a `target` lemma, return its DIRECTION+DISTANCE-typed neighbours -- for EACH occurrence of
+    `target` at position i, `f"{'L' if d<0 else 'R'}{abs(d)}__{ctx_seq[i+d]}"` for d in (-1,+1,-2,+2) in range.
+    Temporal-order coding (the `sequence_memory` S-matrix principle): typing the bag by order turns the
+    relatedness store into an IDENTITY / substitutability channel WITHOUT a parser. Pure; empty list if `target`
+    is absent."""
+    out = []
+    n = len(ctx_seq)
+    for i, w in enumerate(ctx_seq):
+        if w != target:
+            continue
+        for d in _DIRECTIONAL_OFFSETS:
+            j = i + d
+            if 0 <= j < n:
+                out.append(("L" if d < 0 else "R") + str(abs(d)) + "__" + ctx_seq[j])
+    return out
+
+
 def process_sentence(state: ReadingLoopState, sentence: str, episode_id: str, pass_idx: int,
                      *, scramble_context_source: Optional[Sequence[str]] = None,
                      scramble_rng: Optional[np.random.Generator] = None,
@@ -1359,8 +1390,16 @@ def process_sentence(state: ReadingLoopState, sentence: str, episode_id: str, pa
     # built once per sentence and only when tracking. `content_lemmas` below is a SET (dedup); the
     # count store needs the multiset, so recompute from content_words with the same normaliser.
     _ctx_multiset = ([normalize_lemma(w) for w in content_words(sentence)]
-                     if (state.space.track_context_counts or state.space.track_all_content_lemmas)
+                     if (state.space.track_context_counts or state.space.track_all_content_lemmas
+                         or state.space.track_directional_context_counts)
                      else None)
+
+    def _ctx_for(_tgt):
+        # ROUTE-B context for `_tgt`: DIRECTION+DISTANCE-typed neighbours when directional typing is on (the
+        # parser-free IDENTITY channel), else the byte-identical unordered masked bag. `_ctx_multiset` is ordered.
+        if state.space.track_directional_context_counts:
+            return directional_context_lemmas(_ctx_multiset, _tgt)
+        return [w for w in _ctx_multiset if w != _tgt]
 
     # ROUTE B change 2 (the_reader SOLVED; gated by track_all_content_lemmas, default-OFF): accumulate
     # co-occurrence for EVERY content lemma so the distributional meaning channel has live coverage to
@@ -1368,7 +1407,7 @@ def process_sentence(state: ReadingLoopState, sentence: str, episode_id: str, pa
     # to avoid double-counting; when OFF, the seed-known-only behaviour is byte-for-byte preserved.
     if state.space.track_all_content_lemmas and _ctx_multiset is not None:
         for _tgt in set(_ctx_multiset):
-            state.space.observe_context_counts(_tgt, [w for w in _ctx_multiset if w != _tgt])
+            state.space.observe_context_counts(_tgt, _ctx_for(_tgt))
 
     for lemma in content_lemmas(sentence):
         if lemma in state.known_seed:
@@ -1377,7 +1416,7 @@ def process_sentence(state: ReadingLoopState, sentence: str, episode_id: str, pa
             if np.any(ctx != 0.0):
                 state.space.observe(lemma, ctx)
                 if _ctx_multiset is not None and not state.space.track_all_content_lemmas:
-                    state.space.observe_context_counts(lemma, [w for w in _ctx_multiset if w != lemma])
+                    state.space.observe_context_counts(lemma, _ctx_for(lemma))
             continue
         if anchor_pool is not None and lemma in anchor_pool:
             # ANCHOR-POOL EXPANSION (default-OFF). Accumulate this lemma's profile so it can be
@@ -1387,7 +1426,7 @@ def process_sentence(state: ReadingLoopState, sentence: str, episode_id: str, pa
             if np.any(actx != 0.0):
                 state.space.observe(lemma, actx)
                 if _ctx_multiset is not None and not state.space.track_all_content_lemmas:
-                    state.space.observe_context_counts(lemma, [w for w in _ctx_multiset if w != lemma])
+                    state.space.observe_context_counts(lemma, _ctx_for(lemma))
         it = state.library.items.get(lemma)
         # TWO GATES IN SERIES BLOCK A GROUNDED WORD, and that is why ablating the gap detector alone
         # changed nothing (MEASURED 2026-08-20: traces 8052 in BOTH arms). This short-circuit fires
