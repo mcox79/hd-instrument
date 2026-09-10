@@ -575,3 +575,7 @@ over "whole-slice number," SOLVED is defensible. Numbers on the table either way
    + phi gate), twin-clean + abstention-safe.
 4. **[do NOT do] Wire the COARSE discourse-type route** (located negative). A full static Wikidata dump is optional
    (bounded, famous-slice-only); the generative route is the higher-value lever.
+
+
+---
+INTEGRATED_BY_STRATEGY 2026-09-10 (9717db167): reverified 11/11+9/9; safe_kb_gate landed (BF); grown who-is-who lexicon -> hdlab/who_is_who_lexicon.py (witness 8/8) + KNOWLEDGE_ASSET_REGISTER.md; FIXES A-E audited vs live crosstype_bridge (selection already brain-optimal, measure-first); generative WIN world-model-gated -> handed to grow_the_causal_mechanism (pri-1). review STRONG.

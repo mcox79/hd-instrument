@@ -345,3 +345,7 @@ tested, which the bar calls "a full pass." Upgrade to SOLVED if you judge the lo
    into the read path (the same shape as the live `precision_defer` consumer).
 4. **Online (incremental) gain accumulation** instead of batch, so the precision calibrates continuously as the
    brain does.
+
+
+---
+INTEGRATED_BY_STRATEGY 2026-09-10 (af3e16e97/576de44e6/ee7f81ab6/df39a76e3): reverified 57/57; 3 BF pieces landed default-off/latent (recall byte-identical) -- directional ROUTE-B parser-free channel (witness 6/6), valence_polarity_channel (2/2, antonymy CI-sep no WordNet), convergent_cue_reader.intrinsic_gain_w (3/3); Warriner VAD + grow-store registered; LIVE fusion-flip gated on pri-5 measure_end_to_end. review STRONG.
