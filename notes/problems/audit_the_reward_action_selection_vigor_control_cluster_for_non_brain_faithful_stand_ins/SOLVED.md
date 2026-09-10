@@ -5,8 +5,8 @@ bar: "PASS = a CATALOG.md in this folder of the reward/action-selection/vigor cl
 result: "ENUMERATED DENOMINATOR = 40-organ import closure of the 7 seeds (AST trace over 249 hdlab modules); 3/7 seed decision organs (action_selection, successor_representation, self_manager) are DORMANT-ISLANDED with 0 hdlab importers, goal_achievement DORMANT (1 non-live importer), consequence_learning_loop+goal_typing LIVE-IMPORTED-INERT via the grounding subsystem, state_of_mind LIVE via coref. #1 finding = the tonic-DA VIGOR channel is MISSING (the cluster's namesake computation; 'vigor' occurs in all of hdlab exactly once, a docstring mention in self_manager.py:6). POWERED LOCALIZATION (Niv 2007 tau*=sqrt(C_v/rho) prototype, own metric = total net reward per fixed-time free-operant session, n=240 sessions, 2000-sample paired bootstrap): the brain-faithful vigor dial earns +578.9 net reward/session CI[574.2, 583.6] over the strongest fixed floor -- CI-separated -- and +707.8 CI[697.6, 718.5] over the info-free twin."
 floor: "strongest FIXED floor = one best fixed latency tuned once by argmax net reward on a held-out calibration session (the current no-vigor-dial state) = 1422.0 net reward/session; the vigor dial NIV = 2000.9 (+578.9 CI-sep). Info-free TWIN floor (same dial driven by a shuffled reward history) = 1293.2 (NIV +707.8 CI-sep). ORACLE ceiling = 2419.7."
 controls: "info-free TWIN (dial driven by a SHUFFLED reward history, matched tau-scale) LOSES to NIV +707.8 CI-sep -> the reward-rate signal is load-bearing, not tau-variance; SCRAMBLE (dial driven by a time-scrambled reward stream) = 1089.5 collapses BELOW the fixed floor -> signal-driven; ORACLE (tau from the true local rate) = 2419.7 is the ceiling (>= NIV); closed-form identity tau*=sqrt(C_v/rho) matches a grid-argmax of the reward rate to rel-err 0.047; monotonicity vigor~sqrt(rho) confirmed; JOINT-EVC COMPOSITION (exp_reward_cluster_joint_evc_v1.py, using the REAL shipped AdaptiveHaltController) -- BOTH-dials beats halting-only +664.8 CI-sep and vigor-only +992.1 CI-sep, and the halting decisions are byte-identical under a vigor toggle (separability proven); denominator positive controls fire (0-importer dormancy of the 3 pinned organs, state_of_mind reached via coref, cll imported by grounding); witness byte-search guard shown to FIRE on a present token (AdaptiveHaltController) while reporting vigor absent."
-files_changed: "experiments/exp_audit_reward_cluster_denominator_v1.py, experiments/exp_reward_cluster_vigor_dial_v1.py, experiments/exp_reward_cluster_joint_evc_v1.py, experiments/exp_self_manager_neuromodulatory_bank_v1.py, experiments/exp_action_selection_linear_sr_value_v1.py, experiments/exp_theory_of_mind_belief_partition_v1.py, experiments/exp_consequence_graded_value_teacher_v1.py, experiments/exp_successor_features_state_abstraction_v1.py, experiments/exp_model_based_control_revaluation_v1.py, verification/test_audit_reward_cluster_standins.py, notes/problems/audit_the_reward_action_selection_vigor_control_cluster_for_non_brain_faithful_stand_ins/CATALOG.md, notes/problems/audit_the_reward_action_selection_vigor_control_cluster_for_non_brain_faithful_stand_ins/SOLVED.md. NO hdlab/ writes (Q111)."
-reverify: ".venv/Scripts/python.exe verification/test_audit_reward_cluster_standins.py  (29/29 PASS)"
+files_changed: "experiments/exp_audit_reward_cluster_denominator_v1.py, experiments/exp_reward_cluster_vigor_dial_v1.py, experiments/exp_reward_cluster_joint_evc_v1.py, experiments/exp_self_manager_neuromodulatory_bank_v1.py, experiments/exp_action_selection_linear_sr_value_v1.py, experiments/exp_theory_of_mind_belief_partition_v1.py, experiments/exp_consequence_graded_value_teacher_v1.py, experiments/exp_successor_features_state_abstraction_v1.py, experiments/exp_model_based_control_revaluation_v1.py, experiments/exp_theory_of_mind_recursive_v1.py, experiments/exp_integrated_reward_cluster_agent_v1.py, verification/test_audit_reward_cluster_standins.py, notes/problems/audit_the_reward_action_selection_vigor_control_cluster_for_non_brain_faithful_stand_ins/CATALOG.md, notes/problems/audit_the_reward_action_selection_vigor_control_cluster_for_non_brain_faithful_stand_ins/SOLVED.md. NO hdlab/ writes (Q111)."
+reverify: ".venv/Scripts/python.exe verification/test_audit_reward_cluster_standins.py  (31/31 PASS)"
 ---
 
 # SOLVED -- brain-fidelity audit of the reward / action-selection / vigor control cluster
@@ -99,6 +99,24 @@ W15-W18. All BF-audited and honestly labelled PINNED vs BF_UNPINNED. NO hdlab wr
   while frozen model-free is stale (0.02, +0.98 CI-sep); on a TRANSITION change model-free AND the SR are
   BOTH stale (identical 0.868) and only MB re-plans (0.99, MB-SR +0.124 CI-sep); info-free twins lose.
   Built directly on the successor-feature work. **BF.**
+- **THE #3 GAP CLOSED: recursive (2nd-order) theory of mind.** The first ToM prototype was first-order;
+  `exp_theory_of_mind_recursive_v1.py` builds NESTED belief partitions (a chain (a_1..a_L) updates iff
+  all its agents were present) and reproduces 2nd-order false belief (the ice-cream-van task, Perner &
+  Wimmer 1985): on 2nd-order-DIVERGENT items ORDER2=1.00 vs the 1st-order ceiling 0.00 (a first-order
+  theory literally cannot represent the divergent nested belief) vs reality 0.00, info-free twin 0.26
+  (+0.745 CI-sep), with a consistency control confirming it agrees with 1st-order when it should.
+  **BF_UNPINNED** (recursive ToM has no pinned neural equation; nested metarepresentation over FHRR).
+- **THE #4 GAP ADDRESSED: live integration.** `exp_integrated_reward_cluster_agent_v1.py` composes the
+  rebuilt decision organs -- successor-feature value generalization + model-based planning -- into ONE
+  closed acting loop on a non-stationary featured MDP. The composed agent beats the flat model-free gate
+  it replaces (+1.7 CI-sep) and a no-replan ablation (+0.4 CI-sep) in navigated reward. HONEST BOUND:
+  within dense navigation the SF-generalization and info-free-twin margins are small (the agent visits
+  most states; a well-connected optimal value is near-flat) -- so this cell shows the pieces COMPOSE
+  into a working loop that dominates the flat gate, while the DECISIVE per-organ proofs remain the
+  component cells. Not landed / no live board consumer yet (Q111). **BF.**
+- **ALL FOUR performance-vs-brain gaps are now prototyped brain-foundationally** (state representation,
+  model-based control, recursive ToM, integration) -- each copying its brain computation, each can-fail,
+  each honestly labelled PINNED vs BF_UNPINNED.
 - **100% brain-foundational check (owner 2026-09-09):** every prototype copies the brain's actual
   computation with a citation; the one component without a pinned neural equation (ToM) is labelled
   BF_UNPINNED and built on the accepted FHRR algebra + the accepted cognitive false-belief computation;

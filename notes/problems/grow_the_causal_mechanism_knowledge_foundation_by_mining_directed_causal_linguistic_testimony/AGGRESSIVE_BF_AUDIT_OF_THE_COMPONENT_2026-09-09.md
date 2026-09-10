@@ -95,6 +95,37 @@ sign (handled); (b) **AGENTIVE-GOAL** (intentions/plans/social scripts -- "does 
 MEANS-END / GOAL sign source (the shelved MeansEnd ATL hub; agentive commonsense e.g. ATOMIC xEffect/xWant), NOT
 physics/entropy. The agentive-goal sign is its own frontier (commonsense-DB research in flight).
 
+**UNIFIED ARCHITECTURE (commonsense-DB research verdict, 2026-09-09) -- our direct-vs-net split IS a PINNED theorem.**
+Forbus Qualitative Process theory (1984) formally distinguishes DIRECT INFLUENCES (I+/I- : storable, signed,
+context-robust) from QUALITATIVE PROPORTIONALITIES (Q+/Q-) whose NET sign under "influence resolution" (loops/
+competition/thresholds) is NOT storable and must be SIMULATED. This is the theorem-grade explanation of our +0.122
+(direct) vs +0.014 (net) results. Consequences, now settled:
+- **STORABLE sign = direct influences (I+/I-):** chemistry stoichiometry + entropy/2nd-law + argument-bound force-
+  dynamic (consume-/produce+/block-/enable+). Beat the falsifier. Build offline.
+- **NON-STORABLE sign = net proportionalities:** grounded Delta-Delta simulator (the theorem says it can't be stored).
+- **Commonsense DBs (ConceptNet/ATOMIC/CausalBank/CausalNet) are CHT-doomed for the SIGN** (co-occurrence = rung-1;
+  ATOMIC-at-chance was expected). They are EDGE/NECESSITY oracles only. Usable OFFLINE assets: **GenericsKB** (3.5M
+  generics, free/CC -- candidate edges incl. the "food spoils" case), **QuaRel/QuaRTz** (CC-BY, argument-named signed
+  facts -- a VET corpus, not a lookup KB), Verb Physics (proves argument-bound signed extraction works).
+- **The 80% verb-flip = force dynamics' ARGUMENT-BINDING** (sign bound to agonist/patient, not the verb) -- fixable by
+  binding the force-class to the specific quantity/argument (exactly what stoichiometry's reactant/product roles do).
+TWO-ROUTE PLAN: (1) DIRECT-grain everyday sign = an offline argument-bound force-dynamic/QP classifier (verb->I+/I-
+class bound to arguments), edges from GenericsKB, gated by the passage context, scrambled-sign-controlled; (2) NET/
+regime everyday sign -> the grounded Delta-Delta program. Calibrated: co-occurrence DB supplies the sign ~0.05
+(refuted); direct-grain everyday subset beats the falsifier ~0.40 (coverage = the unknown, likely minority-direct).
+
+**ARGUMENT-BOUND GENERALIZATION -- TESTED, LOCATED NEGATIVE (`exp_causal_sign_argbound_v1`, 2026-09-09).** Tried to
+GENERALIZE the direct-grain sign beyond curated couplings via a broad force-class verb lexicon + POSITIONAL argument-
+binding (Y-after-verb=patient / before=agent) over the passage. FAILED: arm 0.511 at 46.7% coverage -- AT CHANCE,
+below co-occurrence (0.524) and random (0.527), ties the falsifier. => a CRUDE (positional) argument-binding over a
+broad verb-class does NOT cure the 80% verb-flip; it over-covers with noise and dilutes to chance, like every other
+loose generalization. CONFIRMS the rule: the falsifier-beating sign needs EXACT couplings with CORRECT argument-
+binding -- which is exactly what curated stoichiometry/physics/entropy reactions provide (reactant/product roles ARE
+correct binding). Generalizing beyond curated couplings requires a PROPER dependency parse (arc_parser +
+graded_role_assigner) to bind the force-class to the true argument role, NOT a positional shortcut -- and even then the
+net/regime everyday cases hit the wall. The proven lever (integrated reader, exact curated couplings, context-gated,
++0.16 CI-sep at ~13.5%) STANDS; this generalization shortcut is shelved as a documented negative.
+
 ---
 
 # WHAT THE COUPLING-SIGN GAP IS -- decisive, triangulated (literature + our own data), 2026-09-09
