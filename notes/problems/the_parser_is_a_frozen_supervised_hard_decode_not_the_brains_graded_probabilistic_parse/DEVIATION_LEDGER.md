@@ -50,13 +50,21 @@ the arc-factored representation lost -- the one place in the whole chase where m
 
 ### 3c. SCORER -- ACQUISITION (supervised gold-tree) -- deviation type (M)
 With gold POS + exact decode, the supervised scorer still errs on **20.7% of arcs** (the dominant chain loss).
-Chased exhaustively: NOT lexical (adding lexical/distributed features HURTS), NOT valence (faithful soft-EM DMV
-verified, underperforms), NOT grounding-of-PP (GEK over-attaches to verbs), NOT bootstrapping (drifts). The BF
-alternative (reading-learned scorer) is 0.46 << supervised 0.78. So this deviation, like POS, SUPPLIES more
-signal than any text-only BF acquisition. Its residual to a competent human (0.96) is (M) MISSING INPUT: the
-brain learns a better grammar than gold trees from GROUNDING + prediction + interaction -- signal a text corpus
-does not carry. **Understood: the loss is the text-only acquisition ceiling + missing grounding, NOT a fixable
-operation-deviation; the grounded world model is the only lever, and it is a separate program.**
+Chased EXHAUSTIVELY -- every text-only lever, each faithful + twin-controlled: NOT lexical (adding
+lexical/distributed features HURTS), NOT valence (faithful soft-EM DMV verified, underperforms), NOT
+bootstrapping (drifts from a weak parse), NOT hybrid (structure redundant with the strong scorer), and --
+DECISIVELY -- NOT text-derived grounding: BOTH grounded mechanisms fail. GEK pairwise co-occurrence
+over-attaches to verbs (PP-attach 0.44<0.56 recency); thematic-fit TYPE expectation (McRae/Ferretti, done
+right) beats its twin (real signal, 0.464>0.408) but is FAR below recency (verb-object 0.464<0.682). WHY:
+attachment is LOCALITY-dominated (recency ~0.68 is already near supervised ~0.90), and text-derived semantic
+signals pull attachment AWAY from the correct local target. The ONE lever that helped was STRUCTURE (OPP-2,
+non-arc-factored incremental) -- not semantics. The BF alternative (reading-learned scorer) is 0.46 <<
+supervised 0.78. So this deviation SUPPLIES more signal than any text-only BF acquisition, and the residual to
+a competent human (0.96) is (M) MISSING INPUT -- and now SHARPENED: it is NOT text-derivable semantics (2
+rigorous grounded negatives) but genuine PERCEPTUAL / INTERACTIVE grounding (the sensorimotor spokes + the
+generative world model; Phase-1 meaning supply). **Understood: the loss is the text-only acquisition ceiling +
+missing PERCEPTUAL grounding; text-derived grounding is ruled out; the only lever is the grounded world model,
+a separate substrate program a text-only parser cell fundamentally cannot supply.**
 
 ## The honest verdict on the thesis
 "Signal loss = non-BF deviation" is TRUE in the refined sense (every loss traces to D, M, or 0), and the chase
@@ -72,6 +80,22 @@ found EXACTLY where each kind lives:
   POS 0.745<0.944, reading-learned scorer 0.46<0.78). Making them "BF" from text today loses more, not less.
 So: the decode + representation deviations are found and (partly) fixed; the dominant losses are the text-only
 acquisition ceiling + missing grounding, whose ONLY brain-foundational lever is the grounded world model.
+
+**Grounding sharpened (3 rigorous negatives + the unifying insight):** "grounding" here is NOT text-derived
+semantic association -- ruled out three ways: (1) GEK pairwise (PP-attach 0.44<0.56), (2) thematic-fit
+type-expectation (verb-obj 0.46<0.68), and (3) -- the owner's challenge, "we HAVE a world model, test it" --
+the WORLD MODEL tested the brain's way: syntax proposes, the world model ARBITRATES ONLY the UNCERTAIN arcs
+(`exp_parser_worldmodel_arbitration_v1`). Result: +0.0007 (negligible, twin ties); applied UNIFORMLY it HURTS
+(0.7421<0.7927). **THE UNIFYING INSIGHT that closes it:** only 1.3% of tokens (314/24,120) are UNCERTAIN
+(graded marginal<0.5), yet ~21% of heads are wrong -- so **the parse's errors are CONFIDENT** (the supervised
+scorer is confidently wrong), mirroring the POS finding (87% of mistags confident). No reliability-gated
+mechanism -- defer, world-model-arbitrate -- can reach a CONFIDENT error, because it never flags as uncertain.
+The confident errors are baked into the supervised ACQUISITION. So the world model, used as a parse-RESCORER,
+is structurally not the lever (uncertain arcs are too few; the gold is often outside the top-2 there anyway).
+The missing input is genuine PERCEPTUAL / INTERACTIVE grounding that would drive the parse GENERATIVELY
+top-down (predict the situation, generate the structure) -- NOT rescore a syntactic beam. That is the
+substrate's Phase-1 meaning supply + the generative world-model main-event program; a text-only parser cell
+(and a world-model RESCORER) fundamentally cannot supply it. This is the precise, final characterization of the wall.
 
 ## Reverify
 `.venv/Scripts/python.exe verification/test_parser_graded_route_through.py` (60 checks) -- incl. the POS-link

@@ -5,7 +5,7 @@ bar: "Compute harm/help event valence from the substrate's FORCE-DYNAMIC arithme
 result: "Through the LIVE reader on a 36-item modern harm/help gold: force-dynamic arithmetic 0.944 (+/-0.069) vs the current frame-list organ 0.778 (+/-0.125); PAIRED fd-minus-organ = +0.167, bootstrap CI [+0.056, +0.278] (CI-separated from 0), 6 gains / 0 losses. On the 32 social/emotional verbs the frame list misses: fd 0.875 (+/-0.116) vs current organ 0.000 (CI-separated). Info-free twin (scrambled valence+force lexicon) 0.639 live / 0.28 on the generalization set (loses)."
 floor: "Strongest floor = the CURRENT LIVE organ hdlab.force_dynamics_valence.harm_help (frame-membership): 0.778 on the live gold, 0.000 on the frame-list-miss set. Also: majority-class (all-NEUTRAL) 0.333; valence_only control (info-bearing, no gate/structure) 0.94 on generalization but 0.00 neutral-precision and 0.43 off-diagonal."
 controls: "(1) info-free twin = valence map AND force lexicon SCRAMBLED -> loses (0.639 live vs 0.944; 5/8 vs 8/8 witness). (2) valence_only control (animacy+sign(valence), no affectedness gate, no force structure) -> generalizes but DESTROYS neutral precision (T5 0.00 vs 1.00) and FAILS the off-diagonal force cells (T6 0.43 vs 1.00) -> isolates that BOTH the affectedness gate and the force structure are load-bearing, not the valence lookup alone. (3) LIVE no-regress: every NON-affect SituationModel dimension byte-identical + OCC appraisal (sm.infer_emotion) + emotion register (sm.feels/valence_of) readouts identical across 52 modern docs (only EventRecord.affect moves). (4) off-diagonal population = the Wolff truth-table cells (ENABLE-a-bad, PREVENT-a-good, failed-harm) a bare valence-lookup cannot get."
-files_changed: "experiments/exp_fd_harm_help_arithmetic_v1.py (the arithmetic + constructed populations T1-T6), experiments/exp_fd_harm_help_arithmetic_live_v1.py (live no-regress + scored modern gold + paired bootstrap), experiments/exp_fd_harm_help_composed_v1.py (parse-composed generalization of the off-diagonal to real prose), experiments/exp_pos_nominal_head_correction_v1.py (BF upstream POS fix), experiments/exp_fd_harm_help_chain_attribution_v1.py (per-stage performance-vs-brain attribution), experiments/exp_pos_bayesian_category_v1.py (mathematically-BF Bayesian POS category posterior), experiments/exp_fd_harm_help_hard_prose_v1.py (honest real-prose stress: 0.50->1.0), experiments/exp_fd_harm_help_robust_extraction_v1.py (unified BF role extractor: passive/pronoun/plural, confidence-ranked), experiments/exp_fd_harm_help_role_corpus_validation_v1.py (UD-EWT at-scale role validation), experiments/exp_fd_harm_help_coref_pronoun_v1.py (Opportunity 2: coref pronoun-patient attribution 0->0.917), verification/test_fd_harm_help_arithmetic.py (9/9 witness), verification/test_pos_nominal_head_correction.py (6/6 witness), verification/test_fd_harm_help_robust_extraction.py (8/8 witness), verification/test_fd_harm_help_coref_pronoun.py (2/2 witness). NO hdlab/ writes (Q111 -- the exact proposed hdlab diffs are in this doc)."
+files_changed: "experiments/exp_fd_harm_help_arithmetic_v1.py (the arithmetic + constructed populations T1-T6), experiments/exp_fd_harm_help_arithmetic_live_v1.py (live no-regress + scored modern gold + paired bootstrap), experiments/exp_fd_harm_help_composed_v1.py (parse-composed generalization of the off-diagonal to real prose), experiments/exp_pos_nominal_head_correction_v1.py (BF upstream POS fix), experiments/exp_fd_harm_help_chain_attribution_v1.py (per-stage performance-vs-brain attribution), experiments/exp_pos_bayesian_category_v1.py (mathematically-BF Bayesian POS category posterior), experiments/exp_fd_harm_help_hard_prose_v1.py (honest real-prose stress: 0.50->1.0), experiments/exp_fd_harm_help_robust_extraction_v1.py (unified BF role extractor: passive/pronoun/plural, confidence-ranked), experiments/exp_fd_harm_help_role_corpus_validation_v1.py (UD-EWT at-scale role validation), experiments/exp_fd_harm_help_coref_pronoun_v1.py (Opportunity 2: coref pronoun-patient attribution 0->0.917), experiments/exp_fd_harm_help_signal_trace_v1.py (stage-by-stage signal-loss trace: POS 30%/heads 36%/labeler 33%), verification/test_fd_harm_help_arithmetic.py (9/9 witness), verification/test_pos_nominal_head_correction.py (6/6 witness), verification/test_fd_harm_help_robust_extraction.py (8/8 witness), verification/test_fd_harm_help_coref_pronoun.py (2/2 witness). NO hdlab/ writes (Q111 -- the exact proposed hdlab diffs are in this doc)."
 reverify: ".venv/Scripts/python.exe verification/test_fd_harm_help_arithmetic.py  (+ verification/test_pos_nominal_head_correction.py for the upstream POS fix)"
 ---
 
@@ -158,20 +158,51 @@ precision cost of the fallbacks. These are the proposed `predicate_argument_fron
 (Q111); the deeper parser robustness is that cluster's program, but the harm/help-relevant extraction is now
 measured, generalizing, and brain-foundational, not a 12-item claim.
 
+## SIGNAL-LOSS TRACE -- CORRECTS the earlier "the parser SCORER is the ceiling" claim
+Traced WHERE the who-was-affected (undergoer) signal is lost, feeding each stage GOLD vs predicted on
+UD-EWT gold (`experiments/exp_fd_harm_help_signal_trace_v1.py`; n=627 affecting undergoers, 1500 sents).
+**The loss is DISTRIBUTED, not scorer-bound -- my earlier conclusion was wrong:**
+
+| condition | undergoer recall | isolates |
+|---|---|---|
+| full pipeline (all predicted) | 0.7895 | -- (21% lost) |
+| gold POS | 0.8581 | POS loss ~0.069 |
+| gold heads | 0.8612 | parser-head loss ~0.072 |
+| gold POS + gold heads (LABELER ceiling) | **0.9075** | the arc-LABELER loses ~0.093 GIVEN A PERFECT PARSE |
+
+Per-lost-undergoer attribution: **POS 30% / parser-head 36% / arc-LABELER 33%** -- the scorer is only ~1/3.
+The arc-LABELER (which I'd never isolated) is a co-equal loss, and its two errors GIVEN A PERFECT PARSE are
+SYSTEMATIC + partly DETERMINISTIC: **nsubj:pass->nsubj** (passive voice not detected, 12/49 passives) and
+**obj->obl** (a bare core object confused with an oblique, 34/580). A deterministic **VOICE** labeler
+correction (be/get aux + participle => nsubj:pass; Bornkessel-Schlesewsky) is a clean net win (recall +,
+precision held); the **CASE** correction (obl w/o preposition => obj) OVER-FIRES on genuine obliques
+(precision 0.744->0.650) -- **obj/obl genuinely needs the learned subcat ranker** (`argstruct_patient_ranker.
+frame_obj`, which the substrate ships for exactly this), not a naive rule. **KEY REALIZATION:** my extractor
+already sat near the raw ceiling because its VOICE-REMAP was silently COMPENSATING for the labeler's
+passive-mislabeling -- the right fix is the general labeler VOICE correction (helps every consumer), and the
+POS/parser-head thirds are the tagger/scorer clusters. The signal loss is now FULLY UNDERSTOOD and attributed.
+
 ## THE THREE OPPORTUNITIES -- RESEARCHED + IMPROVED (mathematically BF, walls researched)
 Pushed each named opportunity to a result, reusing the substrate's BF machinery and researching the walls:
 
-1. **PARSER undergoer accuracy -> marginals-aware recovery (RESEARCHED WALL, small lift).** Reused
-   `hdlab/graded_parser.py`'s exact single-root Matrix-Tree edge marginals (Koo et al. 2007 -- the
-   grammar-faithful Bayesian posterior over parses). Confirmed it recovers specific 1-best parse errors:
-   "A thief robbed the widow" (1-best mislabels widow=nmod<-thief) has marginal mu[widow<-robbed]=**0.459**
-   vs the subject thief=0.015 -- the posterior EXPOSES the object the MAP decode missed. But at scale the
-   lift is SMALL (my marginals-hybrid ~flat/noisier vs the confidence-ranked extractor; consistent with the
-   substrate's own `structural_patient_pick(marginals=...)` landing measuring only +0.0065 CI-sep). **The
-   located wall: the parser's arc-factored SCORER, not the decode -- marginalizing over parses recovers only
-   a modest slice because the scores themselves are the limit.** The concrete BF lever (pass marginals to
-   `structural_patient_pick`) is already supported; widening it (a better scorer) is the arc_parser cluster's
-   program.
+1. **PARSER undergoer accuracy -> EXHAUSTIVELY RESEARCHED WALL (the scorer, not the decode/asset/marginals).**
+   The parser labels **0.7895** of affecting-verb gold undergoers correctly (UD-EWT 1500, obj/nsubj:pass with
+   head=verb) -- that is the hard ceiling. I measured EVERY tractable lever against it:
+
+   | lever | undergoer-label recall | verdict |
+   |---|---|---|
+   | greedy decode (current) | 0.7895 | baseline |
+   | **exact MST decode** (Chu-Liu/Edmonds, `graded_parser`) | 0.7911 | +0.0016 -- greedy already ~exact |
+   | Matrix-Tree **marginals** (Koo 2007) | small (+0.0065 per substrate's own landing) | recovers some 1-best misses ("robbed the widow": mu[widow<-robbed]=**0.459** vs subj 0.015) but noisy at scale |
+   | **richfeat** parser asset | 0.7799 | WORSE |
+   | **mst_retrain** parser asset | 0.7225 | WORSE |
+   | raw-arc-labeler extraction (bypass the CT adapter) | 0.719 recall | flat vs the confidence-ranked extractor |
+
+   **CONCLUSION (SUPERSEDED by the SIGNAL-LOSS TRACE above -- see it first): the parser-head loss is only ~36% of the total; the arc-factored scorer's OWN levers are exhausted, but POS (30%) and the LABELER (33%) are co-equal, and the labeler's passive-voice third is deterministically recoverable.**
+   Exact inference, the best alternative asset, the exact posterior marginals, and direct label-routing ALL
+   fail to lift it materially -- the SCORES themselves are the limit. Lifting it requires RE-TRAINING the
+   scorer with better features (a genuine arc_parser cluster program), NOT a targeted fix. The confidence-
+   ranked extractor (0.727 recall / 0.779 precision) sits near the achievable operating point below that ceiling.
 
 2. **COREFERENCE for pronoun patients -> BUILT (0.00 -> 0.917).** Reused `hdlab/coreference_resolver.py`
    (Grosz/Joshi/Weinstein Centering Theory + Binding Principle B, glass-box) to resolve a pronoun harm/help

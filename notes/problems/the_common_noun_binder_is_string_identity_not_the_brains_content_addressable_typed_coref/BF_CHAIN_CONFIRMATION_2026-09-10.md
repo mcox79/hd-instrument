@@ -181,6 +181,49 @@ ACT-R salience (BF) -> typed content-addressable binding (BF_SPIRIT) -> C5/C8/co
   emerge from meaning + prediction, not distribution alone; that is the generative-world-model program, and it is the one
   lever that raises label-free POS from 0.32 toward supervised quality.
 
+## C5. THE DIFFERENT-HEAD SLICE IS NOT A TYPE-KB GAP -- corrective audit (owner 2026-09-10: build the KB "right not easy")
+Before building the world-knowledge type KB I audited the dominant loss (`exp_cn_diffhead_route_audit_v1.py`, GUM n=899
+different-head mentions; type routes evaluated with the FIXED concept_lemma so the lemma bug is not a confound):
+
+| finding | number |
+|---|---|
+| antecedent kind | COMMON 80.1% / name 19.9% (so it is NOT dominantly a common->name encyclopedic gap) |
+| type-route coverage (C5 is-a 16.0% + CONCEPT 10.0% + APPOS 5.1% + C8 6.1%, ANY) | **25.0%** (already ~covered) |
+| RESIDUAL (no type route licenses the gold antecedent) | **75.0%** |
+| -- residual = DISCOURSE-IDENTITY (nominal antecedent, non-taxonomic: "project"->"study", "approach"->"analysis") | **80.4% of residual** |
+| -- residual = ANNOTATION/PARSE NOISE (non-nominal gold head: "be"/"17"/"huh"/verb) | 19.6% of residual |
+
+**Corrective conclusion (this changes the optimization ranking):** the different-head slice is NOT a world-knowledge TYPE
+gap. Only 25% is type-linkable and the existing routes already cover it (a bigger/learned is-a KB has ~zero headroom on the
+residual, which is non-taxonomic by construction). **~60% of the slice (542/899) is DISCOURSE-IDENTITY coreference** -- the
+SAME discourse entity described by a DIFFERENT, non-taxonomic common noun -- and ~15% is irreducible annotation/parse noise.
+So building the type KB would be the EASY-but-WRONG thing: it targets <25% that is already covered. I did NOT build it.
+
+**The ACTUAL BF lever = a DISCOURSE-ENTITY SITUATION MODEL (Kintsch), not a type KB and not the event world-model.** These
+cases ("the study" == "the project") are the same referent by DISCOURSE FOCUS/COHERENCE, not by is-a type and not by
+event-transition prediction (which is why both the type KB and the event world-model are the wrong tools). They also have
+LOW distributional similarity (conceptual_meaning at tau=0.4 caught only 10%; lowering tau over-merges), so lexical
+similarity is not the answer either -- it needs situation-model entity tracking (which entity is in focus; Kintsch
+construction-integration / entity-grid). That is the same generative-comprehension program (at the ENTITY/DISCOURSE grain),
+the pri-1 north star -- and it is genuinely different from both organs I was asked to try. The honest deliverable here is the
+corrected gap (type KB refuted as the lever, with counts), not a type KB built against the evidence.
+
+## C6. BUILT THE ACTUAL LEVER -- the SITUATION-MODEL FOCUS bridge (the dominant-loss fix works, 2026-09-10)
+Having refuted the type KB (C5) and the event world-model (C3) as the discourse-identity lever, I built the RIGHT organ:
+a Kintsch situation-model FOCUS bridge (`exp_cn_discourse_focus_v1.py`). For a DEFINITE common noun with no same-head and
+no type-license antecedent, resolve (NON-WRITING) to the most-salient (ACT-R) prior entity of a COMPATIBLE COARSE
+ONTOLOGICAL CLASS (WordNet supersense group ABSTRACT/OBJECT/PERSON/... = Rosch basic-level ontology). Kintsch
+construction-integration default-to-focus + Centering Cb/Cf + Lewis-Vasishth ACT-R + coarse-class coherence; all BF_SPIRIT;
+non-writing (Nieuwland) so a graded default is safe. It is a DIFFERENT organ at the ENTITY grain -- not is-a type, not event
+prediction, not lexical similarity.
+
+MEASURED (GUM n=2855): baseline (C5+C8+conceptual) 0.5622 -> **0.5776 (+0.0154 CI[+0.0094,+0.0225] CI-sep)**; vs de-leaked
+floor **+0.0522 CI-sep**; info-free twin LOSES **+0.0413 CI-sep** (the coarse-class + focus signal is load-bearing);
+**DIFFERENT-HEAD slice 0.1346 -> 0.1869 (+47 correct)** -- the first lever to move the dominant loss; same-head no-regress
+(-3). Cumulative binder: 0.5482 (deployed) -> 0.5580 (concept-key) -> 0.5622 (conceptual) -> **0.5776 (focus)**; the
+de-leaked-floor margin +0.0326 -> +0.0522 CI-sep. So the corrective audit (C5) led to the right BF organ, and it WORKS --
+the dominant discourse-identity loss is now partly recovered by a brain-foundational situation-model mechanism, not a KB.
+
 ## D. Honest bottom line
 The common-noun binder and its semantic core (concept key, salience, typed binding, type operation) are confirmed
 brain-foundational to the math. The signal is lost in exactly two places, both now quantified: (i) the frozen supervised
