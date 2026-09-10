@@ -213,6 +213,19 @@ flat on the clustering consumer. GOLD-FREE inherited.
    (concept-key) -> 0.5622 (conceptual) -> **0.5776 (focus)**, +0.0294 over the live wire; de-leaked-floor margin
    +0.0326 -> +0.0522 CI-sep.
 
+   **7. DO NOT build the full cue-integrated discourse-entity tracker on top of item 6 -- LOCATED NEGATIVE (2026-09-10,
+   `exp_cn_discourse_entity_model_v1.py`, BF_CHAIN_CONFIRMATION C8).** The natural next step (a Kintsch/Lewis-Vasishth
+   entity tracker that disambiguates via predication-bag + co-participant + Centering-continuation overlap) was BUILT to the
+   full researched spec and swept 16 configs at n=2855: 0.5580, **d=-0.0196 BELOW the focus-bridge floor** (all 16 configs
+   below), and it does **not beat its own property-scramble twin** (d=+0.0011, not sep) -- the entity<->history binding
+   carries ~zero net signal at this scale. Two isolations (both fed GOLD syntax, so not a parse confound) show it is the
+   CUES: the predication+co-participant tiebreaker on same-head-ambiguous is an **exact no-op** (`exp_cn_samehead_cues_v1.py`,
+   0.4168->0.4168), matching the ACT-R base-level no-op (`exp_cn_samehead_actr_v1.py`); and the cue-integrated bridge is
+   strictly worse than item 6's permissive focus bridge (diff_head 0.10 vs 0.19). **The banked situation-model win is the
+   FOCUS BRIDGE alone (item 6).** The deeper residual -- WHICH specific "man"; "the doctor"==Elizabeth -- is
+   comprehension-bound (the generative meaning/world-model of the specific referent), NOT recoverable from situational-history
+   cue overlap. Next lever = the generative world-model / meaning foundation, not a richer discourse-cue tracker.
+
 ## 7. AUDIT UPDATE (for notes/BRAIN_FOUNDATIONAL_AUDIT.md, E3 coreference / common-noun)
 - **The residual non-brain-foundational component on the C2 chain was the HEAD-LEMMA KEY, not the binding.** The typed
   content-addressable binding (`typed_coref`) is the correct BF resolution organ; it was under-performing because its KEY --

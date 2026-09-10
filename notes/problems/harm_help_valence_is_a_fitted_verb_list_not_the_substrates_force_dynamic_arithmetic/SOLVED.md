@@ -200,7 +200,7 @@ precision held); the **CASE** correction (obl w/o preposition => obj) OVER-FIRES
 frame_obj`, which the substrate ships for exactly this), not a naive rule. **KEY REALIZATION:** my extractor
 already sat near the raw ceiling because its VOICE-REMAP was silently COMPENSATING for the labeler's
 passive-mislabeling -- the right fix is the general labeler VOICE correction (helps every consumer), and the
-POS/parser-head thirds are the tagger/scorer clusters. The signal loss is now FULLY UNDERSTOOD and attributed.
+POS/parser-head thirds are the tagger/scorer clusters. The signal loss is now FULLY UNDERSTOOD and attributed. **WHY the POS+parser thirds are NOT targeted-fixable (unlike the labeler's 2 systematic voice/case errors): the POS third is LONG-TAIL (16 distinct error classes, largest 7/40 -- PRON->SCONJ, NOUN->VERB, VERB->AUX...); the parser-head third is DIVERSE attachment errors (patient attached to a wrong VERB 20x / NOUN 16x / ADJ 6x). These are supervised-model errors needing RETRAINING (a BF distributional-category tagger + a constraint-based/graded parser), the tagger/parser clusters' core BF programs -- confirmed by measurement, not assumed.**
 
 ## THE THREE OPPORTUNITIES -- RESEARCHED + IMPROVED (mathematically BF, walls researched)
 Pushed each named opportunity to a result, reusing the substrate's BF machinery and researching the walls:

@@ -252,10 +252,14 @@ first-mentions -- the brain reads the real text, not GUM's annotation, so this f
 brain-level ceiling on THIS instrument ~0.92, not 1.0.
 
 **RANKED REMAINING OPPORTUNITIES:**
-1. **The discourse/situation ENTITY model (the convergent lever, ~28% of mentions).** ONE organ addresses BOTH remaining
-   buckets: entity-tracking across the discourse + contextual disambiguation of same-head + re-recognition under a new
-   description. Kintsch construction-integration / entity-grid at the ENTITY grain (NOT the event world-model, NOT a type
-   KB -- both refuted with numbers). The focus bridge is step 1. Biggest and now precisely scoped.
+1. ~~**The discourse/situation ENTITY model (the convergent lever, ~28% of mentions).**~~ **RETIRED -> LOCATED NEGATIVE (see
+   C8, 2026-09-10).** BUILT to the full researched spec (Kintsch CI + Lewis-Vasishth cue-integrated retrieval + Centering +
+   entity-grid), swept 16 configs at n=2855: 0.5580, d=-0.0196 BELOW the focus-bridge floor, and does NOT beat its own
+   property-scramble twin (d=+0.0011, not sep). The situational-history cues (predication/co-participant/Centering overlap)
+   are a NO-OP on same-head disambiguation even fed GOLD syntax, and the cue-integrated bridge is worse than the focus
+   bridge. The banked win is the FOCUS BRIDGE alone (step 1, coarse-class + default-to-focus). The residual is
+   comprehension-bound (WHICH specific entity is meant) -> collapses onto the generative world-model (opportunity 2 below),
+   NOT a richer cue tracker.
 2. **Raw-text upstream (head selection + POS induction)** -- for reading un-annotated text (the board uses gold heads); the
    comprehension/meaning signal closes it (per C3/C4).
 3. **The annotation-noise floor (~8%)** -- irreducible on GUM; a cleaner modern gold or reading real text avoids it (not a
@@ -263,9 +267,47 @@ brain-level ceiling on THIS instrument ~0.92, not 1.0.
 4. **Located NO-OP (do not pursue):** ACT-R activation as the same-head selector -- identical to recency (recency dominates
    the power-law), so it cannot fix the ambiguous same-head loss; that loss is situation-model-bound, per opportunity 1.
 
+## C8. BUILT + TESTED the full discourse/situation ENTITY model (C7 opportunity 1) -- LOCATED NEGATIVE (2026-09-10)
+Built the convergent lever predicted in C7 to the researched spec (Kintsch construction-integration situation model +
+Lewis-Vasishth cue-integrated retrieval + Grosz-Joshi-Weinstein Centering + Barzilay-Lapata entity-grid; McElree
+direct-access): each discourse entity is an ACT-R chunk accumulating its situational history (head bag, predication bag
+`{(gov_verb,gov_role)}`, modifier bag, co-participant set, last-sentence grammatical role); a new mention retrieves by
+integrated activation `A_i = B_i + Wh*S_head + Wp*S_pred + Wm*S_mod + Wc*S_cent + Wcop*S_cop`, regression-guarded so the
+override is strictly additive. `exp_cn_discourse_entity_model_v1.py`.
+
+**RESULT (GUM n=2855, swept 16 weight/threshold configs):** best config = **0.5580**, vs focus-bridge floor 0.5776
+**d=-0.0196 CI[-0.0290,-0.0098] -- CI-separated in the WRONG direction (below floor, all 16 configs -0.0196..-0.0287).**
+Decisive control: **vs its own info-free twin (property-scramble: permute the predication/modifier/co-participant bags
+ACROSS entities) d=+0.0011 CI[-0.0014,+0.0035] -- NOT CI-separated.** The model does not beat its own scramble: the
+entity<->situational-history binding carries ~zero net discriminating signal at this scale. Per-bucket: sh_unambig 0.9715
+(no regression), sh_ambig 0.4034 (WORSE than recency's 0.4168), diff_head 0.1001 (WORSE than the focus bridge's 0.1869).
+
+**Two clean isolations confirm it is the CUES, not the decision wrapper (both fed GOLD GUM syntax -- not a parse-noise confound):**
+- **Same-head-ambiguous is a hard optimum for recency.** ACT-R base-level (recency x freq x role): exact no-op
+  (`exp_cn_samehead_actr_v1.py`, 0.4168->0.4168, +0). Pure predication+co-participant overlap tiebreaker on top of the
+  winning floor (no margin/abstain, so it can only differ from recency when a real overlap breaks the tie):
+  **exact no-op** (`exp_cn_samehead_cues_v1.py`, n=2855: overall 0.5776=0.5776, ambiguous slice n=595 0.4168->0.4168, +0).
+  The situation-history cue between an anaphor and its true antecedent is too sparse (an entity rarely fills the SAME
+  (verb,role) twice; co-participant sets are dominated by the discourse topic) and, when it fires, agrees with recency.
+- **Different-head bridge: the cue-integrated + strict-abstain decision is strictly WORSE than the focus bridge's permissive
+  salience pick** (0.10 vs 0.19). The coarse-class focus bridge already banks the type-compatible re-recognitions; adding the
+  discourse-history cues + abstain only rejects good bridges.
+
+**WHY (corrected mechanistic conclusion):** the banked situation-model win is the FOCUS BRIDGE ALONE (coarse-class + Kintsch
+default-to-focus, 0.5776, +0.0154 CI-sep over concept-key). The DEEPER residual -- picking WHICH specific "man", or knowing
+"the doctor"==Elizabeth -- is NOT recoverable from situational-history cue overlap (predication/co-participant/Centering),
+even with gold syntax. It requires GENERATIVE comprehension of the specific referent's identity. So this loss is
+**comprehension-bound (the generative meaning/world-model), not discourse-cue-tracking-bound.** C7 opportunity 1 (a
+cue-integrated discourse-entity tracker) is therefore RETIRED as a located negative; the lever it pointed at re-collapses
+onto the parent problem's MAIN EVENT: the generative world-model / meaning foundation (which specific entity is meant),
+NOT a richer bag-of-cues entity tracker.
+
 ## D. Honest bottom line
 The common-noun binder and its semantic core (concept key, salience, typed binding, type operation) are confirmed
 brain-foundational to the math. The signal is lost in exactly two places, both now quantified: (i) the frozen supervised
 PARSE STACK (fixed for coref by the parser-free boundary rule; the raw-text UAS gap is the comprehension-signal wall), and
-(ii) DOMINANTLY the world-knowledge + situation-inference behind the 31.5% different-head slice (binding 0.12). The
-highest-leverage optimization is the world-knowledge KB, then the generative world-model -- both already on the map.
+(ii) DOMINANTLY the world-knowledge + situation-inference behind the different-head slice + the same-head-ambiguous slice.
+The banked situation-model win is the coarse-class FOCUS BRIDGE (+0.0154 CI-sep, in the current best 0.5776). The full
+cue-integrated discourse-entity model was BUILT + SWEPT + twin-controlled and is a LOCATED NEGATIVE (C8): the residual is
+comprehension-bound (which specific entity is meant), so the highest-leverage optimization is the GENERATIVE world-model /
+meaning foundation -- NOT a richer discourse-cue entity tracker, and NOT the type KB (both refuted with numbers).

@@ -147,6 +147,15 @@ Went after the larger opportunities by measured loss, each a faithful BF mechani
 NET: the aggressive pass confirms the text-only ceiling is ROBUST (3 negatives), with ONE real BF lever
 (structure) that pushes the reading scorer to ~0.47 UAS / 0.74 verb-arg. Past that needs grounding.
 
+**OPTIMIZED (2026-09-10): the structure lever generalizes to a SECOND confident-error source.** Coordination
+(cc/conj) is the biggest untouched structural confident-error (reading ~0.08 vs supervised ~0.80). A BF
+COORDINATION-PARALLELISM cue (Coordinate Structure: same-category conjuncts attach symmetrically) lifts cc/conj
+recall 0.078->0.218 (+0.14, twin loses), and combined with verb-arg structure (complementary) pushes UAS
+0.464->0.476 (`exp_parser_structure_optimize_v1`). So STRUCTURE is the general lever for the parser's confident
+errors -- each structural construction (verb-args, coordination, ...) yields to its specific BF mechanism --
+CONFIRMING the corrected reframe: task/construction-specific BF mechanisms, not a monolithic generative model.
+Remaining: long-range attachment (structural) + the non-brain-relevant conventions + the acquisition ceiling.
+
 ## The synergy verdict (why ALL links must be BF)
 Made the POS posterior BF and let the parse disambiguate POS top-down (interactive/predictive-coding): it
 recovers the POS-link loss in the right direction but only ~4%, because the top-down signal is only as good

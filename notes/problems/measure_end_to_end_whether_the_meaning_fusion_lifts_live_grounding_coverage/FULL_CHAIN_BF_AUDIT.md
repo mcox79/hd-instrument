@@ -11,7 +11,22 @@ fused, gated). No hdlab written (Q111).
 
 | # | rung | computation | brain-exact realization | citation | param(s) swept | verdict |
 |---|---|---|---|---|---|---|
-| 1 | lemma normalize | `normalize_lemma` affix stripping | morphological decomposition in the reading system | Rastle-Davis 2008 | -- | BF_SPIRIT |
+| 1 | lemma normalize | `normalize_lemma`->`thematic_role_labeler.lemma_word` = irregular table -> **WordNet morphy** -> suffix rules | morphological decomposition | Rastle-Davis 2008 | -- | **BF_SPIRIT w/ EXTERNAL-TOOL DEPENDENCY (see correction)** |
+
+> **BF-LEDGER CORRECTION 2026-09-10 (caught while building the is-a channel; owner "keep tabs on mathematical BF").**
+> The lemmatizer used PIPELINE-WIDE (`normalize_lemma` -> `lemma_word`) queries **WordNet morphy** at runtime (and
+> `hdlab.conceptual_meaning` does `from nltk.corpus import wordnet`). So the earlier blanket claim "no nltk / no
+> WordNet in the chain" was WRONG for the lemma rung and it affects EVERY channel that lemmatizes (SEQ accrual,
+> grounded lookup, genus extraction, anchors). WHAT THIS IS: morphy is a MORPHOLOGICAL analyzer -- it returns base
+> forms (dogs->dog, running->run), NOT is-a/synonym relations -- so it does NOT expose the taxonomy/similarity
+> structure and is therefore NON-CIRCULAR w.r.t. SimLex similarity (it cannot leak dog~hound or dog-is-a-mammal).
+> The COMPUTATION (morphological decomposition) is BF (Rastle-Davis). WHAT IS WRONG: the IMPLEMENTATION is an
+> external WordNet-data tool, not a glass-box morphology -- so this rung is NOT tool-free and the "no WordNet" claim
+> must be qualified to "no WordNet TAXONOMY (non-circular); WordNet MORPHY used for lemmatization (morphological
+> only), to be replaced by a glass-box morphology for true tool-freedom." This is the deepest residual now: a
+> morphological normalizer that is BF in computation but not yet glass-box in implementation. It does NOT change any
+> measured result (morphy is deterministic morphology, identical across arms and controls), but it corrects the
+> ledger. Fix path (Q111/strategy): swap `lemma_word`'s morphy step for the substrate's glass-box morphology.
 | 2 | context window | direction+distance typed neighbours L1/R1/L2/R2 | temporal-order coding / theta-phase sequence window (sequence_memory S-matrix) | Lisman-Idiart 1995; Christiansen-Chater 2016 | window taps (+-1,+-2; capacity) | BF |
 | 3 | co-occurrence accrual | online count of (word, typed-context) | Hebbian associative potentiation, accumulated online (no batch train) | Hebb 1949; brain does online learning | -- | BF |
 | 4 | PPMI weight | max(0, log p(w,c)/p(w)p(c)) | rectified pointwise MI = Hebbian-predictive surprise / prediction error; SGNS ~ shifted PMI | Levy-Goldberg 2014 | -- | BF |
@@ -42,7 +57,10 @@ fused, gated). No hdlab written (Q111).
 
 ## VERDICT
 Every rung from raw text to the sense-assignment decision is BF or BF_SPIRIT; there is NO NOT_BF atom in the live
-chain. Each parameter (window taps, tau, gain saturation, SVD rank, genus split, false-alarm rate) is a constraint
+chain. CORRECTED CAVEAT (2026-09-10, rung 1): the lemmatizer uses WordNet MORPHY (external tool, morphological only,
+non-circular w.r.t. SimLex) pipeline-wide -- BF in computation, NOT glass-box in implementation; the prior "no
+WordNet/no nltk" claim is hereby qualified. This is the deepest residual (a morphology tool to make glass-box); it
+does not alter any measured result (deterministic morphology, identical across arms/controls). Each parameter (window taps, tau, gain saturation, SVD rank, genus split, false-alarm rate) is a constraint
 we do not necessarily share and is SWEPT, never adopted. The fusion weight and the accept criterion are
 parameter-FREE (earned-gain ratio; SDT self-calibration). The two historically load-bearing NOT_BF atoms (parser +
 POS tagger) are removed. Residual distance to the brain is KNOWLEDGE/EXPOSURE and the differentia/confidence levers
