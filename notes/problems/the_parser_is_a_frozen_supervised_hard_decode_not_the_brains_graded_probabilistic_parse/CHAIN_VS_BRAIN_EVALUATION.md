@@ -21,6 +21,40 @@ Reproduced on a 2nd, out-of-domain gold (GUM), where the supervised scorer addit
 (register skew). Errors propagate: a mistagged token is ~2x more likely to be mis-attached, and a
 mis-attached argument is what who-did-what / roles / events / causal readers then read off.
 
+## THE SCORER WALL, DRILLED TO THE BOTTOM (understood 100%, then attacked)
+After the owner's "research the negative until 100%, then tackle the actual wall," the scorer gap is now
+decomposed precisely, not asserted:
+
+**(i) The DMV/valence negative is now FAIR (was a weak Viterbi-EM).** Built the faithful soft-EM DMV -- exact
+inside-outside, brute-force-verified (Z + arc marginals + expected counts to 1e-14). It reaches 0.20-0.25
+(soft-EM even below Viterbi-EM 0.32) -- the classic DMV pathology: **EM optimizes LIKELIHOOD, not accuracy**,
+and is init-sensitive; UD's content-head conventions differ from the WSJ10 DMV was tuned on. So valence,
+faithfully built, is confirmed NOT the lever: the arc-factored scorer's structural prior + soft graded-marginal
+EM already exceed it.
+
+**(ii) The supervised advantage is ~half NON-brain-relevant CONVENTION.** Decomposed per arc type
+(`exp_parser_supervised_advantage_decomp_v1`): all-arcs gap 0.319 -> content-only (meaning-bearing) gap 0.267.
+The biggest single contributor is PUNCTUATION (read 0.15 vs sup 0.64), then case-markers/adpositions (0.48 vs
+0.92), copula (0.03 vs 0.86), coordination (0.07 vs 0.80) -- treebank ANNOTATION CONVENTIONS the brain does not
+"parse." Grading on the meaning-bearing parse (content arcs) is the right comparison.
+
+**(iii) The meaning-relevant residual's biggest piece (nsubj) YIELDS to an existing BF organ.** Subject
+attachment (read 0.565 vs sup 0.838) is STRUCTURAL -- the brain's Now-or-Never left-corner bind. Injecting the
+substrate's proven `incremental_parser.incremental_subject_before` cue lifts nsubj recall **0.565 -> 0.714**
+(+0.149, ~half the gap; twin=random-nominal 0.633 loses) and content-arc UAS +0.012
+(`exp_parser_bf_structural_attack_v1`). Done right: reuse the BF organ, no new mechanism.
+
+**(iv) The last piece (nmod/PP) is NOT grounding -- prototyped and refuted.** I hypothesized PP-attachment
+("saw the man WITH THE TELESCOPE") needs grounded event knowledge. Built it with the substrate's BF GEK organ
+(`exp_parser_grounded_ppattach_v1`; sanity: score(see,telescope)=2.14 vs score(man,telescope)=0.0). RESULT: a
+LOCATED NEGATIVE -- grounded GEK (0.443) is WORSE than the recency floor (0.556), and worst where it fires
+(covered-only 0.260). Two reasons, precise: (a) PP-attachment on real prose is LOCALITY-dominated (recency
+0.556 is already close to supervised 0.667 -- the grounding-ambiguous cases are a minority); (b) GEK captures
+verb-EVENT content, so it over-attaches modifiers to VERBS, but most nmod are local NOUN-modifications -- the
+wrong grounded signal. So the residual is NOT grounding; it is LEARNED FINE-GRAINED DISTRIBUTIONAL ATTACHMENT
+PATTERNS that unsupervised EM does not discover (the text-only induction ceiling), plus the ~half that is
+non-brain-relevant convention.
+
 ## The one FUNDAMENTAL wall (step 3), fully drilled -- so we know it is a ceiling, not an implementation gap
 The arc scorer is 20.7 pts and dominates. We attacked every brain-foundational lever for learning it from
 reading (no gold trees):
@@ -42,6 +76,35 @@ INTERACTION) buys that a text corpus does not carry. This is a real, named ceili
 FOUNDATION (adult syntactic competence, like WordNet supplies adult lexical competence; frozen, glass-box,
 no external tool/LLM at inference) CONSUMED AS THE GRADED POSTERIOR (step 4, BF, done) + an ONLINE
 reading-learned ADAPTATION for the register-generality the frozen scorer lacks (the OOD lever, 0.79->0.74).
+
+## IS EVERY COMPONENT 100% MATHEMATICALLY BRAIN-FOUNDATIONAL? -- NO. Precise ledger.
+"Mathematically BF" = the exact computation IS the brain's operation (a PINNED / defensible computational-level
+model), verified. Enumerated, down to the math:
+
+**BF, exact math (verified):**
+- DECODE: exact Chu-Liu/Edmonds MAP + single-root Matrix-Tree edge marginals (Koo 2007) -- brute-force-verified
+  to 1e-6. The graded posterior over structures = multipath parsing (Franzluebbers/Hale 2024). **100% BF.**
+- POS graded posterior: exact forward-backward marginals -- brute-force-verified. **100% BF (decode side).**
+- The soft-EM DMV inside-outside (Z + marginals + expected counts) -- brute-force-verified to 1e-14. **exact
+  math** (though the DMV model itself underperforms -- see (i) above).
+- The reading-learned scorer's operations: directional PPMI (= fixed point of Hebbian-predictive association,
+  Levy-Goldberg), divisive normalization (Carandini-Heeger), EM re-estimation. **BF operations.**
+- The reliability-weighted competition (Lewis-Vasishth) + the Now-or-Never left-corner cue. **BF.**
+
+**NOT 100% BF (the honest gaps):**
+- The arc SCORER's WEIGHTS: learned by SUPERVISED gradient/perceptron on gold trees -- not the brain's
+  acquisition. Admissible as an offline FOUNDATION (adult competence, consumed as the BF graded posterior),
+  but the TRAINING PROCEDURE is NOT_BF. The brain-foundational alternative (reading-learned) is PROVEN but
+  caps at ~0.46 (text-only ceiling), so today the chain runs on a foundation whose weights are not brain-acquired.
+- The POS tagger's WEIGHTS: same (supervised); POS itself is brain-UNPINNED.
+- The arc LABELER: supervised, hard argmax (graded readout exists but off).
+- The TOKENIZER: regex, not statistical segmentation.
+
+**Verdict:** the OPERATIONS on the read path are BF (and the decode/posteriors are exact-BF math); the
+ACQUISITION of the scorer/POS/labeler WEIGHTS is not (supervised, admissible-as-foundation). So the chain is
+NOT yet 100% mathematically BF end-to-end -- it is BF in decode + operations, foundation-supplied in the
+learned weights, with the reading-learned acquisition proven-viable-but-ceilinged. That ceiling is the one
+fundamental (text-only) wall; everything else is BF or a fixable convention.
 
 ## The synergy verdict (why ALL links must be BF)
 Made the POS posterior BF and let the parse disambiguate POS top-down (interactive/predictive-coding): it

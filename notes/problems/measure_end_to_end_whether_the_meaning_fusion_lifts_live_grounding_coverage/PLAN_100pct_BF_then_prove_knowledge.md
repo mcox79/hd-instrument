@@ -1,5 +1,16 @@
 # PLAN + CRITICAL CONTEXT (cemented 2026-09-10, pre-compaction). SOLVER session.
 
+> **STATUS UPDATE 2026-09-10 (post-compaction, W19): PHASE A IS CLOSED ON THE LIVE LOOP -- and the A1 parser
+> swap below is SUPERSEDED.** The sibling solver landed the PARSER-FREE directional-sequential channel (SEQ),
+> which removes BOTH NOT_BF atoms (pos_tagger + arceager) -- strictly more BF than swapping to incremental_parser
+> (which still needs pos_tagger). Measured on THIS loop (`exp_meaning_fusion_live_coverage_seq_v1.py`, W19): the
+> fully-BF parser-free rep BEATS the live incumbent CI-sep, twin losing (GD_SEQ 0.129 vs 0.037, +0.161 CI
+> [+0.006,+0.274]); HONEST negative: SEQ does NOT add over the best grounded rep at 34k exposure (increment -0.034,
+> not CI-sep) -> EXPOSURE is the lever. So SKIP A1/A2 (parser swap + pos_tagger); the pos_tagger residual is MOOT.
+> Ignore Phase A below except as history. GO STRAIGHT TO PHASE B, sharpened: grow SEQ by reading (parser-free =
+> cheap) and re-test the GD_SEQ-vs-GD-distinctive live increment turning CI-sep POSITIVE, twin losing. Full detail:
+> SOLVED.md "UPDATE 2026-09-10". A3 (word-class routing for the ADJ loss) may still be a small additive BF win.
+
 Slug: measure_end_to_end_whether_the_meaning_fusion_lifts_live_grounding_coverage. Status PARTIAL.
 Read this + SOLVED.md (the running record) first after compaction. Witness: `.venv/Scripts/python.exe
 verification/test_meaning_fusion_live_coverage.py` (16/16, W1-W18). Bash cwd resets -> prefix `cd /c/AI/hd-

@@ -2,10 +2,10 @@
 problem: harm_help_valence_is_a_fitted_verb_list_not_the_substrates_force_dynamic_arithmetic
 status: SOLVED
 bar: "Compute harm/help event valence from the substrate's FORCE-DYNAMIC arithmetic (AGONIST tendency x ANTAGONIST force -> RESULT worse/better/unchanged, per Wolff), retiring the verb-LIST membership test AND the in-process read-path parse, and SHOW it matches-or-beats the verb-list on the harm/help metric while GENERALIZING to held-out verbs the list misses (info-free twin LOSING, no downstream regress to causation/affect dims) -- OR a rigorous LOCATED NEGATIVE naming exactly why the force computation cannot match the list on the reader's own metric (with a number; the brain's actual mechanism faithfully built). INVARIANT: recall path + non-valence consumers byte-identical off the changed decision; no external tool/LLM/read-path parse at inference."
-result: "Through the LIVE reader on a 36-item modern harm/help gold: force-dynamic arithmetic 0.944 (+/-0.069) vs the current frame-list organ 0.778 (+/-0.125); PAIRED fd-minus-organ = +0.167, bootstrap CI [+0.056, +0.278] (CI-separated from 0), 6 gains / 0 losses. On the 32 social/emotional verbs the frame list misses: fd 0.906 (+/-0.109) vs current organ 0.000 (CI-separated). Info-free twin (scrambled valence+force lexicon) 0.639 live / 0.28 on the generalization set (loses)."
+result: "Through the LIVE reader on a 36-item modern harm/help gold: force-dynamic arithmetic 0.944 (+/-0.069) vs the current frame-list organ 0.778 (+/-0.125); PAIRED fd-minus-organ = +0.167, bootstrap CI [+0.056, +0.278] (CI-separated from 0), 6 gains / 0 losses. On the 32 social/emotional verbs the frame list misses: fd 0.875 (+/-0.116) vs current organ 0.000 (CI-separated). Info-free twin (scrambled valence+force lexicon) 0.639 live / 0.28 on the generalization set (loses)."
 floor: "Strongest floor = the CURRENT LIVE organ hdlab.force_dynamics_valence.harm_help (frame-membership): 0.778 on the live gold, 0.000 on the frame-list-miss set. Also: majority-class (all-NEUTRAL) 0.333; valence_only control (info-bearing, no gate/structure) 0.94 on generalization but 0.00 neutral-precision and 0.43 off-diagonal."
 controls: "(1) info-free twin = valence map AND force lexicon SCRAMBLED -> loses (0.639 live vs 0.944; 5/8 vs 8/8 witness). (2) valence_only control (animacy+sign(valence), no affectedness gate, no force structure) -> generalizes but DESTROYS neutral precision (T5 0.00 vs 1.00) and FAILS the off-diagonal force cells (T6 0.43 vs 1.00) -> isolates that BOTH the affectedness gate and the force structure are load-bearing, not the valence lookup alone. (3) LIVE no-regress: every NON-affect SituationModel dimension byte-identical + OCC appraisal (sm.infer_emotion) + emotion register (sm.feels/valence_of) readouts identical across 52 modern docs (only EventRecord.affect moves). (4) off-diagonal population = the Wolff truth-table cells (ENABLE-a-bad, PREVENT-a-good, failed-harm) a bare valence-lookup cannot get."
-files_changed: "experiments/exp_fd_harm_help_arithmetic_v1.py (the arithmetic + constructed populations T1-T6), experiments/exp_fd_harm_help_arithmetic_live_v1.py (live no-regress + scored modern gold + paired bootstrap), experiments/exp_fd_harm_help_composed_v1.py (parse-composed generalization of the off-diagonal to real prose), experiments/exp_pos_nominal_head_correction_v1.py (BF upstream POS fix), experiments/exp_fd_harm_help_chain_attribution_v1.py (per-stage performance-vs-brain attribution), verification/test_fd_harm_help_arithmetic.py (9/9 witness), verification/test_pos_nominal_head_correction.py (6/6 witness). NO hdlab/ writes (Q111 -- the exact proposed hdlab diffs are in this doc)."
+files_changed: "experiments/exp_fd_harm_help_arithmetic_v1.py (the arithmetic + constructed populations T1-T6), experiments/exp_fd_harm_help_arithmetic_live_v1.py (live no-regress + scored modern gold + paired bootstrap), experiments/exp_fd_harm_help_composed_v1.py (parse-composed generalization of the off-diagonal to real prose), experiments/exp_pos_nominal_head_correction_v1.py (BF upstream POS fix), experiments/exp_fd_harm_help_chain_attribution_v1.py (per-stage performance-vs-brain attribution), experiments/exp_pos_bayesian_category_v1.py (mathematically-BF Bayesian POS category posterior), experiments/exp_fd_harm_help_hard_prose_v1.py (honest real-prose stress: 0.50, extraction-bottlenecked), verification/test_fd_harm_help_arithmetic.py (9/9 witness), verification/test_pos_nominal_head_correction.py (6/6 witness). NO hdlab/ writes (Q111 -- the exact proposed hdlab diffs are in this doc)."
 reverify: ".venv/Scripts/python.exe verification/test_fd_harm_help_arithmetic.py  (+ verification/test_pos_nominal_head_correction.py for the upstream POS fix)"
 ---
 
@@ -37,17 +37,16 @@ OCC appraisal; Russell/Barrett core affect):
    `harm/help = sign( force_effect x endstate_valence )`:
    `CAUSE/ENABLE x adverse -> HARM ; CAUSE/ENABLE x beneficial -> HELP ; PREVENT x adverse -> HELP ; PREVENT x beneficial -> HARM.`
 
-   An **AFFECTEDNESS gate** with a DOMINANT-SENSE WSD guard (Hopper-Thompson/Beavers/Dowty affectedness;
-   McRae/Tanenhaus constraint-based sense selection -- the brain defaults to the most-frequent sense):
-   (a) EXCLUDE subject-experiencer psych verbs (admire/envy/love/fear: PINNED VerbNet admire-31.2, reuse
-   `hdlab/psych_verb_frames.py` -- the object is the stimulus, the subject feels); (b) the MARKED force
-   senses PREVENT/ENABLE are reliable -> affected; (c) if the DOMINANT WordNet sense is non-affecting
-   (perception/cognition/communication/stative/motion) -> NOT affected -- this WSD-guards the FrameNet
-   Causation-family OVER-INCLUSION (see/call/mean carry a spurious CAUSE class but a perception/communication
-   dominant sense), the sole override being strongly-valenced verbal/social harm (betray/slander:
-   communication-dominant, |v|>=0.5, with an affecting sense); (d) else a CAUSE force-class, an affecting
-   dominant sense, or strong valence + an affecting sense anywhere -> affected. This suppresses
-   perception/communication verbs (watch/greet/describe/visit: the patient is a stimulus, not an undergoer).
+   An **AFFECTEDNESS gate** computed MATHEMATICALLY as GRADED THEMATIC FIT (McRae/Tanenhaus 1998; Beavers
+   2011 affectedness hierarchy): affectedness(verb) = **E[proto-patient degree | sense]** = the WordNet
+   SemCor sense-frequency-weighted average of each sense's Beavers affectedness (change/body=1.0, contact/
+   possession=0.7, ..., communication/perception/cognition~0). Engage iff this graded score >= tau (swept;
+   tau=0.40 on a stable 0.38-0.45 plateau) OR a MARKED PREVENT/ENABLE force-class -- MINUS subject-
+   experiencer psych verbs (admire/envy: object is the stimulus; reuse `hdlab/psych_verb_frames.py`), plus a
+   strong-valence override for communication-dominant verbal harm (betray/slander). This ONE continuous
+   quantity replaces the boolean supersense sets + hand thresholds: it fires on change/contact/emotion/
+   possession verbs (mug/evict/heal/comfort AND aid/assist/help), and abstains on perception/communication
+   (watch/greet/visit/see/call: their sense mass is on non-affecting senses -> low affectedness).
 
 **Both defects are removed:** the harm-frame LU set + `HARM_BACKOFF` are gone (harm/help is derived, not a
 membership test), and there is **no in-process FrameNet enumeration** -- the arithmetic reads only the
@@ -103,6 +102,55 @@ verb with no from-clause succeeds by default (endstate_reached=None, so "rescued
 prevention), and gerund complements are verb-lemmatized ("robbing"->rob) so the embedded EVENT valence beats
 its object's.
 
+## REAL-PROSE PERFORMANCE -- THE HONEST CEILING (do NOT read the 0.9x numbers as "vs the brain")
+The live 0.944 and chain 0.958 are on CLEAN ACTIVE SVO the author wrote ("A mugger attacked the tourist").
+A competent reader gets ~1.0 on those too -- so those numbers are the DECISION + clean-extraction ceiling,
+NOT a real-reading brain comparison. On HARDER realistic prose a competent reader still aces (passives,
+pronoun patients, plurals, relative clauses, coordination, fronted PPs), the SAME fixed pipeline scores
+**0.500 (6/12)** (`experiments/exp_fd_harm_help_hard_prose_v1.py`). The gap is NOT the harm/help decision
+(near-ceiling given clean inputs) -- it is EXTRACTION on non-trivial syntax:
+- **passive voice** ("was robbed/rescued/comforted"): the patient (surface subject) sits BEFORE the verb,
+  so the organ's positional direct-object gate never fires -- OR predicate_argument_frontend binds the
+  by-agent as patient ("comforted by a nurse" -> patient=nurse);
+- **pronoun patients** ("attacked him"): the pronoun is not resolved to an animate antecedent (coref);
+- **plurals/possessives** ("released their hostages"): the parser mislabels the object (xcomp).
+
+**IN-SCOPE fix, measured (a 4th proposed hdlab diff):** route `_assign_affect` through the reader's
+already-extracted `(e.lemma, patient)` -- `harm_help_arithmetic(e.lemma, animacy(patient))` -- instead of
+the positional backward-verb + direct-object gate (`force_dynamics_valence.force_dynamics_event_type`). The
+event predicate is already in hand at the call site (`situation_reader.py:2016`). This is the brief's own
+"route through the reader's already-computed parse" recommendation, and it takes hard-prose **0.500 ->
+0.667** by recovering the passives where the patient IS correctly bound (rob->tourist, rescue->child).
+**The residual (4/12) is genuine EXTRACTION** -- passive role-binding to the wrong argument
+(`predicate_argument_frontend`), pronoun patients (`coreference_resolver`), and plural parse mislabels
+(`arc_parser`) -- separate upstream clusters, a multi-organ program, NOT closeable inside this problem.
+
+**So: is the component maximized? The DECISION is (near its 0.958 ceiling and fully BF-derived). The
+COMPONENT end-to-end on real reading is NOT** -- its bottleneck has MOVED UPSTREAM to passive-voice
+role-binding + coreference. That is the honest next frontier, and it is the parser/coref cluster's work.
+
+## MATHEMATICALLY-BF REFINEMENTS + OTHER IMPROVEMENTS EVALUATED
+Two heuristic elements were replaced with the brain's actual MATH (measured, not just reasoned):
+- **Affectedness gate: boolean supersense sets + hand thresholds -> GRADED THEMATIC FIT** (McRae/Tanenhaus
+  1998; Beavers 2011). affectedness = E[proto-patient degree | sense], the SemCor sense-frequency-weighted
+  Beavers affectedness. One continuous quantity, engaged at a swept tau on a plateau (0.38-0.45). STRICTLY
+  DOMINATES the boolean gate: GEN 0.812 -> 0.875 (recovers aid/assist) AND broad-neutral precision 1.000
+  (0 leaks). Live 0.944 unchanged; witness 9/9.
+- **POS DP-head fix: WordNet sense-COUNT heuristic -> BAYESIAN CATEGORY POSTERIOR** (`exp_pos_bayesian_
+  category_v1.py`; MacDonald/Seidenberg probabilistic constraint satisfaction). P(NOUN|word,DP-head) =
+  lexical prior odds x syntactic likelihood ratio (both estimated from UD-EWT; syn-LR=8.08, i.e. nouns head
+  DPs 8x more than adjectives). At the Bayes-optimal margin, target recall 0.40 -> 0.70 (recovers civilian);
+  the precision "cost" is largely nominalized adjectives (the rich/the accused: semantically nominal,
+  UD-convention ADJ, downstream-harmless). Poor resists (strong adjective prior overrides the syntactic
+  evidence). This is the mathematically-right version of the previous turn's sense-count guard.
+- **OTHER DIRECTIONS EVALUATED (mathematically BF, not adopted this pass):** (i) CONTINUOUS harm/help
+  magnitude = affectedness x |force-effect| x |endstate-valence| (Wolff 2007 vector resultant + Russell core
+  affect) -- faithful and would give graded intensity for the downstream affect-intensity readout, but the
+  DISCRETE harm/help decision is already at its ceiling (0.958) so it moves no current number; queued as the
+  intensity upgrade. (ii) The ONE residual (`scratch`) needs the affective value of the RESULT STATE, not the
+  verb's lexical valence (compositional resulting-state read / verb-sense-in-context) -- the deepest remaining
+  BF step, tied to the `no_glass_box_verb_sense_disambiguation` program.
+
 ## PERFORMANCE vs THE BRAIN -- PER-STAGE CHAIN ATTRIBUTION (owner checklist item 6)
 `experiments/exp_fd_harm_help_chain_attribution_v1.py` runs harm/help END-TO-END through the real reader on
 a 24-sentence stress gold (social/emotional harm, rare role-noun patients, neutral perception) and
@@ -111,17 +159,19 @@ attributes every loss to the stage that caused it. A competent reader gets ~100%
 | pipeline | end-to-end harm/help acc | where the losses are (per stage) |
 |---|---|---|
 | STOCK (frame-list organ + stock tagger) | **0.458** | harm/help ORGAN abstains on social/emotional verbs (9/24), POS rare-noun mistag (3/24), valence coverage (1/24) |
-| FIXED (arithmetic + POS correction) | **0.917** | valence coverage `scratch` (1/24), POS `civilian` adj-ambiguous (1/24) |
+| FIXED (graded-affectedness arithmetic + Bayesian POS) | **0.958** | valence coverage `scratch` (1/24) -- MATCHES the decision ceiling; the whole EXTRACTION gap (organ/POS/parse/binding) is closed |
 | ORACLE-ARITHMETIC ceiling (gold verb + gold animacy) | **0.958** | the decision itself, given perfect inputs |
 
 **Reading the chain:** the biggest single loss was the harm/help ORGAN itself (the frame-list stand-in
-abstaining on every social/emotional verb -- 9 of the 13 stock errors); the force-dynamic arithmetic
-removes all of them. The second loss was POS mistags on rare role nouns (medic/intern) -- the nominal-head
-correction removes 2 of 3. The FIXED pipeline nearly DOUBLES end-to-end accuracy (0.458 -> 0.917). The
-residual 8% gap to the brain is now itemized and small: **4% valence-coverage** (near-zero-valence mild
-verbs like `scratch`) and **4% POS-ambiguity** (`civilian`: WordNet noun==adj, needs a distributional
-category prior). The decision's own ceiling is 0.958. The WSD gate works live: watched/greeted/visited/
-phoned all correctly abstain.
+abstaining on every social/emotional verb -- 9 of 13 stock errors); the force-dynamic arithmetic removes
+ALL of them. The rest were POS mistags on rare role nouns (medic/intern/civilian); the Bayesian POS
+posterior removes them. The FIXED pipeline goes 0.458 -> **0.958**, which EQUALS the oracle-arithmetic
+ceiling (0.958) -- i.e., the extraction chain (organ/POS/parse/patient-binding) now loses NO signal; the
+sole residual is the decision's own **valence-coverage** boundary (`scratch`: near-zero Warriner valence,
+the scratch-itch vs scratch-skin WSD -- needs a resulting-STATE valence read). The graded WSD gate works
+live: watched/greeted/visited/phoned all correctly abstain. **CAVEAT: this 0.958 is on CLEAN ACTIVE
+SVO; on harder realistic prose the same pipeline is 0.500 -- see REAL-PROSE PERFORMANCE above. The
+extraction chain is at ceiling FOR SIMPLE SYNTAX, not for passives/pronouns/plurals.**
 
 ## UPSTREAM FIX PROTOTYPED (BF): the POS tagger, root cause of BOTH named walls
 Tracing the two live misses to their root revealed BOTH reduce to ONE upstream error: the `pos_tagger`
