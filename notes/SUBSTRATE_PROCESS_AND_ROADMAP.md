@@ -29,9 +29,14 @@ Every working cycle, in order:
    problems first.
 4. **Propagate:** when a component is improved, walk `CROSS_SOLUTION_IMPROVEMENT_MAP.md` PART 2 for its consumers and
    apply/queue each; record in the PROPAGATION STATUS block.
-5. **Evaluate on a cadence:** run the full board (`exp_situation_model_qa_modern_v1.py --run`) at each integration
-   wave to get a fresh trend point; a board-invisible proven win gets its own instrument-arm (unless, like
-   `causal_sign`, its signal needs a scale the board can't run — then its dedicated witness is the instrument).
+5. **Evaluate on a cadence:** the TRIGGER is the INTEGRATION WAVE (a live change landed), NOT every cycle —
+   between waves nothing new is live, so the fast `--self-test` (capped, ~2min) suffices to confirm no-regress
+   (it re-confirmed AGG 0.6294 across this session's additive/latent integrations). The FULL board
+   (`exp_situation_model_qa_modern_v1.py --run`, the full-population trend point) takes ~40min and EXCEEDS a single
+   10-min tool window, so run it **DETACHED** (`run_in_background`, NO `timeout` wrapper) and record the aggregate
+   when it lands (CONT-95 dogfood finding: a `timeout 590` wrapper kills it before the aggregate). A board-invisible
+   proven win gets its own instrument-arm — unless, like `causal_sign`, its signal needs a scale the board can't run
+   in smoke (then its dedicated full-scale witness IS the instrument; do not add a misleading smoke-board arm).
 6. **Prune + re-audit at land:** orphaned old versions pruned (3-gate; dormant ORGANS never pruned); every incoming
    solution re-audits its entire upstream chain for BF-fidelity (that audit seeds the next problem).
 7. **Keep the anchors current:** STATUS.md top block + this roadmap reflect what actually landed (a plan you didn't
