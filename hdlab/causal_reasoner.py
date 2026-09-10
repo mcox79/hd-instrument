@@ -218,6 +218,22 @@ class CausalGraph:
         supported = any(self.reachable(r, outcome, blocked=blocked) for r in remaining_roots)
         return not supported
 
+    def is_necessary_abductive(self, active_roots, cause: str, outcome: str) -> bool:
+        """RUNG-3 necessity over the ABDUCTED exogenous state (owner-DONE grow_the_causal_mechanism, 2026-09-10).
+        is_necessary (rung-2) assumes ALL exogenous roots are active; the brain first ABDUCTS the actual-active
+        exogenous state from the observed evidence (Gerstenberg CSM: abduction -> do() -> predict), so only
+        FACTUALLY-ACTIVE roots can provide bypass support. `active_roots` = the abducted actual-active exogenous
+        roots (the CALLER infers them from the passage evidence; this method is the necessity primitive GIVEN them).
+        Byte-faithful to the proven prototype exp_causal_engine_deepening_v1.abductive_necessary (which showed the
+        fixed-root engine ERRS on evidence-conditioned counterfactuals and abduction fixes 62.9%, twin losing).
+        ADDITIVE + PURE: does not touch is_necessary (rung-2 stays byte-identical); a NEW rung-3 read-only primitive
+        with no live default consumer yet (the abduction-from-evidence step + wiring is the follow-on)."""
+        if not self.reachable(cause, outcome):
+            return False
+        remaining = [r for r in active_roots if r != cause]
+        supported = any(self.reachable(r, outcome, blocked={cause}) for r in remaining)
+        return not supported
+
     def counterfactual_answer(self, cause: str, outcome: str) -> str:
         """Return 'necessary' (outcome would NOT have happened without cause) or
         'not_necessary' (outcome would still have happened -- a bypass exists)."""
