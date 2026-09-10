@@ -128,6 +128,25 @@ supervised 0.782). The two unsupervised ACQUISITION steps each shed signal that 
 end-to-end picture: exact-BF decode + operations, but the
 zero-gold ACQUISITION chain is ceiling-limited AND compounds.
 
+## OPPORTUNITY PASS -- aggressive, top-down, all rigorously BF (1 real lever, 3 located negatives)
+Went after the larger opportunities by measured loss, each a faithful BF mechanism:
+- **OPP-1 bootstrap POS<->parse (compounding -0.22):** LOCATED NEGATIVE. Re-inducing categories from the parse
+  DRIFTS -- dependency-context categories from a weak (0.24-UAS) parse are WORSE than linear (many-to-one
+  0.51 < 0.745), so UAS does not improve. The compounding loss is not closable by bootstrapping from a weak
+  text-only parse (chicken-and-egg the text ceiling enforces).
+- **OPP-2 richer BF scorer / STRUCTURE (scorer ceiling -0.32):** WIN. Injecting the full Now-or-Never
+  incremental left-corner argument structure lifts verb-argument recall **0.627 -> 0.740** (+0.113), UAS
+  0.464 -> 0.472, content 0.478 -> 0.493; twin loses. STRUCTURE is the BF lever every DISTRIBUTIONAL lever
+  lacked -- the scorer ceiling is not purely distributional.
+- **OPP-3 foundation hybrid (OOD -0.05):** LOCATED NEGATIVE. The register-general structure cue is REDUNDANT
+  with the strong supervised foundation (0 gain in-domain AND OOD) -- the OOD degradation is fine-grained
+  lexical/register patterns, not a structural gap.
+- **OPP-4 grounded world model (brain gap -0.18):** the sole remaining lever, and it is a separate main-event
+  PROGRAM (not a single cell); its most-testable focused piece -- grounded PP-attachment -- was already a
+  located negative (GEK over-attaches to verbs). Filed as the follow-on.
+NET: the aggressive pass confirms the text-only ceiling is ROBUST (3 negatives), with ONE real BF lever
+(structure) that pushes the reading scorer to ~0.47 UAS / 0.74 verb-arg. Past that needs grounding.
+
 ## The synergy verdict (why ALL links must be BF)
 Made the POS posterior BF and let the parse disambiguate POS top-down (interactive/predictive-coding): it
 recovers the POS-link loss in the right direction but only ~4%, because the top-down signal is only as good

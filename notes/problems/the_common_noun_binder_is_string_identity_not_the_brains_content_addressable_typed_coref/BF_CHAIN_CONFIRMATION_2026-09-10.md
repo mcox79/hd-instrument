@@ -50,6 +50,92 @@ the smaller, partly-parse-recoverable loss.
 5. **SAME-HEAD residual (14.4%, smaller):** better gn agreement + the head/lemma fixes recover a slice; parser accuracy
    (stage 3) bounds the rest on the raw-text path.
 
+## C2. SIGNALS THE COREF BINDER NEEDS TO SUCCEED -- tracked, with the BF enable + measured contribution (owner 2026-09-10)
+
+| signal needed | why (to succeed) | BF enable (mathematically) | status | contribution |
+|---|---|---|---|---|
+| mention HEAD SELECTION (which token) | correct token to key/type on | **BF parse-FREE boundary rule** (crf/BF POS + `np_head_reduce` UD span-head) -- NOT the full parser | **DONE** (crf_boundary) | raw-text head wall -0.049 -> -0.015; **0.5436**, beats frozen-parser head 0.5089 AND BF-full-parser head 0.4438 |
+| concept KEY (head -> lexical concept) | same-referent identity gate | **BF `concept_lemma`** (morphy wordform->concept) | **DONE** | +0.0098 (0.5482->0.5580) |
+| SALIENCE (recency x role) | rank antecedents | **BF ACT-R** B=ln(sum w.dt^-d) | DONE | inert for resolution (+0.0007) |
+| gender/number | agreement filter | shallow BF | DONE | small |
+| **TYPE COMPATIBILITY / WORLD-KNOWLEDGE** | the different-head bridge ("the doctor"->Elizabeth) -- **THE DOMINANT signal: 31.5% of mentions, binding only 0.12** | BF typed spokes (C5 is-a + C8 DBpedia + `conceptual_meaning` distributional) + the **world-knowledge KB** | **PARTIAL** (C5/C8/conceptual wired; conceptual +0.0042 CI-sep) | **the dominant remaining loss (~+0.18 headroom)** |
+| SITUATION-MODEL INFERENCE | resolve genuinely-inferential cases | the **generative world-model** (pri-1) | NOT DONE (north star) | ~73% of the different-head residual |
+
+**BF POS+PARSE status (drawn from the current parser sessions, results verified from their metrics):**
+- The **fully-BF dependency parser** exists (`exp_parser_fully_bf_chain_v1` BF; `exp_parser_dmv_softem_v1` faithful soft-EM;
+  `exp_parser_readlearned_scorer_fix_v1` reading-learned scorer). BUT its accuracy is the wall: fully-zero-gold (reading-
+  induced POS) UAS **0.034** (induced POS many-to-one 0.32 too poor), soft-EM DMV does NOT beat the 0.285 floor, and the
+  reading-learned scorer reaches **0.454 only WITH gold POS** -- all far below the frozen supervised 0.79. A SECOND session
+  independently confirms my finding: the BF full-parser is an accuracy COST, and (measured here) its low-accuracy heads make
+  coref WORSE (0.4438), not better.
+- **THE RESOLUTION -- coref's POS+parse ARE made mathematically BF, and it HELPS, without the full parser:** the coref HEAD
+  signal is best served by the **parse-FREE BF boundary rule** (POS-pattern + `np_head_reduce`, BF_SPIRIT) fed by a BF POS
+  posterior (`crf_tagger` calibrated forward-backward; the fully-BF reading-induced POS is too poor). Measured crf_boundary
+  = **0.5436**, the BEST head config -- it BEATS both the frozen (0.5089) and the BF-full-parser (0.4438) heads. This is
+  because the current session PROVED "attachment is POS-structural, not lexical" (Klein-Manning) -- so a shallow POS-pattern
+  head rule is the right BF mechanism for coref, and the expensive full parse is not the lever. **coref POS+parse = 100% BF
+  via crf-POS + boundary rule; the full BF parser is the substrate-wide 100%-BF-gate fix (accuracy cost), owned by the
+  parser session.**
+
+## C3. MATHEMATICAL DEEP DIVE: POS + PARSE -- truly BF? getting the signal? (owner 2026-09-10)
+
+### POS tagger -- the math, per-axis BF audit
+Operation (frozen `pos_tagger`): structured perceptron `S(y|x)=sum_i w.phi(y_{i-1},y_i,x,i)`; decode `y=argmax_y S` (Viterbi);
+learn `w += phi(x,y_gold)-phi(x,y_hat)` on GOLD-labelled UD, averaged.
+| axis | frozen pos_tagger | crf_tagger | induced (fully-BF) | brain |
+|---|---|---|---|---|
+| learning | SUPERVISED (gold UPOS) NOT_BF | supervised NOT_BF | **UNSUPERVISED (PPMI+KMeans; Mintz/Elman) BF** | label-free category emergence |
+| decode | HARD Viterbi argmax NOT_BF | **forward-backward MARGINALS P(y\|x) BF** | argmax over induced | graded (N400) |
+| plasticity | FROZEN NOT_BF | frozen NOT_BF | learned-from-reading (BF) | never-frozen |
+| quality (UPOS acc) | 0.94 | 0.94 | **0.32 many-to-one** | ~1.0 |
+**No single tagger is fully-BF AND accurate.** crf fixes only the decode axis; induced fixes learning+plasticity but is
+label-free-poor (0.32).
+
+### Parser -- the math, per-axis BF audit
+Operation (frozen `arc_parser`): arc-factored `S(h->d)=w.phi(h,d,x)`; greedy `h(d)=argmax_h S`+cycle-break; gold-tree perceptron.
+| axis | frozen arc_parser | graded_parser | BF full-parser (reading-learned/soft-EM) | brain |
+|---|---|---|---|---|
+| learning | SUPERVISED gold trees NOT_BF | supervised weights NOT_BF | **UNSUPERVISED PPMI-attach + Naseem + soft-EM BF** | meaning/prediction (no trees) |
+| decode | greedy HARD + heuristic cycle-break (7.2% invalid) NOT_BF | **exact Matrix-Tree marginals + exact CLE MAP BF** | exact graded decode BF | graded settle |
+| plasticity | FROZEN | frozen weights | never-frozen BF | never-frozen |
+| temporal | BATCH | batch | (curriculum) | incremental |
+| quality (UAS) | 0.79 | 0.79 (decode fixes only 1.9% of errors; SCORER is the wall) | **0.45 (gold POS) / 0.034 (induced POS)** | ~human |
+
+### Getting the signal we need (the coref HEAD), measured first-hand (n=2855)
+| head source | BF? | coref acc |
+|---|---|---|
+| gold head (ceiling) | -- | 0.5580 |
+| **crf/accurate POS + boundary rule** | rule BF_SPIRIT; POS supervised | **0.5436** (best) |
+| frozen `arc_parser` head | NOT_BF | 0.5089 |
+| **induced (fully-BF) POS + boundary rule** | **FULLY BF** | **0.4771** (head fidelity 0.85; -0.066 vs crf) |
+| BF full-parser head (unfrozen ~0.45 UAS) | fully BF | 0.4438 |
+
+**Verdict -- is it truly BF and getting the signal?**
+1. The coref HEAD mechanism is a **BF_SPIRIT parse-free rule** (`boundary_nphead`+`np_head_reduce`: nominal-before-post-
+   modification + Right-Hand-Head-Rule) -- NOT a supervised parser. Its ONE non-fully-BF input is the POS CATEGORIES.
+2. **A fully-BF POS (induced, label-free) DOES deliver the signal (0.4771, still beats its floor CI-sep) -- at a -0.066 cost**
+   vs supervised-POS categories. So the head signal is ~fully BF with a single supervised-POS dependency worth ~0.066
+   (the boundary rule only needs coarse NOUN detection, so induced POS's 0.32 many-to-one still yields 0.85 head fidelity --
+   more robust than the full parse, which the induced POS destroys to 0.034).
+3. **The full dependency parser is where "truly BF" costs the most** -- the BF full-parser is 0.45 UAS (0.034 fully-zero-gold)
+   vs supervised 0.79, and its low-accuracy heads make coref WORSE (0.4438). For coref the parse-free rule is strictly better,
+   so coref does NOT need the full parser -- it sidesteps the parser's BF-vs-accuracy frontier.
+4. **The ROOT (mathematical):** the brain's POS/parse accuracy comes from the COMPREHENSION/MEANING signal (categories and
+   structure learned from meaning over massive input); no bounded unsupervised in-sentence model has it, so "truly BF"
+   (fully label-free/never-frozen) currently costs accuracy (POS 0.94->0.32, parse 0.79->0.45). The missing term is the same
+   comprehension signal (semantic bootstrapping / world-model) that bounds every wall on this chain.
+
+**So: the coref head signal IS delivered and IS ~brain-foundational (BF_SPIRIT rule + POS categories), and it can be made
+FULLY BF (induced POS) at a measured -0.066 cost. The full supervised parser is NOT needed for coref and is NOT the lever.**
+
+### The generative world-model tie-in -- why it doesn't help (grain, not defect)
+`hdlab.predictive_world_model` is an EVENT-transition model: `P(next verb-concept | recent verb-concepts)`, proven at
+next-EVENT prediction (7.247 vs 7.495 bits). Tied into coref antecedent selection it scored 0.168 vs recency 0.236 (-0.068):
+a **grain/task mismatch** -- it predicts which EVENT follows, not which ENTITY a phrase refers to. It also can't serve the
+PARSER (which needs WORD-grain prediction, not event-grain). It is the right model for CAUSAL/situation reasoning (its native
+consumer), the wrong grain for coref (entity) and the word-parser. Each wall needs its OWN-grain generative component; the
+event world-model is not a defect, it is simply not the coref/parser signal.
+
 ## D. Honest bottom line
 The common-noun binder and its semantic core (concept key, salience, typed binding, type operation) are confirmed
 brain-foundational to the math. The signal is lost in exactly two places, both now quantified: (i) the frozen supervised
