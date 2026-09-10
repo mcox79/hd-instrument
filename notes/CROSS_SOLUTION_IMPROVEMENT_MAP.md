@@ -19,6 +19,13 @@ the BF status of every component named here (79 organs certified 2026-09-09; the
 
 ---
 
+## PROPAGATION STATUS (owner Q3 2026-09-10: "have we introduced later-solver updates into the earlier components they flag?")
+The reverse-index is the LOG; this is the running ANSWER of what has actually been propagated vs. queued.
+- **✅ PROPAGATED (later-solver update → applied to the earlier component):** the rung-1 relabel (causal solver) → `predictive_world_model` + the live `situation_reader` causal-antecedent read; `causal_sign` (causal solver) → wired live as `sm.causal_sign`; FIX-A recency (name-bridge) → *tested* on the live `crosstype_bridge` experiencer path (population-specific, correctly not flipped); the grown-knowledge assets (who_is_who_lexicon, Warriner VAD, directional store, directed causal store) → registered in `KNOWLEDGE_ASSET_REGISTER.md`.
+- **⏳ QUEUED ON THE REVIEW WAVE (the biggest propagations):** pri-3 the parser BF fix (once owner-DONE) → propagates to ~16 downstream consumers (Target 1); pri-4 `typed_coref` → replaces `commonnoun_binder` across the coref layer (Target 3); pri-7 Wolff force-dynamics → the causal/affect valence consumers. All three are fleet-SOLVED, awaiting owner review; propagation fires at integration.
+- **🛠️ READY-FOR-ITS-USE-CASE (not a gap):** `safe_kb_gate` (name-bridge) is landed but has NO live consumer — CORRECT: the name-bridge solution measured it **coverage-NEUTRAL on the current clean KBs** (it protects a *broad/noisy* KB under noise, 0.61→0.40 ungated vs 0.60 gated); it activates when a broad KB is acquired (the world-model program), not on today's curated C8/entity KBs.
+- **RULE:** at each owner-DONE integration, walk PART 2 for the integrated solution's components and apply/queue every consumer update; record the result here.
+
 ## PART 2 — THE REVERSE-INDEX (by target, ranked by leverage: "improve X → revisit these")
 
 ### 🥇 TARGET 1 — THE PARSER / EXTRACTION FRONT-END — ~16 solutions
