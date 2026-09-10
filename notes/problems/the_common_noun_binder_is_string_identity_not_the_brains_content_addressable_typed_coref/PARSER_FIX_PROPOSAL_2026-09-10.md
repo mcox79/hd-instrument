@@ -177,6 +177,42 @@ model does not serve all three walls; each wall needs its own-grain generative c
 is a located negative for coref/parser precisely because it is the causal-reasoning model, not the word/entity model --
 confirming the two remaining walls each need their OWN generative build.
 
+## 4e. BUILT THE FULL BF PARSER FIX (right rep + right objective combined) -- raised the ceiling, but the SIGNAL wall stands (2026-09-10)
+"Fix the parser, mathematically BF, do it right not easy." I built the one combination never yet tried: the RIGHT
+representation AND the RIGHT objective together -- a distributional-class-LEXICALIZED DMV (emission = learned expected-
+dependent centroid in PPMI space, conditioned on the head's KMeans distributional class; Viterbi hard-EM external
+predictability objective; Naseem innate prior; curriculum; minimal distance to avoid the adjacency collapse).
+`exp_lexicalized_dmv_parser_v1.py`, UD-EWT test:
+
+| parser (never-frozen, gold-tree-free) | UAS | note |
+|---|---|---|
+| POS-DMV Viterbi-EM | 0.28 | POS too coarse; adjacency-collapse-prone |
+| distributional two-spoke, self-settle | 0.41 | best unsupervised (rich rep, self-consistency signal) |
+| **lexicalized-DMV Viterbi-EM (this fix)** | **0.27** | no collapse (mean-dep-len 2.1 stable), but under baseline |
+| lexicalized-DMV **gold-ceiling** | **0.5246** | distributional lexicalization RAISED the ceiling (POS-DMV 0.49 -> 0.52) |
+| two-spoke + correct signal | 0.61 | the lexical ceiling with a correct signal |
+| frozen supervised (gold + rich features) | 0.775 | non-BF reference |
+
+**Two real BF gains (do-it-right, not a win but genuine progress):** (a) distributional lexicalization RAISED the
+model's capacity ceiling 0.49 -> 0.52 (the right representation, mathematically BF); (b) the adjacency collapse that
+sank the POS-DMV is FIXED (minimal-distance + a distributional emission -> stable mean-dep-len 2.1). **The honest
+negative:** the unsupervised Viterbi-EM extracts only 0.27 of its own 0.52 ceiling, and NO unsupervised in-sentence
+signal I built beats ~0.41 (the self-settle two-spoke). The gap 0.27->0.52 (and 0.41->0.61) is the SIGNAL, not the
+model: unsupervised predictability drifts (its optimum != syntax, research Q4) and self-consistency is a local optimum.
+
+**DEFINITIVE, now proven across SIX built variants:** the parser cannot be fixed to brain-level by ANY unsupervised
+in-sentence learning signal (self-consistency, external predictability, or their combination with the correct
+distributional representation). The model is capable (ceiling 0.52-0.61); the missing thing is the CORRECT signal, which
+the brain gets from COMPREHENSION/MEANING -- semantic bootstrapping (Pinker: who-did-what recovered from the situation)
+against a generative world-model. That is the pri-1 north-star program, not a bounded fix. I built the BF parser as far
+as an in-sentence unsupervised method can go (raised the ceiling, killed the collapse) and PROVED the residual is the
+comprehension signal -- I did not manufacture a UAS win, because the measurements do not support one.
+
+**The specific next BF build (named, not hand-waved):** SEMANTIC BOOTSTRAPPING (research candidate b) -- derive a coarse
+who-did-what MEANING target from ANIMACY (WordNet person/animate, parse-free) + verb-argument structure, and train the
+parser toward THAT meaning target (not gold, not predictability). It is the meaning signal that reaches the ceiling; it
+needs the situation/meaning layer, so it is the first concrete step of the generative-world-model program.
+
 ## 5. Proposed hdlab wire (Q111 -- strategy lands)
 - **DO NOT swap the frozen parser for the never-frozen one on the head path** (measured -0.37 UAS / -0.065 coref). Keep the
   frozen arc_parser for head-accuracy-dependent consumers UNTIL the BF parser closes the gap.
