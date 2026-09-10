@@ -5,7 +5,7 @@ bar: "Route the reader's parse consumers through the GRADED probabilistic parse 
 result: "Route-through on UD-EWT test (n=24,120 tokens/2061 sents): exact-graded decode UAS 0.7927 vs greedy hard-decode 0.7907, +0.00199 CI[0.0010,0.0029] CI-sep -- but the DECODE fixes only 95/5048 head errors (1.9%); ~99% is SCORER error the exact global normalization cannot touch (the LOCATED NEGATIVE, with a number: normalization is solved, the SCORER is the wall). Downstream (n=1065 gold patient arcs): reading the graded DISTRIBUTION (top-2 marginal reach) recovers args CI-sep, recall 0.9512->0.9906 (+0.0394 CI[0.028,0.052]), twin 0.4432 loses -- at a precision cost (+2.18 spurious pairs/arc). ACQUISITION / THE SCORER FIX (UD-EWT, no gold trees): the brain-foundational reading-learned scorer (POS-attachment PPMI + Naseem structural prior + DMV-class EM using the graded_parser marginal as the E-step) reaches UAS 0.4631 (non-root 0.4428), BEATING the strong right-branching floor 0.2849 (non-root 0.3026) on BOTH metrics and recovering 35.9% of the floor->supervised gap; shuffled-embedding twin 0.4501 loses. Prototyping the surface-feature fix REFUTED the distributed-generalization hypothesis: adding lexical features HURTS attachment (sparse -0.151, distributed best=POS-only) -- attachment is POS-structural, not lexical-semantic (Klein-Manning). Remaining gap to supervised 0.782 = 0.319 (the text-only acquisition ceiling gold-tree supervision buys). NOTE: this 0.463 supersedes the earlier 0.3122 (which had a noisy lexical term ON)."
 floor: "arc-level UAS floor = greedy hard-decode 0.7907 (the live default). downstream floor = greedy-head patient recall 0.9512. acquisition STRONG floor = adjacency-RIGHT / right-branching UAS 0.2849 (full) / 0.3026 (non-root) -- unusually strong for English (Klein-Manning 2004); also random 0.0720 + left-adjacency 0.1137. exceed-lever floor = surface-scorer-alone UAS 0.7850. supervised treebank UPPER reference (not a floor) = 0.782."
 controls: "shuffled-SCORES control collapses UAS to 0.0666 (scorer carries the signal); shuffled-MARGINAL twin drops reliability AUC 0.8546->0.3607; top-2 shuffled-token twin drops recall 0.9906->0.4432; shuffled-TABLE twin drops first-step reading UAS 0.2117->0.1113 and EM UAS 0.3122->0.1763; semantic-augment shuffled twin does NOT beat the surface floor. Each twin is info-free with the same shape and LOSES. Ablations: EM helps (0.247->0.312) AND the structural prior is required (0.183->0.239) -- both isolated."
-files_changed: "experiments/exp_parser_graded_decode_regimes_v1.py, experiments/exp_parser_graded_downstream_whodidwhat_v1.py, experiments/exp_parser_learned_from_reading_v1.py, experiments/exp_parser_semantic_scorer_augment_v1.py, experiments/exp_parser_selfsup_em_v1.py, experiments/exp_parser_ood_gum_generalization_v1.py, experiments/exp_parser_graded_reliability_gated_patient_v1.py, experiments/exp_parser_chain_signal_loss_v1.py, experiments/exp_pos_graded_posterior_and_synergy_v1.py, experiments/exp_parser_readlearned_scorer_fix_v1.py, experiments/exp_parser_dmv_valence_v1.py, experiments/exp_parser_dmv_softem_v1.py, experiments/exp_parser_supervised_advantage_decomp_v1.py, experiments/exp_parser_bf_structural_attack_v1.py, experiments/exp_parser_grounded_ppattach_v1.py, experiments/exp_parser_fully_bf_chain_v1.py, experiments/exp_parser_bf_tokenizer_v1.py, experiments/exp_parser_brown_pos_bf_chain_v1.py, experiments/exp_parser_bootstrap_pos_parse_v1.py, experiments/exp_parser_richer_bf_scorer_v1.py, experiments/exp_parser_hybrid_foundation_v1.py, experiments/exp_parser_deviation_chase_v1.py, experiments/exp_parser_grounded_thematic_fit_v1.py, experiments/exp_parser_worldmodel_arbitration_v1.py, experiments/exp_parser_coarse_class_coherence_v1.py, experiments/exp_parser_chain_vs_brain_eval_v1.py, verification/test_parser_graded_route_through.py, notes/problems/the_parser_is_a_frozen_supervised_hard_decode_not_the_brains_graded_probabilistic_parse/{SOLVED.md,_working_notes.md,HDLAB_INTEGRATION_SPEC.md,NEXT_GAP_learned_from_reading_scorer.md,BF_AUDIT_UPDATE.md,COMPONENT_REGISTER.md,UPSTREAM_CHAIN_BF_AUDIT.md,CHAIN_VS_BRAIN_EVALUATION.md,DEVIATION_LEDGER.md}"
+files_changed: "experiments/exp_parser_graded_decode_regimes_v1.py, experiments/exp_parser_graded_downstream_whodidwhat_v1.py, experiments/exp_parser_learned_from_reading_v1.py, experiments/exp_parser_semantic_scorer_augment_v1.py, experiments/exp_parser_selfsup_em_v1.py, experiments/exp_parser_ood_gum_generalization_v1.py, experiments/exp_parser_graded_reliability_gated_patient_v1.py, experiments/exp_parser_chain_signal_loss_v1.py, experiments/exp_pos_graded_posterior_and_synergy_v1.py, experiments/exp_parser_readlearned_scorer_fix_v1.py, experiments/exp_parser_dmv_valence_v1.py, experiments/exp_parser_dmv_softem_v1.py, experiments/exp_parser_supervised_advantage_decomp_v1.py, experiments/exp_parser_bf_structural_attack_v1.py, experiments/exp_parser_grounded_ppattach_v1.py, experiments/exp_parser_fully_bf_chain_v1.py, experiments/exp_parser_bf_tokenizer_v1.py, experiments/exp_parser_brown_pos_bf_chain_v1.py, experiments/exp_parser_bootstrap_pos_parse_v1.py, experiments/exp_parser_richer_bf_scorer_v1.py, experiments/exp_parser_hybrid_foundation_v1.py, experiments/exp_parser_deviation_chase_v1.py, experiments/exp_parser_grounded_thematic_fit_v1.py, experiments/exp_parser_worldmodel_arbitration_v1.py, experiments/exp_parser_coarse_class_coherence_v1.py, experiments/exp_parser_structure_optimize_v1.py, experiments/exp_parser_chain_vs_brain_eval_v1.py, verification/test_parser_graded_route_through.py, notes/problems/the_parser_is_a_frozen_supervised_hard_decode_not_the_brains_graded_probabilistic_parse/{SOLVED.md,_working_notes.md,HDLAB_INTEGRATION_SPEC.md,NEXT_GAP_learned_from_reading_scorer.md,BF_AUDIT_UPDATE.md,COMPONENT_REGISTER.md,UPSTREAM_CHAIN_BF_AUDIT.md,CHAIN_VS_BRAIN_EVALUATION.md,DEVIATION_LEDGER.md}"
 reverify: ".venv/Scripts/python.exe verification/test_parser_graded_route_through.py"
 ---
 
@@ -221,6 +221,47 @@ See `BF_AUDIT_UPDATE.md` (parser-cluster verdicts), `COMPONENT_REGISTER.md` (cre
 this solution's WALL is the arc SCORER (`arc_parser`, the treebank perceptron); its consumed INPUTS are the
 POS tags (`pos_tagger`) + the raw token stream. Both feed `notes/CROSS_SOLUTION_IMPROVEMENT_MAP.md` Target 1.
 
+# 6. WHAT THIS COMPONENT (THE PARSER) NEEDS TO IMPROVE -- ranked, each with the evidence
+1. **DECODE -> graded (BF, DONE-provable, land it).** Exact CLE + single-root Matrix-Tree marginals replace
+   the greedy hard-decode; +0.002 UAS CI-sep, recall path byte-identical; the marginal is a strong reliability
+   signal (AUC 0.855 > the fitted logistic 0.736). This is the headline BF fix -- ready to land.
+2. **CONSUME THE DISTRIBUTION (BF, land + wire).** Read the top-2 marginal reach, reliability-gated via
+   `graded_competition` (patient recall 0.951->0.991; a net F1 win when reliability-gated, +0.0036 CI-sep).
+3. **STACK THE BF STRUCTURAL CUES (BF, measured, land).** Incremental left-corner (verb-arg recall 0.627
+   ->0.740) + coordination-parallelism (cc/conj 0.078->0.218); complementary, UAS 0.464->0.476 on the
+   reading-learned scorer. Each confident-error CONSTRUCTION yields to its own BF structural mechanism.
+4. **SCORER ACQUISITION (the biggest lever, follow-on).** The 20.7-UAS-pt dominant loss is the supervised
+   treebank perceptron. Reading-learned acquisition is PROTOTYPED (Brown POS 0.745; reading scorer 0.46) but
+   caps at the text-only ceiling; scaling (DMV valence tried+refuted, more reading, richer structure) is the
+   filed follow-on. Its RESIDUAL to a competent reader (0.78->0.96) is the missing PERCEPTUAL grounding.
+5. **POS ACQUISITION (fixable follow-on).** 3.0-UAS-pt link; 100% supervised-acquisition (hard-decode is
+   BF-equivalent, peaked posterior); 87% of mistags are confident OOD-coverage errors; reading-learned Brown
+   induction (0.745) is the BF path but below the supervised 0.944 at current reading volume.
+   * DO-NOT-REDO (proven negatives for parse attachment): lexical features, distributed embeddings, DMV
+     valence (faithful soft-EM verified), grounded event knowledge (GEK), thematic-fit type expectation,
+     coarse-class supersense coherence, bootstrapping POS<->parse, world-model rescoring on uncertain arcs.
+     All twin-controlled. Attachment is locality-dominated + confident-acquisition-limited; SEMANTICS HURT it.
+
+# 7. BF COMPONENT FINDINGS (about the substrate's organs -- for the audit + cross-solution map)
+- **`graded_parser` (BF): should go DORMANT -> LIVE.** Brute-force-verified exact; its marginal beats the
+  fitted logistic `parse_confidence` (0.855>0.736). Recommend live on the read path.
+- **`parse_confidence` (NOT_BF, fitted logistic): replaceable by the raw graded marginal** -- a fitted
+  component REMOVED, not added. Its "UPGRADE gated on a live defer consumer" note is unblocked.
+- **`arc_parser` / `arceager_parser` (NOT_BF): the DECODE half is BF-fixable now** (decode="exact"); the
+  residual NOT_BF is the SUPERVISED SCORER ACQUISITION (the deep gap), not the decode -- audit should re-point.
+- **`pos_tagger` (NOT_BF): the loss is 100% ACQUISITION, not the hard Viterbi** (hard==graded, peaked
+  posterior; measured). A graded POS posterior is exact-BF but changes no point estimate.
+- **`incremental_parser` (BF_SPIRIT): the parser's one working non-distributional lever** -- extend it (it
+  drove both the verb-arg and, in spirit, the coordination wins).
+- **THE OVERARCHING FINDING (corrected mid-solution): DIFFERENT losses need DIFFERENT task-specific BF
+  mechanisms at the right grain -- NOT a monolithic generative world model.** Parse attachment -> incremental
+  STRUCTURE (semantics/grounding refuted 4x); discourse-identity coref -> situation-model focus + coarse-class
+  coherence (a sibling solver's win, which we verified does NOT transfer to attachment). "The only lever is a
+  generative model" was an over-claim by elimination and is retracted. `DEVIATION_LEDGER.md` carries the trace.
+- **A unifying substrate insight for the reliability/defer cluster:** the frozen supervised organs' errors are
+  CONFIDENT (POS 87% confident-wrong; parse: only 1.3% of tokens uncertain but 21% wrong) -- so NO
+  reliability-gated mechanism (defer, world-model-arbitrate) can reach them. They are acquisition-baked.
+
 ---
 
 ## TLDR (plain language)
@@ -255,3 +296,18 @@ reliability) unconditionally; wire item 2 (top-2 reach) through the competition,
    trap, `exp_parser_selfsup_em_v1`); scale it (full corpus + lexical valence + more EM rounds), then A/B its
    scorer against the treebank asset INTO the same `graded_parser` marginal on a downstream board dim.
    `NEXT_GAP_learned_from_reading_scorer.md`.
+
+---
+INTEGRATED_BY_STRATEGY 2026-09-10 (CONT-126). Reverified `verification/test_parser_graded_route_through.py`
+66/66 first-hand. INTEGRATED the core value: the located-negative + BF characterization folded to
+`BRAIN_FOUNDATIONAL_AUDIT.md` §2b (the parser wall is the SCORER ~99%, decode is 0.2 UAS pts; text-only
+acquisition ceiling ~0.46; attachment is POS-structural, semantics refuted 4×; task-specific structural
+mechanisms not a monolithic world model); the reading-learned arc-SCORER follow-on FILED as the new problem
+`scale_the_reading_learned_arc_scorer_the_brain_foundational_parser_acquisition` (the 20.7-pt dominant lever)
++ a POS-acquisition sibling noted. **RECONCILIATION (Q125): items 1a/1b/2 target the arc-FACTORED parser, but
+the live default head path is the arc-EAGER parser (owner-DONE 2026-09-05 double-parse consolidation); the
++0.002 decode win was measured off the live path. Strategy did NOT reverse that consolidation for a +0.002
+micro-win — the route-through (exact decode + marginal reliability + top-2 reliability-gated reach) is recorded
+as a MEASURE-FIRST follow-on scoped to arc_parser's remaining live consumers, with the top-2 reach to be
+re-measured on the live arceager path.** No live parse was touched → board self-test byte-identical (no-regress).
+Nothing pushed. See ledger CONT-126 + BF_COMPONENT_UPDATE_LEDGER pri-3 row.
