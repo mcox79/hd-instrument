@@ -39,10 +39,10 @@ stdlib-only, NO external LLM (the invariant).
 """
 from __future__ import annotations
 
-__bf_status__ = "BF_UNVERIFIED"   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors data/bf_status_registry.jsonl
-__bf_verified__ = "2026-09-09 UNVERIFIED (AUDIT NEXT per VERIFIED_BF_LEDGER)"
-__bf_note__ = "AUDIT NEXT: audit doc rates EXCELLENT Pearl abduction->do(cause=absent)->re-propagate over sm.causal_links; verify then re-tag"
-__bf_corrections__ = []   # append "YYYY-MM-DD <fix>: OLD -> NEW" when a fix RAISES the status
+__bf_status__ = "BF_SPIRIT"   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = "2026-09-09 operation/math read (strategy first-hand): remove/negate-node + RE-PROPAGATE reachability = Pearl do-surgery INTERVENTION (rung-2) + mark_abnormal counterfactual mutation (rung-3) -- the GENUINE counterfactual reasoner (contrast predictive_world_model's rung-1 leave-one-out)"
+__bf_note__ = "glass-box causal-network reasoner: multi-hop chains + counterfactual necessity by do()-surgery on the EXTRACTED sm.causal_links graph (remove-and-re-propagate reachability / negate-and-re-propagate SIGN; McCloskey/Gerstenberg counterfactual simulation). Route TRUE counterfactual claims here. Residual: reasons over a DISCRETE extracted +-1 graph (not a probabilistic world model), no abduction over latent causes; traversal thresholds swept"
+__bf_corrections__ = ["2026-09-09 BF_UNVERIFIED -> BF_SPIRIT after a strategy operation/math read verified the intervention (do-surgery remove-and-re-propagate) is the brain's counterfactual operation, not a rung-1 stand-in"]   # append "YYYY-MM-DD <fix>: OLD -> NEW" when a fix RAISES the status
 
 from collections import defaultdict, deque
 from dataclasses import dataclass, field

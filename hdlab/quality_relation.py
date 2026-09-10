@@ -65,10 +65,10 @@ No repo writes beyond this file. No git commit (the Director owns the commit for
 """
 from __future__ import annotations
 
-__bf_status__ = "BF_UNVERIFIED"   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors data/bf_status_registry.jsonl
-__bf_verified__ = "2026-09-09 UNVERIFIED (AUDIT NEXT per VERIFIED_BF_LEDGER)"
-__bf_note__ = "AUDIT NEXT: grounded oriented signed-magnitude + FPE-log Weber comparator; verify then re-tag"
-__bf_corrections__ = []   # append "YYYY-MM-DD <fix>: OLD -> NEW" when a fix RAISES the status
+__bf_status__ = "BF_SPIRIT"   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = "2026-09-09 operation/math read (strategy first-hand): two-channel adjective opposition -- WordNet antonym-closure (dominant-synset G1 guard) + a SIGNED FPE dimensional axis (Osgood 1957 semantic-differential / Mathew POLAR) since a flat/unsigned encoding cannot represent signed opposition (measured: FLAT opposed_mean +0.40 vs FPE -0.92)"
+__bf_note__ = "signed dimensional-opposition detector on the Osgood semantic-differential frame (PINNED): antonym-closure (admissible WordNet supply) + a signed FPE axis projection; residuals: hand-authored 4-axis lexicon (supply) + FPE is the OUR-INVENTION substrate encoding of the signed axis"
+__bf_corrections__ = ["2026-09-09 BF_UNVERIFIED -> BF_SPIRIT after a strategy operation/math read verified the signed-axis opposition op (Osgood semantic-differential) is brain-faithful; residuals (hand lexicon + FPE encoding) noted"]   # append "YYYY-MM-DD <fix>: OLD -> NEW" when a fix RAISES the status
 
 import math
 from typing import Dict, Optional, Tuple
