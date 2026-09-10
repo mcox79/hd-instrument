@@ -22,12 +22,22 @@
 6. **THE VALIDATED GROUNDED Delta-Delta SIGN MECHANISM** (`experiments/exp_causal_sign_grounded_ddyn_v1.py`) -- the
    proven blueprint for the grounded-sign program (recovers the sign 0.999 given grounded interventional data). Carry
    as the design for the grounded-sign follow-on (needs the grounding bridge -- see the DURABLE NEGATIVE).
+7. **THE STOICHIOMETRY SIGN LEVER -- FIRST SIGN SOURCE TO BEAT THE FALSIFIER** (`exp_causal_sign_stoichiometry_wiqa_v1.py`,
+   witness `test_causal_sign_stoichiometry.py` 3/3). The coupling sign COMPUTED from reaction structure (reactant -/
+   product +; the formal-model route the owner intuited -- chemistry/physics/ecology DBs) beats the SCRAMBLED-ROLE
+   falsifier CI-sep on WIQA's science slice: arm 0.610 vs scrambled 0.439 (+0.172 CI[0.087,0.255]), scrambled BELOW
+   chance => the sign lives in the STRUCTURE. Coverage ~9.6% (chemistry-tractable slice). INCORPORATE as the sign source
+   for the science slice; SCALE-UP = ingest **Rhea** (downloaded to `data/corpora/rhea/`, CC-BY) once RDKit/RDF parsing
+   is available, + **BioModels** (CC0, ODE Jacobian sign) + signed ecological models (Lotka-Volterra). The everyday/
+   biological tail (~90%) still needs the grounded Delta-Delta program (item 6).
 
 **INCORPORATE AS DURABLE NEGATIVE (record in `notes/BRAIN_FOUNDATIONAL_AUDIT.md` so no one re-treads):**
-7. **TEXT IS EXHAUSTED FOR THE COUPLING SIGN.** 7 sign sources failed, incl. the brain's force-dynamic mechanism and
-   explicit signed-proportionality mining at **78% coverage**, all TYING the scrambled falsifier. The story-specific
-   coupling sign is NOT recoverable from text (type-level knowledge does not instantiate to the item's specific
-   coupling). Do NOT mine another text sign source. The only open route = numeric/interventional Delta-Delta grounding.
+7neg. **PROSE/CO-OCCURRENCE TEXT IS EXHAUSTED FOR THE COUPLING SIGN** (but the FORMAL-MODEL route is NOT -- see
+   INCORPORATE item 7). 7 PROSE sign sources failed (co-occurrence, marker-signed, force-dynamic verb lexicon, explicit
+   signed-proportionality at 78% coverage), all TYING the scrambled falsifier -- because the story-specific sign does
+   not instantiate from type-level co-occurrence. Do NOT mine another PROSE sign source. WHAT DOES work: the sign
+   COMPUTED FROM A RUNNABLE MODEL's STRUCTURE (stoichiometry / ODE Jacobian / equation derivative) -- proven on the
+   science slice (item 7). The everyday/biological tail (no formal model) still needs grounded interventional Delta-Delta.
 
 **DO NOT INCORPORATE (non-load-bearing / failed the falsifier -- keep only as documented negatives):** the signed-
 proportionality store (`signed_store_v1.json`), the force-dynamic sign lexicon. Shelve, do not wire.

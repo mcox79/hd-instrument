@@ -30,6 +30,12 @@ experiments/ (its own separate queued promotion; NOT promoted here). NO external
 """
 from __future__ import annotations
 
+__bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 BF-certification pass (operation/math read of the pinned computation + key ops; strategy first-hand)'
+__bf_note__ = 'Wolff/Talmy force-dynamic CAUSE/ENABLE/PREVENT typing of within-clause causatives + graded foreground event-hood gate; pinned force-dynamics op; DORMANT (causation_typed=False)'
+__bf_corrections__ = []
+
+
 import os
 
 from dataclasses import dataclass

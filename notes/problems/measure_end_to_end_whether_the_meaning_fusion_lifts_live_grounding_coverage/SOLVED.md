@@ -101,6 +101,40 @@ per-operation:
   not compression. (Recorded in memory: densify AND measure; whiten low-dim, do not low-rank-compress
   sparse-distinctive.)
 
+## END-TO-END ONLINE CORRECT-COVERAGE GROWTH (the PARTIAL->SOLVED converter)
+`exp_meaning_fusion_correct_coverage_growth_v1.py`. The decision-level win is at the ranking; this closes the
+gap to a WIRED online read. The genuine online loop (process_sentence + consolidation_pass + swapped gate)
+runs over the full curriculum with the fully-BF decision (grounded-distinctive rep + SDT z_top accept) vs the
+distributional incumbent vs an info-free twin (shuffled grounded rows). Every banked (word -> anchor) link is
+judged CORRECT by an INDEPENDENT gold -- WordNet Wu-Palmer neighbour, independent of BOTH the distributional
+and grounded channels, used only to JUDGE (never on the read path). correct-coverage = # words grounded to a
+genuine meaning-neighbour.
+
+| WordNet judge | correct-coverage INCUMBENT / FULLY_BF / TWIN | FULLY_BF vs TWIN precision (matched count 165) |
+|---|---|---|
+| wup>=0.5 | 49 / **70** / 49 | +0.134 CI[+0.023,+0.239] |
+| wup>=0.6 | 23 / **41** / 25 | +0.101 CI[+0.015,+0.188] |
+| wup>=0.7 | 13 / **26** / 14 | +0.076 CI[+0.007,+0.144] |
+| wup>=0.8 (strict) | 8 / **13** / **2** | +0.069 CI[+0.025,+0.118] |
+
+- **CORRECT-COVERAGE GROWTH: the fully-BF decision grows MORE correctly-grounded vocabulary than the incumbent
+  at EVERY judge strictness (70 vs 49 ... 13 vs 8), and beats its own info-free twin CI-separated at MATCHED
+  grounding count (both ground 165) at every strictness.** At the same 165 groundings the real grounded rep
+  yields 70 correct vs the twin's 49 (+43%). Qualitatively: incumbent links artwork->happy, google->hope,
+  owner->fine; fully-BF links artwork->picture, owner->president.
+- **HONEST BOUND:** precision vs the INCUMBENT is directional but NOT CI-separated online (+0.05 to +0.075, CI
+  incl 0), because the fully-BF decision grounds MORE words (165 vs 143) -- the count cannot be matched via the
+  z-criterion (the grounded field's standouts are almost all strong), so numerator and denominator both rise.
+  The clean CI-separated advantage over the incumbent remains the DECISION-level measurement (+0.158 MRR /
+  +0.106 hit@1 through the anchor pool). And absolute correctness is modest (43% at wup>=0.5 down to 8% at
+  wup>=0.8) -- the knowledge/exposure gap, not a mechanism defect.
+
+So the online converter STRENGTHENS the result to a strong PARTIAL: end-to-end, on a wired read, the fully-BF
+decision demonstrably grows more correct-coverage, twin-controlled at matched count. It stays PARTIAL (not
+SOLVED) because the clean online precision win over the incumbent is power/operating-point-limited, and the
+fully-live SOLVED needs strategy to LAND the wire in hdlab (Q111) and the is-a channel + reading volume to
+lift absolute correctness (below).
+
 ## THE THREE NON-BF WEAK LINKS -- FIXED, fully brain-foundational (owner: "fix them, right not easy")
 The performance-vs-brain audit named three components in the upstream chain that were NOT fully BF. They
 collapse into two real fixes (the representation fix sidesteps the parser), both prototyped + measured:

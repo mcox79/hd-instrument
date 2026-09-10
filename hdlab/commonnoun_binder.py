@@ -34,6 +34,12 @@ WordNet person-typing is a static offline lexical foundation (nltk, no inference
 """
 from __future__ import annotations
 
+__bf_status__ = 'NOT_BF'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 BF-certification pass (operation/math read of the pinned computation + key ops; strategy first-hand)'
+__bf_note__ = 'situation_predict links a definite common noun by HEAD-LEMMA STRING MATCH + modifier veto + event-centrality tie-break -- measured 0.4904 BELOW plain string-identity 0.5412 (reader CATALOG C2); the BF replacement is the typed_coref content-addressed type-cue binding (fleet-gated, converges on pri-6)'
+__bf_corrections__ = []
+
+
 import os
 for _v in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS", "THINC_NUM_THREADS"):
     os.environ.setdefault(_v, "2")

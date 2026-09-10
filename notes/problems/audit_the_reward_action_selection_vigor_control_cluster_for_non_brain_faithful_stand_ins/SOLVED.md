@@ -5,8 +5,8 @@ bar: "PASS = a CATALOG.md in this folder of the reward/action-selection/vigor cl
 result: "ENUMERATED DENOMINATOR = 40-organ import closure of the 7 seeds (AST trace over 249 hdlab modules); 3/7 seed decision organs (action_selection, successor_representation, self_manager) are DORMANT-ISLANDED with 0 hdlab importers, goal_achievement DORMANT (1 non-live importer), consequence_learning_loop+goal_typing LIVE-IMPORTED-INERT via the grounding subsystem, state_of_mind LIVE via coref. #1 finding = the tonic-DA VIGOR channel is MISSING (the cluster's namesake computation; 'vigor' occurs in all of hdlab exactly once, a docstring mention in self_manager.py:6). POWERED LOCALIZATION (Niv 2007 tau*=sqrt(C_v/rho) prototype, own metric = total net reward per fixed-time free-operant session, n=240 sessions, 2000-sample paired bootstrap): the brain-faithful vigor dial earns +578.9 net reward/session CI[574.2, 583.6] over the strongest fixed floor -- CI-separated -- and +707.8 CI[697.6, 718.5] over the info-free twin."
 floor: "strongest FIXED floor = one best fixed latency tuned once by argmax net reward on a held-out calibration session (the current no-vigor-dial state) = 1422.0 net reward/session; the vigor dial NIV = 2000.9 (+578.9 CI-sep). Info-free TWIN floor (same dial driven by a shuffled reward history) = 1293.2 (NIV +707.8 CI-sep). ORACLE ceiling = 2419.7."
 controls: "info-free TWIN (dial driven by a SHUFFLED reward history, matched tau-scale) LOSES to NIV +707.8 CI-sep -> the reward-rate signal is load-bearing, not tau-variance; SCRAMBLE (dial driven by a time-scrambled reward stream) = 1089.5 collapses BELOW the fixed floor -> signal-driven; ORACLE (tau from the true local rate) = 2419.7 is the ceiling (>= NIV); closed-form identity tau*=sqrt(C_v/rho) matches a grid-argmax of the reward rate to rel-err 0.047; monotonicity vigor~sqrt(rho) confirmed; JOINT-EVC COMPOSITION (exp_reward_cluster_joint_evc_v1.py, using the REAL shipped AdaptiveHaltController) -- BOTH-dials beats halting-only +664.8 CI-sep and vigor-only +992.1 CI-sep, and the halting decisions are byte-identical under a vigor toggle (separability proven); denominator positive controls fire (0-importer dormancy of the 3 pinned organs, state_of_mind reached via coref, cll imported by grounding); witness byte-search guard shown to FIRE on a present token (AdaptiveHaltController) while reporting vigor absent."
-files_changed: "experiments/exp_audit_reward_cluster_denominator_v1.py, experiments/exp_reward_cluster_vigor_dial_v1.py, experiments/exp_reward_cluster_joint_evc_v1.py, verification/test_audit_reward_cluster_standins.py, notes/problems/audit_the_reward_action_selection_vigor_control_cluster_for_non_brain_faithful_stand_ins/CATALOG.md, notes/problems/audit_the_reward_action_selection_vigor_control_cluster_for_non_brain_faithful_stand_ins/SOLVED.md. NO hdlab/ writes (Q111)."
-reverify: ".venv/Scripts/python.exe verification/test_audit_reward_cluster_standins.py  (23/23 PASS)"
+files_changed: "experiments/exp_audit_reward_cluster_denominator_v1.py, experiments/exp_reward_cluster_vigor_dial_v1.py, experiments/exp_reward_cluster_joint_evc_v1.py, experiments/exp_self_manager_neuromodulatory_bank_v1.py, experiments/exp_action_selection_linear_sr_value_v1.py, experiments/exp_theory_of_mind_belief_partition_v1.py, experiments/exp_consequence_graded_value_teacher_v1.py, verification/test_audit_reward_cluster_standins.py, notes/problems/audit_the_reward_action_selection_vigor_control_cluster_for_non_brain_faithful_stand_ins/CATALOG.md, notes/problems/audit_the_reward_action_selection_vigor_control_cluster_for_non_brain_faithful_stand_ins/SOLVED.md. NO hdlab/ writes (Q111)."
+reverify: ".venv/Scripts/python.exe verification/test_audit_reward_cluster_standins.py  (27/27 PASS)"
 ---
 
 # SOLVED -- brain-fidelity audit of the reward / action-selection / vigor control cluster
@@ -51,6 +51,39 @@ pure-disk witness (`verification/test_audit_reward_cluster_standins.py`, **20/20
   vigor's marginal is material only when response latency is a material fraction of total trial time
   (when deliberation dominates, halting carries the win) -- the correct EVC prediction, not a defect.
 
+## FOLLOW-ON PROTOTYPES (owner-directed 2026-09-09: "prototype all of those now, brain foundationally")
+Every follow-on the audit named is now prototyped, each copying its brain computation and each passing a
+can-fail gate (faithful arm beats the strongest tuned floor CI-sep + an info-free twin loses). Witness
+W15-W18. All BF-audited and honestly labelled PINNED vs BF_UNPINNED. NO hdlab writes (Q111).
+- **The self_manager BANK completed (R3):** the 4 missing neuromodulatory dials -- NE gain-on-plasticity
+  (adaptive learning rate, Yu & Dayan 2005 / Behrens 2007), ACh encode/retrieve (Hasselmo 2006), 5HT
+  time-horizon (Doya 2002), homeostasis/sleep (Tononi-Cirelli SHY) -- each a content-free scalar dial,
+  each beating its tuned fixed floor + info-free twin CI-sep (`exp_self_manager_neuromodulatory_bank_v1.py`).
+  With DIAL #1 (shipped halting) + DIAL #2 (vigor, prototyped) that is the full 6-channel bank, and the
+  joint-EVC proof shows the dials compose additively (separable) -- so landing the bank is additive, not
+  a re-architecture. **BF.**
+- **R4 (`action_selection` value read-out):** the linear SR value V = M @ R (Dayan 1993) beats the
+  shipped cosine-to-one-goal stand-in on agreement with the Monte-Carlo true value (Spearman 0.80 vs
+  0.39, +0.42 CI-sep), uses the REAL `successor_representation` M, identity M@R==definition to 1e-4.
+  **BF.** (`exp_action_selection_linear_sr_value_v1.py`)
+- **ToM (the ABSENT TIER-6 organ):** a per-agent OBSERVATION-GATED belief partition (decoupled
+  metarepresentation, Leslie 1987 / Wimmer & Perner 1983) over the FHRR algebra reproduces Sally-Anne
+  false belief: 1.00 vs a reality-only floor 0.00 (+1.00 CI-sep), info-free twin 0.36, and a true-belief
+  control confirms it agrees with reality when the agent witnessed. **BF_UNPINNED** (ToM has no pinned
+  neural equation -- labelled honestly, not as PINNED). (`exp_theory_of_mind_belief_partition_v1.py`)
+- **R2 (the consequence-learning teacher):** a graded OFC/vmPFC value teacher (Padoa-Schioppa 2006)
+  beats the binary MET/UNMET category the loop ships -- Pearson 0.90 vs 0.86 (+0.044 CI-sep) and, on the
+  decision the binary category cannot make (pick the more extreme of two same-sign outcomes), 0.75 vs
+  0.68 (+0.061 CI-sep). **BF.** (`exp_consequence_graded_value_teacher_v1.py`)
+- **NE located sub-finding (reported, not hidden):** the pure gain-as-inverse-temperature reading of NE
+  is only a marginal, config-dependent win over a well-tuned fixed gain (a delta-rule value estimate is
+  itself adaptive), so the ROBUST pinned NE win is the plasticity / learning-rate one built above.
+- **100% brain-foundational check (owner 2026-09-09):** every prototype copies the brain's actual
+  computation with a citation; the one component without a pinned neural equation (ToM) is labelled
+  BF_UNPINNED and built on the accepted FHRR algebra + the accepted cognitive false-belief computation;
+  parameters are swept, never adopted; no external LLM / off-the-shelf model / eval-fitted classifier is
+  used anywhere.
+
 ## WHAT WAS NOT ESTABLISHED (and what I would withdraw first if wrong)
 - **The vigor localization is measured on a MODEL free-operant environment, not a live substrate
   loop.** No live loop currently consumes a vigor signal, so there is no end-to-end substrate number
@@ -82,12 +115,15 @@ pure-disk witness (`verification/test_audit_reward_cluster_standins.py`, **20/20
    FIXED-TIME budget, not fixed-#-responses -- otherwise a fast policy games the ratio-of-sums.
 
 ## SUBSTRATE INCORPORATION MANIFEST (for strategy, per owner 2026-09-09)
-- **INCORPORATE (proposed hdlab diff -- strategy lands):** add `self_manager` DIAL #2 = the tonic-DA
-  VIGOR dial (`VigorDial`, byte-portable from `exp_reward_cluster_vigor_dial_v1.py`): one scalar in
-  (net reward per unit compute-time), one scalar out (effort/latency `tau=sqrt(C_v/rho_hat)`), reusing
-  the exact content-free-scalar architecture of `AdaptiveHaltController`. `__bf_status__ = "BF"`
-  (PINNED Niv 2007). Wire nothing live yet (no consumer); land as the sibling dial so the "bank of 6"
-  docstring stops being a promise. Regresses nothing (`self_manager` has 0 importers).
+- **INCORPORATE (proposed hdlab diffs -- strategy lands; all prototyped + can-fail here):**
+  (1) `self_manager` DIALS #2-6 -- the tonic-DA VIGOR dial (`VigorDial`) plus NE/ACh/5HT/homeostasis,
+  each a content-free scalar controller byte-portable from the prototype cells, reusing the exact
+  architecture of `AdaptiveHaltController`; land as sibling dials so the "bank of 6" docstring stops
+  being a promise (regresses nothing -- `self_manager` has 0 importers). (2) `action_selection` linear
+  SR value read-out `V = M @ R` alongside the cosine (R4). (3) a graded-value teacher option for
+  `consequence_learning_loop` (R2). (4) a NEW `hdlab/theory_of_mind.py` organ (the per-agent
+  observation-gated belief partition; fills the ABSENT TIER-6 ToM gap). Wire nothing live yet where
+  there is no consumer; each is `__bf_status__` BF (BF_UNPINNED for ToM).
 - **INCORPORATE-AS-DURABLE-NEGATIVE / AUDIT UPDATE:** fold into `notes/BRAIN_FOUNDATIONAL_AUDIT.md`
   the corrected TIER-6 verdicts (see AUDIT UPDATE below) -- especially that the reward cluster's pinned
   decision core is FAITHFUL+DORMANT and the one real gap is MISSING-not-stubbed vigor.

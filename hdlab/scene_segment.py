@@ -42,6 +42,12 @@ GLASS-BOX: pure symbolic; NO torch, NO external LLM, NO network. ASCII-only, no 
 
 from __future__ import annotations
 
+__bf_status__ = 'NOT_BF'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 BF-certification pass (operation/math read of the pinned computation + key ops; strategy first-hand)'
+__bf_note__ = "FIXED-WINDOW scene segmentation (LOCAL_WINDOW) is NOT the brain's event segmentation (the brain segments by prediction-error/schema-switch -- hdlab.sem_event_segmenter is the BF replacement); a located-negative, superseded/dead when graded_pick is on; parse_conll_sentences is admissible utility"
+__bf_corrections__ = []
+
+
 from collections import defaultdict
 from typing import Dict, List, Optional, Sequence, Set, Tuple
 

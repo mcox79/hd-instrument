@@ -61,6 +61,12 @@ first use). NO external LLM.
 """
 from __future__ import annotations
 
+__bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 BF-certification pass (operation/math read of the pinned computation + key ops; strategy first-hand)'
+__bf_note__ = 'SDRT-lite discourse coherence: directed plausibility + physics/psychology/GOAL causal-plausibility + means-end gate + Kintsch select (owner-DONE); pinned SDRT frame; DORMANT (track_coherence=False)'
+__bf_corrections__ = []
+
+
 import os
 import re
 import sys

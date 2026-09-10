@@ -37,6 +37,12 @@ EXPERIMENTS-side (the solver may not write hdlab/); SOLVED.md states the propose
 """
 from __future__ import annotations
 
+__bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 BF-certification pass (operation/math read of the pinned computation + key ops; strategy first-hand)'
+__bf_note__ = 'truth-conditional POLARITY + quantity operator over extracted propositions (pinned truth-conditional frame); the live surface-scan is kept because the parse-aware c-command version measured WORSE (0.909<0.932) -- a parser-gated located-negative, revisit when C3 parser improves'
+__bf_corrections__ = []
+
+
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Sequence, Tuple
 

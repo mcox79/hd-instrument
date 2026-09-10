@@ -247,6 +247,37 @@ it was certified on.
 
 ---
 
+## FOLLOW-ON PROTOTYPES (owner-directed, 2026-09-09) -- every finding built brain-foundationally + can-fail
+
+The owner asked to prototype ALL of the follow-on items now, brain-foundationally. Each below copies its
+brain computation (PINNED where an equation exists; BF_UNPINNED where the neural implementation is
+genuinely unpinned, honestly labelled), sweeps parameters, and passes a can-fail gate (adaptive/faithful
+arm beats the strongest tuned floor CI-separated AND an info-free twin loses). Witness W15-W18.
+
+| item | cell | brain computation (PINNED cite) | BF status | result (own metric, can-fail) |
+|---|---|---|---|---|
+| **DIAL #2 vigor** | `exp_reward_cluster_vigor_dial_v1.py` | tau*=sqrt(C_v/rho), Niv 2007 | **BF** | +578.9 net reward CI-sep over fixed; +707.8 over twin; composes with shipped halting dial (joint EVC) |
+| **DIAL #3 NE** gain-on-plasticity | `exp_self_manager_neuromodulatory_bank_v1.py` | adaptive learning rate from UNEXPECTED uncertainty, Yu & Dayan 2005 / Behrens 2007 / Pearce-Hall | **BF** | adaptive alpha beats best fixed alpha + twin CI-sep at tracking a jumping target |
+| **DIAL #4 ACh** encode/retrieve | (same cell) | encode(novelty) vs retrieve(familiarity) gate, Hasselmo 2006 | **BF** | 1.00 vs 0.25 fixed vs 0.50 twin, CI-sep |
+| **DIAL #5 5HT** horizon | (same cell) | discount gamma from delayed-payoff reliability, Doya 2002 / Miyazaki | **BF** | +19.2 vs fixed, +55.5 vs twin, CI-sep |
+| **DIAL #6 homeostasis/sleep** | (same cell) | SHY multiplicative downscaling restores learning headroom, Tononi & Cirelli | **BF** | new-pattern recoverability 0.71 vs 0.17 fixed vs 0.22 twin, CI-sep |
+| **R4 linear SR value** | `exp_action_selection_linear_sr_value_v1.py` | V = M @ R, Dayan 1993 (uses the REAL `successor_representation` M) | **BF** | Spearman vs Monte-Carlo truth 0.80 (linear) vs 0.39 (cosine stand-in), +0.42 CI-sep; identity M@R==def to 1e-4 |
+| **ToM false-belief** (TIER-6 gap) | `exp_theory_of_mind_belief_partition_v1.py` | per-agent OBSERVATION-GATED belief partition (decoupled metarepresentation, Leslie 1987 / Wimmer-Perner 1983) over FHRR | **BF_UNPINNED** (ToM has no pinned neural equation; labelled honestly) | false-belief 1.00 (ToM) vs 0.00 (reality-only floor), +1.00 CI-sep; twin 0.36; true-belief control agrees |
+| **R2 graded value teacher** | `exp_consequence_graded_value_teacher_v1.py` | graded OFC/vmPFC value, Padoa-Schioppa 2006 (vs binary MET/UNMET) | **BF** | Pearson 0.90 vs 0.86 binary (+0.044 CI-sep); same-sign discrimination 0.75 vs 0.68 (+0.061 CI-sep) |
+
+**Composition (the bank thesis, disk-proven):** `exp_reward_cluster_joint_evc_v1.py` shows DIAL #2
+(vigor) composes with the SHIPPED DIAL #1 (`AdaptiveHaltController`) CI-separated with byte-identical
+separable decisions -- so the whole bank (DIALS #1-6) is an ADDITIVE program on the existing core, not
+a re-architecture. **NO `hdlab/` writes (Q111)** -- these are prototypes + proposed diffs; strategy lands.
+
+**Honest scope on the prototypes.** Each is measured on a synthetic environment that ISOLATES its
+brain computation (the construction-proof status the shipped DIAL #1 witness also carries), NOT yet on
+a live substrate loop -- because nothing consumes these signals today. They prove each computation is
+real, faithful, and separable from noise; they do not yet move a live board number (no consumer). NE
+gain carries a located sub-finding: the pure gain-as-inverse-temperature reading is only a marginal,
+config-dependent win over a well-tuned fixed gain (a delta-rule value estimate is itself adaptive), so
+the ROBUST pinned NE win is the plasticity / learning-rate one -- reported, not hidden.
+
 ## ADMISSIBLE -- checked and deliberately NOT flagged (the do-not-over-fire discipline; a false positive is a failure)
 
 - **N1 `action_selection` = FAITHFUL (positive control).** TD(0) delta-rule whose error IS the RPE
