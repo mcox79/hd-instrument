@@ -62,6 +62,78 @@ consequences, not a static feature vector); AFFECTIVE/valence grounding (the War
 love/hate differ sharply in valence, a cheap partial antonym separator); contrastive-frame learning (antonyms
 recur in "not X but Y" / "either X or Y" frames -- a specific learnable textual signal).
 
+## 5b. LAYER 1 BUILT + MEASURED (2026-09-10) -- affective valence un-blinds antonymy WITHOUT WordNet
+`experiments/exp_valence_polarity_meaning_channel_v1.py` (SimVerb, no WordNet in the channel). The primary graded
+dimension antonyms reverse is AFFECTIVE VALENCE (Osgood 1957 semantic differential; Russell circumplex; Barrett/
+Lindquist core affect -- PINNED). REUSING `hdlab.affect_lexicon` over the on-disk Warriner VAD norms (the affective
+spoke `grounded_similarity` OMITS), a SIGNED valence read separates synonyms from antonyms:
+| representation | syn-vs-antonym AUC |
+|---|---|
+| distributional (learned SEQ) -- the relation-blind floor | 0.535 |
+| **VALENCE** (signed) | **0.718** (+0.183 over floor, CI [0.084, 0.281]) |
+| **VAD** (valence+arousal+dominance) | **0.750** |
+| WordNet (SUPPLIED, reference) | 0.875 |
+Complementary (corr with distributional 0.11), info-free twin collapses (0.502). So a GROUNDED, LEARNED-not-supplied
+affective dimension recovers MOST of the supplied ontology's antonym discrimination (0.535 -> 0.75 of 0.875) with NO
+ontology. **This is layer 1 of the fix, built and CI-separated.**
+- LITERATURE placement: the standard NLP fixes are SUPERVISED thesaurus injection (counter-fitting, Mrksic 2016;
+  lexical-contrast embeddings, Nguyen 2016) = the supplied ontology we avoid, or contrastive PATTERNS (Lin 2003;
+  Mohammad 2013; AntSynNET Nguyen 2016). The affective-valence / core-affect route is the brain-foundational one and
+  is less used for antonymy -- Osgood's Evaluation axis as the antonym separator.
+- HONEST RESIDUAL: valence catches **77%** of antonyms (the affectively-opposed: love/hate, win/lose, help/harm).
+  The ~23% CONVERSES (buy/sell, open/close, give/take) are NOT affectively opposed (measured: buy +0.46/sell +0.08)
+  and are NOT separated by valence -- they reverse a DIRECTIONAL state (possession, openness), which needs LAYER 2.
+  And COHYPONYMS (walk/run) are not a polarity problem (valence AUC 0.52) -- they need feature-specificity, not sign.
+
+## 5c. LAYER 2 BUILT + WALL RESEARCHED (2026-09-10) -- directional path semantics splits the residual in two
+`experiments/exp_directional_consequence_channel_v1.py` (base + 1M Simple-Wikipedia lines, parser-free, no
+ontology). A verb's SIGNED DIRECTIONAL SIGNATURE = its association with OPPOSED path markers
+(up/down, in/out, on/off, to/from, more/less, ...), PPMI(v,pole+)-PPMI(v,pole-) per axis -- the grammaticalised
+direction of state change (Talmy 1985/2000 path semantics; force-dynamic direction). Converse antonyms should have
+OPPOSITE signatures. Measured on canonical pairs (dir_sim; negative = opposite):
+| converse | dir_sim | works? | |
+|---|---|---|---|
+| increase/decrease | **-0.78** | YES | scalar direction (more/less) grammaticalised |
+| open/close | **-0.54** | YES | aperture (on/off, up/down) |
+| add/remove | -0.26 | YES | |
+| rise/fall | -0.16 | weak | vertical (up/down) |
+| **buy/sell** | **+0.38** | NO | direction is in the ARGUMENT ROLES, not a particle |
+| **give/take** | **+0.62** | NO | ditto |
+Info-free twin collapses (0.50). So the directional-path signal genuinely separates SCALAR / SPATIAL directional
+antonyms (LAYER 2a -- built, brain-foundational, learned, no ontology) but NOT TRANSFER CONVERSES (buy/sell,
+give/take, lend/borrow), whose polarity is in WHO-DOES-WHAT-TO-WHOM. On the mixed converse subset (n=41) it beats
+chance (AUC 0.57) and beats valence (+0.06) directionally but not CI-separated -- because it AVERAGES the working
+scalar converses with the failing transfer ones.
+
+**THE RESIDUAL, PRECISELY LOCATED (layer 2b), AND THE WALL RESEARCHED THROUGH (2026-09-10):** TRANSFER CONVERSES
+reverse the ROLE MAPPING (buy: subject GAINS; sell: subject GIVES). I drilled into it
+(`exp_role_asymmetry_converse_channel_v1.py`): the hypothesis was that SUBJECT-side (left) context differs while
+OBJECT-side (right) is shared, using the parser-free directional SEQ features. MEASURED: it does NOT separate them
+(subject-side AUC 0.436 ~chance; role-asymmetry 0.570 weak; canonical buy/sell R>L but give/take R<L, and synonyms
+like give/provide also R>L; twin collapses). **WHY -- the wall, understood 100%: ADJACENCY (+-2 tokens) is too
+coarse to isolate argument ROLES.** The discriminating entities (buyer vs seller -- the argument HEADS) sit at
+variable distances behind determiners/adjectives ("the wealthy customer bought"), so L1/L2 capture shared
+FUNCTION-WORD context, not the role-bound head nouns. **Transfer-converse polarity lives in the ROLE-BOUND ARGUMENT
+HEADS (agent-head vs patient-head), which co-occurrence of ANY directional flavour cannot represent -- it requires
+ARGUMENT-STRUCTURE PARSING + ROLE-BINDING.** This is the sharpest instance of the ORIGINAL finding (meaning is a
+similarity embedding, lacking COMPOSITIONAL role structure): the last ~few% of antonyms need a representation that
+BINDS fillers to roles, not a bag of contexts.
+
+**HOW TO DRILL THROUGH (the true generative-event layer, its own problem):** extract role-bound argument heads with
+`hdlab.incremental_parser` (BF subject/patient, no supervised treebank) or the dependency parse; represent a verb by
+the distribution over its SUBJECT-role heads vs OBJECT-role heads BOUND to the role (FHRR role-binding -- the
+substrate's binding algebra); converses have SWAPPED role->head bindings (buy's subject-head distribution ~ sell's
+recipient-head distribution). REUSE `hdlab.predictive_reader` (verb+role -> expected argument features) and
+`hdlab.situation_reader` (who-did-what). Bar: separate synonyms from transfer converses using ROLE-BOUND heads,
+above the adjacency floor, no ontology. This is why the substrate's generative world-model WITH ROLES is the named
+main event -- the transfer-converse residual PROVES co-occurrence similarity structurally cannot reach it.
+
+## THE LAYERED FIX (summary): the meaning representation gains POLARITY in three brain-foundational layers, none
+using WordNet -- (1) AFFECTIVE VALENCE (love/hate; built, AUC 0.535->0.75 CI-sep), (2a) DIRECTIONAL PATH SEMANTICS
+(increase/decrease, open/close; built, works on scalar/spatial), (2b) THEMATIC-ROLE / GENERATIVE-EVENT structure
+(buy/sell; located, the generative-world-model problem). Together they cover affective, scalar-directional, and
+role-directional opposition -- the three ways antonyms reverse meaning.
+
 ## 5. HOW TO TEST IT (the next problem's bar)
 Build the predictive-consequence channel from the forward organs above; on SimVerb it must (a) raise
 synonym-vs-antonym AUC above the ~0.51-0.53 distributional/perceptual floor CI-separated WITHOUT WordNet, (b) ADD to

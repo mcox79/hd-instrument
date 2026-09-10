@@ -30,6 +30,27 @@
    for the science slice; SCALE-UP = ingest **Rhea** (downloaded to `data/corpora/rhea/`, CC-BY) once RDKit/RDF parsing
    is available, + **BioModels** (CC0, ODE Jacobian sign) + signed ecological models (Lotka-Volterra). The everyday/
    biological tail (~90%) still needs the grounded Delta-Delta program (item 6).
+7b. **PHYSICS + THERMO/ENTROPY EXTENSION + the precision/coverage frontier** (`exp_causal_sign_formal_couplings_wiqa_v1.py`).
+   Added ~50 everyday-physics + 2nd-law/ENTROPY signed couplings (force/motion +, friction/speed -, mass/accel -,
+   heat/temperature +, temperature-diff/heat-flow +, time/decay+disorder +, concentration/diffusion +, water+wind/
+   erosion +). FINDING: with DISCIPLINED grounding the formal-model sign STILL beats the falsifier (~9%, +0.136 CI-sep);
+   but loosening grounding to grow coverage to 26% DILUTES it to a falsifier TIE (arm 0.580 vs scrambled-sign 0.554,
+   +0.026 NOT CI-sep) -- promiscuous quantities (water/energy/heat/time) match the WRONG model. => the signs are
+   correct, but realizing HIGH coverage cleanly is bounded by the INSTANTIATION problem (bind the token to the RIGHT
+   model). Clean path to high-coverage-AND-precision = use the PASSAGE's process (forward simulator, item 1a) to
+   disambiguate WHICH formal model applies, then apply its edge sign. Formal signs = high-precision lever; instantiation
+   is the coverage bound (the same wall, now on the sign).
+8. **THE INTEGRATED SIGN READER -- the coherent finish, PROVEN** (`exp_causal_sign_integrated_v1.py`, witness
+   `test_causal_sign_integrated.py` 3/3). Composes the two proven pieces: forward-simulator NECESSITY (given passage
+   chain) + formal-model edge SIGN (chemistry+physics+entropy), with the **PASSAGE-CONTEXT GATE** as the instantiation
+   fix (a formal coupling fires only if the passage supplies its model's context -- Kintsch/Zwaan: generic knowledge
+   selected by the specific text). RESULT (WIQA n=5005): context-gating GREW coverage 9% -> **13.4%** AND KEPT the
+   falsifier-beating precision -- SIGN arm **0.632** vs scrambled-sign 0.475 (**+0.157 CI[0.094,0.222] CI-sep**; loose
+   grounding had TIED at 26%); 3-WAY arm **0.492** vs scrambled 0.370 vs majority 0.222 (**+0.122 CI[0.072,0.174]**).
+   ⇒ the instantiation fix works: the passage's own process picks the right formal model, so the sign survives at higher
+   coverage. INCORPORATE as the sign+necessity reader for the science slice. Scale-up = full Rhea/BioModels/ecological
+   ingest (more formal couplings -> more gated coverage). Everyday/social tail (~87%) still routes to the grounded
+   Delta-Delta program (item 6).
 
 **INCORPORATE AS DURABLE NEGATIVE (record in `notes/BRAIN_FOUNDATIONAL_AUDIT.md` so no one re-treads):**
 7neg. **PROSE/CO-OCCURRENCE TEXT IS EXHAUSTED FOR THE COUPLING SIGN** (but the FORMAL-MODEL route is NOT -- see
@@ -41,6 +62,17 @@
 
 **DO NOT INCORPORATE (non-load-bearing / failed the falsifier -- keep only as documented negatives):** the signed-
 proportionality store (`signed_store_v1.json`), the force-dynamic sign lexicon. Shelve, do not wire.
+
+**COVERAGE-GAP MAP (`exp_causal_coverage_gap_analysis_v1.py`) -- what we miss + what data closes it.** Every WIQA effect
+item classified by domain; integrated-reader gated coverage per domain: bio_lifecycle/physiology 785 items @23% |
+physics/thermo 574 @21% | other 440 @12% | geo/weather 412 @31% | **everyday/procedural 406 @0%** | metabolic/chem
+240 @12% | ecology 36 @8%. **OF WHAT WE CURRENTLY MISS: ~55% is INGESTIBLE-FORMAL** (grow coverage by ingesting the DBs:
+full Rhea+Reactome for chem [blocked on RDKit], BioModels CC0 SBML->Jacobian-sign for biology [the BIGGEST domain],
+sympy physics-law core for physics/thermo, signed ecological models for ecology) **+ ~12% partial-formal** (QP/earth-
+science for geo) **+ ~33% GROUNDED-PROGRAM-only** (everyday/procedural/social -- NO formal model, needs the grounded
+Delta-Delta program). => PUSH PLAN: the formal-DB ingest can take sign coverage from ~18% toward ~65-70%; the remaining
+~33% (everyday/social) is the grounded-experience frontier. Each ingest is research-gated on its parse (RDKit / SBML-
+Jacobian / QP).
 
 ---
 

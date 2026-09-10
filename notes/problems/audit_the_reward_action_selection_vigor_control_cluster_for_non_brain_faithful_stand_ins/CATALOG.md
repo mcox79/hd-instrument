@@ -264,11 +264,21 @@ arm beats the strongest tuned floor CI-separated AND an info-free twin loses). W
 | **R4 linear SR value** | `exp_action_selection_linear_sr_value_v1.py` | V = M @ R, Dayan 1993 (uses the REAL `successor_representation` M) | **BF** | Spearman vs Monte-Carlo truth 0.80 (linear) vs 0.39 (cosine stand-in), +0.42 CI-sep; identity M@R==def to 1e-4 |
 | **ToM false-belief** (TIER-6 gap) | `exp_theory_of_mind_belief_partition_v1.py` | per-agent OBSERVATION-GATED belief partition (decoupled metarepresentation, Leslie 1987 / Wimmer-Perner 1983) over FHRR | **BF_UNPINNED** (ToM has no pinned neural equation; labelled honestly) | false-belief 1.00 (ToM) vs 0.00 (reality-only floor), +1.00 CI-sep; twin 0.36; true-belief control agrees |
 | **R2 graded value teacher** | `exp_consequence_graded_value_teacher_v1.py` | graded OFC/vmPFC value, Padoa-Schioppa 2006 (vs binary MET/UNMET) | **BF** | Pearson 0.90 vs 0.86 binary (+0.044 CI-sep); same-sign discrimination 0.75 vs 0.68 (+0.061 CI-sep) |
+| **STATE ABSTRACTION -- successor features** (the #1 perf-vs-brain signal loss) | `exp_successor_features_state_abstraction_v1.py` | place-fields-ARE-the-SR + grid-cells-are-its-eigenvectors, Stachenfeld 2017; successor features psi=(I-gamma A)^-1 phi, Barreto 2017; TD-learned | **BF** | held-out cos-to-MC-truth 0.89 (SF) vs 0.82 (the REAL tabular organ), +0.070 CI-sep; twin 0.37 (+0.52 CI-sep); TD W == closed form (rel-err 0.018); rank-d/2 grid-cell basis still generalizes |
 
 **Composition (the bank thesis, disk-proven):** `exp_reward_cluster_joint_evc_v1.py` shows DIAL #2
 (vigor) composes with the SHIPPED DIAL #1 (`AdaptiveHaltController`) CI-separated with byte-identical
 separable decisions -- so the whole bank (DIALS #1-6) is an ADDITIVE program on the existing core, not
 a re-architecture. **NO `hdlab/` writes (Q111)** -- these are prototypes + proposed diffs; strategy lands.
+
+**The state-abstraction fix closes the #1 performance-vs-brain gap.** The audit's honest perf-vs-brain
+diff named `successor_representation`'s MEASURED-AND-LOST / degrades-with-scale as the biggest signal
+loss, with the on-disk cause being tabular SR over atomic lemmas ("median ONE observed successor per
+word" -- no data per state, no sharing). The brain avoids this because place fields ARE the SR over a
+shared, overlapping FEATURE basis and grid cells are its eigenvectors (Stachenfeld 2017). The prototype
+runs the SR as SUCCESSOR FEATURES over that basis, TD-learned, and GENERALIZES to held-out states where
+the real tabular organ collapses to a state-independent constant -- the right fix, at the level the
+signal is actually lost. This is the deepest of the follow-ons and the one that unblocks the others.
 
 **Honest scope on the prototypes.** Each is measured on a synthetic environment that ISOLATES its
 brain computation (the construction-proof status the shipped DIAL #1 witness also carries), NOT yet on
