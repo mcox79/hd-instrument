@@ -34,6 +34,16 @@ the brief.*
 **Two standing rules for how STRATEGY writes a brief, and what it asks the SOLVER to do first:**
 - **Require the brain's actual mechanism + REUSE existing organs where possible.** Do not invent a new organ for a
   job the substrate already does; do not reach for what is lying around instead of the brain-faithful method.
+- **🧩 ONE BRAIN STRUCTURE = ONE ORGAN WITH ARMS — the anti-fragmentation gate (owner 2026-09-10).** BEFORE creating
+  a NEW organ, consult `notes/BRAIN_STRUCTURE_CONSOLIDATION_AUDIT.md`: does an existing brain STRUCTURE already own this
+  computation? Aggregate brain-foundationality means our ORGAN boundaries match the brain's STRUCTURE boundaries — the
+  REUSE check above ("does an organ do EXACTLY this?") is not enough, because a genuinely-new capability is often a new
+  ARM of a structure we already have (a different cue for the ONE cue-based entity resolver; a different channel of the
+  ONE meaning representation; a different read over the ONE situation model). If so, ADD THE ARM to that structure's
+  organ — do NOT mint a 6th organ for one structure (that IS the fragmentation the audit found: coref built as 6, meaning
+  as several, time as 6). CAVEAT (pri-3): the brain genuinely SPLITS some functions (Pearl-ladder causal rungs, predictive-
+  coding stages, situation-model per-dimension registers) — a NEW organ is right when the neuroscience says it is a
+  DISTINCT structure/operation, not merely a new task. Name, in the brief, which brain structure the work belongs to.
 - **🚫🔧 STATE IN EVERY BRIEF (owner 2026-09-08, OVERARCHING): all components must be 100% BRAIN-FOUNDATIONAL, and
   NEVER reach for a convenient/easy tool without careful brain-foundational consideration.** Name it concretely --
   **spaCy, GLUCOSE, MAVEN, and ANY off-the-shelf parser/dataset/model are NOT brain-foundational**; a vetted static
@@ -52,7 +62,7 @@ the brief.*
 - **EVERY BRIEF CARRIES THE 🧠 BRAIN-FOUNDATIONAL CHECKLIST (OWNER 2026-09-03).** A blockquote directly after the
   SOLVER OPERATING PROTOCOL, distilling the standing guidance the owner gives every solver — a RATIONAL ORDERED
   checklist the solution must satisfy: (1) OPEN — how does the BRAIN do this? (name structure+computation, PINNED vs
-  OUR-INVENTION, research where unsure); (2) REUSE — does an organ already do it?; (3) GENERALIZE — does it need to,
+  OUR-INVENTION, research where unsure); (2) REUSE + ONE-STRUCTURE-ONE-ORGAN — does an organ already do it, or does an existing brain STRUCTURE own this computation (add an ARM to that organ; do not mint a new organ for a structure we already have — see `BRAIN_STRUCTURE_CONSOLIDATION_AUDIT.md`; a new organ is right only when the neuroscience says it is a DISTINCT structure)?; (3) GENERALIZE — does it need to,
   and how does the brain?; (4) HIT A WALL → GO DEEPER, don't stop (if the brain can do it, it's possible; drill WHY;
   a located negative counts only if the brain's ACTUAL mechanism failed); (5) OPTIMIZE BY EXACT REPLICATION (evaluate
   aggressively/precisely how the brain does it, replicate exactly, no half-effort); (6) PERFORMANCE vs THE BRAIN
