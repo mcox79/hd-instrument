@@ -62,6 +62,18 @@
 - **Consumer:** the learned-identity meaning channel; live-wire gated on pri-5. **LATENT** (default-off flag); to grow +
   persist the consolidated store, run the offline grow loop with the flag on. Witness `test_route_b_directional_typing.py` 6/6.
 
+### 5. `causal_sign_channel` formal-model couplings — the more/less edge SIGN  ·  **BF_SPIRIT**  ·  **LIVE** (`sm.causal_sign`)
+- **Path:** `hdlab/causal_sign_channel.py` (self-contained: 20 REACTIONS + 95 INFLUENCES + gate logic, byte-faithful to the solver's verified store; witness `test_causal_sign_channel_landed.py` 3/3, 5280 checks).
+- **Provenance:** `grow_the_causal_mechanism...` (owner-DONE 2026-09-10, STRONG). The FIRST sign source to BEAT the scrambled falsifier (WIQA science slice +0.157 CI-sep, 14.2% cov).
+- **What it is:** the increase/decrease SIGN of a causal edge computed from runnable-model STRUCTURE (reaction stoichiometry + physics + thermo/entropy), passage-context-gated (Kintsch instantiation). Prose sign sources all TIE the falsifier (durable negative — do NOT add one).
+- **BF basis:** Forbus QP direct-influence sign (storable); net/regime signs need simulation (Forbus — the everyday tail, → grounded Δ-Δ). Honest abstain off the science slice.
+- **LIVE INGEST (owner directive):** wired as `situation_reader` → `sm.causal_sign(cause, outcome, passage?)` (pure-add, byte-identical off; a live callable, board no-regress verified). Scale-up = **Rhea** (`data/corpora/rhea/`, 14MB downloaded, CC-BY) + BioModels (CC0 ODE Jacobian) + ecological (Lotka-Volterra) → grows sign coverage ~13%→~65% at the direct-influence grain.
+
+### 6. `directed causal store` — the mined causal-testimony structural prior  ·  **BF_SPIRIT (data)**  ·  LATENT→(causal reader)
+- **Path:** `data/exp_causal_testimony_mine_v1/store_v1.json` (3.8MB). Provenance: same solver.
+- **What it is:** directed cause→effect edges mined from causal linguistic testimony — a STRUCTURAL PRIOR (proven load-bearing for the necessity read: store-knowledge beats info-free twin +0.139 CI-sep). Direction accuracy caps ~0.61 (intrinsic); coverage is scale-limited (rises to ~full at ~100×); 98% of missing links are Gricean link-sparsity → the corpus to add is commonsense/procedural/how-to, NOT encyclopedic.
+- **Consumer:** the causal necessity/reasoning read (structural prior). **LATENT** wrt a live default consumer — audit `sm.causal_reasoner`/`causal_links` for whether the store is read live; wire if net-positive (measure-first).
+
 ---
 
 ## KNOWN GROWN/CURATED ASSETS TO ENUMERATE + FOLD (work-list — not yet in this register)

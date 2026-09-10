@@ -553,6 +553,7 @@ class SituationModel:
     counterfactual: Optional[object] = None
     graded_necessity: Optional[object] = None
     signed_effect: Optional[object] = None
+    causal_sign: Optional[object] = None          # FORMAL-MODEL more/less edge sign (grown-knowledge ingest 2026-09-10)
     # opt-in SPATIAL-RELATIONAL REASONING dimension (IS-X-INSIDE-Y / IS-A-rel-B / IS-A-STILL-IN-K): read-only
     # CALLABLES bound at read time when the reader is built with track_spatial_reasoning=True (default-on). The
     # SPACE-channel sibling of the causal reasoner -- a glass-box relational reasoner over the reader's OWN
@@ -3327,6 +3328,21 @@ class SituationReader:
             p, o = _node(perturbed), _node(outcome)
             return _graph().signed_effect(p, o, sign) if (p and o) else "no_effect"
 
+        # FORMAL-MODEL more/less edge SIGN (grown-knowledge LIVE ingest 2026-09-10, owner-DONE grow_the_causal_
+        # mechanism): the increase/decrease sign COMPUTED from runnable-model STRUCTURE (reaction stoichiometry +
+        # physics + thermo/entropy), passage-context-gated (Kintsch instantiation) -- the FIRST sign source to beat
+        # the scrambled falsifier CI-sep (WIQA science slice +0.157). Complements the graph's signed_effect (graph
+        # topology) with the FORMAL-MODEL sign. Honest abstain (covered=False) on the everyday/social tail. PURE ADD,
+        # zero-cost, byte-identical off (a NEW ISLAND -- no forced consumer yet; the sign board-dim is the next step).
+        from hdlab.causal_sign_channel import CausalSignChannel
+        _formal_sign = CausalSignChannel()
+
+        def causal_sign(cause, outcome, passage_concepts=None):
+            """FORMAL-MODEL more/less sign of cause->outcome given the passage's concepts -> (sign in {+1 increase,
+            -1 decrease, 0}, covered). passage_concepts defaults to the reader's OWN extracted causal-graph nodes."""
+            pc = passage_concepts if passage_concepts is not None else list(_graph().nodes)
+            return _formal_sign.edge_sign([str(cause)], [str(outcome)], pc)
+
         sm.causal_reasoner = causal_reasoner
         sm.ultimate_cause = ultimate_cause
         sm.mediating_cause = mediating_cause
@@ -3335,6 +3351,7 @@ class SituationReader:
         sm.counterfactual = counterfactual
         sm.graded_necessity = graded_necessity
         sm.signed_effect = signed_effect
+        sm.causal_sign = causal_sign
         # the CausalGraph is built LAZILY inside the closures on first invocation -- zero read-time cost / no build.
 
     def _read_predictive_causal(self, sm, sents) -> None:
