@@ -579,10 +579,13 @@ class SituationModel:
     # opt-in FORWARD predictive-coding causal-antecedent reader (default-on track_predictive_causal; wired
     # 2026-09-09 from owner-DONE generate_dont_retrieve_causal_edges). Read-only callables over the reader's OWN
     # event-concept stream + the consolidated online predictive-coding world-model (hdlab.predictive_world_model):
-    # causal_antecedent(effect_event_index) = the event whose ablation most raises the effect's surprisal
-    # (Gerstenberg counterfactual necessity over Kuperberg N400 predictive coding). COMPLEMENTS sm.causal_reasoner
-    # (graph-necessity over extracted sm.causal_links) with the INTRINSIC SURPRISAL necessity that escapes the
-    # position confound. None until invoked / if the foundation asset is absent. PURE ADD, LAZY, byte-identical off.
+    # causal_antecedent(effect_event_index) = the event whose ablation most raises the effect's surprisal.
+    # RUNG-1 (owner-DONE grow_the_causal_mechanism, 2026-09-10): this is LEAVE-ONE-OUT PREDICTIVE RELEVANCE
+    # log[P(B|ctx)/P(B|ctx\A)] = associative resonance / N400 (Kuperberg predictive coding), NOT Pearl rung-2/3
+    # counterfactual necessity (the prior "Gerstenberg CSM" label was a mislabel, proven by the Causal Hierarchy
+    # Theorem: barometer/storm). TRUE counterfactual necessity = sm.causal_reasoner (rung-2/3 do()-surgery). This
+    # rung-1 read COMPLEMENTS sm.causal_reasoner as the INTRINSIC SURPRISAL relevance that escapes the position
+    # confound. None until invoked / if the foundation asset is absent. PURE ADD, LAZY, byte-identical off.
     predictive_world_model: Optional[object] = None
     causal_antecedent: Optional[object] = None
     predictive_necessity: Optional[object] = None
