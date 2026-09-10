@@ -28,7 +28,11 @@ Every working cycle, in order:
    + the standing blockquotes; cert `verification/test_problem_briefs_and_flags.py`). De-dup against existing
    problems first.
 4. **Propagate:** when a component is improved, walk `CROSS_SOLUTION_IMPROVEMENT_MAP.md` PART 2 for its consumers and
-   apply/queue each; record in the PROPAGATION STATUS block.
+   apply/queue each; record in the PROPAGATION STATUS block. **BF component updates:** every incoming SOLVED carries
+   AUDIT UPDATEs — add/refresh its row in `BF_COMPONENT_UPDATE_LEDGER.md`, classify NARROW (lands with the solution) vs
+   GENERAL (a correction to a shared LIVE organ); at integration apply the solution's BF updates AND walk that ledger's
+   GENERAL rows on the same organ. This is how a BF fix "focused on its own problem" that actually corrects a shared
+   organ does not get lost.
 5. **Evaluate on a cadence:** the TRIGGER is the INTEGRATION WAVE (a live change landed), NOT every cycle —
    between waves nothing new is live, so the fast `--self-test` (capped, ~2min) suffices to confirm no-regress
    (it re-confirmed AGG 0.6294 across this session's additive/latent integrations). The FULL board
@@ -82,6 +86,7 @@ not mine-side grinds. Off-path/lower: the reward-cluster vigor dial (+579, dorma
 - `notes/INTEGRATION_LEDGER.md` — per-solution gain/wiring/next-steps. · `notes/bf_status_registry.jsonl` — per-organ BF status (machine-checked).
 - `notes/CROSS_SOLUTION_IMPROVEMENT_MAP.md` — the by-target reverse-index + PROPAGATION STATUS.
 - `notes/KNOWLEDGE_ASSET_REGISTER.md` — grown/curated knowledge DBs (LIVE/LATENT). · `notes/BRAIN_FOUNDATIONAL_AUDIT.md` — the §2b audit log.
+- `notes/BF_COMPONENT_UPDATE_LEDGER.md` — every solution's BF component updates, classified NARROW-vs-GENERAL + status (APPLIED / PENDING-DONE / LOCATED-NEGATIVE). The organ-indexed queue of pending BF corrections; walk its GENERAL rows at each integration.
 - `tools/substrate_map.py` — the derived organ/stage/brief join. · `notes/problems/README.md` — the brief format + owner-DONE workflow.
 - **SUPERSEDED / historical** (kept for lineage, NOT the live plan): `BUILD_PLAN_post_audit_2026-08-19.md` (its top block still carries the latest per-session handoff — read that; the roadmap here is authoritative), THE_PLAN.md, LONG_TERM_PLAN*.md, PLAN_NEXT_*.md, OVERNIGHT_PLAN*.md, CONSOLIDATION_PHASE_PLAN.md, INTEGRATION_PASS_PLAN.md, PLAN*.md.
 
