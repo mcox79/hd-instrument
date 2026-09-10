@@ -45,6 +45,12 @@ current default); `graded_write` is the Nref-faithful distribution. MEASURE on t
 """
 from __future__ import annotations
 
+__bf_status__ = 'BF'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 BF-certification pass (reader CATALOG owner-DONE + BRAIN_FOUNDATIONAL_AUDIT §2b; strategy first-hand cross-ref)'
+__bf_note__ = 'ACT-R base-level activation (Anderson-Schooler power-law) + Centering Cf role-prominence; CAT genuinely-BF (the pinned salience math the coref line reuses)'
+__bf_corrections__ = []
+
+
 import math
 from typing import Dict, List, Optional, Sequence, Tuple
 

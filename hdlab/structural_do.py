@@ -17,6 +17,12 @@ complete list can only PURIFY the direct-object set. 59 entries, byte-frozen fro
 """
 from __future__ import annotations
 
+__bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 BF-certification pass (reader CATALOG owner-DONE + BRAIN_FOUNDATIONAL_AUDIT §2b; strategy first-hand cross-ref)'
+__bf_note__ = 'structural direct-object cue + ABSTAIN (not unconditional fill); BFA CONT-28 PASS'
+__bf_corrections__ = []
+
+
 from typing import Sequence
 
 # byte-frozen from experiments.exp_19c_composed_cleaned_gold_v1.CLEAN_PREPS (REG.PREPS | the literary extension).

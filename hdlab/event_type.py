@@ -27,6 +27,12 @@ Glass-box, NO external LLM. Reuses WordNet (already in the substrate). Determini
 """
 from __future__ import annotations
 
+__bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 BF-certification pass (reader CATALOG owner-DONE + BRAIN_FOUNDATIONAL_AUDIT §2b; strategy first-hand cross-ref)'
+__bf_note__ = 'event-TYPE supply (MFS/WordNet) feeding causation/bridge; admissible static foundation; MFS->WSD is a flagged follow-on'
+__bf_corrections__ = []
+
+
 # WordNet verb supersense -> event type (the folk-psychological ontology).
 _SUPERSENSE_TO_TYPE = {
     "verb.motion": "PHYSICAL", "verb.contact": "PHYSICAL", "verb.change": "PHYSICAL",

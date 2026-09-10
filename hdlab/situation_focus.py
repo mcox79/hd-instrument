@@ -24,6 +24,12 @@ ASCII-only. torch.Tensor bipolar {-1,+1} float32.
 """
 from __future__ import annotations
 
+__bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 BF-certification pass (reader CATALOG owner-DONE + BRAIN_FOUNDATIONAL_AUDIT §2b; strategy first-hand cross-ref)'
+__bf_note__ = 'theta-gamma bounded WM buffer; MEASURED GAP: capacity 4 vs Cowan ~7 + weak serial-order channel (BFA Tier4 right-op-wrong-metric) -- tag reflects the gap'
+__bf_corrections__ = []
+
+
 from typing import Dict, List, Sequence, Tuple
 
 import torch

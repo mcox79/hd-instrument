@@ -36,6 +36,12 @@ of experiments/) so the module is stdlib+hdlab only.
 """
 from __future__ import annotations
 
+__bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 BF-certification pass (reader CATALOG owner-DONE + BRAIN_FOUNDATIONAL_AUDIT §2b; strategy first-hand cross-ref)'
+__bf_note__ = 'OCC appraisal over event-goal congruence (Ortony-Clore-Collins pinned frame); admissible'
+__bf_corrections__ = []
+
+
 import re
 from dataclasses import dataclass
 from typing import List, Optional

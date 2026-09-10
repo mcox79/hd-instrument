@@ -30,6 +30,12 @@ BRAIN-FOUNDATIONAL (research drill research_goal_intention_brain_mechanism_2026-
 """
 from __future__ import annotations
 
+__bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 BF-certification pass (reader CATALOG owner-DONE + BRAIN_FOUNDATIONAL_AUDIT §2b; strategy first-hand cross-ref)'
+__bf_note__ = 'goal/subgoal register (admissible verb-class supply + a tracked graph); CAT admissible foundation'
+__bf_corrections__ = []
+
+
 import os
 os.environ.setdefault("OMP_NUM_THREADS", "1")
 os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")

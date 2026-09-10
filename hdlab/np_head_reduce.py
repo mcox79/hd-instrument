@@ -19,6 +19,12 @@ Glass-box, stdlib-only, deterministic. NO spaCy / NO LLM. ASCII.
 """
 from __future__ import annotations
 
+__bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 BF-certification pass (reader CATALOG owner-DONE + BRAIN_FOUNDATIONAL_AUDIT §2b; strategy first-hand cross-ref)'
+__bf_note__ = 'deterministic NP-head reduction (linguistic rule); CAT genuinely-BF'
+__bf_corrections__ = []
+
+
 from typing import List, Sequence
 
 # genitive markers (straight + curly apostrophe) -- from the validated cell (exp_whodidwhat_nphead_case_v1.POSS)

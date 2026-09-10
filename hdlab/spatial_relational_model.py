@@ -48,6 +48,12 @@ Glass-box, ASCII only, NO external LLM, torch-free (numpy only in the cells). Pu
 """
 from __future__ import annotations
 
+__bf_status__ = 'BF'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 BF-certification pass (reader CATALOG owner-DONE + BRAIN_FOUNDATIONAL_AUDIT §2b; strategy first-hand cross-ref)'
+__bf_note__ = 'Franklin-Tversky spatial framework (Source-Path-Goal construction, containment/proximity/projective); CAT genuinely-BF + BFA 09-07 spatial WIN'
+__bf_corrections__ = []
+
+
 from collections import defaultdict, deque
 from typing import Dict, List, Optional, Sequence, Set, Tuple
 

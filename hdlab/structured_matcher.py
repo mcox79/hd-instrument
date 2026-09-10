@@ -35,6 +35,12 @@ spatial type-membership 0.917 vs hub 0.500 (+0.417 CI-separated); the hub is at/
 slices. See verification/test_structured_matcher_{event_goal,type_transfer,core_noregress,valence_antonym}.py.
 """
 from __future__ import annotations
+
+__bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 BF-certification pass (reader CATALOG owner-DONE + BRAIN_FOUNDATIONAL_AUDIT §2b; strategy first-hand cross-ref)'
+__bf_note__ = 'structured relation-SIGN read + abstain-to-hub (converse/antonym typing); CAT admissible + BFA 09-07 EXCELLENT'
+__bf_corrections__ = []
+
 import gzip
 import json
 import os

@@ -55,6 +55,12 @@ gitignored per the whole-data/-tree convention). Glass-box. NO external LLM at i
 """
 from __future__ import annotations
 
+__bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 BF-certification pass (reader CATALOG owner-DONE + BRAIN_FOUNDATIONAL_AUDIT §2b; strategy first-hand cross-ref)'
+__bf_note__ = 'ATL hub-and-TYPED-SPOKE store (C5 is-a directed closure + C6 part-whole + C7 antonym), synset-keyed; admissible offline knowledge as typed/directed spokes'
+__bf_corrections__ = []
+
+
 import collections
 import json
 import os

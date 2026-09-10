@@ -43,6 +43,12 @@ never raises) when they are absent, so a default-on live consumer is safe in an 
 """
 from __future__ import annotations
 
+__bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 BF-certification pass (reader CATALOG owner-DONE + BRAIN_FOUNDATIONAL_AUDIT §2b; strategy first-hand cross-ref)'
+__bf_note__ = 'cosine-argmax over the grounded ATL hub + WordNet part-whole lookup for unstated bridges; CAT SOLVED brain-faithful'
+__bf_corrections__ = []
+
+
 import os
 import pickle
 from dataclasses import dataclass, field
