@@ -26,6 +26,12 @@ GLASS-BOX: pure symbolic dispatch; NO external LLM, NO network. ASCII only. Dete
 """
 from __future__ import annotations
 
+__bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 BF-certification pass (operation/math read of the pinned computation + key ops; strategy first-hand)'
+__bf_note__ = 'Glenberg-Meyer-Lindem-1987 two-stage reference resolution: raw mention -> canonical DISCOURSE-ENTITY key so world-state keys on the ENTITY not the surface word; pinned two-stage binding'
+__bf_corrections__ = []
+
+
 from collections import Counter
 from typing import Optional
 

@@ -33,6 +33,12 @@ built once and cached. ASCII only.
 """
 from __future__ import annotations
 
+__bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 BF-certification pass (operation/math read of the pinned computation + key ops; strategy first-hand)'
+__bf_note__ = 'FrameNet-derived TRANSFER operator+role lexicon (admissible STATIC OFFLINE asset built once) feeding the world-state register; supply, not a fitted decision'
+__bf_corrections__ = []
+
+
 import json
 import os
 from typing import Dict, Optional

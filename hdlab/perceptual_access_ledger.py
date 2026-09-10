@@ -44,6 +44,12 @@ GLASS-BOX: pure symbolic inference over the SUBSTRATE'S OWN in-substrate UD pars
 """
 from __future__ import annotations
 
+__bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 BF-certification pass (operation/math read of the pinned computation + key ops; strategy first-hand)'
+__bf_note__ = "glass-box OBSERVATION-CUE front-end for ToM ('did agent A perceive event E?'; literature-drilled brain mechanism), replacing the lexical keyword extractor; pinned perceptual-access frame"
+__bf_corrections__ = []
+
+
 import os
 import re
 from dataclasses import dataclass, field

@@ -47,6 +47,12 @@ events like the location/state register cores) so the mechanism is isolable from
 """
 from __future__ import annotations
 
+__bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 BF-certification pass (operation/math read of the pinned computation + key ops; strategy first-hand)'
+__bf_note__ = 'Zwaan-Radvansky mutable world-state tracking via event EFFECTS/PRECONDITIONS (pinned situation-model updating); the STRIPS-style operator formalism is an OUR-INVENTION computational-level implementation'
+__bf_corrections__ = []
+
+
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Sequence, Set, Tuple
 

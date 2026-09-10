@@ -30,6 +30,12 @@ Glass-box, rule-based, NO external LLM (the invariant). Proven in experiments/ex
 """
 from __future__ import annotations
 
+__bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 BF-certification pass (operation/math read of the pinned computation + key ops; strategy first-hand)'
+__bf_note__ = 'glass-box goal->subgoal hierarchy graph for plot comprehension (owner-DONE); pinned goal-decomposition over goal_register'
+__bf_corrections__ = []
+
+
 from collections import defaultdict
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple

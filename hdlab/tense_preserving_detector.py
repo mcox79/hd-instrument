@@ -9,6 +9,12 @@ test_preserve_tense_landing_organ.py -- promotion-faithful check).
 """
 from __future__ import annotations
 
+__bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 BF-certification pass (operation/math read of the pinned computation + key ops; strategy first-hand)'
+__bf_note__ = 'compositional Reichenbach tense reader: every UPOS==VERB -> Reichenbach triple (tense/aspect/voice + finite + effective_tense via mark-and-inherit); pinned Reichenbach frame; pure stdlib'
+__bf_corrections__ = []
+
+
 from typing import Dict, List, Optional
 
 # Closed-class auxiliaries by SURFACE FORM (English morphology -- a lexicon parameter).

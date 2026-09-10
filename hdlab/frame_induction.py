@@ -38,6 +38,12 @@ Public API:
 """
 from __future__ import annotations
 
+__bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 BF-certification pass (operation/math read of the pinned computation + key ops; strategy first-hand)'
+__bf_note__ = "Gleitman-1990 syntactic bootstrapping: induce a novel verb's thematic frame (AGENT vs EXPERIENCER subject) from the constructions it appears in; pinned bootstrapping op, feature-encoder EXPAND of hdlab.learner"
+__bf_corrections__ = []
+
+
 import hashlib
 import json
 import os

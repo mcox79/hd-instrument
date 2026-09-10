@@ -22,6 +22,12 @@ queued follow-on (keeps this module torch-free).
 """
 from __future__ import annotations
 
+__bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 BF-certification pass (operation/math read of the pinned computation + key ops; strategy first-hand)'
+__bf_note__ = 'Zwaan-Radvansky SPACE dimension tracking core: per-entity presence INTERVALS (location_node, t_open, t_close) over discourse time; spaCy-free; pinned event-indexing frame'
+__bf_corrections__ = []
+
+
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Sequence, Tuple
 

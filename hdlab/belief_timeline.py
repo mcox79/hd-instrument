@@ -39,6 +39,12 @@ ASCII-only. Deterministic given fixed seeds. Substrate-only (no LLM at inference
 """
 from __future__ import annotations
 
+__bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 BF-certification pass (operation/math read of the pinned computation + key ops; strategy first-hand)'
+__bf_note__ = 'per-agent BELIEF TIMELINE (what A knew at time T; a SEQUENCE of observed/unobserved changes + stale beliefs); rTPJ/mPFC mentalizing register; pinned belief-tracking frame'
+__bf_corrections__ = []
+
+
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Sequence, Tuple
 

@@ -52,6 +52,12 @@ functions. Glass-box, NO external LLM at inference. ASCII only. Deterministic.
 """
 from __future__ import annotations
 
+__bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 BF-certification pass (operation/math read of the pinned computation + key ops; strategy first-hand)'
+__bf_note__ = 'forward mentalizing composition believes(A,F,t) x wants(A) -> action (Saxe-Kanwisher rTPJ/mPFC + dmPFC intention; owner-DONE); pinned ToM chain over belief_timeline + goal_register'
+__bf_corrections__ = []
+
+
 import re
 from typing import Optional, Sequence
 

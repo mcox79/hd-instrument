@@ -32,6 +32,12 @@ The joint TEMPORAL REASONER wire (feeding this event set to hdlab.temporal_reaso
 hdlab.situation_reader._build_joint_temporal_reasoner, which already imports the shared temporal front-end.
 """
 from __future__ import annotations
+
+__bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 BF-certification pass (operation/math read of the pinned computation + key ops; strategy first-hand)'
+__bf_note__ = "the brain extracts a clause's relations JOINTLY in ONE structural pass (pinned, not N per-relation classifiers) -- parse once, read all channels off the same dependency; the NOT_BF pos_tagger/arc_parser upstream is the residual"
+__bf_corrections__ = []
+
 import os
 import sys
 from typing import Dict, List, Sequence, Tuple

@@ -36,6 +36,12 @@ ASCII only. Deterministic. Writes nothing (a library; the measuring cell owns da
 """
 from __future__ import annotations
 
+__bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 BF-certification pass (operation/math read of the pinned computation + key ops; strategy first-hand)'
+__bf_note__ = "glass-box driver: runs the pinned belief_timeline end-to-end off the reader's OWN live extraction; self-contained (last experiments dep removed); no decision of its own beyond wiring"
+__bf_corrections__ = []
+
+
 import os
 import re
 import sys

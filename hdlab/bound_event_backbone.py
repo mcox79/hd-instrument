@@ -38,6 +38,12 @@ verification/test_bound_event_backbone_landing_organ.py).
 """
 from __future__ import annotations
 
+__bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 BF-certification pass (operation/math read of the pinned computation + key ops; strategy first-hand)'
+__bf_note__ = 'tiered bound-event-token backbone (the JOINT who-did-which-action binding the parallel silos lacked); FHRR binding via event_bundle (BF); pinned role-binding assembly'
+__bf_corrections__ = []
+
+
 import hashlib
 import math
 from typing import Dict, List, Optional, Tuple

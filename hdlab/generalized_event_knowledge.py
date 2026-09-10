@@ -48,6 +48,12 @@ hdlab.generalized_event_knowledge --build) fits the store from data/corpora/roc_
 """
 from __future__ import annotations
 
+__bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 BF-certification pass (operation/math read of the pinned computation + key ops; strategy first-hand)'
+__bf_note__ = 'forward GEK = graded associative co-activation readout over generalized event knowledge (McRae/Matsuki; the forward half of the predictive hierarchy); pinned associative readout'
+__bf_corrections__ = []
+
+
 import math
 import os
 import re
