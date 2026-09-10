@@ -58,6 +58,17 @@ DEFAULT_TAU_E = 0.056714747111021084   # episodic cue gold-blind global scale (s
 DEFAULT_TAU_S = 0.35560472209499694    # semantic cue gold-blind global scale (std of raw conceptual similarities)
 DEFAULT_W = 12.0                       # calibrated reliability ratio (median held-out; Ernst-Banks). w=1 == equal-reliability.
 
+__bf_status__ = "BF_SPIRIT"   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = ("2026-09-10 pri-2 meaning-representation piece 3: the convergent-cue product read "
+                   "(log p_epi + w log p_sem) is Ma/Beck/Latham/Pouget PPC-normative reliability weighting; the "
+                   "fitted DEFAULT_W (labelled OUR-INVENTION) is retired by the intrinsic saturating gain-ratio "
+                   "intrinsic_gain_w (log1p gain), witness test_convergent_cue_intrinsic_gain.py 3/3; strategy first-hand")
+__bf_note__ = ("convergent-cue reliability-weighted read (Ma/Pouget PPC; Ernst-Banks precision weighting). The "
+               "reliability weight is now the INTRINSIC per-query saturating gain-ratio (log1p earned evidence), "
+               "NOT the fitted DEFAULT_W (opt-in via gain_epi/gain_sem; byte-identical default; turn on with reading "
+               "exposure per the spec). LATENT (no live consumer yet; live-wire gated on the fusion end-to-end "
+               "measurement, pri-5).")
+
 
 def _softmax(x: Sequence[float]) -> np.ndarray:
     x = np.asarray(x, float)
@@ -77,15 +88,37 @@ def calibrate_tau(raw_scores: Sequence[Sequence[float]]) -> float:
     return float(v.std()) if v.size and v.std() > 1e-12 else 1.0
 
 
+def intrinsic_gain_w(gain_epi: float, gain_sem: float) -> float:
+    """The INTRINSIC per-query reliability weight (pri-2 meaning-representation piece 3) -- replaces the fitted
+    OUR-INVENTION `DEFAULT_W`. Each channel's reliability is the SATURATING gain of its OWN accumulated EARNED
+    evidence, `log1p(gain)` (Weber-Fechner; Poisson Fisher information saturates -> the RAW count over-weights a
+    frequent-but-uninformative channel once reading grows, so saturate it). Returns `w = log1p(gain_sem) /
+    log1p(gain_epi)` for the `log p_epi + w * log p_sem` fusion: w -> 1 as the two channels' gains equalise
+    (equal-reliability), w > 1 when the semantic channel has earned more evidence for THIS query. Only EARNED
+    channels (grounded / directional-SEQ) carry gain; a SUPPLIED ontology's gain is UNIFORM -> pass equal gains
+    -> w = 1. No fitting, no label. Guarded fallback to the fitted default while the earned channel is empty
+    (until reading exposure fills it -- the spec's 'turn on with exposure')."""
+    ge = float(np.log1p(max(0.0, gain_epi)))
+    gs = float(np.log1p(max(0.0, gain_sem)))
+    if ge <= 0.0:                                         # no earned episodic evidence yet
+        return 1.0 if gs <= 0.0 else DEFAULT_W            #   -> equal (both empty) / fitted fallback (until exposure)
+    return gs / ge
+
+
 def convergent_pick(epi_raw: Optional[Sequence[float]], sem_raw: Optional[Sequence[float]], *,
-                    tau_e: float = DEFAULT_TAU_E, tau_s: float = DEFAULT_TAU_S, w: float = DEFAULT_W) -> Optional[int]:
+                    tau_e: float = DEFAULT_TAU_E, tau_s: float = DEFAULT_TAU_S, w: float = DEFAULT_W,
+                    gain_epi: Optional[float] = None, gain_sem: Optional[float] = None) -> Optional[int]:
     """Convergent-cue read over candidates aligned by index: return argmax_c [log p_epi(c) + w*log p_sem(c)].
 
     epi_raw / sem_raw are per-candidate raw cue scores in the SAME candidate order.
       * sem_raw None AND epi_raw None -> None (no evidence).
       * epi_raw None (hippocampal lesion) -> meaning-solo = argmax(sem_raw).
       * sem_raw None (semantic lesion)   -> entity-solo  = argmax(epi_raw).
-    Two SEPARATE pools combined at read; never fused. Glass-box: takes NO gold/label."""
+    Two SEPARATE pools combined at read; never fused. Glass-box: takes NO gold/label.
+
+    INTRINSIC GAIN (pri-2 piece 3, OPT-IN): when both channels' EARNED gains are supplied (`gain_epi`,
+    `gain_sem`), the reliability weight is the intrinsic saturating gain-ratio `intrinsic_gain_w(...)` instead of
+    the fitted `w`. BYTE-IDENTICAL when the gains are absent (all current callers)."""
     if sem_raw is None and epi_raw is None:
         return None
     if sem_raw is None:                                   # semantic lesion -> entity-solo (graceful)
@@ -94,4 +127,6 @@ def convergent_pick(epi_raw: Optional[Sequence[float]], sem_raw: Optional[Sequen
     if epi_raw is None:                                   # hippocampal lesion -> meaning-solo (graceful)
         return int(np.argmax(p_sem))
     p_epi = _softmax(np.asarray(epi_raw, float) / tau_e)
+    if gain_epi is not None and gain_sem is not None:     # OPT-IN intrinsic gain (net-neutral now, turn on with exposure)
+        w = intrinsic_gain_w(gain_epi, gain_sem)
     return int(np.argmax(np.log(p_epi + 1e-12) + w * np.log(p_sem + 1e-12)))
