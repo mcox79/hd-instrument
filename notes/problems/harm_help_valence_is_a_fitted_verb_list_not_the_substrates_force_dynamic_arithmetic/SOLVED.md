@@ -5,7 +5,7 @@ bar: "Compute harm/help event valence from the substrate's FORCE-DYNAMIC arithme
 result: "Through the LIVE reader on a 36-item modern harm/help gold: force-dynamic arithmetic 0.944 (+/-0.069) vs the current frame-list organ 0.778 (+/-0.125); PAIRED fd-minus-organ = +0.167, bootstrap CI [+0.056, +0.278] (CI-separated from 0), 6 gains / 0 losses. On the 32 social/emotional verbs the frame list misses: fd 0.875 (+/-0.109) vs current organ 0.000 (CI-separated). Info-free twin (scrambled valence+force lexicon) 0.639 live / 0.28 on the generalization set (loses)."
 floor: "Strongest floor = the CURRENT LIVE organ hdlab.force_dynamics_valence.harm_help (frame-membership): 0.778 on the live gold, 0.000 on the frame-list-miss set. Also: majority-class (all-NEUTRAL) 0.333; valence_only control (info-bearing, no gate/structure) 0.94 on generalization but 0.00 neutral-precision and 0.43 off-diagonal."
 controls: "(1) info-free twin = valence map AND force lexicon SCRAMBLED -> loses (0.639 live vs 0.944; 5/8 vs 8/8 witness). (2) valence_only control (animacy+sign(valence), no affectedness gate, no force structure) -> generalizes but DESTROYS neutral precision (T5 0.00 vs 1.00) and FAILS the off-diagonal force cells (T6 0.43 vs 1.00) -> isolates that BOTH the affectedness gate and the force structure are load-bearing, not the valence lookup alone. (3) LIVE no-regress: every NON-affect SituationModel dimension byte-identical + OCC appraisal (sm.infer_emotion) + emotion register (sm.feels/valence_of) readouts identical across 52 modern docs (only EventRecord.affect moves). (4) off-diagonal population = the Wolff truth-table cells (ENABLE-a-bad, PREVENT-a-good, failed-harm) a bare valence-lookup cannot get."
-files_changed: "experiments/exp_fd_harm_help_arithmetic_v1.py (the arithmetic + constructed populations T1-T6), experiments/exp_fd_harm_help_arithmetic_live_v1.py (live no-regress + scored modern gold + paired bootstrap), verification/test_fd_harm_help_arithmetic.py (8/8 scaffold-free witness). NO hdlab/ writes (Q111 -- the exact proposed hdlab diff is in this doc)."
+files_changed: "experiments/exp_fd_harm_help_arithmetic_v1.py (the arithmetic + constructed populations T1-T6), experiments/exp_fd_harm_help_arithmetic_live_v1.py (live no-regress + scored modern gold + paired bootstrap), experiments/exp_fd_harm_help_composed_v1.py (parse-composed generalization of the off-diagonal to real prose), verification/test_fd_harm_help_arithmetic.py (9/9 scaffold-free witness). NO hdlab/ writes (Q111 -- the exact proposed hdlab diff is in this doc)."
 reverify: ".venv/Scripts/python.exe verification/test_fd_harm_help_arithmetic.py"
 ---
 
@@ -38,9 +38,13 @@ OCC appraisal; Russell/Barrett core affect):
    `CAUSE/ENABLE x adverse -> HARM ; CAUSE/ENABLE x beneficial -> HELP ; PREVENT x adverse -> HELP ; PREVENT x beneficial -> HARM.`
 
    An **AFFECTEDNESS gate** (Hopper-Thompson/Beavers/Dowty: does the force actually change the patient's state)
-   fires the arithmetic only when the verb has a force class OR a WordNet AFFECTING supersense
-   (contact/body/change/emotion/possession/consumption/competition/creation/social) -- suppressing
-   perception/cognition/communication verbs (watch/greet/describe: the patient is a stimulus, not an undergoer).
+   fires the arithmetic only when: the verb has a force class, OR a WordNet AFFECTING first-supersense
+   (contact/body/change/emotion/possession/consumption/competition/creation/social), OR STRONG grounded
+   valence (|v|>=0.45) with a state-changing sense anywhere (recovers verbal/social harm like betray/slander
+   whose dominant listed sense is 'communication') -- AND the verb is NOT a subject-experiencer psych verb
+   (admire/envy/love/fear: PINNED VerbNet admire-31.2, reuse `hdlab/psych_verb_frames.py` -- the object is
+   the STIMULUS, the SUBJECT feels, so the object is not affected). This suppresses perception/cognition/
+   communication verbs (watch/greet/describe: the patient is a stimulus, not an undergoer).
 
 **Both defects are removed:** the harm-frame LU set + `HARM_BACKOFF` are gone (harm/help is derived, not a
 membership test), and there is **no in-process FrameNet enumeration** -- the arithmetic reads only the
@@ -68,6 +72,32 @@ verified: the decision function references no FrameNet frame).
 - **The affectedness gate earns precision:** valence_only over-fires HELP on every neutral perception verb (T5
   0.00); the gate keeps it at 1.00 while still generalizing.
 - **No downstream regress; info-free twin loses.** Both controls hold.
+
+## DEEPENING: composed generalization of the off-diagonal to REAL PROSE SYNTAX
+The bare-SVO arithmetic reads only the MATRIX verb, so the decisive off-diagonal force cells (ENABLE-a-bad,
+PREVENT-a-good) only fire when the embedded endstate is hand-supplied. To make that force reasoning
+**generalize on real sentences**, `exp_fd_harm_help_composed_v1.py` composes the SAME arithmetic on the
+in-substrate parse (`hdlab.causation_typing`'s frontend + construction extraction): the force STRUCTURE comes
+from the parsed construction (periphrastic/letting, from-prevention, resultative) and the embedded ENDSTATE
+VALENCE is the sign of the most-valenced content word in the complement / from-clause / resultative span (the
+brain evaluates the prevented/enabled EVENT). On a 19-sentence parsed gold (each sentence must be PARSED; the
+embedded endstate is NOT hand-fed):
+
+| arm | acc | what it is |
+|---|---|---|
+| valence_only (matrix verb sign) | 0.579 | naive |
+| bare_svo (arithmetic, matrix verb only) | 0.579 | no embedded endstate |
+| **composed (arithmetic + parsed embedded endstate)** | **0.895** | recovers 6 off-diagonal cells the others miss |
+
+Composed reads "let the assassin **kill** the king" -> HARM, "**knocked** the man **senseless**" -> HARM,
+"prevented the rescuer from **freeing** the hostage" -> HARM, "saved the child from the **fire**" -> HELP --
+where a matrix-verb lookup says the opposite. **The 2 residual misses are UPSTREAM parse-attachment failures**
+(the arc parser drops the `from`-clause for "blocked/stopped X from V-ing", and even roots the wrong verb) --
+NOT the harm/help logic: the LOCATED CEILING here is the `arc_parser` from-clause attachment (the parser
+cluster), and it is named as the wall. Two robustness fixes were needed and are in the cell: a bare PREVENT
+verb with no from-clause succeeds by default (endstate_reached=None, so "rescued"/"freed" don't read as failed
+prevention), and gerund complements are verb-lemmatized ("robbing"->rob) so the embedded EVENT valence beats
+its object's.
 
 ## WHAT WAS BUILT / MEASURED
 - `harm_help_arithmetic()` (the force-structure x grounded-valence decision, with the affectedness gate and the
@@ -157,7 +187,7 @@ In `hdlab/force_dynamics_valence.py`, replace the harm-frame-membership machiner
 ## SUBSTRATE INCORPORATION MANIFEST
 - **INCORPORATE**: the `harm_help_arithmetic` decision (force-structure x grounded-valence + affectedness gate) as
   the body of `hdlab.force_dynamics_valence.harm_help`; the removal of the FrameNet harm-frame enumeration.
-  Witness `verification/test_fd_harm_help_arithmetic.py` (8/8) gates it.
+  Witness `verification/test_fd_harm_help_arithmetic.py` (9/9) gates it.
 - **INCORPORATE-AS-DURABLE-NEGATIVE**: the located boundaries -- pure-communication-supersense harm verbs
   (betray/slander) abstain (WSD boundary); near-zero-valence mild-harm verbs (scratch) abstain (valence coverage);
   the `bullied` upstream POS/patient-binding loss (NOT a harm/help defect).
@@ -183,9 +213,10 @@ None -- the mechanism is built, measured through the live reader against the rea
 the exact hdlab diff is specified. (SOLVED.md is WIP until owner_verdict: DONE.)
 
 ## NEXT STEPS
-1. Land the proposed `force_dynamics_valence.py` diff (Q111) and re-verify `verification/test_fd_harm_help_arithmetic.py` (8/8).
-2. Wire harm/help onto `causation_typing.py`'s TypedCausalLinks so the off-diagonal cells (prevent-a-good,
-   enable-a-bad) fire on REAL text via the complement-clause embedded endstate, not just constructed items.
+1. Land the proposed `force_dynamics_valence.py` diff (Q111) and re-verify `verification/test_fd_harm_help_arithmetic.py` (9/9).
+2. PROTOTYPED (exp_fd_harm_help_composed_v1.py): harm/help composed on `causation_typing.py`'s parse recovers
+   the off-diagonal cells on real prose (0.895 vs 0.579). Landing it needs the arc_parser to attach the
+   `from`-clause reliably (blocked/stopped X from V-ing) -- route that residual to the parser cluster.
 3. Fix the upstream patient-binding loss (rare-noun POS mistag) -- it caps harm/help recall independently (the
    `bullied` miss); route to the parser cluster.
 4. Add a resulting-STATE valence read (resultatives) to resolve benefactive-negative verbs (surgical "cut"/"drill").

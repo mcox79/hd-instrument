@@ -5,7 +5,7 @@ bar: "Route the reader's parse consumers through the GRADED probabilistic parse 
 result: "Route-through on UD-EWT test (n=24,120 tokens/2061 sents): exact-graded decode UAS 0.7927 vs greedy hard-decode 0.7907, +0.00199 CI[0.0010,0.0029] CI-sep -- but the DECODE fixes only 95/5048 head errors (1.9%); ~99% is SCORER error the exact global normalization cannot touch (the LOCATED NEGATIVE, with a number: normalization is solved, the SCORER is the wall). Downstream (n=1065 gold patient arcs): reading the graded DISTRIBUTION (top-2 marginal reach) recovers args CI-sep, recall 0.9512->0.9906 (+0.0394 CI[0.028,0.052]), twin 0.4432 loses -- at a precision cost (+2.18 spurious pairs/arc). ACQUISITION (UD-EWT, no gold trees): first-step reading-learned attachment UAS 0.2117 is BELOW the strong right-branching floor 0.2849 (the documented right-branching trap), but the BRAIN'S ACTUAL MECHANISM -- Naseem universal structural prior (+0.056) + DMV-class EM re-estimation using the graded_parser marginal as the E-step (+0.066, 0.247->0.312) -- BREAKS the trap: UAS 0.3122 > floor 0.2849, CI-sep (+0.0273 [0.0145,0.0402]), twin 0.1763 loses. HONEST: the UAS win is root-finding-driven; non-root attachment 0.2755 ~ floor 0.3026 (the field-pinned text-only ceiling). Supervised treebank ceiling 0.782."
 floor: "arc-level UAS floor = greedy hard-decode 0.7907 (the live default). downstream floor = greedy-head patient recall 0.9512. acquisition STRONG floor = adjacency-RIGHT / right-branching UAS 0.2849 (full) / 0.3026 (non-root) -- unusually strong for English (Klein-Manning 2004); also random 0.0720 + left-adjacency 0.1137. exceed-lever floor = surface-scorer-alone UAS 0.7850. supervised treebank UPPER reference (not a floor) = 0.782."
 controls: "shuffled-SCORES control collapses UAS to 0.0666 (scorer carries the signal); shuffled-MARGINAL twin drops reliability AUC 0.8546->0.3607; top-2 shuffled-token twin drops recall 0.9906->0.4432; shuffled-TABLE twin drops first-step reading UAS 0.2117->0.1113 and EM UAS 0.3122->0.1763; semantic-augment shuffled twin does NOT beat the surface floor. Each twin is info-free with the same shape and LOSES. Ablations: EM helps (0.247->0.312) AND the structural prior is required (0.183->0.239) -- both isolated."
-files_changed: "experiments/exp_parser_graded_decode_regimes_v1.py, experiments/exp_parser_graded_downstream_whodidwhat_v1.py, experiments/exp_parser_learned_from_reading_v1.py, experiments/exp_parser_semantic_scorer_augment_v1.py, experiments/exp_parser_selfsup_em_v1.py, experiments/exp_parser_ood_gum_generalization_v1.py, experiments/exp_parser_graded_reliability_gated_patient_v1.py, verification/test_parser_graded_route_through.py, notes/problems/the_parser_is_a_frozen_supervised_hard_decode_not_the_brains_graded_probabilistic_parse/{SOLVED.md,_working_notes.md,HDLAB_INTEGRATION_SPEC.md,NEXT_GAP_learned_from_reading_scorer.md,BF_AUDIT_UPDATE.md,COMPONENT_REGISTER.md}"
+files_changed: "experiments/exp_parser_graded_decode_regimes_v1.py, experiments/exp_parser_graded_downstream_whodidwhat_v1.py, experiments/exp_parser_learned_from_reading_v1.py, experiments/exp_parser_semantic_scorer_augment_v1.py, experiments/exp_parser_selfsup_em_v1.py, experiments/exp_parser_ood_gum_generalization_v1.py, experiments/exp_parser_graded_reliability_gated_patient_v1.py, experiments/exp_parser_chain_signal_loss_v1.py, experiments/exp_pos_graded_posterior_and_synergy_v1.py, verification/test_parser_graded_route_through.py, notes/problems/the_parser_is_a_frozen_supervised_hard_decode_not_the_brains_graded_probabilistic_parse/{SOLVED.md,_working_notes.md,HDLAB_INTEGRATION_SPEC.md,NEXT_GAP_learned_from_reading_scorer.md,BF_AUDIT_UPDATE.md,COMPONENT_REGISTER.md,UPSTREAM_CHAIN_BF_AUDIT.md}"
 reverify: ".venv/Scripts/python.exe verification/test_parser_graded_route_through.py"
 ---
 
@@ -173,7 +173,31 @@ supervised acquisition with a richer reading-learned model (the filed follow-on)
   (the directional channel + the graded decode), not a new mechanism. A fair test of a WEAK method (first-step
   PPMI) had only proved that weak setup failed; faithfully building the brain's method is what drilled through.
 
-# 5. ADJACENT COMPONENTS + AUDIT
+# 5. FULL UPSTREAM CHAIN -- BF down to the math + signal-loss localization (`UPSTREAM_CHAIN_BF_AUDIT.md`)
+
+Is every component up the chain brain-foundational down to the math? **NO.** The chain is 5 links; down to
+the mathematics ONLY the graded decode/marginal (`graded_parser`, brute-force-exact) is BF -- the other four
+(tokenizer regex-split; POS tagger = Collins avg-perceptron + hard Viterbi; arc scorer = feature-hashed
+avg-perceptron; arc labeler = multiclass avg-perceptron, hard argmax) are frozen SUPERVISED perceptrons that
+HARD-DECODE and discard the posterior. Measured signal loss (UD-EWT, UAS points): **SCORER 20.7 >> POS-tagger
+3.0 >> DECODE 0.2** (a POS error nearly halves a token's arc accuracy, 0.78->0.43; the supervised scorer also
+degrades OOD 0.79->0.74 on GUM). Every loss sits at a NOT_BF link: the decode is FIXED (graded, BF); the
+scorer acquisition is PROVEN-BF-viable (this solution) and is the biggest lever; the POS-tagger acquisition
+has a sibling BF path (SRN prediction, HARD_PASS on disk). Full itemized table: `UPSTREAM_CHAIN_BF_AUDIT.md`.
+
+**TOP-DOWN, the SYNERGY thesis measured (`exp_pos_graded_posterior_and_synergy_v1`).** I made the POS link's
+DECODE brain-foundational -- an EXACT forward-backward graded POS posterior (brute-force-verified), replacing
+the hard Viterbi that discards it -- and let the PARSE interact with it (pick, among a token's top-2 POS, the
+reading that maximizes parse coherence: interactive/predictive-coding, top-down). It recovers the POS-link
+loss in the RIGHT DIRECTION (UAS 0.7630->0.7642; max-parse beats min-parse 0.7608 and the shuffled twin
+0.7614) but only ~4% of it -- **because the top-down signal is only as good as the scorer producing it, and
+the scorer is still the weak NOT_BF surface perceptron.** This is the measured proof of the owner's thesis:
+the links CO-LIMIT each other, partial BF does not compound, and strong synergy is GATED on making EVERY link
+BF (the reading-learned scorer being the top-leverage one). So the top-down program is: graded decodes are BF
+now (parse + POS, both exact); the SYNERGY turns on once the acquisitions (scorer, then POS categories) are
+BF too.
+
+# 5b. ADJACENT COMPONENTS + AUDIT
 
 See `BF_AUDIT_UPDATE.md` (parser-cluster verdicts), `COMPONENT_REGISTER.md` (created/evaluated + BF state),
 `NEXT_GAP_learned_from_reading_scorer.md` (the DMV-class reading-learned scorer follow-on). Cross-solution:
