@@ -59,9 +59,13 @@ Q124 asks whether to integrate the fleet-SOLVED ones now vs. hold.
 **NEXT — the two learned-from-reading north-star levers (posted, assignable):** pri-1 the learned is-a/taxonomic
 identity meaning channel (the dominant meaning lever, +0.488 CI-sep, no WordNet) · pri-2 scale the reading-learned
 arc scorer (the shared extraction wall; retires the supervised-parser root).
-**THE MAIN EVENT — the generative world-model program (in-flight, ~9 solvers):** the recurrent predictive-coding
-loop / result-state model / chain-multi-step / forward-projection; the everyday-causation sign tail is a DOWNSTREAM
-read over it (do NOT post separately — it activates when the world-model is perturbable).
+**THE MAIN EVENT — the generative world-model program:** its mechanism problems (result-state model, recurrent
+predictive-coding loop / N400, forward-projection, chain-multi-step) are ALL SOLVED + INTEGRATED as located-negatives
+that BUILT the mechanisms (verified CONT-116: none are open/in-flight). The program is therefore NOT advanced by a new
+world-model problem — **it is gated on EXTRACTION quality (the shared wall), and advances THROUGH the posted extraction
+front: pri-2/pri-3 (parser) + pri-4 (coref)** ([[reasoning-machinery-shown-not-end-to-end-build-the-generative-world-model]]).
+The everyday-causation sign tail is a DOWNSTREAM read over it (do NOT post separately — it activates when the world-model
+is perturbable, which the extraction front delivers). ⇒ DO NOT post a redundant world-model problem; feed the extraction front.
 **STANDING FIDELITY WORK (mine):** ✅ `causal_reasoner` rung-3 abduction primitive LANDED (CONT-97, `fd0bca071`,
 pure-add). **STRATEGIC CEILING FOUND (CONT-98): the causal machinery is BOARD-INVISIBLE** — no smoke-viable modern
 causal gold (WIQA needs full-scale; the smoke self-test underpowers it, per the reverted board_causal_sign arm), so
