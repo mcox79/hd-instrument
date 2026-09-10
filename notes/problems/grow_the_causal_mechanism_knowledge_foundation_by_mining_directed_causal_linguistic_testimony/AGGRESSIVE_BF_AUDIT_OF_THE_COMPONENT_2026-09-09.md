@@ -63,6 +63,24 @@
 **DO NOT INCORPORATE (non-load-bearing / failed the falsifier -- keep only as documented negatives):** the signed-
 proportionality store (`signed_store_v1.json`), the force-dynamic sign lexicon. Shelve, do not wire.
 
+**THE TWO-LEVEL QP SIGN SIMULATOR (owner "do a and b", research-guided) -- INCORPORATE (level b proven; level a is the
+feeder).**
+- **LEVEL (a) -- direct-influence extraction** (`exp_causal_sign_argbound_role_v1`): force-class sign bound to the TRUE
+  PATIENT via the position-independent Competition-Model role assigner (Frankland-Greene lmSTC; Wolff force-to-patient;
+  VerbNet/FrameNet force-sign map). Fixes the 80%-flip/0.511-positional MECHANISM (beats them directionally) but is a
+  WEAK standalone (+0.021, 27% coverage) -- it is the EDGE FEEDER for level b, not a standalone sign.
+- **LEVEL (b) -- influence resolution, PROVEN** (`exp_causal_influence_resolution_v1`, witness
+  `test_causal_influence_resolution.py` 4/4): the net more/less sign at a confluence/loop = **sign((-A^-1)[Y,X])** over
+  the signed community matrix (Levins press-perturbation; A[i,i]=-1 self-regulation), STRUCTURAL tier (magnitude-
+  independent) + magnitude-RESAMPLE forward-sim (Gerstenberg/Battaglia), abstaining on genuine "?". On controlled
+  signed graphs: resolves 68% (61% structural + 7% magnitude), correctly ABSTAINS 32%; full **0.994 vs conflict->0
+  0.940 (+0.054 CI-sep)**; sign-scramble collapses to 0.339, topology-permute to chance 0.505. This is a strict SUPERSET
+  of `causal_reasoner`'s conflict->0 -- LAND it as the resolution ladder (keep conflict->0 as rung-0 fallback). Same
+  resolver serves the AGENTIVE-GOAL graph (enable+/prevent- edges) -- one machinery, two graph sources.
+- **REMAINING (scoped): the (a)+(b) END-TO-END on WIQA** -- level-a extraction -> per-item signed graph -> level-b
+  resolver, tested on the WIQA confluence subset with sign-scramble/topology-permute/path-blind controls + the honest
+  structural/magnitude/abstain split. Both levels are proven-in-principle; this is the wiring build.
+
 **COVERAGE-GAP MAP (`exp_causal_coverage_gap_analysis_v1.py`) -- what we miss + what data closes it.** Every WIQA effect
 item classified by domain; integrated-reader gated coverage per domain: bio_lifecycle/physiology 785 items @23% |
 physics/thermo 574 @21% | other 440 @12% | geo/weather 412 @31% | **everyday/procedural 406 @0%** | metabolic/chem
