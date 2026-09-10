@@ -36,6 +36,19 @@
 - **Rule (project-wide):** **wrap ANY broad/noisy KB lookup in `safe_kb_types` before its facts fire.** This is what lets
   the world-model acquire a broad entity KB *safely* — the enabler for asset growth.
 
+### 3. `Warriner VAD affective norms` — the signed evaluative axis (antonymy)  ·  **BF_SPIRIT** (curated FOUNDATION)  ·  LATENT→(fusion-wire, pri-5)
+- **Path:** `data/frontend_assets/Ratings_Warriner_et_al.csv` (~13,915 words), read via `hdlab/affect_lexicon.py`
+  (`valence`/`arousal`); the polarity read is `hdlab/valence_polarity_channel.py` (pri-2 piece 2).
+- **Provenance:** Warriner, Kuperman & Brysbaert 2013 (curated offline norm set); wired as the meaning channel's
+  polarity axis by `the_meaning_representation_is_a_point_vector...` (owner-DONE 2026-09-10).
+- **What it is:** continuous VALENCE (+arousal) norms → the SIGNED evaluative dimension that separates synonyms from
+  ANTONYMS (opposite poles), the axis the relatedness channels are BLIND to. `valence_polarity(a,b)=-|val(a)-val(b)|`.
+- **BF basis:** Osgood 1957 Evaluation axis; Russell/Barrett core affect; vmPFC valence — PINNED computation over a
+  curated norm foundation. Consumed as a COMPLEMENTARY fused channel (corr ~0.11), never pooled into identity.
+- **Measured:** fused polarity-aware channel beats the relation-blind distributional floor CI-sep (FUSED 0.878 vs
+  0.636), twin loses, WITHOUT WordNet. **LATENT** as a live channel (fusion-wire gated on pri-5); witness
+  `verification/test_valence_polarity_channel.py` 2/2.
+
 ---
 
 ## KNOWN GROWN/CURATED ASSETS TO ENUMERATE + FOLD (work-list — not yet in this register)
