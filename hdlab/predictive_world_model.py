@@ -1,4 +1,14 @@
-"""Online predictive-coding EVENT-TRANSITION world-model + the intrinsic counterfactual-necessity causal reader.
+"""Online predictive-coding EVENT-TRANSITION world-model + an intrinsic PREDICTIVE-RELEVANCE reader.
+
+⚠️ LABEL CORRECTION (2026-09-09, strategy math re-audit, on the owner's anti-mislabelling gate): the reader's
+`necessity`/`causal_antecedent` computes LEAVE-ONE-OUT PREDICTIVE RELEVANCE (log[P(B|ctx)/P(B|ctx∖A)] -- how much A's
+presence in the predictive CONTEXT lowers B's surprisal), which is Pearl RUNG-1 (associative): removing A from the
+CONDITIONING SET of an associative forward model is NOT do(A=absent) on a causal graph, so it APPROXIMATES but is NOT
+the rung-3 COUNTERFACTUAL necessity it was originally named for. The forward-model surprisal signal is a legitimate
+brain computation (predictive coding / N400), so this stays BF_SPIRIT -- but read it as PREDICTIVE-RELEVANCE, not
+proven counterfactual causation. TRUE counterfactual necessity (rung-2/3 do-surgery + Halpern-Pearl AC2) is
+`hdlab.causal_reasoner`'s job over `sm.causal_links`; route there for a causal claim. (The Gerstenberg-CSM / Trabasso
+citations below describe the TARGET the brain approximates, not what this single-layer associative model delivers.)
 
 Promoted 2026-09-09 from the owner-DONE `generate_dont_retrieve_causal_edges_for_unmarked_narrative_causation`
 (PARTIAL/north-star; reverified 67/67; witness verification/test_causal_antecedent_reader.py). This is the FORWARD
@@ -12,13 +22,14 @@ WHAT IS PINNED (copy the operation): PREDICTIVE CODING (Rao-Ballard 1999 / Frist
 learn from the error) with a RESCORLA-WAGNER delta-rule online update (Schultz dopaminergic prediction error; a SINGLE
 reading pass, NO batch training, NO freeze -- the brain learns continuously); a distributed ACT-R recency context
 (Anderson -- most-recent event highest activation); events = verb-CONCEPTS via the substrate's OWN glass-box
-hdlab.pos_tagger + WordNet morphy lemma (the ATL codes the verb CONCEPT, not a surface stem). THE CAUSAL CRITERION
-(100% brain-foundational): an antecedent A is a CAUSE of effect B iff, had A not occurred, B would have been more
-SURPRISING -- COUNTERFACTUAL NECESSITY (Gerstenberg-Tenenbaum Counterfactual Simulation Model; Trabasso
-necessity-in-the-circumstances; Kuperberg-Jaeger predictive coding / the N400 as prediction error):
-    necessity(A, B) = surprisal(B | context minus {A}) - surprisal(B | context)  [>0 => A helped predict B]
-    inferred cause of B = argmax_A necessity(A, B)
-This is NON-CIRCULAR (a counterfactual ablation, not the argmax-predictability tautology) and INTRINSIC (no external
+hdlab.pos_tagger + WordNet morphy lemma (the ATL codes the verb CONCEPT, not a surface stem). THE PREDICTIVE-RELEVANCE
+CRITERION (leave-one-out surprisal; a rung-1 associative approximation of the brain's counterfactual target --
+Gerstenberg-Tenenbaum CSM / Trabasso necessity-in-the-circumstances name the TARGET; Kuperberg-Jaeger predictive
+coding / the N400 as prediction error is the PINNED operation actually implemented):
+    predictive_relevance(A, B) = surprisal(B | context minus {A}) - surprisal(B | context)  [>0 => A helped predict B]
+    best candidate antecedent of B = argmax_A predictive_relevance(A, B)
+This is NON-CIRCULAR (a leave-one-out predictive ablation, not the argmax-predictability tautology) but ASSOCIATIVE
+(rung-1: removing A from the predictive CONTEXT is not an intervention do(A=absent) on a causal model), and INTRINSIC (no external
 gold -> trap-proof: the solver proved every external causal gold -- MAVEN-ERE / TellMeWhy / GLUCOSE -- is a
 POSITION-ARTIFACT trap that a trivial position floor beats, and that position is ORTHOGONAL to predictive coherence).
 
@@ -42,8 +53,8 @@ from __future__ import annotations
 
 __bf_status__ = "BF_SPIRIT"   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors data/bf_status_registry.jsonl
 __bf_verified__ = "2026-09-09 operation/math audit (VERIFIED_BF_LEDGER)"
-__bf_note__ = "counterfactual-ablation OPERATION faithful; over associative single-layer forward model on BARE UNBOUND verb bag (necessity over TYPES not world-STATE)"
-__bf_corrections__ = []   # append "YYYY-MM-DD <fix>: OLD -> NEW" when a fix RAISES the status
+__bf_note__ = "predictive-coding surprisal OPERATION is BF (N400/Rao-Ballard); the necessity read is LEAVE-ONE-OUT PREDICTIVE RELEVANCE = Pearl RUNG-1 (log[P(B|ctx)/P(B|ctx\\A)]), NOT the rung-3 counterfactual it was originally named for (mislabel corrected 2026-09-09); over an associative single-layer forward model on a BARE UNBOUND verb bag (relevance over TYPES not world-STATE); true counterfactual necessity = hdlab.causal_reasoner"
+__bf_corrections__ = ["2026-09-09 anti-mislabel: 'intrinsic counterfactual necessity' relabelled -> 'leave-one-out predictive relevance (rung-1)' after a strategy math re-audit (necessity = surprisal(B|ctx\\A) - surprisal(B|ctx) is associative, not do()-intervention); operation stays BF_SPIRIT, the causal CLAIM is corrected, symbols kept (rename ripples to the reader)"]   # append "YYYY-MM-DD <fix>: OLD -> NEW" when a fix RAISES the status
 
 import math
 import os
