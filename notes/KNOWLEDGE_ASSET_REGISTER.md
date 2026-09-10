@@ -87,3 +87,12 @@
 ---
 *Maintenance: append one section per grown asset at each owner-DONE fold-in. Keep entries TIGHT (mirror the BF-registry style).
 The DB content is durable; a stale "LIVE/LATENT" is the failure mode — re-audit the consumer wire, don't trust the label.*
+
+**LIVE/LATENT AUDIT (2026-09-10, CONT-75, disk-verified — owner directive "make SURE grown knowledge is INGESTED LIVE"):**
+grepped live hdlab importers of each registered asset. **LIVE: only `causal_sign_channel`** (imported by `situation_reader`
+→ `sm.causal_sign`, wired CONT-74). **Correctly LATENT (no live consumer YET, so no cheap net-positive flip — honestly
+gated, not mislabeled):** `who_is_who_lexicon` (consumer = the generative who-is-who file = world-model-gated, not built
+live), `valence_polarity_channel`/Warriner VAD (consumer = meaning fusion = pri-5 gated), the directional grow-store
+(default-off flag, offline-grow only), the directed causal store `store_v1.json` (no live reader consumer — the manifest's
+"structural prior" wire is an unbuilt next-step, +0.139 CI-sep on the necessity read is the measured prize). ⇒ the register's
+labels are ACCURATE; each latent asset activates when ITS consumer lands (measure-first), not before.
