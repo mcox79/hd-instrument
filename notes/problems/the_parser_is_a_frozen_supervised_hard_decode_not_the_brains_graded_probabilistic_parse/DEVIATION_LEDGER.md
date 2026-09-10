@@ -92,10 +92,26 @@ scorer is confidently wrong), mirroring the POS finding (87% of mistags confiden
 mechanism -- defer, world-model-arbitrate -- can reach a CONFIDENT error, because it never flags as uncertain.
 The confident errors are baked into the supervised ACQUISITION. So the world model, used as a parse-RESCORER,
 is structurally not the lever (uncertain arcs are too few; the gold is often outside the top-2 there anyway).
-The missing input is genuine PERCEPTUAL / INTERACTIVE grounding that would drive the parse GENERATIVELY
-top-down (predict the situation, generate the structure) -- NOT rescore a syntactic beam. That is the
-substrate's Phase-1 meaning supply + the generative world-model main-event program; a text-only parser cell
-(and a world-model RESCORER) fundamentally cannot supply it. This is the precise, final characterization of the wall.
+The missing input is genuine PERCEPTUAL / INTERACTIVE grounding.
+
+### CORRECTION (owner challenge, 2026-09-10): "generative world model" was OVER-CLAIMED.
+I concluded "the only lever is a generative world model" by ELIMINATION. Another solver's result refutes that
+reasoning: for discourse-identity COREF, a NON-generative situation-model mechanism -- entity-in-focus/salience
+(Centering/ACT-R) + COARSE ontological-class coherence (WordNet supersense; "study"~"project") applied as a
+gated non-writing DEFAULT -- WON exactly where prediction/type/lexical failed. So a specific right-grain
+mechanism, not a generative model, was the lever there. I tested THAT mechanism for the PARSER
+(`exp_parser_coarse_class_coherence_v1`): coarse-class supersense coherence added to attachment is a LOCATED
+NEGATIVE (best weight 0; any addition HURTS; twin collapses 0.25 so the signal is real but harmful) -- the
+4th semantic negative for attachment. **The reframe (correct, and more actionable than "generative model"):
+DIFFERENT losses need DIFFERENT task-specific BF mechanisms at the right grain.** COREF (entity identity) ->
+situation-model focus + coarse-class coherence (the other solver's win). PARSE ATTACHMENT (structural, local)
+-> incremental left-corner STRUCTURE (my OPP-2 win, +0.113 verb-arg) -- NOT semantics, NOT coarse-class, NOT a
+generative model. So the parser's remaining loss is (a) STRUCTURAL (partly fixed by OPP-2, more structural
+mechanisms possible), and (b) CONFIDENT supervised-acquisition errors (the text-only ceiling). It is NOT a
+grounding/coarse-class/generative gap -- 4 semantic mechanisms + the world-model rescorer all refuted, while
+the ONE structural mechanism helped. The honest characterization: the parser wants STRUCTURE + better
+acquisition; the DOWNSTREAM meaning tasks (coref) want the situation-model focus+coarse-class organ; neither
+is a monolithic generative world model.
 
 ## Reverify
 `.venv/Scripts/python.exe verification/test_parser_graded_route_through.py` (60 checks) -- incl. the POS-link

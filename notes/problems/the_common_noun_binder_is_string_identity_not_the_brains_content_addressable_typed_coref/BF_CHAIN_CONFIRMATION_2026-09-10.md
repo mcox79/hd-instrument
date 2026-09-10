@@ -224,6 +224,45 @@ floor **+0.0522 CI-sep**; info-free twin LOSES **+0.0413 CI-sep** (the coarse-cl
 de-leaked-floor margin +0.0326 -> +0.0522 CI-sep. So the corrective audit (C5) led to the right BF organ, and it WORKS --
 the dominant discourse-identity loss is now partly recovered by a brain-foundational situation-model mechanism, not a KB.
 
+## C7. UPDATED SIGNAL-LOSS MAP -- the current fully-BF chain (0.5776) vs the brain (post all fixes, 2026-09-10)
+Current best BF chain (gold heads, concept-key + conceptual + focus bridge) = **0.5776**; loss to 1.0 = 0.4224 (1284/2855).
+Both slices now decomposed first-hand (`exp_cn_samehead_decomp_v1.py`, `exp_cn_diffhead_route_audit_v1.py`,
+`exp_cn_samehead_actr_v1.py`):
+
+| bucket | share | acc | lost | nature |
+|---|---|---|---|---|
+| same-head, UNAMBIGUOUS (one entity per head) | 45.5% (1300) | 0.9485 | 67 | gn/pollution/annotation -- near-IRREDUCIBLE |
+| same-head, AMBIGUOUS (>=2 entities share the head) | 20.8% (595) | 0.42 | 347 | **SITUATION-MODEL disambiguation** ("which man?") -- recency AND ACT-R both fail (ACT-R=recency, measured no-op) |
+| different-head, type-linkable | ~8% (~225) | ~covered | small | C5/C8/conceptual |
+| different-head, DISCOURSE-IDENTITY | ~19% (~540) | low | ~440 | **SITUATION-MODEL entity identity** ("the study"=="the project") -- focus bridge recovered +47, harder cases remain |
+| different-head, annotation noise + no-prior | ~7% (~195) | 0 | ~195 | bad gold heads/redaction/first-mention -- IRREDUCIBLE on GUM |
+
+**THE CONVERGENT FINDING:** the two ADDRESSABLE loss buckets -- same-head AMBIGUOUS (347) and different-head
+DISCOURSE-IDENTITY (~440) -- are the SAME gap: a **discourse/situation ENTITY model** (which entity does this head/
+description denote, given the discourse context and the current predicate). Recency, type, ACT-R activation, and event-
+prediction ALL fail on these (each measured); the lever is entity-tracking + contextual disambiguation + expectation
+(Kintsch construction-integration at the ENTITY grain). ~790 mentions (~28% of all) ride on this ONE organ. The focus
+bridge is its first BF step (coarse-class + focus); the full model tracks entities across the discourse and disambiguates.
+
+**vs the brain, itemized:** (1) same-head ambiguous -- the brain picks the contextually-relevant "man" from the situation;
+we pick most-recent (fails ~half). (2) different-head discourse-identity -- the brain tracks the entity and re-recognizes it
+under a new description; we get the coarse-class-easy ones only. Both = the situation-model gap. (3) IRREDUCIBLE floor
+~240 mentions (~8%): GUM annotation noise (bad gold heads, redaction, Spanish) + genuinely-unresolvable-in-isolation
+first-mentions -- the brain reads the real text, not GUM's annotation, so this floor is ours not the brain's. Realistic
+brain-level ceiling on THIS instrument ~0.92, not 1.0.
+
+**RANKED REMAINING OPPORTUNITIES:**
+1. **The discourse/situation ENTITY model (the convergent lever, ~28% of mentions).** ONE organ addresses BOTH remaining
+   buckets: entity-tracking across the discourse + contextual disambiguation of same-head + re-recognition under a new
+   description. Kintsch construction-integration / entity-grid at the ENTITY grain (NOT the event world-model, NOT a type
+   KB -- both refuted with numbers). The focus bridge is step 1. Biggest and now precisely scoped.
+2. **Raw-text upstream (head selection + POS induction)** -- for reading un-annotated text (the board uses gold heads); the
+   comprehension/meaning signal closes it (per C3/C4).
+3. **The annotation-noise floor (~8%)** -- irreducible on GUM; a cleaner modern gold or reading real text avoids it (not a
+   mechanism fix).
+4. **Located NO-OP (do not pursue):** ACT-R activation as the same-head selector -- identical to recency (recency dominates
+   the power-law), so it cannot fix the ambiguous same-head loss; that loss is situation-model-bound, per opportunity 1.
+
 ## D. Honest bottom line
 The common-noun binder and its semantic core (concept key, salience, typed binding, type operation) are confirmed
 brain-foundational to the math. The signal is lost in exactly two places, both now quantified: (i) the frozen supervised
