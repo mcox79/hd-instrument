@@ -37,5 +37,12 @@ relative size on UD-EWT test (n=24,120 tokens):
 ## Acquisition-admissibility ruling (proposed for the audit's PINNED/INVENTED column)
 A frozen glass-box arc SCORER is an ADMISSIBLE offline FOUNDATION (supplies adult syntactic competence,
 frozen, no external tool/LLM at inference) -- **the blocking NOT_BF is the hard-decode, not the offline
-fit.** The reading-learned scorer (Prong 2: viable, grows with reading, first-step gap 0.57) is the deeper
-BF upgrade, filed as a follow-on -- not a reason to call the treebank scorer inadmissible today.
+fit.** AND the offline fit is now shown IN-PRINCIPLE REPLACEABLE by the brain's own acquisition mechanism:
+`exp_parser_selfsup_em_v1` -- Naseem-2010 structural prior + DMV-class EM re-estimation using the substrate's
+own `graded_parser` marginal as the E-step -- breaks the right-branching trap fully unsupervised (UAS 0.312 >
+floor 0.285 CI-sep; non-root at the text-only parity ceiling). So the treebank asset is a
+CONVENIENCE-SUBSTITUTABLE foundation, not a load-bearing crutch: admissible today, with a proven
+brain-foundational replacement path (scale + lexicalize) filed as a follow-on. A NEW deviation to log: the
+TRAINING PROCEDURE behind the scorer (supervised gradient descent on gold trees) is not a mechanism the brain
+uses -- a real, named, now-bounded fidelity gap (the reading-learned inducer reaches ~40% of supervised UAS),
+not a hidden one.

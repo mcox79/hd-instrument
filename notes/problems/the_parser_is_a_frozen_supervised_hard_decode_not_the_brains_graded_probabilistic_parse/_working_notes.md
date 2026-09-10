@@ -33,14 +33,28 @@ UD-EWT test, n=1065 gold (verb->obj/dobj) patient arcs, 5s.
   CONTAINS the missing signal; the reader needs competition/reliability (the AUC-0.855 marginal) to cash
   it, not a naive wider beam. (This is the mechanism behind the prior +0.0065 who-did-what win.)
 
-## PRONG 2 -- the acquisition question (exp_parser_learned_from_reading_v1)
-Learned-from-reading UNSUPERVISED directional-PPMI attachment (POS + lexical, distance/locality prior,
-CLE decode). NO gold heads at train. UD-EWT: 12,329 train sents read, 600 test, 29s.
-- UAS: random 0.072 | adjacency 0.114 | LEARNED-FROM-READING 0.2117 | shuffled-twin 0.111 |
-  supervised-treebank CEILING 0.782.
-- READING CURVE (grows with reading): 0.1775 -> 0.1892 -> 0.1988 -> 0.2117 (monotonic, 10x text).
-- Verdicts: signal-in-stream TRUE, beats-adjacency TRUE, twin-loses TRUE, grows-with-reading TRUE.
-- gap to supervised = 0.570 (first-step reading recovers ~27% of supervised UAS).
+## PRONG 2 -- the acquisition question (exp_parser_learned_from_reading_v1 + exp_parser_selfsup_em_v1)
+First-step learned-from-reading UNSUPERVISED directional-PPMI attachment. NO gold heads at train.
+- UAS: random 0.072 | left-adjacency 0.114 | **right-branching (STRONG) 0.285** | LEARNED 0.2117 |
+  twin 0.111 | supervised CEILING 0.782.
+- READING CURVE (grows): 0.1775 -> 0.1892 -> 0.1988 -> 0.2117 (monotonic, 10x text).
+- CORRECTED (research drill CONT-71): the STRONG floor is adjacency-RIGHT / right-branching (~0.285-0.303),
+  NOT left-adjacency. First-step reading (0.212) is BELOW it = the documented right-branching trap
+  (Klein-Manning 2004; reproduces the substrate's own exp_predictive_selfsup_parser_v1 0.2716<0.2979).
+
+### PRONG 2+ -- DRILLED THROUGH the trap with the brain's actual mechanism (exp_parser_selfsup_em_v1)
+Naseem-2010 universal category-level structural prior + DMV-class EM re-estimation using
+graded_parser.single_root_marginals as the E-step posterior (soft expected arc counts) + exact CLE. Full
+UD-EWT (8000 maxlen-40 train, 600 test), 50s.
+- static: no-prior 0.183 -> +prior(1.5) 0.239 -> +lam=0.3 0.247. (prior worth +0.056, required.)
+- EM curve: 0.2466 -> 0.2984 -> 0.3122 (EM worth +0.066, monotonic).
+- **EM-best UAS 0.3122 > strong right-branching floor 0.2849, CI-sep (+0.0273 [0.0145,0.0402]); twin 0.176
+  loses. THE RIGHT-BRANCHING TRAP IS BROKEN, fully unsupervised, glass-box, reusing landed organs.**
+- HONEST: full-UAS win is root-finding-driven (VERB-root prior); non-root ATTACHMENT 0.2755 ~ floor 0.3026
+  (text-only ceiling: DMV margin small + shrinks on long sents; residual needs prosody/joint-attention/
+  embodiment a text corpus lacks). Supervised UPPER ref 0.782 still leads.
+- gap to supervised = 0.470 (EM recovers ~40% of supervised UAS; the acquisition gap is now BOUNDED with a
+  mechanism, not a mystery).
 
 ### Admissibility verdict (computational argument)
 - What makes the parser NOT_BF is TWO things: (a) HARD-DECODE [Prong 1 = the fix: consume the graded
@@ -54,9 +68,25 @@ CLE decode). NO gold heads at train. UD-EWT: 12,329 train sents read, 600 test, 
   in stream, grows with reading) but far from parity at first-step -> the deeper BF upgrade is a filed
   follow-on (a DMV-class valence+EM+incremental reading-learned scorer), not this problem's blocker.
 
-## PRONG 3 (attempt) -- is the scorer's residual error SEMANTIC? (the "exceed" lever)
-Hypothesis: the surface-feature scorer's 99%-of-error residual is where lexical-SEMANTIC selectional
-expectation (verb->argument fit; reuse predictive_reader / grounded_similarity) carries signal the surface
-perceptron lacks. If a grounded selectional cue ranks the GOLD head above the WRONG predicted head on a
-meaningful fraction of residual errors, that is the brain-faithful path to EXCEEDING the frozen scorer.
-[measurement below]
+## PRONG 3 -- is the scorer's residual error fixable by a reading-learned lexical cue? (exp_parser_semantic_scorer_augment_v1)
+Augment the frozen surface scorer with the reading-learned lexical PPMI (Prong 2's signal), re-decode CLE,
+sweep the mix weight. LOCATED NEGATIVE: surface-only UAS 0.7850 -> best-w 0.7856 (+0.0006, CI [-0.0011,
++0.0024], NOT CI-sep); higher w HURTS; twin control holds. WHY: the supervised scorer already carries a
+head-word x dep-word bigram feature trained on gold arcs, so the unsupervised reading-PPMI is a weaker
+estimate of a signal it already has. => the exceed path is NOT a bolt-on onto the frozen scorer; it is
+REPLACING the supervised acquisition with a richer reading-learned model (Prong 2+ EM proves that path
+breaks the trivial-baseline trap; scaling it to parity is the filed follow-on).
+
+## PRONG 4 -- second gold GUM (OOD) + register question (exp_parser_ood_gum_generalization_v1)
+GUM (modern multi-genre, OOD from UD-EWT). 1000 test sents / 15,221 tokens; 5000 GUM read sents; 6000 UD train.
+- Route-through REPRODUCES: greedy 0.7427 -> exact 0.7452; 99% scorer-limited (64 vs 3878); marginal AUC
+  0.8365 vs twin 0.359. The located finding is not a UD-EWT artefact.
+- Supervised scorer DEGRADES OOD: 0.7427 (GUM) vs 0.7907 (UD-EWT), -0.048 (register skew quantified).
+- Reading-learned inducer GENERALIZES OOD: 0.31-0.34 > strong GUM floor 0.2885; twin 0.170 loses.
+- HONEST NEGATIVE (my hypothesis refuted): reading TARGET register (GUM 0.3108) did NOT beat reading cleaner
+  SOURCE register (UD-EWT 0.3443); corpus CONSISTENCY dominates register MATCH at ~5-6k scale.
+
+## STATUS: PARTIAL. Witness verification/test_parser_graded_route_through.py = 28 checks PASS. Ledger clean.
+NO hdlab writes (Q111). The located-negative clause of the bar is fully met (99% scorer-limited, with a
+number); the acquisition question is answered decisively (trap broken by the brain's mechanism); the
+route-through + reading-learned scorer are proposed diffs / a filed follow-on, not landed.

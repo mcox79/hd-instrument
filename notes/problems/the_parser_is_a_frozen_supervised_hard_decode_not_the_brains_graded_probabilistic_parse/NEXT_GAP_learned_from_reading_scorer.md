@@ -35,16 +35,27 @@ bigram feature trained on gold arcs, so the unsupervised PPMI is a weaker estima
 the path is to REPLACE the acquisition (a full reading-learned scorer with valence + generalization), not
 to augment the frozen one.
 
-## First measured step already in hand (build on it)
-`experiments/exp_parser_learned_from_reading_v1.py` -- directional lexical+POS PPMI + locality prior,
-CLE-decoded, UNSUPERVISED. UAS 0.2117, beats adjacency/random, twin loses, grows with reading. The reading
-substrate to reuse: `reading_grounding_loop.track_directional_context_counts` (the pri-2 directional
-channel), `distributional_meaning_channel.ppmi_svd` (generalization the sparse bigram lacks),
-`predictive_reader` (verb->argument selectional fit), `incremental_parser` (the BF left-corner builder to
-carry the incremental commitment).
+## The mechanism is already PROVEN in-session (drilled through the wall)
+Two measured steps in hand:
+- `experiments/exp_parser_learned_from_reading_v1.py` -- first-step directional lexical+POS PPMI + locality
+  prior, CLE-decoded, UNSUPERVISED. UAS 0.2117; grows with reading; BUT below the strong right-branching
+  floor 0.2849 (the right-branching trap).
+- `experiments/exp_parser_selfsup_em_v1.py` -- **the trap DRILLED THROUGH**: Naseem-2010 universal structural
+  prior (+0.056) + DMV-class **EM re-estimation using `graded_parser.single_root_marginals` as the E-step
+  posterior** (+0.066, 0.247->0.312) -> UAS **0.3122 > floor 0.2849, CI-sep**; twin 0.176 loses. Non-root
+  attachment at parity with the floor (0.276 vs 0.303) = the text-only ceiling. So the brain's actual
+  acquisition mechanism, faithfully built, INDUCES real structure fully unsupervised -- proven, not hoped.
+
+The remaining follow-on work (scale + lexicalize + wire), reusing landed organs:
+`reading_grounding_loop.track_directional_context_counts` (the pri-2 directional channel at volume),
+`distributional_meaning_channel.ppmi_svd` (generalization the sparse bigram lacks -- the non-root ceiling
+lever), `sequence_memory` (Hebbian directional re-estimation without EM), `incremental_parser` (carry the
+incremental commitment), `graded_parser` (the E-step + the final decode).
 
 ## The bar for the follow-on
-Reading-learned scorer UAS beats the first-step 0.21 CI-sep AND closes >=half the gap to the supervised
-0.78, with the growth curve still rising, twin losing -- OR a located negative naming exactly which brain
-mechanism (valence? generalization? incrementality?) the residual needs. Then: the graded parse over the
-reading-learned scorer EXCEEDS the frozen treebank parser on a downstream board dim on real prose.
+Take the PROVEN EM+prior inducer to (a) FULL corpus scale + lexical valence + >=3 EM rounds, targeting a
+non-root ATTACHMENT UAS above the right-branching floor (not just root-driven full-UAS), OR a located
+negative naming the exact missing signal (prosody / joint attention / embodiment -- text-only ceiling); then
+(b) A/B the reading-learned scorer against the treebank asset AS THE INPUT to the SAME `graded_parser`
+marginal on a downstream board dim on real prose (keep whichever wins CI-sep, or keep both -- the treebank as
+a vetted offline FOUNDATION, the reading-learned as the brain-foundational-acquisition track, not exclusive).

@@ -5,7 +5,7 @@ bar: "Route the LIVE C2 definite-common-noun binding through the typed content-a
 result: "The typed content-addressable binding, re-keyed on a brain-foundational lexical-CONCEPT lemma (WordNet morphy -- the substrate's standing wordform->lemma-concept tool, used by 6+ organs), scores per-mention common-noun RESOLUTION accuracy 0.5580 on GUM modern TEST (n=2855 anaphoric common-noun mentions; metric = resolved-referent nominal-dominant gold eid == mention eid, the URG board instrument), and BEATS the honest DE-LEAKED string-identity floor 0.5254 by +0.0326 CI[+0.0205,+0.0450] CI-sep; info-free twin LOSES +0.0322 CI[+0.0233,+0.0416] CI-sep; a strict gain over the current live wire (crude key, 0.5482). The brief's premise ('typed binding only ties the floor') was an artifact of a LEAKY floor: the raw gold-lemma floor 0.5412 keys redacted 'the ____' mentions on the annotator-supplied REAL word (redaction see-through), annotation raw text cannot access -- removing ONLY that see-through drops the floor to 0.5254, and EVEN THE CURRENT crude-key wire beats 0.5254 CI-sep (+0.0228). Vs the raw LEAKY 0.5412 the concept-key binding is +0.0168 (CI[-0.0003,+0.0327] includes 0 -- honest parity-plus; the residual is exactly the irreducible redaction). GOLD-FREE; the fix is a one-line KEY swap inside the additive resolution consumer -> clustering/coref/who_did_what byte-identical (no-regress by construction)."
 floor: "Strongest floor computable from raw text: HONEST DE-LEAKED gold-lemma string-identity = 0.5254 (n=2855; the raw gold-lemma floor 0.5412 with ONLY the redaction see-through removed -- redacted/non-alpha heads keyed on their raw surface, gold lemma kept on every visible word). Also run on the identical population: fair same-regime morphy string-identity 0.5261; crude head_lemma string-identity 0.5156; raw LEAKY gold-lemma string-identity 0.5412 (reported, not beaten CI-sep -- +0.0168 CI incl 0; the +0.0158 gap 0.5254->0.5412 is pure redaction annotation)."
 controls: "(1) FAITHFULNESS: the crude-key arm is BYTE-IDENTICAL to the deployed live wire (hdlab.situation_reader-served _reader_commonnoun_resolution) on 20 GUM docs -> the measured delta is the fix, nothing else. (2) INFO-FREE TWIN (bridge -> random gn-compatible prior) LOSES CI-sep (+0.0322) -> the type signal is load-bearing, not 'any reach'. (3) FAIR same-regime floor (morphy string-identity 0.5261) BEATEN CI-sep (+0.0319) -> the binding adds over string-identity IN THE SAME key regime, not merely via the better key. (4) DE-LEAK: removing the raw gold floor's redaction see-through (0.5412->0.5254) exposes the leak; the binding beats the de-leaked floor CI-sep. (5) LOCATED SUB-NEGATIVE: the loose WordNet-synonymy 'concept' identity gate (0.5464) is BELOW the lemma arm (0.5580) -> the WRITING identity gate must be lemma-TIGHT; type-compatibility belongs in the NON-writing bridge (consistent with the prior is-a-WRITE negative). (6) NO-REGRESS by construction: the fix is a KEY swap inside the read-only additive resolution consumer (writes only sm.commonnoun_resolution). (7) ADJACENT no-regress measured: re-keying the OTHER live head_lemma consumer (online_entity_cluster, sm.entities) on the concept lemma moves entity-layer CoNLL 0.6975->0.6974 (delta -0.0001) -- flat (the key defect is invisible to cluster-F1, which is dominated by big clusters). (8) GOLD-FREE (inherited): no gold field touches a resolution decision (prior W5)."
-files_changed: "experiments/exp_cn_headkey_decomposition_v1.py, experiments/exp_cn_conceptkey_binding_v1.py, experiments/exp_cn_conceptkey_clustering_adjacent_v1.py, experiments/exp_cn_conceptkey_ood_v1.py, verification/test_cn_conceptkey_binding.py, notes/problems/the_common_noun_binder_is_string_identity_not_the_brains_content_addressable_typed_coref/SOLVED.md. NO hdlab/ writes (Q111 -- the proposed diff is in section 6). Reuses data/corpora/gum/ (pinned V12.1.0, on disk) + hdlab.{typed_coref,typed_spokes,commonnoun_binder,salience_binder,coref,situation_reader,online_entity_cluster} + experiments.{exp_situation_model_qa_modern_v1,exp_commonnoun_binder_live_report_v1,exp_unified_referent_gum_v1,exp_online_cue_cluster_gum_v1} + nltk-WordNet morphy (static offline lexical foundation)."
+files_changed: "experiments/exp_cn_headkey_decomposition_v1.py, experiments/exp_cn_conceptkey_binding_v1.py, experiments/exp_cn_conceptkey_clustering_adjacent_v1.py, experiments/exp_cn_conceptkey_ood_v1.py, experiments/exp_cn_readerhead_endtoend_v1.py, verification/test_cn_conceptkey_binding.py, notes/problems/the_common_noun_binder_is_string_identity_not_the_brains_content_addressable_typed_coref/SOLVED.md. NO hdlab/ writes (Q111 -- the proposed diff is in section 6). Reuses data/corpora/gum/ (pinned V12.1.0, on disk) + hdlab.{typed_coref,typed_spokes,commonnoun_binder,salience_binder,coref,situation_reader,online_entity_cluster} + experiments.{exp_situation_model_qa_modern_v1,exp_commonnoun_binder_live_report_v1,exp_unified_referent_gum_v1,exp_online_cue_cluster_gum_v1} + nltk-WordNet morphy (static offline lexical foundation)."
 reverify: ".venv/Scripts/python.exe verification/test_cn_conceptkey_binding.py   # 7/7; recomputes every headline from source on the full GUM modern TEST (n=2855)"
 ---
 
@@ -101,6 +101,12 @@ from raw text. The +0.0158 difference is pure redaction annotation. The brief sa
   (-0.0001) -- FLAT (the key defect is invisible to cluster-F1, dominated by big person clusters, but it moves per-mention
   RESOLUTION, where every mention is a decision). So the concept-key's VALUE is specific to resolution; its RISK to
   clustering is nil. No other downstream consumer regresses.
+- **The full chain, itemized (deepening cron):** raw text -> [PARSER head selection: the next wall, -0.049 CI-sep, ~7% head
+  errors amplified via chain-poisoning] -> [LEMMA/concept key: FIXED here, crude regex -> concept lemma, +0.0098] -> [typed
+  content-addressable binding: BF, correct organ] -> [non-writing type bridge: BF]. The binding beats string-identity CI-sep
+  at BOTH head-quality levels (gold-head +0.0326; reader-head +0.0308), so the mechanism is robust; the two upstream inputs
+  (lemma, then head selection) are where signal is lost, and both are now measured. The lemma was NOT_BF and is fixed; the
+  parser head-selection is the larger, next-problem lever.
 - **Remaining headroom above this fix is WORLD KNOWLEDGE, and it is a SEPARATE problem.** The prior work's oracle type
   comparator ceiling (0.7492) is dominated by the encyclopedic/schema KB (handed off to
   `world_knowledge_common_noun_to_name_bridge...`) + generative situation-model inference -- NOT the head key. This problem
@@ -122,10 +128,16 @@ from raw text. The +0.0158 difference is pure redaction annotation. The brief sa
   is harmless where the surface is clean), but the measured accuracy GAIN is concentrated where the crude regex actually
   fails -- GUM's redaction-heavy genre. Honest headline: on the BOARD instrument (GUM) the fix is a CI-sep win over the honest
   floor AND a strict gain over crude; OOD it is a no-regress neutral.
-- **I did NOT run end-to-end from the reader's OWN raw parse.** The board instrument feeds GOLD GUM mentions + GOLD head
-  surfaces, so it isolates the LEMMA (the one reader-controlled input on this instrument). The deeper upstream (mention
-  detection + head selection from raw text, via the reader's arc_parser) is a different instrument and a different problem
-  (the parser); it is out of scope here and flagged as adjacent.
+- **The DEEPER upstream IS measured now (deepening cron), and it is the next wall -- the PARSER's head selection.** The board
+  feeds GOLD head surfaces; when the reader picks its OWN mention heads from its arc parse (`exp_cn_readerhead_endtoend_v1.py`),
+  head-pick fidelity is 93.1% (2657/2855) and the ~7% head errors cost the binding **-0.0490 CI[-0.0597,-0.0392] (CI-sep)** --
+  ~5x the lemma fix -- because a wrong head poisons the whole referent chain. IMPORTANT: this is NOT the live-GUM number (the
+  deployed reader uses GOLD mention heads on CoNLL corpora); it is the RAW-TEXT diagnostic, and it is fair (the string-identity
+  floor drops with the SAME reader heads too: 0.5254 gold-head -> 0.4781 reader-head). The load-bearing result: **the typed
+  binding beats string-identity CI-sep at BOTH head-quality levels** -- gold heads +0.0326, and the reader's OWN error-prone
+  heads +0.0308 CI[+0.0211,+0.0414] over the fair reader-head floor. So the binding's advantage is ROBUST to the parser, and
+  the parser's head selection (post-modified NPs: "the environments identified by Quilis" -> the parser mis-heads the modifier)
+  is the DOMINANT raw-text upstream wall and the next problem (the parser mega-cluster) -- named + quantified, not a ceiling.
 - **The concept (loose-synonymy) gate is REFUTED as an identity gate** (0.5464 < 0.5580) -- a located sub-negative, not a
   caveat: content-addressable IDENTITY wants the lemma-tight concept; synonymy/is-a stay in the non-writing bridge.
 
@@ -172,9 +184,13 @@ flat on the clustering consumer. GOLD-FREE inherited.
   the de-leaked 0.5254 is the raw-text-honest floor.
 
 ## 8. Adjacent components (seeds for the next problems; BF-fidelity + optimisation potential)
-- **The reader's OWN raw parse -> mention detection + head selection (the deeper upstream).** This instrument feeds gold GUM
-  mentions/heads; the true end-to-end reader loses additional signal in its arc_parser head selection. BF status: the
-  glass-box parse stack is landed but its head-selection fidelity on the resolution slice is UNMEASURED. High-value follow-on.
+- **The PARSER's head selection is the dominant raw-text upstream wall (NOW MEASURED, the next problem).** `hdlab.arc_parser`
+  head-pick fidelity on anaphoric-common mentions = 93.1%; the ~7% errors (post-modified NPs -- relative clauses, PPs,
+  "as a whole", possessives) cost coref resolution -0.049 CI-sep (chain-poisoning amplification). BF status: the glass-box
+  arc_parser is landed, but its span-head selection for coref mentions is the biggest lever left on this chain for raw text.
+  Concrete follow-on: a brain-foundational span-head organ (the true head is the leftmost external nominal / UD span root; the
+  substrate's `np_head_reduce` handles compounds but NOT post-modification). This is the parser mega-cluster in
+  CROSS_SOLUTION_IMPROVEMENT_MAP.
 - **The type comparator's KNOWLEDGE (encyclopedic C8 / schema).** Already a filed problem
   (`world_knowledge_common_noun_to_name_bridge...`); oracle headroom +0.18, dominated by KB + situation-model inference.
 - **`online_entity_cluster` keys on the same crude `head_lemma`.** Re-keyed no-regress here (-0.0001 CoNLL); a candidate to
@@ -225,8 +241,12 @@ de-leaked floor" instruction asks for).
    its appos seed, sync the board copy. One-line KEY swap; additive; no-regress by construction + measured.
 2. **HIGH -- fix the board floor honesty (section 6.3):** add the de-leaked gold floor (0.5254) as the reference the
    `common_noun` headline beats CI-sep; demote the raw 0.5412 to a documented transparency line (the +0.0158 redaction leak).
-3. **MEDIUM -- flag the deeper upstream (adjacent):** measure the reader's OWN raw-parse head-selection fidelity on the
-   resolution slice (the end-to-end number this instrument does not expose) -- a candidate parser follow-on.
+3. **MEDIUM/HIGH -- file the PARSER head-selection follow-on (now measured):** `arc_parser` mis-heads ~7% of anaphoric-common
+   mentions (post-modified NPs), costing coref resolution -0.049 CI-sep on the raw-text path (`exp_cn_readerhead_endtoend_v1`).
+   A brain-foundational span-head organ (leftmost external nominal / UD span root; extend `np_head_reduce` past compounds to
+   post-modification) is the biggest raw-text lever on this chain. The typed binding already beats string-identity at BOTH
+   head-quality levels (+0.0326 gold-head, +0.0308 reader-head CI-sep), so fixing the parser lifts the whole chain with the
+   binding staying ahead. This is the parser mega-cluster.
 4. **LOW/OPTIONAL -- fold `concept_lemma` into `online_entity_cluster`** when its instrument is next revisited (no-regress,
    nil cluster-F1 value -- do it for consistency, not for a gain).
 
@@ -236,5 +256,10 @@ de-leaked floor" instruction asks for).
 - **INCORPORATE-AS-DURABLE-NEGATIVE:** the raw gold-lemma 0.5412 floor embeds a +0.0158 redaction see-through LEAK (record in
   BRAIN_FOUNDATIONAL_AUDIT E3 + `reference_retired_claims`); the loose-synonymy identity gate LOSES (identity must be
   lemma-tight; type-compat is the non-writing bridge); the prior board "morphy +0.0004" note is WRONG (it is +0.0105).
+- **INCORPORATE-AS-DURABLE-FINDING (full-stack upstream):** the PARSER's span-head selection is the dominant raw-text upstream
+  wall for coref -- `arc_parser` mis-heads ~7% of anaphoric-common mentions (post-modified NPs) at a -0.049 CI-sep resolution
+  cost (chain-poisoning); the typed binding beats string-identity CI-sep at BOTH gold-head (+0.0326) and reader-head (+0.0308)
+  quality, so the mechanism is robust and the parser is the next lever (parser mega-cluster). Record in
+  CROSS_SOLUTION_IMPROVEMENT_MAP as this solution's flagged upstream wall + consumed input (mention head surface).
 - **DO-NOT-INCORPORATE:** the crude `commonnoun_binder.head_lemma` regex on the resolution path (retire it there); the
   `concept` loose-synonymy arm (refuted).

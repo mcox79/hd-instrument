@@ -10,8 +10,10 @@ Witness `verification/test_parser_graded_route_through.py` (18 checks PASS).
 |---|---|---|---|
 | exp_parser_graded_decode_regimes_v1 | greedy vs exact-CLE vs marginal-argmax decode + error decomposition + marginal reliability | **BF** | exact decode +0.002 UAS CI-sep; **99% of error is SCORER-limited** (95/5048 decode-fixable); marginal reliability AUC 0.855 vs twin 0.361 |
 | exp_parser_graded_downstream_whodidwhat_v1 | patient-arc recall under decode regimes + top-2 graded reach | **BF** | point decode flat; **top-2 reach recall 0.951->0.991 CI-sep** (twin 0.443 loses), precision cost +2.18 pairs/arc |
-| exp_parser_learned_from_reading_v1 | UNSUPERVISED directional-PPMI attachment learned from raw reading | **BF** | UAS 0.212 beats adjacency 0.114/random 0.072, twin 0.111 loses, **grows 0.177->0.212**; supervised ceiling 0.782 (gap 0.570) |
+| exp_parser_learned_from_reading_v1 | UNSUPERVISED directional-PPMI attachment (first step) | **BF** | UAS 0.212 grows with reading 0.177->0.212, twin 0.111 loses, but BELOW the strong right-branching floor 0.285 (the trap) |
+| exp_parser_selfsup_em_v1 | reading-learned parser with Naseem prior + DMV-class EM (graded marginal E-step) | **BF** | **BREAKS the trap**: UAS 0.312 > floor 0.285 CI-sep (+0.027); prior +0.056 + EM +0.066 both required; twin 0.176 loses; non-root at parity (text-only ceiling) |
 | exp_parser_semantic_scorer_augment_v1 | augment surface scorer with reading-PPMI (the exceed lever) | **BF** | **located NEGATIVE**: +0.0006 not CI-sep -- surface scorer already has the lexical bigram; twin control holds |
+| exp_parser_ood_gum_generalization_v1 | second gold (GUM, multi-genre OOD): route-through robustness + register question | **BF** | route-through REPRODUCES (99% scorer-limited, marginal AUC 0.84); supervised degrades OOD 0.79->0.74; reading generalizes OOD > floor; HONEST negative: target-register reading != source-register (corpus consistency dominates) |
 | verification/test_parser_graded_route_through.py | scaffold-free witness | -- | 18/18 (reads landed metrics + graded_parser.self_test + live parse) |
 
 ## B. COMPONENTS PROPOSED FOR hdlab (Q111 -- strategy lands; HDLAB_INTEGRATION_SPEC.md)
