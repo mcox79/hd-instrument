@@ -10,6 +10,8 @@ realized) and are not itemized.
 **HOW TO USE.** You improved / are about to improve component X? → grep this file for X in **PART 2 (the reverse-index)**:
 it lists every solution that FLAGGED X as its wall + every solution that CONSUMES X. Re-open and re-measure those.
 
+**⚠️ DISK-VERIFY BEFORE ACTING.** Flagged-needs here are lifted from each solution's SOLVED.md *as written at its time* — some go stale as later work lands. Always verify the claim on disk before building (e.g. the "C8 DBpedia asset unbuilt" claim below was STALE — the asset is built + live as of 2026-09-09). Disk outranks this map.
+
 **MAINTENANCE RULE (keep it a live reverse-index).** When you integrate a new SOLVED, add one row to PART 1 (component +
 BF status | inputs consumed | flagged needs) AND append the solution's slug under each PART-2 target it consumes or flags.
 Each brief's `ADJACENT COMPONENTS` + `NEXT STEPS` sections are the source. Cross-ref `notes/bf_status_registry.jsonl` for
@@ -70,7 +72,7 @@ discards marginals) · `graded_parser` (Matrix-Tree marginals, the BF route) · 
 - `report_the_typed_coref…` (88% headroom = world knowledge), `improve_the_common_noun_coref…` (84%),
   `world_knowledge_common_noun_to_name_bridge…` (30% doc-local coverage), `acquire_wikidata_p31…`, `expand_the_clean_semantic_memory_foundation…`,
   `the_situation_model_has_no_affect_emotion_dimension` (common-noun world-knowledge), `replace_the_attractor_as_ranker…` (relational is-a = 214× lever), pri-1 (commonsense/procedural corpus).
-- **⚡ CHEAPEST CROSS-SOLUTION UNBLOCK: the C8 DBpedia 548MB entity-type asset is gitignored/UNBUILT → `available_entity_type()` abstains → silently caps ≥3 world-knowledge solutions. Rebuild it.**
+- **✅ C8 ASSET IS BUILT + LIVE (verified on disk 2026-09-09): `available_entity_type()` returns True; `data/frontend_assets/entity_type_spoke_v1.sqlite` (548MB) + compact `.npz` (82MB) present; Zurbaran→artist, Einstein→scientist resolve.** The "unbuilt → abstains" claim in the acquire_p31 / typed_coref SOLVEDs is STALE (rebuilt in the acquire_p31 compact-swap `47ab3aec4`). The residual is COVERAGE of a famous-but-missing slice (Denmark/Dvorak uncovered) — which the name-bridge SOLVED BOUNDED (a bigger static KB is capped at +0.0084, fitted-probe; the document-local half needs the generative route, Target 4). So this is NOT a cheap rebuild win — the world-knowledge lever is the generative world-model + broadening coverage (bounded), not the asset.
 
 ### 6 — BOARD INSTRUMENTS / "LIVE ≠ SCORED" — ~13 solutions (SHARED-WALL)
 Recurring: "a board-invisible PROVEN win needs its own instrument-arm." Needing an arm: patient-slot QA on clean gold, goal_hierarchy multi-hop,
@@ -125,4 +127,4 @@ pri-1, `generate_dont_retrieve_causal_edges…`, `grow_a_broad_causal_event_orde
 
 ## THE TWO CONCRETE CROSS-SOLUTION UNBLOCKS (highest ROI on this map)
 1. **BUILD THE GENERATIVE WORLD-MODEL SIMULATION (Target 4)** — discharges ~9 solutions' residual including the pri-1 causal frontier. The largest single lever. (In flight: pri-1.)
-2. **REBUILD THE GITIGNORED C8 DBpedia ENTITY-TYPE ASSET (Target 5)** — a single asset-rebuild un-abstains `available_entity_type()` and unblocks the encyclopedic route in ≥3 world-knowledge solutions (report_the_typed_coref, improve_common_noun_coref, acquire_p31). Cheap, mechanical, high-leverage.
+2. ~~REBUILD THE C8 DBpedia ASSET~~ — **RETRACTED after disk-verify (2026-09-09): the C8 asset is already BUILT + LIVE** (`available_entity_type()`=True). The SOLVED-file "unbuilt" claims were stale. The real world-knowledge lever is Target 4 (the generative world-model for document-local coverage) + bounded static-KB coverage expansion — NOT an asset rebuild. (This is the disk-verify caveat in action.)
