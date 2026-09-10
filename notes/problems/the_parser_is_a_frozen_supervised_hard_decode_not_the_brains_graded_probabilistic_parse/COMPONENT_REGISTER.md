@@ -10,6 +10,7 @@ Witness `verification/test_parser_graded_route_through.py` (18 checks PASS).
 |---|---|---|---|
 | exp_parser_graded_decode_regimes_v1 | greedy vs exact-CLE vs marginal-argmax decode + error decomposition + marginal reliability | **BF** | exact decode +0.002 UAS CI-sep; **99% of error is SCORER-limited** (95/5048 decode-fixable); marginal reliability AUC 0.855 vs twin 0.361 |
 | exp_parser_graded_downstream_whodidwhat_v1 | patient-arc recall under decode regimes + top-2 graded reach | **BF** | point decode flat; **top-2 reach recall 0.951->0.991 CI-sep** (twin 0.443 loses), precision cost +2.18 pairs/arc |
+| exp_parser_graded_reliability_gated_patient_v1 | reliability-gated top-2 competition (closes the precision caveat) | **BF** | naive top-2 F1 collapses 0.418->0.269; **reliability-GATED net-beats hard head F1 CI-sep (+0.0036)**; twin 0.141 loses -- the brain-faithful readout is net-positive |
 | exp_parser_learned_from_reading_v1 | UNSUPERVISED directional-PPMI attachment (first step) | **BF** | UAS 0.212 grows with reading 0.177->0.212, twin 0.111 loses, but BELOW the strong right-branching floor 0.285 (the trap) |
 | exp_parser_selfsup_em_v1 | reading-learned parser with Naseem prior + DMV-class EM (graded marginal E-step) | **BF** | **BREAKS the trap**: UAS 0.312 > floor 0.285 CI-sep (+0.027); prior +0.056 + EM +0.066 both required; twin 0.176 loses; non-root at parity (text-only ceiling) |
 | exp_parser_semantic_scorer_augment_v1 | augment surface scorer with reading-PPMI (the exceed lever) | **BF** | **located NEGATIVE**: +0.0006 not CI-sep -- surface scorer already has the lexical bigram; twin control holds |
@@ -31,6 +32,7 @@ Witness `verification/test_parser_graded_route_through.py` (18 checks PASS).
 | `parse_confidence` | **NOT_BF** (fitted logistic, decision-dead) | EVALUATED + BF fix proposed | raw marginal beats it (0.855 vs 0.736); drop the logistic from the live path |
 | `pos_tagger` | **NOT_BF** | NOTED as upstream input | supplies the POS the scorer + our reading-learned scorer both consume; its own acquisition is a sibling NOT_BF |
 | `incremental_parser` | **BF_SPIRIT** | EVALUATED as the incremental carrier | the BF left-corner builder; the reading-learned scorer follow-on should carry commitment through it |
+| `graded_competition` | **BF** (pinned) | EVALUATED as the readout host | the reliability-weighted competition (Lewis-Vasishth) that hosts the reliability-gated top-2 selection; already the substrate's discrete->graded operation -- the wire point for LAND item 2 |
 | `distributional_meaning_channel` / `reading_grounding_loop` directional channel | **BF_SPIRIT** | EVALUATED as acquisition substrate | the PPMI + directional-context organs the reading-learned scorer reuses (generalization the sparse bigram lacks) |
 
 ## D. NEXT PRIORITY STEPS

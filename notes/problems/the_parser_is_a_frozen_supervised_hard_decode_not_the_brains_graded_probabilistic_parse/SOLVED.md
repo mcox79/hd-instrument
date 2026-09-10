@@ -5,7 +5,7 @@ bar: "Route the reader's parse consumers through the GRADED probabilistic parse 
 result: "Route-through on UD-EWT test (n=24,120 tokens/2061 sents): exact-graded decode UAS 0.7927 vs greedy hard-decode 0.7907, +0.00199 CI[0.0010,0.0029] CI-sep -- but the DECODE fixes only 95/5048 head errors (1.9%); ~99% is SCORER error the exact global normalization cannot touch (the LOCATED NEGATIVE, with a number: normalization is solved, the SCORER is the wall). Downstream (n=1065 gold patient arcs): reading the graded DISTRIBUTION (top-2 marginal reach) recovers args CI-sep, recall 0.9512->0.9906 (+0.0394 CI[0.028,0.052]), twin 0.4432 loses -- at a precision cost (+2.18 spurious pairs/arc). ACQUISITION (UD-EWT, no gold trees): first-step reading-learned attachment UAS 0.2117 is BELOW the strong right-branching floor 0.2849 (the documented right-branching trap), but the BRAIN'S ACTUAL MECHANISM -- Naseem universal structural prior (+0.056) + DMV-class EM re-estimation using the graded_parser marginal as the E-step (+0.066, 0.247->0.312) -- BREAKS the trap: UAS 0.3122 > floor 0.2849, CI-sep (+0.0273 [0.0145,0.0402]), twin 0.1763 loses. HONEST: the UAS win is root-finding-driven; non-root attachment 0.2755 ~ floor 0.3026 (the field-pinned text-only ceiling). Supervised treebank ceiling 0.782."
 floor: "arc-level UAS floor = greedy hard-decode 0.7907 (the live default). downstream floor = greedy-head patient recall 0.9512. acquisition STRONG floor = adjacency-RIGHT / right-branching UAS 0.2849 (full) / 0.3026 (non-root) -- unusually strong for English (Klein-Manning 2004); also random 0.0720 + left-adjacency 0.1137. exceed-lever floor = surface-scorer-alone UAS 0.7850. supervised treebank UPPER reference (not a floor) = 0.782."
 controls: "shuffled-SCORES control collapses UAS to 0.0666 (scorer carries the signal); shuffled-MARGINAL twin drops reliability AUC 0.8546->0.3607; top-2 shuffled-token twin drops recall 0.9906->0.4432; shuffled-TABLE twin drops first-step reading UAS 0.2117->0.1113 and EM UAS 0.3122->0.1763; semantic-augment shuffled twin does NOT beat the surface floor. Each twin is info-free with the same shape and LOSES. Ablations: EM helps (0.247->0.312) AND the structural prior is required (0.183->0.239) -- both isolated."
-files_changed: "experiments/exp_parser_graded_decode_regimes_v1.py, experiments/exp_parser_graded_downstream_whodidwhat_v1.py, experiments/exp_parser_learned_from_reading_v1.py, experiments/exp_parser_semantic_scorer_augment_v1.py, experiments/exp_parser_selfsup_em_v1.py, experiments/exp_parser_ood_gum_generalization_v1.py, verification/test_parser_graded_route_through.py, notes/problems/the_parser_is_a_frozen_supervised_hard_decode_not_the_brains_graded_probabilistic_parse/{SOLVED.md,_working_notes.md,HDLAB_INTEGRATION_SPEC.md,NEXT_GAP_learned_from_reading_scorer.md,BF_AUDIT_UPDATE.md,COMPONENT_REGISTER.md}"
+files_changed: "experiments/exp_parser_graded_decode_regimes_v1.py, experiments/exp_parser_graded_downstream_whodidwhat_v1.py, experiments/exp_parser_learned_from_reading_v1.py, experiments/exp_parser_semantic_scorer_augment_v1.py, experiments/exp_parser_selfsup_em_v1.py, experiments/exp_parser_ood_gum_generalization_v1.py, experiments/exp_parser_graded_reliability_gated_patient_v1.py, verification/test_parser_graded_route_through.py, notes/problems/the_parser_is_a_frozen_supervised_hard_decode_not_the_brains_graded_probabilistic_parse/{SOLVED.md,_working_notes.md,HDLAB_INTEGRATION_SPEC.md,NEXT_GAP_learned_from_reading_scorer.md,BF_AUDIT_UPDATE.md,COMPONENT_REGISTER.md}"
 reverify: ".venv/Scripts/python.exe verification/test_parser_graded_route_through.py"
 ---
 
@@ -22,11 +22,13 @@ recall path byte-identical), and one big prize is filed as a follow-on:
    7.2% invalid-tree sentences) and replace the NOT_BF fitted-logistic `parse_confidence` with the raw
    graded **marginal reliability** (AUC 0.855 > logistic 0.736 -- a learned component REMOVED). Detail in
    `HDLAB_INTEGRATION_SPEC.md`.
-2. **LAND -- read the DISTRIBUTION, not the single head.** The true argument the single committed parse
-   drops is almost always still ALIVE in the posterior's top-2 (patient recall 0.951->0.991, CI-sep). The
-   reader should admit the top-2 marginal heads into the role competition (it partially does, via
-   `predicate_argument_frontend`), ranked by the marginal reliability (to pay the +2.18-pairs/arc
-   precision cost brain-faithfully, not with a wider beam).
+2. **LAND -- read the DISTRIBUTION, RELIABILITY-GATED (a measured NET win, not just recall).** The true
+   argument the single committed parse drops is almost always still ALIVE in the posterior's top-2 (patient
+   recall 0.951->0.991). A naive wider beam is the WRONG readout (precision collapses, F1 0.418->0.269), but
+   gating the top-2 by the marginal reliability -- the brain's reliability-weighted competition (Lewis-Vasishth
+   cue integration; the substrate's `graded_competition`) -- NET-beats the hard head on patient-arc F1
+   CI-sep (+0.0036 [0.0012,0.0059], twin loses). Small in magnitude only because the hard head already
+   recovers 95%; the graded posterior's real downstream value is HARD/ambiguous cases + reliability-flagging.
 3. **THE LOCATED WALL (a full-pass located negative, with a number -- and it holds on TWO golds).** The
    graded NORMALIZATION is solved; ~99% of the residual head error is **SCORER error** the exact decode
    cannot touch (UD-EWT AND out-of-domain GUM). So route-through is a small win, and the real lever is the
@@ -83,8 +85,14 @@ organs and the deepest upchain component.
   a downstream metric).
 - **Reading the DISTRIBUTION (top-2 reach) vs greedy: +0.0394, CI [0.028, 0.052] -> CI-sep; twin loses.**
   The brain's "keep alternatives alive" claim, confirmed with a number. Honest cost: +2.18 spurious
-  (verb,nominal) pairs/arc -> the distribution HOLDS the signal; a brain-faithful reader needs competition/
-  reliability (the AUC-0.855 marginal) to cash it, not a naive wider beam.
+  (verb,nominal) pairs/arc.
+- **The caveat CLOSED with the brain's mechanism (`exp_parser_graded_reliability_gated_patient_v1`, n=2061):**
+  a NAIVE wider beam is the wrong readout (patient-arc F1 collapses 0.418->0.269 as precision craters), but
+  RELIABILITY-GATING the top-2 by the marginal (reliability-weighted competition = Lewis-Vasishth cue
+  integration / the substrate's `graded_competition`) NET-beats the hard head: F1 0.4182->0.4218, +0.0036
+  CI [0.0012,0.0059], CI-sep; shuffled-marginal twin 0.1414 loses. So the brain-faithful readout is
+  net-positive, not a tradeoff -- small only because the hard head already recovers 95% (little headroom);
+  the posterior's downstream value concentrates in HARD/ambiguous cases + reliability-flagging.
 
 ### Prong 2 -- the acquisition question (measured, with the wall drilled)
 `exp_parser_learned_from_reading_v1` (first-step) + `exp_parser_selfsup_em_v1` (the brain's mechanism):

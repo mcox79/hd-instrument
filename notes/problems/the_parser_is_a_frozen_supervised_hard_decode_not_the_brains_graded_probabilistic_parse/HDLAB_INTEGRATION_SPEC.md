@@ -29,11 +29,15 @@ The true argument the single committed parse drops is almost always alive in the
 patient-arc recall **0.9512 -> 0.9906** (+0.0394 CI-sep, shuffled twin 0.4432 loses)
 (`exp_parser_graded_downstream_whodidwhat_v1`). Admit each token's TOP-2 marginal heads as candidate
 attachments into the role competition (`predicate_argument_frontend.route_predicate_arguments` already
-does a version of this -- "the marginal's top-2 parse-miss reach", +0.0065 who-did-what). Do NOT widen the
-beam blindly: the top-2 reach costs +2.18 spurious (verb,nominal) pairs/arc, so RANK the admitted
-candidates by the marginal reliability (item 1b) inside the existing `graded_competition` -- the
-brain-faithful "keep alternatives alive, weight by reliability" (Lewis-Vasishth cue integration). Measure
-who-did-what patient/agent on `exp_situation_model_qa_modern_v1` (the modern board) before/after.
+does a version of this -- "the marginal's top-2 parse-miss reach", +0.0065 who-did-what).
+**CRITICAL (measured, `exp_parser_graded_reliability_gated_patient_v1`): do NOT widen the beam blindly** --
+a naive top-2 admission COLLAPSES precision (patient-arc F1 0.4182 -> 0.2689). RANK/GATE the admitted
+candidates by the marginal reliability (item 1b) inside the existing `graded_competition` (the pinned
+Lewis-Vasishth reliability-weighted cue integration): reliability-GATED top-2 NET-beats the hard head F1
+CI-sep (0.4182 -> 0.4218, +0.0036 [0.0012,0.0059]; shuffled-marginal twin 0.1414 loses). Wire point:
+`graded_competition.graded_pick` with the marginal as the reliability weight. Measure who-did-what
+patient/agent on `exp_situation_model_qa_modern_v1` (the modern board) before/after; the net board move is
+expected SMALL (the hard head already recovers 95%), concentrated on hard/ambiguous items.
 
 ## INVARIANTS (do NOT change)
 - Recall/recognition path (attractor: `ca3_completer`, `gap_detector`, `hippocampal_encoder`) is untouched
