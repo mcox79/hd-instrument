@@ -52,6 +52,12 @@ Glass-box, deterministic, NO external LLM (the invariant). ASCII-only.
 """
 from __future__ import annotations
 
+__bf_status__ = 'NOT_BF'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-09 BF-certification pass (reader CATALOG C5 owner-DONE; strategy first-hand)'
+__bf_note__ = "a fitted logistic sensitivity-readout (patient/obl parse-arc confidence), NOT the brain's globally-normalized posterior -- the BF replacement is the graded_parser Matrix-Tree MARGINAL (obl_reliability_marginal in-module: AUC 0.782 > logistic 0.736). MITIGATIONS: FROZEN OFFLINE asset (admissible -- no train-at-inference) + DECISION-DEAD live (precision_weight_tau=None -> defer never fires, confidence is additive metadata only). UPGRADE (gated on a live defer consumer): swap logistic->marginal + COMMIT"
+__bf_corrections__ = []
+
+
 from typing import Dict, Optional, Sequence
 
 import numpy as np
