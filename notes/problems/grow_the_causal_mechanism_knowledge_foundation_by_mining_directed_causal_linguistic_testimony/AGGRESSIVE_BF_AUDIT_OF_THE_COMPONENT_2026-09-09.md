@@ -70,9 +70,30 @@ physics/thermo 574 @21% | other 440 @12% | geo/weather 412 @31% | **everyday/pro
 full Rhea+Reactome for chem [blocked on RDKit], BioModels CC0 SBML->Jacobian-sign for biology [the BIGGEST domain],
 sympy physics-law core for physics/thermo, signed ecological models for ecology) **+ ~12% partial-formal** (QP/earth-
 science for geo) **+ ~33% GROUNDED-PROGRAM-only** (everyday/procedural/social -- NO formal model, needs the grounded
-Delta-Delta program). => PUSH PLAN: the formal-DB ingest can take sign coverage from ~18% toward ~65-70%; the remaining
-~33% (everyday/social) is the grounded-experience frontier. Each ingest is research-gated on its parse (RDKit / SBML-
-Jacobian / QP).
+Delta-Delta program). => PUSH PLAN: the formal-DB ingest grows NECESSITY coverage broadly; SIGN coverage grows only if
+ingested at the RIGHT GRAIN (below). The everyday/social third is the grounded-experience frontier.
+
+**THE INGESTION RULE (tested 2026-09-09 -- "how did physics maintain precision?"):** encode couplings at the
+**DIRECT-INFLUENCE grain (I+/I- : unconditional direct interaction / consumption- / production+)**, NOT as NET/LOOP
+proportionalities -- then let the do-simulation compose the regime-dependent net. EVIDENCE: biology/ecology as NET
+proportionalities (food->population, population->growth) DILUTED the sign to a falsifier TIE (+0.014); the SAME domain
+as DIRECT influences (predator->prey -, resource->growth +, consumption-/production+) KEEPS the falsifier-beating sign
+(arm 0.640 vs scrambled 0.518, **+0.122 CI[0.068,0.173] CI-sep**; 3-way +0.095 CI-sep). This is exactly the grain
+SBML/BioModels (reaction terms) + Lotka-Volterra (interaction coefficients) + Rhea (stoichiometry) STORE -- so the full
+formal-DB ingest, done at the direct-influence grain, MAINTAINS precision AND grows coverage. Net/equilibrium
+proportionalities are regime-dependent (the 80%-flip wall) and are NOT storable -- the simulation computes them.
+
+**ENTROPY / 2ND-LAW PAIRING (tested 2026-09-09, owner: "commonsense circles around irreversible things").** The 2nd
+law is an UNCONDITIONAL directional sign (entropy only increases), so irreversibility fits the direct-influence grain:
+an irreversible process CONSUMES order/freshness/structure (-) and PRODUCES disorder/decay/waste (+). Added as a
+direct-grain layer (time->decay+, rot->food-, wear->structure-, spoilage->food-, ...); it MAINTAINS the falsifier-
+beating sign (+0.062 CI[0.016,0.107] CI-sep -- valid, unlike net-proportionality's tie). BUT it does NOT crack the
+everyday-procedural 0% domain -- because that domain is **AGENTIVE, not physical-irreversible** (samples: "wanting to
+come home after camping", "the post office seeks a stamp increase", "you leave food out less -> less extensive camping
+trip"). => THE EVERYDAY THIRD SPLITS: (a) physical-irreversible (rot/wear/rust/decay) = ENTROPY/2nd-law direct-grain
+sign (handled); (b) **AGENTIVE-GOAL** (intentions/plans/social scripts -- "does this action serve the goal?") = needs a
+MEANS-END / GOAL sign source (the shelved MeansEnd ATL hub; agentive commonsense e.g. ATOMIC xEffect/xWant), NOT
+physics/entropy. The agentive-goal sign is its own frontier (commonsense-DB research in flight).
 
 ---
 

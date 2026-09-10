@@ -5,8 +5,8 @@ bar: "PASS = an END-TO-END measurement on the LIVE reading-grounding loop (a fai
 result: "TWO-PART. (1) LOCATED NEGATIVE on the loop's OWN coverage-COUNT metric: the sense-assignment representation does NOT cleanly move n_grounded -- it is decision-quality-BLIND. Genuine online loop over the full curriculum (4640 sentences, curriculum-ordered, process_sentence + consolidation_pass with a swapped sense-assignment gate): INCUMBENT (distributional) grounds 143 words; the fusion grounds 133 (strict accept) to 202 (accept-all) depending ONLY on the accept threshold -- the count tracks thresh-clearing/exposure, NOT ranking correctness. And the incumbent's 143 grounded links are co-occurrence garbage (artwork->happy, google->hope, owner->fine). (2) CI-SEPARATED WIN on coverage QUALITY (the instrument the count is blind to): ranking the true SimLex-999 sense-partner against the loop's ACTUAL 556-word seed-anchor pool through canonicalize's real decision, a brain-foundational meaning representation beats the distributional incumbent CI-separated -- GROUNDED-ATL MRR@cov0.5 +0.158 CI[+0.089,+0.252] and hit@1@cov0.5 +0.106 CI[+0.021,+0.191] (all-query, n=94; both parameter-free); full-coverage MRR +0.103 CI[+0.058,+0.153]; AUF-MRR grounded-distinctive 0.232 > grounded 0.198 > fusion 0.130 > incumbent 0.037 > twin 0.010. REFINEMENT of the brief's mechanism: the transfer is carried by the GROUNDED ATL identity channel, NOT the grounded+distributional FUSION -- on the live anchor pool the distributional channel is noise, so grounded-alone >= fusion (fusion still beats incumbent +0.096 CI[+0.022,+0.189] but trails grounded)."
 floor: "Strongest floor = the DISTRIBUTIONAL incumbent (the loop's live canonicalize representation): coverage-quality MRR@cov0.5 0.034, hit@1 0.000-0.033, AUF-MRR 0.037; live coverage count n_grounded 143. Info-free twins (shuffled representation rows): AUF-MRR 0.010 (fusion twin) / carries no per-word signal. On the true-BF representation prototype the sparse structured channel's own floors: bag-of-words AUF-MRR 0.030, its info-free twins 0.006-0.008."
 controls: "INFO-FREE TWIN (shuffled grounded/representation rows) LOSES CI-separated on every headline (grounded vs twin MRR@0.5 +0.195 CI[+0.106,+0.298]; fusion vs twin +0.122 CI[+0.028,+0.241]; DEP-structured vs twin +0.097 CI[+0.042,+0.178]) -> the win carries real per-word meaning, not base-rate. RECALL/RECOGNITION PATH BYTE-IDENTICAL: canonicalize_fast == reference canonicalize (witness W5; only what the ranking READS changed; no hdlab written). HARNESS FAITHFULNESS positive control: the cell's INCUMBENT gate decision == the live canonicalize (accept/refuse + chosen anchor) on 40/40 random query bundles (W4). INDEPENDENT GOLD: SimLex-999 human similarity (WordNet-independent, independent of every representation). HELD-OUT: the fusion weight w is calibrated on a disjoint train split and evaluated on test; grounded/incumbent are parameter-free (evaluated on all queries, no leak). FAITHFUL POOL: candidates restricted to the loop's ACTUAL seed-anchor field (not the full vocab) -- ranking against the whole 4678-word vocab drives hit@1 to floor for every arm and hides the transfer. THRESHOLD SWEEP: coverage count reported across accept thresholds (matched selectivity) so the count comparison is not a single confounded point. PHASE-DIAGRAM densification SWEEP (k in {50,100,200} x power in {0.5 SGNS, 0.0 whitened}) -- excludes 'the structured channel is just under-optimized'."
-files_changed: "experiments/exp_meaning_fusion_live_coverage_v1.py (the end-to-end transfer measurement: PART A genuine online coverage-count + PART B coverage-quality selective-prediction frontier, all arms, twins), experiments/exp_meaning_fusion_bf_representation_v1.py (the TRUE-BF representation prototype -- FIX #3/#5: ATL distinctive-feature whitened grounded + structured dependency/adjacency PPMI substitutability, convergent-cue Bayes, + the phase-diagram SVD-densification sweep), experiments/exp_meaning_fusion_bf_accept_criterion_v1.py (FIX #7: the self-calibrating SDT accept criterion on the scale-free z_top standout, replacing the fixed cosine), experiments/exp_meaning_fusion_correct_coverage_growth_v1.py (the PARTIAL->SOLVED converter: genuine online loop with the fully-BF decision wired, WordNet-judged CORRECT-coverage growth, twin-controlled at matched count), verification/test_meaning_fusion_live_coverage.py (scaffold-free witness, 7/7), data/exp_meaning_fusion_live_coverage_v1/metrics.json, data/exp_meaning_fusion_bf_representation_v1/metrics.json, data/exp_meaning_fusion_bf_accept_criterion_v1/metrics.json, data/exp_meaning_fusion_correct_coverage_growth_v1/metrics.json, experiments/exp_meaning_fusion_taxonomic_lever_v1.py (quantifies THE big remaining lever: the is-a/taxonomic identity channel on the live anchor-pool decision -- lever-proof under the WordNet-circularity caveat), data/exp_meaning_fusion_taxonomic_lever_v1/metrics.json. NO hdlab/ modified (Q111 -- the hdlab proposal is stated below for the strategy session to land)."
-reverify: ".venv/Scripts/python.exe verification/test_meaning_fusion_live_coverage.py  (8/8: recomputes the transfer at limit=1500 + reads the full landed disk facts, incl. the three fixes and the online correct-coverage growth). Powered headline reproducer (own-dir only): .venv/Scripts/python.exe experiments/exp_meaning_fusion_live_coverage_v1.py --mode full --no-online"
+files_changed: "experiments/exp_meaning_fusion_live_coverage_v1.py (the end-to-end transfer measurement: PART A genuine online coverage-count + PART B coverage-quality selective-prediction frontier, all arms, twins), experiments/exp_meaning_fusion_bf_representation_v1.py (the TRUE-BF representation prototype -- FIX #3/#5: ATL distinctive-feature whitened grounded + structured dependency/adjacency PPMI substitutability, convergent-cue Bayes, + the phase-diagram SVD-densification sweep), experiments/exp_meaning_fusion_bf_accept_criterion_v1.py (FIX #7: the self-calibrating SDT accept criterion on the scale-free z_top standout, replacing the fixed cosine), experiments/exp_meaning_fusion_correct_coverage_growth_v1.py (the PARTIAL->SOLVED converter: genuine online loop with the fully-BF decision wired, WordNet-judged CORRECT-coverage growth, twin-controlled at matched count), verification/test_meaning_fusion_live_coverage.py (scaffold-free witness, 7/7), data/exp_meaning_fusion_live_coverage_v1/metrics.json, data/exp_meaning_fusion_bf_representation_v1/metrics.json, data/exp_meaning_fusion_bf_accept_criterion_v1/metrics.json, data/exp_meaning_fusion_correct_coverage_growth_v1/metrics.json, experiments/exp_meaning_fusion_taxonomic_lever_v1.py (quantifies THE big remaining lever: the is-a/taxonomic identity channel on the live anchor-pool decision -- lever-proof under the WordNet-circularity caveat), data/exp_meaning_fusion_taxonomic_lever_v1/metrics.json, experiments/exp_meaning_fusion_learned_isa_channel_v1.py (the research-led BRAIN-FOUNDATIONAL is-a channel LEARNED from reading -- Rogers-McClelland property-SVD + Levy-Goldberg dependency + genus-differentia, NO WordNet; beats grounded on AUF, twin losing), data/exp_meaning_fusion_learned_isa_channel_v1/metrics.json. NO hdlab/ modified (Q111 -- the hdlab proposal is stated below for the strategy session to land)."
+reverify: ".venv/Scripts/python.exe verification/test_meaning_fusion_live_coverage.py  (9/9 checks, W1-W11: recomputes the transfer at limit=1500 + reads the full landed disk facts, incl. the three fixes and the online correct-coverage growth). Powered headline reproducer (own-dir only): .venv/Scripts/python.exe experiments/exp_meaning_fusion_live_coverage_v1.py --mode full --no-online"
 ---
 
 # What this is: the fusion does NOT lift the loop's coverage COUNT (the count is quality-blind), but a brain-foundational meaning representation lifts coverage QUALITY CI-separated -- and the lever is GROUNDED, not the grounded+distributional fusion
@@ -134,6 +134,46 @@ decision demonstrably grows more correct-coverage, twin-controlled at matched co
 SOLVED) because the clean online precision win over the incumbent is power/operating-point-limited, and the
 fully-live SOLVED needs strategy to LAND the wire in hdlab (Q111) and the is-a channel + reading volume to
 lift absolute correctness (below).
+
+## THE BRAIN-FOUNDATIONAL is-a / TAXONOMIC IDENTITY CHANNEL -- LEARNED from reading, prototyped (owner: "prototype the is-a channel, research, right not easy")
+`exp_meaning_fusion_learned_isa_channel_v1.py`, research-led (hdi_research drill 2026-09-09). The WordNet
+taxonomic channel is a lever-proof but circular + SUPPLIED. The brain ACQUIRES taxonomic identity from
+experience, three ways copied exactly, NONE using WordNet at inference:
+  (1) ROGERS-McCLELLAND property-prediction -> the ORDERED SVD of a word x property covariance (Saxe-
+      McClelland-Ganguli 2019 PNAS PROVE gradient descent learns exactly these ordered modes; coarse->fine;
+      reproduces the semantic-dementia distinctive-features-first gradient). PINNED computation.
+  (2) LEVY-GOLDBERG dependency-typed predications as PROPERTIES (functional, not topical similarity). PINNED
+      computation; the arc-eager parser TOOL is the NOT_BF dependency (sweep/replace -> incremental_parser).
+  (3) GENUS-CENTROID SUBTRACTION for siblings-vs-synonyms (differentia). Genus from READ is-a edges (best).
+ANTI-CIRCULARITY GATE enforced: the channel uses ONLY grounded norms + reading-derived dependency features;
+NO WordNet. SimLex (human, WordNet-independent) is the gold; the shuffled twin loses.
+
+MEASURED (live anchor pool=556, SimLex gold, n_q=94):
+| arm | AUF-MRR |
+|---|---|
+| grounded-distinctive (current best BF) | 0.188 |
+| **learned is-a: property-SVD [grounded (+) dependency predications] (NO WordNet)** | **0.260** |
+| grounded + learned-is-a (fusion) | 0.272 |
+| info-free twin (shuffled) | 0.006 |
+| WordNet CM (LABELLED CIRCULAR ceiling -- not landable) | 0.650 |
+
+- **The learned is-a channel (no ontology) BEATS grounded-distinctive on AUF-MRR (0.260 vs 0.188) and beats
+  its info-free twin CI-separated (+0.251 CI[+0.144,+0.356]).** It works: property-covariation SVD +
+  dependency predications, learned from reading, is a real is-a signal. HONEST BOUND: the @cov0.5
+  point-comparison vs grounded is DIRECTIONAL not CI-separated at this power (+0.058 CI[-0.023,+0.150]) -- an
+  area-under-frontier gain that needs more reading/power to be CI-clean.
+- **Genus-centroid subtraction via K-MEANS CLUSTERING is a MEASURED NEGATIVE (-0.126 CI[-0.202,-0.048]):**
+  clustering is a bad genus proxy; the differentia op needs READ is-a edges. THE READ-EDGE GENUS ORGAN EXISTS
+  AND IS WIRED -- `hdlab/definitional_extraction.py` (v6.2 glass-box; `Definition.head` = the genus;
+  `_make_definitional_gate`/`substrate.py:538`). BUT MEASURED on the curriculum (news + science, 4640 sents):
+  only 320 is-a edges, ~4.5% anchor-pool / ~5.6% query-word coverage, and noisy on news (labour->artwork,
+  cup->people). So the read-edge genus is CORPUS/EXPOSURE-STARVED, not missing -- clean genus statements are
+  rare in news, dense in encyclopedic/textbook text (~2092 facts over 40k simplewiki+biology sents, prior
+  notes). The differentia op needs DEFINITION-RICH reading AT VOLUME (grow-by-reading + corpus selection),
+  not more mechanism.
+- The circular WordNet ceiling (0.650) marks the headroom: reading volume (grow-by-reading) + a read-edge
+  genus (or a curated NON-circular is-a foundation asset) is the path from 0.26 toward it. Blueprint recorded
+  in memory (brain-foundational-is-a-acquisition-blueprint).
 
 ## THE THREE NON-BF WEAK LINKS -- FIXED, fully brain-foundational (owner: "fix them, right not easy")
 The performance-vs-brain audit named three components in the upstream chain that were NOT fully BF. They
@@ -264,9 +304,11 @@ None blocking.
    0.188 (+0.488 CI[+0.360,+0.620]); grounded+taxonomic 0.657 (best); twin 0.006 -- supplying is-a knowledge
    takes the live decision from ~15% to ~65% of achievable (`exp_meaning_fusion_taxonomic_lever_v1.py`). HONEST
    CAVEAT: measured with WordNet definitional features (partly circular with SimLex) = a LEVER-PROOF, not a
-   landable BF number. The brain-foundational way to BANK it: LEARN is-a from reading (structured
-   substitutability + read-off-the-page genus/property extraction, decorrelated -- NO ontology) or a curated
-   NON-circular is-a FOUNDATION asset. This is the next build.
+   landable BF number. The BRAIN-FOUNDATIONAL way to BANK it is PROTOTYPED (above): the learned property-SVD
+   is-a channel (Rogers-McClelland + Levy-Goldberg, NO WordNet) beats grounded on AUF (0.260 vs 0.188), twin
+   losing -- a real learned-from-reading is-a signal. To make it CI-clean over grounded and approach the
+   circular ceiling: MORE READING (grow-by-reading) + a READ-edge genus for the differentia op (the
+   clustering-genus substitute measured NEGATIVE) or a curated non-circular is-a FOUNDATION asset.
 4. **(the learned is-a channel's real lever)** The dependency-substitutability channel is exposure-limited, not
    ceilinged -- it rises with reading and is BF (parse input aside). The lever is MORE READING (the
    grow-by-reading north-star) and a BF general parser (`incremental_parser`) to remove the arceager NOT_BF

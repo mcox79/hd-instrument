@@ -265,6 +265,7 @@ arm beats the strongest tuned floor CI-separated AND an info-free twin loses). W
 | **ToM false-belief** (TIER-6 gap) | `exp_theory_of_mind_belief_partition_v1.py` | per-agent OBSERVATION-GATED belief partition (decoupled metarepresentation, Leslie 1987 / Wimmer-Perner 1983) over FHRR | **BF_UNPINNED** (ToM has no pinned neural equation; labelled honestly) | false-belief 1.00 (ToM) vs 0.00 (reality-only floor), +1.00 CI-sep; twin 0.36; true-belief control agrees |
 | **R2 graded value teacher** | `exp_consequence_graded_value_teacher_v1.py` | graded OFC/vmPFC value, Padoa-Schioppa 2006 (vs binary MET/UNMET) | **BF** | Pearson 0.90 vs 0.86 binary (+0.044 CI-sep); same-sign discrimination 0.75 vs 0.68 (+0.061 CI-sep) |
 | **STATE ABSTRACTION -- successor features** (the #1 perf-vs-brain signal loss) | `exp_successor_features_state_abstraction_v1.py` | place-fields-ARE-the-SR + grid-cells-are-its-eigenvectors, Stachenfeld 2017; successor features psi=(I-gamma A)^-1 phi, Barreto 2017; TD-learned | **BF** | held-out cos-to-MC-truth 0.89 (SF) vs 0.82 (the REAL tabular organ), +0.070 CI-sep; twin 0.37 (+0.52 CI-sep); TD W == closed form (rel-err 0.018); rank-d/2 grid-cell basis still generalizes |
+| **MODEL-BASED CONTROL** -- the MF<SR<MB hierarchy (the #2 perf-vs-brain gap: flat model-free gate) | `exp_model_based_control_revaluation_v1.py` | dual-system model-free vs model-based, Daw 2011; SR as the middle ground, Momennejad 2017 / Dayan 1993 (SR arm = the REAL organ) | **BF** | REWARD reval: SR 1.00 / MB 0.99 vs frozen MF 0.02 (+0.98 CI-sep); TRANSITION reval: MB 0.99 vs stale SR 0.87 (+0.124 CI-sep) -- the strict hierarchy; twins lose |
 
 **Composition (the bank thesis, disk-proven):** `exp_reward_cluster_joint_evc_v1.py` shows DIAL #2
 (vigor) composes with the SHIPPED DIAL #1 (`AdaptiveHaltController`) CI-separated with byte-identical
@@ -279,6 +280,16 @@ shared, overlapping FEATURE basis and grid cells are its eigenvectors (Stachenfe
 runs the SR as SUCCESSOR FEATURES over that basis, TD-learned, and GENERALIZES to held-out states where
 the real tabular organ collapses to a state-independent constant -- the right fix, at the level the
 signal is actually lost. This is the deepest of the follow-ons and the one that unblocks the others.
+
+**Model-based control closes the #2 performance-vs-brain gap** (`action_selection` being a FLAT
+model-free gate -- its own envelope: degrades with depth, "cannot self-discover subgoal decomposition").
+The brain arbitrates a DUAL system (Daw 2011): habitual model-free (cached, stuck when the world
+changes) vs goal-directed model-based (re-plans over a learned world model), with the SR as the
+documented MIDDLE ground (Momennejad 2017 -- revalues reward, not transitions). The prototype reproduces
+that exact hierarchy: on a REWARD change the SR (V=M R, the real organ) and model-based both revalue
+instantly while frozen model-free is stale; on a TRANSITION change (a detour) model-free AND the SR are
+BOTH stale (identical, 0.868) and only model-based re-plans correctly. This is the canonical
+dual-systems result, built on the successor-feature work, and it is what a flat value gate cannot do.
 
 **Honest scope on the prototypes.** Each is measured on a synthetic environment that ISOLATES its
 brain computation (the construction-proof status the shipped DIAL #1 witness also carries), NOT yet on

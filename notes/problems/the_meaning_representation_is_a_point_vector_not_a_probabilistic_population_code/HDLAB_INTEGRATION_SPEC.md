@@ -58,6 +58,18 @@ using the SATURATING gain. Brain-foundational rule (measured): gain-modulate ONL
 +0.0155). At current exposure the earned channels are still catching up, so gain-weighting is net-neutral; land the
 channel now, and turn ON saturating-gain weighting as the learned channel reaches ontology parity.
 
+## SECOND LANDABLE -- the AFFECTIVE-VALENCE dimension (un-blinds meaning to antonymy; CI-separated capability)
+The learned + perceptual channels are RELATION-BLIND: synonym-vs-antonym AUC ~0.51-0.53 (they score love/hate as
+similar as synonyms). Only the supplied ontology discriminates (0.87). FIX (reuse, BF): add the SIGNED AFFECTIVE
+dimension -- `hdlab.affect_lexicon.valence(word)` (+arousal/dominance) over the on-disk Warriner VAD norms; the
+affective spoke `grounded_similarity` currently OMITS. Antonyms are opposite poles on it (Osgood 1957 Evaluation
+axis; Russell/Barrett core affect -- PINNED). MEASURED (`exp_valence_polarity_meaning_channel_v1`): a signed valence
+read lifts syn-vs-antonym AUC 0.535 -> 0.72 (VAD 0.75) WITHOUT WordNet, CI-separated [+0.084,+0.281], complementary
+(corr 0.11), twin collapses. LAND: append valence(+A,+D) as extra dims to the meaning representation and fuse it as
+a channel (it is the polarity axis, not a relatedness axis). Covers ~77% of antonyms (the affectively-opposed);
+scalar-directional (increase/decrease) is layer 2a (path-marker signature, `exp_directional_consequence_channel_v1`);
+transfer converses (buy/sell) need the role-binding generative channel (a NEW problem, `NEXT_GAP...md` §5c).
+
 ## INVARIANTS (do NOT change)
 - Recall/recognition path (attractor: `ca3_completer`, `gap_detector`, `hippocampal_encoder`) reads the normalised
   vectors and is BYTE-IDENTICAL; the gain is a separate scalar the RANKING reads (`exp_ppc_no_regression_v1` INV1/2).
