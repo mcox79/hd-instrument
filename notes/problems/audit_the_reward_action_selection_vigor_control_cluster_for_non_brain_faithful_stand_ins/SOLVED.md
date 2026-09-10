@@ -5,7 +5,7 @@ bar: "PASS = a CATALOG.md in this folder of the reward/action-selection/vigor cl
 result: "ENUMERATED DENOMINATOR = 40-organ import closure of the 7 seeds (AST trace over 249 hdlab modules); 3/7 seed decision organs (action_selection, successor_representation, self_manager) are DORMANT-ISLANDED with 0 hdlab importers, goal_achievement DORMANT (1 non-live importer), consequence_learning_loop+goal_typing LIVE-IMPORTED-INERT via the grounding subsystem, state_of_mind LIVE via coref. #1 finding = the tonic-DA VIGOR channel is MISSING (the cluster's namesake computation; 'vigor' occurs in all of hdlab exactly once, a docstring mention in self_manager.py:6). POWERED LOCALIZATION (Niv 2007 tau*=sqrt(C_v/rho) prototype, own metric = total net reward per fixed-time free-operant session, n=240 sessions, 2000-sample paired bootstrap): the brain-faithful vigor dial earns +578.9 net reward/session CI[574.2, 583.6] over the strongest fixed floor -- CI-separated -- and +707.8 CI[697.6, 718.5] over the info-free twin."
 floor: "strongest FIXED floor = one best fixed latency tuned once by argmax net reward on a held-out calibration session (the current no-vigor-dial state) = 1422.0 net reward/session; the vigor dial NIV = 2000.9 (+578.9 CI-sep). Info-free TWIN floor (same dial driven by a shuffled reward history) = 1293.2 (NIV +707.8 CI-sep). ORACLE ceiling = 2419.7."
 controls: "info-free TWIN (dial driven by a SHUFFLED reward history, matched tau-scale) LOSES to NIV +707.8 CI-sep -> the reward-rate signal is load-bearing, not tau-variance; SCRAMBLE (dial driven by a time-scrambled reward stream) = 1089.5 collapses BELOW the fixed floor -> signal-driven; ORACLE (tau from the true local rate) = 2419.7 is the ceiling (>= NIV); closed-form identity tau*=sqrt(C_v/rho) matches a grid-argmax of the reward rate to rel-err 0.047; monotonicity vigor~sqrt(rho) confirmed; JOINT-EVC COMPOSITION (exp_reward_cluster_joint_evc_v1.py, using the REAL shipped AdaptiveHaltController) -- BOTH-dials beats halting-only +664.8 CI-sep and vigor-only +992.1 CI-sep, and the halting decisions are byte-identical under a vigor toggle (separability proven); denominator positive controls fire (0-importer dormancy of the 3 pinned organs, state_of_mind reached via coref, cll imported by grounding); witness byte-search guard shown to FIRE on a present token (AdaptiveHaltController) while reporting vigor absent."
-files_changed: "experiments/exp_audit_reward_cluster_denominator_v1.py, experiments/exp_reward_cluster_vigor_dial_v1.py, experiments/exp_reward_cluster_joint_evc_v1.py, experiments/exp_self_manager_neuromodulatory_bank_v1.py, experiments/exp_action_selection_linear_sr_value_v1.py, experiments/exp_theory_of_mind_belief_partition_v1.py, experiments/exp_consequence_graded_value_teacher_v1.py, experiments/exp_successor_features_state_abstraction_v1.py, experiments/exp_model_based_control_revaluation_v1.py, experiments/exp_theory_of_mind_recursive_v1.py, experiments/exp_integrated_reward_cluster_agent_v1.py, verification/test_audit_reward_cluster_standins.py, notes/problems/audit_the_reward_action_selection_vigor_control_cluster_for_non_brain_faithful_stand_ins/CATALOG.md, notes/problems/audit_the_reward_action_selection_vigor_control_cluster_for_non_brain_faithful_stand_ins/SOLVED.md. NO hdlab/ writes (Q111)."
+files_changed: "experiments/exp_audit_reward_cluster_denominator_v1.py, experiments/exp_reward_cluster_vigor_dial_v1.py, experiments/exp_reward_cluster_joint_evc_v1.py, experiments/exp_self_manager_neuromodulatory_bank_v1.py, experiments/exp_action_selection_linear_sr_value_v1.py, experiments/exp_theory_of_mind_belief_partition_v1.py, experiments/exp_consequence_graded_value_teacher_v1.py, experiments/exp_successor_features_state_abstraction_v1.py, experiments/exp_model_based_control_revaluation_v1.py, experiments/exp_theory_of_mind_recursive_v1.py, experiments/exp_integrated_reward_cluster_agent_v1.py, experiments/exp_grounded_successor_features_landing_v1.py, verification/test_audit_reward_cluster_standins.py, verification/test_grounded_successor_features_landing.py, notes/problems/audit_the_reward_action_selection_vigor_control_cluster_for_non_brain_faithful_stand_ins/CATALOG.md, notes/problems/audit_the_reward_action_selection_vigor_control_cluster_for_non_brain_faithful_stand_ins/SOLVED.md. NO hdlab/ writes (Q111)."
 reverify: ".venv/Scripts/python.exe verification/test_audit_reward_cluster_standins.py  (31/31 PASS)"
 ---
 
@@ -117,6 +117,34 @@ W15-W18. All BF-audited and honestly labelled PINNED vs BF_UNPINNED. NO hdlab wr
 - **ALL FOUR performance-vs-brain gaps are now prototyped brain-foundationally** (state representation,
   model-based control, recursive ToM, integration) -- each copying its brain computation, each can-fail,
   each honestly labelled PINNED vs BF_UNPINNED.
+
+## THE HIGHEST-VALUE LANDING -- INVESTIGATED ON REAL DATA -> a LOCATED NEGATIVE that saves a wasted wire
+The proposed highest-value landing was to wire successor features over the grounding audit's grounded
+ATL basis (so the SR generalises over meaning). I built the promotion-ready organ
+(`GroundedSuccessorFeatures`) and tested it END-TO-END on the REAL assets (Lancaster sensorimotor +
+Warriner VAD + Brysbaert concreteness, 39,707 grounded words) + the modern GUM corpus
+(`exp_grounded_successor_features_landing_v1.py`; witness `test_grounded_successor_features_landing.py`
+5/5). **Result: a rigorous LOCATED NEGATIVE.** Grounded features DO carry information (grounded SF beats
+an info-free shuffled-feature twin +0.30 CI-sep), but grounded SF does NOT beat the tabular
+`successor_representation` organ's dead-row constant on held-out words (-0.42), and the decisive
+mechanism check shows a word's grounded MEANING does not predict its co-occurrence successors' features
+better than the global average (0.50 vs 0.81). This holds for co-occurrence AND a WordNet semantic-map
+(both fast-mixing). **Why:** natural-language word dynamics are small-world / hub-dominated and MIX TOO
+FAST, so the discounted future-feature occupancy washes out toward a corpus average a constant predicts;
+grounding the FEATURES cannot fix the wrong DYNAMICS. This STRUCTURALLY explains the SR's
+MEASURED-AND-LOST over lemmas (the transition substrate, not the state representation).
+- **KEY REALIZATION:** the successor representation's generalisation is real (proven positive on
+  STRUCTURED / state-preserving dynamics in `exp_successor_features_state_abstraction_v1.py` +
+  `exp_model_based_control_revaluation_v1.py`), but it does NOT transfer to raw word/semantic dynamics.
+  The SR's home is the SITUATION / EVENT / TASK graph (local, slow-mixing), not the lexical stream.
+- **PROPOSED hdlab DIFF (for strategy; the organ is promotion-ready, NO hdlab write by me -- Q111):**
+  (a) promote `GroundedSuccessorFeatures` VERBATIM to `hdlab/successor_features.py` (self-contained,
+  torch-free, no experiments.* import, no external LLM; loads only static offline norm assets);
+  (b) DO NOT wire it over `successor_representation`'s lexical/co-occurrence consumers (this negative);
+  (c) the CORRECTED wire is over the situation-model / event-transition graph
+  (`situation_model_accumulate` / the event register), where transitions are local -- feed event
+  features as phi and learn the event-level SR there. That is the landing worth doing, and it is a
+  separate problem to scope (this cell + the two structured-SF cells are the evidence base). **BF.**
 - **100% brain-foundational check (owner 2026-09-09):** every prototype copies the brain's actual
   computation with a citation; the one component without a pinned neural equation (ToM) is labelled
   BF_UNPINNED and built on the accepted FHRR algebra + the accepted cognitive false-belief computation;

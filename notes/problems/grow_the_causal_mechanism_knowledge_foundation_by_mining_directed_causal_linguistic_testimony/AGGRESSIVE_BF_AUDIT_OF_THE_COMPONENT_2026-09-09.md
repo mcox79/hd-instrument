@@ -126,6 +126,19 @@ graded_role_assigner) to bind the force-class to the true argument role, NOT a p
 net/regime everyday cases hit the wall. The proven lever (integrated reader, exact curated couplings, context-gated,
 +0.16 CI-sep at ~13.5%) STANDS; this generalization shortcut is shelved as a documented negative.
 
+**LEVEL (a) DONE RIGHT -- proper ROLE-binding via the Competition Model (`exp_causal_sign_argbound_role_v1`, research-
+guided).** Binds the force-class sign to the TRUE PATIENT from `hybrid_role_patient` (position-independent; Frankland-
+Greene lmSTC; Wolff force-to-patient), tiered VerbNet/FrameNet force-sign map, controls = role-scramble (sharpest) +
+scrambled-sign + positional. RESULT (WIQA): coverage 27% (2x the curated 13.5%); arm 0.525 beats role-scramble 0.504
+and positional 0.527... on the POINT estimate but **NOT CI-sep** (arm-role-scramble +0.021 CI[-0.004,0.046]). HONEST
+READ: correct argument-binding gives a REAL but WEAK signal -- the covered subset MIXES direct-influence cases (level a)
+with net/regime cases (level b), and the standalone binds Y's LOCAL-clause sign without (i) composing the X->Y path via
+the graph or (ii) routing confluence-nodes to level b. Per the research, level (a) is only clean when it FEEDS the graph
+composition + abstains at the first confluence -> i.e. level (a) needs level (b). So: role-binding is the RIGHT
+mechanism (beats positional/role-scramble directionally, fixing the 0.511 chance) but is not a standalone win; the
+falsifier-beating sign stays the curated exact couplings until (a)+(b) are integrated (graph edges from role-based
+extraction + influence-resolution simulation).
+
 ---
 
 # WHAT THE COUPLING-SIGN GAP IS -- decisive, triangulated (literature + our own data), 2026-09-09
