@@ -11,6 +11,75 @@ reverify: ".venv/Scripts/python.exe verification/test_audit_reward_cluster_stand
 
 # SOLVED -- brain-fidelity audit of the reward / action-selection / vigor control cluster
 
+## ============================ FINAL SUMMARY (read this first) ============================
+
+### FINDINGS (the audit + everything built after)
+1. **The cluster's pinned decision core is FAITHFUL and DORMANT.** `action_selection` (TD/RPE +
+   SR-transport + Go/NoGo), `successor_representation` (M=(I-gamma P)^-1), and `self_manager` DIAL #1
+   (ACC/EVC halting) each copy the brain's operation correctly and have 0 hdlab importers. The
+   comprehension organs (`goal_typing`/`goal_achievement`/`result_type_induction`) are honestly-labelled
+   OUR-INVENTIONs (no pinned equation); `state_of_mind` is a correctly-labelled coref tracker. **No live
+   unflagged non-brain-faithful DECISION stand-in of the reader-audit-C1 kind exists in this cluster.**
+2. **#1 = the tonic-DA VIGOR channel is MISSING.** The cluster is named "vigor control" but no vigor
+   computation exists ("vigor" occurs in all of `hdlab/` once, a docstring mention). Localized
+   powered: the Niv-2007 dial recovers **+579 net reward CI-sep** over the current no-dial state; it
+   composes with the shipped halting dial (joint EVC, separable).
+3. **All FOUR performance-vs-brain gaps were then prototyped brain-foundationally:** state abstraction
+   (successor features), model-based control (MF<SR<MB hierarchy), recursive 2nd-order ToM, and a
+   composed acting loop -- each can-fail, each beating its floor + info-free twin.
+4. **The highest-value LANDING is a LOCATED NEGATIVE (saves a wasted wire):** running the SR over the
+   grounded ATL meaning basis does NOT generalise on real word dynamics (fast-mixing washes out the
+   successor structure; a word's meaning does not predict its co-occurrence successors better than the
+   corpus average). The SR belongs over the **situation/event/task graph**, not the lexical stream.
+
+### BF-STATUS OF EVERY COMPONENT (made + evaluated)
+**MADE (prototype cells; all can-fail, info-free twin loses unless noted):**
+| component | brain basis | BF status |
+|---|---|---|
+| denominator enumeration (`exp_audit_reward_cluster_denominator_v1`) | glass-box disk import trace | **BF** |
+| DIAL #2 vigor (`exp_reward_cluster_vigor_dial_v1`) | Niv 2007 tau*=sqrt(C_v/rho) | **BF** |
+| joint EVC composition (`exp_reward_cluster_joint_evc_v1`) | Shenhav 2013 + Niv 2007 (real halting organ) | **BF** |
+| DIAL #3 NE gain-on-plasticity | Yu & Dayan 2005 / Behrens 2007 | **BF** |
+| DIAL #4 ACh encode/retrieve | Hasselmo 2006 | **BF** |
+| DIAL #5 5HT horizon | Doya 2002 | **BF** |
+| DIAL #6 homeostasis/sleep | Tononi & Cirelli SHY | **BF** |
+| R4 linear SR value V=M R (`exp_action_selection_linear_sr_value`) | Dayan 1993 (real SR organ) | **BF** |
+| R2 graded value teacher (`exp_consequence_graded_value_teacher`) | Padoa-Schioppa 2006 OFC value | **BF** |
+| 1st-order ToM (`exp_theory_of_mind_belief_partition`) | Leslie 1987 observation-gated belief | **BF_UNPINNED** |
+| recursive 2nd-order ToM (`exp_theory_of_mind_recursive`) | Perner & Wimmer 1985 nested belief | **BF_UNPINNED** |
+| successor features / state abstraction (`exp_successor_features_state_abstraction`) | Stachenfeld 2017 / Barreto 2017 | **BF** |
+| model-based control hierarchy (`exp_model_based_control_revaluation`) | Daw 2011 / Momennejad 2017 (real SR organ) | **BF** |
+| integration capstone (`exp_integrated_reward_cluster_agent`) | Tolman map + Daw + Stachenfeld | **BF** |
+| `GroundedSuccessorFeatures` organ (`exp_grounded_successor_features_landing`) | Stachenfeld/Barreto over grounded ATL basis | **BF** organ / **LOCATED NEGATIVE** on lexical substrate |
+| witnesses (`test_audit_reward_cluster_standins` 31/31, `test_grounded_successor_features_landing` 5/5) | pure-disk | **BF** |
+
+**EVALUATED (existing organs):**
+| organ | verdict | BF status |
+|---|---|---|
+| `action_selection` | TD/RPE + SR-transport + Go/NoGo -- SAME op-class | **BF** (faithful, dormant) |
+| `successor_representation` | M=(I-gamma P)^-1 closed form -- faithful; MEASURED-AND-LOST is a CAPABILITY finding (structural: word dynamics mix too fast), not a fidelity flaw | **BF** |
+| `self_manager` DIAL #1 (ACC/EVC halting) | Shenhav EVC -- faithful; but the "bank of 6" is 1 built, 5 missing (R3), incl. VIGOR (R1) | **BF** (built dial); MISSING (5 dials) |
+| `goal_typing` / `goal_achievement` / `result_type_induction` | goal/means-end comprehension -- no pinned neural equation; honestly-labelled OUR-INVENTIONs (vote weights pre-declared, WordNet-gloss class defs, not eval-fit) | **ADMISSIBLE** (UNSCORABLE) |
+| `consequence_learning_loop` | teacher = symbolic MET/UNMET lexicon vote self-labelled "standing in for the felt affective core" (R2); LIVE-IMPORTED-INERT in the grounding loop | **BF_SPIRIT** (labelled stand-in) |
+| `state_of_mind` | coref tracker, correctly labelled NOT-ToM; the ToM gap is a clean unbuilt organ (now prototyped) | **BF** (as coref); ToM MISSING |
+
+### PRIORITY NEXT STEPS (ranked; all proposed hdlab diffs -- strategy lands, Q111)
+1. **Land the `self_manager` bank** -- DIAL #2 vigor + DIALS #3-6 (NE/ACh/5HT/homeostasis), each a
+   content-free scalar sibling of the shipped halting dial; PROVEN separable/additive, `self_manager`
+   has 0 importers so nothing regresses. Highest value, lowest risk.
+2. **Land R4 + R2** -- the linear SR value read-out `V=M R` in `action_selection`, and a graded-value
+   teacher option for `consequence_learning_loop`.
+3. **Land a new `hdlab/theory_of_mind.py`** (1st + 2nd order observation-gated belief partition) --
+   fills the ABSENT TIER-6 ToM gap.
+4. **Promote `GroundedSuccessorFeatures`**, but wire the SR/model-based value over the **situation/event
+   graph** (`situation_model_accumulate`), NOT the lexical stream (per the located negative). Scope as
+   its own problem; the three SF/MB cells are the evidence base.
+5. **Build a live control loop that CONSUMES the vigor/effort dials** (effort/depth per read) so a board
+   number can finally move -- the cluster is dormant today, so everything above lands latent until a
+   consumer exists.
+
+## ======================================================================================
+
 ## WHAT WAS BUILT
 A disk-verified CATALOG of the reward/action-selection/vigor cluster (`CATALOG.md`), an enumerated
 import-closure denominator (`exp_audit_reward_cluster_denominator_v1.py`), a brain-foundational

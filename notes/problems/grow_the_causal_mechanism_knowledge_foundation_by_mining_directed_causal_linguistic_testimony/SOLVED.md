@@ -9,6 +9,76 @@ files_changed: "experiments/exp_causal_testimony_{baseline,mine,eval,heldout}_v1
 reverify: ".venv/Scripts/python.exe verification/test_causal_testimony_foundation.py (intrinsic direction win); .venv/Scripts/python.exe verification/test_causal_selection_positionfree.py (position-free selection); .venv/Scripts/python.exe verification/test_causal_direction_signal.py (direction signal on direction-sensitive golds)"
 ---
 
+## ============================================================================
+## FINALIZATION -- FINDINGS, BF-COMPONENT VERDICTS, PRIORITY NEXT STEPS (2026-09-09)
+## ============================================================================
+> Full detail + the SUBSTRATE INCORPORATION MANIFEST (what to wire on submission) live in
+> `AGGRESSIVE_BF_AUDIT_OF_THE_COMPONENT_2026-09-09.md` (read that at integration). This is the executive summary.
+
+### HEADLINE FINDINGS
+1. **THE COMPONENT'S OWN READ WAS RUNG-1.** `predictive_world_model.causal_antecedent`'s "counterfactual necessity" =
+   `log[P(B|ctx)/P(B|ctx-A)]` = leave-one-out predictive RELEVANCE = Pearl RUNG-1 (proven; barometer/storm; Causal
+   Hierarchy Theorem: no rung-1 functional is the rung-2/3 it was named for). The prior "BF-in-form" verdict was WRONG.
+   FIXED by composing the genuine rung-2/3 do-simulation (`causal_reasoner`) + exogenous ABDUCTION (rung-3). Proven:
+   rung-1 0.000 vs rung-2 1.000 on confound (+0.500 CI-sep); abduction fixes 62.9% of evidence-conditioned counterfactuals.
+2. **THE OPERATION = RUN THE GIVEN MODEL.** Causal comprehension is a per-item FORWARD SIMULATION over the passage's
+   causal chain (Gerstenberg CSM), proven load-bearing by the CHAIN-SCRAMBLE falsifier (+0.188 CI-sep on necessity).
+3. **THE more/less SIGN IS NOT IN TEXT (7 sources), but IS in FORMAL MODELS.** 7 text/co-occurrence sign sources all
+   TIED the scrambled falsifier (incl. explicit signed-proportionality at 78% coverage) -- CHT-doomed. The FIRST source
+   to BEAT the falsifier = the sign COMPUTED FROM REACTION/PHYSICS STRUCTURE (chemistry stoichiometry + everyday physics
+   + entropy/2nd-law, direct-influence grain, passage-context-gated): integrated reader +0.16 CI-sep at ~13.5% (the
+   science slice).
+4. **THE DIRECT-vs-NET SPLIT IS A THEOREM (Forbus QP).** Only EXACT/UNCONDITIONAL DIRECT influences (I+/I- : reactant-/
+   product+, monotone laws, entropy direction) carry a STORABLE, falsifier-beating sign; NET/regime proportionalities
+   (loops, thresholds, populations) are NOT storable -- they need SIMULATION. Every loose generalization (net
+   proportionalities, positional binding, verb-class shortcut) diluted to the falsifier tie, convergently confirming it.
+5. **GROUNDED Delta-Delta recovers the sign (0.999) given interventional data; text cannot** -- the grounded route is
+   real (proven in a micro-world) but needs grounded experience the substrate lacks.
+6. **THE TWO-LEVEL QP SIGN SIMULATOR (built):** (a) argument-bound direct-influence extraction (force-class bound to
+   the true PATIENT via the Competition-Model role assigner -- the fix for the 80% verb-flip; weak standalone, the edge
+   feeder); (b) INFLUENCE RESOLUTION -- net sign = `sign((-A^-1)[Y,X])` (Levins press-perturbation over the signed
+   community matrix) + magnitude-resample forward-sim, abstaining on genuine "?" -- **PROVEN** (0.994 vs conflict->0
+   0.940 +0.054 CI-sep; 61% structural + 7% magnitude + 32% honest abstain; sign/topology scrambles collapse it).
+7. **COVERAGE MAP:** ~2/3 of WIQA is formal-addressable at the direct-influence grain (chem/physics/bio/ecology --
+   ingest the DBs); the everyday ~1/3 splits into physical-IRREVERSIBLE (entropy, direct-grain) + AGENTIVE-GOAL
+   (means-end; commonsense DBs are EDGE oracles only, CHT-doomed for the sign). Direction (~0.61) is capped for the
+   same reason as the sign (rung-2 property, text under-determines) -- the grounded/interventional route fixes both.
+
+### BF-COMPONENT VERDICTS (audit at operation/math precision -- the spine; full table in VERIFIED_BF_LEDGER)
+| component | BF verdict | action on submission |
+|---|---|---|
+| `predictive_world_model.causal_antecedent` | **NOT-BF (rung-1)** | RELABEL -> `predictive_relevance` (rung-1 resonance/N400); strip CSM/Trabasso language |
+| `causal_reasoner` | **BF_SPIRIT** (verified rung-2/3 do-surgery + Halpern-Pearl AC2) | re-tag BF_UNVERIFIED->BF_SPIRIT; ADD exogenous abduction + the level-b RESOLUTION LADDER (supersedes conflict->0) |
+| forward simulation over the given passage chain | **BF-SPIRIT (proven operation)** | route the live necessity read through it (situation_reader) |
+| formal-model sign (stoichiometry+physics+entropy, direct-influence grain) | **BF-SPIRIT (first sign to beat the falsifier)** | wire as the sign source for the science slice |
+| level-b influence resolver (`sign((-A^-1)[Y,X])` + resample) | **BF-SPIRIT (proven)** | LAND as the resolution ladder in causal_reasoner |
+| `pos_tagger`/`arc_parser` | NOT-BF (frozen supervised) | route-around / north-star incremental parser |
+| `graded_role_assigner` | BF-SPIRIT (Competition Model; DEFAULT_VALIDITIES gold-fitted) | learn validities online (R-W) |
+| `event_bundle`/`role_slot_summarizer` | **BF** (FHRR bind/bundle/unbind/cleanup) | use as-is |
+| `grounded_similarity`/`sensorimotor_spoke` | BF-SPIRIT (capped-cosine read) | Weber-magnitude read |
+| `force_dynamics_lexicon` | BF-SPIRIT (Wolff truth-table; ~16% coverage) | argument-bind (level a) |
+| `force_dynamics_valence` | **NOT-BF** (verb-list membership) | do not use |
+| directed causal store (`store_v1.json`) | banked structural PRIOR (rung-1.5) | keep as edge/necessity oracle |
+
+### PRIORITY NEXT STEPS (ordered)
+1. **Land the Q111 hdlab changes** (relabel the rung-1 reader; re-tag+abduction+resolution-ladder in causal_reasoner;
+   route the live necessity read through the forward simulator + formal-model sign). Prototypes are all in `experiments/`.
+2. **(a)+(b) END-TO-END on WIQA** -- level-a extraction -> per-item signed graph -> level-b resolver; controls +
+   honest structural/magnitude/abstain split. (Both levels proven-in-principle; this is the wiring.)
+3. **Full formal-DB ingest at the DIRECT-INFLUENCE grain** (Rhea downloaded; BioModels CC0 SBML->reaction signs;
+   signed ecological/QP models) -> grows the science-slice sign coverage from ~13% toward ~65%.
+4. **The GROUNDED Delta-Delta program** for the net/regime + agentive-everyday sign (the deep world-model main event);
+   commonsense DBs (GenericsKB) as edge oracles + QuaRel/QuaRTz as the VET corpus.
+
+### REVERIFY (all green)
+`verification/test_causal_rung_fix.py` (12/12) · `test_causal_forward_simulator.py` (2/2) ·
+`test_causal_sign_stoichiometry.py` (3/3) · `test_causal_sign_integrated.py` (3/3) ·
+`test_causal_influence_resolution.py` (4/4) · `test_causal_grounded_sign_and_scaling.py` (6/6) ·
+`test_causal_sign_forcedynamic.py` (3/3, located-neg) · `test_causal_sign_proportionality.py` (3/3, located-neg) ·
+`test_causal_testimony_foundation.py` (6/6) · `test_causal_selection_positionfree.py` (5/5) · `test_causal_direction_signal.py` (4/4)
+
+## ============================================================================
+
 ## SUPERSEDING FINDING + FIX (2026-09-09, owner: "aggressively evaluate the component itself down to the math; then fully fix all components to be brain-foundational")
 
 **An aggressive operation/math re-audit of the END COMPONENT ITSELF found the prior "BF-in-form" verdict was WRONG, and

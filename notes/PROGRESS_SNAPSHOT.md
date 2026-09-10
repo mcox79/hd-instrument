@@ -4,137 +4,33 @@
 
 **HEADLINE: 0/1 plan steps done; C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap))**
 
-generated: 2026-09-10T01:00:50Z  |  HEAD: 340577c62
+generated: 2026-09-10T02:19:57Z  |  HEAD: 3c50244e5
 
 ## 1. Where we are against the plan (notes/PLAN_NEXT_12H.md)
 - UNKNOWN -- notes/PLAN_NEXT_12H.md not readable
 
 ## 2. What is running right now
 Heartbeats (data/heartbeats/*.timestamp):
-  - exp_dev: 17398 min ago <-- STALE
-  - orchestrator: 63464 min ago <-- STALE
-  - research: 39 min ago
-  - skunkworks: 66135 min ago <-- STALE
-  - testbed: 102709 min ago <-- STALE
+  - exp_dev: 17477 min ago <-- STALE
+  - orchestrator: 63543 min ago <-- STALE
+  - research: 60 min ago
+  - skunkworks: 66214 min ago <-- STALE
+  - testbed: 102788 min ago <-- STALE
 data/ directories touched in the last 180 min:
   - logs: 0 min ago, NO metrics.json yet (likely in-flight)
   - local_cpu_queue: 0 min ago, NO metrics.json yet (likely in-flight)
-  - exp_meaning_fusion_grow_reading_v1: 1 min ago, has metrics.json
-  - exp_meaning_fusion_grown_genus_v1: 4 min ago, has metrics.json
-  - exp_meaning_fusion_grown_genus_v1_smoke: 5 min ago, has metrics.json
-  - .metrics_sync: 6 min ago, NO metrics.json yet (likely in-flight)
-  - exp_integrated_reward_cluster_agent_v1: 6 min ago, has metrics.json
-  - exp_theory_of_mind_recursive_v1: 8 min ago, has metrics.json
+  - hook_state: 2 min ago, NO metrics.json yet (likely in-flight)
+  - exp_meaning_fusion_grow_by_reading_isa_curve_v1_smoke: 2 min ago, has metrics.json
+  - .metrics_sync: 5 min ago, NO metrics.json yet (likely in-flight)
+  - exp_causal_influence_resolution_v1: 37 min ago, has metrics.json
+  - exp_meaning_fusion_matched_coverage_v1: 49 min ago, has metrics.json
+  - exp_causal_sign_argbound_role_v1: 50 min ago, has metrics.json
 notes/STATUS.md WHAT IS RUNNING (verbatim):
-  - 🏗️ **OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS.** This session keeps the  10k view, writes briefs and INTEGRATES; solvers solve one bounded problem. **THE ORDER LIVES IN EACH  `notes/problems/<slug>/PROBLEM.md` FRONTMATTER (`priority:`) -- ENUMERATE, NEVER MIRROR.** *ENUMERATED FROM DISK 08-23 23:0x: `10` open (priorities `1`-`10`, contiguous), `8` solved+reviewed. **THE PREVIOUS TEXT HERE READ `11` open / `5` reviewed -- I MIRRORED A REMEMBERED COUNT ON THE VERY LINE THAT SAYS ENUMERATE.** Q111: solvers never write `hdlab/`.* `notes/problems/README.md`
-  - ✅ **TWO OF THE THREE ARE NOW REVIEWED (08-23 late). BOTH RE-VERIFIES PASS; I THEN AUDITED THE
-    ARGUMENT, NOT THE ARITHMETIC, AND BOTH AUDITS PAID.**
-    - 🥇 **P2 `does_learning_from_reading_deserve_to_continue` -- EXCELLENT.** *I attacked it with a
-      comparator it did not use (it ran TWO supplied arms and quoted the weaker) and **it held**: the
-      WordSim win survives against the stronger one CI-separated, and all three benchmarks clear the
-      strongest floor's UPPER bound.* ➡️ **MY BRIEF'S PREMISE IS REFUTED -- the sixteen prior losses
-      tested a WEAK implementation; the route is CORPUS-LIMITED, not exhausted (curve still climbing
-      at `38M` tokens).** 🔻 *Gap: no scored population saved, so the coverage question needs a re-run.*
-    - 🥈 **P1 `reader_meaning_channel` -- STRONG, and its FRAMING IS WRONG IN A WAY THAT MATTERS.**
-      Headline stands (aggregate is honest, and it STRENGTHENED its own floor). **But `84%` of that
-      aggregate is items where a frequency prior CANNOT lose. On the `53` words where the question is
-      live: grounded channel ALONE `0.4811` (above chance `0.3854`), channel **+** prior `0.1415`
-      (below chance), prior alone `0.0000` by construction.** ➡️ **THE PRIOR SWAMPS THE CHANNEL RATHER
-      THAN REPLACING IT -- adding it costs `0.3396`, more than the channel's whole margin. "The channel
-      adds nothing" and "our mixing rule destroys it" predict the SAME aggregate and imply OPPOSITE
-      next steps.** **The mechanism under test is now the COMBINATION RULE (reliability-weighted cue
-      combination), not the channel.** *Witness: `test_the_prior_swamps_the_grounded_channel_not_replaces_it.py`.*
-    - 🥈 **P3 `the_bundle_destroys_meaning_but_replacing_it_hurts` -- STRONG. IT RETIRES A FLOOR.**
-      **Its real finding: the string control beating us ~2:1 is `78%` MORPHOLOGY** (`0.0867` ->
-      `0.0193` on stem-stripped gold, overlapping its own info-free twin). ➡️ **THAT IS Q117.**
-      🔻 *But its headline "bundling is NOT the bottleneck" is contradicted by its own paired
-      bootstrap: `RAW_COOC − A1_BASE = +0.0125 CI[+0.0057,+0.0195]`, CI-SEPARATED -- **deleting
-      superposition BEATS the shipped flat bag by `26%` of its own score.** Both are true: removing
-      the bundle HELPS and does not help ENOUGH. It grounded "not the bottleneck" on losing to the
-      floor it then demolished.* 🎯 **BUILD TARGET HERE = MORE INDEPENDENT SOURCE DIMENSIONS (an
-      11-dim signal cannot fill a 256-dim code); the count table that wins has no rank ceiling.**
-      ⚠️ **NOTE THE TWO BRIEFS POINT OPPOSITE WAYS -- P1 says the COMBINATION RULE is the target, P3
-      says it is NOT. Different organs, different faults. DO NOT MERGE THEM.**
-      *Witness: `test_removing_the_bundle_helps_it_just_does_not_help_enough.py`.*
-  - 🚨 **THE THREE SUBMISSIONS LANDED 08-23 AND WERE FOUND BY ENUMERATING DISK, NOT BY ANY NOTIFICATION.**
-    **Found by ENUMERATING `SOLVED.md` on disk, not from any notification.** Each has a `reverify:` line
-    in its frontmatter; **run it before believing the headline, then write the `review:` /`review_text:`
-    frontmatter into the matching `PROBLEM.md` (that is what the GUI renders).**
-    | when | priority / slug | its own status | the claim, in short |
-    |---|---|---|---|
-    | 17:40 | **2** `does_learning_from_reading_deserve_to_continue` | **SOLVED** | **YES, and my brief's premise is REFUTED** -- surprise-weighted PPMI-SVD over 38.09M tokens clears the idf-count floor CI-separated on all three banks and is **STILL CLIMBING at the corpus ceiling**, so the route is corpus-limited, NOT exhausted. *Loses verbs to the supplied hub (`0.129` vs `0.266`).* |
-    | 19:34 | **3** `the_bundle_destroys_meaning_but_replacing_it_hurts` | **SOLVED** | **The bundling is NOT the c3 bottleneck** -- removing superposition ENTIRELY scores BELOW the spelling floor. **And ~`78%` of that spelling floor is MORPHOLOGICAL LEAKAGE**: on stem-stripped gold it collapses `0.0867`->`0.0193` while the flat bag holds and BEATS it. |
-    | 21:23 | **1** `reader_meaning_channel` | **REFUTED** | The meaning gap is **ARCHITECTURAL, not MODAL** -- the grounded hub plus the sense-frequency prior does NOT clear the most-frequent-sense floor (`0.4702` vs `0.4778`, not separated). *It also REPLACES that instrument's shipped uniform floor with a stronger one.* |
-    ⚠️ **DO NOT PROPAGATE ANY NUMBER ABOVE UNTIL ITS `reverify:` HAS BEEN RUN HERE.** *Five submissions
-    were verified this way today and BOTH failures found were in MY checker, never in a submission --
-    so the review is real work, but the prior says start by suspecting the tool.*
-  - 🧠 **THE MEANING CHANNEL: SEVEN MEASUREMENTS 08-23, ALL IN
-    `notes/problems/reader_meaning_channel/` WITH AN ORIENTATION MAP AND A REVERIFY PER FINDING.
-    READ THE BRIEF, NOT THIS BULLET, BEFORE BUILDING.**
-    🚨 **THE WALL: our channel reads `+0.0000` on verbs; the supplied sensorimotor one reads
-    `+0.3107` on the same benchmark.** *Not a subtraction -- different coverage; "ours is ABSENT where
-    this one is PRESENT".*
-    🔻 **AND FOUR THINGS DO NOT WORK:** it **cannot gate links alone** (`66%` hit / `37%` false alarm,
-    no threshold better than the one already set); **storage is fine but COMBINING destroys** (2
-    distractors halve it); **sparsity** and **an addressed slot** both fail to rescue that.
-    🔻🔻 **AND TWO LANDED CELLS ALREADY REFUTED THE OBVIOUS REMEDY -- I FOUND THEM AFTER
-    MEASURING, BY CHECKING HOW THE READER CONSUMES THE VECTOR.** `exp_structured_code_vs_flat_bag_c3_v1`
-    = **`STRUCTURE_HURTS`** (`-0.0113`, CI `[-0.0195,-0.0030]`, CI-separated BELOW);
-    `exp_perirhinal_conjunctive_readout_c3_v1` = **`CONJUNCTIVE_HURTS`** (no conjunctive arm beat the
-    flat bag). **`hdlab/perirhinal_conjunctive.py` already exists as a default-off drop-in, and its
-    docstring states my finding better than I did.**
-    ⚖️ **WHAT SURVIVES: a measured COST (`62%` per sentence) -- a property of representations.**
-    🔻 **WHAT DOES NOT: "so replace the flat bag". That is exactly what both cells tested and both
-    found WORSE.** *My test asks whether INDIVIDUAL WORD MEANING survives; task c3 may not need it --
-    if similarity-by-shared-context-words is what it wants, blending is the FEATURE.*
-    ➡️ **HONEST STATE: a measured cost with NO demonstrated benefit, against two landed refutations
-    of the obvious remedy. A property of a representation is not a licence to change it.**
-    🔑 **AND A BIGGER ALARM FROM THE SAME RECORD: `A5_STRINGCTRL 0.0870` vs `live base 0.0480` -- A
-    STRING-MATCHING CONTROL BEATS THE LIVE SYSTEM ~2:1 ON THAT TASK. That outranks this thread.**
-    🧠✅ **ONE THING DOES: SEGREGATION AT EQUAL BUDGET.** *Same `D=256` both ways.* **Segregation wins
-    at every `k`: at `k=16`, a 16-dim isolated slot reads `+0.1949` vs a 256-dim superposed `+0.0479`.**
-    📐 **`8` dims/slot is the practical floor** (`+0.1537`, over half full resolution); below that
-    both schemes are losing. ⚠️ **SCOPE: ATTRIBUTE segregation, NOT per-item** -- addressing is free
-    only when slots are TYPED. `32` attribute streams fit; per-item gives `2.56` dims at 100 items.
-    🎯 **AND THE LIVE COST IS NOW MEASURED, NOT SWEPT: `context_vector` is a
-    "bag-of-content-words bipolar bundle", so `k` = CONTENT WORDS/SENTENCE = median `6` over 3,998
-    real sentences. At `k=6` the superposed vector retains `37.6%` of baseline (`+0.1095` vs
-    `+0.2914`) -- **the reader throws away ~`62%` of the meaning signal PER SENTENCE, and a 42-dim
-    isolated slot would carry MORE than the full 256 shared (`+0.2343`).**
-    ⚠️ *Separate from the known `sign()` issue (`+0.0245`-`+0.0267` for dropping it) -- this is the
-    BUNDLING, not the normalisation. Both are live.*
-    ➡️ **THE BUILD LINE: meaning gets its OWN ATTRIBUTE-TYPED SLOT, separate from whatever else the
-    reading loop accumulates. NOT a slot per word -- I nearly wrote that.**
-    🧠 *Brain result: somatotopy holds at power (ACTION − PERCEPTUAL on verbs `+0.0651`
-    `[+0.0306,+0.1005]`); the noun half is CLOSED AS UNANSWERABLE (~`20,800` pairs needed, we own
-    `666`).* ⚠️ **STANDING PROHIBITION: do NOT raise `GROUNDED_CAP`** -- the `0.05` gap is what makes
-    "contribute, do not decide" enforceable in code.
-  - ✅ **Q115 EXECUTED AND ITS TRIAGE CLOSED (08-23): new cells GATED at commit; backlog inventoried.**
-    🔻 **COVERAGE `~21%` IS WITHDRAWN -- the truth is `71.2%`** (`3,495` of `4,908` re-runnable).
-    Funnel: `1,413` replay -> `425` assert a result -> `135` cited -> `29` lack a floor -> `20` claim a
-    capability -> `14` after 6 turned out to HAVE floors. **🔑 AND THE QUESTION WAS WRONG: a re-run
-    verifies the ARITHMETIC, NOT THE ARGUMENT -- a result with no floor re-runs and still has no
-    floor.** *Proven by running one: `132` of `132` fields identical, still `HARD_PASS` at `1.000` on
-    `n=10`.* 🎯 **OUTCOME: one row acted on and ITS FLOOR TIES** (a dictionary scores
-    `1.000/1.000/1.000` on the same 160 trials); **the OTHER no-floor row's criticism was WRONG AGAINST
-    US** (*"the sweep never bit"* -- a random baseline breaks inside that range where it held `1.0000`).
-    **ORGAN_MAP corrected at both citations.** ⚠️ *My detectors were wrong THREE times -- JSON `null`
-    literals, floor-shaped key names, the substring "cited" test. Each caught by reading an actual row;
-    the citing documents beat every regex I wrote.*
-    *Full sequence: `notes/THE_Q115_TRIAGE_FOURTEEN_RESULTS_WANT_A_RERUN_2026-08-23.md`.*
-  - ✅ **THE FOUNDATION LOADS NOW, AND RESUMING DOES NOT HELP GROUNDING (08-23).** *A matched read goes `168` -> `9` new groundings and precision sits at its RANDOM floor in every arm; a permuted-label DECOY matches RESUMED exactly (`0/164`), so it is anchor geometry, not meaning.* **RETIRED PREDICTION: "degeneracy falls as vocabulary grows". Persistence is NECESSARY, NOT SUFFICIENT -- never bill it as a grounding fix.** *Pinned in the constructor, positive-controlled.*
-  - 🖥️ **GUI TAB 9 "SUBSTRATE" -- the whole pipeline on one screen, from `data/substrate_progress.json`.** Every row shows when it was last re-checked and goes amber at 3 days / red at 7. 🔻 **THE DURABLE LESSON: the real bug behind *"there is STILL no priority"* was a GUI launched 08-22 13:15 and never restarted -- a feature that ships into a process nobody restarts has not shipped.**
-  - 📘 **ENUMERATE THE FIELDS THAT EXIST BEFORE CALLING ONE MISSING** -- one line, `sorted({k for r in rows for k in r})`. *Now in `CLAUDE.md` Evidence discipline 2 (loaded every session) with both incidents that earned it, and a DO-NOT-BUILD-A-TOOL note.*
-  - 🔻 **RETRACTED SAME DAY -- "THE DURABILITY GATE IS HOLLOW" WAS MY OWN WRONG-FIELD ERROR.** *I measured `gate_decision_target` while `revival_criteria` sat filled on `41` of `42`. It reached a note, the plan, STATUS and a session-start check. Hook corrected and verified silent; the note carries the retraction at its top.*
-  - 🧪 **BOTH PATHS DRIVEN END TO END 08-23 -- write path healthy, read path cannot refuse.** *Carried and kept current by GUI tab 9 stages 3 and 5.*
-  - 🧠 **TWO SESSIONS, ONE ORGAN -- RECONCILED 08-23, AND IT CORRECTED ME TWICE.** *Synthesis:
-    **the 52 seeds are CLUSTERED BY POLARITY (`+0.0232` vs null `[-0.0076,+0.0087]`), so Stage B reads
-    WHICH HAND-LABELLED CLUSTER a target landed beside -- it is NOT reading valence off the graph.**
-    A concurrent session's finding that WordNet distance carries no valence stands; my purity result
-    survived its baseline (`0.800` vs random-5 `0.600`). Now filed as `propagate_along_the_relation`.*
-  - 🔧 **COORDINATION FIXED 08-23:** *`dispatch_queue.py announce` adds-and-claims in one step, so starting NEW work is announceable -- previously only pre-existing rows could be claimed.*
-  - ✅ **LANDING CODE AND RUNNING ITS TESTS IS NOT THE SAME ACT.** *A piped pytest's exit code is `tail`'s -- I committed a brief twice on a red cert. **Now enforced by a pre-commit hook**, so it cannot recur by memory.*
-  - ✅ **EVICTED TO `STATUS_LESSONS.md` 08-23, AND NOW OWNED BY THE FILED BRIEF  `substrate_never_resumes` (priority 3):** nothing loads a foundation -- `self.foundation_dir` was  assigned and never read, `load_foundation` calls measured at `0`. **Makes the plan's own  way-attractor prediction unreachable (arithmetic, not tuning).** *NOT measured: whether loading  helps -- that is the brief's experiment, not mine.*  `THE_ASSEMBLED_SUBSTRATE_NEVER_LOADS_A_FOUNDATION_...`
+  - **OPERATING MODEL (owner 08-22): STRATEGY SESSION (this) + SOLVER SESSIONS.** This session keeps the 10k view, writes/verifies briefs, and INTEGRATES owner-DONE; solvers each solve one bounded problem.
+  - **RESEARCH DELIVERED + FOLDED (CONT-73):** the pri-3 parser BF syntax-acquisition drill completed + vetted first-hand -> `RESEARCH_bf_acquisition.md`. Key: the 'frozen supervised hard-decode' = TWO orthogonal defects (graded-decode route-through NOW + the acquisition question); category-induction-from-prediction is a verified in-substrate HARD_PASS, structure-induction hit an UNDER-POWERED located ceiling (3k/12.5k sents, 0 EM). Cheap first build folded into the brief (re-run exp_predictive_selfsup_parser_v1 full-scale + EM, composing the pri-2 directional channel + graded Matrix-Tree decode). NOTHING now running.
+  - **FRONTIER = FLEET-SIDE.** Assignable (REUSE premises verified first-hand this session): pri-3 the parser (5 of 8 NOT_BF organs; the dominant upchain + the shared extraction wall = the #1 lever; scouting map + staging in the problem folder), pri-4 commonnoun_binder->typed_coref (verified win 0.5671 vs string-identity 0.5412 CI-sep; the task is the live resolve_doc re-port), pri-7 force_dynamics_valence->Wolff force-dynamic arithmetic. The pri-1 generative world-model is in a solver.
+  - **AWAITING OWNER REVIEW (not my move):** pri-5 `measure_end_to_end` (gates the pri-2 meaning fusion-flip), pri-6 reward-cluster audit; board Q123 (STATUS trim -- DONE by me, this file, CONT-73), Q122 (stale/obsolete -- its referenced landings are all integrated).
+  - **NOTHING else running.** Everything committed path-limited, NOTHING pushed. Owner-DONE fold-in gate EMPTY.
 
 ## 3. How we are doing (C1-C4, notes/SUBSTRATE_STRATEGY.md PART 1)
 - **C1** Near-neighbour 2AFC, live reading path: now=**0.6980** (was 0.6395) | floor(s)=scrambled-context **0.5095**, frequency **0.48025**, chance 0.50 | table verdict: (no verdict word in table cell)
@@ -144,13 +40,11 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
 - C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap)) -- source: data\exp_orthographic_floor_vet_v1\metrics.json
 
 ## 4. What moved since the last snapshot
-- 2 new commit(s) since last snapshot (HEAD 865c2f21f -> 340577c62)
-- data/ directory count: 9721 -> 9725 (+4)
+- 1 new commit(s) since last snapshot (HEAD dbb0fd119 -> 3c50244e5)
 
 ## 5. What is stuck (blocked / pending / no owner)
-- comparator it did not use (it ran TWO supplied arms and quoted the weaker) and **it held**: the
-- US** (*"the sweep never bit"* -- a random baseline breaks inside that range where it held `1.0000`).
+- (none found)
 
 <!-- SNAPSHOT_STATE_JSON
-{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 9725, "generated_at": "2026-09-10T01:00:50Z", "head_commit": "340577c62c73b3fdc86f0f4f7fcbac1a3bb384bb", "step_status": {}}
+{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 9734, "generated_at": "2026-09-10T02:19:57Z", "head_commit": "3c50244e5028cbda46a897b61e7f30b7c13b4437", "step_status": {}}
 -->

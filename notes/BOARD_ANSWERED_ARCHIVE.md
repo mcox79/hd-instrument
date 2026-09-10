@@ -39,3 +39,12 @@ Rows aged out of `notes/BOARD.md`, which shows only the most recent 40. **Nothin
 
 **THE OWNER'S ANSWER:** Yes - merge this branch to main
 
+
+| Q83 | 2026-08-20T15:49:18Z |
+
+**Q:** ANSWER TO D4 -- RETIRED AS LEGACY ON YOUR INSTRUCTION, 2026-08-20. You wrote: 'These are all the questions that appear still unanswered in the waiting on you tab - they are all legacy and need to be removed I believe: D1-D7, OP1-OP4.' The original question was: Migrate the 38 experiment files still on the old checkpoint contract. It is being closed as legacy rather than decided, so nothing here is being answered on your behalf - if any of these turns out to still matter it can be re-raised as a fresh question with current numbers.
+
+**MY RECOMMENDATION:** Retire it. No action follows from this. THE RISK: if one of these was still live, closing it here means it stops being visible - so I have kept the original wording above, and each can be re-raised with current evidence.
+
+**THE OWNER'S ANSWER:** RETIRED AS LEGACY on the owner's instruction of 2026-08-20: 'they are all legacy and need to be removed'. Closed as legacy rather than decided - no decision is being taken on the owner's behalf. The original wording is preserved in the question above so any of these can be re-raised with current numbers if it turns out to still matter.
+
