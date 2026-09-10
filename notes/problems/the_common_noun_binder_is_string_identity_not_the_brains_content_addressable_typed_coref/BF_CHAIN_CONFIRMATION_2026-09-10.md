@@ -302,12 +302,115 @@ cue-integrated discourse-entity tracker) is therefore RETIRED as a located negat
 onto the parent problem's MAIN EVENT: the generative world-model / meaning foundation (which specific entity is meant),
 NOT a richer bag-of-cues entity tracker.
 
+## C9. THE WALL, FULLY UNDERSTOOD -- mechanism-level diagnosis of the located negative (2026-09-10, owner: "do we understand this fully? what is the actual wall?")
+Dispatched a psycholinguistics/neuroscience research drill (hdi_research: Ariel/Gundel-Zacharski/Almor accessibility;
+Lewis-Vasishth + Jaeger-Engelmann-Vasishth 2017 retrieval interference; Gernsbacher advantage-of-first-mention; Centering;
+Kehler coherence; Heim/Loebner definiteness; Halliday-Hasan cohesion; Recasens near-identity; Altmann-Kamide + Kuperberg-Jaeger
+prediction; AmbiCoref + Nieuwland Nref) + built two first-hand diagnostics. The wall is now located at the MECHANISM level,
+per bucket, and the located negative is CONFIRMED consistent with the neuroscience (not an impl miss).
+
+### Bucket 1 -- same-head AMBIGUOUS (595 mentions, achieved 0.4168): the wall is ENTITY SEPARATION, not SELECTION.
+`exp_cn_accessibility_prior_v1.py` (n=2855):
+- **SELECTION is already near-optimal.** Among the head-sharing candidate ENTITIES, plain RECENCY predicts the gold
+  antecedent **0.783** (all ambiguous) / **0.873** (BARE repeated heads). The research's one untried cue -- the Ariel/Almor
+  form-based ANTI-recency prior (a bare "the man" re-introduces a global-topic referent that dropped from focus) -- is
+  **REFUTED on our data**: recency is even STRONGER for bare heads (0.873), and all five accessibility selectors
+  (first-mention, frequency, subjecthood, anti-recency, graph-centrality), applied as a sign-flip, are **exact no-ops**
+  (d=+0.0000 each). Recency-as-optimum is brain-faithful.
+- **The loss is ENTITY SEPARATION.** The greedy same-head write-merge leaves the reader holding >=2 distinct same-head
+  referents in **0 / 3224 = 0.0%** of anaphoric-common decisions -- it has already collapsed the distinct entities into ONE
+  referent, so the selection step never even has a choice (hence every selector is a no-op). The gap between the
+  recency-given-separation oracle (~0.78) and the achieved 0.42 IS the separation failure: once "the man"#2 merges into
+  "the man"#1, the referent is a blend and the dominant-eid scoring fails on the minority entity.
+- **Separation needs the cue that same-type interference neutralizes.** To NOT merge, the reader must decide "this the-man
+  is a DIFFERENT man" -- exactly the discriminating cue (predication / co-participant / modifier / centering-continuation)
+  that C8 proved is a NO-OP even with GOLD syntax. This is the Jaeger-Engelmann-Vasishth (2017) similarity-based
+  retrieval-interference floor: two entities sharing a head are feature-identical to the retrieval cue, so no cue
+  discriminates them. Altmann-Kamide selectional restriction (the strongest anticipatory cue) narrows by TYPE, which the
+  shared head neutralizes. Humans ALSO fail here -- AmbiCoref (readers register uncertainty, not resolution) and the Nref
+  sustained frontal negativity (unresolved-reference cost, individual-differences) -- so ~0.42 with an information limit is
+  BRAIN-PARITY, not a defect. **Verdict: a durable brain-faithful negative at the SEPARATION step; the residual is an
+  intrinsic information limit the brain shares.**
+
+### Bucket 2 -- different-head DISCOURSE-IDENTITY (674 residual, achieved ~0.13): the wall SPLITS 42/58.
+`exp_cn_discourse_identity_partition_v1.py` (n=2855; oracle partition over the non-type-linkable residual):
+| slice | share | nature |
+|---|---|---|
+| UNIQUE-IN-FOCUS (only one gn-compatible given entity in a 3-sentence window) | 11.1% (75) | Heim familiarity + Loebner pragmatic definite -- **buildable, no knowledge** |
+| MOST-SALIENT (gold = most-recent gn-compatible given entity) | 25.5% (172) | recency/focus -- **buildable** but precision-limited (a class-free salience bridge over-fires) |
+| CLASS-SALIENT (most-recent of compatible coarse class) | 5.5% (37) | the CURRENT focus bridge already targets these |
+| GOLD-NOT-IN-FOCUS (antecedent decayed past the window) | 26.3% (177) | **information limit** -- long-range, needs global re-activation memory |
+| RESIDUAL near-identity (multiple candidates, gold not salient) | 31.6% (213) | **information limit** -- learned near-synonymy ("study"~="project"); partly annotation noise (non-nominal gold heads "be"/"huh", Spanish) |
+
+- **DISCOURSE-MECHANICS resolvable in principle = 42.1%** (unique + salient + class-salient) -- a coherence-relation-aware /
+  uniqueness focus bridge could reach a FRACTION of these, but bridging is precision-bound (C8's permissive focus bridge got
+  the diff-head slice only to 0.19; the strict-abstain version 0.10 -- over-bridging hurts). This is why the C8 cue-integrated
+  model could not beat the focus bridge: the resolvable cases are SALIENCE-driven (already used), and the added
+  predication/co-participant cues target cases that need KNOWLEDGE, not more surface cues.
+- **INFORMATION LIMIT = 57.9%** (long-range re-activation 26.3% + near-identity 31.6%). The near-identity residual is
+  Halliday-Hasan lexical-cohesion reiteration / Recasens near-identity -- neither WordNet is-a (25% coverage, already got) nor
+  gloss-cosine (10%, over-merges); it requires LEARNED discourse-conditioned coref-likelihood between common nouns (the
+  learner/knowledge north star), not a richer matching rule.
+
+### The unifying mechanistic claim (why cue-based backward retrieval hits a wall in BOTH buckets)
+Cue-based BACKWARD retrieval (our binding) discriminates an antecedent only by features present in the anaphor. Both buckets
+violate that precondition: **Bucket 1 the features COLLIDE** (same-type interference at the open-vs-merge decision), **Bucket 2
+the discriminating feature is ABSENT from the surface** (identity is established by discourse structure or by knowledge, not
+by the words). The brain's answer in both is NOT a richer backward matcher -- which is exactly what C8's located negative
+refuted -- it is a FORWARD, coherence-structured, GENERATIVE situation model that (a) individuates entities from event/spatial/
+temporal context (Bucket-1 separation), (b) predicts referent identity from coherence structure + Heim uniqueness (Bucket-2
+discourse-mechanics), and (c) has LEARNED discourse-conditioned near-identity between concepts (Bucket-2 near-synonymy). This
+is the already-named generative world-model / meaning-foundation main event; the coref wall is independent evidence it is the
+right next organ. Route-by-flavor: Bucket-1-ambiguous = durable brain-faithful NEGATIVE (interference floor + human parity);
+Bucket-2 = missing-PRIMITIVE (coherence/uniqueness bridge) + missing-LEARNING (near-identity), both feeding the generative program.
+
+## C10. BUILT THE TWO BUILDABLE PIECES + LOAD-BEARING ABLATION (2026-09-10, owner: "build the two pieces, right not easy; determine what is load-bearing")
+Built both pieces C9 named for the different-head discourse-identity residual, all brain-foundational down to the math,
+and ran an ablation to isolate what carries signal (`exp_cn_bridge_ablation_v1.py`, `exp_cn_learned_nearidentity_v1.py`,
+`exp_cn_accessibility_prior_v1.py`; witness `verification/test_cn_uniqueness_bridge.py` 5/5; GUM modern TEST n=2855).
+Cues fed GOLD syntax where relevant; near-identity LEARNED from the GUM TRAIN split (even docs) only -> no test leak.
+
+| piece | mechanism (PINNED) | acc | vs floor 0.5776 | vs info-free twin | diff-head | verdict |
+|---|---|---|---|---|---|---|
+| **1a UNIQUENESS bridge** | Heim familiarity + Loebner pragmatic definite: bind a licenseless definite to the SOLE gn-compatible referent in the immediate focus window (=6 mentions) | **0.5818** | **+0.0042 CI[+0.0018,+0.0069] SEP** | **+0.0392 SEP** | 0.1869->0.1991 (+11) | **LOAD-BEARING WIN** |
+| 1b COHERENCE preference | Kehler coherence + Smyth/Chambers parallelism: prefer the licensed candidate in the PARALLEL grammatical role | 0.5751 | -0.0025 (not sep) | -- | 0.1791 (-7) | **anti-load-bearing** (salience beats parallelism -- same recency-dominance as C9 Bucket 1) |
+| 2a NI_chain (learned) | coref-chain co-occurrence PMI (Halliday-Hasan reiteration; learned from RESOLVED coref in the train split) | 0.5769 | -0.0007 (not sep) | **+0.0406 SEP** | 0.1846 (-2) | **signal REAL but NOT load-bearing** -- too sparse (750 train pairs); false-bridges cancel the correct ones |
+| 2b NI_depctx (learned) | dependency-context PPMI cosine (Levy-Goldberg functional substitutability, unsupervised from usage) | 0.5776 | +0.0000 | -- | 0.1869 (+0) | **INERT** -- licenses nothing the coarse-class focus bridge did not already license (subsumed) |
+| ALL combined | uniq + coherence + NI_chain | 0.5762 | -0.0014 | -- | 0.1813 (-5) | the non-load-bearing pieces ERASE uniqueness's gain |
+
+**What is load-bearing (the answer):** exactly ONE of the four -- the **HEIM/LOEBNER UNIQUENESS bridge** (+0.0042 CI-sep,
++0.0392 over its twin, +11 on the different-head slice, same-head no-regress; window sweep 6/10/16/24/40/60 all CI-sep, tighter
+= better -> the win is the IMMEDIATE-focus interpretation). It fires on only ~71 mentions but precisely: when a definite has
+no descriptive/type license and exactly one referent sits in the immediate focus, definiteness alone (familiarity + uniqueness)
+forces the identification, no knowledge needed. This is genuinely the +11% "unique-in-focus" slice C9 predicted, banked.
+
+**What is NOT load-bearing, and why (each a clean result, not a null):**
+- COHERENCE/parallelism HURTS -- overriding salience with parallel-role preference loses; recency/salience is the better cue,
+  the SAME finding as Bucket-1 (recency near-optimal). Refuted as a lever.
+- Learned NEAR-IDENTITY carries a REAL signal (NI_chain beats its scramble twin by +0.041 -> the learned coref-likelihood is
+  not noise) but is NOT load-bearing at the board: 750 co-occurring train pairs is too sparse to cover the test residual, and
+  the false-bridges it licenses cancel the correct ones (net -0.0007). This is the C9 "information limit" made concrete: the
+  near-identity relation IS learnable from reading, but the available reading volume is far short of the coverage needed --
+  which is exactly why the answer is the LEARNER/knowledge-growth program (read more, online), not a bigger matching rule.
+- Dependency-context substitutability is INERT because the coarse-class focus bridge already licenses everything a >=0.30
+  cosine would -- the two mechanisms overlap; the learned version adds no new reach.
+
+**Cumulative binder: 0.5482 (deployed) -> 0.5580 (concept-key) -> 0.5622 (conceptual) -> 0.5776 (focus) -> 0.5818 (+uniqueness);
+de-leaked-floor margin +0.0326 -> +0.0564 CI-sep.** The uniqueness bridge is a landed-ready BF addition (SOLVED.md 6 item 8).
+
 ## D. Honest bottom line
 The common-noun binder and its semantic core (concept key, salience, typed binding, type operation) are confirmed
 brain-foundational to the math. The signal is lost in exactly two places, both now quantified: (i) the frozen supervised
 PARSE STACK (fixed for coref by the parser-free boundary rule; the raw-text UAS gap is the comprehension-signal wall), and
 (ii) DOMINANTLY the world-knowledge + situation-inference behind the different-head slice + the same-head-ambiguous slice.
 The banked situation-model win is the coarse-class FOCUS BRIDGE (+0.0154 CI-sep, in the current best 0.5776). The full
-cue-integrated discourse-entity model was BUILT + SWEPT + twin-controlled and is a LOCATED NEGATIVE (C8): the residual is
-comprehension-bound (which specific entity is meant), so the highest-leverage optimization is the GENERATIVE world-model /
-meaning foundation -- NOT a richer discourse-cue entity tracker, and NOT the type KB (both refuted with numbers).
+cue-integrated discourse-entity model was BUILT + SWEPT + twin-controlled and is a LOCATED NEGATIVE (C8), now understood at
+the mechanism level (C9): **the wall is not a missing surface cue -- it is the ceiling of BACKWARD cue-based retrieval.**
+Bucket 1 (same-head ambiguous) is an ENTITY-SEPARATION information limit -- recency SELECTS correctly ~0.78-0.87 given
+separated entities, but same-type feature-interference (Jaeger-Vasishth 2017) makes the open-vs-merge separation
+undecidable from surface cues, and humans share the limit (AmbiCoref/Nref) -> a durable brain-faithful negative. Bucket 2
+(different-head discourse-identity) splits ~42% discourse-mechanics-resolvable (a coherence/uniqueness bridge, precision-bound)
+/ ~58% information limit (long-range re-activation + LEARNED near-identity). Both converge on the SAME next organ: a FORWARD,
+coherence-structured, GENERATIVE + LEARNED situation model (the meaning-foundation main event) -- NOT a richer backward
+matcher (refuted C8), NOT the type KB (refuted C5), NOT the event world-model (refuted C3). The coref wall is independent
+evidence the generative program is the right target.

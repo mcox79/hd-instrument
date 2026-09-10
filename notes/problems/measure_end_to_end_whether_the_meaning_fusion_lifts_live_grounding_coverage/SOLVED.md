@@ -5,8 +5,8 @@ bar: "PASS = an END-TO-END measurement on the LIVE reading-grounding loop (a fai
 result: "TWO-PART. (1) LOCATED NEGATIVE on the loop's OWN coverage-COUNT metric: the sense-assignment representation does NOT cleanly move n_grounded -- it is decision-quality-BLIND. Genuine online loop over the full curriculum (4640 sentences, curriculum-ordered, process_sentence + consolidation_pass with a swapped sense-assignment gate): INCUMBENT (distributional) grounds 143 words; the fusion grounds 133 (strict accept) to 202 (accept-all) depending ONLY on the accept threshold -- the count tracks thresh-clearing/exposure, NOT ranking correctness. And the incumbent's 143 grounded links are co-occurrence garbage (artwork->happy, google->hope, owner->fine). (2) CI-SEPARATED WIN on coverage QUALITY (the instrument the count is blind to): ranking the true SimLex-999 sense-partner against the loop's ACTUAL 556-word seed-anchor pool through canonicalize's real decision, a brain-foundational meaning representation beats the distributional incumbent CI-separated -- GROUNDED-ATL MRR@cov0.5 +0.158 CI[+0.089,+0.252] and hit@1@cov0.5 +0.106 CI[+0.021,+0.191] (all-query, n=94; both parameter-free); full-coverage MRR +0.103 CI[+0.058,+0.153]; AUF-MRR grounded-distinctive 0.232 > grounded 0.198 > fusion 0.130 > incumbent 0.037 > twin 0.010. REFINEMENT of the brief's mechanism: the transfer is carried by the GROUNDED ATL identity channel, NOT the grounded+distributional FUSION -- on the live anchor pool the distributional channel is noise, so grounded-alone >= fusion (fusion still beats incumbent +0.096 CI[+0.022,+0.189] but trails grounded). 2026-09-10 UPDATE (W19+W20, see body): the chain is now 100% BRAIN-FOUNDATIONAL (parser-free -- the sibling's directional-sequential SEQ channel removes the NOT_BF pos_tagger+arceager) and STILL beats the incumbent live CI-sep (W19); and GROWING that parser-free channel by reading Simple-Wiki lifts the live increment OVER grounded CI-separated (+0.16 at 250k lines -> +0.26 at 1M, twin losing, monotone), so KNOWLEDGE/EXPOSURE is the proven LIVE lever and the fusion-flip gate is closed POSITIVE (W20). Landable: the hdlab wire spec below."
 floor: "Strongest floor = the DISTRIBUTIONAL incumbent (the loop's live canonicalize representation): coverage-quality MRR@cov0.5 0.034, hit@1 0.000-0.033, AUF-MRR 0.037; live coverage count n_grounded 143. Info-free twins (shuffled representation rows): AUF-MRR 0.010 (fusion twin) / carries no per-word signal. On the true-BF representation prototype the sparse structured channel's own floors: bag-of-words AUF-MRR 0.030, its info-free twins 0.006-0.008."
 controls: "INFO-FREE TWIN (shuffled grounded/representation rows) LOSES CI-separated on every headline (grounded vs twin MRR@0.5 +0.195 CI[+0.106,+0.298]; fusion vs twin +0.122 CI[+0.028,+0.241]; DEP-structured vs twin +0.097 CI[+0.042,+0.178]) -> the win carries real per-word meaning, not base-rate. RECALL/RECOGNITION PATH BYTE-IDENTICAL: canonicalize_fast == reference canonicalize (witness W5; only what the ranking READS changed; no hdlab written). HARNESS FAITHFULNESS positive control: the cell's INCUMBENT gate decision == the live canonicalize (accept/refuse + chosen anchor) on 40/40 random query bundles (W4). INDEPENDENT GOLD: SimLex-999 human similarity (WordNet-independent, independent of every representation). HELD-OUT: the fusion weight w is calibrated on a disjoint train split and evaluated on test; grounded/incumbent are parameter-free (evaluated on all queries, no leak). FAITHFUL POOL: candidates restricted to the loop's ACTUAL seed-anchor field (not the full vocab) -- ranking against the whole 4678-word vocab drives hit@1 to floor for every arm and hides the transfer. THRESHOLD SWEEP: coverage count reported across accept thresholds (matched selectivity) so the count comparison is not a single confounded point. PHASE-DIAGRAM densification SWEEP (k in {50,100,200} x power in {0.5 SGNS, 0.0 whitened}) -- excludes 'the structured channel is just under-optimized'."
-files_changed: "experiments/exp_meaning_fusion_live_coverage_v1.py (the end-to-end transfer measurement: PART A genuine online coverage-count + PART B coverage-quality selective-prediction frontier, all arms, twins), experiments/exp_meaning_fusion_bf_representation_v1.py (the TRUE-BF representation prototype -- FIX #3/#5: ATL distinctive-feature whitened grounded + structured dependency/adjacency PPMI substitutability, convergent-cue Bayes, + the phase-diagram SVD-densification sweep), experiments/exp_meaning_fusion_bf_accept_criterion_v1.py (FIX #7: the self-calibrating SDT accept criterion on the scale-free z_top standout, replacing the fixed cosine), experiments/exp_meaning_fusion_correct_coverage_growth_v1.py (the PARTIAL->SOLVED converter: genuine online loop with the fully-BF decision wired, WordNet-judged CORRECT-coverage growth, twin-controlled at matched count), verification/test_meaning_fusion_live_coverage.py (scaffold-free witness, 11/11 checks (W1-W13)), data/exp_meaning_fusion_live_coverage_v1/metrics.json, data/exp_meaning_fusion_bf_representation_v1/metrics.json, data/exp_meaning_fusion_bf_accept_criterion_v1/metrics.json, data/exp_meaning_fusion_correct_coverage_growth_v1/metrics.json, experiments/exp_meaning_fusion_taxonomic_lever_v1.py (quantifies THE big remaining lever: the is-a/taxonomic identity channel on the live anchor-pool decision -- lever-proof under the WordNet-circularity caveat), data/exp_meaning_fusion_taxonomic_lever_v1/metrics.json, experiments/exp_meaning_fusion_learned_isa_channel_v1.py (the research-led BRAIN-FOUNDATIONAL is-a channel LEARNED from reading -- Rogers-McClelland property-SVD + Levy-Goldberg dependency + genus-differentia, NO WordNet; beats grounded on AUF, twin losing), data/exp_meaning_fusion_learned_isa_channel_v1/metrics.json, experiments/exp_meaning_fusion_grown_genus_v1.py (GROW the corpus -> read-edge genus 5%->43%; genus-differentia neutral even with the real genus), experiments/exp_meaning_fusion_grow_reading_v1.py (grow-by-reading: GD + learned-is-a beats grounded CI-sep +0.055), data/exp_meaning_fusion_grown_genus_v1/metrics.json, data/exp_meaning_fusion_grow_reading_v1/metrics.json, experiments/exp_meaning_fusion_separate_pools_v1.py (optimization attempt -- separate pools + reliability weighting = MEASURED NEGATIVE; the joint property-SVD feature-fusion is the correct BF architecture), data/exp_meaning_fusion_separate_pools_v1/metrics.json, experiments/exp_meaning_fusion_matched_coverage_v1.py (matched-count online converter: at equal grounding count fully-BF grows more correct-coverage than incumbent at every judge strictness -- directional, not CI-sep at full = judge noise), data/exp_meaning_fusion_matched_coverage_v1/metrics.json, experiments/exp_meaning_fusion_grow_by_reading_isa_curve_v1.py (grow-a-ton closability curve: raw read-edge is-a to 800k sents grows coverage 0.17->0.58 but NOT quality -> raw reading does not close the gap), experiments/exp_meaning_fusion_clean_isa_v1.py (CLEAN vs RAW: confirmation gate removes noise-harm but coverage collapses -> curated clean knowledge is the lever, out of scope), data/exp_meaning_fusion_grow_by_reading_isa_curve_v1/metrics.json, data/exp_meaning_fusion_clean_isa_v1/metrics.json, experiments/exp_meaning_fusion_signal_trace_v1.py (RIGOROUS signal-loss trace: identity(SimLex) vs relatedness(Assoc) rho per rung, math-BF confirmed, localizes the loss to the unordered distributional pooling), data/exp_meaning_fusion_signal_trace_v1/metrics.json, experiments/exp_meaning_fusion_role_bound_context_v1.py (THE BF FIX prototyped: role-filler binding via hdlab.binding for the pooling loss; positional roles move identity the right way but are insufficient -> syntactic roles = a BF parser is the last non-BF atom), data/exp_meaning_fusion_role_bound_context_v1/metrics.json, experiments/exp_meaning_fusion_syntactic_role_binding_v1.py (PROPER-solution test: role-filler binding over SYNTACTIC roles from the BF incremental_parser; confirms syntactic-roles-yes, binding-estimator-too-noisy -> PPMI-SVD is the working low-variance estimator), data/exp_meaning_fusion_syntactic_role_binding_v1/metrics.json, experiments/exp_meaning_fusion_live_coverage_seq_v1.py (W19 -- the parser-free 100%-BF live transfer: the directional-sequential identity channel SEQ (no pos_tagger/arceager) fused with grounded, on the loop's own coverage-quality frontier; beats the incumbent CI-sep + twin losing, but does not add over the best grounded rep at 34k-sentence exposure -> exposure is the lever), data/exp_meaning_fusion_live_coverage_seq_v1/metrics.json, experiments/exp_meaning_fusion_grow_seq_live_v1.py (W20 -- PHASE B: grow the parser-free SEQ channel by reading Simple-Wiki through the loop's REAL ingest taps, measure the live increment over grounded at 0/250k/500k/1M/2M lines; crosses to CI-sep positive at 250k and stays positive+monotone, twin losing; clean-confirmation arm wins too but does not beat raw), data/exp_meaning_fusion_grow_seq_live_v1/metrics.json, experiments/exp_meaning_fusion_confidence_calibration_v1.py (W21 -- confidence-calibration located negative: no BF certainty signal recovers the +0.245 perfect-ordering gap; z_top/SDT marginally best +0.006, gain+agreement anti-track), data/exp_meaning_fusion_confidence_calibration_v1/metrics.json, experiments/exp_meaning_fusion_valence_channel_v1.py (W22 -- valence antonymy 3rd-channel located negative on synonym-ranking: +0.006 not CI-sep, oracle barely rises; both negatives converge on RELATION CONFUSION -> is-a channel is the real lever), data/exp_meaning_fusion_valence_channel_v1/metrics.json, experiments/exp_meaning_fusion_confidence_bf_v1.py (W23 -- brain-exact confidence re-drill: balance-of-evidence DV margin is best + brain-exact; reliability-normalization ties it; gap is representational not metacognitive), data/exp_meaning_fusion_confidence_bf_v1/metrics.json, experiments/exp_meaning_fusion_differentia_channel_v1.py (W24 -- brain-exact differentia channel, parser-free ordered-SVD late modes gated by genus: beats global cosine +0.145 + raises oracle ceiling +0.044 CI-sep, twin losing; realistic capture unsolved), data/exp_meaning_fusion_differentia_channel_v1/metrics.json, notes/problems/measure_end_to_end_whether_the_meaning_fusion_lifts_live_grounding_coverage/FULL_CHAIN_BF_AUDIT.md (every rung raw-text->decision enumerated BF/BF_SPIRIT, no NOT_BF atom), experiments/exp_meaning_fusion_recollection_gate_v1.py (W25 -- brain-exact dual-process recollection gate (coarse genus/familiarity vs fine differentia agreement) as per-query reliability + genus-local recollection-gated re-rank; directional +0.03 on confidence and capture, real signal vs twin CI-sep, but power-limited at n=169), data/exp_meaning_fusion_recollection_gate_v1/metrics.json, experiments/exp_meaning_fusion_path2_proof_v1.py (W26 -- rigorous powered all-directions K-swept proof attempt for Path 2: recollection real-signal vs twin CI-sep but capture/confidence not CI-sep even at n=338 -> located negative), data/exp_meaning_fusion_path2_proof_v1/metrics.json, experiments/exp_meaning_fusion_targeted_reading_v1.py (W27 -- targeted reading of the rare tail: LOCATED NEGATIVE, tested words already well-read -> plateau is a representational ceiling; produces data/exp_meaning_fusion_targeted_reading_v1/targeted_reading_corpus.txt but it does NOT lift so it is NOT recommended for ingest), data/exp_meaning_fusion_targeted_reading_v1/metrics.json, experiments/exp_meaning_fusion_isa_knowledge_v1.py (W28 -- clean non-circular read-is-a knowledge channel, WordNet-free Hearst: LOCATED NEGATIVE, too sparse/noisy for common vocab, does not beat knowledge-shuffled twin), data/exp_meaning_fusion_isa_knowledge_v1/metrics.json. NO hdlab/ modified (Q111 -- the hdlab proposal is stated below for the strategy session to land)."
-reverify: ".venv/Scripts/python.exe verification/test_meaning_fusion_live_coverage.py  (26/26 checks, W1-W28 incl. W28 the clean-is-a-knowledge located negative + the WordNet-morphy BF correction; W27 the targeted-reading located negative; W26 the powered Path-2 located negative; W25 the brain-exact dual-process recollection gate -- directional + real-signal but power-limited: incl. W19 parser-free 100%-BF live transfer, W20 grow-by-reading PHASE B live win, W21/W22 the first-round confidence/valence located negatives, W23 the brain-exact confidence re-drill (balance-of-evidence margin is best; gap is representational), W24 the brain-exact differentia channel (beats global cosine + raises the oracle ceiling CI-sep; capture unsolved)). Full-chain BF audit: notes/problems/.../FULL_CHAIN_BF_AUDIT.md. Powered headline reproducer (own-dir only): .venv/Scripts/python.exe experiments/exp_meaning_fusion_live_coverage_v1.py --mode full --no-online ; parser-free live transfer: .venv/Scripts/python.exe experiments/exp_meaning_fusion_live_coverage_seq_v1.py ; grow-by-reading Phase B (up to 2M SW lines, ~4min): .venv/Scripts/python.exe experiments/exp_meaning_fusion_grow_seq_live_v1.py --read-cap 2000000"
+files_changed: "experiments/exp_meaning_fusion_live_coverage_v1.py (the end-to-end transfer measurement: PART A genuine online coverage-count + PART B coverage-quality selective-prediction frontier, all arms, twins), experiments/exp_meaning_fusion_bf_representation_v1.py (the TRUE-BF representation prototype -- FIX #3/#5: ATL distinctive-feature whitened grounded + structured dependency/adjacency PPMI substitutability, convergent-cue Bayes, + the phase-diagram SVD-densification sweep), experiments/exp_meaning_fusion_bf_accept_criterion_v1.py (FIX #7: the self-calibrating SDT accept criterion on the scale-free z_top standout, replacing the fixed cosine), experiments/exp_meaning_fusion_correct_coverage_growth_v1.py (the PARTIAL->SOLVED converter: genuine online loop with the fully-BF decision wired, WordNet-judged CORRECT-coverage growth, twin-controlled at matched count), verification/test_meaning_fusion_live_coverage.py (scaffold-free witness, 11/11 checks (W1-W13)), data/exp_meaning_fusion_live_coverage_v1/metrics.json, data/exp_meaning_fusion_bf_representation_v1/metrics.json, data/exp_meaning_fusion_bf_accept_criterion_v1/metrics.json, data/exp_meaning_fusion_correct_coverage_growth_v1/metrics.json, experiments/exp_meaning_fusion_taxonomic_lever_v1.py (quantifies THE big remaining lever: the is-a/taxonomic identity channel on the live anchor-pool decision -- lever-proof under the WordNet-circularity caveat), data/exp_meaning_fusion_taxonomic_lever_v1/metrics.json, experiments/exp_meaning_fusion_learned_isa_channel_v1.py (the research-led BRAIN-FOUNDATIONAL is-a channel LEARNED from reading -- Rogers-McClelland property-SVD + Levy-Goldberg dependency + genus-differentia, NO WordNet; beats grounded on AUF, twin losing), data/exp_meaning_fusion_learned_isa_channel_v1/metrics.json, experiments/exp_meaning_fusion_grown_genus_v1.py (GROW the corpus -> read-edge genus 5%->43%; genus-differentia neutral even with the real genus), experiments/exp_meaning_fusion_grow_reading_v1.py (grow-by-reading: GD + learned-is-a beats grounded CI-sep +0.055), data/exp_meaning_fusion_grown_genus_v1/metrics.json, data/exp_meaning_fusion_grow_reading_v1/metrics.json, experiments/exp_meaning_fusion_separate_pools_v1.py (optimization attempt -- separate pools + reliability weighting = MEASURED NEGATIVE; the joint property-SVD feature-fusion is the correct BF architecture), data/exp_meaning_fusion_separate_pools_v1/metrics.json, experiments/exp_meaning_fusion_matched_coverage_v1.py (matched-count online converter: at equal grounding count fully-BF grows more correct-coverage than incumbent at every judge strictness -- directional, not CI-sep at full = judge noise), data/exp_meaning_fusion_matched_coverage_v1/metrics.json, experiments/exp_meaning_fusion_grow_by_reading_isa_curve_v1.py (grow-a-ton closability curve: raw read-edge is-a to 800k sents grows coverage 0.17->0.58 but NOT quality -> raw reading does not close the gap), experiments/exp_meaning_fusion_clean_isa_v1.py (CLEAN vs RAW: confirmation gate removes noise-harm but coverage collapses -> curated clean knowledge is the lever, out of scope), data/exp_meaning_fusion_grow_by_reading_isa_curve_v1/metrics.json, data/exp_meaning_fusion_clean_isa_v1/metrics.json, experiments/exp_meaning_fusion_signal_trace_v1.py (RIGOROUS signal-loss trace: identity(SimLex) vs relatedness(Assoc) rho per rung, math-BF confirmed, localizes the loss to the unordered distributional pooling), data/exp_meaning_fusion_signal_trace_v1/metrics.json, experiments/exp_meaning_fusion_role_bound_context_v1.py (THE BF FIX prototyped: role-filler binding via hdlab.binding for the pooling loss; positional roles move identity the right way but are insufficient -> syntactic roles = a BF parser is the last non-BF atom), data/exp_meaning_fusion_role_bound_context_v1/metrics.json, experiments/exp_meaning_fusion_syntactic_role_binding_v1.py (PROPER-solution test: role-filler binding over SYNTACTIC roles from the BF incremental_parser; confirms syntactic-roles-yes, binding-estimator-too-noisy -> PPMI-SVD is the working low-variance estimator), data/exp_meaning_fusion_syntactic_role_binding_v1/metrics.json, experiments/exp_meaning_fusion_live_coverage_seq_v1.py (W19 -- the parser-free 100%-BF live transfer: the directional-sequential identity channel SEQ (no pos_tagger/arceager) fused with grounded, on the loop's own coverage-quality frontier; beats the incumbent CI-sep + twin losing, but does not add over the best grounded rep at 34k-sentence exposure -> exposure is the lever), data/exp_meaning_fusion_live_coverage_seq_v1/metrics.json, experiments/exp_meaning_fusion_grow_seq_live_v1.py (W20 -- PHASE B: grow the parser-free SEQ channel by reading Simple-Wiki through the loop's REAL ingest taps, measure the live increment over grounded at 0/250k/500k/1M/2M lines; crosses to CI-sep positive at 250k and stays positive+monotone, twin losing; clean-confirmation arm wins too but does not beat raw), data/exp_meaning_fusion_grow_seq_live_v1/metrics.json, experiments/exp_meaning_fusion_confidence_calibration_v1.py (W21 -- confidence-calibration located negative: no BF certainty signal recovers the +0.245 perfect-ordering gap; z_top/SDT marginally best +0.006, gain+agreement anti-track), data/exp_meaning_fusion_confidence_calibration_v1/metrics.json, experiments/exp_meaning_fusion_valence_channel_v1.py (W22 -- valence antonymy 3rd-channel located negative on synonym-ranking: +0.006 not CI-sep, oracle barely rises; both negatives converge on RELATION CONFUSION -> is-a channel is the real lever), data/exp_meaning_fusion_valence_channel_v1/metrics.json, experiments/exp_meaning_fusion_confidence_bf_v1.py (W23 -- brain-exact confidence re-drill: balance-of-evidence DV margin is best + brain-exact; reliability-normalization ties it; gap is representational not metacognitive), data/exp_meaning_fusion_confidence_bf_v1/metrics.json, experiments/exp_meaning_fusion_differentia_channel_v1.py (W24 -- brain-exact differentia channel, parser-free ordered-SVD late modes gated by genus: beats global cosine +0.145 + raises oracle ceiling +0.044 CI-sep, twin losing; realistic capture unsolved), data/exp_meaning_fusion_differentia_channel_v1/metrics.json, notes/problems/measure_end_to_end_whether_the_meaning_fusion_lifts_live_grounding_coverage/FULL_CHAIN_BF_AUDIT.md (every rung raw-text->decision enumerated BF/BF_SPIRIT, no NOT_BF atom), experiments/exp_meaning_fusion_recollection_gate_v1.py (W25 -- brain-exact dual-process recollection gate (coarse genus/familiarity vs fine differentia agreement) as per-query reliability + genus-local recollection-gated re-rank; directional +0.03 on confidence and capture, real signal vs twin CI-sep, but power-limited at n=169), data/exp_meaning_fusion_recollection_gate_v1/metrics.json, experiments/exp_meaning_fusion_path2_proof_v1.py (W26 -- rigorous powered all-directions K-swept proof attempt for Path 2: recollection real-signal vs twin CI-sep but capture/confidence not CI-sep even at n=338 -> located negative), data/exp_meaning_fusion_path2_proof_v1/metrics.json, experiments/exp_meaning_fusion_targeted_reading_v1.py (W27 -- targeted reading of the rare tail: LOCATED NEGATIVE, tested words already well-read -> plateau is a representational ceiling; produces data/exp_meaning_fusion_targeted_reading_v1/targeted_reading_corpus.txt but it does NOT lift so it is NOT recommended for ingest), data/exp_meaning_fusion_targeted_reading_v1/metrics.json, experiments/exp_meaning_fusion_isa_knowledge_v1.py (W28 -- clean non-circular read-is-a knowledge channel, WordNet-free Hearst: LOCATED NEGATIVE, too sparse/noisy for common vocab, does not beat knowledge-shuffled twin), data/exp_meaning_fusion_isa_knowledge_v1/metrics.json, experiments/exp_meaning_fusion_isa_conceptnet_v1.py (W29 -- curated non-circular ConceptNet is-a, WordNet-excluded: DEEPER located negative, genus similarity promotes co-hyponyms, hurts + worse than knowledge-shuffled twin), data/exp_meaning_fusion_isa_conceptnet_v1/metrics.json, experiments/exp_meaning_fusion_glassbox_lemma_v1.py (W30 -- glass-box WordNet-free lemmatizer to replace the morphy dependency; 92.6%% agreement, over-stems base words -> needs a non-WordNet base-form lexicon for lossless), data/exp_meaning_fusion_glassbox_lemma_v1/metrics.json, experiments/exp_meaning_fusion_componential_hv_v1.py (W31 -- FHRR componential-HV mechanism, ground-truth Binder; proven but not powerable, 4-pair overlap), experiments/exp_meaning_fusion_componential_hv_v2.py (W32 -- DERIVED componential features via Hebbian readout supervised on Binder: FIRST lever to beat our channels on identity 0.171>0.134 twin-losing, identity-selective; HV-binding~flat so the FEATURES are the lever; live-transfer pending), data/exp_meaning_fusion_componential_hv_v1/metrics.json, data/exp_meaning_fusion_componential_hv_v2/metrics.json, experiments/exp_meaning_fusion_componential_live_v1.py (W33 -- the DECISIVE live-transfer test: derived componential does NOT lift the live coverage-quality CI-sep (+0.013), because it is a re-projection of grounded+SEQ, redundant live; twin barely loses = faint signal; the ranking-proxy win did not transfer), data/exp_meaning_fusion_componential_live_v1/metrics.json, experiments/exp_meaning_fusion_predictive_grounding_v1.py (W34 -- the PREDICTIVE re-cast: reuses PredictiveWorldModel (Rescorla-Wagner/N400); cloze prediction from running context beats no-context prior +0.0037 and scrambled twin +0.0043 CI-sep, lowers surprisal 0.04 bits; first controlled top-down signal, small magnitude with simplest model), data/exp_meaning_fusion_predictive_grounding_v1/metrics.json, experiments/exp_meaning_fusion_compositional_prediction_v1.py (W35 -- compositional prediction (verb+agent->patient via composed_hub_predictor + incremental_parser): does NOT add to the frequency prior; per-word prediction intrinsically weak/high-entropy, consistent w/ brain low-cloze; loop value = error-driven learning+integration not cloze accuracy), data/exp_meaning_fusion_compositional_prediction_v1/metrics.json, experiments/exp_meaning_fusion_crossmodal_hub_v1.py (W36 -- cross-modal referent hub, concreteness-gated modality precision over grounded+SEQ: does NOT beat the ungated fusion; visual referent data ~21 words / Binder ~534 = data-blocked; converges the whole investigation on the referent-grounding DATA limit), data/exp_meaning_fusion_crossmodal_hub_v1/metrics.json. NO hdlab/ modified (Q111 -- the hdlab proposal is stated below for the strategy session to land)."
+reverify: ".venv/Scripts/python.exe verification/test_meaning_fusion_live_coverage.py  (34/34 checks, W1-W36 incl. W36 the cross-modal referent hub (concreteness-gated; located negative; richer referent spokes data-blocked -> the limit is referent-grounding DATA); W35 the compositional-prediction located negative (per-word prediction intrinsically weak); W34 the predictive re-cast (prediction from running context beats prior+twin CI-sep, first controlled top-down signal); W33 the componential live-transfer located negative; W31 the componential-HV mechanism + W32 the DERIVED componential features beating our channels on identity; W29 the ConceptNet curated-is-a counterproductive negative + W30 the glass-box lemmatizer (WordNet-morphy replacement); W28 the clean-is-a-knowledge located negative + the WordNet-morphy BF correction; W27 the targeted-reading located negative; W26 the powered Path-2 located negative; W25 the brain-exact dual-process recollection gate -- directional + real-signal but power-limited: incl. W19 parser-free 100%-BF live transfer, W20 grow-by-reading PHASE B live win, W21/W22 the first-round confidence/valence located negatives, W23 the brain-exact confidence re-drill (balance-of-evidence margin is best; gap is representational), W24 the brain-exact differentia channel (beats global cosine + raises the oracle ceiling CI-sep; capture unsolved)). Full-chain BF audit: notes/problems/.../FULL_CHAIN_BF_AUDIT.md. Powered headline reproducer (own-dir only): .venv/Scripts/python.exe experiments/exp_meaning_fusion_live_coverage_v1.py --mode full --no-online ; parser-free live transfer: .venv/Scripts/python.exe experiments/exp_meaning_fusion_live_coverage_seq_v1.py ; grow-by-reading Phase B (up to 2M SW lines, ~4min): .venv/Scripts/python.exe experiments/exp_meaning_fusion_grow_seq_live_v1.py --read-cap 2000000"
 ---
 
 # What this is: the fusion does NOT lift the loop's coverage COUNT (the count is quality-blind), but a brain-foundational meaning representation lifts coverage QUALITY CI-separated -- and the lever is GROUNDED, not the grounded+distributional fusion
@@ -378,6 +378,244 @@ not available NON-CIRCULARLY on disk. The honest next move is DATA acquisition (
 not more modelling; and to make the chain fully tool-free, replace the WordNet-morphy lemmatizer with glass-box
 morphology. Everything is twin-controlled, witnessed (26/26), and 100% brain-foundational in COMPUTATION (with the
 morphy implementation caveat now on the ledger).
+
+## UPDATE 2026-09-10 (W29 + W30) -- STEP 2 (curated non-circular taxonomy) + STEP 3 (glass-box lemmatizer)
+
+**STEP 2 -- CURATED NON-CIRCULAR IS-A (ConceptNet, WordNet-EXCLUDED): DEEPER LOCATED NEGATIVE, and it explains the
+whole knowledge story (`exp_meaning_fusion_isa_conceptnet_v1.py`, W29).** Used ConceptNet /r/IsA as the curated
+foundation taxonomy, EXCLUDING every WordNet-sourced edge to stay non-circular (verified: 74,802 en-en IsA edges
+dropped, 155,335 non-WordNet kept; 0 WordNet edges kept). This fixes read-Hearst's coverage problem: 67% of query
+words covered (vs 15%), 158 covered pair-queries. RESULT: adding the genus channel HURTS -- OVERALL -0.130, covered
+subset -0.184 -- and does WORSE than its KNOWLEDGE-SHUFFLED twin (twin_loses=False; real hypernyms worse than
+random). MECHANISM (the deep point): a genus/is-a SIMILARITY channel scores by shared hypernyms, which groups
+CO-HYPONYMS (dog/cat both -> animal) EQUALLY with synonyms -- so it actively PROMOTES the wrong-relation neighbours
+that are the confusion, and shuffled hypernyms (which do not systematically promote co-hyponyms) hurt LESS. So clean
+taxonomic KNOWLEDGE, added as a similarity channel, is COUNTERPRODUCTIVE for synonymy. The WordNet-0.65 ceiling was
+NOT reachable by adding is-a knowledge; it reflects WordNet's fine taxonomic DISTANCE (the DIFFERENTIA / within-kind
+separation), which W24 already showed raises the oracle ceiling but is UNCAPTURABLE by the fusion. This closes the
+knowledge lever definitively: the genus is not the lever (it hurts), the differentia is (but is uncapturable).
+
+**STEP 3 -- GLASS-BOX LEMMATIZER (remove the WordNet-morphy dependency): WELL-CHARACTERIZED PARTIAL
+(`exp_meaning_fusion_glassbox_lemma_v1.py`, W30).** Built a glass-box, provably WordNet-free morphology (irregular
+table + suffix rules + corpus lexical-familiarity + a frequency-ratio guard) to replace morphy. It is BF
+(morphological decomposition, Rastle-Davis), loads ZERO WordNet, and lemmatizes regular inflection correctly
+(self-test 12/12). Agreement with WordNet-morphy: 92.6% decision vocab, 89.7% corpus tokens. NOT yet lossless: it
+OVER-STEMS base words (anger->ang, bring->br, brother->broth -- the last a semantic COLLISION), because distinguishing
+a base word from an inflected one requires a BASE-FORM LEXICON, exactly what morphy/WordNet supplies; a
+frequency-ratio guard did NOT fix it (short fragments are too frequent in a large corpus). CONCLUSION: the glass-box
+DIRECTION is proven (WordNet-free, BF, correct on regulars); making it lossless needs a curated NON-WordNet
+base-form word list (trivially available -- SCOWL / a citation-form frequency list -- unlike Step 2's taxonomy).
+That is the spec for strategy (Q111) to land the fully tool-free lemmatizer.
+
+## FINAL CONCLUSION (updated) -- the knowledge lever is closed; the deepest BF residual is a lemmatizer data-swap
+Every knowledge/representation lever past the fused ~41% (68%-oracle) is now rigorously resolved: grow-by-reading
+PROVEN-but-BOUNDED (W20); targeted reading NULL (W27); confidence/recollection LOCATED NEGATIVE (W23/25/26);
+differentia raises the oracle but UNCAPTURABLE (W24); read-Hearst is-a NULL (W28); and now curated ConceptNet is-a
+COUNTERPRODUCTIVE (W29) -- because genus similarity promotes co-hyponyms; the only headroom (the differentia / fine
+within-kind distance) is uncapturable by any per-query reliability we can build. So the fully-BF live chain sits at
+~41% of the brain (68% oracle) and the remaining distance is NOT closable by adding taxonomic knowledge as a
+channel. On BF PURITY: the one standing external-tool dependency is the WordNet-MORPHY lemmatizer (pipeline-wide,
+morphological-only, non-circular w.r.t. SimLex); a glass-box replacement is prototyped (W30) and needs only a
+non-WordNet base-form word list to be lossless. Net: the science is closed (knowledge-as-a-channel does not help;
+the differentia is the only headroom and is uncapturable), and the BF ledger is honest and current.
+
+## UPDATE 2026-09-10 (W31/W32) -- POSITIVE: DERIVED COMPONENTIAL FEATURES are the first representation to beat our channels on identity
+
+Owner hypothesis: componential features + hypervectors + relational significance. Built + tested rigorously.
+
+**W31 -- ground-truth componential HV (`exp_meaning_fusion_componential_hv_v1.py`): mechanism proven, test not
+powerable.** FHRR role-filler binding (hdlab.binding, PINNED) over Binder brain-based features + relational-
+significance weighting; self-test confirms identical-feature concepts bind to sim 1.0 vs 0.29 differing. But Binder's
+534 words overlap SimLex/SimVerb in only 4 pairs, and Binder's own similarity matrix is FEATURE-DERIVED (circular) --
+so the ground-truth representation cannot be powered against an independent identity gold.
+
+**W32 -- DERIVED componential features, FULL power (`exp_meaning_fusion_componential_hv_v2.py`): THE POSITIVE LEVER.**
+Learn brain-based componential features for the whole vocab (ridge linear readout = Hebbian/delta-rule; ATL-hub
+generalization, Rogers-McClelland; inputs = grounded (+) SEQ-SVD; supervised on the 243 Binder-covered scene words),
+build the componential representation, test on the FULL SimLex-999 + SimVerb-3500 identity gold (n=592 pairs).
+RESULT: derived componential rho **0.171** > our best fusion **0.134** > grounded **0.126** > SEQ **0.075**;
+knowledge-shuffled twin **-0.111** (loses hard). And it is IDENTITY-SELECTIVE: derived identity 0.171 vs its
+relatedness(Assoc) 0.158 (balanced), whereas SEQ is identity 0.075 vs relatedness 0.289 (pure relatedness). So the
+componential representation captures IDENTITY not relatedness -- the differentia, working, twin-controlled, well
+powered. FIRST lever in the whole investigation to beat the fused channels on identity.
+
+HONEST CAVEATS (kept on the ledger):
+- The HYPERVECTOR BINDING does NOT beat the flat componential vector (HV 0.1705 ~ flat 0.1714), and relational-
+  significance ~ uniform. The lever is the COMPONENTIAL FEATURES + Binder supervision, NOT the FHRR algebra --
+  because Binder features are a FLAT attribute list; binding pays off for COMPOSITIONAL/relational structure, which a
+  flat attribute vector does not have. (The owner's hypervector bet is a faithful representation but adds nothing here.)
+- This is the SimLex-RANKING PROXY (identity Spearman on pairs) -- C7's original metric, NOT the live-loop AUF. The
+  LIVE-LOOP TRANSFER is untested (the whole problem's question), and the absolute gain is modest (+0.037 over fusion).
+- EMBODIMENT-GAP MEASUREMENT (per-dim CV R2, mean 0.511): the owner was right that much IS derivable from text+grounding
+  -- Taste 0.87, Smell/Vision/Human/Touch ~0.70 recoverable; Dark 0.05, Number 0.26, Disgusted 0.27 not. So the gap is
+  narrower than I earlier argued: the sensory + some social/motor dims derive well; fine-perceptual + some
+  abstract-emotional do not. WHY IT BEATS OUR CHANNELS: the Binder-supervised projection learns which directions of
+  grounded+SEQ are IDENTITY (componential) vs RELATEDNESS, flipping SEQ's relatedness-heavy signal into an
+  identity-selective one.
+
+NET SHIFT: the knowledge-as-a-channel levers were closed (genus hurts, etc.), but a DERIVED COMPONENTIAL-FEATURE
+representation -- brain-based features generalized by a Hebbian readout, supervised on curated norms -- IS a real,
+twin-controlled identity lever on the ranking proxy. The decisive next step is whether it TRANSFERS to the live
+grounding-coverage loop (bring derived-componential into `exp_meaning_fusion_live_coverage_v1`'s frontier).
+
+## UPDATE 2026-09-10 (W33) -- the componential identity win does NOT transfer to the live loop (located negative, with the mechanism)
+
+`exp_meaning_fusion_componential_live_v1.py`. Brought the derived componential channel into the LIVE anchor-pool
+coverage-quality frontier (same instrument as W6/W19), fused with grounded+SEQ, twin-controlled (n_test=169, grown
+SEQ, deriv mean R2=0.51). RESULT: the W32 ranking-proxy win did NOT transfer CI-separated.
+- AUF-MRR: FUS_ALL(Gd+SEQ+COMP) 0.380, FUS_GD_SEQ 0.371, SEQ 0.330, TWIN 0.321, FUS_GD_COMP 0.160, GD 0.157,
+  COMP 0.145, INCUMBENT 0.026.
+- COMP alone (0.145) ~ grounded (0.157) LIVE -- the SimLex advantage (COMP 0.171 > grounded 0.126) VANISHED.
+- COMP adds to the fusion: +0.013 CI [-0.033,+0.058] (NOT CI-sep); FUS_ALL beats its knowledge-shuffled twin
+  +0.067 CI [+0.001,+0.125] (barely CI-sep, twin_loses=True) -- a WHISPER of real signal, no clean win.
+
+MECHANISM (why it didn't transfer): the derived componential channel is a RIDGE RE-PROJECTION of grounded+SEQ, so
+on the live loop -- where grounded and SEQ are ALREADY fused -- it is largely REDUNDANT with them and adds little
+independent information. On SimLex pairs it helped because the supervised projection emphasized identity; live, the
+fusion already captures that. Also a population reversal: on SimLex pairs SEQ=0.075/COMP=0.171, but on the live
+anchor-pool SEQ=0.330/COMP=0.145 (the distributional signal dominates the live decision). The genuinely-NEW signal
+would be GROUND-TRUTH brain-based features (independent of grounded+SEQ), but that is untestable here (Binder-SimLex
+overlap 4 pairs; Binder similarity matrix is feature-derived=circular; ground-truth feature norms don't scale).
+
+## FINAL SYNTHESIS -- the complete lever map (all measured, twin-controlled, BF-ledgered)
+On the SimLex-ranking PROXY: the DERIVED componential-feature representation is the first real, identity-selective,
+twin-controlled win over our channels (W32: 0.171 vs 0.134). On the LIVE loop it does NOT transfer CI-separated
+(W33), because the derived channel is redundant with the grounded+SEQ it is built from. Combined with the earlier
+map -- grow-by-reading PROVEN-but-bounded (W20); targeted reading null (W27); confidence/recollection located
+negative (W23/25/26); differentia raises oracle but uncapturable (W24); read-Hearst is-a null (W28); ConceptNet
+genus counterproductive (W29); componential ranking-win-but-no-live-transfer (W32/W33) -- the picture is complete
+and consistent: the fully-BF live chain sits at ~41% of the brain (68% oracle), and NO signal DERIVABLE FROM OUR
+CURRENT INPUTS (text + sensorimotor grounding) adds a CI-separated live lift beyond the grounded+SEQ fusion. The
+one representation that carries genuinely-new identity information -- GROUND-TRUTH brain-based componential features
+(independent of text/grounding) -- is real (the differentia direction, the componential ranking win) but is
+DATA-BOUND: it requires high-coverage feature norms or embodied/multimodal experience that are unavailable in the
+text-only sandbox. That is the honest frontier: the modelling levers are exhausted; the remaining gain is an
+ACQUISITION problem (embodied/experiential or scaled curated feature data), and the deepest BF-purity residual is
+the WordNet-morphy lemmatizer (glass-box replacement prototyped, W30).
+
+## UPDATE 2026-09-10 (FRAMING RE-DERIVATION) -- we were solving the wrong shape of problem; full trace in BRAIN_SIGNAL_BF_TRACE.md
+
+Owner (correct): "we do NOT understand what we're working on -- research how the brain does this, all the signals,
+trace bottom-up through the entire chain." A deep biology drill (hdi_research, prior-work-checked) + a full
+bottom-up trace (`BRAIN_SIGNAL_BF_TRACE.md`) delivered the root cause of every non-transferring lever:
+
+THE FRAMING ERROR: we compute meaning as a NOUN (a stored vector retrieved + compared, "which is nearest?"); the
+brain computes it as a VERB (a PREDICTION from the running context, corrected by PREDICTION ERROR, "what update to
+my situation model does this word imply, and how well does it fit what I predicted?"). Static word-similarity is the
+degenerate ZERO-CONTEXT special case. This is EXACTLY why is-a/confidence/componential all won the SimLex ranking
+proxy but did NOT transfer to the live loop: the live loop's currency is prediction-error over a running model, and
+a static-similarity channel produces NO prediction -> no error -> nothing to consume.
+
+THE TRACE (15 brain signals vs our chain): we implement the BOTTOM-UP / STATIC half (lemma, spoke, cosine, gain-ratio
+fusion, SDT gate) BF-faithfully, but the ENTIRE TOP-DOWN / PREDICTIVE half is ABSENT from the decision -- prediction
+(5), N400 prediction-error (6), contextual sense-selection (7), semantic control (8), compositional feedback (10),
+running situation-model (11), error-driven learning (15). The ATL HUB (3) is MISHANDLED (we use a spoke), and
+EPISODIC one-shot grounding (12, our loop's exact job) is MISHANDLED (count-accumulation, not one-shot). DECISIVE:
+the top-down organs ALREADY EXIST as landed BF modules -- `predictive_world_model`, `n400_coherence_monitor`,
+`composed_hub_predictor`, `predictive_reader`, `graded_competition`, `bound_event_backbone`,
+`generalized_event_knowledge`, `graded_temporal_context` -- but the SENSE-ASSIGNMENT DECISION routes through NONE of
+them. The gap is ARCHITECTURAL (a noun-shaped decision that must be re-cast as a verb), not a missing static channel.
+
+THE PATH (reuses landed organs, per full-stack-upstream): re-cast sense-assignment as a PREDICTIVE / biased-competition
+computation -- running world-model (predictive_world_model/bound_event_backbone) = the top-down PRIOR; the incoming
+word's coactivated senses SETTLE under that prior (graded_competition); score the PREDICTION ERROR
+(n400_coherence_monitor/composed_hub_predictor); use the error as BOTH the grounding-fit and the (error-driven)
+learning signal. This is the FAIR test the two HARD_FAILed STATIC context-conditioning cells never ran, and the
+already-designed-but-unbuilt ANGLE_B architecture ("the meaning IS the prediction"). This supersedes the static-lever
+program: STOP adding static channels; BUILD the predictive loop and consume prediction-error.
+
+## UPDATE 2026-09-10 (W34) -- FIRST BUILD OF THE PREDICTIVE RE-CAST: prediction from the running context is a real, twin-controlled signal
+
+`exp_meaning_fusion_predictive_grounding_v1.py`. Acting on the framing re-derivation (meaning is a VERB/prediction,
+not a NOUN/lookup), built the missing top-down half at its foundation: reused the LANDED
+`PredictiveWorldModel` (Rescorla-Wagner delta-rule online, err=onehot-p = the N400 error, PINNED error-driven
+learning; recency-weighted predictive read-out), generalized from verbs-only to ALL content-word concepts, and ran
+the brain's own CLOZE operation (self-supervised: the true next content word IS the gold) on the held-out curriculum.
+RESULT (full, vocab=400, n=2933): prediction from the running context beats the no-context PRIOR (the static
+no-prediction baseline) +0.0037 MRR CI [0.0027,0.0048] AND the SCRAMBLED-context twin +0.0043 CI [0.0030,0.0057],
+both CI-separated; and the context LOWERS N400 surprisal by 0.040 bits CI [0.033,0.046]. prediction_works=True.
+
+SIGNIFICANCE: after every STATIC lever failed to transfer, the PREDICTIVE re-cast produces the FIRST controlled
+top-down meaning-signal -- context-prediction genuinely reduces surprise about the upcoming meaning, twin-controlled.
+The framing is validated: meaning-as-prediction is a real, measurable signal the static chain entirely lacked, and it
+is built from a landed BF organ (error-driven world-model).
+
+HONEST MAGNITUDE CAVEAT: the effect is SMALL (+0.004 MRR, 0.04 of ~8.3 bits) because (a) next-content-word prediction
+is intrinsically high-entropy and (b) this is the SIMPLEST predictive model -- a linear content-word event-transition
+read-out, with NO situation-model entities, NO compositional role-structure, NO ATL-hub composed prediction. It is the
+FLOOR of the predictive approach, not the ceiling. The richer landed organs (`composed_hub_predictor` role-structure
+prediction, `bound_event_backbone`/`generalized_event_knowledge` situation-model, `graded_competition` biased
+sense-selection) are the strengthening path. And this is a CLOZE/prediction test (self-supervised), NOT yet a live
+grounding-coverage lift -- connecting predict->score-candidate-fit->ground on the live frontier is the next rung.
+
+NET DIRECTION: the predictive loop is REAL (direction confirmed, twin-controlled, CI-sep) but WEAK with the simplest
+model; strengthen it with the compositional/situation-model organs, then wire predict->error->ground into the live
+decision. This is the productive frontier -- unlike the exhausted static-lever program.
+
+## UPDATE 2026-09-10 (W35) -- strengthening prediction with COMPOSITIONAL structure: located negative; the honest read on "is this the real gap"
+
+`exp_meaning_fusion_compositional_prediction_v1.py`. Tried to strengthen W34's weak flat predictor with COMPOSITIONAL
+structure: predict the PATIENT from (verb, agent) via the LANDED `composed_hub_predictor` (precision-weighted
+selectional preference, N400 read-out), roles from the BF `incremental_parser`, grounded hub. RESULT (n=1213, 301
+verbs, pool=1387): compositional prediction does NOT add to the frequency prior -- PRIOR 0.101, COMP 0.025,
+PRIOR+COMP 0.100 (add -0.0006 CI [-0.0021,+0.0008], NOT CI-sep); composition-vs-agent-shuffled-twin +0.0007 (not
+CI-sep). LOCATED NEGATIVE on exact-patient ranking.
+
+TWO predictive builds now triangulate the answer to "is this the real gap we can go after":
+- W34 (flat learned transition): prediction beats the no-context prior +0.0037 MRR, CI-sep -- REAL but TINY.
+- W35 (compositional selectional-preference): does NOT add to the prior -- richer structure did not strengthen it.
+The honest synthesis: the predictive loop IS the real STRUCTURAL gap (the trace shows the whole top-down half is
+absent; the framing error explains every static failure; W34 confirms the signal is real + twin-controlled). BUT
+per-word/patient PREDICTION ACCURACY is intrinsically WEAK -- and this is CONSISTENT WITH THE BRAIN: human cloze
+probabilities for content words are mostly low; per-word next-meaning prediction is genuinely high-entropy. So
+optimizing "rank the next word" is likely the WRONG objective. The brain's prediction is weak per-word BY DESIGN; its
+VALUE is (a) the PREDICTION ERROR as the LEARNING signal (error-driven plasticity, signal 15) and (b) SITUATION-MODEL
+INTEGRATION over time (signal 11) -- NOT cloze accuracy. Neither is captured by the cloze/ranking metric; both require
+wiring predict->error->ground->LEARN on the live loop with a running situation-model, which is the bigger,
+un-run build.
+
+RECOMMENDATION (honest, tempered): the predictive/error-driven direction is the correct mechanism and the real gap,
+but two shallow predictors (flat transition, compositional selectional-preference) both give small/null per-word
+signal -- so the payoff is UNCERTAIN and the decisive test is the harder one: wire the ERROR signal into grounding +
+error-driven LEARNING over a running situation-model, and measure the LIVE grounding-coverage lift (not cloze
+accuracy). That is a substantial multi-organ build (predictive_world_model + bound_event_backbone situation-state +
+graded_competition + error-driven update). Odds are tempered by the weak per-word signal, but the mechanism is right
+and it is the only remaining direction that addresses the actual framing error rather than the static special case.
+
+## UPDATE 2026-09-10 (W36) -- the CROSS-MODAL REFERENT HUB (brain-true mechanism): confirms the limit is referent-grounding DATA
+
+Owner corrected the framing (meaning is a GROUNDED REFERENT CONCEPT via cross-modal feature convergence -- the ATL
+hub -- NOT a prediction; prediction is a downstream comprehension PROCESS). Built the hub, buildable version.
+
+`exp_meaning_fusion_crossmodal_hub_v1.py` (W36). The brain's meaning = cross-modal convergence of the referent's
+features; hub metric = cross-modal FEATURE-CORRELATION, not text co-occurrence (Cox-Rogers 2024). Converged the two
+VOCABULARY-SCALE spokes we have -- grounded (perceptual-referent, Lancaster) + SEQ (text/thematic) -- with the one
+vocabulary-scale referent-precision signal (Brysbaert CONCRETENESS, ~40k words): trust the perceptual spoke where the
+referent IS perceptual (concreteness-gated modality precision; Ma/Pouget across modalities). RESULT (live frontier,
+n=169): HUB (concreteness-gated) 0.364 vs FUS_equal 0.371 -- does NOT beat the ungated fusion (+0.0022, not CI-sep;
+a whisper over its concreteness-shuffled twin +0.023, not CI-sep). LOCATED NEGATIVE.
+
+THE RICHER REFERENT SPOKES ARE DATA-BLOCKED (confirmed from the data side): the only per-word VISUAL referent features
+on disk are CLIP embeddings for ~21 QuickDraw words (cat/dog/apple...), with NO synonym pairs and ~0 SimLex overlap;
+Binder componential features cover ~534 words (10% of the query vocab). So the referent-feature modalities that would
+make the hub brain-faithful exist only at demo coverage.
+
+## CONVERGED FINAL CONCLUSION -- the limit is referent-grounding DATA (embodiment), not modelling
+Every direction now converges on ONE cause. The brain grounds meaning in the MULTIMODAL EXPERIENCE OF REFERENTS
+(cross-modal feature convergence, the hub). Our system has: TEXT co-occurrence (one thematic spoke) + a THIN
+sensorimotor NORM-proxy (Lancaster = the perceptual spoke, our single best channel) + a vocabulary-scale concreteness
+scalar. The RICHER referent modalities (vision ~21w, componential ~534w) are demo-coverage. Therefore:
+- grounded (Lancaster) is our best channel because it is the closest thing to referent experience we have;
+- every TEXT recombination plateaus (SEQ, is-a, prediction, componential-derived) -- same impoverished source;
+- the concreteness-gated cross-modal hub built from the two vocab-scale spokes does NOT beat their ungated fusion;
+- so grounded+SEQ (~41-44% of the brain, 68% oracle) IS the best cross-modal referent hub the AVAILABLE DATA supports.
+PREDICTION was a wrong turn (a downstream process, not the substance of meaning; W34/W35 measured it real-but-weak).
+The frontier is now unambiguous and it is a DATA-ACQUISITION one: vocabulary-scale REFERENT-FEATURE data (perceptual/
+visual via CLIP-at-ingest over the full vocab -- the infra exists in exp_visual_grounding_coherence_v1; and/or scaled
+componential norms). That is a FOUNDATION data-build (offline, admissible, owner-authorized), NOT a model to invent
+in the text-only sandbox. This is the symbol-grounding/embodiment limit, confirmed from the mechanism side (hub needs
+cross-modal referent features), the modelling side (every text-derived lever exhausted), and the data side (referent
+modalities are demo-coverage).
 
 ## NET (both phases answered, affirmatively).
 Phase A: the chain is 100% brain-foundational (parser-free) and beats
