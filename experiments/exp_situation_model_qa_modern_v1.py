@@ -1272,6 +1272,49 @@ def board_event_goal_congruence_dimension(smoke=False):
         return _degraded("event_goal_congruence", e), {"error": "%s: %s" % (type(e).__name__, e)}
 
 
+def board_tom_dimension(smoke=False):
+    """THEORY-OF-MIND belief->action board arm on BigToM (Gandhi et al. 2023, the MODERN peer-reviewed ToM gold,
+    278 items, TB/FB matched). Board-INVISIBLE today -- no dim scores the glass-box FORWARD mentalizing chain
+    (believes(A,F,t) x wants(A) -> action, read off the BELIEVED state) that hdlab.theory_of_mind runs (owner-DONE
+    chain_belief_and_goal_into_theory_of_mind...). Reuses exp_tom_chain_belief_goal_action_v1's measurement + the
+    _tom_bigtom loader/value-model (like board_occ_appraisal reuses _occ_probe). model = the CHAIN action accuracy;
+    strongest floor = REALITY_FLOOR (BELIEFLESS -- act on the true state, the ToM-blind floor that collapses on the
+    FALSE-BELIEF subset); twin = TWIN_BELIEF (a believed value drawn from another item). HEADLINE = the FALSE-BELIEF
+    subset (reality != belief -- the load-bearing test). Paired bootstrap over stories. OUT of the 19c-free headline
+    aggregate (its own row). Degrades gracefully (BigToM/deps absent -> a schema-shaped row, never crashes)."""
+    try:
+        import numpy as _np
+        import experiments.exp_tom_chain_belief_goal_action_v1 as T
+        from experiments._tom_bigtom import load_bigtom
+        items = load_bigtom(tasks=("action",))
+        if smoke:
+            keep = set(sorted({it.sid for it in items})[:12]); items = [it for it in items if it.sid in keep]
+        rows = T._predict_all(items)
+        n = len(rows); rng = _np.random.RandomState(20260906)
+        perm_obs = rng.permutation(n); perm_bel = rng.permutation(n)
+        for i, r in enumerate(rows):
+            obs_sh = rows[perm_obs[i]]["obs"]; bel_sh = rows[perm_bel[i]]["bel_fix"]
+            r["_arms"] = T._correct_arms(r, observed_shuffle=(bool(obs_sh) if obs_sh is not None else False),
+                                         belief_shuffle=bel_sh)
+        ti = 1   # the ACTION task (forward belief->action)
+        model = T._acc(rows, "CHAIN", ti); floor = T._acc(rows, "REALITY_FLOOR", ti); twin = T._acc(rows, "TWIN_BELIEF", ti)
+        model_fb = T._acc(rows, "CHAIN", ti, "FB"); floor_fb = T._acc(rows, "REALITY_FLOOR", ti, "FB")
+        oracle = T._acc(rows, "ORACLE_BELIEF", ti)
+        d, lo, hi, hw = T._paired_ci(rows, "CHAIN", "REALITY_FLOOR", ti, "FB", rng)   # headline: FB subset
+        dt, lot, hit, _ = T._paired_ci(rows, "CHAIN", "TWIN_BELIEF", ti, "FB", rng)
+        n_fb = sum(r["cond"] == "FB" for r in rows)
+        row = {"dimension": "theory_of_mind", "n": n, "n_FB": n_fb,
+               "model": round(model, 4), "floor": round(floor, 4), "twin": round(twin, 4),
+               "model_FB": round(model_fb, 4), "floor_FB": round(floor_fb, 4), "oracle_belief": round(oracle, 4),
+               "headline_FB_delta": round(d, 4), "ci": [round(lo, 4), round(hi, 4)], "ci_half_width": round(hw, 4),
+               "ci_sep": bool(lo > 0), "twin_FB_delta": round(dt, 4), "twin_loses": bool(lot > 0),
+               "gold": "BigToM (Gandhi 2023, modern; 278 TB/FB)",
+               "note": "forward mentalizing believes x wants->action; FALSE-BELIEF subset is load-bearing (ToM-blind floor collapses there)"}
+        return row, {"model": model, "floor": floor, "twin": twin, "fb_delta": d, "fb_ci": [lo, hi]}
+    except Exception as e:
+        return {"dimension": "theory_of_mind", "error": "%s: %s" % (type(e).__name__, e), "model": None}, {}
+
+
 def board_sem_segmentation_dimension(smoke=False):
     """SEM SCHEMA-SWITCH EVENT-SEGMENTATION board arm on ACTUAL HUMAN perceived event boundaries (Kumar 2023
     behavioural button-press gold, Tunnel Under the World). This capability is board-INVISIBLE today --
@@ -2266,6 +2309,9 @@ def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True
         sem_row, sem_det = board_sem_segmentation_dimension(smoke=bool(caps.get("sem_seg_smoke")))
         new_arms["sem_segmentation"] = sem_row
         new_arms_detail["sem_segmentation"] = sem_det
+        tom_row, tom_det = board_tom_dimension(smoke=bool(caps.get("tom_smoke")))
+        new_arms["theory_of_mind"] = tom_row
+        new_arms_detail["theory_of_mind"] = tom_det
         cx_row, cx_det = board_crosstype_experiencer_dimension(smoke=bool(caps.get("crosstype_smoke")))
         new_arms["crosstype_experiencer"] = cx_row
         new_arms_detail["crosstype_experiencer"] = cx_det
