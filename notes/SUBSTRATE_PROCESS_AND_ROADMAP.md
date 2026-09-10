@@ -62,9 +62,15 @@ arc scorer (the shared extraction wall; retires the supervised-parser root).
 **THE MAIN EVENT — the generative world-model program (in-flight, ~9 solvers):** the recurrent predictive-coding
 loop / result-state model / chain-multi-step / forward-projection; the everyday-causation sign tail is a DOWNSTREAM
 read over it (do NOT post separately — it activates when the world-model is perturbable).
-**STANDING FIDELITY WORK (mine, fresh-budget, invasive — measure-first + board-no-regress):** the `causal_reasoner`
-abduction upgrade (rung-2→3) · the directed-causal-store live wire (+0.139 WIQA-instrument) · full Rhea/formal-DB
-ingest (causal-sign coverage 13%→65%). Off-path/lower: the reward-cluster vigor dial (+579, dormant).
+**STANDING FIDELITY WORK (mine):** ✅ `causal_reasoner` rung-3 abduction primitive LANDED (CONT-97, `fd0bca071`,
+pure-add). **STRATEGIC CEILING FOUND (CONT-98): the causal machinery is BOARD-INVISIBLE** — no smoke-viable modern
+causal gold (WIQA needs full-scale; the smoke self-test underpowers it, per the reverted board_causal_sign arm), so
+the LIVE FLIP of any further causal fidelity (directed-store wire +0.139 WIQA-instrument · Rhea ingest 13%→65% ·
+abduction-FROM-evidence) CANNOT be measured on the board -> a mine-side default-off landing would be latent +
+unmeasurable (violates measure-first). ⇒ the leverage is NOT more mine-side board-invisible causal builds; it is
+either (a) a SMOKE-VIABLE causal board INSTRUMENT (the prerequisite that makes all of it measurable), or (b) posting
+the causal-fidelity pieces as FLEET problems with their own full-scale witnesses. Both are candidate roadmap items,
+not mine-side grinds. Off-path/lower: the reward-cluster vigor dial (+579, dormant, off the reading board).
 
 ## 5. DOC MAP (what is authoritative for what — read these, ignore the rest)
 - **THIS doc** — process + roadmap. · **`tools/substrate_health.py`** — derived health.
