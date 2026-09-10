@@ -4,31 +4,31 @@
 
 **HEADLINE: 0/1 plan steps done; C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap))**
 
-generated: 2026-09-10T02:19:57Z  |  HEAD: 3c50244e5
+generated: 2026-09-10T14:25:38Z  |  HEAD: 9cd4f6cee
 
 ## 1. Where we are against the plan (notes/PLAN_NEXT_12H.md)
 - UNKNOWN -- notes/PLAN_NEXT_12H.md not readable
 
 ## 2. What is running right now
 Heartbeats (data/heartbeats/*.timestamp):
-  - exp_dev: 17477 min ago <-- STALE
-  - orchestrator: 63543 min ago <-- STALE
-  - research: 60 min ago
-  - skunkworks: 66214 min ago <-- STALE
-  - testbed: 102788 min ago <-- STALE
+  - exp_dev: 18202 min ago <-- STALE
+  - orchestrator: 64268 min ago <-- STALE
+  - research: 5 min ago
+  - skunkworks: 66940 min ago <-- STALE
+  - testbed: 103514 min ago <-- STALE
 data/ directories touched in the last 180 min:
   - logs: 0 min ago, NO metrics.json yet (likely in-flight)
   - local_cpu_queue: 0 min ago, NO metrics.json yet (likely in-flight)
-  - hook_state: 2 min ago, NO metrics.json yet (likely in-flight)
-  - exp_meaning_fusion_grow_by_reading_isa_curve_v1_smoke: 2 min ago, has metrics.json
-  - .metrics_sync: 5 min ago, NO metrics.json yet (likely in-flight)
-  - exp_causal_influence_resolution_v1: 37 min ago, has metrics.json
-  - exp_meaning_fusion_matched_coverage_v1: 49 min ago, has metrics.json
-  - exp_causal_sign_argbound_role_v1: 50 min ago, has metrics.json
+  - exp_parser_dmv_softem_v1: 2 min ago, has metrics.json
+  - .metrics_sync: 11 min ago, NO metrics.json yet (likely in-flight)
+  - exp_parser_chain_vs_brain_eval_v1: 12 min ago, has metrics.json
+  - exp_parser_dmv_valence_v1: 14 min ago, has metrics.json
+  - exp_fd_harm_help_chain_attribution_v1: 15 min ago, NO metrics.json yet (likely in-flight)
+  - exp_pos_nominal_head_correction_v1: 119 min ago, NO metrics.json yet (likely in-flight)
 notes/STATUS.md WHAT IS RUNNING (verbatim):
   - **OPERATING MODEL (owner 08-22): STRATEGY SESSION (this) + SOLVER SESSIONS.** This session keeps the 10k view, writes/verifies briefs, and INTEGRATES owner-DONE; solvers each solve one bounded problem.
   - **RESEARCH DELIVERED + FOLDED (CONT-73):** the pri-3 parser BF syntax-acquisition drill completed + vetted first-hand -> `RESEARCH_bf_acquisition.md`. Key: the 'frozen supervised hard-decode' = TWO orthogonal defects (graded-decode route-through NOW + the acquisition question); category-induction-from-prediction is a verified in-substrate HARD_PASS, structure-induction hit an UNDER-POWERED located ceiling (3k/12.5k sents, 0 EM). Cheap first build folded into the brief (re-run exp_predictive_selfsup_parser_v1 full-scale + EM, composing the pri-2 directional channel + graded Matrix-Tree decode). NOTHING now running.
-  - **FRONTIER = FLEET-SIDE.** Assignable (REUSE premises verified first-hand this session): pri-3 the parser (5 of 8 NOT_BF organs; the dominant upchain + the shared extraction wall = the #1 lever; scouting map + staging in the problem folder), pri-4 commonnoun_binder->typed_coref (verified win 0.5671 vs string-identity 0.5412 CI-sep; the task is the live resolve_doc re-port), pri-7 force_dynamics_valence->Wolff force-dynamic arithmetic. The pri-1 generative world-model is in a solver.
+  - **FRONTIER = FLEET-SIDE, PRODUCTIVE (CONT-81):** all 3 BF-upchain problems I posted + pri-5 now have SOLVER SUBMISSIONS awaiting OWNER REVIEW (owner-DONE gate EMPTY for me): **pri-3 the_parser PARTIAL**, **pri-4 commonnoun_binder->typed_coref SOLVED**, **pri-5 measure_end_to_end PARTIAL**, **pri-7 force_dynamics_valence->Wolff SOLVED**. The problem-posting + de-risking (scouting maps, verified premises, folded parser research) bore fruit. When owner marks any DONE, integrate promptly (reverify->grade->land-> ledger/§2b->commit path-limited, NOTHING pushed).
   - **AWAITING OWNER REVIEW (not my move):** pri-5 `measure_end_to_end` (gates the pri-2 meaning fusion-flip), pri-6 reward-cluster audit; board Q123 (STATUS trim -- DONE by me, this file, CONT-73), Q122 (stale/obsolete -- its referenced landings are all integrated).
   - **NOTHING else running.** Everything committed path-limited, NOTHING pushed. Owner-DONE fold-in gate EMPTY.
 
@@ -40,11 +40,12 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
 - C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap)) -- source: data\exp_orthographic_floor_vet_v1\metrics.json
 
 ## 4. What moved since the last snapshot
-- 1 new commit(s) since last snapshot (HEAD dbb0fd119 -> 3c50244e5)
+- 1 new commit(s) since last snapshot (HEAD 365719450 -> 9cd4f6cee)
+- data/ directory count: 9755 -> 9756 (+1)
 
 ## 5. What is stuck (blocked / pending / no owner)
 - (none found)
 
 <!-- SNAPSHOT_STATE_JSON
-{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 9734, "generated_at": "2026-09-10T02:19:57Z", "head_commit": "3c50244e5028cbda46a897b61e7f30b7c13b4437", "step_status": {}}
+{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 9756, "generated_at": "2026-09-10T14:25:38Z", "head_commit": "9cd4f6ceea6b6404abce6b63bf35da80b34dbff9", "step_status": {}}
 -->

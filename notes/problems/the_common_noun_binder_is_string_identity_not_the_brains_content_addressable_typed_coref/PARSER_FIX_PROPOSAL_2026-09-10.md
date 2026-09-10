@@ -79,9 +79,39 @@ rule (0.5426). So swapping the BF parser in for HEADS badly hurts coref.
      supplies the OOD-robust reliability the hard-decode discards.
   3. **The never-frozen grounded parser: keep it as the register-adaptive RELIABILITY complement** (its proven niche), NOT
      the head producer, until its accuracy gap closes.
-  4. **Close the accuracy gap via the cross-sentence generative world-model** (pri-1) -- the named, quantified BF lever.
+  4. **Close the accuracy gap by fixing the LEARNING SIGNAL** (see 4b): replace the self-supervised structural settle with a
+     COMPREHENSION/PREDICTION target (next-input prediction + situation-model coherence) -- the generative world-model loop
+     (pri-1). This is the proven lever: +0.29 UAS from the correct signal alone, on the already-BF mechanism+representation.
 - **Our binding is robust to all of this**: it beats string-identity CI-sep at EVERY head-quality level (gold, frozen,
   boundary, unfrozen), so the parser's accuracy trade does not block the common-noun binder.
+
+## 4b. DEFINITIVE localization (2026-09-10, owner: "if truly BF it would perform perfectly -- find what we're missing")
+Systematic elimination of every candidate non-BF component on the parse chain, each MEASURED
+(`exp_distributional_parser_v1.py`, `exp_grounded_parser_uas_sweep_v1.py`; UD-EWT test UAS, never-frozen, gold-tree-free):
+
+| candidate | test | verdict |
+|---|---|---|
+| frozen HARD-decode | crf_tagger + graded_parser marginals | BF, head-NEUTRAL -> NOT the wall |
+| never-frozen regime | gold-signal diagnostic reaches 0.61 | EXONERATED (mechanism is sound) |
+| word REPRESENTATION (12-dim sensorimotor) | swap to distributional PPMI + separate spoke | wrong-modality was harmful; distributional fixes the modality/architecture -> USED effectively given a correct signal; NOT the wall by itself |
+| **LEARNING SIGNAL (self-settle vs comprehension/prediction)** | **two-spoke + CORRECT target: 0.32 -> 0.6096 (+0.29)** | **THE WALL** |
+
+**The definitive result:** holding the mechanism (never-frozen PE-gated Hebbian + Eisner settle) AND the representation
+(distributional two-spoke) FIXED, only changing the LEARNING SIGNAL from self-supervised structural settle to a CORRECT
+target lifts UAS **0.32 -> 0.61 (+0.29)** -- vs a representation change alone (~0, even harmful). So the ONE remaining
+non-brain-foundational thing is the **learning signal**: the parser reinforces its OWN settled parse (self-reinforcing its
+errors), whereas the brain learns its parser from **COMPREHENSION / PREDICTION** -- the parse that best predicts the next
+input and yields a coherent situation model is the one reinforced (Chang-Dell-Bock 2006 "Becoming syntactic"; Elman 1990
+prediction; Pinker 1984 semantic bootstrapping). The gold target is a DIAGNOSTIC stand-in for that comprehension signal
+(gold trees are NOT a BF signal); it proves the signal -- not the mechanism, representation, decode, or never-frozen regime
+-- is the wall.
+
+**Why the parser "doesn't perform perfectly":** NOT because any module is non-BF in isolation, but because the SYSTEM-LEVEL
+comprehension loop that TRAINS the parser is missing. The brain has no isolated syntactic parser optimized for UAS; parsing
+is a byproduct of the whole comprehension system (prediction + meaning + world-model + discourse). An isolated online parser
+with a structural self-settle target is a fragment being asked to do the system's job. **The truly-BF fix = the generative
+comprehension/prediction loop (the generative world-model, pri-1)** -- now localized + quantified (+0.29 UAS available from
+the correct signal alone, on the already-BF mechanism+representation), not hand-waved.
 
 ## 5. Proposed hdlab wire (Q111 -- strategy lands)
 - **DO NOT swap the frozen parser for the never-frozen one on the head path** (measured -0.37 UAS / -0.065 coref). Keep the
