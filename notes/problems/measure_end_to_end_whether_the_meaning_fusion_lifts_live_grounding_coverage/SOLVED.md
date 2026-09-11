@@ -1248,3 +1248,45 @@ synonymy SimLex coverage stays gold-construction-bound (~18 pairs); the verb/abs
 identified-but-not-built levers (diminishing / future): fill the ~116 missing concrete nouns (ecoset/OpenImages) to
 widen MEN coverage further; a niche SOUND spoke (~55 auditory-strong words); the learned shared-latent (autoencoder) hub
 (R1 Stage-A) vs the current weighted-sum combiner. These are optimizations beyond the now-complete core claim.
+
+## UPDATE 2026-09-11 (W40, end-of-arc extensions) -- all three optional extensions ADDRESSED: two located-negatives + one data-block; the arc is at its ceiling, brain-foundationally
+
+Owner: "address those optional extensions, BF and right not easy." All three were pursued with the organ-reuse-first
+discipline and cheap decisive measurements (the cron's "research-drill the walls; check hdlab organs"). Outcomes:
+
+1. HUB SHARED-LATENT ("autoencoder hub") -- LOCATED NEGATIVE (and it corrected a mis-stated fidelity gap). Reuse-check
+   of hdlab.convergent_cue_reader (landed/validated) surfaced the PINNED principle: the brain combines cues as SEPARATE
+   POOLS, precision-weighted AT READ, NEVER fused into one undifferentiated pool (the semantic-dementia x amnesia double
+   dissociation; fusing there lost 0.36 vs 0.74). So our recovery-gated precision fusion IS the brain's convergent-cue
+   operation, and the "learned shared latent" is the FUSE-ONE-POOL anti-pattern. Proven on our data, not asserted (G8
+   control arm): on MEN the fuse-one-pool shared latent (SVD-over-standardized-concat, r=64) scores 0.715 and does NOT
+   beat the separate-pool convergent fusion 0.723; and v1's naive one-pool SVD diluted catastrophically (0.29 < 0.46).
+   VERDICT: we do not differ from the brain here; keep convergent-cue. No build warranted.
+
+2. COVERAGE-FILL (more concrete-noun images to widen the powered semantic test) -- LOCATED NEGATIVE (feasibility). Of the
+   476 MEN words we do not yet cover, the most frequent are colors/adjectives/verbs/scenes (happy, sunny, purple, sit,
+   morning, kitchen, foliage, shore...), NOT single objects -- object-photo grounding structurally cannot reach them.
+   The 391 both-covered MEN pairs are near the object-groundable ceiling; more object photos gain few real pairs. Same
+   categorical wall (verb/abstract), now confirmed on MEN. No build warranted.
+
+3. SOUND SPOKE (a genuinely new referent modality -- audio) -- DATA-BLOCKED FOR A POWERED TEST (tested the achievable
+   version, not declared impossible). Encoder is fine (AST, AudioSet-trained audio-only ViT = the DINOv2-analog, no text;
+   imports + weights reachable). But the clean available audio source (ESC-50, 50 environmental classes) grounds only ~25
+   of our concepts (animals/vehicles + a few objects) and NONE of the auditory-DOMINANT musical words (violin, orchestra,
+   instrument, music, band -- ESC-50 has no instruments); those ~25 concepts co-occur in exactly 1 MEN pair -> an
+   underpowered semantic test. A powered sound spoke needs a broad corpus (AudioSet 946 shards / VGGSound gated) -- a
+   major data-engineering build for a niche modality (~5-11% of words auditory-dominant per Lancaster). Building an
+   underpowered 1-pair pipeline would be wasted effort; the honest finding is the data-block + the heavy path, not a build.
+
+CONVERGENT CONCLUSION (end-of-arc). All three extensions hit the SAME structural wall or confirm we are already optimal:
+the referent-grounding lever is REAL and, once denoised by volume, materially lifts meaning-similarity (perceptual +
+semantic) with the fused hub beating its best single channel -- but it MAXES at the concrete-DEPICTABLE/AUDIBLE slice,
+and we have reached that ceiling brain-foundationally. The fusion is the brain's convergent-cue (separate pools); the
+remaining meaning-similarity mass (verbs, abstractions, colors, adjectives, scenes) is not single-referent-groundable by
+any image/audio modality. This is the honest, deep answer to "how far can referent grounding push meaning." The core
+claim (W37-W39) stands complete and excellent; the extensions are exhausted, each with a measured reason (not a shrug).
+
+SUBSTRATE INCORPORATION MANIFEST (W40): AS-DURABLE-NEGATIVE -- (a) do NOT build a fuse-one-pool shared-latent/autoencoder
+hub (convergent-cue separate-pools wins + v1 dilution proof); (b) coverage-fill via object photos is blocked (missing
+mass is non-object); (c) a sound spoke needs a broad audio corpus (AudioSet), not ESC-50, and grounds a niche slice. DO:
+keep the convergent-cue precision fusion + the multi-exemplar denoised centroid. The referent arc is at its data ceiling.

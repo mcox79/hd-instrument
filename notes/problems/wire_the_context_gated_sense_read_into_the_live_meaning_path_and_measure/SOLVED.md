@@ -5,7 +5,7 @@ bar: "Wire the context-gated sense read into the live meaning path and SHOW a re
 result: "THREE controlled results on modern gold. (POSITIVE, meaning-read dim) The LIVE WIRE (hdlab.underspecified_sense_reader.select_sense — what sm.select_sense binds) lifts WiC over the SENSE-BLIND reader: WIRE coarse-supersense acc = 0.7493 vs the sense-blind reader's majority ceiling 0.5000, +0.2493 CI[+0.2198,+0.2802] CI-sep; info-free shuffled-context twin LOSES (WIRE-twin +0.1654 CI[+0.1393,+0.1924]); genuine discrimination not a coarse artifact (pred-same-rate 0.452, specificity on gold-DIFFERENT pairs 0.797). n=2038 committed WiC pairs. (NEGATIVE 1, non-decisive consumer) common-noun coref TYPE-LICENSE (typed_spokes.coref_type_license): context-gating flips 715/36642 pairs (1.95%), the shuffled-context twin flips MORE (900>=715, does NOT lose), controlled coref-accuracy gated-minus-baseline = +0.0007 CI[-0.0090,+0.0102] (INCLUDES ZERO). Bridge slice 26.9%; n=2834. (NEGATIVE 2, DECISIVE consumer) natural-logic monotonicity is-a (typed_spokes.natural_logic_label, the MED 0.767 path, which deliberately uses the UNION is-a read): context-gating HURTS — GATED committed-sense 0.6559 vs BASELINE union 0.7203, -0.0644 CI[-0.0877,-0.0411] CI-separated BELOW baseline (twin -0.0810), on the n=901 sense-decisive SUB slice. Enumeration complete: BOTH live sense-consumers fail (one null, one negative)."
 floor: "POSITIVE floor = the SENSE-BLIND reader's ceiling = majority WiC class 0.5000 (the reader superposes all senses of a lemma into ONE ConceptSpace vector -> type-level cosine of the two same-lemma targets is 1.0 -> AUC 0.5 -> can only predict majority). NEGATIVE-1 floor = the current live sense-blind comparator coref_type_license (MFS/union) = 0.5967 common-noun antecedent accuracy (controlled recency resolver). NEGATIVE-2 floor = the current live union is-a read = 0.7203 on the MED SUB slice (the deliberately-permissive read the 0.767 headline uses)."
 controls: "POSITIVE: majority floor + an info-free shuffled-context twin (LOSES CI-sep -> the lift is CONTEXT-driven) + a confusion sanity (pred-same-rate 0.452, specificity 0.797 on gold-DIFFERENT pairs -> genuine discrimination, not coarse over-predicting SAME). NEGATIVE-1: sense-blind baseline == the live comparator; an info-free shuffled-context twin that does NOT lose (flips MORE, 900 vs 715); a flip decomposition (permit->forbid 613 / forbid->permit 102, so gating sensibly TIGHTENS) + a mechanism probe (bridge-head committed==MFS 53.7% vs global 51.6% -> bridge heads are NOT specially dominant-sense; the null is because the filter is NON-DECISIVE, recency selects). NEGATIVE-2: the live union is-a baseline + an info-free shuffled-context twin (also hurts, -0.0810). LIVENESS: a real SituationReader.read() over modern prose leaves sm.senses == [] yet sm.select_sense fires (bank -> noun.group)."
-files_changed: "experiments/exp_sense_gated_coref_divergence_v1.py, experiments/exp_sense_wire_wic_liveness_v1.py (+board_wic_via_live_wire_dimension), experiments/exp_sense_gated_natural_logic_probe_v1.py, experiments/exp_sense_gated_safe_bridge_write_v1.py, experiments/exp_context_modulated_meaning_vector_probe_v1.py, experiments/exp_sense_wire_wic_param_sweep_v1.py, experiments/exp_sense_gated_coref_board_native_v1.py, experiments/exp_sense_wire_wic_grain_sweep_v1.py, verification/test_sense_wire_liveness_and_coref_negative.py, data/{sense_gated_coref_divergence_v1,sense_wire_wic_liveness_v1,sense_gated_natural_logic_probe_v1,sense_gated_safe_bridge_write_v1,context_modulated_meaning_vector_probe_v1,sense_wire_wic_param_sweep_v1,sense_gated_coref_board_native_v1,sense_wire_wic_grain_sweep_v1}/metrics.json"
+files_changed: "experiments/exp_sense_gated_coref_divergence_v1.py, experiments/exp_sense_wire_wic_liveness_v1.py (+board_wic_via_live_wire_dimension), experiments/exp_sense_gated_natural_logic_probe_v1.py, experiments/exp_sense_gated_safe_bridge_write_v1.py, experiments/exp_context_modulated_meaning_vector_probe_v1.py, experiments/exp_sense_wire_wic_param_sweep_v1.py, experiments/exp_sense_gated_coref_board_native_v1.py, experiments/exp_sense_wire_wic_grain_sweep_v1.py, experiments/fetch_scws_v1.py, experiments/exp_context_modulated_scws_v1.py, verification/test_sense_wire_liveness_and_coref_negative.py, verification/test_graded_consumer_scws.py, data/corpora/scws/ratings.txt, data/{sense_gated_coref_divergence_v1,sense_wire_wic_liveness_v1,sense_gated_natural_logic_probe_v1,sense_gated_safe_bridge_write_v1,context_modulated_meaning_vector_probe_v1,sense_wire_wic_param_sweep_v1,sense_gated_coref_board_native_v1,sense_wire_wic_grain_sweep_v1}/metrics.json"
 reverify: ".venv/Scripts/python.exe verification/test_sense_wire_liveness_and_coref_negative.py"
 ---
 
@@ -278,6 +278,80 @@ against a SCHEMA-ONLY baseline + twin. The faithful instrument (a sense-dependen
 -- SCWS-style, or bridging-in-context) is NOT on disk, and bridging is partly schema-driven, so a quick hack would be
 the half-effort the protocol forbids. This is the DEFINING first experiment of the meaning-representation/world-model
 mega-cluster (the named forward program), fully specified, with its input currency already proven live-computable.
+
+## UNIFYING SYNTHESIS -- why EVERY downstream result was null, and what it uncovers (owner: "research all these results so we fully understand them")
+Sort the seven results by WHAT LEVEL OF MEANING the decision reads, and they stop being a scatter of coincidences
+and become ONE architectural fact:
+
+| result | why we thought it an opportunity | outcome | the level it reads |
+|---|---|---|---|
+| WiC discrete coarse-match | prove the wire fires + reads sense | **0.749 vs 0.500, twin loses** ✓ | SENSE-level (the read itself) |
+| WiC graded settled vector | Q2: the world-model's currency | **AUC 0.738 vs 0.497, twin loses** ✓ | SENSE-level (graded) |
+| coref TYPE-LICENSE gating | the 1 live decision reading a noun sense | null (+0.0056, CI incl 0) ✗ | DISCRETE TYPE feature |
+| natural-logic is-a gating | is-a is decisive for entailment | HURTS (-0.0644 CI-sep) ✗ | DISCRETE TYPE feature |
+| bridge-WRITING gating | gating removes 613 spurious bridges | null (gated~twin; not recovered) ✗ | DISCRETE TYPE feature |
+| readout param sweep | read is below human (0.749 vs 0.80) | +0.0000 (maxed) ✗ | the read's KNOBS |
+| grain sweep (homonymy) | Rodd: commit at the homonymy grain | lexname best; hom -0.0258 ✗ | the read's GRAIN |
+
+**THE DIAGNOSIS (evidence-backed, not asserted):** the SAME wire's sense signal is USABLE exactly where the task
+operates at the SENSE/GRADED level (WiC, discrete 0.749 AND graded 0.738, both twin-losing) and INVISIBLE-or-HARMFUL
+everywhere it is fed to a decision that reads meaning as a DISCRETE TYPE FEATURE (coref type-license null;
+natural-logic is-a hurts; bridge-writing null). This is ONE fact, not three: our live downstream consumers are
+discrete symbolic TYPE-operations over WordNet (is-a / type-license), and word-sense disambiguation lives at the
+GRADED level those operations do not read. The brain's consumer of a disambiguated meaning is the CONTINUOUS
+situation model -- graded constraint satisfaction (Kintsch 1988 CI; Rodd settling; Rabovsky-McClelland) -- which we
+have NOT built. So the wire we were asked to land is a CORRECT, MAXED MIDDLE component with (a) an input below human
+(unordered bag-of-words context + topic-level signatures + no sense-group inventory) and (b) NO graded consumer. Its
+value is gated by the graded consumer, not by any discrete gate -- which is why gating discrete gates moves nothing.
+
+**Why we mis-called them opportunities (the shared hidden assumption):** each hypothesis assumed that a decision which
+READS a noun's type would benefit from a better SENSE. The results falsify that uniformly -- **reading a coarse type
+feature is NOT the same as needing sense disambiguation.** The type-reads are either sense-invariant on the words that
+participate (coref bridges = dominant-sense nouns; the divergence probe showed bridge-heads at-MFS 53.7% ~ global
+51.6%), or they actively WANT the sense-blind breadth (entailment wants the union to catch the true hypernym via any
+sense).
+
+**What this UNCOVERS (new, sharper than "build the mega-cluster"):**
+1. **The graded consumer is now motivated by a MEASURED architectural fact, not a slogan:** discrete type-consumers
+   are shown sense-invariant, so the gain REQUIRES a consumer that reads meaning at the graded level. Build the
+   situation model that consumes the settled vector (validated currency), not another discrete gate.
+2. **Sense-disambiguation feeds the GRADED layer, not the discrete typed-spokes layer** -- a re-prioritization for
+   strategy: do NOT invest in sense-gating the discrete symbolic reasoners (typed_spokes is-a, coref type-license);
+   invest the sense read into the graded world-model's input.
+3. **A falsifiable prediction -- now CONFIRMED on human graded data (see the SCWS section below):** any GRADED-vector
+   consumer is sense-sensitive; any DISCRETE-type consumer is not. On SCWS the settled vector uses context CI-sep
+   (twin losing) while the discrete Wu-Palmer read is not helped by the context sense. The prediction held.
+4. **The read's INPUT residual is real but LOWER-value than the consumer fork** (the read is already ~0.75 vs human
+   ~0.80): structured/predictive context, grounded perceptual signatures, and an OntoNotes sense-group inventory --
+   all foundation/mega-cluster work, correctly deprioritized behind the graded consumer.
+
+## SYNTHESIS PREDICTION CONFIRMED ON HUMAN GRADED DATA -- the GRADED CONSUMER built + tested (SCWS)
+"Do it, BF and right not easy": rather than hand-wave the graded-consumer direction, I ACQUIRED the instrument the
+meaning-line has needed since the pri-1 PARTIAL and did not have on disk -- SCWS (Stanford Contextual Word Similarities;
+Huang, Socher, Manning, Ng 2012; 2003 pairs, each word in a sentence context, 10 human similarity ratings), fetched
+reproducibly (`experiments/fetch_scws_v1.py` -> `data/corpora/scws/`, provenance + sha256, no LLM) -- and BUILT the
+minimal graded consumer (`exp_context_modulated_scws_v1.py`): the SETTLED context-modulated meaning vector = the live
+wire's OWN posterior-weighted mean of candidate sense signatures (Kintsch CI settling; Rodd; Rabovsky-McClelland), cos
+vs the 10-rater human mean. WiC (binary) could not test the continuous/graded claim; SCWS can, and it runs the GRADED
+and DISCRETE reads on the SAME pairs.
+
+**Result (n=1298 noun-noun covered pairs, 1260 polysemous) -- the synthesis's falsifiable prediction is CONFIRMED, not
+just argued:**
+- **P1 -- the GRADED settled vector IS sense-sensitive:** polysemous-slice Spearman rho GRADED 0.3942 > CONTEXT-FREE
+  (unconditioned) 0.3785, **+0.0156 CI-sep**, and the shuffled-context TWIN 0.3811 **LOSES** (graded-twin +0.0130
+  CI-sep). Context-modulation of the *vector* genuinely tracks human contextual similarity. The graded settled vector is
+  also the single best arm overall.
+- **P2 -- the DISCRETE taxonomic read is NOT helped by the context sense:** Wu-Palmer at the committed sense 0.2799 does
+  NOT beat Wu-Palmer at MFS 0.3574 (committing the context sense HURTS it, -0.0773). The same signal that feeds the
+  graded read is the wrong currency for the discrete type read.
+
+**=> Sense-appropriate meaning feeds the GRADED layer, not the discrete type layer -- now shown on HUMAN graded data,
+the sharpest possible confirmation.** This is the first result in the whole arc where the context-gated meaning read
+produces a CI-separated, twin-losing gain THROUGH the graded-consumer primitive (the world-model's input currency),
+against a human gold. It validates the forward direction with evidence and hands the world-model program a
+tested input primitive + a newly-acquired human instrument. Witness: `verification/test_graded_consumer_scws.py`.
+PROPOSED board arm: a `board_scws_graded_dimension` scoring the settled vector vs the context-free floor (twin-losing)
+-- a graded MEANING dim the board currently lacks (the WiC arm is binary).
 
 ## DEEPENING CONVERGED (30-min BF cron, ran + cancelled)
 The deepening loop is exhausted FOR THIS BRIEF's scope (the sense-READ wire), and the convergence is measured, not
