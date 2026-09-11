@@ -1940,6 +1940,59 @@ def board_affected_entity_dimension(smoke=False):
         return _degraded("affected_entity", e), {"error": "%s: %s" % (type(e).__name__, e)}
 
 
+def board_causal_sign_dimension(smoke=False):
+    """CAUSAL-SIGN (more/less edge direction) board arm on WIQA. Board-INVISIBLE today: the landed
+    hdlab.causal_sign_channel (wired live as sm.causal_sign) reads the more/less sign of a causal edge from a
+    RUNNABLE formal model's structure (reaction stoichiometry + everyday physics/thermo couplings), passage-
+    context-gated (Kintsch/Zwaan situation-model instantiation) -- the FIRST sign source to BEAT the scrambled-
+    sign FALSIFIER CI-sep (all prior lexicon/proportionality sources TIED it). This arm scores that on WIQA
+    more/less via the byte-faithful cell exp_causal_sign_integrated_v1 (its build_ctx_store == the landed
+    channel's edge store).
+
+    HONEST FRAMING (measured full-scale n=5005, 14.2% gated cov): model = the formal-sign arm; strongest_floor =
+    the CO-OCCURRENCE baseline (the genuinely strongest baseline -- on the covered science slice raw co-occurrence
+    direction often matches the formal sign, so the arm does NOT beat it CI-sep, +0.02); twin = the SCRAMBLED-SIGN
+    FALSIFIER (the load-bearing control -- the arm BEATS it CI-sep +0.10, proving the formal-model STRUCTURE is
+    load-bearing, not chance; the twin LOSES as a falsifier should). So this row shows causal_sign PASSES its
+    falsifier control but does NOT add over co-occurrence -- the honest read. Kept OUT of the 19c-free headline
+    aggregate (its own row). OFF in the self-test. Degrades gracefully (WIQA asset absent -> schema row). MODERN."""
+    try:
+        import experiments.exp_causal_sign_integrated_v1 as CS
+        r = CS.run(smoke=smoke, cap=(300 if smoke else 6000))
+        s = r["SIGN_more_vs_less_on_gated_subset"]
+        arm = s["arm"]; cooc = s["cooccur"]; scr = s["scrambled_sign_twin"]
+        p_str = s["paired_arm_minus_cooccur"]     # model vs the STRONGEST baseline (co-occurrence)
+        p_twin = s["paired_arm_minus_SCRAMBLED"]  # model vs the falsifier twin (should be positive CI-sep)
+        row = {
+            "n": r["n_effect_covered"],
+            "model_acc": arm["acc"],
+            "overlap_floor": scr["acc"],
+            "strongest_floor": cooc["acc"], "strongest_floor_name": "cooccur_baseline",
+            "twin_acc": scr["acc"],
+            "model_minus_strongest": [p_str["delta"], p_str["ci"][0], p_str["ci"][1]],
+            "model_minus_twin": [p_twin["delta"], p_twin["ci"][0], p_twin["ci"][1]],
+            "ci_sep_over_strongest": bool(p_str["ci"][0] > 0 or p_str["ci"][1] < 0),
+            "ci_sep_over_twin": bool(p_twin["ci"][0] > 0 or p_twin["ci"][1] < 0),
+            "informational": False,
+            "population": "WIQA more/less gated science slice, n_effect_covered=%d (%.1f%% cov of n=%d)"
+                          % (r["n_effect_covered"], 100 * r["coverage"], r["n"]),
+        }
+        detail = {"arm": arm, "cooccur": cooc, "scrambled_falsifier": scr,
+                  "paired_arm_minus_cooccur": p_str, "paired_arm_minus_SCRAMBLED": p_twin,
+                  "coverage": r["coverage"],
+                  "note": "hdlab.causal_sign_channel (formal-model more/less sign, passage-context-gated). arm "
+                          "%.4f BEATS the scrambled-sign FALSIFIER %.4f = %+.4f CI[%.4f,%.4f] (CI-sep=%s -- the "
+                          "load-bearing 'formal-model structure is not chance' result; first sign source to beat "
+                          "it), but only %+.4f over the CO-OCCURRENCE baseline %.4f (CI-sep=%s -- on the covered "
+                          "science slice raw co-occurrence direction often matches the formal sign). Honest: passes "
+                          "the falsifier, does not add over co-occurrence."
+                          % (arm["acc"], scr["acc"], p_twin["delta"], p_twin["ci"][0], p_twin["ci"][1],
+                             row["ci_sep_over_twin"], p_str["delta"], cooc["acc"], row["ci_sep_over_strongest"])}
+        return row, detail
+    except Exception as e:
+        return _degraded("causal_sign", e), {"error": "%s: %s" % (type(e).__name__, e)}
+
+
 def board_state_closure_dimension(n_boot=5000, seed=None):
     """STATE-CLOSURE (multi-clause state antonymy) board arm on the solver's OWN CONSTRUCTED MODERN gold
     (exp_state_closure_wordnet_v1 _CLOSURE_ANTONYM/_CLOSURE_COSTATE, n=25). This capability is board-INVISIBLE
@@ -2399,6 +2452,9 @@ def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True
         ae_row, ae_det = board_affected_entity_dimension(smoke=bool(caps.get("affected_entity_smoke")))
         new_arms["affected_entity"] = ae_row
         new_arms_detail["affected_entity"] = ae_det
+        cs_row, cs_det = board_causal_sign_dimension(smoke=bool(caps.get("causal_sign_smoke")))
+        new_arms["causal_sign"] = cs_row
+        new_arms_detail["causal_sign"] = cs_det
         # -- this session's TWO board-invisible proven wins, each its OWN row (OUT of the headline aggregate) --
         se_row, se_det = board_spatial_extraction_precision_dimension(cap=caps.get("spatial_precision"))
         new_arms["spatial_extraction_precision"] = se_row
