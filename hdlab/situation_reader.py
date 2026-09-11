@@ -501,6 +501,17 @@ class SituationModel:
     predict_action: Optional[object] = None
     will_act_on: Optional[object] = None
     attribute_belief: Optional[object] = None
+    # opt-in AFFECTED-ENTITY dimension (WHO-WAS-AFFECTED): resolve each pronoun UNDERGOER (a verb's
+    # object/theme pronoun -- "...frightened HIM") to the salient DISCOURSE ENTITY (the affected character),
+    # not just a token. Empty unless the reader is built with track_affected_entity=True (default-on). From the
+    # owner-DONE who_was_affected...forward_salience_prior: the FORWARD situational-address prior (ACT-R
+    # salience over discourse referents, the BF salience organ) x the grammatical LIKELIHOOD (Binding Principle
+    # B co-argument exclusion + role/thematic parallelism) via hdlab.affected_entity_resolver. affected_entity =
+    # a list of {sent_idx, verb_pos, undergoer, resolved, coarg} per resolved pronoun undergoer. Additive --
+    # sets ONLY sm.affected_entity (byte-identical off vs on); reads the reader's OWN router (co-argument = the
+    # verb's clause-mate subject, when a non-pronoun head) + mention stream + the BF salience organ; the parse is
+    # per-read cached so the router re-run is ~free; NO gold DECISION, NO external LLM.
+    affected_entity: list = field(default_factory=list)
     # opt-in OCC-APPRAISAL INFERRED-EMOTION read-out (WHAT-DOES-X-FEEL-UNSAID): the CALLABLE
     # sm.infer_emotion(char[, t]) bound at read time when the reader is built with track_infer_emotion=True
     # (default-on). The glass-box forward OCC appraisal (desirability x prospect -> OCC type + valence,
@@ -922,6 +933,7 @@ class SituationReader:
                  track_senses: bool = True,
                  sense_mode: str = "underspecified", sense_gamma: float = 1.0,
                  sense_topk: Optional[int] = None, sense_prior_weight: float = 0.0,
+                 track_affected_entity: bool = True,
                  track_prediction: bool = True,
                  track_causal_reasoning: bool = True,
                  track_spatial_reasoning: bool = True,
@@ -1294,6 +1306,10 @@ class SituationReader:
         self.sense_gamma = float(sense_gamma)
         self.sense_topk = None if sense_topk is None else int(sense_topk)
         self.sense_prior_weight = float(sense_prior_weight)
+        # AFFECTED-ENTITY dimension (who_was_affected...forward_salience_prior, owner-DONE): resolve pronoun
+        # undergoers to the salient discourse entity via hdlab.affected_entity_resolver (salience prior x
+        # Principle-B x parallelism). ADDITIVE -> default-on-safe (sets only sm.affected_entity; byte-identical off).
+        self.track_affected_entity = bool(track_affected_entity)
         self._sense_mod = None       # lazy hdlab.underspecified_sense_reader
         self._sense_vl = None        # lazy sglite-w2v vec_lookup closure
         # FORWARD-EVENT-PREDICTION stage (default-on track_prediction; wired 2026-09-06 from the owner-DONE problem
@@ -1805,7 +1821,7 @@ class SituationReader:
         "agent_hybrid_construction", "predicate_recall",
         "track_goals", "track_goal_thwart", "track_affect", "track_tom_action", "track_infer_emotion",
         "affect_structured_matcher",
-        "track_bridges", "track_senses",
+        "track_bridges", "track_senses", "track_affected_entity",
         "track_prediction", "track_causal_reasoning", "track_spatial_reasoning", "track_predictive_causal", "track_temporal_reasoning",
         "track_natural_logic", "track_coherence",
         "joint_temporal_events", "joint_nominal_events",
@@ -3185,6 +3201,77 @@ class SituationReader:
         sm.select_sense = select_sense
         # sm.senses stays [] (the field default) until a caller populates it -- zero read-time cost / no load.
 
+    def _read_affected_entity(self, sm, sents, mentions) -> None:
+        """Opt-in AFFECTED-ENTITY dimension (default-on track_affected_entity; owner-DONE
+        who_was_affected...forward_salience_prior). Resolve each PRONOUN UNDERGOER (a verb's object/theme
+        pronoun -- "...frightened HIM") to the salient DISCOURSE ENTITY (the affected character), not just a
+        token, via the promoted hdlab.affected_entity_resolver: the ACT-R salience PRIOR over head-individuated
+        discourse referents x the grammatical LIKELIHOOD (Binding Principle B co-argument exclusion + role/
+        thematic parallelism -- Kehler-Rohde). The co-argument to EXCLUDE = the verb's own AGENT (the clause-
+        mate subject) read off the reader's OWN router (self._router_roles; the parse is per-read cached, so the
+        re-run is ~free) -- the DEPLOYMENT setting the SOLVED validated on the predicted parse (A2 Principle-B
+        +0.049 to A5 full +0.060, CI-sep, n=952). Principle B abstains when the clause-mate subject is itself a
+        pronoun (no non-pronoun head to key on) -- salience x parallelism still resolve (documented partiality).
+
+        PURE ADD: sets ONLY sm.affected_entity (a list of {sent_idx, verb_pos, undergoer, resolved, coarg});
+        touches NO existing field (byte-identical off vs on -- the landing witness asserts it). Reuses the
+        reader's live router + mention stream + the BF salience organ; the RESOLUTION is gold-free; NO LLM."""
+        import hdlab.affected_entity_resolver as AER
+        n_sents = len(sents)
+        sent_noms = _sentence_nominals(mentions, n_sents)      # non-pronoun mentions per sentence (roles)
+
+        def _rc(rank):
+            return "SUBJ" if rank == 0 else ("OBJ" if rank == 1 else "OTHER")
+
+        def _gn_ok(a, b):
+            ga, na = a; gb, nb = b
+            if ga and gb and ga != gb:
+                return False
+            if na and nb and na != nb:
+                return False
+            return True
+
+        # head-individuated discourse entities from the NON-pronoun mention stream (order=midx, role from
+        # sent_role_rank) -- the salience prior's referents; mirrors _resolve_commonnouns / the SOLVED harness.
+        ent_hist, ent_last, ent_gn = {}, {}, {}
+        for m in sorted(mentions, key=lambda x: x["midx"]):
+            if m.get("is_pronoun"):
+                continue
+            h = m["head"]
+            ent_hist.setdefault(h, []).append((float(m["midx"]), _rc(m.get("sent_role_rank", 99))))
+            if h not in ent_last or m["midx"] >= ent_last[h]["midx"]:
+                ent_last[h] = m
+            if h not in ent_gn:
+                ent_gn[h] = (m.get("gender") or "", m.get("number") or "")
+
+        out = []
+        for si, toks in enumerate(sents):
+            rr = self._router_roles(list(toks))
+            noms = sent_noms[si] if si < len(sent_noms) else []
+            pron_at = {}                                       # token pos -> pronoun mention in this sentence
+            for m in mentions:
+                if m.get("sent_idx") == si and m.get("is_pronoun"):
+                    pron_at.setdefault(m.get("wtok_start"), m)
+            for vp, vr in rr.items():
+                if "theme" not in vr:
+                    continue
+                pm = pron_at.get(vr["theme"])                  # the theme is a PRONOUN undergoer?
+                if pm is None:
+                    continue
+                pg, pn = pm.get("gender") or "", pm.get("number") or ""
+                cands = [h for h in ent_hist
+                         if ent_last[h]["midx"] < pm["midx"] and _gn_ok(ent_gn[h], (pg, pn))]
+                if len(cands) < 2:
+                    continue
+                sal = AER.salience_prior({h: ent_hist[h] for h in cands}, float(pm["midx"]))
+                role_of = {h: _rc(ent_last[h].get("sent_role_rank", 99)) for h in cands}
+                patient_of = {h: (ent_last[h].get("sent_role_rank", 99) == 1) for h in cands}
+                coarg = self._nom_head_at(noms, vr["agent"]) if "agent" in vr else None
+                resolved = AER.resolve(cands, sal, role_of, patient_of, a_role="OBJ", coarg_key=coarg)
+                out.append({"sent_idx": si, "verb_pos": vp, "undergoer": pm["head"],
+                            "resolved": resolved, "coarg": coarg})
+        sm.affected_entity = out
+
     def _read_prediction(self, sm, sents) -> None:
         """Opt-in FORWARD-EVENT-PREDICTION dimension (default-on track_prediction; wired 2026-09-06 from the
         owner-DONE problem predictive_inference_forward_project_the_next_event_and_state_from_the_situation_model,
@@ -4476,6 +4563,14 @@ class SituationReader:
             # invoked); sets ONLY sm.select_sense + leaves sm.senses [] (byte-identical off vs on). Nothing lands
             # on the hub (the SOLVED located negative).
             self._read_senses(sm, sents)
+        if self.track_affected_entity:
+            # AFFECTED-ENTITY dimension (who_was_affected...forward_salience_prior, owner-DONE): populate
+            # sm.affected_entity -- each pronoun undergoer resolved to the salient discourse entity via the BF
+            # salience prior x Principle-B (the verb's clause-mate subject, from the reader's OWN cached router) x
+            # role/thematic parallelism (hdlab.affected_entity_resolver). Runs after events so the FINAL mention
+            # stream is available; the parse is per-read cached so the router re-run is ~free. PURE ADD -- sets
+            # ONLY sm.affected_entity (byte-identical off vs on).
+            self._read_affected_entity(sm, sents, role_mentions)
         if self.track_prediction:
             # FORWARD-EVENT-PREDICTION dimension: bind sm.predict_next_event(candidates=None, t=None), the FORWARD
             # half the reader lacked -- a glass-box generalized-event-knowledge readout that forward-projects the
