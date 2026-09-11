@@ -235,6 +235,23 @@ computable LIVE from the wire, carries the sense signal in the continuous form t
 coarse label is marginally sharper on the WiC same/diff task at 0.7683, but the VECTOR is the right forward INPUT, not a
 WiC classifier). This prototypes the forward direction; the world-model CONSUMER is the named mega-cluster follow-on.
 
+## DEEPENING CONVERGED (30-min BF cron, ran + cancelled)
+The deepening loop is exhausted FOR THIS BRIEF's scope (the sense-READ wire), and the convergence is measured, not
+assumed:
+- **Readout is MAXED** (item 4): sweeping the pinned biased-competition params (gamma/topk/dominance-prior) gives
+  +0.0000 test lift; the residual-to-human is upstream in the INPUT ENCODING.
+- **Item-3 organ-check found NO shortcut**: `substrate_map --gaps` shows no existing organ supplies the missing input
+  encoding. The two input forks are both closed here: (i) GROUNDED signatures for context-selection = the
+  `reader_meaning_channel` brief, already REFUTED + integrated (grounded doesn't beat the prior; grounded norms are
+  lemma-level + sparse -> structurally sense-blind for WiC's same-lemma task; standing rule: do NOT re-tread the
+  type-level meaning channels); (ii) STRUCTURED/predictive context = the diagnostic organ's own named "contextual-
+  encoder fork" = the meaning-representation MEGA-CLUSTER (a separate program; a cheap positional hack would be the
+  half-effort the protocol forbids).
+- **Every live consumer is enumerated + tested** (coref null, natural-logic hurts, bridge-writing = Nref hold), the
+  forward currency is validated (graded vector), and the wire is validated two ways (discrete 0.749 + vector 0.738).
+The brain-mechanism bar for the READ wire is met; the remaining fidelity gap is the mega-cluster, owned by the
+meaning-representation/world-model program (Q111 strategy). Nothing more of value is extractable from this brief.
+
 ## WHAT I DID NOT ESTABLISH (withdraw first if wrong)
 - **I did NOT show the wire is useless.** It clearly works on the meaning read (WiC discrete 0.749 AND graded-vector
   AUC 0.738, both twin-losing). I showed no CURRENT live comprehension decision profits from it.
