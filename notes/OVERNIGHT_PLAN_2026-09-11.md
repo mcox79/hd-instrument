@@ -52,6 +52,7 @@ place as items land (check the boxes, add the commit hash).
 - **WS3a/3b/3c** — queue refilled **+3** (pri-1 generative reranker, pri-8 reading-learned POS induction, pri-9 grounding-quality metric) + brief cert fixed.
 - **WS4a** — 8th NOT_BF resolved: `scene_segment` retag NOT_BF→BF_SPIRIT (mis-attributed to dead `detect_scene_boundaries`); **NOT_BF 8→7** (`170e6b047`).
 - **WS2c** — Q128 filed (brief-format governance decision). **WS8a** — knowledge assets audited = correctly LATENT (pri-5/pri-1-gated), no wire.
+- **BONUS: causal_sign instrument-gap CLOSED** (`24765b7a6`, `board_causal_sign_dimension`) — built HONESTLY after careful full-scale measurement (which caught a defect-in-waiting: a naive wrap would have scored causal_sign *losing*). Honest read: beats the scrambled-sign falsifier CI-sep (structure is load-bearing) but ties co-occurrence.
 - **REMAINING (measured standing work):** WS7a wiring burn-down (per-island board runs; many islands correctly-off — do measured, one at a time, not churn), WS5a consolidation folds (deep merges are fleet-gated; coref-6→1 flagship posted pri-6).
 
 ## 🎯 NEXT MEASURED WORK (scoped for a fresh pickup — instrument-gaps: board-invisible-proven-wins-need-their-own-arm)
