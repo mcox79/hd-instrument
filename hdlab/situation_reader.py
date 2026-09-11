@@ -935,6 +935,7 @@ class SituationReader:
                  parser_arceager: bool = True,
                  np_head_reduce: bool = True,
                  structural_patient: bool = True,
+                 graded_role_marginal: bool = False,
                  bind_entity_states: bool = True,
                  structural_do_recover: bool = False,
                  referent_per_np: bool = True,
@@ -1511,6 +1512,13 @@ class SituationReader:
         # positional / by-phrase untouched -> byte-identical agent). Requires role_route='wired' to have effect
         # (the router path); default OFF -> the heuristic THEME, byte-identical. NO spaCy / NO LLM.
         self.structural_patient = bool(structural_patient)
+        # Q125 (owner 2026-09-11 "which parse is brain-foundational? that goes live"): opt-in graded arc-factored
+        # Matrix-Tree MARGINAL in the role patient pick -- structural_patient_pick's learned Competition-Model ranker
+        # + the marginal's top-2 "keep-alternatives-alive" reach (+0.0065 CI-sep who-did-what, UD-EWT n=1235). The
+        # graded posterior the brain maintains, ON TOP of the incremental arc-eager heads. Costs a 2nd (arc-factored)
+        # parse/sentence -- the ~5% the double-parse consolidation saved -- accepted per fidelity-over-speed. Default
+        # OFF -> marginals=None -> BYTE-IDENTICAL to the current live pick. Measure-first before any flip.
+        self.graded_role_marginal = bool(graded_role_marginal)
         # PRECISION-WEIGHT the head-driven readers (DEFAULT-ON 2026-09-06). Landed from the owner-DONE
         # precision_weight_the_head_driven_readers_on_calibrated_parse_confidence (Q111) + the DEFER-CONSUMER
         # wire (wire_a_defer_consumer_for_calibrated_confidence_and_realize_precision_weighting). The arc-eager
@@ -1792,7 +1800,8 @@ class SituationReader:
         "structural_patient", "causal_mental_bridge", "goal_purpose_filter", "entity_kb_resolver",
         "commonnoun_situation_gate", "commonnoun_canonical", "commonnoun_type_license", "resolve_commonnouns",
         "unified_referent",
-        "phi_person_filter", "narrow_him", "soften_generic_suppress", "precision_weight_roles")
+        "phi_person_filter", "narrow_him", "soften_generic_suppress", "precision_weight_roles",
+        "graded_role_marginal")
 
     @classmethod
     def all_capabilities_off(cls, gaz=None, **overrides):
@@ -2162,6 +2171,16 @@ class SituationReader:
         # historical one (no new kwarg) -- preserving any caller-side wrapper/monkeypatch of the router that
         # predates this param (e.g. the solver's no-regress scaffold).
         sp_kw = {"structural_patient": True} if self.structural_patient else {}
+        # Q125 (owner 2026-09-11): pass the exact arc-factored graded_parser Matrix-Tree MARGINAL into the role router
+        # so structural_patient_pick re-selects the patient via the learned Competition-Model ranker + the marginal's
+        # top-2 "keep-alternatives-alive" reach (+0.0065 CI-sep who-did-what, UD-EWT n=1235) -- the graded posterior
+        # the brain maintains, on top of the incremental arc-eager heads. Costs a 2nd (arc-factored) parse/sentence.
+        # Default OFF (graded_role_marginal) -> marginals=None -> BYTE-IDENTICAL. Measure-first before any flip.
+        if self.graded_role_marginal and self.structural_patient:
+            try:
+                sp_kw["marginals"] = self._frontend_parser().parse(list(toks), pos, want_marginals=True).marginals
+            except Exception:
+                pass
         for v in matrix_verbs(toks, pos, heads):
             roles = route_predicate_arguments(toks, pos, heads, v, quotative=False,
                                               np_head_reduce=self.np_head_reduce, **sp_kw)
