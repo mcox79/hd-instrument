@@ -182,3 +182,11 @@ reader's mention stream does not surface pronoun-UNDERGOER (object-pronoun) ment
 router re-parse cost -> not shipped default-on. The resolver + its scored board arm are the live-path proof;
 read()-time population needs the reader to track object-pronoun (undergoer) mentions first (a reader
 mention-extraction enhancement). Tracked in INTEGRATION_LEDGER as INSTRUMENT/consumer follow-on.
+
+CORRECTION (2026-09-11, same session): the follow-on note above said the reader "does not surface
+object-pronoun mentions" -- that was a TEST ARTIFACT, not a reader gap. read() gets mentions from the
+CoNLL MENTION COLUMN (hdlab.coref.parse_litbank_conll), like every reader dimension; my synthetic test
+passages had an EMPTY column, so nothing surfaced (the tagger+router DO see the object pronoun). On real
+annotated CoNLL the wire would populate. Real reasons for reverting: a per-sentence router re-parse cost
++ no live who-was-affected QA consumer. Clean future wire = events-based (reuse sm.events, no re-parse).
+The board arm (board_affected_entity_dimension) is the rigorous scored proof.
