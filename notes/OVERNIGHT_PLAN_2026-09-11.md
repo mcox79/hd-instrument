@@ -52,7 +52,14 @@ place as items land (check the boxes, add the commit hash).
 - **WS3a/3b/3c** — queue refilled **+3** (pri-1 generative reranker, pri-8 reading-learned POS induction, pri-9 grounding-quality metric) + brief cert fixed.
 - **WS4a** — 8th NOT_BF resolved: `scene_segment` retag NOT_BF→BF_SPIRIT (mis-attributed to dead `detect_scene_boundaries`); **NOT_BF 8→7** (`170e6b047`).
 - **WS2c** — Q128 filed (brief-format governance decision). **WS8a** — knowledge assets audited = correctly LATENT (pri-5/pri-1-gated), no wire.
-- **REMAINING (measured standing work):** WS7a wiring burn-down (per-island board runs; many islands correctly-off — do measured, one at a time, not churn), WS5a consolidation folds (deep merges are fleet-gated; coref-6→1 flagship posted pri-6), the who_was_affected read()-population follow-on (needs the reader to surface object-pronoun undergoer mentions).
+- **REMAINING (measured standing work):** WS7a wiring burn-down (per-island board runs; many islands correctly-off — do measured, one at a time, not churn), WS5a consolidation folds (deep merges are fleet-gated; coref-6→1 flagship posted pri-6).
+
+## 🎯 NEXT MEASURED WORK (scoped for a fresh pickup — instrument-gaps: board-invisible-proven-wins-need-their-own-arm)
+Do these ONE at a time, each: build the board arm wrapping the win's OWN experiment (like `board_affected_entity_dimension` wraps `exp_affected_entity_binding_parallelism_gum_v1`) → register in the run harness `new_arms` (its own row, OUT of the headline aggregate, OFF in self-test) → smoke-verify standalone → board self-test no-regress → commit. Full `--run` (or the orchestrator's) confirms the full-power number.
+- **`board_causal_sign_dimension`** — `causal_sign_channel` is LIVE (`sm.causal_sign`) but board-invisible (INTEGRATION_LEDGER: instrument-gap). The win: formal-model edge-sign passage-context-gated beats the scrambled falsifier CI-sep, **WIQA science slice +0.157, 14.2% cov**. SCOPING NEEDED: pick the exact source cell among `exp_causal_sign_{formal_couplings,proportionality,stoichiometry,integrated}_wiqa_v1.py` that produces the +0.157 CI-sep science-slice number + its floor/scramble-twin; reproduce faithfully. model=gated-sign accuracy on the covered science slice, floor=scrambled-passage falsifier, twin=off-domain abstain rate.
+- **`board_event_goal_congruence` for `affect_structured_matcher`** — its proven +0.483 lives on the event↔goal-congruence gold, not the OCC arm (INTEGRATION_LEDGER line ~370); check whether the existing `board_event_goal_congruence_dimension` already scores it (may be closed) before building.
+- **SpaceEval-precision arm** for the obl-spatial +0.0102 upstream win (line ~181, live≠scored).
+- **`board_predictive_causal_necessity_dimension`** already exists (line ~113) — DONE, do not rebuild.
 
 ## WORKSTREAM 1 — CLOSE THE OWNER-DONE INTEGRATION BACKLOG  *(the FAILING gate; #1 blocking; do FIRST)*
 ### 1a. `who_was_affected...forward_salience_prior` (owner-DONE, reverified 10/10)
