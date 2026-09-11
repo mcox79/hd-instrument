@@ -42,10 +42,22 @@ GLASS-BOX: pure symbolic; NO torch, NO external LLM, NO network. ASCII-only, no 
 
 from __future__ import annotations
 
-__bf_status__ = 'NOT_BF'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
-__bf_verified__ = '2026-09-09 BF-certification pass (operation/math read of the pinned computation + key ops; strategy first-hand)'
-__bf_note__ = "FIXED-WINDOW scene segmentation (LOCAL_WINDOW) is NOT the brain's event segmentation (the brain segments by prediction-error/schema-switch -- hdlab.sem_event_segmenter is the BF replacement); a located-negative, superseded/dead when graded_pick is on; parse_conll_sentences is admissible utility"
-__bf_corrections__ = []
+__bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+__bf_verified__ = '2026-09-11 overnight WS4a re-audit (live-consumer enumeration + operation read; strategy first-hand): the LIVE-consumed surface is BF_SPIRIT'
+__bf_note__ = ("The LIVE-consumed computation is BF_SPIRIT: SceneProtagonistReader (SuppressReader + Centering "
+               "topical-protagonist mass + gender-agreement narrowing + per-scene scope; Grosz/Joshi topical "
+               "continuity) is live via EventCentralityReader (situation_reader:1788), and parse_conll_sentences "
+               "is an admissible CoNLL utility (live in 4 modules). The FIXED-WINDOW scene segmentation "
+               "detect_scene_boundaries/sentence_opens_scene (LOCAL_WINDOW) is a DEAD superseded located-negative "
+               "(NOT the brain's prediction-error/schema-switch segmentation; BF replacement = sem_event_segmenter/"
+               "graded_pick) with NO live hdlab consumer -- referenced ONLY by exp_commonnoun_scene_presence_"
+               "ceiling_v1. Physical prune (relocate the dead fns to that experiment) = clean follow-on.")
+__bf_corrections__ = [
+    "2026-09-11 (WS4a): NOT_BF -> BF_SPIRIT. The prior NOT_BF was MIS-ATTRIBUTED to the DEAD fixed-window "
+    "detect_scene_boundaries; enumeration confirms no live hdlab path consumes it (only one standalone ceiling "
+    "experiment). The module's LIVE surface (SceneProtagonistReader Centering-topical read via EventCentralityReader "
+    "+ parse_conll_sentences utility) is BF_SPIRIT, so the live substrate was never compromised. Live NOT_BF 8->7.",
+]
 
 
 from collections import defaultdict
@@ -179,6 +191,12 @@ def detect_scene_boundaries(sentences: List[List[str]],
                             use_charset_change: bool = False,
                             charset_window: int = 3) -> List[int]:
     """Assign a scene id to every sentence index.
+
+    DEAD / SUPERSEDED (WS4a 2026-09-11): this FIXED-WINDOW scene segmentation is NOT the brain's event
+    segmentation (prediction-error / schema-switch; BF replacement = hdlab.sem_event_segmenter / graded_pick).
+    It has NO live hdlab consumer -- referenced only by exp_commonnoun_scene_presence_ceiling_v1. Retained
+    here for that one experiment; do NOT wire it into the live reader (that is why the organ is BF_SPIRIT with
+    this function marked dead). Relocating it to that experiment is a clean follow-on prune.
 
     A sentence opens a new scene if (time-cue) it begins with a closed-class scene-shift
     cue phrase, OR (charset-change, optional) the specific-character set turns over
