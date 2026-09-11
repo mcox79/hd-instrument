@@ -730,7 +730,7 @@ def make_canonicalizer(sm, commonnoun_canonical: bool = False):
     names = _named_clusters(sm)                       # {cluster -> canonical name}
     _hl = None
     if commonnoun_canonical:
-        from hdlab.commonnoun_binder import head_lemma as _hl   # light noun lemma (stable head-lemma label)
+        from hdlab.lexical_utils import head_lemma as _hl   # light noun lemma (stable head-lemma label)
     head2canon: Dict[str, str] = {}
     for e in sm.entities:
         canon = names.get(e.cluster)

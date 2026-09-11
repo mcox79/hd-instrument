@@ -48,7 +48,7 @@ __bf_corrections__ = []
 from collections import defaultdict
 
 from hdlab.salience_binder import actr_activation, ROLE_PROMINENCE, DEFAULT_DECAY
-from hdlab.commonnoun_binder import head_lemma, person_synset
+from hdlab.lexical_utils import head_lemma, person_synset
 
 
 # --- curated glass-box lexicons (verbatim from exp_crosstype_precise_constructs_gum_v1) ---

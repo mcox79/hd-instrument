@@ -969,7 +969,11 @@ class SituationReader:
                  causal_mental_bridge: bool = True,
                  goal_purpose_filter: bool = True,
                  entity_kb_resolver: bool = False,
-                 commonnoun_situation_gate: bool = True,
+                 commonnoun_situation_gate: bool = False,   # RETIRED 2026-09-11 (Q111 consolidation): the NOT_BF
+                 #   commonnoun_binder.situation_predict is empirically DEAD on the live path -- online_entity_cluster
+                 #   (default-on) OVERWRITES m["cluster"] for EVERY non-pronoun after the gate runs, so gate ON==OFF is
+                 #   byte-identical (proven: gate on/off gives identical sm.entities/coref on 3 conll docs). Default
+                 #   flipped True->False to retire the dead NOT_BF string-match from the live path (byte-identical).
                  commonnoun_canonical: bool = True,
                  commonnoun_type_license: bool = False,
                  resolve_commonnouns: bool = True,        # Q111 wire #1 (report_the_typed_coref): additive/default-on
@@ -2603,9 +2607,9 @@ class SituationReader:
         he_she_cluster: Dict[tuple, int] = {}
         if self.densify_world_state:
             if self._ws_binder_mod is None:
-                from hdlab import world_state_entity_binding as _WSB
-                self._ws_binder_mod = _WSB
-            binder = self._ws_binder_mod.EntityBinder()
+                from hdlab.entity_resolver import EntityResolver as _ER
+                self._ws_binder_mod = _ER
+            binder = self._ws_binder_mod().new_stage1_binder()   # unified organ's deictic Stage-1 arm (== EntityBinder, byte-identical)
             for r in (sm.coref_resolutions or []):
                 rc = r.resolved_cluster
                 if rc is not None and rc >= 0:
@@ -4160,7 +4164,7 @@ class SituationReader:
         (_cached_tag / _cached_parse_heads are HITS -- the events/roles path already parsed these sentences),
         so NO second parse: the only new work is arc LABELING, gated to sentences with >=2 nominal tokens
         (both appos and copula need two nominals -> byte-safe skip)."""
-        from hdlab.commonnoun_binder import concept_lemma   # BF concept-key (matches _resolve_commonnouns' r.heads keying)
+        from hdlab.lexical_utils import concept_lemma   # BF concept-key (matches _resolve_commonnouns' r.heads keying)
         lab = self._frontend_labeler()
         typed = {}
         for toks in sents:
@@ -4199,165 +4203,18 @@ class SituationReader:
         return typed
 
     def _resolve_commonnouns(self, role_mentions, sents):
-        """LIVE per-mention common-noun RESOLUTION via the typed_coref BINDING on the reader's OWN dict-mention
-        stream (Q111 wire #1). Consumes ONLY the reader's mention fields (is_pronoun / span_toks / head /
-        gender / name_gender / number / sent_idx / sent_role_rank / midx) + an in-text is-a map from the
-        reader's OWN parse. Returns a list of per-NON-PRONOUN-mention records (midx order):
+        """LIVE per-mention common-noun RESOLUTION -- delegates to the ONE hdlab.entity_resolver (Q111
+        consolidation, 2026-09-11 owner-DONE consolidate_the_six_coreference_organs...): the typed_coref binding
+        on the reader's OWN dict-mention stream folds into the unified resolver's `resolve_commonnouns` arm, PROVEN
+        BYTE-IDENTICAL (verification/test_entity_resolver_typed_commonnoun.py: 801 records / 639 resolved bridges
+        over 4 docs). The reader supplies the cue-producers (_commonnoun_appos_map / _cn_type_rel) and the bridge
+        flags (conceptual_bridge / focus_bridge / uniqueness_bridge / uniq_window); the retrieval loop (same-head
+        recency incumbent + non-writing ACT-R bridge + pronoun ACT-R pick) is the shared retrieval core. Returns a
+        list of per-NON-PRONOUN-mention records (midx order):
             {"midx", "mtype": "name"|"common", "own_ref": int, "resolved_ref": int|None}
-        own_ref = the referent this mention writes its NOMINAL card into; resolved_ref = the referent THIS
-        reference resolves to (same-head pick / name match / non-writing type bridge), or None (opened a new
-        referent -> unresolved). GOLD-FREE (no cluster / eid read in ANY decision). Pronouns write the salience
-        card only (Ariel/Nieuwland de-pollution). NO person-gate (the brain type-bridges objects)."""
-        import numpy as _np
-        import hdlab.typed_coref as _TC
-        from hdlab.commonnoun_binder import head_lemma, concept_lemma, is_name, _num_of, DEF_DET, coarse_class
-        from hdlab.salience_binder import actr_activation, ROLE_PROMINENCE, DEFAULT_DECAY
-        from hdlab.coref import EntityAliaser
-        # C8 ENCYCLOPEDIC name->type route (report_the_typed_coref fix 3, Q111 landing 2026-09-08): the ATL's
-        # encyclopedic spoke (DBpedia InstanceOf). ADDITIVE bridge license for common-noun -> PROPER-NAME
-        # ("the artist" -> Zurbaran-is-a-painter-is-a-artist). Does NOT touch coref_type_license (the C5 comparator),
-        # so the 3 C5 consumers (commonnoun_binder clustering, typed_coref, _cn_type_rel) stay byte-identical.
-        # Abstains (byte-identical to no-C8) when the asset is absent (available_entity_type()==False).
-        from hdlab.typed_spokes import type_licenses as _c8_type_licenses, available_entity_type as _c8_available
-        _c8_on = _c8_available()
-        _c8_cache = {}
-
-        def _c8_lic(head, surface):
-            if not _c8_on:
-                return False
-            k = (head, surface)
-            v = _c8_cache.get(k)
-            if v is None:
-                v = _c8_type_licenses(head, surface)
-                _c8_cache[k] = v
-            return v
-
-        appos_map = self._commonnoun_appos_map(sents)
-        _g2mfn = {"masc": "m", "fem": "f", "neut": "n"}
-
-        class _Ref:
-            __slots__ = ("rid", "history", "heads", "name_tokens", "name_surfaces", "gender", "number",
-                         "has_name", "last_midx")
-
-            def __init__(self, rid):
-                self.rid = rid; self.history = []; self.heads = set(); self.name_tokens = set()
-                self.name_surfaces = set()
-                self.gender = ""; self.number = ""; self.has_name = False; self.last_midx = -1
-
-            def write(self, order, role, mtype, hl, mg, mn, ntoks_):
-                self.history.append((order, role)); self.last_midx = order
-                if mg and not self.gender:
-                    self.gender = mg
-                if mn and not self.number:
-                    self.number = mn
-                if mtype == "name":
-                    self.has_name = True; self.name_tokens |= ntoks_
-                elif mtype == "common":
-                    self.heads.add(hl)
-
-        def mfn(m):
-            return _g2mfn.get(m.get("gender") or m.get("name_gender") or "", "")
-
-        def gn_ok(rg, rn, mg, mn):
-            if mg and rg and mg != rg:
-                return False
-            if mn and rn and mn != rn:
-                return False
-            return True
-
-        def ntoks(span):
-            return {w.lower() for w in span if w.lower() not in _TC.TITLES and any(c.isalpha() for c in w)}
-
-        aliaser = EntityAliaser(); canon2ref = {}; name_surf = {}
-        refs = []; out = []; nid = [0]
-
-        def new_ref():
-            r = _Ref(nid[0]); nid[0] += 1; refs.append(r); return r
-
-        def act(r, now):
-            a = actr_activation(r.history, float(now), decay=DEFAULT_DECAY, role_prominence=ROLE_PROMINENCE)
-            return a if a != float("-inf") else -1e9
-
-        # BF non-writing bridges (owner-DONE ...content_addressable_typed_coref): coarse-class FOCUS + conceptual cue.
-        def _coarse_compat(a, heads):
-            ca = coarse_class(a)
-            return ca is not None and any(coarse_class(h) == ca for h in heads)
-        _conc_ch = [None]; _conc_cache = {}
-        def _conc_bridge(a, b):                       # ConceptualChannel gloss-cosine >= 0.40 (BF_SPIRIT; lazy, memoized)
-            if a == b:
-                return True
-            k = (a, b) if a <= b else (b, a)
-            v = _conc_cache.get(k)
-            if v is None:
-                if _conc_ch[0] is None:
-                    from hdlab.conceptual_meaning import ConceptualChannel
-                    _conc_ch[0] = ConceptualChannel()
-                try:
-                    s = _conc_ch[0].similarity(a, "N", b, "N")
-                except Exception:
-                    s = None
-                v = (s is not None and s >= 0.40)
-                _conc_cache[k] = v
-            return v
-
-        for m in sorted(role_mentions, key=lambda x: x["midx"]):
-            order = m["midx"]
-            role = "SUBJECT" if m.get("sent_role_rank", 99) == 0 else "OTHER"
-            span = m.get("span_toks", [m["head"]])
-            if m["is_pronoun"]:
-                mg, mn = _pron_gn(m["head"].lower())
-                cands = [r for r in refs if r.last_midx < order and gn_ok(r.gender, r.number, mg, mn)]
-                if cands:
-                    cands[int(_np.argmax([act(r, order) for r in cands]))].write(
-                        order, role, "pronoun", "", mg, mn, set())
-                continue
-            # BF concept-key (owner-DONE the_common_noun_binder_is_string_identity...): the same-referent gate keys on
-            # the lexical-CONCEPT lemma (morphy), NOT the crude head_lemma regex -- retires the NOT_BF empty-collapse of
-            # redactions + the -us/-es over-strip. This single derivation flows to r.heads.add(hl) AND the `hl in r.heads`
-            # query, so write + query stay consistent. +0.0098 (0.5482->0.5580), beats the de-leaked floor 0.5254 CI-sep.
-            hl = concept_lemma(m["head"]); mg, mn = mfn(m), _num_of(m)
-            if is_name(m, None):
-                canon = aliaser.assign(span, (m.get("gender") or m.get("name_gender")) or None)
-                if canon is not None and canon in canon2ref:
-                    r = canon2ref[canon]; opened = False
-                elif hl in name_surf:
-                    r = name_surf[hl]; opened = False
-                else:
-                    r = new_ref(); opened = True
-                    if canon is not None:
-                        canon2ref[canon] = r
-                    name_surf[hl] = r
-                out.append({"midx": order, "mtype": "name", "own_ref": r.rid,
-                            "resolved_ref": (None if opened else r.rid)})
-                r.write(order, role, "name", hl, mg, mn, ntoks(span))
-                r.name_surfaces.add(" ".join(span))     # C8 name-bridge: the surface for the encyclopedic lookup
-                continue
-            same = [r for r in refs if r.last_midx < order and hl in r.heads and gn_ok(r.gender, r.number, mg, mn)]
-            picked = None; opened = True; nowrite = None
-            definite = bool(span) and span[0].lower() in DEF_DET
-            if same:
-                picked = max(same, key=lambda r: r.last_midx); opened = False
-            else:
-                tset = appos_map.get(hl, set())
-                prior_gn = [r for r in refs if r.last_midx < order and gn_ok(r.gender, r.number, mg, mn)]
-                br = [r for r in prior_gn if (r.heads & tset)
-                      or (r.has_name and any(t in r.name_tokens for t in tset))
-                      or any(self._cn_type_rel(hl, h) for h in r.heads)
-                      or (r.has_name and any(_c8_lic(hl, ns) for ns in r.name_surfaces))   # C8 encyclopedic name->type
-                      or (self.conceptual_bridge and any(_conc_bridge(hl, h) for h in r.heads))   # BF conceptual cue (SOLVED item 5)
-                      or (self.focus_bridge and definite and _coarse_compat(hl, r.heads))]        # BF situation-model FOCUS bridge (item 6)
-                if br:
-                    nowrite = max(br, key=lambda r: act(r, order))          # non-writing (Nref hold): resolve, do not merge
-                elif self.uniqueness_bridge and definite:                   # BF Heim/Loebner UNIQUENESS bridge (item 8)
-                    infocus = [r for r in prior_gn if r.last_midx >= order - self.uniq_window]
-                    if len(infocus) == 1:
-                        nowrite = infocus[0]
-            if picked is None:
-                picked = new_ref()
-            resolved = (nowrite.rid if nowrite is not None else (None if opened else picked.rid))
-            out.append({"midx": order, "mtype": "common", "own_ref": picked.rid, "resolved_ref": resolved})
-            picked.write(order, role, "common", hl, mg, mn, set())
-        return out
+        GOLD-FREE (no cluster / eid read in ANY decision). NO external LLM."""
+        from hdlab.entity_resolver import EntityResolver
+        return EntityResolver().resolve_commonnouns(role_mentions, sents, self)
 
     def read(self, conll_path: str) -> SituationModel:
         self._read_parse_cache = {}   # per-read tag/parse memo (bound memory; safe if the reader is reused)
@@ -4414,8 +4271,8 @@ class SituationReader:
             # NEGATIVE-INTEGER file ids (NOT the gold cluster, NOT a 'CN:' string -> _read_world_state /
             # _resolve_commonnouns' `rc>=0` guard stays safe on an int). PRONOUN mentions KEEP their coref-column
             # cluster (a SEPARATE stream -> pronoun consumers byte-identical). NO gold read in any decision.
-            from hdlab.online_entity_cluster import online_cluster
-            _online_lab = online_cluster(role_mentions, gaz=self.gaz)
+            from hdlab.entity_resolver import EntityResolver
+            _online_lab = EntityResolver().cluster(role_mentions, gaz=self.gaz)   # unified organ (== online_cluster, byte-identical)
             if getattr(self, "online_entity_cluster_bridge", True):
                 # DE-LEAK PART 2 of 2 -- the GOLD-FREE crosstype definite->name BRIDGE (Q111). PART 1 (above) removed
                 # the gold-coref leak; alone that drops the cross-type experiencer bind to the honest floor (~0.156).

@@ -203,7 +203,11 @@ def merge_crosstype_bridge(role_mentions, online_labels, gaz, sents, *, reader=N
     doc = build_gold_free_doc(role_mentions, online_labels, sents, reader=reader)
     if doc is None:
         return dict(online_labels)
-    binds = crosstype_bridge_links(doc, gaz, conf_thr=conf_thr)
+    # Q111 consolidation (2026-09-11): the definite->name bridge folds into the ONE hdlab.entity_resolver
+    # (== crosstype_bridge_links byte-identical, verification/test_entity_resolver_unified.py W3). The module-level
+    # `crosstype_bridge_links` import above is retained as provenance + the substitution witness's patch target.
+    from hdlab.entity_resolver import EntityResolver
+    binds = EntityResolver().bridge_links(doc, gaz, conf_thr=conf_thr)
     return apply_binds(role_mentions, online_labels, binds)
 
 

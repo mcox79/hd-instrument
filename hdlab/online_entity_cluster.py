@@ -37,7 +37,7 @@ __bf_corrections__ = []
 from hdlab.coref import name_content_tokens, EntityAliaser
 from hdlab.state_of_mind import compatible
 from hdlab.salience_binder import actr_activation, ROLE_PROMINENCE, DEFAULT_DECAY
-from hdlab.commonnoun_binder import head_lemma
+from hdlab.lexical_utils import head_lemma
 import hdlab.typed_spokes as TS
 
 
