@@ -27,6 +27,7 @@
 ### RECENTLY INTEGRATED (owner-DONE) — BF updates APPLIED
 | solution | BF component update | status |
 |---|---|---|
+| `consolidate_the_six_coreference_organs…` (owner-DONE, INTEGRATED 2026-09-11, reverified 12/12+2/2+3/3, byte-identical) | SIX coref organs → ONE `hdlab/entity_resolver.py` (PINNED ACT-R retrieval core + Ariel routed cue-arms); the retrieval math was never the fragmentation (all six already call one `salience_binder.actr_activation`) — the WRAPPERS were. BF lexical foundation split to `hdlab/lexical_utils.py`; `situation_predict` retired; dormant KB arm folded. Registry 84→86 | **APPLIED (byte-identical, no behavior change)** — the ONE shared gap (hard φ/type filter-then-rank → graded L&V cue-combination) is now a SINGLE-POINT fix = the BF PRIZE (separate behavior-changing problem). |
 | grow_the_causal_mechanism (pri-1 causal) | `predictive_world_model`/`situation_reader` causal-antecedent relabeled counterfactual→**rung-1**; `causal_reasoner`=BF_SPIRIT rung-2/3 (+`is_necessary_abductive` rung-3); `causal_sign` formal-model sign wired live | **APPLIED** (§2b + registry + `sm.causal_sign` live) |
 | meaning_representation_is_a_point_vector | 3 BF pieces landed latent (directional ROUTE-B parser-free channel, `valence_polarity_channel`, `convergent_cue_reader.intrinsic_gain_w` retiring fitted DEFAULT_W) | **APPLIED-latent** (registry; live fusion-flip gated on pri-5) |
 | world_knowledge_name_bridge | `safe_kb_gate` BF safety theorem landed; who_is_who_lexicon durable | **APPLIED** (registry + KNOWLEDGE_ASSET_REGISTER) |

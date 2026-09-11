@@ -258,3 +258,15 @@ withdraw first, and it does not change the other five dispositions.)
    noise (similarity-based interference) — now a single-point change to `retrieve()` instead of six organs.
    (Consumed inputs: parser heads/deprels [NOT_BF scaffold], `salience_binder` base-level, `typed_spokes` license,
    `EntityAliaser` identity. Flagged upstream wall: the parser; the graded-cue fidelity gap.)
+
+---
+
+INTEGRATED_BY_STRATEGY 2026-09-11 — reverified first-hand on the committed tree (commits 859c02026 / ff0643285 /
+8fbc3d8f0): witnesses test_entity_resolver_{unified,typed_commonnoun,reader_substitution} = 12/12 + 2/2 + 3/3, board
+self-test AGG 0.6294 byte-identical no-regress. Landed via a delegated fresh-context agent, verified by strategy.
+SIX coref organs consolidated into ONE `hdlab/entity_resolver.py` (ACT-R retrieval core + Ariel mention-type-routed
+cue-arms); BF lexical helpers split into `hdlab/lexical_utils.py`; the reader's 4 call sites delegate to the unified
+organ; `situation_predict` retired (default-off, proven byte-identical no-op); the dormant KB arm folded as a
+default-off bonus cue-arm. NO behavior change (proven byte-identical). §2b + BF ledger + registry updated.
+FOLLOW-ONS (open, filed): the BF PRIZE = upgrade retrieve() to graded L&V cue-combination (behavior-changing,
+separate problem); clear entity_world_model_resolver's dormant experiments-import debt.
