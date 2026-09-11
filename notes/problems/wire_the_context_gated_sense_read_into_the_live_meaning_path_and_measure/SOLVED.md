@@ -5,7 +5,7 @@ bar: "Wire the context-gated sense read into the live meaning path and SHOW a re
 result: "THREE controlled results on modern gold. (POSITIVE, meaning-read dim) The LIVE WIRE (hdlab.underspecified_sense_reader.select_sense — what sm.select_sense binds) lifts WiC over the SENSE-BLIND reader: WIRE coarse-supersense acc = 0.7493 vs the sense-blind reader's majority ceiling 0.5000, +0.2493 CI[+0.2198,+0.2802] CI-sep; info-free shuffled-context twin LOSES (WIRE-twin +0.1654 CI[+0.1393,+0.1924]); genuine discrimination not a coarse artifact (pred-same-rate 0.452, specificity on gold-DIFFERENT pairs 0.797). n=2038 committed WiC pairs. (NEGATIVE 1, non-decisive consumer) common-noun coref TYPE-LICENSE (typed_spokes.coref_type_license): context-gating flips 715/36642 pairs (1.95%), the shuffled-context twin flips MORE (900>=715, does NOT lose), controlled coref-accuracy gated-minus-baseline = +0.0007 CI[-0.0090,+0.0102] (INCLUDES ZERO). Bridge slice 26.9%; n=2834. (NEGATIVE 2, DECISIVE consumer) natural-logic monotonicity is-a (typed_spokes.natural_logic_label, the MED 0.767 path, which deliberately uses the UNION is-a read): context-gating HURTS — GATED committed-sense 0.6559 vs BASELINE union 0.7203, -0.0644 CI[-0.0877,-0.0411] CI-separated BELOW baseline (twin -0.0810), on the n=901 sense-decisive SUB slice. Enumeration complete: BOTH live sense-consumers fail (one null, one negative)."
 floor: "POSITIVE floor = the SENSE-BLIND reader's ceiling = majority WiC class 0.5000 (the reader superposes all senses of a lemma into ONE ConceptSpace vector -> type-level cosine of the two same-lemma targets is 1.0 -> AUC 0.5 -> can only predict majority). NEGATIVE-1 floor = the current live sense-blind comparator coref_type_license (MFS/union) = 0.5967 common-noun antecedent accuracy (controlled recency resolver). NEGATIVE-2 floor = the current live union is-a read = 0.7203 on the MED SUB slice (the deliberately-permissive read the 0.767 headline uses)."
 controls: "POSITIVE: majority floor + an info-free shuffled-context twin (LOSES CI-sep -> the lift is CONTEXT-driven) + a confusion sanity (pred-same-rate 0.452, specificity 0.797 on gold-DIFFERENT pairs -> genuine discrimination, not coarse over-predicting SAME). NEGATIVE-1: sense-blind baseline == the live comparator; an info-free shuffled-context twin that does NOT lose (flips MORE, 900 vs 715); a flip decomposition (permit->forbid 613 / forbid->permit 102, so gating sensibly TIGHTENS) + a mechanism probe (bridge-head committed==MFS 53.7% vs global 51.6% -> bridge heads are NOT specially dominant-sense; the null is because the filter is NON-DECISIVE, recency selects). NEGATIVE-2: the live union is-a baseline + an info-free shuffled-context twin (also hurts, -0.0810). LIVENESS: a real SituationReader.read() over modern prose leaves sm.senses == [] yet sm.select_sense fires (bank -> noun.group)."
-files_changed: "experiments/exp_sense_gated_coref_divergence_v1.py, experiments/exp_sense_wire_wic_liveness_v1.py (+board_wic_via_live_wire_dimension), experiments/exp_sense_gated_natural_logic_probe_v1.py, experiments/exp_sense_gated_safe_bridge_write_v1.py, experiments/exp_context_modulated_meaning_vector_probe_v1.py, experiments/exp_sense_wire_wic_param_sweep_v1.py, experiments/exp_sense_gated_coref_board_native_v1.py, experiments/exp_sense_wire_wic_grain_sweep_v1.py, experiments/fetch_scws_v1.py, experiments/exp_context_modulated_scws_v1.py, verification/test_sense_wire_liveness_and_coref_negative.py, verification/test_graded_consumer_scws.py, data/corpora/scws/ratings.txt, data/{sense_gated_coref_divergence_v1,sense_wire_wic_liveness_v1,sense_gated_natural_logic_probe_v1,sense_gated_safe_bridge_write_v1,context_modulated_meaning_vector_probe_v1,sense_wire_wic_param_sweep_v1,sense_gated_coref_board_native_v1,sense_wire_wic_grain_sweep_v1}/metrics.json"
+files_changed: "experiments/exp_sense_gated_coref_divergence_v1.py, experiments/exp_sense_wire_wic_liveness_v1.py (+board_wic_via_live_wire_dimension), experiments/exp_sense_gated_natural_logic_probe_v1.py, experiments/exp_sense_gated_safe_bridge_write_v1.py, experiments/exp_context_modulated_meaning_vector_probe_v1.py, experiments/exp_sense_wire_wic_param_sweep_v1.py, experiments/exp_sense_gated_coref_board_native_v1.py, experiments/exp_sense_wire_wic_grain_sweep_v1.py, experiments/fetch_scws_v1.py, experiments/exp_context_modulated_scws_v1.py, experiments/exp_scws_input_levers_v1.py, experiments/exp_sense_override_diagnosis_v1.py, experiments/exp_soft_sense_natural_logic_v1.py, verification/test_sense_wire_liveness_and_coref_negative.py, verification/test_graded_consumer_scws.py, data/corpora/scws/ratings.txt, data/{sense_gated_coref_divergence_v1,sense_wire_wic_liveness_v1,sense_gated_natural_logic_probe_v1,sense_gated_safe_bridge_write_v1,context_modulated_meaning_vector_probe_v1,sense_wire_wic_param_sweep_v1,sense_gated_coref_board_native_v1,sense_wire_wic_grain_sweep_v1}/metrics.json"
 reverify: ".venv/Scripts/python.exe verification/test_sense_wire_liveness_and_coref_negative.py"
 ---
 
@@ -123,16 +123,32 @@ is no live consumer to change (the whole point).
 - **The board WiC arm scores a stand-in (`CO._pick`), not the live wire.** Re-pointing it at `sm.select_sense` would
   make this wire's capability board-visible on the live path (proposed instrumentation fix below).
 
-## Confirmed BF status of every component I interacted with (checklist, bf_status_registry cross-ref)
-| component | role here | BF status (confirmed) |
+## COMPONENTS INTERACTED WITH / CREATED + MATHEMATICAL BF STATUS (final audit; BF = pinned brain computation; BF_SPIRIT = defensible computational-level model, impl unpinned; FOUNDATION = admissible static offline asset, no LLM at inference; NOT_BF = defect)
+
+**A. hdlab ORGANS I interacted with (read/called/tested; did NOT write -- Q111):**
+| component | role here | mathematical BF status |
 |---|---|---|
-| `hdlab.underspecified_sense_reader.select_sense` | the live wire; context-primed biased competition | BF_SPIRIT (pinned biased-competition commit) — WORKS live (WiC 0.749) |
-| `hdlab.diagnostic_context_wsd.diagnostic_context_scores` | the biased-competition readout | BF_SPIRIT (precision/prior knobs; admissible) |
-| `hdlab.meaning_foundation` (curated sense signatures) | candidate-sense source | BF_SPIRIT (admissible static offline distributional asset) |
-| `hdlab.typed_spokes.coref_type_license` | the live sense-consuming decision | BF_SPIRIT — but SENSE-BLIND (MFS/union); gating it is null here |
-| `coarse_cluster` (WordNet lexname/supersense) | the committed coarse grain | admissible offline foundation (Rodd shared-core) |
-| `hdlab.situation_reader._read_senses` | binds `sm.select_sense`, leaves `sm.senses=[]` | dormant by design (lazy callable, no live consumer) |
-| `ConceptSpace` (live per-token meaning) | the sense-BLIND representation everywhere else | the deviation: not context-gated — the real lever |
+| `underspecified_sense_reader.select_sense` | the live wire; context-primed biased-competition sense commit | **BF_SPIRIT** — pinned biased-competition (Feldman-Friston precision; Rodd shared-core). WORKS live (WiC 0.749, twin-losing). |
+| `diagnostic_context_wsd.diagnostic_context_scores` | the biased-competition readout + posterior | **BF_SPIRIT** — diagnosticity-weighted query + Bayesian log-prior; params swept to ceiling (all +0.0000). |
+| `meaning_foundation` (curated sense signatures) | the candidate-sense vectors | **FOUNDATION** — curated distributional (topic-level); the ~0.40-SCWS ceiling lives HERE (signature quality). |
+| `typed_spokes.coref_type_license` | discrete coref TYPE-LICENSE consumer | **BF_SPIRIT** (Lambon-Ralph typed spokes) — but an OR-over-senses LICENSING op: sense-immune (gating null/harmful). |
+| `typed_spokes.natural_logic_label` / `isa_ancestors` / `is_a` | discrete entailment is-a consumer | **BF_SPIRIT** (van Benthem/MacCartney monotonicity over WordNet closure) — OR/breadth: committing sense HURTS -0.48 where it acts. |
+| `situation_reader._read_senses` | binds `sm.select_sense`; leaves `sm.senses=[]` | **BF_SPIRIT**, dormant by design (lazy/additive; byte-identical off). |
+| `situation_reader._read_entity_states` | checked as a possible consumer | **BF_SPIRIT** (Higgins syntactic copular typer) — NOT a WordNet-sense consumer (enumeration-closing read). |
+| `situation_reader._cn_type_rel` / `_resolve_commonnouns` (typed_coref) | live common-noun coref pick (board-scored) | **BF_SPIRIT** — the board-native gated test ran through it; null. |
+| `exp_unified_referent_gum_v1.Resolver` (URG) | the board's coref resolver (measurement harness) | **BF** — DRT file-change (Heim/Kamp) + ACT-R activation (Anderson) + recency; PINNED. |
+| `coarse_cluster` / WordNet `wup_similarity` (nltk) | commit grain / taxonomic-similarity read | **FOUNDATION** — WordNet taxonomy (Rodd shared-core; Wu-Palmer is a taxonomy measure, not a brain equation). |
+| `ConceptSpace` (the reader's live per-token meaning) | the sense-BLIND representation everywhere else | **the standing deviation** — not context-gated; the graded vector (below) is its brain-faithful replacement currency. |
+
+**B. MECHANISMS / ASSETS I created (experiments + verification; measurement, not landed substrate):**
+| created | what it is | mathematical BF status |
+|---|---|---|
+| the SETTLED context-modulated meaning VECTOR (`exp_context_modulated_*`) | posterior-weighted mean of sense signatures = the world-model's input currency | **BF_SPIRIT** — continuous semantic settling (Kintsch CI; Rodd; Rabovsky-McClelland N400=update). VALIDATED on human SCWS (+0.0156 CI-sep, twin-losing). |
+| the B-cubed safe-bridge-WRITE resolver + Nref commit-gate (`exp_sense_gated_safe_bridge_write_v1`) | confidence-gated discourse-referent merge | **BF** — Heim/Kamp file-change + Nieuwland Nref hold-under-uncertainty (PINNED). Result: holding is correct. |
+| the HOMONYMY-clustering grain (`exp_sense_wire_wic_grain_sweep_v1`) | merge related synsets (deep LCA), separate homonyms | **BF_SPIRIT in intent** (Rodd homonymy/polysemy) — but WordNet-is-a is an impl-limited proxy (misses metonymy); true grain needs OntoNotes. |
+| the SOFT-posterior is_a mass (`exp_soft_sense_natural_logic_v1`) | graded (breadth-preserving) sense for the discrete consumer | **BF_SPIRIT** (graded activation / constraint satisfaction) — degenerates to the union (located negative: confirms OR-licensing). |
+| the override / OR-vs-discriminate DIAGNOSIS (`exp_sense_override_diagnosis_v1`) | disentangles magnitude vs architectural | (measurement) — established the root-cause PRINCIPLE. |
+| SCWS gold (`fetch_scws_v1` -> `data/corpora/scws/`) | human graded contextual-similarity instrument | **FOUNDATION** — static offline human ratings, reproducible fetch + provenance, NO LLM at inference. The meaning-line's missing instrument, now on disk. |
 
 ## KEY REALIZATIONS (the enabling moves)
 - **The board's meaning dims score a STAND-IN, so "wire it and watch the board" would measure a number that never
@@ -279,6 +295,34 @@ against a SCHEMA-ONLY baseline + twin. The faithful instrument (a sense-dependen
 the half-effort the protocol forbids. This is the DEFINING first experiment of the meaning-representation/world-model
 mega-cluster (the named forward program), fully specified, with its input currency already proven live-computable.
 
+## FULL MECHANISM -- the ONE principle behind every negative (owner: "do we FULLY understand why?")
+Two diagnostic experiments disentangled the mechanism to its root (`exp_sense_override_diagnosis_v1.py`,
+`exp_soft_sense_natural_logic_v1.py`):
+- **GRADED consumer -- MAGNITUDE-bounded (measured).** On SCWS the graded read's context contribution is +0.0294 in
+  the HIGH-context-movement half vs +0.0026 in the LOW half (median movement ~0: for HALF of natural noun pairs context
+  moves the meaning vector negligibly). The benefit is real but CONFINED to where context actually moves the
+  representation -- small on natural text.
+- **DISCRETE consumer -- ARCHITECTURAL, and the root cause found.** On the natural-logic items where sense-commitment
+  CHANGES the entailment call, gated scores 0.258 vs the union's 0.742 (-0.48 where it acts). And the SOFT posterior
+  (context-weighted is_a mass, dev-tuned) degenerates EXACTLY to the union (0.7222 = 0.7222, delta 0.0). Root cause:
+  **the discrete consumers are OR-OVER-SENSES LICENSING operations** -- entailment fires if ANY sense-pair is-a;
+  coref type-license fires if ANY sense-pair is type-compatible. Reducing the sense set (hard commit OR soft weighting)
+  can only SHRINK the OR -> remove the licensing sense (hurt) or degenerate to the full union. Sense-disambiguation is
+  STRUCTURALLY unable to help a licensing consumer.
+
+**THE UNIFYING PRINCIPLE (explains ALL seven results):** sense-disambiguation can only help a consumer that
+DISCRIMINATES by the specific sense (graded vector-similarity: WiC 0.749, SCWS +0.0156 -- and there only where context
+moves the vector). It CANNOT help a consumer that LICENSES by ANY sense (coref type-license, entailment is-a -- both
+OR/breadth), because narrowing the senses only shrinks the OR. This is why the discrete gates were null/harmful, the
+graded read positive-but-small, and the readout/grain/input sweeps flat: the read is a correct, maxed DISCRIMINATIVE
+signal whose only faithful consumer is a graded DISCRIMINATIVE one -- and its magnitude on natural text is bounded by
+how often context is genuinely ambiguating. Do we fully understand the negatives? YES, to one principle, tested at
+three levels (committed hurts -0.48; soft degenerates to union; graded benefit confined to the context-active slice).
+**Does the understanding uncover a NEW lever? NO in-scope one survives** -- the soft-posterior rescue (the opportunity
+the diagnosis suggested) was tested and degenerates to the union; the licensing consumers are sense-immune by
+construction, and the graded consumer's ceiling is the encoder/signature quality (the mega-cluster). The negative is
+now understood to the root, and the root says the read is done.
+
 ## UNIFYING SYNTHESIS -- why EVERY downstream result was null, and what it uncovers (owner: "research all these results so we fully understand them")
 Sort the seven results by WHAT LEVEL OF MEANING the decision reads, and they stop being a scatter of coincidences
 and become ONE architectural fact:
@@ -353,6 +397,25 @@ tested input primitive + a newly-acquired human instrument. Witness: `verificati
 PROPOSED board arm: a `board_scws_graded_dimension` scoring the settled vector vs the context-free floor (twin-losing)
 -- a graded MEANING dim the board currently lacks (the WiC arm is binary).
 
+## INPUT LEVERS TESTED ON THE NEW HUMAN INSTRUMENT -- both null; the read is exhausted at every available lever
+With SCWS on disk, the two brain-foundational INPUT levers the param+grain nulls pointed to became testable against
+HUMAN graded judgment (`exp_scws_input_levers_v1.py`, noun-noun polysemous slice n=1260):
+- **LEVER A -- LOCAL/STRUCTURED context (Levy-Goldberg narrow->similarity; ATL structured context): NULL.** A local
+  +/-W window (W tuned on split A, reported on split B) does NOT beat the full-sentence BAG: best_W=4 -> testB 0.4113
+  vs bag 0.4125 (d=-0.0012), twin still losing. The bag already captures the disambiguating context; local structure
+  is not the lever on SCWS.
+- **LEVER B -- TWO-MEANING-SYSTEMS FUSION (ATL feature-similarity Wu-Palmer + LIFG associative distributional): a
+  positive TREND, NOT CI-separated.** FUSED 0.4205 > graded distributional 0.3947 > taxonomic 0.2682; fused-minus-best
+  = +0.0258 with the CI THROUGH ZERO. The two systems are largely REDUNDANT for contextual similarity here -- not the
+  clean separation the theory predicts, on this task.
+
+**=> The read is EXHAUSTED at every readout+input lever available: readout params (sweep +0.0000), grain (lexname
+best; homonymy needs OntoNotes), LOCAL context (bag sufficient), two-system fusion (not CI-sep) -- and the last two are
+now falsified against HUMAN graded data, the strongest test.** The residual to human (SCWS ~0.40 vs contextual-encoder
+SOTA ~0.65) is NOT closable by any lever over the current SIGNATURES; it is the SIGNATURE/ENCODER QUALITY itself --
+the fine perceptual/experiential differentia (grounding; Binder right-KIND-but-sparse) or a genuine contextual encoder
+(the meaning-representation MEGA-CLUSTER). No further in-scope lever moves the human-graded number.
+
 ## DEEPENING CONVERGED (30-min BF cron, ran + cancelled)
 The deepening loop is exhausted FOR THIS BRIEF's scope (the sense-READ wire), and the convergence is measured, not
 assumed:
@@ -406,13 +469,19 @@ CI-sep with the twin losing (the bar's positive option), it is the *meaning-read
 dim lifts (so no default-on flip is warranted). Read it as "positive on the meaning read + located negative on the
 downstream consumer" — SOLVED-of-the-wire-works + PARTIAL-of-the-downstream-lift, if you prefer.
 
-## NEXT STEPS
-1. **Re-point the board WiC/sense arm at the live wire** — DONE as a drop-in (`board_wic_via_live_wire_dimension`);
-   strategy imports it in `exp_board_wic_sense_v1` to make landed==live for the meaning dim.
-2. Do NOT gate the coref type-license (null) NOR the natural-logic is-a (HURTS -0.0644 CI-sep) on context; do NOT
-   enable different-head bridge-WRITING (tested #1: not recovered even context+Nref-gated; holding is BF-correct).
-3. **Build the real forward consumer (the mega-cluster):** feed the SETTLED context-modulated meaning VECTOR
-   (#3, validated: AUC 0.738, twin-losing, live-computable from the wire's posterior) into the generative world-model
-   as an incremental state update (Rabovsky/McClelland; N400 = update magnitude), letting downstream constraint
-   satisfaction disambiguate — NOT a discrete sense gate. This is where the validated read converts into comprehension.
-4. (Minor) test `entity_states` (the third typed-spoke reader) for completeness; same volatility expected.
+## HIGH-PRIORITY NEXT STEPS (governed by the root-cause principle: sense helps a DISCRIMINATIVE graded consumer, never an OR/LICENSING one)
+1. **[HIGH] Build the forward consumer as a DISCRIMINATIVE, GRADED reader of the settled vector** — the generative
+   world-model consuming the settled context-modulated meaning VECTOR (validated currency: SCWS +0.0156 CI-sep,
+   twin-losing; WiC 0.749) as an incremental state update (Rabovsky/McClelland; Kintsch CI). This is the ONLY consumer
+   type the principle permits to profit, and it is where the validated read converts into comprehension. Owned by the
+   meaning-representation/world-model mega-cluster.
+2. **[HIGH] Do NOT feed the sense read to any OR/LICENSING consumer** — coref type-license (null), natural-logic is-a
+   (hurts -0.48 where it acts; soft posterior degenerates to the union), bridge-writing (Nref hold is correct). These
+   are sense-immune by construction; wiring sense there only adds cost/harm.
+3. **[MED] Land the two drop-ins:** re-point the board WiC arm at the live wire (`board_wic_via_live_wire_dimension`)
+   for landed==live on the meaning dim; add `board_scws_graded_dimension` so the graded-meaning gain is board-visible
+   (the board's meaning dim is binary WiC only).
+4. **[MED] The sole remaining READ ceiling is SIGNATURE/ENCODER quality** (SCWS ~0.40 vs SOTA ~0.65) — fine
+   perceptual/experiential differentia (grounding; Binder right-KIND-but-sparse) or a genuine contextual encoder, and/or
+   an OntoNotes sense-group inventory for the true homonymy grain. All FOUNDATION/mega-cluster acquisitions, correctly
+   behind the graded consumer. Readout params + grain + local-context + two-system fusion are all EXHAUSTED (null).
