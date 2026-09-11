@@ -128,3 +128,12 @@ Do these ONE at a time, each: build the board arm wrapping the win's OWN experim
   `preregs/**`/`arm_key*`. Do NOT adopt a convenient stand-in for a NOT_BF organ to move a number. Do NOT
   do a long offline training run. Do NOT grade on 19c. Do NOT start a big new build the plan doesn't name —
   if a genuinely new high-leverage direction appears, file it as a fleet problem and note it here.
+
+
+## IN-REVIEW WAVE — DRIFT-CHECK (spot-confirmed 2026-09-11)
+Tonight's landings (who_was_affected wire + pri-4 + scene_segment + board arms) are all ADDITIVE, so they
+should not break the in-review submissions (which wrote NO hdlab -- Q111). Spot-confirmed on the highest-value
+one: **pri-7 harm_help reverifies 15/15 against current-live** (test_fd_harm_help_arithmetic 9/9 +
+test_pos_nominal_head_correction 6/6) -> drift-free, integration-ready; on owner-DONE it resolves the
+force_dynamics_valence NOT_BF (7->6) + lands the pos_tagger.nominal_head_correction upstream fix. The other 6
+in-review submissions are similarly additive-safe (reverify each at its own owner-DONE per the workflow).
