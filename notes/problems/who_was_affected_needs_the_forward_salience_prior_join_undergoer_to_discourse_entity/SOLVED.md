@@ -161,3 +161,24 @@ exactly why the headline lever was measured on gold roles AND re-measured on the
    labeler (arc_labeler cluster) or using graded (marginal) role labels would restore the gold-vs-deployed gap.
 4. Harm/help decision stays SOLVED + BF; the typed-selectional organ, parse cache, and the located negatives
    (POS hard-commit, type-coherence, IC-misapplication) remain banked as durable negatives.
+
+
+---
+INTEGRATED_BY_STRATEGY (2026-09-11, overnight WS1a). Reverified first-hand 10/10 (salience_prior 4/4,
+binding_parallelism 4/4, ic_prior 1/1, reliability_fusion 1/1). LANDED:
+  - land 1/3: promoted the BUILD-4 corrected lever (the LIKELIHOOD half) into a self-contained BF_SPIRIT
+    organ `hdlab/affected_entity_resolver.py` (ACT-R salience PRIOR x Principle-B co-argument exclusion x
+    role/thematic parallelism). The experiment cell imports the organ, so its 4/4 witness IS the organ
+    (A1 0.3704 -> A2 0.4186 +0.048 -> A5 0.4632 +0.093 CI-sep, byte-identical). Registry +1. Commit 8acc84ebf.
+  - land 3/3: `board_affected_entity_dimension` scores the landed resolver on the reader's OWN predicted
+    parse (predicted_parse=True = the deployment setting: A5 full +0.060 CI-sep n=952) -- its own board row,
+    OUT of the headline aggregate, OFF in self-test. Board self-test PASS (core byte-identical). Commit 65e507c86.
+  - durable knowledge folded to BRAIN_FOUNDATIONAL_AUDIT.md §2b; BF ledger + INTEGRATION_LEDGER rows added.
+
+FOLLOW-ON (filed, NOT shipped -- honest): the read()-time auto-population of `sm.affected_entity` (an additive
+_read_affected_entity dimension) was PROTOTYPED + verified byte-identical off, but REVERTED because the live
+reader's mention stream does not surface pronoun-UNDERGOER (object-pronoun) mentions on the tested passages
+(coref_mentions carried no object pronouns), so the read()-time dimension is inert AND it adds a per-sentence
+router re-parse cost -> not shipped default-on. The resolver + its scored board arm are the live-path proof;
+read()-time population needs the reader to track object-pronoun (undergoer) mentions first (a reader
+mention-extraction enhancement). Tracked in INTEGRATION_LEDGER as INSTRUMENT/consumer follow-on.
