@@ -1217,3 +1217,34 @@ centroid (>=~12-14 photos), not a single image (single-photo halves the semantic
 per-concept visual precision. UPDATE the durable finding: the referent-data lever, once denoised by volume, is real AND
 materially larger (visual ~tied with text on concrete-noun semantic relatedness). AS-DURABLE-NEGATIVE unchanged: strict-
 synonymy SimLex coverage is gold-construction-bound; verb/abstract wall is categorical. DO-NOT: no runtime vision model.
+
+## UPDATE 2026-09-11 (W39 gap-closure, end-of-arc gate) -- the FUSED hub beats its best single channel (whole > part), and the dispersion-precision is an honest neutral
+
+Owner end-of-arc directive: "how did we do vs the goal? ... research all optimizations and implement, BF and right,
+not easy, address loose ends." Self-assessment found two gaps in the completeness of the claim; both now closed
+(added as G7 to hub_v2, twin/split-controlled, 3 seeds).
+
+GAP 1 (was: the fusion's payoff on the SEMANTIC gold was unmeasured -- only the additive R2 of visual, and no-dilution
+on the PERCEPTUAL gold). CLOSED, POSITIVE: on MEN (held-out pair split), the recovery-gated FUSED hub {text, grounded,
+visual} beats the BEST SINGLE channel CI-separated on all 3 seeds -- multi fused 0.72 vs best-single 0.64 (fused-minus-
+best CI [0.007,0.144] across seeds, always > 0); single-photo fused 0.69 vs 0.60. So the whole system beats its best
+part on the powered semantic gold, and the recovery gate chooses the MOST weight on the (denoised) visual spoke (0.5).
+This is the headline the additive-R2 alone did not give.
+
+GAP 2 (was: the dispersion-precision's specific contribution was not isolated -- G6 additive used the raw centroid).
+CLOSED, HONEST NEGATIVE: dispersion-precision does NOT beat UNIFORM precision (multi 0.723 vs 0.751; single similar),
+consistent on all 3 seeds. So E3's per-concept precision-weighting -- though theoretically motivated (Ma-Pouget/Shi-Jain)
+and behaving sensibly (dog/flower loose, submarine/koala tight) -- does NOT empirically improve the fusion beyond the
+denoised centroid on this gold. The lever that mattered was VOLUME (E1: the multi-exemplar centroid), not the
+dispersion-precision (E3). The recovery gate still guarantees no harm (fusion > best single regardless), so keeping the
+precision term is neutral-safe, but the honest attribution is: the referent win comes from denoising by volume.
+
+NET (end-of-arc). The claim is now complete and stress-tested: (1) a real, non-text visual referent modality adds
+meaning-similarity signal text+grounded miss, on BOTH perceptual (THINGS-behavior) and semantic (MEN) golds, CI-sep,
+twin-losing, seed-stable; (2) denoised by ~14-exemplar volume it roughly DOUBLES and reaches text-parity semantically;
+(3) the recovery-gated precision fusion makes the FUSED hub beat its best single channel (whole > part) CI-sep, and
+cannot dilute by construction; (4) honest bounds: dispersion-precision is neutral (volume was the lever); strict-
+synonymy SimLex coverage stays gold-construction-bound (~18 pairs); the verb/abstract wall is categorical. Remaining
+identified-but-not-built levers (diminishing / future): fill the ~116 missing concrete nouns (ecoset/OpenImages) to
+widen MEN coverage further; a niche SOUND spoke (~55 auditory-strong words); the learned shared-latent (autoencoder) hub
+(R1 Stage-A) vs the current weighted-sum combiner. These are optimizations beyond the now-complete core claim.
