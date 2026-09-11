@@ -102,6 +102,32 @@ def concept_lemma(surf: str) -> str:
     return v
 
 
+# COARSE ONTOLOGICAL CLASS (Rosch basic-level; owner-DONE the_common_noun_binder_is_string_identity...): the MFS
+# WordNet lexname (supersense) grouped into ABSTRACT/OBJECT/PERSON/GROUP/LOCATION/TIME/QUANTITY -- the situation-model
+# FOCUS bridge's compatibility class. Static offline lexical foundation (nltk-WordNet), no inference-time LLM.
+_LEXGROUP = {}
+for _g, _lns in {
+    "ABSTRACT": ("noun.act", "noun.cognition", "noun.state", "noun.attribute", "noun.feeling", "noun.phenomenon",
+                 "noun.relation", "noun.communication", "noun.motive", "noun.process", "noun.event"),
+    "OBJECT": ("noun.artifact", "noun.object", "noun.substance", "noun.food", "noun.plant", "noun.body", "noun.animal"),
+    "PERSON": ("noun.person",), "GROUP": ("noun.group",), "LOCATION": ("noun.location",),
+    "TIME": ("noun.time",), "QUANTITY": ("noun.quantity",),
+}.items():
+    for _ln in _lns:
+        _LEXGROUP[_ln] = _g
+_CLASS_CACHE = {}
+
+
+def coarse_class(lemma):
+    """Broad ontological class of a noun lemma via its most-frequent-sense WordNet lexname (supersense). None if OOV."""
+    if lemma in _CLASS_CACHE:
+        return _CLASS_CACHE[lemma]
+    ss = _wn().synsets(lemma, pos="n")                  # freq-ordered -> [0] is the MFS
+    c = _LEXGROUP.get(ss[0].lexname()) if ss else None
+    _CLASS_CACHE[lemma] = c
+    return c
+
+
 def is_name(m, gaz) -> bool:
     """A clean proper name (aliasable) -- reuse the coref organ's own name test on the raw span."""
     return bool(name_content_tokens(m.get("span_toks", [m["head"]])))

@@ -936,6 +936,10 @@ class SituationReader:
                  np_head_reduce: bool = True,
                  structural_patient: bool = True,
                  graded_role_marginal: bool = False,
+                 conceptual_bridge: bool = True,
+                 focus_bridge: bool = True,
+                 uniqueness_bridge: bool = True,
+                 uniq_window: int = 6,
                  bind_entity_states: bool = True,
                  structural_do_recover: bool = False,
                  referent_per_np: bool = True,
@@ -1519,6 +1523,15 @@ class SituationReader:
         # parse/sentence -- the ~5% the double-parse consolidation saved -- accepted per fidelity-over-speed. Default
         # OFF -> marginals=None -> BYTE-IDENTICAL to the current live pick. Measure-first before any flip.
         self.graded_role_marginal = bool(graded_role_marginal)
+        # BF common-noun coref BRIDGES (owner-DONE the_common_noun_binder_is_string_identity...): the backward-half
+        # wire on top of the concept-key. ALL NON-WRITING (Nieuwland Nref hold -> resolve, never merge; so a graded
+        # default is safe): conceptual (distributional gloss-cosine cue), focus (Kintsch coarse-class default-to-focus),
+        # uniqueness (Heim/Loebner sole-in-focus definite). Cumulative 0.5580->0.5622->0.5776->0.5818, de-leaked-floor
+        # +0.0564 CI-sep, each independently CI-sep or no-regress (coherence/parallelism REFUTED -> not included).
+        self.conceptual_bridge = bool(conceptual_bridge)
+        self.focus_bridge = bool(focus_bridge)
+        self.uniqueness_bridge = bool(uniqueness_bridge)
+        self.uniq_window = int(uniq_window)
         # PRECISION-WEIGHT the head-driven readers (DEFAULT-ON 2026-09-06). Landed from the owner-DONE
         # precision_weight_the_head_driven_readers_on_calibrated_parse_confidence (Q111) + the DEFER-CONSUMER
         # wire (wire_a_defer_consumer_for_calibrated_confidence_and_realize_precision_weighting). The arc-eager
@@ -1801,7 +1814,7 @@ class SituationReader:
         "commonnoun_situation_gate", "commonnoun_canonical", "commonnoun_type_license", "resolve_commonnouns",
         "unified_referent",
         "phi_person_filter", "narrow_him", "soften_generic_suppress", "precision_weight_roles",
-        "graded_role_marginal")
+        "graded_role_marginal", "conceptual_bridge", "focus_bridge", "uniqueness_bridge")
 
     @classmethod
     def all_capabilities_off(cls, gaz=None, **overrides):
@@ -4110,7 +4123,7 @@ class SituationReader:
         card only (Ariel/Nieuwland de-pollution). NO person-gate (the brain type-bridges objects)."""
         import numpy as _np
         import hdlab.typed_coref as _TC
-        from hdlab.commonnoun_binder import head_lemma, concept_lemma, is_name, _num_of
+        from hdlab.commonnoun_binder import head_lemma, concept_lemma, is_name, _num_of, DEF_DET, coarse_class
         from hdlab.salience_binder import actr_activation, ROLE_PROMINENCE, DEFAULT_DECAY
         from hdlab.coref import EntityAliaser
         # C8 ENCYCLOPEDIC name->type route (report_the_typed_coref fix 3, Q111 landing 2026-09-08): the ATL's
@@ -4178,6 +4191,28 @@ class SituationReader:
             a = actr_activation(r.history, float(now), decay=DEFAULT_DECAY, role_prominence=ROLE_PROMINENCE)
             return a if a != float("-inf") else -1e9
 
+        # BF non-writing bridges (owner-DONE ...content_addressable_typed_coref): coarse-class FOCUS + conceptual cue.
+        def _coarse_compat(a, heads):
+            ca = coarse_class(a)
+            return ca is not None and any(coarse_class(h) == ca for h in heads)
+        _conc_ch = [None]; _conc_cache = {}
+        def _conc_bridge(a, b):                       # ConceptualChannel gloss-cosine >= 0.40 (BF_SPIRIT; lazy, memoized)
+            if a == b:
+                return True
+            k = (a, b) if a <= b else (b, a)
+            v = _conc_cache.get(k)
+            if v is None:
+                if _conc_ch[0] is None:
+                    from hdlab.conceptual_meaning import ConceptualChannel
+                    _conc_ch[0] = ConceptualChannel()
+                try:
+                    s = _conc_ch[0].similarity(a, "N", b, "N")
+                except Exception:
+                    s = None
+                v = (s is not None and s >= 0.40)
+                _conc_cache[k] = v
+            return v
+
         for m in sorted(role_mentions, key=lambda x: x["midx"]):
             order = m["midx"]
             role = "SUBJECT" if m.get("sent_role_rank", 99) == 0 else "OTHER"
@@ -4212,6 +4247,7 @@ class SituationReader:
                 continue
             same = [r for r in refs if r.last_midx < order and hl in r.heads and gn_ok(r.gender, r.number, mg, mn)]
             picked = None; opened = True; nowrite = None
+            definite = bool(span) and span[0].lower() in DEF_DET
             if same:
                 picked = max(same, key=lambda r: r.last_midx); opened = False
             else:
@@ -4220,9 +4256,15 @@ class SituationReader:
                 br = [r for r in prior_gn if (r.heads & tset)
                       or (r.has_name and any(t in r.name_tokens for t in tset))
                       or any(self._cn_type_rel(hl, h) for h in r.heads)
-                      or (r.has_name and any(_c8_lic(hl, ns) for ns in r.name_surfaces))]   # C8 encyclopedic name->type
+                      or (r.has_name and any(_c8_lic(hl, ns) for ns in r.name_surfaces))   # C8 encyclopedic name->type
+                      or (self.conceptual_bridge and any(_conc_bridge(hl, h) for h in r.heads))   # BF conceptual cue (SOLVED item 5)
+                      or (self.focus_bridge and definite and _coarse_compat(hl, r.heads))]        # BF situation-model FOCUS bridge (item 6)
                 if br:
                     nowrite = max(br, key=lambda r: act(r, order))          # non-writing (Nref hold): resolve, do not merge
+                elif self.uniqueness_bridge and definite:                   # BF Heim/Loebner UNIQUENESS bridge (item 8)
+                    infocus = [r for r in prior_gn if r.last_midx >= order - self.uniq_window]
+                    if len(infocus) == 1:
+                        nowrite = infocus[0]
             if picked is None:
                 picked = new_ref()
             resolved = (nowrite.rid if nowrite is not None else (None if opened else picked.rid))
