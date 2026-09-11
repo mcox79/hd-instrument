@@ -5,7 +5,7 @@ bar: "Scale + lexicalize the reading-learned arc scorer (full UD-EWT, 2-3 EM rou
 result: "BOTH clauses met. (A) THE READER'S OWN METRIC (verb->argument extraction recall, both scorers fed into the SAME graded single_root_marginals; UD-EWT test n_ag=1354/n_pa=989, GUM-OOD n_ag=2912/n_pa=1901): the reading-learned scorer + BF item-based constructions, read as a graded DISTRIBUTION (top-2 marginal reach = the brain's keep-alternatives-alive), MATCHES the frozen supervised scorer's live committed extraction in-domain (RL 0.9356 vs SUP-greedy 0.9283, +0.0073 CI[-0.0047,+0.0192] = parity) and BEATS it out-of-domain (GUM: RL 0.9202 vs SUP-greedy 0.8967, +0.0235 CI[0.0150,+0.0329] CI-SEPARATED), info-free shuffled-top2 twin LOSES (0.4477 UD / 0.3952 GUM), NO treebank at inference. The supervised scorer DEGRADES OOD (0.9283->0.8967); the reading-learned one holds (0.8613->0.8394) -- the register-generality lever. (B) THE LOCATED NEGATIVE on raw UAS: at FULL UD-EWT scale (11,991 sents <=40) the reading-learned SCORER caps at UAS 0.4784 (EM round 2, lam=0.3, swept prior_weight=3.0), +0.0155 over pri-3's 0.463; +BF constructions 0.5142 full / content-only 0.5444; supervised UPPER ref 0.7958 full / 0.7677 content -- a 0.28-0.32 gap that is the PINNED text-only field ceiling (Klein-Manning). SCALE IS NOT THE LEVER (0-EM UAS flat 0.4279@2k -> 0.4361@12k); EM PEAKS at round 2 then DECLINES (0.436->0.466->0.478->0.474->0.472, the DMV 'likelihood != accuracy' signature); the more-brain-faithful ONLINE/Hebbian re-estimation does NOT beat batch-EM (0.4339 < 0.4784, decay HURTS) => the ceiling is the SIGNAL text lacks (PP/clausal disambiguation), not the optimizer. (C) THE CORRECT LEVER, DETERMINED by an oracle diagnostic + 2 research drills (owner directive): the residual is a READOUT problem -- the gold head is in the top-5 marginal for 78.3% of PP/clausal arcs vs 25.2% committed (+0.532 reachable headroom in the distribution the arc-factored point-decode discards); the dominant REALIZABLE lever is reading the graded distribution (the (A) downstream win). The 2nd-order sibling-identity structural signal is REAL (gold-oracle +0.096 realistic / +0.140 upper-bound on PP/clausal, BEATS DMV-valence's null + ties gold-lexical -- confirming the arc-factored independence assumption is the structural wall) but is NOT treebank-free-realizable at 0.54 parse quality (self-taught sibling triples too noisy even with correct log-prob combination + confident-exemplar denoising: gated 2nd-order readout nets content -0.032 / PP-clausal -0.012 vs base while BEATING its shuffled twin -- a located bootstrapping wall). (D) TRUE-BF UPSTREAM IMPLEMENTED (owner directive): the gating upstream link (POS acquisition) is now brain-foundational via a closed-class-scaffold + syntactic-bootstrapping inducer (Gleitman; NO gold POS / treebank / LLM), and the FULLY-BF-ACQUISITION chain (scaffold-POS -> reading-learned arc scorer + Naseem prior + constructions) reaches UAS 0.4057 -- beating the right-branching floor 0.2984 by +0.107, beating pri-3's collapsed Brown fully-BF chain (0.2375) by +0.168, recovering 78.9% of the gold-POS chain (0.5142), shuffled-scaffold twin collapses (0.1495). The unlock was FUNCTIONAL NAMING (the scaffold emits named UPOS at 0.693 direct accuracy so the prior + constructions fire), NOT induction accuracy (0.706 < Brown 0.745). Self-training refinement was a located negative (drifts). So the reader's parse front-end is now brain-foundational at EVERY link with a measured 78.9%-of-gold-POS capability."
 floor: "strong right-branching adjacency-right UAS = 0.2984 full / 0.3171 non-root (recomputed on the full UD-EWT test n=2023, maxlen 40); also random 0.072 / left-adjacency 0.114 (pri-3). Downstream FLOOR = the supervised scorer's LIVE greedy committed verb->arg recall 0.9283 (UD) / 0.8967 (GUM). Supervised treebank UPPER reference (NOT a floor) = 0.7958 full-UAS / 0.7677 content-UAS."
 controls: "shuffled-POS-pair-TABLE twin COLLAPSES the reading-learned scorer to 0.2104 UAS -- BELOW the floor (so the learned reading table, not the innate prior, carries the signal); random-arc construction twin loses (0.4384 vs 0.5142); shuffled-top2 downstream twin loses (0.4477 UD / 0.3952 GUM); online-model shuffled-table twin loses (0.2069). Ablations isolated: scale (flat => not the lever), EM rounds (helps to r2 then hurts => likelihood!=accuracy), prior_weight (swept 0..3), constructions (each cue's own relation lifts: nsubj 0.589->0.69, cc/conj 0.05->0.26, compound 0.567->0.773; clausal cue NULL = honest sub-negative). Online vs batch EM (online loses => mechanism not the lever). LEVER-ORACLE controls: random top-k re-rank twin collapses (-0.358 content); DMV-valence null on PP/clausal (-0.001) vs sibling-IDENTITY +0.096 (separates count from identity); unsup-reading-lexical HURTS (-0.254) vs gold-lexical upper bound. 2ND-ORDER-READOUT control: shuffled sibling-table twin LOSES to the real self-taught table (content 0.494 vs 0.512), proving the self-taught signal is real even though it does not net-beat base (the bootstrapping wall)."
-files_changed: "experiments/exp_readlearned_scorer_scale_v1.py, experiments/exp_readlearned_construction_stack_v1.py, experiments/exp_readlearned_downstream_ab_v1.py, experiments/exp_readlearned_online_acquisition_v1.py, experiments/exp_readlearned_lever_oracle_v1.py, experiments/exp_readlearned_second_order_readout_v1.py, experiments/exp_readlearned_ppattach_hindle_rooth_v1.py, experiments/exp_readlearned_bf_pos_scaffold_v1.py, experiments/exp_readlearned_mbr_readout_v1.py, experiments/exp_readlearned_adaptive_readout_v1.py, experiments/exp_readlearned_joint_pos_parse_v1.py, experiments/exp_readlearned_bf_relation_labeler_v1.py, experiments/exp_readlearned_bf_pos_morphology_v1.py, experiments/exp_readlearned_marginal_calibration_v1.py, experiments/exp_readlearned_clausal_construction_v1.py, experiments/exp_readlearned_ppattach_integrate_v1.py, experiments/exp_readlearned_multiconjunct_v1.py, verification/test_readlearned_arc_scorer_scale.py, notes/problems/scale_the_reading_learned_arc_scorer_the_brain_foundational_parser_acquisition/SOLVED.md (+ research: notes/research_arc_factored_ceiling_lever_2026-09-10.md, notes/research_pp_clausal_attachment_token_vs_type_2026-09-10.md)"
+files_changed: "experiments/exp_readlearned_scorer_scale_v1.py, experiments/exp_readlearned_construction_stack_v1.py, experiments/exp_readlearned_downstream_ab_v1.py, experiments/exp_readlearned_online_acquisition_v1.py, experiments/exp_readlearned_lever_oracle_v1.py, experiments/exp_readlearned_second_order_readout_v1.py, experiments/exp_readlearned_ppattach_hindle_rooth_v1.py, experiments/exp_readlearned_bf_pos_scaffold_v1.py, experiments/exp_readlearned_mbr_readout_v1.py, experiments/exp_readlearned_adaptive_readout_v1.py, experiments/exp_readlearned_joint_pos_parse_v1.py, experiments/exp_readlearned_bf_relation_labeler_v1.py, experiments/exp_readlearned_bf_pos_morphology_v1.py, experiments/exp_readlearned_marginal_calibration_v1.py, experiments/exp_readlearned_clausal_construction_v1.py, experiments/exp_readlearned_ppattach_integrate_v1.py, experiments/exp_readlearned_multiconjunct_v1.py, experiments/exp_readlearned_relcl_attachment_v1.py, verification/test_readlearned_arc_scorer_scale.py, notes/problems/scale_the_reading_learned_arc_scorer_the_brain_foundational_parser_acquisition/SOLVED.md (+ research: notes/research_arc_factored_ceiling_lever_2026-09-10.md, notes/research_pp_clausal_attachment_token_vs_type_2026-09-10.md)"
 reverify: ".venv/Scripts/python.exe verification/test_readlearned_arc_scorer_scale.py"
 ---
 
@@ -236,8 +236,11 @@ comes from vastly more data + multimodal signal we do not have, not from the upd
    (+0.096 realistic / +0.14 upper bound), BEATS DMV-valence (sibling *count*, null — the control that separates
    "how many" from "which") and ties the classic preposition-scoped lexical statistic (Hindle & Rooth 1993).
 3. **Every lever HURTS applied GLOBALLY** — each has signal only on the ambiguous class; the lever must be scoped
-   (research drill 2: McRae 1998 fitted weights 0.51 structural / 0.37 thematic / 0.12 lexical — semantics is a
-   minority contributor, so a global add-on nets negative against an accurate structural prior).
+   (semantics is a minority contributor vs the structural prior, so a global add-on nets negative). [CORRECTION
+   2026-09-11: an earlier draft cited "McRae 1998 fitted weights 0.51/0.37/0.12" for this — that figure is
+   UNSOURCED (the primary PDF does not contain it; the paper is on reduced-relative garden paths, off-topic). The
+   sourced anchor is Ratnaparkhi/Reynar/Roukos 1994: humans given only the lexical head-tuple cap at 88.2% on
+   PP-attachment, full context 93.2% — i.e. ~half the gap is a MISSING STATISTIC, only ~5 pts a missing GRAIN.]
 
 **Prototyping the determined lever — the RIGHT way, mathematically (`exp_readlearned_second_order_readout_v1`).**
 A treebank-free, reliability-GATED 2nd-order sibling readout: score2(POS_h, POS_sib, POS_d, dir) = a directional
@@ -286,7 +289,7 @@ non-contender cases. The net-UAS gain is small because PP-ambiguities are ~5% of
 strength is on its scoped task (near the field's Hindle-Rooth precedent).
 
 **BF status:** BF — constraint-based lexicalist attachment (MacDonald 1994; Trueswell-Tanenhaus), the minority
-lexical/thematic cue (McRae 1998 weight ~0.37) competing with the structural prior under a reliability gate
+lexical/thematic cue (a documented MINORITY contributor vs the structural prior) competing under a reliability gate
 (Lewis-Vasishth cue integration); learned treebank-free from unambiguous exposure (the child's route). PINNED at
 the computational level.
 
@@ -566,10 +569,12 @@ meaning/world-model organs. That is where the next work must go, and the 30-min 
   full construction stack + MBR decode. nmod recall **0.18 -> 0.258 (+0.078)** on the full parse -- BUT the
   content-UAS gain is only **+0.0026 and NOT twin-separated** (shuffled-prep twin 0.5632 vs +HR 0.5653).
   Decomposition: the twin RETAINS a generic verb-vs-noun structural prior (most of the nmod lift); the
-  preposition-SPECIFIC contribution is only ~+0.011 nmod / +0.002 content -- the 0.37-weight minority lexical cue
-  (McRae 1998), consistent with HR's isolated finding. So this CONFIRMS with a number that PP-attachment (nmod) is
-  genuinely AMBIGUITY-LIMITED: the prep-specific signal is marginal, and closing nmod needs the disambiguation
-  signal text lacks (the generative world-model), NOT more front-end machinery. NOT added to the default stack.
+  preposition-SPECIFIC contribution is only ~+0.011 nmod / +0.002 content -- a minority lexical cue, consistent
+  with HR's isolated finding. [SUPERSEDED 2026-09-11: I earlier read this as "nmod is ambiguity-limited / needs
+  the world-model". The lever-A verification CORRECTS that -- nmod recall (0.18-0.258) sits FAR below even
+  Hindle-Rooth's own ~78-80% on the classic binary task, so nmod is in the MISSING-STATISTIC regime (buildable),
+  NOT the missing-grain/pinned-ceiling regime; and a text-reachable referential-count feature (Altmann-Steedman,
+  via the coref organ's compatible-candidate pool) is untested. See the referent-count fire below.]
 
 **DEEPENING-PASS STATUS (after 4 fires):** content-UAS climbed 0.508 -> 0.531 (MBR) -> **0.563 (clausal)**; POS
 direct-functional +0.011 (morphology); MBR gain-calibrated to dominate MAP. The construction library
@@ -599,6 +604,21 @@ levers to a competent reader (~0.95) are, with numbers, OUTSIDE this front-end: 
 PP/relative-clause attachment (the generative world-model + prosody -- text-only is ambiguity-limited, shown twin-
 controlled); (2) the filler-gap mechanism for relative clauses (the `the_relcl_parser_is_too_weak` problem). This
 problem is complete for its scope; further high-value work is routed to those adjacent problems.
+
+- **2026-09-11 -- RELATIVE-CLAUSE ATTACHMENT lever VERIFIED + IMPLEMENTED (`exp_readlearned_relcl_attachment_v1`);
+  CORRECTS the "acl is out-of-scope / ambiguity-limited" claim.** Owner directed verify+implement the remaining
+  levers. Empirical verification (UD-EWT, 315 noun-headed acl arcs): relativizer 31% / reduced-bare 42% ("the
+  book I read") / participial 27% ("the report published") -- the earlier relativizer-only cue addressed only 31%
+  and was NULL. Built the full filler-gap construction (head noun = FILLER; a post-nominal VERB that is NOT the
+  main predicate attaches to it) covering ALL THREE types, treebank-free. Diagnostic: the cue proposes the correct
+  head for 38% of acl verbs, BUT a +4 boost was IGNORED by MBR -- because the Naseem prior PENALISES NOUN->VERB
+  (verbs attach high), overwhelming the boost. **The wall was the PRIOR PENALTY, not missing signal.** The
+  filler-gap construction is a CONFIDENT cue the brain commits to, justifying a strong boost: at w=25 (soft,
+  MBR-arbitrated) **acl 0.013 -> 0.394 (+0.38) and content-UAS 0.5627 -> 0.5681 (+0.0054)**, twin (random-noun)
+  LOSES (content 0.5623, acl 0.13). So acl ATTACHMENT is recoverable IN-SCOPE (my parser's job); the filler-gap
+  ROLE assignment (the noun's role IN the clause) remains the `the_relcl_parser_is_too_weak` problem. KEY
+  REALIZATION: a strong structural prior can HIDE a recoverable arc as "ambiguity-limited" when the real issue is
+  the prior fighting the correct attachment -- check the prior-vs-boost balance before calling an arc a ceiling.
 
 # AUDIT UPDATE (`notes/BRAIN_FOUNDATIONAL_AUDIT.md`)
 
