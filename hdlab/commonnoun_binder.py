@@ -78,6 +78,30 @@ def head_lemma(head: str) -> str:
     return h
 
 
+_MORPHY = {}
+
+
+def concept_lemma(surf: str) -> str:
+    """Brain-foundational lexical-CONCEPT lemma (owner-DONE the_common_noun_binder_is_string_identity...): WordNet
+    morphy NOUN lemma of the head surface -- the substrate's standing wordform->lemma-concept map (the same morphy
+    convention used by causation_typing/event_type/generalized_event_knowledge/goal_achievement). This is the BF
+    replacement for `head_lemma` on the RESOLUTION path: non-alpha heads (redaction "____", digits) are KEPT as
+    their lowered surface -- NEVER collapsed to "" (head_lemma's false-merge bug) -- and there is no -us/-es
+    over-strip ("corpus" stays "corpus", not "corpu"). Static offline lexical foundation (nltk-WordNet), no
+    inference-time LLM. Memoized. Leaves `head_lemma` UNCHANGED so the clustering consumer stays byte-identical."""
+    v = _MORPHY.get(surf)
+    if v is not None:
+        return v
+    base = "".join(c for c in surf.lower() if c.isalpha())
+    if not base:
+        v = surf.lower()          # keep "____"/"_____"/"9" DISTINCT -- do not merge redactions (the crude-regex bug)
+    else:
+        wn = _wn()
+        v = wn.morphy(base, wn.NOUN) or wn.morphy(base) or base
+    _MORPHY[surf] = v
+    return v
+
+
 def is_name(m, gaz) -> bool:
     """A clean proper name (aliasable) -- reuse the coref organ's own name test on the raw span."""
     return bool(name_content_tokens(m.get("span_toks", [m["head"]])))

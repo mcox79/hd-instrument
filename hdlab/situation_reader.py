@@ -4060,7 +4060,7 @@ class SituationReader:
         (_cached_tag / _cached_parse_heads are HITS -- the events/roles path already parsed these sentences),
         so NO second parse: the only new work is arc LABELING, gated to sentences with >=2 nominal tokens
         (both appos and copula need two nominals -> byte-safe skip)."""
-        from hdlab.commonnoun_binder import head_lemma
+        from hdlab.commonnoun_binder import concept_lemma   # BF concept-key (matches _resolve_commonnouns' r.heads keying)
         lab = self._frontend_labeler()
         typed = {}
         for toks in sents:
@@ -4080,7 +4080,7 @@ class SituationReader:
                 # apposition: dep i -> head h, both nominal
                 if dep.startswith("appos") and 1 <= h <= n \
                         and up[i - 1] in ("NOUN", "PROPN") and up[h - 1] in ("NOUN", "PROPN"):
-                    links.add(frozenset((head_lemma(toks[i - 1]), head_lemma(toks[h - 1]))))
+                    links.add(frozenset((concept_lemma(toks[i - 1]), concept_lemma(toks[h - 1]))))
                 # copula: token i is 'be' with deprel 'cop'; head h = predicate nominal; find its nsubj subject
                 if toks[i - 1].lower() in ("be", "is", "are", "was", "were", "been", "being", "'s", "'re") \
                         and dep == "cop" and 1 <= h <= n and up[h - 1] in ("NOUN", "PROPN"):
@@ -4089,7 +4089,7 @@ class SituationReader:
                         if heads.get(u, 0) == h and deprels.get(u, "").startswith("nsubj"):
                             subj = u
                     if subj is not None and up[subj - 1] in ("NOUN", "PROPN"):
-                        links.add(frozenset((head_lemma(toks[h - 1]), head_lemma(toks[subj - 1]))))
+                        links.add(frozenset((concept_lemma(toks[h - 1]), concept_lemma(toks[subj - 1]))))
             for l in links:
                 a, b = tuple(l) if len(l) == 2 else (next(iter(l)), next(iter(l)))
                 if not a or not b:
@@ -4110,7 +4110,7 @@ class SituationReader:
         card only (Ariel/Nieuwland de-pollution). NO person-gate (the brain type-bridges objects)."""
         import numpy as _np
         import hdlab.typed_coref as _TC
-        from hdlab.commonnoun_binder import head_lemma, is_name, _num_of
+        from hdlab.commonnoun_binder import head_lemma, concept_lemma, is_name, _num_of
         from hdlab.salience_binder import actr_activation, ROLE_PROMINENCE, DEFAULT_DECAY
         from hdlab.coref import EntityAliaser
         # C8 ENCYCLOPEDIC name->type route (report_the_typed_coref fix 3, Q111 landing 2026-09-08): the ATL's
@@ -4189,7 +4189,11 @@ class SituationReader:
                     cands[int(_np.argmax([act(r, order) for r in cands]))].write(
                         order, role, "pronoun", "", mg, mn, set())
                 continue
-            hl = head_lemma(m["head"]); mg, mn = mfn(m), _num_of(m)
+            # BF concept-key (owner-DONE the_common_noun_binder_is_string_identity...): the same-referent gate keys on
+            # the lexical-CONCEPT lemma (morphy), NOT the crude head_lemma regex -- retires the NOT_BF empty-collapse of
+            # redactions + the -us/-es over-strip. This single derivation flows to r.heads.add(hl) AND the `hl in r.heads`
+            # query, so write + query stay consistent. +0.0098 (0.5482->0.5580), beats the de-leaked floor 0.5254 CI-sep.
+            hl = concept_lemma(m["head"]); mg, mn = mfn(m), _num_of(m)
             if is_name(m, None):
                 canon = aliaser.assign(span, (m.get("gender") or m.get("name_gender")) or None)
                 if canon is not None and canon in canon2ref:
