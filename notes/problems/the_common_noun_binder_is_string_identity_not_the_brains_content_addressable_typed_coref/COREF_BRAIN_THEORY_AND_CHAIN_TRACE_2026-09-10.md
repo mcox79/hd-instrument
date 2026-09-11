@@ -382,6 +382,72 @@ belongs to the comprehension/world-model program, NOT a coref-extractable signat
 substrate (filler=JL-projected meaning, role-binding, handle) as validated default-off components. Coref deliverable stays the
 backward-half wins (0.5818). Cells: exp_cn_descriptive_identity_v1.py.
 
+## 14. PROTOTYPED THE REMAINING LEVER (world-knowledge inference) -- DIRECTION IS FLAT (2026-09-10)
+Owner: "prototype the remaining lever to see its direction." The remaining lever = world-knowledge/generative inference of
+WHICH referent. Prototyped its most-available brain-foundational form -- EVENT-SCRIPT COHERENCE (does an entity's event-history
+make the CURRENT predicate plausible?) via `hdlab.generalized_event_knowledge` (GEK: PPMI event-transition store, learned
+offline from ROCStories-train; NO LLM at inference). `exp_cn_event_coherence_lever_v1.py`, same-head-ambiguous anaphors with a
+current verb, candidates = gold same-head entities (so recency = the oracle):
+- **n=361: coherence=0.562, scramble=0.535, recency(oracle)=0.787. coh-rec=-0.224 CI[-0.281,-0.169] (CI-sep NEGATIVE).**
+  Event-coherence is WORSE than recency and barely above its own scramble -> GEK world-knowledge coherence carries ~no
+  separating signal; when it overrides recency it is wrong.
+
+**DIRECTIONAL VERDICT: the remaining lever does NOT point anywhere promising for same-head separation.** Every PROTOTYPABLE
+signal is now null: situational participation (sec12), descriptive identity (sec13), AND world-knowledge event-coherence (this).
+Mechanistic why: bare same-head common-noun entities ("the man"/"the man") share the generic type, so entity-specific world
+knowledge is unavailable; the only distinguishers are discourse-accumulated description (null) and event-history coherence
+(null). The one remaining possibility -- DEEP referential plausibility inference (Winograd-schema: "the man who could afford it
+bought it") integrating full world-knowledge + pragmatics -- is the comprehension FRONTIER (where even large LMs fail --
+AmbiCoref shows models insensitive to exactly these), atop the 55% genuinely IRREDUCIBLE (sec13). Not a cheap prototype; the
+deep comprehension program itself. **So: do NOT invest coref-specific effort in the world-knowledge lever; the separation prize
+sits at the deep-comprehension frontier with a large irreducible floor. The authenticated D=2048 FHRR substrate is worth
+carrying into the broader comprehension program for its OTHER payoffs, not for coref separation.** Cell:
+exp_cn_event_coherence_lever_v1.py.
+
+## 15. SUBSTRATE-VALUE DE-RISK PROBE (owner option b) -- FHRR situation vector is NOT a general comprehension lever (2026-09-10)
+Before committing the authenticated D=2048 FHRR substrate to the comprehension program, ran a bounded directional probe:
+does the role-structured SITUATION vector add value on a native comprehension task (DISCOURSE COHERENCE -- discriminate the
+real next sentence from a random same-doc one), vs a bag-of-words floor + a role-scramble control, with GEK as reference
+(`exp_cn_substrate_comprehension_probe_v1.py`, n_pairs=3223):
+- **BOW 0.547, FHRR 0.534, FHRR-scramble 0.536, GEK 0.559.** FHRR ~ scramble (role structure INERT AGAIN) and BELOW bag-of-words;
+  the role-blind GEK transition model is marginally best.
+
+**META-PATTERN (now unmistakable across sec12/sec13/sec14/sec15): role structure -- the substrate's UNIQUE value -- is INERT on
+EVERY task tested (separation, descriptive-identity, coherence), because none discriminate on WHO-DID-WHAT; they discriminate on
+WHICH CONTENT is present (topical), which bag-of-words already captures. FHRR role-binding just reshuffles the same content into
+a no-more-discriminative (slightly noisier) vector.** So the substrate would pay off ONLY on a genuinely ROLE-SENSITIVE task
+(SRL, role-swap plausibility "dog bites man" vs "man bites dog", who-did-what QA) -- which the cheaply-probable comprehension
+tasks are not. **DIRECTIONAL DE-RISK VERDICT: do NOT carry the FHRR situation-vector substrate into the comprehension program
+as a GENERAL lever -- it is not one. Its investment is justified ONLY for role-sensitive comprehension, to be confirmed with a
+role-sensitive instrument FIRST.** (Caveat: the similarity frame under-uses both substrate AND GEK -- GEK 0.559 here vs native
+0.58 -- so absolute numbers are weak; but FHRR~scramble~BOW is frame-independent, the load-bearing signal. Connects to the
+standing note: STORE ORGANIZATION, not the binding algebra, is the fidelity lever.) Cell: exp_cn_substrate_comprehension_probe_v1.py.
+
+## 16. CORRECTION -- the "role structure inert" conclusion was a COSINE-READOUT ARTIFACT; FHRR math verified, value real (2026-09-10)
+Owner challenge (correct): "we can encode anything in FHRR -- are you saying we need an alternate transform? how does the
+brain do it?" DIAGNOSIS: every "role structure inert" result (sec12 D-4, sec13, sec15) scored bound vectors by COSINE
+SIMILARITY -- the wrong readout for a structured representation. For circular convolution, <bind(ra,f),bind(rb,f)> ~
+<ra,rb>.<f,f>, so a shared entity contributes to the cosine ONLY if it is in the SAME role in both; an entity that is
+agent-then-patient has near-orthogonal bound terms and its signal CANCELS. Cosine doesn't just miss the structure -- it
+penalizes it. The brain reads structured VSA memory by content-addressable UNBINDING + cleanup (Plate 1995 HRR; Kanerva;
+resonator networks Frady-Kent-Olshausen-Sommer 2020) and LEARNED TRANSITION/attractor dynamics (SEM f_k; Kintsch C-I), NOT cosine.
+
+VERIFIED (`exp_cn_bf_readout_verify_v1.py`):
+- **PART A -- FHRR math 5/5 PASS (D=2048, unitary atoms):** A1 bind/unbind self-inverse cos=0.9999; A2 norm-preservation
+  1.0001~1.0; A3 bundle recovery 3/3; A4 JL projection fidelity corr=0.998; A5 role orthogonality 0.0285~1/sqrt(D). The
+  operations are mathematically correct + BF (pinned Plate HRR; unitary atoms -> exact unbinding).
+- **PART B -- who-did-what via the CORRECT readout (unbind-query), n=1713 clauses, V=1406:** B1 role recovery AGENT=1.000
+  PATIENT=1.000 (chance 0.0007); B2 role-swap discrimination FHRR=1.000 vs BAG-OF-WORDS=0.500 (structural). Role structure is
+  DECISIVE under unbind-query; cosine-of-bundles hid it.
+
+**CORRECTION (own it):** the sec15 "FHRR situation vector is NOT a general comprehension lever" and the "role structure inert"
+readings are WITHDRAWN -- they were cosine-readout artifacts. NO alternate transform is needed; FHRR is correct and delivers
+who-did-what losslessly. Read the brain's way (unbind + learned dynamics), the substrate goes from ~chance to 1.000 vs
+bag-of-words 0.500. **The authenticated D=2048 FHRR situation-vector substrate IS the right foundation for the
+comprehension/world-model program** (a genuine structured situation model), to be read via unbind-query + learned transition/
+attractor dynamics -- never cosine. What STANDS separately: the coref-SEPARATION content limit (55% descriptively identical;
+recency-oracle ceiling) is a property of the TASK, not the representation. Cell: exp_cn_bf_readout_verify_v1.py.
+
 ## TLDR (plain English)
 We finally wrote down how the brain actually does this, and it explains why nothing we tried worked. The brain uses two
 halves: it gives every new thing a blank name-tag the instant it's first mentioned and stamps it with where/when/which-scene

@@ -5,7 +5,7 @@ bar: "Route the LIVE C2 definite-common-noun binding through the typed content-a
 result: "The typed content-addressable binding, re-keyed on a brain-foundational lexical-CONCEPT lemma (WordNet morphy -- the substrate's standing wordform->lemma-concept tool, used by 6+ organs), scores per-mention common-noun RESOLUTION accuracy 0.5580 on GUM modern TEST (n=2855 anaphoric common-noun mentions; metric = resolved-referent nominal-dominant gold eid == mention eid, the URG board instrument), and BEATS the honest DE-LEAKED string-identity floor 0.5254 by +0.0326 CI[+0.0205,+0.0450] CI-sep; info-free twin LOSES +0.0322 CI[+0.0233,+0.0416] CI-sep; a strict gain over the current live wire (crude key, 0.5482). The brief's premise ('typed binding only ties the floor') was an artifact of a LEAKY floor: the raw gold-lemma floor 0.5412 keys redacted 'the ____' mentions on the annotator-supplied REAL word (redaction see-through), annotation raw text cannot access -- removing ONLY that see-through drops the floor to 0.5254, and EVEN THE CURRENT crude-key wire beats 0.5254 CI-sep (+0.0228). Vs the raw LEAKY 0.5412 the concept-key binding is +0.0168 (CI[-0.0003,+0.0327] includes 0 -- honest parity-plus; the residual is exactly the irreducible redaction). GOLD-FREE; the fix is a one-line KEY swap inside the additive resolution consumer -> clustering/coref/who_did_what byte-identical (no-regress by construction)."
 floor: "Strongest floor computable from raw text: HONEST DE-LEAKED gold-lemma string-identity = 0.5254 (n=2855; the raw gold-lemma floor 0.5412 with ONLY the redaction see-through removed -- redacted/non-alpha heads keyed on their raw surface, gold lemma kept on every visible word). Also run on the identical population: fair same-regime morphy string-identity 0.5261; crude head_lemma string-identity 0.5156; raw LEAKY gold-lemma string-identity 0.5412 (reported, not beaten CI-sep -- +0.0168 CI incl 0; the +0.0158 gap 0.5254->0.5412 is pure redaction annotation)."
 controls: "(1) FAITHFULNESS: the crude-key arm is BYTE-IDENTICAL to the deployed live wire (hdlab.situation_reader-served _reader_commonnoun_resolution) on 20 GUM docs -> the measured delta is the fix, nothing else. (2) INFO-FREE TWIN (bridge -> random gn-compatible prior) LOSES CI-sep (+0.0322) -> the type signal is load-bearing, not 'any reach'. (3) FAIR same-regime floor (morphy string-identity 0.5261) BEATEN CI-sep (+0.0319) -> the binding adds over string-identity IN THE SAME key regime, not merely via the better key. (4) DE-LEAK: removing the raw gold floor's redaction see-through (0.5412->0.5254) exposes the leak; the binding beats the de-leaked floor CI-sep. (5) LOCATED SUB-NEGATIVE: the loose WordNet-synonymy 'concept' identity gate (0.5464) is BELOW the lemma arm (0.5580) -> the WRITING identity gate must be lemma-TIGHT; type-compatibility belongs in the NON-writing bridge (consistent with the prior is-a-WRITE negative). (6) NO-REGRESS by construction: the fix is a KEY swap inside the read-only additive resolution consumer (writes only sm.commonnoun_resolution). (7) ADJACENT no-regress measured: re-keying the OTHER live head_lemma consumer (online_entity_cluster, sm.entities) on the concept lemma moves entity-layer CoNLL 0.6975->0.6974 (delta -0.0001) -- flat (the key defect is invisible to cluster-F1, which is dominated by big clusters). (8) GOLD-FREE (inherited): no gold field touches a resolution decision (prior W5)."
-files_changed: "experiments/exp_cn_headkey_decomposition_v1.py, experiments/exp_cn_conceptkey_binding_v1.py, experiments/exp_cn_conceptkey_clustering_adjacent_v1.py, experiments/exp_cn_conceptkey_ood_v1.py, experiments/exp_cn_readerhead_endtoend_v1.py, experiments/exp_cn_bf_rolecue_v1.py, experiments/exp_grounded_parser_uas_sweep_v1.py, experiments/exp_distributional_parser_v1.py, experiments/exp_predictive_em_parser_v1.py, experiments/exp_cn_worldmodel_cue_v1.py, experiments/exp_cn_conceptual_bridge_v1.py, experiments/exp_lexicalized_dmv_parser_v1.py, experiments/exp_cn_signal_loss_decomp_v1.py, experiments/exp_cn_fully_bf_chain_v1.py, experiments/exp_cn_worldmodel_rolelink_v1.py, experiments/exp_cn_diffhead_route_audit_v1.py, experiments/exp_cn_discourse_focus_v1.py, experiments/exp_cn_samehead_decomp_v1.py, experiments/exp_cn_samehead_actr_v1.py, experiments/exp_cn_discourse_entity_model_v1.py, experiments/exp_cn_samehead_cues_v1.py, experiments/exp_cn_accessibility_prior_v1.py, experiments/exp_cn_discourse_identity_partition_v1.py, experiments/exp_cn_learned_nearidentity_v1.py, experiments/exp_cn_bridge_ablation_v1.py, experiments/exp_cn_situational_index_v1.py, experiments/exp_cn_prominence_select_v1.py, experiments/exp_cn_nearid_graded_v1.py, experiments/exp_cn_oracle_ceiling_probe_v1.py, experiments/exp_cn_sem_episodic_pairdisc_v1.py, experiments/exp_cn_sem_wired_v1.py, experiments/exp_cn_sem_bf_scene_v1.py, experiments/exp_cn_vsa_capacity_gate_v1.py, experiments/exp_cn_entity_signature_v1.py, experiments/exp_cn_descriptive_identity_v1.py, verification/test_cn_conceptkey_binding.py, verification/test_cn_uniqueness_bridge.py, notes/problems/the_common_noun_binder_is_string_identity_not_the_brains_content_addressable_typed_coref/COREF_BRAIN_THEORY_AND_CHAIN_TRACE_2026-09-10.md, notes/problems/the_common_noun_binder_is_string_identity_not_the_brains_content_addressable_typed_coref/SOLVED.md, notes/problems/the_common_noun_binder_is_string_identity_not_the_brains_content_addressable_typed_coref/UPSTREAM_BF_AUDIT_2026-09-10.md, notes/problems/the_common_noun_binder_is_string_identity_not_the_brains_content_addressable_typed_coref/PARSER_FIX_PROPOSAL_2026-09-10.md. NO hdlab/ writes (Q111 -- the proposed diff is in section 6). Reuses data/corpora/gum/ (pinned V12.1.0, on disk) + hdlab.{typed_coref,typed_spokes,commonnoun_binder,salience_binder,coref,situation_reader,online_entity_cluster} + experiments.{exp_situation_model_qa_modern_v1,exp_commonnoun_binder_live_report_v1,exp_unified_referent_gum_v1,exp_online_cue_cluster_gum_v1} + nltk-WordNet morphy (static offline lexical foundation)."
+files_changed: "experiments/exp_cn_headkey_decomposition_v1.py, experiments/exp_cn_conceptkey_binding_v1.py, experiments/exp_cn_conceptkey_clustering_adjacent_v1.py, experiments/exp_cn_conceptkey_ood_v1.py, experiments/exp_cn_readerhead_endtoend_v1.py, experiments/exp_cn_bf_rolecue_v1.py, experiments/exp_grounded_parser_uas_sweep_v1.py, experiments/exp_distributional_parser_v1.py, experiments/exp_predictive_em_parser_v1.py, experiments/exp_cn_worldmodel_cue_v1.py, experiments/exp_cn_conceptual_bridge_v1.py, experiments/exp_lexicalized_dmv_parser_v1.py, experiments/exp_cn_signal_loss_decomp_v1.py, experiments/exp_cn_fully_bf_chain_v1.py, experiments/exp_cn_worldmodel_rolelink_v1.py, experiments/exp_cn_diffhead_route_audit_v1.py, experiments/exp_cn_discourse_focus_v1.py, experiments/exp_cn_samehead_decomp_v1.py, experiments/exp_cn_samehead_actr_v1.py, experiments/exp_cn_discourse_entity_model_v1.py, experiments/exp_cn_samehead_cues_v1.py, experiments/exp_cn_accessibility_prior_v1.py, experiments/exp_cn_discourse_identity_partition_v1.py, experiments/exp_cn_learned_nearidentity_v1.py, experiments/exp_cn_bridge_ablation_v1.py, experiments/exp_cn_situational_index_v1.py, experiments/exp_cn_prominence_select_v1.py, experiments/exp_cn_nearid_graded_v1.py, experiments/exp_cn_oracle_ceiling_probe_v1.py, experiments/exp_cn_sem_episodic_pairdisc_v1.py, experiments/exp_cn_sem_wired_v1.py, experiments/exp_cn_sem_bf_scene_v1.py, experiments/exp_cn_vsa_capacity_gate_v1.py, experiments/exp_cn_entity_signature_v1.py, experiments/exp_cn_descriptive_identity_v1.py, experiments/exp_cn_event_coherence_lever_v1.py, experiments/exp_cn_substrate_comprehension_probe_v1.py, experiments/exp_cn_bf_readout_verify_v1.py, verification/test_cn_conceptkey_binding.py, verification/test_cn_uniqueness_bridge.py, notes/problems/the_common_noun_binder_is_string_identity_not_the_brains_content_addressable_typed_coref/COREF_BRAIN_THEORY_AND_CHAIN_TRACE_2026-09-10.md, notes/problems/the_common_noun_binder_is_string_identity_not_the_brains_content_addressable_typed_coref/SOLVED.md, notes/problems/the_common_noun_binder_is_string_identity_not_the_brains_content_addressable_typed_coref/UPSTREAM_BF_AUDIT_2026-09-10.md, notes/problems/the_common_noun_binder_is_string_identity_not_the_brains_content_addressable_typed_coref/PARSER_FIX_PROPOSAL_2026-09-10.md. NO hdlab/ writes (Q111 -- the proposed diff is in section 6). Reuses data/corpora/gum/ (pinned V12.1.0, on disk) + hdlab.{typed_coref,typed_spokes,commonnoun_binder,salience_binder,coref,situation_reader,online_entity_cluster} + experiments.{exp_situation_model_qa_modern_v1,exp_commonnoun_binder_live_report_v1,exp_unified_referent_gum_v1,exp_online_cue_cluster_gum_v1} + nltk-WordNet morphy (static offline lexical foundation)."
 reverify: ".venv/Scripts/python.exe verification/test_cn_conceptkey_binding.py   # 7/7; recomputes every headline from source on the full GUM modern TEST (n=2855)"
 ---
 
@@ -271,6 +271,33 @@ flat on the clustering consumer. GOLD-FREE inherited.
 - **`concept_lemma` as a shared organ.** morphy is used ad-hoc across 6+ organs; promoting one canonical `concept_lemma`
   helper would remove the divergent hand-rolled `head_lemma` regex from the coref path (and is a small consolidation win).
 
+## 9. COMPONENTS INTERACTED WITH + CONFIRMED BF STATUS (full-session audit)
+Legend: BF = computes the brain's equation; BF_SPIRIT = the operation is pinned, implementation a defensible model; NOT_BF =
+convenient ML stand-in. All verdicts confirmed on-disk/by-math this session. Full trace: `COREF_BRAIN_THEORY_AND_CHAIN_TRACE_2026-09-10.md`.
+
+| component | role touched | BF status (confirmed) |
+|---|---|---|
+| `typed_coref` | the RESOLUTION organ (content-addressable typed binding) | **BF_SPIRIT** — Lewis-Vasishth cue retrieval + Ariel + ACT-R + Nieuwland Nref hold; beats string-identity CI-sep at EVERY head-quality level |
+| `concept_lemma` (morphy) | the head-KEY fix | **BF** — ATL wordform→lemma-concept; replaces the NOT_BF regex |
+| `commonnoun_binder.head_lemma` | the retired key | **NOT_BF** — surface regex (empty-collapse + over-strip); RETIRE on the resolution path |
+| `salience_binder` (ACT-R) | antecedent salience | **BF** — Anderson-Schooler power law × Centering Cf, verbatim |
+| `typed_spokes` (`coref_type_license`) | type/is-a bridge | **BF_SPIRIT** op (ATL typed spokes); KNOWLEDGE incomplete (separate KB problem) |
+| `conceptual_meaning` | distributional bridge (+0.0042 CI-sep) | **BF_SPIRIT** — IDF-weighted gloss channel |
+| focus bridge (coarse-class) | discourse-identity lever (+0.0154 CI-sep) | **BF_SPIRIT** — Kintsch default-to-focus + Rosch coarse ontology + Nref non-writing |
+| Heim/Löbner uniqueness bridge | licenseless-definite bind (+0.0042 CI-sep) | **BF** — familiarity + pragmatic-definite uniqueness-in-focus |
+| `boundary_nphead` + `np_head_reduce` | raw-text span-head (−0.049→−0.015) | **BF_SPIRIT** — UD span-head + Right-Hand-Head-Rule; zero fitted params |
+| `pos_tagger` / `arc_parser` / `arc_labeler` | upstream parse | **NOT_BF** — frozen supervised hard-decode; coref SIDESTEPS via the boundary rule |
+| `crf_tagger` / `graded_parser` | graded posterior (confidence) | **BF** — forward-backward / Matrix-Tree marginals (the confidence lever, not head accuracy) |
+| `binding` (FHRR circular conv) + `bundling` | the VSA algebra | **BF** — Plate HRR; **math VERIFIED 5/5** (self-inverse 0.9999, norm-preserve, bundle-recover, JL 0.998, role-orthogonality) |
+| `grounded_similarity` (Lancaster/Brysbaert) | grounded content filler | **BF** grounding (perceptual norms) |
+| `distributional_meaning_channel` (PPMI-SVD) | distributional filler (fusion) | **BF** distributional |
+| **D=2048 FHRR situation-vector substrate (NEW, built+authenticated)** | the per-entity situation model | **BF, verified** — JL-projected fused-meaning filler + role-binding + object-file handle; delivers who-did-what at **1.000** (unbind-query) vs bag-of-words 0.500 |
+| `sem_event_segmenter` (SEM/Franklin 2020) | episodic index | **BF** (human-boundary-validated); WRONG GRAIN for same-head entity separation (event≠entity) |
+| `generalized_event_knowledge` / `predictive_world_model` | event-grain world knowledge | **BF** event-grain; the wrong grain for coref entity separation (located negative) |
+| `dg_pattern_separation` | token individuation homolog | **BF** (exists, unwired; the pattern-separation the handle realizes) |
+| `coherence_reader` (SDRT-lite) | coherence relations | organ exists, **default-off**; not the coref lever (mis-signed for full definites) |
+| `graded_coref_pick` / `graded_competition` | live pronoun pick | ACT-R argmax; the **ambiguity/Nref entropy is computed then DISCARDED** (a cheap wire) |
+
 ## KEY REALIZATIONS (the enabling moves)
 - **Re-verify the disk's own decomposition -- it was wrong.** The board note claimed "WordNet morphy recovers +0.0004", which
   read as "the head-key gap is unfixable annotation". Re-measuring morphy as a same-key floor first-hand showed +0.0105 --
@@ -310,18 +337,25 @@ irreducible redaction. I recommend the de-leaked floor as the honest bar (it is 
 de-leaked floor" instruction asks for).
 
 ## NEXT STEPS (priority-ordered; strategy owns any hdlab landing, Q111)
-1. **HIGH -- land the concept-key wire (section 6.1/6.2):** add `concept_lemma`, re-key `_resolve_commonnouns` +
-   its appos seed, sync the board copy. One-line KEY swap; additive; no-regress by construction + measured.
-2. **HIGH -- fix the board floor honesty (section 6.3):** add the de-leaked gold floor (0.5254) as the reference the
-   `common_noun` headline beats CI-sep; demote the raw 0.5412 to a documented transparency line (the +0.0158 redaction leak).
-3. **MEDIUM/HIGH -- promote the PROTOTYPED span-head selector (raw-text path):** the `boundary_nphead` rule
-   (`exp_cn_readerhead_endtoend_v1.py`, mode=boundary_nphead) recovers the parser head-selection wall from -0.049 to -0.015
-   CI-sep and makes the raw-text binding (0.5426) beat the gold-head de-leaked floor CI-sep. Landable as the coref
-   mention-head selector on un-annotated text (reuses `np_head_reduce`; zero fitted params). Inert on the current GUM board
-   (gold heads), so it does not affect the headline; it de-risks reading real text. Consider folding the boundary rule into
-   `np_head_reduce` (extends it from compounds to post-modification).
-4. **LOW/OPTIONAL -- fold `concept_lemma` into `online_entity_cluster`** when its instrument is next revisited (no-regress,
-   nil cluster-F1 value -- do it for consistency, not for a gain).
+1. **HIGH -- land the FULL backward-half wire (section 6, items 1-8):** `concept_lemma` re-key + conceptual bridge + coarse-class
+   FOCUS bridge + Heim/Loebner UNIQUENESS bridge. Cumulative binder **0.5482 (deployed) -> 0.5580 -> 0.5622 -> 0.5776 -> 0.5818**,
+   beating the honest de-leaked floor (0.5254) by **+0.0564 CI-sep**, info-free twin LOSING, no downstream regress (additive,
+   read-only). This is THE submission; all four sub-wires are BF and independently CI-sep or no-regress.
+2. **HIGH -- fix the board floor honesty:** add the de-leaked gold floor (0.5254) as the `common_noun` reference; demote the
+   leaky 0.5412 to a transparency line (+0.0158 redaction see-through).
+3. **MEDIUM -- promote the PROTOTYPED `boundary_nphead` span-head selector (raw-text path):** recovers the parser head wall
+   -0.049 -> -0.015 CI-sep; inert on gold-head GUM (no headline effect); de-risks reading un-annotated text; reuses `np_head_reduce`.
+4. **DIRECTION (the forward frontier, NOT a coref build) -- the GENERATIVE COMPREHENSION / WORLD-MODEL program on the VERIFIED
+   D=2048 FHRR substrate.** The coref-SEPARATION prize (+0.36 slice, ~+0.075 board) is REAL but content-limited (55% descriptively
+   identical) + comprehension-frontier-bound (deep referential inference, where even large LMs fail); ALL prototypable signals
+   (situational, descriptive, world-knowledge event-coherence) are null -- coref separation is CLOSED. BUT the substrate is
+   MATH-VERIFIED (5/5) and delivers who-did-what at 1.000 under the CORRECT readout (unbind-query; cosine was my error). Carry it
+   into the comprehension program read via **unbind-query + learned SEM-style transition dynamics (never cosine)**; first cell =
+   a role-sensitive comprehension task (who-did-what QA / learned transition next-event prediction) to convert the intrinsic
+   who-did-what capability into a measured task win. Scope as its OWN problem with a role-sensitive instrument.
+5. **CHEAP WIRE -- surface the discarded Nref/ambiguity flag:** `graded_coref_pick` computes entropy/margin then discards it;
+   wiring it to hedge/abstain on near-ties is a fidelity win + a board-visible instrument (a bounded, standalone improvement).
+6. **LOW/OPTIONAL -- fold `concept_lemma` into `online_entity_cluster`** (no-regress, nil cluster-F1 value; consistency only).
 
 ## SUBSTRATE INCORPORATION MANIFEST (owner 2026-09-09 -- distilled load-bearing knowledge to incorporate on DONE)
 - **INCORPORATE:** the `concept_lemma` (morphy, non-alpha-safe) head-key for the common-noun RESOLUTION consumer (section 6);
@@ -337,5 +371,25 @@ de-leaked floor" instruction asks for).
   wall for coref (~7% mis-heads, -0.049 CI-sep via chain-poisoning); the typed binding beats string-identity CI-sep at EVERY
   head-quality level (gold +0.0326, parse +0.0308, boundary +0.0277); coref needs a CONSISTENT head, not the exact gold head.
   Record in CROSS_SOLUTION_IMPROVEMENT_MAP as this solution's consumed input (mention head surface) + the prototyped fix.
+- **INCORPORATE (the focus + uniqueness bridges):** the coarse-class Kintsch FOCUS bridge (+0.0154 CI-sep) and the Heim/Loebner
+  UNIQUENESS bridge (+0.0042 CI-sep, `resolve_param(uniqueness_bridge=True, uniq_window=6)`); both BF, non-writing, no-regress.
+- **INCORPORATE (verified reusable substrate for the comprehension program):** the D=2048 FHRR situation-vector construction --
+  JL-projected fused grounded+distributional filler + Plate-HRR role-binding (`hdlab.binding`/`bundling`) + object-file random
+  handle -- MATH-VERIFIED 5/5 (self-inverse 0.9999 w/ unitary atoms; norm-preserve; bundle-recover; JL 0.998; role-orthogonality)
+  and delivers who-did-what at 1.000 via unbind-query. Default-off; the foundation for the entity-grain situation model.
+- **INCORPORATE-AS-DURABLE-METHOD (load-bearing lesson):** READ STRUCTURED VSA REPRESENTATIONS BY UNBIND-QUERY + LEARNED
+  TRANSITION/ATTRACTOR DYNAMICS, NEVER COSINE-OF-BUNDLES -- cosine cancels role structure (<bind(ra,f),bind(rb,f)>~<ra,rb><f,f>),
+  so an agent-then-patient entity's signal vanishes; several "role structure inert" nulls this session were cosine-readout
+  artifacts (WITHDRAWN). Record in BRAIN_FOUNDATIONAL_AUDIT.
+- **INCORPORATE-AS-DURABLE-NEGATIVE (the coref separation ceiling, earned):** the same-head-ambiguous separation prize (recency-
+  given-separation 0.78/0.88 vs 0.42 achieved, +0.36 slice CI-sep) is NOT capturable by any prototypable per-entity signal --
+  situational participation (AUC≈chance), descriptive identity (≈scramble; 55% descriptively IDENTICAL = irreducible), OR
+  world-knowledge event-coherence (worse than recency, ≈scramble). It is comprehension-frontier + a large irreducible floor
+  (AmbiCoref/Nref human parity). The SEM episodic index is GRAIN-MISMATCHED for entity separation (event≠entity). Do NOT re-open
+  coref separation without a genuine deep-comprehension/world-knowledge signal.
+- **INCORPORATE-AS-DURABLE-FINDING (the reframe):** reference resolution is a TWO-HALF machine -- forward generative PRIOR
+  (token-mint + situational address, predict next referent) x backward retrieval LIKELIHOOD (agreement/type/recency/form),
+  combined as a Bayesian posterior. We have the backward half; the forward/individuation half is the comprehension program.
 - **DO-NOT-INCORPORATE:** the crude `commonnoun_binder.head_lemma` regex on the resolution path (retire it there); the
-  `concept` loose-synonymy arm (refuted).
+  `concept` loose-synonymy arm (refuted); the SEM episodic address as a coref separation coordinate (grain-mismatched, null);
+  the event-transition world-model tied into coref antecedent selection (wrong grain, located negative).
