@@ -573,6 +573,9 @@ class ConceptSpace:
         # the NOT_BF supervised parser from the learned meaning channel. Composes with either tracking mode above;
         # BYTE-IDENTICAL when OFF (only the separable `_ctx_counts` store is touched, never `_sums`/the recall path).
         self.track_directional_context_counts: bool = False
+        # total directional/bag tokens accrued into `_ctx_counts` (the SEQ field's growth signal; the fused
+        # ranker re-consolidates its PPMI field once this has grown by SEQ_CONSOLIDATION_GROWTH).
+        self._ctx_total: int = 0
 
     def observe(self, lemma: str, ctx_vec: np.ndarray) -> None:
         if lemma not in self._sums:
@@ -597,6 +600,7 @@ class ConceptSpace:
             c = Counter()
             self._ctx_counts[lemma] = c
         c.update(ctx_lemmas)
+        self._ctx_total += len(ctx_lemmas)
 
     def context_counts(self, lemma: str) -> "Counter[str]":
         """The separable per-lemma context-word counts (ROUTE B). Empty Counter if untracked/unseen."""
@@ -1010,6 +1014,353 @@ def _eligible_mask(space: ConceptSpace, cache: Dict[str, object]) -> np.ndarray:
     return mask
 
 
+# ======================================================================================================
+# THE FUSED SENSE-ASSIGNMENT READ -- landed 2026-09-11 (strategy) from owner-DONE pri-5
+# `measure_end_to_end_whether_the_meaning_fusion_lifts_live_grounding_coverage` (SOLVED "hdlab proposal"
+# + W19/W20 addendum + W37-W41 referent manifest; FULL_CHAIN_BF_AUDIT rungs 2-12).
+#
+# WHAT IT REPLACES. `canonicalize` ranks a newly-grounded word's UNORDERED bag-of-context bundle (`_sums`)
+# against the anchors' bundles by cosine and accepts on a FIXED cosine `SENSE_MATCH_THRESH=0.45`. Measured
+# on the loop's own coverage-QUALITY (correct sense-links, SimLex/SimVerb-judged, anchor-pool decision):
+# incumbent hit@1 ~ 0; the pooling is the loss (relation confusion), the constant is representation-broken
+# (admits 41% in one geometry, 100% in another). The COUNT metric `n_grounded` cannot see any of this.
+#
+# WHAT IT COMPUTES (every rung the brain's operation; parameters SWEPT, never adopted):
+#   channel Gd  grounded-DISTINCTIVE ATL vector (whitened Lancaster/Brysbaert; Patterson-Nestor-Rogers 2007)
+#   channel SEQ direction+distance-typed co-occurrence (theta-phase sequence window, Lisman-Idiart 1995)
+#               accrued ONLINE by reading (Hebb) -> rectified PMI (prediction error; Levy-Goldberg 2014)
+#               -> L2 divisive normalisation (Carandini-Heeger 2012). Parser-free; GROWS by reading.
+#   channel V   visual referent centroid (hdlab.sensorimotor_spoke referent arm; FOUNDATION asset at ingest)
+#   readout     cosine population-vector readout per channel (Georgopoulos 1986) -> z over the candidate
+#               FIELD (divisive normalisation; tau = field sd, parameter-free) -> log-softmax (Boltzmann)
+#   fusion      sum of log-posteriors weighted by EARNED population gain, saturating log1p (Weber-Fechner /
+#               Poisson Fisher information; Ma-Beck-Latham-Pouget 2006, Ernst-Banks 2002) -- separate pools,
+#               precision where earned; a channel with no evidence for the query abstains (no vote).
+#   accept      SDT familiarity criterion on the scale-free standout z_top = (s1-mean)/sd over the field
+#               (Yonelinas 2002; Bruce-Young): accept iff z_top >= the (1-FA) quantile of the INFO-FREE null
+#               (iid field) -- representation-invariant, self-calibrating, no hand-set cosine.
+#   fallback    when NO channel has evidence for the query (no norms, no referent, too few directional
+#               tokens) the decision falls back to the incumbent `canonicalize` -- stated, never silent.
+# MEASURED (solver, reverified first-hand 38/38): grounded (+) grown-SEQ beats the incumbent on the live
+# coverage-quality frontier CI-sep; the SEQ increment over grounded rises with reading (+0.16 @250k ->
+# +0.22 @500k -> +0.26 @1M modern lines, twin losing, monotone); the referent adds +0.312 R2 over the loop's
+# live {D,G} on concrete nouns (W41). The recall path (`_sums`, `bundle`, `anchor_matrix`, `canonicalize`
+# itself) is UNTOUCHED; this is what the RANKING reads at the grounding gate.
+# ======================================================================================================
+FUSED_RANKING_DEFAULT = True     # the LIVE default (owner policy 2026-09-03: no default-off; measured net-positive)
+SDT_FALSE_ALARM = 0.05           # SWEPT parameter: target false-alarm rate on the info-free null (precision knob)
+SEQ_CONSOLIDATION_GROWTH = 0.10  # SWEPT: re-consolidate the SEQ field once the store grew >= this fraction
+SEQ_MIN_QUERY_TOKENS = 50        # SWEPT: below this many directional tokens the SEQ channel abstains (repeated
+                                 # exposure -- Hebbian accrual from a handful of tokens is noise, not evidence)
+FUSED_MIN_COVERED = 5            # a channel votes only if >= this many eligible candidates carry it
+_SDT_NULL_DRAWS = 4000           # Monte-Carlo size of the iid null per field size (seeded, cached)
+
+
+class FusedSenseRanker:
+    """Grounded-distinctive (+) grown-SEQ (+) visual-referent convergent-cue ranking over the anchor field,
+    with an SDT accept criterion. One instance per ReadingLoopState; reads `space` (never writes it)."""
+
+    def __init__(self, space: "ConceptSpace", *, false_alarm: float = SDT_FALSE_ALARM,
+                 growth: float = SEQ_CONSOLIDATION_GROWTH, seq_min_tokens: int = SEQ_MIN_QUERY_TOKENS,
+                 use_grounded: bool = True, use_seq: bool = True, use_referent: bool = True) -> None:
+        self.space = space
+        self.false_alarm = float(false_alarm)
+        self.growth = float(growth)
+        self.seq_min_tokens = int(seq_min_tokens)
+        self.use_grounded, self.use_seq, self.use_referent = bool(use_grounded), bool(use_seq), bool(use_referent)
+        self._seq_cache: Optional[dict] = None
+        self._chan_mat_cache: Dict[str, Tuple[int, np.ndarray, np.ndarray]] = {}   # name -> (version, M, gain)
+        self._word_cache: Dict[str, Dict[str, object]] = {"gd": {}, "gd_gain": {}, "ref": {}}
+        self._crit_cache: Dict[int, float] = {}
+        self._elig_cache: Dict[str, object] = {}
+        self.stats: "Counter[str]" = Counter()
+
+    # ---- per-word channel lookups (memoised; each is a FOUNDATION read, never a model call) ----------
+    def _gd(self, word: str) -> Optional[np.ndarray]:
+        c = self._word_cache["gd"]
+        if word in c:
+            return c[word]                                              # type: ignore[return-value]
+        v = None
+        if self.use_grounded:
+            try:
+                from hdlab import grounded_similarity as GS
+                g = GS.distinctive_grounded_vector(word)
+                if g is None:
+                    g = GS.distinctive_grounded_vector(normalize_lemma(word))
+                if g is not None:
+                    arr = np.asarray(g.detach().cpu().numpy() if hasattr(g, "detach") else g, dtype=np.float64)
+                    n = float(np.linalg.norm(arr))
+                    v = arr / n if n > 1e-12 else None
+            except Exception:
+                v = None                                                # asset absent -> channel abstains
+        c[word] = v
+        return v
+
+    def _gd_gain(self, word: str) -> Optional[float]:
+        """Grounded precision = 1 / mean Lancaster rater SD (rater agreement); None when unknown."""
+        c = self._word_cache["gd_gain"]
+        if word in c:
+            return c[word]                                              # type: ignore[return-value]
+        g = None
+        try:
+            from hdlab import grounded_similarity as GS
+            g = GS.grounded_reliability(word)
+            if g is None:
+                g = GS.grounded_reliability(normalize_lemma(word))
+        except Exception:
+            g = None
+        c[word] = g
+        return g
+
+    def _ref(self, word: str) -> Optional[Tuple[np.ndarray, int]]:
+        c = self._word_cache["ref"]
+        if word in c:
+            return c[word]                                              # type: ignore[return-value]
+        r = None
+        if self.use_referent:
+            try:
+                from hdlab import sensorimotor_spoke as SS
+                v = SS.referent_vector(word)
+                if v is not None:
+                    r = (np.asarray(v, dtype=np.float64), SS.referent_exemplars(word))
+            except Exception:
+                r = None
+        c[word] = r
+        return r
+
+    # ---- channel matrices aligned to the anchor field (NaN rows = uncovered) ---------------------------
+    def _channel_matrix(self, name: str, anchors: List[str], dim_probe: Callable[[str], Optional[np.ndarray]],
+                        gain_probe: Callable[[str], Optional[float]]) -> Tuple[np.ndarray, np.ndarray]:
+        hit = self._chan_mat_cache.get(name)
+        if hit is not None and hit[0] == self.space._version:
+            return hit[1], hit[2]
+        rows, gains = [], []
+        dim = None
+        for a in anchors:
+            v = dim_probe(a)
+            if v is not None:
+                dim = v.shape[0]
+                break
+        if dim is None:
+            M = np.full((len(anchors), 1), np.nan); G = np.full(len(anchors), np.nan)
+        else:
+            M = np.full((len(anchors), dim), np.nan); G = np.full(len(anchors), np.nan)
+            for i, a in enumerate(anchors):
+                v = dim_probe(a)
+                if v is not None:
+                    M[i] = v
+                    g = gain_probe(a)
+                    G[i] = np.nan if g is None else float(g)
+        self._chan_mat_cache[name] = (self.space._version, M, G)
+        return M, G
+
+    # ---- the consolidated SEQ field (slow neocortical consolidation: rebuilt when the store has grown) ----
+    def _seq_field(self, anchors: List[str]) -> Optional[dict]:
+        counts = self.space.all_context_counts()
+        if not counts:
+            return None
+        total_now = float(getattr(self.space, "_ctx_total", 0))
+        c = self._seq_cache
+        if (c is not None and c["n_anchors"] == len(anchors) and c["anchors_version"] == self.space._version
+                and (c["total"] <= 0 or (total_now - c["total"]) / c["total"] < self.growth)):
+            return c
+        import scipy.sparse as _sp
+        feat_index: Dict[str, int] = {}
+        col_sum: Dict[str, float] = {}
+        total = 0.0
+        for ctr in counts.values():
+            for f, n in ctr.items():
+                col_sum[f] = col_sum.get(f, 0.0) + float(n)
+                total += float(n)
+        if total <= 0:
+            return None
+        for f in col_sum:
+            feat_index[f] = len(feat_index)
+        F = len(feat_index)
+        data, ri, ci = [], [], []
+        tokens = np.zeros(len(anchors), dtype=np.float64)
+        for i, a in enumerate(anchors):
+            ctr = counts.get(a)
+            if not ctr:
+                continue
+            rs = float(sum(ctr.values()))
+            tokens[i] = rs
+            for f, n in ctr.items():
+                pmi = math.log((float(n) * total) / (rs * col_sum[f] + 1e-12) + 1e-12)
+                if pmi > 0.0:
+                    ri.append(i); ci.append(feat_index[f]); data.append(pmi)
+        P = _sp.csr_matrix((np.asarray(data, dtype=np.float64), (ri, ci)), shape=(len(anchors), F))
+        nrm = np.sqrt(np.asarray(P.multiply(P).sum(axis=1)).ravel())
+        inv = _sp.diags(np.where(nrm > 1e-9, 1.0 / np.maximum(nrm, 1e-12), 0.0))
+        P = (inv @ P).tocsr()
+        covered = (nrm > 1e-9) & (tokens >= self.seq_min_tokens)
+        self._seq_cache = {"n_anchors": len(anchors), "anchors_version": self.space._version, "total": total_now,
+                           "feat_index": feat_index, "col_sum": col_sum, "N": total, "P": P,
+                           "tokens": tokens, "covered": covered}
+        self.stats["seq_consolidations"] += 1
+        return self._seq_cache
+
+    def _seq_query(self, word: str, fld: dict) -> Optional[Tuple[np.ndarray, float]]:
+        ctr = self.space.context_counts(word)
+        if not ctr:
+            return None
+        rs = float(sum(ctr.values()))
+        if rs < self.seq_min_tokens:
+            return None
+        idx, vals = [], []
+        for f, n in ctr.items():
+            j = fld["feat_index"].get(f)
+            if j is None:
+                continue
+            pmi = math.log((float(n) * fld["N"]) / (rs * fld["col_sum"][f] + 1e-12) + 1e-12)
+            if pmi > 0.0:
+                idx.append(j); vals.append(pmi)
+        if not idx:
+            return None
+        import scipy.sparse as _sp
+        v = np.asarray(vals, dtype=np.float64)
+        v = v / (float(np.linalg.norm(v)) + 1e-12)
+        q = _sp.csr_matrix((v, (np.zeros(len(idx), dtype=int), np.asarray(idx))), shape=(1, len(fld["feat_index"])))
+        return q, rs
+
+    # ---- the SDT criterion: (1-FA) quantile of z_top on an INFO-FREE (iid) field of size N -------------
+    def criterion(self, n_cand: int) -> float:
+        n = int(n_cand)
+        if n < 3:
+            return float("inf")
+        key = n if n <= 60 else int(round(n / 10.0)) * 10
+        hit = self._crit_cache.get(key)
+        if hit is not None:
+            return hit
+        rng = np.random.default_rng(20260911 + key)
+        draws = rng.standard_normal((_SDT_NULL_DRAWS, key))
+        z_top = (draws.max(axis=1) - draws.mean(axis=1)) / (draws.std(axis=1) + 1e-12)
+        crit = float(np.quantile(z_top, 1.0 - self.false_alarm))
+        self._crit_cache[key] = crit
+        return crit
+
+    # ---- the decision ----------------------------------------------------------------------------------
+    def rank(self, lemma: str, *, eligible: Optional[Callable[[str], bool]] = None,
+             query_word: Optional[str] = None, return_order: bool = False) -> Optional[dict]:
+        """Convergent-cue ranking of `lemma` against the eligible anchor field. Returns None when no channel
+        carries evidence for the query (the caller falls back to the incumbent read), else a dict with the
+        winning anchor, accept verdict (SDT), z_top, criterion and per-channel weights/coverage.
+        `query_word` (instrument use only): take the channel EVIDENCE from another word while excluding
+        `lemma` from the field -- the info-free TWIN control. `return_order`: include the full ranked
+        candidate list (for the coverage-quality instrument's rank-of-gold)."""
+        qw = lemma if query_word is None else query_word
+        anchors, _ = self.space.anchor_matrix()
+        if not anchors:
+            return None
+        keep = np.ones(len(anchors), dtype=bool)
+        if eligible is not None:
+            mask = self._eligible_cached(anchors, eligible)
+            keep &= mask
+        i_self = int(np.searchsorted(anchors, lemma))
+        if i_self < len(anchors) and anchors[i_self] == lemma:
+            keep[i_self] = False
+        cand = np.flatnonzero(keep)
+        if cand.size < 2:
+            return None
+        chans: Dict[str, Tuple[np.ndarray, np.ndarray, float]] = {}   # name -> (scores over cand, covered, q_gain)
+        # Gd
+        if self.use_grounded:
+            qg = self._gd(qw)
+            if qg is not None:
+                M, G = self._channel_matrix("gd", anchors, self._gd, self._gd_gain)
+                if M.shape[1] == qg.shape[0]:
+                    s = M[cand] @ qg
+                    cov = ~np.isnan(s)
+                    if int(cov.sum()) >= FUSED_MIN_COVERED:
+                        gq = self._gd_gain(qw)
+                        pop = G[cand][cov]; pop = pop[~np.isnan(pop)]
+                        ref = float(np.median(pop)) if pop.size else 1.0
+                        rel = (float(gq) / (float(np.mean(pop)) + 1e-12)) if (gq is not None and pop.size) else \
+                              (ref / (float(np.mean(pop)) + 1e-12) if pop.size else 1.0)
+                        chans["gd"] = (s, cov, rel)
+        # V
+        if self.use_referent:
+            qr = self._ref(qw)
+            if qr is not None:
+                M, G = self._channel_matrix("ref", anchors, lambda w: (self._ref(w) or (None, 0))[0],
+                                            lambda w: float(math.log1p((self._ref(w) or (None, 0))[1])))
+                if M.shape[1] == qr[0].shape[0]:
+                    s = M[cand] @ qr[0]
+                    cov = ~np.isnan(s)
+                    if int(cov.sum()) >= FUSED_MIN_COVERED:
+                        pop = G[cand][cov]
+                        rel = float(math.log1p(qr[1])) / (float(np.mean(pop)) + 1e-12)
+                        chans["ref"] = (s, cov, rel)
+        # SEQ
+        if self.use_seq:
+            fld = self._seq_field(anchors)
+            if fld is not None:
+                qs = self._seq_query(qw, fld)
+                if qs is not None:
+                    s = np.asarray((fld["P"][cand] @ qs[0].T).todense()).ravel()
+                    cov = fld["covered"][cand]
+                    if int(cov.sum()) >= FUSED_MIN_COVERED:
+                        s = np.where(cov, s, np.nan)
+                        pop = np.log1p(fld["tokens"][cand][cov])
+                        rel = float(math.log1p(qs[1])) / (float(np.mean(pop)) + 1e-12)
+                        chans["seq"] = (s, cov, rel)
+        if not chans:
+            self.stats["fallback_no_channel"] += 1
+            return None
+        # per-channel: z over the covered field -> log-softmax; uncovered candidates get the neutral (mean) vote
+        n_active = len(chans)
+        gsum = sum(max(rel, 1e-9) for (_s, _c, rel) in chans.values())
+        comb = np.zeros(cand.size, dtype=np.float64)
+        weights: Dict[str, float] = {}
+        coverage: Dict[str, int] = {}
+        for name, (s, cov, rel) in chans.items():
+            sc = s[cov]
+            sd = float(np.std(sc))
+            z = (sc - float(np.mean(sc))) / (sd if sd > 1e-9 else 1.0)
+            lp = z - (float(np.max(z)) + math.log(float(np.sum(np.exp(z - np.max(z))))))
+            full = np.full(cand.size, float(np.mean(lp)))
+            full[cov] = lp
+            w = max(rel, 1e-9) / gsum * n_active
+            weights[name] = round(w, 4); coverage[name] = int(cov.sum())
+            comb += w * full
+        order = np.argsort(-comb, kind="mergesort")
+        best = int(cand[order[0]])
+        sd_c = float(np.std(comb))
+        z_top = float((comb[order[0]] - float(np.mean(comb))) / sd_c) if sd_c > 1e-12 else 0.0
+        crit = self.criterion(cand.size)
+        accept = bool(z_top >= crit)
+        self.stats["decisions"] += 1
+        self.stats["accepted" if accept else "refused_by_criterion"] += 1
+        out = {"anchor": anchors[best], "accept": accept, "z_top": round(z_top, 4), "criterion": round(crit, 4),
+               "n_cand": int(cand.size), "weights": weights, "coverage": coverage,
+               "runner_up": anchors[int(cand[order[1]])] if cand.size > 1 else None}
+        if return_order:
+            out["order"] = [anchors[int(cand[k])] for k in order]
+            out["scores"] = comb[order]
+        return out
+
+    def decide(self, lemma: str, raw_sum: Optional[np.ndarray] = None, *,
+               eligible: Optional[Callable[[str], bool]] = None) -> Optional[Tuple[str, float, dict]]:
+        """(canonical_obj, legacy_cosine_of_the_winner, info) with the SAME no-match self-return contract as
+        `canonicalize`; None when no channel has evidence (caller falls back to the incumbent read)."""
+        r = self.rank(lemma, eligible=eligible)
+        if r is None:
+            return None
+        cos = 0.0
+        if raw_sum is not None:
+            b = self.space.bundle(r["anchor"])
+            if b is not None:
+                cos = _cos(np.asarray(raw_sum, dtype=np.float64), np.asarray(b, dtype=np.float64))
+        return (r["anchor"] if r["accept"] else lemma, float(cos), r)
+
+    def _eligible_cached(self, anchors: List[str], eligible: Callable[[str], bool]) -> np.ndarray:
+        if self._elig_cache.get("n") == len(anchors) and self._elig_cache.get("fn") is eligible:
+            return self._elig_cache["mask"]                             # type: ignore[return-value]
+        mask = np.array([bool(eligible(a)) for a in anchors], dtype=bool)
+        self._elig_cache = {"n": len(anchors), "fn": eligible, "mask": mask}
+        return mask
+
+
 def make_pbv_fns(state: "ReadingLoopState", *, informative_min: float = PBV_INFORMATIVE_MIN,
                  readout: Optional[ReadoutConfig] = None, freeze_episode: bool = False,
                  freeze_epoch_fn: Optional[Callable[[], object]] = None,
@@ -1279,6 +1630,20 @@ class ReadingLoopState:
     provenance: List[dict] = field(default_factory=list)   # one row per GROUNDED_MEANING fact written
     refusals: List[dict] = field(default_factory=list)     # one row per refused non-grounding
     gate_decisions: Dict[str, dict] = field(default_factory=dict)  # lemma -> last gate verdict
+    # ---- THE FUSED SENSE-ASSIGNMENT READ (2026-09-11, owner-DONE pri-5; see FusedSenseRanker) ----------
+    # LIVE DEFAULT ON: the grounding gate ranks over grounded-distinctive (+) grown-SEQ (+) referent with an
+    # SDT accept criterion, and the space accrues DIRECTION-typed counts for EVERY content lemma read (the
+    # parser-free identity channel that grows by reading). `fused_ranking=False` = the incumbent
+    # bag-cosine read byte-for-byte (the store's ROUTE-B witnesses test the primitive that way).
+    fused_ranking: bool = FUSED_RANKING_DEFAULT
+    ranker: Optional["FusedSenseRanker"] = None
+
+    def __post_init__(self) -> None:
+        if self.fused_ranking:
+            self.space.track_all_content_lemmas = True
+            self.space.track_directional_context_counts = True
+            if self.ranker is None:
+                self.ranker = FusedSenseRanker(self.space)
 
     def sentence_id(self, sentence: str) -> int:
         """Intern a sentence into the pool and return its STABLE id. The provenance ledger stores
@@ -1511,14 +1876,27 @@ def _make_grounding_gate(state: ReadingLoopState, pass_idx: int, source_tag: str
         # Cheap by construction: the anchor list is already sorted for the scan, and this adds one
         # hash per decision, not per anchor comparison.
         _field = _anchor_field_fingerprint(state.space)
-        canon_obj, best_cos = canonicalize(lemma, raw_sum, state.space, thresh=thresh,
-                                           eligible=is_eligible_meaning)
+        # THE FUSED READ (2026-09-11, owner-DONE pri-5): grounded-distinctive (+) grown-SEQ (+) referent,
+        # SDT accept criterion. Falls back to the incumbent bag-cosine read ONLY when no channel carries
+        # evidence for this lemma -- recorded as `fused=None` in the decision, never silent.
+        fused_info = None
+        if state.fused_ranking and state.ranker is not None:
+            fused = state.ranker.decide(lemma, raw_sum, eligible=is_eligible_meaning)
+            if fused is not None:
+                canon_obj, best_cos, fused_info = fused
+            else:
+                canon_obj, best_cos = canonicalize(lemma, raw_sum, state.space, thresh=thresh,
+                                                   eligible=is_eligible_meaning)
+        else:
+            canon_obj, best_cos = canonicalize(lemma, raw_sum, state.space, thresh=thresh,
+                                               eligible=is_eligible_meaning)
         if canon_obj == lemma:
             state.refusals.append({"lemma": lemma, "reason": REFUSAL_TAUTOLOGY,
                                    "pass_idx": pass_idx, "segment": source_tag,
                                    "n_exposures": len(item.traces),
                                    "best_cos": round(float(best_cos), 4), "candidate_object": None,
-                                   "n_anchors": _field[0], "anchor_field_sha1": _field[1]})
+                                   "n_anchors": _field[0], "anchor_field_sha1": _field[1],
+                                   "fused": fused_info})
             return False
         if is_closed_class(canon_obj):
             # Defensive: canonicalize already skipped ineligible anchors, so reaching here means
@@ -1532,7 +1910,8 @@ def _make_grounding_gate(state: ReadingLoopState, pass_idx: int, source_tag: str
                                        # grounding decision cannot be re-derived, because the
                                        # field it argmaxed over no longer exists.
                                        "n_anchors": _field[0],
-                                       "anchor_field_sha1": _field[1]}
+                                       "anchor_field_sha1": _field[1],
+                                       "fused": fused_info}
         return True
 
     return gate

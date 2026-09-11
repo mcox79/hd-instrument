@@ -122,6 +122,45 @@ def _load_lancaster() -> Dict[str, List[float]]:
     return out
 
 
+_SD_COLS: List[str] = [c.replace(".mean", ".SD") for c in SENSORIMOTOR_COLS]
+_reliability_cache: Optional[Dict[str, float]] = None
+
+
+def _load_lancaster_sd() -> Dict[str, float]:
+    """word -> mean rater SD across the 11 sensorimotor modalities (the per-word RELIABILITY the norms
+    carry and the .mean-only table discards). Lower SD = higher rater agreement = higher precision."""
+    global _reliability_cache
+    if _reliability_cache is not None:
+        return _reliability_cache
+    out: Dict[str, float] = {}
+    try:
+        with open(_LANCASTER_PATH, encoding="utf-8-sig", newline="") as f:
+            for row in csv.DictReader(f):
+                w = (row.get("Word") or "").strip()
+                if not _is_single_token(w):
+                    continue
+                try:
+                    sds = [float(row[c]) for c in _SD_COLS]
+                except (ValueError, KeyError, TypeError):
+                    continue
+                out[w.lower()] = float(sum(sds) / len(sds))
+    except OSError:
+        out = {}
+    _reliability_cache = out
+    return out
+
+
+def grounded_reliability(word: str) -> Optional[float]:
+    """Per-word grounded PRECISION = 1 / mean Lancaster rater SD (2026-09-11, pri-5 landing: the earned-
+    gain weight of the grounded channel in the fused sense-assignment read; Ma-Pouget precision = 1/var).
+    None when the word has no norms."""
+    w = (word or "").strip().lower()
+    sd = _load_lancaster_sd().get(w)
+    if sd is None:
+        return None
+    return 1.0 / (sd + 1e-6)
+
+
 def _load_brysbaert() -> Dict[str, float]:
     out: Dict[str, float] = {}
     with open(_BRYSBAERT_PATH, encoding="utf-8-sig", newline="") as f:

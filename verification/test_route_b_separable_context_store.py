@@ -77,7 +77,7 @@ def test_broad_flag_enables_tracking_without_track_context_counts():
 def _reading_state(seed):
     st = HDFactStore(n_dim=2048, seed=seed,
                      relation_cardinality={KNOWN_RELATION: "FUNCTIONAL", MEANING_RELATION: "FUNCTIONAL"})
-    state = ReadingLoopState(store=st)
+    state = ReadingLoopState(store=st, fused_ranking=False)   # test the ROUTE-B store PRIMITIVE in isolation (live default is fused ON)
     seed_known_words(state, ["engine", "harvest"], f"seed_broad_{seed}")   # only 2 of the content words
     return state
 

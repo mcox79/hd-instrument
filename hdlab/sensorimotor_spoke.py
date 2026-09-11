@@ -264,8 +264,118 @@ def _selftest_shuffled_norms_destroy_the_ordering() -> dict:
     return {"real_hits_of_5": real, "shuffled_hits_of_5": shuf_scores}
 
 
+# ======================================================================================================
+# VISUAL REFERENT ARM (landed 2026-09-11 from owner-DONE pri-5 `measure_end_to_end_whether_the_meaning_
+# fusion_lifts_live_grounding_coverage`, W37-W41). The SAME organ claim as above -- modality-specific
+# cortex feeds the hub; concepts are not built from co-occurrence alone -- realised with a REAL non-text
+# referent: per-concept DINOv2 centroids over the THINGS object photos (~14 exemplars/concept), computed
+# ONCE at ingest and frozen (data/things_referents/referent_vectors_multi.npz, gitignored asset).
+#   LABEL (strategy first-hand, stricter than the solver's): the transducer (a self-supervised deep net)
+#   is NOT the brain's equation; it is admissible ONLY as a static offline FOUNDATION asset (owner
+#   2026-08-16), never a runtime model -- nothing here calls a vision model at inference. Everything
+#   downstream of the vectors IS pinned math: multi-exemplar CENTROID = prototype abstraction (Posner-
+#   Keele 1968; Rosch), cosine = population-vector readout (Georgopoulos 1986), and the consumer fuses
+#   it as a separate convergent-cue pool (Ma-Beck-Latham-Pouget 2006; Ernst-Banks 2002).
+#   MEASURED (W41, on the loop's OWN live reps, MEN graded RSA over the loop-reachable concrete nouns,
+#   n=125): the referent is the STRONGEST single live channel (rho 0.698 vs grounded 0.53, incumbent
+#   distributional -0.015) and adds +0.312 R2 over live {D,G} CI [0.18,0.44], shuffled twin +0.005.
+#   HONEST BOUNDARY: concrete depictable objects only; no lift expected on the coverage COUNT or the
+#   strict-synonymy frontier (data-blocked, measured). Homonym labels (bat1/bat2) are ABSTAINED from
+#   (the asset does not say which sense the loop's lemma is); multi-word labels are unreachable by a
+#   single-token lemma and are skipped.
+# ======================================================================================================
+_REFERENT_ASSET = os.path.join(_REPO, "data", "things_referents", "referent_vectors_multi.npz")
+_referent_table: Optional[Dict[str, Tuple[np.ndarray, int]]] = None
+_referent_cache: Dict[str, Optional[Tuple[np.ndarray, int]]] = {}
+
+
+def _load_referent_table() -> Dict[str, Tuple[np.ndarray, int]]:
+    """word -> (L2-normalised DINOv2 multi-exemplar centroid, n_exemplars). Built once from the frozen
+    asset; {} when the asset is absent (graceful: every referent query then abstains with None)."""
+    global _referent_table
+    if _referent_table is not None:
+        return _referent_table
+    table: Dict[str, Tuple[np.ndarray, int]] = {}
+    if os.path.isfile(_REFERENT_ASSET):
+        z = np.load(_REFERENT_ASSET, allow_pickle=True)
+        labels = [str(x) for x in z["labels"]]
+        vecs = np.asarray(z["dinov2"], dtype=np.float64)
+        n_ex = np.asarray(z["n_exemplars"], dtype=np.int64) if "n_exemplars" in z.files \
+            else np.ones(len(labels), dtype=np.int64)
+        base_of: Dict[str, List[int]] = {}
+        for i, lab in enumerate(labels):
+            if "_" in lab or " " in lab:
+                continue                                   # multi-word concept: unreachable by a lemma
+            base = lab.rstrip("0123456789")
+            base_of.setdefault(base, []).append(i)
+        for base, idxs in base_of.items():
+            if len(idxs) != 1:
+                continue                                   # homonym family (bat1/bat2): abstain
+            i = idxs[0]
+            v = vecs[i]
+            n = float(np.linalg.norm(v))
+            if n < 1e-9:
+                continue
+            table[base] = (v / n, int(n_ex[i]))
+    _referent_table = table
+    return table
+
+
+def referent_vector(word: str) -> Optional[np.ndarray]:
+    """L2-normalised visual referent (DINOv2 multi-exemplar centroid) for a single-token concrete noun,
+    or None (no referent data / homonym family / multi-word). FOUNDATION asset read; no model call."""
+    w = (word or "").strip().lower()
+    if not w:
+        return None
+    if w in _referent_cache:
+        hit = _referent_cache[w]
+        return None if hit is None else hit[0]
+    hit = _load_referent_table().get(w)
+    _referent_cache[w] = hit
+    return None if hit is None else hit[0]
+
+
+def referent_exemplars(word: str) -> int:
+    """How many photos the referent centroid was abstracted from (the evidence VOLUME; W39 showed volume,
+    not dispersion, is the lever) -- 0 when the word has no referent."""
+    w = (word or "").strip().lower()
+    if w not in _referent_cache:
+        referent_vector(w)
+    hit = _referent_cache.get(w)
+    return 0 if hit is None else int(hit[1])
+
+
+def has_referent(word: str) -> bool:
+    return referent_vector(word) is not None
+
+
+def referent_coverage(words: Iterable[str]) -> dict:
+    ws = list(words)
+    n = sum(1 for w in ws if has_referent(w))
+    return {"n_words": len(ws), "n_with_referent": n, "n_table": len(_load_referent_table()),
+            "asset_present": os.path.isfile(_REFERENT_ASSET)}
+
+
+def _selftest_referent_arm() -> dict:
+    """Asset-present: a depictable object has a unit referent and >=1 exemplar; homonym families abstain;
+    an abstract word has none. Asset-absent: every query abstains with None (graceful)."""
+    table = _load_referent_table()
+    if not table:
+        assert referent_vector("dog") is None and referent_exemplars("dog") == 0
+        return {"asset_present": False, "note": "asset absent -> graceful abstention verified"}
+    got = [w for w in ("dog", "hammer", "apple", "chair") if has_referent(w)]
+    assert got, "at least one common depictable object must have a referent when the asset is present"
+    v = referent_vector(got[0])
+    assert abs(float(np.linalg.norm(v)) - 1.0) < 1e-6 and referent_exemplars(got[0]) >= 1
+    assert referent_vector("bat") is None, "homonym family bat1/bat2 must abstain"
+    assert referent_vector("justice") is None, "an abstract word has no visual referent"
+    return {"asset_present": True, "n_table": len(table), "example": got[0],
+            "n_exemplars": referent_exemplars(got[0])}
+
+
 def run_selftests() -> dict:
     tests = [("loads_and_covers", _selftest_loads_and_covers),
+             ("referent_arm", _selftest_referent_arm),
              ("euclid_separates_synonym_from_sibling",
               _selftest_euclid_separates_synonym_from_sibling),
              ("shuffled_norms_destroy_the_ordering",

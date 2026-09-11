@@ -2352,6 +2352,44 @@ def board_predictive_causal_necessity_dimension(held_lines=6000, seed=17):
         return _degraded("predictive_causal_necessity", e, informational=True), {"error": "%s: %s" % (type(e).__name__, e)}
 
 
+def board_grounding_coverage_quality_dimension(smoke=False):
+    """pri-5 (owner-DONE 2026-09-11): the reading-grounding loop's sense-assignment QUALITY -- the landed fused read
+    (grounded-distinctive + grown-SEQ + referent, SDT criterion) vs the incumbent bag-cosine, on the loop's own live
+    decision (real ingest; SimLex/SimVerb high-sim anchor-pool queries). Delegates to the instrument module."""
+    try:
+        from experiments.exp_board_grounding_coverage_quality_v1 import board_grounding_coverage_quality_dimension as _d
+        return _d(smoke=smoke)
+    except Exception as e:
+        return _degraded("grounding_coverage_quality", e, informational=True), {"error": "%s: %s" % (type(e).__name__, e)}
+
+
+def board_scws_graded_dimension(smoke=False):
+    """context-gated sense (owner-DONE 2026-09-11, drop-in 2): the GRADED settled context-modulated meaning vector
+    (the live wire's posterior-weighted sense signatures) vs the CONTEXT-FREE vector on SCWS human graded contextual
+    similarity (Huang 2012; noun pairs, POLYSEMOUS slice). model/floor/twin = Spearman rho (a correlation, not an
+    accuracy -- schema-matched, declared). Twin = shuffled context (info-free)."""
+    try:
+        import experiments.exp_context_modulated_scws_v1 as SCWS
+        r = SCWS.run(smoke=smoke)["result"]
+        rho = r["rho_polysemous_slice"]; p1 = r["P1_graded_minus_ctxfree_POLY"]; pt = r["P1_graded_minus_twin_POLY"]
+        row = {"n": int(r["n_polysemous"]), "model_acc": rho["GRADED_settled"],
+               "overlap_floor": rho["CONTEXT_FREE"],
+               "floor_accs": {"context_free_vector": rho["CONTEXT_FREE"], "discrete_committed_wup": rho["DISCRETE_committed_wup"]},
+               "strongest_floor_name": "context_free_vector", "strongest_floor": rho["CONTEXT_FREE"],
+               "twin_acc": rho["TWIN_shuffled"],
+               "model_minus_strongest": [p1["delta"], p1["lo"], p1["hi"]],
+               "model_minus_twin": [pt["delta"], pt["lo"], pt["hi"]],
+               "ci_sep_over_strongest": bool(p1["sep"]), "ci_sep_over_twin": bool(pt["sep"]),
+               "metric": "spearman_rho (not accuracy)",
+               "population": "SCWS human graded contextual word similarity, noun-noun covered pairs, POLYSEMOUS slice "
+                             "(n=%d); model = the live wire's GRADED settled vector; floor = context-free vector; "
+                             "twin = shuffled context. The discrete committed-sense read is sense-INVARIANT here "
+                             "(committed ~ MFS), so sense feeds the GRADED layer only." % int(r["n_polysemous"])}
+        return row, {"rho_all": r.get("rho_all"), "note": r.get("note")}
+    except Exception as e:
+        return _degraded("scws_graded_meaning", e, informational=True), {"error": "%s: %s" % (type(e).__name__, e)}
+
+
 def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True):
     """Assemble every MODERN per_dimension row. caps = dict of per-arm caps for a fast self-test.
     run_new_arms adds the 3 board-invisible-win arms (coarse-sense/selective-reliability/causal-multihop) as
@@ -2388,13 +2426,25 @@ def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True
     srow, sdetail = board_state_dimension(cap=caps.get("state"), n_boot=n_boot, seed=seed)
     rows["state"] = srow; detail["state"] = {"n": srow["n"], "model": srow["model_acc"]}
 
-    # -- WiC word-sense (already-modern arm) --
+    # -- WiC word-sense: RE-POINTED 2026-09-11 at the LIVE WIRE (owner-DONE wire_the_context_gated_sense_read...,
+    #    SOLVED "PROPOSED hdlab CHANGE" item 2): the arm now scores sm.select_sense's exact call (USR.select_sense over
+    #    the curated hub) vs the SENSE-BLIND reader (majority; its type-level cosine of two same-lemma targets is 1.0
+    #    -> AUC 0.5 by construction) + a shuffled-context twin. The previous arm scored the CO._pick curated stand-in,
+    #    NOT the live wire ("landed != live"); it is kept as detail["wic_curated_stand_in"] for continuity. --
     try:
-        from experiments.exp_board_wic_sense_v1 import board_wic_dimension
-        wrow, wdetail = board_wic_dimension(mode=caps.get("wic_mode", "smoke"))
-        rows["wic"] = wrow; detail["wic"] = {"n": wrow["n"], "model": wrow["model_acc"]}
+        from experiments.exp_sense_wire_wic_liveness_v1 import board_wic_via_live_wire_dimension
+        wrow, wdetail = board_wic_via_live_wire_dimension(mode=caps.get("wic_mode", "smoke"))
+        rows["wic"] = wrow; detail["wic"] = {"n": wrow["n"], "model": wrow["model_acc"], "live_wire": True}
     except Exception as e:
         rows["wic"] = None; detail["wic"] = {"error": "%s: %s" % (type(e).__name__, e)}
+    if caps.get("wic_mode", "smoke") != "smoke":
+        try:
+            from experiments.exp_board_wic_sense_v1 import board_wic_dimension
+            w_old, _wd = board_wic_dimension(mode=caps.get("wic_mode", "smoke"))
+            detail["wic_curated_stand_in"] = {"n": w_old["n"], "model": w_old["model_acc"],
+                                              "note": "the pre-2026-09-11 arm (CO._pick stand-in), informational"}
+        except Exception as e:
+            detail["wic_curated_stand_in"] = {"error": "%s: %s" % (type(e).__name__, e)}
 
     agg = _agg(rows)
     transferred = {k: {"gold": GOLD_SOURCE[k], "model_acc": rows[k]["model_acc"] if rows[k] else None,
@@ -2474,6 +2524,18 @@ def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True
             held_lines=(1500 if caps.get("predictive_causal_smoke") else 6000))
         new_arms["predictive_causal_necessity"] = pcn_row
         new_arms_detail["predictive_causal_necessity"] = pcn_det
+        # -- 2026-09-11 owner-DONE meaning-channel landings, each its OWN row (OUT of the headline aggregate) --
+        #    (a) the reading-grounding loop's coverage-QUALITY (pri-5: the fused sense-assignment read vs the
+        #        incumbent bag-cosine; the count metric is quality-blind, so this is its only instrument)
+        gcq_row, gcq_det = board_grounding_coverage_quality_dimension(smoke=bool(caps.get("gcq_smoke")))
+        new_arms["grounding_coverage_quality"] = gcq_row
+        new_arms_detail["grounding_coverage_quality"] = gcq_det
+        #    (b) the GRADED meaning currency on human graded data (context-gated sense SOLVED, drop-in 2: the
+        #        settled context-modulated vector vs the context-free vector on SCWS; the board's meaning dim is
+        #        otherwise binary WiC only)
+        scws_row, scws_det = board_scws_graded_dimension(smoke=bool(caps.get("scws_smoke")))
+        new_arms["scws_graded_meaning"] = scws_row
+        new_arms_detail["scws_graded_meaning"] = scws_det
 
     crossref = _informational_19c_crossref()
 

@@ -428,7 +428,8 @@ class Substrate:
     def __init__(self, *, seed: int = 20260819, n_dim: int = 2048,
                  corpora_dir: Optional[str] = None, seed_vocab: Optional[Sequence[str]] = None,
                  foundation_dir: Optional[str] = None,
-                 ablate: Optional[Sequence[str]] = None) -> None:
+                 ablate: Optional[Sequence[str]] = None,
+                 seq_store: Optional[str] = "default") -> None:
         self.ablate = frozenset(ablate or ())
         unknown = self.ablate - set(self.ABLATIONS)
         if unknown:
@@ -484,6 +485,22 @@ class Substrate:
                                 use_index=True)
             self.state = ReadingLoopState(store=store)
             seed_known_words(self.state, self._seed_vocab, source="substrate_seed")
+            # THE GROWN SEQ STORE (2026-09-11, owner-DONE pri-5 "persist the grown SEQ store"): the parser-free
+            # identity channel the fused sense-assignment read ranks over is KNOWLEDGE GROWN BY READING; a cold
+            # loop has read only its curriculum, where SEQ is under-read. `tools/grow_seq_store.py` reads modern
+            # Simple-Wikipedia through the loop's OWN ingest and persists the counts as a foundation asset
+            # (data/foundation/seq_store_v1, gitignored, ~1 min to regenerate); a fresh substrate MERGES it here so
+            # the live read starts at the measured exposure (coverage-quality MRR@0.5: 0.16 curriculum-only ->
+            # 0.32 @250k -> 0.38 @1M lines vs incumbent 0.01; board_grounding_coverage_quality). A resumed
+            # foundation (branch above) carries its own sidecar and is NOT merged again (no double count).
+            # `seq_store=None` disables; a path selects another store. Absent asset = cold start, stated.
+            self.seq_store_merged_tokens = 0
+            path = (os.path.join(_REPO, "data", "foundation", "seq_store_v1", "concept_space_ctx_counts.npz")
+                    if seq_store == "default" else seq_store)
+            if path and os.path.isfile(path):
+                from hdlab.foundation_persistence import load_ctx_counts_into
+                self.seq_store_merged_tokens = load_ctx_counts_into(self.state.space, path)
+            self.seq_store_path = path if (path and os.path.isfile(path)) else None
 
     # -- organ access -------------------------------------------------------------------------
 

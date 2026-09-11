@@ -56,7 +56,7 @@ def test_flag_default_off():
 def _reading_state(seed):
     st = HDFactStore(n_dim=2048, seed=seed,
                      relation_cardinality={KNOWN_RELATION: "FUNCTIONAL", MEANING_RELATION: "FUNCTIONAL"})
-    state = ReadingLoopState(store=st)
+    state = ReadingLoopState(store=st, fused_ranking=False)   # test the ROUTE-B store PRIMITIVE in isolation (live default is fused ON)
     seed_known_words(state, ["engine", "harvest"], f"seed_dir_{seed}")
     return state
 

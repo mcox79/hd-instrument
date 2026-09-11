@@ -255,6 +255,38 @@ def save_concept_space(space: ConceptSpace, path: str) -> None:
     # a count; recording 0 would later read as "empty", which is a different and false claim.
     counts = np.array([space._counts.get(l, -1) for l in lemmas], dtype=np.int64)
     _write_npz(path, lemmas=np.array(lemmas), sums=sums, d=np.array([space.d]), counts=counts)
+    # ROUTE-B SEPARABLE STORE SIDECAR (2026-09-11, pri-5 landing): the grown directional co-occurrence
+    # counts are KNOWLEDGE grown by reading (the SEQ identity channel); persisting only `_sums` would
+    # drop them at every restart. Written ONLY when non-empty, so a snapshot without the channel is
+    # byte-identical to before; the tracking flags travel with it so a resumed run keeps growing.
+    ctx = space.all_context_counts()
+    side = _ctx_sidecar_path(path)
+    if ctx:
+        lem_list = sorted(ctx)
+        feat_index: Dict[str, int] = {}
+        rows, cols, vals = [], [], []
+        for i, lem in enumerate(lem_list):
+            for f, n in ctx[lem].items():
+                j = feat_index.get(f)
+                if j is None:
+                    j = len(feat_index); feat_index[f] = j
+                rows.append(i); cols.append(j); vals.append(int(n))
+        feats = [None] * len(feat_index)
+        for f, j in feat_index.items():
+            feats[j] = f
+        _write_npz(side, lemmas=np.array(lem_list, dtype=object), feats=np.array(feats, dtype=object),
+                   rows=np.asarray(rows, dtype=np.int64), cols=np.asarray(cols, dtype=np.int64),
+                   vals=np.asarray(vals, dtype=np.int64),
+                   flags=np.array([int(space.track_context_counts), int(space.track_all_content_lemmas),
+                                   int(space.track_directional_context_counts)], dtype=np.int64),
+                   ctx_total=np.array([int(getattr(space, "_ctx_total", 0))], dtype=np.int64))
+    elif os.path.isfile(side):
+        os.remove(side)                     # a store that has been emptied must not resurrect old counts
+
+
+def _ctx_sidecar_path(path: str) -> str:
+    base, _ext = os.path.splitext(path)
+    return base + "_ctx_counts.npz"
 
 
 def load_concept_space(path: str) -> ConceptSpace:
@@ -269,7 +301,37 @@ def load_concept_space(path: str) -> ConceptSpace:
     for i, lem in enumerate(lemmas):
         space._sums[str(lem)] = sums[i].astype(np.float64)
         space._counts[str(lem)] = int(counts[i]) if counts is not None else -1
+    side = _ctx_sidecar_path(path)
+    if os.path.isfile(side):
+        load_ctx_counts_into(space, side, restore_flags=True)
     return space
+
+
+def load_ctx_counts_into(space: ConceptSpace, side_path: str, *, restore_flags: bool = False) -> int:
+    """MERGE a persisted ROUTE-B separable count store (the grown SEQ identity channel) into `space`
+    (counts ADD to whatever the space already holds -- reading accumulates). Returns the number of
+    tokens merged. `restore_flags` also restores the tracking flags saved with it. Used by
+    load_concept_space (own snapshot) and by consumers that fold a GROWN store (data/foundation/
+    seq_store_v1) into a live loop -- the 'persist the grown SEQ store' half of the pri-5 landing."""
+    from collections import Counter as _Counter
+    z = np.load(side_path, allow_pickle=True)
+    lem_list = [str(x) for x in z["lemmas"]]
+    feats = [str(x) for x in z["feats"]]
+    merged = 0
+    for i, j, n in zip(z["rows"], z["cols"], z["vals"]):
+        lem = lem_list[int(i)]
+        c = space._ctx_counts.get(lem)
+        if c is None:
+            c = _Counter(); space._ctx_counts[lem] = c
+        c[feats[int(j)]] += int(n)
+        merged += int(n)
+    if restore_flags:
+        fl = [int(x) for x in z["flags"]]
+        space.track_context_counts = bool(fl[0])
+        space.track_all_content_lemmas = bool(fl[1])
+        space.track_directional_context_counts = bool(fl[2])
+    space._ctx_total = int(getattr(space, "_ctx_total", 0)) + merged
+    return merged
 
 
 # ============================================================================ Library (PENDING only)
@@ -527,6 +589,18 @@ def _selftest_concept_space_roundtrip(tmp_dir: str) -> None:
     space.seed_from_bundle("seeded", np.ones(32))
     save_concept_space(space, p)
     assert load_concept_space(p).trace_count("seeded") == -1
+    assert not os.path.isfile(_ctx_sidecar_path(p)), "no separable counts -> no sidecar (byte-identical snapshot)"
+    # ROUTE-B SIDECAR (2026-09-11): grown directional counts + tracking flags survive the roundtrip.
+    space.track_all_content_lemmas = True
+    space.track_directional_context_counts = True
+    space.observe_context_counts("dog", ["L1__the", "R1__barked", "R2__loudly"])
+    space.observe_context_counts("dog", ["L1__a", "R1__barked"])
+    save_concept_space(space, p)
+    sp3 = load_concept_space(p)
+    assert sp3.context_counts("dog")["R1__barked"] == 2 and sp3.context_counts("dog")["L1__the"] == 1
+    assert sp3.track_directional_context_counts and sp3.track_all_content_lemmas and not sp3.track_context_counts
+    assert sp3._ctx_total == 5, sp3._ctx_total
+    assert sp3.anchors() == space.anchors() and np.array_equal(sp3._sums["dog"], space._sums["dog"])
 
 
 def _selftest_pre_counts_snapshot_reports_UNKNOWN_not_zero(tmp_dir: str) -> None:
