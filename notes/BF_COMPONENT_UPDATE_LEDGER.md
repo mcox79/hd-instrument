@@ -58,3 +58,16 @@ At each new SOLVED (or when a submission's BF doc changes): add/refresh its row,
 | `wire_the_context_gated_sense_read_into_the_live_meaning_path_and_measure` (pri-3, PARTIAL, awaiting owner review) | The context-gated in-context sense read (WiC 0.749) is the real per-token meaning lever; LOCATED NEGATIVE = do NOT gate the coref type-license on context (null); the forward consumer is a context-modulated per-token meaning representation feeding the generative world-model. | **GENERAL** (characterizes the meaning channel's in-context read; guards against a null coref-type-license context gate) | diagnostic_context_wsd, underspecified_sense_reader, meaning_foundation, coref type-license | **PENDING-DONE** — on owner-DONE: re-point the board WiC arm at the live wire; do NOT add the null context gate to coref type-license; the per-token contextual meaning consumer is the filed successor (`context_modulated_per_token_meaning_representation`). |
 
 **STALE-NOTE CORRECTION (2026-09-11):** the earlier note that `pos_tagger...`'s PROBLEM.md is a non-conforming stub that "blocks the brief-cert gate" is RESOLVED — this session appended the 8 guard sections to the 3 fleet-authored briefs (pos_tagger, type_generalized, who_was_affected); brief cert is 8/8 green.
+
+
+## 2026-09-11 (overnight) — ANTI-FRAGMENTATION RECONCILIATION NOTE (my own addition)
+**AT `consolidate_the_six_coreference_organs...` INTEGRATION, reconcile `affected_entity_resolver` (landed tonight).**
+I added `hdlab/affected_entity_resolver.py` (who_was_affected) AFTER the consolidate solver solved, so its merge
+does not account for it. Per the ONE-STRUCTURE-ONE-ORGAN gate: affected_entity_resolver = the ACT-R salience PRIOR
+(the shared `salience_binder` retrieval core — the SAME core consolidate unifies) x grammatical LIKELIHOOD cues
+(Binding Principle B + role/thematic parallelism) for the pronoun-UNDERGOER decision (Kehler-Rohde). Its Principle-B
++ parallelism are ADDITIONAL CUE-ARMS of the unified pronoun-resolution structure, NOT a distinct retrieval core.
+**RECONCILIATION at consolidate integration:** fold affected_entity_resolver's cues in as cue-arms of the unified
+`entity_resolver` (reusing the shared salience core), OR keep it as a thin READ that INVOKES the unified resolver
+with the undergoer cues — do NOT leave it as a 7th parallel coref-adjacent organ. This keeps my tonight's addition
+anti-fragmentation-clean. (The board arm + read() dimension stay; only the resolver's internals reconcile.)
