@@ -1,7 +1,6 @@
 ---
-priority: 1
 slug: the_learned_is_a_taxonomic_identity_channel_is_the_dominant_unbuilt_meaning_lever
-status: OPEN
+status: INTEGRATED
 review:
 review_text:
 ---

@@ -23,7 +23,9 @@ Every working cycle, in order:
    the highest priority — fix it before anything else.
 2. **Integrate owner-DONE promptly** (the standing rule): reverify first-hand → grade → land the BF pieces + ALL
    upstream-chain fixes → INGEST any grown knowledge LIVE (`KNOWLEDGE_ASSET_REGISTER.md`) → §2b + ledger + the
-   cross-solution map's PROPAGATION STATUS → commit path-limited, NOTHING pushed.
+   cross-solution map's PROPAGATION STATUS → **clear the problem's `priority` frontmatter field + set `status: INTEGRATED`
+   (a finished problem is not assignable — leaving a priority clutters the queue; owner-flagged 2026-09-11)** → commit
+   path-limited, NOTHING pushed.
 3. **Keep the fleet fed:** if `assignable OPEN == 0`, post the next ROADMAP items (§4) as briefs (8 guard sections
    + the standing blockquotes; cert `verification/test_problem_briefs_and_flags.py`). De-dup against existing
    problems first.

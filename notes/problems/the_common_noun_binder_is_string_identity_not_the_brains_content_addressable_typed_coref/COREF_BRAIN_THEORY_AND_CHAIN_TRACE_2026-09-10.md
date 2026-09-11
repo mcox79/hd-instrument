@@ -328,6 +328,60 @@ DOWNSTREAM beneficiary -- not a coref-specific build. Phase 0a did its fail-fast
 coordinate that cannot carry the signal. Cells: `exp_cn_sem_episodic_pairdisc_v1.py`, `exp_cn_sem_wired_v1.py` (resolve_param
 gained a default-off `scene_map` injection; faithfulness unaffected).
 
+## 12. BUILT THE PER-ENTITY SITUATION MODEL RIGHT (research-prescribed) -- EARNED located negative (2026-09-10)
+Owner: "research the absolutely correct way, then do it right not easy." Definitive-method research (hdi_research) corrected a
+DESIGN-LEVEL error in sec11: the individuator must be PER-ENTITY (each referent accumulates its own bound situational
+signature; mint iff no active signature matches -- Heim file-change / object-files / dentate pattern-separation), NOT per-scene
+(two same-type entities in one scene SHARE the scene, so a per-scene vector cannot separate them by construction -- that was
+the sec11 error). And the 12-d filler was a two-order-of-magnitude VSA CAPACITY floor (role atoms in 12-d have ~0.29 cosine ->
+roles inert). Built bottom-up on the authenticated substrate, each component isolation-tested:
+- **D-1 FILLER** = JL random projection (D=2048) of the grounded meaning vector: graded similarity preserved (cos dog/cat 0.93,
+  man/woman 0.92, man/rock 0.52; JL-corr 0.99+). PASS. (`exp_cn_vsa_capacity_gate_v1.py`)
+- **D-2 ROLE-BINDING load-bearing** (FHRR circular convolution, hdlab.binding): unbind-recovery 0.96->1.00 at D 512->2048,
+  scramble 0.001 (chance 0.0004). PASS at D>=512 -- the research's ~512-2048 floor confirmed; the 12-d failure explained+fixed.
+- **D-3 HANDLE**: fresh random atoms orthogonal (0.03), reuse identical (1.0). PASS.
+- **D-4 INTEGRATION (the decisive gate)** (`exp_cn_entity_signature_v1.py`, n_same=1554/n_diff=1157): does the per-entity
+  situational signature separate same-head DIFFERENT entities? **situational content (handle-lesioned) AUC=0.539 ~ chance;
+  SCRAMBLE twin AUC=0.539 IDENTICAL -> the situational STRUCTURE carries NO separation signal** (even with gold co-participant
+  identity fed in). Only the gold-keyed random HANDLE separates (AUC 0.966) -- circular (assigned from the answer; not an
+  achievable online signal, since online you can only mint the right handle AFTER separating, which needs the signature to
+  differ -- and it doesn't).
+
+**EARNED VERDICT (fair-test + brain-exact BOTH pass, the discipline's bar):** the representation is CORRECT and AUTHENTICATED
+(D-1/D-2/D-3 pass at D=2048; the sec7/sec11 non-BF-input confounds are removed), and on that correct substrate the situational
+per-entity signature does NOT separate same-head entities (D-4 AUC 0.539 = scramble = chance). So the sec9 +0.36 oracle prize
+is REAL but NOT capturable by ANY situational-binding representation, however brain-foundational -- separating two same-type
+entities is a COMPREHENSION act (which specific referent, from the whole text + world knowledge), which the gold handle only
+stands in for by using the answer. This is the AmbiCoref/Nref information limit, now proven at the representation-correct level
+with scramble + handle-lesion controls -- an EARNED located negative, unlike the sec11 premature stop. The entity-grain
+situation model built FOR coref does not pay; the prize belongs to the full comprehension/world-model program (coref a
+downstream witness). Robustness: the predication (role-filler) binding was scramble-invariant-null, so richer (fused
+distributional) fillers cannot rescue D-4 -- the non-distinctiveness is in the entity's situational PARTICIPATION (roles not
+conserved across mentions; co-participants/positions overlap), not the filler quality. Cells: exp_cn_vsa_capacity_gate_v1.py,
+exp_cn_entity_signature_v1.py (+ resolve_param scene_map injection, default-off).
+
+## 13. BOTH comprehension signals tested on the correct substrate -- EXHAUSTIVE earned ceiling (2026-09-10)
+After D-4 (situational signature null), tested the other comprehension signal the oracle used -- each entity's DESCRIPTIVE
+IDENTITY (accumulated modifiers + appositive/copular type-refinements; Kintsch entity semantics), on the same authenticated
+D=2048 FHRR substrate (`exp_cn_descriptive_identity_v1.py`, n=1175 same-head-ambiguous pairs):
+- **DISTINGUISHABILITY ORACLE: only 44.5% of pairs are descriptively DISTINCT; 55.5% are descriptively IDENTICAL** (both bare
+  "the man", no distinguishing modifier) -> genuinely IRREDUCIBLE (AmbiCoref/Nref human-parity tail).
+- **DESCRIPTIVE signature does NOT beat scramble even on the distinguishable slice: real AUC 0.588 vs scramble 0.606** (ALL
+  0.569, all-scramble 0.539). An entity's own mentions describe it INCONSISTENTLY (one "tall man", next bare "man"), so
+  same-entity signatures cohere no better than random -> the signature cannot use the descriptive difference.
+
+**EXHAUSTIVE EARNED CEILING (fair-test + brain-exact BOTH pass; representation authenticated D-1/D-2/D-3; both candidate
+comprehension signals tested with scramble controls):** on the correct high-dim FHRR representation, NEITHER text-extractable
+per-entity signal separates same-head entities better than scramble -- SITUATIONAL participation (roles/co-participants/
+position: AUC 0.539=chance=scramble, sec12) NOR DESCRIPTIVE identity (modifiers/appositions: 0.588~scramble, 55% identical).
+The only separator is the gold-keyed random handle (0.966, circular). So the sec9 +0.36 prize is NOT capturable by any
+per-entity textual signature: separation requires the ANSWER (world-knowledge/inference about the specific referent, or is
+irreducibly undetermined for the 55% descriptively-identical majority). The coref separation lever is EXHAUSTED for
+text-extractable signals; the residual is (a) 55% irreducible (human parity) + (b) a world-knowledge/inference remainder that
+belongs to the comprehension/world-model program, NOT a coref-extractable signature. Banked: the correct, reusable D=2048 FHRR
+substrate (filler=JL-projected meaning, role-binding, handle) as validated default-off components. Coref deliverable stays the
+backward-half wins (0.5818). Cells: exp_cn_descriptive_identity_v1.py.
+
 ## TLDR (plain English)
 We finally wrote down how the brain actually does this, and it explains why nothing we tried worked. The brain uses two
 halves: it gives every new thing a blank name-tag the instant it's first mentioned and stamps it with where/when/which-scene

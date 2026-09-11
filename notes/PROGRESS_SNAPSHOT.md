@@ -4,27 +4,27 @@
 
 **HEADLINE: 0/1 plan steps done; C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap))**
 
-generated: 2026-09-10T22:14:23Z  |  HEAD: b5d89e3bc
+generated: 2026-09-10T23:54:34Z  |  HEAD: c7475bb77
 
 ## 1. Where we are against the plan (notes/PLAN_NEXT_12H.md)
 - UNKNOWN -- notes/PLAN_NEXT_12H.md not readable
 
 ## 2. What is running right now
 Heartbeats (data/heartbeats/*.timestamp):
-  - exp_dev: 18671 min ago <-- STALE
-  - orchestrator: 64737 min ago <-- STALE
-  - research: 6 min ago
-  - skunkworks: 67409 min ago <-- STALE
-  - testbed: 103983 min ago <-- STALE
+  - exp_dev: 18771 min ago <-- STALE
+  - orchestrator: 64837 min ago <-- STALE
+  - research: 77 min ago
+  - skunkworks: 67509 min ago <-- STALE
+  - testbed: 104083 min ago <-- STALE
 data/ directories touched in the last 180 min:
+  - logs: 0 min ago, NO metrics.json yet (likely in-flight)
+  - local_cpu_queue: 0 min ago, NO metrics.json yet (likely in-flight)
   - .metrics_sync: 1 min ago, NO metrics.json yet (likely in-flight)
-  - exp_meaning_fusion_contrast_probe_v1: 8 min ago, has metrics.json
-  - exp_meaning_fusion_confusion_taxonomy_v1: 11 min ago, has metrics.json
-  - exp_meaning_fusion_crossmodal_hub_v1: 11 min ago, has metrics.json
-  - exp_meaning_fusion_crossmodal_hub_v1_smoke: 12 min ago, has metrics.json
-  - exp_meaning_fusion_compositional_prediction_v1: 49 min ago, has metrics.json
-  - exp_meaning_fusion_compositional_prediction_v1_smoke: 52 min ago, has metrics.json
-  - exp_meaning_fusion_predictive_grounding_v1: 58 min ago, has metrics.json
+  - things_referents: 33 min ago, NO metrics.json yet (likely in-flight)
+  - hook_state: 42 min ago, NO metrics.json yet (likely in-flight)
+  - exp_meaning_fusion_incontext_probe_v1: 98 min ago, has metrics.json
+  - exp_meaning_fusion_contrast_probe_v1: 108 min ago, has metrics.json
+  - exp_meaning_fusion_confusion_taxonomy_v1: 111 min ago, has metrics.json
 notes/STATUS.md WHAT IS RUNNING (verbatim):
   - **OPERATING MODEL (owner 08-22): STRATEGY SESSION (this) + SOLVER SESSIONS.** This session keeps the 10k view, writes/verifies briefs, and INTEGRATES owner-DONE; solvers each solve one bounded problem.
   - **RESEARCH DELIVERED + FOLDED (CONT-73):** the pri-3 parser BF syntax-acquisition drill completed + vetted first-hand -> `RESEARCH_bf_acquisition.md`. Key: the 'frozen supervised hard-decode' = TWO orthogonal defects (graded-decode route-through NOW + the acquisition question); category-induction-from-prediction is a verified in-substrate HARD_PASS, structure-induction hit an UNDER-POWERED located ceiling (3k/12.5k sents, 0 EM). Cheap first build folded into the brief (re-run exp_predictive_selfsup_parser_v1 full-scale + EM, composing the pri-2 directional channel + graded Matrix-Tree decode). NOTHING now running.
@@ -40,12 +40,11 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
 - C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap)) -- source: data\exp_orthographic_floor_vet_v1\metrics.json
 
 ## 4. What moved since the last snapshot
-- 9 new commit(s) since last snapshot (HEAD e3d4a1a4a -> b5d89e3bc)
-- data/ directory count: 9806 -> 9822 (+16)
+- nothing measurable moved since the last snapshot
 
 ## 5. What is stuck (blocked / pending / no owner)
 - (none found)
 
 <!-- SNAPSHOT_STATE_JSON
-{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 9822, "generated_at": "2026-09-10T22:14:23Z", "head_commit": "b5d89e3bc0965629d674a636ada4798ecb0471cb", "step_status": {}}
+{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 9824, "generated_at": "2026-09-10T23:54:34Z", "head_commit": "c7475bb77e6291dc3fabbd9b6787ab2924b093b7", "step_status": {}}
 -->

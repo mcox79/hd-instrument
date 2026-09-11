@@ -1,7 +1,6 @@
 ---
-priority: 3
 slug: the_parser_is_a_frozen_supervised_hard_decode_not_the_brains_graded_probabilistic_parse
-status: OPEN
+status: INTEGRATED
 review:
 review_text:
 ---
