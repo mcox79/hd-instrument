@@ -45,6 +45,13 @@ place as items land (check the boxes, add the commit hash).
 
 ---
 
+## ✅ PROGRESS (overnight, updated 2026-09-11)
+- **WS1a who_was_affected INTEGRATED** — organ `hdlab/affected_entity_resolver.py` (`8acc84ebf`) + `board_affected_entity_dimension` **CI-sep at full power** (n=715, model 0.3734 vs floor 0.3329, twin 0.1147; `65e507c86`) + docs/marker (`323e23276`). Read()-population REVERTED + filed (reader doesn't surface object-pronoun undergoer mentions).
+- **WS1b pri-4 INTEGRATED** — full board `--run` confirms `commonnoun_resolution` **0.5818 vs de-leaked floor 0.5156 CI-sep (n=2855)** (`c656ae0c6`).
+- **WS2a + WS6a** — BF-ledger gate fixed; fresh authoritative board persisted (aggregate **0.6253**, n=11218, no-regress). **ALL 5 HEALTH GATES GREEN.**
+- **WS3a/3b** — queue refilled +2 (pri-1 generative reranker, pri-8 reading-learned POS induction) + brief cert fixed.
+- REMAINING: WS4a scene_segment (8th NOT_BF), WS3c pri-9 grounding metric, WS2c governance note, WS5a/WS7a/WS8a.
+
 ## WORKSTREAM 1 — CLOSE THE OWNER-DONE INTEGRATION BACKLOG  *(the FAILING gate; #1 blocking; do FIRST)*
 ### 1a. `who_was_affected...forward_salience_prior` (owner-DONE, reverified 10/10)
 - [x] Land 1/3: promote the BF resolver → `hdlab/affected_entity_resolver.py`; experiment imports it (witness 4/4 = the organ). Registry +1. `8acc84ebf`.
