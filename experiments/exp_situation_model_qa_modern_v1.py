@@ -1641,7 +1641,7 @@ def _reader_commonnoun_resolution(mentions, gaz, appos_map, *, bridge=True, brid
     import random as _random
     import numpy as _np
     import hdlab.typed_coref as _TC
-    from hdlab.commonnoun_binder import head_lemma, is_name, _num_of
+    from hdlab.commonnoun_binder import head_lemma, concept_lemma, is_name, _num_of, DEF_DET, coarse_class
     from hdlab.salience_binder import actr_activation, ROLE_PROMINENCE, DEFAULT_DECAY
     from hdlab.coref import EntityAliaser
     import experiments.exp_unified_referent_gum_v1 as _URG
@@ -1685,6 +1685,28 @@ def _reader_commonnoun_resolution(mentions, gaz, appos_map, *, bridge=True, brid
         a = actr_activation(r.history, float(now), decay=DEFAULT_DECAY, role_prominence=ROLE_PROMINENCE)
         return a if a != float("-inf") else -1e9
 
+    # BF non-writing bridges (mirror of situation_reader._resolve_commonnouns): coarse-class FOCUS + conceptual cue.
+    def _coarse_compat(a, heads):
+        ca = coarse_class(a)
+        return ca is not None and any(coarse_class(h) == ca for h in heads)
+    _conc_ch = [None]; _conc_cache = {}
+    def _conc_bridge(a, b):
+        if a == b:
+            return True
+        k = (a, b) if a <= b else (b, a)
+        v = _conc_cache.get(k)
+        if v is None:
+            if _conc_ch[0] is None:
+                from hdlab.conceptual_meaning import ConceptualChannel
+                _conc_ch[0] = ConceptualChannel()
+            try:
+                s = _conc_ch[0].similarity(a, "N", b, "N")
+            except Exception:
+                s = None
+            v = (s is not None and s >= 0.40)
+            _conc_cache[k] = v
+        return v
+
     for m in sorted(mentions, key=lambda x: x["midx"]):
         order = m["midx"]
         role = "SUBJECT" if m.get("sent_role_rank", 99) == 0 else "OTHER"
@@ -1696,7 +1718,7 @@ def _reader_commonnoun_resolution(mentions, gaz, appos_map, *, bridge=True, brid
                 cands[int(_np.argmax([act(r, order) for r in cands]))].write(
                     order, role, "pronoun", "", mg, mn, set())        # full card only (de-pollution)
             continue
-        hl = head_lemma(m["head"]); mg, mn = mfn(m), _num_of(m)
+        hl = concept_lemma(m["head"]); mg, mn = mfn(m), _num_of(m)   # BF concept-key (in step w/ situation_reader)
         if is_name(m, gaz):
             canon = aliaser.assign(span, (m.get("gender") or m.get("name_gender")) or None)
             if canon is not None and canon in canon2ref:
@@ -1716,6 +1738,7 @@ def _reader_commonnoun_resolution(mentions, gaz, appos_map, *, bridge=True, brid
         # COMMON: hard-gn + most-recent same-head; else generalized (NO person-gate) non-writing type bridge
         same = [r for r in refs if r.last_midx < order and hl in r.heads and gn_ok(r.gender, r.number, mg, mn)]
         picked = None; opened = True; nowrite = None
+        definite = bool(span) and span[0].lower() in DEF_DET
         if same:
             picked = max(same, key=lambda r: r.last_midx); opened = False
         elif bridge:
@@ -1724,7 +1747,9 @@ def _reader_commonnoun_resolution(mentions, gaz, appos_map, *, bridge=True, brid
             br = [r for r in prior_gn if (r.heads & tset)
                   or (r.has_name and any(t in r.name_tokens for t in tset))
                   or any(_cn_type_rel(hl, h) for h in r.heads)
-                  or (r.has_name and any(_c8_lic(hl, ns) for ns in r.name_surfaces))]   # C8 encyclopedic name->type
+                  or (r.has_name and any(_c8_lic(hl, ns) for ns in r.name_surfaces))   # C8 encyclopedic name->type
+                  or (any(_conc_bridge(hl, h) for h in r.heads))                        # BF conceptual cue (in step w/ reader)
+                  or (definite and _coarse_compat(hl, r.heads))]                        # BF situation-model FOCUS bridge
             if br:
                 if twin:
                     nowrite = rng.choice(prior_gn) if prior_gn else None
@@ -1732,6 +1757,10 @@ def _reader_commonnoun_resolution(mentions, gaz, appos_map, *, bridge=True, brid
                     nowrite = max(br, key=lambda r: act(r, order))
                 if nowrite is not None and bridge_write:
                     picked = nowrite; opened = False; nowrite = None
+            elif definite:                                                             # BF Heim/Loebner UNIQUENESS bridge
+                infocus = [r for r in prior_gn if r.last_midx >= order - 6]
+                if len(infocus) == 1:
+                    nowrite = (rng.choice(prior_gn) if (twin and prior_gn) else infocus[0])
         if picked is None:
             picked = new_ref()
         resolved = (nowrite.rid if nowrite is not None else (None if opened else picked.rid))
