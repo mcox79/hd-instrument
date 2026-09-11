@@ -1,0 +1,64 @@
+---
+priority: 10
+slug: wire_the_mined_directed_causal_store_into_the_live_causal_reasoner_and_measure
+status: OPEN
+review:
+review_text:
+---
+
+# PROBLEM: a grown knowledge asset is stranded — the mined directed causal-testimony store (`data/exp_causal_testimony_mine_v1/store_v1.json`, 3.8MB, cause→effect edges, proven +0.139 CI-sep on the necessity read as a structural prior) has NO live consumer, so its performance is unrealized. Wire it into the live `causal_reasoner` as a structural prior (hypothesize cross-step causal BYPASS edges so a rung-2 do-simulation can separate genuine necessity from mere adjacency), MEASURE whether the +0.139 transfers to the reader's extracted-from-prose causal read, and OPTIMIZE coverage (Rhea/BioModels scale-up). A rigorous located negative (the +0.139 does NOT transfer to extracted-from-prose causal_links, WITH the number + why) is a full pass. Glass-box, NO external LLM at inference.
+
+**slug:** `wire_the_mined_directed_causal_store_into_the_live_causal_reasoner_and_measure` — **opened:** 2026-09-11 by strategy (owner: "integrate the grown knowledge + test how the substrate responds + optimize"). **status:** OPEN. The store was grown by `grow_the_causal_mechanism...` (owner-DONE) but registered LATENT (`KNOWLEDGE_ASSET_REGISTER.md` #6 — no live consumer). Its wire is an unbuilt next-step with UNMEASURED live transfer. Glass-box, NO external LLM at inference.
+
+> ## SOLVER OPERATING PROTOCOL (standing — owner 2026-08-25/26; in EVERY problem)
+> **DO THE RIGHT THING, NOT THE CHEAP OR EASY THING** — the mission is the most brain-faithful substrate, not the fastest green check.
+> **THE OPENING MOVE, BEFORE ANY METHOD: how does the BRAIN actually do THIS?** Name the structure / circuit and the computation it performs, and replicate that OPERATION as exactly as you can — the FIRST move, not a tiebreaker.
+> **YOU ARE ENABLED — AND EXPECTED — TO EXPLORE FAR AND WIDE.** Read the neuroscience; cross domains; if a MORE brain-foundational structure than this brief names emerges, submit THAT instead (say what is incompatible and why yours is more faithful).
+> **A SHARED WALL IS A SIGNAL TO GO DEEPER, NOT A REASON TO STOP.** A wall is a FIDELITY GAP TO BUILD ACROSS, never a ceiling.
+> **"CONVERGED" HAS A HIGH BAR.** Claim it only when you have (a) identified how the brain performs this computation AND (b) replicated that operation as faithfully as you can and tested it, OR shown a SPECIFIC reason it cannot be replicated here. Exhausting engineering variations is NOT convergence.
+> **EVERY COMPONENT MUST BE 100% BRAIN-FOUNDATIONAL, and spaCy/GLUCOSE/MAVEN + any off-the-shelf parser/dataset/model are NOT brain-foundational — never reach for a convenient/easy tool without careful consideration** (a vetted static offline FOUNDATION asset — the mined store, Rhea/BioModels — is admissible SUPPLY; an external tool AT INFERENCE or a fitted/convenient stand-in is a DEFECT that BLOCKS).
+> **🧩 ONE BRAIN STRUCTURE = ONE ORGAN WITH ARMS (owner 2026-09-10):** this is a STRUCTURAL-PRIOR arm of the EXISTING `causal_reasoner` (the directed causal graph / do-operator), NOT a new organ — promote the store loader + edge-hypothesis into `causal_reasoner._graph()`. Consult `BRAIN_STRUCTURE_CONSOLIDATION_AUDIT.md` before adding anything.
+> **A rigorous negative is a PASS** — but only if what failed was the brain's actual mechanism, faithfully built.
+> **REFERENCE `notes/BRAIN_FOUNDATIONAL_AUDIT.md`** for the systems you touch; put a short **AUDIT UPDATE** in your submission for any verdict you find wrong/stale.
+
+> ## BRAIN-FOUNDATIONAL CHECKLIST (work through IN ORDER; the solution is not done until every box holds)
+> 1. **OPEN — how does the BRAIN do THIS?** Causal reasoning is a directed causal MODEL over which the brain runs interventions (Pearl do-operator; Sloman causal Bayes; Gerstenberg-Tenenbaum counterfactual simulation). A learned structural PRIOR (which causes lead to which effects, from testimony/experience) supplies candidate edges the working situation model lacks. Replicate the PRIOR-supplies-edges → do-simulation-tests-necessity operation. Mark each choice PINNED vs OUR-INVENTION.
+> 2. **REUSE + ONE-STRUCTURE-ONE-ORGAN** — REUSE `hdlab/causal_reasoner.py` (the do-surgery rung-2/3 reasoner; `is_necessary`/`signed_effect`/`is_necessary_abductive`) and its `_graph()` builder; REUSE the mined store (`store_v1.json`) + its `load_store`/`edge_condXasym` logic (in `exp_causal_necessity_bf_reader_v1`). Do NOT re-mine or re-build the reasoner. Wrap any broad KB read in `safe_kb_gate` (project rule).
+> 3. **GENERALIZE — does it need to, and how does the brain?** The store must supply bypass edges between the reader's OWN extracted causal concepts (from `sm.causal_links`), not just the WIQA step-chain it was measured on — the general case.
+> 4. **HIT A WALL → GO DEEPER, don't stop.** If the +0.139 does NOT transfer from the WIQA necessity instrument to the reader's extracted-from-prose causal read, ask WHY (coverage on prose concepts? the store's ~0.61 direction-accuracy cap? Gricean link-sparsity — 98% of missing links are commonsense/procedural?) — name it with a number; the store's own manifest says coverage is scale-limited (add commonsense/procedural corpora, NOT encyclopedic).
+> 5. **OPTIMIZE BY EXACT REPLICATION** — copy the do-simulation + the store's edge-hypothesis threshold (`edge_condXasym > thr`); SWEEP the threshold + the coverage (Rhea/BioModels ingest), never adopt a fitted value.
+> 6. **PERFORMANCE vs THE BRAIN + FULL-STACK UPSTREAM** — the causal machinery is BOARD-INVISIBLE (no smoke-viable causal gold), so MEASURE on the WIQA necessity instrument (`exp_causal_necessity_bf_reader_v1`, the +0.139 harness) + the held-out simplewiki necessity slice, with the shuffled-store twin LOSING. Confirm the wire is byte-identical when the store is absent/off (degrade-gracefully).
+> 7. **ADJACENT COMPONENTS.** `sm.causal_sign` (live) is the more/less SIGN; this store is the DIRECTED-EDGE structural prior — complementary. `predictive_world_model` (rung-1) + `causal_reasoner` (rung-2/3) are the reasoning stack; the store feeds the graph they traverse.
+> 8. **COMPLETION BAR.** The store wired into `causal_reasoner._graph()` (default-off flag, byte-identical off), with a MEASURED number on the necessity instrument for whether the +0.139 transfers to the reader's extracted-from-prose causal read (twin losing) + a coverage-optimization result (Rhea/BioModels scale-up) — OR a rigorous located negative naming exactly why it doesn't transfer (with the coverage/direction number).
+>
+> **(PHASE DIAGRAM.)** The store's operating point — edge-hypothesis threshold, coverage (corpus ingest), direction-confidence gate — is FREE to SWEEP; a wall "at this config" = move the operating point, not a ceiling.
+> **(FULL-STACK UPSTREAM.)** Prototype the wire AND confirm every downstream consumer of `causal_reasoner` (the causal-reasoning read callables) is byte-identical when the store is off, and measured when on; ACCEPT that adding store-prior edges changes the causal graph and fix downstream to RECEIVE it.
+
+## 1. THE PROBLEM IN PLAIN LANGUAGE
+We mined a big table of "this causes that" facts from language (3.8MB of directed cause→effect edges) and PROVED it helps the reader tell a genuine cause from a mere coincidence — but that knowledge is just sitting on disk with nothing in the live reader using it. This problem connects it: feed those cause→effect facts into the reader's causal-reasoning machine as background knowledge (candidate causal links it can test by "imagining" removing a cause), then measure whether the proven gain actually shows up when the reader reasons about causes in real prose, and grow the coverage. If the gain doesn't carry over, say exactly why (with a number) — that's a full answer too.
+
+## 2. WHY THIS ONE — the deep root, under the HARD 100%-BF gate
+It is grown knowledge with a MEASURED prize (+0.139 CI-sep) that is currently delivering ZERO live performance because it has no consumer — exactly the "landed ≠ live" gap the owner flagged ("integrate the grown knowledge, see how the substrate responds, optimize"). It reuses an existing organ (`causal_reasoner`) as a structural-prior arm (anti-fragmentation-clean). Causal reasoning is a named north-star capability; a directed causal-knowledge prior is the brain's substrate for it.
+
+## 3. MEASURED vs INFERRED
+- **MEASURED (on disk):** the store is 3.8MB directed cause→effect edges; as a structural prior on the necessity read it beats the info-free (shuffled-store) twin **+0.139 CI-sep** (`exp_causal_necessity_bf_reader_v1`); direction accuracy caps ~0.61 (intrinsic); coverage is scale-limited (rises toward full at ~100×); 98% of missing links are Gricean link-sparsity → add commonsense/procedural/how-to corpora, NOT encyclopedic. `causal_reasoner` is the live rung-2/3 reasoner; `sm.causal_sign` is the live sign channel.
+- **INFERRED (to prove or refute WITH A NUMBER):** that wiring the store into `causal_reasoner._graph()` transfers the +0.139 to the reader's OWN extracted-from-prose causal read (not just the WIQA step-chain it was measured on), twin losing; and that coverage scale-up (Rhea/BioModels) lifts it further. Do NOT assume it transfers — the store's manifest already warns coverage is prose-concept-limited; a located negative (with the coverage number) is a full pass.
+
+## 4. ALREADY TRIED / DO NOT REDO
+- Do NOT re-mine the store (it exists) or re-build `causal_reasoner` (it exists) — REUSE both.
+- Do NOT add a PROSE sign source (the sign is `causal_sign`'s job; prose sign sources all TIE the falsifier — a durable negative).
+- Do NOT ingest an encyclopedic corpus to grow coverage (the manifest: 98% of missing links are commonsense/procedural — add THAT).
+- Do NOT expect a board move — the causal machinery is board-invisible; measure on the necessity instrument.
+- Barred: spaCy / any external LLM at inference; a fitted edge-threshold.
+
+## 5. VERIFY BEFORE YOU START (the disk outranks this brief)
+Understand ALL existing organs first: `python tools/substrate_map.py`, skim `hdlab/causal_reasoner.py`, `hdlab/causal_sign_channel.py`, `hdlab/predictive_world_model.py`. Read IN FULL: `notes/problems/grow_the_causal_mechanism.../SOLVED.md` (the store's provenance + the +0.139), `notes/KNOWLEDGE_ASSET_REGISTER.md` #6 (the SCOPED wire note — `load_store` + `edge_condXasym` + edge-hypothesis into `_graph()`), and `experiments/exp_causal_necessity_bf_reader_v1.py` (the +0.139 harness = the instrument to reuse). Read `notes/BRAIN_FOUNDATIONAL_AUDIT.md` (causal rungs). Grade on the necessity instrument + held-out simplewiki (modern; 19c banned). CAP local runs below all cores (`OMP_NUM_THREADS=4 …`); heavy ingest goes remote. Report CI half-width + the shuffled-store null.
+
+## 6. THE BAR (can-fail; a rigorous located-negative naming the exact ceiling WITH a number is a full pass)
+Wire the mined directed causal store into `hdlab/causal_reasoner._graph()` as a default-off structural-prior arm (byte-identical when off/absent), and DELIVER a MEASURED number: does the +0.139 transfer to the reader's OWN extracted-from-prose causal necessity read (on the necessity instrument + held-out simplewiki), with the shuffled-store twin LOSING CI-separated? Plus a coverage-optimization result (Rhea/BioModels or commonsense-corpus scale-up → the direction/coverage number). OR a rigorous LOCATED NEGATIVE naming exactly why it does not transfer (coverage on prose concepts / the ~0.61 direction cap / link-sparsity), with the number. INVARIANT: byte-identical off; the store wrapped in `safe_kb_gate`; no external tool/LLM at inference; edge-threshold swept not fitted.
+
+## 7. FILES AND ENTRY POINTS
+`hdlab/causal_reasoner.py` (`_graph()` builder — the wire site); `data/exp_causal_testimony_mine_v1/store_v1.json` (the asset); `experiments/exp_causal_necessity_bf_reader_v1.py` (`load_store` / `edge_condXasym` / the +0.139 instrument to reuse); `hdlab/safe_kb_gate.py` (the required KB wrapper); `hdlab/causal_sign_channel.py` + `hdlab/predictive_world_model.py` (adjacent causal stack); `data/corpora/rhea/` (14MB, coverage scale-up); `notes/KNOWLEDGE_ASSET_REGISTER.md` #6; `notes/BRAIN_FOUNDATIONAL_AUDIT.md`.
+
+## 8. DO NOT QUOTE / DO NOT REDO
+Do NOT quote retired figures (`notes/reference_retired_claims_never_requote.md`). Do NOT re-mine the store or re-build causal_reasoner. Do NOT add a prose sign source (durable negative). Do NOT use spaCy / any external LLM at inference. Do NOT ingest encyclopedic text for coverage (add commonsense/procedural). Do NOT expect a board move (board-invisible; measure on the necessity instrument). Do NOT claim "converged" on engineering variations; the bar is a measured live-transfer number (twin losing) or a numbered located negative.
