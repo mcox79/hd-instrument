@@ -5,7 +5,7 @@ bar: "Scale + lexicalize the reading-learned arc scorer (full UD-EWT, 2-3 EM rou
 result: "BOTH clauses met. (A) THE READER'S OWN METRIC (verb->argument extraction recall, both scorers fed into the SAME graded single_root_marginals; UD-EWT test n_ag=1354/n_pa=989, GUM-OOD n_ag=2912/n_pa=1901): the reading-learned scorer + BF item-based constructions, read as a graded DISTRIBUTION (top-2 marginal reach = the brain's keep-alternatives-alive), MATCHES the frozen supervised scorer's live committed extraction in-domain (RL 0.9356 vs SUP-greedy 0.9283, +0.0073 CI[-0.0047,+0.0192] = parity) and BEATS it out-of-domain (GUM: RL 0.9202 vs SUP-greedy 0.8967, +0.0235 CI[0.0150,+0.0329] CI-SEPARATED), info-free shuffled-top2 twin LOSES (0.4477 UD / 0.3952 GUM), NO treebank at inference. The supervised scorer DEGRADES OOD (0.9283->0.8967); the reading-learned one holds (0.8613->0.8394) -- the register-generality lever. (B) THE LOCATED NEGATIVE on raw UAS: at FULL UD-EWT scale (11,991 sents <=40) the reading-learned SCORER caps at UAS 0.4784 (EM round 2, lam=0.3, swept prior_weight=3.0), +0.0155 over pri-3's 0.463; +BF constructions 0.5142 full / content-only 0.5444; supervised UPPER ref 0.7958 full / 0.7677 content -- a 0.28-0.32 gap that is the PINNED text-only field ceiling (Klein-Manning). SCALE IS NOT THE LEVER (0-EM UAS flat 0.4279@2k -> 0.4361@12k); EM PEAKS at round 2 then DECLINES (0.436->0.466->0.478->0.474->0.472, the DMV 'likelihood != accuracy' signature); the more-brain-faithful ONLINE/Hebbian re-estimation does NOT beat batch-EM (0.4339 < 0.4784, decay HURTS) => the ceiling is the SIGNAL text lacks (PP/clausal disambiguation), not the optimizer. (C) THE CORRECT LEVER, DETERMINED by an oracle diagnostic + 2 research drills (owner directive): the residual is a READOUT problem -- the gold head is in the top-5 marginal for 78.3% of PP/clausal arcs vs 25.2% committed (+0.532 reachable headroom in the distribution the arc-factored point-decode discards); the dominant REALIZABLE lever is reading the graded distribution (the (A) downstream win). The 2nd-order sibling-identity structural signal is REAL (gold-oracle +0.096 realistic / +0.140 upper-bound on PP/clausal, BEATS DMV-valence's null + ties gold-lexical -- confirming the arc-factored independence assumption is the structural wall) but is NOT treebank-free-realizable at 0.54 parse quality (self-taught sibling triples too noisy even with correct log-prob combination + confident-exemplar denoising: gated 2nd-order readout nets content -0.032 / PP-clausal -0.012 vs base while BEATING its shuffled twin -- a located bootstrapping wall). (D) TRUE-BF UPSTREAM IMPLEMENTED (owner directive): the gating upstream link (POS acquisition) is now brain-foundational via a closed-class-scaffold + syntactic-bootstrapping inducer (Gleitman; NO gold POS / treebank / LLM), and the FULLY-BF-ACQUISITION chain (scaffold-POS -> reading-learned arc scorer + Naseem prior + constructions) reaches UAS 0.4057 -- beating the right-branching floor 0.2984 by +0.107, beating pri-3's collapsed Brown fully-BF chain (0.2375) by +0.168, recovering 78.9% of the gold-POS chain (0.5142), shuffled-scaffold twin collapses (0.1495). The unlock was FUNCTIONAL NAMING (the scaffold emits named UPOS at 0.693 direct accuracy so the prior + constructions fire), NOT induction accuracy (0.706 < Brown 0.745). Self-training refinement was a located negative (drifts). So the reader's parse front-end is now brain-foundational at EVERY link with a measured 78.9%-of-gold-POS capability."
 floor: "strong right-branching adjacency-right UAS = 0.2984 full / 0.3171 non-root (recomputed on the full UD-EWT test n=2023, maxlen 40); also random 0.072 / left-adjacency 0.114 (pri-3). Downstream FLOOR = the supervised scorer's LIVE greedy committed verb->arg recall 0.9283 (UD) / 0.8967 (GUM). Supervised treebank UPPER reference (NOT a floor) = 0.7958 full-UAS / 0.7677 content-UAS."
 controls: "shuffled-POS-pair-TABLE twin COLLAPSES the reading-learned scorer to 0.2104 UAS -- BELOW the floor (so the learned reading table, not the innate prior, carries the signal); random-arc construction twin loses (0.4384 vs 0.5142); shuffled-top2 downstream twin loses (0.4477 UD / 0.3952 GUM); online-model shuffled-table twin loses (0.2069). Ablations isolated: scale (flat => not the lever), EM rounds (helps to r2 then hurts => likelihood!=accuracy), prior_weight (swept 0..3), constructions (each cue's own relation lifts: nsubj 0.589->0.69, cc/conj 0.05->0.26, compound 0.567->0.773; clausal cue NULL = honest sub-negative). Online vs batch EM (online loses => mechanism not the lever). LEVER-ORACLE controls: random top-k re-rank twin collapses (-0.358 content); DMV-valence null on PP/clausal (-0.001) vs sibling-IDENTITY +0.096 (separates count from identity); unsup-reading-lexical HURTS (-0.254) vs gold-lexical upper bound. 2ND-ORDER-READOUT control: shuffled sibling-table twin LOSES to the real self-taught table (content 0.494 vs 0.512), proving the self-taught signal is real even though it does not net-beat base (the bootstrapping wall)."
-files_changed: "experiments/exp_readlearned_scorer_scale_v1.py, experiments/exp_readlearned_construction_stack_v1.py, experiments/exp_readlearned_downstream_ab_v1.py, experiments/exp_readlearned_online_acquisition_v1.py, experiments/exp_readlearned_lever_oracle_v1.py, experiments/exp_readlearned_second_order_readout_v1.py, experiments/exp_readlearned_ppattach_hindle_rooth_v1.py, experiments/exp_readlearned_bf_pos_scaffold_v1.py, experiments/exp_readlearned_mbr_readout_v1.py, experiments/exp_readlearned_adaptive_readout_v1.py, experiments/exp_readlearned_joint_pos_parse_v1.py, experiments/exp_readlearned_bf_relation_labeler_v1.py, experiments/exp_readlearned_bf_pos_morphology_v1.py, experiments/exp_readlearned_marginal_calibration_v1.py, experiments/exp_readlearned_clausal_construction_v1.py, experiments/exp_readlearned_ppattach_integrate_v1.py, experiments/exp_readlearned_multiconjunct_v1.py, experiments/exp_readlearned_relcl_attachment_v1.py, experiments/exp_readlearned_referent_pp_v1.py, experiments/exp_readlearned_full_stack_final_v1.py, verification/test_readlearned_arc_scorer_scale.py, notes/problems/scale_the_reading_learned_arc_scorer_the_brain_foundational_parser_acquisition/SOLVED.md (+ research: notes/research_arc_factored_ceiling_lever_2026-09-10.md, notes/research_pp_clausal_attachment_token_vs_type_2026-09-10.md)"
+files_changed: "experiments/exp_readlearned_scorer_scale_v1.py, experiments/exp_readlearned_construction_stack_v1.py, experiments/exp_readlearned_downstream_ab_v1.py, experiments/exp_readlearned_online_acquisition_v1.py, experiments/exp_readlearned_lever_oracle_v1.py, experiments/exp_readlearned_second_order_readout_v1.py, experiments/exp_readlearned_ppattach_hindle_rooth_v1.py, experiments/exp_readlearned_bf_pos_scaffold_v1.py, experiments/exp_readlearned_mbr_readout_v1.py, experiments/exp_readlearned_adaptive_readout_v1.py, experiments/exp_readlearned_joint_pos_parse_v1.py, experiments/exp_readlearned_bf_relation_labeler_v1.py, experiments/exp_readlearned_bf_pos_morphology_v1.py, experiments/exp_readlearned_marginal_calibration_v1.py, experiments/exp_readlearned_clausal_construction_v1.py, experiments/exp_readlearned_ppattach_integrate_v1.py, experiments/exp_readlearned_multiconjunct_v1.py, experiments/exp_readlearned_relcl_attachment_v1.py, experiments/exp_readlearned_referent_pp_v1.py, experiments/exp_readlearned_full_stack_final_v1.py, experiments/exp_readlearned_downstream_final_v1.py, verification/test_readlearned_arc_scorer_scale.py, notes/problems/scale_the_reading_learned_arc_scorer_the_brain_foundational_parser_acquisition/SOLVED.md (+ research: notes/research_arc_factored_ceiling_lever_2026-09-10.md, notes/research_pp_clausal_attachment_token_vs_type_2026-09-10.md)"
 reverify: ".venv/Scripts/python.exe verification/test_readlearned_arc_scorer_scale.py"
 ---
 
@@ -666,6 +666,72 @@ problem is complete for its scope; further high-value work is routed to those ad
   filler-gap ROLE half of relative clauses -> `the_relcl_parser_is_too_weak`; (3) the event-level/prosody
   disambiguation signal -> the generative world-model. These are adjacent problems, not front-end loose ends.
 
+- **2026-09-11 -- FINAL bar re-measurement (`exp_readlearned_downstream_final_v1`): a PER-CONSUMER CONFIG TRADEOFF,
+  surfaced by re-running the reader's-own-metric A/B with the FULLY-OPTIMIZED scorer.** The content-UAS-optimal
+  full stack (all 5 constructions, relcl w=25) is NOT verb->argument-optimal: RL-as-distribution verb->arg recall
+  = 0.9159 (UD) / 0.8955 (GUM), BELOW the parity/OOD-beat the LIGHTER {verbarg+coord+npmod} config gives (0.9356
+  UD parity / 0.9202 GUM = +0.0235 CI-sep). The aggressive relcl/clausal boosts fix acl/xcomp/ccomp but DISTORT
+  the verb->nsubj/obj marginals (steal mass from the argument arcs). Twin loses in both configs. VERDICT: the BAR
+  (verb->argument extraction) is MET by the config that serves it (the lighter stack -- parity in-domain, beats
+  OOD); the full stack serves CONTENT-UAS/full-parse (0.5828). Constructions should be weighted PER CONSUMER (a
+  real integration insight): a verb->arg extraction consumer uses the light stack; a full-parse consumer uses the
+  full stack. KEY REALIZATION: an aggregate-metric (content-UAS) optimum is NOT necessarily the task-metric
+  (verb->arg) optimum -- re-measure the ACTUAL bar with the final config; do not assume the aggregate-best transfers.
+
+# 15. COMPONENT LEDGER — everything created/touched + its REAL mathematical BF status
+
+**BF status key:** PINNED = the computation IS the brain's known equation (verified). BF_SPIRIT = a defensible
+computational-level model of the brain's operation, but the implementation detail is unpinned OR it consumes a
+SUPPLIED universal structural bias (a hand-specified rule-set / word-list, admissible like the Naseem prior --
+NOT learned-from-reading). NOT_BF = a supervised/gradient-fit or off-the-shelf component. Reused organs are
+marked (reused). The honest recurring caveat: the DISTRIBUTIONAL backbone (PPMI + EM) is learned-from-reading;
+the STRUCTURAL biases (Naseem prior, construction cues, scaffold word-list, relation map) are SUPPLIED universal
+knowledge (defensible innate biases, swept parameters) -- BF_SPIRIT, not learned-from-reading.
+
+| component (cell) | computation | math BF status |
+|---|---|---|
+| directional POS-attachment PPMI (`SelfSupEM`, reused from pri-3) | log directional POS-pair conditional + locality; statistical acquisition (Saffran/Harris) | **PINNED** (computational level) -- learned from reading |
+| DMV-class EM (E-step = `single_root_marginals`, reused) | exact single-root Matrix-Tree edge marginals (Koo 2007) as soft E-step; re-accumulate counts | **PINNED** (exact, brute-force-verified) |
+| Naseem universal structural prior (`prior_weight`, reused) | category-level head->dep preference, ±1, swept | **BF_SPIRIT** -- supplied innate bias, OUR-INVENTION rule-set, swept |
+| scaffold POS induction (`exp_readlearned_bf_pos_scaffold_v1`) | closed-class scaffold (supplied word-list) + syntactic bootstrapping (Gleitman/Mintz) + orthography | **BF_SPIRIT** -- distributional cascade PINNED-ish; scaffold word-list is supplied-universal (not learned) |
+| morphological channel (`exp_readlearned_bf_pos_morphology_v1`) | suffix-family category vote (VWFA sub-lexical; wug, Berko 1958) | **BF_SPIRIT** -- morphological bootstrapping; suffix list supplied |
+| verb-arg construction (`incremental_parser.incremental_build`, reused) | Now-or-Never left-corner eager bind (Christiansen-Chater) | **BF_SPIRIT** (reused landed organ) |
+| coordination + NP-modifier constructions (`exp_readlearned_construction_stack_v1`) | Coordinate-Structure / parallelism + NP-chunk head rule (Tomasello item-based) | **BF_SPIRIT** -- construction schemas; boost-weights swept |
+| clausal constructions (`exp_readlearned_clausal_construction_v1`) | marker-triggered subordination/complementation (filler-gap keyed on scaffold markers) | **BF_SPIRIT** -- item-based; markers = closed-class scaffold |
+| relative-clause attachment (`exp_readlearned_relcl_attachment_v1`) | filler-gap: post-nominal non-main verb -> head noun, all 3 types (O'Grady/Lewis-Vasishth) | **BF_SPIRIT** -- filler-gap construction; strong boost (w=25) to overcome the prior penalty |
+| MBR decode (`exp_readlearned_mbr_readout_v1`) | max-spanning-arborescence over the edge marginals = min-Bayes-risk tree (Smith-Smith 2007; multipath parsing) | **PINNED** (decision-theoretic; reuses verified CLE + marginals) |
+| gain calibration (`exp_readlearned_marginal_calibration_v1`) | temperature on the Matrix-Tree marginal = divisive normalization (Carandini-Heeger 2012) | **PINNED** (canonical cortical computation) |
+| adaptive-k reliability readout (`exp_readlearned_adaptive_readout_v1`) | entropy/margin-gated set-valued readout; cue-competition (Lewis-Vasishth) | **BF_SPIRIT** (computational-level) |
+| Competition-Model relation labeler (`exp_readlearned_bf_relation_labeler_v1`) | word-order cue (pre-verbal=nsubj, post-verbal=obj; MacWhinney-Bates) + structural POS->relation map | **BF_SPIRIT** -- word-order cue PINNED-ish; relation map supplied |
+| Hindle-Rooth PP-attachment (`exp_readlearned_ppattach_hindle_rooth_v1`, `..._integrate_v1`) | preposition-specific verb-vs-noun association from unambiguous PPs (constraint-based lexicalism) | **BF_SPIRIT** -- treebank-free lexical cue; prep-specific increment marginal (located) |
+| referential probe (`exp_readlearned_referent_pp_v1`) | candidate-referent count (Altmann-Steedman referential theory) | **BF_SPIRIT** (verified-real signal; strong version needs cross-sentence coref) |
+| LOCATED NEGATIVES (tested BF mechanisms that did not win, twin/gate-controlled): online/Hebbian re-estimation (`..._online_acquisition_v1`), 2nd-order sibling readout (`..._second_order_readout_v1`), joint POS-parse lateen loop (`..._joint_pos_parse_v1`) | online-decay / sibling-identity / co-adaptation | **BF (faithfully built, LOST)** -- the ceiling is the signal/parse-quality, not these mechanisms |
+| diagnostics/measurement (`..._lever_oracle_v1`, `..._scale_v1`, `..._full_stack_final_v1`, `..._downstream_ab_v1`, `..._downstream_final_v1`, `..._multiconjunct_v1`) | oracle decomposition / scale-EM curves / A-B harnesses | **BF (analysis)** -- gold used ONLY as eval/upper-bound, never at inference |
+| witness (`verification/test_readlearned_arc_scorer_scale.py`) | 94 scaffold-free checks over landed metrics + live micro-checks | reverify command |
+
+**Not created, flagged NOT_BF (the live substrate links this work provides BF replacements for):** `pos_tagger`
+(supervised perceptron), `arc_parser` (supervised feature-hashed perceptron), `arc_labeler` (supervised
+multiclass perceptron), tokenizer (whitespace). Registry-confirmed NOT_BF; each now has a BF-acquisition prototype.
+
+# 16. NEXT PRIORITY STEPS (ranked; the honest forward path)
+
+1. **LAND the BF decode + readout (ready now, recall path byte-identical).** MBR (min-Bayes-risk) decode at a
+   per-scorer gain-calibrated temperature + the reliability-gated adaptive-k readout. Zero new signal, reuses
+   verified `graded_parser` code. This is the cleanest immediate BF win for any parse consumer.
+2. **WIRE the reading-learned scorer as a register-general SECOND track** (Q111, strategy lands): it MATCHES the
+   supervised scorer on verb->arg extraction in-domain and BEATS it OOD, read as a distribution -- the HYBRID
+   endgame. Select by marginal reliability (low = register shift = prefer the reading-learned track). Weight the
+   construction cues PER CONSUMER (light {verbarg,coord,npmod} for verb->arg extraction; full 5-family stack for
+   content-UAS/full-parse -- the per-consumer tradeoff, §14).
+3. **FILE the POS-acquisition sibling** (the gating upstream link): scale the SRN/scaffold category induction toward
+   supervised quality (0.71 -> 0.94) with an aligned inventory; owns `pos_tagger_is_a_notbf_maxmargin_perceptron...`.
+4. **BUILD the cross-sentence referential feature for PP-attachment** (verified-real, AUC 0.544 CI-sep): a call-site
+   integration of the coref `compat` candidate-count (`hdlab/coreference_resolver.py`) at PP-arc scoring time --
+   routes to the coref/reader, not this front-end.
+5. **ROUTE the deep residuals to their owning problems:** the filler-gap ROLE half of relative clauses ->
+   `the_relcl_parser_is_too_weak`; the event-level / prosody disambiguation signal -> the generative world-model
+   (the named main event). Text-only PP/clausal disambiguation is signal-limited beyond the missing statistics.
+
 # AUDIT UPDATE (`notes/BRAIN_FOUNDATIONAL_AUDIT.md`)
 
 The parser-cluster entry (CONT-126: "the wall is the SCORER acquisition ~99%; text-only ceiling ~0.46;
@@ -738,3 +804,19 @@ choose it when the supervised scorer's marginal reliability drops (the OOD signa
    TOKEN/event level (Bicknell 2010: P(patient|agent,verb) not decomposable — the type-level negatives pri-3
    found do NOT preclude a token-level lever) + discourse-entity referential tracking (Altmann-Steedman) for
    clausal — NOT more arc-scorer machinery. Prosody is the PINNED text-absent residual bounding the ceiling.
+
+---
+
+INTEGRATED_BY_STRATEGY 2026-09-11 — reverified 94/94 first-hand. Core value folded to
+`notes/BRAIN_FOUNDATIONAL_AUDIT.md` §2b (the capability WIN = reading-learned scorer read as a
+graded distribution matches supervised in-domain + beats OOD +0.0235 CI-sep = the register-general
+SECOND-TRACK reframe; the numbered located negative = text-only UAS ceiling 0.478, scale/EM/online
+all NOT the lever, residual = disambiguation signal text lacks; the readout-lever oracle; the
+fully-BF-acquisition chain 78.9% of gold-POS; the NP-modifier construction; MBR decode land-ready).
+NO LIVE FLIPS (the land-ready pieces target graded_parser/arc_parser, NOT the live default ARC-EAGER
+head path — the live reader is byte-identical, mirrors the pri-3 integration); the parser NOT_BF
+organs keep their tags WITH a documented BF-acquisition replacement prototype. GROWN-KNOWLEDGE: none
+new (reuses the registered directional grow-by-reading store). FOLLOW-ONS: the second-track scorer
+wire (reliability-gated, board-measured) filed to refill the queue; the PP/clausal residual routes to
+the pri-1 generative world-model at the token level (Bicknell); the POS-acquisition sibling owns the
+in-review pos_tagger problem; the 2nd-order Eisner-DP EM filed with its oracle ceiling caveat.
