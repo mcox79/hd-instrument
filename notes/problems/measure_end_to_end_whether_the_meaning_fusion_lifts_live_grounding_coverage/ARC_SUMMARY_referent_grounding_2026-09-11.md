@@ -47,6 +47,8 @@ claim the brain makes. NOT_BF = a defect (none introduced this arc).
 | hub_spoke_word.py | the PINNED hub-and-spoke architecture (double dissociation) + spoke EXTENSION property; the vehicle for adding modalities as separate pools | BF (hub-and-spoke PINNED); FHRR binding OUR-INVENTION-tagged (kept per owner 08-26) |
 | gated_fusion.py | recovery-gate PATTERN reused (VAL-grid incl best-single fallback -> no dilution by construction) | landed HARD_PASS |
 | typed_spokes.py / composed_hub_predictor.py / grounded_similarity.py / reading_grounding_loop.py | ATL typed-spoke hub, distributional hub, Lancaster spoke, the live loop's ROUTE-B taps | BF / BF_SPIRIT (per FULL_CHAIN_BF_AUDIT) |
+| sensorimotor_spoke.py (ORGAN B5) | PINS the referent spoke's brain claim: "modality-specific cortex feeds the ATL hub; concepts are NOT built from co-occurrence alone" (Xu 2025). The DINOv2 referent is the faithful realization of THIS organ's claim | BF (PINNED claim); the landed spoke SUPPLIES Lancaster self-report ratings, not learned perceptual content |
+| grounded_similarity.py (the live G/Gd) | THE precise landed-vs-brain difference (W41 differential): represents "visual" as ONE self-report scalar (Lancaster Visual.mean, "how visual is this word"), a "principled ceiling of pure sensorimotor-profile similarity" (its own docstring) -- NOT the visual content. W41 measured DINOv2 content (0.698) dominates it (0.53), +0.312 R2 CI-sep | BF_SPIRIT (self-report foundation asset); COMPLEMENTARY to the DINOv2 content spoke: Visual.mean = precision gate, DINOv2 = perceptual structure |
 
 ## FULL-CHAIN MATHEMATICAL BF STATUS
 Every rung raw-input -> similarity remains BF or BF_SPIRIT; this arc introduced NO NOT_BF atom.

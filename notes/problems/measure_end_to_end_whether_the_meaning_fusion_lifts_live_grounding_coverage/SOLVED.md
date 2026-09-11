@@ -1341,3 +1341,39 @@ accept that on the concrete-depictable slice the VISUAL channel dominates the lo
 chance there); weight it accordingly in the convergent-cue precision fusion (the calibrated grid already does this). DO
 NOT expect a lift on the coverage-count or the synonym-ranking frontier for this modality (data-blocked, measured). The
 referent's live contribution is the concrete-object relatedness structure the distributional channel cannot represent.
+
+## BRAIN-VS-US DIFFERENTIAL (2026-09-11, BF-push cron -- hdlab organ audit; the precise "where do we differ from the brain")
+
+The cron asked to check whether an hdlab organ already matches what the referent spoke needs, and to name EXACTLY where
+we differ from the brain. Enumerated the vision/perception/grounding organs (unified_referent, sensorimotor_spoke,
+typed_spokes, perceptual_access_ledger, grounding_acquisition_loop, grounded_similarity). The precise finding:
+
+- THE BRAIN CLAIM IS ALREADY PINNED IN-SUBSTRATE. hdlab/sensorimotor_spoke.py (ORGAN B5) pins: "modality-specific cortex
+  feeds the anterior temporal hub; concepts are NOT built from linguistic co-occurrence alone" (Xu et al. 2025: text
+  recovers non-sensorimotor meaning well, SENSORY meaning poorly). So the referent spoke's brain rationale is not new --
+  it is the faithful realization of an organ the substrate already has.
+- WHERE THE LANDED SUBSTRATE STILL DIFFERS FROM THE BRAIN (the exact gap, now measured). The live loop's grounded channel
+  is hdlab/grounded_similarity.py (the SAME G/Gd this problem's W41 measured): a 12-dim vector = 11 Lancaster sensorimotor
+  self-report MEANS + 1 Brysbaert concreteness. Its "visual" modality is ONE dimension, Visual.mean -- a 0-5 human
+  self-report RATING of "how visual is this word". That scalar says "banana is 4.8/5 visual" but carries NO information
+  about what a banana LOOKS like versus an apple. grounded_similarity's own docstring names this exactly: "a genuine,
+  principled ceiling of pure sensorimotor-profile similarity". The brain does NOT feed the hub a self-report rating -- the
+  ventral stream feeds actual perceptual CONTENT. The DINOv2 referent centroid IS that content (frozen ventral-stream/IT
+  stand-in). So the difference is precise: LANDED = self-report scalar ABOUT visualness; BRAIN/OURS(W37-W41) = the visual
+  content itself.
+- THIS IS ALREADY MEASURED (no new cell warranted -- W41 IS the head-to-head). On the live loop's concrete-noun slice
+  (n=125, MEN), the DINOv2 visual-CONTENT channel (rho 0.698) DOMINATES the live grounded rep that ALREADY INCLUDES the
+  Visual.mean self-report dimension (rho 0.53), adding +0.312 R2 CI-sep twin-losing. So "actual perceptual content beats
+  the self-report visual rating" is not an assertion -- it is the W41 number. The two are COMPLEMENTARY, not redundant:
+  the Visual.mean self-report scalar is the right signal for PRECISION ("how much does vision matter for this word", used
+  as the fusion precision gate); the DINOv2 content is the right signal for the actual perceptual STRUCTURE. Keep both.
+- INCORPORATION HOME (sharpened). The referent spoke is a NEW perceptual-CONTENT spoke on the ATL hub (alongside
+  sensorimotor_spoke B5 / the typed_spokes hub), NOT a replacement for the Lancaster self-report spoke. Wiring adds a
+  spoke; it does not modify grounded_similarity. Q111/strategy owns the landing.
+
+CONCLUSION OF THIS PUSH. The hdlab audit confirms the referent spoke is the faithful realization of a PINNED brain claim
+the substrate already holds, and pins the exact remaining landed-vs-brain difference (self-report visual scalar vs actual
+visual content) -- WITH the W41 number that already closes it. No new powered experiment is warranted: the remaining
+directions are out-of-scope (the SITUATED/context-sensitive referent -- a running dog vs a sleeping dog -- belongs to the
+project's separate generative world-model main-event arc) or owner's-call (broad-AudioSet sound spoke; the pre-existing
+WordNet-morphy lemmatizer). The referent-grounding arc is at its brain-foundational ceiling for THIS problem.
