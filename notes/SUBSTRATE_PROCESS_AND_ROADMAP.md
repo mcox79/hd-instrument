@@ -43,6 +43,11 @@ Every working cycle, in order:
    when it lands (CONT-95 dogfood finding: a `timeout 590` wrapper kills it before the aggregate). A board-invisible
    proven win gets its own instrument-arm — unless, like `causal_sign`, its signal needs a scale the board can't run
    in smoke (then its dedicated full-scale witness IS the instrument; do not add a misleading smoke-board arm).
+   **⚠️ BOARD-PROXY CAVEAT (strategy 2026-09-11): some board arms score a SIMPLIFIED STAND-IN, not the full live
+   `read()` — e.g. `who_did_what_patient` calls `structural_patient_pick` DIRECTLY (no marginals), bypassing the
+   live `_router_roles`. So a FLAT board delta can mean the wire never ran on the scored path, NOT that it failed.
+   Before trusting (or dismissing) a board number for a live wire, INSTRUMENT it — count invocations on the scored
+   path. A board arm that measures a proxy should be pointed at the live `read()` output (a fidelity fix in its own right).**
 6. **Prune + re-audit at land:** orphaned old versions pruned (3-gate; dormant ORGANS never pruned); every incoming
    solution re-audits its entire upstream chain for BF-fidelity (that audit seeds the next problem).
 7. **Keep the anchors current:** STATUS.md top block + this roadmap reflect what actually landed (a plan you didn't
