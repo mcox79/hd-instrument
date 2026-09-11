@@ -41,3 +41,29 @@ stronger version actually tested), routing the residual to the responsible compo
 > CI-separated; info-free twin must lose. 5) FULL-STACK-UPSTREAM: if the lever is upstream (the arc scorer) or
 > downstream, name + quantify it and route it. **PHASE-DIAGRAM note:** the substrate may move anywhere on the
 > density/dim/binding/scorer phase diagram per organ — a wall "at this config" = MOVE the operating point, not a ceiling.
+
+
+<!-- GUARD SECTIONS (appended by strategy 2026-09-11 for brief-cert conformance; the fleet brief above is the primary statement, SOLVED.md is authoritative). -->
+## THE PROBLEM IN PLAIN LANGUAGE
+The reader tags parts of speech with a hard max-margin perceptron (NOT_BF) that throws away its graded confidence. The brain's lexical category is a graded, calibrated, distributionally-acquired belief that syntax resolves jointly. See the fleet statement above and SOLVED.md.
+
+## WHY THIS ONE
+pos_tagger is one of the NOT_BF defects and part of the shared parser-cluster wall that caps who-was-affected recall.
+
+## MEASURED vs INFERRED
+MEASURED: pos_tagger NOT_BF, hard Viterbi discards marginals. INFERRED (now found): a standalone calibrated-tagger fix is REFUTED as the lever; the residual routes to a JOINT POS+parse graded decode consuming the CRF marginals. See SOLVED.md.
+
+## ALREADY TRIED
+The standalone calibrated-graded-tagger fix (refuted as a standalone lever). Do not re-run it in isolation. See SOLVED.md + HANDOFF_POS_PARSER_PLAN.
+
+## VERIFY BEFORE YOU START
+A persisted offline-trained static model is admissible; no external tagger/LLM at inference. Read SOLVED.md + harm_help_valence.../HANDOFF_POS_PARSER_PLAN.md IN FULL. Cap cores (OMP_NUM_THREADS=4 ...).
+
+## THE BAR
+See "## The bar" above: deliver the calibrated graded category posterior / the joint decode with a number, or a rigorous located negative naming exactly why standalone POS is not the lever.
+
+## FILES AND ENTRY POINTS
+hdlab/pos_tagger.py; hdlab/crf_tagger.py; the parser cluster (hdlab/arc_parser.py, hdlab/graded_parser.py); experiments/ POS cells + witnesses.
+
+## DO NOT QUOTE
+Retired figures (notes/reference_retired_claims_never_requote.md); no external tagger / LLM at inference; no 19c corpora.
