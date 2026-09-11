@@ -190,3 +190,5 @@ passages had an EMPTY column, so nothing surfaced (the tagger+router DO see the 
 annotated CoNLL the wire would populate. Real reasons for reverting: a per-sentence router re-parse cost
 + no live who-was-affected QA consumer. Clean future wire = events-based (reuse sm.events, no re-parse).
 The board arm (board_affected_entity_dimension) is the rigorous scored proof.
+
+UPDATE (2026-09-11): read()-time wire RE-LANDED + verified (c0d612dad) -- the additive _read_affected_entity dimension populates sm.affected_entity; witness test_affected_entity_wire.py 6/6 (byte-identical off; him->Peter object-parallelism == gold); board self-test 0.6294 no-regress. who_was_affected is now FULLY landed: organ (1/3) + read()-dimension (2/3) + board arm (3/3).
