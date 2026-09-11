@@ -195,6 +195,7 @@ def run(limit=None, gamma_g=GAMMA_G, gamma_t=GAMMA_T, predicted_parse=False):
         "accuracy": {a: acc(a) for a in arms},
         "A2_prinB_minus_A1": paired("A2_prinB", "A1_salience"),
         "A5_full_minus_A1": paired("A5_full", "A1_salience"),
+        "A5_full_minus_twin": paired("A5_full", "A5_twin_uniform"),   # info-free control (board arm reuses this)
         "note": "Mathematically-BF likelihood half: Principle-B co-argument filter (PINNED) + role/thematic "
                 "parallelism (PINNED likelihood bonus, gamma swept) over the BF ACT-R salience prior. DIAGNOSTIC = "
                 "how often the current subject-biased pick is the ILLEGAL co-argument. Controls: A2-A4 ablations; "

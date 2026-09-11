@@ -1895,6 +1895,51 @@ def board_commonnoun_resolution_dimension(cap=None, seed=13, n_boot=2000):
         return _degraded("commonnoun_resolution", e), {"error": "%s: %s" % (type(e).__name__, e)}
 
 
+def board_affected_entity_dimension(smoke=False):
+    """AFFECTED-ENTITY (undergoer PRONOUN -> discourse entity) board arm on modern GUM. Board-INVISIBLE today:
+    the owner-DONE who_was_affected...forward_salience_prior landed the mathematically-BF resolver
+    (hdlab.affected_entity_resolver: ACT-R salience PRIOR x Principle-B co-argument exclusion x role/thematic
+    parallelism LIKELIHOOD -- Kehler-Rohde) but no board dim scores it. This arm scores the LANDED ORGAN on the
+    reader's OWN PREDICTED parse (predicted_parse=True = pos_tagger + arc_parser + arc_labeler = the DEPLOYMENT
+    setting the SOLVED validated: A2 Principle-B +0.049 robust to A5 full +0.060, CI-sep, n=952). model = A5 full
+    (salience x Principle-B x parallelism); strongest floor = A1 salience-alone (the ACT-R prior, the honest
+    baseline the win is measured over); twin = uniform-over-Principle-B-survivors (info-free). Kept OUT of the
+    19c-free headline aggregate (its own row). OFF in the self-test. Degrades gracefully (GUM/front-end absent ->
+    schema-shaped row, never crashes the board). MODERN (GUM). 'live != scored' -- the read()-time wire is the
+    additive sm.who_was_affected landing (companion)."""
+    try:
+        import experiments.exp_affected_entity_binding_parallelism_gum_v1 as AE
+        r = AE.run(limit=(40 if smoke else 200), predicted_parse=True)
+        a = r["accuracy"]; p5 = r["A5_full_minus_A1"]; pt = r["A5_full_minus_twin"]; p2 = r["A2_prinB_minus_A1"]
+        row = {
+            "n": r["n_matched_pronoun_undergoers"],
+            "model_acc": a["A5_full"],
+            "overlap_floor": a["recency"],
+            "strongest_floor": a["A1_salience"], "strongest_floor_name": "A1_salience_prior",
+            "twin_acc": a["A5_twin_uniform"],
+            "model_minus_strongest": [p5["delta"], p5["ci95"][0], p5["ci95"][1]],
+            "model_minus_twin": [pt["delta"], pt["ci95"][0], pt["ci95"][1]],
+            "ci_sep_over_strongest": bool(p5["ci_sep"]), "ci_sep_over_twin": bool(pt["ci_sep"]),
+            "informational": False,
+            "population": "GUM modern pronoun-undergoers (predicted parse = deployment), n=%d" % r["n_matched_pronoun_undergoers"],
+        }
+        detail = {"accuracy": a, "A2_prinB_minus_A1": p2, "A5_full_minus_A1": p5, "A5_full_minus_twin": pt,
+                  "illegal_coarg_rate": r["DIAGNOSTIC"]["rate"],
+                  "note": "who_was_affected forward-salience x Principle-B x role/thematic parallelism "
+                          "(hdlab.affected_entity_resolver, promoted BUILD-4 corrected lever). DEPLOYED predicted "
+                          "parse (pos_tagger+arc_parser+arc_labeler). model=A5 full %.4f vs strongest floor=A1 "
+                          "salience prior %.4f = %+.4f CI[%.4f,%.4f] (CI-sep=%s); info-free twin %.4f = %+.4f "
+                          "(CI-sep=%s). A1's subject-biased top pick is the ILLEGAL Principle-B co-argument %.0f%% "
+                          "of the time (the mechanistic root of the salience wall). Kept OUT of the headline "
+                          "aggregate (its own row)."
+                          % (a["A5_full"], a["A1_salience"], p5["delta"], p5["ci95"][0], p5["ci95"][1],
+                             p5["ci_sep"], a["A5_twin_uniform"], pt["delta"], pt["ci_sep"],
+                             r["DIAGNOSTIC"]["rate"] * 100)}
+        return row, detail
+    except Exception as e:
+        return _degraded("affected_entity", e), {"error": "%s: %s" % (type(e).__name__, e)}
+
+
 def board_state_closure_dimension(n_boot=5000, seed=None):
     """STATE-CLOSURE (multi-clause state antonymy) board arm on the solver's OWN CONSTRUCTED MODERN gold
     (exp_state_closure_wordnet_v1 _CLOSURE_ANTONYM/_CLOSURE_COSTATE, n=25). This capability is board-INVISIBLE
@@ -2351,6 +2396,9 @@ def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True
                                                                  n_boot=min(2000, n_boot * 2))
         new_arms["commonnoun_resolution"] = cnr_row
         new_arms_detail["commonnoun_resolution"] = cnr_det
+        ae_row, ae_det = board_affected_entity_dimension(smoke=bool(caps.get("affected_entity_smoke")))
+        new_arms["affected_entity"] = ae_row
+        new_arms_detail["affected_entity"] = ae_det
         # -- this session's TWO board-invisible proven wins, each its OWN row (OUT of the headline aggregate) --
         se_row, se_det = board_spatial_extraction_precision_dimension(cap=caps.get("spatial_precision"))
         new_arms["spatial_extraction_precision"] = se_row
