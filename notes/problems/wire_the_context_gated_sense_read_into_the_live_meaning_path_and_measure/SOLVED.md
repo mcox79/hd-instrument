@@ -485,3 +485,6 @@ downstream consumer" — SOLVED-of-the-wire-works + PARTIAL-of-the-downstream-li
    perceptual/experiential differentia (grounding; Binder right-KIND-but-sparse) or a genuine contextual encoder, and/or
    an OntoNotes sense-group inventory for the true homonymy grain. All FOUNDATION/mega-cluster acquisitions, correctly
    behind the graded consumer. Readout params + grain + local-context + two-system fusion are all EXHAUSTED (null).
+
+---
+INTEGRATED_BY_STRATEGY 2026-09-11 — reverified first-hand (`test_sense_wire_liveness_and_coref_negative` PASS; `test_graded_consumer_scws` PASS). LANDED: the board WiC dimension re-pointed at the LIVE wire (`board_wic_via_live_wire_dimension`; the CO._pick stand-in kept as informational detail); NEW board arm `board_scws_graded_dimension`. NO discrete consumer gated (the DO-NOT is durable: coref type-license / natural-logic is-a / bridge-writing are sense-immune). The forward consumer (graded reader of the settled vector) is pri-1's. §2b + BF ledger + INTEGRATION_LEDGER updated.

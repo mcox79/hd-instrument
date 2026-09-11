@@ -16,6 +16,19 @@
 
 ---
 
+## 2026-09-11 (evening) — ✅ INTEGRATED the MEANING-CHANNEL pair (owner-DONE): pri-5 meaning-fusion + context-gated sense; fold-in backlog → 0
+### measure_end_to_end_whether_the_meaning_fusion_lifts_live_grounding_coverage  [pri5; owner-DONE; reverified 38/38 before+after; status→INTEGRATED]
+- **CLAIMED:** a BF meaning representation lifts the loop's coverage QUALITY CI-sep (grounded beats the incumbent; grown-SEQ adds +0.16@250k→+0.26@1M; referent +0.312 R² on concrete nouns); the count metric is quality-blind.
+- **LANDED (LIVE by default):** `FusedSenseRanker` in `hdlab/reading_grounding_loop.py` wired at `_make_grounding_gate` (grounded-distinctive + grown-SEQ + referent; SDT accept criterion; incumbent fallback stated); directional all-content tracking ON per `ReadingLoopState`; ROUTE-B sidecar persistence; `tools/grow_seq_store.py` + `Substrate()` merge of `data/foundation/seq_store_v1` (1M lines); `sensorimotor_spoke` referent arm; `grounded_similarity.grounded_reliability`. Witness `test_fused_sense_ranker_live.py` 8/8; pri-5 witness 38/38 after; loop/persistence/spoke self-tests green; ROUTE-B store witnesses 6/6+5/5 (opted out of the live default to test the primitive).
+- **INSTRUMENT (new board arm, OUT of the aggregate):** `grounding_coverage_quality` (`exp_board_grounding_coverage_quality_v1`): FUSED MRR@0.5 0.375 (1M store) vs incumbent 0.014 CI-sep; twin loses; grounded-only 0.175 (the grown SEQ+referent increment +0.200 CI-sep). n=87 smoke; full-population number = the board `--run` row.
+- **full_gain_realized: YES on its own instrument (the count metric cannot show it, by construction).** CONSUMES: grounded norms + grown directional counts + referent asset. WALL (recorded): WordNet-morphy at runtime in the lemma rung; the PBV per-encounter path still incumbent (live substrate uses the consolidation gate).
+### wire_the_context_gated_sense_read_into_the_live_meaning_path_and_measure  [owner-DONE; reverified PASS+PASS; status→INTEGRATED]
+- **CLAIMED:** the live wire lifts WiC 0.500→0.749 CI-sep (twin loses); no live discrete consumer profits (principle: sense pays only in a graded discriminative consumer, never OR/licensing).
+- **LANDED:** board WiC dimension re-pointed at the live wire (`board_wic_via_live_wire_dimension`; old stand-in kept informational); NEW arm `board_scws_graded_dimension` (settled vector vs context-free, SCWS). NO consumer gated (the DO-NOT is durable). Smoke AGG 0.6294→0.6313 (instrument change).
+- **full_gain_realized: N/A (measurement landing); the forward consumer is pri-1 (generative world-model reading the settled vector).**
+
+---
+
 ## 2026-09-11 (overnight WS1a) — ✅ INTEGRATED who_was_affected...forward_salience_prior (owner-DONE); reverified 10/10
 ### who_was_affected_needs_the_forward_salience_prior_join_undergoer_to_discourse_entity  [SOLVED; owner-DONE; reverified 10/10; status→INTEGRATED]
 - **CLAIMED:** the forward salience prior recovers the affected discourse entity +0.2727 CI-sep over the recency floor (pronominal stratum); the corrected grammatical lever (Principle B + role/thematic parallelism) ~doubles it (+0.093 gold roles, **survives the predicted parse +0.049 Principle-B / +0.060 full CI-sep, n=952**).

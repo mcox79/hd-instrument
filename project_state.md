@@ -1,6 +1,6 @@
 # project_state.md — The Active Context
 
-> Handoff document for the incoming session. Written 2026-09-11. This is a *synthesis*; the always-current
+> Handoff document for the incoming session. Written 2026-09-11; LIVING — updated 2026-09-11 evening (Fable 5.1 session) after the meaning-channel landing. This is a *synthesis*; the always-current
 > machine-derived truth lives in `python tools/substrate_health.py`, `notes/STATUS.md`, `git log`, and
 > `notes/bf_status_registry.jsonl` — **those OUTRANK this document wherever they disagree.** Read STATUS.md first,
 > then this.
@@ -46,21 +46,22 @@ Two hard invariants gate everything:
 - **This session's wave:** **pri-2 reading-learned arc scorer** INTEGRATED (durable knowledge: read the self-taught scorer as a graded distribution → matches supervised in-domain, beats OOD +0.0235 CI-sep = the register-general 2nd-track reframe; text-only ceiling 0.478 located; fully-BF-acquisition chain 78.9% of gold-POS). **Coref-consolidation** landed (6 coref organs → ONE `hdlab/entity_resolver.py` + `hdlab/lexical_utils.py`, proven byte-identical, witnesses 12/12+2/2+3/3, board 0.6294).
 - **Durable knowledge banked** (`notes/BRAIN_FOUNDATIONAL_AUDIT.md` §2b, newest-first): the coref two-half machine; the taxonomic-is-a refutation; the parser scorer wall; the FHRR-unbind lesson; the who-was-affected grammar-not-semantics lever.
 - **The capability-wall pivot** recorded: text-distributional + type-level exhausted → grounding-beyond-text + the in-context generative world-model.
+- **2026-09-11 evening (Fable 5.1 session):** the **meaning-channel pair** integrated — the grounding loop's sense-assignment read is the fused BF read (grounded-distinctive + grown-SEQ + referent, SDT criterion), LIVE, with its own coverage-quality board arm (0.375 vs 0.014); the grown SEQ knowledge is persisted and merged live (the first grown-by-reading asset that both exists AND is consumed); WiC board arm scores the live wire; SCWS graded arm added. Fold-in backlog 0.
 
 ---
 
 ## 4. THE ACTIVE VECTOR (what we are tackling right now)
 
-**An owner-DONE integration wave** — the owner is marking solver submissions DONE faster than one session's context can safely absorb. Completed this session: **pri-2 scorer** (fully integrated) + **coref-consolidation** (FULLY INTEGRATED: 6 coref organs → one `hdlab/entity_resolver.py` + `hdlab/lexical_utils.py`, proven byte-identical, witnesses 12/12+2/2+3/3, board 0.6294; marker + §2b + registry 84→86 + ledger done; commits `859c02026`/`ff0643285`/`8fbc3d8f0`).
+**The owner-DONE backlog is CLEAR (2026-09-11 evening).** Landed this session, each reverified first-hand before and after:
+- **pri-5 meaning-fusion — LANDED LIVE.** The reading-grounding loop's sense-assignment read is now the FUSED convergent-cue read (`hdlab/reading_grounding_loop.py::FusedSenseRanker`, wired at the grounding gate, default ON): grounded-distinctive ATL (+) reading-grown direction-typed SEQ (+) visual referent (new `sensorimotor_spoke` arm; FOUNDATION asset at ingest), z-field divisive normalisation, earned-gain (log1p) weighting, SDT accept criterion on the info-free null. The fixed 0.45 cosine is gone from the decision; the recall path is byte-identical. The grown SEQ store (1M modern Simple-Wiki lines, `tools/grow_seq_store.py`, ~1 min) ships as `data/foundation/seq_store_v1` (gitignored — regenerate on a new machine) and is merged into every fresh `Substrate`. **Measured on its own new board arm `grounding_coverage_quality`: MRR@0.5 0.375 vs incumbent 0.014 (grounded-only 0.175; twin loses; n=87 smoke; monotone in reading).**
+- **context-gated sense — LANDED (measurement).** Board WiC re-pointed at the live wire (`landed == live`); SCWS graded arm added; NO discrete consumer gated (durable DO-NOT). The forward consumer is pri-1.
 
-**Remaining owner-DONE queued (both are MEANING-PATH work on `situation_reader` → serialize):**
-- **pri-5 `measure_end_to_end_whether_the_meaning_fusion_lifts_live_grounding_coverage`** (owner-DONE). Land the meaning-fusion flip: fold W19/W20 to §2b, flip the 3 latent meaning pieces LIVE (directional SEQ channel / valence_polarity / intrinsic_gain), land the hdlab wire spec (SOLVED §"hdlab proposal", ~L933/L1036), persist the grown SEQ store, re-measure the board. **Response already measured POSITIVE first-hand: +0.16 @250k → +0.22 @500k reading lines, CI-separated, info-free twin losing, monotone.** Behavior-CHANGING (no byte-identity safety net).
-- **`wire_the_context_gated_sense_read_into_the_live_meaning_path_and_measure`** (owner-DONE, the Q127 problem). In-context/token-level sense read into the live meaning path. **Land TOGETHER with pri-5** as one coordinated meaning-channel pass (both edit situation_reader; they're related).
-
----
+**The vector now:** (1) the full board `--run` confirms the full-population rows (detached; fold numbers in on completion); (2) the deepest meaning-chain residual — WordNet-morphy at runtime in the lemma rung (computation BF, implementation an external data tool) — becomes a fleet problem (glass-box morphology); (3) the generative world-model (pri-1) as the graded consumer of the validated settled-vector currency.
 
 ## 5. IMMEDIATE NEXT STEPS (prioritized plan for the next session)
 
+0. **[DONE 2026-09-11 evening] The meaning-channel pair (pri-5 + context-gated sense) is fully integrated**; fold-in backlog 0. Full board `--run` launched detached — on completion fold the `grounding_coverage_quality` / `scws_graded_meaning` / `wic` full-population rows into §2b, INTEGRATION_LEDGER and this file; check AGG no-regress (self-test 0.6313 after the WiC instrument change).
+0b. **Post the glass-box-morphology problem** (replace WordNet-morphy at runtime in `normalize_lemma`→`lemma_word`; the deepest residual on the now-otherwise-BF meaning chain; non-circular, changes no number, but violates 'no external tool at inference').
 1. **[DONE this session] coref-consolidation fully integrated.** Two follow-ons remain filed/open: the BF prize (upgrade `entity_resolver.retrieve()` to graded L&V cue-combination — a separate behavior-changing problem) and clearing `entity_world_model_resolver`'s dormant experiments-import debt.
 2. **THE TOP NEXT ITEM — land the meaning-channel pair (pri-5 + context-gated-sense) TOGETHER** — reverify both witness sets first-hand, read both SOLVED wire specs in full, land + measure as one behavior-changing pass (flip the pieces, persist the store, board `--run` to confirm the lift, keep if net-positive / revert + record a located negative if not). This realizes the largest measured-but-unrealized grown-knowledge performance in the substrate.
 3. **Then descend the owner-DONE queue one situation_reader landing at a time.** Reverify → read SOLVED in full → land the full chain (owner directive: implement ALL upstream fixes, accept downstream breakage, fix downstream to receive) → §2b + registry + ledger + `INTEGRATED_BY_STRATEGY` marker → commit path-limited, nothing pushed.

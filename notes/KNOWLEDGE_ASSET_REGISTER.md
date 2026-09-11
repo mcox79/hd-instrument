@@ -36,7 +36,7 @@
 - **Rule (project-wide):** **wrap ANY broad/noisy KB lookup in `safe_kb_types` before its facts fire.** This is what lets
   the world-model acquire a broad entity KB *safely* — the enabler for asset growth.
 
-### 3. `Warriner VAD affective norms` — the signed evaluative axis (antonymy)  ·  **BF_SPIRIT** (curated FOUNDATION)  ·  LATENT→(fusion-wire, pri-5)
+### 3. `Warriner VAD affective norms` — the signed evaluative axis (antonymy)  ·  **BF_SPIRIT** (curated FOUNDATION)  ·  LATENT→(a graded consumer; pri-5 W22 measured it located-NEGATIVE on the grounding decision, so NOT in the fused read)
 - **Path:** `data/frontend_assets/Ratings_Warriner_et_al.csv` (~13,915 words), read via `hdlab/affect_lexicon.py`
   (`valence`/`arousal`); the polarity read is `hdlab/valence_polarity_channel.py` (pri-2 piece 2).
 - **Provenance:** Warriner, Kuperman & Brysbaert 2013 (curated offline norm set); wired as the meaning channel's
@@ -49,7 +49,7 @@
   0.636), twin loses, WITHOUT WordNet. **LATENT** as a live channel (fusion-wire gated on pri-5); witness
   `verification/test_valence_polarity_channel.py` 2/2.
 
-### 4. `directional ROUTE-B co-occurrence store` — the parser-free learned IDENTITY channel (grows by reading)  ·  **BF_SPIRIT (mechanism)**  ·  LATENT→(fusion-wire, pri-5)
+### 4. `directional ROUTE-B co-occurrence store` — the parser-free learned IDENTITY channel (grows by reading)  ·  **BF_SPIRIT (mechanism)**  ·  **LIVE (2026-09-11)** — the fused sense-assignment read ranks over it; grown store shipped as `data/foundation/seq_store_v1`
 - **Path:** the store lives on `ConceptSpace._ctx_counts` (`hdlab/reading_grounding_loop.py`); the typing mechanism is
   `directional_context_lemmas` + the `track_directional_context_counts` flag (pri-2 piece 1).
 - **Provenance:** `the_meaning_representation_is_a_point_vector...` (owner-DONE 2026-09-10). This is a MECHANISM that GROWS
@@ -59,8 +59,12 @@
   pos_tagger/arceager from the learned meaning channel at no accuracy cost, MRR 0.298 vs 0.294). Consolidated offline with PPMI.
 - **BF basis:** statistical/predictive language acquisition (Saffran; Christiansen-Chater); PPMI = Hebbian-predictive fixed
   point (Levy-Goldberg); order typing = theta-phase sequencing. **GROWS BY READING** — the north-star acquisition mode.
-- **Consumer:** the learned-identity meaning channel; live-wire gated on pri-5. **LATENT** (default-off flag); to grow +
-  persist the consolidated store, run the offline grow loop with the flag on. Witness `test_route_b_directional_typing.py` 6/6.
+- **Consumer (LIVE 2026-09-11):** `reading_grounding_loop.FusedSenseRanker` (the grounding gate's sense-assignment read) — the flags are ON by
+  default on every `ReadingLoopState`; `tools/grow_seq_store.py` grows the store on 1M modern Simple-Wiki lines (~1 min) and
+  `foundation_persistence` persists it as the ROUTE-B sidecar; `Substrate()` merges `data/foundation/seq_store_v1` at construction.
+  MEASURED LIVE (board_grounding_coverage_quality, n=87 smoke): MRR@0.5 0.164 curriculum-only → 0.324 @250k → 0.375 @1M lines
+  (incumbent 0.014; grounded-only 0.175; all CI-sep, twin loses). Witnesses `test_route_b_directional_typing.py` 6/6 +
+  `test_fused_sense_ranker_live.py` 8/8.
 
 ### 5. `causal_sign_channel` formal-model couplings — the more/less edge SIGN  ·  **BF_SPIRIT**  ·  **LIVE** (`sm.causal_sign`)
 - **Path:** `hdlab/causal_sign_channel.py` (self-contained: 20 REACTIONS + 95 INFLUENCES + gate logic, byte-faithful to the solver's verified store; witness `test_causal_sign_channel_landed.py` 3/3, 5280 checks).
@@ -101,3 +105,12 @@ labels are ACCURATE; each latent asset activates when ITS consumer lands (measur
 **RE-AUDIT 2026-09-11 (owner asked "have we integrated grown knowledge that pushes performance?" — re-verified the wires on disk):**
 - **LIVE + pushing performance:** (1) `causal_sign` → `sm.causal_sign` (situation_reader:3473; board arm now BUILT, honest: beats falsifier, ties co-occurrence — modest); (2) the **C8 entity-type KB** (DBpedia P31 / Wikidata via `typed_spokes.available_entity_type`) is LIVE in `_resolve_commonnouns` (situation_reader:4221, the C8 name→type route) — it feeds the common-noun/name-bridge resolution (the 0.5818 dim integrated tonight); (3) the **curated `meaning_foundation`** is LIVE via `sm.select_sense` (situation_reader:3168) + scored on the board WiC/coarse-sense dims (wic 0.6639). So grown knowledge IS ingested live wherever a consumer exists.
 - **GROWN but LATENT (measured-but-unrealized performance):** the **antonymy/valence axis** (Warriner VAD / `valence_polarity_channel`, measured FUSED 0.878 vs 0.636 CI-sep) + the **directional grow-by-reading identity store** are NOT wired into the live reader (grep: absent from situation_reader) — both gated on **pri-5 `measure_end_to_end`** (in-review; the fusion-flip). The **directed causal store** (`store_v1.json`, +0.139) has no live consumer (unbuilt wire). `who_is_who_lexicon` world-model-gated. **⇒ the biggest untapped grown-knowledge performance is the meaning channel, waiting on the pri-5 owner-verdict to flip live.** Labels ACCURATE, re-confirmed.
+
+### 7. `visual referent centroids` — DINOv2 multi-exemplar centroids over THINGS photos  ·  **FOUNDATION asset (frozen at ingest; the transducer is NOT brain math)**  ·  **LIVE (2026-09-11)**
+- **Path:** `data/things_referents/referent_vectors_multi.npz` (gitignored; built by `experiments/exp_meaning_fusion_visual_referent_ingest_v2.py`), read by the
+  `hdlab/sensorimotor_spoke.py` referent arm (`referent_vector` / `referent_exemplars`; homonym families abstain, multi-word labels skipped; 1522 concepts).
+- **Provenance:** pri-5 `measure_end_to_end_whether_the_meaning_fusion...` W37–W41 (owner-DONE 2026-09-11).
+- **What it is / BF basis:** a REAL non-text referent modality feeding the hub (sensorimotor_spoke's pinned claim). Centroid = prototype abstraction; cosine = population
+  readout; fused as a separate convergent-cue pool. The deep-net transducer is admissible ONLY as an offline foundation asset (owner 2026-08-16); no runtime vision model.
+- **Consumer:** `reading_grounding_loop.FusedSenseRanker` (channel V). **Measured:** strongest single live channel on concrete nouns (W41 rho 0.698); no lift on the
+  coverage count or strict synonymy (data-blocked). Absent asset = the channel abstains (graceful).
