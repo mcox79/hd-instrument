@@ -1,0 +1,1527 @@
+{
+  "anchor": "situation_model_qa_modern_v1",
+  "seed": 20260906,
+  "aggregate_19c_free": {
+    "n": 11218,
+    "model_acc": 0.6253,
+    "strongest_floor": 0.5613,
+    "twin_acc": 0.437,
+    "n_dims_ci_sep_over_floor": 5,
+    "n_dims_total": 7,
+    "note": "CROSS-POPULATION SUMMARY (item-weighted mean over modern dimensions). NO LitBank dimension is included -> 19c-FREE. The per_dimension rows are the load-bearing claims; this pooled number crosses scorers/populations and is informational only."
+  },
+  "per_dimension": {
+    "coref": {
+      "n": 3132,
+      "model_acc": 0.4681,
+      "overlap_floor": 0.3621,
+      "floor_accs": {
+        "separate": 0.3621,
+        "recency": 0.2928,
+        "string_identity": 0.3075
+      },
+      "strongest_floor_name": "separate",
+      "strongest_floor": 0.3621,
+      "twin_acc": 0.2034,
+      "model_minus_strongest": [
+        0.106,
+        0.0786,
+        0.1327
+      ],
+      "model_minus_twin": [
+        0.2647,
+        0.2303,
+        0.3001
+      ],
+      "ci_sep_over_strongest": true,
+      "ci_sep_over_twin": true,
+      "population": "GUM (modern, TEST=odd docs) pronoun; UNIFIED discourse referent (DRT file-change) vs the strongest simple floor + info-free shuffled-identity twin."
+    },
+    "common_noun_coref": {
+      "n": 2855,
+      "model_acc": 0.5671,
+      "overlap_floor": 0.5412,
+      "floor_accs": {
+        "string_identity": 0.5412,
+        "recency": 0.0855
+      },
+      "strongest_floor_name": "string_identity",
+      "strongest_floor": 0.5412,
+      "twin_acc": 0.5398,
+      "model_minus_strongest": [
+        0.0259,
+        0.0134,
+        0.0385
+      ],
+      "model_minus_twin": [
+        0.0273,
+        0.0214,
+        0.0342
+      ],
+      "ci_sep_over_strongest": true,
+      "ci_sep_over_twin": true,
+      "population": "GUM (modern, TEST=odd docs) common; UNIFIED discourse referent (DRT file-change) vs the strongest simple floor + info-free shuffled-identity twin."
+    },
+    "salience": {
+      "n": 137,
+      "model_acc": 0.2555,
+      "overlap_floor": 0.1971,
+      "floor_accs": {
+        "first_introduced_entity": 0.1971
+      },
+      "strongest_floor_name": "first_introduced_entity",
+      "strongest_floor": 0.1971,
+      "twin_acc": 0.0657,
+      "model_minus_strongest": [
+        0.0584,
+        -0.0219,
+        0.1387
+      ],
+      "model_minus_twin": [
+        0.1898,
+        0.1095,
+        0.2701
+      ],
+      "ci_sep_over_strongest": false,
+      "ci_sep_over_twin": true,
+      "population": "GUM (modern, TEST) main-character salience; MODEL = reader's most-mentioned entity (frequency-of-mention salience, the 19c board's readout, now modern) vs the first-introduced-entity floor; gold = gold most-mentioned entity."
+    },
+    "who_did_what_agent": {
+      "n": 1423,
+      "model_acc": 0.832,
+      "overlap_floor": 0.8545,
+      "floor_accs": {
+        "positional_nearest_preverbal": 0.8545
+      },
+      "strongest_floor_name": "positional_nearest_preverbal",
+      "strongest_floor": 0.8545,
+      "twin_acc": 0.2952,
+      "model_minus_strongest": [
+        -0.0225,
+        -0.0338,
+        -0.0114
+      ],
+      "model_minus_twin": [
+        0.5369,
+        0.5073,
+        0.5654
+      ],
+      "ci_sep_over_strongest": false,
+      "ci_sep_over_twin": true,
+      "population": "clean UD-EWT test who-did-what AGENT (gold nsubj [active] / obl:agent [passive] off GOLD deprels); model = HYBRID override-only agent (word-order default + marked-cue override), floor = positional. The 19c board scored AGENT on banned LitBank; this is the modern who-did-what agent dimension."
+    },
+    "who_did_what_patient": {
+      "n": 1255,
+      "model_acc": 0.8311,
+      "overlap_floor": 0.745,
+      "floor_accs": {
+        "deployed_position_readout": 0.745
+      },
+      "strongest_floor_name": "deployed_position_readout",
+      "strongest_floor": 0.745,
+      "twin_acc": 0.6685,
+      "model_minus_strongest": [
+        0.0861,
+        0.0678,
+        0.1043
+      ],
+      "model_minus_twin": [
+        0.1625,
+        0.1405,
+        0.1865
+      ],
+      "ci_sep_over_strongest": true,
+      "ci_sep_over_twin": true,
+      "population": "clean UD-EWT test who-did-what PATIENT (gold obj/nsubj:pass off GOLD deprels), live arc parser; LitBank patient gold is oblique-confounded/INVALID -> use this"
+    },
+    "state": {
+      "n": 378,
+      "model_acc": 0.8333,
+      "overlap_floor": 0.5714,
+      "floor_accs": {
+        "most_recent_noun": 0.5714
+      },
+      "strongest_floor_name": "most_recent_noun",
+      "strongest_floor": 0.5714,
+      "twin_acc": 0.4656,
+      "model_minus_strongest": [
+        0.2101,
+        0.3083
+      ],
+      "model_minus_twin": [
+        0.3209,
+        0.4187
+      ],
+      "ci_sep_over_strongest": true,
+      "ci_sep_over_twin": true,
+      "population": "UD-EWT copular gold (predicational)"
+    },
+    "wic": {
+      "n": 2038,
+      "model_acc": 0.6639,
+      "overlap_floor": 0.6006,
+      "floor_accs": {
+        "live_ppr_select_sense": 0.6006,
+        "ppr_coarse_control": 0.6281
+      },
+      "strongest_floor_name": "live_ppr_select_sense",
+      "strongest_floor": 0.6006,
+      "twin_acc": 0.6281,
+      "model_minus_strongest": [
+        0.0633,
+        0.0368,
+        0.0903
+      ],
+      "model_minus_twin": [
+        0.0358,
+        0.0103,
+        0.0613
+      ],
+      "ci_sep_over_strongest": true,
+      "ci_sep_over_twin": true,
+      "population": "WiC dev+test sense discrimination via select_sense; leak-free curated taxonomic signatures + shared-core coarsening vs the LIVE PPR select_sense reader (the board's one live meaning metric)"
+    }
+  },
+  "new_board_arms": {
+    "coarse_sense": {
+      "n": 2353,
+      "model_acc": 0.5236,
+      "overlap_floor": 0.3544,
+      "floor_accs": {
+        "coarse_MFS": 0.3544
+      },
+      "strongest_floor_name": "coarse_MFS",
+      "strongest_floor": 0.3544,
+      "twin_acc": 0.4033,
+      "model_minus_strongest": [
+        0.1691,
+        0.1449,
+        0.1925
+      ],
+      "model_minus_twin": [
+        0.1203,
+        0.096,
+        0.1445
+      ],
+      "ci_sep_over_strongest": true,
+      "ci_sep_over_twin": true,
+      "informational": true,
+      "population": "SemCor subordinate senses (Brown corpus, mid-20c; gold != MFS, >=1 covered curated signature). INFORMATIONAL under the 19c ban -- NOT modern gold; the scored arm needs a MODERN coarse WSD gold (filed follow-on). max_files=12."
+    },
+    "selective_reliability": {
+      "patient_defer": {
+        "n": 1255,
+        "model_acc": 0.9676,
+        "overlap_floor": 0.8789,
+        "floor_accs": {
+          "blanket_answer_all": 0.8789
+        },
+        "strongest_floor_name": "blanket_answer_all",
+        "strongest_floor": 0.8789,
+        "twin_acc": 0.8899,
+        "model_minus_strongest": [
+          0.0887,
+          0.073,
+          0.1055
+        ],
+        "model_minus_twin": [
+          0.0777,
+          0.0691,
+          0.1096
+        ],
+        "ci_sep_over_strongest": true,
+        "ci_sep_over_twin": true,
+        "coverage": 0.6876,
+        "tau": 0.8912,
+        "population": "UD-EWT test who-did-what PATIENT selective-reliability; calibrated_patient_confidence (a2=0), abstain@dev-tau cov~0.75; model=answered_acc, floor=blanket(answer-all), twin=shuffled-conf random-defer (flat). MODERN."
+      },
+      "obl_defer": {
+        "n": 2294,
+        "model_acc": 0.8388,
+        "overlap_floor": 0.7581,
+        "floor_accs": {
+          "blanket_answer_all": 0.7581
+        },
+        "strongest_floor_name": "blanket_answer_all",
+        "strongest_floor": 0.7581,
+        "twin_acc": 0.7617,
+        "model_minus_strongest": [
+          0.0807,
+          0.0689,
+          0.093
+        ],
+        "model_minus_twin": [
+          0.0771,
+          0.0651,
+          0.0967
+        ],
+        "ci_sep_over_strongest": true,
+        "ci_sep_over_twin": true,
+        "coverage": 0.7354,
+        "tau": 0.6145,
+        "population": "UD-EWT test obl/nmod ATTACHMENT selective-reliability; calibrated_obl_confidence (a2=0), abstain@dev-tau cov~0.75; model=answered_acc, floor=blanket, twin=shuffled-conf. MODERN."
+      }
+    },
+    "causal_multihop": {
+      "wiqa_multihop": {
+        "n": 996,
+        "model_acc": 0.256,
+        "overlap_floor": 0.0,
+        "floor_accs": {
+          "adjacency_1hop": 0.0
+        },
+        "strongest_floor_name": "adjacency_1hop",
+        "strongest_floor": 0.0,
+        "twin_acc": 0.0673,
+        "model_minus_strongest": [
+          0.256,
+          0.2289,
+          0.2831
+        ],
+        "model_minus_twin": [
+          0.1888,
+          0.1637,
+          0.2149
+        ],
+        "ci_sep_over_strongest": true,
+        "ci_sep_over_twin": true,
+        "population": "WIQA dev_with_expl MULTI-HOP subset (gold explanation-graph anchors, |j-i|>=2); model=reason_oracle (signed-reachability network); floor=1-hop adjacency (~0 by construction); twin=shuffled-edge network. MODERN (Tandon 2019).",
+        "note": "the LOAD-BEARING claim is scoped to the position (adjacency) + info-free (twin) floors (witness W2). A lexical polarity_echo baseline (0.4137) EXCEEDS the model on the multi-hop SIGN subset = the documented edge-extraction wall, NOT a position floor."
+      },
+      "tellmewhy_nonadjacent": {
+        "n": 256,
+        "model_acc": 0.2344,
+        "overlap_floor": 0.0,
+        "floor_accs": {
+          "adjacency_recency": 0.0
+        },
+        "strongest_floor_name": "adjacency_recency",
+        "strongest_floor": 0.0,
+        "twin_acc": 0.1055,
+        "model_minus_strongest": [
+          0.2344,
+          0.1836,
+          0.2852
+        ],
+        "model_minus_twin": [
+          0.1289,
+          0.0664,
+          0.1914
+        ],
+        "ci_sep_over_strongest": true,
+        "ci_sep_over_twin": true,
+        "population": "TellMeWhy test Answerable why-questions, NON-ADJACENT-cause subset (all gold helpful sentences |h-q|>1); model=dense (graded-necessity densified network); floor=adjacency/recency (q-1, 0.000 by construction); twin=shuffled-edge. MODERN (Lal 2021)."
+      }
+    },
+    "occ_appraisal": {
+      "n": 50,
+      "model_acc": 0.94,
+      "overlap_floor": 0.44,
+      "floor_accs": {
+        "most_frequent_type": 0.24,
+        "last_stated_word": 0.2,
+        "valence_only_oracle": 0.44
+      },
+      "strongest_floor_name": "valence_only_oracle",
+      "strongest_floor": 0.44,
+      "twin_acc": 0.22,
+      "model_minus_strongest": [
+        0.5,
+        0.34,
+        0.66
+      ],
+      "model_minus_twin": [
+        0.72,
+        0.56,
+        0.86
+      ],
+      "ci_sep_over_strongest": true,
+      "ci_sep_over_twin": true,
+      "val_acc": 0.94,
+      "val_floor": 0.5,
+      "val_minus_floor": [
+        0.44,
+        0.28,
+        0.6
+      ],
+      "type_acc_prospect_subset": 1.0,
+      "valence_only_floor_prospect_subset": 0.0,
+      "oracle_acc": 1.0,
+      "nofix_acc": 0.06,
+      "population": "constructed MODERN OCC gold (occ_appraisal_gold_v1, n=50, named characters, balanced 25/25 valence); model=glass-box OCC appraisal (desirability x prospect -> OCC type) over the LIVE reader's affect+goal(thwart)+event registers; floor=strongest type floor (most-frequent-type/last-stated-word/valence-only-oracle); twin=goal<->event-shuffle. MODERN, self-authored (SOLVED sec 8 caveat)."
+    },
+    "spatial_relational": {
+      "n": 127,
+      "model_acc": 0.2835,
+      "overlap_floor": 0.2205,
+      "floor_accs": {
+        "last_mention_depth1": 0.2205
+      },
+      "strongest_floor_name": "last_mention_depth1",
+      "strongest_floor": 0.2205,
+      "twin_acc": 0.0945,
+      "model_minus_strongest": [
+        0.063,
+        0.0236,
+        0.1102
+      ],
+      "model_minus_twin": [
+        0.189,
+        0.1024,
+        0.2756
+      ],
+      "ci_sep_over_strongest": true,
+      "ci_sep_over_twin": true,
+      "coverage": 0.3465,
+      "multi_fact_subset": {
+        "n": 82,
+        "reasoner": 0.3415,
+        "last_mention": 0.2439
+      },
+      "population": "SpartQA-HUMAN test YN (human-authored), RELATIVE POSITION end-to-end over the reader's OWN extraction; model=reasoner (full-depth Franklin-Tversky composition), floor=last-mention (depth-1), twin=shuffled-relation (node set + counts kept). Paired bootstrap CI; UNK=wrong; coverage-limited (extraction cap, not the reasoner). MODERN (Mirzaee 2021)."
+    },
+    "temporal_before_after": {
+      "n": 445,
+      "model_acc": 0.5933,
+      "overlap_floor": 0.5236,
+      "floor_accs": {
+        "iconicity_telling_order": 0.5236
+      },
+      "strongest_floor_name": "iconicity_telling_order",
+      "strongest_floor": 0.5236,
+      "twin_acc": 0.5213,
+      "model_minus_strongest": [
+        0.0697,
+        0.0303,
+        0.1056
+      ],
+      "model_minus_twin": [
+        0.0719,
+        0.0226,
+        0.121
+      ],
+      "ci_sep_over_strongest": true,
+      "ci_sep_over_twin": true,
+      "reverse_order_subset": {
+        "n": 212,
+        "reg": 0.1557,
+        "iconicity": 0.0,
+        "delta": 0.1557,
+        "sep": true
+      },
+      "integrated_reasoner": {
+        "integrated_acc": 0.6225,
+        "iconicity": 0.5236,
+        "delta_vs_iconicity": 0.0989,
+        "ci": [
+          0.0407,
+          0.1572
+        ],
+        "sep": true,
+        "date_channel_acc": 0.8302
+      },
+      "population": "TB-Dense event-event BEFORE/AFTER TLINKs (1990s newswire, MODERN non-circular); model=promoted timeline register (mechanism-if-cue-else-iconicity), floor=iconicity (telling order==event order, recomputed on the SAME pairs), twin=shuffled tense/markers. Paired sentence-cluster bootstrap. MODERN (Cassidy 2014)."
+    },
+    "temporal_overlap": {
+      "n": 160,
+      "model_acc": 0.9938,
+      "overlap_floor": 0.5,
+      "floor_accs": {
+        "point_order_control": 0.5
+      },
+      "strongest_floor_name": "point_order_control",
+      "strongest_floor": 0.5,
+      "twin_acc": 0.4688,
+      "model_minus_strongest": [
+        0.4938,
+        0.4125,
+        0.575
+      ],
+      "model_minus_twin": [
+        0.525,
+        null,
+        null
+      ],
+      "ci_sep_over_strongest": true,
+      "ci_sep_over_twin": true,
+      "twin_p95": 0.5312,
+      "real_prose_tbdense": {
+        "n_overlap_gold": 121,
+        "allen_recall_on_overlap": 0.3967,
+        "point_order_control": 0.0,
+        "overlap_subset_delta_vs_point": 0.3967,
+        "overlap_subset_sep": true,
+        "full_pop_beats_never_overlap_floor": false,
+        "fire_precision": 0.4706,
+        "overlap_base_rate": 0.2138
+      },
+      "population": "CONSTRUCTED balanced overlap-vs-precedence can-fail gold (real tagger, NO LLM); model=Allen interval reasoner over aspect-derived endpoints, floor=point-order control (no overlap category -> 0.5), twin=shuffled aspect labels + neutralised markers. The MECHANISM isolation gold (MODERN construction, NOT 19c)."
+    },
+    "temporal_survival": {
+      "n": 333,
+      "model_acc": 0.4054,
+      "overlap_floor": 0.1111,
+      "floor_accs": {
+        "incumbent_tense_gated_survival": 0.1111,
+        "nltk_tense_agnostic_survival": 0.4174
+      },
+      "strongest_floor_name": "incumbent_tense_gated_survival",
+      "strongest_floor": 0.1111,
+      "twin_acc": 0.0,
+      "model_minus_strongest": [
+        0.29429429429429427,
+        0.24624624624624625,
+        0.34534534534534533
+      ],
+      "model_minus_twin": [
+        0.40540540540540543,
+        0.35435435435435436,
+        0.4594594594594595
+      ],
+      "ci_sep_over_strongest": true,
+      "ci_sep_over_twin": true,
+      "null_p95": 0.06006006006006006,
+      "event_recall": {
+        "incumbent": 0.3203,
+        "joint_cop": 0.7562
+      },
+      "joint_nom_survival": 0.7327,
+      "end_to_end_through_solved_reasoner": {
+        "incumbent": 0.09709962168978563,
+        "joint_cop": 0.3480453972257251,
+        "joint_nom": 0.4936948297604035,
+        "gold_ceiling": 0.5680958385876419,
+        "joint_cop_vs_incumbent": {
+          "delta": 0.2509457755359395,
+          "ci": [
+            0.22950819672131148,
+            0.2717528373266078
+          ],
+          "ci_sep": true
+        },
+        "joint_cop_vs_twin": {
+          "delta": 0.0416141235813367,
+          "ci": [
+            0.015132408575031526,
+            0.06809583858764187
+          ],
+          "ci_sep": true
+        },
+        "pct_of_ceiling_joint_nom": 0.869
+      },
+      "population": "TB-Dense multi-hop BEFORE/AFTER chains (1990s newswire, MODERN dense gold, n_chains=333); model=JOINT tense-agnostic + copular/stative front-end whole-subgraph survival (parse once, read all events off the single dependency structure), floor=INCUMBENT tense-gated extractor (VBD/had+VBN/be+VBN) on the SAME chains, twin=info-free random same-size event set. Reasoner held gold-perfect (extraction ISOLATED). Paired bootstrap over chains. MODERN."
+    },
+    "negation_quantifier": {
+      "negation_ewt": {
+        "n": 131,
+        "model_acc": 0.9313,
+        "overlap_floor": 0.5038,
+        "floor_accs": {
+          "polarity_blind": 0.5038
+        },
+        "strongest_floor_name": "polarity_blind",
+        "strongest_floor": 0.5038,
+        "twin_acc": 0.5496,
+        "model_minus_strongest": [
+          0.4275,
+          0.3435,
+          0.5115
+        ],
+        "model_minus_twin": [
+          0.3817,
+          null,
+          null
+        ],
+        "ci_sep_over_strongest": true,
+        "ci_sep_over_twin": true,
+        "twin_null_p95": 0.0826,
+        "negated_recall": {
+          "operator": 0.8769,
+          "blind": 0.0
+        },
+        "over_negation_clean": 0.0,
+        "align_fail": 1,
+        "population": "UD-EWT reader-native negation net-factuality (gold_negation_factuality_ewt_v1, modern web text, n=131 align_fail=1); model=truth-conditional polarity operator over the LIVE reader's sm.events (event_polarity: clause-local negation + coordination sharing + implicative/factive complement gate), floor=polarity-blind (every event stored positive -> realized -- MUST lose on negated items), twin=shuffled negation cues (info-free, matched shape). Paired doc-level bootstrap CI; twin null p95. MODERN."
+      },
+      "quantifier_med": {
+        "n": 563,
+        "model_acc": 0.8259,
+        "overlap_floor": 0.1741,
+        "floor_accs": {
+          "monotone_blind": 0.1741
+        },
+        "strongest_floor_name": "monotone_blind",
+        "strongest_floor": 0.1741,
+        "twin_acc": null,
+        "model_minus_strongest": [
+          0.6519,
+          0.5879,
+          0.7123
+        ],
+        "model_minus_twin": [
+          null,
+          null,
+          null
+        ],
+        "ci_sep_over_strongest": true,
+        "ci_sep_over_twin": true,
+        "twin_downward_null_p95": 0.0599,
+        "coverage": 0.4903,
+        "full_unified_aggregate": {
+          "n": 3791,
+          "operator": 0.8225,
+          "twin": 0.5761,
+          "operator_minus_blind": {
+            "delta": 0.5376,
+            "ci": [
+              0.5173,
+              0.5576
+            ],
+            "ci_sep": true
+          },
+          "operator_minus_twin": {
+            "delta": 0.2464,
+            "ci": [
+              0.2271,
+              0.2656
+            ],
+            "ci_sep": true
+          }
+        },
+        "population": "MED downward-monotone subset (Yanaka 2019 monotonicity NLI, modern, n=563); model=quantifier monotonicity operator (subject cardinality x edit direction), floor=monotone-blind (assume upward -> INVERTS on downward), twin=shuffled monotonicity (downward null p95). Paired bootstrap CI. The well-powered full-unified aggregate (negation+quantifier ONE operator, n=3791) is CI-sep over blind AND the info-free twin (see full_unified_aggregate). MODERN."
+      }
+    },
+    "coref_via_reader": {
+      "n": 1240,
+      "model_acc": 0.5855,
+      "overlap_floor": 0.5032,
+      "floor_accs": {
+        "flag_off_incumbent_reader": 0.5032
+      },
+      "strongest_floor_name": "flag_off_incumbent_reader",
+      "strongest_floor": 0.5032,
+      "twin_acc": 0.3637,
+      "model_minus_strongest": [
+        0.0823,
+        0.0353,
+        0.1431
+      ],
+      "model_minus_twin": [
+        0.2218,
+        0.162,
+        0.2874
+      ],
+      "ci_sep_over_strongest": true,
+      "ci_sep_over_twin": true,
+      "population": "GUM TEST he/she pronoun pick through the LIVE hdlab.event_centrality_coref.EventCentralityReader (native head_to_cluster scorer, n=1240); model=full p12 coref stack (phi_person_filter + narrow_him + soften_generic_suppress ON), floor=flag-OFF incumbent reader (byte-identical to the pre-landing default, witness W3), twin=info-free shuffled-identity (within-doc permutation of the picks, re-scored vs gold). Doc-paired bootstrap CI (verification/test_coref_stack_landing, seed=13, n_boot=2000). MODERN (GUM, Zeldes 2017)."
+    },
+    "natural_logic_monotonicity": {
+      "n": 4600,
+      "model_acc": 0.767,
+      "overlap_floor": 0.535,
+      "floor_accs": {
+        "majority": 0.5026,
+        "symmetric_cosine_oracle": 0.535
+      },
+      "strongest_floor_name": "symmetric_cosine_oracle",
+      "strongest_floor": 0.535,
+      "twin_acc": 0.5398,
+      "model_minus_strongest": [
+        0.232,
+        0.2196,
+        0.2446
+      ],
+      "model_minus_twin": [
+        0.2272,
+        0.2085,
+        0.245
+      ],
+      "ci_sep_over_strongest": true,
+      "ci_sep_over_twin": true,
+      "model_minus_majority": [
+        0.2644,
+        0.252,
+        0.277
+      ],
+      "ci_sep_over_majority": true,
+      "model_minus_symmetric": [
+        0.232,
+        0.2196,
+        0.2446
+      ],
+      "ci_sep_over_symmetric": true,
+      "coverage": 0.8547,
+      "oracle_monotonicity_upperbound": 0.8789,
+      "per_edit_acc": {
+        "del": 0.7665,
+        "ins": 0.7862,
+        "sub": 0.7203
+      },
+      "population": "MED entailment/neutral (Yanaka 2019 monotonicity NLI = FraCaS + GLUE-diagnostic + hand-built, MODERN; n_covered=4600, coverage 0.855 = ~85% of MED via full natural logic, up from the ~15% single-is-a-substitution slice); model=self-detected-monotonicity natural-logic judge (parse-free closed-class is_downward marker x edit-direction over the C5 is-a spoke, hdlab.typed_spokes.natural_logic_label), floor=SYMMETRIC sentence-cosine oracle (best threshold -- cannot do the directed/structural edit) + majority (both carried CI-sep), twin=shuffled-monotonicity (permute up/down polarity -> collapses). Bootstrap CI. MODERN."
+    },
+    "event_goal_congruence": {
+      "n": 120,
+      "model_acc": 0.975,
+      "overlap_floor": 0.4917,
+      "floor_accs": {
+        "hub_baseline_swept": 0.4917
+      },
+      "strongest_floor_name": "hub_baseline_swept",
+      "strongest_floor": 0.4917,
+      "twin_acc": 0.4917,
+      "model_minus_strongest": [
+        0.4833,
+        0.4,
+        0.575
+      ],
+      "model_minus_twin": [
+        0.4833,
+        0.4,
+        0.575
+      ],
+      "ci_sep_over_strongest": true,
+      "ci_sep_over_twin": true,
+      "hub_best_threshold": 0.102,
+      "vs_hub_null_p95": 0.11666666666666667,
+      "vs_twin_null_p95": 0.11666666666666667,
+      "polarity_isolation": {
+        "antonym_thwart": {
+          "n": 60,
+          "structured": 0.95,
+          "hub": 0.0
+        },
+        "converse_satisfy": {
+          "n": 60,
+          "structured": 1.0,
+          "hub": 0.9833333333333333
+        }
+      },
+      "population": "relatedness-MATCHED modern-vocabulary held-out gold (n=120: 60 WordNet-antonym-thwart + 60 FrameNet-converse-satisfy, all ATL-hub-related); model=STRUCTURED matcher congruence() sign (converse->satisfy, antonym->thwart, else hub-fuzzy/abstain), floor=polarity-blind ATL hub (bridging_inference relatedness thresholded, SWEPT to best on this population -> chance), twin=info-free shuffled-KB (permute the edge maps). Paired bootstrap over items. MODERN (WordNet/FrameNet head-pairs, NOT 19c)."
+    },
+    "sem_segmentation": {
+      "n": null,
+      "model_acc": 0.1235,
+      "overlap_floor": 0.0668,
+      "floor_accs": {
+        "point_error_incumbent_rho": 0.0668
+      },
+      "strongest_floor_name": "point_error_incumbent_rho",
+      "strongest_floor": 0.0668,
+      "twin_acc": null,
+      "model_minus_strongest": [
+        0.0567,
+        null,
+        null
+      ],
+      "model_minus_twin": [
+        null,
+        null,
+        null
+      ],
+      "ci_sep_over_strongest": false,
+      "ci_sep_over_twin": false,
+      "beats_point_error_incumbent": true,
+      "sem_rho_vs_humans": 0.1235,
+      "point_error_incumbent_rho": 0.0668,
+      "gpt2_bayesian_surprise_published_rho": "0.10-0.12",
+      "at_or_above_gpt2": true,
+      "loo_human_noise_ceiling": 0.2225,
+      "pct_of_loo_noise_ceiling": 55.5,
+      "population": "Kumar 2023 ACTUAL HUMAN perceived event boundaries (behavioural button-press segmentation, Tunnel Under the World; sentence-level human boundary strength via RT-lagged window-max over the 10 Hz button-proportion stream); model=SEM schema-switch graded boundary signal (switch_score) Spearman rho vs actual humans, floor=POINT-ERROR incumbent (backward_segment raw-error, the Kumar-refuted quantity) rho on the SAME sentences (SEM WINS); GPT-2 Bayesian-surprise (0.10-0.12) + the leave-one-subject-out human NOISE CEILING (0.2225) carried as context. Reuses hdlab.sem_event_segmenter._human_validation() VERBATIM (the routine --self-test calls); POINT estimates (no bootstrap CI from the verbatim routine). MODERN behavioural gold (Kumar 2023, NOT 19c)."
+    },
+    "theory_of_mind": {
+      "dimension": "theory_of_mind",
+      "n": 278,
+      "n_FB": 139,
+      "model": 0.6547,
+      "floor": 0.4892,
+      "twin": 0.4962,
+      "model_FB": 0.6691,
+      "floor_FB": 0.2374,
+      "oracle_belief": 0.741,
+      "headline_FB_delta": 0.4317,
+      "ci": [
+        0.2878,
+        0.5683
+      ],
+      "ci_half_width": 0.1403,
+      "ci_sep": true,
+      "twin_FB_delta": 0.1705,
+      "twin_loses": true,
+      "gold": "BigToM (Gandhi 2023, modern; 278 TB/FB)",
+      "note": "forward mentalizing believes x wants->action; FALSE-BELIEF subset is load-bearing (ToM-blind floor collapses there)"
+    },
+    "crosstype_experiencer": {
+      "n": 303,
+      "model_acc": 0.198,
+      "overlap_floor": 0.1353,
+      "strongest_floor_name": "situation_predict_live_floor",
+      "strongest_floor": 0.1353,
+      "twin_acc": 0.1419,
+      "model_minus_strongest": [
+        0.0627,
+        0.0347,
+        0.0968
+      ],
+      "model_minus_twin": [
+        0.0561,
+        0.0297,
+        0.0893
+      ],
+      "ci_sep_over_strongest": true,
+      "ci_sep_over_twin": true,
+      "n_merges": 154,
+      "no_regress_C1_entity_layer": {
+        "floor": 0.7005,
+        "bridge": 0.697
+      },
+      "no_regress_C2_hardlink": {
+        "floor": 0.0208,
+        "bridge": 0.0281
+      },
+      "population": "GUM person-common-noun experiencer bind (n=303): does a person role-noun definite of a NAMED gold entity ('the doctor'->Elizabeth) canonicalize to that name so the affect/goal register attaches the experiencer correctly? model = the LANDED hdlab.crosstype_bridge organ (cue_competed: precise-constructs predication + anaphoricity gate + cue-based ACT-R retrieval + full-referent competition) fed the reader's OWN live parse (live_reparse), binds merged onto the situation_predict floor; floor = that live situation_predict clustering; twin = the same merges to RANDOM named entities. Doc-level paired bootstrap. MODERN (GUM). No-regress carried on the C1 entity-layer CoNLL + C2 hard-link."
+    },
+    "namebridge": {
+      "n": 196,
+      "model_acc": 0.551,
+      "overlap_floor": 0.4541,
+      "strongest_floor_name": "recency_over_active_names",
+      "strongest_floor": 0.4541,
+      "twin_acc": 0.398,
+      "model_minus_strongest": [
+        0.0969,
+        0.0408,
+        0.1582
+      ],
+      "model_minus_twin": [
+        0.1531,
+        0.0918,
+        0.2194
+      ],
+      "ci_sep_over_strongest": true,
+      "ci_sep_over_twin": true,
+      "peak_kb_thematic_acc": 0.5561,
+      "population": "GUM name-bridge (anaphoric common noun whose antecedent is a PROPER NAME, n=196): model = kb_graded (GRADED constraint-integration over the consolidated hdlab.typed_spokes C8 entity-type KB; type-strength x recency); PEAK = kb_thematic (+ episodic in-text is-a + thematic deverbal-agent route, the fullest two-route CLS mechanism, ~+0.1124 vs recency); floor = recency over active names (string-identity/WordNet 0.000 by construction); twin = shuffled-KB (destroys the encyclopedic type signal). Bootstrap CI. MODERN (GUM)."
+    },
+    "commonnoun_resolution": {
+      "n": 2855,
+      "model_acc": 0.5818,
+      "overlap_floor": 0.5156,
+      "floor_accs": {
+        "same_lemmatizer_string_identity_head_lemma": 0.5156,
+        "gum_gold_lemma_string_identity_board_reference": 0.5412
+      },
+      "strongest_floor_name": "same_lemmatizer_string_identity_head_lemma",
+      "strongest_floor": 0.5156,
+      "twin_acc": 0.5426,
+      "model_minus_strongest": [
+        0.0662,
+        0.0496,
+        0.0837
+      ],
+      "model_minus_twin": [
+        0.0392,
+        0.0302,
+        0.0492
+      ],
+      "ci_sep_over_strongest": true,
+      "ci_sep_over_twin": true,
+      "gold_lemma_reference_floor": 0.5412,
+      "model_minus_gold_lemma_floor": [
+        0.0406,
+        0.0227,
+        0.058
+      ],
+      "beats_gold_lemma_floor_ci_sep": true,
+      "gold_routed_reference_acc": 0.5664,
+      "gold_routed_reference_minus_gold_floor": [
+        0.0252,
+        0.0126,
+        0.0375
+      ],
+      "gold_routed_reference_beats_gold_floor_ci_sep": true,
+      "population": "GUM TEST anaphoric common-noun per-mention RESOLUTION (odd docs, n=2855; metric = resolved-referent nominal-dominant gold eid == mention eid, URG board instrument). model = the LIVE reader's sm.commonnoun_resolution (typed_coref binding on the reader's OWN dict-mention stream: routing via is_pronoun/commonnoun_binder.is_name, key via the reader's OWN head_lemma -- NO GUM gold lemma/mtype). strongest floor = SAME-LEMMATIZER string-identity (head_lemma; the FAIR same-regime baseline). twin = info-free (bridge -> random gn-compatible prior). ALSO reported: the GUM-gold-lemma string-identity floor (0.5412 = the board common_noun floor) -- STRONGER, but uses gold-lemma annotation the live reader lacks; the wire reaches PARITY with it and the residual is that gold-lemma regime (redaction see-through + copula-head normalization), NOT the binding (the gold-routed reference reproduces +0.025 CI-sep over the gold floor -- positive control). Doc-paired bootstrap CI (seed=13, n_boot=2000). MODERN (GUM, Zeldes 2017)."
+    },
+    "affected_entity": {
+      "n": 715,
+      "model_acc": 0.3734,
+      "overlap_floor": 0.3259,
+      "strongest_floor": 0.3329,
+      "strongest_floor_name": "A1_salience_prior",
+      "twin_acc": 0.1147,
+      "model_minus_strongest": [
+        0.0406,
+        0.0098,
+        0.0741
+      ],
+      "model_minus_twin": [
+        0.2587,
+        0.2182,
+        0.2993
+      ],
+      "ci_sep_over_strongest": true,
+      "ci_sep_over_twin": true,
+      "informational": false,
+      "population": "GUM modern pronoun-undergoers (predicted parse = deployment), n=715"
+    },
+    "spatial_extraction_precision": {
+      "n": 1840,
+      "model_acc": 0.5913,
+      "overlap_floor": 0.5147,
+      "floor_accs": {
+        "incumbent_linear": 0.5147,
+        "density_proximity": 0.1848
+      },
+      "strongest_floor_name": "incumbent_linear",
+      "strongest_floor": 0.5147,
+      "twin_acc": 0.5201,
+      "model_minus_strongest": [
+        0.0766,
+        0.0625,
+        0.0908
+      ],
+      "model_minus_twin": [
+        0.0712,
+        0.0576,
+        0.0853
+      ],
+      "ci_sep_over_strongest": true,
+      "ci_sep_over_twin": true,
+      "null_p95_over_strongest": 0.0147,
+      "density_floor_acc": 0.1848,
+      "model_minus_density": [
+        0.4065,
+        0.3723,
+        0.4386
+      ],
+      "ci_sep_over_density": true,
+      "ext_base_reproduces_solved": {
+        "ext_base_acc": 0.5701,
+        "incumbent_acc": 0.5147,
+        "delta": 0.0554,
+        "ci": [
+          0.0424,
+          0.0679
+        ],
+        "ci_sep": true,
+        "note": "use_thematic=False = byte-faithful to the SOLVED joint arm (SOLVED-filed 0.5712 vs 0.5179; current on-disk ~0.5701 vs 0.5147, a ~0.005 upstream-parse drift, win + CI-sep intact)"
+      },
+      "n_yes": 920,
+      "n_no": 920,
+      "n_docs_scored": 67,
+      "population": "SpaceEval/ISO-Space train+trial balanced containment QA (920 YES + 920 NO = 1840 queries over 67 docs): model = ext-semantic TYPE-precision (hdlab.joint_relation_frontend.joint_spatial_frames_ext, use_thematic=True -- the LIVE reader config), strongest floor = incumbent-linear (spatial_relation_extractor.extract_edges), density floor = PROXIMITY (adjacent co-sentential nouns -> collapses on hard negatives), twin = shuffled-relation (ext grounds permuted). Reasoner (SpatialModel.contains_path) held FIXED; paired bootstrap over queries. cap=None. MODERN (Pustejovsky 2015 SpaceEval, NOT 19c)."
+    },
+    "temporal_implicit_order": {
+      "n": 1924,
+      "model_acc": 0.5655,
+      "overlap_floor": 0.5296,
+      "floor_accs": {
+        "seed_store_tense_gated": 0.5296,
+        "abstain_majority": 0.5
+      },
+      "strongest_floor_name": "seed_store_tense_gated",
+      "strongest_floor": 0.5296,
+      "twin_acc": 0.4896,
+      "model_minus_strongest": [
+        0.0359,
+        0.0117,
+        0.0616
+      ],
+      "model_minus_twin": [
+        0.0759,
+        0.0434,
+        0.1103
+      ],
+      "ci_sep_over_strongest": true,
+      "ci_sep_over_twin": true,
+      "null_p95_over_strongest": 0.0217,
+      "coverage": 0.6071,
+      "abstain_floor_acc": 0.5,
+      "model_minus_abstain": [
+        0.0655,
+        0.0403,
+        0.0911
+      ],
+      "ci_sep_over_abstain": true,
+      "live_broad_store_wired": true,
+      "population": "TRACIE iid TEST implicit-event before/after (n=1924, 98161 ROCStories mined, MODERN ROCStories-derived gold): model = BROADER store (tense-agnostic UPOS re-mine, 454k pairs, UNGATED headline, coverage 0.607); strongest floor = SEED store (177,800-pair tense-gated mine, recomputed on the SAME population, abstain->majority); abstain-majority floor 0.5000; twin = shuffled-ORDER (directional orientation permuted). Paired CLUSTERED bootstrap over stories. LIVE in hdlab.temporal_reasoner (broad store wired=True). MODERN (Zhou 2021 TRACIE)."
+    },
+    "state_closure": {
+      "n": 25,
+      "model_acc": 1.0,
+      "overlap_floor": 0.44,
+      "floor_accs": {
+        "hand_list_only_closure": 0.44,
+        "always_persist": 0.4
+      },
+      "strongest_floor_name": "hand_list_only_closure",
+      "strongest_floor": 0.44,
+      "twin_acc": 0.4,
+      "model_minus_strongest": [
+        0.56,
+        0.36,
+        0.76
+      ],
+      "model_minus_twin": [
+        0.6,
+        0.4,
+        0.8
+      ],
+      "ci_sep_over_strongest": true,
+      "ci_sep_over_twin": true,
+      "null_p95_over_strongest": 0.2,
+      "model_minus_persist": [
+        0.6,
+        0.4,
+        0.8
+      ],
+      "ci_sep_over_persist": true,
+      "by_arm": {
+        "model_live_wordnet": {
+          "antonym_recall": 1.0,
+          "costate_precision": 1.0,
+          "overall": 1.0
+        },
+        "hand_list_only_floor": {
+          "antonym_recall": 0.0667,
+          "costate_precision": 1.0,
+          "overall": 0.44
+        },
+        "always_persist_floor": {
+          "antonym_recall": 0.0,
+          "costate_precision": 1.0,
+          "overall": 0.4
+        },
+        "twin_scrambled": {
+          "antonym_recall": 0.0,
+          "costate_precision": 1.0,
+          "overall": 0.4
+        }
+      },
+      "over_close_cost": 0.1333,
+      "lexicon_probe": {
+        "model_recall_on_opposites": 1.0,
+        "hand_recall_on_opposites": 0.45,
+        "model_false_close_on_nonopposites": 0.1333,
+        "hand_false_close_on_nonopposites": 0.0,
+        "model_false_fires": [
+          "hungry/thirsty",
+          "safe/out"
+        ],
+        "n_pos": 20,
+        "n_neg": 15
+      },
+      "live_wordnet_closure_wired": true,
+      "informational": true,
+      "population": "CONSTRUCTED MODERN state-closure gold (exp_state_closure_wordnet_v1, n=25: 15 antonym should-close + 10 co-state keep-open, mechanism-isolated abstract state events, 19c-free vocabulary); model=LIVE hdlab.state_register.incompatible (WordNet-derived closure, landed fix); strongest floor=HAND-LIST-ONLY closure (pre-fix predicate, reconstructed); second floor=always-persist; twin=scrambled antonymy at matched rate. CONSTRUCTED, declared (NOT a corpus gold)."
+    },
+    "affect_harm_help": {
+      "n": 36,
+      "model_acc": 0.7778,
+      "overlap_floor": 0.3333,
+      "floor_accs": {
+        "retired_closed_list": 0.3333,
+        "majority_all_neutral": 0.3333
+      },
+      "strongest_floor_name": "retired_closed_list",
+      "strongest_floor": 0.3333,
+      "twin_acc": 0.4167,
+      "model_minus_strongest": [
+        0.4444,
+        0.2778,
+        0.6111
+      ],
+      "model_minus_twin": [
+        0.3611,
+        0.1944,
+        0.5285
+      ],
+      "ci_sep_over_strongest": true,
+      "ci_sep_over_twin": true,
+      "model_minus_majority": [
+        0.4444,
+        0.2778,
+        0.6111
+      ],
+      "ci_sep_over_majority": true,
+      "by_class": {
+        "HARM": "7/12",
+        "HELP": "9/12",
+        "NEUTRAL": "12/12"
+      },
+      "closed_list_by_class": {
+        "HARM": "0/12",
+        "HELP": "0/12",
+        "NEUTRAL": "12/12"
+      },
+      "false_positives_on_neutral": [],
+      "zero_false_positives": true,
+      "live_reader_crosscheck": {
+        "live_reader_acc": 0.7778,
+        "live_reader_by_class": {
+          "HARM": "7/12",
+          "HELP": "9/12",
+          "NEUTRAL": "12/12"
+        },
+        "live_matches_decision": true
+      },
+      "informational": true,
+      "population": "SELF-AUTHORED balanced MODERN harm/help gold (exp_fd_harm_help_live_modern_v1.GOLD, n=36: 12 HARM / 12 HELP / 12 NEUTRAL contemporary SVO scenes, verb inventory adversarial to FD -- includes FrameNet-missed social-harm + Cause_emotion HELP the model abstains on); model=force-dynamics decision (the landed reader path), strongest floor=retired closed-list AND all-NEUTRAL majority, twin=scrambled force lexicon + harm-set. SELF-AUTHORED / DIRECTIONAL, declared (author saw both lexicons; NOT a corpus gold)."
+    },
+    "predictive_causal_necessity": {
+      "n": 6729,
+      "model_acc": 0.3602,
+      "overlap_floor": 0.038,
+      "floor_accs": {
+        "random_context_event": 0.038,
+        "nearest_event_position": 0.1124
+      },
+      "strongest_floor_name": "random_context_event",
+      "strongest_floor": 0.038,
+      "twin_acc": 0.1124,
+      "model_minus_strongest": [
+        0.3223,
+        0.3113,
+        0.3336
+      ],
+      "model_minus_twin": [
+        0.2478,
+        0.2397,
+        0.2564
+      ],
+      "ci_sep_over_strongest": true,
+      "ci_sep_over_twin": true,
+      "informational": true,
+      "population": "simplewiki HELD-OUT (lines 40000-46000, not in the asset's training window); intrinsic counterfactual-necessity bits (surprisal-increase on ablation) over the landed hdlab.predictive_world_model; NO external gold -> trap-proof",
+      "metric": "mean counterfactual-necessity bits (reader-argmax antecedent)"
+    }
+  },
+  "new_board_arms_detail": {
+    "coarse_sense": {
+      "note": "underspecified sense reader (Frisson good-enough; Rodd shared-core): compete FINE, commit the COARSE supersense cluster. INFORMATIONAL (SemCor is mid-20c)."
+    },
+    "selective_reliability": {
+      "note": "selective-reliability (Kepecs/Kiani confidence-gated commitment; Ernst-Banks precision weighting) on MODERN UD-EWT: deferring the shakiest ~25% by the FROZEN calibrator lifts answered-accuracy CI-sep over answer-all, the random-defer twin flat. Solver published a2-kept PATIENT +0.0873 / obl +0.0916; these a2=0 rows are the deployed config."
+    },
+    "causal_multihop": {
+      "note": "MODERN non-circular causal multi-hop traversal (Trabasso & van den Broek reachability; Pearl intervention) -- fills the modern causal NAMED GAP with a load-bearing multi-hop instrument (traversal beats the 1-hop adjacency floor + shuffled twin)."
+    },
+    "occ_appraisal": {
+      "note": "OCC forward appraisal (Ortony/Clore/Collins 1988 prospect-based emotions; Scherer goal-conduciveness) -- the FIRST board arm that scores the UNSTATED inferred emotion (live != scored before this). The load-bearing prospect subset {relief,fears_confirmed} (TYPE 1.0) is provably 0 for the valence-only floor (0.0). Composition exact (oracle 1.0); the current substrate w/o the upstream thwart+prospect (NOFIX 0.06) collapses. Reuses exp_occ_appraisal_emotion_v1 verbatim. INFORMATIONAL caveat: gold is self-authored (no external MODERN OCC gold on disk; SOLVED sec 8)."
+    },
+    "spatial_relational": {
+      "note": "glass-box relational spatial reasoner (Johnson-Laird mental-model inspection; Franklin-Tversky spatial framework) -- the FIRST board arm that scores relative-position COMPOSITION end-to-end. The load-bearing claim is scoped to the last-mention (position) + shuffled-relation (info-free) floors; the composition holds over the reader's OWN extraction (coverage 0.3465). Reuses exp_spatial_position_qa_v1 verbatim. HONEST scope: CONTAINMENT/PATH end-to-end on terse real prose stay extraction-gated (recall 0.22/0.02; the SOLVED located negative) -- the text->relation EXTRACTOR is the named follow-on."
+    },
+    "temporal_before_after": {
+      "note": "glass-box temporal BEFORE/AFTER reasoner (Reichenbach E/R/S; the register overrides telling order only on the ~12%% cue-bearing pairs) -- the FIRST board arm scoring temporal-order QUERY on modern gold. Load-bearing claim scoped to the iconicity (position) + shuffled-label (info-free) floors; by construction it WINS on the reverse-order subset where iconicity=0. The INTEGRATED reasoner (+TIMEX event-local date + transitive closure) is the stronger headline (+0.099 vs iconicity, date channel 0.83). Reuses exp_temporal_reason_before_after_v1 verbatim. HONEST scope: TRACIE implicit-event is a SEPARATE script/schema organ (hdlab.temporal_script_schema)."
+    },
+    "temporal_overlap": {
+      "note": "glass-box Allen (1983) interval-intersection overlap reasoner over Smith-1991 aspect-derived START/END intervals -- the FIRST board arm scoring temporal OVERLAP (a capability the point-order reader structurally lacked). Load-bearing claim scoped to the point-order-control + shuffled-label floors. On the REAL-PROSE TB-Dense overlap-gold subset the reasoner recovers ~0.40 of the inclusions the point-order control gets 0.0 of (positive control, CI-sep); it does NOT beat the trivial 'never-overlap' majority on the FULL mixed population (a LOCATED NEGATIVE -- the DCT/discourse channel + the ~60%% INCLUDES/SIMULTANEOUS human-IAA ceiling, the named next-organs). Reuses exp_temporal_reason_overlap_v1 verbatim."
+    },
+    "temporal_survival": {
+      "note": "the FIRST board arm scoring the FRONT-END's whole-subgraph SURVIVAL (a STATE is an event; the incumbent tense-gate drops present/copular/stative events, so multi-hop chains die at the exponent rate). Wired LIVE behind joint_temporal_events (default-ON, reasoner-side + ADDITIVE: sm.events byte-identical off vs on -- this arm scores the gain directly, not through a live reader consumer). The eventive-NOMINAL channel lifts survival further (0.41 -> 0.73, nominal-event recall 0.105 -> 0.703) and is FLIPPED DEFAULT-ON UNGATED (joint_nominal_events, 2026-09-07 p6): end-to-end through the ACTUAL solved reasoner the UNGATED channel is the winner (answered-correct 0.4937 = 87%% of the gold-event ceiling vs the WSD-gated 0.4590 CI-sep WORSE -- gating only drops coverage), so the precision drop is an extraction-instrument artifact, not a downstream cost; the WSD gate is a located NEGATIVE, retired for this consumer. Reuses exp_joint_temporal_survival_v1 + exp_joint_temporal_realreasoner_v1 verbatim."
+    },
+    "negation_quantifier": {
+      "note": "truth-conditional NEGATION + QUANTIFIER (Kaup-Zwaan two-step operator; Johnson-Laird cardinality; Ladusaw downward-monotonicity unifying negation with 'none') -- the FIRST board arms that score whether a stored proposition HOLDS and over how many arguments it ranges (live != scored before this: the landed read_polarity field). Load-bearing claim scoped to the polarity/quantity-blind floor (which INVERTS under negation/downward quantifiers) + the info-free shuffled-cue twin. Reuses exp_polarity_operator_ewt_v1 + exp_quantifier_operator_med_v1 verbatim."
+    },
+    "coref_via_reader": {
+      "note": "the p12 coref-stack gain (compose_the_unified_referent_with_the_incumbent_graded_pick_pool_for_a_live_coref_gain, owner-DONE) wired LIVE into EventCentralityReader (SituationReader turns all three wires ON by default). BOARD-INVISIBLE until now: the modern-board `coref` tile is scored by a DIFFERENT resolver (the URG unified-referent pronoun pick, +0.106), so the deployed reader's OWN he/she stack gain never showed. This arm scores it directly (model 0.5855 vs flag-off floor 0.5032 = +0.0823, doc-paired bootstrap CI[0.0353,0.1431]; info-free twin 0.3637 loses). Reuses verification/test_coref_stack_landing's W1 measurement verbatim (same loaders, _score/_acc/_doc_paired_boot, FULL flags); adds the shuffled-identity twin. 'live != scored' -- the board-invisible-proven-win-needs-its-own-instrument-arm case."
+    },
+    "natural_logic_monotonicity": {
+      "note": "glass-box NATURAL LOGIC / monotonicity calculus (van Benthem; Sanchez-Valencia; MacCartney-Manning 2009) over the C5 is-a typed spoke -- the FIRST board arm scoring the parse-free monotonicity reasoner (the brain's FAST closed-class operator-recognition register; Neville 1992, Pulvermuller 1995). Load-bearing claim scoped to BOTH the distributional (symmetric-cosine oracle 0.535, +0.2320 CI-sep) and the majority (0.503, +0.2644 CI-sep) floors; the shuffled-monotonicity twin (0.540, +0.2272 CI-sep) proves the POLARITY is load-bearing, not just the edit type. The ORACLE-monotonicity upper bound is 0.879 (the residual = positional restrictor/body scope, the SLOW register -- a bounded parser lever, not a ceiling). Reuses exp_natural_logic_monotonicity_med_v1.run(light=True) verbatim (witness W13/W14). 'live != scored' -- the board-invisible-proven-win-needs-its-own-instrument-arm case."
+    },
+    "event_goal_congruence": {
+      "note": "the brain's TWO-STORE split as a SCORED organ (structured_semantic_matching_for_event_goal..., owner-DONE p4; landed hdlab.structured_matcher): the ATL hub (bridging_inference) supplies fuzzy relatedness but is BLIND to the SIGN/direction of a relation (rel(win,lose) ~= rel(sell,buy)); the structured relational store reads the SIGN off WordNet antonymy + FrameNet Perspective_on converse + ConceptNet (Binder-Desai combinatorial semantics; Lambon-Ralph hub-and-spoke). The FIRST board arm scoring event<->goal congruence: model 0.9750 vs the swept hub floor 0.4917 (+0.4833 CI-sep) + the shuffled-KB twin 0.4917 (loses -> the EDGES carry the sign). POLARITY ISOLATION: on the antonym subset the hub is 0.0000 (at/below chance -- it predicts satisfy for every high-related antonym) while structured is 0.9500. BOARD-INVISIBLE until now: the OCC-appraisal arm has no headroom (the matcher fires 0/24 there), so this proven +0.48 signing win moved no board dim. This arm ALSO gives the deferred affect flip-gate a live instrument to re-measure on. Reuses exp_structured_matcher_event_goal_v1.run verbatim (witness EG1/EG2/EG3). 'live != scored' -- the board-invisible-proven-win-needs-its-own-instrument-arm case."
+    },
+    "sem_segmentation": {
+      "note": "the SEM schema-switch event segmenter (Franklin/Norman/Ranganath/Zacks/Gershman 2020 Structured Event Memory; a BOUNDARY = MAP schema SWITCH, a belief/model update per Reynolds-Zacks-Braver 2007, NOT a prediction-error spike) validated against ACTUAL human perceived boundaries -- the loop-closure north-star organ (owner-DONE close_the_recurrent_predictive_coding_loop..., SS4l/SS4n; witness verification/test_predictive_loop.py W10). BOARD-INVISIBLE until now: hdlab.sem_event_segmenter is a LATENT ISLAND imported by NO live consumer, so its human-validated win moved NO board dim. This arm scores it directly: SEM rho 0.1235 BEATS the point-error incumbent 0.0668 vs actual humans (the incumbent is the Kumar-refuted prediction-error quantity), is 55.5% of the leave-one-out human noise ceiling 0.2225, and is AT/ABOVE Kumar's GPT-2 Bayesian surprise (0.10-0.12) -- content-shift/SEM/GPT-2 all plateau at the ~0.12-0.15 text-predictable ceiling, so this glass-box organ is at the achievable neural-reference level ('needs a neural model' RETRACTED, SS4l(f)). Reuses hdlab.sem_event_segmenter._human_validation() VERBATIM. HONEST scope: POINT estimates (the verbatim routine returns no bootstrap CI -> ci_sep flags False; the pooled cross-story paired-bootstrap CI lives in exp_human_boundary_validation_v1); the organ's info-free control is its OWN self-test W3 (switch_score higher at boundaries than within); the GUM paragraph proxy at 0.48 is the WRONG instrument, not a defect. 'live != scored' -- the board-invisible-proven-win-needs-its-own-instrument-arm case."
+    },
+    "theory_of_mind": {
+      "model": 0.6546762589928058,
+      "floor": 0.4892086330935252,
+      "twin": 0.4961832061068702,
+      "fb_delta": 0.4316546762589928,
+      "fb_ci": [
+        0.2877697841726619,
+        0.5683453237410072
+      ]
+    },
+    "crosstype_experiencer": {
+      "note": "glass-box CROSS-TYPE definite->name bridge (Ariel accessibility + Almor descriptive boost + Lewis-Vasishth cue-based retrieval + Heim/DRT full-referent competition + McElree retrieval-confidence gate; NO trained classifier, NO LLM). The FIRST board arm scoring the landed hdlab.crosstype_bridge organ on the reader's OWN live-parse path. 'live != scored' -- the actual live-reader wire into _apply_commonnoun_gate is the filed pri-3 follow-on (wire_the_crosstype_definite_name_bridge_into_the_live_reader_and_measure_the_experiencer_lift).",
+      "n_merges": 154
+    },
+    "namebridge": {
+      "note": "glass-box NAME-BRIDGE coref via the landed C8 entity-type spoke (DBpedia InstanceOf on the ATL hub, read through the C5 is-a closure) -- the proper-name entities WordNet omits. The brain's TWO-ROUTE CLS completion (McClelland 1995): consolidated KB for famous entities + episodic in-text is-a for names met mid-document (near-disjoint, both load-bearing). FIRST board arm scoring name-bridge; the live-reader two-route wire into _apply_commonnoun_gate is the filed follow-on (the board coref dim scores PRONOUNS)."
+    },
+    "commonnoun_resolution": {
+      "note": "glass-box typed common-noun RESOLUTION (Ariel content/type-addressed definite retrieval; Nieuwland non-writing hold; Lambon-Ralph typed spokes) served by hdlab.typed_coref, ported onto the reader's LIVE dict-mention stream -- the Q111 wire instrument. FIRST board arm scoring per-mention common-noun resolution. Model 0.5818 vs same-lemmatizer floor 0.5156 = +0.0662 CI[0.0496,0.0837] (CI-sep=True); info-free twin 0.5426 loses +0.0392 CI-sep=True. LOCATED (2x2 decomposition, solver-measured): the head-KEY regime (reader head_lemma vs GUM gold lemma) costs -0.0214, the ROUTING (is_name vs gold mtype) costs only -0.0032, WordNet morphy recovers +0.0004 -- so the gap to the proven 0.5664 is the GUM gold-lemma ANNOTATION regime, not the mechanism. appos/copula in-text is-a seed is +0.0070 CI-sep (load-bearing; from the reader's parse). ADDITIVE / no-regress by construction: writes only sm.commonnoun_resolution, never mutates role_mentions cluster ids or coref -- default-on-safe. 'landed != live' -- the read()-time wire is the Q111 landing (proposed diff: typed_coref_resolution_wire_PROPOSED.py)."
+    },
+    "affected_entity": {
+      "accuracy": {
+        "recency": 0.3259,
+        "A1_salience": 0.3329,
+        "A2_prinB": 0.3664,
+        "A3_gram_par": 0.3371,
+        "A4_thematic_par": 0.3622,
+        "A5_full": 0.3734,
+        "A5_scramble_roles": 0.3958,
+        "A5_twin_uniform": 0.1147
+      },
+      "A2_prinB_minus_A1": {
+        "delta": 0.0336,
+        "ci95": [
+          0.014,
+          0.0531
+        ],
+        "ci_sep": true
+      },
+      "A5_full_minus_A1": {
+        "delta": 0.0406,
+        "ci95": [
+          0.0098,
+          0.0741
+        ],
+        "ci_sep": true
+      },
+      "A5_full_minus_twin": {
+        "delta": 0.2587,
+        "ci95": [
+          0.2182,
+          0.2993
+        ],
+        "ci_sep": true
+      },
+      "illegal_coarg_rate": 0.2042,
+      "note": "who_was_affected forward-salience x Principle-B x role/thematic parallelism (hdlab.affected_entity_resolver, promoted BUILD-4 corrected lever). DEPLOYED predicted parse (pos_tagger+arc_parser+arc_labeler). model=A5 full 0.3734 vs strongest floor=A1 salience prior 0.3329 = +0.0406 CI[0.0098,0.0741] (CI-sep=True); info-free twin 0.1147 = +0.2587 (CI-sep=True). A1's subject-biased top pick is the ILLEGAL Principle-B co-argument 20% of the time (the mechanistic root of the salience wall). Kept OUT of the headline aggregate (its own row)."
+    },
+    "spatial_extraction_precision": {
+      "note": "glass-box spatial Figure-Ground TYPING (Talmy/Jackendoff; Herskovits preposition-semantics) -- the FIRST board arm scoring the joint EXTRACTOR's TYPE-precision on hard adjacent negatives (the discriminating test recall-survival cannot do: the brain tells IN from NEAR; a proximity flood cannot). Load-bearing claim scoped to the incumbent-linear (position) + density-proximity + shuffled-relation (info-free) floors; the density floor COLLAPSES to 0.1848 on hard negatives while the semantic ext holds 0.5913 (+0.4065). SEPARATE from the spatial_relational arm (SpartQA left/right composition -- the ext craters there, coverage 2.8%). Scores the LANDED extractor the LIVE reader consumes (use_thematic=True). Reuses exp_joint_spatial_precision_qa_v1 verbatim. HONEST scope: CONTAINMENT/PATH end-to-end on terse prose stay extraction-gated (the SOLVED located negative)."
+    },
+    "temporal_implicit_order": {
+      "note": "glass-box implicit-event ordering (Zwaan Event-Indexing -- time is a graded CUE, not a gate; Schank-Abelson script prior + confidence-gated override) -- the FIRST board arm scoring the IMPLICIT-event / abstention path. The win is an UPSTREAM extraction fix: the seed store's offline mine used a tense-gated event detector (drops present/bare/progressive verbs); re-mining through the brain-foundational tense-agnostic UPOS front-end DOUBLES coverage 0.29->0.607 and lifts accuracy CI-sep over both the seed and abstain floors, the shuffled-order twin losing (the extracted ORDER is load-bearing, not corpus frequency). Reuses exp_broaden_causal_order_final_v1 verbatim. HONEST scope: the ~0.65 per-pair ceiling is story-conditioning (aggregate script prior vs instance-specific order); the deep situation-model reasoner over grounded state is the named follow-on."
+    },
+    "state_closure": {
+      "note": "default-persist state model (Dowty 1986 temporal inertia -- a state holds until an EXPLICIT incompatible state) with antonymy DERIVED from the semantic hub (ATL; Patterson/Nestor/Rogers 2007) via WordNet core-adjective antonyms, replacing the hand list that missed wet/dry, tired/rested, honest/dishonest. The FIRST board arm scoring multi-clause state CLOSURE. Reproduces the SOLVED win: LIVE 1.0000 (antonym-recall 1.0000) vs hand-list-only 0.4400 (antonym-recall 0.0667), +0.5600 CI-sep, over-close cost +0.1333 (WordNet noise: ['hungry/thirsty', 'safe/out']). Reuses exp_state_closure_wordnet_v1 gold + _closes driver verbatim. SURFACED: the landed organ now equals WordNet, so that cell's own `_ORIG_INCOMPAT` 'hand' arm is no longer hand-only (this arm reconstructs the true pre-fix floor). CONSTRUCTED, declared -- board-visible mechanism, NOT a headline-aggregate claim."
+    },
+    "affect_harm_help": {
+      "note": "harm/help as FORCE DYNAMICS (Talmy 1988; Wolff 2007 -- an affector force overcoming an animate patient's inertia to an adverse endstate = HARM/CAUSE; a force opposing an adverse endstate = HELP/PREVENT-ENABLE), replacing the closed test-fitted FORCE_CLASS_HARM_REAL list that could NEVER emit HELP. The FIRST board arm scoring affect on modern gold. Reproduces the SOLVED win: FD 0.7778 (HARM 7/12 HELP 9/12 NEUTRAL 12/12) vs retired closed-list 0.3333 (HELP structurally 0/12) and majority 0.3333, +0.4444 CI-sep; twin 0.4167 loses; 0 false positives on NEUTRAL. Cross-check: the LIVE reader's affect acc == the decision-level FD acc (matches=True) -- the mechanism is WIRED, not an island. SURFACED: the fix landed in hdlab (context_grounded_valence), so exp_fd_harm_help_live_modern_v1.part_B's through-reader monkeypatch is now a NO-OP (all 3 arms collapse to the live 0.778); this arm scores the contrast at the decision level (genuine floors) + cross-checks the live reader. SELF-AUTHORED / DIRECTIONAL, declared -- board-visible mechanism, NOT a headline claim."
+    },
+    "predictive_causal_necessity": {
+      "reader_argmax_necessity": 0.3602,
+      "random_context_necessity": 0.038,
+      "nearest_event_necessity": 0.1124,
+      "reader_vs_random_ci": [
+        0.3113,
+        0.3336
+      ],
+      "reader_vs_nearest_ci": [
+        0.2397,
+        0.2564
+      ],
+      "n_effects_scored": 6729,
+      "vocab_V": 300
+    }
+  },
+  "informational_19c_crossref": {
+    "status": "INFORMATIONAL -- DEMOTED (not the headline)",
+    "reason": "owner banned 19th-century LitBank (100 pre-1923 novels) as a load-bearing comprehension gold 2026-09-06 (a corpus-age confound, 'basically a different language'); the headline aggregate above is 19c-FREE. This block is kept ONLY for cross-reference.",
+    "source_cell": "experiments/exp_situation_model_qa_v1.run (tools/baseline_board Instrument A)",
+    "corpus": "LitBank (100 pre-1923 novels, 19c)",
+    "loaded_from_disk": false,
+    "note_absent": "no 19c board metrics on disk (data/situation_model_qa_v1/metrics.json); run exp_situation_model_qa_v1.run to populate this cross-reference. Its aggregate + coref/events/temporal/causal are scored on banned LitBank and are NOT the headline."
+  },
+  "transferred_to_modern": {
+    "coref": {
+      "gold": "GUM (modern, coref)",
+      "model_acc": 0.4681,
+      "strongest_floor": 0.3621,
+      "ci_sep_over_floor": true,
+      "twin_loses": true
+    },
+    "salience": {
+      "gold": "GUM (modern, coref)",
+      "model_acc": 0.2555,
+      "strongest_floor": 0.1971,
+      "ci_sep_over_floor": false,
+      "twin_loses": true
+    },
+    "common_noun_coref": {
+      "gold": "GUM (modern, coref)",
+      "model_acc": 0.5671,
+      "strongest_floor": 0.5412,
+      "ci_sep_over_floor": true,
+      "twin_loses": true
+    },
+    "who_did_what_agent": {
+      "gold": "UD-EWT (modern, deprels)",
+      "model_acc": 0.832,
+      "strongest_floor": 0.8545,
+      "ci_sep_over_floor": false,
+      "twin_loses": true
+    },
+    "who_did_what_patient": {
+      "gold": "UD-EWT (modern, deprels)",
+      "model_acc": 0.8311,
+      "strongest_floor": 0.745,
+      "ci_sep_over_floor": true,
+      "twin_loses": true
+    },
+    "state": {
+      "gold": "UD-EWT (modern, deprels)",
+      "model_acc": 0.8333,
+      "strongest_floor": 0.5714,
+      "ci_sep_over_floor": true,
+      "twin_loses": true
+    },
+    "wic": {
+      "gold": "WiC (modern, sense)",
+      "model_acc": 0.6639,
+      "strongest_floor": 0.6006,
+      "ci_sep_over_floor": true,
+      "twin_loses": true
+    }
+  },
+  "named_gaps": {
+    "temporal": "19c board gold shares the tense signal (circular); needs an INDEPENDENT modern temporal-order gold (e.g. TimeBank/TDDiscourse event ordering). Follow-on problem.",
+    "causal": "19c board gold is connective-reducible (a connective detector, not force-dynamic reasoning); needs a NON-CIRCULAR modern causal gold (e.g. BECauSE / annotated because-clauses). Follow-on.",
+    "goal": "goal register scored on 19c LitBank only; needs a modern intentionality gold. Follow-on.",
+    "affect": "affect register scored on 19c LitBank only; needs a modern emotion gold (e.g. GoEmotions experiencer-linked). Follow-on."
+  },
+  "upstream_chain": {
+    "component_1_unified_referent_coref": {
+      "role": "feeds coref pronoun pick",
+      "status": "EXCEEDS on modern (reused sibling SOLVED)",
+      "modern_result": {
+        "model": 0.4681,
+        "floor": 0.3621,
+        "ci_sep": true
+      }
+    },
+    "component_2_cm_role_assigner": {
+      "role": "feeds who-did-what(agent) AND coref(entity-KB hard-link)",
+      "modern_who_did_what": "LOCATED register finding: word-order near-ceiling on modern canonical prose; the 19c CM win does not transfer (see who_did_what_agent detail)",
+      "cross_consumer_coref": {
+        "consumer": "entity_kb_hardlink",
+        "gold_roles_acc": 0.4682,
+        "positional_roles_acc": 0.3841,
+        "gold_minus_positional": [
+          0.0842,
+          0.0305,
+          0.13
+        ],
+        "positional_roles_cost_the_consumer": true,
+        "note": "brain-foundational (gold grammatical) roles beat the live positional role proxy on the entity-KB hard-link coref consumer -> the upstream role assigner must be brain-foundational to realize coref too (the SAME upstream the who-did-what AGENT dimension needs)."
+      }
+    }
+  },
+  "detail": {
+    "coref": {
+      "pronoun_pick": {
+        "n": 3132,
+        "model_acc": 0.4681,
+        "overlap_floor": 0.3621,
+        "floor_accs": {
+          "separate": 0.3621,
+          "recency": 0.2928,
+          "string_identity": 0.3075
+        },
+        "strongest_floor_name": "separate",
+        "strongest_floor": 0.3621,
+        "twin_acc": 0.2034,
+        "model_minus_strongest": [
+          0.106,
+          0.0786,
+          0.1327
+        ],
+        "model_minus_twin": [
+          0.2647,
+          0.2303,
+          0.3001
+        ],
+        "ci_sep_over_strongest": true,
+        "ci_sep_over_twin": true,
+        "population": "GUM (modern, TEST=odd docs) pronoun; UNIFIED discourse referent (DRT file-change) vs the strongest simple floor + info-free shuffled-identity twin."
+      },
+      "common_noun": {
+        "n": 2855,
+        "model_acc": 0.5671,
+        "overlap_floor": 0.5412,
+        "floor_accs": {
+          "string_identity": 0.5412,
+          "recency": 0.0855
+        },
+        "strongest_floor_name": "string_identity",
+        "strongest_floor": 0.5412,
+        "twin_acc": 0.5398,
+        "model_minus_strongest": [
+          0.0259,
+          0.0134,
+          0.0385
+        ],
+        "model_minus_twin": [
+          0.0273,
+          0.0214,
+          0.0342
+        ],
+        "ci_sep_over_strongest": true,
+        "ci_sep_over_twin": true,
+        "population": "GUM (modern, TEST=odd docs) common; UNIFIED discourse referent (DRT file-change) vs the strongest simple floor + info-free shuffled-identity twin."
+      },
+      "entity_kb_hardlink": {
+        "n": 1307,
+        "model_acc": 0.4682,
+        "overlap_floor": 0.3963,
+        "floor_accs": {
+          "separate": 0.3963,
+          "recency": null,
+          "string_identity": null
+        },
+        "strongest_floor_name": "separate",
+        "strongest_floor": 0.3963,
+        "twin_acc": 0.0819,
+        "model_minus_strongest": [
+          0.0719,
+          0.0231,
+          0.1197
+        ],
+        "model_minus_twin": [
+          0.3864,
+          0.3344,
+          0.4419
+        ],
+        "ci_sep_over_strongest": true,
+        "ci_sep_over_twin": true,
+        "population": "GUM (modern, TEST=odd docs) kb_hardlink; UNIFIED discourse referent (DRT file-change) vs the strongest simple floor + info-free shuffled-identity twin."
+      },
+      "common_noun_typelicense": {
+        "n": 2855,
+        "model_acc": 0.4683,
+        "overlap_floor": 0.5412,
+        "floor_accs": {
+          "live_pick_unified": 0.4879,
+          "string_identity": 0.5412,
+          "recency": 0.0855,
+          "separate": 0.4872
+        },
+        "strongest_floor_name": "string_identity",
+        "strongest_floor": 0.5412,
+        "twin_acc": 0.4644,
+        "model_minus_strongest": [
+          -0.0729,
+          -0.0933,
+          -0.0523
+        ],
+        "model_minus_live_baseline": [
+          -0.0196,
+          -0.0329,
+          -0.0073
+        ],
+        "model_minus_twin": [
+          0.0039,
+          -0.0104,
+          0.0172
+        ],
+        "ci_sep_over_strongest": false,
+        "ci_sep_over_live_baseline": false,
+        "ci_sep_over_twin": false,
+        "decision": "KEEP DEFAULT-OFF",
+        "population": "GUM (modern, TEST) anaphoric common-noun mentions, board's OWN common_noun_coref instrument (URG unified resolver, DRT file-change merge); model = + C5+C6 binary TYPE-LICENSING filter (recency selects among the is-a/part-whole/synonym-licensed different-head set); baseline = the live pick (filter OFF); twin = shuffled-graph info-free filter. Doc-level paired bootstrap.",
+        "note": "FLIP-GATE (measure-then-decide): the SOLVED's +0.0116 was on a DIFFERENT, non-merging instrument whose baseline already reached different-head by recency. On the LIVE board pick the filter REGRESSES the baseline (-0.0196) and the shuffled-graph twin is indistinguishable (CI incl 0) -- the p12 pattern (a win vs a weakened baseline evaporates against the stronger live pick). Ariel accessibility: modern common-noun anaphora is head/recency-driven; different-head world-knowledge bridging is rare + low-precision + pollutes the merged referent cards. DECISION: KEEP DEFAULT-OFF."
+      },
+      "note": "pronoun pick is the modern coref dimension (unified referent EXCEEDS the separate reader CI-sep, twin loses); common-noun now BEATS same-head string-identity CI-sep via the Q111 typed-identity card view (nominal vs full mention set) + a non-writing (Nref) type-bridge seeded by the landed typed-spokes organ (info-free random-bridge twin loses; pronoun byte-identical, kb/name no-regress); entity-KB hard-link is the 2nd consumer."
+    },
+    "salience": {
+      "n": 137,
+      "model_frequency": 0.2555,
+      "floor_first_mention": 0.1971,
+      "twin_random": 0.0657,
+      "actr_prominence": 0.1241,
+      "note": "salience on modern gold is FREQUENCY-DOMINATED (the protagonist is by construction the most-mentioned entity); ACT-R prominence over imperfect surface-head clusters (0.1241) does NOT beat raw frequency here -- prominence-vs-frequency is a follow-on."
+    },
+    "cross_consumer_upstream": {
+      "consumer": "entity_kb_hardlink",
+      "gold_roles_acc": 0.4682,
+      "positional_roles_acc": 0.3841,
+      "gold_minus_positional": [
+        0.0842,
+        0.0305,
+        0.13
+      ],
+      "positional_roles_cost_the_consumer": true,
+      "note": "brain-foundational (gold grammatical) roles beat the live positional role proxy on the entity-KB hard-link coref consumer -> the upstream role assigner must be brain-foundational to realize coref too (the SAME upstream the who-did-what AGENT dimension needs)."
+    },
+    "who_did_what_agent": {
+      "n": 1423,
+      "model_hybrid_agent": 0.832,
+      "full_cm_agent": 0.7583,
+      "floor_positional": 0.8545,
+      "twin_shuffled_supports": 0.2952,
+      "hybrid_minus_floor": [
+        -0.0225,
+        -0.0338,
+        -0.0114,
+        0.0112,
+        false
+      ],
+      "hybrid_minus_twin": [
+        0.5369,
+        0.5073,
+        0.5654,
+        0.0291,
+        true
+      ],
+      "full_cm_minus_floor": [
+        -0.0963,
+        -0.1133,
+        -0.0792,
+        0.017,
+        false
+      ],
+      "by_voice": {
+        "active": {
+          "n": 1407,
+          "floor": 0.8635,
+          "cm": 0.7655,
+          "hybrid": 0.8401
+        },
+        "passive": {
+          "n": 16,
+          "floor": 0.0625,
+          "cm": 0.125,
+          "hybrid": 0.125
+        }
+      },
+      "note": "AGENT who-did-what board arm on MODERN UD-EWT. HYBRID = the deployable brain-foundational route (hybrid_role_patient design: word-order default byte-identical on canonical clauses, Competition-Model override ONLY on passive / PP-fronting / non-nominative-case). full_cm = the always-compete 19c-tuned assigner (LOCATED NEGATIVE on modern: full_cm < positional, because modern prose is canonical and word-order already dominates -- the CM model's own register prediction). Reuses hdlab.graded_role_assigner (owner-DONE, Bates-MacWhinney/Centering PINNED)."
+    },
+    "who_did_what_patient": {
+      "n": 1255,
+      "model_R_final": 0.8311,
+      "model_ci_hw": 0.0219,
+      "floor_R0_landed": 0.745,
+      "twin_shufheads": 0.6685,
+      "ceiling_gold_parse": 0.961,
+      "model_minus_floor": [
+        0.0861,
+        0.0678,
+        0.1043
+      ],
+      "model_minus_twin": [
+        0.1625,
+        0.1405,
+        0.1865
+      ],
+      "note": "PATIENT-slot board arm (Step 0). Reuses exp_valency_labeled_patient_v1.eval_split (R_final = the landed structural_patient_pick, live arc route). model beats the deployed position floor (the +0.086 clean-UD win, previously board-invisible) with a random-head twin LOSING; the residual to ceiling_gold is genuine head-attachment (the parser, a filed follow-on)."
+    },
+    "state": {
+      "n": 378,
+      "model": 0.8333
+    },
+    "wic": {
+      "n": 2038,
+      "model": 0.6639
+    }
+  },
+  "reader_unchanged": true,
+  "elapsed_s": 713.8,
+  "ts_iso": "2026-09-11T02:39:08.249599+00:00"
+}

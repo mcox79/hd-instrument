@@ -393,3 +393,17 @@ de-leaked floor" instruction asks for).
 - **DO-NOT-INCORPORATE:** the crude `commonnoun_binder.head_lemma` regex on the resolution path (retire it there); the
   `concept` loose-synonymy arm (refuted); the SEM episodic address as a coref separation coordinate (grain-mismatched, null);
   the event-transition world-model tied into coref antecedent selection (wrong grain, located negative).
+
+
+---
+INTEGRATED_BY_STRATEGY (2026-09-11, overnight WS1b). Core landed earlier this stretch (concept_lemma
+BF-completion `9269cc379` + the 3 backward-half bridges `163783466` + board-sync `650f00dac`).
+BOARD-VERIFIED at full power (full `--run`, 2026-09-11): `board_commonnoun_resolution_dimension`
+n=2855 model **0.5818** vs strongest floor **0.5156** (de-leaked), twin 0.5426 -> **CI-sep True** --
+exactly the witness-proven 0.5818. The board floor is the honest de-leaked value (0.5156), so the
+board-floor-honesty concern is satisfied by construction. `head_lemma` left UNCHANGED (clustering
+byte-identical). Registry: commonnoun_binder stays NOT_BF (head_lemma shared by 7 organs; full
+retirement = the posted coref-consolidation flagship). Board aggregate 0.6253 no-regress.
+Faithfulness: the board copy `_reader_commonnoun_resolution` carries the SAME concept_lemma+bridge
+edits mirrored into the live `_resolve_commonnouns` (identical by construction); a dedicated
+live==copy GUM witness is a small remaining check (noted).
