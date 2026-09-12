@@ -138,3 +138,12 @@ Rows aged out of `notes/BOARD.md`, which shows only the most recent 40. **Nothin
 
 **THE OWNER'S ANSWER:** SUPERSEDED BY Q94 -- my RECOMMENDATION reversed after I actually read up on the alternative. The question is unchanged. Not answered by the owner.
 
+
+| Q94 | 2026-08-21T00:04:39Z |
+
+**Q:** Same question as before, but my recommendation has flipped and you should not act on the old one. The question: our brain-reference document says build the pronoun-resolution step before the coherence monitor, and I had missed that. Which do you want? What changed: after asking, I actually went and read up on the pronoun step, and I had it wrong. It is not a missing piece we would be building from scratch -- we already built it, it is switched on, and it beats both of its simple comparison baselines, scoring 0.72 where picking-the-most-recent-mention scores 0.56 and picking-the-most-common-subject scores 0.39. After a whole day in which every measurement put us at or below plain word-counting, this is the one place on the map where our system is measurably ahead of the obvious cheap alternative. The document also names exactly what is wrong with it: we invented two numbers where the research only gave a ranking of what matters most, and we match names by spelling rather than by meaning. So that work is 'fix three named things and widen a lead we already have' rather than 'build something new and hope'. One honest caveat the document itself raises: the original success was measured on only ten examples, which is far too few to trust, so testing it properly on hundreds is part of the job.
+
+**MY RECOMMENDATION:** Do the pronoun-resolution step first, as the document says. It is a working organ already above its floors, its fidelity fix is named precisely, it is startable now with no prerequisites, and it is the only place today where we are ahead of a trivial baseline. Risk of my recommendation, stated plainly: widening a lead on pronoun resolution does nothing about the bigger finding that nothing in the system reads the word meanings it writes down -- the coherence monitor was aimed squarely at that, and choosing this instead defers it again. Also, I have now reversed myself on this within two turns, which is itself a reason to weight my recommendation less than usual.
+
+**THE OWNER'S ANSWER:** SUPERSEDED BY Q95 -- I quoted a margin to you that does not survive a confidence interval. The RECOMMENDED ACTION IS UNCHANGED; one fact is corrected. Not answered by the owner.
+
