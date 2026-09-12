@@ -326,3 +326,15 @@ competent-reader reference ~0.85–0.90.
   item-based constructions promoted from the experiments cells) + `tools/build_attachment_validities.py` (knowledge-free teacher +
   anchored self-teaching; --rounds/--alpha swept). Registry BF_SPIRIT. Asset build waits for the extended-rounds gate
   (--rounds 5 --alpha 0.8 running); the hand-authored prior stays OUT of the organ.
+- **ERROR ANATOMY (UD-EWT test 700; supervised 0.7793 vs our teacher+constraints 0.4755; gap 0.30 by share):** punct 0.056 (ours 0.20),
+  case 0.037 (0.48), nsubj 0.022, nmod 0.019, cop 0.017 (ours 0.03!), det 0.015, cc 0.015, flat 0.012, xcomp 0.011 (0.13), obl 0.011,
+  conj 0.010, ccomp 0.009, amod/advmod/obj ~0.008 each, advcl 0.007 (0.02). By arc length: length-1 arcs carry 0.11 of the gap
+  (sup 0.89 vs ours 0.59). → A THIRD of the gap is FUNCTION-WORD CONVENTION (punct/case/cop/det/cc/flat) = deterministic item-based
+  frames (Mintz), NOT comprehension; the comprehension-relevant gap (nsubj/obj/obl/nmod/clausal) ≈ 0.10. Built `function_word_arcs`
+  into the landed organ (ADP → its NP head; AUX → following verb; copula → following predicate; SCONJ/'to' → following verb; PROPN
+  runs left-headed; punct → nearest verb); probe v18 now reads the organ's construction map.
+- **Research drill 2 (`notes/RESEARCH_sota_parser_anatomy_and_glassbox_recovery_2026-09-12.md`):** SOTA = the labelled signal (~100 gold
+  trees → 75–80 UAS; they buy CONVENTION); label-free ceiling 67.9–68.8 (sibling second-order = +13.3, the biggest label-free lever);
+  per-failure label-free sources: unambiguous-case mining for PP (Ratnaparkhi 81.9%), parallelism-as-priming for coordination, frame
+  occupancy for clausal; token-level categories. Learning-time mechanisms from drill 1 (delta+punct-hard+curriculum combined):
+  r0 0.3463, r1 0.3953, r2 0.4004 vs plain knowledge-free 0.3712/0.4279/0.4368 → NOT helping as built (DMV-regime result; disentangle).

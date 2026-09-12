@@ -112,7 +112,67 @@ def clausal_arcs(toks: Sequence[str], pos: Sequence[str]) -> List[Tuple[int, int
     return out
 
 
-CONSTRUCTIONS = {"verbarg": verbarg_arcs, "coord": coord_arcs, "npmod": npmod_arcs, "clausal": clausal_arcs}
+def function_word_arcs(toks: Sequence[str], pos: Sequence[str]) -> List[Tuple[int, int]]:
+    """FUNCTION-WORD frames (Mintz 2003 frequent frames: high precision, narrow reach; the error anatomy 2026-09-12 put a third of
+    the gap to the supervised parser here): a preposition attaches to the head of the nominal run that follows it ("ADP _ NOUN");
+    an auxiliary attaches to the verb that follows it; a copula (be/become/seem + no following verb) attaches to the non-verbal
+    predicate that follows; a subordinator / infinitival 'to' attaches to the following verb; a run of proper nouns is LEFT-headed
+    (the first name heads the rest); a punctuation mark attaches to the nearest verb (the clause predicate). Item-based schemas
+    learned as form-position templates; deterministic once learned."""
+    n = len(pos); out = []; lows = [t.lower() for t in toks]
+    COP = {"be", "is", "are", "was", "were", "been", "being", "am", "become", "became", "becomes", "seem", "seems", "seemed"}
+    def np_head_after(i):                   # head noun of the nominal run starting at i (0-based) or None
+        j = i
+        while j < n and pos[j] in NP_RUN:
+            j += 1
+        heads = [k for k in range(i, j) if pos[k] in ("NOUN", "PROPN")]
+        return heads[-1] if heads else None
+    def next_verb(i):
+        for k in range(i + 1, n):
+            if pos[k] == "VERB":
+                return k
+            if pos[k] == "PUNCT":
+                break
+        return None
+    def next_predicate(i):                  # first ADJ / NOUN / PROPN / PRON before any verb
+        for k in range(i + 1, n):
+            if pos[k] == "VERB" or pos[k] == "PUNCT":
+                return None
+            if pos[k] in ("ADJ", "NOUN", "PROPN", "PRON", "NUM"):
+                return k if pos[k] != "NOUN" and pos[k] != "PROPN" else (np_head_after(k) if np_head_after(k) is not None else k)
+        return None
+    for i in range(n):
+        p = pos[i]
+        if p == "ADP" and i + 1 < n and pos[i + 1] in NP_RUN:
+            h = np_head_after(i + 1)
+            if h is not None:
+                out.append((h + 1, i + 1))
+        elif p == "AUX":
+            v = next_verb(i)
+            if v is not None:
+                out.append((v + 1, i + 1))
+            elif lows[i] in COP:
+                q = next_predicate(i)
+                if q is not None:
+                    out.append((q + 1, i + 1))
+        elif p == "SCONJ" or (p == "PART" and lows[i] == "to"):
+            v = next_verb(i)
+            if v is not None:
+                out.append((v + 1, i + 1))
+        elif p == "PROPN" and i > 0 and pos[i - 1] == "PROPN":
+            k = i
+            while k > 0 and pos[k - 1] == "PROPN":
+                k -= 1
+            out.append((k + 1, i + 1))       # flat: left-headed name
+        elif p == "PUNCT":
+            cands = [k for k in range(n) if pos[k] == "VERB"]
+            if cands:
+                h = min(cands, key=lambda k: (abs(k - i), k))
+                out.append((h + 1, i + 1))
+    return out
+
+
+CONSTRUCTIONS = {"verbarg": verbarg_arcs, "coord": coord_arcs, "npmod": npmod_arcs, "clausal": clausal_arcs, "fw": function_word_arcs}
 
 
 def construction_map(toks: Sequence[str], pos: Sequence[str]) -> Dict[Tuple[int, int], str]:

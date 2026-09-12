@@ -54,14 +54,8 @@ def construction_arcs(toks, pos):
     key = (tuple(toks), tuple(pos))
     if key in _CONSTR_CACHE:
         return _CONSTR_CACHE[key]
-    import experiments.exp_readlearned_construction_stack_v1 as CS
-    out = {}
-    for fam, fn in CS.CUES.items():
-        try:
-            for (h, d) in fn(list(toks), list(pos)):
-                out.setdefault((h, d), fam)
-        except Exception:
-            pass
+    from hdlab.attachment_arm import construction_map as _cm      # the landed organ's constructions (incl. function-word frames)
+    out = dict(_cm(list(toks), list(pos)))
     if len(_CONSTR_CACHE) > 20000:
         _CONSTR_CACHE.clear()
     _CONSTR_CACHE[key] = out
