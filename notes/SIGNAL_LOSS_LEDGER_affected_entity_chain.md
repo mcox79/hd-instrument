@@ -296,3 +296,7 @@ competent-reader reference ~0.85–0.90.
   attachment, NP internals, clauses, coordination) = the CONSTRUCTIONS domain. Meaning as the outcome signal stays a hypothesis
   for PP/clausal disambiguation (Hindle-Rooth), not for core arguments.
 - **Constructions full (6k/700): r0 0.4715 → 0.4941** with the coalition cue; r1/r2 pending. Transfer 29.5 GB.
+- **Constructions coalition cue, FULL (6k/700): r0 0.4941 → r1 0.5228** — past pri-2's constructions-in-the-scorer 0.514 and the
+  co-occurrence teacher 0.4626; the best label-free attachment in the substrate so far; r2 pending.
+- **Volume (probe v20): 20k Simple-Wiki sentences (substrate tagger) r0 0.4688 / r1 0.4781 ≈ 6k UD sentences (0.4715 / 0.4801) —
+  FLAT.** Confirms the pri-2 scale curve: more text does not move this learner; STRUCTURE does. 60k arm pending.
