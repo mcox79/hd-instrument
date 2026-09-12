@@ -52,3 +52,11 @@ competent-reader reference ~0.85–0.90.
   order/attachment/voice: a post-verbal bare nominal dependent of the verb mis-filed as OTHER, and passives/by-agents (Principle-C
   co-argument) badly handled. The Competition-Model labeler must therefore weight WORD ORDER relative to the governing verb, the
   PREPOSITION cue (by + passive morphology → BY_AGENT), and VOICE morphology highest; measure per class against these numbers.
+- **First Competition-Model coarse labeler (probe v13, `graded_role_assigner.coarse_roles`, hand-ORDERED validities, verb-governed
+  nominals only):** decision on the 596 items: CM 0.4765 vs supervised 0.4698 (+0.0067, CI incl. 0) on predicted heads; with GOLD heads
+  CM 0.5017 vs SUP 0.5034 (parity) — i.e., BOTH labelers lose the same −0.037 vs gold labels given the heads. Per-class label accuracy
+  (GUM test, predicted heads): BY_AGENT 0.736 vs 0.106, OBJ 0.792 vs 0.776, PASS_SUBJ 0.588 vs 0.581, OTHER 0.788 vs 0.718 — but
+  SUBJ 0.526 vs 0.742 and OBL 0.24 vs 0.778. Causes (structural blindness, not cue weights): copular clauses (the subject's head is
+  an ADJ/NOUN predicate, not a VERB → filed OTHER), noun-governed obliques (nmod → my OTHER), and the preposition cue requires the
+  ADP to attach to the nominal (fails under predicted heads). Next: surface/structure cues for these three, validities LEARNED on
+  UD-EWT train (`tools/build_coarse_role_validities.py`), re-measure.
