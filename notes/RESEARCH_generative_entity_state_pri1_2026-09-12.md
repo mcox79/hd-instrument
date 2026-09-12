@@ -135,6 +135,13 @@ gammas (0.5,0.5) −0.042, (0,0) −0.105 CI-sep. => the prior is at its operati
 salience equation. Combined with v9 (the pick is the established entity), the loss is upstream (parse, tokens) or in the
 unbuilt event expectation.
 
+
+**Parse-rung loss decomposition (v11, same 596 THIRD items, fixed gold targets):** GOLD 0.5403; PRED_ALL 0.4698 (−0.0705
+CI-sep); gold POS 0.4799 (tagger ≈14% of the loss); HEADS_pred 0.5285 (−0.0117, 17%); LABELS_pred 0.5034 (−0.0369, 52%).
+THE LOSSY RUNG IS THE DEPENDENCY LABELER: it decides which pronouns count as undergoers, which entity is the Principle-B
+co-argument, and the parallelism roles. The reading-learned ARC scorer (pri-11) would fix heads only. => first upstream build:
+a brain-foundational coarse ROLE labeler (Competition Model cue competition), measured on these 596 items.
+
 ## 4. Where the signal is lost (upstream trace, numbers)
 1. **Instrument:** 48% of the slice is not an entity-salience task (deictic/demonstrative/other). Measure THIRD separately;
    route DEICTIC to a speech-situation (speaker/addressee) arm and DEMONSTRATIVE to abstract anaphora.
