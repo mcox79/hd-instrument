@@ -106,6 +106,35 @@ def updates() -> list:
     return U.list_updates() if hasattr(U, "list_updates") else U.load() if hasattr(U, "load") else []
 
 
+def now_panel() -> dict:
+    """What the strategy session is doing right now, from disk: heartbeat age, the current STATUS position entry, the last
+    ledger bullets, the latest owner update."""
+    hb = REPO / "data" / "heartbeats" / "research.timestamp"
+    age_min = None
+    try:
+        ts = datetime.strptime(hb.read_text(encoding="utf-8").strip(), "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
+        age_min = int((datetime.now(timezone.utc) - ts).total_seconds() // 60)
+    except Exception:
+        pass
+    position = ""
+    try:
+        txt = (REPO / "notes" / "STATUS.md").read_text(encoding="utf-8")
+        i = txt.find("## POSITION")
+        block = txt[i:].split("\n### ", 2)
+        position = ("### " + block[1]).strip() if len(block) > 1 else ""
+    except Exception:
+        pass
+    ledger = []
+    try:
+        lines = (REPO / "notes" / "SIGNAL_LOSS_LEDGER_affected_entity_chain.md").read_text(encoding="utf-8").splitlines()
+        bullets = [ln for ln in lines if ln.startswith("- ")]
+        ledger = bullets[-4:]
+    except Exception:
+        pass
+    ups = updates()
+    return {"heartbeat_minutes_ago": age_min, "position": position[:2500], "ledger_tail": ledger, "latest_update": (ups[-1] if ups else None)}
+
+
 # ------------------------------------------------------------------------------------------------------------- account
 def _read_json(p: Path):
     try:
@@ -222,16 +251,17 @@ textarea,input{width:100%;box-sizing:border-box;background:#111;color:#eee;borde
 .sel{outline:2px solid #5d4a2e}
 </style></head><body>
 <nav><button onclick="tab(0)" class="on">Doing</button><button onclick="tab(1)">Questions</button><button onclick="tab(2)">Updates</button><button onclick="tab(3)">Account</button></nav>
-<div id="t0"></div><div id="t1" hidden></div><div id="t2" hidden></div><div id="t3" hidden></div>
+<div id="now"></div><div id="t0"></div><div id="t1" hidden></div><div id="t2" hidden></div><div id="t3" hidden></div>
 <div id="status"></div>
 <script>
-let T=localStorage.getItem('hdi_token')||'';let SC=null,selQ=null,selR=null;
-function tab(i){for(let k=0;k<4;k++){document.getElementById('t'+k).hidden=(k!==i);document.querySelectorAll('nav button')[k].className=k===i?'on':''}if(i===3)account();if(i===2)upd();}
+let T=localStorage.getItem('hdi_token')||'';const qp=new URLSearchParams(location.search);if(qp.get('t')){T=qp.get('t');localStorage.setItem('hdi_token',T);history.replaceState({},'',location.pathname)}let SC=null,selQ=null,selR=null;
+function tab(i){document.getElementById('now').hidden=(i!==0);for(let k=0;k<4;k++){document.getElementById('t'+k).hidden=(k!==i);document.querySelectorAll('nav button')[k].className=k===i?'on':''}if(i===3)account();if(i===2)upd();}
 function say(m,ok){const s=document.getElementById('status');s.textContent=m;s.style.display='block';s.style.color=ok===false?'#e07a7a':'#6fcf8a';setTimeout(()=>s.style.display='none',6000)}
 function needTok(){if(!T){T=prompt('Enter the app token (data/hook_state/owner_phone_token.txt on the desktop)')||'';localStorage.setItem('hdi_token',T)}return T}
 async function api(path,body){const h={'Content-Type':'application/json','X-Token':needTok()};const r=await fetch(path,{method:body?'POST':'GET',headers:h,body:body?JSON.stringify(body):undefined});const j=await r.json();if(!r.ok){say(j.error||'error',false);throw new Error(j.error)}return j}
 function esc(s){return (s==null?'':String(s)).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
-async function load(){SC=await api('/api/state');doing();questions();}
+async function load(){SC=await api('/api/state');doing();questions();nowp();}
+async function nowp(){try{const n=await api('/api/now');const age=n.heartbeat_minutes_ago;const col=age==null?'none':(age<20?'good':(age<120?'meh':'bad'));let h=`<div class="card"><b>Now</b> <span class="${col}">· last heartbeat ${age==null?'unknown':age+' min ago'}</span>${n.latest_update?`<div class=small style="margin-top:6px">${esc(n.latest_update.stamp)} · ${esc(n.latest_update.kind)}: ${esc(n.latest_update.text)}</div>`:''}<details style="margin-top:6px"><summary class=small>current position (from STATUS.md)</summary><div class=small>${esc(n.position).replace(/\n/g,'<br>')}</div></details><details><summary class=small>last ledger entries</summary><div class=small>${n.ledger_tail.map(esc).join('<br><br>')}</div></details></div>`;document.getElementById('now').innerHTML=h}catch(e){}}
 function doing(){const o=SC.scorecard.overall,fi=SC.scorecard.fidelity;let h=`<div class="card"><b>${o.n_clearly_better} of ${o.n_abilities_scored}</b> abilities are clearly better than a simple rule. <b>${fi.pinned} of ${fi.organs_total}</b> building blocks copy the brain's math exactly; ${fi.stand_ins} are stand-ins still being replaced.</div>`;
 h+=`<h2>The short version</h2><div class="card">${esc(SC.scorecard.sections['THE SHORT VERSION']||'').replace(/\n/g,'<br>')}</div>`;
 h+=`<h2>What changed lately</h2><div class="card small">${esc(SC.scorecard.sections['WHAT CHANGED LATELY']||'').replace(/\n/g,'<br>')}</div>`;
@@ -280,6 +310,8 @@ class Handler(BaseHTTPRequestHandler):
                 return self._send(200, {"scorecard": scorecard(), "ts": datetime.now().isoformat(timespec="seconds")})
             if path == "/api/updates":
                 return self._send(200, {"updates": updates()})
+            if path == "/api/now":
+                return self._send(200, now_panel())
             if path == "/api/account":
                 if not self._auth():
                     return self._send(401, {"error": "token required"})
@@ -315,6 +347,7 @@ class Handler(BaseHTTPRequestHandler):
 def serve(host: str, port: int):
     srv = ThreadingHTTPServer((host, port), Handler)
     print("owner phone app: http://%s:%d   token file: %s" % (host, port, TOKEN_PATH), flush=True)
+    print("PAIRING LINK (open once on the phone; it keeps the token): http://%s:%d/?t=%s" % (host, port, token()), flush=True)
     srv.serve_forever()
 
 
@@ -339,6 +372,7 @@ def self_test() -> int:
     s, b = get("/"); print("page", s, len(b)); fails += s != 200 or b"hd-instrument" not in b
     s, b = get("/api/state"); j = json.loads(b); print("state", s, "capabilities", len(j["scorecard"]["capabilities"])); fails += s != 200
     s, b = get("/api/updates"); print("updates", s, len(json.loads(b)["updates"])); fails += s != 200
+    s, b = get("/api/now"); j = json.loads(b); print("now", s, "heartbeat_min", j["heartbeat_minutes_ago"], "ledger", len(j["ledger_tail"])); fails += s != 200 or not j["position"]
     s, _ = post("/api/note", {"text": "x"}, auth=False); print("unauth POST ->", s); fails += s != 401
     s, b = get("/api/account", auth=True); j = json.loads(b); print("account", s, "current email set:", bool(j["current"]["email"]), "processes:", len(j["claude_processes"])); fails += s != 200
     s, j = post("/api/mark_done", {"slug": "../evil"}); print("bad slug ->", s); fails += s != 400
