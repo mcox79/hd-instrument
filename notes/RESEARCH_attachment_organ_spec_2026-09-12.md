@@ -89,3 +89,18 @@ MacDonald, Pearlmutter & Seidenberg 1994 (constraint-based lexicalist); Trueswel
 rational parsing); Kjelgaard & Speer 1999 (prosodic boundaries); Altmann & Steedman 1988 (referential context); Ernst & Banks
 2002, Ma & Pouget 2006 (reliability-weighted integration); Barlow 1961 (redundancy reduction); Carandini & Heeger 2012
 (divisive normalisation); Koo et al. 2007 / Smith & Smith 2007 (Matrix-Tree marginals for dependency parsing).
+
+## 6. Measured against the spec (2026-09-12, same day)
+| build | UAS (UD-EWT test 700, gold categories) | note |
+|---|---|---|
+| adjacent-right floor | 0.285 | |
+| cached reading-learned scorer (teacher; hand-authored Naseem prior pw=3) | 0.4626 | pri-2's best |
+| teacher + form-class constraint + prosodic boundary (decode-time) | 0.4755 | constraints measured first |
+| **attachment CUE COMPETITION, r0 (taught by the teacher's tree posterior)** | **0.4715** | no hand-authored prior; learned conditioned contrasts |
+| **attachment cue competition, r1 (anchored self-teaching)** | **0.4801** | the best label-free attachment in the substrate |
+| unconditioned additive cues (smoke) | drifted 0.41 → 0.37 | decorrelation by conditioning is load-bearing |
+| shuffled-strength twin (smoke) | 0.03 | |
+| lexical cue at 1.5k sentences (smoke) | −0.02 | too sparse; needs volume (lever 1 before lever 2) |
+| heads → roles hand-off (role competition over P(head)) | 0.8075 → 0.8091 role accuracy | small on UD-EWT; GUM next |
+Open: experience volume (probe v20: 20k/60k Simple-Wiki sentences), the lexicon at scale, meaning feeding structure, incremental
+prediction; then hand the posterior down to every consumer in §3 and re-measure the 596-item decision and the board rows.
