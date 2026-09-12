@@ -233,3 +233,10 @@ competent-reader reference ~0.85–0.90.
   the learner itself (its root prior, its lack of boundary/constructional structure) is. Consistent with pri-2's located negative.
 - **Transfer set for the desktop created 2026-09-12 13:29–13:39 local: `C:\AI\hd-instrument_desktop_2026-09-12\`** (repo minus
   .venv 191.9 GB, git bundle, frozen requirements, Claude memory + session folders c--AI/d--AI, MIGRATION_README.md with next steps).
+- **Full-scale cached reading-learned scorer (em_n11991, gold POS, UD-EWT test 700, floor 0.285): r2 plain 0.4626 → form-class
+  constraint 0.4693 → + prosodic boundary β=4 0.4755; r0 0.4193 → 0.4421 → 0.4495.** Decode-time patches only; the constraints
+  belong INSIDE the learner's E-step. Owner: understand what the organ should compute and how the brain separates signals
+  optimally BEFORE building further → `notes/RESEARCH_attachment_organ_spec_2026-09-12.md` (the spec: cue competition + cue-based
+  retrieval + keep-alternatives-alive = Matrix-Tree posterior; reliability weighting, decorrelation by conditioning, divisive
+  normalisation, exact marginalisation, form knowledge as constraints; the cue table; every consumer's signal requirement; the
+  build plan as an ARM of the Competition-Model organ, self-supervised soft counts from the tree posterior).
