@@ -42,7 +42,9 @@ from hdlab.thematic_role_labeler import lemma_verb
 
 TEACHER = os.path.join(_REPO, "data", "_readlearned_models", "em_n11991_r2_lam0.30_pw3.00.pkl")
 FORM = {"PUNCT", "NUM", "SYM"}
-CUES = ["locality", "catpair", "frame", "form", "boundary", "agree", "root"]
+CUES = ["locality", "catpair", "frame", "form", "boundary", "agree", "root", "lex"]
+USE_LEX = False   # lexical attachment preference: THIS head lemma x dependent category x direction (shrunk toward the catpair config)
+                  # smoke @1.5k sentences: r0 0.4386 -> 0.4185, r1 0.4443 -> 0.4292 = too SPARSE at that volume; retest at 60k (probe v20)
 
 
 def dist_bin(d):
@@ -75,6 +77,11 @@ def arc_cues(toks, pos, j, h, frames):
     lo, hi = (h, j) if h < j else (j, h)
     nb = sum(1 for k in range(lo + 1, hi) if pos[k - 1] == "PUNCT")
     c["boundary"] = "0" if nb == 0 else "1" if nb == 1 else "2+"
+    if USE_LEX:
+        lem = lemma_verb(toks[h - 1]).lower() if ph in ("VERB", "AUX") else toks[h - 1].lower()
+        c["lex"] = f"{lem}:{pj}:{dr}" if ph in ("VERB", "AUX", "ADP", "NOUN", "ADJ") else "na"
+    else:
+        c["lex"] = "na"
     if ph == "VERB":
         fr = frames.get(lemma_verb(toks[h - 1]).lower())
         trans = "unk" if not fr else ("trans" if fr[1] / fr[0] >= 0.3 else "intrans")

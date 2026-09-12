@@ -257,3 +257,7 @@ competent-reader reference ~0.85–0.90.
 - **v18 FULL (6k/700): student r0 0.4715 > teacher 0.4626** — the cue competition with learned, configuration-conditioned
   strengths REPLACES the teacher's hand-authored Naseem prior (pw=3) and beats it; r1/r2 + twin pending. Next lever per the gap
   analysis: EXPERIENCE VOLUME (probe v20: the learner accrues from 20k / 60k Simple-Wiki sentences tagged by the substrate's tagger).
+- **v18 FULL r1 (anchored self-teaching): 0.4801** — the attachment cue competition now beats the cached teacher (0.4626) AND the
+  teacher + decode-time constraints (0.4755): the best label-free attachment in the substrate; twin pending. Lexical cue
+  (head lemma × dependent class × direction) at 1.5k sentences: r0 0.4386 → 0.4185, r1 0.4443 → 0.4292 = too sparse at that
+  volume (lever 2 needs lever 1 first); flag off; retest at 60k.
