@@ -62,3 +62,6 @@ Wire the reading-learned arc scorer as a reliability-gated SECOND track feeding 
 
 ## 8. DO NOT QUOTE / DO NOT REDO
 Do NOT quote retired figures (`notes/reference_retired_claims_never_requote.md`). Do NOT re-train the scorer or re-implement graded_parser. Do NOT chase raw UAS (located negative). Do NOT reverse the arc-eager consolidation. Do NOT use spaCy / any external LLM / a treebank-trained scorer at inference. Do NOT weight constructions uniformly across consumers. Do NOT claim "converged" on engineering variations; the bar is a measured live-board transfer number (twin losing) or a numbered located negative.
+
+## STRATEGY ADDENDUM 2026-09-12 — the graded-category INPUT for the joint decode
+The owner-DONE pos-tagger solver (integrated 2026-09-12) found the who-was-affected POS loss is a HARD-COMMIT loss: the gold category survives the tagger's top-2 ~0.80 and is thrown away at argmax → Viterbi → parse. The dormant calibrated CRF (`hdlab/crf_tagger.GlassBoxCRF`, `.marginals()`) is the graded-category interface for a JOINT POS-parse decode; as a standalone tagger swap it measured −0.010 (so it is NOT flipped). If the second-track scorer here consumes tag MARGINALS rather than hard tags, measure the joint who-affected number — that is where the +0.07 POS budget lives.

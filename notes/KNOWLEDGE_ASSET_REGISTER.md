@@ -114,3 +114,9 @@ labels are ACCURATE; each latent asset activates when ITS consumer lands (measur
   readout; fused as a separate convergent-cue pool. The deep-net transducer is admissible ONLY as an offline foundation asset (owner 2026-08-16); no runtime vision model.
 - **Consumer:** `reading_grounding_loop.FusedSenseRanker` (channel V). **Measured:** strongest single live channel on concrete nouns (W41 rho 0.698); no lift on the
   coverage count or strict synonymy (data-blocked). Absent asset = the channel abstains (graceful).
+
+### 8. `typed selectional preference` — Resnik class association A(v,c) over WordNet noun supersenses  ·  **BF_SPIRIT (computational-level; field-superseded form)**  ·  LATENT→(pri-1 world-model reranker)
+- **Path:** `data/frontend_assets/typed_selectional_preference_v1.json` (6,450 verbs; rebuild: `python -m hdlab.typed_selectional_preference build`, ~1 min) read by `hdlab/typed_selectional_preference.py`; built from the reading-grown selectional store `data/selectional_preferences_v1/selectional_slots_v1.pkl`.
+- **Provenance:** `type_generalized_selectional_preference_densifies_coverage_but_the_who_affected_wall_is_ambiguity` (owner-DONE 2026-09-12 via Q131).
+- **What it is / BF basis:** typed thematic-fit expectation (McRae-Ferretti role-as-feature-bundle; Warren-Paczynski N400 type tier) in Resnik's KL form — superseded by Bicknell 2010 joint agent-verb expectations → the pri-1 event model is the successor and the consumer.
+- **Measured:** coverage on hard mis-attachment pairs 40% → 85%; margin-gated rerank neutral on the full hard set (ambiguity ~70%), +0.07..+0.16 on the clean-signal subset. **LATENT** (no live default consumer by measurement). Witness `test_typed_selectional_preference_organ.py` 4/4.

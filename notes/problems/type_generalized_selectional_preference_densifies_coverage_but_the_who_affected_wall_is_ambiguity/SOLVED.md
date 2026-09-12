@@ -87,3 +87,6 @@ is WIP until `owner_verdict: DONE`.)
 2. Land the typed selectional organ (Q111) with a strong margin gate (fires only on discriminating signal;
    net-neutral-to-positive) as a reusable thematic-fit knowledge asset — it helps wherever selectional fit is clean.
 3. Harm/help decision stays SOLVED + BF; the parse spine remains a declared NOT_BF offline scaffold (project pivot).
+
+---
+INTEGRATED_BY_STRATEGY 2026-09-12 — owner-DONE via board Q131; reverified 5/5 first-hand. Organ PROMOTED to hdlab/typed_selectional_preference.py (6450 verbs; asset; == cell exactly; witness 4/4) as a LATENT knowledge organ with consumer pri-1 (gated rerank measured neutral on the full hard set → not wired as a live default). Located negative (ambiguity ~70%) folded to §2b; KNOWLEDGE_ASSET_REGISTER #8.

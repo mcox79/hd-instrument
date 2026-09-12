@@ -490,3 +490,6 @@ the exact hdlab diff is specified. (SOLVED.md is WIP until owner_verdict: DONE.)
 3. Fix the upstream patient-binding loss (rare-noun POS mistag) -- it caps harm/help recall independently (the
    `bullied` miss); route to the parser cluster.
 4. Add a resulting-STATE valence read (resultatives) to resolve benefactive-negative verbs (surgical "cut"/"drill").
+
+---
+INTEGRATED_BY_STRATEGY 2026-09-12 — owner-DONE via board Q131; reverified 9/9 + 6/6 first-hand. LANDED TOP-DOWN: 3a Bayesian DP-head POS correction (pos_tagger.tag), 3b voice post-correction (arc_labeler.label), 3c force-dynamic arithmetic = force_dynamics_valence.harm_help (NOT_BF -> BF_SPIRIT; frame list + read-path FrameNet removed), 3d the reader passes its bound predicate (gov_idx) to the affect decision. Board affect arm re-pointed at the live organ (0.972 vs 0.333, twin 0.583). Recorded boundary: batter/throttle/wrench/bludgeon abstain (word-level valence uninformative; synonym backoff tried + withdrawn; resulting-state valence = the filed fix). §2b + registry + ledgers + SIGNAL_FLOW_MAP updated. Commit bbe6d9dd2.

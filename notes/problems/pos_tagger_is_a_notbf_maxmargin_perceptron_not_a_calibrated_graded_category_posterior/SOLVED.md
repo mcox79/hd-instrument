@@ -135,3 +135,6 @@ DONE`.)
 2. **Land the CRF activation + marginal interface TOGETHER with that joint decode** (not standalone), then re-measure the
    joint who-affected number and the global no-regress across the reader's board.
 3. Harm/help stays SOLVED — this cluster does not reopen it.
+
+---
+INTEGRATED_BY_STRATEGY 2026-09-12 — owner-DONE via board Q131; reverified 6/6 first-hand. Core value folded to §2b as a rigorous located negative (hard-commit loss, not a standalone-tagger gap; CRF swap −0.010 alone → not flipped; joint-decode consumer noted in pri-11). No hdlab change.

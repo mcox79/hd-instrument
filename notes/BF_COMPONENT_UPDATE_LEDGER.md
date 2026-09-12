@@ -83,3 +83,8 @@ anti-fragmentation-clean. (The board arm + read() dimension stay; only the resol
 - pos_tagger max-margin: `test_pos_calibrated_tagger_and_hardcommit` 6/6 → characterization only (hard-commit loss; CRF interface gated OFF with the measured −0.010).
 - type-generalized selectional preference: `test_typed_selectional_preference` 5/5 → on DONE: new BF knowledge organ `typed_selectional_preference` + margin-gated consumer.
 Landing scopes: INTEGRATION_LEDGER.md 'READY WAVE' block.
+## 2026-09-12 — READY WAVE APPLIED (owner-DONE via Q131; landed top-down along SIGNAL_FLOW_MAP)
+- pri-7 harm/help → APPLIED: `force_dynamics_valence` NOT_BF → BF_SPIRIT (force-dynamic arithmetic; frame list + read-path FrameNet gone); `pos_tagger` gains the Bayesian DP-head correction post-pass (status stays NOT_BF: the perceptron decode); `arc_labeler` gains the voice post-correction (status stays NOT_BF). Recorded boundary: word-level-valence-uninformative assault verbs abstain.
+- pos_tagger max-margin → APPLIED as characterization (hard-commit loss; CRF interface not flipped, −0.010 alone; joint decode = pri-11).
+- type-generalized selectional preference → APPLIED: new BF_SPIRIT knowledge organ `typed_selectional_preference` (LATENT → pri-1).
+Registry: 85 organs tagged (84 + the new organ); NOT_BF 7 → 6.
