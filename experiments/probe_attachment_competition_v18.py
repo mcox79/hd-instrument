@@ -146,6 +146,36 @@ def arc_cues(toks, pos, j, h, frames):
     return c
 
 
+LEARN_DELTA = float(sys.argv[sys.argv.index("--delta") + 1]) if "--delta" in sys.argv else 0.0   # Smith & Eisner 2006: length penalty in the E-step ONLY
+PUNCT_HARD = "--punct-hard" in sys.argv     # Spitkovsky 2011: no arc crosses a punctuation mark during LEARNING (fragments parsed separately)
+CURRICULUM = "--curriculum" in sys.argv     # Spitkovsky baby steps: round 0 on short sentences, then longer
+
+
+def learning_view(A, pos, n):
+    """Apply the LEARNING-TIME biases to an arc score matrix (never at decode): -delta * distance on every arc; arcs crossing a
+    punctuation mark forbidden when PUNCT_HARD. Returns a modified copy."""
+    if not LEARN_DELTA and not PUNCT_HARD:
+        return A
+    B = A.copy()
+    cum = np.concatenate([[0], np.cumsum([1 if p == "PUNCT" else 0 for p in pos])])
+    for h in range(1, n + 1):
+        for j in range(1, n + 1):
+            if h == j or not np.isfinite(B[h][j]):
+                continue
+            if LEARN_DELTA:
+                B[h][j] -= LEARN_DELTA * abs(h - j)
+            if PUNCT_HARD:
+                lo, hi = (h, j) if h < j else (j, h)
+                if cum[hi - 1] - cum[lo] > 0:
+                    B[h][j] = -np.inf
+    return B
+
+
+def learn_marginals(score_matrix_fn, toks, pos):
+    A, n = score_matrix_fn(toks, pos)
+    return single_root_marginals(learning_view(A, pos, n), n, 1.0)
+
+
 class AttachmentCompetition:
     """Cue strengths learned from SOFT arc counts (posterior-weighted), CONFIGURATION-CONDITIONED like the role labeler:
     the dominant cue (catpair for word heads; root for the root decision) is the configuration; every other cue's strength is
@@ -260,11 +290,17 @@ def main():
     out = {"floor": round(floor, 4), "teacher_plain": round(uas(teacher.parse_cle, test), 4)}
     print("floor", out["floor"], "teacher", out["teacher_plain"], flush=True)
     # round 0: the teacher's posterior is the outcome signal
+    if CURRICULUM:
+        train = sorted(train, key=len)                       # baby steps: short sentences first
+        caps = {0: 10, 1: 20}                                # round 0 <= 10 tokens, round 1 <= 20, then all
+    else:
+        caps = {}
+    def subset(r):
+        cap = caps.get(r); return [s for s in train if len(s) <= cap] if cap else train
     stu = AttachmentCompetition(frames)
-    for s in train:
+    for s in subset(0):
         toks = [x[1] for x in s]; pos = [x[2] for x in s]
-        A, n = teacher._score_matrix(toks, pos)
-        stu.accrue(toks, pos, single_root_marginals(A, n, 1.0))
+        stu.accrue(toks, pos, learn_marginals(teacher._score_matrix, toks, pos))
     stu.finalize()
     out["student_r0"] = round(uas(stu.parse, test), 4); print("student r0 (taught by the teacher's posterior):", out["student_r0"], flush=True)
     # rounds 1..2: the student re-teaches itself from its OWN posterior (EM over cue strengths)
@@ -272,9 +308,9 @@ def main():
     ROUNDS = int(sys.argv[sys.argv.index("--rounds") + 1]) if "--rounds" in sys.argv else 2
     for r in range(1, ROUNDS + 1):
         nxt = AttachmentCompetition(frames)
-        for s in train:
-            toks = [x[1] for x in s]; pos = [x[2] for x in s]
-            A, n = teacher._score_matrix(toks, pos); mt = single_root_marginals(A, n, 1.0); ms = stu.marginals(toks, pos)
+        for s in subset(r):
+            toks = [x[1] for x in s]; pos = [x[2] for x in s]; n = len(toks)
+            mt = learn_marginals(teacher._score_matrix, toks, pos); ms = learn_marginals(stu.score_matrix, toks, pos)
             mix = {j: {h: ALPHA * ms.get(j, {}).get(h, 0.0) + (1 - ALPHA) * mt.get(j, {}).get(h, 0.0) for h in set(ms.get(j, {})) | set(mt.get(j, {}))} for j in range(1, n + 1)}
             nxt.accrue(toks, pos, mix)
         stu = nxt.finalize()
@@ -290,7 +326,7 @@ def main():
     out["elapsed_s"] = round(time.time() - t0, 1); out["smoke"] = smoke
     print(json.dumps(out, indent=1))
     from experiments._seed_checkpoint import get_output_dir
-    od = str(get_output_dir("probe_attachment_competition_v18" + ("_priorfree" if "--prior-free-teacher" in sys.argv else "") + ("_plaus" if USE_PLAUS else "") + ("_constr" if USE_CONSTR else "") + (("_a%g_r%d" % (ALPHA, ROUNDS)) if ("--alpha" in sys.argv or "--rounds" in sys.argv) else "") + ("_smoke" if smoke else ""))); os.makedirs(od, exist_ok=True)
+    od = str(get_output_dir("probe_attachment_competition_v18" + ("_priorfree" if "--prior-free-teacher" in sys.argv else "") + ("_plaus" if USE_PLAUS else "") + ("_constr" if USE_CONSTR else "") + (("_a%g_r%d" % (ALPHA, ROUNDS)) if ("--alpha" in sys.argv or "--rounds" in sys.argv) else "") + (("_d%g" % LEARN_DELTA) if LEARN_DELTA else "") + ("_punct" if PUNCT_HARD else "") + ("_curr" if CURRICULUM else "") + ("_smoke" if smoke else ""))); os.makedirs(od, exist_ok=True)
     json.dump(out, open(os.path.join(od, "metrics.json"), "w", encoding="utf-8"), indent=1)
 
 
