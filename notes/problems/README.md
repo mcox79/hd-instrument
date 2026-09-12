@@ -59,6 +59,7 @@ the brief.*
   + citations + fix). State the problem ONCE crisply, ONCE in plain language, ONCE as "why now" — no more. Put
   floors/controls inside THE BAR, citations inside HOW THE BRAIN DOES THIS. Use ⚠️/🚫 sparingly. A brief packed with
   restatement and warnings is harder to act on, not safer.
+- **🧱 EVERY BRIEF CARRIES THE WALL-PUSH PROTOCOL POINTER (OWNER 2026-09-12).** In the SOLVER OPERATING PROTOCOL block: "Before writing wall / ceiling / located negative / information limit / data-blocked, read `notes/WALL_PUSH_PROTOCOL_owner_motivation_messages.md` (the owner's pushes, verbatim) and `notes/HOW_WALLS_WERE_BROKEN_2026-09-12.md` (how ~60 declared walls were actually broken — trace upstream to the non-BF part; check the INPUT and the READOUT; oracle-ceiling probe; count don't narrate; check the floor + instrument; move the operating point; supply a missing computation source; find the existing organ / missing join / missing half of the model; change the gold to the ability). A wall is a trace + a stronger brain build, else a SPECIFIC board question." Strategy applies the same rule to itself.
 - **EVERY BRIEF CARRIES THE 🧠 BRAIN-FOUNDATIONAL CHECKLIST (OWNER 2026-09-03).** A blockquote directly after the
   SOLVER OPERATING PROTOCOL, distilling the standing guidance the owner gives every solver — a RATIONAL ORDERED
   checklist the solution must satisfy: (1) OPEN — how does the BRAIN do this? (name structure+computation, PINNED vs
