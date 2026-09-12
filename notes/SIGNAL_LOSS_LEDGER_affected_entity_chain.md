@@ -338,3 +338,7 @@ competent-reader reference ~0.85–0.90.
   per-failure label-free sources: unambiguous-case mining for PP (Ratnaparkhi 81.9%), parallelism-as-priming for coordination, frame
   occupancy for clausal; token-level categories. Learning-time mechanisms from drill 1 (delta+punct-hard+curriculum combined):
   r0 0.3463, r1 0.3953, r2 0.4004 vs plain knowledge-free 0.3712/0.4279/0.4368 → NOT helping as built (DMV-regime result; disentangle).
+- **Second-order via valence OCCUPANCY (probe v18 --sibling):** the biggest published label-free lever is sibling factorisation
+  (+13.3, Yang et al. 2020); our Matrix-Tree is first-order, so the brain-faithful approximation is a CUE: "how many dependents of this
+  class on this side does the candidate head already have" under the previous pass's posterior (Lewis-Vasishth retrieval cue =
+  valence occupancy; mean-field second order), learned like every other cue, two-pass decode. Smoke with constructions running.
