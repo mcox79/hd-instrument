@@ -113,3 +113,18 @@ competent-reader reference ~0.85–0.90.
 - **✅ LIVE PATH VERIFIED (probe v13 final, `LIVE_labels` = `ArcLabeler.label()` with module defaults):** 0.4933 = the pure competition
   labels exactly (Δ 0.0000), **+0.0235 CI95 [+0.0050, +0.0436] over the supervised labeler** on the deployment parse. Rung 5's LABEL
   share of the loss (−0.0369) is now −0.0134 (CM − SUP_goldheads −0.0101 n.s.); the residual parse loss is HEADS + TAGGER.
+- **TOP RUNG — categories induced from reading (`exp_reading_induced_categories_v1`, 2026-09-12):** Harris/Mintz/Redington
+  substitution classes over immediate frames; gold UPOS for EVALUATION only. Phase-diagram moves at 20k Simple-Wiki lines, k=34
+  (many-to-one on UD-EWT test): log-weighted k-means 0.542 → exposure-weighted (one update per token read; Rumelhart-Zipser
+  competitive learning) 0.669 → + orthographic form classes (punctuation/numerals by visual form, pre-lexical) **0.707**
+  (majority floor 0.141, shuffled twin 0.38; ADP 0.93, DET 0.93, NOUN 0.82, VERB 0.71, SCONJ 0.56; CCONJ/PART still 0 —
+  "and" patterns like a comma). Token-level graded readout P(c|w,left,right) with a learned suffix/digit form cue for unknown
+  words: 0.653 at 100% coverage. Ward hierarchical REFUTED (0.395 = twin; no brain story). Prior attempt 0.323 @8k sentences
+  (exp_parser_fully_bf_chain_v1) was a weak implementation, not a ceiling. Exposure-weighted sweep (50k→1M lines × k∈{17,34,68})
+  running; 50k/k34 (pre-form-class code) 0.693. LANDING FORM (owner: plastic, never frozen): online Hebbian accrual +
+  competitive-learning updates with observe(tokens), state persisted as a grown asset; batch = measurement only.
+- **Plastic form measured (`--online`, 20k lines in 4 consolidations, k=34, eta 0.05):** Hebbian accrual + competitive-learning
+  centroid updates (MacQueen/Rumelhart-Zipser) reach 0.677 → 0.654 → 0.689 → 0.670 many-to-one (batch equilibrium 0.707),
+  coverage 0.792 (inventory fixed at the first consolidation → an inventory-GROWTH arm is the next plasticity step). The learner
+  keeps adapting after landing; eta and the consolidation period are swept parameters. Sweep (exposure-weighted, pre-form-class
+  code): 50k/k17 0.577, 50k/k34 0.693, 200k/k17 0.618 — k matters more than budget so far; 200k/k34, 200k/k68, 1M pending.
