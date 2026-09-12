@@ -45,3 +45,10 @@ competent-reader reference ~0.85–0.90.
 - **Bar:** recover a CI-sep share of the −0.0369 label loss on the decision (gold 0.5403 / supervised labels 0.5034), no regression
   on the board's who-did-what dims (they consume roles too), label accuracy on UD-EWT/GUM reported for the coarse set; twin =
   cue weights shuffled. Params (cue validities) learned from cue validity counts or swept — never hand-fitted to this slice.
+- **Labeler confusion measured (probe v12, GUM test, 41,977 nominal/pronoun tokens):** coarse-class accuracy SUBJ 0.742, OBJ 0.776,
+  PASS_SUBJ 0.581, **BY_AGENT 0.106**, OBL 0.778, OTHER 0.718; biggest confusions are with OTHER (SUBJ→OTHER 1637, OBJ→OTHER 843) and
+  OBL↔OBJ (579/396). **25.4% of gold undergoer PRONOUNS (428/1682) are labelled out of the undergoer set** — the target-loss mechanism.
+  Pronoun CASE violations are rare (obj-case→SUBJ 1.4%; subj-case→OBJ/OBL 0.5%), so case is not the missing cue; the losses are
+  order/attachment/voice: a post-verbal bare nominal dependent of the verb mis-filed as OTHER, and passives/by-agents (Principle-C
+  co-argument) badly handled. The Competition-Model labeler must therefore weight WORD ORDER relative to the governing verb, the
+  PREPOSITION cue (by + passive morphology → BY_AGENT), and VOICE morphology highest; measure per class against these numbers.
