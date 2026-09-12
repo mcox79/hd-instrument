@@ -246,3 +246,11 @@ competent-reader reference ~0.85–0.90.
   + self-teaching anchored on the teacher: **r0 0.4386 = teacher 0.4382; r1 0.4443 (> teacher); shuffled-strength twin 0.032.**
   Decorrelation-by-conditioning is load-bearing for attachment too. Full-size run (6k/700) in progress; teacher there 0.4626,
   teacher + constraints 0.4755.
+- **Heads → roles hand-off (probe v19, UD-EWT test, deployment tagger, live arc-factored head posterior):** role competition on
+  the MAP head 0.8075 → marginalised over P(head) 0.8091 (supervised labeler 0.767); per class unchanged to 3 dp — right
+  direction, small on UD-EWT; the spec predicts more on GUM (heads cost 0.083 there). To test on the 596 items next.
+- **Owner (2026-09-12): "the brain hits .9+ on this right? We're pretty far behind."** Yes: readers attach >95% of words; supervised
+  0.78 here (0.95 SOTA); our label-free chain 0.46–0.48. The gap, by size: (1) EXPERIENCE volume (12k sentences vs tens of
+  millions of words — the category learner went 0.32 → 0.75 with scale); (2) a LEXICON of argument structure learned from reading
+  (our frame cue is a sketch); (3) MEANING / plausibility feeding structure (the generative world model); (4) INCREMENTAL
+  prediction with reanalysis (surprisal as the learning signal). The competition machinery itself now matches its teacher.
