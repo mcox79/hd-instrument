@@ -307,3 +307,9 @@ competent-reader reference ~0.85–0.90.
   constituents ("DET_ADJ_NOUN_ADP" headed by DET) so the substitution test is asked about the wrong units. Stronger brain version:
   find the UNITS first by statistical segmentation (Saffran: chunk boundaries where category transition probability dips), then
   heads by substitution — being built (v22 --boundary).
+- **Induced constructions, segmentation-first form (v22 --boundary, τ=0.08, smoke):** only 45 units and they still straddle phrases
+  ("NOUN_ADP_DET_ADJ_PROPN" headed by PROPN): category transition probabilities do NOT dip at phrase boundaries (NOUN→ADP, ADP→DET
+  are frequent), so Saffran-style dips find no constituents at the category level. Infants get those boundaries from PROSODY,
+  which text lacks beyond punctuation. → BOTH induced forms NEGATIVE as built; the four hand-written item-based schemas stay the
+  coalition cue (they encode what prosody + meaning would teach). Remaining label-free route: constituency by SPAN SUBSTITUTABILITY
+  (Clark 2001: a span is a unit if its external-context distribution is peaked / substitutable by one category), not dips.
