@@ -74,7 +74,7 @@ def uas(parse_fn, test):
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--rounds", type=int, default=2); ap.add_argument("--alpha", type=float, default=0.5)
+    ap.add_argument("--rounds", type=int, default=3); ap.add_argument("--alpha", type=float, default=0.8)   # the measured gate configuration
     ap.add_argument("--cap", type=int, default=6000); ap.add_argument("--eval", action="store_true")
     ap.add_argument("--out", default=AA.ASSET)
     a = ap.parse_args(argv)

@@ -53,6 +53,12 @@ CONTENT = frozenset({"NOUN", "PROPN", "PRON", "VERB", "ADJ", "ADV", "NUM"})
 NP_RUN = frozenset({"DET", "ADJ", "NUM", "NOUN", "PROPN"})
 CUES = ("locality", "frame", "form", "boundary", "agree", "constr")     # secondary cues; catpair / root are the configuration
 M_SHRINK = 2.0
+# CONVENTION LAYER (labelled honestly, 2026-09-12): the function-word frames (ADP -> its NP head, AUX/copula -> their predicate,
+# SCONJ/'to' -> the verb, names left-headed, punctuation -> the clause verb) are ANNOTATION CONVENTIONS of UD-shaped consumers, not
+# facts a raw-text statistic determines -- self-supervision cannot learn them (measured: as a learned cue +0.013; applied at decode
+# +0.036 on the smoke slice). They are applied as a deterministic decode-time bonus for consumers that read UD-shaped heads; the
+# learned competition (the comprehension organ) is untouched. Set CONVENTION_BONUS = 0.0 to read the pure learned organ.
+CONVENTION_BONUS = 5.0
 _TABLE: Optional[Dict[str, object]] = None
 
 
@@ -336,6 +342,8 @@ def arc_scores(toks: Sequence[str], pos: Sequence[str], table: Optional[Dict[str
             cfg = sc.config(j, h); s = st["cfg"].get(cfg, 0.0)
             for c, v in sc.cues(j, h).items():
                 s += st.get(c, {}).get(cfg + "|" + v, 0.0)
+            if CONVENTION_BONUS and h and sc.constr.get((h, j)) == "fw":
+                s += CONVENTION_BONUS
             A[h][j] = s
     return A, n
 
