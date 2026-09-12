@@ -179,7 +179,7 @@ Organs: grounded_similarity(6), sensorimotor_spoke(7).
 
 **Verdict: CONSOLIDATE.** sensorimotor_spoke is a thin euclid-in-z wrapper that *already calls grounded_similarity's table* rather than re-loading it. One `sensorimotor_spoke` organ owning the 12-d norm table + the metric (euclid/cosine SWEPT). Clean, low-risk.
 
-### Cluster 13 — SALIENCE: discourse salience — **2 organs → CONSOLIDATE**
+### Cluster 13 — SALIENCE: discourse salience — **2 organs → CONSOLIDATE** — ✅ DONE-BY-COMPOSITION 2026-09-11: the ACT-R base-level equation has ONE implementation (`salience_binder.actr_activation`); `entity_resolver`, `online_entity_cluster` already imported it and `graded_coref_pick` (which `event_centrality_coref` reads through) now does too (its own copy removed; witness `test_salience_equation_single_source` 3/3; board rows identical). `event_centrality_coref` stays a READER arm (EventCentralityReader), not a second salience equation.
 Organs: salience_binder(27), event_centrality_coref(29).
 
 **Verdict: CONSOLIDATE.** Both compute Anderson-Schooler ACT-R base-level activation for entity salience; the registry even calls salience_binder "the pinned salience math the coref line reuses." event_centrality_coref is a second base-level activation site → make it an arm (centrality) of one `salience` organ. (online_entity_cluster also calls ACT-R retrieval — its salience use should route to this one organ, not re-implement.)

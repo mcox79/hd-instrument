@@ -14,6 +14,8 @@ NEW word means from what it reads, using its sense of how things feel and look, 
 near the top about 38 times in 100 where the old method managed about 3.
 
 ## WHAT CHANGED LATELY
+- 2026-09-11 (late): the pronoun-picker carried its own copy of the "how recent and how prominent was it" rule; it now uses
+  the one shared rule every other part uses. Same answers on every check.
 - 2026-09-11 (late): the three time-ordering components were merged into one, with identical results on every check (the
   brain keeps one sense of event order; we had three copies). Second duplicate-part merge done; next are salience, force, appraisal.
 - 2026-09-11: learning word meanings from reading is now live and measured (38 in 100, old method 3 in 100); the
@@ -52,7 +54,7 @@ Long term (the next few months):
 
 <!-- AUTO:BEGIN (written by tools/scorecard.py; edit the sections ABOVE, not this) -->
 
-Last full check: 2026-09-11T23:35:31.306190+00:00 (1 on record). Generated 2026-09-12T01:54:30+00:00.
+Last full check: 2026-09-11T23:35:31.306190+00:00 (1 on record). Generated 2026-09-12T02:03:32+00:00.
 
 | Ability | Group | How well | Compared with a simple rule | Since the previous check | Brain-faithful? |
 |---|---|---|---|---|---|
