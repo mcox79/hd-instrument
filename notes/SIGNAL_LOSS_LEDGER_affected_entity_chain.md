@@ -82,3 +82,15 @@ competent-reader reference ~0.85–0.90.
   OTHER 0.710 vs 0.718. Not yet CI-sep: the remaining losses are PASS_SUBJ (the voice cue reads the HEAD's POS/aux window — when the
   parser heads the pronoun on the AUX, config = AUX_pre → SUBJ) and GUM's OBL→OTHER (bare nmod/tmod nominals). Next: surface-robust
   passive cue (nominal + be/get + participle regardless of which token is the head), GUM-vs-EWT label-convention check, re-measure.
+- **✅ v3 FINAL (2026-09-12 late; DET-edge preposition scan + possessives classed OTHER; asset relearned):** held-out UD-EWT test,
+  gold heads: **0.917** (SUBJ .926 OBJ .953 PASS_SUBJ .769 BY_AGENT .944 OBL .887 OTHER .920). **Decision on the 596 items,
+  deployment parse (predicted POS + heads): CM 0.4933 vs supervised 0.4698 = +0.0235 CI95 [+0.0033, +0.0436] — CI-SEPARATED**
+  (CM − GOLD −0.0470 vs SUP − GOLD −0.0705: a third of the parse loss recovered); gold heads +0.0151 [−0.007, +0.037];
+  fallback-to-perceptron variant +0.0084 n.s. (the competition's own abstention is the better decision). GUM label accuracy
+  (predicted heads) CM vs SUP: BY_AGENT 0.773 vs 0.106, OBJ 0.779 vs 0.776, OBL 0.763 vs 0.757, OTHER 0.742 vs 0.609, SUBJ 0.712
+  vs 0.742, PASS_SUBJ 0.536 vs 0.581. **Decomposition on GUM (CM, 41,977 nominals): gold POS+heads 0.845 → predicted POS 0.781
+  (−0.064) → predicted heads 0.698 (−0.083)** → the labeler is a clean rung; its signal is lost in the TAGGER and HEADS above it
+  (rung 5 continues upward: pri-8 categories, pri-11 heads). **LIVE WIRE:** `arc_labeler.COMPETITION_ROLES=True` (the one
+  `label()` every consumer reads): argument roles of nominal dependents = the competition's; a perceptron argument label the
+  competition rejects → `dep`; fine non-argument relations kept. In flight: full board no-regress (agent) + perceived-cue
+  validities (learned on predicted POS/heads over train, `--perceived`) vs gold-learned on the same items.

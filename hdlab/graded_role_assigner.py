@@ -39,9 +39,11 @@ from __future__ import annotations
 
 __bf_status__ = "BF_SPIRIT"   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors data/bf_status_registry.jsonl
 __bf_verified__ = "2026-09-09 operation/math audit (VERIFIED_BF_LEDGER)"
-__bf_note__ = "Competition-Model op pinned; DEFAULT_VALIDITIES gold-FITTED+adopted; agent weights hand-set; UNACC hand-lexicon"
+__bf_note__ = "Competition-Model op pinned; DEFAULT_VALIDITIES gold-FITTED+adopted; agent weights hand-set; UNACC hand-lexicon | 2026-09-12 coarse_roles: argument-role labeler, cue validities LEARNED on UD-EWT train (configuration-conditioned contrasts), live via arc_labeler.COMPETITION_ROLES"
 __bf_corrections__ = []   # append "YYYY-MM-DD <fix>: OLD -> NEW" when a fix RAISES the status
 
+import json
+import os
 from typing import Dict, List, Optional, Sequence
 
 import numpy as np
@@ -289,6 +291,170 @@ _AGENT_STRONGPUNCT = frozenset((";", ":", "--", "—", "(", ")"))
 _BYHEAD_NP_SKIP = frozenset(("DET", "ADJ", "NUM", "PUNCT", "NOUN", "PROPN", "CCONJ"))
 _BYHEAD_NP_SKIP_LOW = frozenset(("'s", "the", "a", "an", "of"))
 _BYHEAD_NOM = ("NOUN", "PROPN", "PRON")
+
+
+# ---------------------------------------------------------------------------------------------------------------
+# COARSE ROLE LABELS by cue competition (strategy 2026-09-12, upstream math-BF pass, rung 5 of the affected-entity chain).
+# The supervised dependency labeler (arc_labeler, NOT_BF) is the lossy rung of that decision (LABELS -0.0369 of -0.0705;
+# BY_AGENT 0.106, PASS_SUBJ 0.581; 25% of gold undergoer pronouns labelled out of the undergoer set).
+#
+# BRAIN COMPUTATION (PINNED at the computational level -- the Competition Model, Bates & MacWhinney 1982/1989; McDonald &
+# MacWhinney 1989): a nominal's grammatical role is decided by PARALLEL competition of surface CUES -- word order relative
+# to the governing head (English-dominant), the preposition that introduces the nominal, voice morphology (be/get +
+# participle), the copula (a nominal before a non-verbal predicate linked by an AUX is its subject), pronoun case, and
+# the class of the governing head. Each cue carries a learned STRENGTH per role = its VALIDITY for that role
+# (availability x reliability; MacWhinney, Bates & Kliegl 1984), acquired from experience -- never hand-set. The
+# competition is additive: activation(role) = log-prior(role) + SUM_cues strength(cue value -> role), then softmax =
+# the posterior (graded_competition.net_activation / softmax). With strength = log P(role | cue value) this IS the
+# normative (naive-Bayes) limit of additive cue competition; the counting rule for the strengths is a PARAMETER
+# choice (error-driven learning would converge to the same conditional structure).
+# v1 (probe v13) cued ONE role per cue with a scalar weight; its learned validities showed `non_verb_head` at chance
+# (half of all nominals) and `voice_passive` NEGATIVE -> the loss was cue DESIGN. v2 (this block) uses categorical cue
+# VALUES with per-role strengths and adds the three missing structural cues: head-class x order COALITION (a nominal
+# before an ADJ/NOUN predicate is not "other"), the COPULA cue, and the SURFACE preposition (the ADP that precedes the
+# nominal span, robust to predicted heads). Strengths live in data/frontend_assets/coarse_role_validities_ud_ewt.json
+# (built offline by tools/build_coarse_role_validities.py from UD-EWT TRAIN; evaluation treebanks never touched).
+ROLE_CLASSES = ["SUBJ", "OBJ", "PASS_SUBJ", "BY_AGENT", "OBL", "OTHER"]
+ROLE_TO_DEP = {"SUBJ": "nsubj", "OBJ": "obj", "PASS_SUBJ": "nsubj:pass", "BY_AGENT": "obl:agent", "OBL": "obl", "OTHER": "dep"}
+COARSE_CUES = ["config", "voice_order", "prep", "cop", "case", "post_rank"]
+_OBJ_CASE = frozenset({"him", "her", "them", "me", "us", "whom", "himself", "herself", "themselves", "myself", "ourselves", "itself"})
+_SUBJ_CASE = frozenset({"he", "she", "they", "i", "we", "who"})
+_SPAN_POS = frozenset({"DET", "ADJ", "NUM", "ADV", "PART", "NOUN", "PROPN", "PRON", "SYM", "X"})
+_COARSE_VALIDITIES_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                                       "data", "frontend_assets", "coarse_role_validities_ud_ewt.json")
+_COARSE_VALIDITIES_CACHE: Optional[Dict[str, object]] = None
+
+
+def _head_class(pos: Sequence[str], h: int) -> str:
+    if h is None or h < 1 or h > len(pos):
+        return "ROOT"
+    p = pos[h - 1]
+    return p if p in ("VERB", "AUX", "NOUN", "PROPN", "ADJ", "PRON", "NUM") else "OTHERH"
+
+
+def _prep_of(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int], i: int) -> Optional[str]:
+    """The preposition introducing nominal i (1-based): the ADP attached to it, else the SURFACE ADP that
+    immediately precedes the nominal's span (determiners/modifiers/compound nouns skipped) -- the cue the reader
+    actually perceives in serial order; robust to head errors."""
+    for j, h in heads.items():
+        if h == i and j < i and j - 1 < len(pos) and pos[j - 1] == "ADP":
+            return toks[j - 1].lower()
+    j = i - 1
+    steps = 0
+    while j >= 1 and steps < 5:
+        p = pos[j - 1]
+        if p == "ADP":
+            return toks[j - 1].lower()
+        if p not in _SPAN_POS:
+            return None
+        if p in ("DET", "PRON"):
+            # a determiner / possessive is the NP's LEFT EDGE: only an ADP immediately before it introduces this nominal
+            # ("In 1990 the city was destroyed": the scan must not cross "the" into the preceding PP)
+            return toks[j - 2].lower() if j >= 2 and pos[j - 2] == "ADP" else None
+        j -= 1; steps += 1
+    return None
+
+
+def coarse_role_cues(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int], i: int) -> Dict[str, str]:
+    """Categorical cue VALUES for nominal token i (1-based) given its governing head (1-based, 0 = root).
+    Reads toks / pos / heads only (no gold, no labels). Each value is a key into the learned validity table."""
+    h = heads.get(i, 0) or 0
+    low = toks[i - 1].lower()
+    hc = _head_class(pos, h)
+    order = "pre" if (h and i < h) else ("post" if h else "root")
+    cues = {"config": f"{hc}_{order}"}
+    if hc in ("VERB", "AUX") and h:
+        vc = voice_cues(toks, pos, h)
+        strong = bool(vc["vc_strong"] or vc["vc_get"] or vc["vc_being"])          # be/get/being + participle
+        weak = bool(vc["vc_bypp"] or is_passive_clause(toks, pos, h))             # by-PP / reduced-passive evidence
+        passive = strong or weak
+        cues["voice_order"] = ("passive_strong_" if strong else ("passive_weak_" if weak else "active_")) + order
+    else:
+        passive = False
+        cues["voice_order"] = "na"
+    prep = _prep_of(toks, pos, heads, i)
+    if prep is None:
+        cues["prep"] = "none"
+    elif prep == "by":
+        cues["prep"] = "by_passive" if passive else "by"
+    elif prep == "of":
+        cues["prep"] = "of"
+    else:
+        cues["prep"] = "other"
+    # COPULA cue: a nominal BEFORE a non-verbal predicate with an AUX (be/get) in between is the predicate's subject.
+    if order == "pre" and hc not in ("VERB", "AUX"):
+        cues["cop"] = "aux_between" if any(pos[j - 1] == "AUX" for j in range(i + 1, h)) else "none"
+    else:
+        cues["cop"] = "na"
+    cues["case"] = "obj" if low in _OBJ_CASE else ("subj" if low in _SUBJ_CASE else "none")
+    if order == "post":
+        between = sum(1 for j in range(h + 1, i) if pos[j - 1] in NOMINAL)
+        cues["post_rank"] = "first" if between == 0 else "later"
+    else:
+        cues["post_rank"] = "na"
+    return cues
+
+
+def load_coarse_validities(path: Optional[str] = None) -> Dict[str, object]:
+    """The learned validity table: {'prior': log P(role), 'strength': {'config': {cfg: log P(role|cfg) - log P(role)},
+    cue: {'cfg|value': log P(role|cfg,value) - log P(role|cfg)}}} -- activation = prior + config + sum of contrasts."""
+    global _COARSE_VALIDITIES_CACHE
+    if path is None and _COARSE_VALIDITIES_CACHE is not None:
+        return _COARSE_VALIDITIES_CACHE
+    p = path or _COARSE_VALIDITIES_PATH
+    with open(p, encoding="utf-8") as f:
+        doc = json.load(f)
+    tab = {"prior": np.asarray(doc["prior"], dtype=float),
+           "strength": {c: {v: np.asarray(vec, dtype=float) for v, vec in vals.items()} for c, vals in doc["strength"].items()}}
+    if path is None:
+        _COARSE_VALIDITIES_CACHE = tab
+    return tab
+
+
+def coarse_role_supports(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int], i: int,
+                         validities: Optional[Dict[str, object]] = None) -> Dict[str, np.ndarray]:
+    """Per-cue support vectors over ROLE_CLASSES for nominal i: the learned strength vector of each fired cue value
+    (plus the role prior). A cue value never seen in training contributes nothing (abstains)."""
+    tab = validities or load_coarse_validities()
+    cues = coarse_role_cues(toks, pos, heads, i)
+    S: Dict[str, np.ndarray] = {"prior": tab["prior"]}
+    cfg = cues["config"]
+    vec = tab["strength"].get("config", {}).get(cfg)
+    if vec is not None:
+        S["config"] = vec
+    for c, v in cues.items():
+        if c == "config":
+            continue
+        # every secondary cue is read WITHIN its configuration (head class x order): its strength is the CONTRAST
+        # log P(role | config, value) - log P(role | config), so an uninformative/absent value contributes ~0 and the
+        # majority class is not double-counted across redundant cues (the v2-naive table misfiled OBJ as OBL 1031x)
+        vec = tab["strength"].get(c, {}).get(f"{cfg}|{v}")
+        if vec is not None:
+            S[c] = vec
+    return S
+
+
+def coarse_role_posterior(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int], i: int,
+                          validities: Optional[Dict[str, object]] = None) -> np.ndarray:
+    """The graded role posterior (softmax of the additive cue competition) over ROLE_CLASSES."""
+    S = coarse_role_supports(toks, pos, heads, i, validities)
+    return softmax(net_activation(S, {c: 1.0 for c in S}), gain=1.0)
+
+
+def coarse_roles(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int],
+                 validities: Optional[Dict[str, object]] = None) -> Dict[int, str]:
+    """Coarse grammatical-role labels (UD-shaped strings) for every NOMINAL token (1-based index -> dep) by cue
+    competition: the MAP of the additive cue activation. OTHER -> 'dep' (the organ labels ARGUMENT roles; a consumer
+    needing fine non-argument relations keeps its own source for 'dep'). Non-nominal tokens are not labelled."""
+    tab = validities or load_coarse_validities()
+    out: Dict[int, str] = {}
+    for i in range(1, len(toks) + 1):
+        if i - 1 >= len(pos) or pos[i - 1] not in NOMINAL:
+            continue
+        S = coarse_role_supports(toks, pos, heads, i, tab)
+        k = map_pick(S, {c: 1.0 for c in S})
+        out[i] = ROLE_TO_DEP[ROLE_CLASSES[k]] if 0 <= k < len(ROLE_CLASSES) else "dep"
+    return out
 
 
 def by_governs(low, pos, p, maxscan=8):

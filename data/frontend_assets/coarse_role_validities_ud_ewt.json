@@ -1,0 +1,2876 @@
+{
+ "source": "UD-EWT train (gold heads/POS). Competition Model, configuration-conditioned: activation(role) = log P(role) + [log P(role|config) - log P(role)] + sum_c [log P(role|config,c=v) - log P(role|config)]; add-0.5 on config, Dirichlet shrinkage m=2 on contrasts; availability = P(value fires), reliability = max_r P(r|value).",
+ "decisions": 66049,
+ "roles": [
+  "SUBJ",
+  "OBJ",
+  "PASS_SUBJ",
+  "BY_AGENT",
+  "OBL",
+  "OTHER"
+ ],
+ "prior": [
+  -1.4218,
+  -1.8695,
+  -4.052,
+  -5.373,
+  -1.3831,
+  -1.1035
+ ],
+ "strength": {
+  "config": {
+   "ROOT_root": [
+    -7.3284,
+    -6.8807,
+    -4.6982,
+    -3.3772,
+    -7.3671,
+    1.1027
+   ],
+   "PROPN_post": [
+    -7.4055,
+    -6.9578,
+    -4.7753,
+    -3.4543,
+    -0.5157,
+    0.9406
+   ],
+   "VERB_pre": [
+    1.1967,
+    -1.8821,
+    1.5046,
+    -3.7887,
+    -1.4477,
+    -2.0963
+   ],
+   "VERB_post": [
+    -2.4195,
+    1.2588,
+    -2.3339,
+    1.2913,
+    0.3633,
+    -1.773
+   ],
+   "NOUN_post": [
+    -4.8322,
+    -7.8811,
+    -5.6986,
+    -4.3776,
+    0.9583,
+    0.0365
+   ],
+   "NUM_post": [
+    -5.9306,
+    -5.483,
+    -3.3005,
+    -1.9795,
+    1.0089,
+    -0.0689
+   ],
+   "ADJ_pre": [
+    1.2426,
+    -5.4526,
+    -4.3687,
+    -3.0477,
+    -1.0287,
+    -1.509
+   ],
+   "PROPN_pre": [
+    -1.2364,
+    -6.3142,
+    -4.1317,
+    -2.8107,
+    -0.2978,
+    0.8063
+   ],
+   "ADJ_post": [
+    -2.357,
+    -2.1276,
+    -3.6587,
+    -2.3377,
+    1.1393,
+    -0.6436
+   ],
+   "NOUN_pre": [
+    -0.6086,
+    -8.0923,
+    -5.9098,
+    -4.5888,
+    -2.7468,
+    0.9439
+   ],
+   "NUM_pre": [
+    0.1755,
+    -4.4331,
+    -2.2506,
+    -0.9296,
+    0.9967,
+    -2.491
+   ],
+   "AUX_pre": [
+    1.3597,
+    -2.9773,
+    -1.8934,
+    -0.5724,
+    -2.6164,
+    -2.444
+   ],
+   "PRON_post": [
+    -0.3056,
+    -4.6701,
+    -2.4876,
+    -1.1666,
+    0.615,
+    0.0652
+   ],
+   "AUX_post": [
+    0.3392,
+    -2.2577,
+    -0.0751,
+    1.2458,
+    0.6233,
+    -0.8264
+   ],
+   "OTHERH_post": [
+    -0.8209,
+    -4.3181,
+    -3.2342,
+    -1.9132,
+    0.9439,
+    -0.2993
+   ],
+   "OTHERH_pre": [
+    0.8677,
+    -4.6585,
+    -2.476,
+    -1.155,
+    0.3482,
+    -1.6178
+   ],
+   "PRON_pre": [
+    1.3176,
+    -3.388,
+    -1.2055,
+    0.1155,
+    -1.3094,
+    -3.0554
+   ]
+  },
+  "voice_order": {
+   "ROOT_root|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "PROPN_post|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "VERB_pre|active_pre": [
+    0.0821,
+    0.0359,
+    -2.3647,
+    -8.6751,
+    -0.0123,
+    0.0622
+   ],
+   "VERB_post|active_post": [
+    0.0477,
+    0.055,
+    0.0126,
+    -3.0621,
+    -0.0446,
+    0.001
+   ],
+   "NOUN_post|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "NUM_post|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "VERB_post|passive_strong_post": [
+    -2.8595,
+    -2.0703,
+    -0.3536,
+    2.3889,
+    0.599,
+    0.4527
+   ],
+   "ADJ_pre|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "PROPN_pre|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "ADJ_post|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "NOUN_pre|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "VERB_pre|passive_strong_pre": [
+    -2.9782,
+    -6.3518,
+    2.4243,
+    2.117,
+    0.078,
+    -1.3534
+   ],
+   "VERB_post|passive_weak_post": [
+    0.0171,
+    -0.0603,
+    -0.1237,
+    1.3925,
+    -0.0148,
+    -0.2888
+   ],
+   "VERB_pre|passive_weak_pre": [
+    0.0606,
+    0.397,
+    -1.8211,
+    -6.5744,
+    0.0305,
+    0.0608
+   ],
+   "NUM_pre|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "AUX_pre|passive_weak_pre": [
+    0.0143,
+    -2.4849,
+    -2.4849,
+    -2.4849,
+    0.8575,
+    -2.4849
+   ],
+   "AUX_pre|active_pre": [
+    0.0126,
+    -0.2616,
+    -4.4308,
+    -4.4308,
+    -0.4131,
+    0.0445
+   ],
+   "PRON_post|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "AUX_post|active_post": [
+    0.1185,
+    -2.6391,
+    -2.6391,
+    -2.6391,
+    -0.0124,
+    0.0541
+   ],
+   "OTHERH_post|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "OTHERH_pre|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "PRON_pre|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "AUX_post|passive_weak_post": [
+    -0.6931,
+    -0.6931,
+    -0.6931,
+    -0.6931,
+    0.4504,
+    -0.6931
+   ]
+  },
+  "prep": {
+   "ROOT_root|none": [
+    -7.2797,
+    -7.2797,
+    -7.2797,
+    -7.2797,
+    -7.2797,
+    0.0008
+   ],
+   "PROPN_post|none": [
+    -7.1858,
+    -7.1858,
+    -7.1858,
+    -7.1858,
+    -1.0222,
+    0.1075
+   ],
+   "VERB_pre|none": [
+    0.0503,
+    -0.0799,
+    0.0464,
+    -8.7589,
+    -1.3324,
+    0.0095
+   ],
+   "VERB_post|none": [
+    0.465,
+    0.456,
+    0.4627,
+    -8.6313,
+    -2.3214,
+    0.2318
+   ],
+   "NOUN_post|other": [
+    -1.7896,
+    -7.3544,
+    -7.3544,
+    -7.3544,
+    0.3643,
+    -1.7727
+   ],
+   "NOUN_post|of": [
+    -1.5565,
+    -7.1213,
+    -7.1213,
+    -7.1213,
+    0.4189,
+    -4.1309
+   ],
+   "VERB_post|other": [
+    -3.3026,
+    -2.7526,
+    -8.0687,
+    -8.0687,
+    0.9477,
+    -0.5003
+   ],
+   "NUM_post|of": [
+    -4.0943,
+    -4.0943,
+    -4.0943,
+    -4.0943,
+    0.369,
+    -4.0943
+   ],
+   "VERB_post|by_passive": [
+    -5.072,
+    -4.4193,
+    -5.072,
+    3.9968,
+    -1.6221,
+    -2.7819
+   ],
+   "PROPN_post|of": [
+    -4.7493,
+    -4.7493,
+    -4.7493,
+    -4.7493,
+    1.4143,
+    -0.7942
+   ],
+   "ADJ_pre|none": [
+    0.0517,
+    -0.3258,
+    -6.9561,
+    -6.9561,
+    -0.5536,
+    -0.0798
+   ],
+   "PROPN_post|other": [
+    -5.5114,
+    -5.5114,
+    -5.5114,
+    -5.5114,
+    1.0937,
+    -0.4296
+   ],
+   "PROPN_pre|other": [
+    -1.9585,
+    -5.5607,
+    -5.5607,
+    -5.5607,
+    -0.5589,
+    0.1735
+   ],
+   "ADJ_post|other": [
+    -2.7845,
+    -5.9149,
+    -5.9149,
+    -5.9149,
+    0.1949,
+    -1.3244
+   ],
+   "NOUN_pre|of": [
+    -2.4054,
+    -5.9687,
+    -5.9687,
+    -5.9687,
+    -1.8229,
+    0.145
+   ],
+   "NOUN_pre|other": [
+    -2.2657,
+    -7.2984,
+    -7.2984,
+    -7.2984,
+    0.7133,
+    0.112
+   ],
+   "VERB_post|of": [
+    -4.0164,
+    -2.4724,
+    -4.0164,
+    -4.0164,
+    0.9325,
+    -0.4189
+   ],
+   "VERB_pre|of": [
+    -0.0726,
+    1.3518,
+    0.2352,
+    3.6246,
+    -0.6125,
+    -0.2479
+   ],
+   "PROPN_pre|of": [
+    -2.2146,
+    -4.3108,
+    -4.3108,
+    -4.3108,
+    -0.3089,
+    0.1413
+   ],
+   "NOUN_pre|none": [
+    0.415,
+    -8.1237,
+    -8.1237,
+    -8.1237,
+    -0.4524,
+    -0.0749
+   ],
+   "VERB_pre|other": [
+    -0.6635,
+    0.1781,
+    -0.7082,
+    -6.437,
+    2.1061,
+    -0.0784
+   ],
+   "NOUN_post|none": [
+    0.9178,
+    -7.2824,
+    -7.2824,
+    -7.2824,
+    -2.5314,
+    1.0085
+   ],
+   "PROPN_pre|none": [
+    0.4659,
+    -6.2795,
+    -6.2795,
+    -6.2795,
+    0.2151,
+    -0.1222
+   ],
+   "ROOT_root|other": [
+    -4.7579,
+    -4.7579,
+    -4.7579,
+    -4.7579,
+    -4.7579,
+    0.0008
+   ],
+   "NUM_post|none": [
+    -5.553,
+    -5.553,
+    -5.553,
+    -5.553,
+    -0.2537,
+    0.4095
+   ],
+   "NOUN_post|by": [
+    -3.6376,
+    -3.6376,
+    -3.6376,
+    -3.6376,
+    0.21,
+    -0.5767
+   ],
+   "NUM_pre|other": [
+    -1.5905,
+    -3.4177,
+    -3.4177,
+    -3.4177,
+    0.3249,
+    -3.4177
+   ],
+   "ADJ_pre|other": [
+    -1.1493,
+    -4.2905,
+    -4.2905,
+    -4.2905,
+    1.873,
+    0.7266
+   ],
+   "PROPN_post|by": [
+    -3.157,
+    -3.157,
+    -3.157,
+    -3.157,
+    -0.2838,
+    0.0433
+   ],
+   "AUX_pre|none": [
+    0.0206,
+    -0.3024,
+    -4.4716,
+    -4.4716,
+    -1.1293,
+    0.0036
+   ],
+   "ADJ_post|none": [
+    1.5338,
+    1.5697,
+    -4.7318,
+    -4.7318,
+    -2.0212,
+    1.3932
+   ],
+   "PRON_post|none": [
+    0.5194,
+    -4.6151,
+    -4.6151,
+    -4.6151,
+    -1.3651,
+    0.4983
+   ],
+   "NUM_pre|none": [
+    0.2599,
+    -4.6052,
+    -4.6052,
+    -4.6052,
+    -0.1382,
+    0.25
+   ],
+   "AUX_pre|other": [
+    -0.0155,
+    -2.0149,
+    -2.0149,
+    -2.0149,
+    1.3275,
+    -2.0149
+   ],
+   "AUX_post|other": [
+    -2.1401,
+    -2.1401,
+    -2.1401,
+    -2.1401,
+    0.5611,
+    -0.0746
+   ],
+   "NOUN_pre|by": [
+    -2.5239,
+    -4.0943,
+    -4.0943,
+    -4.0943,
+    0.0515,
+    0.1317
+   ],
+   "OTHERH_post|other": [
+    -4.9802,
+    -4.9802,
+    -4.9802,
+    -4.9802,
+    0.2805,
+    -0.5211
+   ],
+   "ADJ_post|of": [
+    -4.2413,
+    -4.2413,
+    -4.2413,
+    -4.2413,
+    0.2335,
+    -2.8884
+   ],
+   "OTHERH_pre|none": [
+    0.0749,
+    -5.0073,
+    -5.0073,
+    -5.0073,
+    -0.1147,
+    -0.0278
+   ],
+   "PRON_post|other": [
+    -2.722,
+    -4.0604,
+    -4.0604,
+    -4.0604,
+    0.7144,
+    -2.166
+   ],
+   "OTHERH_post|of": [
+    -2.868,
+    -4.6102,
+    -4.6102,
+    -4.6102,
+    0.3249,
+    -0.8804
+   ],
+   "ADJ_pre|of": [
+    -0.2469,
+    -2.4849,
+    -2.4849,
+    -2.4849,
+    1.055,
+    0.1984
+   ],
+   "NUM_post|other": [
+    -4.2556,
+    -4.2556,
+    -4.2556,
+    -4.2556,
+    0.3626,
+    -3.2944
+   ],
+   "PROPN_pre|by": [
+    -3.4012,
+    -3.4012,
+    -3.4012,
+    -3.4012,
+    0.102,
+    0.0633
+   ],
+   "OTHERH_post|none": [
+    1.0957,
+    0.711,
+    -4.7875,
+    -4.7875,
+    -1.2283,
+    0.6886
+   ],
+   "VERB_post|by": [
+    -3.7013,
+    -3.7013,
+    -3.7013,
+    2.1749,
+    0.8408,
+    -3.7013
+   ],
+   "NUM_pre|of": [
+    -1.8718,
+    -1.8718,
+    -1.8718,
+    -1.8718,
+    0.3359,
+    -1.8718
+   ],
+   "PRON_pre|none": [
+    0.0902,
+    -3.7612,
+    -3.7612,
+    -3.7612,
+    -3.7612,
+    -0.2647
+   ],
+   "ROOT_root|by": [
+    -2.0149,
+    -2.0149,
+    -2.0149,
+    -2.0149,
+    -2.0149,
+    0.0007
+   ],
+   "AUX_post|none": [
+    0.7427,
+    -2.0149,
+    -2.0149,
+    -2.0149,
+    -1.2879,
+    0.0506
+   ],
+   "VERB_pre|by": [
+    -0.9398,
+    -0.1146,
+    -1.2191,
+    -3.2189,
+    2.3239,
+    0.0209
+   ],
+   "PRON_post|of": [
+    -2.7408,
+    -2.7408,
+    -2.7408,
+    -2.7408,
+    0.699,
+    -1.8603
+   ],
+   "OTHERH_pre|of": [
+    -0.0905,
+    -1.0986,
+    -1.0986,
+    -1.0986,
+    0.2403,
+    -1.0986
+   ],
+   "OTHERH_pre|other": [
+    -0.792,
+    -2.9704,
+    -2.9704,
+    -2.9704,
+    0.6182,
+    0.1993
+   ],
+   "OTHERH_pre|by": [
+    0.2206,
+    -0.4055,
+    -0.4055,
+    -0.4055,
+    -0.4055,
+    -0.4055
+   ],
+   "PRON_pre|other": [
+    -1.0627,
+    -1.5041,
+    -1.5041,
+    -1.5041,
+    2.3094,
+    -1.5041
+   ],
+   "ROOT_root|of": [
+    -1.7918,
+    -1.7918,
+    -1.7918,
+    -1.7918,
+    -1.7918,
+    0.0007
+   ],
+   "ADJ_post|by": [
+    -1.9459,
+    -1.9459,
+    -1.9459,
+    -1.9459,
+    0.2125,
+    -1.9459
+   ],
+   "VERB_pre|by_passive": [
+    -0.1321,
+    -1.3863,
+    -1.3863,
+    -1.3863,
+    0.8628,
+    1.1988
+   ],
+   "ADJ_pre|by": [
+    -1.0986,
+    -1.0986,
+    -1.0986,
+    -1.0986,
+    2.0503,
+    -1.0986
+   ],
+   "AUX_pre|by": [
+    -0.4055,
+    -0.4055,
+    -0.4055,
+    -0.4055,
+    2.9369,
+    -0.4055
+   ],
+   "OTHERH_post|by": [
+    -0.4055,
+    -0.4055,
+    -0.4055,
+    -0.4055,
+    0.1688,
+    -0.4055
+   ],
+   "NUM_post|by": [
+    -1.3863,
+    -1.3863,
+    -1.3863,
+    -1.3863,
+    0.293,
+    -1.3863
+   ],
+   "NUM_pre|by": [
+    0.3144,
+    -0.6931,
+    -0.6931,
+    -0.6931,
+    -0.1417,
+    -0.6931
+   ],
+   "PRON_pre|of": [
+    0.036,
+    -0.4055,
+    -0.4055,
+    -0.4055,
+    -0.4055,
+    -0.4055
+   ],
+   "AUX_pre|of": [
+    0.0211,
+    -0.4055,
+    -0.4055,
+    -0.4055,
+    -0.4055,
+    -0.4055
+   ],
+   "PRON_pre|by": [
+    0.036,
+    -0.4055,
+    -0.4055,
+    -0.4055,
+    -0.4055,
+    -0.4055
+   ]
+  },
+  "cop": {
+   "ROOT_root|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "PROPN_post|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "VERB_pre|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "VERB_post|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "NOUN_post|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "NUM_post|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "ADJ_pre|aux_between": [
+    0.0778,
+    -0.2949,
+    -6.9251,
+    -6.9251,
+    -0.7734,
+    -0.2949
+   ],
+   "PROPN_pre|none": [
+    -3.9919,
+    -6.7178,
+    -6.7178,
+    -6.7178,
+    0.058,
+    0.0758
+   ],
+   "ADJ_post|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "NOUN_pre|none": [
+    -3.3455,
+    -8.4267,
+    -8.4267,
+    -8.4267,
+    -0.2892,
+    0.1428
+   ],
+   "NOUN_pre|aux_between": [
+    1.9475,
+    -6.5971,
+    -6.5971,
+    -6.5971,
+    0.9345,
+    -3.0928
+   ],
+   "PROPN_pre|aux_between": [
+    2.5443,
+    -4.2341,
+    -4.2341,
+    -4.2341,
+    -1.2486,
+    -2.617
+   ],
+   "NUM_pre|none": [
+    -4.538,
+    -4.538,
+    -4.538,
+    -4.538,
+    0.3558,
+    -0.0162
+   ],
+   "AUX_pre|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "PRON_post|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "AUX_post|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "OTHERH_post|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "OTHERH_pre|none": [
+    -1.6409,
+    -4.3438,
+    -4.3438,
+    -4.3438,
+    0.749,
+    0.7351
+   ],
+   "ADJ_pre|none": [
+    -1.1628,
+    -4.7707,
+    -4.7707,
+    -4.7707,
+    1.7287,
+    1.1587
+   ],
+   "PRON_pre|aux_between": [
+    0.0496,
+    -3.6763,
+    -3.6763,
+    -3.6763,
+    -0.2573,
+    -3.6763
+   ],
+   "OTHERH_pre|aux_between": [
+    0.5117,
+    -4.5486,
+    -4.5486,
+    -4.5486,
+    -2.3032,
+    -2.3968
+   ],
+   "NUM_pre|aux_between": [
+    1.1445,
+    -3.7728,
+    -3.7728,
+    -3.7728,
+    -2.2296,
+    -0.1511
+   ],
+   "PRON_pre|none": [
+    -0.0914,
+    -2.1972,
+    -2.1972,
+    -2.1972,
+    0.5608,
+    1.2993
+   ]
+  },
+  "case": {
+   "ROOT_root|none": [
+    -7.3617,
+    -7.3617,
+    -7.3617,
+    -7.3617,
+    -7.3617,
+    0.0008
+   ],
+   "PROPN_post|none": [
+    -7.4325,
+    -7.4325,
+    -7.4325,
+    -7.4325,
+    0.0003,
+    0.0006
+   ],
+   "VERB_pre|none": [
+    -0.1482,
+    0.5034,
+    0.3142,
+    0.1206,
+    0.5001,
+    0.5148
+   ],
+   "VERB_post|none": [
+    0.0781,
+    -0.0421,
+    -0.0062,
+    0.0678,
+    0.0417,
+    0.071
+   ],
+   "NOUN_post|none": [
+    -0.0794,
+    -8.3487,
+    -8.3487,
+    -8.3487,
+    -0.002,
+    0.0048
+   ],
+   "VERB_post|obj": [
+    -6.5294,
+    0.4119,
+    -6.5294,
+    -2.0311,
+    -0.7191,
+    -3.2105
+   ],
+   "VERB_pre|subj": [
+    0.1853,
+    -3.1104,
+    -0.7662,
+    -7.9683,
+    -4.1979,
+    -4.0551
+   ],
+   "NUM_post|obj": [
+    -2.4423,
+    -2.4423,
+    -2.4423,
+    -2.4423,
+    0.3467,
+    -2.4423
+   ],
+   "ADJ_pre|none": [
+    -0.055,
+    -0.1491,
+    -6.7794,
+    -6.7794,
+    0.2485,
+    0.2408
+   ],
+   "PROPN_pre|obj": [
+    -0.3017,
+    -2.3979,
+    -2.3979,
+    -2.3979,
+    -2.3979,
+    0.2259
+   ],
+   "ADJ_post|none": [
+    -0.2781,
+    -0.0064,
+    -6.2567,
+    -6.2567,
+    -0.0021,
+    0.0461
+   ],
+   "NOUN_pre|none": [
+    -0.172,
+    -8.5325,
+    -8.5325,
+    -8.5325,
+    0.0104,
+    0.024
+   ],
+   "PROPN_pre|none": [
+    -0.3103,
+    -6.7656,
+    -6.7656,
+    -6.7656,
+    0.0314,
+    0.0181
+   ],
+   "NOUN_pre|subj": [
+    2.024,
+    -4.9016,
+    -4.9016,
+    -4.9016,
+    -4.9016,
+    -4.9016
+   ],
+   "NUM_post|none": [
+    -5.9375,
+    -5.9375,
+    -5.9375,
+    -5.9375,
+    -0.0096,
+    0.0291
+   ],
+   "NUM_pre|none": [
+    -0.1388,
+    -4.8598,
+    -4.8598,
+    -4.8598,
+    0.0611,
+    -0.0047
+   ],
+   "AUX_pre|subj": [
+    0.0607,
+    -3.7955,
+    -3.7955,
+    -3.7955,
+    -3.7955,
+    -3.7955
+   ],
+   "PRON_post|subj": [
+    1.1126,
+    -2.3514,
+    -2.3514,
+    -2.3514,
+    -2.3514,
+    0.1581
+   ],
+   "NOUN_post|obj": [
+    -3.9797,
+    -3.9797,
+    -3.9797,
+    -3.9797,
+    0.3603,
+    -1.7055
+   ],
+   "AUX_post|none": [
+    -0.0889,
+    -2.6391,
+    -2.6391,
+    -2.6391,
+    0.1314,
+    0.0541
+   ],
+   "AUX_pre|none": [
+    -0.0306,
+    0.2277,
+    -3.9416,
+    -3.9416,
+    0.4755,
+    0.5337
+   ],
+   "ADJ_pre|subj": [
+    0.1786,
+    -5.5334,
+    -5.5334,
+    -5.5334,
+    -5.5334,
+    -5.5334
+   ],
+   "OTHERH_post|none": [
+    -0.0554,
+    -0.358,
+    -5.8565,
+    -5.8565,
+    -0.0027,
+    0.0378
+   ],
+   "ADJ_post|obj": [
+    -3.4812,
+    -0.1412,
+    -3.4812,
+    -3.4812,
+    0.1896,
+    -1.5735
+   ],
+   "OTHERH_pre|none": [
+    -0.187,
+    -4.909,
+    -4.909,
+    -4.909,
+    0.2262,
+    0.1699
+   ],
+   "NOUN_pre|obj": [
+    -2.346,
+    -4.4998,
+    -4.4998,
+    -4.4998,
+    0.5528,
+    0.1182
+   ],
+   "PRON_post|none": [
+    -0.0672,
+    -5.0206,
+    -5.0206,
+    -5.0206,
+    0.0579,
+    -0.0338
+   ],
+   "PRON_post|obj": [
+    -2.5257,
+    -2.5257,
+    -2.5257,
+    -2.5257,
+    0.1086,
+    0.2797
+   ],
+   "PROPN_post|subj": [
+    -2.1972,
+    -2.1972,
+    -2.1972,
+    -2.1972,
+    -2.1972,
+    0.1461
+   ],
+   "VERB_pre|obj": [
+    -0.1606,
+    -0.451,
+    -0.5516,
+    -3.5553,
+    1.3622,
+    -0.3155
+   ],
+   "ADJ_pre|obj": [
+    -0.3587,
+    -1.3863,
+    -1.3863,
+    -1.3863,
+    0.4973,
+    1.297
+   ],
+   "VERB_post|subj": [
+    -1.7918,
+    -0.7474,
+    4.5958,
+    -1.7918,
+    -0.922,
+    2.0234
+   ],
+   "PROPN_post|obj": [
+    -1.9459,
+    -1.9459,
+    -1.9459,
+    -1.9459,
+    0.7182,
+    -0.2041
+   ],
+   "PRON_pre|none": [
+    0.0178,
+    -3.7728,
+    -3.7728,
+    -3.7728,
+    0.0407,
+    -0.2763
+   ],
+   "OTHERH_post|obj": [
+    -2.5257,
+    -2.5257,
+    -2.5257,
+    -2.5257,
+    0.3684,
+    -1.416
+   ],
+   "PROPN_pre|subj": [
+    2.6066,
+    -2.9178,
+    -2.9178,
+    -2.9178,
+    -2.9178,
+    -2.9178
+   ],
+   "PRON_pre|obj": [
+    0.0535,
+    -0.6931,
+    -0.6931,
+    -0.6931,
+    -0.6931,
+    -0.6931
+   ],
+   "OTHERH_pre|subj": [
+    0.5419,
+    -3.5553,
+    -3.5553,
+    -3.5553,
+    -3.5553,
+    -3.5553
+   ],
+   "NUM_pre|subj": [
+    1.1531,
+    -2.0794,
+    -2.0794,
+    -2.0794,
+    -2.0794,
+    -2.0794
+   ],
+   "AUX_post|subj": [
+    0.6812,
+    -0.6931,
+    -0.6931,
+    -0.6931,
+    -0.6931,
+    -0.6931
+   ],
+   "OTHERH_post|subj": [
+    2.0213,
+    -1.5041,
+    -1.5041,
+    -1.5041,
+    -1.5041,
+    -1.5041
+   ],
+   "PRON_pre|subj": [
+    0.0792,
+    -1.3863,
+    -1.3863,
+    -1.3863,
+    -1.3863,
+    -1.3863
+   ],
+   "NOUN_post|subj": [
+    2.8906,
+    -2.6741,
+    -2.6741,
+    -2.6741,
+    -2.6741,
+    0.9839
+   ],
+   "ROOT_root|subj": [
+    -0.9163,
+    -0.9163,
+    -0.9163,
+    -0.9163,
+    -0.9163,
+    0.0005
+   ],
+   "OTHERH_pre|obj": [
+    -0.6931,
+    -0.6931,
+    -0.6931,
+    -0.6931,
+    0.1854,
+    1.4586
+   ],
+   "ADJ_post|subj": [
+    3.3333,
+    -1.7047,
+    -1.7047,
+    -1.7047,
+    -1.7047,
+    0.203
+   ],
+   "ROOT_root|obj": [
+    -0.9163,
+    -0.9163,
+    -0.9163,
+    -0.9163,
+    -0.9163,
+    0.0005
+   ]
+  },
+  "post_rank": {
+   "ROOT_root|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "PROPN_post|first": [
+    -6.9884,
+    -6.9884,
+    -6.9884,
+    -6.9884,
+    0.0958,
+    -0.0172
+   ],
+   "VERB_pre|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "VERB_post|first": [
+    0.3005,
+    0.2298,
+    -0.4224,
+    0.0817,
+    -0.3817,
+    -0.9358
+   ],
+   "PROPN_post|later": [
+    -6.4313,
+    -6.4313,
+    -6.4313,
+    -6.4313,
+    -0.1933,
+    0.0312
+   ],
+   "NOUN_post|first": [
+    -0.4093,
+    -7.9166,
+    -7.9166,
+    -7.9166,
+    0.0613,
+    -0.1254
+   ],
+   "NOUN_post|later": [
+    0.4132,
+    -7.3454,
+    -7.3454,
+    -7.3454,
+    -0.118,
+    0.1899
+   ],
+   "VERB_post|later": [
+    -0.754,
+    -0.4908,
+    0.39,
+    -0.141,
+    0.39,
+    0.6483
+   ],
+   "NUM_post|first": [
+    -5.7573,
+    -5.7573,
+    -5.7573,
+    -5.7573,
+    -0.0256,
+    0.0625
+   ],
+   "ADJ_pre|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "PROPN_pre|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "ADJ_post|later": [
+    0.0462,
+    -1.2265,
+    -5.2417,
+    -5.2417,
+    -0.1673,
+    0.5688
+   ],
+   "NOUN_pre|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "NUM_post|later": [
+    -4.3041,
+    -4.3041,
+    -4.3041,
+    -4.3041,
+    0.1165,
+    -0.3097
+   ],
+   "NUM_pre|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "AUX_pre|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "ADJ_post|first": [
+    -0.051,
+    0.2842,
+    -5.9122,
+    -5.9122,
+    0.0788,
+    -0.4971
+   ],
+   "PRON_post|first": [
+    0.1309,
+    -4.6728,
+    -4.6728,
+    -4.6728,
+    0.0836,
+    -0.1892
+   ],
+   "AUX_post|first": [
+    -0.0525,
+    -2.6027,
+    -2.6027,
+    -2.6027,
+    0.1677,
+    -0.1749
+   ],
+   "OTHERH_post|first": [
+    -0.0312,
+    -0.1291,
+    -5.6276,
+    -5.6276,
+    -0.003,
+    0.0273
+   ],
+   "OTHERH_pre|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "PRON_post|later": [
+    -0.253,
+    -4.1972,
+    -4.1972,
+    -4.1972,
+    -0.1346,
+    0.2541
+   ],
+   "OTHERH_post|later": [
+    0.0843,
+    -4.4716,
+    -4.4716,
+    -4.4716,
+    0.0219,
+    -0.0858
+   ],
+   "PRON_pre|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "AUX_post|later": [
+    0.458,
+    -0.9163,
+    -0.9163,
+    -0.9163,
+    -0.9163,
+    0.5754
+   ]
+  }
+ },
+ "audit": {
+  "config": {
+   "ROOT_root": {
+    "n": 3153,
+    "availability": 0.0477,
+    "reliability": 1.0,
+    "cued_role": "OTHER"
+   },
+   "PROPN_post": {
+    "n": 3406,
+    "availability": 0.0516,
+    "reliability": 0.8503,
+    "cued_role": "OTHER"
+   },
+   "VERB_pre": {
+    "n": 14285,
+    "availability": 0.2163,
+    "reliability": 0.7985,
+    "cued_role": "SUBJ"
+   },
+   "VERB_post": {
+    "n": 18096,
+    "availability": 0.274,
+    "reliability": 0.543,
+    "cued_role": "OBJ"
+   },
+   "NOUN_post": {
+    "n": 8579,
+    "availability": 0.1299,
+    "reliability": 0.654,
+    "cued_role": "OBL"
+   },
+   "NUM_post": {
+    "n": 777,
+    "availability": 0.0118,
+    "reliability": 0.6898,
+    "cued_role": "OBL"
+   },
+   "ADJ_pre": {
+    "n": 2267,
+    "availability": 0.0343,
+    "reliability": 0.8368,
+    "cued_role": "SUBJ"
+   },
+   "PROPN_pre": {
+    "n": 1788,
+    "availability": 0.0271,
+    "reliability": 0.7438,
+    "cued_role": "OTHER"
+   },
+   "ADJ_post": {
+    "n": 1113,
+    "availability": 0.0169,
+    "reliability": 0.7853,
+    "cued_role": "OBL"
+   },
+   "NOUN_pre": {
+    "n": 10597,
+    "availability": 0.1604,
+    "reliability": 0.8527,
+    "cued_role": "OTHER"
+   },
+   "NUM_pre": {
+    "n": 270,
+    "availability": 0.0041,
+    "reliability": 0.6852,
+    "cued_role": "OBL"
+   },
+   "AUX_pre": {
+    "n": 188,
+    "availability": 0.0028,
+    "reliability": 0.9521,
+    "cued_role": "SUBJ"
+   },
+   "PRON_post": {
+    "n": 343,
+    "availability": 0.0052,
+    "reliability": 0.4665,
+    "cued_role": "OBL"
+   },
+   "AUX_post": {
+    "n": 28,
+    "availability": 0.0004,
+    "reliability": 0.5,
+    "cued_role": "OBL"
+   },
+   "OTHERH_post": {
+    "n": 727,
+    "availability": 0.011,
+    "reliability": 0.6465,
+    "cued_role": "OBL"
+   },
+   "OTHERH_pre": {
+    "n": 339,
+    "availability": 0.0051,
+    "reliability": 0.5782,
+    "cued_role": "SUBJ"
+   },
+   "PRON_pre": {
+    "n": 93,
+    "availability": 0.0014,
+    "reliability": 0.9247,
+    "cued_role": "SUBJ"
+   }
+  },
+  "voice_order": {
+   "ROOT_root|na": {
+    "n": 3153,
+    "availability": 0.0477,
+    "reliability": 1.0,
+    "cued_role": "OTHER"
+   },
+   "PROPN_post|na": {
+    "n": 3406,
+    "availability": 0.0516,
+    "reliability": 0.8503,
+    "cued_role": "OTHER"
+   },
+   "VERB_pre|active_pre": {
+    "n": 11709,
+    "availability": 0.1773,
+    "reliability": 0.8667,
+    "cued_role": "SUBJ"
+   },
+   "VERB_post|active_post": {
+    "n": 15235,
+    "availability": 0.2307,
+    "reliability": 0.5737,
+    "cued_role": "OBJ"
+   },
+   "NOUN_post|na": {
+    "n": 8579,
+    "availability": 0.1299,
+    "reliability": 0.654,
+    "cued_role": "OBL"
+   },
+   "NUM_post|na": {
+    "n": 777,
+    "availability": 0.0118,
+    "reliability": 0.6898,
+    "cued_role": "OBL"
+   },
+   "VERB_post|passive_strong_post": {
+    "n": 846,
+    "availability": 0.0128,
+    "reliability": 0.6572,
+    "cued_role": "OBL"
+   },
+   "ADJ_pre|na": {
+    "n": 2267,
+    "availability": 0.0343,
+    "reliability": 0.8368,
+    "cued_role": "SUBJ"
+   },
+   "PROPN_pre|na": {
+    "n": 1788,
+    "availability": 0.0271,
+    "reliability": 0.7438,
+    "cued_role": "OTHER"
+   },
+   "ADJ_post|na": {
+    "n": 1113,
+    "availability": 0.0169,
+    "reliability": 0.7853,
+    "cued_role": "OBL"
+   },
+   "NOUN_pre|na": {
+    "n": 10597,
+    "availability": 0.1604,
+    "reliability": 0.8527,
+    "cued_role": "OTHER"
+   },
+   "VERB_pre|passive_strong_pre": {
+    "n": 1145,
+    "availability": 0.0173,
+    "reliability": 0.8856,
+    "cued_role": "PASS_SUBJ"
+   },
+   "VERB_post|passive_weak_post": {
+    "n": 2015,
+    "availability": 0.0305,
+    "reliability": 0.5112,
+    "cued_role": "OBJ"
+   },
+   "VERB_pre|passive_weak_pre": {
+    "n": 1431,
+    "availability": 0.0217,
+    "reliability": 0.8484,
+    "cued_role": "SUBJ"
+   },
+   "NUM_pre|na": {
+    "n": 270,
+    "availability": 0.0041,
+    "reliability": 0.6852,
+    "cued_role": "OBL"
+   },
+   "AUX_pre|passive_weak_pre": {
+    "n": 22,
+    "availability": 0.0003,
+    "reliability": 0.9545,
+    "cued_role": "SUBJ"
+   },
+   "AUX_pre|active_pre": {
+    "n": 166,
+    "availability": 0.0025,
+    "reliability": 0.9518,
+    "cued_role": "SUBJ"
+   },
+   "PRON_post|na": {
+    "n": 343,
+    "availability": 0.0052,
+    "reliability": 0.4665,
+    "cued_role": "OBL"
+   },
+   "AUX_post|active_post": {
+    "n": 26,
+    "availability": 0.0004,
+    "reliability": 0.4615,
+    "cued_role": "OBL"
+   },
+   "OTHERH_post|na": {
+    "n": 727,
+    "availability": 0.011,
+    "reliability": 0.6465,
+    "cued_role": "OBL"
+   },
+   "OTHERH_pre|na": {
+    "n": 339,
+    "availability": 0.0051,
+    "reliability": 0.5782,
+    "cued_role": "SUBJ"
+   },
+   "PRON_pre|na": {
+    "n": 93,
+    "availability": 0.0014,
+    "reliability": 0.9247,
+    "cued_role": "SUBJ"
+   },
+   "AUX_post|passive_weak_post": {
+    "n": 2,
+    "availability": 0.0,
+    "reliability": 1.0,
+    "cued_role": "OBL"
+   }
+  },
+  "prep": {
+   "ROOT_root|none": {
+    "n": 2899,
+    "availability": 0.0439,
+    "reliability": 1.0,
+    "cued_role": "OTHER"
+   },
+   "PROPN_post|none": {
+    "n": 2639,
+    "availability": 0.04,
+    "reliability": 0.9462,
+    "cued_role": "OTHER"
+   },
+   "VERB_pre|none": {
+    "n": 12732,
+    "availability": 0.1928,
+    "reliability": 0.8396,
+    "cued_role": "SUBJ"
+   },
+   "VERB_post|none": {
+    "n": 11207,
+    "availability": 0.1697,
+    "reliability": 0.8568,
+    "cued_role": "OBJ"
+   },
+   "NOUN_post|other": {
+    "n": 3124,
+    "availability": 0.0473,
+    "reliability": 0.9414,
+    "cued_role": "OBL"
+   },
+   "NOUN_post|of": {
+    "n": 2474,
+    "availability": 0.0375,
+    "reliability": 0.9943,
+    "cued_role": "OBL"
+   },
+   "VERB_post|other": {
+    "n": 6384,
+    "availability": 0.0967,
+    "reliability": 0.9306,
+    "cued_role": "OBL"
+   },
+   "NUM_post|of": {
+    "n": 118,
+    "availability": 0.0018,
+    "reliability": 1.0,
+    "cued_role": "OBL"
+   },
+   "VERB_post|by_passive": {
+    "n": 317,
+    "availability": 0.0048,
+    "reliability": 0.9243,
+    "cued_role": "BY_AGENT"
+   },
+   "PROPN_post|of": {
+    "n": 229,
+    "availability": 0.0035,
+    "reliability": 0.6201,
+    "cued_role": "OBL"
+   },
+   "ADJ_pre|none": {
+    "n": 2097,
+    "availability": 0.0317,
+    "reliability": 0.8803,
+    "cued_role": "SUBJ"
+   },
+   "PROPN_post|other": {
+    "n": 493,
+    "availability": 0.0075,
+    "reliability": 0.5517,
+    "cued_role": "OTHER"
+   },
+   "PROPN_pre|other": {
+    "n": 518,
+    "availability": 0.0078,
+    "reliability": 0.8842,
+    "cued_role": "OTHER"
+   },
+   "ADJ_post|other": {
+    "n": 739,
+    "availability": 0.0112,
+    "reliability": 0.9526,
+    "cued_role": "OBL"
+   },
+   "NOUN_pre|of": {
+    "n": 780,
+    "availability": 0.0118,
+    "reliability": 0.9859,
+    "cued_role": "OTHER"
+   },
+   "NOUN_pre|other": {
+    "n": 2954,
+    "availability": 0.0447,
+    "reliability": 0.9536,
+    "cued_role": "OTHER"
+   },
+   "VERB_post|of": {
+    "n": 109,
+    "availability": 0.0017,
+    "reliability": 0.9266,
+    "cued_role": "OBL"
+   },
+   "VERB_pre|of": {
+    "n": 252,
+    "availability": 0.0038,
+    "reliability": 0.7421,
+    "cued_role": "SUBJ"
+   },
+   "PROPN_pre|of": {
+    "n": 147,
+    "availability": 0.0022,
+    "reliability": 0.8571,
+    "cued_role": "OTHER"
+   },
+   "NOUN_pre|none": {
+    "n": 6745,
+    "availability": 0.1021,
+    "reliability": 0.791,
+    "cued_role": "OTHER"
+   },
+   "VERB_pre|other": {
+    "n": 1247,
+    "availability": 0.0189,
+    "reliability": 0.4852,
+    "cued_role": "OBL"
+   },
+   "NOUN_post|none": {
+    "n": 2907,
+    "availability": 0.044,
+    "reliability": 0.9436,
+    "cued_role": "OTHER"
+   },
+   "PROPN_pre|none": {
+    "n": 1065,
+    "availability": 0.0161,
+    "reliability": 0.6573,
+    "cued_role": "OTHER"
+   },
+   "ROOT_root|other": {
+    "n": 231,
+    "availability": 0.0035,
+    "reliability": 1.0,
+    "cued_role": "OTHER"
+   },
+   "NUM_post|none": {
+    "n": 514,
+    "availability": 0.0078,
+    "reliability": 0.5331,
+    "cued_role": "OBL"
+   },
+   "NOUN_post|by": {
+    "n": 74,
+    "availability": 0.0011,
+    "reliability": 0.8108,
+    "cued_role": "OBL"
+   },
+   "NUM_pre|other": {
+    "n": 59,
+    "availability": 0.0009,
+    "reliability": 0.9492,
+    "cued_role": "OBL"
+   },
+   "ADJ_pre|other": {
+    "n": 144,
+    "availability": 0.0022,
+    "reliability": 0.5903,
+    "cued_role": "OBL"
+   },
+   "PROPN_post|by": {
+    "n": 45,
+    "availability": 0.0007,
+    "reliability": 0.8889,
+    "cued_role": "OTHER"
+   },
+   "AUX_pre|none": {
+    "n": 173,
+    "availability": 0.0026,
+    "reliability": 0.9595,
+    "cued_role": "SUBJ"
+   },
+   "ADJ_post|none": {
+    "n": 225,
+    "availability": 0.0034,
+    "reliability": 0.7067,
+    "cued_role": "OTHER"
+   },
+   "PRON_post|none": {
+    "n": 200,
+    "availability": 0.003,
+    "reliability": 0.585,
+    "cued_role": "OTHER"
+   },
+   "NUM_pre|none": {
+    "n": 198,
+    "availability": 0.003,
+    "reliability": 0.5909,
+    "cued_role": "OBL"
+   },
+   "AUX_pre|other": {
+    "n": 13,
+    "availability": 0.0002,
+    "reliability": 0.9231,
+    "cued_role": "SUBJ"
+   },
+   "AUX_post|other": {
+    "n": 15,
+    "availability": 0.0002,
+    "reliability": 0.8667,
+    "cued_role": "OBL"
+   },
+   "NOUN_pre|by": {
+    "n": 118,
+    "availability": 0.0018,
+    "reliability": 0.9746,
+    "cued_role": "OTHER"
+   },
+   "OTHERH_post|other": {
+    "n": 289,
+    "availability": 0.0044,
+    "reliability": 0.8547,
+    "cued_role": "OBL"
+   },
+   "ADJ_post|of": {
+    "n": 137,
+    "availability": 0.0021,
+    "reliability": 0.9927,
+    "cued_role": "OBL"
+   },
+   "OTHERH_pre|none": {
+    "n": 297,
+    "availability": 0.0045,
+    "reliability": 0.6195,
+    "cued_role": "SUBJ"
+   },
+   "PRON_post|other": {
+    "n": 114,
+    "availability": 0.0017,
+    "reliability": 0.9561,
+    "cued_role": "OBL"
+   },
+   "OTHERH_post|of": {
+    "n": 199,
+    "availability": 0.003,
+    "reliability": 0.8945,
+    "cued_role": "OBL"
+   },
+   "ADJ_pre|of": {
+    "n": 22,
+    "availability": 0.0003,
+    "reliability": 0.6364,
+    "cued_role": "SUBJ"
+   },
+   "NUM_post|other": {
+    "n": 139,
+    "availability": 0.0021,
+    "reliability": 0.9928,
+    "cued_role": "OBL"
+   },
+   "PROPN_pre|by": {
+    "n": 58,
+    "availability": 0.0009,
+    "reliability": 0.7931,
+    "cued_role": "OTHER"
+   },
+   "OTHERH_post|none": {
+    "n": 238,
+    "availability": 0.0036,
+    "reliability": 0.4916,
+    "cued_role": "OTHER"
+   },
+   "VERB_post|by": {
+    "n": 79,
+    "availability": 0.0012,
+    "reliability": 0.8481,
+    "cued_role": "OBL"
+   },
+   "NUM_pre|of": {
+    "n": 11,
+    "availability": 0.0002,
+    "reliability": 1.0,
+    "cued_role": "OBL"
+   },
+   "PRON_pre|none": {
+    "n": 84,
+    "availability": 0.0013,
+    "reliability": 0.9881,
+    "cued_role": "SUBJ"
+   },
+   "ROOT_root|by": {
+    "n": 13,
+    "availability": 0.0002,
+    "reliability": 1.0,
+    "cued_role": "OTHER"
+   },
+   "AUX_post|none": {
+    "n": 13,
+    "availability": 0.0002,
+    "reliability": 0.7692,
+    "cued_role": "SUBJ"
+   },
+   "VERB_pre|by": {
+    "n": 48,
+    "availability": 0.0007,
+    "reliability": 0.625,
+    "cued_role": "OBL"
+   },
+   "PRON_post|of": {
+    "n": 29,
+    "availability": 0.0004,
+    "reliability": 0.9655,
+    "cued_role": "OBL"
+   },
+   "OTHERH_pre|of": {
+    "n": 4,
+    "availability": 0.0001,
+    "reliability": 0.5,
+    "cued_role": "SUBJ"
+   },
+   "OTHERH_pre|other": {
+    "n": 37,
+    "availability": 0.0006,
+    "reliability": 0.6757,
+    "cued_role": "OBL"
+   },
+   "OTHERH_pre|by": {
+    "n": 1,
+    "availability": 0.0,
+    "reliability": 1.0,
+    "cued_role": "SUBJ"
+   },
+   "PRON_pre|other": {
+    "n": 7,
+    "availability": 0.0001,
+    "reliability": 0.8571,
+    "cued_role": "OBL"
+   },
+   "ROOT_root|of": {
+    "n": 10,
+    "availability": 0.0002,
+    "reliability": 1.0,
+    "cued_role": "OTHER"
+   },
+   "ADJ_post|by": {
+    "n": 12,
+    "availability": 0.0002,
+    "reliability": 1.0,
+    "cued_role": "OBL"
+   },
+   "VERB_pre|by_passive": {
+    "n": 6,
+    "availability": 0.0001,
+    "reliability": 0.6667,
+    "cued_role": "SUBJ"
+   },
+   "ADJ_pre|by": {
+    "n": 4,
+    "availability": 0.0001,
+    "reliability": 1.0,
+    "cued_role": "OBL"
+   },
+   "AUX_pre|by": {
+    "n": 1,
+    "availability": 0.0,
+    "reliability": 1.0,
+    "cued_role": "OBL"
+   },
+   "OTHERH_post|by": {
+    "n": 1,
+    "availability": 0.0,
+    "reliability": 1.0,
+    "cued_role": "OBL"
+   },
+   "NUM_post|by": {
+    "n": 6,
+    "availability": 0.0001,
+    "reliability": 1.0,
+    "cued_role": "OBL"
+   },
+   "NUM_pre|by": {
+    "n": 2,
+    "availability": 0.0,
+    "reliability": 0.5,
+    "cued_role": "SUBJ"
+   },
+   "PRON_pre|of": {
+    "n": 1,
+    "availability": 0.0,
+    "reliability": 1.0,
+    "cued_role": "SUBJ"
+   },
+   "AUX_pre|of": {
+    "n": 1,
+    "availability": 0.0,
+    "reliability": 1.0,
+    "cued_role": "SUBJ"
+   },
+   "PRON_pre|by": {
+    "n": 1,
+    "availability": 0.0,
+    "reliability": 1.0,
+    "cued_role": "SUBJ"
+   }
+  },
+  "cop": {
+   "ROOT_root|na": {
+    "n": 3153,
+    "availability": 0.0477,
+    "reliability": 1.0,
+    "cued_role": "OTHER"
+   },
+   "PROPN_post|na": {
+    "n": 3406,
+    "availability": 0.0516,
+    "reliability": 0.8503,
+    "cued_role": "OTHER"
+   },
+   "VERB_pre|na": {
+    "n": 14285,
+    "availability": 0.2163,
+    "reliability": 0.7985,
+    "cued_role": "SUBJ"
+   },
+   "VERB_post|na": {
+    "n": 18096,
+    "availability": 0.274,
+    "reliability": 0.543,
+    "cued_role": "OBJ"
+   },
+   "NOUN_post|na": {
+    "n": 8579,
+    "availability": 0.1299,
+    "reliability": 0.654,
+    "cued_role": "OBL"
+   },
+   "NUM_post|na": {
+    "n": 777,
+    "availability": 0.0118,
+    "reliability": 0.6898,
+    "cued_role": "OBL"
+   },
+   "ADJ_pre|aux_between": {
+    "n": 2033,
+    "availability": 0.0308,
+    "reliability": 0.9036,
+    "cued_role": "SUBJ"
+   },
+   "PROPN_pre|none": {
+    "n": 1652,
+    "availability": 0.025,
+    "reliability": 0.8015,
+    "cued_role": "OTHER"
+   },
+   "ADJ_post|na": {
+    "n": 1113,
+    "availability": 0.0169,
+    "reliability": 0.7853,
+    "cued_role": "OBL"
+   },
+   "NOUN_pre|none": {
+    "n": 9133,
+    "availability": 0.1383,
+    "reliability": 0.9834,
+    "cued_role": "OTHER"
+   },
+   "NOUN_pre|aux_between": {
+    "n": 1464,
+    "availability": 0.0222,
+    "reliability": 0.9214,
+    "cued_role": "SUBJ"
+   },
+   "PROPN_pre|aux_between": {
+    "n": 136,
+    "availability": 0.0021,
+    "reliability": 0.9044,
+    "cued_role": "SUBJ"
+   },
+   "NUM_pre|none": {
+    "n": 185,
+    "availability": 0.0028,
+    "reliability": 0.973,
+    "cued_role": "OBL"
+   },
+   "AUX_pre|na": {
+    "n": 188,
+    "availability": 0.0028,
+    "reliability": 0.9521,
+    "cued_role": "SUBJ"
+   },
+   "PRON_post|na": {
+    "n": 343,
+    "availability": 0.0052,
+    "reliability": 0.4665,
+    "cued_role": "OBL"
+   },
+   "AUX_post|na": {
+    "n": 28,
+    "availability": 0.0004,
+    "reliability": 0.5,
+    "cued_role": "OBL"
+   },
+   "OTHERH_post|na": {
+    "n": 727,
+    "availability": 0.011,
+    "reliability": 0.6465,
+    "cued_role": "OBL"
+   },
+   "OTHERH_pre|none": {
+    "n": 152,
+    "availability": 0.0023,
+    "reliability": 0.7566,
+    "cued_role": "OBL"
+   },
+   "ADJ_pre|none": {
+    "n": 234,
+    "availability": 0.0035,
+    "reliability": 0.5085,
+    "cued_role": "OBL"
+   },
+   "PRON_pre|aux_between": {
+    "n": 77,
+    "availability": 0.0012,
+    "reliability": 0.9481,
+    "cued_role": "SUBJ"
+   },
+   "OTHERH_pre|aux_between": {
+    "n": 187,
+    "availability": 0.0028,
+    "reliability": 0.9626,
+    "cued_role": "SUBJ"
+   },
+   "NUM_pre|aux_between": {
+    "n": 85,
+    "availability": 0.0013,
+    "reliability": 0.9176,
+    "cued_role": "SUBJ"
+   },
+   "PRON_pre|none": {
+    "n": 16,
+    "availability": 0.0002,
+    "reliability": 0.8125,
+    "cued_role": "SUBJ"
+   }
+  },
+  "case": {
+   "ROOT_root|none": {
+    "n": 3147,
+    "availability": 0.0476,
+    "reliability": 1.0,
+    "cued_role": "OTHER"
+   },
+   "PROPN_post|none": {
+    "n": 3378,
+    "availability": 0.0511,
+    "reliability": 0.8502,
+    "cued_role": "OTHER"
+   },
+   "VERB_pre|none": {
+    "n": 8443,
+    "availability": 0.1278,
+    "reliability": 0.6884,
+    "cued_role": "SUBJ"
+   },
+   "VERB_post|none": {
+    "n": 16718,
+    "availability": 0.2531,
+    "reliability": 0.5206,
+    "cued_role": "OBJ"
+   },
+   "NOUN_post|none": {
+    "n": 8447,
+    "availability": 0.1279,
+    "reliability": 0.6525,
+    "cued_role": "OBL"
+   },
+   "VERB_post|obj": {
+    "n": 1368,
+    "availability": 0.0207,
+    "reliability": 0.8202,
+    "cued_role": "OBJ"
+   },
+   "VERB_pre|subj": {
+    "n": 5774,
+    "availability": 0.0874,
+    "reliability": 0.961,
+    "cued_role": "SUBJ"
+   },
+   "NUM_post|obj": {
+    "n": 21,
+    "availability": 0.0003,
+    "reliability": 1.0,
+    "cued_role": "OBL"
+   },
+   "ADJ_pre|none": {
+    "n": 1757,
+    "availability": 0.0266,
+    "reliability": 0.7911,
+    "cued_role": "SUBJ"
+   },
+   "PROPN_pre|obj": {
+    "n": 20,
+    "availability": 0.0003,
+    "reliability": 0.95,
+    "cued_role": "OTHER"
+   },
+   "ADJ_post|none": {
+    "n": 1041,
+    "availability": 0.0158,
+    "reliability": 0.7819,
+    "cued_role": "OBL"
+   },
+   "NOUN_pre|none": {
+    "n": 10152,
+    "availability": 0.1537,
+    "reliability": 0.8732,
+    "cued_role": "OTHER"
+   },
+   "PROPN_pre|none": {
+    "n": 1733,
+    "availability": 0.0262,
+    "reliability": 0.7565,
+    "cued_role": "OTHER"
+   },
+   "NOUN_pre|subj": {
+    "n": 267,
+    "availability": 0.004,
+    "reliability": 1.0,
+    "cued_role": "SUBJ"
+   },
+   "NUM_post|none": {
+    "n": 756,
+    "availability": 0.0114,
+    "reliability": 0.6812,
+    "cued_role": "OBL"
+   },
+   "NUM_pre|none": {
+    "n": 256,
+    "availability": 0.0039,
+    "reliability": 0.7227,
+    "cued_role": "OBL"
+   },
+   "AUX_pre|subj": {
+    "n": 87,
+    "availability": 0.0013,
+    "reliability": 1.0,
+    "cued_role": "SUBJ"
+   },
+   "PRON_post|subj": {
+    "n": 19,
+    "availability": 0.0003,
+    "reliability": 0.5789,
+    "cued_role": "SUBJ"
+   },
+   "NOUN_post|obj": {
+    "n": 105,
+    "availability": 0.0016,
+    "reliability": 0.9429,
+    "cued_role": "OBL"
+   },
+   "AUX_post|none": {
+    "n": 26,
+    "availability": 0.0004,
+    "reliability": 0.5385,
+    "cued_role": "OBL"
+   },
+   "AUX_pre|none": {
+    "n": 101,
+    "availability": 0.0015,
+    "reliability": 0.9109,
+    "cued_role": "SUBJ"
+   },
+   "ADJ_pre|subj": {
+    "n": 504,
+    "availability": 0.0076,
+    "reliability": 1.0,
+    "cued_role": "SUBJ"
+   },
+   "OTHERH_post|none": {
+    "n": 697,
+    "availability": 0.0106,
+    "reliability": 0.6428,
+    "cued_role": "OBL"
+   },
+   "ADJ_post|obj": {
+    "n": 63,
+    "availability": 0.001,
+    "reliability": 0.9524,
+    "cued_role": "OBL"
+   },
+   "OTHERH_pre|none": {
+    "n": 269,
+    "availability": 0.0041,
+    "reliability": 0.4758,
+    "cued_role": "SUBJ"
+   },
+   "NOUN_pre|obj": {
+    "n": 178,
+    "availability": 0.0027,
+    "reliability": 0.9607,
+    "cued_role": "OTHER"
+   },
+   "PRON_post|none": {
+    "n": 301,
+    "availability": 0.0046,
+    "reliability": 0.4917,
+    "cued_role": "OBL"
+   },
+   "PRON_post|obj": {
+    "n": 23,
+    "availability": 0.0003,
+    "reliability": 0.5217,
+    "cued_role": "OBL"
+   },
+   "PROPN_post|subj": {
+    "n": 16,
+    "availability": 0.0002,
+    "reliability": 1.0,
+    "cued_role": "OTHER"
+   },
+   "VERB_pre|obj": {
+    "n": 68,
+    "availability": 0.001,
+    "reliability": 0.6765,
+    "cued_role": "SUBJ"
+   },
+   "ADJ_pre|obj": {
+    "n": 6,
+    "availability": 0.0001,
+    "reliability": 0.5,
+    "cued_role": "SUBJ"
+   },
+   "VERB_post|subj": {
+    "n": 10,
+    "availability": 0.0002,
+    "reliability": 0.5,
+    "cued_role": "OTHER"
+   },
+   "PROPN_post|obj": {
+    "n": 12,
+    "availability": 0.0002,
+    "reliability": 0.6667,
+    "cued_role": "OTHER"
+   },
+   "PRON_pre|none": {
+    "n": 85,
+    "availability": 0.0013,
+    "reliability": 0.9176,
+    "cued_role": "SUBJ"
+   },
+   "OTHERH_post|obj": {
+    "n": 23,
+    "availability": 0.0003,
+    "reliability": 0.9565,
+    "cued_role": "OBL"
+   },
+   "PROPN_pre|subj": {
+    "n": 35,
+    "availability": 0.0005,
+    "reliability": 1.0,
+    "cued_role": "SUBJ"
+   },
+   "PRON_pre|obj": {
+    "n": 2,
+    "availability": 0.0,
+    "reliability": 1.0,
+    "cued_role": "SUBJ"
+   },
+   "OTHERH_pre|subj": {
+    "n": 68,
+    "availability": 0.001,
+    "reliability": 1.0,
+    "cued_role": "SUBJ"
+   },
+   "NUM_pre|subj": {
+    "n": 14,
+    "availability": 0.0002,
+    "reliability": 1.0,
+    "cued_role": "SUBJ"
+   },
+   "AUX_post|subj": {
+    "n": 2,
+    "availability": 0.0,
+    "reliability": 1.0,
+    "cued_role": "SUBJ"
+   },
+   "OTHERH_post|subj": {
+    "n": 7,
+    "availability": 0.0001,
+    "reliability": 1.0,
+    "cued_role": "SUBJ"
+   },
+   "PRON_pre|subj": {
+    "n": 6,
+    "availability": 0.0001,
+    "reliability": 1.0,
+    "cued_role": "SUBJ"
+   },
+   "NOUN_post|subj": {
+    "n": 27,
+    "availability": 0.0004,
+    "reliability": 0.963,
+    "cued_role": "OTHER"
+   },
+   "ROOT_root|subj": {
+    "n": 3,
+    "availability": 0.0,
+    "reliability": 1.0,
+    "cued_role": "OTHER"
+   },
+   "OTHERH_pre|obj": {
+    "n": 2,
+    "availability": 0.0,
+    "reliability": 0.5,
+    "cued_role": "OBL"
+   },
+   "ADJ_post|subj": {
+    "n": 9,
+    "availability": 0.0001,
+    "reliability": 0.7778,
+    "cued_role": "SUBJ"
+   },
+   "ROOT_root|obj": {
+    "n": 3,
+    "availability": 0.0,
+    "reliability": 1.0,
+    "cued_role": "OTHER"
+   }
+  },
+  "post_rank": {
+   "ROOT_root|na": {
+    "n": 3153,
+    "availability": 0.0477,
+    "reliability": 1.0,
+    "cued_role": "OTHER"
+   },
+   "PROPN_post|first": {
+    "n": 2166,
+    "availability": 0.0328,
+    "reliability": 0.8352,
+    "cued_role": "OTHER"
+   },
+   "VERB_pre|na": {
+    "n": 14285,
+    "availability": 0.2163,
+    "reliability": 0.7985,
+    "cued_role": "SUBJ"
+   },
+   "VERB_post|first": {
+    "n": 10865,
+    "availability": 0.1645,
+    "reliability": 0.6833,
+    "cued_role": "OBJ"
+   },
+   "PROPN_post|later": {
+    "n": 1240,
+    "availability": 0.0188,
+    "reliability": 0.8766,
+    "cued_role": "OTHER"
+   },
+   "NOUN_post|first": {
+    "n": 5483,
+    "availability": 0.083,
+    "reliability": 0.6952,
+    "cued_role": "OBL"
+   },
+   "NOUN_post|later": {
+    "n": 3096,
+    "availability": 0.0469,
+    "reliability": 0.5811,
+    "cued_role": "OBL"
+   },
+   "VERB_post|later": {
+    "n": 7231,
+    "availability": 0.1095,
+    "reliability": 0.5327,
+    "cued_role": "OBL"
+   },
+   "NUM_post|first": {
+    "n": 631,
+    "availability": 0.0096,
+    "reliability": 0.6704,
+    "cued_role": "OBL"
+   },
+   "ADJ_pre|na": {
+    "n": 2267,
+    "availability": 0.0343,
+    "reliability": 0.8368,
+    "cued_role": "SUBJ"
+   },
+   "PROPN_pre|na": {
+    "n": 1788,
+    "availability": 0.0271,
+    "reliability": 0.7438,
+    "cued_role": "OTHER"
+   },
+   "ADJ_post|later": {
+    "n": 376,
+    "availability": 0.0057,
+    "reliability": 0.6622,
+    "cued_role": "OBL"
+   },
+   "NOUN_pre|na": {
+    "n": 10597,
+    "availability": 0.1604,
+    "reliability": 0.8527,
+    "cued_role": "OTHER"
+   },
+   "NUM_post|later": {
+    "n": 146,
+    "availability": 0.0022,
+    "reliability": 0.774,
+    "cued_role": "OBL"
+   },
+   "NUM_pre|na": {
+    "n": 270,
+    "availability": 0.0041,
+    "reliability": 0.6852,
+    "cued_role": "OBL"
+   },
+   "AUX_pre|na": {
+    "n": 188,
+    "availability": 0.0028,
+    "reliability": 0.9521,
+    "cued_role": "SUBJ"
+   },
+   "ADJ_post|first": {
+    "n": 737,
+    "availability": 0.0112,
+    "reliability": 0.848,
+    "cued_role": "OBL"
+   },
+   "PRON_post|first": {
+    "n": 212,
+    "availability": 0.0032,
+    "reliability": 0.5047,
+    "cued_role": "OBL"
+   },
+   "AUX_post|first": {
+    "n": 25,
+    "availability": 0.0004,
+    "reliability": 0.56,
+    "cued_role": "OBL"
+   },
+   "OTHERH_post|first": {
+    "n": 554,
+    "availability": 0.0084,
+    "reliability": 0.6426,
+    "cued_role": "OBL"
+   },
+   "OTHERH_pre|na": {
+    "n": 339,
+    "availability": 0.0051,
+    "reliability": 0.5782,
+    "cued_role": "SUBJ"
+   },
+   "PRON_post|later": {
+    "n": 131,
+    "availability": 0.002,
+    "reliability": 0.458,
+    "cued_role": "OTHER"
+   },
+   "OTHERH_post|later": {
+    "n": 173,
+    "availability": 0.0026,
+    "reliability": 0.659,
+    "cued_role": "OBL"
+   },
+   "PRON_pre|na": {
+    "n": 93,
+    "availability": 0.0014,
+    "reliability": 0.9247,
+    "cued_role": "SUBJ"
+   },
+   "AUX_post|later": {
+    "n": 3,
+    "availability": 0.0,
+    "reliability": 0.6667,
+    "cued_role": "SUBJ"
+   }
+  }
+ }
+}

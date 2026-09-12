@@ -31,6 +31,8 @@ def coarse(dep: str, toks_by_sent, tok) -> str:
         return "OBJ"
     if full == "obl:agent":
         return "BY_AGENT"
+    if full == "nmod:poss":
+        return "OTHER"   # a possessive is a determiner-like modifier, not an oblique argument
     if d in ("obl", "nmod"):
         return "OBL"
     return "OTHER"

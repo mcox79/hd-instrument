@@ -48,7 +48,7 @@ def overlay(doc, *, pos_src="pred", heads_src="pred", labels_src="pred"):
         gold_heads = {j + 1: x.head for j, x in enumerate(toks)}
         gold_labels = {j + 1: x.deprel for j, x in enumerate(toks)}
         heads = dict(pp.parse(forms, pos).heads) if heads_src == "pred" else gold_heads
-        labels = dict(lb.label(forms, pos, heads)) if labels_src == "pred" else gold_labels
+        labels = dict(lb.label(forms, pos, heads, competition_roles=False)) if labels_src == "pred" else gold_labels
         for j, x in enumerate(toks):
             i1 = j + 1
             x.deprel = labels.get(i1, x.deprel) or x.deprel
