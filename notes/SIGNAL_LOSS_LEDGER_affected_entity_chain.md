@@ -273,3 +273,9 @@ competent-reader reference ~0.85–0.90.
   candidate verb) and, beyond it, the generative world model as the parse's outcome signal (predictive-coding loop closure);
   (3) the argument-structure LEXICON at scale (one grown asset); (4) CONSTRUCTIONS as cue coalitions in the competition (+0.036 in
   pri-2); (5) INCREMENTAL decode with reanalysis. First test: the plausibility cue inside the competition (available today).
+- **Meaning cue (plausibility of the nominal as the candidate verb's argument, forward-prediction organ; smoke 1.5k/150):** r0 0.4386 →
+  0.4393, r1 0.4443 → 0.4458 (+0.0015) — the organ covers few verbs (`has(verb)`) and only verb→nominal arcs: a small lever until
+  the world model is richer; kept behind `--plaus`.
+- **LANDING GATE 1 (prior-free bootstrap, full 6k/700): prior-free teacher 0.2722 (BELOW the adjacency floor 0.285) → competition
+  student r0 0.3505** (+0.078, above the floor): the organ's own cues (locality, category pair, frame, form, boundary, agreement)
+  recover structure from a knowledge-free start; r1/r2 pending. Transfer at 19 GB.
