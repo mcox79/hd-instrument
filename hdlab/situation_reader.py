@@ -132,8 +132,8 @@ from hdlab.context_grounded_valence import (score_context_grounded_valence,
                                             score_context_grounded_valence_pretagged, to_ternary)
 
 # ---- banked TIME + CAUSATION mechanisms (reuse) ----
-from hdlab import temporal_ordering as T
-from hdlab import temporal_ordering_multiframe as M
+from hdlab import temporal_model as T   # consolidated temporal ORDER organ (2026-09-11; was temporal_ordering)
+from hdlab import temporal_model as M   # same organ (was temporal_ordering_multiframe)
 from hdlab import causal_network as C
 
 # The banked EventCentralityReader keyword bundle (29513/29514/29516 config).
@@ -2434,7 +2434,7 @@ class SituationReader:
         it is equivalence-checkable against a direct register build. Glass-box + deterministic (discrete toposort;
         no torch/seed). Lazy import of the promoted hdlab organ (its deps hdlab.temporal_ordering[_multiframe] are
         already landed) -> ZERO experiments imports on this path."""
-        from hdlab import temporal_order_register as TOR
+        from hdlab import temporal_model as TOR   # consolidated organ (was temporal_order_register)
         ev, tg, edges = TOR.extract_passage(sents, clause_pluperfect=True)
         reg = TOR.DiscreteOrderRegister(ev, tg, edges)
         return [{"lemma": lem, "chrono_rank": i, "text_rank": reg.text_rank.get(lem)}

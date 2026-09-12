@@ -119,7 +119,7 @@ def build_chains(smoke: bool = False, out_path: str = CHAINS_ASSET) -> Dict:
     (aggregate narrative statistics; NO LLM). The tagger is imported LAZILY (build-only dep)."""
     if not os.path.exists(ROC_JSONL):
         raise FileNotFoundError("ROCStories absent: %s (re-acquire via the fetch scripts)" % ROC_JSONL)
-    from hdlab import temporal_ordering_multiframe as M          # build-only dep on the shared front-end tagger (promoted hdlab twin; extract_events_punct output byte-identical, verified)
+    from hdlab import temporal_model as M                        # build-only dep on the shared front-end tagger (consolidated temporal ORDER organ, was temporal_ordering_multiframe; extract_events_punct output byte-identical, verified)
 
     def _sentence_verbs(text: str) -> List[str]:
         ev, _tg = M.extract_events_punct(text)

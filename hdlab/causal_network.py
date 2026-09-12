@@ -41,7 +41,7 @@ _REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 if _REPO not in sys.path:
     sys.path.insert(0, _REPO)
 
-from hdlab import temporal_ordering as T  # noqa: E402  (extract_events, Event) -- self-contained (promotion #1)
+from hdlab import temporal_model as T  # noqa: E402  (extract_events, Event) -- consolidated temporal ORDER organ (was temporal_ordering)
 from hdlab.kg_traversal import KGStore  # noqa: E402
 
 # Causal connectives (SUPPLIED closed classes = structure supplied, the throughline).

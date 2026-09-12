@@ -59,8 +59,8 @@ if _REPO not in sys.path:
     sys.path.insert(0, _REPO)
 
 from hdlab import aspect_interval as AI                       # noqa: E402  aspect -> interval + Allen overlap
-from hdlab import temporal_ordering_multiframe as M           # noqa: E402  build_constraint_edges (shared front-end)
-from hdlab import temporal_order_register as R                # noqa: E402  DiscreteOrderRegister + BEFORE/AFTER/ABSTAIN
+from hdlab import temporal_model as M                         # noqa: E402  build_constraint_edges (shared front-end; consolidated organ, was temporal_ordering_multiframe)
+from hdlab import temporal_model as R                         # noqa: E402  DiscreteOrderRegister + BEFORE/AFTER/ABSTAIN (consolidated organ, was temporal_order_register)
 
 BEFORE, AFTER, ABSTAIN = R.BEFORE, R.AFTER, R.ABSTAIN
 
