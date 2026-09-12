@@ -208,3 +208,10 @@ competent-reader reference ~0.85–0.90.
   learner's own objective (joint category/attachment induction; the brain's coarse functional classes are defined by their
   syntactic behaviour, i.e. "functional naming" from the prior SOLVED). Two-level hand-down: fine clusters for lexical/role cues,
   the merged functional level for attachment.
+- **Attachment learner, two probes (smoke slice 2.5k/150):** (a) base-rate backoff smoothing instead of flat +0.5 → NO change
+  (k68 0.0111, k17 0.1214, gold 0.2755) — the collapse is not smoothing. (b) ROOT-CAUSE found: the learner's root prior is
+  frequency-driven (+0.3 per non-initial token), so under the fine inventory the PUNCTUATION class (in every sentence) collects
+  the most root mass (804 vs connectives 676) → the final period becomes the root and tokens hang off it (UAS 0.012 < twin).
+  **Form-class constraint (punctuation / numerals cannot head or root — a mark is not a word; pre-lexical, label-free):**
+  k68 0.012 → 0.036, k17 0.121 → 0.170, gold POS 0.2755 → 0.2960 (above the adjacent-right floor 0.290). The constraint helps
+  every inventory; the fine inventory still needs its functional coarsening. `FormAwareEM` prototype in the probe log.
