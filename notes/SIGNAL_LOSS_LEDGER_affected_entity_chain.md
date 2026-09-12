@@ -350,3 +350,6 @@ competent-reader reference ~0.85–0.90.
   contrast-learned competition the learning-time length bias distorts the configuration counts the strengths are read from, and the
   hard segmentation removes the cross-punctuation arcs the constructions and the root decision need. Not re-tried as a bundle;
   if revisited, ONE mechanism at a time, and the length bias applied to the TEACHER's posterior only.
+- **Occupancy (second-order mean-field) cue + constructions incl. function-word frames, smoke 1.5k/150: r0 0.4616, r1 0.4946 (twin
+  0.036)** vs the earlier constructions-only smoke (four schemas, no fw, no sibling) 0.4558 / 0.4917 → +0.006 / +0.003 confounded
+  between the two additions; control (fw constructions without the occupancy cue) running.
