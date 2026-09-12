@@ -320,3 +320,9 @@ competent-reader reference ~0.85–0.90.
   rising per round; prior-informed + constructions 0.5303. The hand-authored universal prior carries ~0.10; the BF organ's own
   learning has not converged (anchor α=0.5 on a weak teacher; 2 rounds). Next: more rounds + a lower anchor; then land the
   knowledge-free form (BF) with the gap documented, keep the prior OUT of the organ.
+- **LANDED (organ code, 2026-09-12 evening): `hdlab/attachment_arm.py`** — the attachment arm of the Competition-Model organ (one cue
+  pass per sentence; locality / category-pair config / frame / form / boundary / agreement / construction cues; strengths = one
+  pure function of plastic soft counts; `observe_arc_outcome` / save; exact Matrix-Tree head posterior handed down; the four
+  item-based constructions promoted from the experiments cells) + `tools/build_attachment_validities.py` (knowledge-free teacher +
+  anchored self-teaching; --rounds/--alpha swept). Registry BF_SPIRIT. Asset build waits for the extended-rounds gate
+  (--rounds 5 --alpha 0.8 running); the hand-authored prior stays OUT of the organ.
