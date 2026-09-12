@@ -29,3 +29,19 @@ competent-reader reference ~0.85–0.90.
 4. **Rung 3, entity tokens:** coordinate with the coref two-half line (oracle +0.091).
 5. **Rung 1, the event expectation:** build the JOINT store from our own parsed events only after rungs 5/2/4 are BF — its input
    (roles, tokens) must be lossless first, or its measured value is a lie.
+
+## Build sketch — the brain-foundational coarse ROLE LABELER (rung 5, first build; written 2026-09-12 before compaction)
+- **Brain computation (PINNED):** grammatical roles are assigned by PARALLEL CUE COMPETITION (Bates & MacWhinney): word order
+  (English-dominant), case morphology (him/her/them/me/us/whom are OBJECT-case — a categorical cue the supervised labeler can only
+  learn statistically), voice morphology (be/get + participle, by-PP → passive subject / by-agent), agreement, animacy; cue weights
+  = learned cue validity; additive activation → softmax posterior (`hdlab.graded_competition`).
+- **Reuse (one structure, one organ):** extend `hdlab/graded_role_assigner.py` (BF_SPIRIT; already has `voice_cues`, `robust_passive`,
+  `gap_config`, `cue_supports`, `competition_pick`, `agent_supports`, `agent_competition_pick`) with a `coarse_roles(toks, pos, heads)`
+  readout: for every nominal/pronoun head, the posterior over {SUBJ, OBJ, PASS_SUBJ, BY_AGENT, OBL, OTHER} relative to its
+  governing verb (heads from the parser; the heads rung costs only 17%). Case morphology enters as a categorical cue (PINNED).
+- **Consumer wiring:** `affected_entity_resolver` / the cell read roles via `role_class(dep)` and `PATIENT_DEPS`; the board arm and
+  the reader's `_router_roles` consume labels. Add a switch in `exp_affected_entity_token_history_gum_v1._overlay_predicted`-style
+  path: labels from (a) supervised `arc_labeler`, (b) `coarse_roles` competition, (c) gold — same 596 items.
+- **Bar:** recover a CI-sep share of the −0.0369 label loss on the decision (gold 0.5403 / supervised labels 0.5034), no regression
+  on the board's who-did-what dims (they consume roles too), label accuracy on UD-EWT/GUM reported for the coarse set; twin =
+  cue weights shuffled. Params (cue validities) learned from cue validity counts or swept — never hand-fitted to this slice.
