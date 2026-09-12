@@ -104,3 +104,22 @@ rational parsing); Kjelgaard & Speer 1999 (prosodic boundaries); Altmann & Steed
 | heads → roles hand-off (role competition over P(head)) | 0.8075 → 0.8091 role accuracy | small on UD-EWT; GUM next |
 Open: experience volume (probe v20: 20k/60k Simple-Wiki sentences), the lexicon at scale, meaning feeding structure, incremental
 prediction; then hand the posterior down to every consumer in §3 and re-measure the 596-item decision and the board rows.
+
+## 7. LANDING GATE (owner 2026-09-12: "brain-foundational, compatible with the way we hold knowledge, efficient")
+1. **BF bootstrap, no indirect hand-authored knowledge.** The v18 student was taught by a cached teacher whose EM used the
+   Naseem universal prior (pw=3, a hand-written head-dependent table) → contamination by proxy. GATE: the student must reach its
+   number when bootstrapped from a PRIOR-FREE learner (categories + locality only; `SelfSupEM(prior_weight=0)`), or from its own
+   cues with a uniform start. Test first (probe v18 variant), land only what passes.
+2. **One knowledge form, one lexicon.** Strengths stored as COUNTS → `strengths_from_counts`-style pure function → plastic
+   `observe(...)` / `save(...)` exactly like the role validities (soft counts are floats in the same table shape). Per-lemma
+   attachment preferences (the lexical cue) JOIN the existing verb-frame table (`verb_subcat` / the role labeler's lemma_frames):
+   ONE per-lemma frame entry {transitivity, recipient propensity, dependent-class × direction preferences}, registered in
+   `notes/KNOWLEDGE_ASSET_REGISTER.md` as grown knowledge — not a second frames asset (anti-fragmentation).
+3. **One organ, one cue pass.** Attachment is an ARM of `graded_role_assigner` (the Competition-Model organ): cue extraction per
+   sentence ONCE (vectorised numpy over the n×n candidate grid: distance bins, category pairs, boundary counts from a punctuation
+   cumsum, form mask) shared by the attachment and the role competitions; the head posterior (Matrix-Tree) computed once per
+   sentence and READ by every consumer (§3) — no consumer re-parses. The probe's per-arc Python loops are measurement-only.
+4. **Efficient learning.** Soft counts accrue online (plastic); the self-teaching anchor (α) and the EM round count are swept
+   parameters; consolidation periodic, not per sentence; the reading budget grows with the corpus the category learner already
+   reads (same pass).
+Nothing lands until 1 passes and 2–3 are the implemented form.
