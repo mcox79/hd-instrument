@@ -196,7 +196,16 @@ def main():
     t0 = time.time()
     train = load_ud(UD_TRAIN, cap=1500 if smoke else 6000, maxlen=40)
     test = load_ud(UD_TEST, cap=150 if smoke else 700)
-    teacher = pickle.load(open(TEACHER, "rb"))
+    if "--prior-free-teacher" in sys.argv:
+        # LANDING GATE 1 (spec s7): bootstrap from a PRIOR-FREE learner (categories + locality only; NO hand-authored prior),
+        # trained on the same sentences for 2 EM rounds -- no knowledge enters except what the reading provides.
+        tr = [[(0, t[1], t[2], 0, "_") for t in s] for s in train]
+        teacher = SelfSupEM(lam=0.3, prior_weight=0.0, lex_weight=0.0).learn_raw(tr)
+        for _ in range(2):
+            teacher.em_round(tr)
+        print("teacher = prior-free SelfSupEM trained on the fly (pw=0, 2 EM rounds)", flush=True)
+    else:
+        teacher = pickle.load(open(TEACHER, "rb"))
     frames = verb_frames(train)
     floor = _adj_right_uas([[(i + 1, "x", p, {x[0]: x[3] for x in s}.get(i + 1, 0), "_") for i, p in enumerate([x[2] for x in s])] for s in test])[0]
     out = {"floor": round(floor, 4), "teacher_plain": round(uas(teacher.parse_cle, test), 4)}
@@ -231,7 +240,7 @@ def main():
     out["elapsed_s"] = round(time.time() - t0, 1); out["smoke"] = smoke
     print(json.dumps(out, indent=1))
     from experiments._seed_checkpoint import get_output_dir
-    od = str(get_output_dir("probe_attachment_competition_v18" + ("_smoke" if smoke else ""))); os.makedirs(od, exist_ok=True)
+    od = str(get_output_dir("probe_attachment_competition_v18" + ("_priorfree" if "--prior-free-teacher" in sys.argv else "") + ("_smoke" if smoke else ""))); os.makedirs(od, exist_ok=True)
     json.dump(out, open(os.path.join(od, "metrics.json"), "w", encoding="utf-8"), indent=1)
 
 
