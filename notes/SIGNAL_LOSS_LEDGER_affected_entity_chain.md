@@ -16,9 +16,15 @@ competent-reader reference ~0.85–0.90.
 | 3 | Entity tokens (object files) | token identity by discourse continuity; every reference accrues | head-lemma buckets + pronoun accrual (`EntityTokens`); gold-free Heim files = parity | MODEL | ORACLE gold tokens with full history +0.091 — circular (needs correct pronoun resolution); the coref two-half line owns it | probes v5/v7 |
 | 4 | Mention source (which NPs are referents) | every referring expression is a token (pronouns, reflexives, NP heads) | `referent_per_np_source` (content-head NPs + PRONOUN_SCOPE pronouns; reflexives fixed 2026-09-12) | BF_SPIRIT? (unaudited here) | 10% of items have NO prior non-pronoun mention of the gold (62/596) — partly cataphora/abstract, partly mention-source misses → TO MEASURE | probe v6 |
 | 5 | Grammatical roles / heads (the parse) | the brain's parse is graded, acquired from reading; roles feed binding + parallelism + targets | `pos_tagger` + `arc_parser` + `arc_labeler` (supervised averaged perceptrons) | **NOT_BF** (5 organs; declared scaffold) | **MEASURED (probe v11, same 596 items, forward-half decision): total parse loss −0.0705 CI[−0.096,−0.045]; LABELS alone −0.0369 CI[−0.057,−0.019] (52%); HEADS alone −0.0117 CI[−0.022,−0.003] (17%); tagger ≈14% (gold POS recovers −0.0705→−0.0604); interaction the rest.** The lossy rung is the dependency LABELER (`arc_labeler`): it sets the undergoer targets, the Principle-B co-argument and the parallelism roles. Reading-learned arc acquisition (pri-11) fixes heads only (17%). → the BF replacement is a ROLE-ASSIGNMENT organ (cue competition: word order / case / agreement / animacy — Bates-MacWhinney Competition Model) | probe v11 |
-| 6 | Tokenisation / sentence segmentation | — | CoNLL gold tokens (GUM) | n/a here | 0 on this instrument (gold tokens) | — |
+| 6 | Tokenisation / sentence segmentation | statistical-orthographic segmentation (Saffran; VWFA) | `situation_reader.read(conll_path)` consumes CoNLL GOLD tokens/sentences on every board instrument; a free-text front-end (`token_vocab`, regex in cells) is NOT on the scored path | n/a here (gold) — the live free-text path is unaudited | 0 on this instrument | audit 2026-09-12 |
+| 5b | Word form → lemma (morphology) | decomposition into stem + affix (Taft-Forster; dual-route) | WordNet `morphy` AT READ TIME in ~10 organs (nltk wordnet corpus = offline lexical foundation, admissible as an asset; the runtime stemmer call is the pri-12 defect) | NOT_BF (runtime external tool) | not measured on this decision (lemmas key the entity tokens, rung 3) | pri-12 brief |
 
-## Order of the upstream pass (by measured loss × BF status)
+## Order of the upstream pass — OWNER 2026-09-12: TOP-DOWN BY POSITION (the organs that START the reading chain first), not by loss share
+0. Tokenisation/segmentation: gold on every board instrument (rung 6 row) → no loss here; the free-text front-end is a separate audit.
+0b. Morphology (rung 5b): WordNet morphy at read time = pri-12 (posted); the only rung above categories that is non-BF at inference.
+0c. **CATEGORIES (the tagger) = the first lossy organ of the chain → `exp_reading_induced_categories_v1` (in progress).** Then heads, then labels (done).
+
+### (superseded ordering, kept for lineage) by measured loss × BF status
 1. **Rung 5, the parse spine (−0.0705, NOT_BF) — DECOMPOSED (v11): labels 52% > heads 17% > tagger 14%.** The first build of the
    upstream pass is a brain-foundational ROLE LABELER for the coarse relations this decision consumes (SUBJ / OBJ / passive-subject /
    by-agent / OBL): the Competition Model's cue competition (word order, case morphology, agreement, animacy), graded; measure it on
@@ -94,3 +100,16 @@ competent-reader reference ~0.85–0.90.
   `label()` every consumer reads): argument roles of nominal dependents = the competition's; a perceptron argument label the
   competition rejects → `dep`; fine non-argument relations kept. In flight: full board no-regress (agent) + perceived-cue
   validities (learned on predicted POS/heads over train, `--perceived`) vs gold-learned on the same items.
+- **Live-wire rule settled by ablation (probe v14, same 596 items):** the first overlay (competition argument roles + every perceptron
+  fine relation kept) scored 0.4765 = −0.0168 CI95 [−0.030, −0.005] below the pure competition labels (0.4933). Wiping ONE retained
+  relation class at a time to `dep`: `nmod` alone recovers the full +0.0168 (→ 0.4933, = pure); compound/flat, conj, appos,
+  modifiers, root/parataxis each change NOTHING (Δ exactly 0). Mechanism: 3154 bare nominals the competition calls OTHER kept the
+  perceptron's `nmod`, which `affected_entity_resolver.OBJ_DEPS` consumes as an OBJECT-class role (parallelism + Principle-B
+  co-argument) → wrong role parallels. Rule landed: **the competition owns its whole CLASS SPACE** (nsubj/csubj/obj/iobj/obl/nmod
+  except nmod:poss) — an in-space perceptron label the competition rejects becomes `dep`; fine non-argument relations
+  (compound/conj/appos/flat…) stay the perceptron's (measured irrelevant to this decision; needed by other consumers). Perceived-cue
+  validities (learned on predicted POS/heads): +0.0252 vs SUP, +0.0017 [−0.003, +0.008] vs gold-learned = a tie → keep gold-learned
+  (simpler asset); the perceived asset is kept on disk for the tagger/heads rungs where perceived cues should diverge more.
+- **✅ LIVE PATH VERIFIED (probe v13 final, `LIVE_labels` = `ArcLabeler.label()` with module defaults):** 0.4933 = the pure competition
+  labels exactly (Δ 0.0000), **+0.0235 CI95 [+0.0050, +0.0436] over the supervised labeler** on the deployment parse. Rung 5's LABEL
+  share of the loss (−0.0369) is now −0.0134 (CM − SUP_goldheads −0.0101 n.s.); the residual parse loss is HEADS + TAGGER.

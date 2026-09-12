@@ -44,12 +44,22 @@ near the top about 38 times in 100 where the old method managed about 3.
   test, not from a change to the reader.
 - 2026-09-11: six separate "who is this referring to" components were merged into one, with identical results.
 
+- 2026-09-12 (late night): first result of the "make every upstream part brain-faithful" pass. The reader decides who is the
+  subject, the object, the passive subject or the by-agent of a clause with a learned cue competition (word order, the preposition,
+  be/get + participle, the copula, pronoun case — each weighed by how reliable it has proved), instead of a trained black-box label
+  guesser. On held-out text with a correct parse it gets 92 in 100 of those roles right (by-agents 94 in 100; the old guesser got
+  11 in 100 of those). On the hard who-was-affected test with the reader's own parse: 47 in 100 -> 49 in 100, clearly separated.
+  Two simpler designs failed and are recorded with numbers so they are not retried. Also measured: with a correct parse the new
+  labeler scores 84 in 100 on the test text, our own word tagging costs 6 points and our own attachment costs 8 more — those two
+  parts are next. A full check is running.
 ## WHAT WE ARE WORKING ON
 Short term (the next week or two):
 - (Done 2026-09-12) The three finished pieces were folded in: helped-or-harmed, the part-of-speech finding, the verb-type organ.
 - (Done 2026-09-12, night) The assault-verb wall: the reader now values the state the person ends up in (researched and built the same night).
 - (Started 2026-09-12) The 'what happens next' story model: first arm landed (see above); next is the expectation learned from who-did-what-to-whom
   event tuples, applied only among the few candidates in focus.
+- (Started 2026-09-12, late night) The upstream pass: make each part feeding who-was-affected brain-faithful and lossless, from the
+  bottom up — roles (done, above), then word tagging, then attachment — before adding any new downstream mechanism.
 - One shared "meaning store" that every part of the reader uses, instead of six separate copies (the brain keeps
   one). A strict pre-registered test decides whether the merged store is at least as good as the best copy.
 - Replace the one remaining outside dictionary tool the reader calls while reading with our own word-stemming.
@@ -79,7 +89,7 @@ Long term (the next few months):
 
 <!-- AUTO:BEGIN (written by tools/scorecard.py; edit the sections ABOVE, not this) -->
 
-Last full check: 2026-09-12T15:13:01.582239+00:00 (5 on record). Generated 2026-09-12T15:54:32+00:00.
+Last full check: 2026-09-12T15:13:01.582239+00:00 (5 on record). Generated 2026-09-12T16:14:37+00:00.
 
 | Ability | Group | How well | Compared with a simple rule | Since the previous check | Brain-faithful? |
 |---|---|---|---|---|---|

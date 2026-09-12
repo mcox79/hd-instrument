@@ -49,6 +49,21 @@ The change relabels only an `nsubj` whose head verb carries a be/get auxiliary a
 **Accommodation verdict:** every live consumer already distinguishes `nsubj:pass`; the correction removes a class of mislabels
 they were silently absorbing. Expected movement: patient/affected rows up; no consumer loses a signal it used.
 
+## 2c. `hdlab/arc_labeler.py` — COMPETITION_ROLES overlay (strategy 2026-09-12; upstream math-BF pass, rung 5)
+**Signal emitted:** `label(tokens, pos, heads)` — for every NOMINAL dependent the ARGUMENT role now comes from the Competition-Model
+organ `graded_role_assigner.coarse_roles` (cue validities learned on UD-EWT train; configuration-conditioned contrasts): `nsubj` /
+`obj` / `nsubj:pass` / `obl:agent` / `obl`. A perceptron label inside the competition's class space (nsubj/csubj/obj/iobj/obl/nmod,
+not nmod:poss) that the competition rejects becomes `dep`; fine non-argument relations (compound/flat/conj/appos/…) stay the
+perceptron's. Voice post-correction (§2) runs BEFORE the overlay and is subsumed by its graded voice cue.
+**Consumers:** the same 7 as §2 — they read argument labels through this one call. What moves for them: BY_AGENT label accuracy
+0.106 → 0.773 on GUM (predicted heads), OBJ ≈, OTHER 0.609 → 0.742; SUBJ 0.742 → 0.712 and PASS_SUBJ 0.581 → 0.536 on the predicted
+parse (both ≥ the perceptron with gold heads: the losses are TAGGER/HEAD errors the competition's head-class cue inherits). `nmod`
+on bare nominals disappears where the competition says OTHER (3154 tokens on GUM test) — `affected_entity_resolver.OBJ_DEPS` consumed
+those as object-class roles, which cost −0.0168 CI-sep on the pronoun-undergoer decision (probe v14); any other consumer that keyed
+on `nmod` of a NOUN-governed bare nominal now sees `dep`.
+**Measured:** 596-item pronoun-undergoer decision on the deployment parse 0.4698 → 0.4933 (+0.0235 CI95 [+0.0033, +0.0436]); full
+board no-regress run recorded in STATUS / BOARD_TREND at landing. Witness `verification/test_coarse_role_competition.py` 18/18.
+
 ## 3. `hdlab/force_dynamics_valence.py` — change 3c: frame-list → force-dynamic arithmetic
 **Signal emitted:** `harm_help(verb, animacy) -> HARM | HELP | NA | None(abstain)`; `force_dynamics_event_type(item, …) ->
 (BLOCK_HIGH | RECIPROCITY | NEUTRAL | None, category, gov_word)` (the structural gate, UNCHANGED).
