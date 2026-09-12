@@ -33,6 +33,18 @@ parallelism = PINNED Bayesian likelihood exp(gamma*.) with gamma swept; salience
 un-upgraded dependency is the supervised parse spine (a declared NOT_BF offline scaffold) -- which is
 exactly why the win was measured on gold roles AND re-measured on the predicted parse (it survives).
 
+FORWARD HALF (strategy 2026-09-12, pri-1 `generative_entity_state_reranks_which_entity_is_the_affected_undergoer`,
+research note notes/RESEARCH_generative_entity_state_pri1_2026-09-12.md): the resolver is now also an INCREMENTAL
+entity-TOKEN machine (`EntityTokens`): every reference -- including every RESOLVED PRONOUN -- is written to its
+token's history (Kahneman-Treisman-Gibbs 1992 object-file reviewing+impletion; ACT-R: every retrieval is a
+presentation), so later activations see the FULL reference history; candidates referenced within the last
+FOREGROUND_WINDOW sentences are tried first (Glenberg-Meyer-Lindem 1987 availability; Zwaan-Radvansky event-model
+foreground), falling back to all; and REFLEXIVES obey Principle A (must corefer with the clause-mate co-argument --
+the mirror of Principle B). Measured on THIRD-person GUM undergoers (n=596 gold / 593 predicted parse): +0.0436
+CI[+0.017,+0.071] gold, +0.0371 CI[+0.012,+0.062] predicted, over the landed resolver; accrual-scramble and
+window-scramble twins collapse (0.445 / 0.216). Operating point swept (W 1/2/3/5 flat; decay and clock = the
+organ's own), never fitted.
+
 Glass-box, pure, no external LLM, ASCII. This organ is the load-bearing resolver; the experiment cell
 `experiments/exp_affected_entity_binding_parallelism_gum_v1.py` imports it (so its 4/4 witness IS this
 organ), and the live reader binds `sm.who_was_affected` over it.
@@ -75,6 +87,11 @@ PATIENT_DEPS = {"obj", "dobj", "nsubj:pass", "nsubjpass"}
 UND_DEPRELS = {"obj", "dobj", "nsubj:pass", "nsubjpass"}   # an undergoer is an OBJ or a passive subject
 GAMMA_G = 1.0   # grammatical-role parallelism weight (swept 0.5/1.0/2.0 -> all CI-sep; 1.0 the reported)
 GAMMA_T = 1.0   # thematic (PATIENT) parallelism weight
+FOREGROUND_WINDOW = 2          # sentences; the event-model foreground (swept 1/2/3/5: flat; 2 reported)
+REFLEXIVES = frozenset({"himself", "herself", "itself", "themselves", "oneself"})
+REFLEXIVE_GN = {"himself": ("masc", "singular"), "herself": ("fem", "singular"), "itself": ("neuter", "singular"),
+                "themselves": (None, "plural"), "oneself": (None, "singular")}
+ROLE_OF_RANK = {0: "SUBJECT", 1: "OBJECT"}   # sent_role_rank -> ACT-R role-prominence class
 
 
 def role_class(dep: Optional[str]) -> str:
@@ -139,16 +156,104 @@ def legal_candidates(entities: Sequence, coarg_key) -> List:
     return legal if legal else list(entities)
 
 
+def is_reflexive(form: Optional[str]) -> bool:
+    return bool(form) and form.lower() in REFLEXIVES
+
+
+def foreground(cands: Sequence, last_ref_sent: Dict[object, float], now_sent: Optional[float],
+               window: Optional[int] = FOREGROUND_WINDOW) -> List:
+    """The event-model FOREGROUND: candidates whose last reference lies within `window` sentences of the pronoun's
+    sentence; falls back to all candidates when none is in focus (never abstains to nothing)."""
+    if window is None or now_sent is None or len(cands) < 2:
+        return list(cands)
+    inwin = [h for h in cands if now_sent - last_ref_sent.get(h, float("-inf")) <= window]
+    return inwin if inwin else list(cands)
+
+
 def resolve(entities: Sequence, sal: Dict[object, float], role_of: Dict[object, str],
             patient_of: Dict[object, bool], a_role: str, coarg_key=None,
-            gamma_g: float = GAMMA_G, gamma_t: float = GAMMA_T):
+            gamma_g: float = GAMMA_G, gamma_t: float = GAMMA_T, reflexive: bool = False):
     """High-level convenience: Principle-B filter (exclude `coarg_key`) then salience x parallelism pick.
-    Returns the resolved discourse-entity key (the affected CHARACTER), or None if `entities` is empty."""
+    `reflexive=True` applies PRINCIPLE A instead [PINNED]: a reflexive must corefer with its clause-mate co-argument,
+    so the co-argument IS the answer when it is a known entity. Returns the resolved discourse-entity key (the
+    affected CHARACTER), or None if `entities` is empty."""
     if not entities:
         return None
+    if reflexive and coarg_key is not None and coarg_key in entities:
+        return coarg_key
     cand = legal_candidates(entities, coarg_key)
     return score_and_pick(cand, sal, role_of, patient_of, a_role,
                           use_par_g=True, use_par_t=True, gamma_g=gamma_g, gamma_t=gamma_t)
+
+
+class EntityTokens:
+    """INCREMENTAL entity tokens (object files) for the forward half. Feed mentions in document order:
+    `observe(head, order, role, sent, gender, number, dep)` for a NON-pronoun mention (the token is keyed by the
+    head-individuated entity, as the landed resolver), `resolve_pronoun(...)` for a pronoun mention -- it returns the
+    picked token key AND writes the pronoun's (order, role) to that token's history (impletion), so every later
+    activation sees the full reference history. Gender/number compatibility is checked per mention (unknown =
+    wildcard); the role/patient cue is the token's last COMPATIBLE non-pronoun mention. No gold anywhere."""
+
+    def __init__(self, window: Optional[int] = FOREGROUND_WINDOW, decay: float = DEFAULT_DECAY,
+                 gamma_g: float = GAMMA_G, gamma_t: float = GAMMA_T, accrue: bool = True):
+        self.window, self.decay, self.gamma_g, self.gamma_t, self.accrue = window, decay, gamma_g, gamma_t, accrue
+        self.mentions: Dict[object, list] = {}      # key -> [(order, role, gender, number, dep, sent, payload)]
+        self.pron_hist: Dict[object, list] = {}     # key -> [(order, role)] accrued pronoun references
+        self.last_ref_sent: Dict[object, float] = {}
+
+    def observe(self, key, order: float, role: str, sent: float, gender=None, number=None, dep: str = "",
+                payload=None) -> None:
+        """`payload` is opaque to the organ (a caller handle, e.g. the mention record); never read in a decision."""
+        self.mentions.setdefault(key, []).append((float(order), role, gender or None, number or None, dep or "", float(sent), payload))
+        self.last_ref_sent[key] = float(sent)
+
+    @staticmethod
+    def _gn_ok(ug, un, g, n) -> bool:
+        if ug and g and ug != g:
+            return False
+        if un and n and un != n:
+            return False
+        return True
+
+    def candidates(self, gender=None, number=None) -> Dict[object, list]:
+        """key -> its gender/number-compatible non-pronoun mentions (only keys with at least one)."""
+        out = {}
+        for k, ms in self.mentions.items():
+            c = [m for m in ms if self._gn_ok(gender, number, m[2], m[3])]
+            if c:
+                out[k] = c
+        return out
+
+    def resolve_pronoun(self, order: float, sent: float, *, gender=None, number=None, a_role: str = "OBJ",
+                        role: str = "OTHER", coarg_key=None, reflexive: bool = False, accrue: Optional[bool] = None):
+        """Resolve one pronoun reference over the current tokens and ACCRUE it. Returns (key or None, n_candidates)."""
+        compat = self.candidates(gender, number)
+        ents = list(compat)
+        if not ents:
+            return None, 0
+        if reflexive and coarg_key is not None and coarg_key in ents:
+            pick = coarg_key
+        else:
+            legal = legal_candidates(ents, coarg_key)
+            legal = foreground(legal, self.last_ref_sent, float(sent), self.window)
+            sal, role_of, patient_of = {}, {}, {}
+            for k in legal:
+                hist = [(m[0], m[1]) for m in compat[k]]
+                if self.accrue if accrue is None else accrue:
+                    hist = hist + list(self.pron_hist.get(k, ()))
+                a = actr_activation(hist, float(order), decay=self.decay, role_prominence=ROLE_PROMINENCE)
+                sal[k] = a if a != float("-inf") else -1e9
+                last = max(compat[k], key=lambda m: m[0])
+                role_of[k] = role_class(last[4]); patient_of[k] = last[4] in PATIENT_DEPS
+            pick = score_and_pick(legal, sal, role_of, patient_of, a_role, gamma_g=self.gamma_g, gamma_t=self.gamma_t)
+        if pick is not None:
+            self.pron_hist.setdefault(pick, []).append((float(order), role))
+            self.last_ref_sent[pick] = float(sent)
+        return pick, len(ents)
+
+    def last_mention(self, key, gender=None, number=None):
+        c = self.candidates(gender, number).get(key) or self.mentions.get(key) or []
+        return max(c, key=lambda m: m[0]) if c else None
 
 
 def self_test() -> None:
@@ -172,6 +277,21 @@ def self_test() -> None:
     assert got == "a", f"salience prior did not win when parallelism is off: got {got}"
     # (d) legal_candidates degrades gracefully when the filter would empty the pool.
     assert legal_candidates(["a"], "a") == ["a"], "legal_candidates must not empty the pool"
+    # (e) Principle A: a reflexive resolves TO the co-argument.
+    assert resolve(["a", "b"], sal, role_of, patient_of, a_role="OBJ", coarg_key="a", reflexive=True) == "a"
+    # (f) forward half: accrued pronoun references raise the token; the foreground window prefers in-focus tokens.
+    T = EntityTokens(window=2)
+    T.observe("x", 0, "SUBJECT", 0, "masc", "singular", "nsubj"); T.observe("y", 1, "OBJECT", 0, "masc", "singular", "obj")
+    T.observe("z", 2, "SUBJECT", 5, "masc", "singular", "nsubj")
+    k, n = T.resolve_pronoun(3, 5, gender="masc", number="singular", a_role="OBJ", role="OBJECT")
+    assert k == "z" and n == 3, (k, n)                 # only z is in the 2-sentence foreground
+    T2 = EntityTokens(window=None)
+    T2.observe("x", 0, "OBJECT", 0, "masc", "singular", "obj"); T2.observe("y", 1, "OBJECT", 0, "masc", "singular", "obj")
+    for o in (2, 3, 4):
+        T2.pron_hist.setdefault("x", []).append((float(o), "OBJECT"))   # x was referenced three times by pronouns
+    k2, _ = T2.resolve_pronoun(5, 1, gender="masc", number="singular", a_role="OBJ")
+    assert k2 == "x", k2                               # accrual makes x the more active token
+    assert T2.pron_hist["x"][-1][0] == 5.0            # and the new reference was written to it
     print("[SELFTEST PASS] affected_entity_resolver: Principle-B exclusion + role/thematic parallelism + "
           "ACT-R salience prior compose as the mathematically-BF undergoer-pronoun resolver.")
 

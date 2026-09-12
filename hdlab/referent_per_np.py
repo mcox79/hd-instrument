@@ -111,9 +111,22 @@ def referent_per_np_source(conll_path: str, tagger, name_gender_map=None, use_fr
     coref, n_sents = parse_litbank_conll(conll_path, name_gender_map=name_gender_map)
     sents = parse_conll_sentences(conll_path)
     coref_head_wpos: Dict[tuple, int] = {}
-    pron = [m for m in coref if m["is_pronoun"]]
+    # REFLEXIVES (himself/herself/itself/themselves) are pronouns too (Binding Principle A; strategy 2026-09-12):
+    # the CoNLL mention stream marks only PRONOUN_SCOPE forms as pronouns, so a reflexive coref mention was dropped
+    # here (neither a pronoun nor a content-noun head). Keep it as a pronoun mention with its form's gender/number.
+    from hdlab.affected_entity_resolver import is_reflexive, REFLEXIVE_GN
+    pron = []
     for m in coref:
         if m["is_pronoun"]:
+            pron.append(m)
+        elif is_reflexive(m.get("head")):
+            g, n = REFLEXIVE_GN.get(m["head"].lower(), (None, None))
+            m = dict(m); m["is_pronoun"] = True
+            m["gender"] = m.get("gender") or g; m["number"] = m.get("number") or n
+            pron.append(m)
+    refl_pos = {(m["sent_idx"], m["wtok_start"]) for m in pron if is_reflexive(m.get("head"))}
+    for m in coref:
+        if m["is_pronoun"] or is_reflexive(m.get("head")):
             continue
         span = max(0, m["gtok_end"] - m["gtok_start"])
         coref_head_wpos[(m["sent_idx"], m["wtok_start"] + span)] = m["cluster"]
@@ -126,6 +139,8 @@ def referent_per_np_source(conll_path: str, tagger, name_gender_map=None, use_fr
         base = _content_head_positions(toks, up)
         heads = sorted(set(base) | frame_heads(toks, up, set(base))) if use_frame else base
         for hw in heads:
+            if (si, hw) in refl_pos:
+                continue                                   # the reflexive is already a pronoun mention
             cl = coref_head_wpos.get((si, hw))
             if cl is None:
                 cl = next_cluster

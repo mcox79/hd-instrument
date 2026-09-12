@@ -101,3 +101,20 @@ directive 09-07); an unexplained regression is reverted.
   decided, board gold 24/24 held, smoke board unchanged; full-board delta recorded in INTEGRATION_LEDGER / BOARD_TREND.
 - **Boundary kept honest:** verbs whose senses name no result state in the foundation and whose norm is weak (wrench, maul) abstain; 822/2926
   affecting verbs abstain overall. Research: `notes/RESEARCH_result_state_valuation_2026-09-12.md`.
+
+## 9. Forward half of pronoun-undergoer resolution (2026-09-12, strategy; pri-1 first arm)
+- **Where in the flow:** `situation_reader._read_affected_entity` now walks the mention stream INCREMENTALLY through
+  `affected_entity_resolver.EntityTokens`: every third-person pronoun reference is resolved and ACCRUED to its entity token;
+  candidates referenced within `FOREGROUND_WINDOW` sentences are tried first; reflexive themes resolve by Principle A.
+  Upstream change: `referent_per_np.referent_per_np_source` keeps reflexive coref mentions as pronoun mentions (they were dropped).
+- **Signals the end read needs and where they come from:** the token's full reference history (now includes pronouns);
+  the pronoun's sentence index (foreground); the clause-mate agent from the reader's own router (Principle A/B).
+- **Downstream consumers:** `sm.affected_entity` (schema unchanged; more items where a reflexive theme exists); board rows
+  `affected_entity` (unchanged cell, byte-identical) + NEW `affected_entity_forward_half` (THIRD-person, predicted parse).
+  Byte-identity off vs on for events / commonnoun_resolution / coref_acc asserted by the witness.
+- **Measured:** THIRD-person GUM undergoers 0.4966 -> 0.5403 gold (+0.0436 CI[+0.017,+0.071]); 0.4418 -> 0.4789 predicted
+  (+0.0371 CI[+0.012,+0.062]); twins 0.445 / 0.223. Instrument finding: the GUM undergoer slice mixes THIRD / DEICTIC /
+  DEMONSTRATIVE / OTHER pronoun classes (different brain machines); only THIRD responds to entity mechanisms.
+- **Where signal is still lost (numbers):** in-focus ceiling top-3 0.753 vs 0.540 (the semantic fit among in-focus tokens —
+  the JOINT agent+verb expectation, not yet built; generic marginals REJECTED); individuation prize +0.091 is circular
+  (needs correct pronoun resolution upstream; coref line); 10% of items have no prior non-pronoun mention (unreachable).

@@ -1940,6 +1940,44 @@ def board_affected_entity_dimension(smoke=False):
         return _degraded("affected_entity", e), {"error": "%s: %s" % (type(e).__name__, e)}
 
 
+def board_affected_entity_forward_half_dimension(smoke=False):
+    """AFFECTED-ENTITY FORWARD HALF (strategy pri-1, 2026-09-12): THIRD-person undergoer pronouns on modern GUM, scored on
+    the reader's OWN predicted parse (deployment). model = the landed resolver + the forward half (every pronoun reference
+    ACCRUED to its entity token [object-file impletion], FOREGROUND window [Glenberg availability], Principle A for
+    reflexives) = hdlab.affected_entity_resolver.EntityTokens; strongest floor = the landed resolver itself (the previous
+    model; the honest incumbent); twin = accrual written to a RANDOM compatible token (info-free accrual). Kept OUT of the
+    19c-free headline aggregate (its own row). OFF in the self-test. Degrades gracefully. MODERN (GUM)."""
+    try:
+        import experiments.exp_affected_entity_token_history_gum_v1 as TH
+        r = TH.run(predicted_parse=True, limit=(40 if smoke else None))
+        a = r["accrual_plus_window_plus_principle_a"]; tw = r["CONTROL_accrual_scrambled_plus_window"]
+        row = {
+            "n": r["n_third_undergoers"],
+            "model_acc": a["acc"],
+            "overlap_floor": r["incumbent_acc"],
+            "strongest_floor": r["incumbent_acc"], "strongest_floor_name": "landed_resolver_A5",
+            "twin_acc": tw["acc"],
+            "model_minus_strongest": [a["delta"], a["ci95"][0], a["ci95"][1]],
+            "model_minus_twin": [round(a["acc"] - tw["acc"], 4), None, None],
+            "ci_sep_over_strongest": bool(a["ci_sep"]), "ci_sep_over_twin": bool(tw["ci_sep"] and tw["delta"] < 0),
+            "informational": False,
+            "population": "GUM modern THIRD-person pronoun undergoers (predicted parse = deployment), n=%d" % r["n_third_undergoers"],
+        }
+        detail = {"arms": {k: r[k] for k in ("accrual_only", "window_only", "accrual_plus_window", "principle_a_only",
+                                              "accrual_plus_window_plus_principle_a", "CONTROL_accrual_scrambled_plus_window",
+                                              "CONTROL_window_scrambled_plus_accrual")},
+                  "sweeps": {"window": r["sweep_window"], "decay": r["sweep_decay"], "clock": r["sweep_clock"]},
+                  "by_form": r["by_form_accrual_plus_window"],
+                  "note": "forward half of pronoun-undergoer resolution (hdlab.affected_entity_resolver.EntityTokens): "
+                          "accrual + foreground + Principle A = %.4f vs the landed resolver %.4f = %+.4f CI[%.4f,%.4f] "
+                          "(CI-sep=%s); accrual-scrambled twin %.4f. THIRD-person only (the deictic/demonstrative classes "
+                          "are different brain machines; see notes/RESEARCH_generative_entity_state_pri1_2026-09-12.md)."
+                          % (a["acc"], r["incumbent_acc"], a["delta"], a["ci95"][0], a["ci95"][1], a["ci_sep"], tw["acc"])}
+        return row, detail
+    except Exception as e:
+        return _degraded("affected_entity_forward_half", e), {"error": "%s: %s" % (type(e).__name__, e)}
+
+
 def board_causal_sign_dimension(smoke=False):
     """CAUSAL-SIGN (more/less edge direction) board arm on WIQA. Board-INVISIBLE today: the landed
     hdlab.causal_sign_channel (wired live as sm.causal_sign) reads the more/less sign of a causal edge from a
@@ -2511,6 +2549,9 @@ def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True
         ae_row, ae_det = board_affected_entity_dimension(smoke=bool(caps.get("affected_entity_smoke")))
         new_arms["affected_entity"] = ae_row
         new_arms_detail["affected_entity"] = ae_det
+        fh_row, fh_det = board_affected_entity_forward_half_dimension(smoke=bool(caps.get("affected_entity_smoke")))
+        new_arms["affected_entity_forward_half"] = fh_row
+        new_arms_detail["affected_entity_forward_half"] = fh_det
         cs_row, cs_det = board_causal_sign_dimension(smoke=bool(caps.get("causal_sign_smoke")))
         new_arms["causal_sign"] = cs_row
         new_arms_detail["causal_sign"] = cs_det

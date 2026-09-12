@@ -65,6 +65,12 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+### 2026-09-12 — pri-1 FIRST ARM (strategy): the FORWARD HALF of pronoun-undergoer resolution — entity tokens that accrue every reference, the event-model foreground, Principle A
+- **Method (wall-push protocol applied to myself):** research first (situation-model tokens, N400 update, Kehler-Rohde, GEK joint expectation, object files, PM/AT systems — `RESEARCH_generative_entity_state_pri1_2026-09-12.md`), then seven counted probes: the instrument mixes three brain tasks (THIRD 596 / DEICTIC 263 / DEMONSTR 115 / OTHER 168; only THIRD responds to entity mechanisms); oracle ceilings (in-focus top-3 0.753; gold tokens +0.091); generic knowledge marginals fused uniformly HURT (REJECTED with numbers; precision-gating conjecture recorded); the brief's intended input (`state_register`) is a surface-keyed bag with no GUM coverage — starved upstream.
+- **Built (one organ, arms):** `affected_entity_resolver.EntityTokens` (accrual = KTG reviewing+impletion / ACT-R presentation on retrieval, PINNED), `foreground` (Glenberg availability, PINNED; W swept, flat), `resolve(reflexive=True)` (Principle A, PINNED categorical). Reader walks mentions incrementally; `referent_per_np` keeps reflexives as pronouns. Board row `affected_entity_forward_half`.
+- **Measured:** THIRD GUM undergoers +0.0436 gold / +0.0371 predicted CI-sep; accrual-scramble 0.445, window-scramble 0.223; landed resolver path byte-identical (A5 0.4632); board self-test unchanged. **Verdict:** BF_SPIRIT kept (the composition is PINNED cascade + PINNED mechanisms; d, W swept). Rows: `BRAIN_MATH_REFERENCE.md` A/B.
+- **Open (next arms):** the JOINT agent+verb in-focus expectation with precision gating (Open row 1); state compatibility via VerbNet start/result predicates (Open row 2); DEICTIC (speaker/addressee model) and DEMONSTRATIVE (abstract reference) as their own machines (Open row 3).
+
 ### 2026-09-12 — RESULT-STATE ARM of `force_dynamics_valence` (strategy research landing, pri-14): the endstate valence is the patient's RESULT STATE, read first
 - **Wall:** the word-level Warriner sign conflates senses (throttle/club -> HELP; batter/bludgeon/pummel/wrench/maul abstain). **Brain:** OFC/vmPFC value the STATE the patient ends
   up in after simulating the event (Barsalou; Zwaan); causatives lexicalise a result state (Levin/RH); forceful contact on the body is aversive innately (nociception, PINNED).

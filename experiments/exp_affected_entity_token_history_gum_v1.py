@@ -57,9 +57,9 @@ def _gn_ok(ug, un, g, n):
     return True
 
 
-def load(predicted_parse=False):
+def load(predicted_parse=False, limit=None):
     import experiments.exp_hybrid_unified_incumbent_coref_gum_v1 as HYB
-    docs = B1._load_test(None)
+    docs = B1._load_test(limit)
     if predicted_parse:
         for doc in docs:
             B4._overlay_predicted(doc)
@@ -77,9 +77,12 @@ REFLEXIVE = {"himself", "herself", "itself", "themselves"}
 
 def run_arm(data, *, accrue=True, window=WINDOW, clock="order", decay=DEFAULT_DECAY,
             scramble_accrual=False, scramble_window=False, rng=None, principle_a=False):
-    """One configuration over all THIRD-person undergoer targets. Returns list of (hit, form)."""
+    """One configuration over all THIRD-person undergoer targets. Returns list of (hit, form).
+    The LOAD-BEARING math is the organ: hdlab.affected_entity_resolver.EntityTokens (tokens, accrual, foreground,
+    Principle A) -- this cell only feeds it the GUM mention stream and scores against gold. `clock` selects which
+    time axis is fed as `order` (mention order / token position / sentence index); controls are applied by the cell
+    around the organ call (scramble_accrual re-targets the accrual; scramble_window swaps the foreground set)."""
     rng = rng or random.Random(SEED)
-    CI = {"order": 0, "tokpos": 1, "sent": 2}[clock]
     results = []
     for doc, mlive in data:
         head_to_mi = {doc.mentions[i].head_g: i for i in range(len(doc.mentions))}
@@ -90,68 +93,62 @@ def run_arm(data, *, accrue=True, window=WINDOW, clock="order", decay=DEFAULT_DE
         for t in doc.toks:
             if t.deprel in B1.UND_DEPRELS and t.gidx in head_to_mi and doc.mentions[head_to_mi[t.gidx]].mtype == "pronoun":
                 und[head_to_mi[t.gidx]] = t
-        # entity buckets (head-individuated, as the landed resolver): mentions (order, role, t_tok, t_sent, g, n, m) + pronoun accruals
-        ments = defaultdict(list); pron_hist = defaultdict(list); last_ref_sent = {}
+        T = AER.EntityTokens(window=None if scramble_window else window, decay=decay, accrue=accrue)
         for mi, m in enumerate(mlive):
             M = doc.mentions[mi]
             hg = mi2headg.get(mi); tk = gidx2tok.get(hg)
             t_tok = float(hg if hg is not None else m["order"]); t_sent = float(tk.sent if tk is not None else 0)
+            tclock = {"order": float(m["order"]), "tokpos": t_tok, "sent": t_sent}[clock]
             role = ROLE_OF_RANK.get(m.get("sent_role_rank", 99), "OTHER")
             is_pron = m["is_pronoun"] or (M.mtype == "pronoun" and is_third(M.text))
             if not is_pron:
-                ments[m["head"]].append((float(m["order"]), role, t_tok, t_sent, m.get("gender") or m.get("name_gender"), m.get("number"), m))
-                last_ref_sent[m["head"]] = t_sent
+                T.observe(m["head"], tclock, role, t_sent, m.get("gender") or m.get("name_gender"), m.get("number"),
+                          gidx2dep.get(hg, ""), payload=m)
                 continue
             ug, un = m.get("gender"), m.get("number")
-            now = (float(m["order"]), t_tok, t_sent)[CI]
-            compat = {h: [mm for mm in ms if _gn_ok(ug, un, mm[4], mm[5])] for h, ms in ments.items()}
-            ents = [h for h, c in compat.items() if c]
-            pick = None
-            if ents:
-                coarg = None
-                if mi in und:
-                    cg = AER.coarg_head_gidx(doc.toks, und[mi])
-                    if cg is not None and cg in head_to_mi and not mlive[head_to_mi[cg]]["is_pronoun"]:
-                        coarg = mlive[head_to_mi[cg]]["head"]
-                legal = AER.legal_candidates(ents, coarg)
-                if principle_a and M.text.lower() in REFLEXIVE and coarg is not None and coarg in ents:
-                    legal = [coarg]          # Principle A [PINNED]: a reflexive MUST corefer with its clause-mate co-argument
-                if window is not None and len(legal) > 1:
-                    if scramble_window:
-                        k = sum(1 for h in legal if t_sent - last_ref_sent.get(h, -1e9) <= window)
-                        inwin = rng.sample(legal, k) if 0 < k < len(legal) else []
-                    else:
-                        inwin = [h for h in legal if t_sent - last_ref_sent.get(h, -1e9) <= window]
-                    legal = inwin or legal
-                dep = gidx2dep.get(hg, "")
-                a_role = AER.role_class(dep) if dep else "OBJ"
-                sal = {}; role_of = {}; patient_of = {}
-                for h in legal:
-                    hist = [((mm[0], mm[2], mm[3])[CI], mm[1]) for mm in compat[h]]
-                    if accrue:
-                        hist += [((o, tt, ts)[CI], r) for (o, tt, ts, r) in pron_hist[h]]
-                    a = actr_activation(hist, now, decay, ROLE_PROMINENCE)
-                    sal[h] = a if a != float("-inf") else -1e9
-                    lastc = max(compat[h], key=lambda mm: mm[0])[6]
-                    ldep = gidx2dep.get(mi2headg.get(lastc["midx"]), "")
-                    role_of[h] = AER.role_class(ldep); patient_of[h] = ldep in AER.PATIENT_DEPS
-                pick = AER.score_and_pick(legal, sal, role_of, patient_of, a_role)
+            coarg = None
+            if mi in und:
+                cg = AER.coarg_head_gidx(doc.toks, und[mi])
+                if cg is not None and cg in head_to_mi and not mlive[head_to_mi[cg]]["is_pronoun"]:
+                    coarg = mlive[head_to_mi[cg]]["head"]
+            dep = gidx2dep.get(hg, "")
+            a_role = AER.role_class(dep) if dep else "OBJ"
+            reflexive = principle_a and M.text.lower() in REFLEXIVE
+            if scramble_window and window is not None:
+                # CONTROL: a random same-size "foreground" -- implemented by temporarily restricting the organ's tokens
+                compat = T.candidates(ug, un); ents = list(compat)
+                legal = AER.legal_candidates(ents, coarg) if ents else []
+                k = sum(1 for h in legal if t_sent - T.last_ref_sent.get(h, -1e9) <= window)
+                keep = set(rng.sample(legal, k)) if (0 < k < len(legal)) else set(legal)
+                saved = T.mentions
+                T.mentions = {h: ms for h, ms in saved.items() if h in keep} if keep else saved
+                pick, n_c = T.resolve_pronoun(tclock, t_sent, gender=ug, number=un, a_role=a_role, role=role,
+                                              coarg_key=coarg, reflexive=reflexive)
+                T.mentions = saved
+            else:
+                pick, n_c = T.resolve_pronoun(tclock, t_sent, gender=ug, number=un, a_role=a_role, role=role,
+                                              coarg_key=coarg, reflexive=reflexive)
             if mi in und and is_third(M.text):
                 cm = [x for x in mlive if x["midx"] < mi and not x["is_pronoun"] and B1._gn_ok(m, x)]
                 if len(cm) >= 2 and len(set(x["head"] for x in cm)) >= 2:
-                    hit = int(pick is not None and max(compat[pick], key=lambda mm: mm[0])[6]["cluster"] == M.eid)
+                    lm = T.last_mention(pick, ug, un) if pick is not None else None
+                    # score: the token's last gn-compatible non-pronoun mention's gold cluster (gold used ONLY here)
+                    hit = int(lm is not None and lm[6] is not None and lm[6]["cluster"] == M.eid)
                     results.append((hit, M.text.lower()))
-            if pick is not None:
-                tgt = pick
-                if scramble_accrual:
+            if pick is not None and scramble_accrual:
+                # CONTROL: re-target the accrual to a RANDOM compatible token (the organ wrote it to `pick`; move it)
+                ents = list(T.candidates(ug, un))
+                if ents:
                     tgt = rng.choice(ents)
-                pron_hist[tgt].append((float(m["order"]), t_tok, t_sent, role))
-                last_ref_sent[tgt] = t_sent
+                    if tgt != pick:
+                        rec = T.pron_hist[pick].pop()
+                        T.pron_hist.setdefault(tgt, []).append(rec)
+                        T.last_ref_sent[tgt] = t_sent
     return results
 
 
-def run(predicted_parse=False, n_boot=2000):
-    data = load(predicted_parse)
+def run(predicted_parse=False, n_boot=2000, limit=None):
+    data = load(predicted_parse, limit)
     base = run_arm(data, accrue=False, window=None)
     bvec = np.array([h for h, _ in base]); n = len(bvec)
     rng2 = np.random.default_rng(SEED)

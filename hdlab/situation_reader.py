@@ -3207,73 +3207,61 @@ class SituationReader:
 
     def _read_affected_entity(self, sm, sents, mentions) -> None:
         """Opt-in AFFECTED-ENTITY dimension (default-on track_affected_entity; owner-DONE
-        who_was_affected...forward_salience_prior). Resolve each PRONOUN UNDERGOER (a verb's object/theme
-        pronoun -- "...frightened HIM") to the salient DISCOURSE ENTITY (the affected character), not just a
-        token, via the promoted hdlab.affected_entity_resolver: the ACT-R salience PRIOR over head-individuated
-        discourse referents x the grammatical LIKELIHOOD (Binding Principle B co-argument exclusion + role/
-        thematic parallelism -- Kehler-Rohde). The co-argument to EXCLUDE = the verb's own AGENT (the clause-
-        mate subject) read off the reader's OWN router (self._router_roles; the parse is per-read cached, so the
-        re-run is ~free) -- the DEPLOYMENT setting the SOLVED validated on the predicted parse (A2 Principle-B
-        +0.049 to A5 full +0.060, CI-sep, n=952). Principle B abstains when the clause-mate subject is itself a
-        pronoun (no non-pronoun head to key on) -- salience x parallelism still resolve (documented partiality).
+        who_was_affected...forward_salience_prior + the 2026-09-12 FORWARD HALF, strategy pri-1). Resolve each PRONOUN
+        UNDERGOER (a verb's object/theme pronoun -- "...frightened HIM") to the salient DISCOURSE ENTITY (the affected
+        character), not just a token, via hdlab.affected_entity_resolver: the ACT-R salience PRIOR over head-individuated
+        discourse referents x the grammatical LIKELIHOOD (Binding Principle B co-argument exclusion + role/thematic
+        parallelism -- Kehler-Rohde). The co-argument to EXCLUDE = the verb's own AGENT (the clause-mate subject) read
+        off the reader's OWN router (self._router_roles; per-read cached).
 
-        PURE ADD: sets ONLY sm.affected_entity (a list of {sent_idx, verb_pos, undergoer, resolved, coarg});
-        touches NO existing field (byte-identical off vs on -- the landing witness asserts it). Reuses the
-        reader's live router + mention stream + the BF salience organ; the RESOLUTION is gold-free; NO LLM."""
+        FORWARD HALF (2026-09-12): the mention stream is walked INCREMENTALLY through AER.EntityTokens -- EVERY third-
+        person pronoun reference (theme or not) is resolved and ACCRUED to its entity token (object-file impletion;
+        every retrieval is a presentation), so later activations see the full reference history; candidates referenced
+        within AER.FOREGROUND_WINDOW sentences are tried first (event-model foreground); REFLEXIVE themes obey Principle A
+        (corefer with the clause-mate agent). Measured +0.037 CI-sep on the predicted parse (THIRD-person GUM undergoers,
+        cell exp_affected_entity_token_history_gum_v1; scramble twins collapse).
+
+        PURE ADD: sets ONLY sm.affected_entity (a list of {sent_idx, verb_pos, undergoer, resolved, coarg}); touches
+        NO existing field (byte-identical off vs on -- the landing witness asserts it). Gold-free; NO LLM."""
         import hdlab.affected_entity_resolver as AER
         n_sents = len(sents)
         sent_noms = _sentence_nominals(mentions, n_sents)      # non-pronoun mentions per sentence (roles)
-
-        def _rc(rank):
-            return "SUBJ" if rank == 0 else ("OBJ" if rank == 1 else "OTHER")
-
-        def _gn_ok(a, b):
-            ga, na = a; gb, nb = b
-            if ga and gb and ga != gb:
-                return False
-            if na and nb and na != nb:
-                return False
-            return True
-
-        # head-individuated discourse entities from the NON-pronoun mention stream (order=midx, role from
-        # sent_role_rank) -- the salience prior's referents; mirrors _resolve_commonnouns / the SOLVED harness.
-        ent_hist, ent_last, ent_gn = {}, {}, {}
-        for m in sorted(mentions, key=lambda x: x["midx"]):
-            if m.get("is_pronoun"):
-                continue
-            h = m["head"]
-            ent_hist.setdefault(h, []).append((float(m["midx"]), _rc(m.get("sent_role_rank", 99))))
-            if h not in ent_last or m["midx"] >= ent_last[h]["midx"]:
-                ent_last[h] = m
-            if h not in ent_gn:
-                ent_gn[h] = (m.get("gender") or "", m.get("number") or "")
-
+        rank2dep = {0: "nsubj", 1: "obj"}                        # sent_role_rank -> a UD-shaped role for the organ
+        rank2role = {0: "SUBJECT", 1: "OBJECT"}
+        by_sent = {}
+        for m in mentions:
+            by_sent.setdefault(m.get("sent_idx"), []).append(m)
+        T = AER.EntityTokens()                                   # the organ's incremental entity tokens
         out = []
         for si, toks in enumerate(sents):
             rr = self._router_roles(list(toks))
             noms = sent_noms[si] if si < len(sent_noms) else []
-            pron_at = {}                                       # token pos -> pronoun mention in this sentence
-            for m in mentions:
-                if m.get("sent_idx") == si and m.get("is_pronoun"):
-                    pron_at.setdefault(m.get("wtok_start"), m)
+            theme_verb = {}                                      # theme token pos -> (verb_pos, roles)
             for vp, vr in rr.items():
-                if "theme" not in vr:
+                if "theme" in vr:
+                    theme_verb.setdefault(vr["theme"], (vp, vr))
+            for m in sorted(by_sent.get(si, []), key=lambda x: (x.get("wtok_start", 0), x["midx"])):
+                rank = m.get("sent_role_rank", 99)
+                reflexive = AER.is_reflexive(m.get("head"))
+                if not m.get("is_pronoun") and not reflexive:
+                    T.observe(m["head"], float(m["midx"]), rank2role.get(rank, "OTHER"), float(si),
+                              m.get("gender") or m.get("name_gender"), m.get("number"), rank2dep.get(rank, ""),
+                              payload=m)
                     continue
-                pm = pron_at.get(vr["theme"])                  # the theme is a PRONOUN undergoer?
-                if pm is None:
-                    continue
-                pg, pn = pm.get("gender") or "", pm.get("number") or ""
-                cands = [h for h in ent_hist
-                         if ent_last[h]["midx"] < pm["midx"] and _gn_ok(ent_gn[h], (pg, pn))]
-                if len(cands) < 2:
-                    continue
-                sal = AER.salience_prior({h: ent_hist[h] for h in cands}, float(pm["midx"]))
-                role_of = {h: _rc(ent_last[h].get("sent_role_rank", 99)) for h in cands}
-                patient_of = {h: (ent_last[h].get("sent_role_rank", 99) == 1) for h in cands}
-                coarg = self._nom_head_at(noms, vr["agent"]) if "agent" in vr else None
-                resolved = AER.resolve(cands, sal, role_of, patient_of, a_role="OBJ", coarg_key=coarg)
-                out.append({"sent_idx": si, "verb_pos": vp, "undergoer": pm["head"],
-                            "resolved": resolved, "coarg": coarg})
+                tv = theme_verb.get(m.get("wtok_start"))
+                coarg = None
+                a_role = "OBJ" if tv is not None else AER.role_class(rank2dep.get(rank, ""))
+                if tv is not None and "agent" in tv[1]:
+                    coarg = self._nom_head_at(noms, tv[1]["agent"])
+                g, n = m.get("gender") or "", m.get("number") or ""
+                if reflexive and not (g or n):
+                    g, n = AER.REFLEXIVE_GN.get(m.get("head", "").lower(), (None, None))
+                pick, n_c = T.resolve_pronoun(float(m["midx"]), float(si), gender=g or "", number=n or "",
+                                              a_role=a_role, role=rank2role.get(rank, "OTHER"), coarg_key=coarg,
+                                              reflexive=reflexive)
+                if tv is not None and n_c >= 2:
+                    out.append({"sent_idx": si, "verb_pos": tv[0], "undergoer": m["head"],
+                                "resolved": pick, "coarg": coarg})
         sm.affected_entity = out
 
     def _read_prediction(self, sm, sents) -> None:

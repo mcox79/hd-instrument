@@ -69,3 +69,20 @@ Do NOT quote retired figures (`notes/reference_retired_claims_never_requote.md`)
 - **One hub, many readouts** (`notes/RESEARCH_one_semantic_hub_many_readouts_2026-09-11.md`): the state representation you rerank over should be a READOUT over the shared meaning representation, not a new store. Note the §7 pointer to `convergent_cue_reader`: its precision-weighted fusion rule is labelled OPEN in the registry (a normative analogy, not pinned to the brain's hub) — use it as the incumbent combiner but do not present it as pinned; pri-13 (one learned semantic hub) is the sibling that settles it.
 - **Live facts to reuse:** the grounding loop now learns new-word meanings from reading (`FusedSenseRanker`, grown SEQ store merged into every `Substrate`); `board_grounding_coverage_quality` and `board_affected_entity_dimension` are the instruments your rerank must move (affected_entity full row 0.373 vs floor 0.33).
 - **Typed selectional-preference organ now available (2026-09-12):** `hdlab/typed_selectional_preference.py` (Resnik class association over WordNet supersenses, 6,450 verbs) — READ IT as a prior for the undergoer rerank; its located negative says dense typed knowledge alone never beats syntax on the ambiguous residual, and the research fold says the brain's expectation is AGENT+VERB joint (Bicknell 2010) — exactly the event-level expectation THIS problem builds.
+
+## STRATEGY LANDING 2026-09-12 (first arm; READ BEFORE STARTING — the remaining scope is narrowed)
+Strategy took this problem itself (owner 2026-09-12). Research + seven probes (`notes/RESEARCH_generative_entity_state_pri1_2026-09-12.md`)
+found: (1) the undergoer slice mixes THIRD-person (596) / DEICTIC (263) / DEMONSTRATIVE (115) / OTHER (168) pronoun classes —
+only THIRD responds to entity mechanisms (oracle individuation +0.091 on THIRD, nothing on the others); (2) `state_register`
+is a surface-keyed bag with no GUM coverage — the brief's intended input is starved upstream; (3) generic-corpus semantic
+marginals (selectional P(head|V), ROC GEK) are informative on the wrong set but HURT when fused over the candidates
+(−0.045..−0.118 CI-sep) — do NOT fuse marginals uniformly; (4) the in-focus ceiling is top-3 0.753 vs 0.497.
+LANDED (first arm, `hdlab/affected_entity_resolver.EntityTokens` + reader wire + board row `affected_entity_forward_half`):
+pronoun ACCRUAL to entity tokens + FOREGROUND window + Principle A for reflexives = **+0.0436 gold / +0.0371 predicted CI-sep**
+on THIRD; twins collapse. Witness `verification/test_affected_entity_forward_half.py`.
+**REMAINING SCOPE (the bar now):** (a) the JOINT agent+verb expectation learned from OUR OWN parsed events (selectional
+extractor pattern), applied INSIDE the top-3 focus with a prior-precision gate (Kuperberg-Jaeger) — the semantic fit that
+converts the 0.753 ceiling; (b) state compatibility via VerbNet start(E)/result(E) predicates against the token's accrued
+result states (coverage number required); (c) DEICTIC pronouns -> a speech-situation (speaker/addressee) arm; DEMONSTRATIVES
+-> abstract event reference; (d) the individuation prize (+0.091) belongs to the coref two-half line (circular here).
+Math conditions per row: `notes/BRAIN_MATH_REFERENCE.md` sections A–C and Open rows 1–3.
