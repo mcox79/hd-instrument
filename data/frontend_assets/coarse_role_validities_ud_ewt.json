@@ -376,36 +376,44 @@
     0.2318
    ],
    "NOUN_post|other": [
-    -1.7896,
-    -7.3544,
-    -7.3544,
-    -7.3544,
-    0.3643,
-    -1.7727
+    -7.3242,
+    -7.3242,
+    -7.3242,
+    -7.3242,
+    0.3832,
+    -2.1325
    ],
    "NOUN_post|of": [
-    -1.5565,
-    -7.1213,
-    -7.1213,
-    -7.1213,
-    0.4189,
-    -4.1309
+    -7.1115,
+    -7.1115,
+    -7.1115,
+    -7.1115,
+    0.4238,
+    -5.7488
    ],
    "VERB_post|other": [
-    -3.3026,
-    -2.7526,
-    -8.0687,
-    -8.0687,
-    0.9477,
-    -0.5003
+    -8.0473,
+    -3.073,
+    -8.0473,
+    -8.0473,
+    0.9586,
+    -0.4975
+   ],
+   "VERB_post|other_far": [
+    0.5393,
+    -0.1336,
+    -4.2268,
+    -4.2268,
+    0.2386,
+    -0.6294
    ],
    "NUM_post|of": [
-    -4.0943,
-    -4.0943,
-    -4.0943,
-    -4.0943,
-    0.369,
-    -4.0943
+    -4.0518,
+    -4.0518,
+    -4.0518,
+    -4.0518,
+    0.3688,
+    -4.0518
    ],
    "VERB_post|by_passive": [
     -5.072,
@@ -416,12 +424,12 @@
     -2.7819
    ],
    "PROPN_post|of": [
-    -4.7493,
-    -4.7493,
-    -4.7493,
-    -4.7493,
-    1.4143,
-    -0.7942
+    -4.2697,
+    -4.2697,
+    -4.2697,
+    -4.2697,
+    1.8797,
+    -3.8069
    ],
    "ADJ_pre|none": [
     0.0517,
@@ -432,68 +440,68 @@
     -0.0798
    ],
    "PROPN_post|other": [
-    -5.5114,
-    -5.5114,
-    -5.5114,
-    -5.5114,
-    1.0937,
-    -0.4296
+    -4.804,
+    -4.804,
+    -4.804,
+    -4.804,
+    1.7454,
+    -1.7875
    ],
    "PROPN_pre|other": [
-    -1.9585,
-    -5.5607,
-    -5.5607,
-    -5.5607,
-    -0.5589,
-    0.1735
+    -5.3351,
+    -5.3351,
+    -5.3351,
+    -5.3351,
+    -0.5107,
+    0.1783
    ],
    "ADJ_post|other": [
-    -2.7845,
-    -5.9149,
-    -5.9149,
-    -5.9149,
-    0.1949,
-    -1.3244
+    -2.7791,
+    -5.9094,
+    -5.9094,
+    -5.9094,
+    0.1988,
+    -1.4103
    ],
    "NOUN_pre|of": [
-    -2.4054,
-    -5.9687,
-    -5.9687,
-    -5.9687,
-    -1.8229,
-    0.145
+    -4.2511,
+    -5.8216,
+    -5.8216,
+    -5.8216,
+    -1.6757,
+    0.1547
    ],
    "NOUN_pre|other": [
-    -2.2657,
-    -7.2984,
-    -7.2984,
-    -7.2984,
-    0.7133,
-    0.112
+    -3.5001,
+    -7.1659,
+    -7.1659,
+    -7.1659,
+    0.7821,
+    0.1197
    ],
    "VERB_post|of": [
-    -4.0164,
-    -2.4724,
-    -4.0164,
-    -4.0164,
-    0.9325,
-    -0.4189
+    -3.912,
+    -2.8676,
+    -3.912,
+    -3.912,
+    0.9443,
+    -0.3146
    ],
-   "VERB_pre|of": [
-    -0.0726,
-    1.3518,
-    0.2352,
-    3.6246,
-    -0.6125,
-    -0.2479
+   "VERB_pre|of_far": [
+    -0.0545,
+    1.4819,
+    0.3248,
+    3.7547,
+    -1.161,
+    -1.4742
    ],
    "PROPN_pre|of": [
-    -2.2146,
-    -4.3108,
-    -4.3108,
-    -4.3108,
-    -0.3089,
-    0.1413
+    -1.9728,
+    -4.069,
+    -4.069,
+    -4.069,
+    -0.4881,
+    0.1648
    ],
    "NOUN_pre|none": [
     0.415,
@@ -504,12 +512,20 @@
     -0.0749
    ],
    "VERB_pre|other": [
-    -0.6635,
-    0.1781,
-    -0.7082,
-    -6.437,
-    2.1061,
-    -0.0784
+    -1.476,
+    -0.7002,
+    -1.8922,
+    -5.961,
+    2.5382,
+    0.1588
+   ],
+   "VERB_pre|other_far": [
+    -0.015,
+    0.8481,
+    0.0517,
+    -5.4702,
+    -0.0699,
+    -0.6528
    ],
    "NOUN_post|none": [
     0.9178,
@@ -528,12 +544,20 @@
     -0.1222
    ],
    "ROOT_root|other": [
-    -4.7579,
-    -4.7579,
-    -4.7579,
-    -4.7579,
-    -4.7579,
+    -4.7318,
+    -4.7318,
+    -4.7318,
+    -4.7318,
+    -4.7318,
     0.0008
+   ],
+   "PROPN_post|other_far": [
+    -4.8402,
+    -4.8402,
+    -4.8402,
+    -4.8402,
+    -1.125,
+    0.1131
    ],
    "NUM_post|none": [
     -5.553,
@@ -552,20 +576,28 @@
     -0.5767
    ],
    "NUM_pre|other": [
-    -1.5905,
-    -3.4177,
-    -3.4177,
-    -3.4177,
-    0.3249,
-    -3.4177
+    -1.8508,
+    -3.3499,
+    -3.3499,
+    -3.3499,
+    0.339,
+    -3.3499
    ],
    "ADJ_pre|other": [
-    -1.1493,
-    -4.2905,
-    -4.2905,
-    -4.2905,
-    1.873,
-    0.7266
+    -2.091,
+    -4.0342,
+    -4.0342,
+    -4.0342,
+    2.0934,
+    0.8373
+   ],
+   "ADJ_pre|other_far": [
+    -0.0202,
+    -2.8622,
+    -2.8622,
+    -2.8622,
+    0.0132,
+    0.2035
    ],
    "PROPN_post|by": [
     -3.157,
@@ -583,6 +615,14 @@
     -1.1293,
     0.0036
    ],
+   "NOUN_pre|other_far": [
+    -0.4704,
+    -5.2176,
+    -5.2176,
+    -5.2176,
+    0.0162,
+    0.056
+   ],
    "ADJ_post|none": [
     1.5338,
     1.5697,
@@ -599,6 +639,14 @@
     -1.3651,
     0.4983
    ],
+   "PROPN_post|of_far": [
+    -3.8067,
+    -3.8067,
+    -3.8067,
+    -3.8067,
+    -1.7683,
+    0.137
+   ],
    "NUM_pre|none": [
     0.2599,
     -4.6052,
@@ -607,13 +655,13 @@
     -0.1382,
     0.25
    ],
-   "AUX_pre|other": [
-    -0.0155,
-    -2.0149,
-    -2.0149,
-    -2.0149,
-    1.3275,
-    -2.0149
+   "AUX_pre|other_far": [
+    -0.0709,
+    -1.5041,
+    -1.5041,
+    -1.5041,
+    1.8383,
+    -1.5041
    ],
    "AUX_post|other": [
     -2.1401,
@@ -622,6 +670,14 @@
     -2.1401,
     0.5611,
     -0.0746
+   ],
+   "NOUN_post|other_far": [
+    1.704,
+    -3.8607,
+    -3.8607,
+    -3.8607,
+    -0.5937,
+    0.6023
    ],
    "NOUN_pre|by": [
     -2.5239,
@@ -632,20 +688,20 @@
     0.1317
    ],
    "OTHERH_post|other": [
-    -4.9802,
-    -4.9802,
-    -4.9802,
-    -4.9802,
-    0.2805,
-    -0.5211
+    -4.9663,
+    -4.9663,
+    -4.9663,
+    -4.9663,
+    0.2863,
+    -0.5555
    ],
    "ADJ_post|of": [
-    -4.2413,
-    -4.2413,
-    -4.2413,
-    -4.2413,
-    0.2335,
-    -2.8884
+    -4.2341,
+    -4.2341,
+    -4.2341,
+    -4.2341,
+    0.2407,
+    -4.2341
    ],
    "OTHERH_pre|none": [
     0.0749,
@@ -656,36 +712,44 @@
     -0.0278
    ],
    "PRON_post|other": [
-    -2.722,
-    -4.0604,
-    -4.0604,
-    -4.0604,
-    0.7144,
-    -2.166
+    -2.7134,
+    -4.0518,
+    -4.0518,
+    -4.0518,
+    0.7139,
+    -2.1573
    ],
    "OTHERH_post|of": [
-    -2.868,
-    -4.6102,
-    -4.6102,
-    -4.6102,
-    0.3249,
-    -0.8804
+    -4.6002,
+    -4.6002,
+    -4.6002,
+    -4.6002,
+    0.3293,
+    -0.8704
    ],
-   "ADJ_pre|of": [
-    -0.2469,
-    -2.4849,
-    -2.4849,
-    -2.4849,
-    1.055,
-    0.1984
+   "ADJ_pre|of_far": [
+    0.0865,
+    -2.0149,
+    -2.0149,
+    -2.0149,
+    -0.1313,
+    -2.0149
    ],
    "NUM_post|other": [
-    -4.2556,
-    -4.2556,
-    -4.2556,
-    -4.2556,
-    0.3626,
-    -3.2944
+    -2.9444,
+    -2.9444,
+    -2.9444,
+    -2.9444,
+    0.3305,
+    -1.9832
+   ],
+   "ADJ_pre|of": [
+    -0.918,
+    -1.7047,
+    -1.7047,
+    -1.7047,
+    1.6586,
+    0.9786
    ],
    "PROPN_pre|by": [
     -3.4012,
@@ -703,6 +767,14 @@
     -1.2283,
     0.6886
    ],
+   "NOUN_pre|of_far": [
+    -0.5491,
+    -3.9982,
+    -3.9982,
+    -3.9982,
+    -3.9982,
+    0.0804
+   ],
    "VERB_post|by": [
     -3.7013,
     -3.7013,
@@ -711,13 +783,21 @@
     0.8408,
     -3.7013
    ],
-   "NUM_pre|of": [
-    -1.8718,
-    -1.8718,
-    -1.8718,
-    -1.8718,
-    0.3359,
-    -1.8718
+   "NUM_pre|of_far": [
+    -1.0986,
+    -1.0986,
+    -1.0986,
+    -1.0986,
+    0.2734,
+    -1.0986
+   ],
+   "PROPN_pre|other_far": [
+    -0.3775,
+    -3.9797,
+    -3.9797,
+    -3.9797,
+    -0.7542,
+    0.1514
    ],
    "PRON_pre|none": [
     0.0902,
@@ -751,15 +831,23 @@
     2.3239,
     0.0209
    ],
-   "PRON_post|of": [
-    -2.7408,
-    -2.7408,
-    -2.7408,
-    -2.7408,
-    0.699,
-    -1.8603
+   "PROPN_pre|of_far": [
+    -2.8332,
+    -2.8332,
+    -2.8332,
+    -2.8332,
+    0.1523,
+    0.0475
    ],
-   "OTHERH_pre|of": [
+   "PRON_post|of": [
+    -2.6391,
+    -2.6391,
+    -2.6391,
+    -2.6391,
+    0.6913,
+    -1.7585
+   ],
+   "OTHERH_pre|of_far": [
     -0.0905,
     -1.0986,
     -1.0986,
@@ -768,12 +856,12 @@
     -1.0986
    ],
    "OTHERH_pre|other": [
-    -0.792,
-    -2.9704,
-    -2.9704,
-    -2.9704,
-    0.6182,
-    0.1993
+    -0.9674,
+    -2.2513,
+    -2.2513,
+    -2.2513,
+    0.5509,
+    0.9184
    ],
    "OTHERH_pre|by": [
     0.2206,
@@ -782,6 +870,14 @@
     -0.4055,
     -0.4055,
     -0.4055
+   ],
+   "NUM_post|of_far": [
+    -1.2528,
+    -1.2528,
+    -1.2528,
+    -1.2528,
+    0.2808,
+    -1.2528
    ],
    "PRON_pre|other": [
     -1.0627,
@@ -799,6 +895,46 @@
     -1.7918,
     0.0007
    ],
+   "OTHERH_pre|other_far": [
+    -0.5699,
+    -2.3979,
+    -2.3979,
+    -2.3979,
+    0.6324,
+    -2.3979
+   ],
+   "NOUN_post|of_far": [
+    2.9998,
+    -2.5649,
+    -2.5649,
+    -2.5649,
+    -0.2449,
+    0.2675
+   ],
+   "VERB_pre|of": [
+    -0.1988,
+    -2.8034,
+    -0.8036,
+    -2.8034,
+    0.7496,
+    1.5086
+   ],
+   "OTHERH_post|of_far": [
+    1.049,
+    -0.6931,
+    -0.6931,
+    -0.6931,
+    -0.1189,
+    -0.6931
+   ],
+   "NUM_post|other_far": [
+    -3.9608,
+    -3.9608,
+    -3.9608,
+    -3.9608,
+    0.3683,
+    -3.9608
+   ],
    "ADJ_post|by": [
     -1.9459,
     -1.9459,
@@ -806,6 +942,22 @@
     -1.9459,
     0.2125,
     -1.9459
+   ],
+   "AUX_pre|other": [
+    0.0469,
+    -1.3863,
+    -1.3863,
+    -1.3863,
+    -1.3863,
+    -1.3863
+   ],
+   "PRON_post|other_far": [
+    -0.4055,
+    -0.4055,
+    -0.4055,
+    -0.4055,
+    0.3259,
+    -0.4055
    ],
    "VERB_pre|by_passive": [
     -0.1321,
@@ -815,12 +967,36 @@
     0.8628,
     1.1988
    ],
+   "NUM_pre|of": [
+    -1.5041,
+    -1.5041,
+    -1.5041,
+    -1.5041,
+    0.3125,
+    -1.5041
+   ],
    "ADJ_pre|by": [
     -1.0986,
     -1.0986,
     -1.0986,
     -1.0986,
     2.0503,
+    -1.0986
+   ],
+   "ROOT_root|other_far": [
+    -1.3863,
+    -1.3863,
+    -1.3863,
+    -1.3863,
+    -1.3863,
+    0.0006
+   ],
+   "NUM_pre|other_far": [
+    -0.0911,
+    -1.0986,
+    -1.0986,
+    -1.0986,
+    0.0669,
     -1.0986
    ],
    "AUX_pre|by": [
@@ -839,6 +1015,22 @@
     0.1688,
     -0.4055
    ],
+   "OTHERH_post|other_far": [
+    -1.0986,
+    -1.0986,
+    -1.0986,
+    -1.0986,
+    -0.1619,
+    0.5241
+   ],
+   "VERB_post|of_far": [
+    -1.8718,
+    -0.8274,
+    -1.8718,
+    -1.8718,
+    0.7292,
+    -1.8718
+   ],
    "NUM_post|by": [
     -1.3863,
     -1.3863,
@@ -855,7 +1047,15 @@
     -0.1417,
     -0.6931
    ],
-   "PRON_pre|of": [
+   "PRON_post|of_far": [
+    -0.9163,
+    -0.9163,
+    -0.9163,
+    -0.9163,
+    0.5268,
+    -0.9163
+   ],
+   "PRON_pre|of_far": [
     0.036,
     -0.4055,
     -0.4055,
@@ -863,7 +1063,7 @@
     -0.4055,
     -0.4055
    ],
-   "AUX_pre|of": [
+   "AUX_pre|of_far": [
     0.0211,
     -0.4055,
     -0.4055,
@@ -878,6 +1078,176 @@
     -0.4055,
     -0.4055,
     -0.4055
+   ],
+   "ADJ_post|other_far": [
+    -1.0986,
+    -1.0986,
+    -1.0986,
+    -1.0986,
+    -0.6051,
+    1.1638
+   ],
+   "ADJ_post|of_far": [
+    -0.4055,
+    -0.4055,
+    -0.4055,
+    -0.4055,
+    -0.4055,
+    0.9475
+   ]
+  },
+  "pre_slot": {
+   "ROOT_root|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "PROPN_post|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "VERB_pre|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "VERB_post|filled": [
+    0.2079,
+    -0.0439,
+    -8.6962,
+    0.0907,
+    0.0266,
+    0.1441
+   ],
+   "NOUN_post|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "NUM_post|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "ADJ_pre|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "PROPN_pre|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "ADJ_post|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "VERB_post|empty": [
+    -0.604,
+    0.0807,
+    1.0646,
+    -0.2097,
+    -0.0537,
+    -0.3608
+   ],
+   "NOUN_pre|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "NUM_pre|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "AUX_pre|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "PRON_post|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "AUX_post|filled": [
+    -2.2513,
+    -2.2513,
+    -2.2513,
+    -2.2513,
+    0.4498,
+    0.4418
+   ],
+   "OTHERH_post|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "OTHERH_pre|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "PRON_pre|na": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "AUX_post|empty": [
+    0.8858,
+    -1.8718,
+    -1.8718,
+    -1.8718,
+    -1.1448,
+    -1.8718
    ]
   },
   "cop": {
@@ -1918,26 +2288,32 @@
     "cued_role": "OBJ"
    },
    "NOUN_post|other": {
-    "n": 3124,
-    "availability": 0.0473,
-    "reliability": 0.9414,
+    "n": 3031,
+    "availability": 0.0459,
+    "reliability": 0.9594,
     "cued_role": "OBL"
    },
    "NOUN_post|of": {
-    "n": 2474,
-    "availability": 0.0375,
-    "reliability": 0.9943,
+    "n": 2450,
+    "availability": 0.0371,
+    "reliability": 0.9992,
     "cued_role": "OBL"
    },
    "VERB_post|other": {
-    "n": 6384,
-    "availability": 0.0967,
-    "reliability": 0.9306,
+    "n": 6249,
+    "availability": 0.0946,
+    "reliability": 0.9408,
     "cued_role": "OBL"
    },
+   "VERB_post|other_far": {
+    "n": 135,
+    "availability": 0.002,
+    "reliability": 0.4741,
+    "cued_role": "OBJ"
+   },
    "NUM_post|of": {
-    "n": 118,
-    "availability": 0.0018,
+    "n": 113,
+    "availability": 0.0017,
     "reliability": 1.0,
     "cued_role": "OBL"
    },
@@ -1948,9 +2324,9 @@
     "cued_role": "BY_AGENT"
    },
    "PROPN_post|of": {
-    "n": 229,
-    "availability": 0.0035,
-    "reliability": 0.6201,
+    "n": 141,
+    "availability": 0.0021,
+    "reliability": 0.9929,
     "cued_role": "OBL"
    },
    "ADJ_pre|none": {
@@ -1960,51 +2336,51 @@
     "cued_role": "SUBJ"
    },
    "PROPN_post|other": {
-    "n": 493,
-    "availability": 0.0075,
-    "reliability": 0.5517,
-    "cued_role": "OTHER"
+    "n": 242,
+    "availability": 0.0037,
+    "reliability": 0.8636,
+    "cued_role": "OBL"
    },
    "PROPN_pre|other": {
-    "n": 518,
-    "availability": 0.0078,
-    "reliability": 0.8842,
+    "n": 413,
+    "availability": 0.0063,
+    "reliability": 0.8886,
     "cued_role": "OTHER"
    },
    "ADJ_post|other": {
-    "n": 739,
-    "availability": 0.0112,
-    "reliability": 0.9526,
+    "n": 735,
+    "availability": 0.0111,
+    "reliability": 0.9565,
     "cued_role": "OBL"
    },
    "NOUN_pre|of": {
-    "n": 780,
-    "availability": 0.0118,
-    "reliability": 0.9859,
+    "n": 673,
+    "availability": 0.0102,
+    "reliability": 0.9955,
     "cued_role": "OTHER"
    },
    "NOUN_pre|other": {
-    "n": 2954,
-    "availability": 0.0447,
-    "reliability": 0.9536,
+    "n": 2587,
+    "availability": 0.0392,
+    "reliability": 0.961,
     "cued_role": "OTHER"
    },
    "VERB_post|of": {
-    "n": 109,
-    "availability": 0.0017,
-    "reliability": 0.9266,
+    "n": 98,
+    "availability": 0.0015,
+    "reliability": 0.9388,
     "cued_role": "OBL"
    },
-   "VERB_pre|of": {
-    "n": 252,
-    "availability": 0.0038,
-    "reliability": 0.7421,
+   "VERB_pre|of_far": {
+    "n": 221,
+    "availability": 0.0033,
+    "reliability": 0.7557,
     "cued_role": "SUBJ"
    },
    "PROPN_pre|of": {
-    "n": 147,
-    "availability": 0.0022,
-    "reliability": 0.8571,
+    "n": 115,
+    "availability": 0.0017,
+    "reliability": 0.8783,
     "cued_role": "OTHER"
    },
    "NOUN_pre|none": {
@@ -2014,10 +2390,16 @@
     "cued_role": "OTHER"
    },
    "VERB_pre|other": {
-    "n": 1247,
-    "availability": 0.0189,
-    "reliability": 0.4852,
+    "n": 774,
+    "availability": 0.0117,
+    "reliability": 0.7481,
     "cued_role": "OBL"
+   },
+   "VERB_pre|other_far": {
+    "n": 473,
+    "availability": 0.0072,
+    "reliability": 0.7865,
+    "cued_role": "SUBJ"
    },
    "NOUN_post|none": {
     "n": 2907,
@@ -2032,9 +2414,15 @@
     "cued_role": "OTHER"
    },
    "ROOT_root|other": {
-    "n": 231,
-    "availability": 0.0035,
+    "n": 225,
+    "availability": 0.0034,
     "reliability": 1.0,
+    "cued_role": "OTHER"
+   },
+   "PROPN_post|other_far": {
+    "n": 251,
+    "availability": 0.0038,
+    "reliability": 0.9522,
     "cued_role": "OTHER"
    },
    "NUM_post|none": {
@@ -2050,16 +2438,22 @@
     "cued_role": "OBL"
    },
    "NUM_pre|other": {
-    "n": 59,
-    "availability": 0.0009,
-    "reliability": 0.9492,
+    "n": 55,
+    "availability": 0.0008,
+    "reliability": 0.9636,
     "cued_role": "OBL"
    },
    "ADJ_pre|other": {
-    "n": 144,
-    "availability": 0.0022,
-    "reliability": 0.5903,
+    "n": 111,
+    "availability": 0.0017,
+    "reliability": 0.7387,
     "cued_role": "OBL"
+   },
+   "ADJ_pre|other_far": {
+    "n": 33,
+    "availability": 0.0005,
+    "reliability": 0.8182,
+    "cued_role": "SUBJ"
    },
    "PROPN_post|by": {
     "n": 45,
@@ -2073,6 +2467,12 @@
     "reliability": 0.9595,
     "cued_role": "SUBJ"
    },
+   "NOUN_pre|other_far": {
+    "n": 367,
+    "availability": 0.0056,
+    "reliability": 0.9019,
+    "cued_role": "OTHER"
+   },
    "ADJ_post|none": {
     "n": 225,
     "availability": 0.0034,
@@ -2085,16 +2485,22 @@
     "reliability": 0.585,
     "cued_role": "OTHER"
    },
+   "PROPN_post|of_far": {
+    "n": 88,
+    "availability": 0.0013,
+    "reliability": 0.9773,
+    "cued_role": "OTHER"
+   },
    "NUM_pre|none": {
     "n": 198,
     "availability": 0.003,
     "reliability": 0.5909,
     "cued_role": "OBL"
    },
-   "AUX_pre|other": {
-    "n": 13,
-    "availability": 0.0002,
-    "reliability": 0.9231,
+   "AUX_pre|other_far": {
+    "n": 7,
+    "availability": 0.0001,
+    "reliability": 0.8571,
     "cued_role": "SUBJ"
    },
    "AUX_post|other": {
@@ -2103,6 +2509,12 @@
     "reliability": 0.8667,
     "cued_role": "OBL"
    },
+   "NOUN_post|other_far": {
+    "n": 93,
+    "availability": 0.0014,
+    "reliability": 0.6344,
+    "cued_role": "OTHER"
+   },
    "NOUN_pre|by": {
     "n": 118,
     "availability": 0.0018,
@@ -2110,15 +2522,15 @@
     "cued_role": "OTHER"
    },
    "OTHERH_post|other": {
-    "n": 289,
-    "availability": 0.0044,
-    "reliability": 0.8547,
+    "n": 285,
+    "availability": 0.0043,
+    "reliability": 0.8596,
     "cued_role": "OBL"
    },
    "ADJ_post|of": {
-    "n": 137,
+    "n": 136,
     "availability": 0.0021,
-    "reliability": 0.9927,
+    "reliability": 1.0,
     "cued_role": "OBL"
    },
    "OTHERH_pre|none": {
@@ -2128,27 +2540,33 @@
     "cued_role": "SUBJ"
    },
    "PRON_post|other": {
-    "n": 114,
+    "n": 113,
     "availability": 0.0017,
-    "reliability": 0.9561,
+    "reliability": 0.9558,
     "cued_role": "OBL"
    },
    "OTHERH_post|of": {
-    "n": 199,
+    "n": 197,
     "availability": 0.003,
-    "reliability": 0.8945,
+    "reliability": 0.8985,
     "cued_role": "OBL"
    },
-   "ADJ_pre|of": {
-    "n": 22,
-    "availability": 0.0003,
-    "reliability": 0.6364,
+   "ADJ_pre|of_far": {
+    "n": 13,
+    "availability": 0.0002,
+    "reliability": 0.9231,
     "cued_role": "SUBJ"
    },
    "NUM_post|other": {
-    "n": 139,
-    "availability": 0.0021,
-    "reliability": 0.9928,
+    "n": 36,
+    "availability": 0.0005,
+    "reliability": 0.9722,
+    "cued_role": "OBL"
+   },
+   "ADJ_pre|of": {
+    "n": 9,
+    "availability": 0.0001,
+    "reliability": 0.5556,
     "cued_role": "OBL"
    },
    "PROPN_pre|by": {
@@ -2163,17 +2581,29 @@
     "reliability": 0.4916,
     "cued_role": "OTHER"
    },
+   "NOUN_pre|of_far": {
+    "n": 107,
+    "availability": 0.0016,
+    "reliability": 0.9252,
+    "cued_role": "OTHER"
+   },
    "VERB_post|by": {
     "n": 79,
     "availability": 0.0012,
     "reliability": 0.8481,
     "cued_role": "OBL"
    },
-   "NUM_pre|of": {
-    "n": 11,
-    "availability": 0.0002,
+   "NUM_pre|of_far": {
+    "n": 4,
+    "availability": 0.0001,
     "reliability": 1.0,
     "cued_role": "OBL"
+   },
+   "PROPN_pre|other_far": {
+    "n": 105,
+    "availability": 0.0016,
+    "reliability": 0.8667,
+    "cued_role": "OTHER"
    },
    "PRON_pre|none": {
     "n": 84,
@@ -2199,22 +2629,28 @@
     "reliability": 0.625,
     "cued_role": "OBL"
    },
+   "PROPN_pre|of_far": {
+    "n": 32,
+    "availability": 0.0005,
+    "reliability": 0.7812,
+    "cued_role": "OTHER"
+   },
    "PRON_post|of": {
-    "n": 29,
+    "n": 26,
     "availability": 0.0004,
-    "reliability": 0.9655,
+    "reliability": 0.9615,
     "cued_role": "OBL"
    },
-   "OTHERH_pre|of": {
+   "OTHERH_pre|of_far": {
     "n": 4,
     "availability": 0.0001,
     "reliability": 0.5,
     "cued_role": "SUBJ"
    },
    "OTHERH_pre|other": {
-    "n": 37,
-    "availability": 0.0006,
-    "reliability": 0.6757,
+    "n": 17,
+    "availability": 0.0003,
+    "reliability": 0.6471,
     "cued_role": "OBL"
    },
    "OTHERH_pre|by": {
@@ -2222,6 +2658,12 @@
     "availability": 0.0,
     "reliability": 1.0,
     "cued_role": "SUBJ"
+   },
+   "NUM_post|of_far": {
+    "n": 5,
+    "availability": 0.0001,
+    "reliability": 1.0,
+    "cued_role": "OBL"
    },
    "PRON_pre|other": {
     "n": 7,
@@ -2235,9 +2677,51 @@
     "reliability": 1.0,
     "cued_role": "OTHER"
    },
+   "OTHERH_pre|other_far": {
+    "n": 20,
+    "availability": 0.0003,
+    "reliability": 0.7,
+    "cued_role": "OBL"
+   },
+   "NOUN_post|of_far": {
+    "n": 24,
+    "availability": 0.0004,
+    "reliability": 0.5,
+    "cued_role": "OBL"
+   },
+   "VERB_pre|of": {
+    "n": 31,
+    "availability": 0.0005,
+    "reliability": 0.6452,
+    "cued_role": "SUBJ"
+   },
+   "OTHERH_post|of_far": {
+    "n": 2,
+    "availability": 0.0,
+    "reliability": 0.5,
+    "cued_role": "SUBJ"
+   },
+   "NUM_post|other_far": {
+    "n": 103,
+    "availability": 0.0016,
+    "reliability": 1.0,
+    "cued_role": "OBL"
+   },
    "ADJ_post|by": {
     "n": 12,
     "availability": 0.0002,
+    "reliability": 1.0,
+    "cued_role": "OBL"
+   },
+   "AUX_pre|other": {
+    "n": 6,
+    "availability": 0.0001,
+    "reliability": 1.0,
+    "cued_role": "SUBJ"
+   },
+   "PRON_post|other_far": {
+    "n": 1,
+    "availability": 0.0,
     "reliability": 1.0,
     "cued_role": "OBL"
    },
@@ -2247,10 +2731,28 @@
     "reliability": 0.6667,
     "cued_role": "SUBJ"
    },
+   "NUM_pre|of": {
+    "n": 7,
+    "availability": 0.0001,
+    "reliability": 1.0,
+    "cued_role": "OBL"
+   },
    "ADJ_pre|by": {
     "n": 4,
     "availability": 0.0001,
     "reliability": 1.0,
+    "cued_role": "OBL"
+   },
+   "ROOT_root|other_far": {
+    "n": 6,
+    "availability": 0.0001,
+    "reliability": 1.0,
+    "cued_role": "OTHER"
+   },
+   "NUM_pre|other_far": {
+    "n": 4,
+    "availability": 0.0001,
+    "reliability": 0.75,
     "cued_role": "OBL"
    },
    "AUX_pre|by": {
@@ -2265,6 +2767,18 @@
     "reliability": 1.0,
     "cued_role": "OBL"
    },
+   "OTHERH_post|other_far": {
+    "n": 4,
+    "availability": 0.0001,
+    "reliability": 0.5,
+    "cued_role": "OBL"
+   },
+   "VERB_post|of_far": {
+    "n": 11,
+    "availability": 0.0002,
+    "reliability": 0.8182,
+    "cued_role": "OBL"
+   },
    "NUM_post|by": {
     "n": 6,
     "availability": 0.0001,
@@ -2277,13 +2791,19 @@
     "reliability": 0.5,
     "cued_role": "SUBJ"
    },
-   "PRON_pre|of": {
+   "PRON_post|of_far": {
+    "n": 3,
+    "availability": 0.0,
+    "reliability": 1.0,
+    "cued_role": "OBL"
+   },
+   "PRON_pre|of_far": {
     "n": 1,
     "availability": 0.0,
     "reliability": 1.0,
     "cued_role": "SUBJ"
    },
-   "AUX_pre|of": {
+   "AUX_pre|of_far": {
     "n": 1,
     "availability": 0.0,
     "reliability": 1.0,
@@ -2293,6 +2813,134 @@
     "n": 1,
     "availability": 0.0,
     "reliability": 1.0,
+    "cued_role": "SUBJ"
+   },
+   "ADJ_post|other_far": {
+    "n": 4,
+    "availability": 0.0001,
+    "reliability": 0.75,
+    "cued_role": "OTHER"
+   },
+   "ADJ_post|of_far": {
+    "n": 1,
+    "availability": 0.0,
+    "reliability": 1.0,
+    "cued_role": "OTHER"
+   }
+  },
+  "pre_slot": {
+   "ROOT_root|na": {
+    "n": 3153,
+    "availability": 0.0477,
+    "reliability": 1.0,
+    "cued_role": "OTHER"
+   },
+   "PROPN_post|na": {
+    "n": 3406,
+    "availability": 0.0516,
+    "reliability": 0.8503,
+    "cued_role": "OTHER"
+   },
+   "VERB_pre|na": {
+    "n": 14285,
+    "availability": 0.2163,
+    "reliability": 0.7985,
+    "cued_role": "SUBJ"
+   },
+   "VERB_post|filled": {
+    "n": 11958,
+    "availability": 0.181,
+    "reliability": 0.5197,
+    "cued_role": "OBJ"
+   },
+   "NOUN_post|na": {
+    "n": 8579,
+    "availability": 0.1299,
+    "reliability": 0.654,
+    "cued_role": "OBL"
+   },
+   "NUM_post|na": {
+    "n": 777,
+    "availability": 0.0118,
+    "reliability": 0.6898,
+    "cued_role": "OBL"
+   },
+   "ADJ_pre|na": {
+    "n": 2267,
+    "availability": 0.0343,
+    "reliability": 0.8368,
+    "cued_role": "SUBJ"
+   },
+   "PROPN_pre|na": {
+    "n": 1788,
+    "availability": 0.0271,
+    "reliability": 0.7438,
+    "cued_role": "OTHER"
+   },
+   "ADJ_post|na": {
+    "n": 1113,
+    "availability": 0.0169,
+    "reliability": 0.7853,
+    "cued_role": "OBL"
+   },
+   "VERB_post|empty": {
+    "n": 6138,
+    "availability": 0.0929,
+    "reliability": 0.5886,
+    "cued_role": "OBJ"
+   },
+   "NOUN_pre|na": {
+    "n": 10597,
+    "availability": 0.1604,
+    "reliability": 0.8527,
+    "cued_role": "OTHER"
+   },
+   "NUM_pre|na": {
+    "n": 270,
+    "availability": 0.0041,
+    "reliability": 0.6852,
+    "cued_role": "OBL"
+   },
+   "AUX_pre|na": {
+    "n": 188,
+    "availability": 0.0028,
+    "reliability": 0.9521,
+    "cued_role": "SUBJ"
+   },
+   "PRON_post|na": {
+    "n": 343,
+    "availability": 0.0052,
+    "reliability": 0.4665,
+    "cued_role": "OBL"
+   },
+   "AUX_post|filled": {
+    "n": 17,
+    "availability": 0.0003,
+    "reliability": 0.7647,
+    "cued_role": "OBL"
+   },
+   "OTHERH_post|na": {
+    "n": 727,
+    "availability": 0.011,
+    "reliability": 0.6465,
+    "cued_role": "OBL"
+   },
+   "OTHERH_pre|na": {
+    "n": 339,
+    "availability": 0.0051,
+    "reliability": 0.5782,
+    "cued_role": "SUBJ"
+   },
+   "PRON_pre|na": {
+    "n": 93,
+    "availability": 0.0014,
+    "reliability": 0.9247,
+    "cued_role": "SUBJ"
+   },
+   "AUX_post|empty": {
+    "n": 11,
+    "availability": 0.0002,
+    "reliability": 0.9091,
     "cued_role": "SUBJ"
    }
   },
@@ -2872,5 +3520,6 @@
     "cued_role": "SUBJ"
    }
   }
- }
+ },
+ "perceived": false
 }

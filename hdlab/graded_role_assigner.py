@@ -316,7 +316,7 @@ _BYHEAD_NOM = ("NOUN", "PROPN", "PRON")
 # (built offline by tools/build_coarse_role_validities.py from UD-EWT TRAIN; evaluation treebanks never touched).
 ROLE_CLASSES = ["SUBJ", "OBJ", "PASS_SUBJ", "BY_AGENT", "OBL", "OTHER"]
 ROLE_TO_DEP = {"SUBJ": "nsubj", "OBJ": "obj", "PASS_SUBJ": "nsubj:pass", "BY_AGENT": "obl:agent", "OBL": "obl", "OTHER": "dep"}
-COARSE_CUES = ["config", "voice_order", "prep", "cop", "case", "post_rank"]
+COARSE_CUES = ["config", "voice_order", "prep", "cop", "case", "post_rank", "pre_slot"]
 _OBJ_CASE = frozenset({"him", "her", "them", "me", "us", "whom", "himself", "herself", "themselves", "myself", "ourselves", "itself"})
 _SUBJ_CASE = frozenset({"he", "she", "they", "i", "we", "who"})
 _SPAN_POS = frozenset({"DET", "ADJ", "NUM", "ADV", "PART", "NOUN", "PROPN", "PRON", "SYM", "X"})
@@ -332,27 +332,30 @@ def _head_class(pos: Sequence[str], h: int) -> str:
     return p if p in ("VERB", "AUX", "NOUN", "PROPN", "ADJ", "PRON", "NUM") else "OTHERH"
 
 
-def _prep_of(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int], i: int) -> Optional[str]:
-    """The preposition introducing nominal i (1-based): the ADP attached to it, else the SURFACE ADP that
-    immediately precedes the nominal's span (determiners/modifiers/compound nouns skipped) -- the cue the reader
-    actually perceives in serial order; robust to head errors."""
+def _prep_of(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int], i: int):
+    """The preposition introducing nominal i (1-based) and whether it was perceived DIRECTLY (attached ADP, or an ADP with
+    only determiners/modifiers between) or FAR (the surface scan crossed a noun-like token: "in the school bus" vs
+    "in the morning John" are indistinguishable by order alone -> a weaker, separately-learned cue value).
+    Returns (prep or None, far: bool)."""
     for j, h in heads.items():
         if h == i and j < i and j - 1 < len(pos) and pos[j - 1] == "ADP":
-            return toks[j - 1].lower()
+            return toks[j - 1].lower(), False
     j = i - 1
     steps = 0
+    crossed = False
     while j >= 1 and steps < 5:
         p = pos[j - 1]
         if p == "ADP":
-            return toks[j - 1].lower()
+            return toks[j - 1].lower(), crossed
         if p not in _SPAN_POS:
-            return None
+            return None, False
         if p in ("DET", "PRON"):
             # a determiner / possessive is the NP's LEFT EDGE: only an ADP immediately before it introduces this nominal
-            # ("In 1990 the city was destroyed": the scan must not cross "the" into the preceding PP)
-            return toks[j - 2].lower() if j >= 2 and pos[j - 2] == "ADP" else None
+            return (toks[j - 2].lower(), crossed) if j >= 2 and pos[j - 2] == "ADP" else (None, False)
+        if p in ("NOUN", "PROPN", "NUM"):
+            crossed = True
         j -= 1; steps += 1
-    return None
+    return None, False
 
 
 def coarse_role_cues(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int], i: int) -> Dict[str, str]:
@@ -372,15 +375,30 @@ def coarse_role_cues(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, i
     else:
         passive = False
         cues["voice_order"] = "na"
-    prep = _prep_of(toks, pos, heads, i)
+    prep, far = _prep_of(toks, pos, heads, i)
     if prep is None:
         cues["prep"] = "none"
     elif prep == "by":
         cues["prep"] = "by_passive" if passive else "by"
     elif prep == "of":
-        cues["prep"] = "of"
+        cues["prep"] = "of_far" if far else "of"
     else:
-        cues["prep"] = "other"
+        cues["prep"] = "other_far" if far else "other"
+    # PRE-VERBAL SLOT cue (Competition Model "first noun = agent" strategy): for a post-verbal nominal under a VERB/AUX head,
+    # is the verb's pre-verbal slot EMPTY (no nominal between the clause edge and the verb)? An empty slot makes a post-verbal
+    # nominal the likely SUBJECT (inversion, "said John", questions, relative clauses); a filled slot makes it the OBJECT.
+    if order == "post" and hc in ("VERB", "AUX") and h:
+        j = h - 1; filled = False
+        while j >= 1:
+            pj = pos[j - 1]
+            if pj in ("PUNCT", "SCONJ", "CCONJ") or pj in ("VERB",):
+                break
+            if pj in NOMINAL:
+                filled = True; break
+            j -= 1
+        cues["pre_slot"] = "filled" if filled else "empty"
+    else:
+        cues["pre_slot"] = "na"
     # COPULA cue: a nominal BEFORE a non-verbal predicate with an AUX (be/get) in between is the predicate's subject.
     if order == "pre" and hc not in ("VERB", "AUX"):
         cues["cop"] = "aux_between" if any(pos[j - 1] == "AUX" for j in range(i + 1, h)) else "none"

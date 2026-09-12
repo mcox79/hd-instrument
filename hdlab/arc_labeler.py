@@ -26,7 +26,7 @@ from __future__ import annotations
 
 __bf_status__ = 'NOT_BF'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
 __bf_verified__ = '2026-09-09 BF-certification pass (operation/math read of the pinned computation + key ops; strategy first-hand)'
-__bf_note__ = 'multiclass averaged-perceptron dependency-RELATION labeler (nsubj/obj/obl...), FROZEN supervised hard-decode -- the SAME discipline/verdict as arc_parser/pos_tagger; route around via the graded parser marginals'
+__bf_note__ = 'multiclass averaged-perceptron dependency-RELATION labeler, FROZEN supervised hard-decode -- NOT_BF for the fine non-argument relations it still decides (compound/appos/conj/nmod:poss...). 2026-09-12: the ARGUMENT roles of nominal dependents (nsubj/obj/nsubj:pass/obl:agent/obl) are decided by the Competition-Model organ graded_role_assigner.coarse_roles (COMPETITION_ROLES overlay, BF_SPIRIT, learned cue validities)'
 __bf_corrections__ = []
 
 
@@ -71,6 +71,48 @@ def label_voice_correct(toks: Sequence[str], pos: Sequence[str], heads: Dict[int
             aux = [c for c in ch.get(h, []) if pos[c - 1] == "AUX" and toks[c - 1].lower() in _BE_AUX]
             if aux and toks[h - 1].lower().endswith(("ed", "en")):
                 out[i] = "nsubj:pass"
+    return out
+
+
+# ======================================================================================================
+# COMPETITION-MODEL ARGUMENT ROLES (landed 2026-09-12, strategy; the first build of the upstream math-BF pass along the
+# affected-entity chain -- notes/SIGNAL_LOSS_LEDGER_affected_entity_chain.md, rung 5). THE DEFECT: this frozen perceptron is
+# the LOSSY rung of the pronoun-undergoer decision (labels alone -0.0369 of the -0.0705 parse loss; BY_AGENT 0.106,
+# PASS_SUBJ 0.581; 25% of gold undergoer pronouns labelled out of the undergoer set). THE OPERATION: grammatical roles
+# by PARALLEL CUE COMPETITION (Bates & MacWhinney) with strengths = learned cue validities (hdlab.graded_role_assigner
+# .coarse_roles; asset coarse_role_validities_ud_ewt.json from UD-EWT train). The competition decides the ARGUMENT roles
+# of nominal dependents (a perceptron argument label the competition rejects becomes 'dep'; probe v13: the competition's own
+# abstention beats falling back to the perceptron, +0.0235 CI-sep vs +0.0084 n.s.); fine non-argument relations are kept.
+# MEASURED: held-out UD-EWT test (gold heads) coarse-role accuracy 0.872 (SUBJ 0.925 / OBJ 0.951 / PASS_SUBJ 0.769 /
+# BY_AGENT 0.944 / OBL 0.887 / OTHER 0.920); the 596-item pronoun-undergoer decision (probe v13, predicted POS+heads):
+# 0.4698 -> 0.4933 = +0.0235 CI95 [+0.0033, +0.0436] vs the perceptron (a third of the -0.0705 parse loss recovered).
+# ======================================================================================================
+COMPETITION_ROLES: bool = True
+_ARG_ROLES = {"nsubj", "obj", "nsubj:pass", "obl:agent", "obl"}
+# every relation inside the competition's CLASS SPACE (SUBJ / OBJ / PASS_SUBJ / BY_AGENT / OBL incl. bare nmod) is the
+# competition's to decide: a perceptron label in this space that the competition rejects (OTHER) becomes 'dep'. Measured
+# (probe v14, 596 items): keeping the perceptron's `nmod` where the competition says OTHER cost -0.0168 CI-sep -- the
+# downstream decision consumes nmod as an object-class role; the competition's OTHER is the correct verdict.
+_CM_CLASS_BASES = {"nsubj", "csubj", "obj", "iobj", "obl", "nmod"}
+
+
+def _in_competition_space(dep: str) -> bool:
+    if not dep or dep == "nmod:poss":
+        return False          # a possessive is a determiner-like modifier, outside the competition's class space
+    return dep.split(":")[0] in _CM_CLASS_BASES
+
+
+def label_competition_roles(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int],
+                            labels: Dict[int, str]) -> Dict[int, str]:
+    """Overlay the Competition-Model argument roles of nominal dependents on `labels` (not mutated)."""
+    from hdlab.graded_role_assigner import coarse_roles
+    out = dict(labels)
+    for i, dep in coarse_roles(list(toks), list(pos), heads).items():
+        if dep in _ARG_ROLES:
+            out[i] = dep                       # the competition's argument role
+        elif _in_competition_space(out.get(i)):
+            out[i] = "dep"                     # the competition says NOT an argument; the perceptron's in-space label goes
+        # else: a fine non-argument relation (compound / appos / conj / nmod:poss ...) -- kept from the perceptron
     return out
 
 
@@ -209,7 +251,7 @@ class ArcLabeler:
         return self._fast
 
     def label(self, tokens: Sequence[str], pos: Sequence[str], heads: Dict[int, int], *,
-              voice_correction: "bool | None" = None) -> Dict[int, str]:
+              voice_correction: "bool | None" = None, competition_roles: "bool | None" = None) -> Dict[int, str]:
         """Label each arc dep->head under the GIVEN head map. Returns {dep_idx(1-based): deprel}. Routes through
         the byte-identical fast plan (~9x); output is identical to _predict_label for ANY weights (theorem). Then
         the VOICE post-correction (module default VOICE_CORRECTION; pass False for the raw perceptron labels)."""
@@ -223,7 +265,9 @@ class ArcLabeler:
             feats = arc_features(tokens, pos, i, h)
             out[i] = plan.predict(feats)
         use = VOICE_CORRECTION if voice_correction is None else voice_correction
-        return label_voice_correct(tokens, pos, heads, out) if use else out
+        out = label_voice_correct(tokens, pos, heads, out) if use else out
+        use_cm = COMPETITION_ROLES if competition_roles is None else competition_roles
+        return label_competition_roles(tokens, pos, heads, out) if use_cm else out
 
     def label_graded(self, tokens: Sequence[str], pos: Sequence[str], heads: Dict[int, int]) -> Dict[int, tuple]:
         """OPT-IN brain-faithful readout (default-off; NO consumer wired). Returns {dep_idx: (argmax_label,

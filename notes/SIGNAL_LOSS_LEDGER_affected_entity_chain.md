@@ -128,3 +128,14 @@ competent-reader reference ~0.85–0.90.
   coverage 0.792 (inventory fixed at the first consolidation → an inventory-GROWTH arm is the next plasticity step). The learner
   keeps adapting after landing; eta and the consolidation period are swept parameters. Sweep (exposure-weighted, pre-form-class
   code): 50k/k17 0.577, 50k/k34 0.693, 200k/k17 0.618 — k matters more than budget so far; 200k/k34, 200k/k68, 1M pending.
+- **FULL BOARD with the competition labels LIVE (2026-09-12 16:31Z, commit e03e710bc, 1565 s):** pooled AGG 0.6408 → 0.6377.
+  UP: affected_entity 0.3874 → 0.3972 (n 777 → 851: more pronouns now carry undergoer labels), forward half 0.4789 → 0.5008
+  (n 593 → 613), crosstype_experiencer +0.003. DOWN: who_did_what_patient 0.8303 → 0.8088 (n=1255), state 0.8333 → 0.8148
+  (n=378), selective_reliability.patient_defer 0.967 → 0.951 — the UD-EWT deprel-graded consumers. Everything else identical.
+  **OWNER RULING (verbatim intent): a downstream regression after a more-BF upstream is NOT failure — the top now carries MORE
+  signal; REPAIR THE CONSUMERS to receive it, never revert the BF rung.** Diagnosis (UD-EWT test, deployment parse, 8362
+  nominals): competition 0.804 vs perceptron 0.766 overall; SUBJ 0.796 vs 0.844 (post-verbal subjects labelled OBJ by raw
+  order ×34; pre-verbal subjects labelled OBL by a preposition scan crossing into a preceding phrase ×26); PASS_SUBJ 0.481 vs
+  0.583 (n=108); copular subjects 0.720 vs 0.782 (n=528); BY_AGENT 0.694 vs 0.056; OTHER 0.806 vs 0.683. Work-list: (1) cue
+  fixes for the two named gaps (pre-verbal-slot cue; direct-vs-far preposition) — more upstream signal; (2) the patient read
+  and the copular holder read consume the competition's GRADED posterior, not its MAP label; re-run the board.
