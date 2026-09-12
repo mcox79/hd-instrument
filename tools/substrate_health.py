@@ -155,6 +155,26 @@ def main(argv):
     bf_missing = _bf_ledger_missing([sl for _, _, sl in in_flight])
     gates.append(("in-review BF-bearing submissions are tracked in BF_COMPONENT_UPDATE_LEDGER", not bf_missing,
                   "" if not bf_missing else "MISSING from BF ledger: %s" % [s[:34] for s in bf_missing]))
+    # board PER-DIMENSION no-regress vs the previous FULL run (notes/BOARD_TREND.jsonl, appended by the board on
+    # every full --run; owner 2026-09-11: "make sure we're not regressing"). A drop of > 0.01 on any dimension/arm
+    # model number between the last two full runs fails the gate and names the row.
+    trend_regs, trend_n = [], 0
+    tp = os.path.join(REPO, "notes", "BOARD_TREND.jsonl")
+    if os.path.isfile(tp):
+        try:
+            trows = [json.loads(l) for l in open(tp, encoding="utf-8") if l.strip()]
+            trend_n = len(trows)
+            if len(trows) >= 2:
+                prev, cur = trows[-2], trows[-1]
+                for sect in ("dims", "arms"):
+                    for k, c in (cur.get(sect) or {}).items():
+                        pr = (prev.get(sect) or {}).get(k)
+                        if c and pr and c.get("model") is not None and pr.get("model") is not None and c["model"] < pr["model"] - 0.01:
+                            trend_regs.append("%s %.4f->%.4f" % (k, pr["model"], c["model"]))
+        except Exception as e:
+            trend_regs = ["trend log unreadable: %s" % e]
+    gates.append(("board per-dimension no-regress vs previous full run", not trend_regs,
+                  ("%d full runs logged; regressions: %s" % (trend_n, trend_regs)) if trend_regs else "%d full run(s) logged" % trend_n))
     n_fail = sum(1 for _, ok, _ in gates if not ok)
 
     out = []

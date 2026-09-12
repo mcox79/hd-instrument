@@ -2566,7 +2566,59 @@ def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True
     if write_metrics:
         with open(os.path.join(OUT_DIR, "metrics.json"), "w", encoding="ascii") as fh:
             json.dump(res, fh, indent=2, default=str)
+        if not caps:
+            _append_trend_row(res)
     return res
+
+
+TREND_PATH = os.path.join(_REPO, "notes", "BOARD_TREND.jsonl")
+
+
+def trend_row(res):
+    """One compact, committed line per FULL board run (2026-09-11, owner: 'make sure we're not regressing'): the
+    per-dimension model/floor/twin/n + every new arm's model/floor, so a regression check is per-dimension against
+    the PREVIOUS run, not against recollection (metrics.json is overwritten each run and is gitignored)."""
+    def _c(r):
+        return None if not r or r.get("model_acc") is None else {
+            "n": r.get("n"), "model": r.get("model_acc"), "floor": r.get("strongest_floor"),
+            "twin": r.get("twin_acc"), "sep": r.get("ci_sep_over_strongest")}
+    try:
+        import subprocess
+        commit = subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True,
+                                cwd=_REPO, timeout=10).stdout.strip()
+    except Exception:
+        commit = None
+    agg = res.get("aggregate_19c_free") or {}
+    return {"ts": res.get("ts_iso"), "commit": commit, "elapsed_s": res.get("elapsed_s"),
+            "agg": {"n": agg.get("n"), "model": agg.get("model_acc"), "floor": agg.get("strongest_floor"),
+                    "twin": agg.get("twin_acc"), "n_sep": agg.get("n_dims_ci_sep_over_floor"), "n_dims": agg.get("n_dims_total")},
+            "dims": {k: _c(v) for k, v in (res.get("per_dimension") or {}).items()},
+            "arms": {k: _c(v) for k, v in (res.get("new_board_arms") or {}).items() if isinstance(v, dict)}}
+
+
+def _append_trend_row(res):
+    try:
+        with open(TREND_PATH, "a", encoding="ascii") as fh:
+            fh.write(json.dumps(trend_row(res), default=str) + "\n")
+    except Exception as e:  # a trend log must never fail the board
+        print("[trend] not appended: %s: %s" % (type(e).__name__, e))
+
+
+def trend_regressions(n_last=2, tol=0.0):
+    """Compare the last two FULL runs per dimension/arm; return the rows whose model dropped by more than `tol`."""
+    if not os.path.isfile(TREND_PATH):
+        return []
+    rows = [json.loads(l) for l in open(TREND_PATH, encoding="ascii") if l.strip()]
+    if len(rows) < 2:
+        return []
+    prev, cur = rows[-2], rows[-1]
+    out = []
+    for sect in ("dims", "arms"):
+        for k, c in (cur.get(sect) or {}).items():
+            p = (prev.get(sect) or {}).get(k)
+            if c and p and c.get("model") is not None and p.get("model") is not None and c["model"] < p["model"] - tol:
+                out.append({"row": k, "prev": p["model"], "cur": c["model"], "delta": round(c["model"] - p["model"], 4)})
+    return out
 
 
 def _print(res):
