@@ -240,3 +240,9 @@ competent-reader reference ~0.85–0.90.
   retrieval + keep-alternatives-alive = Matrix-Tree posterior; reliability weighting, decorrelation by conditioning, divisive
   normalisation, exact marginalisation, form knowledge as constraints; the cue table; every consumer's signal requirement; the
   build plan as an ARM of the Competition-Model organ, self-supervised soft counts from the tree posterior).
+- **Attachment as CUE COMPETITION (probe v18, the spec's first build; smoke 1.5k/150):** unconditioned additive cues: taught by the
+  teacher's tree posterior 0.406, self-taught 0.369 (drift) — the same double-counting failure as the v2 role table; with
+  configuration-conditioned contrasts (config = category pair; locality/frame/form/boundary/agreement as within-config contrasts)
+  + self-teaching anchored on the teacher: **r0 0.4386 = teacher 0.4382; r1 0.4443 (> teacher); shuffled-strength twin 0.032.**
+  Decorrelation-by-conditioning is load-bearing for attachment too. Full-size run (6k/700) in progress; teacher there 0.4626,
+  teacher + constraints 0.4755.
