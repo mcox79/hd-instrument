@@ -313,3 +313,6 @@ competent-reader reference ~0.85–0.90.
   which text lacks beyond punctuation. → BOTH induced forms NEGATIVE as built; the four hand-written item-based schemas stay the
   coalition cue (they encode what prosody + meaning would teach). Remaining label-free route: constituency by SPAN SUBSTITUTABILITY
   (Clark 2001: a span is a unit if its external-context distribution is peaked / substitutable by one category), not dips.
+- Segmentation-first induced constructions (smoke) final: r0 0.4422 / r1 0.4573 vs no constructions 0.4386 / 0.4443 and hand-written
+  schemas 0.4558 / 0.4917 — a third of the hand-written gain; confirms the diagnosis (units are not constituents). Knowledge-free
+  bootstrap + hand-written constructions (full): r0 0.3712 → r1 0.4227 (rising faster than without constructions); r2 pending.
