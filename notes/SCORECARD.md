@@ -14,6 +14,14 @@ NEW word means from what it reads, using its sense of how things feel and look, 
 near the top about 38 times in 100 where the old method managed about 3.
 
 ## WHAT CHANGED LATELY
+- 2026-09-12 (day): first step of the 'what happens next' story model landed. On the hard who-was-affected test I separated the
+  real third-person cases (it/him/her/them, 596) from words that depend on who is speaking (you/me) and from this/that, which
+  the brain handles with different machinery. Three established mechanisms were added to the live reader: every time a pronoun
+  is resolved it counts as a fresh reference to that character (so often-referenced characters stay prominent); only things
+  referenced in the last two sentences are considered first; and himself/themselves must point at the clause-mate. On the
+  reader's own parse: 44 in 100 -> 48 in 100, clearly separated; scrambled controls fall to 39 and 18. Full check: pooled AGG 0.6408 -> 0.6408 (every dimension identical); who-was-affected row 0.3874 -> 0.3874; forward-half row 0.4789 on 593 third-person items; no regression.
+  Also learned, with numbers: general word knowledge from encyclopedias does not decide among the top few candidates here; the
+  brain's expectation is learned from who-did-what-to-whom event tuples, which is the next build.
 - 2026-09-12 (night): the wall left open earlier tonight is overcome. For helped-or-harmed, the reader now judges the STATE a person
   is left in (struck, strangled, injured), read from what the verb means in that sense, instead of how the word feels; how the word
   feels is only the second opinion. Batter, bludgeon, pummel, club and throttle are now judged 'harmed' (throttle and club used to be
@@ -40,6 +48,8 @@ near the top about 38 times in 100 where the old method managed about 3.
 Short term (the next week or two):
 - (Done 2026-09-12) The three finished pieces were folded in: helped-or-harmed, the part-of-speech finding, the verb-type organ.
 - (Done 2026-09-12, night) The assault-verb wall: the reader now values the state the person ends up in (researched and built the same night).
+- (Started 2026-09-12) The 'what happens next' story model: first arm landed (see above); next is the expectation learned from who-did-what-to-whom
+  event tuples, applied only among the few candidates in focus.
 - One shared "meaning store" that every part of the reader uses, instead of six separate copies (the brain keeps
   one). A strict pre-registered test decides whether the merged store is at least as good as the best copy.
 - Replace the one remaining outside dictionary tool the reader calls while reading with our own word-stemming.
@@ -69,7 +79,7 @@ Long term (the next few months):
 
 <!-- AUTO:BEGIN (written by tools/scorecard.py; edit the sections ABOVE, not this) -->
 
-Last full check: 2026-09-12T04:15:39.605699+00:00 (3 on record). Generated 2026-09-12T14:54:21+00:00.
+Last full check: 2026-09-12T15:13:01.582239+00:00 (5 on record). Generated 2026-09-12T15:13:35+00:00.
 
 | Ability | Group | How well | Compared with a simple rule | Since the previous check | Brain-faithful? |
 |---|---|---|---|---|---|
@@ -103,7 +113,7 @@ Last full check: 2026-09-12T04:15:39.605699+00:00 (3 on record). Generated 2026-
 | Whether one event was needed for another to happen | Causes | right 36 in 100 | clearly better than the simple rule (4 in 100) | unchanged since the previous check | brain model; some details still open |
 | How a character probably feels about an event | Feelings, goals, beliefs | right 94 in 100 | clearly better than the simple rule (44 in 100) | unchanged since the previous check | brain model; some details still open |
 | What a character believes, even when it is false | Feelings, goals, beliefs | right 65 in 100 | clearly better than the simple rule (49 in 100) | unchanged since the previous check | brain model; some details still open |
-| Whether an action helped or harmed someone | Feelings, goals, beliefs | right 100 in 100 | clearly better than the simple rule (33 in 100) | up 0.028 since the previous check | brain model; some details still open |
+| Whether an action helped or harmed someone | Feelings, goals, beliefs | right 100 in 100 | clearly better than the simple rule (33 in 100) | unchanged since the previous check | brain model; some details still open |
 | Whether an event helps or blocks a character's goal | Feelings, goals, beliefs | right 98 in 100 | clearly better than the simple rule (49 in 100) | unchanged since the previous check | brain model; some details still open |
 | Who is having the feeling | Feelings, goals, beliefs | right 20 in 100 | clearly better than the simple rule (14 in 100) | unchanged since the previous check | brain model; some details still open |
 | Working out what a new word means from reading | Learning from reading | right meaning ranked near the top 38 in 100 | clearly better than the simple rule (16 in 100) | unchanged since the previous check | brain model; some details still open |

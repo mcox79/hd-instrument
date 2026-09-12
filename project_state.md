@@ -1,6 +1,6 @@
 # project_state.md — The Active Context
 
-> Handoff document for the incoming session. Written 2026-09-11; LIVING — updated 2026-09-12 night (Fable 5.1 session) after the pri-7/pos-tagger/typed-selectional fold-in AND the pri-14 result-state arm (strategy research landing; `notes/RESEARCH_result_state_valuation_2026-09-12.md`). This is a *synthesis*; the always-current
+> Handoff document for the incoming session. Written 2026-09-11; LIVING — updated 2026-09-12 night (Fable 5.1 session) after the pri-7/pos-tagger/typed-selectional fold-in AND the pri-14 result-state arm (strategy research landing; `notes/RESEARCH_result_state_valuation_2026-09-12.md`) AND the pri-1 first arm (forward half of pronoun-undergoer resolution; `notes/RESEARCH_generative_entity_state_pri1_2026-09-12.md`; key document `notes/BRAIN_MATH_REFERENCE.md`). This is a *synthesis*; the always-current
 > machine-derived truth lives in `python tools/substrate_health.py`, `notes/STATUS.md`, `git log`, and
 > `notes/bf_status_registry.jsonl` — **those OUTRANK this document wherever they disagree.** Read STATUS.md first,
 > then this.
