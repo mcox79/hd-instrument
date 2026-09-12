@@ -287,3 +287,12 @@ competent-reader reference ~0.85–0.90.
 - **LANDING GATE 1 FULL (prior-free bootstrap, 6k/700): teacher 0.2722 (< floor 0.285) → student r0 0.3505 → r1 0.3631 → r2 0.3751**
   (still rising); the organ's cues build structure from a knowledge-free start, but 0.11 below the prior-informed bootstrap
   (0.4834) — the hand-authored Naseem prior was carrying ~0.1 of the earlier number. Knowledge-free + constructions queued.
+- **SEMANTIC BOOTSTRAPPING test (probe v21, smoke 1.5k/150) — VETTED NEGATIVE on the headline, useful residue:** meaning-only teacher
+  (typed selectional association for verb→nominal arcs + locality + form; no treebank, no hand table) UAS 0.203, core-argument
+  recall (verb→nsubj/obj/iobj/nsubj:pass) 0.364; the competition taught by it: UAS 0.361 / 0.369, core-arg recall **0.840**.
+  CONTROL reproduces it from the wrong source: "every nominal → nearest verb" heuristic 0.837 (supervised parser 0.847; floor
+  0.211; prior-informed co-occurrence teacher 0.571). → the 0.84 is LOCALITY, not meaning; head-verb identification is ~solved by
+  proximity; the consumer-relevant losses sit in ROLES (the competition's job) and in the structure proximity cannot give (PP
+  attachment, NP internals, clauses, coordination) = the CONSTRUCTIONS domain. Meaning as the outcome signal stays a hypothesis
+  for PP/clausal disambiguation (Hindle-Rooth), not for core arguments.
+- **Constructions full (6k/700): r0 0.4715 → 0.4941** with the coalition cue; r1/r2 pending. Transfer 29.5 GB.
