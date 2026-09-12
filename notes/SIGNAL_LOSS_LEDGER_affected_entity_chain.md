@@ -353,3 +353,10 @@ competent-reader reference ~0.85–0.90.
 - **Occupancy (second-order mean-field) cue + constructions incl. function-word frames, smoke 1.5k/150: r0 0.4616, r1 0.4946 (twin
   0.036)** vs the earlier constructions-only smoke (four schemas, no fw, no sibling) 0.4558 / 0.4917 → +0.006 / +0.003 confounded
   between the two additions; control (fw constructions without the occupancy cue) running.
+- **Control smoke (function-word frames as a LEARNED cue, no occupancy): r0 0.4662 / r1 0.5050** vs four schemas 0.4558 / 0.4917 →
+  +0.013; knowledge-free full r0 0.3817 vs 0.3712 (+0.01). **Occupancy cue = NEGATIVE as built** (0.4946 with it vs 0.5050 without).
+  **Volume FINAL (v20): 60k read sentences r0 0.4678 / r1 0.4599 (declining; twin 0.070) — CLOSED as a lever for this learner.**
+  Why function-word frames recover so little of the anatomy's 0.10: their strengths are learned from a teacher that does not know
+  where ADP/punct/cop attach → self-supervision cannot teach ANNOTATION CONVENTIONS (no raw-text statistic determines them; that is
+  exactly what labelled trees buy). Design consequence: a separate, explicitly-labelled CONVENTION layer that applies the frames
+  deterministically at decode for the UD metric, while the learned competition remains the comprehension organ (consumers read it).

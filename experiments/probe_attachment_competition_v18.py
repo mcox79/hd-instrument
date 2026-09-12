@@ -43,6 +43,7 @@ from hdlab.thematic_role_labeler import lemma_verb
 TEACHER = os.path.join(_REPO, "data", "_readlearned_models", "em_n11991_r2_lam0.30_pw3.00.pkl")
 FORM = {"PUNCT", "NUM", "SYM"}
 CUES = ["locality", "catpair", "frame", "form", "boundary", "agree", "root", "lex", "plaus", "constr", "sib"]
+FW_FORCE = float(sys.argv[sys.argv.index("--fw-force") + 1]) if "--fw-force" in sys.argv else 0.0   # convention layer bonus at decode
 USE_SIB = "--sibling" in sys.argv   # SECOND-ORDER via VALENCE OCCUPANCY (mean-field): the cue includes what the head has already
                                     # attached -- expected number of OTHER dependents of this class on this side under the previous
                                     # pass's posterior (Lewis-Vasishth retrieval cue; sibling factorisation = +13.3 label-free in the field)
@@ -266,6 +267,7 @@ class AttachmentCompetition:
 
     def score_matrix(self, toks, pos, occ=None):
         n = len(toks); A = np.full((n + 1, n + 1), -np.inf)
+        fw = construction_arcs(toks, pos) if FW_FORCE else {}
         for j in range(1, n + 1):
             for h in range(0, n + 1):
                 if h == j:
@@ -273,6 +275,8 @@ class AttachmentCompetition:
                 if h and pos[h - 1] in FORM:
                     continue                                      # form classes never head (constraint)
                 A[h][j] = self.arc_score(arc_cues(toks, pos, j, h, self.frames, occ))
+                if FW_FORCE and fw.get((h, j)) == "fw":
+                    A[h][j] += FW_FORCE                       # CONVENTION layer: function-word frames applied at decode (UD metric only)
         if USE_SIB and occ is None:
             # two-pass mean-field: first-pass posterior -> occupancy -> second-pass scores
             occ1 = occupancy_table(single_root_marginals(A, n, 1.0), pos, n)
@@ -354,7 +358,7 @@ def main():
     out["elapsed_s"] = round(time.time() - t0, 1); out["smoke"] = smoke
     print(json.dumps(out, indent=1))
     from experiments._seed_checkpoint import get_output_dir
-    od = str(get_output_dir("probe_attachment_competition_v18" + ("_priorfree" if "--prior-free-teacher" in sys.argv else "") + ("_plaus" if USE_PLAUS else "") + ("_constr" if USE_CONSTR else "") + (("_a%g_r%d" % (ALPHA, ROUNDS)) if ("--alpha" in sys.argv or "--rounds" in sys.argv) else "") + (("_d%g" % LEARN_DELTA) if LEARN_DELTA else "") + ("_punct" if PUNCT_HARD else "") + ("_curr" if CURRICULUM else "") + ("_sib" if USE_SIB else "") + ("_smoke" if smoke else ""))); os.makedirs(od, exist_ok=True)
+    od = str(get_output_dir("probe_attachment_competition_v18" + ("_priorfree" if "--prior-free-teacher" in sys.argv else "") + ("_plaus" if USE_PLAUS else "") + ("_constr" if USE_CONSTR else "") + (("_a%g_r%d" % (ALPHA, ROUNDS)) if ("--alpha" in sys.argv or "--rounds" in sys.argv) else "") + (("_d%g" % LEARN_DELTA) if LEARN_DELTA else "") + ("_punct" if PUNCT_HARD else "") + ("_curr" if CURRICULUM else "") + ("_sib" if USE_SIB else "") + (("_fwf%g" % FW_FORCE) if FW_FORCE else "") + ("_smoke" if smoke else ""))); os.makedirs(od, exist_ok=True)
     json.dump(out, open(os.path.join(od, "metrics.json"), "w", encoding="utf-8"), indent=1)
 
 
