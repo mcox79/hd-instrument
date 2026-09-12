@@ -300,3 +300,5 @@ competent-reader reference ~0.85–0.90.
   co-occurrence teacher 0.4626; the best label-free attachment in the substrate so far; r2 pending.
 - **Volume (probe v20): 20k Simple-Wiki sentences (substrate tagger) r0 0.4688 / r1 0.4781 ≈ 6k UD sentences (0.4715 / 0.4801) —
   FLAT.** Confirms the pri-2 scale curve: more text does not move this learner; STRUCTURE does. 60k arm pending.
+- **Constructions coalition cue FULL FINAL: r2 0.5303 (twin 0.089)** — 0.4626 → 0.5303 (+0.068) from the competition + learned
+  conditioned strengths + the construction coalition; still rising per round. Knowledge-free + constructions run started.

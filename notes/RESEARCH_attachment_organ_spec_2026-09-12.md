@@ -101,7 +101,7 @@ rational parsing); Kjelgaard & Speer 1999 (prosodic boundaries); Altmann & Steed
 | unconditioned additive cues (smoke) | drifted 0.41 → 0.37 | decorrelation by conditioning is load-bearing |
 | shuffled-strength twin (smoke) | 0.03 | |
 | lexical cue at 1.5k sentences (smoke) | −0.02 | too sparse; needs volume (lever 1 before lever 2) |
-| **+ CONSTRUCTIONS coalition cue (verbarg/coord/npmod/clausal), full** | **r0 0.4941, r1 0.5228** | structure, not distribution; past pri-2's 0.514 |
+| **+ CONSTRUCTIONS coalition cue (verbarg/coord/npmod/clausal), full** | **r0 0.4941, r1 0.5228, r2 0.5303** (twin 0.089) | structure, not distribution; past pri-2's 0.514 |
 | experience volume: 20k Simple-Wiki sentences vs 6k UD | 0.4688 / 0.4781 vs 0.4715 / 0.4801 | FLAT — volume is not the lever |
 | knowledge-free bootstrap (prior-free teacher 0.272) | r0 0.3505, r1 0.3631, r2 0.3751 | the hand prior was worth ~0.1; + constructions queued |
 | meaning (plausibility) cue, smoke | +0.0015 | low verb coverage; core-arg recall 0.84 is LOCALITY (nearest-verb control 0.837) |
