@@ -2579,9 +2579,32 @@ def trend_row(res):
     per-dimension model/floor/twin/n + every new arm's model/floor, so a regression check is per-dimension against
     the PREVIOUS run, not against recollection (metrics.json is overwritten each run and is gitignored)."""
     def _c(r):
-        return None if not r or r.get("model_acc") is None else {
-            "n": r.get("n"), "model": r.get("model_acc"), "floor": r.get("strongest_floor"),
-            "twin": r.get("twin_acc"), "sep": r.get("ci_sep_over_strongest")}
+        if not isinstance(r, dict):
+            return None
+        if r.get("model_acc") is not None:
+            return {"n": r.get("n"), "model": r.get("model_acc"), "floor": r.get("strongest_floor"),
+                    "twin": r.get("twin_acc"), "sep": r.get("ci_sep_over_strongest")}
+        if r.get("model") is not None:                      # e.g. theory_of_mind's row schema
+            return {"n": r.get("n"), "model": r.get("model"), "floor": r.get("floor"), "twin": r.get("twin"),
+                    "sep": r.get("ci_sep") if r.get("ci_sep") is not None else r.get("ci_sep_over_floor")}
+        return None
+
+    def _arms(d):
+        """Flatten arms: a row dict -> one entry; a dict of sub-rows (selective_reliability, causal_multihop,
+        negation_quantifier) -> one entry per sub-row keyed 'arm.sub'."""
+        out = {}
+        for k, v in (d or {}).items():
+            if not isinstance(v, dict):
+                continue
+            c = _c(v)
+            if c is not None:
+                out[k] = c
+                continue
+            for sk, sv in v.items():
+                sc = _c(sv) if isinstance(sv, dict) else None
+                if sc is not None:
+                    out["%s.%s" % (k, sk)] = sc
+        return out
     try:
         import subprocess
         commit = subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True,
@@ -2593,7 +2616,7 @@ def trend_row(res):
             "agg": {"n": agg.get("n"), "model": agg.get("model_acc"), "floor": agg.get("strongest_floor"),
                     "twin": agg.get("twin_acc"), "n_sep": agg.get("n_dims_ci_sep_over_floor"), "n_dims": agg.get("n_dims_total")},
             "dims": {k: _c(v) for k, v in (res.get("per_dimension") or {}).items()},
-            "arms": {k: _c(v) for k, v in (res.get("new_board_arms") or {}).items() if isinstance(v, dict)}}
+            "arms": _arms(res.get("new_board_arms"))}
 
 
 def _append_trend_row(res):
