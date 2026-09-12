@@ -64,6 +64,8 @@ owner knows it can be broken, as it has been time and time before.
     compare against the brain, where along the chain do we lose signal, and what exactly differs between our implementation
     and how the brain does it exactly?
 
+**Evidence that these pushes work (farmed from the five sessions, ~60 walls, two-thirds broken):** `notes/HOW_WALLS_WERE_BROKEN_2026-09-12.md` — read its section 2 (the nine moves) and section 3 (the self-check) before writing any wall.
+
 ## How strategy applies them (the operating rule)
 
 - **Before writing "wall", "ceiling", "located negative", "information limit" or "data-blocked" anywhere:** run messages 6–8 on
