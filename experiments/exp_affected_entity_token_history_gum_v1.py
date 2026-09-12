@@ -76,7 +76,7 @@ REFLEXIVE = {"himself", "herself", "itself", "themselves"}
 
 
 def run_arm(data, *, accrue=True, window=WINDOW, clock="order", decay=DEFAULT_DECAY,
-            scramble_accrual=False, scramble_window=False, rng=None, principle_a=False):
+            scramble_accrual=False, scramble_window=False, rng=None, principle_a=False, targets=None):
     """One configuration over all THIRD-person undergoer targets. Returns list of (hit, form).
     The LOAD-BEARING math is the organ: hdlab.affected_entity_resolver.EntityTokens (tokens, accrual, foreground,
     Principle A) -- this cell only feeds it the GUM mention stream and scores against gold. `clock` selects which
@@ -90,8 +90,10 @@ def run_arm(data, *, accrue=True, window=WINDOW, clock="order", decay=DEFAULT_DE
         gidx2dep = {t.gidx: t.deprel for t in doc.toks}
         gidx2tok = {t.gidx: t for t in doc.toks}
         und = {}
+        tset = targets.get(id(doc)) if targets is not None else None     # fixed target set (gidx) for per-rung ablations
         for t in doc.toks:
-            if t.deprel in B1.UND_DEPRELS and t.gidx in head_to_mi and doc.mentions[head_to_mi[t.gidx]].mtype == "pronoun":
+            is_target = (t.gidx in tset) if tset is not None else (t.deprel in B1.UND_DEPRELS)
+            if is_target and t.gidx in head_to_mi and doc.mentions[head_to_mi[t.gidx]].mtype == "pronoun":
                 und[head_to_mi[t.gidx]] = t
         T = AER.EntityTokens(window=None if scramble_window else window, decay=decay, accrue=accrue)
         for mi, m in enumerate(mlive):

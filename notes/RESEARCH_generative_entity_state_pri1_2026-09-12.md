@@ -127,6 +127,14 @@ objects/obliques), while the ACT-R sum with SUBJECT 4.0 / OBJECT 2.0 / OTHER 1.0
 steal them. Next: sweep the operating point of the pinned computation (role-prominence magnitudes for the object-pronoun
 resolver; history depth of the base-level sum; decay) rather than add a term.
 
+
+**Operating-point sweep on the landed forward half (v10, THIRD non-reflexive n=570, acc 0.5358):** role-prominence magnitudes
+(SUBJ,OBJ,OTHER) ∈ {(4,2,1) landed, (2,2,1), (1,1,1), (2,2,2), (1,2,1), (4,4,2), (2,4,2)} all within CI of the landed point
+(best 0.5445 n.s.); history depth m=1..5 ≈ full; decay d=1.0 −0.045 and d=5.0 −0.066 CI-sep worse, d=2–3 flat; parallelism
+gammas (0.5,0.5) −0.042, (0,0) −0.105 CI-sep. => the prior is at its operating point; the residual is NOT a parameter of the
+salience equation. Combined with v9 (the pick is the established entity), the loss is upstream (parse, tokens) or in the
+unbuilt event expectation.
+
 ## 4. Where the signal is lost (upstream trace, numbers)
 1. **Instrument:** 48% of the slice is not an entity-salience task (deictic/demonstrative/other). Measure THIRD separately;
    route DEICTIC to a speech-situation (speaker/addressee) arm and DEMONSTRATIVE to abstract anaphora.
