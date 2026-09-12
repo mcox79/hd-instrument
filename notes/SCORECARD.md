@@ -14,6 +14,12 @@ NEW word means from what it reads, using its sense of how things feel and look, 
 near the top about 38 times in 100 where the old method managed about 3.
 
 ## WHAT CHANGED LATELY
+- 2026-09-12 (overnight): helped-or-harmed judgements now come from the brain's own computation (how the force acts, how
+  the outcome feels for the person affected, whether they were truly affected) instead of a fixed word list; 97 in 100 on the
+  36-sentence test (was 78), scrambled control 58. Two upstream fixes came with it (a noun mistaken for an adjective after
+  'the' is corrected; the subject of a passive sentence is labelled as the one acted on), and passive sentences now reach the
+  judgement. Stand-ins fell from 7 to 6. A 'what kinds of things a verb acts on' knowledge organ was added (kept in reserve
+  for the 'what happens next' model, because on its own it measured no better than grammar).
 - 2026-09-11 (late): the pronoun-picker carried its own copy of the "how recent and how prominent was it" rule; it now uses
   the one shared rule every other part uses. Same answers on every check.
 - 2026-09-11 (late): the three time-ordering components were merged into one, with identical results on every check (the
@@ -26,8 +32,7 @@ near the top about 38 times in 100 where the old method managed about 3.
 
 ## WHAT WE ARE WORKING ON
 Short term (the next week or two):
-- Fold in the three finished pieces of work once you mark them done (helped-or-harmed, a better part-of-speech
-  reader, which kinds of things a verb takes). Two of them replace stand-ins with brain-faithful parts.
+- (Done 2026-09-12) The three finished pieces were folded in: helped-or-harmed, the part-of-speech finding, the verb-type organ.
 - One shared "meaning store" that every part of the reader uses, instead of six separate copies (the brain keeps
   one). A strict pre-registered test decides whether the merged store is at least as good as the best copy.
 - Replace the one remaining outside dictionary tool the reader calls while reading with our own word-stemming.
@@ -46,7 +51,8 @@ Long term (the next few months):
 ## WHAT IS NOT YET BRAIN-FAITHFUL
 - The sentence-structure reader (five building blocks) is a trained stand-in, not the brain's method. A
   reading-learned replacement exists and matches it on familiar text; switching it on is a posted problem.
-- The helped-or-harmed judgement uses a fitted word list; a brain-faithful replacement is finished and awaiting review.
+- A few physical-assault verbs whose everyday rating is neutral because of another sense (batter, throttle, wrench, bludgeon)
+  now get no helped-or-harmed judgement; the fix is reading the state the person is left in (posted as a follow-on).
 - The "same dog as before" check still uses a surface-string component in one place; its replacement is awaiting review.
 - The word-stemmer calls an outside dictionary tool while reading (computation right, implementation not ours).
 - The rule for combining the senses when learning a word is a reasonable model, not yet pinned to the brain; the
@@ -54,7 +60,7 @@ Long term (the next few months):
 
 <!-- AUTO:BEGIN (written by tools/scorecard.py; edit the sections ABOVE, not this) -->
 
-Last full check: 2026-09-11T23:35:31.306190+00:00 (1 on record). Generated 2026-09-12T02:53:46+00:00.
+Last full check: 2026-09-11T23:35:31.306190+00:00 (1 on record). Generated 2026-09-12T03:06:22+00:00.
 
 | Ability | Group | How well | Compared with a simple rule | Since the previous check | Brain-faithful? |
 |---|---|---|---|---|---|
@@ -95,6 +101,6 @@ Last full check: 2026-09-11T23:35:31.306190+00:00 (1 on record). Generated 2026-
 | Knowing when to hold back on 'who was acted on' | Knowing its limits | right 97 in 100 | clearly better than the simple rule (88 in 100) | first full check on record | brain model; one part is a stand-in we are replacing |
 | Knowing when to hold back on a place or time attachment | Knowing its limits | right 84 in 100 | clearly better than the simple rule (76 in 100) | first full check on record | uses a stand-in we are replacing |
 
-Brain-faithfulness of the 84 building blocks: 7 copy the brain's math exactly, 71 are brain models with open details, 6 are stand-ins being replaced (arc_labeler, arc_parser, arceager_parser, commonnoun_binder, parse_confidence, pos_tagger).
+Brain-faithfulness of the 85 building blocks: 7 copy the brain's math exactly, 72 are brain models with open details, 6 are stand-ins being replaced (arc_labeler, arc_parser, arceager_parser, commonnoun_binder, parse_confidence, pos_tagger).
 
 <!-- AUTO:END -->
