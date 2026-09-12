@@ -344,3 +344,9 @@ competent-reader reference ~0.85–0.90.
   valence occupancy; mean-field second order), learned like every other cue, two-pass decode. Smoke with constructions running.
 - **Knowledge-free + constructions, 5 rounds, α=0.8 (student-heavy anchor): 0.3712 → 0.4279 → 0.4368 → 0.4361 → 0.4430 → 0.4495**
   (twin 0.067) — still creeping up at round 5; the fully knowledge-free organ is at ~0.45 before the function-word constructions.
+- **Learning-time mechanisms combined (δ=0.6 in the E-step, hard punctuation segmentation in learning, short-sentence curriculum),
+  knowledge-free + constructions, 3 rounds: 0.3463 → 0.3953 → 0.4004 → 0.3982 (twin 0.085) vs the plain path 0.3712 → 0.4279 →
+  0.4368 → 0.4361 → NEGATIVE as built (−0.04).** The published +20.2 (Smith & Eisner) is a DMV generative-EM result; in a
+  contrast-learned competition the learning-time length bias distorts the configuration counts the strengths are read from, and the
+  hard segmentation removes the cross-punctuation arcs the constructions and the root decision need. Not re-tried as a bundle;
+  if revisited, ONE mechanism at a time, and the length bias applied to the TEACHER's posterior only.
