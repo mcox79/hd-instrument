@@ -370,3 +370,11 @@ competent-reader reference ~0.85–0.90.
   0.4826 → 0.4826 (converged; twin 0.158 — the convention layer alone yields arcs).** The fully BF organ (no hand prior; conventions
   stated as such) = **0.4826** vs the prior-informed co-occurrence teacher 0.4626, prior-informed + constructions 0.5303, supervised
   0.78, field label-free ceiling 0.68. Asset build with this configuration launched (`tools/build_attachment_validities.py`).
+- **Asset built (`attachment_validities_v1.json`, 514 KB): organ 0.4792 (probe 0.4826). ANATOMY of the LANDED knowledge-free organ
+  vs supervised (0.4825 vs 0.7793):** conventions largely recovered (case 0.743, cop 0.400, cc 0.440, punct 0.284) BUT the CORE
+  collapsed: **obj 0.189** (prior-informed path 0.755), obl 0.118, nmod 0.188, root 0.413, nsubj 0.611, xcomp 0.256, ccomp 0.206,
+  advcl 0.056. The knowledge-free teacher never learned that the VERB HEADS ITS ARGUMENTS (the witness: "dog" → root, "bitten" →
+  "man"), so the 0.48 is conventions + NP internals while who-did-what-to-whom is wrong — worse for the consumers than the
+  prior-informed 0.53. That is precisely the knowledge the hand-written universal table supplied, and the brain gets it from
+  MEANING (the event predicate heads its participants; semantic bootstrapping). Next: the knowledge-free teacher + the MEANING
+  teacher (probe v21: verb→nominal plausibility, root = the predicate with the most plausible arguments) as ONE teacher posterior.

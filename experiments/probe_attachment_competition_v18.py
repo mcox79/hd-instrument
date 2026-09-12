@@ -307,7 +307,31 @@ def main():
     t0 = time.time()
     train = load_ud(UD_TRAIN, cap=1500 if smoke else 6000, maxlen=40)
     test = load_ud(UD_TEST, cap=150 if smoke else 700)
-    if "--prior-free-teacher" in sys.argv:
+    if "--meaning-teacher" in sys.argv:
+        # SEMANTIC BOOTSTRAPPING of the head-direction knowledge the hand prior supplied: the knowledge-free co-occurrence teacher
+        # (phrase internals) + the MEANING teacher (probe v21: the event predicate heads its plausible participants) as ONE posterior.
+        import experiments.probe_semantic_bootstrap_attachment_v21 as V21
+        tr = [[(0, t[1], t[2], 0, "_") for t in s] for s in train]
+        base = SelfSupEM(lam=0.3, prior_weight=0.0, lex_weight=0.0).learn_raw(tr)
+        for _ in range(2):
+            base.em_round(tr)
+        meaning = V21.MeaningTeacher(beta=float(sys.argv[sys.argv.index("--beta") + 1]) if "--beta" in sys.argv else 2.0)
+        class CombinedTeacher:
+            lam = base.lam; prior_weight = 0.0; lex_weight = 0.0
+            def _score_matrix(self, toks, pos):
+                A, n = base._score_matrix(toks, pos); B, _ = meaning._score_matrix(toks, pos)
+                C = A.copy()
+                for h in range(0, n + 1):
+                    for j in range(1, n + 1):
+                        if h != j and np.isfinite(A[h][j]) and np.isfinite(B[h][j]):
+                            C[h][j] = A[h][j] + (B[h][j] + meaning.lam * math.log(abs(h - j) + 1.0) if h else B[h][j])   # meaning bonus without double distance
+                return C, n
+            def parse_cle(self, toks, pos):
+                from hdlab.graded_parser import chu_liu_edmonds
+                A, n = self._score_matrix(toks, pos); return chu_liu_edmonds(A, n)
+        teacher = CombinedTeacher()
+        print("teacher = knowledge-free co-occurrence + MEANING (typed selectional association; predicate heads its participants)", flush=True)
+    elif "--prior-free-teacher" in sys.argv:
         # LANDING GATE 1 (spec s7): bootstrap from a PRIOR-FREE learner (categories + locality only; NO hand-authored prior),
         # trained on the same sentences for 2 EM rounds -- no knowledge enters except what the reading provides.
         tr = [[(0, t[1], t[2], 0, "_") for t in s] for s in train]
@@ -358,7 +382,7 @@ def main():
     out["elapsed_s"] = round(time.time() - t0, 1); out["smoke"] = smoke
     print(json.dumps(out, indent=1))
     from experiments._seed_checkpoint import get_output_dir
-    od = str(get_output_dir("probe_attachment_competition_v18" + ("_priorfree" if "--prior-free-teacher" in sys.argv else "") + ("_plaus" if USE_PLAUS else "") + ("_constr" if USE_CONSTR else "") + (("_a%g_r%d" % (ALPHA, ROUNDS)) if ("--alpha" in sys.argv or "--rounds" in sys.argv) else "") + (("_d%g" % LEARN_DELTA) if LEARN_DELTA else "") + ("_punct" if PUNCT_HARD else "") + ("_curr" if CURRICULUM else "") + ("_sib" if USE_SIB else "") + (("_fwf%g" % FW_FORCE) if FW_FORCE else "") + ("_smoke" if smoke else ""))); os.makedirs(od, exist_ok=True)
+    od = str(get_output_dir("probe_attachment_competition_v18" + ("_priorfree" if "--prior-free-teacher" in sys.argv else "") + ("_meaningT" if "--meaning-teacher" in sys.argv else "") + ("_plaus" if USE_PLAUS else "") + ("_constr" if USE_CONSTR else "") + (("_a%g_r%d" % (ALPHA, ROUNDS)) if ("--alpha" in sys.argv or "--rounds" in sys.argv) else "") + (("_d%g" % LEARN_DELTA) if LEARN_DELTA else "") + ("_punct" if PUNCT_HARD else "") + ("_curr" if CURRICULUM else "") + ("_sib" if USE_SIB else "") + (("_fwf%g" % FW_FORCE) if FW_FORCE else "") + ("_smoke" if smoke else ""))); os.makedirs(od, exist_ok=True)
     json.dump(out, open(os.path.join(od, "metrics.json"), "w", encoding="utf-8"), indent=1)
 
 
