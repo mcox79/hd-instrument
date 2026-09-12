@@ -173,3 +173,6 @@ competent-reader reference ~0.85–0.90.
   200 observations move P(IOBJ|"him" in "she saw him") 0.16 → 0.58; save/load round-trip exact. Witness 23/23. The OUTCOME
   source at read time (what confirms a role without gold) is the next design question — candidates: agreement/number checks,
   resolved-event consistency, the reader's own high-margin decisions (self-confirmation, to be measured for drift).
+- **596-item decision with the FINAL labeler (IOBJ + animacy + frame + post-slot coalition; probe v13 re-run):** LIVE 0.4966 vs
+  supervised 0.4698 = **+0.0268 CI95 [+0.0067, +0.0487]** (was +0.0235); gold heads +0.0201 [0.000, +0.042]; perceived-learned
+  validities = identical decisions (tie, kept gold-learned); fallback-to-perceptron +0.0101 n.s. Witness 23/23 (incl. plasticity).

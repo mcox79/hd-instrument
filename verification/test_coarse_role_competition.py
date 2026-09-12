@@ -93,6 +93,25 @@ def main():
     rt = G.coarse_roles(t, p, h, validities=twin)
     check("shuffled-strength twin breaks the passive/agent labels", not (rt.get(2) == "nsubj:pass" and rt.get(7) == "obl:agent"), rt)
 
+    # 7. PLASTICITY (owner 2026-09-12: never frozen): the table carries counts; observing confirmed outcomes moves the belief;
+    #    strengths rebuilt from counts reproduce the loaded strengths exactly; save/load round-trips the grown table.
+    import copy, os as _os, tempfile
+    tab_l = G.load_coarse_validities()
+    check("validity asset carries accrual counts", bool(tab_l.get("counts")))
+    rebuilt = G.strengths_from_counts(tab_l["counts"])
+    same = all(np.allclose(rebuilt["strength"][c][v], tab_l["strength"][c][v]) for c in rebuilt["strength"] for v in rebuilt["strength"][c])
+    check("strengths are a pure function of the counts (rebuild == loaded)", same and np.allclose(rebuilt["prior"], tab_l["prior"]))
+    tab2 = {"prior": tab_l["prior"].copy(), "strength": tab_l["strength"], "counts": copy.deepcopy(tab_l["counts"]), "lemma_frames": tab_l["lemma_frames"]}
+    t = "She saw him .".split(); p = ["PRON", "VERB", "PRON", "PUNCT"]; h = {1: 2, 2: 0, 3: 2, 4: 2}
+    ki = G.ROLE_CLASSES.index("IOBJ")
+    before = float(G.coarse_role_posterior(t, p, h, 3, tab2)[ki])
+    for _ in range(200):
+        G.observe_role_outcome(t, p, h, 3, "IOBJ", tab2)
+    after = float(G.coarse_role_posterior(t, p, h, 3, tab2)[ki])
+    check("online accrual moves the belief toward the observed outcome", after > before + 0.2, (before, after))
+    tmp = _os.path.join(tempfile.gettempdir(), "coarse_role_validities_roundtrip.json")
+    G.save_coarse_validities(tmp, tab2); tab3 = G.load_coarse_validities(tmp)
+    check("save/load round-trip preserves the grown table", abs(float(G.coarse_role_posterior(t, p, h, 3, tab3)[ki]) - after) < 1e-9)
     print(f"\n{PASS}/{PASS + FAIL} checks passed")
     return 0 if FAIL == 0 else 1
 
