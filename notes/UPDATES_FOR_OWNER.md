@@ -1,7 +1,3 @@
 # UPDATES FOR THE OWNER -- significant only (achievements, improvements, walls overcome, problems)
 # Cleared by the owner from the window (tools/scorecard_gui.py tab 3); cleared items go to UPDATES_ARCHIVE.md.
 
-- [2026-09-12 02:18Z] ACHIEVEMENT: The reader now learns what a new word means from what it reads, using its sense of how things look and feel. On the test, the right meaning lands near the top about 38 times in 100, where the old method managed about 3. This also uses knowledge grown by reading a million lines of modern text, which is now saved and loaded automatically.
-- [2026-09-12 02:18Z] IMPROVEMENT: The word-meaning test now scores the real reading path (75 in 100 versus 50 for guessing) instead of a stand-in copy. The headline pooled score moved from 0.625 to 0.641 purely because of this better measurement, not a change to the reader.
-- [2026-09-12 02:18Z] WALL-OVERCOME: Two duplicate-part merges done with identical results: the three time-ordering components are now one, and the pronoun-picker now uses the single shared recency rule instead of its own copy. A third suspected duplicate (who-did-what roles) turned out not to be one; the audit was corrected.
-- [2026-09-12 02:18Z] PROBLEM: Honest state of brain-faithfulness: of 84 building blocks, 7 copy the brain's math exactly, 70 are defensible brain models with open details, 7 are stand-ins. The rule we use to combine senses when learning a word is an imported analogy, not pinned to the brain; a posted problem (one shared meaning store) is designed to settle it.

@@ -54,7 +54,7 @@ Long term (the next few months):
 
 <!-- AUTO:BEGIN (written by tools/scorecard.py; edit the sections ABOVE, not this) -->
 
-Last full check: 2026-09-11T23:35:31.306190+00:00 (1 on record). Generated 2026-09-12T02:13:33+00:00.
+Last full check: 2026-09-11T23:35:31.306190+00:00 (1 on record). Generated 2026-09-12T02:33:43+00:00.
 
 | Ability | Group | How well | Compared with a simple rule | Since the previous check | Brain-faithful? |
 |---|---|---|---|---|---|
@@ -88,13 +88,13 @@ Last full check: 2026-09-11T23:35:31.306190+00:00 (1 on record). Generated 2026-
 | Whether one event was needed for another to happen | Causes | right 36 in 100 | clearly better than the simple rule (4 in 100) | first full check on record | brain model; some details still open |
 | How a character probably feels about an event | Feelings, goals, beliefs | right 94 in 100 | clearly better than the simple rule (44 in 100) | first full check on record | brain model; some details still open |
 | What a character believes, even when it is false | Feelings, goals, beliefs | right 65 in 100 | clearly better than the simple rule (49 in 100) | first full check on record | brain model; some details still open |
-| Whether an action helped or harmed someone | Feelings, goals, beliefs | right 78 in 100 | clearly better than the simple rule (33 in 100) | first full check on record | brain model; one part is a stand-in we are replacing |
+| Whether an action helped or harmed someone | Feelings, goals, beliefs | right 78 in 100 | clearly better than the simple rule (33 in 100) | first full check on record | brain model; some details still open |
 | Whether an event helps or blocks a character's goal | Feelings, goals, beliefs | right 98 in 100 | clearly better than the simple rule (49 in 100) | first full check on record | brain model; some details still open |
 | Who is having the feeling | Feelings, goals, beliefs | right 20 in 100 | clearly better than the simple rule (14 in 100) | first full check on record | brain model; some details still open |
 | Working out what a new word means from reading | Learning from reading | right meaning ranked near the top 38 in 100 | clearly better than the simple rule (16 in 100) | first full check on record | brain model; some details still open |
 | Knowing when to hold back on 'who was acted on' | Knowing its limits | right 97 in 100 | clearly better than the simple rule (88 in 100) | first full check on record | brain model; one part is a stand-in we are replacing |
 | Knowing when to hold back on a place or time attachment | Knowing its limits | right 84 in 100 | clearly better than the simple rule (76 in 100) | first full check on record | uses a stand-in we are replacing |
 
-Brain-faithfulness of the 87 building blocks: 7 copy the brain's math exactly, 73 are brain models with open details, 7 are stand-ins being replaced (arc_labeler, arc_parser, arceager_parser, commonnoun_binder, force_dynamics_valence, parse_confidence, pos_tagger).
+Brain-faithfulness of the 84 building blocks: 7 copy the brain's math exactly, 71 are brain models with open details, 6 are stand-ins being replaced (arc_labeler, arc_parser, arceager_parser, commonnoun_binder, parse_confidence, pos_tagger).
 
 <!-- AUTO:END -->
