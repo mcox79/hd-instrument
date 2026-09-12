@@ -358,27 +358,23 @@ _UNIVERSAL_TAGMAP = {"VERB": "VERB", "NOUN": "NOUN", "ADJ": "ADJ", "ADV": "ADV",
 
 
 def _tokenize_and_tag(sentence: str):
-    """UNCERTIFIED best-effort tokenizer/POS layer for the sentence-level convenience entrypoint
-    ONLY -- score_item/score_batch (the certified path) never call this; every certified/landed-VET
-    number was produced from hand-built tokens/pos, not this tagger. Uses nltk's universal tagset
-    with an AUX split (bridge1's governor extraction depends on AUX-not-VERB for copulas like
-    "was" -- see exp_bridge1_governor_grounding_v1.self_test check (1))."""
-    import nltk
-    tokens = nltk.word_tokenize(sentence)
-    tagged = nltk.pos_tag(tokens, tagset="universal")
-    pos = []
-    for tok, tag in tagged:
-        mapped = _UNIVERSAL_TAGMAP.get(tag, "X")
-        if mapped == "VERB" and tok.lower() in _AUX_LEMMAS:
-            mapped = "AUX"
-        pos.append(mapped)
+    """Tokenizer/POS layer for the sentence-level convenience entrypoint ONLY -- score_item/score_batch (the certified
+    path) never call this. 2026-09-12 (strategy, top-of-chain audit): the nltk word_tokenize + pos_tag READY-MADE TOOLS
+    are GONE from this organ; tokens come from a glass-box orthographic tokenizer and UPOS tags from the substrate's own
+    hdlab.pos_tagger (the same tagger the live reader uses; it already emits AUX for copulas/auxiliaries)."""
+    import re
+    from hdlab.causation_typing import _frontend
+    tokens = [m.group(0) for m in re.finditer(r"[A-Za-z]+(?:'[A-Za-z]+)?|[0-9]+(?:[.,][0-9]+)*|[^\sA-Za-z0-9]", sentence)]
+    tagger = _frontend()[0]
+    pos = list(tagger.tag(tokens))
+    pos = ["AUX" if (t == "VERB" and tok.lower() in _AUX_LEMMAS) else t for tok, t in zip(tokens, pos)]
     return tokens, pos
 
 
 def score_context_grounded_valence(target_word: str, sentence: str,
                                      prior_context: Optional[str] = None, *,
                                      seed: int = 0, n_train_theta: int = FULL_N_TRAIN_THETA) -> dict:
-    """Convenience sentence-level entrypoint. Tokenizes/POS-tags `sentence` (UNCERTIFIED layer, see
+    """Convenience sentence-level entrypoint. Tokenizes/POS-tags `sentence` (glass-box layer, see
     _tokenize_and_tag), locates the first case-insensitive occurrence of `target_word`, and calls
     score_item -- the certified 3-stage scoring itself is unchanged. `prior_context` is a RAW TEXT
     string; it stays RESERVED/no-op here on purpose (recorded as `prior_context_ignored` for honesty,
