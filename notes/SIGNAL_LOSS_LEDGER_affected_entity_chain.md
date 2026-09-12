@@ -22,7 +22,7 @@ competent-reader reference ~0.85–0.90.
 ## Order of the upstream pass — OWNER 2026-09-12: TOP-DOWN BY POSITION (the organs that START the reading chain first), not by loss share
 0. Tokenisation/segmentation: gold on every board instrument (rung 6 row) → no loss here; the free-text front-end is a separate audit.
 0b. Morphology (rung 5b): WordNet morphy at read time = pri-12 (posted); the only rung above categories that is non-BF at inference.
-0c. **CATEGORIES (the tagger) = the first lossy organ of the chain → `exp_reading_induced_categories_v1` (in progress).** Then heads, then labels (done).
+0c. **CATEGORIES (the tagger) = the first lossy organ of the chain → `exp_reading_induced_categories_v1` (0.745 type / 0.722 token @1M lines; research note `notes/RESEARCH_reading_induced_categories_2026-09-12.md`).** Then heads, then labels (done).
 
 ### (superseded ordering, kept for lineage) by measured loss × BF status
 1. **Rung 5, the parse spine (−0.0705, NOT_BF) — DECOMPOSED (v11): labels 52% > heads 17% > tagger 14%.** The first build of the
@@ -176,3 +176,10 @@ competent-reader reference ~0.85–0.90.
 - **596-item decision with the FINAL labeler (IOBJ + animacy + frame + post-slot coalition; probe v13 re-run):** LIVE 0.4966 vs
   supervised 0.4698 = **+0.0268 CI95 [+0.0067, +0.0487]** (was +0.0235); gold heads +0.0201 [0.000, +0.042]; perceived-learned
   validities = identical decisions (tie, kept gold-learned); fallback-to-perceptron +0.0101 n.s. Witness 23/23 (incl. plasticity).
+- **Why the closed classes score 0 (1M/k68 clusters inspected):** the induced clusters are coherent SUBSTITUTION classes coarser than
+  UD's tagset — {of, and, in, for, as, on, by, with, from, or} = connectives (ADP 1685 / CCONJ 625 / SCONJ 137 → named ADP, so
+  CCONJ recall 0); {that, can, but, when, because, if, will, would, however, while} = clause introducers + modals; {are, be, also,
+  not, were, have, only, often, usually, now} = the auxiliary field incl. its adverbs; {the, a, an, its, each, every, X's} = DET
+  (0.99 pure); {it, they, this, which, there, you, we} = PRON. Not a bug: the brain's categories are not UD's. Phase-diagram move:
+  more clusters (k=136 run launched) or a within-cluster refinement by finer frames; the consumer-facing question is whether the
+  parser/role rungs need UD's split at all (they read SUBJ/OBJ configurations, not CCONJ vs ADP).
