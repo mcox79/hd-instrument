@@ -373,6 +373,16 @@ def main():
         out["student_r%d" % r] = round(uas(stu.parse, test), 4); print("student r%d (self-taught):" % r, out["student_r%d" % r], flush=True)
         if smoke:
             break
+    # CORE-STRUCTURE readout (the consumers' signal): per-relation accuracy for the comprehension-relevant relations
+    rel_tot = {}; rel_hit = {}
+    for s in test:
+        toks = [x[1] for x in s]; pos = [x[2] for x in s]; hd = stu.parse(toks, pos); n = len(s)
+        for x in s:
+            rel = x[4].split(":")[0]
+            if rel in ("nsubj", "obj", "obl", "nmod", "root", "xcomp", "ccomp", "advcl", "conj", "case", "punct") and 0 <= x[3] <= n:
+                rel_tot[rel] = rel_tot.get(rel, 0) + 1; rel_hit[rel] = rel_hit.get(rel, 0) + int(hd.get(x[0], -1) == x[3])
+    out["per_relation"] = {r: round(rel_hit[r] / rel_tot[r], 3) for r in rel_tot}
+    print("per-relation:", out["per_relation"], flush=True)
     # twin: shuffle the strength values within each cue
     rng = np.random.default_rng(1)
     for c in list(stu.strength):
