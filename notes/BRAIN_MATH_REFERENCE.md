@@ -1,0 +1,76 @@
+# BRAIN MATH REFERENCE — the mathematical brain-foundational conditions, per brain computation (KEY DOCUMENT)
+
+**Purpose (owner 2026-09-12).** For each part of the brain the substrate replicates, state the COMPUTATION the brain performs
+as mathematics, say how well it is established (PINNED in the literature / MODEL = one defensible computational-level form
+among several / CONJECTURE = our reading), and record what OUR EXPERIMENTS showed when the computation was built faithfully
+(numbers, with the control that proved it). This document is the experimental spine: a component is mathematically
+brain-foundational when its operation is a row here with status PINNED or MODEL and the substrate's organ computes that
+operation (parameters SWEPT, never adopted). Every landing and every probe that sharpens a status updates this file.
+Sibling documents: `BRAIN_FOUNDATIONAL_AUDIT.md` (per-organ verdicts, §2b newest-first), `HOW_WALLS_WERE_BROKEN_2026-09-12.md`
+(the method), `WALL_PUSH_PROTOCOL_owner_motivation_messages.md` (the owner's pushes), per-problem RESEARCH_* notes.
+
+Status legend: **PINNED** = replicated neural/behavioural finding and the computation is the accepted one; **MODEL** = a
+defensible computational-level form where the brain's implementation is unpinned (allowed; say which); **CONJECTURE** = our
+inference, to be tested; **SHOWN** = our substrate demonstrated the computation's effect with controls (numbers given);
+**REFUTED-AS-BUILT** = a faithful build failed here (say what the upstream cause was, if found).
+
+---
+
+## A. Memory retrieval and salience (hippocampus / declarative memory; discourse referents)
+
+| computation | math | status | our evidence | organ |
+|---|---|---|---|---|
+| Base-level activation of a memory chunk (ACT-R; Anderson & Schooler 1991; Lewis & Vasishth 2005 for sentence processing) | B_i = ln Σ_k w(role_k) · (t_now − t_k)^(−d); retrieval probability = softmax(B/τ) | PINNED (the power-law of practice and recency; the exact d is a lab constant we do NOT share) | SHOWN: the forward salience prior beats the recency floor +0.27 CI-sep on GUM pronoun undergoers (who_was_affected BUILD 1); d is task-dependent — on GUM THIRD-person undergoers d=0.5 collapses to 0.32, d≈2–3 is optimal (probe v6) → SWEEP d, never adopt 0.5 | `salience_binder.actr_activation` (BF), `affected_entity_resolver` |
+| Role prominence as the presentation weight (Centering: Grosz-Joshi-Weinstein; Cf ranking SUBJ > OBJ > other) | w(role) ∈ {SUBJECT 4.0, POSSESSIVE 2.5, OBJECT 2.0, OTHER 1.0} (ordinal ranking PINNED; the magnitudes are swept) | PINNED (ordering) / swept magnitudes | SHOWN inside the salience win; the subject bias is BACKWARDS for object anaphors (picked the Principle-B-illegal co-argument 19% of the time) → the ordering is right for the PRIOR, the grammar LIKELIHOOD must be separate | `salience_binder.ROLE_PROMINENCE` |
+| Every retrieval is a presentation (object-file reviewing + impletion; Kahneman-Treisman-Gibbs 1992; ACT-R: a retrieved chunk gains a presentation) | history_i ← history_i ∪ {(t_now, role)} on each resolved reference, INCLUDING pronouns | PINNED | SHOWN 2026-09-12: pronoun ACCRUAL over the landed resolver +0.020 alone, +0.0285 with the foreground window (gold roles, CI-sep); the accrual-scramble twin (pronoun written to a random compatible token) loses −0.052 CI-sep (cell `exp_affected_entity_token_history_gum_v1`) | `affected_entity_resolver.EntityTokens` |
+| Foreground / availability of the situation model (Glenberg-Meyer-Lindem 1987; Zwaan-Radvansky event indexing; event-model foreground, Zacks 2007) | candidates C_fg = {X : t_sent − last_ref_sent(X) ≤ W}; decide within C_fg, fall back to all when empty | PINNED (availability, boundary resets); W is swept | SHOWN: +0.0084 alone, CI-sep in combination; window-scramble twin collapses to 0.216 (−0.28); W 1/2/3/5 flat → W is not a fitted number | `affected_entity_resolver.foreground` |
+| Entity tokens (object files) vs head-lemma buckets | token identity by spatiotemporal/discourse continuity, features only when ambiguous (KTG; Hollingworth-Franconeri 2009) | PINNED (object files) / MODEL (which cue builds the token in text) | SHOWN-NEGATIVE so far: gold-free Heim-file clustering = parity with head buckets (0.5235 = 0.5235); the ORACLE token (gold clusters with full history) = +0.091 on THIRD — the prize is CIRCULAR (needs correct pronoun resolution upstream). The coref two-half problem owns this. | `online_entity_cluster`, `unified_referent` |
+
+## B. Reference resolution (grammar: the likelihood half)
+
+| computation | math | status | our evidence | organ |
+|---|---|---|---|---|
+| Bayesian pronoun interpretation (Kehler & Rohde 2013) | P(r \| pron) ∝ P(r next-mentioned) · P(pron \| r); the prior carries coherence/semantics, the likelihood carries grammar | PINNED (production/interpretation dissociation) | SHOWN: building only the prior saturated at 0.45; the likelihood half (Principle B + parallelism) added +0.093 gold / +0.060 predicted CI-sep (BUILD 4) | `affected_entity_resolver` |
+| Binding Principle B (Chomsky 1981; Reinhart 1983) | P(plain pronoun \| clause-mate co-argument) = 0 → exclude the co-argument | PINNED (categorical universal) | SHOWN: +0.048 CI-sep gold, +0.049 predicted (parser-robust) | `affected_entity_resolver.coarg_head_gidx` |
+| Binding Principle A (reflexives) | P(reflexive \| r) = 1[r is the clause-mate co-argument] | PINNED (categorical universal) | SHOWN 2026-09-12: +0.0151 CI[+0.007,+0.027] gold / +0.0135 CI-sep predicted on THIRD (23 reflexive items went from 0.18 to ~1.0) | `affected_entity_resolver.resolve(reflexive=True)` |
+| Grammatical/thematic role parallelism (Smyth 1994; Stevenson 1995) | likelihood exp(γ · 1[role(r) = role(pron)]) with γ swept | PINNED (the bias) / swept γ | SHOWN: robust across γ 0.5/1/2 (all CI-sep); degrades ~1/3 under predicted role labels | `affected_entity_resolver.score_and_pick` |
+| Implicit causality as a NEXT-mention prior (Garvey-Caramazza; Hartshorne-Snedeker 2013) | P(next referent \| IC verb, "because") — applies to a FOLLOWING pronoun, not the verb's own argument | PINNED (phenomenon) | REFUTED-AS-BUILT for the argument pronoun (IC-alone 0.05 below chance; correct use is a different configuration) | (Ferstl 2011 norm asset) |
+
+## C. Expectation and update (event knowledge; N400)
+
+| computation | math | status | our evidence | organ |
+|---|---|---|---|---|
+| Generalized event knowledge expectation at the verb (Bicknell et al. 2010; Kamide et al. 2003; McRae & Matsuki 2009) | P(patient-kind \| agent, verb) — JOINT, not P(p\|a)+P(p\|v); learned by counting event-role tuples | PINNED (joint; anticipatory timing) | NOT YET BUILT as a joint store. Marginal stand-ins REFUTED-AS-BUILT on the GUM residual: P(head\|verb) from simplewiki and ROC content→head PPMI carry information (gold>pick 251:137) but HURT when fused over 18 candidates (−0.045..−0.118 CI-sep) and are null inside the top-3 focus → the joint, in-focus, precision-gated form is the next build | `selectional_slots_v1` (marginals), `generalized_event_knowledge` |
+| N400 = situation-update magnitude / precision-weighted semantic prediction error (Rabovsky-McClelland 2018; Kuperberg-Jaeger 2016) | Δ(X) = ‖S(context ∪ {X as undergoer}) − S(context)‖; choose arg-min Δ; cue weight ∝ precision of the prior | PINNED (N400 ↔ update; precision weighting) / MODEL (SG's specific state) | CONJECTURE for us: precision-gating explains why an informative semantic cue HURT when fused uniformly (probe v2/v3) — to be SHOWN with the joint store | `n400_coherence_monitor` (backward), pri-1 arm (to build) |
+| Reliability-weighted cue fusion (Ernst & Banks 2002; Ma & Pouget) | w_i ∝ 1/σ_i²; MLE combination | PINNED (perception) / MODEL (as the hub's integration rule; registry: OPEN) | SHOWN: calibrated inverse-variance DOWN-weighted a bad cue (w_ic 0.107 vs w_sal 0.376) where margin-weighting UP-weighted a confident-wrong cue (BUILD 2 vs 3) | `convergent_cue_reader.intrinsic_gain_w` |
+| Forward GEK projection (Elman 2009 graded co-activation) | score(cont \| ctx) = Σ_a PPMI(a → c) over story transitions; precision = 1 − normalized entropy | MODEL (graded associative readout) | SHOWN on Story Cloze (0.58–0.59 CI-sep over majority; ties a 1-step counter) | `generalized_event_knowledge` |
+
+## D. Valuation and affect (OFC/vmPFC, amygdala, nociception)
+
+| computation | math | status | our evidence | organ |
+|---|---|---|---|---|
+| Outcome valuation is over the RESULT STATE the patient is left in (Barsalou/Zwaan simulation; Levin/Rappaport Hovav result-state lexicalisation) | v(X after V) = value(result_state(V)) read per SENSE; forceful contact on a body = innate aversive sign (nociception, PINNED) | PINNED (valuation target) / MODEL (VerbNet as the predicate inventory) | SHOWN 2026-09-12: result-state arm recovers 9/9 assault verbs, 31 newly decided, consistency with the word norm 0.84–0.87, twin 0/5 vs 5/5, board 36/36 (pri-14); hypernym inheritance (0.65–0.75) and gloss-first REJECTED | `force_dynamics_valence.result_state_value` |
+| Harm/help = force structure × endstate valence × affectedness (Talmy; Wolff 2007; Beavers 2011) | HARM/HELP = sign(valence) gated by CAUSE/ENABLE/PREVENT and affectedness ≥ τ | MODEL (computational-level composite) | SHOWN: 0.78 → 0.97 → 1.00 on the 36 gold; twin 0.58–0.69 | `force_dynamics_valence.harm_help_arithmetic` |
+
+## E. Perceptual decision (signal detection)
+
+| computation | math | status | our evidence | organ |
+|---|---|---|---|---|
+| Criterion at a target false-alarm rate (SDT; Green & Swets) | accept iff z_top ≥ (1 − FA)-quantile of the iid null | PINNED | SHOWN: replaced a fixed cosine 0.45 that admitted 22% vs 100% across geometries (pri-5 fused ranker) | `reading_grounding_loop.FusedSenseRanker.criterion` |
+
+## F. Learning (Hebbian association; what counts as "learned from experience")
+
+| computation | math | status | our evidence | organ |
+|---|---|---|---|---|
+| Distributional association = normalized co-occurrence (PPMI) over the reader's own experience; paradigmatic vs syntagmatic contexts | PPMI(a,c) = max(0, log P(a,c)/(P(a)P(c))); directional contexts for paradigmatic identity | MODEL (Hebbian normalisation) | SHOWN: grown SEQ store banks the distributional identity signal (is-a lever refuted as a pre-SEQ artifact); SVD densification HURT sparse identity contexts | `reading_grounding_loop` SEQ store |
+
+---
+
+## Open rows (to be resolved by experiment; each is a conjecture until a row above cites a number)
+1. The JOINT (agent, verb) → patient expectation, learned by counting our own parsed events, applied within the foreground
+   with precision gating — does it convert the in-focus headroom (THIRD top-3 ceiling 0.753 vs 0.540 now)?
+2. State compatibility via VerbNet start(E)/result(E) predicates against the token's accrued result states — coverage?
+3. Deictic pronouns (I/you/we) → a speech-situation (speaker/addressee) model; demonstratives → abstract event reference:
+   which brain computation, and does a faithful build lift DEICTIC 0.445 / DEMONSTR 0.435?
+4. Event-boundary reset of the foreground via the SEM segmenter (vs the sentence window) — does a schema-switch boundary
+   predict which entities drop out better than W=2?
