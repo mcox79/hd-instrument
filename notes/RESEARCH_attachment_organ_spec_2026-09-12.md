@@ -115,6 +115,12 @@ prediction; then hand the posterior down to every consumer in §3 and re-measure
    attachment preferences (the lexical cue) JOIN the existing verb-frame table (`verb_subcat` / the role labeler's lemma_frames):
    ONE per-lemma frame entry {transitivity, recipient propensity, dependent-class × direction preferences}, registered in
    `notes/KNOWLEDGE_ASSET_REGISTER.md` as grown knowledge — not a second frames asset (anti-fragmentation).
+   DISK TODAY (audit 2026-09-12): THREE per-lemma tables already exist — `data/verb_subcat_supply_optimized_v2/verb_subcat_final_avg.json`
+   (trans_ratio = mean of a WordNet-frame ratio and corpus counts; read by `verb_subcat.transitivity`), `data/frontend_assets/
+   verb_subcat_frames_ud_ewt.json` (298 lemmas: infinitival complement counts), and the role labeler's `lemma_frames` inside the
+   validity asset (recipient share). The attachment lexical cue would be a FOURTH. Landing = ONE `lexicon_argument_frames` grown
+   asset (lemma → transitivity, recipient, complement, dependent-class × direction preferences; counts, plastic) with one accessor
+   in the Competition-Model organ; the three tables fold into it (byte-identical consumers first, then the merged read).
 3. **One organ, one cue pass.** Attachment is an ARM of `graded_role_assigner` (the Competition-Model organ): cue extraction per
    sentence ONCE (vectorised numpy over the n×n candidate grid: distance bins, category pairs, boundary counts from a punctuation
    cumsum, form mask) shared by the attachment and the role competitions; the head posterior (Matrix-Tree) computed once per
