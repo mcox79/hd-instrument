@@ -57,6 +57,15 @@ near the top about 38 times in 100 where the old method managed about 3.
   recipients in with objects and double-counting two overlapping cues; fixing that upstream brought both back to within 1 in 100
   of before (full re-check done: overall 0.6408 -> 0.6377 -> 0.6395). The very top of the chain is now built too: word categories learned from reading a million lines
   with no labels agree with the reference on 74 in 100 words (the earlier try got 32), and they keep learning as text is read.
+- 2026-09-12 (evening): the next part up the chain, deciding which word each word depends on, was rebuilt the brain's way: a
+  competition of cues (closeness, word class pairs, verb habits, punctuation as written pauses, and learned phrase patterns) whose
+  weights are learned from reading with no labelled examples. From nothing hand-written it reaches 48 in 100 correct attachments;
+  the previous best label-free method needed a hand-written table to reach 46. For honesty: a parser trained on forty thousand
+  hand-corrected sentences reaches 78 here, people over 95, and the best anyone has published without labels is 68. Two research
+  drills were kept; they show a third of our gap is bookkeeping convention (where the period or the preposition "attaches"), not
+  comprehension, and that convention is now applied as a stated rule rather than pretended to be learned. Five things were tried
+  and refuted with numbers so they are not retried (more reading text; a hard length penalty; second-order counting as built;
+  two ways of inducing phrase patterns; meaning alone as the teacher).
 ## WHAT WE ARE WORKING ON
 Short term (the next week or two):
 - (Done 2026-09-12) The three finished pieces were folded in: helped-or-harmed, the part-of-speech finding, the verb-type organ.
@@ -94,7 +103,7 @@ Long term (the next few months):
 
 <!-- AUTO:BEGIN (written by tools/scorecard.py; edit the sections ABOVE, not this) -->
 
-Last full check: 2026-09-12T17:15:08.947214+00:00 (7 on record). Generated 2026-09-12T21:22:15+00:00.
+Last full check: 2026-09-12T17:15:08.947214+00:00 (7 on record). Generated 2026-09-12T23:06:36+00:00.
 
 | Ability | Group | How well | Compared with a simple rule | Since the previous check | Brain-faithful? |
 |---|---|---|---|---|---|
