@@ -107,6 +107,26 @@ Sweeps (gold): W 1/2/3/5 = .525/.525/.520/.522 (flat); decay 1.0/1.5/2.0/3.0 = .
 Gold-free online entity files (Heim file-change) now measure at parity with head buckets (0.5235 vs 0.5235 with accrual):
 the TOKENIZATION is not where the forward-half gain lives; the ACCRUAL and the FOREGROUND are.
 
+
+**Arm-2 opening probe (v8, THIRD, on top of the landed forward half 0.5307 here):** in-focus event-history coherence
+through OUR meaning hub (`coherence_reader.relatedness`, the ATL PPMI+SVD associative store): exact same-predicate null
+(0.5307 -> 0.532, CI incl. 0); hub sim(V, past predicates) HURTS (top-2 −0.043 CI-sep at tau=1; gated to near-ties null);
+patient-role-only sim null/negative. REFUTED-AS-BUILT: associative relatedness between predicates is NOT the brain's
+event-role expectation (P(patient | agent, verb) is a role-typed joint, not word association). The residual is
+structural by the counts (gold distance: same sentence 0.75 / previous 0.59 / 2-3 back 0.28 / >=4 0.03) -> next: Centering
+Cb continuity (attentional state) and the anatomy of the in-focus residual.
+
+
+**Residual anatomy inside the top-3 (v9, THIRD, 122 of 274 wrong items have gold in the top-3):** the wrong PICK is the more
+established entity on every structural cue — n_mentions 6+: pick 57 vs gold 29 (gold single-mention 57 vs pick 21); current-
+sentence subject: pick 44 vs gold 17; realised in the previous sentence's Cf list: pick 72 vs gold 56; same-sentence last
+mention: pick 81 vs gold 52; gold's last role OTHER (oblique/possessive) 39 vs pick 20. Consistently, Centering Cb-continuity
+bonuses (prev-utterance top Cf / any Cf) and a current-subject penalty all HURT (CI-sep) — the resolver is already too
+topic-biased for OBJECT pronouns. Reading: object pronouns here point at NEW, low-prominence referents (recently introduced
+objects/obliques), while the ACT-R sum with SUBJECT 4.0 / OBJECT 2.0 / OTHER 1.0 and unbounded history lets the protagonist
+steal them. Next: sweep the operating point of the pinned computation (role-prominence magnitudes for the object-pronoun
+resolver; history depth of the base-level sum; decay) rather than add a term.
+
 ## 4. Where the signal is lost (upstream trace, numbers)
 1. **Instrument:** 48% of the slice is not an entity-salience task (deictic/demonstrative/other). Measure THIRD separately;
    route DEICTIC to a speech-situation (speaker/addressee) arm and DEMONSTRATIVE to abstract anaphora.
