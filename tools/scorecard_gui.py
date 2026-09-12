@@ -64,6 +64,7 @@ class ScorecardWindow:
         self.sc: dict = {}
         self._build_tab_doing()
         self._build_tab_questions()
+        self._build_tab_updates()
         bar = tk.Frame(root, bg=BG)
         bar.pack(fill="x", padx=10, pady=(0, 8))
         self.stamp = tk.Label(bar, text="", bg=BG, fg=DIM, font=FONT, anchor="w")
@@ -274,6 +275,46 @@ class ScorecardWindow:
         except Exception as e:
             self.qstatus.config(text="Could not save: %s: %s" % (type(e).__name__, e), fg=RED)
 
+    # ------------------------------------------------------------------ tab 3
+    def _build_tab_updates(self) -> None:
+        """Significant updates only (achievements, improvements, walls overcome, problems) -- owner 2026-09-12. The owner
+        clears them when read; cleared items are archived. Walls NOT overcome become questions in tab 2, not updates."""
+        f = tk.Frame(self.nb, bg=BG)
+        self.nb.add(f, text="3. UPDATES")
+        f.columnconfigure(0, weight=1); f.rowconfigure(1, weight=1)
+        tk.Label(f, text="Significant updates since you last cleared: what got better, what stand-in was replaced, what wall "
+                         "was overcome, what went wrong. Press Clear when read.", bg=BG, fg=FG, font=FONT_B, anchor="w",
+                 justify="left", wraplength=1220).grid(row=0, column=0, sticky="ew", padx=10, pady=(10, 4))
+        self.updates = tk.Text(f, bg=PANEL, fg=FG, font=FONT, wrap="word", relief="flat", padx=12, pady=10)
+        self.updates.grid(row=1, column=0, sticky="nsew", padx=10, pady=4)
+        for k, col in (("ACHIEVEMENT", GREEN), ("IMPROVEMENT", GREEN), ("WALL-OVERCOME", BLUE), ("PROBLEM", RED), ("QUESTION-FILED", ORANGE)):
+            self.updates.tag_configure(k, foreground=col, font=FONT_B)
+        self.updates.tag_configure("stamp", foreground=DIM)
+        bar = tk.Frame(f, bg=BG); bar.grid(row=2, column=0, sticky="ew", padx=10, pady=(4, 10))
+        tk.Button(bar, text="Clear (I have read these)", command=self._clear_updates, bg="#5d2e2e", fg=FG, font=FONT_B,
+                  relief="flat", padx=12).pack(side="left")
+        self.ustatus = tk.Label(bar, text="", bg=BG, fg=DIM, font=FONT, anchor="w"); self.ustatus.pack(side="left", padx=12)
+
+    def _fill_updates(self) -> None:
+        import owner_updates as U
+        items = U.load()
+        self.nb.tab(2, text="3. UPDATES (%d)" % len(items))
+        t = self.updates; t.config(state="normal"); t.delete("1.0", "end")
+        if not items:
+            t.insert("end", "Nothing significant since you last cleared.")
+        for it in reversed(items):
+            t.insert("end", it["stamp"] + "  ", "stamp"); t.insert("end", it["kind"], it["kind"])
+            t.insert("end", "\n" + it["text"] + "\n\n")
+        t.config(state="disabled")
+
+    def _clear_updates(self) -> None:
+        try:
+            import owner_updates as U
+            n = U.clear(); self._fill_updates()
+            self.ustatus.config(text="Cleared %d update(s); archived in notes/UPDATES_ARCHIVE.md." % n, fg=GREEN)
+        except Exception as e:
+            self.ustatus.config(text="Could not clear: %s: %s" % (type(e).__name__, e), fg=RED)
+
     # ------------------------------------------------------------------ refresh
     def refresh(self) -> None:
         try:
@@ -282,7 +323,7 @@ class ScorecardWindow:
                 SC.write_outputs(self.sc)
             except Exception:
                 pass
-            self._fill_doing(); self._fill_questions(); self._fill_review()
+            self._fill_doing(); self._fill_questions(); self._fill_review(); self._fill_updates()
             self.stamp.config(text="Last full check of the system: %s   |   scorecard refreshed %s   |   %d full checks on record"
                               % (self.sc.get("last_full_check") or "none yet", self.sc["generated"], self.sc["n_full_checks"]), fg=DIM)
         except Exception as e:

@@ -84,4 +84,4 @@ A denied tool call; a regression that survives a revert; an owner note in `notes
 
 ## PROGRESS (tick as done)
 - [x] STEP 0
-- [ ] STEP 1  - [ ] STEP 2  - [ ] STEP 3a  - [ ] 3b  - [ ] 3c  - [ ] 3d  - [ ] STEP 4  - [ ] STEP 5  - [ ] STEP 6  - [ ] STEP 7
+- [x] STEP 1 (notes/SIGNAL_FLOW_MAP.md; all 7 label consumers already handle nsubj:pass; harm/help contract identical; Bayesian terms must be a persisted asset)  - [ ] STEP 2 (research scan running)  - [ ] STEP 3a  - [ ] 3b  - [ ] 3c  - [ ] 3d  - [ ] STEP 4  - [ ] STEP 5  - [ ] STEP 6  - [ ] STEP 7
