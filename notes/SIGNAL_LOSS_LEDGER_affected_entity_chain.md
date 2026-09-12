@@ -200,3 +200,11 @@ competent-reader reference ~0.85–0.90.
   existed) — the rate held; the fixed-target probe v13 (596 gold items, +0.0268 CI-sep) is the clean comparison. Residual vs
   pre-switch: patient −0.0096, state −0.0053 — the remaining items are post-verbal SUBJECTS read as objects (×35, word order
   alone) and copular subjects under predicted heads/tags; both trace UP to the tagger/heads rungs.
+- **Hand-off categories → heads, conclusion so far (probes v15/v16):** the reading-learned attachment scorer (SelfSupEM over category
+  sequences) needs a SMALL set of the RIGHT functional classes: fine 70-way inventory → UAS 0.012–0.019 whether it learns from 8k
+  treebank sentences or 8k/20k Simple-Wiki lines (more reading does NOT help); gold-NAMED collapse of the same clusters to 17 → 0.208
+  (gold POS 0.276); a LABEL-FREE k=17 clustering → 0.126 = its twin (the merge destroys the syntactic distinctions). So the next
+  build is a label-free COARSENING guided by the consumer: merge fine clusters where the merge does not hurt the attachment
+  learner's own objective (joint category/attachment induction; the brain's coarse functional classes are defined by their
+  syntactic behaviour, i.e. "functional naming" from the prior SOLVED). Two-level hand-down: fine clusters for lexical/role cues,
+  the merged functional level for attachment.

@@ -66,3 +66,18 @@ Do NOT quote retired figures (`notes/reference_retired_claims_never_requote.md`)
 
 ## STRATEGY ADDENDUM 2026-09-12 — the graded-category INPUT for the joint decode
 The owner-DONE pos-tagger solver (integrated 2026-09-12) found the who-was-affected POS loss is a HARD-COMMIT loss: the gold category survives the tagger's top-2 ~0.80 and is thrown away at argmax → Viterbi → parse. The dormant calibrated CRF (`hdlab/crf_tagger.GlassBoxCRF`, `.marginals()`) is the graded-category interface for a JOINT POS-parse decode; as a standalone tagger swap it measured −0.010 (so it is NOT flipped). If the second-track scorer here consumes tag MARGINALS rather than hard tags, measure the joint who-affected number — that is where the +0.07 POS budget lives.
+
+## STRATEGY ADDENDUM 2026-09-12 (late) — the categories → heads HAND-OFF is measured; the input granularity is the lever
+The top rung now exists: lexical categories induced from reading 1M modern lines with no labels
+(`experiments/exp_reading_induced_categories_v1.py`; asset `data/frontend_assets/induced_categories_simplewiki_1m_k68.json`;
+0.745 type-level / 0.722 token-level many-to-one; research note `notes/RESEARCH_reading_induced_categories_2026-09-12.md`).
+Feeding them to the reading-learned attachment scorer (probes v15/v16, UD-EWT test UAS, no gold in acquisition):
+fine 70-way inventory → 0.012–0.019 (learning from 8k treebank sentences OR 8k/20k Simple-Wiki lines — more reading does not
+help); the SAME clusters collapsed by gold-majority NAMES to 17 → 0.208 (gold POS 0.276; adjacent-right floor 0.290); a
+label-free k=17 clustering → 0.126 = its shuffled twin. **So the scorer needs a small set of the RIGHT functional classes, and a
+naive coarsening destroys them.** The BF build this implies (in scope here or as its own brief): (1) a consumer-guided, label-free
+COARSENING — merge fine clusters where the attachment learner's own objective does not suffer (joint induction; "functional
+naming" = classes defined by their syntactic behaviour), OR (2) hierarchical backoff INSIDE the scorer (category-pair statistics
+back off from fine to coarse classes — the brain generalises predictions across similar categories), with a two-level hand-down
+(fine clusters for lexical/role cues, the functional level for attachment). Measure on the same instrument (v15/v16) first, then
+the live who-was-affected decision (`experiments/probe_coarse_role_labeler_v13.py`, fixed 596 gold items).
