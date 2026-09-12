@@ -42,7 +42,29 @@ from hdlab.thematic_role_labeler import lemma_verb
 
 TEACHER = os.path.join(_REPO, "data", "_readlearned_models", "em_n11991_r2_lam0.30_pw3.00.pkl")
 FORM = {"PUNCT", "NUM", "SYM"}
-CUES = ["locality", "catpair", "frame", "form", "boundary", "agree", "root", "lex", "plaus", "constr"]
+CUES = ["locality", "catpair", "frame", "form", "boundary", "agree", "root", "lex", "plaus", "constr", "sib"]
+USE_SIB = "--sibling" in sys.argv   # SECOND-ORDER via VALENCE OCCUPANCY (mean-field): the cue includes what the head has already
+                                    # attached -- expected number of OTHER dependents of this class on this side under the previous
+                                    # pass's posterior (Lewis-Vasishth retrieval cue; sibling factorisation = +13.3 label-free in the field)
+
+
+def occupancy_table(marg, pos, n):
+    """occ[(h, class, side)] = expected number of dependents of `class` on `side` of h under the posterior marg (excl. none)."""
+    occ = defaultdict(float)
+    for j in range(1, n + 1):
+        for h, p in marg.get(j, {}).items():
+            if h and p > 0:
+                occ[(h, pos[j - 1], "L" if h < j else "R")] += p
+    return occ
+
+
+def sib_value(occ, h, j, pos):
+    if occ is None or h == 0:
+        return "na"
+    dr = "L" if h < j else "R"; pj = pos[j - 1]
+    e = occ.get((h, pj, dr), 0.0)
+    # remove this arc's own expected contribution if it was counted (mean-field: others only)
+    return "occ0" if e < 0.5 else "occ1" if e < 1.5 else "occ2+"
 USE_PLAUS = "--plaus" in sys.argv   # MEANING cue: surprisal of the nominal as an argument of the candidate verb (forward-prediction organ)
 USE_CONSTR = "--constr" in sys.argv  # CONSTRUCTION coalition cue: which item-based construction (Tomasello) proposes this arc --
                                      # verbarg (Now-or-Never left-corner verb-argument bind), coord, npmod (NP-run head), clausal (pri-2's +0.036 lever)
@@ -108,11 +130,12 @@ def verb_frames(train):
     return {k: v for k, v in fr.items() if v[0] >= 5}
 
 
-def arc_cues(toks, pos, j, h, frames):
+def arc_cues(toks, pos, j, h, frames, occ=None):
     """Cue values for the arc h -> j (1-based; h == 0 is ROOT)."""
     pj = pos[j - 1]
     if h == 0:
         return {"root": pj}
+    sibv = sib_value(occ, h, j, pos) if USE_SIB else None
     ph = pos[h - 1]; dr = "L" if h < j else "R"; d = abs(h - j)
     c = {"locality": f"{dr}{dist_bin(d)}", "catpair": f"{ph}>{pj}:{dr}", "form": "formhead" if ph in FORM else "wordhead"}
     lo, hi = (h, j) if h < j else (j, h)
@@ -124,6 +147,8 @@ def arc_cues(toks, pos, j, h, frames):
     else:
         c["lex"] = "na"
     c["plaus"] = plaus_bin(toks, pos, j, h) if USE_PLAUS else "na"
+    if USE_SIB:
+        c["sib"] = sibv
     c["constr"] = construction_arcs(toks, pos).get((h, j), "none") if USE_CONSTR else "na"
     if ph == "VERB":
         fr = frames.get(lemma_verb(toks[h - 1]).lower())
@@ -189,12 +214,17 @@ class AttachmentCompetition:
 
     def accrue(self, toks, pos, marg):
         n = len(toks)
+        occ = occupancy_table(marg, pos, n) if USE_SIB else None
         for j in range(1, n + 1):
             for h in range(0, n + 1):
                 if h == j:
                     continue
                 p = marg.get(j, {}).get(h, 0.0)
-                cues = arc_cues(toks, pos, j, h, self.frames); cfg = self._config(cues)
+                if occ is not None and h:
+                    occ[(h, pos[j - 1], "L" if h < j else "R")] -= p          # others only
+                cues = arc_cues(toks, pos, j, h, self.frames, occ); cfg = self._config(cues)
+                if occ is not None and h:
+                    occ[(h, pos[j - 1], "L" if h < j else "R")] += p
                 cell = self.cfg[cfg]; cell[0] += p; cell[1] += 1.0
                 for c, v in cues.items():
                     if c in ("catpair", "root"):
@@ -234,7 +264,7 @@ class AttachmentCompetition:
             sc += self.strength.get(c, {}).get(cfg + "|" + v, 0.0)
         return sc
 
-    def score_matrix(self, toks, pos):
+    def score_matrix(self, toks, pos, occ=None):
         n = len(toks); A = np.full((n + 1, n + 1), -np.inf)
         for j in range(1, n + 1):
             for h in range(0, n + 1):
@@ -242,7 +272,11 @@ class AttachmentCompetition:
                     continue
                 if h and pos[h - 1] in FORM:
                     continue                                      # form classes never head (constraint)
-                A[h][j] = self.arc_score(arc_cues(toks, pos, j, h, self.frames))
+                A[h][j] = self.arc_score(arc_cues(toks, pos, j, h, self.frames, occ))
+        if USE_SIB and occ is None:
+            # two-pass mean-field: first-pass posterior -> occupancy -> second-pass scores
+            occ1 = occupancy_table(single_root_marginals(A, n, 1.0), pos, n)
+            return self.score_matrix(toks, pos, occ1)
         return A, n
 
     def marginals(self, toks, pos):
@@ -320,7 +354,7 @@ def main():
     out["elapsed_s"] = round(time.time() - t0, 1); out["smoke"] = smoke
     print(json.dumps(out, indent=1))
     from experiments._seed_checkpoint import get_output_dir
-    od = str(get_output_dir("probe_attachment_competition_v18" + ("_priorfree" if "--prior-free-teacher" in sys.argv else "") + ("_plaus" if USE_PLAUS else "") + ("_constr" if USE_CONSTR else "") + (("_a%g_r%d" % (ALPHA, ROUNDS)) if ("--alpha" in sys.argv or "--rounds" in sys.argv) else "") + (("_d%g" % LEARN_DELTA) if LEARN_DELTA else "") + ("_punct" if PUNCT_HARD else "") + ("_curr" if CURRICULUM else "") + ("_smoke" if smoke else ""))); os.makedirs(od, exist_ok=True)
+    od = str(get_output_dir("probe_attachment_competition_v18" + ("_priorfree" if "--prior-free-teacher" in sys.argv else "") + ("_plaus" if USE_PLAUS else "") + ("_constr" if USE_CONSTR else "") + (("_a%g_r%d" % (ALPHA, ROUNDS)) if ("--alpha" in sys.argv or "--rounds" in sys.argv) else "") + (("_d%g" % LEARN_DELTA) if LEARN_DELTA else "") + ("_punct" if PUNCT_HARD else "") + ("_curr" if CURRICULUM else "") + ("_sib" if USE_SIB else "") + ("_smoke" if smoke else ""))); os.makedirs(od, exist_ok=True)
     json.dump(out, open(os.path.join(od, "metrics.json"), "w", encoding="utf-8"), indent=1)
 
 
