@@ -261,3 +261,6 @@ competent-reader reference ~0.85–0.90.
   teacher + decode-time constraints (0.4755): the best label-free attachment in the substrate; twin pending. Lexical cue
   (head lemma × dependent class × direction) at 1.5k sentences: r0 0.4386 → 0.4185, r1 0.4443 → 0.4292 = too sparse at that
   volume (lever 2 needs lever 1 first); flag off; retest at 60k.
+- **v18 FULL FINAL: r0 0.4715 → r1 0.4801 → r2 0.4834; shuffled-strength twin 0.0918** (teacher 0.4626; teacher + decode constraints
+  0.4755; floor 0.285; supervised 0.782). Each anchored self-teaching round still improves. Landing gate (spec §7) pending: the
+  prior-free-teacher bootstrap (running), one knowledge form + one lexicon, one organ one cue pass.

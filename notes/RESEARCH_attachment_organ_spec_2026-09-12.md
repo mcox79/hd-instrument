@@ -97,7 +97,7 @@ rational parsing); Kjelgaard & Speer 1999 (prosodic boundaries); Altmann & Steed
 | cached reading-learned scorer (teacher; hand-authored Naseem prior pw=3) | 0.4626 | pri-2's best |
 | teacher + form-class constraint + prosodic boundary (decode-time) | 0.4755 | constraints measured first |
 | **attachment CUE COMPETITION, r0 (taught by the teacher's tree posterior)** | **0.4715** | no hand-authored prior; learned conditioned contrasts |
-| **attachment cue competition, r1 (anchored self-teaching)** | **0.4801** | the best label-free attachment in the substrate |
+| **attachment cue competition, r1 / r2 (anchored self-teaching)** | **0.4801 / 0.4834** | the best label-free attachment in the substrate; twin 0.092 |
 | unconditioned additive cues (smoke) | drifted 0.41 → 0.37 | decorrelation by conditioning is load-bearing |
 | shuffled-strength twin (smoke) | 0.03 | |
 | lexical cue at 1.5k sentences (smoke) | −0.02 | too sparse; needs volume (lever 1 before lever 2) |
