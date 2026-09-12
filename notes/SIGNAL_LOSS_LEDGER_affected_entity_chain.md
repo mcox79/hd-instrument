@@ -264,3 +264,12 @@ competent-reader reference ~0.85–0.90.
 - **v18 FULL FINAL: r0 0.4715 → r1 0.4801 → r2 0.4834; shuffled-strength twin 0.0918** (teacher 0.4626; teacher + decode constraints
   0.4755; floor 0.285; supervised 0.782). Each anchored self-teaching round still improves. Landing gate (spec §7) pending: the
   prior-free-teacher bootstrap (running), one knowledge form + one lexicon, one organ one cue pass.
+- **Owner: volume alone will not get us to 0.9 — what other levers?** Ordered by expected size × BF fit: (1) the LEARNING SIGNAL
+  itself — prediction error (surprisal of the next word / of the situation) instead of a static co-occurrence teacher; BUT the
+  pri-2 record already shows the text-only form route is near its field ceiling: the 0-EM scale curve was FLAT (0.428@2k → 0.478),
+  EM peaks at round 2 then declines (DMV signature), online/Hebbian re-estimation 0.434 < 0.478, Klein-Manning text-only ceiling
+  ~0.5; constructions lifted 0.478 → **0.514** (content 0.544). So the next jumps are not form-only: (2) MEANING feeding structure —
+  a plausibility cue from the forward-prediction organ (`composed_hub_predictor.surprisal`: the dependent as an argument of the
+  candidate verb) and, beyond it, the generative world model as the parse's outcome signal (predictive-coding loop closure);
+  (3) the argument-structure LEXICON at scale (one grown asset); (4) CONSTRUCTIONS as cue coalitions in the competition (+0.036 in
+  pri-2); (5) INCREMENTAL decode with reanalysis. First test: the plausibility cue inside the competition (available today).

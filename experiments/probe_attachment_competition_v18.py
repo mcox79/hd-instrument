@@ -42,7 +42,32 @@ from hdlab.thematic_role_labeler import lemma_verb
 
 TEACHER = os.path.join(_REPO, "data", "_readlearned_models", "em_n11991_r2_lam0.30_pw3.00.pkl")
 FORM = {"PUNCT", "NUM", "SYM"}
-CUES = ["locality", "catpair", "frame", "form", "boundary", "agree", "root", "lex"]
+CUES = ["locality", "catpair", "frame", "form", "boundary", "agree", "root", "lex", "plaus"]
+USE_PLAUS = "--plaus" in sys.argv   # MEANING cue: surprisal of the nominal as an argument of the candidate verb (forward-prediction organ)
+_PRED = None
+
+
+def _predictor():
+    global _PRED
+    if _PRED is None:
+        from hdlab.composed_hub_predictor import HubComposedPredictor
+        _PRED = HubComposedPredictor.load()
+    return _PRED
+
+
+def plaus_bin(toks, pos, j, h):
+    """Plausibility of dependent j as an ARGUMENT of verb h: -log P under the forward-prediction organ among the sentence's
+    other nominals (the N400 read-out, Altmann-Kamide / McRae thematic fit). Binned; 'none' when the organ abstains."""
+    if pos[h - 1] != "VERB" or pos[j - 1] not in ("NOUN", "PRON", "PROPN"):
+        return "na"
+    P = _predictor(); verb = lemma_verb(toks[h - 1]).lower()
+    if not P.has(verb):
+        return "none"
+    cands = [toks[k - 1].lower() for k in range(1, len(toks) + 1) if k != j and pos[k - 1] in ("NOUN", "PRON", "PROPN")]
+    sp = P.surprisal(verb, "PATIENT", toks[j - 1].lower(), cands)
+    if sp is None:
+        return "none"
+    return "low" if sp < 1.0 else "mid" if sp < 2.5 else "high"
 USE_LEX = False   # lexical attachment preference: THIS head lemma x dependent category x direction (shrunk toward the catpair config)
                   # smoke @1.5k sentences: r0 0.4386 -> 0.4185, r1 0.4443 -> 0.4292 = too SPARSE at that volume; retest at 60k (probe v20)
 
@@ -82,6 +107,7 @@ def arc_cues(toks, pos, j, h, frames):
         c["lex"] = f"{lem}:{pj}:{dr}" if ph in ("VERB", "AUX", "ADP", "NOUN", "ADJ") else "na"
     else:
         c["lex"] = "na"
+    c["plaus"] = plaus_bin(toks, pos, j, h) if USE_PLAUS else "na"
     if ph == "VERB":
         fr = frames.get(lemma_verb(toks[h - 1]).lower())
         trans = "unk" if not fr else ("trans" if fr[1] / fr[0] >= 0.3 else "intrans")
@@ -240,7 +266,7 @@ def main():
     out["elapsed_s"] = round(time.time() - t0, 1); out["smoke"] = smoke
     print(json.dumps(out, indent=1))
     from experiments._seed_checkpoint import get_output_dir
-    od = str(get_output_dir("probe_attachment_competition_v18" + ("_priorfree" if "--prior-free-teacher" in sys.argv else "") + ("_smoke" if smoke else ""))); os.makedirs(od, exist_ok=True)
+    od = str(get_output_dir("probe_attachment_competition_v18" + ("_priorfree" if "--prior-free-teacher" in sys.argv else "") + ("_plaus" if USE_PLAUS else "") + ("_smoke" if smoke else ""))); os.makedirs(od, exist_ok=True)
     json.dump(out, open(os.path.join(od, "metrics.json"), "w", encoding="utf-8"), indent=1)
 
 
