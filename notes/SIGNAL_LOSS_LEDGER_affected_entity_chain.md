@@ -183,3 +183,12 @@ competent-reader reference ~0.85–0.90.
   (0.99 pure); {it, they, this, which, there, you, we} = PRON. Not a bug: the brain's categories are not UD's. Phase-diagram move:
   more clusters (k=136 run launched) or a within-cluster refinement by finer frames; the consumer-facing question is whether the
   parser/role rungs need UD's split at all (they read SUBJ/OBJ configurations, not CCONJ vs ADP).
+- **HAND-OFF categories → heads (probe v15, the fully-BF chain re-run with the 1M categories; UD-EWT smoke slice 2.5k/150):**
+  raw 70-way inventory → chain UAS **0.0115** (below its shuffled twin 0.118; v1 with 8k/k17 categories 0.034); the SAME categories
+  collapsed to a 17-way inventory → **0.2083** (gold-POS-no-prior reference 0.2755; adjacent-right floor 0.290); UNK→gold tag changes
+  nothing (0.004) → the loss is the INVENTORY SIZE at the hand-off: the reading-learned attachment scorer learns category-pair ×
+  direction × distance statistics from 8k sentences and cannot estimate them over 70 categories. The top rung's signal is real
+  (0.208 = 75% of gold-POS); the next rung's INPUT GRANULARITY and its READING BUDGET are the levers — not the categories' quality.
+  BF fixes to test: (a) a coarse inventory from the same reading, no labels (1M/k17 run launched); (b) the scorer learns from the same
+  million lines' induced-category sequences instead of 8k treebank sentences.
+- 1M/k136 categories: 0.758 type / 0.728 token (SCONJ 0.55, ADV 0.26 now separate; CCONJ 0 — "and/or" stay with the prepositions).
