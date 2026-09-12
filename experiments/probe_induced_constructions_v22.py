@@ -85,6 +85,69 @@ def induce_constructions(pos_seqs, nmax=4, min_count=200, margin=0.15):
     return cons
 
 
+def transition_table(pos_seqs):
+    """P(next category | category) over the reading -- the statistical-segmentation signal (Saffran 1996)."""
+    big = defaultdict(Counter)
+    for seq in pos_seqs:
+        s = ["<S>"] + list(seq) + ["</S>"]
+        for a, b in zip(s, s[1:]):
+            big[a][b] += 1
+    return {a: {b: c / sum(cnt.values()) for b, c in cnt.items()} for a, cnt in big.items()}
+
+
+def segment_by_dips(pos, trans, tau):
+    """Chunks = maximal runs with no boundary; a boundary falls between i and i+1 where P(pos[i+1] | pos[i]) < tau, at
+    punctuation, and around VERB/AUX (predicates head their own clause-level structure, handled by the other cues)."""
+    chunks = []; cur = [0]
+    for i in range(len(pos) - 1):
+        a, b = pos[i], pos[i + 1]
+        cut = (trans.get(a, {}).get(b, 0.0) < tau) or a == "PUNCT" or b == "PUNCT" or a in ("VERB", "AUX") or b in ("VERB", "AUX")
+        if cut:
+            chunks.append(cur); cur = [i + 1]
+        else:
+            cur.append(i + 1)
+    chunks.append(cur)
+    return [c for c in chunks if len(c) >= 2]
+
+
+def induce_by_segmentation(pos_seqs, tau, min_count=50, margin=0.10):
+    """Units from transition-dip segmentation; for each unit TYPE (category sequence) the head by the substitution test."""
+    trans = transition_table(pos_seqs)
+    ctx_word = defaultdict(Counter); unit_ctx = defaultdict(Counter); unit_cnt = Counter()
+    for seq in pos_seqs:
+        s = ["<S>"] + list(seq) + ["</S>"]
+        for i in range(1, len(s) - 1):
+            ctx_word[s[i]][(s[i - 1], s[i + 1])] += 1
+        for ch in segment_by_dips(list(seq), trans, tau):
+            g = tuple(seq[k] for k in ch); lo, hi = ch[0] + 1, ch[-1] + 1
+            unit_cnt[g] += 1; unit_ctx[g][(s[lo - 1], s[hi + 1])] += 1
+    def vec(counter, keys):
+        v = np.array([counter.get(k, 0) for k in keys], dtype=float); return v / (np.linalg.norm(v) + 1e-9)
+    cons = {}
+    for g, c in unit_cnt.items():
+        if c < min_count or len(g) > 6:
+            continue
+        keys = list(set(unit_ctx[g]) | set().union(*[set(ctx_word[m]) for m in g]))
+        gv = vec(unit_ctx[g], keys); sims = [float(gv @ vec(ctx_word[m], keys)) for m in g]
+        order = sorted(range(len(g)), key=lambda k: -sims[k])
+        if len(g) == 1 or sims[order[0]] - sims[order[1]] >= margin:
+            cons[g] = order[0]
+    return cons, trans
+
+
+def chunk_arcs_segmented(pos, cons, trans, tau):
+    out = {}
+    for ch in segment_by_dips(list(pos), trans, tau):
+        g = tuple(pos[k] for k in ch)
+        if g in cons:
+            hidx = cons[g]; h = ch[hidx] + 1
+            label = "_".join(("[%s]" % c) if k == hidx else c for k, c in enumerate(g))
+            for k, idx in enumerate(ch):
+                if k != hidx:
+                    out[(h, idx + 1)] = label + ":d%d" % k
+    return out
+
+
 def chunk_arcs(pos, cons, nmax=4):
     """Greedy longest-match chunking; returns {(h, j): schema_label} for within-chunk arcs (1-based)."""
     n = len(pos); i = 0; out = {}
@@ -111,13 +174,19 @@ def main():
     t0 = time.time()
     tg, _, _ = V11._fe()
     pos_seqs = tagged_wiki(lines, tg)
-    cons = induce_constructions(pos_seqs, min_count=(50 if smoke else 200))
+    boundary = "--boundary" in sys.argv
+    tau = float(sys.argv[sys.argv.index("--tau") + 1]) if "--tau" in sys.argv else 0.08
+    if boundary:
+        cons, trans = induce_by_segmentation(pos_seqs, tau, min_count=(30 if smoke else 150))
+    else:
+        cons = induce_constructions(pos_seqs, min_count=(50 if smoke else 200)); trans = None
     print("induced constructions:", len(cons), "| examples:", [("_".join(g), h) for g, h in list(sorted(cons.items(), key=lambda kv: -len(kv[0])))[:8]], flush=True)
     # plug the induced chunk cue into the v18 competition via construction_arcs (monkeypatch), optionally union with hand-coded
     hand = V18.construction_arcs
     def induced_arcs(toks, pos):
         out = dict(hand(toks, pos)) if both else {}
-        for (h, j), lab in chunk_arcs(list(pos), cons).items():
+        arcs = chunk_arcs_segmented(list(pos), cons, trans, tau) if boundary else chunk_arcs(list(pos), cons)
+        for (h, j), lab in arcs.items():
             out[(h, j)] = lab if not both else out.get((h, j), lab)
         return out
     V18.construction_arcs = induced_arcs; V18.USE_CONSTR = True; V18._CONSTR_CACHE.clear()
@@ -132,7 +201,7 @@ def main():
         A, n = teacher._score_matrix(toks, pos)
         stu.accrue(toks, pos, single_root_marginals(A, n, 1.0))
     stu.finalize()
-    out = {"lines": lines, "n_constructions": len(cons), "both": both, "floor": round(floor, 4),
+    out = {"lines": lines, "n_constructions": len(cons), "both": both, "boundary": boundary, "tau": tau, "floor": round(floor, 4),
            "student_r0": round(V18.uas(stu.parse, test), 4)}
     print("student r0 (induced constructions%s):" % (" + hand-coded" if both else ""), out["student_r0"], flush=True)
     for r in (1, 2):
@@ -149,7 +218,7 @@ def main():
     out["elapsed_s"] = round(time.time() - t0, 1); out["smoke"] = smoke
     print(json.dumps(out, indent=1))
     from experiments._seed_checkpoint import get_output_dir
-    od = str(get_output_dir("probe_induced_constructions_v22" + ("_both" if both else "") + ("_smoke" if smoke else ""))); os.makedirs(od, exist_ok=True)
+    od = str(get_output_dir("probe_induced_constructions_v22" + ("_both" if both else "") + ("_boundary" if boundary else "") + ("_smoke" if smoke else ""))); os.makedirs(od, exist_ok=True)
     json.dump(out, open(os.path.join(od, "metrics.json"), "w", encoding="utf-8"), indent=1)
     json.dump({"_".join(g): h for g, h in cons.items()}, open(os.path.join(od, "constructions.json"), "w", encoding="utf-8"), indent=1)
 
