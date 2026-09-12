@@ -2575,7 +2575,7 @@ def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True
     if write_metrics:
         with open(os.path.join(OUT_DIR, "metrics.json"), "w", encoding="ascii") as fh:
             json.dump(res, fh, indent=2, default=str)
-        if not caps:
+        if run_new_arms:               # a FULL run (the self-test passes write_metrics=False, run_new_arms=False)
             _append_trend_row(res)
     return res
 
