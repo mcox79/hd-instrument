@@ -29,9 +29,16 @@ from typing import Dict, List, Optional, Sequence, Tuple
 import numpy as np
 
 from .graded_competition import graded_pick
+# ONE EQUATION, ONE IMPLEMENTATION (2026-09-11, consolidation audit Cluster 13 / owner: "no islanded copies"): the
+# ACT-R base-level activation B = ln(sum_k w(role_k) * dt_k^-d) is computed by hdlab.salience_binder.actr_activation
+# (the pinned salience organ; Anderson & Schooler 1991) and IMPORTED here, as entity_resolver and
+# online_entity_cluster already do -- this module used to carry its own copy of the loop. Byte-identical: same
+# dt floor (max(1, p_sent - m_sent + 1)), same role weights, same summation order; -inf (empty history) is mapped
+# to this module's finite floor -1e9 exactly as before.
+from .salience_binder import actr_activation, ROLE_PROMINENCE
 
 # Per-mention grammatical-role strength (Cf prominence; the ACT-R role term). From the landed activation binder.
-ROLE_W = {"SUBJECT": 4.0, "POSSESSIVE": 2.5, "OBJECT": 2.0, "OTHER": 1.0}
+ROLE_W = ROLE_PROMINENCE   # == {"SUBJECT": 4.0, "POSSESSIVE": 2.5, "OBJECT": 2.0, "OTHER": 1.0}; the salience organ's table
 
 # DEV-tuned defaults reported on TEST (OUR-INVENTION-UNDER-TEST; the winning config is ACT-R activation + a light
 # subjecthood term -- the retrieval currency dominates, the Centering geometry cues are light additive terms).
@@ -91,8 +98,8 @@ def graded_antecedent_pick(
         first.append(1.0 if earliest[i] == first_sent else 0.0)         # advantage-of-first-mention
         last_role = max(pri, key=lambda sr: sr[0])[1]                    # parallelism: last role == pronoun's role
         par.append(1.0 if last_role == pron_role else 0.0)
-        s = sum(ROLE_W.get(r, 1.0) * (_dt(p_sent, sent) ** (-d)) for sent, r in pri)  # ACT-R base-level activation
-        actr.append(math.log(s) if s > 0 else -1e9)
+        a = actr_activation(pri, float(p_sent), d, ROLE_W)                # ACT-R base-level activation (salience organ)
+        actr.append(a if a != float("-inf") else -1e9)
 
     zsup = {"recency": _zscore(np.array(rec)), "subject": _zscore(np.array(subj)),
             "cb": _zscore(np.array(cb)), "freq": _zscore(np.array(freq)),
