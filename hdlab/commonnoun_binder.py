@@ -102,12 +102,13 @@ def _actr(ref, cur_sent, d=DEFAULT_ACTR_D):
     """PINNED ACT-R base-level activation A = ln(sum_k w_role(k) * dt_k^-d) over the referent's past
     mentions (recency x frequency x grammatical-role prominence; Anderson-Schooler; Lewis-Vasishth).
     Copied verbatim from hdlab.graded_coref_pick; dt >= 1 (sentence distance)."""
-    s = 0.0
-    for (sent, role) in ref.hist:
-        rw = ROLE_W["SUBJECT"] if role == 0 else ROLE_W["OTHER"]
-        dt = float(max(1, cur_sent - sent + 1))
-        s += rw * (dt ** (-d))
-    return np.log(s) if s > 0 else -1e9
+    # 2026-09-12: ONE equation, one implementation -- delegate to the salience organ (hdlab.salience_binder.actr_activation),
+    # as graded_coref_pick / entity_resolver / online_entity_cluster do; this module used to carry a third copy of the loop.
+    # Role mapping preserved (role 0 = SUBJECT weight, else OTHER); -inf (empty history) -> this module's -1e9 floor.
+    from hdlab.salience_binder import actr_activation
+    hist = [(sent, "SUBJECT" if role == 0 else "OTHER") for (sent, role) in ref.hist]
+    a = actr_activation(hist, float(cur_sent), d, ROLE_W)
+    return a if a != float("-inf") else -1e9
 
 
 def _gender_ok(g1, g2):
