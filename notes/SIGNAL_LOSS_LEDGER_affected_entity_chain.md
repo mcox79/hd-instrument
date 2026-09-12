@@ -215,3 +215,15 @@ competent-reader reference ~0.85–0.90.
   **Form-class constraint (punctuation / numerals cannot head or root — a mark is not a word; pre-lexical, label-free):**
   k68 0.012 → 0.036, k17 0.121 → 0.170, gold POS 0.2755 → 0.2960 (above the adjacent-right floor 0.290). The constraint helps
   every inventory; the fine inventory still needs its functional coarsening. `FormAwareEM` prototype in the probe log.
+- **Consumer-guided coarsening (probe v17 smoke): merging fine clusters by their attachment-behaviour profile → K=17 UAS 0.088 =
+  twin 0.084 → REFUTED at this config (the profiles come from the fine learner's own poor statistics — circular).** Decisive
+  reframe: with GOLD categories the attachment learner reaches only 0.296 vs the adjacent-right floor 0.290 → **the heads rung's
+  bottleneck is the attachment LEARNER, not the categories feeding it.** Owner (2026-09-12): punctuation carries serious signal
+  that should be picked up elsewhere → in writing, punctuation = PROSODY (boundaries/closure; Kjelgaard & Speer 1999): it belongs
+  in segmentation (already), the role competition's clause edge (pre_slot stops at PUNCT, already) and ATTACHMENT as a BOUNDARY
+  cue (arcs rarely cross a prosodic boundary; closure before it) — never as a head. Next probe: a boundary penalty on arcs spanning
+  punctuation, swept, label-free.
+- **Punctuation as a PROSODIC BOUNDARY cue in the attachment learner (arcs spanning a mark penalised β per mark; marks never
+  head):** monotone gain — gold POS 0.296 → 0.301 / 0.306 / 0.312 / **0.315** (β 0.5/1/2/4; floor 0.290); fine-70 0.036 → 0.058.
+  Small but the right direction and label-free; β swept, not adopted. The attachment LEARNER stays the bottleneck of the heads
+  rung (pri-11 / pri-2's full-scale reading-learned scorer with constructions reaches 0.46–0.48; this reduced config 0.30).
