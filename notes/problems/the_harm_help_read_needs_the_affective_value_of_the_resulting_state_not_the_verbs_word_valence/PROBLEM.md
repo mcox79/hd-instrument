@@ -60,3 +60,16 @@ A glass-box result-state valuation arm inside `force_dynamics_valence` (foundati
 
 ## 8. DO NOT QUOTE / DO NOT REDO
 Do NOT quote retired figures (`notes/reference_retired_claims_never_requote.md`). Do NOT re-add a verb list or FrameNet-at-inference. Do NOT re-try synonym-lemma valence averaging. Do NOT use spaCy / any external LLM at inference.
+
+## 9. STRATEGY LANDING 2026-09-12 — READ BEFORE STARTING (the first arm is LIVE; the remaining scope is below)
+Strategy researched this wall the same night and LANDED the checklist's step 1-2 read as the result-state ARM of `force_dynamics_valence` (no new organ): WordNet-SENSE-keyed
+VerbNet result/end-state predicates over the Patient, read over the verb's affecting animate-object senses, valued by the affect lexicon or the innate nociceptive sign; the
+word-level norm is now the SECOND read. Asset `data/frontend_assets/verbnet_result_state_v1.json` (builder `tools/build_verbnet_result_state_asset.py`); witness
+`verification/test_fd_result_state_arm.py` (15/15). Recovered: batter, bludgeon, pummel, club, throttle (+ clobber/wallop/thrash/whack agree); 31 formerly-abstaining verbs
+decided; neutral precision held; twin loses; board gold held. Full numbers + the REJECTED routes (hypernym inheritance 0.65-0.75, synset-mate 0.75, gloss-first breaks harm-frame
+verbs, gloss-fallback 0.81 measured NOT landed): `notes/RESEARCH_result_state_valuation_2026-09-12.md`. **Do not rebuild these.**
+
+**REMAINING SCOPE (the bar now):** (a) 822/2926 affecting verbs still abstain (no foundation result state + weak norm) — wrench, maul, oppress, tend among the probe sets: find a
+brain-faithful result-state source for them (VerbNet has NO positive result-state predicate; HELP still rides on the word norm), with a number per slice; (b) sense-IN-CONTEXT selection
+of WHICH sense's result state applies (the `select_sense` program) rather than the animate-object-frame heuristic; (c) measure `affected_entity` downstream on real prose, not only gold.
+A rigorous located negative with counts remains a full pass.

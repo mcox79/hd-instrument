@@ -120,3 +120,12 @@ labels are ACCURATE; each latent asset activates when ITS consumer lands (measur
 - **Provenance:** `type_generalized_selectional_preference_densifies_coverage_but_the_who_affected_wall_is_ambiguity` (owner-DONE 2026-09-12 via Q131).
 - **What it is / BF basis:** typed thematic-fit expectation (McRae-Ferretti role-as-feature-bundle; Warren-Paczynski N400 type tier) in Resnik's KL form — superseded by Bicknell 2010 joint agent-verb expectations → the pri-1 event model is the successor and the consumer.
 - **Measured:** coverage on hard mis-attachment pairs 40% → 85%; margin-gated rerank neutral on the full hard set (ambiguity ~70%), +0.07..+0.16 on the clean-signal subset. **LATENT** (no live default consumer by measurement). Witness `test_typed_selectional_preference_organ.py` 4/4.
+
+### 9. `VerbNet result state` — WordNet sense key -> the result/end state the Patient is left in  ·  **BF_SPIRIT (offline foundation; state predicates valued by the affect lexicon + innate nociceptive sign)**  ·  LIVE
+- **Path:** `data/frontend_assets/verbnet_result_state_v1.json` (233 sense keys; rebuild: `python tools/build_verbnet_result_state_asset.py`, ~5 s, from the nltk VerbNet corpus) read by
+  `hdlab/force_dynamics_valence.py` (`result_state_table` / `result_state_evidence` / `result_state_value`).
+- **Provenance:** strategy research on the pri-14 wall (2026-09-12), `notes/RESEARCH_result_state_valuation_2026-09-12.md`.
+- **What it is / BF basis:** the brain values the SIMULATED RESULT STATE (OFC/vmPFC), not the verb's lexical pleasantness; VerbNet's class semantics name that state per SENSE;
+  the sense key keeps homonyms apart (throttle-the-engine vs strangle). Admissible as a static offline asset (owner 2026-07-14/08-16); nothing fitted; no verb list.
+- **Consumer:** `endstate_valence_sign` (first read) -> harm/help arithmetic -> reader affect fields -> `affect_harm_help` / `affected_entity` arms. **Measured:** witness
+  `test_fd_result_state_arm` 15/15 (recovery 9/9, twin 0/5, neutral held, gold 24/24). Absent asset = the arm abstains and the word-level norm decides (graceful).

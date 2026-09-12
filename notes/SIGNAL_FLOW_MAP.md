@@ -90,3 +90,14 @@ directive 09-07); an unexplained regression is reverted.
   binding; the positional gate is only the fallback. Passive patients ("the intern was bullied") now reach the decision.
 - Three landing-era witnesses that asserted "nothing changed" under the OLD decision were re-based to the live organ's
   decision or to recorded, bounded divergence rates; each edit says why in place.
+
+## 8. Result-state arm (2026-09-12, strategy; pri-14 research landing)
+- **Where in the flow:** `force_dynamics_valence.endstate_valence_sign` (STEP 3, the affect decision's valence input). Upstream unchanged: the reader's
+  bound predicate (`gov_idx`) and animacy reach the arithmetic as before. The arm changes only WHICH valence the arithmetic multiplies by.
+- **Signal now read FIRST:** the RESULT STATE of the verb's affecting animate-object senses (VerbNet sense-keyed state predicates, offline asset),
+  valued by the affect lexicon or the innate nociceptive sign; the word-level norm is the SECOND read; abstain otherwise.
+- **Downstream consumers and what moved:** `context_grounded_valence` -> reader affect fields -> `affected_entity` / `affect_harm_help` arms. Witness
+  sweep: 9 assault verbs recovered to HARM, 31 formerly-abstaining verbs decided (all HARM), 10 wrong-sense positives corrected, no neutral verb
+  decided, board gold 24/24 held, smoke board unchanged; full-board delta recorded in INTEGRATION_LEDGER / BOARD_TREND.
+- **Boundary kept honest:** verbs whose senses name no result state in the foundation and whose norm is weak (wrench, maul) abstain; 822/2926
+  affecting verbs abstain overall. Research: `notes/RESEARCH_result_state_valuation_2026-09-12.md`.
