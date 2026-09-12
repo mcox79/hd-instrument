@@ -77,3 +77,9 @@ anti-fragmentation-clean. (The board arm + read() dimension stay; only the resol
 ## 2026-09-11 (evening) — the MEANING-CHANNEL pair INTEGRATED (fold-in backlog → 0)
 - **pri-5 meaning-fusion → APPLIED.** `reading_grounding_loop` gains the FUSED sense-assignment read (grounded-distinctive + grown-SEQ + referent, SDT criterion) LIVE by default; `sensorimotor_spoke` gains the visual-referent arm (FOUNDATION asset at ingest); `grounded_similarity` gains `grounded_reliability` (Lancaster rater SD → precision); `foundation_persistence` persists the ROUTE-B store; `substrate` merges the grown store. Registry notes updated (statuses unchanged: BF_SPIRIT). Deepest residual recorded: WordNet-morphy at runtime in the lemma rung.
 - **context-gated sense → APPLIED.** Board WiC arm re-pointed at the live wire; `board_scws_graded_dimension` added; NO discrete consumer gated (the DO-NOT is durable). Registry: no status change.
+
+## 2026-09-11 (late) — READY WAVE reverified first-hand (NOT applied; awaiting owner-DONE)
+- pri-7 harm/help: `test_fd_harm_help_arithmetic` 9/9 + `test_pos_nominal_head_correction` 6/6 → on DONE: `force_dynamics_valence` NOT_BF→BF_SPIRIT, `pos_tagger` gains the nominal-head correction, `arc_labeler` gains the voice correction (GENERAL upstream fixes).
+- pos_tagger max-margin: `test_pos_calibrated_tagger_and_hardcommit` 6/6 → characterization only (hard-commit loss; CRF interface gated OFF with the measured −0.010).
+- type-generalized selectional preference: `test_typed_selectional_preference` 5/5 → on DONE: new BF knowledge organ `typed_selectional_preference` + margin-gated consumer.
+Landing scopes: INTEGRATION_LEDGER.md 'READY WAVE' block.
