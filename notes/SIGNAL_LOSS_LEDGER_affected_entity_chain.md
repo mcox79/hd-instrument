@@ -254,3 +254,6 @@ competent-reader reference ~0.85–0.90.
   millions of words — the category learner went 0.32 → 0.75 with scale); (2) a LEXICON of argument structure learned from reading
   (our frame cue is a sketch); (3) MEANING / plausibility feeding structure (the generative world model); (4) INCREMENTAL
   prediction with reanalysis (surprisal as the learning signal). The competition machinery itself now matches its teacher.
+- **v18 FULL (6k/700): student r0 0.4715 > teacher 0.4626** — the cue competition with learned, configuration-conditioned
+  strengths REPLACES the teacher's hand-authored Naseem prior (pw=3) and beats it; r1/r2 + twin pending. Next lever per the gap
+  analysis: EXPERIENCE VOLUME (probe v20: the learner accrues from 20k / 60k Simple-Wiki sentences tagged by the substrate's tagger).
