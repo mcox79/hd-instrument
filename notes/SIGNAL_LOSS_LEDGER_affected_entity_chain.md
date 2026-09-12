@@ -284,3 +284,6 @@ competent-reader reference ~0.85–0.90.
   the cue value = which item-based construction (verbarg / coord / npmod / clausal, the landed detectors) proposes the arc; its
   strength is LEARNED within the category-pair configuration, not hand-weighted. Full run + prior-free+constructions queued.
   Prior-free gate r1 0.3631 (rising).
+- **LANDING GATE 1 FULL (prior-free bootstrap, 6k/700): teacher 0.2722 (< floor 0.285) → student r0 0.3505 → r1 0.3631 → r2 0.3751**
+  (still rising); the organ's cues build structure from a knowledge-free start, but 0.11 below the prior-informed bootstrap
+  (0.4834) — the hand-authored Naseem prior was carrying ~0.1 of the earlier number. Knowledge-free + constructions queued.
