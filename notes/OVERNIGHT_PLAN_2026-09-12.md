@@ -84,4 +84,4 @@ A denied tool call; a regression that survives a revert; an owner note in `notes
 
 ## PROGRESS (tick as done)
 - [x] STEP 0
-- [x] STEP 1 (notes/SIGNAL_FLOW_MAP.md; all 7 label consumers already handle nsubj:pass; harm/help contract identical; Bayesian terms must be a persisted asset)  - [ ] STEP 2 (research scan running)  - [ ] STEP 3a  - [ ] 3b  - [ ] 3c  - [ ] 3d  - [ ] STEP 4  - [ ] STEP 5  - [ ] STEP 6  - [ ] STEP 7
+- [x] STEP 1 (notes/SIGNAL_FLOW_MAP.md; all 7 label consumers already handle nsubj:pass; harm/help contract identical; Bayesian terms must be a persisted asset)  - [x] STEP 2 (RESEARCH_harm_help_and_selectional_math: all three = computational-level composites; none OUR-INVENTION-as-mechanism; Resnik superseded by Bicknell 2010 -> noted for pri-1)  - [x] STEP 3a  - [x] 3b  - [x] 3c (+ valence-coverage boundary recorded; synonym backoff tried+withdrawn)  - [x] 3d (gov_idx = the reader's bound predicate)  - [ ] STEP 4  - [ ] STEP 5  - [ ] STEP 6  - [ ] STEP 7
