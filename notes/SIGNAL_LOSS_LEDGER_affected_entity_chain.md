@@ -302,3 +302,8 @@ competent-reader reference ~0.85–0.90.
   FLAT.** Confirms the pri-2 scale curve: more text does not move this learner; STRUCTURE does. 60k arm pending.
 - **Constructions coalition cue FULL FINAL: r2 0.5303 (twin 0.089)** — 0.4626 → 0.5303 (+0.068) from the competition + learned
   conditioned strengths + the construction coalition; still rising per round. Knowledge-free + constructions run started.
+- **Induced constructions v22, n-gram form (smoke 20k lines / 1.5k / 150): 509 schemas, student r0 0.4404 / r1 0.4501** vs no
+  constructions 0.4386 / 0.4443 and hand-coded 0.4558 / 0.4917 → NEGATIVE at this form: frequent category n-grams are not
+  constituents ("DET_ADJ_NOUN_ADP" headed by DET) so the substitution test is asked about the wrong units. Stronger brain version:
+  find the UNITS first by statistical segmentation (Saffran: chunk boundaries where category transition probability dips), then
+  heads by substitution — being built (v22 --boundary).
