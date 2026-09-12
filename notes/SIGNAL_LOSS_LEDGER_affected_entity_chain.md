@@ -139,3 +139,30 @@ competent-reader reference ~0.85–0.90.
   0.583 (n=108); copular subjects 0.720 vs 0.782 (n=528); BY_AGENT 0.694 vs 0.056; OTHER 0.806 vs 0.683. Work-list: (1) cue
   fixes for the two named gaps (pre-verbal-slot cue; direct-vs-far preposition) — more upstream signal; (2) the patient read
   and the copular holder read consume the competition's GRADED posterior, not its MAP label; re-run the board.
+- **Hand-off probes (2026-09-12 late):** (a) labeler reading the TAGGER's calibrated posterior for the head's category
+  (`coarse_role_posterior_tagmarg`, CRF marginals) on UD-EWT test deployment parse: 0.8063 → 0.8064 = NULL at this config (UD-EWT
+  is the tagger's home domain; GUM, where the tagger costs 0.064, not yet tested) — function kept, not wired. (b) Exposure-weighted
+  category sweep DONE: 50k/k17 0.577, 50k/k34 0.693, 200k/k17 0.618, 200k/k34 0.684, 200k/k68 0.699, 1M/k34 0.645, **1M/k68 0.706**
+  (token readout 0.678 @100% coverage); Mintz frames at 1M 0.410. The cluster COUNT is the lever; the reading budget saturates
+  early at k=34 (the child's categories form from modest input). Final-code run (form classes + form cue) at 1M/k68 running.
+  (c) Graded hand-offs in `labeled_pick` / `extract_entity_states` measured on the two regressed board dims: IDENTICAL at every
+  threshold incl. OFF (0.8088 / 0.8148) → the graded branch is not on the scored path or the loss is in WRONG hard labels, not
+  ABSENT ones — tracing the instruments' actual call path next.
+- **TOP RUNG FINAL CONFIG (1M Simple-Wiki lines, k=68 + 2 orthographic form classes, exposure-weighted competitive learning,
+  learned form cue for unknown words): type-level many-to-one 0.745 (majority 0.157, twin 0.481, V 0.592); token-level graded
+  readout 0.722 at 100% coverage.** Per class: PRON .87, NOUN .85, DET .85, AUX .83, ADP .83, ADJ .80, VERB .78, PART .74,
+  NUM .66, PROPN .54; ADV .05, CCONJ/SCONJ 0 ("and" ≈ comma; adverbs scatter). Prior attempt 0.323 → 0.745 by moving the
+  operating point (exposure weighting, form classes, k), no labels anywhere. Supervised tagger 0.944 = the remaining gap.
+- **Patient-consumer trace (instrument mirror, UD-EWT n=1255):** LIVE vs RAW labels: 1008 both right, 18 LIVE-only, 37 RAW-only,
+  192 both wrong. 23 of the 37: the competition labelled the gold object `obj` AND a second post-verbal nominal `obj` (iobj folded
+  into OBJ) and the consumer takes the first → added the IOBJ class + animacy + double-object cues: the double-labelling is gone
+  but "saw him yesterday" now reads `him` as recipient (time adjuncts look like second objects by order) → the disambiguator is
+  the VERB'S ARGUMENT FRAME (give/tell/show take recipients) — adding the frame cue from the reader's verb-frame knowledge.
+- **Consumer regressions mostly REPAIRED UPSTREAM (more signal, not a revert), 2026-09-12 late:** (1) IOBJ class (recipient) with
+  animacy + the verb's recipient propensity (`frame` cue: per-lemma iobj share accrued from the treebank counts; plastic form keeps
+  accruing); (2) the two post-verbal cues merged into ONE slot coalition (`post_slot` = first/later × single/pair) — as separate
+  cues their contrasts double-counted "second post-verbal nominal" and sent the PATIENT of "give me a call" to OTHER (12 examples
+  printed). Held-out UD-EWT test gold heads: 0.9235 (OBJ 0.944, SUBJ 0.941, IOBJ 0.662). Instrument mirror (patient, n=1255):
+  LIVE-only 23 vs RAW-only 27 (was 18 vs 37). **Board dims standalone: who_did_what_patient 0.8088 → 0.8207 (prev 0.8303);
+  state 0.8148 → 0.8280 (prev 0.8333).** Residual: "saw him yesterday" reads `him` as recipient (a time noun looks like a second
+  object by order) → a lexical TIME/measure class for the nominal is the next cue; 6 items where the object is labelled nsubj.

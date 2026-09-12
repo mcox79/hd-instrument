@@ -64,6 +64,18 @@ on `nmod` of a NOUN-governed bare nominal now sees `dep`.
 **Measured:** 596-item pronoun-undergoer decision on the deployment parse 0.4698 → 0.4933 (+0.0235 CI95 [+0.0033, +0.0436]); full
 board no-regress run recorded in STATUS / BOARD_TREND at landing. Witness `verification/test_coarse_role_competition.py` 18/18.
 
+## 2d. CONSUMER SIGNAL REQUIREMENTS for the role labels (owner 2026-09-12: "know exactly what a truly BF end consumer requires as
+signal, then trace chain by chain how each step handles and maximizes that signal")
+| consumer | SIGNAL REQUIREMENT (one sentence) | what it READ before 2026-09-12 | what was LOST at the hand-off | repair |
+|---|---|---|---|---|
+| `predicate_argument_frontend.labeled_pick` (who-did-what PATIENT) | for each verb, a graded belief over which nominal dependent is the undergoer given voice (OBJ active / PASS_SUBJ passive) | the hard label `obj`/`nsubj:pass`; if absent → valency heuristic → position | the whole posterior when the MAP label was not the wanted one (board −0.0215 after the BF labeler went live) | reads `coarse_role_posterior` over the verb's nominal dependents when no hard label fills the slot (`GRADED_SLOT_MIN`, swept) |
+| `copular_binding.extract_entity_states` (STATE holder) | for each copular predicate, a graded belief over which dependent is the holder | the hard label `nsubj`/`nsubj:pass`/`csubj` only | holders whose posterior favoured SUBJ but whose MAP fell elsewhere (board −0.0185) | reads `coarse_role_posterior` (SUBJ+PASS_SUBJ) over the predicate's nominal dependents when no hard subject (`GRADED_HOLDER_MIN`, swept) |
+| `affected_entity_resolver` (WHO WAS AFFECTED) | which pronouns are undergoers (targets), the clause-mate subject (Principle B), role parallelism | hard labels via `PATIENT_DEPS` / `role_class` | nothing yet measured as lost (it GAINED: 0.3874 → 0.3972; forward half 0.4789 → 0.5008) — next: read the posterior for the parallelism likelihood | pending |
+| `causation_typing`, `perceptual_access_ledger`, `crosstype_live_adapter` | subject/object sets | hard labels | unmeasured; board rows unchanged | trace next |
+Upstream of the labels the same trace applies: the labeler's head-class cue reads the TAGGER's hard tag and the PARSER's hard head
+(loses 0.064 and 0.083 on GUM) → the labeler should read the tagger's posterior (`crf_tagger.GlassBoxCRF.marginals`) and the head
+marginals (`graded_parser.marginals`) as distributions over configurations; that is the next hand-off to repair.
+
 ## 3. `hdlab/force_dynamics_valence.py` — change 3c: frame-list → force-dynamic arithmetic
 **Signal emitted:** `harm_help(verb, animacy) -> HARM | HELP | NA | None(abstain)`; `force_dynamics_event_type(item, …) ->
 (BLOCK_HIGH | RECIPROCITY | NEUTRAL | None, category, gov_word)` (the structural gate, UNCHANGED).
