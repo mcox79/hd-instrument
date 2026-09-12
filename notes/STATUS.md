@@ -34,7 +34,11 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-09-12 ~13:45 local — DEVELOPMENT PAUSED BY OWNER FOR MIGRATION TO THE DESKTOP
+### 2026-09-12 ~14:30 local — DEVELOPMENT RESUMED ON THE LAPTOP (owner) while the transfer streams to the desktop over SSH/Tailscale (~0.3–0.5 GB/min; a delta sync follows)
+  - **HEADS RUNG, built to a spec:** `notes/RESEARCH_attachment_organ_spec_2026-09-12.md` (what the organ computes, how the brain separates signals optimally, every consumer's signal requirement). First build = probe v18, attachment as configuration-conditioned CUE COMPETITION with strengths learned from soft tree-posterior counts (no treebank, no hand-authored prior): **UD-EWT test UAS 0.4715 (r0) → 0.4801 (anchored self-teaching)** vs the cached reading-learned scorer 0.4626 and its decode-time-constrained 0.4755; twin 0.03; unconditioned cues drift. Heads→roles hand-off +0.0016 (v19). Lexical cue too sparse at 1.5k sentences. **Owner: the brain is 0.9+; we are far behind** — gap = experience volume (probe v20: 20k/60k Simple-Wiki sentences, running), a learned argument-structure lexicon, meaning feeding structure, incremental prediction.
+  - Phone app `tools/owner_phone_app.py` (scorecard / questions / updates / account switch + NOW card + pairing link) in the transfer set.
+
+### 2026-09-12 ~13:45 local — DEVELOPMENT PAUSED BY OWNER FOR MIGRATION TO THE DESKTOP (superseded by the resume above; the transfer set is still the handover)
   - Transfer set: `C:\AI\hd-instrument_desktop_2026-09-12\` (repo minus .venv 191.9 GB / 276,169 files, 0 failures; git bundle; frozen requirements; Claude memory + session folders c--AI/d--AI; `MIGRATION_README.md` = the ordered next steps + verification + re-sync commands). Autoloop DISARMED. HEAD at pause: see `HEAD_commit.txt` in the set. Resume on the desktop: `notes/STATUS.md` → plan top block → `SIGNAL_LOSS_LEDGER_affected_entity_chain.md`; top unblocked item = the heads rung (attachment LEARNER is the bottleneck; pri-11 + the two label-free constraints).
   - Standing rules added today (memory): narrate focus; start at the top by position; plastic/never frozen + phase diagram; downstream regression ≠ failure; trace the consumer's signal requirement; route agents to cheaper models (Fable capped at 50%).
 
