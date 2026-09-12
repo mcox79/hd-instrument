@@ -192,3 +192,11 @@ competent-reader reference ~0.85–0.90.
   BF fixes to test: (a) a coarse inventory from the same reading, no labels (1M/k17 run launched); (b) the scorer learns from the same
   million lines' induced-category sequences instead of 8k treebank sentences.
 - 1M/k136 categories: 0.758 type / 0.728 token (SCONJ 0.55, ADV 0.26 now separate; CCONJ 0 — "and/or" stay with the prepositions).
+- **FULL BOARD after the upstream repair (17:15Z, 1094 s): pooled AGG 0.6377 → 0.6395** (pre-switch 0.6408). who_did_what_patient
+  0.8088 → 0.8207 (pre 0.8303), state 0.8148 → 0.8280 (pre 0.8333), patient_defer 0.9512 → 0.9611 (pre 0.9670); forward-half row
+  0.5036 (pre-switch 0.4789); affected_entity 0.3884 (0.3874). Every other arm identical; per-dimension gate OK vs the previous run.
+  **Instrument note:** the board's affected-entity POPULATION is defined by the LIVE undergoer labels (pronouns labelled obj /
+  nsubj:pass): 777 → 851 → 708 items as the labeler changed (recipients "gave HIM" correctly left the undergoer set once IOBJ
+  existed) — the rate held; the fixed-target probe v13 (596 gold items, +0.0268 CI-sep) is the clean comparison. Residual vs
+  pre-switch: patient −0.0096, state −0.0053 — the remaining items are post-verbal SUBJECTS read as objects (×35, word order
+  alone) and copular subjects under predicted heads/tags; both trace UP to the tagger/heads rungs.
