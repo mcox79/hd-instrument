@@ -38,6 +38,42 @@ from typing import Dict, List, Sequence, Tuple
 KEEP_FULL = {"nsubj:pass", "obl:agent", "csubj:pass"}
 
 
+# ======================================================================================================
+# VOICE POST-CORRECTION (landed 2026-09-12 from owner-DONE pri-7 `harm_help_valence_is_a_fitted_verb_list…`, upstream
+# labeler fix; SIGNAL_FLOW_MAP.md §2). THE DEFECT: the frozen perceptron systematically labels the SUBJECT of a passive
+# clause `nsubj` (active subject) when it is `nsubj:pass` (the logical object promoted to surface subject), so every
+# consumer that reads "obj (active) / nsubj:pass (passive) = the undergoer" loses passive patients.
+# THE OPERATION: passive morphology (a be/get auxiliary + the past participle) demotes the logical object to the surface
+# subject -- definitional English voice diathesis; the extended Argument Dependency Model (Bornkessel-Schlesewsky &
+# Schlesewsky 2006/2009) has comprehenders use morphosyntactic voice marking EARLY as a fast actor/undergoer cue. Label
+# (strategy, 2026-09-12 research note RESEARCH_harm_help_and_selectional_math): a deterministic GRAMMATICAL rule
+# consistent with eADM -- not a neural-pinning claim. Deterministic, glass-box, no learned part.
+# MEASURED (solver, witness test_fd_harm_help_learned_extraction 3/3): undergoer-label recall 0.7778 -> 0.7817 with
+# precision HELD; every live label consumer already distinguishes nsubj:pass (map §2), so the correction feeds them
+# the label they already want. The obj/obl case is NOT corrected here (over-fires; it needs the learned ranker).
+# ======================================================================================================
+VOICE_CORRECTION: bool = True     # the LIVE default (owner-DONE; measured no-regress, patient recall up)
+_BE_AUX = {"be", "is", "are", "was", "were", "been", "being", "am", "get", "got", "gotten"}
+
+
+def label_voice_correct(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int],
+                        labels: Dict[int, str]) -> Dict[int, str]:
+    """An `nsubj` whose head is a VERB/AUX carrying a be/get auxiliary child and a past-participle form -> `nsubj:pass`.
+    Indices 1-based (dep -> head); `labels` is not mutated."""
+    n = len(toks)
+    out = dict(labels)
+    ch: Dict[int, list] = {}
+    for i in range(1, n + 1):
+        ch.setdefault(heads.get(i, 0), []).append(i)
+    for i in range(1, n + 1):
+        h = heads.get(i, 0)
+        if h and pos[h - 1] in ("VERB", "AUX") and out.get(i) == "nsubj":
+            aux = [c for c in ch.get(h, []) if pos[c - 1] == "AUX" and toks[c - 1].lower() in _BE_AUX]
+            if aux and toks[h - 1].lower().endswith(("ed", "en")):
+                out[i] = "nsubj:pass"
+    return out
+
+
 def norm_label(deprel: str) -> str:
     """Collapse UD subtype to the main relation, keeping nsubj:pass / obl:agent / csubj:pass in full."""
     if deprel in KEEP_FULL:
@@ -172,9 +208,11 @@ class ArcLabeler:
             self._fast = _FastLabelPlan(self.weights, self.labels)
         return self._fast
 
-    def label(self, tokens: Sequence[str], pos: Sequence[str], heads: Dict[int, int]) -> Dict[int, str]:
+    def label(self, tokens: Sequence[str], pos: Sequence[str], heads: Dict[int, int], *,
+              voice_correction: "bool | None" = None) -> Dict[int, str]:
         """Label each arc dep->head under the GIVEN head map. Returns {dep_idx(1-based): deprel}. Routes through
-        the byte-identical fast plan (~9x); output is identical to _predict_label for ANY weights (theorem)."""
+        the byte-identical fast plan (~9x); output is identical to _predict_label for ANY weights (theorem). Then
+        the VOICE post-correction (module default VOICE_CORRECTION; pass False for the raw perceptron labels)."""
         plan = self._ensure_fast()
         out: Dict[int, str] = {}
         n = len(tokens)
@@ -184,7 +222,8 @@ class ArcLabeler:
                 h = 0
             feats = arc_features(tokens, pos, i, h)
             out[i] = plan.predict(feats)
-        return out
+        use = VOICE_CORRECTION if voice_correction is None else voice_correction
+        return label_voice_correct(tokens, pos, heads, out) if use else out
 
     def label_graded(self, tokens: Sequence[str], pos: Sequence[str], heads: Dict[int, int]) -> Dict[int, tuple]:
         """OPT-IN brain-faithful readout (default-off; NO consumer wired). Returns {dep_idx: (argmax_label,

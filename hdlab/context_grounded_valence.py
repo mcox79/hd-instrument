@@ -174,6 +174,7 @@ def score_item(tokens: list, pos: list, target_idx: int, target_word: Optional[s
                seed: int = 0, n_train_theta: int = FULL_N_TRAIN_THETA,
                control: str = "none", animacy_map: Optional[dict] = None,
                situation_type: Optional[str] = None, need_valence: bool = True,
+               gov_idx: Optional[int] = None,
                governor: bool = True) -> dict:
     """Certified 3-stage scoring for one pre-tokenized/POS-tagged item. Returns predicted_type (in
     TYPES), valence (float, Q(harm@coherent)-Q(help@coherent)), sign (+1/-1), and per-stage
@@ -189,7 +190,8 @@ def score_item(tokens: list, pos: list, target_idx: int, target_word: Optional[s
     production narrative scoring should go through score_passage, which derives it from prior
     events' own affect rather than hand-setting it per item."""
     target_word = target_word or tokens[target_idx]
-    item = {"tokens": tokens, "pos": pos, "target_idx": target_idx, "target_word": target_word}
+    item = {"tokens": tokens, "pos": pos, "target_idx": target_idx, "target_word": target_word,
+            "gov_idx": gov_idx}   # gov_idx (2026-09-12, STEP 3d): the READER'S bound predicate index; None -> positional gate
 
     if control == "bow":
         pred_fn = _bow_pred_fn(seed)
@@ -250,7 +252,8 @@ def score_item(tokens: list, pos: list, target_idx: int, target_word: Optional[s
 
 def score_context_grounded_valence_pretagged(target_word: str, tokens: list, pos: list, *,
                                              seed: int = 0, n_train_theta: int = FULL_N_TRAIN_THETA,
-                                             need_valence: bool = False, governor: bool = True) -> dict:
+                                             need_valence: bool = False, governor: bool = True,
+                                             gov_idx: Optional[int] = None) -> dict:
     """PRE-TAGGED entrypoint (owner-DONE route_the_redundant_nltk_perceptron_tagger..., 2026-09-05): the caller
     supplies hdlab UD UPOS `pos` aligned to `tokens` (e.g. via the reader's shared frontend tagger), so the
     NLTK perceptron tagger + word_tokenize (_tokenize_and_tag) are NOT called -- ONE category system consistent
@@ -261,7 +264,7 @@ def score_context_grounded_valence_pretagged(target_word: str, tokens: list, pos
     target_idx = next((i for i, t in enumerate(tokens) if t.lower() == tw), None)
     if target_idx is None:
         raise ValueError("target_word %r not in tokens" % target_word)
-    return score_item(list(tokens), list(pos), target_idx, target_word, seed=seed,
+    return score_item(list(tokens), list(pos), target_idx, target_word, seed=seed, gov_idx=gov_idx,
                       n_train_theta=n_train_theta, need_valence=need_valence, governor=governor)
 
 

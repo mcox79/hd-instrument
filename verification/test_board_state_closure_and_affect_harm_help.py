@@ -106,8 +106,10 @@ def check_affect_harm_help():
        "live=%s decision=%s" % (lc.get("live_reader_acc"), row["model_acc"]))
     ok("SELF-AUTHORED" in row["population"] and row.get("informational") is True,
        "labelled SELF-AUTHORED / informational (not a headline claim)")
-    ok(abs(row["model_acc"] - 0.7778) < 0.02 and abs(row["strongest_floor"] - 0.3333) < 0.02,
-       "reproduces SOLVED band (FD ~0.778 vs closed/majority ~0.333)",
+    # 2026-09-12 (pri-7 landed): the arm now scores the LIVE organ (force-dynamic arithmetic) -- band 0.944-1.0 on the 36
+    # gold (solver 0.944; live 0.972), floor unchanged ~0.333. The old 0.778 was the frame-list stand-in's band.
+    ok(row["model_acc"] >= 0.94 and abs(row["strongest_floor"] - 0.3333) < 0.02,
+       "reproduces the landed arithmetic band (live organ >= 0.94 vs closed/majority ~0.333)",
        "%.4f / %.4f" % (row["model_acc"], row["strongest_floor"]))
 
 

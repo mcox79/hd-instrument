@@ -1,4 +1,4 @@
-"""LANDED-hdlab witness: hdlab/arc_labeler.py ArcLabeler.label() now routes through the byte-identical
+"""LANDED-hdlab witness: hdlab/arc_labeler.py ArcLabeler.label() now routes through the byte-identical (compared on the RAW perceptron path, voice_correction=False -- the 2026-09-12 voice post-correction is a separate documented step)
 _FastLabelPlan (Q111 landing of add_the_arc_labeler_fast_scoring_path). Confirms the LANDED code path (not the
 experiment's) is byte-identical to the retained reference _predict_label, and the opt-in graded readout is byte-safe.
 
@@ -70,7 +70,7 @@ def main():
             if not toks or len(toks) > 60:
                 continue
             up = tagger.tag(list(toks)); heads = parser.parse(list(toks), up).heads
-            fast = lab.label(list(toks), up, heads)                       # LANDED fast path
+            fast = lab.label(list(toks), up, heads, voice_correction=False)                       # LANDED fast path
             ref = _reference_labels(lab, list(toks), up, heads, len(toks))  # retained reference
             for i in ref:
                 ntot += 1; mism += int(fast.get(i) != ref[i])
@@ -86,7 +86,7 @@ def main():
         for i in range(1, len(s) + 1):
             gh = s[i - 1][3]
             heads[i] = gh if 0 <= gh <= len(s) else 0
-        fast = lab.label(toks, pos, heads)
+        fast = lab.label(toks, pos, heads, voice_correction=False)
         ref = _reference_labels(lab, toks, pos, heads, len(s))
         for i in ref:
             n2 += 1; m2 += int(fast.get(i) != ref[i])
@@ -96,7 +96,7 @@ def main():
     # L4 -- graded readout argmax == label() (byte-safe MAP-optimality); entropy a sane normalized value
     toks = ["the", "wolf", "bit", "the", "sheep"]; pos = ["DET", "NOUN", "VERB", "DET", "NOUN"]
     heads = {1: 2, 2: 3, 3: 0, 4: 5, 5: 3}
-    hard = lab.label(toks, pos, heads)
+    hard = lab.label(toks, pos, heads, voice_correction=False)
     graded = lab.label_graded(toks, pos, heads)
     argmatch = sum(1 for i in hard if graded[i][0] == hard[i])
     ents = [graded[i][2] for i in hard]

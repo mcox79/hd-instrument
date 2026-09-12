@@ -854,7 +854,7 @@ def _affect_pos_cached(sentence_text: str):
     return tuple(_load_frontend()[0].tag(sentence_text.split(" ")))
 
 
-def _assign_affect(patient: str, sentence_text: str) -> Optional[str]:
+def _assign_affect(patient: str, sentence_text: str, gov_idx: Optional[int] = None) -> Optional[str]:
     """Grounded-affect wire (2026-08-05): calls the promoted hdlab organ
     (score_context_grounded_valence) on the event's PATIENT head against the sentence text, and
     reports its predicted valence ONLY when the CERTIFIED animacy-axis event override actually
@@ -885,7 +885,7 @@ def _assign_affect(patient: str, sentence_text: str) -> Optional[str]:
     toks = sentence_text.split(" ")
     pos = list(_affect_pos_cached(sentence_text))   # hdlab UD UPOS (memoized per string), one category system
     try:
-        result = score_context_grounded_valence_pretagged(patient, toks, pos, governor=False)  # need_valence=False; governor=False: the C6 cert-fit perceptron is decision-dead on this path (verified) -> no fitted classifier trained at inference (100%-BF gate)
+        result = score_context_grounded_valence_pretagged(patient, toks, pos, governor=False, gov_idx=gov_idx)  # need_valence=False; governor=False: the C6 cert-fit perceptron is decision-dead on this path (verified) -> no fitted classifier trained at inference (100%-BF gate)
     except ValueError:
         return None  # patient head not found -- abstain, not guess
     if result["stage"] != "event":
@@ -2055,7 +2055,7 @@ class SituationReader:
                     e.lemma, toks, e.idx, noms, gate_intransitive=self.gate_intransitive)
                 # grounded-affect wire: certified animacy-axis valence for the same patient head
                 # (additive metadata; does not change codec encoding or head selection above).
-                affect = _assign_affect(patient, text)
+                affect = _assign_affect(patient, text, gov_idx=e.idx)   # STEP 3d: the event's own predicate
                 events.append(EventRecord(global_idx=gidx, sent_idx=si, predicate=e.lemma,
                                           agent=agent, patient=patient, tense=str(e.tense),
                                           subj_role=subj_role, obj_role=obj_role, affect=affect,
@@ -2326,7 +2326,7 @@ class SituationReader:
                 vec = codec.encode_event(rf); focus.push(vec, gidx)
                 subj_role, obj_role = _assign_frame_primary_roles(e.lemma, toks, e.idx, noms,
                                                                   gate_intransitive=self.gate_intransitive)
-                affect = _assign_affect(patient, text)
+                affect = _assign_affect(patient, text, gov_idx=e.idx)   # STEP 3d: the event's own predicate
                 pib = None
                 if self.structural_do_recover and patient not in ("?", None) and vp is not None:
                     # STRUCTURAL-DO (§0g wire): is the bound patient a BARE post-verbal direct object of this verb?

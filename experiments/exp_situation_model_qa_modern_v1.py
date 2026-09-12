@@ -2158,13 +2158,22 @@ def board_affect_harm_help_dimension(n_boot=2000, seed=None):
         scr_lex = FD.scramble_lexicon(FD.LEX_AUG, FD.SEED + 1)
         all_v = set(FD.LEX_AUG) | FD.HARM_VERBS | FD.CLOSED
         scr_harm = FD.scramble_set_membership(FD.HARM_VERBS, all_v, FD.SEED + 2)
+        # 2026-09-12 (pri-7 landing): the MODEL is the LIVE organ's decision (hdlab.force_dynamics_valence.harm_help =
+        # the force-dynamic arithmetic), not the experiment's frame-list copy -- "live == scored" (the board-proxy
+        # caveat: this arm used to score FD.harm_help, a stand-in that stayed at 0.778 while the live reader reached
+        # 0.972 on the same gold). TWIN = the same arithmetic with the valence map AND force lexicon scrambled
+        # (info-free; must lose). The closed-list floor is unchanged.
+        import hdlab.force_dynamics_valence as FDV
+        import experiments.exp_fd_harm_help_arithmetic_v1 as FDA
+        scr_afx = FDA.scramble_valence(FDV._afx(), FD.SEED + 3)
+        scr_lex2 = FDA.scramble_lexicon(FDV._lex(), FD.SEED + 1)
         recs = []
         for (subj, verb, pat, g) in GOLD:
             an = animacy(pat)
             recs.append((verb, pat, g,
-                         to3(FD.harm_help(verb, an, FD.LEX_AUG, FD.HARM_VERBS, mode="refined")),   # model
-                         to3(FD.closed_list_arm(verb, an)),                                        # closed floor
-                         to3(FD.harm_help(verb, an, scr_lex, scr_harm, mode="refined"))))          # twin
+                         to3(FDV.harm_help(verb, an)),                                                      # model = LIVE organ
+                         to3(FD.closed_list_arm(verb, an)),                                                 # closed floor
+                         to3(FDV.harm_help_arithmetic(verb, an, lexicon=scr_lex2, afx=scr_afx))))          # twin
 
         def vec(i):
             return np.array([1 if r[i] == r[2] else 0 for r in recs], float)
