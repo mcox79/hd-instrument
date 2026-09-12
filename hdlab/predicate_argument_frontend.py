@@ -35,7 +35,9 @@ __bf_corrections__ = []
 import os
 from typing import Dict, FrozenSet, List, Optional, Sequence, Tuple
 
-from hdlab.graded_role_assigner import hybrid_role_patient
+from hdlab.graded_role_assigner import hybrid_role_patient, coarse_role_posterior, ROLE_CLASSES as _ROLE_CLASSES
+_ROLE_IX = {r: k for k, r in enumerate(_ROLE_CLASSES)}
+GRADED_SLOT_MIN: "float | None" = 0.5   # graded hand-off threshold for the labeled patient slot (swept; None = off)
 from hdlab.relcl_resolver import precise_passive
 from hdlab.thematic_role_labeler import lemma_verb, is_strictly_intransitive
 from hdlab.verb_subcat import suppress_patient
@@ -268,6 +270,18 @@ def labeled_pick(toks, pos, v, heads, labels, is_passive, valency=False):
         if side:
             return side[-1] if is_passive else side[0]
         return lab[-1] if is_passive else lab[0]
+    # GRADED hand-off (strategy 2026-09-12, signal trace): no dependent carries the exact label, so read the Competition-Model
+    # organ's POSTERIOR over the verb's nominal dependents and fill the slot with the dependent whose belief in the wanted
+    # role (OBJ active / PASS_SUBJ passive) is highest and above GRADED_SLOT_MIN -- the signal the hard label collapsed away.
+    if GRADED_SLOT_MIN is not None and deps:
+        best, bp = None, 0.0
+        for c in deps:
+            post = coarse_role_posterior(toks, pos, heads, c)
+            pr = float(post[_ROLE_IX["PASS_SUBJ"]] if is_passive else post[_ROLE_IX["OBJ"]])
+            if pr > bp:
+                best, bp = c, pr
+        if best is not None and bp >= GRADED_SLOT_MIN:
+            return best
     if valency:
         lemma = lemma_verb(toks[v - 1])
         if is_passive:

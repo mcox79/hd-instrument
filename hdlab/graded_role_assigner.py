@@ -314,15 +314,43 @@ _BYHEAD_NOM = ("NOUN", "PROPN", "PRON")
 # before an ADJ/NOUN predicate is not "other"), the COPULA cue, and the SURFACE preposition (the ADP that precedes the
 # nominal span, robust to predicted heads). Strengths live in data/frontend_assets/coarse_role_validities_ud_ewt.json
 # (built offline by tools/build_coarse_role_validities.py from UD-EWT TRAIN; evaluation treebanks never touched).
-ROLE_CLASSES = ["SUBJ", "OBJ", "PASS_SUBJ", "BY_AGENT", "OBL", "OTHER"]
-ROLE_TO_DEP = {"SUBJ": "nsubj", "OBJ": "obj", "PASS_SUBJ": "nsubj:pass", "BY_AGENT": "obl:agent", "OBL": "obl", "OTHER": "dep"}
-COARSE_CUES = ["config", "voice_order", "prep", "cop", "case", "post_rank", "pre_slot"]
+# IOBJ added 2026-09-12 (signal trace of the who-did-what PATIENT consumer): folding the RECIPIENT ("gave HIM the book") into
+# OBJ made the competition label two post-verbal nominals "obj" and the consumer took the first (23/37 of its lost items).
+# The Competition Model separates recipient from patient by ORDER among two bare post-verbal nominals and by ANIMACY.
+ROLE_CLASSES = ["SUBJ", "OBJ", "PASS_SUBJ", "BY_AGENT", "OBL", "OTHER", "IOBJ"]
+ROLE_TO_DEP = {"SUBJ": "nsubj", "OBJ": "obj", "PASS_SUBJ": "nsubj:pass", "BY_AGENT": "obl:agent", "OBL": "obl", "OTHER": "dep",
+               "IOBJ": "iobj"}
+COARSE_CUES = ["config", "voice_order", "prep", "cop", "case", "post_slot", "pre_slot", "animacy", "frame"]
+# 2026-09-12 measured: the nominal's raw 70-way induced category as a cue LOWERED held-out role accuracy 0.9235 -> 0.9115
+# (SUBJ 0.941 -> 0.898): too fine-grained for the per-configuration counts (sparse, noisy) -- REFUTED-AS-BUILT at this
+# granularity, NOT as a principle; the stronger version is a coarser induced class (or per-cue shrinkage) once the induced
+# categories themselves are better than 0.745. Kept behind a flag.
+USE_INDUCED_CATEGORY_CUE = False
 _OBJ_CASE = frozenset({"him", "her", "them", "me", "us", "whom", "himself", "herself", "themselves", "myself", "ourselves", "itself"})
 _SUBJ_CASE = frozenset({"he", "she", "they", "i", "we", "who"})
 _SPAN_POS = frozenset({"DET", "ADJ", "NUM", "ADV", "PART", "NOUN", "PROPN", "PRON", "SYM", "X"})
 _COARSE_VALIDITIES_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
                                        "data", "frontend_assets", "coarse_role_validities_ud_ewt.json")
 _COARSE_VALIDITIES_CACHE: Optional[Dict[str, object]] = None
+# READING-INDUCED lexical categories (the TOP rung handing DOWN: exp_reading_induced_categories_v1, 1M Simple-Wiki lines, k=68 + 2
+# form classes, no labels) -- the nominal's OWN induced category is a cue in the role competition (time/measure nouns, mass
+# nouns, names form their own distributional clusters; the gold-named map is NOT used here, only the cluster id).
+_INDUCED_CAT_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                                 "data", "frontend_assets", "induced_categories_simplewiki_1m_k68.json")
+_INDUCED_CAT_CACHE: Optional[Dict[str, int]] = None
+
+
+def induced_category(word: str) -> str:
+    """The reading-induced category id of a word form ('cNN'), or 'unk' when the word was not read."""
+    global _INDUCED_CAT_CACHE
+    if _INDUCED_CAT_CACHE is None:
+        try:
+            with open(_INDUCED_CAT_PATH, encoding="utf-8") as f:
+                _INDUCED_CAT_CACHE = json.load(f)["word2cat"]
+        except Exception:
+            _INDUCED_CAT_CACHE = {}
+    c = _INDUCED_CAT_CACHE.get(word.lower())
+    return f"c{c}" if c is not None else "unk"
 
 
 def _head_class(pos: Sequence[str], h: int) -> str:
@@ -358,7 +386,8 @@ def _prep_of(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int], i: 
     return None, False
 
 
-def coarse_role_cues(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int], i: int) -> Dict[str, str]:
+def coarse_role_cues(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int], i: int,
+                     frames: Optional[Dict[str, Sequence[int]]] = None) -> Dict[str, str]:
     """Categorical cue VALUES for nominal token i (1-based) given its governing head (1-based, 0 = root).
     Reads toks / pos / heads only (no gold, no labels). Each value is a key into the learned validity table."""
     h = heads.get(i, 0) or 0
@@ -406,10 +435,35 @@ def coarse_role_cues(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, i
         cues["cop"] = "na"
     cues["case"] = "obj" if low in _OBJ_CASE else ("subj" if low in _SUBJ_CASE else "none")
     if order == "post":
+        # ONE post-verbal SLOT cue (position x double-object configuration) -- rank and pairing are one coalition, not two
+        # independent cues: as separate cues their contrasts double-counted "second post-verbal nominal" and pushed the
+        # PATIENT of "give me a call" to OTHER (signal trace 2026-09-12). first/later = nominals between the head and i;
+        # pair = a SECOND bare (no preposition) nominal dependent of the same head after the verb (first-of-two + animate =
+        # the recipient, later-of-two = the patient).
         between = sum(1 for j in range(h + 1, i) if pos[j - 1] in NOMINAL)
-        cues["post_rank"] = "first" if between == 0 else "later"
+        sibs = [j for j in range(h + 1, len(pos) + 1) if heads.get(j) == h and pos[j - 1] in NOMINAL and j != i
+                and _prep_of(toks, pos, heads, j)[0] is None]
+        pair = "pair" if (sibs and prep is None) else "single"
+        cues["post_slot"] = ("first" if between == 0 else "later") + "_" + pair
     else:
-        cues["post_rank"] = "na"
+        cues["post_slot"] = "na"
+    a = lookup_animacy(low, pos[i - 1])
+    an = a.get("animacy") if isinstance(a, dict) else None
+    cues["animacy"] = "anim" if an == "animate" else ("inan" if an == "inanimate" else "unk")
+    if low in _OBJ_CASE or low in _SUBJ_CASE:
+        cues["animacy"] = "anim"            # personal pronouns are animate by form
+    # VERB-FRAME cue (the Competition Model's verb-specific knowledge): does this head verb TAKE A RECIPIENT? Read from the
+    # learned per-lemma argument-frame counts (frames[lemma] = [n_iobj, n_nominal_deps]) accrued from reading; "unk" = never seen.
+    if hc in ("VERB", "AUX") and h and frames:
+        fr = frames.get(lemma_verb(toks[h - 1]).lower())
+        if fr and fr[1] >= 5:
+            cues["frame"] = "ditrans" if fr[0] / fr[1] >= 0.05 else "mono"
+        else:
+            cues["frame"] = "unk"
+    else:
+        cues["frame"] = "na"
+    if USE_INDUCED_CATEGORY_CUE:
+        cues["indcat"] = induced_category(low)
     return cues
 
 
@@ -423,7 +477,8 @@ def load_coarse_validities(path: Optional[str] = None) -> Dict[str, object]:
     with open(p, encoding="utf-8") as f:
         doc = json.load(f)
     tab = {"prior": np.asarray(doc["prior"], dtype=float),
-           "strength": {c: {v: np.asarray(vec, dtype=float) for v, vec in vals.items()} for c, vals in doc["strength"].items()}}
+           "strength": {c: {v: np.asarray(vec, dtype=float) for v, vec in vals.items()} for c, vals in doc["strength"].items()},
+           "lemma_frames": doc.get("lemma_frames", {})}
     if path is None:
         _COARSE_VALIDITIES_CACHE = tab
     return tab
@@ -434,7 +489,7 @@ def coarse_role_supports(toks: Sequence[str], pos: Sequence[str], heads: Dict[in
     """Per-cue support vectors over ROLE_CLASSES for nominal i: the learned strength vector of each fired cue value
     (plus the role prior). A cue value never seen in training contributes nothing (abstains)."""
     tab = validities or load_coarse_validities()
-    cues = coarse_role_cues(toks, pos, heads, i)
+    cues = coarse_role_cues(toks, pos, heads, i, tab.get("lemma_frames"))
     S: Dict[str, np.ndarray] = {"prior": tab["prior"]}
     cfg = cues["config"]
     vec = tab["strength"].get("config", {}).get(cfg)
@@ -457,6 +512,29 @@ def coarse_role_posterior(toks: Sequence[str], pos: Sequence[str], heads: Dict[i
     """The graded role posterior (softmax of the additive cue competition) over ROLE_CLASSES."""
     S = coarse_role_supports(toks, pos, heads, i, validities)
     return softmax(net_activation(S, {c: 1.0 for c in S}), gain=1.0)
+
+
+def coarse_role_posterior_tagmarg(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int], i: int,
+                                  tag_post: np.ndarray, tag_labels: Sequence[str],
+                                  validities: Optional[Dict[str, object]] = None, min_p: float = 0.02) -> np.ndarray:
+    """GRADED UPSTREAM HAND-OFF (signal trace 2026-09-12): the head-class configuration cue reads the HEAD token's CATEGORY
+    as a DISTRIBUTION (the tagger's per-token posterior, rows = tokens, cols = tag_labels) instead of a hard tag:
+    posterior(role) = SUM_c P(head tag = c) * posterior(role | config built with head class c). Only head classes with
+    P >= min_p are expanded (the rest is renormalised away). Falls back to the hard read when the head is the root."""
+    h = heads.get(i, 0) or 0
+    if not h or h < 1 or h > len(pos):
+        return coarse_role_posterior(toks, pos, heads, i, validities)
+    tab = validities or load_coarse_validities()
+    row = tag_post[h - 1]
+    out = np.zeros(len(ROLE_CLASSES)); tot = 0.0
+    pos_l = list(pos)
+    for c, pc in zip(tag_labels, row):
+        if pc < min_p:
+            continue
+        pos_l[h - 1] = c
+        S = coarse_role_supports(toks, pos_l, heads, i, tab)
+        out += pc * softmax(net_activation(S, {k: 1.0 for k in S}), gain=1.0); tot += pc
+    return out / tot if tot > 0 else coarse_role_posterior(toks, pos, heads, i, validities)
 
 
 def coarse_roles(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int],

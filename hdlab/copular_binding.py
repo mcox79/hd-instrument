@@ -95,6 +95,9 @@ def robust_cop(toks, up, heads, gate=True):
     return out
 
 
+GRADED_HOLDER_MIN: "float | None" = 0.5   # graded hand-off threshold for the copular holder (swept; None = off)
+
+
 def extract_entity_states(toks, up, arc, lab, heads=None):
     """[(holder_idx, property_idx)] 0-based, from the labeled parse: for each `cop` arc, PROPERTY = its head,
     HOLDER = the nsubj/nsubj:pass/csubj dependent of that same head. Brain-faithful HOLDER+PROPERTY binding.
@@ -119,6 +122,24 @@ def extract_entity_states(toks, up, arc, lab, heads=None):
             h = heads.get(dep_i, 0)
             if h in cop_preds and h not in subj_of:
                 subj_of[h] = dep_i                      # 1-based holder id
+    # GRADED hand-off (strategy 2026-09-12, signal trace): a copular predicate with NO hard-labelled subject reads the
+    # Competition-Model organ's posterior over its nominal dependents and takes the one whose SUBJ+PASS_SUBJ belief is the
+    # highest and above GRADED_HOLDER_MIN (the hard label had collapsed that belief to nothing).
+    if GRADED_HOLDER_MIN is not None:
+        from hdlab.graded_role_assigner import coarse_role_posterior, ROLE_CLASSES, NOMINAL
+        ix = {r: k for k, r in enumerate(ROLE_CLASSES)}
+        for pred in cop_preds:
+            if pred in subj_of:
+                continue
+            best, bp = None, 0.0
+            for dep_i in range(1, len(toks) + 1):
+                if heads.get(dep_i) == pred and up[dep_i - 1] in NOMINAL:
+                    post = coarse_role_posterior(list(toks), list(up), heads, dep_i)
+                    pr = float(post[ix["SUBJ"]] + post[ix["PASS_SUBJ"]])
+                    if pr > bp:
+                        best, bp = dep_i, pr
+            if best is not None and bp >= GRADED_HOLDER_MIN:
+                subj_of[pred] = best
     out = []
     for pred in sorted(cop_preds):
         if pred in subj_of:

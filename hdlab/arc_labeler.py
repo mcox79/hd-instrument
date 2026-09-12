@@ -88,7 +88,7 @@ def label_voice_correct(toks: Sequence[str], pos: Sequence[str], heads: Dict[int
 # 0.4698 -> 0.4933 = +0.0235 CI95 [+0.0033, +0.0436] vs the perceptron (a third of the -0.0705 parse loss recovered).
 # ======================================================================================================
 COMPETITION_ROLES: bool = True
-_ARG_ROLES = {"nsubj", "obj", "nsubj:pass", "obl:agent", "obl"}
+_ARG_ROLES = {"nsubj", "obj", "nsubj:pass", "obl:agent", "obl", "iobj"}
 # every relation inside the competition's CLASS SPACE (SUBJ / OBJ / PASS_SUBJ / BY_AGENT / OBL incl. bare nmod) is the
 # competition's to decide: a perceptron label in this space that the competition rejects (OTHER) becomes 'dep'. Measured
 # (probe v14, 596 items): keeping the perceptron's `nmod` where the competition says OTHER cost -0.0168 CI-sep -- the

@@ -33,7 +33,8 @@ def coarse_of(dep: str) -> str:
     d = (dep or "").split(":")[0]; full = dep or ""
     if full.startswith("nsubj:pass") or full == "nsubjpass": return "PASS_SUBJ"
     if d in ("nsubj", "csubj"): return "SUBJ"
-    if d in ("obj", "dobj", "iobj"): return "OBJ"
+    if d == "iobj": return "IOBJ"
+    if d in ("obj", "dobj"): return "OBJ"
     if full == "obl:agent": return "BY_AGENT"
     if full == "nmod:poss": return "OTHER"   # possessive = determiner-like modifier, not an oblique
     if d in ("obl", "nmod"): return "OBL"
@@ -83,6 +84,17 @@ def main():
     cfg_counts = defaultdict(lambda: [0] * K)                      # config value -> role counts
     counts = defaultdict(lambda: defaultdict(lambda: [0] * K))     # cue -> "cfg|value" -> role counts
     prior = [0] * K; decisions = 0
+    # pass 1: the verb-frame knowledge -- per head-verb lemma, how many nominal dependents were RECIPIENTS (iobj) out of all
+    # nominal dependents (accrued from reading; here from the same treebank counts; the plastic form keeps accruing)
+    from hdlab.thematic_role_labeler import lemma_verb
+    lemma_frames = defaultdict(lambda: [0, 0])
+    for toks, gpos, gheads, deps in sentences(TRAIN):
+        for i in range(1, len(toks) + 1):
+            h = gheads.get(i, 0)
+            if gpos[i - 1] in GRA.NOMINAL and h and gpos[h - 1] in ("VERB", "AUX"):
+                lf = lemma_frames[lemma_verb(toks[h - 1]).lower()]
+                lf[1] += 1; lf[0] += int((deps.get(i) or "").split(":")[0] == "iobj")
+    lemma_frames = {k: v for k, v in lemma_frames.items() if v[1] >= 5}
     for toks, gpos, gheads, deps in sentences(TRAIN):
         pos, heads = _perceive(toks, gpos, gheads) if perceived else (gpos, gheads)
         for i in range(1, len(toks) + 1):
@@ -91,7 +103,7 @@ def main():
             decisions += 1
             g = ix[coarse_of(deps.get(i))]
             prior[g] += 1
-            cues = GRA.coarse_role_cues(toks, pos, heads, i)
+            cues = GRA.coarse_role_cues(toks, pos, heads, i, lemma_frames)
             cfg = cues["config"]
             cfg_counts[cfg][g] += 1
             for cue, val in cues.items():
@@ -126,7 +138,7 @@ def main():
                      "add-0.5 on config, Dirichlet shrinkage m=%g on contrasts; availability = P(value fires), "
                      "reliability = max_r P(r|value)." % M_SHRINK,
            "decisions": decisions, "roles": GRA.ROLE_CLASSES, "prior": [round(x, 4) for x in logprior],
-           "strength": strength, "audit": audit}
+           "strength": strength, "audit": audit, "lemma_frames": lemma_frames}
     doc["perceived"] = perceived
     with open(out_path, "w", encoding="utf-8", newline="\n") as f:
         json.dump(doc, f, indent=1)

@@ -51,7 +51,12 @@ near the top about 38 times in 100 where the old method managed about 3.
   11 in 100 of those). On the hard who-was-affected test with the reader's own parse: 47 in 100 -> 49 in 100, clearly separated.
   Two simpler designs failed and are recorded with numbers so they are not retried. Also measured: with a correct parse the new
   labeler scores 84 in 100 on the test text, our own word tagging costs 6 points and our own attachment costs 8 more — those two
-  parts are next. A full check is running.
+  parts are next. Full check: the new role reading is live; who-was-affected rose (39 -> 40 in 100; the third-person half 48 -> 50),
+  two other abilities dipped about 2 in 100 because they were tuned to the old guesser's habits. Per your ruling that is not a
+  failure but a repair job: tracing what those two readers need showed the dips came from the new reader lumping "gave HIM a book"
+  recipients in with objects and double-counting two overlapping cues; fixing that upstream brought both back to within 1 in 100
+  of before (re-check running). The very top of the chain is now built too: word categories learned from reading a million lines
+  with no labels agree with the reference on 74 in 100 words (the earlier try got 32), and they keep learning as text is read.
 ## WHAT WE ARE WORKING ON
 Short term (the next week or two):
 - (Done 2026-09-12) The three finished pieces were folded in: helped-or-harmed, the part-of-speech finding, the verb-type organ.
@@ -89,7 +94,7 @@ Long term (the next few months):
 
 <!-- AUTO:BEGIN (written by tools/scorecard.py; edit the sections ABOVE, not this) -->
 
-Last full check: 2026-09-12T16:31:14.699252+00:00 (6 on record). Generated 2026-09-12T16:53:50+00:00.
+Last full check: 2026-09-12T16:31:14.699252+00:00 (6 on record). Generated 2026-09-12T16:56:51+00:00.
 
 | Ability | Group | How well | Compared with a simple rule | Since the previous check | Brain-faithful? |
 |---|---|---|---|---|---|
