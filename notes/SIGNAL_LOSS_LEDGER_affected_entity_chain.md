@@ -166,3 +166,10 @@ competent-reader reference ~0.85–0.90.
   LIVE-only 23 vs RAW-only 27 (was 18 vs 37). **Board dims standalone: who_did_what_patient 0.8088 → 0.8207 (prev 0.8303);
   state 0.8148 → 0.8280 (prev 0.8333).** Residual: "saw him yesterday" reads `him` as recipient (a time noun looks like a second
   object by order) → a lexical TIME/measure class for the nominal is the next cue; 6 items where the object is labelled nsubj.
+- **PLASTIC FORM of the role labeler's validities (owner: "the brain doesn't use anything frozen"):** the asset now carries the
+  accrual COUNTS; strengths are a pure function of counts (`graded_role_assigner.strengths_from_counts`, the ONE implementation
+  the offline learner also calls); `observe_role_outcome(toks,pos,heads,i,role)` accrues a confirmed comprehension outcome
+  online and recomputes; `save_coarse_validities` persists the grown table. Verified: rebuilt == loaded (0.9235 unchanged);
+  200 observations move P(IOBJ|"him" in "she saw him") 0.16 → 0.58; save/load round-trip exact. Witness 23/23. The OUTCOME
+  source at read time (what confirms a role without gold) is the next design question — candidates: agreement/number checks,
+  resolved-event consistency, the reader's own high-margin decisions (self-confirmation, to be measured for drift).

@@ -109,28 +109,20 @@ def main():
             for cue, val in cues.items():
                 if cue != "config":
                     counts[cue][f"{cfg}|{val}"][g] += 1
-    logprior = [math.log((c + ALPHA) / (decisions + ALPHA * K)) for c in prior]
-    p_cfg = {}; strength = {"config": {}}; audit = {"config": {}}
+    counts_doc = {"prior": prior, "config": {k: v for k, v in cfg_counts.items()},
+                  "cues": {cue: {key: vec for key, vec in vals.items()} for cue, vals in counts.items()}}
+    built = GRA.strengths_from_counts(counts_doc)              # ONE implementation of the math (the organ's)
+    logprior = [float(x) for x in built["prior"]]
+    strength = {c: {v: [round(float(x), 4) for x in vec] for v, vec in vals.items()} for c, vals in built["strength"].items()}
+    audit = {"config": {}}
     for cfg, vec in cfg_counts.items():
-        n = sum(vec); probs = [(c + ALPHA) / (n + ALPHA * K) for c in vec]
-        p_cfg[cfg] = probs
-        strength["config"][cfg] = [round(math.log(p) - lp, 4) for p, lp in zip(probs, logprior)]
-        best = max(range(K), key=lambda k: vec[k])
+        n = sum(vec); best = max(range(K), key=lambda k: vec[k])
         audit["config"][cfg] = {"n": n, "availability": round(n / decisions, 4), "reliability": round(vec[best] / n, 4),
                                 "cued_role": GRA.ROLE_CLASSES[best]}
-    for cue, vals in counts.items():
-        strength[cue] = {}; audit[cue] = {}
+    for cue, vals in counts_doc["cues"].items():
+        audit[cue] = {}
         for key, vec in vals.items():
-            cfg = key.split("|", 1)[0]; base = p_cfg[cfg]; n = sum(vec)
-            # Dirichlet prior CENTERED ON the configuration's own distribution (m pseudo-counts): a rare value's
-            # contrast shrinks to 0; a frequent value's zero-count role is genuinely excluded (large negative contrast);
-            # a value that ALWAYS fires within its configuration carries no information -> contrast exactly 0.
-            if n == sum(cfg_counts[cfg]):
-                strength[cue][key] = [0.0] * K
-            else:
-                probs = [(c + M_SHRINK * b) / (n + M_SHRINK) for c, b in zip(vec, base)]
-                strength[cue][key] = [round(math.log(p) - math.log(b), 4) for p, b in zip(probs, base)]
-            best = max(range(K), key=lambda k: vec[k])
+            n = sum(vec); best = max(range(K), key=lambda k: vec[k])
             audit[cue][key] = {"n": n, "availability": round(n / decisions, 4), "reliability": round(vec[best] / n, 4),
                                "cued_role": GRA.ROLE_CLASSES[best]}
     doc = {"source": "UD-EWT train (gold heads/POS). Competition Model, configuration-conditioned: activation(role) = "
@@ -138,7 +130,7 @@ def main():
                      "add-0.5 on config, Dirichlet shrinkage m=%g on contrasts; availability = P(value fires), "
                      "reliability = max_r P(r|value)." % M_SHRINK,
            "decisions": decisions, "roles": GRA.ROLE_CLASSES, "prior": [round(x, 4) for x in logprior],
-           "strength": strength, "audit": audit, "lemma_frames": lemma_frames}
+           "strength": strength, "audit": audit, "lemma_frames": lemma_frames, "counts": counts_doc}
     doc["perceived"] = perceived
     with open(out_path, "w", encoding="utf-8", newline="\n") as f:
         json.dump(doc, f, indent=1)

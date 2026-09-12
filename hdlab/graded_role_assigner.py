@@ -467,6 +467,71 @@ def coarse_role_cues(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, i
     return cues
 
 
+_VALIDITY_ALPHA = 0.5      # add-alpha on the configuration distributions
+_VALIDITY_M_SHRINK = 2.0   # Dirichlet pseudo-counts centring a cue value's distribution on its configuration's
+
+
+def strengths_from_counts(counts: Dict[str, object]) -> Dict[str, object]:
+    """THE ONE implementation of the Competition-Model strength math (used by the offline learner AND the online accrual):
+    prior = log P(role); config strength = log P(role|config) - log P(role); cue contrast = log P(role|config,value) -
+    log P(role|config) with a Dirichlet prior centred on the configuration (m pseudo-counts); a value that ALWAYS fires within
+    its configuration carries no information -> exactly 0. counts = {"prior": [K], "config": {cfg: [K]}, "cues": {cue: {"cfg|value": [K]}}}."""
+    K = len(ROLE_CLASSES); a = _VALIDITY_ALPHA; m = _VALIDITY_M_SHRINK
+    prior = np.asarray(counts["prior"], dtype=float); dec = prior.sum()
+    logprior = np.log((prior + a) / (dec + a * K))
+    p_cfg = {}; strength = {"config": {}}
+    for cfg, vec in counts["config"].items():
+        v = np.asarray(vec, dtype=float); n = v.sum(); probs = (v + a) / (n + a * K)
+        p_cfg[cfg] = probs; strength["config"][cfg] = np.log(probs) - logprior
+    for cue, vals in counts["cues"].items():
+        strength[cue] = {}
+        for key, vec in vals.items():
+            cfg = key.split("|", 1)[0]; base = p_cfg.get(cfg)
+            if base is None:
+                continue
+            v = np.asarray(vec, dtype=float); n = v.sum()
+            if n >= np.asarray(counts["config"][cfg], dtype=float).sum():
+                strength[cue][key] = np.zeros(K)
+            else:
+                probs = (v + m * base) / (n + m)
+                strength[cue][key] = np.log(probs) - np.log(base)
+    return {"prior": logprior, "strength": strength}
+
+
+def observe_role_outcome(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int], i: int, role: str,
+                         table: Optional[Dict[str, object]] = None) -> None:
+    """PLASTICITY (owner 2026-09-12: learning is never frozen): accrue ONE comprehension outcome -- nominal i was understood
+    to bear `role` (a ROLE_CLASSES name) -- into the cue-validity COUNTS and recompute the strengths. The caller supplies the
+    outcome from confirmed comprehension (a later agreement check, a resolved event, a correction); the organ never reads gold
+    at inference. Persist with save_coarse_validities()."""
+    tab = table or load_coarse_validities()
+    if "counts" not in tab or not tab["counts"]:
+        raise ValueError("this validity table carries no counts (rebuild it with tools/build_coarse_role_validities.py)")
+    K = len(ROLE_CLASSES); k = ROLE_CLASSES.index(role)
+    cues = coarse_role_cues(toks, pos, heads, i, tab.get("lemma_frames"))
+    c = tab["counts"]; cfg = cues["config"]
+    c["prior"][k] += 1
+    c["config"].setdefault(cfg, [0] * K)[k] += 1
+    for cue, val in cues.items():
+        if cue != "config":
+            c["cues"].setdefault(cue, {}).setdefault(cfg + "|" + val, [0] * K)[k] += 1
+    new = strengths_from_counts(c)
+    tab["prior"] = new["prior"]; tab["strength"] = new["strength"]
+
+
+def save_coarse_validities(path: Optional[str] = None, table: Optional[Dict[str, object]] = None) -> str:
+    """Persist the (possibly online-updated) counts + strengths as the grown asset."""
+    tab = table or load_coarse_validities(); p = path or _COARSE_VALIDITIES_PATH
+    doc = {"source": "Competition-Model cue validities: counts accrued from reading / comprehension outcomes; strengths = "
+                     "graded_role_assigner.strengths_from_counts(counts)", "roles": ROLE_CLASSES,
+           "counts": tab.get("counts"), "prior": [float(x) for x in tab["prior"]],
+           "strength": {c: {v: [float(x) for x in vec] for v, vec in vals.items()} for c, vals in tab["strength"].items()},
+           "lemma_frames": tab.get("lemma_frames", {})}
+    with open(p, "w", encoding="utf-8", newline="\n") as f:
+        json.dump(doc, f, indent=1)
+    return p
+
+
 def load_coarse_validities(path: Optional[str] = None) -> Dict[str, object]:
     """The learned validity table: {'prior': log P(role), 'strength': {'config': {cfg: log P(role|cfg) - log P(role)},
     cue: {'cfg|value': log P(role|cfg,value) - log P(role|cfg)}}} -- activation = prior + config + sum of contrasts."""
@@ -476,9 +541,14 @@ def load_coarse_validities(path: Optional[str] = None) -> Dict[str, object]:
     p = path or _COARSE_VALIDITIES_PATH
     with open(p, encoding="utf-8") as f:
         doc = json.load(f)
-    tab = {"prior": np.asarray(doc["prior"], dtype=float),
-           "strength": {c: {v: np.asarray(vec, dtype=float) for v, vec in vals.items()} for c, vals in doc["strength"].items()},
-           "lemma_frames": doc.get("lemma_frames", {})}
+    if doc.get("counts"):
+        built = strengths_from_counts(doc["counts"])          # strengths are a pure function of the accrued counts
+        tab = {"prior": built["prior"], "strength": built["strength"], "counts": doc["counts"],
+               "lemma_frames": doc.get("lemma_frames", {})}
+    else:
+        tab = {"prior": np.asarray(doc["prior"], dtype=float),
+               "strength": {c: {v: np.asarray(vec, dtype=float) for v, vec in vals.items()} for c, vals in doc["strength"].items()},
+               "lemma_frames": doc.get("lemma_frames", {})}
     if path is None:
         _COARSE_VALIDITIES_CACHE = tab
     return tab
