@@ -57,7 +57,8 @@ def _jsonl(path: Path) -> list[dict]:
 
 
 def registry_statuses() -> dict[str, str]:
-    return {r["module"].split("/")[-1][:-3]: r.get("status", "?") for r in _jsonl(REGISTRY) if r.get("module")}
+    return {r["module"].split("/")[-1][:-3]: r.get("status", "?") for r in _jsonl(REGISTRY)
+            if r.get("module") and not r.get("shim")}   # shims re-export a consolidated organ; not organs
 
 
 def fidelity_for(organs: list[str], statuses: dict[str, str]) -> tuple[str, str, list[str]]:

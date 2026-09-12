@@ -110,7 +110,7 @@ def main(argv):
     check = "--check" in argv
     import tools.problem_ledger as pl
 
-    reg = _load_registry()
+    reg = [e for e in _load_registry() if not e.get("shim")]   # shims re-export a consolidated organ; not organs
     by_status = {}
     notbf = []
     for e in reg:
