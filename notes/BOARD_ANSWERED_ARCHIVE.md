@@ -120,3 +120,12 @@ Rows aged out of `notes/BOARD.md`, which shows only the most recent 40. **Nothin
 
 **THE OWNER'S ANSWER:** if you've drilled this online and it points in other directions to be brain foundational, follow those directions. if brain foundational points in this direction, do it again and verify we're actually brain foundational
 
+
+| Q91 | 2026-08-20T23:14:42Z |
+
+**Q:** Our recovery note (notes/STATUS.md) had grown to 308,000 characters against a 8,700-character limit -- about 35 times too big -- because sessions kept adding findings to the bottom instead of rewriting it. I have moved 135 old blocks out into two other files, deleting nothing: a byte-identical snapshot, and the long-form lessons file. That took it down to about 27,800 characters, an eleven-fold cut, and both programs that read the file still work identically. But it is still roughly three times over the limit, and everything left is either the five sections the rules require or the never-delete lists of closed routes and hard-won rules. To get smaller I would have to either cut evidence pointers or raise the limit. Our own written procedure says the person who wants the extra room is the wrong person to grant it, so I am asking rather than deciding. Do you want the limit raised to about 28,000 characters to match reality, or should I keep squeezing the wording of the five required sections?
+
+**MY RECOMMENDATION:** Raise the cap to ~28KB. The 35x growth was accumulation, which is now fixed; the residue is required content, and squeezing it further means cutting the evidence pointers the cap exists to protect. Risk of my recommendation: a larger cap weakens the pressure that keeps the file to one readable pass, and that pressure is the only thing that stopped this before.
+
+**THE OWNER'S ANSWER:** SUPERSEDED BY Q92 -- I re-measured after rewriting the stale sections and the arithmetic changed the question. Not answered by the owner.
+
