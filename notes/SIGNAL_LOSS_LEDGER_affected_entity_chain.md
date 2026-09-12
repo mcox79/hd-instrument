@@ -60,3 +60,25 @@ competent-reader reference ~0.85–0.90.
   an ADJ/NOUN predicate, not a VERB → filed OTHER), noun-governed obliques (nmod → my OTHER), and the preposition cue requires the
   ADP to attach to the nominal (fails under predicted heads). Next: surface/structure cues for these three, validities LEARNED on
   UD-EWT train (`tools/build_coarse_role_validities.py`), re-measure.
+- **Competition-Model coarse labeler v3 (2026-09-12, post-compaction; `graded_role_assigner.coarse_role_cues/coarse_roles`,
+  asset `data/frontend_assets/coarse_role_validities_ud_ewt.json`, learner `tools/build_coarse_role_validities.py`):** the v1
+  learned validities PROVED the loss was cue design (`non_verb_head` reliability 0.497 on 51% of nominals = chance; `voice_passive`
+  0.397 = negative weight). v3 = categorical cue VALUES with per-role learned strengths, read WITHIN the head-class x order
+  configuration as contrasts log P(role|config,value) - log P(role|config) (an always-on value = exactly 0; Dirichlet prior
+  centered on the configuration, m=2) + the three missing structural cues (copula `aux_between` 0.92 -> SUBJ; surface preposition
+  preceding the nominal span; ADJ/NOUN-predicate configurations) + a GRADED voice cue (be/get/being+participle `strong` 0.89 ->
+  PASS_SUBJ vs `weak` by-PP/reduced evidence 0.85 -> SUBJ). Intermediate lesson kept: a flat additive table over all cue values
+  (v2-naive) double-counted the majority class through redundant "absent" values (OBJ -> OBL 1031x on UD-EWT test, OBJ 0.099);
+  the configuration-conditioned form fixes it. **Held-out UD-EWT TEST, gold heads/POS, 8362 nominals: overall 0.872; SUBJ 0.925,
+  OBJ 0.951, PASS_SUBJ 0.769, BY_AGENT 0.944, OBL 0.745, OTHER 0.905** (residual: OBL -> OTHER 523 = bare post-nominal nmod
+  without a preposition, e.g. dates/measure nominals). Witness `verification/test_coarse_role_competition.py` 18/18 (cues, canonical
+  constructions, posterior, zero-contrast rule, shuffled-strength twin breaks the labels). Decision-level result on the 596 items
+  (probe v13 re-run) recorded below when it lands.
+- **v3 DECISION-LEVEL (probe v13 re-run, same 596 items, predicted POS + predicted heads = deployment):** CM 0.4899 vs supervised
+  0.4698 = **+0.0201 CI95 [−0.0017, +0.0419]** (29% of the −0.0705 parse loss recovered; CM − GOLD −0.0503 vs SUP − GOLD −0.0705);
+  with gold heads CM 0.5151 vs SUP 0.5034 (+0.0117 [−0.010, +0.034]). OTHER→supervised fallback is WORSE for the decision (+0.0067):
+  the competition's own abstention is more precise than the perceptron's fine label. GUM coarse-label accuracy (predicted heads)
+  CM vs SUP: BY_AGENT **0.773 vs 0.106**, OBJ 0.776 = 0.776, SUBJ 0.714 vs 0.742, PASS_SUBJ 0.527 vs 0.581, OBL 0.654 vs 0.778,
+  OTHER 0.710 vs 0.718. Not yet CI-sep: the remaining losses are PASS_SUBJ (the voice cue reads the HEAD's POS/aux window — when the
+  parser heads the pronoun on the AUX, config = AUX_pre → SUBJ) and GUM's OBL→OTHER (bare nmod/tmod nominals). Next: surface-robust
+  passive cue (nominal + be/get + participle regardless of which token is the head), GUM-vs-EWT label-convention check, re-measure.
