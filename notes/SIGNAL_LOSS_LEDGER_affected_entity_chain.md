@@ -360,3 +360,9 @@ competent-reader reference ~0.85–0.90.
   where ADP/punct/cop attach → self-supervision cannot teach ANNOTATION CONVENTIONS (no raw-text statistic determines them; that is
   exactly what labelled trees buy). Design consequence: a separate, explicitly-labelled CONVENTION layer that applies the frames
   deterministically at decode for the UD metric, while the learned competition remains the comprehension organ (consumers read it).
+- **CONVENTION layer (function-word frames applied deterministically at decode, --fw-force 5), smoke: r0 0.5172 / r1 0.5413 (twin
+  0.052)** vs 0.4662 / 0.5050 with the frames as a learned cue only → +0.036: the convention share is recoverable, but only as a
+  stated convention, not as learned knowledge. Decisive full run launched: knowledge-free bootstrap + learned constructions +
+  convention layer (3 rounds). Owner: "these tasks have been running for a very long time" — the probes are unvectorised
+  measurement loops (25–40 min per full run, worse when several run at once); sweeping stops here; the landed organ is the place for
+  speed.
