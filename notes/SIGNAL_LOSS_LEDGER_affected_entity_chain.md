@@ -279,3 +279,8 @@ competent-reader reference ~0.85–0.90.
 - **LANDING GATE 1 (prior-free bootstrap, full 6k/700): prior-free teacher 0.2722 (BELOW the adjacency floor 0.285) → competition
   student r0 0.3505** (+0.078, above the floor): the organ's own cues (locality, category pair, frame, form, boundary, agreement)
   recover structure from a knowledge-free start; r1/r2 pending. Transfer at 19 GB.
+- **CONSTRUCTIONS as a coalition cue in the attachment competition (smoke 1.5k/150):** r0 0.4386 → 0.4558, r1 0.4443 → **0.4917**
+  (twin 0.033) — the largest single gain of the day, as pri-2 predicted ("the path past the distributional ceiling is structure");
+  the cue value = which item-based construction (verbarg / coord / npmod / clausal, the landed detectors) proposes the arc; its
+  strength is LEARNED within the category-pair configuration, not hand-weighted. Full run + prior-free+constructions queued.
+  Prior-free gate r1 0.3631 (rising).
