@@ -42,7 +42,11 @@ class ScorecardWindow:
         self.root = root
         root.title("How the reading system is doing")
         root.configure(bg=BG)
-        root.geometry("1280x860")
+        try:
+            sw, sh = root.winfo_screenwidth(), root.winfo_screenheight()
+            root.geometry("%dx%d+20+20" % (min(1280, sw - 40), min(900, sh - 80)))
+        except Exception:
+            root.geometry("1280x860")
         if offscreen:
             root.withdraw()
         st = ttk.Style(root)
@@ -156,25 +160,30 @@ class ScorecardWindow:
     def _build_tab_questions(self) -> None:
         f = tk.Frame(self.nb, bg=BG)
         self.nb.add(f, text="2. QUESTIONS FOR YOU")
-        f.columnconfigure(0, weight=1); f.rowconfigure(1, weight=2); f.rowconfigure(3, weight=1)
-        tk.Label(f, text="Open questions. Pick one, type your answer, press Send. (Typing into notes/BOARD.md works too.)",
-                 bg=BG, fg=DIM, font=FONT, anchor="w").grid(row=0, column=0, sticky="ew", padx=10, pady=(10, 2))
-        self.qtv = ttk.Treeview(f, columns=("q",), show="tree headings", selectmode="browse")
-        self.qtv.heading("#0", text="ID"); self.qtv.column("#0", width=70, stretch=False)
+        # LAYOUT: fixed-height pieces stacked top-down so the ANSWER BOX is always on screen (the first version
+        # let the question list grow and pushed the answer box off the bottom -- owner: "there is no field for me
+        # to answer questions"). Only the detail pane stretches.
+        f.columnconfigure(0, weight=1); f.rowconfigure(2, weight=1)
+        tk.Label(f, text="Questions I need you to decide. Click one, read the details, type your answer in the green box, press Send answer.",
+                 bg=BG, fg=FG, font=FONT_B, anchor="w").grid(row=0, column=0, sticky="ew", padx=10, pady=(10, 2))
+        self.qtv = ttk.Treeview(f, columns=("q",), show="tree headings", selectmode="browse", height=4)
+        self.qtv.heading("#0", text="#"); self.qtv.column("#0", width=60, stretch=False)
         self.qtv.heading("q", text="Question"); self.qtv.column("q", width=1100)
-        self.qtv.grid(row=1, column=0, sticky="nsew", padx=10, pady=4)
+        self.qtv.grid(row=1, column=0, sticky="ew", padx=10, pady=4)
         self.qtv.bind("<<TreeviewSelect>>", lambda _e: self._show_question())
-        self.qdetail = tk.Text(f, bg=PANEL, fg=FG, font=FONT, wrap="word", relief="flat", padx=10, pady=8, height=9)
-        self.qdetail.grid(row=2, column=0, sticky="ew", padx=10, pady=4)
+        self.qdetail = tk.Text(f, bg=PANEL, fg=FG, font=FONT, wrap="word", relief="flat", padx=10, pady=8, height=6)
+        self.qdetail.grid(row=2, column=0, sticky="nsew", padx=10, pady=4)
         self.qdetail.tag_configure("h", font=FONT_B, foreground=BLUE)
-        box = tk.Frame(f, bg=BG); box.grid(row=3, column=0, sticky="nsew", padx=10, pady=(4, 10))
-        box.columnconfigure(0, weight=1); box.columnconfigure(1, weight=1); box.rowconfigure(1, weight=1)
-        tk.Label(box, text="Your answer to the selected question", bg=BG, fg=DIM, font=FONT, anchor="w").grid(row=0, column=0, sticky="ew")
-        tk.Label(box, text="A note for the strategy session (anything you want me to know)", bg=BG, fg=DIM, font=FONT, anchor="w").grid(row=0, column=1, sticky="ew", padx=(8, 0))
-        self.answer = tk.Text(box, bg=PANEL, fg=FG, font=FONT, wrap="word", relief="flat", padx=8, pady=6, height=5)
-        self.answer.grid(row=1, column=0, sticky="nsew")
-        self.note = tk.Text(box, bg=PANEL, fg=FG, font=FONT, wrap="word", relief="flat", padx=8, pady=6, height=5)
-        self.note.grid(row=1, column=1, sticky="nsew", padx=(8, 0))
+        box = tk.Frame(f, bg=BG); box.grid(row=3, column=0, sticky="ew", padx=10, pady=(4, 6))
+        box.columnconfigure(0, weight=1); box.columnconfigure(1, weight=1)
+        tk.Label(box, text="YOUR ANSWER to the selected question (type here, then press Send answer)", bg=BG, fg=GREEN, font=FONT_B, anchor="w").grid(row=0, column=0, sticky="ew")
+        tk.Label(box, text="A NOTE FOR ME (anything you want the strategy session to know)", bg=BG, fg=BLUE, font=FONT_B, anchor="w").grid(row=0, column=1, sticky="ew", padx=(8, 0))
+        self.answer = tk.Text(box, bg="#1f2f23", fg=FG, font=FONT, wrap="word", relief="flat", padx=8, pady=6, height=4,
+                              insertbackground=FG, highlightthickness=2, highlightbackground=GREEN, highlightcolor=GREEN)
+        self.answer.grid(row=1, column=0, sticky="ew")
+        self.note = tk.Text(box, bg="#1f2633", fg=FG, font=FONT, wrap="word", relief="flat", padx=8, pady=6, height=4,
+                            insertbackground=FG, highlightthickness=2, highlightbackground=BLUE, highlightcolor=BLUE)
+        self.note.grid(row=1, column=1, sticky="ew", padx=(8, 0))
         tk.Button(box, text="Send answer", command=self._send_answer, bg="#2e5d3a", fg=FG, font=FONT_B, relief="flat", padx=12).grid(row=2, column=0, sticky="w", pady=(6, 0))
         tk.Button(box, text="Send note", command=self._send_note, bg="#2e4a6e", fg=FG, font=FONT_B, relief="flat", padx=12).grid(row=2, column=1, sticky="w", padx=(8, 0), pady=(6, 0))
         # FINISHED WORK WAITING FOR YOUR VERDICT. The strategy session integrates a piece of work ONLY once you
@@ -184,7 +193,7 @@ class ScorecardWindow:
         rv.columnconfigure(0, weight=1)
         tk.Label(rv, text="Finished work waiting for your verdict (select one, then Mark as DONE to have it folded in)",
                  bg=BG, fg=DIM, font=FONT, anchor="w").grid(row=0, column=0, sticky="ew")
-        self.rvtv = ttk.Treeview(rv, columns=("t",), show="headings", selectmode="browse", height=4)
+        self.rvtv = ttk.Treeview(rv, columns=("t",), show="headings", selectmode="browse", height=3)
         self.rvtv.heading("t", text="What it delivers"); self.rvtv.column("t", width=1100)
         self.rvtv.grid(row=1, column=0, sticky="ew")
         tk.Button(rv, text="Mark as DONE", command=self._mark_done, bg="#5d4a2e", fg=FG, font=FONT_B, relief="flat", padx=12).grid(row=1, column=1, sticky="n", padx=(8, 0))

@@ -21,12 +21,23 @@ near the top about 38 times in 100 where the old method managed about 3.
 - 2026-09-11: six separate "who is this referring to" components were merged into one, with identical results.
 
 ## WHAT WE ARE WORKING ON
+Short term (the next week or two):
+- Fold in the three finished pieces of work once you mark them done (helped-or-harmed, a better part-of-speech
+  reader, which kinds of things a verb takes). Two of them replace stand-ins with brain-faithful parts.
 - One shared "meaning store" that every part of the reader uses, instead of six separate copies (the brain keeps
   one). A strict pre-registered test decides whether the merged store is at least as good as the best copy.
-- Replacing the one remaining outside dictionary tool the reader calls while reading with our own word-stemming.
-- The generative "what happens next" model: using the new in-context word meanings to predict and check the story.
-- Three finished pieces of work are waiting for your review (helped-or-harmed, a better part-of-speech reader, and
-  which kinds of things a verb takes).
+- Replace the one remaining outside dictionary tool the reader calls while reading with our own word-stemming.
+- Merge the remaining duplicate parts the brain keeps as one thing (time ordering, thematic roles, force, appraisal).
+- After every landing: a full check, and this scorecard updated.
+Long term (the next few months):
+- The generative "what happens next" model: the reader predicts the story as it goes, using the new in-context word
+  meanings, and uses the prediction to resolve who is who and what caused what. This is where the remaining
+  headroom is; the current parts are measured to their ceiling.
+- Grounding beyond text: real perceptual and experiential knowledge (pictures today; more senses later) feeding the
+  one shared meaning store, so meaning is not built from word company alone.
+- Replace the sentence-structure stand-in with the reading-learned version once it matches on real prose.
+- Every building block copying the brain's math, not just a defensible model: today 7 of 86 are pinned; each
+  landing must move a part from "model" to "pinned" or remove a stand-in.
 
 ## WHAT IS NOT YET BRAIN-FAITHFUL
 - The sentence-structure reader (five building blocks) is a trained stand-in, not the brain's method. A
@@ -39,7 +50,7 @@ near the top about 38 times in 100 where the old method managed about 3.
 
 <!-- AUTO:BEGIN (written by tools/scorecard.py; edit the sections ABOVE, not this) -->
 
-Last full check: 2026-09-11T23:35:31.306190+00:00 (1 on record). Generated 2026-09-12T01:14:27+00:00.
+Last full check: 2026-09-11T23:35:31.306190+00:00 (1 on record). Generated 2026-09-12T01:18:58+00:00.
 
 | Ability | Group | How well | Compared with a simple rule | Since the previous check | Brain-faithful? |
 |---|---|---|---|---|---|
