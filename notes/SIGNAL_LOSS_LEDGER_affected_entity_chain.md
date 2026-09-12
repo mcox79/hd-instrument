@@ -227,3 +227,9 @@ competent-reader reference ~0.85–0.90.
   head):** monotone gain — gold POS 0.296 → 0.301 / 0.306 / 0.312 / **0.315** (β 0.5/1/2/4; floor 0.290); fine-70 0.036 → 0.058.
   Small but the right direction and label-free; β swept, not adopted. The attachment LEARNER stays the bottleneck of the heads
   rung (pri-11 / pri-2's full-scale reading-learned scorer with constructions reaches 0.46–0.48; this reduced config 0.30).
+- **Probe v16 FINAL (attachment scorer learning from the same READING, category sequences of Simple-Wiki lines, UD-EWT test 700):**
+  k68: 8k 0.019 / 20k 0.018 / 50k 0.018 (twin 0.098); k17: 8k 0.096 / 20k 0.088 / 50k 0.070 — MORE READING HURTS with both
+  inventories → NEGATIVE: the reading budget is not the lever for this attachment learner (hard windowed co-occurrence + EM);
+  the learner itself (its root prior, its lack of boundary/constructional structure) is. Consistent with pri-2's located negative.
+- **Transfer set for the desktop created 2026-09-12 13:29–13:39 local: `C:\AI\hd-instrument_desktop_2026-09-12\`** (repo minus
+  .venv 191.9 GB, git bundle, frozen requirements, Claude memory + session folders c--AI/d--AI, MIGRATION_README.md with next steps).
