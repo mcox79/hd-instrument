@@ -34,6 +34,10 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
+### 2026-09-12 ~13:45 local — DEVELOPMENT PAUSED BY OWNER FOR MIGRATION TO THE DESKTOP
+  - Transfer set: `C:\AI\hd-instrument_desktop_2026-09-12\` (repo minus .venv 191.9 GB / 276,169 files, 0 failures; git bundle; frozen requirements; Claude memory + session folders c--AI/d--AI; `MIGRATION_README.md` = the ordered next steps + verification + re-sync commands). Autoloop DISARMED. HEAD at pause: see `HEAD_commit.txt` in the set. Resume on the desktop: `notes/STATUS.md` → plan top block → `SIGNAL_LOSS_LEDGER_affected_entity_chain.md`; top unblocked item = the heads rung (attachment LEARNER is the bottleneck; pri-11 + the two label-free constraints).
+  - Standing rules added today (memory): narrate focus; start at the top by position; plastic/never frozen + phase diagram; downstream regression ≠ failure; trace the consumer's signal requirement; route agents to cheaper models (Fable capped at 50%).
+
 ### 2026-09-12 (LATE NIGHT, post-compaction — UPSTREAM MATH-BF PASS: the Competition-Model ROLE LABELER landed)
   - **Owner direction at compaction:** "+4 is fine, not great → a dedicated focus on establishing mathematical brain-foundational operation to all upstream components; if items are clearly BF they correctly separate and send signals downstream, essentially lossless." Executed on rung 5 of the affected-entity chain (`notes/SIGNAL_LOSS_LEDGER_affected_entity_chain.md`).
   - **✅ BUILT + LIVE: the Competition-Model coarse ROLE LABELER** (`graded_role_assigner.coarse_role_cues/coarse_roles`; cue validities LEARNED on UD-EWT train → `data/frontend_assets/coarse_role_validities_ud_ewt.json`; wired as `arc_labeler.COMPETITION_ROLES=True` over the one `label()` call every live consumer reads — argument roles the competition's, fine relations kept). Works ONLY in the configuration-conditioned contrast form; v1 (one role per cue) and v2 (flat additive table) FAILED with numbers — recorded so nobody re-treads.
