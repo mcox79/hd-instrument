@@ -342,3 +342,5 @@ competent-reader reference ~0.85–0.90.
   (+13.3, Yang et al. 2020); our Matrix-Tree is first-order, so the brain-faithful approximation is a CUE: "how many dependents of this
   class on this side does the candidate head already have" under the previous pass's posterior (Lewis-Vasishth retrieval cue =
   valence occupancy; mean-field second order), learned like every other cue, two-pass decode. Smoke with constructions running.
+- **Knowledge-free + constructions, 5 rounds, α=0.8 (student-heavy anchor): 0.3712 → 0.4279 → 0.4368 → 0.4361 → 0.4430 → 0.4495**
+  (twin 0.067) — still creeping up at round 5; the fully knowledge-free organ is at ~0.45 before the function-word constructions.
