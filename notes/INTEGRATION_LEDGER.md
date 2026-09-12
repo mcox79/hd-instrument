@@ -955,6 +955,7 @@ Legend: **YES** fully realized · **PARTIAL** mechanism live, full gain pending 
 | structural_do_recover | who-did-what +0.1973 (own harness) | LANDED default-off | **NO** — needs clean gold + downstream regression check |
 | arc-parser vectorize / inner-loop / tagger Viterbi / affect reroute / lean profiles | byte-identical speedups | LIVE default-on | YES (perf — no score change; fully realized) |
 | break_contextual_ceiling / construction_selector / means-end-bridge | located negatives | NO wire (valid pass) | — (correctly nothing to realize) |
+| **pri-14 result-state arm** (strategy research landing 2026-09-12; `force_dynamics_valence.endstate_valence_sign` reads the VerbNet sense-keyed RESULT STATE first, word norm second) | recovery 9/9 assault verbs → HARM, 31 newly decided, consistency 0.84–0.87, twin 0/5 vs 5/5, gold 24/24; witness `test_fd_result_state_arm` 15/15 | LIVE default-on | board: pooled AGG 0.6408 -> 0.6408 (every dimension identical); helped-or-harmed 35/36 -> 36/36 (0.972 -> 1.000, twin 0.694); who-was-affected 0.387 unchanged; no regression |
 
 ## TOP-DOWN INTEGRATION PASS — the ordered work-list (start upstream, iterate down; measure each step)
 

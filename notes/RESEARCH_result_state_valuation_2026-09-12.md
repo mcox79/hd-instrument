@@ -50,6 +50,8 @@ selection (the `select_sense` program) choosing WHICH sense's result state appli
 class reads (0.75), gloss-first (breaks harm-frame verbs). Scratch probes: scratchpad `probe_resultstate*.py`,
 `probe_verbnet_state*.py` (session 95c182ee).
 
+**Full board after landing (2026-09-12T04:15Z, 725 s):** pooled AGG 0.6408 -> 0.6408 (every dimension identical); helped-or-harmed 35/36 -> 36/36 (0.972 -> 1.000, twin 0.694); who-was-affected 0.387 unchanged; no regression.
+
 **Pointers.** Asset `data/frontend_assets/verbnet_result_state_v1.json` (233 sense keys; builder
 `tools/build_verbnet_result_state_asset.py`, ~5 s, from the nltk VerbNet corpus — offline foundation, admissible per
 the 2026-07-14 pivot); organ arm `hdlab/force_dynamics_valence.py` (`result_state_value`, `result_state_evidence`,

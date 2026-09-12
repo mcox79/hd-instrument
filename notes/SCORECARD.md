@@ -14,6 +14,12 @@ NEW word means from what it reads, using its sense of how things feel and look, 
 near the top about 38 times in 100 where the old method managed about 3.
 
 ## WHAT CHANGED LATELY
+- 2026-09-12 (night): the wall left open earlier tonight is overcome. For helped-or-harmed, the reader now judges the STATE a person
+  is left in (struck, strangled, injured), read from what the verb means in that sense, instead of how the word feels; how the word
+  feels is only the second opinion. Batter, bludgeon, pummel, club and throttle are now judged 'harmed' (throttle and club used to be
+  judged 'helped' because of their engine and golf senses); 31 other verbs that used to get no judgement now do; nothing neutral was
+  mis-read; a scrambled control fails. Full check: pooled AGG 0.6408 -> 0.6408 (every dimension identical); helped-or-harmed 35/36 -> 36/36 (0.972 -> 1.000, twin 0.694); who-was-affected 0.387 unchanged; no regression. Two verbs (wrench, maul) still get
+  no judgement because our reference names no result state for them; recorded honestly for the fleet.
 - 2026-09-12 (overnight): helped-or-harmed judgements now come from the brain's own computation (how the force acts, how
   the outcome feels for the person affected, whether they were truly affected) instead of a fixed word list; 97 in 100 on the
   36-sentence test (was 78), scrambled control 58. Two upstream fixes came with it (a noun mistaken for an adjective after
@@ -33,6 +39,7 @@ near the top about 38 times in 100 where the old method managed about 3.
 ## WHAT WE ARE WORKING ON
 Short term (the next week or two):
 - (Done 2026-09-12) The three finished pieces were folded in: helped-or-harmed, the part-of-speech finding, the verb-type organ.
+- (Done 2026-09-12, night) The assault-verb wall: the reader now values the state the person ends up in (researched and built the same night).
 - One shared "meaning store" that every part of the reader uses, instead of six separate copies (the brain keeps
   one). A strict pre-registered test decides whether the merged store is at least as good as the best copy.
 - Replace the one remaining outside dictionary tool the reader calls while reading with our own word-stemming.
@@ -52,8 +59,9 @@ Long term (the next few months):
 ## WHAT IS NOT YET BRAIN-FAITHFUL
 - The sentence-structure reader (five building blocks) is a trained stand-in, not the brain's method. A
   reading-learned replacement exists and matches it on familiar text; switching it on is a posted problem.
-- A few physical-assault verbs whose everyday rating is neutral because of another sense (batter, throttle, wrench, bludgeon)
-  now get no helped-or-harmed judgement; the fix is reading the state the person is left in (posted as a follow-on).
+- Helped-or-harmed now reads the state a person is left in, but only where our reference names that state (about 1 verb in 25 of
+  the verbs that act on people; the rest still rely on how the word feels, and 822 of 2,926 get no judgement). Picking WHICH sense of
+  the verb applies from the sentence, rather than from the verb alone, is the next step (posted as the remaining scope of the problem).
 - The "same dog as before" check still uses a surface-string component in one place; its replacement is awaiting review.
 - The word-stemmer calls an outside dictionary tool while reading (computation right, implementation not ours).
 - The rule for combining the senses when learning a word is a reasonable model, not yet pinned to the brain; the
@@ -61,7 +69,7 @@ Long term (the next few months):
 
 <!-- AUTO:BEGIN (written by tools/scorecard.py; edit the sections ABOVE, not this) -->
 
-Last full check: 2026-09-12T03:11:14.884049+00:00 (2 on record). Generated 2026-09-12T04:13:59+00:00.
+Last full check: 2026-09-12T04:15:39.605699+00:00 (3 on record). Generated 2026-09-12T04:16:59+00:00.
 
 | Ability | Group | How well | Compared with a simple rule | Since the previous check | Brain-faithful? |
 |---|---|---|---|---|---|
@@ -71,7 +79,7 @@ Last full check: 2026-09-12T03:11:14.884049+00:00 (2 on record). Generated 2026-
 | Linking a description ('the painter') to a named person | People and things | right 55 in 100 | clearly better than the simple rule (45 in 100) | unchanged since the previous check | brain model; some details still open |
 | Pronoun reference as the full reader actually runs it | People and things | right 59 in 100 | clearly better than the simple rule (50 in 100) | unchanged since the previous check | brain model; some details still open |
 | Resolving 'the animal' to the dog just mentioned | People and things | right 58 in 100 | clearly better than the simple rule (52 in 100) | unchanged since the previous check | brain model; some details still open |
-| Who was affected by what happened | People and things | right 39 in 100 | clearly better than the simple rule (34 in 100) | up 0.014 since the previous check | brain model; some details still open |
+| Who was affected by what happened | People and things | right 39 in 100 | clearly better than the simple rule (34 in 100) | unchanged since the previous check | brain model; some details still open |
 | Which meaning of a word is meant in this sentence | Word meaning | right 75 in 100 | clearly better than the simple rule (50 in 100) | unchanged since the previous check | brain model; some details still open |
 | Drawing safe conclusions from 'is a kind of' facts | Word meaning | right 77 in 100 | clearly better than the simple rule (54 in 100) | unchanged since the previous check | brain model; some details still open |
 | Handling 'all / some / none' correctly | Word meaning | right 83 in 100 | clearly better than the simple rule (17 in 100) | unchanged since the previous check | brain model; some details still open |
@@ -95,7 +103,7 @@ Last full check: 2026-09-12T03:11:14.884049+00:00 (2 on record). Generated 2026-
 | Whether one event was needed for another to happen | Causes | right 36 in 100 | clearly better than the simple rule (4 in 100) | unchanged since the previous check | brain model; some details still open |
 | How a character probably feels about an event | Feelings, goals, beliefs | right 94 in 100 | clearly better than the simple rule (44 in 100) | unchanged since the previous check | brain model; some details still open |
 | What a character believes, even when it is false | Feelings, goals, beliefs | right 65 in 100 | clearly better than the simple rule (49 in 100) | unchanged since the previous check | brain model; some details still open |
-| Whether an action helped or harmed someone | Feelings, goals, beliefs | right 97 in 100 | clearly better than the simple rule (33 in 100) | up 0.194 since the previous check | brain model; some details still open |
+| Whether an action helped or harmed someone | Feelings, goals, beliefs | right 100 in 100 | clearly better than the simple rule (33 in 100) | up 0.028 since the previous check | brain model; some details still open |
 | Whether an event helps or blocks a character's goal | Feelings, goals, beliefs | right 98 in 100 | clearly better than the simple rule (49 in 100) | unchanged since the previous check | brain model; some details still open |
 | Who is having the feeling | Feelings, goals, beliefs | right 20 in 100 | clearly better than the simple rule (14 in 100) | unchanged since the previous check | brain model; some details still open |
 | Working out what a new word means from reading | Learning from reading | right meaning ranked near the top 38 in 100 | clearly better than the simple rule (16 in 100) | unchanged since the previous check | brain model; some details still open |

@@ -7,6 +7,9 @@ inanimate patient = NA; non-affecting event = abstain. The earlier verb-LIST mem
 enumerated on the read path + a hand backoff) is GONE -- a list is not a mechanism and FrameNet-at-inference was an
 external tool on the read path. The structural gate (`force_dynamics_event_type`) is unchanged except that it now
 prefers the READER'S bound predicate (item["gov_idx"], STEP 3d) over the positional nearest-verb search.
+Since 2026-09-12 (strategy, pri-14) the endstate valence is read FIRST from the RESULT STATE the patient is left in
+(VerbNet class semantics keyed by WordNet sense, an offline foundation asset; the brain values the simulated outcome
+state, not the verb's lexical pleasantness) and only then from the verb's word-level norm.
 Glass-box; no external LLM at inference. SELF-CONTAINED: hdlab-only imports.
 """
 from __future__ import annotations
@@ -14,7 +17,7 @@ from __future__ import annotations
 __bf_status__ = "BF_SPIRIT"   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors data/bf_status_registry.jsonl
 __bf_verified__ = "2026-09-12 pri-7 landing (strategy; reverified 9/9+6/6): force-dynamic arithmetic = Wolff force structure x Warriner endstate valence x graded Beavers affectedness gate; computational-level composite (RESEARCH_harm_help_and_selectional_math_2026-09-12)"
 __bf_note__ = "harm/help = force STRUCTURE (Wolff CAUSE/ENABLE/PREVENT) x patient endstate VALENCE (Warriner, OFC/amygdala valuation) x graded AFFECTEDNESS gate (Beavers/Dowty proto-patient; McRae-Tanenhaus thematic fit); subject-experiencer psych verbs excluded; NO verb list, NO read-path FrameNet parse; labelled BF_SPIRIT (composite of supported parts, not one pinned equation)"
-__bf_corrections__ = ["2026-09-12 harm/help decision: verb-LIST membership + read-path FrameNet enumeration (NOT_BF) -> force-dynamic arithmetic with grounded valence + graded affectedness (BF_SPIRIT)"]
+__bf_corrections__ = ["2026-09-12 harm/help decision: verb-LIST membership + read-path FrameNet enumeration (NOT_BF) -> force-dynamic arithmetic with grounded valence + graded affectedness (BF_SPIRIT)", "2026-09-12 endstate valence: word-level Warriner sign (sense-conflating; batter/throttle/bludgeon abstained or mis-signed) -> RESULT-STATE read first (VerbNet sense-keyed state predicates valued by the affect lexicon + the innate nociceptive sign), word-level norm second (strategy, pri-14 research)"]
 
 import os
 import sys
@@ -198,8 +201,92 @@ def is_affecting(verb: str, lexicon: Optional[Dict[str, str]] = None, afx: Optio
 WEAK_VALENCE = 0.10   # |word-level valence| below this is treated as UNINFORMATIVE for the patient's outcome (swept)
 _EV_CACHE: Dict[str, Optional[int]] = {}
 
+# ---- RESULT-STATE ARM (strategy 2026-09-12, pri-14) -------------------------------------------------------------
+# The brain values the STATE the patient ends up in (OFC/vmPFC outcome valuation over a simulated event; Barsalou /
+# Zwaan situation simulation), not the verb's lexical pleasantness. Causative verbs lexicalise a RESULT STATE (Levin /
+# Rappaport Hovav). Source = VerbNet class semantics over the Patient at result(E)/end(E), keyed by WORDNET SENSE KEY
+# (offline foundation asset; tools/build_verbnet_result_state_asset.py), read only for the verb's AFFECTING senses
+# that take an ANIMATE object (WordNet frames 9/10/17/18 "----s somebody"). The state is VALUED by the affect lexicon
+# (harmed / suffocate / degradation / not-alive) or by the innate nociceptive sign (forceful contact on the body).
+# No verb list; a verb is read through its senses' classes. Measured (research note 2026-09-12): agreement with the
+# word-level sign 0.87 where both exist (n=79); the 10 disagreements are weapon/assault senses read correctly for a
+# person (club, brain, birch, throttle); 31 formerly-abstaining verbs decided (batter, pound, slash, crush ...).
+RESULT_STATE_READ = True
+RESULT_STATE_ASSET = os.path.join(_REPO, "data", "frontend_assets", "verbnet_result_state_v1.json")
+ANIMATE_OBJECT_FRAMES = {9, 10, 17, 18}
+STATE_MIN = 0.5                      # |mean state value| below this abstains (values are near +-1; swept: insensitive)
+_RS_TABLE: Optional[Dict[str, list]] = None
+_RS_CACHE: Dict[str, Optional[float]] = {}
 
-def endstate_valence_sign(verb: str, afx: Optional[AffectLexicon] = None) -> Optional[int]:
+
+def result_state_table() -> Dict[str, list]:
+    """sense key -> [[verbnet class, member, [state ...]], ...] (offline asset; {} when absent -> arm abstains)."""
+    global _RS_TABLE
+    if _RS_TABLE is None:
+        try:
+            import json
+            with open(RESULT_STATE_ASSET, "r", encoding="utf-8") as f:
+                _RS_TABLE = dict(json.load(f).get("states", {}))
+        except Exception:
+            _RS_TABLE = {}
+    return _RS_TABLE
+
+
+def state_value(state: str, afx: Optional[AffectLexicon] = None) -> Optional[float]:
+    """Affective value of a result-state predicate for the patient: the affect lexicon's valence of the state word
+    (negation flips); forceful contact on the body = the innate nociceptive sign (-1, PINNED: pain is not learned)."""
+    if state == "forceful_contact_end":
+        return -1.0
+    afx = _afx() if afx is None else afx
+    neg = state.startswith("!")
+    word = state.lstrip("!").split("_")[0]
+    val = afx.valence(word)
+    if val is None:
+        return None
+    return -val if neg else val
+
+
+def result_state_evidence(verb: str, states: Optional[Dict[str, list]] = None) -> list:
+    """[(synset, lemma, verbnet class, state), ...] over the verb's affecting animate-object senses."""
+    table = result_state_table() if states is None else states
+    v = lemmatize_verb(verb)
+    out = []
+    if not table:
+        return out
+    try:
+        from nltk.corpus import wordnet as wn
+        for ss in wn.synsets(v, pos=wn.VERB):
+            if ss.lexname().split(".")[1] not in AFFECTING_SUPERSENSES:
+                continue
+            if not (set(ss.frame_ids()) & ANIMATE_OBJECT_FRAMES):
+                continue
+            for lm in ss.lemmas():
+                key = lm.key().split("::")[0]
+                for cid, member, sts in table.get(key, ()):
+                    for st in sts:
+                        out.append((ss.name(), lm.name(), cid, st))
+    except Exception:
+        return []
+    return out
+
+
+def result_state_value(verb: str, afx: Optional[AffectLexicon] = None,
+                       states: Optional[Dict[str, list]] = None) -> Optional[float]:
+    """Mean affective value of the result states the verb's affecting animate-object senses leave the patient in;
+    None when the foundation names no result state (honest abstention -> the word-level norm is consulted)."""
+    default = afx is None and states is None
+    v = lemmatize_verb(verb)
+    if default and v in _RS_CACHE:
+        return _RS_CACHE[v]
+    vals = [sv for *_, st in result_state_evidence(v, states) for sv in [state_value(st, afx)] if sv is not None]
+    out = (sum(vals) / len(vals)) if vals else None
+    if default:
+        _RS_CACHE[v] = out
+    return out
+
+
+def endstate_valence_sign(verb: str, afx: Optional[AffectLexicon] = None,
+                          states: Optional[Dict[str, list]] = None) -> Optional[int]:
     """The affective value of the patient's ENDSTATE, read at the SENSE level (strategy 2026-09-12, the landing's
     downstream check): Warriner's word-level valence conflates a verb's senses -- 'throttle' is rated mildly POSITIVE
     (the engine sense) though its affecting sense is 'strangle'; 'batter' is near-neutral (the food sense); 'bludgeon'
@@ -208,22 +295,27 @@ def endstate_valence_sign(verb: str, afx: Optional[AffectLexicon] = None) -> Opt
     LEMMAS of the verb's AFFECTING senses (body/contact/change/emotion/... supersenses), SemCor-weighted -- i.e. the
     affective value of the state the patient is put in, estimated from the synonyms that name it. Still None when no
     affecting-sense lemma carries a norm (honest abstention)."""
-    default_afx = afx is None or afx is _AFX
+    default_afx = (afx is None or afx is _AFX) and states is None
     afx = _afx() if afx is None else afx
     v = lemmatize_verb(verb)
     if default_afx and v in _EV_CACHE:          # cache ONLY for the live lexicon (a scrambled twin must not read it)
         return _EV_CACHE[v]
-    val = afx.valence(v)
     sign: Optional[int] = None
-    if val is not None and abs(val) >= WEAK_VALENCE:
-        sign = 1 if val > 0 else -1
+    if RESULT_STATE_READ:                       # 1. the RESULT STATE the patient is left in (the brain's valuation target)
+        sv = result_state_value(v, None if afx is _AFX else afx, states)
+        if sv is not None and abs(sv) >= STATE_MIN:
+            sign = 1 if sv > 0 else -1
+    if sign is None:                            # 2. the verb's word-level norm (a cue to that state; sense-conflating)
+        val = afx.valence(v)
+        if val is not None and abs(val) >= WEAK_VALENCE:
+            sign = 1 if val > 0 else -1
     # else: ABSTAIN. TRIED 2026-09-12 and WITHDRAWN the same night: backing off to the mean Warriner valence of the
     # affecting-sense SYNONYM lemmas (throttle -> strangle ...) turned batter/throttle/bludgeon into HELP -- the synonym
     # lemmas carry the same word-level sense conflation one step removed (bound/limit/buffet rate positive). A wrong
     # HARM/HELP is worse than an honest abstention. The brain-faithful fix is the affective value of the RESULTING
     # STATE the patient is put in (a resulting-state read / verb-sense-in-context), the solver's filed deepest step;
-    # until it exists, verbs whose word-level norm is absent or weak (batter, bludgeon, wrench, throttle) ABSTAIN --
-    # a recorded located boundary (the old verb LIST caught them; a list is not a mechanism).
+    # 2026-09-12 (pri-14 research): that read now EXISTS as the result-state arm above (VerbNet sense-keyed states);
+    # verbs whose senses name no result state in the foundation AND whose norm is weak (wrench, maul) still ABSTAIN.
     if default_afx:
         _EV_CACHE[v] = sign
     return sign
@@ -232,7 +324,8 @@ def endstate_valence_sign(verb: str, afx: Optional[AffectLexicon] = None) -> Opt
 def harm_help_arithmetic(verb: str, animacy: str, *, endstate_reached: Optional[bool] = None,
                          embedded_endstate_valence: Optional[int] = None,
                          lexicon: Optional[Dict[str, str]] = None,
-                         afx: Optional[AffectLexicon] = None) -> Optional[str]:
+                         afx: Optional[AffectLexicon] = None,
+                         states: Optional[Dict[str, list]] = None) -> Optional[str]:
     """Force STRUCTURE x endstate VALENCE-for-patient -> HARM / HELP / NA / None(abstain).
     `endstate_reached` is None when unknown (the live bare-SVO path): for CAUSE/ENABLE unknown => the caused endstate
     happened; for PREVENT unknown => the prevention succeeded. The live path therefore reduces to:
@@ -245,7 +338,7 @@ def harm_help_arithmetic(verb: str, animacy: str, *, endstate_reached: Optional[
     cls = lexicon.get(v)
     if not is_affecting(v, lexicon, afx):
         return None
-    vval = endstate_valence_sign(v, afx)                      # sense-level patient-outcome valence (see above)
+    vval = endstate_valence_sign(v, afx, states=states)       # result-state first, word-level norm second (see above)
     if cls == "PREVENT":
         ev = embedded_endstate_valence
         if ev is None:
