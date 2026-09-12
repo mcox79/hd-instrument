@@ -60,3 +60,6 @@ One glass-box morphology organ (exception store + affix-detachment rules + lexic
 
 ## 8. DO NOT QUOTE / DO NOT REDO
 Do NOT quote retired figures (`notes/reference_retired_claims_never_requote.md`). Do NOT re-introduce the crude `head_lemma` regex. Do NOT use spaCy / any external LLM / nltk at inference. Do NOT scope-creep into WordNet taxonomy consumers (list them instead). Do NOT approximate silently — enumerate any divergence from today's output.
+
+## STRATEGY ADDENDUM 2026-09-11 (late) — scope note from the consolidation audit
+`hdlab/thematic_role_labeler.py` is a BUNDLED module: its ROLE part (a supervised averaged-perceptron labeler: `role_feats`/`train_perceptron`/`label_roles`) has ZERO live consumers, while its LEXICAL utilities are what 29 organs import (`lemma_verb` ×26, `lemma_word` ×5, `is_known_word`, `frame_slot_role`, `is_strictly_intransitive`, `is_passive_clause`). When you build the ONE morphology organ, make `lemma_word`/`lemma_verb`/`is_known_word` thin delegates to it (or move them into it and leave shims), and list the dormant perceptron role-labeler as an orphaned version for strategy to prune at integration. `frame_slot_role` / `is_strictly_intransitive` / `is_passive_clause` are verb-frame/voice utilities, not morphology — leave them (note where they should live: the verb-frame supply).
