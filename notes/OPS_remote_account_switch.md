@@ -52,26 +52,44 @@ Tailscale is out-of-band** — it does not depend on any Claude credential — w
 why it is the right channel for the switch, even though Remote Control is the right channel
 for the work.
 
-### The design this actually points at: two machines, one account each
+### DECIDED 2026-09-12: the desktop is the live system
 
-You are already set up for it, by accident: laptop is `marshall.cox@gmail.com`, desktop is
-`marshall@kel.vin`. Keep it that way and **never swap a credential at all**:
+Owner's call: the full run lives on the desktop, because it is the live system and the
+stronger machine for CPU and GPU tests. "Switch machines instead of accounts" is therefore
+**rejected** — the desktop must be able to run on *either* account, so a real switch
+mechanism is required.
 
-- travel with the laptop on the home account;
-- desktop sits at home on the work account, project synced by git;
-- when one account runs low, you don't switch accounts — you switch **machines**, driving
-  the other one via Remote Control from wherever you are.
+Consequence worth holding onto: Remote Control is the steering channel (phone → desktop,
+already proven working laptop → phone), and SSH is the switching channel. They are separate
+on purpose, because SSH does not depend on the credential being switched.
 
-This is strictly simpler than credential juggling: no stashed secrets, no expiry trap, no
-restart, and both accounts stay warm so neither login goes stale. Its price is that the two
-machines must stay in sync, and the work has to be somewhere it can be picked up — which is
-what `notes/STATUS.md`, the LEDGER and `git log` already exist to do.
+## Mechanism 0: just log in over SSH (test this first — it may replace everything below)
 
-**Take the credential-swap path below only if you want the desktop specifically — the fast
-machine — to be able to run on either account.** If "whichever machine has quota" is good
-enough, you need none of it.
+The docs describe a paste-a-code fallback for exactly this case: "If your browser shows a
+login code instead of redirecting back after you sign in, paste it into the terminal at the
+`Paste code here if prompted` prompt. This happens when the browser can't reach Claude
+Code's local callback server, which is common in WSL2, SSH sessions, and containers."
 
-## Two switch mechanisms — use both (only if you want one machine on either account)
+If that fallback works over `ssh -t`, then a remote account switch is simply:
+
+```bash
+ssh -t home "claude auth login"      # open the printed URL in whatever browser you have,
+                                     # authorize as the account you want, paste the code back
+```
+
+and **the entire credential-stash design below becomes unnecessary** — no secrets at rest,
+no stale-stash expiry trap, nothing to rotate.
+
+**Status: UNVERIFIED.** Probed on 2026-09-12 and the result was inconclusive for an
+environment reason, not a real one: the probing shell had no TTY, so SSH refused to allocate
+a pseudo-terminal and Claude Code's full-screen UI aborted with `Raw mode is not supported
+on the current process.stdin`. From a real terminal, `ssh -t` allocates a PTY and this
+should behave normally.
+
+**Test it from a real terminal before building anything else.** Update the desktop first —
+it is on 2.1.62, and there have been auth and Remote Control fixes since.
+
+## Two fallback mechanisms, if Mechanism 0 does not work
 
 ### A. Credential-file swap (primary, full fidelity)
 
@@ -90,8 +108,11 @@ tokens from the laptop right now — use a private window for the second one so 
 in as the other account — and just store the two strings on the desktop. No physical
 presence at the desktop at all.
 
-Cost, and it is a real one: a session authenticated this way **cannot start Remote
-Control** and cannot fetch claude.ai connectors. `--bare` ignores the variable entirely.
+Cost, and given the decision above it is a serious one: a session authenticated this way
+**cannot start Remote Control** and cannot fetch claude.ai connectors (`--bare` ignores the
+variable entirely). So in break-glass mode you **lose phone steering of the desktop** — the
+run keeps going, but you are reduced to SSH until you restore a real login. Treat this as
+degraded mode for keeping a long run alive, not as a way to work.
 
 **Recommendation: set up both.** A is the daily driver; B is what saves you when you are
 1000 miles away and A's stored login has expired.
