@@ -103,7 +103,7 @@ Long term (the next few months):
 
 <!-- AUTO:BEGIN (written by tools/scorecard.py; edit the sections ABOVE, not this) -->
 
-Last full check: 2026-09-12T17:15:08.947214+00:00 (7 on record). Generated 2026-09-12T23:06:36+00:00.
+Last full check: 2026-09-12T17:15:08.947214+00:00 (7 on record). Generated 2026-09-12T23:23:08+00:00.
 
 | Ability | Group | How well | Compared with a simple rule | Since the previous check | Brain-faithful? |
 |---|---|---|---|---|---|
