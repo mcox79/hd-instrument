@@ -118,7 +118,7 @@ Organs: online_entity_cluster(16), crosstype_bridge(17), crosstype_live_adapter(
 
 **KEEP separate (faithful):** salience_binder + event_centrality_coref compute *salience* (Centering local attentional state + ACT-R base-level), and referent_per_np constructs *referents* (DRT). Research shows Centering (local salience) and DRT (global referent construction) are **complementary, distinct processes**, not the retrieval step — so these are correctly separate FROM the resolver (but see Cluster 6 for salience-internal consolidation).
 
-### Cluster 2 — TIME: temporal cognition — **6 organs → CONSOLIDATE (mostly), one KEEP split**
+### Cluster 2 — TIME: temporal cognition — **6 organs → CONSOLIDATE (mostly), one KEEP split** — ✅ DONE 2026-09-11: `temporal_ordering`+`temporal_ordering_multiframe`+`temporal_order_register` → ONE `hdlab/temporal_model.py` (byte-identical; shims kept; witness `test_temporal_model_consolidation`); tense/aspect transducers kept as input arms as the verdict said.
 Organs: temporal_reasoner(28), aspect_interval(47), temporal_ordering(48), temporal_ordering_multiframe(49), temporal_order_register(50), tense_preserving_detector(70).
 
 **Verdict: CONSOLIDATE the ordering layer; KEEP the tense/aspect transducers as arms.** Reichenbach reference-time + Allen interval algebra + Vendler aspect is ONE computational framework, and temporal order in comprehension is a single situation-model dimension (Zwaan time index). The registry notes are explicit that temporal_ordering_multiframe **"is an extension of temporal_ordering"** and temporal_order_register **"composes the pinned discrete front-end"** — i.e. these three are layers/versions of one order-construction organ, not three distinct computations.

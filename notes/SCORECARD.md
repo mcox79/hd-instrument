@@ -14,6 +14,8 @@ NEW word means from what it reads, using its sense of how things feel and look, 
 near the top about 38 times in 100 where the old method managed about 3.
 
 ## WHAT CHANGED LATELY
+- 2026-09-11 (late): the three time-ordering components were merged into one, with identical results on every check (the
+  brain keeps one sense of event order; we had three copies). Second duplicate-part merge done; next are salience, force, appraisal.
 - 2026-09-11: learning word meanings from reading is now live and measured (38 in 100, old method 3 in 100); the
   word-meaning test now scores the real reading path (75 in 100 vs 50 for guessing); a second test of how meaning
   shifts with context was added. Pooled headline score rose 0.625 -> 0.641, entirely from the better word-meaning
