@@ -74,3 +74,19 @@ No live signal changes. The option exists for the parser joint decode; standalon
 `affect_harm_help`) → 3d ranker routing → FULL `--run` + per-dimension trend gate → 4 → 5. A regression that a
 consumer's witness explains as "receiving the corrected signal" is ACCEPTED and the consumer fixed to receive it (owner
 directive 09-07); an unexplained regression is reverted.
+
+## 7. What the landing REVEALED (2026-09-12, recorded as the map predicted)
+- **Board-proxy caveat confirmed on `affect_harm_help`:** the arm scored an experiment copy of the decision (stuck at 0.778)
+  while the live reader scored 0.972 on the same 36-item gold. Re-pointed: model = `FDV.harm_help` (the live organ), twin =
+  the same arithmetic with valence map + force lexicon scrambled (0.583). A cache keyed by verb only had let the twin read
+  the live valences (twin 0.972) — fixed: the endstate-valence cache is used only for the live lexicon.
+- **Valence coverage boundary:** verbs whose word-level norm is absent or near-neutral (batter, bludgeon, wrench, throttle —
+  the food / engine senses dominate the rating) now ABSTAIN where the old verb list said HARM. A sense-level synonym backoff
+  was tried and WITHDRAWN the same night (it turned them into HELP). The brain-faithful fix is a resulting-state valence read
+  (the solver's filed deepest step). Recorded boundary, not hidden.
+- **The positional governor gate was the fragile part:** with the decision answering on many more verbs, tokenizer/tagger
+  divergences in WHICH verb the nearest-verb gate picked surfaced (84/591 on 19c text). STEP 3d: the reader now hands the
+  affect decision the predicate it already bound the patient to (`gov_idx` = the event's verb index) — one structure, one
+  binding; the positional gate is only the fallback. Passive patients ("the intern was bullied") now reach the decision.
+- Three landing-era witnesses that asserted "nothing changed" under the OLD decision were re-based to the live organ's
+  decision or to recorded, bounded divergence rates; each edit says why in place.
