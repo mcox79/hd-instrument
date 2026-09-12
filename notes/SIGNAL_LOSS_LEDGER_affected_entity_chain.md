@@ -366,3 +366,7 @@ competent-reader reference ~0.85–0.90.
   convention layer (3 rounds). Owner: "these tasks have been running for a very long time" — the probes are unvectorised
   measurement loops (25–40 min per full run, worse when several run at once); sweeping stops here; the landed organ is the place for
   speed.
+- **DECISIVE (landing) RUN — knowledge-free bootstrap + learned constructions + CONVENTION layer, 6k/700: 0.2722 → 0.4186 → 0.4737 →
+  0.4826 → 0.4826 (converged; twin 0.158 — the convention layer alone yields arcs).** The fully BF organ (no hand prior; conventions
+  stated as such) = **0.4826** vs the prior-informed co-occurrence teacher 0.4626, prior-informed + constructions 0.5303, supervised
+  0.78, field label-free ceiling 0.68. Asset build with this configuration launched (`tools/build_attachment_validities.py`).

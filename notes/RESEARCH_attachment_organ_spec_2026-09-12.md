@@ -105,6 +105,12 @@ rational parsing); Kjelgaard & Speer 1999 (prosodic boundaries); Altmann & Steed
 | experience volume: 20k Simple-Wiki sentences vs 6k UD | 0.4688 / 0.4781 vs 0.4715 / 0.4801 | FLAT — volume is not the lever |
 | knowledge-free bootstrap (prior-free teacher 0.272) | r0 0.3505, r1 0.3631, r2 0.3751 | the hand prior was worth ~0.1; + constructions queued |
 | meaning (plausibility) cue, smoke | +0.0015 | low verb coverage; core-arg recall 0.84 is LOCALITY (nearest-verb control 0.837) |
+| knowledge-free + constructions, 5 rounds α0.8 | 0.4495 | converging slowly |
+| learning-time δ + hard punctuation + curriculum (bundle) | 0.398 vs 0.437 | NEGATIVE as built (DMV-regime result) |
+| occupancy (second-order mean-field) cue, smoke | 0.4946 vs 0.5050 | NEGATIVE as built |
+| function-word frames as a LEARNED cue, smoke | 0.505 (+0.013) | self-supervision cannot learn conventions |
+| **CONVENTION layer at decode (function-word frames), smoke** | **0.541** | conventions stated, not learned |
+| **LANDING: knowledge-free + constructions + convention layer, full** | **0.4186 → 0.4737 → 0.4826 → 0.4826** (twin 0.158) | the fully BF organ |
 | heads → roles hand-off (role competition over P(head)) | 0.8075 → 0.8091 role accuracy | small on UD-EWT; GUM next |
 Open: experience volume (probe v20: 20k/60k Simple-Wiki sentences), the lexicon at scale, meaning feeding structure, incremental
 prediction; then hand the posterior down to every consumer in §3 and re-measure the 596-item decision and the board rows.
