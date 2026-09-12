@@ -268,8 +268,9 @@ def main():
     stu.finalize()
     out["student_r0"] = round(uas(stu.parse, test), 4); print("student r0 (taught by the teacher's posterior):", out["student_r0"], flush=True)
     # rounds 1..2: the student re-teaches itself from its OWN posterior (EM over cue strengths)
-    ALPHA = 0.5      # weight of the student's own posterior vs the teacher's in the re-estimation (pure self-posterior drifts)
-    for r in (1, 2):
+    ALPHA = float(sys.argv[sys.argv.index("--alpha") + 1]) if "--alpha" in sys.argv else 0.5   # student vs teacher weight in re-estimation
+    ROUNDS = int(sys.argv[sys.argv.index("--rounds") + 1]) if "--rounds" in sys.argv else 2
+    for r in range(1, ROUNDS + 1):
         nxt = AttachmentCompetition(frames)
         for s in train:
             toks = [x[1] for x in s]; pos = [x[2] for x in s]
@@ -289,7 +290,7 @@ def main():
     out["elapsed_s"] = round(time.time() - t0, 1); out["smoke"] = smoke
     print(json.dumps(out, indent=1))
     from experiments._seed_checkpoint import get_output_dir
-    od = str(get_output_dir("probe_attachment_competition_v18" + ("_priorfree" if "--prior-free-teacher" in sys.argv else "") + ("_plaus" if USE_PLAUS else "") + ("_constr" if USE_CONSTR else "") + ("_smoke" if smoke else ""))); os.makedirs(od, exist_ok=True)
+    od = str(get_output_dir("probe_attachment_competition_v18" + ("_priorfree" if "--prior-free-teacher" in sys.argv else "") + ("_plaus" if USE_PLAUS else "") + ("_constr" if USE_CONSTR else "") + (("_a%g_r%d" % (ALPHA, ROUNDS)) if ("--alpha" in sys.argv or "--rounds" in sys.argv) else "") + ("_smoke" if smoke else ""))); os.makedirs(od, exist_ok=True)
     json.dump(out, open(os.path.join(od, "metrics.json"), "w", encoding="utf-8"), indent=1)
 
 

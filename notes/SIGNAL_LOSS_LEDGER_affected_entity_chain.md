@@ -316,3 +316,7 @@ competent-reader reference ~0.85–0.90.
 - Segmentation-first induced constructions (smoke) final: r0 0.4422 / r1 0.4573 vs no constructions 0.4386 / 0.4443 and hand-written
   schemas 0.4558 / 0.4917 — a third of the hand-written gain; confirms the diagnosis (units are not constituents). Knowledge-free
   bootstrap + hand-written constructions (full): r0 0.3712 → r1 0.4227 (rising faster than without constructions); r2 pending.
+- **LANDING GATE 1 FINAL (knowledge-free bootstrap + constructions, 6k/700): 0.2722 → 0.3712 → 0.4227 → 0.4316 (twin 0.085)**, still
+  rising per round; prior-informed + constructions 0.5303. The hand-authored universal prior carries ~0.10; the BF organ's own
+  learning has not converged (anchor α=0.5 on a weak teacher; 2 rounds). Next: more rounds + a lower anchor; then land the
+  knowledge-free form (BF) with the gap documented, keep the prior OUT of the organ.
