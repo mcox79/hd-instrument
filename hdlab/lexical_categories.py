@@ -41,6 +41,7 @@ ASSET = os.path.join(_REPO, "data", "frontend_assets", "lexical_categories_count
 BOS = "<s>"
 K2 = 2.0                                                        # Dirichlet back-off mass for the second-order transitions (swept, not adopted)
 SHAPES = ("lower", "Cap", "ALLCAP", "digit", "hyphen", "other")
+INDUCED_ASSET = os.path.join(_REPO, "data", "frontend_assets", "induced_categories_simplewiki_1m_k68.json")   # the reading-acquired classes
 
 
 def word_shape(w: str) -> str:
@@ -62,7 +63,8 @@ UPOS2WN = {"NOUN": "n", "VERB": "v", "ADJ": "a", "ADV": "r"}
 class LexicalCategories:
     """Generative count-based category model with forward-backward posterior decoding (plastic counts)."""
 
-    def __init__(self, lam: float = 0.1, suf_len: int = 4, order: int = 1, use_shape: bool = False, rare_max: int = 2):
+    def __init__(self, lam: float = 0.1, suf_len: int = 4, order: int = 1, use_shape: bool = False, rare_max: int = 2,
+                 use_cluster: bool = False):
         self.lam = float(lam); self.suf_len = int(suf_len)
         # ARM v2 (2026-09-13 07:05 local; same count-based generative model, three more count tables, all plastic):
         #   order=2      second-order transitions P(c | p2, p1) with Dirichlet back-off to the first-order row (the brain's sequence
@@ -73,6 +75,13 @@ class LexicalCategories:
         #                in proportion to its count (a rare form's category evidence is mostly its shape and ending).
         # order=1 / use_shape=False reproduces v1 exactly (old assets load that way).
         self.order = int(order); self.use_shape = bool(use_shape); self.rare_max = int(rare_max)
+        #   use_cluster  (07:40 local) a READING-ACQUIRED emission cue: the distributional class of the word in the induced inventory
+        #                (`induced_categories_simplewiki_1m_k68.json`, 20k word types -> 70 clusters grown from raw text) as a factor
+        #                P(cluster | c) for RARE and UNKNOWN words -- the organ's own reading arm informing its supervised arm
+        #                (a word never seen in the tag supply but read 1m times in simplewiki still has a class).
+        self.use_cluster = bool(use_cluster)
+        self.clus: Dict[str, Counter] = defaultdict(Counter)       # category -> Counter(cluster id)
+        self._w2c: Optional[Dict[str, str]] = None
         self.shape: Dict[str, Counter] = defaultdict(Counter)      # category -> Counter(shape class)
         self.trans2: Dict[Tuple[str, str], Counter] = defaultdict(Counter)   # (prev2, prev1) -> Counter(category)
         self.emit: Dict[str, Counter] = defaultdict(Counter)       # category -> Counter(word)
@@ -94,6 +103,10 @@ class LexicalCategories:
                 w = w_raw.lower()
                 self.emit[t][w] += 1; self.tag_count[t] += 1; self.vocab.add(w); self.trans[prev][t] += 1
                 self.shape[t][word_shape(w_raw)] += 1; self.trans2[(prev2, prev)][t] += 1
+                if self.use_cluster:
+                    c = self.word2cluster().get(w)
+                    if c is not None:
+                        self.clus[t][c] += 1
                 for k in range(1, self.suf_len + 1):
                     if len(w) >= k:
                         self.suf[k][t][w[-k:]] += 1; self.suf_tot[k][w[-k:]] += 1
@@ -126,6 +139,12 @@ class LexicalCategories:
                         cnt = row[self.tags[ci]] if row else 0
                         lt2[ai, bi, ci] = math.log((cnt + K2 * math.exp(base[ci])) / (nb + K2))
             self.log_trans2 = lt2
+        if self.use_cluster:
+            ncl = max(1, len(set(self.word2cluster().values())))
+            self.log_clus = {}
+            for t in self.tags:
+                tot = sum(self.clus[t].values()) + self.lam * ncl
+                self.log_clus[t] = (self.clus[t], tot, ncl)
         if self.use_shape:
             self.log_shape = {}
             for t in self.tags:
@@ -145,14 +164,38 @@ class LexicalCategories:
                 # a rare known form: mix the lexical estimate with the unknown-word estimate in proportion to its count
                 unk = self._log_emit_unknown(w); a = cw / (cw + 1.0)
                 out = np.logaddexp(math.log(a) + out, math.log(1.0 - a) + unk)
+                out = out + self._log_cluster(w)
             if self.use_shape:
                 sh = word_shape(word)
                 out = out + np.array([self.log_shape[t][sh] for t in self.tags])
             return out
-        out = self._log_emit_unknown(w)
+        out = self._log_emit_unknown(w) + self._log_cluster(w)
         if self.use_shape:
             sh = word_shape(word)
             out = out + np.array([self.log_shape[t][sh] for t in self.tags])
+        return out
+
+    def word2cluster(self) -> Dict[str, str]:
+        if self._w2c is None:
+            try:
+                with open(INDUCED_ASSET, encoding="utf-8") as f:
+                    self._w2c = {k.lower(): str(v) for k, v in json.load(f)["word2cat"].items()}
+            except Exception:
+                self._w2c = {}
+        return self._w2c
+
+    def _log_cluster(self, w: str) -> np.ndarray:
+        """log P(cluster(w) | c) over categories, or zeros when the word has no reading-induced class / the arm is off."""
+        T = len(self.tags)
+        if not self.use_cluster:
+            return np.zeros(T)
+        c = self.word2cluster().get(w)
+        if c is None:
+            return np.zeros(T)
+        out = np.empty(T)
+        for i, t in enumerate(self.tags):
+            cnt, tot, ncl = self.log_clus[t]
+            out[i] = math.log((cnt[c] + self.lam) / tot)
         return out
 
     def _log_emit_unknown(self, w: str) -> np.ndarray:
@@ -235,6 +278,7 @@ class LexicalCategories:
     # ------------------------------------------------------------------ persistence
     def save(self, path: str = ASSET) -> str:
         d = {"lam": self.lam, "suf_len": self.suf_len, "order": self.order, "use_shape": self.use_shape, "rare_max": self.rare_max,
+             "use_cluster": self.use_cluster, "clus": {t: dict(c) for t, c in self.clus.items()},
              "emit": {t: dict(c) for t, c in self.emit.items()}, "trans": {p: dict(c) for p, c in self.trans.items()},
              "suf": {str(k): {t: dict(c) for t, c in v.items()} for k, v in self.suf.items()},
              "shape": {t: dict(c) for t, c in self.shape.items()},
@@ -250,7 +294,9 @@ class LexicalCategories:
         with open(path, encoding="utf-8") as f:
             d = json.load(f)
         m = cls(lam=d.get("lam", 0.1), suf_len=d.get("suf_len", 4), order=d.get("order", 1), use_shape=d.get("use_shape", False),
-                rare_max=d.get("rare_max", 0))
+                rare_max=d.get("rare_max", 0), use_cluster=d.get("use_cluster", False))
+        for t, c in d.get("clus", {}).items():
+            m.clus[t] = Counter(c)
         for t, c in d.get("shape", {}).items():
             m.shape[t] = Counter(c)
         for key, c in d.get("trans2", {}).items():
@@ -282,7 +328,7 @@ ASSET_PENN = os.path.join(_REPO, "data", "frontend_assets", "lexical_categories_
 
 
 def build_asset(train_path: Optional[str] = None, out: str = ASSET, column: int = 3, order: int = 1, use_shape: bool = False,
-                rare_max: int = 0) -> dict:
+                rare_max: int = 0, use_cluster: bool = False) -> dict:
     """Offline accrual from the UD-EWT training sentences' tag column (foundation supply) -> counts asset.
     column 3 = UPOS (the live inventory); column 4 = XPOS (Penn tags: the same organ's arm for consumers that read tense/form
     classes -- the temporal ORDER organ, 2026-09-13 -- replacing nltk's PerceptronTagger at read time)."""
@@ -303,7 +349,7 @@ def build_asset(train_path: Optional[str] = None, out: str = ASSET, column: int 
             cur.append((c[1], c[column]))
     if cur:
         sents.append(cur)
-    m = LexicalCategories(order=order, use_shape=use_shape, rare_max=rare_max).accrue(sents).finalize(); p = m.save(out)
+    m = LexicalCategories(order=order, use_shape=use_shape, rare_max=rare_max, use_cluster=use_cluster).accrue(sents).finalize(); p = m.save(out)
     return {"n_sentences": len(sents), "n_categories": len(m.tags), "vocab": len(m.vocab), "asset": os.path.relpath(p, _REPO)}
 
 
