@@ -80,6 +80,7 @@ RELS = ("root", "nsubj", "obj", "obl", "nmod", "ccomp", "xcomp", "advcl", "conj"
 
 # ------------------------------------------------------------------------------------------------ the cue machinery
 ROOT_CUES = ("rpred", "rsub", "rpos")
+CONJ_RPRED = {"on": False}
 
 COP = {"be", "is", "are", "was", "were", "been", "being", "am", "become", "became", "becomes", "seem", "seems",
        "seemed", "'m", "'s", "'re", "s", "m", "re"}                      # the arm's own copula list (function_word_arcs)
@@ -221,6 +222,14 @@ def root_cue_values(toks, pos):
                 break
             if pos[k - 1] in _NOMINAL:
                 subj = True; break
+        # CONJUNCTIVE FINITENESS (the fix the rung-3 trace exposed): a BARE "ed" form conflates VerbForm=Fin (148 of
+        # 967 test VERB tokens) with a bare VerbForm=Part (65) -- past tense vs a reduced relative -- and a bare
+        # "base" form conflates Fin (146) with Inf (46). Same cue value, OPPOSITE predication status: a conflated
+        # value handing a point estimate down. The disambiguator the reader has is subject support (a nominal to the
+        # left with no predicate in between): "the man WALKED" (finite) vs "the man SEEN yesterday" (participle).
+        # The additive form cannot represent that interaction, so the ambiguous classes take a CONJUNCTIVE value.
+        if CONJ_RPRED["on"] and rpred in ("ed", "base"):
+            rpred = rpred + ("S" if subj else "0")
         r = rank.get(j)
         rpos = ("%d" % r if r else "x") + ("S" if subj else "")
         d = {"rpred": rpred, "rsub": _subord(toks, pos, j), "rpos": rpos}
@@ -648,6 +657,7 @@ def main(argv=None):
              "abl_rpos": (True, False, ("rpos",), False),
              "arg": (True, False, ALL + ("rarg",), False),
              "cues_flat": (True, False, ALL, False), "cues_teach_flat": (True, True, ALL, False),
+             "conj": (True, True, ALL, False), "conj_flat": (True, True, ALL, False),
              "clausal": (False, False, ALL, True),
              "cues_clausal": (True, False, ALL, True),
              "full": (True, True, ALL, True),
@@ -658,6 +668,7 @@ def main(argv=None):
         cues_on, teach, subset, clau = specs[arm]
         ROOT_CUES = tuple(subset)
         CENTER["on"] = not arm.endswith("_flat")
+        CONJ_RPRED["on"] = arm.startswith("conj")
         src = {"twin": "cues", "twin_teach": "cues_teach", "twin_full": "full"}.get(arm)
         if src:
             tab = tables.get(src)

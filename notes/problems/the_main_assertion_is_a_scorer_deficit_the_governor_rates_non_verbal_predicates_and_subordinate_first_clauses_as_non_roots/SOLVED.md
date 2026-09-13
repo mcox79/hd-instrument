@@ -2,11 +2,11 @@
 problem: the_main_assertion_is_a_scorer_deficit_the_governor_rates_non_verbal_predicates_and_subordinate_first_clauses_as_non_roots
 status: SOLVED
 bar: "Root recall up CI-separated under both decodes with nsubj/ccomp/advcl not down and UAS not down; knowledge in counts with an online observe path; witness green -- OR a numbered located negative (e.g. the residual is fragments) with counts."
-result: "UD-EWT test 700, gold categories, n=700 gold root arcs. IN-ORDER decode (the live default): root 0.7214 -> 0.7486, paired delta +0.0271 CI [+0.0086, +0.0457]; UAS 0.6163 -> 0.6211 (+0.0048 CI [-0.0002, +0.0099]); nsubj 0.771 -> 0.778, ccomp 0.629 -> 0.638, advcl 0.306 -> 0.313, xcomp 0.730 -> 0.715. WHOLE-SENTENCE SEARCH decode: root 0.7471 -> 0.7729, paired delta +0.0257 CI [+0.0071, +0.0443] against the STRONGEST floor run (base with the incumbent root-pick, 0.7471); UAS 0.6178 -> 0.6198; nsubj 0.776 -> 0.779, ccomp 0.647 -> 0.681, advcl 0.328 (flat). The search decode's gain requires the root-pick option to move from `score` to `left` -- with the incumbent pick it REGRESSES to 0.7000 (-0.0471 CI [-0.0714,-0.0229]); the reason is traced and counted in section 5, and the in-order decode never reads that option."
-floor: "the IDENTICAL pipeline (same teacher, same cap, rounds 3, alpha 0.8, beta 10) with the root cues OFF: in-order root 0.7214 / UAS 0.6163, search root 0.7471 / UAS 0.6178 -- reproducing the LIVE asset's numbers exactly (live in-order root 0.721 UAS 0.6125; live search root 0.747). Weaker floors also run: search decode with the `left` root pick and NO cues, root 0.7200 (worse than the incumbent 0.7471, so `left` is not a free win -- it flips only together with the cues)."
-controls: "INFORMATION-FREE TWIN (the same three cues, the same density, values PERMUTED across the sentence's tokens): in-order root 0.717 vs 0.740 base and search root 0.550 vs 0.770 base (train 1.5k / test 300 arm) -- the twin LOSES under both decodes, and loses catastrophically under the search decode, excluding 'any extra root-row signal helps'. ORACLE-CEILING probe (add +20 to the gold root arc, nothing else): in-order root 0.721 -> 0.943, UAS 0.6125 -> 0.6574 -- the headroom behind the root row alone, measured BEFORE building. TIE COUNT: 378 of 700 test sentences had >=2 candidates tied at the best root score before the change (the decision was a tie-break, not evidence). UPSTREAM TRACE: the acquisition teacher's posterior mass on a gold ADJECTIVAL root arc was 0.001 (100% below 0.05; ADV 0.000, PRON 0.000) -- the copular cue had nothing to learn from. REFUTED-AS-BUILT and recorded, each with its number: the competition (zero-mean) readout; the lateral-inhibition (max-centred) readout; the subordination-DIRECTED clausal construction; the predication teaching boost at gamma 8 as a net win; the cue-gain sweep (no gain lifts both decodes)."
-files_changed: "experiments/exp_attachment_main_assertion_v1.py, notes/problems/the_main_assertion_is_a_scorer_deficit_the_governor_rates_non_verbal_predicates_and_subordinate_first_clauses_as_non_roots/{SOLVED.md,attachment_arm_patch.diff}, data/exp_attachment_main_assertion_v1*/metrics.json (nothing under hdlab/ or tools/ was edited -- the proposed change is the diff)"
-reverify: ".venv/Scripts/python.exe experiments/exp_attachment_main_assertion_v1.py --self-test   (18 checks, scaffold-free; then the headline: HDLAB_EXP_NAME=attachment_main_assertion_v1_reverify .venv/Scripts/python.exe experiments/exp_attachment_main_assertion_v1.py --smoke --test-cap 700 --arms base,cues -- writes only its own data/exp_* directory)"
+result: "UD-EWT test 700, gold categories, n=700 gold root arcs, paired bootstrap over sentences (4000 draws). POWERED ARM (train 1500, the floor rebuilt at the same cap and reproducing the live asset's root recall exactly). IN-ORDER decode (the live default): root 0.7214 -> 0.7486, +0.0271 CI [+0.0086,+0.0457]; UAS 0.6163 -> 0.6211 (+0.0048 CI [-0.0002,+0.0099]); nsubj 0.771 -> 0.778, ccomp 0.629 -> 0.638, advcl 0.306 -> 0.313, xcomp 0.730 -> 0.715 (the one give-back). WHOLE-SENTENCE SEARCH decode: root 0.7471 -> 0.7729, +0.0257 CI [+0.0071,+0.0443] against the STRONGEST floor run; UAS 0.6178 -> 0.6198; ccomp 0.647 -> 0.681, nsubj 0.776 -> 0.779, advcl 0.328 flat. The search gain needs the existing root-pick option moved from `score` to `left` (traced and counted in section 5; the in-order decode never reads it). LANDED-CAP CONFIRMATION (train 6000, the configuration the shipped asset is built at; point estimates, the paired CIs for this cap were still computing at hand-off): in-order UAS 0.6125 -> 0.6214, root 0.721 -> 0.764, ccomp 0.603 -> 0.664, xcomp 0.715 -> 0.737, obl 0.432 -> 0.463, conj 0.382 -> 0.403, nsubj 0.763 -> 0.776, advcl 0.321 -> 0.313; search UAS 0.6092 -> 0.6089, root 0.747 -> 0.749 (NOT down even under the incumbent root pick). The gain is LARGER at the landed cap than at the powered cap."
+floor: "the IDENTICAL pipeline (same teacher, same cap, rounds 3, alpha 0.8, beta 10) with the root cues OFF. At train 6000 it reproduces the LIVE asset to 4 decimals: in-order UAS 0.6125 / root 0.721, search UAS 0.6092 / root 0.747 -- byte-for-byte the numbers the live asset scores. At train 1500: in-order 0.6163 / 0.7214, search 0.6178 / 0.7471. WEAKER FLOORS ALSO RUN, so the strongest is the one gated on: search decode with the `left` root pick and NO cues, root 0.7200 -- WORSE than the incumbent 0.7471, so `left` is not a free win and flips only together with the cues."
+controls: "INFORMATION-FREE TWIN (same three cues, same density, cue values PERMUTED across the sentence's tokens), 3 seeds, n=700: in-order root 0.7100 / 0.7086 / 0.7057 vs base 0.7214 -- all BELOW; search root 0.6986 / 0.7029 / 0.7100 vs base 0.7200 -- all BELOW; and at the landed cap under the incumbent pick the twin collapses to root 0.527 vs base 0.747 (UAS 0.5734 vs 0.6178). ORACLE-CEILING probe run BEFORE building (+20 on the gold root arc, nothing else): in-order root 0.721 -> 0.943, UAS 0.6125 -> 0.6574. TIE COUNT: 378 of 700 sentences had >=2 candidates tied at the best root score before the change. UPSTREAM TRACE: teacher posterior mass on a gold ADJECTIVAL root arc 0.001 (100% below 0.05; ADV 0.000, PRON 0.000). CUE ABLATIONS (read-time, n=700, both decodes): rpred alone +0.0286 in-order; rsub alone +0.0029 (NULL, CI spans zero) under both; rpos alone +0.0286 in-order but -0.0114 search; dropping rpred costs the search arm everything (-0.0129). PATCH EQUIVALENCE: the proposed hdlab diff reproduces the cell's monkeypatched activations to max |delta| = 0.0 over 120 sentences, its own reference loop agrees with its fast path to 3.6e-15, and it is git-apply clean. REFUTED-AS-BUILT, each with its number: the zero-mean competition readout; the lateral-inhibition readout; the subordination-DIRECTED clausal construction; the cue-gain sweep."
+files_changed: "experiments/exp_attachment_main_assertion_v1.py, notes/problems/the_main_assertion_is_a_scorer_deficit_the_governor_rates_non_verbal_predicates_and_subordinate_first_clauses_as_non_roots/{SOLVED.md,attachment_arm_patch.diff}, data/exp_attachment_main_assertion_v1*/metrics.json. NOTHING under hdlab/ or tools/ was edited -- the proposed change is the diff."
+reverify: ".venv/Scripts/python.exe experiments/exp_attachment_main_assertion_v1.py --self-test   (18 scaffold-free checks: cue values on worked sentences, the patch is inert when off and touches only the root row, and the online observe path accrues a ROOT cue cell). Headline: HDLAB_EXP_NAME=attachment_main_assertion_v1_reverify .venv/Scripts/python.exe experiments/exp_attachment_main_assertion_v1.py --smoke --cap 1500 --test-cap 700 --arms base,cues -- writes only its own data/exp_* directory."
 ---
 
 > **COMPLETION.** The main-assertion decision had **no evidence in it at all**: `SentenceCues.cues(j, h)` returned
@@ -136,6 +136,94 @@ This is not free tuning and the control says so: **without the cues, `left` is W
 | **Cue-gain sweep** (0.25 / 0.5 / 0.75 / 1.0 / 1.5) | the phase-diagram move | no gain lifts BOTH decodes under the incumbent pick rule: in-order peaks at 0.5–0.75 (+0.034/+0.036), search is neutral only at 0.25 (+0.001 n.s.) and −0.050 by 1.5. Gain **1.0 kept** (no knob; the learned validity IS the strength) |
 | **Read-time cues WITHOUT the teacher repair** | the ablation that isolates the two halves | root 0.7557 in-order (+0.0343) vs 0.7486 with the teacher repair (+0.0271) -- the read-time cue is the whole lever; the teacher repair is **neutral on the end number** (the 0.007 gap is inside the CI half-width 0.017) while visibly improving the validity table (section 3). Both are CI-separated over base. gamma is swept and 0 is selectable |
 | **Predication teaching boost as a net win** | the upstream fix | it does what it is for (it doubles the subordination contrast and raises the copular one, section 3) but at γ=8 the *end* numbers are not better than the read-time cues alone (in-order root +0.017 vs +0.027). **Kept in the patch** because it is the brain-foundational half and the validity table is visibly better; γ is a swept operating point and 0 is selectable |
+
+## 6b. THE SIGNAL TRACE, CHAIN BY CHAIN, WITH COUNTS (supervisor directive)
+
+The signal the end read needs: *for each candidate word, is it the finite / copularly-predicating / non-subordinate
+predicate?* Here is every hand-off it depends on, what each rung produces, what the next rung reads, and what is LOST.
+UD's FEATS column is used ONLY as a measuring instrument (never read while learning).
+
+| rung | what it produces | what the next rung reads | LOST, with counts |
+|---|---|---|---|
+| **1 tokens** | the surface string | the form, for morphological decomposition | nothing measurable |
+| **2 categories** (`lexical_categories`, the live count organ) | a **HARD tag** (argmax), not a posterior | AUX / SCONJ / VERB / PART / ADJ, to key `rpred`, `rsub`, `rpos` | organ accuracy on exactly the tags the cues read: **AUX 0.9825 (n=572), VERB 0.9369 (967), PART 0.9684 (253), PRON 0.9709 (755), NOUN 0.9138 (1404), PROPN 0.8920 (1065), ADJ 0.8785 (543), SCONJ 0.7326 (172)**. Replacing gold categories with the organ's tags **flips a cue value on 231 tokens for `rpred` (2.4%), 370 for `rsub` (3.9%), 525 for `rpos` (5.5%)** of 9,534, and flips at least one cue value **on the GOLD ROOT TOKEN ITSELF in 59 of 700 sentences (8.4%)**. **SCONJ at 0.7326 is the weakest tag in the whole chain and it is precisely the input of `rsub` — which is why `rsub` measures NULL as a standalone cue.** |
+| **3 lemma / morphology** (`hdlab/morphology` via `lemma_verb`) + the auxiliary frame | the finiteness class of a verbal candidate | `rpred` | against UD `VerbForm` (n=967 VERB tokens): Fin 357 → {ed 148, base 146, s 61}; Inf 289 → {to 127, **auxmod 115**, base 46}; Part 282 → {auxbe 111, **ed 65**, auxhave 54, ing 45}; Ger 39 → {ing 39}. **TWO CONFLATED VALUES: `ed` carries 148 finite pasts AND 65 bare participles; `base` carries 146 finite presents AND 46 infinitives — the same cue value for opposite predication status.** (A naive binary "morphologically finite" scores only 0.5874 here, but that is the wrong target: a verb under a modal or a perfect auxiliary is VerbForm=Inf/Part and still heads its clause. The cue's values encode the right distinction and the learned validities prove it: `to` −1.69, `ing` −1.85 against `auxmod` +0.46, `auxbe` +0.26, `s` +0.52.) The residual loss is the two conflated values. |
+| **4 cue activations** (`arc_scores`, the root row) | an additive log-odds contrast per candidate — graded, and after this work non-degenerate (before: 17 numbers, 378/700 sentences tied) | the decode | the additive form cannot represent an INTERACTION, so the `ed`/`base` conflation cannot be resolved inside it |
+| **5 in-order decode** (`incremental_tree`, beam 8) | a beam posterior over heads — the keep-alternatives-alive hand-off | consumers | **the gold root arc carries non-zero belief in the final beam in only 227 of 300 sentences (0.757); mean belief 0.726.** In ~24% of sentences the true main assertion has already been pruned from the beam, so no root-row evidence can recover it. Beam width is a swept operating point (currently 8) — the cheapest remaining lever. |
+
+**BRAIN-FOUNDATIONAL STATUS OF EACH RUNG *AS IT RELATES TO THIS SIGNAL*** — not the registry label, but whether it
+actually hands down the graded signal this read needs:
+
+| rung | graded? | verdict on THIS signal |
+|---|---|---|
+| categories | **NO — a hard argmax tag.** `arc_scores_graded` exists and keeps the second-best category alive for ordinary arcs, but `root_cue_values` is computed from one hard tag list, so an uncertain AUX/SCONJ is committed before the competition sees it | **NOT BF for this signal.** The brain keeps the category alternative alive (MacDonald 1994); we collapse it. Named fix: route the root cues through the same top-2 mixture |
+| morphology | partially — a categorical class with two conflated values | **BF in mechanism, lossy in resolution** |
+| cue activations | **YES** — graded, learned, plastic log-odds contrasts | **BF** — this is what the work fixed |
+| in-order decode | **YES** — a bounded weighted beam | **BF in form, lossy in width**: 24% of true roots pruned |
+| the search decode's root PICK | **NO — an argmax over a tree-filtered subpopulation, using strengths calibrated over a different population** | **NOT BF**; the mismatch is measured in section 5 |
+
+**THE BRAIN'S MATH AT EACH RUNG, AND WHAT IS BUILT**
+
+| rung | the brain's computation | what is built | gap |
+|---|---|---|---|
+| the root decision | cue competition: activation = Σ (cue validity × cue availability), winner-take-all for one slot (Bates & MacWhinney 1989; MacWhinney 1987) | additive log-odds contrast per (configuration, cue value) learned from soft counts; argmax/beam for the winner | validity learned, availability implicit (a cue that does not apply contributes exactly 0). Matches. |
+| finiteness | morpho-orthographic decomposition then a lexical check (Rastle & Davis 2008; Taft 1979) plus frequent frames (Mintz 2003) | token-vs-lemma suffix class + nearest preceding auxiliary / `to` | matches in operation; loses Fin vs bare-Part on `-ed` |
+| subordination | the complementizer marks its clause dependent, and children learn dependency FROM the complementizer (Diessel 2004) | nearest preceding clause opener with no intervening predicate | matches; **the input tag is 0.7326, which is where this cue dies** |
+| prediction / hold | surprisal-weighted expectation of a head still to come (Levy 2008) decaying by ACT-R base-level activation (Lewis & Vasishth 2005) | `hold_expectation` × decay^age, learned from the organ's own trees | already built by the arm; untouched here |
+| reanalysis | an alternative overtakes when later evidence reverses the ranking (MacDonald 1994) | `INCR_ROOT_REANALYSIS` — an arriving word may take the root arc over | already built; it could not help before because the activations it re-ranks on were flat. **After this work it has something to re-rank on.** |
+
+## 6c. THE NEGATIVES, EACH UNDERSTOOD MECHANISTICALLY (supervisor directive)
+
+1. **Zero-mean "competition" readout — REFUTED, and the reason is counted.** Rationale: one root slot, so the
+   evidence should be zero-sum. Measured: worse under BOTH decodes (in-order +0.021 vs +0.034 flat; search −0.049 vs
+   −0.030). **Mechanism:** decomposing the search decode's root decision showed **120 of 177 root misses have the
+   gold root OUTSIDE the unconstrained MAP root set entirely** — the failure is the root-vs-attach MARGIN, which
+   centring removes by construction, not the ranking, which centring preserves.
+2. **Lateral-inhibition readout (`d − max d`) — REFUTED.** Rationale: a competition is inhibitory (Usher &
+   McClelland 2001). Measured in-order root −0.019, search −0.031, at every gain (0.5 / 1 / 2). **Mechanism:** every
+   contribution becomes ≤ 0, depressing the root row globally — the same margin damage as (1), one-sided.
+3. **Subordination-DIRECTED clausal construction — NULL and costly (xcomp 0.724 → 0.632).** **Mechanism:** splitting
+   `clausal` into a forward and a reversed family halves the count mass behind each learned validity and the reversed
+   family gets no convention bonus, so both weaken; and the `wh` trigger fires on relative clauses, where the
+   reversed arc is *also* wrong (the gold arc is `acl:relcl` to the NOUN, not to the matrix verb).
+4. **`rsub` as a standalone cue — NULL (+0.0029 in-order, +0.0029 search; both CIs span zero).** **Mechanism, now
+   traced:** its only input is the SCONJ tag, the weakest in the chain at **0.7326**, flipping a cue value on 370
+   tokens when the organ's tags replace gold. Subordination is not the problem — the learned validity is a clean
+   `ROOT:VERB|sconj` **−1.42** against `|none` **+0.44** — the cue simply cannot fire reliably on the live tags.
+5. **Conjunctive finiteness (`ed` × subject-support) — KILLED ON A WORKED EXAMPLE BEFORE SPENDING A BUILD.** The
+   rung-3 trace says `ed` conflates 148 finite pasts with 65 bare participles, so I added a conjunctive value. It is
+   **the wrong disambiguator**: "the man SEEN yesterday LEFT" and "the man WALKED home" both have a nominal to the
+   left with no intervening predicate, so both get `edS`. The real disambiguator is whether ANOTHER finite predicate
+   later in the clause already claims that nominal — i.e. candidate RANK, which is what `rpos` encodes, which is why
+   `rpos` carries independent signal (+0.0286 alone). The correct next form is `rpred × rpos` as a conjunctive value
+   for the ambiguous classes only. Code kept behind the `conj` arm, default OFF, not shipped.
+6. **The predication teaching boost is neutral on the end number.** It does exactly what it is for (`ADJ|cop` +3.47 →
+   +4.35, `VERB|sconj` −0.74 → −1.42) but the end delta is 0.007 lower than read-time cues alone — inside the CI
+   half-width. **Mechanism:** the arm runs 3 self-teaching rounds at alpha 0.8, so the arm's own posterior dominates
+   the teacher's and a teacher correction is largely re-absorbed. Kept (it is the brain-foundational upstream repair,
+   gamma swept, 0 selectable) but named honestly as not carrying the result.
+
+## 6d. WHAT MADE THIS WORK, RUNG BY RUNG (owner addendum)
+
+The gain came from cracking the chain at the one rung where the brain's math was **entirely absent** — not from tuning.
+
+- **Where the chain WAS cracked.** The root decision was the only place in this organ where a **cue competition had
+  been replaced by a per-category prior**: `cues(j, 0)` returned `{}`. Everything downstream of it was already
+  brain-faithful and graded — the arc activations are learned log-odds contrasts, the decode keeps a weighted beam of
+  alternatives, and root REANALYSIS was already implemented. **Those rungs had nothing to re-rank on.** Supplying real
+  graded evidence at the one missing rung is what let the already-BF machinery below it do its job, and the numbers
+  show exactly that: the in-order decode (which HAS reanalysis) gains **+0.043 root at the landed cap** while the
+  whole-sentence search (which has no reanalysis, only an argmax) gains **+0.002**. The rung that was cracked and the
+  rung that gained are the same chain.
+- **Where the upstream was cracked.** The acquisition teacher put **0.001** posterior mass on adjectival root arcs.
+  Repairing that treebank-free, from the copula frame the organ already had, is what gave the copular cue a validity
+  to learn: `ROOT:ADJ|cop` **+4.35** against `ROOT:ADJ|hasv` **−6.20** — from counts, nothing hand-weighted.
+- **Where it is NOT cracked — the rungs still handing down a point estimate or a conflated value:**
+  (a) **categories hand down a HARD tag**, not the posterior the competition should marginalise over (8.4% of gold
+  root tokens already carry a flipped cue value before the competition starts); (b) **`rpred` conflates two opposite
+  predication statuses** in `ed` (148 vs 65) and `base` (146 vs 46); (c) **the beam prunes the true main assertion in
+  24% of sentences**; (d) **the search decode's root PICK is an argmax whose strengths are calibrated over the wrong
+  population.** Each of those is a number, and each is a next build.
 
 ## 7. Every component touched, and its brain-foundational status
 
