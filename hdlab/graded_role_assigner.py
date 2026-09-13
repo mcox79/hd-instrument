@@ -607,18 +607,49 @@ def coarse_role_posterior_tagmarg(toks: Sequence[str], pos: Sequence[str], heads
     return out / tot if tot > 0 else coarse_role_posterior(toks, pos, heads, i, validities)
 
 
+HEAD_POSTERIOR_MIN_P = 0.05     # heads below this posterior mass are dropped from the marginalisation (renormalised)
+
+
+def coarse_role_posterior_headmarg(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int], i: int,
+                                   head_post: Dict[int, float], validities: Optional[Dict[str, object]] = None,
+                                   min_p: float = HEAD_POSTERIOR_MIN_P) -> np.ndarray:
+    """P(role | token i) MARGINALISED over the head posterior head_post = {h: P(h | i)} (the heads rung hands DOWN a
+    distribution, not a point -- spec RESEARCH_attachment_organ_spec s3): sum_h P(h|i) * P(role | config built with h);
+    the other tokens keep their MAP heads. Measured (probe v19, UD-EWT test 8362 nominals): over the BF attachment arm's
+    heads 0.7260 vs hard head 0.7129 (+0.013); over near-certain supervised heads +0.0016 -- the graded read matters
+    exactly when the upstream rung is uncertain. Falls back to the hard-head posterior when no head carries mass."""
+    tab = validities or load_coarse_validities()
+    out = np.zeros(len(ROLE_CLASSES)); tot = 0.0
+    for h, p in sorted(head_post.items(), key=lambda kv: -kv[1]):
+        if p < min_p or h == i:
+            continue
+        hh = dict(heads); hh[i] = int(h)
+        S = coarse_role_supports(toks, pos, hh, i, tab)
+        out += p * softmax(net_activation(S, {c: 1.0 for c in S}), gain=1.0); tot += p
+    if tot <= 0:
+        return coarse_role_posterior(toks, pos, heads, i, tab)
+    return out / tot
+
+
 def coarse_roles(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int],
-                 validities: Optional[Dict[str, object]] = None) -> Dict[int, str]:
+                 validities: Optional[Dict[str, object]] = None,
+                 head_posterior: Optional[Dict[int, Dict[int, float]]] = None) -> Dict[int, str]:
     """Coarse grammatical-role labels (UD-shaped strings) for every NOMINAL token (1-based index -> dep) by cue
     competition: the MAP of the additive cue activation. OTHER -> 'dep' (the organ labels ARGUMENT roles; a consumer
-    needing fine non-argument relations keeps its own source for 'dep'). Non-nominal tokens are not labelled."""
+    needing fine non-argument relations keeps its own source for 'dep'). Non-nominal tokens are not labelled.
+    head_posterior = {dep: {head: P}} (optional, from the attachment arm): the role read is then MARGINALISED over the
+    head posterior (coarse_role_posterior_headmarg) -- the graded hand-off; None = the hard head (byte-identical to before)."""
     tab = validities or load_coarse_validities()
     out: Dict[int, str] = {}
     for i in range(1, len(toks) + 1):
         if i - 1 >= len(pos) or pos[i - 1] not in NOMINAL:
             continue
-        S = coarse_role_supports(toks, pos, heads, i, tab)
-        k = map_pick(S, {c: 1.0 for c in S})
+        hp = head_posterior.get(i) if head_posterior else None
+        if hp:
+            k = int(np.argmax(coarse_role_posterior_headmarg(toks, pos, heads, i, hp, tab)))
+        else:
+            S = coarse_role_supports(toks, pos, heads, i, tab)
+            k = map_pick(S, {c: 1.0 for c in S})
         out[i] = ROLE_TO_DEP[ROLE_CLASSES[k]] if 0 <= k < len(ROLE_CLASSES) else "dep"
     return out
 

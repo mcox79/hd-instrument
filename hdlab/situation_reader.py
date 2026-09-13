@@ -2130,6 +2130,16 @@ class SituationReader:
                 c[key] = self._frontend_parser().parse(toks, pos).heads
         return dict(c[key])
 
+    def _cached_head_posterior(self, toks, pos):
+        """{dep: {head: P}} from the attachment arm (None when the supervised parser is the head source -> consumers read the
+        hard head, byte-identical to before). GRADED HAND-OFF (2026-09-12): the heads rung hands down a distribution."""
+        if _HEADS_SOURCE != "attachment_arm":
+            return None
+        key = ("headpost", tuple(toks))
+        if key not in self._read_parse_cache:
+            self._cached_parse_conf(toks, pos)
+        return self._read_parse_cache.get(key)
+
     def _cached_parse_conf(self, toks, pos):
         """Per-read memoized (heads, conf, marg) from the arc-eager parse_with_conf -- the SINGLE shared per-read
         parse (FOLD 2026-09-06): _cached_parse_heads now DERIVES its heads from here (when parser_arceager), so
@@ -2147,6 +2157,7 @@ class SituationReader:
                 # for the board A/B; a downstream dip is a consumer to repair, not a reason to revert the BF rung.
                 from hdlab import attachment_arm as AA
                 post = AA.head_posterior(list(toks), list(pos))
+                c[("headpost", tuple(toks))] = post                        # the full P(head | dep): handed DOWN to the role read
                 heads = {}; conf = {}; marg = {}
                 for j, d in post.items():
                     ranked = sorted(d.items(), key=lambda kv: -kv[1])
@@ -2181,7 +2192,7 @@ class SituationReader:
             from hdlab.relcl_resolver import precise_passive
             pos = self._cached_tag(list(toks))
             heads, conf, marg = self._cached_parse_conf(list(toks), pos)
-            labels = self._frontend_labeler().label(list(toks), list(pos), heads)
+            labels = self._frontend_labeler().label(list(toks), list(pos), heads, head_posterior=self._cached_head_posterior(list(toks), pos))
             passive = bool(precise_passive(list(toks), list(pos), v))
             return PC.calibrated_patient_confidence(list(toks), list(pos), heads, conf, marg, v, pk,
                                                     labels, passive, a2_marg=0.0)
@@ -2846,7 +2857,7 @@ class SituationReader:
             # deprels=None, exactly as it would have fallen through), ~4-8x fewer arc-labeler calls on prose.
             lab = self._frontend_labeler()
             deprels_by_sent = [
-                (lab.label(list(t), pos[i], self._cached_parse_heads(list(t), pos[i]))
+                (lab.label(list(t), pos[i], self._cached_parse_heads(list(t), pos[i]), head_posterior=self._cached_head_posterior(list(t), pos[i]))
                  if self._has_to_verb(t, pos[i]) else None)
                 for i, t in enumerate(sents)]
         goals = GR.extract_goals(sents, pos, subcat=sc, deprels_by_sent=deprels_by_sent)
@@ -4185,7 +4196,7 @@ class SituationReader:
             if sum(1 for t in up if t in ("NOUN", "PROPN")) < 2:
                 continue                                    # cannot yield an is-a edge -> skip (byte-safe)
             heads = self._cached_parse_heads(toks, up)      # {dep(1-based): head(1-based), 0=ROOT}
-            deprels = lab.label(toks, up, heads)            # {dep(1-based): deprel}
+            deprels = lab.label(toks, up, heads, head_posterior=self._cached_head_posterior(toks, up))   # {dep(1-based): deprel}
             links = set()
             for i in range(1, n + 1):
                 dep = deprels.get(i, "")

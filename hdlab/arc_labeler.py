@@ -103,11 +103,12 @@ def _in_competition_space(dep: str) -> bool:
 
 
 def label_competition_roles(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int],
-                            labels: Dict[int, str]) -> Dict[int, str]:
-    """Overlay the Competition-Model argument roles of nominal dependents on `labels` (not mutated)."""
+                            labels: Dict[int, str], head_posterior=None) -> Dict[int, str]:
+    """Overlay the Competition-Model argument roles of nominal dependents on `labels` (not mutated). head_posterior
+    ({dep: {head: P}}, from the attachment arm) makes the role read MARGINALISE over P(head) -- the graded hand-off."""
     from hdlab.graded_role_assigner import coarse_roles
     out = dict(labels)
-    for i, dep in coarse_roles(list(toks), list(pos), heads).items():
+    for i, dep in coarse_roles(list(toks), list(pos), heads, head_posterior=head_posterior).items():
         if dep in _ARG_ROLES:
             out[i] = dep                       # the competition's argument role
         elif _in_competition_space(out.get(i)):
@@ -251,7 +252,8 @@ class ArcLabeler:
         return self._fast
 
     def label(self, tokens: Sequence[str], pos: Sequence[str], heads: Dict[int, int], *,
-              voice_correction: "bool | None" = None, competition_roles: "bool | None" = None) -> Dict[int, str]:
+              voice_correction: "bool | None" = None, competition_roles: "bool | None" = None,
+              head_posterior=None) -> Dict[int, str]:
         """Label each arc dep->head under the GIVEN head map. Returns {dep_idx(1-based): deprel}. Routes through
         the byte-identical fast plan (~9x); output is identical to _predict_label for ANY weights (theorem). Then
         the VOICE post-correction (module default VOICE_CORRECTION; pass False for the raw perceptron labels)."""
@@ -267,7 +269,7 @@ class ArcLabeler:
         use = VOICE_CORRECTION if voice_correction is None else voice_correction
         out = label_voice_correct(tokens, pos, heads, out) if use else out
         use_cm = COMPETITION_ROLES if competition_roles is None else competition_roles
-        return label_competition_roles(tokens, pos, heads, out) if use_cm else out
+        return label_competition_roles(tokens, pos, heads, out, head_posterior=head_posterior) if use_cm else out
 
     def label_graded(self, tokens: Sequence[str], pos: Sequence[str], heads: Dict[int, int]) -> Dict[int, tuple]:
         """OPT-IN brain-faithful readout (default-off; NO consumer wired). Returns {dep_idx: (argmax_label,
