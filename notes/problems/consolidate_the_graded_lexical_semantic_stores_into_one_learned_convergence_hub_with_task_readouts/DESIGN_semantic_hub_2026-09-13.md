@@ -63,6 +63,16 @@ End component = the hub (100% BF: Rogers-McClelland convergence operation). Trac
   lexicon) as the upstream BF replacement; measure that it recovers >= morphy's lemma coverage on the spoke vocab
   (so hub coverage does not regress) and that NO downstream consumer regresses. This makes the whole chain glass-box.
 
+## GENERALIZATION (owner question 2026-09-13 "does this generalize?") -- tested 3 ways, not single-task
+The point of one hub is that it generalizes; a hub that wins one task is not the brain's hub. Tests:
+1. ACROSS TASKS: the SAME frozen hub, read by task-specific readouts, must serve similarity (MEN/SimLex/SimVerb),
+   sense selection (WiC), AND the live coverage-quality MRR -- never retuned per task. (== the pre-registered bar.)
+2. ACROSS WORDS/COVERAGE: spoke-dropout = train to impute a missing spoke from the others => generalizes to
+   partial-coverage words (most words = distributional only); CLS consolidation folds reading-grown words in.
+3. HELD-OUT (not memorizing): train the hub on a TRAIN vocab split, score similarity on HELD-OUT word pairs
+   (words unseen in training); info-free twin LOSING + bootstrap CIs throughout. Golds are never in training
+   (unsupervised reconstruction), so there is no gold leakage by construction.
+
 ## Deliverables
 1. `experiments/exp_semantic_hub_convergence_v1.py` -- build the nonlinear convergence hub offline over the spokes
    (numpy/glass-box; NO pretrained embedding as the hub; NO torch unless justified/GPU-queued), sweep the phase-diagram
