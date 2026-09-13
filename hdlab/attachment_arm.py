@@ -51,7 +51,13 @@ FORM = frozenset({"PUNCT", "NUM", "SYM"})
 NOMINAL = ("NOUN", "PRON", "PROPN")
 CONTENT = frozenset({"NOUN", "PROPN", "PRON", "VERB", "ADJ", "ADV", "NUM"})
 NP_RUN = frozenset({"DET", "ADJ", "NUM", "NOUN", "PROPN"})
-CUES = ("locality", "frame", "form", "boundary", "agree", "constr", "pp")   # secondary cues; catpair / root are the configuration
+# MEANING AS A READ-TIME CUE (2026-09-13 05:40): the Competition Model's semantic-plausibility cue. Until now meaning entered the
+# arm only as the acquisition TEACHER (the tree posterior the validities are counted from); at read time the arm was meaning-blind
+# (only 1.7% of heads changed between two teacher builds). Value = slot (S before the verb / O after) x binned plausibility of the
+# nominal as that verb's participant (self-grown typed store; pronoun-filler rates); validity LEARNED like every other cue. A hard
+# meaning GATE was refuted (nmod collapse) -- this is the graded, learned-validity form. Flag for the A/B; default OFF until measured.
+PLAUS_CUE = os.environ.get("HDLAB_ARM_PLAUS_CUE", "0") == "1"
+CUES = ("locality", "frame", "form", "boundary", "agree", "constr", "pp") + (("plaus",) if PLAUS_CUE else ())   # catpair / root = configuration
 # "pp" (2026-09-13, folded from the pri-2 solver's proven Hindle-Rooth lever): for a PP-object nominal, the preposition's verb-vs-noun
 # association LR(p) = log P(p|verb) / P(p|noun), learned TREEBANK-FREE from UNAMBIGUOUS prepositional phrases in reading.
 M_SHRINK = 2.0
@@ -323,6 +329,7 @@ class SentenceCues:
         self.cum = np.concatenate([[0], np.cumsum([1 if p == "PUNCT" else 0 for p in self.pos])])
         self.constr = construction_map(self.toks, self.pos)
         self.lem = [lemma_verb(t).lower() if p == "VERB" else None for t, p in zip(self.toks, self.pos)]
+        self.teacher = _plaus_teacher() if PLAUS_CUE else None
         # PP-object sites: j -> (verb_idx, noun_idx, LR bin) when the preposition cue applies (pp_assoc given)
         self.pp: Dict[int, Tuple[Optional[int], Optional[int], str]] = {}
         if pp_assoc:
@@ -354,6 +361,8 @@ class SentenceCues:
         site = self.pp.get(j)
         if site is not None and h in (site[0], site[1]):
             c["pp"] = ("V:" if h == site[0] else "N:") + site[2]     # which candidate this head is x the preposition's lean
+        if self.teacher is not None and ph == "VERB" and pj in NOMINAL:
+            c["plaus"] = ("S:" if h > j else "O:") + _plaus_bin(self.teacher.slot_plausibility(self.toks, self.pos, h, j))
         if ph == "VERB":
             fr = self.frames.get(self.lem[h - 1])
             trans = "unk" if not fr else ("trans" if fr[1] / fr[0] >= 0.3 else "intrans")
@@ -605,6 +614,22 @@ class SemanticBootstrapTeacher:
             self._cache_subj[key] = float(s) if s is not None else 0.0
         return self._cache_subj[key]
 
+    def slot_plausibility(self, toks: Sequence[str], pos: Sequence[str], h: int, j: int) -> float:
+        """Plausibility of nominal j as a participant of verb h in the slot its ORDER marks (object after the verb, subject before;
+        order-blind object association when the SUBJ asset is absent). Pronoun participants score by the verb's pronoun-filler rate
+        in that slot. Case-marking rules (PP_NO_SUBJ): a pre-verbal PREPOSITIONAL object is oblique, never the subject; a pronoun
+        that DETERMINES a following nominal ("its wares") is a possessive, not a participant (2026-09-13 nmod anatomy)."""
+        n = len(toks)
+        is_pron = pos[j - 1] == "PRON" and bool(self.pron_subj or self.pron_obj)
+        vl = lemma_verb(toks[h - 1]).lower() if is_pron else None
+        if PP_NO_SUBJ and pos[j - 1] == "PRON" and j < n and pos[j] in NP_RUN and toks[j - 1].lower() not in PRONOUNS:
+            return 0.0
+        if self.tsp_subj is None or j > h:
+            return self.pron_obj.get(vl, self.pron_obj_g) if is_pron else self.plausibility(toks[h - 1], toks[j - 1])
+        if PP_NO_SUBJ and j >= 2 and pos[j - 2] == "ADP":
+            return 0.0
+        return self.pron_subj.get(vl, self.pron_subj_g) if is_pron else self.plausibility_subj(toks[h - 1], toks[j - 1])
+
     def score_matrix(self, toks: Sequence[str], pos: Sequence[str]) -> Tuple[np.ndarray, int]:
         n = len(toks); A = np.full((n + 1, n + 1), -np.inf); best_arg = np.zeros(n + 1)
         best_subj = np.zeros(n + 1); best_obj = np.zeros(n + 1)
@@ -614,24 +639,12 @@ class SemanticBootstrapTeacher:
                     continue
                 sc = -self.lam * math.log(abs(h - j) + 1.0)
                 if pos[h - 1] == "VERB" and pos[j - 1] in NOMINAL:
-                    is_pron = pos[j - 1] == "PRON" and (self.pron_subj or self.pron_obj)
-                    vl = lemma_verb(toks[h - 1]).lower() if is_pron else None
-                    # a pronoun that DETERMINES a following nominal ("its wares", "my blog") is a possessive, not a participant: the
-                    # participant evidence (the verb's pronoun-filler rate) does not apply to it (2026-09-13 nmod anatomy: 'its'->'expanded').
-                    is_poss = PP_NO_SUBJ and pos[j - 1] == "PRON" and j < n and pos[j] in NP_RUN and toks[j - 1].lower() not in PRONOUNS
-                    if is_poss:
-                        p = 0.0
-                    elif self.tsp_subj is not None:
+                    p = self.slot_plausibility(toks, pos, h, j)
+                    if self.tsp_subj is not None:
                         if j > h:
-                            p = self.pron_obj.get(vl, self.pron_obj_g) if is_pron else self.plausibility(toks[h - 1], toks[j - 1])
                             best_obj[h] = max(best_obj[h], p)
-                        elif PP_NO_SUBJ and j >= 2 and pos[j - 2] == "ADP":
-                            p = 0.0                 # a PREPOSITIONAL object before the verb is case-marked oblique: it cannot be the subject
                         else:
-                            p = self.pron_subj.get(vl, self.pron_subj_g) if is_pron else self.plausibility_subj(toks[h - 1], toks[j - 1])
                             best_subj[h] = max(best_subj[h], p)
-                    else:
-                        p = self.pron_obj.get(vl, self.pron_obj_g) if is_pron else self.plausibility(toks[h - 1], toks[j - 1])
                     sc += self.beta * p; best_arg[h] = max(best_arg[h], p)
                 A[h][j] = sc
         if self.tsp_subj is not None:
@@ -658,3 +671,19 @@ class SemanticBootstrapTeacher:
 __all__ = ["SentenceCues", "CONSTRUCTIONS", "construction_map", "verb_frames_from_reading", "strengths_from_arc_counts",
            "load_attachment_validities", "save_attachment_validities", "new_counts", "accrue_sentence", "observe_arc_outcome",
            "pp_site", "pp_assoc_from_reading", "pp_lr", "arc_scores", "head_posterior", "heads", "arc_scores_graded", "head_posterior_graded", "heads_graded", "SemanticBootstrapTeacher", "ASSET", "FORM"]
+
+
+# ------------------------------------------------------------------------------ meaning as a read-time cue (PLAUS_CUE)
+_PLAUS_T: Optional["SemanticBootstrapTeacher"] = None
+
+
+def _plaus_teacher() -> "SemanticBootstrapTeacher":
+    global _PLAUS_T
+    if _PLAUS_T is None:
+        _PLAUS_T = SemanticBootstrapTeacher()
+    return _PLAUS_T
+
+
+def _plaus_bin(p: float) -> str:
+    """Categorical value of a plausibility share (0..1). Bin edges are a swept parameter, not an adopted one."""
+    return "0" if p <= 0.0 else "lo" if p < 0.05 else "mid" if p < 0.2 else "hi"
