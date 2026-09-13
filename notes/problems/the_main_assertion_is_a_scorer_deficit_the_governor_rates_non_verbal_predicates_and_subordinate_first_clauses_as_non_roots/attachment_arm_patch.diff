@@ -1,0 +1,284 @@
+--- a/hdlab/attachment_arm.py
++++ b/hdlab/attachment_arm.py
+@@ -60,7 +60,27 @@
+ # nmod 0.311 -> 0.358, ccomp 0.466 -> 0.500, obj 0.700 -> 0.710, conj 0.223 -> 0.253; nsubj 0.762 -> 0.753, obl 0.468 -> 0.430.
+ # "0" reproduces the meaning-blind readout (the asset then carries unused plaus validities).
+ PLAUS_CUE = os.environ.get("HDLAB_ARM_PLAUS_CUE", "1") == "1"
+-CUES = ("locality", "frame", "form", "boundary", "agree", "constr", "pp") + (("plaus",) if PLAUS_CUE else ())   # catpair / root = configuration
++# THE MAIN-ASSERTION CUES (2026-09-13, solver pri-97).  Until now `SentenceCues.cues(j, h)` returned {} for h == 0:
++# the ENTIRE root signal was the 17 per-category ROOT configuration strengths, so every VERB in a sentence had the
++# IDENTICAL root activation and 378 of 700 UD-EWT test sentences (54%) had two or more candidates TIED at the best
++# root score -- the main assertion was settled by tie-breaking, not by evidence (oracle on the root row alone: root
++# 0.721 -> 0.943, UAS 0.6125 -> 0.6574).  Which word carries the main assertion is decided by the SAME cue
++# competition as every other attachment (Bates & MacWhinney Competition Model), among the sentence's candidate
++# PREDICATES, with these cues: FINITENESS (the assertion is the tensed one -- Wexler 1994 / Rizzi 1993 root
++# infinitives; read off the word form by morphological decomposition plus the auxiliary frame), COPULAR PREDICATION
++# (the non-verbal predicate carries the assertion, the copula is the tense carrier -- Pustet 2003), SUBORDINATION
++# MARKING (a complementizer marks its clause dependent -- Diessel 2004) and MAIN-CLAUSE POSITION / subject support.
++# Values are categorical, validities LEARNED from the teacher posterior exactly like every other cue; nothing is
++# hand-weighted and nothing reads a tree.  MEASURED (UD-EWT test 700, gold categories, same pipeline with the cues off as the floor): in-order decode (live) root 0.7214 -> 0.7486, +0.0271 CI [+0.0086,+0.0457], UAS 0.6163 -> 0.6211; whole-sentence search root 0.7471 -> 0.7729, +0.0257 CI [+0.0071,+0.0443] (with ROOT_PICK moved to 'left', below), UAS 0.6178 -> 0.6198; nsubj/ccomp/advcl not down; information-free twin (cue values permuted across tokens) LOSES under both decodes.
++ROOT_CUES = ("rpred", "rsub", "rpos")
++# REFUTED AS BUILT (2026-09-13, recorded): reading the cue evidence as a COMPETITION for the one root slot -- the
++# contribution centred to zero mean over the live candidates, on the argument that the root slot has capacity one
++# (MacWhinney 1987) -- is WORSE than the plain additive form under BOTH decodes (UD-EWT test 700, train 1.5k:
++# in-order root +0.021 centred vs +0.034 flat; search root -0.049 vs -0.030).  Reason, measured: 120 of 177 search
++# root misses have the gold root OUTSIDE the unconstrained MAP root set at all, so what the search decode needs is
++# the ABSOLUTE root-vs-attach margin that centring removes, not a better ranking.  Kept selectable, default OFF.
++ROOT_CUE_CENTER = os.environ.get("HDLAB_ARM_ROOT_CENTER", "0") == "1"
++CUES = ("locality", "frame", "form", "boundary", "agree", "constr", "pp") + (("plaus",) if PLAUS_CUE else ()) + ROOT_CUES   # catpair / root = configuration
+ # "pp" (2026-09-13, folded from the pri-2 solver's proven Hindle-Rooth lever): for a PP-object nominal, the preposition's verb-vs-noun
+ # association LR(p) = log P(p|verb) / P(p|noun), learned TREEBANK-FREE from UNAMBIGUOUS prepositional phrases in reading.
+ M_SHRINK = 2.0
+@@ -433,6 +453,159 @@
+     return "v2" if lr > 1.5 else "v1" if lr > 0.5 else "n2" if lr < -1.5 else "n1" if lr < -0.5 else "0"
+ 
+ 
++# ------------------------------------------------------------------------------------ MAIN-ASSERTION (ROOT) CUES
++COP_FORMS = frozenset({"be", "is", "are", "was", "were", "been", "being", "am", "become", "became", "becomes",
++                       "seem", "seems", "seemed", "'m", "'s", "'re", "s", "m", "re"})
++AUX_BE = frozenset({"be", "is", "are", "was", "were", "been", "being", "am", "'m", "'s", "'re", "m", "re", "s"})
++AUX_HAVE = frozenset({"have", "has", "had", "'ve", "'d", "ve", "d", "having"})
++AUX_MOD = frozenset({"will", "would", "can", "could", "may", "might", "shall", "should", "must", "do", "does",
++                     "did", "done", "'ll", "ll", "wo", "ca", "need", "dare", "ought", "let"})
++WH_FORMS = frozenset({"who", "whom", "whose", "which", "that", "what", "where", "when", "why", "how",
++                      "whatever", "whoever", "whenever"})
++SENT_END = frozenset({".", "!", "?", ";"})
++_PREVERB_SKIP = frozenset({"not", "n't", "never", "also", "just", "really"})
++
++
++def finiteness(toks: Sequence[str], pos: Sequence[str], i: int) -> str:
++    """FINITENESS CUE: the morphological + auxiliary-frame tense class of the verbal candidate at 1-based i.  Form
++    only -- the token against its lemma (the morphology organ's decomposition; Rastle & Davis 2008, Taft 1979) and
++    the nearest preceding auxiliary or infinitival marker (Mintz 2003 frequent frames).  No treebank, no tagger."""
++    lows = [t.lower() for t in toks]
++    k = i - 1
++    while k >= 1 and (pos[k - 1] == "ADV" or lows[k - 1] in _PREVERB_SKIP):
++        k -= 1
++    if k >= 1:
++        if pos[k - 1] == "PART" and lows[k - 1] == "to":
++            return "to"
++        if pos[k - 1] == "AUX":
++            w = lows[k - 1]
++            return "auxhave" if w in AUX_HAVE else "auxbe" if w in AUX_BE else "auxmod"
++        if pos[k - 1] == "VERB" and lows[k - 1] in AUX_MOD:
++            return "auxmod"
++    w = lows[i - 1]; lem = lemma_verb(toks[i - 1]).lower()
++    if w.endswith("ing") and w != lem:
++        return "ing"
++    if w == lem:
++        return "base"
++    if w.endswith("s") and not w.endswith("ss"):
++        return "s"
++    return "ed"
++
++
++def cop_predicates(toks: Sequence[str], pos: Sequence[str]) -> set:
++    """COPULAR-PREDICATION CUE: the 1-based indices the arm's OWN copular frame (function_word_arcs) makes the
++    predicate of a copula with no lexical verb after it -- in "the vote is confusing" the assertion is CONFUSING."""
++    out = set()
++    try:
++        for (h, d) in function_word_arcs(list(toks), list(pos)):
++            if 1 <= d <= len(pos) and 1 <= h <= len(pos) and pos[d - 1] == "AUX" \
++                    and toks[d - 1].lower() in COP_FORMS and pos[h - 1] != "VERB" and d < h:
++                out.add(h)
++    except Exception:
++        pass
++    return out
++
++
++def subordination(toks: Sequence[str], pos: Sequence[str], i: int) -> str:
++    """SUBORDINATION CUE: the clause-dependency marking in force at 1-based i -- the nearest preceding clause opener
++    (subordinator / relativizer / coordinator) with no finite predicate in between (a VERB or a sentence-final mark
++    closes the search).  A complementizer marks its clause DEPENDENT (Diessel 2004)."""
++    lows = [t.lower() for t in toks]
++    for k in range(i - 1, 0, -1):
++        p = pos[k - 1]; w = lows[k - 1]
++        if p == "VERB":
++            return "none"
++        if p == "PUNCT" and w in SENT_END:
++            return "none"
++        if p == "SCONJ":
++            return "sconj"
++        if p in ("PRON", "DET", "ADV") and w in WH_FORMS:
++            return "wh"
++        if p == "CCONJ":
++            return "cc"
++    return "none"
++
++
++def assertion_candidates(toks: Sequence[str], pos: Sequence[str], cop=None) -> List[int]:
++    """The set the main-assertion competition runs over: every VERB, every copular predicate, and -- in a VERBLESS,
++    copula-less utterance, which still asserts (a headline, a list item, a signature, a price) -- the content heads
++    of its phrases.  Measured: without the fragment clause, 47 of 169 remaining root misses were fragment heads that
++    the rank cue was PENALISING for not being candidates at all."""
++    n = len(pos); cop = cop_predicates(toks, pos) if cop is None else cop
++    has_verb = any(p == "VERB" for p in pos)
++    cand = [j for j in range(1, n + 1)
++            if pos[j - 1] == "VERB" or j in cop or (pos[j - 1] == "AUX" and not has_verb)]
++    if cand:
++        return cand
++    heads = [j for j in range(1, n + 1)
++             if pos[j - 1] in ("NOUN", "PROPN") and (j == n or pos[j] not in ("NOUN", "PROPN"))]
++    return heads or [j for j in range(1, n + 1) if pos[j - 1] in CONTENT or pos[j - 1] == "INTJ"]
++
++
++def root_cue_values(toks: Sequence[str], pos: Sequence[str]) -> List[Optional[Dict[str, str]]]:
++    """The ROOT-configuration cue values per 1-based token (index 0 unused).  Tokens + categories only.
++      rpred  a verbal candidate's finiteness class, or a non-verbal candidate's predication status: "cop" (a copula
++             makes it the predicate), "nov" (no verb in the sentence at all -- a legitimate fragment root), "hasv"
++             (a verb exists elsewhere, so a bare nominal is a poor main assertion);
++      rsub   the clause-dependency marking in force ("sconj" / "wh" / "cc" / "none");
++      rpos   rank among the assertion candidates ("1" / "2" / "3" / "x") x a nominal to the left with no predicate
++             in between ("S") -- the Competition Model's word-order cue."""
++    n = len(pos); cop = cop_predicates(toks, pos)
++    has_verb = any(p == "VERB" for p in pos)
++    rank = {j: min(k + 1, 3) for k, j in enumerate(assertion_candidates(toks, pos, cop))}
++    out: List[Optional[Dict[str, str]]] = [None] * (n + 1)
++    for j in range(1, n + 1):
++        p = pos[j - 1]
++        if p in ("VERB", "AUX"):
++            rpred = finiteness(toks, pos, j)
++        elif j in cop:
++            rpred = "cop"
++        else:
++            rpred = "hasv" if has_verb else "nov"
++        subj = False
++        for k in range(j - 1, 0, -1):
++            if pos[k - 1] == "VERB":
++                break
++            if pos[k - 1] in NOMINAL or pos[k - 1] == "NUM":
++                subj = True; break
++        r = rank.get(j)
++        out[j] = {"rpred": rpred, "rsub": subordination(toks, pos, j),
++                  "rpos": ("%d" % r if r else "x") + ("S" if subj else "")}
++    return out
++
++
++PREDICATION_GAMMA = float(os.environ.get("HDLAB_ARM_PREDICATION_GAMMA", "8.0"))   # swept 0/2/4/8/16; never adopted
++
++
++def predication_boost(A: "np.ndarray", toks: Sequence[str], pos: Sequence[str], g_cop: float = None,
++                      g_sub: float = None, g_fin: float = None) -> "np.ndarray":
++    """ACQUISITION signal (used by tools/build_attachment_validities.py on the teacher's score matrix, NOT at read
++    time) -- the analogue of `parallelism_boost`.  MEASURED GAP: the teacher's root row is beta*(best subject fit +
++    best object fit) for a VERB and a flat -1.5 for everything else, so its posterior mass on a gold ADJECTIVAL root
++    arc was 0.001 (100% below 0.05 over 400 test sentences; ADV 0.000, PRON 0.000) -- the copular cue had nothing
++    to learn a validity from.  Predication + dependency marking, treebank-free: a copular predicate CARRIES the
++    assertion (boost its root arc); a subordinator/relativizer-marked predicate is DEPENDENT (penalise); a
++    to-infinitival or bare participial verb is NOT finite (penalise).  gammas are a SWEPT operating point.
++    Measured effect on the learned validities: ROOT:ADJ|cop +3.47 -> +4.35, ROOT:VERB|sconj -0.74 -> -1.42."""
++    g_cop = PREDICATION_GAMMA if g_cop is None else g_cop
++    g_sub = PREDICATION_GAMMA if g_sub is None else g_sub
++    g_fin = PREDICATION_GAMMA if g_fin is None else g_fin
++    n = len(pos); B = A.copy(); cop = cop_predicates(toks, pos)
++    for j in range(1, n + 1):
++        if not np.isfinite(B[0][j]):
++            continue
++        rpred = finiteness(toks, pos, j) if pos[j - 1] in ("VERB", "AUX") else ("cop" if j in cop else "")
++        d = 0.0
++        if rpred == "cop":
++            d += g_cop
++        if subordination(toks, pos, j) in ("sconj", "wh"):
++            d -= g_sub
++        if rpred in ("to", "ing"):
++            d -= g_fin
++        B[0][j] += d
++    return B
++
++
+ class SentenceCues:
+     """ONE cue pass per sentence (shared by every arc): punctuation cumsum for boundaries, construction map, verb lemmas."""
+ 
+@@ -443,6 +616,7 @@
+         self.constr = construction_map(self.toks, self.pos)
+         self.lem = [lemma_verb(t).lower() if p == "VERB" else None for t, p in zip(self.toks, self.pos)]
+         self.teacher = _plaus_teacher() if PLAUS_CUE else None
++        self.rootcues = root_cue_values(self.toks, self.pos)     # MAIN-ASSERTION cues (one pass; read at h == 0)
+         # PP-object sites: j -> (verb_idx, noun_idx, LR bin) when the preposition cue applies (pp_assoc given)
+         self.pp: Dict[int, Tuple[Optional[int], Optional[int], str]] = {}
+         if pp_assoc:
+@@ -464,7 +638,7 @@
+ 
+     def cues(self, j: int, h: int) -> Dict[str, str]:
+         if h == 0:
+-            return {}
++            return self.rootcues[j]      # the ROOT configuration is a cue competition too, not a per-category prior
+         pj = self.pos[j - 1]; ph = self.pos[h - 1]; dr = "L" if h < j else "R"
+         lo, hi = (h, j) if h < j else (j, h)
+         nb = int(self.cum[hi - 1] - self.cum[lo])
+@@ -713,6 +887,21 @@
+                 if j != h:
+                     val = ("S:" if h > j else "O:") + _plaus_bin(slot(toks, pos, h, j))
+                     S[h, j - 1] += Tl[row[j - 1]][vid.get(val, 0)]
++    # MAIN-ASSERTION cues on the root row (n cells; `arc_scores_reference` picks them up from sc.cues(j, 0))
++    rc = sc.rootcues; row0 = C[0]; d = np.zeros(n)
++    for cue in ROOT_CUES:
++        T = ix.cue_tab.get(cue)
++        if T is None:
++            continue
++        vid = ix.val_id[cue]
++        for j in range(1, n + 1):
++            v = rc[j].get(cue)
++            if v is not None:
++                d[j - 1] += T[row0[j - 1]][vid.get(v, 0)]
++    live = np.isfinite(S[0]) & ~np.array([p in FORM for p in pos])
++    if ROOT_CUE_CENTER and live.any():
++        d -= float(d[live].mean())
++    S[0] += d
+     # masks: no self-arcs, form classes never head, form classes never root when a word exists
+     A = np.full((n + 1, n + 1), -np.inf); A[:, 1:] = S
+     A[np.arange(1, n + 1), np.arange(1, n + 1)] = -np.inf
+@@ -740,6 +929,12 @@
+             if CONVENTION_BONUS and h and sc.constr.get((h, j)) == "fw":
+                 s += CONVENTION_BONUS
+             A[h][j] = s
++    if ROOT_CUE_CENTER:                 # the root slot has capacity one: read the main-assertion cues as a competition
++        live = [j for j in range(1, n + 1) if np.isfinite(A[0][j])]
++        if live:
++            m = sum(A[0][j] - st["cfg"].get(sc.config(j, 0), 0.0) for j in live) / len(live)
++            for j in live:
++                A[0][j] -= m
+     return A, n
+ 
+ 
+@@ -823,7 +1018,18 @@
+ # 0.744, ccomp 0.629 vs 0.672; 19% of words settled at the sentence-final wrap-up; 3.6x FASTER than the search. "map1"/"mbr"/"map" stay
+ # selectable as baselines. Operating point swept (beam 1-64, decay 0.6-1.0, offset -2..+1), never adopted from a brain number.
+ DECODE = os.environ.get("HDLAB_ARM_DECODE", "incr")
+-ROOT_PICK = os.environ.get("HDLAB_ARM_ROOT_PICK", "score")   # among several MAP roots: "score" (highest root score) | "left" (leftmost)
++# ROOT PICK, changed 2026-09-13 (solver pri-97) FROM "score" TO "left", and ONLY because the root row now carries
++# evidence.  With the old 17-number root row every VERB tied, so "highest root score" meant "prefer a verb, else the
++# leftmost" and scored 0.934 given the gold root was offered.  With the main-assertion cues the search decode's OFFER
++# stage IMPROVES (gold root inside the unconstrained MAP root set 0.800 -> 0.807; mean root-set size 1.67 -> 1.29) but
++# "highest root score" PICKS WORSE among the tree-filtered candidates (0.934 -> 0.867), because the validities are
++# calibrated over all tokens, not over the subpopulation the tree already offered -- so the search decode lost
++# (root 0.747 -> 0.700) while the in-order decode gained.  MEASURED, UD-EWT test 700, gold categories, cues on:
++#   pick "score": root 0.7000 | pick "left" (the leftmost offered candidate; English asserts matrix-first): 0.7729,
++#   i.e. +0.0257 CI [+0.0071, +0.0443] over the STRONGEST baseline (base + "score" 0.7471), UAS 0.6198 vs 0.6178.
++# Without the cues "left" is WORSE than "score" (0.7200 vs 0.7471), so this flips only together with the cues.
++# `incremental_tree` (HDLAB_ARM_DECODE=incr, the live default) never reads ROOT_PICK.
++ROOT_PICK = os.environ.get("HDLAB_ARM_ROOT_PICK", "left")   # among several MAP roots: "left" (leftmost offered) | "score" (highest root score)
+ 
+ 
+ def mbr_tree(A: np.ndarray, n: int, temp: float = 1.0) -> Tuple[Dict[int, int], Dict[int, Dict[int, float]]]:
+@@ -1408,7 +1614,8 @@
+ 
+ __all__ = ["SentenceCues", "CONSTRUCTIONS", "construction_map", "verb_frames_from_reading", "strengths_from_arc_counts",
+            "load_attachment_validities", "save_attachment_validities", "new_counts", "accrue_sentence", "observe_arc_outcome",
+-           "pp_site", "pp_assoc_from_reading", "pp_lr", "arc_scores", "head_posterior", "heads", "arc_scores_graded", "head_posterior_graded", "heads_graded", "SemanticBootstrapTeacher", "ASSET", "FORM"]
++           "pp_site", "pp_assoc_from_reading", "pp_lr", "root_cue_values", "predication_boost", "finiteness",
++           "cop_predicates", "subordination", "assertion_candidates", "arc_scores", "head_posterior", "heads", "arc_scores_graded", "head_posterior_graded", "heads_graded", "SemanticBootstrapTeacher", "ASSET", "FORM"]
+ 
+ 
+ # ------------------------------------------------------------------------------ meaning as a read-time cue (PLAUS_CUE)
+--- a/tools/build_attachment_validities.py
++++ b/tools/build_attachment_validities.py
+@@ -159,6 +159,8 @@
+         A, n = teacher._score_matrix(toks, pos)
+         A = AA.parallelism_boost(A, toks, pos)        # PARALLEL-STRUCTURE PREDICTION as a teaching signal (owner-DONE pri 95, 2026-09-13):
+         #                                              the co-occurrence + semantic teacher was coordination-blind (0.054 mass on gold conj arcs)
++        A = AA.predication_boost(A, toks, pos)        # PREDICATION + DEPENDENCY MARKING as a teaching signal (solver pri-97, 2026-09-13):
++        #                                              the teacher put 0.001 posterior mass on a gold ADJECTIVAL root arc (100% of them below 0.05)
+         mt = single_root_marginals(A, n, 1.0); tmarg[i] = mt
+         AA.accrue_sentence(counts, AA.SentenceCues(toks, pos, frames, pp_assoc), mt)
+     table = {"counts": counts, "frames": frames, "pp_assoc": pp_assoc, "strength": AA.strengths_from_arc_counts(counts)}
