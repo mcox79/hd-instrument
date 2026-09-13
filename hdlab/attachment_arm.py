@@ -456,8 +456,156 @@ def observe_arc_outcome(toks: Sequence[str], pos: Sequence[str], j: int, h: int,
 
 
 # ----------------------------------------------------------------------------------------------------------- readout
+# VECTORISED READOUT (2026-09-13 06:30): the same additive cue activation, computed with numpy over the whole (head x dependent)
+# grid instead of a Python loop with ~20 dict look-ups per pair (the loop was 90% of the arm's 89 ms/sentence and the reason a board
+# under the BF heads rung took ~3 h). The strength tables are indexed ONCE per table into dense arrays (categories, configurations,
+# cue values -> integer ids; unknown = a zero row/column, exactly the .get(..., 0.0) of the reference); the per-pair cue values are
+# computed as integer-id matrices. `arc_scores_reference` is the original loop, kept as the witness's oracle (equality to 1e-9).
+_ARC_FAST = os.environ.get("HDLAB_ARM_FASTPATH", "1") != "0"
+_UPOS = ("ADJ", "ADP", "ADV", "AUX", "CCONJ", "DET", "INTJ", "NOUN", "NUM", "PART", "PRON", "PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X")
+_DIST_EDGES = np.array([2, 3, 5, 9]); _DIST_BINS = ("1", "2", "3-4", "5-8", "9+")
+_AGREE_PRON_PLURAL = frozenset(("they", "we", "you", "i"))
+
+
+class _ArcIndex:
+    """Dense index of one strength table. cats: category -> id (unknown -> the last id, whose rows are zero)."""
+
+    def __init__(self, st: Dict[str, object], frames: Dict[str, List[int]]):
+        cats = set(_UPOS)
+        for cfg in st["cfg"]:
+            if cfg.startswith("ROOT:"):
+                cats.add(cfg[5:])
+            else:
+                hp, rest = cfg.split(">", 1); cats.add(hp); cats.add(rest.rsplit(":", 1)[0])
+        self.cats = {c: i for i, c in enumerate(sorted(cats))}; self.unk = len(self.cats); nc = self.unk + 1
+        cfg_ids = {cfg: i for i, cfg in enumerate(st["cfg"])}; self.ncfg = len(cfg_ids)
+        self.cfg_strength = np.zeros(self.ncfg + 1)
+        for cfg, v in st["cfg"].items():
+            self.cfg_strength[cfg_ids[cfg]] = v
+        self.cfg_id = np.full((nc, nc, 2), self.ncfg, dtype=np.int64); self.root_cfg_id = np.full(nc, self.ncfg, dtype=np.int64)
+        for cfg, i in cfg_ids.items():
+            if cfg.startswith("ROOT:"):
+                c = self.cats.get(cfg[5:])
+                if c is not None:
+                    self.root_cfg_id[c] = i
+            else:
+                hp, rest = cfg.split(">", 1); dp, dr = rest.rsplit(":", 1)
+                a, b = self.cats.get(hp), self.cats.get(dp)
+                if a is not None and b is not None:
+                    self.cfg_id[a, b, 0 if dr == "L" else 1] = i
+        # per cue: value vocabulary (absent/unknown -> column 0 = zero) and the dense (cfg, value) strength table
+        self.val_id: Dict[str, Dict[str, int]] = {}; self.cue_tab: Dict[str, np.ndarray] = {}
+        for cue in CUES:
+            d = st.get(cue, {}) or {}
+            vals = {}
+            for key in d:
+                v = key.split("|", 1)[1]
+                if v not in vals:
+                    vals[v] = len(vals) + 1
+            tab = np.zeros((self.ncfg + 1, len(vals) + 1))
+            for key, v in d.items():
+                cfg, val = key.split("|", 1)
+                ci = cfg_ids.get(cfg)
+                if ci is not None:
+                    tab[ci, vals[val]] = v
+            self.val_id[cue] = vals; self.cue_tab[cue] = tab
+        # precomputed id tables for the dense-valued cues
+        vid = self.val_id
+        self.loc_id = np.array([[vid["locality"].get(dr + b, 0) for b in _DIST_BINS] for dr in ("L", "R")], dtype=np.int64)
+        self.form_id = np.array([vid["form"].get("wordhead", 0), vid["form"].get("formhead", 0)], dtype=np.int64)
+        self.bnd_id = np.array([vid["boundary"].get(b, 0) for b in ("0", "1", "2+")], dtype=np.int64)
+        self.na_frame = vid["frame"].get("na", 0); self.na_agree = vid["agree"].get("na", 0)
+        self.agree_id = np.array([vid["agree"].get("3sgV:singN", 0), vid["agree"].get("3sgV:plurN", 0)], dtype=np.int64)
+        self.none_constr = vid["constr"].get("none", 0)
+        self.trans_names = ("unk", "trans", "intrans")
+        self.frame_id = np.full((3, nc, 2), self.na_frame, dtype=np.int64)
+        inv = {i: c for c, i in self.cats.items()}
+        for t, tn in enumerate(self.trans_names):
+            for c, cn in inv.items():
+                for k, dr in enumerate(("L", "R")):
+                    self.frame_id[t, c, k] = vid["frame"].get(f"{tn}:{cn}:{dr}", 0)
+        self.frames = frames; self._trans_cache: Dict[Optional[str], int] = {}
+
+    def trans_class(self, lem: Optional[str]) -> int:
+        if lem not in self._trans_cache:
+            fr = self.frames.get(lem) if lem is not None else None
+            self._trans_cache[lem] = 0 if not fr else (1 if fr[1] / fr[0] >= 0.3 else 2)
+        return self._trans_cache[lem]
+
+
+def _arc_index(tab: Dict[str, object]) -> _ArcIndex:
+    idx = tab.get("_idx")
+    if idx is None or idx[0] is not tab["strength"]:
+        idx = (tab["strength"], _ArcIndex(tab["strength"], tab.get("frames", {}))); tab["_idx"] = idx
+    return idx[1]
+
+
 def arc_scores(toks: Sequence[str], pos: Sequence[str], table: Optional[Dict[str, object]] = None) -> Tuple[np.ndarray, int]:
-    """Additive cue activation per arc (row = head incl. 0 = ROOT, col = dependent); form classes never head or root."""
+    """Additive cue activation per arc (row = head incl. 0 = ROOT, col = dependent); form classes never head or root.
+    Vectorised; numerically identical to `arc_scores_reference` (witness: verification/test_attachment_arm_fastpath.py)."""
+    if not _ARC_FAST:
+        return arc_scores_reference(toks, pos, table)
+    tab = table or load_attachment_validities(); ix = _arc_index(tab)
+    sc = SentenceCues(toks, pos, tab.get("frames", {}), tab.get("pp_assoc")); n = sc.n
+    cat = np.array([ix.cats.get(p, ix.unk) for p in pos], dtype=np.int64)            # dependent / head (1..n) category ids
+    H = np.arange(0, n + 1)[:, None]; J = np.arange(1, n + 1)[None, :]               # grid: rows h = 0..n, cols j = 1..n
+    dr = (H > J).astype(np.int64)                                                    # config/cue convention: 'L' when the head is LEFT of the dependent (h < j) -> 0; 'R' (h > j) -> 1
+    hc = np.concatenate([[ix.unk], cat])                                             # row 0 = ROOT (category irrelevant)
+    C = ix.cfg_id[hc[:, None], cat[None, :], dr]; C[0, :] = ix.root_cfg_id[cat]
+    S = ix.cfg_strength[C]
+    dist = np.abs(H - J); db = np.digitize(dist, _DIST_EDGES)
+    V = ix.loc_id[dr, db]; S += ix.cue_tab["locality"][C, V]
+    is_form = np.array([p in FORM for p in pos]); fh = np.concatenate([[False], is_form])
+    S += ix.cue_tab["form"][C, ix.form_id[fh.astype(np.int64)][:, None]]
+    lo = np.minimum(H, J); hi = np.maximum(H, J); nb = sc.cum[np.maximum(hi - 1, 0)] - sc.cum[lo]
+    S += ix.cue_tab["boundary"][C, ix.bnd_id[np.minimum(nb, 2).astype(np.int64)]]
+    # frame + agree (verb heads only; "na" otherwise)
+    is_verb = np.array([p == "VERB" for p in pos]); vh = np.concatenate([[False], is_verb])
+    tcls = np.array([ix.trans_class(sc.lem[h - 1]) if vh[h] else 0 for h in range(n + 1)], dtype=np.int64)
+    F = np.where(vh[:, None], ix.frame_id[tcls[:, None], cat[None, :], dr], ix.na_frame); S += ix.cue_tab["frame"][C, F]
+    heads_s = np.array([False] + [t.lower().endswith("s") and not t.lower().endswith("ss") for t in toks])
+    nominal = np.array([p in NOMINAL for p in pos])
+    dep_plur = np.array([(p == "NOUN" and t.lower().endswith("s") and not t.lower().endswith("ss")) or t.lower() in _AGREE_PRON_PLURAL
+                         for t, p in zip(toks, pos)])
+    fires = vh[:, None] & (dr == 1) & nominal[None, :] & heads_s[:, None]
+    G = np.where(vh[:, None], np.where(fires, ix.agree_id[dep_plur.astype(np.int64)][None, :], ix.na_agree), ix.na_agree)
+    S += ix.cue_tab["agree"][C, G]
+    # constructions (sparse overrides over the "none" default) + convention bonus
+    K = np.full((n + 1, n), ix.none_constr, dtype=np.int64); vid = ix.val_id["constr"]
+    for (h, j), fam in sc.constr.items():
+        if 1 <= h <= n and 1 <= j <= n:
+            K[h, j - 1] = vid.get(fam, 0)
+            if CONVENTION_BONUS and fam == "fw":
+                S[h, j - 1] += CONVENTION_BONUS
+    S += ix.cue_tab["constr"][C, K]
+    # PP cue (sparse sites)
+    if sc.pp and "pp" in ix.cue_tab:
+        vid = ix.val_id["pp"]; T = ix.cue_tab["pp"]
+        for j, (v, nn, b) in sc.pp.items():
+            if v:
+                S[v, j - 1] += T[C[v, j - 1], vid.get("V:" + b, 0)]
+            if nn:
+                S[nn, j - 1] += T[C[nn, j - 1], vid.get("N:" + b, 0)]
+    # meaning cue (verb head x nominal dependent; the teacher's per-pair plausibility is cached by lemma pair)
+    if sc.teacher is not None and "plaus" in ix.cue_tab:
+        vid = ix.val_id["plaus"]; T = ix.cue_tab["plaus"]
+        for h in np.flatnonzero(vh):
+            for j in np.flatnonzero(nominal) + 1:
+                if j != h:
+                    val = ("S:" if h > j else "O:") + _plaus_bin(sc.teacher.slot_plausibility(toks, pos, int(h), int(j)))
+                    S[h, j - 1] += T[C[h, j - 1], vid.get(val, 0)]
+    # masks: no self-arcs, form classes never head, form classes never root when a word exists
+    A = np.full((n + 1, n + 1), -np.inf); A[:, 1:] = S
+    A[np.arange(1, n + 1), np.arange(1, n + 1)] = -np.inf
+    A[1:, :][is_form, :] = -np.inf
+    if not is_form.all():
+        A[0, 1:][is_form] = -np.inf
+    return A, n
+
+
+def arc_scores_reference(toks: Sequence[str], pos: Sequence[str], table: Optional[Dict[str, object]] = None) -> Tuple[np.ndarray, int]:
+    """THE REFERENCE readout (the original per-pair loop): additive cue activation per arc (row = head incl. 0 = ROOT, col =
+    dependent); form classes never head or root. Kept as the oracle for the vectorised `arc_scores`."""
     tab = table or load_attachment_validities(); st = tab["strength"]; sc = SentenceCues(toks, pos, tab.get("frames", {}), tab.get("pp_assoc"))
     n = sc.n; A = np.full((n + 1, n + 1), -np.inf)
     words = [j for j in range(1, n + 1) if pos[j - 1] not in FORM]

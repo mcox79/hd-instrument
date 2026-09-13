@@ -56,10 +56,16 @@ class GlassBoxMorphology:
     ADJ = "a"
     ADV = "r"
 
-    def __init__(self, asset_dir: str = _ASSET_DIR):
+    def __init__(self, asset_dir: str = _ASSET_DIR, mode: str = "morphy"):
         self.asset_dir = asset_dir
         self._exc: Optional[Dict[str, Dict[str, List[str]]]] = None
         self._members: Optional[Dict[str, Set[str]]] = None
+        # ARMS (2026-09-13, folded from the lemmatizer problem's dual-route EXCEED cell): "morphy" = the byte-identical port (surface
+        # form FIRST, the dictionary tool's arbitration); "dualroute" = Pinker/Ullman words-and-rules with Rastle-Davis OBLIGATORY
+        # DECOMPOSITION: the STORED route returns the stored base of an irregular, the RULE route returns the decomposed stem, and the
+        # surface form is accepted only when neither route fires. Same asset, zero fitted parameters; measured on UD-EWT+GUM
+        # (195,045 tokens, gold POS): morphy 0.9603 -> dualroute 0.9836 (+0.0233, CI-sep; info-free twin 0.7255); 23/24 genres positive.
+        self.mode = mode
 
     # -- lazy asset load (pay nothing until first morphy call, mirroring the current lazy WordNet load) -----------
     def _ensure(self):
@@ -99,9 +105,28 @@ class GlassBoxMorphology:
             forms = apply_rules([form])
         return filter_forms([form] + forms)
 
-    # -- EXACT port of nltk 3.9.4 WordNetCorpusReader.morphy ------------------------------------------------------
+    # -- DUAL-ROUTE arm: stored base / decomposed stem preferred over the surface form ------------------------------
+    def _route(self, form: str, pos: str, check_exceptions: bool = True) -> Optional[str]:
+        self._ensure()
+        exc = self._exc[pos]; members = self._members[pos]; subs = MORPHOLOGICAL_SUBSTITUTIONS[pos]
+        if check_exceptions and form in exc:
+            for b in exc[form]:                       # STORED route: retrieve the base, not the surface
+                if b in members:
+                    return b
+            return form if form in members else None
+        stripped = [form[:-len(old)] + new for (old, new) in subs if form.endswith(old) and (form[:-len(old)] + new) in members]
+        if stripped:                                  # RULE route: obligatory decomposition, stem preferred over surface
+            return stripped[0]
+        return form if form in members else None
+
+    # -- EXACT port of nltk 3.9.4 WordNetCorpusReader.morphy (mode "morphy"); dual-route arbitration (mode "dualroute") --------
     def morphy(self, form: str, pos: Optional[str] = None, check_exceptions: bool = True) -> Optional[str]:
         for p in ([pos] if pos else POS_LIST):
+            if self.mode == "dualroute":
+                r = self._route(form, p, check_exceptions)
+                if r:
+                    return r
+                continue
             analyses = self._morphy(form, p, check_exceptions)
             if analyses:
                 return analyses[0]
@@ -123,10 +148,15 @@ class GlassBoxMorphology:
 _DEFAULT: Optional[GlassBoxMorphology] = None
 
 
+# the live arm: HDLAB_MORPH_MODE = "morphy" (default today; byte-identical to the dictionary tool) | "dualroute" (the brain's
+# words-and-rules arbitration; flip after the lemma-keyed stores downstream are rebuilt against it -- see INTEGRATION_LEDGER).
+MORPH_MODE = os.environ.get("HDLAB_MORPH_MODE", "morphy")
+
+
 def default_morphology() -> GlassBoxMorphology:
     global _DEFAULT
     if _DEFAULT is None:
-        _DEFAULT = GlassBoxMorphology()
+        _DEFAULT = GlassBoxMorphology(mode=MORPH_MODE)
     return _DEFAULT
 
 
