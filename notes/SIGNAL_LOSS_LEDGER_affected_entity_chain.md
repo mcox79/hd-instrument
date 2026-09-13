@@ -408,3 +408,14 @@ competent-reader reference ~0.85–0.90.
   (clausal complements need verb-frame occupancy — brief pri-16 sibling/occupancy), conj (parallelism). NEXT on the chain: hand the
   head posterior DOWN to the role competition (`graded_role_assigner.coarse_roles` reads heads) and re-measure the 596-item decision
   + the board (haiku runner) — a downstream dip is a consumer to repair, not a failure of the rung.
+- **HEADS → ROLES HAND-OFF ON THE REBUILT ASSET (2026-09-12 21:10, probe v19 `--attachment-arm`, UD-EWT test 2077 sentences /
+  8362 nominals, deployment tagger): role competition over the BF attachment arm's heads: hard head 0.7129, HEAD-MARGINALISED 0.7260
+  (supervised labeler on the same heads 0.6891) vs over the supervised arc-parser heads: 0.8075 / 0.8091 / 0.767.** Expected dip
+  (heads 0.557 vs 0.78 UAS) — NOT a failure of the rung: (i) the graded read now buys +0.013 (was +0.0016 on near-certain heads):
+  the posterior carries signal the hard head drops, exactly the hand-off the spec asks for; (ii) our competition beats the supervised
+  labeler on BF heads by +0.037 (it is the more robust consumer); (iii) per class on BF heads: SUBJ 0.750 (marg), OBJ 0.681, OBL
+  0.725 (UP from 0.609 supervised-labeler), OTHER 0.736, PASS_SUBJ 0.602, BY_AGENT 0.556, IOBJ 0.62. Where the loss sits: OBJ 0.861
+  → 0.681 and SUBJ 0.812 → 0.750 follow the heads rung's obj 0.708 / nsubj 0.709 — the repair is UPSTREAM (briefs pri-16/17) plus
+  a consumer that reads P(head) rather than the MAP (marg > hard). Board A/B with `HDLAB_HEADS_SOURCE=attachment_arm` running.
+  Ops: a RUNNER agent's background shell dies when the agent's turn ends — long runs must be launched from the main session's Bash
+  (foreground → auto-moved to background) or the agent must block on them.
