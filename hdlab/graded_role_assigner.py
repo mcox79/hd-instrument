@@ -329,10 +329,20 @@ ROLE_TO_SLOT = {"SUBJ": "subj", "PASS_SUBJ": "subj", "OBJ": "obj", "IOBJ": "iobj
 CORE_SLOTS = ["subj", "obj", "iobj", "byagent"]
 # lambda[slot] = -log P(2nd filler of slot | >=1), accrued from reading (tools/build_coarse_role_validities.py, stored in the asset
 # as counts["slot_capacity"]); the occupancy weight kappa is the swept operating point.
-SLOT_OCCUPANCY = os.environ.get("HDLAB_ROLE_SLOT_OCCUPANCY", "1") == "1"     # the joint frame-slot decode (default ON = the mechanism)
+# LANDED SELECTABLE, DEFAULT OFF (2026-09-13 14:00, measured on the LIVE brain-foundational chain): with the attachment arm's heads the
+# joint decode costs the who-did-what PATIENT read 0.7954 -> 0.7781 ungated, 0.781 gated at any OCC_MIN_P (the beam posterior is ~1
+# on MAP heads, so the gate rarely fires; a mis-attached sibling still displaces a true object). The solver's win (+0.067 OBJ
+# precision, CI-sep) is real on the supervised parse and on gold heads -- i.e. the mechanism is right and its input is the wall:
+# the governor's CORE-ARGUMENT arcs (pri 97 / pri 94 levers). Flip ON (HDLAB_ROLE_SLOT_OCCUPANCY=1) when those land; re-measure.
+SLOT_OCCUPANCY = os.environ.get("HDLAB_ROLE_SLOT_OCCUPANCY", "0") == "1"
 OCC_MODE = os.environ.get("HDLAB_ROLE_OCC_MODE", "incr")   # "incr" (soft incremental occupancy over the graded activations; the
 #                                                             recommended form with a head posterior) | "hard" (capacity-one greedy)
 OCC_KAPPA = float(os.environ.get("HDLAB_ROLE_OCC_KAPPA", "1.0"))
+# HEAD-CONFIDENCE GATE (2026-09-13, measured on the live BF governor): the joint decode groups a verb's nominals by their HARD heads;
+# when the governor mis-attaches a nominal it competes in the wrong frame and displaces a true object (patient board read 0.7954 ->
+# 0.7781 ungated). A verb's frame is decoded jointly only when every member's P(head = this verb) >= OCC_MIN_P (the graded hand-off);
+# without a posterior the hard heads are trusted. Swept below.
+OCC_MIN_P = float(os.environ.get("HDLAB_ROLE_OCC_MIN_P", "0.8"))
 _NEG_INF = -1e9
 COARSE_CUES = ["config", "voice_order", "prep", "cop", "case", "post_slot", "pre_slot", "animacy", "frame"]
 # 2026-09-12 measured: the nominal's raw 70-way induced category as a cue LOWERED held-out role accuracy 0.9235 -> 0.9115
@@ -768,7 +778,10 @@ def coarse_roles(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int],
         if h and 1 <= h <= len(pos) and pos[h - 1] in ("VERB", "AUX"):
             groups.setdefault(h, []).append(i)
     for h, members in groups.items():
-        members = sorted(members); grouped.update(members)
+        members = sorted(members)
+        if head_posterior and any(float((head_posterior.get(i) or {}).get(h, 1.0)) < OCC_MIN_P for i in members):
+            continue                                             # the governor is not sure these are siblings: independent read
+        grouped.update(members)
         elig = _frame_slots(toks, pos, heads, h, tab)
         sub = {i: A_by_i[i] for i in members}
         asg = assign_slots_hard(sub, elig) if OCC_MODE == "hard" else assign_slots_incr(sub, members, elig, lam, OCC_KAPPA)
