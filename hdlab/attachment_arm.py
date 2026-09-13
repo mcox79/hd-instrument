@@ -56,7 +56,10 @@ NP_RUN = frozenset({"DET", "ADJ", "NUM", "NOUN", "PROPN"})
 # (only 1.7% of heads changed between two teacher builds). Value = slot (S before the verb / O after) x binned plausibility of the
 # nominal as that verb's participant (self-grown typed store; pronoun-filler rates); validity LEARNED like every other cue. A hard
 # meaning GATE was refuted (nmod collapse) -- this is the graded, learned-validity form. Flag for the A/B; default OFF until measured.
-PLAUS_CUE = os.environ.get("HDLAB_ARM_PLAUS_CUE", "0") == "1"
+# DEFAULT ON since 2026-09-13 06:00 local (v2, core slots only; the live asset is built WITH it): UD-EWT test UAS 0.5694 -> 0.5726,
+# nmod 0.311 -> 0.358, ccomp 0.466 -> 0.500, obj 0.700 -> 0.710, conj 0.223 -> 0.253; nsubj 0.762 -> 0.753, obl 0.468 -> 0.430.
+# "0" reproduces the meaning-blind readout (the asset then carries unused plaus validities).
+PLAUS_CUE = os.environ.get("HDLAB_ARM_PLAUS_CUE", "1") == "1"
 CUES = ("locality", "frame", "form", "boundary", "agree", "constr", "pp") + (("plaus",) if PLAUS_CUE else ())   # catpair / root = configuration
 # "pp" (2026-09-13, folded from the pri-2 solver's proven Hindle-Rooth lever): for a PP-object nominal, the preposition's verb-vs-noun
 # association LR(p) = log P(p|verb) / P(p|noun), learned TREEBANK-FREE from UNAMBIGUOUS prepositional phrases in reading.
@@ -74,7 +77,8 @@ PRON_EVIDENCE = os.environ.get("HDLAB_SBT_PRON", "1") != "0"
 # 2026-09-13 05:10: the order-aware teacher gave SUBJECT plausibility to EVERY pre-verbal nominal, including the object of a preposition
 # ("the man in the HOUSE saw"), pulling PP objects off their noun host (nmod 0.346 -> 0.311). Semantic bootstrapping reads the
 # preposition as a CASE MARKER: a case-marked nominal is oblique, never the subject (Pinker 1984). Flag for the A/B; default OFF until measured.
-PP_NO_SUBJ = os.environ.get("HDLAB_SBT_PP_NOSUBJ", "0") == "1"
+# DEFAULT ON since 2026-09-13 (the read-time meaning cue's slot rules must match the asset's build; as a teacher-only change it was NULL).
+PP_NO_SUBJ = os.environ.get("HDLAB_SBT_PP_NOSUBJ", "1") == "1"
 PRONOUNS = frozenset({"it", "he", "she", "they", "we", "i", "you", "him", "her", "them", "us", "me", "this", "that", "these", "those",
                       "who", "whom", "which", "what", "there", "one", "someone", "something", "anyone", "anything", "everyone",
                       "everything", "nothing", "nobody", "himself", "herself", "itself", "themselves", "myself", "yourself", "ourselves"})
