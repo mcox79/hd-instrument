@@ -8,10 +8,17 @@ review_text:
 
 # PROBLEM: prepositional-phrase attachment (does "with the telescope" modify the verb or the noun?) is the attachment arm's worst comprehension-relevant class (obl ≈0.5, nmod ≈0.2) because the arm has no LEXICAL association between the governor and the preposition/its noun — the brain learns it from the cases that are unambiguous
 
-> ## ⛔ PARKED 2026-09-12 (owner): DO NOT START UNTIL THE CATEGORIES RUNG (pri-15) HANDS DOWN A USABLE INVENTORY
-> This problem sits BELOW the word-category rung in the reading chain and currently takes its categories from a supervised
-> tagger / gold UPOS (not brain-foundational). Owner 2026-09-12: no problems downstream of an unfixed element. Re-open (restore
-> its priority) once `reading_induced_categories_merge_the_closed_classes_...` lands; then its input is the induced inventory.
+> ## 🔁 REFRESHED 2026-09-13 11:00 (strategy; un-parked, still the worst comprehension-relevant class) — READ THIS BLOCK FIRST
+> The parking condition is met (the categories rung is the live count-based organ, 0.926, every reader routed). Since this brief was
+> written, strategy FOLDED two of its levers into the attachment arm: (1) the Hindle-Rooth preposition-association cue grown from
+> reading (`pp` cue; nmod 0.185 -> 0.346), (2) meaning as a READ-TIME cue (`plaus`, core slots only; nmod -> 0.358). Current numbers
+> (UD-EWT test 700, gold categories, whole-sentence search): UAS 0.6034, **nmod 0.365, obl 0.463**; under the incremental arm
+> (`HDLAB_ARM_DECODE=incr`) nmod 0.39-0.41, obl 0.41-0.46. The remaining defect is the nmod/obl SEESAW: a prepositional phrase pulled
+> to the verb costs nmod, pulled to the noun costs obl -- the cues do not yet carry the brain's structural account of WHAT a
+> preposition's phrase modifies (the argument-structure of the verb vs the noun's relational sense; Spivey-Knowlton & Sedivy 1995
+> referential/definiteness effects; Taraban & McClelland 1988 thematic expectation). Build THAT as cues with learned validities
+> inside the same arm (not a convention), measure per relation under BOTH decodes, and report the seesaw explicitly (nmod AND obl
+> must both rise). Everything else in this brief stands; the numbers below are the 09-12 baseline.
 
 
 **slug:** `pp_attachment_obl_nmod_is_the_worst_comprehension_relevant_class_mine_unambiguous_cases_from_reading` — **opened:** 2026-09-12 by strategy from the error anatomy of the landed heads rung (`hdlab/attachment_arm.py`; ledger 2026-09-12).
