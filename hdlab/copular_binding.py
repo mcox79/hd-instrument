@@ -117,7 +117,10 @@ def robust_cop(toks, up, heads, gate=True):
 GRADED_HOLDER_MIN: "float | None" = 0.5   # graded hand-off threshold for the copular holder (swept; None = off)
 
 
-def extract_entity_states(toks, up, arc, lab, heads=None):
+STATE_HEADPOST = os.environ.get("HDLAB_STATE_HEADPOST", "1") == "1"   # graded head hand-off into the state read (2026-09-13)
+
+
+def extract_entity_states(toks, up, arc, lab, heads=None, head_posterior=None):
     """[(holder_idx, property_idx)] 0-based, from the labeled parse: for each `cop` arc, PROPERTY = its head,
     HOLDER = the nsubj/nsubj:pass/csubj dependent of that same head. Brain-faithful HOLDER+PROPERTY binding.
     `heads` optional (perf): pass precomputed parse heads (e.g. from the caller's shared per-read parse cache)
@@ -126,7 +129,11 @@ def extract_entity_states(toks, up, arc, lab, heads=None):
     try:
         if heads is None:
             heads = arc.parse(toks, up).heads
-        labels = lab.label(toks, up, heads)
+        # GRADED HEAD HAND-OFF (2026-09-13, labels-rung trace): the role labels that find the copular holder (nsubj/nsubj:pass/
+        # csubj) are marginalised over the heads rung's P(head | dep) -- as the patient arm and the apposition map already do --
+        # instead of collapsing to the single MAP head first (state 0.8095 -> 0.6614 under the BF governor was this hand-off).
+        hp = head_posterior if STATE_HEADPOST else None
+        labels = lab.label(toks, up, heads, head_posterior=hp)
     except Exception:
         return []
     cop_preds = set()
@@ -158,15 +165,20 @@ def extract_entity_states(toks, up, arc, lab, heads=None):
     # Competition-Model organ's posterior over its nominal dependents and takes the one whose SUBJ+PASS_SUBJ belief is the
     # highest and above GRADED_HOLDER_MIN (the hard label had collapsed that belief to nothing).
     if GRADED_HOLDER_MIN is not None:
-        from hdlab.graded_role_assigner import coarse_role_posterior, ROLE_CLASSES, NOMINAL
+        from hdlab.graded_role_assigner import coarse_role_posterior, coarse_role_posterior_headmarg, ROLE_CLASSES, NOMINAL
         ix = {r: k for k, r in enumerate(ROLE_CLASSES)}
         for pred in cop_preds:
             if pred in subj_of:
                 continue
             best, bp = None, 0.0
             for dep_i in range(1, len(toks) + 1):
-                if heads.get(dep_i) == pred and up[dep_i - 1] in NOMINAL:
-                    post = coarse_role_posterior(list(toks), list(up), heads, dep_i)
+                # a nominal whose MAP head is the predicate, or (graded) one that gives the predicate any head mass
+                hpd = (hp or {}).get(dep_i) if STATE_HEADPOST and hp else None
+                if heads.get(dep_i) == pred or (hpd and hpd.get(pred, 0.0) > 0.0):
+                    if up[dep_i - 1] not in NOMINAL:
+                        continue
+                    post = (coarse_role_posterior_headmarg(list(toks), list(up), heads, dep_i, hpd) if hpd
+                            else coarse_role_posterior(list(toks), list(up), heads, dep_i))
                     pr = float(post[ix["SUBJ"]] + post[ix["PASS_SUBJ"]])
                     if pr > bp:
                         best, bp = dep_i, pr

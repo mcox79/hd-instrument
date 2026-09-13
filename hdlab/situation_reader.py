@@ -4133,7 +4133,8 @@ class SituationReader:
                 for i, d in enumerate(tp):
                     if i < len(up_c) and up_c[i] not in ("NOUN", "PROPN", "PRON") and d and                             sum(d.get(c, 0.0) for c in ("NOUN", "PROPN", "PRON")) >= STATE_NOMINAL_MASS:
                         up_c[i] = max(("NOUN", "PROPN", "PRON"), key=lambda c: d.get(c, 0.0))
-            bind = set(M.extract_entity_states(toks, up_c, self._es_arc, self._es_lab, heads=heads))
+            bind = set(M.extract_entity_states(toks, up_c, self._es_arc, self._es_lab, heads=heads,
+                                               head_posterior=self._cached_head_posterior(toks, up)))   # graded hand-off (2026-09-13)
             pairs = bind | M.robust_cop(toks, up_c, heads, gate=True)
             for (h, p) in sorted(pairs):
                 if not (0 <= h < len(toks) and 0 <= p < len(toks)):
