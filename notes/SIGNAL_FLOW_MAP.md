@@ -145,3 +145,27 @@ directive 09-07); an unexplained regression is reverted.
 - **Where signal is still lost (numbers):** in-focus ceiling top-3 0.753 vs 0.540 (the semantic fit among in-focus tokens —
   the JOINT agent+verb expectation, not yet built; generic marginals REJECTED); individuation prize +0.091 is circular
   (needs correct pronoun resolution upstream; coref line); 10% of items have no prior non-pronoun mention (unreachable).
+
+## 2e. THE HEADS RUNG'S SIGNAL REQUIREMENT FROM THE CATEGORIES RUNG, and the roles rung's from heads (strategy 2026-09-12 late)
+Owner 2026-09-12: no problems downstream of an unfixed element; the categories rung (top) is the one open brief (pri-15). This is the
+exact target it must hit for the heads rung (`hdlab/attachment_arm.py`) to run on reading-induced categories instead of the supervised
+tagger's output (`pos_tagger`, NOT_BF) that it consumes today via `situation_reader._cached_tag`.
+| consumer in the heads rung | SIGNAL REQUIREMENT from categories (one sentence) | what it reads today | what a usable induced inventory must deliver |
+|---|---|---|---|
+| configuration `catpair` (= the competition's CONFIG; `SentenceCues.config`) | a small, stable category for every token (dependent × candidate head), so that contrasts conditioned on the pair are estimable from ~6k sentences | gold/supervised UPOS (17 classes) | ≤ ~20 coherent classes; the same word type may change class by frame (token-level), but the inventory must not fragment (probe v15: 70 classes → UAS 0.012; 17 → 0.208 vs gold 0.276) |
+| `NOMINAL` = {NOUN, PRON, PROPN} (argument candidates; semantic-bootstrapping teacher; role hand-off) | which tokens can be PARTICIPANTS of a predicate | UPOS | a participant class (nouns + pronouns + names merged is FINE; splitting them is optional) |
+| VERB (the predicate: verbarg/clausal constructions; root score; frames) | which tokens name an EVENT predicate (finite verb vs nominal) | UPOS VERB vs AUX | a predicate class separate from auxiliaries (AUX merged with VERB breaks the copula/aux convention and the root pick) |
+| `FORM` = {PUNCT, NUM, SYM} (never head; boundary cue) | which tokens are form classes (written prosody / numerals) | UPOS | orthographic form classes — ALREADY delivered by the categories rung's form classes (exp_reading_induced_categories_v1) |
+| `NP_RUN` = {DET, ADJ, NUM, NOUN, PROPN} (npmod construction: determiners/adjectives to their noun) | the NP-internal modifier classes vs the noun | UPOS | DET and ADJ separated from nouns (DET .85, ADJ .80 today — adequate) |
+| `function_word_arcs` (convention layer): ADP → NP head; AUX → predicate; SCONJ / PART 'to' → verb; CCONJ (coord) ; PROPN runs | the CLOSED CLASSES each separately: ADP, AUX, SCONJ, CCONJ, PART, DET | UPOS | **the open gap**: ADP/CCONJ/SCONJ/PART/ADV are merged today (ADV/CCONJ/SCONJ ≈ 0 recall at k=68; SCONJ .55, ADV .26 at k=136; CCONJ still merged with ADP) → coordination and clausal constructions cannot fire → conj 0.24, ccomp 0.15, advcl 0.06 would collapse further |
+| `agree` cue (number-agreement sketch on nominals) | plural vs singular nominal | suffix -s on NOMINAL | unchanged (a form cue) |
+| `frame` cue (verb transitivity from reading) | which tokens are verbs + which are nominal dependents | UPOS | follows from the predicate + participant classes above |
+**Hand-off test (the brief's step 6):** rebuild the attachment asset with the induced categories in place of UPOS on a 1.5k/150 smoke
+(`tools/build_attachment_validities.py` reads the UPOS column — substitute the induced token-level class) and read UAS + per relation
+against the UPOS run (0.5399 smoke). The categories are "usable" when conj/ccomp/advcl/case do not collapse and UAS is within ~0.03.
+
+**Roles rung from heads (LANDED 2026-09-12 late):** the role competition now reads P(head | dependent) — `coarse_roles(head_posterior=)`
+marginalises the role posterior over the heads the attachment arm keeps alive (min mass 0.05). Measured: over BF heads 0.7260 vs the
+hard head 0.7129 (+0.013); over near-certain supervised heads +0.0016. The reader hands the posterior down through
+`situation_reader._cached_head_posterior` (None when the supervised parser is the source → byte-identical). Next hand-offs to repair
+(same pattern): `predicate_argument_frontend.labeled_pick` and `copular_binding` read the hard role label → should read the role posterior.
