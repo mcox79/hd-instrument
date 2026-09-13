@@ -45,6 +45,14 @@ _lag_env = os.environ.get("HDLAB_LC_LAG", "")
 _mm = os.environ.get("HDLAB_LC_MIX_MAX", "")
 MIX_MAX: Optional[int] = int(_mm) if _mm.strip() else None          # None = the asset's rare_max (current behaviour); sweep below
 MIX_KAPPA = float(os.environ.get("HDLAB_LC_MIX_KAPPA", "1.0"))
+# STEM-INFORMED PRIOR for KNOWN-BUT-RARE forms (2026-09-13 13:10; the 'wounded' -> ADP miss): the lemma organ's RULE route
+# decomposes an inflected form into stem + inflection (wounded = wound + -ed; words-and-rules, Pinker & Ullman). The form's
+# category is then predicted from the STEM's known categories and the inflection -- a table P(form category | stem category,
+# inflection) accrued from the organ's own vocabulary counts (no labels beyond the supply it already has). A form seen a few times
+# under one tag keeps its other readings alive through its stem. Mixing weight a = c / (c + kappa) for c <= STEM_MIX_MAX (swept).
+_smm = os.environ.get("HDLAB_LC_STEM_MIX_MAX", "")
+STEM_MIX_MAX: int = int(_smm) if _smm.strip() else 0          # 0 = off (current behaviour); sweep below
+STEM_KAPPA = float(os.environ.get("HDLAB_LC_STEM_KAPPA", "1.0"))
 LAG: Optional[int] = (None if _lag_env.strip().lower() in ("inf", "none", "full") else int(_lag_env)) if _lag_env.strip() else 2
 BOS = "<s>"
 K2 = 2.0                                                        # Dirichlet back-off mass for the second-order transitions (swept, not adopted)
@@ -174,7 +182,11 @@ class LexicalCategories:
             # sequence). MIX_MAX / MIX_KAPPA are swept operating points (module defaults below); the reading-cluster factor keeps
             # its own threshold (rare_max) -- applying it to every word costs 2 points (measured).
             mix_max = self.rare_max if MIX_MAX is None else MIX_MAX
-            if mix_max > 0 and cw <= mix_max:
+            sp = self._log_stem_prior(w) if (STEM_MIX_MAX > 0 and cw <= STEM_MIX_MAX) else None
+            if sp is not None:
+                a = cw / (cw + STEM_KAPPA)
+                out = np.logaddexp(math.log(a) + out, math.log(1.0 - a) + sp)
+            elif mix_max > 0 and cw <= mix_max:
                 unk = self._log_emit_unknown(w); a = cw / (cw + MIX_KAPPA)
                 out = np.logaddexp(math.log(a) + out, math.log(1.0 - a) + unk)
             if self.rare_max > 0 and cw <= self.rare_max:
@@ -197,6 +209,74 @@ class LexicalCategories:
             except Exception:
                 self._w2c = {}
         return self._w2c
+
+    _STEM_TAB = None          # {(stem_majority_tag, route_key): np.array counts over tags}
+    _MORPH = None
+
+    @staticmethod
+    def _route_key(w: str, pos_letter: str) -> str:
+        for suf in ("ies", "ied", "ing", "est", "ed", "es", "er", "s", "d"):
+            if w.endswith(suf) and len(w) > len(suf) + 1:
+                return pos_letter + ":" + suf
+        return pos_letter
+
+    def _decompose(self, w: str):
+        """(stem, route_key) via the lemma organ's rule route, or None. The stem must be a KNOWN word of this organ."""
+        if LexicalCategories._MORPH is None:
+            try:
+                from hdlab.morphology import default_morphology
+                LexicalCategories._MORPH = default_morphology()
+            except Exception:
+                LexicalCategories._MORPH = False
+        m = LexicalCategories._MORPH
+        if not m:
+            return None
+        for pl in ("v", "n", "a"):
+            try:
+                base = m.morphy(w, pl)
+            except Exception:
+                base = None
+            if base and base != w and base in self.vocab:
+                return base, self._route_key(w, pl)
+        return None
+
+    def _stem_table(self) -> dict:
+        """P(form tag | stem majority tag, route) accrued from the organ's OWN vocabulary counts (built once per process)."""
+        if LexicalCategories._STEM_TAB is None:
+            T = len(self.tags); tab: dict = {}
+            maj = {}
+            for w in self.vocab:
+                cnts = np.array([self.emit[t][w] for t in self.tags], dtype=float)
+                if cnts.sum() > 0:
+                    maj[w] = self.tags[int(cnts.argmax())]
+            for w in self.vocab:
+                d = self._decompose(w)
+                if d is None:
+                    continue
+                stem, rk = d
+                key = (maj.get(stem), rk)
+                if key[0] is None:
+                    continue
+                row = tab.setdefault(key, np.zeros(T))
+                for i, t in enumerate(self.tags):
+                    row[i] += self.emit[t][w]
+            LexicalCategories._STEM_TAB = tab
+        return LexicalCategories._STEM_TAB
+
+    def _log_stem_prior(self, w: str):
+        d = self._decompose(w)
+        if d is None:
+            return None
+        stem, rk = d
+        cnts = np.array([self.emit[t][stem] for t in self.tags], dtype=float)
+        if cnts.sum() == 0:
+            return None
+        key = (self.tags[int(cnts.argmax())], rk)
+        row = self._stem_table().get(key)
+        if row is None or row.sum() < 5:
+            return None
+        T = len(self.tags)
+        return np.log((row + self.lam) / (row.sum() + self.lam * T))
 
     def _log_cluster(self, w: str) -> np.ndarray:
         """log P(cluster(w) | c) over categories, or zeros when the word has no reading-induced class / the arm is off."""
