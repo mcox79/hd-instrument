@@ -14,6 +14,17 @@ NEW word means from what it reads, using its sense of how things feel and look, 
 near the top about 38 times in 100 where the old method managed about 3.
 
 ## WHAT CHANGED LATELY
+- 2026-09-13 (morning, 05:00-08:30): four upstream steps, all switchable. (1) The brain-style word-governor now reads meaning at
+  READ time as well as when it learns (before, meaning only shaped what it learned; only 2 in 100 word links changed between two
+  learning runs, which is why the readers did not feel the governor's gains). First version: noun-modifier links 31 -> 38 in 100 and
+  clause links 47 -> 50, but prepositional phrases were pushed off their verbs (47 -> 38); a corrected version that leaves
+  prepositional phrases to their own cue is being measured. (2) The governor was made about five times faster with identical
+  answers, so full checks with it no longer take three hours. (3) The last off-the-shelf part on the live reading path -- a
+  borrowed tagger used for tenses inside the timeline reader -- is replaced by the system's own word-kind counter, which is also
+  more accurate on the test set (91 vs 85 in 100, and equal or better on the tense-bearing verb forms); a full check confirms no
+  reader regressed. (4) A word-root reader that prefers the stored or decomposed base over the surface form (the brain's
+  words-and-rules route; 98.3 vs 96.0 in 100 on modern text) is landed as an alternative and being checked on the full board.
+  Risk of my recommendations: each is a small measured step; the only un-measured one is the meaning cue's corrected version.
 - 2026-09-13 (early morning, the full checks): with the brain-style word kinds feeding every reader, the whole-system check is
   63.6 in 100 (was 64.0); the agent reader's small dip was repaired by reading the word kinds as graded beliefs (82 -> 84, now above
   where it started). With the brain-style governor as well, the check is 62.2: coreference, salience and word sense are unchanged;
@@ -126,7 +137,7 @@ Long term (the next few months):
 
 <!-- AUTO:BEGIN (written by tools/scorecard.py; edit the sections ABOVE, not this) -->
 
-Last full check: 2026-09-13T09:32:27.935274+00:00 (16 on record). Generated 2026-09-13T09:39:50+00:00.
+Last full check: 2026-09-13T09:32:27.935274+00:00 (16 on record). Generated 2026-09-13T09:40:53+00:00.
 
 | Ability | Group | How well | Compared with a simple rule | Since the previous check | Brain-faithful? |
 |---|---|---|---|---|---|
