@@ -53,6 +53,9 @@ MIX_KAPPA = float(os.environ.get("HDLAB_LC_MIX_KAPPA", "1.0"))
 _smm = os.environ.get("HDLAB_LC_STEM_MIX_MAX", "")
 STEM_MIX_MAX: int = int(_smm) if _smm.strip() else 0          # 0 = off (current behaviour); sweep below
 STEM_KAPPA = float(os.environ.get("HDLAB_LC_STEM_KAPPA", "1.0"))
+# CONFLICT-TRIGGERED STEM REANALYSIS (2026-09-13 13:20; DEFAULT ON): full UD-EWT test 0.9264 -> 0.9271, known-rare slice 0.872 -> 0.878,
+# "wounded" -> VERB; the blanket stem prior was -0.07 to -0.5 points (kept OFF). HDLAB_LC_STEM_REANALYSIS=0 disables.
+STEM_REANALYSIS = os.environ.get("HDLAB_LC_STEM_REANALYSIS", "1") == "1"
 LAG: Optional[int] = (None if _lag_env.strip().lower() in ("inf", "none", "full") else int(_lag_env)) if _lag_env.strip() else 2
 BOS = "<s>"
 K2 = 2.0                                                        # Dirichlet back-off mass for the second-order transitions (swept, not adopted)
@@ -320,6 +323,28 @@ class LexicalCategories:
         if n == 0:
             return np.zeros((0, T))
         le = np.stack([self._log_emit(w) for w in words])
+        post = self._posterior_le(le, lag)
+        if STEM_REANALYSIS:
+            # CONFLICT-TRIGGERED REANALYSIS (2026-09-13): a known word whose settled category has ZERO lexical support (the sequence
+            # cue forced a tag the word was never seen under) is re-read with its STEM's knowledge (the lemma organ's rule route:
+            # wounded = wound + -ed -> VERB/ADJ), and the sentence is settled again. Fires only on conflicts (rare), so the blanket
+            # prior's dilution (measured -0.1 to -0.5 points) is avoided.
+            changed = False
+            for k, w in enumerate(words):
+                wl = w.lower()
+                if wl in self.vocab:
+                    t_star = self.tags[int(post[k].argmax())]
+                    if self.emit[t_star][wl] == 0:
+                        sp = self._log_stem_prior(wl)
+                        if sp is not None:
+                            cw = sum(self.emit[t][wl] for t in self.tags); a = cw / (cw + STEM_KAPPA)
+                            le[k] = np.logaddexp(math.log(a) + le[k], math.log(1.0 - a) + sp); changed = True
+            if changed:
+                post = self._posterior_le(le, lag)
+        return post
+
+    def _posterior_le(self, le: np.ndarray, lag: Optional[int]) -> np.ndarray:
+        n, T = le.shape
         if self.order >= 2:
             return self._posterior2(le, lag=lag)
         A = self.log_trans[1:]                                    # [T_prev, T_cur]
