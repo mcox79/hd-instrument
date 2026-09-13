@@ -224,6 +224,38 @@ par_weight=4, frame_weight=0.15** (all swept, never adopted):
    were **morphology-in-PPMI** (VERB↑, downstream↑), the **surgical token-frequency stratum**, and **reading scale** (SCONJ
    0.56→0.72). Morphology belongs IN the PPMI code, not concatenated after.
 
+## COMPONENTS TOUCHED / CREATED + BF STATUS
+**Created (mine — experiments/, verification/, data/):**
+- `experiments/exp_reading_induced_categories_v2.py` — the organ prototype: function-word stratum (freq+length) + second-order
+  directional frames + parallelism + morphology-in-PPMI + **Mintz JOINT frames** + **label-free predicate-follows clause-cue**
+  + warm-started online iteration + randomized SVD + **incremental causal** token readout. **BF** — label-free distributional
+  induction (Harris 1954 / Mintz 2003 / Redington-Chater-Finch 1998 / Elman 1990 / Clark 2003 / Shi-Werker-Morgan); NO
+  supervised tagger, nltk, spaCy, or gold in learning (gold UPOS = eval instrument only). PINNED computation; params swept.
+- `verification/test_reading_induced_categories_v2.py` — scaffold-free witness (floors, twin, ≥4 closed sep, 100% cov, oracle).
+- `data/exp_reading_induced_categories_v2/*.json` — induced-category assets (the SOLVED asset: `_1m_joint_clause.json`).
+
+**Interacted with (read-only; proposed changes, did NOT edit — solver scope):**
+- `hdlab/tense_preserving_detector.py` — **BF_SPIRIT** (landed Reichenbach; computes per-verb `finite`). **The finiteness
+  component the root-unlock needs already exists here** → wiring proposed.
+- `hdlab/attachment_arm.py` — **BF_SPIRIT** (the heads-rung consumer; hand-off tested; root-cue finiteness wiring proposed).
+- `hdlab/pos_tagger.py` / `crf_tagger.py` — **NOT_BF** (supervised) — the stand-in this organ REPLACES.
+- `hdlab/predicate_detector.py` — **BF** (parse-free verbhood) — researched; NOT used (it pulls the supervised tagger emission,
+  which would re-inject the NOT_BF component; the clause-cue is bootstrapped label-free instead).
+- `tools/build_attachment_validities.py` — hand-off harness (ran read-only).
+- `experiments/exp_reading_induced_categories_v1.py` (**BF**, extended), `exp_srn_predict_category_v1.py` (**BF** but batch-SGD
+  — declined per online-only rule), `exp_selfsup_category_induction_v2.py` (**BF** — morphology-in-PPMI method source).
+
+## PRIORITY NEXT STEPS
+1. **[HIGH, out of solver scope] Wire finiteness → the attachment arm's ROOT cue** (root = finite matrix verb). The component
+   exists (`tense_preserving_detector`); this is the path to a net downstream-UAS win. Strategy lands in `hdlab/attachment_arm`
+   + `tools/build_attachment_validities`.
+2. **[HIGH, in scope] Harden the SCONJ/ADV margin across scale** — a class-anchored (not consensus) stabilizer so all-four
+   clear 0.4 at 200k AND 1M with ONE config; current config is scale-sensitive (joint+clause@1M, joint-alone@200k).
+3. **[MED] Land the organ** as `hdlab/induced_categories.py` (single-pass config; warm-start kept as the online scaffold),
+   repointing `situation_reader._cached_tag` off the NOT_BF `pos_tagger`.
+4. **[MED] Stronger token disambiguation** — a joint-frame per-token model (current per-occurrence gain is small, +0.02).
+5. **[LOW] Hierarchical ADV split** (degree/VP/sentence sub-frames); open-class-only morphology.
+
 ## Online form (owner: plastic, never frozen)
 Every piece of v2's added state is count-based and online-updatable, exactly like v1's `OnlineCategoryLearner`: the
 second-order directional counts `L/R/R2/par/rdiv` are Hebbian accrual — `observe(tokens)` increments them per sentence read;
