@@ -166,12 +166,25 @@ def function_word_arcs(toks: Sequence[str], pos: Sequence[str]) -> List[Tuple[in
             if pos[k] == "PUNCT":
                 break
         return None
-    def next_predicate(i):                  # first ADJ / NOUN / PROPN / PRON before any verb
+    def next_predicate(i):                  # the HEAD of the predicate phrase after the copula, before any verb
         for k in range(i + 1, n):
             if pos[k] == "VERB" or pos[k] == "PUNCT":
                 return None
             if pos[k] in ("ADJ", "NOUN", "PROPN", "PRON", "NUM"):
-                return k if pos[k] != "NOUN" and pos[k] != "PROPN" else (np_head_after(k) if np_head_after(k) is not None else k)
+                if pos[k] == "PRON":
+                    return k
+                # PREDICATE HEAD (2026-09-13; copular-shape diagnostic: the binder recovered 44% of holder-property pairs under the
+                # arm vs 75% with the stand-in because the subject was hung on the FIRST adjective -- "vote" -> "little" in "is a
+                # little confusing", "Google" -> "nice" in "is a nice search engine"): a nominal run's head is its last NOUN/PROPN;
+                # an adjectival predicate's head is the LAST adjective of the run ("a little confusing" -> confusing).
+                h = np_head_after(k)
+                if h is not None:
+                    return h
+                j = k
+                while j + 1 < n and pos[j + 1] in ("ADJ", "ADV", "NUM"):
+                    j += 1
+                adjs = [m for m in range(k, j + 1) if pos[m] in ("ADJ", "NUM")]
+                return adjs[-1] if adjs else k
         return None
     for i in range(n):
         p = pos[i]
