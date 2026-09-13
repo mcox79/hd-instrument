@@ -147,10 +147,37 @@ def pos_tag_sentence(sentence):
     return out
 
 
-def default_tagger(text):
-    """Reader POS pipeline: NLTK PerceptronTagger (SELF-CONTAINED; no experiments import).
+# THE TAGGER SWITCH (2026-09-13, categories rung): "counts_penn" = the PENN-TAGSET ARM of the substrate's own count-based generative
+# category organ (hdlab.lexical_categories, asset lexical_categories_counts_penn_v1.json: lexical + suffix + transition counts,
+# forward-backward posterior; UD-EWT test 0.9075) | "nltk" = the off-the-shelf PerceptronTagger (a tool at read time = NOT brain-
+# foundational; kept as the measured stand-in). Same Penn tag inventory, so every tense/form rule below is unchanged.
+TEMPORAL_TAGGER = os.environ.get("HDLAB_TEMPORAL_TAGGER", "nltk")
+_PENN_ARM = None
 
-    Returns list of (surface, low, pos)."""
+
+def _penn_arm():
+    global _PENN_ARM
+    if _PENN_ARM is None:
+        from hdlab import lexical_categories as LC
+        _PENN_ARM = LC.LexicalCategories.load(LC.ASSET_PENN)
+    return _PENN_ARM
+
+
+def pos_tag_sentence_counts_penn(sentence):
+    """(surface, low, pos) triples from the category organ's Penn arm -- the brain-foundational route."""
+    toks = _tokenize(sentence)
+    tags = _penn_arm().tag(list(toks)) if toks else []
+    out = []
+    for surf, pos in zip(toks, tags):
+        low = surf.lower().strip(".,'\"!?;:")
+        out.append((surf, low, pos))
+    return out
+
+
+def default_tagger(text):
+    """Reader POS pipeline -> (surface, low, pos) triples; route chosen by HDLAB_TEMPORAL_TAGGER (see TEMPORAL_TAGGER)."""
+    if TEMPORAL_TAGGER == "counts_penn":
+        return pos_tag_sentence_counts_penn(text)
     return pos_tag_sentence(text)
 
 
