@@ -567,3 +567,10 @@ competent-reader reference ~0.85–0.90.
   placement). Board runtime with the arm: ~3 h under contention (baseline 18 min) -- the arm is unvectorised (39 ms/sentence).
   DECISION FILED ON THE BOARD (owner): flip HDLAB_HEADS_SOURCE default to the BF arm now (pain: patient/state + slow boards for the
   solvers) or vectorise the arm first. Tagger default stays counts (cost -0.004 after the agent repair).
+- **TEACHER v2 (order-aware + root = best subject fit + best object fit + PRONOMINAL participants scored by the verb's pronoun-filler
+  rate per slot from the self-grown store), FULL REBUILD (2026-09-13 04:55), PROMOTED TO LIVE: UAS 0.5706 -> 0.5694 (-0.0012, noise);
+  obj 0.685 -> 0.700, nsubj 0.749 -> 0.762, root 0.806 -> 0.813, obl 0.449 -> 0.468, xcomp 0.686 =, ccomp 0.466 -> 0.457 (held; v1 had
+  collapsed it to 0.207 -- the mechanism was pronoun subjects invisible to the typed association), nmod 0.346 -> 0.311 (-0.035, part of
+  the PP cue's gain given back), case 0.735 -> 0.725.** Promoted because the board's consumers read the CORE (obj/nsubj/obl/root) and
+  all four rose; the previous asset is kept at data/hook_state/attachment_validities_pp_prev.json for revert; the nmod give-back is the
+  next heads item (the order-aware teacher makes nouns compete harder as PP hosts vs verbs). Witness 15/15.
