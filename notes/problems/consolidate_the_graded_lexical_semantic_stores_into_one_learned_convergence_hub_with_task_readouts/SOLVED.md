@@ -104,3 +104,5 @@ convergent_cue_reader) stays. The two islands (meaning_fusion, composed_hub_pred
 candidates (their equal-weight / hand-set combination rules are strictly weaker).
 
 ## hdlab proposal (Q111 -- strategy lands): PROPOSAL_hdlab_semantic_hub.md.
+
+INTEGRATED_BY_STRATEGY 2026-09-12 — owner-DONE 23:06; reverified 14/14 + organ witness 6/6. Representation organ LANDED (hdlab/semantic_hub.py + asset + builder); read-time fusion kept as pre-registered; readers not repointed (follow-ons in INTEGRATION_LEDGER).

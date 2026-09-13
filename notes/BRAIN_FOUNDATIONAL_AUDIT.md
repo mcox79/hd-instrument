@@ -65,6 +65,15 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+### 2026-09-12 (late) — ATL CONVERGENCE HUB landed as a REPRESENTATION organ (pri-13, PARTIAL); causal store as necessity prior REFUTED (pri-10)
+- **Hub (`hdlab/semantic_hub.py`, BF_SPIRIT):** Rogers-McClelland convergence (one shared nonlinear layer over five graded spokes), consolidated
+  by denoising reconstruction + Ma-Pouget precision-weighted consensus RSA (Cox 2024). The pre-registered live test settled the OPEN
+  integration-rule label: the read-time grounding DECISION keeps SEPARATE POOLS (hub alone trails FUSED CI-sep; as a pool it ties) -- the
+  semantic-dementia x amnesia double dissociation. Consolidate the representation; keep the fusion read. Readers not yet repointed.
+- **Causal store (pri-10):** the mined directed store is NOT a necessity prior (inert; its +0.139 was a twin-density artifact -> retired);
+  its only real signal is DIRECTION (~3-4 pts, text-capped ~0.61). The brain's source for direction is INTERVENTION (Gopnik/Schulz; the
+  solver's grounded-intervention prototype 0.993) -> the grounded-causal-learning organ is the forward item, not more text mining.
+
 ### 2026-09-12 (late) — RUNG 1 LEMMA: `hdlab/morphology.py` LANDED (owner-DONE pri-12) — BF_SPIRIT-with-external-tool → **BF**
 - **Computation:** morpho-orthographic segmentation (Rastle & Davis 2008) + affix-stripping with lexical check (Taft 1979) + a stored
   irregular route (Pinker-Ullman words-and-rules) = exactly WordNet morphy's exception store + detachment rules + lexical check, now an
