@@ -71,7 +71,9 @@ from typing import Dict, List, Optional, Tuple
 
 _REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 _HEADS_SOURCE = os.environ.get("HDLAB_HEADS_SOURCE", "arceager")
-_TAG_SOURCE = os.environ.get("HDLAB_TAG_SOURCE", "counts")         # "counts" (BF category organ, default) | "perceptron" (NOT_BF stand-in)   # "arceager" (supervised stand-in) | "attachment_arm" (BF rung)
+_TAG_SOURCE = os.environ.get("HDLAB_TAG_SOURCE", "counts")
+_STATE_GRADED = os.environ.get("HDLAB_STATE_GRADED", "1") != "0"   # graded category read for the copular state reader
+STATE_NOMINAL_MASS = 0.3         # "counts" (BF category organ, default) | "perceptron" (NOT_BF stand-in)   # "arceager" (supervised stand-in) | "attachment_arm" (BF rung)
 
 if _REPO not in sys.path:
     sys.path.insert(0, _REPO)
@@ -4122,8 +4124,17 @@ class SituationReader:
             # property off the tree recovers it (qa_state 0.712->0.833 CI-sep through the consumer, concentrated on
             # is-a pred_nom +0.184). Byte-faithful to the experiment's `fix = bind | robust_cop(toks,up,heads)`.
             # Pass the CACHED heads into extract_entity_states so it does not re-parse (byte-identical).
-            bind = set(M.extract_entity_states(toks, up, self._es_arc, self._es_lab, heads=heads))
-            pairs = bind | M.robust_cop(toks, up, heads, gate=True)
+            # GRADED CATEGORY READ for the copular holder/predicate candidates (2026-09-13, Phase 2 repair #3): a token whose
+            # posterior NOMINAL mass >= STATE_NOMINAL_MASS counts as nominal for the copular reader even if the argmax is not
+            # (the category organ hands down a distribution; the hard argmax threw the second reading away). HDLAB_STATE_GRADED=0 = hard.
+            up_c = list(up)
+            tp = self._cached_tag_posterior(toks) if _STATE_GRADED else None
+            if tp:
+                for i, d in enumerate(tp):
+                    if i < len(up_c) and up_c[i] not in ("NOUN", "PROPN", "PRON") and d and                             sum(d.get(c, 0.0) for c in ("NOUN", "PROPN", "PRON")) >= STATE_NOMINAL_MASS:
+                        up_c[i] = max(("NOUN", "PROPN", "PRON"), key=lambda c: d.get(c, 0.0))
+            bind = set(M.extract_entity_states(toks, up_c, self._es_arc, self._es_lab, heads=heads))
+            pairs = bind | M.robust_cop(toks, up_c, heads, gate=True)
             for (h, p) in sorted(pairs):
                 if not (0 <= h < len(toks) and 0 <= p < len(toks)):
                     continue

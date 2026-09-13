@@ -537,3 +537,8 @@ competent-reader reference ~0.85–0.90.
   moves too (0.8406 -> 0.8567; it picks among the same candidates), so model-minus-floor stays -0.02 (this dimension has never beaten
   its floor; the located register finding). The category organ's posterior IS the signal: the hard argmax had thrown away the second
   reading for ~1.5% of agents. Pattern for the other tag consumers (patient arm's candidate set, state holder) -- queued.
+- **PHASE 2 REPAIR #3 (STATE reader graded category read) MEASURED NULL (2026-09-13 03:10; UD-EWT copular gold n=378, count-based
+  tagger, supervised heads): hard 0.7989 -> graded 0.8016 (+1 item).** The state dim's loss under the category organ (0.828 -> 0.80) is
+  the tagger's accuracy on copular predicates/holders (ADJ/NOUN confusions), i.e. the categories rung (pri-15 / the organ's counts), not
+  the reader. Kept the graded read (harmless, brain-faithful). Phase 2 tally: agent REPAIRED (+0.015, above baseline); patient and state
+  losses are UPSTREAM (heads obj attachment; tagger) -> the next gains come from the rungs, not the readers.
