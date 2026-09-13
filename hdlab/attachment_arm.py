@@ -372,9 +372,12 @@ def heads(toks: Sequence[str], pos: Sequence[str], table: Optional[Dict[str, obj
 # (beta is a SWEPT operating point: smoke 1.5k/150 -- beta 0: obj 0.08 obl 0.04 root 0.34; beta 2: obj 0.13; beta 5: obj 0.72
 # obl 0.44 root 0.83; beta 10: obj 0.76 obl 0.56 root 0.79, UAS 0.540 -- above the prior-informed path it replaces).
 class SemanticBootstrapTeacher:
-    def __init__(self, beta: float = 10.0, lam: float = 0.3):
-        from hdlab.typed_selectional_preference import get
-        self.tsp = get(); self.beta = float(beta); self.lam = float(lam); self._cache: Dict[Tuple[str, str], float] = {}
+    def __init__(self, beta: float = 10.0, lam: float = 0.3, tsp_asset: Optional[str] = None):
+        from hdlab.typed_selectional_preference import get, TypedSelectionalPreference
+        # tsp_asset: an alternative plausibility asset (e.g. the store GROWN by the substrate's own chain,
+        # tools/grow_selectional_store_bf.py) instead of the default parser-extracted one.
+        self.tsp = TypedSelectionalPreference.load(tsp_asset) if tsp_asset else get()
+        self.beta = float(beta); self.lam = float(lam); self._cache: Dict[Tuple[str, str], float] = {}
 
     def plausibility(self, verb_tok: str, noun_tok: str) -> float:
         key = (verb_tok.lower(), noun_tok.lower())

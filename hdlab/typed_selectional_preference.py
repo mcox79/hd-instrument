@@ -201,7 +201,12 @@ def build_asset() -> dict:
 if __name__ == "__main__":
     import sys
     if len(sys.argv) > 1 and sys.argv[1] == "build":
-        print(build_asset())
+        # build [--store <slots.pkl>] [--out <asset.json>] -- e.g. the store GROWN by the substrate's own chain
+        # (tools/grow_selectional_store_bf.py) fitted into a separate asset for the A/B against the parser-extracted one.
+        store = sys.argv[sys.argv.index("--store") + 1] if "--store" in sys.argv else STORE
+        out = sys.argv[sys.argv.index("--out") + 1] if "--out" in sys.argv else ASSET
+        m = TypedSelectionalPreference().fit(store_path=store); m.save(out)
+        print({"n_verbs": len(m._A), "store": os.path.relpath(store, _REPO), "asset": os.path.relpath(out, _REPO)})
     else:
         m = get()
         print("verbs profiled:", len(m._A), "| eat/bread:", m.score("eat", "bread"), "eat/idea:", m.score("eat", "idea"),

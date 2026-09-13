@@ -85,7 +85,7 @@ def sentences(path, cap=None, maxlen=40):
     return out
 
 
-def knowledge_free_teacher(train, rounds=2, beta=0.0):
+def knowledge_free_teacher(train, rounds=2, beta=0.0, tsp_asset=None):
     """Co-occurrence teacher (phrase internals; prior-free SelfSupEM) + SEMANTIC BOOTSTRAPPING (beta > 0: the predicate heads its
     plausible participants; attachment_arm.SemanticBootstrapTeacher) as ONE tree posterior."""
     from experiments.exp_parser_selfsup_em_v1 import SelfSupEM
@@ -95,7 +95,7 @@ def knowledge_free_teacher(train, rounds=2, beta=0.0):
         m.em_round(tr)
     if beta <= 0:
         return m
-    meaning = AA.SemanticBootstrapTeacher(beta=beta, lam=m.lam)
+    meaning = AA.SemanticBootstrapTeacher(beta=beta, lam=m.lam, tsp_asset=tsp_asset)
 
     class Combined:
         def _score_matrix(self, toks, pos):
@@ -131,6 +131,7 @@ def main(argv=None) -> int:
     ap.add_argument("--cap", type=int, default=6000); ap.add_argument("--eval", action="store_true")
     ap.add_argument("--out", default=AA.ASSET)
     ap.add_argument("--beta", type=float, default=10.0, help="semantic-bootstrapping weight (0 = co-occurrence only); 10 = the measured operating point")
+    ap.add_argument("--tsp-asset", default=None, help="alternative plausibility asset for the semantic-bootstrapping teacher (e.g. the self-grown store's typed asset)")
     ap.add_argument("--categories", default=None, help="reading-induced category asset (word2cat + cluster names) to use INSTEAD of the UPOS column -- the categories->heads hand-off test")
     a = ap.parse_args(argv)
     t0 = time.time()
@@ -140,7 +141,9 @@ def main(argv=None) -> int:
         train = recategorize(train, categorizer)
         print("categories = reading-induced (%s) in place of UPOS" % os.path.basename(a.categories), flush=True)
     frames = AA.verb_frames_from_reading([(t, p) for t, p, _, _ in train])
-    teacher = knowledge_free_teacher(train, beta=a.beta)
+    teacher = knowledge_free_teacher(train, beta=a.beta, tsp_asset=a.tsp_asset)
+    if a.tsp_asset:
+        print("plausibility asset =", os.path.basename(a.tsp_asset), flush=True)
     print("teacher (prior-free co-occurrence, 2 EM rounds%s) ready in %.0fs" % (" + semantic bootstrapping beta=%g" % a.beta if a.beta > 0 else "", time.time() - t0), flush=True)
     tmarg = {}
     counts = AA.new_counts()
