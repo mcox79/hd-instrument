@@ -467,6 +467,12 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
 
 ## WHAT IS RUNNING
 
+- **2026-09-13 ~08:05 local (overnight session, stop hook ARMED):** RUNNING = the all-category-work board (total routing + category
+  organ v2 + dual-route + Penn defaults; `data/hook_state/board_route.log`), then chained behind it the board with the BRAIN-
+  FOUNDATIONAL HEADS on (`HDLAB_HEADS_SOURCE=attachment_arm`; `board_arm.log`) -- that number answers Q134. Finished this morning:
+  dual-route board 0.6378 (neutral), Penn-tagger board 0.6378 (neutral). Owner-DONE fold-in gate EMPTY; pri-15 solver folder untouched.
+  Open owner question: Q134 (flip the heads default). Everything committed path-limited; NOTHING pushed.
+
 - **OPERATING MODEL (owner 08-22): STRATEGY SESSION (this) + SOLVER SESSIONS.** This session keeps the 10k view, writes/verifies briefs, and INTEGRATES owner-DONE; solvers each solve one bounded problem.
 - **RESEARCH DELIVERED + FOLDED (CONT-73):** the pri-3 parser BF syntax-acquisition drill completed + vetted first-hand -> `RESEARCH_bf_acquisition.md`. Key: the 'frozen supervised hard-decode' = TWO orthogonal defects (graded-decode route-through NOW + the acquisition question); category-induction-from-prediction is a verified in-substrate HARD_PASS, structure-induction hit an UNDER-POWERED located ceiling (3k/12.5k sents, 0 EM). Cheap first build folded into the brief (re-run exp_predictive_selfsup_parser_v1 full-scale + EM, composing the pri-2 directional channel + graded Matrix-Tree decode). NOTHING now running.
 - **FRONTIER = FLEET-SIDE, PRODUCTIVE (CONT-81):** all 3 BF-upchain problems I posted + pri-5 now have SOLVER SUBMISSIONS awaiting OWNER REVIEW (owner-DONE gate EMPTY for me): **pri-3 the_parser PARTIAL**, **pri-4 commonnoun_binder->typed_coref SOLVED**, **pri-5 measure_end_to_end PARTIAL**, **pri-7 force_dynamics_valence->Wolff SOLVED**. The problem-posting + de-risking (scouting maps, verified premises, folded parser research) bore fruit. When owner marks any DONE, integrate promptly (reverify->grade->land-> ledger/§2b->commit path-limited, NOTHING pushed).
