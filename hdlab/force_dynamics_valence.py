@@ -106,6 +106,11 @@ _NON_AFFECTING_DOMINANT = {"perception", "cognition", "communication", "stative"
 # UPSTREAM JOINS landed with the same solution (all reuse existing BF organs; switchable for attribution):
 UPSTREAM_JOINS = os.environ.get("HDLAB_FDV_UPSTREAM_JOINS", "1") == "1"   # event realization (polarity_operator) + prevented complement
 SENSE_CONTEXT = os.environ.get("HDLAB_FDV_SENSE_CONTEXT", "1") == "1"     # sense-in-context (grounded_semantic_graph.select_sense)
+# MEASURED 2026-09-13 11:40 on the 36-item live modern gold: letting a NON-affecting context-selected sense ABSTAIN cost 6 verdicts
+# ("punched the student", "beat the prisoner", "bullied the intern" -> neutral; "fired the clerk" -> HELP): on short sentences the
+# spreading activation settles on a wrong sense. So the context read only chooses AMONG affecting senses (the sign); a non-affecting
+# selection defers to the verb-level cascade unless HDLAB_FDV_SENSE_ABSTAIN=1 (kept selectable for the measurement).
+SENSE_ABSTAIN = os.environ.get("HDLAB_FDV_SENSE_ABSTAIN", "0") == "1"
 AFFECTING_SUPERSENSES = {"contact", "body", "change", "emotion", "possession", "consumption",
                          "competition", "creation", "social"}
 # Beavers (2011) affectedness hierarchy -> proto-patient degree per WordNet verb supersense. ORDER pinned
@@ -440,7 +445,9 @@ def context_sense_sign(verb: str, tokens, gov_idx: int):
     if sum(1 for w in ctx if len(w) > 2 and w not in _CTX_STOP) < 2:
         return None, None
     try:
-        syn = _gsg().select_sense(lemmatize_verb(verb), "V", ctx)
+        g = _gsg()
+        # the frequency RESTING LEVEL blended with the settled activation (the brain's base-rate prior; robust to thin context)
+        syn = g.select_sense_blended(lemmatize_verb(verb), "V", ctx) if hasattr(g, "select_sense_blended") else g.select_sense(lemmatize_verb(verb), "V", ctx)
     except Exception:
         return None, None
     return synset_endstate_sign(syn)
@@ -565,9 +572,11 @@ def force_dynamics_event_type(item, animacy_map, gov_class_dict):
             er = None; ev = None
     if SENSE_CONTEXT and cls != "PREVENT":
         sgn, affecting = context_sense_sign(gov_word, toks, gi)
-        if affecting is False:
+        if affecting is False and SENSE_ABSTAIN:
             return None, a["category"], gov_word                 # the active sense does not affect a patient -> abstain
-        override = sgn
+        # the context read ADDS a sign where the verb-level cascade abstains; it never overrides a cascade decision (measured 11:42:
+        # as an override it turned "fired the clerk" into HELP -- the selection among affecting senses is not yet reliable enough)
+        override = sgn if (affecting and endstate_valence_sign(gov_word) is None) else None
     hh = harm_help_arithmetic(gov_word, a["animacy"], endstate_reached=er, embedded_endstate_valence=ev,
                               endstate_sign_override=override)
     mapped = {"NA": "NEUTRAL", "HARM": "BLOCK_HIGH", "HELP": "RECIPROCITY"}.get(hh)
