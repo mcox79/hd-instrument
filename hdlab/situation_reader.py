@@ -70,7 +70,8 @@ from functools import lru_cache
 from typing import Dict, List, Optional, Tuple
 
 _REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-_HEADS_SOURCE = os.environ.get("HDLAB_HEADS_SOURCE", "arceager")   # "arceager" (supervised stand-in) | "attachment_arm" (BF rung)
+_HEADS_SOURCE = os.environ.get("HDLAB_HEADS_SOURCE", "arceager")
+_TAG_SOURCE = os.environ.get("HDLAB_TAG_SOURCE", "counts")         # "counts" (BF category organ, default) | "perceptron" (NOT_BF stand-in)   # "arceager" (supervised stand-in) | "attachment_arm" (BF rung)
 
 if _REPO not in sys.path:
     sys.path.insert(0, _REPO)
@@ -2079,8 +2080,25 @@ class SituationReader:
         key = ("tag", tuple(toks))
         c = self._read_parse_cache
         if key not in c:
-            c[key] = self._frontend_tagger().tag(toks)
+            if _TAG_SOURCE == "counts":
+                # CATEGORY ORGAN (2026-09-12 late, owner: "take the step even if it causes short-term pain"): the count-based
+                # generative category model with a forward-backward GRADED posterior (hdlab.lexical_categories; 0.912 on UD-EWT
+                # test vs the NOT_BF perceptron 0.945) is the live tagger; the posterior is cached for the graded hand-off.
+                from hdlab import lexical_categories as _LC
+                tags, dist = _LC.get().tag_with_posterior(list(toks))
+                c[key] = tags; c[("tagpost", tuple(toks))] = dist
+            else:
+                c[key] = self._frontend_tagger().tag(toks)     # HDLAB_TAG_SOURCE=perceptron: the supervised stand-in
         return list(c[key])
+
+    def _cached_tag_posterior(self, toks):
+        """[{category: P}] per token from the category organ (None under the perceptron) -- the graded hand-off down the chain."""
+        if _TAG_SOURCE != "counts":
+            return None
+        key = ("tagpost", tuple(toks))
+        if key not in self._read_parse_cache:
+            self._cached_tag(toks)
+        return self._read_parse_cache.get(key)
 
     def _frontend_tagger(self):
         """The SINGLE shared frontend POS tagger, lazily loaded (the module-level _FRONTEND_CACHE makes reload
