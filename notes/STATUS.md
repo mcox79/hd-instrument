@@ -78,6 +78,11 @@ its section: grep the four literals, never eyeball the content.** Restored the s
     nsubj 0.767, root 0.744 honest. **`frontend.Parser` served a NON-TREE (argmax of marginals, 87/300 sentences not a tree) to every
     consumer until now; it serves the decoded tree + marginals.** MBR tree refuted as point estimate (0.5855). Category switch TOTAL
     (`PosTagger.load` -> frontend). Boards in flight: dual-route lemma, Penn tagger, total routing, then the board under the BF heads.
+  - **~07:25 local -- CATEGORY ORGAN ARM v2 live** (same count model + shape emission factor + rare-word mixing + second-order
+    transitions with Dirichlet back-off): UD-EWT test 0.912 -> 0.9229 (unknown words 0.637 -> 0.726); Penn arm 0.9075 -> 0.9127
+    (first order + shape; second order too slow for read time at 49 tags). Live-chain heads (count organ's own tags) 0.5761 -> 0.5892
+    (gold-category ceiling 0.6034). Occupancy-at-decode REFUTED (belongs to the labels rung); coordination convention measured too
+    weak to land (0.59 on gold trees).
 
 ### 2026-09-12 ~14:30 local — DEVELOPMENT RESUMED ON THE LAPTOP (owner) while the transfer streams to the desktop over SSH/Tailscale (~0.3–0.5 GB/min; a delta sync follows)
   - **HEADS RUNG, built to a spec:** `notes/RESEARCH_attachment_organ_spec_2026-09-12.md` (what the organ computes, how the brain separates signals optimally, every consumer's signal requirement). First build = probe v18, attachment as configuration-conditioned CUE COMPETITION with strengths learned from soft tree-posterior counts (no treebank, no hand-authored prior): **UD-EWT test UAS 0.4715 (r0) → 0.4801 (anchored self-teaching)** vs the cached reading-learned scorer 0.4626 and its decode-time-constrained 0.4755; twin 0.03; unconditioned cues drift. Heads→roles hand-off +0.0016 (v19). Lexical cue too sparse at 1.5k sentences. **Owner: the brain is 0.9+; we are far behind** — gap = experience volume (probe v20: 20k/60k Simple-Wiki sentences, running), a learned argument-structure lexicon, meaning feeding structure, incremental prediction.
