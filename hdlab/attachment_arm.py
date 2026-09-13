@@ -359,6 +359,61 @@ def heads(toks: Sequence[str], pos: Sequence[str], table: Optional[Dict[str, obj
     A, n = arc_scores(toks, pos, table); return chu_liu_edmonds(A, n)
 
 
+# ---------------------------------------------------------------------------------------------------------------------------------
+# SEMANTIC BOOTSTRAPPING TEACHER (2026-09-12). The knowledge-free co-occurrence teacher learns phrase internals but never that the
+# VERB HEADS ITS ARGUMENTS (landed anatomy: obj 0.19, obl 0.12, root 0.41). The brain gets that knowledge from MEANING: the event
+# predicate takes its participants as arguments, so the word naming the predicate heads the words naming plausible participants
+# (semantic bootstrapping, Pinker 1984/1989 -- PINNED as the acquisition account; Abend, Kwiatkowski, Smith, Goldwater & Steedman
+# 2017 as a computational model). MODEL here: plausibility = the typed selectional association organ (Resnik class association; an
+# OFFLINE FOUNDATION asset standing in for experiential event knowledge -- its store was extracted with a UD-shaped parse of
+# simplewiki, so this teacher is foundation-informed, not knowledge-free; only verb-noun ASSOCIATION is read, never slot position).
+# The teacher's arc score for a verb->nominal arc is beta * association, the root score of a verb is beta * its best argument's
+# association; everything else is locality. It is combined with the co-occurrence teacher's log-scores as ONE tree posterior
+# (beta is a SWEPT operating point: smoke 1.5k/150 -- beta 0: obj 0.08 obl 0.04 root 0.34; beta 2: obj 0.13; beta 5: obj 0.72
+# obl 0.44 root 0.83; beta 10: obj 0.76 obl 0.56 root 0.79, UAS 0.540 -- above the prior-informed path it replaces).
+class SemanticBootstrapTeacher:
+    def __init__(self, beta: float = 10.0, lam: float = 0.3):
+        from hdlab.typed_selectional_preference import get
+        self.tsp = get(); self.beta = float(beta); self.lam = float(lam); self._cache: Dict[Tuple[str, str], float] = {}
+
+    def plausibility(self, verb_tok: str, noun_tok: str) -> float:
+        key = (verb_tok.lower(), noun_tok.lower())
+        if key not in self._cache:
+            v = lemma_verb(verb_tok).lower(); s = None
+            try:
+                s = self.tsp.score(v, noun_tok.lower()) if self.tsp.covers(v) else None
+            except Exception:
+                s = None
+            self._cache[key] = float(s) if s is not None else 0.0
+        return self._cache[key]
+
+    def score_matrix(self, toks: Sequence[str], pos: Sequence[str]) -> Tuple[np.ndarray, int]:
+        n = len(toks); A = np.full((n + 1, n + 1), -np.inf); best_arg = np.zeros(n + 1)
+        for j in range(1, n + 1):
+            for h in range(1, n + 1):
+                if h == j or pos[h - 1] in FORM:
+                    continue
+                sc = -self.lam * math.log(abs(h - j) + 1.0)
+                if pos[h - 1] == "VERB" and pos[j - 1] in NOMINAL:
+                    p = self.plausibility(toks[h - 1], toks[j - 1]); sc += self.beta * p; best_arg[h] = max(best_arg[h], p)
+                A[h][j] = sc
+        for j in range(1, n + 1):
+            if pos[j - 1] in FORM:
+                A[0][j] = -np.inf if any(pos[k] not in FORM for k in range(n)) else 0.0
+            else:
+                A[0][j] = (self.beta * best_arg[j] if pos[j - 1] == "VERB" else -1.0) - 0.5
+        return A, n
+
+    def combined_scores(self, A: np.ndarray, n: int, toks: Sequence[str], pos: Sequence[str]) -> np.ndarray:
+        """ONE posterior: the co-occurrence teacher's log-scores A + this teacher's meaning scores (distance counted once)."""
+        B, _ = self.score_matrix(toks, pos); C = A.copy()
+        for h in range(0, n + 1):
+            for j in range(1, n + 1):
+                if h != j and np.isfinite(A[h][j]) and np.isfinite(B[h][j]):
+                    C[h][j] = A[h][j] + (B[h][j] + self.lam * math.log(abs(h - j) + 1.0) if h else B[h][j])
+        return C
+
+
 __all__ = ["SentenceCues", "CONSTRUCTIONS", "construction_map", "verb_frames_from_reading", "strengths_from_arc_counts",
            "load_attachment_validities", "save_attachment_validities", "new_counts", "accrue_sentence", "observe_arc_outcome",
-           "arc_scores", "head_posterior", "heads", "ASSET", "FORM"]
+           "arc_scores", "head_posterior", "heads", "SemanticBootstrapTeacher", "ASSET", "FORM"]

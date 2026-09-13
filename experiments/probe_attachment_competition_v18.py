@@ -316,10 +316,31 @@ def main():
         for _ in range(2):
             base.em_round(tr)
         meaning = V21.MeaningTeacher(beta=float(sys.argv[sys.argv.index("--beta") + 1]) if "--beta" in sys.argv else 2.0)
+        GATE = "--meaning-gate" in sys.argv
+        GATED = ("NOUN", "PRON", "PROPN", "VERB")   # the predicate-argument SKELETON: participants + predicates are taught by meaning
         class CombinedTeacher:
             lam = base.lam; prior_weight = 0.0; lex_weight = 0.0
+            @staticmethod
+            def _col_lognorm(M, n):
+                # each dependent's head scores as a log-distribution (same scale for both teachers; the tree posterior renormalises)
+                C = M.copy()
+                for j in range(1, n + 1):
+                    col = M[:, j]; fin = np.isfinite(col)
+                    if fin.any():
+                        m = col[fin].max(); z = m + math.log(np.exp(col[fin] - m).sum())
+                        C[fin, j] = col[fin] - z
+                return C
             def _score_matrix(self, toks, pos):
                 A, n = base._score_matrix(toks, pos); B, _ = meaning._score_matrix(toks, pos)
+                if GATE:
+                    # SEMANTIC BOOTSTRAPPING as a GATE, not a bonus: a nominal or verb dependent's head distribution is the MEANING
+                    # teacher's (plausible predicate heads its participants; root = the predicate with the most plausible arguments);
+                    # every other dependent (phrase internals, function words) keeps the co-occurrence teacher's distribution.
+                    An = self._col_lognorm(A, n); Bn = self._col_lognorm(B, n); C = An.copy()
+                    for j in range(1, n + 1):
+                        if pos[j - 1] in GATED and np.isfinite(Bn[:, j]).any():
+                            C[:, j] = Bn[:, j]
+                    return C, n
                 C = A.copy()
                 for h in range(0, n + 1):
                     for j in range(1, n + 1):
@@ -392,7 +413,7 @@ def main():
     out["elapsed_s"] = round(time.time() - t0, 1); out["smoke"] = smoke
     print(json.dumps(out, indent=1))
     from experiments._seed_checkpoint import get_output_dir
-    od = str(get_output_dir("probe_attachment_competition_v18" + ("_priorfree" if "--prior-free-teacher" in sys.argv else "") + ("_meaningT" if "--meaning-teacher" in sys.argv else "") + ("_plaus" if USE_PLAUS else "") + ("_constr" if USE_CONSTR else "") + (("_a%g_r%d" % (ALPHA, ROUNDS)) if ("--alpha" in sys.argv or "--rounds" in sys.argv) else "") + (("_d%g" % LEARN_DELTA) if LEARN_DELTA else "") + ("_punct" if PUNCT_HARD else "") + ("_curr" if CURRICULUM else "") + ("_sib" if USE_SIB else "") + (("_fwf%g" % FW_FORCE) if FW_FORCE else "") + ("_smoke" if smoke else ""))); os.makedirs(od, exist_ok=True)
+    od = str(get_output_dir("probe_attachment_competition_v18" + ("_priorfree" if "--prior-free-teacher" in sys.argv else "") + ("_meaningT" if "--meaning-teacher" in sys.argv else "") + ("_gate" if "--meaning-gate" in sys.argv else "") + ("_plaus" if USE_PLAUS else "") + ("_constr" if USE_CONSTR else "") + (("_a%g_r%d" % (ALPHA, ROUNDS)) if ("--alpha" in sys.argv or "--rounds" in sys.argv) else "") + (("_d%g" % LEARN_DELTA) if LEARN_DELTA else "") + ("_punct" if PUNCT_HARD else "") + ("_curr" if CURRICULUM else "") + ("_sib" if USE_SIB else "") + (("_fwf%g" % FW_FORCE) if FW_FORCE else "") + ("_smoke" if smoke else ""))); os.makedirs(od, exist_ok=True)
     json.dump(out, open(os.path.join(od, "metrics.json"), "w", encoding="utf-8"), indent=1)
 
 

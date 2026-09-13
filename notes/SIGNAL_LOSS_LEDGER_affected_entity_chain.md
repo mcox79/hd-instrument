@@ -382,3 +382,19 @@ competent-reader reference ~0.85–0.90.
   nmod 0.304, root 0.34, nsubj 0.495, xcomp 0.047, ccomp 0.0; + MEANING teacher (β=2): UAS 0.4626; obj 0.13, obl 0.067, root 0.353.**
   The core stays broken in the knowledge-free regime (prior-informed path: obj 0.755): the co-occurrence teacher prefers noun→noun
   neighbours and the meaning bonus at β=2 is too weak against its log-probabilities. Sweeping β (5, 10).
+- **SEMANTIC BOOTSTRAPPING RESTORES THE CORE (2026-09-12, smoke 1.5k/150, knowledge-free co-occurrence teacher + meaning teacher as
+  ONE tree posterior, constructions + convention layer): β=5: UAS 0.5341, obj 0.715, obl 0.437, root 0.833, nsubj 0.648; β=10: UAS
+  0.5399, obj 0.756, obl 0.556, root 0.793, nsubj 0.662, nmod 0.23 (vs β=0: 0.4594, obj 0.081, obl 0.037, root 0.34; β=2: 0.4626).**
+  The smoke student at β=10 already exceeds the FULL prior-informed path (0.5303) that the hand-authored universal table bought — the
+  head-direction knowledge the table supplied IS what meaning supplies (Pinker 1984/1989 semantic bootstrapping: the event predicate
+  takes its participants as arguments, so the predicate word heads the participant words). A different BF method = a jump (+0.08 UAS,
+  obj ×9), not a climb. REFUTED as built: a HARD GATE (nominal + verb dependents take the meaning teacher's column outright, other
+  dependents the co-occurrence column, both column-normalised): UAS 0.523, obj 0.707, obl 0.489, root 0.827 but **nmod 0.104** —
+  forcing nominals onto meaning+locality throws away noun→noun structure; the soft one-posterior sum wins. HONEST LABEL: the
+  plausibility store (`typed_selectional_preference`, Resnik class association over the reading-grown selectional store) was
+  EXTRACTED from simplewiki with a UD-shaped parse (extraction_report_v1: 737k sentences parsed) → the teacher is FOUNDATION-INFORMED,
+  not knowledge-free; only verb–noun ASSOCIATION is read, never slot position; head direction comes from the bootstrapping account
+  itself. Landed into the organ as `attachment_arm.SemanticBootstrapTeacher` + `tools/build_attachment_validities.py --beta`
+  (default 10 = the swept operating point, never adopted from the brain). Full rebuild (6k, 3 anchored rounds, α 0.8) running.
+  Ops note: detached launches (`( … ) &`, PowerShell Start-Process) die with exit 127 / silently on this laptop; the Bash tool's
+  background mode is intermittent; a FOREGROUND run that exceeds the tool timeout is moved to background and keeps running — use that.
