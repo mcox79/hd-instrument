@@ -851,6 +851,14 @@ INCR_ROOT_REANALYSIS = os.environ.get("HDLAB_ARM_ROOT_REANALYSIS", "1") == "1"
 # the ACT-R base-level). Without it the placeholder is an AVERAGE realised activation, so a real head arriving with a below-average
 # arc looks like a loss and the word keeps waiting (wrap-up anatomy: 46% of prepositions, 27% of nouns held to the end). With decay
 # d, a word held for a words is worth E x d^a; the parameter is swept, never adopted (1.0 = no decay).
+# CLAUSE-LEVEL WRAP-UP (12:30 local): 19% of words were settled only at the SENTENCE end with the whole matrix in view -- an honesty gap
+# in the incremental claim. The brain integrates at clause boundaries (clause-final wrap-up; Just & Carpenter): at a clause-internal
+# punctuation mark or coordinator, a word that has waited long (its expectation decayed below CLAUSE_WRAP_MIN) attaches to its best head
+# AMONG THE WORDS ALREADY HEARD (strictly incremental). MEASURED (UD-EWT test 700): UAS 0.6136 -> 0.6124 (noise; obj/obl/nmod up,
+# nsubj/root down a little), words settled only at the sentence end 18.7% -> 13.6% -> DEFAULT ON (the in-order rule: as performative,
+# more faithful). HDLAB_ARM_CLAUSE_WRAPUP=0 restores sentence-final-only wrap-up.
+INCR_CLAUSE_WRAPUP = os.environ.get("HDLAB_ARM_CLAUSE_WRAPUP", "1") == "1"
+CLAUSE_WRAP_MIN = float(os.environ.get("HDLAB_ARM_CLAUSE_WRAP_MIN", "1.0"))
 INCR_DECAY = float(os.environ.get("HDLAB_ARM_DECAY", "0.8"))   # swept 0.6-1.0 on UD-EWT test 700: 1.0 0.5981 | 0.9 0.5991 | 0.8 0.6028 | 0.7 0.6018 | 0.6 0.6010 (beam 8, offset -1)
 
 
@@ -960,7 +968,7 @@ INCR_STATS = {"sentences": 0, "incomplete_words": 0, "words": 0, "last_incomplet
 
 
 def incremental_tree(A: np.ndarray, n: int, beam: int = INCR_BEAM, hold=INCR_HOLD,
-                     temp: float = 1.0) -> Tuple[Dict[int, int], Dict[int, Dict[int, float]]]:
+                     temp: float = 1.0, pos_seq=None) -> Tuple[Dict[int, int], Dict[int, Dict[int, float]]]:
     """Left-to-right arc-eager commitment over the cue activations A with a bounded beam. Returns (heads, beam posterior)."""
     beam = max(1, int(beam))
 
@@ -1034,6 +1042,31 @@ def incremental_tree(A: np.ndarray, n: int, beam: int = INCR_BEAM, hold=INCR_HOL
                 if key not in nxt or val > nxt[key]:
                     nxt[key] = val
         states = sorted(((v, k[0], k[1], k[2]) for k, v in nxt.items()), key=lambda t: -t[0])[:beam]
+        if INCR_CLAUSE_WRAPUP and pos_seq is not None and b < n and pos_seq[b - 1] in ("PUNCT", "CCONJ"):
+            # clause boundary: settle long-waiting words using only the words heard so far (no future score is read)
+            new_states = []
+            for logp, stack, hd, ru in states:
+                h = list(hd); st = list(stack); changed = False
+                for k in range(1, b):
+                    if h[k] == -1 and E(k) * (INCR_DECAY ** (b - k)) < CLAUSE_WRAP_MIN:
+                        best, bsc = None, -1e18
+                        for hh in range(1, b + 1):
+                            if hh == k or not np.isfinite(A[hh][k]):
+                                continue
+                            # hh must not sit below k (no cycle)
+                            q = hh; ok = True; seen = 0
+                            while q > 0 and seen <= n:
+                                if q == k:
+                                    ok = False; break
+                                q = h[q] if h[q] > 0 else 0; seen += 1
+                            if ok and float(A[hh][k]) > bsc:
+                                best, bsc = hh, float(A[hh][k])
+                        if best is not None:
+                            logp += bsc - E(k) * (INCR_DECAY ** (b - k)); h[k] = best; changed = True
+                            if k in st:
+                                st.remove(k)                        # a headed word leaves the open set
+                new_states.append((logp, tuple(st), tuple(h), ru))
+            states = sorted(new_states, key=lambda t: -t[0])
     # finalisation: words still waiting take the best open head (root once), by convention; counted as incomplete
     best_logp, stack, hd, ru = states[0]
     heads_out = list(hd); inc = 0; INCR_STATS["last_incomplete"] = []
@@ -1077,7 +1110,7 @@ def decode(toks: Sequence[str], pos: Sequence[str], A: np.ndarray, n: int, temp:
     """Point heads + graded posterior under the configured decode, with the occupancy repair and the punctuation convention."""
     if DECODE == "incr":
         hv = hold_expectation(pos, table, A if INCR_HOLD_MODE == "expect_left" else None) + INCR_HOLD if INCR_HOLD_MODE != "const" else INCR_HOLD
-        hd, post = incremental_tree(A, n, INCR_BEAM, hv, temp)             # module globals read at call time (sweepable)
+        hd, post = incremental_tree(A, n, INCR_BEAM, hv, temp, pos_seq=list(pos))   # module globals read at call time (sweepable)
     elif DECODE == "mbr":
         hd, post = mbr_tree(A, n, temp)
     elif DECODE == "map1":
