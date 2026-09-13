@@ -21,10 +21,37 @@ from experiments._seed_checkpoint import get_output_dir
 import hdlab.attachment_arm as AA
 import hdlab.lexical_categories as LC
 from hdlab import graded_role_assigner as GRA
-from tools.build_attachment_validities import sentences, TEST
+from tools.build_attachment_validities import TEST
 
 EMBED = {"ccomp", "xcomp", "advcl", "acl", "acl:relcl", "csubj", "csubj:pass", "parataxis"}
 TARGET = {"nsubj", "nsubj:pass", "obj"}
+
+
+def sentences(path, cap=None, maxlen=10**6):
+    """SUBTYPE-PRESERVING gold loader (2026-09-13 18:20). The shared `tools.build_attachment_validities.sentences` strips UD
+    subtypes (`nsubj:pass` -> `nsubj`), which made every correctly labelled passive subject score as a miss here -- the '41 active
+    subjects called PASSIVE' reported at 14:47 were this instrument error (found by the pri 103 solver). Yields
+    (toks, upos, heads(list, 1-based), deprels with subtypes)."""
+    out, toks, pos, heads, rels = [], [], [], [], []
+    with open(path, encoding="utf-8") as f:
+        for line in f:
+            line = line.rstrip("\n")
+            if not line:
+                if toks and len(toks) <= maxlen:
+                    out.append((toks, pos, heads, rels))
+                    if cap and len(out) >= cap:
+                        break
+                toks, pos, heads, rels = [], [], [], []
+                continue
+            if line.startswith("#"):
+                continue
+            c = line.split("\t")
+            if "-" in c[0] or "." in c[0]:
+                continue
+            toks.append(c[1]); pos.append(c[3]); heads.append(int(c[6])); rels.append(c[7])
+    if toks and len(toks) <= maxlen and (not cap or len(out) < cap):
+        out.append((toks, pos, heads, rels))
+    return out
 
 
 def clause_type(i, gold_pos, gold_heads, rels):
