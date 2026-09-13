@@ -39,3 +39,11 @@ The scramble twin (coordination machinery pointed at WRONG parallel heads) lands
 - NEW + slot-sharing L: 0.283 (WORSE — slot-sharing sometimes moves L off the gold head; likely helps conj recall LESS, to be settled by the full_slot arm)
 
 Key reframe: conj recall (smoke 0.419) EXCEEDS the corrected construction's fire-rate (0.313), because the DOMINANT lever is the parallelism TEACHER — it reshapes the general cue strengths (locality/catpair for L→R attachments) beyond the explicitly construction-fired sites. The `teach_only` vs `constr_only` ablation quantifies the split.
+
+## Upstream BF audit — measured on the LIVE category chain (test 700, `hdlab/frontend.tagger`)
+Per-UPOS accuracy of the live count-based tagger (the default, BF_SPIRIT, foundation-informed counts):
+CCONJ **0.991** (212/214), ADP 0.965, PRON 0.971, VERB 0.934, NOUN 0.907, ADJ 0.867, SCONJ 0.733; overall 0.9356.
+- **The coordinator is reliably tagged on the LIVE chain** → the coordination fix works end-to-end today; NOT upstream-blocked.
+- Residual signal loss on the coordination inputs: conjunct categories at 0.87–0.93 (a mis-classed conjunct → wrong parallel class → missed pairing).
+- The CCONJ-merge problem is confined to the FULLY-unsupervised reading-INDUCED inventory (pri-15), NOT the live default tagger — so the only fully-BF-*provenance* path (zero foundation seed) is gated on pri-15; the live path is clear.
+- Every upstream rung is BF in MECHANISM (tokens=segmentation; categories=PINNED constraint-satisfaction; lemma=dual-route; teacher=now PINNED parallelism; decode=incremental "data in order"). The two soft spots are completeness/provenance (reading-induced CCONJ; plausibility store's UD-shaped seed), both named fleet problems.
