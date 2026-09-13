@@ -36,7 +36,14 @@
 +# lambda[slot] = -log P(2nd filler of slot | >=1), accrued from reading (tools/build_coarse_role_validities.py,
 +# stored in the asset as counts["slot_capacity"]); the occupancy weight kappa is the swept operating point.
 +SLOT_OCCUPANCY = True                       # the joint frame-slot decode (default ON; = the mechanism)
-+OCC_MODE = os.environ.get("HDLAB_ROLE_OCC_MODE", "incr")   # "incr" (incremental, psycholinguistic) | "hard" (capacity-one greedy)
++OCC_MODE = os.environ.get("HDLAB_ROLE_OCC_MODE", "soft")   # "soft" (graded, over head posterior; recommended) | "hard" (capacity-one greedy) | "incr"
++# LANDING RECOMMENDATION (from SOLVED.md):
++#  * With a head POSTERIOR (the BF attachment_arm hands one to arc_labeler.label already): land the SOFT-GROUPING
++#    form -- routes the capacity competition over P(head|nominal) so a mis-attached nominal still competes in the
++#    correct verb's frame (parallel maintenance; Lewis & Vasishth / MacDonald). Best form on gold heads
++#    (+0.022 CI-sep, best recall) and the only form that moves on the weak BF heads (+0.010, CI-sep over twin).
++#  * With HARD heads only (no posterior): land the HARD capacity-one form (+0.067 CI-sep on the supervised parse).
++#  See _occupancy_soft / assign_slots_* in experiments/exp_role_slot_occupancy_v1.py for the implementations.
 +OCC_KAPPA = float(os.environ.get("HDLAB_ROLE_OCC_KAPPA", "1.0"))
 +_NEG_INF = -1e9
 

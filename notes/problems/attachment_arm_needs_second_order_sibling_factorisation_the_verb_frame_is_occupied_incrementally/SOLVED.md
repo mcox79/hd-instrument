@@ -2,9 +2,9 @@
 problem: attachment_arm_needs_second_order_sibling_factorisation_the_verb_frame_is_occupied_incrementally
 status: PARTIAL
 bar: "patient-arm score up CI-separated over the current read, agent not down, object-role precision up, twin (shuffled slot counts) far below, witness green -- or a numbered located negative that names the upstream cause."
-result: "A VERB-FRAME SLOT-OCCUPANCY (capacity-one) factor for the Competition-Model coarse role labeler (graded_role_assigner.coarse_roles): a verb's nominal dependents are labelled JOINTLY, one filler per core frame slot (subject/object/recipient/by-agent), assigned by confidence; a displaced core filler falls to an oblique/adjunct. object-role PRECISION on UD-EWT test (n=700 sentences): under GOLD heads (isolating the labeler rung) floor 0.8180 -> occ 0.8396 = +0.0217 CI95[+0.0078,+0.0364] CI-SEPARATED, OBJ recall not hurt (0.9392->0.9418), overall accuracy a tie (+0.0012 CI[-0.0015,+0.0039]). Under the LIVE BF heads (attachment_arm, UAS~0.60) the OBJ-precision gain is NOT CI-separated (map1 +0.0068 CI[-0.008,+0.021]; incr +0.0161 CI[-0.006,+0.037]) and OBJ recall drops -- the gain WASHES OUT because a wrong sibling set (from UAS-0.60 heads) fires the capacity constraint on the wrong group. On the DEPLOYED DECISIONS (supervised parser UAS~0.78) there is NO CONTROLLED gain: the 596-item affected-entity decision is null (floor 0.4832, occ_incr 0.4765, occ_hard 0.4883) and the who-did-what PATIENT board arm change (0.7364->0.7500) is reproduced EXACTLY by the info-free twin (not the learned structure); the AGENT arm is byte-identical (not down). LOCATED NEGATIVE: the mechanism is brain-foundational and proven correct on the labeler's own metric when its inputs are correct, but its downstream payoff is capped by (1) the HEADS rung (wrong sibling set at UAS<1) and (2) decision instruments not sensitive to double-object/temporal-NP ambiguity -- matching the ledger's own decomposition (the labeler is a clean rung; its signal is lost in the heads/tagger above it)."
+result: "A VERB-FRAME SLOT-OCCUPANCY (capacity-one) factor for the Competition-Model coarse role labeler (graded_role_assigner.coarse_roles): a verb's nominal dependents are labelled JOINTLY, one filler per core frame slot (subject/object/recipient/by-agent), assigned by confidence; a displaced core filler falls to an oblique/adjunct. object-role PRECISION on UD-EWT test (n=700 sentences): under GOLD heads (isolating the labeler rung) floor 0.8180 -> occ 0.8396 = +0.0217 CI95[+0.0078,+0.0364] CI-SEPARATED, OBJ recall not hurt (0.9392->0.9418), overall accuracy a tie (+0.0012 CI[-0.0015,+0.0039]). FORM MATTERS: the HARD capacity-one form (occ_hard) is the winner; the soft incremental form over-suppresses at realistic head quality. On the LIVE SUPERVISED parse (arceager, UAS~0.78, the deployed heads) occ_hard lifts OBJ precision 0.6326 -> 0.7000 = +0.0674 CI95[+0.0436,+0.0899] CI-SEPARATED, twin far below (0.6021), overall accuracy UP (0.737->0.745); the incremental form there is only +0.010 (CI incl 0) and costs accuracy. On the BF attachment_arm heads (UAS~0.60) even occ_hard is only +0.001 (CI incl 0) -- too weak a sibling set. So the object-role-precision win is REAL and CI-separated on the deployed parse (hard form) and scales with head accuracy: attachment-0.60 ~0 -> supervised-0.78 +0.067 -> gold +0.015 (less headroom). This label-quality win is BOARD-INVISIBLE on the who-did-what arms: the PATIENT arm (structural_patient_pick, cap 300) is UNCHANGED by occ_hard (0.7469 both) because that reader resolves the patient via its own precise-voice+valency logic and does not depend on the coarse OBJ label being unique; the AGENT arm is byte-identical (does not read coarse_roles); the 596 undergoer decision is null (not double-object-dominated). LOCATED NEGATIVE: the mechanism is brain-foundational and delivers a CI-separated object-role-precision gain on the deployed parse (hard form), but (1) it needs a good-enough parser -- it washes out at the BF attachment arm's UAS~0.60 and returns at the supervised UAS~0.78 (the head-quality curve), and (2) the who-did-what decision readers already absorb the double-object case downstream, so the label win needs its OWN instrument (object-role precision) to be visible -- not the existing board arms."
 floor: "The current independent-argmax coarse_roles (arc_labeler.COMPETITION_ROLES overlay, learned UD-EWT-train cue validities): OBJ precision 0.8180 (gold heads), 0.6393 (attachment_arm map1 heads), 0.6281 (attachment_arm incr heads), n=700 UD-EWT test sentences. Overall coarse-role accuracy floor 0.9175 (gold) / 0.7305 (map1) / 0.7218 (incr)."
-controls: "(1) INFO-FREE TWIN = the slot-capacity counts shuffled across slots AND the learned verb frames (which verbs license a recipient) permuted across lemmas -- the masking+occupancy machinery still runs, on scrambled slot knowledge. Twin OBJ precision is CI-SEPARATED BELOW occupancy in every condition (gold occ-twin +0.0488 CI[+0.029,+0.070]; map1 +0.0384 CI[+0.022,+0.057]; incr +0.0405 CI[+0.022,+0.061]) and below the FLOOR too -> the gain is the LEARNED slot structure, not an animacy/relabel artifact (guards store correction C21: animacy alone must not reproduce it). (2) GOLD-HEAD ORACLE vs predicted heads = the upstream-input ablation: the mechanism wins CI-sep on gold heads and washes out on UAS-0.60 heads -> isolates the loss to the heads rung. (3) TWO MECHANISM FORMS: occ_incr (soft incremental, the psycholinguistic 'occupied-incrementally' regime) and occ_hard (hard capacity-one greedy) -- both beat the floor CI-sep on gold heads (occ_hard +0.0146 CI[+0.003,+0.027]); incremental is the stronger. (4) The slot-capacity counts themselves are the control on the premise: a verb takes 2 objects 0/9516, 2 recipients 0/647, 2 by-agents 0/306, 2 subjects 84/13048 -- capacity-one is IN the counts."
+controls: "(1) INFO-FREE TWIN = the slot-capacity counts shuffled across slots AND the learned verb frames (which verbs license a recipient) permuted across lemmas -- the masking+occupancy machinery still runs, on scrambled slot knowledge. Twin OBJ precision is CI-SEPARATED BELOW occupancy in every condition (gold occ-twin +0.0488 CI[+0.029,+0.070]; map1 +0.0384 CI[+0.022,+0.057]; incr +0.0405 CI[+0.022,+0.061]) and below the FLOOR too -> the gain is the LEARNED slot structure, not an animacy/relabel artifact (guards store correction C21: animacy alone must not reproduce it). (2) GOLD-HEAD ORACLE vs predicted heads = the upstream-input ablation: the mechanism wins CI-sep on gold heads and washes out on UAS-0.60 heads -> isolates the loss to the heads rung. (3) TWO MECHANISM FORMS: occ_incr (soft incremental, the psycholinguistic 'occupied-incrementally' regime) and occ_hard (hard capacity-one greedy) -- both beat the floor CI-sep on gold heads (occ_hard +0.0146 CI[+0.003,+0.027]); incremental is the stronger. (4) The slot-capacity counts themselves are the control on the premise: a verb takes 2 objects 0/9516, 2 recipients 0/647, 2 by-agents 0/306, 2 subjects 84/13048 -- capacity-one is IN the counts. (5) HEAD-CORRUPTION CURVE (gold heads degraded by random reattachment, same n=700): the occ_hard gain stays CI-separated down to simulated UAS 0.61 (+0.016 [+0.002,+0.031] at f=0.40) -- so the mechanism is robust to RANDOM head noise; the real attachment arm nulls it only because its errors are STRUCTURED in the core-argument arcs. This isolates the upstream requirement to core-argument attachment, not global UAS."
 files_changed: "experiments/exp_role_slot_occupancy_v1.py, notes/problems/attachment_arm_needs_second_order_sibling_factorisation_the_verb_frame_is_occupied_incrementally/{SOLVED.md,graded_role_assigner_patch.diff}"
 reverify: ".venv/Scripts/python.exe experiments/exp_role_slot_occupancy_v1.py --self-test"
 ---
@@ -52,52 +52,80 @@ INVENTION-UNDER-TEST (swept). `kappa`, the occupancy weight, is a swept operatin
   the win is concentrated in OBJ precision, a minority class, so overall accuracy barely moves -- honest).
 - **INFO-FREE TWIN CI-separated BELOW occupancy everywhere** (gold +0.0488 CI[+0.029,+0.070]) and below
   the floor -- the gain is the learned slot structure, defusing the C21 animacy-dominance failure mode.
-- **LIVE BF heads (attachment_arm, UAS~0.60), the re-scope's two decodes:** OBJ precision gain is NOT
-  CI-separated (map1 +0.0068 CI[-0.008,+0.021]; incr +0.0161 CI[-0.006,+0.037]); OBJ recall DROPS (map1
-  0.638->0.609; incr 0.675->0.632); overall accuracy a slight tie-to-down (~-0.003). The twin is still
-  CI-sep below, so the mechanism's structure is real -- it is the WRONG SIBLING SET from UAS-0.60 heads
-  that washes out the net gain.
-- **DECISION-LEVEL (supervised parser UAS~0.78): NO CONTROLLED GAIN.**
-  - 596-item affected-entity decision (probe v13 machinery, n=596): floor 0.4832; occ_incr 0.4765 (-0.0067);
-    occ_hard 0.4883 (+0.0050); twin 0.4765 = occ_incr EXACTLY. Null, and the twin match (below) shows it is
-    not the learned structure.
-  - who-did-what PATIENT board arm (structural_patient_pick, cap 250): floor 0.7364 -> occ_incr 0.7500
-    (+0.0136) -- BUT the info-free twin ALSO scores 0.7500 (identical), so the change is NOT attributable to
-    the learned capacity structure; no CI computed at this n. The "patient-arm up CI-separated" bar clause is
-    NOT met.
-  - who-did-what AGENT board arm (cap 250): 0.7363 -> 0.7363 BYTE-IDENTICAL (agent not down; expected -- the
-    agent pick does not read coarse_roles).
-  - WHY the decision twin matches occ_incr exactly: every core-slot lambda is large (obj 9.85, iobj 7.17,
-    byagent 6.42, subj 5.04), so the soft penalty acts near-HARD under both true AND scrambled capacity; the
-    596/patient items are not iobj/double-object-sensitive enough to separate them. The twin is a MEANINGFUL
-    control on the label-precision metric (where it loses CI-sep, because scrambled frames misfile iobj) but
-    is saturated/undiscriminating on these decision instruments.
+- **LIVE SUPERVISED parse (arceager, UAS~0.78, the DEPLOYED heads), n=700 -- the HARD form wins:**
+  OBJ precision floor 0.6326 -> **occ_hard 0.7000 = +0.0674 CI95[+0.0436,+0.0899] CI-SEPARATED**, twin
+  0.6021 (far below), overall coarse-role accuracy 0.737 -> 0.745 (UP). The incremental form is weak here
+  (occ_incr +0.010 CI incl 0; overall accuracy CI-sep DOWN -0.007 -- it over-suppresses) -> LAND THE HARD
+  FORM. This is the key result: the object-role-precision gain is CI-separated on the DEPLOYED parse, not
+  only on gold heads.
+- **LIVE BF heads (attachment_arm, UAS~0.60), the re-scope's two decodes:** even occ_hard is only +0.001
+  (CI incl 0); occ_incr +0.007/+0.016 (CI incl 0); OBJ recall drops. The BF heads' sibling set is too weak
+  at 0.60. The twin is still CI-sep below, so the structure is real -- it is head accuracy that gates it.
+  Head-quality curve for occ_hard OBJ-precision gain: 0.60 ~0 -> 0.78 +0.067 CI-sep -> gold +0.015 CI-sep.
+- **FULLY-BF STACK + GRADED HAND-OFF (BF tagger `lexical_categories` + BF `attachment_arm` heads +
+  coarse_roles; the all-BF end-to-end pipeline the owner asked to prototype):** a SOFT-GROUPING occupancy
+  form (`mode="soft"`) routes the capacity competition over the head POSTERIOR (parallel maintenance; Lewis &
+  Vasishth / MacDonald constraint satisfaction) instead of the hard argmax -- a nominal the hard decode
+  mis-attached still competes in the correct verb's frame via its posterior mass. On the fully-BF stack it is
+  the BEST form: OBJ precision floor 0.6393 -> occ_soft 0.6489 (+0.0096, CI[-0.005,+0.024]) -- beats occ_hard
+  (+0.001) and is CI-separated over the twin (+0.041 [+0.020,+0.063]), no accuracy cost; on gold heads it is
+  also the best (+0.0217 CI-sep, recall 0.942). BUT +0.0096 is NOT CI-separated over the floor: the graded
+  hand-off recovers the MOST signal that can be recovered on the role side, but the BF parser at UAS 0.60 is
+  still too weak on the core-argument arcs for the fully-BF stack to clear the bar. So the fully-BF stack is
+  prototyped and the signal partially reaches; a CI-separated all-BF win still needs the BF parser's
+  core-argument arcs improved (the located upstream blocker).
+- **PHASE-DIAGRAM SWEEP of the graded hand-off (tau in {0.02..0.35}) on the fully-BF stack: EXHAUSTED.** OBJ
+  precision is IDENTICAL at every tau (0.639, +0.006 CI incl 0) -- the attachment arm's head posterior is
+  PEAKED (confidently wrong, not uncertain), so there is no graded alternative mass for the parallel-
+  maintenance hand-off to exploit. This proves the role-side levers are exhausted: the only remaining lever is
+  the BF parser's POINT accuracy on core-argument arcs, which is out of this organ's scope.
+- **DECISION-LEVEL (supervised parser UAS~0.78): the label win is BOARD-INVISIBLE on the who-did-what arms.**
+  - who-did-what PATIENT board arm (structural_patient_pick, cap 300): floor 0.7469 -> **occ_hard 0.7469
+    IDENTICAL** (occ_incr 0.7552 +0.008 but twin=floor 0.7469). The improved object-role label does NOT move
+    the patient PICK -- because structural_patient_pick resolves the verb's patient via its OWN precise-voice +
+    valency logic (labeled_pick valency=True), so it does not depend on the coarse OBJ label being unique. The
+    "patient-arm up CI-separated" bar clause is NOT met -- not because the label is unimproved, but because
+    this reader already absorbs the double-object case downstream.
+  - who-did-what AGENT board arm: 0.7539 -> 0.7539 BYTE-IDENTICAL (expected -- the agent pick does not read
+    coarse_roles).
+  - 596-item affected-entity decision (n=596): null (floor 0.4832, occ_hard 0.4883 +0.005 no CI, occ_incr
+    0.4765). Not a double-object-dominated decision.
+  - So the CI-separated win lives on the OBJECT-ROLE-PRECISION instrument (built here), not on the who-did-what
+    arms. Per the integration discipline, a board-invisible proven win needs its OWN instrument-arm rather than
+    a located negative -- object-role precision under the deployed parse IS that arm.
 
-## The located negative, with its mechanism (this is the deliverable, per the bar)
+## The result and its located limit (the deliverable, per the bar)
 The verb-frame slot-occupancy factor is the brain's operation (capacity-limited cue-based retrieval over
-the verb's frame) and it WORKS on the labeler's OWN metric: on gold heads it lifts object-role precision
-CI-separated (+0.0217 [+0.008,+0.036]) with no recall or accuracy cost, and the info-free twin loses
-CI-separated. But it produces NO CONTROLLED GAIN on the downstream DECISIONS as measured, for two compounding
-reasons -- BOTH located:
+the verb's frame) and it is a CONTROLLED WIN on object-role LABEL precision: on the DEPLOYED supervised parse
+(UAS~0.78) the hard capacity-one form lifts OBJ precision **+0.0674 CI95[+0.0436,+0.0899] CI-separated**, the
+info-free twin far below (0.602), overall accuracy up; on gold heads +0.0217 CI-sep. The re-scope's
+"object-role precision up" and "twin far below" clauses are MET; the mechanism is proven and BF.
 
-1. **The sibling set comes from the heads rung.** The factor must know which nominals are a verb's dependents;
-   that grouping is the parse. At the BF attachment arm's UAS~0.60, ~40% of arcs are wrong, so the capacity
-   constraint fires on the wrong group -- object-precision gain collapses to +0.007/+0.016 (CI incl. 0) and
-   recall drops. This is the SAME conclusion the affected-entity signal-loss ledger reached from the other
-   direction: the coarse role labeler is a clean rung; its signal is lost in the HEADS and TAGGER above it.
-2. **The decision instruments are not double-object-sensitive, and the downstream patient reader may already
-   absorb the case.** Even on the BETTER supervised parse (UAS~0.78), the 596 decision is null (occ_incr
-   -0.007, occ_hard +0.005) and the patient-arm change (+0.014) is exactly reproduced by the info-free twin
-   -- so it is not the learned capacity structure. The number: the mechanism recovers +0.022 OBJ precision on
-   gold heads, ~0 (CI incl. 0) on UAS-0.60 heads, and no twin-separated decision gain on UAS-0.78 heads.
+Two located limits keep this PARTIAL rather than a full board win:
+1. **It needs the parser right ON THE CORE-ARGUMENT ARCS -- not just high global UAS.** occ_hard OBJ-precision
+   gain by head source: attachment_arm UAS~0.60 ~0 (CI incl 0) -> supervised UAS~0.78 +0.067 CI-sep -> gold
+   +0.015 CI-sep. A HEAD-CORRUPTION CURVE (gold heads degraded by RANDOM arc reattachment, same n=700) sharpens
+   why: the gain stays CI-separated at EVERY simulated level down to UAS 0.61 (+0.016 CI[+0.002,+0.031] at
+   f=0.40; floor only falls to 0.776). But the REAL attachment arm at UAS~0.60 NULLS the gain (+0.001) with a
+   far lower floor (0.639). So it is NOT global UAS -- it is the STRUCTURE of the errors: the attachment arm's
+   mistakes are systematic in exactly the verb->core-argument arcs the factor uses (its obj-arc recall ~0.72,
+   obl ~0.46), while random noise scatters over punctuation/determiners that never touch object labeling. The
+   precise upstream target is CORE-ARGUMENT (verb->obj/obl/iobj) attachment accuracy. The win IS expressed on
+   the supervised parser (0.78) because its core arcs are good enough -- but that parser is NOT_BF; the BF
+   attachment arm's core-argument arcs are the specific lever (owner-run briefs pri 15-17), not a change to
+   this organ.
+2. **The who-did-what decision readers already absorb the double-object case, so the label win is
+   board-INVISIBLE on those arms.** The PATIENT arm (structural_patient_pick) is UNCHANGED by occ_hard
+   (0.7469 both) because it resolves the patient via its own precise-voice + valency logic, not the coarse
+   OBJ label's uniqueness; the AGENT arm does not read coarse_roles (byte-identical); the 596 undergoer
+   decision is not double-object-dominated (null). Per the integration discipline, a board-invisible proven
+   win gets its OWN instrument-arm -- object-role precision under the deployed parse, which this cell builds
+   -- rather than being written off as a located negative.
 
-I did NOT refute the re-scoped mechanism -- I confirmed it is the brain's operation and it is measurably
-correct on its own rung, and I located precisely why it does not (yet) pay off on the deployed decisions.
-Per the wall-push protocol I traced upstream rather than calling a ceiling. The way past: (a) a higher-UAS BF
-heads rung (the attachment-arm levers, owner-run briefs pri 15-17) supplies a correct sibling set, after
-which the proven role-occupancy factor expresses its gold-head gain; and (b) the payoff wants a decision
-instrument that actually turns on double-object / temporal-NP ambiguities (object-role precision IS that
-instrument -- and there, on correct heads, it already wins). Neither is a band change.
+I did NOT refute the re-scoped mechanism -- I confirmed it is the brain's operation, showed it is a
+CI-separated object-role-precision win on the deployed parse (hard form), and located precisely why it does
+not move the existing who-did-what arms. Per the wall-push protocol I traced upstream rather than calling a
+ceiling; neither limit is a band change.
 
 ## KEY REALIZATIONS
 - **The occupancy constraint is a ROLE fact conditioned on the verb's FRAME, not a bare "one bare nominal
@@ -108,16 +136,34 @@ instrument -- and there, on correct heads, it already wins). Neither is a band c
   bare nominal falls to oblique.
 - **Capacity-one is literally in the counts** (0/9516 double objects) -- so the factor is not an imposed
   prior; it is the empirical slot cardinality, learnable online.
-- **The gold-head vs predicted-head split is the whole finding.** Measuring only on the deployment parse
-  would have shown a null and hidden a correct, brain-foundational mechanism; the gold-head oracle proves
-  the mechanism and points the null at the upstream heads.
+- **"Head-limited" is really "core-argument-arc-limited," and random noise is NOT a proxy for real parser
+  errors.** The corruption curve keeps the gain CI-separated to simulated UAS 0.61, but the real attachment
+  arm at 0.60 nulls it -- because the arm's errors cluster in the verb->obj/obl arcs the factor depends on.
+  The precise upstream lever is core-argument attachment accuracy, not a global UAS number.
+- **The HARD form beats the incremental form at realistic head quality.** The soft incremental form (the
+  closer model of the "occupied-incrementally" psycholinguistics) over-suppresses on the supervised parse
+  (+0.010 n.s. precision, accuracy CI-sep DOWN); the hard capacity-one greedy is the measured winner
+  (+0.067 CI-sep, accuracy up) -> land HARD. The head-source split is essential: measuring only on the BF
+  attachment arm (0.60) would have shown a null and hidden a correct mechanism.
 
 ## What I did NOT establish / would withdraw first
-- I did NOT show a CI-separated LIVE object-precision gain on the BF attachment-arm heads -- it is
-  head-limited. Withdraw first if wrong: the claim that the incremental form is meaningfully better than
-  the hard form (they are close; both win only on gold heads).
+- I did NOT show the win on the who-did-what PATIENT board arm (occ_hard = floor exactly): that reader
+  already resolves double-objects via its own valency logic. The win is on object-role precision, which I
+  built as the instrument. Withdraw first if wrong: any claim that this moves a CURRENT board dimension.
+- I did NOT show a CI-separated gain on the BF attachment-arm heads (UAS~0.60) -- the win needs a
+  good-enough parser (returns at the supervised 0.78). So on a strictly-BF chain the gain is not yet
+  realized; it depends on the attachment arm's UAS improving.
 - The frame-slot inventory uses a single ditransitive threshold (>=0.05 recipient rate, >=5 obs) inherited
-  from the existing `frame` cue -- swept lightly, not exhaustively.
+  from the existing `frame` cue -- swept lightly, not exhaustively. Board arms are point estimates (cap 300),
+  no paired CI computed for the patient arm (the object-precision instrument carries the CIs).
+- KNOWN LIMIT of the HARD greedy (found in the witness): when frame-masking removes a pronoun's top role
+  (e.g. the `post_slot` "pair" cue makes an obj-case pronoun lean IOBJ, then a monotransitive frame masks
+  IOBJ), a competing bare noun that scores higher on OBJ can grab the object slot and strand the pronoun as
+  `dep` ("She saw him yesterday" -> him:dep, yesterday:obj under hard). Capacity-one still holds (no double
+  obj) and the spurious iobj is removed, but the assignment is suboptimal. FIX (not yet built): protect an
+  obj-case pronoun's core-slot claim (case is a high-validity cue), or use the soft form. Withdraw-first
+  candidate if the aggregate turned out to depend on such cases -- but at scale the hard form is +0.067 CI-sep,
+  so these are rare.
 - I did NOT land anything in hdlab (Q111): the change is the proposed `graded_role_assigner_patch.diff`.
 
 ## Full-stack upstream (100%-BF) -- the owner's directive, traced
@@ -133,6 +179,29 @@ instrument -- and there, on correct heads, it already wins). Neither is a band c
    exactly as the owner's directive predicts ("a truly brain-foundational component not working properly
    almost always means an upstream component it relies on is not 100% brain-foundational / good enough").
    The fix is the attachment-arm UAS levers, not a change to this organ.
+
+## ADJACENT DIAGNOSTIC (owner directive "go after the remaining opportunities, BF and right not easy")
+Head-error anatomy of the BF attachment arm on UD-EWT test gold core-argument nominals (`--head-anatomy`):
+  role       head_acc   gold-head-in-posterior-top2    dominant error
+  SUBJ 0.769 | 0.776 | wrong-verb 75 / root 41 / noun 40
+  OBJ  0.754 | 0.780 | wrong-verb 58 / noun 29
+  OBL  0.439 | 0.468 | **noun 208 / verb 153**   <- the parser wall
+  PASS_SUBJ 0.646 | IOBJ 0.806
+TWO findings that settle the remaining-opportunity question:
+1. **The posterior is CONFIDENTLY WRONG, not uncertain:** gold-head-in-posterior-top2 ~= head_acc for every role
+   (OBL 0.468 vs 0.439). The correct head is NOT hiding in the top-2 when the argmax misses -> the graded
+   hand-off cannot recover it (confirms the tau-sweep). The parser needs its POINT scores fixed, not exploited.
+2. **The bottleneck is OBL PP-attachment (0.439): a nominal's oblique host is mis-chosen verb-vs-noun** (208
+   to-noun + 153 to-verb). This is the classic PP-attachment ambiguity. Its BF lever -- the Hindle-Rooth
+   verb-vs-noun preposition-association cue (`SentenceCues.pp`, LR(p)=log P(p|verb)/P(p|noun), learned
+   treebank-free from unambiguous PPs in reading) -- is ALREADY LANDED AND ACTIVE (default-on, learned as a
+   configuration-conditioned validity, not a tunable weight), and OBL is still 0.439. So the easy lever is
+   already spent; improving PP/oblique attachment further is a genuine RESEARCH build (richer association
+   estimation, more reading data, or a stronger structural/second-order cue), which is the attachment-arm
+   problem (owner-run briefs pri 15-17), NOT a quick in-scope win. I did NOT hack a fragile scalar boost
+   (there is none to hack, and it would be easy-not-right). CONCLUSION: on the role side every lever is
+   exhausted (hard/soft/incr, operating-point sweep, plasticity); a superior all-BF stack is gated solely on
+   the attachment arm's OBL/PP-attachment accuracy, which is a distinct hard problem.
 
 ## AUDIT UPDATE (BRAIN_FOUNDATIONAL_AUDIT / F3 thematic roles)
 F3's coarse role competition currently labels each nominal INDEPENDENTLY (per-token argmax). The brain's
