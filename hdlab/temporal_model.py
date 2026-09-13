@@ -151,7 +151,11 @@ def pos_tag_sentence(sentence):
 # category organ (hdlab.lexical_categories, asset lexical_categories_counts_penn_v1.json: lexical + suffix + transition counts,
 # forward-backward posterior; UD-EWT test 0.9075) | "nltk" = the off-the-shelf PerceptronTagger (a tool at read time = NOT brain-
 # foundational; kept as the measured stand-in). Same Penn tag inventory, so every tense/form rule below is unchanged.
-TEMPORAL_TAGGER = os.environ.get("HDLAB_TEMPORAL_TAGGER", "nltk")
+# DEFAULT FLIPPED 2026-09-13 08:20 (owner rule: the more-BF-and-performative component replaces the stand-in on the live path):
+# UD-EWT test xpos 0.9075 vs nltk 0.8508; verb-form recall VBD 0.942/0.928, VBN 0.819/0.797, VBZ 0.955/0.941 (arm/nltk), VBG 0.892/0.953,
+# VBP 0.825/0.880; events on 600 test sentences: 326 vs 373 extracted, 296 shared, 292/296 same tense (nltk's extras include
+# "'s" -> VBZ artefacts; the arm's extras include "I read an Article" -> SIMPLE_PAST, correct). Board no-regress run follows the flip.
+TEMPORAL_TAGGER = os.environ.get("HDLAB_TEMPORAL_TAGGER", "counts_penn")
 _PENN_ARM = None
 
 
