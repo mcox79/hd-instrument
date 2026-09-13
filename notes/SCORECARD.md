@@ -14,6 +14,14 @@ NEW word means from what it reads, using its sense of how things feel and look, 
 near the top about 38 times in 100 where the old method managed about 3.
 
 ## WHAT CHANGED LATELY
+- 2026-09-13 (morning, 06:00-08:00): the word-governor now commits to ONE connected sentence structure (before, it could hand the
+  readers several disconnected pieces, and the shared hand-off even passed a non-structure built from per-word guesses); with that,
+  its test score is 60 in 100 (57 at dawn, 48 yesterday morning), with clause-to-clause links up from 50 to 67 in 100. Punctuation
+  is now attached by the writing convention (formatting, not meaning). The word-kind counter learned three more things it can
+  count: the look of a word (capitals, digits), what rare words' endings and the system's own reading-derived word classes say,
+  and two-step sequence patterns -- 91 -> 93 in 100 on the test set, and the tense tagger 91 -> 92. Two ideas were tried and
+  honestly set aside with numbers: "one object per verb" at the governor (verbs legitimately take two bare nominals) and a
+  "had ... -ed" tense repair (as many misfires as fixes). Four full checks are running to measure all of this on the readers.
 - 2026-09-13 (morning, 05:00-08:30): four upstream steps, all switchable. (1) The brain-style word-governor now reads meaning at
   READ time as well as when it learns (before, meaning only shaped what it learned; only 2 in 100 word links changed between two
   learning runs, which is why the readers did not feel the governor's gains). First version: noun-modifier links 31 -> 38 in 100 and
@@ -137,7 +145,7 @@ Long term (the next few months):
 
 <!-- AUTO:BEGIN (written by tools/scorecard.py; edit the sections ABOVE, not this) -->
 
-Last full check: 2026-09-13T09:32:27.935274+00:00 (16 on record). Generated 2026-09-13T11:19:45+00:00.
+Last full check: 2026-09-13T09:32:27.935274+00:00 (16 on record). Generated 2026-09-13T11:24:59+00:00.
 
 | Ability | Group | How well | Compared with a simple rule | Since the previous check | Brain-faithful? |
 |---|---|---|---|---|---|
