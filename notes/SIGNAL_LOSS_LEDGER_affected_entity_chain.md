@@ -497,3 +497,11 @@ competent-reader reference ~0.85–0.90.
   (the who-did-what / coref arms had private taggers until the shared frontend landed at 00:15) -- the count-based category organ costs
   the copular reader 3 points, consistent with its 0.912 vs 0.945 tag accuracy. Post-routing boards (counts reaching every arm; counts +
   BF heads) are the next A/B.
+- **CATEGORY ORGAN, READING-ACQUISITION ARM (2026-09-13 00:05; `tools/build_lexical_categories_from_reading.py`, 1M simplewiki lines ->
+  459k fully-covered sentences, 6.67M tokens, 27,493 words, 12 classes): agreement with gold UPOS on the FULL UD-EWT test 0.7242
+  (type-level induced asset alone 0.7065; supervised-supply counts 0.9120).** Per class: PUNCT 1.0, PRON .87, NOUN .85, DET .85, ADP
+  .83, AUX .81, NUM .78, ADJ .76, VERB .76, PART .66, PROPN .44, **ADV .05, CCONJ 0, SCONJ 0** (the induced inventory's merges = pri-15's
+  exact target; the organ's transition + suffix counts add +0.018 and unknown-word handling on top of the inventory). HAND-OFF: the
+  fully reading-learned chain (reading-acquired categories -> attachment arm, 1.5k, beta 10, with the pp cue) **UAS 0.4922** (was
+  0.4649 with the type-level categorizer; UPOS 0.5640): root 0.547, nsubj 0.59, obj 0.53, obl 0.356, nmod 0.425, case 0.63, conj 0.193.
+  The whole chain from reading alone now stands at 0.49 (floor 0.285) with the closed classes as the named loss.
