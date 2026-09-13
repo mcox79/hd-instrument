@@ -72,3 +72,4 @@ Owner check-ins expected: DONE marks in the tab; Q on the integration gate; whet
 
 ## Log (appended through the day)
 - 14:15 pilot launched (pri 97, pri 98; opus agents); board_final3 launched (haiku runner).
+- 14:24 gap work: tag->head loss attributed (VERB-as-AUX = 58% of the 1.56-point loss); building the frequent-frame cue in the category organ.
