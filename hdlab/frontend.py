@@ -7,7 +7,7 @@ board A/B moved only the STATE dim). This module is the single entry point; the 
 
   HDLAB_TAG_SOURCE    = "counts"     (default; hdlab.lexical_categories: count-based generative category model, graded posterior)
                       | "perceptron" (hdlab.pos_tagger: the NOT_BF max-margin stand-in -- reproduces the pre-2026-09-12 baseline)
-  HDLAB_HEADS_SOURCE  = "arceager"   (default today; hdlab.arceager_parser: supervised incremental parser -- the stand-in)
+  HDLAB_HEADS_SOURCE  = "attachment_arm" (DEFAULT since 2026-09-13; "arceager" = hdlab.arceager_parser, the supervised stand-in, for baselines)
                       | "attachment_arm" (hdlab.attachment_arm: reading-learned cue competition + semantic bootstrapping = the BF rung;
                                           reads the category POSTERIOR when the tagger provides one -- the graded hand-off)
 Glass-box; no LLM / spaCy / nltk at inference.
@@ -25,7 +25,11 @@ __bf_note__ = "the BF status of the frontend is the status of the organs it rout
 
 _REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TAG_SOURCE = os.environ.get("HDLAB_TAG_SOURCE", "counts")
-HEADS_SOURCE = os.environ.get("HDLAB_HEADS_SOURCE", "arceager")
+# DEFAULT FLIPPED 2026-09-13 10:55 local (Q134; owner rule: a more brain-foundational organ replaces the stand-in on the live path;
+# downstream dips are consumers to repair): the attachment arm is the reader's governor. Board under it 0.6223 vs stand-in 0.6378 --
+# coref/salience/common-noun/wic identical; patient -0.087 and state -0.140 are LABELS-rung reads (the stand-in parser hands them
+# ready-made relation labels) -> repaired at the roles rung, not by reverting. "arceager" stays selectable for baselines.
+HEADS_SOURCE = os.environ.get("HDLAB_HEADS_SOURCE", "attachment_arm")
 _POS_ASSET = os.path.join(_REPO, "data", "frontend_assets", "pos_tagger_ud_ewt_upos.json")
 
 
