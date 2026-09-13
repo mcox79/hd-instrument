@@ -58,6 +58,18 @@ STEM_KAPPA = float(os.environ.get("HDLAB_LC_STEM_KAPPA", "1.0"))
 STEM_REANALYSIS = os.environ.get("HDLAB_LC_STEM_REANALYSIS", "1") == "1"
 LAG: Optional[int] = (None if _lag_env.strip().lower() in ("inf", "none", "full") else int(_lag_env)) if _lag_env.strip() else 2
 BOS = "<s>"
+# FREQUENT-FRAME cue (2026-09-13 14:30 local; strategy): the WORDS immediately left and right of a token categorise it (Mintz 2003
+# frequent frames "you __ it", "there __ a"; St. Clair-Monaghan-Christiansen 2010 flexible frames; PINNED as an acquisition cue) --
+# read here as two more count-based emission channels P(w_{t-1} | c_t) and P(w_{t+1} | c_t) over the FRAME_F most frequent words
+# (other neighbours collapse to one symbol), combined with the lexical channel by naive-Bayes cue integration (Christiansen & Chater
+# multiple-cue integration; MODEL) with weight FRAME_KAPPA (swept). Motivation with a number: under the organ's own tags the heads
+# rung loses 1.56 UAS points, 58% of it from ONE confusion -- UD's main-verb be/have ("there is", "have to", "has an essay") tagged
+# AUX -- which a category-sequential model cannot see (PRON -> AUX is the common transition) but the frame word can. The right
+# neighbour is read only when the revision window allows it (lag >= 1): the belief at arrival never peeks ahead.
+FRAME = os.environ.get("HDLAB_LC_FRAME", "1") == "1"
+FRAME_F = int(os.environ.get("HDLAB_LC_FRAME_F", "300"))
+FRAME_KAPPA = float(os.environ.get("HDLAB_LC_FRAME_KAPPA", "1.0"))
+FRAME_OTHER = "<o>"; EOS = "</s>"
 K2 = 2.0                                                        # Dirichlet back-off mass for the second-order transitions (swept, not adopted)
 SHAPES = ("lower", "Cap", "ALLCAP", "digit", "hyphen", "other")
 # the reading-acquired classes: the v2 inventory (owner-DONE pri-15, 2026-09-13: function-word stratum + second-order frames +
@@ -86,7 +98,7 @@ class LexicalCategories:
     """Generative count-based category model with forward-backward posterior decoding (plastic counts)."""
 
     def __init__(self, lam: float = 0.1, suf_len: int = 4, order: int = 1, use_shape: bool = False, rare_max: int = 2,
-                 use_cluster: bool = False):
+                 use_cluster: bool = False, use_frame: bool = False):
         self.lam = float(lam); self.suf_len = int(suf_len)
         # ARM v2 (2026-09-13 07:05 local; same count-based generative model, three more count tables, all plastic):
         #   order=2      second-order transitions P(c | p2, p1) with Dirichlet back-off to the first-order row (the brain's sequence
@@ -102,6 +114,11 @@ class LexicalCategories:
         #                P(cluster | c) for RARE and UNKNOWN words -- the organ's own reading arm informing its supervised arm
         #                (a word never seen in the tag supply but read 1m times in simplewiki still has a class).
         self.use_cluster = bool(use_cluster)
+        #   use_frame    (2026-09-13 14:30) the FREQUENT-FRAME cue: counts of the left and right neighbour WORD per category (see FRAME).
+        self.use_frame = bool(use_frame)
+        self.frameL: Dict[str, Counter] = defaultdict(Counter)     # category -> Counter(left neighbour word | BOS)
+        self.frameR: Dict[str, Counter] = defaultdict(Counter)     # category -> Counter(right neighbour word | EOS)
+        self.frame_words: set = set()
         self.clus: Dict[str, Counter] = defaultdict(Counter)       # category -> Counter(cluster id)
         self._w2c: Optional[Dict[str, str]] = None
         self.shape: Dict[str, Counter] = defaultdict(Counter)      # category -> Counter(shape class)
@@ -121,9 +138,13 @@ class LexicalCategories:
         """Accrue counts from (word, category) sequences (offline supply OR the induced-categories stream OR online outcomes)."""
         for sent in sentences:
             prev = BOS; prev2 = BOS
-            for w_raw, t in sent:
-                w = w_raw.lower()
+            lows = [w_raw.lower() for w_raw, _ in sent]
+            for idx, (w_raw, t) in enumerate(sent):
+                w = lows[idx]
                 self.emit[t][w] += 1; self.tag_count[t] += 1; self.vocab.add(w); self.trans[prev][t] += 1
+                if self.use_frame:
+                    self.frameL[t][lows[idx - 1] if idx > 0 else BOS] += 1
+                    self.frameR[t][lows[idx + 1] if idx + 1 < len(lows) else EOS] += 1
                 self.shape[t][word_shape(w_raw)] += 1; self.trans2[(prev2, prev)][t] += 1
                 if self.use_cluster:
                     c = self.word2cluster().get(w)
@@ -172,6 +193,22 @@ class LexicalCategories:
             for t in self.tags:
                 tot = self.tag_count[t] + self.lam * len(SHAPES)
                 self.log_shape[t] = {sh: math.log((self.shape[t][sh] + self.lam) / tot) for sh in SHAPES}
+        if self.use_frame:
+            # the frame vocabulary = the FRAME_F most frequent word types in the supply (+ BOS/EOS); every other neighbour -> FRAME_OTHER.
+            # log P(a | c) = log (n(c, a) + lam) / (n(c) + lam * |frame vocab|), one pure function of the counts (plastic).
+            freq = Counter()
+            for t in self.tags:
+                freq.update(self.emit[t])
+            self.frame_words = {w for w, _ in freq.most_common(FRAME_F)}
+            syms = sorted(self.frame_words | {BOS, EOS, FRAME_OTHER}); V = len(syms)
+            self.log_frameL = {}; self.log_frameR = {}
+            for t in self.tags:
+                for side, tab, out in (("L", self.frameL, self.log_frameL), ("R", self.frameR, self.log_frameR)):
+                    col = Counter()
+                    for a, n in tab[t].items():
+                        col[a if (a in self.frame_words or a in (BOS, EOS)) else FRAME_OTHER] += n
+                    tot = sum(col.values()) + self.lam * V
+                    out[t] = {a: math.log((col[a] + self.lam) / tot) for a in syms}
         self._dirty = False
         return self
 
@@ -326,6 +363,8 @@ class LexicalCategories:
         if n == 0:
             return np.zeros((0, T))
         le = np.stack([self._log_emit(w) for w in words])
+        if self.use_frame and FRAME and FRAME_KAPPA > 0:
+            le = le + FRAME_KAPPA * self._log_frame(words, lag)
         post = self._posterior_le(le, lag)
         if STEM_REANALYSIS:
             # CONFLICT-TRIGGERED REANALYSIS (2026-09-13): a known word whose settled category has ZERO lexical support (the sequence
@@ -424,10 +463,30 @@ class LexicalCategories:
         dist = [{t: float(post[i, j]) for j, t in enumerate(self.tags) if post[i, j] >= 0.01} for i in range(len(words))]
         return tags, dist
 
+    def _log_frame(self, words: Sequence[str], lag: Optional[int]) -> np.ndarray:
+        """The frequent-frame channels: [n, T] of log P(left word | c) + log P(right word | c). The right neighbour is read only
+        when the revision window lets the belief about word t see word t+1 (lag None or >= 1)."""
+        n = len(words); T = len(self.tags); out = np.zeros((n, T))
+        lows = [w.lower() for w in words]
+        def sym(a):
+            return a if (a in self.frame_words or a in (BOS, EOS)) else FRAME_OTHER
+        see_right = lag is None or lag >= 1
+        for k in range(n):
+            a = sym(lows[k - 1] if k > 0 else BOS)
+            for i, t in enumerate(self.tags):
+                out[k, i] = self.log_frameL[t][a]
+            if see_right:
+                b = sym(lows[k + 1] if k + 1 < n else EOS)
+                for i, t in enumerate(self.tags):
+                    out[k, i] += self.log_frameR[t][b]
+        return out
+
     # ------------------------------------------------------------------ persistence
     def save(self, path: str = ASSET) -> str:
         d = {"lam": self.lam, "suf_len": self.suf_len, "order": self.order, "use_shape": self.use_shape, "rare_max": self.rare_max,
              "use_cluster": self.use_cluster, "clus": {t: dict(c) for t, c in self.clus.items()},
+             "use_frame": self.use_frame, "frameL": {t: dict(c) for t, c in self.frameL.items()},
+             "frameR": {t: dict(c) for t, c in self.frameR.items()},
              "emit": {t: dict(c) for t, c in self.emit.items()}, "trans": {p: dict(c) for p, c in self.trans.items()},
              "suf": {str(k): {t: dict(c) for t, c in v.items()} for k, v in self.suf.items()},
              "shape": {t: dict(c) for t, c in self.shape.items()},
@@ -443,9 +502,13 @@ class LexicalCategories:
         with open(path, encoding="utf-8") as f:
             d = json.load(f)
         m = cls(lam=d.get("lam", 0.1), suf_len=d.get("suf_len", 4), order=d.get("order", 1), use_shape=d.get("use_shape", False),
-                rare_max=d.get("rare_max", 0), use_cluster=d.get("use_cluster", False))
+                rare_max=d.get("rare_max", 0), use_cluster=d.get("use_cluster", False), use_frame=d.get("use_frame", False))
         for t, c in d.get("clus", {}).items():
             m.clus[t] = Counter(c)
+        for t, c in d.get("frameL", {}).items():
+            m.frameL[t] = Counter(c)
+        for t, c in d.get("frameR", {}).items():
+            m.frameR[t] = Counter(c)
         for t, c in d.get("shape", {}).items():
             m.shape[t] = Counter(c)
         for key, c in d.get("trans2", {}).items():
@@ -477,7 +540,7 @@ ASSET_PENN = os.path.join(_REPO, "data", "frontend_assets", "lexical_categories_
 
 
 def build_asset(train_path: Optional[str] = None, out: str = ASSET, column: int = 3, order: int = 1, use_shape: bool = False,
-                rare_max: int = 0, use_cluster: bool = False) -> dict:
+                rare_max: int = 0, use_cluster: bool = False, use_frame: bool = False) -> dict:
     """Offline accrual from the UD-EWT training sentences' tag column (foundation supply) -> counts asset.
     column 3 = UPOS (the live inventory); column 4 = XPOS (Penn tags: the same organ's arm for consumers that read tense/form
     classes -- the temporal ORDER organ, 2026-09-13 -- replacing nltk's PerceptronTagger at read time)."""
@@ -498,7 +561,7 @@ def build_asset(train_path: Optional[str] = None, out: str = ASSET, column: int 
             cur.append((c[1], c[column]))
     if cur:
         sents.append(cur)
-    m = LexicalCategories(order=order, use_shape=use_shape, rare_max=rare_max, use_cluster=use_cluster).accrue(sents).finalize(); p = m.save(out)
+    m = LexicalCategories(order=order, use_shape=use_shape, rare_max=rare_max, use_cluster=use_cluster, use_frame=use_frame).accrue(sents).finalize(); p = m.save(out)
     return {"n_sentences": len(sents), "n_categories": len(m.tags), "vocab": len(m.vocab), "asset": os.path.relpath(p, _REPO)}
 
 
