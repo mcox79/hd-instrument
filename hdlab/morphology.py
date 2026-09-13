@@ -150,7 +150,10 @@ _DEFAULT: Optional[GlassBoxMorphology] = None
 
 # the live arm: HDLAB_MORPH_MODE = "morphy" (default today; byte-identical to the dictionary tool) | "dualroute" (the brain's
 # words-and-rules arbitration; flip after the lemma-keyed stores downstream are rebuilt against it -- see INTEGRATION_LEDGER).
-MORPH_MODE = os.environ.get("HDLAB_MORPH_MODE", "morphy")
+# DEFAULT FLIPPED to "dualroute" 2026-09-13 07:55 local: the board with the arm ON was identical to the baseline on every dimension
+# (AGG 0.6378; agent 0.8357, patient 0.8088, state 0.8016, coref 0.4681, wic 0.7493), and the arm beats the dictionary tool on lemma
+# gold (0.9826 vs 0.9594, 195k tokens). The lemma-keyed stores downstream are still morphy-keyed (measured harmless; rebuild = follow-on).
+MORPH_MODE = os.environ.get("HDLAB_MORPH_MODE", "dualroute")
 
 
 def default_morphology() -> GlassBoxMorphology:
