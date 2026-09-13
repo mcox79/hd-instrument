@@ -59,6 +59,7 @@ M_SHRINK = 2.0
 # +0.036 on the smoke slice). They are applied as a deterministic decode-time bonus for consumers that read UD-shaped heads; the
 # learned competition (the comprehension organ) is untouched. Set CONVENTION_BONUS = 0.0 to read the pure learned organ.
 CONVENTION_BONUS = 5.0
+BF_TSP_ASSET = os.path.join(_REPO, "data", "frontend_assets", "typed_selectional_preference_bf_v1.json")   # self-grown plausibility
 _TABLE: Optional[Dict[str, object]] = None
 
 
@@ -374,9 +375,14 @@ def heads(toks: Sequence[str], pos: Sequence[str], table: Optional[Dict[str, obj
 class SemanticBootstrapTeacher:
     def __init__(self, beta: float = 10.0, lam: float = 0.3, tsp_asset: Optional[str] = None):
         from hdlab.typed_selectional_preference import get, TypedSelectionalPreference
-        # tsp_asset: an alternative plausibility asset (e.g. the store GROWN by the substrate's own chain,
-        # tools/grow_selectional_store_bf.py) instead of the default parser-extracted one.
-        self.tsp = TypedSelectionalPreference.load(tsp_asset) if tsp_asset else get()
+        # PLAUSIBILITY SOURCE (2026-09-12 late): by default the store GROWN BY THE SUBSTRATE'S OWN CHAIN (induced categories ->
+        # attachment arm -> role competition over 60k simplewiki lines; tools/grow_selectional_store_bf.py -> typed asset
+        # BF_TSP_ASSET). Measured equal to the August parser-extracted store on the heads rung (smoke UAS 0.5642 vs 0.5640;
+        # root 0.793 nsubj 0.719 obj 0.71 obl 0.459 xcomp 0.606) -- so the rung's last non-BF dependency is removed at no
+        # cost. Falls back to the organ's default asset only if the self-grown one is absent. tsp_asset overrides.
+        path = tsp_asset or (BF_TSP_ASSET if os.path.isfile(BF_TSP_ASSET) else None)
+        self.tsp = TypedSelectionalPreference.load(path) if path else get()
+        self.tsp_source = os.path.basename(path) if path else "default typed_selectional_preference asset"
         self.beta = float(beta); self.lam = float(lam); self._cache: Dict[Tuple[str, str], float] = {}
 
     def plausibility(self, verb_tok: str, noun_tok: str) -> float:

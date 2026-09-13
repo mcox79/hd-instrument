@@ -1,0 +1,229 @@
+{
+ "extractor_version": "selectional_bf_v1.0 (own chain: reading-induced categories (induced_categories_simplewiki_1m_k68.json) -> attachment_arm -> coarse_roles)",
+ "corpus": "C:\\AI\\hd-instrument\\data\\corpora\\simplewiki\\simplewiki_clean_v1.txt",
+ "lines_seen": 60000,
+ "lines_used": 36502,
+ "stats": {
+  "n_seen": 60000,
+  "n_parsed": 36502,
+  "n_slot_observations": 115513
+ },
+ "role_histogram": {
+  "obl": 41460,
+  "SUBJ": 36034,
+  "OBJ": 37519,
+  "IOBJ": 500
+ },
+ "n_slots": 15632,
+ "elapsed_s": 256.1,
+ "example_slots": {
+  "called/OBJ": [
+   [
+    "this",
+    158
+   ],
+   [
+    "it",
+    126
+   ],
+   [
+    "which",
+    47
+   ],
+   [
+    "they",
+    42
+   ],
+   [
+    "people",
+    22
+   ],
+   [
+    "process",
+    16
+   ]
+  ],
+  "used/OBJ": [
+   [
+    "it",
+    161
+   ],
+   [
+    "they",
+    52
+   ],
+   [
+    "which",
+    51
+   ],
+   [
+    "water",
+    26
+   ],
+   [
+    "this",
+    20
+   ],
+   [
+    "may",
+    20
+   ]
+  ],
+  "made/OBJ": [
+   [
+    "it",
+    97
+   ],
+   [
+    "they",
+    35
+   ],
+   [
+    "which",
+    24
+   ],
+   [
+    "things",
+    12
+   ],
+   [
+    "atoms",
+    10
+   ],
+   [
+    "changes",
+    9
+   ]
+  ],
+  "had/SUBJ": [
+   [
+    "they",
+    68
+   ],
+   [
+    "he",
+    61
+   ],
+   [
+    "it",
+    42
+   ],
+   [
+    "who",
+    39
+   ],
+   [
+    "people",
+    25
+   ],
+   [
+    "which",
+    22
+   ]
+  ],
+  "make/OBJ": [
+   [
+    "it",
+    28
+   ],
+   [
+    "their",
+    24
+   ],
+   [
+    "decisions",
+    17
+   ],
+   [
+    "them",
+    15
+   ],
+   [
+    "people",
+    13
+   ],
+   [
+    "food",
+    11
+   ]
+  ],
+  "do/SUBJ": [
+   [
+    "they",
+    145
+   ],
+   [
+    "people",
+    69
+   ],
+   [
+    "who",
+    27
+   ],
+   [
+    "we",
+    24
+   ],
+   [
+    "you",
+    13
+   ],
+   [
+    "it",
+    13
+   ]
+  ],
+  "use/SUBJ": [
+   [
+    "people",
+    96
+   ],
+   [
+    "they",
+    65
+   ],
+   [
+    "we",
+    36
+   ],
+   [
+    "scientists",
+    36
+   ],
+   [
+    "it",
+    15
+   ],
+   [
+    "may",
+    13
+   ]
+  ],
+  "use/OBJ": [
+   [
+    "it",
+    30
+   ],
+   [
+    "their",
+    19
+   ],
+   [
+    "water",
+    18
+   ],
+   [
+    "word",
+    16
+   ],
+   [
+    "this",
+    14
+   ],
+   [
+    "tools",
+    14
+   ]
+  ]
+ }
+}
