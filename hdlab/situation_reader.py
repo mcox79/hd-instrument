@@ -70,6 +70,8 @@ from functools import lru_cache
 from typing import Dict, List, Optional, Tuple
 
 _REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+_HEADS_SOURCE = os.environ.get("HDLAB_HEADS_SOURCE", "arceager")   # "arceager" (supervised stand-in) | "attachment_arm" (BF rung)
+
 if _REPO not in sys.path:
     sys.path.insert(0, _REPO)
 
@@ -2119,7 +2121,9 @@ class SituationReader:
         key = ("parse", tuple(toks))
         c = self._read_parse_cache
         if key not in c:
-            if self.parser_arceager:
+            if _HEADS_SOURCE == "attachment_arm":
+                c[key] = self._cached_parse_conf(toks, pos)[0]           # the BF attachment arm (one shared parse; see _cached_parse_conf)
+            elif self.parser_arceager:
                 heads, _cf, _mg = self._cached_parse_conf(toks, pos)   # ONE shared arc-eager parse (heads+conf+marg)
                 c[key] = heads                                          # 1-based child->head (same shape as ArcParser)
             else:
@@ -2135,6 +2139,23 @@ class SituationReader:
         key = ("parseconf", tuple(toks))
         c = self._read_parse_cache
         if key not in c:
+            if _HEADS_SOURCE == "attachment_arm":
+                # HEADS-SOURCE SWITCH (2026-09-12, top-down BF pass): the ATTACHMENT arm of the Competition-Model organ
+                # (hdlab.attachment_arm; cue competition with reading-learned strengths + semantic bootstrapping; no treebank
+                # weights) replaces the supervised arc-eager parser as the ONE shared per-read parse. conf[i] = P(chosen head | i)
+                # from the exact tree posterior; marg[i] = P(best) - P(second). Selected by env HDLAB_HEADS_SOURCE=attachment_arm
+                # for the board A/B; a downstream dip is a consumer to repair, not a reason to revert the BF rung.
+                from hdlab import attachment_arm as AA
+                post = AA.head_posterior(list(toks), list(pos))
+                heads = {}; conf = {}; marg = {}
+                for j, d in post.items():
+                    ranked = sorted(d.items(), key=lambda kv: -kv[1])
+                    if ranked:
+                        heads[j] = int(ranked[0][0]); conf[j] = float(ranked[0][1])
+                        marg[j] = float(ranked[0][1] - (ranked[1][1] if len(ranked) > 1 else 0.0))
+                c[key] = (heads, conf, marg)
+                h, cf, mg = c[key]
+                return dict(h), dict(cf), dict(mg)
             if self._ae_W is None:
                 from hdlab.arceager_parser import load_model, parse_with_conf, MODEL_PATH
                 self._ae_W = load_model(MODEL_PATH)

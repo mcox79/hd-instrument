@@ -48,10 +48,19 @@ def role_posterior_headmarg(toks, pos, heads, marg, i, tab, min_p=0.05):
 def main():
     tg, pp, lb = V11._fe()
     gp = GradedParse(pp)
+    ARM = "--attachment-arm" in sys.argv      # 2026-09-12: heads from the BF attachment arm (semantic-bootstrapping asset) instead of the supervised parser
+    if ARM:
+        from hdlab import attachment_arm as AA
+        atab = AA.load_attachment_validities()
+        print("heads source = hdlab.attachment_arm (asset %s)" % os.path.basename(AA.ASSET), flush=True)
     tab = GRA.load_coarse_validities()
     tot = Counter(); hard = Counter(); marg_hit = Counter(); sup = Counter(); t0 = time.time(); nsent = 0
     for toks, gpos, gheads, deps in sentences(TEST):
-        pos = list(tg.tag(toks)); po = gp.parse(toks, pos); heads = dict(po.map_heads); marg = po.marginals; nsent += 1
+        pos = list(tg.tag(toks)); nsent += 1
+        if ARM:
+            heads = AA.heads(toks, pos, atab); marg = AA.head_posterior(toks, pos, atab)
+        else:
+            po = gp.parse(toks, pos); heads = dict(po.map_heads); marg = po.marginals
         supl = lb.label(toks, pos, heads, competition_roles=False)
         for i in range(1, len(toks) + 1):
             if gpos[i - 1] not in GRA.NOMINAL:
@@ -63,13 +72,13 @@ def main():
             marg_hit[g] += int(GRA.ROLE_CLASSES[int(pm.argmax())] == g)
             sup[g] += int(coarse_of(supl.get(i)) == g)
     n = sum(tot.values())
-    out = {"n": n, "sentences": nsent, "hard_head_CM": round(sum(hard.values()) / n, 4), "head_marginalised_CM": round(sum(marg_hit.values()) / n, 4),
+    out = {"heads_source": "attachment_arm" if ARM else "supervised_arc_parser", "n": n, "sentences": nsent, "hard_head_CM": round(sum(hard.values()) / n, 4), "head_marginalised_CM": round(sum(marg_hit.values()) / n, 4),
            "supervised_labeler": round(sum(sup.values()) / n, 4),
            "per_class": {g: {"n": tot[g], "hard": round(hard[g] / max(1, tot[g]), 3), "marg": round(marg_hit[g] / max(1, tot[g]), 3), "sup": round(sup[g] / max(1, tot[g]), 3)} for g in GRA.ROLE_CLASSES if tot[g]},
            "elapsed_s": round(time.time() - t0, 1)}
     print(json.dumps(out, indent=1))
     from experiments._seed_checkpoint import get_output_dir
-    od = str(get_output_dir("probe_role_headmarg_handoff_v19")); os.makedirs(od, exist_ok=True)
+    od = str(get_output_dir("probe_role_headmarg_handoff_v19" + ("_attarm" if ARM else ""))); os.makedirs(od, exist_ok=True)
     json.dump(out, open(os.path.join(od, "metrics.json"), "w", encoding="utf-8"), indent=1)
 
 
