@@ -122,6 +122,8 @@ def main():
             if gpos[i - 1] not in GRA.NOMINAL:
                 continue
             w = conf.get(i, 0.0) if conf is not None else 1
+            if w <= 0:
+                continue                                             # a perceived head with no posterior mass teaches nothing
             decisions += w
             g = ix[coarse_of(deps.get(i))]
             prior[g] += w
@@ -157,12 +159,16 @@ def main():
     audit = {"config": {}}
     for cfg, vec in cfg_counts.items():
         n = sum(vec); best = max(range(K), key=lambda k: vec[k])
+        if n <= 0:
+            continue
         audit["config"][cfg] = {"n": round(float(n), 2), "availability": round(n / decisions, 4), "reliability": round(vec[best] / n, 4),
                                 "cued_role": GRA.ROLE_CLASSES[best]}
     for cue, vals in counts_doc["cues"].items():
         audit[cue] = {}
         for key, vec in vals.items():
             n = sum(vec); best = max(range(K), key=lambda k: vec[k])
+            if n <= 0:
+                continue
             audit[cue][key] = {"n": round(float(n), 2), "availability": round(n / decisions, 4), "reliability": round(vec[best] / n, 4),
                                "cued_role": GRA.ROLE_CLASSES[best]}
     doc = {"source": "UD-EWT train (gold heads/POS). Competition Model, configuration-conditioned: activation(role) = "
