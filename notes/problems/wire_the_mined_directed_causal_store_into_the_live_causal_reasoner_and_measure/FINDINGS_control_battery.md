@@ -48,6 +48,24 @@ The brief's +0.139 "storeonly" prize used the SAME global-shuffle twin. The refe
 against the density-matched topotwin + map_only. If storeonly ties/loses those, the +0.139 was itself a
 density/topicality artifact, not a directed-causal win -> a correction to the store's headline.
 
+## THE REPLACEMENT TEST + how big the lever really is (owner: "is that as big as we'd expect? bigger levers?")
+The store's genuine asset (DIRECTION) transfers on a direction-DISCRIMINATION 2AFC (association pinned at chance by
+construction), the read WIQA's existence axis structurally cannot exercise:
+  * BCOPA-CE: condXasym/asym 0.526-0.530 vs shuffled twin 0.499, +0.031 CI[0.009,0.053] CI-sep.
+  * e-CARE-direction: cond 0.536-0.541 vs twin 0.499, +0.042 CI[0.023,0.061] CI-sep.
+COVERAGE DECOMPOSITION (probe_direction_coverage): BCOPA covered 49.9% acc_on_covered 0.553; e-CARE covered 64.7%
+acc_on_covered 0.555. REVERSE-direction control (score the store backwards): 0.456/0.445 on covered -> fwd-rev
++0.097/+0.110 => DIRECTION is genuinely the signal (not association).
+HOW BIG IS THE LEVER (honest):
+  * Coverage lever = SMALL: acc_on_covered ~0.55 ~= overall ~0.53, so 100% coverage buys only ~+0.02-0.03. Coverage
+    scales HOW MANY pairs are scored, NOT reliability (grow SOLVED corpus-scaling: coverage scales, direction doesn't).
+  * The ~0.55-on-2AFC IS the intrinsic text-direction ceiling (~0.61 single-direction; clean markers only 0.626 --
+    grow SOLVED, genuine causal bidirectionality). We are AT the ceiling, not below it.
+  * NO bigger lever exists within text (7 sign sources + direction all text-capped -- grow SOLVED). The only route
+    past ~0.61 is GROUNDED interventional Delta-Delta experience (0.999 in a micro-world vs 0.745 text) = the
+    generative world-model main event, a different substrate. So the store is a correctly-sized rung-1.5 DIRECTIONAL
+    COMPLEMENT (CI-sep where association is blind), not a large performance lever.
+
 ## Where this points (solve the REAL problem, not just refute)
 The store's genuine causal-specific value is DIRECTION (grow SOLVED: load-bearing ONLY on direction-DISCRIMINATION
 2AFC -- COPA +0.053, e-CARE, BCOPA-CE -- where association is neutralized by construction). WIQA necessity is not

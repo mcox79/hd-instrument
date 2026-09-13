@@ -106,7 +106,7 @@ Long term (the next few months):
 
 <!-- AUTO:BEGIN (written by tools/scorecard.py; edit the sections ABOVE, not this) -->
 
-Last full check: 2026-09-13T01:54:59.231561+00:00 (8 on record). Generated 2026-09-13T01:57:18+00:00.
+Last full check: 2026-09-13T01:58:31.383502+00:00 (9 on record). Generated 2026-09-13T02:15:35+00:00.
 
 | Ability | Group | How well | Compared with a simple rule | Since the previous check | Brain-faithful? |
 |---|---|---|---|---|---|
@@ -123,7 +123,7 @@ Last full check: 2026-09-13T01:54:59.231561+00:00 (8 on record). Generated 2026-
 | Handling 'not' correctly | Word meaning | right 93 in 100 | clearly better than the simple rule (50 in 100) | unchanged since the previous check | brain model; some details still open |
 | How a word's meaning shifts with its context (graded) | Word meaning | agreement with people 0.39 (out of 1) | clearly better than the simple rule (0.38) | unchanged since the previous check | brain model; some details still open |
 | Picking the right broad sense of an ambiguous word (older test set) | Word meaning | right 52 in 100 | clearly better than the simple rule (35 in 100) | unchanged since the previous check | brain model; some details still open |
-| What something is or is like ('the sky is blue') | Actions and roles | right 53 in 100 | not better than the simple rule (57 in 100) yet | DOWN 0.301 since the previous check | brain model; some details still open |
+| What something is or is like ('the sky is blue') | Actions and roles | right 53 in 100 | not better than the simple rule (57 in 100) yet | unchanged since the previous check | brain model; some details still open |
 | Who did the action in a sentence | Actions and roles | right 83 in 100 | not better than the simple rule (85 in 100) yet | unchanged since the previous check | brain model; one part is a stand-in we are replacing |
 | Who or what the action was done to | Actions and roles | right 82 in 100 | clearly better than the simple rule (75 in 100) | unchanged since the previous check | brain model; one part is a stand-in we are replacing |
 | Keeping a fact true until something changes it | Actions and roles | right 100 in 100 | clearly better than the simple rule (44 in 100) | unchanged since the previous check | brain model; some details still open |

@@ -73,6 +73,32 @@ The point of one hub is that it generalizes; a hub that wins one task is not the
    (words unseen in training); info-free twin LOSING + bootstrap CIs throughout. Golds are never in training
    (unsupervised reconstruction), so there is no gold leakage by construction.
 
+## FINDINGS LOG (running; numbers are quick 40-epoch passes unless marked FULL)
+- MACHINERY (synthetic, 3 regimes): convergence hub recovers shared latent (RSA CI>0), info-free twin
+  COLLAPSES (rho ~0), phase-diagram sensible (tight bottleneck wins; shortcuts bypass hub -> hurt readout).
+  Recon hub beats singles in symmetric regime, beats CONCAT in the sparse/low-coverage regime (imputation
+  niche == the real-data regime). Consensus hub (recon + sim-to-consensus) > recon hub.
+- BRAIN-FAITHFUL UPGRADE (owner "how does the brain do this?"): pure reconstruction shapes the similarity
+  geometry only incidentally -> hub stuck between concat and singles. FIX = representational-similarity
+  learning (Cox et al. 2024) with a GOLD-FREE cross-spoke-CONSENSUS teacher (two concepts are similar to the
+  degree many spokes agree = the convergence principle + Ma-Pouget reliability). ConsensusHub implements this.
+- REAL DATA (quick 40-epoch, hub_width 48): per-store OWN-TASK (fair, same covered pairs):
+  distributional hub 0.608>=0.595 TIE/BEAT; grounded 0.608>=0.517; valence 0.399>=0.278; w2v 0.632>=0.406;
+  VISUAL 0.566 < spoke 0.591 (n=384) -- the ONE store the hub-alone does not subsume, on concrete nouns.
+  Consensus HELPS relatedness (MEN all 0.608 vs recon 0.593) but HURTS similarity (SimLex/SimVerb) vs recon
+  (consensus is a relatedness-leaning teacher). Twin dead on every gold.
+- INTERPRETATION (pending FULL-trained confirmation): the visual/DINOv2 spoke is a specialized high-fidelity
+  perceptual channel at 7.5% coverage; the shared hub rarely sees it in training and slightly dilutes it on
+  its home turf. BRAIN-FAITHFUL reading (Binder-Desai 2011 "embodied abstraction"): the ATL hub sits ATOP
+  modality spokes that STAY ACTIVE for fine-grained concrete content -- the full concept = hub + currently-
+  active spokes, NOT hub replacing the spoke. So the faithful deployed readout is hub (+) present-spoke
+  (exactly what FusedSenseRanker does with its referent channel), and the hub need not beat the visual spoke
+  on concrete nouns to be the right consolidation of the BROAD graded stores.
+- LEVERS if visual gap is robust after FULL training: (a) precision-weight the consensus (visual reliability
+  = exemplar count / inverse dispersion; Ma-Pouget); (b) lower spoke-dropout for rare high-reliability spokes
+  or oversample words carrying them; (c) sweep sim_w (recon<->consensus tradeoff: consensus favors MEN, recon
+  favors SimLex) -- report the frontier, do not adopt a single number.
+
 ## Deliverables
 1. `experiments/exp_semantic_hub_convergence_v1.py` -- build the nonlinear convergence hub offline over the spokes
    (numpy/glass-box; NO pretrained embedding as the hub; NO torch unless justified/GPU-queued), sweep the phase-diagram
