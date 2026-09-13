@@ -43,3 +43,13 @@ documentation names every component touched + BF status + next steps; a proposed
 ## Fallback
 If opus agents are unavailable or denied, run the same prompts as haiku-supervised sonnet agents for the BUILD phases and report the
 difference; never route around a denial.
+
+## OWNER CORRECTION (2026-09-13 15:55): ALWAYS send the understanding + improvement probe -- even to a session that reports finished
+The owner: "I have found zero times that the agent was able to push to the end without guidance. Almost always, if you ask if the agent
+fully understands and if not, research, and then if there are opportunities for improvement, it will find many." So phase 6 is NOT the end.
+**Phase 7 (mandatory, sent by the supervisor after EVERY final report, including a SOLVED one):** (a) "Do you fully understand the problem
+and the whole chain it sits in? If not, research it now and write what you learned." (b) "Are there opportunities for improvement -- BF and
+right, not easy? Find them deliberately (name the residuals, the upstream losses, the unmeasured parts), build and measure each the same way,
+keep what the gold accepts, record what it rejects; update SOLVED.md / the patch / the metrics; report the new numbers." Repeat (b) once more
+if the first pass found improvements. A session's row in the pilot log is not closed until phase 7 has run; "0 nudges" is a defect of the
+supervisor, not a merit of the session.

@@ -23,7 +23,7 @@ scorecard, STATUS, BOARD_TREND). Then the light desktop shipment (`resync_light.
 
 ## PHASE B -- on each pilot completion: THE TEST (pass/fail, written to the pilot log)
 A pilot session PASSES if ALL hold:
-1. **Reached phase 6 with <= 2 supervisor nudges** (the owner's sessions needed ~8 messages each, 5 of 33 judgment calls).
+1. **Reached phase 6, then completed PHASE 7 (the owner's understanding + improvement probe, ALWAYS sent) with <= 2 further nudges** (the owner's sessions needed ~8 messages each, 5 of 33 judgment calls).
 2. **Rubric met by its own report:** witness green; information-free twin loses CI-separated; the bar's primary metric up
    CI-separated on the item's own population (or a NUMBERED located negative naming the missing input); named no-regress
    populations hold; knowledge in counts/assets with an online observe path; SOLVED.md in the schema; a patch .diff, no hdlab edit.
@@ -77,3 +77,4 @@ Owner check-ins expected: DONE marks in the tab; Q on the integration gate; whet
 - 15:15 PILOT SESSION 1 DONE (pri 98): 57 min, 0 nudges, SOLVED by report; reverify runner launched; patch `git apply --check` clean (5 hunks, additive; switches HDLAB_FDV_MANNER_READ / HDLAB_FDV_MANNER_PROSE both default on; new asset manner_intensity_v1.json). INTEGRATION PLAN on DONE: (1) apply the diff; (2) rebuild the asset; (3) witnesses: verification/test_fd_upstream_joins_landing.py (22/22), test_fd_result_state_arm.py, test_board_state_closure_and_affect_harm_help.py (17/17); (4) the live 36-item gold (experiments/exp_fd_harm_help_live_modern_v1.py) and the real-prose affected-entity probe (standing 0.393) with RUNG 5 on vs off -- the board has no affect dimension, so these two are the no-regress check; (5) ledger row + scorecard line + INTEGRATED mark + brain-math row (manner/result complementarity; circumplex radius); (6) file the 'treat' cross-sense conflation as a brief (sense-keyed affect norm). Kick-off prompt amended (denied step not to be done another way).
 - 15:22 session 1 PASS (reverified); pri 99 launched (slot 2); pri 97 still running (72 min).
 - 15:51 weighted role table: subjects recovered (matrix nsubj 0.714 -> 0.776 live; 0.748 -> 0.830 gold heads), objects kept; board A/B running.
+- 15:55 owner correction: phase 7 probe is mandatory for every session; sent to pri 98; pilot row reopened.
