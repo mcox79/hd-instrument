@@ -574,3 +574,7 @@ competent-reader reference ~0.85–0.90.
   the PP cue's gain given back), case 0.735 -> 0.725.** Promoted because the board's consumers read the CORE (obj/nsubj/obl/root) and
   all four rose; the previous asset is kept at data/hook_state/attachment_validities_pp_prev.json for revert; the nmod give-back is the
   next heads item (the order-aware teacher makes nouns compete harder as PP hosts vs verbs). Witness 15/15.
+- **OCCUPANCY (one bare object per verb) AT DECODE = REFUTED AS BUILT (2026-09-13 06:50 local):** UD-EWT test UAS 0.6034 -> 0.5995, obj
+  0.725 -> 0.655, obl 0.463 -> 0.415, nmod 0.365 -> 0.403. Mechanism: ditransitives, adverbial/temporal NPs, predicate nominals and
+  appositions give a verb two bare post-verbal nominals legitimately; the repair evicted true objects. The constraint belongs to the
+  LABELS rung (one OBJ per verb, the role labeler deciding), not to the category-level decode. `HDLAB_ARM_OCCUPANCY` kept, default OFF.

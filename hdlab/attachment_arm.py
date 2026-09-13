@@ -742,14 +742,67 @@ def map_tree_single_root(A: np.ndarray, n: int) -> Dict[int, int]:
     return chu_liu_edmonds(B, n)
 
 
+# OBJECT-SLOT OCCUPANCY (2026-09-13 06:45 local; the parked pri-16 lever, built as a decode-time constraint): a verb's direct-object
+# slot has capacity ONE (valence saturation -- Competition Model / MacWhinney: a filled slot stops competing). The first-order tree
+# decode cannot see siblings, so a verb often takes TWO bare post-verbal nominals while the next verb goes without ("need to send
+# stuff": 'stuff' -> 'need'; 30 of 72 object misses on 400 test sentences had the gold verb's slot filled by another nominal).
+# Repair: for a verb with >= 2 BARE (non-prepositional) nominal dependents after it, keep the one with the highest head marginal and
+# move each other one to its best-marginal head that is not itself saturated (root excluded); iterate to a fixed point.
+# REFUTED AS BUILT (06:50 local; default OFF, kept selectable): UAS 0.6034 -> 0.5995, obj 0.725 -> 0.655, obl 0.463 -> 0.415, nmod
+# 0.365 -> 0.403. "Bare post-verbal nominal" over-counts the slot: ditransitives, adverbial/temporal NPs, predicate nominals and
+# appositions legitimately give a verb two bare nominals, so the repair evicted true objects. Occupancy is a LABELS-rung constraint
+# (one OBJ per verb, with the role labeler deciding which nominal is the OBJ), not a category-level decode constraint.
+OCCUPANCY = os.environ.get("HDLAB_ARM_OCCUPANCY", "0") == "1"
+
+
+def occupancy_repair(toks: Sequence[str], pos: Sequence[str], hd: Dict[int, int], post: Dict[int, Dict[int, float]]) -> Dict[int, int]:
+    n = len(toks)
+    if not OCCUPANCY or n < 3:
+        return hd
+    out = dict(hd)
+    bare = [j for j in range(1, n + 1) if pos[j - 1] in NOMINAL and not (j >= 2 and pos[j - 2] == "ADP")]
+
+    def objects_of(v):
+        return [j for j in bare if out.get(j) == v and j > v]
+
+    for _ in range(3):
+        moved = False
+        for v in range(1, n + 1):
+            if pos[v - 1] != "VERB":
+                continue
+            objs = objects_of(v)
+            if len(objs) < 2:
+                continue
+            keep = max(objs, key=lambda j: post.get(j, {}).get(v, 0.0))
+            for j in objs:
+                if j == keep:
+                    continue
+                cands = sorted(((h, pr) for h, pr in post.get(j, {}).items() if h not in (0, v, j)), key=lambda kv: -kv[1])
+                for h, pr in cands:
+                    if pos[h - 1] == "VERB" and j > h and len(objects_of(h)) >= 1:
+                        continue                                   # that verb's object slot is full too
+                    # no cycle: h must not be a descendant of j
+                    k = h; ok = True; seen = 0
+                    while k and seen <= n:
+                        if k == j:
+                            ok = False; break
+                        k = out.get(k, 0); seen += 1
+                    if ok:
+                        out[j] = h; moved = True; break
+        if not moved:
+            break
+    return out
+
+
 def decode(toks: Sequence[str], pos: Sequence[str], A: np.ndarray, n: int, temp: float = 1.0) -> Tuple[Dict[int, int], Dict[int, Dict[int, float]]]:
-    """Point heads + graded posterior under the configured decode, with the punctuation convention applied to both."""
+    """Point heads + graded posterior under the configured decode, with the occupancy repair and the punctuation convention."""
     if DECODE == "mbr":
         hd, post = mbr_tree(A, n, temp)
     elif DECODE == "map1":
         hd = map_tree_single_root(A, n); post = single_root_marginals(A.copy(), n, temp)
     else:
         hd = chu_liu_edmonds(A, n); post = single_root_marginals(A.copy(), n, temp)
+    hd = occupancy_repair(toks, pos, hd, post)
     hd = punct_convention(toks, pos, hd)
     for j in range(1, len(toks) + 1):
         if PUNCT_CONVENTION and pos[j - 1] == "PUNCT" and j in post:
