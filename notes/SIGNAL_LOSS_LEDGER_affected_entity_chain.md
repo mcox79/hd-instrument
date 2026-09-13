@@ -517,3 +517,12 @@ competent-reader reference ~0.85–0.90.
   completed the same configuration twice (0.6294 hard, 0.6294 graded). Suspect: a second import of the board module by an arm when it
   runs as `__main__`. Until diagnosed, attachment-arm boards launch through the module-import form. The pre-routing counts-only board
   (script form) completed (0.6385).**
+- **FULLY BF INFERENCE CHAIN THROUGH THE BOARD (first complete run; counts tagger + attachment-arm heads reaching every arm via the
+  shared frontend; finished 2026-09-13 ~01:45 after 3 h under contention): AGG 0.6395 -> 0.6222.** coref 0.4681 =, common_noun 0.5671
+  =, salience 0.2555 =, wic 0.7493 = (those arms read gold tokens/heads or no heads); **who_did_what_patient 0.8207 -> 0.7291, who_did_
+  what_agent 0.832 -> 0.8209, state 0.828 -> 0.6587** (state still CI-sep over its floor). Counts-tagger-only (reader) 0.6385. The three
+  flips ARE Phase 2, in order: (1) PATIENT -- the patient arm labels roles from the hard heads only (`exp_valency_labeled_patient_v1.
+  eval_split` -> `labeler.label(toks, pos, heads)`): repair = hand it the head POSTERIOR (graded roles, +0.013 measured) and read the
+  obj/nsubj:pass competition graded; the residual is the heads rung's obj 0.685 (upstream); (2) AGENT -- same hand-off for the cm_agent
+  competition; (3) STATE -- residual is the arm's copular predicate placement (heads rung). Asset at run time: pre- or post-PP-cue
+  (unknown; the session-owned D run with the PP asset is in flight and will settle it).
