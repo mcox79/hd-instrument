@@ -481,3 +481,14 @@ competent-reader reference ~0.85–0.90.
   for tokens with top mass < 0.8) 0.5379.** The tagger costs the heads rung 0.022; the graded read recovers 0.004 of it (obl 0.409 ->
   0.428, nsubj 0.68 -> 0.685) at ~4x cost -- kept as the BF read (the posterior is the signal; the rest of the loss is the tagger's
   accuracy, i.e. the categories rung itself). The reader's attachment-arm head source now reads the tag posterior.
+- **COPULAR CONVENTION LANDED (2026-09-13 00:40): STATE dim under BF heads 0.6561 -> 0.6587 (CI-sep over its floor 0.5582, which
+  itself moved from 0.5714 because the state instrument now runs on the shared frontend = the BF tagger); heads rung with gold
+  categories 0.5562 -> 0.5583 (nsubj 0.702 -> 0.724). Hard/graded predicted 0.5362 / 0.5400.**
+- **HEADS-RUNG RECONCILIATION (fold queue #4; pri-2 `scale_the_reading_learned_arc_scorer`, owner-DONE 09-11):** that solution's
+  second track = SelfSupEM co-occurrence scorer + item-based constructions read as a distribution (UAS 0.4784 / +constructions 0.5142;
+  beats the supervised scorer OOD on GUM +0.0235) -- the SAME family as the attachment arm (which uses SelfSupEM as its co-occurrence
+  teacher + constructions + learned cue strengths + semantic bootstrapping; 0.5583 on the same test) -> the arm SUBSUMES it; one
+  organ, no second track to wire. What it built that the arm lacks: the treebank-free HINDLE-ROOTH preposition cue (LR(p) =
+  log P(p|verb)/P(p|noun) from UNAMBIGUOUS PPs; PP-decision subpopulation 0.453 -> 0.567, +0.035 preposition-specific twin-controlled)
+  = the parked pri-17 lever, already proven -> folding it into the arm as a cue. Its 2nd-order readout and online re-estimation were
+  located negatives (consistent with tonight's occupancy negative).
