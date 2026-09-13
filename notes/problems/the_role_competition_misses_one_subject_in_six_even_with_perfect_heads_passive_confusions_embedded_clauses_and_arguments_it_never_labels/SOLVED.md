@@ -411,3 +411,146 @@ defect.
 | widened population | 6 of 37 | 2 ADV pro-forms ("somewhere", deliberately outside the shipped class), 3 partitive NUM/SYM, 1 nominalised ADJ |
 
 **Every large remaining bucket is the same disease: a configuration the treebank does not contain enough of.**
+
+## 17. Opportunity (1): grow the counts by READING, treebank-free -- BUILT, and REFUTED BY ITS OWN TWIN
+
+The starved configurations are a **frequency** problem (section 11), so the fix is exposure. Self-training on the
+organ's own labels would entrench the very error we are fixing, so the outcome had to come from an INDEPENDENT cue.
+I used **number agreement** (morphology only: the category organ's Penn arm VBZ/VBP and NN/NNS -- no parse, no gold),
+and measured the teacher's RELIABILITY on UD-EWT test (a measuring instrument only) before trusting it:
+
+| teacher | fired (per 700 sentences) | precision vs gold subject |
+|---|---|---|
+| agreement alone | 46 | **0.457** -- far too noisy to teach |
+| + drop preposition-governed candidates | 42 | 0.643 |
+| **+ the agreeing candidate must be pre-verbal, OR the clause is the there-BE construction** | 28 | **0.893** |
+| existential clauses only | 1 | 1.000 -- reliable but far too rare |
+
+With the 0.893 teacher I read **60,000 simplewiki sentences** with the live chain and accrued **3,593 outcomes**
+(weighted 3,180.6) through the organ's own online observe path (counts added; strengths recomputed as a pure
+function of them). **The scored result looks like a large win:**
+
+| arm | gold subjects | gold core | live subjects | live matrix subjects |
+|---|---|---|---|---|
+| v3 (landed) | 0.9185 | 0.9198 | 0.7626 (-0.0014) | 0.8571 |
+| v3 + reading x1 | 0.9396 | 0.9302 | 0.7795 (+0.0154) | 0.8730 (+0.0286 **CI-sep**) |
+| v3 + reading x2 | 0.9494 | 0.9233 | 0.7837 (+0.0197 **CI-sep**) | 0.8762 (+0.0317 **CI-sep**) |
+
+**Then the info-free twin killed it.** The twin reads the same 60,000 sentences, fires on the same sites with the
+same weights, but attaches each SUBJ outcome to a **randomly chosen clause-local argument head** instead of the
+agreeing one -- same mass, same configuration mix, destroyed token-to-role mapping. **The twin MATCHES and at x2
+BEATS the real teacher:** gold subjects 0.9410 vs 0.9396, live subjects 0.7837 vs 0.7795; at x2, twin gold subjects
+0.9649 vs 0.9494 and twin gold copular subjects 0.9245 vs 0.8553.
+
+**MECHANISM, with the number that proves it:** the teacher emits **only one role class**, so all it can do is move
+the prior toward SUBJ; and the scored populations are subject-heavy (712 nsubj + 48 nsubj:pass against 400 obj), so
+*any* subject-biasing perturbation "improves" them. The proof is the balanced metric the argument populations do not
+contain: at x2 the twin costs held-out role accuracy over all 3,224 nominals **-0.0183 CI-separated**, while the real
+reading arm is flat there (-0.0012). Both are bias; the twin is simply more of it.
+
+**What this rules out, and what the next attempt needs.** A single-role teacher cannot teach cue validities at all --
+it has no contrast to inform any cue. A label-free growth loop for this rung needs a **multi-role** teacher (at
+minimum a subject/object contrast on the same clause), and the reliability bar it has to clear is now measured: at
+0.457 it is useless, at 0.893 it is still indistinguishable from random placement of the same mass. Note also what
+the reading did NOT reach: `VERB_post_ex` gained **1.8** weighted decisions and `ADV_pre` gained **0.0** -- the
+governor removes the existential and inverted-copular instances from those configurations before any teacher can
+see them, so even a perfect teacher would not have filled them from this chain.
+
+## 18. A fifth opportunity I added: hierarchical CONFIGURATION backoff -- BUILT, and REJECTED on the balanced metric
+
+Every secondary cue VALUE is already Dirichlet-shrunk toward its configuration; the CONFIGURATION itself got
+add-0.5 and nothing else, so `ADV_pre` (17 weighted decisions) and `VERB_post_ex` (48) were estimated from almost no
+experience. A construction inherits its parent's expectations until experience overrides them, so:
+`P(role|cfg) = (n_cfg + m * P(role|PARENT(cfg))) / (N_cfg + m)`, PARENT dropping the construction suffix then
+collapsing the head class to PRED/NONPRED. Swept m in {0, 2, 5, 20, 50, 200, 500, 1000, 3000}.
+
+On the core-argument populations it looks like a clean win at every m in 200-1000 (gold core +0.0026, **copular
+subjects +0.0189 -- it turns the only non-positive gold population positive**, previously-unlabelled +0.0270, live
+core +0.0026, nothing negative anywhere). **On the organ's own balanced metric it loses: held-out role accuracy over
+all 3,224 nominals -0.0323 CI-separated at gold and -0.0099 CI-separated live at m=1000, and already -0.0043
+CI-separated live at m=50.** *Mechanism:* backing a rare configuration off toward its parent moves its probability
+toward the parent's role mix, and the parents are argument-richer than those rare non-verbal-head configurations
+actually are, so they start over-predicting ARGUMENTS -- which flatters every argument-only population and is paid
+for on the class those populations do not contain. **Same trap as (1), caught by the same discipline.** Kept in the
+proposed patch as a documented knob defaulting to 0.0 (byte-identical to the shipped maths).
+
+*Process note, recorded because it nearly cost the result:* I first swept this WITHOUT `ACC_NOMINAL` in the reported
+key list and would have shipped it. It was caught only because restoring the correct floor (the floor table must use
+m=0, not inherit the change) put the balanced metric back in view. **Any lever measured only on argument-only
+populations is measured on a subject-heavy sample; the balanced metric has to be in every table.**
+
+## 19. BEFORE / AFTER
+
+"Before" = the shipped organ's floor. "After round 1" = what was committed. "After round 2" = what is committed now.
+**Round 2 changed no shipped number: all five opportunities were rejected by measurement.** What round 2 produced is
+the located requirement on the heads rung, the reliability curve for consumers, and five understood negatives.
+
+| measurement (UD-EWT test 700) | floor | after round 1 | after round 2 |
+|---|---|---|---|
+| gold: matrix subjects | 0.9079 | **0.9460** (+0.0381 CI-sep) | 0.9460 |
+| gold: embedded subjects | 0.8655 | **0.9496** (+0.0840 CI-sep) | 0.9496 |
+| gold: matrix objects | 0.8254 | **0.9418** (+0.1164 CI-sep) | 0.9418 |
+| gold: all core arguments | 0.8655 | **0.9198** (+0.0543 CI-sep) | 0.9198 |
+| gold: never-labelled arguments | 0.0000 | **0.8378** (+0.8378 CI-sep) | 0.8378 |
+| gold: held-out role accuracy (3224) | 0.8734 | **0.8834** (+0.0099 CI-sep) | 0.8834 |
+| live: all core arguments | 0.7250 | 0.7276 (+0.0026, n.s.) | 0.7276 |
+| live: never-labelled arguments | 0.1351 | **0.2973** (+0.1622 CI-sep) | 0.2973 |
+| board who_did_what PATIENT | 0.7920 | **0.7936** | 0.7936 |
+| board who_did_what AGENT (floor 0.8399) | 0.8322 | 0.8420 / 0.8434 (tie) | 0.8434 |
+| witness on real UD trees | -- | 11/12 | 11/12 |
+| **NEW: what the heads rung must reach** | -- | -- | **core-arc accuracy 0.95** (it is at 0.753) |
+| **NEW: role-margin defer curve** | -- | -- | **0.99 @ 20% coverage, 0.92 @ 40%** (base 0.755) |
+
+## 20. Are the opportunities exhausted? Honest answer
+
+**At this rung, with this upstream, yes -- and I can say why for each.** Eight levers have now been built faithfully
+and measured on both arms with a floor, a twin and paired CIs: auxiliary-frame voice, filler-category cue,
+relative-pronoun form, filler-gap configuration, verb particles, the slot competition, the posterior at the
+consumer, growth from reading, and the configuration backoff. Two families of failure account for all of them:
+(a) **arc-dependent cues inherit the governor's noise** (voice-from-dependents, particles, the ungated rank cue,
+the slot competition), and (b) **anything that shifts probability mass toward the argument classes flatters the
+argument-only populations and is paid for on the balanced metric** (reading growth, configuration backoff). The
+head-repair curve then says the remaining live headroom is not at this rung at all: on the arguments the governor
+attaches correctly the floor is already 0.878-0.907 and v3 adds +0.011/-0.004.
+
+**Two things are NOT exhausted and are not mine to do:**
+1. **The consumers do not read the posterior.** The defer curve (section 14) is a measured, unexploited 0.92-at-40%
+   precision signal sitting behind a hard string. That is a consumer-side build.
+2. **A multi-role label-free teacher.** Section 17 says exactly what it must be and what reliability bar it must
+   clear; the single-role version is refuted.
+
+## 21. ALTERNATE PATHS -- similarly or more brain-foundational than what shipped
+
+1. **Learn the whole role inventory from reading with a MULTI-ROLE teacher.** *Structure:* the same
+   Competition-Model validity acquisition, but the teacher must contrast at least subject against object within one
+   clause. *Computation:* accrue `P(role | config, cue value)` from clauses where two independent cues (agreement +
+   case-marking, or agreement + a by-phrase) jointly determine BOTH arguments. *Math:* unchanged -- the counts and
+   `strengths_from_counts`. *Cost:* the teacher's reliability must be measured first (the ladder in section 17 is the
+   template); the corpus pass is 250s per 60k sentences. *Why not now:* the single-role version is refuted and I do
+   not have a reliable object teacher; inventing one without measuring its precision is exactly the mistake section
+   17 documents. **More brain-foundational than what shipped** -- it removes the treebank from the learning loop.
+2. **Precision-weighted role decisions at the consumers.** *Structure:* the same reliability weighting the agent arm
+   already surfaces (`agent_competition_pick_conf`). *Computation:* consumers take `coarse_role_posterior` and weight
+   or defer by its margin instead of taking the MAP string. *Math:* the margin is already computed; nothing new.
+   *Cost:* one change per consumer. *Why not now:* the consumers are not mine to edit. **Measured and ready:**
+   AUC 0.716, 0.92 accuracy at 40% coverage against a 0.755 base.
+3. **Fix the governor's CONSTITUENCY errors with the structure this cell already uses.** 101 of the 1,160 core
+   arguments (8.7%) are absorbed into a nominal phrase -- the attachment arm makes them compound/nmod dependents of
+   a noun. The Right-hand Head Rule / DP-head criterion that this cell used to widen the argument class is exactly
+   the constraint that would stop it. *Structure:* constituent-head identification (Williams 1981; Abney 1987;
+   bracket closure is neurally real -- Nelson 2017, Pallier 2011), already landed as `hdlab/np_head_reduce.py`.
+   *Cost:* a heads-rung change, arc-free, cheap. *Why not now:* it is the heads rung's brief, not this one.
+   **Equally brain-foundational and it addresses the larger half of the residual that pri 97 does not touch.**
+4. **Calibrate the attachment posterior rather than improving its argmax.** Marginalising the role read over the
+   posterior loses 0.027 today because the posterior is broad and MIS-CENTRED (74% precision at P >= 0.95). If the
+   arm's core-argument posterior were calibrated, that mixture flips sign and the graded hand-off becomes usable
+   without any accuracy gain at all. *Math:* a calibration map fitted on the arm's own held-out reads.
+   *Why not now:* heads-rung work. **Potentially cheaper than raising UAS and it is the more brain-faithful target**
+   (parallel maintenance requires the alternatives to be *correctly weighted*, not merely present).
+5. **Incremental role commitment.** The literature (section 11) says a pre-verbal argument's role is only partially
+   determined until the verb arrives. This cell reads the whole clause at once. *Structure:* the eADM/left-corner
+   incremental arm already in the substrate (`incremental_parser.incremental_subject_before`). *Computation:*
+   commit the role posterior word-by-word and revise at the verb, scoring what the organ knows at word t.
+   *Cost:* a new decode path plus an incremental instrument. *Why not now:* out of this brief's scope, and the
+   whole-clause read is not currently the binding constraint -- the heads are. **More brain-foundational than what
+   shipped** and it is the standing "organs take data in order" direction.
