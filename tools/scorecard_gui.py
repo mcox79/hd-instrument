@@ -363,7 +363,10 @@ class ScorecardWindow:
 
     def _fill_problems(self) -> None:
         import problem_ledger as PL
-        rows = [r for r in PL.scan() if r["brief"] and r["state"] == "OPEN" and not r.get("integrated")]
+        # OPEN briefs AND solved-but-not-yet-DONE ones (owner 2026-09-12: a solved problem must not vanish from this tab --
+        # it stays listed as 'solved -> awaiting your verdict' with the Mark DONE button here). Integrated ones drop off.
+        rows = [r for r in PL.scan() if r["brief"] and not r.get("integrated")
+                and (r["state"] == "OPEN" or (r["state"] in ("SOLVED", "PARTIAL", "REFUTED") and PL.load_owner(r["slug"]).get("verdict", "") != "DONE"))]
         rows.sort(key=lambda r: (r["priority"] if isinstance(r["priority"], int) else 999, r["slug"]))
         self._problem_rows = rows
         self.nb.tab(3, text="4. PROBLEMS TO HAND OUT (%d)" % len(rows))
@@ -382,6 +385,8 @@ class ScorecardWindow:
         verdict = PL.load_owner(r["slug"]).get("verdict", "")
         if verdict == "DONE":
             return "DONE -> folding in"
+        if r.get("state") in ("SOLVED", "PARTIAL", "REFUTED"):
+            return "%s -> awaiting your verdict" % r["state"].lower()
         if verdict == "PARKED":
             return "parked"
         if os.path.exists(os.path.join(d, "SOLVER_RESULT_pasted.md")):
@@ -489,7 +494,7 @@ def self_test() -> int:
     first = w.ptv.get_children()[0]; w.ptv.selection_set(first); w._show_prompt()
     assert "slug is:" in w.prompt.get("1.0", "end"), "kickoff prompt must render"
     w._copy_prompt(); assert w.root.clipboard_get().startswith("You are the SOLVER"), "clipboard copy must work"
-    assert w.ptv.item(first, "values")[1] in ("free", "assigned", "result pasted", "result pasted (more needed)", "parked", "DONE -> folding in"), "state word"
+    assert any(tok in w.ptv.item(first, "values")[1] for tok in ("free", "assigned", "result pasted", "parked", "DONE", "awaiting")), "state word"
     root.destroy()
     print("[scorecard_gui self-test] PASS: %d open problems listed with copyable prompts" % n_prob)
     print("[scorecard_gui self-test] PASS: %d abilities rendered, %d questions, short version present" % (n_rows, len(sc["questions_for_owner"])))
