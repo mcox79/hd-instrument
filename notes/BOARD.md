@@ -75,13 +75,14 @@ with no rank ceiling is the arm that wins. **TWO ORGANS, OPPOSITE FAULTS -- DO N
 - **AWAITING OWNER REVIEW (not my move):** pri-5 `measure_end_to_end` (gates the pri-2 meaning fusion-flip), pri-6 reward-cluster audit; board Q123 (STATUS trim -- DONE by me, this file, CONT-73), Q122 (stale/obsolete -- its referenced landings are all integrated).
 - **NOTHING else running.** Everything committed path-limited, NOTHING pushed. Owner-DONE fold-in gate EMPTY.
 
-_mirrored from `notes/STATUS.md` at 2026-09-13T18:19:18Z by `tools/board.py`._
+_mirrored from `notes/STATUS.md` at 2026-09-13T18:43:32Z by `tools/board.py`._
 
 ## QUESTIONS FOR YOU
 
 | ID | Question | What's blocked on it | My recommendation | ANSWER | status |
 |---|---|---|---|---|---|
 | Q135 | Solutions produced by the agent-run solver sessions: may I fold them into the live reader once I have re-run their numbers myself (with a full board A/B and the previous asset kept for rollback), or should each still wait for your DONE mark in the tab? | With agents producing solutions around the clock, waiting for a human DONE on each one becomes the bottleneck; the first two pilot sessions (pri 97, pri 98) will wait for DONE regardless. | Keep DONE for the two pilot sessions; after that let strategy integrate on its own first-hand re-run plus a board A/B, with every integration still listed in the tab and reversible. Risk: a solution you would have rejected gets folded in for a few hours before you see it; the rollback is one asset swap. |  | open |
+| Q136 | May I run the parked change to the word-category organ: store frequent two-word units ('there is', 'have to') so a word inside a stored unit takes the unit's own category counts? The run was denied by the harness at 14:35; I have not retried it. | The heads rung loses 1.56 points under the organ's own categories and 58% of that is main-verb be/have read as auxiliaries; the first (blanket) form was refuted on the full test; this second form is the brain's stored-chunk form and is only drafted. | Yes: run it as a candidate asset under data/hook_state (never the live asset) with the full-test sweep and the heads probe; adopt only if overall accuracy and heads both rise. Risk: a second null result costs about 20 minutes of runner time. |  | open |
 
 ## ANSWERED
 
