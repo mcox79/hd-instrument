@@ -25,7 +25,7 @@ HARD_RULES = (
     "file; NEVER run `git add -A`, never a bare `git commit`, never push -- commit PATH-LIMITED only (`git commit -m \"...\" -- <your "
     "files>`; `git add -f` is allowed for your own files), and end every commit message with the line: Co-Authored-By: Claude Fable "
     "5.1 <noreply@anthropic.com>. Cap cores on EVERY run (prefix: OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 "
-    "PYTHONHASHSEED=0). If a tool call is DENIED: stop and report the denial text verbatim; do not retry a variant. Do NOT fan out to "
+    "PYTHONHASHSEED=0). If a tool call is DENIED: stop and report the denial text verbatim; do not retry a variant, and do NOT perform the same check or step another way (a different tool achieving the denied thing is a variant) -- leave that step undone and say so. Do NOT fan out to "
     "sub-agents; do all work yourself. Do NOT use spaCy / nltk taggers / any supervised parser / any external LLM at inference or as a "
     "teacher; offline foundation assets (norms, WordNet) are admissible at BUILD time only -- ship a dict. Never quote retired figures "
     "(notes/reference_retired_claims_never_requote.md).{organ_note}"
