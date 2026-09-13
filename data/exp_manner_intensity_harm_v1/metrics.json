@@ -1,0 +1,1703 @@
+{
+ "_meta": {
+  "seed": 20260913,
+  "anchor": "manner_intensity_harm_v1",
+  "out_dir": "C:\\AI\\hd-instrument\\data\\exp_manner_intensity_harm_v1",
+  "tau_intensity": 0.4,
+  "tau_manner_val": 0.1,
+  "prior_weak": 0.3,
+  "ship_slots": [
+   "ADVMOD",
+   "MANNER_PP",
+   "MEANS_PP",
+   "RESULT_ADJ"
+  ],
+  "asset_meta": {
+   "built": "2026-09-13T14:25:59",
+   "heads_source": "attachment_arm",
+   "n_synsets": 1836,
+   "n_verbs": 2305,
+   "n_words": 906,
+   "plastic": "evidence entries carry COUNTS; the organ's observe_manner(verb, filler, slot) increments them from running prose (same units, one pure function of counts)",
+   "slots": [
+    "ADVMOD",
+    "MANNER_PP",
+    "MEANS_PP",
+    "RESULT_ADJ",
+    "GENUS"
+   ],
+   "source": "WordNet verb definitions (affecting supersense x animate-object frames), parsed with hdlab.frontend (count-based category organ + attachment arm); Warriner 2013 V/A/D; Lancaster sensorimotor action strength",
+   "tag_source": "counts"
+  },
+  "cf_gold_verbs": 947
+ },
+ "named_slice": {
+  "per_verb": {
+   "savage": {
+    "floor": "HARM",
+    "manner": "HARM",
+    "manner_value": -0.4825,
+    "evidence": [
+     [
+      "ADVMOD",
+      "brutal"
+     ]
+    ]
+   },
+   "victimize": {
+    "floor": "HARM",
+    "manner": "HARM",
+    "manner_value": -0.46,
+    "evidence": [
+     [
+      "ADVMOD",
+      "unjust"
+     ]
+    ]
+   },
+   "oppress": {
+    "floor": "HARM",
+    "manner": "HARM",
+    "manner_value": null,
+    "evidence": [
+     [
+      "MEANS_PP",
+      "use"
+     ]
+    ]
+   },
+   "maul": {
+    "floor": "HARM",
+    "manner": "HARM",
+    "manner_value": -0.2975,
+    "evidence": [
+     [
+      "ADVMOD",
+      "bad"
+     ],
+     [
+      "MEANS_PP",
+      "beating"
+     ]
+    ]
+   },
+   "persecute": {
+    "floor": "HARM",
+    "manner": "HARM",
+    "manner_value": null,
+    "evidence": []
+   },
+   "molest": {
+    "floor": "HARM",
+    "manner": "HARM",
+    "manner_value": null,
+    "evidence": [
+     [
+      "ADVMOD",
+      "continual"
+     ],
+     [
+      "RESULT_ADJ",
+      "indecent"
+     ]
+    ]
+   },
+   "brutalize": {
+    "floor": null,
+    "manner": "HARM",
+    "manner_value": -0.4825,
+    "evidence": [
+     [
+      "ADVMOD",
+      "brutal"
+     ],
+     [
+      "RESULT_ADJ",
+      "brutal"
+     ]
+    ]
+   },
+   "manhandle": {
+    "floor": null,
+    "manner": "HARM",
+    "manner_value": -0.33,
+    "evidence": [
+     [
+      "ADVMOD",
+      "rough"
+     ]
+    ]
+   },
+   "gore": {
+    "floor": null,
+    "manner": "HARM",
+    "manner_value": null,
+    "evidence": [
+     [
+      "MEANS_PP",
+      "piercing"
+     ],
+     [
+      "MEANS_PP",
+      "sharp"
+     ]
+    ]
+   },
+   "ravage": {
+    "floor": "HARM",
+    "manner": "HARM",
+    "manner_value": null,
+    "evidence": []
+   },
+   "terrorize": {
+    "floor": "HARM",
+    "manner": "HARM",
+    "manner_value": null,
+    "evidence": [
+     [
+      "ADVMOD",
+      "great"
+     ],
+     [
+      "MEANS_PP",
+      "terror"
+     ],
+     [
+      "MEANS_PP",
+      "threats"
+     ],
+     [
+      "MEANS_PP",
+      "violence"
+     ]
+    ]
+   },
+   "subjugate": {
+    "floor": null,
+    "manner": "HARM",
+    "manner_value": -0.2075,
+    "evidence": [
+     [
+      "MEANS_PP",
+      "force"
+     ]
+    ]
+   },
+   "enslave": {
+    "floor": "HARM",
+    "manner": "HARM",
+    "manner_value": null,
+    "evidence": []
+   },
+   "tyrannize": {
+    "floor": null,
+    "manner": "HARM",
+    "manner_value": -0.5675,
+    "evidence": [
+     [
+      "MANNER_PP",
+      "autocratic"
+     ],
+     [
+      "MANNER_PP",
+      "cruel"
+     ]
+    ]
+   },
+   "maltreat": {
+    "floor": null,
+    "manner": "HARM",
+    "manner_value": -0.44,
+    "evidence": [
+     [
+      "ADVMOD",
+      "bad"
+     ]
+    ]
+   }
+  },
+  "floor_HARM_of_15": 9,
+  "manner_HARM_of_15": 15,
+  "manner_slice_recovered": [
+   "brutalize",
+   "manhandle",
+   "gore",
+   "subjugate",
+   "tyrannize",
+   "maltreat"
+  ],
+  "manner_slice_n": 6,
+  "flips_to_wrong_sign": []
+ },
+ "neutral_precision": {
+  "n": 36,
+  "floor_leaks": [],
+  "manner_leaks": []
+ },
+ "populations": {
+  "harm_frame_HARM": [
+   10,
+   10,
+   10
+  ],
+  "social_harm_HARM": [
+   15,
+   15,
+   16
+  ],
+  "nonprevent_help_HELP": [
+   15,
+   15,
+   16
+  ]
+ },
+ "cf_whole_arm": {
+  "floor": [
+   288,
+   309,
+   0.932
+  ],
+  "manner": [
+   294,
+   315,
+   0.9333
+  ],
+  "manner_discordant_sample": [
+   [
+    "administer",
+    "HARM",
+    "HELP",
+    0.33
+   ],
+   [
+    "avert",
+    "HELP",
+    "HARM",
+    -0.33
+   ],
+   [
+    "bar",
+    "HELP",
+    "HARM",
+    -0.27
+   ],
+   [
+    "court",
+    "HARM",
+    "HELP",
+    0.4
+   ],
+   [
+    "devise",
+    "HARM",
+    "HELP",
+    0.53
+   ],
+   [
+    "dissolve",
+    "HELP",
+    "HARM",
+    -0.8
+   ],
+   [
+    "eat",
+    "HELP",
+    "HARM",
+    -0.4
+   ],
+   [
+    "enlist",
+    "HARM",
+    "HELP",
+    0.27
+   ],
+   [
+    "govern",
+    "HARM",
+    "HELP",
+    0.33
+   ],
+   [
+    "grab",
+    "HELP",
+    "HARM",
+    -0.67
+   ],
+   [
+    "hang",
+    "HARM",
+    "HELP",
+    0.27
+   ],
+   [
+    "load",
+    "HARM",
+    "HELP",
+    0.8
+   ]
+  ]
+ },
+ "new_decisions": {
+  "n_residual_floor_abstains": 695,
+  "n_newly_decided": 46,
+  "cf_precision": [
+   6,
+   6,
+   1.0
+  ],
+  "cf_wrong_sign": [],
+  "cf_neutral_but_decided": [
+   [
+    "freeze",
+    "HARM",
+    -0.2
+   ],
+   [
+    "modify",
+    "HARM",
+    0.2
+   ],
+   [
+    "sell",
+    "HARM",
+    0.2
+   ],
+   [
+    "switch",
+    "HELP",
+    -0.2
+   ]
+  ],
+  "sample": [
+   [
+    "animate",
+    "HELP"
+   ],
+   [
+    "appal",
+    "HARM"
+   ],
+   [
+    "apparel",
+    "HELP"
+   ],
+   [
+    "bat",
+    "HELP"
+   ],
+   [
+    "bereave",
+    "HARM"
+   ],
+   [
+    "blackjack",
+    "HARM"
+   ],
+   [
+    "bluff",
+    "HARM"
+   ],
+   [
+    "boot",
+    "HARM"
+   ],
+   [
+    "box",
+    "HARM"
+   ],
+   [
+    "brand",
+    "HELP"
+   ],
+   [
+    "burden",
+    "HARM"
+   ],
+   [
+    "cashier",
+    "HARM"
+   ],
+   [
+    "circumvent",
+    "HELP"
+   ],
+   [
+    "collar",
+    "HELP"
+   ],
+   [
+    "crease",
+    "HELP"
+   ],
+   [
+    "drape",
+    "HELP"
+   ],
+   [
+    "elate",
+    "HELP"
+   ],
+   [
+    "enable",
+    "HELP"
+   ],
+   [
+    "floor",
+    "HARM"
+   ],
+   [
+    "freeze",
+    "HARM"
+   ],
+   [
+    "gratify",
+    "HELP"
+   ],
+   [
+    "grip",
+    "HELP"
+   ],
+   [
+    "heat",
+    "HELP"
+   ],
+   [
+    "hoist",
+    "HELP"
+   ],
+   [
+    "home",
+    "HELP"
+   ],
+   [
+    "horn",
+    "HARM"
+   ],
+   [
+    "lift",
+    "HELP"
+   ],
+   [
+    "marshal",
+    "HELP"
+   ],
+   [
+    "modify",
+    "HARM"
+   ],
+   [
+    "outwit",
+    "HELP"
+   ],
+   [
+    "paste",
+    "HARM"
+   ],
+   [
+    "plank",
+    "HARM"
+   ],
+   [
+    "plump",
+    "HARM"
+   ],
+   [
+    "prepare",
+    "HELP"
+   ],
+   [
+    "prod",
+    "HELP"
+   ],
+   [
+    "rake",
+    "HELP"
+   ],
+   [
+    "reduce",
+    "HARM"
+   ],
+   [
+    "refine",
+    "HELP"
+   ],
+   [
+    "sell",
+    "HARM"
+   ],
+   [
+    "serve",
+    "HELP"
+   ]
+  ]
+ },
+ "twin": {
+  "manner_slice_HARM": {
+   "real": 6,
+   "twin_intensity": 4,
+   "twin_valence": 2,
+   "n": 6,
+   "twin_parse_free": 0
+  },
+  "manner_slice_WRONG_HELP": {
+   "real": 0,
+   "twin_intensity": 0,
+   "twin_valence": 3
+  },
+  "neutral_leaks": {
+   "real": 0,
+   "twin_intensity": 0,
+   "twin_valence": 1,
+   "twin_parse_free": 0
+  },
+  "cf_precision_new": {
+   "real": [
+    6,
+    6,
+    1.0
+   ],
+   "twin_intensity": [
+    7,
+    8,
+    0.875
+   ],
+   "twin_valence": [
+    24,
+    42,
+    0.5714
+   ],
+   "twin_parse_free": [
+    16,
+    19,
+    0.8421
+   ]
+  },
+  "n_newly_decided": {
+   "real": 46,
+   "twin_intensity": 48,
+   "twin_valence": 510,
+   "twin_parse_free": 154
+  }
+ },
+ "intensity_modes": {
+  "circumplex": {
+   "slice": 5,
+   "newly_decided": 43,
+   "cf_prec": [
+    6,
+    6,
+    1.0
+   ],
+   "leaks": 0,
+   "prose_acc": 0.6389
+  },
+  "arousal": {
+   "slice": 5,
+   "newly_decided": 40,
+   "cf_prec": [
+    4,
+    4,
+    1.0
+   ],
+   "leaks": 0,
+   "prose_acc": 0.6389
+  },
+  "grounded": {
+   "slice": 3,
+   "newly_decided": 26,
+   "cf_prec": [
+    4,
+    4,
+    1.0
+   ],
+   "leaks": 0,
+   "prose_acc": 0.5278
+  },
+  "arousal_grounded": {
+   "slice": 5,
+   "newly_decided": 35,
+   "cf_prec": [
+    5,
+    5,
+    1.0
+   ],
+   "leaks": 0,
+   "prose_acc": 0.6667
+  },
+  "valence": {
+   "slice": 3,
+   "newly_decided": 33,
+   "cf_prec": [
+    4,
+    4,
+    1.0
+   ],
+   "leaks": 0,
+   "prose_acc": 0.5833
+  }
+ },
+ "two_by_two": {
+  "hiA_neg": {
+   "n": 96,
+   "cf_covered": 22,
+   "cf_sign_agree": 0.8636,
+   "n_in_P_NEUTRAL_BROAD": 0,
+   "sample": [
+    [
+     "anger",
+     "angry",
+     -0.62,
+     "HARM"
+    ],
+    [
+     "anguish",
+     "miserable",
+     -0.6,
+     null
+    ],
+    [
+     "appal",
+     "disgust",
+     -0.42,
+     null
+    ],
+    [
+     "bang",
+     "violent",
+     -0.69,
+     null
+    ],
+    [
+     "batter",
+     "violent",
+     -0.69,
+     null
+    ],
+    [
+     "bereave",
+     "death",
+     -0.78,
+     null
+    ],
+    [
+     "betray",
+     "treachery",
+     -0.57,
+     "HARM"
+    ],
+    [
+     "blackjack",
+     "threats",
+     -0.59,
+     null
+    ]
+   ]
+  },
+  "hiA_pos": {
+   "n": 54,
+   "cf_covered": 13,
+   "cf_sign_agree": 0.7692,
+   "n_in_P_NEUTRAL_BROAD": 0,
+   "sample": [
+    [
+     "accelerate",
+     "quick",
+     0.27,
+     "HELP"
+    ],
+    [
+     "activate",
+     "active",
+     0.37,
+     null
+    ],
+    [
+     "affect",
+     "physical",
+     0.23,
+     "NEUTRAL"
+    ],
+    [
+     "animate",
+     "lively",
+     0.53,
+     null
+    ],
+    [
+     "arouse",
+     "sexual",
+     0.41,
+     "HELP"
+    ],
+    [
+     "badger",
+     "persistent",
+     0.18,
+     null
+    ],
+    [
+     "beat",
+     "cleverness",
+     0.49,
+     "HARM"
+    ],
+    [
+     "bug",
+     "persistent",
+     0.18,
+     null
+    ]
+   ]
+  },
+  "loA_neg": {
+   "n": 100,
+   "cf_covered": 14,
+   "cf_sign_agree": 0.6429,
+   "n_in_P_NEUTRAL_BROAD": 0,
+   "sample": [
+    [
+     "abuse",
+     "bad",
+     -0.44,
+     "HARM"
+    ],
+    [
+     "alarm",
+     "apprehension",
+     -0.21,
+     "HARM"
+    ],
+    [
+     "annoy",
+     "minor",
+     -0.05,
+     null
+    ],
+    [
+     "attract",
+     "means",
+     -0.64,
+     "HELP"
+    ],
+    [
+     "baby",
+     "excessive",
+     -0.16,
+     null
+    ],
+    [
+     "bash",
+     "hard",
+     -0.16,
+     null
+    ],
+    [
+     "bias",
+     "unfair",
+     -0.46,
+     null
+    ],
+    [
+     "bind",
+     "ropes",
+     -0.04,
+     "HARM"
+    ]
+   ]
+  },
+  "loA_pos": {
+   "n": 187,
+   "cf_covered": 49,
+   "cf_sign_agree": 0.6327,
+   "n_in_P_NEUTRAL_BROAD": 0,
+   "sample": [
+    [
+     "abandon",
+     "intent",
+     0.21,
+     "HARM"
+    ],
+    [
+     "alter",
+     "different",
+     0.23,
+     "NEUTRAL"
+    ],
+    [
+     "apparel",
+     "clothes",
+     0.44,
+     null
+    ],
+    [
+     "appease",
+     "favorable",
+     0.47,
+     null
+    ],
+    [
+     "appoint",
+     "task",
+     0.26,
+     "HELP"
+    ],
+    [
+     "arm",
+     "arms",
+     0.11,
+     null
+    ],
+    [
+     "assemble",
+     "putting",
+     0.07,
+     "HELP"
+    ],
+    [
+     "bake",
+     "natural",
+     0.35,
+     null
+    ]
+   ]
+  }
+ },
+ "slot_ablation": {
+  "ADVMOD": {
+   "slice_recovered": 3,
+   "newly_decided": 7,
+   "cf_prec": [
+    0,
+    0,
+    0.0
+   ],
+   "neutral_leaks": 0
+  },
+  "MANNER_PP": {
+   "slice_recovered": 1,
+   "newly_decided": 0,
+   "cf_prec": [
+    0,
+    0,
+    0.0
+   ],
+   "neutral_leaks": 0
+  },
+  "MEANS_PP": {
+   "slice_recovered": 1,
+   "newly_decided": 32,
+   "cf_prec": [
+    3,
+    3,
+    1.0
+   ],
+   "neutral_leaks": 0
+  },
+  "RESULT_ADJ": {
+   "slice_recovered": 1,
+   "newly_decided": 10,
+   "cf_prec": [
+    3,
+    3,
+    1.0
+   ],
+   "neutral_leaks": 0
+  },
+  "GENUS": {
+   "slice_recovered": 1,
+   "newly_decided": 154,
+   "cf_prec": [
+    21,
+    24,
+    0.875
+   ],
+   "neutral_leaks": 1
+  },
+  "ADVMOD+MANNER_PP+MEANS_PP+RESULT_ADJ": {
+   "slice_recovered": 5,
+   "newly_decided": 43,
+   "cf_prec": [
+    6,
+    6,
+    1.0
+   ],
+   "neutral_leaks": 0
+  },
+  "ADVMOD+MANNER_PP+MEANS_PP+RESULT_ADJ+GENUS": {
+   "slice_recovered": 4,
+   "newly_decided": 155,
+   "cf_prec": [
+    23,
+    26,
+    0.8846
+   ],
+   "neutral_leaks": 1
+  }
+ },
+ "sweep": {
+  "ti0.35_tv0.10": {
+   "slice": 5,
+   "newly_decided": 49,
+   "cf_prec": 1.0,
+   "cf_n": 6,
+   "leaks": 0
+  },
+  "ti0.35_tv0.20": {
+   "slice": 5,
+   "newly_decided": 42,
+   "cf_prec": 0.8333,
+   "cf_n": 6,
+   "leaks": 0
+  },
+  "ti0.35_tv0.30": {
+   "slice": 4,
+   "newly_decided": 40,
+   "cf_prec": 0.8,
+   "cf_n": 5,
+   "leaks": 0
+  },
+  "ti0.40_tv0.10": {
+   "slice": 5,
+   "newly_decided": 43,
+   "cf_prec": 1.0,
+   "cf_n": 6,
+   "leaks": 0
+  },
+  "ti0.40_tv0.20": {
+   "slice": 5,
+   "newly_decided": 36,
+   "cf_prec": 0.8333,
+   "cf_n": 6,
+   "leaks": 0
+  },
+  "ti0.40_tv0.30": {
+   "slice": 4,
+   "newly_decided": 34,
+   "cf_prec": 0.8,
+   "cf_n": 5,
+   "leaks": 0
+  },
+  "ti0.45_tv0.10": {
+   "slice": 4,
+   "newly_decided": 39,
+   "cf_prec": 1.0,
+   "cf_n": 5,
+   "leaks": 0
+  },
+  "ti0.45_tv0.20": {
+   "slice": 4,
+   "newly_decided": 30,
+   "cf_prec": 1.0,
+   "cf_n": 3,
+   "leaks": 0
+  },
+  "ti0.45_tv0.30": {
+   "slice": 3,
+   "newly_decided": 28,
+   "cf_prec": 1.0,
+   "cf_n": 2,
+   "leaks": 0
+  },
+  "ti0.50_tv0.10": {
+   "slice": 3,
+   "newly_decided": 36,
+   "cf_prec": 1.0,
+   "cf_n": 5,
+   "leaks": 0
+  },
+  "ti0.50_tv0.20": {
+   "slice": 3,
+   "newly_decided": 27,
+   "cf_prec": 1.0,
+   "cf_n": 3,
+   "leaks": 0
+  },
+  "ti0.50_tv0.30": {
+   "slice": 2,
+   "newly_decided": 24,
+   "cf_prec": 1.0,
+   "cf_n": 2,
+   "leaks": 0
+  },
+  "ti0.55_tv0.10": {
+   "slice": 3,
+   "newly_decided": 30,
+   "cf_prec": 1.0,
+   "cf_n": 4,
+   "leaks": 0
+  },
+  "ti0.55_tv0.20": {
+   "slice": 3,
+   "newly_decided": 21,
+   "cf_prec": 1.0,
+   "cf_n": 2,
+   "leaks": 0
+  },
+  "ti0.55_tv0.30": {
+   "slice": 2,
+   "newly_decided": 20,
+   "cf_prec": 1.0,
+   "cf_n": 1,
+   "leaks": 0
+  },
+  "ti0.60_tv0.10": {
+   "slice": 2,
+   "newly_decided": 23,
+   "cf_prec": 1.0,
+   "cf_n": 4,
+   "leaks": 0
+  },
+  "ti0.60_tv0.20": {
+   "slice": 2,
+   "newly_decided": 16,
+   "cf_prec": 1.0,
+   "cf_n": 2,
+   "leaks": 0
+  },
+  "ti0.60_tv0.30": {
+   "slice": 1,
+   "newly_decided": 15,
+   "cf_prec": 1.0,
+   "cf_n": 1,
+   "leaks": 0
+  }
+ },
+ "live_modern_gold": {
+  "n_harm_help": 24,
+  "floor_correct": 24,
+  "manner_correct": 24,
+  "broken_by_manner": [],
+  "n_items": 24,
+  "neutral_items_newly_decided": [
+   [
+    "kicked",
+    "HARM"
+   ],
+   [
+    "fixed",
+    "HELP"
+   ],
+   [
+    "chopped",
+    "HARM"
+   ],
+   [
+    "painted",
+    "HELP"
+   ]
+  ],
+  "floor_neutral_newly_decided": [
+   [
+    "kicked",
+    "HARM"
+   ],
+   [
+    "fixed",
+    "HELP"
+   ],
+   [
+    "chopped",
+    "HARM"
+   ],
+   [
+    "painted",
+    "HELP"
+   ]
+  ]
+ },
+ "adverb_prose_gold": {
+  "n": 36,
+  "floor_acc": [
+   0.4444,
+   0.1667
+  ],
+  "manner_graded_acc": [
+   0.6389,
+   0.1528
+  ],
+  "manner_argmax_acc": [
+   0.4722,
+   0.1667
+  ],
+  "delta_graded_minus_floor": [
+   0.1944,
+   0.0833,
+   0.3056
+  ],
+  "ci_separated": true,
+  "governor_advmod": {
+   "argmax_adverb_attached_to_verb": 3,
+   "mean_posterior_on_verb": 0.2148,
+   "n": 36
+  },
+  "by_cell": {
+   "HARM": {
+    "floor": 2,
+    "manner": 8,
+    "n": 12
+   },
+   "HELP": {
+    "floor": 10,
+    "manner": 11,
+    "n": 12
+   },
+   "NEUTRAL": {
+    "floor": 4,
+    "manner": 4,
+    "n": 12
+   }
+  },
+  "rows": [
+   {
+    "sent": "A guard treated the prisoner brutally .",
+    "gold": "HARM",
+    "adverb": "brutally",
+    "adv_tag": "ADV",
+    "argmax_head": "prisoner",
+    "posterior_on_verb": 0.145,
+    "floor": "HELP",
+    "manner_graded": "HARM",
+    "manner_argmax": "HELP"
+   },
+   {
+    "sent": "An officer handled the suspect roughly .",
+    "gold": "HARM",
+    "adverb": "roughly",
+    "adv_tag": "ADV",
+    "argmax_head": "suspect",
+    "posterior_on_verb": 0.175,
+    "floor": "HELP",
+    "manner_graded": "HARM",
+    "manner_argmax": "HELP"
+   },
+   {
+    "sent": "A warden treated the inmate cruelly .",
+    "gold": "HARM",
+    "adverb": "cruelly",
+    "adv_tag": "NOUN",
+    "argmax_head": "treated",
+    "posterior_on_verb": 1.0,
+    "floor": "HELP",
+    "manner_graded": "HARM",
+    "manner_argmax": "HARM"
+   },
+   {
+    "sent": "A boss treated the assistant harshly .",
+    "gold": "HARM",
+    "adverb": "harshly",
+    "adv_tag": "ADV",
+    "argmax_head": "assistant",
+    "posterior_on_verb": 0.145,
+    "floor": "HELP",
+    "manner_graded": "HARM",
+    "manner_argmax": "HELP"
+   },
+   {
+    "sent": "A nurse handled the patient carelessly .",
+    "gold": "HARM",
+    "adverb": "carelessly",
+    "adv_tag": "NOUN",
+    "argmax_head": "handled",
+    "posterior_on_verb": 1.0,
+    "floor": "HELP",
+    "manner_graded": "HELP",
+    "manner_argmax": "HELP"
+   },
+   {
+    "sent": "A soldier pushed the villager violently .",
+    "gold": "HARM",
+    "adverb": "violently",
+    "adv_tag": "ADV",
+    "argmax_head": "villager",
+    "posterior_on_verb": 0.175,
+    "floor": null,
+    "manner_graded": null,
+    "manner_argmax": null
+   },
+   {
+    "sent": "A man grabbed the child savagely .",
+    "gold": "HARM",
+    "adverb": "savagely",
+    "adv_tag": "ADV",
+    "argmax_head": "child",
+    "posterior_on_verb": 0.163,
+    "floor": "HELP",
+    "manner_graded": "HELP",
+    "manner_argmax": "HELP"
+   },
+   {
+    "sent": "A bouncer seized the customer forcefully .",
+    "gold": "HARM",
+    "adverb": "forcefully",
+    "adv_tag": "ADV",
+    "argmax_head": "customer",
+    "posterior_on_verb": 0.0,
+    "floor": "HARM",
+    "manner_graded": "HARM",
+    "manner_argmax": "HARM"
+   },
+   {
+    "sent": "A driver shook the passenger angrily .",
+    "gold": "HARM",
+    "adverb": "angrily",
+    "adv_tag": "ADV",
+    "argmax_head": "passenger",
+    "posterior_on_verb": 0.0,
+    "floor": "HARM",
+    "manner_graded": "HARM",
+    "manner_argmax": "HARM"
+   },
+   {
+    "sent": "A teacher addressed the pupil contemptuously .",
+    "gold": "HARM",
+    "adverb": "contemptuously",
+    "adv_tag": "ADV",
+    "argmax_head": "pupil",
+    "posterior_on_verb": 0.175,
+    "floor": null,
+    "manner_graded": null,
+    "manner_argmax": null
+   },
+   {
+    "sent": "A landlord treated the tenant unfairly .",
+    "gold": "HARM",
+    "adverb": "unfairly",
+    "adv_tag": "ADV",
+    "argmax_head": "tenant",
+    "posterior_on_verb": 0.246,
+    "floor": "HELP",
+    "manner_graded": "HARM",
+    "manner_argmax": "HELP"
+   },
+   {
+    "sent": "A coach pulled the player aggressively .",
+    "gold": "HARM",
+    "adverb": "aggressively",
+    "adv_tag": "ADV",
+    "argmax_head": "player",
+    "posterior_on_verb": 0.175,
+    "floor": "HELP",
+    "manner_graded": "HARM",
+    "manner_argmax": "HELP"
+   },
+   {
+    "sent": "A nurse treated the patient kindly .",
+    "gold": "HELP",
+    "adverb": "kindly",
+    "adv_tag": "ADJ",
+    "argmax_head": "patient",
+    "posterior_on_verb": 0.0,
+    "floor": "HELP",
+    "manner_graded": "HELP",
+    "manner_argmax": "HELP"
+   },
+   {
+    "sent": "A mother handled the baby gently .",
+    "gold": "HELP",
+    "adverb": "gently",
+    "adv_tag": "ADV",
+    "argmax_head": "baby",
+    "posterior_on_verb": 0.175,
+    "floor": "HELP",
+    "manner_graded": "HELP",
+    "manner_argmax": "HELP"
+   },
+   {
+    "sent": "A doctor held the child tenderly .",
+    "gold": "HELP",
+    "adverb": "tenderly",
+    "adv_tag": "ADV",
+    "argmax_head": "child",
+    "posterior_on_verb": 0.175,
+    "floor": "HELP",
+    "manner_graded": "HELP",
+    "manner_argmax": "HELP"
+   },
+   {
+    "sent": "A teacher addressed the pupil warmly .",
+    "gold": "HELP",
+    "adverb": "warmly",
+    "adv_tag": "ADV",
+    "argmax_head": "pupil",
+    "posterior_on_verb": 0.175,
+    "floor": null,
+    "manner_graded": "HELP",
+    "manner_argmax": null
+   },
+   {
+    "sent": "A warden treated the inmate humanely .",
+    "gold": "HELP",
+    "adverb": "humanely",
+    "adv_tag": "ADV",
+    "argmax_head": "inmate",
+    "posterior_on_verb": 0.0,
+    "floor": "HELP",
+    "manner_graded": "HELP",
+    "manner_argmax": "HELP"
+   },
+   {
+    "sent": "An officer handled the suspect respectfully .",
+    "gold": "HELP",
+    "adverb": "respectfully",
+    "adv_tag": "ADV",
+    "argmax_head": "suspect",
+    "posterior_on_verb": 0.175,
+    "floor": "HELP",
+    "manner_graded": "HELP",
+    "manner_argmax": "HELP"
+   },
+   {
+    "sent": "A volunteer carried the elder carefully .",
+    "gold": "HELP",
+    "adverb": "carefully",
+    "adv_tag": "ADV",
+    "argmax_head": "elder",
+    "posterior_on_verb": 0.175,
+    "floor": "HELP",
+    "manner_graded": "HELP",
+    "manner_argmax": "HELP"
+   },
+   {
+    "sent": "A guide led the climber patiently .",
+    "gold": "HELP",
+    "adverb": "patiently",
+    "adv_tag": "ADV",
+    "argmax_head": "climber",
+    "posterior_on_verb": 0.175,
+    "floor": null,
+    "manner_graded": null,
+    "manner_argmax": null
+   },
+   {
+    "sent": "A man grabbed the child protectively .",
+    "gold": "HELP",
+    "adverb": "protectively",
+    "adv_tag": "ADV",
+    "argmax_head": "child",
+    "posterior_on_verb": 0.163,
+    "floor": "HELP",
+    "manner_graded": "HELP",
+    "manner_argmax": "HELP"
+   },
+   {
+    "sent": "A boss treated the assistant generously .",
+    "gold": "HELP",
+    "adverb": "generously",
+    "adv_tag": "ADV",
+    "argmax_head": "assistant",
+    "posterior_on_verb": 0.145,
+    "floor": "HELP",
+    "manner_graded": "HELP",
+    "manner_argmax": "HELP"
+   },
+   {
+    "sent": "A landlord treated the tenant fairly .",
+    "gold": "HELP",
+    "adverb": "fairly",
+    "adv_tag": "ADV",
+    "argmax_head": "tenant",
+    "posterior_on_verb": 0.145,
+    "floor": "HELP",
+    "manner_graded": "HELP",
+    "manner_argmax": "HELP"
+   },
+   {
+    "sent": "A coach pulled the player encouragingly .",
+    "gold": "HELP",
+    "adverb": "encouragingly",
+    "adv_tag": "ADV",
+    "argmax_head": "player",
+    "posterior_on_verb": 0.175,
+    "floor": "HELP",
+    "manner_graded": "HELP",
+    "manner_argmax": "HELP"
+   },
+   {
+    "sent": "A clerk addressed the customer formally .",
+    "gold": "NEUTRAL",
+    "adverb": "formally",
+    "adv_tag": "ADV",
+    "argmax_head": "customer",
+    "posterior_on_verb": 0.175,
+    "floor": null,
+    "manner_graded": null,
+    "manner_argmax": null
+   },
+   {
+    "sent": "An officer handled the suspect legally .",
+    "gold": "NEUTRAL",
+    "adverb": "legally",
+    "adv_tag": "ADV",
+    "argmax_head": "suspect",
+    "posterior_on_verb": 0.175,
+    "floor": "HELP",
+    "manner_graded": "HELP",
+    "manner_argmax": "HELP"
+   },
+   {
+    "sent": "A guard treated the prisoner routinely .",
+    "gold": "NEUTRAL",
+    "adverb": "routinely",
+    "adv_tag": "ADV",
+    "argmax_head": "prisoner",
+    "posterior_on_verb": 0.0,
+    "floor": "HELP",
+    "manner_graded": "HELP",
+    "manner_argmax": "HELP"
+   },
+   {
+    "sent": "A nurse treated the patient privately .",
+    "gold": "NEUTRAL",
+    "adverb": "privately",
+    "adv_tag": "ADV",
+    "argmax_head": "patient",
+    "posterior_on_verb": 0.145,
+    "floor": "HELP",
+    "manner_graded": "HELP",
+    "manner_argmax": "HELP"
+   },
+   {
+    "sent": "A teacher addressed the pupil publicly .",
+    "gold": "NEUTRAL",
+    "adverb": "publicly",
+    "adv_tag": "ADV",
+    "argmax_head": "pupil",
+    "posterior_on_verb": 0.175,
+    "floor": null,
+    "manner_graded": null,
+    "manner_argmax": null
+   },
+   {
+    "sent": "A driver carried the passenger briefly .",
+    "gold": "NEUTRAL",
+    "adverb": "briefly",
+    "adv_tag": "ADV",
+    "argmax_head": "passenger",
+    "posterior_on_verb": 0.175,
+    "floor": "HELP",
+    "manner_graded": "HELP",
+    "manner_argmax": "HELP"
+   },
+   {
+    "sent": "A guide led the climber silently .",
+    "gold": "NEUTRAL",
+    "adverb": "silently",
+    "adv_tag": "ADV",
+    "argmax_head": "climber",
+    "posterior_on_verb": 0.175,
+    "floor": null,
+    "manner_graded": null,
+    "manner_argmax": null
+   },
+   {
+    "sent": "A man grabbed the child suddenly .",
+    "gold": "NEUTRAL",
+    "adverb": "suddenly",
+    "adv_tag": "ADV",
+    "argmax_head": "child",
+    "posterior_on_verb": 0.163,
+    "floor": "HELP",
+    "manner_graded": "HELP",
+    "manner_argmax": "HELP"
+   },
+   {
+    "sent": "A volunteer held the elder briefly .",
+    "gold": "NEUTRAL",
+    "adverb": "briefly",
+    "adv_tag": "ADV",
+    "argmax_head": "elder",
+    "posterior_on_verb": 0.175,
+    "floor": "HELP",
+    "manner_graded": "HELP",
+    "manner_argmax": "HELP"
+   },
+   {
+    "sent": "A boss addressed the assistant verbally .",
+    "gold": "NEUTRAL",
+    "adverb": "verbally",
+    "adv_tag": "ADV",
+    "argmax_head": "assistant",
+    "posterior_on_verb": 0.175,
+    "floor": null,
+    "manner_graded": null,
+    "manner_argmax": null
+   },
+   {
+    "sent": "A landlord treated the tenant impersonally .",
+    "gold": "NEUTRAL",
+    "adverb": "impersonally",
+    "adv_tag": "ADV",
+    "argmax_head": "tenant",
+    "posterior_on_verb": 0.242,
+    "floor": "HELP",
+    "manner_graded": "HELP",
+    "manner_argmax": "HELP"
+   },
+   {
+    "sent": "A coach pulled the player sideways .",
+    "gold": "NEUTRAL",
+    "adverb": "sideways",
+    "adv_tag": "NOUN",
+    "argmax_head": "pulled",
+    "posterior_on_verb": 0.877,
+    "floor": "HELP",
+    "manner_graded": "HELP",
+    "manner_argmax": "HELP"
+   }
+  ]
+ },
+ "lever_ablation": {
+  "residual_only": {
+   "slice_recovered": 5,
+   "named_HARM_of_15": 14,
+   "cf_whole_arm": [
+    294,
+    315,
+    0.9333
+   ],
+   "new_decisions": 43,
+   "new_cf_prec": [
+    6,
+    6,
+    1.0
+   ],
+   "neutral_leaks": [],
+   "live_gold_24": 24,
+   "prose_acc": [
+    0.6111,
+    0.1667
+   ]
+  },
+  "residual+L4_morph": {
+   "slice_recovered": 5,
+   "named_HARM_of_15": 14,
+   "cf_whole_arm": [
+    294,
+    315,
+    0.9333
+   ],
+   "new_decisions": 43,
+   "new_cf_prec": [
+    6,
+    6,
+    1.0
+   ],
+   "neutral_leaks": [],
+   "live_gold_24": 24,
+   "prose_acc": [
+    0.6389,
+    0.1528
+   ]
+  },
+  "residual+L3_genus": {
+   "slice_recovered": 6,
+   "named_HARM_of_15": 15,
+   "cf_whole_arm": [
+    294,
+    315,
+    0.9333
+   ],
+   "new_decisions": 46,
+   "new_cf_prec": [
+    6,
+    6,
+    1.0
+   ],
+   "neutral_leaks": [],
+   "live_gold_24": 24,
+   "prose_acc": [
+    0.6111,
+    0.1667
+   ]
+  },
+  "SHIP residual+L3+L4": {
+   "slice_recovered": 6,
+   "named_HARM_of_15": 15,
+   "cf_whole_arm": [
+    294,
+    315,
+    0.9333
+   ],
+   "new_decisions": 46,
+   "new_cf_prec": [
+    6,
+    6,
+    1.0
+   ],
+   "neutral_leaks": [],
+   "live_gold_24": 24,
+   "prose_acc": [
+    0.6389,
+    0.1528
+   ]
+  },
+  "L1_manner_first": {
+   "slice_recovered": 5,
+   "named_HARM_of_15": 14,
+   "cf_whole_arm": [
+    287,
+    315,
+    0.9111
+   ],
+   "new_decisions": 43,
+   "new_cf_prec": [
+    6,
+    6,
+    1.0
+   ],
+   "neutral_leaks": [],
+   "live_gold_24": 24,
+   "prose_acc": [
+    0.6111,
+    0.1667
+   ]
+  },
+  "L1+L2_host_abstain": {
+   "slice_recovered": 5,
+   "named_HARM_of_15": 14,
+   "cf_whole_arm": [
+    265,
+    294,
+    0.9014
+   ],
+   "new_decisions": 43,
+   "new_cf_prec": [
+    6,
+    6,
+    1.0
+   ],
+   "neutral_leaks": [],
+   "live_gold_24": 23,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ]
+  },
+  "L1+L2+L3+L4_all": {
+   "slice_recovered": 6,
+   "named_HARM_of_15": 15,
+   "cf_whole_arm": [
+    265,
+    294,
+    0.9014
+   ],
+   "new_decisions": 46,
+   "new_cf_prec": [
+    6,
+    6,
+    1.0
+   ],
+   "neutral_leaks": [],
+   "live_gold_24": 23,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ]
+  }
+ },
+ "residual_after": {
+  "before": 695,
+  "after": 649,
+  "still_CF_nonneutral": 48
+ }
+}
