@@ -61,29 +61,48 @@ def robust_cop(toks, up, heads, gate=True):
         if not (lem in BE_LEMMAS or up[i] == "AUX" or lem in LINK_LEMMAS):
             continue
         ph = heads.get(i + 1, 0) - 1
-        p = None
-        if 0 <= ph < n and up[ph] in ("NOUN", "PROPN", "ADJ", "PRON"):
-            p = ph
-        else:
-            j = i + 1
+        # DIRECTION-AGNOSTIC READ (strategy 2026-09-12 late; consumer repair for the BF attachment arm): the copula is a
+        # closed-class LINKER between two content words. The TREE says which word the copula is bound to; LINEAR ORDER says
+        # which of the two is the predicate (after the copula) and which the holder (before it; after it in inverted
+        # questions "Is that a maker ?"). The UD convention (copula -> predicate, holder -> predicate) is one shape of this;
+        # the attachment arm's holder-headed shape ("is" -> holder, or holder = root) is another -- same content.
+        def _linear_predicate(start):
+            j = start; adj = None
             while j < n and up[j] in ("DET", "ADV", "PART", "NUM", "ADJ"):
+                if up[j] == "ADJ" and adj is None:
+                    adj = j
                 j += 1
             if j < n and up[j] in ("NOUN", "PROPN", "PRON"):
                 k = j
                 while k + 1 < n and up[k + 1] in ("NOUN", "PROPN"):
                     k += 1
-                p = k
-        if p is None:
+                return k
+            return adj
+        p = None; holder_hint = None
+        if 0 <= ph < n and ph > i and up[ph] in ("NOUN", "PROPN", "ADJ", "PRON"):
+            p = ph                                          # tree-confirmed predicate after the copula (UD shape)
+        else:
+            if 0 <= ph < n and ph < i and up[ph] in ("NOUN", "PROPN", "PRON"):
+                holder_hint = ph                            # the copula is bound to its HOLDER (the arm's shape)
+            p = _linear_predicate(i + 1)
+        if p is None or p == i:
             continue
         noms = [c for c in children.get(p + 1, []) if up[c] in ("NOUN", "PROPN", "PRON") and c < i]
         if noms:
             holder = max(noms)
+        elif holder_hint is not None:
+            holder = holder_hint
         else:
             holder = None
             for k in range(i - 1, -1, -1):
                 if up[k] in ("NOUN", "PROPN", "PRON"):
                     holder = k
                     break
+            if holder is None:                              # INVERSION: "Is that a maker ?" -- holder follows the copula
+                for k in range(i + 1, p):
+                    if up[k] in ("NOUN", "PROPN", "PRON"):
+                        holder = k
+                        break
         if holder is None or holder == p:
             continue
         if gate:

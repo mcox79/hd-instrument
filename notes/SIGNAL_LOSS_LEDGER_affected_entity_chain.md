@@ -455,3 +455,24 @@ competent-reader reference ~0.85–0.90.
   23/23, attachment 15/15; fused-sense/meaning-fusion/board self-test on a runner). NOT wired: the dual-route optimum (+0.023 on human
   gold; needs the lemma-keyed stores rebuilt first) and the solver's BF POS prototype (count-based generative tagger, graded
   posterior; acquisition supervised) -- the latter handed to pri-15 as the INFERENCE half for token-level readout over induced classes.
+
+- **STATE DIM REPAIRED UNDER BF HEADS (2026-09-12 23:05): `copular_binding.robust_cop` made DIRECTION-AGNOSTIC (the copula is a
+  closed-class linker between two content words: the tree says which word it is bound to, linear order says which is the
+  predicate (after) and which the holder (before; after in inverted questions) -- UD's predicate-headed shape and the attachment
+  arm's holder-headed shape are the same content) + the extractor's holder = the predicate's own nominal head when no subject
+  is labelled. STATE dim, BF heads: 0.5265 -> 0.6561 (floor 0.5714; CI-sep over the floor restored: [0.048, 0.124]); supervised
+  path 0.828 (was 0.8307; the inversion fallback moves one item). Diagnostic (378 gold pairs): supervised heads pair-ok 315 /
+  pred-only 14 / holder-only 18 / none 31; BF heads pair-ok 247 / holder-ok-pred-wrong 54 / pred-ok-holder-wrong 24 / none 53 -->
+  the residual is the heads rung misplacing the COPULAR PREDICATE (copula bound to the wrong content word) -- a heads-rung item
+  (convention layer: AUX -> the predicate content word), not the consumer.**
+- **GRADED BOARD A/B (BF heads + role posterior) = identical to the hard read (AGG 0.6294, STATE 0.5265 before the repair):** the
+  graded heads->roles hand-off is INERT on the board because the who-did-what / coref arms instantiate their own parser and never
+  read the reader's parse; the hand-off shows only on the UD-EWT role probe (+0.013). Wiring item stands.
+- **CATEGORY ORGAN LANDED LIVE (2026-09-12 23:15, owner: "take the step even if it causes short-term pain"): `hdlab/lexical_categories.py`
+  -- the owner-DONE pri-12 solver's BF POS prototype (count-based generative model: lexical + suffix + transition COUNTS, settled by
+  forward-backward into a per-token POSTERIOR; plastic `observe`; save/load) is the reader's DEFAULT tagger (`HDLAB_TAG_SOURCE=
+  perceptron` restores the NOT_BF max-margin stand-in). UD-EWT test 25,094 tokens: 0.9120 vs perceptron 0.9445 (-3.3 points), same
+  speed (1.4 ms/sentence); unknown words by suffix ('barked' -> VERB 0.99). The posterior is cached (`_cached_tag_posterior`) for the
+  graded hand-off to the heads rung (next). Inventory/counts = offline labelled supply until pri-15's induced classes replace them
+  (same organ, `accrue` over any (word, class) stream). Board A/B running: counts alone; counts + attachment-arm heads (the fully
+  BF-inference chain). Witness test_lexical_categories 7/7; roles 23/23; attachment 15/15.
