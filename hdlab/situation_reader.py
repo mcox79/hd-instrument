@@ -72,6 +72,7 @@ from typing import Dict, List, Optional, Tuple
 _REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 _HEADS_SOURCE = os.environ.get("HDLAB_HEADS_SOURCE", "arceager")
 _TAG_SOURCE = os.environ.get("HDLAB_TAG_SOURCE", "counts")
+PREDICATE_RESCUE_MIN_P = float(os.environ.get("HDLAB_PREDICATE_RESCUE_MIN_P", "0.3"))   # verb belief that rescues a dropped predicate (swept later)
 _STATE_GRADED = os.environ.get("HDLAB_STATE_GRADED", "1") != "0"   # graded category read for the copular state reader
 STATE_NOMINAL_MASS = 0.3         # "counts" (BF category organ, default) | "perceptron" (NOT_BF stand-in)   # "arceager" (supervised stand-in) | "attachment_arm" (BF rung)
 
@@ -1933,10 +1934,28 @@ class SituationReader:
         if self._pred_detector is None:
             from hdlab.predicate_detector import PredicateDetector
             self._pred_detector = PredicateDetector.load()
-        ft = self._frontend_tagger()   # same _FRONTEND_POS_ASSET as the old private _ta_tagger -> identical weights/tags
-        W = ft._perc.weights
-        tags = ft.tags
-        for i, _p in self._pred_detector.rescue_indices(toks, up, W, tags):
+        ft = self._frontend_tagger()   # the shared frontend tagger (the count-based category organ since 2026-09-13; perceptron = baseline)
+        if hasattr(ft, "_perc"):
+            W = ft._perc.weights
+            tags = ft.tags
+            rescued = [i for i, _p in self._pred_detector.rescue_indices(toks, up, W, tags)]
+        else:
+            # BF form (2026-09-13): the category organ hands down a POSTERIOR; a token the argmax did not call a verb but whose
+            # verb belief is still substantial is the rescued predicate (the detector's perceptron-weight read was the stand-in).
+            from hdlab.predicate_detector import has_verb_reading
+            try:
+                post = ft.tag_with_posterior(list(toks))[1]
+            except Exception:
+                post = None
+            rescued = []
+            if post:
+                for i in range(len(toks)):
+                    if up[i] in ("VERB", "AUX") or not has_verb_reading(toks[i]):
+                        continue
+                    d = post[i] if i < len(post) else {}
+                    if d and d.get("VERB", 0.0) >= PREDICATE_RESCUE_MIN_P:
+                        rescued.append(i)
+        for i in rescued:
             events.append(T.Event(lemma=toks[i].lower(), idx=i, pos="VERB",
                                   tense=T.TENSE_SIMPLE_PAST, is_pp=False))
         events.sort(key=lambda e: e.idx)

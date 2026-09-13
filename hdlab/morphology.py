@@ -106,12 +106,34 @@ class GlassBoxMorphology:
         return filter_forms([form] + forms)
 
     # -- DUAL-ROUTE arm: stored base / decomposed stem preferred over the surface form ------------------------------
+    _COUNTS: Optional[dict] = None
+
+    def _counts(self, pos: str) -> dict:
+        if GlassBoxMorphology._COUNTS is None:
+            try:
+                with open(LEMMA_COUNTS_ASSET, encoding="utf-8") as fh:
+                    GlassBoxMorphology._COUNTS = json.load(fh)["counts"]
+            except Exception:
+                GlassBoxMorphology._COUNTS = {}
+        return GlassBoxMorphology._COUNTS.get({"n": "noun", "v": "verb", "a": "adj", "s": "adj", "r": "adv"}.get(pos, pos), {})
+
     def _route(self, form: str, pos: str, check_exceptions: bool = True) -> Optional[str]:
         self._ensure()
         exc = self._exc[pos]; members = self._members[pos]; subs = MORPHOLOGICAL_SUBSTITUTIONS[pos]
         if check_exceptions and form in exc:
             for b in exc[form]:                       # STORED route: retrieve the base, not the surface
                 if b in members:
+                    # BASE/IRREGULAR COLLISION (2026-09-13): the surface is ITSELF a stored base of this POS ("wound" = injure AND
+                    # the past of "wind"; found/find, bound/bind, ground/grind). Two whole-word entries race by frequency (Pinker &
+                    # Ullman: the stored route is frequency-sensitive): the irregular's base wins only when it is clearly more
+                    # frequent (ratio >= COLLISION_RATIO, swept); otherwise the surface form keeps its own identity. Frequencies =
+                    # the offline WordNet/SemCor lemma-count export (foundation asset). find 705 vs found 13 -> find; wind 7 vs
+                    # wound 5 -> wound (the harm/help read of 'wound' had flipped to HELP via 'wind').
+                    if form in members and form != b:
+                        cnt = self._counts(pos)
+                        fb, ff = cnt.get(b, 0), cnt.get(form, 0)
+                        if not (fb >= COLLISION_RATIO * max(ff, 1)):
+                            return form
                     return b
             return form if form in members else None
         stripped = [form[:-len(old)] + new for (old, new) in subs if form.endswith(old) and (form[:-len(old)] + new) in members]
@@ -153,6 +175,8 @@ _DEFAULT: Optional[GlassBoxMorphology] = None
 # DEFAULT FLIPPED to "dualroute" 2026-09-13 07:55 local: the board with the arm ON was identical to the baseline on every dimension
 # (AGG 0.6378; agent 0.8357, patient 0.8088, state 0.8016, coref 0.4681, wic 0.7493), and the arm beats the dictionary tool on lemma
 # gold (0.9826 vs 0.9594, 195k tokens). The lemma-keyed stores downstream are still morphy-keyed (measured harmless; rebuild = follow-on).
+COLLISION_RATIO = float(os.environ.get("HDLAB_MORPH_COLLISION_RATIO", "3.0"))   # swept operating point (see _route)
+LEMMA_COUNTS_ASSET = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "frontend_assets", "morph_lemma_counts_v1.json")
 MORPH_MODE = os.environ.get("HDLAB_MORPH_MODE", "dualroute")
 
 

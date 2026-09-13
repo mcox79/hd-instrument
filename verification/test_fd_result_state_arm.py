@@ -35,7 +35,7 @@ import experiments.exp_fd_harm_help_live_modern_v1 as LIVE
 RECOVERY = ["batter", "bludgeon", "pummel", "club", "throttle", "clobber", "wallop", "thrash", "whack"]
 STATE_DECIDED = ["batter", "bludgeon", "pummel", "club", "throttle"]   # decided by the result state (norm absent/weak/wrong-sense)
 # (stomp is held back by the pre-existing graded AFFECTEDNESS gate, not by this arm -- out of scope here)
-BOUNDARY = ["wrench", "maul"]
+BOUNDARY = ["wrench"]   # 2026-09-13: "maul" is now DECIDED (HARM) by the superordinate-action read (owner-DONE pri 14 landing); wrench still abstains
 fails = []
 
 
@@ -49,7 +49,7 @@ def check(name, ok, detail=""):
 got = {v: FDV.harm_help(v, "animate") for v in RECOVERY}
 check("W1 recovery -> HARM", all(g == "HARM" for g in got.values()), str(got))
 bnd = {v: FDV.harm_help(v, "animate") for v in BOUNDARY}
-check("W1 boundary abstains (wrench, maul)", all(g is None for g in bnd.values()), str(bnd))
+check("W1 boundary abstains (wrench)", all(g is None for g in bnd.values()), str(bnd))
 
 # W2
 def _counts():
