@@ -91,3 +91,16 @@ finished solutions. The phase-7 push, by type (strategy's articulation; the owne
 - **NEGATIVE-HEAVY session** (levers refused by the gold): push on UNDERSTANDING -- why each lever failed mechanistically, with numbers; the
   avenues the understood negatives open; then alternate paths. Numbers may not move; understanding is the yield (pri 98).
 In every type: the termination rule (exhausted within remit, honestly), the BEFORE/AFTER yield table, the alternate paths readback.
+
+### Which probe items are RELEVANT / NOT, by type (owner 18:40: "you should be able to disambiguate what messaging works for different kinds")
+Evidence from the five sessions (pilot log, prodding-yield table: which items of the probe produced yield):
+| type | probe items that PAID | probe items that did NOT (skip them) |
+|---|---|---|
+| MECHANISM (97, 100) | chain trace with counts; "does the win survive each upstream rung"; compose the accepted levers; confirm at the landed cap; "which alternate mechanism is more BF" | population splits of the residual (a fragments/population fact, counted once, then irrelevant); asking for more golds (the treebank IS the instrument here) |
+| INPUT / COVERAGE (99) | bound the residual by arithmetic (form-free share, oracle precision/recall); name the missing INPUT and its owning organ; research the cue's true SHAPE (Katz: presence vs identity) | "find one more cue" after the arithmetic closed (25 arms, floor 144 -- no further yield); pushing for the bar when the input does not exist |
+| LABELS / CONSUMER (103) | "verify the instrument first" (found the subtype bug); gold-vs-live upstream decomposition; graded hand-off; slot/competition form | new-cue pushes before the loss is located to a rung; re-asking for live-heads gains once the decomposition shows the heads rung erases them |
+| NEGATIVE-HEAVY (98) | "explain every negative mechanistically"; self-corrections; alternate paths; exercise the online path | "move the headline number" (it did not and could not within remit); repeated "find opportunities" rounds after exhaustion is bounded |
+| LEARNING (102, not yet run) | drift curve; adaptation on a held-out register; per-cue-type rates | accuracy-only pushes |
+Rule: the first probe round is the FULL script (understand? research; opportunities? build+measure); from round 2 on, send only the items
+the type's "PAID" column names, and stop when the session's exhaustion statement is bounded by arithmetic or by remit. Record per session
+which items paid (the yield table's 'new levers' / 'refuted' columns) so this table is re-learned, not asserted.
