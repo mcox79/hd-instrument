@@ -66,6 +66,14 @@ Knowledge lands as counts -> strengths like every other cue; `observe_arc_outcom
     subjects — so it is not cleanly gateable (gating off subject arcs recovers <=4 arcs ~0.005 UAS at the cost of complicating the
     mechanism). Per the owner rule (repair-don't-revert a BF upstream), named and kept.
 
+## 4b. BF-upgrade tested and REFUTED — coordination-aware incremental HOLD (brief item 3)
+Hypothesis: raising the coordinator's HOLD (Levy 2008 — it predicts a like phrase, so it should wait) closes the incr-vs-search
+gap. TESTED (`scratch_coord_hold.py`, cap 2500, incr): CCONJ hold bonus 0->0.373, 2->0.378, 5->0.378, 10->0.365 (over-holds).
+NULL (+0.005, within noise; hurts if too strong). WHY: the coordinator's head is R (to its right), so in arc-eager it already
+effectively waits — the incremental arm captures coordination via the shared arc activations, and the residual incr-vs-search
+gap is generic beam pruning, not coordination-specific. This CONFIRMS the incremental account is already realized; item 3 is
+not a separate lever.
+
 ## 5. What I did NOT establish / would withdraw first
 - **cc is positive but NOT CI-separated** (map1 +0.059 CI [0.0,0.123]; incr flat). I withdraw the cc claim first. conj — the named
   worst structural class and the brief's entire subject — is the CI-separated result.
