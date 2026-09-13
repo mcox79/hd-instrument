@@ -88,6 +88,27 @@ def main():
         # CORE STRUCTURE (asserted since the semantic-bootstrapping teacher, 2026-09-12 late): the predicate heads its participant
         # -- 'dog' -> 'bitten'. Before that teacher the knowledge-free asset had obj recall 0.19 and this was a recorded limit.
         check("learned asset: 'dog' -> 'bitten' (the verb heads its argument; semantic bootstrapping)", hd.get(2) == 4, hd)
+        # DECODE CONTRACT (2026-09-13 06:40 local): ONE root per sentence and a connected tree (the raw arborescence routine allowed
+        # several roots; the frontend used to hand consumers a non-tree argmax) -- on real sentences with punctuation.
+        sents = [("The dog , which barked , chased the cat into the garden .".split(),
+                  ["DET", "NOUN", "PUNCT", "PRON", "VERB", "PUNCT", "VERB", "DET", "NOUN", "ADP", "DET", "NOUN", "PUNCT"]),
+                 ("I think that she said he left early , but nobody knows .".split(),
+                  ["PRON", "VERB", "SCONJ", "PRON", "VERB", "PRON", "VERB", "ADV", "PUNCT", "CCONJ", "PRON", "VERB", "PUNCT"])]
+        ok_root = ok_tree = True
+        for tk, ps in sents:
+            h = AA.heads(tk, ps, tab_l); roots = [j for j, v in h.items() if v == 0]
+            ok_root &= len(roots) == 1
+            for j in h:                                       # every word reaches the root without a cycle
+                k = j; seen = 0
+                while k and seen <= len(tk):
+                    k = h.get(k, 0); seen += 1
+                ok_tree &= k == 0
+            # the frontend's point estimate is the same tree
+            from hdlab import frontend as _FE
+            fe = _FE.Parser("attachment_arm").parse(tk, ps).heads
+            ok_tree &= fe == h
+        check("decode contract: exactly one root per sentence", ok_root)
+        check("decode contract: a connected tree, identical through the frontend", ok_tree)
     else:
         print("  note learned asset absent (tools/build_attachment_validities.py not yet run) -- asset checks skipped")
     print("\n%d/%d checks passed" % (PASS, PASS + FAIL))
