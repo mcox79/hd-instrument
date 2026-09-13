@@ -823,6 +823,16 @@ INCR_NORM = os.environ.get("HDLAB_ARM_INCR_NORM", "sum")          # "sum" (one s
 # reading; at the end the held word with the highest root score is the root and the other held words attach to their best
 # available head (an earlier clause hangs on the main one). The wrap-up count excludes the root word itself.
 INCR_ROOT_WRAPUP = os.environ.get("HDLAB_ARM_ROOT_WRAPUP", "0") == "1"
+# ROOT REANALYSIS (10:50 local): the main clause can be revised while reading -- when a later word arrives that can head the word
+# currently holding the root arc (an earlier clause turning out subordinate: "When I arrived[root?], she LEFT"), the arriving word
+# may take the root arc over and the earlier root becomes its dependent (the main-clause garden-path repair). Accounting: the
+# earlier root arc's activation is given back, the new real arc's activation is taken, and the arriving word re-opens the root.
+INCR_ROOT_REANALYSIS = os.environ.get("HDLAB_ARM_ROOT_REANALYSIS", "1") == "1"
+# DECAY OF A HELD EXPECTATION (10:55 local): an item held in memory loses activation as words pass (Lewis & Vasishth 2005 decay;
+# the ACT-R base-level). Without it the placeholder is an AVERAGE realised activation, so a real head arriving with a below-average
+# arc looks like a loss and the word keeps waiting (wrap-up anatomy: 46% of prepositions, 27% of nouns held to the end). With decay
+# d, a word held for a words is worth E x d^a; the parameter is swept, never adopted (1.0 = no decay).
+INCR_DECAY = float(os.environ.get("HDLAB_ARM_DECAY", "1.0"))
 
 
 HOLD_ASSET = os.path.join(_REPO, "data", "frontend_assets", "attachment_hold_expect_v1.json")
@@ -949,6 +959,14 @@ def incremental_tree(A: np.ndarray, n: int, beam: int = INCR_BEAM, hold=INCR_HOL
             # enumerate the arrival outcomes of b by walking down the stack
             outs: List[Tuple[float, Tuple, Tuple, bool]] = []
             st = list(stack); h = list(hd); gained = 0.0
+            if INCR_DECAY < 1.0 and INCR_NORM == "sum":
+                # every word still waiting ages by one: its placeholder E(k) d^(b-1-k) becomes E(k) d^(b-k)
+                for k in range(1, b):
+                    if h[k] == -1:
+                        logp -= E(k) * (INCR_DECAY ** (b - 1 - k)) * (1.0 - INCR_DECAY)
+
+            def V(k: int) -> float:                                # the current (decayed) placeholder of waiting word k
+                return E(k) * (INCR_DECAY ** (b - k)) if INCR_DECAY < 1.0 else E(k)
             while True:
                 top = st[-1]
                 # consuming choice 1: b attaches to the current top (root arc only once; never while reading if root is a wrap-up decision)
@@ -960,10 +978,27 @@ def incremental_tree(A: np.ndarray, n: int, beam: int = INCR_BEAM, hold=INCR_HOL
                 # descend: pop the top (REDUCE if headed, LEFT-ARC if headless and b heads it); never pop the root
                 if top == 0:
                     break
+                if h[top] == 0 and INCR_ROOT_REANALYSIS and ru:
+                    # the current root may be re-headed by b (root reanalysis): give the root arc back, take the real arc, re-open root
+                    g2 = gained + fin(A[b][top]) - fin(A[0][top]); h2 = list(h); h2[top] = b; st2 = st[:-1]
+                    # b's own consuming choices after the takeover, walking the rest of the stack with the root re-opened
+                    stk = list(st2); hh = h2; gg = g2; ru2 = False
+                    while True:
+                        t2 = stk[-1]
+                        if t2 != 0 or not ru2:
+                            h3 = list(hh); h3[b] = t2
+                            outs.append((gg + fin(A[t2][b]), tuple(stk + [b]), tuple(h3), ru2 or t2 == 0))
+                        outs.append((gg + E(b), tuple(stk + [b]), tuple(hh), ru2))
+                        if t2 == 0:
+                            break
+                        if hh[t2] != -1:
+                            stk = stk[:-1]
+                        else:
+                            gg += fin(A[b][t2]) - (V(t2) if INCR_NORM == "sum" else 0.0); hh = list(hh); hh[t2] = b; stk = stk[:-1]
                 if h[top] != -1:
                     st = st[:-1]                                   # REDUCE, free
                 else:
-                    gained += fin(A[b][top]) - (E(top) if INCR_NORM == "sum" else 0.0)    # LEFT-ARC: b heads the waiting word
+                    gained += fin(A[b][top]) - (V(top) if INCR_NORM == "sum" else 0.0)    # LEFT-ARC: b heads the waiting word
                     h = list(h); h[top] = b; st = st[:-1]
             if INCR_NORM == "local":
                 # locally normalised: the outcomes of this arrival compete by softmax (label bias: measured 0.52 vs 0.63 on 25 sentences)
