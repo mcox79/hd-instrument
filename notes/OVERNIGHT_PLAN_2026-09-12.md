@@ -123,3 +123,4 @@ GOAL (owner, 23:35): "make the top of the chain as BF as possible, and fix all d
   pri-16 re-scoped to the labels rung; Q134 open for the owner; desktop resync before the owner moves.
 - ROOM TO OPTIMISE: the heads residual is PP attachment (nmod/obl seesaw) and subjects of embedded/copular clauses; the category
   organ's gap is unknown words (0.75) -- the reading inventory covers only 549 of 1,882 unknown test tokens (grow it).
+- 09:32 local: delta sync to the desktop: the 197-commit bundle + head marker LANDED; the session-folder copy (15 GB live transcripts) was cut by a connection reset after ~80 min ("file changed as we read it" on this session's own transcript). Re-run the lighter `resync_claude_state.sh` (memory + hook state) before the owner moves; the live transcript can be copied after this session closes. Owner asked for the overnight update at 09:31 -- given in chat.
