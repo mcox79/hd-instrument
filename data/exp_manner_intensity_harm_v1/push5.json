@@ -1,0 +1,51 @@
+{
+ "P11_conditioned_ci": {
+  "n_items": 15,
+  "gamma": 8.0,
+  "mean_posterior_live": 0.4445,
+  "mean_posterior_conditioned": 0.5332,
+  "delta": [
+   0.0887,
+   -0.1333,
+   0.3143
+  ],
+  "ci_separated": false
+ },
+ "P11_prose_under_repaired_governor": {
+  "acc_with_repaired_governor": [
+   0.6389,
+   0.1528
+  ],
+  "acc_shipped": [
+   0.6389
+  ],
+  "delta_vs_shipped": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "mean_adverb_mass_on_verb": 0.9409
+ },
+ "P12_morph_backoff": {
+  "backoff_False": {
+   "cf_whole_arm": [
+    294,
+    315,
+    0.9333
+   ],
+   "leaks": [],
+   "slice": 6,
+   "prose_acc": 0.6389
+  },
+  "backoff_True": {
+   "cf_whole_arm": [
+    294,
+    315,
+    0.9333
+   ],
+   "leaks": [],
+   "slice": 6,
+   "prose_acc": 0.6389
+  }
+ }
+}

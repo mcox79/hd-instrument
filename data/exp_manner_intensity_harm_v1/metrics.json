@@ -13,7 +13,7 @@
    "RESULT_ADJ"
   ],
   "asset_meta": {
-   "built": "2026-09-13T14:25:59",
+   "built": "2026-09-13T15:16:53",
    "heads_source": "attachment_arm",
    "n_synsets": 1836,
    "n_verbs": 2305,
@@ -1699,5 +1699,807 @@
   "before": 695,
   "after": 649,
   "still_CF_nonneutral": 48
+ },
+ "second_push": {
+  "push2": {
+   "P1_second_human_gold_binder": {
+    "source": "Binder et al. 2016 brain-based experiential attributes, Harm - Benefit; 534 words, 57 actions",
+    "covers_affecting_verbs": 113,
+    "of": 2609,
+    "covers_new_decisions": [
+     "home",
+     "rake"
+    ],
+    "whole_arm_floor": [
+     62,
+     74,
+     0.8378
+    ],
+    "whole_arm_manner": [
+     64,
+     76,
+     0.8421
+    ],
+    "manner_discordant": [
+     [
+      "ball",
+      "HELP",
+      "HARM",
+      0.89
+     ],
+     [
+      "cabbage",
+      "HARM",
+      "HELP",
+      -2.23
+     ],
+     [
+      "court",
+      "HARM",
+      "HELP",
+      -1.32
+     ],
+     [
+      "fee",
+      "HARM",
+      "HELP",
+      -0.74
+     ],
+     [
+      "glass",
+      "HELP",
+      "HARM",
+      0.82
+     ],
+     [
+      "hawk",
+      "HELP",
+      "HARM",
+      1.23
+     ],
+     [
+      "loan",
+      "HARM",
+      "HELP",
+      -2.96
+     ],
+     [
+      "monkey",
+      "HELP",
+      "HARM",
+      1.22
+     ],
+     [
+      "soldier",
+      "HELP",
+      "HARM",
+      0.97
+     ],
+     [
+      "submarine",
+      "HELP",
+      "HARM",
+      0.96
+     ]
+    ],
+    "verdict": "usable as a SECOND WHOLE-ARM check; NOT a check on the new decisions (2 of 46 covered)",
+    "nrc_emolex_rejected": "on disk but inadmissible: an ASSOCIATION lexicon (documented over-firing in hdlab/affect_lexicon.py), not a judgement about the patient's outcome"
+   },
+   "P2_pos_conflated_word_norm": {
+    "noun_fraction": {
+     "treat": 0.0,
+     "handle": 0.059,
+     "hold": 0.025,
+     "grab": 0.0,
+     "carry": 0.006,
+     "pull": 0.118,
+     "touch": 0.241,
+     "place": 0.527,
+     "lead": 0.096,
+     "push": 0.062,
+     "stab": 0.0,
+     "wound": 0.828
+    },
+    "dom_0.60": {
+     "cf_whole_arm": [
+      282,
+      300,
+      0.94
+     ],
+     "live_gold_24": 24,
+     "leaks": 0,
+     "slice": 6,
+     "prose_acc": [
+      0.6389,
+      0.1528
+     ]
+    },
+    "dom_0.70": {
+     "cf_whole_arm": [
+      284,
+      303,
+      0.9373
+     ],
+     "live_gold_24": 24,
+     "leaks": 0,
+     "slice": 6,
+     "prose_acc": [
+      0.6389,
+      0.1528
+     ]
+    },
+    "dom_0.80": {
+     "cf_whole_arm": [
+      285,
+      304,
+      0.9375
+     ],
+     "live_gold_24": 24,
+     "leaks": 0,
+     "slice": 6,
+     "prose_acc": [
+      0.6389,
+      0.1528
+     ]
+    },
+    "dom_0.90": {
+     "cf_whole_arm": [
+      289,
+      309,
+      0.9353
+     ],
+     "live_gold_24": 24,
+     "leaks": 0,
+     "slice": 6,
+     "prose_acc": [
+      0.6389,
+      0.1528
+     ]
+    }
+   },
+   "P3_morph_backoff": {
+    "uncovered_stems": {
+     "contemptuously": {
+      "stem": "contemptuous",
+      "direct": null,
+      "backoff_root": "contempt",
+      "backoff_valence": -0.445
+     },
+     "suddenly": {
+      "stem": "sudden",
+      "direct": null,
+      "backoff_root": null,
+      "backoff_valence": null
+     },
+     "sideways": {
+      "stem": null,
+      "direct": null,
+      "backoff_root": null,
+      "backoff_valence": null
+     }
+    },
+    "recovered_by_backoff": 1
+   },
+   "P4_governor_manner_cue": {
+    "live": {
+     "UAS": 0.6125,
+     "advmod": 0.5475,
+     "advmod_n": 442,
+     "tokens": 9534
+    },
+    "structural_g1": {
+     "UAS": 0.6115,
+     "advmod": 0.5317,
+     "advmod_n": 442,
+     "tokens": 9534
+    },
+    "lexicalised_g1": {
+     "UAS": 0.6102,
+     "advmod": 0.5023,
+     "advmod_n": 442,
+     "tokens": 9534
+    },
+    "structural_g2": {
+     "UAS": 0.6103,
+     "advmod": 0.5,
+     "advmod_n": 442,
+     "tokens": 9534
+    },
+    "lexicalised_g2": {
+     "UAS": 0.6101,
+     "advmod": 0.5,
+     "advmod_n": 442,
+     "tokens": 9534
+    },
+    "structural_g4": {
+     "UAS": 0.6102,
+     "advmod": 0.5,
+     "advmod_n": 442,
+     "tokens": 9534
+    },
+    "lexicalised_g4": {
+     "UAS": 0.6101,
+     "advmod": 0.4977,
+     "advmod_n": 442,
+     "tokens": 9534
+    },
+    "structural_g8": {
+     "UAS": 0.6094,
+     "advmod": 0.4932,
+     "advmod_n": 442,
+     "tokens": 9534
+    },
+    "lexicalised_g8": {
+     "UAS": 0.6092,
+     "advmod": 0.4932,
+     "advmod_n": 442,
+     "tokens": 9534
+    },
+    "twin_scrambled_target_g4": {
+     "UAS": 0.6128,
+     "advmod": 0.5452,
+     "advmod_n": 442,
+     "tokens": 9534
+    }
+   },
+   "P5_online_observe": {
+    "lines_scanned": 4000,
+    "observations": 203,
+    "distinct_verbs": 117,
+    "verbs_that_gained_a_manner": [],
+    "n_gained": 0,
+    "sample": [
+     [
+      "pick",
+      "fatal"
+     ],
+     [
+      "express",
+      "visual"
+     ],
+     [
+      "become",
+      "public"
+     ],
+     [
+      "name",
+      "usual"
+     ],
+     [
+      "see",
+      "usual"
+     ],
+     [
+      "see",
+      "clear"
+     ],
+     [
+      "want",
+      "real"
+     ],
+     [
+      "fly",
+      "final"
+     ],
+     [
+      "look",
+      "exact"
+     ],
+     [
+      "begin",
+      "independent"
+     ],
+     [
+      "start",
+      "probable"
+     ],
+     [
+      "switch",
+      "easy"
+     ],
+     [
+      "educate",
+      "general"
+     ],
+     [
+      "have",
+      "usual"
+     ],
+     [
+      "do",
+      "most"
+     ],
+     [
+      "do",
+      "most"
+     ],
+     [
+      "carry",
+      "mental"
+     ],
+     [
+      "be",
+      "complete"
+     ],
+     [
+      "be",
+      "effective"
+     ],
+     [
+      "live",
+      "supple"
+     ]
+    ]
+   },
+   "P6_signal_trace": {
+    "n": 36,
+    "rung1_categories": {
+     "adverb_tagged_ADV": 32,
+     "lost": 4,
+     "note": "a -ly word tagged NOUN/ADJ; the de-adjectival morphology re-reads it (L4)"
+    },
+    "rung2_governor": {
+     "argmax_head_is_the_verb": 3,
+     "lost_to_argmax": 33,
+     "mean_posterior_mass_on_verb": 0.2148,
+     "cue_delta_noun_minus_verb": {
+      "TOTAL": 1.161,
+      "locality": 0.893,
+      "frame": 0.146,
+      "plaus": 0.059,
+      "config": 0.04,
+      "constr": 0.024,
+      "boundary": -0.0,
+      "agree": 0.0,
+      "form": 0.0
+     },
+     "note": "positive = the cue pushes the adverb onto the NOUN"
+    },
+    "rung3_morphology": {
+     "stem_recovered": 35,
+     "lost": 1
+    },
+    "rung4_affect_lexicon": {
+     "stem_has_valence": 33,
+     "lost_to_norm_coverage": 3,
+     "passes_gate_overall": 18,
+     "signed_items_passing_gate": [
+      18,
+      24
+     ],
+     "neutral_items_passing_gate": [
+      0,
+      12
+     ],
+     "note": "a NEUTRAL-manner item SHOULD fail the gate; 0 of 12 pass = correct"
+    }
+   },
+   "P7_slot_conditioned": {
+    "cf_sign_agreement_by_slot_and_arousal": {
+     "ADVMOD": {
+      "hiA": [
+       5,
+       6,
+       0.833
+      ],
+      "loA": [
+       10,
+       24,
+       0.417
+      ]
+     },
+     "MANNER_PP": {
+      "hiA": [
+       0,
+       1,
+       0.0
+      ],
+      "loA": [
+       4,
+       4,
+       1.0
+      ]
+     },
+     "MEANS_PP": {
+      "hiA": [
+       19,
+       22,
+       0.864
+      ],
+      "loA": [
+       22,
+       34,
+       0.647
+      ]
+     },
+     "RESULT_ADJ": {
+      "hiA": [
+       6,
+       7,
+       0.857
+      ],
+      "loA": [
+       9,
+       9,
+       1.0
+      ]
+     }
+    },
+    "means_gate": {
+     "tau_means_0.40": {
+      "slice": 6,
+      "newly_decided": 45,
+      "cf_prec": [
+       6,
+       6,
+       1.0
+      ],
+      "leaks": 31
+     },
+     "tau_means_0.50": {
+      "slice": 6,
+      "newly_decided": 42,
+      "cf_prec": [
+       6,
+       6,
+       1.0
+      ],
+      "leaks": 31
+     },
+     "tau_means_0.60": {
+      "slice": 6,
+      "newly_decided": 39,
+      "cf_prec": [
+       6,
+       6,
+       1.0
+      ],
+      "leaks": 31
+     },
+     "tau_means_0.70": {
+      "slice": 5,
+      "newly_decided": 33,
+      "cf_prec": [
+       4,
+       4,
+       1.0
+      ],
+      "leaks": 31
+     }
+    }
+   }
+  },
+  "push3": {
+   "P9_advmod_slice": {
+    "live": {
+     "n": 15,
+     "argmax_correct": 7,
+     "acc": 0.4667,
+     "argmax_went_to_a_nominal": 8,
+     "mean_posterior_on_the_gold_verb": 0.4445
+    },
+    "structural_g2": {
+     "n": 15,
+     "argmax_correct": 8,
+     "acc": 0.5333,
+     "argmax_went_to_a_nominal": 6,
+     "mean_posterior_on_the_gold_verb": 0.4948
+    },
+    "lexicalised_g2": {
+     "n": 15,
+     "argmax_correct": 8,
+     "acc": 0.5333,
+     "argmax_went_to_a_nominal": 6,
+     "mean_posterior_on_the_gold_verb": 0.4948
+    },
+    "structural_g4": {
+     "n": 15,
+     "argmax_correct": 8,
+     "acc": 0.5333,
+     "argmax_went_to_a_nominal": 6,
+     "mean_posterior_on_the_gold_verb": 0.5256
+    },
+    "lexicalised_g4": {
+     "n": 15,
+     "argmax_correct": 8,
+     "acc": 0.5333,
+     "argmax_went_to_a_nominal": 5,
+     "mean_posterior_on_the_gold_verb": 0.5256
+    },
+    "structural_g8": {
+     "n": 15,
+     "argmax_correct": 8,
+     "acc": 0.5333,
+     "argmax_went_to_a_nominal": 5,
+     "mean_posterior_on_the_gold_verb": 0.5332
+    },
+    "lexicalised_g8": {
+     "n": 15,
+     "argmax_correct": 8,
+     "acc": 0.5333,
+     "argmax_went_to_a_nominal": 5,
+     "mean_posterior_on_the_gold_verb": 0.5332
+    }
+   },
+   "P10_online": {
+    "before": {
+     "arm": "no reading",
+     "cf_whole_arm": [
+      294,
+      315,
+      0.9333
+     ],
+     "leaks": [],
+     "slice": 6,
+     "named_of_15": 15,
+     "live_gold_24": 24,
+     "prose_acc": [
+      0.6389,
+      0.1528
+     ],
+     "asset_rows": 4637
+    },
+    "observations": {
+     "lines_scanned": 4000,
+     "observations": 203,
+     "distinct_verbs": 117,
+     "verbs_that_gained_a_manner": [],
+     "n_gained": 0
+    },
+    "read all -ly": {
+     "arm": "read all -ly",
+     "cf_whole_arm": [
+      298,
+      320,
+      0.9313
+     ],
+     "leaks": [],
+     "slice": 6,
+     "named_of_15": 15,
+     "live_gold_24": 24,
+     "prose_acc": [
+      0.6389,
+      0.1528
+     ],
+     "asset_rows": 4822,
+     "observations_kept": 203,
+     "observations_dropped_as_non_manner": 0
+    },
+    "read manner-certified only": {
+     "arm": "read manner-certified only",
+     "cf_whole_arm": [
+      296,
+      318,
+      0.9308
+     ],
+     "leaks": [],
+     "slice": 6,
+     "named_of_15": 15,
+     "live_gold_24": 24,
+     "prose_acc": [
+      0.6389,
+      0.1528
+     ],
+     "asset_rows": 4701,
+     "observations_kept": 68,
+     "observations_dropped_as_non_manner": 135
+    }
+   }
+  },
+  "push4": {
+   "global": {
+    "live": {
+     "UAS": 0.6125,
+     "advmod": 0.5475,
+     "advmod_n": 442,
+     "tokens": 9534
+    },
+    "structural_g1": {
+     "UAS": 0.6115,
+     "advmod": 0.5317,
+     "advmod_n": 442,
+     "tokens": 9534
+    },
+    "lexicalised_g1": {
+     "UAS": 0.6102,
+     "advmod": 0.5023,
+     "advmod_n": 442,
+     "tokens": 9534
+    },
+    "structural_g2": {
+     "UAS": 0.6103,
+     "advmod": 0.5,
+     "advmod_n": 442,
+     "tokens": 9534
+    },
+    "lexicalised_g2": {
+     "UAS": 0.6101,
+     "advmod": 0.5,
+     "advmod_n": 442,
+     "tokens": 9534
+    },
+    "structural_g4": {
+     "UAS": 0.6102,
+     "advmod": 0.5,
+     "advmod_n": 442,
+     "tokens": 9534
+    },
+    "lexicalised_g4": {
+     "UAS": 0.6101,
+     "advmod": 0.4977,
+     "advmod_n": 442,
+     "tokens": 9534
+    },
+    "structural_g8": {
+     "UAS": 0.6094,
+     "advmod": 0.4932,
+     "advmod_n": 442,
+     "tokens": 9534
+    },
+    "lexicalised_g8": {
+     "UAS": 0.6092,
+     "advmod": 0.4932,
+     "advmod_n": 442,
+     "tokens": 9534
+    },
+    "CONDITIONED_g2": {
+     "UAS": 0.6125,
+     "advmod": 0.5475,
+     "advmod_n": 442,
+     "tokens": 9534
+    },
+    "CONDITIONED_g4": {
+     "UAS": 0.6125,
+     "advmod": 0.5475,
+     "advmod_n": 442,
+     "tokens": 9534
+    },
+    "CONDITIONED_g8": {
+     "UAS": 0.6124,
+     "advmod": 0.5475,
+     "advmod_n": 442,
+     "tokens": 9534
+    },
+    "twin_scrambled_target_g4": {
+     "UAS": 0.6128,
+     "advmod": 0.5452,
+     "advmod_n": 442,
+     "tokens": 9534
+    }
+   },
+   "slice": {
+    "live": {
+     "n": 15,
+     "argmax_correct": 7,
+     "acc": 0.4667,
+     "argmax_went_to_a_nominal": 8,
+     "mean_posterior_on_the_gold_verb": 0.4445
+    },
+    "structural_g2": {
+     "n": 15,
+     "argmax_correct": 8,
+     "acc": 0.5333,
+     "argmax_went_to_a_nominal": 6,
+     "mean_posterior_on_the_gold_verb": 0.4948
+    },
+    "lexicalised_g2": {
+     "n": 15,
+     "argmax_correct": 8,
+     "acc": 0.5333,
+     "argmax_went_to_a_nominal": 6,
+     "mean_posterior_on_the_gold_verb": 0.4948
+    },
+    "CONDITIONED_g2": {
+     "n": 15,
+     "argmax_correct": 8,
+     "acc": 0.5333,
+     "argmax_went_to_a_nominal": 6,
+     "mean_posterior_on_the_gold_verb": 0.4948
+    },
+    "structural_g4": {
+     "n": 15,
+     "argmax_correct": 8,
+     "acc": 0.5333,
+     "argmax_went_to_a_nominal": 6,
+     "mean_posterior_on_the_gold_verb": 0.5256
+    },
+    "lexicalised_g4": {
+     "n": 15,
+     "argmax_correct": 8,
+     "acc": 0.5333,
+     "argmax_went_to_a_nominal": 5,
+     "mean_posterior_on_the_gold_verb": 0.5256
+    },
+    "CONDITIONED_g4": {
+     "n": 15,
+     "argmax_correct": 8,
+     "acc": 0.5333,
+     "argmax_went_to_a_nominal": 6,
+     "mean_posterior_on_the_gold_verb": 0.5256
+    },
+    "structural_g8": {
+     "n": 15,
+     "argmax_correct": 8,
+     "acc": 0.5333,
+     "argmax_went_to_a_nominal": 5,
+     "mean_posterior_on_the_gold_verb": 0.5332
+    },
+    "lexicalised_g8": {
+     "n": 15,
+     "argmax_correct": 8,
+     "acc": 0.5333,
+     "argmax_went_to_a_nominal": 5,
+     "mean_posterior_on_the_gold_verb": 0.5332
+    },
+    "CONDITIONED_g8": {
+     "n": 15,
+     "argmax_correct": 8,
+     "acc": 0.5333,
+     "argmax_went_to_a_nominal": 5,
+     "mean_posterior_on_the_gold_verb": 0.5332
+    }
+   },
+   "P2_withheld": {
+    "withheld_decisions_that_were_CORRECT": 11,
+    "withheld_that_were_WRONG": 4,
+    "wrong_examples": [
+     "court",
+     "load",
+     "shell",
+     "stress"
+    ]
+   }
+  },
+  "push5": {
+   "P11_conditioned_ci": {
+    "n_items": 15,
+    "gamma": 8.0,
+    "mean_posterior_live": 0.4445,
+    "mean_posterior_conditioned": 0.5332,
+    "delta": [
+     0.0887,
+     -0.1333,
+     0.3143
+    ],
+    "ci_separated": false
+   },
+   "P11_prose_under_repaired_governor": {
+    "acc_with_repaired_governor": [
+     0.6389,
+     0.1528
+    ],
+    "acc_shipped": [
+     0.6389
+    ],
+    "delta_vs_shipped": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "mean_adverb_mass_on_verb": 0.9409
+   },
+   "P12_morph_backoff": {
+    "backoff_False": {
+     "cf_whole_arm": [
+      294,
+      315,
+      0.9333
+     ],
+     "leaks": [],
+     "slice": 6,
+     "prose_acc": 0.6389
+    },
+    "backoff_True": {
+     "cf_whole_arm": [
+      294,
+      315,
+      0.9333
+     ],
+     "leaks": [],
+     "slice": 6,
+     "prose_acc": 0.6389
+    }
+   }
+  }
  }
 }

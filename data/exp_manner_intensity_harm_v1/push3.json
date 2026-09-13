@@ -1,0 +1,117 @@
+{
+ "P9_advmod_slice": {
+  "live": {
+   "n": 15,
+   "argmax_correct": 7,
+   "acc": 0.4667,
+   "argmax_went_to_a_nominal": 8,
+   "mean_posterior_on_the_gold_verb": 0.4445
+  },
+  "structural_g2": {
+   "n": 15,
+   "argmax_correct": 8,
+   "acc": 0.5333,
+   "argmax_went_to_a_nominal": 6,
+   "mean_posterior_on_the_gold_verb": 0.4948
+  },
+  "lexicalised_g2": {
+   "n": 15,
+   "argmax_correct": 8,
+   "acc": 0.5333,
+   "argmax_went_to_a_nominal": 6,
+   "mean_posterior_on_the_gold_verb": 0.4948
+  },
+  "structural_g4": {
+   "n": 15,
+   "argmax_correct": 8,
+   "acc": 0.5333,
+   "argmax_went_to_a_nominal": 6,
+   "mean_posterior_on_the_gold_verb": 0.5256
+  },
+  "lexicalised_g4": {
+   "n": 15,
+   "argmax_correct": 8,
+   "acc": 0.5333,
+   "argmax_went_to_a_nominal": 5,
+   "mean_posterior_on_the_gold_verb": 0.5256
+  },
+  "structural_g8": {
+   "n": 15,
+   "argmax_correct": 8,
+   "acc": 0.5333,
+   "argmax_went_to_a_nominal": 5,
+   "mean_posterior_on_the_gold_verb": 0.5332
+  },
+  "lexicalised_g8": {
+   "n": 15,
+   "argmax_correct": 8,
+   "acc": 0.5333,
+   "argmax_went_to_a_nominal": 5,
+   "mean_posterior_on_the_gold_verb": 0.5332
+  }
+ },
+ "P10_online": {
+  "before": {
+   "arm": "no reading",
+   "cf_whole_arm": [
+    294,
+    315,
+    0.9333
+   ],
+   "leaks": [],
+   "slice": 6,
+   "named_of_15": 15,
+   "live_gold_24": 24,
+   "prose_acc": [
+    0.6389,
+    0.1528
+   ],
+   "asset_rows": 4637
+  },
+  "observations": {
+   "lines_scanned": 4000,
+   "observations": 203,
+   "distinct_verbs": 117,
+   "verbs_that_gained_a_manner": [],
+   "n_gained": 0
+  },
+  "read all -ly": {
+   "arm": "read all -ly",
+   "cf_whole_arm": [
+    298,
+    320,
+    0.9313
+   ],
+   "leaks": [],
+   "slice": 6,
+   "named_of_15": 15,
+   "live_gold_24": 24,
+   "prose_acc": [
+    0.6389,
+    0.1528
+   ],
+   "asset_rows": 4822,
+   "observations_kept": 203,
+   "observations_dropped_as_non_manner": 0
+  },
+  "read manner-certified only": {
+   "arm": "read manner-certified only",
+   "cf_whole_arm": [
+    296,
+    318,
+    0.9308
+   ],
+   "leaks": [],
+   "slice": 6,
+   "named_of_15": 15,
+   "live_gold_24": 24,
+   "prose_acc": [
+    0.6389,
+    0.1528
+   ],
+   "asset_rows": 4701,
+   "observations_kept": 68,
+   "observations_dropped_as_non_manner": 135
+  }
+ }
+}

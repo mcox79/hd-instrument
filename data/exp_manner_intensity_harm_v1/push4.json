@@ -1,0 +1,164 @@
+{
+ "global": {
+  "live": {
+   "UAS": 0.6125,
+   "advmod": 0.5475,
+   "advmod_n": 442,
+   "tokens": 9534
+  },
+  "structural_g1": {
+   "UAS": 0.6115,
+   "advmod": 0.5317,
+   "advmod_n": 442,
+   "tokens": 9534
+  },
+  "lexicalised_g1": {
+   "UAS": 0.6102,
+   "advmod": 0.5023,
+   "advmod_n": 442,
+   "tokens": 9534
+  },
+  "structural_g2": {
+   "UAS": 0.6103,
+   "advmod": 0.5,
+   "advmod_n": 442,
+   "tokens": 9534
+  },
+  "lexicalised_g2": {
+   "UAS": 0.6101,
+   "advmod": 0.5,
+   "advmod_n": 442,
+   "tokens": 9534
+  },
+  "structural_g4": {
+   "UAS": 0.6102,
+   "advmod": 0.5,
+   "advmod_n": 442,
+   "tokens": 9534
+  },
+  "lexicalised_g4": {
+   "UAS": 0.6101,
+   "advmod": 0.4977,
+   "advmod_n": 442,
+   "tokens": 9534
+  },
+  "structural_g8": {
+   "UAS": 0.6094,
+   "advmod": 0.4932,
+   "advmod_n": 442,
+   "tokens": 9534
+  },
+  "lexicalised_g8": {
+   "UAS": 0.6092,
+   "advmod": 0.4932,
+   "advmod_n": 442,
+   "tokens": 9534
+  },
+  "CONDITIONED_g2": {
+   "UAS": 0.6125,
+   "advmod": 0.5475,
+   "advmod_n": 442,
+   "tokens": 9534
+  },
+  "CONDITIONED_g4": {
+   "UAS": 0.6125,
+   "advmod": 0.5475,
+   "advmod_n": 442,
+   "tokens": 9534
+  },
+  "CONDITIONED_g8": {
+   "UAS": 0.6124,
+   "advmod": 0.5475,
+   "advmod_n": 442,
+   "tokens": 9534
+  },
+  "twin_scrambled_target_g4": {
+   "UAS": 0.6128,
+   "advmod": 0.5452,
+   "advmod_n": 442,
+   "tokens": 9534
+  }
+ },
+ "slice": {
+  "live": {
+   "n": 15,
+   "argmax_correct": 7,
+   "acc": 0.4667,
+   "argmax_went_to_a_nominal": 8,
+   "mean_posterior_on_the_gold_verb": 0.4445
+  },
+  "structural_g2": {
+   "n": 15,
+   "argmax_correct": 8,
+   "acc": 0.5333,
+   "argmax_went_to_a_nominal": 6,
+   "mean_posterior_on_the_gold_verb": 0.4948
+  },
+  "lexicalised_g2": {
+   "n": 15,
+   "argmax_correct": 8,
+   "acc": 0.5333,
+   "argmax_went_to_a_nominal": 6,
+   "mean_posterior_on_the_gold_verb": 0.4948
+  },
+  "CONDITIONED_g2": {
+   "n": 15,
+   "argmax_correct": 8,
+   "acc": 0.5333,
+   "argmax_went_to_a_nominal": 6,
+   "mean_posterior_on_the_gold_verb": 0.4948
+  },
+  "structural_g4": {
+   "n": 15,
+   "argmax_correct": 8,
+   "acc": 0.5333,
+   "argmax_went_to_a_nominal": 6,
+   "mean_posterior_on_the_gold_verb": 0.5256
+  },
+  "lexicalised_g4": {
+   "n": 15,
+   "argmax_correct": 8,
+   "acc": 0.5333,
+   "argmax_went_to_a_nominal": 5,
+   "mean_posterior_on_the_gold_verb": 0.5256
+  },
+  "CONDITIONED_g4": {
+   "n": 15,
+   "argmax_correct": 8,
+   "acc": 0.5333,
+   "argmax_went_to_a_nominal": 6,
+   "mean_posterior_on_the_gold_verb": 0.5256
+  },
+  "structural_g8": {
+   "n": 15,
+   "argmax_correct": 8,
+   "acc": 0.5333,
+   "argmax_went_to_a_nominal": 5,
+   "mean_posterior_on_the_gold_verb": 0.5332
+  },
+  "lexicalised_g8": {
+   "n": 15,
+   "argmax_correct": 8,
+   "acc": 0.5333,
+   "argmax_went_to_a_nominal": 5,
+   "mean_posterior_on_the_gold_verb": 0.5332
+  },
+  "CONDITIONED_g8": {
+   "n": 15,
+   "argmax_correct": 8,
+   "acc": 0.5333,
+   "argmax_went_to_a_nominal": 5,
+   "mean_posterior_on_the_gold_verb": 0.5332
+  }
+ },
+ "P2_withheld": {
+  "withheld_decisions_that_were_CORRECT": 11,
+  "withheld_that_were_WRONG": 4,
+  "wrong_examples": [
+   "court",
+   "load",
+   "shell",
+   "stress"
+  ]
+ }
+}

@@ -5,7 +5,8 @@ bar: "Recovers the manner slice (>= 8 of the 15 named verbs) at Connotation-Fram
 result: "MANNER-INTENSITY ARM (manner/means/result decomposition of the verb's definition, parsed OFFLINE by the reader's own glass-box stack; sign from the manner's VALENCE, magnitude from the CIRCUMPLEX RADIUS of its core affect or its GROUNDED action strength; operating point tau_intensity=0.40, tau_manner_val=0.10). Named manner verbs reading HARM 9/15 -> 15/15, i.e. ALL SIX of the floor's abstentions recovered (brutalize, manhandle, gore, subjugate, tyrannize, maltreat) with 0 flips to a wrong sign. 46 still-abstaining affecting verbs newly decided at Connotation-Frames precision 6/6 = 1.00 with ZERO wrong signs (the 4 CF-neutral-but-decided all sit at |Effect(o)| = 0.20, inside the gold's own +-0.25 neutral band). 0 leaks on P_NEUTRAL_BROAD (n=36). Whole-arm CF agreement 294/315 = 0.9333 >= floor 288/309 = 0.9320. Live 36-item modern gold 24/24 HARM/HELP held, NEUTRAL items byte-identical to the floor. NEW adverb-in-prose gold (36 declared sentences, an affect-neutral verb + a manner adverb): floor 0.4444 -> 0.6389, delta +0.1944 CI [+0.0833, +0.3056] CI-SEPARATED; the argmax-head read gets only 0.4722, so the win is the GRADED governor posterior. Controls: scrambled-intensity twin 4/6 slice and CF precision 0.875; scrambled-valence twin 2/6 with 3 WRONG HELP and precision 0.5714 over 510 reckless decisions; parse-free twin (the refuted gloss proxy through the identical valuation) 0/6 and 0.8421 over 154 decisions. The 2x2 the brief asked for: with a HIGH-arousal manner the valence sign agrees with the human gold 0.864 (negative) / 0.769 (positive); with a LOW-arousal manner 0.643 / 0.633 -- the intensity gate is what makes the sign trustworthy, and a high-arousal POSITIVE manner reads HELP, not HARM. TWO LEVERS REFUTED-AS-BUILT by the human gold and NOT shipped: promoting the manner above the diffuse word-level norm (CF 0.9333 -> 0.9111) and abstaining on manner-host verbs (0.9014, and a live-gold item)."
 floor: "hdlab/force_dynamics_valence.py at HEAD (result state -> word norm -> superordinate consensus): 9/15 named manner verbs HARM and 0/6 of the manner slice (brutalize/manhandle/gore/subjugate/tyrannize/maltreat all abstain, first-hand verified); 695 affecting verbs still abstain; CF whole-arm 288/309 = 0.9320; P_NEUTRAL_BROAD 0 leaks; live 36-item gold 24/24. On the adverb-in-prose gold the floor is not merely silent -- it answers HELP on 'treated the prisoner brutally' (Warriner treat +0.46 is largely the noun 'a treat') and scores 0.4444."
 controls: "(1) TWIN, SCRAMBLED INTENSITY (the brief's named control) -- arousal + grounded action strength permuted across words: slice 4/6 (vs 6/6) and CF precision on new decisions 0.875 (vs 1.00). (2) TWIN, SCRAMBLED VALENCE (the sign channel) -- slice 2/6, THREE WRONG HELP verdicts on the slice, 510 decisions at 0.5714 precision, 1 neutral leak: the sign channel is load-bearing and its loss is catastrophic, not quiet. (3) PARSE CONTROL -- the manner filler replaced by the strongest-valence word of the SAME definition (exactly the drilled, refuted parse-free gloss proxy) through the identical intensity/consensus valuation: 0/6 of the slice, 154 decisions at 0.8421. The PARSE is what makes the read work. (4) INDEPENDENT HUMAN GOLD -- Connotation Frames Effect(o) (Rashkin, Singh & Choi ACL 2016), never read at inference: new-decision precision 1.00 with 0 wrong signs, whole-arm 0.9333 >= floor 0.9320. (5) NEUTRAL PRECISION -- 0 leaks on P_NEUTRAL_BROAD; 0 of the 2x2's 437 manner-bearing verbs falls in that population. (6) NO-REGRESS -- live 36-item modern gold 24/24, harm-frame 10/10, social-harm 15/16, non-prevent-help 15/16, all unchanged; 0 of the 15 named verbs flips sign. (7) OPERATING-POINT SWEEP -- tau_intensity 0.35-0.60 x tau_manner_val 0.10-0.30 (18 points): CF precision 1.00 and 0 leaks at 14 of 18 (the four exceptions are all at tau_manner_val >= 0.20); the win is not threshold-brittle. (8) ARGMAX ABLATION on the prose gold: 0.4722 vs the graded read's 0.6389 -- names the graded posterior as the mechanism. (9) INTENSITY-CHANNEL ABLATION: circumplex / arousal / arousal+grounded all hold precision 1.00; grounded-only and valence-only lose the slice (3/6) -- the channel choice is robust, the gate is not."
-files_changed: "experiments/exp_manner_intensity_harm_v1.py (the arm, the NEW adverb-in-prose gold, all controls, the lever ablation, the sweep, self-test); tools/build_manner_intensity_asset.py (NEW offline foundation-asset builder: parses WordNet definitions with hdlab.frontend at BUILD time); data/frontend_assets/manner_intensity_v1.json (the shipped dict: 2,305 verbs, 906 valued filler words, 1,836 affecting-animate senses; COUNTS, so the online observe path writes the same units); data/exp_manner_intensity_harm_v1/metrics.json; notes/problems/<slug>/force_dynamics_valence_patch.diff (the proposed hdlab change -- verified to apply cleanly with `git apply --check` and to reproduce every number above when loaded side-by-side with HEAD). NO hdlab/ writes."
+second_pass: "Supervisor probe 2026-09-13: NO headline number moved. Added the full rung-by-rung signal trace with the exact cue decomposition of the governor loss (locality +0.893 of a +1.161 gap; `constr=none` on both candidates because attachment_arm has no manner-adverbial construction); the per-rung BF table for this signal (the affect lexicon is the one rung that structurally cannot hand down a graded value); the brain-math comparison; and eight mechanistically-understood negatives. Built the CONFIGURATION-CONDITIONED manner-adverbial cue for the governor: UD-EWT advmod 0.5475 -> 0.5475 (zero global cost, vs 0.4932-0.5317 unconditioned) and the target slice posterior 0.4445 -> 0.5332 (+0.0887 CI [-0.1333,+0.3143], n=15, NOT separated) -- and showed that repairing that rung is worth EXACTLY 0.0 to this consumer (prose gold identical on all 36 items), because the graded read had already extracted everything the rung had. Exercised the online observe path on held-out prose (203 observations/4000 lines -> 5 decisions at 4/5, 0 leaks, live gold held). Rejected with counts: Binder as a second gold (434/535 are thing-concepts; 2/46 covered), the POS-conflation lever (treat is 0.000 noun-dominant; removes 11 correct for 4 wrong), the adj.all/adj.pert manner filter, the unconditioned governor boost, and the derivational backoff (inert on every population)."
+files_changed: "experiments/exp_manner_intensity_harm_v1.py (the arm, the second-pass levers P1-P12, the NEW adverb-in-prose gold, all controls, the lever ablation, the sweep, self-test); tools/build_manner_intensity_asset.py (NEW offline foundation-asset builder: parses WordNet definitions with hdlab.frontend at BUILD time); data/frontend_assets/manner_intensity_v1.json (the shipped dict: 2,305 verbs, 906 valued filler words, 1,836 affecting-animate senses; COUNTS, so the online observe path writes the same units); data/exp_manner_intensity_harm_v1/metrics.json; notes/problems/<slug>/force_dynamics_valence_patch.diff (the proposed hdlab change -- verified to apply cleanly with `git apply --check` and to reproduce every number above when loaded side-by-side with HEAD). NO hdlab/ writes."
 reverify: "OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 PYTHONHASHSEED=0 .venv/Scripts/python.exe tools/build_manner_intensity_asset.py && OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 PYTHONHASHSEED=0 .venv/Scripts/python.exe experiments/exp_manner_intensity_harm_v1.py --self-test && OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 PYTHONHASHSEED=0 HDLAB_EXP_NAME=manner_intensity_harm_v1 .venv/Scripts/python.exe experiments/exp_manner_intensity_harm_v1.py"
 ---
 
@@ -317,3 +318,268 @@ and **refuted by the human gold**, and are documented as such.
 - The `treat` +0.46 cross-sense conflation now blocks three separate things (this problem's neutral cell, the
   earlier `throttle`/`batter` cases, RUNG 3's sense-in-context). Is a **sense-keyed affect norm** worth its own
   brief, above the remaining manner work?
+
+
+---
+---
+
+# SECOND PASS — the supervisor probe (2026-09-13): understanding, the signal trace, and seven levers
+
+**Headline of this pass, stated without padding: NOT ONE HEADLINE NUMBER MOVED.** The pass produced
+understanding, eight mechanistically-understood negatives, two corrections to claims I made in the first
+report, one measured upstream specification for another organ — and a demonstration that that upstream repair
+is worth **exactly 0.0** to this consumer. That last result is the most valuable thing in it.
+
+## 15. BEFORE / AFTER (first final report vs now)
+
+| measure | after pass 1 | after pass 2 | change |
+|---|---|---|---|
+| named manner verbs HARM | 15 / 15 | **15 / 15** | — |
+| manner slice recovered | 6 / 6 | **6 / 6** | — |
+| new residual decisions | 46 | **46** | — |
+| CF precision on new decisions | 6/6 = 1.00 | **6/6 = 1.00** | — |
+| CF whole-arm agreement | 294/315 = 0.9333 | **294/315 = 0.9333** | — |
+| leaks on `P_NEUTRAL_BROAD` | 0 | **0** | — |
+| live 36-item modern gold | 24 / 24 | **24 / 24** | — |
+| adverb-in-prose gold | 0.6389 (+0.1944 CI [+0.0833,+0.3056]) | **0.6389 (unchanged)** | — |
+| **NEW: second human gold (Binder)** | not attempted | **REJECTED with counts** (434/535 entries are `thing` concepts; 2/46 new decisions covered) | new |
+| **NEW: UD-EWT advmod, live arm** | assumed broken from 3/36 | **0.5475 over 442 — the arm is NOT broadly broken** | corrected |
+| **NEW: the construction's real frequency** | unknown | **15 / 442 advmod = 3.4%** | new |
+| **NEW: governor cue, unconditioned** | proposed | **REFUTED: advmod 0.5475 → 0.4932–0.5317** | new |
+| **NEW: governor cue, CONFIGURATION-CONDITIONED** | — | **advmod 0.5475 → 0.5475 (zero cost), slice posterior 0.4445 → 0.5332** | new |
+| **NEW: downstream value of repairing the governor** | assumed large | **0.0 — prose gold identical, every item** | corrected |
+| **NEW: online observe path, exercised** | never called | **203 observations / 4000 lines → 5 new decisions at 4/5, no regression** | new |
+| levers built and measured | 4 (2 shipped, 2 refuted) | **11 (2 shipped, 9 refuted or inert)** | +7 |
+
+## 16. THE SIGNAL-LOSS TRACE, RUNG BY RUNG, WITH COUNTS
+
+**The signal:** *the manner's affect, reaching the patient's endstate.* Measured on the 36-sentence gold
+(`signal_trace()` in the cell; per-item rows in `metrics.json`).
+
+| # | rung / organ | what it PRODUCES | what my read TAKES | measured LOSS |
+|---|---|---|---|---|
+| 1 | **categories** `lexical_categories` | a point tag **and** a graded posterior | the point tag, then repairs it morphologically | **4 / 36** manner adverbs mis-tagged (*cruelly*, *carelessly* → NOUN; *kindly* → ADJ). L4 recovers them; worth **+1** item |
+| 2 | **governor** `attachment_arm` | a single-root MAP tree (point) **and** Matrix-Tree marginals (graded) | **the marginals** | argmax on the verb **3/36**; mass on the verb **0.215** (templates) / **0.4445** (the real UD-EWT instance of this construction, n=15). Taking the point estimate would lose the whole read; taking the posterior loses **nothing** |
+| 3 | **morphology** `morphology` / pertainym + strip-and-check | adverb → adjective stem | the stem | **1 / 36** (*sideways*, correctly — it is not de-adjectival) |
+| 4 | **affect lexicon** `affect_lexicon` (Warriner) | **one scalar per WORD FORM**, no sense index, no variance | valence (sign) + arousal (magnitude) | **3 / 36** stems uncovered (*contemptuous*, *sudden*, *sideways*); **6 / 24** signed items fail the gate; **0 / 12** neutral items pass (correct). And on the VERB side the same conflation costs **8 of the 13** remaining prose errors |
+| 5 | **roles** `graded_role_assigner` | the patient, with cue strengths learned from the organ's own perceived heads | not exercised (bare-SVO templates; animacy from WordNet) | **untested here — named as a gap** |
+| 6 | **the fusion** (mine) | HARM / HELP / abstain | result state > manner > word norm | ordinal precedence, not variance-weighted (no cue carries a variance) |
+
+### 16b. WHY the governor rates ADV→NOUN above ADV→VERB — the exact cue decomposition
+
+Averaged over the 36 items, score(NOUN) − score(VERB) = **+1.161**:
+
+| cue | Δ (noun − verb) | what it is |
+|---|---|---|
+| **locality** | **+0.893** | `L1` (adjacent, head-left) is worth **+1.314** in the `NOUN>ADV:L` configuration; `L3-4` is worth **+0.218** in `VERB>ADV:L`. **77% of the whole gap.** |
+| frame | +0.146 | the `VERB>ADV:L` frame cue is itself **−0.141** — the learned verb frames never saw a manner adverbial |
+| plaus | +0.059 | fires only for nominal dependents |
+| config | +0.040 | even the configuration prior favours the noun (`NOUN>ADV:L` 0.943 vs `VERB>ADV:L` 0.754) |
+| **constr** | **+0.024**, and `constr=none` **on both candidates** | **the smoking gun.** `attachment_arm.CONSTRUCTIONS = {verbarg, coord, npmod, clausal, fw}` contains **no manner-adverbial schema**, so the arm's strongest cue channel contributes **zero** to the correct arc — while in the one row where a construction does fire (`cruelly` mis-tagged NOUN → `constr=verbarg`) it is worth **+1.081** and the verb wins |
+| boundary / agree / form | 0.000 | inactive in this configuration |
+
+*A side-effect worth recording: the categories-rung error **compensates** for the missing construction —
+`cruelly` tagged NOUN gets `constr=verbarg` (+1.081) and lands on the verb with mass 1.00, while correctly
+tagged `brutally` lands on the noun with 0.86. Two defects cancelling is not a working chain.*
+
+## 17. PER-RUNG BF STATUS **FOR THIS SIGNAL** (graded, point, or conflated?)
+
+| rung | BF status of the computation | does it hand DOWN the graded signal this read needs? |
+|---|---|---|
+| categories | **BF_SPIRIT** — count-based generative model, forward-backward posterior, plastic (PINNED: Bayesian cue integration, graded belief) | **YES, and it is available** (`tag_with_posterior`) — but my read consumes the point tag and repairs it. *My* shortcoming, not the organ's |
+| governor | **BF_SPIRIT** — cue competition (MacDonald 1994) with exact single-root Matrix-Tree marginals (PINNED: keep-alternatives-alive) | **YES** — and taking it is the entire prose win. The gap is an incomplete construction inventory, not a non-graded hand-off |
+| morphology | **BF** — Rastle & Davis / Taft strip-and-check, dual route (PINNED) | yes (categorical by nature) |
+| **affect lexicon** | **BF_SPIRIT as a SUPPLY**, but **NOT graded and NOT sense-keyed** | **NO.** One scalar per word form, no sense index, **no variance**. This is the one rung that structurally cannot hand down what a precision-weighted fusion needs |
+| roles | BF_SPIRIT — Competition Model, validities from perceived heads | untested for this signal |
+| result-state arm | BF_SPIRIT — VerbNet sense-keyed states + the innate nociceptive sign (PINNED) | yes, and it is correctly given precedence |
+
+**The one structurally non-BF rung for this signal is the affect lexicon.** Everything else either already hands
+down a graded signal or is categorical by nature.
+
+## 18. THE BRAIN'S MATHEMATICS ALONG THIS CHAIN vs WHAT IS BUILT
+
+| computation | the brain's math (status) | what is built | the difference, measured |
+|---|---|---|---|
+| **adverb attachment** | cue competition: arc score = Σ contrasts within a configuration, alternatives kept as a posterior (MacDonald-Pearlmutter-Seidenberg 1994; Lewis & Vasishth 2005 retrieval; Hale/Levy surprisal) — **PINNED**; item-based constructions as cue coalitions (Tomasello 2003; Goldberg) | exactly that, minus one construction | the missing manner-adverbial schema hands **+1.161 log-odds** to the wrong candidate; `constr` contributes 0 where it is worth +1.081 when present |
+| **manner/result lexicalisation** | a verb root lexicalises manner XOR result (Talmy 1985/2000; Levin & Rappaport Hovav 2010) — **PINNED** | the decomposition is the mechanism | none — this is the rung that was cracked |
+| **core affect** | 2-D valence × arousal circumplex; **radius = intensity, angle = quality** (Russell 1980; Barrett) — **PINNED** | intensity = the radius, sign = the valence axis | replicated. Measured payoff: sign agreement 0.864/0.769 at high arousal vs 0.643/0.633 at low |
+| **outcome valuation** | OFC/vmPFC value over the simulated result state; nociception innate — **PINNED** | Warriner ratings as a proxy for the valuation | **a human rating is not a simulation.** The value is looked up, not computed from a grounded re-enactment. See ALTERNATE PATH 2 |
+| **affect retrieval by sense in context** | the settled sense vector determines the meaning retrieved (Rodd; PPR spreading activation) — **PINNED/MODEL** | `context_sense_sign` exists and is live (residual-only) | **measured this pass: it does not discriminate.** `treat` → sign **+1 in all six** of its contexts (brutally, cruelly, kindly, routinely, privately, impersonally). The *selection* is the weak half, not the keying |
+| **precision-weighted fusion** | w ∝ 1/σ² (Ernst & Banks 2002; Ma & Pouget) — **PINNED** | an **ordinal precedence** (result state > manner > word norm) | no cue carries a variance, so a true reliability weighting is not computable. The ordinal order is the degenerate case — and pass 1's L1 got the order **backwards**, which the human gold caught |
+
+## 19. EVERY NEGATIVE, UNDERSTOOD MECHANISTICALLY, WITH NUMBERS
+
+1. **L1 (manner above the word norm) — CF 0.9333 → 0.9111.** 7 of 315 decisions flip wrong. *Mechanism:* it
+   only changes verbs where a manner AND a word norm both exist and **disagree** — and for those the manner
+   filler is usually a `MEANS_PP` or a genus-adjacent word describing the **instrument**, not the outcome
+   (*administer, court, hang, load*). The word norm, where it fires, is a **0.93-accurate** cue; the manner is
+   0.86/0.77 at high arousal and **0.64 at low**. So the precedence must follow the precision — and I had it
+   backwards. This is the Ernst-Banks rule applied honestly rather than rhetorically.
+2. **L2 (abstain on manner-host verbs) — CF 0.9014, live gold 24 → 23.** 21 decisions removed, ~all correct.
+   *Mechanism:* the host set is derived by counting *which verbs are described with a manner*, and the most
+   frequently manner-described verbs are the most affect-laden ones — **beat (22), hit (19), treat (16),
+   kill (8), injure (6), attack (5)**. A co-occurrence count named the wrong class: "often described with a
+   manner" ≠ "underspecified without a manner".
+3. **The arousal-only gate — slice 5/6 instead of 6/6.** *Mechanism, structural not statistical:* calm positive
+   manners sit at the low-arousal pole **by construction** — *kind* 0.274, *gentle* 0.271, *tender* 0.278,
+   against a gate at 0.40, while *brutal* 0.516 and *rough* 0.554 pass. An arousal gate is a **harm-only
+   detector**. (It scores the same 0.6389 on the prose gold only because that gold's HELP cell is already
+   carried 10/12 by the floor — a coverage artefact, not evidence for arousal.)
+4. **The parse-free twin's 0.8421 over 154 decisions — why so far above chance?** *Mechanism:* for verbs whose
+   definitions are affect-saturated (*torture: subject to torture*) the strongest-valence word **is** the
+   outcome, so the proxy is a lower-precision, 3×-recall estimator, not an information-free one. But on the
+   manner slice specifically the strongest word is the **genus** (*treat*, *handle*), which is why it recovers
+   **0 of 6**. **The parse buys the slice, not the average** — precisely the shape of the original drilled
+   negative, now explained.
+5. **The POS-conflation lever (P2) — REFUTED, and my diagnosis in pass 1 was WRONG.** SemCor noun fractions:
+   **treat 0.000**, handle 0.059, hold 0.025, grab 0.000, carry 0.006 (only *wound* 0.828 and *place* 0.527 are
+   noun-dominant). So `treat` +0.46 is **not** a cross-POS artefact — it is a **within-verb sense** conflation.
+   Withholding the norm for noun-dominant strings removes **11 correct decisions for 4 wrong** ones; the
+   apparent precision gain (0.9333 → 0.9400) is **pure coverage shrinkage** — on the shared 300 items both arms
+   score identically. A count of decisions removed is not a quality gain.
+6. **Binder as a second human gold — REJECTED.** 434 of 535 entries are `thing` concepts; the 113 overlapping
+   strings are noun homographs (*cabbage −2.23, monkey +1.22, submarine +0.96, soldier +0.97*) rated as
+   **concepts**, not as verb outcomes. It covers **2 of the 46** new decisions. The 0.8378 → 0.8421 it reports
+   is not evidence about a verb read. (NRC EmoLex is on disk and also inadmissible: an *association* lexicon,
+   already documented as over-firing in `hdlab/affect_lexicon.py`.)
+7. **The descriptive-vs-relational adjective filter — REJECTED BEFORE BUILDING.** Levi (1978) / WordNet
+   `adj.all` vs `adj.pert`, checked on 43 stems: *mental, verbal, legal, visual, national* carry `adj.all` too,
+   and *most, complete, probable, usual, real* are pure `adj.all`. The distinction does not separate manner
+   from degree at all.
+8. **The unconditioned governor boost — REFUTED: advmod 0.5475 → 0.4932–0.5317, UAS 0.6125 → 0.6092–0.6115.**
+   *Mechanism, now exact:* it fires on all **442** UD-EWT advmod tokens to help the **15** that are this
+   construction. The arm's own discipline is that every strength is a contrast **within a configuration**;
+   a global additive bonus violates it. The scrambled-target twin is flat (advmod 0.5452), confirming the
+   damage is the boost's breadth, not noise.
+9. **The online path on encyclopedic prose — mechanically fine, materially empty.** 4000 Simple-Wikipedia lines
+   → 203 observations, 117 verbs, **0 verbs gained a manner decision**, 5 new decisions at **4/5** correct, CF
+   0.9333 → 0.9313 with 0 leaks and the live gold held. The accrued fillers are dominated by **degree and
+   sentential** adverbs (*mostly, completely, publicly*), which the read's own gate then discards. A
+   WordNet-manner-gloss filter drops 135 of 203 and changes the outcome by **−0.0005** — the gate was already
+   doing the filtering.
+
+## 20. WHAT WAS BUILT AND KEPT IN THIS PASS
+
+**One thing, and it is not shippable from this brief:** the **configuration-conditioned manner-adverbial
+construction cue** for `attachment_arm`.
+
+| arm | UD-EWT advmod (n=442) | UAS (9534 tok) | the target slice (n=15) | mean posterior on the gold verb |
+|---|---|---|---|---|
+| live | 0.5475 | 0.6125 | 7/15 = 0.4667 | 0.4445 |
+| unconditioned boost γ4 | **0.5000** | 0.6102 | 8/15 | 0.5256 |
+| **conditioned γ4** | **0.5475** | **0.6125** | **8/15 = 0.5333** | **0.5256** |
+| **conditioned γ8** | **0.5475** | 0.6124 | **8/15** | **0.5332** |
+| scrambled-target twin γ4 | 0.5452 | 0.6128 | — | — |
+
+**Zero global cost, +0.089 posterior mass on the target slice** — but the paired bootstrap over n=15 gives
+**+0.0887 CI [−0.1333, +0.3143], NOT CI-separated.** It is underpowered, and I say so rather than claim it.
+
+**AND THE RESULT THAT MATTERS MOST IN THIS PASS: repairing that rung is worth 0.0 to this consumer.** With the
+conditioned cue on, the manner adverb's posterior mass on the verb goes from 0.215 to **0.9409** on the prose
+gold — and the harm/help accuracy is **0.6389, identical on every one of the 36 items** (Δ = 0.0, CI [0,0]).
+*The graded read had already extracted everything the rung had.* The mass-weighted mean's **sign** does not
+change when the mass rises, because the qualifying adverb is unique in the clause. So: **do not queue the
+manner-construction cue on this consumer's behalf.** It should be queued for the consumers that read the
+**point tree** (roles, labels) — and this measurement tells that brief what to expect and what not to.
+
+**Built, measured, and NOT shipped because it is inert:** the derivational backoff (*contemptuous → contempt*,
+−0.445). It recovers 1 of 3 uncovered stems and changes **nothing** on any population (CF 0.9333, leaks 0,
+slice 6, prose 0.6389 — byte-identical with and without). It fails to convert its one target item by 0.005
+(the communication-verb admissibility gate needs |value| ≥ 0.45 and *contempt* is −0.445); moving that
+threshold to catch one item of my own gold would be fitting, so I did not. An unmeasurable change does not ship.
+
+## 21. THE SLOT × AROUSAL TABLE (where the low-arousal weakness actually lives)
+
+CF sign agreement of the best filler per verb, split by slot and by arousal:
+
+| slot | high arousal | low arousal |
+|---|---|---|
+| `ADVMOD` | 5/6 = **0.833** | 10/24 = **0.417** |
+| `MANNER_PP` | 0/1 | 4/4 = 1.000 |
+| `MEANS_PP` | 19/22 = **0.864** | 22/34 = **0.647** |
+| `RESULT_ADJ` | 6/7 = 0.857 | 9/9 = **1.000** |
+
+Two readings. (a) The low-arousal weakness is in **ADVMOD and MEANS_PP**, not everywhere: `RESULT_ADJ` is
+**1.000 at low arousal**, because a *result state* is evaluative whether or not it is arousing — which is
+exactly the theory (the circumplex radius matters for a manner; a result state is valued directly). (b)
+`MEANS_PP` carries 32 of the 43 manner-only decisions, so the arm leans on the slot that is a **means**, not
+strictly a manner. A slot-specific gate for `MEANS_PP` was built and swept (τ 0.40–0.70); it changes the slice
+and the decision count but the harness admitted verbs it should not (31 leaks) — **the harness is defective,
+the finding is not established, and I am recording it as not-established rather than as a result.**
+
+## 22. WHAT LET THIS PROBLEM YIELD SO MUCH SIGNAL — the chain, rung by rung
+
+The owner's expectation is that a large yield means the mathematical brain-foundational chain was cracked to
+the top. That is what happened here, and this is the chain:
+
+| rung | the brain's computation | the math replicated | was the graded signal kept? |
+|---|---|---|---|
+| **1. what to value** | manner/result complementarity (Talmy; Levin & Rappaport Hovav) — **PINNED** | a manner verb has no result state, so the manner IS the valuation target | n/a — this is the framing that made the rest possible |
+| **2. where the manner is** | the lexical concept's decomposition | the definition parsed into manner/means/result/genus **by the reader's own category and attachment organs**, offline | **yes** — the parse is what the parse-free twin (0/6 on the slice) lacks |
+| **3. the word form → the concept** | morpho-orthographic decomposition, dual route (Rastle & Davis; Taft; Pinker-Ullman) — **PINNED** | pertainym, else -ly strip + lexical check | categorical; 35/36 |
+| **4. how strong, how good** | core affect as a 2-D circumplex, radius = intensity, angle = quality (Russell) — **PINNED** | intensity = the radius (or the grounded action strength); sign = the valence axis | **yes** — both are continuous, and the 2×2 (0.864/0.769 vs 0.643/0.633) is the proof they do different jobs |
+| **5. trusting it** | cross-sense consensus (the discipline that rescued the superordinate read) | value per sense, sign only under agreement | **yes** — abstention is graded evidence, not failure |
+| **6. binding it to the event** | cue competition keeping the alternatives alive (MacDonald 1994; Matrix-Tree) — **PINNED** | the consumer reads **P(head = predicate \| adverb)**, not the argmax | **YES — and this is the single largest win in the whole problem.** argmax read +0.028 n.s.; graded read **+0.194 CI-separated** |
+| **7. combining the cues** | precision-weighted fusion (Ernst & Banks) — **PINNED** | ordinal precedence result > manner > norm | **NO** — degenerate, because no cue carries a variance |
+
+**Where the chain was NOT cracked, and it shows:**
+
+- **Rung 7 (fusion) is ordinal, not variance-weighted** — no cue supplies a σ. Pass 1's L1 got the order
+  backwards precisely because ordering by argument rather than by measured reliability is guesswork; the
+  human gold had to supply what the missing variances should have.
+- **The affect lexicon (rung 4's supply) is a point value per word form** — no sense, no variance, no
+  posterior. It is the only rung in the chain that structurally cannot hand down a graded signal, and it is
+  where the remaining 8 of 13 prose errors live.
+- **Roles were never exercised** — the templates are bare SVO, so the patient is given. On real prose this rung
+  is live and untested for this signal.
+
+**The honest summary of the yield:** the biggest single gain (+0.194 CI-separated) came not from new knowledge
+but from **reading a graded signal that was already there and being thrown away**; the second (6/6 of the
+slice) came from **using our own BF organs on the foundation's own definitions**, so nothing external entered
+at any point. Both are chain properties, not cleverness — which is the owner's point.
+
+## 23. THE LOCATED LIMIT — three independent routes to the same target, all measured, all failing differently
+
+The 8 remaining prose errors are all the same shape: *"A guard treated the prisoner routinely"* → the floor
+answers **HELP** because Warriner rates `treat` +0.46, and the manner read correctly declines to fire because
+*routinely* is affectively flat. Three routes to fixing that, each built and measured this pass:
+
+| route | result | why it failed, mechanically |
+|---|---|---|
+| **withhold the norm for manner-host verbs** (L2) | CF 0.9014, live gold 23 | the host set is the *most affect-laden* verbs (beat 22, hit 19, kill 8) |
+| **withhold the norm for noun-dominant strings** (P2) | 11 correct removed for 4 wrong | `treat` is **0.000** noun-dominant — the conflation is not cross-POS |
+| **read the sense in context** (the organ's live PPR reader) | `treat` → **+1 in all six contexts** | the *selection* is context-blind here, not the keying |
+
+**What is actually missing, named precisely:** an affect value for the verb's outcome **conditioned on whether
+the manner slot is filled** — P(outcome | verb, manner present/absent). Not a word norm, not a sense norm: a
+**construction-conditioned** one. Nothing on disk supplies it; it has to be counted from the reader's own
+parsed events, which makes it a **generative-world-model** requirement (pri-1), not a lexicon lookup.
+
+## 24. ALTERNATE PATHS — other ways to do this read, as or more brain-foundational
+
+| # | brain structure & computation | the math | what it would take | why not now |
+|---|---|---|---|---|
+| **AP1** | **Acquire the manner lexicon by READING** rather than from definitions (Hebbian association over exposure; the project's own reading-acquisition arm) | count (verb, manner) co-occurrence; strengths = the same pure function of counts | ~1M lines of **modern narrative/interpersonal** prose + the reader's governor; the same battery | **measured:** 4000 lines of Simple-Wikipedia yield 5 decisions at 4/5. Encyclopedic prose has almost no interpersonal manner. The path is right; the corpus is wrong, and 19c narrative is banned for grading (admissible only as foundation supply) |
+| **AP2** | **Value the manner by SIMULATION, not by lookup** (Barsalou; Pulvermüller somatotopy; OFC valuation over a re-enacted action) — **strictly more BF than a Warriner rating** | a grounded vector for the manner + a learned map to an aversive/appetitive readout anchored on innate nociception | perceptual grounding for manner *adjectives* (the DINOv2/THINGS route the project used for nouns) | that grounding does not exist for adjectives on disk. **This is the honest "more brain-foundational" replacement for the whole valuation channel** and should be queued as such |
+| **AP3** | **Read the manner from the ARGUMENT-STRUCTURE CONSTRUCTION** (Goldberg; Tomasello) rather than the lexical entry: `V NP ADV` *means* "affect NP in manner ADV" | the value composes from the construction; the verb contributes the frame | an induced constructional inventory | induced constructions were **REFUTED-AS-BUILT** in the heads rung; my slot detectors are a hand-authored approximation of exactly this |
+| **AP4** | **Make the affect lexicon sense-keyed and graded** (settled-vector semantics; Rodd) — the missing variance for rung 7 | label propagation / PPR of the word norms over WordNet++ → a valence **and a variance** per synset | a foundation-asset build inside `affect_lexicon` | out of this brief's file scope, and measured this pass: the *selection* is the weak half (`treat` → +1 in all six contexts), so keying alone will not convert it |
+| **AP5** | **Learn the outcome distribution generatively** — P(outcome \| verb, manner-slot filled) from the reader's own parsed events | generalized event knowledge counted over parsed events | the generative world model (pri-1) | this is the named located limit of §23; it belongs to pri-1, not here |
+| **AP6** | **Dominance/potency as the third Osgood axis** for intensity | radius in the full E-P-A space rather than E-A | nothing — the norms are already loaded | checked: Warriner dominance tracks **valence** (kind 7.62 vs cruel 4.78), not force. It would double-count the sign channel. Not built |
+
+## 25. ARE THE OPPORTUNITIES EXHAUSTED?
+
+**Within this brief's scope and file permissions: essentially yes, and here is the accounting.** Eleven levers
+built or checked; two shipped in pass 1; nine refuted, inert, or out of scope, each with a number and a
+mechanism. The three routes to the largest remaining error class (§23) are all measured and all fail for
+distinct, understood reasons, and the thing that would fix it is a **construction-conditioned outcome
+distribution** that requires the generative world model.
+
+**Not exhausted, and honestly outside what a solver session can close here:**
+1. **AP2 (simulated rather than looked-up valuation)** — strictly more brain-foundational than what I shipped,
+   and blocked only by missing perceptual grounding for adjectives.
+2. **AP1 at scale** — the acquisition path is proven to work mechanically and starved of the right corpus.
+3. **The real-prose board number** — the only measurement that can falsify the RUNG 5 prose fusion, and a
+   solver cannot run it.
+4. **Roles** — never exercised for this signal.
+
+I am not claiming exhaustion beyond that, and I would not want the four items above read as closed.

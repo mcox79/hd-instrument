@@ -66,6 +66,7 @@ os.environ.setdefault("MKL_NUM_THREADS", "2")
 os.environ.setdefault("NUMEXPR_NUM_THREADS", "2")
 
 import json
+import math
 import random
 import sys
 from typing import Dict, List, Optional, Tuple
@@ -444,6 +445,8 @@ def prose_manner_fillers(tokens, gov_idx: int, graded: bool = True,
         if mass < tau_head:
             continue
         v = afx.valence(st)
+        if v is None and _BACKOFF:
+            v, _src = stem_valence(st, afx, backoff=True)
         if v is None:
             continue
         res.append((st, float(v), mass))
@@ -1025,6 +1028,927 @@ def prose_report() -> Dict:
                     for c in ("HARM", "HELP", "NEUTRAL")},
         "rows": rows,
     }
+
+
+
+
+# ==========================================================================================================
+# SECOND PUSH (supervisor probe, 2026-09-13): the seven named opportunities, each BUILT and MEASURED the same
+# way -- floor, twin, CI, no-regress populations -- and kept only where the independent human gold accepts it.
+# ==========================================================================================================
+
+# ---------- P1. A SECOND INDEPENDENT HUMAN CHECK -----------------------------------------------------------
+# The 46 new decisions rest on 6 Connotation-Frames-covered items. Binder et al. (2016) rated 535 words on 65
+# BRAIN-BASED experiential attributes including HARM and BENEFIT -- a different task, different raters, and a
+# componential-semantics theory that owes nothing to WordNet / VerbNet / Warriner. Coverage is reported
+# honestly: an answer key that does not cover the population is not a check, it is a null result.
+BINDER = os.path.join(REPO, "data", "corpora", "binder", "binder2016_ratings.csv")
+
+
+def binder_gold() -> Dict[str, float]:
+    """word -> Harm - Benefit (positive = harmful), from the Binder brain-based experiential norms."""
+    out: Dict[str, float] = {}
+    try:
+        import csv
+        with open(BINDER, encoding="utf-8", newline="") as f:
+            for r in csv.DictReader(f):
+                w = (r.get("Word") or "").strip().lower()
+                try:
+                    out[w] = float(r["Harm"]) - float(r["Benefit"])
+                except (KeyError, ValueError, TypeError):
+                    continue
+    except Exception:
+        return {}
+    return out
+
+
+# ---------- P2. THE POS-CONFLATED WORD NORM (the biggest remaining error class) -----------------------------
+# Warriner rated STRINGS out of context. For 'treat' (+0.46), 'handle' (+0.18), 'hold' (+0.26), 'place',
+# 'lead' the string is a far more frequent NOUN than verb, so the norm is a rating of the NOUN and is not
+# evidence about what the VERB does to a patient. The brain reads meaning at the sense level (the settled-
+# vector principle; Rodd) and would never import 'a treat' into 'to treat'. DETECTION, no list: WordNet/SemCor
+# tagged counts give P(NOUN) vs P(VERB) for the string; above NOUN_DOMINANCE the word-level norm is withheld
+# and the cascade falls through to the superordinate / manner / genus reads.
+NOUN_DOMINANCE = 0.70    # SWEPT below
+_POSFRAC: Dict[str, float] = {}
+
+
+def noun_fraction(word: str) -> float:
+    """SemCor-tagged P(the string is a NOUN) -- the mental lexicon's own frequency knowledge, offline asset."""
+    w = FDV.lemmatize_verb(word)
+    if w in _POSFRAC:
+        return _POSFRAC[w]
+    try:
+        from nltk.corpus import wordnet as wn
+        n = sum(l.count() for l in wn.lemmas(w, pos=wn.NOUN))
+        v = sum(l.count() for l in wn.lemmas(w, pos=wn.VERB))
+    except Exception:
+        n = v = 0
+    _POSFRAC[w] = (n / (n + v)) if (n + v) else 0.0
+    return _POSFRAC[w]
+
+
+def endstate_sign_posaware(verb: str, afx=None, states=None, dom: float = NOUN_DOMINANCE, **kw):
+    """The shipped cascade with ONE change: the word-level norm step is skipped for a NOUN-DOMINANT string."""
+    v = FDV.lemmatize_verb(verb)
+    afx_l = FDV._afx() if afx is None else afx
+    rs = FDV.result_state_value(v, None if afx_l is FDV._AFX else afx_l, states)
+    if rs is not None and abs(rs) >= FDV.STATE_MIN:
+        return 1 if rs > 0 else -1
+    if noun_fraction(v) < dom:
+        val = afx_l.valence(v)
+        if val is not None and abs(val) >= FDV.WEAK_VALENCE:
+            return 1 if val > 0 else -1
+    hs = FDV.hyper_state_sign(v, None if afx_l is FDV._AFX else afx_l)
+    if hs is not None:
+        return hs
+    ms = manner_state_sign(v, afx, **kw)
+    if ms is not None:
+        return ms
+    return genus_cascade_sign(v, afx)
+
+
+def _posaware_arm(dom: float = NOUN_DOMINANCE):
+    es = lambda v, afx=None, states=None: endstate_sign_posaware(v, afx, states, dom)
+    ia = lambda v, lexicon=None, afx=None, tau=None: is_affecting_extended(v, lexicon, afx, tau)
+    return _with(es, ia)
+
+
+# ---------- P3. MORPHOLOGICAL BACKOFF FOR AN UNCOVERED MANNER STEM ------------------------------------------
+# 'contemptuously' -> 'contemptuous' has no Warriner norm, but its own derivational root 'contempt' does. The
+# morphological FAMILY shares meaning (Rastle & Davis; the same decomposition that found the stem), so the
+# family root is the honest backoff -- one step only, and only when the stem itself is uncovered.
+_ROOT_CACHE: Dict[str, Optional[str]] = {}
+
+
+def morph_root(stem: str) -> Optional[str]:
+    """One derivational step from an adjective to the noun/verb it is formed from (WordNet derivational links)."""
+    if stem in _ROOT_CACHE:
+        return _ROOT_CACHE[stem]
+    out = None
+    try:
+        from nltk.corpus import wordnet as wn
+        afx = FDV._afx()
+        best = None
+        for s in wn.synsets(stem, "a") + wn.synsets(stem, "s"):
+            for lm in s.lemmas():
+                if lm.name().lower() != stem:
+                    continue
+                for d in lm.derivationally_related_forms():
+                    w = d.name().lower()
+                    x = afx.valence(w)
+                    if x is not None and (best is None or abs(x) > abs(best[1])):
+                        best = (w, x)
+        out = best[0] if best else None
+    except Exception:
+        out = None
+    _ROOT_CACHE[stem] = out
+    return out
+
+
+def stem_valence(stem: str, afx=None, backoff: bool = True):
+    """Valence of a manner stem, backing off one derivational step when the stem itself is uncovered."""
+    afx = FDV._afx() if afx is None else afx
+    x = afx.valence(stem)
+    if x is not None:
+        return x, stem
+    if not backoff:
+        return None, None
+    r = morph_root(stem)
+    if r is None:
+        return None, None
+    return afx.valence(r), r
+
+
+# ---------- P4. THE MANNER-ADVERBIAL CONSTRUCTION CUE FOR THE GOVERNOR ---------------------------------------
+# THE COUNTED LOSS: the live governor argmax-attaches 33/36 clause-final manner adverbs to the preceding NOUN.
+# WHY, read from the organ's own code: hdlab.attachment_arm.CONSTRUCTIONS = {verbarg, coord, npmod, clausal, fw}
+# -- there is NO manner-adverbial schema, so an ADV gets no `constr` cue and falls to `locality`, which prefers
+# the adjacent noun. This is a MISSING CONSTRUCTION, not a broken one (Tomasello 2003 item-based constructions
+# are the arm's own cue coalition; the manner adverbial is a canonical English construction).
+# THE FIX, in the arm's own vocabulary: a `manner` construction that proposes ADV -> predicate for a
+# DE-ADJECTIVAL adverb, boosted exactly as `parallelism_boost` boosts the coordination arcs. Two arms:
+#   S (structural)   -- a flat boost: a de-adjectival adverb's governor is a predicate (grammatical knowledge)
+#   L (lexicalised)  -- the boost scaled by how strongly THIS VERB hosts manners, counted from MY OWN ASSET
+#                       (treat 16, hold 4, handle 2 ...) -- the Hindle & Rooth 1993 lexicalist form the arm
+#                       already uses for prepositions, with the association supplied by the manner table.
+# Measured on UD-EWT test with gold categories (the real instrument, not the 36 templates): advmod recall and
+# UAS no-regress, gamma swept. NOT shipped as an hdlab change here -- the attachment arm belongs to another
+# brief; this is the number that brief needs.
+def manner_site(toks, pos, j: int):
+    """(predicate_idx, nominal_idx) 1-based candidate governors for a de-adjectival ADV at 1-based j, mirroring
+    attachment_arm.pp_site: the nearest VERB/AUX/ADJ predicate (looking left, then right) and the nearest
+    preceding NOUN/PRON/PROPN -- the competitor the locality cue currently hands the arc to."""
+    n = len(toks)
+    pred = None
+    for q in range(j - 2, -1, -1):
+        if pos[q] in ("VERB", "AUX"):
+            pred = q + 1
+            break
+    if pred is None:
+        for q in range(j, n):
+            if pos[q] in ("VERB", "AUX"):
+                pred = q + 1
+                break
+    nom = None
+    for q in range(j - 2, -1, -1):
+        if pos[q] in ("NOUN", "PRON", "PROPN"):
+            nom = q + 1
+            break
+    return pred, nom
+
+
+def manner_host_counts() -> Dict[str, int]:
+    """verb -> how many of its definitions carry a manner filler (the lexicalised manner-hosting association,
+    read off the SAME asset the harm/help arm reads; plastic, since observe_manner writes into it)."""
+    return manner_host_verbs()
+
+
+def manner_boost(A, toks, pos, gamma: float = 4.0, lexicalised: bool = True, conditioned: bool = False):
+    """Boost the ADV -> predicate arc for a de-adjectival adverb (mirrors attachment_arm.parallelism_boost).
+
+    `conditioned=True` fires ONLY in the CONFIGURATION the manner read consumes: a -ly de-adjectival ADV whose
+    nearest preceding content word is a NOMINAL (the post-object clause-final manner adverbial). This is the
+    arm's own discipline -- every one of its cue strengths is a contrast WITHIN a configuration, never a global
+    additive bonus -- and it is what the unconditioned boost got wrong: it fired on all 442 UD-EWT advmod
+    tokens to help the 15 that are this construction, and cost the other 427."""
+    import numpy as _np
+    from hdlab.thematic_role_labeler import lemma_verb as _lv
+    if gamma <= 0:
+        return A
+    B = A.copy()
+    host = manner_host_counts()
+    for j in range(1, len(toks) + 1):
+        t = str(toks[j - 1])
+        if pos[j - 1] not in ("ADV", "ADJ") and not t.lower().endswith("ly"):
+            continue
+        if _adverb_stem_cached(t) is None:
+            continue
+        if conditioned:
+            if pos[j - 1] != "ADV" or not t.lower().endswith("ly"):
+                continue
+            k = j - 2
+            while k >= 0 and pos[k] == "PUNCT":
+                k -= 1
+            if k < 0 or pos[k] not in ("NOUN", "PRON", "PROPN"):
+                continue
+        pred, _nom = manner_site(toks, pos, j)
+        if pred is None:
+            continue
+        g = gamma
+        if lexicalised:
+            hc = host.get(_lv(str(toks[pred - 1])).lower(), 0)
+            g = gamma * (1.0 + math.log1p(hc))
+        B[pred][j] = (B[pred][j] + g) if _np.isfinite(B[pred][j]) else g
+    return B
+
+
+_ADVSTEM: Dict[str, Optional[str]] = {}
+
+
+def _adverb_stem_cached(word: str) -> Optional[str]:
+    w = str(word).lower()
+    if w not in _ADVSTEM:
+        from nltk.corpus import wordnet as wn
+        from tools.build_manner_intensity_asset import adverb_stem
+        _ADVSTEM[w] = adverb_stem(w, wn)
+    return _ADVSTEM[w]
+
+
+def governor_cue_report(cap: int = 700) -> Dict:
+    """UD-EWT test: advmod recall + UAS for the live arm vs the manner construction cue (structural and
+    lexicalised), gamma swept. The treebank is the MEASURING instrument only -- no tree is read while learning."""
+    try:
+        import hdlab.attachment_arm as AA
+        from tools.build_attachment_validities import sentences, TEST
+    except Exception as e:
+        return {"error": repr(e)}
+    test = sentences(TEST, cap=cap, maxlen=10 ** 6)
+    tab = AA.load_attachment_validities()
+    base = [AA.arc_scores(toks, pos, tab) for toks, pos, _h, _r in test]
+
+    def score(boost=None):
+        tot = ok = 0
+        adv_t = adv_ok = 0
+        for (toks, pos, heads_g, rels), (A, n) in zip(test, base):
+            AA_A = A if boost is None else boost(A, toks, pos)
+            hd, _ = AA.decode(toks, pos, AA_A, n)
+            for i, (g, r) in enumerate(zip(heads_g, rels), start=1):
+                tot += 1
+                hit = hd.get(i, -1) == g
+                ok += hit
+                if r == "advmod":
+                    adv_t += 1
+                    adv_ok += hit
+        return {"UAS": round(ok / max(1, tot), 4), "advmod": round(adv_ok / max(1, adv_t), 4),
+                "advmod_n": adv_t, "tokens": tot}
+
+    out = {"live": score()}
+    for gamma in (1.0, 2.0, 4.0, 8.0):
+        out["structural_g%.0f" % gamma] = score(lambda A, t, p, g=gamma: manner_boost(A, t, p, g, False))
+        out["lexicalised_g%.0f" % gamma] = score(lambda A, t, p, g=gamma: manner_boost(A, t, p, g, True))
+    # scramble twin: boost a RANDOM token's arc to the predicate instead of the de-adjectival adverb's
+    rng = random.Random(SEED + 31)
+
+    def twin(A, toks, pos, gamma=4.0):
+        import numpy as _np
+        B = A.copy()
+        for j in range(1, len(toks) + 1):
+            if pos[j - 1] not in ("ADV", "ADJ") and not str(toks[j - 1]).lower().endswith("ly"):
+                continue
+            if _adverb_stem_cached(str(toks[j - 1])) is None:
+                continue
+            k = rng.randrange(1, len(toks) + 1)
+            pred, _n = manner_site(toks, pos, j)
+            if pred is None or k == pred:
+                continue
+            B[pred][k] = (B[pred][k] + gamma) if _np.isfinite(B[pred][k]) else gamma
+        return B
+    for g in (2.0, 4.0, 8.0):
+        out["CONDITIONED_g%.0f" % g] = score(lambda A, t, p, gg=g: manner_boost(A, t, p, gg, False, True))
+    out["twin_scrambled_target_g4"] = score(twin)
+    return out
+
+
+# ---------- P5. THE ONLINE OBSERVE PATH, EXERCISED ON HELD-OUT PROSE ----------------------------------------
+# `observe_manner` existed but nothing called it. Here the reader READS held-out Simple-Wikipedia prose, binds
+# each de-adjectival adverb to a predicate with its OWN governor, and accrues the same counts the offline
+# definition parse accrues. Held-out means: not the definitions the asset was built from, and not the prose
+# gold. Measured: how many verbs gain a manner they did not have, and whether the human gold still accepts the
+# decisions (an online path that buys coverage at the cost of precision is not learning, it is drift).
+SIMPLEWIKI = os.path.join(REPO, "data", "corpora", "simplewiki")
+
+
+def read_and_observe(max_lines: int = 4000, apply: bool = True) -> Dict:
+    """One pass of reading: accrue verb->manner counts from prose with the reader's own tags and governor."""
+    del _LAST_OBS[:]
+    import glob as _glob
+    files = sorted(_glob.glob(os.path.join(SIMPLEWIKI, "*.txt"))) or \
+        sorted(_glob.glob(os.path.join(SIMPLEWIKI, "**", "*.txt"), recursive=True))
+    if not files:
+        return {"error": "no simplewiki text on disk", "searched": SIMPLEWIKI}
+    fe = _frontend()
+    from hdlab.thematic_role_labeler import lemma_verb as _lv
+    seen = 0
+    accrued = []
+    for path in files[:4]:
+        with open(path, encoding="utf-8", errors="ignore") as f:
+            for line in f:
+                if seen >= max_lines:
+                    break
+                line = line.strip()
+                if len(line) < 20 or len(line) > 240:
+                    continue
+                seen += 1
+                toks = fe["M"].tokenize(line)
+                if not (4 <= len(toks) <= 30):
+                    continue
+                if not any(t.lower().endswith("ly") for t in toks):
+                    continue
+                pos, post = fe["T"].tag_with_posterior(toks)
+                out = fe["P"].parse(toks, pos, post)
+                for j in range(1, len(toks) + 1):
+                    t = str(toks[j - 1])
+                    if not t.isalpha() or not t.lower().endswith("ly"):
+                        continue
+                    st = _adverb_stem_cached(t)
+                    if st is None:
+                        continue
+                    pred = None
+                    if out.marginals:
+                        cand = out.marginals.get(j, {})
+                        best = max(((m, h) for h, m in cand.items()
+                                    if h > 0 and pos[h - 1] in ("VERB", "AUX")), default=None)
+                        if best and best[0] >= TAU_HEAD_MASS_PROSE:
+                            pred = best[1]
+                    if pred is None:
+                        continue
+                    v = _lv(str(toks[pred - 1])).lower()
+                    accrued.append((v, st))
+                    _LAST_OBS.append((v, st, t.lower()))
+        if seen >= max_lines:
+            break
+    before = {v: manner_state_value(v) for v, _s in accrued}
+    if apply:
+        for v, st in accrued:
+            observe_manner(v, st, "ADVMOD", "*read*")
+    after = {v: manner_state_value(v) for v, _s in accrued}
+    gained = sorted(v for v in before if before[v] is None and after[v] is not None)
+    return {"lines_scanned": seen, "observations": len(accrued),
+            "distinct_verbs": len(set(v for v, _ in accrued)),
+            "verbs_that_gained_a_manner": gained[:40], "n_gained": len(gained),
+            "sample": accrued[:20]}
+
+
+TAU_HEAD_MASS_PROSE = 0.10
+
+
+
+
+# ---------- P6. THE SIGNAL-LOSS TRACE, RUNG BY RUNG (owner directive 2026-09-13) -----------------------------
+# The signal this read needs: THE MANNER'S AFFECT, REACHING THE PATIENT'S ENDSTATE. Every hand-off is measured:
+# what the rung produces, what the next rung reads, and what is LOST.
+def signal_trace() -> Dict:
+    fe = _frontend()
+    import hdlab.attachment_arm as AA
+    from hdlab.thematic_role_labeler import lemma_verb as _lv
+    tab = AA.load_attachment_validities()
+    st = tab["strength"]
+    afx = FDV._afx()
+
+    rows = []
+    cue_delta = {}      # cue -> summed (score to NOUN) - (score to VERB); positive = this cue sends the arc to the noun
+    n_adv_tag_ok = n_stem_ok = n_valence_ok = n_intensity_ok = 0
+    n_argmax_verb = 0
+    n_signed_items = n_signed_pass = n_neutral_pass = 0
+    mass_sum = 0.0
+    for agent, verb, patient, adverb, label in ADVERB_PROSE_GOLD:
+        toks = prose_sentence(agent, verb, patient, adverb)
+        gov = 2                                     # the verb slot of the template (0-based)
+        ai = 5                                      # the adverb slot (0-based)
+        pos, post = fe["T"].tag_with_posterior(toks)
+        out = fe["P"].parse(toks, pos, post)
+        j = ai + 1
+        h_verb = gov + 1
+        h_noun = 5                                  # the patient noun, 1-based (the locality competitor)
+
+        # RUNG 1 categories
+        tag_ok = pos[ai] == "ADV"
+        n_adv_tag_ok += tag_ok
+        # RUNG 2 governor
+        argmax = out.heads.get(j, -1)
+        n_argmax_verb += (argmax == h_verb)
+        mass = float(out.marginals.get(j, {}).get(h_verb, 0.0)) if out.marginals else 0.0
+        mass_sum += mass
+        # per-cue decomposition of the competition the arm actually ran
+        sc = AA.SentenceCues(toks, pos, tab.get("frames", {}), tab.get("pp_assoc"))
+        per = {}
+        for name, h in (("VERB", h_verb), ("NOUN", h_noun)):
+            cfg = sc.config(j, h)
+            d = {"config(" + cfg + ")": round(st["cfg"].get(cfg, 0.0), 3)}
+            for c, v in sc.cues(j, h).items():
+                d[c + "=" + v] = round(st.get(c, {}).get(cfg + "|" + v, 0.0), 3)
+            d["TOTAL"] = round(sum(d.values()), 3)
+            per[name] = d
+        for k in set(list(per["VERB"]) + list(per["NOUN"])):
+            base = k.split("(")[0].split("=")[0]
+            cue_delta[base] = cue_delta.get(base, 0.0) + per["NOUN"].get(k, 0.0) - per["VERB"].get(k, 0.0)
+        # RUNG 3 morphology (the de-adjectival test)
+        stem = _adverb_stem_cached(adverb)
+        n_stem_ok += stem is not None
+        # RUNG 4 affect lexicon
+        val = afx.valence(stem) if stem else None
+        n_valence_ok += val is not None
+        inten = filler_intensity(stem) if stem else None
+        passes = (inten is not None and inten >= TAU_INTENSITY and val is not None
+                  and abs(val) >= TAU_MANNER_VAL)
+        n_intensity_ok += passes
+        if label in ("HARM", "HELP"):
+            n_signed_items += 1
+            n_signed_pass += passes
+        else:
+            n_neutral_pass += passes
+        rows.append({"adverb": adverb, "tag": pos[ai], "argmax_head": (toks[argmax - 1] if argmax > 0 else "ROOT"),
+                     "mass_on_verb": round(mass, 3), "stem": stem,
+                     "valence": None if val is None else round(val, 3),
+                     "intensity": None if inten is None else round(inten, 3),
+                     "verb_score": per["VERB"]["TOTAL"], "noun_score": per["NOUN"]["TOTAL"],
+                     "cues_verb": per["VERB"], "cues_noun": per["NOUN"]})
+    n = len(ADVERB_PROSE_GOLD)
+    return {
+        "n": n,
+        "rung1_categories": {"adverb_tagged_ADV": n_adv_tag_ok, "lost": n - n_adv_tag_ok,
+                             "note": "a -ly word tagged NOUN/ADJ; the de-adjectival morphology re-reads it (L4)"},
+        "rung2_governor": {"argmax_head_is_the_verb": n_argmax_verb, "lost_to_argmax": n - n_argmax_verb,
+                           "mean_posterior_mass_on_verb": round(mass_sum / n, 4),
+                           "cue_delta_noun_minus_verb": {k: round(v / n, 3) for k, v in
+                                                         sorted(cue_delta.items(), key=lambda kv: -abs(kv[1]))},
+                           "note": "positive = the cue pushes the adverb onto the NOUN"},
+        "rung3_morphology": {"stem_recovered": n_stem_ok, "lost": n - n_stem_ok},
+        "rung4_affect_lexicon": {"stem_has_valence": n_valence_ok, "lost_to_norm_coverage": n - n_valence_ok,
+                                 "passes_gate_overall": n_intensity_ok,
+                                 "signed_items_passing_gate": [n_signed_pass, n_signed_items],
+                                 "neutral_items_passing_gate": [n_neutral_pass, n - n_signed_items],
+                                 "note": "a NEUTRAL-manner item SHOULD fail the gate; 0 of 12 pass = correct"},
+        "rows": rows,
+    }
+
+
+# ---------- P7. SLOT-CONDITIONED READ (is MEANS_PP carrying weight it should not?) ---------------------------
+def slot_conditioned_report(lem, residual, glabel) -> Dict:
+    """The 2x2 split BY SLOT, plus a slot-specific intensity gate. An ADVMOD filler is a manner BY GRAMMAR; a
+    by-PP object may be an instrument or a theme, so it should have to clear a higher bar to sign an outcome."""
+    afx = FDV._afx()
+    by_slot = {}
+    for slot in ("ADVMOD", "MANNER_PP", "MEANS_PP", "RESULT_ADJ"):
+        hi = lo = hi_ok = lo_ok = 0
+        for v in lem:
+            best = None
+            for _s, sl, f, _c in manner_evidence(v, (slot,)):
+                x = afx.valence(f)
+                if x is None:
+                    continue
+                if best is None or abs(x) > abs(best[1]):
+                    best = (f, x, afx.arousal(f))
+            if best is None:
+                continue
+            _f, x, a = best
+            g = glabel(v)
+            if g not in ("HARM", "HELP"):
+                continue
+            ok = (g == "HARM" and x < 0) or (g == "HELP" and x > 0)
+            if a is not None and a >= 0.50:
+                hi += 1; hi_ok += ok
+            else:
+                lo += 1; lo_ok += ok
+        by_slot[slot] = {"hiA": [hi_ok, hi, round(hi_ok / max(1, hi), 3)],
+                         "loA": [lo_ok, lo, round(lo_ok / max(1, lo), 3)]}
+    # a higher gate for MEANS_PP only
+    out = {"cf_sign_agreement_by_slot_and_arousal": by_slot, "means_gate": {}}
+    for tau_means in (0.40, 0.50, 0.60, 0.70):
+        def arm(v, animacy, tm=tau_means):
+            FDV._EV_CACHE.clear()
+            old_e, old_a = FDV.endstate_valence_sign, FDV.is_affecting
+            FDV.endstate_valence_sign = lambda x, afx=None, states=None: _slotgated_sign(x, afx, tm)
+            FDV.is_affecting = lambda x, lexicon=None, afx=None, tau=None: (
+                _LANDED_ISAFFECTING(x, lexicon, afx, tau) or _slotgated_sign(x, afx, tm) is not None)
+            try:
+                return FDV.harm_help_arithmetic(v, animacy)
+            finally:
+                FDV.endstate_valence_sign, FDV.is_affecting = old_e, old_a
+                FDV._EV_CACHE.clear()
+        pp = tt = nd = 0
+        for v in residual:
+            pr = arm(v, "animate")
+            if pr not in ("HARM", "HELP"):
+                continue
+            nd += 1
+            g = glabel(v)
+            if g in ("HARM", "HELP"):
+                tt += 1; pp += (g == pr)
+        out["means_gate"]["tau_means_%.2f" % tau_means] = {
+            "slice": sum(1 for v in MANNER_SLICE if arm(v, "animate") == "HARM"),
+            "newly_decided": nd, "cf_prec": [pp, tt, round(pp / max(1, tt), 4)],
+            "leaks": sum(1 for v in A.P_NEUTRAL_BROAD if arm(v, "animate") in ("HARM", "HELP"))}
+    return out
+
+
+def _slotgated_sign(verb, afx=None, tau_means: float = 0.60):
+    """The shipped cascade with a slot-specific intensity gate: MEANS_PP fillers must clear `tau_means`."""
+    s = _LANDED_ENDSTATE(verb, afx, None)
+    if s is not None:
+        return s
+    a = manner_state_value(verb, afx, slots=("ADVMOD", "MANNER_PP", "RESULT_ADJ"))
+    b = manner_state_value(verb, afx, slots=("MEANS_PP",), tau_int=tau_means)
+    vals = [x for x in (a, b) if x is not None]
+    if vals and (all(x > 0 for x in vals) or all(x < 0 for x in vals)):
+        return 1 if sum(vals) > 0 else -1
+    if vals:
+        return None
+    return genus_cascade_sign(verb, afx)
+
+
+# ---------- THE SECOND-PUSH REPORT --------------------------------------------------------------------------
+def push2_report() -> Dict:
+    gold = load_effect_o()
+
+    def glabel(v):
+        e = gold.get(FDV.lemmatize_verb(v))
+        if e is None:
+            return None
+        return "HARM" if e < CF_NEG else ("HELP" if e > CF_POS else "NEUTRAL")
+
+    lem = _candidate_verbs()
+    residual = [v for v in lem if harm_help_floor(v, "animate") is None]
+    res: Dict = {}
+
+    # P1 second human gold
+    B = binder_gold()
+    new_dec = [(v, harm_help_manner(v, "animate")) for v in residual]
+    new_dec = [(v, p) for v, p in new_dec if p in ("HARM", "HELP")]
+
+    def binder_agree(fn):
+        a = t = 0
+        disc = []
+        for v in lem:
+            b = B.get(v)
+            p = fn(v, "animate")
+            if b is None or p not in ("HARM", "HELP"):
+                continue
+            if abs(b) < 0.5:            # the neutral band of a Harm-minus-Benefit difference
+                continue
+            t += 1
+            g = "HARM" if b > 0 else "HELP"
+            if g == p:
+                a += 1
+            else:
+                disc.append((v, p, g, round(b, 2)))
+        return [a, t, round(a / max(1, t), 4)], disc
+    fb, fdisc = binder_agree(harm_help_floor)
+    mb, mdisc = binder_agree(harm_help_manner)
+    res["P1_second_human_gold_binder"] = {
+        "source": "Binder et al. 2016 brain-based experiential attributes, Harm - Benefit; 534 words, 57 actions",
+        "covers_affecting_verbs": sum(1 for v in lem if v in B), "of": len(lem),
+        "covers_new_decisions": sorted(v for v, _p in new_dec if v in B),
+        "whole_arm_floor": fb, "whole_arm_manner": mb, "manner_discordant": mdisc[:10],
+        "verdict": "usable as a SECOND WHOLE-ARM check; NOT a check on the new decisions (2 of 46 covered)",
+        "nrc_emolex_rejected": "on disk but inadmissible: an ASSOCIATION lexicon (documented over-firing in "
+                               "hdlab/affect_lexicon.py), not a judgement about the patient's outcome",
+    }
+
+    # P2 POS-conflation-aware word norm
+    res["P2_pos_conflated_word_norm"] = {"noun_fraction": {v: round(noun_fraction(v), 3) for v in
+                                                           ("treat", "handle", "hold", "grab", "carry", "pull",
+                                                            "touch", "place", "lead", "push", "stab", "wound")}}
+    for dom in (0.60, 0.70, 0.80, 0.90):
+        arm = _posaware_arm(dom)
+        a = t = 0
+        for v in lem:
+            g = glabel(v); p = arm(v, "animate")
+            if g in ("HARM", "HELP") and p in ("HARM", "HELP"):
+                t += 1; a += (g == p)
+        try:
+            import experiments.exp_fd_harm_help_live_modern_v1 as LIVE
+            lg = sum(1 for gg in LIVE.GOLD if gg[3] in ("HARM", "HELP")
+                     and arm(gg[1], "animate") == gg[3])
+        except Exception:
+            lg = -1
+        pc = [_prose_correct(harm_help_prose_posaware(gg[1], prose_sentence(gg[0], gg[1], gg[2], gg[3]), 2, dom),
+                             gg[4]) for gg in ADVERB_PROSE_GOLD]
+        m, h = boot_ci(pc)
+        res["P2_pos_conflated_word_norm"]["dom_%.2f" % dom] = {
+            "cf_whole_arm": [a, t, round(a / max(1, t), 4)], "live_gold_24": lg,
+            "leaks": sum(1 for v in A.P_NEUTRAL_BROAD if arm(v, "animate") in ("HARM", "HELP")),
+            "slice": sum(1 for v in MANNER_SLICE if arm(v, "animate") == "HARM"),
+            "prose_acc": [round(m, 4), round(h, 4)]}
+
+    # P3 morphological backoff for uncovered manner stems
+    cov = {}
+    for _a, _v, _p, adverb, _l in ADVERB_PROSE_GOLD:
+        stem = _adverb_stem_cached(adverb)
+        x0 = FDV._afx().valence(stem) if stem else None
+        x1, src = stem_valence(stem) if stem else (None, None)
+        if x0 is None:
+            cov[adverb] = {"stem": stem, "direct": None, "backoff_root": src,
+                           "backoff_valence": None if x1 is None else round(x1, 3)}
+    res["P3_morph_backoff"] = {"uncovered_stems": cov,
+                               "recovered_by_backoff": sum(1 for d in cov.values() if d["backoff_valence"] is not None)}
+
+    # P4 the governor's manner-construction cue
+    res["P4_governor_manner_cue"] = governor_cue_report()
+
+    # P5 the online observe path on held-out prose
+    res["P5_online_observe"] = read_and_observe(apply=False)
+
+    # P6 the signal-loss trace
+    res["P6_signal_trace"] = signal_trace()
+
+    # P7 slot-conditioned read
+    res["P7_slot_conditioned"] = slot_conditioned_report(lem, residual, glabel)
+    return res
+
+
+def harm_help_prose_posaware(verb, tokens, gov_idx, dom, animacy="animate"):
+    """The prose fusion with the POS-aware verb-level cascade underneath it."""
+    v = FDV.lemmatize_verb(verb)
+    base = _posaware_arm(dom)(v, animacy)
+    mval = prose_manner_value(tokens, gov_idx, True)
+    if mval is None:
+        return base
+    rs = FDV.result_state_value(v)
+    if rs is not None and abs(rs) >= FDV.STATE_MIN:
+        return base
+    if not FDV.is_affecting(v):
+        ss = FDV.verb_first_supersense(v)
+        if FDV._is_subject_experiencer(v) or ss in ("perception", "cognition", "stative", "motion"):
+            return base
+        if abs(mval) < FDV.TAU_STRONG:
+            return base
+    return "HARM" if mval < 0 else "HELP"
+
+
+
+
+# ---------- P8. IS THE ADVERB A MANNER ADVERB? (the online path accrued degree/sentential adverbs) -----------
+# MEASURED FIRST, BUILT SECOND. The online pass accrued ("do","most"), ("be","complete"), ("become","public") --
+# i.e. mostly / completely / publicly, which are DEGREE and SENTENTIAL adverbs (Cinque 1999 adverb hierarchy;
+# Ernst 2002): they modify the proposition or the degree, not the manner of acting on a patient.
+# ROUTE A, CHECKED AND REJECTED BEFORE BUILDING: the descriptive-vs-relational adjective distinction (Levi 1978;
+# WordNet adj.all vs adj.pert). Measured on 43 stems: 'mental', 'verbal', 'legal', 'visual', 'national' carry
+# adj.all as well as adj.pert, and 'most', 'complete', 'probable', 'usual', 'real' are pure adj.all -- the
+# distinction does not separate the classes at all. Not built.
+# ROUTE B, BUILT: WordNet's OWN manner-gloss convention -- a manner adverb is defined "in a X manner / way".
+# Measured on 40 adverbs: it rejects 7/7 of the degree-sentential class (mostly, completely, probably, usually,
+# really, only, also) and accepts 15/15 of the evaluative manner class, but MISSES 'roughly' (whose WordNet
+# senses are the quantity sense and no manner gloss) -- so it is a filter with a known, named false-negative.
+def is_manner_adverb(word: str) -> Optional[bool]:
+    """True/False by WordNet's manner-gloss convention; None when the word has no adverb synset."""
+    try:
+        from nltk.corpus import wordnet as wn
+        syn = wn.synsets(str(word).lower(), "r")
+    except Exception:
+        return None
+    if not syn:
+        return None
+    for s in syn:
+        g = s.definition().lower()
+        if g.startswith("in a ") or g.startswith("in an ") or " manner" in g or " way" in g:
+            return True
+    return False
+
+
+# ---------- P9. THE HONEST INSTRUMENT FOR THE CONSTRUCTION: the post-nominal clause-final -ly advmod ---------
+# The 3/36 figure came from ONE construction (a de-adjectival adverb after the verb's direct object). On UD-EWT
+# the arm's advmod recall is 0.5475 over 442 adverbs -- so the governor is NOT broadly broken on advmod, and the
+# earlier reading of 3/36 as a general failure was WRONG. This measures the SUB-POPULATION the manner read
+# actually consumes: a -ly de-adjectival ADV whose nearest preceding content word is a NOUN/PRON/PROPN and whose
+# gold head is a VERB. That is the slice to fix, and its size says how much a fix is worth.
+def advmod_slice_report(cap: int = 700, gammas=(2.0, 4.0, 8.0)) -> Dict:
+    try:
+        import hdlab.attachment_arm as AA
+        from tools.build_attachment_validities import sentences, TEST
+    except Exception as e:
+        return {"error": repr(e)}
+    test = sentences(TEST, cap=cap, maxlen=10 ** 6)
+    tab = AA.load_attachment_validities()
+    base = [AA.arc_scores(toks, pos, tab) for toks, pos, _h, _r in test]
+
+    def in_slice(toks, pos, j, heads_g):
+        """1-based j: a de-adjectival -ly ADV preceded (immediately, modulo nothing) by a nominal, gold head a VERB."""
+        t = str(toks[j - 1]).lower()
+        if not t.endswith("ly") or pos[j - 1] != "ADV":
+            return False
+        if _adverb_stem_cached(t) is None:
+            return False
+        k = j - 2
+        while k >= 0 and pos[k] == "PUNCT":
+            k -= 1
+        if k < 0 or pos[k] not in ("NOUN", "PRON", "PROPN"):
+            return False
+        g = heads_g[j - 1]
+        return g > 0 and pos[g - 1] in ("VERB", "AUX")
+
+    def score(boost=None):
+        n = ok = 0
+        to_nom = 0
+        mass = 0.0
+        for (toks, pos, heads_g, rels), (A, nn) in zip(test, base):
+            AA_A = A if boost is None else boost(A, toks, pos)
+            hd, post = AA.decode(toks, pos, AA_A, nn)
+            for j in range(1, len(toks) + 1):
+                if not in_slice(toks, pos, j, heads_g):
+                    continue
+                n += 1
+                hit = hd.get(j, -1) == heads_g[j - 1]
+                ok += hit
+                h = hd.get(j, -1)
+                if h > 0 and pos[h - 1] in ("NOUN", "PRON", "PROPN"):
+                    to_nom += 1
+                mass += float(post.get(j, {}).get(heads_g[j - 1], 0.0))
+        return {"n": n, "argmax_correct": ok, "acc": round(ok / max(1, n), 4),
+                "argmax_went_to_a_nominal": to_nom,
+                "mean_posterior_on_the_gold_verb": round(mass / max(1, n), 4)}
+
+    out = {"live": score()}
+    for g in gammas:
+        out["structural_g%.0f" % g] = score(lambda A, t, p, gg=g: manner_boost(A, t, p, gg, False))
+        out["lexicalised_g%.0f" % g] = score(lambda A, t, p, gg=g: manner_boost(A, t, p, gg, True))
+        out["CONDITIONED_g%.0f" % g] = score(lambda A, t, p, gg=g: manner_boost(A, t, p, gg, False, True))
+    return out
+
+
+# ---------- P10. THE ONLINE PATH, APPLIED, WITH THE FULL NO-REGRESS BATTERY ----------------------------------
+def online_learning_report(max_lines: int = 4000) -> Dict:
+    """Read held-out prose, accrue, and re-measure EVERYTHING. Coverage bought at the cost of precision is drift,
+    not learning. Three arms: no reading; reading everything; reading only WordNet-certified manner adverbs."""
+    gold = load_effect_o()
+
+    def glabel(v):
+        e = gold.get(FDV.lemmatize_verb(v))
+        if e is None:
+            return None
+        return "HARM" if e < CF_NEG else ("HELP" if e > CF_POS else "NEUTRAL")
+
+    def battery(tag):
+        lem = _candidate_verbs()
+        a = t = 0
+        for v in lem:
+            g = glabel(v); p = harm_help_manner(v, "animate")
+            if g in ("HARM", "HELP") and p in ("HARM", "HELP"):
+                t += 1; a += (g == p)
+        try:
+            import experiments.exp_fd_harm_help_live_modern_v1 as LIVE
+            lg = sum(1 for gg in LIVE.GOLD if gg[3] in ("HARM", "HELP")
+                     and harm_help_manner(gg[1], "animate") == gg[3])
+        except Exception:
+            lg = -1
+        pc = [_prose_correct(harm_help_prose(gg[1], prose_sentence(gg[0], gg[1], gg[2], gg[3]), 2), gg[4])
+              for gg in ADVERB_PROSE_GOLD]
+        m, h = boot_ci(pc)
+        return {"arm": tag, "cf_whole_arm": [a, t, round(a / max(1, t), 4)],
+                "leaks": [v for v in A.P_NEUTRAL_BROAD if harm_help_manner(v, "animate") in ("HARM", "HELP")],
+                "slice": sum(1 for v in MANNER_SLICE if harm_help_manner(v, "animate") == "HARM"),
+                "named_of_15": sum(1 for v in NAMED_HARM if harm_help_manner(v, "animate") == "HARM"),
+                "live_gold_24": lg, "prose_acc": [round(m, 4), round(h, 4)],
+                "asset_rows": sum(len(r) for r in asset().get("evidence", {}).values())}
+
+    import copy
+    pristine = copy.deepcopy(asset().get("evidence", {}))
+    out = {"before": battery("no reading")}
+    obs = read_and_observe(max_lines=max_lines, apply=False)
+    out["observations"] = {k: v for k, v in obs.items() if k != "sample"}
+    for tag, filt in (("read all -ly", False), ("read manner-certified only", True)):
+        asset()["evidence"] = copy.deepcopy(pristine)
+        _MSTATE.clear()
+        kept = dropped = 0
+        # both arms replay the SAME reading pass (_LAST_OBS), so the only difference is the filter
+        for v, st, adv in list(_LAST_OBS):
+            if filt and not is_manner_adverb(adv):
+                dropped += 1
+                continue
+            kept += 1
+            observe_manner(v, st, "ADVMOD", "*read*")
+        b = battery(tag)
+        b["observations_kept"] = kept
+        b["observations_dropped_as_non_manner"] = dropped
+        out[tag] = b
+    asset()["evidence"] = pristine
+    _MSTATE.clear()
+    return out
+
+
+_LAST_OBS: List[Tuple[str, str, str]] = []
+_MSTATE: Dict[str, object] = {}
+
+
+
+
+# ---------- P11. THE CONDITIONED CUE: per-item CI, and the DOWNSTREAM effect on the harm/help read -----------
+def conditioned_cue_ci(cap: int = 700, gamma: float = 8.0) -> Dict:
+    """The statistic the consumer actually reads is the POSTERIOR MASS on the correct predicate, so that is what
+    is bootstrapped (paired, per item) -- an argmax count over n=15 cannot separate, a continuous mass can."""
+    import hdlab.attachment_arm as AA
+    from tools.build_attachment_validities import sentences, TEST
+    test = sentences(TEST, cap=cap, maxlen=10 ** 6)
+    tab = AA.load_attachment_validities()
+    live, cond = [], []
+    for toks, pos, heads_g, _rels in test:
+        A0, n = AA.arc_scores(toks, pos, tab)
+        items = []
+        for j in range(1, len(toks) + 1):
+            t = str(toks[j - 1]).lower()
+            if pos[j - 1] != "ADV" or not t.endswith("ly") or _adverb_stem_cached(t) is None:
+                continue
+            k = j - 2
+            while k >= 0 and pos[k] == "PUNCT":
+                k -= 1
+            if k < 0 or pos[k] not in ("NOUN", "PRON", "PROPN"):
+                continue
+            g = heads_g[j - 1]
+            if g > 0 and pos[g - 1] in ("VERB", "AUX"):
+                items.append((j, g))
+        if not items:
+            continue
+        _h0, p0 = AA.decode(toks, pos, A0, n)
+        A1 = manner_boost(A0, toks, pos, gamma, False, True)
+        _h1, p1 = AA.decode(toks, pos, A1, n)
+        for j, g in items:
+            live.append(float(p0.get(j, {}).get(g, 0.0)))
+            cond.append(float(p1.get(j, {}).get(g, 0.0)))
+    d, lo, hi = paired_boot(cond, live)
+    return {"n_items": len(live), "gamma": gamma,
+            "mean_posterior_live": round(sum(live) / max(1, len(live)), 4),
+            "mean_posterior_conditioned": round(sum(cond) / max(1, len(cond)), 4),
+            "delta": [round(d, 4), round(lo, 4), round(hi, 4)], "ci_separated": bool(lo > 0.0)}
+
+
+def prose_under_conditioned_governor(gamma: float = 8.0) -> Dict:
+    """The 36-sentence prose gold read with the SAME manner-intensity arm but the governor's manner-adverbial
+    construction cue switched on -- i.e. what the harm/help read is worth once the upstream rung is repaired."""
+    import hdlab.attachment_arm as AA
+    fe = _frontend()
+    tab = AA.load_attachment_validities()
+    afx = FDV._afx()
+    rows = []
+    for agent, verb, patient, adverb, label in ADVERB_PROSE_GOLD:
+        toks = prose_sentence(agent, verb, patient, adverb)
+        gov = 2
+        pos, post = fe["T"].tag_with_posterior(toks)
+        A0, n = AA.arc_scores_graded(toks, pos, post, tab) if post else AA.arc_scores(toks, pos, tab)
+        A1 = manner_boost(A0, toks, pos, gamma, False, True)
+        h1, p1 = AA.decode(toks, pos, A1, n)
+        num = den = 0.0
+        for i, t in enumerate(toks):
+            if not str(t).isalpha():
+                continue
+            if pos[i] not in ("ADV", "ADJ") and not str(t).lower().endswith("ly"):
+                continue
+            st = _adverb_stem_cached(str(t))
+            if st is None:
+                continue
+            x = afx.valence(st)
+            if x is None or abs(x) < TAU_MANNER_VAL:
+                continue
+            it = filler_intensity(st, afx)
+            if it is None or it < TAU_INTENSITY:
+                continue
+            mass = float(p1.get(i + 1, {}).get(gov + 1, 0.0))
+            if mass < 0.10:
+                continue
+            num += x * mass; den += mass
+        mval = (num / den) if den else None
+        base = harm_help_manner(FDV.lemmatize_verb(verb), "animate")
+        pred = base
+        if mval is not None:
+            rs = FDV.result_state_value(FDV.lemmatize_verb(verb))
+            if rs is None or abs(rs) < FDV.STATE_MIN:
+                v = FDV.lemmatize_verb(verb)
+                ss = FDV.verb_first_supersense(v)
+                if FDV.is_affecting(v) or (not FDV._is_subject_experiencer(v)
+                                           and ss not in ("perception", "cognition", "stative", "motion")
+                                           and abs(mval) >= FDV.TAU_STRONG):
+                    pred = "HARM" if mval < 0 else "HELP"
+        rows.append((label, pred, float(p1.get(6, {}).get(gov + 1, 0.0))))
+    corr = [_prose_correct(p, g) for g, p, _m in rows]
+    shipped = [_prose_correct(harm_help_prose(gg[1], prose_sentence(gg[0], gg[1], gg[2], gg[3]), 2), gg[4])
+               for gg in ADVERB_PROSE_GOLD]
+    m, h = boot_ci(corr)
+    d, lo, hi = paired_boot(corr, shipped)
+    return {"acc_with_repaired_governor": [round(m, 4), round(h, 4)],
+            "acc_shipped": [round(sum(shipped) / len(shipped), 4)],
+            "delta_vs_shipped": [round(d, 4), round(lo, 4), round(hi, 4)],
+            "mean_adverb_mass_on_verb": round(sum(m2 for _g, _p, m2 in rows) / len(rows), 4)}
+
+
+def morph_backoff_battery() -> Dict:
+    """Is the derivational backoff (contemptuous -> contempt) inert, helpful, or harmful on every population?"""
+    gold = load_effect_o()
+
+    def glabel(v):
+        e = gold.get(FDV.lemmatize_verb(v))
+        return None if e is None else ("HARM" if e < CF_NEG else ("HELP" if e > CF_POS else "NEUTRAL"))
+    out = {}
+    for backoff in (False, True):
+        global _BACKOFF
+        _BACKOFF = backoff
+        lem = _candidate_verbs()
+        a = t = 0
+        for v in lem:
+            g = glabel(v); p = harm_help_manner(v, "animate")
+            if g in ("HARM", "HELP") and p in ("HARM", "HELP"):
+                t += 1; a += (g == p)
+        pc = [_prose_correct(harm_help_prose(gg[1], prose_sentence(gg[0], gg[1], gg[2], gg[3]), 2), gg[4])
+              for gg in ADVERB_PROSE_GOLD]
+        out["backoff_%s" % backoff] = {
+            "cf_whole_arm": [a, t, round(a / max(1, t), 4)],
+            "leaks": [v for v in A.P_NEUTRAL_BROAD if harm_help_manner(v, "animate") in ("HARM", "HELP")],
+            "slice": sum(1 for v in MANNER_SLICE if harm_help_manner(v, "animate") == "HARM"),
+            "prose_acc": round(sum(pc) / len(pc), 4)}
+    _BACKOFF = False
+    return out
+
+
+_BACKOFF = False
 
 
 # ==========================================================================================================
