@@ -51,7 +51,9 @@ FORM = frozenset({"PUNCT", "NUM", "SYM"})
 NOMINAL = ("NOUN", "PRON", "PROPN")
 CONTENT = frozenset({"NOUN", "PROPN", "PRON", "VERB", "ADJ", "ADV", "NUM"})
 NP_RUN = frozenset({"DET", "ADJ", "NUM", "NOUN", "PROPN"})
-CUES = ("locality", "frame", "form", "boundary", "agree", "constr")     # secondary cues; catpair / root are the configuration
+CUES = ("locality", "frame", "form", "boundary", "agree", "constr", "pp")   # secondary cues; catpair / root are the configuration
+# "pp" (2026-09-13, folded from the pri-2 solver's proven Hindle-Rooth lever): for a PP-object nominal, the preposition's verb-vs-noun
+# association LR(p) = log P(p|verb) / P(p|noun), learned TREEBANK-FREE from UNAMBIGUOUS prepositional phrases in reading.
 M_SHRINK = 2.0
 # CONVENTION LAYER (labelled honestly, 2026-09-12): the function-word frames (ADP -> its NP head, AUX/copula -> their predicate,
 # SCONJ/'to' -> the verb, names left-headed, punctuation -> the clause verb) are ANNOTATION CONVENTIONS of UD-shaped consumers, not
@@ -236,14 +238,90 @@ def verb_frames_from_reading(sentences: Sequence[Tuple[Sequence[str], Sequence[s
     return {k: v for k, v in fr.items() if v[0] >= 5}
 
 
+PP_NPMOD = frozenset({"DET", "ADJ", "NUM"})
+
+
+def pp_site(pos: Sequence[str], i: int):
+    """For a candidate PP-object NOUN/PROPN at 1-based i: (prep_idx, verb_idx, noun_idx) 1-based (verb/noun may be None), else None.
+    prep = nearest preceding ADP separated from i only by NP-internal modifiers; verb = nearest VERB before the prep; noun = nearest
+    NOUN/PROPN before the prep (the candidate nmod host). Category-structural only, no gold (Hindle & Rooth 1993)."""
+    if pos[i - 1] not in ("NOUN", "PROPN"):
+        return None
+    k = i - 2
+    while k >= 0 and pos[k] in PP_NPMOD:
+        k -= 1
+    if k < 0 or pos[k] != "ADP":
+        return None
+    prep = k + 1; verb = None; noun = None
+    for q in range(k - 1, -1, -1):
+        if verb is None and pos[q] == "VERB":
+            verb = q + 1
+        if noun is None and pos[q] in ("NOUN", "PROPN"):
+            noun = q + 1
+        if verb is not None and noun is not None:
+            break
+    return (prep, verb, noun)
+
+
+def pp_assoc_from_reading(sentences: Sequence[Tuple[Sequence[str], Sequence[str]]]) -> Dict[str, Dict[str, float]]:
+    """TREEBANK-FREE Hindle-Rooth association counts from (tokens, categories): every PP-object credits its preposition to the
+    nearest preceding verb and/or noun; UNAMBIGUOUS sites (one candidate) are the reliable seed, ambiguous ones split 0.5/0.5
+    (Hindle & Rooth's initial estimate). Keys are "lemma|prep" strings (JSON-safe, plastic counts)."""
+    fv: Dict[str, float] = defaultdict(float); fn: Dict[str, float] = defaultdict(float)
+    dv: Dict[str, float] = defaultdict(float); dn: Dict[str, float] = defaultdict(float)
+    pv: Dict[str, float] = defaultdict(float); pn: Dict[str, float] = defaultdict(float)
+    for toks, pos in sentences:
+        n = len(toks); low = [t.lower() for t in toks]
+        for i in range(1, n + 1):
+            site = pp_site(pos, i)
+            if site is None:
+                continue
+            prep, verb, noun = site; p = low[prep - 1]
+            vl = lemma_verb(toks[verb - 1]).lower() if verb else None; nl = low[noun - 1] if noun else None
+            if verb and not noun:
+                fv[vl + "|" + p] += 1.0; dv[vl] += 1.0; pv[p] += 1.0
+            elif noun and not verb:
+                fn[nl + "|" + p] += 1.0; dn[nl] += 1.0; pn[p] += 1.0
+            elif verb and noun:
+                fv[vl + "|" + p] += 0.5; dv[vl] += 0.5; pv[p] += 0.5
+                fn[nl + "|" + p] += 0.5; dn[nl] += 0.5; pn[p] += 0.5
+    return {"fv": dict(fv), "fn": dict(fn), "dv": dict(dv), "dn": dict(dn), "pv": dict(pv), "pn": dict(pn)}
+
+
+def pp_lr(assoc: Dict[str, Dict[str, float]], v_lemma: Optional[str], n_lemma: Optional[str], p: str) -> float:
+    """log[P(p | verb) / P(p | noun)] with add-0.5 smoothing; unseen heads back off to the preposition's side marginal."""
+    fv = assoc["fv"]; fn = assoc["fn"]; dv = assoc["dv"]; dn = assoc["dn"]; pv = assoc["pv"]; pn = assoc["pn"]
+    tv = sum(pv.values()) + 1.0; tn = sum(pn.values()) + 1.0
+    ppv = (fv.get((v_lemma or "") + "|" + p, 0.0) + 0.5) / (dv.get(v_lemma, 0.0) + 1.0) if v_lemma in dv else (pv.get(p, 0.0) + 0.5) / tv
+    ppn = (fn.get((n_lemma or "") + "|" + p, 0.0) + 0.5) / (dn.get(n_lemma, 0.0) + 1.0) if n_lemma in dn else (pn.get(p, 0.0) + 0.5) / tn
+    return math.log(ppv) - math.log(ppn)
+
+
+def _lr_bin(lr: float) -> str:
+    return "v2" if lr > 1.5 else "v1" if lr > 0.5 else "n2" if lr < -1.5 else "n1" if lr < -0.5 else "0"
+
+
 class SentenceCues:
     """ONE cue pass per sentence (shared by every arc): punctuation cumsum for boundaries, construction map, verb lemmas."""
 
-    def __init__(self, toks: Sequence[str], pos: Sequence[str], frames: Dict[str, List[int]]):
+    def __init__(self, toks: Sequence[str], pos: Sequence[str], frames: Dict[str, List[int]],
+                 pp_assoc: Optional[Dict[str, Dict[str, float]]] = None):
         self.toks = list(toks); self.pos = list(pos); self.n = len(toks); self.frames = frames
         self.cum = np.concatenate([[0], np.cumsum([1 if p == "PUNCT" else 0 for p in self.pos])])
         self.constr = construction_map(self.toks, self.pos)
         self.lem = [lemma_verb(t).lower() if p == "VERB" else None for t, p in zip(self.toks, self.pos)]
+        # PP-object sites: j -> (verb_idx, noun_idx, LR bin) when the preposition cue applies (pp_assoc given)
+        self.pp: Dict[int, Tuple[Optional[int], Optional[int], str]] = {}
+        if pp_assoc:
+            for j in range(1, self.n + 1):
+                site = pp_site(self.pos, j)
+                if site is None:
+                    continue
+                prep, verb, noun = site
+                if verb is None and noun is None:
+                    continue
+                vl = self.lem[verb - 1] if verb else None; nl = self.toks[noun - 1].lower() if noun else None
+                self.pp[j] = (verb, noun, _lr_bin(pp_lr(pp_assoc, vl, nl, self.toks[prep - 1].lower())))
 
     def config(self, j: int, h: int) -> str:
         pj = self.pos[j - 1]
@@ -260,6 +338,9 @@ class SentenceCues:
         c = {"locality": f"{dr}{dist_bin(abs(h - j))}", "form": "formhead" if ph in FORM else "wordhead",
              "boundary": "0" if nb == 0 else "1" if nb == 1 else "2+",
              "constr": self.constr.get((h, j), "none")}
+        site = self.pp.get(j)
+        if site is not None and h in (site[0], site[1]):
+            c["pp"] = ("V:" if h == site[0] else "N:") + site[2]     # which candidate this head is x the preposition's lean
         if ph == "VERB":
             fr = self.frames.get(self.lem[h - 1])
             trans = "unk" if not fr else ("trans" if fr[1] / fr[0] >= 0.3 else "intrans")
@@ -305,7 +386,8 @@ def load_attachment_validities(path: Optional[str] = None) -> Dict[str, object]:
         return _TABLE
     with open(path or ASSET, encoding="utf-8") as f:
         doc = json.load(f)
-    tab = {"counts": doc["counts"], "frames": doc.get("frames", {}), "strength": strengths_from_arc_counts(doc["counts"])}
+    tab = {"counts": doc["counts"], "frames": doc.get("frames", {}), "pp_assoc": doc.get("pp_assoc"),
+           "strength": strengths_from_arc_counts(doc["counts"])}
     if path is None:
         _TABLE = tab
     return tab
@@ -315,7 +397,7 @@ def save_attachment_validities(path: Optional[str] = None, table: Optional[Dict[
     tab = table or load_attachment_validities(); p = path or ASSET
     doc = {"source": "attachment arm of the Competition-Model organ: soft arc counts accrued from reading (knowledge-free teacher + "
                      "anchored self-teaching; no treebank, no hand prior); strengths = attachment_arm.strengths_from_arc_counts",
-           "counts": tab["counts"], "frames": tab.get("frames", {})}
+           "counts": tab["counts"], "frames": tab.get("frames", {}), "pp_assoc": tab.get("pp_assoc")}
     with open(p, "w", encoding="utf-8", newline=chr(10)) as f:
         json.dump(doc, f, indent=1)
     return p
@@ -345,7 +427,7 @@ def observe_arc_outcome(toks: Sequence[str], pos: Sequence[str], j: int, h: int,
                         weight: float = 1.0) -> None:
     """PLASTICITY: one confirmed comprehension outcome -- word j was understood to depend on h -- accrues into the counts (the
     competing candidates of j accrue a zero outcome) and the strengths are recomputed."""
-    tab = table or load_attachment_validities(); sc = SentenceCues(toks, pos, tab.get("frames", {}))
+    tab = table or load_attachment_validities(); sc = SentenceCues(toks, pos, tab.get("frames", {}), tab.get("pp_assoc"))
     marg = {j: {hh: (weight if hh == h else 0.0) for hh in range(0, sc.n + 1) if hh != j}}
     accrue_sentence(tab["counts"], sc, marg)
     tab["strength"] = strengths_from_arc_counts(tab["counts"])
@@ -354,7 +436,7 @@ def observe_arc_outcome(toks: Sequence[str], pos: Sequence[str], j: int, h: int,
 # ----------------------------------------------------------------------------------------------------------- readout
 def arc_scores(toks: Sequence[str], pos: Sequence[str], table: Optional[Dict[str, object]] = None) -> Tuple[np.ndarray, int]:
     """Additive cue activation per arc (row = head incl. 0 = ROOT, col = dependent); form classes never head or root."""
-    tab = table or load_attachment_validities(); st = tab["strength"]; sc = SentenceCues(toks, pos, tab.get("frames", {}))
+    tab = table or load_attachment_validities(); st = tab["strength"]; sc = SentenceCues(toks, pos, tab.get("frames", {}), tab.get("pp_assoc"))
     n = sc.n; A = np.full((n + 1, n + 1), -np.inf)
     words = [j for j in range(1, n + 1) if pos[j - 1] not in FORM]
     for j in range(1, n + 1):
@@ -499,4 +581,4 @@ class SemanticBootstrapTeacher:
 
 __all__ = ["SentenceCues", "CONSTRUCTIONS", "construction_map", "verb_frames_from_reading", "strengths_from_arc_counts",
            "load_attachment_validities", "save_attachment_validities", "new_counts", "accrue_sentence", "observe_arc_outcome",
-           "arc_scores", "head_posterior", "heads", "arc_scores_graded", "head_posterior_graded", "heads_graded", "SemanticBootstrapTeacher", "ASSET", "FORM"]
+           "pp_site", "pp_assoc_from_reading", "pp_lr", "arc_scores", "head_posterior", "heads", "arc_scores_graded", "head_posterior_graded", "heads_graded", "SemanticBootstrapTeacher", "ASSET", "FORM"]

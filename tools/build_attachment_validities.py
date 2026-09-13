@@ -141,6 +141,8 @@ def main(argv=None) -> int:
         train = recategorize(train, categorizer)
         print("categories = reading-induced (%s) in place of UPOS" % os.path.basename(a.categories), flush=True)
     frames = AA.verb_frames_from_reading([(t, p) for t, p, _, _ in train])
+    pp_assoc = AA.pp_assoc_from_reading([(t, p) for t, p, _, _ in train])    # Hindle-Rooth preposition association (treebank-free)
+    print("pp association: %d verb|prep, %d noun|prep cells" % (len(pp_assoc["fv"]), len(pp_assoc["fn"])), flush=True)
     teacher = knowledge_free_teacher(train, beta=a.beta, tsp_asset=a.tsp_asset)
     if a.tsp_asset:
         print("plausibility asset =", os.path.basename(a.tsp_asset), flush=True)
@@ -149,8 +151,8 @@ def main(argv=None) -> int:
     counts = AA.new_counts()
     for i, (toks, pos, _, _) in enumerate(train):
         A, n = teacher._score_matrix(toks, pos); mt = single_root_marginals(A, n, 1.0); tmarg[i] = mt
-        AA.accrue_sentence(counts, AA.SentenceCues(toks, pos, frames), mt)
-    table = {"counts": counts, "frames": frames, "strength": AA.strengths_from_arc_counts(counts)}
+        AA.accrue_sentence(counts, AA.SentenceCues(toks, pos, frames, pp_assoc), mt)
+    table = {"counts": counts, "frames": frames, "pp_assoc": pp_assoc, "strength": AA.strengths_from_arc_counts(counts)}
     print("round 0 accrued (%d sentences) in %.0fs" % (len(train), time.time() - t0), flush=True)
     for r in range(1, a.rounds + 1):
         nxt = AA.new_counts()
@@ -158,8 +160,8 @@ def main(argv=None) -> int:
             ms = AA.head_posterior(toks, pos, table); mt = tmarg[i]; n = len(toks)
             mix = {j: {h: a.alpha * ms.get(j, {}).get(h, 0.0) + (1 - a.alpha) * mt.get(j, {}).get(h, 0.0)
                        for h in set(ms.get(j, {})) | set(mt.get(j, {}))} for j in range(1, n + 1)}
-            AA.accrue_sentence(nxt, AA.SentenceCues(toks, pos, frames), mix)
-        table = {"counts": nxt, "frames": frames, "strength": AA.strengths_from_arc_counts(nxt)}
+            AA.accrue_sentence(nxt, AA.SentenceCues(toks, pos, frames, pp_assoc), mix)
+        table = {"counts": nxt, "frames": frames, "pp_assoc": pp_assoc, "strength": AA.strengths_from_arc_counts(nxt)}
         print("round %d re-estimated in %.0fs" % (r, time.time() - t0), flush=True)
     path = AA.save_attachment_validities(a.out, table)
     print("wrote", path, flush=True)
