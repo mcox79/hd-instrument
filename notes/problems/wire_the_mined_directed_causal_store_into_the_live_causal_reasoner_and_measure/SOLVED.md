@@ -255,3 +255,5 @@ NOT land the necessity-prior wire (measured inert).
    handoff-ready design in `BRIDGE_DESIGN_next_problem.md` (science-slice-first via `causal_sign_channel`'s formal-model
    dynamics, then the general bridge = the meaning-channel-gated main event), then LAND `GroundedCausalLearner` as
    `hdlab/grounded_causal_learner.py` (Q111) once the bridge feeds real experience -> raise BF_SPIRIT to BF.
+
+INTEGRATED_BY_STRATEGY 2026-09-12 — owner-DONE 23:08; reverified 9/9 + 5/5 + 4/4. Recorded as a DURABLE NEGATIVE (nothing wired live; +0.139 retired as a density artifact); files committed; causal_direction read + board arm + grounded-causal-learning organ filed as follow-ons (INTEGRATION_LEDGER).

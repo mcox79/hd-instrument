@@ -6,11 +6,11 @@ downstream dip after a BF upstream is a CONSUMER TO REPAIR, never a reason to re
 Live BF configuration = `HDLAB_TAG_SOURCE=counts` (default) + `HDLAB_HEADS_SOURCE=attachment_arm` (the target default once the
 board arms read the reader's parse). Baseline board (perceptron + supervised parser) 0.6395 for reference only.
 
-## Phase 0 — finish the open integrations (owner-DONE)  [status: IN PROGRESS]
-- [ ] pri-13 semantic hub: `hdlab/semantic_hub.py` + asset + `tools/build_semantic_hub_asset.py` + witness 6/6 → commit (+ the
+## Phase 0 — finish the open integrations (owner-DONE)  [status: DONE 23:45]
+- [x] pri-13 semantic hub: `hdlab/semantic_hub.py` + asset + `tools/build_semantic_hub_asset.py` + witness 6/6 → commit (+ the
       solver's 3 files routed through get_output_dir), registry BF_SPIRIT, INTEGRATION_LEDGER row (PARTIAL: representation landed,
       read-time fusion kept, readers not repointed), §2b audit note, INTEGRATED mark.
-- [ ] pri-10 causal store (REFUTED): commit the named files (get_output_dir-routed), INTEGRATION_LEDGER row + manifest (AS-DURABLE-
+- [x] pri-10 causal store (REFUTED): commit the named files (get_output_dir-routed), INTEGRATION_LEDGER row + manifest (AS-DURABLE-
       NEGATIVE: store as necessity prior; the +0.139 headline = density artifact → retired claim), INTEGRATED mark; follow-on filed:
       `sm.causal_direction` default-off read + `board_causal_direction_dimension` (density-matched twin + reverse control).
 
@@ -43,3 +43,4 @@ finishes (`bash /c/AI/hd-instrument_desktop_2026-09-12/delta_sync.sh` via a runn
 
 ## Log (append one line per completed item; newest last)
 - 23:40 plan written; board A/B (counts; counts+attarm) running on a runner; transfer ~205/212 GB.
+- 23:45 Phase 0 done: pri-13 hub organ landed (PARTIAL; readers not repointed); pri-10 recorded as durable negative (+0.139 retired); both committed.
