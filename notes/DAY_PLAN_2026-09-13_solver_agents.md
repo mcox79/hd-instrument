@@ -1,0 +1,74 @@
+# DAY PLAN 2026-09-13 (afternoon -> overnight): SOLVER SESSIONS AS AGENTS -- test, gate, then run the program
+
+**Owner direction (14:15 local):** "prepare a full day plan, including testing and, if successful, continuing to implement these
+opus 4.8 solver sessions as agents, and then start implementing." Autoloop ARMED (unlimited). Times below are by `date` (local).
+The model: the Agent tool offers `opus` (the current Opus) with no 4.8 pin -- reported as such everywhere.
+
+## What stays true all day (standing rules)
+Integrate only on the owner's DONE (Q filed below asks whether agent-produced solutions may be integrated on strategy's first-hand
+reverify instead); commit path-limited, never push; cap cores on every run; never edit preregs/** or arm_key*; every component
+100% brain-foundational (off-the-shelf tool at inference = defect); organs plastic, never frozen; params swept, never adopted;
+surgical edits; plain-language owner updates only for significant items; waiting is delegated to haiku runners, never the main
+thread; at most TWO opus solver agents at once (the usage cap and the laptop's cores) plus one haiku runner for boards.
+
+## PHASE A -- 14:15-16:00: the PILOT runs (started 14:15)
+RUNNING: `solver-pri97` (main assertion = cue knowledge in the attachment arm) and `solver-pri98` (manner-encoded harm = intensity
+read in force_dynamics_valence), opus agents, each with the brief verbatim + the six mandatory phases (read / build+measure /
+status probe / quality push / verdict check with "path A" on PARTIAL / finalize with SOLVED.md + patch .diff). Also running:
+`board-final3-runner` (the final board with pri 93/15 landed; the earlier run died with its stopped watcher).
+Strategy (me) during A: supervise only -- on a completion notice read the report; if it stopped before phase 6, SendMessage the
+next phase verbatim (one nudge); if PARTIAL, send "what would it take to make this fully solved -- pick path A and try it once";
+log every nudge with a timestamp in `notes/SOLVER_AGENT_PILOT_2026-09-13.md`. Record the final board when it lands (ledger,
+scorecard, STATUS, BOARD_TREND). Then the light desktop shipment (`resync_light.sh` on a haiku runner).
+
+## PHASE B -- on each pilot completion: THE TEST (pass/fail, written to the pilot log)
+A pilot session PASSES if ALL hold:
+1. **Reached phase 6 with <= 2 supervisor nudges** (the owner's sessions needed ~8 messages each, 5 of 33 judgment calls).
+2. **Rubric met by its own report:** witness green; information-free twin loses CI-separated; the bar's primary metric up
+   CI-separated on the item's own population (or a NUMBERED located negative naming the missing input); named no-regress
+   populations hold; knowledge in counts/assets with an online observe path; SOLVED.md in the schema; a patch .diff, no hdlab edit.
+3. **First-hand reverify by strategy:** re-run its experiment's reverify/self-test path under capped cores; the headline numbers
+   reproduce within the CI; the patch applies cleanly to the current hdlab file.
+4. **No rule violation:** files written only where the brief allows; no push; no preregs/arm_key touch; no off-the-shelf tool at
+   inference; no retired figure quoted.
+5. **Cost:** wall time and tool-call count recorded; PASS needs wall time <= the comparable owner-run session (coordination 2 h,
+   object slot 3.3 h; the 12-14 h ones ran unattended overnight).
+Quality is graded on the same axes as `notes/SOLVER_SESSIONS_EVALUATION_2026-09-13.md` (twins, paired CIs, independent human
+golds, refuted levers counted, honest caveats). The verdict for the PROGRAM: **2/2 PASS = continue at full rate; 1/2 = continue with
+the failure's cause fixed in the kick-off prompt first; 0/2 = stop, report, and return to owner-run hand-outs.**
+
+## PHASE C -- if successful (16:00 onward): THE SOLVER-AGENT PROGRAM
+**Mechanics landed today (strategy work, see "implementing now"):** `tools/solver_agent_prompt.py <slug>` emits the identical
+kick-off prompt (brief path + hard rules + six phases) for every launch; `data/hook_state/assigned_problems.json` marks agent-taken
+problems so the hand-out tab shows them as taken; `notes/SOLVER_AGENT_PILOT_2026-09-13.md` is the measurement log (one row per
+session: start, end, nudges, tool calls, verdict, reverify, integrated).
+**Queue (one organ per concurrent agent; no diff collision):**
+1. **pri 94** PP attachment (obl/nmod seesaw) -- attachment_arm; start ONLY after pri 97's patch is landed (same file).
+2. **pri 96** far coordination needs the meaning channel -- attachment_arm + meaning channel; after 94 or paired with a non-arm item.
+3. **NEW brief (strategy writes during C): embedded and copular SUBJECTS at the labels rung** (the role competition loses nsubj under
+   ccomp/xcomp and in copular clauses; the plan's "governor residuals = labels rung" item) -- graded_role_assigner.
+4. **NEW brief: unknown-word coverage of the category organ** (0.752 on unseen words; the reading-acquired inventory covers only
+   what 1M lines showed; the brain generalises by form) -- lexical_categories + induced_categories.
+5. **NEW brief: the nmod give-back after the teacher v2 promotion** (0.311 -> 0.358 with meaning cues; still the weakest
+   comprehension-relevant nominal relation) -- may fold into pri 94.
+Each completion -> strategy reverifies first-hand -> presents in the tab -> integrates top-down on DONE (or on reverify if Q answered
+yes) with a board A/B per integration, ledger row, scorecard line, INTEGRATED mark, owner update if significant.
+**Strategy's own chain work in the gaps** (never idle while agents run): the math-BF top-down pass items still open -- the heads
+rung's live-chain number under the organ's own tags (0.598) vs gold tags (0.6125): trace the 1.5-point tag loss per relation;
+the typed-SP / GEK stores' consumers after the re-key; BRAIN_MATH_REFERENCE rows for today's landings (incremental governor, lag-2
+categories, collision rule, perceived-heads validities).
+
+## PHASE D -- evening (20:00 onward) and overnight
+Keep two agents running from the queue; after each integration wave run `resync_light.sh`; before any compaction write the memory
+handoff (`project_live_chain_organs_and_switches_2026-09-13.md` update + the pilot verdict as its own memory) and the STATUS block.
+Owner check-ins expected: DONE marks in the tab; Q on the integration gate; whether 94/96 stay owner hand-outs (default below).
+
+## Decisions filed / defaults taken
+- DEFAULT: pri 94 and 96 move to the agent queue (the owner's "continuing to implement these solver sessions as agents"); they stay
+  visible in the tab until an agent takes them, then are marked taken. If the owner starts one first, the agent is not launched.
+- Q filed on the board: may agent-produced solutions be integrated on strategy's first-hand reverify (with a board A/B) instead of
+  waiting for DONE? Recommendation: keep DONE for the two pilot sessions, then allow reverify-gated integration to remove the human
+  bottleneck, with every integration still presented in the tab and reversible (assets kept at data/hook_state/*_prev).
+
+## Log (appended through the day)
+- 14:15 pilot launched (pri 97, pri 98; opus agents); board_final3 launched (haiku runner).
