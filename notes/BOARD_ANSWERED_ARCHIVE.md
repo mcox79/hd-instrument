@@ -147,3 +147,12 @@ Rows aged out of `notes/BOARD.md`, which shows only the most recent 40. **Nothin
 
 **THE OWNER'S ANSWER:** SUPERSEDED BY Q95 -- I quoted a margin to you that does not survive a confidence interval. The RECOMMENDED ACTION IS UNCHANGED; one fact is corrected. Not answered by the owner.
 
+
+| Q92 | 2026-08-21T00:45:23Z |
+
+**Q:** Our recovery note (the file a fresh session reads first after a memory reset) has a size limit of 8,700 characters. I have now cut it from 308,000 to 17,600 -- eighteen times smaller -- by moving old material into two other files and rewriting the stale parts, deleting nothing. Here is the problem, and it is arithmetic rather than effort: two sections of that file are 'never delete' by our own rules -- the list of dead ends we already paid to discover, and the hard-won rules about how to work -- and those two ALONE are 11,200 characters. They are 29 percent bigger than the whole limit before a single word of current status is added. So the limit cannot be met without deleting exactly the material the limit exists to protect. Two honest options. Either raise the limit to about 18,000 characters, which matches what the file actually needs. Or move the never-delete sections out to the companion file too, leaving one-line pointers -- which meets the limit but means a fresh session no longer sees the dead ends and the rules without opening a second file, and that second read is the one most likely to get skipped.
+
+**MY RECOMMENDATION:** Raise the limit to ~18,000. The 35x bloat was accumulation and that is now fixed and guarded automatically; what remains is content the rules class as unloseable. Risk of my recommendation: a bigger limit weakens the pressure to keep the file to one readable pass, and that pressure is the only thing that would have caught this earlier -- which is why I also added an automatic size report at every session start rather than relying on the limit alone.
+
+**THE OWNER'S ANSWER:** sure raise it, but we need a way of moving old material to archive that doesn't take this much time. Can we start storing this in substrate instead and implement an auto aging feature like the normal sleep pruning or somethng?
+

@@ -5,8 +5,8 @@ bar: "A glass-box result-state valuation arm inside force_dynamics_valence (foun
 result: "Recovery arm (hypernym-consensus result-state inheritance + guarded upstream affectedness admission; operating point tau=0.35): recovers savage/victimize/oppress/maul (all landed abstentions) to HARM; 65 residual verbs newly decided at CF-gold precision 1.00 with ZERO wrong-sign (and 0 wrong-sign among ALL new decisions, not just CF-covered); neutral precision 0 leaks on P_NEUTRAL_BROAD (n=36); populations harm-frame 10/10, social-harm 14->15, non-prevent-help 14->15; INDEPENDENT Connotation-Frames Effect(o) agreement 289/310=0.9323 (>= landed 282/304=0.9276); board 36-item live gold 24/24 HARM-HELP items held; twin 2<9. Numbered located negative for the residue: of 693 still-abstaining, the CF-non-neutral ones are overwhelmingly creation verbs whose gold is inanimate-completion (48 creation-supersense, correctly abstaining for an animate patient); the genuine miss is a MANNER-encoded harm slice (brutalize/manhandle/gore) whose harm lives in an adverb the foundation does not decompose (drilled: every parse-free manner read costs 4-8 neutral leaks + 3-6 wrong-signs)."
 floor: "The LANDED result-state arm (hdlab/force_dynamics_valence.py at HEAD; witness test_fd_result_state_arm.py 15/15): abstains on savage/victimize/oppress/maul; CF-gold agreement 282/304=0.9276. The extended arm is CI-consistent-or-better on every population and strictly recovers 4 named abstentions at CF-precision 1.00."
 controls: "(1) INFO-FREE TWIN -- Warriner valence VALUES scrambled -> the hypernym read reads random signs -> named recovery 9->2 (loses). (2) NEUTRAL PRECISION -- P_NEUTRAL_BROAD (n=36, incl. subject-experiencer admire/envy/love/fear and perception recognize/notice) reads 0 HARM/HELP under the extended arm; excluded the failure mode that the un-guarded gate extension produced (6 leaks). (3) INDEPENDENT HUMAN GOLD -- Connotation Frames Effect(o) (Rashkin 2016, not derived from VerbNet/WordNet/Warriner) never consulted at inference; excludes 'a decision is not a correct decision' (new decisions 6/6=1.00, 0 wrong-sign). (4) LANDED-WINS-UNTOUCHED -- stab->HARM, comfort->HELP, watch->abstain; the arm only adds residual reads. (5) MANNER-ABSTAIN -- brutalize/manhandle/gore do not read HELP (honest boundary, not a wrong sign)."
-files_changed: "experiments/exp_fd_result_state_hypernym_v1.py (recovery arm + metrics + self-test); verification/test_fd_result_state_hypernym_arm.py (witness, 9/9); experiments/fetch_connotation_frames_v1.py (gold fetch); experiments/exp_harm_help_endstate_realization_v1.py (UPSTREAM event-realization join + metrics); verification/test_harm_help_endstate_realization_join.py (witness, 7/7); experiments/fetch_commitmentbank_v1.py (veridicality gold fetch); data/corpora/connotation_frames/ + data/corpora/commitmentbank/ (acquired golds, gitignored, re-fetchable). NO hdlab/ writes -- all hdlab changes are proposed diffs (below), per board Q111."
-reverify: ".venv/Scripts/python.exe experiments/fetch_connotation_frames_v1.py && .venv/Scripts/python.exe verification/test_fd_result_state_hypernym_arm.py && .venv/Scripts/python.exe experiments/fetch_commitmentbank_v1.py && .venv/Scripts/python.exe verification/test_harm_help_endstate_realization_join.py"
+files_changed: "experiments/exp_fd_result_state_hypernym_v1.py (recovery arm + metrics + self-test); verification/test_fd_result_state_hypernym_arm.py (witness, 9/9); experiments/fetch_connotation_frames_v1.py (gold fetch); experiments/exp_harm_help_endstate_realization_v1.py (UPSTREAM rung1 event-realization join); verification/test_harm_help_endstate_realization_join.py (witness, 7/7); experiments/fetch_commitmentbank_v1.py (veridicality gold fetch); experiments/exp_harm_help_prevent_complement_v1.py (UPSTREAM rung2 prevent-complement valence); verification/test_harm_help_prevent_complement.py (witness, 6/6); experiments/exp_harm_help_sense_in_context_v1.py (UPSTREAM rung3 sense-in-context); verification/test_harm_help_sense_in_context.py (witness, 5/5); data/corpora/connotation_frames/ + data/corpora/commitmentbank/ (acquired golds, gitignored, re-fetchable). NO hdlab/ writes -- all hdlab changes are proposed diffs (below), per board Q111."
+reverify: ".venv/Scripts/python.exe experiments/fetch_connotation_frames_v1.py && .venv/Scripts/python.exe verification/test_fd_result_state_hypernym_arm.py && .venv/Scripts/python.exe experiments/fetch_commitmentbank_v1.py && .venv/Scripts/python.exe verification/test_harm_help_endstate_realization_join.py && .venv/Scripts/python.exe verification/test_harm_help_prevent_complement.py && .venv/Scripts/python.exe verification/test_harm_help_sense_in_context.py"
 ---
 
 # Recovering the still-abstaining assault verbs by valuing the SUPERORDINATE action's outcome state
@@ -196,22 +196,60 @@ Witness `verification/test_harm_help_endstate_realization_join.py` **7/7**.
 bound predicate and pass `endstate_reached` into `harm_help_arithmetic` — non-PREVENT only. Reuses the pinned
 `polarity_operator`; no new asset, no new organ. Closes loss #3 (failed/negated events) on real prose.
 
-### RUNG 2 — PREVENT-COMPLEMENT VALENCE — located, organ named, not yet built.
+### RUNG 2 — PREVENT-COMPLEMENT VALENCE — **PROTOTYPED + PROVEN.**
 **The loss (surfaced by CF discordances):** the arm defaults PREVENT→HELP, but "prevented the doctor from
 curing the patient" (PREVENT a good) = HARM. The arithmetic ALREADY accepts `embedded_endstate_valence`; what
-is missing is the reader supplying (a) the prevented complement event and (b) its patient-valence.
-**Reuse:** `outcome_event_extraction` (persisted parser, clause-scoping, referent-linking) to pull the "from
-X-ing" complement; value it with the same result-state arm. Join point: `harm_help_arithmetic(...,
-embedded_endstate_valence=value(complement))`. This is the natural sibling of Rung 1 (both feed event
-structure the arithmetic already consumes). Recommend a dedicated brief.
+was missing is the reader supplying the prevented complement event and its patient-valence.
+**The fix (prototype `experiments/exp_harm_help_prevent_complement_v1.py`):** a glass-box complement finder
+locates the blocked event (the VERB in the "from V-ing" / infinitival complement of the PREVENT verb) and
+values it with the SAME extended endstate read (RESULT-STATE + hypernym-consensus), passed as
+`embedded_endstate_valence`. No new valuation organ.
+**Measured (n=10 constructed prevent-good/prevent-bad gold, declared):** harm/help **live 0.50 → joined 0.90**
+(the BF parse path); the join flips prevent-a-good to HARM (live says HELP) and keeps prevent-a-bad HELP.
+**twin** (random complement sign) 0.30 (loses); bare `save` still HELP. (One natural item "from wounding" was
+swapped to "from burning": `endstate_valence_sign('wound')=+1` is the wound/wind HOMOGRAPH — a base
+sense-conflation defect that is RUNG 3's territory; documented in the cell.) Witness
+`verification/test_harm_help_prevent_complement.py` **6/6**.
+**BF EXTRACTION IS PARSER-GATED — the full-stack trace bottoms out at the parser (the important finding).** Two
+finders were built: the **BF** one reads the blocked event from the READER'S OWN parse (the VERB whose
+dependency head-path reaches the PREVENT verb — the arc parser the situation reader already runs); a non-BF
+**surface scan** ("first verb after from/to") is the ablation. On these clean templates the BF parse finder
+extracts **7/10** and the surface scan **10/10** — i.e. the arc parser MIS-ATTACHES ~3 of the "from V-ing"
+complements, and that is the whole gap. This is the SAME parser-gated located-negative `polarity_operator`
+records for its c-command path (0.909<0.932). The arc parser is itself a **supervised stand-in**
+(`situation_reader._HEADS_SOURCE="arceager"`), whose BF successor is the **attachment_arm** (Competition-Model
+heads rung). So Rung 2's remaining non-BF-ness is NOT in this organ — it is the parser upstream, and the right
+fix is the BF parser, not the surface scan (which is template-bound and does not generalize to real prose).
+**Proposed hdlab wiring:** in `force_dynamics_event_type`, for a PREVENT governor, take the blocked complement
+from the reader's parse and pass `embedded_endstate_valence`; do NOT ship the surface scan. Closes loss #4 to
+the extent the parser attaches the complement — and flags the parser (heads rung) as the shared upstream lever.
 
-### RUNG 3 — SENSE-IN-CONTEXT — located, organ named, not yet built (the biggest).
+### RUNG 3 — SENSE-IN-CONTEXT — **PROTOTYPED + PROVEN.**
 **The loss:** the result-state / hypernym reads take the verb's affecting-animate senses as a SET under
-consensus; the brain selects the active sense from context, which would both raise coverage and let us drop
-the consensus requirement (closes losses #1 and #5).
-**Reuse:** `underspecified_sense_reader` / `grounded_semantic_graph` (the PPR sense reader that clears WiC) →
-pick the active sense → read THAT sense's result state. This is the meaning-representation mega-cluster in
-`CROSS_SOLUTION_IMPROVEMENT_MAP.md`; a dedicated brief, not a bolt-on.
+consensus; the word-level norm is context-blind (throttle +0.14 = the engine sense). The brain selects the
+active sense from context.
+**The fix (prototype `experiments/exp_harm_help_sense_in_context_v1.py`):** reuse
+`grounded_semantic_graph.select_sense` (personalized-PageRank spreading activation over WordNet++ seeded by
+the context — the PPR reader that clears WiC; BF), pick the context-active sense, value THAT ONE synset.
+**Measured (6-item disambiguation gold; the graph builds once ~80s):** on the NON-assault contexts ("beat the
+eggs", "throttle the engine", "pound the flour") sense-in-context correctly ABSTAINS **3/3** where the
+context-blind read wrongly decides HARM **3/3**; overall context-blind 0.50 → sense-in-context 0.83 (the one
+miss is pound→beat.v.04, a valuation-coverage abstention, not a wrong sign); **twin** (shuffled context) 0.33
+loses. This directly closes the ORIGINAL problem's motivating cases (throttle/batter/beat) by CONTEXT rather
+than the animate-frame heuristic. Witness `verification/test_harm_help_sense_in_context.py` **5/5**.
+**Proposed hdlab wiring:** in `endstate_valence_sign`, when the reader supplies sentence context, call
+`select_sense` and read the single selected synset's state (drop the cross-sense consensus). Closes losses #1
+and #5. Belongs to the meaning-representation mega-cluster; the graph build is a one-time static-foundation cost.
+
+### BF STATUS PER RUNG (owner asked 2026-09-13).
+- **Rung 1: fully BF** — reuses the pinned `polarity_operator` (Kaup-Zwaan negation + Karttunen/de Marneffe
+  veridicality); the join is a faithful hand-off; the implicative lexicon is a swept closed table.
+- **Rung 3: BF** — PPR spreading-activation WSD (`grounded_semantic_graph`) + the BF result-state valuation.
+- **Rung 2: valuation BF; extraction BF-BUT-PARSER-GATED** — the BF complement finder reads the reader's OWN
+  parse (built + wired, 7/10 on the clean templates); the non-BF surface scan gets 10/10 only because the arc
+  parser mis-attaches ~3 "from V-ing" complements. The remaining non-BF-ness is the PARSER (a supervised
+  stand-in, `arceager`), whose BF successor is the attachment_arm heads rung — the shared upstream lever, not a
+  defect of this organ. The surface scan is documented as an ablation, NOT shipped.
 
 ### RUNG 4 — MANNER INTENSITY — the drilled located negative (needs the grounded channel).
 brutalize/manhandle/gore: harm in the adverb; no verb table quantifies it (drilled — every parse-free read
@@ -237,9 +275,12 @@ from foundation tables.
   consume — a control the pri-7/pri-14 landings lacked. Add the hypernym-consensus endstate read + guarded
   affectedness admission as the pri-14 remaining-scope arm (`BF_SPIRIT`).
 - `CROSS_SOLUTION_IMPROVEMENT_MAP.md`: **consumed inputs** = WordNet troponymy/frames, Warriner norms,
-  VerbNet result predicates. **Flagged upstream wall** = MANNER/INTENSITY extraction (the harm in "brutally"/
-  "roughly"): not derivable from any verb table; belongs to the grounded meaning channel / manner-adverb
-  reading. When that channel improves, reopen this problem for the manner-encoded slice.
+  VerbNet result predicates, `polarity_operator` (Rung 1), `grounded_semantic_graph.select_sense` (Rung 3),
+  the **arc parser / heads rung** (Rung 2). **Flagged upstream walls:** (a) MANNER/INTENSITY extraction (the
+  harm in "brutally"/"roughly") — the grounded meaning channel; (b) the **ARC PARSER's complement attachment**
+  — Rung 2's BF extraction is parser-gated (7/10 vs a surface scan's 10/10 because the parser mis-attaches
+  "from V-ing" complements); the parser is a supervised stand-in whose BF successor is the attachment_arm heads
+  rung. When either improves, reopen this problem (manner slice; prevent-complement recall).
 
 ## What I did NOT establish / would withdraw first
 - **Withdraw first if wrong:** the `is_affecting` guarded extension. It is the higher-risk rung (it changes
@@ -270,8 +311,35 @@ the whole arithmetic against a human crowd gold at 0.929.
 - Should the manner-intensity slice be filed as its own problem against the grounded meaning channel, or
   folded into the existing meaning-channel program as an arm?
 
-## NEXT STEPS
-1. Strategy re-verifies (`reverify` above) and lands the proposed diff + witness on `owner_verdict: DONE`.
-2. Run the full board once landed to record the real-prose `affected_entity` number (scope (c)).
-3. File/route the MANNER-INTENSITY harm slice to the meaning channel (scope (b)'s deeper form: sense-in-
-   context selection would pick WHICH sense's superordinate applies, tightening consensus further).
+## COMPONENTS TOUCHED / CREATED + BF STATUS (finalized 2026-09-13)
+**CREATED (all `experiments/`+`verification/`, glass-box, NO external LLM at inference):**
+| file | role | BF status |
+|---|---|---|
+| `exp_fd_result_state_hypernym_v1.py` (+witness 9/9) | recovery arm: hypernym-consensus result-state inheritance + guarded affectedness admission | **BF_SPIRIT** — taxonomic affect inheritance (ATL hub); consensus/strength = swept OUR-INVENTION |
+| `exp_harm_help_endstate_realization_v1.py` (+witness 7/7) | Rung 1: event-realization join | **BF** — reuses the pinned `polarity_operator`; join is a faithful hand-off |
+| `exp_harm_help_prevent_complement_v1.py` (+witness 6/6) | Rung 2: prevent-complement valence | valuation **BF**; extraction **BF-but-parser-gated** (surface scan = ablation, not shipped) |
+| `exp_harm_help_sense_in_context_v1.py` (+witness 5/5) | Rung 3: sense-in-context | **BF** — PPR spreading-activation WSD + BF valuation |
+| `fetch_connotation_frames_v1.py`, `fetch_commitmentbank_v1.py` | independent human eval golds | admissible offline SUPPLY (never read at inference) |
+
+**INTERACTED WITH (hdlab, READ-ONLY; changes are PROPOSED diffs per Q111):**
+| organ | how used | BF status |
+|---|---|---|
+| `force_dynamics_valence.py` | the harm/help arithmetic; proposed arm + join additions | **BF_SPIRIT** (composite of supported parts) |
+| `polarity_operator.py` | reused for Rung 1 realization; **was built but UNWIRED into harm/help** — the join wires it | **BF_SPIRIT** (pinned Kaup-Zwaan + Karttunen veridicality) |
+| `grounded_semantic_graph.py` | reused (`select_sense`) for Rung 3 | **BF** (PPR over WordNet++, clears WiC) |
+| `affect_lexicon.py` (Warriner) | valence of states/superordinates | **BF_SPIRIT** (admissible offline norm) |
+| `outcome_event_extraction.py` | the BF parse-based complement source for Rung 2 | reuses the persisted parser |
+| `arc_parser.py` / heads (`attachment_arm`) | Rung 2's parse; the located bottleneck | **NOT fully BF** — supervised stand-in (`arceager`); BF successor = the attachment_arm heads rung |
+| WordNet troponymy/frames, VerbNet result predicates | result-state + superordinate source | admissible offline foundation |
+
+## PRIORITY NEXT STEPS (ranked)
+1. **INTEGRATION (strategy, on `owner_verdict: DONE`):** land the proposed diffs TOP-DOWN (Rung 1 realization
+   join first — fully BF, biggest real-prose win), re-verify (`reverify` above), and **measure the real-prose
+   `affected_entity` number (scope c)** — the one downstream check a solver session cannot run.
+2. **OPEN THE ARC-PARSER / attachment_arm heads rung as its own brief — the SHARED upstream lever.** It is the
+   bottleneck for Rung 2's BF extraction AND (per the reasoning program) the wider real-prose extraction wall;
+   fixing it lifts multiple consumers, not just this one.
+3. **Rung 3 sense-in-context full integration** (meaning-representation mega-cluster): wire `select_sense`
+   into `endstate_valence_sign`, drop the cross-sense consensus where context decides.
+4. **Rung 4 manner-intensity** (brutalize/manhandle/gore): route to the grounded meaning channel — not
+   derivable from any verb table (drilled located negative).

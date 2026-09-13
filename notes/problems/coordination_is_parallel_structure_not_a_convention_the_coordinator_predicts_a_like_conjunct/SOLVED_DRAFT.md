@@ -34,10 +34,18 @@ halves of the brain's parallel-structure account:
   the co-argument that shares R's governor, resolvable via the semantic-bootstrapping plausibility (the SAME upstream asset).
   <FILL: whether slot-sharing was built and its lift.>
 
+## Settled sub-findings (smoke-confirmed, robust)
+- INCREMENTAL arm: coordination is picked up through the SAME shared arc activations `A` (the coord cue boosts A[L][R] /
+  A[R][cc]; the coordinator holds, R attaches back to L) — smoke incr conj 0.279→0.411, no separate CCONJ hold-conditioning
+  needed. Resolves brief item 3.
+- The SCRAMBLE twin (coordination machinery on WRONG parallel heads) lands BELOW base (smoke 0.194 vs 0.287): pointing the
+  same machinery at the wrong antecedent actively HURTS, so PARALLELISM (not merely "a coord cue") is the load-bearing signal.
+
 ## What I did NOT establish / would withdraw first
-- <FILL: if incr lags, say so.> The live-chain number under the count-based tagger (not gold categories) is <FILL>.
+- <FILL: if incr lags at full scale, say so.> The live-chain number under the count-based tagger (not gold categories) is <FILL>.
 - No downstream board was run here (strategy's to run); I show UAS + neighbors not down as the local no-regression check.
-- I would withdraw the coarse-class generalization first if the twin did not collapse or if UAS regressed.
+  Coordinated subjects/objects feed coref + who-did-what — those consumers should be RE-CHECKED by strategy on the rebuilt asset.
+- I would withdraw the coarse-class generalization first if full_strict ties full (then coarse buys nothing) or if UAS regressed.
 
 ## KEY REALIZATIONS
 - The coordination cue already existed; the wall was an UPSTREAM teacher that never generated coordination structure. The fix

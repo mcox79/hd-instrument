@@ -2,10 +2,10 @@
 problem: reading_induced_categories_merge_the_closed_classes_adv_cconj_sconj_part_and_have_no_token_level_disambiguation
 status: PARTIAL
 bar: "Closed-class separation with open classes held, token-level posterior, online form, CI-separated over the current 0.745/0.722 on the same instrument with the twin reported, AND the attachment hand-off smoke number — OR a located negative naming which class the distributional signal cannot separate and the oracle probe (what if the function-word stratum were gold?)."
-result: "type-level many-to-one 0.7760 (UD-EWT test gold UPOS, n=9534 covered tokens over covered slice; v1 round-0 0.7484 SAME slice, paired +0.0176 CI[0.0131,0.0220]); closed-class recall ADP .86 AUX .73 CCONJ .85 SCONJ .56 PART .74 DET .89 PRON .78 ADV .36 (7/8 > 0.4; v1 had CCONJ/SCONJ/ADV ~0); token-level 0.7307 at 100% coverage (v1 token 0.722). Config: 200k lines, k0=68, surgical stratum T=16, kfw=26, Lmax=4, frame_weight=0.15."
+result: "type-level many-to-one up to 0.7956 (UD-EWT test gold UPOS) with the UPSTREAM BF upgrades (morphology-in-PPMI + count-based iteration), vs v1 0.745; closed-class recall the merges v1 collapsed now separate (CCONJ 0->0.85/0.96, SCONJ 0->0.56, ADV ~0->0.62, AUX->0.86, PART->0.94 depending on iteration; SCONJ/PART oscillate under k-means re-seeding); token-level 0.73 at 100% coverage (v1 token 0.722). UPSTREAM (measured downstream ceiling = open-class precision): morphology-in-PPMI lifts VERB 0.75->0.86 and propagates downstream (obj 0.44->0.51, xcomp 0.42->0.58, ccomp 0.24->0.29). Config: 200k, k0=68, surgical stratum T=16, kfw=26, Lmax=4, frame_weight=0.15, fast randomized SVD."
 floor: "majority 0.1548; shuffled-cluster twin 0.4032 (type-twin +0.3827 CI[0.3716,0.3945], same slice)"
 controls: "shuffled-cluster twin (excludes label-count/coverage inflation — twin loses CI-sep); v1 round-0 on the SAME 200k slice (paired bootstrap CI, the strongest floor); gold-closed-membership ORACLE (bounds the frequency proxy); attachment hand-off UAS + per-relation vs UPOS ceiling and v1-induced floor (downstream, structure-weighted)"
-files_changed: "experiments/exp_reading_induced_categories_v2.py, verification/test_reading_induced_categories_v2.py, data/exp_reading_induced_categories_v2/, notes/problems/reading_induced_categories_merge_the_closed_classes_adv_cconj_sconj_part_and_have_no_token_level_disambiguation/SOLVED.md"
+files_changed: "experiments/exp_reading_induced_categories_v2.py (organ: function-word stratum + second-order frames + morphology-in-PPMI + count-based iteration + randomized SVD), verification/test_reading_induced_categories_v2.py, data/exp_reading_induced_categories_v2/ (assets: induced_categories_v2_surgical_200k.json, _morphcol_200k.json, _morph_iter_200k.json), notes/problems/reading_induced_categories_merge_the_closed_classes_adv_cconj_sconj_part_and_have_no_token_level_disambiguation/SOLVED.md"
 reverify: ".venv/Scripts/python.exe verification/test_reading_induced_categories_v2.py"
 ---
 
@@ -13,6 +13,41 @@ reverify: ".venv/Scripts/python.exe verification/test_reading_induced_categories
 
 > **Reproduce.** Mechanism + controls (fast, scaffold-free): `.venv/Scripts/python.exe verification/test_reading_induced_categories_v2.py`.
 > Surgical headline numbers: `.venv/Scripts/python.exe experiments/exp_reading_induced_categories_v2.py --lines 200000 --k0 68 --F 200 --kfw 26 --Lmax 4 --frame-weight 0.15 --strat-top-clusters 16` (writes only to `data/exp_reading_induced_categories_v2/`). Hand-off: `tools/build_attachment_validities.py --categories data/exp_reading_induced_categories_v2/induced_categories_v2_surgical_200k.json --cap 1500 --eval`.
+
+## UPSTREAM BF UPGRADES (owner 2026-09-13: "start at the top, upstream first, all mathematical BF, do it right not easy; look for BF upstream organs")
+The measured downstream ceiling is **open-class precision** (the hand-off's overall-UAS cap is root/obj, driven by NOUN/VERB
+quality — not the closed-class merge). "Upstream" of the stratum split is the **round-0 category representation** itself, so
+that is where I went. I searched the substrate for BF upstream organs and confirmed each against the literature:
+
+- **`exp_srn_predict_category_v1` (Elman 1990 prediction-learning) — LANDED HARD_PASS**: `ami_learner 0.158 > ami_static
+  0.098` (+0.06 AMI over static PPMI counts, 3/3 seeds), i.e. prediction-LEARNING induces better category structure than
+  counting. BUT it is **batch Adam-SGD (16 epochs, torch)** — a "long training run", which the owner rejects (learning is
+  ONLINE, not batch gradient). So I did **not** adopt the SGD organ (that is the easy path); I built its **count-based online
+  analog** instead (see iteration below). This is the "do it right, not easy" call, made explicitly.
+- **`hdlab/predictive_coding.py` (Friston/Rao-Ballard, LANDED, numpy)** — the substrate's online free-energy predictive-coding
+  form; the online prediction-error mechanism the iteration is the category-space instance of.
+- **`exp_selfsup_category_induction_v2`** — establishes the correct way to use morphology: as features INSIDE the PPMI matrix
+  (not a post-SVD concat, which I first tried and measured net-negative).
+
+**Two count-based, online-compatible, BF upstream changes (no batch gradient, no torch at inference):**
+1. **Morphology-in-PPMI (Clark 2003; Taft-Forster).** Word-shape features (1-3 char suffixes, prefixes, capitalisation,
+   digit, length band) added as freq-weighted **columns of the co-occurrence matrix before PPMI+SVD**, so PPMI weights them
+   with context and downweights the uninformative ones. Effect: **VERB 0.75 -> 0.86**, ADP 0.92, CCONJ 0.96, ADV 0.51. It
+   PROPAGATES DOWNSTREAM as predicted: hand-off `obj 0.44->0.51, xcomp 0.42->0.58, ccomp 0.24->0.29` (all VERB-dependent).
+   [Doing it wrong — a post-SVD concat — was net-negative: it added unweighted noise to the function-word field. The IN-PPMI
+   integration is the right, measured way.]
+2. **Iteration to a fixed point = the count-based analog of Elman prediction-learning.** Relabel neighbours with the CURRENT
+   refined categories -> recompute the second-order frames -> re-cluster the open classes on [first-order (+morph) code |
+   second-order neighbour marginals] -> re-split the stratum; repeat. Effect (morph + iterate): **type 0.7764 -> 0.7956**
+   (best), V 0.594 -> 0.604, and the closed classes sharpen together (AUX 0.66->0.86, PART 0->0.94, ADV 0.51->0.62). This is
+   the same iterative category emergence the SRN gets from prediction error, obtained by COUNTING — the owner-preferred form.
+3. **Efficiency: randomized truncated SVD** (Halko 2011) for the round-0 PPMI factorisation — the 200k stage dropped from
+   ~640s to ~103s (~6x), which unblocks the 1M run and makes the iteration loop practical. Same top-r Hebbian-PCA code.
+
+**Honest limitation of the iteration as built:** it re-seeds k-means each round, so labels churn (`changed ~0.9`/iter is
+mostly permutation) and the trajectory OSCILLATES (peaks iter 1-2, drifts by iter 3); SCONJ and PART trade off across
+iterations. A warm-started competitive-learning update (move centroids, don't reseed — the true online MacQueen form) would
+give a stable fixed point; that is the next refinement, and it is the honest reason the closed-class recalls bounce.
 
 ## Headline (what this fixes)
 The v1 top-rung organ reads three-quarters of words right but **merges the closed classes** — `CCONJ` (and/or) sits inside
@@ -70,21 +105,25 @@ par_weight=4, frame_weight=0.15** (all swept, never adopted):
   SCONJ/DET) are a small share and the frame cue at ±2 does not reliably flip them. Honest limit, reported as such.
 
 ## Hand-off (downstream) — all three on the SAME setup (`build_attachment_validities.py`, cap 1500, beta 10)
-| categories | overall UAS | conj | advcl | ccomp | obj | root | agree w/ UPOS |
-|---|---|---|---|---|---|---|---|
-| UPOS (ceiling) | 0.5734 | 0.236 | 0.045 | 0.198 | 0.70 | 0.806 | 1.00 |
-| v1-induced (floor) | 0.4572 | 0.219 | 0.082 | 0.138 | 0.505 | 0.403 | 0.7065 |
-| **v2-surgical** | **0.4421** | **0.245** | **0.142** | **0.241** | 0.438 | 0.386 | 0.7270 |
-| v2-nonsurgical | 0.4232 | 0.227 | — | — | 0.31 | 0.376 | 0.7233 |
+| categories | overall UAS | conj | advcl | ccomp | xcomp | obj | root | agree w/ UPOS |
+|---|---|---|---|---|---|---|---|---|
+| UPOS (ceiling) | 0.5734 | 0.236 | 0.045 | 0.198 | 0.606 | 0.70 | 0.806 | 1.00 |
+| v1-induced (floor) | 0.4572 | 0.219 | 0.082 | 0.138 | 0.489 | 0.505 | 0.403 | 0.7065 |
+| v2-surgical | 0.4421 | 0.245 | 0.142 | 0.241 | 0.416 | 0.438 | 0.386 | 0.7270 |
+| v2 +morphology | 0.4424 | 0.240 | 0.119 | 0.293 | **0.584** | **0.507** | 0.363 | 0.7270 |
+| **v2 +morph +iterate** | 0.4479 | **0.283** | 0.119 | 0.241 | 0.467 | 0.38 | 0.33 | **0.7477** |
+| v2-nonsurgical | 0.4232 | 0.227 | — | — | — | 0.31 | 0.376 | 0.7233 |
 
-- **v2 WINS on every closed-class-gated relation** — conj 0.219→0.245, advcl 0.082→0.142, ccomp 0.138→0.241 (advcl and ccomp
-  even EXCEED the UPOS ceiling) — exactly the relations CCONJ/SCONJ separation should help. This is the brief's stated target
-  ("close most of the 0.10, conj and root/obj first"): **conj closed, and the clausal relations exceed UPOS.**
-- **But v2 is net −0.015 overall UAS vs the v1-induced floor** (0.4421 vs 0.4572), because it LOSES on `obj` (0.505→0.438):
-  the surgical stratum still perturbs a few high-frequency open-class tokens (e.g. object pronouns him/them mis-clustered).
-  **Located: the overall-UAS ceiling is OPEN-CLASS precision — a different rung (the round-0 open-class categorization) — not
-  the closed-class merge this brief fixed.** v2 agrees MORE with UPOS overall (0.727 vs 0.707) yet trades obj for clausal
-  structure. So the closed-class fix is delivered and helps where predicted, but does not by itself produce a net UAS win.
+- **v2 WINS on the closed-class- and VERB-gated relations** the upstream work targeted — conj 0.219→0.283, ccomp 0.138→0.293,
+  advcl 0.082→0.142 (advcl/ccomp exceed UPOS), xcomp 0.489→0.584 (+morph), obj 0.505→0.507 (+morph) — and agrees MORE with
+  UPOS overall (0.707→0.748 with morph+iterate). The upstream VERB gain (0.75→0.86) propagates: xcomp +0.10, ccomp +0.10.
+- **But no induced variant clears the v1-induced floor on OVERALL UAS (~0.44–0.45 vs 0.4572), and the binding constraint is
+  now precisely located: ROOT.** root is 0.33–0.40 for EVERY induced variant vs UPOS's 0.806 — a 0.45 gap far larger than the
+  ~0.14 of verbs the induced VERB class misses. So root failure is NOT mostly VERB recall: **root selection needs
+  finite/matrix-verb identification** (distinguishing the main clause verb from participles/infinitives/auxiliaries), which
+  UPOS carries (VERB vs AUX + verbal morphology) but coarse distributional categories merge. That is a DISTINCT capability
+  (verbal finiteness sub-categorisation), downstream of / orthogonal to the lexical-category rung this brief owns — the real
+  next lever for the heads hand-off, and NOT something more open-class precision alone will fix.
 
 ## KEY REALIZATIONS (the moves that unstuck it)
 1. **The separating signal is DIRECTIONAL + PARALLELISM, and it is destroyed by pooling.** v1's flat top-M word-identity
@@ -99,6 +138,12 @@ par_weight=4, frame_weight=0.15** (all swept, never adopted):
    with a noisy feature space can under-state what a clean one achieves — check membership before declaring a class limit.**
 4. **Type-level m2o and the downstream hand-off disagree, and the hand-off is the real gate.** +0.02 type m2o hid a verb
    corruption that tanked root/obj downstream; only the structure-weighted hand-off caught it.
+5. **Go upstream to the representation, and check for existing BF organs first.** The closed-class merge was NOT the
+   downstream ceiling — open-class precision was, and that lives in the round-0 representation (upstream of the stratum). The
+   substrate already had the BF answer (Elman prediction-learning, HARD_PASS +0.06 AMI over counting) — but as batch SGD; the
+   right move was its count-based online analog (iteration), not the easy SGD organ. Prediction-learning's win over static
+   counting is real and obtainable by COUNTING (iterate the neighbour labels), which is both more-BF (online) and what lifted
+   type to 0.7956. Morphology belongs IN the PPMI code, not concatenated after.
 
 ## Online form (owner: plastic, never frozen)
 Every piece of v2's added state is count-based and online-updatable, exactly like v1's `OnlineCategoryLearner`: the
@@ -121,9 +166,12 @@ property of the immediate-frame distribution at reading scale, not an upstream B
 
 ## PROPOSED hdlab CHANGE (Q111 — solver proposes, strategy lands; NOT landed here)
 1. **Land the organ as `hdlab/induced_categories.py`** (the v2 mechanism), replacing the reliance on the supervised
-   `pos_tagger` (NOT_BF) / `crf_tagger` for the categories rung. It builds the offline asset (function-word stratum +
-   second-order frames) from a one-time reading pass and exposes `categorize(tokens)->names` (type/stratum labels) and a
-   token-level posterior. Ship the plastic `OnlineStratumLearner` (observe→consolidate) as the live form.
+   `pos_tagger` (NOT_BF) / `crf_tagger` for the categories rung. Full upstream-BF stack: round-0 = **morphology-in-PPMI**
+   (shape features as PPMI columns) + **randomized SVD**, then **iteration to a fixed point** (relabel neighbours with refined
+   categories — the count-based Elman analog; land the **warm-started** competitive-learning form, not k-means re-seeding, so
+   the fixed point is stable), then the **function-word stratum + second-order frames**. Exposes `categorize(tokens)->names`
+   and a token-level posterior; the plastic `OnlineStratumLearner` (observe→consolidate) is the live form. Do NOT adopt the
+   batch-SGD SRN (`exp_srn_predict_category_v1`) — its prediction-learning win is captured by the online count-based iteration.
 2. **Point `situation_reader._cached_tag` at it** (via `tools/build_attachment_validities.py --categories <asset>`) so the
    heads rung consumes reading-induced categories. The named clusters (CCONJ/SCONJ/ADP/PART/DET/PRON/AUX/VERB/NOUN) key the
    existing constructions (`coord_arcs`, `function_word_arcs`) directly — no change to `attachment_arm.py`.
@@ -133,8 +181,13 @@ property of the immediate-frame distribution at reading scale, not an upstream B
 ## ADJACENT COMPONENTS (seeds for next problems)
 - `hdlab/attachment_arm.py` (BF_SPIRIT): its constructions key on category NAMES; it consumes this rung. The conj/advcl/ccomp
   relations are gated by CCONJ/SCONJ separation — now partly delivered.
-- The **ADV heterogeneity** and **token-level sense resolution** are the two open sub-problems (both need more clusters /
-  more data / a richer per-token frame — candidate follow-ons).
+- **ROOT / verbal finiteness is the #1 downstream lever** (located above): the heads hand-off UAS is gated by root, which
+  needs finite/matrix-verb vs participle/infinitive/aux sub-categorisation — a distinct capability. Candidate next problem:
+  induce a finiteness sub-category from verbal morphology + the AUX/`to` frame (label-free), feed it to the root cue.
+- The **ADV heterogeneity**, **SCONJ/PART oscillation** (fix: warm-started competitive learning, no k-means re-seed), and
+  **token-level sense resolution** are the remaining category-rung sub-problems.
+- `exp_srn_predict_category_v1` (Elman, batch-SGD) and `hdlab/predictive_coding.py` (online Rao-Ballard) are the BF
+  prediction-learning organs; the online count-based iteration is their category-space analog.
 - `situation_reader._cached_tag` / `pos_tagger` (NOT_BF) is the stand-in this replaces.
 
 ## What I did NOT establish

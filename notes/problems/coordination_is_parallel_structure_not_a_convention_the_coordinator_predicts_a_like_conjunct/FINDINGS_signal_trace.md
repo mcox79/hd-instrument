@@ -32,3 +32,10 @@ Owner's thesis realized: "a truly brain-foundational component not working prope
 | shuffled-strengths twin (3 seeds) | 0.0/0.05/0.11 | — | UAS 0.10/0.10/0.22 |
 
 The scramble twin (coordination machinery pointed at WRONG parallel heads) lands at 0.194 — *below* base — so PARALLELISM is decisively load-bearing, not merely "having a coord cue". The full-scale run (cap 6000, test 700, incl. slot-sharing arm) is running; headline numbers land there.
+
+## Construction-fire diagnostic (test 700, gold conj arcs n=233)
+- OLD `coord_arcs` proposes the gold conj arc: 0.245
+- NEW parallel `coord_sites`: 0.313 (fixes the modifier + cross-UPOS bugs)
+- NEW + slot-sharing L: 0.283 (WORSE — slot-sharing sometimes moves L off the gold head; likely helps conj recall LESS, to be settled by the full_slot arm)
+
+Key reframe: conj recall (smoke 0.419) EXCEEDS the corrected construction's fire-rate (0.313), because the DOMINANT lever is the parallelism TEACHER — it reshapes the general cue strengths (locality/catpair for L→R attachments) beyond the explicitly construction-fired sites. The `teach_only` vs `constr_only` ablation quantifies the split.

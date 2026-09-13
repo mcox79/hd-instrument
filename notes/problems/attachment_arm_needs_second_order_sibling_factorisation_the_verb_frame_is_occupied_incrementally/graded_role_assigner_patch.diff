@@ -1,0 +1,242 @@
+# PROPOSED hdlab CHANGE (board Q111 -- strategy lands; solver only proposes)
+#
+# The mechanism is proven in experiments/exp_role_slot_occupancy_v1.py (self-test 7/7;
+# UD-EWT test cap 700 numbers in SOLVED.md). This is the exact diff that would land it, and why.
+# NOTHING here is written by the solver into hdlab/ or tools/.
+#
+# WHAT IT ADDS: a VERB-FRAME SLOT-OCCUPANCY factor to the Competition-Model coarse role labeler.
+# Today coarse_roles labels every nominal by an INDEPENDENT per-token argmax, so a verb can be given
+# two OBJECTs (a bare temporal/measure nominal after the object scores OBJ; "She saw him yesterday"
+# -> him:iobj, yesterday:obj, live 2026-09-13). The brain assigns a verb's arguments JOINTLY: the
+# frame licenses a fixed slot inventory (subject/object/[recipient if ditransitive]/by-agent), each
+# slot holds ONE filler (cue-based retrieval, Lewis & Vasishth 2005; a filled slot lowers its
+# availability for a second same-type filler), and a displaced core filler falls to an oblique/adjunct.
+#
+# KNOWLEDGE IN COUNTS (plastic, online-observable): lambda[slot] = -log P(a 2nd filler of slot s | the
+# verb already has one), counted per verb token from reading (UD-EWT train here). The counts confirm
+# capacity-one directly: a verb takes 2 objects 0/9516, 2 recipients 0/647, 2 by-agents 0/306, 2
+# subjects 84/13048 (coordination). The recipient (iobj) slot exists only for verbs whose learned
+# frame takes an indirect object (lemma_frames, already in the asset) -- the frame defines the inventory.
+#
+# =============================================================================================
+# FILE 1/3: hdlab/graded_role_assigner.py -- the mechanism (new constants + functions + coarse_roles)
+# =============================================================================================
+
+--- a/hdlab/graded_role_assigner.py
++++ b/hdlab/graded_role_assigner.py
+@@ ROLE_CLASSES / ROLE_TO_DEP block (after line ~322) @@
+ ROLE_CLASSES = ["SUBJ", "OBJ", "PASS_SUBJ", "BY_AGENT", "OBL", "OTHER", "IOBJ"]
+ ROLE_TO_DEP = {"SUBJ": "nsubj", "OBJ": "obj", "PASS_SUBJ": "nsubj:pass", "BY_AGENT": "obl:agent", "OBL": "obl", "OTHER": "dep",
+                "IOBJ": "iobj"}
++# VERB-FRAME SLOTS with capacity ONE per verb (Lewis & Vasishth 2005 cue-based retrieval; a filled slot
++# lowers its availability for a second same-type filler). SUBJ and PASS_SUBJ share the one SUBJECT slot
++# (a clause has one subject whichever voice). OBL / OTHER are UNCAPPED (a verb takes many obliques/adjuncts).
++ROLE_TO_SLOT = {"SUBJ": "subj", "PASS_SUBJ": "subj", "OBJ": "obj", "IOBJ": "iobj", "BY_AGENT": "byagent"}
++CORE_SLOTS = ["subj", "obj", "iobj", "byagent"]
++# lambda[slot] = -log P(2nd filler of slot | >=1), accrued from reading (tools/build_coarse_role_validities.py,
++# stored in the asset as counts["slot_capacity"]); the occupancy weight kappa is the swept operating point.
++SLOT_OCCUPANCY = True                       # the joint frame-slot decode (default ON; = the mechanism)
++OCC_MODE = os.environ.get("HDLAB_ROLE_OCC_MODE", "incr")   # "incr" (incremental, psycholinguistic) | "hard" (capacity-one greedy)
++OCC_KAPPA = float(os.environ.get("HDLAB_ROLE_OCC_KAPPA", "1.0"))
++_NEG_INF = -1e9
+
+@@ new functions, inserted just BEFORE coarse_roles() (after coarse_role_posterior_headmarg) @@
++def _frame_slots(toks, pos, heads, verb_idx, tab):
++    """The core slots the verb's FRAME licenses (its valence, from the organ's own lemma_frame counts).
++    Every verb has {subj, obj, byagent}; the RECIPIENT slot (iobj) exists ONLY for verbs whose learned
++    frame takes an indirect object (same ditransitive threshold the `frame` cue uses). A monotransitive
++    verb has NO iobj slot -> a post-verbal animate nominal cannot be a recipient; it takes the object,
++    and a second bare nominal is displaced to an oblique/adjunct."""
++    slots = {"subj", "obj", "byagent"}
++    frames = (tab or {}).get("lemma_frames") or {}
++    fr = frames.get(lemma_verb(toks[verb_idx - 1]).lower())
++    if fr and fr[1] >= 5 and fr[0] / fr[1] >= 0.05:
++        slots.add("iobj")
++    return slots
++
++
++def _slot_capacity(tab):
++    """lambda[slot] from the asset's accrued slot-cardinality counts (a pure function of counts, like the
++    cue strengths); a uniform fallback if an older asset carries none."""
++    sc = (tab or {}).get("slot_capacity")
++    if not sc:
++        return {s: 5.0 for s in CORE_SLOTS}
++    a = 0.5
++    return {s: float(-np.log((sc[s][1] + a) / (sc[s][0] + a))) for s in CORE_SLOTS}
++
++
++def _mask_ineligible(A, elig):
++    A = A.astype(float).copy()
++    for r in range(len(ROLE_CLASSES)):
++        slot = ROLE_TO_SLOT.get(ROLE_CLASSES[r])
++        if slot is not None and slot not in elig:
++            A[r] = _NEG_INF
++    return A
++
++
++def assign_slots_hard(A_by_i, elig):
++    """HARD capacity-one greedy joint assignment over the verb's LICENSED slots: assign the globally
++    most-confident (nominal, licensed-role) first; once a core slot is taken, later nominals take their
++    best AVAILABLE role (uncapped OBL/OTHER always available). Displaced core fillers fall to oblique."""
++    Am = {i: _mask_ineligible(A, elig) for i, A in A_by_i.items()}
++    assigned, taken, remaining = {}, set(), set(Am)
++    while remaining:
++        best = None
++        for i in remaining:
++            for r in range(len(ROLE_CLASSES)):
++                slot = ROLE_TO_SLOT.get(ROLE_CLASSES[r])
++                if slot is not None and slot in taken:
++                    continue
++                if best is None or float(Am[i][r]) > best[2]:
++                    best = (i, r, float(Am[i][r]))
++        i, r, _ = best
++        assigned[i] = r
++        slot = ROLE_TO_SLOT.get(ROLE_CLASSES[r])
++        if slot is not None:
++            taken.add(slot)
++        remaining.discard(i)
++    return assigned
++
++
++def assign_slots_incr(A_by_i, order, elig, lam, kappa=1.0):
++    """SOFT incremental occupancy (left-to-right = 'occupied incrementally'): each nominal's core-role
++    activation is lowered by kappa*lambda[slot]*occupancy_belief; the chosen core role adds its posterior
++    mass to that slot. kappa=0 recovers the independent read; large -> hard. Frame-ineligible roles masked."""
++    assigned, occ = {}, {}
++    for i in order:
++        A = _mask_ineligible(A_by_i[i], elig)
++        for r in range(len(ROLE_CLASSES)):
++            slot = ROLE_TO_SLOT.get(ROLE_CLASSES[r])
++            if slot is not None and occ.get(slot, 0.0) > 0 and A[r] > _NEG_INF / 2:
++                A[r] -= kappa * lam.get(slot, 0.0) * occ[slot]
++        r = int(np.argmax(A)); assigned[i] = r
++        slot = ROLE_TO_SLOT.get(ROLE_CLASSES[r])
++        if slot is not None:
++            occ[slot] = occ.get(slot, 0.0) + float(softmax(A)[r])
++    return assigned
+
+@@ coarse_roles() body -- replace the per-nominal independent argmax loop @@
+ def coarse_roles(toks, pos, heads, validities=None, head_posterior=None):
+     tab = validities or load_coarse_validities()
+     out: Dict[int, str] = {}
+-    for i in range(1, len(toks) + 1):
+-        if i - 1 >= len(pos) or pos[i - 1] not in NOMINAL:
+-            continue
+-        hp = head_posterior.get(i) if head_posterior else None
+-        if hp:
+-            k = int(np.argmax(coarse_role_posterior_headmarg(toks, pos, heads, i, hp, tab)))
+-        else:
+-            S = coarse_role_supports(toks, pos, heads, i, tab)
+-            k = map_pick(S, {c: 1.0 for c in S})
+-        out[i] = ROLE_TO_DEP[ROLE_CLASSES[k]] if 0 <= k < len(ROLE_CLASSES) else "dep"
+-    return out
++    # per-nominal activation vectors (honouring the graded head hand-off where a posterior is given)
++    A_by_i = {}
++    for i in range(1, len(toks) + 1):
++        if i - 1 >= len(pos) or pos[i - 1] not in NOMINAL:
++            continue
++        hp = head_posterior.get(i) if head_posterior else None
++        if hp:
++            A_by_i[i] = np.log(coarse_role_posterior_headmarg(toks, pos, heads, i, hp, tab) + 1e-12)
++        else:
++            S = coarse_role_supports(toks, pos, heads, i, tab)
++            A_by_i[i] = net_activation(S, {c: 1.0 for c in S})
++    if not SLOT_OCCUPANCY:                                   # legacy independent read
++        for i, A in A_by_i.items():
++            out[i] = ROLE_TO_DEP[ROLE_CLASSES[int(np.argmax(A))]]
++        return out
++    # JOINT frame-slot decode: group each verb's nominal dependents, assign under capacity-one
++    lam = _slot_capacity(tab); groups, grouped = {}, set()
++    for i in A_by_i:
++        h = heads.get(i, 0) or 0
++        if h and 1 <= h <= len(pos) and pos[h - 1] in ("VERB", "AUX"):
++            groups.setdefault(h, []).append(i)
++    for h, members in groups.items():
++        members = sorted(members); grouped.update(members)
++        elig = _frame_slots(toks, pos, heads, h, tab)
++        sub = {i: A_by_i[i] for i in members}
++        asg = assign_slots_hard(sub, elig) if OCC_MODE == "hard" else assign_slots_incr(sub, members, elig, lam, OCC_KAPPA)
++        for i, r in asg.items():
++            out[i] = ROLE_TO_DEP[ROLE_CLASSES[r]]
++    for i, A in A_by_i.items():                              # nominals not governed by a verb: independent read
++        if i not in grouped:
++            out[i] = ROLE_TO_DEP[ROLE_CLASSES[int(np.argmax(A))]]
++    return out
+
+# (NOTE: `net_activation` is already imported at the top of the module; `lemma_verb` too. No new imports.)
+# (RECOMMENDED DEFAULT is set from the SOLVED.md result -- see "Landing recommendation" there. If the measured
+#  gain is realised only on high-accuracy heads, land with SLOT_OCCUPANCY gated on head confidence rather than
+#  unconditionally; the diff keeps the legacy path behind `SLOT_OCCUPANCY = False`.)
+
+# =============================================================================================
+# FILE 2/3: tools/build_coarse_role_validities.py -- accrue the slot-capacity counts into the asset
+# =============================================================================================
+
+--- a/tools/build_coarse_role_validities.py
++++ b/tools/build_coarse_role_validities.py
+@@ after the lemma_frames pass, before writing the doc @@
++    # SLOT CAPACITY (verb-frame occupancy knowledge, in counts): per core slot, how many verb tokens have
++    # >=1 filler (n1) and >=2 fillers (n2). lambda = -log P(2nd|>=1) is a pure function of these (organ side).
++    from collections import Counter as _Counter
++    ROLE_TO_SLOT = GRA.ROLE_TO_SLOT
++    n1, n2 = _Counter(), _Counter()
++    for toks, gpos, gheads, deps in sentences(TRAIN):
++        by_verb = {}
++        for i in range(1, len(toks) + 1):
++            h = gheads.get(i, 0)
++            if gpos[i - 1] in GRA.NOMINAL and h and gpos[h - 1] in ("VERB", "AUX"):
++                by_verb.setdefault(h, []).append(coarse_of(deps.get(i)))
++        for h, roles in by_verb.items():
++            slotc = _Counter(ROLE_TO_SLOT.get(r) for r in roles if ROLE_TO_SLOT.get(r))
++            for slot, c in slotc.items():
++                n1[slot] += 1
++                if c >= 2:
++                    n2[slot] += 1
++    counts_doc["slot_capacity"] = {s: [int(n1[s]), int(n2[s])] for s in GRA.CORE_SLOTS}
+@@ the written doc dict @@
+-           "strength": strength, "audit": audit, "lemma_frames": lemma_frames, "counts": counts_doc}
++           "strength": strength, "audit": audit, "lemma_frames": lemma_frames, "counts": counts_doc}
++    # slot_capacity travels inside counts_doc (already added above); load_coarse_validities surfaces it via tab["slot_capacity"].
+
+# load_coarse_validities(): add one line so the loaded table carries the slot counts:
+#     tab["slot_capacity"] = doc.get("counts", {}).get("slot_capacity") or doc.get("slot_capacity")
+# (both the counts-built and the pre-strengthened branches).
+
+# =============================================================================================
+# FILE 3/3: PLASTICITY -- online slot-capacity accrual (owner: learning is never frozen)
+# =============================================================================================
+# Add to hdlab/graded_role_assigner.py, mirroring observe_role_outcome: when a verb's argument frame is
+# understood (its confirmed set of core fillers), bump n1/n2 for each occupied slot and re-derive lambda.
+#
++def observe_frame_outcome(slot_counts_per_verb, table=None):
++    """PLASTICITY: accrue one comprehension outcome -- {slot: n_fillers} for a understood verb frame --
++    into the slot-capacity counts. n1 += 1 per slot with >=1 filler; n2 += 1 per slot with >=2. lambda is
++    then a pure function of the counts (see _slot_capacity). Persist with save_coarse_validities()."""
++    tab = table or load_coarse_validities()
++    sc = tab.setdefault("slot_capacity", {s: [0, 0] for s in CORE_SLOTS})
++    for slot, n in slot_counts_per_verb.items():
++        if slot in sc:
++            sc[slot][0] += 1
++            if n >= 2:
++                sc[slot][1] += 1
+
+# =============================================================================================
+# REGISTRY / AUDIT
+# =============================================================================================
+# graded_role_assigner stays BF_SPIRIT. __bf_note__ append:
+#   "2026-09-13 slot-occupancy: coarse_roles assigns a verb's nominals JOINTLY under capacity-one per
+#    frame slot (Lewis & Vasishth cue-based retrieval; verb-specific valence, MacWhinney Competition
+#    Model); lambda = -log P(2nd filler|>=1) from counts, online-observable; frame slot inventory from
+#    lemma_frames. Swept: OCC_MODE {incr,hard}, OCC_KAPPA."
+# BRAIN_FOUNDATIONAL_AUDIT.md AUDIT UPDATE: the role competition now models the frame's slot CAPACITY
+# (was: independent per-nominal argmax). BRAIN_MATH_REFERENCE.md: add the capacity-one joint-assignment row.
+
+# =============================================================================================
+# CONSUMERS (verify no regression; strategy owns integration)
+# =============================================================================================
+# * arc_labeler.label(): calls coarse_roles(head_posterior=...); the argument-role overlay now returns the
+#   joint assignment. No signature change. (This is the path the PATIENT board arm reads through
+#   structural_patient_pick -> _labeler().label().)
+# * hybrid_agent_pick / agent_supports (who-did-what AGENT): does NOT call coarse_roles -> byte-identical
+#   (confirm the agent board arm is unchanged; measured in SOLVED.md).
+# * The reader's three live label sites (frontend): consume coarse_roles via arc_labeler -> inherit the join.
