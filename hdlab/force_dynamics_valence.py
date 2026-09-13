@@ -93,6 +93,19 @@ def _lex() -> Dict[str, str]:
 # ======================================================================================================
 TAU_STRONG = 0.45   # |valence| above which a state-changing SENSE + strong affect => affected (betray/slander)
 TAU_AFFECT = 0.40   # engage threshold on the graded affectedness (SWEPT by the solver; plateau 0.38-0.45)
+# HYPERNYM-CONSENSUS RESULT STATE (owner-DONE 2026-09-13, pri-14 remaining scope: the_harm_help_read_needs_the_affective_value_of_the_
+# resulting_state...): when a verb's result state is not lexicalised, the brain values the outcome of the SUPERORDINATE action
+# (anterior-temporal taxonomic hub: 'to savage' IS a kind of assault) -- WordNet troponymy over the verb's AFFECTING ANIMATE-OBJECT
+# senses, trusted only under cross-sense SIGN CONSENSUS and strength >= TAU_HYPER (swept 0.30-0.50: CF-gold precision 1.00, 0
+# neutral leaks, 0 wrong-sign at every point; 0.35 = the knee). Recovers savage/victimize/oppress/maul; 65 residual verbs newly
+# decided at Connotation-Frames precision 1.00; whole-arm agreement with the human gold 0.9323 (landed 0.9276).
+TAU_HYPER = 0.35
+# a verb whose DOMINANT (most frequent) sense is one of these is NOT admitted by the superordinate extension (the object is a
+# stimulus/topic, not an undergoer: recognize/notice); the subject-experiencer exclusion (admire/envy) is never overridden either.
+_NON_AFFECTING_DOMINANT = {"perception", "cognition", "communication", "stative", "motion"}
+# UPSTREAM JOINS landed with the same solution (all reuse existing BF organs; switchable for attribution):
+UPSTREAM_JOINS = os.environ.get("HDLAB_FDV_UPSTREAM_JOINS", "1") == "1"   # event realization (polarity_operator) + prevented complement
+SENSE_CONTEXT = os.environ.get("HDLAB_FDV_SENSE_CONTEXT", "1") == "1"     # sense-in-context (grounded_semantic_graph.select_sense)
 AFFECTING_SUPERSENSES = {"contact", "body", "change", "emotion", "possession", "consumption",
                          "competition", "creation", "social"}
 # Beavers (2011) affectedness hierarchy -> proto-patient degree per WordNet verb supersense. ORDER pinned
@@ -195,7 +208,13 @@ def is_affecting(verb: str, lexicon: Optional[Dict[str, str]] = None, afx: Optio
     if verb_first_supersense(v) == "communication" and val is not None and abs(val) >= 0.5 \
             and (_verb_all_supersenses(v) & {"emotion", "social", "body", "change"}):
         return True
-    return False
+    # (e) UPSTREAM FIX (2026-09-13): the SemCor-frequency average above discards a MARKED-but-infrequent affecting sense ('savage':
+    # the attack sense diluted by the criticize sense). A verb whose affecting-animate SUPERORDINATE is unambiguously affect-laden
+    # IS an affecting event -- the same categorisation that signs it admits it. GUARDED: never a subject-experiencer verb, never a
+    # verb whose dominant sense is perception/cognition/communication/stative/motion (un-guarded this leaked 6 neutral verbs; guarded 0).
+    if verb_first_supersense(v) in _NON_AFFECTING_DOMINANT:
+        return False
+    return hyper_state_sign(v, afx) is not None
 
 
 WEAK_VALENCE = 0.10   # |word-level valence| below this is treated as UNINFORMATIVE for the patient's outcome (swept)
@@ -309,6 +328,8 @@ def endstate_valence_sign(verb: str, afx: Optional[AffectLexicon] = None,
         val = afx.valence(v)
         if val is not None and abs(val) >= WEAK_VALENCE:
             sign = 1 if val > 0 else -1
+    if sign is None:                            # 3. the outcome of the SUPERORDINATE action (taxonomic inheritance; 2026-09-13)
+        sign = hyper_state_sign(v, None if afx is _AFX else afx)
     # else: ABSTAIN. TRIED 2026-09-12 and WITHDRAWN the same night: backing off to the mean Warriner valence of the
     # affecting-sense SYNONYM lemmas (throttle -> strangle ...) turned batter/throttle/bludgeon into HELP -- the synonym
     # lemmas carry the same word-level sense conflation one step removed (bound/limit/buffet rate positive). A wrong
@@ -321,11 +342,142 @@ def endstate_valence_sign(verb: str, afx: Optional[AffectLexicon] = None,
     return sign
 
 
+def hyper_state_value(verb: str, afx: Optional[AffectLexicon] = None) -> Optional[float]:
+    """Mean affective value of the SUPERORDINATE action(s) of the verb's AFFECTING ANIMATE-OBJECT senses, trusted only under
+    cross-sense SIGN CONSENSUS. None when no affecting-animate sense has an affect-valued hypernym, or when the per-sense signs
+    disagree (the manner-encoded / polysemous cases -> honest abstain). Value = Warriner valence of the hypernym synsets' lemma
+    heads, averaged per sense, then across senses. (Solver prototype experiments/exp_fd_result_state_hypernym_v1.py, verbatim.)"""
+    afx = _afx() if afx is None else afx
+    v = lemmatize_verb(verb)
+    try:
+        from nltk.corpus import wordnet as wn
+    except Exception:
+        return None
+    per_sense = []
+    for ss in wn.synsets(v, pos=wn.VERB):
+        if ss.lexname().split(".")[1] not in AFFECTING_SUPERSENSES:
+            continue
+        if not (set(ss.frame_ids()) & ANIMATE_OBJECT_FRAMES):
+            continue
+        hv = []
+        for h in ss.hypernyms():
+            for lm in h.lemmas():
+                x = afx.valence(lm.name().replace("_", " ").split()[0])
+                if x is not None:
+                    hv.append(x)
+        if hv:
+            per_sense.append(sum(hv) / len(hv))
+    if not per_sense:
+        return None
+    if all(x > 0 for x in per_sense) or all(x < 0 for x in per_sense):
+        return sum(per_sense) / len(per_sense)
+    return None                                   # sign disagreement across senses -> abstain (honest)
+
+
+def hyper_state_sign(verb: str, afx: Optional[AffectLexicon] = None, tau: float = TAU_HYPER) -> Optional[int]:
+    hv = hyper_state_value(verb, afx)
+    if hv is not None and abs(hv) >= tau:
+        return 1 if hv > 0 else -1
+    return None
+
+
+# --- RUNG 3: SENSE-IN-CONTEXT (reuses the PPR spreading-activation WSD of hdlab.grounded_semantic_graph; BF) -----------------
+_GSG = None
+
+
+def _gsg():
+    """The grounded semantic graph, built once per process (static foundation; ~80 s cold)."""
+    global _GSG
+    if _GSG is None:
+        from hdlab.grounded_semantic_graph import GroundedSemanticGraph
+        _GSG = GroundedSemanticGraph().build()
+    return _GSG
+
+
+def synset_endstate_sign(synset_name: Optional[str], afx: Optional[AffectLexicon] = None):
+    """Value ONE context-selected synset's endstate for an animate patient. Returns (sign, affecting): affecting=False means the
+    selected sense is not an affecting-animate event (the engine/food sense) -> the decision ABSTAINS; sign None with
+    affecting=True means the sense is affecting but unvalued -> fall back to the verb-level cascade."""
+    if synset_name is None:
+        return None, None
+    afx = _afx() if afx is None else afx
+    from nltk.corpus import wordnet as wn
+    ss = wn.synset(synset_name)
+    if ss.lexname().split(".")[1] not in AFFECTING_SUPERSENSES or not (set(ss.frame_ids()) & ANIMATE_OBJECT_FRAMES):
+        return None, False
+    table = result_state_table(); vals = []
+    for lm in ss.lemmas():
+        key = lm.key().split("::")[0]
+        for _cid, _member, sts in table.get(key, ()):
+            for st in sts:
+                sv = state_value(st, afx)
+                if sv is not None:
+                    vals.append(sv)
+    if vals:
+        m = sum(vals) / len(vals)
+        if abs(m) >= STATE_MIN:
+            return (1 if m > 0 else -1), True
+    hv = [afx.valence(l.name().replace("_", " ").split()[0]) for h in ss.hypernyms() for l in h.lemmas()]
+    hv = [x for x in hv if x is not None]
+    if hv and abs(sum(hv) / len(hv)) >= TAU_HYPER:
+        return (1 if sum(hv) / len(hv) > 0 else -1), True
+    lv = [afx.valence(l.name().replace("_", " ").split()[0]) for l in ss.lemmas()]
+    lv = [x for x in lv if x is not None]
+    if lv and abs(sum(lv) / len(lv)) >= WEAK_VALENCE:
+        return (1 if sum(lv) / len(lv) > 0 else -1), True
+    return None, True
+
+
+_CTX_STOP = {"the", "and", "but", "she", "him", "her", "his", "they", "them", "that", "this", "with", "from", "into", "was", "were",
+             "had", "has", "have", "did", "not", "then", "when", "who", "which", "their", "our", "you", "your", "for", "are"}
+
+
+def context_sense_sign(verb: str, tokens, gov_idx: int):
+    """(sign, affecting) of the CONTEXT-ACTIVE sense of the verb, or (None, None) when the graph selects no sense."""
+    ctx = [t.lower() for i, t in enumerate(tokens) if i != gov_idx and t.isalpha()]
+    # the read needs CONTEXT: with fewer than two content words the PPR cannot settle and select_sense falls back to the
+    # FIRST (most frequent) sense, which abstained on "She beat the man" (smoke) -- thin context -> defer to the verb-level cascade
+    if sum(1 for w in ctx if len(w) > 2 and w not in _CTX_STOP) < 2:
+        return None, None
+    try:
+        syn = _gsg().select_sense(lemmatize_verb(verb), "V", ctx)
+    except Exception:
+        return None, None
+    return synset_endstate_sign(syn)
+
+
+# --- RUNG 2: the PREVENTED complement, read from the reader's OWN parse (BF finder; the surface scan is NOT shipped) ----------
+def find_blocked_verb_parsed(tokens, pos, heads: Dict[int, int], prevent_idx0: int) -> Optional[int]:
+    """The blocked event = the VERB whose dependency head-path reaches the PREVENT verb within 3 hops. 0-based; heads 1-based."""
+    n = len(tokens); pv1 = prevent_idx0 + 1; best = None; best_hops = 99
+    for i1 in range(1, n + 1):
+        if i1 == pv1 or pos[i1 - 1] != "VERB":
+            continue
+        h = heads.get(i1); hops = 1; seen = set()
+        while h and h != 0 and h not in seen and hops <= 3:
+            if h == pv1:
+                if hops < best_hops:
+                    best, best_hops = i1 - 1, hops
+                break
+            seen.add(h); h = heads.get(h); hops += 1
+    return best
+
+
+def _parse_heads(tokens, pos) -> Optional[Dict[int, int]]:
+    """The reader's shared governor (hdlab.frontend; default = the attachment arm) on an already-tagged sentence."""
+    try:
+        from hdlab.frontend import parser as _fe_parser
+        return dict(_fe_parser().parse(list(tokens), list(pos)).heads)
+    except Exception:
+        return None
+
+
 def harm_help_arithmetic(verb: str, animacy: str, *, endstate_reached: Optional[bool] = None,
                          embedded_endstate_valence: Optional[int] = None,
                          lexicon: Optional[Dict[str, str]] = None,
                          afx: Optional[AffectLexicon] = None,
-                         states: Optional[Dict[str, list]] = None) -> Optional[str]:
+                         states: Optional[Dict[str, list]] = None,
+                         endstate_sign_override: Optional[int] = None) -> Optional[str]:
     """Force STRUCTURE x endstate VALENCE-for-patient -> HARM / HELP / NA / None(abstain).
     `endstate_reached` is None when unknown (the live bare-SVO path): for CAUSE/ENABLE unknown => the caused endstate
     happened; for PREVENT unknown => the prevention succeeded. The live path therefore reduces to:
@@ -338,7 +490,8 @@ def harm_help_arithmetic(verb: str, animacy: str, *, endstate_reached: Optional[
     cls = lexicon.get(v)
     if not is_affecting(v, lexicon, afx):
         return None
-    vval = endstate_valence_sign(v, afx, states=states)       # result-state first, word-level norm second (see above)
+    vval = (endstate_sign_override if endstate_sign_override is not None
+            else endstate_valence_sign(v, afx, states=states))   # result state, word norm, superordinate (see above)
     if cls == "PREVENT":
         ev = embedded_endstate_valence
         if ev is None:
@@ -384,6 +537,38 @@ def force_dynamics_event_type(item, animacy_map, gov_class_dict):
     a = animacy_map.get(item["target_word"].lower())
     if a is None:
         return None, None, gov_word
-    hh = harm_help(gov_word, a["animacy"])
+    # UPSTREAM JOINS (owner-DONE 2026-09-13; the solution's Rungs 1-3; each reuses an existing BF organ, none adds an asset):
+    #  Rung 1 EVENT REALIZATION: hdlab.polarity_operator.event_polarity (Kaup-Zwaan negation toggle + Karttunen/de Marneffe
+    #         veridicality) -> endstate_reached for non-PREVENT verbs ("did not hurt her" -> not reached -> neutral); PREVENT verbs
+    #         abstain from this map (the verb's polarity is not the prevented endstate's realization). Measured 0.375 -> 0.95 (n=80).
+    #  Rung 2 PREVENTED COMPLEMENT: for a PREVENT governor, the blocked event is read from the READER'S OWN parse (the verb whose
+    #         head-path reaches the prevent verb) and valued by the same endstate cascade -> embedded_endstate_valence ("prevented
+    #         the doctor from curing the patient" -> HARM). Measured 0.50 -> 0.90 (n=10); extraction is parser-gated (7/10).
+    #  Rung 3 SENSE-IN-CONTEXT: the context-active sense (PPR spreading activation over WordNet++) is valued as ONE synset; a
+    #         non-affecting active sense ("beat the eggs", "throttle the engine") ABSTAINS instead of the word-level HARM.
+    toks, pos = item["tokens"], item["pos"]
+    er = None; ev = None; override = None
+    cls = _lex().get(gov_word)
+    if UPSTREAM_JOINS:
+        try:
+            from hdlab.polarity_operator import event_polarity
+            if cls != "PREVENT":
+                pol = event_polarity(toks, gi, gov_word, pos=pos).polarity
+                er = True if pol == 1 else (False if pol == -1 else None)
+            else:
+                heads = item.get("heads") or _parse_heads(toks, pos)
+                if heads:
+                    bi = find_blocked_verb_parsed(toks, pos, heads, gi)
+                    if bi is not None:
+                        ev = endstate_valence_sign(lemma_verb(toks[bi]))
+        except Exception:
+            er = None; ev = None
+    if SENSE_CONTEXT and cls != "PREVENT":
+        sgn, affecting = context_sense_sign(gov_word, toks, gi)
+        if affecting is False:
+            return None, a["category"], gov_word                 # the active sense does not affect a patient -> abstain
+        override = sgn
+    hh = harm_help_arithmetic(gov_word, a["animacy"], endstate_reached=er, embedded_endstate_valence=ev,
+                              endstate_sign_override=override)
     mapped = {"NA": "NEUTRAL", "HARM": "BLOCK_HIGH", "HELP": "RECIPROCITY"}.get(hh)
     return (mapped, a["category"], gov_word) if mapped else (None, a["category"], gov_word)
