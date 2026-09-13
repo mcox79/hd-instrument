@@ -79,7 +79,7 @@ its section: grep the four literals, never eyeball the content.** Restored the s
     consumer until now; it serves the decoded tree + marginals.** MBR tree refuted as point estimate (0.5855). Category switch TOTAL
     (`PosTagger.load` -> frontend). Boards in flight: dual-route lemma, Penn tagger, total routing, then the board under the BF heads.
   - **~07:25 local -- CATEGORY ORGAN ARM v2 live** (same count model + shape emission factor + rare-word mixing + second-order
-    transitions with Dirichlet back-off): UD-EWT test 0.912 -> 0.9229 (unknown words 0.637 -> 0.726); Penn arm 0.9075 -> 0.9127
+    transitions with Dirichlet back-off + the READING-ACQUIRED cluster cue for rare/unknown words): UD-EWT test 0.912 -> 0.9264 (unknown words 0.637 -> 0.749); Penn arm 0.9075 -> 0.9160
     (first order + shape; second order too slow for read time at 49 tags). Live-chain heads (count organ's own tags) 0.5761 -> 0.5892
     (gold-category ceiling 0.6034). Occupancy-at-decode REFUTED (belongs to the labels rung); coordination convention measured too
     weak to land (0.59 on gold trees).
