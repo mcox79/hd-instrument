@@ -15,6 +15,7 @@ independent golds, ~5 refuted levers each).
 | solver-pri103 | pri 103 labels rung: voice / embedded configuration / wider argument class (graded_role_assigner) | 17:17 | | | 0 | | | | | | | |
 
 ## Nudges (timestamped)
+- 17:22 solver-pri103: INFORMATION message (not a phase nudge): the agent-dimension island + live-chain probe numbers (floor 0.8399 vs chain 0.797/0.788; ~210 head-wrong; 75/108 multi-nsubj picks) as an extra instrument.
 - 17:00 solver-pri97: PHASE 7 round 3 sent (finish the diff with round-2 changes; cap-6000 confirmation or a named gap; final readback).
 - 16:54 solver-pri99: PHASE 7 round 1 sent (understand? research; path A for the PROPN/NOUN half: capitalisation recall, frame context for form-free names, graded hand-off to heads, inventory coverage; denied steps stay undone).
 - 16:52 solver-pri97: PHASE 7 round 2 sent (fix + test the combined arm; hold finiteness term; root pick as conditioned competition; full-grid marginalisation if buildable).
