@@ -20,6 +20,7 @@ Launch:  .venv/Scripts/python.exe tools/scorecard_gui.py        (--self-test bui
 from __future__ import annotations
 
 import argparse
+import os
 import json
 import sys
 import threading
@@ -327,17 +328,37 @@ class ScorecardWindow:
                          "prompt into a new solver session. Lower priority number = more important. Problems with a SOLVED.md are not "
                          "listed here (they are in tab 2 waiting for your verdict).", bg=BG, fg=FG, font=FONT_B, anchor="w",
                  justify="left", wraplength=1220).grid(row=0, column=0, columnspan=2, sticky="ew", padx=10, pady=(10, 4))
-        self.ptv = ttk.Treeview(f, columns=("pri", "title"), show="headings", selectmode="browse")
-        self.ptv.heading("pri", text="Pri"); self.ptv.heading("title", text="Problem (plain words)")
-        self.ptv.column("pri", width=50, anchor="center", stretch=False); self.ptv.column("title", width=420, anchor="w")
+        self.ptv = ttk.Treeview(f, columns=("pri", "state", "title"), show="headings", selectmode="browse")
+        self.ptv.heading("pri", text="Pri"); self.ptv.heading("state", text="Where it stands"); self.ptv.heading("title", text="Problem (plain words)")
+        self.ptv.column("pri", width=50, anchor="center", stretch=False); self.ptv.column("state", width=150, anchor="w", stretch=False)
+        self.ptv.column("title", width=360, anchor="w")
         self.ptv.grid(row=1, column=0, sticky="nsew", padx=(10, 4), pady=4)
         self.ptv.bind("<<TreeviewSelect>>", self._show_prompt)
         self.prompt = tk.Text(f, bg=PANEL, fg=FG, font=("Consolas", 10), wrap="word", relief="flat", padx=12, pady=10)
         self.prompt.grid(row=1, column=1, sticky="nsew", padx=(4, 10), pady=4)
-        bar = tk.Frame(f, bg=BG); bar.grid(row=2, column=0, columnspan=2, sticky="ew", padx=10, pady=(4, 10))
+        bar = tk.Frame(f, bg=BG); bar.grid(row=2, column=0, columnspan=2, sticky="ew", padx=10, pady=(4, 2))
         tk.Button(bar, text="Copy solver prompt to clipboard", command=self._copy_prompt, bg="#2e5d3a", fg=FG, font=FONT_B,
                   relief="flat", padx=12).pack(side="left")
+        self.assigned_var = tk.BooleanVar(value=False)
+        tk.Checkbutton(bar, text="Assigned to a solver session", variable=self.assigned_var, command=self._toggle_assigned, bg=BG, fg=FG,
+                       selectcolor="#333", activebackground=BG, activeforeground=FG, font=FONT_B).pack(side="left", padx=16)
         self.pstatus = tk.Label(bar, text="", bg=BG, fg=DIM, font=FONT, anchor="w"); self.pstatus.pack(side="left", padx=12)
+        # the solver's result comes back through the owner: paste it here, save it into the problem folder, mark DONE when satisfied
+        tk.Label(f, text="Paste the solver session's final result / solution brief here (saved into the problem's folder as "
+                         "SOLVER_RESULT_pasted.md; the strategy session reads it). Mark DONE only when you are satisfied -- that is the "
+                         "signal the strategy session integrates on.", bg=BG, fg=DIM, font=FONT, anchor="w", justify="left",
+                 wraplength=1220).grid(row=3, column=0, columnspan=2, sticky="ew", padx=10, pady=(6, 2))
+        self.paste = tk.Text(f, bg=PANEL, fg=FG, font=FONT, wrap="word", relief="flat", padx=10, pady=8, height=7, insertbackground=FG)
+        self.paste.grid(row=4, column=0, columnspan=2, sticky="ew", padx=10, pady=2)
+        bar2 = tk.Frame(f, bg=BG); bar2.grid(row=5, column=0, columnspan=2, sticky="ew", padx=10, pady=(2, 10))
+        tk.Button(bar2, text="Save pasted result to the problem folder", command=self._save_pasted, bg="#2e4a5d", fg=FG, font=FONT_B,
+                  relief="flat", padx=12).pack(side="left")
+        tk.Button(bar2, text="Mark DONE (integrate it)", command=lambda: self._verdict("DONE"), bg="#2e5d3a", fg=FG, font=FONT_B,
+                  relief="flat", padx=12).pack(side="left", padx=8)
+        tk.Button(bar2, text="More needed", command=lambda: self._verdict("MORE_NEEDED"), bg="#5d4a2e", fg=FG, font=FONT_B,
+                  relief="flat", padx=12).pack(side="left")
+        tk.Button(bar2, text="Park it", command=lambda: self._verdict("PARKED"), bg="#444", fg=FG, font=FONT_B,
+                  relief="flat", padx=12).pack(side="left", padx=8)
         self._problem_rows: list = []
 
     def _fill_problems(self) -> None:
@@ -350,9 +371,65 @@ class ScorecardWindow:
         self.ptv.delete(*self.ptv.get_children())
         for r in rows:
             title = r["slug"].replace("_", " ")
-            iid = self.ptv.insert("", "end", values=(r["priority"] if r["priority"] is not None else "-", title))
+            iid = self.ptv.insert("", "end", values=(r["priority"] if r["priority"] is not None else "-", self._state_word(r), title))
             if keep == title:
                 self.ptv.selection_set(iid)
+
+    @staticmethod
+    def _state_word(r) -> str:
+        import problem_ledger as PL
+        d = os.path.join(PL.PROBLEMS_DIR, r["slug"])
+        verdict = PL.load_owner(r["slug"]).get("verdict", "")
+        if verdict == "DONE":
+            return "DONE -> folding in"
+        if verdict == "PARKED":
+            return "parked"
+        if os.path.exists(os.path.join(d, "SOLVER_RESULT_pasted.md")):
+            return "result pasted" + (" (more needed)" if verdict == "MORE_NEEDED" else "")
+        if r.get("assigned"):
+            return "assigned"
+        return "free"
+
+    def _selected_slug(self):
+        sel = self.ptv.selection()
+        if not sel:
+            return None
+        idx = self.ptv.index(sel[0])
+        return self._problem_rows[idx]["slug"] if idx < len(self._problem_rows) else None
+
+    def _toggle_assigned(self) -> None:
+        import problem_ledger as PL
+        slug = self._selected_slug()
+        if not slug:
+            self.assigned_var.set(False); self.pstatus.config(text="Click a problem first.", fg=ORANGE); return
+        PL.set_assigned(slug, bool(self.assigned_var.get())); self._fill_problems()
+        self.pstatus.config(text=("Marked assigned: " if self.assigned_var.get() else "Unassigned: ") + slug[:60], fg=GREEN)
+
+    def _save_pasted(self) -> None:
+        import datetime
+        import problem_ledger as PL
+        slug = self._selected_slug(); text = self.paste.get("1.0", "end").strip()
+        if not slug:
+            self.pstatus.config(text="Click a problem first.", fg=ORANGE); return
+        if not text:
+            self.pstatus.config(text="Nothing pasted.", fg=ORANGE); return
+        path = os.path.join(PL.PROBLEMS_DIR, slug, "SOLVER_RESULT_pasted.md")
+        with open(path, "a", encoding="utf-8", newline="\n") as fh:
+            fh.write("\n\n## pasted by the owner %s (raw; strategy reads this)\n\n%s\n" % (datetime.datetime.now().strftime("%Y-%m-%d %H:%M"), text))
+        PL.set_assigned(slug, True); self._fill_problems()
+        self.pstatus.config(text="Saved %d characters to %s" % (len(text), os.path.relpath(path, REPO)), fg=GREEN)
+
+    def _verdict(self, verdict: str) -> None:
+        import problem_ledger as PL
+        slug = self._selected_slug()
+        if not slug:
+            self.pstatus.config(text="Click a problem first.", fg=ORANGE); return
+        note = self.paste.get("1.0", "end").strip() or PL.load_owner(slug).get("text", "")
+        try:
+            PL.save_owner(slug, verdict, note); self._fill_problems()
+            self.pstatus.config(text="%s recorded for %s%s" % (verdict, slug[:50], " -- the strategy session will fold it in." if verdict == "DONE" else ""), fg=GREEN)
+        except Exception as e:
+            self.pstatus.config(text="Could not record: %s: %s" % (type(e).__name__, e), fg=RED)
 
     def _show_prompt(self, _evt=None) -> None:
         import problem_ledger as PL
@@ -365,6 +442,8 @@ class ScorecardWindow:
         slug = self._problem_rows[idx]["slug"]
         self.prompt.config(state="normal"); self.prompt.delete("1.0", "end")
         self.prompt.insert("end", PL.kickoff_prompt(slug)); self.prompt.config(state="disabled")
+        self.assigned_var.set(bool(self._problem_rows[idx].get("assigned")))
+        self.paste.delete("1.0", "end"); self.paste.insert("end", PL.load_owner(slug).get("text", ""))
         self.pstatus.config(text="Showing the prompt for: %s" % slug, fg=DIM)
 
     def _copy_prompt(self) -> None:
@@ -410,6 +489,7 @@ def self_test() -> int:
     first = w.ptv.get_children()[0]; w.ptv.selection_set(first); w._show_prompt()
     assert "slug is:" in w.prompt.get("1.0", "end"), "kickoff prompt must render"
     w._copy_prompt(); assert w.root.clipboard_get().startswith("You are the SOLVER"), "clipboard copy must work"
+    assert w.ptv.item(first, "values")[1] in ("free", "assigned", "result pasted", "result pasted (more needed)", "parked", "DONE -> folding in"), "state word"
     root.destroy()
     print("[scorecard_gui self-test] PASS: %d open problems listed with copyable prompts" % n_prob)
     print("[scorecard_gui self-test] PASS: %d abilities rendered, %d questions, short version present" % (n_rows, len(sc["questions_for_owner"])))
