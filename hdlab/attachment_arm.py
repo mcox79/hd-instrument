@@ -65,6 +65,10 @@ BF_TSP_ASSET = os.path.join(_REPO, "data", "frontend_assets", "typed_selectional
 BF_TSP_SUBJ_ASSET = os.path.join(_REPO, "data", "frontend_assets", "typed_selectional_preference_bf_subj_v1.json")   # self-grown SUBJ slot
 BF_STORE = os.path.join(_REPO, "data", "selectional_preferences_bf_v1", "selectional_slots_bf_v1.pkl")   # self-grown slot fillers
 PRON_EVIDENCE = os.environ.get("HDLAB_SBT_PRON", "1") != "0"
+# 2026-09-13 05:10: the order-aware teacher gave SUBJECT plausibility to EVERY pre-verbal nominal, including the object of a preposition
+# ("the man in the HOUSE saw"), pulling PP objects off their noun host (nmod 0.346 -> 0.311). Semantic bootstrapping reads the
+# preposition as a CASE MARKER: a case-marked nominal is oblique, never the subject (Pinker 1984). Flag for the A/B; default OFF until measured.
+PP_NO_SUBJ = os.environ.get("HDLAB_SBT_PP_NOSUBJ", "0") == "1"
 PRONOUNS = frozenset({"it", "he", "she", "they", "we", "i", "you", "him", "her", "them", "us", "me", "this", "that", "these", "those",
                       "who", "whom", "which", "what", "there", "one", "someone", "something", "anyone", "anything", "everyone",
                       "everything", "nothing", "nobody", "himself", "herself", "itself", "themselves", "myself", "yourself", "ourselves"})
@@ -612,10 +616,17 @@ class SemanticBootstrapTeacher:
                 if pos[h - 1] == "VERB" and pos[j - 1] in NOMINAL:
                     is_pron = pos[j - 1] == "PRON" and (self.pron_subj or self.pron_obj)
                     vl = lemma_verb(toks[h - 1]).lower() if is_pron else None
-                    if self.tsp_subj is not None:
+                    # a pronoun that DETERMINES a following nominal ("its wares", "my blog") is a possessive, not a participant: the
+                    # participant evidence (the verb's pronoun-filler rate) does not apply to it (2026-09-13 nmod anatomy: 'its'->'expanded').
+                    is_poss = PP_NO_SUBJ and pos[j - 1] == "PRON" and j < n and pos[j] in NP_RUN and toks[j - 1].lower() not in PRONOUNS
+                    if is_poss:
+                        p = 0.0
+                    elif self.tsp_subj is not None:
                         if j > h:
                             p = self.pron_obj.get(vl, self.pron_obj_g) if is_pron else self.plausibility(toks[h - 1], toks[j - 1])
                             best_obj[h] = max(best_obj[h], p)
+                        elif PP_NO_SUBJ and j >= 2 and pos[j - 2] == "ADP":
+                            p = 0.0                 # a PREPOSITIONAL object before the verb is case-marked oblique: it cannot be the subject
                         else:
                             p = self.pron_subj.get(vl, self.pron_subj_g) if is_pron else self.plausibility_subj(toks[h - 1], toks[j - 1])
                             best_subj[h] = max(best_subj[h], p)
