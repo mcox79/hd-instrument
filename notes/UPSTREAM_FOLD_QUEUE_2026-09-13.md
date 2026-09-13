@@ -123,3 +123,8 @@ See the fenced block in the Method section above for the complete ordered list (
   PENN-TAGSET ARM of the same count-based category organ (`hdlab/lexical_categories.py` accrued over UD-EWT's xpos column; same
   forward-backward model), handed to the temporal organ through `hdlab/frontend.Tagger`; measure Penn accuracy vs the perceptron on
   UD-EWT test + event-extraction agreement + board no-regress; then flip `temporal_model.default_tagger`.**
+- **DECODER NOTE (06:40 local): `hdlab/graded_parser.chu_liu_edmonds` is NOT single-rooted (several words may take the root arc).** Fixed
+  for the attachment arm via `attachment_arm.map_tree_single_root` (+0.8 UAS, ccomp/advcl jumps). The stand-in arc-factored parser
+  (`hdlab/arc_parser.py:936`) and `graded_parser`'s own decode paths (lines 282/287/384/459) still call it raw -- same multi-root
+  behaviour; a shared single-root constraint belongs in `graded_parser.chu_liu_edmonds` itself (one structure, every consumer) once
+  its callers' witnesses are re-run.
