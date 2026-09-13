@@ -329,8 +329,10 @@ USE_INDUCED_CATEGORY_CUE = False
 _OBJ_CASE = frozenset({"him", "her", "them", "me", "us", "whom", "himself", "herself", "themselves", "myself", "ourselves", "itself"})
 _SUBJ_CASE = frozenset({"he", "she", "they", "i", "we", "who"})
 _SPAN_POS = frozenset({"DET", "ADJ", "NUM", "ADV", "PART", "NOUN", "PROPN", "PRON", "SYM", "X"})
-_COARSE_VALIDITIES_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-                                       "data", "frontend_assets", "coarse_role_validities_ud_ewt.json")
+_COARSE_VALIDITIES_PATH = os.environ.get("HDLAB_ROLE_VALIDITIES") or os.path.join(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "frontend_assets", "coarse_role_validities_ud_ewt.json")
+# HDLAB_ROLE_VALIDITIES (2026-09-13): selects another validity table -- e.g. the one learned from the live governor's PERCEIVED heads
+# (tools/build_coarse_role_validities.py --perceived) for the A/B against the gold-convention table.
 _COARSE_VALIDITIES_CACHE: Optional[Dict[str, object]] = None
 # READING-INDUCED lexical categories (the TOP rung handing DOWN: exp_reading_induced_categories_v1, 1M Simple-Wiki lines, k=68 + 2
 # form classes, no labels) -- the nominal's OWN induced category is a cue in the role competition (time/measure nouns, mass
