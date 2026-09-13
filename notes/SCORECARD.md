@@ -14,6 +14,13 @@ NEW word means from what it reads, using its sense of how things feel and look, 
 near the top about 38 times in 100 where the old method managed about 3.
 
 ## WHAT CHANGED LATELY
+- 2026-09-13 (early morning, the full checks): with the brain-style word kinds feeding every reader, the whole-system check is
+  63.6 in 100 (was 64.0); the agent reader's small dip was repaired by reading the word kinds as graded beliefs (82 -> 84, now above
+  where it started). With the brain-style governor as well, the check is 62.2: coreference, salience and word sense are unchanged;
+  who-was-affected drops 82 -> 73 and 'what is X' 83 -> 65, and both of those drops trace to the governor itself, not the readers
+  (half of its object mistakes hand the object to the NEXT verb). The governor's own score is 57 in 100 (48 yesterday morning). One
+  decision waits for you on the board: make the brain-style governor the default now (full checks then take hours until it is made
+  fast) or after speeding it up. Everything is switchable either way.
 - 2026-09-13 (overnight): the whole front of the reading chain now runs on brain-style parts, each one in a single shared place
   that every reader and every test uses. Word kinds come from a counting model that keeps a graded belief (91 in 100 right; the
   old hand-trained tagger was 94) and can also learn its kinds from plain reading (70 in 100 so far; the little words are the
@@ -119,7 +126,7 @@ Long term (the next few months):
 
 <!-- AUTO:BEGIN (written by tools/scorecard.py; edit the sections ABOVE, not this) -->
 
-Last full check: 2026-09-13T07:48:32.288409+00:00 (15 on record). Generated 2026-09-13T07:59:05+00:00.
+Last full check: 2026-09-13T07:48:32.288409+00:00 (15 on record). Generated 2026-09-13T08:09:34+00:00.
 
 | Ability | Group | How well | Compared with a simple rule | Since the previous check | Brain-faithful? |
 |---|---|---|---|---|---|
