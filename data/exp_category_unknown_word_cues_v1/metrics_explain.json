@@ -1,0 +1,137 @@
+{
+ "cell": "exp_category_unknown_word_cues_v1",
+ "tag": "mechanism",
+ "explain": {
+  "A7b_g05": {
+   "arm": "A7b_g05",
+   "ref": "A0_live",
+   "propn_vs_noun_log_odds_of_the_form_cue": {
+    "Falluja@m": {
+     "A0_live": 2.4,
+     "A7b_g05": 2.614
+    },
+    "Falluja@i": {
+     "A0_live": 2.4,
+     "A7b_g05": 1.562
+    },
+    "Gmail@m": {
+     "A0_live": 2.4,
+     "A7b_g05": 2.614
+    },
+    "AMS@m": {
+     "A0_live": 1.303,
+     "A7b_g05": 0.881
+    },
+    "E17@m": {
+     "A0_live": 0.237,
+     "A7b_g05": -0.56
+    },
+    "01-Feb-02@m": {
+     "A0_live": 0.237,
+     "A7b_g05": 0.942
+    },
+    "tonite@m": {
+     "A0_live": -3.236,
+     "A7b_g05": -3.012
+    },
+    "Guaranty.doc@m": {
+     "A0_live": 2.232,
+     "A7b_g05": 1.176
+    },
+    "b/c@m": {
+     "A0_live": 2.232,
+     "A7b_g05": 2.925
+    }
+   },
+   "unseen_prediction_changes": {
+    "fixed": 163,
+    "broken": 72,
+    "swapped_still_wrong": 70,
+    "unchanged": 1577,
+    "net": 91
+   },
+   "by_rich_shape": {
+    "fixed|lower": 59,
+    "fixed|Cap": 49,
+    "broken|lower": 34,
+    "broken|Cap": 23,
+    "fixed|dcode": 10,
+    "fixed|other": 9,
+    "fixed|ACRO": 9,
+    "fixed|dotted": 7,
+    "fixed|slash": 5,
+    "broken|hyphen": 4,
+    "broken|other": 4,
+    "fixed|ALLCAP": 3,
+    "fixed|alnum": 3,
+    "fixed|dnum": 3,
+    "broken|CamelCap": 3,
+    "fixed|CamelCap": 2,
+    "broken|ACRO": 2,
+    "fixed|punct": 2,
+    "fixed|apos": 2,
+    "broken|ALLCAP": 1,
+    "broken|hyphenCap": 1
+   },
+   "confusion_delta": {
+    "NOUN->NUM": -25,
+    "PROPN->NOUN": -22,
+    "NOUN->PROPN": 18,
+    "PROPN->NUM": -16,
+    "PROPN->PUNCT": -15,
+    "ADJ->NOUN": -12,
+    "VERB->NOUN": -11,
+    "NOUN->X": 11,
+    "PROPN->PRON": -7,
+    "X->PROPN": -6,
+    "NOUN->PRON": 5,
+    "VERB->ADJ": 5,
+    "PROPN->ADJ": -5,
+    "NOUN->PUNCT": -4,
+    "NOUN->ADJ": 4,
+    "X->NOUN": 4,
+    "X->PUNCT": -4,
+    "NOUN->PART": -4,
+    "NOUN->ADP": -3,
+    "INTJ->PROPN": -3,
+    "PROPN->VERB": -3,
+    "NOUN->VERB": -2,
+    "ADJ->PROPN": 2,
+    "NOUN->AUX": -2,
+    "SCONJ->PUNCT": -2,
+    "PROPN->AUX": -2,
+    "SYM->PUNCT": -2,
+    "PROPN->DET": -2,
+    "ADJ->ADV": -2,
+    "SCONJ->VERB": 2,
+    "ADV->VERB": 2,
+    "ADJ->VERB": 1,
+    "PRON->PROPN": 1,
+    "VERB->ADP": 1,
+    "VERB->DET": 1,
+    "SCONJ->PROPN": 1,
+    "NOUN->DET": -1,
+    "ADV->ADP": -1,
+    "ADV->NOUN": -1,
+    "PROPN->X": 1,
+    "ADP->VERB": 1,
+    "PROPN->ADP": 1,
+    "AUX->NOUN": 1,
+    "PROPN->INTJ": 1,
+    "X->DET": -1,
+    "X->ADJ": -1,
+    "ADP->SCONJ": 1,
+    "PROPN->PART": 1,
+    "PROPN->ADV": 1,
+    "ADJ->DET": -1,
+    "INTJ->NOUN": 1,
+    "INTJ->PRON": 1,
+    "DET->PROPN": -1,
+    "DET->INTJ": 1,
+    "CCONJ->NOUN": 1,
+    "INTJ->VERB": -1,
+    "ADP->ADJ": 1
+   }
+  }
+ }
+}

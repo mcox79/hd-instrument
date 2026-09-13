@@ -1,0 +1,46 @@
+{
+ "cell": "exp_category_unknown_word_cues_v1",
+ "tag": "",
+ "chain_trace": {
+  "n_test_tokens": 25094,
+  "n_unseen": 1882,
+  "rung1_tokenisation": {
+   "unseen tokens carrying internal structure (a code/date/filename/URL arrives whole)": 305,
+   "share": 0.1621,
+   "read by the incumbent as": "2 symbols ('digit', 'other'); by the patch as 8"
+  },
+  "rung2_form_cue": {
+   "incumbent symbols used on the unseen slice": 6,
+   "patch symbols used": 18,
+   "position-blind": "a sentence-initial Cap and a mid-sentence Cap were ONE symbol",
+   "unseen tokens in a forced-capitalisation position": 223
+  },
+  "rung3_reading_acquired_inventory": {
+   "covers": 549,
+   "of": 1882,
+   "coverage": 0.2917,
+   "LOST": 1333,
+   "note": "the cue is exactly zero for the rest"
+  },
+  "rung4_lemma_stem_route": {
+   "reaches": 188,
+   "of": 1882,
+   "coverage": 0.0999,
+   "note": "the stem must already be a KNOWN word, so it is silent on a truly novel form"
+  },
+  "rung5_morpho_orthographic_commitment": {
+   "suffix length the incumbent commits to": {
+    "4": 1056,
+    "3": 439,
+    "2": 342,
+    "1": 45
+   },
+   "commitments resting on <= 2 observations": 322,
+   "LOST": "every shorter, better-attested parse is discarded"
+  },
+  "rung6_handoff_to_heads": {
+   "mean top-category mass on an unseen token (n=509)": 0.8965,
+   "note": "the heads rung's live default reads the HARD argmax; the graded mixture (arc_scores_graded) exists and is measured at 0.5400 vs 0.5362 hard"
+  }
+ }
+}

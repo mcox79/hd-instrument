@@ -1,6 +1,6 @@
 --- a/hdlab/lexical_categories.py
 +++ b/hdlab/lexical_categories.py
-@@ -72,6 +72,50 @@
+@@ -72,6 +72,67 @@
  FRAME_OTHER = "<o>"; EOS = "</s>"
  K2 = 2.0                                                        # Dirichlet back-off mass for the second-order transitions (swept, not adopted)
  SHAPES = ("lower", "Cap", "ALLCAP", "digit", "hyphen", "other")
@@ -33,6 +33,11 @@
 +#                   unseen word, which systematically penalises the low-prior categories, PROPN among them (the commonest
 +#                   unseen miss, PROPN -> NOUN 117). gamma is how much of the MARGINAL prior to remove; it is not obviously 1
 +#                   because the transition supplies a CONTEXTUAL prior, so gamma is an OPERATING POINT, swept, never adopted.
++#   UNK_JOINT_SHAPE the word-form system delivers ONE description of a novel string, not two independent ones -- so the
++#                   ending and the case/digit pattern must not be multiplied together as if independent. For novel forms
++#                   they are strongly dependent (a capitalised novel form and a lower-case one with the same ending are
++#                   different populations). The exact-replication form runs the SAME abstraction ladder INSIDE the form
++#                   cell: P_novel(c | shape@pos) -> P(c | suffix_1..k, shape@pos). Measured as the largest single lever.
 +#   UNK_SLOT_KAPPA  the frequent-frame / determiner cue (Mintz 2003; MacDonald 1994 cue competition), read ONLY where there is
 +#                   no lexical entry -- a cue's weight rises when the cues it competes with are silent. The BLANKET form is
 +#                   REFUTED on disk (2026-09-13, 0.9152); this one fires on 7.5% of tokens, not all of them.
@@ -43,7 +48,19 @@
 +UNK_NOVEL_MAX = int(os.environ.get("HDLAB_LC_UNK_NOVEL_MAX", "2"))
 +UNK_SUF_THETA = float(os.environ.get("HDLAB_LC_UNK_SUF_THETA", "3.0"))
 +UNK_PRIOR_GAMMA = float(os.environ.get("HDLAB_LC_UNK_PRIOR_GAMMA", "0.5"))
-+UNK_SLOT_KAPPA = float(os.environ.get("HDLAB_LC_UNK_SLOT_KAPPA", "0.5"))
++# DEFAULT 0 = OFF, and this is a MEASURED negative, not an omission: the joint form cell wins at SMALL training scale
++# (1,500 supply sentences: unknown 0.858 vs 0.829 separable) and does NOT replicate at full scale (12,544 sentences:
++# 0.8002, exactly the separable arm, with PROPN<->NOUN 174 vs 159). Mechanism: conditioning multiplies the number of
++# cells by the alphabet, so at full supply the joint cells are sparser than the marginal ones are wrong -- the
++# independence approximation is already near-exact once each marginal table is well estimated. Kept behind the switch
++# because the balance flips the other way for a SMALLER or a genuinely reading-acquired supply.
++UNK_JOINT_SHAPE = os.environ.get("HDLAB_LC_UNK_JOINT_SHAPE", "0") == "1"
++# DEFAULT 0 = OFF. On its own (without the graded parse below) the slot cue measured unknown 0.7519 -> 0.7848
++# (+0.0329 CI[0.0169,0.0492]) and at kappa 1.0 it was the only arm that REDUCED the PROPN<->NOUN confusion (163 -> 154).
++# It is off by default only because its combination with the graded parse was NOT measured on the full test in this
++# session (that run was not performed); the counts are accrued and saved, so turning it on costs a re-measure, not a
++# rebuild. Measure the combination before flipping it on.
++UNK_SLOT_KAPPA = float(os.environ.get("HDLAB_LC_UNK_SLOT_KAPPA", "0"))
 +UNK_SLOT_F = int(os.environ.get("HDLAB_LC_UNK_SLOT_F", "300"))
 +RICH_SHAPES = ("num", "numpunct", "dcode", "dnum", "alnum", "punct", "slash", "dotted", "hyphenCap", "hyphen",
 +               "apos", "lower", "UP1", "ACRO", "ALLCAP", "Cap", "CamelCap", "mixed", "other")
@@ -51,7 +68,7 @@
  # the reading-acquired classes: the v2 inventory (owner-DONE pri-15, 2026-09-13: function-word stratum + second-order frames +
  # morphology-in-PPMI + Mintz joint frames + clause cue; 126 classes, the four closed classes separated; type-level 0.7944 vs v1 0.7385).
  # As this organ's cluster cue on the full UD-EWT test: UPOS 0.9271 -> 0.9278, unknown words 0.748 -> 0.752 (v1 asset kept selectable).
-@@ -91,6 +135,51 @@
+@@ -91,6 +152,51 @@
          if w[0].isupper() and w[1:].islower():
              return "Cap"
      return "other"
@@ -103,7 +120,7 @@
  UPOS2WN = {"NOUN": "n", "VERB": "v", "ADJ": "a", "ADV": "r"}
  
  
-@@ -116,6 +205,15 @@
+@@ -116,6 +222,15 @@
          self.use_cluster = bool(use_cluster)
          #   use_frame    (2026-09-13 14:30) the FREQUENT-FRAME cue: counts of the left and right neighbour WORD per category (see FRAME).
          self.use_frame = bool(use_frame)
@@ -119,19 +136,20 @@
          self.frameL: Dict[str, Counter] = defaultdict(Counter)     # category -> Counter(left neighbour word | BOS)
          self.frameR: Dict[str, Counter] = defaultdict(Counter)     # category -> Counter(right neighbour word | EOS)
          self.frame_words: set = set()
-@@ -146,6 +244,11 @@
+@@ -146,6 +261,12 @@
                      self.frameL[t][lows[idx - 1] if idx > 0 else BOS] += 1
                      self.frameR[t][lows[idx + 1] if idx + 1 < len(lows) else EOS] += 1
                  self.shape[t][word_shape(w_raw)] += 1; self.trans2[(prev2, prev)][t] += 1
 +                sp = self._unk_sym(w_raw, position_class([r for r, _ in sent], idx))
 +                self.shape_pos[t][sp] += 1; self.shape_pos_w[w][sp] += 1
-+                if UNK_SLOT_KAPPA > 0:
-+                    self.slotL[t][lows[idx - 1] if idx > 0 else BOS] += 1
-+                    self.slotR[t][lows[idx + 1] if idx + 1 < len(lows) else EOS] += 1
++                # the slot counts are always ACCRUED (cheap, and they make the cue a re-measure rather than a rebuild);
++                # only the READ is gated on UNK_SLOT_KAPPA
++                self.slotL[t][lows[idx - 1] if idx > 0 else BOS] += 1
++                self.slotR[t][lows[idx + 1] if idx + 1 < len(lows) else EOS] += 1
                  if self.use_cluster:
                      c = self.word2cluster().get(w)
                      if c is not None:
-@@ -193,6 +296,7 @@
+@@ -193,6 +314,7 @@
              for t in self.tags:
                  tot = self.tag_count[t] + self.lam * len(SHAPES)
                  self.log_shape[t] = {sh: math.log((self.shape[t][sh] + self.lam) / tot) for sh in SHAPES}
@@ -139,7 +157,7 @@
          if self.use_frame:
              # the frame vocabulary = the FRAME_F most frequent word types in the supply (+ BOS/EOS); every other neighbour -> FRAME_OTHER.
              # log P(a | c) = log (n(c, a) + lam) / (n(c) + lam * |frame vocab|), one pure function of the counts (plastic).
-@@ -212,9 +316,125 @@
+@@ -212,9 +334,150 @@
          self._dirty = False
          return self
  
@@ -217,7 +235,31 @@
 +            tot_u += row
 +        self.log_shape_u = {sp: np.log((row + self.lam) / (tot_u + self.lam * S)) for sp, row in shape_u.items()}
 +        self._log_shape_u_back = np.log((np.zeros(T) + self.lam) / (tot_u + self.lam * S))
-+        if UNK_SLOT_KAPPA > 0:
++        if UNK_JOINT_SHAPE:
++            # the SAME ladder, conditioned on the form description (see UNK_JOINT_SHAPE): counts of (suffix, shape@pos)
++            # and of shape@pos alone over the novel stratum. Sparse by construction -- which is why the ladder backs off.
++            jsuf: Dict[int, Dict[tuple, np.ndarray]] = {k: {} for k in range(1, self.suf_len + 1)}
++            jsh: Dict[str, np.ndarray] = {}
++            for w in novel:
++                col = self.shape_pos_w.get(w)
++                if not col:
++                    continue
++                v = wtag[w]; v = v / v.sum(); den = float(sum(col.values()))
++                for sp, nn in col.items():
++                    vv = v * (nn / den)
++                    row = jsh.get(sp)
++                    if row is None:
++                        row = jsh[sp] = np.zeros(T)
++                    row += vv
++                    for k in range(1, self.suf_len + 1):
++                        if len(w) >= k:
++                            key = (w[-k:], sp)
++                            r2 = jsuf[k].get(key)
++                            if r2 is None:
++                                r2 = jsuf[k][key] = np.zeros(T)
++                            r2 += vv
++            self.jsuf_u = jsuf; self.jshape_u = jsh
++        if UNK_SLOT_KAPPA > 0 and self.slotL:
 +            freq: Counter = Counter()
 +            for t in self.tags:
 +                freq.update(self.emit[t])
@@ -262,10 +304,11 @@
          T = len(self.tags); out = np.empty(T); w = word.lower(); V1 = len(self.vocab) + 1
 +        pos = self._sent_pos[self._sent_i] if self._sent_i < len(self._sent_pos) else MID
 +        here = self._sent_i; self._sent_i += 1
++        self._cur_raw = word; self._cur_pos = pos
          if w in self.vocab:
              for i, t in enumerate(self.tags):
                  out[i] = math.log((self.emit[t][w] + self.lam) / (self.tag_count[t] + self.lam * V1))
-@@ -235,13 +455,13 @@
+@@ -235,13 +498,14 @@
              if self.rare_max > 0 and cw <= self.rare_max:
                  out = out + self._log_cluster(w)
              if self.use_shape:
@@ -274,16 +317,18 @@
 +                out = out + self._log_shape_factor(word, pos, known=True)
              return out
          out = self._log_emit_unknown(w) + self._log_cluster(w)
-         if self.use_shape:
+-        if self.use_shape:
 -            sh = word_shape(word)
 -            out = out + np.array([self.log_shape[t][sh] for t in self.tags])
++        # with UNK_JOINT_SHAPE the form description is already INSIDE the estimate; adding it again double-counts it
++        if self.use_shape and not (UNK_JOINT_SHAPE and UNK_NOVEL_MAX > 0 and getattr(self, "jshape_u", None)):
 +            out = out + self._log_shape_factor(word, pos, known=False)
 +        if UNK_SLOT_KAPPA > 0 and getattr(self, "log_slotL", None):
 +            out = out + UNK_SLOT_KAPPA * self._log_slot(here)
          return out
  
      def word2cluster(self) -> Dict[str, str]:
-@@ -336,19 +556,40 @@
+@@ -336,19 +600,49 @@
          return out
  
      def _log_emit_unknown(self, w: str) -> np.ndarray:
@@ -320,11 +365,20 @@
 +                else:
 +                    out[i] = math.log((self.tag_count[t] + self.lam) / (total + self.lam * T))
 +            return out
-+        p = np.exp(self.log_prior_u)                              # k = 0: the novel-form prior
++        if UNK_JOINT_SHAPE:
++            sp = self._unk_sym(self._cur_raw, self._cur_pos)      # the ladder runs INSIDE the form cell
++            p = self.jshape_u.get(sp)
++            p = (p / p.sum()) if (p is not None and p.sum() > 0) else np.exp(self.log_prior_u)
++            tab = {k: self.jsuf_u[k] for k in range(1, self.suf_len + 1)}
++            key = lambda k: (w[-k:], sp)                          # noqa: E731
++        else:
++            p = np.exp(self.log_prior_u)                          # k = 0: the novel-form prior
++            tab = self.suf_u
++            key = lambda k: w[-k:]                                # noqa: E731
 +        for k in range(1, self.suf_len + 1):
 +            if len(w) < k:
 +                break
-+            row = self.suf_u[k].get(w[-k:])
++            row = tab[k].get(key(k))
 +            if row is None:
 +                break
 +            n = float(row.sum())
@@ -337,7 +391,7 @@
  
      def posterior(self, words: Sequence[str], lag: Optional[int] = None) -> np.ndarray:
          """Forward-backward marginals P(category_i | words): [n, T].
-@@ -362,6 +603,11 @@
+@@ -362,6 +656,11 @@
          n = len(words); T = len(self.tags)
          if n == 0:
              return np.zeros((0, T))
@@ -349,7 +403,7 @@
          le = np.stack([self._log_emit(w) for w in words])
          if self.use_frame and FRAME and FRAME_KAPPA > 0:
              le = le + FRAME_KAPPA * self._log_frame(words, lag)
-@@ -377,10 +623,10 @@
+@@ -377,10 +676,10 @@
                  if wl in self.vocab:
                      t_star = self.tags[int(post[k].argmax())]
                      if self.emit[t_star][wl] == 0:
@@ -363,7 +417,7 @@
              if changed:
                  post = self._posterior_le(le, lag)
          return post
-@@ -490,6 +736,11 @@
+@@ -490,6 +789,11 @@
               "emit": {t: dict(c) for t, c in self.emit.items()}, "trans": {p: dict(c) for p, c in self.trans.items()},
               "suf": {str(k): {t: dict(c) for t, c in v.items()} for k, v in self.suf.items()},
               "shape": {t: dict(c) for t, c in self.shape.items()},
@@ -375,7 +429,7 @@
               "trans2": {a + "\t" + b: dict(c) for (a, b), c in self.trans2.items()},
               "note": "COUNTS only (plastic); log-probabilities are recomputed from them on load (finalize)"}
          os.makedirs(os.path.dirname(path), exist_ok=True)
-@@ -511,6 +762,14 @@
+@@ -511,6 +815,14 @@
              m.frameR[t] = Counter(c)
          for t, c in d.get("shape", {}).items():
              m.shape[t] = Counter(c)

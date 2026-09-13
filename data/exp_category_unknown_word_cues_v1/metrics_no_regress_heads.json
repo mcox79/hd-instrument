@@ -1,0 +1,42 @@
+{
+ "cell": "exp_category_unknown_word_cues_v1",
+ "tag": "no_regress",
+ "heads_no_regress": {
+  "arm": "A7b_g05",
+  "A0_live": {
+   "uas": 0.5969,
+   "tag_agreement": 0.9368,
+   "per_relation": {
+    "root": 0.699,
+    "nsubj": 0.743,
+    "obj": 0.76,
+    "obl": 0.415,
+    "nmod": 0.438,
+    "xcomp": 0.723,
+    "ccomp": 0.586,
+    "advcl": 0.306,
+    "conj": 0.382,
+    "case": 0.693,
+    "punct": 0.434
+   }
+  },
+  "A7b_g05": {
+   "uas": 0.5986,
+   "tag_agreement": 0.9404,
+   "per_relation": {
+    "root": 0.709,
+    "nsubj": 0.744,
+    "obj": 0.75,
+    "obl": 0.417,
+    "nmod": 0.433,
+    "xcomp": 0.708,
+    "ccomp": 0.578,
+    "advcl": 0.313,
+    "conj": 0.373,
+    "case": 0.696,
+    "punct": 0.438
+   }
+  },
+  "d_uas": 0.0017
+ }
+}

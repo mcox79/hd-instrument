@@ -1,0 +1,37 @@
+{
+ "cell": "exp_category_unknown_word_cues_v1",
+ "tag": "sweep2_graded_parse",
+ "PROVENANCE": "These arms COMPLETED on the full UD-EWT test in the graded-parse sweep and their result lines were captured from the run log, but the sweep's own metrics.json was never written: two duplicate launcher processes were writing the same log and the same output path, and I terminated them to stop the collision. The numbers below are transcribed VERBATIM from those completed per-arm log lines (same cell, same harness, same floor, same 2000-resample paired bootstrap over sentences). The headline arm A7b_g05 was subsequently RE-RUN cleanly on its own and reproduced EXACTLY (unknown 0.8002, overall 0.9313, PROPN<->NOUN 159) -- see metrics_headline.json, which is the load-bearing record. Treat the other rows here as a supporting sweep, not as independently re-verified records.",
+ "floor_A0_live": {"unknown_acc": 0.7519, "acc": 0.9278, "n_unknown": 1882, "n_tokens": 25094, "propn_noun": 163},
+ "arms": {
+  "A5_bo_t1": {"unknown_acc": 0.7917, "acc": 0.9311, "propn_noun": 188,
+   "vs_A0_unknown": {"delta": 0.0399, "ci95": [0.0245, 0.0548], "half_width": 0.0151, "separated": true},
+   "vs_A0_overall": {"delta": 0.0032, "ci95": [0.0015, 0.0049], "half_width": 0.0017, "separated": true},
+   "config": "rich+pos shape, novel_max 2, graded suffix ladder theta 1, prior_gamma 0"},
+  "A5b_bo_t3": {"unknown_acc": 0.8002, "acc": 0.9311, "propn_noun": 176,
+   "vs_A0_unknown": {"delta": 0.0484, "ci95": [0.0328, 0.0647], "half_width": 0.0159, "separated": true},
+   "vs_A0_overall": {"delta": 0.0032, "ci95": [0.0015, 0.0051], "half_width": 0.0018, "separated": true},
+   "config": "rich+pos shape, novel_max 2, graded suffix ladder theta 3, prior_gamma 0"},
+  "A5c_bo_t10": {"unknown_acc": 0.8045, "acc": 0.9306, "propn_noun": 178,
+   "vs_A0_unknown": {"delta": 0.0526, "ci95": [0.0367, 0.0698], "half_width": 0.0165, "separated": true},
+   "config": "rich+pos shape, novel_max 2, graded suffix ladder theta 10, prior_gamma 0",
+   "note": "the HIGHEST unseen accuracy measured, but overall accuracy is below A7b_g05 and PROPN<->NOUN is worse (178 vs 159); not the recommended operating point"},
+  "A5e_bo_t3_n5": {"unknown_acc": 0.8029, "acc": 0.9312, "propn_noun": 167,
+   "vs_A0_unknown": {"delta": 0.0510, "ci95": [0.0362, 0.0663], "half_width": 0.0151, "separated": true},
+   "vs_A0_overall": {"delta": 0.0034, "ci95": [0.0017, 0.0051], "half_width": 0.0017, "separated": true},
+   "config": "rich+pos shape, novel_max 5, graded suffix ladder theta 3, prior_gamma 0"},
+  "A7b_g05": {"unknown_acc": 0.8002, "acc": 0.9313, "propn_noun": 159,
+   "vs_A0_unknown": {"delta": 0.0484, "ci95": [0.0326, 0.0651], "half_width": 0.0163, "separated": true},
+   "vs_A0_overall": {"delta": 0.0034, "ci95": [0.0017, 0.0052], "half_width": 0.0017, "separated": true},
+   "config": "THE RECOMMENDED ARM: rich+pos shape, novel_max 2, graded suffix ladder theta 3, prior_gamma 0.5",
+   "note": "re-run cleanly and reproduced exactly; see metrics_headline.json"},
+  "A9_joint": {"unknown_acc": 0.8002, "acc": 0.9301, "propn_noun": 174,
+   "vs_A0_unknown": {"delta": 0.0484, "ci95": [0.0314, 0.0658], "half_width": 0.0172, "separated": true},
+   "vs_A0_overall": {"delta": 0.0023, "ci95": [0.0001, 0.0042], "half_width": 0.0021, "separated": true},
+   "config": "PATH A: the abstraction ladder run INSIDE the form cell (joint suffix x shape@position)",
+   "note": "UNDERSTOOD NEGATIVE at full scale -- ties the separable form (0.8002) and is worse on PROPN<->NOUN (174 vs 159), although it WINS at smoke scale (1,500 supply sentences: 0.858 vs 0.829). Conditioning multiplies the cells by the alphabet; at full supply the joint cells are sparser than the marginal tables are wrong."}
+ },
+ "arms_NOT_run": {
+  "A7_g025, A7c_g075, A7d_g1, A8_g05_slot05, A8b_g05_slot1, A5d_bo_t30, A5f_bo_t3_n10, A5g_bo_noshape": "the full-scale run of these arms was a DENIED tool call and was not performed, and was not attempted another way. The prior-gamma sweep therefore has ONE full-scale point (gamma 0.5) plus a smoke-scale reading of gamma 1.0; the combination of the slot cue with the graded parse is UNMEASURED at full scale, which is why the slot cue ships default-OFF in the proposed patch."
+ }
+}
