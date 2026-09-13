@@ -128,3 +128,13 @@ See the fenced block in the Method section above for the complete ordered list (
   (`hdlab/arc_parser.py:936`) and `graded_parser`'s own decode paths (lines 282/287/384/459) still call it raw -- same multi-root
   behaviour; a shared single-root constraint belongs in `graded_parser.chu_liu_edmonds` itself (one structure, every consumer) once
   its callers' witnesses are re-run.
+
+## Added 2026-09-13 11:00 local — lemma-keyed stores after the dual-route default flip (item #1's gated follow-on; enumeration by a read-only agent, file:line in its report)
+Every lemma-keyed offline asset on disk predates the flip (commit 08dea1b5e, 07:54 local), so each is morphy-keyed while its live lookup now runs dual-route (a divergent surface form maps to a different/unseen key = silent coverage loss, not an error).
+- **LIVE, default-on (rebuild first, AFTER the running board finishes -- a mid-run rebuild would change what later dimensions read):**
+  (a) SEQ store `data/foundation/seq_store_v1*/concept_space_ctx_counts.npz` (built 09-11; merged into every fresh Substrate, `hdlab/substrate.py:488-503`; builder `tools/grow_seq_store.py`, keys via `normalize_lemma -> lemma_word`; ~1 min);
+  (b) GEK asset `data/frontend_assets/generalized_event_knowledge_roc_fwd.npz` (built 09-06; read by `situation_reader._passage_lemmas` :3350; builder `python -m hdlab.generalized_event_knowledge --build`, keys via `wn.morphy` through `hdlab.morphology`; ~15 s).
+- **LIVE on the heads rung:** typed selectional preference trio (`typed_selectional_preference_v1.json`, `_bf_v1.json`, `_bf_subj_v1.json`; keys via `_vlemma -> patient_tendency.lemmatize_verb -> morphy(v,"v")`) -- the attachment arm's `plaus` cue and teacher read them; rebuild WITH a UAS measurement (the validity asset was taught from them).
+- **Latent / default-off (rebuild when wired):** semantic hub vectors (09-12 23:14), verb_subcat (08-31), noun supersense table (09-13 05:29; its own keys are WordNet headwords -- only the input-side morphy call is affected).
+- **NOT a store:** coref "concept keys" = `hdlab/lexical_utils.concept_lemma` computed fresh per read (already dual-route) -> re-scope the ledger line from "rebuild" to "re-measure the coref arm" (the 10:50 board under the dual-route default showed coref/common-noun identical: done).
+- **Uncertain:** whether `data/foundation/reading_grounding_v2_qualityfix` ("grounded vocab", Aug-12) has ANY live reader (`substrate.py:441-445`: no caller passes `foundation_dir`) -- confirm before spending a rebuild.
