@@ -64,6 +64,7 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 ---
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
+- **2026-09-13 11:15 (strategy, owner-DONE pri 14 landing) `force_dynamics_valence` (BF_SPIRIT):** the landed harm/help arithmetic is now INDEPENDENTLY VALIDATED at 0.928 against a human crowd gold it never consumes (Connotation Frames Effect(o), Rashkin et al. 2016) -- a control the pri-7/pri-14 landings lacked; the superordinate-action read (ATL taxonomic inheritance, consensus-gated) + guarded affectedness admission landed as the remaining-scope arm (0.9323); the decision now consumes three previously UNJOINED BF organs: `polarity_operator` (event realization), the reader's own parse (prevented complement), `grounded_semantic_graph` (sense in context). Open walls (flagged): manner-encoded harm (brutalize/manhandle: intensity lives in the adverb -> grounded channel); complement attachment recall = the heads rung.
 
 ### 2026-09-12 (late) — ATL CONVERGENCE HUB landed as a REPRESENTATION organ (pri-13, PARTIAL); causal store as necessity prior REFUTED (pri-10)
 - **Hub (`hdlab/semantic_hub.py`, BF_SPIRIT):** Rogers-McClelland convergence (one shared nonlinear layer over five graded spokes), consolidated
