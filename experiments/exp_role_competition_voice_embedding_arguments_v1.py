@@ -133,7 +133,7 @@ MODALS = frozenset({"will", "would", "shall", "should", "can", "could", "may", "
                     "'ll", "'d", "'ve", "ca", "wo"})
 AUXWORDS = frozenset(BE | GET | HAVE | MODALS)
 ALL_FLAGS = ("voice", "rank", "rank_gate", "expl", "exconfig", "prep", "prep_lex", "cop", "headcls",
-              "selfcat", "selfcat_full", "relform", "constr_ungated", "fgconfig", "prep_prt")
+              "selfcat", "selfcat_full", "relform", "constr_ungated", "fgconfig", "prep_prt", "slot_unique")
 FLAGS_OFF = {f: False for f in ALL_FLAGS}
 # THE LANDED CONFIGURATION (every member measured; the three OFF members are REFUTED-AS-BUILT with numbers below).
 FLAGS_ON = dict({f: False for f in ALL_FLAGS}, rank=True, rank_gate=True, expl=True, exconfig=True, prep=True,
@@ -508,8 +508,87 @@ def accrue(rows, extra, flags, penn_on, frames, use_gold_heads=False, weighted=T
             "cues": {c: dict(d) for c, d in cue_counts.items()}, "decisions": dec}
 
 
-def table_from_counts(counts, frames, slot_capacity=None):
-    b = GRA.strengths_from_counts(counts)
+# ---------------------------------------------------------------------------------------------------------------
+# HIERARCHICAL CONFIGURATION BACKOFF (round 2). Every secondary cue VALUE is already Dirichlet-shrunk toward its
+# configuration; the CONFIGURATION itself got add-0.5 and nothing else, so a rare one (ADV_pre: 17 weighted
+# decisions; VERB_post_ex: 48) was estimated from almost no experience. The brain generalises a rare configuration
+# from the more general one it is a special case of -- a construction inherits its parent's expectations until
+# experience overrides them (Goldberg 1995 inheritance; the usage-based finding that construction learning is
+# frequency-driven and item-based, so a low-frequency construction is UNDER-LEARNED, not differently-learned). Same
+# maths one level up:
+#     P(role | cfg) = (n_cfg + m_cfg * P(role | PARENT(cfg))) / (N_cfg + m_cfg)
+# PARENT: drop the construction suffix first (VERB_post_ex -> VERB_post), then collapse the head class to
+# PRED / NONPRED (ADV_pre -> NONPRED_pre). m_cfg = 0 reproduces the shipped maths EXACTLY.
+# SWEPT and REJECTED (UD-EWT test 700): on the core-argument populations it looks like a win at every m in
+# 200-1000 (gold core +0.0026, copular subjects +0.0189, previously-unlabelled +0.0270 over m=0) -- but on the
+# organ's OWN BALANCED metric, held-out role accuracy over all 3224 nominals, it LOSES: -0.0323 CI-sep at gold and
+# -0.0099 CI-sep live at m=1000, and already -0.0043 CI-sep live at m=50. MECHANISM: backing a rare configuration
+# off toward its parent moves its probability toward the parent's role mix, and the parents are argument-richer
+# than the rare non-verbal-head configurations actually are -- so those configurations start over-predicting
+# ARGUMENTS. That flatters every argument-only population and is paid for on the class the argument populations do
+# not contain (OTHER). Kept as a documented knob at 0.0 (= the shipped maths, byte-identical).
+M_CONFIG_BACKOFF = 0.0
+_PRED_HC = ("VERB", "AUX")
+
+
+def parent_config(cfg):
+    """(coarse parent, construction base or None) for a configuration key, or None when it has no parent."""
+    base = cfg[:-3] if cfg.endswith("_ex") else cfg
+    if "_" not in base or base.startswith("ROOT"):
+        return None
+    hc, order = base.rsplit("_", 1)
+    return ("PRED" if hc in _PRED_HC else "NONPRED") + "_" + order, (base if base != cfg else None)
+
+
+def strengths_backoff(counts, m_cfg=M_CONFIG_BACKOFF):
+    """GRA.strengths_from_counts with the configuration distribution shrunk toward its parent. m_cfg=0 is identical."""
+    a = GRA._VALIDITY_ALPHA
+    m = GRA._VALIDITY_M_SHRINK
+    prior = np.asarray(counts["prior"], dtype=float)
+    logprior = np.log((prior + a) / (prior.sum() + a * K))
+    par = {}
+    for cfg, vec in counts["config"].items():
+        pc = parent_config(cfg)
+        if pc is None:
+            continue
+        coarse, base = pc
+        par.setdefault(coarse, np.zeros(K))
+        par[coarse] += np.asarray(vec, dtype=float)
+        if base:
+            par.setdefault(base, np.zeros(K))
+            par[base] += np.asarray(vec, dtype=float)
+    par_p = {k: (v + a) / (v.sum() + a * K) for k, v in par.items()}
+    p_cfg, strength = {}, {"config": {}}
+    for cfg, vec in counts["config"].items():
+        v = np.asarray(vec, dtype=float)
+        n = v.sum()
+        pc = parent_config(cfg)
+        back = None
+        if m_cfg > 0 and pc is not None:
+            coarse, base = pc
+            back = par_p.get(base) if (base and base in par_p) else par_p.get(coarse)
+        probs = ((v + m_cfg * back) / (n + m_cfg)) if back is not None else ((v + a) / (n + a * K))
+        p_cfg[cfg] = probs
+        strength["config"][cfg] = np.log(probs) - logprior
+    for cue, vals in counts["cues"].items():
+        strength[cue] = {}
+        for key, vec in vals.items():
+            cfg = key.split("|", 1)[0]
+            base = p_cfg.get(cfg)
+            if base is None:
+                continue
+            v = np.asarray(vec, dtype=float)
+            n = v.sum()
+            if n >= np.asarray(counts["config"][cfg], dtype=float).sum():
+                strength[cue][key] = np.zeros(K)
+            else:
+                strength[cue][key] = np.log((v + m * base) / (n + m)) - np.log(base)
+    return {"prior": logprior, "strength": strength}
+
+
+def table_from_counts(counts, frames, slot_capacity=None, m_cfg=M_CONFIG_BACKOFF):
+    """m_cfg=0.0 gives the SHIPPED strength maths exactly -- that is what the FLOOR table must use."""
+    b = strengths_backoff(counts, m_cfg)
     return {"prior": b["prior"], "strength": b["strength"], "counts": counts, "lemma_frames": frames,
             "slot_capacity": slot_capacity}
 
@@ -541,9 +620,53 @@ def activations(toks, pos, heads, tab, extra, flags, penn=None, conf=None):
     return out
 
 
+CORE_SLOT = {"SUBJ": "subj", "PASS_SUBJ": "subj", "OBJ": "obj", "IOBJ": "iobj", "BY_AGENT": "byagent"}
+
+
+def resolve_slots(A_by_i, heads, pos):
+    """ONE FILLER PER CORE SLOT, resolved as a COMPETITION (not a capacity constraint on the decode). When the
+    independent argmax gives two of a verb's dependents the SAME core role, the brain does not hold two subjects: the
+    strongest competitor takes the slot and the other falls to its next-best role (cue-based retrieval, Lewis &
+    Vasishth 2005 -- a filled slot is no longer available). This is the light form of the pri-93 joint decode: it fires
+    ONLY on an actual clash, so it is byte-identical wherever the labels are already distinct."""
+    out = {i: int(np.argmax(A)) for i, A in A_by_i.items()}
+    groups = {}
+    for i in A_by_i:
+        h = heads.get(i, 0) or 0
+        if h and 1 <= h <= len(pos) and pos[h - 1] in ("VERB", "AUX"):
+            groups.setdefault(h, []).append(i)
+    for h, members in groups.items():
+        if len(members) < 2:
+            continue
+        for _ in range(len(members)):
+            taken = {}
+            clash = None
+            for i in sorted(members):
+                slot = CORE_SLOT.get(ROLE_CLASSES[out[i]])
+                if slot is None:
+                    continue
+                if slot in taken:
+                    clash = (taken[slot], i, slot)
+                    break
+                taken[slot] = i
+            if clash is None:
+                break
+            a, b, slot = clash
+            loser = a if float(A_by_i[a][out[a]]) < float(A_by_i[b][out[b]]) else b
+            A = np.array(A_by_i[loser], dtype=float)
+            for r in range(len(ROLE_CLASSES)):
+                if CORE_SLOT.get(ROLE_CLASSES[r]) == slot:
+                    A[r] = -1e9
+            A_by_i[loser] = A
+            out[loser] = int(np.argmax(A))
+    return out
+
+
 def label_all(toks, pos, heads, tab, extra, flags, penn=None, conf=None):
-    return {i: ROLE_TO_DEP[ROLE_CLASSES[int(np.argmax(A))]]
-            for i, A in activations(toks, pos, heads, tab, extra, flags, penn, conf).items()}
+    A = activations(toks, pos, heads, tab, extra, flags, penn, conf)
+    if (flags or {}).get("slot_unique"):
+        return {i: ROLE_TO_DEP[ROLE_CLASSES[r]] for i, r in resolve_slots(dict(A), heads, pos).items()}
+    return {i: ROLE_TO_DEP[ROLE_CLASSES[int(np.argmax(v))]] for i, v in A.items()}
 
 
 def label_all_marg(toks, pos, heads, post, tab, extra, flags, penn=None, min_p=0.05):
@@ -613,7 +736,7 @@ def load_v3_table(path=None):
     if _V3_TAB is None or path:
         with open(path or CANDIDATE_TABLE, encoding="utf-8") as f:
             doc = json.load(f)
-        b = GRA.strengths_from_counts(doc["counts"])
+        b = strengths_backoff(doc["counts"], float(doc.get("m_config_backoff", 0.0)))
         t = {"prior": b["prior"], "strength": b["strength"], "counts": doc["counts"],
              "lemma_frames": doc.get("lemma_frames", {}), "slot_capacity": doc.get("slot_capacity")}
         if path:
@@ -700,6 +823,159 @@ def slot_capacity_from(rows):
                 if c >= 2:
                     n2[slot] += 1
     return {s: [int(n1[s]), int(n2[s])] for s in GRA.CORE_SLOTS}
+
+
+# ================================================================================================ grow from reading
+# OPPORTUNITY 1 (the most brain-foundational of the queued levers): the starved configurations -- the there-BE
+# construction (48 weighted decisions) and the inverted-copular head class (17) -- are starved because UD-EWT train is
+# 12.5k sentences. The Competition Model's validities are LIFETIME statistics accrued from input, so the fix is to keep
+# reading, treebank-free. The problem is the OUTCOME: self-training on the organ's own labels would entrench exactly the
+# error we are trying to fix (it currently calls the existential subject an object). So the outcome comes from an
+# INDEPENDENT, higher-precision cue the organ is not learning here: NUMBER AGREEMENT between the finite verb and its
+# subject. Agreement is a Competition-Model cue (Bates & MacWhinney 1989: in English its overall VALIDITY is low --
+# which is why it cannot be the deployed decision rule -- but where it fires unambiguously its RELIABILITY is high, and
+# reliability is what a teacher needs; MacWhinney 1987 acquires cue strengths exactly this way, from the cases where a
+# reliable cue settles the interpretation). It is read from MORPHOLOGY (the category organ's Penn arm: VBZ/VBP, NN/NNS),
+# not from the parse, so it is independent of every cue being learned -- and it is precisely the cue that identifies the
+# notional subject of "there ARE blanks". No treebank, no gold tree, no external tool.
+_SG_PRON = frozenset({"he", "she", "it", "this", "that", "i", "someone", "anyone", "everyone", "nobody", "something"})
+_PL_PRON = frozenset({"they", "we", "these", "those", "both", "many", "few", "several"})
+SIMPLEWIKI = os.path.join(REPO, "data", "corpora", "simplewiki", "simplewiki_clean_v1.txt")
+_TOKRE = None
+frames_global = None
+
+
+def _tokenize(line):
+    global _TOKRE
+    if _TOKRE is None:
+        import re
+        _TOKRE = re.compile(r"[A-Za-z]+(?:'[A-Za-z]+)?|[0-9]+(?:[.,][0-9]+)*|[^\sA-Za-z0-9]")
+    return _TOKRE.findall(line)
+
+
+def _number(tok, penn_tag, upos):
+    """SG / PL / None from morphology alone (the Penn arm + closed-class pronoun forms)."""
+    low = tok.lower()
+    if low in _SG_PRON:
+        return "sg"
+    if low in _PL_PRON:
+        return "pl"
+    if penn_tag in ("NNS", "NNPS"):
+        return "pl"
+    if penn_tag in ("NN", "NNP"):
+        return "sg"
+    if upos == "NUM":
+        return "sg" if low in ("1", "one") else "pl"
+    return None
+
+
+def agreement_teacher(toks, pos, penn, extra):
+    """{token -> ("SUBJ", verb)}: the arguments that CONVERGING number agreement and position identify as the subject
+    of a finite present-tense verb. A teacher needs RELIABILITY, not validity, and the reliability was MEASURED on
+    UD-EWT test (a measuring instrument only, never read while learning) at each tightening:
+        agreement alone                                          fired 46, precision 0.457  -- far too noisy to teach
+        + drop preposition-governed candidates (case cue)        fired 42, precision 0.643
+        + the agreeing candidate must be PRE-verbal, OR the
+          clause is the there-BE construction (whose subject
+          is post-copular by construction)                       fired 28, precision 0.893  <- the teacher used
+        existential clauses only                                 fired  1, precision 1.000  -- reliable, but too rare
+    Converging cues on unambiguous input is the Competition Model's own account of how a child fixes cue strengths
+    (MacWhinney 1987); the existential exemption is what lets the teacher reach the construction that POSITION alone
+    would mislabel, which is the whole point of growing these counts. Morphology + clause bounds + the case scan only:
+    no gold tree, no treebank, no external tool."""
+    low = [t.lower() for t in toks]
+    out = {}
+    for v in range(1, len(toks) + 1):
+        tag = penn[v - 1] if v - 1 < len(penn) else None
+        if tag not in ("VBZ", "VBP"):
+            continue
+        want = "sg" if tag == "VBZ" else "pl"
+        lo, hi = GRA.clause_bounds(toks, pos, v - 1)
+        ex = existential_frame(toks, pos, v)
+        cands = [i for i in range(lo + 1, min(hi, len(pos)) + 1)
+                 if i != v and is_arg_head(toks, pos, i, extra) and low[i - 1] != "there"
+                 and not GRA._pp_governed_commastop(low, pos, i - 1)]
+        if len(cands) < 2:
+            continue
+        num = {i: _number(toks[i - 1], penn[i - 1] if i - 1 < len(penn) else None, pos[i - 1]) for i in cands}
+        agree = [i for i in cands if num[i] == want]
+        disagree = [i for i in cands if num[i] is not None and num[i] != want]
+        if len(agree) != 1 or not disagree:
+            continue
+        i = agree[0]
+        if i < v or ex:
+            out[i] = ("SUBJ", v)
+    return out
+
+
+def grow_from_reading(n_lines, maxlen=32, extra=EXTRA, flags=None, penn_on=False, min_conf=None):
+    """Accrue Competition-Model cue counts by READING simplewiki with the live chain; the outcomes come from the
+    agreement teacher. Treebank-free: no UD file is opened on this path."""
+    import hdlab.attachment_arm as AA
+    import hdlab.lexical_categories as LC
+    fl = FLAGS_ON if flags is None else flags
+    mc = ACCRUE_MIN_CONF if min_conf is None else min_conf
+    lc = LC.get(); pn = _penn_tagger(); atab = AA.load_attachment_validities()
+    prior = [0.0] * K
+    cfg_counts = defaultdict(lambda: [0.0] * K)
+    cue_counts = defaultdict(lambda: defaultdict(lambda: [0.0] * K))
+    dec = 0.0; nsent = 0; nfire = 0; t0 = time.time()
+    cfg_seen = Counter()
+    with open(SIMPLEWIKI, encoding="utf-8") as f:
+        for line in f:
+            if nsent >= n_lines:
+                break
+            toks = _tokenize(line.strip())
+            if not (4 <= len(toks) <= maxlen):
+                continue
+            nsent += 1
+            pos = lc.tag(list(toks))
+            penn = pn.tag(list(toks))
+            teach = agreement_teacher(toks, pos, penn, extra)
+            if not teach:
+                continue
+            heads = AA.heads(toks, pos, atab)
+            post = AA.head_posterior(list(toks), list(pos), atab)
+            conf = {i: float((post.get(i) or {}).get(h, 0.0)) for i, h in heads.items()}
+            for i, (role, _v) in teach.items():
+                w = float(conf.get(i, 0.0))
+                if w < mc:
+                    continue
+                nfire += 1; dec += w
+                g = RIX[role]; prior[g] += w
+                cu = cues_v3(toks, pos, heads, i, frames_global, penn if penn_on else None, extra, fl, conf)
+                cfg = cu["config"]; cfg_counts[cfg][g] += w; cfg_seen[cfg] += 1
+                for c, val in cu.items():
+                    if c != "config":
+                        cue_counts[c]["%s|%s" % (cfg, val)][g] += w
+            if nsent % 10000 == 0:
+                print("   [grow] %d sentences, %d outcomes, %.0fs" % (nsent, nfire, time.time() - t0), flush=True)
+    print("[grow] read %d sentences, %d agreement outcomes (weighted %.1f) in %.0fs"
+          % (nsent, nfire, dec, time.time() - t0), flush=True)
+    print("[grow] top configurations taught:", cfg_seen.most_common(10), flush=True)
+    return {"prior": prior, "config": dict(cfg_counts),
+            "cues": {c: dict(d) for c, d in cue_counts.items()}, "decisions": dec,
+            "n_sentences": nsent, "n_outcomes": nfire, "cfg_seen": dict(cfg_seen.most_common(40))}
+
+
+def merge_counts(base, add, scale=1.0):
+    """THE ONLINE OBSERVE PATH, in bulk: reading outcomes are ADDED to the counts; the strengths stay a pure function
+    of the counts (graded_role_assigner.strengths_from_counts). Nothing is refitted."""
+    out = {"prior": [a + scale * b for a, b in zip(base["prior"], add["prior"])],
+           "config": {k: list(v) for k, v in base["config"].items()},
+           "cues": {c: {k: list(v) for k, v in d.items()} for c, d in base["cues"].items()},
+           "decisions": base.get("decisions", 0) + scale * add.get("decisions", 0)}
+    for cfg, vec in add["config"].items():
+        tgt = out["config"].setdefault(cfg, [0.0] * K)
+        for j in range(K):
+            tgt[j] += scale * vec[j]
+    for c, d in add["cues"].items():
+        tc = out["cues"].setdefault(c, {})
+        for k, vec in d.items():
+            tgt = tc.setdefault(k, [0.0] * K)
+            for j in range(K):
+                tgt[j] += scale * vec[j]
+    return out
 
 
 # ================================================================================================ evaluation
@@ -965,7 +1241,7 @@ def main():
         tab = table_from_counts(counts, frames, slotcap)
         res = {"v3": agent_probe(out_dir, tab, extra, FLAGS_ON, penn_on, label="v3")}
         cf = accrue(tr, NONE_EXTRA, FLAGS_OFF, False, frames)
-        tf = table_from_counts(cf, frames, slotcap)
+        tf = table_from_counts(cf, frames, slotcap, m_cfg=0.0)
         res["floor"] = agent_probe(out_dir, tf, NONE_EXTRA, FLAGS_OFF, False, label="floor(v2 repro)")
         json.dump(res, open(os.path.join(out_dir, "agent_metrics.json"), "w", encoding="utf-8"), indent=1, default=str)
         print("DONE")
@@ -981,8 +1257,13 @@ def main():
         v3tab = table_from_counts(counts, frames, slotcap)
         orig = GRA.coarse_roles
         cap = None
-        for arm in ("floor", "v3"):
-            if arm == "v3":
+        arms = ("floor", "v3", "v3_slotuniq") if "--slotuniq" in argv else ("floor", "v3")
+        for arm in arms:
+            if arm == "v3_slotuniq":
+                GRA.coarse_roles = (lambda toks, pos, heads, validities=None, head_posterior=None:
+                                    coarse_roles_v3(toks, pos, heads, v3tab, head_posterior, extra,
+                                                    dict(FLAGS_ON, slot_unique=True)))
+            elif arm == "v3":
                 GRA.coarse_roles = (lambda toks, pos, heads, validities=None, head_posterior=None:
                                     coarse_roles_v3(toks, pos, heads, v3tab, head_posterior, extra, FLAGS_ON))
             else:
@@ -1001,13 +1282,14 @@ def main():
     if "--emit" in argv:
         counts = accrue(tr, extra, FLAGS_ON, penn_on, frames, min_conf=ACCRUE_MIN_CONF)
         counts["slot_capacity"] = slotcap
-        b = GRA.strengths_from_counts(counts)
+        b = strengths_backoff(counts)
         doc = {"source": "pri103 v3 cue set (auxiliary-frame voice, argument rank, expletive slot, lexical case, "
                          "generalized copula, widened argument class + selfcat); Competition-Model strengths = "
                          "graded_role_assigner.strengths_from_counts(counts); UD-EWT train, PERCEIVED heads, "
                          "confidence-weighted accrual.",
                "roles": ROLE_CLASSES, "decisions": counts["decisions"], "perceived": True, "confidence_weighted": True,
                "argset": sorted(NOMINAL | extra), "penn": penn_on, "cue_set": "v3",
+               "m_config_backoff": M_CONFIG_BACKOFF, "min_conf": ACCRUE_MIN_CONF, "rank_tau": RANK_TAU,
                "prior": [float(x) for x in b["prior"]],
                "strength": {c: {v: [round(float(x), 4) for x in vec] for v, vec in vals.items()}
                             for c, vals in b["strength"].items()},
@@ -1025,7 +1307,7 @@ def main():
     res = {"n_train": len(tr), "n_test": len(te), "penn": penn_on, "argset": sorted(NOMINAL | extra)}
     print("[floor] building the v2-repro table (shipped cue set, NOMINAL argset, weighted perceived accrual)", flush=True)
     cf = accrue(tr, NONE_EXTRA, FLAGS_OFF, False, frames)
-    tab_f = table_from_counts(cf, frames, slotcap)
+    tab_f = table_from_counts(cf, frames, slotcap, m_cfg=0.0)
     print("[new] building the v3 table", flush=True)
     cn = accrue(tr, extra, FLAGS_ON, penn_on, frames, min_conf=ACCRUE_MIN_CONF)
     tab_n = table_from_counts(cn, frames, slotcap)
@@ -1106,7 +1388,7 @@ def main():
             arms.append(("CUM:" + step, aset, dict(cum), penn_on))
         for name, aset, fl, pon in arms:
             c = accrue(tr, aset, fl, pon, frames, min_conf=ACCRUE_MIN_CONF if fl.get("rank_gate") else 0.0)
-            t = table_from_counts(c, frames, slotcap)
+            t = table_from_counts(c, frames, slotcap, m_cfg=M_CONFIG_BACKOFF if fl.get("rank_gate") else 0.0)
             row = {}
             for arm, pf in (("gold", pf_g), ("live", pf_l)):
                 p = evaluate(te, t, aset, fl, arm, pon)

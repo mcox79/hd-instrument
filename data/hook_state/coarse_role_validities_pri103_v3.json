@@ -24,6 +24,9 @@
  ],
  "penn": false,
  "cue_set": "v3",
+ "m_config_backoff": 0.0,
+ "min_conf": 0.5,
+ "rank_tau": 0.5,
  "prior": [
   -1.3434021463751338,
   -1.9108915585691462,
