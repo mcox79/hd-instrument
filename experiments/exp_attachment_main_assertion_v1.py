@@ -823,13 +823,13 @@ def main(argv=None):
         print("tables pickled ->", a.save_tables, flush=True)
     live = {}
     if a.live:
-        for arm in ("base", "full"):
-            if arm in tables:
-                cs, tc, ss, cl = specs[arm]
-                ROOT_CUES = tuple(ss)
-                live[arm] = live_chain(tables[arm], cs, cl, test_cap=len(test))
-                ROOT_CUES = keep
-                print("LIVE-CHAIN %-6s %s" % (arm, live[arm]), flush=True)
+        for arm in list(tables):
+            cs, tc, ss, cl = specs[arm]
+            ROOT_CUES = tuple(ss)
+            CONJ_RPRED["on"] = "conj" in arm; CSUB["on"] = "csub" in arm; COPFIX["on"] = "copfix" in arm
+            live[arm] = live_chain(tables[arm], cs, cl, test_cap=len(test))
+            ROOT_CUES = keep
+            print("LIVE-CHAIN %-18s %s" % (arm, live[arm]), flush=True)
 
     doc = {"anchor": ANCHOR, "live_chain": live, "mode": "smoke" if smoke else "full", "train_cap": cap, "test_sentences": len(test),
            "rounds": a.rounds, "gammas": {"cop": a.gcop, "sub": a.gsub, "fin": a.gfin},
