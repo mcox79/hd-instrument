@@ -191,3 +191,5 @@ None blocking.
 - **G5 -- the surface-confound finding localizes the loop's ceiling to its SURFACE-level SEQ channel** (per-token
   prediction is surface-dominated); concept-level prediction needs a concept-transition model = the GENERATIVE
   WORLD-MODEL (the named main event) -- a strategic pointer, not a quick fix.
+
+INTEGRATED_BY_STRATEGY 2026-09-12 — owner-DONE 22:30; reverified 3/3 first-hand. Instrument + witness committed (experiment routed through get_output_dir); board guard arm recorded as a follow-on (INTEGRATION_LEDGER).

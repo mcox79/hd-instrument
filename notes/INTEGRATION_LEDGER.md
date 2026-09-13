@@ -16,6 +16,12 @@
 
 ---
 
+## 2026-09-12 (late) — ✅ INTEGRATED pri-9 grounding_coverage_quality_metric_a_correct_link_gold_not_a_grounded_count (owner-DONE 22:30; reverified 3/3 first-hand)
+- **Score/instrument:** the coverage-QUALITY instrument's missing half: the count knob (SDT false-alarm criterion) moves n_grounded +63% (2154->3505) while correct-link quality is FLAT by construction (ranking FA-invariant; identity) and the fraction correct FALLS 0.235->0.180; the quality dim MOVES on a real quality change (incumbent->FUSED +0.3612 CI[0.298,0.435]); twin at chance 0.013. A rigorous LOCATED NEGATIVE for referent-link-to-ENTITY quality (the loop makes no such decision; belongs to the coref line).
+- **Wiring:** instrument files committed (`experiments/exp_grounding_quality_flat_on_count_v1.py` routed through get_output_dir; `verification/test_grounding_quality_flat_on_count.py` = the standing guard, 3/3). The proposed board GUARD ARM (FA-sweep invariant auto-asserted on every board run) is a FOLLOW-ON (board runtime; the witness guards it today).
+- **Up/downstream:** nothing moves on the read path (an instrument). Upstream signal trace kept in SOLVED.md; the MEN widening is optional power.
+- **INCORPORATION MANIFEST:** INCORPORATE instrument + witness (done); AS-DURABLE-NEGATIVE entity-link quality not scorable on this loop; DO-NOT add a count-side knob to any board claim (quality-blind).
+
 ## 2026-09-12 (late) — ✅ INTEGRATED pri-12 the_lemmatizer_is_wordnet_morphy_at_inference_not_a_glass_box_morphological_decomposition (owner-DONE 22:30; reverified 4/4 first-hand)
 - **Score/instrument:** byte-identity 0 div / 6.3M (the bar); dual-route optimum 0.9836 vs morphy 0.9603 on 195k human gold lemmas (twin 0.7375); BF-POS upstream lifts morphology 0.9398->0.9484.
 - **Wiring:** `hdlab/morphology.py` + 13 read-path repoints (commit 35f8b4dab); asset force-added. Default path byte-identical -> no board dimension moves (self-test on a runner).
