@@ -47,7 +47,7 @@ session: start, end, nudges, tool calls, verdict, reverify, integrated).
 2. **pri 96** far coordination needs the meaning channel -- attachment_arm + meaning channel; after 94 or paired with a non-arm item.
 3. **NEW brief (strategy writes during C): embedded and copular SUBJECTS at the labels rung** (the role competition loses nsubj under
    ccomp/xcomp and in copular clauses; the plan's "governor residuals = labels rung" item) -- graded_role_assigner.
-4. **NEW brief: unknown-word coverage of the category organ** (0.752 on unseen words; the reading-acquired inventory covers only
+4. **pri 99 (WRITTEN 14:50): unseen words read by form and position (names vs common nouns)** -- was: unknown-word coverage of the category organ (0.752 on unseen words; the reading-acquired inventory covers only
    what 1M lines showed; the brain generalises by form) -- lexical_categories + induced_categories.
 5. **NEW brief: the nmod give-back after the teacher v2 promotion** (0.311 -> 0.358 with meaning cues; still the weakest
    comprehension-relevant nominal relation) -- may fold into pri 94.
@@ -73,3 +73,4 @@ Owner check-ins expected: DONE marks in the tab; Q on the integration gate; whet
 ## Log (appended through the day)
 - 14:15 pilot launched (pri 97, pri 98; opus agents); board_final3 launched (haiku runner).
 - 14:24 gap work: tag->head loss attributed (VERB-as-AUX = 58% of the 1.56-point loss); building the frequent-frame cue in the category organ.
+- 14:38 final board 0.6352 recorded; 14:41 light shipment done; 14:35 frame cue blanket form refuted, chunk form drafted (run DENIED -> parked); 14:50 pri 99 brief written (unknown words).
