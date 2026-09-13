@@ -818,13 +818,18 @@ INCR_HOLD = float(os.environ.get("HDLAB_ARM_HOLD", "0.0"))
 # not yet heard is read: the expectation is a function of the arriving word's category and the learned table only.
 INCR_HOLD_MODE = os.environ.get("HDLAB_ARM_HOLD_MODE", "expect")   # "expect" (learned asset, else table max) | "max" (table max only) | "const"
 INCR_NORM = os.environ.get("HDLAB_ARM_INCR_NORM", "sum")          # "sum" (one score per word) | "local" (softmax per arrival)
+# ROOT AT WRAP-UP (10:55 local): the sentence's main word is a CLAUSE-END decision, not an arrival decision -- taking the root arc on
+# the first verb that prefers it blocks a later main verb (root 0.69 vs 0.74). With this on, no word takes the root arc while
+# reading; at the end the held word with the highest root score is the root and the other held words attach to their best
+# available head (an earlier clause hangs on the main one). The wrap-up count excludes the root word itself.
+INCR_ROOT_WRAPUP = os.environ.get("HDLAB_ARM_ROOT_WRAPUP", "0") == "1"
 
 
 HOLD_ASSET = os.path.join(_REPO, "data", "frontend_assets", "attachment_hold_expect_v1.json")
 _HOLD_TAB: Optional[Dict[str, Dict[str, float]]] = None
 
 
-def hold_expectation(pos: Sequence[str], table: Optional[Dict[str, object]] = None) -> np.ndarray:
+def hold_expectation(pos: Sequence[str], table: Optional[Dict[str, object]] = None, A: Optional[np.ndarray] = None) -> np.ndarray:
     """Per word (index 1..n): the value of HOLDING the word for a head still to come.
     mode "learned" (default when the asset exists): P(head to the right | category, a verb has/has not arrived yet) x the mean
     realised activation of such arcs in the organ's OWN decoded trees over training text (self-supervised; no treebank heads) --
@@ -838,14 +843,28 @@ def hold_expectation(pos: Sequence[str], table: Optional[Dict[str, object]] = No
                 _HOLD_TAB = json.load(f)["expect"]
         except Exception:
             _HOLD_TAB = {}
-    out = np.zeros(len(pos) + 1); verb_seen = False
+    out = np.zeros(len(pos) + 1); verb_seen = False; sub_pending = False
+    tab2 = _HOLD_TAB.get("_by_left", {}) if A is not None else {}
+    tab3 = _HOLD_TAB.get("_ctx", {})
     for j, p in enumerate(pos, start=1):
-        e = _HOLD_TAB.get(p, {}).get("1" if verb_seen else "0") if INCR_HOLD_MODE != "max" else None
+        e = None
+        if INCR_HOLD_MODE != "max":
+            k = "1" if verb_seen else "0"
+            # a subordinator ("when", "because", "that") before this clause's verb = the clause is predicted to hang on a later one
+            e = tab3.get(p, {}).get(k + ("s" if sub_pending else ""))
+            if tab2 and j > 1:
+                # the richer expectation: P(head is still to come | category, verb seen, category of the BEST LEFT candidate now)
+                col = A[1:j, j]; hb = int(np.argmax(col)) + 1 if np.isfinite(col).any() else 0
+                e = tab2.get(p, {}).get(pos[hb - 1] if hb else "ROOT", {}).get(k)
+            if e is None:
+                e = _HOLD_TAB.get(p, {}).get(k)
         if e is None:
             c = ix.cats.get(p, ix.unk); e = float(ix.cfg_strength[ix.cfg_id[:, c, 1]].max())
         out[j] = float(e)
         if p == "VERB":
-            verb_seen = True
+            verb_seen = True; sub_pending = False
+        elif p == "SCONJ":
+            sub_pending = True
     return out
 
 
@@ -854,17 +873,31 @@ def build_hold_expectation(out: str = HOLD_ASSET, cap: int = 3000, table: Option
     from tools.build_attachment_validities import sentences, TRAIN
     tab = table or load_attachment_validities()
     acc: Dict[str, Dict[str, List[float]]] = defaultdict(lambda: {"0": [], "1": []}); cnt: Dict[str, Dict[str, List[int]]] = defaultdict(lambda: {"0": [0, 0], "1": [0, 0]})
+    acc2: Dict = defaultdict(lambda: defaultdict(lambda: {"0": [], "1": []})); cnt2: Dict = defaultdict(lambda: defaultdict(lambda: {"0": [0, 0], "1": [0, 0]}))
+    acc3: Dict = defaultdict(lambda: defaultdict(list)); cnt3: Dict = defaultdict(lambda: defaultdict(lambda: [0, 0]))
     for toks, pos, _, _ in sentences(TRAIN, cap=cap, maxlen=60):
-        A, n = arc_scores(toks, pos, tab); hd = map_tree_single_root(A, n); vs = False
+        A, n = arc_scores(toks, pos, tab); hd = map_tree_single_root(A, n); vs = False; sp = False
         for j in range(1, n + 1):
             p = pos[j - 1]; k = "1" if vs else "0"; h = hd.get(j)
             if h is None:
                 continue
+            k3 = k + ("s" if sp else "")
             if h > j and np.isfinite(A[h][j]):
-                acc[p][k].append(float(A[h][j])); cnt[p][k][0] += 1
-            cnt[p][k][1] += 1
+                acc3[p][k3].append(float(A[h][j])); cnt3[p][k3][0] += 1
+            cnt3[p][k3][1] += 1
+            if p == "SCONJ":
+                sp = True
+            if j > 1:
+                col = A[1:j, j]; hb = int(np.argmax(col)) + 1 if np.isfinite(col).any() else 0
+                lc = pos[hb - 1] if hb else "ROOT"
+            else:
+                lc = "ROOT"
+            right = h > j and np.isfinite(A[h][j])
+            if right:
+                acc[p][k].append(float(A[h][j])); cnt[p][k][0] += 1; acc2[p][lc][k].append(float(A[h][j])); cnt2[p][lc][k][0] += 1
+            cnt[p][k][1] += 1; cnt2[p][lc][k][1] += 1
             if p == "VERB":
-                vs = True
+                vs = True; sp = False
     expect = {}
     for p in acc:
         expect[p] = {}
@@ -872,11 +905,29 @@ def build_hold_expectation(out: str = HOLD_ASSET, cap: int = 3000, table: Option
             r, t = cnt[p][k]
             if t >= 5:
                 expect[p][k] = (r / t) * (float(np.mean(acc[p][k])) if acc[p][k] else 0.0)
-    d = {"expect": expect, "cap": cap, "note": "P(right head | cat, verb_seen) x mean realised right-arc activation; organ's own map1 trees"}
+    by_left = {}
+    for p in acc2:
+        by_left[p] = {}
+        for lc in acc2[p]:
+            by_left[p][lc] = {}
+            for k in ("0", "1"):
+                r, t = cnt2[p][lc][k]
+                if t >= 8:
+                    by_left[p][lc][k] = (r / t) * (float(np.mean(acc2[p][lc][k])) if acc2[p][lc][k] else 0.0)
+    expect["_by_left"] = by_left
+    ctx = {}
+    for p in acc3:
+        ctx[p] = {}
+        for k3 in cnt3[p]:
+            r, t = cnt3[p][k3]
+            if t >= 8:
+                ctx[p][k3] = (r / t) * (float(np.mean(acc3[p][k3])) if acc3[p][k3] else 0.0)
+    expect["_ctx"] = ctx
+    d = {"expect": expect, "cap": cap, "note": "P(right head | cat, verb_seen) x mean realised right-arc activation; organ's own map1 trees; _by_left: also conditioned on the category of the best left candidate"}
     with open(out, "w", encoding="utf-8") as f:
         json.dump(d, f, indent=1)
     return d
-INCR_STATS = {"sentences": 0, "incomplete_words": 0, "words": 0}
+INCR_STATS = {"sentences": 0, "incomplete_words": 0, "words": 0, "last_incomplete": []}   # last_incomplete: indices repaired at wrap-up (last sentence)
 
 
 def incremental_tree(A: np.ndarray, n: int, beam: int = INCR_BEAM, hold=INCR_HOLD,
@@ -900,8 +951,8 @@ def incremental_tree(A: np.ndarray, n: int, beam: int = INCR_BEAM, hold=INCR_HOL
             st = list(stack); h = list(hd); gained = 0.0
             while True:
                 top = st[-1]
-                # consuming choice 1: b attaches to the current top (root arc only once)
-                if top != 0 or not ru:
+                # consuming choice 1: b attaches to the current top (root arc only once; never while reading if root is a wrap-up decision)
+                if top != 0 or (not ru and not INCR_ROOT_WRAPUP):
                     h2 = list(h); h2[b] = top
                     outs.append((gained + fin(A[top][b]), tuple(st + [b]), tuple(h2), ru or top == 0))
                 # consuming choice 2: hold b for a head still to come
@@ -931,10 +982,14 @@ def incremental_tree(A: np.ndarray, n: int, beam: int = INCR_BEAM, hold=INCR_HOL
         states = sorted(((v, k[0], k[1], k[2]) for k, v in nxt.items()), key=lambda t: -t[0])[:beam]
     # finalisation: words still waiting take the best open head (root once), by convention; counted as incomplete
     best_logp, stack, hd, ru = states[0]
-    heads_out = list(hd); inc = 0
+    heads_out = list(hd); inc = 0; INCR_STATS["last_incomplete"] = []
+    if INCR_ROOT_WRAPUP and not ru:
+        held = [j for j in range(1, n + 1) if heads_out[j] == -1]
+        if held:
+            r = max(held, key=lambda j: fin(A[0][j])); heads_out[r] = 0; ru = True
     for j in range(1, n + 1):
         if heads_out[j] == -1:
-            inc += 1
+            inc += 1; INCR_STATS["last_incomplete"].append(j)
             if not ru:
                 ru = True; heads_out[j] = 0; continue              # j is the root
             cands = []
@@ -967,7 +1022,7 @@ def decode(toks: Sequence[str], pos: Sequence[str], A: np.ndarray, n: int, temp:
            table: Optional[Dict[str, object]] = None) -> Tuple[Dict[int, int], Dict[int, Dict[int, float]]]:
     """Point heads + graded posterior under the configured decode, with the occupancy repair and the punctuation convention."""
     if DECODE == "incr":
-        hv = hold_expectation(pos, table) + INCR_HOLD if INCR_HOLD_MODE != "const" else INCR_HOLD
+        hv = hold_expectation(pos, table, A if INCR_HOLD_MODE == "expect_left" else None) + INCR_HOLD if INCR_HOLD_MODE != "const" else INCR_HOLD
         hd, post = incremental_tree(A, n, INCR_BEAM, hv, temp)             # module globals read at call time (sweepable)
     elif DECODE == "mbr":
         hd, post = mbr_tree(A, n, temp)
