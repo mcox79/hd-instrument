@@ -14,6 +14,7 @@ NEW word means from what it reads, using its sense of how things feel and look, 
 near the top about 38 times in 100 where the old method managed about 3.
 
 ## WHAT CHANGED LATELY
+- **13 Sep, 17:30 (awaiting your DONE on three solutions).** Three problems were solved today by solver sessions run as agents, with your probing rules applied: (a) the main-statement decision, which had no evidence in it (every verb tied), now competes among candidate predicates; at the landed training size the main word is right 78 times in 100 vs 72 and overall attachment 62.4 vs 61.3, nothing down; (b) harm carried by HOW an action is done (brutalize, manhandle): all six silent verbs read as harm, 46 more verbs decided at 6 of 6 agreement with human judgements, a new 36-sentence prose test from 16 to 23 right; (c) words never seen before: 75 to 80 in 100 right, overall word kinds 92.8 to 93.1; names vs common nouns only 163 to 154 errors because 58 carry no form cue (the fix needs what the passage already knows about the referent; filed as a new problem). I re-ran all three first-hand and every number reproduced. Also found: the 'who did the action' score on this card is computed by a word-order shortcut that never uses the reader's own grammar, which is why it sits just below the plain rule; the reader's own chain scores 0.80 there today vs the rule's 0.84, with the causes counted and handed to the session now working on roles.
 - **13 Sep, 14:40.** Full re-check after the last two hand-out solutions were folded in (a verb's slots can each hold one filler, kept switchable and off because it cost the 'who was acted on' read; the reading-learned word classes now feed the live word-category organ): overall score 0.6346 -> 0.6352 out of 1; 'who was acted on' 0.789 -> 0.792, 'what things are like' 0.810 -> 0.815; nothing went down. A try at letting the word-category organ read the neighbouring words as a blanket extra vote was tested on the full test set and REJECTED with numbers (it trades one kind of verb mistake for another); a second form, storing frequent two-word units the way people do, is drafted and waits for your go.
 
 **13 Sep, 13:05.** Final board with everything: 63.5 in 100 (stand-in 63.8). Unchanged from the previous run, so the coordination teaching and lemma-key consistency cost nothing. Nothing running; three hand-outs open (Pri 93, 94, 96).
@@ -176,7 +177,7 @@ Long term (the next few months):
 
 <!-- AUTO:BEGIN (written by tools/scorecard.py; edit the sections ABOVE, not this) -->
 
-Last full check: 2026-09-13T21:06:39.754895+00:00 (26 on record). Generated 2026-09-13T21:14:29+00:00.
+Last full check: 2026-09-13T21:06:39.754895+00:00 (26 on record). Generated 2026-09-13T21:22:31+00:00.
 
 | Ability | Group | How well | Compared with a simple rule | Since the previous check | Brain-faithful? |
 |---|---|---|---|---|---|
