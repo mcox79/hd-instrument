@@ -39,14 +39,42 @@ __bf_note__ = "the inventory/counts source is the remaining MODEL element; swap 
 _REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ASSET = os.path.join(_REPO, "data", "frontend_assets", "lexical_categories_counts_v1.json")
 BOS = "<s>"
+K2 = 2.0                                                        # Dirichlet back-off mass for the second-order transitions (swept, not adopted)
+SHAPES = ("lower", "Cap", "ALLCAP", "digit", "hyphen", "other")
+
+
+def word_shape(w: str) -> str:
+    if any(ch.isdigit() for ch in w):
+        return "digit"
+    if "-" in w and any(ch.isalpha() for ch in w):
+        return "hyphen"
+    if w.isalpha():
+        if w.islower():
+            return "lower"
+        if w.isupper():
+            return "ALLCAP" if len(w) > 1 else "Cap"
+        if w[0].isupper() and w[1:].islower():
+            return "Cap"
+    return "other"
 UPOS2WN = {"NOUN": "n", "VERB": "v", "ADJ": "a", "ADV": "r"}
 
 
 class LexicalCategories:
     """Generative count-based category model with forward-backward posterior decoding (plastic counts)."""
 
-    def __init__(self, lam: float = 0.1, suf_len: int = 4):
+    def __init__(self, lam: float = 0.1, suf_len: int = 4, order: int = 1, use_shape: bool = False, rare_max: int = 2):
         self.lam = float(lam); self.suf_len = int(suf_len)
+        # ARM v2 (2026-09-13 07:05 local; same count-based generative model, three more count tables, all plastic):
+        #   order=2      second-order transitions P(c | p2, p1) with Dirichlet back-off to the first-order row (the brain's sequence
+        #                prediction is not one-step-Markov; the forward-backward runs over category PAIRS);
+        #   use_shape    an ORTHOGRAPHIC-SHAPE emission factor P(shape | c) (capitalised / all-caps / digit / hyphenated / lower / other),
+        #                read from the original casing -- the cue the lowercased lexical table throws away (proper nouns, numbers);
+        #   rare_max     a known word seen <= rare_max times mixes its lexical emission with the unknown-word (suffix + shape) estimate
+        #                in proportion to its count (a rare form's category evidence is mostly its shape and ending).
+        # order=1 / use_shape=False reproduces v1 exactly (old assets load that way).
+        self.order = int(order); self.use_shape = bool(use_shape); self.rare_max = int(rare_max)
+        self.shape: Dict[str, Counter] = defaultdict(Counter)      # category -> Counter(shape class)
+        self.trans2: Dict[Tuple[str, str], Counter] = defaultdict(Counter)   # (prev2, prev1) -> Counter(category)
         self.emit: Dict[str, Counter] = defaultdict(Counter)       # category -> Counter(word)
         self.tag_count: Counter = Counter()
         self.trans: Dict[str, Counter] = defaultdict(Counter)      # prev category (or BOS) -> Counter(category)
@@ -61,14 +89,15 @@ class LexicalCategories:
     def accrue(self, sentences: Sequence[Sequence[Tuple[str, str]]]) -> "LexicalCategories":
         """Accrue counts from (word, category) sequences (offline supply OR the induced-categories stream OR online outcomes)."""
         for sent in sentences:
-            prev = BOS
-            for w, t in sent:
-                w = w.lower()
+            prev = BOS; prev2 = BOS
+            for w_raw, t in sent:
+                w = w_raw.lower()
                 self.emit[t][w] += 1; self.tag_count[t] += 1; self.vocab.add(w); self.trans[prev][t] += 1
+                self.shape[t][word_shape(w_raw)] += 1; self.trans2[(prev2, prev)][t] += 1
                 for k in range(1, self.suf_len + 1):
                     if len(w) >= k:
                         self.suf[k][t][w[-k:]] += 1; self.suf_tot[k][w[-k:]] += 1
-                prev = t
+                prev2 = prev; prev = t
         self._dirty = True
         return self
 
@@ -85,7 +114,24 @@ class LexicalCategories:
             tot = sum(self.trans[p].values()) + self.lam * T
             for ci, c in enumerate(self.tags):
                 lt[pi, ci] = math.log((self.trans[p][c] + self.lam) / tot)
-        self.log_trans = lt; self._dirty = False
+        self.log_trans = lt
+        if self.order >= 2:
+            # P(c | p2, p1) = (n(p2,p1,c) + k * P(c | p1)) / (n(p2,p1) + k): Dirichlet back-off to the first-order row, k = K2
+            states = [BOS] + self.tags; S = len(states); lt2 = np.full((S, S, T), -1e9)
+            for ai, a in enumerate(states):
+                for bi, b in enumerate(states):
+                    row = self.trans2.get((a, b)); nb = sum(row.values()) if row else 0
+                    base = lt[bi]                                    # log P(c | b) (row bi of the first-order table; BOS row = 0)
+                    for ci in range(T):
+                        cnt = row[self.tags[ci]] if row else 0
+                        lt2[ai, bi, ci] = math.log((cnt + K2 * math.exp(base[ci])) / (nb + K2))
+            self.log_trans2 = lt2
+        if self.use_shape:
+            self.log_shape = {}
+            for t in self.tags:
+                tot = self.tag_count[t] + self.lam * len(SHAPES)
+                self.log_shape[t] = {sh: math.log((self.shape[t][sh] + self.lam) / tot) for sh in SHAPES}
+        self._dirty = False
         return self
 
     # ------------------------------------------------------------------ inference: graded posterior
@@ -94,7 +140,23 @@ class LexicalCategories:
         if w in self.vocab:
             for i, t in enumerate(self.tags):
                 out[i] = math.log((self.emit[t][w] + self.lam) / (self.tag_count[t] + self.lam * V1))
+            cw = sum(self.emit[t][w] for t in self.tags)
+            if self.rare_max > 0 and cw <= self.rare_max:
+                # a rare known form: mix the lexical estimate with the unknown-word estimate in proportion to its count
+                unk = self._log_emit_unknown(w); a = cw / (cw + 1.0)
+                out = np.logaddexp(math.log(a) + out, math.log(1.0 - a) + unk)
+            if self.use_shape:
+                sh = word_shape(word)
+                out = out + np.array([self.log_shape[t][sh] for t in self.tags])
             return out
+        out = self._log_emit_unknown(w)
+        if self.use_shape:
+            sh = word_shape(word)
+            out = out + np.array([self.log_shape[t][sh] for t in self.tags])
+        return out
+
+    def _log_emit_unknown(self, w: str) -> np.ndarray:
+        T = len(self.tags); out = np.empty(T)
         suf_used = None
         for k in range(self.suf_len, 0, -1):                      # unknown word: the longest suffix seen
             if len(w) >= k and self.suf_tot[k][w[-k:]] > 0:
@@ -116,6 +178,8 @@ class LexicalCategories:
         if n == 0:
             return np.zeros((0, T))
         le = np.stack([self._log_emit(w) for w in words])
+        if self.order >= 2:
+            return self._posterior2(le)
         A = self.log_trans[1:]                                    # [T_prev, T_cur]
         fwd = np.empty((n, T)); fwd[0] = self.log_trans[0] + le[0]
         for i in range(1, n):
@@ -127,6 +191,32 @@ class LexicalCategories:
             mx = m.max(axis=1); bwd[i] = mx + np.log(np.exp(m - mx[:, None]).sum(axis=1))
         post = fwd + bwd; post -= post.max(axis=1, keepdims=True)
         post = np.exp(post); post /= post.sum(axis=1, keepdims=True)
+        return post
+
+    def _posterior2(self, le: np.ndarray) -> np.ndarray:
+        """Second-order forward-backward. State at position i = (category_{i-1}, category_i) with index (b, c); b = BOS (index 0 of
+        the state axis) at i = 0. log_trans2[a, b, c] = log P(c | a, b) over states [BOS]+tags."""
+        n, T = le.shape; L2 = self.log_trans2                      # [S, S, T], S = T + 1 (BOS first)
+        NEG = -1e9
+        # fwd[i][b, c]: b over S (prev category incl. BOS), c over T
+        fwd = np.full((n, T + 1, T), NEG)
+        fwd[0][0, :] = L2[0, 0, :] + le[0]                        # (BOS, BOS) -> c
+        for i in range(1, n):
+            # new state (b, c) from old state (a, b): sum over a of fwd[i-1][a, b] + L2[a, b+1, c]
+            prev = fwd[i - 1]                                     # [S(a), T(b)]
+            m = prev[:, :, None] + L2[:, 1:, :]                   # [S(a), T(b), T(c)]
+            mx = m.max(axis=0); cur = mx + np.log(np.exp(m - mx).sum(axis=0))   # [T(b), T(c)]
+            fwd[i][1:, :] = cur + le[i][None, :]
+        bwd = np.zeros((n, T + 1, T))
+        for i in range(n - 2, -1, -1):
+            # bwd[i][a, b] = logsum_c ( L2[a, b+1, c] + le[i+1][c] + bwd[i+1][b+1, c] )
+            nxt = le[i + 1][None, None, :] + bwd[i + 1][1:, :][None, :, :]     # [1, T(b), T(c)]
+            m = L2[:, 1:, :] + nxt                                              # [S(a), T(b), T(c)]
+            mx = m.max(axis=2); bwd[i][:, :] = mx + np.log(np.exp(m - mx[:, :, None]).sum(axis=2))
+        post = fwd + bwd                                          # [n, S, T]
+        mx = post.max(axis=(1, 2), keepdims=True)
+        post = np.log(np.exp(post - mx).sum(axis=1)) + mx[:, 0, :]          # marginal over the previous category -> [n, T]
+        post -= post.max(axis=1, keepdims=True); post = np.exp(post); post /= post.sum(axis=1, keepdims=True)
         return post
 
     def tag(self, words: Sequence[str]) -> List[str]:
@@ -144,9 +234,11 @@ class LexicalCategories:
 
     # ------------------------------------------------------------------ persistence
     def save(self, path: str = ASSET) -> str:
-        d = {"lam": self.lam, "suf_len": self.suf_len,
+        d = {"lam": self.lam, "suf_len": self.suf_len, "order": self.order, "use_shape": self.use_shape, "rare_max": self.rare_max,
              "emit": {t: dict(c) for t, c in self.emit.items()}, "trans": {p: dict(c) for p, c in self.trans.items()},
              "suf": {str(k): {t: dict(c) for t, c in v.items()} for k, v in self.suf.items()},
+             "shape": {t: dict(c) for t, c in self.shape.items()},
+             "trans2": {a + "\t" + b: dict(c) for (a, b), c in self.trans2.items()},
              "note": "COUNTS only (plastic); log-probabilities are recomputed from them on load (finalize)"}
         os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, "w", encoding="utf-8") as f:
@@ -157,7 +249,12 @@ class LexicalCategories:
     def load(cls, path: str = ASSET) -> "LexicalCategories":
         with open(path, encoding="utf-8") as f:
             d = json.load(f)
-        m = cls(lam=d.get("lam", 0.1), suf_len=d.get("suf_len", 4))
+        m = cls(lam=d.get("lam", 0.1), suf_len=d.get("suf_len", 4), order=d.get("order", 1), use_shape=d.get("use_shape", False),
+                rare_max=d.get("rare_max", 0))
+        for t, c in d.get("shape", {}).items():
+            m.shape[t] = Counter(c)
+        for key, c in d.get("trans2", {}).items():
+            a, b = key.split("\t"); m.trans2[(a, b)] = Counter(c)
         for t, c in d["emit"].items():
             m.emit[t] = Counter(c); m.tag_count[t] = sum(c.values()); m.vocab.update(c.keys())
         for p, c in d["trans"].items():
@@ -184,7 +281,8 @@ def get() -> LexicalCategories:
 ASSET_PENN = os.path.join(_REPO, "data", "frontend_assets", "lexical_categories_counts_penn_v1.json")   # the PENN-TAGSET ARM
 
 
-def build_asset(train_path: Optional[str] = None, out: str = ASSET, column: int = 3) -> dict:
+def build_asset(train_path: Optional[str] = None, out: str = ASSET, column: int = 3, order: int = 1, use_shape: bool = False,
+                rare_max: int = 0) -> dict:
     """Offline accrual from the UD-EWT training sentences' tag column (foundation supply) -> counts asset.
     column 3 = UPOS (the live inventory); column 4 = XPOS (Penn tags: the same organ's arm for consumers that read tense/form
     classes -- the temporal ORDER organ, 2026-09-13 -- replacing nltk's PerceptronTagger at read time)."""
@@ -205,7 +303,7 @@ def build_asset(train_path: Optional[str] = None, out: str = ASSET, column: int 
             cur.append((c[1], c[column]))
     if cur:
         sents.append(cur)
-    m = LexicalCategories().accrue(sents).finalize(); p = m.save(out)
+    m = LexicalCategories(order=order, use_shape=use_shape, rare_max=rare_max).accrue(sents).finalize(); p = m.save(out)
     return {"n_sentences": len(sents), "n_categories": len(m.tags), "vocab": len(m.vocab), "asset": os.path.relpath(p, _REPO)}
 
 
