@@ -60,7 +60,10 @@ LAG: Optional[int] = (None if _lag_env.strip().lower() in ("inf", "none", "full"
 BOS = "<s>"
 K2 = 2.0                                                        # Dirichlet back-off mass for the second-order transitions (swept, not adopted)
 SHAPES = ("lower", "Cap", "ALLCAP", "digit", "hyphen", "other")
-INDUCED_ASSET = os.path.join(_REPO, "data", "frontend_assets", "induced_categories_simplewiki_1m_k68.json")   # the reading-acquired classes
+# the reading-acquired classes: the v2 inventory (owner-DONE pri-15, 2026-09-13: function-word stratum + second-order frames +
+# morphology-in-PPMI + Mintz joint frames + clause cue; 126 classes, the four closed classes separated; type-level 0.7944 vs v1 0.7385).
+# As this organ's cluster cue on the full UD-EWT test: UPOS 0.9271 -> 0.9278, unknown words 0.748 -> 0.752 (v1 asset kept selectable).
+INDUCED_ASSET = os.environ.get("HDLAB_LC_INDUCED_ASSET") or os.path.join(_REPO, "data", "frontend_assets", "induced_categories_v2_1m_joint_clause.json")
 
 
 def word_shape(w: str) -> str:
