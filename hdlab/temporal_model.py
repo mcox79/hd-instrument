@@ -156,6 +156,7 @@ def pos_tag_sentence(sentence):
 # VBP 0.825/0.880; events on 600 test sentences: 326 vs 373 extracted, 296 shared, 292/296 same tense (nltk's extras include
 # "'s" -> VBZ artefacts; the arm's extras include "I read an Article" -> SIMPLE_PAST, correct). Board no-regress run follows the flip.
 TEMPORAL_TAGGER = os.environ.get("HDLAB_TEMPORAL_TAGGER", "counts_penn")
+AUX_WINDOW_VBD = os.environ.get("HDLAB_TEMPORAL_AUXWINDOW", "0") == "1"   # NULL on gold (6 hits vs 4 false fires in 1500 test sentences); default OFF
 _PENN_ARM = None
 
 
@@ -235,7 +236,15 @@ def extract_events(text, tagger=None):
             continue
         ev = None
         if pos == "VBD":
-            ev = Event(lemma=low, idx=i, pos=pos, tense=TENSE_SIMPLE_PAST, is_pp=False)
+            # AUX-WINDOW RULE (2026-09-13 07:30 local): a regular verb's past and participle are the SAME form, so a tagger that
+            # loses the had->participle dependency across an adverb ("had not waited") reads VBD; the syntactic context decides:
+            # 'had' within 3 tokens with ONLY adverbs/negation between = the participle of a past perfect (not "had lunch and left").
+            j0 = max(0, i - 3); had_at = [j for j in range(j0, i) if lows[j] == "had"]
+            if AUX_WINDOW_VBD and had_at and all(poss[k] in ("RB", "RBR", "RBS") or lows[k] in ("not", "n't", "never", "just", "already")
+                                                 for k in range(had_at[-1] + 1, i)):
+                ev = Event(lemma=low, idx=i, pos="VBN", tense=TENSE_PAST_PERFECT, is_pp=True)
+            else:
+                ev = Event(lemma=low, idx=i, pos=pos, tense=TENSE_SIMPLE_PAST, is_pp=False)
         elif pos == "VBN":
             had = any(lows[j] == "had" for j in range(max(0, i - 3), i))
             be = any(lows[j] in COPULA_BE for j in range(max(0, i - 3), i))
