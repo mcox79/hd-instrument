@@ -14,6 +14,17 @@ NEW word means from what it reads, using its sense of how things feel and look, 
 near the top about 38 times in 100 where the old method managed about 3.
 
 ## WHAT CHANGED LATELY
+
+**13 Sep, morning (owner awake).** You asked whether organs should take data in, in order. They should, and two did not. (1) The word-kinds
+organ settled each word's kind by reading the whole sentence first; it now settles it as the word arrives and revises it with the next two
+words only. Measured on the full test set that is exactly as accurate (92.6 in 100 either way; no revision at all would cost 2.3 points) and
+just as fast, so it is now the default. (2) The word-governor organ chose its structure by a whole-sentence search; it now has an arm that
+attaches each word as it arrives, holding a word on a learned expectation when its governor has not come yet, with a handful of alternatives
+alive. That arm scores 59.7 in 100 against 60.3 for the search: better on objects (75 vs 73) and noun modifiers (40 vs 37), worse on the
+sentence's main word (69 vs 74); about a quarter of words are settled only at the sentence end. It is landed and switchable, not yet the
+default: it replaces the search when it matches it. The main-word residual is being worked now (the main word as a clause-end decision).
+Cost of the word-kinds flip: none measured; any reader that dips gets repaired, not reverted. Also: two new solver briefs in the hand-out tab
+(Pri 95 coordination; Pri 93 one object per verb, re-scoped to roles), the prepositional-phrase brief (Pri 94) refreshed, two boards running.
 - 2026-09-13 (morning, 06:00-08:00): the word-governor now commits to ONE connected sentence structure (before, it could hand the
   readers several disconnected pieces, and the shared hand-off even passed a non-structure built from per-word guesses); with that,
   its test score is 60 in 100 (57 at dawn, 48 yesterday morning), with clause-to-clause links up from 50 to 67 in 100. Punctuation
@@ -145,7 +156,7 @@ Long term (the next few months):
 
 <!-- AUTO:BEGIN (written by tools/scorecard.py; edit the sections ABOVE, not this) -->
 
-Last full check: 2026-09-13T12:05:35.777067+00:00 (18 on record). Generated 2026-09-13T14:18:09+00:00.
+Last full check: 2026-09-13T12:05:35.777067+00:00 (18 on record). Generated 2026-09-13T14:40:54+00:00.
 
 | Ability | Group | How well | Compared with a simple rule | Since the previous check | Brain-faithful? |
 |---|---|---|---|---|---|
