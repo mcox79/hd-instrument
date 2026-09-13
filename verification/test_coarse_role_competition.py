@@ -59,11 +59,17 @@ def main():
     t = "She saw him yesterday .".split(); p = ["PRON", "VERB", "PRON", "NOUN", "PUNCT"]; h = {1: 2, 2: 0, 3: 2, 4: 2, 5: 2}
     print("  note known-limit 'saw him yesterday':", G.coarse_roles(t, p, h))
 
-    # 3. copular clause: "John is a teacher ." (predicate nominal is the head)
+    # 3. copular clause: "John is a teacher ." (predicate nominal is the head) -- a GOLD-CONVENTION construction check, so it
+    # reads the gold-trained table explicitly: the LIVE table may be learned from the governor's own PERCEIVED heads (2026-09-13,
+    # patient 0.749 -> 0.790), under which a ROOT nominal is usually a subject the governor rooted, hence 'nsubj' -- by design.
+    import os as _os
+    _gold_tab = _os.path.join(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))), "data", "frontend_assets",
+                              "coarse_role_validities_ud_ewt_goldheads.json")
+    _gold_tab = G.load_coarse_validities(_gold_tab) if _os.path.exists(_gold_tab) else None
     t = "John is a teacher .".split(); p = ["PROPN", "AUX", "DET", "NOUN", "PUNCT"]; h = {1: 4, 2: 4, 3: 4, 4: 0, 5: 4}
     c = G.coarse_role_cues(t, p, h, 1)
     check("copula cue fires (AUX between nominal and non-verbal predicate)", c["cop"] == "aux_between", c)
-    r = G.coarse_roles(t, p, h)
+    r = G.coarse_roles(t, p, h, validities=_gold_tab)
     check("copular subject -> nsubj (v1 filed it OTHER)", r.get(1) == "nsubj", r)
     check("predicate nominal (root) -> dep", r.get(4) == "dep", r)
 
