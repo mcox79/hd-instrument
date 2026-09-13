@@ -64,6 +64,14 @@ its section: grep the four literals, never eyeball the content.** Restored the s
     (`HDLAB_SBT_PP_NOSUBJ`: pre-verbal PP object is not a subject; possessive pronoun is not a participant -- from the nmod anatomy)
     and meaning as a READ-TIME cue (`HDLAB_ARM_PLAUS_CUE`, Competition Model plausibility cue with learned validity). Lemma-rung fold
     items (dual-route morphology; POS into morphology, now unblocked by the BF category organ) under audit.
+  - **~05:45 local (09:45Z) -- three more upstream landings:** (1) the attachment arm's readout VECTORISED (identical to 1.8e-15,
+    scorer x4.3; `arc_scores_reference` kept; witness `test_attachment_arm_fastpath.py`); (2) MEANING AS A READ-TIME CUE (`plaus`,
+    flag `HDLAB_ARM_PLAUS_CUE`): v1 nmod 0.311 -> 0.375, ccomp 0.500, obl 0.468 -> 0.379 (fired on PP objects); v2 core-slots-only
+    rebuilding; noun typing now reads an offline supersense asset (0 mismatches on 1,347 nouns; 27x faster; no WordNet call at read
+    time); (3) the live reader's LAST off-the-shelf tagger (nltk PerceptronTagger in `temporal_model`, 5 reader sites) replaced by the
+    category organ's PENN ARM (`lexical_categories_counts_penn_v1.json`; 0.9075 vs 0.8508; VBD/VBN/VBZ recall equal or better) --
+    default flipped, board no-regress run queued. Dual-route lemma arm landed (`HDLAB_MORPH_MODE`, default morphy; board A/B running).
+    Fold queue item: ~40 hdlab modules still read WordNet at inference (foundation lookups, allowed) -- export pattern available.
 
 ### 2026-09-12 ~14:30 local — DEVELOPMENT RESUMED ON THE LAPTOP (owner) while the transfer streams to the desktop over SSH/Tailscale (~0.3–0.5 GB/min; a delta sync follows)
   - **HEADS RUNG, built to a spec:** `notes/RESEARCH_attachment_organ_spec_2026-09-12.md` (what the organ computes, how the brain separates signals optimally, every consumer's signal requirement). First build = probe v18, attachment as configuration-conditioned CUE COMPETITION with strengths learned from soft tree-posterior counts (no treebank, no hand-authored prior): **UD-EWT test UAS 0.4715 (r0) → 0.4801 (anchored self-teaching)** vs the cached reading-learned scorer 0.4626 and its decode-time-constrained 0.4755; twin 0.03; unconditioned cues drift. Heads→roles hand-off +0.0016 (v19). Lexical cue too sparse at 1.5k sentences. **Owner: the brain is 0.9+; we are far behind** — gap = experience volume (probe v20: 20k/60k Simple-Wiki sentences, running), a learned argument-structure lexicon, meaning feeding structure, incremental prediction.
