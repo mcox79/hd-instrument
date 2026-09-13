@@ -472,6 +472,8 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
   FOUNDATIONAL HEADS on (`HDLAB_HEADS_SOURCE=attachment_arm`; `board_arm.log`) -- that number answers Q134. Finished this morning:
   dual-route board 0.6378 (neutral), Penn-tagger board 0.6378 (neutral). Owner-DONE fold-in gate EMPTY; pri-15 solver folder untouched.
   Open owner question: Q134 (flip the heads default). Everything committed path-limited; NOTHING pushed.
+  09:40 local: desktop bundle (197 commits) LANDED; the 15 GB session-folder copy was cut by a connection reset -- rerun the light
+  `resync_claude_state.sh` before moving; owner is awake (chat update given 09:31). Two boards still pending (route, arm).
 
 - **OPERATING MODEL (owner 08-22): STRATEGY SESSION (this) + SOLVER SESSIONS.** This session keeps the 10k view, writes/verifies briefs, and INTEGRATES owner-DONE; solvers each solve one bounded problem.
 - **RESEARCH DELIVERED + FOLDED (CONT-73):** the pri-3 parser BF syntax-acquisition drill completed + vetted first-hand -> `RESEARCH_bf_acquisition.md`. Key: the 'frozen supervised hard-decode' = TWO orthogonal defects (graded-decode route-through NOW + the acquisition question); category-induction-from-prediction is a verified in-substrate HARD_PASS, structure-induction hit an UNDER-POWERED located ceiling (3k/12.5k sents, 0 EM). Cheap first build folded into the brief (re-run exp_predictive_selfsup_parser_v1 full-scale + EM, composing the pri-2 directional channel + graded Matrix-Tree decode). NOTHING now running.
