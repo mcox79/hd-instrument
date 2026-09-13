@@ -69,22 +69,38 @@ def _vlemma(w: str) -> str:
         return w.lower()
 
 
+_SS_ASSET = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "frontend_assets", "noun_supersense_mfs_v1.json")
+_SS_TABLE: Optional[Dict[str, str]] = None
+
+
+def _ss_table() -> Dict[str, str]:
+    """The noun -> most-frequent-sense supersense FOUNDATION asset (exported offline by tools/build_noun_supersense_asset.py).
+    2026-09-13: replaces the read-time nltk.corpus.wordnet lookup (an off-the-shelf tool on the live path, and the heads rung's cold
+    cost of ~0.8 s/sentence) with a glass-box dictionary read -- the morphology precedent. Missing asset = degraded (no typing)."""
+    global _SS_TABLE
+    if _SS_TABLE is None:
+        try:
+            with open(_SS_ASSET, encoding="utf-8") as f:
+                _SS_TABLE = json.load(f)["table"]
+        except Exception:
+            _SS_TABLE = {}
+    return _SS_TABLE
+
+
 def noun_supersense(word: str) -> Optional[str]:
-    """Most-frequent-sense WordNet noun supersense (lexname, e.g. 'noun.person'); pronouns -> noun.person; None if unknown."""
+    """Most-frequent-sense WordNet noun supersense (lexname, e.g. 'noun.person'); pronouns -> noun.person; None if unknown.
+    Glass-box: morphology organ (noun lemma) -> foundation table; no external tool at inference."""
     wl = word.lower().strip(".,;:'\"")
     if wl in _ss_cache:
         return _ss_cache[wl]
     if wl in _PRON_PERSON:
         _ss_cache[wl] = "noun.person"
         return "noun.person"
-    ss = None
-    try:
-        from nltk.corpus import wordnet as wn
-        lem = _gbm.morphy(wl, "n") or wl
-        syns = wn.synsets(lem, pos=wn.NOUN)
-        ss = syns[0].lexname() if syns else None
-    except Exception:
-        ss = None
+    tab = _ss_table()
+    lem = _gbm.morphy(wl, "n") or wl
+    ss = tab.get(lem)
+    if ss is None and lem != wl:
+        ss = tab.get(wl)
     _ss_cache[wl] = ss
     return ss
 

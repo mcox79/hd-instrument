@@ -181,8 +181,13 @@ def get() -> LexicalCategories:
     return _INST
 
 
-def build_asset(train_path: Optional[str] = None, out: str = ASSET) -> dict:
-    """Offline accrual from the UD-EWT training sentences' tag column (foundation supply) -> counts asset."""
+ASSET_PENN = os.path.join(_REPO, "data", "frontend_assets", "lexical_categories_counts_penn_v1.json")   # the PENN-TAGSET ARM
+
+
+def build_asset(train_path: Optional[str] = None, out: str = ASSET, column: int = 3) -> dict:
+    """Offline accrual from the UD-EWT training sentences' tag column (foundation supply) -> counts asset.
+    column 3 = UPOS (the live inventory); column 4 = XPOS (Penn tags: the same organ's arm for consumers that read tense/form
+    classes -- the temporal ORDER organ, 2026-09-13 -- replacing nltk's PerceptronTagger at read time)."""
     train_path = train_path or os.path.join(_REPO, "data", "corpora", "ud_english_ewt", "en_ewt-ud-train.conllu")
     sents, cur = [], []
     with open(train_path, encoding="utf-8") as f:
@@ -197,7 +202,7 @@ def build_asset(train_path: Optional[str] = None, out: str = ASSET) -> dict:
             c = line.split("\t")
             if "-" in c[0] or "." in c[0]:
                 continue
-            cur.append((c[1], c[3]))
+            cur.append((c[1], c[column]))
     if cur:
         sents.append(cur)
     m = LexicalCategories().accrue(sents).finalize(); p = m.save(out)

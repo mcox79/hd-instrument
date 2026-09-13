@@ -109,3 +109,17 @@ strengthen_the_cue_based_pronoun_coreference_resolver_the_shared_upstream_accura
 ## Full list of files read (newest 30 `SOLVED.md`, by mtime)
 
 See the fenced block in the Method section above for the complete ordered list (`==` marks files drawn on in the table).
+
+## Added 2026-09-13 07:40 (strategy, from the read-time enumeration `grep -rn "from nltk" hdlab/`)
+- **nltk on the inference path: ~40 hdlab modules import `nltk.corpus.wordnet` at read time** (knowledge LOOKUPS -- the registry treats
+  WordNet as a foundation store, BF_SPIRIT; not a defect by the 08-16 regime) **but two are TOOLS, not lookups:** `hdlab/temporal_model.py:129`
+  `nltk.tag.PerceptronTagger` (an off-the-shelf tagger at inference -> route through `hdlab.frontend.Tagger`; temporal is a named-gap
+  dimension, so board-invisible) and `hdlab/typed_selectional_preference.noun_supersense` (WordNet `synsets()` per call = the heads rung's
+  ~0.8 s/sentence cold cost) -> **FOLDED 07:40: offline export `tools/build_noun_supersense_asset.py` -> `data/frontend_assets/noun_supersense_mfs_v1.json`,
+  read as a dict (the morphology precedent).** Remaining WordNet lookups are candidates for the same export pattern when they cost time.
+- **CATEGORIES-RUNG DEFECT FOUND 07:45 (live path): `situation_reader._extract_events` -> `temporal_model.extract_events(text)` with no
+  tagger -> `nltk.tag.PerceptronTagger` (Penn tags) at READ TIME, at 5 reader sites (temporal events, speech/causal readers). An off-the-shelf
+  tagger at inference = a defect that blocks (owner 09-08), missed because the module labels it a "legal shallow tool". FIX (in progress): a
+  PENN-TAGSET ARM of the same count-based category organ (`hdlab/lexical_categories.py` accrued over UD-EWT's xpos column; same
+  forward-backward model), handed to the temporal organ through `hdlab/frontend.Tagger`; measure Penn accuracy vs the perceptron on
+  UD-EWT test + event-extraction agreement + board no-regress; then flip `temporal_model.default_tagger`.**
