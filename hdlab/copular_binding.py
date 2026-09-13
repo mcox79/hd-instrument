@@ -122,6 +122,19 @@ def extract_entity_states(toks, up, arc, lab, heads=None):
             h = heads.get(dep_i, 0)
             if h in cop_preds and h not in subj_of:
                 subj_of[h] = dep_i                      # 1-based holder id
+    # CONVENTION-AGNOSTIC HOLDER (strategy 2026-09-12 late; consumer repair for the BF heads rung): the attachment arm
+    # (reading-learned, semantic bootstrapping) builds the copular clause with the HOLDER noun as the head and the predicate
+    # as its dependent ("dog" <- "big", "is" -> "big"), the reverse of the UD convention this reader was written for. The
+    # content is identical (copula -> predicate; predicate <-> holder); only the head direction of the holder link differs,
+    # and the brain does not care which word is "head". So when a copular predicate has no labelled subject, its own head --
+    # if a nominal -- IS the holder. Board STATE dim under the BF heads: 0.828 -> 0.527 before this repair (ledger).
+    from hdlab.graded_role_assigner import NOMINAL as _NOM
+    for pred in cop_preds:
+        if pred in subj_of:
+            continue
+        h = heads.get(pred, 0)
+        if h and 1 <= h <= len(toks) and up[h - 1] in _NOM:
+            subj_of[pred] = h
     # GRADED hand-off (strategy 2026-09-12, signal trace): a copular predicate with NO hard-labelled subject reads the
     # Competition-Model organ's posterior over its nominal dependents and takes the one whose SUBJ+PASS_SUBJ belief is the
     # highest and above GRADED_HOLDER_MIN (the hard label had collapsed that belief to nothing).
