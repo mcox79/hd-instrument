@@ -18,3 +18,8 @@ independent golds, ~5 refuted levers each).
 - 15:12 solver-pri98 finished all six phases unprompted. Cost vs the owner-run harm/help session (12 h unattended, ~8 messages): 57 min, 0 nudges. Open items it raised: land RUNG 5 (prose manner fusion) behind a switch with a board run; the 'treat' cross-sense conflation -> sense-keyed affect norm brief. Flag: after a denied `patch --dry-run` it checked the diff with `git apply --check` (a variant); the kick-off prompt must say 'do not check the same thing another way'.
 - 15:22 VERDICT session 1 (pri 98): PASS on all five tests; cost 57 min / 0 nudges vs 12 h owner-run. Program continues: pri 99 launched into the freed slot (category organ; no collision with pri 97's attachment_arm).
 - 15:55 OWNER CORRECTION: no session is finished without the understanding + improvement probe (phase 7). Sent to solver-pri98 (its row reopens: verdict pending phase 7); will be sent to pri 97 and pri 99 on their final reports. The PASS above was premature on this axis.
+
+## Prodding yield (owner 16:08: "how much did the extra prodding produce?") -- BEFORE (first final report) vs AFTER each phase-7 round
+| session | round | headline numbers BEFORE | headline numbers AFTER | new levers built | refuted | declared exhausted? |
+|---|---|---|---|---|---|---|
+| solver-pri98 | 1 (sent 15:55; mandates 16:00; rules 16:08) | slice 6/6; named 15/15; new 46 @ CF 6/6; leaks 0; CF 0.9333; live 24/24; prose 0.639 CI [+0.083,+0.306] | (pending) | | | |

@@ -63,3 +63,12 @@ and upgrades." And: "evaluate the most successful improvements -- what was it ab
 It's almost always going to be that you cracked the real, mathematical BF chain all the way to the top." -> baked into phases 3, 5 and 6 of
 `tools/solver_agent_prompt.py`; sent to the three running sessions (97, 98, 99) as binding directives; the supervisor checks SOLVED.md for the
 trace, the per-rung BF table, the brain-math comparison, the understood negatives and the why-the-wins-won evaluation before presenting for DONE.
+
+## OWNER RULES (2026-09-13 16:08): measure the prodding yield; loop until exhausted; alternate paths in the readback
+"I definitely want to know how much that extra prodding produced in the solvers." -> the pilot log carries, per session, a BEFORE/AFTER table
+of every headline number at the first final report vs after each phase-7 round (the yield of the prodding), plus the rounds needed.
+"Eventually, when you ask if they know everything and if there are additional opportunities for optimization/upgrades, it will say that it's
+entirely exhausted. That's when you end, and the readback should include any identified alternate paths or ways to do this that are similarly
+or more brain foundational." -> phase 7 REPEATS (understand? research. opportunities? build+measure) until the session says the opportunities are
+entirely exhausted; only then does the supervisor close the row and present for DONE; the final readback must list ALTERNATE PATHS (brain
+structure + computation, math, what it would take, why not now), which strategy queues as briefs. Baked into phase 6 of the kick-off prompt.
