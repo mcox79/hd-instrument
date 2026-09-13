@@ -526,3 +526,8 @@ competent-reader reference ~0.85–0.90.
   obj/nsubj:pass competition graded; the residual is the heads rung's obj 0.685 (upstream); (2) AGENT -- same hand-off for the cm_agent
   competition; (3) STATE -- residual is the arm's copular predicate placement (heads rung). Asset at run time: pre- or post-PP-cue
   (unknown; the session-owned D run with the PP asset is in flight and will settle it).
+- **PHASE 2 REPAIR #1 (PATIENT arm) MEASURED NULL (2026-09-13 02:50; UD-EWT cap 500 = 347 clean patient items, BF chain): roles read
+  from the hard head 0.7349 vs marginalised over P(head) 0.7320 (floor 0.6138, twin 0.6398; both CI-sep over the floor).** The graded
+  hand-off does not move this consumer: its loss under the BF chain (0.82 -> 0.73 on the full population) is the heads rung's OBJECT
+  attachment (obj 0.685 vs the supervised parser's ~0.9), i.e. UPSTREAM -- the next heads lever (second-order occupancy, pri-16 parked
+  behind pri-15; and whatever the categories rung buys back). Kept the graded read as default (brain-faithful, same accuracy).
