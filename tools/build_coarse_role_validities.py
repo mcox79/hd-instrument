@@ -109,8 +109,26 @@ def main():
             for cue, val in cues.items():
                 if cue != "config":
                     counts[cue][f"{cfg}|{val}"][g] += 1
+    # SLOT CAPACITY (verb-frame occupancy knowledge, in counts; owner-DONE pri 93): per core slot, how many verb tokens have >= 1
+    # filler (n1) and >= 2 fillers (n2). lambda = -log P(2nd | >= 1) is a pure function of these (organ side, _slot_capacity).
+    from collections import Counter as _Counter
+    _n1, _n2 = _Counter(), _Counter()
+    for toks, gpos, gheads, deps in sentences(TRAIN):
+        by_verb = {}
+        for i in range(1, len(toks) + 1):
+            h = gheads.get(i, 0)
+            if gpos[i - 1] in GRA.NOMINAL and h and gpos[h - 1] in ("VERB", "AUX"):
+                by_verb.setdefault(h, []).append(coarse_of(deps.get(i)))
+        for h, roles in by_verb.items():
+            slotc = _Counter(GRA.ROLE_TO_SLOT.get(r) for r in roles if GRA.ROLE_TO_SLOT.get(r))
+            for slot, c in slotc.items():
+                _n1[slot] += 1
+                if c >= 2:
+                    _n2[slot] += 1
+    slot_capacity = {s_: [int(_n1[s_]), int(_n2[s_])] for s_ in GRA.CORE_SLOTS}
     counts_doc = {"prior": prior, "config": {k: v for k, v in cfg_counts.items()},
                   "cues": {cue: {key: vec for key, vec in vals.items()} for cue, vals in counts.items()}}
+    counts_doc["slot_capacity"] = slot_capacity
     built = GRA.strengths_from_counts(counts_doc)              # ONE implementation of the math (the organ's)
     logprior = [float(x) for x in built["prior"]]
     strength = {c: {v: [round(float(x), 4) for x in vec] for v, vec in vals.items()} for c, vals in built["strength"].items()}
