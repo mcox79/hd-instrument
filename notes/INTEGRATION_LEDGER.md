@@ -16,6 +16,12 @@
 
 ---
 
+## 2026-09-12 (late) — ✅ INTEGRATED pri-12 the_lemmatizer_is_wordnet_morphy_at_inference_not_a_glass_box_morphological_decomposition (owner-DONE 22:30; reverified 4/4 first-hand)
+- **Score/instrument:** byte-identity 0 div / 6.3M (the bar); dual-route optimum 0.9836 vs morphy 0.9603 on 195k human gold lemmas (twin 0.7375); BF-POS upstream lifts morphology 0.9398->0.9484.
+- **Wiring:** `hdlab/morphology.py` + 13 read-path repoints (commit 35f8b4dab); asset force-added. Default path byte-identical -> no board dimension moves (self-test on a runner).
+- **Up/downstream:** UPSTREAM = POS (pri-15 categories rung; the solver's count-based BF POS prototype handed there as the inference half); DOWNSTREAM = lemma-keyed stores (GEK, grounded vocab, coref conceptkeys) must be rebuilt before the dual-route optimum is enabled.
+- **INCORPORATION MANIFEST:** INCORPORATE port (done); AS-DURABLE-NEGATIVE frequency-arbitration (WordNet counts conflate readings); DO-NOT enable dual-route yet; DO-NOT wire the BF POS into the live chain (supervised acquisition; the chain's top is the induced-categories rung).
+
 ## 2026-09-11 (late) → 2026-09-12 ✅ READY WAVE INTEGRATED (owner-DONE via Q131; landed TOP-DOWN along notes/SIGNAL_FLOW_MAP.md; see §2b 2026-09-12 ×3). Outcomes: pri-7 landed in 4 steps (affect arm live 0.972 vs 0.333; smoke AGG 0.6319; recorded valence-coverage boundary); pos-tagger = located negative folded; typed selectional = LATENT knowledge organ (consumer pri-1). Full board `--run` row folded on completion.
 > All three in-review submissions reverified on the committed tree this evening (stop-hook continuation 1). None has `owner_verdict: DONE`; the owner-DONE gate is the owner's vetting and is NOT front-run. Landing scopes mapped so each lands in ONE pass. **SERIALIZE:** pri-7 and the pos-tagger item both touch the POS/labeler front-end; the selectional organ touches the who-affected reranker — land pri-7 first.
 ### harm_help_valence_is_a_fitted_verb_list_not_the_substrates_force_dynamic_arithmetic  [pri7; SOLVED; reverified 9/9 + 6/6 (2026-09-11 late); awaiting owner-DONE]

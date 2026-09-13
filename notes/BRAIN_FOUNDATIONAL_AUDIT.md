@@ -65,6 +65,20 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+### 2026-09-12 (late) — RUNG 1 LEMMA: `hdlab/morphology.py` LANDED (owner-DONE pri-12) — BF_SPIRIT-with-external-tool → **BF**
+- **Computation:** morpho-orthographic segmentation (Rastle & Davis 2008) + affix-stripping with lexical check (Taft 1979) + a stored
+  irregular route (Pinker-Ullman words-and-rules) = exactly WordNet morphy's exception store + detachment rules + lexical check, now an
+  exact pure-python port over a one-time offline export (2.19 MB). 0 divergences over 6,326,530 comparisons; ~80x faster cold.
+- **Wired:** every read-path morphy call (thematic_role_labeler lemma_word/lemma_verb/is_known_word, lexical_utils.concept_lemma,
+  causation_typing, definitional_extraction, definitional_predicate_v61, event_type, generalized_event_knowledge, goal_achievement,
+  goal_outcome_relation(_grounded), patient_tendency, predictive_world_model, typed_selectional_preference) — byte-identical.
+- **Recorded deviations:** (a) WordNet SYNSET/taxonomy uses still import nltk at read time (conceptual_meaning, causation_typing,
+  lexical_utils...) — next brief; (b) the live lemma path is POS-generic (noun-first); the solver measured the missing POS costs more
+  (+0.048) than the morphology fix — repair belongs to the categories rung (pri-15); (c) the dual-route optimum (0.9836 vs 0.9603 on
+  human gold) is NOT enabled until lemma-keyed stores are rebuilt.
+- **Also this session:** the heads rung's semantic teacher now reads a plausibility store GROWN by the substrate's own chain (no parser);
+  `attachment_arm` remains BF_SPIRIT (Matrix-Tree = model; conventions stated) with its last external dependency removed.
+
 ### 2026-09-12 — pri-1 FIRST ARM (strategy): the FORWARD HALF of pronoun-undergoer resolution — entity tokens that accrue every reference, the event-model foreground, Principle A
 - **Method (wall-push protocol applied to myself):** research first (situation-model tokens, N400 update, Kehler-Rohde, GEK joint expectation, object files, PM/AT systems — `RESEARCH_generative_entity_state_pri1_2026-09-12.md`), then seven counted probes: the instrument mixes three brain tasks (THIRD 596 / DEICTIC 263 / DEMONSTR 115 / OTHER 168; only THIRD responds to entity mechanisms); oracle ceilings (in-focus top-3 0.753; gold tokens +0.091); generic knowledge marginals fused uniformly HURT (REJECTED with numbers; precision-gating conjecture recorded); the brief's intended input (`state_register`) is a surface-keyed bag with no GUM coverage — starved upstream.
 - **Built (one organ, arms):** `affected_entity_resolver.EntityTokens` (accrual = KTG reviewing+impletion / ACT-R presentation on retrieval, PINNED), `foreground` (Glenberg availability, PINNED; W swept, flat), `resolve(reflexive=True)` (Principle A, PINNED categorical). Reader walks mentions incrementally; `referent_per_np` keeps reflexives as pronouns. Board row `affected_entity_forward_half`.

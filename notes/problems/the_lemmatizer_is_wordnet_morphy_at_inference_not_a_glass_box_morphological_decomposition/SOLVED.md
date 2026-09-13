@@ -287,3 +287,5 @@ optimum). Pending your DONE verdict before strategy integrates.
 In HIGH-PRIORITY NEXT STEPS above; the load-bearing ones are (1) land the byte-identical port to clear the last
 non-glass-box rung, and (2) treat the POS tagger as the upstream lever, since the missing part-of-speech signal costs
 more here than the morphology itself.
+
+INTEGRATED_BY_STRATEGY 2026-09-12 — owner-DONE 22:30; reverified 4/4 first-hand. Port LANDED as hdlab/morphology.py + 13 read-path repoints (commit 35f8b4dab), byte-identical; dual-route optimum and BF-POS prototype recorded as follow-ons (INTEGRATION_LEDGER).

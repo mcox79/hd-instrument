@@ -431,3 +431,27 @@ competent-reader reference ~0.85–0.90.
   the coord/clausal constructions cannot fire → conj 0.09; (c) case 0.63: ADP partly merged. nmod/advcl unaffected (already weak).
   This is pri-15's target, now with the hand-off number the brief asks for; the build tool's `--categories` is the test harness.
   Also: the UPOS reference on 1.5k sentences (0.5640) ≥ the 6k asset (0.5573) — volume flat for this learner (third confirmation).
+
+- **SELF-GROWN PLAUSIBILITY STORE REPLACES THE PARSER-EXTRACTED ONE (2026-09-12 22:50; `tools/grow_selectional_store_bf.py`: induced
+  categories -> attachment arm -> role competition over 60k simplewiki lines -> 891 verbs; typed asset
+  `typed_selectional_preference_bf_v1.json`): heads-rung smoke UAS 0.5642 vs 0.5640 with the August UD-parsed store (737k
+  sentences); root 0.793 / 0.79, nsubj 0.719 / 0.74, obj 0.71 / 0.735, obl 0.459 / 0.486, xcomp 0.606 / 0.533.** The teacher now
+  defaults to the self-grown store (`attachment_arm.BF_TSP_ASSET`): the heads rung's LAST non-BF dependency is removed at no cost --
+  structure and meaning co-develop from the substrate's own reading (semantic + syntactic bootstrapping as one loop). Full 6k rebuild
+  with the self-grown store running (runner).
+- **BOARD A/B, BF HEADS (hard read) -- `HDLAB_HEADS_SOURCE=attachment_arm`, traced run, exit 0 (22:45): AGG 0.6395 -> 0.6294; coref
+  0.4681 =, common_noun 0.5671 =, salience 0.2555 =, who_did_what_agent 0.832 =, who_did_what_patient 0.8207 =, wic 0.7493 =,
+  STATE 0.828 -> 0.5265 (floor 0.5714; CI-sep lost).** Two facts: (1) the who-did-what dimensions and coref are BYTE-IDENTICAL --
+  their arms instantiate their own parser (exp_board_patient_slot_v1 / exp_board_agent_slot_ud_v1 / GUM coref) and never read the
+  reader's shared parse, so the BF switch does not reach them: the chain is not yet end-to-end through the board (next wiring item:
+  route those arms through `situation_reader._cached_parse_heads` / the same switch); (2) STATE broke on SHAPE, not content: the
+  attachment arm builds the copular clause holder-headed ("dog" <- "big", "is" -> "big") where UD makes the predicate the head.
+  CONSUMER REPAIR (commit a4670ae3f): `copular_binding.extract_entity_states` reads the holder either way (a copular predicate's own
+  nominal head is the holder when no subject is labelled); default path byte-identical. Residual misses are heads-rung quality
+  ("hot" under "yesterday"; "tall" under "hat" -- obl/nmod locality). State-dim A/B with the repair on a runner. The earlier silent
+  exit-1 board run was not reproducible under tracing (exit 0, identical arms) -- environmental; recorded, not chased.
+- **INTEGRATION 1 (owner-DONE pri-12, the lemmatizer): LANDED `hdlab/morphology.py` (glass-box morphy port, 0 divergences over 6.3M;
+  Rastle-Davis/Taft/Pinker-Ullman dual-route computation) and repointed 13 read-path modules; witnesses green (morphology PASS, roles
+  23/23, attachment 15/15; fused-sense/meaning-fusion/board self-test on a runner). NOT wired: the dual-route optimum (+0.023 on human
+  gold; needs the lemma-keyed stores rebuilt first) and the solver's BF POS prototype (count-based generative tagger, graded
+  posterior; acquisition supervised) -- the latter handed to pri-15 as the INFERENCE half for token-level readout over induced classes.
