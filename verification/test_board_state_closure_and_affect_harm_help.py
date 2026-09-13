@@ -105,7 +105,7 @@ def check_affect_harm_help():
     # live reader sits at 35/36 because the category organ tags 'wounded' ADP (a categories-rung miss, filed), so no event fires there.
     # A broken wire (many mismatches) still fails; a single upstream tag error does not masquerade as an island.
     _live = float(lc.get("live_reader_acc") or 0.0); _dec = float(row["model_acc"])
-    ok(isinstance(lc, dict) and (lc.get("live_matches_decision") is True or abs(_dec - _live) <= (1.0 / 36) + 1e-6),
+    ok(isinstance(lc, dict) and (lc.get("live_matches_decision") is True or abs(_dec - _live) <= (1.0 / 36) + 1e-3)   # the row's acc is rounded to 4 decimals,
        "LIVE reader affect == decision-level FD acc within one item (mechanism is wired)",
        "live=%s decision=%s" % (lc.get("live_reader_acc"), row["model_acc"]))
     ok("SELF-AUTHORED" in row["population"] and row.get("informational") is True,
