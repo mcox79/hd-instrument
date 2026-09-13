@@ -162,6 +162,29 @@ def function_word_arcs(toks: Sequence[str], pos: Sequence[str]) -> List[Tuple[in
                 q = next_predicate(i)
                 if q is not None:
                     out.append((q + 1, i + 1))
+                    # COPULAR CLAUSE CONVENTION (2026-09-13; state-dim residual): with no verb, the predicate heads the clause and
+                    # its HOLDER is the nearest preceding nominal head that is not a prepositional object ("the man with the hat is
+                    # tall": 'hat' is the object of 'with' -> skip -> 'man'). Stated as the UD convention copular consumers read.
+                    k = i - 1
+                    while k >= 0 and pos[k] in ("ADV", "PART", "PUNCT"):
+                        k -= 1
+                    subj = None
+                    while k >= 0:
+                        if pos[k] in ("NOUN", "PROPN", "PRON", "NUM"):
+                            # start of this nominal run
+                            a = k
+                            while a - 1 >= 0 and pos[a - 1] in NP_RUN:
+                                a -= 1
+                            if a - 1 >= 0 and pos[a - 1] == "ADP":      # a prepositional object: skip the whole PP
+                                k = a - 2
+                                continue
+                            subj = k
+                            break
+                        if pos[k] in ("VERB", "SCONJ", "CCONJ"):
+                            break
+                        k -= 1
+                    if subj is not None and subj != q:
+                        out.append((q + 1, subj + 1))
         elif p == "SCONJ" or (p == "PART" and lows[i] == "to"):
             v = next_verb(i)
             if v is not None:
