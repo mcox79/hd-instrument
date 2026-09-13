@@ -72,6 +72,12 @@ its section: grep the four literals, never eyeball the content.** Restored the s
     category organ's PENN ARM (`lexical_categories_counts_penn_v1.json`; 0.9075 vs 0.8508; VBD/VBN/VBZ recall equal or better) --
     default flipped, board no-regress run queued. Dual-route lemma arm landed (`HDLAB_MORPH_MODE`, default morphy; board A/B running).
     Fold queue item: ~40 hdlab modules still read WordNet at inference (foundation lookups, allowed) -- export pattern available.
+  - **~06:40 local -- HEADS RUNG 0.6034 (UD-EWT test, gold categories; 0.4826 at landing):** meaning-cue v2 asset promoted (0.5726);
+    PUNCTUATION CONVENTION (+2.3; formatting, board-invisible); SINGLE-ROOT decode (`HDLAB_ARM_DECODE=map1`): the old MAP was multi-
+    rooted (root recall inflated; consumers got disconnected clauses) -> ccomp 0.672, advcl 0.313, xcomp 0.730, obl 0.463, obj 0.725,
+    nsubj 0.767, root 0.744 honest. **`frontend.Parser` served a NON-TREE (argmax of marginals, 87/300 sentences not a tree) to every
+    consumer until now; it serves the decoded tree + marginals.** MBR tree refuted as point estimate (0.5855). Category switch TOTAL
+    (`PosTagger.load` -> frontend). Boards in flight: dual-route lemma, Penn tagger, total routing, then the board under the BF heads.
 
 ### 2026-09-12 ~14:30 local — DEVELOPMENT RESUMED ON THE LAPTOP (owner) while the transfer streams to the desktop over SSH/Tailscale (~0.3–0.5 GB/min; a delta sync follows)
   - **HEADS RUNG, built to a spec:** `notes/RESEARCH_attachment_organ_spec_2026-09-12.md` (what the organ computes, how the brain separates signals optimally, every consumer's signal requirement). First build = probe v18, attachment as configuration-conditioned CUE COMPETITION with strengths learned from soft tree-posterior counts (no treebank, no hand-authored prior): **UD-EWT test UAS 0.4715 (r0) → 0.4801 (anchored self-teaching)** vs the cached reading-learned scorer 0.4626 and its decode-time-constrained 0.4755; twin 0.03; unconditioned cues drift. Heads→roles hand-off +0.0016 (v19). Lexical cue too sparse at 1.5k sentences. **Owner: the brain is 0.9+; we are far behind** — gap = experience volume (probe v20: 20k/60k Simple-Wiki sentences, running), a learned argument-structure lexicon, meaning feeding structure, incremental prediction.
