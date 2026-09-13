@@ -140,6 +140,40 @@ gamma 8 -> +0.137 CI [0.090,0.184] (gamma 4 -> +0.090 at cap 6000). Monotonic in
 throughout — the lift is robust, no cliff at any prediction strength. gamma=8 is marginally stronger; kept gamma=4 as a
 conservative middle. (Cue smoothing / beam width similarly free to sweep per the phase-diagram note.)
 
+## COMPONENTS TOUCHED / CREATED + BF STATUS
+CREATED (mine to write — experiments/verification/my folder):
+- `experiments/exp_attachment_coordination_v1.py` — the mechanism (parallel-structure teacher `parallelism_boost` + parallel-head
+  construction `coord_sites`/`coord_arcs`) + full ablation battery + twins. **BF_SPIRIT** (parallel-structure prediction PINNED by
+  psycholinguistics; coarse classes + gamma are ours, swept). Treebank-free, plastic (counts->strengths).
+- `verification/test_attachment_coordination.py` — witness, **6/6 PASS**.
+- diagnostics: `scratch_conj_anatomy.py`, `scratch_conj_error_anatomy.py`, `scratch_nsubj_flip.py`, `scratch_coord_hold.py`,
+  `scratch_coord_locality.py` (the five located-negative probes).
+- `notes/problems/<slug>/{SOLVED.md, FINDINGS_signal_trace.md, attachment_arm_patch.diff, AUDIT_UPDATE.md}`.
+
+PROPOSED hdlab CHANGE (patch only; strategy lands — Q111): `hdlab/attachment_arm.py` (coord_arcs replacement + parallelism_boost
+helper) + one line in `tools/build_attachment_validities.py`. Raises coordination handling to **BF** (was the arm's non-BF gap).
+
+INTERACTED WITH (read / depended on) + BF status:
+- `hdlab/attachment_arm.py` — the Competition-Model attachment arm: **BF_SPIRIT** (cue competition PINNED; Matrix-Tree posterior MODEL).
+- **The acquisition teacher** (co-occurrence SelfSupEM + `SemanticBootstrapTeacher`) — was **coordination-blind (the non-BF gap, 0.054
+  mass)**; my parallelism_boost restores it to BF for coordination.
+- `hdlab/lexical_categories` (live count tagger) — **BF_SPIRIT** (generative constraint-satisfaction PINNED); CCONJ **0.991** live, so
+  coordination is NOT upstream-blocked on the live chain.
+- `hdlab/typed_selectional_preference` (plausibility store) — **BF_SPIRIT**, UD-shaped seed (provenance caveat; the slot-sharing negative
+  is bottlenecked here).
+- reading-INDUCED category inventory (pri-15) — fully BF but merges CCONJ (completeness gap; only the zero-foundation-seed purist path
+  is gated on it).
+- decode (single-root MAP / incremental arc-eager) — **MODEL** (single-rootedness structural; root pick + beam ours).
+
+## PRIORITY NEXT STEPS
+1. **FAR coordination = the meaning channel (HIGH).** 9+-token conjuncts (26% of conj) sit at ~0.016 and are unreachable by any
+   positional rule (§4c); reaching the far parallel head needs a precise co-argument/meaning signal. File as a separate problem tied to
+   the meaning-channel program — 5 bounded meaning-free levers proven insufficient, so it is not re-treadable cheaply.
+2. **Re-check downstream on the rebuilt asset (MED).** Coordinated subjects/objects are ONE plural participant — coreference + who-did-what
+   reads change; the strategy board re-verifies (my local check: UAS up, neighbors flat, nsubj −0.017 named).
+3. **Reading-induced CCONJ / pri-15 (LOW for coordination).** Only needed for the fully-BF-provenance (zero-seed) path; the live tagger
+   already handles the coordinator.
+
 ## TLDR / QUESTIONS / NEXT STEPS
 - **TLDR:** conj 0.300 -> 0.391 CI-separated both decodes by building parallel-structure prediction into the teacher + a corrected
   read-time construction; the wall was a coordination-blind (non-BF) teacher; twins collapse; UAS up; slot-sharing refuted.
