@@ -31,6 +31,37 @@ TRAIN = os.path.join(REPO, "data", "corpora", "ud_english_ewt", "en_ewt-ud-train
 TEST = os.path.join(REPO, "data", "corpora", "ud_english_ewt", "en_ewt-ud-test.conllu")
 
 
+def induced_categorizer(asset_path):
+    """HAND-OFF categories -> heads (2026-09-12): token categories from the READING-INDUCED inventory instead of the UPOS column.
+    The asset (exp_reading_induced_categories_v1) maps word type -> cluster; clusters are NAMED by their majority UPOS (gold used
+    ONLY to name, so the arm's category-keyed constructions keep working) -- the probe-v15 'collapsed' reading, the one the
+    categories brief (pri-15) must make usable. Unknown words fall back to form classes (punctuation / numerals) or the open
+    class NOUN. Returns f(tokens) -> list of category names."""
+    import json
+    import re
+    with open(asset_path, encoding="utf-8") as f:
+        d = json.load(f)
+    w2c = d["word2cat"]; names = d.get("cluster_to_upos_name", {})
+    def name_of(c):
+        n = names.get(str(c), names.get(c, None)) if isinstance(names, dict) else None
+        return n if isinstance(n, str) and n else "NOUN"
+    def cat(tok):
+        c = w2c.get(tok.lower())
+        if c is not None:
+            return name_of(c)
+        if re.fullmatch(r"[^\w\s]+", tok):
+            return "PUNCT"
+        if re.fullmatch(r"[\d.,:/-]+", tok):
+            return "NUM"
+        return "NOUN"
+    return lambda toks: [cat(x) for x in toks]
+
+
+def recategorize(sents, categorizer):
+    """Replace every sentence's category column with categorizer(tokens); the heads column is untouched (measuring instrument)."""
+    return [(toks, categorizer(toks), heads, rels) for toks, pos, heads, rels in sents]
+
+
 def sentences(path, cap=None, maxlen=40):
     out = []; toks = []; pos = []; heads = []; rels = []
     with open(path, encoding="utf-8") as f:
@@ -100,9 +131,14 @@ def main(argv=None) -> int:
     ap.add_argument("--cap", type=int, default=6000); ap.add_argument("--eval", action="store_true")
     ap.add_argument("--out", default=AA.ASSET)
     ap.add_argument("--beta", type=float, default=10.0, help="semantic-bootstrapping weight (0 = co-occurrence only); 10 = the measured operating point")
+    ap.add_argument("--categories", default=None, help="reading-induced category asset (word2cat + cluster names) to use INSTEAD of the UPOS column -- the categories->heads hand-off test")
     a = ap.parse_args(argv)
     t0 = time.time()
     train = sentences(TRAIN, cap=a.cap)
+    categorizer = induced_categorizer(a.categories) if a.categories else None
+    if categorizer:
+        train = recategorize(train, categorizer)
+        print("categories = reading-induced (%s) in place of UPOS" % os.path.basename(a.categories), flush=True)
     frames = AA.verb_frames_from_reading([(t, p) for t, p, _, _ in train])
     teacher = knowledge_free_teacher(train, beta=a.beta)
     print("teacher (prior-free co-occurrence, 2 EM rounds%s) ready in %.0fs" % (" + semantic bootstrapping beta=%g" % a.beta if a.beta > 0 else "", time.time() - t0), flush=True)
@@ -126,6 +162,13 @@ def main(argv=None) -> int:
     print("wrote", path, flush=True)
     if a.eval:
         test = sentences(TEST, cap=700, maxlen=10**6)
+        if categorizer:
+            test = recategorize(test, categorizer)
+            gold = sentences(TEST, cap=700, maxlen=10**6); agree = tot = 0
+            for (_, pp, _, _), (_, gp, _, _) in zip(test, gold):
+                for x, y in zip(pp, gp):
+                    agree += int(x == y); tot += 1
+            print("induced-category agreement with UPOS on the test slice: %.4f (%d tokens)" % (agree / max(1, tot), tot), flush=True)
         u, per = uas(lambda t, p: AA.heads(t, p, table), test, per_relation=True)
         print("UAS on UD-EWT test (gold categories; reference only): teacher %.4f | attachment arm %.4f" % (uas(teacher.parse_cle, test), u), flush=True)
         print("attachment arm per-relation (core structure = the consumers' signal):", per, flush=True)
