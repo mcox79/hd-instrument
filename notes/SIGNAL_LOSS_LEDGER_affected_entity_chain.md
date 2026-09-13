@@ -531,3 +531,9 @@ competent-reader reference ~0.85–0.90.
   hand-off does not move this consumer: its loss under the BF chain (0.82 -> 0.73 on the full population) is the heads rung's OBJECT
   attachment (obj 0.685 vs the supervised parser's ~0.9), i.e. UPSTREAM -- the next heads lever (second-order occupancy, pri-16 parked
   behind pri-15; and whatever the categories rung buys back). Kept the graded read as default (brain-faithful, same accuracy).
+- **PHASE 2 REPAIR #2 (AGENT arm) WORKS (2026-09-13 02:55; UD-EWT agent gold n=1424, count-based tagger via the shared frontend):
+  hard category read 0.8209 -> GRADED candidate read 0.8357 (a token stays an agent candidate when its posterior nominal mass
+  >= 0.3 even if the argmax is not nominal); the pre-BF baseline was 0.832 -> recovered and slightly exceeded.** The positional floor
+  moves too (0.8406 -> 0.8567; it picks among the same candidates), so model-minus-floor stays -0.02 (this dimension has never beaten
+  its floor; the located register finding). The category organ's posterior IS the signal: the hard argmax had thrown away the second
+  reading for ~1.5% of agents. Pattern for the other tag consumers (patient arm's candidate set, state holder) -- queued.

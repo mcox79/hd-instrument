@@ -89,13 +89,27 @@ def gold_agent_items(sents):
     return out
 
 
-def _clause_local_nominals(toks, up, v):
+# GRADED CATEGORY READ (2026-09-13, Phase 2 repair #2 for the fully-BF chain: agent 0.832 -> 0.821 under the count-based tagger):
+# a token stays an agent CANDIDATE when its posterior NOMINAL mass is high even if the argmax category is not nominal. The
+# category organ hands down a distribution; a hard argmax threw away the second reading. HDLAB_AGENT_GRADED=0 = hard read (A/B).
+AGENT_GRADED = os.environ.get("HDLAB_AGENT_GRADED", "1") != "0"
+AGENT_NOMINAL_MASS = 0.3
+
+
+def _clause_local_nominals(toks, up, v, post=None):
     """Candidate mention dicts = the NOMINAL tokens inside the verb's clause span (brain-foundational
-    clause-bounded role assignment; GRA.clause_bounds). v is 1-based; returns dicts in GRA's schema."""
+    clause-bounded role assignment; GRA.clause_bounds). v is 1-based; returns dicts in GRA's schema.
+    post: optional per-token {category: P} from the category organ -- tokens with nominal mass >= AGENT_NOMINAL_MASS are
+    candidates too (the graded hand-off)."""
     left, right = GRA.clause_bounds(toks, up, v - 1)              # 0-based span [left, right)
     cands = []
     for i in range(left, right):
-        if i < len(up) and up[i] in NOMINAL:
+        if i >= len(up):
+            continue
+        nominal = up[i] in NOMINAL
+        if not nominal and post is not None and i < len(post) and post[i]:
+            nominal = sum(post[i].get(c, 0.0) for c in NOMINAL) >= AGENT_NOMINAL_MASS
+        if nominal:
             cands.append({"wtok_start": i, "head": toks[i], "cluster": None, "wtok_end": i})
     return cands
 
@@ -152,8 +166,11 @@ def _eval(items, tagger, gaz, weights=None, case_filter=True):
     tally = {"active": {"n": 0, "floor": 0, "cm": 0, "hybrid": 0},
              "passive": {"n": 0, "floor": 0, "cm": 0, "hybrid": 0}}
     for si, (toks, v, ag, passive) in enumerate(items):
-        up = tagger.tag(list(toks))
-        cands = _clause_local_nominals(toks, up, v)
+        if AGENT_GRADED and hasattr(tagger, "tag_with_posterior"):
+            up, _post = tagger.tag_with_posterior(list(toks))
+        else:
+            up, _post = tagger.tag(list(toks)), None
+        cands = _clause_local_nominals(toks, up, v, post=_post)
         if not cands:
             continue
         if case_filter:                                          # CASE cue: drop non-nominative pronoun cands
