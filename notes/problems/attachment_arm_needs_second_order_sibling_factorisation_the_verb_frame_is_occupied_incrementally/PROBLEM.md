@@ -1,5 +1,5 @@
 ---
-priority: 16
+priority: 93
 slug: attachment_arm_needs_second_order_sibling_factorisation_the_verb_frame_is_occupied_incrementally
 status: OPEN
 review:
@@ -7,6 +7,12 @@ review_text:
 ---
 
 # PROBLEM: the attachment arm scores every head→dependent arc independently (first-order), so a verb can take two objects, a noun two determiners, and the biggest published label-free lever (sibling second-order factorisation, +13.3 UAS) is absent — the brain attaches each word given what the head has ALREADY taken
+
+> ## ⛔ PARKED 2026-09-12 (owner): DO NOT START UNTIL THE CATEGORIES RUNG (pri-15) HANDS DOWN A USABLE INVENTORY
+> This problem sits BELOW the word-category rung in the reading chain and currently takes its categories from a supervised
+> tagger / gold UPOS (not brain-foundational). Owner 2026-09-12: no problems downstream of an unfixed element. Re-open (restore
+> its priority) once `reading_induced_categories_merge_the_closed_classes_...` lands; then its input is the induced inventory.
+
 
 **slug:** `attachment_arm_needs_second_order_sibling_factorisation_the_verb_frame_is_occupied_incrementally` — **opened:** 2026-09-12 by strategy after landing the heads rung (`hdlab/attachment_arm.py`) and its semantic-bootstrapping teacher (ledger `notes/SIGNAL_LOSS_LEDGER_affected_entity_chain.md`, entries 2026-09-12 evening).
 

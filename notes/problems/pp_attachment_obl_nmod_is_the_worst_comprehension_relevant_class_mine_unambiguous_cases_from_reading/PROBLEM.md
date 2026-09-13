@@ -1,5 +1,5 @@
 ---
-priority: 17
+priority: 94
 slug: pp_attachment_obl_nmod_is_the_worst_comprehension_relevant_class_mine_unambiguous_cases_from_reading
 status: OPEN
 review:
@@ -7,6 +7,12 @@ review_text:
 ---
 
 # PROBLEM: prepositional-phrase attachment (does "with the telescope" modify the verb or the noun?) is the attachment arm's worst comprehension-relevant class (obl ≈0.5, nmod ≈0.2) because the arm has no LEXICAL association between the governor and the preposition/its noun — the brain learns it from the cases that are unambiguous
+
+> ## ⛔ PARKED 2026-09-12 (owner): DO NOT START UNTIL THE CATEGORIES RUNG (pri-15) HANDS DOWN A USABLE INVENTORY
+> This problem sits BELOW the word-category rung in the reading chain and currently takes its categories from a supervised
+> tagger / gold UPOS (not brain-foundational). Owner 2026-09-12: no problems downstream of an unfixed element. Re-open (restore
+> its priority) once `reading_induced_categories_merge_the_closed_classes_...` lands; then its input is the induced inventory.
+
 
 **slug:** `pp_attachment_obl_nmod_is_the_worst_comprehension_relevant_class_mine_unambiguous_cases_from_reading` — **opened:** 2026-09-12 by strategy from the error anatomy of the landed heads rung (`hdlab/attachment_arm.py`; ledger 2026-09-12).
 
