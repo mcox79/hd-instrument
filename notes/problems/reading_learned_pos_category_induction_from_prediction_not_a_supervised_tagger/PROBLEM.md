@@ -1,5 +1,5 @@
 ---
-priority: 8
+priority: 91
 slug: reading_learned_pos_category_induction_from_prediction_not_a_supervised_tagger
 status: OPEN
 review:
@@ -7,6 +7,10 @@ review_text:
 ---
 
 # PROBLEM: the reader's lexical categories come from a supervised treebank-trained tagger (NOT_BF), but a child ACQUIRES part-of-speech categories with no labels — by DISTRIBUTIONAL prediction-learning (Harris 1954; Elman 1990 SRN next-word prediction; Mintz 1996 frequent frames), reaching usable many-to-one category accuracy (Brown ~0.75→0.94 in the literature). Build the brain-foundational POS-category ACQUISITION: a prediction-learned distributional category inducer that grows categories from reading (no gold labels) AND emits a STABLE inventory the higher organs can key on — then measure whether it can stand in for / feed the supervised tagger without regress. Glass-box, NO external LLM at inference. A rigorous located negative (with a number) is a full pass.
+
+> ## ⚠️ SUPERSEDED 2026-09-12 (strategy) — DO NOT START THIS BRIEF
+> Strategy built the reading-induced categories rung itself (`experiments/exp_reading_induced_categories_v1.py`; type-level 0.745 / token-level 0.722 at 1M lines, k=68+2; `notes/RESEARCH_reading_induced_categories_2026-09-12.md`). The remaining gap is a NEW brief: `reading_induced_categories_merge_the_closed_classes_adv_cconj_sconj_part_and_have_no_token_level_disambiguation` (priority 15). Take that one instead.
+
 
 **slug:** `reading_learned_pos_category_induction_from_prediction_not_a_supervised_tagger` — **opened:** 2026-09-11 by strategy. **status:** OPEN. Named by `scale_the_reading_learned_arc_scorer...` (follow-on #1/#3) as "THE gating link" that makes the whole reading-learned front-end brain-foundational. **Scope note (dedup):** this is DISTINCT from the two in-review parser-cluster submissions — `pos_tagger_is_a_notbf_maxmargin_perceptron...` is about CALIBRATING the existing supervised tagger, and `scale_the_reading_learned_arc_scorer` is about the ARC scorer; NEITHER learns the CATEGORY INVENTORY from reading. This problem is the unsupervised category-INDUCTION that both presuppose. Glass-box, NO external LLM at inference.
 

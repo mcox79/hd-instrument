@@ -1,5 +1,5 @@
 ---
-priority: 1
+priority: 90
 slug: generative_entity_state_reranks_which_entity_is_the_affected_undergoer
 status: OPEN
 review:
@@ -7,6 +7,10 @@ review_text:
 ---
 
 # PROBLEM: once grammar (Principle B + role parallelism + salience) has narrowed WHICH discourse entity a pronoun/definite undergoer refers to, a ~40-70% SAME-TYPE-ambiguous residual remains that grammar cannot reach — and the brain resolves it by SITUATION COHERENCE: which candidate entity's STATE would plausibly UPDATE under this event (Rabovsky-McClelland N400 = situation-update magnitude; Zwaan-Radvansky event-indexing). Build the generative entity-STATE reranker: score each grammar-legal candidate undergoer by the coherence of its state-change under the current event, fused reliability-weighted (Ernst-Banks inverse-variance) with the grammatical prior, and show it recovers the residual CI-separated over the grammar-only resolver — OR a rigorous located negative. Glass-box, NO external LLM at inference.
+
+> ## ⚠️ STRATEGY-OWNED, IN PROGRESS 2026-09-12 — DO NOT START AS A SOLVER
+> The strategy session is landing this one itself (forward half landed: accrual + foreground + Principle A, +0.044/+0.037 CI-separated; next = joint agent+verb in-focus expectation). Picking it up in a solver session would collide with live edits.
+
 
 **slug:** `generative_entity_state_reranks_which_entity_is_the_affected_undergoer` — **opened:** 2026-09-11 by strategy. **status:** OPEN. TWO independent owner-DONE solutions converge on this as the residual's ONLY remaining lever and name it "the north star / the main event": `who_was_affected_needs_the_forward_salience_prior_join_undergoer_to_discourse_entity` (BUILD 5) and `type_generalized_selectional_preference...` (#1). This is the DOWNSTREAM read that composes the just-landed `affected_entity_resolver` (the grammatical half). Glass-box, NO external LLM at inference.
 

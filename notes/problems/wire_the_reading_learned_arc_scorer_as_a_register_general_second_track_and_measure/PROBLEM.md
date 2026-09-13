@@ -1,5 +1,5 @@
 ---
-priority: 11
+priority: 92
 slug: wire_the_reading_learned_arc_scorer_as_a_register_general_second_track_and_measure
 status: OPEN
 review:
@@ -7,6 +7,10 @@ review_text:
 ---
 
 # PROBLEM: the reading-learned (treebank-free, self-taught-from-reading) arc scorer, read as a graded DISTRIBUTION, was MEASURED to MATCH the frozen supervised scorer on the reader's own verb→argument extraction in-domain AND BEAT it out-of-domain (GUM +0.0235 CI-sep, no treebank at inference, twin losing) — because the memorized supervised scorer DEGRADES on unfamiliar register while the self-taught one HOLDS. That register-generality win is currently a cached experiment result, LIVE-UNWIRED. Wire the reading-learned scorer as a reliability-gated SECOND TRACK feeding the SAME `graded_parser.single_root_marginals` (select it when the supervised scorer's marginal reliability drops = the register-shift signature; recall byte-identical when the gate does not fire), persist the cached model as a durable BF asset, add a `board_register_general_extraction_dimension`, and MEASURE whether the in-domain-parity / OOD-win transfers to the LIVE board — OR a rigorous located negative naming why it does not (with a number). Glass-box, NO gold/treebank/LLM at inference.
+
+> ## ⚠️ SUPERSEDED 2026-09-12 (strategy) — DO NOT START THIS BRIEF
+> The reading-learned arc scorer was replaced by the ATTACHMENT arm of the Competition-Model organ (`hdlab/attachment_arm.py`, landed 2026-09-12; knowledge-free + semantic-bootstrapping teacher). The live levers are NEW briefs: `attachment_arm_needs_second_order_sibling_factorisation_the_verb_frame_is_occupied_incrementally` (priority 16) and `pp_attachment_obl_nmod_is_the_worst_comprehension_relevant_class_mine_unambiguous_cases_from_reading` (priority 17). Take one of those instead.
+
 
 **slug:** `wire_the_reading_learned_arc_scorer_as_a_register_general_second_track_and_measure` — **opened:** 2026-09-11 by strategy, the #1 NEXT STEP of the owner-DONE `scale_the_reading_learned_arc_scorer…` (INTEGRATED 2026-09-11; the capability WIN was measured but the wire is Q111 = strategy/solver lands). **status:** OPEN. The reading-learned scorer is the brain-foundational ACQUISITION replacement for the parser cluster's supervised root; this problem realizes its measured register-generality lever LIVE. Glass-box, NO external LLM at inference.
 
