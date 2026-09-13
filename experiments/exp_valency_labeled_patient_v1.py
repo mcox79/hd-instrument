@@ -23,6 +23,7 @@ Glass-box, NO external LLM, NO trained-modern-only-parser dependence for the WIN
 readout, head-independent). hdlab READ-only. ASCII. own dir.
 """
 from __future__ import annotations
+import os
 import os, sys
 for _v in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS", "THINC_NUM_THREADS"):
     os.environ.setdefault(_v, "3")
@@ -159,6 +160,11 @@ def _paired_ci(per_sent_a, per_sent_b, nboot=2000, seed=23):
     return round(float(obs), 4), round(float(lo), 4), round(float(hi), 4)
 
 
+# GRADED HEAD HAND-OFF into this arm's role read (2026-09-13, Phase 2 consumer repair for the fully-BF chain: patient 0.8207 -> 0.7291).
+# Env HDLAB_PATIENT_GRADED=0 restores the hard-head read for the A/B.
+GRADED_HEAD_HANDOFF = os.environ.get("HDLAB_PATIENT_GRADED", "1") != "0"
+
+
 def eval_split(sents, tagger, labeler, arc, arceager_W, seed=0):
     """Per-sentence hit lists for every route + parser. Returns {route: [[hits per sent], ...]}."""
     from hdlab.arceager_parser import parse_with_conf
@@ -173,12 +179,13 @@ def eval_split(sents, tagger, labeler, arc, arceager_W, seed=0):
         gh = {t["id"]: t["head"] for t in s}
         glab = {t["id"]: norm_label(t["deprel"]) for t in s}
         pos = tagger.tag(list(toks))
-        heads_by = {}
+        heads_by = {}; head_post = None
         from hdlab import frontend as _FE   # ONE shared frontend (2026-09-12): the organ switches reach this arm
         if _FE.HEADS_SOURCE == "attachment_arm":
             try:
                 _tp = tagger.tag_with_posterior(list(toks))[1] if hasattr(tagger, "tag_with_posterior") else None
-                _h = _FE.parser().parse(toks, pos, _tp).heads
+                _po = _FE.parser().parse(toks, pos, _tp); _h = _po.heads
+                head_post = _po.marginals if GRADED_HEAD_HANDOFF else None    # P(head | dep): the graded hand-off into the role read
             except Exception:
                 _h = {}
             heads_by["arc"] = dict(_h); heads_by["arceager"] = dict(_h)   # the BF heads rung for BOTH routes
@@ -210,7 +217,7 @@ def eval_split(sents, tagger, labeler, arc, arceager_W, seed=0):
             continue
         for p in parsers:
             oh = heads_by[p]
-            olab = labeler.label(toks, pos, oh)
+            olab = labeler.label(toks, pos, oh, head_posterior=head_post)   # roles marginalised over P(head) when the BF rung supplies it
             # info-free twins: shuffle labels (permute values) / shuffle heads (random verb head)
             lab_vals = list(olab.values()); rng.shuffle(lab_vals)
             shuflab = {k: lab_vals[i] for i, k in enumerate(olab.keys())}
