@@ -55,7 +55,7 @@ class Tagger:
             self._lc = LC.get(); self._pt = None
         else:
             from hdlab.pos_tagger import PosTagger
-            self._pt = PosTagger.load(_POS_ASSET); self._lc = None
+            self._pt = PosTagger.load(_POS_ASSET, _raw=True); self._lc = None
 
     def tag(self, tokens: Sequence[str]) -> List[str]:
         toks = list(tokens)

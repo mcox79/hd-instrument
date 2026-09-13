@@ -335,8 +335,18 @@ class PosTagger:
             json.dump(payload, f)
 
     @classmethod
-    def load(cls, path: str) -> "PosTagger":
-        """Load a persisted json model; decodes identically to the trained tagger."""
+    def load(cls, path: str, _raw: bool = False):
+        """Load a persisted json model; decodes identically to the trained tagger.
+
+        ROUTED THROUGH THE ONE FRONTEND (2026-09-13): nine live sites (the reader's affect / relative-clause paths, the space,
+        crosstype, joint-relation, perceptual-access and world-model readers, three board arms) instantiated this NOT-brain-
+        foundational stand-in directly, bypassing the category switch `HDLAB_TAG_SOURCE`. Every one of them calls only `.tag()`
+        (enumerated 2026-09-13), so unless the switch selects the perceptron, `load()` returns the shared `hdlab.frontend.Tagger`
+        (the count-based category organ; a strict superset: `.tag` + `.tag_with_posterior`). `_raw=True` is the frontend's own
+        call for the perceptron arm. The `path` is the stand-in's asset and is ignored when routed."""
+        if not _raw and _os.environ.get("HDLAB_TAG_SOURCE", "counts") != "perceptron":
+            from hdlab import frontend as _FE
+            return _FE.tagger()
         with open(path, encoding="utf-8") as f:
             d = json.load(f)
         perc = StructuredPerceptron(d["tags"])
