@@ -511,3 +511,9 @@ competent-reader reference ~0.85–0.90.
   noun-attached PPs the locality cue had been stealing for the verb; verb-attached PPs (obl) were already mostly right. Folded from the
   pri-2 solver's proven prototype (their +0.114 on the PP-decision subpopulation) = the parked pri-17 lever, now in the organ's own
   knowledge form (plastic counts, learned strengths per configuration). Witness 15/15.
+- **OPS (2026-09-13 00:25): the board run as a SCRIPT (`python -u experiments/exp_situation_model_qa_modern_v1.py --run`) under
+  `HDLAB_HEADS_SOURCE=attachment_arm` has now died TWICE with a silent `exit 1` right after the WiC arm (no traceback, only 8 log lines),
+  while the MODULE-IMPORT launcher (`python -c "import experiments.exp_situation_model_qa_modern_v1 as B; B.main()"` with sys.argv set)
+  completed the same configuration twice (0.6294 hard, 0.6294 graded). Suspect: a second import of the board module by an arm when it
+  runs as `__main__`. Until diagnosed, attachment-arm boards launch through the module-import form. The pre-routing counts-only board
+  (script form) completed (0.6385).**
