@@ -8,10 +8,24 @@ review_text:
 
 # PROBLEM: the attachment arm scores every head→dependent arc independently (first-order), so a verb can take two objects, a noun two determiners, and the biggest published label-free lever (sibling second-order factorisation, +13.3 UAS) is absent — the brain attaches each word given what the head has ALREADY taken
 
-> ## ⛔ PARKED 2026-09-12 (owner): DO NOT START UNTIL THE CATEGORIES RUNG (pri-15) HANDS DOWN A USABLE INVENTORY
-> This problem sits BELOW the word-category rung in the reading chain and currently takes its categories from a supervised
-> tagger / gold UPOS (not brain-foundational). Owner 2026-09-12: no problems downstream of an unfixed element. Re-open (restore
-> its priority) once `reading_induced_categories_merge_the_closed_classes_...` lands; then its input is the induced inventory.
+> ## 🔁 RE-SCOPED 2026-09-13 10:40 (strategy; un-parked) — THE SLOT CONSTRAINT BELONGS TO THE ROLES RUNG, NOT THE GOVERNOR
+> The parking condition is met: the categories rung is the live count-based organ (`hdlab/lexical_categories.py`, 0.926, every reader routed).
+> **What was proven at the governor (do not redo):** a decode-time "one bare post-verbal nominal per verb" repair on the attachment arm
+> (`attachment_arm.occupancy_repair`, `HDLAB_ARM_OCCUPANCY`) was REFUTED 2026-09-13: UAS 0.6034 -> 0.5995, obj 0.725 -> 0.655,
+> obl 0.463 -> 0.415 -- a verb legitimately takes two bare nominals (ditransitive, adverbial/temporal NP, predicate nominal, apposition),
+> so "bare nominal" over-counts the slot; the incremental decode (`HDLAB_ARM_DECODE=incr`, landed 10:20) does not change this.
+> **The re-scoped problem:** the brain's slot saturation is a ROLE fact -- once a verb has its OBJECT, a second nominal competes for a
+> different role (oblique, predicate, appositive), not for OBJECT. Build it in the ROLE COMPETITION arm of the same Competition-Model
+> organ (`hdlab/graded_role_assigner.coarse_roles(head_posterior=)` -- the sibling arm; it already marginalises over P(head)): the
+> verb's frame slots are filled by competition among its candidate nominals over the graded head belief, capacity ONE per core slot,
+> with the filled slot lowering the activation of a second filler of the same role (Lewis & Vasishth retrieval cue = the head's
+> current state). Knowledge in counts (slot-filler counts per verb class from the organ's own reading), online observable.
+> **Measure:** the 596-item role decision probe + the who-did-what PATIENT / AGENT board arms (current 0.8088 / 0.8357; `experiments/
+> exp_situation_model_qa_modern_v1.py` dimensions) + object-role precision on UD-EWT test 700 under BOTH decodes (map1 and incr).
+> **Write ONLY:** `experiments/exp_role_slot_occupancy_v1.py` (via `experiments._seed_checkpoint.get_output_dir`), `notes/problems/<slug>/
+> SOLVED.md`, `notes/problems/<slug>/graded_role_assigner_patch.diff` (do NOT edit hdlab/ directly; strategy lands it).
+> **Bar (can-fail):** patient-arm score up CI-separated over the current read, agent not down, object-role precision up, twin (shuffled
+> slot counts) far below, witness green -- or a numbered located negative that names the upstream cause.
 
 
 **slug:** `attachment_arm_needs_second_order_sibling_factorisation_the_verb_frame_is_occupied_incrementally` — **opened:** 2026-09-12 by strategy after landing the heads rung (`hdlab/attachment_arm.py`) and its semantic-bootstrapping teacher (ledger `notes/SIGNAL_LOSS_LEDGER_affected_entity_chain.md`, entries 2026-09-12 evening).
