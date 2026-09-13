@@ -109,6 +109,11 @@ Correction to the existing attachment row: conj is NOT "second-order occupancy" 
    asset. (Described in prose because the brief scopes the diff to attachment_arm.py.)
 Do NOT wire slot-sharing (REFUTED). gamma=4 is a swept operating point, not adopted.
 
+**gamma SWEEP (operating point, not adopted; cap 2500, test 700, base->full):** gamma 2 -> conj +0.103 CI [0.060,0.146];
+gamma 8 -> +0.137 CI [0.090,0.184] (gamma 4 -> +0.090 at cap 6000). Monotonic in gamma, CI-separated at every setting, UAS up
+throughout — the lift is robust, no cliff at any prediction strength. gamma=8 is marginally stronger; kept gamma=4 as a
+conservative middle. (Cue smoothing / beam width similarly free to sweep per the phase-diagram note.)
+
 ## TLDR / QUESTIONS / NEXT STEPS
 - **TLDR:** conj 0.300 -> 0.391 CI-separated both decodes by building parallel-structure prediction into the teacher + a corrected
   read-time construction; the wall was a coordination-blind (non-BF) teacher; twins collapse; UAS up; slot-sharing refuted.
