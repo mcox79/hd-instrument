@@ -152,7 +152,8 @@ def function_word_arcs(toks: Sequence[str], pos: Sequence[str]) -> List[Tuple[in
     (the first name heads the rest); a punctuation mark attaches to the nearest verb (the clause predicate). Item-based schemas
     learned as form-position templates; deterministic once learned."""
     n = len(pos); out = []; lows = [t.lower() for t in toks]
-    COP = {"be", "is", "are", "was", "were", "been", "being", "am", "become", "became", "becomes", "seem", "seems", "seemed"}
+    COP = {"be", "is", "are", "was", "were", "been", "being", "am", "become", "became", "becomes", "seem", "seems", "seemed",
+           "'m", "'s", "'re", "s", "m", "re"}   # clitic copulas (2026-09-13 root anatomy: "I 'm not fond" rooted 'I'; the rule never fired)
     def np_head_after(i):                   # head noun of the nominal run starting at i (0-based) or None
         j = i
         while j < n and pos[j] in NP_RUN:
