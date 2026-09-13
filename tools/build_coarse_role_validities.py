@@ -73,12 +73,32 @@ def _perceive(toks, pos, heads):
     return ppos, pheads
 
 
+def _confidence(toks, ppos, pheads):
+    """CONFIDENCE-WEIGHTED PERCEPTION (2026-09-13 14:50, strategy). The perceived-heads table (this morning) learned 'a NOUN left of
+    a VERB is often not its subject' from the governor's own MISATTACHMENTS (at gold heads: matrix nsubj recall 0.873 with the
+    gold-convention table vs 0.748 with the perceived table; 45 canonical subjects -> OTHER) while gaining objects. The brain learns
+    cue validity from experience weighted by how reliable each experience was (reliability-weighted learning; Ernst & Banks 2002 for
+    cue reliability; the governor's own graded belief is that reliability here) -- so each perceived instance counts with weight
+    w = P(perceived head | dependent) under the attachment arm's exact single-root marginals (hdlab.attachment_arm.head_posterior).
+    A confidently attached nominal teaches at full weight; a guess teaches a fraction. No gold tree is read."""
+    global _TAB
+    import hdlab.attachment_arm as AA
+    if _TAB is None:
+        _TAB = AA.load_attachment_validities()
+    post = AA.head_posterior(list(toks), list(ppos), _TAB)
+    return {i: float((post.get(i) or {}).get(h, 0.0)) for i, h in pheads.items()}
+
+
+_TAB = None
+
+
 _FE = None
 
 
 def main():
     perceived = "--perceived" in sys.argv
-    out_path = OUT.replace(".json", "_perceived.json") if perceived else OUT
+    weighted = "--weight" in sys.argv                                   # confidence-weighted perception (see _confidence)
+    out_path = OUT.replace(".json", "_perceived_w.json" if weighted else "_perceived.json") if perceived else OUT
     K = len(GRA.ROLE_CLASSES)
     ix = {r: k for k, r in enumerate(GRA.ROLE_CLASSES)}
     cfg_counts = defaultdict(lambda: [0] * K)                      # config value -> role counts
@@ -97,18 +117,20 @@ def main():
     lemma_frames = {k: v for k, v in lemma_frames.items() if v[1] >= 5}
     for toks, gpos, gheads, deps in sentences(TRAIN):
         pos, heads = _perceive(toks, gpos, gheads) if perceived else (gpos, gheads)
+        conf = _confidence(toks, pos, heads) if (perceived and weighted) else None
         for i in range(1, len(toks) + 1):
             if gpos[i - 1] not in GRA.NOMINAL:
                 continue
-            decisions += 1
+            w = conf.get(i, 0.0) if conf is not None else 1
+            decisions += w
             g = ix[coarse_of(deps.get(i))]
-            prior[g] += 1
+            prior[g] += w
             cues = GRA.coarse_role_cues(toks, pos, heads, i, lemma_frames)
             cfg = cues["config"]
-            cfg_counts[cfg][g] += 1
+            cfg_counts[cfg][g] += w
             for cue, val in cues.items():
                 if cue != "config":
-                    counts[cue][f"{cfg}|{val}"][g] += 1
+                    counts[cue][f"{cfg}|{val}"][g] += w
     # SLOT CAPACITY (verb-frame occupancy knowledge, in counts; owner-DONE pri 93): per core slot, how many verb tokens have >= 1
     # filler (n1) and >= 2 fillers (n2). lambda = -log P(2nd | >= 1) is a pure function of these (organ side, _slot_capacity).
     from collections import Counter as _Counter
@@ -135,13 +157,13 @@ def main():
     audit = {"config": {}}
     for cfg, vec in cfg_counts.items():
         n = sum(vec); best = max(range(K), key=lambda k: vec[k])
-        audit["config"][cfg] = {"n": n, "availability": round(n / decisions, 4), "reliability": round(vec[best] / n, 4),
+        audit["config"][cfg] = {"n": round(float(n), 2), "availability": round(n / decisions, 4), "reliability": round(vec[best] / n, 4),
                                 "cued_role": GRA.ROLE_CLASSES[best]}
     for cue, vals in counts_doc["cues"].items():
         audit[cue] = {}
         for key, vec in vals.items():
             n = sum(vec); best = max(range(K), key=lambda k: vec[k])
-            audit[cue][key] = {"n": n, "availability": round(n / decisions, 4), "reliability": round(vec[best] / n, 4),
+            audit[cue][key] = {"n": round(float(n), 2), "availability": round(n / decisions, 4), "reliability": round(vec[best] / n, 4),
                                "cued_role": GRA.ROLE_CLASSES[best]}
     doc = {"source": "UD-EWT train (gold heads/POS). Competition Model, configuration-conditioned: activation(role) = "
                      "log P(role) + [log P(role|config) - log P(role)] + sum_c [log P(role|config,c=v) - log P(role|config)]; "
@@ -149,18 +171,18 @@ def main():
                      "reliability = max_r P(r|value)." % M_SHRINK,
            "decisions": decisions, "roles": GRA.ROLE_CLASSES, "prior": [round(x, 4) for x in logprior],
            "strength": strength, "audit": audit, "lemma_frames": lemma_frames, "counts": counts_doc}
-    doc["perceived"] = perceived
+    doc["perceived"] = perceived; doc["confidence_weighted"] = bool(perceived and weighted)
     with open(out_path, "w", encoding="utf-8", newline="\n") as f:
         json.dump(doc, f, indent=1)
     print(f"decisions={decisions}  prior={dict(zip(GRA.ROLE_CLASSES, prior))}")
     print("[config]")
     for val, a in sorted(audit["config"].items(), key=lambda kv: -kv[1]["n"])[:12]:
-        print(f"   {val:16s} n={a['n']:6d} avail={a['availability']:.4f} rel={a['reliability']:.3f} -> {a['cued_role']}")
+        print(f"   {val:16s} n={a['n']:8.1f} avail={a['availability']:.4f} rel={a['reliability']:.3f} -> {a['cued_role']}")
     for cue in GRA.COARSE_CUES[1:]:
         print(f"[{cue}] (within VERB_pre / VERB_post / NOUN_pre / NOUN_post)")
         for key, a in sorted(audit[cue].items(), key=lambda kv: -kv[1]["n"]):
             if key.split("|")[0] in ("VERB_pre", "VERB_post", "NOUN_pre", "NOUN_post") and a["n"] >= 30:
-                print(f"   {key:28s} n={a['n']:6d} rel={a['reliability']:.3f} -> {a['cued_role']}")
+                print(f"   {key:28s} n={a['n']:8.1f} rel={a['reliability']:.3f} -> {a['cued_role']}")
     print("wrote", out_path)
 
 
