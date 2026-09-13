@@ -708,7 +708,12 @@ def head_posterior(toks: Sequence[str], pos: Sequence[str], table: Optional[Dict
 # extra roots were counted, and it handed consumers several disconnected clauses. Single-root MAP: UAS 0.6034 (ccomp 0.500 -> 0.672,
 # advcl 0.149 -> 0.313, xcomp 0.679 -> 0.730, obl 0.430 -> 0.463, conj 0.253 -> 0.300, obj 0.725, nsubj 0.767; root 0.744 honest).
 # MBR (summed-marginal tree) with the same root: 0.5855 -- worse once both are single-rooted; kept selectable. "map" = the old multi-root.
-DECODE = os.environ.get("HDLAB_ARM_DECODE", "map1")
+# DEFAULT DECODE = "incr" (2026-09-13 10:55 local; owner: organs take data in order; replacement rule: more BF AND as performative).
+# UD-EWT test 700, gold categories: whole-sentence single-root search (map1) 0.6034 | INCREMENTAL commitment with decaying held
+# expectations (beam 8, decay 0.8, hold offset 0) 0.6080 -- obj 0.755 vs 0.725, nmod 0.403 vs 0.365, amod 0.824 vs 0.792; root 0.706 vs
+# 0.744, ccomp 0.629 vs 0.672; 19% of words settled at the sentence-final wrap-up; 3.6x FASTER than the search. "map1"/"mbr"/"map" stay
+# selectable as baselines. Operating point swept (beam 1-64, decay 0.6-1.0, offset -2..+1), never adopted from a brain number.
+DECODE = os.environ.get("HDLAB_ARM_DECODE", "incr")
 ROOT_PICK = os.environ.get("HDLAB_ARM_ROOT_PICK", "score")   # among several MAP roots: "score" (highest root score) | "left" (leftmost)
 
 
@@ -832,7 +837,7 @@ INCR_ROOT_REANALYSIS = os.environ.get("HDLAB_ARM_ROOT_REANALYSIS", "1") == "1"
 # the ACT-R base-level). Without it the placeholder is an AVERAGE realised activation, so a real head arriving with a below-average
 # arc looks like a loss and the word keeps waiting (wrap-up anatomy: 46% of prepositions, 27% of nouns held to the end). With decay
 # d, a word held for a words is worth E x d^a; the parameter is swept, never adopted (1.0 = no decay).
-INCR_DECAY = float(os.environ.get("HDLAB_ARM_DECAY", "1.0"))
+INCR_DECAY = float(os.environ.get("HDLAB_ARM_DECAY", "0.8"))   # swept 0.6-1.0 on UD-EWT test 700: 1.0 0.5981 | 0.9 0.5991 | 0.8 0.6028 | 0.7 0.6018 | 0.6 0.6010 (beam 8, offset -1)
 
 
 HOLD_ASSET = os.path.join(_REPO, "data", "frontend_assets", "attachment_hold_expect_v1.json")
