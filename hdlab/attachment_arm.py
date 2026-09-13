@@ -361,6 +361,57 @@ def heads(toks: Sequence[str], pos: Sequence[str], table: Optional[Dict[str, obj
 
 
 # ---------------------------------------------------------------------------------------------------------------------------------
+# GRADED CATEGORY HAND-OFF (2026-09-12 late; categories rung -> heads rung). The category organ (hdlab.lexical_categories) hands
+# down a POSTERIOR per token; the cues and constructions here are discrete over categories, so the brain-faithful read is to keep
+# the competing category ALIVE for uncertain tokens (MacDonald 1994 constraint satisfaction; Hale/Levy graded alternatives) and mix
+# the arc activations by the posterior. First-order mixture: A = A(top) + sum_t P(alt_t) * [A(with token t as alt_t) - A(top)] over
+# the tokens whose top category carries less than TAG_GRADED_TAU of the mass (one extra cue pass per such token; rarely > 3/sentence).
+TAG_GRADED_TAU = 0.8
+TAG_GRADED_MAX_ALT = 3
+
+
+def arc_scores_graded(toks: Sequence[str], pos: Sequence[str], tag_post: Optional[Sequence[Dict[str, float]]],
+                      table: Optional[Dict[str, object]] = None, tau: float = TAG_GRADED_TAU,
+                      max_alt: int = TAG_GRADED_MAX_ALT) -> Tuple[np.ndarray, int]:
+    """Arc activations marginalised (first order) over each uncertain token's second-best category."""
+    A, n = arc_scores(toks, pos, table)
+    if not tag_post:
+        return A, n
+    alts = []
+    for i, d in enumerate(tag_post):
+        if not d or i >= len(pos):
+            continue
+        ranked = sorted(d.items(), key=lambda kv: -kv[1])
+        if len(ranked) < 2 or ranked[0][1] >= tau:
+            continue
+        alt, p_alt = ranked[1]
+        if alt == pos[i] or p_alt < 0.05:
+            continue
+        alts.append((p_alt, i, alt))
+    if not alts:
+        return A, n
+    alts.sort(reverse=True)
+    out = A.copy()
+    for p_alt, i, alt in alts[:max_alt]:
+        pos2 = list(pos); pos2[i] = alt
+        B, _ = arc_scores(toks, pos2, table)
+        fin = np.isfinite(A) & np.isfinite(B)
+        out[fin] += p_alt * (B[fin] - A[fin])
+        # arcs that exist only under the alternative categorisation enter with their posterior share
+        only_b = (~np.isfinite(A)) & np.isfinite(B)
+        out[only_b] = np.log(max(p_alt, 1e-9)) + B[only_b]
+    return out, n
+
+
+def head_posterior_graded(toks, pos, tag_post, table=None, temp: float = 1.0) -> Dict[int, Dict[int, float]]:
+    A, n = arc_scores_graded(toks, pos, tag_post, table); return single_root_marginals(A, n, temp)
+
+
+def heads_graded(toks, pos, tag_post, table=None) -> Dict[int, int]:
+    A, n = arc_scores_graded(toks, pos, tag_post, table); return chu_liu_edmonds(A, n)
+
+
+# ---------------------------------------------------------------------------------------------------------------------------------
 # SEMANTIC BOOTSTRAPPING TEACHER (2026-09-12). The knowledge-free co-occurrence teacher learns phrase internals but never that the
 # VERB HEADS ITS ARGUMENTS (landed anatomy: obj 0.19, obl 0.12, root 0.41). The brain gets that knowledge from MEANING: the event
 # predicate takes its participants as arguments, so the word naming the predicate heads the words naming plausible participants
@@ -425,4 +476,4 @@ class SemanticBootstrapTeacher:
 
 __all__ = ["SentenceCues", "CONSTRUCTIONS", "construction_map", "verb_frames_from_reading", "strengths_from_arc_counts",
            "load_attachment_validities", "save_attachment_validities", "new_counts", "accrue_sentence", "observe_arc_outcome",
-           "arc_scores", "head_posterior", "heads", "SemanticBootstrapTeacher", "ASSET", "FORM"]
+           "arc_scores", "head_posterior", "heads", "arc_scores_graded", "head_posterior_graded", "heads_graded", "SemanticBootstrapTeacher", "ASSET", "FORM"]

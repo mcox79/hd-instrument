@@ -2174,7 +2174,8 @@ class SituationReader:
                 # from the exact tree posterior; marg[i] = P(best) - P(second). Selected by env HDLAB_HEADS_SOURCE=attachment_arm
                 # for the board A/B; a downstream dip is a consumer to repair, not a reason to revert the BF rung.
                 from hdlab import attachment_arm as AA
-                post = AA.head_posterior(list(toks), list(pos))
+                tp = self._cached_tag_posterior(list(toks))      # GRADED category hand-off (None under the perceptron)
+                post = AA.head_posterior_graded(list(toks), list(pos), tp) if tp else AA.head_posterior(list(toks), list(pos))
                 c[("headpost", tuple(toks))] = post                        # the full P(head | dep): handed DOWN to the role read
                 heads = {}; conf = {}; marg = {}
                 for j, d in post.items():
