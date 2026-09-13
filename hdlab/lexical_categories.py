@@ -42,6 +42,9 @@ _lag_env = os.environ.get("HDLAB_LC_LAG", "")
 # DEFAULT LAG = 2 (2026-09-13 10:35 local; owner: organs take data IN ORDER): the belief about a word is revised by the next TWO words
 # only. Full UD-EWT test: lag 0 0.9032 | 1 0.9251 | 2 0.9264 | 3 0.9264 | whole sentence 0.9264 -- a two-word window is exactly as
 # accurate as reading the whole sentence first, so the brain-faithful form replaces the stand-in. HDLAB_LC_LAG=inf restores smoothing.
+_mm = os.environ.get("HDLAB_LC_MIX_MAX", "")
+MIX_MAX: Optional[int] = int(_mm) if _mm.strip() else None          # None = the asset's rare_max (current behaviour); sweep below
+MIX_KAPPA = float(os.environ.get("HDLAB_LC_MIX_KAPPA", "1.0"))
 LAG: Optional[int] = (None if _lag_env.strip().lower() in ("inf", "none", "full") else int(_lag_env)) if _lag_env.strip() else 2
 BOS = "<s>"
 K2 = 2.0                                                        # Dirichlet back-off mass for the second-order transitions (swept, not adopted)
@@ -165,10 +168,16 @@ class LexicalCategories:
             for i, t in enumerate(self.tags):
                 out[i] = math.log((self.emit[t][w] + self.lam) / (self.tag_count[t] + self.lam * V1))
             cw = sum(self.emit[t][w] for t in self.tags)
-            if self.rare_max > 0 and cw <= self.rare_max:
-                # a rare known form: mix the lexical estimate with the unknown-word estimate in proportion to its count
-                unk = self._log_emit_unknown(w); a = cw / (cw + 1.0)
+            # a rare known form: mix the lexical estimate with the unknown-word (suffix/shape) estimate in proportion to its count
+            # -- Bayesian shrinkage a = c / (c + kappa): three sightings of "wounded" as ADJ must not make VERB impossible
+            # (measured 2026-09-13: "An attacker wounded the officer" -> ADP; the lexical floor for VERB lost to the NOUN _ DET
+            # sequence). MIX_MAX / MIX_KAPPA are swept operating points (module defaults below); the reading-cluster factor keeps
+            # its own threshold (rare_max) -- applying it to every word costs 2 points (measured).
+            mix_max = self.rare_max if MIX_MAX is None else MIX_MAX
+            if mix_max > 0 and cw <= mix_max:
+                unk = self._log_emit_unknown(w); a = cw / (cw + MIX_KAPPA)
                 out = np.logaddexp(math.log(a) + out, math.log(1.0 - a) + unk)
+            if self.rare_max > 0 and cw <= self.rare_max:
                 out = out + self._log_cluster(w)
             if self.use_shape:
                 sh = word_shape(word)
