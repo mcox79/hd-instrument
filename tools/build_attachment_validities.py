@@ -132,11 +132,17 @@ def main(argv=None) -> int:
     ap.add_argument("--out", default=AA.ASSET)
     ap.add_argument("--beta", type=float, default=10.0, help="semantic-bootstrapping weight (0 = co-occurrence only); 10 = the measured operating point")
     ap.add_argument("--tsp-asset", default=None, help="alternative plausibility asset for the semantic-bootstrapping teacher (e.g. the self-grown store's typed asset)")
+    ap.add_argument("--categories-lc", default=None, help="a lexical_categories COUNTS asset (e.g. the reading-acquired one) to tag the sentences with, in place of the UPOS column")
     ap.add_argument("--categories", default=None, help="reading-induced category asset (word2cat + cluster names) to use INSTEAD of the UPOS column -- the categories->heads hand-off test")
     a = ap.parse_args(argv)
     t0 = time.time()
     train = sentences(TRAIN, cap=a.cap)
     categorizer = induced_categorizer(a.categories) if a.categories else None
+    if a.categories_lc:
+        import hdlab.lexical_categories as _LC
+        _m = _LC.LexicalCategories.load(a.categories_lc)
+        categorizer = lambda toks: _m.tag(list(toks))
+        a.categories = a.categories_lc
     if categorizer:
         train = recategorize(train, categorizer)
         print("categories = reading-induced (%s) in place of UPOS" % os.path.basename(a.categories), flush=True)
