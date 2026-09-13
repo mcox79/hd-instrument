@@ -72,3 +72,22 @@ entirely exhausted. That's when you end, and the readback should include any ide
 or more brain foundational." -> phase 7 REPEATS (understand? research. opportunities? build+measure) until the session says the opportunities are
 entirely exhausted; only then does the supervisor close the row and present for DONE; the final readback must list ALTERNATE PATHS (brain
 structure + computation, math, what it would take, why not now), which strategy queues as briefs. Baked into phase 6 of the kick-off prompt.
+
+## OWNER DECISION (2026-09-13 18:35): the solver program is strategy's; the PUSH is tailored by problem type
+"I'm not going to do the problems any more if you can do them effectively. The only thing I'll add is that the push changes a bit depending on
+the type of problem." -> all briefs go to solver agents (two at a time, one organ each); the hand-out tab stays as the owner's window onto
+finished solutions. The phase-7 push, by type (strategy's articulation; the owner may refine):
+- **MECHANISM problem** (build a brain computation the organ lacks: pri 97, 98, 100): push on the CHAIN -- where is the signal lost above and
+  below, is each rung handing down a graded value, is the mechanism the brain's operation or a proxy, does the win survive each upstream
+  rung (decompose), which alternate mechanism is MORE brain-foundational; then compose the accepted levers and confirm at the landed cap.
+- **INPUT / COVERAGE problem** (the organ lacks knowledge or a cue for a population: pri 99, 101, 104): push on the POPULATION -- split the
+  residual by its structural causes with counts (form-free, first mention, out of window), bound the lever by arithmetic, name the missing
+  INPUT and which organ owns it, test the top-down/feedback path; do not push for more cues once the arithmetic is closed.
+- **LABELS / CONSUMER problem** (a rung mis-reads a correct upstream signal: pri 93, 103): push on the INSTRUMENT and the HAND-OFF -- verify
+  the gold/loader before trusting the floor, measure under gold and live upstream separately, locate the loss to a rung, hand consumers the
+  graded read, try the slot/competition form before a new cue.
+- **LEARNING / PLASTICITY problem** (how validities are acquired: pri 102): push on DRIFT and ADAPTATION -- the guard, the curve over
+  sentences, adaptation on a held-out register, per-cue-type rates; a negative here must show the drift curve.
+- **NEGATIVE-HEAVY session** (levers refused by the gold): push on UNDERSTANDING -- why each lever failed mechanistically, with numbers; the
+  avenues the understood negatives open; then alternate paths. Numbers may not move; understanding is the yield (pri 98).
+In every type: the termination rule (exhausted within remit, honestly), the BEFORE/AFTER yield table, the alternate paths readback.
