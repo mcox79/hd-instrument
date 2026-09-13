@@ -38,6 +38,8 @@ __bf_note__ = "the inventory/counts source is the remaining MODEL element; swap 
 
 _REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ASSET = os.path.join(_REPO, "data", "frontend_assets", "lexical_categories_counts_v1.json")
+_lag_env = os.environ.get("HDLAB_LC_LAG", "")
+LAG: Optional[int] = int(_lag_env) if _lag_env.strip() else None     # None = whole-sentence smoothing; 0 = running belief; k = revise within k words
 BOS = "<s>"
 K2 = 2.0                                                        # Dirichlet back-off mass for the second-order transitions (swept, not adopted)
 SHAPES = ("lower", "Cap", "ALLCAP", "digit", "hyphen", "other")
@@ -213,13 +215,23 @@ class LexicalCategories:
                 out[i] = math.log((self.tag_count[t] + self.lam) / (total + self.lam * T))
         return out
 
-    def posterior(self, words: Sequence[str]) -> np.ndarray:
-        """Forward-backward marginals P(category_i | words): [n, T]."""
+    def posterior(self, words: Sequence[str], lag: Optional[int] = None) -> np.ndarray:
+        """Forward-backward marginals P(category_i | words): [n, T].
+        lag (2026-09-13, owner: organs take data IN ORDER): the belief about word i may use only the words up to i + lag -- lag 0 is
+        the running (filtered) belief the reader holds the moment a word arrives, a small lag is revision within a short window as
+        the next words come in (reanalysis), None = the whole sentence (smoothing; the offline stand-in). Module default LAG."""
+        if lag is None:
+            lag = LAG
         if self._dirty:
             self.finalize()
         n = len(words); T = len(self.tags)
         if n == 0:
             return np.zeros((0, T))
+        if lag is not None and lag < n - 1:
+            out = np.empty((n, T))
+            for i in range(n):
+                out[i] = self.posterior(words[: min(n, i + lag + 1)], lag=None)[i]
+            return out
         le = np.stack([self._log_emit(w) for w in words])
         if self.order >= 2:
             return self._posterior2(le)
