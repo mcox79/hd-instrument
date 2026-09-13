@@ -30,8 +30,11 @@ endstate. Every one of them is already sense-keyed inside the organ; what was mi
 COLLAPSED them across senses (cross-sense consensus) because it had no posterior to weight them with.
   R  RESULT STATE   VerbNet class semantics at result(E)/end(E) keyed by WordNet sense key, valued by the
                     affect lexicon or the innate nociceptive sign (forceful contact on a body = -1, PINNED).
-  C  CAUSED EVENT   WordNet's own causal/entailment structure for THIS synset (kill.v.01 CAUSES die.v.01):
-                    the lexicon names the result event; value it and hand it to the patient.
+  C  CAUSED EVENT   WordNet's own CAUSAL structure for THIS synset, restricted to a caused STATE CHANGE
+                    (kill.v.01 CAUSES die.v.01, verb.change): the lexicon names the result state the patient
+                    is left in. `entailments` are deliberately NOT read -- they mix presupposition
+                    (divorce ENTAILS marry) with agent co-events (defend ENTAILS contend), neither of which
+                    is a result the patient inherits; measured, reading them cost a live-gold item.
   M  MANNER         the manner/means/result filler of THIS synset's definition (the pri-98 manner asset,
                     already synset-keyed), gated by the CIRCUMPLEX RADIUS of the manner's core affect
                     (Russell 1980, PINNED: radius = intensity) -- Talmy manner/result complementarity.
@@ -205,7 +208,15 @@ def sense_channels(syn, lemma: str, afx, FDV, manner, wn,
     # --- C: the event the sense CAUSES or ENTAILS (the lexicon's own result event) ---
     if "C" in channels and _depth == 0:
         cv = []
-        for t in list(syn.causes()) + list(syn.entailments()):
+        # ONLY `causes`, and only into a STATE CHANGE. WordNet's `entailments` mixes presupposition
+        # (divorce ENTAILS marry), agent co-events (defend ENTAILS contend) and troponymic sub-events; none
+        # of those is a result the PATIENT inherits, and reading them was measured to cost the live gold an
+        # item (defend -> -0.365 from contend, gold HELP) and to put `divorce` on the wrong side of the human
+        # gold (+0.512 against a HARM gold). What transfers to the patient is the value of the state the
+        # event CAUSES: kill.v.01 CAUSES die.v.01 (verb.change) -- a state of the undergoer. The supersense
+        # test is the state-change test (Levin/Rappaport Hovav result-state lexicalisation).
+        for t in [c for c in syn.causes()
+                  if c.lexname().split(".")[1] in ("change", "body", "emotion", "stative")]:
             x = concept_value(t, afx, wn=wn)
             if x is None:
                 sub = sense_channels(t, "", afx, FDV, manner, wn, tau_c, tau_h, tau_s,

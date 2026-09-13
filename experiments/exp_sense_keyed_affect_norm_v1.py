@@ -364,6 +364,54 @@ def bound_context(tokens, gov_idx: int, w_arg: float = None):
         return ctx
 
 
+
+ARG_MODE = "bag"        # bag | args | argboost   (SWEPT; see lever_report)
+TAU_ARG = 0.05          # posterior mass on the predicate a noun needs to count as one of its arguments
+W_OBJ = 8.0             # extra seed mass an argument noun gets under `argboost`
+
+
+def arg_context(tokens, gov_idx: int, mode: str = None, tau_arg: float = TAU_ARG, w_obj: float = W_OBJ):
+    """THE SENSE-SELECTION CONTEXT, three ways.
+
+    `bag`      every content word, equal seed mass -- what hdlab.grounded_semantic_graph._sense_ppr does.
+    `args`     ONLY the nouns the reader binds to this predicate. Which sense of a verb is active is
+               principally a fact about its ARGUMENTS, not about the words near it: Roland & Jurafsky
+               (2002, JML) show verb sense determines subcategorisation and vice versa; Resnik (1997) and
+               McCarthy & Carroll (2003) disambiguate verbs from their object-slot selectional preference;
+               McRae & Matsuki (2009) / Elman: the arguments and the event schema activate each other
+               immediately and bidirectionally (PINNED as graded and bidirectional). "treat the WOUND" vs
+               "treat the PRISONER" is the whole difference, and a sentence adverbial is noise for it.
+    `argboost` every content word, but an argument noun gets (1 + w_obj * mass) -- the graded compromise.
+
+    Argumenthood is read from the READER'S OWN governor marginals, P(head = the predicate | this noun);
+    no role labels, no treebank. Falls back to the bag when the parse yields no argument."""
+    mode = ARG_MODE if mode is None else mode
+    ctx = context_words(tokens, gov_idx)
+    if mode == "bag":
+        return ctx
+    try:
+        fe = frontend()
+        toks = list(tokens)
+        pos, post = fe["T"].tag_with_posterior(toks)
+        out = fe["P"].parse(toks, pos, post)
+        marg = getattr(out, "marginals", None) or {}
+        args, boosted = [], []
+        for i, t in enumerate(toks):
+            if i == gov_idx or not str(t).isalpha():
+                continue
+            m = float(marg.get(i + 1, {}).get(gov_idx + 1, 0.0)) if marg else \
+                (1.0 if out.heads.get(i + 1, -1) == gov_idx + 1 else 0.0)
+            is_arg = pos[i] in ("NOUN", "PROPN") and m >= tau_arg
+            if is_arg:
+                args.append(str(t).lower())
+            boosted.append((str(t).lower(), 1.0 + (w_obj * m if is_arg else 0.0)))
+        if mode == "args":
+            return args or ctx
+        return boosted or ctx
+    except Exception:
+        return ctx
+
+
 def sense_posterior(verb: str, rows, ctx: Optional[List[str]] = None, lam: float = LAM) -> List[float]:
     """P(s | context) over ALL of the verb's senses = the organ's own log-linear blend of the frequency
     RESTING LEVEL with the settled SPREADING ACTIVATION -- read as a DISTRIBUTION, not an argmax:
@@ -493,6 +541,56 @@ def sense_endstate_sign(verb: str, ctx=None, tau: float = TAU_E, tau_opinion: fl
 # ==========================================================================================================
 # 2. THE ARMS -- the endstate cascade with the word-norm rung replaced by the sense-keyed fusion
 # ==========================================================================================================
+
+# ==========================================================================================================
+# THE PREVENT BRANCH AND THE DECIDED NEUTRAL (found in the supervisor pass; it is the true cause of the 4th
+# residual error, and my first diagnosis of that item -- "a temporal adverb passing the manner test" -- was
+# WRONG and is corrected here with the number.)
+#
+# `hold` is classed PREVENT by the force lexicon. The landed PREVENT branch reads
+#       ev = (-vval if vval else -1)
+# so a vval of 0 takes the SAME path as a vval of None: "assume the prevention blocks a NEGATIVE endstate",
+# which yields HELP. That is correct for missing data and wrong for a DECIDED neutral -- exactly the
+# distinction this whole problem turns on, one rung further down. "A volunteer held the elder briefly" was
+# coming out HELP not because the manner rung fired (measured: intensity(brief) = 0.250, below the 0.40
+# gate, so it never fires) but because the neutral verdict was laundered into an assumed adverse blocked
+# outcome. The fix is one line and it is the same principle: an outcome the reader has DECIDED is neutral
+# is not an outcome it failed to read.
+# ==========================================================================================================
+PREVENT_NEUTRAL_FIX = True
+
+
+def harm_help_arithmetic_fixed(F, verb, animacy, endstate_fn, **kw):
+    """F.harm_help_arithmetic with the PREVENT branch taught to tell 0 from None."""
+    lexicon = F._lex()
+    afx = F._afx()
+    if animacy == "inanimate":
+        return "NA"
+    v = F.lemmatize_verb(verb)
+    cls = lexicon.get(v)
+    if not F.is_affecting(v, lexicon, afx):
+        return None
+    vval = endstate_fn(v)
+    if cls == "PREVENT":
+        ev = kw.get("embedded_endstate_valence")
+        if ev is None:
+            if PREVENT_NEUTRAL_FIX and vval == 0:
+                return None                     # a DECIDED neutral outcome -> nothing is being prevented
+            ev = (-vval if vval else -1)
+        prevention_succeeded = (kw.get("endstate_reached") is not True)
+        outcome = (-ev) if prevention_succeeded else ev
+        return "HELP" if outcome > 0 else ("HARM" if outcome < 0 else None)
+    reached = True if kw.get("endstate_reached") is None else kw.get("endstate_reached")
+    if not reached:
+        return None
+    ev = kw.get("embedded_endstate_valence")
+    if ev is None:
+        ev = vval
+    if ev is None or ev == 0:
+        return None
+    return "HELP" if ev > 0 else "HARM"
+
+
 def make_endstate(F, ctx_get=None, tau: float = TAU_E, **kw):
     """The proposed cascade for module F (the pri-98-patched consumer):
          1 RESULT STATE (unchanged)                2 SENSE-KEYED FUSION  (replaces the word-form norm)
@@ -544,7 +642,7 @@ def make_isaffecting(F, tau: float = TAU_E, **kw):
     return isaff
 
 
-def arm(F, endstate_fn=None, isaff_fn=None):
+def arm(F, endstate_fn=None, isaff_fn=None, prevent_fix=None):
     """Run F.harm_help_arithmetic with the given cascade swapped in (restored afterwards)."""
     def run(verb, animacy="animate", **kw):
         F._EV_CACHE.clear()
@@ -554,6 +652,10 @@ def arm(F, endstate_fn=None, isaff_fn=None):
         if isaff_fn is not None:
             F.is_affecting = isaff_fn
         try:
+            use_fix = PREVENT_NEUTRAL_FIX if prevent_fix is None else prevent_fix
+            if endstate_fn is not None and use_fix:
+                return harm_help_arithmetic_fixed(F, verb, animacy,
+                                                  lambda x: endstate_fn(x), **kw)
             return F.harm_help_arithmetic(verb, animacy, **kw)
         finally:
             F.endstate_valence_sign, F.is_affecting = oe, oa
@@ -818,6 +920,10 @@ def run() -> Dict:
     res["twins"]["n_perturbed_lemmas"] = len(perturbed)
     res["residual_2x2"] = residual_2x2(F, M98)
     res["semcor_probe"] = semcor_probe(F)
+    res["semcor_arg_conditioned"] = semcor_probe(F, cap=250, arg_mode="args", tag="args")
+    res["semcor_arg_compare"] = semcor_arg_compare(F)
+    res["organ_posterior_identity"] = organ_posterior_identity(F, M98)
+    res["online_read_loop"] = read_and_observe(F, lem, glabel, A, M98)
 
     # ---- 6. the 36-item LIVE MODERN GOLD (no-regress) ------------------------------------------------
     res["live_modern_gold"] = live_gold_report(floor, pri98, sense)
@@ -835,12 +941,13 @@ def run() -> Dict:
 
 
 
-def evaluate(F, lem, glabel, A, M98, prose: bool = True, **kw) -> Dict:
+def evaluate(F, lem, glabel, A, M98, prose: bool = True, prevent_fix=None,
+             arg_mode: str = None, **kw) -> Dict:
     """Every population for ONE configuration of the sense rung. Used by every grid row so no operating
     point is ever chosen on the target population alone."""
     es = make_endstate(F, **kw)
     ia = make_isaffecting(F, **kw)
-    a = arm(F, es, ia)
+    a = arm(F, es, ia, prevent_fix)
     p = t = 0
     for v in lem:
         pr = a(v, "animate")
@@ -855,20 +962,23 @@ def evaluate(F, lem, glabel, A, M98, prose: bool = True, **kw) -> Dict:
     except Exception:
         lg = -1
     out = {"cf_whole_arm": [p, t, round(p / max(1, t), 4)], "leaks": lk, "live_gold_24": lg,
+           "n_decided": sum(1 for v in lem if a(v, "animate") in ("HARM", "HELP")),
            "named_manner_15": sum(1 for v in M98.NAMED_HARM if a(v, "animate") == "HARM"),
            "slice6": sum(1 for v in M98.MANNER_SLICE if a(v, "animate") == "HARM"),
            "social_harm_16": sum(1 for v in A.P_SOCIAL_HARM if a(v, "animate") == "HARM"),
-           "nonprevent_help_16": sum(1 for v in A.P_NONPREVENT_HELP if a(v, "animate") == "HELP")}
+           "nonprevent_help_16": sum(1 for v in A.P_NONPREVENT_HELP if a(v, "animate") == "HELP"),
+           "prevent_enable_HELP": sum(1 for row in A.P_PREVENT_ENABLE
+                                      if a(row if isinstance(row, str) else row[0], "animate") == "HELP")}
     if not prose:
         return out
     holder = {"ctx": None}
     esc = make_endstate(F, ctx_get=lambda: holder["ctx"], **kw)
-    ac = arm(F, esc, ia)
+    ac = arm(F, esc, ia, prevent_fix)
     corr, tw, tn = [], 0, 0
     floor_arm = arm(F)
     for agent, verb, patient, adverb, label in M98.ADVERB_PROSE_GOLD:
         toks = M98.prose_sentence(agent, verb, patient, adverb)
-        holder["ctx"] = bound_context(toks, 2)
+        holder["ctx"] = arg_context(toks, 2, arg_mode)
         pred = harm_help_prose(F, ac, verb, toks, 2)
         holder["ctx"] = None
         corr.append(prose_correct(pred, label))
@@ -1005,7 +1115,124 @@ def residual_2x2(F, M98) -> Dict:
 # tallies, so the MFS floor here is a STRONG floor (it is the corpus's own frequency), which biases this
 # comparison AGAINST the context read, not for it.
 # ==========================================================================================================
-def semcor_probe(F, cap: int = 1000, seed: int = SEED + 21) -> Dict:
+
+def organ_posterior_identity(F, M98, n: int = 12) -> Dict:
+    """LEVER 1, MEASURED. The proposed `GroundedSemanticGraph.select_sense_posterior` (fenced diff in
+    SOLVED.md section 8c) exposes the vector the organ ALREADY computes and currently throws away in
+    `select_sense` / `select_sense_blended` (both return an argmax). Because it is the organ's own
+    computation, the correct measurement is not "does it improve a gold" -- it is "is it BYTE-IDENTICAL to
+    what this cell computes by reaching into the private helper". If it is, the diff is a pure
+    encapsulation win: every consumer of that organ stops taking an argmax of a distribution, at zero
+    behavioural risk. If it is not, the diff is wrong. Measured here by running both."""
+    import numpy as np
+    from nltk.corpus import wordnet as wn
+    from hdlab.grounded_semantic_graph import _sense_ppr, _sense_prior
+    g = gsg()
+    same = tested = 0
+    for agent, verb, patient, adverb, _label in M98.ADVERB_PROSE_GOLD[:n]:
+        toks = M98.prose_sentence(agent, verb, patient, adverb)
+        v = F.lemmatize_verb(verb)
+        rows = sense_rows(v)
+        if len(rows) < 2:
+            continue
+        ctx = context_words(toks, 2)
+        mine = sense_posterior(v, rows, ctx, BASE["lam"])
+        # the reference implementation the diff would install, written out here
+        tgt = [wn.synset(r[0]) for r in rows]
+        tn = [r[0] for r in rows]
+        ppr = _sense_ppr(wn, v, "V", ctx, g.syn2idx, g.T, len(g.syn2idx), tgt, tn)
+        pf = np.asarray(sense_prior(rows), float)
+        pp = np.asarray(ppr, float) + 1e-6
+        pp = pp / pp.sum()
+        lg = np.log(pf) + BASE["lam"] * np.log(pp)
+        lg = lg - lg.max()
+        ref = np.exp(lg)
+        ref = ref / ref.sum()
+        tested += 1
+        same += int(max(abs(a - b) for a, b in zip(mine, ref)) < 1e-9)
+    return {"tested": tested, "identical": same,
+            "verdict": ("IDENTITY -- the diff is a pure encapsulation of the organ's own computation"
+                        if same == tested else "DIFFERS -- the diff is wrong, do not land"),
+            "note": "the organ's PUBLIC reads (select_sense, select_sense_blended) both return an argmax; "
+                    "this cell had to reach into the private _sense_ppr to get the distribution"}
+
+
+
+SIMPLEWIKI = os.path.join(REPO, "data", "corpora", "simplewiki", "simplewiki_clean_v1.txt")
+
+
+def read_and_observe(F, lem, glabel, A, M98, max_lines: int = 800, max_obs: int = 700) -> Dict:
+    """LEVER 5, EXERCISED ON HELD-OUT PROSE. `observe_sense` is the online path; nothing calls it. Here the
+    reader READS -- tags each line with its own category organ, finds the verbs, selects a sense with its
+    own spreading-activation read, and writes ONE presentation into the resting level for each. Then every
+    gold is re-measured. This is the brain's plasticity for this quantity: a presentation raises a sense's
+    resting level (ACT-R base level; Anderson & Schooler 1991), the expectation is a pure function of those
+    counts, and nothing else changes."""
+    if not os.path.exists(SIMPLEWIKI):
+        return {"error": "corpus absent: %s" % SIMPLEWIKI}
+    before = {k: [list(r) for r in v] for k, v in asset()["senses"].items()}
+    base_eval = evaluate(F, lem, glabel, A, M98, **BASE)
+    fe = frontend()
+    n_lines = n_obs = 0
+    verbs_touched = set()
+    with open(SIMPLEWIKI, encoding="utf-8", errors="ignore") as f:
+        for line in f:
+            line = line.strip()
+            if len(line) < 30 or len(line) > 240:
+                continue
+            n_lines += 1
+            if n_lines > max_lines or n_obs >= max_obs:
+                break
+            try:
+                from hdlab import frontend as FE
+                toks = FE.tokenize(line)[:32]
+                if len(toks) < 5:
+                    continue
+                pos, _post = fe["T"].tag_with_posterior(toks)
+            except Exception:
+                continue
+            for i, (t, pp) in enumerate(zip(toks, pos)):
+                if pp != "VERB":
+                    continue
+                v = F.lemmatize_verb(str(t).lower())
+                rows = sense_rows(v)
+                if len(rows) < 2:
+                    continue
+                ctx = context_words(toks, i)
+                if not enough_context(ctx):
+                    continue
+                post = sense_posterior(v, rows, ctx, BASE["lam"])
+                j = max(range(len(rows)), key=lambda k: post[k])
+                observe_sense(v, rows[j][0])
+                n_obs += 1
+                verbs_touched.add(v)
+                if n_obs >= max_obs:
+                    break
+            if n_obs >= max_obs:
+                break
+    after_eval = evaluate(F, lem, glabel, A, M98, **BASE)
+    moved = []
+    for v in sorted(verbs_touched):
+        b = [r for r in before.get(v, [])]
+        if not b:
+            continue
+        e0 = sum(pi * (row_value(r, BASE["channels"]) or 0.0)
+                 for pi, r in zip(sense_prior(b), b))
+        e1 = sense_expectation(v, None)
+        if e1 is not None and abs(e1[0] - e0) > 0.05:
+            moved.append((v, round(e0, 3), round(e1[0], 3)))
+    asset()["senses"] = before                      # restore: the cell must not ship a read-modified asset
+    return {"lines_read": n_lines - 1, "observations_written": n_obs,
+            "verbs_touched": len(verbs_touched),
+            "n_values_moved_by_more_than_0.05": len(moved), "sample_moved": sorted(moved)[:15],
+            "before": {k: base_eval[k] for k in ("cf_whole_arm", "leaks", "live_gold_24", "n_decided",
+                                                 "prose_acc", "target_errors_remaining", "named_manner_15")},
+            "after": {k: after_eval[k] for k in ("cf_whole_arm", "leaks", "live_gold_24", "n_decided",
+                                                 "prose_acc", "target_errors_remaining", "named_manner_15")}}
+
+
+def semcor_probe(F, cap: int = 1000, seed: int = SEED + 21, arg_mode: str = None,
+                 tag: str = "") -> Dict:
     """SELECTION and VALUE against a human sense annotation, with the spreading activation computed ONCE per
     token and the blend temperature swept over it (lam changes only the blend, never the activation)."""
     ch = BASE["channels"]
@@ -1059,7 +1286,7 @@ def semcor_probe(F, cap: int = 1000, seed: int = SEED + 21) -> Dict:
     g = gsg()
 
     def ppr_of(toks, idx, name, rows):
-        ctx = context_words(toks, idx)
+        ctx = arg_context(toks, idx, arg_mode) if arg_mode else context_words(toks, idx)
         if not enough_context(ctx):
             return None
         tgt = [wn.synset(r[0]) for r in rows]
@@ -1139,6 +1366,111 @@ def semcor_probe(F, cap: int = 1000, seed: int = SEED + 21) -> Dict:
         per_lam["lam%.1f" % lam] = row
     out["by_lam"] = per_lam
     out["shipped"] = per_lam["lam%.1f" % BASE["lam"]]
+    return out
+
+
+
+def semcor_arg_compare(F, cap: int = 300, seed: int = SEED + 31) -> Dict:
+    """LEVER 2, PAIRED. The bag and the reader's own ARGUMENTS, seeded over the SAME tokens, so the
+    difference can carry a confidence interval. Roland & Jurafsky (2002): verb sense and argument structure
+    determine each other. Resnik (1997) / McCarthy & Carroll (2003): the object slot's selectional
+    preference disambiguates the verb. McRae & Matsuki (2009) / Elman: arguments and event schema activate
+    each other immediately and bidirectionally -- PINNED, and the organ's own seeding ignores it."""
+    ch = BASE["channels"]
+    try:
+        import numpy as np
+        from nltk.corpus import semcor, wordnet as wn
+        from hdlab.grounded_semantic_graph import _sense_ppr
+    except Exception as e:
+        return {"error": repr(e)}
+    items = []
+    for sent in semcor.tagged_sents(tag="sem"):
+        toks, marks = [], []
+        for chunk in sent:
+            lemma = None
+            if hasattr(chunk, "label"):
+                lb = chunk.label()
+                if hasattr(lb, "synset"):
+                    lemma = lb
+                words = chunk.leaves()
+            else:
+                words = list(chunk)
+            if lemma is not None and len(words) == 1:
+                marks.append((len(toks), lemma))
+            toks.extend(words)
+        for idx, lm in marks:
+            try:
+                syn = lm.synset()
+            except Exception:
+                continue
+            if syn.pos() != "v":
+                continue
+            name = lm.name().split(".")[-1].lower()
+            rows = sense_rows(name)
+            if len(rows) < 2 or syn.name() not in [r[0] for r in rows]:
+                continue
+            items.append((name, syn.name(), toks, idx))
+            if len(items) >= cap:
+                break
+        if len(items) >= cap:
+            break
+    g = gsg()
+
+    def sel(ctx, name, rows, j, lam):
+        if not ctx or not enough_context(ctx):
+            p_ = sense_prior(rows)
+        else:
+            tgt = [wn.synset(r[0]) for r in rows]
+            tn = [r[0] for r in rows]
+            words = [w if isinstance(w, str) else w[0] for w in ctx]
+            ppr = _sense_ppr(wn, name, "V", words, g.syn2idx, g.T, len(g.syn2idx), tgt, tn)
+            if ppr is None:
+                p_ = sense_prior(rows)
+            else:
+                pp = np.asarray(ppr, float) + 1e-6
+                pp = pp / pp.sum()
+                lg = np.log(np.asarray(sense_prior(rows), float)) + lam * np.log(pp)
+                lg = lg - lg.max()
+                q = np.exp(lg)
+                p_ = list(q / q.sum())
+        return int(max(range(len(rows)), key=lambda k: p_[k]) == j), p_
+
+    out: Dict = {"n_tokens": len(items)}
+    for lam in (0.5, 2.0, 4.0):
+        bag, args, mfs, val_bag, val_args = [], [], [], [], []
+        for name, goldsyn, toks, idx in items:
+            rows = sense_rows(name)
+            j = [r[0] for r in rows].index(goldsyn)
+            b, pb = sel(context_words(toks, idx), name, rows, j, lam)
+            a, pa = sel(arg_context(toks, idx, "args"), name, rows, j, lam)
+            bag.append(b); args.append(a)
+            prior = sense_prior(rows)
+            mfs.append(int(max(range(len(rows)), key=lambda k: prior[k]) == j))
+            gv = row_value(rows[j], ch)
+            if gv is None or abs(gv) < 0.05:
+                continue
+            gs = 1 if gv > 0 else -1
+            eb = sum(pi * (row_value(r, ch) or 0.0) for pi, r in zip(pb, rows))
+            ea = sum(pi * (row_value(r, ch) or 0.0) for pi, r in zip(pa, rows))
+            sg = lambda x: (1 if x > 0 else -1) if abs(x) > 1e-9 else 0
+            val_bag.append(int(sg(eb) == gs)); val_args.append(int(sg(ea) == gs))
+        d1, lo1, hi1 = paired_boot(args, bag)
+        d2, lo2, hi2 = paired_boot(args, mfs)
+        row = {"n": len(bag), "selection_bag": round(sum(bag) / len(bag), 4),
+               "selection_args": round(sum(args) / len(args), 4),
+               "selection_resting_level": round(sum(mfs) / len(mfs), 4),
+               "delta_args_minus_bag": [round(d1, 4), round(lo1, 4), round(hi1, 4),
+                                        "CI-SEPARATED" if lo1 > 0 else "not separated"],
+               "delta_args_minus_resting_level": [round(d2, 4), round(lo2, 4), round(hi2, 4),
+                                                  "CI-SEPARATED" if lo2 > 0 else "not separated"]}
+        if val_bag:
+            d3, lo3, hi3 = paired_boot(val_args, val_bag)
+            row["n_value"] = len(val_bag)
+            row["value_bag"] = round(sum(val_bag) / len(val_bag), 4)
+            row["value_args"] = round(sum(val_args) / len(val_args), 4)
+            row["delta_value_args_minus_bag"] = [round(d3, 4), round(lo3, 4), round(hi3, 4),
+                                                 "CI-SEPARATED" if lo3 > 0 else "not separated"]
+        out["lam%.1f" % lam] = row
     return out
 
 
@@ -1243,20 +1575,20 @@ def fusion_modes_report(F, lem, gold, glabel, A, M98) -> Dict:
 
 
 def lever_report(F, lem, gold, glabel, A, M98, base) -> Dict:
-    """THE UPSTREAM LEVERS on the sense-SELECTION half (pri-98 measured that selection, not keying, is the
-    weak half): the posterior temperature, the argument-weighted seeding, and the channel inventory."""
+    """THE SUPERVISOR PASS'S LEVERS, each built and measured on every population.
+      lam       the blend temperature (the organ's WSD default is 0.5; this is a VALUE read, not a WSD read)
+      arg_mode  the sense-selection context: the whole bag, the reader's own ARGUMENTS only, or a graded
+                boost on the arguments (Roland & Jurafsky; Resnik; McRae generalized event knowledge)
+      prevent   the PREVENT branch taught to tell a DECIDED neutral from missing data
+      channels  the sense-value channel inventory"""
     out = {}
-    global W_ARG
     for lam in (0.5, 1.0, 2.0, 4.0, 8.0):
         kw = dict(base); kw["lam"] = lam
         out["lam%.1f" % lam] = evaluate(F, lem, glabel, A, M98, **kw)
-    old = W_ARG
-    try:
-        for wa in (0.0, 2.0, 4.0, 8.0, 16.0):
-            W_ARG = wa
-            out["w_arg%.0f" % wa] = evaluate(F, lem, glabel, A, M98, **base)
-    finally:
-        W_ARG = old
+    for mode in ("bag", "args", "argboost"):
+        out["arg_" + mode] = evaluate(F, lem, glabel, A, M98, arg_mode=mode, **base)
+    out["prevent_fix_OFF"] = evaluate(F, lem, glabel, A, M98, prevent_fix=False, **base)
+    out["prevent_fix_ON"] = evaluate(F, lem, glabel, A, M98, prevent_fix=True, **base)
     for ch in (("R", "C", "H", "S"), ("R", "C", "H", "S", "T"), ("R", "H", "T"), ("R", "H"),
                ("R", "C", "M", "H", "S", "T"), ("R", "H", "S", "T"), ("R", "C", "M", "H", "T")):
         kw = dict(base); kw["channels"] = ch
@@ -1269,6 +1601,7 @@ def candidate_verbs(F, isaff) -> List[str]:
     afx = F._afx()
     cand = [w for w in afx.val if " " not in w and wn.synsets(w, "v")]
     return sorted(set(F.lemmatize_verb(v) for v in cand if isaff(v)))
+
 
 
 def cf_report(lem, gold, glabel, arms: Dict) -> Dict:
@@ -1293,11 +1626,13 @@ def cf_report(lem, gold, glabel, arms: Dict) -> Dict:
     return out
 
 
+
 def prose_accuracy(F, es, ia, M98) -> float:
     a = arm(F, es, ia)
     c = [prose_correct(harm_help_prose(F, a, g[1], M98.prose_sentence(g[0], g[1], g[2], g[3]), 2), g[4])
          for g in M98.ADVERB_PROSE_GOLD]
     return round(sum(c) / len(c), 4)
+
 
 
 def prose_report(F, floor, pri98, es_sense, ia_sense, M98) -> Dict:
@@ -1311,7 +1646,7 @@ def prose_report(F, floor, pri98, es_sense, ia_sense, M98) -> Dict:
     for agent, verb, patient, adverb, label in M98.ADVERB_PROSE_GOLD:
         toks = M98.prose_sentence(agent, verb, patient, adverb)
         gov = 2
-        holder["ctx"] = bound_context(toks, gov)
+        holder["ctx"] = arg_context(toks, gov)
         v = HEAD.lemmatize_verb(verb)
         se_prior = sense_expectation(v, None)
         se_ctx = sense_expectation(v, holder["ctx"])
@@ -1357,6 +1692,7 @@ def prose_report(F, floor, pri98, es_sense, ia_sense, M98) -> Dict:
     return out
 
 
+
 def live_gold_report(floor, pri98, sense) -> Dict:
     try:
         import experiments.exp_fd_harm_help_live_modern_v1 as LIVE
@@ -1379,6 +1715,7 @@ def live_gold_report(floor, pri98, sense) -> Dict:
               and fn(g[1], "animate") in ("HARM", "HELP")]
         out[name] = {"correct": n, "n": tot, "wrong": broke, "neutral_items_decided": nl}
     return out
+
 
 
 def sweep_report(F, lem, gold, glabel, A, M98, base) -> Dict:
@@ -1505,6 +1842,28 @@ if __name__ == "__main__":
     for k, v in sp.get("shipped", {}).items():
         if str(k).startswith("delta") or k == "twin_perturbed_subset":
             print("    SHIPPED %-52s %s" % (k, v))
+    ap = r.get("semcor_arg_conditioned", {})
+    print("  ARG-CONDITIONED (args only), by lam:")
+    for lam, row in ap.get("by_lam", {}).items():
+        print("    %s n_val=%d sel=%.4f | value keyed=%.4f mfs=%.4f"
+              % (lam, row["n_value_testable"], row["selection"][0],
+                 row["value_sense_keyed"][0], row["value_resting_level_only"][0]))
+    print("  ARG vs BAG, PAIRED (SemCor sense selection):")
+    for lam, row in r.get("semcor_arg_compare", {}).items():
+        if not isinstance(row, dict):
+            continue
+        print("    %-8s n=%d bag=%.4f args=%.4f mfs=%.4f | args-bag %s | args-mfs %s | value %s"
+              % (lam, row["n"], row["selection_bag"], row["selection_args"],
+                 row["selection_resting_level"], row["delta_args_minus_bag"],
+                 row["delta_args_minus_resting_level"], row.get("delta_value_args_minus_bag")))
+    print("  ORGAN POSTERIOR IDENTITY:", r.get("organ_posterior_identity"))
+    print("  ONLINE READ LOOP:")
+    orl = r.get("online_read_loop", {})
+    for k in ("lines_read", "observations_written", "verbs_touched",
+              "n_values_moved_by_more_than_0.05"):
+        print("    %-34s %s" % (k, orl.get(k)))
+    print("    before:", orl.get("before"))
+    print("    after :", orl.get("after"))
     print("  residual 2x2 fixed %d/%d" % (r["residual_2x2"]["n_fixed"], r["residual_2x2"]["n"]))
     for it in r["residual_2x2"]["items"]:
         print("     %-44s %-6s %s" % (it["sent"], it["pred"], it["diagnosis"]))
