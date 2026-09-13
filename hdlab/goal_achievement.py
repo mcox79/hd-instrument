@@ -33,6 +33,7 @@ from typing import Optional, Tuple
 from hdlab import goal_typing as _gt
 from hdlab import wordnet_polarity_propagation as _wpp
 from nltk.corpus import wordnet as _wn
+from hdlab import morphology as _gbm   # glass-box morphy (byte-identical; no nltk on the lemma path)
 
 MAJORITY_CLASS = "Fulfilled"
 
@@ -690,7 +691,7 @@ def _outcome_token_forms(tok: str) -> list:
     if lem not in forms:
         forms.append(lem)
     for pos in (_wn.VERB, _wn.ADJ, None):
-        m = _wn.morphy(tok, pos) if pos else _wn.morphy(tok)
+        m = _gbm.morphy(tok, pos) if pos else _gbm.morphy(tok)
         if m and m not in forms:
             forms.append(m)
     return forms

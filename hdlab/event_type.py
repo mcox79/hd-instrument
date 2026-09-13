@@ -26,6 +26,7 @@ and onomatopoeic sound verbs (tick/creak -> perception).
 Glass-box, NO external LLM. Reuses WordNet (already in the substrate). Deterministic; ASCII.
 """
 from __future__ import annotations
+from hdlab import morphology as _gbm   # glass-box morphy (byte-identical; no nltk on the lemma path)
 
 __bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
 __bf_verified__ = '2026-09-09 BF-certification pass (reader CATALOG owner-DONE + BRAIN_FOUNDATIONAL_AUDIT §2b; strategy first-hand cross-ref)'
@@ -66,7 +67,7 @@ def event_type(verb):
     v = verb.lower()
     if v in _LEXCACHE:
         return _LEXCACHE[v]
-    lem = _wn().morphy(v, "v") or v
+    lem = _gbm.morphy(v, "v") or v
     syns = _wn().synsets(lem, pos="v") or _wn().synsets(v, pos="v")
     t = _SUPERSENSE_TO_TYPE.get(syns[0].lexname(), "OTHER") if syns else "OTHER"
     _LEXCACHE[v] = t

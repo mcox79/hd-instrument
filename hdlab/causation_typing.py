@@ -29,6 +29,7 @@ experiments/ (its own separate queued promotion; NOT promoted here). NO external
 (in-substrate parse + NLTK FrameNet/WordNet only). ASCII only. Deterministic.
 """
 from __future__ import annotations
+from hdlab import morphology as _gbm   # glass-box morphy (byte-identical; no nltk on the lemma path)
 
 __bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
 __bf_verified__ = '2026-09-09 BF-certification pass (operation/math read of the pinned computation + key ops; strategy first-hand)'
@@ -116,7 +117,7 @@ def _wn_lexname(noun):
     n = (noun or "").strip().lower()
     syn = wn.synsets(n, pos=wn.NOUN)
     if not syn:
-        lem = wn.morphy(n, wn.NOUN)
+        lem = _gbm.morphy(n, "n")
         if lem:
             syn = wn.synsets(lem, pos=wn.NOUN)
     return syn[0].lexname() if syn else None
@@ -138,7 +139,7 @@ def _wn_noun_roots(noun):
     n = (noun or "").strip().lower()
     syn = wn.synsets(n, pos=wn.NOUN)
     if not syn:
-        lem = wn.morphy(n, wn.NOUN)
+        lem = _gbm.morphy(n, "n")
         if lem:
             syn = wn.synsets(lem, pos=wn.NOUN)
     for s in syn[:4]:
@@ -605,7 +606,7 @@ def _lemma(word: str, upos: str) -> str:
     if upos in ("NOUN", "PROPN"):
         try:
             from nltk.corpus import wordnet as wn
-            m = wn.morphy(w, wn.NOUN)
+            m = _gbm.morphy(w, "n")
             return m if m else w
         except Exception:
             return w

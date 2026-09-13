@@ -113,6 +113,7 @@ from typing import Dict, List, Optional, Tuple
 
 from hdlab import goal_typing as _gt
 from hdlab.learner import registry
+from hdlab import morphology as _gbm   # glass-box morphy (byte-identical; no nltk on the lemma path)
 
 RELATION_TYPES = ("INSTANTIATES", "CONTRADICTS", "NEITHER")
 RELATION_POLARITY = {"INSTANTIATES": "POS", "CONTRADICTS": "NEG"}  # NEITHER never votes
@@ -459,7 +460,7 @@ def mwe_disengage_scan(outcome: str) -> Optional[dict]:
             if width == 1 and (span[0] in _MWE_STOP_SHORT or len(span[0]) <= 3
                                or span[0] in _MWE_WIDTH1_LIGHT_VERB_STOP):
                 continue
-            head_lemma = _wn.morphy(span[0], _wn.VERB) or span[0]
+            head_lemma = _gbm.morphy(span[0], "v") or span[0]
             heads = [span[0]] if head_lemma == span[0] else [span[0], head_lemma]
             for head in heads:
                 cand = "_".join([head] + span[1:])

@@ -1,0 +1,47 @@
+{
+  "asset": "glassbox_morphology",
+  "source": "nltk WordNet",
+  "wordnet_version": "3.0",
+  "built_utc": "2026-09-13T01:39:03.046705+00:00",
+  "counts": {
+    "exceptions": {
+      "n": 2050,
+      "v": 2401,
+      "a": 1489,
+      "r": 7
+    },
+    "lemma_members": {
+      "n": 117798,
+      "v": 11529,
+      "a": 21479,
+      "r": 4481
+    }
+  },
+  "files": {
+    "morph_exceptions.json": {
+      "bytes": 135265,
+      "sha256": "5e75ae394c6250359723a182fcb7b57bece12e079b60c4441570635a6b5b6e41"
+    },
+    "lemmas_n.txt": {
+      "bytes": 1646426,
+      "sha256": "b50b32ebc8d4236337770fc3c03a1c21ca5f92d70dc2e777162f4660ef9c7b3d"
+    },
+    "lemmas_v.txt": {
+      "bytes": 112320,
+      "sha256": "322ab88424aeea329cb7710dd61bf01e97b61f1900ec1eef83160968bd97748e"
+    },
+    "lemmas_a.txt": {
+      "bytes": 243520,
+      "sha256": "49ee8e89ce47996d7e54406e545ac680a351ab10e45c294e6135f3dea7d9cf8f"
+    },
+    "lemmas_r.txt": {
+      "bytes": 54191,
+      "sha256": "068d7803b2f802123819bd701b5e1fccfc7d6d391f799806fa29e97000559b2c"
+    },
+    "morph_substitutions.json": {
+      "bytes": 1174,
+      "sha256": "47bba240b444d8da1412dc34340ea47ef3c6d62c88d33d7d3570c7dae0023b55"
+    }
+  },
+  "note": "Static offline foundation export of WordNet's exception lists + lemma-pos membership + morphy's substitution rules. Read by experiments/glassbox_morphology.py (proposed hdlab/morphology.py) at inference with NO nltk import. Rebuild with build_glassbox_morphology_asset_v1.py."
+}

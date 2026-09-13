@@ -89,8 +89,8 @@ def _wordnet():
     global _WN, _WN_MISSING
     if _WN is None and not _WN_MISSING:
         try:
-            from nltk.corpus import wordnet as wn
-            wn.morphy("test")  # force the lazy corpus load now so later calls cannot raise
+            from hdlab import morphology as wn   # GLASS-BOX morphy (2026-09-12): byte-identical, no nltk on the lemma path
+            wn.morphy("test")  # warm the asset now so later calls cannot raise
             _WN = wn
         except Exception:
             _WN_MISSING = True
@@ -114,7 +114,7 @@ def lemmatize(text: str) -> List[str]:
         lem = _LEM_CACHE.get(tok)
         if lem is None:
             if wn is not None:
-                lem = wn.morphy(tok, wn.NOUN) or wn.morphy(tok, wn.VERB) or tok
+                lem = wn.morphy(tok, "n") or wn.morphy(tok, "v") or tok
             else:
                 lem = tok
             _LEM_CACHE[tok] = lem

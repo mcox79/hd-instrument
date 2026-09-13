@@ -80,6 +80,7 @@ from hdlab.definitional_extraction import (
     verb_lemma_of,
 )
 from hdlab.thematic_role_labeler import lemma_word as lemma_verb
+from hdlab import morphology as _gbm   # glass-box morphy (byte-identical; no nltk on the lemma path)
 
 PATTERNS_V61 = ("VP1_PROCESS_OF", "VP2_BY_WHICH", "VP4_OCCURS_WHEN")
 # ENABLING_CONDITION_PATIENT is the D5 correction, not a new capability: it is the same slot the
@@ -185,7 +186,7 @@ _NEG_TOKEN = {"not", "never", "neither", "nor", "no", "none", "nothing", "cannot
 # =============================================================================== v6.2 (D-A..D-D)
 # THE TAGGER. There is exactly one part-of-speech oracle in this module family and v6.2 does not
 # add a second: WordNet, reached through the functions this file already imports -- `verb_lemma_of`
-# (wn.morphy(t,'v')), `is_verbal_lemma` (wn.synsets(l,'v')), `is_nominal_lemma`, and `_wn()` for
+# (_gbm.morphy(t,'v')), `is_verbal_lemma` (wn.synsets(l,'v')), `is_nominal_lemma`, and `_wn()` for
 # the two SURFACE tests below. No nltk POS tagger, no hdlab.pos_tagger model, nothing trained.
 #
 # Why SURFACE and not LEMMA. The director's slot-type rule ("a verb slot needs a verb, a noun slot
@@ -220,7 +221,7 @@ def surface_noun_reading(tok: str) -> bool:
     t = tok.lower()
     if t.endswith("'s"):
         return False                     # a possessive is a modifier, not a bare noun
-    base = wn.morphy(t, "n")
+    base = _gbm.morphy(t, "n")
     if base and wn.synsets(base, "n"):
         return True
     return bool(wn.synsets(t, "n"))
@@ -232,7 +233,7 @@ def surface_verb_reading(tok: str) -> bool:
     if wn is None:
         return False
     t = tok.lower()
-    base = wn.morphy(t, "v")
+    base = _gbm.morphy(t, "v")
     if base and wn.synsets(base, "v"):
         return True
     return bool(wn.synsets(t, "v"))
@@ -247,7 +248,7 @@ def surface_unknown(tok: str) -> bool:
     t = tok.lower()
     if wn.synsets(t):
         return False
-    return not any(wn.morphy(t, p) for p in ("n", "v", "a", "r"))
+    return not any(_gbm.morphy(t, p) for p in ("n", "v", "a", "r"))
 
 
 def surface_is_nominal(tok: str) -> bool:

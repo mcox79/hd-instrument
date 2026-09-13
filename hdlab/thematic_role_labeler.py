@@ -224,10 +224,10 @@ def _wordnet():
     global _WN, _WN_FAILED
     if _WN is None and not _WN_FAILED:
         try:
-            from nltk.corpus import wordnet as wn
-            wn.morphy("test")          # force the lazy corpus load NOW, not mid-run
+            from hdlab import morphology as wn   # GLASS-BOX morphy (2026-09-12): same .morphy(form, pos) signature,
+            wn.morphy("test")                    # byte-identical to nltk WordNet morphy, no nltk on the lemma path
             _WN = wn
-        except Exception:              # noqa: BLE001 - absence of WordNet is a degraded mode,
+        except Exception:              # noqa: BLE001 - absence of the morphology asset is a degraded mode,
             _WN_FAILED = True          # not a crash; the guarded fallback still applies.
             _WN = None
     return _WN

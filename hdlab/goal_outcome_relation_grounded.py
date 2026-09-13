@@ -93,6 +93,7 @@ from hdlab import goal_typing as _gt
 from hdlab import lexical_similarity as _ls
 from hdlab import quality_relation as _qr
 from hdlab.situation_model_accumulate import RelationRegister
+from hdlab import morphology as _gbm   # glass-box morphy (byte-identical; no nltk on the lemma path)
 
 # Fixed deterministic seed for every RelationRegister construction in this module (PROT-023: no
 # hash()-derived seeding). Role vectors (GOAL_ROLE/OUTCOME_ROLE) are meant to be FIXED symbols,
@@ -119,7 +120,7 @@ def _lemma_candidates(word: str) -> List[str]:
     from nltk.corpus import wordnet as _wn
     cands = [word]
     for pos in (_wn.VERB, _wn.NOUN, _wn.ADJ):
-        m = _wn.morphy(word, pos)
+        m = _gbm.morphy(word, pos)
         if m and m not in cands:
             cands.append(m)
     return cands
@@ -274,7 +275,7 @@ def _engagement_disengage_scan(outcome: str) -> Optional[dict]:
             span = toks[i:i + width]
             if width == 1 and (span[0] in _ENGAGE_NEG_STOP_SHORT or len(span[0]) <= 2):
                 continue
-            head_lemma = _wn.morphy(span[0], _wn.VERB) or span[0]
+            head_lemma = _gbm.morphy(span[0], "v") or span[0]
             heads = [span[0]] if head_lemma == span[0] else [span[0], head_lemma]
             for head in heads:
                 cand = "_".join([head] + span[1:])

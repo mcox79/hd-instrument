@@ -64,6 +64,7 @@ from collections import Counter, deque
 from typing import Dict, List, Optional, Sequence
 
 import numpy as np
+from hdlab import morphology as _gbm   # glass-box morphy (byte-identical; no nltk on the lemma path)
 
 _REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 if _REPO not in sys.path:
@@ -106,7 +107,7 @@ def _lemma(w: str) -> str:
         return hit
     try:
         from nltk.corpus import wordnet as wn
-        lem = wn.morphy(w, "v")
+        lem = _gbm.morphy(w, "v")
     except Exception:
         lem = None
     out = lem if lem else _lemma_crude(w)

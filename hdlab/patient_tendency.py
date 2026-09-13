@@ -52,6 +52,7 @@ if _REPO not in sys.path:
     sys.path.insert(0, _REPO)
 
 from hdlab.force_dynamics_lexicon import force_dynamic_type  # noqa: E402
+from hdlab import morphology as _gbm   # glass-box morphy (byte-identical; no nltk on the lemma path)
 
 
 def lemmatize_verb(verb: str) -> str:
@@ -65,7 +66,7 @@ def lemmatize_verb(verb: str) -> str:
         return v
     try:
         from nltk.corpus import wordnet as wn
-        lem = wn.morphy(v, wn.VERB)
+        lem = _gbm.morphy(v, "v")
         if lem:
             return lem
     except Exception:

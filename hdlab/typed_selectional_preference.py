@@ -49,6 +49,7 @@ import os
 import pickle
 from collections import defaultdict
 from typing import Dict, List, Optional, Tuple
+from hdlab import morphology as _gbm   # glass-box morphy (byte-identical; no nltk on the lemma path)
 
 _REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 STORE = os.path.join(_REPO, "data", "selectional_preferences_v1", "selectional_slots_v1.pkl")
@@ -79,7 +80,7 @@ def noun_supersense(word: str) -> Optional[str]:
     ss = None
     try:
         from nltk.corpus import wordnet as wn
-        lem = wn.morphy(wl, wn.NOUN) or wl
+        lem = _gbm.morphy(wl, "n") or wl
         syns = wn.synsets(lem, pos=wn.NOUN)
         ss = syns[0].lexname() if syns else None
     except Exception:

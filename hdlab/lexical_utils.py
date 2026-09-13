@@ -23,6 +23,7 @@ import re
 from typing import Dict
 
 from hdlab.coref import name_content_tokens
+from hdlab import morphology as _gbm   # glass-box morphy (byte-identical; no nltk on the lemma path)
 
 
 # =========================== ported lexical helpers (VERBATIM from DIAG) ==============================
@@ -68,7 +69,7 @@ def concept_lemma(surf: str) -> str:
         v = surf.lower()          # keep "____"/"_____"/"9" DISTINCT -- do not merge redactions (the crude-regex bug)
     else:
         wn = _wn()
-        v = wn.morphy(base, wn.NOUN) or wn.morphy(base) or base
+        v = _gbm.morphy(base, "n") or _gbm.morphy(base) or base
     _MORPHY[surf] = v
     return v
 

@@ -53,6 +53,7 @@ from typing import Dict, List, Optional, Sequence, Tuple
 
 from hdlab.closed_class_lexicon import is_closed_class
 from hdlab.thematic_role_labeler import lemma_word as lemma_verb  # canonical never-non-word normalizer
+from hdlab import morphology as _gbm   # glass-box morphy (byte-identical; no nltk on the lemma path)
 
 # -------------------------------------------------------------------------------------------
 # Surface inventory. Every item is a literal surface cue; nothing is learned or tuned.
@@ -991,7 +992,7 @@ def verb_lemma_of(token: str) -> Optional[str]:
     wn = _wn()
     if wn is None:
         return lemma_verb(token)
-    got = wn.morphy(token.lower(), "v")
+    got = _gbm.morphy(token.lower(), "v")
     return got if got else lemma_verb(token)
 
 
@@ -1029,7 +1030,7 @@ def _looks_plural_noun(token: str) -> bool:
     wn = _wn()
     if wn is None:
         return True
-    base = wn.morphy(t, "n")
+    base = _gbm.morphy(t, "n")
     if base and base != t:
         return True
     try:                                          # technical plural WordNet has never seen
