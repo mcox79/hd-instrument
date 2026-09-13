@@ -31,9 +31,10 @@ exact diff that would land it, and why. NOTHING here is written by the solver in
    SEPARATE (typed/relational != graded; is-a lever REFUTED).
 
 ## Readouts repointed (KEEP the reads; unify only the representation) -- pre-registered, per outcome:
-- `reading_grounding_loop.FusedSenseRanker`: ADD a hub channel as a separate pool in the SAME earned-gain
-  precision fusion (NOT replace it) IF the live-instrument test shows HUB ties/beats FUSED; else leave FUSED
-  and register the hub as an additional graded-similarity channel available to consumers.
+- `reading_grounding_loop.FusedSenseRanker`: LEAVE AS-IS. MEASURED: adding the hub as a 4th pool TIES FUSED on
+  the live instrument (HUB_PLUS_FUSED 0.3006 vs 0.2945, CI straddles 0) -- the hub is redundant with the fusion's
+  pools (same spokes), so it neither helps nor hurts the read-time decision. Do NOT wire it into the ranker; the
+  grounding decision stays with the separate-pool precision fusion.
 - `underspecified_sense_reader` (WSD), `conceptual_meaning`/`entity_resolver` (typing), `bridging_inference`,
   `copular_binding`: expose `semantic_hub.similarity` as the graded-similarity backend they read (byte-identical
   witness where the read is unchanged; measured where it changes).

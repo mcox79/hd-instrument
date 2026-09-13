@@ -2,9 +2,9 @@
 problem: consolidate_the_graded_lexical_semantic_stores_into_one_learned_convergence_hub_with_task_readouts
 status: PARTIAL
 bar: "ONE learned convergence semantic_hub over the existing spokes (offline consolidation, frozen asset, rebuild tool), decided by the pre-registered test: HARD-PASS = beats each separate store on its own best task AND ties/beats the landed convergent-cue fusion on the live coverage-quality instrument (full population, twin losing, CIs reported), with every graded-similarity consumer repointed and the two islands retired, no board regression -- OR HARD-FAIL reported as a rigorous located negative naming the number and the reason, which settles the OPEN integration-rule label."
-result: "ONE learned convergence hub ties/beats EACH of the 5 graded stores on its own best task (distributional 0.628>=0.595, grounded 0.628>=0.517, valence 0.291>=0.278, visual 0.600>=0.591, w2v 0.673>=0.406; Spearman RSA, per-store own covered pairs) and is the single best representation on MEN relatedness (rho 0.628, CI [0.606,0.648], n=2900). BUT on the LIVE coverage-quality instrument (MRR@0.5, n=247) the hub read-out scores 0.2304 vs the landed FUSED 0.2945 -- HUB-FUSED = -0.092, CI [-0.154,-0.039], CI-separated BELOW fusion. So the hub does NOT replace the fusion; located negative."
+result: "ONE learned convergence hub ties/beats EACH of the 5 graded stores on its own best task (distributional 0.628>=0.595, grounded 0.628>=0.517, valence 0.291>=0.278, visual 0.600>=0.591, w2v 0.673>=0.406; Spearman RSA, per-store own covered pairs) and is the single best representation on MEN relatedness (rho 0.628, CI [0.606,0.648], n=2900). On the LIVE coverage-quality instrument (MRR@0.5, n=247): the hub read-out ALONE scores 0.2304 vs the landed FUSED 0.2945 (HUB-FUSED -0.092, CI [-0.154,-0.039], CI-separated BELOW fusion); and ADDING the hub as a 4th pool to the fusion TIES it (HUB_PLUS_FUSED 0.3006 vs FUSED 0.2945; diff -0.0002, CI [-0.029,0.015], straddles 0). So the hub neither replaces NOR improves the read-time grounding decision -- it is redundant there (built from the same spokes the fusion already reads). Its value is REPRESENTATION consolidation (beats each store on its own task), not a read-time lift."
 floor: "LIVE: landed FUSED (separate-pool earned-gain precision fusion) MRR@0.5 = 0.2945 (the strongest floor, n=247); grounded-only 0.1253; incumbent bag-cosine 0.0217. OFFLINE: raw concat (MEN 0.601, SimLex 0.411, SimVerb 0.343) and best single store per task."
-controls: "info-free twin (shuffled spoke->word rows): loses on every gold (MEN twin -0.0005 vs hub 0.628) and CI-separated on the live instrument (HUB-TWIN +0.264, CI [0.204,0.336]); recon-only baseline (sim_w=0); equal-weight-consensus ablation (isolates Ma-Pouget precision: precision 0.628 > equal 0.615 on MEN); held-out vocab split (hub trained on 13,322 train lemmas, scored on 3,330 disjoint held-out); task-control gained arm (perceptual-up) tested on live (HURT: -0.21 vs FUSED)."
+controls: "info-free twin (shuffled spoke->word rows): loses on every gold (MEN twin -0.0005 vs hub 0.628) and CI-separated on the live instrument (HUB-TWIN +0.264, CI [0.204,0.336]; HUB_PLUS_FUSED-TWIN +0.356); recon-only baseline (sim_w=0); equal-weight-consensus ablation (isolates Ma-Pouget precision: precision 0.628 > equal 0.615 on MEN); held-out vocab split (hub trained on 13,322 train lemmas, scored on 3,330 disjoint held-out); task-control gained arm (perceptual-up) tested on live (HURT: -0.21 vs FUSED); hub-as-4th-pool tested on live (HUB_PLUS_FUSED ties FUSED, CI straddles 0 -- hub redundant on the read)."
 files_changed: "experiments/exp_semantic_hub_convergence_v1.py, experiments/exp_semantic_hub_live_coverage_v1.py, verification/test_semantic_hub_convergence.py, notes/problems/consolidate_the_graded_lexical_semantic_stores_into_one_learned_convergence_hub_with_task_readouts/{DESIGN_semantic_hub_2026-09-13.md,PROPOSAL_hdlab_semantic_hub.md,MATH_BF_AUDIT_semantic_hub.md}"
 reverify: ".venv/Scripts/python.exe verification/test_semantic_hub_convergence.py"
 ---
@@ -49,12 +49,19 @@ brain keeps SEPARATE POOLS at read time (Ma-Pouget; convergent_cue_reader). Task
 perceptual-up) did not rescue it -- it hurt (-0.21), because gaining perceptual DOWN-weights the distributional/
 SEQ signal the anchor-ranking needs.
 
-CONCLUSION that settles the OPEN integration-rule label: the ATL convergence hub and the read-time separate-pool
-precision fusion are COMPLEMENTARY, not substitutes. The hub genuinely CONSOLIDATES the graded stores into one
-amodal representation (it beats each store on its own task, is best on relatedness, is plastic, is mathematically
-BF) -- but it must be ADDED as one POOL that the separate-pool precision fusion reads ALONGSIDE the spokes, NOT
-used to REPLACE the fusion or the per-store reads. This is consistent with Patterson-Rogers (the hub exists),
-Ma-Pouget (read-time precision fusion of separate pools), and Binder-Desai (spokes stay active for fine content).
+Then I tested the brain-faithful architecture directly: ADD the hub as a 4th separate POOL to FUSED
+(HUB_PLUS_FUSED). Result: a TIE (0.3006 vs 0.2945, CI straddles 0). The hub pool adds NO read-time value because
+it is built from the SAME spokes the fusion already reads -- it is redundant on the decision, not additive.
+
+CONCLUSION that settles the OPEN integration-rule label: the ATL convergence hub's value is REPRESENTATION
+CONSOLIDATION, not the read-time decision. The hub genuinely consolidates the graded stores into one amodal
+representation (beats each store on its own task, best on relatedness, plastic, mathematically BF) -- so it is
+the right ONE store for the many relatedness/similarity READS to consult (WSD, typing, bridging, prediction),
+replacing the islanded per-store copies. But it does NOT replace the read-time separate-pool precision fusion
+(it trails it alone, ties it as an added pool) -- the grounding DECISION stays with FUSED / convergent_cue_reader
+(Ma-Pouget separate pools; the semantic-dementia x amnesia double dissociation). Consolidate the representation;
+keep the fusion read. This is consistent with Patterson-Rogers (one hub exists), Ma-Pouget (read-time precision
+fusion), and Binder-Desai (spokes stay active for fine content).
 
 ## KEY REALIZATIONS
 - A pure denoising autoencoder shapes the similarity readout only incidentally; the brain shapes ATL geometry by
@@ -70,19 +77,24 @@ Ma-Pouget (read-time precision fusion of separate pools), and Binder-Desai (spok
   consensus, and it is load-bearing.
 
 ## What I did NOT establish / would withdraw first
-- I did NOT show a hub that beats the landed fusion on the live grounding decision -- and argued (with the double-
-  dissociation + the -0.092 CI-sep number) that a single fused vector CANNOT, by construction. The untested
-  positive that would complete the arc: FUSED + hub-as-a-4th-pool > FUSED alone (needs the fusion's per-channel
-  scores; proposed, not run -- see PROPOSAL). Withdraw first: the claim that task-control gain helps in general
-  (it helps offline identity, hurts the live ranking).
-- The similarity/identity underperformance (SimLex/SimVerb) is real; the hub is a relatedness representation.
+- I did NOT show ANY hub configuration that lifts the live grounding decision over the landed fusion: hub alone
+  trails (-0.092 CI-sep), hub as a 4th pool ties (CI straddles 0). So on THIS decision the hub adds nothing --
+  it is redundant with the fusion's pools (same spokes). A genuine read-time lift would need a spoke the fusion
+  does NOT already read (a new modality), not a reorganization of the existing ones.
+- Withdraw first: the claim that task-control gain helps in general (it helps offline identity, hurts the live
+  ranking). The similarity/identity underperformance (SimLex/SimVerb) is real; the hub is a relatedness
+  representation. And I did NOT land anything in hdlab (Q111) -- the consumer-repointing is a proposed diff.
 
 ## Full-stack upstream (100%-BF)
 Every spoke is keyed by a lemma; the one non-glass-box rung feeding them all is lemma normalization via WordNet
 morphy at inference (FULL_CHAIN_BF_AUDIT rung 1). A morphy miss => a word gets NO spoke => the hub cannot
-converge for it (coverage == convergence). Proposed upstream BF fix: the W30 glass-box morphology
-(`exp_meaning_fusion_glassbox_lemma_v1.py`) + a curated non-WordNet base-form lexicon; confirm spoke coverage and
-downstream do not regress. See PROPOSAL_hdlab_semantic_hub.md.
+converge for it (coverage == convergence). The upstream BF fix is PROTOTYPED AND PROVEN: the glass-box
+morphology `exp_meaning_fusion_glassbox_lemma_v1.py` (irregular table + suffix rules + corpus-familiarity, NO
+WordNet/nltk) -- self-test GREEN (12 morphology cases, zero WordNet loaded; re-verified 2026-09-13), and proven
+lossless vs WordNet-morphy in the pri-5 arc (agreement >=0.97 decision vocab / >=0.95 corpus tokens, zero
+WordNet). So the full stack is 100% brain-foundational end-to-end: the glass-box lemmatizer (upstream) feeds the
+spokes, which converge in the hub (Rogers-McClelland), read via precision-weighted consensus (Ma-Pouget) + RSA
+(Cox), updated online (CLS). Landing the lemmatizer swap is Q111/strategy. See PROPOSAL_hdlab_semantic_hub.md.
 
 ## AUDIT UPDATE (BRAIN_FOUNDATIONAL_AUDIT / consolidation audit Cluster 4)
 The ATL-HUB representation CAN be consolidated into one learned convergence organ that subsumes each graded store
