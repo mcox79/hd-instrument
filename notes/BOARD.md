@@ -75,14 +75,13 @@ with no rank ceiling is the arm that wins. **TWO ORGANS, OPPOSITE FAULTS -- DO N
 - **AWAITING OWNER REVIEW (not my move):** pri-5 `measure_end_to_end` (gates the pri-2 meaning fusion-flip), pri-6 reward-cluster audit; board Q123 (STATUS trim -- DONE by me, this file, CONT-73), Q122 (stale/obsolete -- its referenced landings are all integrated).
 - **NOTHING else running.** Everything committed path-limited, NOTHING pushed. Owner-DONE fold-in gate EMPTY.
 
-_mirrored from `notes/STATUS.md` at 2026-09-13T23:36:56Z by `tools/board.py`._
+_mirrored from `notes/STATUS.md` at 2026-09-13T23:41:37Z by `tools/board.py`._
 
 ## QUESTIONS FOR YOU
 
 | ID | Question | What's blocked on it | My recommendation | ANSWER | status |
 |---|---|---|---|---|---|
-
-_No open questions. Nothing is waiting on you._
+| Q139 | The harness blocks every write into data/frontend_assets (the live asset folder), so none of the approved integrations can finish (the role table swap, the rebuilt attachment validities, both word-kind count tables, the sense asset). Will you add a permission rule allowing copies/writes into data/frontend_assets/, or copy the files yourself when I list them? | Patches 97, 98, 99 are applied and witnessed but their rebuilt assets can only be written as candidates under data/hook_state; the live reader keeps the old assets until the copy happens. The classifier's denial text says a Bash permission rule in your settings allows this class of action. | Add the permission rule (one-time); I will keep every previous asset under data/hook_state for one-file rollback. Risk: none beyond what the approved integrations already carry. |  | open |
 
 ## ANSWERED
 
@@ -128,5 +127,3 @@ _No open questions. Nothing is waiting on you._
 | Q136 | May I run the parked change to the word-category organ: store frequent two-word units ('there is', 'have to') so a word inside a stored unit takes the unit's own category counts? The run was denied by the harness at 14:35; I have not retried it. | Yes: run it as a candidate asset under data/hook_state (never the live asset) with the full-test sweep and the heads probe; adopt only if overall accuracy and heads both rise. Risk: a second null result costs about 20 minutes of runner time. | do as you recommend | 2026-09-13T23:36:18Z |
 | Q137 | May I make the confidence-weighted role table the live one (replace one asset file, data/frontend_assets/coarse_role_validities_ud_ewt.json, keeping the current one as a backup)? The copy was blocked by the harness at 17:05 as a shared-resource change. | Yes, swap it. Risk: none measured; the previous table stays on disk for a one-file rollback. Note the 'who did the action' score did not move at all (0.8271), which proves that board read does not use this table -- a separate trace I am doing now. | yes if it's an improvement and is BF | 2026-09-13T23:36:34Z |
 | Q138 | The pri 103 solver's finished change to the role organ exists as two verified patched files in the session scratchpad, but the call that would have written them out as a patch .diff was blocked by the harness; may I produce that diff (a plain file comparison of the two patched files against the current ones, written into the problem folder)? | Yes: let me write the diff from the verified files (the solver confirmed them identical to its measured cell on 3,716 + 3,698 labels and byte-identical behaviour on the old table). Risk: none beyond what any proposed diff carries; it is still landed only on your DONE. | Yes - do as you recommend | 2026-09-13T23:36:56Z |
-
-_(showing the last 40 of 41 answered; the older ones are kept in `notes/BOARD_ANSWERED_ARCHIVE.md`, not deleted)_
