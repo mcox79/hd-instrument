@@ -63,7 +63,12 @@ M_SHRINK = 2.0
 CONVENTION_BONUS = 5.0
 BF_TSP_ASSET = os.path.join(_REPO, "data", "frontend_assets", "typed_selectional_preference_bf_v1.json")   # self-grown plausibility
 BF_TSP_SUBJ_ASSET = os.path.join(_REPO, "data", "frontend_assets", "typed_selectional_preference_bf_subj_v1.json")   # self-grown SUBJ slot
-ORDER_AWARE = os.environ.get("HDLAB_SBT_ORDER_AWARE", "0") == "1"   # REFUTED AS BUILT 2026-09-13 (see ledger): obj +0.008 but ccomp 0.466->0.207,
+BF_STORE = os.path.join(_REPO, "data", "selectional_preferences_bf_v1", "selectional_slots_bf_v1.pkl")   # self-grown slot fillers
+PRON_EVIDENCE = os.environ.get("HDLAB_SBT_PRON", "1") != "0"
+PRONOUNS = frozenset({"it", "he", "she", "they", "we", "i", "you", "him", "her", "them", "us", "me", "this", "that", "these", "those",
+                      "who", "whom", "which", "what", "there", "one", "someone", "something", "anyone", "anything", "everyone",
+                      "everything", "nothing", "nobody", "himself", "herself", "itself", "themselves", "myself", "yourself", "ourselves"})
+ORDER_AWARE = os.environ.get("HDLAB_SBT_ORDER_AWARE", "1") != "0"   # v1 REFUTED 2026-09-13 (max-over-one root score: obj +0.008 but ccomp 0.466->0.207,
 #   xcomp 0.686->0.599, UAS 0.5706->0.5654 -- the SUBJ-slot association has a different scale/sparsity (811 verbs) and weakens the
 #   root/argument signal clausal structure rides on; keep off until the two slot associations are put on one scale.
 _TABLE: Optional[Dict[str, object]] = None
@@ -549,6 +554,29 @@ class SemanticBootstrapTeacher:
         # (48% of object misses went to the next verb on the right). Falls back to order-blind if the SUBJ asset is absent.
         self.tsp_subj = TypedSelectionalPreference.load(BF_TSP_SUBJ_ASSET) if (ORDER_AWARE and os.path.isfile(BF_TSP_SUBJ_ASSET)) else None
         self._cache_subj: Dict[Tuple[str, str], float] = {}
+        # PRONOMINAL PARTICIPANTS (2026-09-13): the typed association drops pronoun fillers (no sense class), so a verb whose subject
+        # is "it"/"they" got NO argument evidence and lost the root to an embedded verb with a typed object (the ccomp collapse). For
+        # bootstrapping, a pronoun's presence IS evidence of the slot: plausibility(verb, pronoun) = the verb's pronoun-filler RATE in
+        # that slot, counted in the self-grown store (0..1, the same scale as association shares; global slot rate for unseen verbs).
+        self.pron_subj: Dict[str, float] = {}; self.pron_obj: Dict[str, float] = {}; self.pron_subj_g = 0.0; self.pron_obj_g = 0.0
+        if PRON_EVIDENCE and os.path.isfile(BF_STORE):
+            try:
+                import pickle
+                from collections import Counter
+                sf = pickle.load(open(BF_STORE, "rb"))["slot_filler"]
+                ps, ts, po, to = Counter(), Counter(), Counter(), Counter()
+                for (v, role), fillers in sf.items():
+                    vl = lemma_verb(v).lower()
+                    for w, c in fillers.items():
+                        if role == "SUBJ":
+                            ts[vl] += c; ps[vl] += c if w in PRONOUNS else 0
+                        elif role == "OBJ":
+                            to[vl] += c; po[vl] += c if w in PRONOUNS else 0
+                self.pron_subj = {v: ps[v] / ts[v] for v in ts if ts[v] >= 5}
+                self.pron_obj = {v: po[v] / to[v] for v in to if to[v] >= 5}
+                self.pron_subj_g = sum(ps.values()) / max(1.0, sum(ts.values())); self.pron_obj_g = sum(po.values()) / max(1.0, sum(to.values()))
+            except Exception:
+                self.pron_subj, self.pron_obj = {}, {}
         self.beta = float(beta); self.lam = float(lam); self._cache: Dict[Tuple[str, str], float] = {}
 
     def plausibility(self, verb_tok: str, noun_tok: str) -> float:
@@ -575,18 +603,30 @@ class SemanticBootstrapTeacher:
 
     def score_matrix(self, toks: Sequence[str], pos: Sequence[str]) -> Tuple[np.ndarray, int]:
         n = len(toks); A = np.full((n + 1, n + 1), -np.inf); best_arg = np.zeros(n + 1)
+        best_subj = np.zeros(n + 1); best_obj = np.zeros(n + 1)
         for j in range(1, n + 1):
             for h in range(1, n + 1):
                 if h == j or pos[h - 1] in FORM:
                     continue
                 sc = -self.lam * math.log(abs(h - j) + 1.0)
                 if pos[h - 1] == "VERB" and pos[j - 1] in NOMINAL:
+                    is_pron = pos[j - 1] == "PRON" and (self.pron_subj or self.pron_obj)
+                    vl = lemma_verb(toks[h - 1]).lower() if is_pron else None
                     if self.tsp_subj is not None:
-                        p = self.plausibility(toks[h - 1], toks[j - 1]) if j > h else self.plausibility_subj(toks[h - 1], toks[j - 1])
+                        if j > h:
+                            p = self.pron_obj.get(vl, self.pron_obj_g) if is_pron else self.plausibility(toks[h - 1], toks[j - 1])
+                            best_obj[h] = max(best_obj[h], p)
+                        else:
+                            p = self.pron_subj.get(vl, self.pron_subj_g) if is_pron else self.plausibility_subj(toks[h - 1], toks[j - 1])
+                            best_subj[h] = max(best_subj[h], p)
                     else:
-                        p = self.plausibility(toks[h - 1], toks[j - 1])
+                        p = self.pron_obj.get(vl, self.pron_obj_g) if is_pron else self.plausibility(toks[h - 1], toks[j - 1])
                     sc += self.beta * p; best_arg[h] = max(best_arg[h], p)
                 A[h][j] = sc
+        if self.tsp_subj is not None:
+            # ROOT = the predicate whose participants fit THEIR ROLES best: the best subject fit PLUS the best object fit (a matrix
+            # verb with a good subject must beat an embedded verb with only a good object; max-over-one collapsed ccomp/xcomp).
+            best_arg = best_subj + best_obj
         for j in range(1, n + 1):
             if pos[j - 1] in FORM:
                 A[0][j] = -np.inf if any(pos[k] not in FORM for k in range(n)) else 0.0
