@@ -15,6 +15,16 @@ near the top about 38 times in 100 where the old method managed about 3.
 
 ## WHAT CHANGED LATELY
 
+**13 Sep, midday.** The in-order word governor is now the live default and the full board with it came in at 62.8 in 100 (the
+whole-sentence search gave 62.2; the old hand-trained stand-in 63.8). State reading is back to the stand-in's level (81); the one
+remaining gap is who-was-affected (73 vs 82). A lever for that is measured and queued: when the role-deciding organ learns its cue
+strengths from the governor's OWN structures instead of from gold trees, who-was-affected rises from 75 to 79 in 100 on the same
+items. Your DONE solution on helped-or-harmed is integrated with every upstream fix it named (35 of 36 live checks hold). Three
+defects found on the way were fixed (a lemma collision that turned 'wound' into 'wind'; a crash in predicate recovery; an outdated
+test). Two stores keyed on the old lemmatizer were rebuilt and swapped with no change to the board self-test. Running: the full
+board with everything landed since 11 o'clock. Risk: the perceived-structure role table deliberately disagrees with textbook
+conventions in one constructed case (a root noun read as the subject); the measured consumer gain outweighs it.
+
 **13 Sep, morning (owner awake).** You asked whether organs should take data in, in order. They should, and two did not. (1) The word-kinds
 organ settled each word's kind by reading the whole sentence first; it now settles it as the word arrives and revises it with the next two
 words only. Measured on the full test set that is exactly as accurate (92.6 in 100 either way; no revision at all would cost 2.3 points) and
@@ -156,7 +166,7 @@ Long term (the next few months):
 
 <!-- AUTO:BEGIN (written by tools/scorecard.py; edit the sections ABOVE, not this) -->
 
-Last full check: 2026-09-13T14:53:44.705282+00:00 (20 on record). Generated 2026-09-13T15:15:12+00:00.
+Last full check: 2026-09-13T15:32:40.672607+00:00 (21 on record). Generated 2026-09-13T15:53:49+00:00.
 
 | Ability | Group | How well | Compared with a simple rule | Since the previous check | Brain-faithful? |
 |---|---|---|---|---|---|
@@ -166,16 +176,16 @@ Last full check: 2026-09-13T14:53:44.705282+00:00 (20 on record). Generated 2026
 | Linking a description ('the painter') to a named person | People and things | right 55 in 100 | clearly better than the simple rule (45 in 100) | unchanged since the previous check | brain model; some details still open |
 | Pronoun reference as the full reader actually runs it | People and things | right 59 in 100 | clearly better than the simple rule (50 in 100) | unchanged since the previous check | brain model; some details still open |
 | Resolving 'the animal' to the dog just mentioned | People and things | right 58 in 100 | clearly better than the simple rule (52 in 100) | unchanged since the previous check | brain model; some details still open |
-| Who was affected by what happened | People and things | right 39 in 100 | clearly better than the simple rule (32 in 100) | first full check on record | brain model; some details still open |
+| Who was affected by what happened | People and things | right 39 in 100 | not better than the simple rule (40 in 100) yet | unchanged since the previous check | brain model; some details still open |
 | Which meaning of a word is meant in this sentence | Word meaning | right 75 in 100 | clearly better than the simple rule (50 in 100) | unchanged since the previous check | brain model; some details still open |
 | Drawing safe conclusions from 'is a kind of' facts | Word meaning | right 77 in 100 | clearly better than the simple rule (54 in 100) | unchanged since the previous check | brain model; some details still open |
 | Handling 'all / some / none' correctly | Word meaning | right 83 in 100 | clearly better than the simple rule (17 in 100) | unchanged since the previous check | brain model; some details still open |
 | Handling 'not' correctly | Word meaning | not scored in the last full check | - | - | brain model; some details still open |
 | How a word's meaning shifts with its context (graded) | Word meaning | agreement with people 0.39 (out of 1) | clearly better than the simple rule (0.38) | unchanged since the previous check | brain model; some details still open |
 | Picking the right broad sense of an ambiguous word (older test set) | Word meaning | right 52 in 100 | clearly better than the simple rule (35 in 100) | unchanged since the previous check | brain model; some details still open |
-| What something is or is like ('the sky is blue') | Actions and roles | right 81 in 100 | clearly better than the simple rule (57 in 100) | up 0.148 since the previous check | brain model; some details still open |
-| Who did the action in a sentence | Actions and roles | right 83 in 100 | not better than the simple rule (85 in 100) yet | unchanged since the previous check | brain model; one part is a stand-in we are replacing |
-| Who or what the action was done to | Actions and roles | right 82 in 100 | clearly better than the simple rule (74 in 100) | up 0.100 since the previous check | brain model; one part is a stand-in we are replacing |
+| What something is or is like ('the sky is blue') | Actions and roles | right 81 in 100 | clearly better than the simple rule (57 in 100) | unchanged since the previous check | brain model; some details still open |
+| Who did the action in a sentence | Actions and roles | right 83 in 100 | not better than the simple rule (84 in 100) yet | unchanged since the previous check | brain model; one part is a stand-in we are replacing |
+| Who or what the action was done to | Actions and roles | right 73 in 100 | clearly better than the simple rule (65 in 100) | DOWN 0.095 since the previous check | brain model; one part is a stand-in we are replacing |
 | Keeping a fact true until something changes it | Actions and roles | right 100 in 100 | clearly better than the simple rule (44 in 100) | unchanged since the previous check | brain model; some details still open |
 | Event order when the text does not say it outright | Time and place | right 57 in 100 | clearly better than the simple rule (53 in 100) | unchanged since the previous check | brain model; some details still open |
 | Noticing where one scene ends and another begins | Time and place | right 12 in 100 | a little better than the simple rule (7 in 100), not yet convincingly | unchanged since the previous check | brain model; some details still open |
@@ -187,7 +197,7 @@ Last full check: 2026-09-13T14:53:44.705282+00:00 (20 on record). Generated 2026
 | Answering 'why' when the cause is sentences away | Causes | not scored in the last full check | - | - | brain model; some details still open |
 | Following a chain of causes across several steps | Causes | right 26 in 100 | clearly better than the simple rule (0 in 100) | unchanged since the previous check | brain model; some details still open |
 | Whether a cause makes an effect bigger or smaller | Causes | right 62 in 100 | a little better than the simple rule (61 in 100), not yet convincingly | unchanged since the previous check | brain model; some details still open |
-| Whether one event was needed for another to happen | Causes | right 36 in 100 | clearly better than the simple rule (3 in 100) | unchanged since the previous check | brain model; some details still open |
+| Whether one event was needed for another to happen | Causes | right 36 in 100 | clearly better than the simple rule (4 in 100) | unchanged since the previous check | brain model; some details still open |
 | How a character probably feels about an event | Feelings, goals, beliefs | not scored in the last full check | - | - | brain model; some details still open |
 | What a character believes, even when it is false | Feelings, goals, beliefs | right 65 in 100 | clearly better than the simple rule (49 in 100) | unchanged since the previous check | brain model; some details still open |
 | Whether an action helped or harmed someone | Feelings, goals, beliefs | right 97 in 100 | clearly better than the simple rule (33 in 100) | unchanged since the previous check | brain model; some details still open |
