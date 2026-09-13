@@ -14,6 +14,19 @@ NEW word means from what it reads, using its sense of how things feel and look, 
 near the top about 38 times in 100 where the old method managed about 3.
 
 ## WHAT CHANGED LATELY
+- 2026-09-13 (overnight): the whole front of the reading chain now runs on brain-style parts, each one in a single shared place
+  that every reader and every test uses. Word kinds come from a counting model that keeps a graded belief (91 in 100 right; the
+  old hand-trained tagger was 94) and can also learn its kinds from plain reading (70 in 100 so far; the little words are the
+  gap being worked). Word base forms come from an exact in-house port of the old dictionary tool (identical, 80x faster). Which
+  word governs which is learned from reading plus meaning, with its meaning-knowledge now grown by our own reading rather than
+  an outside parser, and with two long-known tricks folded in: copular sentences ("the soup was hot") now take the shape the
+  downstream readers expect, and prepositional phrases get the verb-vs-noun preference learned from unambiguous sentences. On the
+  state question ("what is X") the brain-style governor read went from 53 to 66 in 100 after its reader was taught the new shape
+  (83 with the hand-trained governor). Four solver submissions were folded in tonight: the base-form port (used live), a quality
+  instrument for meaning-grounding, a consolidated meaning representation (kept as a store, not a decision-maker, by its own
+  test), and a careful negative on a table of cause-effect facts (its earlier +14 points was a measurement artefact; retired).
+  Full-system checks with the new front end are running; dips in individual readers are expected and are being repaired one at a
+  time rather than reverting the brain-style parts.
 - 2026-09-12 (day): first step of the 'what happens next' story model landed. On the hard who-was-affected test I separated the
   real third-person cases (it/him/her/them, 596) from words that depend on who is speaking (you/me) and from this/that, which
   the brain handles with different machinery. Three established mechanisms were added to the live reader: every time a pronoun
@@ -106,7 +119,7 @@ Long term (the next few months):
 
 <!-- AUTO:BEGIN (written by tools/scorecard.py; edit the sections ABOVE, not this) -->
 
-Last full check: 2026-09-13T02:59:12.603698+00:00 (11 on record). Generated 2026-09-13T03:15:18+00:00.
+Last full check: 2026-09-13T03:30:53.438646+00:00 (12 on record). Generated 2026-09-13T03:40:55+00:00.
 
 | Ability | Group | How well | Compared with a simple rule | Since the previous check | Brain-faithful? |
 |---|---|---|---|---|---|
@@ -116,14 +129,14 @@ Last full check: 2026-09-13T02:59:12.603698+00:00 (11 on record). Generated 2026
 | Linking a description ('the painter') to a named person | People and things | right 55 in 100 | clearly better than the simple rule (45 in 100) | unchanged since the previous check | brain model; some details still open |
 | Pronoun reference as the full reader actually runs it | People and things | right 59 in 100 | clearly better than the simple rule (50 in 100) | unchanged since the previous check | brain model; some details still open |
 | Resolving 'the animal' to the dog just mentioned | People and things | right 58 in 100 | clearly better than the simple rule (52 in 100) | unchanged since the previous check | brain model; some details still open |
-| Who was affected by what happened | People and things | right 39 in 100 | clearly better than the simple rule (34 in 100) | unchanged since the previous check | brain model; some details still open |
+| Who was affected by what happened | People and things | right 38 in 100 | clearly better than the simple rule (32 in 100) | DOWN 0.009 since the previous check | brain model; some details still open |
 | Which meaning of a word is meant in this sentence | Word meaning | right 75 in 100 | clearly better than the simple rule (50 in 100) | unchanged since the previous check | brain model; some details still open |
 | Drawing safe conclusions from 'is a kind of' facts | Word meaning | right 77 in 100 | clearly better than the simple rule (54 in 100) | unchanged since the previous check | brain model; some details still open |
 | Handling 'all / some / none' correctly | Word meaning | right 83 in 100 | clearly better than the simple rule (17 in 100) | unchanged since the previous check | brain model; some details still open |
 | Handling 'not' correctly | Word meaning | right 93 in 100 | clearly better than the simple rule (50 in 100) | unchanged since the previous check | brain model; some details still open |
 | How a word's meaning shifts with its context (graded) | Word meaning | agreement with people 0.39 (out of 1) | clearly better than the simple rule (0.38) | unchanged since the previous check | brain model; some details still open |
 | Picking the right broad sense of an ambiguous word (older test set) | Word meaning | right 52 in 100 | clearly better than the simple rule (35 in 100) | unchanged since the previous check | brain model; some details still open |
-| What something is or is like ('the sky is blue') | Actions and roles | right 53 in 100 | not better than the simple rule (57 in 100) yet | unchanged since the previous check | brain model; some details still open |
+| What something is or is like ('the sky is blue') | Actions and roles | right 80 in 100 | clearly better than the simple rule (57 in 100) | up 0.272 since the previous check | brain model; some details still open |
 | Who did the action in a sentence | Actions and roles | right 83 in 100 | not better than the simple rule (85 in 100) yet | unchanged since the previous check | brain model; one part is a stand-in we are replacing |
 | Who or what the action was done to | Actions and roles | right 82 in 100 | clearly better than the simple rule (75 in 100) | unchanged since the previous check | brain model; one part is a stand-in we are replacing |
 | Keeping a fact true until something changes it | Actions and roles | right 100 in 100 | clearly better than the simple rule (44 in 100) | unchanged since the previous check | brain model; some details still open |
@@ -134,11 +147,11 @@ Last full check: 2026-09-13T02:59:12.603698+00:00 (11 on record). Generated 2026
 | Whether a state still holds at a later point | Time and place | right 41 in 100 | clearly better than the simple rule (11 in 100) | unchanged since the previous check | brain model; some details still open |
 | Whether two events happened at the same time | Time and place | right 99 in 100 | clearly better than the simple rule (50 in 100) | unchanged since the previous check | brain model; some details still open |
 | Which of two events came first | Time and place | right 59 in 100 | clearly better than the simple rule (52 in 100) | unchanged since the previous check | brain model; some details still open |
-| Answering 'why' when the cause is sentences away | Causes | right 23 in 100 | clearly better than the simple rule (0 in 100) | unchanged since the previous check | brain model; some details still open |
+| Answering 'why' when the cause is sentences away | Causes | right 24 in 100 | clearly better than the simple rule (0 in 100) | unchanged since the previous check | brain model; some details still open |
 | Following a chain of causes across several steps | Causes | right 26 in 100 | clearly better than the simple rule (0 in 100) | unchanged since the previous check | brain model; some details still open |
 | Whether a cause makes an effect bigger or smaller | Causes | right 62 in 100 | a little better than the simple rule (61 in 100), not yet convincingly | unchanged since the previous check | brain model; some details still open |
 | Whether one event was needed for another to happen | Causes | right 36 in 100 | clearly better than the simple rule (4 in 100) | unchanged since the previous check | brain model; some details still open |
-| How a character probably feels about an event | Feelings, goals, beliefs | right 94 in 100 | clearly better than the simple rule (44 in 100) | unchanged since the previous check | brain model; some details still open |
+| How a character probably feels about an event | Feelings, goals, beliefs | right 92 in 100 | clearly better than the simple rule (44 in 100) | DOWN 0.020 since the previous check | brain model; some details still open |
 | What a character believes, even when it is false | Feelings, goals, beliefs | right 65 in 100 | clearly better than the simple rule (49 in 100) | unchanged since the previous check | brain model; some details still open |
 | Whether an action helped or harmed someone | Feelings, goals, beliefs | right 100 in 100 | clearly better than the simple rule (33 in 100) | unchanged since the previous check | brain model; some details still open |
 | Whether an event helps or blocks a character's goal | Feelings, goals, beliefs | right 98 in 100 | clearly better than the simple rule (49 in 100) | unchanged since the previous check | brain model; some details still open |
@@ -147,6 +160,6 @@ Last full check: 2026-09-13T02:59:12.603698+00:00 (11 on record). Generated 2026
 | Knowing when to hold back on 'who was acted on' | Knowing its limits | right 96 in 100 | clearly better than the simple rule (87 in 100) | unchanged since the previous check | brain model; one part is a stand-in we are replacing |
 | Knowing when to hold back on a place or time attachment | Knowing its limits | right 84 in 100 | clearly better than the simple rule (76 in 100) | unchanged since the previous check | uses a stand-in we are replacing |
 
-Brain-faithfulness of the 88 building blocks: 8 copy the brain's math exactly, 74 are brain models with open details, 6 are stand-ins being replaced (arc_labeler, arc_parser, arceager_parser, commonnoun_binder, parse_confidence, pos_tagger).
+Brain-faithfulness of the 90 building blocks: 8 copy the brain's math exactly, 76 are brain models with open details, 6 are stand-ins being replaced (arc_labeler, arc_parser, arceager_parser, commonnoun_binder, parse_confidence, pos_tagger).
 
 <!-- AUTO:END -->
