@@ -794,9 +794,134 @@ def occupancy_repair(toks: Sequence[str], pos: Sequence[str], hd: Dict[int, int]
     return out
 
 
-def decode(toks: Sequence[str], pos: Sequence[str], A: np.ndarray, n: int, temp: float = 1.0) -> Tuple[Dict[int, int], Dict[int, Dict[int, float]]]:
+# INCREMENTAL COMMITMENT (2026-09-13 ~10:20 local; owner: "don't we have organs that take data in, in order? isn't that more brain
+# foundational?"). The whole-sentence tree search above (MAP / MBR over the full matrix) is a normative MODEL: it sees every word
+# before it commits. The brain does not: words arrive one at a time and each arriving word is attached AS IT ARRIVES by cue-based
+# retrieval among the words still open in memory (Lewis & Vasishth 2005), or held as an expectation for a head still to come
+# (Levy 2008 prediction), while a SMALL number of alternative analyses stays alive and a later word can make an alternative
+# overtake (garden-path reanalysis; MacDonald 1994 graded constraint satisfaction). PINNED: incrementality, bounded alternatives,
+# local competition, reanalysis by overtaking. OURS (swept, never adopted): the beam width and the hold score.
+# Computation = arc-eager transitions over the SAME cue activations A, locally normalised: on the arrival of word b the outcomes
+# are enumerated down the stack -- a headed top may be REDUCED (free), a headless top may take b as its head (LEFT-ARC, A[b][top]),
+# then b either attaches to the current top (RIGHT-ARC, A[top][b]; top = 0 is the single root arc, allowed once) or is held
+# (SHIFT, score HOLD). The outcomes compete by softmax (log-odds in, probabilities out), so every analysis alive after word b
+# carries b local log-probabilities and the beam compares like with like. No score of a word not yet heard is ever read (strict
+# incrementality: only A[h][j] with h, j <= b enters at arrival b). At the end, words still waiting are attached by the convention
+# repair (the best open head; root if none taken) and counted as `incomplete`. The graded hand-off is the beam itself: P(head j = h)
+# = the normalised weight of the alive analyses that say so (keep-alternatives-alive realised as the alternatives themselves).
+INCR_BEAM = int(os.environ.get("HDLAB_ARM_BEAM", "8"))
+INCR_HOLD = float(os.environ.get("HDLAB_ARM_HOLD", "0.0"))
+# HOLD = the PREDICTION of a head still to come (Levy 2008): with mode "expect" the hold score of an arriving word is the organ's own
+# configuration strength for the strongest head-to-the-RIGHT configuration of the word's category (a determiner expects a noun, a
+# subject noun expects a verb) plus INCR_HOLD; with mode "const" it is INCR_HOLD alone (measured 0.43 vs 0.63 on 25 sentences: a
+# hold without evidence loses to any positive left attachment -- determiners/adjectives/subjects collapsed). Nothing from a word
+# not yet heard is read: the expectation is a function of the arriving word's category and the learned table only.
+INCR_HOLD_MODE = os.environ.get("HDLAB_ARM_HOLD_MODE", "expect")
+INCR_NORM = os.environ.get("HDLAB_ARM_INCR_NORM", "sum")          # "sum" (one score per word) | "local" (softmax per arrival)
+
+
+def hold_expectation(pos: Sequence[str], table: Optional[Dict[str, object]] = None) -> np.ndarray:
+    """Per word (index 1..n): the strongest learned strength of a head-to-the-right configuration for the word's category."""
+    tab = table or load_attachment_validities(); ix = _arc_index(tab)
+    out = np.zeros(len(pos) + 1)
+    for j, p in enumerate(pos, start=1):
+        c = ix.cats.get(p, ix.unk)
+        out[j] = float(ix.cfg_strength[ix.cfg_id[:, c, 1]].max())
+    return out
+INCR_STATS = {"sentences": 0, "incomplete_words": 0, "words": 0}
+
+
+def incremental_tree(A: np.ndarray, n: int, beam: int = INCR_BEAM, hold=INCR_HOLD,
+                     temp: float = 1.0) -> Tuple[Dict[int, int], Dict[int, Dict[int, float]]]:
+    """Left-to-right arc-eager commitment over the cue activations A with a bounded beam. Returns (heads, beam posterior)."""
+    beam = max(1, int(beam))
+
+    def fin(x: float) -> float:
+        return float(x) if np.isfinite(x) else -1e9
+
+    def E(j: int) -> float:
+        return float(hold[j]) if isinstance(hold, np.ndarray) else float(hold)
+
+    # state = (logp, stack tuple, heads tuple (index 0 unused; -1 = no head yet; 0 = the root arc), root_used)
+    states = [(0.0, (0,), tuple([-1] * (n + 1)), False)]
+    for b in range(1, n + 1):
+        nxt: Dict[Tuple, float] = {}
+        for logp, stack, hd, ru in states:
+            # enumerate the arrival outcomes of b by walking down the stack
+            outs: List[Tuple[float, Tuple, Tuple, bool]] = []
+            st = list(stack); h = list(hd); gained = 0.0
+            while True:
+                top = st[-1]
+                # consuming choice 1: b attaches to the current top (root arc only once)
+                if top != 0 or not ru:
+                    h2 = list(h); h2[b] = top
+                    outs.append((gained + fin(A[top][b]), tuple(st + [b]), tuple(h2), ru or top == 0))
+                # consuming choice 2: hold b for a head still to come
+                outs.append((gained + E(b), tuple(st + [b]), tuple(h), ru))
+                # descend: pop the top (REDUCE if headed, LEFT-ARC if headless and b heads it); never pop the root
+                if top == 0:
+                    break
+                if h[top] != -1:
+                    st = st[:-1]                                   # REDUCE, free
+                else:
+                    gained += fin(A[b][top]) - (E(top) if INCR_NORM == "sum" else 0.0)    # LEFT-ARC: b heads the waiting word
+                    h = list(h); h[top] = b; st = st[:-1]
+            if INCR_NORM == "local":
+                # locally normalised: the outcomes of this arrival compete by softmax (label bias: measured 0.52 vs 0.63 on 25 sentences)
+                sc = np.array([o[0] for o in outs]) / max(temp, 1e-9)
+                lse = float(np.logaddexp.reduce(sc))
+                vals = [logp + float(x) - lse for x in sc]
+            else:
+                # "sum": every word carries exactly ONE score -- its attachment activation if attached, its hold expectation if still
+                # waiting (a LEFT-ARC replaces the waiting word's expectation by the realised activation: the -E[k] inside `gained`);
+                # analyses alive after word b are sums of b such terms and compare in the same currency without a normaliser.
+                vals = [logp + o[0] for o in outs]
+            for (g, st2, h2, ru2), val in zip(outs, vals):
+                key = (st2, h2, ru2)
+                if key not in nxt or val > nxt[key]:
+                    nxt[key] = val
+        states = sorted(((v, k[0], k[1], k[2]) for k, v in nxt.items()), key=lambda t: -t[0])[:beam]
+    # finalisation: words still waiting take the best open head (root once), by convention; counted as incomplete
+    best_logp, stack, hd, ru = states[0]
+    heads_out = list(hd); inc = 0
+    for j in range(1, n + 1):
+        if heads_out[j] == -1:
+            inc += 1
+            if not ru:
+                ru = True; heads_out[j] = 0; continue              # j is the root
+            cands = []
+            for hh in range(1, n + 1):
+                if hh == j:
+                    continue
+                k = hh; ok = True; seen = 0
+                while k and seen <= n:                            # hh must not sit below j
+                    if k == j:
+                        ok = False; break
+                    k = heads_out[k]; seen += 1
+                if ok:
+                    cands.append((fin(A[hh][j]), hh))
+            heads_out[j] = max(cands)[1] if cands else 0
+    if not ru:                                                    # no word took the root arc at all: the best root candidate does
+        r = max(range(1, n + 1), key=lambda j: fin(A[0][j])); heads_out[r] = 0
+    INCR_STATS["sentences"] += 1; INCR_STATS["incomplete_words"] += inc; INCR_STATS["words"] += n
+    # the beam posterior: alive analyses weighted by their probability
+    w = np.array([st[0] for st in states]) / max(temp, 1e-9); w = np.exp(w - w.max()); w /= w.sum()
+    post: Dict[int, Dict[int, float]] = {j: defaultdict(float) for j in range(1, n + 1)}
+    for wi, (lp, stck, hds, r_used) in zip(w, states):
+        for j in range(1, n + 1):
+            hj = hds[j] if hds[j] != -1 else heads_out[j]
+            post[j][int(hj)] += float(wi)
+    post = {j: dict(d) for j, d in post.items()}
+    return {j: int(heads_out[j]) for j in range(1, n + 1)}, post
+
+
+def decode(toks: Sequence[str], pos: Sequence[str], A: np.ndarray, n: int, temp: float = 1.0,
+           table: Optional[Dict[str, object]] = None) -> Tuple[Dict[int, int], Dict[int, Dict[int, float]]]:
     """Point heads + graded posterior under the configured decode, with the occupancy repair and the punctuation convention."""
-    if DECODE == "mbr":
+    if DECODE == "incr":
+        hv = hold_expectation(pos, table) + INCR_HOLD if INCR_HOLD_MODE == "expect" else INCR_HOLD
+        hd, post = incremental_tree(A, n, INCR_BEAM, hv, temp)             # module globals read at call time (sweepable)
+    elif DECODE == "mbr":
         hd, post = mbr_tree(A, n, temp)
     elif DECODE == "map1":
         hd = map_tree_single_root(A, n); post = single_root_marginals(A.copy(), n, temp)
