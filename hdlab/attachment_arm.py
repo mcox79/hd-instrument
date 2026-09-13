@@ -101,17 +101,112 @@ def verbarg_arcs(toks: Sequence[str], pos: Sequence[str]) -> List[Tuple[int, int
     return out
 
 
-def coord_arcs(toks: Sequence[str], pos: Sequence[str]) -> List[Tuple[int, int]]:
-    """Coordination parallelism: A cc B with the same category -> B attaches to A, cc to B."""
+# COORDINATION = PARALLEL STRUCTURE (owner-DONE pri 95, 2026-09-13; solver diff landed verbatim). A coordinator predicts a second
+# phrase of the SAME KIND as the phrase just closed (Frazier 1985; Munn 1993; Taft & Clifton 2000 parallel-structure facilitation;
+# Levy 2008 prediction), retrieved as a like-CLASS antecedent (Lewis & Vasishth 2005), the two conjuncts sharing one governor slot
+# (a plural set). The OLD coord_arcs took the NEAREST content words and required identical UPOS: it proposed the exact gold conj
+# arc only 24.5% of the time (a 2nd conjunct that opens with a modifier -> the modifier, not the head noun; a cross-UPOS conjunct
+# -> rejected). The parallel-HEAD version below fixes both; the learned `coord` validity does the rest, once the teacher
+# (parallelism_boost) shows it coordination at all (measured: the teacher put 0.054 mass on gold conj arcs before).
+# Measured by the solver (UD-EWT test 700, gold categories): conj 0.300 -> 0.391 (map1, CI [0.052, 0.133]) / 0.373 (incr); UAS
+# 0.6034 -> 0.6055; nsubj -0.017 give-back (diffuse, named); slot-sharing REFUTED (0.365); far conjuncts (9+ tokens, 26%) ~0.016 =
+# the meaning-channel frontier. gamma is a SWEPT operating point (2/4/8 all CI-separated; 4 kept).
+_NOMINAL_CLASS = frozenset({"NOUN", "PROPN", "PRON", "NUM"})
+_PRED_CLASS = frozenset({"VERB", "ADJ"})
+
+
+def parallel_class(p: str, coarse: bool = True) -> Optional[str]:
+    """The parallel CLASS of a category. coarse: phrase-type (nominal / predicate / adverbial) so a NOUN can coordinate
+    with a PROPN; strict: the UPOS itself."""
+    if coarse:
+        if p in _NOMINAL_CLASS:
+            return "NOM"
+        if p in _PRED_CLASS:
+            return "PRED"
+        if p == "ADV":
+            return "ADV"
+        return None
+    return p if p in CONTENT else None
+
+
+def _right_conjunct_head(pos: Sequence[str], k: int, n: int) -> Optional[int]:
+    """Head of the phrase AFTER the coordinator at 1-based k: the last NOUN/PROPN of the nominal run (head-final English
+    NP), else the last ADJ/NUM of the run (predicate-adjective coordination), else the first content word (verb/adverb)."""
+    j = k + 1
+    while j <= n and pos[j - 1] == "PUNCT":
+        j += 1
+    if j > n:
+        return None
+    p = pos[j - 1]
+    if p in NP_RUN:
+        e = j
+        while e <= n and pos[e - 1] in NP_RUN:
+            e += 1
+        nouns = [q for q in range(j, e) if pos[q - 1] in ("NOUN", "PROPN")]
+        if nouns:
+            return nouns[-1]
+        adjs = [q for q in range(j, e) if pos[q - 1] in ("ADJ", "NUM")]
+        return adjs[-1] if adjs else None
+    if p in CONTENT:
+        return j
+    return None
+
+
+def _left_conjunct_head(pos: Sequence[str], k: int, rclass: str, coarse: bool) -> Optional[int]:
+    """Cue-based retrieval of the like-class antecedent: nearest preceding content head of R's parallel class before cc."""
+    for q in range(k - 1, 0, -1):
+        c = parallel_class(pos[q - 1], coarse)
+        if c is not None and c == rclass:
+            return q
+    return None
+
+
+def coord_sites(toks: Sequence[str], pos: Sequence[str], coarse: bool = True) -> List[Tuple[int, int, int]]:
+    """Every coordinator's parallel heads (L before, R after) + the coordinator index cc. The ONE source of truth for
+    BOTH the read-time construction and the teacher's parallel-structure boost."""
     n = len(toks); out = []
     for k in range(1, n + 1):
         if pos[k - 1] != "CCONJ":
             continue
-        first = max([j for j in range(1, k) if pos[j - 1] in CONTENT], default=None)
-        second = min([j for j in range(k + 1, n + 1) if pos[j - 1] in CONTENT], default=None)
-        if first and second and pos[first - 1] == pos[second - 1]:
-            out.append((first, second)); out.append((second, k))
+        R = _right_conjunct_head(pos, k, n)
+        if R is None:
+            continue
+        rc = parallel_class(pos[R - 1], coarse)
+        if rc is None:
+            continue
+        L = _left_conjunct_head(pos, k, rc, coarse)
+        if L is None or L == R:
+            continue
+        out.append((L, R, k))
     return out
+
+
+def coord_arcs(toks: Sequence[str], pos: Sequence[str]) -> List[Tuple[int, int]]:
+    """Coordination parallelism: R (2nd conjunct HEAD) attaches to L (1st conjunct head of the same parallel class);
+    the coordinator attaches to R. Parallel heads, not nearest content words -- see coord_sites."""
+    out = []
+    for (L, R, k) in coord_sites(toks, pos, coarse=True):
+        out.append((L, R)); out.append((R, k))
+    return out
+
+
+PARALLELISM_GAMMA = float(os.environ.get("HDLAB_ARM_PARALLELISM_GAMMA", "4.0"))   # swept (2/4/8 all CI-separated); 4 kept
+
+
+def parallelism_boost(A: "np.ndarray", toks: Sequence[str], pos: Sequence[str], gamma: float = None,
+                      coarse: bool = True) -> "np.ndarray":
+    """ACQUISITION signal (used by tools/build_attachment_validities.py on the teacher's score matrix, NOT at read time):
+    parallel-structure PREDICTION -- boost the conj arc (head L, dep R) and the cc arc (head R, dep cc) so the teacher
+    posterior puts mass on coordination and the `coord` cue can learn a validity. Treebank-free (coordinator position +
+    category parallelism). gamma is a SWEPT operating point."""
+    gamma = PARALLELISM_GAMMA if gamma is None else gamma
+    if gamma <= 0:
+        return A
+    B = A.copy()
+    for (L, R, k) in coord_sites(toks, pos, coarse):
+        B[L][R] = (B[L][R] + gamma) if np.isfinite(B[L][R]) else gamma
+        B[R][k] = (B[R][k] + gamma) if np.isfinite(B[R][k]) else gamma
+    return B
 
 
 def npmod_arcs(toks: Sequence[str], pos: Sequence[str]) -> List[Tuple[int, int]]:

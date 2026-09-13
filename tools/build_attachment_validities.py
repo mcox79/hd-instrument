@@ -156,7 +156,10 @@ def main(argv=None) -> int:
     tmarg = {}
     counts = AA.new_counts()
     for i, (toks, pos, _, _) in enumerate(train):
-        A, n = teacher._score_matrix(toks, pos); mt = single_root_marginals(A, n, 1.0); tmarg[i] = mt
+        A, n = teacher._score_matrix(toks, pos)
+        A = AA.parallelism_boost(A, toks, pos)        # PARALLEL-STRUCTURE PREDICTION as a teaching signal (owner-DONE pri 95, 2026-09-13):
+        #                                              the co-occurrence + semantic teacher was coordination-blind (0.054 mass on gold conj arcs)
+        mt = single_root_marginals(A, n, 1.0); tmarg[i] = mt
         AA.accrue_sentence(counts, AA.SentenceCues(toks, pos, frames, pp_assoc), mt)
     table = {"counts": counts, "frames": frames, "pp_assoc": pp_assoc, "strength": AA.strengths_from_arc_counts(counts)}
     print("round 0 accrued (%d sentences) in %.0fs" % (len(train), time.time() - t0), flush=True)
