@@ -8,6 +8,20 @@ site under `hdlab/` plus the board (`exp_situation_model_qa_modern_v1.py`); ever
 board arm named beside it. Extend this file for every future upstream change (one section per changed organ).
 
 ## 0. Top of the live substrate: what the reader emits
+
+**0a. TOKENS (enumerated 2026-09-13, overnight 1a).** Board reads (`situation_reader.read(conll_path)`) take TOKENS from the corpus
+files' own tokenization = an instrument convention (like gold sentence splits), not a computation of ours. Raw-text entry points use
+local regex tokenizers (`definitional_extraction._TOKEN_RE`, `quality_proxy.TOKEN_RE`, `temporal_model._TOKEN_RE`, the grower's) --
+glass-box, no nltk/spaCy; `hdlab.frontend.tokenize` is now the ONE tokenizer they should converge on (consolidation item). Remaining
+`nltk` imports in hdlab (12 modules: grounded_semantic_graph, patient_tendency, goal_outcome_relation, force_dynamics_valence,
+definitional_extraction, causation_typing, state_register, predicate_argument_frontend, goal_achievement, director_kb,
+underspecified_sense_reader, structured_matcher) are WordNet/VerbNet SYNSET/taxonomy lookups = offline foundation assets; NONE is on
+the tokenize -> categories -> lemma -> heads path any more (morphology: `hdlab.morphology`; categories: `hdlab.lexical_categories`;
+heads: `hdlab.attachment_arm` behind `hdlab.frontend`).
+**0b. THE LIVE CHAIN'S ORGANS (2026-09-13):** tokens (corpus / `frontend.tokenize`) -> categories `lexical_categories` (BF_SPIRIT,
+count-based, graded posterior; reading-acquisition arm `tools/build_lexical_categories_from_reading.py`) -> lemma `morphology` (BF)
+-> heads `attachment_arm` (BF_SPIRIT; semantic bootstrapping; self-grown plausibility; graded category hand-off; switch
+`HDLAB_HEADS_SOURCE`) -> roles `graded_role_assigner.coarse_roles` (reads P(head)) -> entities / state register / consumers.
 `SituationReader.read()` → `sm` with the board-scored dimensions (coref, salience, common-noun coref, who-did-what agent /
 patient, state, word sense) + the new-arm dimensions (affect harm/help, affected entity, causal sign, temporal, spatial,
 negation, goals, beliefs, …). Every upstream organ below feeds one or more of these through the chains listed.

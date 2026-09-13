@@ -29,6 +29,16 @@ HEADS_SOURCE = os.environ.get("HDLAB_HEADS_SOURCE", "arceager")
 _POS_ASSET = os.path.join(_REPO, "data", "frontend_assets", "pos_tagger_ud_ewt_upos.json")
 
 
+import re as _re
+_TOKEN_RE = _re.compile(r"[A-Za-z]+(?:'[A-Za-z]+)?|[0-9]+(?:[.,][0-9]+)*|[^\sA-Za-z0-9]")
+
+
+def tokenize(text: str) -> List[str]:
+    """The ONE glass-box tokenizer for raw-text entry points (letters with internal apostrophes, numbers, single punctuation marks).
+    Board reads take tokens from the corpus files (instrument convention); raw-text paths should converge on this. No nltk/spaCy."""
+    return _TOKEN_RE.findall(text)
+
+
 class ParseOut(NamedTuple):
     heads: Dict[int, int]                       # dep (1-based) -> head (1-based), 0 = ROOT
     margins: Dict[int, float]                   # per dependent: P(best) - P(second) (attachment arm) or the parser's margin
@@ -108,4 +118,4 @@ def describe() -> str:
     return "frontend: categories=%s heads=%s" % (TAG_SOURCE, HEADS_SOURCE)
 
 
-__all__ = ["Tagger", "Parser", "ParseOut", "tagger", "parser", "describe", "TAG_SOURCE", "HEADS_SOURCE"]
+__all__ = ["tokenize", "Tagger", "Parser", "ParseOut", "tagger", "parser", "describe", "TAG_SOURCE", "HEADS_SOURCE"]
