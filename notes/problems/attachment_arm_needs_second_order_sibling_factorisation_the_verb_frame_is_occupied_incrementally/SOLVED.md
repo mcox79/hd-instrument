@@ -5,7 +5,7 @@ bar: "patient-arm score up CI-separated over the current read, agent not down, o
 result: "A VERB-FRAME SLOT-OCCUPANCY (capacity-one) factor for the Competition-Model coarse role labeler (graded_role_assigner.coarse_roles): a verb's nominal dependents are labelled JOINTLY, one filler per core frame slot (subject/object/recipient/by-agent), assigned by confidence; a displaced core filler falls to an oblique/adjunct. object-role PRECISION on UD-EWT test (n=700 sentences): under GOLD heads (isolating the labeler rung) floor 0.8180 -> occ 0.8396 = +0.0217 CI95[+0.0078,+0.0364] CI-SEPARATED, OBJ recall not hurt (0.9392->0.9418), overall accuracy a tie (+0.0012 CI[-0.0015,+0.0039]). FORM MATTERS: the HARD capacity-one form (occ_hard) is the winner; the soft incremental form over-suppresses at realistic head quality. On the LIVE SUPERVISED parse (arceager, UAS~0.78, the deployed heads) occ_hard lifts OBJ precision 0.6326 -> 0.7000 = +0.0674 CI95[+0.0436,+0.0899] CI-SEPARATED, twin far below (0.6021), overall accuracy UP (0.737->0.745); the incremental form there is only +0.010 (CI incl 0) and costs accuracy. On the BF attachment_arm heads (UAS~0.60) even occ_hard is only +0.001 (CI incl 0) -- too weak a sibling set. So the object-role-precision win is REAL and CI-separated on the deployed parse (hard form) and scales with head accuracy: attachment-0.60 ~0 -> supervised-0.78 +0.067 -> gold +0.015 (less headroom). This label-quality win is BOARD-INVISIBLE on the who-did-what arms: the PATIENT arm (structural_patient_pick, cap 300) is UNCHANGED by occ_hard (0.7469 both) because that reader resolves the patient via its own precise-voice+valency logic and does not depend on the coarse OBJ label being unique; the AGENT arm is byte-identical (does not read coarse_roles); the 596 undergoer decision is null (not double-object-dominated). LOCATED NEGATIVE: the mechanism is brain-foundational and delivers a CI-separated object-role-precision gain on the deployed parse (hard form), but (1) it needs a good-enough parser -- it washes out at the BF attachment arm's UAS~0.60 and returns at the supervised UAS~0.78 (the head-quality curve), and (2) the who-did-what decision readers already absorb the double-object case downstream, so the label win needs its OWN instrument (object-role precision) to be visible -- not the existing board arms."
 floor: "The current independent-argmax coarse_roles (arc_labeler.COMPETITION_ROLES overlay, learned UD-EWT-train cue validities): OBJ precision 0.8180 (gold heads), 0.6393 (attachment_arm map1 heads), 0.6281 (attachment_arm incr heads), n=700 UD-EWT test sentences. Overall coarse-role accuracy floor 0.9175 (gold) / 0.7305 (map1) / 0.7218 (incr)."
 controls: "(1) INFO-FREE TWIN = the slot-capacity counts shuffled across slots AND the learned verb frames (which verbs license a recipient) permuted across lemmas -- the masking+occupancy machinery still runs, on scrambled slot knowledge. Twin OBJ precision is CI-SEPARATED BELOW occupancy in every condition (gold occ-twin +0.0488 CI[+0.029,+0.070]; map1 +0.0384 CI[+0.022,+0.057]; incr +0.0405 CI[+0.022,+0.061]) and below the FLOOR too -> the gain is the LEARNED slot structure, not an animacy/relabel artifact (guards store correction C21: animacy alone must not reproduce it). (2) GOLD-HEAD ORACLE vs predicted heads = the upstream-input ablation: the mechanism wins CI-sep on gold heads and washes out on UAS-0.60 heads -> isolates the loss to the heads rung. (3) TWO MECHANISM FORMS: occ_incr (soft incremental, the psycholinguistic 'occupied-incrementally' regime) and occ_hard (hard capacity-one greedy) -- both beat the floor CI-sep on gold heads (occ_hard +0.0146 CI[+0.003,+0.027]); incremental is the stronger. (4) The slot-capacity counts themselves are the control on the premise: a verb takes 2 objects 0/9516, 2 recipients 0/647, 2 by-agents 0/306, 2 subjects 84/13048 -- capacity-one is IN the counts. (5) HEAD-CORRUPTION CURVE (gold heads degraded by random reattachment, same n=700): the occ_hard gain stays CI-separated down to simulated UAS 0.61 (+0.016 [+0.002,+0.031] at f=0.40) -- so the mechanism is robust to RANDOM head noise; the real attachment arm nulls it only because its errors are STRUCTURED in the core-argument arcs. This isolates the upstream requirement to core-argument attachment, not global UAS."
-files_changed: "experiments/exp_role_slot_occupancy_v1.py, notes/problems/attachment_arm_needs_second_order_sibling_factorisation_the_verb_frame_is_occupied_incrementally/{SOLVED.md,graded_role_assigner_patch.diff}"
+files_changed: "experiments/exp_role_slot_occupancy_v1.py, notes/problems/attachment_arm_needs_second_order_sibling_factorisation_the_verb_frame_is_occupied_incrementally/{SOLVED.md,graded_role_assigner_patch.diff,RESEARCH_pp_attachment_bf_lever.md}"
 reverify: ".venv/Scripts/python.exe experiments/exp_role_slot_occupancy_v1.py --self-test"
 ---
 
@@ -208,5 +208,48 @@ F3's coarse role competition currently labels each nominal INDEPENDENTLY (per-to
 verb frame imposes CAPACITY ONE per core slot; this factor adds that (frame-conditioned, count-derived,
 online-observable). Proposed as `graded_role_assigner_patch.diff`. The measured live cap is the heads rung
 (attachment arm UAS), consistent with the affected-entity signal-loss ledger.
+
+## COMPONENTS TOUCHED + BF STATUS
+CREATED (mine, in scope):
+- `experiments/exp_role_slot_occupancy_v1.py` -- the mechanism (hard/soft/incr occupancy, frame-conditioned
+  slots, count-derived capacity), the UD-EWT object-role-precision harness (gold / supervised / attachment
+  map1+incr heads), the info-free twin, the gold-head oracle, the head-corruption curve, the graded-hand-off
+  tau sweep, the head-error anatomy, and the 596/board decision hooks. Self-test 9/9. BF (all cues glass-box,
+  counts, no external tool at inference).
+- `notes/problems/<slug>/SOLVED.md`, `.../graded_role_assigner_patch.diff` (proposed hdlab change; strategy lands).
+READ / MEASURED-THROUGH (not modified):
+- `hdlab/graded_role_assigner.coarse_roles` (F3 thematic roles) -- **BF_SPIRIT** (Competition Model, learned
+  cue validities). The organ this work extends (adds the verb-frame capacity factor).
+- `hdlab/attachment_arm` (heads rung) -- **BF_SPIRIT** (reading-learned cue competition + Hindle-Rooth pp
+  association + semantic bootstrapping). The measured upstream BOTTLENECK: OBL/PP-attachment head-acc 0.439.
+- `hdlab/lexical_categories` (tagger, live default) -- **BF_SPIRIT** (count-based generative categories). Not
+  the bottleneck.
+- `hdlab/arc_labeler.label` (COMPETITION_ROLES overlay) -- **NOT_BF** for fine non-argument relations; the
+  argument roles it serves are the BF `coarse_roles` competition. The path the occupancy factor flows through.
+- `hdlab/predicate_argument_frontend.structural_patient_pick`, `exp_board_patient_slot_v1`,
+  `exp_board_agent_slot_ud_v1`, `probe_coarse_role_labeler_v13` -- consumers/instruments, read-only.
+- Upstream, still **NOT_BF**: lemma normalization via WordNet `morphy` at inference (pri-12) -- part of a
+  strictly-100%-BF chain, separate defect.
+
+## PRIORITY NEXT STEPS
+1. **[HIGH] Attachment-arm OBL/PP-attachment accuracy (the one blocker to a superior all-BF stack).** Head-acc
+   0.439, verb-vs-noun host confusion (208 to-noun errors). PATH A ATTEMPTED THIS ARC (2026-09-13, owner-directed;
+   RESEARCH_pp_attachment_bf_lever.md):
+   - ORACLE CEILING (probe): fixing core-arg heads to gold (nom-UAS 0.58->0.81) makes the occupancy win
+     CI-separated on the all-BF stack (+0.0156 CI[+0.004,+0.028]) -> the lever is REAL and SUFFICIENT.
+   - LEVER C (data-scale the landed lexical Hindle-Rooth pp cue from 150k Simple-Wiki sentences): REFUTED --
+     OBL head-acc 0.4429 -> 0.4480 (+0.005, CI incl 0), enriched~=twin. Sparsity is NOT the constraint; the
+     cue's learned validity caps its decode influence.
+   - REMAINING LEVER (structural, = the pri-15-17 attachment-arm problem): SEMANTIC-CLASS backoff
+     (Resnik/Stetina-Nagao: re-key the pp cue lemma->induced-category, change pp_lr) + verb-subcategorization
+     prepositions + prep-object class + cue re-weighting. A multi-lever parser rebuild, not a role-side prototype.
+   With core-arg attachment fixed, THIS role component (already proven) makes the all-BF stack superior unchanged.
+2. **[MED] Land the occupancy factor (graded_role_assigner_patch.diff).** Soft form when a head posterior is
+   available, hard form otherwise. It is a CI-separated object-role-precision win now (supervised +0.067).
+3. **[MED] Give object-role precision its own board dimension.** The win is board-invisible on who-did-what
+   (the patient reader absorbs double-objects); it needs its own instrument to be visible to the board.
+4. **[LOW] Case-protect an obj-case pronoun's core-slot claim** in the hard greedy (the documented stranding
+   edge case), or default to the soft form.
+5. **[LOW] Upstream lemma morphology** WordNet-morphy -> glass-box (pri-12), for a strictly-100%-BF chain.
 
 ## hdlab proposal (Q111 -- strategy lands): graded_role_assigner_patch.diff (this folder).

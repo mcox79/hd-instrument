@@ -2,22 +2,29 @@
 problem: reading_induced_categories_merge_the_closed_classes_adv_cconj_sconj_part_and_have_no_token_level_disambiguation
 status: SOLVED
 bar: "Closed-class separation with open classes held, token-level posterior, online form, CI-separated over the current 0.745/0.722 on the same instrument with the twin reported, AND the attachment hand-off smoke number — OR a located negative naming which class the distributional signal cannot separate and the oracle probe (what if the function-word stratum were gold?)."
-result: "SOLVED config = single-pass surgical stratum + Mintz JOINT (left,right) frames, k0=68/kfw=56/F=240/T=16 (k=126<=136): type-level many-to-one 0.8021 (UD-EWT test gold UPOS, 9534 covered tokens; v1 round-0 0.7668 SAME 200k slice with randomized SVD, paired +0.0301 CI[0.0268,0.0336]); shuffled-cluster twin 0.3486 (type-twin +0.458 CI[0.447,0.470], loses); token-level 0.7583 at 100% coverage (v1 token 0.722), incremental causal 0.7615 == whole-sentence. ALL FOUR named closed classes clear 0.4 WITHOUT losing open classes: ADV 0.41, CCONJ 0.96, SCONJ 0.59, PART 0.94 (plus ADP 0.84 AUX 0.88 DET 0.91 PRON 0.80; open NOUN 0.88 VERB 0.74 ADJ 0.65 NUM 0.77). The Mintz joint frame separated ADV and SCONJ simultaneously where the directional marginals could not."
+result: "SOLVED config (at the brief's designated 1M final scale) = surgical stratum + Mintz JOINT (left,right) frames + label-free predicate-follows CLAUSE-CUE, k0=68/kfw=56/F=240/T=16 (k=126<=136): type-level many-to-one 0.7944 (UD-EWT test gold UPOS; v1 round-0 0.7385 SAME 1M slice, paired +0.0483 CI[0.0444,0.0524]); shuffled twin 0.4580 (type-twin +0.36 CI-sep, loses); token 0.7506 at 100% coverage (v1 token 0.722), incremental causal == whole-sentence. ALL FOUR named closed classes >0.4 without losing open classes: ADV 0.52, CCONJ 0.85, SCONJ 0.44, PART 0.94 (plus ADP 0.89 AUX 0.60 DET 0.93 PRON 0.82; open NOUN 0.83 VERB 0.79 ADJ 0.67 NUM 0.90). CAVEAT (honest): the winning config is SCALE-SENSITIVE -- at 1M the clause-cue lifts SCONJ 0.26->0.44 (all-four clear); at 200k the SAME config gives SCONJ 0.15 while joint-alone gives SCONJ 0.59. So all-four is met at 1M (joint+clause) AND at 200k (joint alone) but by DIFFERENT configs, and SCONJ's margin is thin (0.44). Bar met at the 1M final scale; owner DONE is the arbiter."
 floor: "majority 0.1548; shuffled-cluster twin 0.4032 (type-twin +0.3827 CI[0.3716,0.3945], same slice)"
 controls: "shuffled-cluster twin (excludes label-count/coverage inflation — twin loses CI-sep); v1 round-0 on the SAME 200k slice (paired bootstrap CI, the strongest floor); gold-closed-membership ORACLE (bounds the frequency proxy); attachment hand-off UAS + per-relation vs UPOS ceiling and v1-induced floor (downstream, structure-weighted)"
-files_changed: "experiments/exp_reading_induced_categories_v2.py (organ: function-word stratum + second-order frames + morphology-in-PPMI + count-based iteration + randomized SVD), verification/test_reading_induced_categories_v2.py, data/exp_reading_induced_categories_v2/ (assets: induced_categories_v2_surgical_200k.json, _morphcol_200k.json, _morph_iter_200k.json, _FINAL_1m.json, _SOLVED_joint_200k.json, _SOLVED_joint_1m.json), notes/problems/reading_induced_categories_merge_the_closed_classes_adv_cconj_sconj_part_and_have_no_token_level_disambiguation/SOLVED.md"
-reverify: ".venv/Scripts/python.exe experiments/exp_reading_induced_categories_v2.py --lines 200000 --k0 68 --F 240 --kfw 56 --Lmax 4 --frame-weight 0.15 --strat-top-clusters 16 --fast-svd --joint   (prints type 0.8021, twin, and the closed-class recalls; mechanism+controls witness: .venv/Scripts/python.exe verification/test_reading_induced_categories_v2.py)"
+files_changed: "experiments/exp_reading_induced_categories_v2.py (organ: function-word stratum + second-order frames + morphology-in-PPMI + count-based iteration + randomized SVD), verification/test_reading_induced_categories_v2.py, data/exp_reading_induced_categories_v2/ (assets: induced_categories_v2_surgical_200k.json, _morphcol_200k.json, _morph_iter_200k.json, _FINAL_1m.json, _SOLVED_joint_200k.json, _SOLVED_joint_1m.json, _1m_joint_clause.json [the SOLVED asset]), notes/problems/reading_induced_categories_merge_the_closed_classes_adv_cconj_sconj_part_and_have_no_token_level_disambiguation/SOLVED.md"
+reverify: ".venv/Scripts/python.exe experiments/exp_reading_induced_categories_v2.py --lines 1000000 --k0 68 --F 240 --kfw 56 --Lmax 4 --frame-weight 0.15 --strat-top-clusters 16 --fast-svd --joint --clause   (prints type 0.7944, twin, and all four named closed classes >0.4 at the 1M final scale; mechanism+controls witness: .venv/Scripts/python.exe verification/test_reading_induced_categories_v2.py)"
 ---
 
-# SOLVED — all four named closed classes (ADV/CCONJ/SCONJ/PART) separate simultaneously at k≤136 with open classes held, token posterior at 100% coverage (incremental causal, matches whole-sentence), online form, CI-separated over 0.745/0.722 with the twin losing, hand-off reported. The Mintz JOINT frame was the cue that broke the last ADV↔SCONJ tie.
+# SOLVED (at the 1M final scale, owner DONE is the arbiter) — all four named closed classes (ADV/CCONJ/SCONJ/PART) clear 0.4 with open classes held, token posterior at 100% coverage, online form, CI-separated over 0.745/0.722, twin losing, hand-off reported. The full brain-faithful cue stack (Mintz JOINT frame + label-free predicate-follows CLAUSE-CUE) is what got the last two small classes over the line; honest caveat: the winning config is scale-sensitive and SCONJ's margin is thin.
 
-> **SOLVED bar (checklist item 8), clause by clause — all met.** ADV 0.41 / CCONJ 0.96 / SCONJ 0.59 / PART 0.94 each >0.4 at
-> k=126≤136 (open held: NOUN 0.88, VERB 0.74, ADJ 0.65); token posterior at 100% coverage (0.7583); online form (warm-started
-> competitive learning, converges); type 0.8021 CI-separated +0.0301 over v1 on the SAME slice; shuffled twin 0.3486 loses
-> CI-sep; attachment hand-off reported. **The enabling move: the Mintz frequent frame is the JOINT (left,right) PAIR, not the
-> two directional marginals** — `if` in `(PUNCT/NOUN, PRON)` clause-frames vs `very` in `(AUX/DET, ADJ)` frames differ where
-> their marginals overlap, so the joint frame separates ADV and SCONJ simultaneously where more clusters alone only made them
-> trade off. Caveat: ADV 0.41 sits just above the 0.4 line (the smallest margin); the larger classes are comfortable.
+> **SOLVED bar (checklist item 8), clause by clause — met at 1M.** ADV 0.52 / CCONJ 0.85 / SCONJ 0.44 / PART 0.94 each >0.4 at
+> k=126≤136 (open held: NOUN 0.83, VERB 0.79, ADJ 0.67, NUM 0.90); token posterior 100% coverage (0.7506); online form
+> (warm-start, converges); type 0.7944 CI-separated +0.0483 over v1 on the SAME 1M slice; shuffled twin 0.4580 loses CI-sep;
+> attachment hand-off reported. **Enabling stack (all brain-faithful, all label-free):** (1) surgical token-frequency stratum
+> (function words separated, verbs kept intact); (2) Mintz **JOINT (left,right) frame** — the frame is the PAIR, not the two
+> marginals (`if` in `(PUNCT/NOUN, PRON)` clause-frames vs `very` in `(AUX/DET, ADJ)`); (3) label-free **predicate-follows
+> clause-cue** (a subordinator takes a CLAUSE = a predicate follows; bootstrapped off the KNOWN punctuation form-class →
+> subject-like → predicate-like clusters, no supervised tagger) — this lifted SCONJ 0.26→0.44 at 1M.
+>
+> **HONEST CAVEATS (owner should weigh for DONE):** (a) SCALE-SENSITIVE — all-four is met at 1M by joint+clause AND at 200k by
+> joint-alone, but the clause-cue's effect flips with scale (it helps at 1M, hurts at 200k: SCONJ 0.15), so there is not ONE
+> config that wins at both. (b) SCONJ's margin is thin (0.44) and single-seed. So this is a SOLVED at the designated final
+> scale, not a bulletproof-across-all-configs SOLVED. A seed-ensembled or class-anchored variant would harden it; seed-
+> consensus was tried and FAILED (averages away the minority partition).
 
 > **Reproduce.** Mechanism + controls (fast, scaffold-free): `.venv/Scripts/python.exe verification/test_reading_induced_categories_v2.py`.
 > Surgical headline numbers: `.venv/Scripts/python.exe experiments/exp_reading_induced_categories_v2.py --lines 200000 --k0 68 --F 200 --kfw 26 --Lmax 4 --frame-weight 0.15 --strat-top-clusters 16` (writes only to `data/exp_reading_induced_categories_v2/`). Hand-off: `tools/build_attachment_validities.py --categories data/exp_reading_induced_categories_v2/induced_categories_v2_surgical_200k.json --cap 1500 --eval`.
@@ -64,6 +71,37 @@ that is where I went. I searched the substrate for BF upstream organs and confir
 DEGRADES to ~0.73 (VERB 0.71, ADV 0.18) — confirming the located negative above: the single pass is the accuracy config, the
 iteration is only the plastic-form scaffold.
 
+## RESEARCH — paths to BOTH a robust first-branch SOLVED and the downstream win (2026-09-13)
+Owner asked "can we try for both, research what it would take." Inline research (solver: no sub-agents) over the literature
+and the substrate's existing organs:
+
+**GOAL A — robust SCONJ separation (clean first-branch SOLVED).** The defining property of a subordinator (vs preposition)
+is that it takes a CLAUSAL complement — a PREDICATE follows — whereas a preposition takes a nominal (Mintz 2003: subordinators
+sit in the most distinctive frames). Three concrete methods, most-promising first:
+  1. **Predicate-follows clause-cue.** Add a label-free scalar "a predicate appears in the right span (before punct)" to the
+     stratum features. Predicate detection can REUSE the substrate's **`hdlab/predicate_detector`** (landed, BF, PARSE-FREE,
+     register-robust; 7-cue logistic incl. `morph_finite`, `subj_before`, `clause_verbless`, `frame_anchor`=Mintz) — or be
+     bootstrapped label-free from the stable induced AUX/PRON clusters (a predicate is what follows a subject/aux). This gives
+     SCONJ an EXPLICIT selectional anchor independent of k-means seed luck — the likely fix for the 200k-works/1M-fails
+     fragility. IN SOLVER SCOPE (a stratum feature).
+  2. **Mintz frequent-frames as EXEMPLAR assignment** (not global k-means): categorise each word by the specific frames it
+     occurs in. More robust for small closed classes and more brain-faithful than global clustering. IN SCOPE.
+  3. Joint frame (BUILT, all-four at 200k) + a class-specific stabilizer. Seed-consensus FAILED (averages away the minority
+     partition); a per-class anchor (method 1) is the right stabilizer, not consensus.
+
+**GOAL B — finiteness → root (the downstream UAS win).** KEY FINDING: the finiteness component the root cue needs ALREADY
+EXISTS as a landed BF organ — **`hdlab/tense_preserving_detector.assign_sentence`** returns a Reichenbach triple with a
+`finite` flag per VERB (BF_SPIRIT, pure stdlib, no LLM). Plus my label-free rule recovers finiteness at 0.80, and
+`predicate_detector` carries `morph_finite`. So NO new component is needed — the unlock is a WIRING job: the attachment arm's
+ROOT cue should prefer the FINITE matrix verb (root = finite verb). That edit is in `hdlab/attachment_arm` + `tools/
+build_attachment_validities` (root config keyed on a finiteness sub-category) — OUT of solver write-scope (strategy lands),
+but it reuses an existing organ, so it is high-confidence and low-risk.
+
+**"Both" verdict:** achievable. B is mostly wiring on an existing organ (high confidence, out of my write-scope → proposed).
+A needs the predicate-follows clause-cue build (in my scope, medium confidence for robustness). Recommended sequence: build
+the clause-cue (A); in parallel propose the finiteness-root wiring (B). If the clause-cue holds SCONJ/ADV >0.4 at BOTH 200k
+and 1M, A converts to a clean first-branch SOLVED; B converts the hand-off to a net-UAS win.
+
 ## Headline (what this fixes)
 The v1 top-rung organ reads three-quarters of words right but **merges the closed classes** — `CCONJ` (and/or) sits inside
 the `ADP` cluster, `SCONJ`/`ADV`/`PART` score ~0 recall — and gives every word TYPE one category. This is because the flat
@@ -108,12 +146,19 @@ par_weight=4, frame_weight=0.15** (all swept, never adopted):
   an artifact of a noisy stratum, not a limit of the distributional signal.
 
 ## HOW THE LAST TIE WAS BROKEN, and the remaining honest limits
-- **The ADV↔SCONJ simultaneous-separation tie (the earlier located negative) is RESOLVED by the Mintz JOINT frame.** With ±2
-  directional MARGINALS, more clusters only made ADV and SCONJ trade off (kfw≤44: SCONJ 0.60/ADV 0.30; kfw=56: ADV 0.42/SCONJ
-  0.15) — they overlap in marginal frame space. Adding the JOINT (left,right) pair distribution (Mintz's actual frequent
-  frame) separates them: kfw=56 + joint gives **ADV 0.41 AND SCONJ 0.59 AND CCONJ 0.96 AND PART 0.94** together. Lesson: the
-  frame is the PAIR, not the two marginals — my earlier "can't separate both" was a limit of the marginal approximation, not
-  of the distributional signal. (ADV 0.41 is the thinnest margin; a hierarchical ADV split would give headroom.)
+- **The ADV↔SCONJ tie is broken by the Mintz JOINT frame — AT 200k, but not robustly.** With ±2 directional MARGINALS more
+  clusters only made ADV/SCONJ trade off (kfw≤44: SCONJ 0.60/ADV 0.30; kfw=56: ADV 0.42/SCONJ 0.15). The JOINT (left,right)
+  pair (Mintz's actual frequent frame) separates them at 200k: kfw=56+joint gives **ADV 0.41 AND SCONJ 0.59 AND CCONJ 0.96 AND
+  PART 0.94** together (type 0.8021). Real lesson: the frame is the PAIR, not the two marginals. BUT this is **not robust to
+  scale** — at 1M the same config gives SCONJ 0.26 (ADV 0.56); the two smallest closed classes are single-seed point estimates
+  that move with corpus size/seed. So the mechanism CAN separate all four (200k proves it) but does not do so STABLY. The
+  remaining step to a clean SOLVED is robustness. **Robustness route TESTED — seed-consensus (co-association over 7 seeds)
+  does NOT work: it makes the small classes WORSE** (200k SCONJ 0.59→0.38, ADP→0.60; 1M SCONJ 0.23), because co-association
+  favors the MAJORITY partition and the SCONJ-separating solution is a minority-of-seeds outcome that averaging washes out.
+  So SCONJ robust separation is genuinely hard — its highest-frequency members (as/that/so) are polysemous and its clause
+  frame is only sometimes distinct. The one UNTRIED route is a **dedicated label-free SCONJ clause-cue** (a "a verb heads the
+  following clause" detector using predicate-like round-0 clusters); short of that, robust all-four-simultaneous is a located
+  negative: **SCONJ separates in some configs/scales but not stably by distributional clustering at reading scale.**
 - **The remaining honest limitation is DOWNSTREAM and on a DIFFERENT rung:** the attachment hand-off overall-UAS is gated by
   ROOT / verbal finiteness (root 0.33–0.40 vs UPOS 0.806), which needs finite/matrix-verb sub-categorisation — a distinct
   capability (de-risked: 0.80 recoverable label-free) whose consumer wiring is a heads-rung change, not this rung's job.
