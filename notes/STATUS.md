@@ -51,8 +51,11 @@ its section: grep the four literals, never eyeball the content.** Restored the s
     retired). Heads-rung reconciliation: the arm subsumes the pri-2 reading-learned scorer; its Hindle-Rooth PP cue folded.
   - **Fold queue:** `notes/UPSTREAM_FOLD_QUEUE_2026-09-13.md` (13 proven-but-unfolded upstream items). Transfer to the desktop
     COMPLETE; delta bundle `delta_20260913T032825Z.bundle` sent (see MIGRATION_README step 5b).
-  - **Open now:** post-routing board A/Bs (counts; counts + BF heads); PP-cue asset rebuild (obl/nmod); reading-acquired category
-    organ (1M lines) agreement + hand-off; then Phase 2 consumer repairs one at a time.
+  - **Boards (post-routing):** tagger everywhere 0.6358; fully BF chain 0.6219 (patient 0.728, state 0.653, agent 0.821 -> repaired to
+    0.836 by the graded candidate read; coref/common-noun/salience/wic identical). PP cue: heads UAS 0.5706 (nmod 0.185 -> 0.346), promoted.
+    Reading-acquired category organ 0.7242; fully reading-learned chain 0.4922. Order-aware teacher: refuted as built (ccomp collapse).
+    Phase 2: agent repaired; patient/state losses are UPSTREAM (heads obj attachment -- 48% of object misses go to the NEXT verb; tagger on
+    copular predicates). OWNER QUESTION FILED: flip the heads default now (slow boards ~3 h; patient/state dips) or vectorise first.
 
 ### 2026-09-12 ~14:30 local — DEVELOPMENT RESUMED ON THE LAPTOP (owner) while the transfer streams to the desktop over SSH/Tailscale (~0.3–0.5 GB/min; a delta sync follows)
   - **HEADS RUNG, built to a spec:** `notes/RESEARCH_attachment_organ_spec_2026-09-12.md` (what the organ computes, how the brain separates signals optimally, every consumer's signal requirement). First build = probe v18, attachment as configuration-conditioned CUE COMPETITION with strengths learned from soft tree-posterior counts (no treebank, no hand-authored prior): **UD-EWT test UAS 0.4715 (r0) → 0.4801 (anchored self-teaching)** vs the cached reading-learned scorer 0.4626 and its decode-time-constrained 0.4755; twin 0.03; unconditioned cues drift. Heads→roles hand-off +0.0016 (v19). Lexical cue too sparse at 1.5k sentences. **Owner: the brain is 0.9+; we are far behind** — gap = experience volume (probe v20: 20k/60k Simple-Wiki sentences, running), a learned argument-structure lexicon, meaning feeding structure, incremental prediction.

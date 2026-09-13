@@ -558,3 +558,12 @@ competent-reader reference ~0.85–0.90.
   stands (Pinker); the implementation needs the two slot associations on ONE scale (z-score each slot's share distribution, or a single
   role-conditioned association with order as a cue the arm LEARNS rather than the teacher imposing). Object misses to the right-hand
   verb remain the top heads-rung item (48% of object errors).
+- **POST-ROUTING BOARDS (2026-09-13 03:11 / 03:48; both arms read the shared frontend; code as of 00:08/00:39, i.e. BEFORE the agent
+  repair): (C) count-based tagger to EVERY arm + supervised heads: AGG 0.6395 -> 0.6358 (agent 0.832 -> 0.8209, patient 0.8207 ->
+  0.8088, state 0.828 -> 0.7989; coref/common-noun/salience/wic identical). (D) fully BF chain (tagger + attachment arm WITH the PP
+  asset): AGG 0.6219 (patient 0.7283, state 0.6534, agent 0.8209; rest identical) -- identical to the pre-PP-asset BF run (0.6222), so
+  the PP cue's nmod gain does not touch these dimensions.** Attribution: tagger costs agent -0.011 (REPAIRED since: graded candidate read
+  0.8357), patient -0.012, state -0.029; BF heads cost patient a further -0.080 (obj attachment 0.685) and state -0.146 (copular predicate
+  placement). Board runtime with the arm: ~3 h under contention (baseline 18 min) -- the arm is unvectorised (39 ms/sentence).
+  DECISION FILED ON THE BOARD (owner): flip HDLAB_HEADS_SOURCE default to the BF arm now (pain: patient/state + slow boards for the
+  solvers) or vectorise the arm first. Tagger default stays counts (cost -0.004 after the agent repair).
