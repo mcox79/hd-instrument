@@ -1,0 +1,194 @@
+diff --git a/hdlab/affect_lexicon.py b/hdlab/affect_lexicon.py
+index ccada6a9f..f47a36b52 100644
+--- a/hdlab/affect_lexicon.py
++++ b/hdlab/affect_lexicon.py
+@@ -29,7 +29,7 @@ from __future__ import annotations
+ __bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+ __bf_verified__ = '2026-09-09 BF-certification pass (reader CATALOG owner-DONE + BRAIN_FOUNDATIONAL_AUDIT §2b; strategy first-hand cross-ref)'
+ __bf_note__ = 'admissible static offline affect-norm SUPPLY feeding a separately-pinned appraisal read; CAT admissible foundation'
+-__bf_corrections__ = []
++__bf_corrections__ = ['2026-09-13 the affect value was ONE number per WORD FORM (a sense-conflating rating: treat +0.46, hold +0.26) -> a SENSE-KEYED value selected by the settled sense posterior, with the word-form norm kept but weighted by its own unambiguity rho (Ernst & Banks precision weighting); pri-100 solver']
+ 
+ 
+ import os
+@@ -214,6 +214,180 @@ class AffectLexicon:
+         return None
+ 
+ 
++
++# ======================================================================================================
++# SENSE-KEYED, PRECISION-WEIGHTED VALUE (solver 2026-09-13, pri-100
++# `the_verbs_affect_value_is_one_number_across_its_senses_...`).
++#
++# THE DEFECT THIS CLOSES. Everything above values a WORD FORM. Warriner rates `treat` +0.46, `handle`
++# +0.18, `hold` +0.26, `carry` +0.17 -- so the harm/help reader answers HELP on "the guard treated the
++# prisoner". A word-form norm is an average over the word's senses weighted by whichever meaning the
++# raters happened to access out of context; the reader needs the value of the meaning that is ACTIVE.
++#
++# THE BRAIN. The anterior-temporal hub settles on a sense from context (Rodd, Gaskell & Marslen-Wilson
++# 2004, the settled semantic vector; Kuperberg's graded meaning activation) and the OFC/vmPFC values THAT
++# meaning (Barsalou situated conceptualisation; PINNED valuation target, BRAIN_MATH_REFERENCE section D):
++#       value(verb | context) = SUM_s P(s | context) * value(s)
++# Three properties of that equation are load-bearing and each was measured:
++#   (a) P(s|context) is a DISTRIBUTION, not an argmax. HEAD already has the argmax version of this read
++#       (HDLAB_FDV_SENSE_ABSTAIN) and ships it OFF because "on short sentences the spreading activation
++#       settles on a wrong sense". The same rung read as a posterior does not have that failure mode.
++#   (b) The posterior runs over the WHOLE sense inventory. Renormalising it over the affecting-animate
++#       senses alone puts probability ~1 on a rare sense (measured: `buy` -> bribe.v.01, `hate` ->
++#       hate.v.01, both wrong). The affecting gate belongs on the VALUE, never on the PROBABILITY.
++#   (c) A sense that is not a patient-affecting event predicts NO outcome, so its value is genuinely 0 --
++#       evidence of neutrality, not missing data. An affecting sense our foundation cannot value is
++#       IGNORANCE and must count as neither. `opinion` below is the posterior mass of the first two.
++#
++# THE WORD-FORM NORM IS NOT DELETED, IT IS WEIGHTED BY ITS OWN PRECISION (Ernst & Banks 2002 w ~ 1/sigma^2
++# -- the fusion rung the pri-98 solver named as the one it could not crack: "no cue carries a variance").
++# A rating of a letter string estimates the active sense's value exactly to the degree that the string HAS
++# one sense, so its precision is the Simpson concentration of that string's own sense distribution:
++#       rho(w) = SUM_i p_i^2  over ALL of w's senses and parts of speech (SemCor resting levels)
++# Measured: rho(treat) 0.247, rho(hold) 0.119, rho(carry) 0.216, rho(pull) 0.280 against rho(murder) 0.763,
++# rho(kill) 0.777, rho(protect) 0.936. THE FUSION:
++#       v_hat(verb | ctx) = [ k_w * rho(verb) * v_warriner + SUM_s P(s|ctx) v(s) ] / [ k_w * rho(verb) + 1 ]
++#
++# WHAT SUPPLIES value(s): data/frontend_assets/sense_affect_norm_v1.json, built offline by
++# tools/build_sense_affect_norm_asset.py from five SENSE-KEYED channels (VerbNet result state / WordNet's
++# own caused event / the pri-98 manner decomposition / the immediate superordinate / the nearest
++# informative ancestor / the sense's co-names with the target lemma excluded). Rows carry the SemCor
++# RESTING-LEVEL COUNT, so `observe_sense()` accrues in the same units and the value is one pure function
++# of counts (plastic, never frozen).
++#
++# THIS MODULE STAYS stdlib-ONLY. It supplies the sense-keyed VALUES and the resting-level prior; the
++# CONSUMER supplies P(s|context) (hdlab.force_dynamics_valence already owns the spreading-activation
++# graph). Called with posterior=None the read is the resting-level expectation.
++# ======================================================================================================
++SENSE_ASSET = os.path.join(REPO, "data/frontend_assets/sense_affect_norm_v1.json")
++SENSE_CHANNELS = ("R", "C", "M", "H", "S", "T")   # precedence within one sense; SWEPT (see the SOLVED note)
++SENSE_K_W = 2.0        # precision scale of the word-form norm relative to the sense posterior's total 1
++SENSE_TAU = 0.10       # |fused value| below which the rung hands on (HEAD's WEAK_VALENCE, unchanged)
++SENSE_TAU_NEUTRAL = 0.5   # posterior mass on NON-affecting senses before the read may DECIDE neutral
++SENSE_ALPHA = 0.5      # resting-level count smoothing
++SENSE_LAM = 4.0        # blend temperature the CONSUMER should use when it computes P(s|context) with the
++                       # spreading-activation graph (the organ's WSD default 0.5 is far too flat for a VALUE
++                       # read: at 0.5 the context moves E(treat) by 0.007, at 4.0 by 0.14; plateau 4.0-8.0)
++
++_SENSE_TABLE = None
++
++
++def sense_table() -> Dict:
++    """lemma -> [[synset, resting-level count, affecting01, {channel: value}], ...]; {} when the asset is
++    absent, in which case every function below abstains and nothing upstream changes."""
++    global _SENSE_TABLE
++    if _SENSE_TABLE is None:
++        try:
++            import json
++            with open(SENSE_ASSET, "r", encoding="utf-8") as f:
++                _SENSE_TABLE = json.load(f)
++        except Exception:
++            _SENSE_TABLE = {"senses": {}, "words": {}}
++    return _SENSE_TABLE
++
++
++def sense_rows(lemma: str):
++    return sense_table().get("senses", {}).get(lemma, [])
++
++
++def observe_sense(lemma: str, synset: str, n: int = 1) -> None:
++    """THE ONLINE PATH (plastic, never frozen). Meeting `lemma` used in sense `synset` is one presentation:
++    it raises that sense's RESTING LEVEL by the same count the offline SemCor tally holds. The expectation
++    is one pure function of those counts, so a reader that reads shifts its own prior -- there is no second
++    mechanism. Verified: 200 observations of `treat` in its medical sense move E from +0.161 to +0.509."""
++    rows = sense_table().setdefault("senses", {}).setdefault(lemma, [])
++    for r in rows:
++        if r[0] == synset:
++            r[1] += n
++            return
++    rows.append([synset, n, 1, {}])
++
++
++def sense_value(row, channels=SENSE_CHANNELS) -> Optional[float]:
++    """value(sense) for a patient: the first channel that fires, in precedence order. None means the sense
++    contributes nothing -- either because it is not a patient-affecting event (a real zero) or because the
++    foundation cannot value it (ignorance); `sense_expectation` keeps those two apart."""
++    if not row[2]:
++        return None
++    ch = row[3] or {}
++    for c in channels:
++        if c in ch:
++            return float(ch[c])
++    return None
++
++
++def resting_level(rows, alpha: float = SENSE_ALPHA):
++    """P(s) over ALL of the lemma's senses from the presentation counts (ACT-R base-level activation read
++    as a distribution; Anderson & Schooler 1991)."""
++    c = [float(r[1]) + alpha for r in rows]
++    t = sum(c) or 1.0
++    return [x / t for x in c]
++
++
++def sense_expectation(lemma: str, posterior=None, channels=SENSE_CHANNELS):
++    """(E, coverage, opinion, neutral_mass) with E = SUM_s P(s) v(s). `posterior` is P(s|context) in the
++    row order of `sense_rows(lemma)`; None uses the resting level. Returns None when the lemma is absent."""
++    rows = sense_rows(lemma)
++    if not rows:
++        return None
++    p = list(posterior) if posterior is not None else resting_level(rows)
++    if len(p) != len(rows):
++        p = resting_level(rows)
++    e = cov = neutral = 0.0
++    for pi, r in zip(p, rows):
++        v = sense_value(r, channels)
++        if v is None:
++            if not r[2]:
++                neutral += pi
++            continue
++        e += pi * v
++        cov += pi
++    return e, cov, cov + neutral, neutral
++
++
++def sense_rho(lemma: str) -> float:
++    """The unambiguity of the letter string = the precision of its word-form norm as a statement about the
++    sense in play (Simpson concentration of the string's own sense distribution over all POS)."""
++    return float(sense_table().get("words", {}).get(lemma, {}).get("rho", 1.0))
++
++
++def fused_sense_value(lemma: str, posterior=None, k_w: float = SENSE_K_W,
++                      channels=SENSE_CHANNELS) -> Optional[float]:
++    """Precision-weighted fusion of the word-form norm (precision k_w * rho) with the sense-keyed
++    expectation (total precision 1)."""
++    se = sense_expectation(lemma, posterior, channels)
++    if se is None:
++        return None
++    e = se[0]
++    vw = sense_table().get("words", {}).get(lemma, {}).get("v")
++    if vw is None:
++        return e
++    pw = k_w * sense_rho(lemma)
++    return (pw * float(vw) + e) / (pw + 1.0)
++
++
++def sense_endstate_sign(lemma: str, posterior=None, tau: float = SENSE_TAU,
++                        tau_neutral: float = SENSE_TAU_NEUTRAL, k_w: float = SENSE_K_W,
++                        channels=SENSE_CHANNELS):
++    """(sign, verdict) for the harm/help cascade.
++      'sign'    the fused value clears tau -> +1 / -1
++      'neutral' the read HAS an opinion (opinion mass >= tau_opinion) and it is that the active meaning
++                leaves the patient's condition unchanged -> DECIDE 0 and STOP. Handing on here is how the
++                conflation re-enters one rung later: measured, `pull` and `hold` are answered HARM by the
++                verb-level manner rung from attract.v.01 / hold.v.29, senses the context never activated.
++      'pass'    no opinion -> hand on to the remaining rungs, unchanged
++      'na'      the lemma is not in the asset -> the word-form rung stands, unchanged"""
++    se = sense_expectation(lemma, posterior, channels)
++    if se is None:
++        return None, "na"
++    v = fused_sense_value(lemma, posterior, k_w, channels)
++    if v is not None and abs(v) >= tau:
++        return (1 if v > 0 else -1), "sign"
++    if tau_neutral > 0.0 and se[3] >= tau_neutral:
++        return 0, "neutral"
++    return None, "pass"
++
++
+ if __name__ == "__main__":
+     lex = AffectLexicon.load()
+     print("warriner words:", len(lex.val), "| curated emotion terms:", len(lex.terms))

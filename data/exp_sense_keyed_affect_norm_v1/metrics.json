@@ -1,0 +1,9101 @@
+{
+ "_meta": {
+  "anchor": "sense_keyed_affect_norm_v1",
+  "seed": 20260913,
+  "out_dir": "C:\\AI\\hd-instrument\\data\\exp_sense_keyed_affect_norm_v1",
+  "k_w": 2.0,
+  "tau_e": 0.1,
+  "lam": 4.0,
+  "asset_meta": {
+   "ambiguity_shrink": true,
+   "built": "2026-09-13T17:43:55",
+   "channel_histogram": {
+    "C": 129,
+    "H": 947,
+    "M": 530,
+    "R": 127,
+    "S": 746,
+    "T": 1496,
+    "none": 6126
+   },
+   "lemma_smooth": 0.5,
+   "max_taxonomic_depth": 4,
+   "n_lemmas": 2305,
+   "n_rows": 8204,
+   "n_synsets": 1836,
+   "plastic": "rows carry the SemCor resting-level COUNT; observe_sense(lemma, synset) increments it from running prose and the sense expectation is one pure function of the counts",
+   "source": "WordNet verb senses (affecting supersense x animate-object frames) valued per SENSE by five sense-keyed channels: VerbNet result state / WordNet caused event / the pri-98 manner decomposition / the superordinate concept / the sense's co-names (target lemma excluded); concept values are SemCor-count-weighted Warriner norms",
+   "tau_c": 0.3,
+   "tau_h": 0.35,
+   "tau_intensity": 0.4,
+   "tau_manner_val": 0.1,
+   "tau_rho_witness": 0.0,
+   "tau_s": 0.3
+  },
+  "cf_gold_verbs": 947,
+  "n_sense_lemmas": 2305,
+  "pri98_patch_applied": true
+ },
+ "adverb_prose_gold": {
+  "n": 36,
+  "rows": [
+   {
+    "sent": "A guard treated the prisoner brutally .",
+    "gold": "HARM",
+    "verb": "treated",
+    "adverb": "brutally",
+    "floor": "HELP",
+    "pri98": "HARM",
+    "sense_prior": "HARM",
+    "sense_ctx": "HARM",
+    "rho": 0.247,
+    "warriner": 0.46,
+    "E_prior": 0.158,
+    "E_ctx": 0.008,
+    "cov": 0.012,
+    "opinion": 0.025,
+    "fused_ctx": 0.157
+   },
+   {
+    "sent": "An officer handled the suspect roughly .",
+    "gold": "HARM",
+    "verb": "handled",
+    "adverb": "roughly",
+    "floor": "HELP",
+    "pri98": "HARM",
+    "sense_prior": "HARM",
+    "sense_ctx": "HARM",
+    "rho": 0.3947,
+    "warriner": 0.1825,
+    "E_prior": 0.101,
+    "E_ctx": 0.0,
+    "cov": 0.0,
+    "opinion": 0.999,
+    "fused_ctx": 0.081
+   },
+   {
+    "sent": "A warden treated the inmate cruelly .",
+    "gold": "HARM",
+    "verb": "treated",
+    "adverb": "cruelly",
+    "floor": "HELP",
+    "pri98": "HARM",
+    "sense_prior": "HARM",
+    "sense_ctx": "HARM",
+    "rho": 0.247,
+    "warriner": 0.46,
+    "E_prior": 0.158,
+    "E_ctx": 0.0,
+    "cov": 0.0,
+    "opinion": 0.0,
+    "fused_ctx": 0.152
+   },
+   {
+    "sent": "A boss treated the assistant harshly .",
+    "gold": "HARM",
+    "verb": "treated",
+    "adverb": "harshly",
+    "floor": "HELP",
+    "pri98": "HARM",
+    "sense_prior": "HARM",
+    "sense_ctx": "HARM",
+    "rho": 0.247,
+    "warriner": 0.46,
+    "E_prior": 0.158,
+    "E_ctx": 0.008,
+    "cov": 0.012,
+    "opinion": 0.031,
+    "fused_ctx": 0.157
+   },
+   {
+    "sent": "A nurse handled the patient carelessly .",
+    "gold": "HARM",
+    "verb": "handled",
+    "adverb": "carelessly",
+    "floor": "HELP",
+    "pri98": "HELP",
+    "sense_prior": "HELP",
+    "sense_ctx": "HELP",
+    "rho": 0.3947,
+    "warriner": 0.1825,
+    "E_prior": 0.101,
+    "E_ctx": 0.437,
+    "cov": 0.999,
+    "opinion": 1.0,
+    "fused_ctx": 0.325
+   },
+   {
+    "sent": "A soldier pushed the villager violently .",
+    "gold": "HARM",
+    "verb": "pushed",
+    "adverb": "violently",
+    "floor": null,
+    "pri98": null,
+    "sense_prior": null,
+    "sense_ctx": null,
+    "rho": 0.4267,
+    "warriner": 0.0975,
+    "E_prior": 0.004,
+    "E_ctx": 0.014,
+    "cov": 0.022,
+    "opinion": 1.0,
+    "fused_ctx": 0.053
+   },
+   {
+    "sent": "A man grabbed the child savagely .",
+    "gold": "HARM",
+    "verb": "grabbed",
+    "adverb": "savagely",
+    "floor": "HELP",
+    "pri98": "HELP",
+    "sense_prior": null,
+    "sense_ctx": null,
+    "rho": 0.6019,
+    "warriner": 0.11,
+    "E_prior": 0.0,
+    "E_ctx": 0.0,
+    "cov": 0.0,
+    "opinion": 0.402,
+    "fused_ctx": 0.06
+   },
+   {
+    "sent": "A bouncer seized the customer forcefully .",
+    "gold": "HARM",
+    "verb": "seized",
+    "adverb": "forcefully",
+    "floor": "HARM",
+    "pri98": "HARM",
+    "sense_prior": "HARM",
+    "sense_ctx": "HARM",
+    "rho": 0.2925,
+    "warriner": -0.3025,
+    "E_prior": -0.039,
+    "E_ctx": -0.038,
+    "cov": 0.181,
+    "opinion": 0.594,
+    "fused_ctx": -0.135
+   },
+   {
+    "sent": "A driver shook the passenger angrily .",
+    "gold": "HARM",
+    "verb": "shook",
+    "adverb": "angrily",
+    "floor": "HARM",
+    "pri98": "HARM",
+    "sense_prior": null,
+    "sense_ctx": null,
+    "rho": 0.2855,
+    "warriner": -0.1025,
+    "E_prior": 0.01,
+    "E_ctx": 0.003,
+    "cov": 0.01,
+    "opinion": 0.902,
+    "fused_ctx": -0.035
+   },
+   {
+    "sent": "A teacher addressed the pupil contemptuously .",
+    "gold": "HARM",
+    "verb": "addressed",
+    "adverb": "contemptuously",
+    "floor": null,
+    "pri98": null,
+    "sense_prior": null,
+    "sense_ctx": null,
+    "rho": null,
+    "warriner": null,
+    "E_prior": null,
+    "E_ctx": null,
+    "cov": null,
+    "opinion": null,
+    "fused_ctx": null
+   },
+   {
+    "sent": "A landlord treated the tenant unfairly .",
+    "gold": "HARM",
+    "verb": "treated",
+    "adverb": "unfairly",
+    "floor": "HELP",
+    "pri98": "HARM",
+    "sense_prior": "HARM",
+    "sense_ctx": "HARM",
+    "rho": 0.247,
+    "warriner": 0.46,
+    "E_prior": 0.158,
+    "E_ctx": 0.071,
+    "cov": 0.112,
+    "opinion": 0.351,
+    "fused_ctx": 0.2
+   },
+   {
+    "sent": "A coach pulled the player aggressively .",
+    "gold": "HARM",
+    "verb": "pulled",
+    "adverb": "aggressively",
+    "floor": "HELP",
+    "pri98": "HARM",
+    "sense_prior": "HARM",
+    "sense_ctx": "HARM",
+    "rho": 0.28,
+    "warriner": 0.1475,
+    "E_prior": -0.072,
+    "E_ctx": -0.001,
+    "cov": 0.001,
+    "opinion": 0.91,
+    "fused_ctx": 0.053
+   },
+   {
+    "sent": "A nurse treated the patient kindly .",
+    "gold": "HELP",
+    "verb": "treated",
+    "adverb": "kindly",
+    "floor": "HELP",
+    "pri98": "HELP",
+    "sense_prior": "HELP",
+    "sense_ctx": "HELP",
+    "rho": 0.247,
+    "warriner": 0.46,
+    "E_prior": 0.158,
+    "E_ctx": 0.653,
+    "cov": 0.989,
+    "opinion": 0.989,
+    "fused_ctx": 0.589
+   },
+   {
+    "sent": "A mother handled the baby gently .",
+    "gold": "HELP",
+    "verb": "handled",
+    "adverb": "gently",
+    "floor": "HELP",
+    "pri98": "HELP",
+    "sense_prior": "HELP",
+    "sense_ctx": "HELP",
+    "rho": 0.3947,
+    "warriner": 0.1825,
+    "E_prior": 0.101,
+    "E_ctx": 0.433,
+    "cov": 0.99,
+    "opinion": 0.993,
+    "fused_ctx": 0.322
+   },
+   {
+    "sent": "A doctor held the child tenderly .",
+    "gold": "HELP",
+    "verb": "held",
+    "adverb": "tenderly",
+    "floor": "HELP",
+    "pri98": "HELP",
+    "sense_prior": "HELP",
+    "sense_ctx": "HELP",
+    "rho": 0.1186,
+    "warriner": 0.2625,
+    "E_prior": -0.008,
+    "E_ctx": -0.004,
+    "cov": 0.036,
+    "opinion": 0.655,
+    "fused_ctx": 0.047
+   },
+   {
+    "sent": "A teacher addressed the pupil warmly .",
+    "gold": "HELP",
+    "verb": "addressed",
+    "adverb": "warmly",
+    "floor": null,
+    "pri98": "HELP",
+    "sense_prior": "HELP",
+    "sense_ctx": "HELP",
+    "rho": null,
+    "warriner": null,
+    "E_prior": null,
+    "E_ctx": null,
+    "cov": null,
+    "opinion": null,
+    "fused_ctx": null
+   },
+   {
+    "sent": "A warden treated the inmate humanely .",
+    "gold": "HELP",
+    "verb": "treated",
+    "adverb": "humanely",
+    "floor": "HELP",
+    "pri98": "HELP",
+    "sense_prior": "HELP",
+    "sense_ctx": "HELP",
+    "rho": 0.247,
+    "warriner": 0.46,
+    "E_prior": 0.158,
+    "E_ctx": 0.0,
+    "cov": 0.0,
+    "opinion": 0.0,
+    "fused_ctx": 0.152
+   },
+   {
+    "sent": "An officer handled the suspect respectfully .",
+    "gold": "HELP",
+    "verb": "handled",
+    "adverb": "respectfully",
+    "floor": "HELP",
+    "pri98": "HELP",
+    "sense_prior": "HELP",
+    "sense_ctx": "HELP",
+    "rho": 0.3947,
+    "warriner": 0.1825,
+    "E_prior": 0.101,
+    "E_ctx": 0.004,
+    "cov": 0.01,
+    "opinion": 0.098,
+    "fused_ctx": 0.083
+   },
+   {
+    "sent": "A volunteer carried the elder carefully .",
+    "gold": "HELP",
+    "verb": "carried",
+    "adverb": "carefully",
+    "floor": "HELP",
+    "pri98": "HELP",
+    "sense_prior": null,
+    "sense_ctx": null,
+    "rho": 0.2164,
+    "warriner": 0.1675,
+    "E_prior": 0.002,
+    "E_ctx": 0.003,
+    "cov": 0.007,
+    "opinion": 0.514,
+    "fused_ctx": 0.053
+   },
+   {
+    "sent": "A guide led the climber patiently .",
+    "gold": "HELP",
+    "verb": "led",
+    "adverb": "patiently",
+    "floor": null,
+    "pri98": null,
+    "sense_prior": null,
+    "sense_ctx": null,
+    "rho": null,
+    "warriner": null,
+    "E_prior": null,
+    "E_ctx": null,
+    "cov": null,
+    "opinion": null,
+    "fused_ctx": null
+   },
+   {
+    "sent": "A man grabbed the child protectively .",
+    "gold": "HELP",
+    "verb": "grabbed",
+    "adverb": "protectively",
+    "floor": "HELP",
+    "pri98": "HELP",
+    "sense_prior": null,
+    "sense_ctx": null,
+    "rho": 0.6019,
+    "warriner": 0.11,
+    "E_prior": 0.0,
+    "E_ctx": 0.0,
+    "cov": 0.0,
+    "opinion": 0.402,
+    "fused_ctx": 0.06
+   },
+   {
+    "sent": "A boss treated the assistant generously .",
+    "gold": "HELP",
+    "verb": "treated",
+    "adverb": "generously",
+    "floor": "HELP",
+    "pri98": "HELP",
+    "sense_prior": "HELP",
+    "sense_ctx": "HELP",
+    "rho": 0.247,
+    "warriner": 0.46,
+    "E_prior": 0.158,
+    "E_ctx": 0.192,
+    "cov": 0.303,
+    "opinion": 0.707,
+    "fused_ctx": 0.281
+   },
+   {
+    "sent": "A landlord treated the tenant fairly .",
+    "gold": "HELP",
+    "verb": "treated",
+    "adverb": "fairly",
+    "floor": "HELP",
+    "pri98": "HELP",
+    "sense_prior": "HELP",
+    "sense_ctx": "HELP",
+    "rho": 0.247,
+    "warriner": 0.46,
+    "E_prior": 0.158,
+    "E_ctx": 0.136,
+    "cov": 0.222,
+    "opinion": 0.587,
+    "fused_ctx": 0.243
+   },
+   {
+    "sent": "A coach pulled the player encouragingly .",
+    "gold": "HELP",
+    "verb": "pulled",
+    "adverb": "encouragingly",
+    "floor": "HELP",
+    "pri98": "HELP",
+    "sense_prior": "HELP",
+    "sense_ctx": "HELP",
+    "rho": 0.28,
+    "warriner": 0.1475,
+    "E_prior": -0.072,
+    "E_ctx": -0.001,
+    "cov": 0.001,
+    "opinion": 0.923,
+    "fused_ctx": 0.053
+   },
+   {
+    "sent": "A clerk addressed the customer formally .",
+    "gold": "NEUTRAL",
+    "verb": "addressed",
+    "adverb": "formally",
+    "floor": null,
+    "pri98": null,
+    "sense_prior": null,
+    "sense_ctx": null,
+    "rho": null,
+    "warriner": null,
+    "E_prior": null,
+    "E_ctx": null,
+    "cov": null,
+    "opinion": null,
+    "fused_ctx": null
+   },
+   {
+    "sent": "An officer handled the suspect legally .",
+    "gold": "NEUTRAL",
+    "verb": "handled",
+    "adverb": "legally",
+    "floor": "HELP",
+    "pri98": "HELP",
+    "sense_prior": "HELP",
+    "sense_ctx": null,
+    "rho": 0.3947,
+    "warriner": 0.1825,
+    "E_prior": 0.101,
+    "E_ctx": 0.006,
+    "cov": 0.013,
+    "opinion": 0.097,
+    "fused_ctx": 0.084
+   },
+   {
+    "sent": "A guard treated the prisoner routinely .",
+    "gold": "NEUTRAL",
+    "verb": "treated",
+    "adverb": "routinely",
+    "floor": "HELP",
+    "pri98": "HELP",
+    "sense_prior": "HELP",
+    "sense_ctx": "HELP",
+    "rho": 0.247,
+    "warriner": 0.46,
+    "E_prior": 0.158,
+    "E_ctx": 0.21,
+    "cov": 0.335,
+    "opinion": 0.644,
+    "fused_ctx": 0.292
+   },
+   {
+    "sent": "A nurse treated the patient privately .",
+    "gold": "NEUTRAL",
+    "verb": "treated",
+    "adverb": "privately",
+    "floor": "HELP",
+    "pri98": "HELP",
+    "sense_prior": "HELP",
+    "sense_ctx": "HELP",
+    "rho": 0.247,
+    "warriner": 0.46,
+    "E_prior": 0.158,
+    "E_ctx": 0.653,
+    "cov": 0.99,
+    "opinion": 0.99,
+    "fused_ctx": 0.589
+   },
+   {
+    "sent": "A teacher addressed the pupil publicly .",
+    "gold": "NEUTRAL",
+    "verb": "addressed",
+    "adverb": "publicly",
+    "floor": null,
+    "pri98": null,
+    "sense_prior": null,
+    "sense_ctx": null,
+    "rho": null,
+    "warriner": null,
+    "E_prior": null,
+    "E_ctx": null,
+    "cov": null,
+    "opinion": null,
+    "fused_ctx": null
+   },
+   {
+    "sent": "A driver carried the passenger briefly .",
+    "gold": "NEUTRAL",
+    "verb": "carried",
+    "adverb": "briefly",
+    "floor": "HELP",
+    "pri98": "HELP",
+    "sense_prior": null,
+    "sense_ctx": null,
+    "rho": 0.2164,
+    "warriner": 0.1675,
+    "E_prior": 0.002,
+    "E_ctx": 0.0,
+    "cov": 0.0,
+    "opinion": 0.989,
+    "fused_ctx": 0.051
+   },
+   {
+    "sent": "A guide led the climber silently .",
+    "gold": "NEUTRAL",
+    "verb": "led",
+    "adverb": "silently",
+    "floor": null,
+    "pri98": null,
+    "sense_prior": null,
+    "sense_ctx": null,
+    "rho": null,
+    "warriner": null,
+    "E_prior": null,
+    "E_ctx": null,
+    "cov": null,
+    "opinion": null,
+    "fused_ctx": null
+   },
+   {
+    "sent": "A man grabbed the child suddenly .",
+    "gold": "NEUTRAL",
+    "verb": "grabbed",
+    "adverb": "suddenly",
+    "floor": "HELP",
+    "pri98": "HELP",
+    "sense_prior": null,
+    "sense_ctx": null,
+    "rho": 0.6019,
+    "warriner": 0.11,
+    "E_prior": 0.0,
+    "E_ctx": 0.0,
+    "cov": 0.0,
+    "opinion": 0.0,
+    "fused_ctx": 0.06
+   },
+   {
+    "sent": "A volunteer held the elder briefly .",
+    "gold": "NEUTRAL",
+    "verb": "held",
+    "adverb": "briefly",
+    "floor": "HELP",
+    "pri98": "HELP",
+    "sense_prior": "HELP",
+    "sense_ctx": "HELP",
+    "rho": 0.1186,
+    "warriner": 0.2625,
+    "E_prior": -0.008,
+    "E_ctx": 0.001,
+    "cov": 0.011,
+    "opinion": 0.969,
+    "fused_ctx": 0.051
+   },
+   {
+    "sent": "A boss addressed the assistant verbally .",
+    "gold": "NEUTRAL",
+    "verb": "addressed",
+    "adverb": "verbally",
+    "floor": null,
+    "pri98": null,
+    "sense_prior": null,
+    "sense_ctx": null,
+    "rho": null,
+    "warriner": null,
+    "E_prior": null,
+    "E_ctx": null,
+    "cov": null,
+    "opinion": null,
+    "fused_ctx": null
+   },
+   {
+    "sent": "A landlord treated the tenant impersonally .",
+    "gold": "NEUTRAL",
+    "verb": "treated",
+    "adverb": "impersonally",
+    "floor": "HELP",
+    "pri98": "HELP",
+    "sense_prior": "HELP",
+    "sense_ctx": "HELP",
+    "rho": 0.247,
+    "warriner": 0.46,
+    "E_prior": 0.158,
+    "E_ctx": 0.138,
+    "cov": 0.217,
+    "opinion": 0.631,
+    "fused_ctx": 0.244
+   },
+   {
+    "sent": "A coach pulled the player sideways .",
+    "gold": "NEUTRAL",
+    "verb": "pulled",
+    "adverb": "sideways",
+    "floor": "HELP",
+    "pri98": "HELP",
+    "sense_prior": "HARM",
+    "sense_ctx": null,
+    "rho": 0.28,
+    "warriner": 0.1475,
+    "E_prior": -0.072,
+    "E_ctx": -0.001,
+    "cov": 0.001,
+    "opinion": 0.922,
+    "fused_ctx": 0.053
+   }
+  ],
+  "floor_acc": [
+   0.4444,
+   0.1667
+  ],
+  "pri98_acc": [
+   0.6389,
+   0.1528
+  ],
+  "sense_prior_acc": [
+   0.6111,
+   0.1667
+  ],
+  "sense_ctx_acc": [
+   0.6667,
+   0.1667
+  ],
+  "delta_sense_prior_minus_floor": [
+   0.1667,
+   -0.0278,
+   0.3333,
+   "not separated"
+  ],
+  "delta_sense_prior_minus_pri98": [
+   -0.0278,
+   -0.1389,
+   0.0833,
+   "not separated"
+  ],
+  "delta_sense_ctx_minus_floor": [
+   0.2222,
+   0.0278,
+   0.4167,
+   "CI-SEPARATED"
+  ],
+  "delta_sense_ctx_minus_pri98": [
+   0.0278,
+   -0.1111,
+   0.1667,
+   "not separated"
+  ],
+  "by_cell": {
+   "HARM": {
+    "floor": 2,
+    "pri98": 8,
+    "sense_prior": 7,
+    "sense_ctx": 7,
+    "n": 12
+   },
+   "HELP": {
+    "floor": 10,
+    "pri98": 11,
+    "sense_prior": 9,
+    "sense_ctx": 9,
+    "n": 12
+   },
+   "NEUTRAL": {
+    "floor": 4,
+    "pri98": 4,
+    "sense_prior": 6,
+    "sense_ctx": 8,
+    "n": 12
+   }
+  },
+  "target_errors": {
+   "n_floor": 8,
+   "n_still_wrong_pri98": 8,
+   "n_still_wrong_sense_prior": 6,
+   "n_still_wrong_sense_ctx": 4,
+   "detail": [
+    [
+     "handled",
+     "HELP",
+     "HELP",
+     "HELP",
+     null,
+     0.101,
+     0.006,
+     0.084
+    ],
+    [
+     "treated",
+     "HELP",
+     "HELP",
+     "HELP",
+     "HELP",
+     0.158,
+     0.21,
+     0.292
+    ],
+    [
+     "treated",
+     "HELP",
+     "HELP",
+     "HELP",
+     "HELP",
+     0.158,
+     0.653,
+     0.589
+    ],
+    [
+     "carried",
+     "HELP",
+     "HELP",
+     null,
+     null,
+     0.002,
+     0.0,
+     0.051
+    ],
+    [
+     "grabbed",
+     "HELP",
+     "HELP",
+     null,
+     null,
+     0.0,
+     0.0,
+     0.06
+    ],
+    [
+     "held",
+     "HELP",
+     "HELP",
+     "HELP",
+     "HELP",
+     -0.008,
+     0.001,
+     0.051
+    ],
+    [
+     "treated",
+     "HELP",
+     "HELP",
+     "HELP",
+     "HELP",
+     0.158,
+     0.138,
+     0.244
+    ],
+    [
+     "pulled",
+     "HELP",
+     "HELP",
+     "HARM",
+     null,
+     -0.072,
+     -0.001,
+     0.053
+    ]
+   ]
+  }
+ },
+ "neutral_precision": {
+  "n": 36,
+  "floor": [],
+  "pri98": [],
+  "sense": []
+ },
+ "populations": {
+  "harm_frame_HARM": [
+   10,
+   10,
+   10,
+   10
+  ],
+  "social_harm_HARM": [
+   15,
+   15,
+   15,
+   16
+  ],
+  "nonprevent_help_HELP": [
+   15,
+   15,
+   15,
+   16
+  ],
+  "named_manner_HARM_of_15": [
+   9,
+   15,
+   15,
+   15
+  ],
+  "manner_slice_HARM_of_6": [
+   0,
+   6,
+   6,
+   6
+  ]
+ },
+ "cf": {
+  "n_candidates": 2631,
+  "floor": {
+   "whole_arm": [
+    288,
+    309,
+    0.932
+   ],
+   "n_decided": 1914,
+   "discordant_sample": [
+    [
+     "administer",
+     "HARM",
+     "HELP",
+     0.33
+    ],
+    [
+     "avert",
+     "HELP",
+     "HARM",
+     -0.33
+    ],
+    [
+     "bar",
+     "HELP",
+     "HARM",
+     -0.27
+    ],
+    [
+     "court",
+     "HARM",
+     "HELP",
+     0.4
+    ],
+    [
+     "devise",
+     "HARM",
+     "HELP",
+     0.53
+    ],
+    [
+     "dissolve",
+     "HELP",
+     "HARM",
+     -0.8
+    ],
+    [
+     "eat",
+     "HELP",
+     "HARM",
+     -0.4
+    ],
+    [
+     "enlist",
+     "HARM",
+     "HELP",
+     0.27
+    ],
+    [
+     "govern",
+     "HARM",
+     "HELP",
+     0.33
+    ],
+    [
+     "grab",
+     "HELP",
+     "HARM",
+     -0.67
+    ],
+    [
+     "hang",
+     "HARM",
+     "HELP",
+     0.27
+    ],
+    [
+     "load",
+     "HARM",
+     "HELP",
+     0.8
+    ],
+    [
+     "lock",
+     "HARM",
+     "HELP",
+     0.53
+    ],
+    [
+     "prevent",
+     "HELP",
+     "HARM",
+     -0.6
+    ],
+    [
+     "rent",
+     "HARM",
+     "HELP",
+     0.27
+    ]
+   ]
+  },
+  "pri98": {
+   "whole_arm": [
+    294,
+    315,
+    0.9333
+   ],
+   "n_decided": 1960,
+   "discordant_sample": [
+    [
+     "administer",
+     "HARM",
+     "HELP",
+     0.33
+    ],
+    [
+     "avert",
+     "HELP",
+     "HARM",
+     -0.33
+    ],
+    [
+     "bar",
+     "HELP",
+     "HARM",
+     -0.27
+    ],
+    [
+     "court",
+     "HARM",
+     "HELP",
+     0.4
+    ],
+    [
+     "devise",
+     "HARM",
+     "HELP",
+     0.53
+    ],
+    [
+     "dissolve",
+     "HELP",
+     "HARM",
+     -0.8
+    ],
+    [
+     "eat",
+     "HELP",
+     "HARM",
+     -0.4
+    ],
+    [
+     "enlist",
+     "HARM",
+     "HELP",
+     0.27
+    ],
+    [
+     "govern",
+     "HARM",
+     "HELP",
+     0.33
+    ],
+    [
+     "grab",
+     "HELP",
+     "HARM",
+     -0.67
+    ],
+    [
+     "hang",
+     "HARM",
+     "HELP",
+     0.27
+    ],
+    [
+     "load",
+     "HARM",
+     "HELP",
+     0.8
+    ],
+    [
+     "lock",
+     "HARM",
+     "HELP",
+     0.53
+    ],
+    [
+     "prevent",
+     "HELP",
+     "HARM",
+     -0.6
+    ],
+    [
+     "rent",
+     "HARM",
+     "HELP",
+     0.27
+    ]
+   ]
+  },
+  "sense": {
+   "whole_arm": [
+    260,
+    279,
+    0.9319
+   ],
+   "n_decided": 1802,
+   "discordant_sample": [
+    [
+     "administer",
+     "HARM",
+     "HELP",
+     0.33
+    ],
+    [
+     "appeal",
+     "HELP",
+     "HARM",
+     -0.33
+    ],
+    [
+     "attract",
+     "HARM",
+     "HELP",
+     0.27
+    ],
+    [
+     "avert",
+     "HELP",
+     "HARM",
+     -0.33
+    ],
+    [
+     "bar",
+     "HELP",
+     "HARM",
+     -0.27
+    ],
+    [
+     "court",
+     "HARM",
+     "HELP",
+     0.4
+    ],
+    [
+     "devise",
+     "HARM",
+     "HELP",
+     0.53
+    ],
+    [
+     "eat",
+     "HELP",
+     "HARM",
+     -0.4
+    ],
+    [
+     "govern",
+     "HARM",
+     "HELP",
+     0.33
+    ],
+    [
+     "hang",
+     "HARM",
+     "HELP",
+     0.27
+    ],
+    [
+     "load",
+     "HARM",
+     "HELP",
+     0.8
+    ],
+    [
+     "prevent",
+     "HELP",
+     "HARM",
+     -0.6
+    ],
+    [
+     "shell",
+     "HELP",
+     "HARM",
+     -0.8
+    ],
+    [
+     "slow",
+     "HELP",
+     "HARM",
+     -0.73
+    ],
+    [
+     "stop",
+     "HELP",
+     "HARM",
+     -0.47
+    ]
+   ]
+  }
+ },
+ "cue_accuracy": {
+  "n_cf_covered_with_senses": 261,
+  "mean_coverage": 0.2952,
+  "word_norm": {
+   "fires": 221,
+   "cf_agree": 0.9457
+  },
+  "sense_E": {
+   "fires": 119,
+   "cf_agree": 0.9076
+  },
+  "shared_subset": {
+   "n": 106,
+   "word_norm": 0.9811,
+   "sense_E": 0.8962,
+   "disagreements": 11,
+   "word_right": 10,
+   "sense_right": 1,
+   "sample": [
+    [
+     "abandon",
+     "HARM",
+     -0.54,
+     0.18,
+     0.137,
+     "S"
+    ],
+    [
+     "attract",
+     "HELP",
+     0.34,
+     0.71,
+     -0.478,
+     "M"
+    ],
+    [
+     "confront",
+     "HARM",
+     -0.1,
+     0.35,
+     0.174,
+     "S"
+    ],
+    [
+     "defend",
+     "HELP",
+     0.33,
+     0.34,
+     -0.125,
+     "C"
+    ],
+    [
+     "divorce",
+     "HARM",
+     -0.63,
+     0.41,
+     0.183,
+     "C"
+    ],
+    [
+     "exhaust",
+     "HARM",
+     -0.25,
+     0.27,
+     0.161,
+     "M"
+    ],
+    [
+     "infect",
+     "HARM",
+     -0.54,
+     0.36,
+     0.144,
+     "H"
+    ],
+    [
+     "knock",
+     "HARM",
+     0.11,
+     0.2,
+     -0.397,
+     "H"
+    ],
+    [
+     "overwhelm",
+     "HARM",
+     -0.42,
+     0.31,
+     0.152,
+     "M"
+    ],
+    [
+     "restrain",
+     "HARM",
+     -0.14,
+     0.44,
+     0.154,
+     "S"
+    ],
+    [
+     "shock",
+     "HARM",
+     -0.28,
+     0.12,
+     0.101,
+     "M"
+    ]
+   ]
+  },
+  "by_dominant_channel": {
+   "C": [
+    10,
+    13,
+    0.7692
+   ],
+   "H": [
+    40,
+    41,
+    0.9756
+   ],
+   "M": [
+    15,
+    19,
+    0.7895
+   ],
+   "R": [
+    11,
+    11,
+    1.0
+   ],
+   "S": [
+    20,
+    23,
+    0.8696
+   ],
+   "T": [
+    12,
+    12,
+    1.0
+   ]
+  },
+  "by_dominant_channel_with_M": {
+   "C": [
+    10,
+    13,
+    0.7692
+   ],
+   "H": [
+    41,
+    42,
+    0.9762
+   ],
+   "M": [
+    14,
+    18,
+    0.7778
+   ],
+   "R": [
+    11,
+    11,
+    1.0
+   ],
+   "S": [
+    20,
+    23,
+    0.8696
+   ]
+  }
+ },
+ "fusion_modes": {
+  "word_only": {
+   "cf_whole_arm": [
+    303,
+    325,
+    0.9323
+   ],
+   "leaks": 1,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1528
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    1,
+    0,
+    0,
+    1,
+    0,
+    0
+   ],
+   "target_errors_remaining": [
+    8,
+    8
+   ]
+  },
+  "sense_only": {
+   "cf_whole_arm": [
+    215,
+    246,
+    0.874
+   ],
+   "leaks": 0,
+   "live_gold_24": 21,
+   "named_manner_15": 14,
+   "slice6": 6,
+   "social_harm_16": 13,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6111,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    0
+   ],
+   "target_errors_remaining": [
+    5,
+    8
+   ]
+  },
+  "shift": {
+   "cf_whole_arm": [
+    303,
+    325,
+    0.9323
+   ],
+   "leaks": 1,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6667,
+    0.1528
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    0,
+    1,
+    0,
+    0,
+    1,
+    0,
+    0
+   ],
+   "target_errors_remaining": [
+    7,
+    8
+   ]
+  },
+  "substitute_kw1": {
+   "cf_whole_arm": [
+    249,
+    271,
+    0.9188
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6111,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    0
+   ],
+   "target_errors_remaining": [
+    5,
+    8
+   ]
+  },
+  "substitute_kw2": {
+   "cf_whole_arm": [
+    270,
+    293,
+    0.9215
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6111,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    0
+   ],
+   "target_errors_remaining": [
+    5,
+    8
+   ]
+  },
+  "substitute_kw4": {
+   "cf_whole_arm": [
+    287,
+    305,
+    0.941
+   ],
+   "leaks": 1,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.5833,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    0
+   ],
+   "target_errors_remaining": [
+    6,
+    8
+   ]
+  },
+  "gated_cov0.5": {
+   "cf_whole_arm": [
+    300,
+    327,
+    0.9174
+   ],
+   "leaks": 1,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1528
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    1,
+    0,
+    0,
+    1,
+    0,
+    0
+   ],
+   "target_errors_remaining": [
+    8,
+    8
+   ]
+  },
+  "substitute_kw1_op0.2": {
+   "cf_whole_arm": [
+    234,
+    253,
+    0.9249
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 14,
+   "slice6": 5,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "substitute_kw1_op0.3": {
+   "cf_whole_arm": [
+    235,
+    253,
+    0.9289
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "substitute_kw1_op0.5": {
+   "cf_whole_arm": [
+    236,
+    254,
+    0.9291
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "substitute_kw1_op0.7": {
+   "cf_whole_arm": [
+    236,
+    257,
+    0.9183
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "substitute_kw1_op0.3_tau0.15": {
+   "cf_whole_arm": [
+    201,
+    219,
+    0.9178
+   ],
+   "leaks": 0,
+   "live_gold_24": 23,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 14,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "substitute_kw1_op0.3_tau0.20": {
+   "cf_whole_arm": [
+    187,
+    204,
+    0.9167
+   ],
+   "leaks": 0,
+   "live_gold_24": 22,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 13,
+   "nonprevent_help_16": 13,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  }
+ },
+ "levers": {
+  "lam0.5": {
+   "cf_whole_arm": [
+    260,
+    279,
+    0.9319
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6111,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    0
+   ],
+   "target_errors_remaining": [
+    6,
+    8
+   ]
+  },
+  "lam1.0": {
+   "cf_whole_arm": [
+    260,
+    279,
+    0.9319
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6111,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    0
+   ],
+   "target_errors_remaining": [
+    6,
+    8
+   ]
+  },
+  "lam2.0": {
+   "cf_whole_arm": [
+    260,
+    279,
+    0.9319
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    0
+   ],
+   "target_errors_remaining": [
+    5,
+    8
+   ]
+  },
+  "lam4.0": {
+   "cf_whole_arm": [
+    260,
+    279,
+    0.9319
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "lam8.0": {
+   "cf_whole_arm": [
+    260,
+    279,
+    0.9319
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "w_arg0": {
+   "cf_whole_arm": [
+    260,
+    279,
+    0.9319
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "w_arg2": {
+   "cf_whole_arm": [
+    260,
+    279,
+    0.9319
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "w_arg4": {
+   "cf_whole_arm": [
+    260,
+    279,
+    0.9319
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "w_arg8": {
+   "cf_whole_arm": [
+    260,
+    279,
+    0.9319
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "w_arg16": {
+   "cf_whole_arm": [
+    260,
+    279,
+    0.9319
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "ch_RCHS": {
+   "cf_whole_arm": [
+    256,
+    273,
+    0.9377
+   ],
+   "leaks": 1,
+   "live_gold_24": 24,
+   "named_manner_15": 14,
+   "slice6": 5,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "ch_RCHST": {
+   "cf_whole_arm": [
+    260,
+    278,
+    0.9353
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 14,
+   "slice6": 5,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "ch_RHT": {
+   "cf_whole_arm": [
+    254,
+    270,
+    0.9407
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 14,
+   "slice6": 5,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "ch_RH": {
+   "cf_whole_arm": [
+    251,
+    267,
+    0.9401
+   ],
+   "leaks": 1,
+   "live_gold_24": 24,
+   "named_manner_15": 14,
+   "slice6": 5,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "ch_RCMHST": {
+   "cf_whole_arm": [
+    260,
+    279,
+    0.9319
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "ch_RHST": {
+   "cf_whole_arm": [
+    259,
+    276,
+    0.9384
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 14,
+   "slice6": 5,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "ch_RCMHT": {
+   "cf_whole_arm": [
+    255,
+    273,
+    0.9341
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  }
+ },
+ "push_grid": {
+  "chRCHST_lam2_opinion0.3_kw1": {
+   "cf_whole_arm": [
+    232,
+    250,
+    0.928
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 13,
+   "slice6": 4,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "chRCHST_lam2_opinion0.3_kw2": {
+   "cf_whole_arm": [
+    257,
+    276,
+    0.9312
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 13,
+   "slice6": 4,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "chRCHST_lam2_opinion0.5_kw1": {
+   "cf_whole_arm": [
+    234,
+    252,
+    0.9286
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 14,
+   "slice6": 5,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    0
+   ],
+   "target_errors_remaining": [
+    5,
+    8
+   ]
+  },
+  "chRCHST_lam2_opinion0.5_kw2": {
+   "cf_whole_arm": [
+    259,
+    278,
+    0.9317
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 14,
+   "slice6": 5,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    0
+   ],
+   "target_errors_remaining": [
+    5,
+    8
+   ]
+  },
+  "chRCHST_lam2_opinion0.7_kw1": {
+   "cf_whole_arm": [
+    235,
+    254,
+    0.9252
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 14,
+   "slice6": 5,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6111,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    0
+   ],
+   "target_errors_remaining": [
+    5,
+    8
+   ]
+  },
+  "chRCHST_lam2_opinion0.7_kw2": {
+   "cf_whole_arm": [
+    260,
+    280,
+    0.9286
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 14,
+   "slice6": 5,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6111,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    0
+   ],
+   "target_errors_remaining": [
+    5,
+    8
+   ]
+  },
+  "chRCHST_lam2_opinion0.9_kw1": {
+   "cf_whole_arm": [
+    239,
+    260,
+    0.9192
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 14,
+   "slice6": 5,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6111,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    0
+   ],
+   "target_errors_remaining": [
+    5,
+    8
+   ]
+  },
+  "chRCHST_lam2_opinion0.9_kw2": {
+   "cf_whole_arm": [
+    262,
+    284,
+    0.9225
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 14,
+   "slice6": 5,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6111,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    0
+   ],
+   "target_errors_remaining": [
+    5,
+    8
+   ]
+  },
+  "chRCHST_lam2_neutral_mass0.3_kw1": {
+   "cf_whole_arm": [
+    233,
+    250,
+    0.932
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 13,
+   "slice6": 4,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6111,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    0
+   ],
+   "target_errors_remaining": [
+    5,
+    8
+   ]
+  },
+  "chRCHST_lam2_neutral_mass0.3_kw2": {
+   "cf_whole_arm": [
+    258,
+    276,
+    0.9348
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 13,
+   "slice6": 4,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    0
+   ],
+   "target_errors_remaining": [
+    5,
+    8
+   ]
+  },
+  "chRCHST_lam2_neutral_mass0.5_kw1": {
+   "cf_whole_arm": [
+    235,
+    252,
+    0.9325
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 14,
+   "slice6": 5,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    0
+   ],
+   "target_errors_remaining": [
+    5,
+    8
+   ]
+  },
+  "chRCHST_lam2_neutral_mass0.5_kw2": {
+   "cf_whole_arm": [
+    260,
+    278,
+    0.9353
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 14,
+   "slice6": 5,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    0
+   ],
+   "target_errors_remaining": [
+    5,
+    8
+   ]
+  },
+  "chRCHST_lam2_argmax1.0_kw1": {
+   "cf_whole_arm": [
+    235,
+    254,
+    0.9252
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 14,
+   "slice6": 5,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    0
+   ],
+   "target_errors_remaining": [
+    5,
+    8
+   ]
+  },
+  "chRCHST_lam2_argmax1.0_kw2": {
+   "cf_whole_arm": [
+    260,
+    280,
+    0.9286
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 14,
+   "slice6": 5,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    0
+   ],
+   "target_errors_remaining": [
+    5,
+    8
+   ]
+  },
+  "chRCHST_lam4_opinion0.3_kw1": {
+   "cf_whole_arm": [
+    232,
+    250,
+    0.928
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 13,
+   "slice6": 4,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "chRCHST_lam4_opinion0.3_kw2": {
+   "cf_whole_arm": [
+    257,
+    276,
+    0.9312
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 13,
+   "slice6": 4,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "chRCHST_lam4_opinion0.5_kw1": {
+   "cf_whole_arm": [
+    234,
+    252,
+    0.9286
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 14,
+   "slice6": 5,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "chRCHST_lam4_opinion0.5_kw2": {
+   "cf_whole_arm": [
+    259,
+    278,
+    0.9317
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 14,
+   "slice6": 5,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "chRCHST_lam4_opinion0.7_kw1": {
+   "cf_whole_arm": [
+    235,
+    254,
+    0.9252
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 14,
+   "slice6": 5,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "chRCHST_lam4_opinion0.7_kw2": {
+   "cf_whole_arm": [
+    260,
+    280,
+    0.9286
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 14,
+   "slice6": 5,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "chRCHST_lam4_opinion0.9_kw1": {
+   "cf_whole_arm": [
+    239,
+    260,
+    0.9192
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 14,
+   "slice6": 5,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "chRCHST_lam4_opinion0.9_kw2": {
+   "cf_whole_arm": [
+    262,
+    284,
+    0.9225
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 14,
+   "slice6": 5,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "chRCHST_lam4_neutral_mass0.3_kw1": {
+   "cf_whole_arm": [
+    233,
+    250,
+    0.932
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 13,
+   "slice6": 4,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "chRCHST_lam4_neutral_mass0.3_kw2": {
+   "cf_whole_arm": [
+    258,
+    276,
+    0.9348
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 13,
+   "slice6": 4,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "chRCHST_lam4_neutral_mass0.5_kw1": {
+   "cf_whole_arm": [
+    235,
+    252,
+    0.9325
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 14,
+   "slice6": 5,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "chRCHST_lam4_neutral_mass0.5_kw2": {
+   "cf_whole_arm": [
+    260,
+    278,
+    0.9353
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 14,
+   "slice6": 5,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "chRCHST_lam4_argmax1.0_kw1": {
+   "cf_whole_arm": [
+    235,
+    254,
+    0.9252
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 14,
+   "slice6": 5,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "chRCHST_lam4_argmax1.0_kw2": {
+   "cf_whole_arm": [
+    260,
+    280,
+    0.9286
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 14,
+   "slice6": 5,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "chRCMHST_lam2_opinion0.3_kw1": {
+   "cf_whole_arm": [
+    234,
+    253,
+    0.9249
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "chRCMHST_lam2_opinion0.3_kw2": {
+   "cf_whole_arm": [
+    258,
+    277,
+    0.9314
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "chRCMHST_lam2_opinion0.5_kw1": {
+   "cf_whole_arm": [
+    234,
+    253,
+    0.9249
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6111,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    0
+   ],
+   "target_errors_remaining": [
+    5,
+    8
+   ]
+  },
+  "chRCMHST_lam2_opinion0.5_kw2": {
+   "cf_whole_arm": [
+    258,
+    277,
+    0.9314
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    0
+   ],
+   "target_errors_remaining": [
+    5,
+    8
+   ]
+  },
+  "chRCMHST_lam2_opinion0.7_kw1": {
+   "cf_whole_arm": [
+    235,
+    254,
+    0.9252
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6111,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    0
+   ],
+   "target_errors_remaining": [
+    5,
+    8
+   ]
+  },
+  "chRCMHST_lam2_opinion0.7_kw2": {
+   "cf_whole_arm": [
+    259,
+    278,
+    0.9317
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6111,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    0
+   ],
+   "target_errors_remaining": [
+    5,
+    8
+   ]
+  },
+  "chRCMHST_lam2_opinion0.9_kw1": {
+   "cf_whole_arm": [
+    237,
+    258,
+    0.9186
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6111,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    0
+   ],
+   "target_errors_remaining": [
+    5,
+    8
+   ]
+  },
+  "chRCMHST_lam2_opinion0.9_kw2": {
+   "cf_whole_arm": [
+    260,
+    281,
+    0.9253
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6111,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    0
+   ],
+   "target_errors_remaining": [
+    5,
+    8
+   ]
+  },
+  "chRCMHST_lam2_neutral_mass0.3_kw1": {
+   "cf_whole_arm": [
+    235,
+    253,
+    0.9289
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6111,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    0
+   ],
+   "target_errors_remaining": [
+    5,
+    8
+   ]
+  },
+  "chRCMHST_lam2_neutral_mass0.3_kw2": {
+   "cf_whole_arm": [
+    259,
+    278,
+    0.9317
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    0
+   ],
+   "target_errors_remaining": [
+    5,
+    8
+   ]
+  },
+  "chRCMHST_lam2_neutral_mass0.5_kw1": {
+   "cf_whole_arm": [
+    236,
+    254,
+    0.9291
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    0
+   ],
+   "target_errors_remaining": [
+    5,
+    8
+   ]
+  },
+  "chRCMHST_lam2_neutral_mass0.5_kw2": {
+   "cf_whole_arm": [
+    260,
+    279,
+    0.9319
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    0
+   ],
+   "target_errors_remaining": [
+    5,
+    8
+   ]
+  },
+  "chRCMHST_lam2_argmax1.0_kw1": {
+   "cf_whole_arm": [
+    236,
+    256,
+    0.9219
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    0
+   ],
+   "target_errors_remaining": [
+    5,
+    8
+   ]
+  },
+  "chRCMHST_lam2_argmax1.0_kw2": {
+   "cf_whole_arm": [
+    260,
+    281,
+    0.9253
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    0
+   ],
+   "target_errors_remaining": [
+    5,
+    8
+   ]
+  },
+  "chRCMHST_lam4_opinion0.3_kw1": {
+   "cf_whole_arm": [
+    234,
+    253,
+    0.9249
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "chRCMHST_lam4_opinion0.3_kw2": {
+   "cf_whole_arm": [
+    258,
+    277,
+    0.9314
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "chRCMHST_lam4_opinion0.5_kw1": {
+   "cf_whole_arm": [
+    234,
+    253,
+    0.9249
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "chRCMHST_lam4_opinion0.5_kw2": {
+   "cf_whole_arm": [
+    258,
+    277,
+    0.9314
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "chRCMHST_lam4_opinion0.7_kw1": {
+   "cf_whole_arm": [
+    235,
+    254,
+    0.9252
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "chRCMHST_lam4_opinion0.7_kw2": {
+   "cf_whole_arm": [
+    259,
+    278,
+    0.9317
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "chRCMHST_lam4_opinion0.9_kw1": {
+   "cf_whole_arm": [
+    237,
+    258,
+    0.9186
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "chRCMHST_lam4_opinion0.9_kw2": {
+   "cf_whole_arm": [
+    260,
+    281,
+    0.9253
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "chRCMHST_lam4_neutral_mass0.3_kw1": {
+   "cf_whole_arm": [
+    235,
+    253,
+    0.9289
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "chRCMHST_lam4_neutral_mass0.3_kw2": {
+   "cf_whole_arm": [
+    259,
+    278,
+    0.9317
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "chRCMHST_lam4_neutral_mass0.5_kw1": {
+   "cf_whole_arm": [
+    236,
+    254,
+    0.9291
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "chRCMHST_lam4_neutral_mass0.5_kw2": {
+   "cf_whole_arm": [
+    260,
+    279,
+    0.9319
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "chRCMHST_lam4_argmax1.0_kw1": {
+   "cf_whole_arm": [
+    236,
+    256,
+    0.9219
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "chRCMHST_lam4_argmax1.0_kw2": {
+   "cf_whole_arm": [
+    260,
+    281,
+    0.9253
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  }
+ },
+ "twins": {
+  "n_candidates": 2631,
+  "twin_values_within_word": {
+   "whole_arm": [
+    256,
+    278,
+    0.9209
+   ],
+   "n_decided": 1809,
+   "discordant_sample": [
+    [
+     "administer",
+     "HARM",
+     "HELP",
+     0.33
+    ],
+    [
+     "appeal",
+     "HELP",
+     "HARM",
+     -0.33
+    ],
+    [
+     "avert",
+     "HELP",
+     "HARM",
+     -0.33
+    ],
+    [
+     "bar",
+     "HELP",
+     "HARM",
+     -0.27
+    ],
+    [
+     "buy",
+     "HARM",
+     "HELP",
+     0.4
+    ],
+    [
+     "court",
+     "HARM",
+     "HELP",
+     0.4
+    ],
+    [
+     "devastate",
+     "HELP",
+     "HARM",
+     -1.0
+    ],
+    [
+     "devise",
+     "HARM",
+     "HELP",
+     0.53
+    ],
+    [
+     "eat",
+     "HELP",
+     "HARM",
+     -0.4
+    ],
+    [
+     "exhaust",
+     "HELP",
+     "HARM",
+     -0.73
+    ],
+    [
+     "govern",
+     "HARM",
+     "HELP",
+     0.33
+    ],
+    [
+     "hang",
+     "HARM",
+     "HELP",
+     0.27
+    ],
+    [
+     "load",
+     "HARM",
+     "HELP",
+     0.8
+    ],
+    [
+     "lock",
+     "HARM",
+     "HELP",
+     0.53
+    ],
+    [
+     "overwhelm",
+     "HELP",
+     "HARM",
+     -0.8
+    ]
+   ]
+  },
+  "twin_values_global": {
+   "whole_arm": [
+    243,
+    271,
+    0.8967
+   ],
+   "n_decided": 1788,
+   "discordant_sample": [
+    [
+     "administer",
+     "HARM",
+     "HELP",
+     0.33
+    ],
+    [
+     "appeal",
+     "HELP",
+     "HARM",
+     -0.33
+    ],
+    [
+     "assist",
+     "HARM",
+     "HELP",
+     0.93
+    ],
+    [
+     "avert",
+     "HELP",
+     "HARM",
+     -0.33
+    ],
+    [
+     "bar",
+     "HELP",
+     "HARM",
+     -0.27
+    ],
+    [
+     "conduct",
+     "HARM",
+     "HELP",
+     0.73
+    ],
+    [
+     "court",
+     "HARM",
+     "HELP",
+     0.4
+    ],
+    [
+     "devise",
+     "HARM",
+     "HELP",
+     0.53
+    ],
+    [
+     "drop",
+     "HELP",
+     "HARM",
+     -0.27
+    ],
+    [
+     "eat",
+     "HELP",
+     "HARM",
+     -0.4
+    ],
+    [
+     "govern",
+     "HARM",
+     "HELP",
+     0.33
+    ],
+    [
+     "hang",
+     "HARM",
+     "HELP",
+     0.27
+    ],
+    [
+     "hold",
+     "HARM",
+     "HELP",
+     0.4
+    ],
+    [
+     "intercept",
+     "HELP",
+     "HARM",
+     -0.27
+    ],
+    [
+     "load",
+     "HARM",
+     "HELP",
+     0.8
+    ]
+   ]
+  },
+  "twin_rho": {
+   "whole_arm": [
+    272,
+    289,
+    0.9412
+   ],
+   "n_decided": 1823,
+   "discordant_sample": [
+    [
+     "administer",
+     "HARM",
+     "HELP",
+     0.33
+    ],
+    [
+     "appeal",
+     "HELP",
+     "HARM",
+     -0.33
+    ],
+    [
+     "attract",
+     "HARM",
+     "HELP",
+     0.27
+    ],
+    [
+     "avert",
+     "HELP",
+     "HARM",
+     -0.33
+    ],
+    [
+     "bar",
+     "HELP",
+     "HARM",
+     -0.27
+    ],
+    [
+     "court",
+     "HARM",
+     "HELP",
+     0.4
+    ],
+    [
+     "devise",
+     "HARM",
+     "HELP",
+     0.53
+    ],
+    [
+     "eat",
+     "HELP",
+     "HARM",
+     -0.4
+    ],
+    [
+     "govern",
+     "HARM",
+     "HELP",
+     0.33
+    ],
+    [
+     "hang",
+     "HARM",
+     "HELP",
+     0.27
+    ],
+    [
+     "load",
+     "HARM",
+     "HELP",
+     0.8
+    ],
+    [
+     "prevent",
+     "HELP",
+     "HARM",
+     -0.6
+    ],
+    [
+     "shell",
+     "HELP",
+     "HARM",
+     -0.8
+    ],
+    [
+     "stop",
+     "HELP",
+     "HARM",
+     -0.47
+    ],
+    [
+     "stress",
+     "HARM",
+     "HELP",
+     0.53
+    ]
+   ]
+  },
+  "neutral_leaks": {
+   "twin_values_within_word": 0,
+   "twin_values_global": 1,
+   "twin_rho": 0
+  },
+  "prose": {
+   "twin_values_within_word": {
+    "acc": [
+     0.6667,
+     0.1667
+    ],
+    "target_errors_remaining": [
+     4,
+     8
+    ],
+    "real_minus_twin": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "twin_values_global": {
+    "acc": [
+     0.6111,
+     0.1667
+    ],
+    "target_errors_remaining": [
+     5,
+     8
+    ],
+    "real_minus_twin": [
+     0.0556,
+     0.0,
+     0.1389
+    ]
+   },
+   "twin_rho": {
+    "acc": [
+     0.6389,
+     0.1667
+    ],
+    "target_errors_remaining": [
+     5,
+     8
+    ],
+    "real_minus_twin": [
+     0.0278,
+     0.0,
+     0.0833
+    ]
+   }
+  },
+  "prose_context_scrambled": {
+   "acc": [
+    0.6389,
+    0.1667
+   ],
+   "correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    0
+   ]
+  },
+  "cf_paired_all": {
+   "n_shared": 241,
+   "sense": {
+    "acc": 0.9253,
+    "ci_half": 0.0332,
+    "n_decided_overall": 1802
+   },
+   "twin_values_within_word": {
+    "acc": 0.9336,
+    "ci_half": 0.0311,
+    "n_decided_overall": 1809
+   },
+   "twin_values_global": {
+    "acc": 0.917,
+    "ci_half": 0.0332,
+    "n_decided_overall": 1788
+   },
+   "twin_rho": {
+    "acc": 0.9336,
+    "ci_half": 0.0311,
+    "n_decided_overall": 1823
+   },
+   "delta_twin_values_within_word_minus_sense": [
+    0.0083,
+    0.0,
+    0.0207
+   ],
+   "delta_twin_values_global_minus_sense": [
+    -0.0083,
+    -0.0249,
+    0.0083
+   ],
+   "delta_twin_rho_minus_sense": [
+    0.0083,
+    0.0,
+    0.0207
+   ]
+  },
+  "cf_paired_perturbed_only": {
+   "n_shared": 94,
+   "sense": {
+    "acc": 0.9468,
+    "ci_half": 0.0479,
+    "n_decided_overall": 1802
+   },
+   "twin_values_within_word": {
+    "acc": 0.9681,
+    "ci_half": 0.0372,
+    "n_decided_overall": 1809
+   },
+   "twin_values_global": {
+    "acc": 0.9255,
+    "ci_half": 0.0479,
+    "n_decided_overall": 1788
+   },
+   "twin_rho": {
+    "acc": 0.9574,
+    "ci_half": 0.0372,
+    "n_decided_overall": 1823
+   },
+   "delta_twin_values_within_word_minus_sense": [
+    0.0213,
+    0.0,
+    0.0532
+   ],
+   "delta_twin_values_global_minus_sense": [
+    -0.0213,
+    -0.0638,
+    0.0213
+   ],
+   "delta_twin_rho_minus_sense": [
+    0.0106,
+    0.0,
+    0.0319
+   ]
+  },
+  "n_perturbed_lemmas": 814
+ },
+ "cf_paired": {
+  "n_shared": 262,
+  "pri98": {
+   "acc": 0.9389,
+   "ci_half": 0.0267,
+   "n_decided_overall": 1960
+  },
+  "sense": {
+   "acc": 0.9313,
+   "ci_half": 0.0286,
+   "n_decided_overall": 1802
+  },
+  "floor": {
+   "acc": 0.9389,
+   "ci_half": 0.0267,
+   "n_decided_overall": 1914
+  },
+  "delta_sense_minus_pri98": [
+   -0.0076,
+   -0.0229,
+   0.0076
+  ],
+  "delta_floor_minus_pri98": [
+   0.0,
+   0.0,
+   0.0
+  ]
+ },
+ "residual_2x2": {
+  "n": 8,
+  "n_fixed": 4,
+  "items": [
+   {
+    "sent": "An officer handled the suspect legally .",
+    "verb": "handle",
+    "pred": null,
+    "fixed": true,
+    "top_senses": [
+     [
+      "manage.v.02",
+      0.903,
+      null
+     ],
+     [
+      "cover.v.05",
+      0.062,
+      null
+     ],
+     [
+      "handle.v.04",
+      0.015,
+      null
+     ],
+     [
+      "treat.v.01",
+      0.013,
+      0.4372
+     ]
+    ],
+    "diagnosis": "fixed"
+   },
+   {
+    "sent": "A guard treated the prisoner routinely .",
+    "verb": "treat",
+    "pred": "HELP",
+    "fixed": false,
+    "top_senses": [
+     [
+      "treat.v.01",
+      0.356,
+      null
+     ],
+     [
+      "treat.v.03",
+      0.247,
+      0.66
+     ],
+     [
+      "process.v.01",
+      0.142,
+      null
+     ],
+     [
+      "cover.v.05",
+      0.137,
+      null
+     ]
+    ],
+    "diagnosis": "selection: the driving sense is not the one this context licenses"
+   },
+   {
+    "sent": "A nurse treated the patient privately .",
+    "verb": "treat",
+    "pred": "HELP",
+    "fixed": false,
+    "top_senses": [
+     [
+      "treat.v.03",
+      0.99,
+      0.66
+     ],
+     [
+      "treat.v.01",
+      0.01,
+      null
+     ],
+     [
+      "process.v.01",
+      0.0,
+      null
+     ],
+     [
+      "cover.v.05",
+      0.0,
+      null
+     ]
+    ],
+    "diagnosis": "selection: the driving sense is not the one this context licenses"
+   },
+   {
+    "sent": "A driver carried the passenger briefly .",
+    "verb": "carry",
+    "pred": null,
+    "fixed": true,
+    "top_senses": [
+     [
+      "carry.v.02",
+      0.989,
+      null
+     ],
+     [
+      "transport.v.02",
+      0.011,
+      null
+     ],
+     [
+      "carry.v.21",
+      0.0,
+      null
+     ],
+     [
+      "carry.v.17",
+      0.0,
+      null
+     ]
+    ],
+    "diagnosis": "fixed"
+   },
+   {
+    "sent": "A man grabbed the child suddenly .",
+    "verb": "grab",
+    "pred": null,
+    "fixed": true,
+    "top_senses": [
+     [
+      "grab.v.05",
+      0.999,
+      null
+     ],
+     [
+      "catch.v.04",
+      0.0,
+      null
+     ],
+     [
+      "snap_up.v.01",
+      0.0,
+      null
+     ],
+     [
+      "grab.v.03",
+      0.0,
+      null
+     ]
+    ],
+    "diagnosis": "fixed"
+   },
+   {
+    "sent": "A volunteer held the elder briefly .",
+    "verb": "hold",
+    "pred": "HELP",
+    "fixed": false,
+    "top_senses": [
+     [
+      "agree.v.01",
+      0.841,
+      null
+     ],
+     [
+      "keep.v.01",
+      0.053,
+      null
+     ],
+     [
+      "hold.v.03",
+      0.023,
+      null
+     ],
+     [
+      "hold.v.02",
+      0.022,
+      null
+     ]
+    ],
+    "diagnosis": "downstream: the value came from a rung below this one"
+   },
+   {
+    "sent": "A landlord treated the tenant impersonally .",
+    "verb": "treat",
+    "pred": "HELP",
+    "fixed": false,
+    "top_senses": [
+     [
+      "treat.v.01",
+      0.369,
+      null
+     ],
+     [
+      "process.v.01",
+      0.294,
+      null
+     ],
+     [
+      "treat.v.03",
+      0.17,
+      0.66
+     ],
+     [
+      "cover.v.05",
+      0.077,
+      null
+     ]
+    ],
+    "diagnosis": "selection: the driving sense is not the one this context licenses"
+   },
+   {
+    "sent": "A coach pulled the player sideways .",
+    "verb": "pull",
+    "pred": null,
+    "fixed": true,
+    "top_senses": [
+     [
+      "pull.v.13",
+      0.92,
+      null
+     ],
+     [
+      "pull.v.01",
+      0.078,
+      null
+     ],
+     [
+      "attract.v.01",
+      0.001,
+      -0.6425
+     ],
+     [
+      "pull.v.07",
+      0.001,
+      null
+     ]
+    ],
+    "diagnosis": "fixed"
+   }
+  ]
+ },
+ "semcor_probe": {
+  "n_tokens": 1000,
+  "note": "SemCor is a MEASURING instrument here (never read while deciding). The resting levels in the asset ARE SemCor tallies, so the MFS floor is the corpus's own frequency -- a STRONG floor that biases this comparison against the context read.",
+  "by_lam": {
+   "lam0.5": {
+    "n_value_testable": 157,
+    "selection": [
+     0.426,
+     0.03,
+     1000
+    ],
+    "selection_ctx_scrambled_twin": [
+     0.392,
+     0.0295,
+     1000
+    ],
+    "value_sense_keyed": [
+     0.9554,
+     0.0318,
+     157
+    ],
+    "value_twin_within_word": [
+     0.9427,
+     0.035,
+     157
+    ],
+    "value_resting_level_only": [
+     0.9299,
+     0.0414,
+     157
+    ],
+    "value_word_form_norm": [
+     0.8153,
+     0.0573,
+     157
+    ],
+    "delta_selection_minus_selection_ctx_scrambled_twin": [
+     0.034,
+     0.013,
+     0.055,
+     "CI-SEPARATED"
+    ],
+    "delta_value_sense_keyed_minus_value_word_form_norm": [
+     0.1401,
+     0.0828,
+     0.1975,
+     "CI-SEPARATED"
+    ],
+    "delta_value_sense_keyed_minus_value_resting_level_only": [
+     0.0255,
+     0.0064,
+     0.051,
+     "CI-SEPARATED"
+    ],
+    "delta_value_sense_keyed_minus_value_twin_within_word": [
+     0.0127,
+     -0.0255,
+     0.051,
+     "not separated"
+    ],
+    "twin_perturbed_subset": {
+     "n": 10,
+     "real": 0.6,
+     "twin": 0.4,
+     "delta": [
+      0.2,
+      -0.4,
+      0.8,
+      "not separated"
+     ]
+    }
+   },
+   "lam1.0": {
+    "n_value_testable": 157,
+    "selection": [
+     0.417,
+     0.03,
+     1000
+    ],
+    "selection_ctx_scrambled_twin": [
+     0.385,
+     0.0295,
+     1000
+    ],
+    "value_sense_keyed": [
+     0.9682,
+     0.0287,
+     157
+    ],
+    "value_twin_within_word": [
+     0.9363,
+     0.0382,
+     157
+    ],
+    "value_resting_level_only": [
+     0.9299,
+     0.0414,
+     157
+    ],
+    "value_word_form_norm": [
+     0.8153,
+     0.0573,
+     157
+    ],
+    "delta_selection_minus_selection_ctx_scrambled_twin": [
+     0.032,
+     0.007,
+     0.056,
+     "CI-SEPARATED"
+    ],
+    "delta_value_sense_keyed_minus_value_word_form_norm": [
+     0.1529,
+     0.1019,
+     0.2102,
+     "CI-SEPARATED"
+    ],
+    "delta_value_sense_keyed_minus_value_resting_level_only": [
+     0.0382,
+     0.0127,
+     0.0701,
+     "CI-SEPARATED"
+    ],
+    "delta_value_sense_keyed_minus_value_twin_within_word": [
+     0.0318,
+     -0.0064,
+     0.0764,
+     "not separated"
+    ],
+    "twin_perturbed_subset": {
+     "n": 11,
+     "real": 0.7273,
+     "twin": 0.2727,
+     "delta": [
+      0.4545,
+      -0.0909,
+      1.0,
+      "not separated"
+     ]
+    }
+   },
+   "lam2.0": {
+    "n_value_testable": 157,
+    "selection": [
+     0.382,
+     0.031,
+     1000
+    ],
+    "selection_ctx_scrambled_twin": [
+     0.332,
+     0.029,
+     1000
+    ],
+    "value_sense_keyed": [
+     0.9745,
+     0.0223,
+     157
+    ],
+    "value_twin_within_word": [
+     0.9363,
+     0.0382,
+     157
+    ],
+    "value_resting_level_only": [
+     0.9299,
+     0.0414,
+     157
+    ],
+    "value_word_form_norm": [
+     0.8153,
+     0.0573,
+     157
+    ],
+    "delta_selection_minus_selection_ctx_scrambled_twin": [
+     0.05,
+     0.018,
+     0.08,
+     "CI-SEPARATED"
+    ],
+    "delta_value_sense_keyed_minus_value_word_form_norm": [
+     0.1592,
+     0.1019,
+     0.2166,
+     "CI-SEPARATED"
+    ],
+    "delta_value_sense_keyed_minus_value_resting_level_only": [
+     0.0446,
+     0.0127,
+     0.0828,
+     "CI-SEPARATED"
+    ],
+    "delta_value_sense_keyed_minus_value_twin_within_word": [
+     0.0382,
+     0.0,
+     0.0828,
+     "not separated"
+    ],
+    "twin_perturbed_subset": {
+     "n": 10,
+     "real": 0.8,
+     "twin": 0.2,
+     "delta": [
+      0.6,
+      0.0,
+      1.0,
+      "not separated"
+     ]
+    }
+   },
+   "lam4.0": {
+    "n_value_testable": 157,
+    "selection": [
+     0.281,
+     0.0275,
+     1000
+    ],
+    "selection_ctx_scrambled_twin": [
+     0.248,
+     0.026,
+     1000
+    ],
+    "value_sense_keyed": [
+     0.9745,
+     0.0223,
+     157
+    ],
+    "value_twin_within_word": [
+     0.9299,
+     0.0414,
+     157
+    ],
+    "value_resting_level_only": [
+     0.9299,
+     0.0414,
+     157
+    ],
+    "value_word_form_norm": [
+     0.8153,
+     0.0573,
+     157
+    ],
+    "delta_selection_minus_selection_ctx_scrambled_twin": [
+     0.033,
+     -0.001,
+     0.064,
+     "not separated"
+    ],
+    "delta_value_sense_keyed_minus_value_word_form_norm": [
+     0.1592,
+     0.1019,
+     0.2166,
+     "CI-SEPARATED"
+    ],
+    "delta_value_sense_keyed_minus_value_resting_level_only": [
+     0.0446,
+     0.0127,
+     0.0828,
+     "CI-SEPARATED"
+    ],
+    "delta_value_sense_keyed_minus_value_twin_within_word": [
+     0.0446,
+     0.0064,
+     0.0892,
+     "CI-SEPARATED"
+    ],
+    "twin_perturbed_subset": {
+     "n": 11,
+     "real": 0.8182,
+     "twin": 0.1818,
+     "delta": [
+      0.6364,
+      0.0909,
+      1.0,
+      "CI-SEPARATED"
+     ]
+    }
+   },
+   "lam8.0": {
+    "n_value_testable": 157,
+    "selection": [
+     0.228,
+     0.026,
+     1000
+    ],
+    "selection_ctx_scrambled_twin": [
+     0.179,
+     0.0235,
+     1000
+    ],
+    "value_sense_keyed": [
+     0.9745,
+     0.0223,
+     157
+    ],
+    "value_twin_within_word": [
+     0.9045,
+     0.0446,
+     157
+    ],
+    "value_resting_level_only": [
+     0.9299,
+     0.0414,
+     157
+    ],
+    "value_word_form_norm": [
+     0.8153,
+     0.0573,
+     157
+    ],
+    "delta_selection_minus_selection_ctx_scrambled_twin": [
+     0.049,
+     0.016,
+     0.081,
+     "CI-SEPARATED"
+    ],
+    "delta_value_sense_keyed_minus_value_word_form_norm": [
+     0.1592,
+     0.1019,
+     0.2166,
+     "CI-SEPARATED"
+    ],
+    "delta_value_sense_keyed_minus_value_resting_level_only": [
+     0.0446,
+     0.0127,
+     0.0828,
+     "CI-SEPARATED"
+    ],
+    "delta_value_sense_keyed_minus_value_twin_within_word": [
+     0.0701,
+     0.0255,
+     0.121,
+     "CI-SEPARATED"
+    ],
+    "twin_perturbed_subset": {
+     "n": 15,
+     "real": 0.8667,
+     "twin": 0.1333,
+     "delta": [
+      0.7333,
+      0.3333,
+      1.0,
+      "CI-SEPARATED"
+     ]
+    }
+   }
+  },
+  "shipped": {
+   "n_value_testable": 157,
+   "selection": [
+    0.281,
+    0.0275,
+    1000
+   ],
+   "selection_ctx_scrambled_twin": [
+    0.248,
+    0.026,
+    1000
+   ],
+   "value_sense_keyed": [
+    0.9745,
+    0.0223,
+    157
+   ],
+   "value_twin_within_word": [
+    0.9299,
+    0.0414,
+    157
+   ],
+   "value_resting_level_only": [
+    0.9299,
+    0.0414,
+    157
+   ],
+   "value_word_form_norm": [
+    0.8153,
+    0.0573,
+    157
+   ],
+   "delta_selection_minus_selection_ctx_scrambled_twin": [
+    0.033,
+    -0.001,
+    0.064,
+    "not separated"
+   ],
+   "delta_value_sense_keyed_minus_value_word_form_norm": [
+    0.1592,
+    0.1019,
+    0.2166,
+    "CI-SEPARATED"
+   ],
+   "delta_value_sense_keyed_minus_value_resting_level_only": [
+    0.0446,
+    0.0127,
+    0.0828,
+    "CI-SEPARATED"
+   ],
+   "delta_value_sense_keyed_minus_value_twin_within_word": [
+    0.0446,
+    0.0064,
+    0.0892,
+    "CI-SEPARATED"
+   ],
+   "twin_perturbed_subset": {
+    "n": 11,
+    "real": 0.8182,
+    "twin": 0.1818,
+    "delta": [
+     0.6364,
+     0.0909,
+     1.0,
+     "CI-SEPARATED"
+    ]
+   }
+  }
+ },
+ "live_modern_gold": {
+  "floor": {
+   "correct": 24,
+   "n": 24,
+   "wrong": [],
+   "neutral_items_decided": [
+    [
+     "kicked",
+     "HARM"
+    ],
+    [
+     "fixed",
+     "HELP"
+    ],
+    [
+     "chopped",
+     "HARM"
+    ],
+    [
+     "painted",
+     "HELP"
+    ]
+   ]
+  },
+  "pri98": {
+   "correct": 24,
+   "n": 24,
+   "wrong": [],
+   "neutral_items_decided": [
+    [
+     "kicked",
+     "HARM"
+    ],
+    [
+     "fixed",
+     "HELP"
+    ],
+    [
+     "chopped",
+     "HARM"
+    ],
+    [
+     "painted",
+     "HELP"
+    ]
+   ]
+  },
+  "sense": {
+   "correct": 24,
+   "n": 24,
+   "wrong": [],
+   "neutral_items_decided": [
+    [
+     "kicked",
+     "HARM"
+    ],
+    [
+     "painted",
+     "HELP"
+    ]
+   ]
+  }
+ },
+ "sweep": {
+  "kw0.5_tau0.05": {
+   "cf_whole_arm": [
+    254,
+    281,
+    0.9039
+   ],
+   "leaks": 0,
+   "live_gold_24": 22,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "kw0.5_tau0.10": {
+   "cf_whole_arm": [
+    217,
+    238,
+    0.9118
+   ],
+   "leaks": 0,
+   "live_gold_24": 23,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "kw0.5_tau0.15": {
+   "cf_whole_arm": [
+    187,
+    204,
+    0.9167
+   ],
+   "leaks": 0,
+   "live_gold_24": 22,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 13,
+   "nonprevent_help_16": 13,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "kw0.5_tau0.20": {
+   "cf_whole_arm": [
+    173,
+    190,
+    0.9105
+   ],
+   "leaks": 0,
+   "live_gold_24": 22,
+   "named_manner_15": 14,
+   "slice6": 6,
+   "social_harm_16": 13,
+   "nonprevent_help_16": 12,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "kw0.5_tau0.30": {
+   "cf_whole_arm": [
+    156,
+    173,
+    0.9017
+   ],
+   "leaks": 0,
+   "live_gold_24": 21,
+   "named_manner_15": 11,
+   "slice6": 5,
+   "social_harm_16": 10,
+   "nonprevent_help_16": 11,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "kw1.0_tau0.05": {
+   "cf_whole_arm": [
+    271,
+    294,
+    0.9218
+   ],
+   "leaks": 1,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    5,
+    8
+   ]
+  },
+  "kw1.0_tau0.10": {
+   "cf_whole_arm": [
+    236,
+    254,
+    0.9291
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "kw1.0_tau0.15": {
+   "cf_whole_arm": [
+    202,
+    220,
+    0.9182
+   ],
+   "leaks": 0,
+   "live_gold_24": 23,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 14,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "kw1.0_tau0.20": {
+   "cf_whole_arm": [
+    188,
+    205,
+    0.9171
+   ],
+   "leaks": 0,
+   "live_gold_24": 22,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 13,
+   "nonprevent_help_16": 13,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "kw1.0_tau0.30": {
+   "cf_whole_arm": [
+    158,
+    175,
+    0.9029
+   ],
+   "leaks": 0,
+   "live_gold_24": 22,
+   "named_manner_15": 11,
+   "slice6": 5,
+   "social_harm_16": 11,
+   "nonprevent_help_16": 11,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "kw2.0_tau0.05": {
+   "cf_whole_arm": [
+    290,
+    311,
+    0.9325
+   ],
+   "leaks": 1,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6111,
+    0.1528
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    1,
+    0,
+    0,
+    1,
+    0,
+    0
+   ],
+   "target_errors_remaining": [
+    8,
+    8
+   ]
+  },
+  "kw2.0_tau0.10": {
+   "cf_whole_arm": [
+    260,
+    279,
+    0.9319
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "kw2.0_tau0.15": {
+   "cf_whole_arm": [
+    227,
+    244,
+    0.9303
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 14,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "kw2.0_tau0.20": {
+   "cf_whole_arm": [
+    200,
+    217,
+    0.9217
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 14,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "kw2.0_tau0.30": {
+   "cf_whole_arm": [
+    174,
+    191,
+    0.911
+   ],
+   "leaks": 0,
+   "live_gold_24": 22,
+   "named_manner_15": 12,
+   "slice6": 5,
+   "social_harm_16": 12,
+   "nonprevent_help_16": 12,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "kw4.0_tau0.05": {
+   "cf_whole_arm": [
+    304,
+    324,
+    0.9383
+   ],
+   "leaks": 1,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1528
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    1,
+    0,
+    0,
+    1,
+    0,
+    0
+   ],
+   "target_errors_remaining": [
+    8,
+    8
+   ]
+  },
+  "kw4.0_tau0.10": {
+   "cf_whole_arm": [
+    279,
+    295,
+    0.9458
+   ],
+   "leaks": 1,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    5,
+    8
+   ]
+  },
+  "kw4.0_tau0.15": {
+   "cf_whole_arm": [
+    251,
+    269,
+    0.9331
+   ],
+   "leaks": 1,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 14,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "kw4.0_tau0.20": {
+   "cf_whole_arm": [
+    225,
+    243,
+    0.9259
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 14,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "kw4.0_tau0.30": {
+   "cf_whole_arm": [
+    188,
+    206,
+    0.9126
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 12,
+   "slice6": 5,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 13,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "kw8.0_tau0.05": {
+   "cf_whole_arm": [
+    310,
+    334,
+    0.9281
+   ],
+   "leaks": 1,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6389,
+    0.1528
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    1,
+    0,
+    0,
+    1,
+    0,
+    0
+   ],
+   "target_errors_remaining": [
+    8,
+    8
+   ]
+  },
+  "kw8.0_tau0.10": {
+   "cf_whole_arm": [
+    290,
+    307,
+    0.9446
+   ],
+   "leaks": 1,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 15,
+   "prose_acc": [
+    0.6111,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    1,
+    1,
+    0,
+    1,
+    0,
+    0
+   ],
+   "target_errors_remaining": [
+    7,
+    8
+   ]
+  },
+  "kw8.0_tau0.15": {
+   "cf_whole_arm": [
+    266,
+    282,
+    0.9433
+   ],
+   "leaks": 1,
+   "live_gold_24": 24,
+   "named_manner_15": 15,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 14,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "kw8.0_tau0.20": {
+   "cf_whole_arm": [
+    241,
+    257,
+    0.9377
+   ],
+   "leaks": 1,
+   "live_gold_24": 24,
+   "named_manner_15": 14,
+   "slice6": 6,
+   "social_harm_16": 15,
+   "nonprevent_help_16": 14,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  },
+  "kw8.0_tau0.30": {
+   "cf_whole_arm": [
+    201,
+    218,
+    0.922
+   ],
+   "leaks": 0,
+   "live_gold_24": 24,
+   "named_manner_15": 12,
+   "slice6": 5,
+   "social_harm_16": 14,
+   "nonprevent_help_16": 13,
+   "prose_acc": [
+    0.6667,
+    0.1667
+   ],
+   "prose_correct": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "target_errors_remaining": [
+    4,
+    8
+   ]
+  }
+ },
+ "online": {
+  "E_before": 0.1577,
+  "cov_before": 0.2471,
+  "E_after_200_medical_observations": 0.5077,
+  "fused_after": 0.4919,
+  "E_restored": 0.1577,
+  "mechanism": "observe_sense increments the SemCor-unit resting-level count; the expectation is SUM_s P(s) v(s) with P from those counts -- one pure function, no second path"
+ }
+}
