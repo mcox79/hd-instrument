@@ -542,3 +542,10 @@ competent-reader reference ~0.85–0.90.
   the tagger's accuracy on copular predicates/holders (ADJ/NOUN confusions), i.e. the categories rung (pri-15 / the organ's counts), not
   the reader. Kept the graded read (harmless, brain-faithful). Phase 2 tally: agent REPAIRED (+0.015, above baseline); patient and state
   losses are UPSTREAM (heads obj attachment; tagger) -> the next gains come from the rungs, not the readers.
+- **OBJECT-ATTACHMENT ANATOMY (2026-09-13 03:20; attachment arm, UD-EWT test 700, gold categories, 400 gold objects, recall 0.685 = 126
+  misses): the object went to ANOTHER VERB ON ITS RIGHT 60 (48%; "creating nuclear energy without wanting ..." -> energy->wanting;
+  "make statements and then hide" -> statements->hide), to a nominal 31, to a verb on the left 16, to ROOT 10, to a preposition 8. The
+  wrong head is usually NEARER (pred distance 1-2: 88/126) and in 49 cases the gold verb was given a different nominal instead.** Cause:
+  the semantic-bootstrapping teacher scores OBJECT plausibility for a nominal on EITHER side of the verb; English objects follow their
+  verb, and the child's semantic bootstrapping maps roles WITH word order (Pinker 1984 canonical mapping). Fix: order-aware teacher --
+  object association for nominals AFTER the verb, SUBJECT association (same self-grown store, SUBJ slot) for nominals BEFORE it.
