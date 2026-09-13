@@ -1,6 +1,6 @@
 # OVERNIGHT PLAN — 2026-09-12 → 13 (owner asleep; autoloop ARMED; owner direction: "make the top of the chain as BF as possible, and fix all downstream 1 at a time")
 
-**Operating rules for every continuation:** runs go to RUNNER agents (`hdi_exp_dev`, model haiku; never wait in the main thread);
+**Operating rules for every continuation:** SHORT runs (< 10 min) go to RUNNER agents (`hdi_exp_dev`, model haiku); LONG runs (boards, 20-60 min) are launched as ONE chained background Bash job owned by the main session (foreground call -> auto-moved to background -> completion notification) because runner-held long jobs have died repeatedly when the agent's tool call/turn ended (00:18, 00:50 tonight); never poll/wait in the main thread;
 commits PATH-LIMITED, never push; never edit `preregs/**` / `arm_key*`; every landed change gets a witness + a ledger line; a
 downstream dip after a BF upstream is a CONSUMER TO REPAIR, never a reason to revert the BF rung; one decisive config per run.
 Live BF configuration = `HDLAB_TAG_SOURCE=counts` (default) + `HDLAB_HEADS_SOURCE=attachment_arm` (the target default once the
@@ -50,3 +50,4 @@ finishes (`bash /c/AI/hd-instrument_desktop_2026-09-12/delta_sync.sh` via a runn
 - 23:35 1b acquisition arm: tools/build_lexical_categories_from_reading.py (category organ counts over the induced classes from raw reading; 20k smoke 0.704 agreement, unknown words handled); 1M-line build + agreement + heads hand-off on a runner. Reader-only tagger board recorded (0.6385; only STATE moved).
 - 00:05 1b acquisition arm MEASURED: reading-acquired category organ 0.7242 agreement (closed classes ~0 = pri-15 target); fully reading-learned chain UAS 0.4649 -> 0.4922. Desktop state re-sync verified (26,615 session files). PP-cue rebuild in its last round.
 - 00:15 PP cue full rebuild: UAS 0.5583 -> 0.5706, nmod 0.185 -> 0.346 -- asset PROMOTED to live (witness 15/15). Pri-17 effectively delivered through the fold; pri-16 (sibling) remains parked.
+- 01:05 post-routing boards C (counts reaching every arm) + D (fully BF chain, PP asset) relaunched as ONE session-owned background job after the runner-held pair died silently; module-import launcher; completion notification expected ~02:15.
