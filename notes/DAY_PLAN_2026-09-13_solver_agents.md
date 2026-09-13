@@ -78,3 +78,4 @@ Owner check-ins expected: DONE marks in the tab; Q on the integration gate; whet
 - 15:22 session 1 PASS (reverified); pri 99 launched (slot 2); pri 97 still running (72 min).
 - 15:51 weighted role table: subjects recovered (matrix nsubj 0.714 -> 0.776 live; 0.748 -> 0.830 gold heads), objects kept; board A/B running.
 - 15:55 owner correction: phase 7 probe is mandatory for every session; sent to pri 98; pilot row reopened.
+- 16:03 owner mandates (signal-loss trace / upstream BF per signal / brain math per chain / negatives understood / why the wins won) sent to 97, 98, 99; baked into kick-off phases 3, 5, 6.

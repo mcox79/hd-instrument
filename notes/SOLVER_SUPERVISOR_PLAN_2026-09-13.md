@@ -53,3 +53,13 @@ right, not easy? Find them deliberately (name the residuals, the upstream losses
 keep what the gold accepts, record what it rejects; update SOLVED.md / the patch / the metrics; report the new numbers." Repeat (b) once more
 if the first pass found improvements. A session's row in the pilot log is not closed until phase 7 has run; "0 nudges" is a defect of the
 supervisor, not a merit of the session.
+
+## OWNER MANDATE (2026-09-13 16:00-16:05): signal-loss trace, upstream BF per signal, the brain's math per chain, every negative understood, and WHY the wins won
+"A key request for any solver working on a component with upstream components, is to track exactly where the signal is being lost, confirm any
+BF status of upstream components as it relates to the signal that the end component needs, and research how that signal should be handled,
+mathematically, in the brain along each chain on down. This helps isolate where the loss occurs, and there is almost always a number of
+opportunities to fix it. Additionally, research all negatives encountered until fully understood similarly opens up new avenues for optimization
+and upgrades." And: "evaluate the most successful improvements -- what was it about the problem that allowed you to maximize signal so well.
+It's almost always going to be that you cracked the real, mathematical BF chain all the way to the top." -> baked into phases 3, 5 and 6 of
+`tools/solver_agent_prompt.py`; sent to the three running sessions (97, 98, 99) as binding directives; the supervisor checks SOLVED.md for the
+trace, the per-rung BF table, the brain-math comparison, the understood negatives and the why-the-wins-won evaluation before presenting for DONE.
