@@ -1,0 +1,366 @@
+{
+ "cell": "exp_category_unknown_word_cues_v1",
+ "smoke": false,
+ "n_train_sent": 12544,
+ "n_test_sent": 2077,
+ "arms": {
+  "A0_live": {
+   "acc": 0.9278313541085519,
+   "unknown_acc": 0.7518597236981934,
+   "n_tokens": 25094,
+   "n_unknown": 1882,
+   "confusions": {
+    "PROPN->NOUN": 117,
+    "NOUN->PROPN": 46,
+    "ADJ->NOUN": 32,
+    "PROPN->NUM": 30,
+    "NOUN->NUM": 25,
+    "PROPN->ADJ": 24,
+    "VERB->NOUN": 23,
+    "ADJ->VERB": 15,
+    "PROPN->PUNCT": 15,
+    "X->PROPN": 15,
+    "NOUN->ADJ": 13,
+    "NOUN->VERB": 10,
+    "PROPN->PRON": 10,
+    "INTJ->PROPN": 8,
+    "PROPN->VERB": 6,
+    "ADJ->PROPN": 5,
+    "X->NOUN": 5,
+    "VERB->PROPN": 4,
+    "NOUN->PUNCT": 4,
+    "X->PUNCT": 4
+   },
+   "propn_noun": 163,
+   "by_shape": {
+    "Cap": {
+     "n": 585,
+     "acc": 0.7829
+    },
+    "other": {
+     "n": 143,
+     "acc": 0.6573
+    },
+    "lower": {
+     "n": 734,
+     "acc": 0.7602
+    },
+    "hyphen": {
+     "n": 20,
+     "acc": 0.8
+    },
+    "digit": {
+     "n": 281,
+     "acc": 0.7758
+    },
+    "ALLCAP": {
+     "n": 119,
+     "acc": 0.5966
+    }
+   }
+  },
+  "B1_det05": {
+   "acc": 0.9311389176695625,
+   "unknown_acc": 0.798087141339001,
+   "n_tokens": 25094,
+   "n_unknown": 1882,
+   "confusions": {
+    "PROPN->NOUN": 98,
+    "NOUN->PROPN": 62,
+    "ADJ->NOUN": 20,
+    "PROPN->ADJ": 18,
+    "ADJ->VERB": 17,
+    "NOUN->ADJ": 16,
+    "PROPN->NUM": 14,
+    "VERB->NOUN": 11,
+    "NOUN->X": 11,
+    "X->PROPN": 10,
+    "VERB->ADJ": 9,
+    "X->NOUN": 8,
+    "NOUN->VERB": 7,
+    "ADJ->PROPN": 7,
+    "INTJ->PROPN": 6,
+    "NOUN->PRON": 5,
+    "VERB->PROPN": 4,
+    "PROPN->INTJ": 4,
+    "PROPN->PRON": 4,
+    "PROPN->ADP": 3
+   },
+   "propn_noun": 160,
+   "by_shape": {
+    "Cap": {
+     "n": 585,
+     "acc": 0.8171
+    },
+    "other": {
+     "n": 143,
+     "acc": 0.7972
+    },
+    "lower": {
+     "n": 734,
+     "acc": 0.7956
+    },
+    "hyphen": {
+     "n": 20,
+     "acc": 0.55
+    },
+    "digit": {
+     "n": 281,
+     "acc": 0.8363
+    },
+    "ALLCAP": {
+     "n": 119,
+     "acc": 0.6723
+    }
+   },
+   "vs_A0_unknown": {
+    "delta": 0.0462,
+    "ci95": [
+     0.0299,
+     0.0628
+    ],
+    "half_width": 0.0164,
+    "separated": true
+   },
+   "vs_A0_overall": {
+    "delta": 0.0033,
+    "ci95": [
+     0.0015,
+     0.0051
+    ],
+    "half_width": 0.0018,
+    "separated": true
+   },
+   "novel_types": 10453,
+   "sec": 8.4
+  },
+  "B2_det1": {
+   "acc": 0.9308998166892484,
+   "unknown_acc": 0.7927736450584485,
+   "n_tokens": 25094,
+   "n_unknown": 1882,
+   "confusions": {
+    "PROPN->NOUN": 100,
+    "NOUN->PROPN": 66,
+    "ADJ->NOUN": 21,
+    "PROPN->ADJ": 21,
+    "NOUN->ADJ": 17,
+    "ADJ->VERB": 16,
+    "PROPN->NUM": 14,
+    "VERB->NOUN": 12,
+    "NOUN->X": 11,
+    "X->PROPN": 10,
+    "VERB->ADJ": 8,
+    "ADJ->PROPN": 8,
+    "NOUN->VERB": 8,
+    "X->NOUN": 8,
+    "NOUN->PRON": 6,
+    "PROPN->INTJ": 6,
+    "INTJ->PROPN": 5,
+    "VERB->PROPN": 4,
+    "PROPN->PRON": 4,
+    "PROPN->ADP": 3
+   },
+   "propn_noun": 166,
+   "by_shape": {
+    "Cap": {
+     "n": 585,
+     "acc": 0.8085
+    },
+    "other": {
+     "n": 143,
+     "acc": 0.8042
+    },
+    "lower": {
+     "n": 734,
+     "acc": 0.7916
+    },
+    "hyphen": {
+     "n": 20,
+     "acc": 0.55
+    },
+    "digit": {
+     "n": 281,
+     "acc": 0.8363
+    },
+    "ALLCAP": {
+     "n": 119,
+     "acc": 0.6471
+    }
+   },
+   "vs_A0_unknown": {
+    "delta": 0.0409,
+    "ci95": [
+     0.024,
+     0.0581
+    ],
+    "half_width": 0.017,
+    "separated": true
+   },
+   "vs_A0_overall": {
+    "delta": 0.0031,
+    "ci95": [
+     0.0013,
+     0.0049
+    ],
+    "half_width": 0.0018,
+    "separated": true
+   },
+   "novel_types": 10453,
+   "sec": 8.6
+  },
+  "B4_det1_only": {
+   "acc": 0.9276321032916235,
+   "unknown_acc": 0.7497343251859724,
+   "n_tokens": 25094,
+   "n_unknown": 1882,
+   "confusions": {
+    "PROPN->NOUN": 104,
+    "NOUN->PROPN": 47,
+    "ADJ->NOUN": 34,
+    "PROPN->NUM": 30,
+    "NOUN->NUM": 27,
+    "PROPN->ADJ": 23,
+    "VERB->NOUN": 22,
+    "ADJ->VERB": 17,
+    "NOUN->ADJ": 15,
+    "X->PROPN": 15,
+    "NOUN->VERB": 13,
+    "PROPN->PUNCT": 13,
+    "PROPN->PRON": 10,
+    "INTJ->PROPN": 8,
+    "PROPN->VERB": 7,
+    "PROPN->AUX": 7,
+    "VERB->PROPN": 5,
+    "X->NOUN": 5,
+    "ADJ->PROPN": 4,
+    "X->PUNCT": 4
+   },
+   "propn_noun": 151,
+   "by_shape": {
+    "Cap": {
+     "n": 585,
+     "acc": 0.7675
+    },
+    "other": {
+     "n": 143,
+     "acc": 0.6923
+    },
+    "lower": {
+     "n": 734,
+     "acc": 0.7561
+    },
+    "hyphen": {
+     "n": 20,
+     "acc": 0.8
+    },
+    "digit": {
+     "n": 281,
+     "acc": 0.7722
+    },
+    "ALLCAP": {
+     "n": 119,
+     "acc": 0.6303
+    }
+   },
+   "vs_A0_unknown": {
+    "delta": -0.0021,
+    "ci95": [
+     -0.0111,
+     0.007
+    ],
+    "half_width": 0.0091,
+    "separated": false
+   },
+   "vs_A0_overall": {
+    "delta": -0.0002,
+    "ci95": [
+     -0.001,
+     0.0006
+    ],
+    "half_width": 0.0008,
+    "separated": false
+   },
+   "novel_types": 0,
+   "sec": 8.2
+  },
+  "TWIN_of_B1_det05": {
+   "acc": 0.8422332031561329,
+   "unknown_acc": 0.3645058448459086,
+   "n_tokens": 25094,
+   "n_unknown": 1882,
+   "confusions": {
+    "NOUN->NUM": 200,
+    "PROPN->NOUN": 133,
+    "NOUN->PROPN": 91,
+    "PROPN->NUM": 63,
+    "PROPN->PUNCT": 61,
+    "ADJ->NUM": 52,
+    "PROPN->X": 49,
+    "VERB->NUM": 44,
+    "NUM->NOUN": 42,
+    "NUM->PUNCT": 31,
+    "NUM->PROPN": 25,
+    "VERB->PUNCT": 23,
+    "ADJ->NOUN": 22,
+    "PUNCT->PROPN": 20,
+    "NOUN->PUNCT": 18,
+    "NUM->X": 18,
+    "NOUN->ADJ": 14,
+    "PROPN->SYM": 14,
+    "NOUN->SYM": 13,
+    "X->NUM": 12
+   },
+   "propn_noun": 224,
+   "by_shape": {
+    "Cap": {
+     "n": 585,
+     "acc": 0.5983
+    },
+    "other": {
+     "n": 143,
+     "acc": 0.1119
+    },
+    "lower": {
+     "n": 734,
+     "acc": 0.252
+    },
+    "hyphen": {
+     "n": 20,
+     "acc": 0.1
+    },
+    "digit": {
+     "n": 281,
+     "acc": 0.3025
+    },
+    "ALLCAP": {
+     "n": 119,
+     "acc": 0.4034
+    }
+   },
+   "vs_A0_unknown": {
+    "delta": -0.3874,
+    "ci95": [
+     -0.4168,
+     -0.3557
+    ],
+    "half_width": 0.0305,
+    "separated": true
+   },
+   "vs_best_unknown": {
+    "delta": 0.4336,
+    "ci95": [
+     0.4035,
+     0.4624
+    ],
+    "half_width": 0.0295,
+    "separated": true
+   }
+  }
+ },
+ "n_boot": 2000,
+ "tag": "pathA2_katz_determiner_context",
+ "best_arm": "B1_det05",
+ "asset": "data/hook_state/lexical_categories_counts_v1_unkcues_candidate.json",
+ "elapsed_s": 45.2
+}

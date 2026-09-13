@@ -1,6 +1,6 @@
 --- a/hdlab/lexical_categories.py
 +++ b/hdlab/lexical_categories.py
-@@ -72,6 +72,67 @@
+@@ -72,6 +72,96 @@
  FRAME_OTHER = "<o>"; EOS = "</s>"
  K2 = 2.0                                                        # Dirichlet back-off mass for the second-order transitions (swept, not adopted)
  SHAPES = ("lower", "Cap", "ALLCAP", "digit", "hyphen", "other")
@@ -62,13 +62,42 @@
 +# rebuild. Measure the combination before flipping it on.
 +UNK_SLOT_KAPPA = float(os.environ.get("HDLAB_LC_UNK_SLOT_KAPPA", "0"))
 +UNK_SLOT_F = int(os.environ.get("HDLAB_LC_UNK_SLOT_F", "300"))
++#   UNK_DET_KAPPA / UNK_RIGHT_KAPPA  THE KATZ-MACNAMARA FRAME. Katz, Baker & Macnamara (1974, Child Development
++#                   45:469-473) "What's in a name?": a 17-month-old hearing "This is DAX" takes DAX for an individual's
++#                   NAME and hearing "This is a DAX" takes it for a COMMON noun -- the cue is the PRESENCE OR ABSENCE
++#                   OF A DETERMINER, not the identity of one (Gelman & Taylor 1984; Hall 2003 replicate and extend).
++#                   Two SMALL count tables over the function-word CLASS of the left context (9 symbols, 'bare' among
++#                   them) and of the right (8: possessive clitic, appositive comma, clause boundary, preposition,
++#                   coordinator, ...), read ONLY where there is no lexical entry. This is NOT the refuted blanket
++#                   neighbour-WORD channel (~300 word identities on EVERY token): it is ~33x less sparse, it fires on
++#                   7.5% of tokens, and only a CLASS table can encode the ABSENCE of a determiner, which is the cue.
++#                   It is also why the naive rule "'the' before a word means common noun" is WRONG for this
++#                   population -- 'the MSM' / 'the Gateses' / 'the Europeans' are gold PROPN, and the counts learn
++#                   that while a hand-written rule would cost points.
++#                   MEASURED: on the bare floor the two frame tables alone move accuracy not at all (0.7519 -> 0.7529,
++#                   n.s.) but cut PROPN<->NOUN 163 -> 144 -- they are specifically a NAME cue, exactly as Katz says;
++#                   in combination they hold the accuracy gain and cut the confusion to 154. kappa swept: 0.5 is the
++#                   operating point; 1.0 / 1.5 / 2.0 cost unseen accuracy without buying the confusion back.
++UNK_DET_KAPPA = float(os.environ.get("HDLAB_LC_UNK_DET_KAPPA", "0.5"))
++UNK_RIGHT_KAPPA = float(os.environ.get("HDLAB_LC_UNK_RIGHT_KAPPA", "0.5"))
++DET_DEF = {"the", "this", "that", "these", "those"}
++DET_INDEF = {"a", "an", "another", "any", "some", "each", "every", "no"}
++QUANT = {"many", "few", "several", "most", "all", "both", "one", "two", "three", "more", "much", "other"}
++POSS = {"my", "your", "his", "her", "its", "our", "their"}
++PREP = {"of", "in", "on", "at", "to", "for", "from", "by", "with", "about", "into", "over", "after", "before",
++        "between", "through", "during", "against", "under", "near", "across", "toward", "towards", "via"}
++COORD = {"and", "or", "but", "nor", "plus"}
++DET_SYMS = ("det_def", "det_indef", "quant", "poss", "prep", "coord", "bos", "punct", "bare")
++RIGHT_SYMS = ("poss_s", "comma", "period", "prep_r", "coord_r", "verbish", "eos", "other_r")
++_RVERB = {"is", "was", "are", "were", "has", "have", "had", "said", "will", "would", "can", "could", "does", "did"}
++_APOS_S = ("'s", "’s", "'", "’")
 +RICH_SHAPES = ("num", "numpunct", "dcode", "dnum", "alnum", "punct", "slash", "dotted", "hyphenCap", "hyphen",
 +               "apos", "lower", "UP1", "ACRO", "ALLCAP", "Cap", "CamelCap", "mixed", "other")
 +INIT, MID = "@i", "@m"
  # the reading-acquired classes: the v2 inventory (owner-DONE pri-15, 2026-09-13: function-word stratum + second-order frames +
  # morphology-in-PPMI + Mintz joint frames + clause cue; 126 classes, the four closed classes separated; type-level 0.7944 vs v1 0.7385).
  # As this organ's cluster cue on the full UD-EWT test: UPOS 0.9271 -> 0.9278, unknown words 0.748 -> 0.752 (v1 asset kept selectable).
-@@ -91,6 +152,51 @@
+@@ -91,6 +181,96 @@
          if w[0].isupper() and w[1:].islower():
              return "Cap"
      return "other"
@@ -108,6 +137,51 @@
 +    return "other"
 +
 +
++def det_context(lows: Sequence[str], i: int) -> str:
++    """The Katz-Macnamara context symbol: WHAT KIND of thing sits immediately left of this word. 'bare' = no
++    determiner-like element at all, which is the cue that says 'this word picks out an individual'."""
++    if i == 0:
++        return "bos"
++    a = lows[i - 1]
++    if a in DET_DEF:
++        return "det_def"
++    if a in DET_INDEF:
++        return "det_indef"
++    if a in QUANT:
++        return "quant"
++    if a in POSS:
++        return "poss"
++    if a in PREP:
++        return "prep"
++    if a in COORD:
++        return "coord"                        # PARALLELISM: a word coordinated with a name tends to be a name
++    if not any(ch.isalnum() for ch in a):
++        return "punct"
++    return "bare"
++
++
++def right_context(lows: Sequence[str], i: int) -> str:
++    """The RIGHT half of the frame (Mintz frames are two-sided). A name is disproportionately followed by the
++    possessive clitic, an appositive comma or a clause boundary; a common noun by a preposition or a verb. Read only
++    when the revision window already lets the belief about word t see word t+1, so it costs no extra look-ahead."""
++    if i + 1 >= len(lows):
++        return "eos"
++    b = lows[i + 1]
++    if b in _APOS_S:
++        return "poss_s"
++    if b == ",":
++        return "comma"
++    if b in (".", "!", "?", ";", ":"):
++        return "period"
++    if b in PREP:
++        return "prep_r"
++    if b in COORD:
++        return "coord_r"
++    if b in _RVERB:
++        return "verbish"
++    return "other_r"
++
++
 +def position_class(words: Sequence[str], i: int) -> str:
 +    """Is capitalisation FORCED at this position? Forced = nothing alphanumeric precedes it in the sentence (index 0, or only
 +    quotes/brackets/dashes before it). The reader knows the convention, so the cue is read relative to it."""
@@ -120,7 +194,7 @@
  UPOS2WN = {"NOUN": "n", "VERB": "v", "ADJ": "a", "ADV": "r"}
  
  
-@@ -116,6 +222,15 @@
+@@ -116,6 +296,17 @@
          self.use_cluster = bool(use_cluster)
          #   use_frame    (2026-09-13 14:30) the FREQUENT-FRAME cue: counts of the left and right neighbour WORD per category (see FRAME).
          self.use_frame = bool(use_frame)
@@ -129,6 +203,8 @@
 +        #   (productivity) stratum from the emission counts alone. Both grow on every `observe`.
 +        self.shape_pos: Dict[str, Counter] = defaultdict(Counter)     # category -> Counter(shape@position)
 +        self.shape_pos_w: Dict[str, Counter] = defaultdict(Counter)   # word type -> Counter(shape@position)
++        self.detc: Dict[str, Counter] = defaultdict(Counter)          # category -> Counter(Katz left-context class)
++        self.rightc: Dict[str, Counter] = defaultdict(Counter)        # category -> Counter(right-frame class)
 +        self.slotL: Dict[str, Counter] = defaultdict(Counter)         # category -> Counter(left neighbour word)   [unknown only]
 +        self.slotR: Dict[str, Counter] = defaultdict(Counter)         # category -> Counter(right neighbour word)  [unknown only]
 +        self.n_novel_types = 0
@@ -136,12 +212,14 @@
          self.frameL: Dict[str, Counter] = defaultdict(Counter)     # category -> Counter(left neighbour word | BOS)
          self.frameR: Dict[str, Counter] = defaultdict(Counter)     # category -> Counter(right neighbour word | EOS)
          self.frame_words: set = set()
-@@ -146,6 +261,12 @@
+@@ -146,6 +337,14 @@
                      self.frameL[t][lows[idx - 1] if idx > 0 else BOS] += 1
                      self.frameR[t][lows[idx + 1] if idx + 1 < len(lows) else EOS] += 1
                  self.shape[t][word_shape(w_raw)] += 1; self.trans2[(prev2, prev)][t] += 1
 +                sp = self._unk_sym(w_raw, position_class([r for r, _ in sent], idx))
 +                self.shape_pos[t][sp] += 1; self.shape_pos_w[w][sp] += 1
++                self.detc[t][det_context(lows, idx)] += 1
++                self.rightc[t][right_context(lows, idx)] += 1
 +                # the slot counts are always ACCRUED (cheap, and they make the cue a re-measure rather than a rebuild);
 +                # only the READ is gated on UNK_SLOT_KAPPA
 +                self.slotL[t][lows[idx - 1] if idx > 0 else BOS] += 1
@@ -149,7 +227,7 @@
                  if self.use_cluster:
                      c = self.word2cluster().get(w)
                      if c is not None:
-@@ -193,6 +314,7 @@
+@@ -193,6 +392,7 @@
              for t in self.tags:
                  tot = self.tag_count[t] + self.lam * len(SHAPES)
                  self.log_shape[t] = {sh: math.log((self.shape[t][sh] + self.lam) / tot) for sh in SHAPES}
@@ -157,7 +235,7 @@
          if self.use_frame:
              # the frame vocabulary = the FRAME_F most frequent word types in the supply (+ BOS/EOS); every other neighbour -> FRAME_OTHER.
              # log P(a | c) = log (n(c, a) + lam) / (n(c) + lam * |frame vocab|), one pure function of the counts (plastic).
-@@ -212,9 +334,150 @@
+@@ -212,9 +412,161 @@
          self._dirty = False
          return self
  
@@ -194,6 +272,17 @@
 +            tot = sum(self.shape_pos[t].values()) + self.lam * S
 +            self.log_shape_pos[t] = {s: math.log((self.shape_pos[t][s] + self.lam) / tot) for s in self._unk_syms}
 +            self._shape_pos_back[t] = math.log(self.lam / tot)
++        # ---- THE KATZ-MACNAMARA FRAME: two small CLASS tables. They are a property of the SLOT, not of the word,
++        #      so the productivity stratum does not apply to them; they are read only where there is no entry.
++        #      Built BEFORE the early return so the frame cue works independently of the novel-form stratum.
++        self.log_detc = {}
++        for t in self.tags:
++            tot = sum(self.detc[t].values()) + self.lam * len(DET_SYMS)
++            self.log_detc[t] = {x: math.log((self.detc[t][x] + self.lam) / tot) for x in DET_SYMS}
++        self.log_rightc = {}
++        for t in self.tags:
++            tot = sum(self.rightc[t].values()) + self.lam * len(RIGHT_SYMS)
++            self.log_rightc[t] = {x: math.log((self.rightc[t][x] + self.lam) / tot) for x in RIGHT_SYMS}
 +        if UNK_NOVEL_MAX <= 0:
 +            self.log_prior_u = None; self.suf_u = {}; self.log_shape_u = {}; self._log_shape_u_back = None
 +            self.n_novel_types = 0
@@ -308,7 +397,7 @@
          if w in self.vocab:
              for i, t in enumerate(self.tags):
                  out[i] = math.log((self.emit[t][w] + self.lam) / (self.tag_count[t] + self.lam * V1))
-@@ -235,13 +498,14 @@
+@@ -235,13 +587,20 @@
              if self.rare_max > 0 and cw <= self.rare_max:
                  out = out + self._log_cluster(w)
              if self.use_shape:
@@ -325,10 +414,16 @@
 +            out = out + self._log_shape_factor(word, pos, known=False)
 +        if UNK_SLOT_KAPPA > 0 and getattr(self, "log_slotL", None):
 +            out = out + UNK_SLOT_KAPPA * self._log_slot(here)
++        if UNK_DET_KAPPA and self.detc:
++            d = det_context(self._sent_lows, here)
++            out = out + UNK_DET_KAPPA * np.array([self.log_detc[t][d] for t in self.tags])
++        if UNK_RIGHT_KAPPA and self.rightc and (LAG is None or LAG >= 1):
++            r = right_context(self._sent_lows, here)
++            out = out + UNK_RIGHT_KAPPA * np.array([self.log_rightc[t][r] for t in self.tags])
          return out
  
      def word2cluster(self) -> Dict[str, str]:
-@@ -336,19 +600,49 @@
+@@ -336,19 +695,49 @@
          return out
  
      def _log_emit_unknown(self, w: str) -> np.ndarray:
@@ -391,7 +486,7 @@
  
      def posterior(self, words: Sequence[str], lag: Optional[int] = None) -> np.ndarray:
          """Forward-backward marginals P(category_i | words): [n, T].
-@@ -362,6 +656,11 @@
+@@ -362,6 +751,11 @@
          n = len(words); T = len(self.tags)
          if n == 0:
              return np.zeros((0, T))
@@ -403,7 +498,7 @@
          le = np.stack([self._log_emit(w) for w in words])
          if self.use_frame and FRAME and FRAME_KAPPA > 0:
              le = le + FRAME_KAPPA * self._log_frame(words, lag)
-@@ -377,10 +676,10 @@
+@@ -377,10 +771,10 @@
                  if wl in self.vocab:
                      t_star = self.tags[int(post[k].argmax())]
                      if self.emit[t_star][wl] == 0:
@@ -417,19 +512,21 @@
              if changed:
                  post = self._posterior_le(le, lag)
          return post
-@@ -490,6 +789,11 @@
+@@ -490,6 +884,13 @@
               "emit": {t: dict(c) for t, c in self.emit.items()}, "trans": {p: dict(c) for p, c in self.trans.items()},
               "suf": {str(k): {t: dict(c) for t, c in v.items()} for k, v in self.suf.items()},
               "shape": {t: dict(c) for t, c in self.shape.items()},
 +             # the unknown-word cues' accrued counts (the novel-form stratum is re-derived from `emit` on load)
 +             "shape_pos": {t: dict(c) for t, c in self.shape_pos.items()},
 +             "shape_pos_w": {w: dict(c) for w, c in self.shape_pos_w.items()},
++             "detc": {t: dict(c) for t, c in self.detc.items()},
++             "rightc": {t: dict(c) for t, c in self.rightc.items()},
 +             "slotL": {t: dict(c) for t, c in self.slotL.items()},
 +             "slotR": {t: dict(c) for t, c in self.slotR.items()},
               "trans2": {a + "\t" + b: dict(c) for (a, b), c in self.trans2.items()},
               "note": "COUNTS only (plastic); log-probabilities are recomputed from them on load (finalize)"}
          os.makedirs(os.path.dirname(path), exist_ok=True)
-@@ -511,6 +815,14 @@
+@@ -511,6 +912,18 @@
              m.frameR[t] = Counter(c)
          for t, c in d.get("shape", {}).items():
              m.shape[t] = Counter(c)
@@ -437,6 +534,10 @@
 +            m.shape_pos[t] = Counter(c)
 +        for w, c in d.get("shape_pos_w", {}).items():
 +            m.shape_pos_w[w] = Counter(c)
++        for t, c in d.get("detc", {}).items():
++            m.detc[t] = Counter(c)
++        for t, c in d.get("rightc", {}).items():
++            m.rightc[t] = Counter(c)
 +        for t, c in d.get("slotL", {}).items():
 +            m.slotL[t] = Counter(c)
 +        for t, c in d.get("slotR", {}).items():

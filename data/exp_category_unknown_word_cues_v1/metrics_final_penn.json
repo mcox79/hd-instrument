@@ -1,0 +1,135 @@
+{
+ "cell": "exp_category_unknown_word_cues_v1",
+ "tag": "final_penn",
+ "penn_no_regress": {
+  "arm": "C1_lr05",
+  "A0": {
+   "acc": 0.9176297122818203,
+   "unknown_acc": 0.7401700318809776,
+   "n_tokens": 25094,
+   "n_unknown": 1882,
+   "confusions": {
+    "NNP->NN": 95,
+    "JJ->NN": 35,
+    "NN->NNP": 34,
+    "NN->CD": 27,
+    "NNP->CD": 18,
+    "NN->JJ": 13,
+    "NNP->JJ": 13,
+    "ADD->NNP": 13,
+    "ADD->CD": 10,
+    "VBG->NN": 10,
+    "VBZ->NNS": 9,
+    "NNPS->NNS": 8,
+    "NNP->NNS": 8,
+    "NNS->NN": 8,
+    "JJ->NNP": 8,
+    "JJ->VBN": 7,
+    "VB->NN": 7,
+    "NNP->PRP": 7,
+    "NNS->NNP": 7,
+    "GW->NNP": 7
+   },
+   "propn_noun": 0,
+   "by_shape": {
+    "Cap": {
+     "n": 585,
+     "acc": 0.7761
+    },
+    "other": {
+     "n": 143,
+     "acc": 0.6503
+    },
+    "lower": {
+     "n": 734,
+     "acc": 0.7316
+    },
+    "hyphen": {
+     "n": 20,
+     "acc": 0.75
+    },
+    "digit": {
+     "n": 281,
+     "acc": 0.7651
+    },
+    "ALLCAP": {
+     "n": 119,
+     "acc": 0.6639
+    }
+   }
+  },
+  "C1_lr05": {
+   "acc": 0.9222124810711724,
+   "unknown_acc": 0.7895855472901169,
+   "n_tokens": 25094,
+   "n_unknown": 1882,
+   "confusions": {
+    "NNP->NN": 69,
+    "NN->NNP": 44,
+    "JJ->NN": 24,
+    "NNP->JJ": 16,
+    "NN->JJ": 15,
+    "NN->CD": 14,
+    "NN->ADD": 12,
+    "NNP->CD": 11,
+    "JJ->NNP": 9,
+    "VBZ->NNS": 8,
+    "VBN->JJ": 8,
+    "JJ->VBN": 7,
+    "ADD->NNP": 7,
+    "NNP->NNS": 7,
+    "VBN->VBD": 6,
+    "FW->NN": 6,
+    "NNPS->NNS": 5,
+    "NNS->NN": 5,
+    "NNP->UH": 5,
+    "VBG->NN": 5
+   },
+   "propn_noun": 0,
+   "by_shape": {
+    "Cap": {
+     "n": 585,
+     "acc": 0.8239
+    },
+    "other": {
+     "n": 143,
+     "acc": 0.7692
+    },
+    "lower": {
+     "n": 734,
+     "acc": 0.767
+    },
+    "hyphen": {
+     "n": 20,
+     "acc": 0.65
+    },
+    "digit": {
+     "n": 281,
+     "acc": 0.8363
+    },
+    "ALLCAP": {
+     "n": 119,
+     "acc": 0.6975
+    }
+   }
+  },
+  "d_unknown": {
+   "delta": 0.0494,
+   "ci95": [
+    0.0335,
+    0.0662
+   ],
+   "half_width": 0.0164,
+   "separated": true
+  },
+  "d_overall": {
+   "delta": 0.0046,
+   "ci95": [
+    0.0028,
+    0.0065
+   ],
+   "half_width": 0.0019,
+   "separated": true
+  }
+ }
+}

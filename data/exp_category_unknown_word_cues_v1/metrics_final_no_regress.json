@@ -1,0 +1,65 @@
+{
+ "cell": "exp_category_unknown_word_cues_v1",
+ "tag": "final_no_regress",
+ "coverage_bound": {
+  "A0_live": {
+   "covered_n": 549,
+   "covered_acc": 0.8233,
+   "uncovered_n": 1333,
+   "uncovered_acc": 0.7224,
+   "gap": 0.1009,
+   "tokens_if_uncovered_reached_covered_acc": 134.5
+  },
+  "C1_lr05": {
+   "covered_n": 549,
+   "covered_acc": 0.8415,
+   "uncovered_n": 1333,
+   "uncovered_acc": 0.7832,
+   "gap": 0.0583,
+   "tokens_if_uncovered_reached_covered_acc": 77.8
+  }
+ },
+ "heads_no_regress": {
+  "arm": "C1_lr05",
+  "A0_live": {
+   "uas": 0.5969,
+   "tag_agreement": 0.9368,
+   "per_relation": {
+    "root": 0.699,
+    "nsubj": 0.743,
+    "obj": 0.76,
+    "obl": 0.415,
+    "nmod": 0.438,
+    "xcomp": 0.723,
+    "ccomp": 0.586,
+    "advcl": 0.306,
+    "conj": 0.382,
+    "case": 0.693,
+    "punct": 0.434
+   },
+   "uas_graded_handoff": 0.5996,
+   "graded_minus_hard": 0.0027
+  },
+  "C1_lr05": {
+   "uas": 0.5988,
+   "tag_agreement": 0.94,
+   "per_relation": {
+    "root": 0.709,
+    "nsubj": 0.744,
+    "obj": 0.752,
+    "obl": 0.417,
+    "nmod": 0.433,
+    "xcomp": 0.708,
+    "ccomp": 0.578,
+    "advcl": 0.313,
+    "conj": 0.373,
+    "case": 0.696,
+    "punct": 0.438
+   },
+   "uas_graded_handoff": 0.5999,
+   "graded_minus_hard": 0.0011
+  },
+  "d_uas_hard": 0.0019,
+  "d_uas_graded": 0.0003
+ }
+}

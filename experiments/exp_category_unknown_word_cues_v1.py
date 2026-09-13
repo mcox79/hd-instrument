@@ -122,6 +122,76 @@ def word_shape_rich(w: str) -> str:
     return "other"
 
 
+# --------------------------------------------------------------------- PATH A: the Katz-Macnamara determiner context
+# THE PINNED DEVELOPMENTAL CUE. Katz, Baker & Macnamara (1974, Child Development 45:469-473) "What's in a name?": a
+# 17-month-old hearing "This is DAX" takes DAX for an individual's NAME and hearing "This is a DAX" takes it for a
+# COMMON noun -- the discriminating cue is the PRESENCE OR ABSENCE OF A DETERMINER, not the identity of one. Gelman &
+# Taylor 1984 and Hall 2003 (form-class cues to descriptive proper names) replicate and extend it.
+# WHY THIS IS NOT THE REFUTED NEIGHBOUR-WORD CHANNEL, and not my own slot cue either: the refuted channel put ~300
+# neighbour WORD identities on every token; the slot cue put the same 300 words on unseen tokens only. This is a
+# NINE-symbol table over the FUNCTION-WORD CLASS of the left context -- the linguistically correct shape of the cue,
+# ~33x less sparse, and it encodes the ABSENCE of a determiner as its own symbol, which a word-identity table cannot.
+# It is also why the brief's rule-of-thumb ("'the' before a word says common noun") is wrong for this population:
+# 'the MSM' / 'the Gateses' / 'the Europeans' are gold PROPN. The counts learn P(det-context | c); no rule is written.
+DET_DEF = {"the", "this", "that", "these", "those"}
+DET_INDEF = {"a", "an", "another", "any", "some", "each", "every", "no"}
+QUANT = {"many", "few", "several", "most", "all", "both", "one", "two", "three", "more", "much", "other"}
+POSS = {"my", "your", "his", "her", "its", "our", "their"}
+PREP = {"of", "in", "on", "at", "to", "for", "from", "by", "with", "about", "into", "over", "after", "before",
+        "between", "through", "during", "against", "under", "near", "across", "toward", "towards", "via"}
+COORD = {"and", "or", "but", "nor", "plus"}
+DET_SYMS = ("det_def", "det_indef", "quant", "poss", "prep", "coord", "bos", "punct", "bare")
+
+
+RIGHT_SYMS = ("poss_s", "comma", "period", "prep_r", "coord_r", "verbish", "eos", "other_r")
+
+
+def right_context(lows: Sequence[str], i: int) -> str:
+    """The RIGHT half of the frame. A name is disproportionately followed by the possessive clitic, by an appositive
+    comma, or by a clause boundary; a common noun by a preposition or a verb. Mintz's frames are two-sided, and the
+    revision window (lag >= 1) already lets the belief about word t see word t+1, so reading it costs no look-ahead
+    the organ does not already take."""
+    if i + 1 >= len(lows):
+        return "eos"
+    b = lows[i + 1]
+    if b in ("'s", "’s", "'", "’"):
+        return "poss_s"
+    if b == ",":
+        return "comma"
+    if b in (".", "!", "?", ";", ":"):
+        return "period"
+    if b in PREP:
+        return "prep_r"
+    if b in COORD:
+        return "coord_r"
+    if b in ("is", "was", "are", "were", "has", "have", "had", "said", "will", "would", "can", "could", "does", "did"):
+        return "verbish"
+    return "other_r"
+
+
+def det_context(lows: Sequence[str], i: int) -> str:
+    """The Katz-Macnamara context symbol: WHAT KIND of thing sits immediately left of this word.
+    'bare' = no determiner-like element at all, which is the cue that says 'this picks out an individual'."""
+    if i == 0:
+        return "bos"
+    a = lows[i - 1]
+    if a in DET_DEF:
+        return "det_def"
+    if a in DET_INDEF:
+        return "det_indef"
+    if a in QUANT:
+        return "quant"
+    if a in POSS:
+        return "poss"
+    if a in PREP:
+        return "prep"
+    if a in COORD:
+        return "coord"                       # PARALLELISM: a word coordinated with a name tends to be a name
+    if not any(ch.isalnum() for ch in a):
+        return "punct"
+    return "bare"
+
+
 def position_class(words: Sequence[str], i: int) -> str:
     """Is capitalisation FORCED at this position? Forced = nothing alphanumeric precedes it in the sentence (index 0,
     or only quotes/brackets/dashes before it). The reader knows the convention, so the cue is read relative to it."""
@@ -140,7 +210,7 @@ class UnknownWordCategories(LexicalCategories):
     def __init__(self, *a, pos_shape: bool = True, rich_shape: bool = True, novel_max: int = 1,
                  slot: bool = False, slot_kappa: float = 1.0, slot_f: int = 300,
                  suf_backoff: bool = False, suf_theta: float = 1.0, prior_gamma: float = 0.0,
-                 joint_shape: bool = False, **kw):
+                 joint_shape: bool = False, det_kappa: float = 0.0, right_kappa: float = 0.0, **kw):
         super().__init__(*a, **kw)
         self.pos_shape = bool(pos_shape); self.rich_shape = bool(rich_shape)
         self.novel_max = int(novel_max)
@@ -152,6 +222,10 @@ class UnknownWordCategories(LexicalCategories):
         # novel form and a lower-case one with the SAME ending are different populations. The exact-replication form is
         # the CONDITIONED ladder: start from P_novel(c | shape@pos) and abstract up the suffix lengths INSIDE that cell.
         self.joint_shape = bool(joint_shape)
+        self.det_kappa = float(det_kappa)                          # PATH A: the Katz-Macnamara determiner context
+        self.right_kappa = float(right_kappa)                      # the RIGHT half of the frame
+        self.detc: Dict[str, Counter] = defaultdict(Counter)       # category -> Counter(det context symbol)
+        self.rightc: Dict[str, Counter] = defaultdict(Counter)     # category -> Counter(right context symbol)
         self.slot = bool(slot); self.slot_kappa = float(slot_kappa); self.slot_f = int(slot_f)
         self.shape_pos: Dict[str, Counter] = defaultdict(Counter)        # category -> Counter(shape@position)
         self.shape_pos_w: Dict[str, Counter] = defaultdict(Counter)      # word type -> Counter(shape@position)
@@ -179,6 +253,8 @@ class UnknownWordCategories(LexicalCategories):
                 sp = self._sym(w_raw, position_class(words, i))
                 self.shape_pos[t][sp] += 1
                 self.shape_pos_w[lows[i]][sp] += 1
+                self.detc[t][det_context(lows, i)] += 1
+                self.rightc[t][right_context(lows, i)] += 1
                 if self.slot:
                     self.slotL[t][lows[i - 1] if i > 0 else BOS] += 1
                     self.slotR[t][lows[i + 1] if i + 1 < len(lows) else LC.EOS] += 1
@@ -267,6 +343,19 @@ class UnknownWordCategories(LexicalCategories):
         nsp = self.alphabet_size()
         self.log_shape_u = {sp: np.log((row + self.lam) / (tot_u + self.lam * nsp)) for sp, row in shape_u.items()}
         self._log_shape_u_back = np.log((np.zeros(T) + self.lam) / (tot_u + self.lam * nsp)) if novel else None
+        # ---- PATH A: log P(det context | c) over the NOVEL stratum's own contexts is not available (the stratum is a
+        #      set of TYPES, not tokens), so this table is the whole-supply one -- it is a property of the SLOT, not of
+        #      the word, so the productivity argument does not apply to it.
+        nd = len(DET_SYMS)
+        self.log_detc = {}
+        for t in self.tags:
+            tot = sum(self.detc[t].values()) + self.lam * nd
+            self.log_detc[t] = {s: math.log((self.detc[t][s] + self.lam) / tot) for s in DET_SYMS}
+        nr = len(RIGHT_SYMS)
+        self.log_rightc = {}
+        for t in self.tags:
+            tot = sum(self.rightc[t].values()) + self.lam * nr
+            self.log_rightc[t] = {s: math.log((self.rightc[t][s] + self.lam) / tot) for s in RIGHT_SYMS}
         # ---- the SLOT cue (frequent frames), read only where there is no lexical entry
         if self.slot:
             freq: Counter = Counter()
@@ -421,6 +510,12 @@ class UnknownWordCategories(LexicalCategories):
             out = out + self._log_shape_factor(word, pos, known=known)
         if self.slot and not known:
             out = out + self.slot_kappa * self._slot_factor(here)
+        if self.det_kappa and not known:
+            d = det_context(self._sent_lows, here)
+            out = out + self.det_kappa * np.array([self.log_detc[t][d] for t in self.tags])
+        if self.right_kappa and not known and (LC.LAG is None or LC.LAG >= 1):
+            r = right_context(self._sent_lows, here)
+            out = out + self.right_kappa * np.array([self.log_rightc[t][r] for t in self.tags])
         return out
 
     def _slot_factor(self, i: int) -> np.ndarray:
@@ -548,6 +643,33 @@ ARMS = {
                            prior_gamma=0.5, joint_shape=True),
     "A9b_joint_n5":   dict(pos_shape=True,  rich_shape=True,  novel_max=5, suf_backoff=True, suf_theta=3.0,
                            prior_gamma=0.5, joint_shape=True),
+    # --- PATH A (2nd attempt): the Katz-Macnamara DETERMINER CONTEXT, a 9-symbol count table over the left context's
+    #     function-word class, read only where there is no lexical entry. kappa is the operating point, swept.
+    "B1_det05":       dict(pos_shape=True,  rich_shape=True,  novel_max=2, suf_backoff=True, suf_theta=3.0,
+                           prior_gamma=0.5, det_kappa=0.5),
+    "B2_det1":        dict(pos_shape=True,  rich_shape=True,  novel_max=2, suf_backoff=True, suf_theta=3.0,
+                           prior_gamma=0.5, det_kappa=1.0),
+    "B3_det2":        dict(pos_shape=True,  rich_shape=True,  novel_max=2, suf_backoff=True, suf_theta=3.0,
+                           prior_gamma=0.5, det_kappa=2.0),
+    "B4_det1_only":   dict(pos_shape=False, rich_shape=False, novel_max=0, det_kappa=1.0),
+    # --- the two-sided frame: the Katz determiner context PLUS the right-hand frame symbol
+    "C1_lr05":        dict(pos_shape=True,  rich_shape=True,  novel_max=2, suf_backoff=True, suf_theta=3.0,
+                           prior_gamma=0.5, det_kappa=0.5, right_kappa=0.5),
+    "C2_lr_r05":      dict(pos_shape=True,  rich_shape=True,  novel_max=2, suf_backoff=True, suf_theta=3.0,
+                           prior_gamma=0.5, right_kappa=0.5),
+    "C3_lr_only":     dict(pos_shape=False, rich_shape=False, novel_max=0, det_kappa=1.0, right_kappa=1.0),
+    # --- the frame cue is worth -19 PROPN<->NOUN ALONE (163 -> 144) but only -9 in combination (163 -> 154): the form
+    #     cues are masking it. Sweep its weight against the prior gamma, which is the other cue that targets this pair.
+    "D1_lr1_g05":     dict(pos_shape=True,  rich_shape=True,  novel_max=2, suf_backoff=True, suf_theta=3.0,
+                           prior_gamma=0.5, det_kappa=1.0, right_kappa=1.0),
+    "D2_lr1_g075":    dict(pos_shape=True,  rich_shape=True,  novel_max=2, suf_backoff=True, suf_theta=3.0,
+                           prior_gamma=0.75, det_kappa=1.0, right_kappa=1.0),
+    "D3_lr15_g05":    dict(pos_shape=True,  rich_shape=True,  novel_max=2, suf_backoff=True, suf_theta=3.0,
+                           prior_gamma=0.5, det_kappa=1.5, right_kappa=1.5),
+    "D4_lr2_g05":     dict(pos_shape=True,  rich_shape=True,  novel_max=2, suf_backoff=True, suf_theta=3.0,
+                           prior_gamma=0.5, det_kappa=2.0, right_kappa=2.0),
+    "D5_lr1_g05_nopos": dict(pos_shape=False, rich_shape=True, novel_max=2, suf_backoff=True, suf_theta=3.0,
+                             prior_gamma=0.5, det_kappa=1.0, right_kappa=1.0),
 }
 
 
@@ -640,9 +762,54 @@ def run_heads(arm: str) -> dict:
                         rt[r] = rt.get(r, 0) + 1; rh[r] = rh.get(r, 0) + ok
         res[name] = {"uas": round(c / max(1, t), 4), "tag_agreement": round(agree / max(1, atot), 4),
                      "per_relation": {r: round(rh[r] / rt[r], 3) for r in CORE_RELS if r in rt}}
+        # THE GRADED HAND-OFF, on the full live chain: instead of the HARD argmax the live default reads, marginalise
+        # the arc scores over each uncertain token's second-best category (`arc_scores_graded`). The organ HOLDS a
+        # posterior whose mean top mass on an unseen token is 0.8965 -- this measures what the hard readout throws away.
+        cg = tg_ = 0
+        for toks, gold_pos, gold_heads, rels in test:
+            tt, tp = tagged(toks)
+            hd = AA.heads_graded(list(toks), tt, tp, tab)
+            for i, g in enumerate(gold_heads, start=1):
+                if 0 <= g <= len(toks):
+                    cg += int(hd.get(i, -1) == g); tg_ += 1
+        res[name]["uas_graded_handoff"] = round(cg / max(1, tg_), 4)
+        res[name]["graded_minus_hard"] = round(cg / max(1, tg_) - res[name]["uas"], 4)
         print("HEADS", name, json.dumps(res[name]), flush=True)
-    res["d_uas"] = round(res[arm]["uas"] - res["A0_live"]["uas"], 4)
+    res["d_uas_hard"] = round(res[arm]["uas"] - res["A0_live"]["uas"], 4)
+    res["d_uas_graded"] = round(res[arm]["uas_graded_handoff"] - res["A0_live"]["uas_graded_handoff"], 4)
     return res
+
+
+def coverage_bound(arm: str = "C1_lr05") -> dict:
+    """WHAT WOULD GROWING THE READING-ACQUIRED INVENTORY BUY? A BOUND, not a claim. The induced inventory covers 549
+    of 1,882 unseen tokens; 1,333 get exactly zero from the organ's own reading arm. Split the arm's unseen accuracy by
+    whether the cue fired. The gap is an UPPER bound on what perfect coverage could buy, and it is confounded (covered
+    words are the ones simple-Wikipedia contains, i.e. more ordinary words), so it is reported as a bound with the
+    confound named -- never as a projected gain."""
+    import hdlab.induced_categories as IC
+    ic = IC.get()
+    train = read_conllu(TRAIN); test = read_conllu(TEST)
+    base = build(train, ARMS["A0_live"]); vocab = set(base.vocab)
+    armm = build(train, dict(ARMS[arm]))
+    out = {}
+    for nm, m in (("A0_live", base), (arm, armm)):
+        cov = covok = unc = uncok = 0
+        for s in test:
+            words = [w for w, _ in s]; gold = [g for _, g in s]
+            pred = [m.tags[int(i)] for i in m.posterior(words).argmax(axis=1)]
+            for w, g, p in zip(words, gold, pred):
+                if w.lower() in vocab:
+                    continue
+                if ic.cluster_of(w) is not None:
+                    cov += 1; covok += int(g == p)
+                else:
+                    unc += 1; uncok += int(g == p)
+        out[nm] = {"covered_n": cov, "covered_acc": round(covok / max(1, cov), 4),
+                   "uncovered_n": unc, "uncovered_acc": round(uncok / max(1, unc), 4),
+                   "gap": round(covok / max(1, cov) - uncok / max(1, unc), 4),
+                   "tokens_if_uncovered_reached_covered_acc": round((covok / max(1, cov)) * unc - uncok, 1)}
+    print("COVERAGE_BOUND", json.dumps(out, indent=1), flush=True)
+    return out
 
 
 def explain(arm: str, ref: str = "A0_live") -> dict:
@@ -773,16 +940,19 @@ def main() -> None:
     ap.add_argument("--heads", default="")
     ap.add_argument("--explain", default="")
     ap.add_argument("--chain-trace", action="store_true")
+    ap.add_argument("--coverage-bound", action="store_true")
     ap.add_argument("--out-name", default="metrics_no_regress.json")
     args = ap.parse_args()
     if args.self_test:
         sys.exit(0 if self_test() else 1)
-    if args.penn or args.heads or args.explain or args.chain_trace:
+    if args.penn or args.heads or args.explain or args.chain_trace or args.coverage_bound:
         od = str(get_output_dir("exp_category_unknown_word_cues_v1"))
         os.makedirs(od, exist_ok=True)
         out = {"cell": "exp_category_unknown_word_cues_v1", "tag": args.tag}
         if args.chain_trace:
             out["chain_trace"] = chain_trace()
+        if args.coverage_bound:
+            out["coverage_bound"] = coverage_bound(args.heads or args.penn or "C1_lr05")
         for a in [x for x in args.explain.split(",") if x in ARMS]:
             out.setdefault("explain", {})[a] = explain(a)
         if args.penn:

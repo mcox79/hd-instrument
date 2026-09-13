@@ -1,0 +1,365 @@
+{
+ "cell": "exp_category_unknown_word_cues_v1",
+ "smoke": false,
+ "n_train_sent": 12544,
+ "n_test_sent": 2077,
+ "arms": {
+  "A0_live": {
+   "acc": 0.9278313541085519,
+   "unknown_acc": 0.7518597236981934,
+   "n_tokens": 25094,
+   "n_unknown": 1882,
+   "confusions": {
+    "PROPN->NOUN": 117,
+    "NOUN->PROPN": 46,
+    "ADJ->NOUN": 32,
+    "PROPN->NUM": 30,
+    "NOUN->NUM": 25,
+    "PROPN->ADJ": 24,
+    "VERB->NOUN": 23,
+    "ADJ->VERB": 15,
+    "PROPN->PUNCT": 15,
+    "X->PROPN": 15,
+    "NOUN->ADJ": 13,
+    "NOUN->VERB": 10,
+    "PROPN->PRON": 10,
+    "INTJ->PROPN": 8,
+    "PROPN->VERB": 6,
+    "ADJ->PROPN": 5,
+    "X->NOUN": 5,
+    "VERB->PROPN": 4,
+    "NOUN->PUNCT": 4,
+    "X->PUNCT": 4
+   },
+   "propn_noun": 163,
+   "by_shape": {
+    "Cap": {
+     "n": 585,
+     "acc": 0.7829
+    },
+    "other": {
+     "n": 143,
+     "acc": 0.6573
+    },
+    "lower": {
+     "n": 734,
+     "acc": 0.7602
+    },
+    "hyphen": {
+     "n": 20,
+     "acc": 0.8
+    },
+    "digit": {
+     "n": 281,
+     "acc": 0.7758
+    },
+    "ALLCAP": {
+     "n": 119,
+     "acc": 0.5966
+    }
+   }
+  },
+  "C1_lr05": {
+   "acc": 0.9311787678329481,
+   "unknown_acc": 0.8002125398512221,
+   "n_tokens": 25094,
+   "n_unknown": 1882,
+   "confusions": {
+    "PROPN->NOUN": 90,
+    "NOUN->PROPN": 64,
+    "ADJ->NOUN": 21,
+    "NOUN->ADJ": 21,
+    "PROPN->ADJ": 20,
+    "VERB->NOUN": 15,
+    "ADJ->VERB": 14,
+    "PROPN->NUM": 14,
+    "NOUN->X": 11,
+    "X->PROPN": 10,
+    "NOUN->VERB": 9,
+    "VERB->ADJ": 8,
+    "ADJ->PROPN": 8,
+    "INTJ->PROPN": 7,
+    "X->NOUN": 7,
+    "VERB->PROPN": 4,
+    "NOUN->PRON": 3,
+    "SCONJ->ADJ": 2,
+    "SCONJ->PROPN": 2,
+    "NOUN->DET": 2
+   },
+   "propn_noun": 154,
+   "by_shape": {
+    "Cap": {
+     "n": 585,
+     "acc": 0.8239
+    },
+    "other": {
+     "n": 143,
+     "acc": 0.8182
+    },
+    "lower": {
+     "n": 734,
+     "acc": 0.7902
+    },
+    "hyphen": {
+     "n": 20,
+     "acc": 0.6
+    },
+    "digit": {
+     "n": 281,
+     "acc": 0.8363
+    },
+    "ALLCAP": {
+     "n": 119,
+     "acc": 0.6723
+    }
+   },
+   "vs_A0_unknown": {
+    "delta": 0.0484,
+    "ci95": [
+     0.0322,
+     0.0643
+    ],
+    "half_width": 0.0161,
+    "separated": true
+   },
+   "vs_A0_overall": {
+    "delta": 0.0033,
+    "ci95": [
+     0.0016,
+     0.0051
+    ],
+    "half_width": 0.0018,
+    "separated": true
+   },
+   "novel_types": 10453,
+   "sec": 8.7
+  },
+  "C2_lr_r05": {
+   "acc": 0.9312983183231052,
+   "unknown_acc": 0.8002125398512221,
+   "n_tokens": 25094,
+   "n_unknown": 1882,
+   "confusions": {
+    "PROPN->NOUN": 96,
+    "NOUN->PROPN": 65,
+    "ADJ->NOUN": 21,
+    "NOUN->ADJ": 21,
+    "PROPN->ADJ": 19,
+    "ADJ->VERB": 15,
+    "VERB->NOUN": 15,
+    "PROPN->NUM": 14,
+    "NOUN->X": 11,
+    "X->PROPN": 10,
+    "NOUN->VERB": 7,
+    "ADJ->PROPN": 7,
+    "X->NOUN": 7,
+    "VERB->ADJ": 6,
+    "INTJ->PROPN": 6,
+    "VERB->PROPN": 4,
+    "NOUN->PRON": 3,
+    "SCONJ->ADJ": 2,
+    "SCONJ->PROPN": 2,
+    "NOUN->DET": 2
+   },
+   "propn_noun": 161,
+   "by_shape": {
+    "Cap": {
+     "n": 585,
+     "acc": 0.8239
+    },
+    "other": {
+     "n": 143,
+     "acc": 0.8182
+    },
+    "lower": {
+     "n": 734,
+     "acc": 0.7956
+    },
+    "hyphen": {
+     "n": 20,
+     "acc": 0.55
+    },
+    "digit": {
+     "n": 281,
+     "acc": 0.8292
+    },
+    "ALLCAP": {
+     "n": 119,
+     "acc": 0.6639
+    }
+   },
+   "vs_A0_unknown": {
+    "delta": 0.0484,
+    "ci95": [
+     0.0324,
+     0.0643
+    ],
+    "half_width": 0.016,
+    "separated": true
+   },
+   "vs_A0_overall": {
+    "delta": 0.0035,
+    "ci95": [
+     0.0017,
+     0.0052
+    ],
+    "half_width": 0.0018,
+    "separated": true
+   },
+   "novel_types": 10453,
+   "sec": 8.2
+  },
+  "C3_lr_only": {
+   "acc": 0.9275125528014665,
+   "unknown_acc": 0.7529224229543039,
+   "n_tokens": 25094,
+   "n_unknown": 1882,
+   "confusions": {
+    "PROPN->NOUN": 98,
+    "NOUN->PROPN": 46,
+    "ADJ->NOUN": 31,
+    "PROPN->NUM": 30,
+    "PROPN->ADJ": 25,
+    "NOUN->NUM": 25,
+    "VERB->NOUN": 21,
+    "NOUN->ADJ": 18,
+    "ADJ->VERB": 17,
+    "PROPN->PUNCT": 15,
+    "X->PROPN": 15,
+    "NOUN->VERB": 13,
+    "PROPN->PRON": 10,
+    "INTJ->PROPN": 8,
+    "PROPN->VERB": 7,
+    "ADJ->PROPN": 7,
+    "NOUN->PRON": 5,
+    "X->NOUN": 5,
+    "VERB->ADJ": 4,
+    "X->PUNCT": 4
+   },
+   "propn_noun": 144,
+   "by_shape": {
+    "Cap": {
+     "n": 585,
+     "acc": 0.7846
+    },
+    "other": {
+     "n": 143,
+     "acc": 0.6573
+    },
+    "lower": {
+     "n": 734,
+     "acc": 0.7507
+    },
+    "hyphen": {
+     "n": 20,
+     "acc": 0.8
+    },
+    "digit": {
+     "n": 281,
+     "acc": 0.7758
+    },
+    "ALLCAP": {
+     "n": 119,
+     "acc": 0.6639
+    }
+   },
+   "vs_A0_unknown": {
+    "delta": 0.0011,
+    "ci95": [
+     -0.0093,
+     0.0112
+    ],
+    "half_width": 0.0103,
+    "separated": false
+   },
+   "vs_A0_overall": {
+    "delta": -0.0003,
+    "ci95": [
+     -0.0012,
+     0.0006
+    ],
+    "half_width": 0.0009,
+    "separated": false
+   },
+   "novel_types": 0,
+   "sec": 8.9
+  },
+  "TWIN_of_C1_lr05": {
+   "acc": 0.842591854626604,
+   "unknown_acc": 0.371413390010627,
+   "n_tokens": 25094,
+   "n_unknown": 1882,
+   "confusions": {
+    "NOUN->NUM": 195,
+    "PROPN->NOUN": 137,
+    "NOUN->PROPN": 92,
+    "PROPN->PUNCT": 63,
+    "PROPN->NUM": 58,
+    "ADJ->NUM": 55,
+    "VERB->NUM": 47,
+    "PROPN->X": 46,
+    "NUM->NOUN": 36,
+    "NUM->PUNCT": 29,
+    "ADJ->NOUN": 25,
+    "NUM->X": 24,
+    "NUM->PROPN": 23,
+    "PUNCT->PROPN": 20,
+    "VERB->PUNCT": 19,
+    "NOUN->PUNCT": 18,
+    "NOUN->ADJ": 13,
+    "NOUN->SYM": 13,
+    "NUM->SYM": 12,
+    "PROPN->SYM": 12
+   },
+   "propn_noun": 229,
+   "by_shape": {
+    "Cap": {
+     "n": 585,
+     "acc": 0.6085
+    },
+    "other": {
+     "n": 143,
+     "acc": 0.1189
+    },
+    "lower": {
+     "n": 734,
+     "acc": 0.2643
+    },
+    "hyphen": {
+     "n": 20,
+     "acc": 0.15
+    },
+    "digit": {
+     "n": 281,
+     "acc": 0.2954
+    },
+    "ALLCAP": {
+     "n": 119,
+     "acc": 0.3866
+    }
+   },
+   "vs_A0_unknown": {
+    "delta": -0.3804,
+    "ci95": [
+     -0.4106,
+     -0.3497
+    ],
+    "half_width": 0.0304,
+    "separated": true
+   },
+   "vs_best_unknown": {
+    "delta": 0.4288,
+    "ci95": [
+     0.3991,
+     0.4582
+    ],
+    "half_width": 0.0296,
+    "separated": true
+   }
+  }
+ },
+ "n_boot": 2000,
+ "tag": "two_sided_frame",
+ "best_arm": "C1_lr05",
+ "elapsed_s": 43.0
+}
