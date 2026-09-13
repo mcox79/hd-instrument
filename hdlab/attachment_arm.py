@@ -63,7 +63,9 @@ M_SHRINK = 2.0
 CONVENTION_BONUS = 5.0
 BF_TSP_ASSET = os.path.join(_REPO, "data", "frontend_assets", "typed_selectional_preference_bf_v1.json")   # self-grown plausibility
 BF_TSP_SUBJ_ASSET = os.path.join(_REPO, "data", "frontend_assets", "typed_selectional_preference_bf_subj_v1.json")   # self-grown SUBJ slot
-ORDER_AWARE = os.environ.get("HDLAB_SBT_ORDER_AWARE", "1") != "0"
+ORDER_AWARE = os.environ.get("HDLAB_SBT_ORDER_AWARE", "0") == "1"   # REFUTED AS BUILT 2026-09-13 (see ledger): obj +0.008 but ccomp 0.466->0.207,
+#   xcomp 0.686->0.599, UAS 0.5706->0.5654 -- the SUBJ-slot association has a different scale/sparsity (811 verbs) and weakens the
+#   root/argument signal clausal structure rides on; keep off until the two slot associations are put on one scale.
 _TABLE: Optional[Dict[str, object]] = None
 
 

@@ -549,3 +549,12 @@ competent-reader reference ~0.85–0.90.
   the semantic-bootstrapping teacher scores OBJECT plausibility for a nominal on EITHER side of the verb; English objects follow their
   verb, and the child's semantic bootstrapping maps roles WITH word order (Pinker 1984 canonical mapping). Fix: order-aware teacher --
   object association for nominals AFTER the verb, SUBJECT association (same self-grown store, SUBJ slot) for nominals BEFORE it.
+- **ORDER-AWARE SEMANTIC BOOTSTRAPPING, FULL REBUILD = REFUTED AS BUILT (2026-09-13 03:55; 6k, beta 10, 3 rounds): UAS 0.5706 -> 0.5654;
+  obj 0.685 -> 0.693 (+0.008, the targeted gain is real but small), nsubj 0.749 -> 0.75, root 0.806 -> 0.82, BUT ccomp 0.466 -> 0.207,
+  xcomp 0.686 -> 0.599, advcl 0.149 -> 0.067, nmod 0.346 -> 0.331.** Not promoted; `HDLAB_SBT_ORDER_AWARE` default off (the live
+  asset is the order-blind PP build). Mechanism hypothesis: the SUBJ-slot association (811 verbs, sparser, smaller magnitudes: create/
+  energy obj 0.49 vs subj 0.12) is on a different scale than the OBJ association, so pre-verbal nominals now carry a much weaker verb
+  signal -> the root/argument competition that clausal complements ride on (which verb is the clause head) degrades. The ORDER idea
+  stands (Pinker); the implementation needs the two slot associations on ONE scale (z-score each slot's share distribution, or a single
+  role-conditioned association with order as a cue the arm LEARNS rather than the teacher imposing). Object misses to the right-hand
+  verb remain the top heads-rung item (48% of object errors).
