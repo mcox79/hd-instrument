@@ -65,6 +65,7 @@ class ScorecardWindow:
         self._build_tab_doing()
         self._build_tab_questions()
         self._build_tab_updates()
+        self._build_tab_problems()
         bar = tk.Frame(root, bg=BG)
         bar.pack(fill="x", padx=10, pady=(0, 8))
         self.stamp = tk.Label(bar, text="", bg=BG, fg=DIM, font=FONT, anchor="w")
@@ -315,6 +316,67 @@ class ScorecardWindow:
         except Exception as e:
             self.ustatus.config(text="Could not clear: %s: %s" % (type(e).__name__, e), fg=RED)
 
+    # ------------------------------------------------------------------ tab 4
+    def _build_tab_problems(self) -> None:
+        """OPEN problems to hand to your own solver sessions (owner 2026-09-12: "create a button that will copy the prompt to my
+        clipboard so I can paste it"). The prompt is problem_ledger.kickoff_prompt -- the single source of truth the CLI prints."""
+        f = tk.Frame(self.nb, bg=BG)
+        self.nb.add(f, text="4. PROBLEMS TO HAND OUT")
+        f.columnconfigure(0, weight=2); f.columnconfigure(1, weight=3); f.rowconfigure(1, weight=1)
+        tk.Label(f, text="Hard, bounded problems written for a separate solver session (opus). Click one, then press Copy and paste the "
+                         "prompt into a new solver session. Lower priority number = more important. Problems with a SOLVED.md are not "
+                         "listed here (they are in tab 2 waiting for your verdict).", bg=BG, fg=FG, font=FONT_B, anchor="w",
+                 justify="left", wraplength=1220).grid(row=0, column=0, columnspan=2, sticky="ew", padx=10, pady=(10, 4))
+        self.ptv = ttk.Treeview(f, columns=("pri", "title"), show="headings", selectmode="browse")
+        self.ptv.heading("pri", text="Pri"); self.ptv.heading("title", text="Problem (plain words)")
+        self.ptv.column("pri", width=50, anchor="center", stretch=False); self.ptv.column("title", width=420, anchor="w")
+        self.ptv.grid(row=1, column=0, sticky="nsew", padx=(10, 4), pady=4)
+        self.ptv.bind("<<TreeviewSelect>>", self._show_prompt)
+        self.prompt = tk.Text(f, bg=PANEL, fg=FG, font=("Consolas", 10), wrap="word", relief="flat", padx=12, pady=10)
+        self.prompt.grid(row=1, column=1, sticky="nsew", padx=(4, 10), pady=4)
+        bar = tk.Frame(f, bg=BG); bar.grid(row=2, column=0, columnspan=2, sticky="ew", padx=10, pady=(4, 10))
+        tk.Button(bar, text="Copy solver prompt to clipboard", command=self._copy_prompt, bg="#2e5d3a", fg=FG, font=FONT_B,
+                  relief="flat", padx=12).pack(side="left")
+        self.pstatus = tk.Label(bar, text="", bg=BG, fg=DIM, font=FONT, anchor="w"); self.pstatus.pack(side="left", padx=12)
+        self._problem_rows: list = []
+
+    def _fill_problems(self) -> None:
+        import problem_ledger as PL
+        rows = [r for r in PL.scan() if r["brief"] and r["state"] == "OPEN" and not r.get("integrated")]
+        rows.sort(key=lambda r: (r["priority"] if isinstance(r["priority"], int) else 999, r["slug"]))
+        self._problem_rows = rows
+        self.nb.tab(3, text="4. PROBLEMS TO HAND OUT (%d)" % len(rows))
+        sel = self.ptv.selection(); keep = self.ptv.item(sel[0], "values")[1] if sel else None
+        self.ptv.delete(*self.ptv.get_children())
+        for r in rows:
+            title = r["slug"].replace("_", " ")
+            iid = self.ptv.insert("", "end", values=(r["priority"] if r["priority"] is not None else "-", title))
+            if keep == title:
+                self.ptv.selection_set(iid)
+
+    def _show_prompt(self, _evt=None) -> None:
+        import problem_ledger as PL
+        sel = self.ptv.selection()
+        if not sel:
+            return
+        idx = self.ptv.index(sel[0])
+        if idx >= len(self._problem_rows):
+            return
+        slug = self._problem_rows[idx]["slug"]
+        self.prompt.config(state="normal"); self.prompt.delete("1.0", "end")
+        self.prompt.insert("end", PL.kickoff_prompt(slug)); self.prompt.config(state="disabled")
+        self.pstatus.config(text="Showing the prompt for: %s" % slug, fg=DIM)
+
+    def _copy_prompt(self) -> None:
+        text = self.prompt.get("1.0", "end").strip()
+        if not text:
+            self.pstatus.config(text="Click a problem first.", fg=ORANGE); return
+        try:
+            self.root.clipboard_clear(); self.root.clipboard_append(text); self.root.update()
+            self.pstatus.config(text="Copied %d characters -- paste it into a new solver session." % len(text), fg=GREEN)
+        except Exception as e:
+            self.pstatus.config(text="Could not copy: %s: %s" % (type(e).__name__, e), fg=RED)
+
     # ------------------------------------------------------------------ refresh
     def refresh(self) -> None:
         try:
@@ -324,6 +386,7 @@ class ScorecardWindow:
             except Exception:
                 pass
             self._fill_doing(); self._fill_questions(); self._fill_review(); self._fill_updates()
+            self._fill_problems()
             self.stamp.config(text="Last full check of the system: %s   |   scorecard refreshed %s   |   %d full checks on record"
                               % (self.sc.get("last_full_check") or "none yet", self.sc["generated"], self.sc["n_full_checks"]), fg=DIM)
         except Exception as e:
@@ -342,7 +405,13 @@ def self_test() -> int:
     root.update()
     n_rows = sum(len(w.tv.get_children(g)) for g in w.tv.get_children())
     assert n_rows == len(sc["capabilities"]), (n_rows, len(sc["capabilities"]))
+    n_prob = len(w.ptv.get_children())
+    assert n_prob == len(w._problem_rows) and n_prob >= 1, ("problems tab", n_prob)
+    first = w.ptv.get_children()[0]; w.ptv.selection_set(first); w._show_prompt()
+    assert "slug is:" in w.prompt.get("1.0", "end"), "kickoff prompt must render"
+    w._copy_prompt(); assert w.root.clipboard_get().startswith("You are the SOLVER"), "clipboard copy must work"
     root.destroy()
+    print("[scorecard_gui self-test] PASS: %d open problems listed with copyable prompts" % n_prob)
     print("[scorecard_gui self-test] PASS: %d abilities rendered, %d questions, short version present" % (n_rows, len(sc["questions_for_owner"])))
     return 0
 
