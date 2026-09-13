@@ -74,6 +74,20 @@ effectively waits — the incremental arm captures coordination via the shared a
 gap is generic beam pruning, not coordination-specific. This CONFIRMS the incremental account is already realized; item 3 is
 not a separate lever.
 
+## 4c. "Right not easy" pursuit of the remaining opportunities -> a RIGOROUSLY LOCATED FRONTIER (far coordination = meaning channel)
+Split conj recall by L->R distance (cap 2500 full asset): **NEAR (<9 tokens, n=172) 0.535 — at the ~0.55 nearest-L structural
+ceiling; FAR (9+ tokens, n=61, = 26% of all conj) 0.016 — essentially ZERO.** The near coordination is solved to its structural
+ceiling; the far coordination is the wall. WHY: for a 9+ gap there is always a closer same-class distractor, so a nearest-same-class
+(or any positional) construction NEVER PROPOSES the true far L — reaching it needs a precise co-argument/meaning signal or a full
+long-distance structural parse. FIVE bounded, meaning-free levers built and tested, NONE reaches the far conjuncts:
+- skip-PP L-identification (case-marking): REFUTED, 0.415 < 0.551 nearest -- over-skips coordination INSIDE a PP ("on tables and chairs").
+- chain-top L (structural head via the parse): ceiling only +0.02 over nearest (0.575 vs 0.551) -- not worth a second parse.
+- slot-sharing L (co-argument via plausibility): REFUTED, 0.365 < 0.391 -- plausibility store too sparse/noisy.
+- coordinator HOLD-conditioning (incr, Levy prediction): NULL (+0.005) -- the incr arm already captures coordination via shared activations.
+- distance-invariant decode bonus on coord arcs (parallelism resists locality): far unchanged at 0.016; near +0.017 at the cost of nsubj.
+=> The far-coordination ceiling is the MEANING CHANNEL (co-argument grounding to identify the far parallel), a named separate problem
+with evidence. Everything a bounded glass-box attachment fix can reach on coordination, this solve reaches.
+
 ## 5. What I did NOT establish / would withdraw first
 - **cc is positive but NOT CI-separated** (map1 +0.059 CI [0.0,0.123]; incr flat). I withdraw the cc claim first. conj — the named
   worst structural class and the brief's entire subject — is the CI-separated result.
@@ -131,6 +145,9 @@ conservative middle. (Cue smoothing / beam width similarly free to sweep per the
   read-time construction; the wall was a coordination-blind (non-BF) teacher; twins collapse; UAS up; slot-sharing refuted.
 - **QUESTIONS (owner):** accept the small nsubj give-back (−0.017) for the conj/UAS gain (owner discipline says yes — repair
   consumers, don't revert)? cc positive-not-separated — acceptable as a secondary?
-- **NEXT STEPS:** (a) the co-argument-precise signal that would beat nearest-same-class (needs a better plausibility store — the
-  meaning-channel main event); (b) cross-UPOS/elided conjuncts (21.5% uncovered); (c) re-check coref / who-did-what on the
-  rebuilt asset (coordinated NP = one plural entity).
+- **NEXT STEPS (evidence-backed after the right-not-easy pursuit):** (a) **FAR coordination (9+ tokens, 26% of conj, at ~0.016)** is
+  the one real lever left and it is BLOCKED on the MEANING CHANNEL — a precise co-argument signal to identify the far parallel head,
+  which 5 bounded meaning-free levers provably cannot reach (§4c). File as a separate problem tied to the meaning channel, NOT bolted
+  onto this solve. (b) re-check coref / who-did-what on the rebuilt asset (coordinated NP = one plural entity). (c) cross-UPOS pairs
+  are mostly nominal (PROPN+NOUN) / predicate (ADJ+VERB) already covered by the coarse class — not a separate lever; the residual
+  there is the same far-distance/competition wall.

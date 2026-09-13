@@ -150,6 +150,28 @@ def left_head_slotshare(toks: Sequence[str], pos: Sequence[str], k: int, R: int,
     return best if best_s > 0 else cands[0]
 
 
+def left_head_skippp(pos: Sequence[str], k: int, rclass: str, coarse: bool) -> Optional[int]:
+    """STRUCTURAL L-identification (past the nearest-same-class ceiling): the first conjunct is the HEAD of the phrase, not
+    the nearest word -- a prepositional (case-marked, oblique) nominal is NOT a conjunct-slot filler (Pinker case-marking).
+    So scan backward for a same-class content head, but when the candidate is a prepositional object (its nominal run opens
+    right after an ADP), SKIP the whole PP and keep looking. Parse-free approximation of the chain-top head (ceiling 0.575
+    vs nearest 0.485). Example: 'the man in the house and the woman' -> skips 'house' (obj of 'in') -> returns 'man'."""
+    q = k - 1
+    guard = 0
+    while q >= 1 and guard <= len(pos):
+        guard += 1
+        if pclass(pos[q - 1], coarse) == rclass:
+            a = q                                          # walk to the start of this nominal run
+            while a - 1 >= 1 and pos[a - 2] in NP_RUN:
+                a -= 1
+            if a - 2 >= 0 and pos[a - 2] == "ADP":         # prepositional object -> skip the PP, continue before the ADP
+                q = a - 2
+                continue
+            return q
+        q -= 1
+    return None
+
+
 def coord_sites(toks: Sequence[str], pos: Sequence[str], coarse: bool = True,
                 mode: str = "parallel") -> List[Tuple[int, int, int]]:
     """Every coordinator's parallel heads (L before, R after) + the coordinator index cc. The ONE source of truth used by
@@ -173,6 +195,8 @@ def coord_sites(toks: Sequence[str], pos: Sequence[str], coarse: bool = True,
             L = cands[(k * 7 + R * 13) % len(cands)]     # deterministic wrong antecedent (decorrelated from parallelism)
         elif mode == "slot":
             L = left_head_slotshare(toks, pos, k, R, rc, coarse)
+        elif mode == "skippp":
+            L = left_head_skippp(pos, k, rc, coarse)
         else:
             L = left_head(pos, k, rc, coarse)
         if L is None or L == R:
