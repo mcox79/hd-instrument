@@ -361,7 +361,9 @@ class SentenceCues:
         site = self.pp.get(j)
         if site is not None and h in (site[0], site[1]):
             c["pp"] = ("V:" if h == site[0] else "N:") + site[2]     # which candidate this head is x the preposition's lean
-        if self.teacher is not None and ph == "VERB" and pj in NOMINAL:
+        if self.teacher is not None and ph == "VERB" and pj in NOMINAL and not (j >= 2 and self.pos[j - 2] == "ADP"):
+            # v2 (07:20): CORE slots only -- a case-marked (prepositional) nominal is oblique, and its host is the PP cue's business;
+            # v1 fired on PP objects too and traded obl 0.468 -> 0.379 for nmod 0.311 -> 0.375.
             c["plaus"] = ("S:" if h > j else "O:") + _plaus_bin(self.teacher.slot_plausibility(self.toks, self.pos, h, j))
         if ph == "VERB":
             fr = self.frames.get(self.lem[h - 1])
@@ -589,8 +591,9 @@ def arc_scores(toks: Sequence[str], pos: Sequence[str], table: Optional[Dict[str
     # meaning cue (verb head x nominal dependent; the teacher's per-pair plausibility is cached by lemma pair)
     if sc.teacher is not None and "plaus" in ix.cue_tab:
         vid = ix.val_id["plaus"]; T = ix.cue_tab["plaus"]
+        bare = nominal & ~np.array([j >= 2 and pos[j - 2] == "ADP" for j in range(1, n + 1)])
         for h in np.flatnonzero(vh):
-            for j in np.flatnonzero(nominal) + 1:
+            for j in np.flatnonzero(bare) + 1:
                 if j != h:
                     val = ("S:" if h > j else "O:") + _plaus_bin(sc.teacher.slot_plausibility(toks, pos, int(h), int(j)))
                     S[h, j - 1] += T[C[h, j - 1], vid.get(val, 0)]

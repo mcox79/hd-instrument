@@ -243,8 +243,18 @@ def is_known_word(w: str) -> bool:
     return wn.morphy(w) is not None
 
 
+_UPOS2WN = {"NOUN": "n", "PROPN": "n", "VERB": "v", "AUX": "v", "ADJ": "a", "ADV": "r", "n": "n", "v": "v", "a": "a", "r": "r"}
+
+
+def _pos_order(pos, default):
+    """Optional category hand-off into the lemma rung (2026-09-13, fold-queue item 2): the consumer's category (UPOS or WordNet
+    letter) is tried FIRST, then the default order. Categories without a WordNet class (DET, ADP, PRON...) keep the default."""
+    w = _UPOS2WN.get(pos) if pos else None
+    return ((w,) + tuple(q for q in default if q != w)) if w else default
+
+
 @lru_cache(maxsize=200000)
-def lemma_word(word: str) -> str:
+def lemma_word(word: str, pos: Optional[str] = None) -> str:
     """Surface form -> lemma, POS-generic, GUARANTEED to return either a known English word or
     the (lowercased, punctuation-stripped) surface form unchanged. Never a truncation artifact.
 
@@ -260,8 +270,8 @@ def lemma_word(word: str) -> str:
     if wn is not None:
         # morphy() with no POS tries every POS and returns the first hit; ask explicitly in
         # noun-first order because the reading loop's vocabulary is noun-dominated.
-        for pos in ("n", "v", "a", "r"):
-            m = wn.morphy(w, pos)
+        for q in _pos_order(pos, ("n", "v", "a", "r")):
+            m = wn.morphy(w, q)
             if m:
                 return m
         m = wn.morphy(w)
@@ -311,7 +321,7 @@ def lemma_word(word: str) -> str:
 
 
 @lru_cache(maxsize=200000)
-def lemma_verb(word: str) -> str:
+def lemma_verb(word: str, pos: Optional[str] = None) -> str:
     """Surface form -> lemma for VERB lookup, GUARANTEED never to return a non-word.
 
     FIXED 2026-08-13 (was an unguarded suffix stripper: `status`->`statu`, `analysis`->`analysi`,
@@ -332,8 +342,8 @@ def lemma_verb(word: str) -> str:
     wn = _wordnet()
     if wn is not None:
         # verb-first: this normalizer keys verb lexicons / frame tables.
-        for pos in ("v", "n", "a", "r"):
-            m = wn.morphy(w, pos)
+        for q in _pos_order(pos, ("v", "n", "a", "r")):
+            m = wn.morphy(w, q)
             if m:
                 return m
         m = wn.morphy(w)
