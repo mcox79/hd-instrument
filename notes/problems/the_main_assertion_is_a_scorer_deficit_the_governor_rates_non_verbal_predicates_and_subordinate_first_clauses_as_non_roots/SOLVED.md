@@ -240,6 +240,112 @@ The gain came from cracking the chain at the one rung where the brain's math was
   24% of sentences**; (d) **the search decode's root PICK is an argmax whose strengths are calibrated over the wrong
   population.** Each of those is a number, and each is a next build.
 
+## 6e. THE FOUR LEVERS THE TRACE EXPOSED — BUILT AND MEASURED (supervisor follow-up)
+
+Every lever was measured the same way: the identical pipeline as the floor, paired bootstrap over sentences,
+UD-EWT test 700, both decodes, and the live chain where it applies.
+
+### LEVER 1 — route the root cues through the category POSTERIOR, not the hard tag. **ACCEPTED.**
+The trace said the categories rung hands down an argmax and flips a cue value on the gold root token in 8.4% of
+sentences. Fixed by the first-order top-2 mixture the organ already uses for ordinary arcs (`arc_scores_graded`'s
+form): for each token whose top category mass is below tau, recompute the root-cue contribution under its
+second-best category and mix by the posterior. **Live chain, in-order decode, n=700:**
+
+| readout | UAS | root |
+|---|---|---|
+| base | 0.6030 | 0.6971 |
+| cues, HARD tag | 0.6092 (+0.0062 CI [+0.0010,+0.0113]) | 0.7400 (+0.0429 CI [+0.0229,+0.0629]) |
+| **cues, GRADED tau=0.80** | **0.6098 (+0.0068 CI [+0.0018,+0.0118])** | **0.7429 (+0.0457 CI [+0.0257,+0.0657])** |
+| cues, GRADED tau=0.95 | 0.6097 (+0.0067) | 0.7429 (+0.0457 CI [+0.0271,+0.0643]) |
+
+Small (+0.0029 root over the hard tag) but positive, insensitive to tau, and it removes a **point estimate** from
+the chain — the brain keeps the category alternative alive rather than committing to an argmax before the
+competition runs. Kept.
+
+### LEVER 2 — the beam had already pruned the true main assertion in 24% of sentences. **ACCEPTED, and it is the most instructive result of the session.**
+
+| beam | base UAS | base root | cues UAS | cues root | root delta |
+|---|---|---|---|---|---|
+| 8 (incumbent) | 0.6163 | 0.7214 | 0.6211 | 0.7486 | +0.0271 CI [+0.0086,+0.0457] |
+| 16 | 0.6171 | 0.7257 | 0.6236 | 0.7529 | +0.0271 CI [+0.0086,+0.0457] |
+| 32 | 0.6189 | **0.7157** | 0.6256 | 0.7571 | **+0.0414 CI [+0.0229,+0.0614]** |
+| **64** | 0.6182 | **0.7157** | **0.6261** | **0.7586** | **+0.0429 CI [+0.0229,+0.0629]** |
+
+**The base's root recall gets WORSE as the beam widens (0.7214 -> 0.7157) while the cues' root recall gets BETTER
+(0.7486 -> 0.7586).** That is the cleanest statement of the whole result: *keeping more alternatives alive is only
+worth anything once the activations can discriminate between them.* With a flat root row a wider beam just gives
+the decode more ways to be wrong; with real cue evidence it gives reanalysis more to work with. Levy's
+keep-alternatives-alive and MacDonald's graded constraint satisfaction are a pair — the beam is the mechanism and
+the cue validities are the constraint, and this organ had only the mechanism. Beam is a swept operating point;
+**64 recommended, 32 nearly identical at lower cost.**
+
+### LEVER 4a — the COPULAR DETECTOR ITSELF WAS BROKEN. **ACCEPTED; found while building lever 4 and it is the biggest single lever of the follow-up.**
+`function_word_arcs` binds an AUX to `next_verb`, which scans right and stops only at PUNCT. So in **"we ARE capable
+of PROTECTING it"** the copula binds to `protecting` — a verb sitting behind a PREPOSITION, inside the predicate
+phrase — and **the copular reading never fires at all**. That is the root cause of strategy's dominant copular-subject
+miss (49 of 161 subjects pulled to a later verb), and it silently starved the `cop` cue of instances. An auxiliary
+marks the tense of ITS OWN clause; a verb behind a preposition, a subordinator or infinitival `to` is in an embedded
+phrase — the same locality every other cue in this organ respects. Fixed by stopping the scan at ADP / SCONJ /
+PART-`to` / CCONJ as well as PUNCT. **In-order decode, gold categories, n=700:**
+
+| arm | UAS | root | cop-subj | ccomp | advcl | xcomp |
+|---|---|---|---|---|---|---|
+| base | 0.6163 | 0.7214 | 0.404 | 0.629 | 0.306 | 0.730 |
+| cues | 0.6211 | 0.7486 | 0.422 | 0.638 | 0.313 | 0.715 |
+| **cues + copfix** | **0.6237** | **0.7543** | **0.441** | **0.655** | **0.343** | **0.759** |
+
+It improves **every** number it touches: root +0.006 over the cues arm, copular-subject +0.019, advcl +0.030,
+xcomp +0.044, ccomp +0.017, UAS +0.0026 — and it recovers the xcomp give-back the cues alone cost (0.715 -> 0.759,
+above the 0.730 base). This is the "a truly BF component failing means something it relies on is not BF" pattern
+again, one rung further down than I had looked.
+
+### LEVER 4b — the copular-subject ARC cue. **ACCEPTED, and it closes the honest null I reported earlier.**
+The copular predicate must win its SUBJECT against the verb sitting inside its own predicate phrase. `csub_sites`
+gives the arc (predicate <- subject) the value `pred` and every verb to the predicate's right the value `later` on
+that same nominal; validity LEARNED. On top of the corrected detector, in-order / search, n=161 gold nsubj with a
+non-verbal head:
+
+| arm | in-order cop-subj | search cop-subj | in-order UAS | in-order root | nsubj | advcl |
+|---|---|---|---|---|---|---|
+| base | 0.404 | 0.528 | 0.6163 | 0.7214 | 0.771 | 0.306 |
+| cues (root cues only) | 0.422 (n.s.) | 0.509 | 0.6211 | 0.7486 | 0.778 | 0.313 |
+| cues + copfix | 0.441 | 0.534 | 0.6237 | 0.7543 | 0.778 | 0.343 |
+| **cues + copfix + csub** | **0.466** | **0.627** | **0.6245** | 0.7543 | **0.780 / 0.793** | **0.358** |
+
+**Copular-subject attachment 0.404 -> 0.466 in-order and 0.528 -> 0.627 on the search decode (+0.099)** — the number
+I honestly reported as an untouched null in the first submission. It also gives the best UAS of any arm (0.6245)
+and the best advcl (0.358 vs 0.306 base). The lesson is the one the trace kept repeating: the root cue could not
+move this because it is a competition on a DIFFERENT arc, and the detector both cues depend on was broken.
+
+### LEVER 3 — the conjunctive finiteness disambiguator.
+Built (`conj` / `copfix_conj_csub` arms, rebuilt assets). The value went through two wrong forms before the right
+one, and I killed each on a worked example rather than on a build:
+- `ed x subject-support` — WRONG: "the man SEEN yesterday LEFT" and "the man WALKED home" both have a nominal to the
+  left with no intervening predicate, so both get `edS`.
+- `ed x rank` — ALSO WRONG: `seen` is rank 1 in its sentence exactly as `walked` is.
+- `ed x rank x is-there-a-later-candidate` — CORRECT on the worked examples: `seen` -> `ed1x`, `walked` -> `ed1L`,
+  and in "I think she left", `think` -> `base1x`, `left` -> `ed2L`.
+**MEASURED, and it is the best single lever on root recall.** In-order, gold categories, n=700:
+`conj` UAS **0.6238**, root **0.7571** (vs cues 0.7486 and copfix 0.7543), ccomp 0.655, xcomp 0.737. The conflated
+`ed`/`base` values were worth ~+0.009 root once separated by rank-plus-later-candidate. ACCEPTED.
+
+### THE COMBINED ARM WAS NOT ACTUALLY MEASURED — a naming bug I am reporting rather than papering over.
+The arm dispatch enables the conjunctive value with `arm.startswith("conj")`, so in the arm named
+`copfix_conj_csub` the conjunctive value **never switched on**: its numbers came back byte-identical to
+`copfix_csub` (UAS 0.6245 / root 0.7543 / cop-subj 0.466 / 0.627). So **conj + copfix + csub together is untested.**
+The three are measured pairwise-independent and each is positive on its own, but I am not claiming their sum. The
+one-character fix (`"conj" in arm`) and the re-run are the first thing to do at integration.
+
+### WHERE THE LEVERS LEAVE THE ARM (best measured configuration, in-order, gold categories, n=700)
+
+| | UAS | root | cop-subj | ccomp | advcl | xcomp |
+|---|---|---|---|---|---|---|
+| live asset (floor) | 0.6163 | 0.7214 | 0.404 | 0.629 | 0.306 | 0.730 |
+| root cues (first submission) | 0.6211 | 0.7486 | 0.422 | 0.638 | 0.313 | 0.715 |
+| + conjunctive finiteness | 0.6238 | **0.7571** | 0.416 | 0.655 | 0.313 | 0.737 |
+| + corrected copular detector + subject cue | **0.6245** | 0.7543 | **0.466** | 0.655 | **0.358** | 0.752 |
+| + beam 64 (on the root-cues arm) | **0.6261** | **0.7586** | — | — | — | — |
+
 ## 7. Every component touched, and its brain-foundational status
 
 | component | role here | BF status |

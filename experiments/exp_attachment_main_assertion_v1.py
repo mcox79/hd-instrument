@@ -122,8 +122,50 @@ def _finiteness(toks, pos, i):
     return "ed"
 
 
+COPFIX = {"on": False}
+
+
+def _cop_predicates_fixed(toks, pos):
+    """CORRECTED copular detection (LEVER 4a; found while building the subject cue, and it is the ROOT CAUSE of the
+    dominant copular-subject miss). `function_word_arcs` binds an AUX to `next_verb`, which scans right and stops
+    only at PUNCT -- so in "we ARE capable of PROTECTING it" the copula binds to `protecting`, a verb sitting behind
+    a PREPOSITION inside the predicate phrase, and the copular reading NEVER FIRES AT ALL. An auxiliary marks the
+    tense of ITS OWN clause; a verb behind a preposition, a subordinator or infinitival `to` is in an embedded
+    phrase, not the auxiliary's verb group -- the same locality every other cue in this organ respects. So the scan
+    stops at ADP / SCONJ / PART-`to` / CCONJ as well as PUNCT."""
+    n = len(pos); lows = [t.lower() for t in toks]; out = set()
+    for i in range(n):
+        if pos[i] != "AUX" or lows[i] not in COP:
+            continue
+        v = None
+        for k in range(i + 1, n):
+            if pos[k] == "VERB":
+                v = k; break
+            if pos[k] in ("PUNCT", "ADP", "SCONJ", "CCONJ") or (pos[k] == "PART" and lows[k] == "to"):
+                break
+        if v is not None:
+            continue
+        for k in range(i + 1, n):
+            if pos[k] in ("VERB", "PUNCT"):
+                break
+            if pos[k] in ("ADJ", "NOUN", "PROPN", "PRON", "NUM"):
+                if pos[k] == "PRON":
+                    out.add(k + 1); break
+                j = k
+                while j + 1 < n and pos[j + 1] in AA.NP_RUN:
+                    j += 1
+                heads = [m for m in range(k, j + 1) if pos[m] in ("NOUN", "PROPN")]
+                if heads:
+                    out.add(heads[-1] + 1); break
+                adjs = [m for m in range(k, j + 1) if pos[m] in ("ADJ", "NUM")]
+                out.add((adjs[-1] if adjs else k) + 1); break
+    return out
+
+
 def _cop_predicates(toks, pos):
     """1-based indices that the arm's OWN copular frame makes the predicate of a copula (no lexical verb after it)."""
+    if COPFIX["on"]:
+        return _cop_predicates_fixed(toks, pos)
     out = set()
     try:
         for (h, d) in AA.function_word_arcs(list(toks), list(pos)):
@@ -206,6 +248,7 @@ def root_cue_values(toks, pos):
                  if pos[j - 1] in ("NOUN", "PROPN") and (j == n or pos[j] not in ("NOUN", "PROPN"))]
         cand = heads or [j for j in range(1, n + 1) if pos[j - 1] in AA.CONTENT or pos[j - 1] == "INTJ"]
     rank = {j: (1 if k == 0 else 2 if k == 1 else 3) for k, j in enumerate(cand)}
+    last_cand = cand[-1] if cand else None
     out = [None] * (n + 1)
     for j in range(1, n + 1):
         p = pos[j - 1]
@@ -229,7 +272,13 @@ def root_cue_values(toks, pos):
         # left with no predicate in between): "the man WALKED" (finite) vs "the man SEEN yesterday" (participle).
         # The additive form cannot represent that interaction, so the ambiguous classes take a CONJUNCTIVE value.
         if CONJ_RPRED["on"] and rpred in ("ed", "base"):
-            rpred = rpred + ("S" if subj else "0")
+            # RANK, not subject support. "the man SEEN yesterday LEFT" and "the man WALKED home" BOTH have a nominal
+            # to the left with no intervening predicate, so the S flag cannot separate them (verified on the worked
+            # example before spending a build). What separates them is whether ANOTHER finite predicate later in the
+            # clause already claims that nominal -- i.e. RANK plus whether a LATER candidate exists at all. Rank
+            # alone also fails ("seen" is rank 1 in "the man SEEN yesterday LEFT", exactly like "walked" in "the man
+            # WALKED home"); what separates them is that "seen" is NOT the last candidate and "walked" is.
+            rpred = rpred + ("%d" % (rank.get(j) or 0)) + ("L" if j == last_cand else "x")
         r = rank.get(j)
         rpos = ("%d" % r if r else "x") + ("S" if subj else "")
         d = {"rpred": rpred, "rsub": _subord(toks, pos, j), "rpos": rpos}
@@ -305,6 +354,51 @@ def enable_clausal_direction(on=True):
         AA.CONSTRUCTIONS = dict(_ORIG_CONSTRUCTIONS)
 
 
+
+# ---- LEVER 4: the COPULAR SUBJECT is an nsubj-ARC cue, not a root cue ------------------------------------------
+# Strategy's slice: of 161 gold nsubj whose head is a NON-VERBAL predicate the live governor gets 0.460, and the
+# DOMINANT miss (49 of 161) is the subject pulled to a LATER VERB inside the predicate's own clause ("we [are
+# capable of] protecting" -> protecting). The root cue moves the "crowned as ROOT" mode (20 -> 18) and leaves this
+# one untouched (49 -> 47), because it is a competition on the SUBJECT arc, not on the root arc. Brain-foundational
+# form: with a copula and no lexical verb the predicate is the clause's predication and takes its subject (Pustet
+# 2003); a verb further right is inside the predicate phrase and is NOT competing for that nominal. Categorical cue
+# values, validity LEARNED like every other cue -- nothing is hand-weighted.
+CSUB = {"on": False}
+
+
+def csub_sites(toks, pos):
+    """(head, dependent) -> cue value, for the copular-subject competition. Categories + the copula list only."""
+    n = len(pos); cop = _cop_predicates(toks, pos); out = {}
+    for q in sorted(cop):
+        c = None                                   # the copula that licenses q
+        for k in range(q - 1, 0, -1):
+            if pos[k - 1] == "AUX" and toks[k - 1].lower() in COP:
+                c = k; break
+            if pos[k - 1] == "VERB":
+                break
+        if c is None:
+            continue
+        subj = None                                # the nearest nominal head before the copula, skipping PP objects
+        k = c - 1
+        while k >= 1:
+            if pos[k - 1] in _NOMINAL:
+                a = k
+                while a - 1 >= 1 and pos[a - 2] in AA.NP_RUN:
+                    a -= 1
+                if a - 1 >= 1 and pos[a - 2] == "ADP":
+                    k = a - 2; continue
+                subj = k; break
+            if pos[k - 1] in ("VERB", "SCONJ", "CCONJ"):
+                break
+            k -= 1
+        if subj is None:
+            continue
+        out[(q, subj)] = "pred"                    # the predicate claiming its own subject
+        for v in range(q + 1, n + 1):              # any verb to the RIGHT is inside the predicate phrase
+            if pos[v - 1] == "VERB":
+                out.setdefault((v, subj), "later")
+    return out
+
 # --------------------------------------------------------------------------------------------------- the arm patch
 _ORIG_CUES = AA.SentenceCues.cues
 _ORIG_ARC = AA.arc_scores
@@ -318,7 +412,15 @@ def _patched_cues(self, j, h):
         if rv is None:
             rv = root_cue_values(self.toks, self.pos); self._root_cue_values = rv
         return rv[j]
-    return _ORIG_CUES(self, j, h)
+    d = _ORIG_CUES(self, j, h)
+    if CSUB["on"]:
+        sites = getattr(self, "_csub_sites", None)
+        if sites is None:
+            sites = self._csub_sites = csub_sites(self.toks, self.pos)
+        v = sites.get((h, j))
+        if v is not None:
+            d = dict(d); d["csub"] = v
+    return d
 
 
 # THE ROOT SLOT HAS CAPACITY ONE, so the cue evidence must be read as a COMPETITION among the sentence's candidates,
@@ -347,6 +449,11 @@ def _patched_arc_scores(toks, pos, table=None):
         for c, v in rv[j].items():
             sc += st.get(c, {}).get(cfg + "|" + v, 0.0)
         d[j] = sc; live.append(j)
+    if CSUB["on"]:
+        T = st.get("csub", {})
+        for (h, jj), v in csub_sites(toks, pos).items():
+            if 1 <= h <= n and 1 <= jj <= n and np.isfinite(A[h][jj]):
+                A[h][jj] += T.get("%s>%s:%s|%s" % (pos[h - 1], pos[jj - 1], "L" if h < jj else "R", v), 0.0)
     if live:
         if CENTER["on"]:
             d[live] -= float(np.mean(d[live]))
@@ -357,7 +464,7 @@ def _patched_arc_scores(toks, pos, table=None):
 
 def enable_root_cues(on=True):
     if on:
-        AA.CUES = tuple(_ORIG_CUE_TUPLE) + ROOT_CUES
+        AA.CUES = tuple(_ORIG_CUE_TUPLE) + ROOT_CUES + (("csub",) if CSUB["on"] else ())
         AA.SentenceCues.cues = _patched_cues
         AA.arc_scores = _patched_arc_scores
     else:
@@ -658,6 +765,9 @@ def main(argv=None):
              "arg": (True, False, ALL + ("rarg",), False),
              "cues_flat": (True, False, ALL, False), "cues_teach_flat": (True, True, ALL, False),
              "conj": (True, True, ALL, False), "conj_flat": (True, True, ALL, False),
+             "csub": (True, True, ALL, False), "conjcsub": (True, True, ALL, False),
+             "copfix": (True, True, ALL, False), "copfix_csub": (True, True, ALL, False),
+             "copfix_conj_csub": (True, True, ALL, False),
              "clausal": (False, False, ALL, True),
              "cues_clausal": (True, False, ALL, True),
              "full": (True, True, ALL, True),
@@ -667,8 +777,10 @@ def main(argv=None):
     for arm in arms:
         cues_on, teach, subset, clau = specs[arm]
         ROOT_CUES = tuple(subset)
-        CENTER["on"] = not arm.endswith("_flat")
+        CENTER["on"] = arm.endswith("_centre")   # FLAT is the shipped readout; centring was refuted
         CONJ_RPRED["on"] = arm.startswith("conj")
+        CSUB["on"] = "csub" in arm
+        COPFIX["on"] = "copfix" in arm
         src = {"twin": "cues", "twin_teach": "cues_teach", "twin_full": "full"}.get(arm)
         if src:
             tab = tables.get(src)

@@ -16,7 +16,7 @@
 +# (the non-verbal predicate carries the assertion, the copula is the tense carrier -- Pustet 2003), SUBORDINATION
 +# MARKING (a complementizer marks its clause dependent -- Diessel 2004) and MAIN-CLAUSE POSITION / subject support.
 +# Values are categorical, validities LEARNED from the teacher posterior exactly like every other cue; nothing is
-+# hand-weighted and nothing reads a tree.  MEASURED (UD-EWT test 700, gold categories, same pipeline with the cues off as the floor): in-order decode (live) root 0.7214 -> 0.7486, +0.0271 CI [+0.0086,+0.0457], UAS 0.6163 -> 0.6211; whole-sentence search root 0.7471 -> 0.7729, +0.0257 CI [+0.0071,+0.0443] (with ROOT_PICK moved to 'left', below), UAS 0.6178 -> 0.6198; nsubj/ccomp/advcl not down; information-free twin (cue values permuted across tokens) LOSES under both decodes.
++# hand-weighted and nothing reads a tree.  MEASURED (UD-EWT test 700; floor = the identical pipeline with the cues off, which reproduces the live asset exactly): LIVE CHAIN (the category organ's own tags) in-order root 0.6971 -> 0.7429 +0.0457 CI [+0.0257,+0.0657] with UAS 0.6030 -> 0.6098 +0.0068 CI [+0.0018,+0.0118]; search root 0.7014 -> 0.7614 +0.0600 CI [+0.0371,+0.0814]. Gold categories, in-order: root 0.7214 -> 0.7543, UAS 0.6163 -> 0.6237 with the corrected copular detector; beam 64: root 0.7586 +0.0429 CI [+0.0229,+0.0629]. Information-free twin (cue values permuted, 3 seeds) LOSES under both decodes.
 +ROOT_CUES = ("rpred", "rsub", "rpos")
 +# REFUTED AS BUILT (2026-09-13, recorded): reading the cue evidence as a COMPETITION for the one root slot -- the
 +# contribution centred to zero mean over the live candidates, on the argument that the root slot has capacity one
