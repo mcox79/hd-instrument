@@ -39,7 +39,10 @@ __bf_note__ = "the inventory/counts source is the remaining MODEL element; swap 
 _REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ASSET = os.path.join(_REPO, "data", "frontend_assets", "lexical_categories_counts_v1.json")
 _lag_env = os.environ.get("HDLAB_LC_LAG", "")
-LAG: Optional[int] = int(_lag_env) if _lag_env.strip() else None     # None = whole-sentence smoothing; 0 = running belief; k = revise within k words
+# DEFAULT LAG = 2 (2026-09-13 10:35 local; owner: organs take data IN ORDER): the belief about a word is revised by the next TWO words
+# only. Full UD-EWT test: lag 0 0.9032 | 1 0.9251 | 2 0.9264 | 3 0.9264 | whole sentence 0.9264 -- a two-word window is exactly as
+# accurate as reading the whole sentence first, so the brain-faithful form replaces the stand-in. HDLAB_LC_LAG=inf restores smoothing.
+LAG: Optional[int] = (None if _lag_env.strip().lower() in ("inf", "none", "full") else int(_lag_env)) if _lag_env.strip() else 2
 BOS = "<s>"
 K2 = 2.0                                                        # Dirichlet back-off mass for the second-order transitions (swept, not adopted)
 SHAPES = ("lower", "Cap", "ALLCAP", "digit", "hyphen", "other")
@@ -227,28 +230,35 @@ class LexicalCategories:
         n = len(words); T = len(self.tags)
         if n == 0:
             return np.zeros((0, T))
-        if lag is not None and lag < n - 1:
-            out = np.empty((n, T))
-            for i in range(n):
-                out[i] = self.posterior(words[: min(n, i + lag + 1)], lag=None)[i]
-            return out
         le = np.stack([self._log_emit(w) for w in words])
         if self.order >= 2:
-            return self._posterior2(le)
+            return self._posterior2(le, lag=lag)
         A = self.log_trans[1:]                                    # [T_prev, T_cur]
         fwd = np.empty((n, T)); fwd[0] = self.log_trans[0] + le[0]
         for i in range(1, n):
             m = fwd[i - 1][:, None] + A                           # [T_prev, T_cur]
             mx = m.max(axis=0); fwd[i] = mx + np.log(np.exp(m - mx).sum(axis=0)) + le[i]
-        bwd = np.zeros((n, T))
-        for i in range(n - 2, -1, -1):
-            m = A + (le[i + 1] + bwd[i + 1])[None, :]            # [T_prev, T_cur]
-            mx = m.max(axis=1); bwd[i] = mx + np.log(np.exp(m - mx[:, None]).sum(axis=1))
+        if lag is not None and lag < n - 1:
+            # FIXED-LAG revision: the belief about word i reads the evidence of words i+1 .. i+lag only (a backward message started
+            # at zero from position min(n-1, i+lag)); the forward pass is the running belief. Same numbers as recomputing the prefix
+            # (witness), n x lag backward steps instead of n^2.
+            bwd = np.zeros((n, T))
+            for i in range(n - 1):
+                end = min(n - 1, i + lag); b = np.zeros(T)
+                for k in range(end - 1, i - 1, -1):
+                    m = A + (le[k + 1] + b)[None, :]
+                    mx = m.max(axis=1); b = mx + np.log(np.exp(m - mx[:, None]).sum(axis=1))
+                bwd[i] = b
+        else:
+            bwd = np.zeros((n, T))
+            for i in range(n - 2, -1, -1):
+                m = A + (le[i + 1] + bwd[i + 1])[None, :]            # [T_prev, T_cur]
+                mx = m.max(axis=1); bwd[i] = mx + np.log(np.exp(m - mx[:, None]).sum(axis=1))
         post = fwd + bwd; post -= post.max(axis=1, keepdims=True)
         post = np.exp(post); post /= post.sum(axis=1, keepdims=True)
         return post
 
-    def _posterior2(self, le: np.ndarray) -> np.ndarray:
+    def _posterior2(self, le: np.ndarray, lag: Optional[int] = None) -> np.ndarray:
         """Second-order forward-backward. State at position i = (category_{i-1}, category_i) with index (b, c); b = BOS (index 0 of
         the state axis) at i = 0. log_trans2[a, b, c] = log P(c | a, b) over states [BOS]+tags."""
         n, T = le.shape; L2 = self.log_trans2                      # [S, S, T], S = T + 1 (BOS first)
@@ -263,11 +273,21 @@ class LexicalCategories:
             mx = m.max(axis=0); cur = mx + np.log(np.exp(m - mx).sum(axis=0))   # [T(b), T(c)]
             fwd[i][1:, :] = cur + le[i][None, :]
         bwd = np.zeros((n, T + 1, T))
-        for i in range(n - 2, -1, -1):
-            # bwd[i][a, b] = logsum_c ( L2[a, b+1, c] + le[i+1][c] + bwd[i+1][b+1, c] )
-            nxt = le[i + 1][None, None, :] + bwd[i + 1][1:, :][None, :, :]     # [1, T(b), T(c)]
-            m = L2[:, 1:, :] + nxt                                              # [S(a), T(b), T(c)]
-            mx = m.max(axis=2); bwd[i][:, :] = mx + np.log(np.exp(m - mx[:, :, None]).sum(axis=2))
+        if lag is not None and lag < n - 1:
+            # fixed-lag revision (see posterior): backward message over words i+1 .. i+lag only
+            for i in range(n - 1):
+                end = min(n - 1, i + lag); b = np.zeros((T + 1, T))
+                for k in range(end - 1, i - 1, -1):
+                    nxt = le[k + 1][None, None, :] + b[1:, :][None, :, :]
+                    m = L2[:, 1:, :] + nxt
+                    mx = m.max(axis=2); b = mx + np.log(np.exp(m - mx[:, :, None]).sum(axis=2))
+                bwd[i][:, :] = b
+        else:
+            for i in range(n - 2, -1, -1):
+                # bwd[i][a, b] = logsum_c ( L2[a, b+1, c] + le[i+1][c] + bwd[i+1][b+1, c] )
+                nxt = le[i + 1][None, None, :] + bwd[i + 1][1:, :][None, :, :]     # [1, T(b), T(c)]
+                m = L2[:, 1:, :] + nxt                                              # [S(a), T(b), T(c)]
+                mx = m.max(axis=2); bwd[i][:, :] = mx + np.log(np.exp(m - mx[:, :, None]).sum(axis=2))
         post = fwd + bwd                                          # [n, S, T]
         mx = post.max(axis=(1, 2), keepdims=True)
         post = np.log(np.exp(post - mx).sum(axis=1)) + mx[:, 0, :]          # marginal over the previous category -> [n, T]
