@@ -505,3 +505,9 @@ competent-reader reference ~0.85–0.90.
   fully reading-learned chain (reading-acquired categories -> attachment arm, 1.5k, beta 10, with the pp cue) **UAS 0.4922** (was
   0.4649 with the type-level categorizer; UPOS 0.5640): root 0.547, nsubj 0.59, obj 0.53, obl 0.356, nmod 0.425, case 0.63, conj 0.193.
   The whole chain from reading alone now stands at 0.49 (floor 0.285) with the closed classes as the named loss.
+- **HINDLE-ROOTH PP CUE, FULL REBUILD (2026-09-13 00:15; 6k, beta 10, 3 rounds; asset promoted to live): attachment arm UAS 0.5583 ->
+  0.5706; nmod 0.185 -> 0.346 (+0.16), nsubj 0.724 -> 0.749, root 0.796 -> 0.806, ccomp 0.414 -> 0.466, conj 0.219 -> 0.245; obl 0.451
+  -> 0.449 (flat), obj 0.688 -> 0.685.** The preposition's verb-vs-noun lean, grown from unambiguous PPs in the same reading, repairs the
+  noun-attached PPs the locality cue had been stealing for the verb; verb-attached PPs (obl) were already mostly right. Folded from the
+  pri-2 solver's proven prototype (their +0.114 on the PP-decision subpopulation) = the parked pri-17 lever, now in the organ's own
+  knowledge form (plastic counts, learned strengths per configuration). Witness 15/15.
