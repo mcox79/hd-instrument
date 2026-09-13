@@ -85,9 +85,9 @@ def main():
         tab_l = AA.load_attachment_validities()
         hd = AA.heads(t, p, tab_l)
         check("learned asset: 'The'->'dog', 'the'->'man' (NP modifiers to their nouns)", hd.get(1) == 2 and hd.get(6) == 7, hd)
-        # KNOWN LIMIT (recorded 2026-09-12, not asserted): the knowledge-free asset does not yet know that the verb heads its
-        # arguments (core obj recall 0.19 in the anatomy) -- the meaning teacher is the fix in progress; report, don't fail.
-        print("  note known-limit core structure: 'dog'->verb is", hd.get(2) == 4, hd)
+        # CORE STRUCTURE (asserted since the semantic-bootstrapping teacher, 2026-09-12 late): the predicate heads its participant
+        # -- 'dog' -> 'bitten'. Before that teacher the knowledge-free asset had obj recall 0.19 and this was a recorded limit.
+        check("learned asset: 'dog' -> 'bitten' (the verb heads its argument; semantic bootstrapping)", hd.get(2) == 4, hd)
     else:
         print("  note learned asset absent (tools/build_attachment_validities.py not yet run) -- asset checks skipped")
     print("\n%d/%d checks passed" % (PASS, PASS + FAIL))
