@@ -61,6 +61,10 @@ Knowledge lands as counts -> strengths like every other cue; `observe_arc_outcom
   reshapes the general locality/catpair strengths, so conj recall exceeds the construction's 0.313 gold-arc fire-rate).
 - **UAS up (+0.0021), nmod up (0.363->0.397); one honest give-back: nsubj 0.769->0.752** (a downstream flip named, not reverted —
   net UAS positive). Both twins collapse.
+  - **Give-back diagnosed (`scratch_nsubj_flip.py`):** 12 base-correct->full-wrong nsubj flips; only 4/12 (33%) are within 4 tokens
+    of a coordinator. The give-back is mostly DIFFUSE (the teacher reshaping general strengths), NOT the coord cue mis-firing on
+    subjects — so it is not cleanly gateable (gating off subject arcs recovers <=4 arcs ~0.005 UAS at the cost of complicating the
+    mechanism). Per the owner rule (repair-don't-revert a BF upstream), named and kept.
 
 ## 5. What I did NOT establish / would withdraw first
 - **cc is positive but NOT CI-separated** (map1 +0.059 CI [0.0,0.123]; incr flat). I withdraw the cc claim first. conj — the named
