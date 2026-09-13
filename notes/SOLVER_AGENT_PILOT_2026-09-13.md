@@ -12,7 +12,7 @@ independent golds, ~5 refuted levers each).
 | solver-pri98 | pri 98 manner intensity (force_dynamics_valence) | 14:15 | | | 0 | | | | | | | |
 
 ## Nudges (timestamped)
-(none yet)
+- 14:52 solver-pri97: INFORMATION message (not a phase nudge): copular-subject attachment numbers (0.460 live; misses -> ROOT 22 / later verb 23 / sibling 32) as evidence for the copular-predication cue. Nudge count unchanged (0).
 
 ## Verdicts and notes
 (pending)
