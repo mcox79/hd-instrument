@@ -4,28 +4,35 @@
 
 **HEADLINE: 0/1 plan steps done; C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap))**
 
-generated: 2026-09-13T08:31:36Z  |  HEAD: 3cbb113b1
+generated: 2026-09-13T13:51:50Z  |  HEAD: d3844c5f9
 
 ## 1. Where we are against the plan (notes/PLAN_NEXT_12H.md)
 - UNKNOWN -- notes/PLAN_NEXT_12H.md not readable
 
 ## 2. What is running right now
 Heartbeats (data/heartbeats/*.timestamp):
-  - exp_dev: 22168 min ago <-- STALE
-  - orchestrator: 68234 min ago <-- STALE
-  - research: 317 min ago <-- STALE
-  - skunkworks: 70906 min ago <-- STALE
-  - testbed: 107480 min ago <-- STALE
+  - exp_dev: 22489 min ago <-- STALE
+  - orchestrator: 68555 min ago <-- STALE
+  - research: 7 min ago
+  - skunkworks: 71226 min ago <-- STALE
+  - testbed: 107800 min ago <-- STALE
 data/ directories touched in the last 180 min:
   - logs: 0 min ago, NO metrics.json yet (likely in-flight)
   - local_cpu_queue: 0 min ago, NO metrics.json yet (likely in-flight)
-  - exp_temporal_reason_integrated_v1: 0 min ago, has metrics.json
-  - hook_state: 4 min ago, NO metrics.json yet (likely in-flight)
-  - .metrics_sync: 12 min ago, NO metrics.json yet (likely in-flight)
-  - exp_situation_model_qa_modern_v1_bf_routed: 43 min ago, has metrics.json
-  - context_modulated_scws_v1: 43 min ago, has metrics.json
-  - exp_broaden_causal_order_store_v1: 67 min ago, has metrics.json
+  - exp_structured_matcher_event_goal_v1: 15 min ago, has metrics.json
+  - hook_state: 17 min ago, NO metrics.json yet (likely in-flight)
+  - exp_joint_temporal_realreasoner_v1: 18 min ago, has metrics.json
+  - .metrics_sync: 18 min ago, NO metrics.json yet (likely in-flight)
+  - exp_situation_model_qa_modern_v1_arm0634: 21 min ago, NO metrics.json yet (likely in-flight)
+  - exp_joint_temporal_survival_v1: 21 min ago, has metrics.json
 notes/STATUS.md WHAT IS RUNNING (verbatim):
+  - **2026-09-13 ~08:05 local (overnight session, stop hook ARMED):** RUNNING = the all-category-work board (total routing + category
+    organ v2 + dual-route + Penn defaults; `data/hook_state/board_route.log`), then chained behind it the board with the BRAIN-
+    FOUNDATIONAL HEADS on (`HDLAB_HEADS_SOURCE=attachment_arm`; `board_arm.log`) -- that number answers Q134. Finished this morning:
+    dual-route board 0.6378 (neutral), Penn-tagger board 0.6378 (neutral). Owner-DONE fold-in gate EMPTY; pri-15 solver folder untouched.
+    Open owner question: Q134 (flip the heads default). Everything committed path-limited; NOTHING pushed.
+    09:40 local: desktop bundle (197 commits) LANDED; the 15 GB session-folder copy was cut by a connection reset -- rerun the light
+    `resync_claude_state.sh` before moving; owner is awake (chat update given 09:31). Two boards still pending (route, arm).
   - **OPERATING MODEL (owner 08-22): STRATEGY SESSION (this) + SOLVER SESSIONS.** This session keeps the 10k view, writes/verifies briefs, and INTEGRATES owner-DONE; solvers each solve one bounded problem.
   - **RESEARCH DELIVERED + FOLDED (CONT-73):** the pri-3 parser BF syntax-acquisition drill completed + vetted first-hand -> `RESEARCH_bf_acquisition.md`. Key: the 'frozen supervised hard-decode' = TWO orthogonal defects (graded-decode route-through NOW + the acquisition question); category-induction-from-prediction is a verified in-substrate HARD_PASS, structure-induction hit an UNDER-POWERED located ceiling (3k/12.5k sents, 0 EM). Cheap first build folded into the brief (re-run exp_predictive_selfsup_parser_v1 full-scale + EM, composing the pri-2 directional channel + graded Matrix-Tree decode). NOTHING now running.
   - **FRONTIER = FLEET-SIDE, PRODUCTIVE (CONT-81):** all 3 BF-upchain problems I posted + pri-5 now have SOLVER SUBMISSIONS awaiting OWNER REVIEW (owner-DONE gate EMPTY for me): **pri-3 the_parser PARTIAL**, **pri-4 commonnoun_binder->typed_coref SOLVED**, **pri-5 measure_end_to_end PARTIAL**, **pri-7 force_dynamics_valence->Wolff SOLVED**. The problem-posting + de-risking (scouting maps, verified premises, folded parser research) bore fruit. When owner marks any DONE, integrate promptly (reverify->grade->land-> ledger/§2b->commit path-limited, NOTHING pushed).
@@ -40,12 +47,12 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
 - C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap)) -- source: data\exp_orthographic_floor_vet_v1\metrics.json
 
 ## 4. What moved since the last snapshot
-- 46 new commit(s) since last snapshot (HEAD d3d3d4903 -> 3cbb113b1)
-- data/ directory count: 9920 -> 9926 (+6)
+- 66 new commit(s) since last snapshot (HEAD 3cbb113b1 -> d3844c5f9)
+- data/ directory count: 9926 -> 9930 (+4)
 
 ## 5. What is stuck (blocked / pending / no owner)
-- (none found)
+- `resync_claude_state.sh` before moving; owner is awake (chat update given 09:31). Two boards still pending (route, arm).
 
 <!-- SNAPSHOT_STATE_JSON
-{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 9926, "generated_at": "2026-09-13T08:31:36Z", "head_commit": "3cbb113b1a7f59f2a3d39a3bf2c4f42aa5381cb4", "step_status": {}}
+{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 9930, "generated_at": "2026-09-13T13:51:50Z", "head_commit": "d3844c5f9fa5e4ebd9cea6ef53dceaef4b035cdf", "step_status": {}}
 -->

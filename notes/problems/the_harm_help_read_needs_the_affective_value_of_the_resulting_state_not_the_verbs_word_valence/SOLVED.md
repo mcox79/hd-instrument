@@ -5,8 +5,8 @@ bar: "A glass-box result-state valuation arm inside force_dynamics_valence (foun
 result: "Recovery arm (hypernym-consensus result-state inheritance + guarded upstream affectedness admission; operating point tau=0.35): recovers savage/victimize/oppress/maul (all landed abstentions) to HARM; 65 residual verbs newly decided at CF-gold precision 1.00 with ZERO wrong-sign (and 0 wrong-sign among ALL new decisions, not just CF-covered); neutral precision 0 leaks on P_NEUTRAL_BROAD (n=36); populations harm-frame 10/10, social-harm 14->15, non-prevent-help 14->15; INDEPENDENT Connotation-Frames Effect(o) agreement 289/310=0.9323 (>= landed 282/304=0.9276); board 36-item live gold 24/24 HARM-HELP items held; twin 2<9. Numbered located negative for the residue: of 693 still-abstaining, the CF-non-neutral ones are overwhelmingly creation verbs whose gold is inanimate-completion (48 creation-supersense, correctly abstaining for an animate patient); the genuine miss is a MANNER-encoded harm slice (brutalize/manhandle/gore) whose harm lives in an adverb the foundation does not decompose (drilled: every parse-free manner read costs 4-8 neutral leaks + 3-6 wrong-signs)."
 floor: "The LANDED result-state arm (hdlab/force_dynamics_valence.py at HEAD; witness test_fd_result_state_arm.py 15/15): abstains on savage/victimize/oppress/maul; CF-gold agreement 282/304=0.9276. The extended arm is CI-consistent-or-better on every population and strictly recovers 4 named abstentions at CF-precision 1.00."
 controls: "(1) INFO-FREE TWIN -- Warriner valence VALUES scrambled -> the hypernym read reads random signs -> named recovery 9->2 (loses). (2) NEUTRAL PRECISION -- P_NEUTRAL_BROAD (n=36, incl. subject-experiencer admire/envy/love/fear and perception recognize/notice) reads 0 HARM/HELP under the extended arm; excluded the failure mode that the un-guarded gate extension produced (6 leaks). (3) INDEPENDENT HUMAN GOLD -- Connotation Frames Effect(o) (Rashkin 2016, not derived from VerbNet/WordNet/Warriner) never consulted at inference; excludes 'a decision is not a correct decision' (new decisions 6/6=1.00, 0 wrong-sign). (4) LANDED-WINS-UNTOUCHED -- stab->HARM, comfort->HELP, watch->abstain; the arm only adds residual reads. (5) MANNER-ABSTAIN -- brutalize/manhandle/gore do not read HELP (honest boundary, not a wrong sign)."
-files_changed: "experiments/exp_fd_result_state_hypernym_v1.py (the arm + all metrics + self-test); verification/test_fd_result_state_hypernym_arm.py (scaffold-free witness, 9/9); experiments/fetch_connotation_frames_v1.py (reproducible gold fetch); data/corpora/connotation_frames/ (acquired gold, gitignored, re-fetchable). NO hdlab/ writes -- the hdlab drop-in is a proposed diff (below), per board Q111."
-reverify: ".venv/Scripts/python.exe experiments/fetch_connotation_frames_v1.py && .venv/Scripts/python.exe verification/test_fd_result_state_hypernym_arm.py"
+files_changed: "experiments/exp_fd_result_state_hypernym_v1.py (recovery arm + metrics + self-test); verification/test_fd_result_state_hypernym_arm.py (witness, 9/9); experiments/fetch_connotation_frames_v1.py (gold fetch); experiments/exp_harm_help_endstate_realization_v1.py (UPSTREAM event-realization join + metrics); verification/test_harm_help_endstate_realization_join.py (witness, 7/7); experiments/fetch_commitmentbank_v1.py (veridicality gold fetch); data/corpora/connotation_frames/ + data/corpora/commitmentbank/ (acquired golds, gitignored, re-fetchable). NO hdlab/ writes -- all hdlab changes are proposed diffs (below), per board Q111."
+reverify: ".venv/Scripts/python.exe experiments/fetch_connotation_frames_v1.py && .venv/Scripts/python.exe verification/test_fd_result_state_hypernym_arm.py && .venv/Scripts/python.exe experiments/fetch_commitmentbank_v1.py && .venv/Scripts/python.exe verification/test_harm_help_endstate_realization_join.py"
 ---
 
 # Recovering the still-abstaining assault verbs by valuing the SUPERORDINATE action's outcome state
@@ -165,6 +165,58 @@ where the landed cascade abstains):
 No new asset is required (WordNet troponymy + the existing Warriner lexicon). BF status stays `BF_SPIRIT`
 (taxonomic affect inheritance = ATL hub; consensus/strength = swept OUR-INVENTION). Land the witness
 `verification/test_fd_result_state_hypernym_arm.py` alongside.
+
+## UPSTREAM RUNGS — start at the top, reuse the BF organs we already have (owner directive 2026-09-13)
+**Research finding (the important one): the upstream BF organs already EXIST; the losses are missing JOINS,
+not missing organs.** Confirmed on disk: `polarity_operator` (event realization/veridicality),
+`causation_typing` (Wolff/Talmy force typer, DORMANT), `outcome_event_extraction` (outcome/complement span),
+`underspecified_sense_reader` / `diagnostic_context_wsd` / `grounded_semantic_graph` (sense-in-context) are
+all built and BF_SPIRIT-or-pinned — but the harm/help decision consumes none of them. So the right,
+not-easy move is to WIRE the pinned organs in (one-structure-one-organ), never to hand-roll a second copy.
+
+### RUNG 1 (TOP OF CHAIN) — EVENT REALIZATION — **PROTOTYPED + PROVEN.**
+**The loss:** `harm_help(verb, animacy)` always defaults `endstate_reached=True`, so the organ decides HARM
+on events that did not happen — "failed to save", "did not hurt her", "never wounded him". `polarity_operator.
+event_polarity` (PINNED: Kaup & Zwaan negation-as-truth-toggle + Karttunen/de Marneffe implicative-factive
+veridicality) already computes realization, and `situation_reader` already runs it per event — but the two
+reads are never joined.
+**The fix (prototype `experiments/exp_harm_help_endstate_realization_v1.py`):** join `event_polarity` →
+`endstate_reached` for CAUSE/ENABLE/affecting verbs (+1→reached, −1→not-reached→neutral, 0→unknown→default);
+ABSTAIN from the map for PREVENT verbs (the verb's polarity is not the prevented-endstate's realization —
+that is RUNG 2, done the easy way would be wrong).
+**Measured:** realization-conditioned accuracy **live 0.375 → joined 0.95** (n=80); the join flips
+negated/never/failed harm to neutral (≈15–16/16 each) while keeping realized/managed (15/16). Controls:
+**twin** (scrambled implicative table) drops 46→31 on the unrealized set (loses); **no regression by
+identity** — `endstate_reached=True` is byte-identical to the live default for every realized non-PREVENT
+verb, and 0 realized items flip; **independent human gold** — the reused veridicality table agrees with
+**CommitmentBank** (de Marneffe 2019) human judgement **5/6 = 0.83** on the negation subset it knows.
+Witness `verification/test_harm_help_endstate_realization_join.py` **7/7**.
+**Proposed hdlab wiring (documentation, per Q111):** in `hdlab/context_grounded_valence.force_dynamics_event_type`
+(and/or `situation_reader`'s event loop, which already has the polarity), compute `event_polarity` over the
+bound predicate and pass `endstate_reached` into `harm_help_arithmetic` — non-PREVENT only. Reuses the pinned
+`polarity_operator`; no new asset, no new organ. Closes loss #3 (failed/negated events) on real prose.
+
+### RUNG 2 — PREVENT-COMPLEMENT VALENCE — located, organ named, not yet built.
+**The loss (surfaced by CF discordances):** the arm defaults PREVENT→HELP, but "prevented the doctor from
+curing the patient" (PREVENT a good) = HARM. The arithmetic ALREADY accepts `embedded_endstate_valence`; what
+is missing is the reader supplying (a) the prevented complement event and (b) its patient-valence.
+**Reuse:** `outcome_event_extraction` (persisted parser, clause-scoping, referent-linking) to pull the "from
+X-ing" complement; value it with the same result-state arm. Join point: `harm_help_arithmetic(...,
+embedded_endstate_valence=value(complement))`. This is the natural sibling of Rung 1 (both feed event
+structure the arithmetic already consumes). Recommend a dedicated brief.
+
+### RUNG 3 — SENSE-IN-CONTEXT — located, organ named, not yet built (the biggest).
+**The loss:** the result-state / hypernym reads take the verb's affecting-animate senses as a SET under
+consensus; the brain selects the active sense from context, which would both raise coverage and let us drop
+the consensus requirement (closes losses #1 and #5).
+**Reuse:** `underspecified_sense_reader` / `grounded_semantic_graph` (the PPR sense reader that clears WiC) →
+pick the active sense → read THAT sense's result state. This is the meaning-representation mega-cluster in
+`CROSS_SOLUTION_IMPROVEMENT_MAP.md`; a dedicated brief, not a bolt-on.
+
+### RUNG 4 — MANNER INTENSITY — the drilled located negative (needs the grounded channel).
+brutalize/manhandle/gore: harm in the adverb; no verb table quantifies it (drilled — every parse-free read
+costs 4–8 neutral leaks). Needs the grounded meaning channel's sense of intensity; flagged, not buildable
+from foundation tables.
 
 ## FULL-STACK UPSTREAM + DOWNSTREAM (owner directive)
 - **Upstream rungs, all BF:** Warriner affect lexicon (`BF_SPIRIT`, admissible offline norm) values the
