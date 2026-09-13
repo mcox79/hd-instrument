@@ -5,7 +5,7 @@ bar: "Deliver a `board_grounding_quality_dimension()` (or an equivalent instrume
 result: "COMPLETE 2x2 SEPARATION (n=247 scorable queries, n=4235 grounding targets, live reading-grounding loop, full curriculum + 1M-line grown SEQ store). (a) MOVES-on-quality: FUSED - INCUMBENT correct-link MRR@0.5 = +0.3612 CI[0.2977,0.4353] CI-sep (fused 0.3823 vs incumbent bag-cosine 0.0211). (b) FLAT-on-count: the SDT false-alarm knob FA 0.01->0.40 raises the accepted count +0.319 frac CI[0.3053,0.3332] CI-sep (n_accepted targets 2154->3505, +63%) while the correct-link ranking-MRR diff = 0.0000 EXACTLY (FA-invariant by construction; proven byte-identical order+z_top on the live ranker, V1) and correct-rate-among-accepted MONOTONICALLY DECLINES 0.235->0.180 as the count grows (more links, not more correct). (c) scrambled-link TWIN at chance MRR 0.013 (FUSED-TWIN +0.3694 CI[0.301,0.4429]). Smoke (n=87) agrees: MOVES +0.3512 CI[0.235,0.455], count +0.400, Qflat 0.0, twin 0.018. PLUS a rigorous LOCATED NEGATIVE on the referent-link-to-ENTITY slice: the reading-grounding loop makes NO mention->entity/coref decision (0 entity/coref/mention/pronoun tokens across reading_grounding_loop.py's 3022 lines), so GUM/LitBank coref gold (present + parseable on disk) has no decision variable to score in THIS organ -> routes to hdlab/coreference_resolver.py (NEEDS_ADAPTER)."
 floor: "INCUMBENT bag-cosine read (the pre-landing live sense-assignment read) correct-link MRR@0.5 = 0.0211 (n=247); it is the strongest non-trivial floor (the loop's own prior read). The COUNT metric itself is the count-side floor: n_grounded moves +63% (2154->3505 accepted targets) under the FA knob while correctness does not -- the exact quality-blindness the instrument exposes."
 controls: "(1) scrambled-link TWIN (channel evidence taken from a DIFFERENT query word) at chance MRR 0.013 -- excludes base-rate/lucky-pool. (2) FA-INVARIANCE IDENTITY (V1): the ranked candidate order and z_top are byte-identical across FA=0.01 vs 0.40 on the live ranker; only the accept verdict differs (FA_hi accepts a superset) -- excludes 'the quality metric secretly tracks the accept threshold' (it is an identity, not an underpowered null). (3) COUNT-OUTRUNS-CORRECT (V3): correct-rate-among-accepted does not rise (declines) as FA raises the count -- excludes 'more links = more correct'. (4) GROUNDED-ONLY ablation (landed instrument). INDEPENDENCE: gold = SimLex-999 + SimVerb-3500 human similarity, which is WordNet-independent AND fusion-independent -> no circular ground-by-X-grade-by-X. No external tool/LLM at inference; modern gold only."
-files_changed: "experiments/exp_grounding_quality_flat_on_count_v1.py (the FLAT-on-count demonstration: FA-sweep count knob vs FA-invariant correct-link quality, the 2x2), verification/test_grounding_quality_flat_on_count.py (scaffold-free witness, 3/3: FA-invariance of the live ranking, smoke 2x2 verdict, count-outruns-correct), experiments/exp_grounding_quality_predictive_v1.py (the predictive-coding/N400 replacement-instrument PROBE: located negative -- per-token surprisal is surface-collocation-confounded; see body), data/grounding_quality_flat_on_count_v1/metrics_full.json + metrics_smoke.json + data/grounding_quality_predictive_v1/metrics_smoke.json. REUSES (does not rebuild) the landed sense-assignment half: experiments/exp_board_grounding_coverage_quality_v1.py + the live board arm `grounding_coverage_quality` in exp_situation_model_qa_modern_v1.run. NO hdlab/ modified (Q111 -- hdlab wire spec in the body)."
+files_changed: "experiments/exp_grounding_quality_flat_on_count_v1.py (the FLAT-on-count demonstration: FA-sweep count knob vs FA-invariant correct-link quality, the 2x2), verification/test_grounding_quality_flat_on_count.py (scaffold-free witness, 3/3: FA-invariance of the live ranking, smoke 2x2 verdict, count-outruns-correct), experiments/exp_grounding_quality_predictive_v1.py (the predictive-coding/N400 replacement-instrument PROBE: located negative -- per-token surprisal is surface-collocation-confounded; see body). OPTIMIZATIONS (owner 2026-09-12, all four): experiments/exp_grounding_state_cache_v1.py (#1 byte-identity-gated live-state cache -- 353s build -> 6.6s reload ~53x; self-test PASS), experiments/exp_grounding_quality_powered_v1.py (#3 powered: SimLex+SimVerb n=247 + MEN relatedness n=81 + pooled n=327, full frontier, all CI-sep), experiments/exp_grounding_quality_wic_v1.py (#4 decision-level WiC consequence -- located negative: loop grounds coarse type-level, WiC needs fine token-sense -> route to USR); #2 per-consumer FA = measured curve + hdlab wire spec (body). Data: data/grounding_quality_flat_on_count_v1/metrics_{full,smoke}.json, data/grounding_quality_predictive_v1/metrics_smoke.json, data/grounding_quality_powered_v1/metrics_full.json, data/grounding_quality_wic_v1/metrics_full.json. REUSES (does not rebuild) the landed sense-assignment half: experiments/exp_board_grounding_coverage_quality_v1.py + the live board arm `grounding_coverage_quality` in exp_situation_model_qa_modern_v1.run. NO hdlab/ modified (Q111 -- hdlab wire spec in the body)."
 reverify: ".venv/Scripts/python.exe verification/test_grounding_quality_flat_on_count.py"
 ---
 
@@ -121,12 +121,13 @@ None blocking.
 3. POWER: add MEN (human-behavioral, on disk) to widen the scorable population if tighter CIs are wanted; the binding limit is the loop's live vocabulary coverage, not gold size.
 
 ## OPTIMIZATIONS & EFFICIENCIES (owner question 2026-09-12; ranked by ROI)
-1. **COMPUTE (highest ROI) -- cache the live grounding state.** Every grounding experiment (this instrument, the board
-   arm, the whole meaning-fusion line) rebuilds the same live `ReadingLoopState` from scratch (~500s: full-curriculum
-   ingest + 1M-token grown-store merge). A `build_or_load_live_state` cache keyed by (curriculum-limit, grown-store
-   hash) would cut every run from ~9 min to a few-second load -- unblocking fast iteration across the program. Gate
-   it on a byte-identity check (cached vs fresh: anchors, `_sums`, trace counts) before trusting. Same pattern as the
-   arc-scorer work's `train_or_load_em`.
+1. **COMPUTE (highest ROI) -- cache the live grounding state (DONE -- built + verified; `exp_grounding_state_cache_v1.py`).**
+   Every grounding experiment (this instrument, the board arm, the whole meaning-fusion line) rebuilt the same live
+   `ReadingLoopState` from scratch (~500s: full-curriculum ingest + 1M-token grown-store merge). `build_or_load_live_state`
+   keyed by (curriculum-limit, grown-store hash) MEASURED: **353s build -> 6.6s reload (~53x)**. REUSES the landed,
+   self-tested `foundation_persistence.save_foundation`/`load_foundation` (not a hand-rolled pickle); GATED on a
+   byte-identity check (cached vs fresh: anchors, `_sums`, ctx counts, targets -- self-test PASS). #3 and #4 both ran
+   off it (59s not 500s). Same pattern as the arc-scorer work's `train_or_load_em`.
 2. **LOOP OPERATING POINT (DONE -- measured; evidence-backed, phase-diagram) -- FA as a per-consumer precision knob.**
    The precision/coverage tradeoff from the FLAT-on-count full sweep (n_targets=4235):
    ```
@@ -144,16 +145,35 @@ None blocking.
    criterion should be TASK/CONSUMER-DEPENDENT. WIRE SPEC (hdlab, Q111 -> strategy lands): expose `false_alarm`
    per-consumer (precision-critical readers strict ~0.01, coverage-critical ~0.2-0.4), defaulting to the payoff of the
    calling consumer. "Ground fewer, righter" beats "ground more" for any consumer that acts on correctness.
-3. **INSTRUMENT POWER, for free.** Pool MEN (on disk, human-behavioral) into the gold + report the full coverage
-   frontier (already computed) rather than only the 50% point -- both tighten CIs at zero extra compute.
-4. **PREDICTIVE ROUTE -- the per-token cloze is dead (surface-confounded); the DRILLED FIX is the DECISION-level
-   consequence instrument.** WHY per-token fails: prediction at the SURFACE-TOKEN level is dominated by collocation,
-   and grounding disrupts it -- the brain predicts at the EVENT/situation level (Sentence-Gestalt), not the next
-   surface word. FIX (implemented): the WiC grounding-consequence instrument (`exp_grounding_quality_wic_v1.py`) --
-   process each WiC context through the loop, read the target's grounded sense-anchor, predict same/different-sense
-   from whether the loop grounds the two contexts to the same anchor, score vs WiC gold (fused vs incumbent vs
-   ungrounded vs scrambled-twin). Sense-sensitive by construction, modern gold, NO surface confound (the target is the
-   sense-match label). This is the decision-level replacement the per-token cloze could not be.
+3. **INSTRUMENT POWER (DONE -- measured; `exp_grounding_quality_powered_v1.py`, loads the #1 cache -> 59s not 500s).**
+   Widened the scorable population + full coverage frontier, gold reported per CONSTRUCT (not silently pooled):
+   - SYNONYMY (SimLex+SimVerb, n=247): FUSED AUF-MRR 0.398 vs incumbent 0.027 vs twin 0.018; @0.5 fused-inc +0.357
+     CI[0.288,0.433] sep.
+   - RELATEDNESS (MEN, human-behavioral, n=81, reported SEPARATELY -- relatedness != synonymy): FUSED AUF 0.746 vs
+     incumbent 0.137 vs twin 0.028; @0.5 +0.654 CI[0.529,0.785] sep (even stronger -- grounding+visual-referent shine
+     on concrete-noun relatedness).
+   - POOLED mixed-construct (n=327): +0.475 CI[0.411,0.542] sep. Full frontier (0.1..1.0) computed per source.
+   All CI-separated, twin at chance -- the instrument's moves-on-quality result holds at higher power and on a second
+   human-behavioral construct.
+4. **PREDICTIVE ROUTE -- the per-token cloze is dead (surface-confounded); the DECISION-level WiC fix is ALSO a
+   located negative (a COVERAGE wall), and the two negatives TRIANGULATE on the primary instrument being correct.**
+   FIX built + run (`exp_grounding_quality_wic_v1.py`): the WiC grounding-consequence -- ground the target's context in
+   each WiC sentence via the loop's own `canonicalize_fast`, predict same/different-sense from whether the two
+   contexts ground to the SAME anchor; scored vs WiC dev gold (n=638, balanced, base rate 0.5). RESULT (LOCATED
+   NEGATIVE): LOOP_ANCHOR accuracy 0.500 CI[0.459,0.547] = CHANCE; BUNDLE_COS AUC 0.507 CI[0.462,0.551] = chance;
+   scrambled twin 0.500. WHY (the drill -- CORRECTED by a coverage diagnostic; an earlier "coarse granularity"
+   reading was WRONG and is RETRACTED): the diagnostic shows 0 of 638 WiC instances had BOTH contexts ground (only
+   8/638 had EITHER) -- the loop's `canonicalize` almost never clears SENSE_MATCH_THRESH=0.45 on arbitrary OUT-OF-
+   CURRICULUM WiC sentences, so it makes NO grounding decision to score and accuracy sits at base rate BY
+   CONSTRUCTION. This is a COVERAGE wall, not granularity: the loop's grounding decision is DEFINED OVER ITS OWN
+   CURRICULUM FIELD (words it read, in curriculum-like contexts), not arbitrary probe sentences. Forcing grounding by
+   lowering the threshold would just inflate coverage without quality (the FLAT-on-count lesson) -- not a fix.
+   TRIANGULATION: BOTH proposed replacement instruments are located negatives with clear, DIFFERENT mechanisms --
+   per-token cloze (surface-collocation-confounded) and WiC decision-level (the loop does not ground OOD probe
+   contexts) -- and BOTH CONFIRM the design of the primary instrument: score the loop on the decisions it ACTUALLY
+   makes, on ITS OWN field (SimLex/SimVerb queries restricted to the loop's real grounding targets INTERSECT eligible
+   anchors), where it wins CI-separated. Fine token-sense on arbitrary contexts is a DIFFERENT organ
+   (`underspecified_sense_reader` / the SCWS board arm), not the grounding loop.
 
 ## ADDITIONAL UPGRADES IDENTIFIED THROUGH THIS WORK (owner question 2026-09-12)
 - **G1 -- bank GRADED grounding confidence (z_top) with each link.** The loop records binary grounded/not; the

@@ -5,9 +5,20 @@ bar: "One glass-box morphology organ (exception store + affix-detachment rules +
 result: "BYTE-IDENTICAL to wn.morphy: 0 divergences over 6,326,530 raw morphy comparisons (every WordNet lemma x{n,v,a,r,None} + all exception keys + 1,082,843 generated inflections + 29,217 real UD-EWT/GUM prose tokens) AND 0 divergences on the full hdlab lemma path (lemma_word/lemma_verb/is_known_word/concept_lemma/gek.lemmatize, 29,217 tokens). PLUS an optimum: the brain-faithful dual-route organ EXCEEDS morphy on modern gold lemma 0.9836 vs 0.9603 (+0.0233, doc-paired bootstrap CI [0.0221,0.0246], n=195,045 tokens/285 docs, UD-EWT+GUM), generalizing across 24 genres (23/24 CI-sep, all positive)."
 floor: "morphy itself is the byte-identity target (0 divergences = the port is faithful); for the EXCEED arm the floor is morphy's own gold-lemma accuracy 0.9603 (POS-conditioned) / 0.9177 (POS-generic), beaten CI-separated; the info-free wrong-POS twin floor = 0.7255 (loses by +0.2581 CI-sep)."
 controls: "(1) EXHAUSTIVE ORACLE byte-identity vs wn.morphy over the entire lexicon + inflections + real prose (excludes: any algorithm/data-port error -- 0 divergences). (2) INFO-FREE TWIN: dual-route stripping to a random WRONG-POS lemma (excludes: 'strip more always wins' -- twin scores 0.7255, loses). (3) RULE-SNAPSHOT self-test: hardcoded detachment rules asserted == vendored nltk snapshot (excludes: silent nltk-version drift). (4) GENERALIZATION across 24 corpus/genre splits (excludes: single-distribution artifact -- 23/24 CI-sep positive, zero fitted params). (5) FREQUENCY-ARBITRATION probe (excludes the WordNet-count tie-break as a clean fix -- counts conflate inflected/lexicalized readings)."
-files_changed: "experiments/build_glassbox_morphology_asset_v1.py, experiments/glassbox_morphology.py, experiments/exp_glassbox_morphy_byte_identity_v1.py, experiments/exp_morphy_gold_lemma_diagnosis_v1.py, experiments/exp_dualroute_morphology_exceed_v1.py, experiments/exp_dualroute_generalization_v1.py, experiments/exp_dualroute_optimize_and_upstream_trace_v1.py, verification/test_glassbox_morphology.py, data/frontend_assets/morphology/ (built asset, gitignored; rebuilt by the build script), notes/problems/the_lemmatizer_is_wordnet_morphy_at_inference_not_a_glass_box_morphological_decomposition/SOLVED.md. NO hdlab/ writes (Q111 -- proposed diff below)."
+files_changed: "experiments/build_glassbox_morphology_asset_v1.py, experiments/glassbox_morphology.py, experiments/exp_glassbox_morphy_byte_identity_v1.py, experiments/exp_morphy_gold_lemma_diagnosis_v1.py, experiments/exp_dualroute_morphology_exceed_v1.py, experiments/exp_dualroute_generalization_v1.py, experiments/exp_dualroute_optimize_and_upstream_trace_v1.py, experiments/glassbox_pos_bayes.py (the VALIDATED BF POS prototype -- the required upstream upgrade), experiments/exp_glassbox_pos_bf_and_morphology_stack_v1.py (the full BF POS->morphology stack), experiments/glassbox_pos_trigram.py (a second-order/trigram BF-POS prototype -- richer count-based sequential prior; PRESENT but NOT performance-validated, its forward-backward is too slow as written, so NO result is claimed from it -- it stands as the scaffold for the 'richer count-based cue integration' next step), verification/test_glassbox_morphology.py, data/frontend_assets/morphology/ (built asset, gitignored; rebuilt by the build script), notes/problems/the_lemmatizer_is_wordnet_morphy_at_inference_not_a_glass_box_morphological_decomposition/SOLVED.md. NO hdlab/ writes (Q111 -- proposed diff below)."
 reverify: ".venv/Scripts/python.exe verification/test_glassbox_morphology.py"
 ---
+
+> ## 🔑 HEADLINE: FIXING THE MORPHOLOGY REQUIRED UPGRADING THE POS TAGGER.
+> The glass-box morphology port is byte-identical and the brain-faithful organ EXCEEDS morphy by +2.33 points **given
+> a POS** -- but the live reader lemmatizes with NO part-of-speech signal, and that missing signal costs **+4.84
+> points, LARGER than the morphology fix itself**. So this problem could not be fully realized at the morphology rung
+> alone: I had to go UP the chain and prototype a mathematically-BF POS tagger (generative, count-based, graded
+> posterior -- no gradient training, no external tool). Feeding its POS to the morphology recovers ~half the perfect-
+> POS gain (0.9389 -> 0.9614, twin losing) and the whole stack is glass-box. **The POS tagger is the upstream lever,
+> and its remaining non-full-BF piece (categories learned from supervised labels, not unsupervised distributional
+> induction) is the next thing to fix upstream.** This is the owner's thesis in one line: a brain-faithful component
+> was capped by an upstream input that was not yet 100% brain-foundational.
 
 ## What the brain does (the opening move)
 
@@ -99,6 +110,50 @@ traces exactly to the **POS tagger**, which `BRAIN_FOUNDATIONAL_AUDIT`/`FULL_CHA
 (frozen supervised averaged-perceptron + hard Viterbi). This is the owner's thesis confirmed with a number: a
 brain-faithful component (morphology) is capped by an upstream input that is not yet 100% BF.
 
+## UPSTREAM PROTOTYPE + FULL-CHAIN BF TRACE (owner ask: prototype the POS upgrade BF, optimize morphology on top, and confirm upstream-of-POS is BF)
+
+I prototyped a **mathematically-BF POS posterior** and ran the whole stack. `glassbox_pos_bayes.py` is a GENERATIVE
+count-based hidden-Markov category model: lexical prior P(word|tag) + morphological suffix cue P(suffix|tag) +
+sequential prior P(tag|prev), all estimated by COUNTING (Hebbian/frequency accrual, online-compatible -- NOT gradient
+/likelihood optimization), combined generatively (Bayes) and settled by FORWARD-BACKWARD into a GRADED per-token
+posterior (argmax, not hard Viterbi). This is the owner's "counts + Bayesian cue integration, graded belief" form
+(MacDonald 1994 constraint-satisfaction; Kuperberg-Jaeger 2016), and it is strictly MORE BF than the landed glass-box
+CRF (`hdlab/crf_tagger.py`), which is likelihood-TRAINED and discriminative.
+
+`exp_glassbox_pos_bf_and_morphology_stack_v1.py` -- trained by counting on UD-EWT, tested on **held-out GUM** (counts
+never see GUM), 290,902 tokens:
+
+| | value |
+|---|---|
+| BF POS -- UPOS accuracy (GUM) | 0.8559 |
+| BF POS -- content-category (n/v/a/r) accuracy (GUM) | 0.9018 |
+| morphology, DUAL_GEN (no POS, floor) | 0.9389 |
+| **morphology, DUAL_POS_bayes (BF POS upstream)** | **0.9614** |
+| morphology, DUAL_POS_gold (perfect POS, ceiling) | 0.9844 |
+| morphology, DUAL_POS_twin (shuffled POS, info-free) | 0.8917 (LOSES) |
+
+**The BF POS recovers 49.5% of the perfect-POS morphology gain (+0.0225), twin losing.** The whole stack -- tokenizer
+-> POS -> morphology -> WordNet check -- is glass-box with no external tool at inference. The count-based HMM is less
+accurate than the (less-BF) likelihood-trained CRF, so it recovers about half the available gain; that is an honest
+BF-vs-accuracy tradeoff and names the next increment (below).
+
+**Is upstream-of-POS BF? -- traced top-down, each rung:**
+
+| rung | mechanism | at inference | verdict |
+|---|---|---|---|
+| tokenizer / word segmentation | `_TOKEN_RE = re.compile(r"[A-Za-z][A-Za-z'-]*")` (glass-box regex; **confirmed NO module-level spaCy anywhere in hdlab, NO nltk tokenizer**) | deterministic, no tool | **BF** -- orthographic word-boundary detection (computational-level faithful) |
+| POS category (this prototype) | generative count HMM + forward-backward graded posterior | glass-box, no tool, generative Bayesian cue integration | **BF at inference** |
+| POS parameter ACQUISITION | emission/transition/suffix COUNTS (Hebbian form) from **gold-POS-labeled UD-EWT** | -- (static asset) | **admissible offline SUPPLY (passes the no-tool-at-inference invariant), but NOT the brain's unsupervised category induction** -- this is the one residual |
+| morphology (this problem) | dual-route obligatory decomposition + WordNet export | glass-box, no tool | **BF** |
+
+**Answer:** at INFERENCE the chain is BF top-to-bottom -- there is no external tool anywhere from raw text to lemma
+(regex tokenizer -> count-based HMM -> dual-route morphology -> WordNet-export check). The **one residual upstream** is
+that the POS category parameters are learned from SUPERVISED POS labels (admissible offline supply, like WordNet, so it
+does not break the invariant) rather than the brain's UNSUPERVISED distributional category induction (Mintz frequent
+frames; Redington-Chater-Finch). Per the owner's warning, that is the acquisition-fidelity gap to close if "100%
+mathematically BF" must include HOW categories are learned; it does not block this problem (no inference-time tool) but
+it caps how much of the +4.84 a fully-BF POS can recover.
+
 ## What I did NOT establish / would withdraw first
 
 - **The EXCEED is not landed and is not byte-identical (by design).** It changes 4,957+404 lemmas, so it changes the
@@ -179,16 +234,36 @@ brain-faithful dual-route form EXCEEDS the tool. New recorded deviation to add: 
 upstream lever on this rung.
 
 ## HIGH-PRIORITY NEXT STEPS
+> **STATUS (this solver session):** the IN-SCOPE steps are DONE -- byte-identical port proven, dual-route optimum
+> proven + generalized, and the required upstream BF POS prototyped and measured end-to-end. The REMAINING steps are
+> either (a) hdlab LANDING (strategy's, per Q111), (b) a SEPARATE filed problem (the POS tagger; the WordNet-taxonomy
+> consumers), or (c) a research-sized BF-acquisition build (unsupervised category induction). None is a within-scope
+> solver deliverable left undone; each is routed to its correct owner below.
+
 - **[HIGH] Land the byte-identical port** (step 1-2) -- removes the last non-glass-box rung on the meaning chain, zero
-  downstream risk.
-- **[HIGH, upstream] The POS tagger is the lemma rung's real bottleneck** (+0.0484 > the morphology fix). A
-  brain-faithful POS signal (calibrated posterior, not frozen perceptron+Viterbi) would let every POS-specific call
-  site lemmatize correctly -- ties directly to the open `upgrade_the_pos_tagger_to_a_calibrated_joint_decoded_posterior`.
+  downstream risk. (hdlab write -> strategy, Q111.)
+- **[HIGH, upstream -- THE HEADLINE DEPENDENCY] Upgrading the POS tagger was REQUIRED to realize this fix, and it is
+  not done.** The missing POS signal costs +0.0484 (> the morphology fix). I prototyped the BF POS (generative
+  count-based graded posterior) and it recovers ~half the gain (0.9389->0.9614); the residual is that its categories
+  are learned from SUPERVISED labels, not the brain's UNSUPERVISED distributional induction (Mintz/Redington). Next:
+  (a) raise the count-based POS accuracy (richer BF cue integration) toward the CRF's, and (b) close the acquisition
+  gap with unsupervised category induction. Ties to the open `upgrade_the_pos_tagger_to_a_calibrated_joint_decoded_posterior`
+  (which landed a likelihood-trained glass-box CRF, `hdlab/crf_tagger.py` -- BF_SPIRIT, still gradient-trained; the
+  count-based generative form here is more BF but currently less accurate).
 - **[MED] Land the dual-route optimum** (+2.3 pts, generalizes) with the consumer-rebuild of lemma-keyed stores.
 - **[MED] The 404-break stored-lexicalized-form set** (means/troops/grounds/outer...) -- the next fidelity increment,
   from a curated store, not a gold fit.
 - **[MED] Adjacent: the WordNet-taxonomy read-path consumers** (conceptual_meaning + the is-a/synset users) are the next
   glass-box/foundation problem.
+- **[RESEARCH, the deepest BF POS-category fix] Unsupervised distributional category INDUCTION** -- the only way the POS
+  becomes 100% BF including ACQUISITION (not just inference). The brain acquires grammatical category label-free from
+  distribution: Mintz 2003 frequent frames (aXb contexts), Redington-Chater-Finch 1998 distributional clustering,
+  2-year-olds slotting invented verbs from frame alone (Yuan 2011). Prototype: cluster word types by their local
+  context distributions (frequent-frame / left-right neighbour vectors), map clusters to the coarse content categories
+  the morphology routes on, feed to the dual-route organ. This replaces the supervised-label count source (the one
+  residual named in the upstream trace) with the brain's own mechanism. It is a separate problem-sized build (belongs
+  with the POS problem), scaffolded here by `glassbox_pos_bayes.py`/`glassbox_pos_trigram.py` (the generative
+  count-based form; swap the supervised tag counts for induced-cluster counts).
 
 ---
 

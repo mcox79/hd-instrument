@@ -5,7 +5,7 @@ bar: "Wire the mined directed causal store into `hdlab/causal_reasoner._graph()`
 result: "RIGOROUS LOCATED NEGATIVE (a full pass per the bar's located-negative provision), plus a disk-outranks-brief correction to the store's OWN +0.139 headline, plus a constructive positive on the read that DOES work. (1) The +0.139 does NOT transfer to the reader's extracted-from-prose necessity read: wired into the live sm.causal_reasoner()._graph() over the reader's actual single-verb-lemma nodes it moves the necessity read +0.0002 (n=5005; the graph is empty -- 2.2 nodes / 0.0 causal edges on process prose, single-lemma store coverage 1.4% vs 12.6% concept). (2) Even with a concept-bound upstream fix (one event node per step bound to its verb+noun concepts), the store's rung-2 reachability does NOT beat a topicality baseline (map_only 0.762 > store 0.743, paired -0.0196) and is inert-to-harmful in direction (undirected 0.759 > directed 0.743; direction-scramble reproduces it) -- because the EFFECT-vs-NO_EFFECT axis is direction-insensitive by construction and reachability over a dense concept set collapses to association. (3) The brief's OWN +0.139 was itself a DENSITY ARTIFACT of the global-shuffle twin (which is ~15x sparser per item: 29.0 vs 2.0 edges): against the honest density-matched twin it is +0.0026 CI[-0.011,0.016], NOT CI-separated. (4) The read that WOULD work -- direction-DISCRIMINATION 2AFC where association is pinned at chance -- the store's direction transfers CI-sep: BCOPA-CE +0.031 CI[0.009,0.053], e-CARE-direction +0.042 CI[0.023,0.061] over the shuffled twin, and fwd beats REVERSE-direction +0.10 on covered pairs; but the gain is SMALL (~0.55 on 2AFC = the ~0.61 intrinsic text-direction ceiling) and coverage buys only ~+0.02-0.03."
 floor: "STRONGEST floors actually run, per axis. NECESSITY axis (where the store is claimed to help): the map_only TOPICALITY baseline 0.762 and UNDIRECTED-connectivity 0.759 -- BOTH BEAT the store's directed rung-2 read 0.743 (n=5005). The density-matched topology twin (causal_reasoner's own CausalGraph.shuffled) storeonly-vs-twin +0.0026 (n.s.). DIRECTION axis (where the store does help): shuffled-store twin 0.498-0.499 and REVERSE-direction 0.445-0.473 -- both LOSE to forward direction 0.526-0.541 CI-sep; association/lexical floors pinned at 0.50 by construction on BCOPA-CE."
 controls: "DENSITY-MATCHED TOPOLOGY TWIN (CausalGraph.shuffled: same nodes + same edge count, random acyclic rewire) -- excludes the per-item DENSITY artifact that inflated the global-shuffle twin's +0.139/+0.223 (real 29 edges/item vs global-twin 2). UNDIRECTED-CONNECTIVITY ablation -- excludes DIRECTION being load-bearing on the existence axis (undirected >= directed). DIRECTION-SCRAMBLE null (skeleton fixed, orientations randomized) -- excludes direction-CORRECTNESS (the small residual is direction-COHERENCE). MAP_ONLY topicality baseline (effect iff both endpoints appear, no edges) -- excludes the store adding over association/co-occurrence. REVERSE-DIRECTION control (score the store backwards) on the 2AFC -- confirms DIRECTION (not association) is the signal (fwd-rev +0.10 on covered). SHUFFLED-STORE TWIN -- the info-free twin, loses on the 2AFC. Byte-identical-off invariant stated for the proposed wire (default-off flag, lazy)."
-files_changed: "experiments/exp_causal_store_wire_transfer_v1.py (the transfer instrument + full control battery), experiments/exp_causal_direction_grounded_intervention_v1.py (THE BIGGER LEVER prototyped: grounded interventional direction-recovery past the ~0.61 text ceiling), verification/test_causal_store_wire_transfer.py (witness 9/9), verification/test_causal_direction_grounded_intervention.py (witness 5/5), notes/problems/wire_the_mined_directed_causal_store_into_the_live_causal_reasoner_and_measure/{FINDINGS_control_battery.md,SOLVED.md}. NO hdlab write (Q111 -- proposed diff below). Re-ran (read-only) experiments/exp_causal_directional_score_v1.py (the direction anchor)."
+files_changed: "experiments/exp_causal_store_wire_transfer_v1.py (the transfer instrument + full control battery), experiments/exp_causal_direction_grounded_intervention_v1.py (THE BIGGER LEVER prototyped: grounded interventional direction-recovery past the ~0.61 text ceiling), experiments/exp_causal_direction_grounded_generalization_v1.py (generalization + brain-comparison: data-efficiency curve, functional forms incl. MI readout, confounder robustness), experiments/exp_causal_direction_active_selection_v1.py (the last lever: active few-shot intervention selection), experiments/exp_grounded_causal_learner_organ_v1.py (GroundedCausalLearner -- the hardened-toward-an-organ unified learner), experiments/exp_causal_store_prior_plus_intervention_v1.py (the store's rehabilitated role: a directional prior bootstrapping intervention), verification/test_causal_store_wire_transfer.py (witness 9/9), verification/test_causal_direction_grounded_intervention.py (witness 5/5), verification/test_grounded_causal_learner_organ.py (witness 5/5), notes/problems/wire_the_mined_directed_causal_store_into_the_live_causal_reasoner_and_measure/{FINDINGS_control_battery.md,SOLVED.md}. NO hdlab write (Q111 -- proposed diff below). Re-ran (read-only) experiments/exp_causal_directional_score_v1.py (the direction anchor)."
 reverify: ".venv/Scripts/python.exe verification/test_causal_store_wire_transfer.py && .venv/Scripts/python.exe verification/test_causal_direction_grounded_intervention.py"
 ---
 
@@ -67,10 +67,50 @@ vs |do(b) on a| (do(cause) shifts the effect; do(effect) cannot shift the cause)
   observational edges essentially never do. Same undirected skeleton both arms -> DIRECTION is the only difference.
 So the mechanism that breaks the wall is real and composes into the existing reasoner: interventional experience
 recovers direction (0.99) and lifts cause selection (0.03->0.98) where text/observation (rung-1, confounded) cannot.
+
+**GENERALIZATION + PERFORMANCE VS THE BRAIN** (`exp_causal_direction_grounded_generalization_v1.py`):
+- **DATA EFFICIENCY (the brain axis -- few-shot):** accuracy by #interventions = {3:0.66, 5:0.75, 10:0.85, 25:0.93,
+  100:0.98}. Clears the 0.61 text ceiling from **3 interventions**; human-level 0.90 at **~25**. At the brain's few-shot
+  budget (~10; Gopnik toddlers / Bramley 2017 adults) we are at **0.85** -- already past text's whole-corpus ceiling.
+- **FUNCTIONAL FORM:** linear 0.978, monotone-nonlinear tanh **0.915** (generalizes); NON-monotone quad degrades the
+  signed-cov readout to 0.688, a magnitude/dependence readout recovers 0.765 -- a NAMED residual (non-monotone couplings
+  need a richer dependence measure, e.g. mutual information / distance correlation).
+- **CONFOUNDER robustness:** grounded holds 0.99->0.81 as confounder strength 0->4x (which drives observation far below
+  chance) -- intervention breaks confounding by construction.
+- **VS THE BRAIN, honestly:** brain-COMPETITIVE on direction (0.85-0.93 few-shot, robust).
+
+**THE LAST LEVER -- ACTIVE SELECTION + THE ORGAN (built this submission; owner: "prototype the last lever, harden to an
+organ, right not easy"):**
+- **ACTIVE intervention selection** (`exp_causal_direction_active_selection_v1.py`; Bramley 2017 / Coenen 2015 info-greedy
+  ~= minimum vertex cover, since one do(node) orients every incident edge): reaches **0.90 edge-orientation in 5
+  interventions** (the brain few-shot band ~<=10) while RANDOM plateaus ~0.71 and NEVER reaches 0.90. So the data-efficiency
+  gap to the brain is CLOSED by choosing informative interventions -- not by more data.
+- **NON-MONOTONE generalization CLOSED:** the mutual-information interventional readout orients ANY functional form --
+  quadratic (non-monotone) 0.688 (signed-cov) -> **0.930 (MI)**.
+- **THE ORGAN** (`exp_grounded_causal_learner_organ_v1.py`, `GroundedCausalLearner`, witness 5/5): unifies interventional
+  direction+sign (MI readout) + active few-shot selection + Rescorla-Wagner ONLINE PLASTIC update + `to_causal_graph()`
+  composition into `causal_reasoner`. MEASURED: **4.9 active interventions**, direction **0.86**, cause-selection 0.70
+  through the reasoner, online refresh does not degrade (plastic). BF STATUS: **BF_SPIRIT** (operation PINNED -- Pearl
+  do-operator / Gopnik covariation / Bramley active / Rescorla-Wagner; OUR-INVENTION-UNDER-TEST -- the MI readout + greedy
+  selection heuristic; input = micro-world stand-in). Raise to BF when the grounding bridge feeds real grounded/simulated
+  experience AND the audit verifies it -- NOT before (mislabelling is barred).
 HONEST BOUND: this is a grounded MICRO-WORLD (the substrate has no embodiment). The remaining real gap -- and it is the
 large one -- is the GROUNDING BRIDGE: mapping narrative quantities to a grounded dynamical model so intervention is
 *available* at read-time. That bridge is the generative world-model main event, not a store-wire; this cell proves the
 downstream mechanism is ready for it.
+
+## THE STORE'S REHABILITATED ROLE -- a directional PRIOR that bootstraps intervention (constructive, this submission)
+The store is refuted as a SCORER, but its correct brain-foundational role is a testimony-derived directional PRIOR
+(Harris-Koenig 2006) that bootstraps grounded intervention (Gopnik/Bramley: learners carry priors and refine them by
+intervention). MEASURED (`exp_causal_store_prior_plus_intervention_v1.py`, a prior calibrated to the store's 0.61
+direction accuracy + active few-shot intervention):
+- **HEAD START at 0 interventions +0.118** (0.61 vs 0.49 no-prior); lifts the whole low-budget curve (1 int: 0.74 vs
+  0.67; 2: 0.82 vs 0.78; 3: 0.88 vs 0.85).
+- **But saves 0 interventions to 0.90** (both reach it at 4) -- grounded intervention is efficient enough to overtake
+  the prior, whose edge WASHES OUT by ~4 interventions.
+So the store's value is REAL but FRONT-LOADED: it matters in the ZERO-to-FEW-intervention regime -- which IS the reading
+regime (a reader gets only a handful of simulated interventions per narrative event). The brain's testimony+intervention
+combination; the store is the prior, grounded intervention the refinement.
 
 ## THE FULL-STACK-UPSTREAM TRACE (owner directive: trace where the signal is lost, and whether upstream is BF)
 The END component (rung-2 do-sim necessity, `causal_reasoner`, BF_SPIRIT-verified) is sound. Its INPUT signal is lost
@@ -199,9 +239,10 @@ NOT land the necessity-prior wire (measured inert).
    edge source, kept OUT of `sm.causal_links` (into the reasoner graph only), is the brain-foundational replacement.
 3. **Coverage (small lever, disk-prescribed):** ingest COMMONSENSE/PROCEDURAL/how-to corpora (NOT encyclopedic, NOT Rhea
    -- Rhea is the SIGN channel's corpus) to raise direction coverage; measured headroom only ~+0.02-0.03.
-4. **THE BIGGER LEVER (the main event) -- now PROTOTYPED (this submission):** the grounded interventional DIRECTION
-   mechanism is built + proven (0.993 direction, 0.980 cause-selection through causal_reasoner, +0.383 over the text
-   ceiling; `exp_causal_direction_grounded_intervention_v1.py`). Two remaining pieces to make it a live organ: (a)
-   promote the grounded SIGN + DIRECTION learners to an organ that composes into `causal_reasoner`; (b) build the
-   GROUNDING BRIDGE -- map narrative quantities to a grounded dynamical model so intervention is available at read-time
-   (the generative world-model main event). The mechanism is ready; the bridge is the large unbuilt program.
+4. **THE BIGGER LEVER (the main event) -- PROTOTYPED + HARDENED (this submission):** grounded interventional DIRECTION
+   (0.993, +0.383 over the text ceiling; cause-selection 0.03->0.98 through causal_reasoner), generalized (MI readout for
+   any functional form; robust to confounding), made FEW-SHOT (active selection 0.90 in ~5 interventions), and unified
+   into `GroundedCausalLearner` (organ prototype, plastic, BF_SPIRIT). Remaining: the GROUNDING BRIDGE -- concrete
+   handoff-ready design in `BRIDGE_DESIGN_next_problem.md` (science-slice-first via `causal_sign_channel`'s formal-model
+   dynamics, then the general bridge = the meaning-channel-gated main event), then LAND `GroundedCausalLearner` as
+   `hdlab/grounded_causal_learner.py` (Q111) once the bridge feeds real experience -> raise BF_SPIRIT to BF.
