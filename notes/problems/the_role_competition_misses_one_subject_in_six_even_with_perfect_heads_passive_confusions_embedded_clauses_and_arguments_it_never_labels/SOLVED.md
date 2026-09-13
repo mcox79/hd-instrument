@@ -231,3 +231,183 @@ Two clauses are unmet.
 4. Queue alternate path 1 (grow the construction counts from reading) -- it is the single lever that unblocks
    both unmet bar clauses at this rung.
 5. Everything else at this rung is behind the **heads rung's core-argument arcs**. That is the brief to write.
+
+
+---
+
+# SUPERVISOR ROUND 2 (2026-09-13) -- the chain understood end to end, and four opportunities built and measured
+
+## 10. Do I fully understand the chain? The arcs, with counts
+
+**The question:** the decomposition says the attachment arm erases the gain -- WHICH arcs, and is the loss
+misattached arguments or wrong clause membership? **Measured** (UD-EWT test 700, the 1,160 gold core arguments,
+live attachment arm; `scratchpad/arcs.py`, folded into the cell's metrics):
+
+| what the governor did with the core argument | n | share |
+|---|---|---|
+| attached it correctly | 874 | 0.753 |
+| **hung it under a DIFFERENT PREDICATE (wrong clause)** | 105 | 0.091 |
+| **absorbed it into a NOMINAL phrase (compound/nmod -- it never became an argument)** | 101 | 0.087 |
+| flung it to ROOT | 38 | 0.033 |
+| right clause, wrong predicate token | 24 | 0.021 |
+| hung it under an ADP / DET / ADV / INTJ / SCONJ | 18 | 0.016 |
+
+**The answer is BOTH, in near-equal share: 12.4% is clause membership (105 wrong predicate + 38 root) and 10.3% is
+CONSTITUENCY (101 absorbed into an NP + 18 under a function word).** They need different fixes: clause membership is
+the governor's clause segmentation and second-order occupancy; constituency is NP-boundary detection (the same
+Right-hand-Head-Rule structure this cell used to widen the argument class). **56 of the misattachments are "the next
+verb to the right"** (objects 38, subjects 13, passive subjects 5) -- the right-branching trap already named in the
+heads rung's anatomy.
+
+**And exactly how good must the heads rung get?** The head-repair curve (repair a fraction f of the governor's wrong
+core-argument attachments toward gold; the pri-93 control, re-run on the v3 cue set):
+
+| f | core-argument head accuracy | floor core | v3 core | delta | CI |
+|---|---|---|---|---|---|
+| 0.0 | 0.753 | 0.7250 | 0.7276 | +0.0026 | [-0.0078,+0.0129] |
+| 0.2 | 0.801 | 0.7474 | 0.7466 | -0.0009 | [-0.0129,+0.0112] |
+| 0.4 | 0.852 | 0.7716 | 0.7767 | +0.0052 | [-0.0078,+0.0181] |
+| 0.6 | 0.897 | 0.7914 | 0.8034 | +0.0121 | [-0.0009,+0.0250] |
+| **0.8** | **0.947** | 0.8034 | **0.8190** | **+0.0155** | **[+0.0017,+0.0293] CI-SEP** |
+| 1.0 | 1.000 | 0.8207 | 0.8483 | +0.0276 | [+0.0129,+0.0422] CI-SEP |
+
+**This rung's win reaches the board when the attachment arm reaches ~0.95 on core-argument arcs** (it is at 0.753).
+That is the number strategy should put on the heads-rung brief. It also prices the individual upstream levers: at
+f=0.2 (a +0.048 jump in core-arc accuracy, four times what pri 97's +0.011 UAS delivers) the delta is still inside
+the CI.
+
+**Brain-foundational status of each rung AS IT RELATES TO THIS SIGNAL** (unchanged from section 5, now with the arc
+counts): the categories rung hands down a HARD tag and costs the labeler 0.062; the heads rung hands down a hard head
+plus a posterior whose *reliability* is informative (AUC 0.678 for a correct attachment) but whose *alternative mass*
+is not (74% precision even at P >= 0.95), and costs the labeler 0.160.
+
+## 11. The literature I had not used, and what it changed
+
+- **Argument role assignment is verb-anchored and incremental.** A pre-verbal argument's role is only *partially*
+  determined until the verb arrives, and role assignment in object relatives is delayed until the embedded verb --
+  but arrives *earlier* when extra input (an adverb) disambiguates. This is the direct psycholinguistic warrant for
+  the cue that carried this cell: **argument RANK relative to the governing verb**, computed over the verb's own
+  arguments, on the pre-verbal side as well as the post-verbal one. It also predicts the shape of what remains: the
+  relativizer/embedded-subject contrast is exactly the case the literature says is resolved late and by convergent
+  evidence, which is why a single additive contrast (my refuted `relform`) cannot carry it.
+- **Verb argument structure constrains an upcoming argument's role immediately** -- the warrant for the `frame` cue
+  being read at the verb, not at the nominal.
+- **Construction learning is frequency-driven and item-based.** Learners store form-meaning chunks; Zipfian type/token
+  distributions optimise construction learning; the most frequent, prototypical exemplar is acquired first; and
+  input frequency specifically predicts difficulty with **existential constructions**. This says plainly that a
+  configuration with 48 weighted exposures is not *wrong*, it is **under-learned** -- so the fix is exposure, not a
+  new cue. That is what made opportunity (1) the right next build rather than another cue.
+
+Sources: [Kowalski & Huang, JEP:LMC](http://www.languageandcognition.umd.edu/KowalskiHuang2017JEPLMC.pdf);
+[argument-verb computations in online comprehension](https://www.sciencedirect.com/science/article/abs/pii/S0749596X22000377);
+[psycholinguistic evaluation of argument-role sensitivity](https://arxiv.org/html/2410.16139);
+[item-based induction of construction networks](https://onlinelibrary.wiley.com/doi/10.1111/cogs.12114);
+[construction learning as a function of frequency and function](https://www.researchgate.net/publication/227726281_Construction_Learning_as_a_Function_of_Frequency_Frequency_Distribution_and_Function);
+[acquisition of English existential constructions](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9426631/).
+
+## 12. Opportunity (3): the two precision gates, swept in full
+
+**Learning gate** (a comprehension outcome teaches only when the governor believed its own attachment):
+
+| min_conf | gold core | gold NONEPOP | live core | live copular nsubj |
+|---|---|---|---|---|
+| 0.00 | 0.9198 | 0.8649 | 0.6983 (-0.0267 **CI-sep DOWN**) | 0.5912 |
+| 0.25 | **0.9241** | 0.8649 | 0.6991 (-0.0259 **CI-sep DOWN**) | 0.5912 |
+| **0.50** | 0.9198 | 0.8378 | **0.7276 (+0.0026)** | 0.6352 |
+| 0.65 | 0.9078 | 0.8378 | 0.7233 (-0.0017) | 0.6289 |
+| 0.80 | 0.9052 | 0.8378 | 0.7250 (+0.0000) | 0.6289 |
+| 0.90 | 0.9034 | 0.8378 | 0.7250 (+0.0000) | 0.6289 |
+
+**Read gate** (RANK_TAU, with min_conf 0.5; the gold arm supplies no confidences so it is unaffected):
+live core 0.7181 (tau 0) / 0.7241 (0.3) / **0.7276 (0.5)** / 0.7233 (0.7) / 0.7147 (0.9) / 0.7121 (rank fully off,
+-0.0129 **CI-sep DOWN**).
+
+**Both curves are single-peaked at 0.5 and both ends lose** -- the gate is a real operating point, not a fitted
+constant. I hypothesised that what mattered was the two thresholds MATCHING (learn the cue on the population you will
+use it on) and **tested it: refuted.** Matched at 0.25 gives gold 0.9069 / live 0.7121, matched at 0.65 gives
+0.9078 / 0.7216, matched at 0.80 gives 0.9052 / 0.7198 -- all worse on both arms than 0.5/0.5. 0.5 is simply the
+joint optimum, and the gold arm's slight preference for less gating (0.9241 at 0.25) is bought at a CI-separated
+live loss, so it is not taken.
+
+## 13. Opportunity (4): the slot competition -- REFUTED on every consumer
+
+One filler per core slot, resolved as a competition when the independent argmax gives two of a verb's dependents the
+same core role (the light form of pri 93: it fires only on an actual clash).
+
+| arm | landed v3 | v3 + slot competition |
+|---|---|---|
+| gold heads, core | **0.9198** | 0.9034 |
+| gold heads, obj | **0.9325** | 0.8925 |
+| live heads, core | **0.7276** | 0.6948 (-0.0302 **CI-sep DOWN**) |
+| board who_did_what PATIENT | **0.7936** | 0.7857 |
+| board who_did_what AGENT | 0.8420 | 0.8420 (**byte-identical**) |
+
+*Mechanism:* the v3 argument-RANK cue already encodes "first versus later argument of this verb", which is precisely
+the information the capacity constraint would add -- so the constraint now double-penalises, and where two dependents
+genuinely share a label (coordination, or a mis-attached sibling) demoting one is usually the wrong call. It is
+byte-identical on the agent read because that consumer already takes the highest-activation candidate among the
+same-labelled ones, so re-labelling the loser changes nothing it reads. **The competition helps a CONSUMER select
+among candidates; it hurts as a re-labelling constraint on the rung.** That distinction is the finding.
+
+## 14. Opportunity (2): the graded posterior at the consumer
+
+**(2a) Replacing the MAP label with the posterior at the board's AGENT read -- REFUTED.** Ranking *every* argument
+dependent of the verb by its SUBJ posterior (instead of only the ones the MAP labelled `nsubj`) raises the decision
+rate 0.804 -> 0.910 but drops precision 0.925 -> 0.855, and the total falls **0.8420 -> 0.8216, -0.0204
+CI95[-0.0295,-0.0119] CI-separated DOWN** (floor 0.8399). *Mechanism:* the MAP label's **abstention carries
+information** -- when no dependent of the verb is labelled a subject, that usually means the governor attached the
+wrong things, and the positional fallback beats the best-of-a-bad-candidate-set. Forcing a decision out of the
+posterior throws that competence signal away.
+
+**(2b) The same posterior used as a RELIABILITY signal -- ACCEPTED, and it is the unexploited opportunity.** The role
+competition's own margin (top-1 minus top-2 of the softmax) separates its right answers from its wrong ones at
+**AUC 0.716** on the live chain (n=1118 core arguments, base accuracy 0.7549), giving this defer curve:
+
+| coverage | accuracy |
+|---|---|
+| 0.2 | **0.9910** |
+| 0.4 | 0.9217 |
+| 0.6 | 0.8687 |
+| 0.8 | 0.7662 |
+| 1.0 | 0.7549 |
+
+A consumer that acts on the most confident 40% of role decisions runs at **0.92** where the rung overall runs at
+0.755. **Nothing currently reads this** -- `coarse_role_posterior` exists and every consumer takes the hard string.
+So the right form of "hand the consumers the posterior" is **precision-weighting and deferral, not forcing a pick**;
+(2a) and (2b) together say exactly that, and they are the same mechanism the agent arm's
+`agent_competition_pick_conf` already surfaces on its own side.
+
+## 15. Opportunity (4b): the pri-97 upstream patch, estimated on the same instrument
+
+Rebuilding the attachment asset under the pri-97 patch was **not run** (a 477-line diff against `hdlab/attachment_arm.py`
+plus a cap-6000 retrain, for a lever whose measured size is +0.011 UAS -- a quarter of the f=0.2 step that the
+head-repair curve already shows is inside the CI). Instead I measured **its headline mechanism directly**: repair only
+the COPULAR-clause attachments (its copular fix) and only the ROOT attachments (its root cues), and see what the
+labels rung does.
+
+| repaired | floor copular nsubj | v3 copular nsubj | floor ALL nsubj | v3 ALL nsubj | v3 core delta |
+|---|---|---|---|---|---|
+| nothing (live) | 0.6667 | 0.6352 | 0.7640 | 0.7626 | +0.0026 |
+| **copular attachments** | 0.7862 | 0.7736 | 0.7963 | **0.8048** | +0.0034 |
+| root attachments | 0.6667 | 0.6478 | 0.7640 | 0.7654 | +0.0043 |
+| both | 0.7862 | 0.7736 | 0.7963 | 0.8048 | +0.0034 |
+
+So pri 97's copular fix, at its ORACLE limit, turns the v3 subject delta from -0.0014 to **+0.0084** and lifts both
+arms by ~0.12 on the copular population -- real, and still an order of magnitude short of CI separation on core. It
+also shows the copular deficit of v3 is **not only** a heads problem: with perfect copular attachment v3 is still
+0.0126 behind the floor there, because the ADV/SYM/NUM/INTJ predicate configurations it introduced carry as few as 17
+weighted training decisions. That is the same count starvation as the existential -- i.e. opportunity (1), not a cue
+defect.
+
+## 16. The v3 residual at gold heads, itemised
+
+| bucket | n | what it is |
+|---|---|---|
+| copular nsubj -> dep | 29 | the new ADV/SYM/NUM/INTJ predicate configurations are count-starved (ADV_pre: 17 weighted decisions) |
+| matrix/embedded nsubj -> obj | 18 | the existential residual (`VERB_post_ex`: 48 weighted decisions) |
+| embedded obj -> dep | 12 | filler-gap objects; the configuration split that would fix them was refuted at this corpus size |
+| matrix obj -> dep | 8 | -- |
+| matrix nsubj:pass -> nsubj/obj | 8 | fronted-participle inversion ("Attached is a spreadsheet") |
+| widened population | 6 of 37 | 2 ADV pro-forms ("somewhere", deliberately outside the shipped class), 3 partitive NUM/SYM, 1 nominalised ADJ |
+
+**Every large remaining bucket is the same disease: a configuration the treebank does not contain enough of.**
