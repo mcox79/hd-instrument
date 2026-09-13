@@ -14,6 +14,7 @@ NEW word means from what it reads, using its sense of how things feel and look, 
 near the top about 38 times in 100 where the old method managed about 3.
 
 ## WHAT CHANGED LATELY
+- **13 Sep, 14:40.** Full re-check after the last two hand-out solutions were folded in (a verb's slots can each hold one filler, kept switchable and off because it cost the 'who was acted on' read; the reading-learned word classes now feed the live word-category organ): overall score 0.6346 -> 0.6352 out of 1; 'who was acted on' 0.789 -> 0.792, 'what things are like' 0.810 -> 0.815; nothing went down. A try at letting the word-category organ read the neighbouring words as a blanket extra vote was tested on the full test set and REJECTED with numbers (it trades one kind of verb mistake for another); a second form, storing frequent two-word units the way people do, is drafted and waits for your go.
 
 **13 Sep, 13:05.** Final board with everything: 63.5 in 100 (stand-in 63.8). Unchanged from the previous run, so the coordination teaching and lemma-key consistency cost nothing. Nothing running; three hand-outs open (Pri 93, 94, 96).
 
@@ -175,7 +176,7 @@ Long term (the next few months):
 
 <!-- AUTO:BEGIN (written by tools/scorecard.py; edit the sections ABOVE, not this) -->
 
-Last full check: 2026-09-13T17:03:00.757368+00:00 (24 on record). Generated 2026-09-13T18:34:47+00:00.
+Last full check: 2026-09-13T18:38:32.028220+00:00 (25 on record). Generated 2026-09-13T18:39:49+00:00.
 
 | Ability | Group | How well | Compared with a simple rule | Since the previous check | Brain-faithful? |
 |---|---|---|---|---|---|
@@ -185,15 +186,15 @@ Last full check: 2026-09-13T17:03:00.757368+00:00 (24 on record). Generated 2026
 | Linking a description ('the painter') to a named person | People and things | right 55 in 100 | clearly better than the simple rule (45 in 100) | unchanged since the previous check | brain model; some details still open |
 | Pronoun reference as the full reader actually runs it | People and things | right 59 in 100 | clearly better than the simple rule (50 in 100) | unchanged since the previous check | brain model; some details still open |
 | Resolving 'the animal' to the dog just mentioned | People and things | right 58 in 100 | clearly better than the simple rule (52 in 100) | unchanged since the previous check | brain model; some details still open |
-| Who was affected by what happened | People and things | right 39 in 100 | clearly better than the simple rule (33 in 100) | unchanged since the previous check | brain model; some details still open |
+| Who was affected by what happened | People and things | right 39 in 100 | clearly better than the simple rule (34 in 100) | unchanged since the previous check | brain model; some details still open |
 | Which meaning of a word is meant in this sentence | Word meaning | right 75 in 100 | clearly better than the simple rule (50 in 100) | unchanged since the previous check | brain model; some details still open |
 | Drawing safe conclusions from 'is a kind of' facts | Word meaning | right 77 in 100 | clearly better than the simple rule (54 in 100) | unchanged since the previous check | brain model; some details still open |
 | Handling 'all / some / none' correctly | Word meaning | right 83 in 100 | clearly better than the simple rule (17 in 100) | unchanged since the previous check | brain model; some details still open |
 | Handling 'not' correctly | Word meaning | right 93 in 100 | clearly better than the simple rule (50 in 100) | unchanged since the previous check | brain model; some details still open |
 | How a word's meaning shifts with its context (graded) | Word meaning | agreement with people 0.39 (out of 1) | clearly better than the simple rule (0.38) | unchanged since the previous check | brain model; some details still open |
 | Picking the right broad sense of an ambiguous word (older test set) | Word meaning | right 52 in 100 | clearly better than the simple rule (35 in 100) | unchanged since the previous check | brain model; some details still open |
-| What something is or is like ('the sky is blue') | Actions and roles | right 81 in 100 | clearly better than the simple rule (57 in 100) | unchanged since the previous check | brain model; some details still open |
-| Who did the action in a sentence | Actions and roles | right 83 in 100 | not better than the simple rule (84 in 100) yet | unchanged since the previous check | brain model; one part is a stand-in we are replacing |
+| What something is or is like ('the sky is blue') | Actions and roles | right 81 in 100 | clearly better than the simple rule (57 in 100) | up 0.005 since the previous check | brain model; some details still open |
+| Who did the action in a sentence | Actions and roles | right 83 in 100 | not better than the simple rule (85 in 100) yet | unchanged since the previous check | brain model; one part is a stand-in we are replacing |
 | Who or what the action was done to | Actions and roles | right 79 in 100 | clearly better than the simple rule (65 in 100) | unchanged since the previous check | brain model; one part is a stand-in we are replacing |
 | Keeping a fact true until something changes it | Actions and roles | right 100 in 100 | clearly better than the simple rule (44 in 100) | unchanged since the previous check | brain model; some details still open |
 | Event order when the text does not say it outright | Time and place | right 57 in 100 | clearly better than the simple rule (53 in 100) | unchanged since the previous check | brain model; some details still open |
