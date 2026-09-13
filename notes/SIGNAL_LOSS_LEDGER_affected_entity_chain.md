@@ -476,3 +476,8 @@ competent-reader reference ~0.85–0.90.
   graded hand-off to the heads rung (next). Inventory/counts = offline labelled supply until pri-15's induced classes replace them
   (same organ, `accrue` over any (word, class) stream). Board A/B running: counts alone; counts + attachment-arm heads (the fully
   BF-inference chain). Witness test_lexical_categories 7/7; roles 23/23; attachment 15/15.
+- **CATEGORY POSTERIOR -> HEADS, MEASURED (2026-09-13 00:05, probe_heads_under_category_posterior_v1, live asset, UD-EWT test 700):
+  gold categories UAS 0.5562 | category organ HARD tags (0.915 agreement) 0.5340 | GRADED mixture (second-best category kept alive
+  for tokens with top mass < 0.8) 0.5379.** The tagger costs the heads rung 0.022; the graded read recovers 0.004 of it (obl 0.409 ->
+  0.428, nsubj 0.68 -> 0.685) at ~4x cost -- kept as the BF read (the posterior is the signal; the rest of the loss is the tagger's
+  accuracy, i.e. the categories rung itself). The reader's attachment-arm head source now reads the tag posterior.

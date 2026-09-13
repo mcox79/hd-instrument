@@ -110,8 +110,9 @@ def run(cap: Optional[int] = None, n_boot: int = 2000, seed: int = SEED) -> dict
     vs FLOOR (most-recent-noun) vs SHUFFLE-holder TWIN, plus the base-reader-OFF live zero, the router ABLATION
     (frame disabled -> misroutes), and the yes/no 'Is X a Y?' arm. Bootstrap over sentence-docs."""
     t0 = time.time()
-    pos = PosTagger.load(M._POS_ASSET)
-    arc = ArcParser.load(M._ARC_ASSET)
+    from hdlab import frontend as _FE   # ONE shared frontend (2026-09-12): the organ switches reach this arm
+    pos = _FE.tagger()
+    arc = _FE.parser()
     lab = ArcLabeler.load(M._LAB_ASSET)
     sents = COP.load_ud(COP.UD_TEST, cap=cap)
     rng = np.random.default_rng(seed)
@@ -281,7 +282,8 @@ def optimize_upstream(cap: Optional[int] = 1500, n_boot: int = 2000, seed: int =
     -> +robust_cop (July tree) -> +robust_cop(arc-eager tree). Reports whether the tree adds on top of robust_cop
     (the producer found it ~ns on ALL gold because robust_cop already compensates the July tree's cop-misses)."""
     t0 = time.time()
-    pos = PosTagger.load(M._POS_ASSET); arc = ArcParser.load(M._ARC_ASSET); lab = ArcLabeler.load(M._LAB_ASSET)
+    from hdlab import frontend as _FE
+    pos = _FE.tagger(); arc = _FE.parser(); lab = ArcLabeler.load(M._LAB_ASSET)
     sents = COP.load_ud(COP.UD_TEST, cap=cap)
     rng = np.random.default_rng(seed)
     per = []

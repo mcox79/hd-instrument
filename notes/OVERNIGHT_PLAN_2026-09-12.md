@@ -44,3 +44,4 @@ finishes (`bash /c/AI/hd-instrument_desktop_2026-09-12/delta_sync.sh` via a runn
 ## Log (append one line per completed item; newest last)
 - 23:40 plan written; board A/B (counts; counts+attarm) running on a runner; transfer ~205/212 GB.
 - 23:45 Phase 0 done: pri-13 hub organ landed (PARTIAL; readers not repointed); pri-10 recorded as durable negative (+0.139 retired); both committed.
+- 00:15 1b: graded category hand-off landed + measured (gold 0.5562 / hard 0.5340 / graded 0.5379); ONE shared frontend `hdlab/frontend.py` landed and the patient/agent/state/causation arms shimmed onto it (the switches now reach the board); self-test on a runner; post-routing boards queued after the running pair.

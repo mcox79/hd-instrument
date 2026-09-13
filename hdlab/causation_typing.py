@@ -585,8 +585,9 @@ def _frontend():
         from hdlab.pos_tagger import PosTagger
         from hdlab.arc_parser import ArcParser
         from hdlab.arc_labeler import ArcLabeler
-        _FRONTEND["t"] = PosTagger.load(_POS_ASSET)
-        _FRONTEND["p"] = ArcParser.load(_ARC_ASSET)
+        from hdlab import frontend as _FE   # ONE shared frontend (2026-09-12): HDLAB_TAG_SOURCE / HDLAB_HEADS_SOURCE reach here
+        _FRONTEND["t"] = _FE.tagger()
+        _FRONTEND["p"] = _FE.parser()
         _FRONTEND["l"] = ArcLabeler.load(_LAB_ASSET)
     return _FRONTEND["t"], _FRONTEND["p"], _FRONTEND["l"]
 

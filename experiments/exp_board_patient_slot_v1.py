@@ -46,7 +46,8 @@ def board_patient_dimension(cap=None, seed=0):
     model_minus_*      = paired cluster-bootstrap CI [obs, lo, hi] over shared UD sentences
     ceiling (detail)   = ceiling_gold (gold parse + gold labels) -- the residual head-attachment gap
     """
-    tagger = VLP.PosTagger.load(VLP.POS_ASSET)
+    from hdlab import frontend as _FE   # ONE shared frontend (2026-09-12): HDLAB_TAG_SOURCE / HDLAB_HEADS_SOURCE reach this arm
+    tagger = _FE.tagger()
     labeler = VLP.ArcLabeler.load(VLP.LAB_ASSET)
     arc = VLP.ArcParser.load(VLP.ARC_ASSET)
     from hdlab.arceager_parser import load_model, MODEL_PATH
