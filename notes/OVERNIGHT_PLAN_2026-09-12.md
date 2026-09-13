@@ -105,3 +105,21 @@ finishes (`bash /c/AI/hd-instrument_desktop_2026-09-12/delta_sync.sh` via a runn
 - 07:57 local: morphology witness after the dual-route default flip: PASS (byte-identity pinned to the morphy arm: 981,305 raw comparisons 0 divergences; full lemma path 2000 tokens 0 divergences; the exceed and BF-POS cells re-measured). Owner update posted (second-half summary). Remaining in flight: Penn-tagger board (late stages), then the total-routing board and the brain-foundational-heads board.
 - 07:59 local: BOARD with the Penn-arm tagger replacing nltk inside the temporal organ (5 reader sites): AGG 0.6378, every dimension identical to the baseline (coref 0.4681, salience 0.2555, common-noun 0.5671, agent 0.8357, patient 0.8088, state 0.8016, wic 0.7493) -> board-NEUTRAL; the off-the-shelf tagger is gone from the live path at no cost. Next in the chain: the total-routing board, then the board with the brain-foundational heads on.
 - 08:01 local: the "routing" board started; NOTE its attribution: it carries everything landed since 05:42 -- the total category routing + the category organ v2 (0.9264) + the dual-route default + the Penn default (the last two measured neutral individually). So it is the "all of this morning's category work" board; the brain-foundational-heads board follows it with the same base.
+
+## End-of-arc self-assessment (08:10 local; boards for the category work and the BF heads still running)
+GOAL (owner, 23:35): "make the top of the chain as BF as possible, and fix all downstream one at a time."
+- TOP OF THE CHAIN -- GOOD, not yet excellent. Tokens: regex (convention). Categories: the count organ is live AND total (no reader
+  bypasses it), 0.912 -> 0.926 (perceptron 0.945 still 1.9 ahead; its reading-acquisition arm 0.72 is pri-15's open problem).
+  Lemma: dual-route words-and-rules is the default (98.3 vs 96.0 on gold; board-neutral); lemma-keyed stores still morphy-keyed
+  (measured harmless, unrebuilt). Heads: the arm is 0.603 with gold categories / 0.589 live, commits to one connected tree, reads
+  meaning at read time; it is NOT the default heads source (owner's Q134; the board under it is running). The last off-the-shelf
+  tagger is off the live path. Typed plausibility reads a foundation asset, not WordNet at read time.
+- DOWNSTREAM ONE AT A TIME -- PARTIAL. Agent repaired (0.836); patient/state losses traced upstream (heads obj attachment,
+  copular predicate), now partly addressed at the rung (obj 0.725, ccomp 0.672) but the board under the arm is the real test.
+- HONEST NEGATIVES kept with numbers: occupancy at decode, aux-window tense rule, MBR decode, coordination convention, case-marking
+  teacher rules, order-aware teacher v1, hard meaning gate. None re-tried.
+- LOOSE ENDS (filed): rebuild GEK/grounded/concept stores on dual-route keys; shared single-root constraint in graded_parser for the
+  other CLE callers; ~40 WordNet read-time lookups exportable on demand; the graded hand-off is neutral under the better tagger;
+  pri-16 re-scoped to the labels rung; Q134 open for the owner; desktop resync before the owner moves.
+- ROOM TO OPTIMISE: the heads residual is PP attachment (nmod/obl seesaw) and subjects of embedded/copular clauses; the category
+  organ's gap is unknown words (0.75) -- the reading inventory covers only 549 of 1,882 unknown test tokens (grow it).
