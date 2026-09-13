@@ -34,7 +34,7 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-09-13 ~01:30 — OVERNIGHT (owner asleep; autoloop ARMED; plan = `notes/OVERNIGHT_PLAN_2026-09-12.md`, log at its end)
+### 2026-09-12 ~23:45 — OVERNIGHT (log times in the plan are local clock) (owner asleep; autoloop ARMED; plan = `notes/OVERNIGHT_PLAN_2026-09-12.md`, log at its end)
   - **THE LIVE CHAIN IS NOW ORGAN-BY-ORGAN BF-OR-BF_SPIRIT from tokens to roles, behind ONE shared frontend (`hdlab/frontend.py`):**
     tokens (corpus / `frontend.tokenize`) -> categories `hdlab/lexical_categories.py` (count-based generative model + forward-backward
     posterior; LIVE DEFAULT, 0.912 vs perceptron 0.945; reading-acquisition arm `tools/build_lexical_categories_from_reading.py`)

@@ -476,12 +476,12 @@ competent-reader reference ~0.85–0.90.
   graded hand-off to the heads rung (next). Inventory/counts = offline labelled supply until pri-15's induced classes replace them
   (same organ, `accrue` over any (word, class) stream). Board A/B running: counts alone; counts + attachment-arm heads (the fully
   BF-inference chain). Witness test_lexical_categories 7/7; roles 23/23; attachment 15/15.
-- **CATEGORY POSTERIOR -> HEADS, MEASURED (2026-09-13 00:05, probe_heads_under_category_posterior_v1, live asset, UD-EWT test 700):
+- **CATEGORY POSTERIOR -> HEADS, MEASURED (2026-09-12 23:05, probe_heads_under_category_posterior_v1, live asset, UD-EWT test 700):
   gold categories UAS 0.5562 | category organ HARD tags (0.915 agreement) 0.5340 | GRADED mixture (second-best category kept alive
   for tokens with top mass < 0.8) 0.5379.** The tagger costs the heads rung 0.022; the graded read recovers 0.004 of it (obl 0.409 ->
   0.428, nsubj 0.68 -> 0.685) at ~4x cost -- kept as the BF read (the posterior is the signal; the rest of the loss is the tagger's
   accuracy, i.e. the categories rung itself). The reader's attachment-arm head source now reads the tag posterior.
-- **COPULAR CONVENTION LANDED (2026-09-13 00:40): STATE dim under BF heads 0.6561 -> 0.6587 (CI-sep over its floor 0.5582, which
+- **COPULAR CONVENTION LANDED (2026-09-12 23:25): STATE dim under BF heads 0.6561 -> 0.6587 (CI-sep over its floor 0.5582, which
   itself moved from 0.5714 because the state instrument now runs on the shared frontend = the BF tagger); heads rung with gold
   categories 0.5562 -> 0.5583 (nsubj 0.702 -> 0.724). Hard/graded predicted 0.5362 / 0.5400.**
 - **HEADS-RUNG RECONCILIATION (fold queue #4; pri-2 `scale_the_reading_learned_arc_scorer`, owner-DONE 09-11):** that solution's
