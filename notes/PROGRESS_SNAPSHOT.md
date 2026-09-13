@@ -4,27 +4,27 @@
 
 **HEADLINE: 0/1 plan steps done; C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap))**
 
-generated: 2026-09-13T02:31:28Z  |  HEAD: 42aeef717
+generated: 2026-09-13T02:36:56Z  |  HEAD: ddaf141ed
 
 ## 1. Where we are against the plan (notes/PLAN_NEXT_12H.md)
 - UNKNOWN -- notes/PLAN_NEXT_12H.md not readable
 
 ## 2. What is running right now
 Heartbeats (data/heartbeats/*.timestamp):
-  - exp_dev: 21808 min ago <-- STALE
-  - orchestrator: 67874 min ago <-- STALE
-  - research: 68 min ago
-  - skunkworks: 70546 min ago <-- STALE
-  - testbed: 107120 min ago <-- STALE
+  - exp_dev: 21814 min ago <-- STALE
+  - orchestrator: 67880 min ago <-- STALE
+  - research: 73 min ago
+  - skunkworks: 70551 min ago <-- STALE
+  - testbed: 107125 min ago <-- STALE
 data/ directories touched in the last 180 min:
   - logs: 0 min ago, NO metrics.json yet (likely in-flight)
   - local_cpu_queue: 0 min ago, NO metrics.json yet (likely in-flight)
-  - exp_semantic_hub_convergence_v1: 1 min ago, NO metrics.json yet (likely in-flight)
-  - hook_state: 1 min ago, NO metrics.json yet (likely in-flight)
-  - sense_wire_wic_liveness_v1: 1 min ago, has metrics.json
-  - exp_causal_direction_active_selection_v1: 5 min ago, has metrics.json
-  - exp_grounded_causal_learner_organ_v1: 5 min ago, has metrics.json
-  - grounding_quality_wic_v1: 7 min ago, NO metrics.json yet (likely in-flight)
+  - hook_state: 2 min ago, NO metrics.json yet (likely in-flight)
+  - exp_causal_store_prior_plus_intervention_v1: 3 min ago, has metrics.json
+  - exp_structured_matcher_event_goal_v1: 3 min ago, has metrics.json
+  - .metrics_sync: 4 min ago, NO metrics.json yet (likely in-flight)
+  - exp_joint_temporal_realreasoner_v1: 5 min ago, has metrics.json
+  - exp_joint_temporal_survival_v1: 5 min ago, has metrics.json
 notes/STATUS.md WHAT IS RUNNING (verbatim):
   - **OPERATING MODEL (owner 08-22): STRATEGY SESSION (this) + SOLVER SESSIONS.** This session keeps the 10k view, writes/verifies briefs, and INTEGRATES owner-DONE; solvers each solve one bounded problem.
   - **RESEARCH DELIVERED + FOLDED (CONT-73):** the pri-3 parser BF syntax-acquisition drill completed + vetted first-hand -> `RESEARCH_bf_acquisition.md`. Key: the 'frozen supervised hard-decode' = TWO orthogonal defects (graded-decode route-through NOW + the acquisition question); category-induction-from-prediction is a verified in-substrate HARD_PASS, structure-induction hit an UNDER-POWERED located ceiling (3k/12.5k sents, 0 EM). Cheap first build folded into the brief (re-run exp_predictive_selfsup_parser_v1 full-scale + EM, composing the pri-2 directional channel + graded Matrix-Tree decode). NOTHING now running.
@@ -40,12 +40,12 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
 - C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap)) -- source: data\exp_orthographic_floor_vet_v1\metrics.json
 
 ## 4. What moved since the last snapshot
-- 14 new commit(s) since last snapshot (HEAD ccc50046a -> 42aeef717)
-- data/ directory count: 9896 -> 9914 (+18)
+- 2 new commit(s) since last snapshot (HEAD 42aeef717 -> ddaf141ed)
+- data/ directory count: 9914 -> 9915 (+1)
 
 ## 5. What is stuck (blocked / pending / no owner)
 - (none found)
 
 <!-- SNAPSHOT_STATE_JSON
-{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 9914, "generated_at": "2026-09-13T02:31:28Z", "head_commit": "42aeef71772847424f5ad94a0da2dabe43e83142", "step_status": {}}
+{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 9915, "generated_at": "2026-09-13T02:36:56Z", "head_commit": "ddaf141edd93f6c656ca847d36b51eb30cafc750", "step_status": {}}
 -->

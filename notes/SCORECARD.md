@@ -106,7 +106,7 @@ Long term (the next few months):
 
 <!-- AUTO:BEGIN (written by tools/scorecard.py; edit the sections ABOVE, not this) -->
 
-Last full check: 2026-09-13T01:58:31.383502+00:00 (9 on record). Generated 2026-09-13T02:36:20+00:00.
+Last full check: 2026-09-13T02:45:04.769855+00:00 (10 on record). Generated 2026-09-13T02:55:02+00:00.
 
 | Ability | Group | How well | Compared with a simple rule | Since the previous check | Brain-faithful? |
 |---|---|---|---|---|---|
@@ -147,6 +147,6 @@ Last full check: 2026-09-13T01:58:31.383502+00:00 (9 on record). Generated 2026-
 | Knowing when to hold back on 'who was acted on' | Knowing its limits | right 96 in 100 | clearly better than the simple rule (87 in 100) | unchanged since the previous check | brain model; one part is a stand-in we are replacing |
 | Knowing when to hold back on a place or time attachment | Knowing its limits | right 84 in 100 | clearly better than the simple rule (76 in 100) | unchanged since the previous check | uses a stand-in we are replacing |
 
-Brain-faithfulness of the 86 building blocks: 7 copy the brain's math exactly, 73 are brain models with open details, 6 are stand-ins being replaced (arc_labeler, arc_parser, arceager_parser, commonnoun_binder, parse_confidence, pos_tagger).
+Brain-faithfulness of the 87 building blocks: 8 copy the brain's math exactly, 73 are brain models with open details, 6 are stand-ins being replaced (arc_labeler, arc_parser, arceager_parser, commonnoun_binder, parse_confidence, pos_tagger).
 
 <!-- AUTO:END -->

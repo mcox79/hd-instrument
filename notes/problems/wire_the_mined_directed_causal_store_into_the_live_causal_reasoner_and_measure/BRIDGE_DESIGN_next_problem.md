@@ -45,6 +45,20 @@ sign-exhausted ceiling to beat); a NO-intervention observational baseline (confo
 density-matched + direction-scramble nulls (per this solve's control battery, to avoid the density/topicality artifacts
 that inflated the store's +0.139). Grade on MODERN gold (WIQA science slice; 19c banned).
 
+## MEASURED -- science-slice bridge PROTOTYPE built (option a, `exp_causal_bridge_science_slice_v1.py`, witness 4/4)
+A runnable grounded model (a `causal_reasoner.CausalGraph` built from `causal_sign_channel`'s 20 stoichiometric
+REACTIONS + physics/thermo INFLUENCES) answers WIQA science items by simulated do(), on 30.8% coverage (n=1541):
+- **Grounded simulation BEATS the text-mined store on necessity +0.111 CI[0.077,0.145]** (0.653 vs 0.542) -- the
+  bridge's real value: grounded > text where grounding exists.
+- **Held to the store solve's OWN control battery, it TIES the honest twins:** the density-matched topology twin on
+  necessity (+0.027 n.s. -- the existence axis is direction-insensitive, the recurring lesson) and the SIGN-SCRAMBLED
+  twin on the 3-way (+0.0000 at loose coverage -- reproduces causal_sign_channel: only the PASSAGE-CONTEXT-GATED ~14%
+  sign beats the falsifier; loose grounding ties).
+**Honest verdict:** grounded simulation > text-mined store (real), but a CLEAN grounded win needs (1) the passage-context
+GATE (causal_sign_channel, already landed) and (2) a DIRECTION-SENSITIVE / cause-SELECTION science instrument -- WIQA is
+existence+sign, not cause-order, so it cannot reward the grounded model's direction (the same instrument gap this whole
+solve hit). The bridge MECHANISM works; the clean measured win needs the gate + the right instrument.
+
 ## Reuse (do not rebuild)
 `GroundedCausalLearner` (`exp_grounded_causal_learner_organ_v1.py`), `hdlab/causal_reasoner` (rung-2/3 do-sim),
 `hdlab/causal_sign_channel` (formal-model sign = the science-slice grounded dynamics), `hdlab/sensorimotor_spoke` +
