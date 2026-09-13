@@ -419,3 +419,15 @@ competent-reader reference ~0.85–0.90.
   a consumer that reads P(head) rather than the MAP (marg > hard). Board A/B with `HDLAB_HEADS_SOURCE=attachment_arm` running.
   Ops: a RUNNER agent's background shell dies when the agent's turn ends — long runs must be launched from the main session's Bash
   (foreground → auto-moved to background) or the agent must block on them.
+- **CATEGORIES → HEADS HAND-OFF MEASURED (2026-09-12 22:20; `tools/build_attachment_validities.py --categories`, 1.5k sentences,
+  β=10, 3 rounds, UD-EWT test 700): reading-induced categories (type-level asset k=68+2, clusters NAMED by majority UPOS; agreement
+  with UPOS on the test slice 0.7065) in place of UPOS → attachment arm UAS 0.4649 vs 0.5640 with UPOS on the SAME slice (−0.099).**
+  Per relation (induced vs UPOS): root 0.611 vs 0.79, nsubj 0.523 vs 0.74, obj 0.502 vs 0.735, obl 0.344 vs 0.486, nmod 0.277 vs
+  0.264 (=), xcomp 0.511 vs 0.533, ccomp 0.086 vs 0.112, advcl 0.052 vs 0.037, **conj 0.086 vs 0.24**, case 0.63 vs 0.737, punct 0.245
+  vs 0.268. THE FIRST NUMBER FOR A CHAIN LEARNED FROM READING ALONE (categories from distribution + heads from co-occurrence + meaning):
+  **0.465** (floor 0.285; supervised parser on supervised tags 0.78). WHERE THE TOP RUNG'S SIGNAL IS LOST, by consumer (§2e): (a) the
+  PREDICATE class — unseen verbs fall to NOUN (type-level asset, 20k words, no form/suffix cue: 'barked' → NOUN) so the semantic
+  teacher and verbarg construction miss them → root/nsubj/obj; (b) the CLOSED CLASSES — CCONJ merged with ADP ('because' → AUX) →
+  the coord/clausal constructions cannot fire → conj 0.09; (c) case 0.63: ADP partly merged. nmod/advcl unaffected (already weak).
+  This is pri-15's target, now with the hand-off number the brief asks for; the build tool's `--categories` is the test harness.
+  Also: the UPOS reference on 1.5k sentences (0.5640) ≥ the 6k asset (0.5573) — volume flat for this learner (third confirmation).
