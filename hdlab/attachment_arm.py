@@ -816,18 +816,66 @@ INCR_HOLD = float(os.environ.get("HDLAB_ARM_HOLD", "0.0"))
 # subject noun expects a verb) plus INCR_HOLD; with mode "const" it is INCR_HOLD alone (measured 0.43 vs 0.63 on 25 sentences: a
 # hold without evidence loses to any positive left attachment -- determiners/adjectives/subjects collapsed). Nothing from a word
 # not yet heard is read: the expectation is a function of the arriving word's category and the learned table only.
-INCR_HOLD_MODE = os.environ.get("HDLAB_ARM_HOLD_MODE", "expect")
+INCR_HOLD_MODE = os.environ.get("HDLAB_ARM_HOLD_MODE", "expect")   # "expect" (learned asset, else table max) | "max" (table max only) | "const"
 INCR_NORM = os.environ.get("HDLAB_ARM_INCR_NORM", "sum")          # "sum" (one score per word) | "local" (softmax per arrival)
 
 
+HOLD_ASSET = os.path.join(_REPO, "data", "frontend_assets", "attachment_hold_expect_v1.json")
+_HOLD_TAB: Optional[Dict[str, Dict[str, float]]] = None
+
+
 def hold_expectation(pos: Sequence[str], table: Optional[Dict[str, object]] = None) -> np.ndarray:
-    """Per word (index 1..n): the strongest learned strength of a head-to-the-right configuration for the word's category."""
+    """Per word (index 1..n): the value of HOLDING the word for a head still to come.
+    mode "learned" (default when the asset exists): P(head to the right | category, a verb has/has not arrived yet) x the mean
+    realised activation of such arcs in the organ's OWN decoded trees over training text (self-supervised; no treebank heads) --
+    measured 10:20: the table-max bound below was 3-5x too LOW (DET 2.1 vs 6.6 realised; ADP 1.9 vs 10.4), so words attached left
+    too eagerly (det 0.895 -> 0.831). Fallback: the strongest right-head configuration strength of the category."""
+    global _HOLD_TAB
     tab = table or load_attachment_validities(); ix = _arc_index(tab)
-    out = np.zeros(len(pos) + 1)
+    if _HOLD_TAB is None:
+        try:
+            with open(HOLD_ASSET, encoding="utf-8") as f:
+                _HOLD_TAB = json.load(f)["expect"]
+        except Exception:
+            _HOLD_TAB = {}
+    out = np.zeros(len(pos) + 1); verb_seen = False
     for j, p in enumerate(pos, start=1):
-        c = ix.cats.get(p, ix.unk)
-        out[j] = float(ix.cfg_strength[ix.cfg_id[:, c, 1]].max())
+        e = _HOLD_TAB.get(p, {}).get("1" if verb_seen else "0") if INCR_HOLD_MODE != "max" else None
+        if e is None:
+            c = ix.cats.get(p, ix.unk); e = float(ix.cfg_strength[ix.cfg_id[:, c, 1]].max())
+        out[j] = float(e)
+        if p == "VERB":
+            verb_seen = True
     return out
+
+
+def build_hold_expectation(out: str = HOLD_ASSET, cap: int = 3000, table: Optional[Dict[str, object]] = None) -> dict:
+    """Learn the hold expectation from the organ's own trees (map1 decode over training text with the category supply)."""
+    from tools.build_attachment_validities import sentences, TRAIN
+    tab = table or load_attachment_validities()
+    acc: Dict[str, Dict[str, List[float]]] = defaultdict(lambda: {"0": [], "1": []}); cnt: Dict[str, Dict[str, List[int]]] = defaultdict(lambda: {"0": [0, 0], "1": [0, 0]})
+    for toks, pos, _, _ in sentences(TRAIN, cap=cap, maxlen=60):
+        A, n = arc_scores(toks, pos, tab); hd = map_tree_single_root(A, n); vs = False
+        for j in range(1, n + 1):
+            p = pos[j - 1]; k = "1" if vs else "0"; h = hd.get(j)
+            if h is None:
+                continue
+            if h > j and np.isfinite(A[h][j]):
+                acc[p][k].append(float(A[h][j])); cnt[p][k][0] += 1
+            cnt[p][k][1] += 1
+            if p == "VERB":
+                vs = True
+    expect = {}
+    for p in acc:
+        expect[p] = {}
+        for k in ("0", "1"):
+            r, t = cnt[p][k]
+            if t >= 5:
+                expect[p][k] = (r / t) * (float(np.mean(acc[p][k])) if acc[p][k] else 0.0)
+    d = {"expect": expect, "cap": cap, "note": "P(right head | cat, verb_seen) x mean realised right-arc activation; organ's own map1 trees"}
+    with open(out, "w", encoding="utf-8") as f:
+        json.dump(d, f, indent=1)
+    return d
 INCR_STATS = {"sentences": 0, "incomplete_words": 0, "words": 0}
 
 
@@ -919,7 +967,7 @@ def decode(toks: Sequence[str], pos: Sequence[str], A: np.ndarray, n: int, temp:
            table: Optional[Dict[str, object]] = None) -> Tuple[Dict[int, int], Dict[int, Dict[int, float]]]:
     """Point heads + graded posterior under the configured decode, with the occupancy repair and the punctuation convention."""
     if DECODE == "incr":
-        hv = hold_expectation(pos, table) + INCR_HOLD if INCR_HOLD_MODE == "expect" else INCR_HOLD
+        hv = hold_expectation(pos, table) + INCR_HOLD if INCR_HOLD_MODE != "const" else INCR_HOLD
         hd, post = incremental_tree(A, n, INCR_BEAM, hv, temp)             # module globals read at call time (sweepable)
     elif DECODE == "mbr":
         hd, post = mbr_tree(A, n, temp)
