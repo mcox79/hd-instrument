@@ -34,6 +34,26 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
+### 2026-09-13 ~01:30 — OVERNIGHT (owner asleep; autoloop ARMED; plan = `notes/OVERNIGHT_PLAN_2026-09-12.md`, log at its end)
+  - **THE LIVE CHAIN IS NOW ORGAN-BY-ORGAN BF-OR-BF_SPIRIT from tokens to roles, behind ONE shared frontend (`hdlab/frontend.py`):**
+    tokens (corpus / `frontend.tokenize`) -> categories `hdlab/lexical_categories.py` (count-based generative model + forward-backward
+    posterior; LIVE DEFAULT, 0.912 vs perceptron 0.945; reading-acquisition arm `tools/build_lexical_categories_from_reading.py`)
+    -> lemma `hdlab/morphology.py` (glass-box morphy, BF) -> heads `hdlab/attachment_arm.py` (semantic bootstrapping; self-grown
+    plausibility store; graded category hand-off; copular convention; Hindle-Rooth PP cue; `HDLAB_HEADS_SOURCE=attachment_arm`) ->
+    roles (reads P(head)). The board arms (patient/agent/state/causation) now read the SAME frontend, so both switches reach the board.
+  - **Numbers (UD-EWT test 700, gold categories):** attachment arm 0.5583 (root 0.796 nsubj 0.724 obj 0.688 obl 0.451 nmod 0.185
+    xcomp 0.686 ccomp 0.414); under the category organ's tags 0.5362 hard / 0.5400 graded; fully reading-learned chain (induced
+    categories) 0.4649 (pri-15's target). STATE dim under BF heads 0.527 -> 0.6587 (CI-sep) after the convention-agnostic copula read
+    + copular convention. Boards: baseline 0.6395; BF heads (reader only) 0.6294 (only STATE moved); counts tagger (reader only)
+    0.6385 (only STATE moved, 0.799). Post-routing boards running.
+  - **INTEGRATED tonight (owner-DONE):** pri-12 morphology (BF, 13 repoints); pri-9 grounding-quality instrument; pri-13 semantic hub
+    (PARTIAL: `hdlab/semantic_hub.py` representation organ, fusion read kept); pri-10 causal store (REFUTED -> durable negative, +0.139
+    retired). Heads-rung reconciliation: the arm subsumes the pri-2 reading-learned scorer; its Hindle-Rooth PP cue folded.
+  - **Fold queue:** `notes/UPSTREAM_FOLD_QUEUE_2026-09-13.md` (13 proven-but-unfolded upstream items). Transfer to the desktop
+    COMPLETE; delta bundle `delta_20260913T032825Z.bundle` sent (see MIGRATION_README step 5b).
+  - **Open now:** post-routing board A/Bs (counts; counts + BF heads); PP-cue asset rebuild (obl/nmod); reading-acquired category
+    organ (1M lines) agreement + hand-off; then Phase 2 consumer repairs one at a time.
+
 ### 2026-09-12 ~14:30 local — DEVELOPMENT RESUMED ON THE LAPTOP (owner) while the transfer streams to the desktop over SSH/Tailscale (~0.3–0.5 GB/min; a delta sync follows)
   - **HEADS RUNG, built to a spec:** `notes/RESEARCH_attachment_organ_spec_2026-09-12.md` (what the organ computes, how the brain separates signals optimally, every consumer's signal requirement). First build = probe v18, attachment as configuration-conditioned CUE COMPETITION with strengths learned from soft tree-posterior counts (no treebank, no hand-authored prior): **UD-EWT test UAS 0.4715 (r0) → 0.4801 (anchored self-teaching)** vs the cached reading-learned scorer 0.4626 and its decode-time-constrained 0.4755; twin 0.03; unconditioned cues drift. Heads→roles hand-off +0.0016 (v19). Lexical cue too sparse at 1.5k sentences. **Owner: the brain is 0.9+; we are far behind** — gap = experience volume (probe v20: 20k/60k Simple-Wiki sentences, running), a learned argument-structure lexicon, meaning feeding structure, incremental prediction.
   - **HEADS RUNG, evening:** two research drills kept (`RESEARCH_syntax_acquisition_brain_and_labelfree_parsers_2026-09-12.md`, `RESEARCH_sota_parser_anatomy_and_glassbox_recovery_2026-09-12.md`): the label-free field ceiling is ~0.65–0.68, not 0.9; labels buy CONVENTION (~100 gold trees → 75–80 UAS). Our ERROR ANATOMY vs the supervised parser: a third of the 0.30 gap is function-word convention (punct/case/cop/det/cc/flat), comprehension-relevant gap ≈ 0.10. Built: constructions as coalition cues (full 0.4626 → 0.5303, prior-informed), function-word frames, a CONVENTION layer at decode (smoke 0.505 → 0.541), the landed organ `hdlab/attachment_arm.py` (+ learner, witness 13/13). Knowledge-free bootstrap: 0.272 → 0.4495 (5 rounds). Negatives recorded: volume (closed), the learning-time mechanism bundle (−0.04), occupancy (second-order mean-field) cue, induced constructions (two forms), meaning teacher (locality artefact). DECISIVE run in flight: knowledge-free + constructions + convention layer.
