@@ -62,6 +62,8 @@ M_SHRINK = 2.0
 # learned competition (the comprehension organ) is untouched. Set CONVENTION_BONUS = 0.0 to read the pure learned organ.
 CONVENTION_BONUS = 5.0
 BF_TSP_ASSET = os.path.join(_REPO, "data", "frontend_assets", "typed_selectional_preference_bf_v1.json")   # self-grown plausibility
+BF_TSP_SUBJ_ASSET = os.path.join(_REPO, "data", "frontend_assets", "typed_selectional_preference_bf_subj_v1.json")   # self-grown SUBJ slot
+ORDER_AWARE = os.environ.get("HDLAB_SBT_ORDER_AWARE", "1") != "0"
 _TABLE: Optional[Dict[str, object]] = None
 
 
@@ -539,6 +541,12 @@ class SemanticBootstrapTeacher:
         path = tsp_asset or (BF_TSP_ASSET if os.path.isfile(BF_TSP_ASSET) else None)
         self.tsp = TypedSelectionalPreference.load(path) if path else get()
         self.tsp_source = os.path.basename(path) if path else "default typed_selectional_preference asset"
+        # ORDER-AWARE bootstrapping (2026-09-13): object association applies to nominals AFTER the verb, SUBJECT association (the
+        # same self-grown store's SUBJ slot) to nominals BEFORE it -- semantic bootstrapping maps roles together with word order
+        # (Pinker 1984 canonical mapping). Before this, object plausibility pulled pre-verbal nominals to a following verb
+        # (48% of object misses went to the next verb on the right). Falls back to order-blind if the SUBJ asset is absent.
+        self.tsp_subj = TypedSelectionalPreference.load(BF_TSP_SUBJ_ASSET) if (ORDER_AWARE and os.path.isfile(BF_TSP_SUBJ_ASSET)) else None
+        self._cache_subj: Dict[Tuple[str, str], float] = {}
         self.beta = float(beta); self.lam = float(lam); self._cache: Dict[Tuple[str, str], float] = {}
 
     def plausibility(self, verb_tok: str, noun_tok: str) -> float:
@@ -552,6 +560,17 @@ class SemanticBootstrapTeacher:
             self._cache[key] = float(s) if s is not None else 0.0
         return self._cache[key]
 
+    def plausibility_subj(self, verb_tok: str, noun_tok: str) -> float:
+        key = (verb_tok.lower(), noun_tok.lower())
+        if key not in self._cache_subj:
+            v = lemma_verb(verb_tok).lower(); s = None
+            try:
+                s = self.tsp_subj.score(v, noun_tok.lower()) if self.tsp_subj.covers(v) else None
+            except Exception:
+                s = None
+            self._cache_subj[key] = float(s) if s is not None else 0.0
+        return self._cache_subj[key]
+
     def score_matrix(self, toks: Sequence[str], pos: Sequence[str]) -> Tuple[np.ndarray, int]:
         n = len(toks); A = np.full((n + 1, n + 1), -np.inf); best_arg = np.zeros(n + 1)
         for j in range(1, n + 1):
@@ -560,7 +579,11 @@ class SemanticBootstrapTeacher:
                     continue
                 sc = -self.lam * math.log(abs(h - j) + 1.0)
                 if pos[h - 1] == "VERB" and pos[j - 1] in NOMINAL:
-                    p = self.plausibility(toks[h - 1], toks[j - 1]); sc += self.beta * p; best_arg[h] = max(best_arg[h], p)
+                    if self.tsp_subj is not None:
+                        p = self.plausibility(toks[h - 1], toks[j - 1]) if j > h else self.plausibility_subj(toks[h - 1], toks[j - 1])
+                    else:
+                        p = self.plausibility(toks[h - 1], toks[j - 1])
+                    sc += self.beta * p; best_arg[h] = max(best_arg[h], p)
                 A[h][j] = sc
         for j in range(1, n + 1):
             if pos[j - 1] in FORM:

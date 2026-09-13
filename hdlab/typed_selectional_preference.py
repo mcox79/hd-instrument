@@ -99,7 +99,9 @@ class TypedSelectionalPreference:
         self.n_fillers: Dict[str, float] = {}
 
     # ---- offline build (the consolidation step) ----------------------------------------------------
-    def fit(self, store_path: str = STORE, exclude_pairs=None, scramble: bool = False, seed: int = 20260910):
+    def fit(self, store_path: str = STORE, exclude_pairs=None, scramble: bool = False, seed: int = 20260910, role: str = "OBJ"):
+        """role: which slot's fillers define the class profile -- "OBJ" (default; the patient/undergoer association) or "SUBJ"
+        (the agent/subject association; 2026-09-13 for the order-aware semantic-bootstrapping teacher)."""
         exclude_pairs = exclude_pairs or set()
         with open(store_path, "rb") as f:
             SF = pickle.load(f)["slot_filler"]
@@ -107,8 +109,8 @@ class TypedSelectionalPreference:
         Nv: Dict[str, float] = defaultdict(float)
         Gc: Dict[str, float] = defaultdict(float)
         G = 0.0
-        for (verb, role), fillers in SF.items():
-            if role != "OBJ":
+        for (verb, slot_role), fillers in SF.items():
+            if slot_role != role:
                 continue
             vl = _vlemma(verb)
             for fw, c in fillers.items():
@@ -206,7 +208,8 @@ if __name__ == "__main__":
         # (tools/grow_selectional_store_bf.py) fitted into a separate asset for the A/B against the parser-extracted one.
         store = sys.argv[sys.argv.index("--store") + 1] if "--store" in sys.argv else STORE
         out = sys.argv[sys.argv.index("--out") + 1] if "--out" in sys.argv else ASSET
-        m = TypedSelectionalPreference().fit(store_path=store); m.save(out)
+        role = sys.argv[sys.argv.index("--role") + 1] if "--role" in sys.argv else "OBJ"
+        m = TypedSelectionalPreference().fit(store_path=store, role=role); m.save(out)
         print({"n_verbs": len(m._A), "store": os.path.relpath(store, _REPO), "asset": os.path.relpath(out, _REPO)})
     else:
         m = get()
