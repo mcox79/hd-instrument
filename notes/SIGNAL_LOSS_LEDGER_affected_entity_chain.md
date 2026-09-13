@@ -492,3 +492,8 @@ competent-reader reference ~0.85–0.90.
   log P(p|verb)/P(p|noun) from UNAMBIGUOUS PPs; PP-decision subpopulation 0.453 -> 0.567, +0.035 preposition-specific twin-controlled)
   = the parked pri-17 lever, already proven -> folding it into the arm as a cue. Its 2nd-order readout and online re-estimation were
   located negatives (consistent with tonight's occupancy negative).
+- **BOARD, READER-ONLY TAGGER SWITCH (pre-routing; `HDLAB_TAG_SOURCE=counts`, supervised heads; 2026-09-12 23:30): AGG 0.6395 ->
+  0.6385; every dimension identical except STATE 0.828 -> 0.7989 (still CI-sep over 0.5714).** Only the reader's own tag path moved
+  (the who-did-what / coref arms had private taggers until the shared frontend landed at 00:15) -- the count-based category organ costs
+  the copular reader 3 points, consistent with its 0.912 vs 0.945 tag accuracy. Post-routing boards (counts reaching every arm; counts +
+  BF heads) are the next A/B.
