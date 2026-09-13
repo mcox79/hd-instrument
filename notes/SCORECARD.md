@@ -59,7 +59,10 @@ near the top about 38 times in 100 where the old method managed about 3.
   with no labels agree with the reference on 74 in 100 words (the earlier try got 32), and they keep learning as text is read.
 - 2026-09-12 (evening): the next part up the chain, deciding which word each word depends on, was rebuilt the brain's way: a
   competition of cues (closeness, word class pairs, verb habits, punctuation as written pauses, and learned phrase patterns) whose
-  weights are learned from reading with no labelled examples. From nothing hand-written it reaches 48 in 100 correct attachments;
+  weights are learned from reading with no labelled examples. From nothing hand-written it reached 48 in 100 correct attachments — but a closer look showed it did not know that
+  the verb governs its subject and object (objects right only 19 in 100). Late evening: letting the event's action claim its
+  plausible participants (how children are thought to learn grammar from meaning) fixed that — 56 in 100 attachments right,
+  objects 71, subjects 71, the sentence's main action 79 (was 41). Earlier, before that fix, the picture was:
   the previous best label-free method needed a hand-written table to reach 46. For honesty: a parser trained on forty thousand
   hand-corrected sentences reaches 78 here, people over 95, and the best anyone has published without labels is 68. Two research
   drills were kept; they show a third of our gap is bookkeeping convention (where the period or the preposition "attaches"), not
@@ -103,7 +106,7 @@ Long term (the next few months):
 
 <!-- AUTO:BEGIN (written by tools/scorecard.py; edit the sections ABOVE, not this) -->
 
-Last full check: 2026-09-12T17:15:08.947214+00:00 (7 on record). Generated 2026-09-13T01:01:49+00:00.
+Last full check: 2026-09-12T17:15:08.947214+00:00 (7 on record). Generated 2026-09-13T01:05:50+00:00.
 
 | Ability | Group | How well | Compared with a simple rule | Since the previous check | Brain-faithful? |
 |---|---|---|---|---|---|

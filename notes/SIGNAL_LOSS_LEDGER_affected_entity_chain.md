@@ -398,3 +398,13 @@ competent-reader reference ~0.85–0.90.
   (default 10 = the swept operating point, never adopted from the brain). Full rebuild (6k, 3 anchored rounds, α 0.8) running.
   Ops note: detached launches (`( … ) &`, PowerShell Start-Process) die with exit 127 / silently on this laptop; the Bash tool's
   background mode is intermittent; a FOREGROUND run that exceeds the tool timeout is moved to background and keeps running — use that.
+- **ASSET REBUILT WITH SEMANTIC BOOTSTRAPPING (2026-09-12 21:03; `tools/build_attachment_validities.py --beta 10 --eval`, 6k
+  sentences, 3 anchored rounds α 0.8; commit 32191dbfb): organ on UD-EWT test 700, gold categories: UAS 0.4792 → 0.5573** (teacher
+  alone 0.3156 — the student extracts the configuration statistics the teacher's own MAP parse does not show); per relation: root
+  0.413 → 0.791, nsubj 0.611 → 0.709, obj 0.189 → 0.708, obl 0.118 → 0.453, nmod 0.188 → 0.283, xcomp 0.256 → 0.591, ccomp 0.206 →
+  0.147 (↓), advcl 0.056 → 0.06, conj 0.236, case 0.743 → 0.735, punct 0.284 → 0.273. Witness 15/15 — the former known limit ('dog'
+  → verb) is now an assertion. The comprehension core (who did what to whom) is RESTORED above the prior-informed path (0.5303) that
+  the hand-authored table used to buy; remaining comprehension-relevant losses: obl/nmod (PP attachment — brief pri-17), ccomp/advcl
+  (clausal complements need verb-frame occupancy — brief pri-16 sibling/occupancy), conj (parallelism). NEXT on the chain: hand the
+  head posterior DOWN to the role competition (`graded_role_assigner.coarse_roles` reads heads) and re-measure the 596-item decision
+  + the board (haiku runner) — a downstream dip is a consumer to repair, not a failure of the rung.

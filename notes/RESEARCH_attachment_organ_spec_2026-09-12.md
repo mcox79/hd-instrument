@@ -112,8 +112,13 @@ rational parsing); Kjelgaard & Speer 1999 (prosodic boundaries); Altmann & Steed
 | **CONVENTION layer at decode (function-word frames), smoke** | **0.541** | conventions stated, not learned |
 | **LANDING: knowledge-free + constructions + convention layer, full** | **0.4186 → 0.4737 → 0.4826 → 0.4826** (twin 0.158) | the fully BF organ |
 | heads → roles hand-off (role competition over P(head)) | 0.8075 → 0.8091 role accuracy | small on UD-EWT; GUM next |
-Open: experience volume (probe v20: 20k/60k Simple-Wiki sentences), the lexicon at scale, meaning feeding structure, incremental
-prediction; then hand the posterior down to every consumer in §3 and re-measure the 596-item decision and the board rows.
+| ANATOMY of the landed knowledge-free organ | obj 0.189, obl 0.118, root 0.413 | conventions recovered, CORE collapsed |
+| + SEMANTIC BOOTSTRAPPING teacher (β 2 / 5 / 10), smoke | 0.4626 / 0.5341 / 0.5399; obj 0.13 / 0.72 / 0.76 | the predicate heads its participants |
+| hard meaning GATE (nominal+verb columns from meaning), smoke | 0.523, nmod 0.104 | NEGATIVE as built (loses noun→noun) |
+| **REBUILT ASSET: knowledge-free + semantic bootstrapping β10 + constructions + convention, full** | **0.5573**; root 0.791, nsubj 0.709, obj 0.708, obl 0.453, nmod 0.283, xcomp 0.591 | the organ on disk (21:03) |
+Open (now owner-run solver briefs): second-order sibling/occupancy (pri-16; ccomp/advcl/conj), PP attachment by unambiguous-case
+mining (pri-17; obl/nmod), closed-class categories + token-level readout at the top (pri-15); strategy: hand the posterior down to
+every consumer in §3 and re-measure the 596-item decision and the board rows.
 
 ## 7. LANDING GATE (owner 2026-09-12: "brain-foundational, compatible with the way we hold knowledge, efficient")
 1. **BF bootstrap, no indirect hand-authored knowledge.** The v18 student was taught by a cached teacher whose EM used the
