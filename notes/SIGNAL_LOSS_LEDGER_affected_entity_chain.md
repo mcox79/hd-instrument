@@ -378,3 +378,7 @@ competent-reader reference ~0.85–0.90.
   prior-informed 0.53. That is precisely the knowledge the hand-written universal table supplied, and the brain gets it from
   MEANING (the event predicate heads its participants; semantic bootstrapping). Next: the knowledge-free teacher + the MEANING
   teacher (probe v21: verb→nominal plausibility, root = the predicate with the most plausible arguments) as ONE teacher posterior.
+- **Core-structure readout (smoke 1.5k/150), knowledge-free + constructions + convention layer: UAS 0.4594; obj 0.081, obl 0.037,
+  nmod 0.304, root 0.34, nsubj 0.495, xcomp 0.047, ccomp 0.0; + MEANING teacher (β=2): UAS 0.4626; obj 0.13, obl 0.067, root 0.353.**
+  The core stays broken in the knowledge-free regime (prior-informed path: obj 0.755): the co-occurrence teacher prefers noun→noun
+  neighbours and the meaning bonus at β=2 is too weak against its log-probabilities. Sweeping β (5, 10).
