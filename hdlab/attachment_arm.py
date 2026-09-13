@@ -698,9 +698,68 @@ def head_posterior(toks: Sequence[str], pos: Sequence[str], table: Optional[Dict
     A, n = arc_scores(toks, pos, table); return _punct_posterior(toks, pos, single_root_marginals(A, n, temp))
 
 
+# POINT DECODE (2026-09-13 06:30 local): "mbr" = minimum-Bayes-risk tree -- the single-rooted tree maximising the SUM of the arc
+# marginals (CLE over log P(head | dependent)); "map" = the highest-scoring tree. Measured on UD-EWT test: the per-token argmax of
+# the marginals beat the MAP tree on every content relation (ccomp 0.56 vs 0.50, advcl 0.23 vs 0.15, conj 0.29 vs 0.25, xcomp
+# 0.70 vs 0.68, obl 0.45 vs 0.43) but is not a tree (87/300 sentences: several roots / cycles; root 0.69 vs 0.81) -- the MBR tree
+# keeps the graded belief's choices AND the tree constraint. The brain commits on its graded belief, not on the single best parse.
+# DEFAULT "map1" (2026-09-13 06:35 local): the MAP tree constrained to ONE root (the MAP root with the highest root score). The
+# arborescence routine lets several words take the root arc; that "multi-root MAP" scored 0.5956 with root 0.813 only because the
+# extra roots were counted, and it handed consumers several disconnected clauses. Single-root MAP: UAS 0.6034 (ccomp 0.500 -> 0.672,
+# advcl 0.149 -> 0.313, xcomp 0.679 -> 0.730, obl 0.430 -> 0.463, conj 0.253 -> 0.300, obj 0.725, nsubj 0.767; root 0.744 honest).
+# MBR (summed-marginal tree) with the same root: 0.5855 -- worse once both are single-rooted; kept selectable. "map" = the old multi-root.
+DECODE = os.environ.get("HDLAB_ARM_DECODE", "map1")
+ROOT_PICK = os.environ.get("HDLAB_ARM_ROOT_PICK", "score")   # among several MAP roots: "score" (highest root score) | "left" (leftmost)
+
+
+def mbr_tree(A: np.ndarray, n: int, temp: float = 1.0) -> Tuple[Dict[int, int], Dict[int, Dict[int, float]]]:
+    """(heads, marginals): the single-root tree maximising expected arcs-correct under the Matrix-Tree marginals of A."""
+    map_tree = chu_liu_edmonds(A, n)                       # BEFORE the marginals: single_root_marginals works on A in place
+    post = single_root_marginals(A.copy(), n, temp)
+    M = np.full((n + 1, n + 1), -np.inf)
+    for j, d in post.items():
+        for h, pr in d.items():
+            if pr > 0.0 and np.isfinite(A[h][j]):
+                M[h][j] = math.log(pr)
+    # ONE root, chosen by the MAP tree: the summed-marginal tree spends several root arcs (root 0.70), and the largest root
+    # MARGINAL is a worse root picker still (0.60) -- the MAP tree's root (0.81) is the calibrated choice; the rest is MBR.
+    roots = [j for j, h in map_tree.items() if h == 0]
+    if roots:
+        # the MAP decode is NOT single-rooted (the arborescence routine lets several words take the root arc; 2026-09-13 finding:
+        # its root recall 0.81 counted those extra roots) -- ONE root: the MAP root with the highest root score.
+        r = max(roots, key=lambda j: (float(A[0][j]) if np.isfinite(A[0][j]) else -1e18, post.get(j, {}).get(0, 0.0)))
+        M[0, :] = -np.inf; M[:, r] = -np.inf; M[0][r] = 0.0
+    return chu_liu_edmonds(M, n), post
+
+
+def map_tree_single_root(A: np.ndarray, n: int) -> Dict[int, int]:
+    """MAP tree constrained to ONE root (the MAP root with the highest root score), for a like-for-like comparison with MBR."""
+    mt = chu_liu_edmonds(A, n); roots = [j for j, h in mt.items() if h == 0]
+    if len(roots) <= 1:
+        return mt
+    r = roots[0] if ROOT_PICK == "left" else max(roots, key=lambda j: float(A[0][j]) if np.isfinite(A[0][j]) else -1e18)
+    B = A.copy(); B[0, :] = -np.inf; B[:, r] = -np.inf; B[0][r] = 0.0
+    return chu_liu_edmonds(B, n)
+
+
+def decode(toks: Sequence[str], pos: Sequence[str], A: np.ndarray, n: int, temp: float = 1.0) -> Tuple[Dict[int, int], Dict[int, Dict[int, float]]]:
+    """Point heads + graded posterior under the configured decode, with the punctuation convention applied to both."""
+    if DECODE == "mbr":
+        hd, post = mbr_tree(A, n, temp)
+    elif DECODE == "map1":
+        hd = map_tree_single_root(A, n); post = single_root_marginals(A.copy(), n, temp)
+    else:
+        hd = chu_liu_edmonds(A, n); post = single_root_marginals(A.copy(), n, temp)
+    hd = punct_convention(toks, pos, hd)
+    for j in range(1, len(toks) + 1):
+        if PUNCT_CONVENTION and pos[j - 1] == "PUNCT" and j in post:
+            post[j] = {hd[j]: 1.0}
+    return hd, post
+
+
 def heads(toks: Sequence[str], pos: Sequence[str], table: Optional[Dict[str, object]] = None) -> Dict[int, int]:
-    """MAP heads (CLE) -- for consumers that insist on a point; prefer head_posterior."""
-    A, n = arc_scores(toks, pos, table); return punct_convention(toks, pos, chu_liu_edmonds(A, n))
+    """Point heads (MBR tree by default; MAP with HDLAB_ARM_DECODE=map) -- for consumers that insist on a point; prefer head_posterior."""
+    A, n = arc_scores(toks, pos, table); return decode(toks, pos, A, n)[0]
 
 
 # ---------------------------------------------------------------------------------------------------------------------------------
@@ -751,7 +810,7 @@ def head_posterior_graded(toks, pos, tag_post, table=None, temp: float = 1.0) ->
 
 
 def heads_graded(toks, pos, tag_post, table=None) -> Dict[int, int]:
-    A, n = arc_scores_graded(toks, pos, tag_post, table); return punct_convention(toks, pos, chu_liu_edmonds(A, n))
+    A, n = arc_scores_graded(toks, pos, tag_post, table); return decode(toks, pos, A, n)[0]
 
 
 # ---------------------------------------------------------------------------------------------------------------------------------

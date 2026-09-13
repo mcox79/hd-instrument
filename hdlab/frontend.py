@@ -83,14 +83,23 @@ class Parser:
     def parse(self, tokens: Sequence[str], categories: Sequence[str], tag_posterior=None) -> ParseOut:
         toks = list(tokens); pos = list(categories)
         if self._AA is not None:
-            post = (self._AA.head_posterior_graded(toks, pos, tag_posterior, self._tab) if tag_posterior
-                    else self._AA.head_posterior(toks, pos, self._tab))
-            heads: Dict[int, int] = {}; marg: Dict[int, float] = {}
+            # POINT ESTIMATE = A DECODED TREE (2026-09-13 06:30 local). Until now the point head was each word's ARGMAX MARGINAL:
+            # better than the MAP tree on every content relation but not a tree (87/300 test sentences had several roots or cycles;
+            # root 0.69 vs 0.81). Now the arm's `decode` (MBR tree by default: the single-root tree maximising the summed marginals,
+            # with the punctuation convention) gives the point heads; the marginals stay the graded signal; margin = P(head) - P(best other).
+            if tag_posterior:
+                A, n = self._AA.arc_scores_graded(toks, pos, tag_posterior, self._tab)
+            else:
+                A, n = self._AA.arc_scores(toks, pos, self._tab)
+            heads, post = self._AA.decode(toks, pos, A, n)
+            marg: Dict[int, float] = {}
             for j, d in post.items():
-                ranked = sorted(d.items(), key=lambda kv: -kv[1])
-                if ranked:
-                    heads[j] = int(ranked[0][0]); marg[j] = float(ranked[0][1] - (ranked[1][1] if len(ranked) > 1 else 0.0))
-            return ParseOut(heads, marg, post)
+                if not d:
+                    continue
+                h = heads.get(j, 0); ph = float(d.get(h, 0.0))
+                alt = max((v for k, v in d.items() if k != h), default=0.0)
+                marg[j] = ph - float(alt)
+            return ParseOut(dict(heads), marg, post)
         W, pwc = self._ae
         h, cf, mg = pwc(toks, pos, W)
         return ParseOut(dict(h), dict(mg), None)
