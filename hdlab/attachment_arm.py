@@ -592,11 +592,14 @@ def arc_scores(toks: Sequence[str], pos: Sequence[str], table: Optional[Dict[str
     if sc.teacher is not None and "plaus" in ix.cue_tab:
         vid = ix.val_id["plaus"]; T = ix.cue_tab["plaus"]
         bare = nominal & ~np.array([j >= 2 and pos[j - 2] == "ADP" for j in range(1, n + 1)])
-        for h in np.flatnonzero(vh):
-            for j in np.flatnonzero(bare) + 1:
+        verbs = np.flatnonzero(vh).tolist(); deps = (np.flatnonzero(bare) + 1).tolist(); Cl = C.tolist(); Tl = T.tolist()
+        slot = sc.teacher.slot_plausibility
+        for h in verbs:
+            row = Cl[h]
+            for j in deps:
                 if j != h:
-                    val = ("S:" if h > j else "O:") + _plaus_bin(sc.teacher.slot_plausibility(toks, pos, int(h), int(j)))
-                    S[h, j - 1] += T[C[h, j - 1], vid.get(val, 0)]
+                    val = ("S:" if h > j else "O:") + _plaus_bin(slot(toks, pos, h, j))
+                    S[h, j - 1] += Tl[row[j - 1]][vid.get(val, 0)]
     # masks: no self-arcs, form classes never head, form classes never root when a word exists
     A = np.full((n + 1, n + 1), -np.inf); A[:, 1:] = S
     A[np.arange(1, n + 1), np.arange(1, n + 1)] = -np.inf
