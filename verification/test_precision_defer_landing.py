@@ -150,7 +150,15 @@ def main():
     pos = r._cached_tag(list(toks))
     heads_cached = r._cached_parse_heads(toks, pos)
     h_conf, c_conf, m_conf = r._cached_parse_conf(toks, pos)
-    H, C, M = AE.parse_with_conf(toks, pos, W)
+    # 2026-09-14 (strategy): the ONE shared parse is hdlab.frontend.parser() (the attachment arm's in-order decode + graded
+    # posterior; the supervised arc-eager parse_with_conf is the selectable baseline, not the live parse). The fold identity now
+    # reads: the cached (heads, conf, marg) equal a fresh frontend parse on the same tokens/categories/posterior, and the cached
+    # heads equal the cached conf-parse heads -- one parse yields all three.
+    import hdlab.frontend as FE
+    out = FE.parser().parse(list(toks), list(pos), tag_posterior=r._cached_tag_posterior(list(toks)))
+    H = {int(j): int(h) for j, h in out[0].items()}
+    M = {int(j): float(m) for j, m in out[1].items()}
+    C = {j: float((out[2] or {}).get(j, {}).get(h, 1.0)) for j, h in H.items()}
     keys = sorted({k[0] for k in r._read_parse_cache})
     w1 = (heads_cached == H and h_conf == H and c_conf == C and m_conf == M
           and ("parseconf" in keys) and ("parse" in keys))
