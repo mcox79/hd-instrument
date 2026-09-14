@@ -184,7 +184,7 @@ The brief authorises sweeping the **posterior mass** used for typing. The catego
 >
 > **19c CAVEAT, binding:** LitBank is 19c text and is BANNED from requirements. **These numbers are INFORMATIONAL**; the graded claim above is about the *instrument*, which is corpus-independent, not about the reader's coref ability.
 
-**AND THE WITNESS IS GREEN AGAIN**, run against the patched sources (no repo write):
+**AND THE WITNESS IS GREEN**, run THREE TIMES against the patched sources (no repo write) -- before the head-domain fix, after it, and again against the FINAL post-phase-7 tree (with `lower=True` explicit and the connective is-a seed). **All three produce the same digits**, which is the evidence that those later changes are inert on this path:
 
 ```
 PASS coref: n=200 questions; cluster-named (INFORMATIONAL) model=0.690 > recency=0.335 & mostfreq=0.505;
@@ -796,7 +796,7 @@ measured; what remains is either (i) bounded by arithmetic, (ii) owned by a name
 | is-a: strict / loose / connectives / wider gap | **BUILT x4** | monotone in recall, plateaus at +0.0076; the rest is a LABELLER |
 | the wire's head-domain defect | **BUILT + FIXED + MEASURED** | -0.0074 -> +0.0023; and the wire is then the simple predicate |
 | restore the case in `_mk_referent` | **BUILT, NULL, EXPLAINED** | the case is gone one level up |
-| the entity-QA id-space defect | **LOCATED + REPAIRED + WITNESSED** | 0 -> 200 questions, witness green twice |
+| the entity-QA id-space defect | **LOCATED + REPAIRED + WITNESSED** | 0 -> 200 questions, witness green THREE times, same digits |
 | no-regress for the entity patch | **RUN** | reader coref_acc IDENTICAL 0.6421; entity layer consolidates 7 files (-0.26%) |
 | the paired-subpopulation conversion | **BUILT, CI-SEPARATED** | +0.0193 [+0.0057,+0.0318] where the organ is right |
 | the reader's lowercasing | **LOCATED + MEASURED + PROPOSED + RUN END-TO-END** | -0.4076 PROPN F1 at the organ; the flip is SAFE (nothing broke), coref-neutral (0.6421 -> 0.6421), +108 referent files (+4.1%); the A/B is strategy's |
@@ -878,8 +878,9 @@ while another session integrates into it should re-run one arm on purpose, not h
    because an arm that matches its control to the digit is evidence of a broken arm, not of a null result** --
    and the first table I would have published said "the reader's lowercasing costs the board nothing".
 
-6. ~~The final confirmatory witness re-run was still in flight at hand-off.~~ **CLOSED -- it landed and it is
-   GREEN, with numbers BYTE-IDENTICAL to the pre-head-domain run:** `n=200 questions; cluster-named
+6. ~~The final confirmatory witness re-run was still in flight at hand-off.~~ **CLOSED TWICE -- it landed
+   green, and was then re-run a THIRD time against the final post-phase-7 tree, green again with the same
+   digits. All three runs:** `n=200 questions; cluster-named
    (INFORMATIONAL) model=0.690 > recency=0.335 & mostfreq=0.505; GOLD-FREE model=0.280 > recency=0.120
    (mostfreq=0.235); pos-control 88 > 17`. **The prediction I recorded in advance held**: the head-domain
    change touches only spans carrying a PP or a relative clause, and on the raw-cased LitBank coref stream
