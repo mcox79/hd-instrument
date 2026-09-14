@@ -1,0 +1,13 @@
+{
+ "result": {
+  "arm": "patched",
+  "n_docs": 12,
+  "R1_identical": 12,
+  "R1_diffs": [],
+  "R1_seconds": 1939.0,
+  "W3a_identical": 12,
+  "W3a_diffs": [],
+  "W3b_goalheads_identical": 12,
+  "seconds": 3348.9
+ }
+}

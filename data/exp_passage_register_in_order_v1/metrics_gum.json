@@ -1,0 +1,169 @@
+{
+ "result": {
+  "corpus": "gum",
+  "stride": 2,
+  "n_docs": 138,
+  "n_tokens": 136855,
+  "file_all": "0",
+  "grain": "token",
+  "ent_kappa": "2.0",
+  "consumer_disagreement": {
+   "tokens": 136855,
+   "disagreeing": 662,
+   "rate": 0.00484
+  },
+  "floor": {
+   "all": 0.8837,
+   "unseen": 0.5256,
+   "repeat": 0.5767,
+   "first": 0.8871
+  },
+  "arm": {
+   "all": 0.8837,
+   "unseen": 0.5256,
+   "repeat": 0.5767,
+   "first": 0.8871
+  },
+  "twin": {
+   "all": 0.8837,
+   "unseen": 0.5247,
+   "repeat": 0.5749,
+   "first": 0.888
+  },
+  "arm_minus_floor": {
+   "all": {
+    "delta": 0.0,
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "half_width": 0.0,
+    "CIsep": false,
+    "n_docs": 138,
+    "denom": 136855
+   },
+   "unseen": {
+    "delta": 0.0,
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "half_width": 0.0,
+    "CIsep": false,
+    "n_docs": 138,
+    "denom": 16959
+   },
+   "repeat": {
+    "delta": 0.0,
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "half_width": 0.0,
+    "CIsep": false,
+    "n_docs": 138,
+    "denom": 3754
+   },
+   "first": {
+    "delta": 0.0,
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "half_width": 0.0,
+    "CIsep": false,
+    "n_docs": 138,
+    "denom": 4410
+   }
+  },
+  "twin_minus_floor": {
+   "all": {
+    "delta": -2e-05,
+    "ci95": [
+     -0.00025,
+     0.00019
+    ],
+    "half_width": 0.00022,
+    "CIsep": false,
+    "n_docs": 138,
+    "denom": 136855
+   },
+   "unseen": {
+    "delta": -0.00088,
+    "ci95": [
+     -0.00273,
+     0.00078
+    ],
+    "half_width": 0.00176,
+    "CIsep": false,
+    "n_docs": 138,
+    "denom": 16959
+   },
+   "repeat": {
+    "delta": -0.00186,
+    "ci95": [
+     -0.0085,
+     0.00414
+    ],
+    "half_width": 0.00632,
+    "CIsep": false,
+    "n_docs": 138,
+    "denom": 3754
+   },
+   "first": {
+    "delta": 0.00091,
+    "ci95": [
+     -0.00109,
+     0.00295
+    ],
+    "half_width": 0.00202,
+    "CIsep": false,
+    "n_docs": 138,
+    "denom": 4410
+   }
+  },
+  "consumer_slots": [
+   {
+    "pass": 1,
+    "all": 0.8837,
+    "unseen": 0.5256,
+    "repeat": 0.5767,
+    "pn": 1238
+   },
+   {
+    "pass": 2,
+    "all": 0.884,
+    "unseen": 0.5282,
+    "repeat": 0.5759,
+    "pn": 1207
+   },
+   {
+    "pass": 3,
+    "all": 0.884,
+    "unseen": 0.5282,
+    "repeat": 0.5759,
+    "pn": 1207
+   },
+   {
+    "pass": 4,
+    "all": 0.884,
+    "unseen": 0.5282,
+    "repeat": 0.5759,
+    "pn": 1207
+   },
+   {
+    "pass": 5,
+    "all": 0.884,
+    "unseen": 0.5282,
+    "repeat": 0.5759,
+    "pn": 1207
+   }
+  ],
+  "pn_confusions": {
+   "floor": 1238,
+   "arm": 1238,
+   "twin": 1247
+  },
+  "seconds": 889.6
+ }
+}

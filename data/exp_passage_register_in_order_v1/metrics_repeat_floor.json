@@ -1,0 +1,34 @@
+{
+ "result": {
+  "arm": "floor",
+  "n_docs": 12,
+  "R1_identical": 10,
+  "R1_diffs": [
+   {
+    "doc": "1023_bleak_house_brat.conll",
+    "fields": [
+     "events"
+    ],
+    "n_events": [
+     245,
+     244
+    ]
+   },
+   {
+    "doc": "1064_the_masque_of_the_red_death_brat.conll",
+    "fields": [
+     "events"
+    ],
+    "n_events": [
+     218,
+     217
+    ]
+   }
+  ],
+  "R1_seconds": 1673.0,
+  "W3a_identical": 12,
+  "W3a_diffs": [],
+  "W3b_goalheads_identical": 12,
+  "seconds": 3421.2
+ }
+}

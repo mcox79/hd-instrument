@@ -1,0 +1,14 @@
+{
+ "result": {
+  "corpus": "gum",
+  "n_docs": 138,
+  "n_prior_reads": 16959,
+  "e_first_share_pass1_in_order": 0.4402,
+  "e_first_share_pass2_polluted": 0.0,
+  "true_first_mentions": 7466,
+  "first_mentions_handed_a_repeat_symbol_by_the_polluted_register": 7466,
+  "future_leak_rate_of_first_mentions": 1.0,
+  "order_twin_symbol_differences": 3091,
+  "order_twin_symbol_difference_rate": 0.1823
+ }
+}

@@ -1,0 +1,67 @@
+{
+ "result": {
+  "corpus": "gum",
+  "n_docs": 138,
+  "seconds": 272.9,
+  "consumers_2_to_5_polluted": {
+   "all": 0.884,
+   "unseen": 0.5282,
+   "repeat": 0.5759,
+   "first": 0.885
+  },
+  "all_consumers_in_order": {
+   "all": 0.8837,
+   "unseen": 0.5256,
+   "repeat": 0.5767,
+   "first": 0.8871
+  },
+  "in_order_minus_polluted": {
+   "all": {
+    "delta": -0.00023,
+    "ci95": [
+     -0.00067,
+     0.00022
+    ],
+    "half_width": 0.00045,
+    "CIsep": false,
+    "n_docs": 138,
+    "denom": 136855
+   },
+   "unseen": {
+    "delta": -0.00259,
+    "ci95": [
+     -0.00602,
+     0.0007
+    ],
+    "half_width": 0.00336,
+    "CIsep": false,
+    "n_docs": 138,
+    "denom": 16959
+   },
+   "repeat": {
+    "delta": 0.0008,
+    "ci95": [
+     -0.00585,
+     0.0076
+    ],
+    "half_width": 0.00673,
+    "CIsep": false,
+    "n_docs": 138,
+    "denom": 3754
+   },
+   "first": {
+    "delta": 0.00204,
+    "ci95": [
+     -0.00528,
+     0.00919
+    ],
+    "half_width": 0.00723,
+    "CIsep": false,
+    "n_docs": 138,
+    "denom": 4410
+   }
+  },
+  "pn_polluted": 1207,
+  "pn_in_order": 1238
+ }
+}

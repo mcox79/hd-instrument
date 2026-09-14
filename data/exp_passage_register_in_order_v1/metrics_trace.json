@@ -1,0 +1,36 @@
+{
+ "result": {
+  "rows": [
+   {
+    "doc": "1023_bleak_house_brat.conll",
+    "sentences_fed": 60,
+    "distinct_sentences": 60,
+    "reads": 198,
+    "reads_as_of_a_fed_sentence": 198,
+    "reads_never_fed": 0,
+    "clock": 60,
+    "calls_per_sentence": 4.3,
+    "events": 247,
+    "seconds": 138.1
+   },
+   {
+    "doc": "105_persuasion_brat.conll",
+    "sentences_fed": 45,
+    "distinct_sentences": 45,
+    "reads": 156,
+    "reads_as_of_a_fed_sentence": 156,
+    "reads_never_fed": 0,
+    "clock": 45,
+    "calls_per_sentence": 4.47,
+    "events": 213,
+    "seconds": 63.9
+   }
+  ],
+  "total": {
+   "sentences_fed": 105,
+   "reads": 354,
+   "reads_never_fed": 0,
+   "events": 460
+  }
+ }
+}

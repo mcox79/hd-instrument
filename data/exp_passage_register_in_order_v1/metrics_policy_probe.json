@@ -1,0 +1,73 @@
+{
+ "result": {
+  "corpus": "gum",
+  "n_docs": 138,
+  "n_prior_reads": 16959,
+  "read_policy_unknown_only": {
+   "e_rep_bare|r": 0.4411,
+   "e_first": 0.4402,
+   "e_rep_bare|d": 0.0519,
+   "e_rep_def|r": 0.0261,
+   "e_rep_def|d": 0.0103,
+   "e_rep_indef|r": 0.0102,
+   "e_rep_plural|r": 0.0101,
+   "e_rep_indef|d": 0.0051,
+   "e_rep_plural|d": 0.005
+  },
+  "accrual_policy_file_all": {
+   "e_first": 0.4402,
+   "e_rep_bare|r": 0.439,
+   "e_rep_bare|d": 0.0501,
+   "e_rep_def|r": 0.0241,
+   "e_rep_plural|r": 0.0147,
+   "e_rep_indef|r": 0.0097,
+   "e_rep_def|d": 0.0096,
+   "e_rep_plural|d": 0.0081,
+   "e_rep_indef|d": 0.0045
+  },
+  "read_policy_base": {
+   "e_rep_bare": 0.493,
+   "e_first": 0.4402,
+   "e_rep_def": 0.0364,
+   "e_rep_indef": 0.0153,
+   "e_rep_plural": 0.0151
+  },
+  "accrual_policy_base": {
+   "e_rep_bare": 0.4891,
+   "e_first": 0.4402,
+   "e_rep_def": 0.0336,
+   "e_rep_plural": 0.0228,
+   "e_rep_indef": 0.0143
+  },
+  "symbol_disagreements": 131,
+  "symbol_disagreement_rate": 0.00772,
+  "top_disagreements": [
+   [
+    "e_rep_bare|r -> e_rep_plural|r",
+    35
+   ],
+   [
+    "e_rep_def|r -> e_rep_plural|r",
+    35
+   ],
+   [
+    "e_rep_bare|d -> e_rep_plural|d",
+    31
+   ],
+   [
+    "e_rep_def|d -> e_rep_plural|d",
+    13
+   ],
+   [
+    "e_rep_indef|d -> e_rep_plural|d",
+    9
+   ],
+   [
+    "e_rep_indef|r -> e_rep_plural|r",
+    8
+   ]
+  ],
+  "e_first_share_read": 0.4402,
+  "e_first_share_accrual": 0.4402
+ }
+}
