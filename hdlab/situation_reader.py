@@ -2200,16 +2200,21 @@ class SituationReader:
                 # weights) replaces the supervised arc-eager parser as the ONE shared per-read parse. conf[i] = P(chosen head | i)
                 # from the exact tree posterior; marg[i] = P(best) - P(second). Selected by env HDLAB_HEADS_SOURCE=attachment_arm
                 # for the board A/B; a downstream dip is a consumer to repair, not a reason to revert the BF rung.
-                from hdlab import attachment_arm as AA
+                # ONE STRUCTURE (2026-09-13 22:20, strategy): the reader used to take each word's ARGMAX MARGINAL of the exact
+                # single-root Matrix-Tree posterior -- a whole-sentence search that is not a tree (87/300 sentences with several
+                # roots or cycles) and the very stand-in the owner asked to replace (organs take data IN ORDER, 10:05). The frontend's
+                # Parser already commits the arm's INCREMENTAL decode (HDLAB_ARM_DECODE=incr, beam + decaying held expectations;
+                # 0.6080 vs the search's 0.6034) and hands the graded posterior alongside; the board's arms read that Parser, the
+                # reader did not. Now the reader reads the SAME Parser: heads = the in-order tree, marg = P(head) - P(best other),
+                # post = the full P(head | dep) handed DOWN to the role read; conf = P(chosen head). No second head path remains.
+                from hdlab import frontend as _FE
                 tp = self._cached_tag_posterior(list(toks))      # GRADED category hand-off (None under the perceptron)
-                post = AA.head_posterior_graded(list(toks), list(pos), tp) if tp else AA.head_posterior(list(toks), list(pos))
+                out = _FE.parser().parse(list(toks), list(pos), tag_posterior=tp)
+                heads = {int(j): int(h) for j, h in out[0].items()}
+                post = out[2] if out[2] is not None else {}
                 c[("headpost", tuple(toks))] = post                        # the full P(head | dep): handed DOWN to the role read
-                heads = {}; conf = {}; marg = {}
-                for j, d in post.items():
-                    ranked = sorted(d.items(), key=lambda kv: -kv[1])
-                    if ranked:
-                        heads[j] = int(ranked[0][0]); conf[j] = float(ranked[0][1])
-                        marg[j] = float(ranked[0][1] - (ranked[1][1] if len(ranked) > 1 else 0.0))
+                conf = {j: float(post.get(j, {}).get(h, 1.0)) for j, h in heads.items()}
+                marg = {int(j): float(m) for j, m in out[1].items()}
                 c[key] = (heads, conf, marg)
                 h, cf, mg = c[key]
                 return dict(h), dict(cf), dict(mg)

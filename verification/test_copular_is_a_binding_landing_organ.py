@@ -74,16 +74,27 @@ def main():
     # [3] FLAG-ON == the promoted DETECTION UNION (label path | robust_cop), byte-for-byte (P3 CHANGE 2: the
     # entity-state route unions the high-precision `cop`-label path with the label-ROBUST closed-class detector).
     import hdlab.copular_binding as M
-    from hdlab.pos_tagger import PosTagger
     from hdlab.arc_parser import ArcParser
     from hdlab.arc_labeler import ArcLabeler
-    pos = PosTagger.load(M.POS_ASSET); arc = ArcParser.load(M.ARC_ASSET); lab = ArcLabeler.load(M.LAB_ASSET)
+    # 2026-09-13 (strategy): the reference parse is the ONE shared frontend (hdlab.frontend: the BF category organ + the attachment
+    # arm's in-order decode, the same structure the reader reads), no longer a private supervised batch parser -- the claim is
+    # "no new logic in the reader beyond the union", so the reference must use the reader's own front-end, with the same graded
+    # nominal read (a token whose posterior nominal mass >= STATE_NOMINAL_MASS counts as nominal) and the same head posterior.
+    from hdlab import frontend as FE
+    import hdlab.situation_reader as SR
+    tg = FE.tagger(); pr = FE.parser(); arc = ArcParser.load(M.ARC_ASSET); lab = ArcLabeler.load(M.LAB_ASSET)
     sents = parse_conll_sentences(doc)
     ref = set()
     for si, toks in enumerate(sents):
-        up = pos.tag(toks)
-        heads = arc.parse(toks, up).heads
-        pairs = set(M.extract_entity_states(toks, up, arc, lab)) | M.robust_cop(toks, up, heads, gate=True)
+        up, tp = tg.tag_with_posterior(toks)
+        up_c = list(up)
+        if tp and SR._STATE_GRADED:
+            for i, d in enumerate(tp):
+                if i < len(up_c) and up_c[i] not in ("NOUN", "PROPN", "PRON") and d and                         sum(d.get(c, 0.0) for c in ("NOUN", "PROPN", "PRON")) >= SR.STATE_NOMINAL_MASS:
+                    up_c[i] = max(("NOUN", "PROPN", "PRON"), key=lambda c: d.get(c, 0.0))
+        out = pr.parse(toks, up, tag_posterior=tp)
+        heads = {int(j): int(h) for j, h in out[0].items()}
+        pairs = set(M.extract_entity_states(toks, up_c, arc, lab, heads=heads, head_posterior=out[2]))             | M.robust_cop(toks, up_c, heads, gate=True)
         for (h, p) in pairs:
             ref.add((si, toks[h].lower(), toks[p].lower()))
     got = set((s.sent_idx, s.holder.lower(), s.property.lower()) for s in on.entity_states)

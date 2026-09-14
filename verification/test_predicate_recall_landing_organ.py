@@ -42,7 +42,11 @@ def _evkey(evs):
 
 
 def main():
-    tg = PosTagger.load(POS_ASSET)
+    # 2026-09-14 (strategy): PosTagger.load() now routes to the frontend's category organ (no perceptron weights); this witness
+    # checks the DETECTOR's faithfulness to its own asset, which was fitted against the perceptron's verb margin, so it loads the
+    # raw perceptron explicitly. The LIVE reader uses the BF form (the category posterior's verb belief; situation_reader
+    # _rescue branch) -- that form is measured by the reader witnesses, not here.
+    tg = PosTagger.load(POS_ASSET, _raw=True)
     W = tg._perc.weights
     tags = tg.tags
     det = PredicateDetector.load()
@@ -79,7 +83,9 @@ def main():
         "rescue gate excludes VERB/AUX tokens (additive: existing detections untouched)")
 
     # 3. ADDITIVE / no-regression at the event-detection level, on a register-diverse set (drops + clean)
-    r_off = SituationReader()
+    # 2026-09-14 (strategy): predicate_recall has been DEFAULT-ON since 2026-09-05, so SituationReader() == the ON reader and the
+    # 'adds predicates' check could never pass (stale premise); OFF must be selected explicitly.
+    r_off = SituationReader(predicate_recall=False)
     r_on = SituationReader(predicate_recall=True)
     texts = [
         "the lake presents an unbroken sheet of ice",      # 'presents' dropped -> +1 event
