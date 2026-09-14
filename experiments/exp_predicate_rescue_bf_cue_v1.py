@@ -1334,6 +1334,23 @@ def main():
                 "share_of_positives": round(float(((vless > 0.5) & (y == 1)).sum() / max(1, y.sum())), 4),
                 "positives_whose_CLAUSE_has_no_verb_belief_above_0.5": int(((clvl > 0.5) & (y == 1)).sum()),
                 "share_of_positives_clause": round(float(((clvl > 0.5) & (y == 1)).sum() / max(1, y.sum())), 4)}
+            # (g) LABEL-PERMUTATION NULL. The cue block is rich (12 cues, one-hot binned) and the combiner is fitted
+            #     under cross-validation -- so the sharpest check that it is reading predicate-hood and not fitting
+            #     the population is to destroy the label and refit the WHOLE pipeline unchanged. If the machinery
+            #     can manufacture recovery from nothing, this arm will show it.
+            perm_rows = []
+            rng = np.random.default_rng(20260914)
+            ylab = np.array([r[3] for r in rows])
+            rng.shuffle(ylab)
+            for r, yy in zip(rows, ylab):
+                perm_rows.append((r[0], r[1], r[2], int(yy)))
+            pr = cv_scores(perm_rows, ["lex_bias", "stem_bias", "ctx_odds", SHARE, CSHARE] + CUES_STRUCT_GRADED, "rw")
+            op = op_point(perm_rows, ns, pr, 0.10)
+            ent["label_permutation_null"] = {
+                "recovery_at_fp_le_0p10": round(op["recovery"], 4) if op else None,
+                "note": "the same cue block, the same combiner, the same CV -- labels shuffled"}
+            print("   label-permutation null recovery @fp<=0.10: %s"
+                  % ent["label_permutation_null"]["recovery_at_fp_le_0p10"], flush=True)
             res[name] = ent
             print("== %s  AUC %s" % (name, {k: v for k, v in ent["cue_auc"].items()}), flush=True)
             print("   truncation %s" % json.dumps(ent["truncation"]), flush=True)
