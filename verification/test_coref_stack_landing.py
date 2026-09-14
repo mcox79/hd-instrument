@@ -135,8 +135,12 @@ def main():
 
     # ---- W1: the full stack reproduces ~0.5855 and beats the flag-off incumbent CI-separated ----
     oks.append(check(
-        "W1 FULL STACK beats the flag-off incumbent CI-separated (~0.5855 vs ~0.5032, +0.082 on modern GUM he/she)",
-        (lo > 0) and (a_full - a_inc) > 0.05 and abs(a_inc - 0.5032) < 0.003 and a_full > 0.57,
+        "W1 FULL STACK beats the flag-off incumbent CI-separated (~0.5574 vs ~0.4827 on the live-organ GUM he/she population; gold-split ~0.5855 vs ~0.5032 retired)",
+        # RE-PINNED 2026-09-14 (strategy, pri 109): the GUM loader now decides mention type / head / gender features with the LIVE
+        # organs (HDLAB_GUM_DECISION default 'organ') and excludes the 18 redacted documents, so this landing witness reads the
+        # population the live reader actually has: incumbent 0.5032 -> 0.4827, full stack 0.5855 -> 0.5574 (+0.0747 CI[0.0276,0.1354],
+        # n=1245, still CI-separated). The gold-split figures are retired (notes/reference_retired_claims_never_requote.md).
+        (lo > 0) and (a_full - a_inc) > 0.05 and abs(a_inc - 0.4827) < 0.003 and a_full > 0.55,
         "incumbent=%.4f -> full=%.4f delta=%+.4f CI[%.4f,%.4f] (n=%d)" % (a_inc, a_full, a_full - a_inc, lo, hi, n)))
 
     # ---- W2: named-antecedent NO-REGRESS (rises/holds) ----
