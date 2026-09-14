@@ -1,0 +1,102 @@
+{
+ "gold": {
+  "all_expressible": [
+   0.8661,
+   2099
+  ],
+  "core": [
+   0.9191,
+   1186
+  ],
+  "nmod": [
+   0.7403,
+   489
+  ],
+  "nmod_bare": [
+   0.8462,
+   286
+  ],
+  "nmod_case_marked": [
+   0.871,
+   411
+  ],
+  "nmod_convention_free": [
+   0.7686,
+   471
+  ],
+  "nmod_desc": [
+   0.0,
+   18
+  ],
+  "nmod_poss": [
+   0.928,
+   125
+  ],
+  "nmod_unmarked": [
+   0.0667,
+   60
+  ],
+  "obl": [
+   0.8691,
+   443
+  ],
+  "obl_nmod": [
+   0.8015,
+   932
+  ],
+  "obl_nmod_convention_free": [
+   0.8173,
+   914
+  ]
+ },
+ "live": {
+  "all_expressible": [
+   0.7061,
+   2099
+  ],
+  "core": [
+   0.7462,
+   1186
+  ],
+  "nmod": [
+   0.6769,
+   489
+  ],
+  "nmod_bare": [
+   0.7343,
+   286
+  ],
+  "nmod_case_marked": [
+   0.7883,
+   411
+  ],
+  "nmod_convention_free": [
+   0.6985,
+   471
+  ],
+  "nmod_desc": [
+   0.1111,
+   18
+  ],
+  "nmod_poss": [
+   0.912,
+   125
+  ],
+  "nmod_unmarked": [
+   0.0833,
+   60
+  ],
+  "obl": [
+   0.6275,
+   443
+  ],
+  "obl_nmod": [
+   0.6534,
+   932
+  ],
+  "obl_nmod_convention_free": [
+   0.6641,
+   914
+  ]
+ }
+}

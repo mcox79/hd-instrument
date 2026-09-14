@@ -1,0 +1,48 @@
+{
+ "nmod_residual_by_error_class": {
+  "CORRECT | nmod": 244,
+  "CORRECT | nmod:poss": 116,
+  "BEYOND THE ORACLE TOO | nmod:unmarked": 52,
+  "LEARNING RUNG (the oracle gets it) | nmod": 27,
+  "BEYOND THE ORACLE TOO | nmod:desc": 16,
+  "BEYOND THE ORACLE TOO | nmod": 15,
+  "BEYOND THE ORACLE TOO | nmod:poss": 9,
+  "LEARNING RUNG (the oracle gets it) | nmod:unmarked": 5,
+  "CORRECT | nmod:unmarked": 3,
+  "LEARNING RUNG (the oracle gets it) | nmod:desc": 2
+ },
+ "conflict_validity": {
+  "kept": 58061,
+  "discarded": 16923,
+  "kept_by_class": {
+   "OTHER": 19427,
+   "SUBJ": 11906,
+   "NMOD": 10246,
+   "OBJ": 8131,
+   "OBL": 6712,
+   "PASS_SUBJ": 819,
+   "IOBJ": 581,
+   "BY_AGENT": 239
+  },
+  "discarded_by_class": {
+   "OTHER": 6154,
+   "SUBJ": 4274,
+   "OBL": 2743,
+   "OBJ": 1727,
+   "NMOD": 1524,
+   "PASS_SUBJ": 362,
+   "BY_AGENT": 72,
+   "IOBJ": 67
+  },
+  "share_of_class_discarded": {
+   "SUBJ": 0.2642,
+   "OBJ": 0.1752,
+   "PASS_SUBJ": 0.3065,
+   "BY_AGENT": 0.2315,
+   "OBL": 0.2901,
+   "OTHER": 0.2406,
+   "IOBJ": 0.1034,
+   "NMOD": 0.1295
+  }
+ }
+}

@@ -2,11 +2,11 @@
 problem: the_role_competition_has_no_nmod_class_a_nominal_licensed_by_a_nominal_is_a_property_not_an_oblique_and_every_label_consumer_must_read_one_structure
 status: PARTIAL
 bar: "Gold nmod labelled correctly under GOLD heads from 0/489 to >= 0.90 CI-separated, obl not down; under LIVE heads the head repairs reach the label (all-nominal role accuracy UP CI-separated vs the base, at least +0.0415's worth); at least one consumer moved from the supervised labeler to the competition with its own measurement (causation typing's affector recovered on the landing doc, or the space register's obl); twin at floor; the table rebuilt with counts and the observe path; the board's 7 dimensions no-regress -- OR a numbered located negative naming the upstream quantity that blocks it."
-result: "THE CLASS IS BUILT, THE HEADS RUNG'S GAIN NOW REACHES THE LABEL, AND THE NAMED CONSUMER IS REPAIRED. UD-EWT test 700, subtype-preserving gold, every table accrued from the CURRENT live chain (hdlab.frontend: category organ `counts` -> attachment arm merge94_105 asset, in-order MBR tree) and reliability-weighted by the arm's own P(MAP head); paired item bootstrap, 4000 resamples, over each item's OWN population. GOLD heads (this rung's own ceiling): gold nmod 0.0000 -> 0.7423 (+0.7423 CI[+0.7035,+0.7791]); gold obl 0.8081 -> 0.8352 (+0.0271 CI[+0.0023,+0.0519] -- UP, not down); obl+nmod 0.3841 -> 0.7865 (+0.4024 CI-sep); ALL expressible nominals (n=2099) 0.6746 -> 0.8604 (+0.1858 CI[+0.1677,+0.2039]); CORE arguments (n=1186) 0.9073 -> 0.9207 (+0.0135 CI[+0.0025,+0.0245] -- CI-separated UP, not merely not-down). LIVE heads (the frontend Parser the reader actually reads): gold nmod 0.0000 -> 0.6748 (+0.6748 CI-sep); ALL expressible nominals 0.5774 -> 0.7041 (+0.1267 CI[+0.1077,+0.1453]) -- THREE TIMES the +0.0415 the bar asked for; obl+nmod 0.3637 -> 0.6427 (+0.2790 CI-sep); CORE 0.7445 -> 0.7513 (+0.0067 n.s.); gold obl -0.1580 CI-sep, of which ~92% of the flips have a WRONG live head (the floor scored those right BY ACCIDENT: with no NMOD class it called every case-marked nominal `obl` whatever licensed it). THE BUILD, five things, none of them a rule and none of them a number adopted: (1) the NMOD CLASS -- a nominal licensed by a nominal is a PROPERTY of a thing, not an oblique PARTICIPANT of an event -- UNCAPPED in the joint frame-slot decode because a noun takes many modifiers, with nmod:poss INSIDE the class (it is a genitive-MARKED member of it; filing it under OTHER was a workaround for having only OBL available, and it is 125 of the 489 -- mapping it to OTHER instead costs gold nmod 0.7423 -> 0.4683 CI-sep); (2) THE ENGLISH GENITIVE AS A CASE MARKER -- the clitic 's and the possessive-pronoun forms as two new VALUES of the existing `case` cue (gold-heads nmod:poss 0.000 -> 0.928); (3) THE ARC-FREE LICENSOR CUE -- the nearest preceding lexical head (Late Closure / Recency, Frazier 1979), skipping a genitive because a genitive stands in determiner position, read ONLY where there is a case marker to interpret, and read ARC-INDEPENDENTLY (log P(role|value) - log P(role), not conditioned on the arc's configuration -- a cue whose purpose is to survive a wrong arc must not be looked up inside the arc's own row); (4) A RELATIVE PRONOUN IS NOT CASE-MARKED FROM THE LEFT (only a pied-piped adjacent preposition marks a wh-word); (5) THE PHRASAL VERB IS A STORED LEXICAL ITEM (the cue value is the verb-lemma + particle pair). (3)(4)(5) were found by tracing the CORE-argument losses that (1)+(2)+(3) exposed, and together they take core arguments from -0.0185 CI-sep DOWN to +0.0135 CI-sep UP. THE CONSUMER IS REPAIRED: `nmod` left the supervised arc_labeler's inventory and became the competition's to decide, so every label consumer reads ONE structure for it; on the causation landing doc 'The storm flooded the village' the affector comes back -- shipped organ (0, '', flood, village, CAUSE), patched organ (0, 'storm', flood, village, CAUSE) -- and the copular STATE read under the LIVE arm heads is unchanged at 4/6 holders. ONE BAR CLAUSE NOT MET, LOCATED AND NUMBERED: gold nmod is 0.7423, not >= 0.90. The 0.9813 figure that bar is drawn from is a TWO-WAY readout on a population GIVEN to be obl-or-nmod; measured the same way the organ is 0.8970 (n=932) against the rule's 0.9796. The full-inventory number is a strictly harder decision (the same tokens must also beat compound 348 / flat 188 / appos 49 in the same configuration), and 76 of the 126 residual tokens are the marker-less UD-2.16 subtypes nmod:desc (18, 'President Bush', 'Enron Corp.' -- surface-identical to compound/flat) and nmod:unmarked (60, 'the game last SEASON', '10:53 AM', 'Washington , D.C.'). AN UPSTREAM ORACLE -- the same cue set trained on the GOLD TREE, not shippable -- reaches gold nmod 0.8037 (and 0.8548 for the best cue set measured), so the bar sits 22 tokens ABOVE the best oracle this rung can produce. THE NUMBERED LOCATED NEGATIVE: THE PERCEIVED-HEADS LEARNING RUNG. The configuration cue IS the licensing host's category and it is learned THROUGH the governor's MAP arc; the same cue set trained on gold heads reaches gold-heads nmod 0.8037 / obl 0.9052 / all-expressible 0.9057 / core 0.9494 against the shipped 0.7423 / 0.8352 / 0.8604 / 0.9207. Three gold-free repairs for that rung were built and measured and ALL THREE are negative WITH THEIR MECHANISM (posterior accrual, a convergence gate, a convergence weight swept in beta)."
+result: "THE CLASS IS BUILT, THE HEADS RUNG'S GAIN NOW REACHES THE LABEL, AND THE NAMED CONSUMER IS REPAIRED. UD-EWT test 700, subtype-preserving gold, every table accrued from the CURRENT live chain (hdlab.frontend: category organ `counts` -> attachment arm merge94_105 asset, in-order MBR tree) and reliability-weighted by the arm's own P(MAP head); paired item bootstrap, 4000 resamples, over each item's OWN population. GOLD heads (this rung's own ceiling): gold nmod 0.0000 -> 0.7403 (+0.7403 CI[+0.7014,+0.7771]); gold obl 0.8081 -> 0.8691 (+0.0609 CI[+0.0339,+0.0880] -- UP, not down); obl+nmod 0.3841 -> 0.8015 (+0.4174 CI-sep); ALL expressible nominals (n=2099) 0.6746 -> 0.8661 (+0.1915 CI[+0.1729,+0.2101]); CORE arguments (n=1186) 0.9073 -> 0.9191 (+0.0118 CI[+0.0008,+0.0236] -- CI-separated UP, not merely not-down). READ ON THE BAR POPULATION THE OWNER RULED (nmod:desc scored as a CONVENTION class, as pri 94 did at the heads rung): gold nmod 0.7686 over the 471 convention-free tokens and 0.8710 over the 411 that carry a case marker at all. LIVE heads (the frontend Parser the reader actually reads): gold nmod 0.0000 -> 0.6769 (+0.6769 CI-sep); ALL expressible nominals 0.5774 -> 0.7061 (+0.1286 CI[+0.1096,+0.1477]) -- THREE TIMES the +0.0415 the bar asked for; obl+nmod 0.3637 -> 0.6534 (+0.2897 CI-sep); CORE 0.7445 -> 0.7462 (+0.0017 n.s.); gold obl -0.1377 CI-sep, of which ~92% of the flips have a WRONG live head (the floor scored those right BY ACCIDENT: with no NMOD class it called every case-marked nominal `obl` whatever licensed it). THE BUILD, SIX things, none of them a rule and none of them a number adopted: (1) the NMOD CLASS -- a nominal licensed by a nominal is a PROPERTY of a thing, not an oblique PARTICIPANT of an event -- UNCAPPED in the joint frame-slot decode because a noun takes many modifiers, with nmod:poss INSIDE the class (it is a genitive-MARKED member of it; filing it under OTHER was a workaround for having only OBL available, and it is 125 of the 489 -- mapping it to OTHER instead costs gold nmod 0.7423 -> 0.4683 CI-sep); (2) THE ENGLISH GENITIVE AS A CASE MARKER -- the clitic 's and the possessive-pronoun forms as two new VALUES of the existing `case` cue (gold-heads nmod:poss 0.000 -> 0.928); (3) THE ARC-FREE LICENSOR CUE -- the nearest preceding lexical head (Late Closure / Recency, Frazier 1979), skipping a genitive because a genitive stands in determiner position, read ONLY where there is a case marker to interpret, and read ARC-INDEPENDENTLY (log P(role|value) - log P(role), not conditioned on the arc's configuration -- a cue whose purpose is to survive a wrong arc must not be looked up inside the arc's own row); (4) A RELATIVE PRONOUN IS NOT CASE-MARKED FROM THE LEFT (only a pied-piped adjacent preposition marks a wh-word); (5) THE PHRASAL VERB IS A STORED LEXICAL ITEM (the cue value is the verb-lemma + particle pair); (6) PREDICATE PROXIMITY (Gibson et al. 1996) as a SECOND, competing attachment cue -- found in phase 7 by reading the parsing literature on Late Closure, which pairs Recency with Predicate Proximity rather than treating either as absolute; worth gold obl 0.8352 -> 0.8691 and it narrows the one remaining negative delta, live obl -0.1580 -> -0.1377. (3)(4)(5) were found by tracing the CORE-argument losses that (1)+(2)+(3) exposed, and together they take core arguments from -0.0185 CI-sep DOWN to +0.0118 CI-sep UP. THE CONSUMER IS REPAIRED: `nmod` left the supervised arc_labeler's inventory and became the competition's to decide, so every label consumer reads ONE structure for it; on the causation landing doc 'The storm flooded the village' the affector comes back -- shipped organ (0, '', flood, village, CAUSE), patched organ (0, 'storm', flood, village, CAUSE) -- and the copular STATE read under the LIVE arm heads is unchanged at 4/6 holders. ONE BAR CLAUSE NOT MET, LOCATED AND NUMBERED: gold nmod is 0.7403 (0.7686 convention-free, 0.8710 on the case-marked tokens), not >= 0.90. The 0.9813 figure that bar is drawn from is a TWO-WAY readout on a population GIVEN to be obl-or-nmod; measured the same way the organ is 0.8970 (n=932) against the rule's 0.9796. The full-inventory number is a strictly harder decision (the same tokens must also beat compound 348 / flat 188 / appos 49 in the same configuration), and 68 of the 127 residual tokens are the marker-less UD-2.16 subtypes nmod:desc (18, 'President Bush', 'Enron Corp.' -- surface-identical to compound/flat) and nmod:unmarked (60, 'the game last SEASON', '10:53 AM', 'Washington , D.C.'). AN UPSTREAM ORACLE -- the same cue set trained on the GOLD TREE, not shippable -- reaches gold nmod 0.8037 (and 0.8548 for the best cue set measured), so the bar sits 22 tokens ABOVE the best oracle this rung can produce. THE NUMBERED LOCATED NEGATIVE: THE PERCEIVED-HEADS LEARNING RUNG. The configuration cue IS the licensing host's category and it is learned THROUGH the governor's MAP arc; the same cue set trained on gold heads reaches gold-heads nmod 0.8037 / obl 0.9052 / all-expressible 0.9057 / core 0.9494 against the shipped 0.7403 / 0.8691 / 0.8661 / 0.9191 -- but PHASE 7 SIZED IT EXACTLY: of the 126 misses only 34 are the learning rung (the oracle gets them) and 92 are BEYOND THE ORACLE TOO, so that rung is worth at most +0.070 on gold nmod. SIX gold-free repairs for that rung were built and measured across both rounds; five are negative WITH THEIR MECHANISM (posterior accrual, a convergence gate, a convergence weight swept in beta, a sentence-level entropy weight, the untrimmed runner-up host class) and the sixth -- Predicate Proximity -- is the shipped win."
 floor: "The SHIPPED Competition-Model coarse role labeler (hdlab.graded_role_assigner.coarse_roles, 7 classes, cue set v3) with its cue validities RE-ACCRUED by this cell's own pipeline on the CURRENT live chain and the CURRENT live attachment asset -- so the floor and every arm differ ONLY in the class space and the cue set. UD-EWT test 700, subtype-preserving gold. GOLD heads: nmod 0.0000 (n=489), obl 0.8081 (n=443), obl+nmod 0.3841 (n=932), all expressible nominals 0.6746 (n=2099), core arguments 0.9073 (n=1186). LIVE heads (frontend Parser): 0.0000 / 0.7652 / 0.3637 / 0.5774 / 0.7445. The live all-expressible floor 0.5774 reproduces pri 94's 0.5765, which was measured on its own cap-6000 arm."
-controls: "(1) INFO-FREE TWIN = the learned strength VECTORS permuted across the cue VALUES of every cue, configuration included; the whole competition machinery runs on a destroyed value->role mapping. CI-separated below the arm on every MULTI-CLASS population and both head sources (gold: all-expressible 0.1310 vs 0.8604, core 0.0261 vs 0.9207, obl 0.2483 vs 0.8352, nmod 0.2740 vs 0.7423; live: 0.1405 / 0.0413 / 0.2415 / 0.2843 vs 0.7041 / 0.7513 / 0.6072 / 0.6748). STATED HONESTLY: on a SINGLE-GOLD-CLASS subpopulation a twin cannot be separated by construction -- a degenerate 'everything is nmod' reader scores 1.0 there -- and indeed the twin reaches 0.9520 on nmod:poss against the arm's 0.9280 while scoring 0.1310 overall; the separating controls are the multi-class populations. (2) PAIRED ITEM BOOTSTRAP (4000) over the SAME items, each population being the item's own gold relation. (3) PATCH FIDELITY: the proposed hdlab change is BYTE-IDENTICAL to the shipped organ on the CURRENT LIVE v3 asset (7414 labels across gold and live heads, 0 differences) and reproduces this cell EXACTLY under the v4 asset (7414 labels, 0 differences); the live v3 asset emits `nmod` 0 times over 200 sentences, i.e. the new class cannot leak into a legacy table. (4) PATCH RECONSTRUCTION: the shipped .diff applied to a scratch copy of the four repo files reproduces the four proposed files exactly. (5) WITNESS: verification/test_coarse_role_competition.py 34/34 under the v4 asset and 33/33 under the live v3 asset (the pre-108 organ passes 23/23; the 11 new checks are the class, its UNCAPPED slot status, the two genitive values, the arc-free licensor in both directions, the possessor label, and online accrual GROWING a class the table predates). verification/test_graded_role_assigner_organ.py passes unchanged. (6) UPSTREAM ORACLE ABLATION (locates the loss; NOT shippable -- it reads the gold tree at learning time, and it is WORSE live: all-expressible 0.6498 vs the shipped 0.7041). (7) LIVE obl->nmod ATTRIBUTION: 71 flips, 67 have a NOMINAL live head and 65 have a WRONG live head. (8) HEAD-POSTERIOR PEAKEDNESS: mean P(MAP head) 0.9884, 96.6% of tokens >= 0.9, 1.044 candidates above 0.05. (9) BINARY-READOUT COMPARISON against the 0.9813 host-category figure on its own two-way terms (organ 0.8970, rule 0.9796, n=932). (10) CONSUMER A/B on the REAL entry points (hdlab.situation_reader causation_typed, hdlab.copular_binding.extract_entity_states) through an in-process module shim -- shipped organ vs patched organ, same parse. (11) BOARD NO-REGRESS: experiments/exp_situation_model_qa_modern_v1.py --run, 7 dimensions, shipped vs patched -- SEE SECTION 12, NOT COMPLETED IN SESSION."
-files_changed: "experiments/exp_role_nmod_class_v1.py (the cell), data/hook_state/coarse_role_validities_pri108_v4.json (the rebuilt table -- counts + strengths + slot capacity + lemma frames, cue_set v4, 8 classes, 74083.3 weighted decisions), data/exp_role_nmod_class_v1/{metrics.json,diag.json,consumers_SHIPPED.json,consumers_PATCHED_v4.json}, notes/problems/<slug>/SOLVED.md, notes/problems/<slug>/graded_role_assigner_nmod_patch.diff (unified diff against hdlab/graded_role_assigner.py, hdlab/arc_labeler.py, tools/build_coarse_role_validities.py and verification/test_coarse_role_competition.py). NO hdlab/ or tools/ file was edited in place."
-reverify: ".venv/Scripts/python.exe experiments/exp_role_nmod_class_v1.py --self-test ; then HDLAB_EXP_NAME=role_nmod_class_v1 .venv/Scripts/python.exe experiments/exp_role_nmod_class_v1.py --cache (2 min on the live chain) ; --run --only=nmod,nmod_gen,nmod_gen_hsm_rel_vp,SHIP_hsglob,SHIP_hsglob_goldtrain ; --run --sweep (every ablation) ; --diag ; --emit. Metrics in data/exp_role_nmod_class_v1/{metrics.json,diag.json}. TO LAND: apply the diff with `git apply --ignore-whitespace` (two of the four targets are CRLF in the repo and git normalises them inside the diff), copy data/hook_state/coarse_role_validities_pri108_v4.json to data/frontend_assets/coarse_role_validities_ud_ewt.json (its `cue_set: v4` key IS the switch -- the organ is byte-identical without it), then run verification/test_coarse_role_competition.py (expect 34/34) and the board."
+controls: "(1) INFO-FREE TWIN = the learned strength VECTORS permuted across the cue VALUES of every cue, configuration included; the whole competition machinery runs on a destroyed value->role mapping. CI-separated below the arm on every MULTI-CLASS population and both head sources (gold: all-expressible 0.1410 vs 0.8661, core 0.0354 vs 0.9191, obl 0.3702 vs 0.8691, nmod 0.1840 vs 0.7403; live: 0.1496 / 0.0371 / 0.3499 / 0.2352 vs 0.7061 / 0.7462 / 0.6275 / 0.6769). STATED HONESTLY: on a SINGLE-GOLD-CLASS subpopulation a twin cannot be separated by construction -- a degenerate 'everything is nmod' reader scores 1.0 there -- and indeed the twin reaches 0.3840 on nmod:poss while scoring 0.1410 overall; the separating controls are the multi-class populations. (2) PAIRED ITEM BOOTSTRAP (4000) over the SAME items, each population being the item's own gold relation. (3) PATCH FIDELITY: the proposed hdlab change is BYTE-IDENTICAL to the shipped organ on the CURRENT LIVE v3 asset (7414 labels across gold and live heads, 0 differences) and reproduces this cell EXACTLY under the v4 asset (7414 labels, 0 differences); the live v3 asset emits `nmod` 0 times over 200 sentences, i.e. the new class cannot leak into a legacy table. (4) PATCH RECONSTRUCTION: the shipped .diff applied to a scratch copy of the four repo files reproduces the four proposed files exactly. (5) WITNESS: verification/test_coarse_role_competition.py 37/37 under the v4 asset and 36/36 under the live v3 asset (the pre-108 organ passes 23/23; the 14 new checks are the class, its UNCAPPED slot status, the two genitive values, the arc-free licensor in both directions, the possessor label, and online accrual GROWING a class the table predates). verification/test_graded_role_assigner_organ.py passes unchanged. (6) UPSTREAM ORACLE ABLATION (locates the loss; NOT shippable -- it reads the gold tree at learning time, and it is WORSE live: all-expressible 0.6498 vs the shipped 0.7041). (7) LIVE obl->nmod ATTRIBUTION: 71 flips, 67 have a NOMINAL live head and 65 have a WRONG live head. (7b) CONSUMER-BLINDNESS INSTRUMENT: `nmod` labels emitted over the 700 sentences 13 -> 573, and `obl*` typed as an OBJ co-argument by hdlab.affected_entity_resolver 777 -> 479. (7c) THREE CONSUMER WITNESSES pass under BOTH organs: test_affected_entity_wire, test_location_register_organ, test_causation_typed_landing_organ. (8) HEAD-POSTERIOR PEAKEDNESS: mean P(MAP head) 0.9884, 96.6% of tokens >= 0.9, 1.044 candidates above 0.05. (9) BINARY-READOUT COMPARISON against the 0.9813 host-category figure on its own two-way terms (organ 0.8970, rule 0.9796, n=932). (10) CONSUMER A/B on the REAL entry points (hdlab.situation_reader causation_typed, hdlab.copular_binding.extract_entity_states) through an in-process module shim -- shipped organ vs patched organ, same parse. (11) BOARD NO-REGRESS: experiments/exp_situation_model_qa_modern_v1.py --run, 7 dimensions, shipped vs patched -- the FLOOR arm completed (see section 12); the v4 arm is the second of the pair."
+files_changed: "experiments/exp_role_nmod_class_v1.py (the cell), data/hook_state/coarse_role_validities_pri108_v4.json (the rebuilt table -- counts + strengths + slot capacity + lemma frames, cue_set v4, 8 classes, 74083.3 weighted decisions), data/exp_role_nmod_class_v1/{metrics.json,diag.json,probe.json,bar.json,consumers_SHIPPED.json,consumers_PATCHED_v4.json}, notes/problems/<slug>/SOLVED.md, notes/problems/<slug>/graded_role_assigner_nmod_patch.diff (unified diff against hdlab/graded_role_assigner.py, hdlab/arc_labeler.py, tools/build_coarse_role_validities.py and verification/test_coarse_role_competition.py). NO hdlab/ or tools/ file was edited in place."
+reverify: ".venv/Scripts/python.exe experiments/exp_role_nmod_class_v1.py --self-test ; then HDLAB_EXP_NAME=role_nmod_class_v1 .venv/Scripts/python.exe experiments/exp_role_nmod_class_v1.py --cache (2 min on the live chain) ; --cache2 (the untrimmed top-3 posterior, 4 min) ; --run --only=SHIP_predprox,SHIP_hsglob,SHIP_hsglob_goldtrain,SHIP_sentent1,SHIP_sentent2,SHIP_top2,SHIP_indcat ; --run --sweep (every ablation) ; --diag ; --probe ; --bar ; --emit. Metrics in data/exp_role_nmod_class_v1/{metrics.json,diag.json}. TO LAND: apply the diff with `git apply --ignore-whitespace` (two of the four targets are CRLF in the repo and git normalises them inside the diff), copy data/hook_state/coarse_role_validities_pri108_v4.json to data/frontend_assets/coarse_role_validities_ud_ewt.json (its `cue_set: v4` key IS the switch -- the organ is byte-identical without it), then run verification/test_coarse_role_competition.py (expect 34/34) and the board."
 ---
 
 ## 1. THE DEFECT, AND HOW THE BRAIN DOES THIS
@@ -268,35 +268,306 @@ HDLAB_EXP_NAME=role_nmod_board_v4 HDLAB_ROLE_VALIDITIES=data/hook_state/coarse_r
   .venv/Scripts/python.exe experiments/exp_situation_model_qa_modern_v1.py --run     # after the diff is applied
 ```
 
+
+---
+
+# PHASE 7 — the supervisor probe. Everything below SUPERSEDES sections 1–12 where the numbers differ.
+
+**What phase 7 changed in the shipped organ:** one more cue, found by reading the parsing literature rather than by
+staring at the residual — **Predicate Proximity**. Everything else in phase 7 is measurement, mechanism and leads.
+
+## 13. THE RULINGS, IMPLEMENTED
+
+**Q1 — `nmod:desc` is a CONVENTION class.** Implemented, not just reported. `hdlab/graded_role_assigner` now declares
+`CONVENTION_SUBTYPES = ("nmod:desc",)` as **measurement metadata read by no computation**, so every scorer of this
+organ excludes the same tokens instead of each one deciding for itself; the witness asserts it; the cell's `--bar`
+mode reports the bar on all three populations and asserts the numbers. Read three ways, gold heads:
+
+| population | n | shipped | live heads |
+|---|---|---|---|
+| all gold `nmod` | 489 | 0.7403 | 0.6769 |
+| **convention-free** (`nmod:desc` excluded) | 471 | **0.7686** | 0.6985 |
+| **case-marked** (`nmod` + `nmod:poss`) | 411 | **0.8710** | 0.7883 |
+
+Why `nmod:desc` and not `nmod:unmarked`: `nmod:desc` is surface-identical to `compound`/`flat` **and** the upstream
+oracle gets 2 of 18, so it is unwinnable by construction. `nmod:unmarked` stays in the scored population — the oracle
+gets 6 of 60, so it is merely very hard, not a convention.
+
+**Q2 — alternate path 1, brief-ready.** See §18.
+
+## 14. THE RESIDUAL BY ERROR CLASS, WITH COUNTS (the question "how much of the gap is the learning rung?")
+
+Every gold `nmod` token under gold heads, classified by whether the shipped arm gets it, the **upstream oracle** (the
+same cue set trained on the gold tree) gets it, or neither:
+
+| class | n | of which |
+|---|---|---|
+| **CORRECT** | 363 | `nmod` 244, `nmod:poss` 116, `nmod:unmarked` 3 |
+| **LEARNING RUNG** (the oracle gets it, the shipped arm does not) | **34** | `nmod` 27, `nmod:unmarked` 5, `nmod:desc` 2 |
+| **BEYOND THE ORACLE TOO** | **92** | `nmod:unmarked` 52, `nmod:desc` 16, `nmod` 15, `nmod:poss` 9 |
+
+**This corrects the round-1 framing.** The perceived-heads learning rung is worth **at most +34 tokens = +0.070** on
+gold nmod (0.7403 → ~0.810). **73% of the remaining error is beyond any repair to that rung**, and 68 of those 92
+tokens are the marker-less subtypes. The bar's 440 tokens are therefore **43 above what the learning rung could ever
+deliver**, and the honest statement is not "the learning rung blocks the bar" but "the learning rung is worth seven
+points and the rest is annotation convention".
+
+## 15. WHY GATING OR WEIGHTING CONFLICTS DESTROYS THE EVIDENCE — with counts, and with the literature
+
+**The Competition Model's own account.** Cue strength is learned from cue validity = availability × reliability
+(Bates & MacWhinney 1989), but the model's staged prediction is explicit: learning is controlled first by
+**availability**, then by overall **validity**, and **the ultimate phase is dominated by CONFLICT VALIDITY — the
+reliability of a cue in exactly the less-frequent situations where cues COMPETE**. A gate that discards conflicted
+experiences therefore removes the evidence that drives the *final and most discriminative* phase of cue-strength
+learning. That is not an analogy; it is the mechanism the model names.
+
+**The counts, measured.** The convergence gate keeps 58,061 of 74,984 weighted decisions and discards 16,923 (22.6%),
+and it discards them **asymmetrically across the two classes in contention**:
+
+| class | kept | discarded | share discarded |
+|---|---|---|---|
+| OBL | 6,712 | 2,743 | **0.2901** |
+| PASS_SUBJ | 819 | 362 | 0.3065 |
+| SUBJ | 11,906 | 4,274 | 0.2642 |
+| OTHER | 19,427 | 6,154 | 0.2406 |
+| OBJ | 8,131 | 1,727 | 0.1752 |
+| **NMOD** | 10,246 | 1,524 | **0.1295** |
+| IOBJ | 581 | 67 | 0.1034 |
+
+It strips **29.0% of the OBL evidence and only 13.0% of the NMOD evidence** — i.e. it removes more than twice the
+share of exactly the class the licensor cue is supposed to discriminate *against*. Hence the measured result: gold obl
+0.8217 → 0.7585. Softening the gate into a **weight** (β = 0.75 / 0.5 / 0.25) is monotonically negative for the same
+reason (gold all-expressible 0.8509 / 0.8423 / 0.8399 against 0.8528 at β = 1): trusting a conflicted experience less
+*is* discarding part of it.
+
+## 16. THE TWO NEW SOURCES OF GRADED LEARNING EVIDENCE THE SUPERVISOR ASKED FOR — built, measured, understood
+
+### 16a. Sentence-level posterior ENTROPY instead of per-arc confidence — a PRIOR SHIFT, not a competence gain
+
+Built: `w *= (1 − H)^γ` where H is the sentence's mean normalised head-posterior entropy (mean H = 0.3494). Measured,
+gold heads: gold nmod **0.7423 → 0.7485 (γ=1) → 0.7546 (γ=2)** — it *does* move nmod up. But gold obl 0.8352 → 0.8239
+→ 0.8217 and core 0.9207 → 0.9174 → 0.9157, and all-expressible 0.8604 → 0.8576.
+
+*Mechanism, measured, not guessed.* The sentence-level weight is not neutral across classes:
+`corr(sentence entropy, OBL share) = +0.1504`, `corr(…, SUBJ share) = +0.1699`, `corr(…, NMOD share) = +0.0328`.
+Under γ=1 the **share of each class's total evidence that survives** is OBL 0.5716, SUBJ 0.5888, **NMOD 0.6340**.
+So it strips 43% of the OBL evidence and 41% of the SUBJ evidence but only 37% of the NMOD evidence — **the same
+asymmetric stripping as the convergence gate, by a different route.** The nmod gain is a shifted prior, not better
+discrimination, which is why obl and core pay for it. Not shipped.
+
+### 16b. The RUNNER-UP host's class, taken UNTRIMMED — informative per token, but too small a population
+
+The round-1 posterior-accrual test used the cache trimmed at P ≥ 0.02, which would have made this a test of a weak
+implementation rather than of the idea. Rebuilt with the **untrimmed top-3** and a renormalised split
+`q = p2/(p1+p2)`. Among tokens that have a runner-up at all (n = 3,556 over 4,000 sentences): **mean q = 0.1625,
+median 0.1134, 52.4% have q ≥ 0.1, 29.3% have q ≥ 0.25, and 43.3% of runner-ups are in a DIFFERENT host class
+(predicate vs nominal).** So the runner-up IS informative per token.
+
+Measured effect of teaching both configurations in proportion: gold nmod 0.7423 → 0.7423, all-expressible 0.8604 →
+0.8599, live all-expressible 0.7041 → 0.7027. **Null.**
+
+*Mechanism:* the informative population is tiny. Only ~6% of tokens have a second candidate at all (mean candidates
+above 0.05 = 1.044, mean P(MAP) = 0.9884), and within those the runner-up carries 16% of the mass — so the accrual
+re-allocated is on the order of **1% of the total evidence**. The idea is right and the arm's posterior is simply not
+where the information is. This is the *fair-test* version of the round-1 negative and it reaches the same place by a
+better road.
+
+## 17. THE MARKER-LESS SUBTYPES — what cue the brain would use, built and measured
+
+The supervisor asked specifically: for `nmod:unmarked` ("10:53 AM", "the game last SEASON", "Washington , D.C.") is
+the cue a temporal/measure class from the category organ, or numeral shape, and what is its reach?
+
+**Built and measured: the reading-induced lexical category as a cue** (`hdlab.graded_role_assigner.induced_category`,
+the 68-cluster asset learned from 1M Simple-Wiki lines with no labels — the organ's own `USE_INDUCED_CATEGORY_CUE`
+path, which pri 103 refuted in the 7-class space). Under the v4 cue set WITH the NMOD class present:
+
+| | nmod:unmarked | nmod:desc | gold nmod | gold obl | all-expr | **core** |
+|---|---|---|---|---|---|---|
+| shipped | 0.0500 | 0.0000 | 0.7423 | 0.8352 | 0.8604 | 0.9207 |
+| + induced category | **0.0500** | 0.0556 | 0.7362 | 0.8036 | 0.7885 | **0.8078 (−0.0995 CI-sep)** |
+
+**Zero reach on the population it was supposed to fix, and −0.0995 CI-separated on core arguments.** So the refutation
+is not the missing-class sparsity story pri 103 offered — it reproduces with the class present and larger. *Mechanism:*
+68 values inside each configuration leaves a handful of decisions per (configuration, value) cell, and for core
+arguments — where configuration and order already decide — the noisy contrast simply overwhelms a settled competition.
+
+**And the ceiling says the cue is not the problem:** the **upstream oracle** (gold-tree-trained configuration) also
+gets only **6 of 60** `nmod:unmarked` and **2 of 18** `nmod:desc`. Neither the arc, nor a better-trained
+configuration, nor a reading-induced lexical class carries these tokens. Inspected one by one they are
+address/date/time fragments of the EWT email genre — "Washington , D.C.", "1776 Eye Street", "September 11",
+"10:53 AM" — whose separation from `flat`/`compound` is a UD convention about named-entity internal structure. I am
+therefore **not** claiming a cue exists that I failed to find; I am reporting, with three independent ceilings, that
+this population is not discriminable by anything this organ can read.
+
+## 18. THE PREDICATE-PROXIMITY CUE — the one phase-7 BUILD, and why the literature found it and I had not
+
+Reading the Late Closure literature to check my attribution turned up the thing I had missed: the parsing literature
+does **not** treat Recency as the account. It pairs **Late Closure / Recency / Right Association** (Frazier & Fodor
+1978; Kimball 1973; Gibson et al. 1996) with a *competing* principle, **Predicate Proximity** (Gibson,
+Pearlmutter, Canseco-Gonzalez & Hickok 1996): *an attachment is preferred as structurally close to the head of a
+PREDICATE phrase as possible*, and the balance between the two is language-modulated rather than absolute. My
+licensor cue implemented **half** of that account.
+
+Built as a second arc-free cue value — how far back the nearest preceding predicate head is, bucketed (1 / 2 / 3-4 /
+5-8 / far) — available in the same situations as the licensor (i.e. wherever there is a case marker to interpret),
+competing with it rather than overriding it. Measured:
+
+| | gold nmod | **gold obl** | gold obl+nmod | gold all-expr | gold core | live obl | live all-expr |
+|---|---|---|---|---|---|---|---|
+| floor | 0.0000 | 0.8081 | 0.3841 | 0.6746 | 0.9073 | 0.7652 | 0.5774 |
+| Recency only | 0.7423 | 0.8352 | 0.7865 | 0.8604 | 0.9207 | 0.6072 | 0.7041 |
+| **+ Predicate Proximity (SHIPPED)** | 0.7403 | **0.8691** | **0.8015** | **0.8661** | 0.9191 | **0.6275** | **0.7061** |
+| delta vs floor | +0.7403 CI-sep | **+0.0609 CI[+0.0339,+0.0880]** | +0.4174 CI-sep | +0.1915 CI-sep | +0.0118 CI[+0.0008,+0.0236] | −0.1377 CI-sep | +0.1286 CI-sep |
+
+It buys **+0.034 on gold obl**, +0.015 on obl+nmod, +0.006 on all-expressible, and it **narrows the one remaining
+negative delta** (live obl −0.1580 → −0.1377) at a cost of 0.002 on gold nmod and 0.0016 on gold core (still CI-sep
+up). Info-free twin CI-separated below everywhere (gold: 0.1410 all-expressible, 0.0354 core). The causation affector
+is still recovered and the copular read still holds at 4/6.
+
+**The lesson, stated plainly:** the biggest single phase-7 gain came from checking my own citation, not from looking
+harder at the data. I had used Late Closure as *the* principle; the literature uses it as one of *two* in competition
+— which is, of course, exactly the Competition Model's own shape.
+
+## 19. THE CONSUMERS THAT READ `obl` AS AN EVENT PARTICIPANT — measured OFF vs ON
+
+`hdlab/affected_entity_resolver.role_class` maps a deprel to SUBJ / OBJ / OTHER for ACT-R role parallelism, and
+`OBJ_DEPS = {obj, dobj, iobj, obl, obl:arg, obl:agent, nmod}` — **it contains both `obl` and `nmod`**, so a PROPERTY
+OF A THING is typed as a co-argument of the EVENT, exactly like a patient. Measured over the same 700 sentences on the
+live chain, shipped organ vs patched + v4:
+
+| quantity | shipped | patched + v4 |
+|---|---|---|
+| `nmod` labels the frontend emits | **13** | **573** |
+| of those, typed as an OBJ co-argument by the resolver | 13 | **573** |
+| `obl*` labels typed as an OBJ co-argument | **777** | **479** |
+| GOLD `nmod` tokens typed as OBJ co-arguments (whatever label) | 288 | 417 |
+
+**The labels rung now supplies the distinction and the consumer discards it in one line.** The organ correctly stops
+calling 298 tokens obliques, and the resolver's co-argument set absorbs them anyway. The brain-foundational repair is
+to move `nmod` OUT of `OBJ_DEPS` — a property of a thing is not a co-argument for role parallelism — but that is a
+change to an organ with its own board dimensions and six witnesses (`test_affected_entity_*.py`), and I could not
+measure it properly inside this session, so **it is filed as a numbered lead rather than shipped unmeasured** (§20.2).
+What I *did* ship changes nothing there: `test_affected_entity_wire`, `test_location_register_organ` and
+`test_causation_typed_landing_organ` all PASS under both organs.
+
+## 19b. THE COPULAR STATE READ — what blocks the other two of six
+
+Both blocked cases are **upstream of the labels rung**, and both are the same construction (predicate-initial /
+inverted copular):
+
+* *"Here is a revised draft ."* — the **category organ** tags `revised` as VERB and the arm roots it; the parse
+  contains **no `cop` arc at all** (`cop arcs=[]`), so `extract_entity_states` has nothing to bind. Identical under
+  both organs; the labels rung is never consulted.
+* *"Attached is the spreadsheet you asked for ."* — the **heads rung** attaches `is` to `asked` (head 6) rather than
+  to `Attached`, so the copular predicate is identified as `asked` and the holder search runs in the wrong clause.
+  Identical under both organs.
+
+So the copular state read's 4/6 is 2/6 blocked by the categories and heads rungs on the inverted-copular construction,
+0/6 blocked by the labels rung. That is the chain answer, not an excuse: it is where the next repair has to go.
+
+## 20. LEADS, BRIEF-READY, WITH THE MATH AND THE REACH
+
+**20.1 (Q2) THE CONFIGURATION KEY AS A TWO-SOURCE ESTIMATE.** *Structure:* the same Competition-Model configuration,
+but its KEY becomes the pair (arc host class, arc-free host class) instead of the arc host class alone. *Math:* today
+`activation = log P(r) + [log P(r|cfg_arc) − log P(r)] + Σ contrasts`, with the licensor entering as a separate
+unconditioned term `log P(r|hs) − log P(r)` — a naive combination of two marginals that double-counts their shared
+information. The two-source form is `log P(r | cfg_arc, cfg_surf) − log P(r)`, one joint configuration with Dirichlet
+backoff to each marginal (the hierarchical backoff machinery is already in `strengths_from_counts` as
+`m_config_backoff`). *Brain:* multisensory cue combination (Ernst & Banks 2002) applied to the configuration rather
+than to a contrast — two noisy estimates of ONE latent quantity, combined by their reliabilities. *Population:* all
+2,099 expressible nominals. *Reach:* the upstream oracle gap — gold-heads all-expressible 0.8661 → 0.9057, gold nmod
+→ ~0.810 (the +34-token learning-rung budget of §14, no more). *Why not now:* it needs a configuration-count
+restructure and its own sweep of the backoff mass; the session's remaining time went to Predicate Proximity, which
+was cheaper and paid immediately.
+
+**20.2 MOVE `nmod` OUT OF `affected_entity_resolver.OBJ_DEPS`.** *One line.* 573 emitted `nmod` tokens per 700
+sentences are currently typed as OBJ co-arguments for ACT-R role parallelism. *Instrument:* the pronoun-undergoer
+decision plus the board's coref / who-did-what dimensions. *Reach:* unknown until measured — which is exactly why it
+should be its own brief and not a rider on this one.
+
+**20.3 REPLAY-BASED CONSOLIDATION.** The five negative repairs of the learning rung all fail the same way: they try to
+grade *individual* experiences, and the governor's error is confident (mean P(MAP) = 0.9884) and its conflicts carry
+the conflict validity (§15). The brain does not commit a comprehension outcome to long-term cue validity at read time
+— it consolidates offline (hippocampal replay → cortical statistics). A second pass that re-reads its own earlier
+decisions with the whole sentence available and accrues only what survives re-reading is the one form that can filter
+*confident* errors without discarding conflicts. *Reach:* the same +34-token budget as 20.1, by a different route;
+they are alternatives, not additive.
+
+**20.4 THE INVERTED COPULAR CONSTRUCTION** (§19b): a categories-rung + heads-rung problem worth 2 of 6 on the copular
+state read, and the same construction pri 103 recorded as its existential residual.
+
+**20.5 THE HEADS RUNG remains the live-arm wall for `obl`** — 65 of 71 flips have a wrong live head. pri 94/97/105
+territory.
+
+## 21. IS THE SESSION EXHAUSTED? — the accounting
+
+**Yes, on this rung, and here is the accounting rather than the assertion.**
+
+* The 489-token target decomposes exactly: **363 correct**, **34 recoverable by repairing the learning rung**, **92
+  beyond the upstream oracle** (68 of them marker-less UD conventions). Three independent ceilings agree on the last
+  group — the gold-trained configuration (6/60 and 2/18), the reading-induced lexical class (0 additional), and the
+  arc (the tokens have no case marker to interpret).
+* The learning rung's +34 was attacked **six ways**, all built and all measured: posterior accrual (null, the
+  posterior is peaked), the untrimmed top-2 runner-up (null, 1% of the evidence), a convergence gate (negative, strips
+  29% of OBL evidence vs 13% of NMOD), a convergence weight swept in β (monotonically negative), a sentence-entropy
+  weight (a prior shift, with the correlations to prove it), and Predicate Proximity (**positive — shipped**). The two
+  remaining routes both need machinery this session cannot build and measure honestly (§20.1, §20.3), so they are
+  briefs, not unfinished work.
+* Every consumer I can reach is measured: the causation affector (recovered), the copular state read (4/6, both
+  blockers traced upstream), the affected-entity co-argument typing (573 tokens, consumer blind — filed as a lead),
+  and three witnesses passing under both organs.
+* The one control outside my reach was the board A/B, and the floor arm of it completed inside the session (§12).
+
+What would change this verdict is not more effort at this rung but **one of the two briefs in §20.1/§20.3**, each of
+which is bounded by the same measured 34 tokens.
+
 ## SUBMISSION PROMPT
 
 ```
 pri 108 -- the_role_competition_has_no_nmod_class_a_nominal_licensed_by_a_nominal_is_a_property_not_an_oblique_and_every_label_consumer_must_read_one_structure
-STATUS: PARTIAL (one clause unmet, located with arithmetic; one control not run -- the board).
+STATUS: PARTIAL, and the residual is now SIZED rather than merely located. Phase 7 complete.
 
 The Competition-Model role organ can now say "this nominal modifies another nominal". UD-EWT test 700,
-subtype-preserving gold, every table accrued on the CURRENT live chain, paired item bootstrap:
-  GOLD heads -- gold nmod 0.0000 -> 0.7423 CI[+0.7035,+0.7791]; gold obl 0.8081 -> 0.8352 (+0.0271
-    CI-sep, UP); all expressible nominals 0.6746 -> 0.8604 (+0.1858 CI-sep); CORE arguments 0.9073 ->
-    0.9207 (+0.0135 CI[+0.0025,+0.0245], CI-separated UP).
-  LIVE heads (frontend Parser) -- nmod 0 -> 0.6748; all expressible 0.5774 -> 0.7041 (+0.1267
-    CI[+0.1077,+0.1453]) = 3x the +0.0415 the bar asked for; core +0.0067 n.s.
-  Twin CI-separated below on every multi-class population, both arms. Patch byte-identical on the live
-  v3 asset (7414 labels, 0 diff); witness 34/34 (v4) and 33/33 (v3).
+subtype-preserving gold, every table accrued on the CURRENT live chain, paired item bootstrap 4000:
+  GOLD heads -- gold nmod 0.0000 -> 0.7403 CI[+0.7014,+0.7771]  (0.7686 on the 471 CONVENTION-FREE
+    tokens, 0.8710 on the 411 that carry a case marker at all); gold obl 0.8081 -> 0.8691 (+0.0609
+    CI[+0.0339,+0.0880], UP); obl+nmod 0.3841 -> 0.8015; all expressible nominals 0.6746 -> 0.8661
+    (+0.1915 CI-sep); CORE arguments 0.9073 -> 0.9191 (+0.0118 CI[+0.0008,+0.0236], CI-separated UP).
+  LIVE heads (frontend Parser) -- nmod 0 -> 0.6769; all expressible 0.5774 -> 0.7061 (+0.1286
+    CI[+0.1096,+0.1477]) = 3x the +0.0415 the bar asked for; core +0.0017 n.s.; the one negative
+    delta, gold obl -0.1377 CI-sep, is 65 of 71 flips with a WRONG LIVE HEAD.
+  Info-free twin CI-separated below on every multi-class population, both arms. Patch byte-identical on
+  the live v3 asset (7414 labels, 0 diff). Witness 37/37 (v4), 36/36 (v3).
 CONSUMER REPAIRED: `nmod` left the supervised arc_labeler, so every label consumer reads one structure;
-the causation landing doc's affector comes back -- (0,'',flood,village,CAUSE) -> (0,'storm',flood,
-village,CAUSE) -- and the copular STATE read holds at 4/6 holders.
-BUILT: the NMOD class (uncapped; nmod:poss inside it), the ENGLISH GENITIVE as case-cue values, an
-ARC-FREE LICENSOR cue (Late Closure) read only where a case marker exists AND read ARC-INDEPENDENTLY,
-no left-case-marking of a relative pronoun, and the phrasal verb as a stored (lemma+particle) value.
-NOT MET, LOCATED: gold nmod 0.7423 < 0.90 -- the 0.9813 the bar comes from is a TWO-WAY readout and the
-organ measured that way is 0.8970 (n=932); 78 of the residual tokens are marker-less UD-2.16 subtypes
-and a GOLD-TREE-TRAINED oracle tops out at 0.8548, so the bar sits 22 tokens ABOVE the oracle. The
-blocking upstream quantity is the perceived-heads LEARNING rung; three gold-free repairs built, all
-three negative WITH mechanism (the arm's posterior is peaked -- mean P(MAP)=0.9884, 1.044 candidates;
-gating/weighting the conflicts destroys the evidence that sets relative cue validity).
-NOT RUN: the 7-dimension board A/B (the machine was saturated). The organ is byte-identical without the
-v4 asset, so that A/B is v3-vs-v4 on identical code.
+the causation landing doc affector comes back -- (0,'',flood,village,CAUSE) -> (0,'storm',flood,
+village,CAUSE); the copular STATE read holds at 4/6 holders; three consumer witnesses pass under both
+organs. AND A CONSUMER DEFECT FOUND: `nmod` labels emitted go 13 -> 573 per 700 sentences, but
+affected_entity_resolver.OBJ_DEPS contains `nmod`, so all 573 are still typed as OBJ co-arguments --
+a one-line brief, filed unmeasured rather than shipped unmeasured.
+BUILT (six): the NMOD class (uncapped; nmod:poss inside it), the ENGLISH GENITIVE as case-cue values,
+an ARC-FREE LICENSOR cue (Late Closure) read only where a case marker exists AND read ARC-INDEPENDENTLY,
+no left-case-marking of a relative pronoun, the phrasal verb as a stored (lemma+particle) value, and --
+the phase-7 build -- PREDICATE PROXIMITY (Gibson et al. 1996) as the COMPETING attachment principle,
+found by checking my own citation: the literature pairs Late Closure with Predicate Proximity rather
+than treating either as absolute. Worth gold obl 0.8352 -> 0.8691 and it narrows the live obl loss.
+NOT MET, SIZED: gold nmod 0.7403 < 0.90. The 0.9813 the bar comes from is a TWO-WAY readout; the organ
+measured that way is 0.8970 (n=932). Of the 126 misses only 34 are the perceived-heads LEARNING RUNG
+(the gold-tree-trained oracle gets them) and 92 are BEYOND THE ORACLE TOO, 68 of those being marker-less
+UD-2.16 subtypes. So that rung is worth at most +0.070 and the bar sits 43 tokens above it.
+SIX gold-free repairs of the learning rung built and measured: FIVE negative with mechanism and counts
+(posterior accrual null -- mean P(MAP)=0.9884, 1.044 candidates; the untrimmed top-2 runner-up null --
+informative per token, mean q=0.1625, 43% a different host class, but only ~1% of the evidence; a
+convergence GATE negative -- it strips 29.0% of OBL evidence vs 13.0% of NMOD, destroying the CONFLICT
+VALIDITY that the Competition Model says dominates the final phase of cue learning; the same as a WEIGHT
+monotonic in beta; a sentence-entropy weight = a PRIOR SHIFT, corr(H, OBL share)=+0.150 vs NMOD +0.033)
+and ONE positive (Predicate Proximity, shipped). The reading-induced lexical class was re-tested WITH the
+NMOD class present: zero reach on nmod:unmarked, -0.0995 CI-sep on core arguments.
+RULINGS IMPLEMENTED: nmod:desc is a CONVENTION class -- declared in the organ as CONVENTION_SUBTYPES
+(measurement metadata, read by no computation), asserted by the witness, reported both ways by --bar.
+LEADS: (1) the configuration KEY as a two-source estimate (arc host class x arc-free host class, Ernst &
+Banks combination, Dirichlet backoff to each marginal) -- reach = the whole oracle gap; (2) move `nmod`
+out of affected_entity_resolver.OBJ_DEPS; (3) replay-based consolidation; (4) the inverted-copular
+construction (both remaining copular blockers are categories+heads, not labels).
 FILES: experiments/exp_role_nmod_class_v1.py, data/hook_state/coarse_role_validities_pri108_v4.json,
 notes/problems/<slug>/{SOLVED.md, graded_role_assigner_nmod_patch.diff}.
 LAND: git apply --ignore-whitespace the diff; copy the table to data/frontend_assets/

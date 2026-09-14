@@ -192,8 +192,29 @@ def clause_initial(toks, pos, i):
     return "initial"
 
 
+_PRED_CAT = ("VERB", "AUX", "ADJ", "ADV")
+
+
+def predicate_proximity(toks, pos, i, window=8):
+    """PREDICATE PROXIMITY (Gibson, Pearlmutter, Canseco-Gonzalez & Hickok 1996) -- the SECOND principle of attachment
+    preference, the one that competes with Recency/Late Closure: an attachment is preferred as structurally close to
+    the head of a PREDICATE phrase as possible. The arc-free licensor cue implements Recency alone (the nearest
+    preceding lexical head). Predicate Proximity is the cue that pulls the other way, and the two are known to be
+    language-modulated rather than absolute -- which is exactly why the licensor's validity had to be LEARNED (0.707
+    alone) instead of applied as a rule. Value: how far back the nearest preceding PREDICATE head is, bucketed.
+    Arc-free (toks/pos only)."""
+    d = None
+    for j in range(i - 1, max(0, i - 1 - window), -1):
+        if pos[j - 1] in _PRED_CAT:
+            d = i - j
+            break
+    if d is None:
+        return "far"
+    return "1" if d == 1 else ("2" if d == 2 else ("3-4" if d <= 4 else "5-8"))
+
+
 def cues_of(toks, pos, heads, i, frames, v3, conf, gen, hostsurf=False, brk=False, relcl=False, vprep=False,
-            edge=False):
+            edge=False, predprox=False):
     """The organ's own cue values (GRA.coarse_role_cues, unchanged) plus, when the table declares cue_set v4, the
     genitive CASE value and the arc-free LICENSOR cue. `hostsurf` is a NEW cue key: a table that does not carry it
     simply has no strength entry, so the cue abstains and the organ is unchanged."""
@@ -218,6 +239,10 @@ def cues_of(toks, pos, heads, i, frames, v3, conf, gen, hostsurf=False, brk=Fals
                          else "na")
     if edge:
         c["edge"] = clause_initial(toks, pos, i)
+    if predprox:
+        # read WITH the licensor, and only where there is a case marker to interpret -- the two attachment principles
+        # compete over the same decision, so they must be available in the same situations.
+        c["predprox"] = predicate_proximity(toks, pos, i) if c.get("hostsurf", "na") != "na" else "na"
     if vprep:
         # THE PHRASAL VERB IS A STORED LEXICAL ITEM (MacWhinney's item-based constructions; pri 103's queued alternate
         # path). The lexical `prep` cue cannot tell the PARTICLE of "worked OUT a deal" from the case marker of
@@ -334,6 +359,34 @@ def build_cache(out_dir):
         print("[cache] %s: %d sentences in %.0fs -> %s" % (name, len(rows), time.time() - t0, p), flush=True)
 
 
+def build_cache2(out_dir):
+    """A SECOND perception pass storing the head posterior UNTRIMMED at the top-3 plus the sentence's mean normalised
+    posterior entropy. The first cache trimmed at P >= 0.02, which would have made the top-2 test a test of a weak
+    implementation rather than of the idea (the arm's posterior is peaked, so the runner-up is usually below 0.02)."""
+    from hdlab import frontend as FE
+    tg, pp = FE.Tagger(), FE.Parser()
+    for name, path, cap in (("test", TEST, TEST_CAP), ("train", TRAIN, None)):
+        t0 = time.time(); rows = []
+        for toks, gpos, gheads, rels in sentences(path, cap=cap):
+            cats, tpost = tg.tag_with_posterior(list(toks))
+            po = pp.parse(list(toks), cats, tpost)
+            marg = po.marginals or {}
+            top3, ents = {}, []
+            for i, d in marg.items():
+                if not d:
+                    continue
+                srt = sorted(d.items(), key=lambda kv: -kv[1])[:3]
+                top3[i] = [(int(h), float(pv)) for h, pv in srt]
+                v = np.asarray(list(d.values()), dtype=float)
+                v = v[v > 0]
+                if len(v) > 1:
+                    ents.append(float(-(v * np.log(v)).sum() / np.log(len(v))))
+            rows.append({"top3": top3, "sent_entropy": float(np.mean(ents)) if ents else 0.0})
+        with open(os.path.join(out_dir, "post2_%s.pkl" % name), "wb") as f:
+            pickle.dump(rows, f, protocol=4)
+        print("[cache2] %s: %d sentences in %.0fs" % (name, len(rows), time.time() - t0), flush=True)
+
+
 def load_cache(out_dir, name):
     with open(os.path.join(out_dir, "perc_%s.pkl" % name), "rb") as f:
         return pickle.load(f)
@@ -394,7 +447,8 @@ def _converges(toks, pos, heads, i):
 
 def build_counts(rows, classes, gen, poss="NMOD", min_conf=MIN_CONF, perceived=True, hostsurf=False,
                  post_accrual=False, converge_gate=False, brk=False, relcl=False, vprep=False, edge=False,
-                 converge_beta=1.0, hs_global=False):
+                 converge_beta=1.0, hs_global=False, sent_entropy=0.0, top2_split=False, indcat=False,
+                 predprox=False):
     """Accrue the Competition-Model counts from READING: for every argument-head nominal the governor believed it
     attached (reliability gate), one decision teaches the configuration and every fired cue value.
 
@@ -427,6 +481,12 @@ def build_counts(rows, classes, gen, poss="NMOD", min_conf=MIN_CONF, perceived=T
                 continue
             if converge_gate and conf is not None and not _converges(toks, pos, heads, i):
                 continue
+            if sent_entropy and conf is not None:
+                # SENTENCE-LEVEL RELIABILITY. Per-ARC confidence is peaked and miscalibrated (mean P(MAP) = 0.9884), so
+                # it cannot grade experience. The reader has a coarser signal available: how uncertain the WHOLE parse
+                # was. w *= (1 - H)^gamma over the sentence mean normalised posterior entropy -- a sentence the
+                # governor found hard teaches less, arc by arc.
+                w *= max(0.0, 1.0 - float(r.get("sent_entropy", 0.0))) ** sent_entropy
             if converge_beta != 1.0 and conf is not None and not _converges(toks, pos, heads, i):
                 # RELIABILITY WEIGHTING, NOT A GATE (Ernst & Banks 2002). The hard gate failed because it DISCARDED
                 # the conflicts that set the relative validity of the two cues (22.6% of decisions). Down-WEIGHTING a
@@ -435,7 +495,15 @@ def build_counts(rows, classes, gen, poss="NMOD", min_conf=MIN_CONF, perceived=T
             dec += w
             g = ix[coarse_of(rels[i - 1], classes, poss)]
             prior[g] += w
-            if post is not None:
+            if top2_split and perceived and r.get("top3"):
+                # THE RUNNER-UP HOST CATEGORY. The trimmed posterior hides the runner-up (the arm is peaked), so the
+                # top-2 are taken UNTRIMMED and RENORMALISED: q = p2 / (p1 + p2). Where the runner-up head has a
+                # DIFFERENT category the host-category signal is genuinely ambiguous, and both configurations are
+                # taught in proportion instead of the MAP one being taught at full weight.
+                t3 = [(h, pv) for h, pv in (r["top3"].get(i) or []) if h != i][:2]
+                cand = {h: pv for h, pv in t3} if len(t3) == 2 else {}
+                tot = sum(cand.values())
+            elif post is not None:
                 cand = {h: p for h, p in (post.get(i) or {}).items() if p >= POST_MIN_P and h != i}
                 tot = sum(cand.values())
             else:
@@ -447,7 +515,9 @@ def build_counts(rows, classes, gen, poss="NMOD", min_conf=MIN_CONF, perceived=T
                     hh = heads
                 else:
                     hh = dict(heads); hh[i] = int(h)
-                cu = cues_of(toks, pos, hh, i, lf, True, conf, gen, hostsurf, brk, relcl, vprep, edge)
+                cu = cues_of(toks, pos, hh, i, lf, True, conf, gen, hostsurf, brk, relcl, vprep, edge, predprox)
+                if indcat:
+                    cu["indcat"] = GRA.induced_category(toks[i - 1].lower())
                 ww = w * (p / tot)
                 cfg = cu["config"]; cfg_c[cfg][g] += ww
                 for c, v in cu.items():
@@ -488,13 +558,15 @@ def twin_table(tab, seed=17):
 
 
 # ----------------------------------------------------------------------------------------------- the reader
-def label_sent(toks, pos, heads, tab, classes, deps, gen, conf=None, hostsurf=False, brk=False, relcl=False, vprep=False, edge=False, hs_global=False):
+def label_sent(toks, pos, heads, tab, classes, deps, gen, conf=None, hostsurf=False, brk=False, relcl=False, vprep=False, edge=False, hs_global=False, indcat=False, predprox=False):
     """The organ's read, with the cell's class space: additive cue activation -> MAP (GRA's own supports math)."""
     out = {}
     for i in range(1, len(toks) + 1):
         if i - 1 >= len(pos) or not GRA.is_arg_head(toks, pos, i):
             continue
-        cu = cues_of(toks, pos, heads, i, tab.get("lemma_frames"), True, conf, gen, hostsurf, brk, relcl, vprep, edge)
+        cu = cues_of(toks, pos, heads, i, tab.get("lemma_frames"), True, conf, gen, hostsurf, brk, relcl, vprep, edge, predprox)
+        if indcat:
+            cu["indcat"] = GRA.induced_category(toks[i - 1].lower())
         S = {"prior": tab["prior"]}
         cfg = cu["config"]
         v = tab["strength"].get("config", {}).get(cfg)
@@ -512,7 +584,7 @@ def label_sent(toks, pos, heads, tab, classes, deps, gen, conf=None, hostsurf=Fa
     return out
 
 
-def read_all(rows, tab, classes, deps, gen, heads_source, hostsurf=False, brk=False, relcl=False, vprep=False, edge=False, hs_global=False):
+def read_all(rows, tab, classes, deps, gen, heads_source, hostsurf=False, brk=False, relcl=False, vprep=False, edge=False, hs_global=False, indcat=False, predprox=False):
     """heads_source: 'gold' (the labels rung's own ceiling) | 'live' (the frontend Parser's in-order tree)."""
     preds = []
     for r in rows:
@@ -521,12 +593,19 @@ def read_all(rows, tab, classes, deps, gen, heads_source, hostsurf=False, brk=Fa
             pos, heads, conf = r["gpos"], r["gheads"], None
         else:
             pos, heads, conf = r["ppos"], r["pheads"], r["conf"]
-        preds.append(label_sent(toks, pos, heads, tab, classes, deps, gen, conf, hostsurf, brk, relcl, vprep, edge, hs_global))
+        preds.append(label_sent(toks, pos, heads, tab, classes, deps, gen, conf, hostsurf, brk, relcl, vprep, edge, hs_global, indcat, predprox))
     return preds
 
 
 # ----------------------------------------------------------------------------------------------- metrics
 NMOD_SUB = ("nmod", "nmod:poss", "nmod:unmarked", "nmod:desc")
+# THE CONVENTION CLASS (owner/supervisor ruling 2026-09-14, the same treatment pri 94 gave the heads rung's
+# convention layer). `nmod:desc` is the UD-2.16 split of a DESCRIPTIVE nominal off `compound`/`appos` -- "President
+# Bush", "Enron Corp.", "Mr. Lavorato". It is surface-identical to `compound` (348 tokens) and `flat` (188) in the very
+# same configuration, the brain's read of "President Bush" and of a compound is the same object, and it is unwinnable
+# by construction: the UPSTREAM ORACLE (this cue set trained on the gold tree) gets 2 of 18. Scored separately, both
+# ways, never silently dropped.
+CONVENTION_SUB = ("nmod:desc",)
 OBL_SUB = ("obl", "obl:unmarked", "obl:agent")
 EXPRESSIBLE = ("nsubj", "obj", "iobj", "obl", "nmod")
 
@@ -546,8 +625,14 @@ def populations(rows):
             if b == "nmod":
                 pops["nmod"].append(key); pops["obl_nmod"].append(key)
                 pops["nmod_" + (g.split(":")[1] if ":" in g else "bare")].append(key)
+                if g not in CONVENTION_SUB:
+                    pops["nmod_convention_free"].append(key)      # the bar population (desc excluded)
+                    pops["obl_nmod_convention_free"].append(key)
+                if g in ("nmod", "nmod:poss"):
+                    pops["nmod_case_marked"].append(key)          # the tokens that carry ANY case marker at all
             if b == "obl":
                 pops["obl"].append(key); pops["obl_nmod"].append(key)
+                pops["obl_nmod_convention_free"].append(key)
             if b in ("nsubj", "obj", "iobj") or g in ("nsubj:pass", "obl:agent"):
                 pops["core"].append(key)
     return pops
@@ -648,7 +733,17 @@ def arms_for(tr, te, out_dir, sweep=False):
                                                                "converge_beta": 0.5}),
             # UPSTREAM ORACLE for the SHIPPED cue set (diagnostic only -- it reads the gold tree at learning time)
             ("SHIP_hsglob_goldtrain", ROLES8, DEP8, True, "marked", {"relcl": True, "vprep": True, "hs_global": True,
-                                                                     "perceived": False})]
+                                                                     "perceived": False}),
+            ("SHIP_sentent1", ROLES8, DEP8, True, "marked", {"relcl": True, "vprep": True, "hs_global": True,
+                                                             "sent_entropy": 1.0}),
+            ("SHIP_sentent2", ROLES8, DEP8, True, "marked", {"relcl": True, "vprep": True, "hs_global": True,
+                                                             "sent_entropy": 2.0}),
+            ("SHIP_top2", ROLES8, DEP8, True, "marked", {"relcl": True, "vprep": True, "hs_global": True,
+                                                         "top2_split": True}),
+            ("SHIP_indcat", ROLES8, DEP8, True, "marked", {"relcl": True, "vprep": True, "hs_global": True,
+                                                           "indcat": True}),
+            ("SHIP_predprox", ROLES8, DEP8, True, "marked", {"relcl": True, "vprep": True, "hs_global": True,
+                                                             "predprox": True})]
     if sweep:
         spec += [("nmod_gen_possOTHER", ROLES8, DEP8, True, False, {"poss": "OTHER"}),
                  # UPSTREAM ORACLE ABLATION (diagnostic, NOT shippable: it reads the gold tree at learning time) --
@@ -664,8 +759,8 @@ def arms_for(tr, te, out_dir, sweep=False):
             continue
         t0 = time.time()
         arms[name] = (classes, deps, gen, hs, bool(kw.get("brk")), bool(kw.get("relcl")), bool(kw.get("vprep")),
-                      bool(kw.get("edge")), bool(kw.get("hs_global")),
-                      build_counts(tr, classes, gen=gen, hostsurf=hs, **kw))
+                      bool(kw.get("edge")), bool(kw.get("hs_global")), bool(kw.get("indcat")),
+                      bool(kw.get("predprox")), build_counts(tr, classes, gen=gen, hostsurf=hs, **kw))
         print("[build] %s %.0fs" % (name, time.time() - t0), flush=True)
     return arms
 
@@ -675,6 +770,67 @@ _ARMS_ONLY = []
 
 def argv_arms():
     return _ARMS_ONLY
+
+
+SHIP_KW = dict(gen=True, hostsurf="marked", relcl=True, vprep=True, hs_global=True, predprox=True)
+
+
+def _ship_tab(tr, **extra):
+    kw = dict(SHIP_KW); kw.update(extra)
+    gen = kw.pop("gen"); hs = kw.pop("hostsurf")
+    return table_from_counts(build_counts(tr, ROLES8, gen=gen, hostsurf=hs, **kw), ROLES8), gen, hs, kw
+
+
+def _ship_read(te, tab, heads_source):
+    return read_all(te, tab, ROLES8, DEP8, True, heads_source, "marked", False, True, True, False, True, False, True)
+
+
+def probe(tr, te, pops, out_dir):
+    """PHASE 7 PROBE: the residual by error class with counts, the conflict-validity accounting, and the two new
+    gold-free sources of graded learning evidence the supervisor asked for."""
+    o = {}
+    tab, _, _, _ = _ship_tab(tr)
+    predg = _ship_read(te, tab, "gold")
+    predl = _ship_read(te, tab, "live")
+    # ---- (A) THE RESIDUAL BY ERROR CLASS, with counts, against the ORACLE
+    otab, _, _, _ = _ship_tab(tr, perceived=False)
+    predo = _ship_read(te, otab, "gold")
+    cls = Counter()
+    for si, r in enumerate(te):
+        toks, gpos, gh, rels = r["toks"], r["gpos"], r["gheads"], r["rels"]
+        for i in range(1, len(toks) + 1):
+            if gpos[i - 1] not in GRA.NOMINAL or rels[i - 1].split(":")[0] != "nmod":
+                continue
+            ok_s = norm(predg[si].get(i, "dep")) == "nmod"
+            ok_o = norm(predo[si].get(i, "dep")) == "nmod"
+            sub = rels[i - 1]
+            if ok_s:
+                cls[("CORRECT", sub)] += 1
+            elif ok_o:
+                cls[("LEARNING RUNG (the oracle gets it)", sub)] += 1
+            else:
+                cls[("BEYOND THE ORACLE TOO", sub)] += 1
+    o["nmod_residual_by_error_class"] = {"%s | %s" % k: v for k, v in sorted(cls.items(), key=lambda kv: -kv[1])}
+    # ---- (B) CONFLICT VALIDITY: what the convergence gate actually threw away
+    keptc, dropc = Counter(), Counter()
+    for r in tr:
+        toks, gpos, rels = r["toks"], r["gpos"], r["rels"]
+        for i in range(1, len(toks) + 1):
+            if not GRA.is_arg_head(toks, gpos, i):
+                continue
+            if float(r["conf"].get(i, 0.0)) < MIN_CONF:
+                continue
+            g = coarse_of(rels[i - 1], ROLES8)
+            (keptc if _converges(toks, r["ppos"], r["pheads"], i) else dropc)[g] += 1
+    tot_k, tot_d = sum(keptc.values()), sum(dropc.values())
+    o["conflict_validity"] = {
+        "kept": tot_k, "discarded": tot_d,
+        "kept_by_class": dict(keptc.most_common()), "discarded_by_class": dict(dropc.most_common()),
+        "share_of_class_discarded": {c: round(dropc[c] / max(keptc[c] + dropc[c], 1), 4) for c in ROLES8}}
+    with open(os.path.join(out_dir, "probe.json"), "w", encoding="utf-8") as f:
+        json.dump(o, f, indent=1)
+    print(json.dumps(o, indent=1))
+    return 0
 
 
 def diag(tr, te, pops, out_dir):
@@ -779,14 +935,45 @@ def main(argv):
         return self_test()
     if "--cache" in argv:
         build_cache(out_dir); return 0
+    if "--cache2" in argv:
+        build_cache2(out_dir); return 0
     tr = load_cache(out_dir, "train"); te = load_cache(out_dir, "test")
+    for _nm, _rows in (("train", tr), ("test", te)):
+        _p2 = os.path.join(out_dir, "post2_%s.pkl" % _nm)
+        if os.path.exists(_p2):
+            with open(_p2, "rb") as _f:
+                _ex = pickle.load(_f)
+            for _r, _e in zip(_rows, _ex):
+                _r["top3"] = _e["top3"]; _r["sent_entropy"] = _e["sent_entropy"]
     pops = populations(te)
     print("populations: " + "  ".join("%s=%d" % (k, len(v)) for k, v in sorted(pops.items())), flush=True)
 
+    if "--bar" in argv:
+        tab, _, _, _ = _ship_tab(tr)
+        out = {}
+        for hsrc in ("gold", "live"):
+            sc = score(te, _ship_read(te, tab, hsrc), pops)
+            out[hsrc] = {k: [round(float(v.mean()), 4), len(v)] for k, v in sorted(sc.items())}
+        with open(os.path.join(out_dir, "bar.json"), "w", encoding="utf-8") as f:
+            json.dump(out, f, indent=1)
+        for hsrc in ("gold", "live"):
+            print("[%s heads]" % hsrc)
+            for k in ("nmod", "nmod_convention_free", "nmod_case_marked", "nmod_desc", "nmod_unmarked",
+                      "obl", "obl_nmod", "obl_nmod_convention_free", "all_expressible", "core"):
+                a, n = out[hsrc][k]
+                print("   %-26s %.4f  (n=%d)" % (k, a, n))
+        g = out["gold"]
+        assert g["nmod"][0] > 0.70 and g["nmod_convention_free"][0] > 0.74 and g["nmod_case_marked"][0] > 0.85, g
+        assert g["obl"][0] >= 0.8081 and g["core"][0] >= 0.9073, g
+        print("BAR ASSERTIONS PASS (nmod > 0.70 full / > 0.74 convention-free / > 0.85 case-marked; "
+              "obl and core both at or above the floor)")
+        return 0
+    if "--probe" in argv:
+        return probe(tr, te, pops, out_dir)
     if "--diag" in argv:
         return diag(tr, te, pops, out_dir)
     if "--emit" in argv:
-        counts = build_counts(tr, ROLES8, gen=True, hostsurf="marked", relcl=True, vprep=True, hs_global=True)
+        counts = build_counts(tr, ROLES8, gen=True, hostsurf="marked", relcl=True, vprep=True, hs_global=True, predprox=True)
         lf = counts.pop("_lemma_frames"); dec = counts.pop("_decisions")
         with role_space(ROLES8, DEP8):
             b = GRA.strengths_from_counts(counts)
@@ -813,16 +1000,16 @@ def main(argv):
             _ARMS_ONLY = a.split("=", 1)[1].split(",")
     arms = arms_for(tr, te, out_dir, sweep=sweep)
     res = {}; acc = {}
-    for name, (classes, deps, gen, hsf, bk, rc, vp, eg, hg, counts) in arms.items():
+    for name, (classes, deps, gen, hsf, bk, rc, vp, eg, hg, ic, px, counts) in arms.items():
         tab = table_from_counts(counts, classes)
         for hs in ("gold", "live"):
-            preds = read_all(te, tab, classes, deps, gen, hs, hsf, bk, rc, vp, eg, hg)
+            preds = read_all(te, tab, classes, deps, gen, hs, hsf, bk, rc, vp, eg, hg, ic, px)
             acc[(name, hs)] = score(te, preds, pops)
             res[(name, hs, "conf_nmod")] = confusion(te, preds, "nmod")
             res[(name, hs, "conf_obl")] = confusion(te, preds, "obl")
         tw = twin_table(tab)
         for hs in ("gold", "live"):
-            preds = read_all(te, tw, classes, deps, gen, hs, hsf, bk, rc, vp, eg, hg)
+            preds = read_all(te, tw, classes, deps, gen, hs, hsf, bk, rc, vp, eg, hg, ic, px)
             acc[(name + "_twin", hs)] = score(te, preds, pops)
         print("[arm] %s done" % name, flush=True)
 
