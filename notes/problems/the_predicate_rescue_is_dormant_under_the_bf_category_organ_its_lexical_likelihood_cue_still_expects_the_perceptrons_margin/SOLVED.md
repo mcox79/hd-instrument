@@ -224,6 +224,137 @@ it). It is not this organ's to fix and it bounds what any additive rescue can re
 
 ---
 
+## 4b. PHASE 7 -- the four probes, measured
+
+### (i) The operating-point trade-off table (consumer briefs pick from this)
+
+Through the LIVE reader on modern gold (UD-EWT test, 2077 sentences, **1240 of them with a gold verb**).
+`blind clauses` = share of gold-verb sentences that produce **no event at all** -- a whole clause that every
+downstream organ never sees. Every budget here is inside the perceptron-era 0.466.
+
+| arm | threshold | event recall | event precision | false events/sent | blind clauses |
+|---|---|---|---|---|---|
+| `predicate_recall=False` | -- | 0.9186 | 0.9370 | 0.0775 | 0.0444 |
+| the dormant stand-in | 0.30 | 0.9305 | 0.9263 | 0.0929 | 0.0403 |
+| BF @ fp<=0.05 | 0.4352 | 0.9413 | 0.9028 | 0.1271 | 0.0315 |
+| **BF @ fp<=0.10 (shipped default)** | **0.2592** | **0.9501** | **0.8715** | **0.1757** | **0.0266** |
+| BF @ fp<=0.15 | 0.1712 | 0.9532 | 0.8403 | 0.2273 | 0.0242 |
+| BF @ fp<=0.25 | 0.0929 | 0.9585 | 0.7907 | 0.3182 | 0.0210 |
+
+Recall rises and precision falls monotonically. **0.10 stays the default**: it is the tightest point whose recall
+gain is CI-separated over both floors, and it is the point the board was measured flat at. The other points are
+selectable at runtime with `HDLAB_PREDICATE_RESCUE_BUDGET=0.25` (the asset carries a calibrated threshold for each);
+no second board run was made.
+
+### (ii) The hand-off truncation -- MEASURED, and it is a NEGATIVE that corrects my own phase-6 next-step
+
+`tag_with_posterior` keeps only categories with P >= 0.01. Re-measured at eps in {0.01, 0.001, 0}:
+
+| eps | positives it zeroes (UD-EWT / GUM / QA-SRL) | **best recovery at fp<=0.10** | entries per token | dict build, s/1000 tok |
+|---|---|---|---|---|
+| 0.01 (today) | 6 / 78 / 119 (5.4% / 15.3% / 12.4%) | **0.6875 / 0.4932 / 0.4771** | 1.595 | 0.0055 |
+| 0.001 | 1 / 41 / 26 (0.9% / 8.0% / 2.7%) | **0.6875 / 0.4932 / 0.4771** | 2.560 | 0.0053 |
+| 0 (full) | 0 / 0 / 0 | **0.6875 / 0.4932 / 0.4771** | 17.000 | 0.0054 |
+
+**Widening the truncation buys exactly nothing, on all three populations.** The reason is arithmetic: the best
+feasible threshold at the FP budget is 0.081 / 0.125 / 0.150 -- already an order of magnitude ABOVE 0.01 -- so the
+entries the hand-off discards are entries no affordable operating point would ever have promoted. The 5-15% figure
+I quoted in phase 6 is real but **not load-bearing**, and the phase-6 next-step that proposed widening it is
+**withdrawn** for this consumer. It is not shipped in the diff.
+*Scope note, honestly:* this measures a consumer that THRESHOLDS P(VERB). A consumer that MARGINALISES over the
+distribution (the heads rung's `arc_scores_graded`) loses mass rather than a decision, and that is a different
+measurement on a different rung -- not made here, and not claimed either way.
+
+### (iii) Is there a frequency-normalised likelihood ratio that does not track frequency? YES -- and it ties
+
+`lex_pcw` = `log P(VERB | w)` = `log(n(VERB,w)+lam) - log(sum_c n(c,w)+lam*T)` -- the emission count over the
+**word's own total**, which cancels the frequency term exactly. Built and measured against the log-odds form
+already shipped (`lex_bias`, the same thing against the best rival) and the emission ratio it replaces (`lex_llr`):
+
+| cue | AUC UD-EWT | AUC GUM | AUC QA-SRL |
+|---|---|---|---|
+| `lex_llr` (the emission ratio -- inverts) | 0.8402 | 0.7408 | 0.7880 |
+| `lex_bias` (shipped) | 0.8525 | 0.7489 | 0.7639 |
+| **`lex_pcw`** (P(category\|word)) | 0.8523 | **0.7572** | 0.7809 |
+
+In the full combiner at fp<=0.10: `P7_pcw__rw` 0.7232 / 0.5773 / 0.6781 against the shipped `G_graded__rw`
+0.7054 / 0.5616 / 0.6823 -- **+0.018 / +0.016 / -0.004**, every one of them well inside the CI half-widths
+(0.085 / 0.039 / 0.027). **The two normalisations are equivalent within noise**; what matters is conditioning on
+the WORD rather than on the CATEGORY, which is what fixes the inversion. `lex_bias` is kept because the board A/B
+and the landing witness were measured on it, and a sub-CI difference is not a reason to re-run a 3-hour board.
+Both forms are in the cell; `lex_pcw` is recorded as a drop-in if the cue block is ever refit.
+
+### (iv) The naive-Bayes vs delta-rule blocking, with the weight dump
+
+The three redundant cues are `ctx_odds`, `verb_share` and `clause_verb_share` -- three reads of ONE channel, the
+category organ's posterior. Pearson correlation on QA-SRL: `verb_share ~ clause_verb_share` **0.501**,
+`ctx_odds ~ verb_share` **0.472**, `ctx_odds ~ clause_verb_share` **0.437**. Same bins, both learning rules:
+
+| cue | bin | n_pos | n_neg | naive-Bayes w | **Rescorla-Wagner w** |
+|---|---|---|---|---|---|
+| `ctx_odds` | 9 | 78 | 748 | -0.195 | **+1.078** |
+| `ctx_odds` | 11 | 155 | 397 | +1.122 | **+1.573** |
+| `verb_share` | 1 | 119 | 335 | +1.025 | **-0.938** |
+| `verb_share` | 3 | 98 | 89 | +2.153 | **-0.599** |
+| `verb_share` | 5 | 46 | 28 | +2.547 | **-0.577** |
+| `clause_verb_share` | 1 | 73 | 392 | +0.382 | **-0.533** |
+| `clause_verb_share` | 5 | 54 | 80 | +1.667 | **+0.152** |
+| `clause_verb_share` | 19 | 230 | 370 | +1.583 | **+0.357** |
+
+This is **blocking**, textbook: naive Bayes pays every redundant cue its full marginal evidence (+1.0 to +2.5),
+while the delta rule refuses to accrue strength to `verb_share` and `clause_verb_share` in exactly the range where
+`ctx_odds` already predicts the outcome, and concentrates the credit on `ctx_odds` instead. Rescorla & Wagner
+(1972) predicted precisely this, and it is why the delta rule beats the count combiner on every population.
+
+### (v) The GUM gold blanks, over the whole corpus
+
+Not a sample: **2045 of 30870** gold VERB tokens in the full 16,582-sentence GUM/GENTLE (6.62%) are
+fill-in-the-blank markers (`____`, `______`, ...). They never enter the candidate rows, so no recovery number is
+affected -- but the coverage figure must never be quoted as a lexicon gap.
+
+### (v-b) What the patch costs at read time
+
+Measured on 400 UD-EWT test sentences: the reader's event path is **4.3 ms/sentence** with `predicate_recall=False`
+and **7.9 ms/sentence** under the dormant stand-in; the BF rescue adds **4.7 ms/sentence** on top of the base
+(an extra forward-backward pass plus the emission replay, the cue block and the scoring). The extra posterior pass
+is the dominant term and is avoidable: if `_cached_tag` kept the posterior MATRIX rather than the truncated dict,
+the rescue would reuse it. That is a one-line change on a shared hot path, so it is **named, not shipped** -- it
+belongs with whoever owns the hand-off, not in a rescue diff.
+
+### (vi) The AUX-invisible class -- built, and the two instruments DISAGREE, which is the finding
+
+*The brain does not have UD's convention.* UD tags main-verb / copular `be` and `have` as **AUX**; the reader fires
+only on `UPOS==VERB`, so a clause whose only verbal token is AUX-tagged emits no event at all. Built the arm the
+coordinator named: **an AUX-tagged token is admitted as the clause's predicate when no VERB competes in its
+clause** (one predicate per clause, Spivey-Knowlton 1993), scored by the same combiner.
+
+**Against UD's own VERB column it looks bad.** Firing on *every* sole-AUX token recovers 1.000 at precision
+**0.1164 / 0.1016 / 0.0228** (UD-EWT / GUM / QA-SRL) -- so the naive rule "a sole AUX is the predicate" is
+**refuted as a rule**. Scored, at fp<=0.10: recovery 0.8361 / 0.7355 / 1.0000 (n_pos 61 / 121 / 16), CI-separated
+over the dormant read (+0.6213 / +0.5622 / +0.4997) and over the twin, but **not** over the swept stand-in
+(-0.050 ns / +0.074 ns / +0.000 ns) -- on this population the organ's raw verb belief already discriminates well.
+
+**But UD's VERB column cannot adjudicate this question, because the question is about UD's convention.** A copular
+`is` is gold-**AUX** in UD, so the brain-correct answer is scored as a false positive by construction. The
+convention-free instrument is: *does the clause produce an event at all?*
+
+| arm (at the default budget) | gold-verb sentences with ZERO events | share | event recall |
+|---|---|---|---|
+| `predicate_recall=False` | 55 / 1240 | 0.0444 | 0.9186 |
+| the dormant stand-in | 50 / 1240 | 0.0403 | 0.9305 |
+| BF (noun class, shipped) | 33 / 1240 | 0.0266 | 0.9501 |
+| **BF + sole-AUX** | **18 / 1240** | **0.0145** | **0.9597** |
+
+**The AUX arm removes 45% of the reader's remaining blind clauses** (33 -> 18), event recall +0.0096
+CI[+0.0061,+0.0136] **CI-separated**, for +0.06 false events/sentence and 3.5 points of event precision. At
+fp<=0.25 it removes 65% of them (26 -> 9). It preserves the additive contract (it only ever adds).
+**Shipped behind `HDLAB_PREDICATE_RESCUE_AUX=1`, default OFF, with a measured reason and not an omission: the
+board A/B I ran covers the noun arm only.** Turning it on is a board run, not a judgement call -- and it is the
+same VERB-as-AUX confusion that carries 58% of the tag-to-head loss upstream (2026-09-13), so the board should be
+run for both rungs together.
+
+---
+
 ## 5. Every component touched, and its brain-foundational status
 
 | component | role here | status | note |
@@ -254,24 +385,65 @@ The win came from cracking the chain **to the top**, and the rungs divide cleanl
 6. **The learning rule.** Error-driven cue competition rather than independent accumulation, because the cues are
    redundant by construction.
 
+**Cracked in phase 7.**
+7. **The AUX convention.** Built as an arm (4b vi). It removes 45% of the reader's remaining blind clauses; it is
+   OFF by default only because the board A/B covers the noun arm.
+
 **Not cracked (named, with numbers, above).**
-- The AUX convention (4.7-38.8% of dropped verbs, invisible to an additive rescue) -- upstream, already filed.
-- The sentence-level "at least one predicate" constraint -- belongs in the organ's decode, not here (negative (c), (f)).
-- The event-level precision trade (0.9370 -> 0.8715) -- real, reported, and the reason the default is the tight budget.
+- The sentence-level "at least one predicate" constraint -- belongs in the organ's decode, not here; specified with
+  its math, its population (55-62% of dropped verbs) and its reach as alternate path A, brief-ready.
+- The event-level precision trade (0.9370 -> 0.8715) -- real, reported, and the reason the default is the tight
+  budget; the full curve is in 4b(i) so a consumer brief can pick a different point.
+- The extra 4.7 ms/sentence -- avoidable by caching the posterior matrix on a shared hot path I must not edit.
 
 ---
 
 ## 7. Alternate paths (similarly or MORE brain-foundational than what I shipped)
 
-**A. Put the clause constraint INSIDE the category organ's decode.** *Structure:* the same constraint-satisfaction
-network (MacDonald 1994) that already settles the categories, with one more global factor. *Math:* run the organ's
-forward pass twice per clause, once unconstrained (`Z`) and once with the VERB state masked (`Z_noverb`); then
-`P(c_i = VERB | the clause has a predicate) = post_i(VERB) / (1 - Z_noverb/Z)`. Exact, cheap (one extra forward pass),
-and it makes the *cross-sentence* comparison principled, which a global threshold on an unnormalised posterior is not.
-*Why more BF:* the brain does not run a second organ to patch the first; it settles one network. *What it would take:*
-a masked second-order forward pass (the live asset is `order=2`) plus a whole-board A/B, because it changes the
-posterior every consumer reads. *Why not now:* the category organ is under concurrent work (pri 99 / pri 104) and this
-brief's remit is the rescue.
+**A. Put the clause constraint INSIDE the category organ's decode. -- BRIEF-READY, strategy to file.**
+
+*The structure.* The same constraint-satisfaction network that already settles the categories (MacDonald 1994;
+Kuperberg & Jaeger 2016 graded predictive belief), with one more factor: **every clause has a predicate.** That is
+not a patch bolted on downstream -- it is a constraint the network should have been settling all along, and the
+brain does not run a second organ to repair the first.
+
+*The math, exactly.* The organ's forward-backward already computes the partition function `Z = sum over all
+category sequences of P(words, categories)`. Run the SAME pass a second time per clause with the VERB state (and,
+for the AUX arm, AUX) masked out, giving `Z_noverb` = the mass of all decodes in which the clause has **no**
+predicate. Then the constraint is one exact renormalisation:
+
+```
+P(clause has a predicate)          =  1 - Z_noverb / Z
+P(c_i = VERB | clause has a predicate)  =  post_i(VERB) / (1 - Z_noverb / Z)
+```
+
+**Why this is NOT redundant with what I shipped, and the near-miss that proves it.** The obvious form -- force
+token *i* to VERB and read the likelihood gain -- is provably useless: in an HMM that ratio *is* `post_i(VERB)`,
+which the cue block already has (negative (c) above). The `at least one` form is different because its normaliser
+is a property of the **clause**, not of the token: it rescales every token in the clause by the same factor, so it
+changes NOTHING within a sentence and EVERYTHING between sentences. That is exactly the comparison a single global
+threshold has to make and currently makes on an unnormalised quantity. `verb_share` is the crude
+`exactly-one-predicate` approximation of it (`post_i(V) / sum_j post_j(V)`), and `clause_verbless_g`
+(`1 - max_j P(VERB_j)`) is a crude approximation of the factor itself -- both are among the strongest cues I have
+(AUC 0.9115 and a full point of recovery), which is the empirical argument that the exact form is worth building.
+
+*The population it fixes, with counts.* Candidates whose **clause** the organ leaves with no confident predicate
+(no token above P(VERB)=0.5): **55.4% / 56.6% / 62.4%** of all dropped verbs (UD-EWT / GUM / QA-SRL). Of those, the
+sentence is **wholly** verbless for **23.2% / 13.3% / 31.0%**. The witness sentence is in this class and is the
+reason it does not fire at the precision-preserving default: the organ gives `presents` (0.0220) essentially no
+more support than `lake` (0.0212), so a *within-sentence* competition splits nearly evenly -- only the
+*between-sentence* factor `1 - Z_noverb/Z`, which is enormous for a sentence the organ believes has no predicate
+at all, can carry that decision.
+
+*The reach.* It fixes the class at its source (the tags every consumer reads improve, not just the event set), it
+subsumes `verb_share` / `clause_verbless_g` / the between-sentence threshold problem in one exact quantity, and it
+is the same lever for the AUX arm (mask AUX too and the sole-AUX clause falls out of the same renormalisation).
+
+*What it would take.* A masked forward pass at `order=2` (the live asset is second-order, so the mask is over the
+category-pair state axis), clause segmentation the organ does not currently carry, a sweep of whether the mask
+includes AUX, and a **whole-board A/B** -- it changes the posterior every downstream consumer reads.
+*Why not now:* the category organ is under concurrent work (pri 99 unknown-word cues, pri 104 entity prior) and
+this brief's remit is the rescue, not the organ.
 
 **B. Read the argument-structure expectation from the attachment arm instead of positional windows.**
 `subj_before`/`obj_after` are crude proxies for the brain's argument-structure anticipation (Altmann & Kamide 1999).

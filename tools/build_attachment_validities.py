@@ -17,6 +17,7 @@ import os
 for _v in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS"):
     os.environ.setdefault(_v, "4")
 import argparse
+import json
 import sys
 import time
 
@@ -85,7 +86,7 @@ def sentences(path, cap=None, maxlen=40):
     return out
 
 
-def knowledge_free_teacher(train, rounds=2, beta=0.0, tsp_asset=None):
+def knowledge_free_teacher(train, rounds=2, beta=0.0, tsp_asset=None, pp_assoc=None):
     """Co-occurrence teacher (phrase internals; prior-free SelfSupEM) + SEMANTIC BOOTSTRAPPING (beta > 0: the predicate heads its
     plausible participants; attachment_arm.SemanticBootstrapTeacher) as ONE tree posterior."""
     from experiments.exp_parser_selfsup_em_v1 import SelfSupEM
@@ -95,7 +96,8 @@ def knowledge_free_teacher(train, rounds=2, beta=0.0, tsp_asset=None):
         m.em_round(tr)
     if beta <= 0:
         return m
-    meaning = AA.SemanticBootstrapTeacher(beta=beta, lam=m.lam, tsp_asset=tsp_asset)
+    # the NOMINAL HOST SLOT needs the noun side of the association while the arm is LEARNING
+    meaning = AA.SemanticBootstrapTeacher(beta=beta, lam=m.lam, tsp_asset=tsp_asset, pp_assoc=pp_assoc)
 
     class Combined:
         def _score_matrix(self, toks, pos):
@@ -131,6 +133,8 @@ def main(argv=None) -> int:
     ap.add_argument("--cap", type=int, default=6000); ap.add_argument("--eval", action="store_true")
     ap.add_argument("--out", default=AA.ASSET)
     ap.add_argument("--beta", type=float, default=10.0, help="semantic-bootstrapping weight (0 = co-occurrence only); 10 = the measured operating point")
+    ap.add_argument("--pp-assoc", default=None, help="a PP association (pp_assoc_v2) mined offline from a larger reading corpus")
+    ap.add_argument("--pp-rounds", type=int, default=2, help="Hindle-Rooth reallocation rounds when mining from the training text")
     ap.add_argument("--tsp-asset", default=None, help="alternative plausibility asset for the semantic-bootstrapping teacher (e.g. the self-grown store's typed asset)")
     ap.add_argument("--categories-lc", default=None, help="a lexical_categories COUNTS asset (e.g. the reading-acquired one) to tag the sentences with, in place of the UPOS column")
     ap.add_argument("--categories", default=None, help="reading-induced category asset (word2cat + cluster names) to use INSTEAD of the UPOS column -- the categories->heads hand-off test")
@@ -149,7 +153,20 @@ def main(argv=None) -> int:
     frames = AA.verb_frames_from_reading([(t, p) for t, p, _, _ in train])
     pp_assoc = AA.pp_assoc_from_reading([(t, p) for t, p, _, _ in train])    # Hindle-Rooth preposition association (treebank-free)
     print("pp association: %d verb|prep, %d noun|prep cells" % (len(pp_assoc["fv"]), len(pp_assoc["fn"])), flush=True)
-    teacher = knowledge_free_teacher(train, beta=a.beta, tsp_asset=a.tsp_asset)
+    # PP ATTACHMENT v2 (solver pri-94): the case-marked-nominal association, mined from UNAMBIGUOUS reading with
+    # Hindle & Rooth reallocation. --pp-assoc points at an association mined OFFLINE from a larger reading corpus
+    # (tagged by the substrate's own category organ); without it, it is mined from the same training sentences.
+    if a.pp_assoc:
+        with open(a.pp_assoc, encoding="utf-8") as _f:
+            pp_assoc_v2 = json.load(_f)
+        print("pp v2 association loaded from", os.path.basename(a.pp_assoc), pp_assoc_v2.get("mining"), flush=True)
+    else:
+        pp_assoc_v2 = AA.pp_assoc_v2_from_reading([(t, p) for t, p, _, _ in train], rounds=a.pp_rounds)
+        print("pp v2 association mined from the training text:", pp_assoc_v2.get("mining"), flush=True)
+    # strategy 2026-09-14 07:20: the two-sided teacher (pri 94) needs the NOUN side of the mined association at teach time -- the solver's diff
+    # widened the signature but never passed it here (its cell did); without it the nominal host slot is empty and the table tilts to
+    # obliques (obl 0.677 / nmod 0.236 in the first rebuild of the merge vs the solver's 0.514 / 0.524).
+    teacher = knowledge_free_teacher(train, beta=a.beta, tsp_asset=a.tsp_asset, pp_assoc=pp_assoc_v2)
     if a.tsp_asset:
         print("plausibility asset =", os.path.basename(a.tsp_asset), flush=True)
     print("teacher (prior-free co-occurrence, 2 EM rounds%s) ready in %.0fs" % (" + semantic bootstrapping beta=%g" % a.beta if a.beta > 0 else "", time.time() - t0), flush=True)
@@ -162,8 +179,9 @@ def main(argv=None) -> int:
         A = AA.predication_boost(A, toks, pos)        # PREDICATION + DEPENDENCY MARKING as a teaching signal (solver pri-97, 2026-09-13):
         #                                              the teacher put 0.001 posterior mass on a gold ADJECTIVAL root arc (100% of them below 0.05)
         mt = single_root_marginals(A, n, 1.0); tmarg[i] = mt
-        AA.accrue_sentence(counts, AA.SentenceCues(toks, pos, frames, pp_assoc), mt)
-    table = {"counts": counts, "frames": frames, "pp_assoc": pp_assoc, "strength": AA.strengths_from_arc_counts(counts)}
+        AA.accrue_sentence(counts, AA.SentenceCues(toks, pos, frames, pp_assoc, pp_assoc_v2), mt)
+    table = {"counts": counts, "frames": frames, "pp_assoc": pp_assoc, "pp_assoc_v2": pp_assoc_v2,
+             "strength": AA.strengths_from_arc_counts(counts)}
     print("round 0 accrued (%d sentences) in %.0fs" % (len(train), time.time() - t0), flush=True)
     for r in range(1, a.rounds + 1):
         nxt = AA.new_counts()
@@ -171,8 +189,9 @@ def main(argv=None) -> int:
             ms = AA.head_posterior(toks, pos, table); mt = tmarg[i]; n = len(toks)
             mix = {j: {h: a.alpha * ms.get(j, {}).get(h, 0.0) + (1 - a.alpha) * mt.get(j, {}).get(h, 0.0)
                        for h in set(ms.get(j, {})) | set(mt.get(j, {}))} for j in range(1, n + 1)}
-            AA.accrue_sentence(nxt, AA.SentenceCues(toks, pos, frames, pp_assoc), mix)
-        table = {"counts": nxt, "frames": frames, "pp_assoc": pp_assoc, "strength": AA.strengths_from_arc_counts(nxt)}
+            AA.accrue_sentence(nxt, AA.SentenceCues(toks, pos, frames, pp_assoc, pp_assoc_v2), mix)
+        table = {"counts": nxt, "frames": frames, "pp_assoc": pp_assoc, "pp_assoc_v2": pp_assoc_v2,
+                 "strength": AA.strengths_from_arc_counts(nxt)}
         print("round %d re-estimated in %.0fs" % (r, time.time() - t0), flush=True)
     path = AA.save_attachment_validities(a.out, table)
     print("wrote", path, flush=True)
