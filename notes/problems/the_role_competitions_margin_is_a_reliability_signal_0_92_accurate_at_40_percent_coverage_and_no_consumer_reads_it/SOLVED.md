@@ -426,3 +426,82 @@ same repair on the same population without it, and the board's reader entry poin
    it licenses an override, conflict validity 0.032. That is a cue-detection problem with a clean population.
 4. Then the C1 cue form, on a re-based row.
 5. `roles_with_decisions` can land independently of all of the above -- it is provably additive.
+
+---
+
+# PHASE 8 (2026-09-14, strategy integration step) -- the instrument arm, and a correction
+
+Strategy applied the diff, found the 7-dimension board **identical** under `HDLAB_AER_ROLE_CUE=ppc` on every row
+(coref 0.4172 / common-noun 0.5470 / salience 0.2734 / agent 0.8271 / patient 0.8104 / state 0.7487 / wic 0.7493)
+-- **the board never scores the reader's affected-entity output**, so the wire result is board-invisible and needed
+its own instrument arm, reproducible from disk. Both requested arms are now in the cell.
+
+## 8.1 THE LOADER MOVED A THIRD TIME -- and it changes a phase-7 claim
+
+`experiments/gum_coref.py` was edited twice today by pri 109, and the affected-entity population went
+**n=596 -> n=903 -> n=596** as the gold-free work landed (`e231a91c3`). Everything below is re-measured on the
+**current** loader. One phase-7 number does not survive it, and the record must say so plainly:
+
+| claim | phase 7 (transient n=903 loader) | **current loader (n=596)** |
+|---|---|---|
+| C1 cue form `ppc` vs the hard-label floor | +0.0554 CI[+0.0299,+0.0831] **sep** | **+0.0151 CI[-0.0201,+0.0537] NOT sep** |
+| CEILING, a perfect role label | -0.0011 n.s. | **+0.0386 CI[+0.0168,+0.0604] sep** |
+| CEILING, a perfect confidence gate | -0.0055 n.s. | -0.0050 n.s. |
+| TWIN, posteriors shuffled | -0.0543 sep DOWN | **-0.1326 CI[-0.1745,-0.0906] sep DOWN** |
+| TWIN, margins shuffled | +0.0509 sep | +0.0201 n.s. |
+
+**CORRECTION: the C1 cue-form win is NOT CI-separated on the current loader.** What survives unchanged is the
+shape of the finding: the posterior is load-bearing (shuffling it costs 0.13, CI-separated down), a perfect
+*label* has real headroom (+0.0386, CI-separated), and a perfect *confidence gate* has none (-0.0050). The
+reliability family's ceiling at this consumer is still zero; the cue form captures part of the label headroom but
+not enough to separate at n=596.
+
+## 8.2 The wire price, now an arm of the cell (`--wire-price`)
+
+`wire_price()` reads the same GUM split and the same fixed GOLD targets and writes
+`p7_reader_wire_price.json` with paired CIs. Three arms differing ONLY in what the role cue is fed:
+
+| | dev n=993 | test n=596 |
+|---|---|---|
+| **A** the reader's own rank proxy (`rank2dep = {0:'nsubj', 1:'obj'}`, what runs today) | 0.3263 | 0.4564 |
+| **B** the role competition's LABEL | 0.3615 | 0.4916 |
+| **C** the role competition's DECISION (ppc) | 0.3817 | 0.5067 |
+| **B vs A** (the WIRE) | **+0.0352 CI[+0.0121,+0.0574] sep** | **+0.0352 CI[+0.0050,+0.0655] sep** |
+| **C vs A** (wire + cue) | **+0.0554 CI[+0.0282,+0.0816] sep** | **+0.0503 CI[+0.0151,+0.0906] sep** |
+| C vs B (the cue form alone) | +0.0201 CI[-0.0050,+0.0453] n.s. | +0.0151 CI[-0.0201,+0.0537] n.s. |
+
+**Both splits agree, and they separate the two claims cleanly: the WIRE is worth +0.0352 CI-separated on both
+splits; the CUE FORM on top of it is a further +0.015-0.020 and is NOT separated on either.** That is the honest
+version of the phase-7 headline, and it is stable across all three loader states (B on test is 0.4916 on the
+current loader, the same number the very first pre-10:37 run produced).
+
+**So the thing to land is the wire, and the cue form should stay default-OFF** until a population with more power
+can judge it. The patch already does exactly that (`HDLAB_AER_ROLE_CUE` defaults to `hard`).
+
+## 8.3 The live reader (`--live-reader`) -- BUILDABLE, and the earlier obstacle explained
+
+Strategy was right about the cause: `SituationReader.read()` takes a **CoNLL path**, and my phase-7 attempt passed
+raw text, which the reader interpreted as a filename (`OSError: [Errno 22] Invalid argument: '1 Introduction
+Tenured and tenure - track university faculty ...'`). The fix is the one strategy named: write each GUM document
+to a temp CoNLL with the gold coref column via `hdlab.situation_reader._write_temp_conll`, then `read()` it.
+
+`live_reader_ab()` does that, runs the real reader under `HDLAB_AER_ROLE_CUE=hard` and `=ppc`, and scores
+`sm.affected_entity`. It **runs with zero errors** (smoke: 2 docs, 3 scoreable records per mode, paired). Two
+honest properties of this arm, both measured rather than assumed:
+
+- **It is slow:** ~30 s per document per mode, so the full 137-document test split is ~2.3 hours for the pair.
+- **It is sparse:** the reader emits ~1.5 scoreable affected-entity records per document (3 from 2 docs in the
+  smoke), against the resolver-level arm's ~4.3 per document, so its n is roughly a third.
+
+**Scoring, stated plainly because it is not the resolver arm's metric:** the reader returns head-individuated
+entity KEYS, not clusters, so a record counts as a hit when the resolved key matches the surface head of an
+earlier gold mention of the undergoer pronoun's own gold cluster. Absolute levels are therefore NOT comparable
+with 8.2; the A/B between cue modes on the identical population is what this arm measures.
+
+## 8.4 What this changes about the recommendation
+
+1. **Land the WIRE** (feed `_read_affected_entity` the organ's decision instead of `rank2dep`). +0.0352
+   CI-separated on both splits, stable across every loader state seen today.
+2. **Keep the cue form default-OFF.** +0.015-0.020 and not separated; the patch already defaults to `hard`.
+3. The C2 agent gate is untouched by all of this (a different population, UD-EWT, unaffected by the GUM loader).
+4. The affected-entity board row still does not exist; `--wire-price` is the instrument arm for it.

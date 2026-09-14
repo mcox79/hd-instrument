@@ -1145,6 +1145,178 @@ def signal_trace(maps, cap=300):
 # ---------------------------------------------------------------------------------------------------------------
 # 8. DRIVER
 # ---------------------------------------------------------------------------------------------------------------
+
+# ---------------------------------------------------------------------------------------------------------------
+# 9. THE WIRE PRICE (strategy integration step, 2026-09-14). The board never scores the reader's affected-entity
+#    output, so the largest effect in this record is board-INVISIBLE and needs its own instrument arm.
+#    `situation_reader._read_affected_entity` fed the resolver rank2dep = {0:'nsubj', 1:'obj'} -- the first nominal
+#    of the sentence is the subject, the second the object -- i.e. the raw WORD-ORDER proxy, so the
+#    Competition-Model role organ's decision never reached this consumer at all (landed != live). Three arms on the
+#    SAME population and the SAME fixed GOLD targets, differing ONLY in what the role cue is fed:
+#      A  the reader's own rank proxy          (what runs today)
+#      B  the role competition's LABEL          (what the patch supplies to the cue)
+#      C  the role competition's DECISION       (the cue reads the posterior; the ppc form)
+# ---------------------------------------------------------------------------------------------------------------
+RANK2DEP = {0: "nsubj", 1: "obj"}          # the reader's own positional proxy, verbatim from situation_reader
+
+
+def wire_price(maps, *, limit=None, n_boot=2000, splits=("dev", "test"), verbose=True):
+    """Price the reader-wire repair on the affected-entity read. Returns {split: {arms, paired CIs}}."""
+    out = {}
+    ng, nt = _norms(maps)
+    for split in splits:
+        data = _load_gum(limit, split=split)
+        targets = gold_targets(data)                      # from the GOLD deprels, BEFORE any overlay
+        info = _chain_overlay(data, cache_path=os.path.join(OUT_DIR, "gum_chain_%s.pkl" % split), verbose=verbose)
+        chain_dep = {id(doc): {t.gidx: t.deprel for t in doc.toks} for doc, _m in data}   # the chain's labels
+        rank_dep = {}
+        for doc, mlive in data:
+            mi2headg = {i: doc.mentions[i].head_g for i in range(len(doc.mentions))}
+            d = {t.gidx: "" for t in doc.toks}
+            for mi, m in enumerate(mlive):
+                hg = mi2headg.get(mi)
+                if hg is not None:
+                    d[hg] = RANK2DEP.get(m.get("sent_role_rank", 99), "")
+            rank_dep[id(doc)] = d
+
+        def set_deps(src):
+            for doc, _m in data:
+                dd = src[id(doc)]
+                for t in doc.toks:
+                    t.deprel = dd.get(t.gidx, "") or "dep"
+
+        set_deps(rank_dep)
+        A = np.array([h for h, _f, _r, _m in run_affected_arm(data, info, maps, mode="hard", gamma_g=1.0,
+                                                              gamma_t=1.0, targets=targets)], float)
+        set_deps(chain_dep)
+        B = np.array([h for h, _f, _r, _m in run_affected_arm(data, info, maps, mode="hard", gamma_g=1.0,
+                                                              gamma_t=1.0, targets=targets)], float)
+        C = np.array([h for h, _f, _r, _m in run_affected_arm(data, info, maps, mode="ppc", gamma_g=1.0,
+                                                              gamma_t=1.0, targets=targets,
+                                                              norm_g=ng, norm_t=nt)], float)
+        out[split] = {"n": int(len(A)),
+                      "A_reader_rank_proxy": round(float(A.mean()), 4),
+                      "B_role_competition_label": round(float(B.mean()), 4),
+                      "C_role_competition_decision": round(float(C.mean()), 4),
+                      "B_vs_A": _paired(A, B, n_boot=n_boot), "C_vs_A": _paired(A, C, n_boot=n_boot),
+                      "C_vs_B": _paired(B, C, n_boot=n_boot)}
+        if verbose:
+            d = out[split]
+            print("  [wire] %s n=%d | A %.4f -> B %.4f (%+.4f CI[%+.4f,%+.4f] sep=%s) -> C %.4f "
+                  "(%+.4f CI[%+.4f,%+.4f] sep=%s over A)"
+                  % (split, d["n"], d["A_reader_rank_proxy"], d["B_role_competition_label"],
+                     d["B_vs_A"]["delta"], d["B_vs_A"]["ci95"][0], d["B_vs_A"]["ci95"][1], d["B_vs_A"]["ci_sep"],
+                     d["C_role_competition_decision"], d["C_vs_A"]["delta"], d["C_vs_A"]["ci95"][0],
+                     d["C_vs_A"]["ci95"][1], d["C_vs_A"]["ci_sep"]), flush=True)
+    return out
+
+
+# ---------------------------------------------------------------------------------------------------------------
+# 10. THE SAME REPAIR THROUGH THE LIVE READER (strategy integration step, 2026-09-14).
+#     Section 9 prices the wire on the resolver organ. This runs the actual `SituationReader.read()` over the GUM
+#     test documents under HDLAB_AER_ROLE_CUE=hard vs ppc and scores `sm.affected_entity`, so the number is the
+#     LIVE reader's own rather than a re-implementation of it. read() takes a CoNLL PATH (that was the
+#     "reader-configuration matter": raw text is interpreted as a path), so each document is written to a temp
+#     CoNLL with the gold coref column via hdlab.situation_reader._write_temp_conll -- the same mention regime the
+#     cell's own arms use (gold mention SPANS, gold-free DECISIONS).
+#
+#     SCORING (stated plainly because it is not the cell's metric): the reader hands back head-individuated entity
+#     KEYS, not clusters. A record counts as a hit when the resolved key matches the surface head of some earlier
+#     gold mention of the undergoer pronoun's OWN gold cluster. Absolute levels are therefore NOT comparable with
+#     section 9's; the A/B between the two cue modes on the identical population is what this arm measures.
+# ---------------------------------------------------------------------------------------------------------------
+def _gum_doc_to_conll_rows(doc):
+    """(sent_idx, wtok, token, coref_col) for one GUM doc, with the GOLD coref column (mention spans only)."""
+    opens, closes, singles = {}, {}, {}
+    for m in doc.mentions:
+        if m.start_g == m.end_g:
+            singles.setdefault(m.start_g, []).append(m.eid)
+        else:
+            opens.setdefault(m.start_g, []).append(m.eid)
+            closes.setdefault(m.end_g, []).append(m.eid)
+    rows, wt, prev = [], 0, None
+    for t in sorted(doc.toks, key=lambda x: x.gidx):
+        if prev is not None and t.sent != prev:
+            wt = 0
+        prev = t.sent
+        parts = ["(%d" % e for e in opens.get(t.gidx, [])] + ["(%d)" % e for e in singles.get(t.gidx, [])] \
+            + ["%d)" % e for e in closes.get(t.gidx, [])]
+        rows.append((t.sent, wt, t.form, "|".join(parts) if parts else "_"))
+        wt += 1
+    return rows
+
+
+def live_reader_ab(n_docs=None, n_boot=2000, verbose=True):
+    """A/B the LIVE reader's affected-entity read under the two role-cue modes on the GUM test split."""
+    import importlib
+    import hdlab.situation_reader as HSR
+    import hdlab.affected_entity_resolver as AER
+    import experiments.exp_affected_entity_salience_prior_gum_v1 as B1
+    docs = B1._load_test(None)
+    if n_docs:
+        docs = docs[:n_docs]
+    out = {"n_docs": len(docs), "mode_results": {}}
+    per_mode = {}
+    errors = []
+    for mode in ("hard", "ppc"):
+        AER.GRADED_ROLE_CUE = mode
+        hits, keys = [], []
+        t0 = time.time()
+        for di, doc in enumerate(docs):
+            rows = _gum_doc_to_conll_rows(doc)
+            path = HSR._write_temp_conll(rows)
+            try:
+                sm = HSR.SituationReader().read(path)
+            except Exception as e:                       # report, never fabricate
+                errors.append("%s: %s: %s" % (doc.docid, type(e).__name__, e))
+                continue
+            finally:
+                try:
+                    os.remove(path)
+                except OSError:
+                    pass
+            # gold: for each pronoun mention, the surface heads of the EARLIER mentions of its own cluster
+            by_gidx = {t.gidx: t for t in doc.toks}
+            sent_first = {}
+            for t in sorted(doc.toks, key=lambda x: x.gidx):
+                sent_first.setdefault(t.sent, t.gidx)
+            legal = {}
+            for m in doc.mentions:
+                if m.mtype != "pronoun":
+                    continue
+                prior = [x for x in doc.mentions if x.order < m.order and x.eid == m.eid and x.mtype != "pronoun"]
+                legal[(m.sent, (by_gidx[m.head_g].form or "").lower())] = {
+                    (by_gidx[x.head_g].form or "").lower() for x in prior}
+            for rec in (getattr(sm, "affected_entity", None) or []):
+                k = (rec.get("sent_idx"), str(rec.get("undergoer") or "").lower())
+                if k not in legal or not legal[k]:
+                    continue                              # no recoverable gold antecedent -> outside the population
+                hits.append(int(str(rec.get("resolved") or "").lower() in legal[k]))
+                keys.append((doc.docid, k))
+            if verbose and di and di % 10 == 0:
+                print("  [live] %s doc %d/%d %.0fs" % (mode, di, len(docs), time.time() - t0), flush=True)
+        per_mode[mode] = (hits, keys)
+        if verbose:
+            print("  [live] %s: n=%d acc=%.4f (%.0fs)"
+                  % (mode, len(hits), (float(np.mean(hits)) if hits else float("nan")), time.time() - t0), flush=True)
+    AER.GRADED_ROLE_CUE = "hard"
+    h_hits, h_keys = per_mode["hard"]
+    p_hits, p_keys = per_mode["ppc"]
+    out["errors"] = errors[:10]
+    out["n_errors"] = len(errors)
+    if h_keys == p_keys and h_hits:
+        out["hard"] = round(float(np.mean(h_hits)), 4)
+        out["ppc"] = round(float(np.mean(p_hits)), 4)
+        out["ppc_vs_hard"] = _paired(h_hits, p_hits, n_boot=n_boot)
+        out["n_items"] = len(h_hits)
+    else:
+        out["hard"] = round(float(np.mean(h_hits)), 4) if h_hits else None
+        out["ppc"] = round(float(np.mean(p_hits)), 4) if p_hits else None
+        out["note"] = ("the two modes produced DIFFERENT item sets (%d vs %d) -- the reader's affected-entity "
+                       "record set is itself cue-dependent, so a paired CI over a fixed population is not "
+                       "available from this arm" % (len(h_hits), len(p_hits)))
+    return out
+
 def run(smoke=False, n_boot=2000, verbose=True):
     """The whole measurement: the reliability maps, the signal-loss ledger, the fusion-weight sweep on DEV, the two
     consumers on their own populations, and the full-stack-upstream contrast."""
@@ -1188,6 +1360,9 @@ def run(smoke=False, n_boot=2000, verbose=True):
         fp = os.path.join(OUT_DIR, f)
         if os.path.exists(fp):
             res.setdefault("artifacts", {})[f] = json.load(open(fp, encoding="utf-8"))
+    if verbose:
+        print("[6/6] the wire price (the board-invisible instrument arm)", flush=True)
+    res["wire_price"] = wire_price(maps, limit=(20 if smoke else None), n_boot=n_boot, verbose=verbose)
     res["elapsed_s"] = round(time.time() - t0, 1)
     return res
 
@@ -1230,9 +1405,27 @@ def main():
     ap.add_argument("--smoke", action="store_true")
     ap.add_argument("--run", action="store_true")
     ap.add_argument("--n-boot", type=int, default=2000)
+    ap.add_argument("--wire-price", action="store_true", dest="wire_price",
+                    help="the board-invisible instrument arm: price the reader-wire repair (section 9)")
+    ap.add_argument("--live-reader", action="store_true", dest="live_reader",
+                    help="the same repair through the LIVE SituationReader.read() (section 10)")
+    ap.add_argument("--docs", type=int, default=None, help="cap GUM documents for --live-reader")
     a = ap.parse_args()
     if a.self_test:
         self_test(); return
+    if a.wire_price:
+        maps = load_or_build_reliability()
+        r = wire_price(maps, n_boot=a.n_boot)
+        os.makedirs(OUT_DIR, exist_ok=True)
+        json.dump(r, open(os.path.join(OUT_DIR, "p7_reader_wire_price.json"), "w", encoding="utf-8"), indent=1)
+        print(json.dumps(r, indent=1))
+        print("DONE ->", os.path.join(OUT_DIR, "p7_reader_wire_price.json")); return
+    if a.live_reader:
+        r = live_reader_ab(n_docs=a.docs, n_boot=a.n_boot)
+        os.makedirs(OUT_DIR, exist_ok=True)
+        json.dump(r, open(os.path.join(OUT_DIR, "p7_live_reader_ab.json"), "w", encoding="utf-8"), indent=1)
+        print(json.dumps(r, indent=1))
+        print("DONE ->", os.path.join(OUT_DIR, "p7_live_reader_ab.json")); return
     res = run(smoke=a.smoke, n_boot=a.n_boot)
     os.makedirs(OUT_DIR, exist_ok=True)
     json.dump(res, open(os.path.join(OUT_DIR, "metrics.json"), "w", encoding="utf-8"), indent=1)

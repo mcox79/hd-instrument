@@ -1,0 +1,19 @@
+{
+ "n_docs": 2,
+ "mode_results": {},
+ "errors": [],
+ "n_errors": 0,
+ "hard": 0.6667,
+ "ppc": 0.3333,
+ "ppc_vs_hard": {
+  "acc": 0.3333,
+  "delta": -0.3333,
+  "ci95": [
+   -1.0,
+   0.0
+  ],
+  "ci_hw": 0.5,
+  "ci_sep": false
+ },
+ "n_items": 3
+}
