@@ -2,11 +2,11 @@
 problem: pp_attachment_obl_nmod_is_the_worst_comprehension_relevant_class_mine_unambiguous_cases_from_reading
 status: SOLVED
 bar: "obl and nmod recall CI-separated above the current asset on UD-EWT test 700, UAS not down, twin far below, knowledge in counts with an online observe path, witness green -- OR a located negative with the oracle-association probe number."
-result: "UD-EWT test 700, gold categories, train cap 1500, paired bootstrap over sentences (2000 resamples), measured on the CURRENT WORKING TREE (committed HEAD + the pri-97 main-assertion diff that strategy applied at 19:39; hdlab/attachment_arm.py sha1 dd645eebf25d, stamped in every metrics file). ARM `objgen` = the widened case-marked-nominal retrieval + the preposition association mined from 100,000 Simple-Wiki lines + the typed thematic channel + the genitive construction. IN-ORDER decode (the live default): UAS 0.6246 -> 0.6373 (+0.0127, CI [+0.0090,+0.0164]); obl 0.449 -> 0.535 (+0.0860, CI [+0.0577,+0.1167]); nmod 0.410 -> 0.491 (+0.0805, CI [+0.0498,+0.1148]); the retrieved case-marked subpopulation 0.506 -> 0.579 (+0.0735, CI [+0.0448,+0.1018]). SEARCH decode (map1): UAS 0.6188 -> 0.6327 (+0.0138, CI [+0.0105,+0.0173]); obl 0.444 -> 0.532 (+0.0881, CI [+0.0609,+0.1168]); nmod 0.388 -> 0.513 (+0.1255, CI [+0.0904,+0.1644]). On the item's OWN population (the 599 gold obl/nmod tokens the detector retrieves): obl 0.4715 -> 0.5856 (+0.1141, CI [+0.0748,+0.1576], n=333); nmod 0.5489 -> 0.5714 (+0.0226, CI [-0.0149,+0.0569], n=266, NOT separated -- the nmod gain is in the genitive/possessive population, which is outside the PP sites by construction). Downstream consumer (graded_role_assigner.coarse_roles over these heads) 0.5755 -> 0.5793. Reproduced independently in two separate processes to 4 decimals."
+result: "PHASE 7 (2026-09-13/14 continuation) MEASURED THE THREE THINGS THE FIRST SUBMISSION COULD NOT, and they hold. (1) THE LIVE CHAIN -- the categories rung's OWN tags and posterior, no gold UPOS anywhere, exactly the path hdlab/frontend.Parser takes at its defaults, train cap 6000 (the LANDED cap), UD-EWT test 700, in-order (live) decode, paired bootstrap over sentences: UAS 0.6125 -> 0.6243 (+0.0117, CI [+0.0079,+0.0160]); obl 0.434 -> 0.497 (+0.0629, CI [+0.0321,+0.0948]); nmod 0.444 -> 0.507 (+0.0637, CI [+0.0301,+0.0997]); retrieved PP subpopulation +0.0412 (CI [+0.0132,+0.0709]). With gold categories at the same cap: UAS +0.0125 (CI [+0.0087,+0.0168]), obl +0.0524 (CI [+0.0189,+0.0873]), nmod +0.0824 (CI [+0.0496,+0.1164]). (2) THE LANDED ASSET AS A CONTROL: the rebuilt floor reproduces data/frontend_assets/attachment_validities_v1.json (== attachment_validities_v1_pri97_cap6000.json) to 0.0002 UAS, so `base` really is what the board would regress against. (3) HEADS -> LABELS: hdlab/graded_role_assigner HAS NO NMOD CLASS -- given the GOLD TREE'S OWN HEADS it labels 0 of 489 gold nmod correctly -- while reading the label off the HOST'S CATEGORY (the UD and brain definition of the distinction) is 98.1% correct on gold heads; the head gain reaches such a readout at +0.0415 (CI [+0.0216,+0.0634], obl +0.0524*), and the organ as built converts it to -0.068 obl / 0 nmod and a consumer regression 0.5765 -> 0.5622. PHASE-7 BUILD: `objgenoblnom6`, the SHIPPED arm plus BOTH sides of Pinker's bootstrapping in the acquisition teacher (an oblique slot for verb hosts from the substrate's own grown obl:<prep> store, and the nominal host slot the teacher never had), CONVERTS THE SUBMISSION'S ONE UNSEPARATED NUMBER: retrieved-nmod +0.0752 (CI [+0.0308,+0.1231]) against base and +0.0564 (CI [+0.0115,+0.1020]) against the shipped arm, +0.1316 under the search decode, and it removes the downstream regression (role competition 0.5769 vs base 0.5760, vs the shipped arm's 0.5617), with NOTHING CI-separated down. FIRST-SUBMISSION HEADLINE, unchanged and re-reproduced this session at cap 1500 in four independent runs (UAS 0.6387 / obl 0.541 / nmod 0.489 against base 0.6252 / 0.440 / 0.408): UAS +0.0134*, obl +0.1006*, nmod +0.0805*."
 floor: "the IDENTICAL pipeline with the change off (`base`), rebuilt from the same teacher, the same training slice and the same rounds: in-order UAS 0.6246 / obl 0.449 / nmod 0.410, search UAS 0.6188 / obl 0.444 / nmod 0.388. STRONGER FLOORS ALSO RUN: (a) `flat` -- the SAME cue firing on the SAME arcs with a CONSTANT value, i.e. the retrieval structure with no association content at all: UAS +0.0023 n.s., obl +0.0461*, nmod -0.0187 n.s.; (b) `twin` -- the scrambled association (below); (c) `gen` -- the genitive construction alone: UAS +0.0061*, obl +0.0126*, nmod +0.0655*; (d) `obj` -- the association without the genitive: obl +0.0776*, nmod +0.0169 n.s. The winning arm beats the STRONGEST of these CI-separated on every headline number: vs `flat` UAS +0.0104 CI [+0.0077,+0.0132], obl +0.0398 CI [+0.0186,+0.0641], nmod +0.0993 CI [+0.0741,+0.1263]."
-controls: "INFORMATION-FREE TWIN (each host's preposition profile and each (host-type, preposition) object-class profile reassigned to another host/cell -- identical counts, identical density, identical marginals, only WHICH host has WHICH profile destroyed): in-order UAS 0.6292, obl 0.503, nmod 0.414, i.e. the winning arm beats its twin CI-separated on UAS (+0.0081 CI [+0.0053,+0.0110]), obl (+0.0314 CI [+0.0086,+0.0567]), nmod (+0.0768 CI [+0.0506,+0.1052]) and the retrieved subpopulation (+0.0351 CI [+0.0137,+0.0580]); on the retrieved obl subpopulation +0.0480 CI [+0.0138,+0.0851]. THE TWIN IS NOT AT ZERO and this is reported against the submission: the scrambled association still lifts obl +0.0545, because scrambling preserves WHICH arcs the cue fires on. That is why the `flat` constant-value control exists -- it isolates the retrieval structure (obl +0.046*, nmod -0.019 n.s., UAS n.s.) from the association content (objgen vs flat: obl +0.040*, nmod +0.099*, retrieved-subpopulation obl +0.057* and nmod +0.060*). ORACLE-CEILING PROBE, run before building and again after: with a perfect association over the retrieved candidate set, obl 0.449 -> 0.746 and nmod 0.410 -> 0.543, UAS 0.6246 -> 0.6539 -- the channel is worth ~3 UAS points and the shipped arm takes 43% of it. KNOWN-FACT CHECK on the mined association (no supervision anywhere): log[P(p|verb-class)/P(p|noun-class)] = -1.354 for `of`, -0.921 `during`, -0.682 `between`, +1.613 `by`, +1.449 `about`, +1.320 `to`; P(to|go)=0.538, P(in|live)=0.697, P(of|picture)=0.560, P(in|house)=0.131. LEARNED-LADDER CHECK: the organ learns a monotone validity ladder for the cue values it was never told to order -- l2 -0.255 < l1 -0.041 < 0 +0.334 < w1 +0.613 < w2 +1.281. NO-REGRESS on every core relation (in-order): root 0.759 -> 0.764, nsubj 0.780 -> 0.780, obj 0.777 -> 0.785, case 0.715 -> 0.755, xcomp 0.730 -> 0.730, ccomp 0.647 -> 0.647, conj 0.382 -> 0.386, punct 0.466 -> 0.467; advcl 0.321 -> 0.313 is the only fall (-0.008, 134 items). PATCH EQUIVALENCE: the proposed diff, applied in memory and executed, produces cue values identical to what was measured on 40 sentences / 385 arcs, an identical genitive construction, and its own fast path matches its own reference loop to 1.8e-15. WITNESS: verification/test_attachment_arm.py 17/17 at HEAD; the cell's own scaffold-free self-test 22/22. THREE REFUTED-AS-BUILT routes recorded with numbers and mechanisms (below)."
-files_changed: "experiments/exp_attachment_pp_association_unambiguous_mining_v1.py, notes/problems/<slug>/{SOLVED.md,attachment_arm_pp_patch.diff}, data/exp_attachment_pp_association_unambiguous_mining_v1/** (mined associations + metrics), data/hook_state/attachment_pp_assoc_v2_simplewiki100k_candidate.json (the candidate asset). NOTHING under hdlab/ or tools/ was edited -- the proposed change is the 537-line diff."
-reverify: ".venv/Scripts/python.exe experiments/exp_attachment_pp_association_unambiguous_mining_v1.py --self-test   (22 scaffold-free checks, writes nothing).  Patch check: .venv/Scripts/python.exe experiments/exp_attachment_pp_association_unambiguous_mining_v1.py --verify-patch notes/problems/pp_attachment_obl_nmod_is_the_worst_comprehension_relevant_class_mine_unambiguous_cases_from_reading/attachment_arm_pp_patch.diff.  Headline: HDLAB_EXP_NAME=attachment_pp_assoc_reverify OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 .venv/Scripts/python.exe experiments/exp_attachment_pp_association_unambiguous_mining_v1.py --full --cap 1500 --test-cap 700 --lines 100000 --arms base,flat,objgen,twin --decodes incr,map1 --boot 2000 --twin-obj --pairs flat:objgen,twin:objgen  -- writes only its own data/exp_* directory."
+controls: "PHASE 7 ADDED SIX. (a) DETERMINISM: two byte-identical processes of `base` reproduce UAS 0.6252 / obl 0.440 / nmod 0.408 to four decimals, and a third inside a different arm list reproduces them again -- the pipeline is deterministic, so the -0.009 obl shift against the first session's floor is a real on-disk change I could not identify (treebank byte-identical since July, every asset the arm reads older than the first measurement, all 26 HDLAB_* switches default in both); every comparison here is WITHIN-RUN and paired, and the shift is a tenth of the effect. (b) THE LANDED ASSET LOADED FROM DISK as an arm: UAS 0.6241 / obl 0.449 / nmod 0.429 against the rebuilt floor's 0.6239 / 0.444 / 0.429 (delta +0.0002 UAS, n.s.). (c) AT THE LANDED CAP 6000 the association's separable content is on NMOD, not obl -- objgen vs the constant-value `flat` control: obl +0.0189 NOT separated, nmod +0.0805 CI [+0.0527,+0.1086]; vs the scrambled `twin`: obl +0.0189 NOT separated, nmod +0.0693 CI [+0.0408,+0.0993]; on the retrieved subpopulation vs `flat`, obl +0.0300* and nmod +0.0301*. REPORTED AGAINST THE SUBMISSION: at cap 1500 the obl content gain over `flat` was +0.0398*; at the cap the reader actually uses it is +0.019 and not separated, because the floor learns more obl from more data. (d) A TABLE-FREE, DECODE-FREE CHANNEL PROBE over the 556 retrievable gold obl+nmod tokens: the association ranks the gold host first 0.484 of the time against its scrambled twin's 0.284 -- but PROXIMITY alone scores 0.714 (nmod 0.922), so the association's job in this organ is to override proximity where proximity is wrong, which is the obl cases. (e) THE TWO-SIDED TEACHER'S TWIN: `twinoblnom6` (both stores scrambled) obl 0.382 / nmod 0.537 / UAS 0.6291 -- `objgenoblnom6` beats it CI-separated on UAS (+0.0082), obl (+0.1405) and retrieved obl (+0.1952); each ONE-SIDED version, by contrast, is indistinguishable from its own twin (objgenoblteach vs twinoblteach obl +0.0126 n.s.; objgennom6 vs twinnom6 nmod -0.0056 n.s.), which is how phase 7 established that the one-sided effect is the teacher's meaning BUDGET and the two-sided effect needs the association's CONTENT. (f) A BUG FOUND IN MY OWN DIAGNOSTICS AND FIXED: roles_diag / gap_decomposition / label_transfer ran after `deactivate_to_head()`, i.e. read every table with its own cue off; caught because objgen's gap-decomposition CORRECT count fell below base's while its recall was higher; fixed with `arm_context` and four self-test guards, and every diagnostic number in the phase-7 sections is from the corrected re-run. RETAINED FROM THE FIRST SUBMISSION: the oracle-ceiling probe (obl 0.746 / nmod 0.543), the known-fact check on the mined association, the learned-ladder check, the no-regress table. NO-REGRESS AT CAP 6000 (in-order, base -> objgen): root 0.777 -> 0.777, nsubj 0.778 -> 0.779, obj 0.772 -> 0.777, case 0.715 -> 0.759, xcomp 0.737 -> 0.766, advcl 0.336 -> 0.351, conj 0.382 -> 0.386, punct 0.469 -> 0.470; ccomp 0.690 -> 0.672 is the only fall (-0.017, 116 items) and it falls by the same amount on the live chain. PATCH EQUIVALENCE re-checked this session: `patch -p1 --dry-run` clean, cue values identical on 40 sentences / 385 arcs, fast path vs reference loop 1.78e-15. WITNESS: verification/test_attachment_arm.py 17/17; the cell's own scaffold-free self-test 40/40 (22 at first submission)."
+files_changed: "experiments/exp_attachment_pp_association_unambiguous_mining_v1.py (phase 7 added the live-chain evaluation, the heads->labels transfer instrument, the table-free channel probe, the coverage probe, the oblique-slot channel, the nominal host slot, the two-sided teacher arm, the arm_context diagnostic fix and 18 more self-test checks), notes/problems/<slug>/{SOLVED.md,attachment_arm_pp_patch.diff}, data/exp_attachment_pp_association_unambiguous_mining_v1/** (mined associations, metrics, probes), data/hook_state/attachment_pp_assoc_v2_simplewiki100k_candidate.json (the candidate asset). NOTHING under hdlab/ or tools/ was edited -- the proposed change is the unchanged 537-line diff."
+reverify: "SELF-TEST (40 scaffold-free checks, writes nothing): .venv/Scripts/python.exe experiments/exp_attachment_pp_association_unambiguous_mining_v1.py --self-test.  PATCH CHECK: ... --verify-patch notes/problems/pp_attachment_obl_nmod_is_the_worst_comprehension_relevant_class_mine_unambiguous_cases_from_reading/attachment_arm_pp_patch.diff.  LIVE CHAIN + landed cap (the phase-7 headline): OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 PYTHONHASHSEED=0 .venv/Scripts/python.exe experiments/exp_attachment_pp_association_unambiguous_mining_v1.py --full --cap 6000 --test-cap 700 --lines 100000 --assoc data/hook_state/attachment_pp_assoc_v2_simplewiki100k_candidate.json --arms base,objgen --decodes incr --boot 2000 --live --consumer --tag _live6000.  HEADS->LABELS + the residual ledger: the same with --label-transfer base,objgen --roles-diag base,objgen --gap-decomp base,objgen --tag _diagfix6000 (drop --live).  THE TWO-SIDED TEACHER and its twin: the same at --cap 1500 with --arms base,objgen,objgenoblnom6,twinoblnom6 --decodes incr,map1 --pairs twinoblnom6:objgenoblnom6,objgen:objgenoblnom6 --consumer --tag _oblnomtwin1500.  CHANNEL PROBE (20 seconds, no build): ... --rank-probe --test-cap 700 --near-w 2.0 --tag _phase7_w2.0.  Every command writes only its own data/exp_* directory."
 ---
 
 > **COMPLETION.** The PP cue on disk could not see two thirds of its own problem. `pp_site` offered exactly TWO
@@ -339,26 +339,67 @@ than rebuilt** (`data/hook_state/attachment_validities_v1_pri97_cap6000.json`, b
 **The rebuilt floor reproduces the landed asset to 0.0002 UAS.** That closes the one gap the first submission flagged:
 its `base` really is the thing the board would regress against.
 
-### 12.3 HEADS → LABELS: where the gain stops, and why (measured, not inferred)
+### 12.3 HEADS → LABELS: where the gain stops, and why — including a BUG I FOUND IN MY OWN DIAGNOSTIC
 
-The first submission observed that "the head fix alone barely moves" the role competition and asked strategy to trace
-the hand-off. Phase 7 traced it, and the cause is structural, not gradual.
+**First, the bug, because it changes numbers I would otherwise have reported.** `main` runs each arm inside
+`try: ... finally: deactivate_to_head()`, so the three post-hoc diagnostics (`roles_diag`, `gap_decomposition`,
+`label_transfer`) ran AFTER the arm was switched off: they read the objgen TABLE with no PP cue, no thematic cue and
+no genitive construction — the learned validities were there but nothing fired them. It shows as objgen's
+gap-decomposition CORRECT count (220) falling BELOW base's (229) while its measured nmod recall is higher, which is
+arithmetically impossible for the arm that was measured. Fixed with an `arm_context` that re-installs each arm's
+configuration for the duration of a diagnostic, guarded by four new self-test checks, and **every diagnostic number
+below is from the corrected re-run** (`metrics_diagfix6000.json`). The first submission's `consumer_roles` numbers
+were never affected — that one runs inside the arm block.
 
-**`hdlab/graded_role_assigner` HAS NO NMOD CLASS.** Its inventory is
+**The finding: `hdlab/graded_role_assigner` HAS NO NMOD CLASS.** Its inventory is
 `ROLE_CLASSES = [SUBJ, OBJ, PASS_SUBJ, BY_AGENT, OBL, OTHER, IOBJ]` and `ROLE_TO_DEP` can emit only
-`nsubj / nsubj:pass / obj / iobj / obl / obl:agent / dep`. **A gold `nmod` cannot be labelled correctly by this organ
-whatever the heads rung hands it** — which is why 283 gold nmod came out `obl` and 179 came out `dep` at base, and why
-the numbers barely move when the heads improve. This is now a self-test check in the cell, not an assertion.
+`nsubj / nsubj:pass / obj / iobj / obl / obl:agent / dep`. Measured, not asserted, and measured at the ceiling:
+**even given the GOLD TREE'S OWN HEADS the organ labels 0 of 489 gold nmod correctly.** It is a missing symbol, not
+a modelling failure, and it is now a self-test check.
 
-The consequence at cap 6000 is a **downstream regression**: the role competition's accuracy over the nominals whose
-gold relation it can express falls **0.5765 → 0.5622** (n = 2099) under the better heads, and the confusion moves the
-way the mechanism predicts — `obl→dep` 61 → 96 and `nmod→dep` 195 → 214, because the improved heads move case-marked
-nominals OFF verbs and onto nouns, and a nominal not governed by a verb has nowhere to go in this inventory but `dep`.
-**Per the standing discipline this is not a reason to revert the upstream rung; it is a consumer that must be repaired
-to receive the richer signal.** The repair is one role class, and the distinction is free: in UD, and in the brain's
-own terms, `obl` versus `nmod` is a pure function of the HOST'S CATEGORY — a case-marked phrase licensed by a predicate
-is an oblique participant of an event, one licensed by a nominal is a property of a thing. A consumer that reads the
-host's category converts every head gain on this population into a label gain one-for-one.
+**How much signal is actually arriving, on the gold obl+nmod population (cap 6000, in-order, test 700).** In UD — and
+in the brain's own terms, where a case-marked phrase licensed by a predicate is an oblique participant of an event
+and one licensed by a nominal is a property of a thing — the obl/nmod distinction is a pure function of the HOST'S
+CATEGORY. Measured against the gold tree, **reading the label off the host's category is 98.1% correct**
+(obl 468/477 = 0.9811, nmod 524/534 = 0.9813; the 19 residuals are predicate-adjective and adverbial hosts). So a
+consumer that reads the host category converts head accuracy into label accuracy essentially one-for-one, and the
+question "does the head gain reach the label rung?" has an exact answer:
+
+| | the organ as built | | a consumer that can express the distinction |
+|---|---|---|---|
+| | gold `obl` (n=443) | gold `nmod` (n=489) | head-category readout, all 1011 |
+| base | 0.7178 | **0.0000** | 0.6469 |
+| objgen | 0.6501 | **0.0000** | **0.6884** |
+| GOLD HEADS | 0.7381 | **0.0000** | 0.9812 |
+| objgen − base | −0.068 | 0.000 | **+0.0415, CI [+0.0216,+0.0634]** (obl +0.0524\*, nmod +0.0318 n.s.) |
+
+**The head gain is real and it is fully available — +0.0415 CI-separated — to any label rung that can express the
+distinction. The organ as built converts it to −0.068 on obl and 0 on nmod.** Per-token, objgen REPAIRS 104 heads on
+this population (65 of them gain the right label, 34 already had it, 5 stay wrong) and BREAKS 35 (23 lose it):
+82 labels gained, 40 lost.
+
+**The consequence is a downstream regression, and it is a consumer defect, not a reason to revert.** The role
+competition's accuracy over the nominals it can express falls **0.5765 → 0.5622** (n = 2099) at cap 6000, and the
+confusion moves exactly as the mechanism predicts: `obl→dep` 61 → 96 and `nmod→dep` 195 → 214, because better heads
+move case-marked nominals OFF verbs onto nouns and a nominal not governed by a verb has nowhere to go in this
+inventory but `dep`. **Phase 7 also found the upstream repair that removes the regression without touching the
+consumer — see §12.5(g): the balanced two-slot teacher leaves the role competition at 0.5769 against base's 0.5760.**
+
+### 12.3b THE RESIDUAL LEDGER (corrected gap decomposition, cap 6000, in-order, per gold token)
+
+| cause | obl (477) | nmod (534) |
+|---|---|---|
+| CORRECT | **237** (base 212) | **273** (base 229) |
+| the detector never sees a case-marked nominal here | 86 | **155** |
+| the association ranks another retrieved candidate above the gold host | **90** | 40 |
+| the association ranks the gold host FIRST and the tree competition still loses it | 46 (base 156) | 44 (base 91) |
+| the gold host is outside the retrieved candidate set | 18 | 22 |
+
+Read it straight: **for obl the biggest remaining loss is now the association itself (90); for nmod it is detection
+(155 tokens with no case marker the detector can see).** The decode bucket — the thing that would have been most
+worrying — collapsed from 156 to 46 (obl) and 91 to 44 (nmod) when the cue landed, so the tree competition is no
+longer discarding correctly-ranked arcs at scale. That is the ledger the next problem in this area should be written
+against.
 
 ### 12.4 A NEW INSTRUMENT: what the channel decides, with the decode taken out of the way
 
@@ -465,7 +506,116 @@ a soft activation-decay retrieval could not recover a single additional token. T
 capacity limit is not where the loss is. (K = 4 ranks slightly better on a slightly smaller population — a precision /
 coverage trade of 10 tokens, not a mechanism.)
 
-@@PART3@@
+#### (d) PINKER'S THIRD SLOT — the oblique slot in the acquisition teacher (alternate path #1). **The store existed.**
+
+The first submission called this "the most brain-foundational thing left in this area" and parked it because it
+"needs a third grown store and a rebuild of the plausibility assets". **The store already existed.**
+`tools/grow_selectional_store_bf.py` grows the verb → role → filler store from the substrate's OWN reading chain
+(its own reading-induced categories → the attachment arm → the role competition, 60,000 Simple-Wiki lines, no
+external parser anywhere) and it already accrues an `obl:<preposition>` slot beside SUBJ / OBJ / IOBJ. Read and typed
+with the WordNet supersense table the typed selectional-preference organ uses, it gives **6,947 (predicate,
+preposition) slots, 20,179 filler-class cells over 64 prepositions, 39,222 oblique observations.**
+
+Built exactly as §8.1 specified: a case-marked nominal hosted by a verb is scored **in the oblique slot**, by that
+predicate's own oblique expectation with that preposition — `P(class | verb, prep) / [P(class | verb, prep) +
+P(class | prep)]`, the same 0..1 scale the object slot uses — **inside the acquisition teacher as well as at read
+time**, which is the whole point and what separates it from the two read-time-only forms §5 refuted. When the store
+abstains the teacher's own value stands, so the verb's pull is re-scored and never removed (§5b's lesson).
+
+**Measured (cap 1500, test 700, in-order): obl 0.541 → 0.679 (+0.1384\*), nmod 0.489 → 0.221 (−0.2678\*), UAS
+0.6387 → 0.6300 (−0.0087\*).** An obl number of **0.679** is 91% of the oracle ceiling the first submission measured
+(0.746) — the largest obl figure this problem has produced. And nmod collapses.
+
+**Its information-free twin says the content is not doing it.** `twinoblteach` — every predicate's oblique-filler
+profile reassigned to another predicate, identical counts, identical marginals — gives obl 0.667 / nmod 0.227.
+**objgenoblteach vs twinoblteach: obl +0.0126 n.s., nmod −0.0056 n.s., UAS −0.0008 n.s.** The lexical content of the
+grown oblique store is worth nothing measurable. What moves the numbers is the STRUCTURE: re-scoring case-marked
+nominals into a separate slot changes how much of the teacher's meaning budget verb hosts receive.
+
+#### (e) The oblique slot as a READ-TIME cue — refuted, and refuted the same way
+
+The same store used as a read-time cue value (`ppslot`, the pointwise lexical specificity, abstaining on non-verbs):
+`objgenslot` vs `objgen` in-order UAS −0.0013 n.s., obl −0.0210 n.s., nmod −0.0169 n.s.; search UAS −0.0074\*,
+obl −0.0650\*, nmod −0.0618\*. Against its own twin: **every number n.s. (obl −0.0042, nmod 0.0000)**. The fast
+channel probe agreed before the organ run did — on the retrievable population the channel scores 0.671 against its
+scrambled twin's 0.696 — which is what the probe is for.
+
+#### (f) The NOMINAL HOST SLOT — the verb-only asymmetry, and the mirror-image seesaw
+
+`SemanticBootstrapTeacher.score_matrix` adds its meaning term on exactly one kind of arc:
+`pos[h-1] == "VERB" and pos[j-1] in NOMINAL`. **A noun host receives no meaning support at all, ever.** So while the
+arm learns, every case-marked nominal has a verb voting for it with `beta = 10` and a noun voting with nothing. The
+brain has no such asymmetry — a relational noun selects its complement as a verb selects its argument ("the picture
+OF the girl", "the edge OF the table"; Barker 1995; Löbner's relational nouns) and Hindle & Rooth's contrast is
+symmetric by construction. Built as `beta_nom * P_host(h, p)` on every retrieved NOMINAL host, with
+`P_host = P(p | this noun) / [P(p | this noun) + P(p | this noun's class)]`.
+
+**It is the exact mirror of (d):** `objgennom2` obl 0.361 / nmod 0.552; `objgennom6` obl 0.210 / nmod 0.566
+(vs objgen 0.541 / 0.489). And against its twin, again, almost nothing: `objgennom6` vs `twinnom6` obl +0.0189\*,
+nmod −0.0056 n.s., UAS +0.0006 n.s.
+
+#### (g) THE FINDING THE SIX LEVERS ADD UP TO — and the arm that comes out of it
+
+Put (d) and (f) side by side and the mechanism is one thing, not six:
+
+| arm | teacher's meaning budget | obl | nmod | UAS | consumer role acc. |
+|---|---|---|---|---|---|
+| `objgennom6` | noun hosts, hard | 0.210 | 0.566 | 0.6209 | 0.545 |
+| `objgennom2` | noun hosts, light | 0.361 | 0.552 | 0.6300 | — |
+| **`objgen` (shipped)** | verbs only (as HEAD ships it) | **0.541** | **0.489** | **0.6387** | 0.5617 |
+| `objgenoblteach` | verbs, amplified | 0.679 | 0.221 | 0.6300 | — |
+
+**The acquisition teacher's meaning term is a single budget, and WHERE IT IS SPENT — verb hosts versus nominal hosts
+— is the obl/nmod seesaw.** It moves obl across a 0.47 range and nmod across a 0.35 range, and it does so **almost
+independently of the CONTENT of the selectional stores** (every twin above matches its real arm). That is why five of
+the six levers in this phase look like failures one at a time: they are all the same knob, and the shipped arm sits
+near its in-order UAS optimum.
+
+**So the build is not another cue. It is to spend the budget on BOTH sides at once, which is what Pinker's
+bootstrapping actually says** — the child learns that predicates take participants AND that things have properties.
+`objgenoblnom6` = the shipped arm + the oblique slot for verb hosts + the nominal host slot at `beta_nom = 6`:
+
+**cap 1500, UD-EWT test 700, paired bootstrap over sentences, 2000 resamples.**
+
+| | UAS | obl | nmod | retrieved PP subpop | retrieved obl (n=333) | retrieved nmod (n=266) | consumer |
+|---|---|---|---|---|---|---|---|
+| `base` | 0.6252 | 0.440 | 0.408 | 0.502 | 0.466 | 0.549 | 0.5760 |
+| `objgen` (shipped) | 0.6387 | 0.541 | 0.489 | 0.584 | 0.598 | 0.568 | 0.5617 |
+| **`objgenoblnom6`** | 0.6373 | 0.522 | **0.515** | **0.594** | 0.571 | **0.624** | **0.5769** |
+| vs base, in-order | **+0.0121\*** | **+0.0818\*** | **+0.1067\*** | **+0.0918\*** | **+0.1051\*** | **+0.0752\*** | |
+| vs base, search | **+0.0148\*** | **+0.0713\*** | **+0.1498\*** | **+0.0818\*** | **+0.0961\*** | **+0.0639\*** | |
+| vs `objgen`, in-order | −0.0014 n.s. | −0.0189 n.s. | +0.0262 n.s. | +0.0100 n.s. | −0.0270 n.s. | **+0.0564\*** | |
+| vs `objgen`, search | +0.0038 n.s. | −0.0105 n.s. | **+0.0674\*** | **+0.0534\*** | −0.0090 n.s. | **+0.1316\*** | |
+
+**Two things this does that the shipped arm does not.**
+1. **It converts the submission's one unseparated number.** The PARTIAL was nmod on the item's OWN population — the
+   retrieved case-marked nominals — at +0.0226, CI [−0.0149,+0.0569]. Under the balanced teacher that number is
+   **+0.0752 CI [+0.0308,+0.1231] against base and +0.0564 CI [+0.0115,+0.1020] against the shipped arm itself**,
+   and +0.1316 under the search decode. **Every headline number, on both populations and both decodes, is now
+   CI-separated.**
+2. **It removes the downstream regression.** The role competition's accuracy is 0.5769 under the balanced arm against
+   0.5760 at base — flat — where the shipped arm costs it 0.5617 (−0.014). Giving nominal hosts their vote stops the
+   arm over-attaching case-marked nominals to verbs, which was what pushed the labeller into `dep`.
+
+The cost is obl −0.0189 (n.s., CI [−0.0566,+0.0203]) and UAS −0.0014 (n.s.) against the shipped arm in-order, and
+under the search decode both move the other way (UAS +0.0038, obl −0.0105, both n.s.). **Nothing is CI-separated
+down.** `beta_nom` is swept, never adopted: 2 and 6 with the oblique slot, 2/6/14 without — 14 overshoots badly
+(obl 0.264).
+
+**Its information-free twin, and what the twin proves.** `twinoblnom6` scrambles BOTH stores — every host's
+preposition profile and every predicate's oblique-filler profile reassigned, counts, densities and marginals
+identical. It gives obl 0.382 / nmod 0.537 / UAS 0.6291 / consumer 0.5607. **`objgenoblnom6` beats it CI-separated on
+UAS (+0.0082), obl (+0.1405) and the retrieved obl subpopulation (+0.1952)**, and sits 0.0225 BELOW it on nmod
+(CI-separated) — because a scrambled noun association votes for every noun indiscriminately, which lifts nmod by
+destroying obl. That is the sharpest control in this submission: **the two-sided teacher needs the CONTENT of the
+association, and it needs it on the noun side specifically.** Contrast (d) and (f), where each one-sided arm was
+indistinguishable from its own twin — one-sided, only the budget matters; two-sided, the content decides.
+
+**Why I did NOT fold this into the proposed diff.** It changes `SemanticBootstrapTeacher.score_matrix`, not just the
+cue pass, so it needs its own equivalence check against a patched module, and its advantage over the shipped arm is
+CI-separated on the retrieved-nmod population and the search decode but not on the in-order headline. The shipped
+diff is unchanged and still `patch -p1 --dry-run` clean. **Strategy should decide whether to land it; the reverify
+command is in the frontmatter and it reproduces in one run.**
 
 ## 13. ALTERNATE PATHS AFTER PHASE 7 — as brain-foundational or MORE so (the updated queue)
 
@@ -484,13 +634,18 @@ first.
    *Why it is the top item:* the heads rung's whole nmod gain currently dies at this boundary, and the boundary is a
    missing symbol, not a hard problem. *Why not here:* it is `hdlab/graded_role_assigner.py`, outside this remit.
 
-2. **GIVE THE ACQUISITION TEACHER A NOMINAL HOST SLOT.** *Structure:* semantic bootstrapping (Pinker 1984) applied
-   symmetrically. *Computation:* `SemanticBootstrapTeacher.score_matrix` adds its meaning term `beta *
+2. **LAND THE TWO-SIDED ACQUISITION TEACHER (`objgenoblnom6`) — BUILT AND MEASURED IN PHASE 7, §12.5(g).**
+   *Structure:* semantic bootstrapping (Pinker 1984) applied symmetrically. *Computation:* `SemanticBootstrapTeacher.score_matrix` adds its meaning term `beta *
    slot_plausibility` on exactly one kind of arc — `pos[h-1] == "VERB"`. A noun host gets no meaning support at all,
    ever, so while the arm learns, every case-marked nominal has a verb voting for it with `beta = 10` and a noun
    voting with nothing. The brain has no such asymmetry: a relational noun selects its complement as a verb selects
    its argument ("the picture OF the girl", "the edge OF the table" — Barker 1995; Löbner's relational nouns), and
-   Hindle & Rooth's original contrast is symmetric by construction. Built and measured in phase 7 (§12.5e).
+   Hindle & Rooth's original contrast is symmetric by construction. **Measured: it converts the submission's one
+   unseparated number (retrieved nmod +0.0752\* against base, +0.0564\* against the shipped arm) and it removes the
+   downstream regression (role competition 0.5769 against base's 0.5760, where the shipped arm costs 0.5617), with
+   nothing CI-separated down. It beats its own two-store scrambled twin CI-separated on UAS (+0.0082), obl (+0.1405)
+   and retrieved obl (+0.1952).** Not folded into the diff because it changes the acquisition teacher and needs its
+   own patch-equivalence check; the reverify command is in the frontmatter.
 
 3. **THE REFERENTIAL CONTEXT CUE, AT DISCOURSE SCOPE.** *Structure:* Altmann & Steedman 1988 / Spivey-Knowlton &
    Sedivy 1995 — the referential context that licenses a restrictive modifier. *Computation:* the cue value needs
@@ -531,8 +686,9 @@ first.
    gain cannot reach any consumer, and the better heads make the role metric *worse* (0.5765 → 0.5622 at cap 6000)
    for a reason that is a missing symbol, not a modelling failure. **This is the single highest-value item in the
    area and it is a one-class change plus a validity rebuild.**
-3. **Give the acquisition teacher a NOMINAL HOST SLOT** (alternate path #2) — the verb-only asymmetry in
-   `SemanticBootstrapTeacher.score_matrix` is the structural cause of the residual nmod loss inside the PP sites.
+3. **Land the two-sided acquisition teacher on top of the diff** (`objgenoblnom6`, §12.5g). It is built, measured,
+   twin-controlled and reproducible in one command; it is the only thing in this phase that improved on the shipped
+   arm, and it fixes both the PARTIAL and the downstream regression at once.
 4. **Build the referential cue at DISCOURSE scope** (alternate path #3), wired to the entity layer. The sentence-scoped
    version is refuted here with its learned table; do not re-try it at sentence scope.
 5. **Semantic case marking for bare temporal obliques** (alternate path #4) — 32 measured gold obl tokens, the largest
@@ -544,33 +700,69 @@ first.
 
 ```
 pri 94 -- "PP attachment (obl/nmod) is the attachment arm's worst comprehension-relevant class -- mine
-unambiguous cases from reading" -- SOLVED, submitted for review.
+unambiguous cases from reading" -- SOLVED, phase 7 complete, submitted for review.
 
-The cue on disk could not see two thirds of its own problem: `pp_site` offered exactly two candidate hosts
-and only for a NOUN/PROPN object right after a determiner, so at most 33.5% of the gold obl+nmod population
-was decidable by it at all. Rebuilt as the brain's mechanism -- case marking opens the search, ALL open hosts
-are retrieved under a capacity limit, and the host-preposition association learned from UNAMBIGUOUS reading
-(Hindle & Rooth reallocation; 100k Simple-Wiki lines tagged by our own category organ; 23,026 unambiguous
-seeds, 58,161 association cells) decides among them -- plus a typed thematic channel (what the phrase is
-about, given who would license it) and English's other case marker, the genitive, as a construction.
+FIRST SUBMISSION (unchanged, re-reproduced four times this session): the PP cue on disk could not see two
+thirds of its own problem -- `pp_site` offered exactly two candidate hosts and only for a NOUN/PROPN object
+right after a determiner, so at most 33.5% of the gold obl+nmod population was decidable by it. Rebuilt as
+the brain's mechanism (case marking opens the search, ALL open hosts are retrieved under a capacity limit,
+and the host-preposition association learned from UNAMBIGUOUS reading decides among them), plus a typed
+thematic channel and English's other case marker, the genitive, as a construction.
 
-UD-EWT test 700, gold categories, train cap 1500, on the working tree WITH the pri-97 diff already applied,
-paired bootstrap over sentences. In-order (live) decode: UAS 0.6246 -> 0.6373 (+0.0127 CI [+0.0090,+0.0164]),
-obl 0.449 -> 0.535 (+0.0860 CI [+0.0577,+0.1167]), nmod 0.410 -> 0.491 (+0.0805 CI [+0.0498,+0.1148]).
-Search decode: obl +0.0881, nmod +0.1255. Nothing else down (advcl -0.008 is the only fall). It beats a
-SCRAMBLED twin CI-separated (obl +0.031, nmod +0.077) and a CONSTANT-VALUE twin of its own structure
-CI-separated (obl +0.040, nmod +0.099) -- that second control exists because the scrambled twin was NOT at
-zero, which is volunteered against the submission. Oracle ceiling on the channel: obl 0.746, nmod 0.543.
+PHASE 7 CLOSED THE THREE GATES THE FIRST SUBMISSION COULD NOT.
 
-Three routes refuted as built with their mechanisms read off the learned validity tables, including the one
-that looked most obviously right (widening the meaning cue's case guard: it collapses obl 0.449 -> 0.199,
-because that over-broad guard is the arm's ONLY oblique-argument teacher).
+1. THE LIVE CHAIN. Measured with the categories organ's OWN tags and posterior -- no gold UPOS anywhere,
+   exactly the path hdlab/frontend.Parser takes at its defaults -- at the LANDED training cap 6000:
+   UAS 0.6125 -> 0.6243 (+0.0117 CI [+0.0079,+0.0160]), obl 0.434 -> 0.497 (+0.0629 CI [+0.0321,+0.0948]),
+   nmod 0.444 -> 0.507 (+0.0637 CI [+0.0301,+0.0997]). The win survives the live chain intact.
 
-Files: experiments/exp_attachment_pp_association_unambiguous_mining_v1.py,
-notes/problems/<slug>/{SOLVED.md,attachment_arm_pp_patch.diff} (537 lines, `patch -p1 --dry-run` clean on
-the current working tree, equivalence-checked by executing it in memory),
+2. THE COMPOSITION AT CAP 6000 ON THE pri-97 TREE, with the LANDED ASSET ITSELF loaded from disk as a
+   control: the rebuilt floor reproduces it to 0.0002 UAS. Reported against the submission: at cap 6000 the
+   association's separable CONTENT gain (vs the constant-value control) is on nmod (+0.0805*), not obl
+   (+0.0189, NOT separated) -- at cap 1500 obl was +0.0398*. The floor learns more obl from more data.
+
+3. HEADS -> LABELS. hdlab/graded_role_assigner HAS NO NMOD CLASS: given the GOLD TREE'S OWN HEADS it labels
+   0 of 489 gold nmod correctly. Reading the label off the HOST'S CATEGORY -- the UD and the brain's own
+   definition of the distinction -- is 98.1% correct on gold heads, and the head gain reaches such a readout
+   at +0.0415 (CI [+0.0216,+0.0634]). The organ as built converts that to -0.068 obl, 0 nmod, and a consumer
+   regression 0.5765 -> 0.5622. It is a missing symbol, not a modelling failure.
+
+AND ONE NEW BUILD THAT CONVERTS THE SUBMISSION'S ONE UNSEPARATED NUMBER. Six further levers were built and
+measured; five are refuted as built WITH their mechanisms (the referential/definiteness cue read off its
+learned table; the oblique-slot store as a read-time cue; each one-sided teacher slot, each indistinguishable
+from its own twin), and they turned out to be the same knob: the acquisition teacher's meaning term is a
+single budget, and WHERE it is spent -- verb hosts vs nominal hosts -- IS the obl/nmod seesaw (it moves obl
+across a 0.47 range). `SemanticBootstrapTeacher.score_matrix` spends all of it on verbs; a noun host gets no
+meaning support ever. Spending it on BOTH sides -- Pinker's bootstrapping symmetrically, an oblique slot for
+verb hosts from the substrate's own grown obl:<prep> store plus the nominal host slot the teacher never had
+-- gives `objgenoblnom6`: retrieved-nmod +0.0752 (CI [+0.0308,+0.1231]) against base and +0.0564
+(CI [+0.0115,+0.1020]) against the shipped arm (that was the PARTIAL: +0.0226, CI [-0.0149,+0.0569]);
++0.1316 under the search decode; and it REMOVES the downstream regression (role competition 0.5769 vs
+base's 0.5760, where the shipped arm costs 0.5617). Nothing CI-separated down. It beats its two-store
+scrambled twin CI-separated on UAS (+0.0082), obl (+0.1405) and retrieved obl (+0.1952).
+
+Two levers are CLOSED WITH NUMBERS, do not queue them: more reading (the association is still learning --
+its margin over its twin doubles from 5k to 100k lines -- but the curve is flat once proximity is in the
+model, so the 500k job buys nothing), and an activation-decay retrieval (capacity 6 already retrieves every
+token capacity 12 does, to the token).
+
+VOLUNTEERED AGAINST THE SUBMISSION: (a) I found and fixed a bug in my own post-hoc diagnostics -- they ran
+after the arm was deactivated, so they read each table with its own cue off; every diagnostic number here is
+from the corrected re-run, and there are four self-test guards against it. (b) The `base` floor moved
+-0.009 obl between the two sessions; the pipeline is bit-deterministic (two identical processes agree to
+four decimals) so this is a real on-disk change I could not identify after checking the treebank, every
+asset the arm reads and all 26 HDLAB_* switches -- every comparison here is within-run and paired.
+(c) ccomp -0.017 (116 items) is the only relation down at cap 6000.
+
+Files: experiments/exp_attachment_pp_association_unambiguous_mining_v1.py (self-test 22/22 -> 40/40),
+notes/problems/<slug>/{SOLVED.md, attachment_arm_pp_patch.diff -- UNCHANGED, `patch -p1 --dry-run` clean and
+equivalence-checked again this session), data/exp_attachment_pp_association_unambiguous_mining_v1/**,
 data/hook_state/attachment_pp_assoc_v2_simplewiki100k_candidate.json. Nothing under hdlab/ or tools/ edited.
+Witness verification/test_attachment_arm.py 17/17.
 
-One gate the solver cannot close: the board no-regress run needs the asset landed, because the arm loads a
-fixed asset path. Please run it after landing.
+Two decisions for strategy: (i) land the diff and rebuild at cap 6000 -- the board run is the one gate a
+solver seat cannot close, because the arm loads a fixed asset path; (ii) decide whether to also land the
+two-sided teacher, which is built and measured but touches SemanticBootstrapTeacher and so needs its own
+patch-equivalence check. The highest-value item in this area is neither: it is one extra role class in
+hdlab/graded_role_assigner, without which no nmod gain can reach any consumer.
 ```

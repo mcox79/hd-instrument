@@ -1388,7 +1388,41 @@ def consumer_roles(table, test, decode: str) -> dict:
             "obl_nmod_confusions": dict(sorted(conf.items(), key=lambda kv: -kv[1])[:8])}
 
 
-def roles_diag(tables: Dict[str, object], test, decode: str = "incr") -> dict:
+# ---------------------------------------------------------------------------------------------------------------
+# A BUG FOUND IN PHASE 7, AND THE FIX: the post-hoc diagnostics were reading every table with its own cue OFF.
+# ---------------------------------------------------------------------------------------------------------------
+# `main` runs each arm inside `try: ... finally: deactivate_to_head()`, so by the time `roles_diag`,
+# `gap_decomposition` and `label_transfer` run -- after the arm loop -- `AA.arc_scores`, `AA.SentenceCues` and
+# `AA.CONSTRUCTIONS` are back to the module's own defaults.  Those three diagnostics therefore evaluated the
+# objgen TABLE with no PP cue, no thematic cue and no genitive construction: the learned validities were present but
+# nothing ever fired them.  Any number they produced was a different arm from the one the headline measured (it shows
+# up as objgen's gap-decomposition CORRECT count, 220, being BELOW base's 229 while its measured nmod recall is
+# higher).  `arm_context` puts the arm back on for the duration of a diagnostic, so a diagnostic reads exactly the
+# arm the headline reads.
+class arm_context:
+    """Re-install an arm's cue configuration for a post-hoc diagnostic, then restore HEAD."""
+
+    def __init__(self, cfg: Optional[dict], k_cap: int = 6, zform: str = ZFORM, typed: bool = False):
+        self.cfg = cfg; self.k_cap = k_cap; self.zform = zform; self.typed = typed
+
+    def __enter__(self):
+        c = self.cfg
+        if not c or (c.get("assoc") is None and not c.get("casefix") and not c.get("gen") and not c.get("ref")
+                     and not c.get("slot_cue") and not c.get("beta_nom")):
+            deactivate_to_head()
+        else:
+            activate(c.get("assoc"), self.k_cap, Z_EDGES, self.typed, c.get("obj", False), c.get("casefix", False),
+                     c.get("zform", self.zform), c.get("gen", False), c.get("ref", False), c.get("slot"),
+                     c.get("slot_cue", False), c.get("beta_nom", 0.0))
+        return self
+
+    def __exit__(self, *exc):
+        deactivate_to_head()
+        return False
+
+
+def roles_diag(tables: Dict[str, object], test, decode: str = "incr", cfgs: Optional[dict] = None,
+               k_cap: int = 6) -> dict:
     """HEADS -> LABELS. 283 gold nmod are labelled `obl` by the role competition under the base heads. Is that the
     labeler's CUE SET (it reads head class x order, so a nominal hanging off a verb looks oblique whatever the head
     rung says) or the HEAD HAND-OFF (the head is simply wrong)? The decisive control is the role competition run on
@@ -1401,6 +1435,7 @@ def roles_diag(tables: Dict[str, object], test, decode: str = "incr") -> dict:
     try:
         for name, tab in tables.items():
             conf = defaultdict(int); head_ok = defaultdict(lambda: [0, 0])
+            ctx = arm_context((cfgs or {}).get(name), k_cap); ctx.__enter__()
             for toks, pos, gold, rels in test:
                 if name == "GOLD-HEADS":
                     hd = {i: gold[i - 1] for i in range(1, len(toks) + 1) if 0 <= gold[i - 1] <= len(toks)}
@@ -1417,6 +1452,7 @@ def roles_diag(tables: Dict[str, object], test, decode: str = "incr") -> dict:
                     ok = int(hd.get(i, -1) == gold[i - 1])
                     head_ok[rels[i - 1] + ("|headOK" if ok else "|headBAD")][0] += 1
                     head_ok[rels[i - 1] + ("|headOK" if ok else "|headBAD")][1] += int(got == rels[i - 1])
+            ctx.__exit__()
             out[name] = {"confusions": dict(sorted(conf.items(), key=lambda kv: -kv[1])[:10]),
                          "label_recall_by_head_correctness": {k: [v[0], v[1], round(v[1] / max(1, v[0]), 3)]
                                                               for k, v in sorted(head_ok.items())}}
@@ -1445,7 +1481,8 @@ def head_derived_label(pos: Sequence[str], h: int) -> str:
     return "obl" if pos[h - 1] in PRED_HEAD_CATS else "nmod"
 
 
-def label_transfer(tables: Dict[str, object], test, decode: str = "incr"):
+def label_transfer(tables: Dict[str, object], test, decode: str = "incr", cfgs: Optional[dict] = None,
+                   k_cap: int = 6):
     """Trace the hand-off two ways, on the gold obl+nmod population.
 
     (1) THE ORGAN AS BUILT -- `graded_role_assigner.coarse_roles`.  Its inventory is ROLE_CLASSES =
@@ -1471,6 +1508,7 @@ def label_transfer(tables: Dict[str, object], test, decode: str = "incr"):
             deriv = defaultdict(lambda: [0, 0])       # gold rel -> [n, derived-label-correct]
             recs: List[dict] = []
             hmap: List[dict] = []
+            ctx = arm_context((cfgs or {}).get(name), k_cap); ctx.__enter__()
             for si, (toks, pos, gold, rels) in enumerate(test):
                 if name == "GOLD-HEADS":
                     hd = {i: gold[i - 1] for i in range(1, len(toks) + 1) if 0 <= gold[i - 1] <= len(toks)}
@@ -1495,6 +1533,7 @@ def label_transfer(tables: Dict[str, object], test, decode: str = "incr"):
                         organ[r][0] += 1; organ[r][1] += int(dep.get(i, "dep") == r)
                 rec["rel"] = {k: v for k, v in rec["rel"].items()}
                 recs.append(rec); hmap.append(hh)
+            ctx.__exit__()
             recs_by_arm[name] = recs; heads_by_arm[name] = hmap
             out[name] = {
                 "organ_recall": {k: [v[0], v[1], round(v[1] / max(1, v[0]), 4)] for k, v in sorted(organ.items())},
@@ -1525,7 +1564,7 @@ def label_transfer(tables: Dict[str, object], test, decode: str = "incr"):
 
 
 def gap_decomposition(table, assoc: Optional[PPAssoc], test, decode: str = "incr", k_cap: int = 6,
-                      obj_cue: bool = True) -> dict:
+                      obj_cue: bool = True, cfg: Optional[dict] = None) -> dict:
     """WHERE THE REMAINING SIGNAL IS LOST, per gold obl/nmod token, with counts. Four mutually exclusive causes:
       NOT_CASE_MARKED  the detector does not see a case-marked nominal here at all (bare adverbials, possessives that
                        the genitive construction handles instead, appositions) -- out of this cue's reach;
@@ -1538,6 +1577,7 @@ def gap_decomposition(table, assoc: Optional[PPAssoc], test, decode: str = "incr
     old = AA.DECODE
     AA.DECODE = decode
     cause = defaultdict(int); tot = defaultdict(int)
+    ctx = arm_context(cfg, k_cap); ctx.__enter__()
     try:
         for toks, pos, gold, rels in test:
             hd = AA.heads(toks, pos, table)
@@ -1570,6 +1610,7 @@ def gap_decomposition(table, assoc: Optional[PPAssoc], test, decode: str = "incr
                         best, bs = q, v
                 cause[r + (":DECODE" if best == gold[i - 1] else ":ASSOCIATION")] += 1
     finally:
+        ctx.__exit__()
         AA.DECODE = old
     out = {"totals": dict(tot)}
     for r in ("obl", "nmod"):
@@ -1864,6 +1905,19 @@ def self_test() -> int:
            == _ORIG_SLOT_PLAUS(_tea, tk3, ps3, 2, 4))
     finally:
         deactivate_to_head(cache=False)
+    # REGRESSION GUARD for the phase-7 bug: the post-hoc diagnostics used to read every table with its own cue OFF,
+    # because `main` deactivates the arm before they run.  `arm_context` must put it back.
+    ck("a diagnostic runs with the arm's own cue ON (arm_context), not with the module defaults",
+       AA.arc_scores is _ORIG_ARC_SCORES)
+    with arm_context({"assoc": assoc, "obj": True, "gen": True}) as _c:
+        ck("arm_context installs the widened cue pass, the fast path and the genitive construction",
+           AA.arc_scores is arc_scores_pp and "gen" in AA.CONSTRUCTIONS and "ppobj" in AA.CUES,
+           (AA.arc_scores is arc_scores_pp, list(AA.CONSTRUCTIONS), list(AA.CUES)))
+    ck("arm_context restores HEAD on the way out",
+       AA.arc_scores is _ORIG_ARC_SCORES and "gen" not in AA.CONSTRUCTIONS and AA.CUES == _ORIG_CUE_NAMES)
+    with arm_context(None):
+        ck("arm_context with no configuration is exactly HEAD (the floor arm)",
+           AA.arc_scores is _ORIG_ARC_SCORES and AA.CUES == _ORIG_CUE_NAMES)
     ck("obl vs nmod is a pure function of the HOST'S category -- the distinction the label rung needs",
        head_derived_label(ps, 2) == "obl" and head_derived_label(ps, 4) == "nmod")
     from hdlab.graded_role_assigner import ROLE_TO_DEP as _R2D
@@ -2104,6 +2158,15 @@ def main(argv=None) -> int:
             src = assoc_sw or assoc_ud
             return {"assoc": src.scramble(a.seed), "legacy": None, "obj": True, "casefix": False,
                     "gen": True, "ref": True}
+        if name.startswith("objgenoblnom"):       # BOTH SIDES of Pinker's bootstrapping in the teacher at once:
+            # the oblique slot gives the VERB real oblique content and the nominal host slot gives the NOUN its vote.
+            # Measured separately (12.5e/f) each one is a seesaw; the brain has both, so the pair is the honest build.
+            return {"assoc": assoc_sw or assoc_ud, "legacy": None, "obj": True, "casefix": "oblteach", "gen": True,
+                    "slot": OBLSLOT, "beta_nom": float(name[12:].replace("_", ".") or 6.0)}
+        if name.startswith("twinoblnom"):         # its INFORMATION-FREE TWIN: both stores scrambled
+            _s2 = (assoc_sw or assoc_ud).scramble(a.seed)
+            return {"assoc": _s2, "legacy": None, "obj": True, "casefix": "oblteach", "gen": True,
+                    "slot": OBLSLOT.scramble(a.seed), "beta_nom": float(name[10:].replace("_", ".") or 6.0)}
         if name.startswith("objgennom"):          # the shipped build + the NOMINAL HOST SLOT in the teacher
             return {"assoc": assoc_sw or assoc_ud, "legacy": None, "obj": True, "casefix": False, "gen": True,
                     "beta_nom": float(name[9:].replace("_", ".") or 4.0)}
@@ -2154,11 +2217,13 @@ def main(argv=None) -> int:
     per_sent = {}
     built: Dict[str, object] = {}
     assoc_by_arm: Dict[str, object] = {}
+    cfg_by_arm: Dict[str, dict] = {}
     for name in arms:
         cfg = arm_config(name)
         cfg.setdefault("load", None)
-        if name in ("slot", "objgenslot", "twinslotpref", "objgenslotref", "oblteach", "objgenoblteach",
-                    "twinoblteach", "objgenoblboth") and OBLSLOT is None:
+        if (name in ("slot", "objgenslot", "twinslotpref", "objgenslotref", "oblteach", "objgenoblteach",
+                     "twinoblteach", "objgenoblboth") or name.startswith("objgenoblnom")
+                or name.startswith("twinoblnom")) and OBLSLOT is None:
             print("SKIP arm %s: no grown slot store on disk (%s)" % (name, BF_SLOT_STORE), flush=True)
             continue
         if name in ("vol", "obj", "objslot", "objgen", "twin", "twinslot", "twingen", "all", "noclass", "maxform",
@@ -2200,7 +2265,7 @@ def main(argv=None) -> int:
                     name, dec, results[name][dec]["UAS"], results[name][dec]["rel"].get("obl", 0),
                     results[name][dec]["rel"].get("nmod", 0), results[name][dec]["pp_subpop"],
                     results[name][dec]["pp_subpop_n"]), flush=True)
-            built[name] = tab; assoc_by_arm[name] = cfg["assoc"]
+            built[name] = tab; assoc_by_arm[name] = cfg["assoc"]; cfg_by_arm[name] = dict(cfg)
             if a.live:
                 for dec in decodes:
                     recs = per_sentence_hits_live(tab, test, dec)
@@ -2304,7 +2369,8 @@ def main(argv=None) -> int:
 
     if a.roles_diag:
         want = [x for x in a.roles_diag.split(",") if x]
-        rd = roles_diag({k: v for k, v in built.items() if k in want} | {"GOLD-HEADS": None}, test, decodes[0])
+        rd = roles_diag({k: v for k, v in built.items() if k in want} | {"GOLD-HEADS": None}, test, decodes[0],
+                        cfg_by_arm, a.kcap)
         for k, v in rd.items():
             print("  ROLEDIAG %-10s %s" % (k, v["confusions"]), flush=True)
             print("           by head correctness: %s" % v["label_recall_by_head_correctness"], flush=True)
@@ -2312,7 +2378,7 @@ def main(argv=None) -> int:
     if a.label_transfer:
         want = [x for x in a.label_transfer.split(",") if x]
         lt, lrecs = label_transfer({k: v for k, v in built.items() if k in want} | {"GOLD-HEADS": None},
-                                   test, decodes[0])
+                                   test, decodes[0], cfg_by_arm, a.kcap)
         print("  LABELXFER inventory %s" % lt["_inventory"], flush=True)
         for k, v in lt.items():
             if k == "_inventory":
@@ -2337,7 +2403,8 @@ def main(argv=None) -> int:
         for nm in [x for x in a.gap_decomp.split(",") if x]:
             if nm not in built:
                 continue
-            gd = gap_decomposition(built[nm], assoc_by_arm.get(nm), test, decodes[0], a.kcap)
+            gd = gap_decomposition(built[nm], assoc_by_arm.get(nm), test, decodes[0], a.kcap,
+                                   cfg=cfg_by_arm.get(nm))
             print("  GAP %-9s obl %s" % (nm, gd["obl"]), flush=True)
             print("      %-9s nmod %s" % ("", gd["nmod"]), flush=True)
             results.setdefault("gap_decomposition", {})[nm] = gd
