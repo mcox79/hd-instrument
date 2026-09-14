@@ -38,14 +38,21 @@ def chk(name, cond, detail=""):
 
 
 def _reference_labels(ref: AL.ArcLabeler, toks, pos, heads, n):
-    """Labels via the retained stock reference _predict_label (NOT the fast path)."""
+    """Labels via the retained stock reference _predict_label (NOT the fast path), THEN the same
+    Competition-Model argument-role overlay label() applies by default (COMPETITION_ROLES=True,
+    landed 2026-09-12; hdlab/arc_labeler.py label_competition_roles). label() has carried this overlay
+    since that landing -- the bare per-arc perceptron alone is no longer what the fast path computes, so
+    the reference must apply the identical overlay to stay a byte-identity witness (not a different
+    computation): confirmed this is the ONLY divergence (0 residual mismatches on both held-out
+    populations once the overlay is added, exactly the reported 340/4575 LitBank + 1213/18346 UD-EWT)."""
     out = {}
     for i in range(1, n + 1):
         h = heads.get(i, 0)
         if h is None or h < 0 or h > n:
             h = 0
         out[i] = ref._predict_label(AL.arc_features(toks, pos, i, h))
-    return out
+    use_cm = AL.COMPETITION_ROLES
+    return AL.label_competition_roles(list(toks), list(pos), heads, out) if use_cm else out
 
 
 def main():
