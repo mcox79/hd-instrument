@@ -426,10 +426,29 @@ it**, and that is the reverify command.
 | **twin at floor** | **MET, and better than met** -- the twin is BELOW the floor (0.7369 / 0.7436 against the floor's 0.7651 and the arm's 0.7834) |
 | **knowledge as counts with an online observe path** | **MET** -- the cue cells accrue through `accrue_sentence` / `observe_arc_outcome`, strengths are a pure function of the counts (self-test checks both) |
 | the labels rung's live recall up CI-separated as a consequence | **PARTLY MET, and I will not claim more**: +0.0129 CI-separated with the constraint on the LIVE asset (section 5), +0.0086 with the CI touching zero with the cue learned on a cap-1500 asset (embedded objects +0.0577 CI-separated there). Positive both ways, CI-separated one way. |
+| the board's patient and agent dimensions no-regress | **MET** -- patient UP +0.0345, agent byte-identical (section 10b) |
 | **wrong-clause and constituency classes each down by a THIRD** | **NOT MET, and counted as unreachable**: wrong-clause is down 24%, and the constituency class is UP -- only 3 of its 97 items are reachable by a boundary at all |
 
 **Hence PARTIAL, not SOLVED.** Everything the two computations can do, they do; the class-reduction clause of the
 bar was written against a diagnosis that the counting overturns.
+
+---
+
+## 10b. THE BOARD, NO-REGRESS (one run, as the brief allows)
+
+Both board dimensions the brief names, read through the two CANDIDATE ASSETS themselves (`data/hook_state/
+attach_pri105_floor.json` and `..._both_split.json`), with the arm's cues on for the arm row -- so this is the same
+asset a landing would produce, not a proxy. `exp_board_patient_slot_v1.board_patient_dimension(cap=150)` and
+`exp_board_agent_slot_ud_v1.board_agent_dimension(cap=150)`.
+
+| board dimension | n | floor asset | arm asset | its own strongest floor | verdict |
+|---|---|---|---|---|---|
+| **who-did-what PATIENT** | 145 | 0.7724 | **0.8069 (+0.0345)** | 0.6690 -> 0.7448 (the positional readout is computed from the same parse, so it rises too); margin over it stays CI-separated, +0.0621 CI [+0.0123, +0.1206] | **UP, not merely no-regress** |
+| **who-did-what AGENT** | 166 | 0.7229 | **0.7229** | 0.7289, twin 0.2349 -- unchanged | **BYTE-IDENTICAL** |
+
+The agent read is byte-identical because it takes the highest-activation candidate among the verb's dependents and
+this change does not alter which nominal wins that competition; the patient read consumes the object arc directly,
+which is the arc the clause cue rescues from the next verb to the right (obj 0.748 -> 0.787 on the rung itself).
 
 ---
 
