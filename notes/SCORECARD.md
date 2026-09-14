@@ -179,7 +179,7 @@ Long term (the next few months):
 
 <!-- AUTO:BEGIN (written by tools/scorecard.py; edit the sections ABOVE, not this) -->
 
-Last full check: 2026-09-14T12:51:48.363975+00:00 (33 on record). Generated 2026-09-14T12:55:16+00:00.
+Last full check: 2026-09-14T13:05:53.964597+00:00 (34 on record). Generated 2026-09-14T13:15:55+00:00.
 
 | Ability | Group | How well | Compared with a simple rule | Since the previous check | Brain-faithful? |
 |---|---|---|---|---|---|
@@ -189,7 +189,7 @@ Last full check: 2026-09-14T12:51:48.363975+00:00 (33 on record). Generated 2026
 | Linking a description ('the painter') to a named person | People and things | right 55 in 100 | clearly better than the simple rule (45 in 100) | unchanged since the previous check | brain model; some details still open |
 | Pronoun reference as the full reader actually runs it | People and things | right 59 in 100 | clearly better than the simple rule (50 in 100) | unchanged since the previous check | brain model; some details still open |
 | Resolving 'the animal' to the dog just mentioned | People and things | right 58 in 100 | clearly better than the simple rule (52 in 100) | unchanged since the previous check | brain model; some details still open |
-| Who was affected by what happened | People and things | right 41 in 100 | clearly better than the simple rule (34 in 100) | unchanged since the previous check | brain model; some details still open |
+| Who was affected by what happened | People and things | right 41 in 100 | clearly better than the simple rule (34 in 100) | DOWN 0.005 since the previous check | brain model; some details still open |
 | Which meaning of a word is meant in this sentence | Word meaning | right 75 in 100 | clearly better than the simple rule (50 in 100) | unchanged since the previous check | brain model; some details still open |
 | Drawing safe conclusions from 'is a kind of' facts | Word meaning | right 77 in 100 | clearly better than the simple rule (54 in 100) | unchanged since the previous check | brain model; some details still open |
 | Handling 'all / some / none' correctly | Word meaning | right 83 in 100 | clearly better than the simple rule (17 in 100) | unchanged since the previous check | brain model; some details still open |
@@ -202,7 +202,7 @@ Last full check: 2026-09-14T12:51:48.363975+00:00 (33 on record). Generated 2026
 | Keeping a fact true until something changes it | Actions and roles | right 100 in 100 | clearly better than the simple rule (44 in 100) | unchanged since the previous check | brain model; some details still open |
 | Event order when the text does not say it outright | Time and place | right 56 in 100 | clearly better than the simple rule (53 in 100) | unchanged since the previous check | brain model; some details still open |
 | Noticing where one scene ends and another begins | Time and place | right 12 in 100 | a little better than the simple rule (7 in 100), not yet convincingly | unchanged since the previous check | brain model; some details still open |
-| Picking out place information correctly | Time and place | right 59 in 100 | clearly better than the simple rule (52 in 100) | unchanged since the previous check | brain model; some details still open |
+| Picking out place information correctly | Time and place | right 59 in 100 | clearly better than the simple rule (51 in 100) | unchanged since the previous check | brain model; some details still open |
 | Where things are relative to each other | Time and place | right 20 in 100 | a little better than the simple rule (17 in 100), not yet convincingly | unchanged since the previous check | brain model; some details still open |
 | Whether a state still holds at a later point | Time and place | right 43 in 100 | clearly better than the simple rule (11 in 100) | unchanged since the previous check | brain model; some details still open |
 | Whether two events happened at the same time | Time and place | right 99 in 100 | clearly better than the simple rule (50 in 100) | unchanged since the previous check | brain model; some details still open |
