@@ -33,6 +33,13 @@ self-test executes the diff's own code and finds it identical to the measured ce
 > 110's own `copular_available` docstring, which is in the brief's VERIFY-BEFORE-YOU-START list. Nothing else from
 > that file entered my work, and the eight other constructions I shipped are not in the part I saw. **Strategy should
 > discount those two ideas from the comparison anyway.**
+>
+> **(c) THE WORKING TREE MOVED UNDER ME AND THE DIFF WAS RE-CHECKED AFTER.** During the session another solver
+> landed edits to `hdlab/graded_role_assigner.py` (and to `arc_labeler.py`, `relcl_resolver.py`,
+> `thematic_role_labeler.py`), and strategy committed the pri-110 / pri-106 changes that were uncommitted at my
+> base. My diff was generated against the earlier state and re-verified with `git apply --check` against the tree
+> as it stands at submission: **still clean.** Strategy should re-check once more before landing, because the
+> `graded_role_assigner.py` hunk touches a file another session is actively writing.
 
 ---
 
