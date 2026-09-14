@@ -465,6 +465,81 @@ a soft activation-decay retrieval could not recover a single additional token. T
 capacity limit is not where the loss is. (K = 4 ranks slightly better on a slightly smaller population — a precision /
 coverage trade of 10 tokens, not a mechanism.)
 
+@@PART3@@
+
+## 13. ALTERNATE PATHS AFTER PHASE 7 — as brain-foundational or MORE so (the updated queue)
+
+The first submission listed five. Phase 7 **built and measured three of them** (#1 the oblique slot, #2 the
+referential cue, #3 more reading), **closed a fourth with a number** (#5 the retrieval capacity), and found two new
+ones that are more brain-foundational than anything left on the old list. This is the queue as it now stands, best
+first.
+
+1. **GIVE THE ROLE COMPETITION AN NMOD CLASS — the highest-value item in this area, and it is not in this organ.**
+   *Structure:* the same cue-based role competition (`hdlab/graded_role_assigner`), with one more role.
+   *Computation:* `obl` versus `nmod` is a pure function of the licensing HOST'S CATEGORY — a case-marked phrase
+   licensed by a predicate is an oblique participant of an event, one licensed by a nominal is a property of a thing
+   (Talmy's figure/ground; the Competition Model reads the case cue against the licenser, not the phrase). The
+   organ already computes the head's category as part of its configuration cue, so the class costs one entry in
+   `ROLE_CLASSES` and one in `ROLE_TO_DEP`, plus a rebuild of `coarse_role_validities`.
+   *Why it is the top item:* the heads rung's whole nmod gain currently dies at this boundary, and the boundary is a
+   missing symbol, not a hard problem. *Why not here:* it is `hdlab/graded_role_assigner.py`, outside this remit.
+
+2. **GIVE THE ACQUISITION TEACHER A NOMINAL HOST SLOT.** *Structure:* semantic bootstrapping (Pinker 1984) applied
+   symmetrically. *Computation:* `SemanticBootstrapTeacher.score_matrix` adds its meaning term `beta *
+   slot_plausibility` on exactly one kind of arc — `pos[h-1] == "VERB"`. A noun host gets no meaning support at all,
+   ever, so while the arm learns, every case-marked nominal has a verb voting for it with `beta = 10` and a noun
+   voting with nothing. The brain has no such asymmetry: a relational noun selects its complement as a verb selects
+   its argument ("the picture OF the girl", "the edge OF the table" — Barker 1995; Löbner's relational nouns), and
+   Hindle & Rooth's original contrast is symmetric by construction. Built and measured in phase 7 (§12.5e).
+
+3. **THE REFERENTIAL CONTEXT CUE, AT DISCOURSE SCOPE.** *Structure:* Altmann & Steedman 1988 / Spivey-Knowlton &
+   Sedivy 1995 — the referential context that licenses a restrictive modifier. *Computation:* the cue value needs
+   "how many salient referents of this kind is the reader already entertaining", which is a property of the
+   ENTITY/SITUATION MODEL, not of the sentence. Phase 7 built the sentence-scoped version and refuted it with its
+   learned table (§12.5a): at sentence scope the cue degenerates into a host-type prior the configuration already
+   owns, and the definiteness contrast comes out reversed. *What it would take:* the rival-referent count read off
+   the coref / entity layer and handed to the arm as an input, i.e. a cross-organ wire, not a cue this arm can grow.
+   **This is the correct version of the brief's own named lever and it is a strictly bigger build than it looked.**
+
+4. **SEMANTIC CASE MARKING FOR BARE OBLIQUES.** *Structure:* the same case cue, marked semantically instead of
+   morphologically — Bates & MacWhinney's cue coalitions: where the morphological cue is absent the semantic cue does
+   the same job. A bare temporal or measure nominal ("last year", "three times", "Monday") is an oblique with no
+   preposition, and UD labels it `obl` with no `case` child. *Sized in phase 7 by a new coverage probe:* of the 144
+   gold obl the preposition detector still cannot see, **32 are temporal nominals** (28 `NOUN/noun.time` + 4
+   `PROPN/noun.time`) — the single largest undetected class, 6.7% of all gold obl. The genitive construction already
+   covers 111 of the 534 gold nmod, so a third case cue is the natural next one. *Why not now:* it opens the
+   retrieval on a population the association was never mined for, so it needs its own mining pass and its own twin.
+
+5. **SECOND-ORDER SIBLING FACTORISATION** (unchanged from the first submission; the SOTA drill's #1, +13.3 documented
+   for label-free parsing). A host that already has a PP of the same preposition is a worse candidate — valence
+   occupancy at the phrase level. Needs the projective second-order inside–outside; Matrix-Tree is first-order.
+
+6. **CLOSED BY MEASUREMENT, do not queue:** (a) *more reading* — the association is still learning (its margin over
+   its twin doubles from 5k to 100k lines) but the curve is flat once proximity is in the model, so the 500k mining
+   job buys nothing here (§12.5b); (b) *an activation-decay retrieval instead of the hard capacity cap* — K = 6
+   already retrieves every token K = 12 does, so there is nothing for a softer rule to recover (§12.5c).
+
+## 14. NEXT STEPS AFTER PHASE 7 (priority order, replacing §11)
+
+1. **Land the diff and rebuild the asset at the landed cap 6000** with
+   `--pp-assoc data/hook_state/attachment_pp_assoc_v2_simplewiki100k_candidate.json`, then run the board's no-regress
+   check. **Phase 7 closed most of what §11.1 could not:** the composition IS measured at cap 6000 on the pri-97 tree,
+   the rebuilt floor reproduces the landed asset to 0.0002 UAS, and the win holds on the LIVE chain. What still cannot
+   be done from a solver seat is running the BOARD (the arm loads a fixed asset path, and pointing it at a candidate
+   asset would mean overwriting the live one).
+2. **Add an NMOD class to `hdlab/graded_role_assigner`** (alternate path #1). Until this exists the heads rung's nmod
+   gain cannot reach any consumer, and the better heads make the role metric *worse* (0.5765 → 0.5622 at cap 6000)
+   for a reason that is a missing symbol, not a modelling failure. **This is the single highest-value item in the
+   area and it is a one-class change plus a validity rebuild.**
+3. **Give the acquisition teacher a NOMINAL HOST SLOT** (alternate path #2) — the verb-only asymmetry in
+   `SemanticBootstrapTeacher.score_matrix` is the structural cause of the residual nmod loss inside the PP sites.
+4. **Build the referential cue at DISCOURSE scope** (alternate path #3), wired to the entity layer. The sentence-scoped
+   version is refuted here with its learned table; do not re-try it at sentence scope.
+5. **Semantic case marking for bare temporal obliques** (alternate path #4) — 32 measured gold obl tokens, the largest
+   class the preposition detector cannot see.
+6. **Do NOT queue** the 500k-line mining job or an activation-decay retrieval: both are closed with numbers (§12.5b,
+   §12.5c).
+
 ## SUBMISSION PROMPT
 
 ```
