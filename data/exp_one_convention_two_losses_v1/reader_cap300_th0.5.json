@@ -1,0 +1,76 @@
+{
+ "n_sent": 300,
+ "n_gold_verbs": 521,
+ "n_gold_verb_sentences": 214,
+ "rescue_threshold": 0.259177,
+ "occ_threshold": 0.5,
+ "live_reader_crosscheck_sentences": 150,
+ "arm_OFF_vs_live_reader_mismatched_sents": 0,
+ "arms": {
+  "OFF": {
+   "event_recall": 0.9271,
+   "event_precision": 0.9379,
+   "false_events_per_sent": 0.1067,
+   "blind_gold_verb_sentences": 4,
+   "blind_share": 0.0187
+  },
+  "LIVE": {
+   "event_recall": 0.9674,
+   "event_precision": 0.8811,
+   "false_events_per_sent": 0.2267,
+   "blind_gold_verb_sentences": 2,
+   "blind_share": 0.0093,
+   "d_recall_vs_OFF": [
+    0.0403,
+    0.0236,
+    0.0579
+   ]
+  },
+  "AUX107": {
+   "event_recall": 0.9731,
+   "event_precision": 0.8507,
+   "false_events_per_sent": 0.2967,
+   "blind_gold_verb_sentences": 1,
+   "blind_share": 0.0047,
+   "d_recall_vs_OFF": [
+    0.0461,
+    0.0285,
+    0.0652
+   ]
+  },
+  "OCC": {
+   "event_recall": 0.9904,
+   "event_precision": 0.8702,
+   "false_events_per_sent": 0.2567,
+   "blind_gold_verb_sentences": 0,
+   "blind_share": 0.0,
+   "d_recall_vs_OFF": [
+    0.0633,
+    0.0407,
+    0.0879
+   ],
+   "d_recall_vs_LIVE": [
+    0.023,
+    0.0105,
+    0.0387
+   ]
+  },
+  "OCC_AUX": {
+   "event_recall": 0.9904,
+   "event_precision": 0.8445,
+   "false_events_per_sent": 0.3167,
+   "blind_gold_verb_sentences": 0,
+   "blind_share": 0.0,
+   "d_recall_vs_OFF": [
+    0.0633,
+    0.0407,
+    0.0879
+   ],
+   "d_recall_vs_LIVE": [
+    0.023,
+    0.0105,
+    0.0387
+   ]
+  }
+ }
+}

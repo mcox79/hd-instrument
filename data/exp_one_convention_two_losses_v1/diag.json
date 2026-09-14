@@ -1,0 +1,211 @@
+{
+ "tokens": 9534,
+ "verb_as_aux_tokens": 23,
+ "verb_as_aux_by_rel": {
+  "root": 14,
+  "ccomp": 5,
+  "acl": 2,
+  "advcl": 2
+ },
+ "verb_as_aux_by_word": {
+  "is": 6,
+  "have": 4,
+  "are": 4,
+  "has": 3,
+  "was": 2,
+  "had": 1,
+  "been": 1,
+  "were": 1,
+  "be": 1
+ },
+ "aux_as_verb_tokens": 8,
+ "gold_aux_tokens": 572,
+ "gold_sole_aux_in_verbless_sentence": 67,
+ "gold_sole_aux_is_root": 1,
+ "examples": [
+  {
+   "w": "have",
+   "rel": "root",
+   "head": 0,
+   "pv": 0.3037,
+   "pa": 0.6963,
+   "sent": "You have to see these slides .... they are amazing ."
+  },
+  {
+   "w": "is",
+   "rel": "root",
+   "head": 0,
+   "pv": 0.0675,
+   "pa": 0.9325,
+   "sent": "But there is no proof ."
+  },
+  {
+   "w": "had",
+   "rel": "root",
+   "head": 0,
+   "pv": 0.4204,
+   "pa": 0.5796,
+   "sent": "I had to go to the BBC for this report ."
+  },
+  {
+   "w": "has",
+   "rel": "root",
+   "head": 0,
+   "pv": 0.2294,
+   "pa": 0.7694,
+   "sent": "Bill over at The Fourth Rail has an excellent essay on how the MSM and the UN , even the leftist countries in Europe , are basical"
+  },
+  {
+   "w": "is",
+   "rel": "root",
+   "head": 0,
+   "pv": 0.0674,
+   "pa": 0.9324,
+   "sent": "To the north in Lebanon , there is serious debate within Hezbollah about entering the Lebanese political process in light of Syria"
+  },
+  {
+   "w": "has",
+   "rel": "root",
+   "head": 0,
+   "pv": 0.0,
+   "pa": 0.99,
+   "sent": "And if you have n't heard by now , the roster of suspected terrorists has not a Tom , Dick or Harry among them :"
+  },
+  {
+   "w": "has",
+   "rel": "acl",
+   "head": 9,
+   "pv": 0.2154,
+   "pa": 0.7846,
+   "sent": "They are probably especially oriented toward the Salafi school of modern Islamic thought , which has a Protestant - like emphasis "
+  },
+  {
+   "w": "are",
+   "rel": "root",
+   "head": 0,
+   "pv": 0.2224,
+   "pa": 0.777,
+   "sent": "So now there are hundreds of al - Qaeda members in Iraq where there had been none before ."
+  },
+  {
+   "w": "been",
+   "rel": "acl",
+   "head": 12,
+   "pv": 0.4042,
+   "pa": 0.5908,
+   "sent": "So now there are hundreds of al - Qaeda members in Iraq where there had been none before ."
+  },
+  {
+   "w": "was",
+   "rel": "ccomp",
+   "head": 6,
+   "pv": 0.0897,
+   "pa": 0.9103,
+   "sent": "Wolfowitz lied to him and said that there was a 10 to 50 % chance that Iraq was behind them ."
+  },
+  {
+   "w": "were",
+   "rel": "ccomp",
+   "head": 14,
+   "pv": 0.2689,
+   "pa": 0.5851,
+   "sent": "Rumsfeld initially rejected an attack on al - Qaeda bases in Afghanistan , saying there were \" no good targets \" in Afghanistan ."
+  },
+  {
+   "w": "is",
+   "rel": "ccomp",
+   "head": 4,
+   "pv": 0.2615,
+   "pa": 0.7385,
+   "sent": "I do n't know if there is anything I can do but I 'm always willing to help ."
+  },
+  {
+   "w": "are",
+   "rel": "root",
+   "head": 0,
+   "pv": 0.0383,
+   "pa": 0.9616,
+   "sent": "There are only two counterparties at this time who have overdue margin :"
+  },
+  {
+   "w": "have",
+   "rel": "root",
+   "head": 0,
+   "pv": 0.1413,
+   "pa": 0.8587,
+   "sent": "i have stronger will than you think ."
+  },
+  {
+   "w": "is",
+   "rel": "root",
+   "head": 0,
+   "pv": 0.0974,
+   "pa": 0.9008,
+   "sent": "In addition , is there someone who could consider the correlation between US CPI and the $ / euro exchange rate ."
+  },
+  {
+   "w": "is",
+   "rel": "ccomp",
+   "head": 6,
+   "pv": 0.1227,
+   "pa": 0.8773,
+   "sent": "The credit guys are currently assuming that there is no correlation and may consequently be double dipping the credit reserve on t"
+  },
+  {
+   "w": "was",
+   "rel": "ccomp",
+   "head": 2,
+   "pv": 0.0905,
+   "pa": 0.9093,
+   "sent": "We pointed out to the PX that there was excess credit ."
+  },
+  {
+   "w": "are",
+   "rel": "advcl",
+   "head": 3,
+   "pv": 0.0998,
+   "pa": 0.9,
+   "sent": "Caveat : subject to credit review even though there are blanks ."
+  },
+  {
+   "w": "have",
+   "rel": "root",
+   "head": 0,
+   "pv": 0.4484,
+   "pa": 0.5516,
+   "sent": "Also , I have an extra ticket for the Comets game on Sat. you said you wanted to go ?"
+  },
+  {
+   "w": "have",
+   "rel": "root",
+   "head": 0,
+   "pv": 0.4484,
+   "pa": 0.5516,
+   "sent": "Also , I have an extra ticket for the Comets game on Sat. you said you wanted to go ?"
+  },
+  {
+   "w": "is",
+   "rel": "root",
+   "head": 0,
+   "pv": 0.0919,
+   "pa": 0.908,
+   "sent": "In addition , there is a reduction of 22,101 MMBTU which is the difference between the SCADA values ( Best Available ) that Anita "
+  },
+  {
+   "w": "are",
+   "rel": "advcl",
+   "head": 1,
+   "pv": 0.1728,
+   "pa": 0.8272,
+   "sent": "Call me if there are any questions ."
+  },
+  {
+   "w": "be",
+   "rel": "root",
+   "head": 0,
+   "pv": 0.1045,
+   "pa": 0.8942,
+   "sent": "there will be talent and opportunity a plenty on the market soon ."
+  }
+ ]
+}
