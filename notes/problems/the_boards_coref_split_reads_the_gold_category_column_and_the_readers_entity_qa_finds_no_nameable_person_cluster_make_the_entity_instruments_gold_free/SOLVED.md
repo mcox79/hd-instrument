@@ -659,6 +659,55 @@ this consumer should be tuned for recall.
    that cannot see that a word is capitalised is not a reader with a weak cue, it is a reader with a
    **destroyed input channel**.
 
+## 22. IS THE SESSION EXHAUSTED? -- the honest answer, lever by lever
+
+**From this seat, on this brief's remit: YES, and here is the ledger that says so.** Every lever I can build
+and measure without stepping into another brief's file or another session's decision has been built and
+measured; what remains is either (i) bounded by arithmetic, (ii) owned by a named organ elsewhere, or
+(iii) a decision that needs a board A/B, which is strategy's.
+
+| lever | status | why it is closed from here |
+|---|---|---|
+| the five gold columns -> live organs | **BUILT** | twin byte-identical, twice |
+| the NP-run head | **BUILT** | span-head agreement 0.9432; `+head` bounds the residual at +0.0139 coref |
+| per-predicate word-order roles | **BUILT** | part of gf -> gf2 |
+| dual-route number | **BUILT** | in gf2 |
+| dual-route lemma | **BUILT, NULL, EXPLAINED** | the identity key needs consistency, not correctness |
+| the posterior-mass sweep | **BUILT, NEGATIVE, EXPLAINED** | accuracy and floor rise together at every tau |
+| is-a: strict / loose / connectives / wider gap | **BUILT x4** | monotone in recall, plateaus at +0.0076; the rest is a LABELLER |
+| the wire's head-domain defect | **BUILT + FIXED + MEASURED** | -0.0074 -> +0.0023; and the wire is then the simple predicate |
+| restore the case in `_mk_referent` | **BUILT, NULL, EXPLAINED** | the case is gone one level up |
+| the entity-QA id-space defect | **LOCATED + REPAIRED + WITNESSED** | 0 -> 200 questions, witness green twice |
+| the paired-subpopulation conversion | **BUILT, CI-SEPARATED** | +0.0193 [+0.0057,+0.0318] where the organ is right |
+| the reader's lowercasing | **LOCATED + MEASURED + PROPOSED** | -0.4076 PROPN F1; flipping it needs a board A/B |
+| the category organ's 15.6% | **PRICED, NOT MINE** | worth +0.0173; pri 104 / 107 / 110's chain |
+| a gold-free `appos`/`cop` labeller | **PRICED + BRIEF-READY** | +0.0097; section 20; the labels rung's |
+| heads from the attachment arm's parse | **NOT BUILT** | ~50 min/arm; bounded at +0.0139; named as alternate path 1 |
+| roles from `graded_role_assigner` | **NOT BUILT** | pri 108 holds the file this session |
+
+**THE TWO THINGS I WOULD DO NEXT IF THE REMIT WERE WIDER**, in order, both already priced above: flip
+`lower=False` behind a board A/B (**+0.4076 PROPN F1** at the organ), and give the common-noun bridge a real
+`appos`/`cop` labeller (**+0.0097**). Neither is a solver's call to land.
+
+**WHAT I GOT WRONG IN THIS SESSION, recorded because the corrections were the useful part:**
+
+1. I predicted **precision** would bind the is-a detector. **Recall binds** -- the strict arm scored half as
+   well. The mechanism (a non-writing bridge makes a false edge nearly free) is now measured four times.
+2. I reported pri 104's wire as "neutral-to-mixed". It is neutral-to-mixed **as shipped**, and the mixed half
+   was a **head-domain bug** that one line removes -- after which the wire is not a classifier at all.
+3. I set out to fix the lowercased `span_toks` in `_mk_referent`. That fix is a **no-op**; the defect is one
+   level up and is **forty times larger** than the one I was aiming at.
+4. My frontmatter mixed two populations in the margin decomposition; corrected, and the corrected version
+   sums exactly.
+5. My first `gf2low` arm returned numbers identical to its control -- a **broken arm, not a null result** --
+   and I caught it only because "identical to the digit" is not something a real switch can do.
+
+**THE ONE SENTENCE I WOULD PUT ON THE BOARD:** *the board's two entity rows were being graded with five gold
+columns and eighteen unreadable documents; gold-free, the pronoun-coref capability survives intact, the
+common-noun one survives only where the category organ is right -- and the largest single thing standing
+between the reader and its own category organ is that the reader lowercases its input before the organ ever
+sees it.*
+
 ## GAPS -- steps not performed, and not worked around
 
 1. **The span head from the attachment arm's real parse was NOT measured.** The NP-run rule is a stand-in
