@@ -1,7 +1,7 @@
 diff --git a/hdlab/attachment_arm.py b/hdlab/attachment_arm.py
 --- a/hdlab/attachment_arm.py
 +++ b/hdlab/attachment_arm.py
-@@ -1160,6 +1160,206 @@
+@@ -1160,6 +1160,210 @@
                  out.setdefault((v, subj), "later")
      return out
  
@@ -35,21 +35,25 @@ diff --git a/hdlab/attachment_arm.py b/hdlab/attachment_arm.py
 +# satisfaction), not a second organ.
 +#
 +# MEASURED (UD-EWT test 700, live chain, paired bootstrap over sentences; experiments/exp_one_convention_two_losses_v1.py):
-+#   * THE GOVERNOR.  UAS 0.6245 -> 0.6326 (+0.0081 CI[+0.0041,+0.0121] SEP); on the SOLE-AUX CLAUSES 0.6074 ->
-+#     0.6566 (+0.0492 CI[+0.0198,+0.0797] SEP).  root +0.0143 SEP (sole-AUX +0.0897 SEP), nsubj +0.0221 SEP
++#   * THE GOVERNOR.  UAS 0.6245 -> 0.6328 (+0.0083 CI[+0.0043,+0.0124] SEP); on the SOLE-AUX CLAUSES 0.6074 ->
++#     0.6577 (+0.0503 CI[+0.0213,+0.0810] SEP).  root +0.0157 SEP (sole-AUX +0.1026 SEP), nsubj +0.0221 SEP
 +#     (+0.1129 SEP), expl 0.292 -> 0.833 (+0.5417 SEP; on the sole-AUX clauses 0.077 -> 1.000), ccomp +0.0431 SEP,
 +#     obj +0.0100 SEP, obl +0.0084 SEP, nmod +0.0000, cop -0.0108 CI[-0.0273,+0.0000] n.s. (two arcs of 186).
 +#     INFORMATION-FREE TWIN (the same number of AUX tokens promoted at random, 3 seeds): UAS 0.6155 / 0.6175 /
 +#     0.6178, every one CI-separated BELOW the floor.
 +#   * THE READER (2077 sentences, the convention-free instrument -- does the clause produce an event at all?):
 +#     gold-verb sentences yielding ZERO events 33 -> 9 of 1240 (0.0266 -> 0.0073; OFF is 55), event recall 0.9501 ->
-+#     0.9808 (+0.0307 CI[+0.0240,+0.0374] SEP) at event precision 0.8715 -> 0.8614.  It DOMINATES pri 107's boolean
++#     0.9812 (+0.0311 CI[+0.0244,+0.0379] SEP) at event precision 0.8715 -> 0.8621.  It DOMINATES pri 107's boolean
 +#     sole-AUX arm on all three at once (that arm: recall 0.9597, precision 0.8364, blind 18), which is why
 +#     HDLAB_PREDICATE_RESCUE_AUX stays default OFF.
 +#   * THE DECISION ITSELF, against the only question UD's own column CAN adjudicate (is this be/have a main verb?):
 +#     precision 0.6471 / recall 0.9565 on the AUX population (GUM, entirely outside the count supply: 0.65 /
 +#     0.80), against 0.1164 for the blanket "a sole AUX is the predicate" rule pri 107 refuted.
-+# HDLAB_LC_PREDICATE_SLOT=0 turns it off; HDLAB_PREDICATE_SLOT_TH is the operating point (swept 0.3/0.5/0.7/0.9).
++#   * GENERALISATION on GUM/GENTLE (1200 sentences by stride over 12+ genres, entirely outside this organ's count
++#     supply): UAS 0.6008 -> 0.6096 (+0.0088 CI[+0.0062,+0.0117] SEP), sole-AUX clauses 0.5830 -> 0.6423 (+0.0593
++#     CI[+0.0413,+0.0792] SEP), expl 0.221 -> 0.794 -- a LARGER effect out of supply than in it.
++# Read-time cost 0.059 ms/sentence (+0.6% of the posterior it revises).
++# HDLAB_LC_PREDICATE_SLOT=0 turns it off; HDLAB_PREDICATE_SLOT_TH is the operating point (swept 0.3/0.5/0.7/0.9, flat).
 +EXPLETIVE = frozenset({"there"})
 +_PS_SKIP = frozenset({"ADV", "INTJ"})
 +_PS_NEG = frozenset({"not", "n't", "never", "also", "just", "really", "only", "still", "already"})
@@ -208,7 +212,7 @@ diff --git a/hdlab/attachment_arm.py b/hdlab/attachment_arm.py
  
  def subordination(toks: Sequence[str], pos: Sequence[str], i: int) -> str:
      """SUBORDINATION CUE: the clause-dependency marking in force at 1-based i -- the nearest preceding clause opener
-@@ -2447,6 +2647,8 @@
+@@ -2447,6 +2651,8 @@
             "np_starts", "split_runs", "phrase_head", "npb_matrix", "predicate_flags", "clause_matrices", "clause_value",
             "boundary_penalty",
             "root_cue_values", "predication_boost", "finiteness",
@@ -220,7 +224,7 @@ diff --git a/hdlab/attachment_arm.py b/hdlab/attachment_arm.py
 diff --git a/hdlab/lexical_categories.py b/hdlab/lexical_categories.py
 --- a/hdlab/lexical_categories.py
 +++ b/hdlab/lexical_categories.py
-@@ -56,6 +56,17 @@
+@@ -56,6 +56,19 @@
  # CONFLICT-TRIGGERED STEM REANALYSIS (2026-09-13 13:20; DEFAULT ON): full UD-EWT test 0.9264 -> 0.9271, known-rare slice 0.872 -> 0.878,
  # "wounded" -> VERB; the blanket stem prior was -0.07 to -0.5 points (kept OFF). HDLAB_LC_STEM_REANALYSIS=0 disables.
  STEM_REANALYSIS = os.environ.get("HDLAB_LC_STEM_REANALYSIS", "1") == "1"
@@ -231,14 +235,16 @@ diff --git a/hdlab/lexical_categories.py b/hdlab/lexical_categories.py
 +# predicate to carry tense FOR is itself the clause's predicate.  That occupancy is computed ONCE
 +# (attachment_arm.revise_for_predicate_slot -- the organ that owns the predication cues) and applied to the posterior
 +# THIS organ hands down, so the governor, the reader's event detector and the predicate rescue all read ONE revision
-+# instead of one arm each.  MEASURED, UD-EWT test, live chain: heads UAS 0.6245 -> 0.6326 (+0.0081 CI[+0.0041,+0.0121]);
-+# on the sole-AUX clauses 0.6074 -> 0.6566 (+0.0492 CI[+0.0198,+0.0797]); gold-verb sentences the reader leaves with NO
-+# event at all 33 -> 9 of 1240.  Off with HDLAB_LC_PREDICATE_SLOT=0.
++# instead of one arm each.  MEASURED, UD-EWT test, live chain: heads UAS 0.6245 -> 0.6328 (+0.0083 CI[+0.0043,+0.0124]);
++# on the sole-AUX clauses 0.6074 -> 0.6577 (+0.0503 CI[+0.0213,+0.0810]); gold-verb sentences the reader leaves with NO
++# event at all 33 -> 9 of 1240; on GUM (outside this organ's count supply) UAS +0.0088 CI[+0.0062,+0.0117].  The
++# information-free twin -- the same number of AUX tokens promoted at random -- is CI-separated BELOW the floor on both
++# populations and every seed.  Off with HDLAB_LC_PREDICATE_SLOT=0.
 +PREDICATE_SLOT = os.environ.get("HDLAB_LC_PREDICATE_SLOT", "1") == "1"
  LAG: Optional[int] = (None if _lag_env.strip().lower() in ("inf", "none", "full") else int(_lag_env)) if _lag_env.strip() else 2
  BOS = "<s>"
  # FREQUENT-FRAME cue (2026-09-13 14:30 local; strategy): the WORDS immediately left and right of a token categorise it (Mintz 2003
-@@ -1071,6 +1082,10 @@
+@@ -1071,6 +1084,10 @@
                              le[k] = np.logaddexp(math.log(a) + le[k], math.log(1.0 - a) + spri); changed = True
              if changed:
                  post = self._posterior_le(le, lag)
@@ -264,10 +270,10 @@ diff --git a/hdlab/predicate_detector.py b/hdlab/predicate_detector.py
 +#     arm                             recall  precis  falseEv  blind clauses
 +#     rescue noun arm only (live)     0.9501  0.8715   0.1757    33 / 1240
 +#     + THIS boolean sole-AUX arm     0.9597  0.8364   0.2354    18 / 1240
-+#     upstream predicate slot (110)   0.9808  0.8614   0.1979     9 / 1240
-+#     both together                   0.9816  0.8299   0.2523     9 / 1240
++#     upstream predicate slot (110)   0.9812  0.8621   0.1969     9 / 1240
++#     both together                   0.9820  0.8305   0.2513     9 / 1240
 +# The upstream form DOMINATES this arm on recall, precision AND blind clauses at once, and stacking this arm on top
-+# buys +0.0008 recall for -0.0315 precision.  Left selectable for the ablation; not the recommended operating point.
++# buys +0.0008 recall for -0.0316 precision.  Left selectable for the ablation; not the recommended operating point.
  AUX_ARM = os.environ.get("HDLAB_PREDICATE_RESCUE_AUX", "0") == "1"
  
  # clause boundaries: the closed-class cues a reader has BEFORE any parse

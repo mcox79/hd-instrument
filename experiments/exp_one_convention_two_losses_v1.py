@@ -874,7 +874,7 @@ def gov(cap=700, seed=0, arms=("base", "revised", "occ_aux"), th=0.3, alpha=1.0,
 
 
 # ------------------------------------------------------------------ phase 2c: the SECOND consumer -- the reader
-def reader(cap=2100, th=0.5, cross=150, seed=0):
+def reader(cap=2100, th=0.5, cross=150, seed=0, pop="ud"):
     """THE CONVENTION-FREE INSTRUMENT (pri 107's): does the clause produce an EVENT at all?  UD's VERB column cannot
     adjudicate a question about UD's own convention, but `a gold-verb sentence that yields ZERO events` is a whole
     clause every downstream organ never sees, and that is convention-free.
@@ -885,7 +885,21 @@ def reader(cap=2100, th=0.5, cross=150, seed=0):
            OCC_AUX   OCC plus the boolean sole-AUX arm on what is left"""
     from hdlab.predicate_detector import (BFPredicateDetector, bf_cue_block, category_emission,
                                           clause_spans, has_verb_reading_glassbox)
-    test = sentences(TEST, cap=cap, maxlen=10**6)
+    if pop == "qasrl":
+        # QA-SRL dev -- the brief's SECOND convention-free population, entirely outside the organ's count supply.
+        import gzip
+        test = []
+        with gzip.open(os.path.join(REPO, "data/benchmark_trap_check/qasrl/qasrl-v2/orig/dev.jsonl.gz"),
+                       "rt", encoding="utf-8") as f:
+            for line in f:
+                d = json.loads(line)
+                toks = d["sentenceTokens"]
+                gv = set(int(k) for k in d["verbEntries"].keys())
+                test.append((toks, ["VERB" if i in gv else "X" for i in range(len(toks))], [], []))
+                if len(test) >= cap:
+                    break
+    else:
+        test = sentences(TEST, cap=cap, maxlen=10**6)
     lc = LC.get()
     model = BFPredicateDetector.load()
     rth = model.threshold
@@ -969,7 +983,7 @@ def reader(cap=2100, th=0.5, cross=150, seed=0):
         print("%-8s %8.4f %8.4f %8.4f %8d %8.4f  %s" % (a, A["event_recall"], A["event_precision"],
               A["false_events_per_sent"], A["blind_gold_verb_sentences"], A["blind_share"],
               ("dRecall vs OFF %+.4f CI[%+.4f,%+.4f]" % tuple(A["d_recall_vs_OFF"])) if "d_recall_vs_OFF" in A else ""))
-    json.dump(out, open(os.path.join(out_dir(), "reader_cap%d_th%s.json" % (cap, th)), "w", encoding="utf-8"), indent=1)
+    json.dump(out, open(os.path.join(out_dir(), "reader_%s_cap%d_th%s.json" % (pop, cap, th)), "w", encoding="utf-8"), indent=1)
     return out
 
 
@@ -1326,7 +1340,9 @@ if __name__ == "__main__":
               th=float(a[a.index("--th") + 1]) if "--th" in a else 0.5)
     elif "--reader" in a:
         reader(cap=int(a[a.index("--cap") + 1]) if "--cap" in a else 2100,
-               th=float(a[a.index("--th") + 1]) if "--th" in a else 0.5)
+               th=float(a[a.index("--th") + 1]) if "--th" in a else 0.5,
+               pop=(a[a.index("--pop") + 1] if "--pop" in a else "ud"),
+               cross=0 if "--pop" in a else 150)
     elif "--gov-live" in a:
         gov_live(cap=int(a[a.index("--cap") + 1]) if "--cap" in a else 700,
                  th=float(a[a.index("--th") + 1]) if "--th" in a else 0.5)
