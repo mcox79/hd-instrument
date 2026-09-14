@@ -530,7 +530,19 @@ def copular_available(toks, tags, i):
         if tags[k] in ("ADJ", "NOUN", "PROPN", "PRON", "ADP", "SYM", "X", "INTJ"):
             return 1.0
         return 0.0
-    return 0.0
+    # NOTHING TO THE RIGHT AT ALL. English does not leave a copula complement-less: it FRONTS the predicate
+    # ("whatever age you ARE", "the other possibilities you had better") or ELIDES it ("i am sure they ARE").
+    # So a clause-final copula's complement is ELSEWHERE, and the predicate slot is NOT free.
+    return 1.0
+
+
+def _next_word(toks, tags, i):
+    """The next word after 0-based i that is not an adverb / negation / punctuation."""
+    for k in range(i + 1, len(toks)):
+        if tags[k] in _SKIP or tags[k] == "PUNCT" or toks[k].lower() in _NEG:
+            continue
+        return toks[k].lower()
+    return ""
 
 
 def predicate_slot_v2(lc, toks, tags=None, post=None, use_clause_mass=False, alpha=1.0,
@@ -549,9 +561,12 @@ def predicate_slot_v2(lc, toks, tags=None, post=None, use_clause_mass=False, alp
         _o, _p2, ws = predicate_slot(lc, toks, alpha=alpha, unit=unit, gate=gate)
     lows = [t.lower() for t in toks]
     carriers = _carriers()
+    from hdlab.attachment_arm import AUX_HAVE as AUX_HAVE_SET
     for i in range(n):
         if tags[i] != "AUX" or lows[i] not in carriers:
             continue                                    # a MODAL cannot head a clause
+        if lows[i] in AUX_HAVE_SET and _next_word(toks, tags, i) in ("better", "best"):
+            continue                                    # `had better` is a fixed semi-modal, fully auxiliated
         a = 1.0 - host_belief(lc, toks, tags, post, i)
         b = 1.0 - copular_available(toks, tags, i)
         occ[i] = a * b
@@ -1126,6 +1141,9 @@ def self_test():
         ("Google is a nice search engine .", 1, False, "copular be with a complement -> the complement predicates"),
         ("Falluja has long been roiled by tense relations .", 1, False, "auxiliary CHAIN: `been` is the host of `has`"),
         ("The political will to end the crisis expired .", None, None, "a modal form is never a clause head"),
+        ("i am sure they are .", 4, False, "a CLAUSE-FINAL copula: its complement is elided, not absent"),
+        ("Universities will take you whatever age you are .", 7, False, "a CLAUSE-FINAL copula: its complement is FRONTED"),
+        ("You had better go now .", 1, False, "`had better` is a fixed semi-modal, fully auxiliated"),
     ]
     for text, idx, want, why in CASES:
         toks = text.split()
@@ -1535,12 +1553,309 @@ def coref_dim(n_docs=None, th=0.5, n_boot=1000):
     return out
 
 
+# =====================================================================================================================
+# PHASE 7 (2026-09-14) -- the coordinator's probe.
+# =====================================================================================================================
+
+def _patch_lc(th=0.5):
+    """Apply the proposed revision to the CLASS method, exactly as the diff does, so every LexicalCategories instance
+    (including one the validities builder loads from a path) hands down the revised belief."""
+    lcmod = LC.LexicalCategories
+    orig = lcmod.posterior
+
+    def patched(self, words, lag=None, _o=orig):
+        post = _o(self, words, lag)
+        if post is None or getattr(post, "shape", (0,))[0] == 0:
+            return post
+        tags = [self.tags[int(post[i].argmax())] for i in range(post.shape[0])]
+        occ = predicate_slot_v2(self, list(words), tags=tags, post=post)
+        out, _s = revise_posterior(self, list(words), post, tags=tags, th=th, occ=occ)
+        return out
+    lcmod.posterior = patched
+    return orig
+
+
+# ---------------------------------------------------------------- 7(1a) WHAT ARE THE 17 REMAINING FLIPS?
+def residual(cap=700, th=0.5, show=40):
+    """Every head flip that SURVIVES the predicate slot, construction by construction, plus the one remaining
+    VERB-as-AUX token traced to the quantity that blocks it."""
+    test = sentences(TEST, cap=cap, maxlen=10**6)
+    lc = LC.get(); tab = AA.load_attachment_validities()
+    conf = Counter(); rows = []; va_rows = []
+    n_loss = n_gain = 0
+    for toks, gold_pos, gold_heads, rels in test:
+        _le, post = _le_and_post(lc, list(toks))
+        tags0 = tags_from(lc, post)
+        occ = predicate_slot_v2(lc, toks, tags=tags0, post=post)
+        post2, _st = revise_posterior(lc, toks, post, tags=tags0, th=th, occ=occ)
+        tags = tags_from(lc, post2)
+        errs = {i + 1: (gold_pos[i], tags[i]) for i in range(len(toks)) if tags[i] != gold_pos[i]}
+        for i in range(len(toks)):
+            if gold_pos[i] == "VERB" and tags[i] == "AUX":
+                va_rows.append({"w": toks[i], "rel": rels[i], "occ": round(float(occ[i]), 4),
+                                "pv_base": round(float(post[i, lc.tags.index("VERB")]), 4),
+                                "pv_rev": round(float(post2[i, lc.tags.index("VERB")]), 4),
+                                "host": round(float(AA_host(lc, toks, tags0, post, i)), 4),
+                                "cop": round(float(AA_cop(toks, tags0, i)), 4),
+                                "sent": " ".join(toks)[:120]})
+        if not errs:
+            continue
+        hg = AA.heads(list(toks), list(gold_pos), tab)
+        hp = AA.heads(list(toks), list(tags), tab)
+        for i, g in enumerate(gold_heads, start=1):
+            if not (0 <= g <= len(toks)):
+                continue
+            okg = hg.get(i, -1) == g; okp = hp.get(i, -1) == g
+            if okg == okp:
+                continue
+            if i in errs:
+                pair = errs[i]; site = "self"
+            elif g in errs:
+                pair = errs[g]; site = "gold_head"
+            else:
+                pair = errs[min(errs, key=lambda k: abs(k - i))]; site = "other"
+            if okg and not okp:
+                n_loss += 1; conf[pair] += 1
+                if len(rows) < show:
+                    rows.append("%s->%s  dep=%-12s rel=%-8s site=%-9s | %s"
+                                % (pair[0], pair[1], toks[i - 1], rels[i - 1], site, " ".join(toks)[:95]))
+            else:
+                n_gain += 1; conf[pair] -= 1
+    print("RESIDUAL after the predicate slot: %d lost, %d gained, NET %d" % (n_loss, n_gain, n_loss - n_gain))
+    print("net by confusion:", ", ".join("%s->%s %d" % (k[0], k[1], v) for k, v in conf.most_common(10) if v))
+    for r in rows[:show]:
+        print("  ", r)
+    print("\nVERB tokens STILL tagged AUX after the slot: %d" % len(va_rows))
+    for r in va_rows:
+        print("   %-8s rel=%-8s occ=%.3f  host=%.3f cop=%.1f  P(VERB) %.4f -> %.4f | %s"
+              % (r["w"], r["rel"], r["occ"], r["host"], r["cop"], r["pv_base"], r["pv_rev"], r["sent"]))
+    out = {"net": n_loss - n_gain, "lost": n_loss, "gained": n_gain,
+           "net_by_confusion": {"%s->%s" % k: v for k, v in conf.most_common() if v},
+           "verb_as_aux_residual": va_rows}
+    json.dump(out, open(os.path.join(out_dir(), "residual.json"), "w", encoding="utf-8"), indent=1)
+    return out
+
+
+def AA_host(lc, toks, tags, post, i):
+    return host_belief(lc, toks, tags, post, i)
+
+
+def AA_cop(toks, tags, i):
+    return copular_available(toks, tags, i)
+
+
+# ---------------------------------------------------------------- 7A: REBUILD THE ACQUISITION ASSET UNDER THE REVISION
+HOOK = os.path.join(REPO, "data", "hook_state")
+
+
+def build_asset(slot=True, cap=1500, rounds=3, out=None, th=0.5):
+    """Rebuild the attachment validities with the TEACHER READING THE ORGAN'S OWN TAGS (tools/build_attachment_validities
+    --categories-lc), with the predicate-slot revision ON or OFF.  The live asset is built on the treebank's GOLD UPOS
+    column, in which UD's convention is already correct (an existential `is` is gold VERB), so the revision cannot
+    reach acquisition through that path at all -- the only way the teacher can see what the reader sees is to tag the
+    training text with the organ.  NEVER writes over the live asset: everything lands under data/hook_state/."""
+    os.makedirs(HOOK, exist_ok=True)
+    out = out or os.path.join(HOOK, "attach_pri110_orgtags_slot%s_cap%d_v1.json" % ("on" if slot else "off", cap))
+    if slot:
+        _patch_lc(th)
+    import importlib
+    B = importlib.import_module("tools.build_attachment_validities")
+    argv = ["--cap", str(cap), "--rounds", str(rounds), "--out", out,
+            "--categories-lc", LC.ASSET]
+    print("building: slot=%s cap=%d rounds=%d -> %s" % (slot, cap, rounds, os.path.basename(out)), flush=True)
+    B.main(argv)
+    return out
+
+
+# ---------------------------------------------------------------- 7(1b) WHICH THREE STATE ITEMS, AND WHY
+def state_items(cap=None, th=0.5):
+    """Replicates exp_situation_model_state_qa_v1.run's per-item MODEL decision for BOTH arms and diffs them, so the
+    -3 of 378 can be named: which copula, which complement, and what the head move was."""
+    import importlib
+    S = importlib.import_module("experiments.exp_situation_model_state_qa_v1")
+    COP = S.COP; QA = S.QA; M = S.M
+    from hdlab.situation_reader import SituationReader, SituationModel
+    from hdlab.arc_labeler import ArcLabeler
+    res = {}
+    for arm in ("base", "occ"):
+        if arm == "occ":
+            _patch_lc(th)
+        import hdlab.frontend as _FE
+        _FE._T = None; _FE._P = None
+        pos = _FE.tagger(); arc = _FE.parser(); lab = ArcLabeler.load(M._LAB_ASSET)
+        sents = COP.load_ud(COP.UD_TEST, cap=cap)
+        reader = SituationReader.all_capabilities_off(gaz={}, bind_entity_states=True)
+        items = {}
+        for si, sent in enumerate(sents):
+            toks = [r[1] for r in sent]
+            up = pos.tag(toks)
+            gold = [(h, q, t) for (h, q, t) in COP.typed_gold(sent) if t in S.PREDICATIONAL]
+            if not gold:
+                continue
+            heads = arc.parse(toks, up).heads
+            sm = SituationModel(passage_id="s", n_sentences=1)
+            reader._read_entity_states(sm, [toks])
+            qa = QA.SituationQA(sm)
+            for (h, q, t) in gold:
+                holder, prop = toks[h], toks[q]
+                _d, ans = qa.answer(S._state_q(holder), {"dim": "state", "holder": holder, "gold": prop})
+                items[(si, h, q)] = (int(S._state_match(ans, prop)), holder, prop, ans,
+                                     up[h], up[q], heads.get(h + 1, -1), heads.get(q + 1, -1),
+                                     " ".join(toks)[:110])
+        res[arm] = items
+        print("%-5s items=%d correct=%d acc=%.4f" % (arm, len(items), sum(v[0] for v in items.values()),
+                                                     sum(v[0] for v in items.values()) / max(1, len(items))), flush=True)
+    keys = sorted(set(res["base"]) | set(res["occ"]))
+    flips = [k for k in keys if k in res["base"] and k in res["occ"] and res["base"][k][0] != res["occ"][k][0]]
+    print("FLIPPED ITEMS: %d  (base->occ: %d lost, %d gained)"
+          % (len(flips), sum(1 for k in flips if res["base"][k][0] == 1), sum(1 for k in flips if res["occ"][k][0] == 1)), flush=True)
+    rows = []
+    for k in flips:
+        b = res["base"][k]; o = res["occ"][k]
+        rows.append({"dir": "LOST" if b[0] == 1 else "GAINED", "holder": b[1], "property": b[2],
+                     "ans_base": sorted(b[3]) if isinstance(b[3], set) else b[3],
+                     "ans_occ": sorted(o[3]) if isinstance(o[3], set) else o[3], "tag_holder": [b[4], o[4]], "tag_prop": [b[5], o[5]],
+                     "head_holder": [b[6], o[6]], "head_prop": [b[7], o[7]], "sent": b[8]})
+        print("  %-6s holder=%-12s property=%-12s  ans %s -> %s | tags %s/%s -> %s/%s | heads h %s->%s p %s->%s"
+              % (rows[-1]["dir"], b[1], b[2], b[3], o[3], b[4], b[5], o[4], o[5], b[6], o[6], b[7], o[7]), flush=True)
+        print("        | %s" % b[8], flush=True)
+    json.dump({"n": len(keys), "flips": rows}, open(os.path.join(out_dir(), "state_items.json"), "w", encoding="utf-8"), indent=1)
+    return rows
+
+
+# ---------------------------------------------------------------- 7(3) WHAT DOES THE CONVENTION STILL COST, PER CONSUMER
+def consumers(cap=2077, th=0.5):
+    """Every consumer downstream gates on `tag == "VERB"` (76 sites, 29 files).  A CLAUSE is invisible to all of them
+    when the token that heads it is not tagged VERB.  Population = every gold clause with a SUBJECT (a gold nsubj /
+    nsubj:pass arc), which is the convention-free definition of `a clause someone asserts something in`; the clause's
+    predicate is that arc's gold HEAD.  Counted for the chain WITHOUT and WITH the predicate slot."""
+    from hdlab.predicate_detector import clause_spans
+    test = sentences(TEST, cap=cap, maxlen=10**6)
+    lc = LC.get()
+    tot = 0
+    R = {a: {"missed": 0, "missed_verbal": 0, "missed_nonverbal": 0, "cop_recovered": 0} for a in ("base", "occ")}
+    gold_kind = Counter()
+    for toks, gold_pos, gold_heads, rels in test:
+        n = len(toks)
+        _le, post = _le_and_post(lc, list(toks))
+        t0 = tags_from(lc, post)
+        occ = predicate_slot_v2(lc, toks, tags=t0, post=post)
+        p2, _st = revise_posterior(lc, toks, post, tags=t0, th=th, occ=occ)
+        t1 = tags_from(lc, p2)
+        preds = sorted(set(gold_heads[i] for i in range(n) if rels[i] in ("nsubj", "nsubj:pass") and 1 <= gold_heads[i] <= n))
+        for h in preds:
+            tot += 1
+            gk = gold_pos[h - 1]
+            gold_kind[gk] += 1
+            for arm, tg in (("base", t0), ("occ", t1)):
+                cop = AA.cop_predicates(list(toks), list(tg))
+                if tg[h - 1] == "VERB":
+                    continue
+                R[arm]["missed"] += 1
+                if gk in ("VERB", "AUX"):
+                    R[arm]["missed_verbal"] += 1
+                else:
+                    R[arm]["missed_nonverbal"] += 1
+                if h in cop:
+                    R[arm]["cop_recovered"] += 1
+    print("SUBJECT-BEARING GOLD CLAUSES on UD-EWT test (%d sentences): %d" % (len(test), tot))
+    print("  their gold predicate's category:", dict(gold_kind.most_common()))
+    for arm in ("base", "occ"):
+        r = R[arm]
+        print("  %-5s clauses whose predicate the chain does NOT tag VERB -- INVISIBLE to every `tag == VERB` consumer"
+              ": %d (%.1f%%)  [gold-verbal %d, gold NON-verbal %d; of which the arm's cop_predicates finds %d]"
+              % (arm, r["missed"], 100.0 * r["missed"] / max(1, tot), r["missed_verbal"], r["missed_nonverbal"],
+                 r["cop_recovered"]))
+    print("  -> the predicate slot removes %d of them; the REMAINING %d are the COPULAR clauses, where UD's convention"
+          % (R["base"]["missed"] - R["occ"]["missed"], R["occ"]["missed"]))
+    print("     puts the predicate on a NON-VERBAL token by design, so a VERB gate can never open for them.")
+    out = {"n_clauses": tot, "gold_predicate_category": dict(gold_kind), "arms": R}
+    json.dump(out, open(os.path.join(out_dir(), "consumers.json"), "w", encoding="utf-8"), indent=1)
+    return out
+
+
+# ---------------------------------------------------------------- 7A: the four-arm governor A/B over ACQUISITION
+def gov7a(cap=700, th=0.5, seed=0):
+    """Does letting the TEACHER see the revised hand-off buy anything on top of the read-time slot?
+    Arms = {asset} x {read-time slot off/on}, where the assets are:
+      LIVE  the shipped asset, built on the treebank's GOLD UPOS column (the convention is already correct there);
+      O0    rebuilt with the teacher tagging the training text with the ORGAN, predicate slot OFF;
+      O1    the same, predicate slot ON  --  O1 vs O0 isolates the revision's effect on ACQUISITION."""
+    test = sentences(TEST, cap=cap, maxlen=10**6)
+    lc = LC.get()
+    assets = {"LIVE": AA.ASSET,
+              "O0": os.path.join(HOOK, "attach_pri110_orgtags_slotoff_cap6000_v1.json"),
+              "O1": os.path.join(HOOK, "attach_pri110_orgtags_sloton_cap6000_v1.json")}
+    tabs = {}
+    for k, v in assets.items():
+        if os.path.exists(v):
+            tabs[k] = AA.load_attachment_validities(v)
+        else:
+            print("MISSING asset", k, v)
+    # one pass over the corpus: cache the two hand-offs, then decode under every arm
+    cache = []
+    for toks, gold_pos, gold_heads, rels in test:
+        _le, post = _le_and_post(lc, list(toks))
+        t0 = tags_from(lc, post); d0 = dist_from(lc, post)
+        occ = predicate_slot_v2(lc, toks, tags=t0, post=post)
+        p2, _st = revise_posterior(lc, toks, post, tags=t0, th=th, occ=occ)
+        t1 = tags_from(lc, p2); d1 = dist_from(lc, p2)
+        cache.append((toks, gold_pos, gold_heads, rels, t0, d0, t1, d1))
+    res = {}
+    rows = {}
+    for aname, tab in tabs.items():
+        for slot in (False, True):
+            key = "%s%s" % (aname, "+slot" if slot else "")
+            R = []; per = defaultdict(lambda: [0, 0])
+            for (toks, gp, gh, rl, t0, d0, t1, d1) in cache:
+                tg, dd = (t1, d1) if slot else (t0, d0)
+                A, n = AA.arc_scores_graded(list(toks), tg, dd, tab)
+                hp = AA.decode(list(toks), tg, A, n)[0]
+                hit, nt, pr = _score_tree(hp, gh, rl, None)
+                R.append((hit, nt))
+                for r, (x, y) in pr.items():
+                    per[r][0] += x; per[r][1] += y
+            rows[key] = R
+            res[key] = {"uas": sum(r[0] for r in R) / max(1, sum(r[1] for r in R)),
+                        "rel": {r: round(per[r][0] / per[r][1], 4) for r in REL_KEYS if per[r][1]}}
+    base_key = "LIVE"
+    for key in res:
+        R = rows[key]; B = rows[base_key]
+        d, lo, hi = _boot([(R[i][0], B[i][0], R[i][1]) for i in range(len(R))], seed=seed)
+        res[key].update({"d_vs_LIVE": d, "ci": [lo, hi]})
+        print("%-10s UAS %.4f  (vs LIVE %+.4f CI[%+.4f,%+.4f] %s)"
+              % (key, res[key]["uas"], d, lo, hi, "SEP" if (lo > 0 or hi < 0) else "ns"))
+        print("           " + " ".join("%s %.3f" % (r, res[key]["rel"][r]) for r in REL_KEYS if r in res[key]["rel"]))
+    # the ACQUISITION contrast, paired at the same read-time setting
+    for slot in ("", "+slot"):
+        a, b = "O1" + slot, "O0" + slot
+        if a in rows and b in rows:
+            d, lo, hi = _boot([(rows[a][i][0], rows[b][i][0], rows[a][i][1]) for i in range(len(rows[a]))], seed=seed)
+            print("ACQUISITION CONTRAST %-9s - %-9s  %+.4f CI[%+.4f,%+.4f] %s"
+                  % (a, b, d, lo, hi, "SEP" if (lo > 0 or hi < 0) else "ns"))
+            res["acq_contrast" + slot] = {"d": d, "ci": [lo, hi]}
+    json.dump(res, open(os.path.join(out_dir(), "gov7a.json"), "w", encoding="utf-8"), indent=1)
+    return res
+
+
 if __name__ == "__main__":
     a = sys.argv[1:]
     if "--diag" in a:
         diag()
     elif "--cat" in a:
         cat()
+    elif "--gov7a" in a:
+        gov7a(cap=int(a[a.index("--cap") + 1]) if "--cap" in a else 700)
+    elif "--consumers" in a:
+        consumers(cap=int(a[a.index("--cap") + 1]) if "--cap" in a else 2077)
+    elif "--state-items" in a:
+        state_items()
+    elif "--build" in a:
+        build_asset(slot=("--slot-off" not in a),
+                    cap=int(a[a.index("--cap") + 1]) if "--cap" in a else 1500,
+                    rounds=int(a[a.index("--rounds") + 1]) if "--rounds" in a else 3)
+    elif "--residual" in a:
+        residual()
     elif "--coref" in a:
         coref_dim(n_docs=(int(a[a.index("--docs") + 1]) if "--docs" in a else None))
     elif "--state" in a:

@@ -1,0 +1,29 @@
+{
+ "n_clauses": 762,
+ "gold_predicate_category": {
+  "VERB": 595,
+  "ADJ": 70,
+  "NOUN": 56,
+  "ADV": 13,
+  "PRON": 6,
+  "AUX": 8,
+  "PROPN": 8,
+  "INTJ": 1,
+  "SYM": 2,
+  "NUM": 3
+ },
+ "arms": {
+  "base": {
+   "missed": 191,
+   "missed_verbal": 43,
+   "missed_nonverbal": 148,
+   "cop_recovered": 103
+  },
+  "occ": {
+   "missed": 167,
+   "missed_verbal": 19,
+   "missed_nonverbal": 148,
+   "cop_recovered": 102
+  }
+ }
+}

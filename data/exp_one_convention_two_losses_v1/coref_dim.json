@@ -6,14 +6,14 @@
    "strongest_floor": 0.3202
   },
   "common_noun": {
-   "n": 3915,
-   "model_acc": 0.4932,
-   "strongest_floor": 0.4876
+   "n": 3024,
+   "model_acc": 0.547,
+   "strongest_floor": 0.5397
   },
   "salience": {
-   "n": 137,
-   "model_acc": 0.2993,
-   "strongest_floor": 0.219
+   "n": 128,
+   "model_acc": 0.2734,
+   "strongest_floor": 0.2188
   }
  },
  "occ": {
@@ -23,14 +23,14 @@
    "strongest_floor": 0.3202
   },
   "common_noun": {
-   "n": 3915,
-   "model_acc": 0.4932,
-   "strongest_floor": 0.4876
+   "n": 3024,
+   "model_acc": 0.547,
+   "strongest_floor": 0.5397
   },
   "salience": {
-   "n": 137,
-   "model_acc": 0.2993,
-   "strongest_floor": 0.219
+   "n": 128,
+   "model_acc": 0.2734,
+   "strongest_floor": 0.2188
   }
  }
 }

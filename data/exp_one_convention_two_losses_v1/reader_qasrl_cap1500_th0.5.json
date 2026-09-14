@@ -40,8 +40,8 @@
   },
   "OCC": {
    "event_recall": 0.9516,
-   "event_precision": 0.8581,
-   "false_events_per_sent": 0.2427,
+   "event_precision": 0.8588,
+   "false_events_per_sent": 0.2413,
    "blind_gold_verb_sentences": 7,
    "blind_share": 0.0047,
    "d_recall_vs_OFF": [
@@ -57,8 +57,8 @@
   },
   "OCC_AUX": {
    "event_recall": 0.952,
-   "event_precision": 0.8446,
-   "false_events_per_sent": 0.27,
+   "event_precision": 0.845,
+   "false_events_per_sent": 0.2693,
    "blind_gold_verb_sentences": 7,
    "blind_share": 0.0047,
    "d_recall_vs_OFF": [
@@ -74,8 +74,8 @@
   },
   "OCC_COP": {
    "event_recall": 0.9516,
-   "event_precision": 0.8113,
-   "false_events_per_sent": 0.3413,
+   "event_precision": 0.8119,
+   "false_events_per_sent": 0.34,
    "blind_gold_verb_sentences": 5,
    "blind_share": 0.0033,
    "d_recall_vs_OFF": [

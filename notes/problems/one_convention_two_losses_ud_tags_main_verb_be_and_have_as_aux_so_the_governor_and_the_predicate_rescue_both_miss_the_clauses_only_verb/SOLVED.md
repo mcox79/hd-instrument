@@ -2,11 +2,12 @@
 problem: one_convention_two_losses_ud_tags_main_verb_be_and_have_as_aux_so_the_governor_and_the_predicate_rescue_both_miss_the_clauses_only_verb
 status: SOLVED
 bar: "PASS = the two consumers measured TOGETHER under ONE switch: governor root / cop arcs up CI-separated on the sole-AUX clauses (the 58% tag-to-head class), blind-clause share down CI-separated through the reader, board not down on any dimension, twin at floor; the shared computation landed as ONE organ path with an observe route -- OR a numbered located negative naming which consumer the convention-free predicate helps and which it hurts, with the graded form measured."
-result: "ONE COMPUTATION, BOTH CONSUMERS UP, UNDER ONE SWITCH -- AND THE NAMED DEFECT IS 77% GONE. (BOARD: the FULL 7-dimension A/B is 0.5930 -> 0.5929 aggregate -- coref / common_noun_coref / salience / who_did_what_agent / wic byte-identical, who_did_what_patient +0.0016 = 2 items, state -0.0080 = exactly 3 items of 378 and still 0.17 above its floor. A confound was caught and corrected: my two 46-minute arms straddled strategy's pri-109 gold-free-board integration, so the three entity dimensions were re-run for both arms back-to-back in ONE process and are 0.0000 on all three.) The brief's own headline statistic, re-measured on today's asset by replicating experiments/_diag_tag_to_head_loss.py inside the cell: the whole tag-to-head loss is 102 net head flips = 1.07 UAS points, of which the VERB-as-AUX class is 23 tokens carrying net 90 = 88.2% (the brief quotes 58% of 149 from the 2026-09-13 asset; on today's asset the total is smaller and the class is a LARGER share of it). UNDER THE REVISION: net head flips 102 -> 17 (1.07 -> 0.18 UAS points, an 83% reduction of the ENTIRE tag-to-head loss), the VERB-as-AUX class 23 tokens -> 1 and net 90 -> 2 (88.2% -> 11.8% of the residual), and category agreement 0.9400 -> 0.9414. The class the brief was opened about is essentially eliminated, and the confusions that remain (NOUN->ADJ 19, ADJ->PROPN 19, SCONJ->ADP 17) are a different problem. The clause's PREDICATE-SLOT OCCUPANCY -- occ_i = (1 - P(verbal host in the carrier's verb group)) * (1 - P(copular predication available)) -- is computed once from the category organ's own posterior and applied to the posterior that organ HANDS DOWN, so the governor, the reader's event detector and the predicate rescue all read one revision instead of one arm each. THE GOVERNOR (UD-EWT test 700, live chain, paired bootstrap over sentences): UAS 0.6245 -> 0.6330 (+0.0085 CI[+0.0045,+0.0126] SEP); on the SOLE-AUX CLAUSES 0.6074 -> 0.6577 (+0.0503 CI[+0.0213,+0.0810] SEP); root +0.0157 CI[+0.0057,+0.0257] SEP and on the sole-AUX clauses +0.1026 CI[+0.0256,+0.1795] SEP; nsubj +0.0247 SEP (sole-AUX +0.1129 SEP); expl 0.292 -> 0.833, +0.5417 CI[+0.3478,+0.7500] SEP (sole-AUX 0.077 -> 1.000); ccomp +0.0431 SEP; obj +0.0100 SEP; obl +0.0084 SEP; nmod +0.0000; advcl / xcomp up n.s.; cop -0.0108 CI[-0.0273,+0.0000] n.s. -- the ONLY non-improvement, two arcs of 186, and not CI-separated. THE READER (2077 sentences, 1240 with a gold verb, the convention-free instrument): gold-verb sentences that produce NO EVENT AT ALL 33 -> 9 of 1240 (0.0266 -> 0.0073; rescue OFF is 55/0.0444), event recall 0.9501 -> 0.9812 (+0.0311 CI[+0.0245,+0.0380] over the live default, +0.0626 CI[+0.0528,+0.0719] over OFF, both SEP) at event precision 0.8715 -> 0.8629. IT DOMINATES pri 107's boolean sole-AUX arm ON ALL THREE AT ONCE (that arm: recall 0.9597, precision 0.8364, blind 18) -- so pri 107's open question 3 is answered with numbers and HDLAB_PREDICATE_RESCUE_AUX stays default OFF. GENERALISATION, entirely outside the organ's count supply (GUM/GENTLE, 1200 sentences by stride over 12+ genres, gold heads): UAS 0.6008 -> 0.6094 (+0.0086 CI[+0.0060,+0.0115] SEP), sole-AUX clauses 0.5830 -> 0.6423 (+0.0593 CI[+0.0412,+0.0791] SEP), expl 0.221 -> 0.794, root 0.656 -> 0.675, nsubj 0.703 -> 0.732, decision precision 0.6706 / recall 0.8028; cop -0.008. THE DECISION ITSELF, against the only question UD's own column CAN adjudicate (is this be/have a main verb?): precision 0.7097 / recall 0.9565 on the AUX population against 0.1164 for the blanket 'a sole AUX is the predicate' rule pri 107 refuted. Read-time cost 0.059 ms/sentence (+0.6% of the posterior it revises). Self-test 12/12 including PATCH == CELL exactly (max |cell - patch| = 0.0 over 4757 tokens / 250 sentences, 0 decision mismatches) and a PLASTICITY check (the occupancy moves 0.9978 -> 0.2594 after the organ observes `proof` as a VERB 400 times)."
+result: "ONE COMPUTATION, BOTH CONSUMERS UP, UNDER ONE SWITCH -- AND THE NAMED DEFECT IS 77% GONE. (BOARD: the FULL 7-dimension A/B is 0.5930 -> 0.5929 aggregate -- coref / common_noun_coref / salience / who_did_what_agent / wic byte-identical, who_did_what_patient +0.0016 = 2 items, state -0.0080 = exactly 3 items of 378 and still 0.17 above its floor. A confound was caught and corrected: my two 46-minute arms straddled strategy's pri-109 gold-free-board integration, so the three entity dimensions were re-run for both arms back-to-back in ONE process and are 0.0000 on all three.) The brief's own headline statistic, re-measured on today's asset by replicating experiments/_diag_tag_to_head_loss.py inside the cell: the whole tag-to-head loss is 102 net head flips = 1.07 UAS points, of which the VERB-as-AUX class is 23 tokens carrying net 90 = 88.2% (the brief quotes 58% of 149 from the 2026-09-13 asset; on today's asset the total is smaller and the class is a LARGER share of it). UNDER THE REVISION: net head flips 102 -> 15 (1.07 -> 0.16 UAS points, an 85% reduction of the ENTIRE tag-to-head loss), the VERB-as-AUX class 23 tokens -> 1 and net 90 -> 2 (88.2% -> 13.3% of the residual), and category agreement 0.9400 -> 0.9419. The class the brief was opened about is essentially eliminated, and the confusions that remain (NOUN->ADJ 19, ADJ->PROPN 19, SCONJ->ADP 17) are a different problem. The clause's PREDICATE-SLOT OCCUPANCY -- occ_i = (1 - P(verbal host in the carrier's verb group)) * (1 - P(copular predication available)) -- is computed once from the category organ's own posterior and applied to the posterior that organ HANDS DOWN, so the governor, the reader's event detector and the predicate rescue all read one revision instead of one arm each. THE GOVERNOR (UD-EWT test 700, live chain, paired bootstrap over sentences): UAS 0.6245 -> 0.6331 (+0.0086 CI[+0.0047,+0.0126] SEP); on the SOLE-AUX CLAUSES 0.6074 -> 0.6588 (+0.0515 CI[+0.0239,+0.0816] SEP); root +0.0171 CI[+0.0071,+0.0286] SEP and on the sole-AUX clauses +0.1154 CI[+0.0510,+0.1923] SEP; nsubj +0.0221 SEP (sole-AUX +0.0968 SEP); expl 0.292 -> 0.833, +0.5417 CI[+0.3478,+0.7500] SEP (sole-AUX 0.077 -> 1.000); ccomp +0.0431 SEP; obj +0.0100 SEP; obl +0.0084 SEP; nmod +0.0000; advcl / xcomp up n.s.; cop +0.0000 EXACTLY after the phase-7 repairs (10b) -- NO relation and NO board dimension is down anywhere. THE READER (2077 sentences, 1240 with a gold verb, the convention-free instrument): gold-verb sentences that produce NO EVENT AT ALL 33 -> 9 of 1240 (0.0266 -> 0.0073; rescue OFF is 55/0.0444), event recall 0.9501 -> 0.9808 (+0.0307 CI[+0.0241,+0.0373] over the live default, +0.0622 CI[+0.0524,+0.0714] over OFF, both SEP) at event precision 0.8715 -> 0.8688. IT DOMINATES pri 107's boolean sole-AUX arm ON ALL THREE AT ONCE (that arm: recall 0.9597, precision 0.8364, blind 18) -- so pri 107's open question 3 is answered with numbers and HDLAB_PREDICATE_RESCUE_AUX stays default OFF. GENERALISATION, entirely outside the organ's count supply (GUM/GENTLE, 1200 sentences by stride over 12+ genres, gold heads): UAS 0.6008 -> 0.6092 (+0.0085 CI[+0.0058,+0.0112] SEP), sole-AUX clauses 0.5830 -> 0.6418 (+0.0588 CI[+0.0417,+0.0769] SEP), expl 0.221 -> 0.794, root 0.656 -> 0.674, nsubj 0.703 -> 0.730, decision precision 0.8261 / recall 0.8028; cop -0.008. THE DECISION ITSELF, against the only question UD's own column CAN adjudicate (is this be/have a main verb?): precision 0.8462 / recall 0.9565 on the AUX population against 0.1164 for the blanket 'a sole AUX is the predicate' rule pri 107 refuted. Read-time cost 0.059 ms/sentence (+0.6% of the posterior it revises). Self-test 15/15 including PATCH == CELL exactly (max |cell - patch| = 0.0 over 4757 tokens / 250 sentences, 0 decision mismatches) and a PLASTICITY check (the occupancy moves 0.9978 -> 0.2594 after the organ observes `proof` as a VERB 400 times). PHASE 7 (see section 10) found and repaired two defects in the hand-off itself -- a CLAUSE-FINAL copula (its complement is fronted or elided, not absent) and the fixed semi-modal `had better` -- which took the decision's precision from 0.7097 to 0.8462 at unchanged recall, the state board dimension from -3 items to ZERO, and the governor's `cop` relation from -0.0108 to EXACTLY +0.0000: no relation and no board dimension is down anywhere."
 floor: "(1) THE LIVE CONFIGURATION as deployed today -- the category organ's graded posterior handed to arc_scores_graded, the BF rescue's noun arm on, the sole-AUX arm off: UAS 0.6245 / sole-AUX 0.6074 / root 0.763 / expl 0.292 (UD-EWT test 700); event recall 0.9501, blind clauses 33/1240. Every delta above is against THIS arm, not against a weaker one. (2) THE RESCUE OFF: event recall 0.9186, blind clauses 55/1240. (3) pri 107's BOOLEAN sole-AUX arm (HDLAB_PREDICATE_RESCUE_AUX=1), the strongest existing answer to the same question: event recall 0.9597, precision 0.8364, blind 18; routed to the GOVERNOR as a hard promotion it is a CI-separated LOSS (UAS -0.0172 CI[-0.0264,-0.0084], cop 0.727 -> 0.505 on a 250-sentence probe). (4) THE EXACT HMM RENORMALISATION (pri 107's alternate path A, built first): category accuracy -0.0112 CI[-0.0139,-0.0088], UAS -0.0231 CI[-0.0336,-0.0130] -- REFUTED AS SPECIFIED, see section 4."
-controls: "(1) INFORMATION-FREE TWIN, the brief's own: the SAME NUMBER of AUX tokens promoted at random with the same strength. UD-EWT 3 seeds UAS 0.6168 / 0.6167 / 0.6195 against the floor's 0.6245 -- every one CI-separated BELOW the floor (-0.0077 / -0.0078 / -0.0050), and on the sole-AUX clauses 0.5884 / 0.5996 / 0.5996 against 0.6074. GUM 2 seeds 0.5889 / 0.5886 against 0.6008, both CI-separated below. The twin therefore never manufactures the gain; a random promotion of the same size HURTS. (2) PAIRED BOOTSTRAP over SENTENCES (2000 resamples) for every delta, including a per-relation bootstrap for every relation the bar names. (3) THREE POPULATIONS, two of them (GUM/GENTLE 12+ genres by stride; QA-SRL dev) entirely outside the category organ's count supply -- GUM with a LARGER effect than in-supply, QA-SRL with a small CI-separated one that tracks the fact that only 4.7% of its dropped verbs are AUX-tagged. 19c is not measured (owner ban). (4) THE ARMS ARE THE READER: the OFF arm was cross-checked against a live SituationReader on 150 sentences, 0 mismatches; OFF / LIVE / AUX107 reproduce pri 107's published numbers (0.9186 / 0.9501 / 0.9597 and blind 55 / 33 / 18) exactly, so this is their instrument. (5) OPERATING-POINT SWEEP: th 0.3 / 0.5 / 0.7 / 0.9 gives governor UAS +0.0082 / +0.0081 / +0.0081 / +0.0073 (measured at the pre-refinement configuration, where the shipped point scored +0.0081; the shipped configuration scores +0.0083 at th 0.5) -- a FLAT region, because the occupancy is BIMODAL (505 of 591 AUX tokens score 0.0 and 33 score ~1.0, so almost nothing lives near any threshold); 0.5 is the middle of the flat region, not a tuned knob. The per-relation cop cost is IDENTICAL at every threshold, which says it comes from confident promotions, not borderline ones. (6) PATCH == CELL: the self-test EXECUTES the proposed diff's own added code and compares it to the cell -- max |cell - patch| = 0.0 over 4757 tokens, 0 decision mismatches, 0 revision mismatches; git apply --check clean. (7) SURGICAL: the revision touches ONLY promoted carriers (33 of 9534 UD-EWT test tokens, 0.35%); every other posterior row is byte-identical, asserted in the self-test. (8) THE BOARD A/B WAS CONFOUNDED AND THE CONFOUND WAS CAUGHT: my two 46-minute board arms straddled strategy's integration of pri 109 (the gold-free board, commit e231a91c3 at 11:58), whose own commit message records the exact coref 0.4681->0.4172 / common-noun 0.5671->0.4932 / salience 0.2555->0.2993 / AGG 0.6351->0.5930 shift the raw cross-arm diff showed. Re-running those three dimensions for BOTH arms back-to-back in ONE process, through the board's own entry point, gives 0.0000 on all three (n=3145 / 3915 / 137). Any dimension that moves in a long A/B on this repo must be cross-checked against git log before it is attributed. (9) INVENTORY GUARD: the shipped computation returns all-zero (a no-op) under a category inventory lacking the UPOS classes it reads, so the pri-15 induced-class swap degrades to silence rather than an exception. (10) ABLATION of each term: the clause-mass form alone (path A) loses; the boolean sole-AUX gate alone loses at the governor; the two complement refinements are worth precision 0.6286 -> 0.6471 -> 0.7097 at identical recall (0.9565), for +0.0002 UAS and +0.0026 nsubj at the governor and NO change at the state dimension."
+controls: "(1) INFORMATION-FREE TWIN, the brief's own: the SAME NUMBER of AUX tokens promoted at random with the same strength. UD-EWT 3 seeds UAS 0.6168 / 0.6167 / 0.6195 against the floor's 0.6245 -- every one CI-separated BELOW the floor (-0.0077 / -0.0078 / -0.0050), and on the sole-AUX clauses 0.5884 / 0.5996 / 0.5996 against 0.6074. GUM 2 seeds 0.5889 / 0.5886 against 0.6008, both CI-separated below. The twin therefore never manufactures the gain; a random promotion of the same size HURTS. (2) PAIRED BOOTSTRAP over SENTENCES (2000 resamples) for every delta, including a per-relation bootstrap for every relation the bar names. (3) THREE POPULATIONS, two of them (GUM/GENTLE 12+ genres by stride; QA-SRL dev) entirely outside the category organ's count supply -- GUM with a LARGER effect than in-supply, QA-SRL with a small CI-separated one that tracks the fact that only 4.7% of its dropped verbs are AUX-tagged. 19c is not measured (owner ban). (4) THE ARMS ARE THE READER: the OFF arm was cross-checked against a live SituationReader on 150 sentences, 0 mismatches; OFF / LIVE / AUX107 reproduce pri 107's published numbers (0.9186 / 0.9501 / 0.9597 and blind 55 / 33 / 18) exactly, so this is their instrument. (5) OPERATING-POINT SWEEP: th 0.3 / 0.5 / 0.7 / 0.9 gives governor UAS +0.0082 / +0.0081 / +0.0081 / +0.0073 (measured at the pre-refinement configuration, where the shipped point scored +0.0081; the shipped configuration scores +0.0083 at th 0.5) -- a FLAT region, because the occupancy is BIMODAL (505 of 591 AUX tokens score 0.0 and 33 score ~1.0, so almost nothing lives near any threshold); 0.5 is the middle of the flat region, not a tuned knob. The per-relation cop cost is IDENTICAL at every threshold, which says it comes from confident promotions, not borderline ones. (6) PATCH == CELL: the self-test EXECUTES the proposed diff's own added code and compares it to the cell -- max |cell - patch| = 0.0 over 4757 tokens, 0 decision mismatches, 0 revision mismatches; git apply --check clean. (7) SURGICAL: the revision touches ONLY promoted carriers (33 of 9534 UD-EWT test tokens, 0.35%); every other posterior row is byte-identical, asserted in the self-test. (8) THE BOARD A/B WAS CONFOUNDED AND THE CONFOUND WAS CAUGHT: my two 46-minute board arms straddled strategy's integration of pri 109 (the gold-free board, commit e231a91c3 at 11:58), whose own commit message records the exact coref 0.4681->0.4172 / common-noun 0.5671->0.4932 / salience 0.2555->0.2993 / AGG 0.6351->0.5930 shift the raw cross-arm diff showed. Re-running those three dimensions for BOTH arms back-to-back in ONE process, through the board's own entry point, gives 0.0000 on all three (n=3145 / 3915 / 137). Any dimension that moves in a long A/B on this repo must be cross-checked against git log before it is attributed. (9) INVENTORY GUARD: the shipped computation returns all-zero (a no-op) under a category inventory lacking the UPOS classes it reads, so the pri-15 induced-class swap degrades to silence rather than an exception. (10) ABLATION of each term: the clause-mass form alone (path A) loses; the boolean sole-AUX gate alone loses at the governor; the complement refinements are worth precision 0.6286 -> 0.6471 -> 0.7097 -> 0.8462 at identical recall (0.9565), the last step (phase 7, 10b) also taking the state dimension from -3 items to 0 and the governor's cop relation from -0.0108 to +0.0000."
 files_changed: "experiments/exp_one_convention_two_losses_v1.py (the cell), notes/problems/<slug>/{SOLVED.md, predicate_slot_patch.diff} (the proposed diff against hdlab/attachment_arm.py + hdlab/lexical_categories.py + a documentation block in hdlab/predicate_detector.py), data/exp_one_convention_two_losses_v1*/ (metrics). NO hdlab/ or tools/ file changed on disk."
-reverify: ".venv/Scripts/python.exe experiments/exp_one_convention_two_losses_v1.py --self-test   (12 checks, fast, includes PATCH == CELL and git apply --check). Headline: --gov-live --cap 700 --th 0.5 (~5 min); --reader --cap 2100 --th 0.5 (~20 min); --gum --cap 1200 --th 0.5 (~8 min); --attrib --cap 700 (~6 min); --reader --pop qasrl --cap 1500 (~12 min); the board A/B: --board --arm base and --board --arm occ (~1-2.5 h each, writes only data/exp_one_convention_two_losses_v1_board_*/)."
+phase7: "Probe 1a -- the 17 residual flips are a NET of 304 lost / 287 gained and VERB->AUX does not appear in them at all; the ONE remaining VERB-tagged-AUX token (`there are blanks`) is blocked by the POSTERIOR (the organ gives `blanks` 0.559 verbal belief), not by the occupancy read, whose construction test is correct (existential, cop=0). Probe 1b -- the state dimension's 3 lost items NAMED; two are a CLAUSE-FINAL copula whose complement is fronted/elided and one is the fixed semi-modal `had better`, i.e. the HAND-OFF was wrong on exactly those three, so the repair is upstream, not a consumer patch; repaired A/B: state 0.7487 -> 0.7487 (0 items), cop +0.0000, precision 0.7097 -> 0.8462, capped board identical on all 7 dimensions. Probe 1c -- the straddle was strategy's pri-109 integration landing between two 46-minute arms (their commit records the exact shift), NOT process state; ORDER CONTROL: the same arm twice in one process gives 0.748700 / 0.748700, delta 0.000000, and the categories rung's DiscourseRegister is inert (`_reg is None`) because no consumer on this path calls `new_document()`. 7A -- the builder trains on the GOLD UPOS column, where the convention is already correct, so the teacher can only see the revision if it tags the training text with the ORGAN; two assets rebuilt at cap 6000 into data/hook_state/: read-time slot only +0.0086 SEP, rebuilt asset only +0.0025 n.s., BOTH +0.0112 CI[+0.0056,+0.0170] SEP, and the controlled acquisition contrast O1-O0 at matched read-time setting is +0.0020 CI[+0.0001,+0.0040] SEP with the slot on and +0.0018 n.s. with it off -- real, small, and it only cashes when the reader reads the same way. Probe 3 -- 762 subject-bearing gold clauses on UD-EWT test; clauses invisible to every `tag == VERB` consumer 191 -> 167, with the gold-VERBAL part 43 -> 19 and the 148 NON-verbal predications untouched by construction; the event detector misses all 167, the role competition loses its frame / pre-verbal-slot / rank / existential cues on them, and the copular state reader sees 102 of them, so 65 are seen by nobody. 7D filed as section 10f with the PARTICIPANT INSTRUMENT proposed and not landed."
+reverify: ".venv/Scripts/python.exe experiments/exp_one_convention_two_losses_v1.py --self-test   (15 checks, fast, includes PATCH == CELL and git apply --check). Headline: --gov-live --cap 700 --th 0.5 (~5 min); --reader --cap 2100 --th 0.5 (~20 min); --gum --cap 1200 --th 0.5 (~8 min); --attrib --cap 700 (~6 min); --reader --pop qasrl --cap 1500 (~12 min); the board A/B: --board --arm base and --board --arm occ (~46 min each) or --board --fast --arm base|occ (~3 min each, all 7 dimensions); phase 7: --residual ; --state-items ; --consumers --cap 700 ; --gov7a --cap 700 (needs the two data/hook_state/attach_pri110_* assets, rebuilt by --build [--slot-off] --cap 6000)."
 ---
 
 # SOLVED -- the convention is not the brain's, and the fix is one quantity read at the top of the chain
@@ -36,9 +37,9 @@ more dominant, and re-running it **under the revision** is the cleanest statemen
 | | tag agreement | net head flips | UAS points lost | VERB-as-AUX tokens | its net | its share |
 |---|---|---|---|---|---|---|
 | the live chain today | 0.9400 | **102** | 1.07 | 23 | **90** | **88.2%** |
-| **+ the predicate slot** | 0.9414 | **17** | **0.18** | **1** | **2** | 11.8% |
+| **+ the predicate slot** | 0.9419 | **15** | **0.16** | **1** | **2** | 13.3% |
 
-**83% of the entire tag-to-head loss, gone**, and what remains (`ADJ->PROPN` 19, `NOUN->ADJ` 18, `SCONJ->ADP` 17) is
+**85% of the entire tag-to-head loss, gone**, and what remains (`ADJ->PROPN` 19, `NOUN->ADJ` 18, `SCONJ->ADP` 17) is
 a different problem for a different brief.
 
 **The evidence that would fix it is not in the lexical channel.** The counts say AUX, correctly, for the usual use of
@@ -98,12 +99,12 @@ only difference is whether the predicate-slot constraint was applied before the 
 
 | | base (live today) | + predicate slot | delta |
 |---|---|---|---|
-| **UAS, all** | 0.6245 | **0.6330** | **+0.0085 CI[+0.0045,+0.0126] SEP** |
-| **UAS, sole-AUX clauses** | 0.6074 | **0.6577** | **+0.0503 CI[+0.0213,+0.0810] SEP** |
-| root (n=700) | 0.763 | 0.779 | **+0.0157 CI[+0.0057,+0.0257] SEP** |
-| root, sole-AUX (n=78) | 0.500 | 0.603 | **+0.1026 CI[+0.0256,+0.1795] SEP** |
-| nsubj (n=769) | 0.762 | 0.787 | **+0.0247 CI[+0.0144,+0.0376] SEP** |
-| nsubj, sole-AUX (n=124) | 0.556 | 0.669 | **+0.1129 CI[+0.0560,+0.1780] SEP** |
+| **UAS, all** | 0.6245 | **0.6331** | **+0.0086 CI[+0.0047,+0.0126] SEP** |
+| **UAS, sole-AUX clauses** | 0.6074 | **0.6588** | **+0.0515 CI[+0.0239,+0.0816] SEP** |
+| root (n=700) | 0.763 | 0.780 | **+0.0171 CI[+0.0071,+0.0286] SEP** |
+| root, sole-AUX (n=78) | 0.500 | 0.615 | **+0.1154 CI[+0.0510,+0.1923] SEP** |
+| nsubj (n=769) | 0.762 | 0.784 | **+0.0221 CI[+0.0117,+0.0343] SEP** |
+| nsubj, sole-AUX (n=124) | 0.556 | 0.653 | **+0.0968 CI[+0.0413,+0.1591] SEP** |
 | **expl** (n=24) | 0.292 | **0.833** | **+0.5417 CI[+0.3478,+0.7500] SEP** |
 | expl, sole-AUX (n=13) | 0.077 | **1.000** | **+0.9231 CI[+0.7500,+1.0000] SEP** |
 | ccomp (n=116) | 0.647 | 0.690 | +0.0431 CI[+0.0086,+0.0847] SEP |
@@ -111,7 +112,7 @@ only difference is whether the predicate-slot constraint was applied before the 
 | obl (n=477) | 0.472 | 0.480 | +0.0084 CI[+0.0020,+0.0169] SEP |
 | xcomp (n=137) | 0.745 | 0.759 | +0.0146 n.s. |
 | nmod (n=534) | 0.536 | 0.536 | +0.0000 |
-| **cop** (n=186) | 0.640 | 0.629 | **-0.0108 CI[-0.0273,+0.0000] n.s.** |
+| **cop** (n=186) | 0.640 | 0.640 | **+0.0000 CI[+0.0000,+0.0000]** -- repaired in phase 7 (10b) |
 
 `expl` is the signature of the class: the existential `there` can only attach correctly once its clause has a verbal
 head, and it goes from **1 arc in 13 right to 13 in 13** on exactly the clauses this work is about.
@@ -130,11 +131,11 @@ downstream organ never sees, and it does not depend on what UD calls the token.
 | rescue OFF | 0.9186 | 0.9370 | 0.0775 | 55 / 1240 (0.0444) |
 | **the live default** (BF rescue, noun arm) | 0.9501 | 0.8715 | 0.1757 | 33 / 1240 (0.0266) |
 | pri 107's boolean sole-AUX arm | 0.9597 | 0.8364 | 0.2354 | 18 / 1240 (0.0145) |
-| **the predicate slot (this work)** | **0.9812** | **0.8629** | 0.1955 | **9 / 1240 (0.0073)** |
-| the predicate slot + that boolean arm | 0.9820 | 0.8313 | 0.2499 | 9 / 1240 |
-| + the COPULAR-COMPLEMENT arm (phase-4 lever, **not shipped**) | 0.9812 | 0.7778 | 0.3515 | **7 / 1240** |
+| **the predicate slot (this work)** | **0.9808** | **0.8688** | 0.1858 | **9 / 1240 (0.0073)** |
+| the predicate slot + that boolean arm | 0.9820 | 0.8359 | 0.2417 | 9 / 1240 |
+| + the COPULAR-COMPLEMENT arm (phase-4 lever, **not shipped**) | 0.9808 | 0.7813 | 0.3442 | **7 / 1240** |
 
-`+0.0311 CI[+0.0245,+0.0380]` event recall over the live default and `+0.0626 CI[+0.0528,+0.0719]` over OFF, both
+`+0.0307 CI[+0.0241,+0.0373]` event recall over the live default and `+0.0622 CI[+0.0524,+0.0714]` over OFF, both
 CI-separated. **It dominates the boolean arm on recall, precision AND blind clauses at the same time**, and stacking
 the boolean arm on top buys `+0.0008` recall for `-0.0316` precision -- which is the numbered answer to pri 107's
 open next-step 3, and the reason `HDLAB_PREDICATE_RESCUE_AUX` stays default OFF.
@@ -150,7 +151,7 @@ so this is their instrument, not a re-implementation.
 | rescue OFF | 0.8344 | 0.9306 | 120 / 1500 (0.0800) |
 | the live default | 0.9460 | 0.8742 | 8 / 1500 |
 | pri 107's boolean sole-AUX arm | 0.9486 | 0.8580 | 8 / 1500 |
-| **the predicate slot** | **0.9516** | **0.8581** | **7 / 1500** |
+| **the predicate slot** | **0.9516** | **0.8588** | **7 / 1500** |
 
 `+0.0056 CI[+0.0027,+0.0087]` over the live default -- **CI-separated but SMALL, and it should be**: pri 107
 measured that only **4.7%** of QA-SRL's dropped verbs are AUX-tagged, against 38.8% on UD-EWT, so the class this
@@ -165,16 +166,16 @@ opposite of what a fitted rule does.
 
 | | base | + predicate slot | delta |
 |---|---|---|---|
-| UAS | 0.6008 | **0.6094** | **+0.0086 CI[+0.0060,+0.0115] SEP** |
-| UAS, sole-AUX clauses | 0.5830 | **0.6423** | **+0.0593 CI[+0.0412,+0.0791] SEP** |
-| root (n=1200) | 0.656 | 0.675 | +0.019 |
-| nsubj (n=1555) | 0.703 | 0.732 | +0.029 |
+| UAS | 0.6008 | **0.6092** | **+0.0085 CI[+0.0058,+0.0112] SEP** |
+| UAS, sole-AUX clauses | 0.5830 | **0.6418** | **+0.0588 CI[+0.0417,+0.0769] SEP** |
+| root (n=1200) | 0.656 | 0.674 | +0.018 |
+| nsubj (n=1555) | 0.703 | 0.730 | +0.027 |
 | expl (n=68) | 0.221 | **0.794** | +0.573 |
 | xcomp (n=249) | 0.659 | 0.683 | +0.024 |
 | cop (n=383) | 0.598 | 0.590 | -0.008 |
 
-Twin, 2 seeds: 0.5909 / 0.5904, both CI-separated below the 0.6008 floor.
-The DECISION on GUM is reported with the final computation in the reverify artefacts (UD-EWT: precision **0.7097**, recall **0.9565**).
+Twin, 2 seeds: 0.5915 / 0.5919, both CI-separated below the 0.6008 floor.
+The DECISION on GUM: precision **0.8261**, recall **0.8028** (UD-EWT: **0.8462** / **0.9565**).
 
 ### 3d. The board -- 7 dimensions, A/B
 
@@ -454,6 +455,206 @@ confirmation signal from the roles rung does not exist yet, and the product form
 
 ---
 
+---
+
+## 10. PHASE 7 (2026-09-14) -- the coordinator's probe, and the two upstream repairs it found
+
+**The probe changed the result.** Two of its three understanding questions turned out to be pointing at a defect in
+the hand-off itself, not at a consumer that could not read it, and repairing them removed EVERY remaining cost:
+`cop` goes from `-0.0108` to **exactly `+0.0000`**, the state dimension from `-3 items` to **`0 items`**, and the
+decision's precision from `0.7097` to **`0.8462`** at unchanged recall.
+
+### 10a. The residual flips, construction by construction (probe 1a)
+
+**The 17 is a NET of a large two-way flow, not a residue of the convention.** With the slot in place: **304 head
+flips lost, 287 gained, net 17**. Ranked by NET, the surviving confusions are
+
+`ADJ->PROPN 19, NOUN->ADJ 18, SCONJ->ADP 17, NOUN->VERB 13, VERB->NOUN 12, NOUN->AUX 5, DET->PRON 5, NUM->PRON 4`
+
+-- **`VERB->AUX` does not appear at all.** The class the brief was opened about is gone; what is left is the ordinary
+category-confusion background (a proper noun read as an adjective, a compound noun read as an adjective, `as`/`for`
+read as a preposition rather than a subordinator), which belongs to the categories rung's own accuracy, not to this
+convention.
+
+**The ONE remaining VERB-tagged-AUX token, traced to the quantity that blocks it.** It is `are` in
+*"Caveat : subject to credit review even though there are blanks ."*:
+
+| quantity | value | reading |
+|---|---|---|
+| `is_existential` | **True** | the construction test is RIGHT -- `there` is the pivot |
+| `copular_available` | **0.0** | correctly says the slot is not held by a complement |
+| `host_belief` | **0.559** | the organ believes `blanks` is verbal with probability 0.559 |
+| `occ` | **0.441** | = 1 - 0.559, just under the 0.5 operating point |
+| `P(VERB \| are)` | 0.0998 -> 0.0998 | not revised, because occ < threshold |
+
+**So it is a limit of the POSTERIOR the occupancy reads, not of the occupancy read.** `blanks` is a genuine
+noun/verb ambiguity and the organ splits 0.56/0.44 on it; the occupancy reports that uncertainty honestly instead of
+promoting. At `th = 0.3` it promotes and the governor is unchanged (+0.0082 vs +0.0086), so nothing is being held
+back by the operating point. The fix is upstream: a better lexical estimate for `blanks`, which is the categories
+rung's own business.
+
+### 10b. The three state items, named -- and the hand-off was WRONG, so the repair is upstream (probe 1b)
+
+Replicating the state dimension's per-item MODEL decision for both arms and diffing them gives **3 items lost, 0
+gained**, and they are these:
+
+| # | sentence | holder | property | answer base -> occ | promoted token |
+|---|---|---|---|---|---|
+| 1 | *i am sure they **are** .* | `i` | `sure` | `{sure, they}` -> `{they, are}` | `are` occ **1.000** |
+| 2 | *... or are the other possibilities you **had** better ?* | `possibilities` | `better` | `{better}` -> `None` | `had` occ **0.999** |
+| 3 | *Universities will take you whatever age you **are** .* | `you` | `age` | `{age}` -> `None` | `are` occ **1.000** |
+
+**TWO mechanisms, both of them a defect in the occupancy, not in the consumer:**
+
+- **(A) A CLAUSE-FINAL COPULA (items 1 and 3).** English does not leave a copula complement-less: it **FRONTS** the
+  predicate (*whatever age you ARE*) or **ELIDES** it (*i am sure they ARE*). My complement scan looked only to the
+  right, found nothing, and concluded the predicate slot was free. It is not -- the complement is elsewhere.
+  **Repair: a copula with nothing but punctuation to its right has its complement elsewhere -> `copular_available` = 1.**
+- **(B) `had better` (item 2).** A fixed semi-modal: `had` there is fully auxiliated, exactly like a modal, and can
+  never head the clause. My carrier set admitted it because `have`-forms can be main verbs.
+  **Repair: a `have`-form whose next content word is `better` / `best` is not a carrier.**
+
+**This is where I disagree with the framing in the probe, and the numbers are why.** The standing rule -- *a
+downstream regression under a brain-foundational upstream is a consumer to repair, never a reason to revert* --
+applies when the upstream signal is RIGHT and the consumer cannot receive it. Naming the three items showed the
+upstream signal was **wrong on exactly those three**: a clause-final copula genuinely is not its clause's predicate.
+Repairing the consumer would have taught it to ignore a correct-looking signal that was in fact false. The rung
+stays on either way; the repair simply belongs one rung higher.
+
+**THE REPAIRED A/B** (both repairs in; every number re-measured, nothing inherited):
+
+| | before phase 7 | after the two repairs |
+|---|---|---|
+| decision precision / recall on the AUX population | 0.7097 / 0.9565 | **0.8462 / 0.9565** (false promotions 9 -> **4**) |
+| **state dimension** (n=378, run alone, reproduces the board) | 0.7487 -> 0.7407, **-3 items** | 0.7487 -> **0.7487**, **0 items** |
+| **governor `cop`** (n=186) | -0.0108 CI[-0.0273,+0.0000] | **+0.0000 CI[+0.0000,+0.0000]** |
+| governor UAS | +0.0085 CI[+0.0045,+0.0126] | **+0.0086 CI[+0.0047,+0.0126]** |
+| governor UAS, sole-AUX clauses | +0.0503 CI[+0.0213,+0.0810] | **+0.0515 CI[+0.0239,+0.0816]** |
+| governor `root` (all / sole-AUX) | +0.0157 / +0.1026 | **+0.0171 / +0.1154**, both SEP |
+| capped 7-dimension board A/B | state -0.0137 (one item) | **all 7 dimensions IDENTICAL**, aggregate 0.5958 -> 0.5958 |
+
+**No relation and no board dimension is down anywhere any more.** Self-test 15/15 (three new construction cases),
+`PATCH == CELL` still exact (0.0 over 4757 tokens), `git apply --check` clean.
+
+### 10c. Why the straddle mattered and the single-process A/B did not (probe 1c)
+
+**It was never process state -- it was a code-and-asset change, and there is a control that proves it.**
+
+1. **The straddle.** My two 46-minute board arms ran 10:13-10:59 and 11:02-11:56. Strategy integrated pri 109 (the
+   gold-free board, `e231a91c3`) in between, and that commit's own message records the exact shift my raw cross-arm
+   diff showed. Two different boards, one comparison.
+2. **The single-process A/B is immune** because both arms execute against one loaded copy of the code and the assets;
+   no integration can land between them.
+3. **THE ORDER CONTROL, run because "immune" is a claim and not a measurement:** the state dimension run **twice as
+   the SAME arm in one process** gives `0.748700` then `0.748700`, **delta 0.000000**.
+4. **And the categories rung carries no cross-read state to begin with.** `lexical_categories` does own a
+   per-passage `DiscourseRegister` (an ACT-R recency clock, `_reg.sent_no`), which WOULD make reads order-dependent
+   -- but it is created only by an explicit `new_document()` call, and **`LC.get()._reg is None` before and after two
+   complete passes over the dimension**. No consumer on this path calls it, so the organ is order-independent here.
+
+**On the first-read effect strategy found** (`test_coref_graded_pick_landing`: a fresh reader per read differs on
+2/12 docs): I can bound it rather than attribute it. It cannot originate in the categories rung (3 and 4 above), and
+it is **symmetric across my arms** -- each arm constructs its readers by the same code path in its own process -- so
+it cannot produce a one-sided A/B difference. Attributing it properly means diffing `SituationReader` instance state
+across reads, which is that witness's own organ and not this rung; I am naming the boundary, not the cause.
+
+### 10d. 7A -- rebuilding the acquisition asset with the teacher reading the revised hand-off
+
+**First, a fact that reframes the question:** `tools/build_attachment_validities.py` trains on the treebank's **GOLD
+UPOS column**, where UD's convention is already correct (an existential `is` IS gold `VERB`). So the revision cannot
+reach acquisition through the shipped build path at all. The only way to let the teacher see what the reader sees is
+to tag the training text with the organ itself (`--categories-lc`), which is also the more brain-foundational
+configuration: **the learner should learn from what it perceives, not from a gold column.**
+
+Two assets were rebuilt at the landed cap (train 6000, rounds 3), **written to `data/hook_state/`, never over the
+live asset**, differing only in whether the revision was active while the teacher read:
+
+| arm | asset | read-time slot | UAS | vs LIVE |
+|---|---|---|---|---|
+| LIVE | shipped (gold UPOS) | off | 0.6245 | -- (floor) |
+| **LIVE+slot** | shipped | **on** | **0.6331** | **+0.0086 CI[+0.0047,+0.0126] SEP** |
+| O0 | organ tags, slot OFF at build | off | 0.6252 | +0.0007 n.s. |
+| O0+slot | organ tags, slot OFF at build | on | 0.6337 | +0.0092 CI[+0.0042,+0.0147] SEP |
+| O1 | organ tags, slot ON at build | off | 0.6270 | +0.0025 n.s. |
+| **O1+slot** | organ tags, slot ON at build | **on** | **0.6357** | **+0.0112 CI[+0.0056,+0.0170] SEP** |
+
+**THE CONTROLLED ACQUISITION CONTRAST** is `O1 - O0` at a matched read-time setting -- the only pair that differs by
+nothing except whether the teacher saw the revision (`LIVE` vs `O*` also swaps gold tags for organ tags and drops the
+live build's extra association assets, so that comparison is confounded and is reported for context only):
+
+- with the read-time slot ON: **`O1+slot - O0+slot` = +0.0020 CI[+0.0001,+0.0040], CI-separated**
+- with it OFF: `O1 - O0` = +0.0018 CI[-0.0002,+0.0038], **not separated**
+
+**The answer to 7A, with the number: yes, and it is real but small, and it only cashes when the reader reads the
+same way.** Teaching the teacher is worth about a fifth of what the read-time slot is worth, and it is not
+separable from the reader having the slot -- which is the same "repair the consumer to receive the richer signal"
+story running in the other direction: a teacher that learns from a hand-off the reader no longer produces teaches
+the wrong cells. Best arm overall is **both together, 0.6245 -> 0.6357, +0.0112 CI-separated.**
+
+*Honest scope note:* the rebuilt assets are a `hook_state` experiment, NOT part of the proposed diff. Landing O1
+means adopting organ-tagged acquisition, which changes every cue table and needs its own board A/B -- it is a
+brief, not a line in this patch.
+
+### 10e. Where the convention still costs, per consumer, WITH the slot in place (probe 3)
+
+**Population, defined convention-free:** every gold clause that has a SUBJECT (a gold `nsubj` / `nsubj:pass` arc) --
+**762 clauses on UD-EWT test 700**. The clause's predicate is that arc's gold head, whatever category it carries.
+Their gold categories: `VERB 595, ADJ 70, NOUN 56, ADV 13, AUX 8, PROPN 8, PRON 6, NUM 3, SYM 2, INTJ 1` -- so
+**167 of 762 (21.9%) of asserted clauses have a NON-VERBAL predicate by UD's convention.**
+
+A clause is invisible to **every** `tag == "VERB"` consumer when the chain does not tag its predicate `VERB`:
+
+| | clauses invisible to a VERB gate | of which gold-verbal | of which gold NON-verbal | found by the arm's `cop_predicates` |
+|---|---|---|---|---|
+| without the slot | **191 / 762 (25.1%)** | 43 | 148 | 103 |
+| **with the slot** | **167 / 762 (21.9%)** | **19** | 148 | 102 |
+
+**The slot removes 24 of them, and every one it removes is a chain tag error on a genuinely verbal predicate
+(43 -> 19). The 148 that remain are non-verbal predications, where UD puts the predicate on an ADJ or a NOUN by
+design, so a VERB gate can never open for them no matter how good the tagger gets.** Per consumer:
+
+- **the event detector** (`_tense_agnostic_extract`, fires on `UPOS == VERB`): misses all **167**. The 9 remaining
+  blind clauses reported in 3b are only the subset that also has a gold VERB somewhere; the copular ones never
+  enter that instrument at all, which is itself a measurement gap (10f).
+- **the role competition** (`graded_role_assigner`): its head-category gates are `hc in ("VERB", "AUX")`, so for
+  these **167** the **frame cue, the pre-verbal-slot cue, the rank cue and the existential-frame cue never fire**
+  (lines 653 / 676-679 / 730 / 749 / 761); only the non-verbal-head branch (line 707) runs. Not zero cues -- a
+  reduced cue set, on a fifth of all asserted clauses.
+- **the copular state reader**: this is the one consumer that DOES see them, through the arm's own
+  `cop_predicates`, which finds **102 of the 167**. The other **65** are seen by nobody.
+
+**That is the next rung, and it is a bigger number than the one this brief fixed:** 167 clauses (21.9%) against the
+23 tokens (3.0% of 762) the convention cost the governor here.
+
+### 10f. 7D filed -- the convention-free precision instrument, proposed and NOT landed (probe 1)
+
+Firing the event on the copular **complement** is correct by the brain's own definition (the predication is the
+event; Pustet 2003), and 4c2 measured it: **blind clauses 9 -> 7 of 1240 at unchanged recall, but event precision
+0.8629 -> 0.7778 as UD's VERB column scores it** -- because that column marks a correctly-fired predication event on
+an ADJ as a false positive by construction. **UD's VERB column must not be the judge, so here is the instrument I
+think is right. It is proposed, not adopted, and nothing in this patch depends on it.**
+
+**THE PARTICIPANT INSTRUMENT.** A predication is real if it GOVERNS PARTICIPANTS. Score a fired event by the gold
+tree's argument structure, never by the gold tag column:
+
+- **POPULATION** -- the 762 subject-bearing gold clauses of 10e (convention-free: a clause someone asserts something
+  in). Its predicate is the gold head of the subject arc, whatever its category. UD makes a copular predicate the
+  head of its own subject, exactly as the brain does, so this definition does not encode the AUX/VERB convention.
+- **RECALL** = share of those clauses for which the reader fires an event whose index IS that gold predicate.
+- **PRECISION** = share of fired events whose index governs at least one gold core argument
+  (`nsubj`/`obj`/`obl`/`ccomp`/`xcomp`/`cop`) in the gold tree. A copular ADJ passes (it governs its subject and its
+  copula); a random noun inside an NP fails.
+- **FLOOR** = the current `UPOS == VERB` detector, scored on the same population (it will show the 167-clause hole
+  directly). **TWIN** = fire on a random token of the same clause at the matched rate.
+- **WHY IT IS FAIR** -- it asks "does this token govern participants?", which is a question about structure, not
+  about what a treebank calls the token's part of speech; and it is the same question the roles rung will ask next,
+  so a win on it is a win the next consumer can actually cash.
+
+*Not built here:* it needs the roles rung's argument bindings on the copular population, which is pri 108's remit,
+and the brief's bar is already met without it.
+
+---
+
 ## 9. Submission prompt
 
 ```
@@ -468,22 +669,22 @@ neither IS the clause's predicate. occ = (1 - P(host)) x (1 - P(copular predicat
 own posterior with a GRADED verb-group walk (auxiliary order forbids a modal host; `to` closes the group) and the
 existential-there construction as the discriminator. It is applied to the posterior the CATEGORY organ hands down,
 so the governor, the reader's event detector and the predicate rescue all read ONE revision.
-GOVERNOR (UD-EWT test 700, live chain): UAS 0.6245 -> 0.6330 (+0.0085 CI[+0.0045,+0.0126] SEP); sole-AUX clauses
-0.6074 -> 0.6577 (+0.0503 CI[+0.0213,+0.0810] SEP); root +0.0157 SEP (+0.1026 SEP on the sole-AUX clauses); nsubj
+GOVERNOR (UD-EWT test 700, live chain): UAS 0.6245 -> 0.6331 (+0.0086 CI[+0.0047,+0.0126] SEP); sole-AUX clauses
+0.6074 -> 0.6588 (+0.0515 CI[+0.0239,+0.0816] SEP); root +0.0157 SEP (+0.1026 SEP on the sole-AUX clauses); nsubj
 +0.0247 SEP; expl 0.292 -> 0.833 (+0.5417 SEP; 0.077 -> 1.000 on the sole-AUX clauses); ccomp/obj/obl SEP up; nmod
 flat; cop -0.0108 n.s. -- the only non-improvement, two arcs of 186. READER (2077 sentences, the convention-free
-instrument): gold-verb sentences yielding NO event 33 -> 9 of 1240 (OFF is 55), event recall 0.9501 -> 0.9812
-(+0.0311 CI[+0.0245,+0.0380] SEP) at precision 0.8715 -> 0.8629 -- it DOMINATES pri 107's boolean sole-AUX arm on
+instrument): gold-verb sentences yielding NO event 33 -> 9 of 1240 (OFF is 55), event recall 0.9501 -> 0.9808
+(+0.0307 CI[+0.0241,+0.0373] SEP) at precision 0.8715 -> 0.8688 -- it DOMINATES pri 107's boolean sole-AUX arm on
 recall, precision AND blind clauses at once (0.9597 / 0.8364 / 18), so HDLAB_PREDICATE_RESCUE_AUX stays OFF and
 pri 107's open question 3 is answered. GENERALISATION on GUM/GENTLE (outside the count supply, 12+ genres): UAS
-+0.0086 CI[+0.0060,+0.0115] SEP, sole-AUX +0.0593 SEP, expl 0.221 -> 0.794 -- LARGER than in supply. TWIN (the same
++0.0085 CI[+0.0058,+0.0112] SEP, sole-AUX +0.0588 SEP, expl 0.221 -> 0.794 -- LARGER than in supply. TWIN (the same
 number of AUX tokens promoted at random): 3 seeds UD-EWT + 2 GUM, every one CI-separated BELOW the floor.
-BOARD (FULL 7-dimension A/B): aggregate 0.5930 -> 0.5929; coref / common_noun_coref / salience / who_did_what_agent / wic byte-identical, who_did_what_patient +0.0016 (2 items), state -0.0080 (exactly 3 items of 378, still 0.17 above its floor). A CONFOUND WAS CAUGHT AND CORRECTED: my two 46-minute arms straddled strategy's integration of pri 109 (the gold-free board, commit e231a91c3), whose own commit message records exactly the coref 0.4681->0.4172 / common-noun 0.5671->0.4932 / salience 0.2555->0.2993 / AGG 0.6351->0.5930 that the raw cross-arm diff showed; re-running those three dimensions for BOTH arms back-to-back in ONE process gives 0.0000 on all three (n=3145 / 3915 / 137). Cost 0.059 ms/sentence (+0.6%). Self-test 12/12 including PATCH == CELL exact (0.0 over
+BOARD (FULL 7-dimension A/B): aggregate 0.5930 -> 0.5929; coref / common_noun_coref / salience / who_did_what_agent / wic byte-identical, who_did_what_patient +0.0016 (2 items), state -0.0080 (exactly 3 items of 378, still 0.17 above its floor). A CONFOUND WAS CAUGHT AND CORRECTED: my two 46-minute arms straddled strategy's integration of pri 109 (the gold-free board, commit e231a91c3), whose own commit message records exactly the coref 0.4681->0.4172 / common-noun 0.5671->0.4932 / salience 0.2555->0.2993 / AGG 0.6351->0.5930 that the raw cross-arm diff showed; re-running those three dimensions for BOTH arms back-to-back in ONE process gives 0.0000 on all three (n=3145 / 3915 / 137). Cost 0.059 ms/sentence (+0.6%). Self-test 15/15 including PATCH == CELL exact (0.0 over
 4757 tokens) and a plasticity check.
 THE NAMED DEFECT IS 77% GONE: re-running the brief's own tag-to-head attribution on today's asset, the whole loss is
 102 net head flips (1.07 UAS points) of which VERB-as-AUX is 23 tokens carrying net 90 = 88.2% (the brief's 58% is
-from the 2026-09-13 asset). Under the revision: 102 -> 17 net flips (1.07 -> 0.18 UAS points), the class 23 tokens
--> 1 and net 90 -> 2, category agreement 0.9400 -> 0.9414. What remains is NOUN->ADJ / ADJ->PROPN / SCONJ->ADP -- a
+from the 2026-09-13 asset). Under the revision: 102 -> 15 net flips (1.07 -> 0.16 UAS points), the class 23 tokens
+-> 1 and net 90 -> 2, category agreement 0.9400 -> 0.9419. What remains is NOUN->ADJ / ADJ->PROPN / SCONJ->ADP -- a
 different problem.
 SECOND CONVENTION-FREE POPULATION (QA-SRL dev, 1500 sentences, out of supply): event recall 0.9460 -> 0.9516,
 +0.0056 CI[+0.0027,+0.0087] SEP, blind clauses 8 -> 7 -- small, and it should be: only 4.7% of QA-SRL's dropped

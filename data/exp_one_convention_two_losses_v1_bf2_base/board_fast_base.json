@@ -1,0 +1,44 @@
+{
+ "coref": {
+  "n": 504,
+  "model_acc": 0.4206,
+  "strongest_floor": 0.502,
+  "twin_acc": 0.3393
+ },
+ "common_noun_coref": {
+  "n": 447,
+  "model_acc": 0.4989,
+  "strongest_floor": 0.4944,
+  "twin_acc": 0.472
+ },
+ "salience": {
+  "n": 20,
+  "model_acc": 0.65,
+  "strongest_floor": 0.45,
+  "twin_acc": 0.1
+ },
+ "who_did_what_agent": {
+  "n": 317,
+  "model_acc": 0.7539,
+  "strongest_floor": 0.776,
+  "twin_acc": 0.2366
+ },
+ "who_did_what_patient": {
+  "n": 241,
+  "model_acc": 0.8091,
+  "strongest_floor": 0.7095,
+  "twin_acc": 0.6432
+ },
+ "state": {
+  "n": 73,
+  "model_acc": 0.6849,
+  "strongest_floor": 0.4247,
+  "twin_acc": 0.4384
+ },
+ "wic": {
+  "n": 120,
+  "model_acc": 0.7833,
+  "strongest_floor": 0.55,
+  "twin_acc": 0.675
+ }
+}

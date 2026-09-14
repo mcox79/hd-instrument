@@ -39,26 +39,26 @@
    ]
   },
   "OCC": {
-   "event_recall": 0.9812,
-   "event_precision": 0.8629,
-   "false_events_per_sent": 0.1955,
+   "event_recall": 0.9808,
+   "event_precision": 0.8688,
+   "false_events_per_sent": 0.1858,
    "blind_gold_verb_sentences": 9,
    "blind_share": 0.0073,
    "d_recall_vs_OFF": [
-    0.0626,
-    0.0528,
-    0.0719
+    0.0622,
+    0.0524,
+    0.0714
    ],
    "d_recall_vs_LIVE": [
-    0.0311,
-    0.0244,
-    0.0379
+    0.0307,
+    0.0241,
+    0.0373
    ]
   },
   "OCC_AUX": {
    "event_recall": 0.982,
-   "event_precision": 0.8313,
-   "false_events_per_sent": 0.2499,
+   "event_precision": 0.8359,
+   "false_events_per_sent": 0.2417,
    "blind_gold_verb_sentences": 9,
    "blind_share": 0.0073,
    "d_recall_vs_OFF": [
@@ -73,20 +73,20 @@
    ]
   },
   "OCC_COP": {
-   "event_recall": 0.9812,
-   "event_precision": 0.7778,
-   "false_events_per_sent": 0.3515,
+   "event_recall": 0.9808,
+   "event_precision": 0.7813,
+   "false_events_per_sent": 0.3442,
    "blind_gold_verb_sentences": 7,
    "blind_share": 0.0056,
    "d_recall_vs_OFF": [
-    0.0626,
-    0.0528,
-    0.0719
+    0.0622,
+    0.0524,
+    0.0714
    ],
    "d_recall_vs_LIVE": [
-    0.0311,
-    0.0244,
-    0.0379
+    0.0307,
+    0.0241,
+    0.0373
    ]
   }
  }
