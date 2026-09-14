@@ -8,14 +8,14 @@ diff --git a/hdlab/thematic_role_labeler.py b/hdlab/thematic_role_labeler.py
 -    """BE-aux followed within `window` tokens (allowing an intervening adverb) by a past-participle.
 +    """DEPRECATED (pri 111, 2026-09-14) -- SENTENCE-level, and therefore wrong for every consumer that is
 +    deciding ONE predicate: precision 0.3784 / recall 0.8235 per predicate on UD-EWT test against
-+    `is_passive_predicate`'s 0.9457 / 0.8971. Kept only for callers that genuinely want "does this sentence
++    `is_passive_predicate`'s 0.9606 / 0.8971. Kept only for callers that genuinely want "does this sentence
 +    contain a passive anywhere". New code calls `is_passive_predicate`.
 +
 +    BE-aux followed within `window` tokens (allowing an intervening adverb) by a past-participle.
      Optional trailing 'by' PP strengthens but is not required. Deliberately self-contained regex/
      POS-pattern (glass-box, in-repo, no external parser dependency) -- a boolean CUE VALUE, not a
      hard override on downstream role assignment.
-@@ -444,6 +449,306 @@
+@@ -444,6 +449,315 @@
              break  # first non-adverb token after aux must be the participle or this site fails
      return False
  
@@ -25,7 +25,7 @@ diff --git a/hdlab/thematic_role_labeler.py b/hdlab/thematic_role_labeler.py
 +# for the sentence, so a passive relative clause / coordinate clause / adjectival participle declares EVERY
 +# predicate passive. Measured on UD-EWT test per predicate (live category organ + attachment arm): the
 +# whole-sentence read scores precision 0.3784 at recall 0.8235; this predicate-anchored read scores
-+# precision 0.9457 at recall 0.8971 on the same 2605 predicates.
++# precision 0.9606 at recall 0.8971 on the same 2605 predicates (200 fixes, 11 breaks, head to head).
 +#
 +# THE BRAIN'S COMPUTATION, and why the evidence runs the other way round. Voice is a cue of the Competition
 +# Model (Bates & MacWhinney 1989) and it is evaluated FOR THE PREDICATE whose arguments are being assigned,
@@ -52,7 +52,7 @@ diff --git a/hdlab/thematic_role_labeler.py b/hdlab/thematic_role_labeler.py
 +# What the auxiliary chain may cross without breaking: adverbs, negation, stacked auxiliaries, a hyphen or a
 +# quote. NOT a determiner, NOT a nominal, NOT a preposition -- each of those cancels the passive expectation.
 +_CHAIN_POS = frozenset({"ADV", "PART", "AUX"})
-+_CHAIN_PUNCT = frozenset({"-", "--", '"', "'", "``", "''", "“", "”"})
++_CHAIN_PUNCT = frozenset({"-", "--", '"', "'", "``", "''", chr(0x201C), chr(0x201D)})   # ASCII source
 +# `to` (and its spoken form `ta`) opens a NEW predicate: "will be around to assist" is not "be assist".
 +_CHAIN_STOP_WORDS = frozenset({"to", "ta"})
 +_COORD_WORDS = frozenset({"and", "or", "nor"})
@@ -60,7 +60,14 @@ diff --git a/hdlab/thematic_role_labeler.py b/hdlab/thematic_role_labeler.py
 +# ("was VERY tired"), which demotes no agent and must not license an override.
 +_DEGREE_MOD = frozenset({"very", "quite", "so", "too", "rather", "extremely", "fairly", "somewhat",
 +                        "pretty", "really", "most", "more", "less", "least", "highly", "deeply"})
-+VOICE_VALUES = ("be_arc", "be_chain", "get_arc", "get_chain", "be_inv", "conj", "prog", "none", "na")
++# REDUCED SEMI-MODAL HOSTS: "gon na" / "got ta" / "wan na" are the spoken reductions of going-to / got-to /
++# want-to. The host ("gon") is not an -ing form, so the -ing test alone lets `is gon na start` through as a
++# passive; the giveaway is the token AFTER it -- `na`/`ta` occur in English ONLY as the reduced infinitival
++# marker of these forms, and no passive participle is ever followed by one. Found on GENTLE (the OOD split),
++# where 19 of 21 remaining false fires were "gon na".
++_REDUCED_INFINITIVE = frozenset({"na", "ta"})
++VOICE_VALUES = ("be_arc", "be_chain", "get_arc", "get_chain", "be_inv", "conj", "prog", "semimodal",
++                "none", "na")
 +PASSIVE_VALUES = ("be_arc", "be_chain", "get_arc", "get_chain", "be_inv", "conj")
 +VOICE_THETA = 0.5
 +
@@ -182,6 +189,8 @@ diff --git a/hdlab/thematic_role_labeler.py b/hdlab/thematic_role_labeler.py
 +        return "na"
 +    if _is_ing(toks[v - 1]):
 +        return "prog"
++    if v < len(toks) and toks[v].lower() in _REDUCED_INFINITIVE:
++        return "semimodal"                      # `is gon na V` / `got ta V`: a future/modal periphrasis
 +    a = _bare_aux_value(toks, pos, v, heads)
 +    if a != "none":
 +        return a
