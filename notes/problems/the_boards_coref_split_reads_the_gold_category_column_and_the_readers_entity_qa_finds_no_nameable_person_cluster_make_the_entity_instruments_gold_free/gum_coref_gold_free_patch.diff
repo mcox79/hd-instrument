@@ -1,0 +1,407 @@
+--- a/experiments/gum_coref.py
++++ b/experiments/gum_coref.py
+@@ -9,7 +9,27 @@
+   - coref chains: entity_id -> ordered list of Mention
+   - per Mention: type (name / common / pronoun) from the UD head UPOS; gender; number; salience inputs.
+ 
+-Reusable by the experiment cells; NO external LLM; gold mentions + gold POS (competent-reader reference).
++Reusable by the experiment cells; NO external LLM.
++
++GOLD-FREE DECISION LAYER (pri-109, 2026-09-14). Until now EVERY decision this module makes was taken from a
++GOLD CoNLL-U column, so the board rows that consume it (`coref`, `common_noun_coref`, `salience`) were scored
++with information the live reader never has:
++    cols[3] upos   -> `_mention_type` (name / common / pronoun) AND `_head_of_span`'s category preference
++    cols[2] lemma  -> `Mention.lemma_head`, the identity key of every common-noun coref decision
++    cols[5] feats  -> `_gender_number` (the agreement filter in the pronoun pick)
++    cols[6] head   -> `_head_of_span`
++    cols[7] deprel -> `URG._role` (ACT-R role prominence) and the in-text is-a edges
++`decision_source="organ"` (env `HDLAB_GUM_DECISION=organ`) replaces all five with the LIVE organs -- the
++category organ through `hdlab.frontend.tagger()`, the head-final NP-run rule over its categories, the
++`hdlab.morphology` lemma, the closed-class pronoun table + the given-name gazetteer, and the Competition
++Model's per-predicate word-order cue. The gold columns are kept on the Tok as `gold_*` for the ANSWER KEY
++only. `decision_source="gold"` (the default) is byte-identical to the pre-2026-09-14 module.
++MEASURED on all 275 GUM docs, TEST = odd docs (`experiments/exp_entity_instruments_gold_free_v1.py --board`):
++    coref (pronoun)   gold 0.4681 / floor 0.3621 margin +0.1060 [+0.0786,+0.1327]
++                      organ 0.4172 / floor 0.3202 margin +0.0970 [+0.0734,+0.1206]   -- CAPABILITY SURVIVES
++    common_noun       gold 0.5671 / floor 0.5412 margin +0.0259 [+0.0134,+0.0385]
++                      organ 0.4891 / floor 0.4876 margin +0.0015 [-0.0079,+0.0107]   -- WIN DOES NOT SURVIVE
++    salience          gold 0.2555 -> organ 0.2993 (neither CI-separated; underpowered at n=137)
+ Run:  .venv/Scripts/python.exe experiments/gum_coref.py --self-test
+ """
+ from __future__ import annotations
+@@ -35,6 +55,9 @@
+                  "she": "f", "her": "f", "hers": "f", "herself": "f"}
+ 
+ 
++DECISION_SOURCE = os.environ.get("HDLAB_GUM_DECISION", "gold")     # "gold" | "organ"
++
++
+ @dataclass
+ class Tok:
+     idx: int          # 1-indexed within sentence
+@@ -47,6 +70,13 @@
+     deprel: str
+     sent: int         # sentence index within doc
+     gidx: int         # global token index within doc
++    # THE ANSWER KEY, never an input to a decision (pri-109): under decision_source="organ" the six fields
++    # above carry the ORGAN's values and these carry what the treebank said, for scoring and diagnosis only.
++    gold_upos: str = ""
++    gold_lemma: str = ""
++    gold_feats: dict = field(default_factory=dict)
++    gold_head: int = 0
++    gold_deprel: str = ""
+ 
+ 
+ @dataclass
+@@ -104,6 +134,229 @@
+     return ops
+ 
+ 
++
++# ===============================================================================================
++# THE GOLD-FREE DECISION LAYER (pri-109). Every function here reads token FORMS and the live
++# organs only -- scrambling the six gold columns leaves every one of them byte-identical, which is
++# the witness `exp_entity_instruments_gold_free_v1.twin_identity_check` asserts.
++# ===============================================================================================
++_NOMINAL = ("NOUN", "PROPN")
++_NP_BREAK = ("ADP", "CCONJ", "SCONJ", "VERB", "AUX", "PART")
++_REL = frozenset({"who", "whom", "whose", "which", "that"})
++_NOT_PLURAL_S = ("ss", "us", "is", "as", "os")
++_POSS_PRON = frozenset({"his", "her", "its", "their", "my", "your", "our", "whose",
++                        "theirs", "hers", "ours", "yours"})
++_SING_PRON = frozenset({"he", "him", "his", "himself", "she", "her", "hers", "herself",
++                        "it", "its", "itself", "i", "me", "my", "mine", "myself", "this", "that"})
++_PLUR_PRON = frozenset({"they", "them", "their", "theirs", "themselves", "we", "us", "our", "ours",
++                        "ourselves", "these", "those", "yourselves"})
++_BE_FORMS = frozenset({"is", "are", "was", "were", "be", "been", "being", "am"})
++
++
++def organ_tags(toks):
++    """The LIVE category organ (hdlab.frontend.tagger() -> hdlab.lexical_categories) for every token of one
++    document, sentence by sentence, in reading order. Reads FORMS only."""
++    from hdlab import frontend as F
++    tg = F.tagger()
++    by_sent = {}
++    for t in toks:
++        by_sent.setdefault(t.sent, []).append(t)
++    pred = {}
++    for s in sorted(by_sent):
++        row = sorted(by_sent[s], key=lambda x: x.idx)
++        for x, c in zip(row, tg.tag([x.form for x in row])):
++            pred[x.gidx] = c
++    return pred
++
++
++def organ_lemma(form, dual_route=True):
++    """hdlab.morphology (glass-box morphy port). DUAL ROUTE (Pinker/Ullman words-and-rules): when the STORED
++    route is silent -- most names and most technical nouns are not in the lexicon -- the RULE route still
++    strips the regular plural, so `Pediatricians` keys with `Pediatrician`."""
++    from hdlab.morphology import morphy
++    low = form.lower()
++    lem = morphy(low, "n")
++    if lem:
++        return lem
++    if dual_route and low.isalpha() and len(low) > 3 and low.endswith("s") \
++            and not low.endswith(_NOT_PLURAL_S):
++        if low.endswith("ies"):
++            return low[:-3] + "y"
++        if low.endswith("es") and low[:-2].endswith(("s", "x", "z", "ch", "sh")):
++            return low[:-2]
++        return low[:-1]
++    return low
++
++
++def organ_number(form, dual_route=True):
++    from hdlab.morphology import morphy
++    low = form.lower()
++    if not low.isalpha():
++        return ""
++    lem = morphy(low, "n")
++    if lem and lem != low:
++        return "plur"
++    if lem:
++        return "sing"
++    if dual_route and low.endswith("s") and not low.endswith(_NOT_PLURAL_S) and len(low) > 3:
++        return "plur"
++    return "sing"
++
++
++def _head_of_span_organ(span_toks, pred):
++    """English NPs are head-final WITHIN the head domain; a preposition / coordinator / relative marker /
++    comma OPENS A NEW DOMAIN ("the American College of Pediatricians" heads on College, "Kim and Jo" on Kim,
++    "Kim , the doctor" on Kim). So the head is the last NOUN/PROPN of the FIRST nominal domain -- the same
++    domain boundary the attachment arm's NP_SPLIT cue uses, and what the gold `head` column encodes here."""
++    toks = list(span_toks)
++    cut, seen = len(toks), False
++    for i, t in enumerate(toks):
++        c = pred.get(t.gidx, "X")
++        low = t.form.lower()
++        if c in _NOMINAL:
++            seen = True
++            continue
++        if seen and (c in _NP_BREAK or c == "PUNCT" or low in _REL):
++            cut = i
++            break
++    dom = toks[:cut] or list(span_toks)
++    noms = [t for t in dom if pred.get(t.gidx) in _NOMINAL]
++    if noms:
++        return noms[-1]
++    prons = [t for t in span_toks if pred.get(t.gidx) == "PRON" or t.form.lower() in PRONOUNS_ALL]
++    if prons:
++        return prons[-1]
++    nonp = [t for t in span_toks if pred.get(t.gidx) != "PUNCT"]
++    return (nonp or list(span_toks))[-1]
++
++
++def _mention_type_organ(head_tok, span_toks, pred):
++    up = pred.get(head_tok.gidx, "X")
++    low = head_tok.form.lower()
++    if up == "PRON" or (low in PRONOUNS_ALL and up != "PROPN"):
++        return "pronoun"
++    return "name" if up == "PROPN" else "common"
++
++
++def _gender_number_organ(head_tok, mtype, name_gazetteer=None):
++    low = head_tok.form.lower()
++    if mtype == "pronoun":
++        g = GENDERED_PRON.get(low, "")
++        if not g and low in ("it", "its", "itself"):
++            g = "n"
++        num = "plur" if low in _PLUR_PRON else ("sing" if low in _SING_PRON else "")
++        return g, num
++    g = ""
++    if mtype == "name" and name_gazetteer is not None:
++        g = {"masc": "m", "fem": "f", "m": "m", "f": "f"}.get(name_gazetteer.get(low, ""), "")
++    return g, organ_number(head_tok.form)
++
++
++def positional_deprel(toks, pred):
++    """THE COMPETITION MODEL'S WORD-ORDER CUE, applied PER PREDICATE (MacWhinney & Bates: preverbal = actor,
++    postverbal = undergoer -- the strongest cue in English, and it is a cue about THIS clause). A sentence
++    with three verbs has three preverbal slots; a one-verb-per-sentence proxy hands every nominal after the
++    first verb to OBJECT and flattens Centering's Subject > Object ranking for every clause but the first."""
++    by_sent = {}
++    for t in toks:
++        by_sent.setdefault(t.sent, []).append(t)
++    out = {}
++    for s, ts in by_sent.items():
++        row = sorted(ts, key=lambda t: t.idx)
++        forms = [t.form.lower() for t in row]
++        cats = [pred.get(t.gidx, "X") for t in row]
++        for t in row:
++            out[t.gidx] = ""
++        heads, i = [], 0
++        while i < len(row):
++            if cats[i] in _NOMINAL or cats[i] == "PRON":
++                j = i
++                while j + 1 < len(row) and (cats[j + 1] in _NOMINAL or cats[j + 1] == "PRON"):
++                    j += 1
++                heads.append(j)
++                i = j + 1
++            else:
++                i += 1
++        for j in heads:
++            nxt = forms[j + 1] if j + 1 < len(row) else ""
++            if forms[j] in _POSS_PRON or nxt in ("'s", "s", "'"):
++                out[row[j].gidx] = "nmod:poss"
++        verbs = [k for k, c in enumerate(cats) if c in ("VERB", "AUX")]
++        for vi, v in enumerate(verbs):
++            prev_v = verbs[vi - 1] if vi else -1
++            nxt_v = verbs[vi + 1] if vi + 1 < len(verbs) else len(row)
++            pre = [j for j in heads if prev_v < j < v and not out[row[j].gidx]]
++            post = [j for j in heads if v < j < nxt_v and not out[row[j].gidx]]
++            if pre:
++                out[row[pre[-1]].gidx] = "nsubj"
++            if post:
++                out[row[post[0]].gidx] = "obj"
++        for j in heads:
++            if not out[row[j].gidx]:
++                out[row[j].gidx] = "obl" if (verbs and j > verbs[0]) else "nmod"
++    return out
++
++
++def construction_isa(toks, pred):
++    """The in-text is-a edges the common-noun type bridge rides on, read from the two CONSTRUCTIONS instead
++    of the gold `appos` / `cop` arcs:
++        apposition  NOMINAL_RUN , (DET|ADJ|NUM)* NOMINAL_RUN      'Kim , the doctor ,'
++        copula      NOMINAL_RUN BE (DET|ADJ|NUM|ADV)* NOMINAL_RUN 'Kim is a doctor'
++    MEASURED (275 GUM docs): 522 edges vs the gold arcs' 414, 59 of them shared -- see SOLVED section 6."""
++    by_sent = {}
++    for t in toks:
++        by_sent.setdefault(t.sent, []).append(t)
++    links = set()
++    for s, ts in by_sent.items():
++        row = sorted(ts, key=lambda t: t.idx)
++        cats = [pred.get(t.gidx, "X") for t in row]
++        forms = [t.form for t in row]
++        runs, i = [], 0
++        while i < len(row):
++            if cats[i] in _NOMINAL:
++                j = i
++                while j + 1 < len(row) and cats[j + 1] in _NOMINAL:
++                    j += 1
++                runs.append((i, j))
++                i = j + 1
++            else:
++                i += 1
++        for a in range(len(runs) - 1):
++            (s1, e1), (s2, e2) = runs[a], runs[a + 1]
++            gap, gapc = forms[e1 + 1:s2], cats[e1 + 1:s2]
++            if not gap or len(gap) > 4:
++                continue
++            is_appos = gap[0] == "," and all(c in ("DET", "ADJ", "NUM", "PUNCT") for c in gapc)
++            is_cop = any(w.lower() in _BE_FORMS for w in gap) and \
++                all(c in ("DET", "ADJ", "NUM", "VERB", "AUX", "ADV") for c in gapc)
++            if is_appos or is_cop:
++                la, lb = organ_lemma(forms[e1]), organ_lemma(forms[e2])
++                if la != lb:
++                    links.add(frozenset((la, lb)))
++    typed = {}
++    for l in links:
++        a, b = tuple(l)
++        typed.setdefault(a, set()).add(b)
++        typed.setdefault(b, set()).add(a)
++    return typed
++
++
++def apply_organ_layer(toks):
++    """Move the six gold columns onto `gold_*` and replace them with the live organs' values IN PLACE."""
++    pred = organ_tags(toks)
++    dep = positional_deprel(toks, pred)
++    for t in toks:
++        t.gold_upos, t.gold_lemma, t.gold_feats = t.upos, t.lemma, t.feats
++        t.gold_head, t.gold_deprel = t.head, t.deprel
++        t.upos = pred.get(t.gidx, "X")
++        t.xpos = ""
++        t.lemma = organ_lemma(t.form)
++        t.feats = {}
++        t.head = 0
++        t.deprel = dep.get(t.gidx, "")
++    return pred
++
++
+ def _mention_type(head_tok, span_toks):
+     up = head_tok.upos
+     low = head_tok.form.lower()
+@@ -157,7 +410,7 @@
+     return gender, number
+ 
+ 
+-def parse_gum_conllu(path, name_gazetteer=None):
++def parse_gum_conllu(path, name_gazetteer=None, decision_source=None):
+     base = os.path.basename(path).replace(".conllu", "")
+     parts = base.split("_")
+     corpus = parts[0]
+@@ -224,6 +477,11 @@
+         by_sent.setdefault(t.sent, {})[t.idx] = t
+     gmap = {t.gidx: t for t in toks}
+ 
++    # pri-109: the DECISION LAYER. "gold" -> every decision below reads a treebank column (the pre-2026-09-14
++    # behaviour, byte-identical). "organ" -> the live organs decide and the treebank is the answer key only.
++    src = decision_source or DECISION_SOURCE
++    pred = apply_organ_layer(toks) if src == "organ" else None
++
+     mentions = []
+     for eid, s0, s1 in raw_mentions:
+         span = [gmap[g] for g in range(s0, s1 + 1) if g in gmap]
+@@ -232,9 +490,14 @@
+         # restrict head search to tokens in the same sentence as the span majority
+         sent_id = span[0].sent
+         span_same = [t for t in span if t.sent == sent_id] or span
+-        head = _head_of_span(span_same)
+-        mtype = _mention_type(head, span_same)
+-        gender, number = _gender_number(head, mtype, name_gazetteer)
++        if pred is None:
++            head = _head_of_span(span_same)
++            mtype = _mention_type(head, span_same)
++            gender, number = _gender_number(head, mtype, name_gazetteer)
++        else:
++            head = _head_of_span_organ(span_same, pred)
++            mtype = _mention_type_organ(head, span_same, pred)
++            gender, number = _gender_number_organ(head, mtype, name_gazetteer)
+         text = " ".join(t.form for t in span)
+         mentions.append(Mention(eid=eid, sent=sent_id, start_g=s0, end_g=s1, head_g=head.gidx,
+                                 text=text, mtype=mtype, upos=head.upos, gender=gender,
+@@ -248,7 +511,8 @@
+     return Doc(docid=base, genre=genre, corpus=corpus, toks=toks, mentions=mentions, chains=chains)
+ 
+ 
+-def load_docs(gum_only=True, genres=None, limit=None, name_gazetteer=None, exclude_scrubbed=True):
++def load_docs(gum_only=True, genres=None, limit=None, name_gazetteer=None, exclude_scrubbed=True,
++              decision_source=None):
+     files = sorted(glob.glob(os.path.join(GUM_CONLLU, "*.conllu")))
+     if gum_only:
+         files = [f for f in files if os.path.basename(f).startswith("GUM_")]
+@@ -257,7 +521,7 @@
+         base = os.path.basename(fp)
+         if genres and not any(("_" + g + "_") in base for g in genres):
+             continue
+-        d = parse_gum_conllu(fp, name_gazetteer=name_gazetteer)
++        d = parse_gum_conllu(fp, name_gazetteer=name_gazetteer, decision_source=decision_source)
+         docs.append(d)
+         if limit and len(docs) >= limit:
+             break
+@@ -265,6 +529,30 @@
+ 
+ 
+ def _self_test():
++    # pri-109: the GOLD-FREE arm must decide identically under a SCRAMBLED gold column (the twin witness).
++    import random as _r
++    _d = load_docs(gum_only=True, limit=2, decision_source="organ")[0]
++    _before = [(m.mtype, m.head_g, m.lemma_head, m.gender, m.number) for m in _d.mentions]
++    _raw = load_docs(gum_only=True, limit=2)[0]
++    _f = [(t.gold_upos or t.upos, t.gold_lemma or t.lemma, t.gold_feats or t.feats,
++           t.gold_head or t.head, t.gold_deprel or t.deprel) for t in _raw.toks]
++    _r.Random(0).shuffle(_f)
++    for _t, _v in zip(_raw.toks, _f):
++        _t.upos, _t.lemma, _t.feats, _t.head, _t.deprel = _v
++    apply_organ_layer(_raw.toks)
++    _gm = {t.gidx: t for t in _raw.toks}
++    _after = []
++    for _m in _raw.mentions:
++        _sp = [_gm[g] for g in range(_m.start_g, _m.end_g + 1) if g in _gm]
++        _sp = [t for t in _sp if t.sent == _m.sent] or _sp
++        _pr = {t.gidx: t.upos for t in _raw.toks}
++        _h = _head_of_span_organ(_sp, _pr)
++        _mt = _mention_type_organ(_h, _sp, _pr)
++        _g, _n = _gender_number_organ(_h, _mt, None)
++        _after.append((_mt, _h.gidx, organ_lemma(_h.form), _g, _n))
++    assert len(_before) == len(_after)
++    print("  GOLD-FREE TWIN: %d mentions decided identically under a scrambled gold column: %s"
++          % (len(_after), all(a[:3] == b[:3] for a, b in zip(_before, _after))))
+     docs = load_docs(gum_only=True)
+     assert len(docs) > 150, "expected >150 GUM docs, got %d" % len(docs)
+     n_ment = sum(len(d.mentions) for d in docs)
+--- a/experiments/exp_board_coref_gum_v1.py
++++ b/experiments/exp_board_coref_gum_v1.py
+@@ -45,9 +45,14 @@
+ 
+ 
+ def _load_test(n_docs=None):
+-    """GUM docs, TEST split = odd doc index (same split as the sibling's headline)."""
++    """GUM docs, TEST split = odd doc index (same split as the sibling's headline).
++
++    pri-109: `HDLAB_GUM_DECISION=organ` makes every decision-time field (mention type, span head, lemma key,
++    gender/number, role) come from the LIVE organs instead of the treebank's gold columns. The treebank stays
++    the answer key (the coref chains). Under `gold` this function is byte-identical to before."""
+     gaz = load_given_gazetteer()
+-    docs = G.load_docs(gum_only=True, limit=n_docs, name_gazetteer=gaz)
++    docs = G.load_docs(gum_only=True, limit=n_docs, name_gazetteer=gaz,
++                       decision_source=G.DECISION_SOURCE)
+     test = [d for i, d in enumerate(docs) if i % 2 == 1]
+     return docs, test, gaz
+ 
+--- a/experiments/exp_commonnoun_diffhead_anatomy_gum_v1.py
++++ b/experiments/exp_commonnoun_diffhead_anatomy_gum_v1.py
+@@ -66,6 +66,11 @@
+     (b) copula 'X is/are a Y' (nsubj ... cop ... Y). Returns set of frozenset({lemmaA,lemmaB}) type-linked heads,
+     plus a map lemma-> set of co-typed lemmas within the doc. This is IN-TEXT, not world knowledge."""
+     toks = doc.toks
++    # pri-109: under the GOLD-FREE decision layer there are no `appos` / `cop` arcs to read (the deprel column
++    # is the organ's positional role cue), so the same two is-a CONSTRUCTIONS are read off the predicted
++    # categories instead. Under the gold layer nothing changes.
++    if toks and getattr(toks[0], "gold_upos", ""):
++        return G.construction_isa(toks, {t.gidx: t.upos for t in toks})
+     by_g = {t.gidx: t for t in toks}
+     links = set()
+     for t in toks:

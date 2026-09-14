@@ -1,0 +1,289 @@
+--- a/hdlab/coref.py
++++ b/hdlab/coref.py
+@@ -131,7 +131,8 @@
+ # the within-sentence token index in col 2 resets to 0 after each blank line).
+ # ---------------------------------------------------------------------------
+ def parse_litbank_conll(path: str,
+-                        name_gender_map: Optional[Dict[str, str]] = None
++                        name_gender_map: Optional[Dict[str, str]] = None,
++                        tagger=None,
+                         ) -> Tuple[List[dict], int]:
+     """Parse a LitBank/OntoNotes-style coref CoNLL file, tracking sentence index.
+ 
+@@ -145,7 +146,13 @@
+     this mention among referring mentions in its sentence (0 = first = subject-ish).
+     name_gender = general-gazetteer gender when name_gender_map is supplied AND the
+     cue-based gender is unknown (LEVER 4); None otherwise. Passing name_gender_map=
+-    None reproduces the legacy fields exactly (backward-compatible)."""
++    None reproduces the legacy fields exactly (backward-compatible).
++
++    THE FORWARD WIRE (pri-109, wiring pri-104's landed capability). `tagger` = anything with `.tag(tokens)`
++    -- the reader passes `_CachedTagShim(self)`, a standalone caller passes `hdlab.frontend.tagger()`. When
++    supplied, every mention carries `span_upos`, the CATEGORY ORGAN's categories for its span in span order,
++    and the ten organs that call `name_content_tokens` decide name-hood from the organ instead of from
++    capitalisation. `tagger=None` -> no `span_upos` key -> byte-identical to before."""
+     tokens: List[Tuple[int, str]] = []      # (gtok_idx, token_text)
+     tok_sent: Dict[int, int] = {}           # gtok_idx -> sent_idx
+     tok_wpos: Dict[int, int] = {}           # gtok_idx -> within-sentence position
+@@ -198,6 +205,16 @@
+     # repeated blank lines do not create empty sentences).
+     n_sentences = (max(tok_sent.values()) + 1) if tok_sent else 0
+     tok_text = {gi: tx for gi, tx in tokens}
++    # THE FORWARD WIRE: the category organ's tags for every token, sentence by sentence, in reading order.
++    tok_upos: Dict[int, str] = {}
++    if tagger is not None:
++        _by_sent: Dict[int, List[Tuple[int, str]]] = {}
++        for gi, tx in tokens:
++            _by_sent.setdefault(tok_sent.get(gi, 0), []).append((gi, tx))
++        for _si in sorted(_by_sent):
++            _row = sorted(_by_sent[_si], key=lambda p: p[0])
++            for (_gi, _tx), _c in zip(_row, tagger.tag([p[1] for p in _row])):
++                tok_upos[_gi] = _c
+     out: List[dict] = []
+     for cid, start, end in raw_mentions:
+         span_toks = [tok_text[i] for i in range(start, end + 1) if i in tok_text]
+@@ -224,6 +241,8 @@
+             "gender": gender, "number": number, "name_gender": ng,
+             "span_toks": list(span_toks),   # RAW-CASED span tokens (entity-merge input)
+         })
++        if tok_upos:
++            out[-1]["span_upos"] = [tok_upos.get(i, "X") for i in range(start, end + 1) if i in tok_text]
+     out.sort(key=lambda m: (m["gtok_start"], m["gtok_end"]))
+     for i, m in enumerate(out):
+         m["midx"] = i
+@@ -494,8 +513,11 @@
+             e["gender"] = gender
+         return e["canon"]
+ 
+-    def assign(self, span_toks: List[str], gender: Optional[str]) -> Optional[str]:
+-        toks = name_content_tokens(span_toks)
++    def assign(self, span_toks: List[str], gender: Optional[str],
++               upos: Optional[List[str]] = None) -> Optional[str]:
++        # THE FORWARD WIRE (pri-109): `upos` = the category organ's categories for this span. Omitted ->
++        # byte-identical to the capitalisation rule.
++        toks = name_content_tokens(span_toks, upos=upos)
+         if not toks:
+             return None
+         tokset = set(toks)
+--- a/hdlab/referent_per_np.py
++++ b/hdlab/referent_per_np.py
+@@ -78,11 +78,22 @@
+     return add
+ 
+ 
+-def _mk_referent(head_low: str, sent_idx: int, wpos: int, cluster: int, midx: int) -> Dict:
+-    """A discourse-referent mention dict in the parse_litbank_conll schema (single-token, non-pronoun)."""
+-    return {"cluster": cluster, "gtok_start": -1, "gtok_end": -1, "sent_idx": sent_idx,
+-            "wtok_start": wpos, "head": head_low, "is_pronoun": False,
+-            "gender": None, "number": None, "name_gender": None, "span_toks": [head_low], "midx": midx}
++def _mk_referent(head_low: str, sent_idx: int, wpos: int, cluster: int, midx: int,
++                 upos: Optional[str] = None) -> Dict:
++    """A discourse-referent mention dict in the parse_litbank_conll schema (single-token, non-pronoun).
++
++    MEASURED DEFECT THIS FIXES (pri-109, 8 LitBank docs): `span_toks` is the LOWERCASED head, and the ten
++    organs that type a mention call `coref.name_content_tokens`, which decides by CAPITALISATION. So on the
++    LIVE reader's default entity stream the name decision was structurally degenerate -- 0 of 2,123
++    non-pronoun mentions could EVER be typed a name (100% of spans all-lowercase), against 166 of 720 on the
++    raw-cased coref-column stream. `upos` = the category organ's category for this head, so the name decision
++    becomes the organ's and survives the lowercasing: 150 name mentions typed where there were 0."""
++    d = {"cluster": cluster, "gtok_start": -1, "gtok_end": -1, "sent_idx": sent_idx,
++         "wtok_start": wpos, "head": head_low, "is_pronoun": False,
++         "gender": None, "number": None, "name_gender": None, "span_toks": [head_low], "midx": midx}
++    if upos is not None:
++        d["span_upos"] = [upos]
++    return d
+ 
+ 
+ def _finalize(mentions: List[Dict]) -> List[Dict]:
+@@ -108,7 +119,7 @@
+     `mentions, n_sents = parse_litbank_conll(...)`. `tagger` = the reader's frontend UPOS PosTagger. VERBATIM to
+     the validated build_source(mode='rnp'): use_frame=False reproduces the +0.336 source byte-for-byte; use_frame=
+     True adds the §4 frame recoveries on top (introduction 0.914->0.931)."""
+-    coref, n_sents = parse_litbank_conll(conll_path, name_gender_map=name_gender_map)
++    coref, n_sents = parse_litbank_conll(conll_path, name_gender_map=name_gender_map, tagger=tagger)
+     sents = parse_conll_sentences(conll_path)
+     coref_head_wpos: Dict[tuple, int] = {}
+     # REFLEXIVES (himself/herself/itself/themselves) are pronouns too (Binding Principle A; strategy 2026-09-12):
+@@ -145,5 +156,6 @@
+             if cl is None:
+                 cl = next_cluster
+                 next_cluster += 1
+-            out.append(_mk_referent(toks[hw].lower(), si, hw, cl, -1))
++            out.append(_mk_referent(toks[hw].lower(), si, hw, cl, -1,
++                                    upos=up[hw] if hw < len(up) else None))
+     return _finalize(pron + out), n_sents
+--- a/hdlab/coref_distractor_suppress.py
++++ b/hdlab/coref_distractor_suppress.py
+@@ -293,7 +293,8 @@
+                     eff_gender = m.get("name_gender")
+                 # GENERAL proper-name detection (any capitalized name span; not just
+                 # gazetteer hits) so every named character is guard-protected.
+-                is_named = bool(name_content_tokens(m.get("span_toks", [m["head"]])))
++                is_named = bool(name_content_tokens(m.get("span_toks", [m["head"]]),
++                                                    upos=m.get("span_upos")))
+                 overlay.observe(m["head"], gender=eff_gender, number=m["number"],
+                                 is_proper_name=is_named)
+                 head_to_cluster[m["head"].lower()] = m["cluster"]
+--- a/hdlab/crosstype_live_adapter.py
++++ b/hdlab/crosstype_live_adapter.py
+@@ -137,7 +137,7 @@
+     if m.get("is_pronoun"):
+         men.mtype = "pronoun"
+     else:
+-        men.mtype = "name" if name_content_tokens(span) else "common"
++        men.mtype = "name" if name_content_tokens(span, upos=m.get("span_upos")) else "common"
+     men.start_g = m.get("gtok_start")
+     men.end_g = m.get("gtok_end")
+     men.head_g = m.get("head_g", men.end_g)                  # reader head = span_toks[-1] -> last global token
+--- a/hdlab/entity_resolver.py
++++ b/hdlab/entity_resolver.py
+@@ -232,9 +232,10 @@
+             sent_idx = m.get("sent_idx", 0)
+             number = m.get("number")
+             head = head_lemma(m["head"]); gender = m.get("gender") or m.get("name_gender")
+-            name_toks = name_content_tokens(m.get("span_toks", [m["head"]]))
++            name_toks = name_content_tokens(m.get("span_toks", [m["head"]]), upos=m.get("span_upos"))
+             if name_toks:                                           # NAME -> identity (given-name file)
+-                canon = aliaser.assign(m.get("span_toks", [m["head"]]), gender)
++                canon = aliaser.assign(m.get("span_toks", [m["head"]]), gender,
++                                       upos=m.get("span_upos"))
+                 key = canon if canon is not None else ("surf:" + m["head"])
+                 f = canon2f.get(key) or surf2f.get(m["head"])
+                 if f is None:
+--- a/hdlab/event_centrality_coref.py
++++ b/hdlab/event_centrality_coref.py
+@@ -439,7 +439,8 @@
+                 eff_gender = m["gender"]
+                 if eff_gender is None and use_gazetteer:
+                     eff_gender = m.get("name_gender")
+-                is_named = bool(name_content_tokens(m.get("span_toks", [m["head"]])))
++                is_named = bool(name_content_tokens(m.get("span_toks", [m["head"]]),
++                                                    upos=m.get("span_upos")))
+                 overlay.observe(m["head"], gender=eff_gender, number=m["number"],
+                                 is_proper_name=is_named)
+                 head_to_cluster[m["head"].lower()] = m["cluster"]
+--- a/hdlab/gender_organ.py
++++ b/hdlab/gender_organ.py
+@@ -66,10 +66,11 @@
+     def __init__(self, name_gaz: Optional[Dict[str, str]] = None) -> None:
+         self.name_gaz = name_gaz or {}
+ 
+-    def infer(self, span_toks: Sequence[str], is_name: bool) -> Optional[str]:
++    def infer(self, span_toks: Sequence[str], is_name: bool,
++              upos: Optional[Sequence[str]] = None) -> Optional[str]:
+         toks = [t.lower().strip(".,'\"!?;:") for t in (span_toks or [])]
+         if is_name:                                            # NAME -> given-name gazetteer
+-            for t in name_content_tokens(list(span_toks or [])):
++            for t in name_content_tokens(list(span_toks or []), upos=list(upos) if upos else None):
+                 if t in self.name_gaz:
+                     return self.name_gaz[t]
+         cue = set(toks) - POSSESSIVE_DETERMINER_CUES           # "his mother" -> head 'mother', ignore 'his'
+--- a/hdlab/lexical_utils.py
++++ b/hdlab/lexical_utils.py
+@@ -102,7 +102,7 @@
+ 
+ def is_name(m, gaz) -> bool:
+     """A clean proper name (aliasable) -- reuse the coref organ's own name test on the raw span."""
+-    return bool(name_content_tokens(m.get("span_toks", [m["head"]])))
++    return bool(name_content_tokens(m.get("span_toks", [m["head"]]), upos=m.get("span_upos")))
+ 
+ 
+ def modifiers(m) -> set:
+--- a/hdlab/online_entity_cluster.py
++++ b/hdlab/online_entity_cluster.py
+@@ -126,9 +126,9 @@
+         sent_idx = m.get("sent_idx", 0)
+         number = m.get("number")
+         head, gender = _cue(m)
+-        name_toks = name_content_tokens(m.get("span_toks", [m["head"]]))
++        name_toks = name_content_tokens(m.get("span_toks", [m["head"]]), upos=m.get("span_upos"))
+         if name_toks:                                          # NAME -> given aliaser file
+-            canon = aliaser.assign(m.get("span_toks", [m["head"]]), gender)
++            canon = aliaser.assign(m.get("span_toks", [m["head"]]), gender, upos=m.get("span_upos"))
+             key = canon if canon is not None else ("surf:" + m["head"])
+             f = canon2f.get(key) or surf2f.get(m["head"])
+             if f is None:
+--- a/hdlab/scene_segment.py
++++ b/hdlab/scene_segment.py
+@@ -407,7 +407,8 @@
+                 eff_gender = m["gender"]
+                 if eff_gender is None and use_gazetteer:
+                     eff_gender = m.get("name_gender")
+-                is_named = bool(name_content_tokens(m.get("span_toks", [m["head"]])))
++                is_named = bool(name_content_tokens(m.get("span_toks", [m["head"]]),
++                                                    upos=m.get("span_upos")))
+                 overlay.observe(m["head"], gender=eff_gender, number=m["number"],
+                                 is_proper_name=is_named)
+                 head_to_cluster[m["head"].lower()] = m["cluster"]
+--- a/hdlab/unified_referent.py
++++ b/hdlab/unified_referent.py
+@@ -159,10 +159,10 @@
+             continue
+ 
+         # ------------- NAME / COMMON: canonical keying + file-change merge -------------
+-        name_toks = name_content_tokens(m.get("span_toks", [head]))
++        name_toks = name_content_tokens(m.get("span_toks", [head]), upos=m.get("span_upos"))
+         if name_toks:   # NAME -> EntityAliaser canonical id UNION blind exact-surface fallback (no-regress)
+             eff_gender = m.get("gender") or m.get("name_gender")
+-            canon = aliaser.assign(m.get("span_toks", [head]), eff_gender)
++            canon = aliaser.assign(m.get("span_toks", [head]), eff_gender, upos=m.get("span_upos"))
+             if canon is not None and canon in canon2ref:
+                 picked = canon2ref[canon]                            # aliaser cross-variant merge
+             elif head in name_surf:
+--- a/hdlab/situation_reader.py
++++ b/hdlab/situation_reader.py
+@@ -367,6 +367,11 @@
+     attempted: bool
+     bucket: str
+     sent_dist: int
++    # THE GOLD-FREE ANSWER (pri-109). `resolved_cluster` is the GOLD cluster of the mention the reader
++    # picked, so naming an answer through it hands the instrument the gold equivalence classes for free.
++    # `resolved_head` is the surface head of the mention the reader actually picked -- the model's own
++    # answer, with no gold column in it. Additive: no decision reads it.
++    resolved_head: str = ""
+ 
+ 
+ @dataclass
+@@ -1881,7 +1886,8 @@
+                 resolved_cluster=(-1 if r["resolved_cluster"] is None
+                                   else r["resolved_cluster"]),
+                 correct=bool(r["correct"]), attempted=bool(r["attempted"]),
+-                bucket=r["bucket"], sent_dist=r["sent_dist"]))
++                bucket=r["bucket"], sent_dist=r["sent_dist"],
++                resolved_head=str(r.get("resolved_head") or "")))
+         return resolutions, recs_ec, recs_ss
+ 
+     # -- event detection dispatch (stock tense-gated vs opt-in tense-agnostic UPOS==VERB) --
+@@ -4350,11 +4356,16 @@
+             # tagger loads the SAME _FRONTEND_POS_ASSET, so pass a shim over the shared per-read tag cache instead
+             # of a redundant private PosTagger copy -> byte-identical, its 71 tags/read become shared-cache hits.
+             role_mentions, n_sents = referent_per_np_source(conll_path, _CachedTagShim(self), name_gender_map=self.gaz)
+-            coref_mentions, n_coref = parse_litbank_conll(conll_path, name_gender_map=self.gaz)
++            # THE FORWARD WIRE (pri-109): the coref-column stream carries the category organ's categories too,
++            # so the ten organs that type a mention read the organ, not capitalisation. The shim hits the
++            # reader's shared per-read tag cache -> no extra tagging pass.
++            coref_mentions, n_coref = parse_litbank_conll(conll_path, name_gender_map=self.gaz,
++                                                          tagger=_CachedTagShim(self))
+             if n_coref != n_sents:
+                 raise RuntimeError("SENTENCE_MISALIGN: rnp=%d coref=%d" % (n_sents, n_coref))
+         else:
+-            role_mentions, n_sents = parse_litbank_conll(conll_path, name_gender_map=self.gaz)
++            role_mentions, n_sents = parse_litbank_conll(conll_path, name_gender_map=self.gaz,
++                                                        tagger=_CachedTagShim(self))
+             coref_mentions = role_mentions   # coupled OFF -> byte-identical to the deployed baseline
+         # stash the coref-column (tracked/given) mentions -> the Competition-Model AGENT candidate source
+         # (_cm_agent_candidates). Inert unless cm_agent AND referent_per_np are both ON.
+--- a/hdlab/space_reader.py
++++ b/hdlab/space_reader.py
+@@ -242,7 +242,10 @@
+                          asymmetry is animacy-modulated -- Lakusta & Landau 2012 -- and inanimate 'entities'
+                          like 'the hall'/'the rabbit-hole' must not be tracked as movers).
+     """
+-    mentions, n_sents = parse_litbank_conll(conll_path, name_gender_map=gaz)
++    # pri-109: pass the category organ so the mentions carry `span_upos` here too -- a builder that runs
++    # the organ WITHOUT the argument its caller passed silently ships a different organ.
++    from hdlab import frontend as _F
++    mentions, n_sents = parse_litbank_conll(conll_path, name_gender_map=gaz, tagger=_F.tagger())
+     sents = parse_conll_sentences(conll_path)
+     by_sent: Dict[int, List[dict]] = {i: [] for i in range(len(sents))}
+     names: Dict[int, Dict[str, int]] = {}
