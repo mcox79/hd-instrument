@@ -535,6 +535,12 @@ def parse_gum_conllu(path, name_gazetteer=None, decision_source=None):
     return Doc(docid=base, genre=genre, corpus=corpus, toks=toks, mentions=mentions, chains=chains)
 
 
+def _is_scrubbed(toks, frac=0.5):
+    """True when the document's surface text is redacted (form == '_' / '__') on more than `frac` of its tokens."""
+    n = sum(1 for t in toks if t.form.strip("_") == "")
+    return n > frac * len(toks)
+
+
 def load_docs(gum_only=True, genres=None, limit=None, name_gazetteer=None, exclude_scrubbed=True,
               decision_source=None):
     files = sorted(glob.glob(os.path.join(GUM_CONLLU, "*.conllu")))
@@ -546,6 +552,11 @@ def load_docs(gum_only=True, genres=None, limit=None, name_gazetteer=None, exclu
         if genres and not any(("_" + g + "_") in base for g in genres):
             continue
         d = parse_gum_conllu(fp, name_gazetteer=name_gazetteer, decision_source=decision_source)
+        if exclude_scrubbed and d.toks and _is_scrubbed(d.toks):
+            # pri 109 (strategy 2026-09-14): 18 GUM_reddit_* documents ship with the FORM column redacted to
+            # underscores (gold columns intact) -- a live reader has no text there; the parameter was declared and
+            # never read. Decided on the TEXT, not the filename.
+            continue
         docs.append(d)
         if limit and len(docs) >= limit:
             break
