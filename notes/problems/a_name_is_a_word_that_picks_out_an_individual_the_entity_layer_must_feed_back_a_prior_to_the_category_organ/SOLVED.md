@@ -332,6 +332,8 @@ The bar has five clauses. Three are met, one is met on the well-powered populati
 
 # ROUND 2 (PHASE 7) -- every negative researched to its mechanism, four more levers built, and the board's own coref split found to be a GOLD PEEK
 
+
+*Section numbers were assigned as the work happened and do not ascend in reading order. **Read round 2 as: 9 -> 10 -> 11 -> 12a-e -> 12f (the instrument audit) -> 12g (the singleton lexicon) -> 12h (PATH 6) -> 12i (the graded name belief) -> 13 -> 14 -> 14a/14c (the bias correction) -> 14b (the bar) -> 14d (the law) -> 15 (the close).** Cross-references inside the text use these same labels.*
 ## 9. WHY GENTLE INVERTS -- IT IS THE CAPITALISATION CONVENTION, AND HERE ARE THE COUNTS
 
 I reported the OOD negative without fully explaining it. The explanation is one number measured four ways, and it is **not** "register" in any vague sense:
@@ -520,7 +522,34 @@ Strictly in order, KNOWN tokens only, no gold, one running scalar per passage.
 
 The corrected quantity is a likelihood ratio against the marginal -- how much the symbol moves the belief TOWARD the organ's settled answer relative to knowing nothing -- which is zero for an uninformative symbol and positive exactly when the cue helps.
 
-PENDING_P6_CORRECTED
+### THE CORRECTED ESTIMATOR, AND IT STILL DOES NOT SEPARATE THE REGIMES -- THE SAME LAW, A THIRD TIME
+
+With the gain fixed, the diagnostic reports what the reader would actually be running at (30 GUM / 26 GENTLE / 60 UD-EWT-test documents):
+
+| corpus | mean informativeness gain | **ONLINE PRECISION** (mean / median) | what the cue actually does there |
+|---|---|---|---|
+| GUM | **+0.2914 nats** | **0.586** / 0.592 | the prior WINS (+0.0101 CI-sep) |
+| UD-EWT test | +0.2712 | 0.538 / 0.592 | the prior helps, not separated |
+| **GENTLE** | **+0.2160** | **0.493** / 0.537 | **the prior LOSES, -0.0620 CI-SEPARATED** |
+
+**The estimator says the cue is worth +0.216 nats on GENTLE -- positive -- on a corpus where the cue is demonstrably harmful, and 0.493 against GUM's 0.586 is nowhere near the separation needed to switch it off.** So the corrected PATH 6 is not a no-op any more, and it still does not do its job.
+
+**WHY, AND IT IS THE SAME LAW THAT BROKE THE PREVIOUS TWO LEVERS.** The precision can only be estimated where the reader can check itself -- on KNOWN tokens, where the organ scores 0.93. The cue is READ on UNKNOWN tokens. Those two populations differ systematically and this brief has now measured that three times: on the passage register (12d-bis), on the passage-local entity table (12e), and now on the precision estimator itself. **On GENTLE the entity symbol genuinely does correlate with the settled category of KNOWN words -- their lexical entry already carries the answer and the symbol rides along -- while on the UNKNOWN words where it is read, the relation is the one the confusion counts show.** An estimator calibrated on the wrong population cannot detect that.
+
+**THE FIX IS THE ONE THAT ALREADY WORKED ONCE: score the gain against the table that describes the population the cue is read on** -- the NOVEL-FORM stratum `entc_u`, which the organ already accrues (13,117 counts) and which is exactly the "unknown word" population. That is `ent_prec_novel`, built and switchable. **I state the prediction before the number: if the estimator's separation between GUM and GENTLE widens materially, PATH 6 is repairable by the same one-line discipline that fixed the register; if it does not, then the entity cue's value is simply not estimable from inside a passage using only self-checkable tokens, and PATH 6 is a located negative rather than an unfinished build.**
+
+### THE PREDICTION RESOLVED -- PATH 6 IS A LOCATED NEGATIVE, AND IT IS THE LAW AGAIN
+
+I wrote the two outcomes down before running it. **It came out the second way.** Scoring the gain against the NOVEL-FORM stratum table on GUM: **mean gain -0.4886 nats, ONLINE PRECISION 0.000 on every one of the 30 documents.** The cue is now switched off on the corpus where it WINS -- the opposite failure to the first version, and for the mirror-image reason: the novel-stratum table describes the population the cue is READ on, but the tokens available to score it are KNOWN ones, whose symbol distribution is not that population's. So:
+
+| how the gain is scored | estimated on | scored with | result |
+|---|---|---|---|
+| whole-vocabulary table | KNOWN tokens | the population that INCLUDES them | precision 0.586 GUM / 0.493 GENTLE -- **does not separate the regimes** |
+| novel-form stratum table | KNOWN tokens | the population the cue is READ on | gain -0.4886 GUM / -0.4472 GENTLE, precision **0.000 / 0.049** -- **kills the cue where it wins** |
+
+**Both directions fail for the same single reason, and it is the law of 14d: the reader has NO self-checkable tokens drawn from the population where the cue is used.** Known tokens are checkable and are the wrong population; unknown tokens are the right population and are precisely the ones the organ cannot check itself on. **There is no third set.**
+
+**So PATH 6 is a LOCATED NEGATIVE, not an unfinished build:** an online precision for THIS cue is not estimable from inside a passage, by the arithmetic of which tokens are self-checkable. It ships behind `ent_prec_online=None`. *What is NOT refuted: precision-weighting in general, and specifically the offline-measured version -- 14c is exactly a precision correction measured offline from the supply, and it is the one lever here that is CI-separated positive on both corpora. The route that works is to measure the population gap ONCE, offline, where BOTH populations are visible; the route that does not is to try to estimate it online, where only one of them is.*
 
 **The lesson, which is the third time this submission has paid for it:** a number moving the way I wanted is not evidence the mechanism I built is the one that moved it. The cheap check -- print the internal quantity the mechanism claims to compute -- costs one probe and it has now caught a vacuous twin (round 1), a confusion-count-versus-accuracy misread (12d-bis) and a no-op arm (here).
 
@@ -657,9 +686,34 @@ Both half-fixes (12d, 12e) fail for the SAME measured reason: a passage register
 
 **Four clauses met, the fifth measured. I am still calling it PARTIAL, and the reason is not modesty:** the shipped default is **CI-separated NEGATIVE out of domain** (GENTLE: repeat-mention -0.0620 CI[-0.1115,-0.0090]), the two levers built to fix that are each half-fixes with a named missing piece, and a solver should not mark an organ change done while it makes one measured population worse. **The offline known/unknown offset (14c) was built and it DOES close the REGISTER's regime-dependence -- but not the PRIOR's out-of-domain negative, which is a different thing: on GENTLE the discourse-history cue is near-uninformative (P(PROPN | repeat AND Cap@mid) = 0.505) and no calibration makes an uninformative cue helpful. The route to SOLVED is therefore PATH 6 -- an online-estimated precision that drives the prior's own weight to zero on such a passage -- and that is a build, not a re-measure.**
 
-## 15. IS THE SESSION EXHAUSTED?
+## 14d. THE ONE LAW THIS BRIEF ACTUALLY DISCOVERED
 
-**Closer than when phase 7 began, because the one build I named as missing got built and worked -- and still not exhausted.** Exhausted: the entity prior itself (30+ arms, two corpora, both twins, CI-separated in-genre, understood out of it); the four negatives (each traced to a mechanism with counts); the forward wire (built, measured, patched, verified). **Not exhausted, and each is a specific build with a prediction attached:** (i) PATH 6, the online-estimated precision gate -- I built TWO special cases of it (the repaired register, and its bias correction, which together are the only lever here that is positive on both corpora) and the general case, applying it to the ENTITY cue's own weight, is what would remove the out-of-domain negative; (ii) the name lexicon for the 100 singletons; (iii) the graded name belief (PATH 7). **What I will not claim is a wall.** Every one of those is buildable with machinery that exists, and the reason I stopped is machine time and the scope of a single-organ brief, not a limit I found.
+Three independent levers failed for the same reason, and it is worth stating as a law because it will recur in any organ that tries to adapt inside a passage:
+
+> **A statistic estimated on the tokens a reader can check itself on does not describe the tokens it needs the statistic FOR.** The reader can only self-check where it already knows the answer (a lexical entry, accuracy 0.93); the cue is read where it does not (an unseen word, accuracy 0.52). Those populations differ SYSTEMATICALLY -- measured here at 2 to 16 points on P(PROPN | Cap@mid) -- and every self-calibrating mechanism inherits that gap.
+
+| the lever | how the law bit it | the outcome |
+|---|---|---|
+| the passage register (12d) | calibrated the convention on known words | CI-sep win on GENTLE, wash on GUM |
+| **+ the offline known/unknown offset (14c)** | **the gap measured once from the supply and divided out** | **CI-SEPARATED POSITIVE ON BOTH -- the law beaten, once** |
+| the passage-local entity table (12e) | same calibration, on `entc` | recovers half the OOD damage, does not reach the floor |
+| PATH 6's precision estimator (12h) | the cue's own worth estimated on known tokens | says +0.216 nats on the corpus where the cue is CI-separated HARMFUL |
+
+**The one time the law was beaten, it was beaten by measuring the gap OFFLINE from the supply rather than trying to avoid it online** -- the supply contains both populations (its known slice and its novel-form stratum) and the organ already keeps both tables. **That is the transferable result, and it is bigger than this brief: any organ in this substrate that wants to adapt to a passage has the same problem and the same fix available.**
+
+## 15. CLOSING READBACK -- AND YES: **EXHAUSTED** FROM THIS SEAT
+
+**EVERY NEGATIVE, AND WHY IT HAPPENED.** The passage register fed the organ's own errors back (12d). Count decay was null above lambda 0.90 by a closed form and still lost below it (12a). The oracle teacher helped by exactly as much as the forgetting allowed and still lost, because the cue is at 0.505 on GENTLE (12b). The Baayen stratum lost because productivity is a fact about morphology and not about discourse use (6.1). The acronym bind died at 3 of 119 (6.4). Frozen precision-weighting was a wash because a frozen precision cannot express what varies (12c). The name lexicon is refuted against every asset on disk -- WordNet has the coverage and does not discriminate, 0.411 against 0.469 (12g). The graded name belief does not beat the boolean on F1, because the boolean already sits at the F1 optimum (12i). And PATH 6 is a located negative by the arithmetic of which tokens are self-checkable (12h). **Nine negatives, nine mechanisms, each with a number.**
+
+**ALTERNATE PATHS, SIMILARLY OR MORE BRAIN-FOUNDATIONAL THAN WHAT I SHIPPED:**
+- **The graded name belief (12i) is MORE brain-foundational than the boolean I patched** -- the referent route is engaged to a degree -- and I shipped the boolean because it is the measured F1 optimum and what the eight callers accept. The scalar is one line from it and the consumer, not this organ, should choose the threshold.
+- **Offline-measured precision (14c) is more brain-foundational than a fixed kappa** and it is what I shipped. The online version (12h) would be more faithful still and is not estimable here.
+- **A cross-string / referent-keyed register** is more faithful than the surface-string key, and is circular at this rung -- the coref two-half problem owns it.
+- **A reading-learned category inventory** (pri-15's) would replace the offline tag column this whole organ sits on; every kappa, theta and offset here must then be re-swept, not assumed.
+
+**WHAT REMAINS, AND WHY IT IS NOT MINE:** a large-coverage name gazetteer for the 100 singletons (an ACQUISITION brief, with the acceptance test written in 12g); the gold-peek repair in `gum_coref` (an INSTRUMENT brief, evidence in 12f); the eight-consumer adoption of the forward wire (a cross-organ landing, and strategy owns landings). **Each is a different kind of work from "improve this organ", and none of them is blocked on anything I could have measured.**
+
+**So: EXHAUSTED.** Every lead in the table at 13 is built, refuted with a mechanism and a number, ruled out of scope, or handed over as a different kind of brief. I am not saying the problem is finished -- the entity prior is still CI-separated negative out of domain and 100 of 154 confusions remain structurally out of reach of any discourse mechanism. I am saying **there is nothing further I can build from this seat that the measurements have not already answered.**
 
 ## SUBMISSION PROMPT
 

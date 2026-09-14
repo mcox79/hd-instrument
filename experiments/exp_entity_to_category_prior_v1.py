@@ -223,6 +223,7 @@ class EntityPriorCategories(LexicalCategories):
         self.reg_offset = False      # correct the known-word calibration for the KNOWN/UNKNOWN bias (measured)
         self.ent_prec_online = None  # PATH 6: the cue's OWN weight set by its ONLINE-ESTIMATED precision
         self.ent_prec_decay = 0.9    # exponential window on the running prediction-error statistic
+        self.ent_prec_novel = False  # score the gain on the NOVEL-stratum table (the population the cue is read on)
         self._po_sum = 0.0           # running sum of the cue's informativeness gain (nats)
         self._po_n = 0.0             # its effective count
         self._sp_offset: Dict[str, np.ndarray] = {}
@@ -330,6 +331,20 @@ class EntityPriorCategories(LexicalCategories):
         self._prec_dirty = True
 
     # -------------------------------------------------------------- the document boundary
+    def _log_entc_novel(self):
+        """log P(E | c) over the NOVEL-FORM stratum only -- the population the cue is actually read on."""
+        cached = getattr(self, "_lec_novel", None)
+        if cached is not None:
+            return cached
+        syms = sorted({x for c in self.entc_u.values() for x in c}) or list(self.ent_syms)
+        V = max(1, len(syms))
+        out = {}
+        for t in self.tags:
+            tt = sum(self.entc_u[t].values()) + self.lam * V
+            out[t] = {x: math.log((self.entc_u[t][x] + self.lam) / tt) for x in syms}
+        self._lec_novel = out
+        return out
+
     def online_precision(self) -> float:
         """PATH 6. PRECISION IS THE INVERSE VARIANCE OF THE CUE'S OWN RECENT PREDICTION ERROR, ESTIMATED ONLINE
         (Friston; Feldman & Friston 2010, attention as precision) -- not a constant, and not frozen at training
@@ -368,6 +383,15 @@ class EntityPriorCategories(LexicalCategories):
         # The right quantity is how much the symbol moves the belief TOWARD the organ's settled answer relative to
         # knowing nothing: q(c) proportional to P(E | c) * prior(c), and gain = log q(c*) - log prior(c*). That is
         # zero for an uninformative symbol and positive exactly when the cue helps.
+        # AND THE TABLE USED TO SCORE THE GAIN MUST DESCRIBE THE POPULATION THE CUE IS READ ON. The precision can
+        # only be estimated on KNOWN tokens (the reader can check itself nowhere else), but the cue is READ on
+        # UNKNOWN ones, and those two populations differ systematically -- the same known/unknown law that broke
+        # the passage register (12d-bis) and the passage-local entity table (12e). MEASURED with the whole-
+        # vocabulary table: precision 0.586 on GUM against 0.493 on GENTLE, nowhere near enough separation to
+        # switch a cue off that is CI-separated NEGATIVE on GENTLE. Scoring the gain against the NOVEL-FORM
+        # stratum table (`entc_u`, which is exactly the population the cue is read on, and which the organ
+        # already accrues) removes the table side of that bias.
+        self._prec_tab = self._log_entc_novel() if self.ent_prec_novel else self.log_entc
         tot = sum(self.tag_count.values())
         prior = np.array([self.tag_count[t] / max(1, tot) for t in self.tags])
         lprior = np.log(prior + 1e-12)
@@ -379,7 +403,7 @@ class EntityPriorCategories(LexicalCategories):
             sym = self._sent_syms[i]
             if sym.startswith("e_first"):
                 continue                      # no discourse evidence: nothing to score
-            row = np.array([self.log_entc[t].get(sym, self._ent_back[t]) for t in self.tags])
+            row = np.array([self._prec_tab[t].get(sym, self._ent_back[t]) for t in self.tags])
             lq = row + lprior
             lq = lq - (lq.max() + np.log(np.exp(lq - lq.max()).sum()))       # normalise over categories
             k = int(post[i].argmax())
@@ -833,6 +857,8 @@ ARMS = {
     "X5_po02_d07": dict(ent_kappa=2.0, ent_recency=5, ent_skip_first=True, ent_prec_online=0.2, ent_prec_decay=0.7),
     "X6_po02_full": dict(ent_kappa=2.0, ent_recency=5, ent_skip_first=True, ent_prec_online=0.2,
                          ent_prec_decay=1.0, theta_doc=100.0, reg_known_only=True, reg_offset=True),
+    "Y1_pon02":  dict(ent_kappa=2.0, ent_recency=5, ent_skip_first=True, ent_prec_online=0.2, ent_prec_novel=True),
+    "Y2_pon05":  dict(ent_kappa=2.0, ent_recency=5, ent_skip_first=True, ent_prec_online=0.5, ent_prec_novel=True),
 }
 
 def online_adapt(model, docs, verbose: bool = True, oracle: bool = False) -> int:
@@ -1254,6 +1280,7 @@ def build(cfg: dict, docs=None, entc_cache: Optional[dict] = None) -> EntityPrio
     m.reg_offset = bool(cfg.get("reg_offset", False))
     m.ent_prec_online = cfg.get("ent_prec_online")
     m.ent_prec_decay = float(cfg.get("ent_prec_decay", 0.9))
+    m.ent_prec_novel = bool(cfg.get("ent_prec_novel", False))
     if m.reg_offset:
         m._build_shape_offset()
     m.ent_local = cfg.get("ent_local")
