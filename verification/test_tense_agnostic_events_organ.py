@@ -40,10 +40,13 @@ def test_tense_agnostic_events_flag():
     assert os.path.exists(DOC), "missing witness doc %s" % DOC
 
     # (1) DEFAULT-OFF byte-identical: default reader == explicit tense_agnostic_events=False.
+    # 2026-09-14 (strategy): tense_agnostic_events has been DEFAULT-ON since its landing flip; the default reader is the explicit
+    # True reader (byte-identical), and explicit False is the historical stock detector used as the OFF baseline below.
     ev_default = _events(SituationReader())
     ev_off = _events(SituationReader(tense_agnostic_events=False))
-    assert ev_default == ev_off, "explicit flag=False must be byte-identical to the default reader"
-    print("[1] default-off byte-identical: %d events, identical event set" % len(ev_default))
+    ev_on_explicit = _events(SituationReader(tense_agnostic_events=True))
+    assert ev_default == ev_on_explicit, "the default reader must be byte-identical to explicit tense_agnostic_events=True (default-on)"
+    print("[1] default-on byte-identical: %d events (default == explicit True); OFF baseline %d events" % (len(ev_default), len(ev_off)))
 
     # (2) THE FLAG WIRES + lifts the detected event count through the canonical read().
     ev_on = _events(SituationReader(tense_agnostic_events=True))
