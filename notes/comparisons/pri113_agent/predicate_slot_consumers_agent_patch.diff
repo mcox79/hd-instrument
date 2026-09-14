@@ -1,8 +1,8 @@
 diff --git a/hdlab/attachment_arm.py b/hdlab/attachment_arm.py
-index e77d458..75e8b3a 100644
+index e77d458..c12346f 100644
 --- a/hdlab/attachment_arm.py
 +++ b/hdlab/attachment_arm.py
-@@ -1389,6 +1389,398 @@ def revise_for_predicate_slot(toks: Sequence[str], post, tag_names: Sequence[str
+@@ -1389,6 +1389,442 @@ def revise_for_predicate_slot(toks: Sequence[str], post, tag_names: Sequence[str
          sites.append(i)
      return (post if out is None else out), sites
  
@@ -397,18 +397,62 @@ index e77d458..75e8b3a 100644
 +    return out
 +
 +
++# ------------------------------------------------------- ONE STRUCTURE PER CLAUSE: the state reader's own pairs
++# `situation_reader._read_entity_states` detects its (HOLDER, PROPERTY) pairs with `copular_binding.robust_cop`, a
++# SECOND, independent predicate finder for the same clause.  Measured on UD-EWT test 700: where both organs name
++# the gold predicate they AGREE 97 times; where they differ the PREDICATE-SLOT read is right 20 times and the state
++# reader 9 -- so the right consolidation is a UNION (the 9 are real), not a replacement.  ONE eventuality per clause
++# whose SORT is read off the predicate's own category (Maienborn 2005) is the brain-foundational form.
++# MEASURED, board A/B with both arms back-to-back in one process, the state dimension at FULL size:
++#     state 0.7487 -> 0.7857  (+0.0370, 14 items of 378; its own floor is 0.5714)
++#     every other dimension +0.0000; aggregate 0.6290 -> 0.6359
++# and the event/state disagreements 29 -> 20, of which 9 are cases the state reader gets RIGHT, so the true
++# residual is 11 -- and its cause is `robust_cop`'s HOLDER scan, not the predicate read.
++# HDLAB_STATE_FROM_PREDICATE_SLOT=0 restores the shipped detection exactly.
++STATE_FROM_PREDICATE_SLOT = os.environ.get("HDLAB_STATE_FROM_PREDICATE_SLOT", "1") == "1"
++
++
++def state_pairs_from_slot(toks: Sequence[str], tags: Sequence[str], post, tag_names: Sequence[str]) -> set:
++    """(HOLDER, PROPERTY) pairs, 0-based, for every predicate-slot site the copular state reader would miss.
++    The HOLDER is recovered by `robust_cop`'s own rule -- the nearest nominal preceding the licensing copula -- so
++    only the PROPERTY set is consolidated and the holder logic is untouched."""
++    out = set()
++    if not STATE_FROM_PREDICATE_SLOT:
++        return out
++    lows = [t.lower() for t in toks]
++    for q in predicate_sites(toks, tags, post, tag_names):
++        if tags[q] == "VERB":
++            continue
++        c = None
++        for k in range(q - 1, max(-1, q - 8), -1):
++            if tags[k] == "AUX" and lows[k] in COP_FORMS:
++                c = k
++                break
++        start = c if c is not None else q
++        hold = None
++        for k in range(start - 1, -1, -1):
++            if tags[k] in ("NOUN", "PROPN", "PRON"):
++                hold = k
++                break
++            if tags[k] in ("VERB", "PUNCT"):
++                break
++        if hold is not None:
++            out.add((hold, q))
++    return out
++
++
 +
  def subordination(toks: Sequence[str], pos: Sequence[str], i: int) -> str:
      """SUBORDINATION CUE: the clause-dependency marking in force at 1-based i -- the nearest preceding clause opener
      (subordinator / relativizer / coordinator) with no finite predicate in between (a VERB or a sentence-final mark
-@@ -2683,7 +3075,9 @@ __all__ = ["SentenceCues", "CONSTRUCTIONS", "construction_map", "verb_frames_fro
+@@ -2683,7 +3119,9 @@ __all__ = ["SentenceCues", "CONSTRUCTIONS", "construction_map", "verb_frames_fro
             "root_cue_values", "predication_boost", "finiteness",
             "predicate_slot_occupancy", "revise_for_predicate_slot", "host_belief", "copular_available",
             "is_existential", "main_verb_carriers",
 -           "cop_predicates", "subordination", "assertion_candidates", "arc_scores", "head_posterior", "heads", "arc_scores_graded", "head_posterior_graded", "heads_graded", "SemanticBootstrapTeacher", "ASSET", "FORM"]
 +           "cop_predicates", "cop_complement", "predicate_complements", "predicate_sites",
-+           "predicate_site_carriers", "copula_tense", "arc_predicate_sites", "subordination",
-+           "assertion_candidates", "arc_scores", "head_posterior", "heads", "arc_scores_graded", "head_posterior_graded", "heads_graded", "SemanticBootstrapTeacher", "ASSET", "FORM"]
++           "predicate_site_carriers", "copula_tense", "arc_predicate_sites",
++           "state_pairs_from_slot", "subordination", "assertion_candidates", "arc_scores", "head_posterior", "heads", "arc_scores_graded", "head_posterior_graded", "heads_graded", "SemanticBootstrapTeacher", "ASSET", "FORM"]
  
  
  # ------------------------------------------------------------------------------ meaning as a read-time cue (PLAUS_CUE)
@@ -535,7 +579,7 @@ index 5638e50..244bb7e 100644
      #                                              the genitive case values, the arc-free licensor cue and the NMOD class
      if path is None:
 diff --git a/hdlab/situation_reader.py b/hdlab/situation_reader.py
-index 04b6a32..e137cea 100644
+index 04b6a32..7be04ff 100644
 --- a/hdlab/situation_reader.py
 +++ b/hdlab/situation_reader.py
 @@ -80,6 +80,7 @@ _REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -663,3 +707,22 @@ index 04b6a32..e137cea 100644
      # -- COMPETITION-MODEL AGENT (P2 wire): the AGENT competes over the TRACKED/GIVEN entities (decoupled) --
      def _cm_agent_candidates(self, n_sents):
          """Per-sentence AGENT candidate sets (the TRACKED / GIVEN coref-column nominals) + the per-cluster
+@@ -4240,6 +4314,18 @@ class SituationReader:
+             bind = set(M.extract_entity_states(toks, up_c, self._es_arc, self._es_lab, heads=heads,
+                                                head_posterior=self._cached_head_posterior(toks, up)))   # graded hand-off (2026-09-13)
+             pairs = bind | M.robust_cop(toks, up_c, heads, gate=True)
++            # ONE STRUCTURE PER CLAUSE (pri 113): the same PREDICATE SLOT the event detector fires on also supplies
++            # this reader's PROPERTY, so a clause yields ONE eventuality whose SORT is its predicate's category
++            # rather than two organs' independent answers.  Measured: state 0.7487 -> 0.7857 (+0.0370, 14 items of
++            # 378) with every other board dimension +0.0000, and the event/state disagreements 29 -> 20.
++            try:
++                from hdlab.attachment_arm import state_pairs_from_slot
++                _post = self._cached_tag_matrix(list(toks))
++                if _post is not None:
++                    from hdlab import lexical_categories as _LCs
++                    pairs = pairs | state_pairs_from_slot(list(toks), list(up_c), _post, list(_LCs.get().tags))
++            except Exception:
++                pass
+             for (h, p) in sorted(pairs):
+                 if not (0 <= h < len(toks) and 0 <= p < len(toks)):
+                     continue
