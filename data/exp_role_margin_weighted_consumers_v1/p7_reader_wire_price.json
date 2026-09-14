@@ -1,6 +1,7 @@
 {
  "dev": {
   "n": 993,
+  "label_mode_equals_arm_B": true,
   "A_reader_rank_proxy": 0.3263,
   "B_role_competition_label": 0.3615,
   "C_role_competition_decision": 0.3817,
@@ -37,6 +38,7 @@
  },
  "test": {
   "n": 596,
+  "label_mode_equals_arm_B": true,
   "A_reader_rank_proxy": 0.4564,
   "B_role_competition_label": 0.4916,
   "C_role_competition_decision": 0.5067,

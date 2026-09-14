@@ -505,3 +505,57 @@ with 8.2; the A/B between cue modes on the identical population is what this arm
 2. **Keep the cue form default-OFF.** +0.015-0.020 and not separated; the patch already defaults to `hard`.
 3. The C2 agent gate is untouched by all of this (a different population, UD-EWT, unaffected by the GUM loader).
 4. The affected-entity board row still does not exist; `--wire-price` is the instrument arm for it.
+
+---
+
+# PHASE 9 (2026-09-14, strategy landing decision) -- the WIRE gets a live mode of its own
+
+Strategy's decision: land the WIRE (arm B), keep the graded cue off. Strategy also found the gap that made that
+impossible to ship: in the applied reader patch the default `hard` computes **no** decisions
+(`decs = _decisions(...) if AER.GRADED_ROLE_CUE != "hard" else {}`), so **every non-`hard` mode was a graded
+form** and there was no live mode equal to arm B.
+
+## 9.1 `HDLAB_AER_ROLE_CUE="label"` -- arm B as a live mode
+
+Proposed as an **incremental** diff against the CURRENT working tree (the earlier patch is already applied):
+`notes/problems/<slug>/role_label_mode_patch.diff`, 18 lines added / 2 removed, `git apply --ignore-whitespace`
+checked. Three changes, all in `hdlab/affected_entity_resolver.py`:
+
+- `role_cue_terms` gains a `label` branch: the parallelism cue is `1[the organ's MAP class of the candidate ==
+  the organ's MAP class of the ANAPHOR]` and the thematic cue is `1[MAP patient]` -- the plain indicator, with no
+  graded content anywhere;
+- `EntityTokens.resolve_pronoun` takes the anaphor's class from its own decision when the mode is `label`, so the
+  reader's positional proxy (`rank2dep = {0:'nsubj', 1:'obj'}`) is **out of the loop entirely**, including on the
+  fallback path for candidates the organ never labelled;
+- the header's mode table documents it with its measured numbers.
+
+`situation_reader` needs **no** further change: its guard is `!= "hard"`, so `label` computes decisions.
+
+## 9.2 The identity assertion (the number strategy lands IS the number measured)
+
+`wire_price()` now runs a fourth arm in `"label"` mode and **asserts it is item-for-item identical to arm B**:
+
+```
+assert len(Bl) == len(B) and bool((Bl == B).all()), "label mode is NOT arm B item-for-item on %s ..."
+```
+
+It passes on **both** splits (dev n=993, test n=596), and `p7_reader_wire_price.json` now carries
+`"label_mode_equals_arm_B": true`. So the live mode and the measured arm are the same organ arithmetic:
+
+| | dev n=993 | test n=596 |
+|---|---|---|
+| A the reader's rank proxy | 0.3263 | 0.4564 |
+| **B / `label`** | **0.3615** | **0.4916** |
+| C `ppc` | 0.3817 | 0.5067 |
+| **B vs A** | **+0.0352 CI[+0.0121,+0.0574] sep** | **+0.0352 CI[+0.0050,+0.0655] sep** |
+| C vs B (graded on top) | +0.0201 n.s. | +0.0151 n.s. |
+
+## 9.3 The live reader, three modes, fixed 40-document subset
+
+The 2.6 h full-split run was mine and was stopped (`TaskStop` on my own background task; no other PID touched).
+`--live-reader` now takes `modes` and **refuses to run a mode the installed organ does not implement** (it
+inspects `role_cue_terms`' source), so `label` can never silently fall through to a graded branch. The 40-doc
+three-mode run uses the first 40 GUM test documents; because `role_label_mode_patch.diff` is not applied yet, the
+patched organ is shadow-loaded into `sys.modules` in that process only -- no repo file is touched, and
+`situation_reader` imports `affected_entity_resolver` inside `_read_affected_entity`, so the live reader picks it
+up.

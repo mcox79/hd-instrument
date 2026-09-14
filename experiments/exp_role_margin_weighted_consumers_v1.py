@@ -421,6 +421,13 @@ def cue_terms(pk, a_role, a_pk, *, mode="hard", rc=1.0, rp=1.0, a_rc=1.0, norm_g
         return (1.0 if a_role == "OTHER" else 0.0), 0.0
     if mode in ("hard", "oracle"):
         return float(pk["map_class"] == a_role), float(pk["map_patient"])
+    if mode == "label":
+        # ARM B AS A LIVE MODE (strategy 13:30): the organ's MAP label on BOTH ends of the match, with the plain
+        # indicator cue. This is the WIRE repair with no graded content at all -- the candidate's class and the
+        # ANAPHOR's class both come from the role organ, so the reader's positional rank proxy is out of the loop
+        # entirely. Asserted item-for-item against the resolver harness's arm B in wire_price().
+        want = a_pk["map_class"] if a_pk is not None else a_role
+        return float(pk["map_class"] == want), float(pk["map_patient"])
     if mode == "oracle_gate":
         g = float(pk.get("_gate", 1.0))
         return g * float(pk["map_class"] == a_role), g * float(pk["map_patient"])
@@ -456,7 +463,8 @@ def cue_terms(pk, a_role, a_pk, *, mode="hard", rc=1.0, rp=1.0, a_rc=1.0, norm_g
     return _cal_class(pk, a_role, rc), _cal_binary(pk["map_patient"], rp)
 
 
-MODES = ("hard", "relweight", "logodds", "expected", "expboth", "rawpost", "shrunk", "ppc", "logpost", "match")
+MODES = ("hard", "label", "relweight", "logodds", "expected", "expboth", "rawpost", "shrunk", "ppc",
+         "logpost", "match")
 CEILING_MODES = ("oracle", "oracle_gate")      # the arithmetic bound: a PERFECT role label in the same fusion
 
 
@@ -571,6 +579,8 @@ class RelTokens(AER.EntityTokens):
                 sal.append(a if a != float("-inf") else -1e9)
                 last = max(compat[k], key=lambda m: m[0])
                 pk, rc, rp = self.info.get((k, float(last[0])), (None, 1.0, 1.0))
+                if self.mode == "label" and a_pk is not None:
+                    a_role = a_pk["map_class"]          # the organ decides the anaphor's class too
                 rm = self.rel_match.r(min(pk["margin"], a_pk["margin"] if a_pk else 1.0)) if (
                     self.rel_match is not None and pk is not None) else 1.0
                 g, t = cue_terms(pk, a_role, a_pk, mode=self.mode, rc=rc, rp=rp, a_rc=a_rc,
@@ -1191,10 +1201,18 @@ def wire_price(maps, *, limit=None, n_boot=2000, splits=("dev", "test"), verbose
         set_deps(chain_dep)
         B = np.array([h for h, _f, _r, _m in run_affected_arm(data, info, maps, mode="hard", gamma_g=1.0,
                                                               gamma_t=1.0, targets=targets)], float)
+        Bl = np.array([h for h, _f, _r, _m in run_affected_arm(data, info, maps, mode="label", gamma_g=1.0,
+                                                               gamma_t=1.0, targets=targets)], float)
         C = np.array([h for h, _f, _r, _m in run_affected_arm(data, info, maps, mode="ppc", gamma_g=1.0,
                                                               gamma_t=1.0, targets=targets,
                                                               norm_g=ng, norm_t=nt)], float)
-        out[split] = {"n": int(len(A)),
+        # THE LIVE MODE MUST BE THE MEASURED ARM: HDLAB_AER_ROLE_CUE="label" reads the organ's MAP class on both
+        # ends of the match; arm B reaches the same cue through the overlaid deprels. They must agree item for item,
+        # or the number strategy lands is not the number this cell measured.
+        assert len(Bl) == len(B) and bool((Bl == B).all()), (
+            "label mode is NOT arm B item-for-item on %s (%d of %d differ)"
+            % (split, int((Bl != B).sum()), len(B)))
+        out[split] = {"n": int(len(A)), "label_mode_equals_arm_B": True,
                       "A_reader_rank_proxy": round(float(A.mean()), 4),
                       "B_role_competition_label": round(float(B.mean()), 4),
                       "C_role_competition_decision": round(float(C.mean()), 4),
@@ -1246,19 +1264,24 @@ def _gum_doc_to_conll_rows(doc):
     return rows
 
 
-def live_reader_ab(n_docs=None, n_boot=2000, verbose=True):
-    """A/B the LIVE reader's affected-entity read under the two role-cue modes on the GUM test split."""
-    import importlib
+def live_reader_ab(n_docs=None, n_boot=2000, verbose=True, modes=("hard", "label", "ppc")):
+    """A/B the LIVE reader's affected-entity read under each role-cue mode on the GUM test split (first n_docs).
+    "label" is the WIRE repair with no graded content (the organ's MAP class on both ends of the match); it needs
+    the role_label_mode_patch applied, and this refuses to run it silently against an organ that lacks it."""
+    import inspect
     import hdlab.situation_reader as HSR
     import hdlab.affected_entity_resolver as AER
     import experiments.exp_affected_entity_salience_prior_gum_v1 as B1
+    src = inspect.getsource(AER.role_cue_terms)
+    modes = tuple(m for m in modes
+                  if m == "hard" or ('"%s"' % m) in src or ("'%s'" % m) in src)
     docs = B1._load_test(None)
     if n_docs:
         docs = docs[:n_docs]
-    out = {"n_docs": len(docs), "mode_results": {}}
+    out = {"n_docs": len(docs), "modes_run": list(modes), "mode_results": {}}
     per_mode = {}
     errors = []
-    for mode in ("hard", "ppc"):
+    for mode in modes:
         AER.GRADED_ROLE_CUE = mode
         hits, keys = [], []
         t0 = time.time()
@@ -1300,21 +1323,20 @@ def live_reader_ab(n_docs=None, n_boot=2000, verbose=True):
             print("  [live] %s: n=%d acc=%.4f (%.0fs)"
                   % (mode, len(hits), (float(np.mean(hits)) if hits else float("nan")), time.time() - t0), flush=True)
     AER.GRADED_ROLE_CUE = "hard"
-    h_hits, h_keys = per_mode["hard"]
-    p_hits, p_keys = per_mode["ppc"]
     out["errors"] = errors[:10]
     out["n_errors"] = len(errors)
-    if h_keys == p_keys and h_hits:
-        out["hard"] = round(float(np.mean(h_hits)), 4)
-        out["ppc"] = round(float(np.mean(p_hits)), 4)
-        out["ppc_vs_hard"] = _paired(h_hits, p_hits, n_boot=n_boot)
-        out["n_items"] = len(h_hits)
-    else:
-        out["hard"] = round(float(np.mean(h_hits)), 4) if h_hits else None
-        out["ppc"] = round(float(np.mean(p_hits)), 4) if p_hits else None
-        out["note"] = ("the two modes produced DIFFERENT item sets (%d vs %d) -- the reader's affected-entity "
-                       "record set is itself cue-dependent, so a paired CI over a fixed population is not "
-                       "available from this arm" % (len(h_hits), len(p_hits)))
+    h_hits, h_keys = per_mode["hard"]
+    out["n_items"] = len(h_hits)
+    for mode in modes:
+        hits, keys = per_mode[mode]
+        out[mode] = round(float(np.mean(hits)), 4) if hits else None
+        if mode != "hard":
+            if keys == h_keys and hits:
+                out["%s_vs_hard" % mode] = _paired(h_hits, hits, n_boot=n_boot)
+            else:
+                out["%s_vs_hard" % mode] = {"note": "item sets differ (%d vs %d): the reader's affected-entity "
+                                                    "record set is itself cue-dependent, so no paired CI"
+                                                    % (len(hits), len(h_hits))}
     return out
 
 def run(smoke=False, n_boot=2000, verbose=True):
