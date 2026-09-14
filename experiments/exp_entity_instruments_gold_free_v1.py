@@ -40,14 +40,24 @@ THE GOLD-FREE REPLACEMENTS, ORGAN BY ORGAN (every one already live in the substr
                categories + surface commas, instead of the gold `appos` / `cop` arcs.
 
 ARMS (all on the SAME GUM documents; `--arms a,b,c`):
-    gold        the board exactly as it stands today (every gold column)     [reproduces 0.4681 / 0.5671]
-    caps        name/common from `coref.name_content_tokens` (capitalisation) -- what the LIVE reader does
-    cat         name/common from the live category organ; every OTHER column still gold [isolates the rung]
-    gf          FULL gold-free: categories + head + lemma + gender/number + positional roles
-    gf_isa      gf + the gold-free construction is-a detector (the quality push)
-    gf_wire     gf_isa + pri 104's SHIPPED forward wire (`name_content_tokens(span, upos=...)`) as the typer
-    gf_twin     THE WITNESS: cols 2/3/4/5/6/7 SCRAMBLED inside each document, then the gf layer applied.
-                Must be BYTE-IDENTICAL to `gf` -- that is the proof no gold column is read at decision time.
+    gold          the board exactly as it stands today (every gold column)   [reproduces 0.4681 / 0.5671]
+    gold_noisa    gold with the in-text is-a seed off -- is that seed load-bearing at all?
+    caps          name/common from `coref.name_content_tokens` (capitalisation) -- what the LIVE reader does
+    cat           name/common from the live category organ; every OTHER column still gold [the rung alone]
+    gf            gold-free v1: organ categories + plain head-final head + morphy lemma + closed-class
+                  gender/number + one-verb-per-sentence roles
+    gf2           gold-free v2 (THE INSTRUMENT): + the NP-RUN head, the per-predicate word-order role cue,
+                  and the dual-route number
+    gf3           gf2 + the dual-route LEMMA (measured null -- see SOLVED section 5c)
+    gf2_isa       gf2 + the gold-free construction is-a detector;  gf2_isa2 = its strict (precision) variant
+    gf2_wire      gf2 + pri 104's SHIPPED forward wire as the typer
+    gf2_wire2     the wire given the FIRST NOMINAL DOMAIN instead of the whole span (the head-domain fix)
+    gf2tau30/50/70  type by the category organ's PROPN posterior MASS at that threshold (the phase diagram)
+    gf2+upos | +lemma | +feats | +head | +deprel   HOLD-ONE-GOLD: gf2 with exactly one gold column handed
+                  back -- the signal-loss trace, in margin units
+    <arm>_twin    THE WITNESS: cols 2/3/4/5/6/7 SCRAMBLED inside each document, then that arm's layer
+                  applied. Must be BYTE-IDENTICAL to the arm -- the proof no gold column is read.
+    --drop-scrubbed   exclude the 18 GUM_reddit_* documents whose FORM column is redacted to underscores.
 
 Glass-box; no external LLM, no spaCy, no nltk at inference. ASCII. Own output dir.
 Run: .venv/Scripts/python.exe experiments/exp_entity_instruments_gold_free_v1.py --witness
@@ -206,6 +216,24 @@ _NP_BREAK = ("ADP", "CCONJ", "SCONJ", "VERB", "AUX", "PART")
 _REL = frozenset({"who", "whom", "whose", "which", "that"})
 
 
+def np_domain(span, pred):
+    """The FIRST nominal domain of a mention span: everything up to the preposition / coordinator /
+    relative marker / comma that opens a new one. `the environments identified by Quilis` -> `the
+    environments`; `the National Library of the Netherlands` -> `the National Library`."""
+    toks = list(span)
+    cut, seen = len(toks), False
+    for i, t in enumerate(toks):
+        c = pred.get(t.gidx, "X")
+        low = t.form.lower()
+        if c in NOMINAL:
+            seen = True
+            continue
+        if seen and (c in _NP_BREAK or c == "PUNCT" or low in _REL):
+            cut = i
+            break
+    return toks[:cut] or list(span)
+
+
 def _head_goldfree(span, pred, np_run=False):
     """HEAD of a mention span from PREDICTED categories only.
 
@@ -240,7 +268,7 @@ def _head_goldfree(span, pred, np_run=False):
     return (nonp or span)[-1]
 
 
-def _mtype_goldfree(head, span, pred, wire=False, tau=None, prob=None):
+def _mtype_goldfree(head, span, pred, wire=False, tau=None, prob=None, npdomain=False):
     up = pred.get(head.gidx, "X")
     low = head.form.lower()
     if tau is not None and prob is not None:
@@ -257,9 +285,16 @@ def _mtype_goldfree(head, span, pred, wire=False, tau=None, prob=None):
     if up == "PRON" or (low in G.PRONOUNS_ALL and up != "PROPN"):
         return "pronoun", up
     if wire:
+        # pri 104's SHIPPED wire. `coref._span_head_is_name` carries its OWN head rule -- the last NOUN/PROPN
+        # of the WHOLE span -- so a span with a PP or a relative clause is typed by the PROPN inside the
+        # MODIFIER: `the environments identified by Quilis` -> NAME. MEASURED on 17,010 GUM test mentions:
+        # the two head rules disagree on 1,415 (8.3%) and the wire's typing differs from the NP-run-head
+        # argmax on 403 (241 common->name, 162 name->common). `npdomain` hands the wire the FIRST nominal
+        # domain instead of the whole span -- the same domain every other field of this layer uses.
         from hdlab.coref import name_content_tokens
-        forms = [t.form for t in span]
-        ups = [pred.get(t.gidx, "X") for t in span]
+        dom = np_domain(span, pred) if npdomain else list(span)
+        forms = [t.form for t in dom]
+        ups = [pred.get(t.gidx, "X") for t in dom]
         return ("name" if name_content_tokens(forms, upos=ups) else "common"), up
     return ("name" if up == "PROPN" else "common"), up
 
@@ -481,8 +516,9 @@ def apply_arm(docs, arm, gaz):
                 mt = G._mention_type(head, span)
                 up = head.upos
             else:
-                mt, up = _mtype_goldfree(head, span, pred, wire=base.endswith("_wire"),
-                                         tau=tau, prob=_PROB_CACHE.get(d.docid))
+                mt, up = _mtype_goldfree(head, span, pred, wire=("_wire" in base),
+                                         tau=tau, prob=_PROB_CACHE.get(d.docid),
+                                         npdomain=base.endswith("_wire2"))
             m.head_g = head.gidx
             m.upos = up
             m.mtype = mt

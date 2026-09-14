@@ -51,7 +51,64 @@
      out.sort(key=lambda m: (m["gtok_start"], m["gtok_end"]))
      for i, m in enumerate(out):
          m["midx"] = i
-@@ -494,8 +513,11 @@
+@@ -365,12 +384,39 @@
+ _NOMINAL_HEADS = ("NOUN", "PROPN")
+ 
+ 
++# A coref mention span is NOT one NP run: it carries PPs, parentheticals and relative clauses, and a
++# preposition / coordinator / relative marker / comma OPENS A NEW NOMINAL DOMAIN. Taking the last NOUN/PROPN
++# of the WHOLE span therefore types the span by a PROPN inside a MODIFIER -- "the environments identified by
++# Quilis", "a case from English", "a System Under Test ( SUT )" all came out NAME.
++# MEASURED (pri-109, 17,010 GUM test mentions): the whole-span rule and the NP-domain rule disagree on 1,415
++# spans (8.3%) and change the typing of 403 (241 common->name). Through the gold-free common-noun board row
++# the whole-span rule costs the whole margin -- -0.0074 against +0.0023 for the domain rule (+0.0020 with no
++# wire at all), while the pronoun row is identical. The head DOMAIN is the fix, not the head direction.
++_NP_BREAK = ("ADP", "CCONJ", "SCONJ", "VERB", "AUX", "PART")
++_REL_MARKERS = frozenset({"who", "whom", "whose", "which", "that"})
++
++
++def _np_domain(span_toks: List[str], upos: List[str]) -> int:
++    """Length of the FIRST nominal domain of the span (where the head lives)."""
++    seen = False
++    for i, u in enumerate(upos):
++        low = span_toks[i].lower() if i < len(span_toks) else ""
++        if u in _NOMINAL_HEADS:
++            seen = True
++            continue
++        if seen and (u in _NP_BREAK or u == "PUNCT" or low in _REL_MARKERS):
++            return i
++    return len(upos)
++
++
+ def _span_head_is_name(span_toks: List[str], upos: List[str]) -> bool:
+-    """English nominal spans are head-final: the head is the LAST NOUN/PROPN of the run (the same rule
+-    `hdlab/attachment_arm` uses for an NP run). The span is a NAME iff that head is a PROPN."""
+-    idx = [i for i, u in enumerate(upos) if u in _NOMINAL_HEADS and i < len(span_toks)]
++    """English nominal spans are head-final WITHIN the head domain: the head is the LAST NOUN/PROPN of the
++    FIRST nominal domain (the same domain boundary `hdlab/attachment_arm`'s NP_SPLIT cue uses). The span is
++    a NAME iff that head is a PROPN."""
++    n = min(_np_domain(span_toks, upos), len(span_toks), len(upos)) or min(len(span_toks), len(upos))
++    idx = [i for i in range(n) if upos[i] in _NOMINAL_HEADS]
+     if not idx:
+-        return any(u == "PROPN" for u in upos)
++        return any(u == "PROPN" for u in upos[:n])
+     return upos[idx[-1]] == "PROPN"
+ 
+ 
+@@ -393,8 +439,11 @@
+     if upos is not None and NAME_SOURCE != "caps" and len(upos) == len(span_toks):
+         if not _span_head_is_name(list(span_toks), list(upos)):
+             return []
++        # the NAME TOKENS come from the head domain too -- "the National Library of the Netherlands" is a
++        # name whose tokens are National/Library, not Netherlands (which names a different individual).
++        _n = min(_np_domain(list(span_toks), list(upos)), len(span_toks)) or len(span_toks)
+         out: List[str] = []
+-        for t, u in zip(span_toks, upos):
++        for t, u in zip(list(span_toks)[:_n], list(upos)[:_n]):
+             core = t.strip(".,'\"!?;:-()[]")
+             if not core:
+                 continue
+@@ -494,8 +543,11 @@
              e["gender"] = gender
          return e["canon"]
  
@@ -359,12 +416,12 @@
  def _content(q_tokens: List[str]) -> List[str]:
      return [t for t in q_tokens if t not in _STOP and t not in _PRONOUNS and _norm(t)]
  
-@@ -416,18 +470,25 @@
+@@ -416,18 +470,31 @@
      timeline_frames / causal_links. Returns a string answer, or None to ABSTAIN (dimension not in the
      live model). This is the proposed situation_reader query API, proven here in experiments/."""
  
 -    def __init__(self, sm: SituationModel):
-+    def __init__(self, sm: SituationModel, file_names=None):
++    def __init__(self, sm: SituationModel, file_names=None, cluster_names=None):
          self.sm = sm
          self.names = _named_clusters(sm)
 +        # GOLD-FREE ANSWER NAMING (pri-109): when the reader's own entity files are supplied, the coref
@@ -372,6 +429,11 @@
 +        # pre-2026-09-14 readout, which names the pick through its GOLD cluster (kept as the comparison arm
 +        # and marked INFORMATIONAL, because that readout reads the answer key).
 +        self.file_names = file_names
++        # `cluster_names` = `gold_cluster_names(coref_mentions)`. The historical readout named the pick
++        # through `_named_clusters(sm)`, whose keys are the ENTITY LAYER's (negative) ids and match no
++        # resolved_cluster -- so without this the informational arm answers None on every question and
++        # scores 0.0. It is a GOLD read, which is exactly why that arm is informational.
++        self.cluster_names = cluster_names
  
 -    # -- ENTITIES / coref: "who does <pron> (sent N) refer to?" -> resolved cluster name --
 +    # -- ENTITIES / coref: "who does <pron> (sent N) refer to?" -> the picked referent, named --
@@ -385,11 +447,12 @@
 +        r = self.sm.coref_resolutions[i]
 +        if self.file_names is not None:
 +            return canon_answer(getattr(r, "resolved_head", ""), self.file_names)
-+        return self.names.get(r.resolved_cluster)
++        names = self.cluster_names if self.cluster_names is not None else self.names
++        return names.get(r.resolved_cluster)
  
      # -- EVENTS / who-did-what: "who <gov_verb>ed?" -> the event's agent (gov_verb gold is a LEMMA) --
      def _answer_events(self, q: dict) -> Optional[str]:
-@@ -607,10 +668,14 @@
+@@ -607,10 +674,14 @@
      return docs[:n] if n else docs
  
  
@@ -407,7 +470,7 @@
      qs = []
      for i, r in enumerate(sm.coref_resolutions):
          if r.sent_dist < min_sent_dist:
-@@ -810,6 +875,38 @@
+@@ -810,6 +881,38 @@
      return sents
  
  
@@ -448,10 +511,11 @@
      pronoun in narrative most often refers to the protagonist, so this is a strong content-free
 --- a/verification/test_situation_model_qa.py
 +++ b/verification/test_situation_model_qa.py
-@@ -73,15 +73,31 @@
+@@ -72,16 +72,32 @@
+         sm = SituationReader(gaz=gaz).read(path)
          sents = Q._conll_sents(path)
          names = Q._named_clusters(sm)
-         qa = Q.SituationQA(sm)
+-        qa = Q.SituationQA(sm)
 -        mf = Q.floor_mostfreq_coref(mentions, names)
 +        # pri-109: the question's gold comes from the GOLD MENTION STREAM (the answer key). Naming it through
 +        # `_named_clusters(sm)` keys it in the ENTITY LAYER's own id space, which since 2026-09-09 is the
@@ -459,7 +523,8 @@
 +        # builder produced 0 questions on all 8 documents and every arm scored 0.0 by construction.
 +        gold_names = Q.gold_cluster_names(mentions)
 +        file_names = Q.reader_file_names(sm)          # the reader's OWN files -> the gold-free answer naming
-+        qa_gf = Q.SituationQA(sm, file_names=file_names)
++        qa = Q.SituationQA(sm, cluster_names=gold_names)     # the INFORMATIONAL arm, gold-named
++        qa_gf = Q.SituationQA(sm, file_names=file_names)     # THE HONEST ARM
 +        mf = Q.floor_mostfreq_coref(mentions, gold_names)
 +        mf_gf = Q.floor_mostfreq_coref_goldfree(sm)
  

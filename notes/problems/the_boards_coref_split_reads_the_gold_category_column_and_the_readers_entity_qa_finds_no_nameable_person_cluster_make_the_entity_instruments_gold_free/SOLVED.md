@@ -70,10 +70,14 @@ All 275 GUM documents, TEST = odd doc index (the board's own split), doc-paired 
 **AND THE MARGIN DECOMPOSES ALMOST EXACTLY** (readable population, so the two halves are measured on the same documents):
 
 ```
-gold, everything gold                          margin +0.0272
-  - the gold in-text is-a arcs (appos/cop)     margin +0.0129   [-0.0143]   (gf2+upos)
-  - the gold CATEGORY column                   margin +0.0020   [-0.0109]   (gf2)
+gold -- every column gold, gold appos/cop arcs            margin +0.0272
+  drop ONLY the gold is-a arcs          (gold_noisa)      margin +0.0175   [-0.0097]
+  drop lemma/head/feats/deprel too, keep gold categories  margin +0.0129   [-0.0046]   (gf2+upos)
+  drop the gold CATEGORY column as well                   margin +0.0020   [-0.0109]   (gf2)
+                                                                           -------
+                                                                           -0.0252  (exact)
 ```
+**The three steps sum to the whole margin**, and their order of size is: **the category organ (-0.0109) > the in-text is-a arcs (-0.0097) >> everything else put together (-0.0046)**.
 
 Two named repairs, in priority order: **(i) a gold-free in-text is-a detector that actually works** (mine does not -- section 6), and **(ii) a more accurate category organ**, which is pri 104 / 107 / 110's chain, not this brief's.
 
@@ -188,6 +192,12 @@ The standing rule that earned itself on 2026-09-14 07:25 is that **a diff which 
 
 Both patches were then **executed**: a meta-path loader runs the patched sources with `__file__` set to their **real repo paths**, so every `_REPO`/asset path resolves as it would after landing. **16 patched modules routed; the reader reads; `span_upos` aligns with `span_toks` on every mention; `tagger=None` leaves the mention dict byte-compatible (no `span_upos` key); `resolved_head` populated on 140/140 resolutions; the GUM organ layer types mentions and preserves the gold columns as `gold_*`.** Nothing in `hdlab/`, `tools/` or `experiments/` was written.
 
+> **AND EXECUTING IT CAUGHT A REAL BUG IN MY OWN PATCH, which is the whole point of the rule.** The first
+> run of the patched witness failed with `{'model': 0.0, 'recency': 0.335, 'mostfreq': 0.505}`: I had handed
+> the answer key to `build_coref_questions` but **not** to `SituationQA._answer_coref`, so the informational
+> arm still named the model's pick through `_named_clusters(sm)` -- the negative-id map -- and answered
+> `None` on all 200 questions. A `git apply --check` would have passed it; only running it did not.
+
 ## 10. WHY THE ONE THING THAT WORKED, WORKED -- the chain cracked and the chain not cracked
 
 **The successful improvement is the PRONOUN row surviving gold-free with its margin intact (+0.1060 -> +0.0970, still CI-separated), and the reason is that its chain is BRAIN-FOUNDATIONAL ALL THE WAY TO THE TOP:**
@@ -225,3 +235,98 @@ What keeps it PARTIAL is that **the common-noun row has no gold-free capability 
 2. **Roles from the Competition-Model role assigner** (`hdlab/graded_role_assigner.coarse_roles`) instead of the word-order cue alone. The Competition Model is word order **plus animacy plus agreement in competition**; I shipped only the word-order cue because the others need heads. Strictly more BF. *(Not touched here: pri 108 holds that file.)*
 3. **Mention DETECTION gold-free too.** This brief kept the gold mention spans, as the instrument convention -- the reader is given the sentence, so being given the mention boundaries is defensible. But a fully honest entity instrument would detect its own mentions; `referent_per_np` already does exactly that, and the gap between "typed 3,915 given spans" and "found its own referents" is the next honesty step.
 4. **Change the gold to the ability (the wall-break move).** The 18 redacted documents are the clearest case in the corpus: no reader can read `__`, so scoring on them measures nothing. The same question should be asked of the `n` shift (2,855 -> 3,915 common-noun items): the gold-free arm is being graded on ~1,000 extra items **because it typed them differently**, and a per-item paired comparison on the intersection is a strictly better instrument than a margin over two different populations.
+
+## 15. WHY pri 104's WIRE HURTS THE COMMON-NOUN ROW -- a DEFECT IN THE LANDED CAPABILITY, located
+
+The wire is **board-negative on the common-noun row** (`+0.0020 -> -0.0111`) and I did not leave that as a
+shrug. `coref._span_head_is_name` carries **its own head rule**:
+
+```python
+idx = [i for i, u in enumerate(upos) if u in _NOMINAL_HEADS and i < len(span_toks)]
+return upos[idx[-1]] == "PROPN"          # the last NOUN/PROPN of the WHOLE span
+```
+
+**But a coref mention span is not one NP run.** It contains PPs, parentheticals and relative clauses, so the
+"last NOUN/PROPN" is routinely a PROPN inside a **modifier**. Measured on the **17,010** GUM test mentions:
+
+- the NP-run head and the plain head-final head **disagree on 1,415 mentions (8.3%)**;
+- the wire's typing differs from the NP-run-head argmax on **403** -- **241 common -> name** and 162 name -> common.
+
+And the 241 are exactly the predicted class:
+
+| span | NP-run head | what the wire heads on | wire's type |
+|---|---|---|---|
+| *the environments identified by **Quilis*** | environments (NOUN) | **Quilis** | **name** |
+| *a case from **English*** | case (NOUN) | **English** | **name** |
+| *a System Under Test ( **SUT** )* | System (NOUN) | **SUT** | **name** |
+| *two scale model ( **TSM** )* | model (NOUN) | **TSM** | **name** |
+| *the National Library of the Netherlands* | **Library** (PROPN) | Amsterdam | common |
+
+**THE FIX, BUILT AND MEASURED** (readable population, all four arms in one run):
+
+| arm | COMMON-NOUN n / acc / floor / margin | COREF margin | name/common split |
+|---|---|---|---|
+| gf2 (no wire) | 3024 / 0.5417 / 0.5397 / **+0.0020** | +0.0970 | 2948 / 5653 |
+| **gf2_wire -- the wire AS SHIPPED** | 2981 / 0.5344 / 0.5418 / **-0.0074** | +0.0979 | **3027** / 5574 |
+| **gf2_wire2 -- the wire given the NP DOMAIN** | 3026 / 0.5423 / 0.5400 / **+0.0023** | +0.0970 | 2943 / 5658 |
+| gf2_isa + wire2 (both fixes) | 3026 / **0.5459** / 0.5400 / **+0.0059** | +0.0970 | 2943 / 5658 |
+
+**One line removes the whole of the damage: -0.0074 -> +0.0023.** The fix is carried in
+`entity_layer_patch.diff` (`coref._np_domain` + `_span_head_is_name`, with the name TOKENS taken from the
+domain too), and unit-checked on the five span shapes above.
+
+> **AND THE DEEPER READING, which is the one strategy should carry.** With the NP domain, the wire's typing
+> and the category organ's plain argmax differ on **5 mentions net** out of 17,010 (2943 vs 2948 names).
+> **Given the same head, `name_content_tokens(span, upos)` IS `upos[head] == "PROPN"`** -- so on this
+> instrument the wire was never going to add anything over reading the organ directly, and everything it
+> appeared to do was its head rule. **The wire's value is not on these two rows at all. It is on the LIVE
+> reader's entity stream, where the capitalisation rule is degenerate and the count goes from 0 to 150.**
+
+**This is also the honest correction to my own section 3 framing:** I reported the wire as "neutral-to-mixed";
+it is neutral-to-mixed *as shipped*, the mixed half has a located cause, and the cause is one line.
+
+## 13. EVERY COMPONENT TOUCHED, AND ITS BRAIN-FOUNDATIONAL STATUS
+
+| component | what I did with it | BF status as I found it |
+|---|---|---|
+| `hdlab/lexical_categories` via `hdlab/frontend.Tagger` | **the gold-free instrument's category source** (tags + PROPN posterior) | **BF_SPIRIT** -- count-based generative category model, graded posterior, no gradient. Name recall on mention heads **0.8182**; that number is now the common-noun row's binding constraint |
+| `hdlab/morphology` | the gold-free lemma + number, in its own dual-route mode | **BF** (Pinker/Ullman words-and-rules; glass-box morphy port, no nltk at inference) |
+| `hdlab/coref.name_content_tokens` | pri 104's landed forward wire, measured through the gold-free rows and on the live entity stream | **capability landed, NOT LIVE** -- ten unwired call sites, now in `entity_layer_patch.diff`. **Its internal head rule is plain head-final and disagrees with the NP-run head** (section 15) |
+| `hdlab/coref.EntityAliaser.assign` | widened to carry `upos` (it calls `name_content_tokens` itself) | the name-variant merger; unchanged computation |
+| `hdlab/referent_per_np` | **found the lowercasing defect**: the live entity stream cannot type a name at all (0 of 2,123) | **a DEFECT, not a design** -- the organ's name decision is degenerate on the live path |
+| `hdlab/online_entity_cluster` / `hdlab/entity_resolver` | **found the id-space defect** that emptied the entity QA (negative online ids vs positive coref ids) | **BF** (Heim file-change + Lewis-Vasishth ACT-R retrieval); the de-leak is correct -- **the INSTRUMENT was stale** |
+| `hdlab/situation_reader` | added the additive, gold-free `CorefResolution.resolved_head`; fed the tagger into both mention builders | no decision changed |
+| `hdlab/space_reader` | the fourth `parse_litbank_conll` call site, wired so no builder ships a different organ | -- |
+| `experiments/gum_coref` | **the instrument**: a `decision_source="organ"` layer; the gold columns move to `gold_*` | was **NOT_BF as an instrument** (five gold reads at decision time); the patch makes the organ arm selectable |
+| `experiments/exp_unified_referent_gum_v1.Resolver` | **not modified** -- it is the model under test; its inputs were replaced | **BF** (DRT file-change, ACT-R salience, Ariel accessibility). **Its pronoun pick survives gold-free** |
+| `experiments/exp_commonnoun_diffhead_anatomy_gum_v1._appos_copula_isa` | the gold `appos`/`cop` arcs -> a construction detector | **NOT_BF as built** (reads gold arcs); the construction detector is BF but recovers only a third |
+| `hdlab/graded_role_assigner` | **deliberately not touched** (pri 108 holds it); named as the more-BF role source in section 12 | -- |
+
+## 14. PRIORITY NEXT STEPS (for strategy)
+
+1. **Decide on the 18 redacted documents** -- one line, and it moves every published GUM number. My recommendation: exclude them and re-publish, because no reader can read `__`; report the excluded count next to every row.
+2. **Land `gum_coref_gold_free_patch.diff` and re-publish the coref / common-noun / salience rows gold-free**, retiring `0.4681` / `0.5671` into `reference_retired_claims_never_requote.md` as **gold-split** figures.
+3. **Land `entity_layer_patch.diff`** (the wire + the repaired instrument) and run the board A/B; the wire's value is on the entity stream, not on these two rows.
+4. **File the arc-labeller `appos`/`cop` lever** against pri 108's labels rung with the number attached (+0.0097 of the common-noun margin).
+5. **Do not re-sweep the PROPN posterior mass** on this row -- section 7 is a recorded negative.
+
+## SUBMISSION PROMPT
+
+```
+pri 109 -- the_boards_coref_split_reads_the_gold_category_column_and_the_readers_entity_qa_finds_no_nameable_person_cluster_make_the_entity_instruments_gold_free -- SOLVED (PARTIAL), ready for strategy.
+
+Read notes/problems/the_boards_coref_split_reads_the_gold_category_column_and_the_readers_entity_qa_finds_no_nameable_person_cluster_make_the_entity_instruments_gold_free/SOLVED.md in full, then:
+
+1. It was FIVE gold columns, not one (upos, lemma, feats, head, deprel), plus 18 GUM documents whose
+   FORM column is redacted to underscores. The scrambled-gold twin is byte-identical, so the gold-free
+   arm is proven gold-free.
+2. Publish the gold-free rows and retire the old ones: COREF 0.4681/0.3621 -> 0.4172/0.3202 (margin
+   +0.1060 -> +0.0970, STILL CI-separated -- the pronoun capability is real); COMMON-NOUN
+   0.5671/0.5412 -> 0.4891/0.4876 (margin +0.0259 CI-sep -> +0.0015 NOT separated -- the win was the
+   gold columns). SALIENCE 0.2555 -> 0.2993, neither separated.
+3. Two diffs, both `git apply --check` CLEAN and both EXECUTED end-to-end before proposal:
+   gum_coref_gold_free_patch.diff (the instrument) and entity_layer_patch.diff (pri 104's wire at all
+   ten call sites + the two mention builders + the repaired entity QA + its witness).
+4. Decide the 18 redacted documents (`load_docs` already declares `exclude_scrubbed=True` and ignores it).
+5. File the arc-labeller appos/cop lever against pri 108 with its number: +0.0097 of the common-noun margin.
+```
