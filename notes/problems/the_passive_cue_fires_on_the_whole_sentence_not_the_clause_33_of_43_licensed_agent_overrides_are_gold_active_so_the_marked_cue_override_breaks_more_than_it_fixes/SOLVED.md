@@ -745,12 +745,13 @@ its own shuffled-supports twin -- with only that function swapped:
 | arm | model | floor | twin | model - floor | passive slice n=16 | active slice n=1407 |
 |---|---|---|---|---|---|---|
 | **landed (today's board)** | **0.8271** | 0.8468 | 0.2853 | **-0.0197 CI[-0.0317,-0.0090]** | 0.1875 | 0.8344 |
-| + the pri-111 voice read only | 0.8475 | 0.8468 | 0.2853 | +0.0007 CI[-0.0068,+0.0078] | 0.1875 | 0.8550 |
-| **+ the duplicate RETIRED (thin call to the organ)** | **0.8531** | 0.8468 | 0.2853 | **+0.0063 CI[-0.0014,+0.0134]** | **0.5625** | **0.8564** |
+| + the pri-111 voice read only (all its call sites) | 0.8489 | 0.8468 | 0.2853 | +0.0021 CI[-0.0057,+0.0094] | 0.2500 | 0.8550 |
+| **+ the duplicate RETIRED (thin call to the organ)** | **0.8552** | 0.8468 | 0.2853 | **+0.0084 CI[+0.0007,+0.0157] CI-SEP** | **0.6250** | **0.8579** |
 
-The board's `who_did_what_agent` row goes from **CI-separated BELOW its own floor** to **+0.0063 above it**,
-the passive slice triples, and the active slice regress is **exactly zero**. Retirement alone (independent of
-the voice fix) is +0.0239 CI95[+0.0155,+0.0323] on the paired item bootstrap.
+The board's `who_did_what_agent` row goes from **CI-separated BELOW its own floor** to **CI-separated ABOVE
+it**, the passive slice goes 3/16 -> 10/16, and the active slice is +0.0014 above its own floor rather than
+-0.0220 below it. Retirement alone (independent of the voice fix) is +0.0239 CI95[+0.0155,+0.0323] on the
+paired item bootstrap; with the voice fix it is +0.0281 CI95[+0.0190,+0.0379].
 
 
 *(The 17.4 table above was first written from a run in which call site 2 was left SHIPPED -- see 17.6. The
