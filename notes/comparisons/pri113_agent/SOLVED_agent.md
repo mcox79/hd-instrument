@@ -962,10 +962,14 @@ is exactly the argument for consolidating it onto this signal rather than the ot
 | wic | 120 | 0.7833 | 0.7833 | **+0.0000** | -- |
 | **aggregate** | | **0.6290** | **0.6359** | **+0.0069** | |
 
-**Nothing is down anywhere and one dimension is up by 14 items, so per the coordinator's instruction the arc cue is
-now the SHIPPED DEFAULT in the diff -- and section 11j's out-of-supply sweep, run afterwards, supports that on a
-SECOND population: at the same tau the arc cue takes GUM's non-verbal clauses 0.6120 -> 0.6257 while precision moves
--0.0083 -> -0.0079, slightly BETTER, with the flat region intact** -- `HDLAB_PREDICATION_ARC_TAU=0.5`, the **middle of the flat region** rather
+> ### THIS CONCLUSION IS WITHDRAWN -- SEE 11k. The capped rows below were UNDERPOWERED; the full-size A/B shows
+> three dimensions down, and the default has been reverted to OFF.
+
+**At the capped sizes nothing is down anywhere and one dimension is up by 14 items, so per the coordinator's
+instruction the arc cue was made the SHIPPED DEFAULT -- a decision 11k reverses.** Section 11j's out-of-supply
+sweep does support the cue itself on a second population (at the same tau it takes GUM's non-verbal clauses
+0.6120 -> 0.6257 while precision moves -0.0083 -> -0.0079, slightly BETTER, with the flat region intact); what it
+cannot support is a board-level no-regress claim -- `HDLAB_PREDICATION_ARC_TAU=0.5`, the **middle of the flat region** rather
 than the recall-max point (tau 0.10 reaches 0.8802 of the 167 against tau 0.50's 0.8743; I take the flat region's
 middle because that is the choice that is not tuned to the bar, which is pri 110's own rule for the same situation).
 
@@ -984,6 +988,51 @@ strongest single result in this submission.
 15:12 and is still running at submission; it lands in
 `data/exp_nonverbal_predication_participants_agent_v1/board_ab_full.json`. It is a confirmation at larger n for the
 six dimensions that are exactly zero here, not a different question.*
+
+### 11k. THE FULL-SIZE BOARD LANDED AND DISAGREED WITH THE CAPPED ONE -- I AM REVERSING THE DEFAULT I SET
+
+The `--board-ab --full` run launched at 15:12 (every dimension uncapped, full WiC, 1000 bootstraps, both arms
+back-to-back in one process) finished. Arm B is the phase-5 operating point -- **ten constructions plus the graded
+arc cue at tau 0.5, WITHOUT the state consolidation**, which is what the cell held when the process loaded:
+
+| dimension | n | base | + predicate slot | delta |
+|---|---|---|---|---|
+| **coref** | **3145** | 0.4172 | 0.4153 | **-0.0019** (6 items) |
+| common_noun_coref | 3024 | 0.5470 | 0.5483 | +0.0013 |
+| salience | 128 | 0.2734 | 0.2734 | +0.0000 |
+| who_did_what_agent | 1423 | 0.8559 | 0.8559 | +0.0000 |
+| **who_did_what_patient** | **1255** | 0.8151 | 0.8104 | **-0.0047** (6 items) |
+| **state** | **378** | 0.7487 | 0.7460 | **-0.0027** (1 item) |
+| wic | 2038 | 0.7493 | 0.7493 | +0.0000 |
+| **aggregate** | | **0.6191** | **0.6185** | **-0.0006** |
+
+**THREE DIMENSIONS ARE DOWN. The capped A/B that I called decisive showed all seven at +0.0000 EXACTLY, and it was
+UNDERPOWERED:** those movements are 6, 6 and 1 items, and at the capped sizes (coref 504, patient 241, state 73)
+they are simply invisible. **A row of exact zeros at small n is not evidence of no effect; it is evidence that the
+instrument could not see one, and I read it as the former.**
+
+**SO I AM REVERSING THE DEFAULT I SET IN 11e.** The coordinator's condition was *"if it is not down anywhere, make
+it the shipped default"*. At full size it **is** down somewhere. `PREDICATION_ARC_TAU` goes back to **0** in the
+diff, with the reason written into the code comment rather than only here.
+
+**WHAT IS STILL TRUE, and none of it depends on the capped board:**
+- the participant instrument numbers (0.1856 -> 0.8802 in supply, 0.1230 -> 0.6257 out of supply) are unaffected --
+  they are measured on their own population with their own floor and twins;
+- **the STATE CONSOLIDATION is +0.0370 CI[+0.0186,+0.0571] at FULL size with a paired bootstrap, 14 documents
+  gained and 0 lost** -- that one was measured at n=378 with a CI from the start and it stands. Note it is *larger
+  than, and opposite in sign to,* the -0.0027 the event arm alone costs state here;
+- the arc cue's own sweeps in and out of supply stand.
+
+**WHAT STRATEGY NEEDS BEFORE LANDING ANY OF THIS ON THE BOARD'S TERMS:** a **full-size `--board-ab --full` of the
+SHIPPED configuration** -- fifteen constructions + the arc cue + the state consolidation. The run above contains
+neither the last five constructions nor the consolidation, so it is evidence about a *superseded* arm; but it is the
+only full-size evidence that exists, and it points the wrong way, so it governs until replaced. That run is
+~2 hours on a quiet machine and I am out of budget for it.
+
+**THE LESSON, stated plainly because it is the third and largest of this session's self-caught errors:** I ran the
+capped board precisely because a two-process full board is uncontrolled on this repo (pri 110 10c), and then
+over-read the capped result's precision. **The right protocol is BOTH -- the capped A/B in one process for
+control, and the full-size A/B in one process for power** -- and a decision that flips a default needs the second.
 
 ### 11f. (2ii) THE HIGGINS CUE -- the first role-side arm that does not lose
 
@@ -1232,7 +1281,7 @@ between them. Both arms of THIS run share one base, so the A/B is valid; the cro
 | 5a | the role competition's full cue set firing on them | **MET** | slot 2 -> 52, rank 5 -> 136, frame 3 -> 27 |
 | 5b | **role accuracy on the 167 up CI-separated** | **NOT MET** | best arm (Higgins) **+0.0037 CI[-0.0112,+0.0186]** |
 | 6 | the 65 seen-by-nobody down to a counted residual with reasons | **MET** | 65 -> 20; all 32 residual items adjudicated into 9 mechanisms |
-| 7 | board not down on any dimension | **MET, AND ONE DIMENSION UP CI-SEPARATED** | six dimensions +0.0000 EXACTLY, `state` **+0.0370 CI[+0.0186,+0.0571]** (14 documents gained, 0 lost), aggregate 0.6290 -> 0.6359 |
+| 7 | board not down on any dimension | **NOT MET at full size (11k)** | at FULL n the event arm is down on coref -0.0019 (6 items of 3145), who_did_what_patient -0.0047 (6 of 1255) and state -0.0027 (1 of 378), aggregate -0.0006. The capped A/B that showed seven exact zeros was UNDERPOWERED. The state CONSOLIDATION, measured at full n with a paired CI, is separately **+0.0370 CI[+0.0186,+0.0571]** |
 | 8 | **one structure per clause** | **PARTIALLY MET** | disagreements **29 -> 20**, of which **9 are cases the state reader gets RIGHT** (not defects) -> the true residual is **11 of 126** |
 
 **VERDICT: PARTIAL.** Two criteria are missed and both are missed by a small, measured, fully attributed margin.
@@ -1291,8 +1340,11 @@ agrees with its own configuration and a contrast that agrees with its configurat
   counts), not more rules. *The arc cue is not implicated in that gap -- it is not in either number -- and its own
   out-of-supply sweep, run after the correction in 11j, shows it is precision-NEUTRAL there (-0.0083 -> -0.0079)
   while adding 5 clauses. The gap is the word lists, not the governor read.*
-- **Precision.** Flat throughout (-0.0052, CI contains zero) and the added fires are 0.80-0.85 precise against the
-  shipped detector's own 0.8358. Nothing to recover.
+- **Precision.** Flat throughout on the participant instrument (-0.0052, CI contains zero) and the added fires are
+  0.80-0.85 precise against the shipped detector's own 0.8358. **But the full-size board (11k) shows the arm costing
+  6 coref items and 6 patient items**, which the participant instrument cannot see because those are different
+  consumers on different populations. **That is now the open precision question, and it is a BOARD question, not an
+  instrument one.**
 - **Roles.** **Not exhausted.** Four arms tried, the failing family closed with a number, and four live leads named
   above, one of which (the argument-population form of the Higgins cue) is a direct consequence of this session's
   own measurement.
@@ -1349,7 +1401,7 @@ in one process, state dimension at FULL size: state 0.7487 -> 0.7857 (+0.0370 CI
 CI-SEPARATED, 14 documents gained and 0 lost of 342; floor 0.5714), EVERY other dimension +0.0000,
 aggregate 0.6290 -> 0.6359. Disagreements 29 -> 20, of which 9 are the state reader
 being right, so the true residual is 11 and its cause is robust_cop's HOLDER scan, not the predicate read.
-THE SHIPPED CONFIGURATION (14 constructions + the graded arc cue at tau 0.5 + the state consolidation) IS BOARDED AND NOT DOWN ANYWHERE: six dimensions +0.0000 EXACTLY, state +0.0370, aggregate 0.6290 -> 0.6359 -- so the arc cue is the SHIPPED DEFAULT (tau 0.5, the middle of the flat region, not the recall-max point).
+THE BOARD, AND A REVERSAL I HAVE TO RECORD: a CAPPED A/B of the shipped configuration showed six dimensions +0.0000 EXACTLY with state +0.0370, and on that basis I made the arc cue the shipped default. The FULL-SIZE A/B then landed and DISAGREED -- at uncapped n the event arm is down on coref (0.4172 -> 0.4153, 6 items of 3145), who_did_what_patient (0.8151 -> 0.8104, 6 of 1255) and state (0.7487 -> 0.7460, 1 of 378), aggregate 0.6191 -> 0.6185. The capped board was UNDERPOWERED and I read its exact zeros as evidence of no effect. THE DEFAULT IS REVERTED TO OFF (11k). The state CONSOLIDATION is unaffected: it was measured at full n with a paired bootstrap from the start (+0.0370 CI[+0.0186,+0.0571], 14 documents gained and 0 lost) and is larger than, and opposite in sign to, the -0.0027 the event arm alone costs state. What strategy needs before landing on the board's terms is a FULL-SIZE --board-ab --full of the SHIPPED configuration, which the finished run does not contain.
 
 THE TENSE READER was silent on every copular clause (it fires only on Penn VB* and skips every AUX lemma). Carrying
 the tense of a non-finite predication is the copula's ONE job (Pustet 2003), so the predication inherits the

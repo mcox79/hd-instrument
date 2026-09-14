@@ -1,8 +1,8 @@
 diff --git a/hdlab/attachment_arm.py b/hdlab/attachment_arm.py
-index e77d458..19553b8 100644
+index e77d458..5beafd0 100644
 --- a/hdlab/attachment_arm.py
 +++ b/hdlab/attachment_arm.py
-@@ -1389,6 +1389,450 @@ def revise_for_predicate_slot(toks: Sequence[str], post, tag_names: Sequence[str
+@@ -1389,6 +1389,459 @@ def revise_for_predicate_slot(toks: Sequence[str], post, tag_names: Sequence[str
          sites.append(i)
      return (post if out is None else out), sites
  
@@ -372,10 +372,19 @@ index e77d458..19553b8 100644
 +#     off   0.9541  0.8370     0.8917  0.8084       +0.0012 CI[-0.0059,+0.0079]
 +# The PUREST form of the arc cue (the copula's own MAP head, no fallback chain) is WORSE at every threshold
 +# (tau 0.5: precision 0.8274 against 0.8332), so `robust_cop`'s gated fallback is carrying real signal.
-+# DEFAULT ON at tau = 0.5 -- the MIDDLE of the flat region, not the recall-max point, and it has its own board A/B:
-+# both arms back-to-back in one process with the state dimension at full size, six of seven dimensions +0.0000 and
-+# `state` +0.0370 (0.7487 -> 0.7857, n=378), aggregate 0.6290 -> 0.6359.  HDLAB_PREDICATION_ARC_TAU=0 turns it off.
-+PREDICATION_ARC_TAU = float(os.environ.get("HDLAB_PREDICATION_ARC_TAU", "0.5"))
++# DEFAULT OFF, AND THE REASON IS A REVERSAL I HAVE TO RECORD.  It was flipped ON on the strength of a CAPPED board
++# A/B in which six of seven dimensions were +0.0000 EXACTLY.  The FULL-SIZE A/B then landed and disagreed: on the
++# uncapped board the event arm is DOWN on coref (0.4172 -> 0.4153, n=3145), on who_did_what_patient
++# (0.8151 -> 0.8104, n=1255) and on state (0.7487 -> 0.7460, n=378), aggregate 0.6191 -> 0.6185.  Those movements
++# are 6, 6 and 1 items and are INVISIBLE at the capped sizes (n=504 / 241 / 73) -- i.e. the capped board was
++# UNDERPOWERED and I treated it as decisive.  The coordinator's condition for the default was "if it is not down
++# anywhere"; at full size it is down somewhere, so the condition fails and the default goes back to 0.
++# WHAT IS STILL TRUE: tau 0.5 takes the 167 from 0.8383 to 0.8743 in supply and GUM's 366 from 0.6120 to 0.6257 out
++# of supply, at a participant-precision delta whose CI contains zero in supply and is unchanged out of it.
++# WHAT IS NEEDED TO TURN IT ON: a FULL-SIZE `--board-ab --full` of the SHIPPED configuration (constructions + arc
++# cue + the state consolidation, which the full run above did NOT include and which is itself +0.0370
++# CI[+0.0186,+0.0571] on state).  Set HDLAB_PREDICATION_ARC_TAU=0.5 to measure it.
++PREDICATION_ARC_TAU = float(os.environ.get("HDLAB_PREDICATION_ARC_TAU", "0"))
 +
 +
 +def arc_predicate_sites(toks: Sequence[str], tags: Sequence[str], heads, head_posterior, tau: float = None) -> dict:
@@ -453,7 +462,7 @@ index e77d458..19553b8 100644
  def subordination(toks: Sequence[str], pos: Sequence[str], i: int) -> str:
      """SUBORDINATION CUE: the clause-dependency marking in force at 1-based i -- the nearest preceding clause opener
      (subordinator / relativizer / coordinator) with no finite predicate in between (a VERB or a sentence-final mark
-@@ -2683,7 +3127,9 @@ __all__ = ["SentenceCues", "CONSTRUCTIONS", "construction_map", "verb_frames_fro
+@@ -2683,7 +3136,9 @@ __all__ = ["SentenceCues", "CONSTRUCTIONS", "construction_map", "verb_frames_fro
             "root_cue_values", "predication_boost", "finiteness",
             "predicate_slot_occupancy", "revise_for_predicate_slot", "host_belief", "copular_available",
             "is_existential", "main_verb_carriers",
@@ -465,7 +474,7 @@ index e77d458..19553b8 100644
  
  # ------------------------------------------------------------------------------ meaning as a read-time cue (PLAUS_CUE)
 diff --git a/hdlab/graded_role_assigner.py b/hdlab/graded_role_assigner.py
-index 5638e50..244bb7e 100644
+index f090956..98a864e 100644
 --- a/hdlab/graded_role_assigner.py
 +++ b/hdlab/graded_role_assigner.py
 @@ -43,6 +43,7 @@ __bf_note__ = "2026-09-14 pri108 NMOD CLASS + CUE SET v4 (self-gated on the asse
