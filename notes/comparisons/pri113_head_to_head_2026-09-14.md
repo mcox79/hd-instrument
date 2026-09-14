@@ -108,3 +108,36 @@ fast and recorded its own errors; the owner reached rungs no agent brief would h
 not name them. The program should keep both: agents for the bounded measurement with controls, the owner for the
 cross-rung diagnosis -- and briefs should ask for the upstream trace explicitly, since the agent stayed inside the
 remit it was given.
+
+## 7. How the owner pushed (from the owner's session transcript, read 2026-09-14 19:45; times UTC-4)
+
+Seventeen pushes between 13:45 and 19:21, none containing domain content, each escalating: "aggressive research --
+fully understand what happened, and the real path to improvement"; "how do we perform vs the brain and where along the
+chain are we losing signal? opportunities? walls to drill?" (asked twice); "implement all, right not easy, research all
+walls again"; "push on those limits and prototype your way past them all"; "how are we compared to the brain now, each
+part of the chain? how does this one component perform now vs when we started?"; "the only thing between here and
+brain level is landing the wiring? we'll be at brain performance if we do that???"; "prototype a fix for binding
+capture and the heads rung -- they seem underperforming"; "are heuristics brain foundational? we need to be fully BF in
+implementation"; "did you implement all the other fixes too? another evaluation of where you're losing signal, another
+round of research on the remaining walls"; "remember the brain never does anything frozen"; "we still seem to be
+significantly underperforming state of the art -- remaining walls, research overcoming them glass-box"; "also look at
+what parser work we've done to date -- any wins there"; "some of those results could be false negatives"; "do it all,
+blast through these walls"; "prototype all the fixes"; "keep working -- other walls?"; "research the differences between
+our performance at all of these steps and state of the art; I do not think we've done all we can"; then finalize.
+
+Each push maps to a section of the owner's report the agent's report does not have (the SOTA gap 23/30, the parser
+wins 24, the false-negative audit 25, the plasticity section 21, the heuristics-are-not-BF section 17, the "wiring is
+necessary not sufficient" section 16). The pushes are reproducible: they are now phase 5b of
+`tools/solver_agent_prompt.py` (the owner's push script), so an agent run gets them by default.
+
+## 8. Should the owner keep running problems?
+
+Recommendation: yes, occasionally, and deliberately -- not as the default. The agent program is faster (2.4 h vs
+5.5 h), better controlled (every number with a twin or matched control, errors self-caught), and now carries the
+owner's push script. What the owner's run added that no agent brief would have asked for was the cross-rung
+diagnosis and the architectural reframe, and both came from pushes that ignored the brief's remit. Two uses remain
+worth the owner's time: (1) once a week, one problem run blind against an agent on the same brief, to check that the
+push script still produces the same reach (this comparison is the baseline); (2) any brief strategy marks
+ARCHITECTURAL / CROSS-RUNG, where the deliverable is a reframe rather than a measured landing. Everything else runs
+as an agent. Cost note: the opus weekly limit hit on 2026-09-14 caps agent runs until Thursday 18 September 8 pm; if
+the owner's session draws on the same quota, an owner run is not free either.
