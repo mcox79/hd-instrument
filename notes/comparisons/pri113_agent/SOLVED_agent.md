@@ -945,87 +945,6 @@ Named examples where the slot read is right and the state reader silent: `maker`
 complex-locative constructions this brief added -- **the state reader has no construction knowledge at all**, which
 is exactly the argument for consolidating it onto this signal rather than the other way round.
 
-### 11h. FOUR MORE CONSTRUCTIONS, FROM 11a's OWN TABLE -- and the headline moves
-
-11a named four residual classes as reachable at this rung. All four were built, and all four are the same kind of
-stored form-meaning knowledge as the first ten:
-
-- **(wh)** a WH-form is the predicate of an identificational copular clause -- *"Which is WHY he didn't say it"*,
-  *"that is HOW i want you to refer to me"*. The class scan walked past the wh-word to a later nominal.
-- **(cl)** **a predicable complement CLOSES the copula's verb group**: a VERB after it opens the complement's own
-  clause -- *"I am SURE you 've already GONE"*, *"it is IMPORTANT we do this"*. The same locality argument as
-  `_COP_STOP`, one step further. Before this the scan found `gone` and refused the copula entirely.
-- **(sym)** a PRICE or a CODE predicates -- *"someplace that is like $ 30 an entree"*, *"is # 365013"*.
-- **(paren)** a parenthetical is neither the complement nor the end of the clause -- *"This statement is , despite
-  its facade of fair - mindedness , so many weasel words ."* The aside is SKIPPED comma-to-comma, so the scan
-  neither stops at it nor wanders into it. `copular_available` already crosses this boundary (pri 110 10b); the
-  complement scan did not.
-
-A **fifteenth** was built after the phase-7 table below and is worth **exactly zero** on this population, and is
-kept anyway because it is a fact about phrase structure rather than a rule fitted to this gold: **(dp2)** a
-determiner after the head opens a NEW nominal (Abney 1987's DP, the rule the verb-group scan already uses), so the
-NP run must stop before the second `the` in *"that 's the WAY the greatest bear market worked"*. Reported as zero.
-
-**THE SHIPPED POINT MOVES (UD-EWT test 700, same instrument, same floor, three fresh twin seeds):**
-
-| arm | recall | precision | F1 | **on the 167** | fires |
-|---|---|---|---|---|---|
-| FLOOR -- the live reader as shipped | 0.8176 | 0.8358 | 0.8266 | **0.1856** | 1090 |
-| ten constructions (the phase-5 point) | 0.9541 | 0.8370 | 0.8917 | 0.8084 | 1233 |
-| **fourteen constructions** | **0.9606** | **0.8356** | **0.8938** | **0.8383** | 1241 |
-| **fourteen + the graded arc cue, tau 0.10** | **0.9698** | 0.8305 | 0.8948 | **0.8802** | 1257 |
-| fourteen + the graded arc cue, tau 0.50 | 0.9685 | 0.8317 | **0.8949** | 0.8743 | 1254 |
-
-- surface only: recall **+0.1430 CI[+0.1181,+0.1667]**, precision **-0.0002 CI[-0.0079,+0.0072]** -- flat.
-- twins (3 seeds, matched fire count): recall 0.8307 / 0.8320 / 0.8360, precision 0.7438 / 0.7462 / 0.7470;
-  beaten CI-separated on **both** (recall +0.125 to +0.130, precision +0.089 to +0.092).
-- with the arc cue the whole region tau 0.05-0.90 has a precision delta whose CI **includes zero**
-  (-0.0066 to -0.0030) while the 167 runs 0.8623-0.8802 -- still flat, still not a tuned knob.
-
-**So the bar's 0.90 is missed by FOUR CLAUSES of 167** (147 reached at tau 0.10). And 11a's table says **10 of the
-167 are provably not reachable at this rung** (5 upstream chain mis-tags, 5 clauses that are not copular in the gold
-tree at all). **On the 157 that ARE reachable here, the arm reaches 147 = 0.9363.** I report that as the honest
-decomposition, not as the bar being met: the bar is stated over all 167 and over all 167 the number is 0.8802.
-
-### 11i. ALL FOURTEEN CONSTRUCTIONS, ABLATED ONE AT A TIME -- and two more zeros, and another interaction
-
-Each row adds ONE construction to the row above, on the participant instrument, UD-EWT test 700:
-
-| arm | recall | precision | F1 | **on the 167** | added-fire precision |
-|---|---|---|---|---|---|
-| shipped `cop_predicates` | 0.9357 | 0.8262 | 0.8775 | 0.7246 | 0.7518 |
-| + LOCATION | 0.9344 | 0.8260 | 0.8769 | 0.7186 | 0.7500 |
-| + CLAUSE-LOCAL | 0.9344 | 0.8287 | 0.8784 | 0.7186 | 0.7721 |
-| + INVERSION | 0.9396 | 0.8354 | 0.8844 | 0.7425 | 0.8321 |
-| + DP (NP-internal participle) | 0.9449 | 0.8333 | 0.8856 | 0.7665 | 0.8143 |
-| + LOCATIVE INVERSION | 0.9514 | 0.8374 | 0.8908 | 0.7964 | 0.8500 |
-| + RIGHT-HAND HEAD RULE | 0.9528 | 0.8375 | 0.8914 | 0.8024 | 0.8511 |
-| + COMPLEX LOCATIVE | 0.9528 | 0.8375 | 0.8914 | **0.8024 (+0.0000)** | 0.8511 |
-| + LEFT-FRONTED PREDICATE | 0.9528 | 0.8375 | 0.8914 | **0.8024 (+0.0000)** | 0.8511 |
-| + ELLIPSIS (stranded) | 0.9541 | 0.8370 | 0.8917 | 0.8084 | 0.8462 |
-| + WH PREDICATE | 0.9541 | 0.8370 | 0.8917 | **0.8084 (+0.0000)** | 0.8462 |
-| + COMPLEMENT-CLAUSE LOCALITY | 0.9580 | 0.8354 | 0.8925 | **0.8263 (+0.0179)** | 0.8322 |
-| + SYM / INTJ | 0.9580 | 0.8354 | 0.8925 | **0.8263 (+0.0000)** | 0.8322 |
-| + PARENTHETICAL | **0.9606** | **0.8356** | **0.8938** | **0.8383 (+0.0120)** | 0.8344 |
-| (+ dp2, the second-determiner stop) | 0.9606 | 0.8356 | 0.8938 | **0.8383 (+0.0000)** | 0.8344 |
-| FLOOR -- the live reader as shipped | 0.8176 | 0.8358 | 0.8266 | **0.1856** | -- |
-
-**FIVE of the fifteen are worth EXACTLY ZERO on this population and all five are reported as zero.** Only
-COMPLEMENT-CLAUSE LOCALITY (+3 clauses) and PARENTHETICAL (+2) pay among the phase-7 four.
-
-**AND THERE IS A SECOND CONSTRUCTION INTERACTION, the same shape as LOCATION/FRONTED.** The WH-PREDICATE branch is
-inert on its own (+0.0000) and the COMPLEMENT-CLAUSE row that follows it jumps **+3 clauses**, more than the two
-`sure` items that row was built for. The reason is structural: **a wh-predicate is almost always followed by its
-own clause** (*"Which is WHY he didn't say it"*, *"that is HOW i want you to refer to me"*), so until a predicable
-complement closes the copula's verb group, the scan runs into `say` / `want` and refuses the copula outright. The
-wh branch cannot fire until the locality branch exists. **Two constructions, one system -- twice in one study.**
-
-*Method note, recorded because it bit me: in the run that produced this table the LEFT-FRONTED row initially
-inherited the four phase-7 constructions' defaults instead of switching them off, and reported 0.8323 -- a number
-for "everything except ellipsis", not for left-fronting. The row is corrected in the cell and the value above is
-LEFT-FRONTED's own, measured when the four did not yet exist. **A cumulative ablation has to switch OFF everything
-below it as well as ON everything above it**, and a row that silently inherits a default is a mislabelled arm.*
-
 ### 11e. (2i) THE GRADED ARC CUE'S BOARD A/B
 
 **THE SHIPPED CONFIGURATION, BOARDED.** Both arms back-to-back in ONE process, the state dimension at FULL size
@@ -1087,6 +1006,87 @@ bucket is only 22 items. So the distinction is real and the classifier fires on 
 copular clause it does not separate the roles**. Where it should pay is the decision *"is the post-copular nominal
 an ARGUMENT at all?"* -- which is a question about the argument POPULATION (`is_arg_head`), not about the role of a
 token already in it. **That is the next form to try and it is a different edit.**
+
+### 11h. FOUR MORE CONSTRUCTIONS, FROM 11a's OWN TABLE -- and the headline moves
+
+11a named four residual classes as reachable at this rung. All four were built, and all four are the same kind of
+stored form-meaning knowledge as the first ten:
+
+- **(wh)** a WH-form is the predicate of an identificational copular clause -- *"Which is WHY he didn't say it"*,
+  *"that is HOW i want you to refer to me"*. The class scan walked past the wh-word to a later nominal.
+- **(cl)** **a predicable complement CLOSES the copula's verb group**: a VERB after it opens the complement's own
+  clause -- *"I am SURE you 've already GONE"*, *"it is IMPORTANT we do this"*. The same locality argument as
+  `_COP_STOP`, one step further. Before this the scan found `gone` and refused the copula entirely.
+- **(sym)** a PRICE or a CODE predicates -- *"someplace that is like $ 30 an entree"*, *"is # 365013"*.
+- **(paren)** a parenthetical is neither the complement nor the end of the clause -- *"This statement is , despite
+  its facade of fair - mindedness , so many weasel words ."* The aside is SKIPPED comma-to-comma, so the scan
+  neither stops at it nor wanders into it. `copular_available` already crosses this boundary (pri 110 10b); the
+  complement scan did not.
+
+A **fifteenth** was built after the phase-7 table below and is worth **exactly zero** on this population, and is
+kept anyway because it is a fact about phrase structure rather than a rule fitted to this gold: **(dp2)** a
+determiner after the head opens a NEW nominal (Abney 1987's DP, the rule the verb-group scan already uses), so the
+NP run must stop before the second `the` in *"that 's the WAY the greatest bear market worked"*. Reported as zero.
+
+**THE SHIPPED POINT MOVES (UD-EWT test 700, same instrument, same floor, three fresh twin seeds):**
+
+| arm | recall | precision | F1 | **on the 167** | fires |
+|---|---|---|---|---|---|
+| FLOOR -- the live reader as shipped | 0.8176 | 0.8358 | 0.8266 | **0.1856** | 1090 |
+| ten constructions (the phase-5 point) | 0.9541 | 0.8370 | 0.8917 | 0.8084 | 1233 |
+| **fourteen constructions** | **0.9606** | **0.8356** | **0.8938** | **0.8383** | 1241 |
+| **fourteen + the graded arc cue, tau 0.10** | **0.9698** | 0.8305 | 0.8948 | **0.8802** | 1257 |
+| fourteen + the graded arc cue, tau 0.50 | 0.9685 | 0.8317 | **0.8949** | 0.8743 | 1254 |
+
+- surface only: recall **+0.1430 CI[+0.1181,+0.1667]**, precision **-0.0002 CI[-0.0079,+0.0072]** -- flat.
+- twins (3 seeds, matched fire count): recall 0.8307 / 0.8320 / 0.8360, precision 0.7438 / 0.7462 / 0.7470;
+  beaten CI-separated on **both** (recall +0.125 to +0.130, precision +0.089 to +0.092).
+- with the arc cue the whole region tau 0.05-0.90 has a precision delta whose CI **includes zero**
+  (-0.0066 to -0.0030) while the 167 runs 0.8623-0.8802 -- still flat, still not a tuned knob.
+
+**So the bar's 0.90 is missed by FOUR CLAUSES of 167** (147 reached at tau 0.10). And 11a's table says **10 of the
+167 are provably not reachable at this rung** (5 upstream chain mis-tags, 5 clauses that are not copular in the gold
+tree at all). **On the 157 that ARE reachable here, the arm reaches 147 = 0.9363.** I report that as the honest
+decomposition, not as the bar being met: the bar is stated over all 167 and over all 167 the number is 0.8802.
+
+### 11i. ALL FIFTEEN CONSTRUCTIONS, ABLATED ONE AT A TIME -- and two more zeros, and another interaction
+
+Each row adds ONE construction to the row above, on the participant instrument, UD-EWT test 700:
+
+| arm | recall | precision | F1 | **on the 167** | added-fire precision |
+|---|---|---|---|---|---|
+| shipped `cop_predicates` | 0.9357 | 0.8262 | 0.8775 | 0.7246 | 0.7518 |
+| + LOCATION | 0.9344 | 0.8260 | 0.8769 | 0.7186 | 0.7500 |
+| + CLAUSE-LOCAL | 0.9344 | 0.8287 | 0.8784 | 0.7186 | 0.7721 |
+| + INVERSION | 0.9396 | 0.8354 | 0.8844 | 0.7425 | 0.8321 |
+| + DP (NP-internal participle) | 0.9449 | 0.8333 | 0.8856 | 0.7665 | 0.8143 |
+| + LOCATIVE INVERSION | 0.9514 | 0.8374 | 0.8908 | 0.7964 | 0.8500 |
+| + RIGHT-HAND HEAD RULE | 0.9528 | 0.8375 | 0.8914 | 0.8024 | 0.8511 |
+| + COMPLEX LOCATIVE | 0.9528 | 0.8375 | 0.8914 | **0.8024 (+0.0000)** | 0.8511 |
+| + LEFT-FRONTED PREDICATE | 0.9528 | 0.8375 | 0.8914 | **0.8024 (+0.0000)** | 0.8511 |
+| + ELLIPSIS (stranded) | 0.9541 | 0.8370 | 0.8917 | 0.8084 | 0.8462 |
+| + WH PREDICATE | 0.9541 | 0.8370 | 0.8917 | **0.8084 (+0.0000)** | 0.8462 |
+| + COMPLEMENT-CLAUSE LOCALITY | 0.9580 | 0.8354 | 0.8925 | **0.8263 (+0.0179)** | 0.8322 |
+| + SYM / INTJ | 0.9580 | 0.8354 | 0.8925 | **0.8263 (+0.0000)** | 0.8322 |
+| + PARENTHETICAL | **0.9606** | **0.8356** | **0.8938** | **0.8383 (+0.0120)** | 0.8344 |
+| (+ dp2, the second-determiner stop) | 0.9606 | 0.8356 | 0.8938 | **0.8383 (+0.0000)** | 0.8344 |
+| FLOOR -- the live reader as shipped | 0.8176 | 0.8358 | 0.8266 | **0.1856** | -- |
+
+**FIVE of the fifteen are worth EXACTLY ZERO on this population and all five are reported as zero.** Only
+COMPLEMENT-CLAUSE LOCALITY (+3 clauses) and PARENTHETICAL (+2) pay among the phase-7 four.
+
+**AND THERE IS A SECOND CONSTRUCTION INTERACTION, the same shape as LOCATION/FRONTED.** The WH-PREDICATE branch is
+inert on its own (+0.0000) and the COMPLEMENT-CLAUSE row that follows it jumps **+3 clauses**, more than the two
+`sure` items that row was built for. The reason is structural: **a wh-predicate is almost always followed by its
+own clause** (*"Which is WHY he didn't say it"*, *"that is HOW i want you to refer to me"*), so until a predicable
+complement closes the copula's verb group, the scan runs into `say` / `want` and refuses the copula outright. The
+wh branch cannot fire until the locality branch exists. **Two constructions, one system -- twice in one study.**
+
+*Method note, recorded because it bit me: in the run that produced this table the LEFT-FRONTED row initially
+inherited the four phase-7 constructions' defaults instead of switching them off, and reported 0.8323 -- a number
+for "everything except ellipsis", not for left-fronting. The row is corrected in the cell and the value above is
+LEFT-FRONTED's own, measured when the four did not yet exist. **A cumulative ablation has to switch OFF everything
+below it as well as ON everything above it**, and a row that silently inherits a default is a mislabelled arm.*
 
 ### 11g. (2iii) ONE STRUCTURE PER CLAUSE -- the consolidation, measured
 
