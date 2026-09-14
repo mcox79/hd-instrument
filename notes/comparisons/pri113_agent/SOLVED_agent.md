@@ -498,19 +498,19 @@ role competition, whose gates I could open for cue coverage but whose validity t
 **This is the "board-invisible proven win" case exactly**, and the project's own rule for it is that the win needs
 its OWN instrument arm rather than being recorded as a located negative. The participant instrument is that arm.
 
-*The FULL-SIZE A/B (both arms in one process, ~90 minutes) was launched at 14:49 and had not finished
-when this was written. It is `--board-ab --full` and its result lands in
-`data/exp_nonverbal_predication_participants_agent_v1/board_ab_full.json`. **The capped A/B above is
-the controlled evidence for the bar's no-regress criterion**, and it is all-zero on seven of seven,
-which for a strictly ADDITIVE change to the event stream is the expected full-size result too -- but
-expected is not measured, and strategy should read the full file before landing.*
+> **SUPERSEDED BY PHASE 7 (section 11e).** The table above is the EVENT arm alone at the phase-5 operating point,
+> where nothing moved in either direction. The SHIPPED configuration -- fifteen constructions, the graded arc cue
+> and the state consolidation -- was boarded with the state dimension at full size and **is not down anywhere and
+> is UP on `state` by +0.0370 CI[+0.0186,+0.0571]**. So the "board-invisible" reading above was true of the event
+> arm alone and is **no longer true of what ships**: the consolidation is exactly the repair that let the board's
+> own consumer cash the signal, which is the point the paragraph above was groping towards.
 
 ---
 
 ## 6b. What let the signal be maximised -- the chain, rung by rung
 
 The owner's reading holds here and it is worth being precise about WHICH rungs cracked, because the biggest number
-in this report (**0.1856 -> 0.8084 on the 167**) came from a rung nobody had to build.
+in this report (**0.1856 -> 0.8802 on the 167**, section 11h) came from a rung nobody had to build.
 
 **CRACKED.**
 
