@@ -1159,6 +1159,9 @@ _GRA_EDITS = [
 # the by-phrase CASE cue landed 2026-09-06 had never reached the board. ONE STRUCTURE, ONE ORGAN: it
 # becomes a thin call. Measured by the board's OWN board_agent_dimension -- see SOLVED section 17.
 _GRA_EDITS.append((_GATE_OLD, _GATE_NEW))   # D4 (phase 7b)
+_GATE_REPAIR_OLD = "    # pri 111 (2026-09-14): the participle SUFFIX test is replaced by the ONE voice organ. `_is_participle`\n    # missed irregular participles that carry no -ed/-en (`blown`, `put`, `shut`), which is why `was blown up\n    # by a bomb` never emitted the byhead CASE cue. Measured: the gate's firing rate HALVES (32 -> 16 of 1423\n    # agent decisions -- it now fires only where the predicate really is passive) and the agent row is +0.0007.\n    if not is_passive_predicate(toks, pos, v0 + 1):\n        return False\n    low = [t.lower() for t in toks]\n    return any(by_governs(low, pos, i) for i in range(len(toks))\n               if (pos[i] if i < len(pos) else None) in _BYHEAD_NOM)\n"
+_GATE_REPAIR_NEW = "    # pri 111, REPAIRED 2026-09-14 16:10 after the byhead landing witness caught it. THE GATE IS A\n    # CONSTRUCTION DETECTOR, NOT A FINITE-CLAUSE VOICE READ, and the two are not the same question. The first\n    # fold asked `is_passive_predicate` alone, which REQUIRES an auxiliary -- so it dropped every REDUCED\n    # participial passive (`those used BY non-human animals`, `a display performed BY the male`, `mass divided\n    # BY volume`), which is exactly where a demoted agent lives. Measured on QA-SRL: gate recall on the clean\n    # agent-post slice fell 62/90 -> 53/90 and the byhead pick 0.6667 -> 0.6000.\n    # THE BRAIN'S FORM, and it is this organ's own story read in the other direction: the auxiliary OPENS the\n    # passive expectation and the by-phrase CONFIRMS it -- so when there is no auxiliary to open it, the\n    # confirmation carries the construction by itself. Fire on a by-governed NP plus EITHER the organ's voice\n    # read (an auxiliary opened the expectation, which also catches the irregular participles the suffix test\n    # missed -- `was blown up by a bomb`) OR participial morphology (the reduced passive). A strict SUPERSET of\n    # the pre-fold gate, so it cannot lose a firing it used to have.\n    low = [t.lower() for t in toks]\n    if not any(by_governs(low, pos, i) for i in range(len(toks))\n               if (pos[i] if i < len(pos) else None) in _BYHEAD_NOM):\n        return False\n    if is_passive_predicate(toks, pos, v0 + 1):\n        return True\n    return _is_participle(toks[v0], pos[v0] if v0 < len(pos) else None)\n"
+_GRA_EDITS.append((_GATE_REPAIR_OLD, _GATE_REPAIR_NEW))   # D4 REPAIR (integration, 16:10)
 _BOARD_EDITS = [
     ('    failure modes. Returns a head string.' + _Q + '\n'
      '    base_i = _floor_positional_idx(v, cands)\n'
@@ -1207,12 +1210,21 @@ def _apply(path, edits, insert_before=None, insert_lines=None):
     for old, new in edits:
         old, new = fix(old), fix(new)
         if out.count(old) != 1:
+            # ALREADY APPLIED (strategy landed the earlier hunks on 2026-09-14 15:45): the anchor is gone and
+            # the replacement is already in the file. Skip it rather than fail -- the diff then carries only
+            # what is still OUTSTANDING against the tree as it now stands.
+            if out.count(old) == 0 and new in out:
+                continue
             raise SystemExit("PATCH ANCHOR MISMATCH in %s (%d occurrences):\n%r" % (path, out.count(old), old[:120]))
         out = out.replace(old, new)
-    if insert_before is not None:
+    if insert_before is not None and insert_lines:
         insert_before = fix(insert_before)
-        if out.count(insert_before) != 1:
+        probe = fix(insert_lines[-1].rstrip() + chr(10))
+        if probe.strip() and probe in out:
+            insert_before = None                  # the block is ALREADY in the file -- do not insert it twice
+        elif out.count(insert_before) != 1:
             raise SystemExit("PATCH INSERT ANCHOR MISMATCH in %s" % path)
+    if insert_before is not None and insert_lines:
         block = "".join(l.rstrip("\r\n") + nl for l in insert_lines)
         out = out.replace(insert_before, block + nl + insert_before)
     return src, out
@@ -1230,6 +1242,8 @@ def emit_patch(verbose=True):
             (os.path.join(REPO, "experiments", "exp_board_agent_slot_ud_v1.py"), _BOARD_EDITS, None, None)):
         rel = os.path.relpath(path, REPO).replace("\\", "/")
         src, out = _apply(path, edits, ib, il)
+        if out == src:
+            continue                              # nothing outstanding for this file (already landed)
         d = difflib.unified_diff(src.splitlines(True), out.splitlines(True),
                                  fromfile="a/" + rel, tofile="b/" + rel, n=3)
         pieces.append("diff --git a/%s b/%s\n" % (rel, rel) + "".join(d))
@@ -1253,7 +1267,14 @@ def patch_matches_cell():
     for i in range(len(add) - len(blk) + 1):
         if add[i:i + len(blk)] == blk:
             return True, "organ block found verbatim in the diff (%d lines)" % len(blk)
-    return False, "organ block NOT byte-identical in the diff"
+    # ALREADY LANDED (2026-09-14 15:45): the block is no longer outstanding, so it is not in the diff --
+    # it must then be byte-identical in the file on disk, which is the same guarantee.
+    with open(os.path.join(REPO, "hdlab", "thematic_role_labeler.py"), encoding="utf-8", newline="") as f:
+        cur = [l.rstrip("\r\n") for l in f.read().splitlines()]
+    for i in range(len(cur) - len(blk) + 1):
+        if cur[i:i + len(blk)] == blk:
+            return True, "organ block already LANDED byte-identically in hdlab (%d lines)" % len(blk)
+    return False, "organ block NOT byte-identical in the diff NOR in the landed file"
 
 
 # =================================================================================================
@@ -1783,7 +1804,8 @@ VOICE_DETECTORS = [
 
 
 def _patched_participle_bypp_gate(toks, pos, v0):
-    """`participle_bypp_gate` with the pri-111 voice read in place of the `_is_participle` suffix test."""
+    """THE FIRST FOLD (voice read ONLY) -- kept so the regression can be re-measured; superseded by
+    `_repaired_participle_bypp_gate`, which is what ships."""
     import hdlab.graded_role_assigner as GRA
     if not (0 <= v0 < len(toks)):
         return False
@@ -1792,6 +1814,35 @@ def _patched_participle_bypp_gate(toks, pos, v0):
     low = [t.lower() for t in toks]
     return any(GRA.by_governs(low, pos, i) for i in range(len(toks))
                if (pos[i] if i < len(pos) else None) in GRA._BYHEAD_NOM)
+
+
+def _prefold_participle_bypp_gate(toks, pos, v0):
+    """`participle_bypp_gate` AS IT WAS BEFORE the pri-111 fold: the participle SUFFIX test + a by-governed NP."""
+    import hdlab.graded_role_assigner as GRA
+    from hdlab.thematic_role_labeler import _is_participle as _ip
+    if not (0 <= v0 < len(toks)):
+        return False
+    if not _ip(toks[v0], pos[v0] if v0 < len(pos) else None):
+        return False
+    low = [t.lower() for t in toks]
+    return any(GRA.by_governs(low, pos, i) for i in range(len(toks))
+               if (pos[i] if i < len(pos) else None) in GRA._BYHEAD_NOM)
+
+
+def _repaired_participle_bypp_gate(toks, pos, v0):
+    """THE SHIPPED GATE. A by-governed NP plus EITHER the organ's voice read OR participial morphology --
+    a strict SUPERSET of the pre-fold gate (see the diff comment for the mechanism and the numbers)."""
+    import hdlab.graded_role_assigner as GRA
+    from hdlab.thematic_role_labeler import _is_participle as _ip
+    if not (0 <= v0 < len(toks)):
+        return False
+    low = [t.lower() for t in toks]
+    if not any(GRA.by_governs(low, pos, i) for i in range(len(toks))
+               if (pos[i] if i < len(pos) else None) in GRA._BYHEAD_NOM):
+        return False
+    if is_passive_predicate(toks, pos, v0 + 1):
+        return True
+    return bool(_ip(toks[v0], pos[v0] if v0 < len(pos) else None))
 
 
 def arm_detectors(n_boot=2000, cap=None, verbose=True):
@@ -1936,8 +1987,8 @@ class _Folded(object):
                 pass
         if self.d4:
             self._saved[(GRA, "participle_bypp_gate")] = GRA.participle_bypp_gate
-            GRA.participle_bypp_gate = _patched_participle_bypp_gate
-        if self.d5:
+            GRA.participle_bypp_gate = _repaired_participle_bypp_gate
+        if self.d5 and hasattr(AL, "VOICE_CORRECTION"):     # already DELETED on disk -> nothing to do
             self._saved[(AL, "VOICE_CORRECTION")] = AL.VOICE_CORRECTION
             AL.VOICE_CORRECTION = False
         self._cs = _AllCallSites() if self.cs else None
@@ -2119,6 +2170,127 @@ def arm_witnesses(verbose=True):
     return out
 
 
+# =================================================================================================
+# 15. INTEGRATION (2026-09-14 16:10) -- the D4 REPAIR, measured on the witness's own slices.
+# =================================================================================================
+def arm_repair(n_boot=2000, verbose=True):
+    import contextlib
+    import importlib.util
+    import experiments.exp_noncanonical_agent_bymorph_v1 as M
+    import experiments.exp_board_agent_slot_ud_v1 as AG
+    import hdlab.graded_role_assigner as GRA
+    from hdlab.graded_role_assigner import BYHEAD_W
+    from hdlab.incremental_parser import incremental_subject_before
+    W = importlib.util.spec_from_file_location(
+        "_wit_byhead", os.path.join(REPO, "verification", "test_byhead_agent_cue_landing.py"))
+    wit = importlib.util.module_from_spec(W)
+    with contextlib.redirect_stdout(io.StringIO()):
+        W.loader.exec_module(wit)
+    sl = wit._qasrl_slices()
+    cache = {}
+
+    def subj(t, pz):
+        k = tuple(t)
+        if k not in cache:
+            cache[k] = incremental_subject_before(t, pz)
+        return cache[k]
+
+    GATES = (("landed_first_fold", _patched_participle_bypp_gate),
+             ("pre_fold_suffix", _prefold_participle_bypp_gate),
+             ("REPAIRED", _repaired_participle_bypp_gate))
+    out = {}
+    for name in ("clean_agent_post", "non_canonical", "canonical"):
+        rows = sl[name]
+        res = {}
+        exp = []
+        for gname, gate in GATES:
+            hits, fires = [], 0
+            _o = GRA.participle_bypp_gate
+            GRA.participle_bypp_gate = gate
+            try:
+                for r in rows:
+                    t, pz, v = r["toks"], r["pos"], r["verb_idx"]
+                    g = M.span_set(r["agent"])
+                    if not g or not (0 <= v < len(t)):
+                        continue
+                    cands = wit._cands(t, pz, v)
+                    pk = wit._pick_hdlab(t, pz, v, cands, subj(t, pz), True)
+                    hits.append(int(pk is not None and pk in g))
+                    fires += int(bool(gate(t, pz, v)))
+            finally:
+                GRA.participle_bypp_gate = _o
+            res[gname] = {"acc": round(float(np.mean(hits)), 4), "n": len(hits), "gate_fires": fires,
+                          "_v": hits}
+        for r in rows:
+            t, pz, v = r["toks"], r["pos"], r["verb_idx"]
+            g = M.span_set(r["agent"])
+            if not g or not (0 <= v < len(t)):
+                continue
+            ex = M.pick(t, pz, v, wit._cands(t, pz, v), subj(t, pz), byhead_w=BYHEAD_W)
+            exp.append(int(ex is not None and ex in g))
+        res["experiment_copy"] = {"acc": round(float(np.mean(exp)), 4), "n": len(exp), "_v": exp}
+        for gname, _g in GATES:
+            a = np.asarray(res[gname]["_v"], dtype=float)
+            b = np.asarray(exp, dtype=float)
+            res[gname]["per_row_identical_to_experiment"] = bool(np.array_equal(a, b))
+            res[gname]["disagreements"] = int((a != b).sum())
+            res[gname]["vs_experiment"] = paired_boot(b, a, n_boot=n_boot)
+        for k in list(res):
+            res[k].pop("_v", None)
+        out[name] = res
+        if verbose:
+            print("  [%s n=%d] experiment %.4f | landed-fold %.4f (%d disagree, %d fires) | pre-fold %.4f (%d) | "
+                  "REPAIRED %.4f (%d disagree, %d fires)  byte-faithful=%s"
+                  % (name, res["experiment_copy"]["n"], res["experiment_copy"]["acc"],
+                     res["landed_first_fold"]["acc"], res["landed_first_fold"]["disagreements"],
+                     res["landed_first_fold"]["gate_fires"],
+                     res["pre_fold_suffix"]["acc"], res["pre_fold_suffix"]["gate_fires"],
+                     res["REPAIRED"]["acc"], res["REPAIRED"]["disagreements"], res["REPAIRED"]["gate_fires"],
+                     res["REPAIRED"]["per_row_identical_to_experiment"]), flush=True)
+
+    # ---- the board's agent row, landed vs repaired
+    board = {}
+    for gname, gate in GATES:
+        _o = GRA.participle_bypp_gate
+        GRA.participle_bypp_gate = gate
+        try:
+            row, det = AG.board_agent_dimension(n_boot=n_boot)
+        finally:
+            GRA.participle_bypp_gate = _o
+        board[gname] = {"model": row["model_acc"], "floor": row["strongest_floor"],
+                        "model_minus_floor": row["model_minus_strongest"],
+                        "ci_sep": row["ci_sep_over_strongest"],
+                        "passive": det["by_voice"]["passive"]["hybrid"],
+                        "active": det["by_voice"]["active"]["hybrid"]}
+        if verbose:
+            print("  [board agent] %-18s model %.4f floor %.4f  m-f %s sep=%s | passive %.4f active %.4f"
+                  % (gname, row["model_acc"], row["strongest_floor"], row["model_minus_strongest"],
+                     row["ci_sep_over_strongest"], det["by_voice"]["passive"]["hybrid"],
+                     det["by_voice"]["active"]["hybrid"]), flush=True)
+    out["board_agent_row"] = board
+
+    # ---- the gate's firing rate on the UD agent population (the 32 -> 16 -> ? number)
+    from experiments.exp_whodidwhat_ud_structural_v1 import load_ud
+    import hdlab.frontend as FE
+    items = AG.gold_agent_items(load_ud(UD_TEST))
+    fires = {g: 0 for g, _ in GATES}
+    seen = 0
+    tc = {}
+    for toks, v, ag, gp in items:
+        k = tuple(toks)
+        if k not in tc:
+            up, post = FE.tagger().tag_with_posterior(list(toks))
+            tc[k] = list(up)
+        up = tc[k]
+        seen += 1
+        for gname, gate in GATES:
+            fires[gname] += int(bool(gate(toks, up, v - 1)))
+    out["ud_agent_gate_fires"] = {"n_decisions": seen, "fires": fires}
+    if verbose:
+        print("  [UD agent population] gate fires of %d decisions: %s" % (seen, fires), flush=True)
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--self-test", action="store_true")
@@ -2133,6 +2305,7 @@ def main():
     ap.add_argument("--detectors", action="store_true")
     ap.add_argument("--fold", action="store_true")
     ap.add_argument("--witnesses", action="store_true")
+    ap.add_argument("--repair", action="store_true")
     ap.add_argument("--emit-patch", action="store_true")
     ap.add_argument("--n-boot", type=int, default=2000)
     a = ap.parse_args()
@@ -2161,6 +2334,11 @@ def main():
                 d = v["vs_live_shipped"].get(nm)
                 print("     %-34s %.4f %s" % (nm, x, ("%+0.4f CI%s %s" % (d["delta"], d["ci95"],
                       "SEP" if d["separated"] else "")) if d else ""))
+        return 0
+    if a.repair:
+        os.makedirs(OUT_DIR, exist_ok=True)
+        r = arm_repair(n_boot=(200 if a.smoke else a.n_boot))
+        json.dump(r, open(os.path.join(OUT_DIR, "d4_repair.json"), "w"), indent=1)
         return 0
     if a.witnesses:
         os.makedirs(OUT_DIR, exist_ok=True)
