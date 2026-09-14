@@ -1084,6 +1084,7 @@ def organ_block():
 
 
 # Each entry: (path, [(exact_old, new), ...]). Exact-string edits so a silent mismatch FAILS loudly.
+_Q = chr(34) * 3        # a triple quote, spelled so this file can hold it inside a string
 _TRL_ANCHOR = ("# ---------------------------------------------------------------------------------------------\n"
                "# EARNED cue-integration: feature-dict builder for a (verb_idx, arg_idx) candidate pair.\n")
 _GRA_EDITS = [
@@ -1104,13 +1105,35 @@ _GRA_EDITS = [
      '    from hdlab.thematic_role_labeler import is_passive_predicate\n'
      '    want = "BY_AGENT" if is_passive_predicate(list(toks), list(pos), v0 + 1, heads=heads) else "SUBJ"\n'),
 ]
+# Q1 (phase 7): RETIRE THE BOARD ARM'S DUPLICATE. `hybrid_agent_pick` there is a SECOND implementation of
+# hdlab.graded_role_assigner.hybrid_agent_pick that had drifted from it in two LIVE ways -- it read voice
+# over the WHOLE SENTENCE with no by-phrase requirement, and it never passed `byhead_agent_cue=True`, so
+# the by-phrase CASE cue landed 2026-09-06 had never reached the board. ONE STRUCTURE, ONE ORGAN: it
+# becomes a thin call. Measured by the board's OWN board_agent_dimension -- see SOLVED section 17.
 _BOARD_EDITS = [
-    ("    from hdlab.thematic_role_labeler import is_passive_clause\n"
+    ('    failure modes. Returns a head string.' + _Q + '\n'
+     '    base_i = _floor_positional_idx(v, cands)\n'
+     '    base = toks[base_i] if base_i is not None else None\n'
+     '    from hdlab.thematic_role_labeler import is_passive_clause\n'
      '    low_base = str(base).lower() if base is not None else ""\n'
-     "    passive = is_passive_clause(toks, up)\n",
-     "    from hdlab.thematic_role_labeler import is_passive_predicate\n"
-     '    low_base = str(base).lower() if base is not None else ""\n'
-     "    passive = is_passive_predicate(toks, up, v)   # pri 111: the voice of the predicate being decided\n"),
+     '    passive = is_passive_clause(toks, up)\n'
+     '    pp_gov = base_i is not None and GRA._agent_pp_governed([t.lower() for t in toks], up, base_i)\n'
+     '    noncase = low_base in GRA._AGENT_ANIM_PRON and low_base not in GRA.NOMINATIVE_PRON\n'
+     '    if passive or pp_gov or noncase:\n'
+     '        return GRA.agent_competition_pick(toks, up, v - 1, cm_cands, cluster_freq=None,\n'
+     '                                          weights=weights, gaz=gaz)\n'
+     '    return base                                                  # canonical: word-order default (== positional)\n',
+     '    failure modes. Returns a head string.\n'
+     '\n'
+     '    RETIRED AS A SEPARATE IMPLEMENTATION (pri 111, 2026-09-14) -- this is now a THIN CALL to the ONE\n'
+     '    organ. It had drifted from hdlab.graded_role_assigner.hybrid_agent_pick in two ways, both live:\n'
+     '    the voice cue was read over the WHOLE SENTENCE with no by-phrase requirement (the organ scopes it\n'
+     '    to the predicate being decided and requires the by-phrase), and `byhead_agent_cue` was never\n'
+     '    passed, so it defaulted to False and the by-phrase CASE cue landed 2026-09-06 never reached the\n'
+     '    board. `cm_cands` stays in the signature for the callers that pass it; the organ competes over the\n'
+     '    same list it takes its positional default from, which is what the live reader does\n'
+     '    (situation_reader passes one `acand`).' + _Q + '\n'
+     '    return GRA.hybrid_agent_pick(toks, up, v - 1, cands, cluster_freq=None, weights=weights, gaz=gaz)\n'),
 ]
 _TRL_DEPRECATE = [
     ('def is_passive_clause(tokens: Sequence[str], pos: Sequence[str], window: int = 3) -> bool:\n'
@@ -1253,6 +1276,48 @@ def arm_extra(n_boot=2000, cap_tr=None, cap_te=None, verbose=True):
 # =================================================================================================
 # 9. THE PUSH -- the cue is now right; WHERE DOES THE SIGNAL GO NEXT? The gold-passive subpopulation.
 # =================================================================================================
+_ORIG_AGENT_SUPPORTS = None
+
+
+def _patched_agent_supports(toks, pos, v0, cands, *a, **kw):
+    """CALL SITE 2 as the diff ships it. `agent_supports` reads `is_passive_clause(toks, pos)` at line 1584 --
+    the ONLY use of that name inside the function -- so binding it to the predicate-anchored answer for THIS
+    call is exactly what the patched line computes, with no copy of the body to drift."""
+    import hdlab.graded_role_assigner as GRA
+    global _ORIG_AGENT_SUPPORTS
+    if _ORIG_AGENT_SUPPORTS is None:
+        _ORIG_AGENT_SUPPORTS = GRA.agent_supports
+    flag = bool(is_passive_predicate(toks, pos, v0 + 1))
+    _o = GRA.is_passive_clause
+    GRA.is_passive_clause = lambda t, pz, w=3, _f=flag: _f
+    try:
+        return _ORIG_AGENT_SUPPORTS(toks, pos, v0, cands, *a, **kw)
+    finally:
+        GRA.is_passive_clause = _o
+
+
+class _AllCallSites(object):
+    """Context manager installing EVERY hdlab call site the diff changes -- call site 2 (agent_supports) and
+    call site 3 (agent_override_fires) -- so the arm that is measured is the arm that would ship. Call sites
+    1 and 4 are exercised by their own arms (arm_labels / arm_call_sites and agent_override_licensed, which
+    is opt-in behind `heads` and OFF here)."""
+
+    def __enter__(self):
+        import hdlab.graded_role_assigner as GRA
+        global _ORIG_AGENT_SUPPORTS
+        if _ORIG_AGENT_SUPPORTS is None:
+            _ORIG_AGENT_SUPPORTS = GRA.agent_supports
+        self._G = GRA
+        self._saved = (GRA.agent_override_fires, GRA.agent_supports)
+        GRA.agent_override_fires = _patched_agent_override_fires
+        GRA.agent_supports = _patched_agent_supports
+        return self
+
+    def __exit__(self, *exc):
+        self._G.agent_override_fires, self._G.agent_supports = self._saved
+        return False
+
+
 def _patched_agent_override_fires(toks, pos, v0, cands):
     """hdlab.graded_role_assigner.agent_override_fires WITH the pri-111 line: the voice cue is read at the
     PREDICATE, not as "any passive inside the clause span". Everything else is byte-identical to the organ."""
@@ -1328,16 +1393,13 @@ def arm_push(n_boot=2000, cap=None, verbose=True):
         }
         # THE SHIPPED ORGAN WITH THE PATCH IN: hybrid_agent_pick calling the PATCHED agent_override_fires
         # (byte-copy of the organ's with the one line the diff changes). Monkeypatched for the call only.
-        _orig = GRA.agent_override_fires
-        GRA.agent_override_fires = _patched_agent_override_fires
-        try:
+        with _AllCallSites():
             picks["organ_hybrid_patched"] = GRA.hybrid_agent_pick(toks, up, v - 1, cands,
                                                                   cluster_freq=None, gaz=gaz)
-        finally:
-            GRA.agent_override_fires = _orig
         # THE BOARD ARM's own copy of the hybrid -- what the board scores today -- and the same copy with the
         # one line the diff changes (its voice read). The board arm is a SEPARATE implementation from the organ.
         picks["board_hybrid"] = AG.hybrid_agent_pick(toks, up, v, cands, cm_cands, gaz)
+        _ = None
         _bi = AG._floor_positional_idx(v, cands)
         _base = toks[_bi] if _bi is not None else None
         _lb = str(_base).lower() if _base is not None else ""
@@ -1347,6 +1409,27 @@ def arm_push(n_boot=2000, cap=None, verbose=True):
         picks["board_hybrid_patched"] = (GRA.agent_competition_pick(toks, up, v - 1, cm_cands,
                                                                     cluster_freq=None, gaz=gaz)
                                          if (_pv or _pp or _nc) else _base)
+        # DECOMPOSITION (phase 7, 1c): the SAME board arm with the corrected voice read AND the byhead
+        # by-phrase CASE cue the board arm never passes -- isolates difference (B) from difference (A).
+        picks["board_hybrid_patched_byhead"] = (GRA.agent_competition_pick(toks, up, v - 1, cm_cands,
+                                                                           cluster_freq=None, gaz=gaz,
+                                                                           byhead_agent_cue=True)
+                                                if (_pv or _pp or _nc) else _base)
+        # and the by-phrase REQUIREMENT on top (difference A''), which is what the organ's override adds
+        _byloc = by_value(toks, up, v, lh) == "by"
+        picks["board_hybrid_patched_byhead_byreq"] = (
+            GRA.agent_competition_pick(toks, up, v - 1, cm_cands, cluster_freq=None, gaz=gaz,
+                                       byhead_agent_cue=True)
+            if ((_pv and _byloc) or _pp or _nc) else _base)
+        # THE GATE THE ORACLE SEES: the head of the by-NP is the LAST noun of the nominal group, except a
+        # flat NAME, which UD heads on its FIRST token (measured bound only -- not shipped, see SOLVED 16b).
+        _by = [c for c in cands if GRA.by_governs(low, up, c["wtok_start"])]
+        if _by:
+            _names = [c for c in _by if (up[c["wtok_start"]] if c["wtok_start"] < len(up) else None) == "PROPN"]
+            picks["oracle_by_nphead"] = (_names[0]["head"] if _names
+                                         else max(_by, key=lambda c: c["wtok_start"])["head"])
+        else:
+            picks["oracle_by_nphead"] = picks["floor"]
         byg = [c for c in cands if GRA.by_governs(low, up, c["wtok_start"])]
         picks["oracle_bygoverned"] = byg[0]["head"] if byg else picks["floor"]
         rows.append({"gold": toks[ag - 1], "gp": bool(gp), "picks": picks,
@@ -1355,7 +1438,8 @@ def arm_push(n_boot=2000, cap=None, verbose=True):
         if verbose and k and k % 500 == 0:
             print("   [push] %d/%d %.0fs" % (k, len(items), time.time() - t0), flush=True)
     names = ["floor", "board_cm", "cm_byhead", "board_hybrid", "board_hybrid_patched",
-             "organ_hybrid", "organ_hybrid_patched", "oracle_bygoverned"]
+             "board_hybrid_patched_byhead", "board_hybrid_patched_byhead_byreq",
+             "organ_hybrid", "organ_hybrid_patched", "oracle_bygoverned", "oracle_by_nphead"]
     out = {"n": len(rows), "n_gold_passive": sum(int(r["gp"]) for r in rows)}
     for pop, sel in (("gold_passive_only", lambda r: r["gp"]), ("full", lambda r: True),
                      ("active_only", lambda r: not r["gp"])):
@@ -1455,8 +1539,9 @@ def _patched_board_hybrid(toks, up, v, cands, cm_cands, gaz, weights=None):
     pp_gov = base_i is not None and GRA._agent_pp_governed([t.lower() for t in toks], up, base_i)
     noncase = low_base in GRA._AGENT_ANIM_PRON and low_base not in GRA.NOMINATIVE_PRON
     if passive or pp_gov or noncase:
-        return GRA.agent_competition_pick(toks, up, v - 1, cm_cands, cluster_freq=None,
-                                          weights=weights, gaz=gaz)
+        with _AllCallSites():                       # call site 2 is in the diff as well
+            return GRA.agent_competition_pick(toks, up, v - 1, cm_cands, cluster_freq=None,
+                                              weights=weights, gaz=gaz)
     return base
 
 
@@ -1464,13 +1549,8 @@ def _organ_board_hybrid(toks, up, v, cands, cm_cands, gaz, weights=None):
     """The board arm REPLACED by the ORGAN (hdlab.graded_role_assigner.hybrid_agent_pick), which requires the
     by-phrase for the passive licence and passes the byhead by-phrase CASE cue -- with the pri-111 voice read."""
     import hdlab.graded_role_assigner as GRA
-    _o = GRA.agent_override_fires
-    GRA.agent_override_fires = _patched_agent_override_fires
-    try:
-        p = GRA.hybrid_agent_pick(toks, up, v - 1, cands, cluster_freq=None, weights=weights, gaz=gaz)
-    finally:
-        GRA.agent_override_fires = _o
-    return p
+    with _AllCallSites():
+        return GRA.hybrid_agent_pick(toks, up, v - 1, cands, cluster_freq=None, weights=weights, gaz=gaz)
 
 
 def arm_board_dimension(n_boot=2000, cap=None):
@@ -1494,6 +1574,279 @@ def arm_board_dimension(n_boot=2000, cap=None):
     return out
 
 
+# =================================================================================================
+# 12. PHASE 7 (Q2) -- RE-ACCRUE THE CUE VALIDITIES WITH THE CORRECTED `voice_order` CUE.
+#     The live v4 table was fitted with the OLD detector, so the no-regress number in section 5.5 is the
+#     as-if-landed-today number. The table's own builder is REUSED (never edited, never written over): its
+#     OUT constant is redirected into data/hook_state/ and `graded_role_assigner.coarse_role_cues` is
+#     substituted for the run. TWO tables are built on the CURRENT chain -- one with the shipped cue and one
+#     with the corrected cue -- so the comparison isolates the cue and not the upstream landing at 13:10.
+# =================================================================================================
+HOOK_DIR = os.path.join(REPO, "data", "hook_state")
+_ORIG_COARSE_CUES = None
+
+
+def patched_coarse_role_cues(toks, pos, heads, i, frames=None, v3=False, conf=None, v4=False):
+    """`graded_role_assigner.coarse_role_cues` with the pri-111 line: the voice cue is read at the PREDICATE
+    that governs this nominal, not over the whole sentence. Byte-identical everywhere else."""
+    import hdlab.graded_role_assigner as GRA
+    cues = _ORIG_COARSE_CUES(toks, pos, heads, i, frames, v3, conf, v4)
+    h = heads.get(i, 0) or 0
+    hc = GRA._head_class(pos, h, v3)
+    if hc in ("VERB", "AUX") and h:
+        vc = GRA.voice_cues(toks, pos, h)
+        strong = bool(vc["vc_strong"] or vc["vc_get"] or vc["vc_being"])
+        weak = bool(vc["vc_bypp"] or is_passive_predicate(toks, pos, h, heads=heads))
+        order = "pre" if (h and i < h) else ("post" if h else "root")
+        cues["voice_order"] = ("passive_strong_" if strong else ("passive_weak_" if weak else "active_")) + order
+        if cues.get("prep") in ("by", "by_passive"):
+            cues["prep"] = "by_passive" if (strong or weak) else "by"
+    return cues
+
+
+def reaccrue(which="patched", verbose=True):
+    """Rebuild the coarse-role validity table with the builder's OWN math, into data/hook_state/."""
+    global _ORIG_COARSE_CUES
+    import importlib.util
+    import hdlab.graded_role_assigner as GRA
+    _bp = os.path.join(REPO, "tools", "build_coarse_role_validities.py")
+    _spec = importlib.util.spec_from_file_location("_bcrv_pri111", _bp)
+    BC = importlib.util.module_from_spec(_spec)
+    _spec.loader.exec_module(BC)                    # the builder is READ and REUSED, never edited
+    if _ORIG_COARSE_CUES is None:
+        _ORIG_COARSE_CUES = GRA.coarse_role_cues
+    os.makedirs(HOOK_DIR, exist_ok=True)
+    BC.OUT = os.path.join(HOOK_DIR, "coarse_role_validities_pri111_%s.json" % which)
+    argv = list(sys.argv)
+    sys.argv = ["build", "--perceived", "--weight", "--v4"]
+    if which == "patched":
+        GRA.coarse_role_cues = patched_coarse_role_cues
+    try:
+        t0 = time.time()
+        BC.main()
+        if verbose:
+            print("   [reaccrue:%s] %.0fs" % (which, time.time() - t0), flush=True)
+    finally:
+        GRA.coarse_role_cues = _ORIG_COARSE_CUES
+        sys.argv = argv
+    return BC.OUT.replace(".json", "_perceived_w_v4.json")
+
+
+def arm_labels(n_boot=2000, cap=700, verbose=True):
+    """THE LABELS RUNG on UD-EWT test: all-nominal role accuracy and the voice-bearing classes, under
+    (a) the LIVE table with the shipped cue, (b) the LIVE table with the corrected cue (= section 5.5),
+    (c) the RE-ACCRUED tables (shipped-cue and corrected-cue) with the corrected cue."""
+    global _ORIG_COARSE_CUES
+    import hdlab.graded_role_assigner as GRA
+    if _ORIG_COARSE_CUES is None:
+        _ORIG_COARSE_CUES = GRA.coarse_role_cues
+    live = GRA.load_coarse_validities()
+    arms = collections.OrderedDict()
+    arms["live_table_shipped_cue"] = (live, _ORIG_COARSE_CUES)
+    arms["live_table_corrected_cue"] = (live, patched_coarse_role_cues)
+    for which in ("shipped", "patched"):
+        p = os.path.join(HOOK_DIR, "coarse_role_validities_pri111_%s_perceived_w_v4.json" % which)
+        if os.path.exists(p):
+            arms["reaccrued_%s_cue_table" % which] = (GRA.load_coarse_validities(p),
+                                                      _ORIG_COARSE_CUES if which == "shipped"
+                                                      else patched_coarse_role_cues)
+    rows = []
+    for si, (toks, gpos, gheads, deps) in enumerate(conllu(UD_TEST)):
+        if cap and si >= cap:
+            break
+        rows.append((si, toks, deps))
+    names = list(arms)
+    preds = {k: [] for k in names}
+    t0 = time.time()
+    for k, (si, toks, deps) in enumerate(rows):
+        up, lh = live_chain(toks)
+        for nm in names:
+            tab, fn = arms[nm]
+            GRA.coarse_role_cues = fn
+            try:
+                preds[nm].append(GRA.coarse_roles(list(toks), list(up), dict(lh), tab))
+            finally:
+                GRA.coarse_role_cues = _ORIG_COARSE_CUES
+        if verbose and k and k % 200 == 0:
+            print("   [labels] %d/%d %.0fs" % (k, len(rows), time.time() - t0), flush=True)
+    pops = {"all_nominals": [], "core": [], "PASS_SUBJ_nsubj_pass": [], "BY_AGENT_obl_agent": [],
+            "SUBJ_nsubj_active": [], "OBJ_obj": []}
+    for k, (si, toks, deps) in enumerate(rows):
+        for i in range(1, len(toks) + 1):
+            g = deps.get(i, "")
+            gb = g.split(":")[0]
+            if gb not in ("nsubj", "obj", "iobj", "obl", "nmod"):
+                continue
+            hit = tuple(int(_deps_match(preds[nm][k].get(i), g)) for nm in names) + (si,)
+            pops["all_nominals"].append(hit)
+            if gb in ("nsubj", "obj", "iobj"):
+                pops["core"].append(hit)
+            if g.startswith("nsubj:pass"):
+                pops["PASS_SUBJ_nsubj_pass"].append(hit)
+            elif gb == "nsubj":
+                pops["SUBJ_nsubj_active"].append(hit)
+            if g.startswith("obl:agent"):
+                pops["BY_AGENT_obl_agent"].append(hit)
+            if gb == "obj":
+                pops["OBJ_obj"].append(hit)
+    out = {"arms": names, "n_sentences": len(rows)}
+    for pop, lst in pops.items():
+        if not lst:
+            out[pop] = {"n": 0}
+            continue
+        vecs = {nm: np.asarray([x[j] for x in lst], dtype=float) for j, nm in enumerate(names)}
+        g = [x[-1] for x in lst]
+        base = vecs[names[0]]
+        out[pop] = {"n": len(lst), "accuracy": {nm: round(float(v.mean()), 4) for nm, v in vecs.items()},
+                    "vs_live_shipped": {nm: paired_boot(base, vecs[nm], groups=g, n_boot=n_boot)
+                                        for nm in names[1:]}}
+    return out
+
+
+# =================================================================================================
+# 13. PHASE 7 (Q3) -- THE SIX VOICE DETECTORS AND THEIR CONSUMERS, each measured with the ONE organ in.
+# =================================================================================================
+VOICE_DETECTORS = [
+    ("D1 is_passive_clause", "hdlab/thematic_role_labeler.py:428",
+     ["hdlab/graded_role_assigner.py:659 coarse_role_cues", "hdlab/graded_role_assigner.py:1584 agent_supports",
+      "hdlab/graded_role_assigner.py:1765 agent_override_fires",
+      "hdlab/graded_role_assigner.py:1874 agent_override_licensed",
+      "experiments/exp_board_agent_slot_ud_v1.py:149 hybrid_agent_pick"]),
+    ("D2 precise_passive", "hdlab/relcl_resolver.py:58",
+     ["hdlab/relcl_resolver.py:72 two_line_patient", "hdlab/relcl_resolver.py:134 resolve_patient",
+      "hdlab/graded_role_assigner.py:197 hybrid_role_patient", "hdlab/predicate_argument_frontend.py:454",
+      "hdlab/predicate_argument_frontend.py:710", "hdlab/situation_reader.py:2294 patient confidence",
+      "experiments/exp_valency_labeled_patient_v1.py:229 (the BOARD patient arm)"]),
+    ("D3 voice_cues / robust_passive", "hdlab/graded_role_assigner.py:78 / :99",
+     ["hdlab/graded_role_assigner.py:658 coarse_role_cues (strong/get/being)",
+      "hdlab/graded_role_assigner.py:154 cue_supports (passive_strong / passive_weak)",
+      "hdlab/verb_subcat.py:95", "hdlab/situation_reader.py:1549 structural_patient_pick",
+      "experiments/exp_valency_labeled_patient_v1.py:69 the DEPLOYED FLOOR"]),
+    ("D4 participle_bypp_gate", "hdlab/graded_role_assigner.py:1473",
+     ["hdlab/graded_role_assigner.py:1754 agent_supports (the byhead CASE cue's gate)"]),
+    ("D5 label_voice_correct", "hdlab/arc_labeler.py:59",
+     ["hdlab/arc_labeler.py label() with VOICE_CORRECTION=True -> every label consumer"]),
+    ("D6 predicate_argument_frontend", "hdlab/predicate_argument_frontend.py:454,710",
+     ["delegates to D2 -- not an independent computation"]),
+]
+
+
+def _patched_participle_bypp_gate(toks, pos, v0):
+    """`participle_bypp_gate` with the pri-111 voice read in place of the `_is_participle` suffix test."""
+    import hdlab.graded_role_assigner as GRA
+    if not (0 <= v0 < len(toks)):
+        return False
+    if not is_passive_predicate(toks, pos, v0 + 1):
+        return False
+    low = [t.lower() for t in toks]
+    return any(GRA.by_governs(low, pos, i) for i in range(len(toks))
+               if (pos[i] if i < len(pos) else None) in GRA._BYHEAD_NOM)
+
+
+def arm_detectors(n_boot=2000, cap=None, verbose=True):
+    out = {"inventory": [{"detector": d, "site": f, "consumers": c} for d, f, c in VOICE_DETECTORS]}
+
+    # ---- D2: the BOARD's who_did_what_patient row, computed by the board's own function, with
+    #      relcl_resolver.precise_passive substituted by the organ (the R_final voice input).
+    import experiments.exp_valency_labeled_patient_v1 as VLP
+    import experiments.exp_board_patient_slot_v1 as BP
+    orig_pp = VLP.precise_passive
+    d2 = {}
+    for nm, fn in (("landed_precise_passive", orig_pp),
+                   ("one_organ_is_passive_predicate", lambda t, pz, v: is_passive_predicate(t, pz, v))):
+        VLP.precise_passive = fn
+        try:
+            row, det = BP.board_patient_dimension(cap=cap)
+            d2[nm] = {"model_acc": row["model_acc"], "floor": row["strongest_floor"], "twin": row["twin_acc"],
+                      "model_minus_floor": row["model_minus_strongest"], "n": row["n"],
+                      "ceiling_gold_parse": det["ceiling_gold_parse"]}
+            if verbose:
+                print("  [D2 patient board] %-32s model %.4f floor %.4f twin %.4f  m-f %s"
+                      % (nm, row["model_acc"], row["strongest_floor"], row["twin_acc"],
+                         row["model_minus_strongest"]), flush=True)
+        finally:
+            VLP.precise_passive = orig_pp
+    out["D2_patient_board"] = d2
+
+    # ---- D4: the byhead CASE cue's gate, on the agent population's gold-PASSIVE slice.
+    import experiments.exp_board_agent_slot_ud_v1 as AG
+    from experiments.exp_whodidwhat_ud_structural_v1 import load_ud
+    from experiments.exp_name_entity_clustering_v1 import load_given_gazetteer
+    import hdlab.graded_role_assigner as GRA
+    import hdlab.frontend as FE
+    gaz = load_given_gazetteer()
+    sents = load_ud(UD_TEST)
+    if cap:
+        sents = sents[:cap]
+    items = AG.gold_agent_items(sents)
+    orig_gate = GRA.participle_bypp_gate
+    d4 = {}
+    cache = {}
+    for nm, gate in (("landed_participle_suffix_gate", orig_gate),
+                     ("one_organ_voice_gate", _patched_participle_bypp_gate)):
+        hits, gp_hits, fires = [], [], 0
+        GRA.participle_bypp_gate = gate
+        _cs = _AllCallSites(); _cs.__enter__()
+        try:
+            for toks, v, ag, gp in items:
+                key = tuple(toks)
+                if key not in cache:
+                    up, post = FE.tagger().tag_with_posterior(list(toks))
+                    po = FE.parser().parse(list(toks), up, post)
+                    cache[key] = (list(up), post, dict(po.heads))
+                up, post, lh = cache[key]
+                cands = AG._clause_local_nominals(toks, up, v, post=post)
+                if not cands:
+                    continue
+                pick = GRA.hybrid_agent_pick(toks, up, v - 1, cands, cluster_freq=None, gaz=gaz)
+                ok = int(_match(pick, toks[ag - 1]))
+                hits.append(ok)
+                fires += int(bool(gate(toks, up, v - 1)))
+                if gp:
+                    gp_hits.append(ok)
+        finally:
+            _cs.__exit__()
+            GRA.participle_bypp_gate = orig_gate
+        d4[nm] = {"n": len(hits), "full": round(float(np.mean(hits)), 4),
+                  "gold_passive_n": len(gp_hits), "gold_passive": round(float(np.mean(gp_hits)), 4),
+                  "gate_fires": fires}
+        if verbose:
+            print("  [D4 byhead gate] %-30s full %.4f  gold-passive %.4f (n=%d)  gate fires %d"
+                  % (nm, d4[nm]["full"], d4[nm]["gold_passive"], d4[nm]["gold_passive_n"], fires), flush=True)
+    out["D4_byhead_gate"] = d4
+
+    # ---- D5: does arc_labeler's own voice correction still change anything with COMPETITION_ROLES on?
+    import hdlab.arc_labeler as AL
+    import hdlab.causation_typing as CT
+    changed_raw = changed_live = n_tok = 0
+    lab = AL.ArcLabeler.load(CT._LAB_ASSET)
+    rows = []
+    for si, (toks, gpos, gheads, deps) in enumerate(conllu(UD_TEST)):
+        if si >= (cap or 700):
+            break
+        rows.append((toks, deps))
+    for toks, deps in rows:
+        up, lh = live_chain(toks)
+        try:
+            base = lab.label(list(toks), list(up), dict(lh), voice_correction=False, competition_roles=False)
+            vc = lab.label(list(toks), list(up), dict(lh), voice_correction=True, competition_roles=False)
+            live_off = lab.label(list(toks), list(up), dict(lh), voice_correction=False, competition_roles=True)
+            live_on = lab.label(list(toks), list(up), dict(lh), voice_correction=True, competition_roles=True)
+        except Exception as e:                                        # pragma: no cover
+            out["D5_error"] = repr(e)[:200]
+            break
+        n_tok += len(toks)
+        changed_raw += sum(1 for i in base if base.get(i) != vc.get(i))
+        changed_live += sum(1 for i in live_off if live_off.get(i) != live_on.get(i))
+    out["D5_arc_labeler_voice_correction"] = {
+        "tokens": n_tok, "labels_changed_without_competition_roles": changed_raw,
+        "labels_changed_WITH_competition_roles_live": changed_live}
+    if verbose:
+        print("  [D5 arc labeler] voice correction changes %d labels alone, %d with COMPETITION_ROLES live"
+              % (changed_raw, changed_live), flush=True)
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--self-test", action="store_true")
@@ -1503,6 +1856,9 @@ def main():
     ap.add_argument("--push", action="store_true")
     ap.add_argument("--gum", action="store_true")
     ap.add_argument("--board-dim", action="store_true")
+    ap.add_argument("--reaccrue", type=str, default=None, choices=["shipped", "patched", "both"])
+    ap.add_argument("--labels", action="store_true")
+    ap.add_argument("--detectors", action="store_true")
     ap.add_argument("--emit-patch", action="store_true")
     ap.add_argument("--n-boot", type=int, default=2000)
     a = ap.parse_args()
@@ -1513,6 +1869,30 @@ def main():
         ok, why = patch_matches_cell()
         print(("PATCH == CELL: " if ok else "PATCH != CELL: ") + why)
         return 0 if ok else 1
+    if a.reaccrue:
+        for which in (["shipped", "patched"] if a.reaccrue == "both" else [a.reaccrue]):
+            print("wrote", reaccrue(which))
+        return 0
+    if a.labels:
+        os.makedirs(OUT_DIR, exist_ok=True)
+        r = arm_labels(n_boot=(200 if a.smoke else a.n_boot), cap=(40 if a.smoke else 700))
+        json.dump(r, open(os.path.join(OUT_DIR, "labels.json"), "w"), indent=1)
+        for pop in ("all_nominals", "core", "SUBJ_nsubj_active", "OBJ_obj", "PASS_SUBJ_nsubj_pass",
+                    "BY_AGENT_obl_agent"):
+            v = r[pop]
+            if not v.get("n"):
+                continue
+            print("%-22s n %5d" % (pop, v["n"]))
+            for nm, x in v["accuracy"].items():
+                d = v["vs_live_shipped"].get(nm)
+                print("     %-34s %.4f %s" % (nm, x, ("%+0.4f CI%s %s" % (d["delta"], d["ci95"],
+                      "SEP" if d["separated"] else "")) if d else ""))
+        return 0
+    if a.detectors:
+        os.makedirs(OUT_DIR, exist_ok=True)
+        r = arm_detectors(n_boot=(200 if a.smoke else a.n_boot), cap=(40 if a.smoke else None))
+        json.dump(r, open(os.path.join(OUT_DIR, "detectors.json"), "w"), indent=1)
+        return 0
     if a.board_dim:
         os.makedirs(OUT_DIR, exist_ok=True)
         r = arm_board_dimension(n_boot=(200 if a.smoke else a.n_boot), cap=(200 if a.smoke else None))
