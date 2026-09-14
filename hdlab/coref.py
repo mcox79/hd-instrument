@@ -334,7 +334,47 @@ STOP_CAPS = frozenset({
 })
 
 
-def name_content_tokens(span_toks: List[str]) -> List[str]:
+# ---------------------------------------------------------------------------------------------------------------
+# THE FORWARD WIRE (2026-09-14, pri-104 solver; `experiments/exp_entity_to_category_prior_v1.py --name-decision`).
+#
+# `name_content_tokens` is the sole NAME-vs-COMMON gate for EIGHT live organs -- online_entity_cluster,
+# entity_resolver, commonnoun_binder, crosstype_live_adapter, coref_distractor_suppress, event_centrality_coref,
+# gender_organ, scene_segment -- and until now it decided by CAPITALISATION plus a 60-word stop list. The substrate
+# has a category organ that answers exactly this question far better, and NO organ read it: `hdlab/coref.py`,
+# `hdlab/entity_resolver.py` and `hdlab/lexical_utils.py` contained the strings "upos" and "PROPN" ZERO times.
+#
+# WHY THIS IS THE BRAIN'S ORDER, not a convenience. A proper name is a word that refers to an INDIVIDUAL (Kripke
+# 1980); the referent route that stores it (left temporal pole -- Semenza 2006/2009 proper-name anomia; Damasio et
+# al. 1996) sits ABOVE the posterior-temporal word-form/category level and is FED BY it. Deciding name-hood from
+# orthography instead of from the lexical category inverts the hierarchy: it makes the higher level re-derive,
+# from a surface cue, something the level below it has already computed with far more evidence.
+#
+# MEASURED on the full UD-EWT test (25,094 tokens), scored against the same gold PROPN:
+#     TOKEN level   capitalisation rule  P 0.5640 R 0.8299 F1 0.6716   (1,331 false names)
+#                   category organ       P 0.8711 R 0.8564 F1 0.8637   (  263 false names)   +0.1921 F1
+#     SPAN  level   capitalisation rule  P 0.7545 R 0.7904 F1 0.7720   (  352 false name spans)
+#                   category organ       P 0.8896 R 0.8883 F1 0.8890   (  145 false name spans)  +0.1170 F1
+# The span level is the one that matters -- a span is what these organs type -- and 207 fewer spurious name spans
+# is 207 fewer bogus entity files opened per 25k tokens.
+#
+# HOW TO ADOPT IT, and why nothing breaks: `name_content_tokens(span_toks)` with no `upos` is BYTE-IDENTICAL to
+# today. A caller that has the sentence's categories (every caller downstream of `hdlab.frontend.tagger()` does)
+# passes them as the parallel `upos` list for the span, and the decision becomes the category organ's. Set
+# HDLAB_NAME_SOURCE=caps to force the old behaviour even where categories are supplied (the regression arm).
+NAME_SOURCE = os.environ.get("HDLAB_NAME_SOURCE", "category")     # "category" | "caps"
+_NOMINAL_HEADS = ("NOUN", "PROPN")
+
+
+def _span_head_is_name(span_toks: List[str], upos: List[str]) -> bool:
+    """English nominal spans are head-final: the head is the LAST NOUN/PROPN of the run (the same rule
+    `hdlab/attachment_arm` uses for an NP run). The span is a NAME iff that head is a PROPN."""
+    idx = [i for i, u in enumerate(upos) if u in _NOMINAL_HEADS and i < len(span_toks)]
+    if not idx:
+        return any(u == "PROPN" for u in upos)
+    return upos[idx[-1]] == "PROPN"
+
+
+def name_content_tokens(span_toks: List[str], upos: Optional[List[str]] = None) -> List[str]:
     """GENERAL clean-name extraction: the lowercased, title-stripped name tokens of a
     mention span, IFF the span is a CLEAN proper name. Empty -> the mention is NOT a
     proper name (a pronoun, a common nominal, or a DESCRIPTIVE phrase) -> no aliasing.
@@ -344,7 +384,30 @@ def name_content_tokens(span_toks: List[str]) -> List[str]:
     who, ...) disqualifies the whole span -- that is a descriptive noun phrase, not a
     name (kills the 'the village of Kellynch' / 'a sensible deserving woman who ...'
     over-merge class). Titles/closed-class capitals are dropped from the returned name
-    tokens. Capitalized names are position-invariant (no parser, no gold)."""
+    tokens. Capitalized names are position-invariant (no parser, no gold).
+
+    `upos` (THE FORWARD WIRE, see the block above): the CATEGORY ORGAN's per-token categories for this span, in
+    span order. When supplied and NAME_SOURCE != "caps", the name decision is the organ's -- the span is a name iff
+    its head (the last NOUN/PROPN of the run) is a PROPN -- and capitalisation is demoted to what it actually is,
+    the cue that picks WHICH tokens of a name span carry the name. Omitted -> byte-identical to the old rule."""
+    if upos is not None and NAME_SOURCE != "caps" and len(upos) == len(span_toks):
+        if not _span_head_is_name(list(span_toks), list(upos)):
+            return []
+        out: List[str] = []
+        for t, u in zip(span_toks, upos):
+            core = t.strip(".,'\"!?;:-()[]")
+            if not core:
+                continue
+            low = core.lower()
+            if low in TITLE_TOKENS:
+                continue
+            if u == "PROPN" and len(core) >= 2:
+                out.append(low)
+        if not out:                                   # a PROPN head the stripper threw away -- keep the head form
+            core = span_toks[-1].strip(".,'\"!?;:-()[]").lower()
+            if core:
+                out.append(core)
+        return out[:MAX_NAME_TOKENS] if len(out) <= MAX_NAME_TOKENS else []
     out: List[str] = []
     for t in span_toks:
         core = t.strip(".,'\"!?;:-()[]")
