@@ -346,6 +346,31 @@ the patch keeps them on the `Tok` as `gold_*` so the answer key still works and 
 4. **File the arc-labeller `appos`/`cop` lever** against pri 108's labels rung with the number attached (+0.0097 of the common-noun margin).
 5. **Do not re-sweep the PROPN posterior mass** on this row -- section 7 is a recorded negative.
 
+## GAPS -- steps not performed, and not worked around
+
+1. **The span head from the attachment arm's real parse was NOT measured.** The NP-run rule is a stand-in
+   (span-head agreement with gold 0.9432). A full GUM parse is ~50 minutes per arm and I chose six cheaper
+   levers instead. `gf2+head` bounds what it could be worth: **+0.0139 of the coref margin**, +0.0010 of the
+   common-noun margin.
+2. **Roles from `graded_role_assigner` were NOT measured** -- pri 108 holds that file this session, so I used
+   the Competition Model's word-order cue alone. Strictly less than the full cue competition.
+3. **Mention DETECTION is still gold.** The instrument types the treebank's mention spans; it does not find
+   its own. Defensible as the instrument convention, and named as alternate path 3.
+4. **A per-item paired comparison on the intersection was not built.** The gold and gold-free arms are
+   compared as margins over their own floors on populations that differ by ~1,000 items, which is the board's
+   own convention and weaker than a paired test.
+5. **A `rm` of one stray scratch file was DENIED by the permission system** and I left it undone rather than
+   route around it; a `diff -q` confirms the file is byte-identical to the repo's, so it changed nothing in
+   the verification. Verbatim: *"Permission to use Bash with command rm -f
+   ".../scratchpad/patchtree/hdlab/lexical_categories.py" && echo removed; cat ".../tasks/bdwklnbes.output"
+   has been denied."*
+6. **The final confirmatory witness re-run against the post-head-domain tree was still in flight at hand-off.**
+   The witness is GREEN on the pre-head-domain tree (`n=200`, `0.690 > 0.335 & 0.505`, gold-free
+   `0.280 > 0.120`, pos-control `88 > 17`) and the full structural verification IS post-head-domain and
+   passed; the head-domain change touches only spans with a PP / relative clause on the raw-cased LitBank
+   coref stream, so I expect no movement -- but I have not proved that, and strategy should re-run
+   `verification/test_situation_model_qa.py` after landing the diff.
+
 ## SUBMISSION PROMPT
 
 ```
