@@ -1055,6 +1055,10 @@ def self_test():
     AA.observe_arc_outcome(toks, pos, 4, 2, tab)
     chk("observe_arc_outcome accrues the new cue cells", any(k.endswith("|cross") or k.endswith("|in")
                                                              for k in tab["counts"]["cues"]["npb"]))
+    # the clause-close wrap-up trigger fires at an opener and nowhere else new
+    wp = _wrapup_pos(toks2, pos2)
+    chk("wrap-up trigger fires at the clause opener 'to' and not at other words",
+        wp[2] == "CCONJ" and [k for k, (a, b) in enumerate(zip(wp, pos2)) if a != b] == [2], wp)
     enable()
     chk("disable restores the landed arm", AA.arc_scores is _ORIG_ARC and AA.npmod_arcs is _ORIG_NPMOD)
     print("self-test:", "GREEN" if ok else "RED", flush=True)
@@ -1112,6 +1116,8 @@ def run(train_cap, test_cap, rounds, arms, live=True, out=None, twin=True, save=
 
 
 HOOK = os.path.join(REPO, "data", "hook_state")
+ALL_ARMS = {"floor": {}, "both_split": {"clause": True, "npb": True, "split": True},
+            "both+split": {"clause": True, "npb": True, "split": True}}
 
 
 def save_candidate(tab, name):
@@ -1180,6 +1186,15 @@ def main(argv=None):
     outdir = str(get_output_dir(ANCHOR)); os.makedirs(outdir, exist_ok=True)
     if a.self_test:
         return 0 if self_test() else 1
+    if a.board:
+        parts = a.board.split(",")
+        fl = os.path.join(HOOK, "attach_pri105_%s.json" % parts[0])
+        ar = os.path.join(HOOK, "attach_pri105_%s.json" % parts[1])
+        cfg = {"clause": True, "npb": True, "split": True} if len(parts) < 3 else ALL_ARMS[parts[2]]
+        d = board_noregress(fl, ar, cfg, cap=a.board_cap)
+        with open(os.path.join(outdir, "board_noregress.json"), "w", encoding="utf-8") as f:
+            json.dump(d, f, indent=1)
+        return 0
     if a.why_absorbed:
         d = why_absorbed(cap=a.test_cap or 700)
         with open(os.path.join(outdir, "why_absorbed.json"), "w", encoding="utf-8") as f:
