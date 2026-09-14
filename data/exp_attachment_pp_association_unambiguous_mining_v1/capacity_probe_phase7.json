@@ -1,0 +1,86 @@
+{
+ "anchor": "attachment_pp_association_unambiguous_mining_v1",
+ "probe": "capacity_probe",
+ "test_cap": 700,
+ "results": {
+  "sites_on_gold_obl_nmod": 599,
+  "gold_host_present_uncapped": 556,
+  "candidate_set_size_histogram": {
+   "1": 32,
+   "2": 59,
+   "3": 63,
+   "4": 66,
+   "5": 70,
+   "6": 45,
+   "7": 40,
+   "8": 35,
+   "9": 44,
+   "10": 28,
+   "11": 23,
+   "12": 20,
+   "13": 18,
+   "14": 5,
+   "15": 13,
+   "16": 6,
+   "17": 10,
+   "18": 5,
+   "19": 2,
+   "20": 4,
+   "21": 1,
+   "22": 2,
+   "23": 2,
+   "24": 1,
+   "25": 5
+  },
+  "sites_with_more_than_6_candidates": 264,
+  "gold_host_rank_histogram": {
+   "1": 397,
+   "2": 85,
+   "3": 47,
+   "4": 17,
+   "5": 5,
+   "6": 5
+  },
+  "cumulative_recall_by_rank": {
+   "1": 0.6628,
+   "2": 0.8047,
+   "3": 0.8831,
+   "4": 0.9115,
+   "5": 0.9199,
+   "6": 0.9282
+  },
+  "recall_at_K": {
+   "4": 0.9115,
+   "6": 0.9282,
+   "8": 0.9282,
+   "12": 0.9282,
+   "24": 0.9282
+  }
+ },
+ "hdlab_provenance": {
+  "hdlab/attachment_arm.py": {
+   "sha1": "dd645eebf25d",
+   "bytes": 112303
+  },
+  "tools/build_attachment_validities.py": {
+   "sha1": "a6867eaca332",
+   "bytes": 11461
+  },
+  "pri97_root_cues_present": true,
+  "cues_at_import": [
+   "locality",
+   "frame",
+   "form",
+   "boundary",
+   "agree",
+   "constr",
+   "pp",
+   "plaus",
+   "rpred",
+   "rsub",
+   "rpos",
+   "csub"
+  ]
+ },
+ "ts_iso": "2026-09-14T04:45:07Z"
+}

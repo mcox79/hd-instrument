@@ -1358,6 +1358,238 @@ def verify_patch(diff_path: str, n_sent: int = 40) -> int:
     return 0 if ok else 1
 
 
+# ---------------------------------------------------------------------------------------------------------------
+# THE SECOND DIFF: the two-sided acquisition teacher, generated and equivalence-checked in memory
+# ---------------------------------------------------------------------------------------------------------------
+# Strategy asked for this as a SEPARATE landing step, after `attachment_arm_pp_patch.diff`.  It is generated against
+# the tree WITH that diff already applied (in memory -- nothing under hdlab/ is written), because it USES the symbols
+# that diff introduces (`pp_case_marked`, `pp_sites`, `pp_obj_class`, `pp_host_key`, `pp_host_class`, `pp_p_given`,
+# `PP_KCAP`, `PP_NOM_HOST`).  Its hunks are in `SemanticBootstrapTeacher.__init__`, `.slot_plausibility` and
+# `.score_matrix`, one new block of module-level code, and `tools.build_attachment_validities.knowledge_free_teacher`.
+TWO_SIDED_CODE = r"""
+
+# ------------------------------------------------------------------ the TWO-SIDED acquisition teacher (pri 94 ph 7)
+# `SemanticBootstrapTeacher.score_matrix` adds its meaning term `beta * slot_plausibility(h, j)` on exactly one kind
+# of arc: a VERB host with a NOMINAL dependent.  A noun host receives no meaning support at all, ever.  While the arm
+# learns, every case-marked nominal therefore has a verb voting for it with beta and a noun voting with nothing --
+# and MEASURED (pri 94 phase 7, UD-EWT test 700), WHERE THAT BUDGET IS SPENT IS THE obl/nmod SEESAW: spend more on
+# verbs and obl goes 0.541 -> 0.679 while nmod goes 0.489 -> 0.221; spend it on nouns and obl -> 0.210, nmod -> 0.566.
+# The brain has no such asymmetry: a relational noun selects its complement as a verb selects its argument ("the
+# picture OF the girl", "the edge OF the table"; Barker 1995 possessive descriptions; Loebner's relational nouns), and
+# Hindle & Rooth 1993's contrast log[P(p|VERB)/P(p|NOUN)] is symmetric by construction.  Two additions, both counts:
+#   (1) OBLIQUE SLOT.  A case-marked nominal hosted by a verb is scored in the OBLIQUE slot, by that predicate's own
+#       oblique expectation with that preposition, read off the substrate's OWN grown `obl:<prep>` store (Pinker 1984
+#       semantic bootstrapping with three slots instead of two).  When the store abstains the teacher's own value
+#       stands, so the verb's pull is RE-SCORED and never removed -- zeroing it collapses obl 0.449 -> 0.199.
+#   (2) NOMINAL HOST SLOT.  Every retrieved nominal host of a case-marked nominal gets `BETA_NOM * P_host`, where
+#       P_host = P(p | this noun) / [P(p | this noun) + P(p | this noun's class)] -- 0.5 when this noun is no more
+#       attracted to the preposition than nouns of its kind.
+# MEASURED TOGETHER (cap 1500, test 700, paired bootstrap over sentences, in-order): retrieved-nmod +0.0752
+# CI [+0.0308,+0.1231] over the floor and +0.0564 CI [+0.0115,+0.1020] over the arm without them; UAS +0.0121*,
+# obl +0.0818*, nmod +0.1067*; nothing CI-separated down; and the downstream role competition returns to the floor
+# (0.5769 vs 0.5760, against 0.5617 without them).  Beats a twin with BOTH stores scrambled on UAS (+0.0082*), obl
+# (+0.1405*) and retrieved obl (+0.1952*).  BETA_NOM swept (2 / 6 / 14; 14 overshoots, obl 0.264), never adopted.
+BETA_NOM = float(os.environ.get("HDLAB_SBT_BETA_NOM", "6.0"))       # swept operating point, never adopted
+OBL_TEACH = os.environ.get("HDLAB_SBT_OBL_TEACH", "1") != "0"
+OBL_SLOT_M1 = float(os.environ.get("HDLAB_SBT_OBL_M1", "5.0"))
+OBL_SLOT_M2 = float(os.environ.get("HDLAB_SBT_OBL_M2", "20.0"))
+_OBL_SLOTS = None
+
+
+def obl_slot_store(path=None):
+    '''P(class of the oblique filler | predicate lemma, preposition) as COUNTS, from the substrate's OWN grown slot
+    store (tools/grow_selectional_store_bf.py: its own reading-induced categories -> this arm -> the role
+    competition, 60k Simple-Wiki lines, no external parser): 6,947 (predicate, preposition) slots, 20,179
+    filler-class cells, 39,222 observations.  Typed with the same WordNet supersense table the typed selectional
+    organ reads.  Plastic: the counts are the store's own and grow with more reading.'''
+    global _OBL_SLOTS
+    if _OBL_SLOTS is not None and path is None:
+        return _OBL_SLOTS
+    from collections import defaultdict as _dd
+    c = _dd(float); d = _dd(float); cg = _dd(float); dg = _dd(float); cw = _dd(float); tot = 0.0
+    pth = path or BF_STORE
+    if os.path.isfile(pth):
+        import pickle
+        from hdlab.typed_selectional_preference import noun_supersense
+        sf = pickle.load(open(pth, "rb"))["slot_filler"]
+        for (v, role), fillers in sf.items():
+            if not role.startswith("obl:"):
+                continue
+            prep = role.split(":", 1)[1]
+            if not prep or prep == "_":
+                continue
+            vl = lemma_verb(v).lower()
+            for w, cnt in fillers.items():
+                cls = noun_supersense(w) or "unk"
+                cnt = float(cnt)
+                c[vl + "|" + prep + "|" + cls] += cnt; d[vl + "|" + prep] += cnt
+                cg[prep + "|" + cls] += cnt; dg[prep] += cnt; cw[cls] += cnt; tot += cnt
+    out = {"c": dict(c), "d": dict(d), "cg": dict(cg), "dg": dict(dg), "cw": dict(cw), "tot": tot,
+           "computation": "P(objclass|verb,prep) = (c + m1*P(objclass|prep))/(d + m1); oblique-slot plausibility = "
+                          "P(objclass|verb,prep) / [P(objclass|verb,prep) + P(objclass|prep)]"}
+    if path is None:
+        _OBL_SLOTS = out
+    return out
+
+
+def obl_slot_plausibility(S, verb, prep, cls):
+    '''The oblique slot on the SAME 0..1 scale the object slot uses; 0.5 = this predicate expects this kind of
+    oblique filler no more than predicates in general do.  None = unseen predicate in this slot, and the caller must
+    then leave the teacher's own value alone.'''
+    d = S["d"].get(verb + "|" + prep, 0.0)
+    if d <= 0.0:
+        return None
+    pg = (S["cw"].get(cls, 0.0) + 0.5) / (S["tot"] + 1.0)
+    g = (S["cg"].get(prep + "|" + cls, 0.0) + OBL_SLOT_M2 * pg) / (S["dg"].get(prep, 0.0) + OBL_SLOT_M2)
+    pl = (S["c"].get(verb + "|" + prep + "|" + cls, 0.0) + OBL_SLOT_M1 * g) / (d + OBL_SLOT_M1)
+    return pl / (pl + g) if (pl + g) > 0 else 0.5
+
+
+_PP_PREP_CACHE = {}
+
+
+def pp_case_preps(toks, pos):
+    '''{object index -> the preposition that marks it}, memoised; a pure function of (tokens, categories).'''
+    key = (tuple(toks), tuple(pos))
+    v = _PP_PREP_CACHE.get(key)
+    if v is None:
+        v = {obj: toks[prep - 1].lower() for prep, obj, _ in pp_sites(toks, pos)}
+        if len(_PP_PREP_CACHE) > 20000:
+            _PP_PREP_CACHE.clear()
+        _PP_PREP_CACHE[key] = v
+    return v
+"""
+
+TWO_SIDED_SLOT = r"""        # THE OBLIQUE SLOT (pri 94 phase 7): a case-marked nominal hosted by a verb is a plausible OBLIQUE of THIS
+        # predicate with THIS preposition, not a bad direct object.  Falls through to the object / subject slots when
+        # the grown store has never seen this predicate in this slot, so nothing the teacher taught is removed.
+        if OBL_TEACH and self.obl_slots is not None and pos[h - 1] == "VERB":
+            _pr = pp_case_preps(toks, pos).get(j)
+            if _pr is not None:
+                _v = obl_slot_plausibility(self.obl_slots, lemma_verb(toks[h - 1]).lower(), _pr,
+                                           pp_obj_class(toks, pos, j))
+                if _v is not None:
+                    return float(_v)
+"""
+
+TWO_SIDED_SCORE = r"""        # THE NOMINAL HOST SLOT (pri 94 phase 7): give nominal hosts the meaning vote this teacher reserves for
+        # verbs.  Applied after the root row, exactly as measured.
+        if BETA_NOM > 0.0 and self.pp_assoc is not None:
+            for _prep, _obj, _cands in pp_sites(toks, pos):
+                _pw = toks[_prep - 1].lower()
+                for _q in _cands:
+                    if _q == _obj or pos[_q - 1] not in PP_NOM_HOST or not np.isfinite(A[_q][_obj]):
+                        continue
+                    _hc = pp_host_class(toks, pos, _q)
+                    _pl = pp_p_given(self.pp_assoc, pp_host_key(toks, pos, _q), _hc, _pw)
+                    _cc = self.pp_assoc["cc"]; _dc = self.pp_assoc["dc"]; _cp = self.pp_assoc["cp"]
+                    _m2 = self.pp_assoc.get("m2", 20.0)
+                    _pp = (_cp.get(_pw, 0.0) + 0.5) / (self.pp_assoc["tot"] + 1.0)
+                    _g = (_cc.get(_hc + "|" + _pw, 0.0) + _m2 * _pp) / (_dc.get(_hc, 0.0) + _m2)
+                    A[_q][_obj] += BETA_NOM * (_pl / (_pl + _g) if (_pl + _g) > 0 else 0.5)
+"""
+
+
+def _emit_two_sided(main_diff_path, out_path):
+    """Build the post-main source in memory, apply the two-sided edits, write and return the unified diff."""
+    import difflib
+    src0 = open(os.path.join(REPO, "hdlab", "attachment_arm.py"), encoding="utf-8").read()
+    main = open(main_diff_path, encoding="utf-8").read().split("\n")
+    src1 = _apply_unified(src0, main, "hdlab/attachment_arm.py")
+    src2 = src1
+    a = 'PP_CASE_RULE = os.environ.get("HDLAB_ARM_PP_CASE_RULE", "0") != "0"'
+    assert src2.count(a) == 1, "anchor PP_CASE_RULE"
+    src2 = src2.replace(a, a + "\n" + TWO_SIDED_CODE, 1)
+    a = "    def __init__(self, beta: float = 10.0, lam: float = 0.3, tsp_asset: Optional[str] = None):"
+    assert src2.count(a) == 1, "anchor teacher __init__"
+    src2 = src2.replace(a, "    def __init__(self, beta: float = 10.0, lam: float = 0.3, tsp_asset: Optional[str] = None,\n"
+                           "                 pp_assoc: Optional[Dict[str, object]] = None):", 1)
+    a = "        self.beta = float(beta); self.lam = float(lam); self._cache: Dict[Tuple[str, str], float] = {}"
+    assert src2.count(a) == 1, "anchor teacher fields"
+    src2 = src2.replace(a, "        self.pp_assoc = pp_assoc            # the NOUN side of Hindle & Rooth, for the nominal host slot\n"
+                           "        self.obl_slots = obl_slot_store() if OBL_TEACH else None\n" + a, 1)
+    # the MAIN diff already inserts its (default-off) phrase case rule between these two lines, so anchor on the
+    # POST-MAIN text and put the oblique slot first -- exactly where the measured cell put it.
+    _nl = chr(10)
+    a = '        n = len(toks)' + _nl + '        if PP_CASE_RULE and j in pp_case_marked(toks, pos):'
+    assert src2.count(a) == 1, "anchor slot_plausibility body"
+    src2 = src2.replace(a, '        n = len(toks)' + _nl + TWO_SIDED_SLOT
+                        + '        if PP_CASE_RULE and j in pp_case_marked(toks, pos):', 1)
+    a = ('                A[0][j] = (self.beta * best_arg[j] if pos[j - 1] == "VERB" else -1.0) - 0.5\n'
+         '        return A, n')
+    assert src2.count(a) == 1, "anchor score_matrix return"
+    src2 = src2.replace(a, '                A[0][j] = (self.beta * best_arg[j] if pos[j - 1] == "VERB" else -1.0) - 0.5\n'
+                           + TWO_SIDED_SCORE + '        return A, n', 1)
+    d = list(difflib.unified_diff(src1.split("\n"), src2.split("\n"),
+                                  fromfile="a/hdlab/attachment_arm.py", tofile="b/hdlab/attachment_arm.py",
+                                  lineterm="", n=3))
+    # The tools-side hunk is generated against the CURRENT file, not the post-main one: the main diff's hunks in
+    # tools/build_attachment_validities.py are at lines 17 / 131 / 149 / 162 / 171 and `knowledge_free_teacher` is at
+    # line 88, so the two never touch the same region and `patch` absorbs the offset.
+    b0 = open(os.path.join(REPO, "tools", "build_attachment_validities.py"), encoding="utf-8").read()
+    b1 = b0
+    b2 = b1
+    a = "def knowledge_free_teacher(train, rounds=2, beta=0.0, tsp_asset=None):"
+    assert b2.count(a) == 1, "anchor knowledge_free_teacher"
+    b2 = b2.replace(a, "def knowledge_free_teacher(train, rounds=2, beta=0.0, tsp_asset=None, pp_assoc=None):", 1)
+    a = "    meaning = AA.SemanticBootstrapTeacher(beta=beta, lam=m.lam, tsp_asset=tsp_asset)"
+    assert b2.count(a) == 1, "anchor teacher construction"
+    b2 = b2.replace(a, "    # the NOMINAL HOST SLOT needs the noun side of the association while the arm is LEARNING\n"
+                       "    meaning = AA.SemanticBootstrapTeacher(beta=beta, lam=m.lam, tsp_asset=tsp_asset, pp_assoc=pp_assoc)", 1)
+    d += list(difflib.unified_diff(b1.split("\n"), b2.split("\n"),
+                                   fromfile="a/tools/build_attachment_validities.py",
+                                   tofile="b/tools/build_attachment_validities.py", lineterm="", n=3))
+    text = "\n".join(d) + "\n"
+    with open(out_path, "w", encoding="utf-8", newline="\n") as f:
+        f.write(text)
+    return text
+
+
+def two_sided_diff(main_diff_path, out_path, n_sent: int = 30) -> int:
+    """Emit the second diff and CHECK IT: execute the patched module and compare its acquisition teacher's score
+    matrix, arc for arc, with the two-sided teacher this cell measured."""
+    import types
+    text = _emit_two_sided(main_diff_path, out_path)
+    print("  wrote %s (%d lines)" % (out_path, text.count("\n")))
+    src0 = open(os.path.join(REPO, "hdlab", "attachment_arm.py"), encoding="utf-8").read()
+    main = open(main_diff_path, encoding="utf-8").read().split("\n")
+    src1 = _apply_unified(src0, main, "hdlab/attachment_arm.py")
+    src2 = _apply_unified(src1, text.split("\n"), "hdlab/attachment_arm.py")
+    mod = types.ModuleType("attachment_arm_two_sided")
+    mod.__file__ = os.path.join(REPO, "hdlab", "attachment_arm.py")
+    exec(compile(src2, mod.__file__, "exec"), mod.__dict__)
+    S = mod.obl_slot_store()
+    print("  patched module executes; oblique store: %d predicate-prep slots, %d filler cells, %.0f observations"
+          % (len(S["d"]), len(S["c"]), S["tot"]))
+    train = sentences(TRAIN, cap=n_sent * 4)
+    assoc, _ = mine([(t, p) for t, p, _, _ in train], rounds=1)
+    v2 = {"c": dict(assoc.c), "d": dict(assoc.d), "cc": dict(assoc.cc), "dc": dict(assoc.dc), "cp": dict(assoc.cp),
+          "tot": assoc.tot, "m1": assoc.m1, "m2": assoc.m2, "o": dict(assoc.o), "od": dict(assoc.od),
+          "oc": dict(assoc.oc), "ocd": dict(assoc.ocd), "og": dict(assoc.og), "otot": assoc.otot}
+    OB = OblSlotPreference.from_grown_store()
+    ours = AA.SemanticBootstrapTeacher(beta=10.0)
+    theirs = mod.SemanticBootstrapTeacher(beta=10.0, pp_assoc=v2)
+    activate(assoc, 6, Z_EDGES, False, True, "oblteach", "share", True, False, OB, False, 6.0)
+    worst = 0.0; checked = 0
+    try:
+        for (tk, ps, _, _) in train[:n_sent]:
+            A1, n1 = AA.SemanticBootstrapTeacher.score_matrix(ours, tk, ps)
+            A2, n2 = theirs.score_matrix(tk, ps)
+            fin = np.isfinite(A1) & np.isfinite(A2)
+            if n1 != n2 or not np.array_equal(np.isfinite(A1), np.isfinite(A2)):
+                worst = 1e9
+            elif fin.any():
+                worst = max(worst, float(np.abs(A1[fin] - A2[fin]).max()))
+            checked += 1
+    finally:
+        deactivate_to_head()
+    print("  two-sided teacher: the patch vs what this cell measured, %d sentences, max |delta| = %.2e"
+          % (checked, worst))
+    ok = worst < 1e-9
+    print("  TWO-SIDED PATCH EQUIVALENCE:", "PASS" if ok else "FAIL")
+    return 0 if ok else 1
+
+
 def consumer_roles(table, test, decode: str) -> dict:
     """THE DOWNSTREAM CONSUMER (brief section 7): the role competition (`graded_role_assigner.coarse_roles`) reads the
     heads this arm produces and decides OBL vs OBJ vs NSUBJ. Reported, never edited -- so strategy can see the hand-off.
@@ -1616,6 +1848,88 @@ def gap_decomposition(table, assoc: Optional[PPAssoc], test, decode: str = "incr
     for r in ("obl", "nmod"):
         out[r] = {k.split(":")[1]: v for k, v in sorted(cause.items()) if k.startswith(r + ":")}
         out[r + "_share"] = {k: round(v / max(1, tot[r]), 3) for k, v in out[r].items()}
+    return out
+
+
+def capacity_probe(test, caps=(4, 6, 8, 12, 24)) -> dict:
+    """WHY THE CAPACITY CAP IS NOT BINDING -- the distribution the sweep only summarised.
+
+    `pp_sites` scans LEFT from the preposition and STOPS at a sentence-final mark, offering every open host it meets.
+    The question the K-sweep answered empirically (K = 6 and K = 12 retrieve the identical 556 tokens) has a
+    structural cause, and this probe measures it: how many open hosts actually exist to the left of a preposition
+    inside its own sentence, and at what RANK the gold host sits. Lewis & Vasishth's capacity limit only bites when
+    the candidate set is bigger than the limit."""
+    from collections import Counter
+    n_c = Counter(); rank = Counter(); tot = 0; found = 0
+    for toks, pos, gold, rels in test:
+        for prep, obj, cands in pp_sites(toks, pos, 10 ** 6):     # UNCAPPED retrieval
+            if rels[obj - 1] not in ("obl", "nmod"):
+                continue
+            tot += 1
+            n_c[min(len(cands), 25)] += 1
+            g = gold[obj - 1]
+            if g in cands:
+                found += 1
+                rank[min(cands.index(g) + 1, 25)] += 1
+    cum = {}; run = 0
+    for r in sorted(rank):
+        run += rank[r]; cum[r] = round(run / max(1, tot), 4)
+    return {"sites_on_gold_obl_nmod": tot, "gold_host_present_uncapped": found,
+            "candidate_set_size_histogram": dict(sorted(n_c.items())),
+            "sites_with_more_than_6_candidates": sum(v for k, v in n_c.items() if k > 6),
+            "gold_host_rank_histogram": dict(sorted(rank.items())),
+            "cumulative_recall_by_rank": cum,
+            "recall_at_K": {K: round(sum(v for k, v in rank.items() if k <= K) / max(1, tot), 4) for K in caps}}
+
+
+def flip_diag(tables: Dict[str, object], test, rels_of_interest, decode: str = "incr",
+              cfgs: Optional[dict] = None, k_cap: int = 6) -> dict:
+    """WHICH TOKENS OF A RELATION FLIP, AND WHERE THEY GO -- for understanding a regression instead of reporting it.
+
+    For every gold token of the named relations, compare the floor arm's head with each other arm's head and
+    classify: kept-right, kept-wrong, BROKEN (right -> wrong) or REPAIRED (wrong -> right); for the broken ones,
+    record the CATEGORY of the head they moved to and whether the token sits inside a retrieved PP site or a
+    genitive arc, which is the only way the change could have reached it."""
+    old = AA.DECODE
+    AA.DECODE = decode
+    heads_by_arm: Dict[str, List[dict]] = {}
+    marks: List[dict] = []
+    try:
+        for name, tab in tables.items():
+            ctx = arm_context((cfgs or {}).get(name), k_cap); ctx.__enter__()
+            per = []
+            for toks, pos, gold, rels in test:
+                hd = AA.heads(toks, pos, tab)
+                per.append({i: (hd.get(i, -1), gold[i - 1], rels[i - 1]) for i in range(1, len(toks) + 1)
+                            if rels[i - 1] in rels_of_interest})
+                if name == list(tables)[0]:
+                    sites = {obj for _, obj, _ in pp_sites(toks, pos, k_cap)}
+                    gens = {d for _h, d in genitive_arcs(toks, pos)}
+                    marks.append({"pos": pos, "sites": sites, "gens": gens})
+            ctx.__exit__()
+            heads_by_arm[name] = per
+    finally:
+        AA.DECODE = old
+    floor = list(tables)[0]
+    out = {}
+    for name in tables:
+        if name == floor:
+            continue
+        c = defaultdict(int); moved = defaultdict(int); reach = defaultdict(int)
+        for si, (f, a2) in enumerate(zip(heads_by_arm[floor], heads_by_arm[name])):
+            pos = marks[si]["pos"]
+            for i, (hf, g, r) in f.items():
+                ha = a2[i][0]
+                okf, oka = hf == g, ha == g
+                c[r + (":kept_right" if okf and oka else ":BROKEN" if okf else
+                       ":REPAIRED" if oka else ":kept_wrong")] += 1
+                if okf and not oka:
+                    moved[r + " -> head=" + (pos[ha - 1] if 1 <= ha <= len(pos) else "ROOT")] += 1
+                    reach[r + (":in_pp_site" if i in marks[si]["sites"] else
+                               ":in_genitive" if i in marks[si]["gens"] else ":NOT_REACHED_BY_THE_CHANGE")] += 1
+        out[name] = {"flips": dict(sorted(c.items())),
+                     "broken_moved_to": dict(sorted(moved.items(), key=lambda kv: -kv[1])[:8]),
+                     "broken_reachability": dict(sorted(reach.items()))}
     return out
 
 
@@ -1949,6 +2263,10 @@ def main(argv=None) -> int:
     ap.add_argument("--roles-diag", default="", help="comma-separated arms to run the heads->labels diagnostic on")
     ap.add_argument("--gap-decomp", default="", help="comma-separated arms to decompose the residual for")
     ap.add_argument("--coverage-probe", action="store_true", help="what the detector still cannot see, by class")
+    ap.add_argument("--two-sided-diff", default=None, help="path to the MAIN diff; emits + checks the second diff")
+    ap.add_argument("--two-sided-out", default=None, help="where to write the second diff")
+    ap.add_argument("--capacity-probe", action="store_true", help="candidate-set sizes and gold-host ranks, uncapped")
+    ap.add_argument("--flip-diag", default="", help="comma-separated relations to trace flips on (needs >=2 arms)")
     ap.add_argument("--rank-probe", action="store_true", help="channel ranking accuracy only: no table, no decode")
     ap.add_argument("--near-w", type=float, default=1.0, help="the locality weight in the rank probe (swept)")
     ap.add_argument("--label-transfer", default="", help="comma-separated arms to trace the heads->labels hand-off on")
@@ -1979,6 +2297,18 @@ def main(argv=None) -> int:
         return self_test()
     if a.verify_patch:
         return verify_patch(a.verify_patch)
+    if a.two_sided_diff:
+        return two_sided_diff(a.two_sided_diff, a.two_sided_out)
+    if a.capacity_probe:
+        test_k = sentences(TEST, cap=a.test_cap, maxlen=10 ** 6)
+        cp = capacity_probe(test_k)
+        print(json.dumps(cp, indent=1), flush=True)
+        od = str(get_output_dir(ANCHOR)); os.makedirs(od, exist_ok=True)
+        with open(os.path.join(od, "capacity_probe%s.json" % (a.tag or "")), "w", encoding="utf-8") as f:
+            json.dump({"anchor": ANCHOR, "probe": "capacity_probe", "test_cap": a.test_cap, "results": cp,
+                       "hdlab_provenance": module_provenance(),
+                       "ts_iso": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}, f, indent=1)
+        return 0
     if a.coverage_probe:
         test_c = sentences(TEST, cap=a.test_cap, maxlen=10 ** 6)
         cv = coverage_probe(test_c, a.kcap)
@@ -2256,7 +2586,14 @@ def main(argv=None) -> int:
                              "pp_validity_by_value": validity_by_value(tab, "pp"),
                              "ppobj_validity_by_value": validity_by_value(tab, "ppobj"),
                              "ppref_validity_by_value": validity_by_value(tab, "ppref"),
-                             "ppslot_validity_by_value": validity_by_value(tab, "ppslot")}
+                             "ppslot_validity_by_value": validity_by_value(tab, "ppslot"),
+                             # the cues that carry the acquisition teacher's meaning budget, so the seesaw can be
+                             # read off the LEARNED TABLES instead of inferred from the outcome
+                             "plaus_validity_by_value": validity_by_value(tab, "plaus"),
+                             "locality_validity_by_value": validity_by_value(tab, "locality"),
+                             "constr_validity_by_value": validity_by_value(tab, "constr"),
+                             "pp_ladder_spread": (lambda L: round(max(L.values()) - min(L.values()), 4) if L else None)(
+                                 validity_by_value(tab, "pp"))}
             for dec in decodes:
                 recs = per_sentence_hits(tab, test, dec)
                 per_sent[(name, dec)] = recs
@@ -2399,6 +2736,14 @@ def main(argv=None) -> int:
                 bt["derived_obl"]["delta"], "*" if bt["derived_obl"]["separated"] else " ",
                 bt["derived_nmod"]["delta"], "*" if bt["derived_nmod"]["separated"] else " "), flush=True)
         results["label_transfer"] = lt
+    if a.flip_diag:
+        rl = tuple(x for x in a.flip_diag.split(",") if x)
+        fd = flip_diag(built, test, rl, decodes[0], cfg_by_arm, a.kcap)
+        for k, v in fd.items():
+            print("  FLIP %-14s %s" % (k, v["flips"]), flush=True)
+            print("       broken moved to: %s" % v["broken_moved_to"], flush=True)
+            print("       broken reachability: %s" % v["broken_reachability"], flush=True)
+        results["flip_diag"] = fd
     if a.gap_decomp:
         for nm in [x for x in a.gap_decomp.split(",") if x]:
             if nm not in built:

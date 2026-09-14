@@ -1,0 +1,181 @@
+--- a/hdlab/attachment_arm.py
++++ b/hdlab/attachment_arm.py
+@@ -524,6 +524,99 @@
+ #     leaving the guard alone (obl 0.482 vs 0.526).  87% of gold obl is prepositional and its host IS a verb, so the
+ #     blanket pull is NET CORRECT; what separates obl from nmod is the ASSOCIATION, not the guard.
+ PP_CASE_RULE = os.environ.get("HDLAB_ARM_PP_CASE_RULE", "0") != "0"
++
++
++# ------------------------------------------------------------------ the TWO-SIDED acquisition teacher (pri 94 ph 7)
++# `SemanticBootstrapTeacher.score_matrix` adds its meaning term `beta * slot_plausibility(h, j)` on exactly one kind
++# of arc: a VERB host with a NOMINAL dependent.  A noun host receives no meaning support at all, ever.  While the arm
++# learns, every case-marked nominal therefore has a verb voting for it with beta and a noun voting with nothing --
++# and MEASURED (pri 94 phase 7, UD-EWT test 700), WHERE THAT BUDGET IS SPENT IS THE obl/nmod SEESAW: spend more on
++# verbs and obl goes 0.541 -> 0.679 while nmod goes 0.489 -> 0.221; spend it on nouns and obl -> 0.210, nmod -> 0.566.
++# The brain has no such asymmetry: a relational noun selects its complement as a verb selects its argument ("the
++# picture OF the girl", "the edge OF the table"; Barker 1995 possessive descriptions; Loebner's relational nouns), and
++# Hindle & Rooth 1993's contrast log[P(p|VERB)/P(p|NOUN)] is symmetric by construction.  Two additions, both counts:
++#   (1) OBLIQUE SLOT.  A case-marked nominal hosted by a verb is scored in the OBLIQUE slot, by that predicate's own
++#       oblique expectation with that preposition, read off the substrate's OWN grown `obl:<prep>` store (Pinker 1984
++#       semantic bootstrapping with three slots instead of two).  When the store abstains the teacher's own value
++#       stands, so the verb's pull is RE-SCORED and never removed -- zeroing it collapses obl 0.449 -> 0.199.
++#   (2) NOMINAL HOST SLOT.  Every retrieved nominal host of a case-marked nominal gets `BETA_NOM * P_host`, where
++#       P_host = P(p | this noun) / [P(p | this noun) + P(p | this noun's class)] -- 0.5 when this noun is no more
++#       attracted to the preposition than nouns of its kind.
++# MEASURED TOGETHER (cap 1500, test 700, paired bootstrap over sentences, in-order): retrieved-nmod +0.0752
++# CI [+0.0308,+0.1231] over the floor and +0.0564 CI [+0.0115,+0.1020] over the arm without them; UAS +0.0121*,
++# obl +0.0818*, nmod +0.1067*; nothing CI-separated down; and the downstream role competition returns to the floor
++# (0.5769 vs 0.5760, against 0.5617 without them).  Beats a twin with BOTH stores scrambled on UAS (+0.0082*), obl
++# (+0.1405*) and retrieved obl (+0.1952*).  BETA_NOM swept (2 / 6 / 14; 14 overshoots, obl 0.264), never adopted.
++BETA_NOM = float(os.environ.get("HDLAB_SBT_BETA_NOM", "6.0"))       # swept operating point, never adopted
++OBL_TEACH = os.environ.get("HDLAB_SBT_OBL_TEACH", "1") != "0"
++OBL_SLOT_M1 = float(os.environ.get("HDLAB_SBT_OBL_M1", "5.0"))
++OBL_SLOT_M2 = float(os.environ.get("HDLAB_SBT_OBL_M2", "20.0"))
++_OBL_SLOTS = None
++
++
++def obl_slot_store(path=None):
++    '''P(class of the oblique filler | predicate lemma, preposition) as COUNTS, from the substrate's OWN grown slot
++    store (tools/grow_selectional_store_bf.py: its own reading-induced categories -> this arm -> the role
++    competition, 60k Simple-Wiki lines, no external parser): 6,947 (predicate, preposition) slots, 20,179
++    filler-class cells, 39,222 observations.  Typed with the same WordNet supersense table the typed selectional
++    organ reads.  Plastic: the counts are the store's own and grow with more reading.'''
++    global _OBL_SLOTS
++    if _OBL_SLOTS is not None and path is None:
++        return _OBL_SLOTS
++    from collections import defaultdict as _dd
++    c = _dd(float); d = _dd(float); cg = _dd(float); dg = _dd(float); cw = _dd(float); tot = 0.0
++    pth = path or BF_STORE
++    if os.path.isfile(pth):
++        import pickle
++        from hdlab.typed_selectional_preference import noun_supersense
++        sf = pickle.load(open(pth, "rb"))["slot_filler"]
++        for (v, role), fillers in sf.items():
++            if not role.startswith("obl:"):
++                continue
++            prep = role.split(":", 1)[1]
++            if not prep or prep == "_":
++                continue
++            vl = lemma_verb(v).lower()
++            for w, cnt in fillers.items():
++                cls = noun_supersense(w) or "unk"
++                cnt = float(cnt)
++                c[vl + "|" + prep + "|" + cls] += cnt; d[vl + "|" + prep] += cnt
++                cg[prep + "|" + cls] += cnt; dg[prep] += cnt; cw[cls] += cnt; tot += cnt
++    out = {"c": dict(c), "d": dict(d), "cg": dict(cg), "dg": dict(dg), "cw": dict(cw), "tot": tot,
++           "computation": "P(objclass|verb,prep) = (c + m1*P(objclass|prep))/(d + m1); oblique-slot plausibility = "
++                          "P(objclass|verb,prep) / [P(objclass|verb,prep) + P(objclass|prep)]"}
++    if path is None:
++        _OBL_SLOTS = out
++    return out
++
++
++def obl_slot_plausibility(S, verb, prep, cls):
++    '''The oblique slot on the SAME 0..1 scale the object slot uses; 0.5 = this predicate expects this kind of
++    oblique filler no more than predicates in general do.  None = unseen predicate in this slot, and the caller must
++    then leave the teacher's own value alone.'''
++    d = S["d"].get(verb + "|" + prep, 0.0)
++    if d <= 0.0:
++        return None
++    pg = (S["cw"].get(cls, 0.0) + 0.5) / (S["tot"] + 1.0)
++    g = (S["cg"].get(prep + "|" + cls, 0.0) + OBL_SLOT_M2 * pg) / (S["dg"].get(prep, 0.0) + OBL_SLOT_M2)
++    pl = (S["c"].get(verb + "|" + prep + "|" + cls, 0.0) + OBL_SLOT_M1 * g) / (d + OBL_SLOT_M1)
++    return pl / (pl + g) if (pl + g) > 0 else 0.5
++
++
++_PP_PREP_CACHE = {}
++
++
++def pp_case_preps(toks, pos):
++    '''{object index -> the preposition that marks it}, memoised; a pure function of (tokens, categories).'''
++    key = (tuple(toks), tuple(pos))
++    v = _PP_PREP_CACHE.get(key)
++    if v is None:
++        v = {obj: toks[prep - 1].lower() for prep, obj, _ in pp_sites(toks, pos)}
++        if len(_PP_PREP_CACHE) > 20000:
++            _PP_PREP_CACHE.clear()
++        _PP_PREP_CACHE[key] = v
++    return v
++
+ 
+ 
+ def pp_run_head(pos: Sequence[str], i: int) -> Optional[int]:
+@@ -1989,7 +2082,8 @@
+ # (beta is a SWEPT operating point: smoke 1.5k/150 -- beta 0: obj 0.08 obl 0.04 root 0.34; beta 2: obj 0.13; beta 5: obj 0.72
+ # obl 0.44 root 0.83; beta 10: obj 0.76 obl 0.56 root 0.79, UAS 0.540 -- above the prior-informed path it replaces).
+ class SemanticBootstrapTeacher:
+-    def __init__(self, beta: float = 10.0, lam: float = 0.3, tsp_asset: Optional[str] = None):
++    def __init__(self, beta: float = 10.0, lam: float = 0.3, tsp_asset: Optional[str] = None,
++                 pp_assoc: Optional[Dict[str, object]] = None):
+         from hdlab.typed_selectional_preference import get, TypedSelectionalPreference
+         # PLAUSIBILITY SOURCE (2026-09-12 late): by default the store GROWN BY THE SUBSTRATE'S OWN CHAIN (induced categories ->
+         # attachment arm -> role competition over 60k simplewiki lines; tools/grow_selectional_store_bf.py -> typed asset
+@@ -2028,6 +2122,8 @@
+                 self.pron_subj_g = sum(ps.values()) / max(1.0, sum(ts.values())); self.pron_obj_g = sum(po.values()) / max(1.0, sum(to.values()))
+             except Exception:
+                 self.pron_subj, self.pron_obj = {}, {}
++        self.pp_assoc = pp_assoc            # the NOUN side of Hindle & Rooth, for the nominal host slot
++        self.obl_slots = obl_slot_store() if OBL_TEACH else None
+         self.beta = float(beta); self.lam = float(lam); self._cache: Dict[Tuple[str, str], float] = {}
+ 
+     def plausibility(self, verb_tok: str, noun_tok: str) -> float:
+@@ -2058,6 +2154,16 @@
+         in that slot. Case-marking rules (PP_NO_SUBJ): a pre-verbal PREPOSITIONAL object is oblique, never the subject; a pronoun
+         that DETERMINES a following nominal ("its wares") is a possessive, not a participant (2026-09-13 nmod anatomy)."""
+         n = len(toks)
++        # THE OBLIQUE SLOT (pri 94 phase 7): a case-marked nominal hosted by a verb is a plausible OBLIQUE of THIS
++        # predicate with THIS preposition, not a bad direct object.  Falls through to the object / subject slots when
++        # the grown store has never seen this predicate in this slot, so nothing the teacher taught is removed.
++        if OBL_TEACH and self.obl_slots is not None and pos[h - 1] == "VERB":
++            _pr = pp_case_preps(toks, pos).get(j)
++            if _pr is not None:
++                _v = obl_slot_plausibility(self.obl_slots, lemma_verb(toks[h - 1]).lower(), _pr,
++                                           pp_obj_class(toks, pos, j))
++                if _v is not None:
++                    return float(_v)
+         if PP_CASE_RULE and j in pp_case_marked(toks, pos):
+             return 0.0            # PHRASE-level case marking: a case-marked nominal is oblique, not a core participant
+         is_pron = pos[j - 1] == "PRON" and bool(self.pron_subj or self.pron_obj)
+@@ -2096,6 +2202,21 @@
+                 A[0][j] = -np.inf if any(pos[k] not in FORM for k in range(n)) else 0.0
+             else:
+                 A[0][j] = (self.beta * best_arg[j] if pos[j - 1] == "VERB" else -1.0) - 0.5
++        # THE NOMINAL HOST SLOT (pri 94 phase 7): give nominal hosts the meaning vote this teacher reserves for
++        # verbs.  Applied after the root row, exactly as measured.
++        if BETA_NOM > 0.0 and self.pp_assoc is not None:
++            for _prep, _obj, _cands in pp_sites(toks, pos):
++                _pw = toks[_prep - 1].lower()
++                for _q in _cands:
++                    if _q == _obj or pos[_q - 1] not in PP_NOM_HOST or not np.isfinite(A[_q][_obj]):
++                        continue
++                    _hc = pp_host_class(toks, pos, _q)
++                    _pl = pp_p_given(self.pp_assoc, pp_host_key(toks, pos, _q), _hc, _pw)
++                    _cc = self.pp_assoc["cc"]; _dc = self.pp_assoc["dc"]; _cp = self.pp_assoc["cp"]
++                    _m2 = self.pp_assoc.get("m2", 20.0)
++                    _pp = (_cp.get(_pw, 0.0) + 0.5) / (self.pp_assoc["tot"] + 1.0)
++                    _g = (_cc.get(_hc + "|" + _pw, 0.0) + _m2 * _pp) / (_dc.get(_hc, 0.0) + _m2)
++                    A[_q][_obj] += BETA_NOM * (_pl / (_pl + _g) if (_pl + _g) > 0 else 0.5)
+         return A, n
+ 
+     def combined_scores(self, A: np.ndarray, n: int, toks: Sequence[str], pos: Sequence[str]) -> np.ndarray:
+--- a/tools/build_attachment_validities.py
++++ b/tools/build_attachment_validities.py
+@@ -85,7 +85,7 @@
+     return out
+ 
+ 
+-def knowledge_free_teacher(train, rounds=2, beta=0.0, tsp_asset=None):
++def knowledge_free_teacher(train, rounds=2, beta=0.0, tsp_asset=None, pp_assoc=None):
+     """Co-occurrence teacher (phrase internals; prior-free SelfSupEM) + SEMANTIC BOOTSTRAPPING (beta > 0: the predicate heads its
+     plausible participants; attachment_arm.SemanticBootstrapTeacher) as ONE tree posterior."""
+     from experiments.exp_parser_selfsup_em_v1 import SelfSupEM
+@@ -95,7 +95,8 @@
+         m.em_round(tr)
+     if beta <= 0:
+         return m
+-    meaning = AA.SemanticBootstrapTeacher(beta=beta, lam=m.lam, tsp_asset=tsp_asset)
++    # the NOMINAL HOST SLOT needs the noun side of the association while the arm is LEARNING
++    meaning = AA.SemanticBootstrapTeacher(beta=beta, lam=m.lam, tsp_asset=tsp_asset, pp_assoc=pp_assoc)
+ 
+     class Combined:
+         def _score_matrix(self, toks, pos):

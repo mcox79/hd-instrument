@@ -696,6 +696,201 @@ first.
 6. **Do NOT queue** the 500k-line mining job or an activation-decay retrieval: both are closed with numbers (§12.5b,
    §12.5c).
 
+---
+
+# PHASE 7, ROUND 2 — the answers, the second diff, and the probe
+
+## 15. THE SECOND DIFF: `attachment_arm_two_sided_teacher_patch.diff`
+
+**Generated and equivalence-checked; it is a SEPARATE landing step, applied AFTER `attachment_arm_pp_patch.diff`.**
+It uses the symbols that diff introduces (`pp_sites`, `pp_case_marked`, `pp_obj_class`, `pp_host_key`,
+`pp_host_class`, `pp_p_given`, `PP_NOM_HOST`), so it is generated against the post-main source **in memory** —
+nothing under `hdlab/` was written — and it will NOT `patch -p1 --dry-run` clean on a tree that lacks the main diff.
+That is by design and is the landing order strategy asked for.
+
+| | |
+|---|---|
+| hunks | 7 (6 in `hdlab/attachment_arm.py`, 1 in `tools/build_attachment_validities.py`), 181 lines |
+| what it adds | `obl_slot_store()` + `obl_slot_plausibility()` + `pp_case_preps()`; `BETA_NOM` / `OBL_TEACH` / `OBL_SLOT_M1` / `OBL_SLOT_M2` env switches; `pp_assoc` and `obl_slots` on the teacher; the oblique-slot branch in `slot_plausibility`; the nominal-host term at the end of `score_matrix`; `pp_assoc=` threaded through `knowledge_free_teacher` |
+| equivalence check | the patched module is executed and its **acquisition teacher's score matrix compared arc-for-arc** with the two-sided teacher this cell measured: **max \|delta\| = 0.00e+00 over 30 sentences** |
+| its own reverify | `.venv/Scripts/python.exe experiments/exp_attachment_pp_association_unambiguous_mining_v1.py --two-sided-diff notes/problems/<slug>/attachment_arm_pp_patch.diff --two-sided-out notes/problems/<slug>/attachment_arm_two_sided_teacher_patch.diff` (regenerates it byte-for-byte and re-runs the check) |
+| overlap with the main diff | none. The main diff's only teacher hunk inserts the default-off phrase case rule between `n = len(toks)` and `is_pron = ...`; this diff's oblique-slot branch is inserted immediately before it, and its other hunks are in `__init__`, `score_matrix` and new module-level code. In `tools/build_attachment_validities.py` the main diff's hunks are at lines 17/131/149/162/171 and this one is in `knowledge_free_teacher` at line 88. |
+
+**THE EXACT REBUILD COMMAND after landing both diffs** (the asset the reader loads):
+
+```
+OMP_NUM_THREADS=3 OPENBLAS_NUM_THREADS=3 MKL_NUM_THREADS=3 PYTHONHASHSEED=0 \
+.venv/Scripts/python.exe tools/build_attachment_validities.py \
+    --cap 6000 --beta 10 \
+    --pp-assoc data/hook_state/attachment_pp_assoc_v2_simplewiki100k_candidate.json \
+    --out data/frontend_assets/attachment_validities_v1.json
+```
+
+with `HDLAB_SBT_BETA_NOM=6` and `HDLAB_SBT_OBL_TEACH=1` (both are the shipped defaults in the diff, so the plain
+command is enough). To rebuild the *first* diff alone, set `HDLAB_SBT_BETA_NOM=0 HDLAB_SBT_OBL_TEACH=0` — the second
+diff is then inert, which is how the two landing steps stay separable. **Sanity numbers to expect on UD-EWT test 700
+at cap 6000 with gold categories, in-order:** first diff alone UAS 0.6364 / obl 0.497 / nmod 0.511; both diffs, at
+cap 1500 where the pair was measured, UAS 0.6373 / obl 0.522 / nmod 0.515 / retrieved-nmod 0.624.
+
+**One caveat I am stating rather than hiding:** the two-sided pair was measured at **cap 1500**, not at the landed
+cap 6000. Everything in §12.5(g) is a cap-1500 result. The obl/nmod trade the meaning budget controls is
+cap-sensitive (§16.1), so `BETA_NOM` should be re-swept at cap 6000 before the board A/B — 2, 4, 6 is the range to
+try, and the arm is already parameterised for it.
+
+## 16. THE PROBE (round 2): every negative and mechanism, understood
+
+### 16.0 Q3 ANSWERED BY STRATEGY — the floor drift was NOT unexplained
+
+Strategy swapped the LIVE assets between 20:41 and 21:50: `attachment_validities_v1.json` → pri 97's cap-6000
+rebuild, `lexical_categories_counts_v1.json` / `_penn_v1.json` → pri 99's rebuilds, `coarse_role_validities_ud_ewt.json`
+→ pri 103's v3 table. **That is the cause of the −0.009 obl shift in `base`, and it means my floor is the NEW LIVE
+ASSET, which is the correct floor for anything landing after tonight.** §12.0's "could not identify" stands as an
+account of what I checked, and this is the answer; the two diagnostic consequences are worth keeping in mind:
+the consumer numbers in this file are against pri 103's **v3** role table (which is why the first submission's
+consumer delta was +0.004 and every measurement after the swap is negative), and the live-chain numbers are against
+pri 99's category counts.
+
+### 16.1 WHY THE ASSOCIATION'S SEPARABLE CONTENT MOVED FROM obl (cap 1500) TO nmod (cap 6000)
+
+**First, a correction to my own §12.2 that strategy's question exposed.** The `flat` control does NOT carry the
+genitive construction, while `objgen` does — so "objgen vs flat" was never a clean read of the association's content;
+it conflated the content with the genitive. The clean control is `flatgen` (the same arcs, a CONSTANT cue value, PLUS
+the genitive), and it is measured in §16.1b below.
+
+**Second, the mechanism, read off the learned tables.** The `pp` cue's learned validity ladder for `objgen`:
+
+| | l2 (worst bin) | l1 | 0 | w1 | w2 (best bin) | **spread** |
+|---|---|---|---|---|---|---|
+| cap 1500 | −0.255 | +0.008 | +0.330 | +0.663 | +1.241 | **1.496** |
+| cap 6000 | +0.001 | +0.174 | +0.593 | +0.780 | +1.080 | **1.079** |
+
+With four times the training data the ladder **compresses by 28% and its floor rises off zero**: at cap 6000 even the
+WORST association bin is no longer evidence against the arc. The cue is drifting from "this host is the associated
+one" toward "this arc is a retrieved candidate at all" — i.e. toward the `flat` control. That is precisely the
+Competition Model's account of cue strength (MacWhinney & Bates: a cue's strength is its validity *relative to the
+competing cues available*, so a cue loses strength as the competition covers the same cases) and it is what Collins &
+Brooks 1995 found empirically for PP attachment — their backed-off model beat a fully lexical one, because the
+lexical term's marginal value collapses once the coarser terms are well estimated.
+
+**Third, strategy's specific hypothesis — "is the teacher at cap 6000 already supplying the obl signal?" — is
+MEASURABLY NO, and the truth is more interesting.** If the teacher were supplying it, the FLOOR would improve with
+data. It does not: `base` obl is 0.440 at cap 1500 and 0.444 at cap 6000. What actually happens is that the CUED arm
+gets *worse* at obl with more data — `objgen` obl 0.541 → 0.497 — while `base` stands still. So it is not
+redundancy with the teacher; **it is the cue's own learned contrast being absorbed into the configuration's base rate
+as that rate becomes better estimated.** The nmod side is spared because most of the nmod gain is the GENITIVE, whose
+validity is learned as a CONSTRUCTION rather than as a value of a cue competing inside the same configuration cells —
+and, exactly as that predicts, the genitive's contribution is cap-independent: `gen` alone gives nmod **+0.0655\* at
+cap 1500 and +0.0674\* at cap 6000**, the same number.
+
+**What follows for the build.** The association's obl contribution is the part that decays with training volume, so
+(a) `m1`/`m2` (the Dirichlet shrinkage toward the class and the marginal) should be re-swept at the landed cap — the
+right shrinkage at 1,500 sentences is not the right shrinkage at 6,000 — and (b) the ladder spread is the diagnostic
+to watch, not the recall. **The two-sided teacher gives the biggest spread of any arm measured** (§16.3), which is
+the mechanism behind its result and the reason it is the recommended follow-on.
+
+### 16.3 WHY THE MEANING BUDGET SPENT ON VERB HOSTS PRODUCES THE SEESAW — off the learned tables
+
+The `pp` cue's ladder under each allocation of the acquisition teacher's meaning budget (cap 1500, 116 learned cells
+in every arm, so this is not a coverage difference):
+
+| arm | budget | l2 | l1 | 0 | w1 | w2 | spread | monotone? | obl | nmod |
+|---|---|---|---|---|---|---|---|---|---|---|
+| `objgennom6` | nouns, hard | −0.362 | −0.332 | +0.109 | +0.713 | +0.690 | 1.052 | **no** (w2 < w1) | 0.210 | 0.566 |
+| `objgen` | verbs only (HEAD) | −0.255 | +0.008 | +0.330 | +0.663 | +1.241 | 1.496 | yes | 0.541 | 0.489 |
+| `objgenoblteach` | verbs, amplified | −0.832 | −0.714 | **−0.600** | −0.409 | +0.707 | 1.539 | yes | 0.679 | 0.221 |
+| **`objgenoblnom6`** | **both sides** | −0.556 | −0.344 | +0.213 | +0.911 | **+1.806** | **2.362** | yes | 0.522 | 0.515 |
+| `twinoblnom6` | both sides, scrambled | +0.104 | +0.015 | +0.299 | +0.563 | +0.463 | 0.548 | **no** | 0.382 | 0.537 |
+
+Read the third row: when the budget is amplified on verb hosts, **the entire ladder shifts down by about 0.9 and the
+neutral bin goes to −0.600** — being a retrieved PP candidate becomes evidence *against* the arc. The teacher has
+already done the attaching (to the verb), so the only job left for the association cue is to VETO, and it learns to.
+That is the seesaw's mechanism in one number, and it is the same failure mode §5(a) found for the "strongest rival"
+readout arriving by a third door: **whenever one host type is structurally favoured, the association cue stops
+encoding association and starts encoding "not that type".**
+
+Row four is the point of the whole phase. With both hosts voting, the cue no longer has to encode a type preference
+at all, and its learned contrast is **the widest and cleanest this problem has produced — spread 2.362, strictly
+monotone, w2 = +1.806** against the shipped arm's 1.496. The twin's ladder (0.548, non-monotone) confirms there is
+nothing to learn there without the real association.
+
+### 16.4 WHY CAPACITY 6 RETRIEVES EVERYTHING CAPACITY 12 DOES
+
+Not because the candidate sets are small — **264 of the 599 sites (44%) have more than 6 open hosts to the left**, up
+to 25. It is because **the gold host is never further down the list than rank 6**:
+
+| gold host's rank in the retrieved list | 1 | 2 | 3 | 4 | 5 | 6 | 7+ |
+|---|---|---|---|---|---|---|---|
+| gold obl/nmod tokens | **397** | 85 | 47 | 17 | 5 | 5 | **0** |
+| cumulative recall | 0.663 | 0.805 | 0.883 | 0.912 | 0.920 | **0.928** | 0.928 |
+
+Recall at K is 0.9115 (K=4), 0.9282 (K=6), and **0.9282 for K = 8, 12 and 24 — identical to the token.** The capacity
+limit costs nothing because English, in this register, does not place a prepositional phrase more than six open hosts
+away from the thing that licenses it. That is Gibson's DLT and Lewis & Vasishth's decay as a *property of the corpus*
+rather than of the model, and it closes the "learn the cap / use an activation decay" lever with a reason rather than
+a null: **a softer retrieval rule has nothing left to recover.** (Consistency check on the instrument: rank-1 alone is
+397/556 = 0.7140, which is exactly the proximity-only ranking accuracy the channel probe reports independently.)
+
+## 17. EVERYTHING A SOLVER NEEDS FOR THE NMOD ROLE-CLASS PROBLEM (strategy files this as its own brief)
+
+**The defect in one sentence.** `hdlab/graded_role_assigner` cannot say "this nominal modifies another nominal": its
+role inventory has no NMOD class, so every gold `nmod` is wrong whatever the heads rung hands it, and the heads
+rung's whole nmod gain dies at that boundary.
+
+**The evidence, all measured on UD-EWT test 700 (`metrics_diagfix6000.json`, cap 6000, in-order decode).**
+
+| fact | number |
+|---|---|
+| `ROLE_CLASSES` | `[SUBJ, OBJ, PASS_SUBJ, BY_AGENT, OBL, OTHER, IOBJ]` |
+| deps `ROLE_TO_DEP` can emit | `nsubj, nsubj:pass, obj, iobj, obl, obl:agent, dep` — **no `nmod`** |
+| gold `nmod` the organ labels correctly, under the arm's heads | **0 / 489** |
+| gold `nmod` the organ labels correctly, under **the gold tree's own heads** | **0 / 489** |
+| where they go instead (gold heads) | `nmod→obl` 277, `nmod→dep` 212 |
+| gold `obl` the organ labels correctly (gold heads / base heads / objgen heads) | 327 / 318 / 288 of 443 |
+
+**The population.** The 1,011 gold `obl` + `nmod` tokens of UD-EWT test 700 (477 obl, 534 nmod); the organ's own
+labelled population is the 932 of them that are `NOMINAL`-tagged (443 obl, 489 nmod).
+
+**The rule that fixes it, and why it is brain-foundational rather than a convention.** In UD — and in the brain's own
+terms — a case-marked phrase licensed by a PREDICATE is an oblique participant of an event, and one licensed by a
+NOMINAL is a property of a thing. The distinction is therefore a pure function of the LICENSING HOST'S CATEGORY, and
+the organ already computes the head's category as part of its configuration cue, so the class is free:
+
+```python
+PRED_HEAD_CATS = {"VERB", "AUX", "ADJ", "ADV"}          # a predicate licenses an oblique participant
+obl  if pos[head-1] in PRED_HEAD_CATS else  nmod        # a nominal licenses a property
+```
+
+**Measured against the gold tree, that rule is 98.1% correct** (obl 468/477 = 0.9811, nmod 524/534 = 0.9813, all
+1011 = 0.9812). The 19 residuals are 8 `nmod` with an ADJ host, 5 `obl` with a NOUN host, 2 `nmod` with an ADV host,
+and 4 singletons — i.e. the rule is not a stand-in for the competition, it is the *ceiling* the competition should be
+learning toward, and a solver should implement it as a learned cue value (host category × order, the organ's own cue
+form), not as a hard rule.
+
+**How much signal is waiting.** Reading the label off the host category over the arm's OWN heads:
+base 0.6469 → objgen **0.6884**, a paired-bootstrap gain of **+0.0415, CI [+0.0216,+0.0634]** (obl +0.0524\*, nmod
++0.0318 n.s.). Per token, the heads change REPAIRS 104 tokens on this population — 65 of which gain the correct label
+— and BREAKS 35, of which 23 lose it: **82 labels gained, 40 lost.** None of that reaches the organ today.
+
+**The consumer regression this defect causes, so the solver can check the fix removes it.** Role accuracy over the
+nominals the organ can express (n = 2099) falls **0.5765 → 0.5622** under the better heads, and the confusions move
+exactly as the missing class predicts: `obl→dep` 61 → 96, `nmod→dep` 195 → 214. The cause is mechanical — improved
+heads move case-marked nominals OFF verbs and ONTO nouns, and a nominal not governed by a verb has nowhere to go in
+this inventory but `dep` (the joint frame-slot decode only groups dependents of a VERB or AUX head; everything else
+takes the independent read, where `OTHER` wins by default).
+
+**Two things the solver must not conclude.** (1) That the heads rung should be reverted: the head gain is real,
+CI-separated, and available at +0.0415 to a consumer that can express the distinction. (2) That adding the class is
+enough on its own: `coarse_role_validities` must be rebuilt with the new class in `ROLE_CLASSES`, and the joint
+frame-slot decode's capacity rules need a decision about whether NMOD is capped per head (it should not be — a noun
+takes many modifiers, like OBL and OTHER).
+
+**Adjacent fact worth carrying into that brief.** Phase 7 found an upstream repair that removes the regression
+*without touching the consumer*: the two-sided acquisition teacher (§12.5g) leaves role accuracy at 0.5769 against
+base's 0.5760. That is a mitigation, not a fix — it stops the heads rung pushing nominals into `dep`, but the organ
+still scores 0/489 on gold nmod. **Both are needed and they are independent.**
+
+@@ROUND2TAIL@@
+
 ## SUBMISSION PROMPT
 
 ```
