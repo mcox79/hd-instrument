@@ -68,13 +68,9 @@ across a passage (right 47 in 100 on he/she/it) -- and that second one is the fr
   looking at the whole sentence first, which is how a person reads. Measured the same or better.
 
 ## WHAT IS RUNNING
-- Two solver sessions in their probing round: one on a missing class of relationship between nouns
-  (it has already taken all the nominal links it can express from 58 to 70 in 100 on the system's
-  own skeleton), and one rebuilding the who-is-who scorers so they cannot see the answer key.
-- No-regress checks of the last two landings against the 63 in 100 baseline.
-- Preparation for the move to the desktop machine: everything shipped across, the environment built
-  there, and a final catch-up copy right before the switch.
-
+- The board's who-is-who rows are being re-scored WITHOUT the answer key (the old scores read five answer-key columns); the honest numbers land in the next hour and the old ones retire.
+- Two solver sessions: one on the sentences whose only verb is 'is' or 'has' (one grammar convention costing two organs), one letting the readers that combine clues trust the 'who did what' decision in proportion to how sure it is.
+- The move to the desktop machine: everything is placed and the environment built there; a final catch-up copy runs right before the switch.
 ## NEXT
 - Rebuild the who-is-who layer part by part the brain's way. It is the current front and the
   measurements say it is where the most is left on the table.
