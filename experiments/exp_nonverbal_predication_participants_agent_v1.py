@@ -164,6 +164,7 @@ def cop_complement(toks, tags, i, locative=True):
 # non-verbal predicate inventory.  A closed class, exactly like the arm's own COP_FORMS / WH_FORMS / EXPLETIVE.
 # IT IS NOT "any ADV": scoping it to the deictic/spatial set is what separates "the economy is DOWN" (a locative
 # predication) from "is just a little nostalgic" (a degree adverb inside an ADJ predicate) -- measured below.
+_WH_PRED = frozenset({"why", "how", "what", "where", "when", "which"})
 _LOCATIVE_ADV = frozenset({"here", "there", "above", "below", "out", "in", "up", "down", "back", "away", "off",
                            "over", "near", "nearby", "home", "abroad", "inside", "outside", "ahead", "behind",
                            "everywhere", "somewhere", "anywhere", "nowhere", "upstairs", "downstairs",
@@ -249,14 +250,22 @@ def _np_run_end(toks, tags, k, hyph=True):
 
 
 def cop_complement_v2(toks, tags, i, loc=True, front=True, inv=True, clause=True, det=True,
-                      hyph=True, pploc=True, frontl=True):
+                      hyph=True, pploc=True, frontl=True, wh=True, cl=True, sym=True, paren=True):
     """The complement of the copula at 0-based i, with the four constructions above switchable so each can be
     ablated on the instrument.  All four OFF == `cop_complement(..., locative=False)` == the shipped
     `attachment_arm.cop_predicates` (asserted in --self-test)."""
     n = len(tags); lows = [t.lower() for t in toks]
     if tags[i] != "AUX" or lows[i] not in AA.COP_FORMS:
         return None
+    seen_comp = False
     for k in range(i + 1, n):                                  # the verb-group locality
+        if cl and tags[k] in ("ADJ", "NOUN", "PROPN", "PRON", "NUM"):
+            # (cl) ONCE THE COMPLEMENT HAS BEEN SEEN, A LATER VERB IS NOT IN THIS COPULA'S VERB GROUP -- it opens
+            # the complement's OWN clause ("I am SURE you 've already GONE", "it is IMPORTANT we do this").  The
+            # same locality argument as _COP_STOP, one step further: a predicable complement closes the group.
+            seen_comp = True
+        if seen_comp and tags[k] == "VERB":
+            break
         if det and tags[k] == "DET":
             break            # (det) A DETERMINER OPENS A NOMINAL (Abney 1987): a verbal form inside it is an
             #                 NP-internal PARTICIPLE ("here is a REVISED draft", "this is a RECOMMENDED change"),
@@ -295,10 +304,30 @@ def cop_complement_v2(toks, tags, i, loc=True, front=True, inv=True, clause=True
         return None
     skip_subject = inv and _clause_initial(tags, lows, i)
     seen_nominal = False; opened = False
-    for k in range(i + 1, n):
+    k = i
+    while True:
+        k += 1
+        if k >= n:
+            break
         if tags[k] == "DET" and det:
             opened = True
-        if tags[k] == "PUNCT" or (tags[k] == "VERB" and not opened):
+        if tags[k] == "PUNCT":
+            # (paren) A PARENTHETICAL IS NOT THE COMPLEMENT AND IT IS NOT THE END OF THE CLAUSE: "This statement is
+            # , despite its facade of fair - mindedness , so many weasel words ."  `copular_available` already
+            # knows the complement is behind such a boundary (pri 110 10b, its `crossed` flag); the complement scan
+            # stopped at it.  Skip the WHOLE parenthetical -- comma to matching comma -- and resume after it, so
+            # the scan does not wander INTO the aside either.
+            if paren and lows[k] == "," and not seen_nominal:
+                j = k + 1
+                while j < n and not (tags[j] == "PUNCT" and lows[j] in (",", ".", "!", "?", ";")):
+                    j += 1
+                if j < n and lows[j] == ",":
+                    k = j
+                    continue
+            if paren and lows[k] in ('"', "'", "``", "''", "(") and not seen_nominal:
+                continue
+            break
+        if tags[k] == "VERB" and not opened:
             break
         if clause and tags[k] in _CLAUSE_EDGE:
             break
@@ -314,6 +343,11 @@ def cop_complement_v2(toks, tags, i, loc=True, front=True, inv=True, clause=True
                     if tags[m] in ("VERB", "PUNCT") or tags[m] in _CLAUSE_EDGE:
                         break
             return k                                           # "the economy is DOWN", "he is HERE"
+        if wh and tags[k] in ("ADV", "PRON", "DET") and lows[k] in _WH_PRED and not seen_nominal:
+            return k          # (wh) A WH-FORM IS THE PREDICATE of an identificational copular clause: "Which is
+            #                 WHY he did n't say it", "that is HOW i want you to refer to me", "this is WHAT I meant".
+        if sym and tags[k] in ("SYM", "INTJ") and not seen_nominal:
+            return k          # (sym) a PRICE or a CODE predicates too: "is $ 30 an entree", "is # 365013"
         if tags[k] in ("ADJ", "NOUN", "PROPN", "PRON", "NUM"):
             if skip_subject and not seen_nominal:
                 seen_nominal = True                            # that was the INVERTED SUBJECT; keep looking
@@ -678,29 +712,44 @@ def residual(cap=700, locative=True, show=60, cons=None):
 # THE SHIPPED OPERATING POINT: the seven constructions that the ablation shows pay.  `ellip` is NOT in it --
 # measured, it buys 2 clauses of the 167 for 31 extra fires and takes participant precision 0.8367 -> 0.8177,
 # CI-separated DOWN (see --ablate).  Narrowed to the TRUE stranded configuration it is re-measured below.
+ARC_TAU = float(os.environ.get("HDLAB_PREDICATION_ARC_TAU", "0"))
+
 SHIPPED_CONS = dict(loc=True, front=True, inv=True, clause=True, det=True, hyph=True, pploc=True,
-                    frontl=True, ellip=True)
+                    frontl=True, ellip=True, wh=True, cl=True, sym=True, paren=True)
 
 ABLATION = [
     ("shipped_cop_predicates", dict(loc=False, front=False, inv=False, clause=False, det=False,
-                                   hyph=False, pploc=False, frontl=False)),
+                                   hyph=False, pploc=False, frontl=False, wh=False, cl=False, sym=False, paren=False)),
     ("+LOCATION",              dict(loc=True,  front=False, inv=False, clause=False, det=False,
-                                   hyph=False, pploc=False, frontl=False)),
+                                   hyph=False, pploc=False, frontl=False, wh=False, cl=False, sym=False, paren=False)),
     ("+CLAUSE-LOCAL",          dict(loc=True,  front=False, inv=False, clause=True,  det=False,
-                                   hyph=False, pploc=False, frontl=False)),
+                                   hyph=False, pploc=False, frontl=False, wh=False, cl=False, sym=False, paren=False)),
     ("+INVERSION",             dict(loc=True,  front=False, inv=True,  clause=True,  det=False,
-                                   hyph=False, pploc=False, frontl=False)),
+                                   hyph=False, pploc=False, frontl=False, wh=False, cl=False, sym=False, paren=False)),
     ("+DP (NP-internal ptcp)", dict(loc=True,  front=False, inv=True,  clause=True,  det=True,
-                                   hyph=False, pploc=False, frontl=False)),
+                                   hyph=False, pploc=False, frontl=False, wh=False, cl=False, sym=False, paren=False)),
     ("+FRONTED",               dict(loc=True,  front=True,  inv=True,  clause=True,  det=True,
-                                   hyph=False, pploc=False, frontl=False)),
-    ("+HYPHEN (RH head rule)", dict(loc=True,  front=True,  inv=True,  clause=True,  det=True, hyph=True, frontl=False)),
+                                   hyph=False, pploc=False, frontl=False, wh=False, cl=False, sym=False, paren=False)),
+    ("+HYPHEN (RH head rule)", dict(loc=True,  front=True,  inv=True,  clause=True,  det=True, hyph=True, frontl=False, wh=False, cl=False, sym=False, paren=False)),
     ("+COMPLEX LOCATIVE",      dict(loc=True,  front=True,  inv=True,  clause=True,  det=True, hyph=True,
-                                    pploc=True, frontl=False)),
+                                    pploc=True, frontl=False, wh=False, cl=False, sym=False, paren=False)),
     ("+LEFT-FRONTED PRED",     dict(loc=True,  front=True,  inv=True,  clause=True,  det=True, hyph=True,
                                     pploc=True, frontl=True)),
     ("+ELLIPSIS (stranded)",   dict(loc=True,  front=True,  inv=True,  clause=True,  det=True, hyph=True,
-                                    pploc=True, frontl=True, ellip=True)),
+                                    pploc=True, frontl=True, ellip=True, wh=False, cl=False, sym=False,
+                                    paren=False)),
+    ("+WH PREDICATE",          dict(loc=True,  front=True,  inv=True,  clause=True,  det=True, hyph=True,
+                                    pploc=True, frontl=True, ellip=True, wh=True, cl=False, sym=False,
+                                    paren=False)),
+    ("+COMPLEMENT CLAUSE",     dict(loc=True,  front=True,  inv=True,  clause=True,  det=True, hyph=True,
+                                    pploc=True, frontl=True, ellip=True, wh=True, cl=True, sym=False,
+                                    paren=False)),
+    ("+SYM / INTJ",            dict(loc=True,  front=True,  inv=True,  clause=True,  det=True, hyph=True,
+                                    pploc=True, frontl=True, ellip=True, wh=True, cl=True, sym=True,
+                                    paren=False)),
+    ("+PARENTHETICAL (all 14)", dict(loc=True, front=True,  inv=True,  clause=True,  det=True, hyph=True,
+                                    pploc=True, frontl=True, ellip=True, wh=True, cl=True, sym=True,
+                                    paren=True)),
 ]
 
 
@@ -774,8 +823,45 @@ def _pred_head_set(toks_t, pos_t):
 
 
 def make_patched_cues(mode="pred"):
+    """mode='pred'    -> the PRED head class (needs a table with PRED rows)
+       mode='open'    -> open the predicate-relative cues, KEEP the head-category configuration
+       mode='verb'    -> arm B1, score the predicate head as a VERB (pools with the verbal rows)
+       mode='higgins' -> the SHIPPED cues plus ONE new cue value: the HIGGINS TYPE of the predication that
+                         governs this nominal.  THE CUE THAT IS ACTUALLY MISSING (section 5c): what decides
+                         whether the post-copular nominal is a PREDICATE or a second referential ARGUMENT is
+                         predicational-vs-identificational (Higgins 1979: "she is a doctor" -- a property --
+                         against "she is the director" -- an identity, where BOTH nominals are referential).
+                         `hdlab.copular_binding.predicted_type` is the landed glass-box classifier for exactly
+                         that (ADJ -> pred_adj; PROPN or a DEFINITE determiner -> ident; else pred_nom), and the
+                         role competition has never read it.  Isolated here: the gates stay SHUT, so the only
+                         difference from the shipped arm is this one cue.
+       mode='higgins_open' -> the Higgins cue AND the opened gates.
+       mode='none'    -> the shipped cues (isolates a table swap from any cue change)."""
     if mode == "none":
         return _ORIG_CUES
+    if mode in ("higgins", "higgins_open"):
+        from hdlab import copular_binding as _CB
+
+        def patched_h(toks, pos, heads, i, frames=None, v3=False, conf=None, v4=False):
+            h = heads.get(i, 0) or 0
+            base = _ORIG_CUES(toks, pos, heads, i, frames, v3, conf, v4)
+            if not (h and 1 <= h <= len(pos)) or pos[h - 1] in ("VERB", "AUX"):
+                out = dict(base); out["higgins"] = "na"; return out
+            if h not in _pred_head_set(tuple(toks), tuple(pos)):
+                out = dict(base); out["higgins"] = "na"; return out
+            if mode == "higgins_open":
+                p2 = list(pos); p2[h - 1] = "VERB"
+                cv = _ORIG_CUES(toks, p2, heads, i, frames, v3, conf, v4)
+                out = dict(cv)
+                out["config"] = base["config"]; out["cop"] = base["cop"]; out["voice_order"] = "na"
+            else:
+                out = dict(base)
+            try:
+                out["higgins"] = _CB.predicted_type(list(toks), list(pos), i - 1, h - 1)
+            except Exception:
+                out["higgins"] = "na"
+            return out
+        return patched_h
     """mode='pred' -> the PRED head class (needs a table with PRED rows); mode='verb' -> arm B1."""
     def patched(toks, pos, heads, i, frames=None, v3=False, conf=None, v4=False):
         h = heads.get(i, 0) or 0
@@ -961,7 +1047,7 @@ def states(cap=700, quiet=False):
 # THE BOARD -- the 7-dimension A/B.  The change lives in the EVENT DETECTOR and in the ROLE COMPETITION, so both are
 # patched here exactly as the proposed diff patches hdlab.
 # =====================================================================================================================
-def _patch_consumers(table=None, mode="pred", roles_too=False):
+def _patch_consumers(table=None, mode="pred", roles_too=False, states_too=False):
     """Install the proposed change on the LIVE organs (monkeypatch, never a write to hdlab/)."""
     from hdlab.situation_reader import SituationReader
     import hdlab.temporal_model as T
@@ -981,7 +1067,18 @@ def _patch_consumers(table=None, mode="pred", roles_too=False):
             return events, tagged
         have = set(e.idx for e in events)
         car = predicate_site_carriers(list(toks), list(up), post, list(lc.tags))
-        for q, st in predicate_sites(list(toks), list(up), post, list(lc.tags), cons=SHIPPED_CONS).items():
+        sites = dict(predicate_sites(list(toks), list(up), post, list(lc.tags), cons=SHIPPED_CONS))
+        if ARC_TAU > 0.0:
+            # THE SECOND CUE, gated on the heads rung's own reliability (the diff's arc_predicate_sites).
+            try:
+                hd = self._cached_parse_heads(list(toks), list(up))
+                hp = self._cached_head_posterior(list(toks), list(up))
+                for q, v in arc_sites_cell(list(toks), list(up), hd, hp, ARC_TAU).items():
+                    if q not in sites:
+                        sites[q] = v
+            except Exception:
+                pass
+        for q, st in sites.items():
             if q in have or up[q] == "VERB":
                 continue
             c = car.get(q)
@@ -995,6 +1092,8 @@ def _patch_consumers(table=None, mode="pred", roles_too=False):
     SituationReader._tense_agnostic_extract = patched_extract
     if roles_too:
         GRA.coarse_role_cues = make_patched_cues(mode)
+    if states_too:
+        _consolidate_state_reader()
     if table:
         GRA._COARSE_VALIDITIES_CACHE = None
         GRA._COARSE_VALIDITIES_PATH = table
@@ -1030,17 +1129,18 @@ def board(arm="base", fast=True, table=None, mode="pred"):
     return res
 
 
-def board_ab(fast=True, table=None, mode="pred", roles_too=False):
+def board_ab(fast=True, table=None, mode="pred", roles_too=False, states_too=False):
     """BOTH ARMS BACK-TO-BACK IN ONE PROCESS -- the controlled form (pri 110 10c: a two-process board A/B on this
     repo straddled another session's integration and manufactured three false regressions)."""
     import importlib
     B = importlib.import_module("experiments.exp_situation_model_qa_modern_v1")
-    caps = ({"gum": 40, "ud": 300, "state": 300, "wic_mode": "smoke"} if fast else {"wic_mode": "full"})
+    caps = ({"gum": 40, "ud": 300, "state": int(os.environ.get("HDLAB_STATE_CAP", "300")),
+             "wic_mode": "smoke"} if fast else {"wic_mode": "full"})
     nb = 300 if fast else 1000
     kw = dict(run_new_arms=False, write_metrics=False) if fast else {}
     os.environ["HDLAB_EXP_NAME"] = "nonverbal_predication_participants_agent_v1_board_ab"
     a = B.run(caps=caps, n_boot=nb, **kw)
-    _patch_consumers(table=table, mode=mode, roles_too=roles_too)
+    _patch_consumers(table=table, mode=mode, roles_too=roles_too, states_too=states_too)
     b = B.run(caps=caps, n_boot=nb, **kw)
     out = {"fast": fast, "table": table, "mode": mode, "dimensions": {}}
     print("%-24s %7s %9s %9s %9s" % ("dimension", "n", "base", "predslot", "delta"))
@@ -1438,8 +1538,14 @@ def arcgrade(cap=700, taus=(0.0, 0.05, 0.1, 0.2, 0.3, 0.5, 0.7, 0.9, 1.01), n_bo
         ev, _ = rdr._extract_events(" ".join(toks))
         floor = set(e.idx for e in ev)
         surf = set(predicate_sites(list(toks), up, post, tag_names, cons=SHIPPED_CONS)) - floor
-        arcg = {q: v for q, v in arc_predicates_graded(rdr, toks, up, tab).items()
-                if q not in floor and q not in surf and up[q] != "VERB"}
+        # THE SHIPPED FUNCTION, not a near-copy: `arc_sites_cell` is what PATCH == CELL compares against the diff's
+        # `arc_predicate_sites`, so the sweep and the thing that ships are the same code.
+        try:
+            hd = rdr._cached_parse_heads(list(toks), up); hp = AA.head_posterior(list(toks), up, tab)
+            arcg = {q: v for q, v in arc_sites_cell(list(toks), up, hd, hp, 1e-9).items()
+                    if q not in floor and q not in surf and up[q] != "VERB"}
+        except Exception:
+            arcg = {}
         preds = sorted(set(gh[i] for i in range(len(toks)) if rels[i] == "nsubj" and 1 <= gh[i] <= len(toks)))
         rows.append({"toks": toks, "gp": gp, "gh": gh, "rels": rels, "up": up, "floor": floor,
                      "surface": surf, "arcg": arcg, "preds": preds})
@@ -1537,6 +1643,337 @@ def arcpure(cap=700, taus=(0.0, 0.05, 0.1, 0.2, 0.3, 0.5, 0.7, 0.9, 1.01), n_boo
 
 
 
+
+# =====================================================================================================================
+# PHASE 7 PROBES -- the coordinator's four understanding questions, answered with counts rather than prose.
+# =====================================================================================================================
+def probe_misses(cap=700, tau=0.5):
+    """(1a) The residual, construction by construction, and whether the GRADED ARC CUE reaches each one."""
+    corpus = _corpus(cap)
+    lc = LC.get(); tag_names = list(lc.tags); rdr = _reader(); tab = AA.load_attachment_validities()
+    K = Counter(); reach = Counter(); items = []
+    for toks, gp, gh, rels in corpus:
+        up = list(rdr._cached_tag(list(toks)))
+        post = lc.posterior(list(toks))
+        ev, _ = rdr._extract_events(" ".join(toks))
+        floor = set(e.idx for e in ev)
+        surf = set(predicate_sites(list(toks), up, post, tag_names, cons=SHIPPED_CONS))
+        try:
+            hd = rdr._cached_parse_heads(list(toks), up); hp = AA.head_posterior(list(toks), up, tab)
+            arc = arc_sites_cell(list(toks), up, hd, hp, tau)
+        except Exception:
+            arc = {}
+        S = floor | surf
+        preds = sorted(set(gh[i] for i in range(len(toks)) if rels[i] == "nsubj" and 1 <= gh[i] <= len(toks)))
+        for h in preds:
+            if gp[h - 1] == "VERB" or (h - 1) in S:
+                continue
+            q = h - 1
+            cops = [i + 1 for i in range(len(toks)) if gh[i] == h and rels[i] == "cop"]
+            # which construction?
+            if gp[q] in ("VERB", "AUX"):
+                k = "UPSTREAM chain tag error on a gold VERB/AUX"
+            elif not cops:
+                k = "NOT copular in the gold tree (verbless fragment / other predication)"
+            elif up[cops[0] - 1] != "AUX":
+                k = "UPSTREAM the category organ does not tag the gold copula AUX"
+            else:
+                c = cops[0] - 1
+                after = [m for m in range(c + 1, len(toks)) if up[m] not in ("PUNCT",)]
+                if q < c:
+                    k = "FRONTED predicate the frontable set does not admit (left of the copula)"
+                elif any(up[m] == "PUNCT" and toks[m] in (",", '"', "'", "(") for m in range(c + 1, q)):
+                    k = "complement behind a PARENTHETICAL / quote (the scan breaks at the comma)"
+                elif any(up[m] in ("NOUN", "PROPN", "PRON", "NUM", "ADJ") for m in range(c + 1, q)):
+                    k = "the scan stopped at an EARLIER nominal in the same complement span"
+                elif not after:
+                    k = "nothing after the copula at all (elided, not stranded-only)"
+                else:
+                    k = "other"
+            K[k] += 1
+            hit = q in arc
+            if hit:
+                reach[k] += 1
+            if len(items) < 60:
+                items.append({"pred": toks[q], "gold_pos": gp[q], "tag": up[q], "kind": k,
+                              "arc_reaches": bool(hit), "arc_p": round(float(arc.get(q, 0.0)), 3),
+                              "sent": " ".join(toks)[:110]})
+    print("(1a) THE RESIDUAL BY CONSTRUCTION, and what the graded arc cue at tau=%.2f reaches" % tau)
+    print("%-62s %6s %10s" % ("construction", "n", "arc reaches"))
+    tot = 0; totr = 0
+    for k, v in K.most_common():
+        print("%-62s %6d %10d" % (k, v, reach[k])); tot += v; totr += reach[k]
+    print("%-62s %6d %10d" % ("TOTAL", tot, totr))
+    out = {"tau": tau, "kinds": dict(K), "arc_reaches": dict(reach), "total": tot, "total_reached": totr,
+           "items": items}
+    json.dump(out, open(os.path.join(out_dir(), "probe_misses.json"), "w", encoding="utf-8"), indent=1)
+    return out
+
+
+def probe_union(cap=700, tau=0.5):
+    """(1b) WHICH false fires the reliability gate removes, and what separates them."""
+    corpus = _corpus(cap)
+    lc = LC.get(); tag_names = list(lc.tags); rdr = _reader(); tab = AA.load_attachment_validities()
+    kept = {"n": 0, "ok": 0, "p": []}; dropped = {"n": 0, "ok": 0, "p": []}
+    ex_drop = []; ex_keep = []
+    for toks, gp, gh, rels in corpus:
+        up = list(rdr._cached_tag(list(toks)))
+        post = lc.posterior(list(toks))
+        ev, _ = rdr._extract_events(" ".join(toks))
+        floor = set(e.idx for e in ev)
+        surf = set(predicate_sites(list(toks), up, post, tag_names, cons=SHIPPED_CONS))
+        try:
+            hd = rdr._cached_parse_heads(list(toks), up); hp = AA.head_posterior(list(toks), up, tab)
+            arc_all = arc_sites_cell(list(toks), up, hd, hp, 1e-9)
+        except Exception:
+            continue
+        for q, v in arc_all.items():
+            if q in floor or q in surf:
+                continue
+            good = _governs_core(q + 1, gh, rels)
+            bucket = kept if v >= tau else dropped
+            bucket["n"] += 1; bucket["ok"] += int(good); bucket["p"].append(v)
+            rec = {"tok": toks[q], "tag": up[q], "p": round(float(v), 3), "governs_core": bool(good),
+                   "sent": " ".join(toks)[:100]}
+            if v >= tau and len(ex_keep) < 12:
+                ex_keep.append(rec)
+            if v < tau and len(ex_drop) < 18:
+                ex_drop.append(rec)
+    def summ(b):
+        n = max(1, b["n"]); ps = sorted(b["p"])
+        return {"n": b["n"], "governs_a_core_argument": b["ok"], "precision": round(b["ok"] / n, 4),
+                "median_head_posterior": round(ps[len(ps) // 2], 4) if ps else None,
+                "mean_head_posterior": round(sum(ps) / n, 4) if ps else None}
+    res = {"tau": tau, "kept_by_the_gate": summ(kept), "dropped_by_the_gate": summ(dropped),
+           "examples_dropped": ex_drop, "examples_kept": ex_keep}
+    print("(1b) THE RELIABILITY GATE at tau=%.2f, over the ARC-ONLY fires (not already in the floor or the surface arm)"
+          % tau)
+    for k in ("kept_by_the_gate", "dropped_by_the_gate"):
+        d = res[k]
+        print("   %-20s n=%4d  govern a core argument %4d  precision %.4f  median P(arc) %s"
+              % (k, d["n"], d["governs_a_core_argument"], d["precision"], d["median_head_posterior"]))
+    for e in ex_drop[:12]:
+        print("      DROPPED %-14s P=%.3f governs_core=%-5s | %s" % (e["tok"], e["p"], e["governs_core"], e["sent"]))
+    json.dump(res, open(os.path.join(out_dir(), "probe_union.json"), "w", encoding="utf-8"), indent=1)
+    return res
+
+
+def probe_states(cap=700):
+    """(1d) The event/state DISAGREEMENTS, classified, and WHICH SIDE IS RIGHT against the gold predicate."""
+    from hdlab import copular_binding as CB
+    corpus = _corpus(cap)
+    lc = LC.get(); tag_names = list(lc.tags); rdr = _reader()
+    K = Counter(); items = []
+    n_both_clause = 0
+    for toks, gp, gh, rels in corpus:
+        up = list(rdr._cached_tag(list(toks)))
+        post = lc.posterior(list(toks))
+        try:
+            heads = rdr._cached_parse_heads(list(toks), up)
+            pairs = CB.robust_cop(list(toks), up, heads, gate=True)
+        except Exception:
+            pairs = set()
+        st = set(pr for (_h, pr) in pairs)
+        # COMPARABLE SETS: restrict the slot read to its NON-VERBAL sites, because `robust_cop` only ever names
+        # non-verbal predicates.  Without this a clause whose gold non-verbal predicate the CHAIN happens to tag
+        # VERB counts as "the slot read is right" for free, which inflates the comparison.
+        sl = set(q for q in predicate_sites(list(toks), up, post, tag_names, cons=SHIPPED_CONS)
+                 if up[q] not in ("VERB",))
+        preds = sorted(set(gh[i] for i in range(len(toks)) if rels[i] == "nsubj" and 1 <= gh[i] <= len(toks)))
+        for h in preds:
+            if gp[h - 1] == "VERB" or up[h - 1] == "VERB":
+                continue
+            q = h - 1
+            a = q in st; b = q in sl
+            if a and b:
+                n_both_clause += 1
+                continue
+            if not a and not b:
+                continue
+            # one side names the gold predicate and the other does not: WHO IS RIGHT is decided by the gold
+            side = "the PREDICATE-SLOT read is right (state reader misses it)" if b else \
+                   "the copular STATE reader is right (the slot read misses it)"
+            # what does the losing side name instead, inside this clause?
+            lo, hi = max(0, q - 8), min(len(toks), q + 9)
+            other = sorted((st if b else sl) & set(range(lo, hi)))
+            K[side] += 1
+            if len(items) < 40:
+                items.append({"gold_pred": toks[q], "gold_pos": gp[q], "tag": up[q], "side": side,
+                              "other_side_named": [toks[o] for o in other][:3],
+                              "sent": " ".join(toks)[:110]})
+    print("(1d) EVENT vs STATE on the gold predicate of a non-verbal clause")
+    print("   both name the gold predicate: %d" % n_both_clause)
+    for k, v in K.most_common():
+        print("   %-58s %d" % (k, v))
+    for it in items[:16]:
+        print("      %-13s gold=%-5s %-52s other named %s | %s"
+              % (it["gold_pred"], it["gold_pos"], it["side"][:52], it["other_side_named"], it["sent"][:70]))
+    out = {"both_name_the_gold_predicate": n_both_clause, "disagreements": dict(K), "items": items}
+    json.dump(out, open(os.path.join(out_dir(), "probe_states.json"), "w", encoding="utf-8"), indent=1)
+    return out
+
+
+def cue_loo(cap=700, table=None, mode="none", n_boot=2000, seed=0):
+    """(1c) LEAVE-ONE-CUE-OUT on the arguments governed by a NON-VERBAL predicate: each cue is dropped from the
+    competition and the role accuracy re-measured, so each cue's CONTRIBUTION on that population is a number.
+    Also reports each cue value's own VALIDITY on that population (max_r P(role | value), from the gold roles)."""
+    from tools.build_coarse_role_validities import coarse_of
+    corpus = _corpus(cap)
+    rdr = _reader(); tab = _live_tab(table) if table else _live_tab()
+    cuefn = make_patched_cues(mode)
+    rows = []
+    val = defaultdict(lambda: Counter())
+    for toks, gp, gh, rels in corpus:
+        up = list(rdr._cached_tag(list(toks)))
+        heads = {i + 1: gh[i] for i in range(len(toks))}
+        preds = set(gh[i] for i in range(len(toks)) if rels[i] == "nsubj" and 1 <= gh[i] <= len(toks))
+        nv = set(h for h in preds if gp[h - 1] != "VERB")
+        for i in range(1, len(toks) + 1):
+            h = heads.get(i, 0) or 0
+            if h not in nv or not GRA.is_arg_head(list(toks), up, i):
+                continue
+            cues = cuefn(list(toks), up, heads, i, tab.get("lemma_frames"), True, None, True)
+            g = coarse_of(rels[i - 1])
+            rows.append((cues, g))
+            for c, v in cues.items():
+                if v not in ("na",):
+                    val[(c, v)][g] += 1
+    def decide(cues, drop=None):
+        S = {"prior": tab["prior"]}
+        cfg = cues["config"]
+        if drop != "config":
+            vec = tab["strength"].get("config", {}).get(cfg)
+            if vec is not None:
+                S["config"] = vec
+        for c, v in cues.items():
+            if c == "config" or c == drop:
+                continue
+            vec = tab["strength"].get(c, {}).get(("GLOBAL|" + v) if c in GRA._GLOBAL_CUES else f"{cfg}|{v}")
+            if vec is not None:
+                S[c] = vec
+        A = GRA.net_activation(S, {k: 1.0 for k in S})
+        return GRA.ROLE_CLASSES[int(np.argmax(A))]
+    base = [int(decide(c) == g) for c, g in rows]
+    acc = sum(base) / max(1, len(base))
+    cues_seen = sorted({c for c, _g in rows for c in c.keys()})
+    print("(1c) LEAVE-ONE-CUE-OUT on %d arguments under a NON-VERBAL predicate (mode=%s, table=%s)"
+          % (len(rows), mode, "rebuilt" if table else "live"))
+    print("   full cue set: %.4f" % acc)
+    print("   %-12s %8s %10s %10s %s" % ("cue dropped", "acc", "delta", "fires", "value validity on this population"))
+    res = {"n": len(rows), "mode": mode, "table": table, "full": round(acc, 4), "loo": {}}
+    for c in cues_seen:
+        d = [int(decide(cu, drop=c) == g) for cu, g in rows]
+        a2 = sum(d) / max(1, len(d))
+        fires = sum(1 for cu, _g in rows if cu.get(c) not in (None, "na"))
+        vals = {v: dict(cnt) for (cc, v), cnt in val.items() if cc == c}
+        tops = []
+        for v, cnt in sorted(vals.items(), key=lambda kv: -sum(kv[1].values()))[:3]:
+            n = sum(cnt.values()); b = max(cnt, key=cnt.get)
+            tops.append("%s n=%d->%s %.2f" % (v, n, b, cnt[b] / n))
+        dd, lo, hi = _boot_pairs([(base[k], d[k], 1) for k in range(len(base))], n=n_boot, seed=seed)
+        res["loo"][c] = {"acc_without": round(a2, 4), "delta": [round(dd, 4), round(lo, 4), round(hi, 4)],
+                         "fires": fires, "top_values": tops}
+        print("   %-12s %8.4f %+10.4f %10d  %s" % (c, a2, -dd, fires, "; ".join(tops)))
+    json.dump(res, open(os.path.join(out_dir(), "cue_loo_%s.json" % mode), "w", encoding="utf-8"), indent=1)
+    return res
+
+
+
+
+# =====================================================================================================================
+# ONE STRUCTURE PER CLAUSE -- consolidate the copular STATE reader onto the PREDICATE-SLOT signal (phase 7 (2)(iii)).
+# `situation_reader._read_entity_states` detects its (HOLDER, PROPERTY) pairs with `copular_binding.robust_cop`, a
+# SECOND, independent predicate finder.  Measured (probe_states): on the clauses where both organs name the gold
+# predicate they agree 97 times; where they differ the PREDICATE-SLOT read is right 20 times and the state reader 9.
+# The brain-foundational form is ONE eventuality per clause whose SORT is read off the predicate's own category
+# (Maienborn 2005), so the state's PROPERTY should be the predicate slot's own site.  Arm: the state reader's
+# detection becomes `robust_cop UNION the predicate-slot sites`, with the HOLDER recovered by `robust_cop`'s own
+# rule (the tree nominal-child of the predicate preceding the copula, else the nearest preceding nominal) -- so the
+# HOLDER logic is untouched and only the PROPERTY set is consolidated.
+# =====================================================================================================================
+def _consolidate_state_reader():
+    """Monkeypatch `copular_binding.robust_cop` so the state reader detects on the predicate-slot signal too."""
+    from hdlab import copular_binding as CB
+    orig = CB.robust_cop
+
+    def patched(toks, up, heads, gate=True):
+        pairs = set(orig(toks, up, heads, gate=gate))
+        try:
+            lc = LC.get()
+            post = lc.posterior(list(toks))
+            sites = [q for q in predicate_sites(list(toks), list(up), post, list(lc.tags), cons=SHIPPED_CONS)
+                     if up[q] not in ("VERB",)]
+        except Exception:
+            return pairs
+        have = set(pr for (_h, pr) in pairs)
+        for q in sites:
+            if q in have:
+                continue
+            # the HOLDER, by robust_cop's own rule: the nearest preceding nominal before the licensing copula
+            c = None
+            for k in range(q - 1, max(-1, q - 8), -1):
+                if up[k] == "AUX" and toks[k].lower() in AA.COP_FORMS:
+                    c = k
+                    break
+            start = c if c is not None else q
+            hold = None
+            for k in range(start - 1, -1, -1):
+                if up[k] in ("NOUN", "PROPN", "PRON"):
+                    hold = k
+                    break
+                if up[k] in ("VERB", "PUNCT"):
+                    break
+            if hold is not None:
+                pairs.add((hold, q))
+        return pairs
+    CB.robust_cop = patched
+    return orig
+
+
+def probe_consolidate(cap=700):
+    """How many of the 29 disagreements the consolidation removes, and what it adds to state COVERAGE."""
+    from hdlab import copular_binding as CB
+    corpus = _corpus(cap)
+    lc = LC.get(); tag_names = list(lc.tags); rdr = _reader()
+    before = {"both": 0, "slot_only": 0, "state_only": 0, "neither": 0}
+    after = {"both": 0, "slot_only": 0, "state_only": 0, "neither": 0}
+    orig = CB.robust_cop
+    _consolidate_state_reader()
+    pat = CB.robust_cop
+    CB.robust_cop = orig
+    for toks, gp, gh, rels in corpus:
+        up = list(rdr._cached_tag(list(toks)))
+        post = lc.posterior(list(toks))
+        try:
+            heads = rdr._cached_parse_heads(list(toks), up)
+            st0 = set(pr for (_h, pr) in orig(list(toks), up, heads, gate=True))
+            st1 = set(pr for (_h, pr) in pat(list(toks), up, heads, gate=True))
+        except Exception:
+            st0 = st1 = set()
+        sl = set(q for q in predicate_sites(list(toks), up, post, tag_names, cons=SHIPPED_CONS)
+                 if up[q] not in ("VERB",))
+        preds = sorted(set(gh[i] for i in range(len(toks)) if rels[i] == "nsubj" and 1 <= gh[i] <= len(toks)))
+        for h in preds:
+            if gp[h - 1] == "VERB" or up[h - 1] == "VERB":
+                continue
+            q = h - 1
+            for d, st in ((before, st0), (after, st1)):
+                a = q in st; b = q in sl
+                d["both" if (a and b) else ("state_only" if a else ("slot_only" if b else "neither"))] += 1
+    print("(2iii) ONE STRUCTURE -- the copular state reader's PROPERTY set, before and after consolidation")
+    print("%-10s %8s %10s %11s %9s" % ("", "both", "slot-only", "state-only", "neither"))
+    for l, d in (("before", before), ("after", after)):
+        print("%-10s %8d %10d %11d %9d" % (l, d["both"], d["slot_only"], d["state_only"], d["neither"]))
+    print("   DISAGREEMENTS (slot-only + state-only): %d -> %d"
+          % (before["slot_only"] + before["state_only"], after["slot_only"] + after["state_only"]))
+    out = {"before": before, "after": after,
+           "disagreements_before": before["slot_only"] + before["state_only"],
+           "disagreements_after": after["slot_only"] + after["state_only"]}
+    json.dump(out, open(os.path.join(out_dir(), "probe_consolidate.json"), "w", encoding="utf-8"), indent=1)
+    return out
+
+
+
 def self_test():
     ok = [0, 0]
 
@@ -1618,7 +2055,8 @@ def self_test():
         mine = set()
         for i in range(len(toks)):
             q = cop_complement_v2(list(toks), list(tags), i, loc=False, front=False, inv=False, clause=False,
-                                  det=False, hyph=False, pploc=False, frontl=False)
+                                  det=False, hyph=False, pploc=False, frontl=False, wh=False, cl=False,
+                                  sym=False, paren=False)
             if q is not None:
                 mine.add(q)
         n2 += len(arm | mine); mism2 += len(arm ^ mine)
@@ -1627,15 +2065,18 @@ def self_test():
 
     # 10. each construction is a SWITCH: turning one on never removes a site the others found
     t = "Here is a revised draft .".split(); tags = lc.tag(t)
-    q_off = cop_complement_v2(t, tags, 1, loc=True, front=False, inv=True, clause=True, det=True, frontl=False)
-    q_on = cop_complement_v2(t, tags, 1, loc=True, front=True, inv=True, clause=True, det=True, frontl=False)
+    q_off = cop_complement_v2(t, tags, 1, loc=True, front=False, inv=True, clause=True, det=True, frontl=False,
+                              wh=False, cl=False, sym=False, paren=False)
+    q_on = cop_complement_v2(t, tags, 1, loc=True, front=True, inv=True, clause=True, det=True, frontl=False,
+                             wh=False, cl=False, sym=False, paren=False)
     check("LOCATIVE INVERSION: `Here is a revised draft` -> here", q_on is not None and t[q_on].lower() == "here",
           "front OFF -> %s / front ON -> %s" % (t[q_off] if q_off is not None else None,
                                                 t[q_on] if q_on is not None else None))
 
     # 11. subject-auxiliary inversion: the first nominal is the SUBJECT
     t = "Is that a money maker ?".split(); tags = lc.tag(t)
-    q = cop_complement_v2(t, tags, 0, loc=True, front=True, inv=True, clause=True, det=True, frontl=False)
+    q = cop_complement_v2(t, tags, 0, loc=True, front=True, inv=True, clause=True, det=True, frontl=False,
+                          wh=False, cl=False, sym=False, paren=False)
     check("INVERSION: `Is that a money maker ?` -> maker", q is not None and t[q].lower() == "maker",
           "picked %s" % (t[q] if q is not None else None))
 
@@ -1665,6 +2106,18 @@ if __name__ == "__main__":
         sys.exit(0 if self_test() else 1)
     elif "--diag" in a:
         diag(cap=val("--cap", 700))
+    elif "--probe-consolidate" in a:
+        probe_consolidate(cap=val("--cap", 700))
+    elif "--probe-misses" in a:
+        probe_misses(cap=val("--cap", 700))
+    elif "--probe-union" in a:
+        probe_union(cap=val("--cap", 700))
+    elif "--probe-states" in a:
+        probe_states(cap=val("--cap", 700))
+    elif "--cue-loo" in a:
+        cue_loo(cap=val("--cap", 700),
+                table=(a[a.index("--table") + 1] if "--table" in a else None),
+                mode=(a[a.index("--mode") + 1] if "--mode" in a else "none"))
     elif "--arcpure" in a:
         arcpure(cap=val("--cap", 700))
     elif "--arcgrade" in a:
@@ -1680,7 +2133,7 @@ if __name__ == "__main__":
     elif "--board-ab" in a:
         board_ab(fast=("--full" not in a),
                  table=(a[a.index("--table") + 1] if "--table" in a else None),
-                 roles_too=("--roles-too" in a))
+                 roles_too=("--roles-too" in a), states_too=("--states-too" in a))
     elif "--board" in a:
         board(arm=(a[a.index("--arm") + 1] if "--arm" in a else "base"),
               fast=("--full" not in a),
@@ -1691,8 +2144,9 @@ if __name__ == "__main__":
         roles(cap=val("--cap", 700),
               table=(a[a.index("--table") + 1] if "--table" in a else None),
               table_a=(a[a.index("--table-a") + 1] if "--table-a" in a else None),
-              mode=("verb" if "--as-verb" in a else
-                    ("open" if "--open" in a else ("none" if "--same-cues" in a else "pred"))))
+              mode=(a[a.index("--mode") + 1] if "--mode" in a else
+                    ("verb" if "--as-verb" in a else
+                     ("open" if "--open" in a else ("none" if "--same-cues" in a else "pred")))))
     elif "--ablate" in a:
         ablate(cap=val("--cap", 700))
     elif "--residual" in a:

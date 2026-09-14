@@ -145,6 +145,11 @@ a false positive by construction, which is exactly why pri 110 measured its own 
 - against every twin: recall **+0.1129 / +0.1207 / +0.1273**, precision **+0.0827 / +0.0868 / +0.0916**, all
   CI-separated. **Firing the same amount at random buys 0.24 of the 167; firing at the predicate slot buys 0.81.**
 
+> **SUPERSEDED BY PHASE 7 (section 11h).** The table above is the TEN-construction operating point. Four more
+> constructions and the graded arc cue take the same instrument to **recall 0.9698 / precision 0.8305 / F1 0.8948
+> and 0.8802 of the 167**, with the precision delta's CI still containing zero. The phase-5 numbers are kept here
+> because the construction ablation and every control in section 5 were run at that point.
+
 ### 3b. Every construction, ablated -- and two of them are worth exactly zero
 
 Each row adds ONE construction to the row above, measured on the same instrument. The first row is the shipped
@@ -627,6 +632,204 @@ on this organ -- including mine -- is measured against a floor that is drifting.
 **LEAD 8 -- consolidate the copular state reader onto the predicate-slot signal.** 98 of 128 already agree; the 30
 that disagree are two organs answering one question. Alternate path A, with the caveat from 5f that `robust_cop`'s
 gates carry real signal and must survive the consolidation.
+
+
+---
+
+## 11. PHASE 7 -- the coordinator's four understanding questions, and three more improvements
+
+### 11a. (1a) THE 32 REMAINING MISSES, CONSTRUCTION BY CONSTRUCTION, AND WHAT THE GRADED ARC CUE REACHES
+
+Every one of the 32 is in `data/exp_nonverbal_predication_participants_agent_v1/probe_misses.json` with its
+sentence, its gold category, the chain's tag, and whether the arc cue names it. Hand-adjudicated into mechanisms
+(n=32 is small enough to adjudicate rather than bucket by regex, which is how pri 110 handled its own 9 and 3):
+
+| # | mechanism -- what would have to change | n | arc reaches | reachable at this rung? |
+|---|---|---|---|---|
+| 1 | **UPSTREAM: the chain mis-tags the gold predicate or its copula** (`nostalgic`->NOUN, `long`->ADV, `is`->VERB so `down` is unreachable, `be`->VERB so `there` is, `shall` in a typo'd sentence) | 5 | 0 | **no** -- categories rung |
+| 2 | **NOT a copular clause in the gold tree** (gapping `6 under Bush`, an address block, two typo'd verbless clauses, the semi-modal `ought`) | 5 | 0 | partly -- `assertion_candidates`' fragment branch (alternate path E) |
+| 3 | **A WH predicate the frontable set does not admit** (`Which is WHY`, `that is HOW`, `WTF is this?` -- mis-tagged PROPN) | 3 | 0 | **yes** -- admit wh-ADV/PRON as a right-side predicate |
+| 4 | **A VERB inside the COMPLEMENT CLAUSE kills the verb-group check** (`I am sure you 've already gone`, `i am sure i could have persuaded`) | 2 | 0 | **yes** -- stop the verb-group scan once a predicable complement has been seen |
+| 5 | **The complement is behind a PARENTHETICAL or a quote** (`This statement is , despite ... , so many weasel words`; `The answer is , " Yes ! "`) | 2 | 0 | **yes** -- `copular_available` already crosses this boundary (pri 110 10b); the complement scan does not |
+| 6 | **The NP-run walk picks the wrong head** (`ill - advised term`->`ill` because the right member is tagged VERB; `the way THE greatest bear market`->`market`, a second DP; `March 31`->`March`; `al - Qaeda`->`Qaeda` where UD makes `al` the head; `good 12:30`->`12:30`, an ADJ+NUM run) | 6 | **3** | **yes**, four of six |
+| 7 | **A SYM complement** (`is $ 30 an entree`, `is # 365013`) | 2 | 0 | **yes** -- admit SYM |
+| 8 | **STRANDED / elided copula, or a left-fronted predicate past the subject** (`i am sure they ARE .`; `how RELIABLE that is`; `will acceptable` -- a typo'd missing `be`; `so NOW may not be the best time`) | 4 | **1** | partly |
+| 9 | **Only the ARC knows** -- the surface scan's verb-group or clause-locality check refuses, and the parse is right (`fire`, `deal`, `difference`) | 3 | **3** | **yes** -- the graded arc cue |
+| | **TOTAL** | **32** | **7** | |
+
+**The graded arc cue at tau = 0.5 reaches 7 of the 32** (classes 6, 8 and 9) -- which is exactly the 0.8084 ->
+0.8503 it buys (7/167 = 0.042). **It reaches none of classes 1-5 or 7**, because those are cases where the tree is
+wrong too, or where there is no copula for a `cop` arc to hang on. So the arc cue and the surface constructions are
+genuinely complementary, and the remaining recall is **not** a single lever: 10 of 32 (classes 1 and 2) are not this
+rung's at all, 13 more (3, 4, 5, 7 and the two NP-run classes the arc misses) are four small, separately-buildable
+construction fixes.
+
+### 11b. (1b) WHAT THE RELIABILITY GATE REMOVES, AND THE EVIDENCE THAT SEPARATES IT
+
+Over the **30** sites the arc read proposes that the floor and the surface arm do not already hold:
+
+| | n | govern a gold core argument | precision | median P(copula attaches here) |
+|---|---|---|---|---|
+| **kept** by the gate (tau 0.5) | 14 | 7 | **0.500** | **1.0000** |
+| **dropped** by the gate | 16 | 2 | **0.125** | **0.0001** |
+
+**The evidence is the governor's own posterior on the copula's arc, and it is not a borderline quantity -- it is
+BIMODAL by four orders of magnitude** (median 1.0 against median 0.0001). That is why the threshold sweep is flat
+from 0.05 to 0.90: **almost nothing lives between the two modes**, so the operating point is a choice between two
+populations rather than a tuned knob. (The same bimodality pri 110 found in its occupancy, for the same reason: a
+structural constraint is either satisfied or it is not.)
+
+**And the dropped fires are exactly the ones a reader should drop, by name:** `he` in *"Which is why HE didn't
+say"*, `i` in *"that is how I want you to refer to me"*, `you` in *"what are YOU doing tonight"*, `market` in
+*"I'm not sure how the MARKET will react"*, `we`, `list` in *"below is a LIST"*, `draft` in *"here is the Master
+DRAFT"*. **They are subjects and postposed subjects** that `robust_cop` names as predicates on a fallback, and the
+governor simply does not attach the copula to them. The gate costs 2 correct fires (`sure` in one sentence and one
+other) to remove 14 wrong ones.
+
+### 11c. (1c) THE CUE-BY-CUE CONTRIBUTION ON THE 167 -- measured, not inferred
+
+Leave-one-cue-out over the **264** argument heads governed by a gold non-verbal predicate, on the matched-control
+table, with each cue dropped from the competition in turn. `fires` is how often the cue takes a non-`na` value on
+this population; `value validity` is `max_r P(role | value)` computed from the gold roles of this population.
+
+| cue dropped | accuracy | contribution | fires | its top values' validity HERE |
+|---|---|---|---|---|
+| -- (full cue set) | **0.7235** | -- | -- | -- |
+| **`cop`** | 0.5417 | **+0.1818** | 238 | `aux_between_pre` n=136 -> SUBJ **0.95** |
+| **`config`** | 0.6818 | **+0.0417** | 264 | `ADJ_pre` n=62 -> SUBJ **0.94**; `NOUN_pre` n=75 -> SUBJ 0.79 |
+| `hostsurf` | 0.7045 | +0.0189 | 56 | `rAUX` n=12 -> SUBJ 1.00 |
+| `animacy` | 0.7083 | +0.0152 | 264 | `anim` n=67 -> SUBJ 0.85 |
+| `prep` | 0.7083 | +0.0152 | 264 | `none` n=220 -> SUBJ 0.76 |
+| `predprox` | 0.7083 | +0.0152 | 56 | `3-4` n=14 -> OBL 0.79 |
+| `case` | 0.7197 | +0.0038 | 264 | `subj` n=35 -> SUBJ 1.00 |
+| **`post_slot`** | 0.7235 | **+0.0000** | **81** | `first_single` n=43 -> OBL **0.30** |
+| **`pre_rank`** | 0.7235 | **+0.0000** | **18** | `nearest` n=17 -> SUBJ 0.94 |
+| **`pre_slot`** | 0.7235 | **+0.0000** | **8** | `filled` n=6 -> OBL 0.67 |
+| **`frame`** | 0.7235 | **+0.0000** | **26** | `mono` n=19 -> SUBJ 0.74 |
+| `vprep` | 0.7235 | +0.0000 | 3 | -- |
+| **`voice_order`** | **0.7500** | **-0.0265** | **26** | `passive_strong_pre` n=8 -> SUBJ 0.88 |
+
+**This is the claim measured rather than inferred, and it is stronger than the claim I made.** The four
+predicate-relative cues -- `post_slot`, `pre_rank`, `pre_slot`, `frame` -- contribute **EXACTLY ZERO** on this
+population *even where they already fire* (81, 18, 8 and 26 times). They are not switched off and starving; they are
+switched on and redundant. `pre_rank`'s `nearest` cues SUBJ at 0.94 and `config`'s `ADJ_pre` cues SUBJ at 0.94 on
+the same tokens -- **the cue and its configuration pick out the same thing**, and a contrast that agrees with its
+configuration is arithmetically ~0. So opening MORE of them cannot help, which is what arms B2 and B3 measured
+independently.
+
+**Two things carry this population: `cop` (+0.1818) and `config` (+0.0417)** -- and `cop` is *the copular cue*,
+i.e. the organ is already using the one piece of copular structure it has.
+
+**AND ONE VERBAL CUE IS ACTIVELY HARMFUL: dropping `voice_order` is worth +0.0265**, the largest single available
+movement on this population -- larger than anything I added. **Honest scope: this population is GOLD-SELECTED** (the
+26 arguments are those whose gold predicate is non-verbal but whose chain tag is VERB or AUX, so the voice cue
+fires), which means it is a **diagnostic, not a shippable win**: at decision time the organ does not know which
+clauses those are. The actionable form is to gate the voice cue on copular evidence rather than on the tag --
+**and pri 111 is working the voice cue right now, so this belongs in that brief with this number.**
+
+### 11d. (1d) THE EVENT/STATE DISAGREEMENTS, AND WHICH SIDE THE GOLD BACKS
+
+Comparable sets (the slot read restricted to its NON-verbal sites, because `robust_cop` only ever names non-verbal
+predicates; without that restriction a clause whose gold non-verbal predicate the chain happens to tag VERB counts
+as a free win for the slot read and inflates the comparison from 20 to 35):
+
+| | count |
+|---|---|
+| both organs name the gold predicate | **97** |
+| **the PREDICATE-SLOT read is right, the state reader misses it** | **20** |
+| **the copular STATE reader is right, the slot read misses it** | **9** |
+| neither | 26 |
+
+**The slot read wins the disagreements better than 2 : 1, and the 9 it loses are real** (`al - Qaeda`, `fire`,
+`deal`, `reliable`, `sure` ...), which is why the right consolidation is a UNION and not a replacement -- see 11g.
+Named examples where the slot read is right and the state reader silent: `maker` (*Is that a money maker ?*),
+`task` (*not up to the task*), `redistributors`, `guitar` (*is it for guitar ?*), `below` (*BELOW is a list*),
+`free` (*Are you free for lunch ?*), `12` (*The game is at 12*). Those are the inversion, locative-inversion and
+complex-locative constructions this brief added -- **the state reader has no construction knowledge at all**, which
+is exactly the argument for consolidating it onto this signal rather than the other way round.
+
+### 11h. FOUR MORE CONSTRUCTIONS, FROM 11a's OWN TABLE -- and the headline moves
+
+11a named four residual classes as reachable at this rung. All four were built, and all four are the same kind of
+stored form-meaning knowledge as the first ten:
+
+- **(wh)** a WH-form is the predicate of an identificational copular clause -- *"Which is WHY he didn't say it"*,
+  *"that is HOW i want you to refer to me"*. The class scan walked past the wh-word to a later nominal.
+- **(cl)** **a predicable complement CLOSES the copula's verb group**: a VERB after it opens the complement's own
+  clause -- *"I am SURE you 've already GONE"*, *"it is IMPORTANT we do this"*. The same locality argument as
+  `_COP_STOP`, one step further. Before this the scan found `gone` and refused the copula entirely.
+- **(sym)** a PRICE or a CODE predicates -- *"someplace that is like $ 30 an entree"*, *"is # 365013"*.
+- **(paren)** a parenthetical is neither the complement nor the end of the clause -- *"This statement is , despite
+  its facade of fair - mindedness , so many weasel words ."* The aside is SKIPPED comma-to-comma, so the scan
+  neither stops at it nor wanders into it. `copular_available` already crosses this boundary (pri 110 10b); the
+  complement scan did not.
+
+**THE SHIPPED POINT MOVES (UD-EWT test 700, same instrument, same floor, three fresh twin seeds):**
+
+| arm | recall | precision | F1 | **on the 167** | fires |
+|---|---|---|---|---|---|
+| FLOOR -- the live reader as shipped | 0.8176 | 0.8358 | 0.8266 | **0.1856** | 1090 |
+| ten constructions (the phase-5 point) | 0.9541 | 0.8370 | 0.8917 | 0.8084 | 1233 |
+| **fourteen constructions** | **0.9606** | **0.8356** | **0.8938** | **0.8383** | 1241 |
+| **fourteen + the graded arc cue, tau 0.10** | **0.9698** | 0.8305 | 0.8948 | **0.8802** | 1257 |
+| fourteen + the graded arc cue, tau 0.50 | 0.9685 | 0.8317 | **0.8949** | 0.8743 | 1254 |
+
+- surface only: recall **+0.1430 CI[+0.1181,+0.1667]**, precision **-0.0002 CI[-0.0079,+0.0072]** -- flat.
+- twins (3 seeds, matched fire count): recall 0.8307 / 0.8320 / 0.8360, precision 0.7438 / 0.7462 / 0.7470;
+  beaten CI-separated on **both** (recall +0.125 to +0.130, precision +0.089 to +0.092).
+- with the arc cue the whole region tau 0.05-0.90 has a precision delta whose CI **includes zero**
+  (-0.0066 to -0.0030) while the 167 runs 0.8623-0.8802 -- still flat, still not a tuned knob.
+
+**So the bar's 0.90 is missed by FOUR CLAUSES of 167** (147 reached at tau 0.10). And 11a's table says **10 of the
+167 are provably not reachable at this rung** (5 upstream chain mis-tags, 5 clauses that are not copular in the gold
+tree at all). **On the 157 that ARE reachable here, the arm reaches 147 = 0.9363.** I report that as the honest
+decomposition, not as the bar being met: the bar is stated over all 167 and over all 167 the number is 0.8802.
+
+### 11e. (2i) THE GRADED ARC CUE'S BOARD A/B
+
+ARC_BOARD_PLACEHOLDER
+
+### 11f. (2ii) THE HIGGINS CUE -- the first role-side arm that does not lose
+
+`copular_binding.predicted_type` wired as a new cue VALUE (`higgins` in {`pred_adj`, `pred_nom`, `ident`}), the
+gates left SHUT so the only difference from the shipped arm is this one cue, and the validity table rebuilt with it
+(`data/hook_state/coarse_role_validities_pri113_higgins_v1_*`, identical 57,645.6 decisions):
+
+| population | n | matched control | + the Higgins cue | delta |
+|---|---|---|---|---|
+| **under a non-verbal predicate** | 269 | 0.6914 | **0.6952** | **+0.0037 CI[-0.0112,+0.0186]** |
+| under a VERB | 1533 | 0.7984 | 0.7984 | **+0.0000 EXACTLY** |
+| all argument heads | 3698 | 0.7958 | 0.7961 | +0.0003 CI[-0.0014,+0.0019] |
+
+**It is the first of four role-side arms that moves the number UP, and it is surgical** (+0.0000 exactly on the
+verbal population -- the cue is `na` there by construction). **It is NOT CI-separated**, and leave-one-cue-out says
+why, with the cue's own validity on this population:
+
+`higgins` fires **179** times; dropping it costs **+0.0038**; its three values cue SUBJ at **0.61 / 0.70 / 0.73**
+(`pred_nom` n=84, `pred_adj` n=73, `ident` n=22). **The three readings barely discriminate**: an argument under a
+predicational copula and one under an identificational copula is a subject at about the same rate, and the `ident`
+bucket is only 22 items. So the distinction is real and the classifier fires on it, but **on the ARGUMENT side of a
+copular clause it does not separate the roles**. Where it should pay is the decision *"is the post-copular nominal
+an ARGUMENT at all?"* -- which is a question about the argument POPULATION (`is_arg_head`), not about the role of a
+token already in it. **That is the next form to try and it is a different edit.**
+
+### 11g. (2iii) ONE STRUCTURE PER CLAUSE -- the consolidation, measured
+
+The state reader's detection becomes `robust_cop` UNION the predicate-slot sites, with the HOLDER recovered by
+`robust_cop`'s own rule, so only the PROPERTY set is consolidated:
+
+| | both | slot-only | state-only | neither |
+|---|---|---|---|---|
+| before | 97 | 20 | 9 | 26 |
+| **after** | **106** | **11** | 9 | 26 |
+
+**Disagreements 29 -> 20**, and the residual decomposes cleanly: **9 are clauses the state reader gets RIGHT and the
+slot read misses** (11d), so they are not defects and must not be removed; **11 are slot sites for which no HOLDER
+could be recovered** by `robust_cop`'s nominal scan. **So the true remaining one-structure defect is 11 clauses of
+126, and its cause is the HOLDER rule, not the PREDICATE rule** -- which is a different and smaller problem than the
+one the brief names.
+
+STATE_BOARD_PLACEHOLDER
 
 ---
 

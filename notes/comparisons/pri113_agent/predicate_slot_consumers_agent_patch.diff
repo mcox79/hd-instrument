@@ -1,8 +1,8 @@
 diff --git a/hdlab/attachment_arm.py b/hdlab/attachment_arm.py
-index e77d458..666454e 100644
+index e77d458..75e8b3a 100644
 --- a/hdlab/attachment_arm.py
 +++ b/hdlab/attachment_arm.py
-@@ -1389,6 +1389,361 @@ def revise_for_predicate_slot(toks: Sequence[str], post, tag_names: Sequence[str
+@@ -1389,6 +1389,398 @@ def revise_for_predicate_slot(toks: Sequence[str], post, tag_names: Sequence[str
          sites.append(i)
      return (post if out is None else out), sites
  
@@ -29,6 +29,8 @@ index e77d458..666454e 100644
 +#     + DP (NP-internal participle)          .9436            .8325                                .7605
 +#     + LOCATIVE INVERSION (fronted)         .9501            .8366                                .7904
 +#     + RIGHT-HAND HEAD RULE (hyphen)        .9514            .8367                                .7964
++#     + ELLIPSIS / WH / COMPLEMENT-CLAUSE /
++#       SYM / PARENTHETICAL (all fourteen)     .9606            .8356                                .8383
 +# against the live reader as shipped: recall .8176, precision .8358, non-verbal clauses .1856.
 +# HDLAB_PREDICATION_CONSTRUCTIONS=0 restores the shipped scan exactly (asserted: 0 mismatches / 200 sentences).
 +PREDICATION_CONSTRUCTIONS = os.environ.get("HDLAB_PREDICATION_CONSTRUCTIONS", "1") == "1"
@@ -36,6 +38,9 @@ index e77d458..666454e 100644
 +# of non-verbal predication (property / class / location / possession).  It is NOT "any ADV": scoping it to the
 +# deictic set is what separates "the economy is DOWN" from "is just a little nostalgic" (a degree adverb inside an
 +# ADJ predicate).
++# A WH-FORM IS THE PREDICATE of an identificational copular clause: "Which is WHY he said it",
++# "that is HOW i want you to refer to me", "this is WHAT I meant".
++WH_PRED = frozenset({"why", "how", "what", "where", "when", "which"})
 +LOCATIVE_ADV = frozenset({"here", "there", "above", "below", "out", "in", "up", "down", "back", "away", "off",
 +                          "over", "near", "nearby", "home", "abroad", "inside", "outside", "ahead", "behind",
 +                          "everywhere", "somewhere", "anywhere", "nowhere", "upstairs", "downstairs",
@@ -118,7 +123,15 @@ index e77d458..666454e 100644
 +    n = len(pos); lows = [t.lower() for t in toks]
 +    if pos[i] != "AUX" or lows[i] not in COP_FORMS:
 +        return None
-+    for k in range(i + 1, n):                               # the verb-group locality (cop_predicates', unchanged)
++    seen_comp = False
++    for k in range(i + 1, n):                               # the verb-group locality (cop_predicates', extended)
++        if cons and pos[k] in ("ADJ", "NOUN", "PROPN", "PRON", "NUM"):
++            # (cl) ONCE THE COMPLEMENT HAS BEEN SEEN, A LATER VERB IS NOT IN THIS COPULA'S VERB GROUP -- it opens
++            # the complement's OWN clause ("I am SURE you 've already GONE", "it is IMPORTANT we do this").  The
++            # same locality argument as _COP_STOP, one step further: a predicable complement closes the group.
++            seen_comp = True
++        if seen_comp and pos[k] == "VERB":
++            break
 +        if cons and pos[k] == "DET":
 +            break                                           # (det) a determiner opens a nominal; see _fronted_predicate
 +        if pos[k] == "VERB":
@@ -151,10 +164,30 @@ index e77d458..666454e 100644
 +            return None
 +    skip_subject = cons and _cop_inverted(pos, lows, i)
 +    seen_nominal = False; opened = False
-+    for k in range(i + 1, n):
++    k = i
++    while True:
++        k += 1
++        if k >= n:
++            break
 +        if cons and pos[k] == "DET":
 +            opened = True
-+        if pos[k] == "PUNCT" or (pos[k] == "VERB" and not (cons and opened)):
++        if pos[k] == "PUNCT":
++            # (paren) A PARENTHETICAL IS NOT THE COMPLEMENT AND NOT THE END OF THE CLAUSE: "This statement is ,
++            # despite its facade of fair - mindedness , so many weasel words ."  `copular_available` already knows
++            # the complement is behind such a boundary (pri 110 10b, its `crossed` flag); the complement scan
++            # stopped at it.  Skip the WHOLE aside -- comma to matching comma -- so the scan neither stops at it
++            # nor wanders into it.
++            if cons and lows[k] == "," and not seen_nominal:
++                j = k + 1
++                while j < n and not (pos[j] == "PUNCT" and lows[j] in (",", ".", "!", "?", ";")):
++                    j += 1
++                if j < n and lows[j] == ",":
++                    k = j
++                    continue
++            if cons and lows[k] in ('"', "'", "``", "''", "(") and not seen_nominal:
++                continue
++            break
++        if pos[k] == "VERB" and not (cons and opened):
 +            break
 +        if cons and pos[k] in _CLAUSE_EDGE:
 +            break                                           # (clause) the complement is CLAUSE-LOCAL
@@ -168,6 +201,10 @@ index e77d458..666454e 100644
 +                    if pos[m] in ("VERB", "PUNCT") or pos[m] in _CLAUSE_EDGE:
 +                        break
 +            return k                                        # (loc) "the economy is DOWN", "he is HERE"
++        if cons and pos[k] in ("ADV", "PRON", "DET") and lows[k] in WH_PRED and not seen_nominal:
++            return k                                        # (wh) a WH-form predicate: "Which is WHY he said it"
++        if cons and pos[k] in ("SYM", "INTJ") and not seen_nominal:
++            return k                                        # (sym) a PRICE or a CODE predicates: "is $ 30 an entree"
 +        if pos[k] in ("ADJ", "NOUN", "PROPN", "PRON", "NUM"):
 +            if skip_subject and not seen_nominal:
 +                seen_nominal = True                         # (inv) that was the INVERTED SUBJECT; keep looking
@@ -364,7 +401,7 @@ index e77d458..666454e 100644
  def subordination(toks: Sequence[str], pos: Sequence[str], i: int) -> str:
      """SUBORDINATION CUE: the clause-dependency marking in force at 1-based i -- the nearest preceding clause opener
      (subordinator / relativizer / coordinator) with no finite predicate in between (a VERB or a sentence-final mark
-@@ -2683,7 +3038,9 @@ __all__ = ["SentenceCues", "CONSTRUCTIONS", "construction_map", "verb_frames_fro
+@@ -2683,7 +3075,9 @@ __all__ = ["SentenceCues", "CONSTRUCTIONS", "construction_map", "verb_frames_fro
             "root_cue_values", "predication_boost", "finiteness",
             "predicate_slot_occupancy", "revise_for_predicate_slot", "host_belief", "copular_available",
             "is_existential", "main_verb_carriers",
@@ -376,7 +413,7 @@ index e77d458..666454e 100644
  
  # ------------------------------------------------------------------------------ meaning as a read-time cue (PLAUS_CUE)
 diff --git a/hdlab/graded_role_assigner.py b/hdlab/graded_role_assigner.py
-index aa6d837..ed91fe8 100644
+index 5638e50..244bb7e 100644
 --- a/hdlab/graded_role_assigner.py
 +++ b/hdlab/graded_role_assigner.py
 @@ -43,6 +43,7 @@ __bf_note__ = "2026-09-14 pri108 NMOD CLASS + CUE SET v4 (self-gated on the asse
@@ -452,7 +489,7 @@ index aa6d837..ed91fe8 100644
          cfgkey += "_ex"                     # the CONSTRUCTION is the configuration
      cues = {"config": cfgkey}
      if hc in ("VERB", "AUX") and h:
-@@ -676,7 +717,7 @@ def coarse_role_cues(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, i
+@@ -679,7 +720,7 @@ def coarse_role_cues(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, i
      # PRE-VERBAL SLOT cue (Competition Model "first noun = agent" strategy): for a post-verbal nominal under a VERB/AUX head,
      # is the verb's pre-verbal slot EMPTY (no nominal between the clause edge and the verb)? An empty slot makes a post-verbal
      # nominal the likely SUBJECT (inversion, "said John", questions, relative clauses); a filled slot makes it the OBJECT.
@@ -461,7 +498,7 @@ index aa6d837..ed91fe8 100644
          if v3:
              eff = [j for j in range(1, h) if heads.get(j) == h and is_arg_head(toks, pos, j)]
              if not eff:
-@@ -727,7 +768,7 @@ def coarse_role_cues(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, i
+@@ -730,7 +771,7 @@ def coarse_role_cues(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, i
          # PATIENT of "give me a call" to OTHER (signal trace 2026-09-12). first/later = ARGUMENTS between the head and i
          # (v3) or nominal TOKENS (pre-v3); pair = a SECOND bare (no preposition) nominal dependent of the same head after
          # the verb (first-of-two + animate = the recipient, later-of-two = the patient).
@@ -470,7 +507,7 @@ index aa6d837..ed91fe8 100644
              between = sum(1 for j in range(h + 1, i) if heads.get(j) == h and is_arg_head(toks, pos, j))
          elif v3:                              # the gate suspends the SIBLING (arc) read, not the argument population
              between = sum(1 for j in range(h + 1, i) if is_arg_head(toks, pos, j))
-@@ -746,7 +787,7 @@ def coarse_role_cues(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, i
+@@ -749,7 +790,7 @@ def coarse_role_cues(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, i
      # PRE-verbal argument RANK (v3): the active-filler configuration (Frazier & Clifton 1989) -- in "the aid THAT
      # Darfur needs" the NEAREST pre-verbal argument is the subject and the earlier one is the extracted object. The
      # pre-verbal side had no rank cue at all before.
@@ -479,7 +516,7 @@ index aa6d837..ed91fe8 100644
          nearer = sum(1 for j in range(i + 1, h) if heads.get(j) == h and is_arg_head(toks, pos, j))
          cues["pre_rank"] = "nearest" if nearer == 0 else ("second" if nearer == 1 else "earlier")
      elif v3:
-@@ -758,7 +799,7 @@ def coarse_role_cues(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, i
+@@ -761,7 +802,7 @@ def coarse_role_cues(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, i
          cues["animacy"] = "anim"            # personal pronouns are animate by form
      # VERB-FRAME cue (the Competition Model's verb-specific knowledge): does this head verb TAKE A RECIPIENT? Read from the
      # learned per-lemma argument-frame counts (frames[lemma] = [n_iobj, n_nominal_deps]) accrued from reading; "unk" = never seen.
@@ -488,7 +525,7 @@ index aa6d837..ed91fe8 100644
          fr = frames.get(lemma_verb(toks[h - 1]).lower())
          if fr and fr[1] >= 5:
              cues["frame"] = "ditrans" if fr[0] / fr[1] >= 0.05 else "mono"
-@@ -963,6 +1004,8 @@ def load_coarse_validities(path: Optional[str] = None) -> Dict[str, object]:
+@@ -966,6 +1007,8 @@ def load_coarse_validities(path: Optional[str] = None) -> Dict[str, object]:
                                  for v, vec in vals.items()} for c, vals in doc["strength"].items()},
                 "lemma_frames": doc.get("lemma_frames", {})}
      tab["slot_capacity"] = (doc.get("counts") or {}).get("slot_capacity") or doc.get("slot_capacity")   # verb-frame capacity counts (pri 93)
