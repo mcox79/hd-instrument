@@ -659,7 +659,7 @@ this consumer should be tuned for recall.
    that cannot see that a word is capitalised is not a reader with a weak cue, it is a reader with a
    **destroyed input channel**.
 
-## 23. THE READER-FAITHFUL ARM -- and it REFUTES the common-noun row as a cross-arm instrument
+## 22. THE READER-FAITHFUL ARM -- and it REFUTES the common-noun row as a cross-arm instrument
 
 The gold-free instrument feeds the category organ **cased** GUM forms. **The live reader feeds it lowercased
 text** (section 18c). So the rows I published are still not reader-faithful, and `gf2low` closes that gap by
@@ -704,7 +704,7 @@ see it**, exactly as pri 104 found for the name decision itself. Anyone landing 
 the board not to move and should measure it where it lands: the entity files, the aliaser, the cross-type
 experiencer bind, who-did-what.
 
-## 22. IS THE SESSION EXHAUSTED? -- the honest answer, lever by lever
+## 23. IS THE SESSION EXHAUSTED? -- the honest answer, lever by lever
 
 **From this seat, on this brief's remit: YES, and here is the ledger that says so.** Every lever I can build
 and measure without stepping into another brief's file or another session's decision has been built and
