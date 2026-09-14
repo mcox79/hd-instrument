@@ -1070,7 +1070,48 @@ are now numbers rather than intentions.
 | 11 | 155 gold nmod the detector never sees | **YES** | the Right-hand Head Rule is already the `npmod` construction; 55 of 157 are same-NP-run internal bracketing (a convention), 94 are appositive/measure/address cases needing an apposition mechanism, 38 sit inside a case-marked run whose head element UD picks differently |
 | 12 | the nmod PARTIAL on the retrieved subpopulation | **YES** | on that population proximity alone already scores 0.922, so the association cannot lift it — its job there is obl. Converted by the two-sided teacher: +0.0752\* over base, +0.0564\* over the shipped arm |
 | 13 | the downstream role regression 0.5765 → 0.5622 | **YES** | no NMOD class + better heads move nominals off verbs, and a nominal not governed by a verb can only be `dep` (`obl→dep` 61→96, `nmod→dep` 195→214). Removed upstream by the two-sided teacher (0.5769) |
-| 14 | **`objgen`'s obl falls 0.541 → 0.497 from cap 1500 to cap 6000 while `base` stands still** | **PARTIALLY — and I am flagging it rather than claiming it** | I measured the correlate: the cue's learned ladder compresses 1.496 → 1.079 and its losing bin rises from −0.255 to +0.001. **I did not run the causal test**, which is: rebuild at cap 6000 but hold the `pp` cue's strengths at their cap-1500 values and see whether obl returns to ~0.541. That is one build plus a table splice, it is buildable from this seat, and it is the one loose end in this file |
+| 14 | **`objgen`'s obl falls 0.541 → 0.497 from cap 1500 to cap 6000 while `base` stands still** | **YES, AND MY FIRST ANSWER WAS WRONG — see §26** | I measured the correlate: the cue's learned ladder compresses 1.496 → 1.079 and its losing bin rises from −0.255 to +0.001. **I then ran the causal test (§26) and it REFUTED my explanation:** scaling the learned strengths until the spread is back at the cap-1500 value buys **+0.006 obl of the 0.044 gap**, and tripling the spread buys nothing. The cue's weighting is already near-optimal for obl; the cap effect lives in the REST of the competition, and the named next test is a cap-1500 flip trace |
+
+## 26. ITEM 14 CLOSED — the ladder compression is NOT the cause, and I was wrong about it
+
+§23 item 14 was the one thing in this file marked PARTIALLY understood: `objgen`'s obl falls 0.541 → 0.497 from cap
+1500 to cap 6000 while the floor stands still (0.440 → 0.444), and I had offered the cue's learned ladder compressing
+(spread 1.496 → 1.079) as the explanation. That was a correlate. **I built the causal test and it refutes me.**
+
+The test holds the cap-6000 table completely fixed and multiplies ONLY the learned strengths of the `pp` and `ppobj`
+cues by a gain, then re-decodes — no rebuild, no refit, and nothing else in the arm touched. If the compression is
+what costs obl, restoring the spread must restore obl.
+
+| gain on the learned strengths | resulting `pp` ladder spread | UAS | obl | nmod |
+|---|---|---|---|---|
+| ×1 (as learned at cap 6000) | 1.079 | 0.6364 | 0.497 | 0.511 |
+| ×1.25 | 1.348 | 0.6370 | **0.503** | 0.515 |
+| **×1.5 — restores the cap-1500 spread (1.496)** | **1.618** | 0.6367 | **0.503** | 0.519 |
+| ×2 | 2.159 | 0.6361 | 0.491 | 0.522 |
+| ×3 — three times the cap-1500 spread | 3.237 | 0.6367 | 0.491 | **0.526** |
+
+**Restoring the cap-1500 spread buys +0.006 obl of the 0.044 gap — about one seventh — and pushing the spread to
+three times the cap-1500 value does not help at all (obl falls back to 0.491).** The compression is a correlate, not
+the cause. **Refuted, with the number.**
+
+**What the test DOES establish, which is worth more than the hypothesis it killed:**
+
+1. **The cue's learned scale is already near-optimal for obl** — obl peaks at ×1.25–1.5 and the peak is +0.006. The
+   organ is not mis-weighting the association.
+2. **It is slightly under-weighted for nmod**, which rises monotonically to 0.526 at ×3 (+0.015). That is the same
+   direction the two-sided teacher moves (§12.5g), by a mechanism that is learned rather than imposed — another
+   independent sign that the nmod side of this cue is the under-served one.
+3. **The positive account of the cap effect is therefore NOT in the cue at all.** Both the structure contribution
+   (`flat` − base: 0.055 at cap 1500, 0.034 at cap 6000) and the content contribution fall together at the larger
+   cap, which points at the REST of the competition: with four times the data the arm's other cues and constructions
+   are better estimated and claim more of these arcs, so any added cue flips fewer decisions. The flip trace at cap
+   6000 is consistent — the cue REPAIRS 42 obl and BREAKS 17, a net 25 tokens = the +0.052 observed — and the test
+   that would settle it is the same flip trace at cap 1500 (the prediction: roughly twice the net flips, ~48 tokens).
+   **That is one cap-1500 run with `--flip-diag obl,nmod`, and it is the last thing I would do here.**
+
+**So item 14 moves from PARTIALLY understood to UNDERSTOOD IN WHAT IT IS NOT, with a bounded residual:** the
+association cue's weighting explains at most 0.006 of 0.044; the remaining 0.038 lives in the rest of the
+competition, and the exact test is named and costed.
 
 ## 24. ALTERNATE PATHS AFTER ROUND 3 (superseding §19 where they differ)
 
