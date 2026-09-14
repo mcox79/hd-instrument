@@ -2,7 +2,7 @@
 problem: one_in_five_asserted_clauses_has_a_non_verbal_predicate_and_every_verb_gated_consumer_is_blind_to_it_fire_events_and_roles_on_the_predicate_slot_not_the_verb_tag
 status: PARTIAL
 bar: "The participant instrument built and published (gold-free at decision time; a twin with predicates picked at random at the same rate at floor); the 167 clauses reachable: event/state fired on >= 0.90 of them with participant precision not below the verbal clauses' CI-separated; the role competition's full cue set firing on them with role accuracy on the 167 up CI-separated vs the reduced-cue branch; the 65 seen-by-nobody down to a counted residual with reasons; board not down on any dimension; one structure per clause -- OR a numbered located negative naming the consumer that cannot receive the non-verbal predicate and why."
-result: "AFTER PHASE 7 -- THE EVENT DETECTOR IS FIXED AND THE ROLE RUNG IS A NUMBERED, UNDERSTOOD NEGATIVE. PARTICIPANT INSTRUMENT (UD-EWT test 700, 762 subject-bearing gold clauses = 595 verbal + 167 non-verbal by UD's convention; a fired event is correct when its index IS the clause's gold predicate and precision counts a fire only if its index governs >= 1 gold CORE argument in the gold TREE -- the gold TAG column is never asked what category a predicate may be): the LIVE reader as shipped scores recall 0.8176 / precision 0.8358 / F1 0.8266 and reaches 0.1856 of the 167; FOURTEEN CONSTRUCTIONS plus the GRADED ARC CUE score recall 0.9698 / precision 0.8305 / F1 0.8948 and reach 0.8802 of the 167 (tau 0.10; at tau 0.50, 0.9685 / 0.8317 / F1 0.8949 and 0.8743). Recall +0.1522 CI[+0.1260,+0.1772] CI-SEPARATED; precision -0.0052 CI[-0.0136,+0.0030] -- NOT CI-separated down, and the whole tau region 0.05-0.90 has a precision CI containing zero. INFO-FREE TWIN (3 seeds, matched fire count): recall 0.831-0.836, precision 0.744-0.747 -- beaten CI-separated on BOTH. THE BAR'S 0.90 IS MISSED BY FOUR CLAUSES OF 167, and 10 of the 167 are provably outside this rung (5 upstream chain mis-tags, 5 not copular in the gold tree), so on the 157 reachable here the arm reaches 147 = 0.9363; the four that remain are TREEBANK HEAD CONVENTIONS (`good 12:30`, `the way THE market`, `March 31`, `al - Qaeda`), not facts about comprehension, which is why I stopped. THE 65 SEEN BY NOBODY ARE 20, and all 32 residual items are adjudicated into 9 named mechanisms. THE TENSE READER, silent on every copular clause (it fires only on Penn VB* and skips every AUX lemma), now carries a tense read off the COPULA -- the carrier's one job (Pustet 2003) -- on 117 of the 167 (0.7006 from 0.0000). ONE STRUCTURE PER CLAUSE: consolidating the copular state reader onto the predicate-slot signal takes the event/state disagreements 29 -> 20, of which 9 are cases the state reader gets RIGHT (not defects), so the true residual is 11 of 126 and its cause is `robust_cop`'s HOLDER rule, not the predicate rule -- and it is a BOARD WIN at FULL size (state 0.7487 -> 0.7857, +0.0370 CI[+0.0186,+0.0571] CI-SEPARATED, 14 documents gained and 0 lost of 342, every other dimension +0.0000). THE ROLE COMPETITION: cue coverage fixed (pre-verbal SLOT 2 -> 52, argument RANK 5 -> 136, verb FRAME 3 -> 27) but accuracy NOT up CI-separated in any of four arms; LEAVE-ONE-CUE-OUT on the 264 arguments shows why with numbers -- those four cues contribute EXACTLY 0.0000 even where they fire, because each agrees with its own configuration and a contrast that agrees with its configuration is arithmetically zero, while `cop` is worth +0.1818 and `config` +0.0417; the HIGGINS cue (copular_binding.predicted_type, wired as a new cue value) is the first arm that does not lose, +0.0037 CI[-0.0112,+0.0186] and +0.0000 EXACTLY on the verbal population."
+result: "AFTER PHASE 7 -- THE EVENT DETECTOR IS FIXED AND THE ROLE RUNG IS A NUMBERED, UNDERSTOOD NEGATIVE. PARTICIPANT INSTRUMENT (UD-EWT test 700, 762 subject-bearing gold clauses = 595 verbal + 167 non-verbal by UD's convention; a fired event is correct when its index IS the clause's gold predicate and precision counts a fire only if its index governs >= 1 gold CORE argument in the gold TREE -- the gold TAG column is never asked what category a predicate may be): the LIVE reader as shipped scores recall 0.8176 / precision 0.8358 / F1 0.8266 and reaches 0.1856 of the 167; FOURTEEN CONSTRUCTIONS plus the GRADED ARC CUE score recall 0.9698 / precision 0.8305 / F1 0.8948 and reach 0.8802 of the 167 (tau 0.10; at tau 0.50, 0.9685 / 0.8317 / F1 0.8949 and 0.8743). Recall +0.1522 CI[+0.1260,+0.1772] CI-SEPARATED; precision -0.0052 CI[-0.0136,+0.0030] -- NOT CI-separated down, and the whole tau region 0.05-0.90 has a precision CI containing zero. INFO-FREE TWIN (3 seeds, matched fire count): recall 0.831-0.836, precision 0.744-0.747 -- beaten CI-separated on BOTH. THE BAR'S 0.90 IS MISSED BY FOUR CLAUSES OF 167, and 10 of the 167 are provably outside this rung (5 upstream chain mis-tags, 5 not copular in the gold tree), so on the 157 reachable here the arm reaches 147 = 0.9363; the four that remain are TREEBANK HEAD CONVENTIONS (`good 12:30`, `the way THE market`, `March 31`, `al - Qaeda`), not facts about comprehension, which is why I stopped. THE 65 SEEN BY NOBODY ARE 20, and all 32 residual items are adjudicated into 9 named mechanisms. THE TENSE READER, silent on every copular clause (it fires only on Penn VB* and skips every AUX lemma), now carries a tense read off the COPULA -- the carrier's one job (Pustet 2003) -- on 117 of the 167 (0.7006 from 0.0000). ONE STRUCTURE PER CLAUSE: consolidating the copular state reader onto the predicate-slot signal takes the event/state disagreements 29 -> 20, of which 9 are cases the state reader gets RIGHT (not defects), so the true residual is 11 of 126 and its cause is `robust_cop`'s HOLDER rule, not the predicate rule -- and it is a BOARD WIN at FULL size (state 0.7487 -> 0.7857, +0.0370 CI[+0.0186,+0.0571] CI-SEPARATED, 14 documents gained and 0 lost of 342, every other dimension +0.0000). THE ROLE COMPETITION: cue coverage fixed (pre-verbal SLOT 2 -> 52, argument RANK 5 -> 136, verb FRAME 3 -> 27) but accuracy NOT up CI-separated in any of four arms; LEAVE-ONE-CUE-OUT on the 264 arguments shows why with numbers -- those four cues contribute EXACTLY 0.0000 even where they fire, because each agrees with its own configuration and a contrast that agrees with its configuration is arithmetically zero, while `cop` is worth +0.1818 and `config` +0.0417; the HIGGINS cue (copular_binding.predicted_type, wired as a new cue value) is the first arm that does not lose, +0.0037 CI[-0.0112,+0.0186] and +0.0000 EXACTLY on the verbal population. OUT-OF-SUPPLY CONTROL (GUM/GENTLE, 1200 sentences over 12+ genres, 1545 subject-bearing clauses): the mechanism GENERALISES -- non-verbal recall 0.1230 -> 0.6120, a fivefold rise, recall +0.1165 CI[+0.1016,+0.1320] CI-separated, every twin beaten CI-separated on both -- but it generalises WORSE than in supply (0.6120 against 0.8802) and precision is -0.0083 CI[-0.0153,-0.0017], CI-SEPARATED DOWN where in supply it is flat. That is the result I would withdraw first and the number strategy should plan against."
 floor: "(1) THE LIVE READER AS SHIPPED -- SituationReader(predicate_recall=True)._extract_events, i.e. the UPOS==VERB detector plus the landed BF predicate rescue, driven through the real organ, not re-implemented: participant recall 0.8176, precision 0.8358, F1 0.8266, 1090 fires, 0.1856 of the 167 non-verbal clauses, 0.9950 of the 595 verbal ones. (2) THE SHIPPED COPULAR SCAN, `attachment_arm.cop_predicates` as it stands, routed to the event detector with no construction added: recall 0.9357, precision 0.8262, 0.7246 of the 167 -- so the construction work is measured against the strongest existing answer, not against the bare VERB gate. (3) FOR THE ROLES ARMS, a validity table REBUILT TODAY with the SHIPPED cue function (data/hook_state/coarse_role_validities_pri113_off_v1_*), because the live asset was built at an earlier HEAD under an earlier frontend and differs from a fresh build by 22% of its teaching decisions -- comparing against the live asset would have confounded the cue change with every upstream change since."
 controls: "(0) THE REPAIR MY OWN DIAGNOSIS NAMED WAS BUILT AND REFUTED ME: arm B3 (open the cues, keep the configuration) scores -0.0297 CI[-0.0595,+0.0000] against the matched control, indistinguishable from the PRED split it was meant to rescue -- which is what turned "the split cost too much" into the sharper and better-supported "the verbal cues carry no signal on a clause with no agent/patient distinction". (1) INFORMATION-FREE TWIN, 3 seeds: the SAME NUMBER of extra fires placed on a random non-punctuation token of the same sentence. Recall 0.8268 / 0.8333 / 0.8412 and precision 0.7453 / 0.7502 / 0.7543 against the arm's 0.9541 / 0.8370 -- the arm beats every seed CI-separated on BOTH (recall +0.1129 to +0.1273, precision +0.0827 to +0.0916). The twin fires the same amount and gains almost nothing, so the win is WHERE the fires land. (2) PAIRED BOOTSTRAP, 2000 resamples: over CLAUSES for recall (the item is the clause) and over SENTENCES for precision (the fire set is sentence-level and its denominator moves). (3) SURGICALITY: the verbal clauses are UNTOUCHED -- 0.9950 -> 0.9950 on all 595, and under the role arm the arguments governed by a VERB score +0.0000 EXACTLY (n=1533) on the live table. The arm is additive by construction; no existing event can be lost. (4) PATCH == CELL: the self-test EXECUTES the proposed diff's own added code and compares it to the cell that produced every number -- 0 site mismatches, 0 complement mismatches, max |strength difference| 0.0 over 5,224 tokens / 300 sentences; `git apply --check` clean. (5) THE SHIPPED SCAN IS RECOVERABLE EXACTLY: with every construction switched off, `cop_complement` reproduces `attachment_arm.cop_predicates` with 0 mismatches over 200 sentences -- so HDLAB_PREDICATION_CONSTRUCTIONS=0 is a true no-op and the constructions are an operating point, not a rewrite. (6) THE TWO BRANCHES PARTITION: carrier_occ + complement_occ == 1 - host_belief to 1e-6 over 90 copulas, so a clause can never receive two predicates from this computation. (7) ABLATION, one construction at a time on the instrument: shipped .7246 -> LOCATION .7186 -> CLAUSE-LOCAL .7186 -> INVERSION .7425 -> DP .7665 -> LOCATIVE-INVERSION .7964 -> RIGHT-HAND-HEAD-RULE .8024 -> COMPLEX-LOCATIVE .8024 -> LEFT-FRONTED .8024 -> ELLIPSIS .8084 on the 167. Two of the ten (COMPLEX LOCATIVE, LEFT-FRONTED) contribute EXACTLY ZERO on this population and are reported as zero. (8) A CONSTRUCTION THAT COST MORE THAN IT BOUGHT WAS NARROWED, NOT KEPT: firing the copula itself whenever the complement scan merely failed bought 2 clauses for 31 extra fires and took participant precision 0.8367 -> 0.8177, CI-separated DOWN; narrowed to the truly stranded configuration it buys 2 clauses for 2 fires at no precision cost. (9) CAPABILITY GUARDS, not assumptions: `predicate_sites` returns {} under any category inventory lacking the UPOS classes it reads (the Penn-tagset temporal instance and the pri-15 induced-class swap degrade to silence), and the PRED head class is used only when the LOADED validity table carries PRED rows -- measured, because on a table without them role accuracy on those clauses falls 0.7361 -> 0.3309. (10) BOARD A/B run with BOTH ARMS BACK-TO-BACK IN ONE PROCESS (pri 110 10c: a two-process board A/B on this repo straddled another session's integration and manufactured three false regressions)."
 files_changed: "experiments/exp_nonverbal_predication_participants_agent_v1.py (the cell); notes/comparisons/pri113_agent/{SOLVED_agent.md, predicate_slot_consumers_agent_patch.diff}; data/exp_nonverbal_predication_participants_agent_v1/*.json (metrics); data/hook_state/coarse_role_validities_pri113_{pred,open,off,higgins}_v1_*.json (the four rebuilt role tables -- hook_state, never over the live asset). NO hdlab/ or tools/ file changed on disk."
@@ -1088,6 +1088,43 @@ for "everything except ellipsis", not for left-fronting. The row is corrected in
 LEFT-FRONTED's own, measured when the four did not yet exist. **A cumulative ablation has to switch OFF everything
 below it as well as ON everything above it**, and a row that silently inherits a default is a mislabelled arm.*
 
+### 11j. THE OUT-OF-SUPPLY CONTROL -- it generalises, and it generalises WORSE than I would like
+
+Everything above is UD-EWT test 700. The same instrument, the same floor, the same shipped arm, on **GUM/GENTLE**
+(1200 sentences by stride over 12+ genres, gold UPOS and gold heads, held out from the category organ's count
+supply AND from its genre) -- **1545 subject-bearing clauses, 1179 verbal / 366 non-verbal**:
+
+| arm | recall | precision | F1 | on the 366 non-verbal | fires |
+|---|---|---|---|---|---|
+| FLOOR -- the live reader as shipped | 0.7249 | 0.8079 | 0.7642 | **0.1230** | 2015 |
+| **the shipped arm** (15 constructions + the graded arc cue) | **0.8414** | 0.7997 | **0.8200** | **0.6120** | 2296 |
+| twin, 3 seeds | 0.738-0.744 | 0.720-0.724 | -- | 0.178-0.205 | 2296 |
+
+- recall **+0.1165 CI[+0.1016,+0.1320]** -- CI-separated, and the non-verbal clauses go **0.1230 -> 0.6120, a
+  five-fold rise**;
+- beaten every twin CI-separated on **both** recall (+0.097 to +0.104) and precision (+0.075 to +0.079);
+- **precision -0.0083 CI[-0.0153,-0.0017] -- CI-SEPARATED DOWN**, where in supply it was flat (-0.0052, CI
+  containing zero).
+
+**THIS IS THE RESULT THAT DEFLATES MY OWN CLAIM AND IT IS THE ONE I WOULD WITHDRAW FIRST.** The mechanism
+generalises -- a fivefold rise on the out-of-supply non-verbal clauses, with every twin far below -- but **the
+operating point does not transfer cleanly**: 0.6120 out of supply against 0.8802 in supply, and a small but
+CI-separated precision cost that in supply does not exist. pri 110's occupancy read found its effect was *LARGER*
+out of supply, which is what a pure mechanism does; **mine is smaller, which says some of my fifteen constructions
+are carrying UD-EWT's conventions as well as English's.**
+
+Two honest readings, and I cannot separate them here: (a) the chain itself is weaker out of supply (the FLOOR's
+verbal recall is 0.9118 on GUM against 0.9950 on UD-EWT, so there is less correct upstream for any construction to
+build on), and (b) the closed-class word sets (`LOCATIVE_ADV`, `FRONTABLE_PRED`, `WH_PRED`) were chosen by
+attributing a UD-EWT residual and were never tuned against GUM. **(b) is exactly what alternate path D fixes**:
+learn the construction memberships from counts with an `observe()` on confirmed predications, instead of naming
+them. That path moves from "worth doing eventually" to **the first thing I would build next** on the strength of
+this number.
+
+*Recommendation to strategy, stated against my own interest: land the arm (it is CI-separated up on recall on both
+populations and beats every twin on both), but treat **0.6120, not 0.8802, as the number to plan against**, and run
+the GUM ablation before adding any further construction.*
+
 ### 11g. (2iii) ONE STRUCTURE PER CLAUSE -- the consolidation, measured
 
 The state reader's detection becomes `robust_cop` UNION the predicate-slot sites, with the HOLDER recovered by
@@ -1139,8 +1176,8 @@ between them. Both arms of THIS run share one base, so the A/B is valid; the cro
 | # | bar criterion | verdict | number |
 |---|---|---|---|
 | 1 | the participant instrument built and published, gold-free at decision time | **MET** | built, published, 14 metrics files |
-| 2 | a twin with predicates picked at random at the same rate at floor | **MET** | 3 seeds, CI-separated on recall AND precision |
-| 3 | **event/state fired on >= 0.90 of the 167** | **NOT MET** | **0.8802** (147 of 167). 0.9363 on the 157 reachable at this rung |
+| 2 | a twin with predicates picked at random at the same rate at floor | **MET** | 3 seeds, CI-separated on recall AND precision, **on BOTH populations** |
+| 3 | **event/state fired on >= 0.90 of the 167** | **NOT MET** | **0.8802** (147 of 167); 0.9363 on the 157 reachable at this rung; **0.6120 out of supply on GUM** |
 | 4 | participant precision not below the verbal clauses' CI-separated | **MET** | -0.0052 CI[-0.0136,+0.0030] with the arc cue; -0.0002 without |
 | 5a | the role competition's full cue set firing on them | **MET** | slot 2 -> 52, rank 5 -> 136, frame 3 -> 27 |
 | 5b | **role accuracy on the 167 up CI-separated** | **NOT MET** | best arm (Higgins) **+0.0037 CI[-0.0112,+0.0186]** |
@@ -1193,9 +1230,14 @@ agrees with its own configuration and a contrast that agrees with its configurat
 
 **No, and the honest split is: the RECALL side is essentially done and the ROLE side is not.**
 
-- **Recall (the event detector).** 0.1856 -> 0.8802, with 10 of the 167 provably outside this rung and the
-  remaining 4 being annotation conventions. **I would call this rung exhausted for recall** -- further work here
-  buys single items and buys them from the treebank's head conventions rather than from the brain.
+- **Recall (the event detector), IN SUPPLY.** 0.1856 -> 0.8802, with 10 of the 167 provably outside this rung and
+  the remaining 4 being annotation conventions. **Exhausted for recall on UD-EWT** -- further work there buys
+  single items and buys them from the treebank's head conventions rather than from the brain.
+- **Recall, OUT OF SUPPLY (11j). NOT exhausted, and this is the finding that matters most.** GUM/GENTLE gives
+  0.1230 -> **0.6120** on 366 non-verbal clauses -- a fivefold rise that is CI-separated and beats every twin, but
+  a long way from the 0.8802 in supply, with a small CI-separated precision cost that in supply does not exist.
+  **The gap between 0.8802 and 0.6120 is the honest measure of how much of my fifteen constructions is English and
+  how much is UD-EWT**, and closing it is alternate path D (learn the memberships from counts), not more rules.
 - **Precision.** Flat throughout (-0.0052, CI contains zero) and the added fires are 0.80-0.85 precise against the
   shipped detector's own 0.8358. Nothing to recover.
 - **Roles.** **Not exhausted.** Four arms tried, the failing family closed with a number, and four live leads named
@@ -1293,8 +1335,18 @@ partition (1 - host) to 1e-6 over 90 copulas; capability guards measured, not as
 under an inventory lacking the UPOS classes it reads; the PRED head class is used only when the loaded table
 carries PRED rows -- without them role accuracy falls 0.7361 -> 0.3309). Self-test 14/14; git apply --check clean.
 
-EXHAUSTED? The RECALL side of this rung, yes -- 0.1856 -> 0.8802 with the residual adjudicated and the remainder
-being annotation conventions. The ROLE side, NO: four leads named with numbers (the argument-population Higgins
+OUT-OF-SUPPLY CONTROL (GUM/GENTLE, 1200 sentences, 12+ genres, 1545 subject-bearing clauses): the mechanism
+GENERALISES -- non-verbal recall 0.1230 -> 0.6120, a FIVEFOLD rise, recall +0.1165 CI[+0.1016,+0.1320] CI-separated,
+every twin beaten CI-separated on both -- but it generalises WORSE than in supply (0.6120 against 0.8802) and
+precision is -0.0083 CI[-0.0153,-0.0017], CI-SEPARATED DOWN where in supply it is flat. pri 110's occupancy read was
+LARGER out of supply; mine is smaller, which says some of the fifteen constructions carry UD-EWT's conventions as
+well as English's. THIS IS THE RESULT I WOULD WITHDRAW FIRST, and strategy should plan against 0.6120, not 0.8802.
+It also promotes alternate path D (learn the construction memberships from counts with an observe() on confirmed
+predications, instead of naming them) from "eventually" to the first thing to build next.
+
+EXHAUSTED? The RECALL side of this rung ON UD-EWT, yes -- 0.1856 -> 0.8802 with the residual adjudicated and the
+remainder being annotation conventions. OUT OF SUPPLY, NO: 0.6120 is a long way from 0.90 and the route there is
+the learned construction memberships, not more hand-named ones. The ROLE side, NO: four leads named with numbers (the argument-population Higgins
 form; the joint frame-slot decode never grouping a non-verbal predicate's arguments; the voice cue; the drifting
 role asset). ONE STRUCTURE, nearly -- 11 clauses, and the cause is now the HOLDER rule.
 

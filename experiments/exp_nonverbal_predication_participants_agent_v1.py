@@ -469,9 +469,20 @@ def _reader():
     return SituationReader(predicate_recall=True)
 
 
+POP = "ud"
+
+
 def _corpus(cap, maxlen=10 ** 6):
+    """UD-EWT test by default; `--pop gum` swaps in GUM/GENTLE (12+ genres, gold UPOS AND gold heads), which is
+    held out from the category organ's count supply AND from its genre -- the out-of-supply control pri 110 found
+    gave it a LARGER effect than in-supply, which is what a real mechanism does and a fitted rule does not."""
+    if POP == "gum":
+        from experiments.exp_one_convention_two_losses_v1 import gum_sentences
+        raw = gum_sentences(cap=cap)
+    else:
+        raw = sentences(TEST, cap=cap, maxlen=maxlen)
     out = []
-    for toks, gp, gh, rels in sentences(TEST, cap=cap, maxlen=maxlen):
+    for toks, gp, gh, rels in raw:
         if not toks or any(" " in t for t in toks):
             continue
         out.append((toks, gp, gh, rels))
@@ -593,9 +604,10 @@ def participant(cap=700, th=0.0, n_boot=2000, locative=True, seed=0, cons=None):
         res["d_recall_SLOT_vs_TWIN%d" % s] = [round(d, 4), round(lo, 4), round(hi, 4)]
         d, lo, hi = _boot_prec(_pairs_prec(rows, "add", "twin%d" % s), n=n_boot, seed=seed)
         res["d_precision_SLOT_vs_TWIN%d" % s] = [round(d, 4), round(lo, 4), round(hi, 4)]
-    print("PARTICIPANT INSTRUMENT -- UD-EWT test %d sentences, %d subject-bearing clauses "
+    print("PARTICIPANT INSTRUMENT -- %s %d sentences, %d subject-bearing clauses "
           "(%d verbal / %d non-verbal by UD's convention)"
-          % (cap, res["arms"]["FLOOR"]["n_clauses"], res["arms"]["FLOOR"]["n_verbal"],
+          % (("GUM/GENTLE" if POP == "gum" else "UD-EWT test"), cap,
+             res["arms"]["FLOOR"]["n_clauses"], res["arms"]["FLOOR"]["n_verbal"],
              res["arms"]["FLOOR"]["n_nonverbal"]))
     print("%-7s %8s %8s %8s %9s %9s %8s" % ("arm", "recall", "precis", "F1", "rec.VERB", "rec.NONV", "fired"))
     for a in ("FLOOR", "SLOT", "TWIN0", "TWIN1", "TWIN2"):
@@ -607,7 +619,7 @@ def participant(cap=700, th=0.0, n_boot=2000, locative=True, seed=0, cons=None):
     for s in range(3):
         print("  SLOT - TWIN%d  recall %+.4f CI[%+.4f,%+.4f]   precision %+.4f CI[%+.4f,%+.4f]"
               % tuple([s] + res["d_recall_SLOT_vs_TWIN%d" % s] + res["d_precision_SLOT_vs_TWIN%d" % s]))
-    json.dump(res, open(os.path.join(out_dir(), "participant_cap%d_loc%d.json" % (cap, int(locative))),
+    json.dump(res, open(os.path.join(out_dir(), "participant_%s_cap%d_loc%d.json" % (POP, cap, int(locative))),
                         "w", encoding="utf-8"), indent=1)
     return res
 
@@ -2162,6 +2174,8 @@ if __name__ == "__main__":
     def val(flag, d, cast=int):
         return cast(a[a.index(flag) + 1]) if flag in a else d
 
+    if "--pop" in a:
+        POP = a[a.index("--pop") + 1]
     if "--self-test" in a:
         sys.exit(0 if self_test() else 1)
     elif "--diag" in a:
