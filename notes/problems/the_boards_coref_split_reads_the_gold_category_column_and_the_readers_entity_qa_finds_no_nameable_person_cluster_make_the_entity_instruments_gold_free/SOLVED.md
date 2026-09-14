@@ -364,12 +364,13 @@ the patch keeps them on the `Tok` as `gold_*` so the answer key still works and 
    the verification. Verbatim: *"Permission to use Bash with command rm -f
    ".../scratchpad/patchtree/hdlab/lexical_categories.py" && echo removed; cat ".../tasks/bdwklnbes.output"
    has been denied."*
-6. **The final confirmatory witness re-run against the post-head-domain tree was still in flight at hand-off.**
-   The witness is GREEN on the pre-head-domain tree (`n=200`, `0.690 > 0.335 & 0.505`, gold-free
-   `0.280 > 0.120`, pos-control `88 > 17`) and the full structural verification IS post-head-domain and
-   passed; the head-domain change touches only spans with a PP / relative clause on the raw-cased LitBank
-   coref stream, so I expect no movement -- but I have not proved that, and strategy should re-run
-   `verification/test_situation_model_qa.py` after landing the diff.
+6. ~~The final confirmatory witness re-run was still in flight at hand-off.~~ **CLOSED -- it landed and it is
+   GREEN, with numbers BYTE-IDENTICAL to the pre-head-domain run:** `n=200 questions; cluster-named
+   (INFORMATIONAL) model=0.690 > recency=0.335 & mostfreq=0.505; GOLD-FREE model=0.280 > recency=0.120
+   (mostfreq=0.235); pos-control 88 > 17`. **The prediction I recorded in advance held**: the head-domain
+   change touches only spans carrying a PP or a relative clause, and on the raw-cased LitBank coref stream
+   capitalisation already resolved those, so the wire's decision there does not move. Both witness runs
+   (pre- and post-head-domain) and both full structural verifications are green.
 
 ## SUBMISSION PROMPT
 
