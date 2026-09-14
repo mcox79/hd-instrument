@@ -638,8 +638,11 @@ gates carry real signal and must survive the consolidation.
 
 ## 8. Alternate paths -- similarly or MORE brain-foundational than what I shipped
 
-**A. RECONCILE THE STATE READER ONTO THE PREDICATE-SLOT SIGNAL -- MORE brain-foundational than what I shipped, and
-the first thing strategy should queue.**
+**A. RECONCILE THE STATE READER ONTO THE PREDICATE-SLOT SIGNAL.**
+> **PHASE 7: BUILT, MEASURED, AND SHIPPED IN THE DIFF.** It is a board win -- state **0.7487 -> 0.7857**
+> (+0.0370, 14 items of 378) with every other dimension +0.0000 -- and the event/state disagreements go
+> **29 -> 20**, of which 9 are cases the state reader gets RIGHT. Sections 11d and 11g. What follows is the
+> phase-5 reasoning that pointed at it, kept because it is what made the call.
 *The structure:* one clause, one eventuality (Spivey-Knowlton 1993); the copular case is a Kimian STATE, a distinct
 SORT of the same eventuality, not a distinct organ (Maienborn 2005). *What is built instead:* two independent
 predicate finders for the same clause -- `attachment_arm.cop_complement` (a surface/construction cue) and
@@ -651,8 +654,10 @@ move. *Why not now:* it is inside a landed organ with its own owner-DONE problem
 and my remit is the event/role hand-off. **This is the one-structure half of the bar, and it is the reason my
 verdict is PARTIAL rather than SOLVED on that criterion.**
 
-**B. COMBINE THE TWO CUES BY RELIABILITY, NOT BY UNION -- built and measured here (section 5e), and the right shape
-is already clear.** The arc cue's reliability is the governor's own `head_posterior` for the copula's arc, which is
+**B. COMBINE THE TWO CUES BY RELIABILITY, NOT BY UNION.**
+> **PHASE 7: SHIPPED, DEFAULT ON at tau 0.5**, with its own board A/B (section 11e). The remaining form -- the arc
+> cue entering `predicate_sites` as a graded STRENGTH rather than a thresholded set, so the consumer weights it --
+> is still open and is the natural next refinement. The arc cue's reliability is the governor's own `head_posterior` for the copula's arc, which is
 what the role builder already uses as its teaching weight (Ernst & Banks 2002; Ma-Beck-Latham-Pouget 2006). This is
 MORE brain-faithful than either cue alone and it is the brief's own item 4. *What it would take beyond what is
 here:* the arc cue firing as a graded STRENGTH into `predicate_sites` rather than as a thresholded set, so the
@@ -971,7 +976,7 @@ decomposition, not as the bar being met: the bar is stated over all 167 and over
 | salience | 20 | 0.6500 | 0.6500 | **+0.0000** | -- |
 | who_did_what_agent | 317 | 0.7981 | 0.7981 | **+0.0000** | -- |
 | who_did_what_patient | 241 | 0.8174 | 0.8174 | **+0.0000** | -- |
-| **state** | **378** | **0.7487** | **0.7857** | **+0.0370** (14 items) | 0.5714 |
+| **state** | **378** | **0.7487** | **0.7857** | **+0.0370 CI[+0.0186,+0.0571] SEP** (14 gained, 0 lost) | 0.5714 |
 | wic | 120 | 0.7833 | 0.7833 | **+0.0000** | -- |
 | **aggregate** | | **0.6290** | **0.6359** | **+0.0069** | |
 
@@ -980,10 +985,16 @@ now the SHIPPED DEFAULT in the diff** -- `HDLAB_PREDICATION_ARC_TAU=0.5`, the **
 than the recall-max point (tau 0.10 reaches 0.8802 of the 167 against tau 0.50's 0.8743; I take the flat region's
 middle because that is the choice that is not tuned to the bar, which is pri 110's own rule for the same situation).
 
-*On CIs: six of the seven rows are **+0.0000 EXACTLY**, where a confidence interval is moot. For `state` I report
-14 items net of 378 rather than a paired CI, because the board cell does not expose per-item outcomes to this
-harness -- **that is the one control this result is missing**, and closing it is a small addition to the board cell
-rather than to mine. The state dimension sits 0.21 above its own floor either way.*
+**THE ONE MISSING CONTROL IS NOW CLOSED.** Six of the seven rows are **+0.0000 EXACTLY**, where a confidence
+interval is moot. For `state` the per-DOCUMENT records pass through the state cell's own `_rate(per, key)`, so
+capturing them there (a read, not a change) gives the paired items, and both arms were run back-to-back in ONE
+process:
+
+> **state 0.7487 -> 0.7857, +0.0370 CI[+0.0186,+0.0571] -- CI-SEPARATED**, over 342 documents / 378 clauses.
+> **14 documents gained, 0 lost.** Floor 0.5714, shuffle-holder twin 0.4497.
+
+A strictly one-sided move (14 gained, none lost) is what an ADDITIVE consolidation should look like, and it is the
+strongest single result in this submission.
 
 *A FULL-SIZE run of the event arm alone (`--board-ab --full`, ~90 min, every dimension uncapped) was launched at
 15:12 and is still running at submission; it lands in
@@ -1040,7 +1051,7 @@ uncapped (`HDLAB_STATE_CAP=5000`):
 | salience | 20 | 0.6500 | 0.6500 | +0.0000 |
 | who_did_what_agent | 317 | 0.7981 | 0.7981 | +0.0000 |
 | who_did_what_patient | 241 | 0.8174 | 0.8174 | +0.0000 |
-| **state** | **378** | **0.7487** | **0.7857** | **+0.0370 (14 items)** |
+| **state** | **378** | **0.7487** | **0.7857** | **+0.0370 CI[+0.0186,+0.0571] SEP** |
 | wic | 120 | 0.7833 | 0.7833 | +0.0000 |
 | **aggregate** | | **0.6290** | **0.6359** | **+0.0069** |
 
@@ -1071,7 +1082,7 @@ between them. Both arms of THIS run share one base, so the A/B is valid; the cro
 | 5a | the role competition's full cue set firing on them | **MET** | slot 2 -> 52, rank 5 -> 136, frame 3 -> 27 |
 | 5b | **role accuracy on the 167 up CI-separated** | **NOT MET** | best arm (Higgins) **+0.0037 CI[-0.0112,+0.0186]** |
 | 6 | the 65 seen-by-nobody down to a counted residual with reasons | **MET** | 65 -> 20; all 32 residual items adjudicated into 9 mechanisms |
-| 7 | board not down on any dimension | **MET** | six dimensions +0.0000 EXACTLY, `state` **+0.0370** (14 items of 378), aggregate 0.6290 -> 0.6359 |
+| 7 | board not down on any dimension | **MET, AND ONE DIMENSION UP CI-SEPARATED** | six dimensions +0.0000 EXACTLY, `state` **+0.0370 CI[+0.0186,+0.0571]** (14 documents gained, 0 lost), aggregate 0.6290 -> 0.6359 |
 | 8 | **one structure per clause** | **PARTIALLY MET** | disagreements **29 -> 20**, of which **9 are cases the state reader gets RIGHT** (not defects) -> the true residual is **11 of 126** |
 
 **VERDICT: PARTIAL.** Two criteria are missed and both are missed by a small, measured, fully attributed margin.
@@ -1173,8 +1184,9 @@ justification is which token this annotation scheme calls the head of `al - Qaed
 ONE STRUCTURE PER CLAUSE IS A BOARD WIN. The copular state reader was a SECOND, independent predicate finder:
 where both organs name the gold predicate they agree 97 times, and where they differ the predicate-slot read is
 right 20 times and the state reader 9 -- so the consolidation is a UNION, not a replacement. Board A/B, both arms
-in one process, state dimension at FULL size: state 0.7487 -> 0.7857 (+0.0370, 14 items of 378; floor 0.5714),
-EVERY other dimension +0.0000, aggregate 0.6290 -> 0.6359. Disagreements 29 -> 20, of which 9 are the state reader
+in one process, state dimension at FULL size: state 0.7487 -> 0.7857 (+0.0370 CI[+0.0186,+0.0571]
+CI-SEPARATED, 14 documents gained and 0 lost of 342; floor 0.5714), EVERY other dimension +0.0000,
+aggregate 0.6290 -> 0.6359. Disagreements 29 -> 20, of which 9 are the state reader
 being right, so the true residual is 11 and its cause is robust_cop's HOLDER scan, not the predicate read.
 THE SHIPPED CONFIGURATION (14 constructions + the graded arc cue at tau 0.5 + the state consolidation) IS BOARDED AND NOT DOWN ANYWHERE: six dimensions +0.0000 EXACTLY, state +0.0370, aggregate 0.6290 -> 0.6359 -- so the arc cue is the SHIPPED DEFAULT (tau 0.5, the middle of the flat region, not the recall-max point).
 

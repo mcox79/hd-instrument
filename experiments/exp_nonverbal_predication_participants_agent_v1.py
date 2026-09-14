@@ -1982,6 +1982,44 @@ def probe_consolidate(cap=700):
 
 
 
+
+def state_ci(cap=None, n_boot=2000, seed=0):
+    """THE ONE CONTROL THE BOARD RUN COULD NOT GIVE: a PAIRED bootstrap over the state dimension's own documents.
+    `exp_situation_model_state_qa_v1.run` returns only aggregates, but its per-DOCUMENT records pass through
+    `_rate(per, key)`; capturing them there (a read, not a change) gives the paired items, and both arms are run
+    BACK-TO-BACK IN ONE PROCESS so no other session's landing can straddle them."""
+    import importlib
+    S = importlib.import_module("experiments.exp_situation_model_state_qa_v1")
+    grab = {}
+    orig_rate = S._rate
+
+    def rate(per, key):
+        grab["per"] = per
+        return orig_rate(per, key)
+    S._rate = rate
+    try:
+        a = S.run(cap=cap, n_boot=50, seed=seed); per_a = list(grab["per"])
+        _consolidate_state_reader()
+        b = S.run(cap=cap, n_boot=50, seed=seed); per_b = list(grab["per"])
+    finally:
+        S._rate = orig_rate
+    pairs = [(per_b[i]["model"], per_a[i]["model"], per_a[i]["g"]) for i in range(min(len(per_a), len(per_b)))]
+    d, lo, hi = _boot_pairs(pairs, n=n_boot, seed=seed)
+    res = {"n_docs": len(pairs), "n_clauses": sum(x[2] for x in pairs),
+           "base": a["qa_state_model"], "consolidated": b["qa_state_model"],
+           "delta": [round(d, 4), round(lo, 4), round(hi, 4)],
+           "floor": a["positional_floor"], "twin": a["shuffle_holder_twin"],
+           "items_gained": sum(1 for i in range(len(pairs)) if per_b[i]["model"] > per_a[i]["model"]),
+           "items_lost": sum(1 for i in range(len(pairs)) if per_b[i]["model"] < per_a[i]["model"])}
+    print("STATE DIMENSION, PAIRED BOOTSTRAP over %d documents / %d clauses" % (res["n_docs"], res["n_clauses"]))
+    print("   base %.4f  ->  consolidated %.4f   %+.4f CI[%+.4f,%+.4f]   (floor %.4f, shuffle twin %.4f)"
+          % (res["base"], res["consolidated"], d, lo, hi, res["floor"], res["twin"]))
+    print("   documents gained %d, documents lost %d" % (res["items_gained"], res["items_lost"]))
+    json.dump(res, open(os.path.join(out_dir(), "state_ci.json"), "w", encoding="utf-8"), indent=1)
+    return res
+
+
+
 def self_test():
     ok = [0, 0]
 
@@ -2114,6 +2152,8 @@ if __name__ == "__main__":
         sys.exit(0 if self_test() else 1)
     elif "--diag" in a:
         diag(cap=val("--cap", 700))
+    elif "--state-ci" in a:
+        state_ci(cap=(val("--cap", None) if "--cap" in a else None))
     elif "--probe-consolidate" in a:
         probe_consolidate(cap=val("--cap", 700))
     elif "--probe-misses" in a:
