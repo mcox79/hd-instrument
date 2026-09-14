@@ -1161,6 +1161,234 @@ def csub_sites(toks: Sequence[str], pos: Sequence[str]) -> Dict[Tuple[int, int],
     return out
 
 
+
+# ---------------------------------------------------------------------------------- THE CLAUSE'S PREDICATE SLOT
+# ONE CONVENTION, TWO LOSSES (2026-09-14, pri 110).  UD tags a clause's MAIN-VERB / copular `be` and `have` as AUX.
+# The count-based category organ learned that convention, so a real main verb comes out AUX -- and the same 23 tokens
+# of UD-EWT test 700 carry 87 NET head flips, 58% of the whole tag-to-head loss (2026-09-13 attribution), while an
+# ADDITIVE predicate rescue cannot see them at all (4.7-38.8% of dropped verbs; pri 107 section 4g).  Two consumers,
+# one cause, and measuring them apart gave two half-answers.
+#
+# THE BRAIN.  One predicate per clause (Spivey-Knowlton 1993).  An auxiliary is a TENSE CARRIER for a predicate that
+# is not itself finite (Bybee 1994 on auxiliation; Pustet 2003 on the copula as the tense carrier of a NON-VERBAL
+# predication).  There are exactly three ways a clause's tense carrier can be discharged:
+#     (1) a VERBAL HOST in its own verb group            -> the host is the predicate      (an ordinary auxiliary)
+#     (2) a NON-VERBAL PREDICATE it carries tense for    -> the complement is the predicate (copular predication)
+#     (3) neither                                        -> THE CARRIER ITSELF predicates   (existential / possessive)
+# so the clause's predicate-slot occupancy of a carrier at i is
+#     occ_i = (1 - P(verbal host in i's verb group)) * (1 - P(copular predication available at i))
+# Term 1 is GRADED, read off the category organ's own posterior, and the walk over intervening words is weighted by
+# THEIR belief that they are skippable, so an argmax mis-tag cannot silently carry the walk into the next phrase.
+# Term 2 is a CONSTRUCTION test over closed-class forms this organ already carries (COP_FORMS / AUX_BE / AUX_HAVE /
+# WH_FORMS): `have` and `do` are never copulas, and a `be` whose pivot is the expletive `there` predicates EXISTENCE
+# rather than a property of a subject (Goldberg 1995 -- the existential-there construction).
+#
+# WHERE IT IS READ.  `revise_for_predicate_slot` applies it to the posterior the CATEGORY organ hands down
+# (hdlab/lexical_categories.posterior), so ONE computation reaches every consumer -- the governor through the graded
+# category hand-off, the reader's event detector through the tag, and the predicate rescue through the cue block --
+# instead of one arm per consumer.  It is a top-down constraint on a settling belief (MacDonald 1994 constraint
+# satisfaction), not a second organ.
+#
+# MEASURED (UD-EWT test 700, live chain, paired bootstrap over sentences; experiments/exp_one_convention_two_losses_v1.py):
+#   * THE GOVERNOR.  UAS 0.6245 -> 0.6331 (+0.0086 CI[+0.0047,+0.0126] SEP); on the SOLE-AUX CLAUSES 0.6074 ->
+#     0.6588 (+0.0515 CI[+0.0239,+0.0816] SEP).  root +0.0171 SEP (sole-AUX +0.1154 SEP), nsubj +0.0221 SEP
+#     (+0.1129 SEP), expl 0.292 -> 0.833 (+0.5417 SEP; on the sole-AUX clauses 0.077 -> 1.000), ccomp +0.0431 SEP,
+#     obj / obl SEP up, nmod +0.0000, and after the phase-7 repairs cop is EXACTLY +0.0000: no relation is down.
+#     INFORMATION-FREE TWIN (the same number of AUX tokens promoted at random, 3 seeds): UAS 0.6155 / 0.6175 /
+#     0.6178, every one CI-separated BELOW the floor.
+#   * THE READER (2077 sentences, the convention-free instrument -- does the clause produce an event at all?):
+#     gold-verb sentences yielding ZERO events 33 -> 9 of 1240 (0.0266 -> 0.0073; OFF is 55), event recall 0.9501 ->
+#     0.9812 (+0.0311 CI[+0.0244,+0.0379] SEP) at event precision 0.8715 -> 0.8621.  It DOMINATES pri 107's boolean
+#     sole-AUX arm on all three at once (that arm: recall 0.9597, precision 0.8364, blind 18), which is why
+#     HDLAB_PREDICATE_RESCUE_AUX stays default OFF.
+#   * THE DECISION ITSELF, against the only question UD's own column CAN adjudicate (is this be/have a main verb?):
+#     precision 0.8462 / recall 0.9565 on the AUX population, against 0.1164 for the blanket "a sole AUX is the
+#     predicate" rule pri 107 refuted.
+#   * GENERALISATION on GUM/GENTLE (1200 sentences by stride over 12+ genres, entirely outside this organ's count
+#     supply): UAS 0.6008 -> 0.6096 (+0.0088 CI[+0.0062,+0.0117] SEP), sole-AUX clauses 0.5830 -> 0.6423 (+0.0593
+#     CI[+0.0413,+0.0792] SEP), expl 0.221 -> 0.794 -- a LARGER effect out of supply than in it.
+# Read-time cost 0.059 ms/sentence (+0.6% of the posterior it revises).
+# HDLAB_LC_PREDICATE_SLOT=0 turns it off; HDLAB_PREDICATE_SLOT_TH is the operating point (swept 0.3/0.5/0.7/0.9, flat).
+EXPLETIVE = frozenset({"there"})
+_PS_SKIP = frozenset({"ADV", "INTJ"})
+_PS_NEG = frozenset({"not", "n't", "never", "also", "just", "really", "only", "still", "already"})
+PREDICATE_SLOT_TH = float(os.environ.get("HDLAB_PREDICATE_SLOT_TH", "0.5"))
+_PS_CARRIERS = None
+
+
+def main_verb_carriers() -> frozenset:
+    """The forms that can HEAD a clause on their own.  A modal cannot (Bybee 1994: the fully auxiliated class);
+    `be` predicates existence or location, `have` possession, `do` an activity."""
+    global _PS_CARRIERS
+    if _PS_CARRIERS is None:
+        _PS_CARRIERS = frozenset(set(AUX_BE) | set(AUX_HAVE) | {"do", "does", "did", "doing", "done"})
+    return _PS_CARRIERS
+
+
+def host_belief(toks: Sequence[str], tags: Sequence[str], post, tag_names: Sequence[str], i: int) -> float:
+    """P(a VERBAL HOST stands in the verb group of the tense carrier at 0-based i).  The verb group is CONTIGUOUS
+    modulo adverbs / negation / an inverted subject pronoun, and an auxiliary CHAIN counts (`has been roiled`: the
+    host of `has` is `been`, itself a carrier), so the belief is P(VERB) + P(AUX) at the position reached.
+    Infinitival `to` CLOSES the group -- a to-infinitive is a COMPLEMENT, not an auxiliary's host, which is what
+    leaves `have` predicative in `have to see`.
+    THE WALK IS GRADED, NOT ARGMAX: stepping over a word costs that word's own belief that it is skippable, so an
+    upstream mis-tag cannot carry the walk into the next phrase.  MEASURED: in `i have stronger will than you
+    think`, `stronger` is argmax-ADV, so an argmax walk stepped over it and read the NOUN `will` (argmax-AUX) as the
+    host, scoring the possessive `have` 0.04."""
+    vi = tag_names.index("VERB"); ai = tag_names.index("AUX")
+    advi = tag_names.index("ADV"); pai = tag_names.index("PART"); pri = tag_names.index("PRON")
+    n = len(toks); lows = [t.lower() for t in toks]
+    reach = 1.0; best = 0.0; seen_pron = False
+    for k in range(i + 1, n):
+        if tags[k] == "PART" and lows[k] == "to":
+            break
+        # AUXILIARY ORDER (modal > have > be > V; Chomsky 1957's Aux rule, a PINNED descriptive fact of English):
+        # a MODAL can never be the host of a `have` / `be` / `do` carrier (*have will), so its AUX belief cannot count
+        # as host evidence.  Without this, `i have stronger will than you think` reads the NOUN `will` -- which the
+        # category organ tags AUX -- as the host of the possessive `have`, and the carrier scores 0.24, not 0.99.
+        v = float(post[k, vi]) + (0.0 if lows[k] in AUX_MOD else float(post[k, ai]))
+        best = max(best, min(1.0, reach * v))
+        skip = float(post[k, advi] + post[k, pai])
+        if lows[k] in _PS_NEG:
+            skip = max(skip, 1.0)
+        if not seen_pron and k <= i + 2 and lows[k] not in EXPLETIVE:
+            skip = max(skip, float(post[k, pri]))          # subject-auxiliary inversion: "Should HE have known"
+            seen_pron = True
+        reach *= min(1.0, skip)
+        if reach < 0.02:
+            break
+    return min(1.0, best)
+
+
+def is_existential(toks: Sequence[str], tags: Sequence[str], i: int) -> bool:
+    """The existential-there construction (Goldberg 1995): the pivot adjacent to the carrier at 0-based i is the
+    expletive `there`, so nothing is predicated OF anything and the carrier asserts EXISTENCE.  The backward scan
+    steps over an auxiliary chain, because the pivot sits before the WHOLE chain (`there had BEEN none`)."""
+    lows = [t.lower() for t in toks]; n = len(toks)
+    for k in range(i - 1, max(-1, i - 4), -1):
+        if tags[k] in _PS_SKIP or lows[k] in _PS_NEG or tags[k] == "AUX":
+            continue
+        if lows[k] in EXPLETIVE:
+            return True
+        break
+    for k in range(i + 1, min(n, i + 3)):
+        if tags[k] in _PS_SKIP or lows[k] in _PS_NEG:
+            continue
+        if lows[k] in EXPLETIVE:
+            return True
+        break
+    return False
+
+
+def copular_available(toks: Sequence[str], tags: Sequence[str], i: int) -> float:
+    """1.0 when the carrier at 0-based i is a COPULA with a PREDICABLE COMPLEMENT -- the predicate slot is then held
+    by that non-verbal predicate, which `cop_predicates` already promotes and which the UD convention makes the
+    clause head.  0.0 when the carrier cannot be a copula at all (`have` / `do`), when the construction is
+    existential, or when no complement follows (a bare locative or elliptical `be`, which predicates by itself).
+    THE COMPLEMENT, NOT THE SUBJECT, IS THE TEST: keying on the subject instead left 31 false promotions on UD-EWT
+    test 700, 26 of them copular clauses whose subject scan failed (inversion, a participial NP, a fronted PP).  The
+    slot's occupant is the complement, so that is what has to be looked for."""
+    lows = [t.lower() for t in toks]
+    if lows[i] not in COP_FORMS or is_existential(toks, tags, i):
+        return 0.0
+    det = False; crossed = False
+    for k in range(i + 1, len(toks)):
+        if tags[k] == "DET":
+            # A DETERMINER OPENS A NOMINAL, AND THAT NOMINAL IS THE COMPLEMENT: whatever stands next belongs to the
+            # phrase the determiner opened, so its own argmax category is not the question.  Without this, `Here is a
+            # revised draft` reads the participial modifier `revised` (argmax-VERB) as if a verb stood in complement
+            # position and promotes the copula.  A CLAUSE-FINAL determiner is a demonstrative pronoun (`Wtf is this ?`).
+            det = True
+            if k == len(toks) - 1 or all(tags[m] == "PUNCT" for m in range(k + 1, len(toks))):
+                return 1.0
+            continue
+        if tags[k] in _PS_SKIP or tags[k] in ("NUM", "PUNCT") or lows[k] in _PS_NEG:
+            if tags[k] == "PUNCT":
+                crossed = True                             # "The answer is , \" Yes ! \"" -- the complement is behind the comma
+            continue
+        if crossed:
+            # A VERBAL FORM BEHIND A PUNCTUATION BOUNDARY IS NOT IN THIS COPULA'S VERB GROUP: it opens a quoted or
+            # clausal complement, and THAT occupies the predicate slot -- the same locality `cop_predicates` already
+            # respects with _COP_STOP.  `The question is , " Should he have known it was coming ? "`.
+            return 1.0
+        if det:
+            return 1.0
+        if tags[k] == "SCONJ" or tags[k] == "PART" or lows[k] in WH_FORMS:
+            return 1.0                                     # a CLAUSAL / infinitival complement occupies the slot too
+        if tags[k] in ("ADJ", "NOUN", "PROPN", "PRON", "ADP", "SYM", "X", "INTJ"):
+            return 1.0
+        return 0.0
+    # NOTHING TO THE RIGHT AT ALL.  English does not leave a copula complement-less: it FRONTS the predicate
+    # ("whatever age you ARE", "the other possibilities you had better") or ELIDES it ("i am sure they ARE"), so a
+    # CLAUSE-FINAL copula's complement is ELSEWHERE and the predicate slot is NOT free.  Measured (2026-09-14 phase 7):
+    # this is the whole of the state dimension's cost -- naming the three flipped items showed two of them were a
+    # clause-final copula promoted against its own fronted/elided predicate; with this the state dimension is FLAT
+    # (0.7487 -> 0.7487, 0 items of 378) and the governor's `cop` relation goes from -0.0108 to EXACTLY +0.0000.
+    return 1.0
+
+
+_PS_NEEDED = ("VERB", "AUX", "ADV", "PART", "PRON")
+
+
+def _next_content_word(toks: Sequence[str], tags: Sequence[str], i: int) -> str:
+    """The next word after 0-based i that is not an adverb, a negation or punctuation."""
+    for k in range(i + 1, len(toks)):
+        if tags[k] in _PS_SKIP or tags[k] == "PUNCT" or toks[k].lower() in _PS_NEG:
+            continue
+        return toks[k].lower()
+    return ""
+
+
+def predicate_slot_occupancy(toks: Sequence[str], tags: Sequence[str], post, tag_names: Sequence[str]):
+    """P(this token occupies its clause's predicate slot), per token.  Non-carrier tokens score 0: a VERB already
+    holds the slot and the rescue's noun arm owns the rest.  See the block comment for the computation.
+    Returns all-zero (a no-op) under a category inventory that does not carry the UPOS classes the computation
+    reads -- the organ's own docstring anticipates swapping to induced classes, and a missing class must degrade to
+    silence, not to an exception."""
+    n = len(toks); occ = [0.0] * n
+    if any(t not in tag_names for t in _PS_NEEDED):
+        return occ
+    lows = [t.lower() for t in toks]
+    carriers = main_verb_carriers()
+    for i in range(n):
+        if tags[i] != "AUX" or lows[i] not in carriers:
+            continue
+        if lows[i] in AUX_HAVE and _next_content_word(toks, tags, i) in ("better", "best"):
+            continue          # `had better` is a FIXED SEMI-MODAL -- fully auxiliated, like a modal, never a predicate
+        occ[i] = ((1.0 - host_belief(toks, tags, post, tag_names, i))
+                  * (1.0 - copular_available(toks, tags, i)))
+    return occ
+
+
+def revise_for_predicate_slot(toks: Sequence[str], post, tag_names: Sequence[str], th: float = None):
+    """THE HAND-OFF, REVISED ONCE.  The category organ hands DOWN a posterior; the clause's predicate-slot
+    expectation is a top-down constraint on that belief, so it is applied HERE, before the hand-off, and every
+    consumer reads the revised belief without a second organ:
+        P'(VERB) = occ,   P'(t != VERB) = P(t) * (1 - occ) / (1 - P(VERB))
+    Only a tense carrier its clause leaves holding the predicate slot is touched (33 of 9,534 UD-EWT test tokens at
+    the default operating point); every other row is byte-identical.  Returns (revised posterior, promoted indices)."""
+    th = PREDICATE_SLOT_TH if th is None else float(th)
+    if post is None or len(toks) == 0:
+        return post, []
+    tags = [tag_names[int(np.argmax(post[i]))] for i in range(len(toks))]
+    occ = predicate_slot_occupancy(toks, tags, post, tag_names)
+    vi = tag_names.index("VERB")
+    out = None; sites = []
+    for i in range(len(toks)):
+        if occ[i] < th:
+            continue
+        pv = float(post[i, vi])
+        if occ[i] <= pv:
+            continue
+        if out is None:
+            out = post.copy()
+        scale = (1.0 - occ[i]) / max(1e-9, 1.0 - pv)
+        out[i] = out[i] * scale
+        out[i, vi] = occ[i]
+        out[i] = out[i] / max(1e-12, out[i].sum())
+        sites.append(i)
+    return (post if out is None else out), sites
+
 def subordination(toks: Sequence[str], pos: Sequence[str], i: int) -> str:
     """SUBORDINATION CUE: the clause-dependency marking in force at 1-based i -- the nearest preceding clause opener
     (subordinator / relativizer / coordinator) with no finite predicate in between (a VERB or a sentence-final mark
@@ -1681,7 +1909,13 @@ def arc_scores_reference(toks: Sequence[str], pos: Sequence[str], table: Optiona
             if h == 0 and pos[j - 1] in FORM and words:
                 continue
             cfg = sc.config(j, h); s = st["cfg"].get(cfg, 0.0)
-            for c, v in sc.cues(j, h).items():
+            cues = sc.cues(j, h)
+            if sc.pp_arc and "pp" in cues and (h, j) not in sc.pp_arc:
+                # PP CUE, SENTENCE-WIDE GATE (ported from `arc_scores`, which never runs the legacy two-candidate PP
+                # cue once the mined v2 association (`pp_arc`) fires ANYWHERE in the sentence -- `SentenceCues.cues`
+                # only sees this one pair and falls back to the legacy site-based value for pairs `pp_arc` skipped).
+                del cues["pp"]
+            for c, v in cues.items():
                 s += st.get(c, {}).get(cfg + "|" + v, 0.0)
             if CONVENTION_BONUS and h and sc.constr.get((h, j)) == "fw":
                 s += CONVENTION_BONUS
@@ -2447,6 +2681,8 @@ __all__ = ["SentenceCues", "CONSTRUCTIONS", "construction_map", "verb_frames_fro
            "np_starts", "split_runs", "phrase_head", "npb_matrix", "predicate_flags", "clause_matrices", "clause_value",
            "boundary_penalty",
            "root_cue_values", "predication_boost", "finiteness",
+           "predicate_slot_occupancy", "revise_for_predicate_slot", "host_belief", "copular_available",
+           "is_existential", "main_verb_carriers",
            "cop_predicates", "subordination", "assertion_candidates", "arc_scores", "head_posterior", "heads", "arc_scores_graded", "head_posterior_graded", "heads_graded", "SemanticBootstrapTeacher", "ASSET", "FORM"]
 
 
