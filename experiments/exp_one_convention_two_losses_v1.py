@@ -988,7 +988,7 @@ def reader(cap=2100, th=0.5, cross=150, seed=0, pop="ud"):
 
 
 # ------------------------------------------------------------------ phase 3: the 7-dimension modern board, A/B
-def board(arm="base", th=0.5, n_boot=1000):
+def board(arm="base", th=0.5, n_boot=1000, fast=False):
     """Run the modern 7-dimension board with the predicate-slot revision ON or OFF.  The board's arms read the ONE
     frontend (hdlab/frontend.py), which reads the category organ, so patching the organ's hand-off reaches every
     dimension -- which is exactly why the bar requires this run."""
@@ -1010,6 +1010,20 @@ def board(arm="base", th=0.5, n_boot=1000):
         LC.get.cache_clear() if hasattr(LC.get, "cache_clear") else None
     import importlib
     B = importlib.import_module("experiments.exp_situation_model_qa_modern_v1")
+    if fast:
+        # the board cell's OWN capped configuration (its --self-test caps): all 7 core dimensions, heavy new arms
+        # off, canonical metrics.json NOT written. An EARLY READ while the full A/B runs -- reported as capped.
+        res = B.run(caps={"gum": 40, "ud": 300, "state": 300, "wic_mode": "smoke"}, n_boot=300,
+                    run_new_arms=False, write_metrics=False)
+        print("BOARD(capped) ARM %s aggregate %.4f" % (arm, res["aggregate_19c_free"]["model_acc"]))
+        for k, v in res["per_dimension"].items():
+            if v:
+                print("   %-20s n=%-6s acc=%.4f floor=%.4f" % (k, v.get("n"), v.get("model_acc", float("nan")),
+                                                               v.get("strongest_floor", float("nan"))))
+        json.dump({k: {kk: vv for kk, vv in (v or {}).items() if kk in ("n", "model_acc", "strongest_floor", "twin_acc")}
+                   for k, v in res["per_dimension"].items()},
+                  open(os.path.join(out_dir(), "board_fast_%s.json" % arm), "w", encoding="utf-8"), indent=1)
+        return res
     res = B.run(caps={"wic_mode": "full"}, n_boot=n_boot)
     B._print(res)
     print("BOARD ARM %s aggregate %.4f" % (arm, res["aggregate_19c_free"]["model_acc"]))
@@ -1017,7 +1031,7 @@ def board(arm="base", th=0.5, n_boot=1000):
 
 
 # ------------------------------------------------------------------ phase 3: the 7-dimension modern board, A/B
-def board(arm="base", th=0.5, n_boot=1000):
+def board(arm="base", th=0.5, n_boot=1000, fast=False):
     """Run the modern 7-dimension board with the predicate-slot revision ON or OFF.  The board's arms read the ONE
     frontend (hdlab/frontend.py), which reads the category organ, so patching the organ's hand-off reaches every
     dimension -- which is exactly why the bar requires this run."""
@@ -1039,6 +1053,20 @@ def board(arm="base", th=0.5, n_boot=1000):
         LC.get.cache_clear() if hasattr(LC.get, "cache_clear") else None
     import importlib
     B = importlib.import_module("experiments.exp_situation_model_qa_modern_v1")
+    if fast:
+        # the board cell's OWN capped configuration (its --self-test caps): all 7 core dimensions, heavy new arms
+        # off, canonical metrics.json NOT written. An EARLY READ while the full A/B runs -- reported as capped.
+        res = B.run(caps={"gum": 40, "ud": 300, "state": 300, "wic_mode": "smoke"}, n_boot=300,
+                    run_new_arms=False, write_metrics=False)
+        print("BOARD(capped) ARM %s aggregate %.4f" % (arm, res["aggregate_19c_free"]["model_acc"]))
+        for k, v in res["per_dimension"].items():
+            if v:
+                print("   %-20s n=%-6s acc=%.4f floor=%.4f" % (k, v.get("n"), v.get("model_acc", float("nan")),
+                                                               v.get("strongest_floor", float("nan"))))
+        json.dump({k: {kk: vv for kk, vv in (v or {}).items() if kk in ("n", "model_acc", "strongest_floor", "twin_acc")}
+                   for k, v in res["per_dimension"].items()},
+                  open(os.path.join(out_dir(), "board_fast_%s.json" % arm), "w", encoding="utf-8"), indent=1)
+        return res
     res = B.run(caps={"wic_mode": "full"}, n_boot=n_boot)
     B._print(res)
     print("BOARD ARM %s aggregate %.4f" % (arm, res["aggregate_19c_free"]["model_acc"]))
@@ -1322,12 +1350,78 @@ def cost(cap=400):
     return {"posterior_ms": 1000 * (t1 - t0) / n, "revision_ms": 1000 * (t2 - t1) / n, "n": n}
 
 
+# ------------------------------------------------------------------ does it REPAIR the 58% the brief names?
+def attrib(cap=700, th=0.5):
+    """The brief's own headline statistic, re-measured under the revision.  Replicates
+    experiments/_diag_tag_to_head_loss.py: decode heads under GOLD categories and under the ORGAN's categories, and
+    attribute every head FLIP (right under gold tags, wrong under organ tags) to the mis-tagged tokens in that
+    sentence.  Run for the BASE hand-off and for the REVISED one, so the VERB-as-AUX row can be compared directly."""
+    test = sentences(TEST, cap=cap, maxlen=10**6)
+    lc = LC.get(); tab = AA.load_attachment_validities()
+    out = {}
+    for arm in ("base", "occ"):
+        conf_loss = Counter(); conf_gain = Counter(); conf_tok = Counter()
+        n_loss = n_gain = n_tok = n_tagerr = 0
+        for toks, gold_pos, gold_heads, rels in test:
+            _le, post = _le_and_post(lc, list(toks))
+            tags = tags_from(lc, post)
+            if arm == "occ":
+                occ = predicate_slot_v2(lc, toks, tags=tags, post=post)
+                post, _st = revise_posterior(lc, toks, post, tags=tags, th=th, occ=occ)
+                tags = tags_from(lc, post)
+            n_tok += len(toks)
+            errs = {i + 1: (gold_pos[i], tags[i]) for i in range(len(toks)) if tags[i] != gold_pos[i]}
+            n_tagerr += len(errs)
+            for pair in errs.values():
+                conf_tok[pair] += 1
+            if not errs:
+                continue
+            hg = AA.heads(list(toks), list(gold_pos), tab)
+            hp = AA.heads(list(toks), list(tags), tab)
+            for i, g in enumerate(gold_heads, start=1):
+                if not (0 <= g <= len(toks)):
+                    continue
+                okg = hg.get(i, -1) == g; okp = hp.get(i, -1) == g
+                if okg == okp:
+                    continue
+                if i in errs:
+                    pair = errs[i]
+                elif g in errs:
+                    pair = errs[g]
+                else:
+                    pair = errs[min(errs, key=lambda k: abs(k - i))]
+                if okg and not okp:
+                    n_loss += 1; conf_loss[pair] += 1
+                else:
+                    n_gain += 1; conf_gain[pair] += 1
+        net = n_loss - n_gain
+        va = conf_loss[("VERB", "AUX")] - conf_gain.get(("VERB", "AUX"), 0)
+        out[arm] = {"tokens": n_tok, "tag_errors": n_tagerr, "tag_agreement": round(1 - n_tagerr / n_tok, 4),
+                    "head_flips_lost": n_loss, "head_flips_gained": n_gain, "net_head_loss": net,
+                    "net_uas_points": round(100 * net / n_tok, 2),
+                    "verb_as_aux_tokens": conf_tok[("VERB", "AUX")], "verb_as_aux_net": va,
+                    "verb_as_aux_share_of_net": round(va / max(1, net), 4),
+                    "top": [{"gold": k[0], "pred": k[1], "tagerr": conf_tok[k],
+                             "net": conf_loss[k] - conf_gain.get(k, 0)}
+                            for k, _v in Counter({k: conf_loss[k] - conf_gain.get(k, 0)
+                                                  for k in set(conf_loss) | set(conf_gain)}).most_common(6)]}
+        A = out[arm]
+        print("%-5s tag agreement %.4f | net head loss %d (%.2f UAS points) | VERB-as-AUX: %d tokens, net %d = %.1f%% of it"
+              % (arm, A["tag_agreement"], net, A["net_uas_points"], A["verb_as_aux_tokens"], va,
+                 100 * A["verb_as_aux_share_of_net"]))
+        print("      top confusions by net loss: " + ", ".join("%s->%s %d" % (r["gold"], r["pred"], r["net"]) for r in A["top"]))
+    json.dump(out, open(os.path.join(out_dir(), "attrib_cap%d.json" % cap), "w", encoding="utf-8"), indent=1)
+    return out
+
+
 if __name__ == "__main__":
     a = sys.argv[1:]
     if "--diag" in a:
         diag()
     elif "--cat" in a:
         cat()
+    elif "--attrib" in a:
+        attrib(cap=int(a[a.index("--cap") + 1]) if "--cap" in a else 700)
     elif "--cost" in a:
         cost()
     elif "--gum" in a:
@@ -1337,7 +1431,8 @@ if __name__ == "__main__":
         self_test()
     elif "--board" in a:
         board(arm=(a[a.index("--arm") + 1] if "--arm" in a else "base"),
-              th=float(a[a.index("--th") + 1]) if "--th" in a else 0.5)
+              th=float(a[a.index("--th") + 1]) if "--th" in a else 0.5,
+              fast="--fast" in a)
     elif "--reader" in a:
         reader(cap=int(a[a.index("--cap") + 1]) if "--cap" in a else 2100,
                th=float(a[a.index("--th") + 1]) if "--th" in a else 0.5,

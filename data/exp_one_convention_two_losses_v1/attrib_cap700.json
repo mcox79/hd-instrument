@@ -1,0 +1,102 @@
+{
+ "base": {
+  "tokens": 9534,
+  "tag_errors": 572,
+  "tag_agreement": 0.94,
+  "head_flips_lost": 384,
+  "head_flips_gained": 282,
+  "net_head_loss": 102,
+  "net_uas_points": 1.07,
+  "verb_as_aux_tokens": 23,
+  "verb_as_aux_net": 90,
+  "verb_as_aux_share_of_net": 0.8824,
+  "top": [
+   {
+    "gold": "VERB",
+    "pred": "AUX",
+    "tagerr": 23,
+    "net": 90
+   },
+   {
+    "gold": "ADJ",
+    "pred": "PROPN",
+    "tagerr": 16,
+    "net": 19
+   },
+   {
+    "gold": "NOUN",
+    "pred": "ADJ",
+    "tagerr": 17,
+    "net": 18
+   },
+   {
+    "gold": "SCONJ",
+    "pred": "ADP",
+    "tagerr": 31,
+    "net": 17
+   },
+   {
+    "gold": "NOUN",
+    "pred": "VERB",
+    "tagerr": 24,
+    "net": 13
+   },
+   {
+    "gold": "VERB",
+    "pred": "NOUN",
+    "tagerr": 19,
+    "net": 12
+   }
+  ]
+ },
+ "occ": {
+  "tokens": 9534,
+  "tag_errors": 562,
+  "tag_agreement": 0.9411,
+  "head_flips_lost": 309,
+  "head_flips_gained": 286,
+  "net_head_loss": 23,
+  "net_uas_points": 0.24,
+  "verb_as_aux_tokens": 1,
+  "verb_as_aux_net": 2,
+  "verb_as_aux_share_of_net": 0.087,
+  "top": [
+   {
+    "gold": "NOUN",
+    "pred": "ADJ",
+    "tagerr": 17,
+    "net": 19
+   },
+   {
+    "gold": "ADJ",
+    "pred": "PROPN",
+    "tagerr": 16,
+    "net": 19
+   },
+   {
+    "gold": "SCONJ",
+    "pred": "ADP",
+    "tagerr": 31,
+    "net": 17
+   },
+   {
+    "gold": "NOUN",
+    "pred": "VERB",
+    "tagerr": 24,
+    "net": 13
+   },
+   {
+    "gold": "VERB",
+    "pred": "NOUN",
+    "tagerr": 19,
+    "net": 12
+   },
+   {
+    "gold": "DET",
+    "pred": "PRON",
+    "tagerr": 10,
+    "net": 5
+   }
+  ]
+ }
+}
