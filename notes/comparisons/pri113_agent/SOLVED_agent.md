@@ -1121,6 +1121,12 @@ learn the construction memberships from counts with an `observe()` on confirmed 
 them. That path moves from "worth doing eventually" to **the first thing I would build next** on the strength of
 this number.
 
+*One decomposition is still in flight at submission: the SAME GUM run with the arc cue OFF, which separates
+"the constructions carry UD-EWT conventions" from "the arc cue costs precision out of supply". It is
+`--participant --v2 --pop gum --cap 1200` with `HDLAB_PREDICATION_ARC_TAU` unset, and it lands in
+`data/exp_nonverbal_predication_participants_agent_v1/participant_gum_cap1200_loc1.json`. **Strategy should read it
+before landing the arc cue's default-ON**, because the in-supply board that justified that default was UD-EWT-only.*
+
 *Recommendation to strategy, stated against my own interest: land the arm (it is CI-separated up on recall on both
 populations and beats every twin on both), but treat **0.6120, not 0.8802, as the number to plan against**, and run
 the GUM ablation before adding any further construction.*
