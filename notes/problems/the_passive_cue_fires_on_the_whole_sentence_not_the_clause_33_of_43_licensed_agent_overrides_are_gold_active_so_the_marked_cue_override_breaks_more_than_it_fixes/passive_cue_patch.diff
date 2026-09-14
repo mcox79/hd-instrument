@@ -355,7 +355,21 @@ diff --git a/hdlab/graded_role_assigner.py b/hdlab/graded_role_assigner.py
          passive = strong or weak
          cues["voice_order"] = ("passive_strong_" if strong else ("passive_weak_" if weak else "active_")) + order
      else:
-@@ -1581,7 +1584,7 @@
+@@ -1478,8 +1481,11 @@
+     from exp_cmrole_agent_board_byhead_v1._participle_bypp_gate."""
+     if not (0 <= v0 < len(toks)):
+         return False
+-    tag = pos[v0] if v0 < len(pos) else None
+-    if not _is_participle(toks[v0], tag):
++    # pri 111 (2026-09-14): the participle SUFFIX test is replaced by the ONE voice organ. `_is_participle`
++    # missed irregular participles that carry no -ed/-en (`blown`, `put`, `shut`), which is why `was blown up
++    # by a bomb` never emitted the byhead CASE cue. Measured: the gate's firing rate HALVES (32 -> 16 of 1423
++    # agent decisions -- it now fires only where the predicate really is passive) and the agent row is +0.0007.
++    if not is_passive_predicate(toks, pos, v0 + 1):
+         return False
+     low = [t.lower() for t in toks]
+     return any(by_governs(low, pos, i) for i in range(len(toks))
+@@ -1581,7 +1587,7 @@
      skips a weighted cue with no support array). Landed 2026-09-04, VERBATIM from
      experiments/exp_cmrole_agent_struct_v1.py:cm_agent_pick_struct."""
      low = [t.lower() for t in toks]
@@ -364,7 +378,7 @@ diff --git a/hdlab/graded_role_assigner.py b/hdlab/graded_role_assigner.py
      cf = cluster_freq or {}
      S = {"preverbal": [], "core_arg": [], "animacy": [], "salience": [], "adjacency": [], "byagent": []}
      # STRUCTURE cue: the incremental left-corner subject token bound for a verb AT v0 (self-gating; abstains
-@@ -1762,7 +1765,7 @@
+@@ -1762,7 +1768,7 @@
      by-phrase are scoped to the verb's clause span; role assignment is clause-local). Reads only toks/POS."""
      low = [t.lower() for t in toks]
      lo, hi = clause_bounds(toks, pos, v0)
@@ -373,7 +387,7 @@ diff --git a/hdlab/graded_role_assigner.py b/hdlab/graded_role_assigner.py
      has_by = any(low[i] == "by" for i in range(lo, min(hi, len(low))))
      if passive_local and has_by:
          return True
-@@ -1870,8 +1873,8 @@
+@@ -1870,8 +1876,8 @@
          return True
      tab = validities or load_coarse_validities()
      rel = reliability if reliability is not None else load_margin_reliability()
@@ -384,6 +398,97 @@ diff --git a/hdlab/graded_role_assigner.py b/hdlab/graded_role_assigner.py
      idx = {str(c["head"]).lower(): c["wtok_start"] + 1 for c in cands}
      p_b = _calibrated_agent_prob(toks, pos, heads, idx.get(str(base["head"]).lower(), -1), want, tab, rel)
      p_c = _calibrated_agent_prob(toks, pos, heads, idx.get(str(cm_head).lower(), -1), want, tab, rel)
+diff --git a/hdlab/relcl_resolver.py b/hdlab/relcl_resolver.py
+--- a/hdlab/relcl_resolver.py
++++ b/hdlab/relcl_resolver.py
+@@ -43,7 +43,7 @@
+ 
+ from typing import List, Optional, Sequence
+ 
+-from hdlab.thematic_role_labeler import _is_participle   # participle test for the precise voice cue
++from hdlab.thematic_role_labeler import _is_participle, is_passive_predicate   # the ONE voice organ (pri 111)
+ 
+ NOMINAL = {"NOUN", "PROPN", "PRON"}
+ BE_AUX = {"is", "are", "was", "were", "be", "been", "being", "am"}
+@@ -56,11 +56,16 @@
+ 
+ 
+ def precise_passive(toks: Sequence[str], pos: Sequence[str], v: int) -> bool:
+-    """Precise voice cue: a BE-aux in the 3 tokens before v AND the verb token is a past participle."""
+-    lo = max(1, v - 3)
+-    has_be = any(toks[j - 1].lower() in BE_AUX for j in range(lo, v))
+-    vtag = pos[v - 1] if v - 1 < len(pos) else None
+-    return has_be and _is_participle(toks[v - 1], vtag)
++    """FOLDED ONTO THE ONE VOICE ORGAN (pri 111, 2026-09-14). This was a SECOND implementation of the same
++    computation -- "a BE-aux in the 3 tokens before v AND a past-participle suffix at v" -- and it is dominated
++    by `thematic_role_labeler.is_passive_predicate` on every population measured: per predicate, UD-EWT test
++    0.9464/0.7794 against 0.9606/0.8971, GUM 0.9321/0.7982 against 0.9503/0.8517, GENTLE (OOD) 0.9397/0.9083
++    against 0.9821/0.9167. The NAME is kept so that no call site churns; the COMPUTATION is now the organ's,
++    which means the get-passive, the fronted-participle inversion and the shared-auxiliary conjunct reach the
++    six consumers of this function for the first time, and `be + V-ing` stops reading as a passive.
++    Measured at the consumers before landing: the board's who-did-what PATIENT row 0.8120 -> 0.8135 with its
++    floor and its gold-parse ceiling unchanged."""
++    return bool(is_passive_predicate(toks, pos, v))
+ 
+ 
+ def two_line_patient(toks: Sequence[str], pos: Sequence[str], v: int,
+diff --git a/hdlab/arc_labeler.py b/hdlab/arc_labeler.py
+--- a/hdlab/arc_labeler.py
++++ b/hdlab/arc_labeler.py
+@@ -52,26 +52,12 @@
+ # precision HELD; every live label consumer already distinguishes nsubj:pass (map §2), so the correction feeds them
+ # the label they already want. The obj/obl case is NOT corrected here (over-fires; it needs the learned ranker).
+ # ======================================================================================================
+-VOICE_CORRECTION: bool = True     # the LIVE default (owner-DONE; measured no-regress, patient recall up)
+-_BE_AUX = {"be", "is", "are", "was", "were", "been", "being", "am", "get", "got", "gotten"}
+-
+-
+-def label_voice_correct(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int],
+-                        labels: Dict[int, str]) -> Dict[int, str]:
+-    """An `nsubj` whose head is a VERB/AUX carrying a be/get auxiliary child and a past-participle form -> `nsubj:pass`.
+-    Indices 1-based (dep -> head); `labels` is not mutated."""
+-    n = len(toks)
+-    out = dict(labels)
+-    ch: Dict[int, list] = {}
+-    for i in range(1, n + 1):
+-        ch.setdefault(heads.get(i, 0), []).append(i)
+-    for i in range(1, n + 1):
+-        h = heads.get(i, 0)
+-        if h and pos[h - 1] in ("VERB", "AUX") and out.get(i) == "nsubj":
+-            aux = [c for c in ch.get(h, []) if pos[c - 1] == "AUX" and toks[c - 1].lower() in _BE_AUX]
+-            if aux and toks[h - 1].lower().endswith(("ed", "en")):
+-                out[i] = "nsubj:pass"
+-    return out
++# RETIRED 2026-09-14 (pri 111): `VOICE_CORRECTION` / `_BE_AUX` / `label_voice_correct` are DELETED. They were a
++# SIXTH implementation of the voice cue (an aux CHILD of the head plus an `ed`/`en` suffix), and they are DEAD on
++# the live path: counted on UD-EWT test 700, the correction changes 25 labels with the competition OFF and
++# EXACTLY ZERO with `COMPETITION_ROLES` live -- the Competition-Model organ below already decides every label it
++# would have changed, and decides it from a better voice read. The `voice_correction` keyword survives on
++# `label()` (accepted, ignored) so that no caller churns; it now truthfully names a step that does not exist.
+ 
+ 
+ # ======================================================================================================
+@@ -262,8 +248,8 @@
+               voice_correction: "bool | None" = None, competition_roles: "bool | None" = None,
+               head_posterior=None) -> Dict[int, str]:
+         """Label each arc dep->head under the GIVEN head map. Returns {dep_idx(1-based): deprel}. Routes through
+-        the byte-identical fast plan (~9x); output is identical to _predict_label for ANY weights (theorem). Then
+-        the VOICE post-correction (module default VOICE_CORRECTION; pass False for the raw perceptron labels)."""
++        the byte-identical fast plan (~9x); output is identical to _predict_label for ANY weights (theorem).
++        `voice_correction` is ACCEPTED AND IGNORED since pri 111 retired the voice post-correction (see above)."""
+         plan = self._ensure_fast()
+         out: Dict[int, str] = {}
+         n = len(tokens)
+@@ -273,8 +259,7 @@
+                 h = 0
+             feats = arc_features(tokens, pos, i, h)
+             out[i] = plan.predict(feats)
+-        use = VOICE_CORRECTION if voice_correction is None else voice_correction
+-        out = label_voice_correct(tokens, pos, heads, out) if use else out
++        # pri 111: the voice post-correction is retired (see the note above); `voice_correction` is ignored.
+         use_cm = COMPETITION_ROLES if competition_roles is None else competition_roles
+         return label_competition_roles(tokens, pos, heads, out, head_posterior=head_posterior) if use_cm else out
+ 
 diff --git a/experiments/exp_board_agent_slot_ud_v1.py b/experiments/exp_board_agent_slot_ud_v1.py
 --- a/experiments/exp_board_agent_slot_ud_v1.py
 +++ b/experiments/exp_board_agent_slot_ud_v1.py

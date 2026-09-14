@@ -2,11 +2,11 @@
 problem: the_passive_cue_fires_on_the_whole_sentence_not_the_clause_33_of_43_licensed_agent_overrides_are_gold_active_so_the_marked_cue_override_breaks_more_than_it_fixes
 status: SOLVED
 bar: "Clause-local detector: false fires on gold-active clauses down from 33/43 CI-separated with recall on true passives not down; the override anatomy flips to net-positive (fixes > breaks) or the licence is withdrawn with the number; every consumer moved to the one detector; the board's agent dimension not down; twin (random equal-size set of clauses declared passive) at floor -- OR a numbered located negative naming which consumer the clause-local cue helps and which it hurts."
-result: "THE CUE WAS ANSWERING THE WRONG QUESTION -- 'is this SENTENCE passive' where every one of its four consumers asks 'is THIS PREDICATE passive' -- AND FIXING THAT MOVED THREE CONSUMERS WITH NONE DOWN. (1) THE DETECTOR, per predicate, through the LIVE brain-foundational chain (count-based category organ + attachment arm, no gold at decision time): UD-EWT test, 2605 gold-VERB predicates in 1240 sentences -- the shipped whole-sentence `is_passive_clause` scores precision 0.3784 / recall 0.8235; the predicate-anchored `is_passive_predicate` scores precision 0.9606 / recall 0.8971, i.e. precision up 2.5x with recall UP, 200 fixes against 11 breaks head to head, decision accuracy +0.0726 CI95[+0.0566,+0.0892] CI-separated over the shipped floor, with a same-rate random TWIN at -0.0177 CI-separated BELOW the floor. IT TRANSFERS TO TWO HELD-OUT MODERN GOLDS the counts never saw: GUM 29,217 predicates 0.3643/0.8123 -> 0.9503/0.8517 (+0.1030 CI-sep) and the OOD GENTLE split 0.4596/0.9000 -> 0.9821/0.9167 (+0.0768 CI-sep), twin CI-separated below on both. (2) THE OVERRIDE ANATOMY THE BRIEF WAS OPENED ON: the passive licence fires 92 times on the 1423-item agent population, 83 of them on gold-ACTIVE clauses, fixing 1 and breaking 30 (conflict validity 0.032 -- pri 106's 1/30 reproduced exactly); with the corrected cue plus the by-phrase confirmation it fires 11 times, 0 on gold-active clauses, fixing 1 and breaking 0 (validity 1.000). (3) THE BOARD'S OWN who_did_what_agent ROW, computed by the board's own function: 0.8271 (CI-separated BELOW its own positional floor 0.8468) -> 0.8489 with the cue fix at all its call sites -> 0.8552 with the board arm's duplicate RETIRED in favour of the organ, which is +0.0084 CI95[+0.0007,+0.0157] -- CI-SEPARATED ABOVE its own floor for the first time; passive slice 0.1875 -> 0.6250 and active slice 0.8344 -> 0.8579 against a 0.8564 floor (no regress). (4) A SECOND CONSUMER UP CI-SEPARATED: `agent_supports` -- the voice flip the live reader runs on every sentence -- 0.7511 -> 0.7637, +0.0127 CI95[+0.0070,+0.0197]. NO CONSUMER DOWN: the coarse role labeler on UD-EWT test 700 under live heads is +0.0014 CI95[0.0000,+0.0031] over all 2216 arguments and +0.0025 over the 1205 core ones, with gold nsubj:pass (n=48) and obl:agent (n=19) byte-identical. THE HONEST ATTRIBUTION: inside the ORGAN the cue fix is worth 3 items (+0.0021, NOT separated) because the organ already required a by-phrase; the 30 broken decisions live in the BOARD ARM's duplicate of the hybrid, where the same one-line change is +0.0204 CI95[+0.0126,+0.0281] CI-separated. A SECOND, INDEPENDENT DEFECT FOUND BY TRACING ONE RUNG DOWN: the board arm's copy never passes `byhead_agent_cue=True`, so the landed by-phrase CASE cue has never reached the board -- retiring the copy in favour of the organ is +0.0239 CI95[+0.0155,+0.0323] on its own and recovers 5 of the 16 passive agents; RETIRED in this diff (phase 7 Q1). PHASE 7 (probe, 2026-09-14 13:50) additionally: every break, miss and lost passive agent named and attributed to its rung (17.1/17.2); the two hybrids' four code differences decomposed one at a time (17.3); the six in-repo voice detectors enumerated with file:line, consumers and a measured verdict each -- two foldable now (the patient board 0.8120 -> 0.8135, the byhead gate's firing rate halved 32 -> 16), one DEAD on the live path (arc_labeler's voice correction changes 25 labels alone and ZERO with COMPETITION_ROLES live), one needing its own brief (17.5); the validity table RE-ACCRUED twice and shown NOT to be pri 111's number (17.6); and a fidelity defect in my own phase-6 harness found and corrected (call site 2 had been left shipped, which UNDER-reported the result -- 17.7)."
+result: "THE CUE WAS ANSWERING THE WRONG QUESTION -- 'is this SENTENCE passive' where every one of its four consumers asks 'is THIS PREDICATE passive' -- AND FIXING THAT MOVED THREE CONSUMERS WITH NONE DOWN. (1) THE DETECTOR, per predicate, through the LIVE brain-foundational chain (count-based category organ + attachment arm, no gold at decision time): UD-EWT test, 2605 gold-VERB predicates in 1240 sentences -- the shipped whole-sentence `is_passive_clause` scores precision 0.3784 / recall 0.8235; the predicate-anchored `is_passive_predicate` scores precision 0.9606 / recall 0.8971, i.e. precision up 2.5x with recall UP, 200 fixes against 11 breaks head to head, decision accuracy +0.0726 CI95[+0.0566,+0.0892] CI-separated over the shipped floor, with a same-rate random TWIN at -0.0177 CI-separated BELOW the floor. IT TRANSFERS TO TWO HELD-OUT MODERN GOLDS the counts never saw: GUM 29,217 predicates 0.3643/0.8123 -> 0.9503/0.8517 (+0.1030 CI-sep) and the OOD GENTLE split 0.4596/0.9000 -> 0.9821/0.9167 (+0.0768 CI-sep), twin CI-separated below on both. (2) THE OVERRIDE ANATOMY THE BRIEF WAS OPENED ON: the passive licence fires 92 times on the 1423-item agent population, 83 of them on gold-ACTIVE clauses, fixing 1 and breaking 30 (conflict validity 0.032 -- pri 106's 1/30 reproduced exactly); with the corrected cue plus the by-phrase confirmation it fires 11 times, 0 on gold-active clauses, fixing 1 and breaking 0 (validity 1.000). (3) THE BOARD'S OWN who_did_what_agent ROW, computed by the board's own function: 0.8271 (CI-separated BELOW its own positional floor 0.8468) -> 0.8489 with the cue fix at all its call sites -> 0.8552 with the board arm's duplicate RETIRED in favour of the organ, which is +0.0084 CI95[+0.0007,+0.0157] -- CI-SEPARATED ABOVE its own floor for the first time; passive slice 0.1875 -> 0.6250 and active slice 0.8344 -> 0.8579 against a 0.8564 floor (no regress). (4) A SECOND CONSUMER UP CI-SEPARATED: `agent_supports` -- the voice flip the live reader runs on every sentence -- 0.7511 -> 0.7637, +0.0127 CI95[+0.0070,+0.0197]. NO CONSUMER DOWN: the coarse role labeler on UD-EWT test 700 under live heads is +0.0014 CI95[0.0000,+0.0031] over all 2216 arguments and +0.0025 over the 1205 core ones, with gold nsubj:pass (n=48) and obl:agent (n=19) byte-identical. THE HONEST ATTRIBUTION: inside the ORGAN the cue fix is worth 3 items (+0.0021, NOT separated) because the organ already required a by-phrase; the 30 broken decisions live in the BOARD ARM's duplicate of the hybrid, where the same one-line change is +0.0204 CI95[+0.0126,+0.0281] CI-separated. A SECOND, INDEPENDENT DEFECT FOUND BY TRACING ONE RUNG DOWN: the board arm's copy never passes `byhead_agent_cue=True`, so the landed by-phrase CASE cue has never reached the board -- retiring the copy in favour of the organ is +0.0239 CI95[+0.0155,+0.0323] on its own and recovers 5 of the 16 passive agents; RETIRED in this diff (phase 7 Q1). PHASE 7 (probe, 2026-09-14 13:50) additionally: every break, miss and lost passive agent named and attributed to its rung (17.1/17.2); the two hybrids' four code differences decomposed one at a time (17.3); the six in-repo voice detectors enumerated with file:line, consumers and a measured verdict each -- two foldable now (the patient board 0.8120 -> 0.8135, the byhead gate's firing rate halved 32 -> 16), one DEAD on the live path (arc_labeler's voice correction changes 25 labels alone and ZERO with COMPETITION_ROLES live), one needing its own brief (17.5); the validity table RE-ACCRUED twice and shown NOT to be pri 111's number (17.6); and a fidelity defect in my own phase-6 harness found and corrected (call site 2 had been left shipped, which UNDER-reported the result -- 17.7). PHASE 7b (2026-09-14 14:30): D2 (`precise_passive`) and D4 (`participle_bypp_gate`) FOLDED onto the one organ and D5 (`arc_labeler.label_voice_correct`) DELETED, all inside this diff (5 files; zero call sites in tools/, enumerated). Measured with the fold OFF and ON in one run: the board's AGENT row 0.8271 -> 0.8559, +0.0091 CI95[+0.0014,+0.0168] CI-SEPARATED above its own floor, passive slice 0.1875 -> 0.6250, active 0.8344 -> 0.8586; the board's PATIENT row 0.8120 -> 0.8135 but its own floor also rises 0.7203 -> 0.7227, so the MARGIN is flat (-0.0008) -- D2 is a consolidation, not a win, and the recomputed-in-place floor is what caught that; the labels rung with `label_voice_correct` deleted is BYTE-IDENTICAL on all three populations (0.6995 / 0.5417 / 0.6316), so the deletion is a measured no-op. NINE shipped witnesses run with the fold OFF then ON: 7 GREEN both, 2 RED both and both PRE-EXISTING at HEAD (`test_arc_labeler_fastpath_hdlab_landing` 2/4 with identical failure lines and counts before and after, and its failing checks pass voice_correction=False so they never touched the deleted code; `test_byhead_agent_cue_landing` raises a TypeError in its OWN line 80, i.e. the byhead cue's landing witness has not been executing at all). ZERO witnesses go red because of the fold, and none pins the old detector's number."
 floor: "(1) DETECTOR: the shipped `hdlab.thematic_role_labeler.is_passive_clause`, measured on the SAME 2605 predicates in the SAME run -- precision 0.3784 / recall 0.8235 / decision accuracy 0.9202 -- plus two STRONGER intermediate floors measured alongside: the same detector scoped to the clause span (what `agent_override_fires` does today) 0.4860/0.7647, and `hdlab.relcl_resolver.precise_passive`, which is already predicate-anchored, 0.9464/0.7794. Every delta is quoted against the shipped floor and the new read beats the STRONGEST of the three on precision and recall on every population. (2) AGENT CONSUMER: the POSITIONAL floor the board itself uses (nearest pre-verbal clause-local nominal, `exp_board_agent_slot_ud_v1.floor_positional_agent`) = 0.8468 on UD-EWT test n=1423, with the landed board model 0.8271 measured alongside; `hybrid_without_the_passive_licence` (pp_gov + noncase only) 0.8475 is reported too, so the passive cue's own contribution is not confounded with the other two marked cues. (3) BOARD ROW: the board's own floor from its own function, 0.8468, and its own shuffled-supports twin, 0.2853. (4) GUM / GENTLE: the same shipped whole-sentence detector recomputed in place on each population (0.3643/0.8123 and 0.4596/0.9000) -- no floor is pasted across populations."
 controls: "(1) INFO-FREE TWIN, DETECTOR, on all three populations: a RANDOM equal-size set of predicates declared passive at the new cue's own firing rate -- UD-EWT precision 0.0462 and decision accuracy -0.0177 CI95[-0.0341,-0.0004] CI-separated BELOW the floor; GUM -0.0139 CI-sep below; GENTLE -0.0502 CI-sep below. (2) INFO-FREE TWIN, CONSUMER: the passive licence fires on a random equal-size set of agent decisions -- 0.8468 = the positional floor EXACTLY (it stops helping), against the corrected cue's 0.8482. (3) TWO HELD-OUT MODERN GOLDS the counts never saw (GUM 275 files, GENTLE 26 files OOD), 11x and 0.6x the UD-EWT test size. (4) TWO GOLD CONVENTIONS reported side by side -- raw UD (aux:pass/nsubj:pass/csubj:pass) and a propagated gold adding the bare CONJUNCT of a passive predicate -- and the conclusion is identical under both (raw: 0.9213/0.9286 new vs 0.3503/0.8175 shipped). (5) TRAIN/TEST SEPARATION: the counts and the criterion theta are accrued/swept on UD-EWT TRAIN (22,576 predicates) and applied UNCHANGED to test; the train sweep is a flat plateau (F1 0.9345-0.9366 over theta 0.15-0.65, best 0.50). (6) UPSTREAM CONTRAST: the detector measured with and without the reader's own heads -- 0 of 2605 decisions differ, so the claim 'the arc confirms but does not decide' is a count, not an assertion. (7) NO-REGRESS measured on the other call sites in the same run (see result), and the shipped witness `verification/test_coarse_role_competition.py` is green at HEAD (37/37) with its four voice assertions re-checked under the PATCHED cue inside the cell's self-test. (8) PATCH FIDELITY: the diff is GENERATED from the cell's own organ block, the self-test asserts the diff's added lines are byte-identical to the measured code, `git apply --check` passes, and the PATCHED module is imported and shown to answer identically to the cell on 10 cases. (9) PAIRED BOOTSTRAP, 2000 resamples, clustered by SENTENCE for the detector and by ITEM for the consumer, on each item's own population."
-files_changed: "experiments/exp_passive_cue_clause_local_v1.py (the cell; self-test 25/25), notes/problems/<slug>/{SOLVED.md, passive_cue_patch.diff}, data/hook_state/passive_voice_counts_v1.json (the plastic cue-validity counts -- opt-in, re-derivable by --run), data/hook_state/coarse_role_validities_pri111_{shipped,patched}_perceived_w_v4.json (phase 7 Q2, NOT proposed for landing; the live asset was never written), and the cell's own data/exp_passive_cue_clause_local_v1/*.json. NO hdlab/ or tools/ file changed on disk. The diff touches hdlab/thematic_role_labeler.py (the organ block + a deprecation note on is_passive_clause), hdlab/graded_role_assigner.py (the import + ALL FOUR call sites) and experiments/exp_board_agent_slot_ud_v1.py, whose duplicate `hybrid_agent_pick` is RETIRED to a thin call to the organ (phase 7 Q1 -- without this third hunk the board number does not move). Two of the three files are CRLF: apply with `git apply --ignore-whitespace`."
-reverify: ".venv/Scripts/python.exe experiments/exp_passive_cue_clause_local_v1.py --self-test   (25 checks, seconds; includes PATCH == CELL, git apply --check, the patched-module parity check and the shipped witness's voice assertions under the patched cue). Headline numbers, each writing ONLY into its own data/exp_passive_cue_clause_local_v1/ directory: --run (~10 min -> metrics.json + detector.json + override.json + call_sites.json); --push (~1 min -> push.json); --board-dim (~6 min -> board_dimension.json, the board's own row under three arms); --extra (~12 min -> extra.json: the criterion sweep, the heads contrast, the upstream category loss, call site 2); --gum (~8 min -> gum.json, the two held-out golds). PHASE 7: --detectors (~12 min -> detectors.json: the six-detector inventory, the patient board row under D2, the byhead gate under D4, the arc-labeler count under D5); --reaccrue both (~18 min -> two NEW tables under data/hook_state/, the live asset never written); --labels (~1 min -> labels.json, the labels rung under all four table x cue combinations). Also: .venv/Scripts/python.exe verification/test_coarse_role_competition.py (37/37, unmodified)."
+files_changed: "experiments/exp_passive_cue_clause_local_v1.py (the cell; self-test 25/25), notes/problems/<slug>/{SOLVED.md, passive_cue_patch.diff}, data/hook_state/passive_voice_counts_v1.json (the plastic cue-validity counts -- opt-in, re-derivable by --run), data/hook_state/coarse_role_validities_pri111_{shipped,patched}_perceived_w_v4.json (phase 7 Q2, NOT proposed for landing; the live asset was never written), and the cell's own data/exp_passive_cue_clause_local_v1/*.json. NO hdlab/ or tools/ file changed on disk. The diff touches hdlab/thematic_role_labeler.py (the organ block + a deprecation note on is_passive_clause), hdlab/graded_role_assigner.py (the import + ALL FOUR call sites) hdlab/relcl_resolver.py (phase 7b: `precise_passive` folded to a delegate), hdlab/arc_labeler.py (phase 7b: VOICE_CORRECTION / _BE_AUX / label_voice_correct DELETED, `voice_correction=` kept accepted-and-ignored so no caller churns), and experiments/exp_board_agent_slot_ud_v1.py, whose duplicate `hybrid_agent_pick` is RETIRED to a thin call to the organ (phase 7 Q1 -- without that hunk the board number does not move). FIVE files; there are no call sites in tools/ (enumerated). Two of the three files are CRLF: apply with `git apply --ignore-whitespace`."
+reverify: ".venv/Scripts/python.exe experiments/exp_passive_cue_clause_local_v1.py --self-test   (32 checks, seconds; includes PATCH == CELL, git apply --check, the patched-module parity check, the shipped witness's voice assertions under the patched cue, and -- phase 7b -- a COMPILE of every patched file from the patched text plus assertions that the three deletions and the delegate are really there). Headline numbers, each writing ONLY into its own data/exp_passive_cue_clause_local_v1/ directory: --run (~10 min -> metrics.json + detector.json + override.json + call_sites.json); --push (~1 min -> push.json); --board-dim (~6 min -> board_dimension.json, the board's own row under three arms); --extra (~12 min -> extra.json: the criterion sweep, the heads contrast, the upstream category loss, call site 2); --gum (~8 min -> gum.json, the two held-out golds). PHASE 7: --detectors (~12 min -> detectors.json: the six-detector inventory, the patient board row under D2, the byhead gate under D4, the arc-labeler count under D5); --reaccrue both (~18 min -> two NEW tables under data/hook_state/, the live asset never written); --labels (~1 min -> labels.json, the labels rung under all four table x cue combinations); --fold (~9 min -> fold.json, every consumer of D2/D4/D5 with the fold OFF and ON); --witnesses (~10 min -> witnesses.json, the nine shipped witnesses run twice each, in process, hdlab/ never written). Also: .venv/Scripts/python.exe verification/test_coarse_role_competition.py (37/37, unmodified)."
 ---
 
 # SOLVED -- the auxiliary is the cue, the suffix is not, and the cue belongs to ONE predicate
@@ -865,4 +865,162 @@ What is NOT exhausted, with the number and the owner:
    **pri 110's follow-on, not this brief's** (17.6).
 6. **The clitic `'s` and the pseudo-cleft** (1 item each) -- both need the same missing evidence, *does the
    participle take a direct object of its own*, which is the verb-frame rung.
+
+
+---
+
+# 18. PHASE 7b (strategy, 2026-09-14 14:30) -- D2 and D4 folded, D5 deleted, and the verdict
+
+## 18.1 What the diff now contains: FIVE files, ONE voice computation
+
+`passive_cue_patch.diff` grew from 3 files to 5. **There are no call sites in `tools/` -- enumerated, not
+assumed** (`grep` over `tools/*.py` for `precise_passive|participle_bypp_gate|label_voice_correct|
+voice_correction` returns nothing), so the diff is complete on the shipped path.
+
+| hunk | file | what it does |
+|---|---|---|
+| D1 | `hdlab/thematic_role_labeler.py` | the organ block + `is_passive_clause` deprecated in place |
+| D1 | `hdlab/graded_role_assigner.py` | the import + all four call sites |
+| **D2** | `hdlab/relcl_resolver.py` | **`precise_passive` becomes a thin delegate to `is_passive_predicate`** -- the NAME is kept so none of its six consumers churns; the COMPUTATION is the organ's |
+| **D4** | `hdlab/graded_role_assigner.py` | **`participle_bypp_gate`'s `_is_participle` suffix test replaced by the organ's voice read** |
+| **D5** | `hdlab/arc_labeler.py` | **`VOICE_CORRECTION`, `_BE_AUX` and `label_voice_correct` DELETED**; `voice_correction=` stays on `label()` accepted-and-ignored so no caller churns (three call sites in `verification/test_arc_labeler_fastpath_hdlab_landing.py` pass it, and they still mean what they say: there is no voice correction) |
+| Q1 | `experiments/exp_board_agent_slot_ud_v1.py` | the duplicate `hybrid_agent_pick` retired to a thin call |
+
+The cell's self-test now **compiles every patched file from the patched text** and asserts the three deletions
+and the delegate are really there (32/32).
+
+## 18.2 The fold, measured at every consumer, with the fold OFF and ON in one run
+
+**D2's biggest consumer -- the board's `who_did_what_patient` row, by the board's own function:**
+
+| arm | model | **floor** | twin | model - floor | ceiling (gold parse) |
+|---|---|---|---|---|---|
+| landed | 0.8120 | 0.7203 | 0.6430 | +0.0916 CI[+0.0708,+0.1114] sep | 0.9610 |
+| **D2+D4+D5 folded** | **0.8135** | **0.7227** | 0.6454 | **+0.0908 CI[+0.0701,+0.1107] sep** | 0.9610 |
+
+**And this is the honest reading, which the recomputed-in-place floor is what caught:** the model rises
++0.0015 **and its own floor rises +0.0024**, because the deployed floor
+(`_deployed_structural_patient_pick`) has a net-safe `hybrid_role_patient` fallback that reads
+`precise_passive` too. The MARGIN is therefore flat (-0.0008, well inside the CI). **D2's fold is a
+consolidation, not a win at this consumer** -- exactly what I called it in 17.5, now confirmed with the
+floor moved in place rather than pasted.
+
+**The board's `who_did_what_agent` row, by the board's own function:**
+
+| arm | model | floor | model - floor | passive n=16 | active n=1407 |
+|---|---|---|---|---|---|
+| landed | 0.8271 | 0.8468 | -0.0197 CI[-0.0317,-0.0090] BELOW | 0.1875 | 0.8344 |
+| phase 7a (voice + the organ) | 0.8552 | 0.8468 | +0.0084 CI[+0.0007,+0.0157] **sep** | 0.6250 | 0.8579 |
+| **+ D2 + D4 + D5 folded** | **0.8559** | 0.8468 | **+0.0091 CI[+0.0014,+0.0168] sep** | 0.6250 | **0.8586** |
+
+**D5's consumer -- every label consumer, via `ArcLabeler.label()`, UD-EWT test 700 under live heads:**
+
+| population | landed | with `label_voice_correct` DELETED | delta |
+|---|---|---|---|
+| all labelled nominals, n=2216 | 0.6995 | **0.6995** | **+0.0000** |
+| gold `nsubj:pass`, n=48 | 0.5417 | **0.5417** | **+0.0000** |
+| gold `obl:agent`, n=19 | 0.6316 | **0.6316** | **+0.0000** |
+
+**Byte-identical on all three.** The deletion is a no-op by measurement, which is the strongest case a
+deletion can have: the Competition-Model organ already decides every label the rule would have changed.
+
+## 18.3 THE WITNESSES -- nine run, each with the fold OFF then ON. NOT ONE GOES RED BECAUSE OF THE FOLD.
+
+Found by `grep` over `verification/*.py` for the four names (plus the four the brief listed). Each is executed
+in-process twice -- once at HEAD, once with the fold installed -- so `hdlab/` is never written.
+**Result: 7 GREEN both, 2 RED both (pre-existing). Zero caused by the fold.**
+
+| witness | HEAD | folded | verdict |
+|---|---|---|---|
+| `test_coarse_role_competition.py` | exit 0 | exit 0 | **GREEN both** |
+| `test_labeled_patient_landing.py` | exit 0 | exit 0 | **GREEN both** |
+| `test_modern_board_landing.py` | exit 0 | exit 0 | **GREEN both** |
+| `test_noncanonical_agent_bymorph_organ.py` | exit 0 | exit 0 | **GREEN both** |
+| `test_noncanonical_role_assigner.py` | exit 0 | exit 0 | **GREEN both** |
+| `test_precision_defer_landing.py` | exit 0 | exit 0 | **GREEN both** |
+| `test_valency_labeled_patient_landing_organ.py` | exit 0 | exit 0 | **GREEN both** |
+| 🔻 `test_arc_labeler_fastpath_hdlab_landing.py` | **2/4 at HEAD** | **2/4, identical lines** | **RED BEFORE AND AFTER -- pre-existing, not mine** |
+| 🔻 `test_byhead_agent_cue_landing.py` | **raises** | **raises, same line** | **RED BEFORE AND AFTER -- a bug in the witness itself** |
+
+**The two reds, diagnosed rather than reported:**
+
+- `test_arc_labeler_fastpath_hdlab_landing.py` fails at HEAD with `FAIL L2 ... [341 mismatches / 4575 arcs]`
+  and `FAIL L3 ... [1217 mismatches / 18346 arcs]` -- **the same two lines, the same counts, with the fold
+  in.** Both failing checks call `label(..., voice_correction=False)`, so they never exercised the deleted
+  code at all; they are comparing the fast plan against the reference `_predict_label` and that equality is
+  broken for another reason. **Confirmed by running it as a plain subprocess at HEAD: 2/4 checks passed.**
+  Nothing for me to re-pin -- this is a standing red that predates this brief and deserves its own look.
+- `test_byhead_agent_cue_landing.py` raises `TypeError: not all arguments converted during string
+  formatting` at **its own line 80** (`"ON=%s" % a_on`, where `a_on` is not a single value). Also confirmed
+  as a plain subprocess at HEAD. **So the landing witness for the byhead CASE cue has not been executing** --
+  which is worth knowing precisely because D4 is that cue's gate, and because the board arm's failure to pass
+  `byhead_agent_cue=True` (17.3) is exactly the kind of drift a working witness would have caught.
+
+**No witness pins the OLD detector's number, so there is nothing for strategy to re-pin.** The one witness
+that could have -- `test_coarse_role_competition.py`, which asserts `voice_order == passive_strong_pre`,
+`prep == by_passive`, `nsubj:pass` and `obl:agent` on *"The dog was bitten by the man"* -- is GREEN both ways,
+because those assertions run through `voice_cues` (D3, untouched), not through the folded detectors.
+
+## 18.4 (Q2) THE VALIDITY-TABLE RE-ACCRUAL IS ROUTED AWAY
+
+Confirmed and closed here per strategy's ruling: **the `coarse_role_validities` re-accrual routes to pri 114
+(organ-tagged acquisition) / pri 110's follow-on, not to this brief.** The evidence is in 17.6 -- the only
+CI-separated movement (`obj` +0.0150) reproduces under the **shipped-cue** re-accrual, so it is the upstream
+landing being learned and not this cue. The two assets stay on disk for whoever picks it up
+(`data/hook_state/coarse_role_validities_pri111_{shipped,patched}_perceived_w_v4.json`); **neither is
+proposed for landing and the live asset was never written.** No further work here.
+
+## 18.5 (Q3) BRIEF-READY LEAD, NOT BUILT: the by-NP head on flat names belongs to the attachment arm
+
+> **PROBLEM (draft):** the agent competition cannot say which token of a by-phrase NP is its head, so a
+> passive agent that is a multi-word NAME is picked at the wrong token -- `by a **Vikash** Chand Abdul
+> Shakur` and `by **al** - Qaeda` are both lost to the second token, and four more by-NPs are lost to the
+> head-final/head-initial split.
+>
+> **THE POPULATION, counted:** UD-EWT test, the board's who-did-what AGENT gold, **16 gold-passive items**
+> (`obl:agent`). The positional floor gets **0/16**. The organ with this brief's voice cue gets **10/16**.
+> The by-governed oracle gets **12/16**. The 6 that are lost split exactly two ways:
+> - **2 are flat NAMES** headed on their FIRST token by the UD `flat` convention (`Vikash Chand Abdul
+>   Shakur`, `al - Qaeda`) -- the competition has no cue for which token of a name is the head;
+> - **4 are common-noun NPs whose head is not the first by-governed token** (`by an extremist **form** of
+>   the Wahhabi school`, `by my better **half**`, `by Gravity CEO **Kim** Jung-Ryool`, `by two space
+>   **businessmen**`).
+>
+> **THE NEGATIVE THAT IS ALREADY MEASURED, so nobody re-runs it:** a positional head rule does NOT reach
+> them. I built `oracle_by_nphead` -- the first PROPN of the by-NP if there is one, else the LAST noun, i.e.
+> right-headed English NPs with a left-headed name exception -- and it scores **0.7500 on the slice, exactly
+> the same 12/16 as "first by-governed"**, and **-0.0063 on the full 1423-item population**. It trades the
+> two name items for two common-noun items. **The head of a by-NP is not recoverable positionally; it needs
+> the attachment arm's own `flat` / `compound` / `nmod` decisions.**
+>
+> **WHY IT BELONGS TO THE HEADS RUNG:** `flat` is an attachment convention (which token of a name governs
+> the others), and the arm already decides it; the agent competition is simply not reading it. The likely
+> shape is a JOIN, not a new computation -- the candidate generator should offer the by-NP's *head* as one
+> candidate rather than every token of it as several.
+> **BOUND:** 6 of 16 items on this row = +0.0042 on the full agent population, with 2 of the 6 (the names)
+> the cheap half.
+
+## 18.6 THE VERDICT: EXHAUSTED AT THIS RUNG
+
+**YES -- with D2 and D4 folded and D5 deleted, this brief is EXHAUSTED at this rung.** The claim is not
+"I ran out of ideas"; it is that every remaining item has been located at a *different* rung, with a number
+and an owner:
+
+| what | status | evidence |
+|---|---|---|
+| the voice COMPUTATION | **done** | one organ; precision 0.3784 -> 0.9606 with recall up, on three corpora, twin CI-separated below on all three; criterion on a flat plateau |
+| its CONSUMERS | **done** | all four hdlab call sites + the board arm's duplicate retired; agent row 0.8271 -> 0.8559, CI-separated ABOVE its own floor; `agent_supports` +0.0127 CI-sep; labels flat with the mechanism counted; patient board consolidated |
+| the DUPLICATES | **5 of 6 resolved** | D1 folded, D2 folded, D4 folded, D5 deleted (a measured no-op), D6 follows D2 |
+| D3 (`voice_cues` / `robust_passive`) | **handed over** | folding it requires refitting `DEFAULT_VALIDITIES` (`passive_strong` 3.2317 / `passive_weak` -2.9927) and it is the patient arm's own FLOOR's voice -- its own brief |
+| the by-NP head | **handed over, 18.5** | 6 of 16 items; the positional rule is measured NOT to reach 4 of them |
+| the category organ's participle/adjective boundary | **handed over** | 3 items of recall, posteriors 0.950 / 0.517 / 0.745 |
+| the validity-table re-accrual | **routed to pri 114 / pri 110** | 17.6, 18.4 |
+| the `'s` clitic + the pseudo-cleft | **handed over** | 1 item each; both need *does this participle take an object of its own* -- the verb-frame rung |
+| two standing RED witnesses | **reported, 18.3** | both pre-existing; `test_byhead_agent_cue_landing.py` has not been executing at all |
+
+**What would change my answer:** if the attachment arm's `flat` decisions were exposed to the agent
+candidate generator, the by-NP head lead (18.5) would come back to this row and be worth up to +0.0042 more.
+Until then there is nothing left inside this cue that a sweep, a control, or a stronger brain build reaches
+-- I have run the sweep (flat), the twin (below floor on three corpora), the oracle ceilings (by-governed
+12/16, by-NP-head 12/16), the OOD split, and the head-to-head attribution of every single break.
 
