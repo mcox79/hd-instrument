@@ -2132,6 +2132,20 @@ def self_test():
     else:
         check("PATCH == CELL", False, "diff not written yet: %s" % PATCH)
 
+    # 12b. the diff's STATE-CONSOLIDATION function is EXECUTED, not merely written
+    if os.path.exists(PATCH):
+        try:
+            _M = _load_patch_arm()
+            _r = _reader(); _lc = LC.get()
+            _t = "The sky is blue and she is a doctor .".split()
+            _up = list(_r._cached_tag(_t)); _po = _lc.posterior(_t)
+            _pr = _M.state_pairs_from_slot(_t, _up, _po, list(_lc.tags))
+            _ok = all(0 <= h < len(_t) and 0 <= q < len(_t) and h != q for (h, q) in _pr)
+            check("the diff's state_pairs_from_slot EXECUTES and returns in-range (holder, property) pairs",
+                  bool(_pr) and _ok, str(sorted((_t[h], _t[q]) for (h, q) in _pr)))
+        except Exception as _e:
+            check("the diff's state_pairs_from_slot EXECUTES", False, repr(_e))
+
     # 13. the constructions can be switched OFF at the operating point (a swept knob, not a hard-coded rule)
     t = "The sky is blue .".split(); tags = lc.tag(t)
     q_off = cop_complement_v2(t, tags, 2, loc=False, front=False, inv=False, clause=False, det=False,
