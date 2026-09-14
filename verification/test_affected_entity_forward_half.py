@@ -50,7 +50,10 @@ def main(fast=False):
     # RE-PINNED 2026-09-14 (strategy, pri 108 landing): 0.4632 -> 0.4676 because `affected_entity_resolver.OBJ_DEPS` no longer contains
     # "nmod" (a nominal licensed by a nominal is a property, not an event participant; bisected in memory: restoring nmod gives 0.4632
     # exactly, and the v3 / v4 role tables give the same 0.4676). The move is UP on the gold-role population.
-    _ck(abs(r4["accuracy"]["A5_full"] - 0.4676) < 1e-4, f"W2 landed resolver path byte-identical (A5_full={r4['accuracy']['A5_full']} == 0.4676)")
+    # RE-PINNED 2026-09-14 12:40 (strategy): 0.4676 -> 0.4721 because gum_coref.load_docs now EXCLUDES the 18 redacted GUM_reddit_*
+    # documents (their FORM column is underscores); with them included the gold-source number is 0.4676 exactly (bisected: the pri 106
+    # role-cue diff is byte-identical under its default). The cells now request decision_source="gold" explicitly (gold-role instrument).
+    _ck(abs(r4["accuracy"]["A5_full"] - 0.4721) < 1e-4, f"W2 landed resolver path byte-identical (A5_full={r4['accuracy']['A5_full']} == 0.4721)")
     # W3 reader
     rows = [
         (1, 1, "John", "(0)"), (1, 2, "met", "-"), (1, 3, "Peter", "(1)"), (1, 4, ".", "-"),

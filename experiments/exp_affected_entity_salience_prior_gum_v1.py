@@ -56,7 +56,11 @@ def _load_test(limit=None):
         gaz = NEC.load_given_gazetteer()
     except Exception:
         gaz = None
-    docs = GC.load_docs(gum_only=True, name_gazetteer=gaz, limit=limit)
+    # GOLD-ROLE INSTRUMENT BY DESIGN (strategy 2026-09-14, after pri 109 flipped the loader default to the live organs): these
+    # cells measure the RESOLVER'S MECHANISM given gold roles / gold mention types, so they ask for the gold columns explicitly.
+    # The live-chain number for the same consumer (organ roles + organ typing) is the reader's own instrument, not this one
+    # (A5_full under organ decisions: 0.3178 on 2026-09-14, recorded in the ledger).
+    docs = GC.load_docs(gum_only=True, name_gazetteer=gaz, limit=limit, decision_source="gold")
     return [d for i, d in enumerate(docs) if i % 2 == 1]     # odd-index TEST split (board convention)
 
 
