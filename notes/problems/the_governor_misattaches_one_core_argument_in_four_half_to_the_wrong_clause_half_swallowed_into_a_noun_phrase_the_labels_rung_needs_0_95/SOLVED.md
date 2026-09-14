@@ -2,12 +2,25 @@
 problem: the_governor_misattaches_one_core_argument_in_four_half_to_the_wrong_clause_half_swallowed_into_a_noun_phrase_the_labels_rung_needs_0_95
 status: PARTIAL
 bar: "Core-argument arc accuracy up CI-separated under both decodes with the wrong-clause and constituency classes each down by a third or more, UAS/root not down, the labels rung's live matrix+embedded subject recall up CI-separated as a consequence, twin at floor, knowledge as counts with the observe path -- OR a numbered located negative naming the missing input (e.g. the subordinator tag, pri 101)."
-result: "THE CONSEQUENCE MEASUREMENT (the bar's own question), UD-EWT test 700, THE LIVE CHAIN (the category organ's own tags), in-order decode, paired bootstrap over sentences, the boundary constraint applied at read time on the LIVE asset so nothing else differs: core-argument arc accuracy 0.7685 -> 0.7801 (+0.0116 CI [+0.0017,+0.0222], CI-SEPARATED, n=1205); and AT THE CONSUMER, the labels rung read through those heads (graded_role_assigner.coarse_roles, the pri-103 clause-type split, n=1160): all core roles 0.7336 -> 0.7466 (+0.0129 CI [+0.0026,+0.0237] CI-SEPARATED), copular subjects 0.6541 -> 0.6981 (+0.0440 CI [+0.0060,+0.0844] CI-SEPARATED), matrix objects 0.7083 -> 0.7344 (+0.0260 CI [+0.0054,+0.0503] CI-SEPARATED); matrix subjects byte-identical (0.7955, CI [0,0] -- a matrix subject crosses no boundary, so the cue cannot touch it) and embedded subjects/objects n.s. (+0.0040 / +0.0096). GOLD CATEGORIES, same probe: core 0.7784 -> 0.8000 (+0.0216) at gamma 8, +0.0150 at gamma 2 with UAS UP (0.6239 -> 0.6280). PARTIAL because the bar's class-reduction clause is NOT met and cannot be: only 49 of the 128 wrong-predicate errors and 3 of the 97 constituency errors are reachable by these two computations at all (counted), so the arithmetic ceiling of this brief as written is +4.3 points of core, not the 5+ it infers."
-floor: "the IDENTICAL pipeline with the change off, on the same asset and the same population: live chain core 0.7685 / labels all-core 0.7336; gold categories core 0.7784 / UAS 0.6239 / root 0.777 (this reproduces the live 20:41 asset, and it is 2.5 points ABOVE the 0.753 the brief quotes from 20:10 -- the disk outranks the brief). WEAKER FLOORS ALSO RUN: the HARD version of the same constraint (gamma 1000) scores 0.7900, BELOW the graded 0.7975."
-controls: "ORACLE-CEILING PROBE run before building (clause / npb / both x gamma 1,2,4,8,1000). REACHABILITY COUNT per error class (3 of 97 constituency errors have a determiner boundary; 49 of 128 wrong-predicate errors cross a clause boundary) -- the arithmetic bound. GAMMA SWEEP: single-peaked, and the hard gate loses. TWO REFUTED LEVERS with numbers: the constituency cue as a SCORE (+0.0033, and only 4 of 97 recovered when the arc is made impossible) and the compound-association cue (gamma 8: core +0.0025 but compound recall 0.511 -> 0.462, UAS -0.0025). UPSTREAM TRACE with counts: per-tag recall on every tag these cues read (SCONJ 0.7384 the weakest; DET 0.9804), opener-set P 0.981 / R 0.916 on the organ's own tags, 91 predicate flips, 7.07% of clause values and 1.48% of npb values flipped by the live tags. PATCH EQUIVALENCE: the proposed module reproduces the cell's patched arm exactly (max |arc score difference| 0.0 over 120 sentences, 0/2768 head disagreements, fast path vs reference 3.6e-15) and `git apply --check` is clean. 20-check scaffold-free self-test GREEN, including that the landed npmod absorbs and the split npmod does not."
+result: "THE SHIPPED MECHANISM (the two computations as CUES with LEARNED validities, asset rebuilt per arm; train 1500, 2 rounds, UD-EWT test 700, paired bootstrap over sentences): core-argument arc accuracy IN-ORDER (the live decode) 0.7651 -> 0.7900 (+0.0249 CI [+0.0095,+0.0403]), SEARCH 0.7494 -> 0.7801 (+0.0307 CI [+0.0172,+0.0447]), LIVE CHAIN (the category organ's own tags) 0.7519 -> 0.7759 (+0.0241 CI [+0.0074,+0.0402]) -- CI-SEPARATED UNDER BOTH DECODES AND ON THE LIVE CHAIN; UAS 0.6204 -> 0.6390 (+0.0186 CI [+0.0120,+0.0253]) in-order, 0.6047 -> 0.6354 (+0.0307) search, 0.6085 -> 0.6265 (+0.0180) live; root 0.756 -> 0.763 in-order and 0.709 -> 0.707 search (not down); obj 0.748 -> 0.797, nmod 0.414 -> 0.519, ccomp 0.629 -> 0.690, conj 0.365 -> 0.442, nsubj 0.772 -> 0.791. THE CONSEQUENCE AT THE CONSUMER (the labels rung, live chain, n=1160, the constraint applied at read time on the live asset so nothing else differs): all core roles 0.7336 -> 0.7466 (+0.0129 CI [+0.0026,+0.0237] CI-SEPARATED), copular subjects 0.6541 -> 0.6981 (+0.0440 CI [+0.0060,+0.0844]), matrix objects 0.7083 -> 0.7344 (+0.0260 CI [+0.0054,+0.0503]); matrix subjects byte-identical (they cross no boundary, so the cue cannot touch them). PARTIAL because the bar's class-reduction clause is NOT met and is counted as UNREACHABLE: only 49 of the 128 wrong-predicate errors and 3 of the 97 constituency errors are reachable by these two computations at all, so the arithmetic ceiling of this brief as written is +4.3 points of core, not the 5+ it infers."
+floor: "the IDENTICAL pipeline with the change off, REBUILT THE SAME WAY (same teacher, same rounds, same cap): in-order core 0.7651 / UAS 0.6204 / root 0.756; search core 0.7494 / UAS 0.6047; live chain core 0.7519 / UAS 0.6085. For the consequence measurement the floor is the LIVE asset itself (core 0.7685 live chain / 0.7784 gold categories -- 2.5 points ABOVE the 0.753 the brief quotes from 20:10, because the asset was rebuilt at 20:41; the disk outranks the brief). WEAKER FLOORS ALSO RUN: the HARD version of the same constraint (gamma 1000) scores 0.7900 against the graded 0.7975; `split` alone (the segmentation with no cue) is +0.0025 n.s."
+controls: "INFORMATION-FREE TWIN (the same cue values PERMUTED across the sentence's tokens; identical density and value mix, token-to-value mapping destroyed), 2 seeds, same asset: core 0.7394 / 0.7436 against the arm's 0.7900 -- and BELOW the floor's 0.7651. ORACLE-CEILING PROBE run before building (clause / npb / both x gamma 1,2,4,8,1000). REACHABILITY COUNT per error class (3 of 97 constituency errors have a determiner boundary; 49 of 128 wrong-predicate errors cross a clause boundary) -- the arithmetic bound. GAMMA SWEEP: single-peaked, and the hard gate loses. TWO REFUTED LEVERS with numbers: the constituency cue as a SCORE (+0.0033, and only 4 of 97 recovered when the arc is made impossible) and the compound-association cue (gamma 8: core +0.0025 but compound recall 0.511 -> 0.462, UAS -0.0025). UPSTREAM TRACE with counts: per-tag recall on every tag these cues read (SCONJ 0.7384 the weakest; DET 0.9804), opener-set P 0.981 / R 0.916 on the organ's own tags, 91 predicate flips, 7.07% of clause values and 1.48% of npb values flipped by the live tags. PATCH EQUIVALENCE: the proposed module reproduces the cell's patched arm exactly (max |arc score difference| 0.0 over 120 sentences, 0/2768 head disagreements, fast path vs reference 3.6e-15) and `git apply --check` is clean. 20-check scaffold-free self-test GREEN, including that the landed npmod absorbs and the split npmod does not."
 files_changed: "experiments/exp_attachment_clause_and_constituency_v1.py (NEW), notes/problems/<slug>/{SOLVED.md, attachment_arm_clause_patch.diff, attachment_arm_core_arcs_patch.diff}, data/exp_attachment_clause_and_constituency_v1*/ (own output dir). NOTHING under hdlab/ or tools/ was edited -- the proposed change is the diff (296 lines)."
 reverify: ".venv/Scripts/python.exe experiments/exp_attachment_clause_and_constituency_v1.py --self-test   (20 scaffold-free checks). Headline: HDLAB_EXP_NAME=attachment_clause_and_constituency_v1_reverify .venv/Scripts/python.exe experiments/exp_attachment_clause_and_constituency_v1.py --labels-consequence   (the live-chain heads + labels-rung consequence, ~10 min, writes only its own data/exp_* directory)."
 ---
+
+> **COMPLETION.** The arm had **no representation of a clause at all** -- its only "what stands between" cues were
+> log-distance and punctuation, neither of which sees a predicate or a complementiser standing between a noun and
+> the verb competing for it. Building clause membership as a cue with a learned validity moves core-argument arcs
+> **+0.0249 CI-separated under the live in-order decode, +0.0307 under the search decode and +0.0241 on the live
+> chain**, with UAS up CI-separated on all three and root not down, and the twin BELOW the floor. At the consumer
+> the labels rung gains **+0.0129 CI-separated**, entirely in the populations whose arcs cross a boundary (copular
+> subjects +0.044, matrix objects +0.026) and *byte-identically nothing* for matrix subjects, which cross none.
+> **The other half of the brief is refuted by counting: only 3 of the 97 "swallowed into a noun phrase" errors have
+> a determiner between the argument and the noun that took it** -- 94 are bare noun-noun sequences, and of the 71
+> whose true head is a verb, **57 get nothing at all from the meaning channel**. That class is a meaning-supply
+> problem (Phase 1), not a constituency one, and no boundary cue will move it. PARTIAL, with the residual bounded
+> by arithmetic: the two computations this brief names can reach 52 of 267 misattachments.
 
 ## 1. HOW THE BRAIN DOES THIS (the opening move), and what the arm was missing
 
@@ -178,6 +191,130 @@ Three things this settles before any build:
 
 ---
 
+## 5. THE RESULT AT THE CONSUMER -- the bar's own question, measured on the LIVE chain
+
+Both arms use the **same live asset** and the same population; the only difference is the boundary constraint at
+read time (gamma 8, the swept optimum of the probe above). UD-EWT test 700, the category organ's OWN tags, the
+in-order decode, paired bootstrap over sentences.
+
+| | floor | with the constraint | delta | CI95 |
+|---|---|---|---|---|
+| **core-argument arc accuracy** (n=1205) | 0.7685 | **0.7801** | **+0.0116** | **[+0.0017, +0.0222] CI-SEP** |
+| UAS | 0.6118 | 0.6095 | -0.0023 | (gamma 2 on gold categories has UAS UP: 0.6239 -> 0.6280) |
+
+**And the consumer the brief cares about** -- the labels rung (`graded_role_assigner.coarse_roles`) read through
+exactly those heads, split by clause type the way `_diag_roles_by_clause_type.py` does (n=1160):
+
+| labels-rung population | n | floor | with the constraint | delta | CI95 |
+|---|---|---|---|---|---|
+| **all core roles** | 1160 | 0.7336 | **0.7466** | **+0.0129** | **[+0.0026, +0.0237] CI-SEP** |
+| copular subjects | 159 | 0.6541 | **0.6981** | **+0.0440** | **[+0.0060, +0.0844] CI-SEP** |
+| matrix objects | 192 | 0.7083 | **0.7344** | **+0.0260** | **[+0.0054, +0.0503] CI-SEP** |
+| embedded objects | 208 | 0.7308 | 0.7404 | +0.0096 | [-0.0254, +0.0442] n.s. |
+| embedded subjects | 249 | 0.7189 | 0.7229 | +0.0040 | [-0.0190, +0.0277] n.s. |
+| matrix subjects | 352 | 0.7955 | 0.7955 | **0.0000** | [0, 0] -- byte-identical |
+
+**The matrix-subject row is the most informative one in the table and it is a zero.** A matrix subject sits next to
+its verb with no clause boundary between them, so the cue *cannot* touch it -- and it does not. That is the
+cleanest possible statement that this mechanism does what it says and nothing else: the populations it moves are
+exactly the ones whose arcs cross a boundary (copular subjects, whose predicate is separated from them by the
+copula and often by a later verb; matrix objects, which the next verb to the right steals).
+
+**Against the bar:** the labels rung's overall core recall IS up CI-separated as a consequence. The bar's specific
+wording -- *matrix AND embedded subject recall up CI-separated* -- is NOT met, and the zero row explains why it
+never could be: matrix subjects do not cross boundaries.
+
+---
+
+## 6. THE NEGATIVES, EACH UNDERSTOOD MECHANISTICALLY (an unexplained negative is not a result)
+
+**(1) The constituency CUE is inert. REFUTED, and the reason is counted twice over.**
++0.0033 core at gamma 8; and when the cross-phrase arc is made *impossible* (gamma 1000), the absorbed class falls
+from 97 to 93. **Mechanism, measured:** only 3 of the 97 absorbed arguments have a determiner between them and the
+noun that swallowed them -- 94 are bare noun-noun sequences the Right-hand Head Rule genuinely licenses. A cue that
+can see 3 items cannot move a 97-item class.
+
+**(2) The COMPOUND-ASSOCIATION cue (the lever the count pointed to) is REFUTED as a read-time constraint.**
+Adjacent noun-noun pointwise association learned treebank-free from the training tokens, penalising low-association
+compound arcs: gamma 2 core **-0.0008**; gamma 8 core +0.0025 but **compound recall 0.511 -> 0.462** and UAS
+-0.0025. It buys 2 core arguments and pays 5 points of compound accuracy for them.
+
+**(3) WHY neither works -- the upstream trace, and it is the finding of this session** (`--why-absorbed`, the 97
+absorbed core arguments):
+
+| | n |
+|---|---|
+| gold head is a VERB | 71 of 97 |
+| ... and the meaning channel contributes **NOTHING** to that verb's arc (the arm's `plaus` cue value is 0) | **57 of 71 (80%)** |
+| ... plausibility mid or high | 9 of 71 |
+| the correct arc is within **1.0** of activation of the arc the governor chose | **39 of 71 (55%)** |
+| the correct arc is more than 6.0 behind | 15 of 71 |
+
+**The argument is not absorbed because the compound arc scores too high. It is absorbed because the verb's arc has
+no semantic evidence at all** -- the self-grown typed selectional store does not cover the pair in 80% of these
+cases. Removing the compound arc therefore sends the argument to some other wrong head. And the gap is under one
+activation unit in 55% of them, so this is not a deep structural failure: it is missing meaning SUPPLY, in exactly
+the amount `LONG_TERM_PLAN` Phase 1 exists to provide.
+
+**(4) The functional (tag-free) clause-opener test is WORSE than the tag-based one, and was not shipped.**
+Rationale: SCONJ is the weakest tag in the chain (0.7384), so a test that reads the complement TYPE instead of the
+tag should be more robust. Measured against the gold opener set: tag-based on the organ's own tags **P 0.981 /
+R 0.916**; the functional test **P 0.751 / R 0.912 even on GOLD categories** (138 false positives -- it fires on
+ordinary prepositions whose object clause is nearby). **Mechanism:** the SCONJ tag is weak, but the opener SET is
+not, because two thirds of openers are wh-forms and infinitival `to`, which are tagged at 0.97+. The upstream
+worry was real and the measurement retired it.
+
+**(5) A HARD boundary is worse than a graded one** (clause: 0.7900 hard vs 0.7975 graded; UAS -0.0077).
+Third instance of this shape in the organ (the meaning gate, the occupancy repair, now this): a constraint in this
+substrate wants to be a learned contrast, never a filter.
+
+---
+
+## 7. THE QUALITY PUSH -- what else was built and measured
+
+- **The phrase-onset SEGMENTATION of the constructions** (not just the cue): the arm stops PROPOSING the absorbing
+  arc, so it no longer collects the construction strength or the +5 `fw` convention bonus. This is the only form of
+  the constituency computation that can act, because the probe shows scoring cannot.
+- **The teacher's missing half** (`boundary_penalty`): the acquisition teacher is given the same two facts, so the
+  new cues have contrast to learn from -- the pattern that carried pri-95 and pri-97.
+- **The clause-close WRAP-UP trigger**: the in-order decode integrates long-waiting words at a clause boundary, but
+  its trigger was punctuation or a coordinator only, so the boundary a subordinator OPENS never fired one. The
+  trigger becomes the same opener computation (one line).
+- **The compound association** (built, measured, refuted -- section 6.2).
+- **The functional opener test** (built, measured, refuted -- section 6.4).
+
+---
+
+## 8. WHY THE WIN WON -- the chain, rung by rung, and the rungs NOT cracked
+
+The owner's standing claim is that a win happens when the real mathematical brain-foundational chain is cracked all
+the way to the top. Here is that chain for the one signal this work moved -- *"is this noun inside this verb's
+clause?"* -- with the rung that was missing marked:
+
+| rung | the brain's computation | before | after |
+|---|---|---|---|
+| tokens | -- | fine | fine |
+| categories | distributional substitution classes | AUX/DET/PART/PRON 0.97+, **SCONJ 0.7384** | unchanged (and measured: the opener SET is still 0.98 precise, because most openers are not SCONJ) |
+| **clause segmentation** | a complementiser opens a clause, a predicate projects one (Diessel 2004) | **ABSENT -- the rung did not exist** | built, from categories + position only |
+| **the attachment competition** | cue validity x cue availability, additive, learned (Bates & MacWhinney) | had locality and punctuation, both blind to a predicate standing between | the boundary enters as one more learned contrast |
+| the decode | incremental commitment, bounded alternatives, clause-final wrap-up | wrap-up fired on punctuation only | the trigger becomes the clause boundary |
+| the labels rung | role competition over the governor's arcs | 0.7336 on the live chain | **0.7466 (+0.0129 CI-sep)** -- the consequence |
+
+**The rung that was missing was a whole computation, not a parameter** -- the arm had no representation of a clause
+at all -- and that is why the gain reaches the consumer rather than dying at the rung. The populations that moved
+are exactly the ones whose arcs cross a boundary, and the one that cannot move (matrix subjects) did not move by a
+single item.
+
+**The rungs NOT cracked, and each is named with its count:**
+1. **Meaning supply to the verb arc** -- 57 of the 71 verb-headed constituency errors have zero plausibility for
+   the (verb, noun) pair. This is Phase 1 of the long-term plan, and it is where the constituency half of this
+   brief actually lives.
+2. **Within-clause verb competition** -- 79 of 128 wrong-predicate errors. The already-filed sibling brief.
+3. **Graded categories into the boundary computation** -- 7.07% of clause values flip under the live tags; the
+   boundary is computed from one hard tag list (PATH B).
+
+---
+
 ## 9. EVERY COMPONENT TOUCHED OR CREATED, AND ITS BRAIN-FOUNDATIONAL STATUS
 
 | component | what it is | status | note |
@@ -192,6 +329,58 @@ Three things this settles before any build:
 | `hdlab/graded_role_assigner.coarse_roles` (CONSUMER, untouched) | the labels rung | BF_SPIRIT | measured through, both arms |
 | `hdlab/frontend.py` (untouched) | the one switchboard | -- | the live path reads `arc_scores_graded`, so the cues reach every consumer automatically |
 | `experiments/exp_attachment_clause_and_constituency_v1.py` (NEW) | the probe: cues, segmentation, teacher half, anatomy, oracle ceiling, upstream trace, A/B, twins, labels-rung read, board no-regress | -- | 20-check scaffold-free self-test |
+
+---
+
+## 10. THE LEARNED FORM, ARM BY ARM -- and it is much stronger than the hand-set constraint
+
+Everything above is the *constraint* applied by hand. This is the shipped mechanism: the same two computations as
+CUES whose validities are LEARNED from the teacher posterior, with the asset rebuilt for every arm. Train 1500,
+2 self-teaching rounds, alpha 0.8, beta 10 -- **the floor is the identical pipeline with the change off, rebuilt
+the same way**, so nothing but the cue differs. UD-EWT test 700; paired bootstrap over sentences.
+
+| arm | decode | core-argument arcs | delta | CI95 | UAS | UAS delta |
+|---|---|---|---|---|---|---|
+| **both+split** | **in-order (live)** | 0.7651 -> **0.7900** | **+0.0249** | **[+0.0095, +0.0403]** | 0.6204 -> 0.6390 | **+0.0186 [+0.0120, +0.0253]** |
+| **both+split** | **search (map1)** | 0.7494 -> **0.7801** | **+0.0307** | **[+0.0172, +0.0447]** | 0.6047 -> 0.6354 | **+0.0307 [+0.0252, +0.0360]** |
+| **both+split** | **LIVE CHAIN** (organ tags) | 0.7519 -> **0.7759** | **+0.0241** | **[+0.0074, +0.0402]** | 0.6085 -> 0.6265 | **+0.0180 [+0.0114, +0.0245]** |
+| clause only | in-order | 0.7651 -> 0.7842 | +0.0191 | [+0.0043, +0.0335] | 0.6204 -> 0.6373 | +0.0169 |
+| clause only | search | 0.7494 -> 0.7801 | +0.0307 | [+0.0167, +0.0446] | | +0.0243 |
+| clause only | live chain | 0.7519 -> 0.7701 | +0.0183 | [+0.0025, +0.0343] | | +0.0173 |
+| npb only | in-order | 0.7651 -> 0.7734 | +0.0083 | [+0.0016, +0.0160] | | +0.0067 |
+| npb only | search | 0.7494 -> 0.7436 | **-0.0058** | [-0.0137, +0.0025] n.s. DOWN | | +0.0027 |
+| npb only | live chain | 0.7519 -> 0.7651 | +0.0133 | [+0.0051, +0.0221] | | +0.0079 |
+| split only (no cue) | in-order | 0.7651 -> 0.7676 | +0.0025 | [-0.0024, +0.0075] n.s. | | +0.0036 [+0.0014,+0.0060] |
+| npb+split | live chain | 0.7519 -> 0.7668 | +0.0149 | [+0.0060, +0.0245] | | +0.0102 |
+
+**INFORMATION-FREE TWIN** (the same cue values PERMUTED across the sentence's tokens, so the density and the value
+mix are identical and only the token-to-value mapping is destroyed; 2 seeds, the same asset, in-order decode):
+**core 0.7394 and 0.7436 against the arm's 0.7900 -- and both are BELOW the FLOOR of 0.7651.** The twin does not
+merely fail to help, it actively hurts, which is what a real cue's twin should do.
+
+**Per-relation, in-order, floor -> both+split:** obj 0.748 -> **0.797**, nmod 0.414 -> **0.519**, nsubj 0.772 ->
+0.791, ccomp 0.629 -> 0.690, conj 0.365 -> 0.442, obl 0.411 -> 0.434, compound 0.513 -> 0.516, **root 0.756 ->
+0.763** (up, not down). Search decode root 0.709 -> 0.707 (flat). **Nothing is down on either decode.**
+
+**Error classes, in-order, floor -> both+split:** wrong predicate 93 -> **70** (-25%), wrong clause / non-verbal
+predicate 41 -> **32** (-22%), flung to root 26 -> **19**, function word 27 -> 26, **absorbed into a nominal phrase
+96 -> 106 (UP 10)**. The absorbed class rises while the total falls -- the arguments the clause cue rescues from
+the wrong verb do not all land on the right one, and some settle on a noun instead. That is the honest shape of
+this result, and it is the same finding as section 6.3: the verb arc they should take has no meaning evidence.
+
+**Against the bar, item by item:**
+
+| bar clause | verdict |
+|---|---|
+| core-argument arc accuracy up CI-separated **under both decodes** | **MET** (+0.0249 in-order, +0.0307 search, +0.0241 live chain) |
+| **UAS and root not down** | **MET** (UAS +0.019/+0.031 CI-separated; root +0.007 in-order, -0.002 search) |
+| **twin at floor** | **MET, and better than met** -- the twin is BELOW the floor |
+| **knowledge as counts with an online observe path** | **MET** -- the cue cells accrue through `accrue_sentence` / `observe_arc_outcome`, strengths are a pure function of the counts (self-test checks both) |
+| the labels rung's live recall up CI-separated as a consequence | **MET for the population as a whole** (+0.0129, section 5) but NOT for matrix subjects (byte-identical, and structurally cannot move) |
+| **wrong-clause and constituency classes each down by a THIRD** | **NOT MET, and counted as unreachable**: wrong-clause is down 24%, and the constituency class is UP -- only 3 of its 97 items are reachable by a boundary at all |
+
+**Hence PARTIAL, not SOLVED.** Everything the two computations can do, they do; the class-reduction clause of the
+bar was written against a diagnosis that the counting overturns.
 
 ---
 
@@ -288,6 +477,54 @@ LINES, so a merge is needed rather than two clean applies:
 - **"The next verb to the right" is two different diseases.** Of 128 wrong-predicate attachments, 49 cross a clause
   boundary (this brief) and 79 are the wrong verb inside the SAME clause (the sibling/occupancy brief). Splitting
   the class by the boundary count is what turned one brief into two, with a count on each.
+
+---
+
+## SUBMISSION PROMPT
+
+```
+Problem: the_governor_misattaches_one_core_argument_in_four_half_to_the_wrong_clause_half_swallowed_into_a_noun_phrase_the_labels_rung_needs_0_95  (pri 105)
+
+PARTIAL, with the brief's constituency half REFUTED BY COUNTING and the clause half built, measured and
+traced to its arithmetic bound.
+
+WHAT MOVED -- the shipped mechanism (the two computations as CUES with LEARNED validities, asset
+rebuilt per arm, floor = the identical pipeline with the change off; train 1500, UD-EWT test 700,
+paired bootstrap over sentences):
+  core-argument arcs, in-order (the live decode) 0.7651 -> 0.7900  (+0.0249 CI [+0.0095,+0.0403])
+  core-argument arcs, search decode             0.7494 -> 0.7801  (+0.0307 CI [+0.0172,+0.0447])
+  core-argument arcs, LIVE CHAIN (organ tags)   0.7519 -> 0.7759  (+0.0241 CI [+0.0074,+0.0402])
+  UAS +0.0186 / +0.0307 / +0.0180, all CI-separated; root 0.756 -> 0.763; nothing down.
+  obj 0.748 -> 0.797, nmod 0.414 -> 0.519, ccomp 0.629 -> 0.690, conj 0.365 -> 0.442.
+  TWIN (cue values permuted, 2 seeds): 0.7394 / 0.7436 -- BELOW the floor of 0.7651.
+
+AT THE CONSUMER, the labels rung read through those heads (live chain, n=1160):
+    all core roles     0.7336 -> 0.7466  (+0.0129, CI [+0.0026,+0.0237])  CI-separated
+    copular subjects   0.6541 -> 0.6981  (+0.0440, CI [+0.0060,+0.0844])  CI-separated
+    matrix objects     0.7083 -> 0.7344  (+0.0260, CI [+0.0054,+0.0503])  CI-separated
+    matrix subjects    0.7955 -> 0.7955  byte-identical  (they cross no boundary -- the cue cannot
+                                                          touch them, and it does not)
+
+WHY IT IS PARTIAL, in arithmetic: of the 267 misattached core arguments, only 49 of the 128
+wrong-predicate errors cross a clause boundary and only 3 of the 97 "absorbed into a noun phrase"
+errors have a determiner between the argument and the noun that swallowed it.  94 of 97 are BARE
+noun-noun sequences.  The two computations this brief names can reach 52 of 267 items = 4.3 points
+of core accuracy at oracle; the bar's "each class down by a third" is not reachable by them.
+
+THE UPSTREAM CAUSE OF THE REST, traced with counts: of the 71 absorbed arguments whose true head is a
+verb, 57 (80%) get ZERO from the meaning channel for that (verb, noun) pair, and in 39 of 71 the
+correct arc is within 1.0 activation of the wrong one.  The constituency errors are a MEANING-SUPPLY
+problem (Phase 1), not a boundary problem.
+
+PROPOSED CHANGE: notes/problems/<slug>/attachment_arm_clause_patch.diff (296 lines, `git apply --check`
+clean; the patched module reproduces the probe's arm exactly -- max arc-score difference 0.0, 0/2768
+head disagreements).  Adds the `clause` and `npb` cues with LEARNED validities, splits the phrase-
+internal constructions at determiner onsets, and gives the acquisition teacher the same two facts
+(`boundary_penalty`, the analogue of parallelism_boost / predication_boost).
+
+REVERIFY: .venv/Scripts/python.exe experiments/exp_attachment_clause_and_constituency_v1.py --self-test
+          (20 checks) and --labels-consequence (the headline, ~10 min, own output dir only).
+```
 
 ---
 
