@@ -753,6 +753,31 @@ sources executed with no repo write:
 LAYER, NOT ON ANY COREF ROW.** It is safe to A/B and it should be A/B'd against the consumers that read the
 entity layer -- the aliaser, the crosstype experiencer bind, who-did-what -- not against coref.
 
+## 22c. NO-REGRESS: the reader under `entity_layer_patch.diff` vs the UNPATCHED reader
+
+**The check strategy needs before landing, and I had not run it until the coordinator's probe.** Same 8
+LitBank documents, same flags, the patched sources executed with no repo write:
+
+| reader | weighted `coref_acc` (570 targets) | entities | with heads |
+|---|---|---|---|
+| **UNPATCHED** (HEAD) | **0.6421** | 2,647 | 2,531 |
+| **PATCHED** (the forward wire live at all ten call sites) | **0.6421** | **2,640** | **2,524** |
+
+**NO REGRESSION.** The reader's pronoun coref is **identical to four decimals**, which is what the wire
+should do -- it changes the NAME/COMMON routing of the entity layer, and the pronoun stream is a separate
+stream that the de-leak deliberately left on the coref column.
+
+**The entity layer CONSOLIDATES by 7 files (-0.26%)**, 2,647 -> 2,640, all of them head-bearing. That is the
+wire working in the direction pri 104 predicted: the organ declines to open a name file where capitalisation
+would have opened one, so a handful of spurious referents merge away. Small, and in the right direction.
+
+> **ONE METRIC IN THE TWO SCRIPTS IS NOT LIKE-FOR-LIKE and I am not going to present it as if it were:** the
+> unpatched run counts NAME mentions with the **capitalisation** rule (313) and the patched run counts them
+> with the **organ** (310), because that is precisely the thing the patch changes. They land within 3 of each
+> other on the raw-cased coref stream, consistent with the per-document LitBank counts in section 9 (caps
+> 54/57 vs organ 53/64). **The stream where the wire is transformative is `referent_per_np`, where the count
+> goes from 0 to 150** -- not this one.
+
 ## 23. IS THE SESSION EXHAUSTED? -- the honest answer, lever by lever
 
 **From this seat, on this brief's remit: YES, and here is the ledger that says so.** Every lever I can build
@@ -772,6 +797,7 @@ measured; what remains is either (i) bounded by arithmetic, (ii) owned by a name
 | the wire's head-domain defect | **BUILT + FIXED + MEASURED** | -0.0074 -> +0.0023; and the wire is then the simple predicate |
 | restore the case in `_mk_referent` | **BUILT, NULL, EXPLAINED** | the case is gone one level up |
 | the entity-QA id-space defect | **LOCATED + REPAIRED + WITNESSED** | 0 -> 200 questions, witness green twice |
+| no-regress for the entity patch | **RUN** | reader coref_acc IDENTICAL 0.6421; entity layer consolidates 7 files (-0.26%) |
 | the paired-subpopulation conversion | **BUILT, CI-SEPARATED** | +0.0193 [+0.0057,+0.0318] where the organ is right |
 | the reader's lowercasing | **LOCATED + MEASURED + PROPOSED + RUN END-TO-END** | -0.4076 PROPN F1 at the organ; the flip is SAFE (nothing broke), coref-neutral (0.6421 -> 0.6421), +108 referent files (+4.1%); the A/B is strategy's |
 | the board rows' faithfulness to the reader | **BUILT, and it REFUTED the row** | a worse organ makes the common-noun margin go UP and separate; margins are not comparable across arms whose typing differs |
