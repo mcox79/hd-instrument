@@ -722,6 +722,37 @@ see it**, exactly as pri 104 found for the name decision itself. Anyone landing 
 the board not to move and should measure it where it lands: the entity files, the aliaser, the cross-type
 experiencer bind, who-did-what.
 
+## 22b. THE CASE FLIP RUN END-TO-END ON THE READER -- it is SAFE, and it is NEUTRAL on coref
+
+`lower=False` applied at the reader's own call sites, both arms on the same 8 LitBank documents, patched
+sources executed with no repo write:
+
+| | weighted `coref_acc` (570 targets) | entities | with heads | NAME mentions typed | coref questions |
+|---|---|---|---|---|---|
+| **as it ships** (`lower=True`) | **0.6421** | 2,640 | 2,524 | 310 | 200 |
+| **`lower=False`** | **0.6421** | **2,748** | **2,632** | 310 | 200 |
+
+**THREE HONEST READINGS.**
+
+1. **NOTHING BROKE.** No crash, no misalignment, no consumer that assumes lowercase failed. That is the
+   question that mattered before proposing the flip, and the answer is clean.
+2. **THE READER'S PRONOUN COREF DOES NOT MOVE -- 0.6421 to four decimals.** The sixth independent
+   confirmation that the pronoun pick's load-bearing inputs are closed-class and do not depend on the name
+   decision. Anyone expecting the case flip to lift coref should not.
+3. **THE ENTITY LAYER GROWS BY 108 REFERENT FILES (+4.1%), all of them with surface heads** (2,524 -> 2,632).
+   That is where the case lands: `referent_per_np._content_head_positions` only opens a referent for a token
+   the organ tags NOUN/PROPN, so restoring case finds 108 content heads it was missing on 8 documents -- and
+   `frame_heads`' mid-sentence-CAPITAL cue can fire again.
+
+> **ONE NUMBER IN THAT TABLE MUST NOT BE MISREAD, and it is my own diff's doing.** "NAME mentions typed" is
+> **identical (310)** because it is counted on the **coref-column** stream, which under my patch is already
+> tagged from the RAW-CASED CoNLL tokens (section 18c-bis). It *cannot* move with the flip. The stream the
+> flip actually helps is `referent_per_np`, and that is the +108 column.
+
+**SO THE FLIP'S CASE RESTS ON THE ORGAN-LEVEL NUMBER (-0.4076 PROPN F1, -0.0275 all-tag) AND THE +4.1% ENTITY
+LAYER, NOT ON ANY COREF ROW.** It is safe to A/B and it should be A/B'd against the consumers that read the
+entity layer -- the aliaser, the crosstype experiencer bind, who-did-what -- not against coref.
+
 ## 23. IS THE SESSION EXHAUSTED? -- the honest answer, lever by lever
 
 **From this seat, on this brief's remit: YES, and here is the ledger that says so.** Every lever I can build
