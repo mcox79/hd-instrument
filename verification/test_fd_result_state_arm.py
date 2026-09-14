@@ -115,9 +115,17 @@ try:
     FDV._RS_TABLE = {}
     FDV._RS_CACHE.clear()
     FDV._EV_CACHE.clear()
-    fb = FDV.endstate_valence_sign("stab")          # strong negative norm -> still decided by the norm
-    ab = FDV.endstate_valence_sign("batter")        # weak norm, no asset -> abstains (no list behind it)
-    check("W5 absent asset -> word-level fallback, no hidden list", fb == -1 and ab is None, f"stab={fb} batter={ab}")
+    fb = FDV.endstate_valence_sign("stab")          # strong negative norm -> still decided (norm or sense-keyed value)
+    ab = FDV.endstate_valence_sign("batter")        # 2026-09-13 pri 100: the SENSE-KEYED value (step 2) may now decide batter from
+    #                                                 its own senses (HARM) where the word norm was weak -- a richer step 2, not a list
+    check("W5 absent asset -> stab still HARM; batter decided by the sense-keyed read or abstains (no hidden list)",
+          fb == -1 and ab in (-1, None), f"stab={fb} batter={ab}")
+    # the "no hidden list" claim, isolated: batter is now decided by MECHANISMS (the sense-keyed value, pri 100; the manner of
+    # its definition 'strike repeatedly', pri 98), so the probe must be a verb NO rung can decide -- wrench (BOUNDARY: no result
+    # state in the foundation, weak norm, no valued manner/genus) must still ABSTAIN with the asset absent.
+    wb = FDV.endstate_valence_sign(BOUNDARY[0])
+    check("W5b absent asset -> a verb no rung can decide (wrench) abstains: no hidden list behind the cascade", wb is None,
+          f"{BOUNDARY[0]}={wb}")
 finally:
     FDV._RS_TABLE = _saved
     FDV._RS_CACHE.clear()
