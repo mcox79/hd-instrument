@@ -52,26 +52,12 @@ KEEP_FULL = {"nsubj:pass", "obl:agent", "csubj:pass"}
 # precision HELD; every live label consumer already distinguishes nsubj:pass (map §2), so the correction feeds them
 # the label they already want. The obj/obl case is NOT corrected here (over-fires; it needs the learned ranker).
 # ======================================================================================================
-VOICE_CORRECTION: bool = True     # the LIVE default (owner-DONE; measured no-regress, patient recall up)
-_BE_AUX = {"be", "is", "are", "was", "were", "been", "being", "am", "get", "got", "gotten"}
-
-
-def label_voice_correct(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int],
-                        labels: Dict[int, str]) -> Dict[int, str]:
-    """An `nsubj` whose head is a VERB/AUX carrying a be/get auxiliary child and a past-participle form -> `nsubj:pass`.
-    Indices 1-based (dep -> head); `labels` is not mutated."""
-    n = len(toks)
-    out = dict(labels)
-    ch: Dict[int, list] = {}
-    for i in range(1, n + 1):
-        ch.setdefault(heads.get(i, 0), []).append(i)
-    for i in range(1, n + 1):
-        h = heads.get(i, 0)
-        if h and pos[h - 1] in ("VERB", "AUX") and out.get(i) == "nsubj":
-            aux = [c for c in ch.get(h, []) if pos[c - 1] == "AUX" and toks[c - 1].lower() in _BE_AUX]
-            if aux and toks[h - 1].lower().endswith(("ed", "en")):
-                out[i] = "nsubj:pass"
-    return out
+# RETIRED 2026-09-14 (pri 111): `VOICE_CORRECTION` / `_BE_AUX` / `label_voice_correct` are DELETED. They were a
+# SIXTH implementation of the voice cue (an aux CHILD of the head plus an `ed`/`en` suffix), and they are DEAD on
+# the live path: counted on UD-EWT test 700, the correction changes 25 labels with the competition OFF and
+# EXACTLY ZERO with `COMPETITION_ROLES` live -- the Competition-Model organ below already decides every label it
+# would have changed, and decides it from a better voice read. The `voice_correction` keyword survives on
+# `label()` (accepted, ignored) so that no caller churns; it now truthfully names a step that does not exist.
 
 
 # ======================================================================================================
@@ -262,8 +248,8 @@ class ArcLabeler:
               voice_correction: "bool | None" = None, competition_roles: "bool | None" = None,
               head_posterior=None) -> Dict[int, str]:
         """Label each arc dep->head under the GIVEN head map. Returns {dep_idx(1-based): deprel}. Routes through
-        the byte-identical fast plan (~9x); output is identical to _predict_label for ANY weights (theorem). Then
-        the VOICE post-correction (module default VOICE_CORRECTION; pass False for the raw perceptron labels)."""
+        the byte-identical fast plan (~9x); output is identical to _predict_label for ANY weights (theorem).
+        `voice_correction` is ACCEPTED AND IGNORED since pri 111 retired the voice post-correction (see above)."""
         plan = self._ensure_fast()
         out: Dict[int, str] = {}
         n = len(tokens)
@@ -273,8 +259,7 @@ class ArcLabeler:
                 h = 0
             feats = arc_features(tokens, pos, i, h)
             out[i] = plan.predict(feats)
-        use = VOICE_CORRECTION if voice_correction is None else voice_correction
-        out = label_voice_correct(tokens, pos, heads, out) if use else out
+        # pri 111: the voice post-correction is retired (see the note above); `voice_correction` is ignored.
         use_cm = COMPETITION_ROLES if competition_roles is None else competition_roles
         return label_competition_roles(tokens, pos, heads, out, head_posterior=head_posterior) if use_cm else out
 

@@ -53,7 +53,7 @@ from hdlab.graded_competition import map_pick, net_activation, softmax
 from hdlab.relcl_resolver import (
     BE_AUX, RELATIVIZERS, _cands, is_object_gap, precise_passive, resolve_patient,
 )
-from hdlab.thematic_role_labeler import _is_participle, is_passive_clause, lemma_verb
+from hdlab.thematic_role_labeler import _is_participle, is_passive_clause, is_passive_predicate, lemma_verb
 
 CUES = ["order", "adjacency", "passive_strong", "passive_weak", "gap", "unacc", "byagent", "animacy"]
 NOMINAL = {"NOUN", "PROPN", "PRON"}
@@ -656,7 +656,10 @@ def coarse_role_cues(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, i
     if hc in ("VERB", "AUX") and h:
         vc = voice_cues(toks, pos, h)
         strong = bool(vc["vc_strong"] or vc["vc_get"] or vc["vc_being"])          # be/get/being + participle
-        weak = bool(vc["vc_bypp"] or is_passive_clause(toks, pos, h))             # by-PP / reduced-passive evidence
+        # pri 111: the voice cue is a property of the PREDICATE h, not of the sentence. (The old call also passed
+        # the head index `h` into `is_passive_clause`'s WINDOW parameter -- a latent defect: the scan widened with
+        # the predicate's position in the sentence.)
+        weak = bool(vc["vc_bypp"] or is_passive_predicate(toks, pos, h, heads=heads))   # by-PP / clause-local passive
         passive = strong or weak
         cues["voice_order"] = ("passive_strong_" if strong else ("passive_weak_" if weak else "active_")) + order
     else:
@@ -1478,12 +1481,25 @@ def participle_bypp_gate(toks, pos, v0):
     from exp_cmrole_agent_board_byhead_v1._participle_bypp_gate."""
     if not (0 <= v0 < len(toks)):
         return False
-    tag = pos[v0] if v0 < len(pos) else None
-    if not _is_participle(toks[v0], tag):
-        return False
+    # pri 111, REPAIRED 2026-09-14 16:10 after the byhead landing witness caught it. THE GATE IS A
+    # CONSTRUCTION DETECTOR, NOT A FINITE-CLAUSE VOICE READ, and the two are not the same question. The first
+    # fold asked `is_passive_predicate` alone, which REQUIRES an auxiliary -- so it dropped every REDUCED
+    # participial passive (`those used BY non-human animals`, `a display performed BY the male`, `mass divided
+    # BY volume`), which is exactly where a demoted agent lives. Measured on QA-SRL: gate recall on the clean
+    # agent-post slice fell 62/90 -> 53/90 and the byhead pick 0.6667 -> 0.6000.
+    # THE BRAIN'S FORM, and it is this organ's own story read in the other direction: the auxiliary OPENS the
+    # passive expectation and the by-phrase CONFIRMS it -- so when there is no auxiliary to open it, the
+    # confirmation carries the construction by itself. Fire on a by-governed NP plus EITHER the organ's voice
+    # read (an auxiliary opened the expectation, which also catches the irregular participles the suffix test
+    # missed -- `was blown up by a bomb`) OR participial morphology (the reduced passive). A strict SUPERSET of
+    # the pre-fold gate, so it cannot lose a firing it used to have.
     low = [t.lower() for t in toks]
-    return any(by_governs(low, pos, i) for i in range(len(toks))
-               if (pos[i] if i < len(pos) else None) in _BYHEAD_NOM)
+    if not any(by_governs(low, pos, i) for i in range(len(toks))
+               if (pos[i] if i < len(pos) else None) in _BYHEAD_NOM):
+        return False
+    if is_passive_predicate(toks, pos, v0 + 1):
+        return True
+    return _is_participle(toks[v0], pos[v0] if v0 < len(pos) else None)
 
 
 def _agent_pp_governed(low, up, p):
@@ -1581,7 +1597,7 @@ def agent_supports(toks, pos, v0, cands, gaz=None, cluster_freq=None, subj_befor
     skips a weighted cue with no support array). Landed 2026-09-04, VERBATIM from
     experiments/exp_cmrole_agent_struct_v1.py:cm_agent_pick_struct."""
     low = [t.lower() for t in toks]
-    passive = is_passive_clause(toks, pos)
+    passive = is_passive_predicate(toks, pos, v0 + 1)   # pri 111: the voice of THIS predicate, not of the sentence
     cf = cluster_freq or {}
     S = {"preverbal": [], "core_arg": [], "animacy": [], "salience": [], "adjacency": [], "byagent": []}
     # STRUCTURE cue: the incremental left-corner subject token bound for a verb AT v0 (self-gating; abstains
@@ -1762,7 +1778,7 @@ def agent_override_fires(toks, pos, v0, cands):
     by-phrase are scoped to the verb's clause span; role assignment is clause-local). Reads only toks/POS."""
     low = [t.lower() for t in toks]
     lo, hi = clause_bounds(toks, pos, v0)
-    passive_local = is_passive_clause(toks[lo:hi], pos[lo:hi])
+    passive_local = is_passive_predicate(toks, pos, v0 + 1)   # pri 111: predicate-anchored, not any passive in the span
     has_by = any(low[i] == "by" for i in range(lo, min(hi, len(low))))
     if passive_local and has_by:
         return True
@@ -1870,8 +1886,8 @@ def agent_override_licensed(toks, pos, heads, v0, cands, cm_head, validities=Non
         return True
     tab = validities or load_coarse_validities()
     rel = reliability if reliability is not None else load_margin_reliability()
-    from hdlab.thematic_role_labeler import is_passive_clause
-    want = "BY_AGENT" if is_passive_clause(list(toks), list(pos)) else "SUBJ"
+    from hdlab.thematic_role_labeler import is_passive_predicate
+    want = "BY_AGENT" if is_passive_predicate(list(toks), list(pos), v0 + 1, heads=heads) else "SUBJ"
     idx = {str(c["head"]).lower(): c["wtok_start"] + 1 for c in cands}
     p_b = _calibrated_agent_prob(toks, pos, heads, idx.get(str(base["head"]).lower(), -1), want, tab, rel)
     p_c = _calibrated_agent_prob(toks, pos, heads, idx.get(str(cm_head).lower(), -1), want, tab, rel)

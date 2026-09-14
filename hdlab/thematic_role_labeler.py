@@ -426,7 +426,12 @@ def _is_participle(word: str, pos_tag: Optional[str] = None) -> bool:
 
 
 def is_passive_clause(tokens: Sequence[str], pos: Sequence[str], window: int = 3) -> bool:
-    """BE-aux followed within `window` tokens (allowing an intervening adverb) by a past-participle.
+    """DEPRECATED (pri 111, 2026-09-14) -- SENTENCE-level, and therefore wrong for every consumer that is
+    deciding ONE predicate: precision 0.3784 / recall 0.8235 per predicate on UD-EWT test against
+    `is_passive_predicate`'s 0.9606 / 0.8971. Kept only for callers that genuinely want "does this sentence
+    contain a passive anywhere". New code calls `is_passive_predicate`.
+
+    BE-aux followed within `window` tokens (allowing an intervening adverb) by a past-participle.
     Optional trailing 'by' PP strengthens but is not required. Deliberately self-contained regex/
     POS-pattern (glass-box, in-repo, no external parser dependency) -- a boolean CUE VALUE, not a
     hard override on downstream role assignment.
@@ -444,6 +449,315 @@ def is_passive_clause(tokens: Sequence[str], pos: Sequence[str], window: int = 3
             break  # first non-adverb token after aux must be the participle or this site fails
     return False
 
+
+# THE VOICE CUE IS A PROPERTY OF ONE PREDICATE (2026-09-14, pri 111). `is_passive_clause` below scans the
+# WHOLE token sequence for any be-aux followed within 3 tokens by a past participle and returns ONE boolean
+# for the sentence, so a passive relative clause / coordinate clause / adjectival participle declares EVERY
+# predicate passive. Measured on UD-EWT test per predicate (live category organ + attachment arm): the
+# whole-sentence read scores precision 0.3784 at recall 0.8235; this predicate-anchored read scores
+# precision 0.9606 at recall 0.8971 on the same 2605 predicates (200 fixes, 11 breaks, head to head).
+#
+# THE BRAIN'S COMPUTATION, and why the evidence runs the other way round. Voice is a cue of the Competition
+# Model (Bates & MacWhinney 1989) and it is evaluated FOR THE PREDICATE whose arguments are being assigned,
+# inside that predicate's clause (the clause is the perceptual unit of sentence processing -- Fodor & Bever
+# 1965; Frazier & Fodor 1978). The participial SUFFIX is not the evidence: `-ed` is systematically ambiguous
+# between the simple past and the participle, which is exactly why "the horse raced past the barn fell" is a
+# garden path (Bever 1970; Trueswell, Tanenhaus & Garnsey 1994). What carries the cue is the AUXILIARY, heard
+# FIRST, which opens the passive expectation for the predicate it attaches to (incremental interpretation --
+# Marslen-Wilson 1973; anticipatory use of the verb/aux -- Altmann & Kamide 1999; early use of voice
+# morphology as an actor/undergoer cue -- Bornkessel-Schlesewsky & Schlesewsky 2006/2009 eADM). The very next
+# non-adverbial word then CONFIRMS it (a participial main verb) or CANCELS it (a determiner -> the aux was a
+# copula; an infinitival `to` -> a new predicate opens; `-ing` -> the construction is progressive, i.e.
+# ACTIVE). So the operation is an UNBROKEN LEFT CHAIN from the predicate, not a window search over the
+# sentence -- and the by-phrase, when it comes, is confirmation of the demoted agent, not a requirement.
+# =================================================================================================
+# The auxiliary that carries English voice. Finite and non-finite are kept apart because only a FINITE
+# be can appear to the RIGHT of a fronted participle ("Attached IS a spreadsheet"); "be"/"been"/"being"
+# cannot invert.
+_BE_FINITE = frozenset({"is", "are", "was", "were", "am", "'s", "'re", "'m", "ai"})
+_BE_NONFINITE = frozenset({"be", "been", "being"})
+_BE_FORMS = _BE_FINITE | _BE_NONFINITE
+_GET_FORMS = frozenset({"get", "gets", "got", "gotten", "getting"})
+_AUX_POS = ("AUX", "VERB")                     # the category organ tags contracted/odd auxiliaries either way
+# What the auxiliary chain may cross without breaking: adverbs, negation, stacked auxiliaries, a hyphen or a
+# quote. NOT a determiner, NOT a nominal, NOT a preposition -- each of those cancels the passive expectation.
+_CHAIN_POS = frozenset({"ADV", "PART", "AUX"})
+_CHAIN_PUNCT = frozenset({"-", "--", '"', "'", "``", "''", chr(0x201C), chr(0x201D)})   # ASCII source
+# `to` (and its spoken form `ta`) opens a NEW predicate: "will be around to assist" is not "be assist".
+_CHAIN_STOP_WORDS = frozenset({"to", "ta"})
+_COORD_WORDS = frozenset({"and", "or", "nor"})
+# ADJECTIVAL-PASSIVE evidence (Wasow 1977): a degree modifier selects the STATIVE adjectival participle
+# ("was VERY tired"), which demotes no agent and must not license an override.
+_DEGREE_MOD = frozenset({"very", "quite", "so", "too", "rather", "extremely", "fairly", "somewhat",
+                        "pretty", "really", "most", "more", "less", "least", "highly", "deeply"})
+# REDUCED SEMI-MODAL HOSTS: "gon na" / "got ta" / "wan na" are the spoken reductions of going-to / got-to /
+# want-to. The host ("gon") is not an -ing form, so the -ing test alone lets `is gon na start` through as a
+# passive; the giveaway is the token AFTER it -- `na`/`ta` occur in English ONLY as the reduced infinitival
+# marker of these forms, and no passive participle is ever followed by one. Found on GENTLE (the OOD split),
+# where 19 of 21 remaining false fires were "gon na".
+_REDUCED_INFINITIVE = frozenset({"na", "ta"})
+VOICE_VALUES = ("be_arc", "be_chain", "get_arc", "get_chain", "be_inv", "conj", "prog", "semimodal",
+                "none", "na")
+PASSIVE_VALUES = ("be_arc", "be_chain", "get_arc", "get_chain", "be_inv", "conj")
+VOICE_THETA = 0.5
+
+
+def _low(toks):
+    return [t.lower() for t in toks]
+
+
+def _is_ing(word):
+    return word.lower().endswith("ing")
+
+
+def _aux_chain_left(toks, pos, v):
+    """Walk LEFT from the predicate at v (1-based) across adverbs / negation / stacked auxiliaries / a hyphen
+    or quote, and return (kind, index) of the first BE/GET auxiliary reached, else None. Anything else --
+    a determiner, a nominal, a preposition, an infinitival `to` -- CANCELS the expectation and stops the walk.
+    This is the incremental form of 'the auxiliary chain attached to THIS predicate'."""
+    low = _low(toks)
+    j = v - 1
+    while j >= 1:
+        w = low[j - 1]
+        p = pos[j - 1] if j - 1 < len(pos) else None
+        if p in _AUX_POS and w in _BE_FORMS:
+            return ("be", j)
+        if p in _AUX_POS and w in _GET_FORMS:
+            return ("get", j)
+        if w in _CHAIN_STOP_WORDS:
+            return None
+        if p in _CHAIN_POS or w in ("not", "n't") or (p == "PUNCT" and w in _CHAIN_PUNCT):
+            j -= 1
+            continue
+        return None
+    return None
+
+
+def _clause_span(toks, pos, v):
+    """[lo, hi) 0-based clause span of the predicate at v (1-based). Reuses the organ's own segmentation."""
+    from hdlab.graded_role_assigner import clause_bounds
+    return clause_bounds(list(toks), list(pos), v - 1)
+
+
+def _inverted_aux(toks, pos, v):
+    """Fronted participle with a POSTPOSED finite auxiliary: 'Attached is a spreadsheet'. Licensed only when
+    the predicate is the clause-initial token, the finite be follows across adverbs only, and a nominal
+    follows it (the postposed subject). Without all three this is the 'happens to be' false-fire."""
+    low = _low(toks)
+    n = len(toks)
+    lo, hi = _clause_span(toks, pos, v)
+    if v - 1 != lo:
+        return False
+    j, steps = v + 1, 0
+    while j <= n and steps < 3:
+        w = low[j - 1]
+        p = pos[j - 1] if j - 1 < len(pos) else None
+        if p in _AUX_POS and w in _BE_FINITE:
+            return any((pos[k] if k < len(pos) else None) in ("NOUN", "PROPN", "PRON")
+                       for k in range(j, min(n, hi)))
+        if p in _CHAIN_POS:
+            j += 1
+            steps += 1
+            continue
+        return False
+    return False
+
+
+def _bare_aux_value(toks, pos, v, heads=None):
+    """The auxiliary cue value at v WITHOUT the coordination cue (used as the base of the coordination read)."""
+    c = _aux_chain_left(toks, pos, v)
+    if c is not None:
+        kind, j = c
+        if heads and heads.get(j) == v:       # the reader's own arc CONFIRMS the auxiliary belongs to v
+            return kind + "_arc"
+        return kind + "_chain"
+    if _inverted_aux(toks, pos, v):
+        return "be_inv"
+    return "none"
+
+
+def _conj_of_passive(toks, pos, v, heads=None):
+    """Across-the-board auxiliary sharing: 'the artworks were selected and EXHIBITED'. The second conjunct
+    carries no auxiliary of its own; the coordinator is the cue that it inherits the first conjunct's voice.
+    Read from the SURFACE coordinator, not from an arc -- an arc says 'v depends on h', never 'this is
+    coordination', and a head-based read wrongly inherits voice across xcomp/ccomp/advcl (measured: gold
+    heads 34 false fires against 12 for the surface read)."""
+    low = _low(toks)
+    j = v - 1
+    while j >= 1:
+        w = low[j - 1]
+        p = pos[j - 1] if j - 1 < len(pos) else None
+        if w in _COORD_WORDS or (p == "PUNCT" and w == ","):
+            k = j - 1
+            while k >= 1:
+                pk = pos[k - 1] if k - 1 < len(pos) else None
+                if pk == "VERB":
+                    return (not _is_ing(toks[k - 1])) and _bare_aux_value(toks, pos, k, heads) != "none"
+                if pk in ("NOUN", "PROPN", "PRON", "ADP", "SCONJ"):
+                    return False
+                k -= 1
+            return False
+        if p in _CHAIN_POS or w in ("not", "n't") or (p == "PUNCT" and w in _CHAIN_PUNCT):
+            j -= 1
+            continue
+        return False
+    return False
+
+
+def voice_cue_value(toks, pos, v, heads=None, use_conj=True):
+    """THE CUE VALUE for the predicate at v (1-based). One of VOICE_VALUES.
+      na        -- v is not a predicate the cue applies to
+      prog      -- [be V-ing]: the auxiliary is there but the construction is PROGRESSIVE, i.e. ACTIVE
+      be_arc    -- a BE auxiliary the reader's own parse attached to v, reached by an unbroken chain
+      be_chain  -- a BE auxiliary reached by an unbroken chain (no arc, or the arc says otherwise)
+      get_arc / get_chain -- the GET-passive ('got yelled at')
+      be_inv    -- fronted participle with a postposed finite be ('Attached is a spreadsheet')
+      conj      -- a bare conjunct sharing the first conjunct's auxiliary
+      none      -- no voice evidence at this predicate
+    """
+    if v < 1 or v - 1 >= len(pos) or pos[v - 1] != "VERB":
+        return "na"
+    if _is_ing(toks[v - 1]):
+        return "prog"
+    if v < len(toks) and toks[v].lower() in _REDUCED_INFINITIVE:
+        return "semimodal"                      # `is gon na V` / `got ta V`: a future/modal periphrasis
+    a = _bare_aux_value(toks, pos, v, heads)
+    if a != "none":
+        return a
+    if use_conj and _conj_of_passive(toks, pos, v, heads):
+        return "conj"
+    return "none"
+
+
+def morph_value(toks, v):
+    """The predicate's own participial morphology as the reader perceives it. `ed` is the -ed GARDEN PATH
+    (past OR participle); `en` is the unambiguous strong participle; `other` is a bare/irregular form which
+    the auxiliary construction alone has to carry."""
+    w = toks[v - 1].lower().strip(".,\"'();:")
+    if w.endswith("ing"):
+        return "ing"
+    if w.endswith("ed") and len(w) > 3:
+        return "ed"
+    if w.endswith("en") and len(w) > 3:
+        return "en"
+    return "other"
+
+
+def by_value(toks, pos, v, heads=None):
+    """Is the demoted agent's by-phrase present for THIS predicate -- inside its clause, after it, with a
+    nominal governed by `by`? The morphological confirmation of the passive construction."""
+    low = _low(toks)
+    lo, hi = _clause_span(toks, pos, v)
+    for j in range(v, min(hi, len(low))):
+        if low[j] != "by":
+            continue
+        for k in range(j + 1, min(hi, len(low))):
+            p = pos[k] if k < len(pos) else None
+            if p in ("NOUN", "PROPN", "PRON"):
+                if heads and heads.get(k + 1) not in (None, 0) and heads.get(j + 1) not in (None, 0):
+                    pass                                  # arcs are read as confirmation only, never as a gate
+                return "by"
+            if p in ("DET", "ADJ", "NUM", "PUNCT"):
+                continue
+            break
+    return "none"
+
+
+def degree_value(toks, pos, v):
+    """Adjectival-passive evidence (Wasow 1977): a degree modifier immediately before the participle selects
+    the STATIVE adjectival reading ('was VERY tired'), which demotes no agent."""
+    low = _low(toks)
+    j = v - 1
+    steps = 0
+    while j >= 1 and steps < 3:
+        w = low[j - 1]
+        if w in _DEGREE_MOD:
+            return "deg"
+        p = pos[j - 1] if j - 1 < len(pos) else None
+        if p == "ADV":
+            j -= 1
+            steps += 1
+            continue
+        break
+    return "none"
+
+
+def cue_config(toks, pos, v, heads=None, use_conj=True):
+    """The full cue configuration the posterior is keyed on."""
+    return (voice_cue_value(toks, pos, v, heads, use_conj), morph_value(toks, v),
+            by_value(toks, pos, v, heads), degree_value(toks, pos, v))
+
+
+# ------------------------------------------------------------------ counts -> P(passive | configuration)
+def empty_counts():
+    return {"cfg": {}, "aux": {}, "base": [0.0, 0.0], "alpha": 4.0}
+
+
+def observe_voice_outcome(toks, pos, v, was_passive, counts, heads=None, use_conj=True):
+    """ONE count per understood predicate -- the online observe path. Nothing is frozen."""
+    a, m, b, d = cue_config(toks, pos, v, heads, use_conj)
+    if a == "na":
+        return
+    k = "%s|%s|%s|%s" % (a, m, b, d)
+    for tbl, key in ((counts["cfg"], k), (counts["aux"], a)):
+        c = tbl.setdefault(key, [0.0, 0.0])
+        c[0] += 1.0 if was_passive else 0.0
+        c[1] += 1.0
+    counts["base"][0] += 1.0 if was_passive else 0.0
+    counts["base"][1] += 1.0
+
+
+def voice_posterior(toks, pos, v, counts, heads=None, use_conj=True):
+    """P(passive | the cue configuration at v). Dirichlet-smoothed toward the AUX-VALUE marginal, which is
+    itself smoothed toward the base rate -- the shrinkage IS the backoff (same form as the coarse-role
+    validities). Returns 0.0 for a non-predicate."""
+    a, m, b, d = cue_config(toks, pos, v, heads, use_conj)
+    if a == "na":
+        return 0.0
+    alpha = float(counts.get("alpha", 4.0))
+    bs = counts.get("base", [0.0, 0.0])
+    p_base = (bs[0] + 1.0) / (bs[1] + 2.0) if bs[1] else 0.05
+    ca = counts.get("aux", {}).get(a, [0.0, 0.0])
+    p_aux = (ca[0] + alpha * p_base) / (ca[1] + alpha)
+    cc = counts.get("cfg", {}).get("%s|%s|%s|%s" % (a, m, b, d), [0.0, 0.0])
+    return float((cc[0] + alpha * p_aux) / (cc[1] + alpha))
+
+
+def is_passive_predicate(toks, pos, v, heads=None, counts=None, theta=None, use_conj=True):
+    """THE BOOLEAN the four call sites need. With counts -> the graded posterior at a criterion; without ->
+    the construction read (the cue value is a passive construction value). Both are clause-local and
+    predicate-anchored; neither ever reads another clause's auxiliary."""
+    if counts is None:
+        return voice_cue_value(toks, pos, v, heads, use_conj) in PASSIVE_VALUES
+    th = VOICE_THETA if theta is None else float(theta)
+    return voice_posterior(toks, pos, v, counts, heads, use_conj) >= th
+
+
+def voice_counts_asset():
+    """Where the plastic counts live (the repo's hook_state, beside the other accrued reading assets)."""
+    import os as _os
+    return _os.path.join(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))),
+                         "data", "hook_state", "passive_voice_counts_v1.json")
+
+
+def load_voice_counts(path=None):
+    """The plastic side of the cue: counts on disk, or None (then the construction read is the decision)."""
+    import json as _json
+    import os as _os
+    p = voice_counts_asset() if path is None else path
+    if not _os.path.exists(p):
+        return None
+    with open(p, encoding="utf-8") as f:
+        return _json.load(f)
+
+
+def save_voice_counts(counts, path=None):
+    import json as _json
+    import os as _os
+    p = voice_counts_asset() if path is None else path
+    _os.makedirs(_os.path.dirname(p), exist_ok=True)
+    with open(p, "w", encoding="utf-8") as f:
+        _json.dump(counts, f, indent=1, sort_keys=True)
 
 # ---------------------------------------------------------------------------------------------
 # EARNED cue-integration: feature-dict builder for a (verb_idx, arg_idx) candidate pair.

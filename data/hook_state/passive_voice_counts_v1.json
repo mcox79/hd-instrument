@@ -1,0 +1,221 @@
+{
+ "alpha": 4.0,
+ "aux": {
+  "be_arc": [
+   1236.0,
+   1275.0
+  ],
+  "be_chain": [
+   6.0,
+   8.0
+  ],
+  "be_inv": [
+   22.0,
+   22.0
+  ],
+  "conj": [
+   28.0,
+   45.0
+  ],
+  "get_arc": [
+   19.0,
+   20.0
+  ],
+  "get_chain": [
+   15.0,
+   17.0
+  ],
+  "none": [
+   99.0,
+   17254.0
+  ],
+  "prog": [
+   1.0,
+   2947.0
+  ],
+  "semimodal": [
+   0.0,
+   13.0
+  ]
+ },
+ "base": [
+  1426.0,
+  21601.0
+ ],
+ "cfg": {
+  "be_arc|ed|by|deg": [
+   2.0,
+   2.0
+  ],
+  "be_arc|ed|by|none": [
+   138.0,
+   140.0
+  ],
+  "be_arc|ed|none|deg": [
+   6.0,
+   6.0
+  ],
+  "be_arc|ed|none|none": [
+   807.0,
+   818.0
+  ],
+  "be_arc|en|by|none": [
+   10.0,
+   10.0
+  ],
+  "be_arc|en|none|deg": [
+   1.0,
+   1.0
+  ],
+  "be_arc|en|none|none": [
+   35.0,
+   36.0
+  ],
+  "be_arc|other|by|deg": [
+   1.0,
+   1.0
+  ],
+  "be_arc|other|by|none": [
+   21.0,
+   21.0
+  ],
+  "be_arc|other|none|deg": [
+   2.0,
+   4.0
+  ],
+  "be_arc|other|none|none": [
+   213.0,
+   236.0
+  ],
+  "be_chain|ed|by|none": [
+   1.0,
+   1.0
+  ],
+  "be_chain|ed|none|none": [
+   4.0,
+   4.0
+  ],
+  "be_chain|other|none|none": [
+   1.0,
+   3.0
+  ],
+  "be_inv|ed|by|none": [
+   1.0,
+   1.0
+  ],
+  "be_inv|ed|none|none": [
+   21.0,
+   21.0
+  ],
+  "conj|ed|by|none": [
+   3.0,
+   3.0
+  ],
+  "conj|ed|none|none": [
+   21.0,
+   29.0
+  ],
+  "conj|en|none|none": [
+   1.0,
+   1.0
+  ],
+  "conj|other|by|none": [
+   0.0,
+   1.0
+  ],
+  "conj|other|none|none": [
+   3.0,
+   11.0
+  ],
+  "get_arc|ed|by|none": [
+   1.0,
+   1.0
+  ],
+  "get_arc|ed|none|none": [
+   13.0,
+   14.0
+  ],
+  "get_arc|en|none|none": [
+   1.0,
+   1.0
+  ],
+  "get_arc|other|none|none": [
+   4.0,
+   4.0
+  ],
+  "get_chain|ed|none|none": [
+   9.0,
+   11.0
+  ],
+  "get_chain|en|none|none": [
+   1.0,
+   1.0
+  ],
+  "get_chain|other|none|none": [
+   5.0,
+   5.0
+  ],
+  "none|ed|by|none": [
+   7.0,
+   193.0
+  ],
+  "none|ed|none|deg": [
+   0.0,
+   31.0
+  ],
+  "none|ed|none|none": [
+   63.0,
+   3097.0
+  ],
+  "none|en|by|none": [
+   0.0,
+   10.0
+  ],
+  "none|en|none|none": [
+   3.0,
+   201.0
+  ],
+  "none|other|by|deg": [
+   0.0,
+   1.0
+  ],
+  "none|other|by|none": [
+   3.0,
+   264.0
+  ],
+  "none|other|none|deg": [
+   0.0,
+   107.0
+  ],
+  "none|other|none|none": [
+   23.0,
+   13350.0
+  ],
+  "prog|ing|by|deg": [
+   0.0,
+   1.0
+  ],
+  "prog|ing|by|none": [
+   0.0,
+   57.0
+  ],
+  "prog|ing|none|deg": [
+   0.0,
+   13.0
+  ],
+  "prog|ing|none|none": [
+   1.0,
+   2876.0
+  ],
+  "semimodal|other|none|deg": [
+   0.0,
+   1.0
+  ],
+  "semimodal|other|none|none": [
+   0.0,
+   12.0
+  ]
+ },
+ "n_predicates": 22576,
+ "source": "UD-EWT train, live category organ + attachment arm, target = propagated voice gold"
+}

@@ -141,18 +141,17 @@ def hybrid_agent_pick(toks, up, v, cands, cm_cands, gaz, weights=None):
       (3) the positional pick is a NON-NOMINATIVE pronoun (case cue: him/her/them cannot be the subject).
     On modern canonical prose word-order already wins (position ~0.86), so a FULL competition that always
     overrides HURTS (19c-tuned secondary cues mis-fire); this preserves position AND fixes its specific
-    failure modes. Returns a head string."""
-    base_i = _floor_positional_idx(v, cands)
-    base = toks[base_i] if base_i is not None else None
-    from hdlab.thematic_role_labeler import is_passive_clause
-    low_base = str(base).lower() if base is not None else ""
-    passive = is_passive_clause(toks, up)
-    pp_gov = base_i is not None and GRA._agent_pp_governed([t.lower() for t in toks], up, base_i)
-    noncase = low_base in GRA._AGENT_ANIM_PRON and low_base not in GRA.NOMINATIVE_PRON
-    if passive or pp_gov or noncase:
-        return GRA.agent_competition_pick(toks, up, v - 1, cm_cands, cluster_freq=None,
-                                          weights=weights, gaz=gaz)
-    return base                                                  # canonical: word-order default (== positional)
+    failure modes. Returns a head string.
+
+    RETIRED AS A SEPARATE IMPLEMENTATION (pri 111, 2026-09-14) -- this is now a THIN CALL to the ONE
+    organ. It had drifted from hdlab.graded_role_assigner.hybrid_agent_pick in two ways, both live:
+    the voice cue was read over the WHOLE SENTENCE with no by-phrase requirement (the organ scopes it
+    to the predicate being decided and requires the by-phrase), and `byhead_agent_cue` was never
+    passed, so it defaulted to False and the by-phrase CASE cue landed 2026-09-06 never reached the
+    board. `cm_cands` stays in the signature for the callers that pass it; the organ competes over the
+    same list it takes its positional default from, which is what the live reader does
+    (situation_reader passes one `acand`)."""
+    return GRA.hybrid_agent_pick(toks, up, v - 1, cands, cluster_freq=None, weights=weights, gaz=gaz)
 
 
 def _match(pred_head, gold_head):

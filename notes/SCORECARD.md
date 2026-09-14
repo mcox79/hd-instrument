@@ -14,6 +14,7 @@ NEW word means from what it reads, using its sense of how things feel and look, 
 near the top about 38 times in 100 where the old method managed about 3.
 
 ## WHAT CHANGED LATELY
+- **14 Sep, 16:41.** Landed: the system now judges whether a clause is passive by looking at the helper verb right before the verb in question, not anywhere in the sentence. Its passive detector went from 38 to 96 in 100 correct; 'who did it' on the board 82.7 -> 85.6 in 100, and for the first time clearly better than the simple word-order rule (84.7). Six separate passive checkers became one. Overall board 61.9 in 100.
 - **14 Sep, 14:42.** Switched on: the who-was-acted-on organ now takes each word's role from the role organ instead of guessing from word order (about +3.5 in 100 on its own test, clearly beyond chance on both halves of the data; the board cannot see this organ, so its own test is the gauge).
 - **14 Sep, 14:30.** Landed: a sentence whose only verb-like word is 'is' or 'has' now counts as having a predicate (the grammar books the system learned from call those helper words). The word-attachment organ gets about 1 in 100 more attachments right overall and 5 in 100 more on exactly those sentences; the sentences the reader could not see at all fell from 33 to 9 in 1,240. Board: 'who was acted on' 81.0 -> 81.2, everything else unchanged.
 - **14 Sep, 13:11.** Eighteen of the 275 test stories turned out to have their words blacked out (only the answer key survives), so the system was being asked to read blank pages. Dropping them: 'which earlier thing is this common noun' 49.3 -> 54.7 in 100 (the simple rule gets 54.0, so still about even), 'main character' 29.9 -> 27.3 (small set), 'who does the pronoun refer to' unchanged at 41.7. Overall board 61.5 in 100 on the honest basis (was 59.3 with the blank pages counted). Separately, the who-was-acted-on organ now reads the role organ's decision instead of guessing from word order (gain measured by the solver at about +9 in 100 on its own test; the board cannot see that organ, so it stays switched off until we measure it ourselves).
@@ -183,7 +184,7 @@ Long term (the next few months):
 
 <!-- AUTO:BEGIN (written by tools/scorecard.py; edit the sections ABOVE, not this) -->
 
-Last full check: 2026-09-14T18:30:03.731062+00:00 (43 on record). Generated 2026-09-14T18:42:20+00:00.
+Last full check: 2026-09-14T20:19:32.104623+00:00 (45 on record). Generated 2026-09-14T20:42:46+00:00.
 
 | Ability | Group | How well | Compared with a simple rule | Since the previous check | Brain-faithful? |
 |---|---|---|---|---|---|
@@ -201,14 +202,14 @@ Last full check: 2026-09-14T18:30:03.731062+00:00 (43 on record). Generated 2026
 | How a word's meaning shifts with its context (graded) | Word meaning | agreement with people 0.39 (out of 1) | clearly better than the simple rule (0.38) | unchanged since the previous check | brain model; some details still open |
 | Picking the right broad sense of an ambiguous word (older test set) | Word meaning | right 52 in 100 | clearly better than the simple rule (35 in 100) | unchanged since the previous check | brain model; some details still open |
 | What something is or is like ('the sky is blue') | Actions and roles | right 75 in 100 | clearly better than the simple rule (57 in 100) | unchanged since the previous check | brain model; some details still open |
-| Who did the action in a sentence | Actions and roles | right 83 in 100 | not better than the simple rule (85 in 100) yet | unchanged since the previous check | brain model; one part is a stand-in we are replacing |
-| Who or what the action was done to | Actions and roles | right 81 in 100 | clearly better than the simple rule (72 in 100) | unchanged since the previous check | brain model; one part is a stand-in we are replacing |
+| Who did the action in a sentence | Actions and roles | right 86 in 100 | clearly better than the simple rule (85 in 100) | unchanged since the previous check | brain model; one part is a stand-in we are replacing |
+| Who or what the action was done to | Actions and roles | right 82 in 100 | clearly better than the simple rule (72 in 100) | unchanged since the previous check | brain model; one part is a stand-in we are replacing |
 | Keeping a fact true until something changes it | Actions and roles | right 100 in 100 | clearly better than the simple rule (44 in 100) | unchanged since the previous check | brain model; some details still open |
 | Event order when the text does not say it outright | Time and place | right 56 in 100 | clearly better than the simple rule (53 in 100) | unchanged since the previous check | brain model; some details still open |
 | Noticing where one scene ends and another begins | Time and place | right 12 in 100 | a little better than the simple rule (7 in 100), not yet convincingly | unchanged since the previous check | brain model; some details still open |
 | Picking out place information correctly | Time and place | right 59 in 100 | clearly better than the simple rule (51 in 100) | unchanged since the previous check | brain model; some details still open |
 | Where things are relative to each other | Time and place | right 20 in 100 | a little better than the simple rule (17 in 100), not yet convincingly | unchanged since the previous check | brain model; some details still open |
-| Whether a state still holds at a later point | Time and place | right 41 in 100 | clearly better than the simple rule (11 in 100) | DOWN 0.027 since the previous check | brain model; some details still open |
+| Whether a state still holds at a later point | Time and place | right 41 in 100 | clearly better than the simple rule (11 in 100) | unchanged since the previous check | brain model; some details still open |
 | Whether two events happened at the same time | Time and place | right 99 in 100 | clearly better than the simple rule (50 in 100) | unchanged since the previous check | brain model; some details still open |
 | Which of two events came first | Time and place | right 59 in 100 | clearly better than the simple rule (52 in 100) | unchanged since the previous check | brain model; some details still open |
 | Answering 'why' when the cause is sentences away | Causes | right 24 in 100 | clearly better than the simple rule (0 in 100) | unchanged since the previous check | brain model; some details still open |
@@ -221,7 +222,7 @@ Last full check: 2026-09-14T18:30:03.731062+00:00 (43 on record). Generated 2026
 | Whether an event helps or blocks a character's goal | Feelings, goals, beliefs | right 98 in 100 | clearly better than the simple rule (49 in 100) | unchanged since the previous check | brain model; some details still open |
 | Who is having the feeling | Feelings, goals, beliefs | right 21 in 100 | clearly better than the simple rule (14 in 100) | unchanged since the previous check | brain model; some details still open |
 | Working out what a new word means from reading | Learning from reading | right meaning ranked near the top 42 in 100 | clearly better than the simple rule (16 in 100) | unchanged since the previous check | brain model; some details still open |
-| Knowing when to hold back on 'who was acted on' | Knowing its limits | right 96 in 100 | clearly better than the simple rule (86 in 100) | unchanged since the previous check | brain model; one part is a stand-in we are replacing |
+| Knowing when to hold back on 'who was acted on' | Knowing its limits | right 96 in 100 | clearly better than the simple rule (87 in 100) | unchanged since the previous check | brain model; one part is a stand-in we are replacing |
 | Knowing when to hold back on a place or time attachment | Knowing its limits | right 84 in 100 | clearly better than the simple rule (76 in 100) | unchanged since the previous check | uses a stand-in we are replacing |
 
 Brain-faithfulness of the 90 building blocks: 8 copy the brain's math exactly, 76 are brain models with open details, 6 are stand-ins being replaced (arc_labeler, arc_parser, arceager_parser, commonnoun_binder, parse_confidence, pos_tagger).

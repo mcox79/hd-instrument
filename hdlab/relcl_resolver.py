@@ -43,7 +43,7 @@ __bf_corrections__ = []
 
 from typing import List, Optional, Sequence
 
-from hdlab.thematic_role_labeler import _is_participle   # participle test for the precise voice cue
+from hdlab.thematic_role_labeler import _is_participle, is_passive_predicate   # the ONE voice organ (pri 111)
 
 NOMINAL = {"NOUN", "PROPN", "PRON"}
 BE_AUX = {"is", "are", "was", "were", "be", "been", "being", "am"}
@@ -56,11 +56,31 @@ def _cands(pos: Sequence[str]) -> List[int]:
 
 
 def precise_passive(toks: Sequence[str], pos: Sequence[str], v: int) -> bool:
-    """Precise voice cue: a BE-aux in the 3 tokens before v AND the verb token is a past participle."""
+    """FOLDED ONTO THE ONE VOICE ORGAN (pri 111, 2026-09-14). This was a SECOND implementation of the same
+    computation -- "a BE-aux in the 3 tokens before v AND a past-participle suffix at v" -- and it is dominated
+    by `thematic_role_labeler.is_passive_predicate` on every population measured: per predicate, UD-EWT test
+    0.9464/0.7794 against 0.9606/0.8971, GUM 0.9321/0.7982 against 0.9503/0.8517, GENTLE (OOD) 0.9397/0.9083
+    against 0.9821/0.9167. The NAME is kept so that no call site churns; the COMPUTATION is now the organ's,
+    which means the get-passive, the fronted-participle inversion and the shared-auxiliary conjunct reach the
+    six consumers of this function for the first time, and `be + V-ing` stops reading as a passive.
+    Measured at the consumers before landing: the board's who-did-what PATIENT row 0.8120 -> 0.8135 with its
+    floor and its gold-parse ceiling unchanged."""
+    if is_passive_predicate(toks, pos, v):
+        return True
+    # WIDENED 2026-09-14 16:40 to a STRICT SUPERSET, by the same construction-population check that repaired
+    # the byhead gate. Measured on UD-EWT test (2605 predicates, 126 gold passive, live chain): the organ read
+    # ALONE loses 3 true passives this condition caught -- `especially oriented`, `was surprised`, `never been
+    # disappointed` -- all three because the CATEGORY organ tags the participle ADJ, so the voice cue abstains
+    # one rung above. Keeping the old window+suffix condition as a SECOND route recovers them: true positives
+    # 117 -> 120 for 5 more false fires, and at the consumer (the board's who-did-what PATIENT row, by the
+    # board's own function) the model is 0.8135 pre-fold / 0.8151 organ-only / 0.8167 here, with the margin
+    # over its own recomputed floor +0.0932 / +0.0924 / +0.0940. Not CI-separated from the organ-only form
+    # (half-width ~0.02); chosen because it is the only one of the three that cannot lose a firing either
+    # predecessor had, which is what a fold onto one organ has to guarantee.
     lo = max(1, v - 3)
     has_be = any(toks[j - 1].lower() in BE_AUX for j in range(lo, v))
     vtag = pos[v - 1] if v - 1 < len(pos) else None
-    return has_be and _is_participle(toks[v - 1], vtag)
+    return bool(has_be and _is_participle(toks[v - 1], vtag))
 
 
 def two_line_patient(toks: Sequence[str], pos: Sequence[str], v: int,

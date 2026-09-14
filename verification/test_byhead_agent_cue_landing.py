@@ -74,8 +74,14 @@ def w1_live_wire():
     v0 = 3
     anoms = [{"wtok_start": 1, "head": "mineral", "cluster": None, "is_pronoun": False},
              {"wtok_start": 7, "head": "process", "cluster": None, "is_pronoun": False}]
+    # 2026-09-14 (strategy, pri 111 landing): _cm_agent_for has returned (agent, margin, conf) since the precision-defer landing
+    # (2026-09-06); this witness still read a bare agent and crashed at its own format line ("not all arguments converted"),
+    # so the byhead CASE cue's landing witness had not executed for eight days -- which is how the board arm's duplicate
+    # came to omit byhead_agent_cue=True unnoticed (pri 111 section 17). Unpack the tuple; the checks are unchanged.
     a_on = r_on._cm_agent_for(toks, [anoms], {}, 0, v0)
     a_off = r_off._cm_agent_for(toks, [anoms], {}, 0, v0)
+    a_on = a_on[0] if isinstance(a_on, tuple) else a_on
+    a_off = a_off[0] if isinstance(a_off, tuple) else a_off
     print("    '%s'  ON=%s  OFF=%s" % (" ".join(toks), a_on, a_off))
     _ok("byhead ON resolves to the by-NP agent ('process')", a_on == "process", "ON=%s" % a_on)
     _ok("byhead OFF keeps the incumbent surface subject ('mineral')", a_off == "mineral", "OFF=%s" % a_off)
