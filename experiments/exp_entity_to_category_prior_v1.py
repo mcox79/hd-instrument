@@ -220,6 +220,8 @@ class EntityPriorCategories(LexicalCategories):
         self.ent_nconf = 0          # CONFIDENCE-WEIGHTING: scale kappa by how many prior mentions the card has
         self.reg_known_only = False  # THE REPAIRED PASSAGE REGISTER: calibrate on words the organ actually KNOWS
         self.ent_local = None        # THE SAME REPAIR ON THE ENTITY TABLE: a passage-local P(E|c) from KNOWN words
+        self.reg_offset = False      # correct the known-word calibration for the KNOWN/UNKNOWN bias (measured)
+        self._sp_offset: Dict[str, np.ndarray] = {}
         self._doc_ent: Dict[str, np.ndarray] = {}
         self._sent_syms: List[str] = []
         self._prec: Dict[str, float] = {}
@@ -372,6 +374,51 @@ class EntityPriorCategories(LexicalCategories):
             r += post[i]
 
     # -------------------------------------------------------------- inference
+    def _build_shape_offset(self) -> None:
+        """THE KNOWN/UNKNOWN OFFSET, estimated OFFLINE from the supply the organ already has.
+
+        A passage register calibrated on KNOWN words estimates the convention OF KNOWN WORDS, and the two
+        populations differ systematically: P(PROPN | Cap@mid) known vs unknown is 0.7374/0.8574 on UD-EWT test,
+        0.9259/0.9437 on GUM and 0.4460/0.6100 on GENTLE -- a capitalised word the organ already knows is 2 to 16
+        points LESS likely to be a name than one it has never seen. That bias is a property of the LANGUAGE, not of
+        the passage, so it can be measured once from the training supply by comparing its KNOWN slice with its
+        NOVEL-FORM stratum (the two evidence bases the organ already keeps) and divided out of every local
+        estimate. This is the missing piece that made the repaired register win on GENTLE and lose on GUM."""
+        T = len(self.tags)
+        nmax = max(1, LC.UNK_NOVEL_MAX)
+        wcnt: Counter = Counter()
+        wtag: Dict[str, np.ndarray] = {}
+        for i, t in enumerate(self.tags):
+            for w, n in self.emit[t].items():
+                wcnt[w] += n
+                v = wtag.get(w)
+                if v is None:
+                    v = wtag[w] = np.zeros(T)
+                v[i] += n
+        known: Dict[str, np.ndarray] = {}
+        novel: Dict[str, np.ndarray] = {}
+        for w, col in self.shape_pos_w.items():
+            v = wtag.get(w)
+            if v is None or v.sum() <= 0:
+                continue
+            v = v / v.sum()
+            tgt = novel if wcnt[w] <= nmax else known
+            den = float(sum(col.values()))
+            for sp, n in col.items():
+                r = tgt.get(sp)
+                if r is None:
+                    r = tgt[sp] = np.zeros(T)
+                r += v * (n / den)
+        self._sp_offset = {}
+        for sp in set(known) | set(novel):
+            k = known.get(sp)
+            u = novel.get(sp)
+            if k is None or u is None or k.sum() < 5 or u.sum() < 5:
+                continue
+            kp = (k + self.lam) / (k.sum() + self.lam * T)
+            up = (u + self.lam) / (u.sum() + self.lam * T)
+            self._sp_offset[sp] = np.log(up) - np.log(kp)
+
     def _log_shape_factor(self, w_raw: str, pos: str, known: bool) -> np.ndarray:
         base = super()._log_shape_factor(w_raw, pos, known)
         if self.theta_doc is None or known:
@@ -384,7 +431,13 @@ class EntityPriorCategories(LexicalCategories):
             return base
         a = nd / (nd + float(self.theta_doc))          # the organ's OWN reliability shrinkage, a = n / (n + theta)
         mx = float(base.max())
-        p = a * (r / nd) + (1.0 - a) * np.exp(base - mx)
+        loc = r / nd
+        if self.reg_offset:
+            off = self._sp_offset.get(self._unk_sym(w_raw, pos))
+            if off is not None:
+                loc = loc * np.exp(off)               # correct the known-word calibration for the measured bias
+                loc = loc / loc.sum()
+        p = a * loc + (1.0 - a) * np.exp(base - mx)
         p = p / p.sum()
         return np.log(p + 1e-12) + mx
 
@@ -710,6 +763,12 @@ ARMS = {
                                theta_doc=100.0, reg_known_only=True),
     "L5_k2_loc10_reg30": dict(ent_kappa=2.0, ent_recency=5, ent_skip_first=True, ent_local=10.0,
                               theta_doc=30.0, reg_known_only=True),
+    # --- PHASE 7 (final): the repaired register WITH the offline known/unknown bias correction
+    "O1_reg30_off":  dict(ent_kappa=0.0, theta_doc=30.0, reg_known_only=True, reg_offset=True),
+    "O2_reg100_off": dict(ent_kappa=0.0, theta_doc=100.0, reg_known_only=True, reg_offset=True),
+    "O3_reg300_off": dict(ent_kappa=0.0, theta_doc=300.0, reg_known_only=True, reg_offset=True),
+    "O4_k2_reg100_off": dict(ent_kappa=2.0, ent_recency=5, ent_skip_first=True, theta_doc=100.0,
+                             reg_known_only=True, reg_offset=True),
 }
 
 def online_adapt(model, docs, verbose: bool = True, oracle: bool = False) -> int:
@@ -1112,6 +1171,9 @@ def build(cfg: dict, docs=None, entc_cache: Optional[dict] = None) -> EntityPrio
     m.ent_prec = float(cfg.get("ent_prec", 0.0))
     m.ent_nconf = int(cfg.get("ent_nconf", 0))
     m.reg_known_only = bool(cfg.get("reg_known_only", False))
+    m.reg_offset = bool(cfg.get("reg_offset", False))
+    if m.reg_offset:
+        m._build_shape_offset()
     m.ent_local = cfg.get("ent_local")
     key = ("rich" if m.ent_rich else "plain") + "|w%d" % m.ent_recency
     if entc_cache is not None and key in entc_cache:

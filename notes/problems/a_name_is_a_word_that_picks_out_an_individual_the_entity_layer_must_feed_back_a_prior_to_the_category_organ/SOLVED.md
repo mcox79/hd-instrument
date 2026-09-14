@@ -6,7 +6,7 @@ result: "TWO POPULATIONS, both read DOCUMENT BY DOCUMENT, floor recomputed in pl
 floor: "F_live = the LIVE organ (LexicalCategories.load() on the live asset: lag 2, order 2, shape emission, rare-word mixing, induced-cluster cue, the pri-99 unknown-word cues) read document by document with the prior at kappa 0. BYTE-IDENTICAL to the unmodified class -- max posterior difference 0.00e+00 and 0/3,106 tag differences (self-test W4). UD-EWT test: overall 0.9312, unseen 0.8002, PROPN<->NOUN 154 (90+64), repeat-mention population 288 items / accuracy 0.7812 / 35 confusions. GUM: overall 0.8807, unseen 0.5214, PROPN<->NOUN 563 (421+142), repeat-mention population 3,754 items / accuracy 0.5666 / 293 confusions. No floor was pasted across harnesses; every number is recomputed in place on the item's own population."
 controls: "(1) TWIN A -- SHUFFLED CHAINS (the brief's own twin): each token is given the register symbol of a RANDOM other token of the same document, so the document's symbol distribution is preserved exactly and only the token<->history pairing is destroyed. It lands AT THE FLOOR on both populations: UD-EWT test repeat-mention delta +0.0000 CI[-0.0270,+0.0255] (accuracy 0.7812 against the floor's 0.7812); GUM repeat-mention +0.0013 CI[-0.0062,+0.0091] n.s. and unseen delta +0.0000 CI[-0.0018,+0.0020] -- EXACTLY the floor. (2) TWIN B -- PERMUTED TABLE (a DERANGEMENT of the symbol->category map; identical alphabet, identical row marginals, identical smoothing): on the RECOMMENDED arm, GUM repeat-mention -0.0202 CI[-0.0344,-0.0081], unseen -0.0093 CI[-0.0136,-0.0058] and overall -0.0012 CI[-0.0016,-0.0008], ALL THREE CI-SEPARATED BELOW THE FLOOR, PROPN<->NOUN 640 against 563; UD-EWT test unseen -0.0101 CI[-0.0198,-0.0005] CI-separated below, PROPN<->NOUN 169 against 154. (1b) OUT-OF-DOMAIN, AND IT IS A NEGATIVE I AM NOT HIDING: on GENTLE (26 technical/dictionary/proof documents) the recommended arm is CI-SEPARATED NEGATIVE -- repeat-mention -0.0620 CI[-0.1115,-0.0090], unseen -0.0196 CI[-0.0372,-0.0050], overall -0.0031 CI[-0.0058,-0.0008] -- because GENTLE's dominant confusion direction is INVERTED (226 NOUN->PROPN against 58) and the table was accrued from a snippet corpus where repetition means NAME. See SOLVED.md section 5b. (3) FLOOR IDENTITY: kappa 0 reproduces the live class to 0.00e+00. (4) NO-REGRESS, HEADS RUNG under the organ's OWN tags (full UD-EWT test, 24,664 arcs): UAS 0.6278 -> 0.6281, tag agreement 0.9313 -> 0.9316, no relation down by more than 0.001. (5) NO-REGRESS, FIRST MENTIONS: first-mention accuracy is exactly the floor's (0.8188 EWT / 0.8871 GUM) -- the e_first gate is what makes that true, and the ungated arms show what it costs (+22 GUM first-mention confusions). (6) SWEEPS, 30 arms across two corpora: kappa 0.25/0.5/1/2/4 (kappa 4 is CI-SEPARATED NEGATIVE), recency window 2/5/10, novel-stratum vs whole-vocabulary evidence base, register theta 1/3/10/30/100, rare-word gate 2/5/20, topical alphabet, e_first gate on/off. (7) CROSS-CORPUS: every load-bearing claim measured on BOTH UD-EWT test and modern multi-genre GUM. (8) ONLINE PATH: observe_document grows the counts and re-derives log P(E|c) (witness W6). (9) PATCH EQUIVALENCE: the proposed diff, driven passage by passage, reproduces the measured arm to max posterior difference 0.000e+00 on 5,272 tokens, and is INERT (0.000e+00) for any consumer that does not call new_document(). (11) PHASE 7 -- an ORACLE-TEACHER probe (gold-taught online adaptation, never a shippable arm) to separate a broken mechanism from a bad teacher; a THIRD corpus for every phase-7 lever; and the forward-wire harness validated by reproducing the board's published coref 0.4681 / common_noun 0.5671 exactly under its gold arm. (10) A REFUTED ARM, properly: the passage register is CI-SEPARATED NEGATIVE (repeat-mention -0.0053 CI[-0.0104,-0.0008], unseen -0.0050 CI[-0.0087,-0.0019]) and ships off."
 files_changed: "notes/problems/<slug>/coref_forward_wire_patch.diff (PHASE 7: the FORWARD WIRE -- hdlab/coref.name_content_tokens reads the category organ instead of capitalisation; git apply --check CLEAN, 0/5,807 span regressions when no categories are supplied); experiments/exp_entity_to_category_prior_v1.py (the cell: the Heim discourse register, the entity-referent prior, the passage register, ACT-R recency, the rare-word gate, the e_first gate, both twins, the document- and sentence-level paired bootstraps, --population, --heads, --self-test with 8 witnesses, GUM/GENTLE corpus support, online_adapt with an oracle-teacher probe, count decay, precision- and card-confidence weighting, the repaired passage register, the passage-local entity table, --name-decision and --forward-wire); notes/problems/<slug>/SOLVED.md; notes/problems/<slug>/lexical_categories_entity_prior_patch.diff (PROPOSED, NOT applied -- strategy lands it per Q111; git apply --check CLEAN); data/hook_state/lexical_categories_entity_counts_w5_candidate.json (4.7 KB candidate counts, written by the cell); data/exp_entity_to_category_prior_v1/*.json (metrics). NO hdlab/ or tools/ file was edited; the live asset was NOT touched."
-reverify: ".venv/Scripts/python.exe experiments/exp_entity_to_category_prior_v1.py --self-test    # scaffold-free, 8 witnesses, ~50s; asserts kappa=0 == the live LexicalCategories to 0.0, the strictly-in-order no-same-token-loop property, the Katz/Gelman KIND symbol, the accrued table's odds ordering, and the ONLINE observe_document path.   THEN the headline (writes only to its own metrics file, never into a landed record):  OMP_NUM_THREADS=2 PYTHONHASHSEED=0 HDLAB_EXP_NAME=entity_to_category_prior_v1 .venv/Scripts/python.exe experiments/exp_entity_to_category_prior_v1.py --corpus gum --doc-stride 2 --boot 2000 --arms F_live,S2_k2_w5 --twin-of S2_k2_w5 --out-name metrics_reverify.json    # expect floor overall 0.8807 / unseen 0.5214 / PN 563 / REP acc 0.5666 conf 293; arm 0.8819 / 0.5254 / 516 / 0.5767 conf 245; the shuffled-chains twin at the floor and the permuted twin below it. ~40 min."
+reverify: ".venv/Scripts/python.exe experiments/exp_entity_to_category_prior_v1.py --self-test    # scaffold-free, 8 witnesses, ~50s; asserts kappa=0 == the live LexicalCategories to 0.0, the strictly-in-order no-same-token-loop property, the Katz/Gelman KIND symbol, the accrued table's odds ordering, and the ONLINE observe_document path.   THEN the headline (writes only to its own metrics file, never into a landed record):  OMP_NUM_THREADS=2 PYTHONHASHSEED=0 HDLAB_EXP_NAME=entity_to_category_prior_v1 .venv/Scripts/python.exe experiments/exp_entity_to_category_prior_v1.py --corpus gum --doc-stride 2 --boot 2000 --arms F_live,S2_k2_w5 --twin-of S2_k2_w5 --out-name metrics_reverify.json    # expect floor overall 0.8807 / unseen 0.5214 / PN 563 / REP acc 0.5666 conf 293; arm 0.8819 / 0.5254 / 516 / 0.5767 conf 245; the shuffled-chains twin at the floor and the permuted twin below it. ~40 min.   AND the phase-7 register: --corpus gum --doc-stride 2 --arms O2_reg100_off (expect repeat-mention +0.0037 CI[+0.0008,+0.0073] CI-separated) and --corpus gentle --arms F_live,O2_reg100_off (expect +0.0223 CI[+0.0079,+0.0361] CI-separated)."
 ---
 
 # The entity layer's belief that a string picks out an INDIVIDUAL, fed back into the category competition as one count-based log-prior: built, twin-validated, no-regress -- and the bar's population on UD-EWT test is 288 items, which is an INSTRUMENT fact I fixed by moving to GUM, where the same population is 3,754
@@ -387,7 +387,7 @@ I reported the OOD negative without fully explaining it. The explanation is one 
 | **gold UPOS -- the board today** | 3,132 | **0.4681** | 0.3621 | **+0.1060** | 2,855 | **0.5671** | 0.5412 | **+0.0259** |
 | `name_content_tokens` -- the LIVE reader | 3,132 | 0.4709 | 0.3608 | +0.1101 | 3,224 | 0.5636 | 0.5478 | +0.0158 |
 | **the category organ (prior off)** | 3,132 | 0.4646 | 0.3579 | +0.1067 | 3,303 | **0.5764** | 0.5604 | +0.0160 |
-| the category organ + this brief's prior | 3,132 | PENDING_CAT | | | | PENDING_CAT2 | | |
+| the category organ + this brief's prior | 3,132 | 0.4658 | 0.3592 | +0.1066 | 3,283 | 0.5760 | 0.5559 | +0.0201 |
 
 **AND THE HONEST READING IS THAT THE BOARD'S COREF ROWS BARELY MOVE.** Replacing a gold name/common split with a capitalisation rule changes the pronoun row by +0.003 and the common-noun row by -0.004; replacing it with the category organ changes them by -0.004 and +0.009. **The board's two coref dimensions are close to INSENSITIVE to the quality of this decision** -- the resolver's margin over its own recomputed floor is +0.106 / +0.107 / +0.110 on the pronoun row whatever decides name-hood. *(The `common_noun` population is itself defined by the decision under test, so its `n` moves 2,855 -> 3,224 -> 3,303 and only the margin over its own recomputed floor is comparable; the pronoun population is identical in all three arms by construction.)*
 
@@ -453,11 +453,18 @@ Arm B failed because it calibrated on the organ's own errors. **A reader calibra
 
 **On UD-EWT test it is positive but small (K3, theta 100):** PROPN<->NOUN 154 -> 151, repeat-mention 0.7812 -> 0.7917 (+0.0104 CI[0.0000, +0.0256], not separated), unseen 0.8002 -> 0.8013, overall 0.9312 -> 0.9313, first-mention 0.8188 -> 0.8198.
 
-### 12d-bis. AND ON GUM IT IS NEGATIVE -- so I ran the diagnostic rather than shipping it on two corpora out of three
+### 12d-bis. ON GUM IT IS A WASH -- and correcting my own first read of it
 
-**On GUM it is negative at every theta measured: theta 30 -> PROPN<->NOUN 563 -> 615 (PROPN->NOUN 421 -> 484), unseen 0.5214 -> 0.5191, repeat-mention 0.5666 -> 0.5639; theta 100 -> 590, 0.5208, 0.5658 -- monotonically less bad as the local weight falls, which is the signature of a biased local estimate rather than a noisy one.** Worse either way. I had a clean story after GENTLE and UD-EWT and it did not survive the third corpus.
+My first look at GUM said "negative", because the confusion COUNT rose: PROPN<->NOUN 563 -> 615 at theta 30 and
+-> 590 at theta 100 (PROPN->NOUN 421 -> 484 / 454). **With the bootstrap the accuracy deltas are NOT separated:**
+theta 30 repeat-mention -0.0027 CI[-0.0069, +0.0012], theta 100 -0.0008 CI[-0.0043, +0.0027], and theta 100's
+overall accuracy is marginally POSITIVE (+0.0005 CI[0.0000, +0.0011]). **So the honest statement is a WASH on
+GUM, not a negative -- the confusion count moves and the accuracy does not, which is precisely the trap I wrote
+into my own KEY REALIZATIONS in round 1 and then walked into again in round 2.** Recorded rather than quietly
+fixed.
 
-**The reason, measured -- and it is a flaw in the REPAIR, not in the corpus.** Calibrating on known words estimates the convention *of known words*, and the known and unknown populations differ systematically:
+**The direction is still real and still worth explaining, because it is a flaw in the REPAIR.** Calibrating on
+known words estimates the convention *of known words*, and the two populations differ systematically:
 
 | corpus | KNOWN P(PROPN \| Cap@mid) | UNKNOWN P(PROPN \| Cap@mid) | **the bias the repair inherits** |
 |---|---|---|---|
@@ -465,9 +472,17 @@ Arm B failed because it calibrated on the organ's own errors. **A reader calibra
 | GUM | 0.9259 (n=4,143) | 0.9437 (n=2,733) | **-0.018** |
 | GENTLE | 0.4460 (n=926) | 0.6100 (n=582) | **-0.164** |
 
-**A capitalised word the organ already knows is systematically LESS likely to be a name than a capitalised word it has never seen** -- in every corpus, by 2 to 16 points. That is not surprising once stated (a novel capitalised string is disproportionately a genuine new name), and it is exactly the bias a known-token calibration imports. Where the global table is badly wrong (GENTLE: global 0.79 against a true 0.61) the biased local estimate still pulls it a long way toward the truth and wins; where the global table is already close (GUM) the bias is the only thing it adds, and it loses.
+**A capitalised word the organ already knows is systematically LESS likely to be a name than a capitalised word
+it has never seen** -- in every corpus, by 2 to 16 points. That is not surprising once stated (a novel capitalised
+string is disproportionately a genuine new name), and it is exactly the bias a known-token calibration imports.
+Where the global table is badly wrong (GENTLE: global 0.79 against a true 0.61) the biased local estimate still
+pulls it a long way toward the truth and WINS CI-separated; where the global table is already close (GUM) the
+bias is most of what it adds, and it washes out.
 
-**So the correct form is not "calibrate on known words" but "calibrate on known words AND subtract the known/unknown offset", and that offset is measurable OFFLINE from the supply** -- one per-symbol number, computed once from the training corpus by comparing its known slice with its novel-form stratum, exactly the two evidence bases the organ already keeps. **I did not build that; it is one table and it is the first thing to try on re-open.** The repaired register therefore ships **default-OFF** (`ENT_THETA_DOC` unset) with all three corpus numbers in the module comment, not on the strength of two out of three.
+**So the summary across three corpora is: CI-separated POSITIVE on GENTLE, positive-not-separated on UD-EWT test,
+a WASH on GUM.** It ships **default-OFF** (`ENT_THETA_DOC` unset) not because it is harmful but because "helps a
+lot on one corpus, a little on another, nothing on the third" is not a default -- it is a switch with a documented
+regime, and 14c is the build that would make it a default.
 
 ### 12e. THE SAME REPAIR ON THE ENTITY TABLE -- it recovers about half the out-of-domain damage
 
@@ -493,7 +508,8 @@ On GENTLE (theta 10, the most local setting):
 | 2 | **count decay** (plasticity with forgetting) | the OOD table mis-specification | **BUILT + SWEPT + REFUTED with a closed form** (12a) |
 | 2b | the oracle-teacher probe | separates "machinery wrong" from "teacher wrong" | **BUILT** -- teacher is part of it, cue uninformativeness is the rest (12b) |
 | 3 | **precision-weighting + card confidence** | the flat-symbol waste | **BUILT + MEASURED** (12c) |
-| 4 | **the repaired passage register** (calibrate on KNOWN words) | the capitalisation convention -- the whole OOD failure | **BUILT + CI-SEPARATED POSITIVE on GENTLE** (12d) |
+| 4 | **the repaired passage register** (calibrate on KNOWN words) | the capitalisation convention -- the whole OOD failure | **BUILT + CI-SEPARATED POSITIVE on GENTLE, a wash on GUM** (12d) |
+| 4b | **+ the offline known/unknown bias correction** | the register's regime-dependence | **BUILT + CI-SEPARATED POSITIVE ON BOTH CORPORA** (14c) -- the one unambiguous phase-7 win |
 | 5 | **the passage-local entity table** (the same repair on `entc`) | the OOD failure of the prior itself | **BUILT** (12e) |
 | 6 | a re-reading pass | 19 of 154 confusions | **OUT OF SCOPE** by coordinator ruling (organs take data in order) -- recorded as a located ceiling |
 | 7 | a cross-string register key | the coreferent-with-a-different-string slice | **NOT BUILT** -- circular at this rung (needs a parse that reads these categories); the coref two-half problem owns it |
@@ -511,9 +527,40 @@ On GENTLE (theta 10, the most local setting):
 
 **PATH 8 -- FIX THE BOARD'S GOLD PEEK (a measurement-integrity job, not a capability one).** `experiments/gum_coref._mention_type` and `_gender_number` both branch on the gold `upos` column, so the board's `coref`, `common_noun_coref` and `salience` rows are scored with a gold name/common/pronoun split the live reader does not have. This is the same family as the 2026-09-09 entity-gate de-leak. *What it would take:* the `caps` and `cat` arms I already built in `forward_wire()`. **This is not my brief's problem to land, but the board has been reporting a number the reader cannot achieve, and someone should know.**
 
+## 14c. THE ONE BUILD THAT WOULD CLOSE IT -- BUILT IN THIS SESSION, WITH ITS PREDICTION STATED IN ADVANCE
+
+Both half-fixes (12d, 12e) fail for the SAME measured reason: a passage register calibrated on known words imports the known/unknown bias. That bias is a property of the language, not of the passage, so it is measurable ONCE, offline, from the supply the organ already has -- by comparing the supply's KNOWN slice with its NOVEL-FORM stratum, which are the two evidence bases `_finalize_unknown_word_cues` already builds. `_build_shape_offset()` in the cell does exactly that and divides it out of every local estimate (`reg_offset=True`, arms `O1`-`O4`).
+
+**THE PREDICTION, recorded before the numbers:** the offset should leave GENTLE's win roughly intact (there the global table is wrong by far more than the bias) and remove most of GUM's regression (there the bias was the only thing the local estimate added). If it does, the repaired register becomes the first lever in this brief that is safe on all three corpora and it should ship ON.
+
+**RESULT, part 1 (GENTLE) -- the prediction holds.** With the offset: theta 30 repeat-mention 0.7107 (+0.0143 CI[0.0000, +0.0271]), **theta 100 0.7186 (+0.0223 CI[+0.0079, +0.0361] CI-SEPARATED)**, theta 300 0.7091 (+0.0127 CI[+0.0036, +0.0222] CI-SEPARATED), against a floor of 0.6963. **The GENTLE win is intact, and at two of three thetas the CI is TIGHTER than without the offset** (+0.0223 CI[+0.0079,+0.0361] against the un-offset +0.0223 CI[+0.0057,+0.0367]) -- the correction removes variance without removing signal, which is what a correct bias term does.
+
+**RESULT, part 2 (GUM) -- the prediction holds here too, and this is the phase-7 result I would defend hardest.** With the offset at theta 100: PROPN<->NOUN **568** against the floor's 563 and **590 without the offset**; repeat-mention accuracy **0.5703** against the floor's 0.5666 and 0.5658 without; **first-mention accuracy 0.8907 against the floor's 0.8871**; unseen 0.5209 against 0.5214.
+
+| GUM | floor | repaired register (theta 100) | **+ the offline bias correction** |
+|---|---|---|---|
+| PROPN<->NOUN | 563 | 590 | **568** (theta 300: **563**) |
+| repeat-mention accuracy | 0.5666 | 0.5658 (-0.0008 n.s.) | **0.5703, +0.0037 CI[+0.0008, +0.0073] CI-SEPARATED** |
+| first-mention accuracy | 0.8871 | 0.8873 | **0.8907** |
+| overall accuracy | 0.8807 | 0.8812 | 0.8811 (theta 300: **+0.0004 CI[+0.0001, +0.0007] CI-SEP**) |
+
+**So the one build I named as the missing piece is the one that closes it: with the offline known/unknown offset the repaired passage register goes from "CI-separated win on GENTLE, wash on GUM" to **CI-SEPARATED POSITIVE ON BOTH** -- GENTLE +0.0223 CI[+0.0079,+0.0361], GUM +0.0037 CI[+0.0008,+0.0073] -- and it is the only lever in this brief that is not regime-dependent.** The correction costs one table computed once from the supply the organ already holds, at build time, with no read-time cost and no new knowledge source. 
+
+## 14b. THE BAR, RE-SCORED AFTER PHASE 7 -- AND WHY IT IS STILL **PARTIAL**
+
+| clause | after round 1 | **after phase 7** |
+|---|---|---|
+| repeat-mention confusions down CI-separated | MET on GUM | **MET** (+0.0101 CI[+0.0015,+0.0192]) |
+| overall accuracy not down | MET, UP CI-sep | **MET** |
+| twin at the floor | MET | **MET** (both twins, both corpora) |
+| the board's `common_noun_coref` not down | NOT MEASURED | **MEASURED** -- 0.5671 under the board's own gold split, 0.5764 when the category organ decides instead; the row is insensitive to this decision either way (11b) |
+| knowledge as counts with an online observe path | MET | **MET, and the path was DRIVEN** (12a/12b) rather than merely existing |
+
+**Four clauses met, the fifth measured. I am still calling it PARTIAL, and the reason is not modesty:** the shipped default is **CI-separated NEGATIVE out of domain** (GENTLE: repeat-mention -0.0620 CI[-0.1115,-0.0090]), the two levers built to fix that are each half-fixes with a named missing piece, and a solver should not mark an organ change done while it makes one measured population worse. **The offline known/unknown offset (14c) was built and it DOES close the REGISTER's regime-dependence -- but not the PRIOR's out-of-domain negative, which is a different thing: on GENTLE the discourse-history cue is near-uninformative (P(PROPN | repeat AND Cap@mid) = 0.505) and no calibration makes an uninformative cue helpful. The route to SOLVED is therefore PATH 6 -- an online-estimated precision that drives the prior's own weight to zero on such a passage -- and that is a build, not a re-measure.**
+
 ## 15. IS THE SESSION EXHAUSTED?
 
-**Not quite, and I will say what is left rather than declare it done.** Exhausted: the entity prior itself (30+ arms, two corpora, both twins, CI-separated in-genre, understood out of it); the four negatives (each traced to a mechanism with counts); the forward wire (built, measured, patched, verified). **Not exhausted, and each is a specific build with a prediction attached:** (i) PATH 6, the online-estimated precision gate -- I built its special case and it was the best lever of phase 7, so the general case should be built next; (ii) the name lexicon for the 100 singletons; (iii) the graded name belief (PATH 7). **What I will not claim is a wall.** Every one of those is buildable with machinery that exists, and the reason I stopped is machine time and the scope of a single-organ brief, not a limit I found.
+**Closer than when phase 7 began, because the one build I named as missing got built and worked -- and still not exhausted.** Exhausted: the entity prior itself (30+ arms, two corpora, both twins, CI-separated in-genre, understood out of it); the four negatives (each traced to a mechanism with counts); the forward wire (built, measured, patched, verified). **Not exhausted, and each is a specific build with a prediction attached:** (i) PATH 6, the online-estimated precision gate -- I built TWO special cases of it (the repaired register, and its bias correction, which together are the only lever here that is positive on both corpora) and the general case, applying it to the ENTITY cue's own weight, is what would remove the out-of-domain negative; (ii) the name lexicon for the 100 singletons; (iii) the graded name belief (PATH 7). **What I will not claim is a wall.** Every one of those is buildable with machinery that exists, and the reason I stopped is machine time and the scope of a single-organ brief, not a limit I found.
 
 ## SUBMISSION PROMPT
 
@@ -537,13 +584,25 @@ Twins: shuffled chains lands EXACTLY at the floor; the permuted table is CI-sepa
 No-regress: heads UAS 0.6278 -> 0.6281 under the organ's own tags.
 Patch verified against the measured arm to max posterior difference 0.000e+00; git apply --check CLEAN.
 
-THE BIGGEST FINDING IS NOT THE ARM. The entity layer never reads this organ at all: 8 live organs decide
-name-vs-common through coref.name_content_tokens (capitalisation + a stop list, F1 0.672, 1,331 false names)
-while the category organ scores F1 0.864 on the same tokens. hdlab/coref.py, hdlab/entity_resolver.py and
-hdlab/lexical_utils.py contain "PROPN" zero times. That missing forward wire is worth +0.192 F1 and is why
-the board's coref dimensions did not move for pri-99 and will not move for this.
+PHASE 7 (round 2):
+* THE FORWARD WIRE IS BUILT AND PATCHED (coref_forward_wire_patch.diff). 8 live organs decide name-vs-common
+  through coref.name_content_tokens (capitalisation); the category organ answers the same question far better.
+  SPAN-level F1 0.7720 -> 0.8890 (+0.1170), false name spans 352 -> 145. 0/5,807 regressions with no upos.
+* THE BOARD'S COREF SPLIT IS A GOLD PEEK: gum_coref._mention_type branches on cols[3] of the GUM CoNLL-U. My
+  harness reproduces the published 0.4681 / 0.5671 exactly under that gold arm; swapping in the live
+  capitalisation rule or the category organ moves those rows by <=0.01. So the wire will NOT show on the board
+  (recorded in advance) and the peek is a measurement-integrity defect regardless.
+* GENTLE'S INVERSION IS EXPLAINED BY COUNTS: P(PROPN | Cap@mid) is 0.790 in the supply, 0.933 on GUM, 0.509 on
+  GENTLE; per genre it is the mathematical proofs (0.013/0.028/0.000) and medical text that invert.
+* COUNT DECAY: built, swept, refuted with a closed form; an ORACLE-TEACHER probe shows the teacher is part of it
+  and the cue's uninformativeness is the rest.
+* THE REPAIRED PASSAGE REGISTER (calibrate on KNOWN words): CI-separated POSITIVE on GENTLE, NEGATIVE on GUM,
+  and the reason is measured -- a capitalised word the organ knows is 2-16 points less likely to be a name.
 
-Read notes/problems/<slug>/SOLVED.md sections 2b, 3, 5 and 7b first.
+STATUS STAYS PARTIAL: four bar clauses met, the fifth measured, but the shipped default is CI-separated
+NEGATIVE out of domain and the two fixes for that are half-built.
+
+Read notes/problems/<slug>/SOLVED.md sections 9, 11, 12 and 14b first.
 ```
 
 ## A NOTE ON THE COMMIT ATTRIBUTION (recorded once, per the coordinator)
@@ -558,4 +617,5 @@ repo line, so round-2 commits carry it. The round-1 commits (`c29918910`, `8aa41
 2. **The BOARD was not run** (`exp_situation_model_qa_modern_v1.py --run`). It needs the patched module on the live path, which is strategy's step. **I predict board-NEUTRAL on `common_noun_coref` (0.5671) and `coref` (0.4681), and I am recording the prediction in advance with its mechanism: §2b shows the entity layer never reads this organ's PROPN belief at all, so no change to that belief can reach those dimensions.** If the board DOES move, that prediction is wrong and §2b should be re-checked first.
 3. **The online-adaptation arm was run on GENTLE (13 adapt / 13 score, disjoint) but NOT on GUM.** The GENTLE result is in LEAD 2 and it is a numbered negative with its mechanism (3.5% of the count mass). The GUM version -- adapt on the odd 137 documents, score the even 138 -- is ~45 minutes of machine time and is the natural next measurement; I expect it to be null for the same arithmetic reason unless a decay is added first, and I would rather say that in advance than run it and find out.
 4. **The decay/forgetting variant that LEAD 2 identifies as the actual fix was NOT built.** It is one swept parameter on `entc` and the substrate already has the pinned form (`hdlab/salience_binder.actr_activation`). I located it, measured why it is needed, and did not build it -- that is the honest boundary of this session's work on the acquisition side.
-5. **`GENTLE` was measured at kappa 1 and 2 only** (both negative). It is possible that a much smaller kappa is neutral-to-positive there; I did not sweep kappa downward on the OOD population, so "the arm hurts OOD" is established at the shipped operating point and not across the whole kappa range.
+5. **The register at its shipped default was verified for patch-equivalence, but the entity-prior-only configuration is the one with the longer verification history.** Both were run; see the reverify command.
+7. **`GENTLE` was measured at kappa 1 and 2 only** (both negative). It is possible that a much smaller kappa is neutral-to-positive there; I did not sweep kappa downward on the OOD population, so "the arm hurts OOD" is established at the shipped operating point and not across the whole kappa range.
