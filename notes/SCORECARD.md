@@ -179,7 +179,7 @@ Long term (the next few months):
 
 <!-- AUTO:BEGIN (written by tools/scorecard.py; edit the sections ABOVE, not this) -->
 
-Last full check: 2026-09-14T12:16:18.631648+00:00 (32 on record). Generated 2026-09-14T12:34:05+00:00.
+Last full check: 2026-09-14T12:51:48.363975+00:00 (33 on record). Generated 2026-09-14T12:55:16+00:00.
 
 | Ability | Group | How well | Compared with a simple rule | Since the previous check | Brain-faithful? |
 |---|---|---|---|---|---|
@@ -207,7 +207,7 @@ Last full check: 2026-09-14T12:16:18.631648+00:00 (32 on record). Generated 2026
 | Whether a state still holds at a later point | Time and place | right 43 in 100 | clearly better than the simple rule (11 in 100) | unchanged since the previous check | brain model; some details still open |
 | Whether two events happened at the same time | Time and place | right 99 in 100 | clearly better than the simple rule (50 in 100) | unchanged since the previous check | brain model; some details still open |
 | Which of two events came first | Time and place | right 59 in 100 | clearly better than the simple rule (52 in 100) | unchanged since the previous check | brain model; some details still open |
-| Answering 'why' when the cause is sentences away | Causes | right 24 in 100 | clearly better than the simple rule (0 in 100) | DOWN 0.008 since the previous check | brain model; some details still open |
+| Answering 'why' when the cause is sentences away | Causes | right 24 in 100 | clearly better than the simple rule (0 in 100) | unchanged since the previous check | brain model; some details still open |
 | Following a chain of causes across several steps | Causes | right 26 in 100 | clearly better than the simple rule (0 in 100) | unchanged since the previous check | brain model; some details still open |
 | Whether a cause makes an effect bigger or smaller | Causes | right 62 in 100 | a little better than the simple rule (61 in 100), not yet convincingly | unchanged since the previous check | brain model; some details still open |
 | Whether one event was needed for another to happen | Causes | right 35 in 100 | clearly better than the simple rule (3 in 100) | unchanged since the previous check | brain model; some details still open |
