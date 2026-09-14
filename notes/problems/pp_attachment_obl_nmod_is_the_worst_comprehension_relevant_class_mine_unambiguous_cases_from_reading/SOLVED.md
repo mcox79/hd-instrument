@@ -2,11 +2,11 @@
 problem: pp_attachment_obl_nmod_is_the_worst_comprehension_relevant_class_mine_unambiguous_cases_from_reading
 status: SOLVED
 bar: "obl and nmod recall CI-separated above the current asset on UD-EWT test 700, UAS not down, twin far below, knowledge in counts with an online observe path, witness green -- OR a located negative with the oracle-association probe number."
-result: "PHASE 7 (2026-09-13/14 continuation) MEASURED THE THREE THINGS THE FIRST SUBMISSION COULD NOT, and they hold. (1) THE LIVE CHAIN -- the categories rung's OWN tags and posterior, no gold UPOS anywhere, exactly the path hdlab/frontend.Parser takes at its defaults, train cap 6000 (the LANDED cap), UD-EWT test 700, in-order (live) decode, paired bootstrap over sentences: UAS 0.6125 -> 0.6243 (+0.0117, CI [+0.0079,+0.0160]); obl 0.434 -> 0.497 (+0.0629, CI [+0.0321,+0.0948]); nmod 0.444 -> 0.507 (+0.0637, CI [+0.0301,+0.0997]); retrieved PP subpopulation +0.0412 (CI [+0.0132,+0.0709]). With gold categories at the same cap: UAS +0.0125 (CI [+0.0087,+0.0168]), obl +0.0524 (CI [+0.0189,+0.0873]), nmod +0.0824 (CI [+0.0496,+0.1164]). (2) THE LANDED ASSET AS A CONTROL: the rebuilt floor reproduces data/frontend_assets/attachment_validities_v1.json (== attachment_validities_v1_pri97_cap6000.json) to 0.0002 UAS, so `base` really is what the board would regress against. (3) HEADS -> LABELS: hdlab/graded_role_assigner HAS NO NMOD CLASS -- given the GOLD TREE'S OWN HEADS it labels 0 of 489 gold nmod correctly -- while reading the label off the HOST'S CATEGORY (the UD and brain definition of the distinction) is 98.1% correct on gold heads; the head gain reaches such a readout at +0.0415 (CI [+0.0216,+0.0634], obl +0.0524*), and the organ as built converts it to -0.068 obl / 0 nmod and a consumer regression 0.5765 -> 0.5622. PHASE-7 BUILD: `objgenoblnom6`, the SHIPPED arm plus BOTH sides of Pinker's bootstrapping in the acquisition teacher (an oblique slot for verb hosts from the substrate's own grown obl:<prep> store, and the nominal host slot the teacher never had), CONVERTS THE SUBMISSION'S ONE UNSEPARATED NUMBER: retrieved-nmod +0.0752 (CI [+0.0308,+0.1231]) against base and +0.0564 (CI [+0.0115,+0.1020]) against the shipped arm, +0.1316 under the search decode, and it removes the downstream regression (role competition 0.5769 vs base 0.5760, vs the shipped arm's 0.5617), with NOTHING CI-separated down. FIRST-SUBMISSION HEADLINE, unchanged and re-reproduced this session at cap 1500 in four independent runs (UAS 0.6387 / obl 0.541 / nmod 0.489 against base 0.6252 / 0.440 / 0.408): UAS +0.0134*, obl +0.1006*, nmod +0.0805*."
+result: "PHASE 7 (2026-09-13/14 continuation) MEASURED THE THREE THINGS THE FIRST SUBMISSION COULD NOT, and they hold. (1) THE LIVE CHAIN -- the categories rung's OWN tags and posterior, no gold UPOS anywhere, exactly the path hdlab/frontend.Parser takes at its defaults, train cap 6000 (the LANDED cap), UD-EWT test 700, in-order (live) decode, paired bootstrap over sentences: UAS 0.6125 -> 0.6243 (+0.0117, CI [+0.0079,+0.0160]); obl 0.434 -> 0.497 (+0.0629, CI [+0.0321,+0.0948]); nmod 0.444 -> 0.507 (+0.0637, CI [+0.0301,+0.0997]); retrieved PP subpopulation +0.0412 (CI [+0.0132,+0.0709]). With gold categories at the same cap: UAS +0.0125 (CI [+0.0087,+0.0168]), obl +0.0524 (CI [+0.0189,+0.0873]), nmod +0.0824 (CI [+0.0496,+0.1164]). (2) THE LANDED ASSET AS A CONTROL: the rebuilt floor reproduces data/frontend_assets/attachment_validities_v1.json (== attachment_validities_v1_pri97_cap6000.json) to 0.0002 UAS, so `base` really is what the board would regress against. (3) HEADS -> LABELS: hdlab/graded_role_assigner HAS NO NMOD CLASS -- given the GOLD TREE'S OWN HEADS it labels 0 of 489 gold nmod correctly -- while reading the label off the HOST'S CATEGORY (the UD and brain definition of the distinction) is 98.1% correct on gold heads; the head gain reaches such a readout at +0.0415 (CI [+0.0216,+0.0634], obl +0.0524*), and the organ as built converts it to -0.068 obl / 0 nmod and a consumer regression 0.5765 -> 0.5622. PHASE-7 BUILD: `objgenoblnom6`, the SHIPPED arm plus BOTH sides of Pinker's bootstrapping in the acquisition teacher (an oblique slot for verb hosts from the substrate's own grown obl:<prep> store, and the nominal host slot the teacher never had), CONVERTS THE SUBMISSION'S ONE UNSEPARATED NUMBER: retrieved-nmod +0.0752 (CI [+0.0308,+0.1231]) against base and +0.0564 (CI [+0.0115,+0.1020]) against the shipped arm, +0.1316 under the search decode, and it removes the downstream regression (role competition 0.5769 vs base 0.5760, vs the shipped arm's 0.5617), with NOTHING CI-separated down. ROUND 3: the BETA_NOM sweep was run at the LANDED cap 6000 (five builds) and CONFIRMS the shipped default 6 -- objgenoblnom6 at cap 6000 gives UAS 0.6373 / obl 0.514 / nmod 0.524 / retrieved subpop 0.584, i.e. against the floor UAS +0.0134* obl +0.0692* nmod +0.0955* subpop +0.0668* in-order and +0.0166*/+0.0671*/+0.1273*/+0.0551* under the search decode -- every one larger than the shipped arm's, and it makes the obl gain DECODE-ROBUST (the shipped arm's obl is +0.0210 and NOT separated under map1). BETA_NOM 2 and 4 are CI-separated DOWN on nmod (-0.2097*, -0.0880*), so 6 is the balance point at the landed cap too. Consumer role accuracy returns to the floor (0.5760 vs 0.5765) where the shipped arm costs 0.5622. FIRST-SUBMISSION HEADLINE, unchanged and re-reproduced this session at cap 1500 in four independent runs (UAS 0.6387 / obl 0.541 / nmod 0.489 against base 0.6252 / 0.440 / 0.408): UAS +0.0134*, obl +0.1006*, nmod +0.0805*."
 floor: "the IDENTICAL pipeline with the change off (`base`), rebuilt from the same teacher, the same training slice and the same rounds: in-order UAS 0.6246 / obl 0.449 / nmod 0.410, search UAS 0.6188 / obl 0.444 / nmod 0.388. STRONGER FLOORS ALSO RUN: (a) `flat` -- the SAME cue firing on the SAME arcs with a CONSTANT value, i.e. the retrieval structure with no association content at all: UAS +0.0023 n.s., obl +0.0461*, nmod -0.0187 n.s.; (b) `twin` -- the scrambled association (below); (c) `gen` -- the genitive construction alone: UAS +0.0061*, obl +0.0126*, nmod +0.0655*; (d) `obj` -- the association without the genitive: obl +0.0776*, nmod +0.0169 n.s. The winning arm beats the STRONGEST of these CI-separated on every headline number: vs `flat` UAS +0.0104 CI [+0.0077,+0.0132], obl +0.0398 CI [+0.0186,+0.0641], nmod +0.0993 CI [+0.0741,+0.1263]."
 controls: "PHASE 7 ADDED SIX. (a) DETERMINISM: two byte-identical processes of `base` reproduce UAS 0.6252 / obl 0.440 / nmod 0.408 to four decimals, and a third inside a different arm list reproduces them again -- the pipeline is deterministic, so the -0.009 obl shift against the first session's floor is a real on-disk change I could not identify (treebank byte-identical since July, every asset the arm reads older than the first measurement, all 26 HDLAB_* switches default in both); every comparison here is WITHIN-RUN and paired, and the shift is a tenth of the effect. (b) THE LANDED ASSET LOADED FROM DISK as an arm: UAS 0.6241 / obl 0.449 / nmod 0.429 against the rebuilt floor's 0.6239 / 0.444 / 0.429 (delta +0.0002 UAS, n.s.). (c) AT THE LANDED CAP 6000 the association's content, measured against a control that MATCHES THE GENITIVE (`flatgen` = the same arcs, a constant cue value, plus the genitive construction), is CI-SEPARATED ON BOTH RELATIONS: UAS +0.0029*, obl +0.0210*, nmod +0.0150*, retrieved obl +0.0300*, retrieved nmod +0.0301*. THE THREE-WAY ATTRIBUTION of the headline at cap 6000 is: the RETRIEVAL STRUCTURE obl +0.0335 / nmod +0.002, the GENITIVE CONSTRUCTION nmod +0.0654 / obl -0.002, the ASSOCIATION CONTENT obl +0.0210 / nmod +0.0150 -- the association is the smallest of the three and the only one separated on both relations at once. CORRECTED IN ROUND 2 AND STATED AGAINST THE SUBMISSION: the round-1 controls `flat` and `twin` do NOT carry the genitive, so the round-1 reading ("content is on nmod, not obl": obl +0.0189 n.s., nmod +0.0805*) conflated the genitive with the content and was wrong; section 16.1b has the corrected decomposition. (d) A TABLE-FREE, DECODE-FREE CHANNEL PROBE over the 556 retrievable gold obl+nmod tokens: the association ranks the gold host first 0.484 of the time against its scrambled twin's 0.284 -- but PROXIMITY alone scores 0.714 (nmod 0.922), so the association's job in this organ is to override proximity where proximity is wrong, which is the obl cases. (e) THE TWO-SIDED TEACHER'S TWIN: `twinoblnom6` (both stores scrambled) obl 0.382 / nmod 0.537 / UAS 0.6291 -- `objgenoblnom6` beats it CI-separated on UAS (+0.0082), obl (+0.1405) and retrieved obl (+0.1952); each ONE-SIDED version, by contrast, is indistinguishable from its own twin (objgenoblteach vs twinoblteach obl +0.0126 n.s.; objgennom6 vs twinnom6 nmod -0.0056 n.s.), which is how phase 7 established that the one-sided effect is the teacher's meaning BUDGET and the two-sided effect needs the association's CONTENT. (f) A BUG FOUND IN MY OWN DIAGNOSTICS AND FIXED: roles_diag / gap_decomposition / label_transfer ran after `deactivate_to_head()`, i.e. read every table with its own cue off; caught because objgen's gap-decomposition CORRECT count fell below base's while its recall was higher; fixed with `arm_context` and four self-test guards, and every diagnostic number in the phase-7 sections is from the corrected re-run. RETAINED FROM THE FIRST SUBMISSION: the oracle-ceiling probe (obl 0.746 / nmod 0.543), the known-fact check on the mined association, the learned-ladder check, the no-regress table. NO-REGRESS AT CAP 6000 (in-order, base -> objgen): root 0.777 -> 0.777, nsubj 0.778 -> 0.779, obj 0.772 -> 0.777, case 0.715 -> 0.759, xcomp 0.737 -> 0.766, advcl 0.336 -> 0.351, conj 0.382 -> 0.386, punct 0.469 -> 0.470; ccomp 0.690 -> 0.672 is the only fall (-0.017, 116 items) and it falls by the same amount on the live chain. PATCH EQUIVALENCE re-checked this session: `patch -p1 --dry-run` clean, cue values identical on 40 sentences / 385 arcs, fast path vs reference loop 1.78e-15. WITNESS: verification/test_attachment_arm.py 17/17; the cell's own scaffold-free self-test 40/40 (22 at first submission)."
 files_changed: "experiments/exp_attachment_pp_association_unambiguous_mining_v1.py (phase 7 added the live-chain evaluation, the heads->labels transfer instrument, the table-free channel probe, the coverage probe, the oblique-slot channel, the nominal host slot, the two-sided teacher arm, the arm_context diagnostic fix and 18 more self-test checks), notes/problems/<slug>/{SOLVED.md, attachment_arm_pp_patch.diff (UNCHANGED), attachment_arm_two_sided_teacher_patch.diff (NEW, round 2 -- the two-sided acquisition teacher, applied AFTER the main diff)}, data/exp_attachment_pp_association_unambiguous_mining_v1/** (mined associations, metrics, probes), data/hook_state/attachment_pp_assoc_v2_simplewiki100k_candidate.json (the candidate asset). NOTHING under hdlab/ or tools/ was edited -- the proposed change is the unchanged 537-line diff."
-reverify: "SELF-TEST (40 scaffold-free checks, writes nothing): .venv/Scripts/python.exe experiments/exp_attachment_pp_association_unambiguous_mining_v1.py --self-test.  PATCH CHECK: ... --verify-patch notes/problems/pp_attachment_obl_nmod_is_the_worst_comprehension_relevant_class_mine_unambiguous_cases_from_reading/attachment_arm_pp_patch.diff.  LIVE CHAIN + landed cap (the phase-7 headline): OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 PYTHONHASHSEED=0 .venv/Scripts/python.exe experiments/exp_attachment_pp_association_unambiguous_mining_v1.py --full --cap 6000 --test-cap 700 --lines 100000 --assoc data/hook_state/attachment_pp_assoc_v2_simplewiki100k_candidate.json --arms base,objgen --decodes incr --boot 2000 --live --consumer --tag _live6000.  HEADS->LABELS + the residual ledger: the same with --label-transfer base,objgen --roles-diag base,objgen --gap-decomp base,objgen --tag _diagfix6000 (drop --live).  THE TWO-SIDED TEACHER and its twin: the same at --cap 1500 with --arms base,objgen,objgenoblnom6,twinoblnom6 --decodes incr,map1 --pairs twinoblnom6:objgenoblnom6,objgen:objgenoblnom6 --consumer --tag _oblnomtwin1500.  SECOND DIFF (regenerates it byte-for-byte and re-runs its arc-for-arc equivalence check against the measured cell): ... --two-sided-diff notes/problems/<slug>/attachment_arm_pp_patch.diff --two-sided-out notes/problems/<slug>/attachment_arm_two_sided_teacher_patch.diff.  THE GENITIVE-MATCHED CONTROL (round 2, the clean content decomposition + the ccomp flip trace): ... --full --cap 6000 --test-cap 700 --lines 100000 --assoc data/hook_state/attachment_pp_assoc_v2_simplewiki100k_candidate.json --arms base,flatgen,objgen --decodes incr --boot 2000 --pairs flatgen:objgen --flip-diag ccomp,advcl,obl,nmod --consumer --tag _flatgen6000.  CAPACITY PROBE (5 seconds, no build): ... --capacity-probe --test-cap 700 --tag _phase7.  CHANNEL PROBE (20 seconds, no build): ... --rank-probe --test-cap 700 --near-w 2.0 --tag _phase7_w2.0.  Every command writes only its own data/exp_* directory."
+reverify: "SELF-TEST (40 scaffold-free checks, writes nothing): .venv/Scripts/python.exe experiments/exp_attachment_pp_association_unambiguous_mining_v1.py --self-test.  PATCH CHECK: ... --verify-patch notes/problems/pp_attachment_obl_nmod_is_the_worst_comprehension_relevant_class_mine_unambiguous_cases_from_reading/attachment_arm_pp_patch.diff.  LIVE CHAIN + landed cap (the phase-7 headline): OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 PYTHONHASHSEED=0 .venv/Scripts/python.exe experiments/exp_attachment_pp_association_unambiguous_mining_v1.py --full --cap 6000 --test-cap 700 --lines 100000 --assoc data/hook_state/attachment_pp_assoc_v2_simplewiki100k_candidate.json --arms base,objgen --decodes incr --boot 2000 --live --consumer --tag _live6000.  HEADS->LABELS + the residual ledger: the same with --label-transfer base,objgen --roles-diag base,objgen --gap-decomp base,objgen --tag _diagfix6000 (drop --live).  THE TWO-SIDED TEACHER and its twin: the same at --cap 1500 with --arms base,objgen,objgenoblnom6,twinoblnom6 --decodes incr,map1 --pairs twinoblnom6:objgenoblnom6,objgen:objgenoblnom6 --consumer --tag _oblnomtwin1500.  SECOND DIFF (regenerates it byte-for-byte and re-runs its arc-for-arc equivalence check against the measured cell): ... --two-sided-diff notes/problems/<slug>/attachment_arm_pp_patch.diff --two-sided-out notes/problems/<slug>/attachment_arm_two_sided_teacher_patch.diff.  THE GENITIVE-MATCHED CONTROL (round 2, the clean content decomposition + the ccomp flip trace): ... --full --cap 6000 --test-cap 700 --lines 100000 --assoc data/hook_state/attachment_pp_assoc_v2_simplewiki100k_candidate.json --arms base,flatgen,objgen --decodes incr --boot 2000 --pairs flatgen:objgen --flip-diag ccomp,advcl,obl,nmod --consumer --tag _flatgen6000.  CAPACITY PROBE (5 seconds, no build): ... --capacity-probe --test-cap 700 --tag _phase7.  BETA_NOM SWEEP AT THE LANDED CAP (round 3): ... --full --cap 6000 --test-cap 700 --lines 100000 --assoc data/hook_state/attachment_pp_assoc_v2_simplewiki100k_candidate.json --arms base,objgen,objgenoblnom2,objgenoblnom4,objgenoblnom6 --decodes incr,map1 --boot 2000 --consumer --pairs objgen:objgenoblnom2,objgen:objgenoblnom4,objgen:objgenoblnom6 --tag _betanom6000.  THE LADDER-COMPRESSION CAUSAL TEST (round 3): the same with --arms base,objgen --decodes incr --ladder-gain 1.0,1.25,1.5,2.0,3.0 --tag _gain6000.  WHAT THE UNDETECTED nmod ARE (5 seconds, no build): ... --nmod-residual-probe --test-cap 700 --tag _phase7.  CHANNEL PROBE (20 seconds, no build): ... --rank-probe --test-cap 700 --near-w 2.0 --tag _phase7_w2.0.  Every command writes only its own data/exp_* directory."
 ---
 
 > **COMPLETION.** The PP cue on disk could not see two thirds of its own problem. `pp_site` offered exactly TWO
@@ -732,7 +732,13 @@ diff is then inert, which is how the two landing steps stay separable. **Sanity 
 at cap 6000 with gold categories, in-order:** first diff alone UAS 0.6364 / obl 0.497 / nmod 0.511; both diffs, at
 cap 1500 where the pair was measured, UAS 0.6373 / obl 0.522 / nmod 0.515 / retrieved-nmod 0.624.
 
-**One caveat I am stating rather than hiding:** the two-sided pair was measured at **cap 1500**, not at the landed
+**The caveat this section carried is DISCHARGED in round 3 (section 25):** the pair was first measured at cap 1500,
+and the `BETA_NOM` sweep has now been run at the landed cap 6000 -- 2 / 4 / 6, five builds. **`BETA_NOM = 6`, the
+value shipped in this diff, is confirmed at the landed cap**, and at that cap the two-sided arm beats the shipped arm
+on every headline number and makes the obl gain survive the search decode (obl +0.0671\* against the floor under
+map1, where the shipped arm's +0.0210 is NOT separated). The original wording is kept below for the record.
+
+*(original:)* the two-sided pair was measured at **cap 1500**, not at the landed
 cap 6000. Everything in §12.5(g) is a cap-1500 result. The obl/nmod trade the meaning budget controls is
 cap-sensitive (§16.1), so `BETA_NOM` should be re-swept at cap 6000 before the board A/B — 2, 4, 6 is the range to
 try, and the arm is already parameterised for it.
@@ -1000,6 +1006,32 @@ capacity, the shrinkage.
 
 # PHASE 7, ROUND 3 — the section-18 opportunities, chased in order of reach
 
+## 20. IS THE SESSION EXHAUSTED? — the ROUND-2 answer, SUPERSEDED BY §27
+
+> Kept for the record. Round 2 answered "not exhausted" and named the cheapest unclaimed number; round 3 went and got it, plus four more. **The current answer is §27.**
+
+**Not exhausted in the sense of "nothing is left" — exhausted in the sense of "nothing further is buildable from this
+seat tonight without a number I cannot get".** Concretely:
+
+* Everything the brief and both rounds of phase 7 named has been built and measured, including the two levers the
+  first submission parked and the one it never reached.
+* **The single cheapest unclaimed number is opportunity 1 — re-sweeping `BETA_NOM` at cap 6000 — and it is one run
+  of three builds.** I did not get it because each cap-6000 build took 20–40 minutes tonight on a machine shared with
+  about twenty other Python processes, and I chose the genitive-matched control and the ccomp flip trace ahead of it.
+  It should be the first thing the next session or the board A/B does.
+* The two largest remaining buckets (155 undetected nmod, 90 obl association errors) both need a NEW mechanism —
+  a bare-nominal construction and a lexicalised object term — not another parameter, and each is properly its own
+  brief with its own twin and its own mining pass.
+* Three levers are closed with reasons rather than nulls (reading volume, retrieval capacity, the Dirichlet
+  shrinkage -- the last one built in the organ after the channel probe said it should win, and refuted there), and
+  one is closed with a mechanism and a redirect (the referential cue, wrong scope).
+* One round-1 claim was OVERTURNED by a round-2 control I built because strategy's question exposed the gap: the
+  `flat` and `twin` controls do not carry the genitive, so round 1 mis-attributed the association's content. The
+  corrected three-way split is in section 16.1b and the frontmatter now carries it.
+
+**The honest one-line verdict: the problem as scoped is solved and its residual is now a ledger with named
+mechanisms and arithmetic, not a wall.**
+
 ## 21. OPPORTUNITY 2 (the 155 undetected nmod): LOOKED AT BEFORE BUILDING, AND IT IS NOT A MISSING CONSTRUCTION
 
 **My §18 arithmetic for this was wrong by about 3×, and looking at the tokens is what showed it.** §18 estimated
@@ -1071,6 +1103,49 @@ are now numbers rather than intentions.
 | 12 | the nmod PARTIAL on the retrieved subpopulation | **YES** | on that population proximity alone already scores 0.922, so the association cannot lift it — its job there is obl. Converted by the two-sided teacher: +0.0752\* over base, +0.0564\* over the shipped arm |
 | 13 | the downstream role regression 0.5765 → 0.5622 | **YES** | no NMOD class + better heads move nominals off verbs, and a nominal not governed by a verb can only be `dep` (`obl→dep` 61→96, `nmod→dep` 195→214). Removed upstream by the two-sided teacher (0.5769) |
 | 14 | **`objgen`'s obl falls 0.541 → 0.497 from cap 1500 to cap 6000 while `base` stands still** | **YES, AND MY FIRST ANSWER WAS WRONG — see §26** | I measured the correlate: the cue's learned ladder compresses 1.496 → 1.079 and its losing bin rises from −0.255 to +0.001. **I then ran the causal test (§26) and it REFUTED my explanation:** scaling the learned strengths until the spread is back at the cap-1500 value buys **+0.006 obl of the 0.044 gap**, and tripling the spread buys nothing. The cue's weighting is already near-optimal for obl; the cap effect lives in the REST of the competition, and the named next test is a cap-1500 flip trace |
+
+## 25. OPPORTUNITY 1: THE `BETA_NOM` SWEEP AT THE LANDED CAP 6000 — the caveat is discharged
+
+§15 flagged that the two-sided teacher was measured at cap 1500 only, and §18 called re-sweeping it at the landed cap
+"the single cheapest unclaimed number in this problem". **It is now claimed.** Five builds at cap 6000, UD-EWT test
+700, paired bootstrap over sentences (2000 resamples), in-order (the live decode) unless marked.
+
+| arm | UAS | obl | nmod | retrieved PP subpop | consumer role acc. |
+|---|---|---|---|---|---|
+| `base` (floor) | 0.6239 | 0.444 | 0.429 | 0.517 | 0.5765 |
+| `objgen` (the shipped diff) | 0.6364 | 0.497 | 0.511 | 0.566 | 0.5622 |
+| `objgenoblnom2` | 0.6324 | **0.646** | 0.301 | 0.501 | 0.5836 |
+| `objgenoblnom4` | 0.6354 | 0.606 | 0.423 | 0.571 | 0.5808 |
+| **`objgenoblnom6` (the shipped default)** | **0.6373** | **0.514** | **0.524** | **0.584** | **0.5760** |
+
+**Against the floor (all CI-separated, in-order / search):**
+
+| | UAS | obl | nmod | retrieved subpop |
+|---|---|---|---|---|
+| `objgen` | +0.0125\* / +0.0120\* | +0.0524\* / **+0.0210 n.s.** | +0.0824\* / +0.1161\* | +0.0484\* / +0.0134 n.s. |
+| **`objgenoblnom6`** | **+0.0134\* / +0.0166\*** | **+0.0692\* / +0.0671\*** | **+0.0955\* / +0.1273\*** | **+0.0668\* / +0.0551\*** |
+
+**Three results.**
+
+1. **`BETA_NOM = 6` is confirmed as the right default at the landed cap — the value shipped in the second diff.**
+   The sweep could easily have said otherwise: 2 and 4 sit far out on the obl side (obl +0.1488\* and +0.1090\*
+   against `objgen`, but nmod −0.2097\* and −0.0880\*, both CI-separated DOWN), so the balance point at cap 6000 is
+   not below 6, and 6 lands on it. The caveat §15 raised is discharged rather than inherited.
+2. **At the landed cap the two-sided teacher beats the shipped arm on every headline number** — UAS +0.0009,
+   obl +0.0168, nmod +0.0131, retrieved obl +0.0180, retrieved nmod +0.0188, all positive, none CI-separated
+   (so: never worse, not provably better on any single number). What IS decisive is that **it makes the obl gain
+   survive the search decode**: `objgen`'s obl is +0.0210 and NOT separated under map1, while `objgenoblnom6`'s is
+   **+0.0671 and separated**. The shipped arm's obl advantage at the landed cap is decode-fragile; the two-sided
+   teacher's is not.
+3. **It removes the downstream regression at cap 6000 too** — role accuracy 0.5760 against the floor's 0.5765
+   (flat), where the shipped arm costs 0.5622.
+
+**One thing I have to flag about that last column, against my own result.** The consumer metric REWARDS the
+obl-heavy arms: `objgenoblnom2` scores the best role accuracy of any arm here (0.5836) while being the worst arm in
+the table on nmod (0.301). That is not a virtue — it is the missing NMOD class (§17) showing through the
+instrument. Gold `nmod` is unscoreable, so anything that trades nmod for obl looks good downstream. **Do not read
+the consumer column as a ranking; read it only as "does this arm push nominals into `dep`", which is the question it
+can answer** — and by that reading `objgen` does (0.5622) and the two-sided arms do not.
 
 ## 26. ITEM 14 CLOSED — the ladder compression is NOT the cause, and I was wrong about it
 
@@ -1148,29 +1223,31 @@ competition, and the exact test is named and costed.
    worth keeping: the gold host is never beyond rank 6, so a more faithful retrieval rule has nothing to recover.
    Recording it as closed is more useful than leaving it queued.
 
-## 20. IS THE SESSION EXHAUSTED? — plainly
+## 27. IS THE SESSION EXHAUSTED? — EXHAUSTED, plainly, and here is the accounting
 
-**Not exhausted in the sense of "nothing is left" — exhausted in the sense of "nothing further is buildable from this
-seat tonight without a number I cannot get".** Concretely:
+**Yes. EXHAUSTED.** Every §18 opportunity is now either built-and-measured or bounded by a number, and nothing
+buildable remains from this seat.
 
-* Everything the brief and both rounds of phase 7 named has been built and measured, including the two levers the
-  first submission parked and the one it never reached.
-* **The single cheapest unclaimed number is opportunity 1 — re-sweeping `BETA_NOM` at cap 6000 — and it is one run
-  of three builds.** I did not get it because each cap-6000 build took 20–40 minutes tonight on a machine shared with
-  about twenty other Python processes, and I chose the genitive-matched control and the ccomp flip trace ahead of it.
-  It should be the first thing the next session or the board A/B does.
-* The two largest remaining buckets (155 undetected nmod, 90 obl association errors) both need a NEW mechanism —
-  a bare-nominal construction and a lexicalised object term — not another parameter, and each is properly its own
-  brief with its own twin and its own mining pass.
-* Three levers are closed with reasons rather than nulls (reading volume, retrieval capacity, the Dirichlet
-  shrinkage -- the last one built in the organ after the channel probe said it should win, and refuted there), and
-  one is closed with a mechanism and a redirect (the referential cue, wrong scope).
-* One round-1 claim was OVERTURNED by a round-2 control I built because strategy's question exposed the gap: the
-  `flat` and `twin` controls do not carry the genitive, so round 1 mis-attributed the association's content. The
-  corrected three-way split is in section 16.1b and the frontmatter now carries it.
+| §18 opportunity | reach claimed | outcome |
+|---|---|---|
+| 1. re-sweep `BETA_NOM` at cap 6000 | "the cheapest unclaimed number" | **BUILT AND MEASURED (§25).** 6 confirmed; the two-sided arm beats the shipped arm on every headline number and makes the obl gain decode-robust |
+| 2. bare-nominal construction for the 155 undetected nmod | +0.145 nmod | **PROBED AND WITHDRAWN (§21).** The Right-hand Head Rule is already the arm's `npmod`; my estimate was ~3× too high; the residual is 55 convention + 94 apposition (a different organ) |
+| 3. bare temporal obliques | +0.067 obl | **BOUNDED**, 32 measured tokens; needs its own mining pass and twin — its own brief |
+| 4. lexicalise the object noun | +0.189 obl / +0.075 nmod maximum | **BOUNDED by the ledger and cross-checked against the oracle** (373/477 = 0.782 vs the oracle's 0.746); the evidence says expect a fraction |
+| 5. second-order sibling factorisation | +0.096 obl / +0.082 nmod maximum | **BOUNDED**, and now the smallest of the five — the DECODE bucket collapsed 156 → 46 (obl) and 91 → 44 (nmod) when the cue landed |
+| (round 3 addition) item 14, the cap effect | — | **BUILT, AND IT REFUTED MY OWN HYPOTHESIS (§26).** Bounded at ≤ +0.006 of 0.044 |
 
-**The honest one-line verdict: the problem as scoped is solved and its residual is now a ledger with named
-mechanisms and arithmetic, not a wall.**
+**What remains is genuinely not buildable here**, and each remainder is named with its owner: one extra role class in
+`hdlab/graded_role_assigner` (§17, outside this remit), an apposition mechanism that needs the entity layer (§24.3), a
+discourse-scoped referential cue that needs the same (§24.4), a new mined store for the lexical object term (§22), and
+a second-order parser (§22). Two measurements would be worth one run each if another session picks this up: the
+cap-1500 flip trace that would finish §26's positive account, and the board A/B itself, which a solver seat cannot run
+because the arm loads a fixed asset path.
+
+**Fourteen of the fifteen negatives in this file are understood with a mechanism and a number; the fifteenth (§26) is
+understood in what it is not, bounded, and its next test is named and costed. Three of my own claims were overturned
+by controls I built after the fact — the content attribution (§16.1b), the bare-nominal construction (§21), and the
+ladder compression (§26) — and each correction is in the file next to the claim it replaces.**
 
 ## SUBMISSION PROMPT
 
