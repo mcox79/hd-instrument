@@ -95,8 +95,27 @@ from collections import Counter, defaultdict"""),
 #                     OF sentence k rebuilds the same within-sentence state in a transient overlay that is never
 #                     persisted, so a read reproduces the feed's own belief EXACTLY). 'sentence' = the cards of sentence
 #                     k are filed at its boundary, so the organ at sentence k knows exactly sentences 0..k-1. Swept.
-ENT_REG_FILE_ALL = os.environ.get("HDLAB_LC_ENT_REG_FILE_ALL", "0") == "1"
+#                     DEFAULT ON (2026-09-14 phase 7, strategy: the brain-foundational filing policy ships unless it
+#                     costs). Measured on GUM, both arms read IN ORDER, 138 documents, paired bootstrap: all
+#                     -0.00001 CI[-0.00008,+0.00006], unseen -0.00006 CI[-0.00054,+0.00034], repeat-mention
+#                     +0.00027 CI[-0.00142,+0.00196], FIRST-mention 0.00000 CI[0.0,0.0]. It costs nothing and it
+#                     closes the train/read mismatch. Set 0 to reproduce the pre-2026-09-14 filing policy exactly.
+ENT_REG_FILE_ALL = os.environ.get("HDLAB_LC_ENT_REG_FILE_ALL", "1") == "1"
 ENT_REG_GRAIN = os.environ.get("HDLAB_LC_ENT_REG_GRAIN", "token")
+#   ENT_REG_LIVE_DOC  ARM B, the PASSAGE REGISTER, wired to the one in-order feed. `update_document_register` had NO
+#                     live caller anywhere in hdlab/ or tools/ (enumerated 2026-09-14), so `_doc_shape` was always
+#                     empty and ENT_THETA_DOC=100 was INERT on the live path. It is wired here -- and it needed the
+#                     SAME as-of fix one level up, because `_doc_shape` was a single accumulator: a consumer asking
+#                     about sentence k would otherwise be handed the convention of the WHOLE passage, which is the
+#                     defect this rung exists to remove. The entries are cumulative sums stamped with the sentence
+#                     that folded them in (see `_doc_shape_asof`). Exact for ENT_DOC_DECAY == 1.0 (the default).
+#                     DEFAULT ON (2026-09-14 phase 7): measured on GUM, 138 documents, both arms read IN ORDER,
+#                     paired bootstrap over documents -- repeat-mention 0.5770 -> 0.5823 (+0.00533
+#                     CI[+0.00243,+0.00892], CI-SEPARATED) and FIRST-mention 0.8871 -> 0.8907 (+0.00363
+#                     CI[+0.00118,+0.00616], CI-SEPARATED), overall -0.00006 and unseen -0.00071 both n.s.,
+#                     PROPN<->NOUN 1,240 -> 1,247. It folds 7,584 sentences into 24 shape symbols as 25,959
+#                     sentence-stamped entries. Set 0 to leave arm B inert as it was before 2026-09-14.
+ENT_REG_LIVE_DOC = os.environ.get("HDLAB_LC_ENT_REG_LIVE_DOC", "1") == "1"
 _REG_GEN = 0
 
 
@@ -358,6 +377,68 @@ def register_generation() -> int:
                     reg.note(lows, i)
                 reg.commit(True, lows)    # the passage advances (the ACT-R recency clock; mirrors `posterior`)'''),
 
+# ---- ARM B: the passage register is read AS OF the sentence too -----------------------------------------------------------
+("""    def update_document_register(self, words: Sequence[str], post: np.ndarray) -> None:
+        \"\"\"ARM B: fold the SETTLED, GRADED belief about this sentence into the passage's shape register -- a
+        prediction can only be fed back once the belief it came from has settled, so at a sentence boundary.\"\"\"
+        if ENT_THETA_DOC is None:
+            return
+        if ENT_DOC_DECAY != 1.0:
+            for r in self._doc_shape.values():
+                r *= ENT_DOC_DECAY
+        for i, w in enumerate(words):
+            if ENT_REG_KNOWN and w.lower() not in self.vocab:
+                continue                     # calibrate the passage convention on what the organ is SURE about
+            sp = self._unk_sym(w, position_class(words, i))
+            r = self._doc_shape.get(sp)
+            if r is None:
+                r = self._doc_shape[sp] = np.zeros(len(self.tags))
+            r += post[i]""",
+ """    def update_document_register(self, words: Sequence[str], post: np.ndarray, sent_idx: Optional[int] = None) -> None:
+        \"\"\"ARM B: fold the SETTLED, GRADED belief about this sentence into the passage's shape register -- a
+        prediction can only be fed back once the belief it came from has settled, so at a sentence boundary.
+        STAMPED WITH ITS SENTENCE (2026-09-14, pri-112): the register keeps CUMULATIVE sums per shape symbol, one
+        entry per sentence that touched it, so `_doc_shape_asof` can answer a later consumer with the convention the
+        comprehender had established BY THAT SENTENCE. Without the stamp a consumer asking about sentence k would be
+        handed the whole passage's convention -- the same read-the-future defect as the file cards, one level up.
+        Exact for ENT_DOC_DECAY == 1.0 (the default); with a decay the prefix sums are only approximate, because a
+        decay touches symbols this sentence did not.\"\"\"
+        if ENT_THETA_DOC is None:
+            return
+        t = sent_idx
+        if t is None:
+            t = (self._reg.sent_no if self._reg is not None else 0)
+        T = len(self.tags)
+        delta: Dict[str, np.ndarray] = {}
+        for i, w in enumerate(words):
+            if ENT_REG_KNOWN and w.lower() not in self.vocab:
+                continue
+            sp = self._unk_sym(w, position_class(words, i))
+            d = delta.get(sp)
+            if d is None:
+                d = delta[sp] = np.zeros(T)
+            d += post[i]
+        for sp, d in delta.items():
+            ent = self._doc_shape.setdefault(sp, [])
+            base = ent[-1][1] if ent else np.zeros(T)
+            if ENT_DOC_DECAY != 1.0:
+                base = base * ENT_DOC_DECAY
+            cum = base + d
+            if ent and ent[-1][0] == t:
+                ent[-1] = (t, cum)
+            else:
+                ent.append((t, cum))
+
+    def _doc_shape_asof(self, sp: str):
+        \"\"\"The passage's shape register for this symbol AS OF the sentence the call in flight is about: the
+        cumulative sum over the sentences folded in STRICTLY BEFORE it. None when the comprehender had nothing yet.\"\"\"
+        ent = self._doc_shape.get(sp)
+        if not ent:
+            return None
+        k = self._reg._as_of if self._reg is not None else (ent[-1][0] + 1)
+        j = _bisect_left(ent, (k,))
+        return ent[j - 1][1] if j else None"""),
+
 # ---- the passage counter on the instance --------------------------------------------------------------------------------
 ('''        self._reg = None                                              # the current passage's file cards''',
  '''        self._reg = None                                              # the current passage's file cards
@@ -385,12 +466,24 @@ def register_generation() -> int:
         that sentence (they would otherwise each re-run forward-backward and each get a different answer)."""
         out = []
         for s in sentences:
-            out.append(self.posterior(list(s), lag=lag, observe=True))
+            p = self.posterior(list(s), lag=lag, observe=True)
+            if ENT_REG_LIVE_DOC and ENT_THETA_DOC is not None and self._reg is not None:
+                # ARM B, at the sentence boundary and stamped with the sentence just read (the clock has already
+                # advanced), so the belief re-enters the competition for LATER sentences only -- never its own.
+                self.update_document_register(list(s), p, sent_idx=self._reg.sent_no - 1)
+            out.append(p)
         return out
 
     def observe_sentence(self, words: Sequence[str], lag: Optional[int] = None) -> np.ndarray:
         """One sentence of the in-order feed (see feed_passage)."""
         return self.posterior(list(words), lag=lag, observe=True)'''),
+
+("""        if ENT_THETA_DOC is not None:
+            r = self._doc_shape.get(sp)
+            nd = float(r.sum()) if r is not None else 0.0""",
+ """        if ENT_THETA_DOC is not None:
+            r = self._doc_shape_asof(sp)          # AS OF this sentence (pri-112), never the whole passage
+            nd = float(r.sum()) if r is not None else 0.0"""),
 
 # ---- _log_emit no longer writes -----------------------------------------------------------------------------------------
 ('''        if self._reg is not None:
@@ -551,7 +644,17 @@ def _affect_pos(sentence_text: str):
                 self._read_parse_cache[("tagmat", _k)] = _m'''),
 ]
 
-PATCH = [("hdlab/lexical_categories.py", LC_PATH, LC_EDITS), ("hdlab/situation_reader.py", SR_PATH, SR_EDITS)]
+GC_PATH = os.path.join(REPO, "experiments", "gum_coref.py")
+
+# THE BOARD'S GUM LOADER IS A CONSUMER OF THE SAME ORGAN, AND IT NEVER OPENED A PASSAGE (2026-09-14 phase 7).
+# `organ_tags` already reads the document sentence by sentence IN READING ORDER -- it was only ever missing the
+# passage boundary, so with `self._reg is None` the entity-feedback arm was INERT on every board row it feeds
+# (coref / common_noun_coref / salience). ONE ORGAN, ONE REGISTER: the loader now opens the passage and feeds it
+# once, exactly as the reader does, and takes its tags from that one settled pass.
+GC_EDITS = [('    from hdlab import frontend as F\n    tg = F.tagger()\n    by_sent = {}\n    for t in toks:\n        by_sent.setdefault(t.sent, []).append(t)\n    pred = {}\n    for s in sorted(by_sent):\n        row = sorted(by_sent[s], key=lambda x: x.idx)\n        for x, c in zip(row, tg.tag([x.form for x in row])):\n            pred[x.gidx] = c\n    return pred', '    from hdlab import frontend as F\n    tg = F.tagger()\n    by_sent = {}\n    for t in toks:\n        by_sent.setdefault(t.sent, []).append(t)\n    rows = [sorted(by_sent[s], key=lambda x: x.idx) for s in sorted(by_sent)]\n    pred = {}\n    # THE PASSAGE BOUNDARY AND THE ONE IN-ORDER FEED (pri 112, 2026-09-14). This loader already read the document\n    # in reading order; it was only ever missing `new_document()`, so with `self._reg is None` the category organ\'s\n    # entity-feedback arm (pri 104: the Heim file cards that say whether a string has been used to pick out an\n    # INDIVIDUAL in THIS passage) was INERT for every board row this loader feeds -- coref, common_noun_coref and\n    # salience. Measured cost of the inert path on GUM, both arms read in order, 138 documents, paired bootstrap:\n    # repeat-mention -0.01012 CI[-0.01883,-0.00175], unseen -0.00425 CI[-0.00722,-0.00173], overall -0.00119\n    # CI[-0.00181,-0.00066], all CI-separated, PROPN<->NOUN 1,238 -> 1,288. ONE ORGAN, ONE REGISTER: a consumer\n    # that reads a PASSAGE opens one. `feed_passage` returns the settled per-sentence posteriors, so the tags come\n    # from that single in-order pass and no sentence is read twice.\n    lc = getattr(tg, "_lc", None)\n    if lc is not None:\n        lc.new_document()\n        for row, m in zip(rows, lc.feed_passage([[x.form for x in row] for row in rows])):\n            for j, x in enumerate(row):\n                pred[x.gidx] = lc.tags[int(m[j].argmax())]\n        return pred\n    for row in rows:                       # HDLAB_TAG_SOURCE=perceptron: the stand-in keeps no passage register\n        for x, c in zip(row, tg.tag([x.form for x in row])):\n            pred[x.gidx] = c\n    return pred')]
+
+PATCH = [("hdlab/lexical_categories.py", LC_PATH, LC_EDITS), ("hdlab/situation_reader.py", SR_PATH, SR_EDITS),
+         ("experiments/gum_coref.py", GC_PATH, GC_EDITS)]
 _ORIG = {}
 
 
@@ -595,6 +698,18 @@ def install_reader():
     import hdlab.situation_reader as SR
     exec(compile(patched_source(SR_PATH, SR_EDITS), SR_PATH, "exec"), SR.__dict__)
     return SR
+
+
+def install_gum_coref():
+    """Install the patched board GUM loader (the passage boundary + the one in-order feed)."""
+    import experiments.gum_coref as GC
+    exec(compile(patched_source(GC_PATH, GC_EDITS), GC_PATH, "exec"), GC.__dict__)
+    return GC
+
+
+def restore_gum_coref():
+    import experiments.gum_coref as GC
+    exec(compile(_orig(GC_PATH), GC_PATH, "exec"), GC.__dict__)
 
 
 def restore():
@@ -790,6 +905,55 @@ def self_test() -> bool:
         ref_counts == pat_counts,
         "%d documents; entc symbols %d, entc_u symbols %d" % (
             len(acc_docs), sum(len(v) for v in ref_counts[0].values()), sum(len(v) for v in ref_counts[1].values())))
+
+    # W11: ARM B (the passage register) is ALSO read as of the sentence -- a read about sentence k must see the
+    #      convention the comprehender had established by k, never the whole passage's.
+    LCb = install()
+    LCb.ENT_REG_LIVE_DOC = True
+    lcb = LCb.get()
+    lcb.new_document()
+    fedb = lcb.feed_passage(_PASSAGE)
+    readb = [lcb.posterior(list(s)) for s in _PASSAGE]
+    d11 = max(_maxdiff(a, b) for a, b in zip(fedb, readb))
+    n_stamped = sum(len(v) for v in lcb._doc_shape.values())
+    chk("W11 ARM B (the passage register) is read AS OF the sentence: a late read reproduces the feed's own belief",
+        d11 == 0.0 and n_stamped > 0,
+        "max |dP| = %.3e; %d sentence-stamped entries over %d shape symbols" % (
+            d11, n_stamped, len(lcb._doc_shape)))
+    prefixb = []
+    for k in range(len(_PASSAGE)):
+        lcb.new_document()
+        lcb.feed_passage(_PASSAGE[:k])
+        prefixb.append(lcb.posterior(list(_PASSAGE[k]), observe=True))
+    d11b = max(_maxdiff(fedb[k], prefixb[k]) for k in range(len(_PASSAGE)))
+    chk("W11b ARM B is STRICTLY IN ORDER: sentence k's belief equals that of a reader that has read only 0..k-1",
+        d11b == 0.0, "max |dP| = %.3e" % d11b)
+    LCb.ENT_REG_LIVE_DOC = (os.environ.get("HDLAB_LC_ENT_REG_LIVE_DOC", "0") == "1")
+
+    # W12: the board's GUM loader opens a passage and feeds it once, in order (it never did).
+    install()
+    GCp = install_gum_coref()
+    import hdlab.lexical_categories as LCg
+
+    class _Tok:
+        __slots__ = ("gidx", "sent", "idx", "form")
+
+        def __init__(self, g, s_, i, f):
+            self.gidx, self.sent, self.idx, self.form = g, s_, i, f
+
+    gtoks = []
+    g = 0
+    for si, sent in enumerate(_PASSAGE):
+        for i, w in enumerate(sent):
+            gtoks.append(_Tok(g, si, i, w))
+            g += 1
+    pred = GCp.organ_tags(gtoks)
+    reg = LCg.get()._reg
+    chk("W12 the board's GUM loader opens the passage and feeds it ONCE in order (clock = sentences, cards written)",
+        reg is not None and reg.sent_no == len(_PASSAGE) and len(reg.h) > 0 and len(pred) == len(gtoks),
+        "clock=%d for %d sentences, %d file cards, %d tokens tagged" % (
+            (reg.sent_no if reg else -1), len(_PASSAGE), (len(reg.h) if reg else 0), len(pred)))
+    restore_gum_coref()
 
     print("\n%d/%d witnesses passed  (%.1fs)" % (PASS, PASS + FAIL, time.time() - t0), flush=True)
     return FAIL == 0
@@ -1374,6 +1538,130 @@ def future_probe(corpus="gum", stride=2, cap=0):
             "order_twin_symbol_difference_rate": round(twin_diff / max(1, n), 4)}
 
 
+def gum_loader_ab(n_docs=None, n_boot=1000):
+    """PHASE 7 (2i). THE BOARD'S GUM LOADER IS A CONSUMER OF THIS ORGAN AND IT NEVER OPENED A PASSAGE.
+    `experiments/gum_coref.organ_tags` is the decision source for the board's `coref`, `common_noun_coref` and
+    `salience` rows (HDLAB_GUM_DECISION defaults to "organ" since 2026-09-14, so those rows are gold-free and read
+    the live organ). It tags each document sentence by sentence in reading order but never calls `new_document()`,
+    so `self._reg is None` and pri-104's entity-feedback arm is INERT for all three. Both arms run in ONE process on
+    the same documents; the only difference is the passage boundary + the one in-order feed."""
+    install()
+    import experiments.exp_board_coref_gum_v1 as BCG
+    out = {}
+    for name in ("inert_no_new_document", "passage_opened_and_fed_in_order"):
+        if name.startswith("passage"):
+            install_gum_coref()
+        else:
+            restore_gum_coref()
+        t0 = time.time()
+        row, detail = BCG.board_coref_modern_dimension(n_docs=n_docs)
+        sal, _sd = BCG.board_salience_modern_dimension(n_docs=n_docs, n_boot=n_boot)
+        out[name] = {"coref": row, "common_noun_coref": detail["common_noun"], "salience": sal,
+                     "seconds": round(time.time() - t0, 1)}
+        print("  %s  coref=%s common=%s salience=%s  %.0fs" % (
+            name, row.get("model_acc"), detail["common_noun"].get("model_acc"), sal.get("model_acc"),
+            time.time() - t0), flush=True)
+    restore_gum_coref()
+    return out
+
+
+def armb_ab(corpus="gum", stride=2, cap=0, n_boot=2000):
+    """PHASE 7 (2iii). ARM B -- the PASSAGE REGISTER -- wired to the in-order feed and read AS OF the sentence.
+    `update_document_register` had no live caller anywhere in hdlab/ or tools/, so `_doc_shape` was always empty and
+    ENT_THETA_DOC=100 was inert. Both arms read IN ORDER; the only difference is whether the settled belief is
+    folded back into the passage's shape convention at each sentence boundary."""
+    import hdlab.lexical_categories as LC
+    lc = LC.get()
+    vocab = lc.vocab
+    docs = read_corpus(corpus, stride=stride, cap=cap)
+    rows = {}
+    touched = {"sentences": 0, "shape_symbols": set(), "stamped_entries": 0, "prior_reads_with_a_convention": 0}
+    for name, flag in (("arm_b_off_inert", False), ("arm_b_on_as_of", True)):
+        LC.ENT_REG_LIVE_DOC = flag
+        rows[name] = []
+        t0 = time.time()
+        for doc in docs:
+            words = [[w for w, _ in s] for s in doc]
+            lc.new_document()
+            rows[name].append(_doc_stats([_tags_of(lc, m) for m in lc.feed_passage(words)], doc, vocab))
+            if flag:
+                touched["sentences"] += len(words)
+                touched["shape_symbols"] |= set(lc._doc_shape)
+                touched["stamped_entries"] += sum(len(v) for v in lc._doc_shape.values())
+        print("  %s  %.0fs" % (name, time.time() - t0), flush=True)
+    LC.ENT_REG_LIVE_DOC = (os.environ.get("HDLAB_LC_ENT_REG_LIVE_DOC", "0") == "1")
+    idx = {"all": (0, 1), "unseen": (2, 3), "repeat": (4, 5), "first": (6, 7)}
+    out = {"corpus": corpus, "n_docs": len(docs), "floor": {}, "arm": {}, "arm_minus_floor": {},
+           "pn_floor": int(np.asarray(rows["arm_b_off_inert"])[:, 8].sum()),
+           "pn_arm": int(np.asarray(rows["arm_b_on_as_of"])[:, 8].sum()),
+           "what_it_touches": {"sentences_folded_back": touched["sentences"],
+                               "distinct_shape_symbols": len(touched["shape_symbols"]),
+                               "sentence_stamped_entries": touched["stamped_entries"]}}
+    for nm, (h, n) in idx.items():
+        out["floor"][nm] = _acc(rows["arm_b_off_inert"], h, n)
+        out["arm"][nm] = _acc(rows["arm_b_on_as_of"], h, n)
+        out["arm_minus_floor"][nm] = _boot(rows["arm_b_off_inert"], rows["arm_b_on_as_of"], h, n, n_boot=n_boot)
+    return out
+
+
+def twin_arithmetic(corpus="gum", stride=2, cap=0):
+    """PHASE 7 (1b). THE ARITHMETIC BEHIND 'the tag-level twin cannot separate'. Three quantities, measured, not
+    asserted: (a) how much POSTERIOR MASS the entity prior actually moves per prior read, and on how many tokens it
+    moves the ARGMAX at all -- that is the total tag-level budget the prior has; (b) how much of that budget the
+    ORDER of the feed is responsible for (the shuffled-order twin's argmax flips against the in-order read); (c) the
+    population and the bootstrap half-width, so the required effect size can be compared with the observed one.
+    Each document is read three ways IN ORDER: with the prior inert, with the prior on, and with the register fed in
+    a random sentence order and then read as of the sentence."""
+    import hdlab.lexical_categories as LC
+    lc = LC.get()
+    docs = read_corpus(corpus, stride=stride, cap=cap)
+    rng = np.random.default_rng(0)
+    n_tok = n_unseen = 0
+    flips_prior = flips_twin = 0
+    mass = 0.0
+    mass_n = 0
+    pmax_off = pmax_on = 0.0
+    t0 = time.time()
+    for di, doc in enumerate(docs):
+        words = [[w for w, _ in s] for s in doc]
+        lc._reg = None                                    # the prior inert (exactly kappa 0)
+        off = [lc.posterior(list(s)) for s in words]
+        lc.new_document()
+        on = lc.feed_passage(words)
+        lc.new_document()                                 # the ORDER twin: same passage, shuffled feed order
+        order = list(range(len(words)))
+        rng.shuffle(order)
+        for k in order:
+            lc.posterior(list(words[k]), observe=True)
+        tw = [lc.posterior(list(s)) for s in words]
+        for si, sent in enumerate(doc):
+            a, b, c = off[si], on[si], tw[si]
+            for i, (w, _g) in enumerate(sent):
+                n_tok += 1
+                if w.lower() in lc.vocab:
+                    continue                              # the prior is read only where there is no lexical entry
+                n_unseen += 1
+                mass += 0.5 * float(np.abs(b[i] - a[i]).sum())   # total variation distance, prior on vs inert
+                mass_n += 1
+                pmax_off += float(a[i].max())
+                pmax_on += float(b[i].max())
+                if int(a[i].argmax()) != int(b[i].argmax()):
+                    flips_prior += 1
+                if int(b[i].argmax()) != int(c[i].argmax()):
+                    flips_twin += 1
+        if (di + 1) % 30 == 0:
+            print("    %d/%d  %.0fs" % (di + 1, len(docs), time.time() - t0), flush=True)
+    return {"corpus": corpus, "n_docs": len(docs), "n_tokens": n_tok, "n_prior_reads": n_unseen,
+            "mean_total_variation_moved_by_the_prior": round(mass / max(1, mass_n), 5),
+            "mean_P_argmax_prior_inert": round(pmax_off / max(1, mass_n), 5),
+            "mean_P_argmax_prior_on": round(pmax_on / max(1, mass_n), 5),
+            "argmax_flips_caused_by_the_prior": flips_prior,
+            "argmax_flip_rate_of_prior_reads": round(flips_prior / max(1, n_unseen), 5),
+            "argmax_flips_caused_by_SHUFFLING_the_feed_order": flips_twin,
+            "order_share_of_the_prior_budget": round(flips_twin / max(1, flips_prior), 4),
+            "seconds": round(time.time() - t0, 1)}
+
+
 def board(patched=True, n_boot=1000, caps=None):
     """THE BOARD A/B (phase 5). The board's `run()` is in-process, so the patch is installed BEFORE the board module
     is imported and every arm it builds therefore routes through the patched organs. Floor and arm are run in
@@ -1492,6 +1780,9 @@ def main():
     ap.add_argument("--future-probe", action="store_true")
     ap.add_argument("--consumer-ab", action="store_true")
     ap.add_argument("--file-all-ab", action="store_true")
+    ap.add_argument("--gum-loader-ab", action="store_true")
+    ap.add_argument("--armb-ab", action="store_true")
+    ap.add_argument("--twin-arithmetic", action="store_true")
     ap.add_argument("--board-smoke", action="store_true")
     ap.add_argument("--floor-arm", action="store_true", help="--repeat WITHOUT the patch (the floor)")
     ap.add_argument("--corpus", default="gum")
@@ -1519,6 +1810,29 @@ def main():
         with open(os.path.join(OUT, "metrics_selftest.json"), "w", encoding="utf-8") as f:
             json.dump({"result": {"passed": PASS, "failed": FAIL}}, f, indent=1)
         sys.exit(0 if ok else 1)
+
+    if a.gum_loader_ab:
+        r = gum_loader_ab(n_docs=a.cap or None, n_boot=a.boot)
+        print(json.dumps(r, indent=1), flush=True)
+        with open(os.path.join(OUT, a.out_name), "w", encoding="utf-8") as f:
+            json.dump({"result": r}, f, indent=1)
+        return
+
+    if a.armb_ab:
+        install()
+        r = armb_ab(corpus=a.corpus, stride=a.stride, cap=a.cap, n_boot=a.boot)
+        print(json.dumps(r, indent=1), flush=True)
+        with open(os.path.join(OUT, a.out_name), "w", encoding="utf-8") as f:
+            json.dump({"result": r}, f, indent=1)
+        return
+
+    if a.twin_arithmetic:
+        install()
+        r = twin_arithmetic(corpus=a.corpus, stride=a.stride, cap=a.cap)
+        print(json.dumps(r, indent=1), flush=True)
+        with open(os.path.join(OUT, "metrics_twin_arithmetic.json"), "w", encoding="utf-8") as f:
+            json.dump({"result": r}, f, indent=1)
+        return
 
     if a.file_all_ab:
         install()

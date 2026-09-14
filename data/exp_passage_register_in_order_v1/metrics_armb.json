@@ -1,0 +1,71 @@
+{
+ "result": {
+  "corpus": "gum",
+  "n_docs": 138,
+  "floor": {
+   "all": 0.8837,
+   "unseen": 0.5256,
+   "repeat": 0.577,
+   "first": 0.8871
+  },
+  "arm": {
+   "all": 0.8837,
+   "unseen": 0.5249,
+   "repeat": 0.5823,
+   "first": 0.8907
+  },
+  "arm_minus_floor": {
+   "all": {
+    "delta": -6e-05,
+    "ci95": [
+     -0.0003,
+     0.00018
+    ],
+    "half_width": 0.00024,
+    "CIsep": false,
+    "n_docs": 138,
+    "denom": 136855
+   },
+   "unseen": {
+    "delta": -0.00071,
+    "ci95": [
+     -0.00236,
+     0.00083
+    ],
+    "half_width": 0.00159,
+    "CIsep": false,
+    "n_docs": 138,
+    "denom": 16959
+   },
+   "repeat": {
+    "delta": 0.00533,
+    "ci95": [
+     0.00243,
+     0.00892
+    ],
+    "half_width": 0.00324,
+    "CIsep": true,
+    "n_docs": 138,
+    "denom": 3754
+   },
+   "first": {
+    "delta": 0.00363,
+    "ci95": [
+     0.00118,
+     0.00616
+    ],
+    "half_width": 0.00249,
+    "CIsep": true,
+    "n_docs": 138,
+    "denom": 4410
+   }
+  },
+  "pn_floor": 1240,
+  "pn_arm": 1247,
+  "what_it_touches": {
+   "sentences_folded_back": 7584,
+   "distinct_shape_symbols": 24,
+   "sentence_stamped_entries": 25959
+  }
+ }
+}

@@ -1,0 +1,160 @@
+{
+ "result": {
+  "inert_no_new_document": {
+   "coref": {
+    "n": 3145,
+    "model_acc": 0.4172,
+    "overlap_floor": 0.3202,
+    "floor_accs": {
+     "separate": 0.3202,
+     "recency": 0.2833,
+     "string_identity": 0.3005
+    },
+    "strongest_floor_name": "separate",
+    "strongest_floor": 0.3202,
+    "twin_acc": 0.2045,
+    "model_minus_strongest": [
+     0.097,
+     0.074,
+     0.1205
+    ],
+    "model_minus_twin": [
+     0.2127,
+     0.183,
+     0.2456
+    ],
+    "ci_sep_over_strongest": true,
+    "ci_sep_over_twin": true,
+    "population": "GUM (modern, TEST=odd docs) pronoun; UNIFIED discourse referent (DRT file-change) vs the strongest simple floor + info-free shuffled-identity twin."
+   },
+   "common_noun_coref": {
+    "n": 3024,
+    "model_acc": 0.547,
+    "overlap_floor": 0.5397,
+    "floor_accs": {
+     "string_identity": 0.5397,
+     "recency": 0.0942
+    },
+    "strongest_floor_name": "string_identity",
+    "strongest_floor": 0.5397,
+    "twin_acc": 0.5284,
+    "model_minus_strongest": [
+     0.0073,
+     -0.0048,
+     0.0181
+    ],
+    "model_minus_twin": [
+     0.0185,
+     0.013,
+     0.0243
+    ],
+    "ci_sep_over_strongest": false,
+    "ci_sep_over_twin": true,
+    "population": "GUM (modern, TEST=odd docs) common; UNIFIED discourse referent (DRT file-change) vs the strongest simple floor + info-free shuffled-identity twin."
+   },
+   "salience": {
+    "n": 128,
+    "model_acc": 0.2734,
+    "overlap_floor": 0.2188,
+    "floor_accs": {
+     "first_introduced_entity": 0.2188
+    },
+    "strongest_floor_name": "first_introduced_entity",
+    "strongest_floor": 0.2188,
+    "twin_acc": 0.0781,
+    "model_minus_strongest": [
+     0.0547,
+     -0.0312,
+     0.1328
+    ],
+    "model_minus_twin": [
+     0.1953,
+     0.1016,
+     0.2812
+    ],
+    "ci_sep_over_strongest": false,
+    "ci_sep_over_twin": true,
+    "population": "GUM (modern, TEST) main-character salience; MODEL = reader's most-mentioned entity (frequency-of-mention salience, the 19c board's readout, now modern) vs the first-introduced-entity floor; gold = gold most-mentioned entity."
+   },
+   "seconds": 435.7
+  },
+  "passage_opened_and_fed_in_order": {
+   "coref": {
+    "n": 3145,
+    "model_acc": 0.4169,
+    "overlap_floor": 0.3196,
+    "floor_accs": {
+     "separate": 0.3196,
+     "recency": 0.2833,
+     "string_identity": 0.3005
+    },
+    "strongest_floor_name": "separate",
+    "strongest_floor": 0.3196,
+    "twin_acc": 0.1981,
+    "model_minus_strongest": [
+     0.0973,
+     0.0741,
+     0.1207
+    ],
+    "model_minus_twin": [
+     0.2188,
+     0.1902,
+     0.2532
+    ],
+    "ci_sep_over_strongest": true,
+    "ci_sep_over_twin": true,
+    "population": "GUM (modern, TEST=odd docs) pronoun; UNIFIED discourse referent (DRT file-change) vs the strongest simple floor + info-free shuffled-identity twin."
+   },
+   "common_noun_coref": {
+    "n": 2992,
+    "model_acc": 0.5458,
+    "overlap_floor": 0.5341,
+    "floor_accs": {
+     "string_identity": 0.5341,
+     "recency": 0.0909
+    },
+    "strongest_floor_name": "string_identity",
+    "strongest_floor": 0.5341,
+    "twin_acc": 0.5277,
+    "model_minus_strongest": [
+     0.0117,
+     -0.0006,
+     0.0225
+    ],
+    "model_minus_twin": [
+     0.018,
+     0.0123,
+     0.0241
+    ],
+    "ci_sep_over_strongest": false,
+    "ci_sep_over_twin": true,
+    "population": "GUM (modern, TEST=odd docs) common; UNIFIED discourse referent (DRT file-change) vs the strongest simple floor + info-free shuffled-identity twin."
+   },
+   "salience": {
+    "n": 128,
+    "model_acc": 0.2656,
+    "overlap_floor": 0.2188,
+    "floor_accs": {
+     "first_introduced_entity": 0.2188
+    },
+    "strongest_floor_name": "first_introduced_entity",
+    "strongest_floor": 0.2188,
+    "twin_acc": 0.0703,
+    "model_minus_strongest": [
+     0.0469,
+     -0.0391,
+     0.1328
+    ],
+    "model_minus_twin": [
+     0.1953,
+     0.1094,
+     0.2812
+    ],
+    "ci_sep_over_strongest": false,
+    "ci_sep_over_twin": true,
+    "population": "GUM (modern, TEST) main-character salience; MODEL = reader's most-mentioned entity (frequency-of-mention salience, the 19c board's readout, now modern) vs the first-introduced-entity floor; gold = gold most-mentioned entity."
+   },
+   "seconds": 313.1
+  }
+ }
+}

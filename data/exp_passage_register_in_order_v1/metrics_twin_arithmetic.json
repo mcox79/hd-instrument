@@ -1,0 +1,16 @@
+{
+ "result": {
+  "corpus": "gum",
+  "n_docs": 138,
+  "n_tokens": 136855,
+  "n_prior_reads": 16959,
+  "mean_total_variation_moved_by_the_prior": 0.02203,
+  "mean_P_argmax_prior_inert": 0.93242,
+  "mean_P_argmax_prior_on": 0.93341,
+  "argmax_flips_caused_by_the_prior": 294,
+  "argmax_flip_rate_of_prior_reads": 0.01734,
+  "argmax_flips_caused_by_SHUFFLING_the_feed_order": 223,
+  "order_share_of_the_prior_budget": 0.7585,
+  "seconds": 391.3
+ }
+}
