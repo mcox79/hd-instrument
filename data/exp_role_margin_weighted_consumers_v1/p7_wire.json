@@ -1,0 +1,7 @@
+{
+ "parity_sentences": 300,
+ "parity_labelled_tokens": 1922,
+ "parity_dep_identical": 1922,
+ "parity_posterior_identical": 1922,
+ "note": "roles_with_decisions is ADDITIVE: coarse_roles(...) == {i: d['dep'] for i,d in roles_with_decisions(...).items()} on every labelled token, and the decision carries the same posterior the measured arms used. The reader-wire A/B through SituationReader.read() could not be run in this harness (read() on raw text routed into a LitBank-conll path, a reader-configuration matter outside this brief); the same repair is priced on the same population in p7_reader_wire_price.json."
+}
