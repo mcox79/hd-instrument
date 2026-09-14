@@ -130,11 +130,15 @@ PLUR_PRON = frozenset({"they", "them", "their", "theirs", "themselves", "we", "u
 NOMINAL = ("NOUN", "PROPN")
 
 
+LOWER_INPUT = False     # set by the `*low` arms: feed the organ what the LIVE READER actually gets
+
+
 def predicted_tags(doc):
     """The LIVE category organ's tags for every token of one GUM document, sentence by sentence, in order.
     Reads token FORMS only (never a gold column) -> identical under the scrambled-gold twin, by construction."""
-    if doc.docid in _PRED_CACHE:
-        return _PRED_CACHE[doc.docid]
+    key = (doc.docid, LOWER_INPUT)
+    if key in _PRED_CACHE:
+        return _PRED_CACHE[key]
     from hdlab import frontend as F
     tg = F.tagger()
     by_sent = {}
@@ -143,12 +147,15 @@ def predicted_tags(doc):
     pred, prob = {}, {}
     for s in sorted(by_sent):
         row = sorted(by_sent[s], key=lambda t: t.idx)
-        tags, post = tg.tag_with_posterior([t.form for t in row])
+        # LOWER_INPUT: feed the organ what the LIVE READER actually gets. `scene_segment.parse_conll_sentences`
+        # lowercases every token, so on the reader's path the organ never sees case (PROPN F1 0.8622 -> 0.4546).
+        _forms = [(t.form.lower() if LOWER_INPUT else t.form) for t in row]
+        tags, post = tg.tag_with_posterior(_forms)
         for k, t in enumerate(row):
             pred[t.gidx] = tags[k]
             p = post[k] if post else {}
             prob[t.gidx] = (float(p.get("PROPN", 0.0)), float(p.get("PRON", 0.0)))
-    _PRED_CACHE[doc.docid] = pred
+    _PRED_CACHE[key] = pred
     _PROB_CACHE[doc.docid] = prob
     return pred
 
@@ -359,7 +366,27 @@ def positional_deprel(doc, pred, per_predicate=False):
     return out
 
 
-def goldfree_isa(doc, pred, strict=False):
+# TYPE-STATING CONNECTIVES -- a CONNECTIVE LEXICON, exactly the form the substrate already uses for causation
+# (`hdlab/causal_network` CONNECTIVE_CAUSE_FIRST / CONNECTIVE_EFFECT_FIRST). These are closed-class multiword
+# discourse markers whose construction STATES a type relation between two nominals; the reader learns them the
+# way it learns the causal ones. Direction is recorded but the consumer's licence is symmetric, so it is not used.
+_ISA_CONNECTIVES = (
+    ("such", "as"), ("including",), ("especially",), ("known", "as"), ("called",),
+    ("namely",), ("like",), ("other",), ("kind", "of"), ("type", "of"), ("sort", "of"), ("form", "of"),
+)
+
+
+def _connective_in_gap(gap_low):
+    """True iff the surface gap between two nominal runs carries a type-stating connective."""
+    for pat in _ISA_CONNECTIVES:
+        n = len(pat)
+        for i in range(len(gap_low) - n + 1):
+            if tuple(gap_low[i:i + n]) == pat:
+                return True
+    return False
+
+
+def goldfree_isa(doc, pred, strict=False, connectives=False, max_gap=4):
     """THE QUALITY PUSH: the in-text is-a edges the common-noun type bridge rides on, read from the two
     CONSTRUCTIONS instead of the gold `appos` / `cop` arcs.
       apposition  NOMINAL_RUN , (DET|ADJ|NUM)* NOMINAL_RUN      'Kim , the doctor ,'
@@ -388,9 +415,13 @@ def goldfree_isa(doc, pred, strict=False):
             (s1, e1), (s2, e2) = runs[a], runs[a + 1]
             gap = forms[e1 + 1:s2]
             gapc = cats[e1 + 1:s2]
-            if not gap or len(gap) > 4:
+            if not gap or len(gap) > max_gap:
                 continue
             low = [w.lower() for w in gap]
+            # RECALL IS THE BINDING CONSTRAINT on a NON-WRITING bridge (SOLVED section 6), so the third
+            # construction family is the type-stating CONNECTIVES -- the lexicon form the substrate already
+            # uses for causation.
+            is_conn = connectives and _connective_in_gap(low)
             is_appos = gap[0] == "," and all(c in ("DET", "ADJ", "NUM", "PUNCT") for c in gapc)
             is_cop = any(w in BE_FORMS for w in low) and \
                 all(c in ("DET", "ADJ", "NUM", "VERB", "AUX", "ADV") for c in gapc)
@@ -405,7 +436,7 @@ def goldfree_isa(doc, pred, strict=False):
                 has_det = any(c == "DET" for c in gapc)
                 is_appos = is_appos and has_det and cats[e1] == "PROPN"
                 is_cop = is_cop and has_det and cats[e2] == "NOUN"
-            if is_appos or is_cop:
+            if is_appos or is_cop or is_conn:
                 la, lb = _lemma_goldfree(forms[e1]), _lemma_goldfree(forms[e2])
                 if la != lb:
                     links.add(frozenset((la, lb)))
@@ -462,7 +493,9 @@ def apply_arm(docs, arm, gaz):
     base, keep, scram = parse_arm(arm)
     full = base.startswith("gf")
     v2 = base.startswith("gf2") or base.startswith("gf3")
-    v3 = base.startswith("gf3")           # + the dual-route LEMMA (the stored route is silent on most names)
+    v3 = base.startswith("gf3")
+    global LOWER_INPUT
+    LOWER_INPUT = base.endswith("low") or "low_" in base           # + the dual-route LEMMA (the stored route is silent on most names)
     tau = None
     if "tau" in base:
         tau = float(base.split("tau")[1].split("_")[0]) / 100.0
@@ -475,7 +508,10 @@ def apply_arm(docs, arm, gaz):
             dep = positional_deprel(d, pred, per_predicate=v2)
             if "isa" in base or base.endswith("_wire"):
                 if "deprel" not in keep:
-                    _ISA_CACHE[d.docid] = goldfree_isa(d, pred, strict=("isa2" in base))
+                    _ISA_CACHE[d.docid] = goldfree_isa(
+                        d, pred, strict=("isa2" in base),
+                        connectives=("isa3" in base or "isa4" in base),
+                        max_gap=(6 if "isa4" in base else 4))
             for t in d.toks:
                 if "upos" not in keep:
                     t.upos = pred.get(t.gidx, "X")
@@ -549,17 +585,24 @@ def run_board_arms(arms, n_docs=None, out=None, drop_scrubbed=False):
             "model_minus_strongest", "model_minus_twin", "ci_sep_over_strongest", "ci_sep_over_twin")
     res = {"arms": {}, "n_docs": n_docs, "utc": datetime.now(timezone.utc).isoformat()}
     for arm in arms:
+        agree = arm.endswith("@agree")
+        arm_base = arm[:-6] if agree else arm
         docs_all = G.load_docs(gum_only=True, limit=n_docs, name_gazetteer=gaz)
         if drop_scrubbed:
             docs_all = [d for d in docs_all if not is_scrubbed(d)]
-        apply_arm(docs_all, arm, gaz)
+        apply_arm(docs_all, arm_base, gaz)
+        if agree:
+            # THE PAIRED SUBPOPULATION (phase 7): keep only the mentions on which the organ reproduces the
+            # gold type, head and lemma. Arm-independent, so `gold@agree` and `gf2@agree` are scored on
+            # IDENTICAL items; the mention stream is shortened equally in both, which is the caveat.
+            restrict_to(docs_all, agreement_keys(n_docs, drop_scrubbed))
         test = [d for i, d in enumerate(docs_all) if i % 2 == 1]
 
         def patched(nd=None, _d=docs_all, _t=test, _g=gaz):
             return _d, _t, _g
 
         BCG._load_test = patched
-        _b, _keep, _s = parse_arm(arm)
+        _b, _keep, _s = parse_arm(arm_base)
         if _b == "gold_noisa":
             ANAT._appos_copula_isa = lambda doc: {}      # is the in-text is-a seed load-bearing AT ALL?
         elif not _b.startswith("gf") or "deprel" in _keep:
@@ -596,15 +639,205 @@ def run_board_arms(arms, n_docs=None, out=None, drop_scrubbed=False):
     return res
 
 
-def type_confusion(arm="gf2", n_docs=None):
+def case_cost(n_docs=None, drop_scrubbed=True):
+    """PHASE-7, THE BIG ONE. `hdlab/scene_segment.parse_conll_sentences` -- the LIVE READER's ONLY sentence
+    source -- does `cur.append(cols[3].lower())`. So the reader never sees case: the category organ tags
+    lowercased text, `referent_per_np.frame_heads`' documented mid-sentence-CAPITAL cue can never fire, and
+    every capitalisation-based decision downstream of it is dead before `_mk_referent` lowercases again.
+    THIS MEASURES WHAT THE LOWERCASING COSTS THE CATEGORY ORGAN, scored against the gold PROPN column on
+    GUM (where the forms are raw-cased, so both inputs are available)."""
+    from hdlab import frontend as F
+    tg = F.tagger()
+    gaz = load_given_gazetteer()
+    docs = G.load_docs(gum_only=True, limit=n_docs, name_gazetteer=gaz)
+    if drop_scrubbed:
+        docs = [d for d in docs if not is_scrubbed(d)]
+    test = [d for i, d in enumerate(docs) if i % 2 == 1]
+    ctr = {"cased": Counter(), "lower": Counter()}
+    agree = tot = 0
+    for d in test:
+        by_sent = {}
+        for t in d.toks:
+            by_sent.setdefault(t.sent, []).append(t)
+        for s in sorted(by_sent):
+            row = sorted(by_sent[s], key=lambda t: t.idx)
+            forms = [t.form for t in row]
+            a = tg.tag(forms)
+            b = tg.tag([w.lower() for w in forms])
+            for t, ca, cb in zip(row, a, b):
+                tot += 1
+                agree += int(ca == cb)
+                g = (t.upos == "PROPN")
+                for k, c in (("cased", ca), ("lower", cb)):
+                    p = (c == "PROPN")
+                    ctr[k]["tp" if (p and g) else ("fp" if p else ("fn" if g else "tn"))] += 1
+                    ctr[k]["acc"] += int(c == t.upos)
+    print("CASE COST at the CATEGORY ORGAN -- %d GUM test tokens; tag agreement cased vs lowercased %.4f"
+          % (tot, agree / max(1, tot)))
+    print("%-7s %7s %7s %7s   %8s %8s %8s   %s" % ("input", "TP", "FP", "FN", "P", "R", "F1", "all-tag acc"))
+    out = {}
+    for k in ("cased", "lower"):
+        c = ctr[k]
+        tp, fp, fn = c["tp"], c["fp"], c["fn"]
+        P = tp / max(1, tp + fp); R = tp / max(1, tp + fn)
+        F1 = 2 * P * R / max(1e-9, P + R)
+        out[k] = {"P": round(P, 4), "R": round(R, 4), "F1": round(F1, 4),
+                  "tag_acc": round(c["acc"] / max(1, tot), 4), "tp": tp, "fp": fp, "fn": fn}
+        print("%-7s %7d %7d %7d   %8.4f %8.4f %8.4f   %.4f" % (k, tp, fp, fn, P, R, F1, out[k]["tag_acc"]))
+    print("   PROPN F1 lost to the reader's lowercasing: %+.4f ; all-tag accuracy lost: %+.4f"
+          % (out["lower"]["F1"] - out["cased"]["F1"], out["lower"]["tag_acc"] - out["cased"]["tag_acc"]))
+    out["n_tokens"] = tot
+    out["tag_agreement"] = round(agree / max(1, tot), 4)
+    return out
+
+
+def wire_vs_argmax(n_docs=None, drop_scrubbed=True):
+    """PHASE-7 PROBE (b): after the head-domain fix, does pri 104's wire ADD anything over
+    `upos[head] == "PROPN"`, or is it exactly that predicate? Counts every disagreement on the board's own
+    TEST mentions and characterises it."""
+    from hdlab.coref import name_content_tokens
+    gaz = load_given_gazetteer()
+    docs = G.load_docs(gum_only=True, limit=n_docs, name_gazetteer=gaz)
+    if drop_scrubbed:
+        docs = [d for d in docs if not is_scrubbed(d)]
+    test = [d for i, d in enumerate(docs) if i % 2 == 1]
+    n = agree = 0
+    dis = Counter()
+    ex = []
+    for d in test:
+        pred = predicted_tags(d)
+        gmap = {t.gidx: t for t in d.toks}
+        for m in d.mentions:
+            span = [gmap[g] for g in range(m.start_g, m.end_g + 1) if g in gmap]
+            span = [t for t in span if t.sent == m.sent] or span
+            if not span:
+                continue
+            dom = np_domain(span, pred)
+            head = _head_goldfree(span, pred, np_run=True)
+            n += 1
+            a = (pred.get(head.gidx, "X") == "PROPN")                                   # the plain predicate
+            b = bool(name_content_tokens([t.form for t in dom],
+                                         upos=[pred.get(t.gidx, "X") for t in dom]))    # the wire
+            if a == b:
+                agree += 1
+            else:
+                dis[(a, b)] += 1
+                if len(ex) < 12:
+                    ex.append((m.text[:38], a, b, head.form, [pred.get(t.gidx) for t in dom][:6]))
+    print("WIRE vs upos[head]==PROPN on %d test mentions: agree %d (%.6f); disagree %s"
+          % (n, agree, agree / max(1, n), dict(dis)))
+    for e in ex:
+        print("   %-40s argmax=%-5s wire=%-5s head=%-14s %s" % e)
+    return {"n": n, "agree": agree, "disagree": {"%s->%s" % k: v for k, v in dis.items()}}
+
+
+def spoke_coverage(n_docs=None, drop_scrubbed=True, arm="gf2"):
+    """PHASE-7 PROBE: `typed_spokes.coref_type_license` returns False for ANY head it cannot find in WordNet
+    ("an unknown head is NOT licensed to bridge"). So the LEMMA KEY's vocabulary hit-rate is a hard gate on
+    the common-noun type bridge. Measured for the gold lemma vs the organ lemma on the same heads."""
+    from hdlab.typed_spokes import _synset_names
+    gaz = load_given_gazetteer()
+    gold = G.load_docs(gum_only=True, limit=n_docs, name_gazetteer=gaz)
+    org = G.load_docs(gum_only=True, limit=n_docs, name_gazetteer=gaz)
+    if drop_scrubbed:
+        gold = [d for d in gold if not is_scrubbed(d)]
+        org = [d for d in org if not is_scrubbed(d)]
+    apply_arm(org, arm, gaz)
+    gold_t = [d for i, d in enumerate(gold) if i % 2 == 1]
+    org_t = [d for i, d in enumerate(org) if i % 2 == 1]
+    gm = {(d.docid, m.start_g, m.end_g): m for d in gold_t for m in d.mentions}
+    n = g_in = o_in = both = neither = g_only = o_only = 0
+    lost = Counter()
+    for d in org_t:
+        for m in d.mentions:
+            if m.mtype != "common":
+                continue
+            g = gm.get((d.docid, m.start_g, m.end_g))
+            if g is None:
+                continue
+            n += 1
+            gi = bool(_synset_names(g.lemma_head))
+            oi = bool(_synset_names(m.lemma_head))
+            g_in += gi; o_in += oi
+            both += (gi and oi); neither += (not gi and not oi)
+            if gi and not oi:
+                g_only += 1
+                if len(lost) < 400:
+                    lost[(g.lemma_head, m.lemma_head)] += 1
+            if oi and not gi:
+                o_only += 1
+    print("TYPED-SPOKE VOCABULARY GATE on %d common-row mentions (arm=%s):" % (n, arm))
+    print("   gold lemma in WordNet   %5d (%.4f)" % (g_in, g_in / max(1, n)))
+    print("   organ lemma in WordNet  %5d (%.4f)" % (o_in, o_in / max(1, n)))
+    print("   both %d | neither %d | GOLD-ONLY (bridge lost) %d | organ-only %d" % (both, neither, g_only, o_only))
+    print("   biggest gold-only losses (gold_lemma -> organ_lemma):", lost.most_common(12))
+    return {"n": n, "gold_in": g_in, "organ_in": o_in, "gold_only": g_only, "organ_only": o_only}
+
+
+_AGREE_KEYS = None
+
+
+def agreement_keys(n_docs=None, drop_scrubbed=True, arm="gf2"):
+    """THE PAIRED SUBPOPULATION: the mentions on which the ORGAN reproduces the gold TYPE, the gold SPAN HEAD
+    and the gold LEMMA KEY. Arm-independent by construction (it is defined by gold-vs-organ agreement), so
+    restricting both arms to it keeps the comparison paired."""
+    global _AGREE_KEYS
+    if _AGREE_KEYS is not None:
+        return _AGREE_KEYS
+    gaz = load_given_gazetteer()
+    gold = G.load_docs(gum_only=True, limit=n_docs, name_gazetteer=gaz)
+    org = G.load_docs(gum_only=True, limit=n_docs, name_gazetteer=gaz)
+    if drop_scrubbed:
+        gold = [d for d in gold if not is_scrubbed(d)]
+        org = [d for d in org if not is_scrubbed(d)]
+    apply_arm(org, arm, gaz)
+    gm = {(d.docid, m.start_g, m.end_g): m for d in gold for m in d.mentions}
+    keys, stats = set(), Counter()
+    for d in org:
+        for m in d.mentions:
+            g = gm.get((d.docid, m.start_g, m.end_g))
+            if g is None:
+                continue
+            t_ok = g.mtype == m.mtype
+            h_ok = g.head_g == m.head_g
+            l_ok = g.lemma_head == m.lemma_head
+            stats[(t_ok, h_ok, l_ok)] += 1
+            if t_ok and h_ok and l_ok:
+                keys.add((d.docid, m.start_g, m.end_g))
+    _AGREE_KEYS = keys
+    tot = sum(stats.values())
+    print("AGREEMENT SUBPOPULATION: %d of %d mentions (%.4f) match gold on TYPE+HEAD+LEMMA" %
+          (len(keys), tot, len(keys) / max(1, tot)))
+    for k in sorted(stats, reverse=True):
+        print("   type_ok=%-5s head_ok=%-5s lemma_ok=%-5s  %5d" % (k[0], k[1], k[2], stats[k]))
+    return keys
+
+
+def restrict_to(docs, keys):
+    """Keep only the mentions in `keys`, then rebuild order and chains (the resolver reads both)."""
+    for d in docs:
+        d.mentions = [m for m in d.mentions if (d.docid, m.start_g, m.end_g) in keys]
+        for i, m in enumerate(d.mentions):
+            m.order = i
+        d.chains = {}
+        for m in d.mentions:
+            d.chains.setdefault(m.eid, []).append(m)
+    return docs
+
+
+def type_confusion(arm="gf2", n_docs=None, drop_scrubbed=False):
     """THE SIGNAL-LOSS TRACE AT THE TYPING RUNG, in counts: gold mention type x the arm's mention type, on
     the board's own TEST documents, plus the head-token agreement and the lemma-key agreement. This is what
     the board's two entity rows lose when the gold columns go away."""
     gaz = load_given_gazetteer()
     gold_docs = G.load_docs(gum_only=True, limit=n_docs, name_gazetteer=gaz)
+    if drop_scrubbed:
+        gold_docs = [d for d in gold_docs if not is_scrubbed(d)]
     gold_test = [d for i, d in enumerate(gold_docs) if i % 2 == 1]
     gold_m = {(d.docid, m.start_g, m.end_g): m for d in gold_test for m in d.mentions}
     arm_docs = G.load_docs(gum_only=True, limit=n_docs, name_gazetteer=gaz)
+    if drop_scrubbed:
+        arm_docs = [d for d in arm_docs if not is_scrubbed(d)]
     apply_arm(arm_docs, arm, gaz)
     arm_test = [d for i, d in enumerate(arm_docs) if i % 2 == 1]
     conf = Counter(); head_ok = head_tot = 0; lem_ok = lem_tot = 0
@@ -902,6 +1135,7 @@ def main():
     ap.add_argument("--qa", action="store_true")
     ap.add_argument("--diagnose", action="store_true")
     ap.add_argument("--confusion", default="")
+    ap.add_argument("--probe", default="")
     ap.add_argument("--self-test", action="store_true")
     ap.add_argument("--arms", default="gold,caps,cat,gf,gf_isa,gf_wire,gf_twin")
     ap.add_argument("--docs", type=int, default=None)
@@ -917,8 +1151,21 @@ def main():
         rows = qa_diagnose(a.docs or 8)
         json.dump(rows, open(os.path.join(od, "qa_diagnose%s.json" % a.tag), "w", encoding="ascii"), indent=1)
     if a.confusion:
-        out = {arm: type_confusion(arm, a.docs) for arm in a.confusion.split(",")}
+        out = {arm: type_confusion(arm, a.docs, drop_scrubbed=a.drop_scrubbed)
+               for arm in a.confusion.split(",")}
         json.dump(out, open(os.path.join(od, "type_confusion%s.json" % a.tag), "w", encoding="ascii"), indent=1)
+    if a.probe:
+        out = {}
+        for name in a.probe.split(","):
+            if name == "wire":
+                out["wire_vs_argmax"] = wire_vs_argmax(a.docs, a.drop_scrubbed)
+            elif name == "case":
+                out["case_cost"] = case_cost(a.docs, a.drop_scrubbed)
+            elif name == "spokes":
+                out["spoke_coverage"] = spoke_coverage(a.docs, a.drop_scrubbed)
+            elif name == "agree":
+                out["agreement"] = len(agreement_keys(a.docs, a.drop_scrubbed))
+        json.dump(out, open(os.path.join(od, "probe%s.json" % a.tag), "w", encoding="ascii"), indent=1)
     if a.board:
         res = run_board_arms(a.arms.split(","), n_docs=a.docs, drop_scrubbed=a.drop_scrubbed,
                              out=os.path.join(od, "board_arms%s.json" % a.tag))

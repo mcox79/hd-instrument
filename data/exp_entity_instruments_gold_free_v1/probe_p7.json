@@ -1,0 +1,16 @@
+{
+ "wire_vs_argmax": {
+  "n": 17010,
+  "agree": 17005,
+  "disagree": {
+   "True->False": 5
+  }
+ },
+ "spoke_coverage": {
+  "n": 5653,
+  "gold_in": 5247,
+  "organ_in": 5173,
+  "gold_only": 148,
+  "organ_only": 74
+ }
+}

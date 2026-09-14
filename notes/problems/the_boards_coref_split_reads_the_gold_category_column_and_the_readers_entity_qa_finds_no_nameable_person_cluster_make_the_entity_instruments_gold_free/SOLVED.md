@@ -2,7 +2,7 @@
 problem: the_boards_coref_split_reads_the_gold_category_column_and_the_readers_entity_qa_finds_no_nameable_person_cluster_make_the_entity_instruments_gold_free
 status: PARTIAL
 bar: "(a) the board's coref and common_noun rows read NO gold column at decision time -- a grep-level witness plus a scrambled-gold-column twin that leaves the rows byte-identical -- with the new floors and the live numbers published and the old numbers retired; (b) test_coref_which_entity... green again with the question builder finding >= the 2026-09-07 count of questions on the 8 docs, OR a numbered located negative naming the entity-layer change that emptied the person clusters; (c) pri 104's forward wire measured through the gold-free rows, up down or neutral with CI."
-result: "(a) DONE. All five decision-time gold columns (upos/lemma/feats/head/deprel) replaced by live organs; the SCRAMBLED-GOLD TWIN is BYTE-IDENTICAL to the gold-free arm on every field of every row (witness `twin_identity_check`, two arms). THE HONEST LIVE NUMBERS, all 275 GUM docs, TEST = odd docs, doc-paired bootstrap 2,000 resamples: COREF (pronoun) gold 0.4681/floor 0.3621 margin +0.1060 CI[+0.0786,+0.1327] -> GOLD-FREE 0.4172/floor 0.3202 margin +0.0970 CI[+0.0734,+0.1206], STILL CI-SEPARATED -- the pronoun-coref capability SURVIVES the instrument repair. COMMON-NOUN gold 0.5671/floor 0.5412 margin +0.0259 CI[+0.0134,+0.0385] CI-sep -> GOLD-FREE 0.4891/floor 0.4876 margin +0.0015 CI[-0.0079,+0.0107] NOT SEPARATED: the board's common-noun coref WIN DOES NOT SURVIVE, and the margin decomposes EXACTLY, measured on one population (the readable one, where gold is +0.0272): dropping ONLY the gold appos/cop is-a arcs -0.0097 (gold_noisa +0.0175); dropping lemma/head/feats/deprel too but keeping gold categories -0.0046 (gf2+upos +0.0129, still CI-sep); dropping the gold CATEGORY column as well -0.0109 (gf2 +0.0020) -- the three steps sum to -0.0252, the whole margin, and the two that matter are the CATEGORY ORGAN and the IS-A ARCS. SALIENCE gold 0.2555 -> gold-free 0.2993, neither CI-separated (n=137, underpowered, INFORMATIONAL). (b) THE ZERO-QUESTION DEFECT IS A NUMBERED LOCATED NEGATIVE AND IT IS REPAIRED: on all 8 witness documents the entity layer holds 2,648 entities of which 2,532 carry NEGATIVE online-cluster ids (online_entity_cluster default-ON since 2026-09-09 re-keys every non-pronoun mention to -(c+1)) and all 2,532 named clusters live in that space, while all 570 coref resolutions key on POSITIVE coref-column ids over 52 gold clusters -- KEY OVERLAP 0 ON EVERY DOCUMENT, hence 0 questions and 0/56 person clusters with a surface head. Repaired by naming the question's gold chain from the GOLD MENTION STREAM (the answer key) and the model's answer from the reader's OWN entity files via a new gold-free `CorefResolution.resolved_head`: 200 QUESTIONS BUILT ON THE 8 DOCUMENTS where there were 0, and the witness is green again. AND THE READOUT ITSELF WAS A GOLD PEEK WORTH 0.41 OF ACCURACY: naming the model's pick through the pick's GOLD cluster scores 0.6900 (recency 0.3350, protagonist 0.5050, model-recency +0.355 CI[+0.091,+0.535] CI-sep); naming it through the READER'S OWN entity files scores 0.2800 (recency 0.1200, protagonist 0.2350; +0.160 CI[-0.015,+0.431] and +0.045 CI[-0.160,+0.244], neither separated at n=200 over 8 documents). LitBank is 19c so these are INFORMATIONAL; the instrument finding is not. SECOND, INDEPENDENT DEFECT FOUND AND MEASURED: `referent_per_np._mk_referent` stores `span_toks=[head.lower()]`, so on the LIVE reader's default entity stream the name test (capitalisation) is STRUCTURALLY DEGENERATE -- 0 of 2,123 non-pronoun mentions could ever be typed a name (100% of spans all-lowercase) against 166 of 720 on the raw-cased coref stream. (c) pri 104's forward wire through the GOLD-FREE rows: coref +0.0044 (0.4172 -> 0.4216, margin +0.0970 -> +0.0979), common-noun -0.0090 (margin +0.0015 -> -0.0085), salience -0.0146; none CI-separated. On the reader's own entity stream the wire is not a refinement but the only way the decision exists at all: 150 name mentions typed where the count is identically 0. AND ITS COMMON-NOUN LOSS IS A HEAD-DOMAIN DEFECT IN THE LANDED CODE, LOCATED AND FIXED: `coref._span_head_is_name` takes the last NOUN/PROPN of the WHOLE span, so a span carrying a PP or a relative clause is typed by a PROPN inside a MODIFIER (`the environments identified by Quilis` -> NAME). On 17,010 GUM test mentions the whole-span and NP-domain head rules disagree on 1,415 (8.3%) and change 403 typings (241 common->name); through the gold-free common-noun row the shipped rule scores margin -0.0074 against the domain rule's +0.0023 (+0.0020 with no wire), and with the is-a detector too +0.0059. The one-line fix is in entity_layer_patch.diff and unit-checked on five span shapes. THE DEEPER READING: given the same head, the wire's typing differs from the category organ's plain argmax on 5 mentions net out of 17,010 -- `name_content_tokens(span, upos)` IS `upos[head]=="PROPN"` -- so the wire was never going to add anything over reading the organ on THIS instrument; everything it appeared to do was its head rule. THIRD FINDING, INDEPENDENT OF THE GOLD PEEK: 18 of the 275 GUM documents (GUM_reddit_*, 16,364 of 273,103 tokens = 5.99%) have the FORM column REDACTED TO UNDERSCORES with the gold columns intact, so the live reader has no text there at all; they are 698 of the 802 pronoun->common typing slips. `gum_coref.load_docs` already carries an `exclude_scrubbed=True` parameter that nothing in the body reads."
+result: "PHASE 7 HEADLINES FIRST. (1) THE READER THROWS THE CASE AWAY AT ITS SENTENCE SOURCE: `hdlab/scene_segment.parse_conll_sentences` -- the live reader's ONLY sentence source (situation_reader, referent_per_np, space_reader, causation_typing) -- does `cols[3].lower()`. Measured cost to the category organ on 127,919 GUM test tokens, same organ, same text, case the only difference: PROPN P/R/F1 0.9050/0.8232/0.8622 CASED vs 0.9417/0.2996/0.4546 LOWERCASED (-0.4076 F1; it misses 5,024 of 7,173 proper nouns, 70%), all-tag accuracy 0.9302 -> 0.9027 (-0.0275 on EVERY token for EVERY reader consumer); tag agreement 0.9637. For scale, pri 104's wire is worth +0.1921 token F1 -- this is more than double and it is one argument. It also silently kills referent_per_np.frame_heads' documented mid-sentence-CAPITAL cue and lexical_categories.word_shape. The diff adds `parse_conll_sentences(path, lower=True)` with the CURRENT default (byte-identical) and passes it EXPLICITLY at all four hdlab call sites (0 in tools/) so the flip is one visible edit per consumer; flipping it needs a board A/B, which is strategy's. (2) THE CAPABILITY IS REAL AND THE CATEGORY ORGAN IS THE WHOLE GAP: on the 28,688 of 34,001 mentions (0.8437) where the organ reproduces the gold TYPE+HEAD+LEMMA, both arms scored on IDENTICAL items, the GOLD-FREE common-noun margin is +0.0193 CI[+0.0057,+0.0318] CI-SEPARATED against gold's +0.0263 CI[+0.0133,+0.0389] -- 73% of gold's margin recovered. It is destroyed on the full population by the 15.6% the organ gets wrong; closing that is worth up to +0.0173 of margin. (3) AFTER THE HEAD-DOMAIN FIX pri 104's WIRE IS EXACTLY `upos[head]==\"PROPN\"`: the two predicates agree on 17,005 of 17,010 GUM test mentions (0.99971) and the wire is WRONG on all 5 exceptions (long all-PROPN names rejected by MAX_NAME_TOKENS). STRATEGY SHOULD LAND THE SIMPLE FORM; what name_content_tokens genuinely adds is the TOKEN EXTRACTION for the aliaser, not the decision. (4) RESTORING THE CASE IN referent_per_np._mk_referent RECOVERS NOTHING (0 TP either way) because the case is gone one level up -- finding (1). (5) THE NEGATIVE IDS ARE A DESIGN, NOT A DEFECT: online_entity_cluster's docstring specifies the fresh NEGATIVE-INTEGER id so a `CN:` string cannot crash the `rc >= 0` guard (situation_reader:2733) AND so an online file is unmistakable for a gold chain -- the very confusion the instrument fell into. My repair keeps that intent and touches no clustering decision. (6) Q1 APPLIED -- excluding the 18 redacted documents leaves the coref and entity-KB rows IDENTICAL TO THE DIGIT (URG._per_type_acc already skipped them: a redacted pronoun's surface form is `__`, never third-person) and moves only common-noun (gold-free n 3915 -> 3024, acc 0.4891 -> 0.5417, margin +0.0015 -> +0.0020) and salience. (7) BEST GOLD-FREE STACK on the readable population: common-noun 0.5476/0.5400 margin +0.0076 [-0.0046,+0.0185], still not separated; the recall mechanism held a fourth time (strict +0.0030 < loose +0.0056 < connectives +0.0063 < wider gap +0.0073). ORIGINAL BARS: (a) DONE. All five decision-time gold columns (upos/lemma/feats/head/deprel) replaced by live organs; the SCRAMBLED-GOLD TWIN is BYTE-IDENTICAL to the gold-free arm on every field of every row (witness `twin_identity_check`, two arms). THE HONEST LIVE NUMBERS, all 275 GUM docs, TEST = odd docs, doc-paired bootstrap 2,000 resamples: COREF (pronoun) gold 0.4681/floor 0.3621 margin +0.1060 CI[+0.0786,+0.1327] -> GOLD-FREE 0.4172/floor 0.3202 margin +0.0970 CI[+0.0734,+0.1206], STILL CI-SEPARATED -- the pronoun-coref capability SURVIVES the instrument repair. COMMON-NOUN gold 0.5671/floor 0.5412 margin +0.0259 CI[+0.0134,+0.0385] CI-sep -> GOLD-FREE 0.4891/floor 0.4876 margin +0.0015 CI[-0.0079,+0.0107] NOT SEPARATED: the board's common-noun coref WIN DOES NOT SURVIVE, and the margin decomposes EXACTLY, measured on one population (the readable one, where gold is +0.0272): dropping ONLY the gold appos/cop is-a arcs -0.0097 (gold_noisa +0.0175); dropping lemma/head/feats/deprel too but keeping gold categories -0.0046 (gf2+upos +0.0129, still CI-sep); dropping the gold CATEGORY column as well -0.0109 (gf2 +0.0020) -- the three steps sum to -0.0252, the whole margin, and the two that matter are the CATEGORY ORGAN and the IS-A ARCS. SALIENCE gold 0.2555 -> gold-free 0.2993, neither CI-separated (n=137, underpowered, INFORMATIONAL). (b) THE ZERO-QUESTION DEFECT IS A NUMBERED LOCATED NEGATIVE AND IT IS REPAIRED: on all 8 witness documents the entity layer holds 2,648 entities of which 2,532 carry NEGATIVE online-cluster ids (online_entity_cluster default-ON since 2026-09-09 re-keys every non-pronoun mention to -(c+1)) and all 2,532 named clusters live in that space, while all 570 coref resolutions key on POSITIVE coref-column ids over 52 gold clusters -- KEY OVERLAP 0 ON EVERY DOCUMENT, hence 0 questions and 0/56 person clusters with a surface head. Repaired by naming the question's gold chain from the GOLD MENTION STREAM (the answer key) and the model's answer from the reader's OWN entity files via a new gold-free `CorefResolution.resolved_head`: 200 QUESTIONS BUILT ON THE 8 DOCUMENTS where there were 0, and the witness is green again. AND THE READOUT ITSELF WAS A GOLD PEEK WORTH 0.41 OF ACCURACY: naming the model's pick through the pick's GOLD cluster scores 0.6900 (recency 0.3350, protagonist 0.5050, model-recency +0.355 CI[+0.091,+0.535] CI-sep); naming it through the READER'S OWN entity files scores 0.2800 (recency 0.1200, protagonist 0.2350; +0.160 CI[-0.015,+0.431] and +0.045 CI[-0.160,+0.244], neither separated at n=200 over 8 documents). LitBank is 19c so these are INFORMATIONAL; the instrument finding is not. SECOND, INDEPENDENT DEFECT FOUND AND MEASURED: `referent_per_np._mk_referent` stores `span_toks=[head.lower()]`, so on the LIVE reader's default entity stream the name test (capitalisation) is STRUCTURALLY DEGENERATE -- 0 of 2,123 non-pronoun mentions could ever be typed a name (100% of spans all-lowercase) against 166 of 720 on the raw-cased coref stream. (c) pri 104's forward wire through the GOLD-FREE rows: coref +0.0044 (0.4172 -> 0.4216, margin +0.0970 -> +0.0979), common-noun -0.0090 (margin +0.0015 -> -0.0085), salience -0.0146; none CI-separated. On the reader's own entity stream the wire is not a refinement but the only way the decision exists at all: 150 name mentions typed where the count is identically 0. AND ITS COMMON-NOUN LOSS IS A HEAD-DOMAIN DEFECT IN THE LANDED CODE, LOCATED AND FIXED: `coref._span_head_is_name` takes the last NOUN/PROPN of the WHOLE span, so a span carrying a PP or a relative clause is typed by a PROPN inside a MODIFIER (`the environments identified by Quilis` -> NAME). On 17,010 GUM test mentions the whole-span and NP-domain head rules disagree on 1,415 (8.3%) and change 403 typings (241 common->name); through the gold-free common-noun row the shipped rule scores margin -0.0074 against the domain rule's +0.0023 (+0.0020 with no wire), and with the is-a detector too +0.0059. The one-line fix is in entity_layer_patch.diff and unit-checked on five span shapes. THE DEEPER READING: given the same head, the wire's typing differs from the category organ's plain argmax on 5 mentions net out of 17,010 -- `name_content_tokens(span, upos)` IS `upos[head]=="PROPN"` -- so the wire was never going to add anything over reading the organ on THIS instrument; everything it appeared to do was its head rule. THIRD FINDING, INDEPENDENT OF THE GOLD PEEK: 18 of the 275 GUM documents (GUM_reddit_*, 16,364 of 273,103 tokens = 5.99%) have the FORM column REDACTED TO UNDERSCORES with the gold columns intact, so the live reader has no text there at all; they are 698 of the 802 pronoun->common typing slips. `gum_coref.load_docs` already carries an `exclude_scrubbed=True` parameter that nothing in the body reads."
 floor: "Every floor is RECOMPUTED IN PLACE inside each arm, on that arm's own population, by the board's own `_row_from_consumer` (strongest of separate-tracking / recency / same-head string-identity), never pasted across arms. COREF (pronoun): gold 0.3621, caps 0.3608, cat 0.3579, gold-free 0.3202. COMMON-NOUN: gold 0.5412, caps 0.5478, cat 0.5604, gold-free 0.4876. SALIENCE: first-introduced-entity floor, gold 0.1971. The `gold` arm reproduces the board's published coref 0.4681 / common_noun 0.5671 EXACTLY, which is what licenses every comparison here."
 controls: "(1) THE SCRAMBLED-GOLD TWIN (bar 8a): the six gold columns are permuted across the tokens of each document (forms and the MISC coref answer key untouched) and the gold-free layer is then applied. Byte-identical on every field of every row, for BOTH gold-free arms (gf2_twin == gf2, gf2_isa_twin == gf2_isa) -- the proof that no gold column is read at decision time. A unit-level twin is in the cell's --self-test (organ tags invariant under the scramble). (2) THE GREP-LEVEL WITNESS: `--witness` enumerates every decision-time gold-column read across the four files in the board's coref chain. (3) HOLD-ONE-GOLD ABLATION, five arms, the signal-loss trace in margin units: restoring the gold upos alone recovers the common-noun margin to +0.0129 CI[+0.0003,+0.0245] (CI-sep) while lemma/head/feats/deprel each recover at most +0.0039; on the pronoun row the single columns recover at most +0.014 and the gold margin is not reached by any of them. (4) THE INFO-FREE TWIN INSIDE EVERY ROW is the board's own (shuffled-identity resolver / random-bridge) and it loses in every arm. (5) PHASE-DIAGRAM SWEEP (the brief authorises sweeping the typing mass): P(PROPN) thresholds 0.30/0.50/0.70 give common-noun margins +0.0010/+0.0013/-0.0031 -- the operating point on the posterior does NOT recover the capability, a clean negative. (6) A CONSTRUCTION-BASED gold-free is-a detector, loose and strict, against the 683 gold appos/cop edges: LOOSE 949 edges at precision 0.119 / recall 0.165 -> common-noun margin +0.0020 -> +0.0056; STRICT 162 edges at precision 0.321 / recall 0.076 -> +0.0030. I predicted precision was the binding constraint and the measurement says the opposite: the bridge is NON-WRITING, so a false edge only offers a candidate the salience competition declines while a missing edge removes the only path -- recall binds, and tripling precision halved the gain. It recovers about a third of the +0.0097 the gold arcs are worth; with gold categories the two stack (+0.0129 -> +0.0140, both CI-sep). (7) THE DUAL-ROUTE LEMMA (Pinker/Ullman rule route when the stored route is silent) is board-IDENTICAL (gf3 == gf2 on every field) and slightly LOWERS lemma-key agreement with gold (0.8196 -> 0.8177): the common-noun identity key needs CONSISTENCY, not correctness. (8) THE READABLE-POPULATION REPLICATION: every headline re-measured with the 18 redacted documents dropped -- gold-free common-noun 0.4891 -> 0.5417, margin still +0.0020 CI[-0.0105,+0.0131] not separated; the conclusion is unchanged, the accuracy is not. (9) PATCH VERIFICATION WITHOUT A REPO WRITE: both diffs are EXECUTED end-to-end by a meta-path loader that runs the patched sources with __file__ set to their real repo paths -- 19 module names routed to the patched sources, the reader reads, span_upos aligns with span_toks on every mention, `tagger=None` leaves the mention dict byte-compatible (no span_upos key), resolved_head populated on 140/140 resolutions, and the GUM organ decision layer types mentions and preserves the gold columns as gold_*. (10) TYPE-CONFUSION COUNTS, 18,197 test mentions: type agreement 0.9088, span-head agreement 0.9432, lemma-key agreement 0.8196; gold-name recall 0.8182, gold-common 0.9602, gold-pronoun 0.9108."
 files_changed: "experiments/exp_entity_instruments_gold_free_v1.py (the cell: the gold-free decision layer, the seven arms + the hold-one-gold ablations + the tau sweep, the scrambled-gold twin and its identity check, the grep witness, the type-confusion trace, the scrubbed-document detector, the entity-QA diagnosis and the two-scheme repaired QA instrument, --self-test); notes/problems/<slug>/SOLVED.md; notes/problems/<slug>/gum_coref_gold_free_patch.diff (PROPOSED, NOT applied -- experiments/gum_coref.py + exp_board_coref_gum_v1.py + exp_commonnoun_diffhead_anatomy_gum_v1.py; git apply --check CLEAN); notes/problems/<slug>/entity_layer_patch.diff (PROPOSED, NOT applied -- the forward wire's TEN call sites + EntityAliaser.assign + the two mention builders + situation_reader's gold-free resolved_head + space_reader's builder call site + the repaired entity-QA instrument in experiments/exp_situation_model_qa_v1.py + the repaired witness in verification/test_situation_model_qa.py; git apply --check CLEAN, and every patched source EXECUTED end-to-end before proposal); data/exp_entity_instruments_gold_free_v1/*.json (metrics). NO hdlab/ or tools/ file was edited; no board experiment file was edited in place; no asset was touched."
@@ -503,6 +503,162 @@ not noticed.
 > RANGE fails silently.** The author anticipated the `str` crash and guarded it. The int-in-a-disjoint-range
 > case produced `None` on every lookup and ran red for five days with every arm scoring 0.0.
 
+## 19. CONVERT (the coordinator's probe 2) -- the honest live common-noun number, and the lever that moves it
+
+**THE HONEST LIVE NUMBER, with the gold-free rows as the ruler and the redacted documents excluded:**
+
+> **common-noun coref: model `0.5417`, strongest gold-free floor `0.5397` (same-head string identity),
+> margin `+0.0020` CI `[-0.0105, +0.0131]` -- NOT separated, n = 3,024.**
+
+**Every lever I could build, measured on that ruler, in one run:**
+
+| arm | model / floor | **margin** | CI | sep? |
+|---|---|---|---|---|
+| gf2 (the instrument) | 0.5417 / 0.5397 | +0.0020 | [-0.0105,+0.0131] | ✗ |
+| + the head-domain wire fix | 0.5423 / 0.5400 | +0.0023 | [-0.0101,+0.0134] | ✗ |
+| + the is-a construction detector (loose) | 0.5453 / 0.5397 | +0.0056 | [-0.0065,+0.0168] | ✗ |
+| + is-a **strict** (higher precision) | 0.5427 / 0.5397 | +0.0030 | [-0.0097,+0.0140] | ✗ |
+| + is-a **+ type-stating connectives** (isa3) | 0.5460 / 0.5397 | +0.0063 | [-0.0058,+0.0172] | ✗ |
+| + **connectives and a wider gap** (isa4) | 0.5470 / 0.5397 | +0.0073 | [-0.0048,+0.0181] | ✗ |
+| **isa4 + the head-domain fix (best stack)** | **0.5476 / 0.5400** | **+0.0076** | [-0.0046,+0.0185] | ✗ |
+| *reference:* gold columns, is-a seed off | 0.5593 / 0.5418 | +0.0175 | [+0.0040,+0.0295] | ✓ |
+| *reference:* gold columns, is-a seed on | 0.5690 / 0.5418 | +0.0272 | [+0.0138,+0.0399] | ✓ |
+
+**NO SINGLE LEVER IN MY REMIT MOVES IT CI-SEPARATED, and the stack of all three reaches +0.0076 -- 28% of
+the gold margin.** The recall mechanism holds for a fourth time (strict 0.0030 < loose 0.0056 < connectives
+0.0063 < wider gap 0.0073): on a **non-writing** bridge a false edge is nearly free and a missing edge is
+fatal.
+
+### 19a. AND THEN THE PAIRED SUBPOPULATION SHOWS THE CAPABILITY IS THERE
+
+Both arms restricted to the **28,688 of 34,001 mentions (84.37%)** on which the organ reproduces the gold
+**type AND head AND lemma**. The restriction is arm-independent, so the two arms are scored on **identical
+items** (n = 2,281, identical floor, identical name/common/pronoun split 2266/4525/7554):
+
+| arm | common-noun model / floor | **margin** | CI | sep? |
+|---|---|---|---|---|
+| **gold@agree** | 0.6094 / 0.5831 | **+0.0263** | [+0.0133,+0.0389] | **✓** |
+| **gold-free@agree** | 0.6024 / 0.5831 | **+0.0193** | [+0.0057,+0.0318] | **✓ CI-SEPARATED** |
+
+and the pronoun row likewise (gold@agree +0.1032, gold-free@agree +0.0975, both separated).
+
+> **THE CONVERSION, STATED HONESTLY: the gold-free common-noun capability IS CI-separated -- on the 84% of
+> mentions the category organ types correctly, where it recovers 73% of gold's margin (+0.0193 against
+> +0.0263). It is destroyed on the full population by the 15.6% it gets wrong.** That is not a different
+> answer from section 18a, it is the same answer measured a fourth way, and it is the strongest form of it:
+> **the entity layer's capability is real and the category organ is the whole of the gap.**
+>
+> **CAVEAT, stated rather than buried:** restricting the mention stream shortens the referent history, so
+> these are not the same task as the full row. The restriction is applied identically to both arms and the
+> floor is identical (0.5831) in both, which is what makes the comparison fair; but the absolute numbers are
+> not comparable to the unrestricted rows.
+
+**The arithmetic of the remaining gap, so strategy can price it:** moving the organ's joint (type+head+lemma)
+agreement from **0.8437** toward 1.0 is worth up to **+0.0173** of common-noun margin (0.0020 -> 0.0193).
+That is 2.3x everything my three levers together bought.
+
+### 19b. THE BIGGEST ORGAN LEVER IS NOT ON THIS BOARD AT ALL -- and it is one line
+
+From section 18c: the live reader's only sentence source lowercases every token. **Measured cost to the
+category organ, 127,919 GUM test tokens, same organ, same text, the only difference being case:**
+
+| input the organ receives | PROPN P | PROPN R | **PROPN F1** | all-tag accuracy |
+|---|---|---|---|---|
+| **cased** (what the GUM board instrument feeds it) | 0.9050 | 0.8232 | **0.8622** | **0.9302** |
+| **lowercased** (what the LIVE READER feeds it) | 0.9417 | **0.2996** | **0.4546** | **0.9027** |
+| | | | **-0.4076** | **-0.0275** |
+
+**The organ finds 2,149 of 7,173 proper nouns instead of 5,905 -- it misses 5,024 names, 70% of them -- and
+loses 2.75 points of accuracy on EVERY token, for EVERY consumer of the reader.** Tag agreement between the
+two runs is 0.9637, so one token in 28 changes category purely because the reader threw the case away.
+
+**For scale: pri 104's entire brief fought for +0.1921 token F1 on the name decision. Un-lowercasing the
+reader's input is worth +0.4076 PROPN F1 -- more than double -- and it is one line.**
+
+> **AND IT MEANS THE BOARD'S GOLD-FREE ROWS ARE STILL OPTIMISTIC.** I made the instrument gold-free; I did
+> not make it reader-faithful. The GUM board hands the organ **cased** forms (`gum_coref` keeps `cols[1]`
+> raw), so the gold-free rows above are scored with the organ at **PROPN F1 0.8622**, while the live reader
+> runs it at **0.4546**. The `gf2low` arm measures that remaining gap directly.
+
+**WHY I AM NOT FLIPPING IT MYSELF, and what strategy needs to flip it in one step.** `parse_conll_sentences`
+is consumed by **five** call sites in `hdlab/` -- `situation_reader:4368`, `referent_per_np:112`,
+`space_reader:246`, `causation_typing:840`, and (documented as lowercased) `crosstype_live_adapter:103`,
+whose docstring says *"the reader's per-sentence tokens (`parse_conll_sentences`, lowercased ...)"*, i.e. at
+least one consumer states the assumption in writing. Changing the default changes the input of every reader
+consumer at once and needs a board A/B, which is strategy's. **The diff therefore adds
+`parse_conll_sentences(path, lower=True)` with the CURRENT default -- byte-identical -- so the flip is one
+argument away and the number above is attached to it.**
+
+## 20. THE ARC-LABELLER `appos`/`cop` LEVER, BRIEF-READY (the coordinator's Q3)
+
+**FOR:** the labels rung (pri 108's successor). **REACH: +0.0097 of the board's common-noun margin**, measured
+by direct ablation (`gold` +0.0272 -> `gold_noisa` +0.0175, same population, doc-paired bootstrap).
+
+**THE POPULATION.** GUM, TEST = odd doc index, 18 redacted documents excluded; the common-noun coref row,
+n = 3,024 mentions over 128 documents. The consumer is `URG.Resolver(typed_identity=True, bridge=True,
+bridge_write=False, type_comparator="typed_spokes")` -- the landed Q111 non-writing type bridge.
+
+**THE MECHANISM, and why it is a LABELS problem and not a construction problem.** The bridge is seeded by
+`exp_commonnoun_diffhead_anatomy_gum_v1._appos_copula_isa`, which reads the gold **`appos`** and **`cop`
+arcs** to extract in-text is-a edges ("Kim, the doctor" / "Kim is a doctor"). Those edges let a definite with
+no same-head antecedent bridge to a type-compatible prior referent. **683 gold edges on 80 documents.**
+
+**WHAT I BUILT INSTEAD, AND EXACTLY HOW FAR IT GETS** (this is the evidence that the lever belongs to the
+labeller, not to a surface detector):
+
+| gold-free detector | edges | shared with the 683 gold edges | precision | recall | margin recovered |
+|---|---|---|---|---|---|
+| strict (name + determiner) | 162 | 52 | 0.321 | 0.076 | +0.0010 |
+| loose (adjacent nominal runs, comma or BE) | 949 | 113 | 0.119 | 0.165 | +0.0036 |
+| + type-stating connectives | -- | -- | -- | -- | +0.0043 |
+| + connectives and a wider gap | -- | -- | -- | -- | +0.0053 |
+| **the gold arcs** | **683** | -- | 1.0 | 1.0 | **+0.0097** |
+
+**Four points of a monotone recall curve and it plateaus at ~55% of the gold seed.** The residual is the part
+a surface detector cannot reach: `appos` and `cop` are **syntactic relations**, and the constructions that
+realise them are not separable from ordinary adjacency by word order and commas alone ("the field is data" is
+an adjacent nominal pair with a copula and is not a type statement).
+
+**THE ACCEPTANCE TEST, falsifiable:** a gold-free `appos`/`cop` labeller whose edges, substituted into
+`_appos_copula_isa`, move the board's gold-free common-noun margin from **+0.0076** (my best stack) to
+**>= +0.0150 with a CI excluding zero**, on the readable GUM population, with the random-bridge twin losing.
+
+**RELATED FINDING THE LABELS RUNG SHOULD HAVE:** on a **non-writing** bridge, **recall binds and precision is
+nearly free** -- a false edge only offers a candidate the salience competition declines, a missing edge
+removes the only path. I built the high-precision arm first and it was half as good. A labeller tuned for
+this consumer should be tuned for recall.
+
+## 21. OPPORTUNITIES BEYOND THE BAR, AND ALTERNATE PATHS
+
+**OPPORTUNITIES (ranked by measured reach):**
+
+| # | opportunity | measured reach | whose |
+|---|---|---|---|
+| 1 | **Stop lowercasing the reader's sentence source** | **+0.4076 PROPN F1, +0.0275 all-tag accuracy, on every reader consumer** | one line + a 5-call-site audit; needs a board A/B |
+| 2 | Raise the organ's joint type+head+lemma agreement from 0.8437 | up to **+0.0173** of common-noun margin | the category-organ chain (pri 104/107/110) |
+| 3 | A gold-free `appos`/`cop` labeller | **+0.0097** of common-noun margin | the labels rung (section 20) |
+| 4 | Land the SIMPLE name predicate (`categories[head] == "PROPN"`) instead of the wire as a classifier | removes 5 wrong rejections / 17,010 and a needless dependency | one line in the diff |
+| 5 | Wake `referent_per_np.frame_heads`' capitalisation cue | currently **can never fire**; unmeasured until (1) lands | follows (1) |
+| 6 | The is-a connective stack | +0.0056 over the instrument | in the diff, default off |
+
+**ALTERNATE PATHS, similarly or MORE brain-foundational than what I shipped:**
+
+1. **Heads from the attachment arm's parse, not the NP-run rule.** The brain has one attachment competition,
+   not a separate "NP head rule". Span-head agreement is 0.9432 today; `+head` bounds it at +0.0139 of the
+   coref margin. ~50 min of GUM parsing per arm.
+2. **Roles from the Competition-Model role assigner** (`graded_role_assigner.coarse_roles`) rather than the
+   word-order cue alone -- the Competition Model is word order **plus animacy plus agreement in competition**.
+   I shipped only the word-order cue because the others need heads. Strictly more BF. *(pri 108 holds the file.)*
+3. **Let the reader detect its own mentions.** The instrument still takes the treebank's spans. `referent_per_np`
+   already finds its own referents; the honest next instrument scores those against the gold chains.
+4. **Score the two arms per item on the intersection** rather than as margins over two different populations.
+   Section 19a is the first step; a full per-item paired test over the mention intersection is better still.
+5. **Give the category organ the case cue it is built for.** `lexical_categories` carries `word_shape` /
+   `word_shape_rich`; on the reader's path those cues are answering a question the input cannot pose. This is
+   opportunity (1) seen from the organ's side, and it is the most brain-foundational of all of them: a reader
+   that cannot see that a word is capitalised is not a reader with a weak cue, it is a reader with a
+   **destroyed input channel**.
+
 ## GAPS -- steps not performed, and not worked around
 
 1. **The span head from the attachment arm's real parse was NOT measured.** The NP-run rule is a stand-in
@@ -521,6 +677,13 @@ not noticed.
    the verification. Verbatim: *"Permission to use Bash with command rm -f
    ".../scratchpad/patchtree/hdlab/lexical_categories.py" && echo removed; cat ".../tasks/bdwklnbes.output"
    has been denied."*
+6b. **A PHASE-7 RUN WAS INVALID AND I CAUGHT IT BY LOOKING AT THE ARMS.** The first `gf2low` run returned
+   numbers **byte-identical** to `gf2`, which is exactly what a working lowercasing switch could not do. The
+   switch was inert (the edit that lowercases the tagger's input had silently not applied). Fixed, asserted
+   live (`32 of 752 tags differ between cased and lowercased input` on one document), and re-run. **Recorded
+   because an arm that matches its control to the digit is evidence of a broken arm, not of a null result** --
+   and the first table I would have published said "the reader's lowercasing costs the board nothing".
+
 6. ~~The final confirmatory witness re-run was still in flight at hand-off.~~ **CLOSED -- it landed and it is
    GREEN, with numbers BYTE-IDENTICAL to the pre-head-domain run:** `n=200 questions; cluster-named
    (INFORMATIONAL) model=0.690 > recency=0.335 & mostfreq=0.505; GOLD-FREE model=0.280 > recency=0.120
@@ -547,5 +710,19 @@ Read notes/problems/the_boards_coref_split_reads_the_gold_category_column_and_th
    gum_coref_gold_free_patch.diff (the instrument) and entity_layer_patch.diff (pri 104's wire at all
    ten call sites + the two mention builders + the repaired entity QA + its witness).
 4. Decide the 18 redacted documents (`load_docs` already declares `exclude_scrubbed=True` and ignores it).
-5. File the arc-labeller appos/cop lever against pri 108 with its number: +0.0097 of the common-noun margin.
+5. File the arc-labeller appos/cop lever against pri 108 with its number: +0.0097 of the common-noun margin
+   (section 20 is brief-ready: population, mechanism, the four-point recall curve, the acceptance test).
+
+PHASE 7 ADDED FOUR THINGS THAT OUTRANK THE ORIGINAL BARS:
+6. THE READER THROWS THE CASE AWAY at its only sentence source (scene_segment.parse_conll_sentences does
+   cols[3].lower()). Cost to the category organ, 127,919 GUM tokens: PROPN F1 0.8622 -> 0.4546 (-0.4076; it
+   misses 70% of proper nouns) and -0.0275 all-tag accuracy on EVERY token for EVERY reader consumer. The
+   diff adds `lower=True` (byte-identical) and passes it explicitly at all four hdlab call sites. FLIPPING IT
+   IS THE HIGHEST-VALUE ITEM IN THIS WHOLE AREA and it needs a board A/B, which is yours.
+7. THE CAPABILITY IS REAL: on the 84.4% of mentions the organ types correctly, the GOLD-FREE common-noun
+   margin is +0.0193 CI[+0.0057,+0.0318] CI-SEPARATED (gold +0.0263). The category organ is the whole gap.
+8. AFTER THE HEAD FIX THE WIRE IS EXACTLY upos[head]=="PROPN" (agrees on 17,005/17,010; wrong on all 5
+   exceptions). LAND THE SIMPLE FORM; keep name_content_tokens for TOKEN EXTRACTION only.
+9. The negative-id re-keying is a DESIGN (online_entity_cluster's own docstring), not a defect; my repair
+   keeps its intent.
 ```

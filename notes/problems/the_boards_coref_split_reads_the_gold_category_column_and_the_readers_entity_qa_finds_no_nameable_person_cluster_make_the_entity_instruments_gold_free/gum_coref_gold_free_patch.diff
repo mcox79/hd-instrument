@@ -53,7 +53,7 @@
  
  
  @dataclass
-@@ -104,6 +134,229 @@
+@@ -104,6 +134,252 @@
      return ops
  
  
@@ -74,6 +74,26 @@
 +_PLUR_PRON = frozenset({"they", "them", "their", "theirs", "themselves", "we", "us", "our", "ours",
 +                        "ourselves", "these", "those", "yourselves"})
 +_BE_FORMS = frozenset({"is", "are", "was", "were", "be", "been", "being", "am"})
++# TYPE-STATING CONNECTIVES -- a CONNECTIVE LEXICON, the same form the substrate already uses for causation
++# (`hdlab/causal_network` CONNECTIVE_CAUSE_FIRST). MEASURED (pri-109, gold-free common-noun margin on the
++# readable GUM population): no seed +0.0020 -> apposition/copula only +0.0056 -> + these connectives +0.0063
++# -> + a wider gap +0.0073. RECALL IS THE BINDING CONSTRAINT on this consumer (the bridge is NON-WRITING, so
++# a false edge only offers a candidate the salience competition declines while a missing edge removes the
++# only path) -- the higher-PRECISION variant scores HALF as well (+0.0030).
++_ISA_CONNECTIVES = (
++    ("such", "as"), ("including",), ("especially",), ("known", "as"), ("called",),
++    ("namely",), ("like",), ("other",), ("kind", "of"), ("type", "of"), ("sort", "of"), ("form", "of"),
++)
++_ISA_MAX_GAP = 6
++
++
++def _connective_in_gap(gap_low):
++    for pat in _ISA_CONNECTIVES:
++        n = len(pat)
++        for i in range(len(gap_low) - n + 1):
++            if tuple(gap_low[i:i + n]) == pat:
++                return True
++    return False
 +
 +
 +def organ_tags(toks):
@@ -225,7 +245,8 @@
 +    of the gold `appos` / `cop` arcs:
 +        apposition  NOMINAL_RUN , (DET|ADJ|NUM)* NOMINAL_RUN      'Kim , the doctor ,'
 +        copula      NOMINAL_RUN BE (DET|ADJ|NUM|ADV)* NOMINAL_RUN 'Kim is a doctor'
-+    MEASURED (275 GUM docs): 522 edges vs the gold arcs' 414, 59 of them shared -- see SOLVED section 6."""
++    MEASURED: it recovers about HALF of the +0.0097 the gold arcs are worth; the residual needs a
++    real appos/cop LABELLER -- see SOLVED sections 6 and 20."""
 +    by_sent = {}
 +    for t in toks:
 +        by_sent.setdefault(t.sent, []).append(t)
@@ -247,12 +268,14 @@
 +        for a in range(len(runs) - 1):
 +            (s1, e1), (s2, e2) = runs[a], runs[a + 1]
 +            gap, gapc = forms[e1 + 1:s2], cats[e1 + 1:s2]
-+            if not gap or len(gap) > 4:
++            if not gap or len(gap) > _ISA_MAX_GAP:
 +                continue
++            low = [w.lower() for w in gap]
 +            is_appos = gap[0] == "," and all(c in ("DET", "ADJ", "NUM", "PUNCT") for c in gapc)
-+            is_cop = any(w.lower() in _BE_FORMS for w in gap) and \
++            is_cop = any(w in _BE_FORMS for w in low) and \
 +                all(c in ("DET", "ADJ", "NUM", "VERB", "AUX", "ADV") for c in gapc)
-+            if is_appos or is_cop:
++            is_conn = _connective_in_gap(low)
++            if is_appos or is_cop or is_conn:
 +                la, lb = organ_lemma(forms[e1]), organ_lemma(forms[e2])
 +                if la != lb:
 +                    links.add(frozenset((la, lb)))
@@ -283,7 +306,7 @@
  def _mention_type(head_tok, span_toks):
      up = head_tok.upos
      low = head_tok.form.lower()
-@@ -157,7 +410,7 @@
+@@ -157,7 +433,7 @@
      return gender, number
  
  
@@ -292,7 +315,7 @@
      base = os.path.basename(path).replace(".conllu", "")
      parts = base.split("_")
      corpus = parts[0]
-@@ -224,6 +477,11 @@
+@@ -224,6 +500,11 @@
          by_sent.setdefault(t.sent, {})[t.idx] = t
      gmap = {t.gidx: t for t in toks}
  
@@ -304,7 +327,7 @@
      mentions = []
      for eid, s0, s1 in raw_mentions:
          span = [gmap[g] for g in range(s0, s1 + 1) if g in gmap]
-@@ -232,9 +490,14 @@
+@@ -232,9 +513,14 @@
          # restrict head search to tokens in the same sentence as the span majority
          sent_id = span[0].sent
          span_same = [t for t in span if t.sent == sent_id] or span
@@ -322,7 +345,7 @@
          text = " ".join(t.form for t in span)
          mentions.append(Mention(eid=eid, sent=sent_id, start_g=s0, end_g=s1, head_g=head.gidx,
                                  text=text, mtype=mtype, upos=head.upos, gender=gender,
-@@ -248,7 +511,8 @@
+@@ -248,7 +534,8 @@
      return Doc(docid=base, genre=genre, corpus=corpus, toks=toks, mentions=mentions, chains=chains)
  
  
@@ -332,7 +355,7 @@
      files = sorted(glob.glob(os.path.join(GUM_CONLLU, "*.conllu")))
      if gum_only:
          files = [f for f in files if os.path.basename(f).startswith("GUM_")]
-@@ -257,7 +521,7 @@
+@@ -257,7 +544,7 @@
          base = os.path.basename(fp)
          if genres and not any(("_" + g + "_") in base for g in genres):
              continue
@@ -341,7 +364,7 @@
          docs.append(d)
          if limit and len(docs) >= limit:
              break
-@@ -265,6 +529,30 @@
+@@ -265,6 +552,30 @@
  
  
  def _self_test():
