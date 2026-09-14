@@ -80,7 +80,10 @@ def main() -> int:
     ]
     path = _write_temp_conll(rows_q)
     try:
-        stock_q = SituationReader(gaz=gaz).read(path)
+        # 2026-09-14 (strategy): the DEFAULT reader IS the wired route now (role_route='wired' default), so the "stock" reader of
+        # this claim is the positional flags-off reader (all_capabilities_off), not SituationReader() -- the premise "the stock
+        # reader fails" had silently become "wired vs hybrid" (both right) and the check failed for a stale reason, not a regression.
+        stock_q = SituationReader.all_capabilities_off(gaz=gaz).read(path)
         wired_q = SituationReader(gaz=gaz, role_route="hybrid").read(path)
     finally:
         os.remove(path)
