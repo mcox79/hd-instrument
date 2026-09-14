@@ -773,7 +773,8 @@ measured; what remains is either (i) bounded by arithmetic, (ii) owned by a name
 | restore the case in `_mk_referent` | **BUILT, NULL, EXPLAINED** | the case is gone one level up |
 | the entity-QA id-space defect | **LOCATED + REPAIRED + WITNESSED** | 0 -> 200 questions, witness green twice |
 | the paired-subpopulation conversion | **BUILT, CI-SEPARATED** | +0.0193 [+0.0057,+0.0318] where the organ is right |
-| the reader's lowercasing | **LOCATED + MEASURED + PROPOSED** | -0.4076 PROPN F1; flipping it needs a board A/B |
+| the reader's lowercasing | **LOCATED + MEASURED + PROPOSED + RUN END-TO-END** | -0.4076 PROPN F1 at the organ; the flip is SAFE (nothing broke), coref-neutral (0.6421 -> 0.6421), +108 referent files (+4.1%); the A/B is strategy's |
+| the board rows' faithfulness to the reader | **BUILT, and it REFUTED the row** | a worse organ makes the common-noun margin go UP and separate; margins are not comparable across arms whose typing differs |
 | the category organ's 15.6% | **PRICED, NOT MINE** | worth +0.0173; pri 104 / 107 / 110's chain |
 | a gold-free `appos`/`cop` labeller | **PRICED + BRIEF-READY** | +0.0097; section 20; the labels rung's |
 | heads from the attachment arm's parse | **NOT BUILT** | ~50 min/arm; bounded at +0.0139; named as alternate path 1 |
