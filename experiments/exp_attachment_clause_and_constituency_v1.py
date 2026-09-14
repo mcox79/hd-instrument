@@ -876,6 +876,180 @@ def ceiling(cap=700, gammas=(1.0, 2.0, 4.0, 8.0, 1000.0), which_list=("clause", 
     return out
 
 
+# ------------------------------------------------------------------------------------------------------------------
+# PHASE 7 LEVERS -- the two residual classes, attacked at read time (no rebuild) so the oracle reach is measured
+# before any asset is spent.
+#
+# (A) MISSING IS NOT ZERO.  `SemanticBootstrapTeacher.slot_plausibility` returns 0.0 both when the verb-noun pair is
+#     genuinely implausible AND when the self-grown store has never seen the pair, and `_plaus_bin` maps both to the
+#     value "0" -- so ABSENCE OF EVIDENCE is coded as the worst bin and carries that bin's learned (negative)
+#     strength.  That is a mis-coding of missing data in a cue-validity system whose whole machinery (M_SHRINK)
+#     otherwise shrinks toward the configuration's base rate.  The brain's version: a cue that does not APPLY
+#     contributes nothing to the competition (Bates & MacWhinney: activation = sum over cues that are AVAILABLE);
+#     it does not vote against.  Fix: an uncovered pair takes a distinct value, which the learned table does not
+#     carry and therefore scores exactly 0.0 -- testable with no rebuild.
+# (B) THE SLOT HAS CAPACITY ONE, AT THE SCORE, NOT AFTER THE TREE.  The arm's recorded refutation (`OCCUPANCY`) moved
+#     dependents AFTER the decode and evicted true objects.  The Competition-Model statement is about the
+#     COMPETITION: two bare nominals on the same side of one verb compete for one slot, so the loser's arc should be
+#     weaker when it is scored (MacWhinney 1987), which is a first-order term the tree decode can still overrule.
+_ORIG_PLAUS_BIN = AA._plaus_bin
+
+
+def _plaus_bin_unk(p):
+    return "unk" if p <= 0.0 else _ORIG_PLAUS_BIN(p)
+
+
+def saturation_penalty(A, toks, pos, gamma):
+    """Score-level slot competition: among the BARE nominals on one side of a verb, all but the strongest are
+    penalised by gamma on that verb's arc (the slot has capacity one)."""
+    n = len(pos)
+    bare = [j for j in range(1, n + 1) if pos[j - 1] in ("NOUN", "PROPN", "PRON", "NUM")
+            and not (j >= 2 and pos[j - 2] == "ADP")]
+    for h in range(1, n + 1):
+        if pos[h - 1] != "VERB":
+            continue
+        for side in (0, 1):
+            cand = [j for j in bare if j != h and ((j > h) == bool(side)) and np.isfinite(A[h][j - 1 + 1])]
+            if len(cand) < 2:
+                continue
+            best = max(cand, key=lambda j: float(A[h][j]))
+            for j in cand:
+                if j != best:
+                    A[h][j] -= gamma
+    return A
+
+
+def phase7_levers(cap=700, gammas=(1.0, 2.0, 4.0, 8.0)):
+    """Oracle reach of the two Phase-7 levers, on the LIVE asset, no rebuild."""
+    test = sentences(TEST, cap=cap, maxlen=10 ** 6)
+    enable(); tab = AA.load_attachment_validities()
+    base = evaluate(tab, test, "incr"); _print("live asset", base)
+    out = {"base": {k: base[k] for k in ("uas", "core", "root", "classes")}, "arms": {}}
+    orig = AA.arc_scores
+
+    # (A) missing-is-not-zero: no gamma, it is a value re-coding
+    AA._plaus_bin = _plaus_bin_unk
+    r = evaluate(tab, test, "incr")
+    AA._plaus_bin = _ORIG_PLAUS_BIN
+    out["arms"]["plaus_unk"] = {k: r[k] for k in ("uas", "core", "root", "classes")}
+    out["arms"]["plaus_unk"]["core_ci"] = ci(base, r, "core"); out["arms"]["plaus_unk"]["uas_ci"] = uas_ci(base, r)
+    print("plaus_unk    core %.4f (%+.4f CI[%+.4f,%+.4f])  UAS %.4f (%+.4f)  classes %s"
+          % (r["core"], out["arms"]["plaus_unk"]["core_ci"][0], out["arms"]["plaus_unk"]["core_ci"][1],
+             out["arms"]["plaus_unk"]["core_ci"][2], r["uas"], r["uas"] - base["uas"],
+             sorted(r["classes"].items(), key=lambda kv: -kv[1])[:4]), flush=True)
+
+    # (B) score-level saturation
+    for g in gammas:
+        def patched(toks, pos, table=None, _g=g):
+            A, n = orig(toks, pos, table)
+            return saturation_penalty(A, toks, pos, _g), n
+        AA.arc_scores = patched
+        r = evaluate(tab, test, "incr")
+        AA.arc_scores = orig
+        key = "saturation_g%g" % g
+        out["arms"][key] = {k: r[k] for k in ("uas", "core", "root", "classes")}
+        out["arms"][key]["core_ci"] = ci(base, r, "core"); out["arms"][key]["uas_ci"] = uas_ci(base, r)
+        print("%-12s core %.4f (%+.4f CI[%+.4f,%+.4f])  UAS %.4f (%+.4f)  obj %.3f nsubj %.3f  classes %s"
+              % (key, r["core"], out["arms"][key]["core_ci"][0], out["arms"][key]["core_ci"][1],
+                 out["arms"][key]["core_ci"][2], r["uas"], r["uas"] - base["uas"],
+                 r["rel"].get("obj", 0), r["rel"].get("nsubj", 0),
+                 sorted(r["classes"].items(), key=lambda kv: -kv[1])[:4]), flush=True)
+
+    # (A)+(B) together at the best gamma
+    best = max((k for k in out["arms"] if k.startswith("saturation")), key=lambda k: out["arms"][k]["core"])
+    g = float(best.split("_g")[1])
+    AA._plaus_bin = _plaus_bin_unk
+
+    def patched2(toks, pos, table=None, _g=g):
+        A, n = orig(toks, pos, table)
+        return saturation_penalty(A, toks, pos, _g), n
+    AA.arc_scores = patched2
+    r = evaluate(tab, test, "incr")
+    AA.arc_scores = orig; AA._plaus_bin = _ORIG_PLAUS_BIN
+    out["arms"]["both_g%g" % g] = {k: r[k] for k in ("uas", "core", "root", "classes")}
+    out["arms"]["both_g%g" % g]["core_ci"] = ci(base, r, "core")
+    print("both(g=%g)   core %.4f (%+.4f CI[%+.4f,%+.4f])  UAS %.4f  classes %s"
+          % (g, r["core"], out["arms"]["both_g%g" % g]["core_ci"][0], out["arms"]["both_g%g" % g]["core_ci"][1],
+             out["arms"]["both_g%g" % g]["core_ci"][2], r["uas"],
+             sorted(r["classes"].items(), key=lambda kv: -kv[1])[:4]), flush=True)
+    return out
+
+
+def phase7(cap=700):
+    """PHASE 7 -- the two residual classes decomposed until each is mechanistic, with counts.
+    (a) WHY the meaning channel gives the true verb nothing on the absorbed arguments: store coverage, or a slot
+        rule, or a pronoun?  (b) WHAT the 79 within-clause wrong-predicate errors are: which verb wins, and is the
+        true verb's argument slot already filled (the saturation cue the sibling brief is about)?  (c) whether the
+        compound association is inert by SPARSITY (are the two nouns even in the table?)."""
+    from hdlab.attachment_arm import _plaus_teacher
+    from hdlab.thematic_role_labeler import lemma_verb
+    test = sentences(TEST, cap=cap, maxlen=10 ** 6)
+    enable(); tab = AA.load_attachment_validities(); T = _plaus_teacher()
+    if NN_ASSOC["tab"] is None:
+        tr = sentences(TRAIN, cap=6000)
+        NN_ASSOC["tab"] = nn_assoc_from_reading([(t, q) for t, q, _, _ in tr])
+    A_ = NN_ASSOC["tab"]
+    st = Counter()
+    for toks, pos, hg, rels in test:
+        A, n = AA.arc_scores(toks, pos, tab); hd, _ = AA.decode(toks, pos, A, n)
+        low = [t.lower() for t in toks]
+        bare = [j for j in range(1, n + 1) if pos[j - 1] in NOMINAL_SET and not (j >= 2 and pos[j - 2] == "ADP")]
+        for i, (g, r) in enumerate(zip(hg, rels), start=1):
+            if r not in CORE:
+                continue
+            h = hd.get(i, -1)
+            if h == g or not (1 <= h <= n) or not (1 <= g <= n):
+                continue
+            cl = _classify(pos, rels, hg, hd, i)
+            if cl == "np_absorbed" and pos[g - 1] == "VERB":
+                # (a) why is plaus zero?
+                pl = T.slot_plausibility(toks, pos, g, i)
+                vl = lemma_verb(toks[g - 1]).lower()
+                covered = False
+                try:
+                    covered = bool(T.tsp.covers(vl)) if i > g or T.tsp_subj is None else bool(T.tsp_subj.covers(vl))
+                except Exception:
+                    covered = False
+                if pl > 0:
+                    st["plaus|nonzero"] += 1
+                else:
+                    st["plaus|zero"] += 1
+                    if pos[i - 1] == "PRON":
+                        st["zero_because|pronoun_rate_0"] += 1
+                    elif i < g and i >= 2 and pos[i - 2] == "ADP":
+                        st["zero_because|case_marked_rule"] += 1
+                    elif not covered:
+                        st["zero_because|verb_not_in_store"] += 1
+                    else:
+                        st["zero_because|noun_not_in_store"] += 1
+                # (c) is the compound pair even in the association table?
+                w1, w2 = (low[i - 1], low[h - 1]) if i < h else (low[h - 1], low[i - 1])
+                seen = A_["pair"].get(w1 + "|" + w2, 0.0)
+                st["nn|pair_seen" if seen > 0 else "nn|pair_unseen"] += 1
+                if A_["left"].get(w1, 0.0) == 0 or A_["right"].get(w2, 0.0) == 0:
+                    st["nn|a_word_unseen"] += 1
+            if cl in ("wrong_predicate", "wrong_clause_pred"):
+                nv, sb = clause_matrices(toks, pos)
+                if int(nv[h][i - 1]) == 0 and int(sb[h][i - 1]) == 0:
+                    st["within|total"] += 1
+                    st["within|chosen_" + ("left" if h < i else "right")] += 1
+                    st["within|gold_" + ("left" if g < i else "right")] += 1
+                    st["within|dist_%d" % min(abs(h - i), 4)] += 1
+                    # SATURATION: does the GOLD verb already have another bare nominal dependent on the same side?
+                    same_side = [j for j in bare if j != i and hd.get(j) == g and ((j > g) == (i > g))]
+                    st["within|goldverb_slot_%s" % ("filled" if same_side else "free")] += 1
+                    ch_side = [j for j in bare if j != i and hd.get(j) == h and ((j > h) == (i > h))]
+                    st["within|chosenverb_slot_%s" % ("filled" if ch_side else "free")] += 1
+    out = dict(st)
+    print("PHASE 7 decomposition:", flush=True)
+    for k in sorted(out):
+        print("   %-34s %d" % (k, out[k]), flush=True)
+    return out
+
+
+NOMINAL_SET = ("NOUN", "PROPN", "PRON", "NUM")
+
+
 def why_absorbed(cap=700):
     """WHY does the argument not go to the right verb when the compound arc is removed?  For every core argument the
     governor absorbed into a nominal phrase, ask what evidence the GOLD verb arc had: (a) does the meaning channel
@@ -1173,6 +1347,8 @@ def main(argv=None):
     ap.add_argument("--ceiling", action="store_true")
     ap.add_argument("--labels-consequence", action="store_true")
     ap.add_argument("--why-absorbed", action="store_true")
+    ap.add_argument("--phase7", action="store_true")
+    ap.add_argument("--phase7-levers", action="store_true")
     ap.add_argument("--ceiling-which", default="clause,npb,nn,both")
     ap.add_argument("--gammas", default="1,2,4,8,1000")
     ap.add_argument("--save-assets", action="store_true")
@@ -1193,6 +1369,16 @@ def main(argv=None):
         cfg = {"clause": True, "npb": True, "split": True} if len(parts) < 3 else ALL_ARMS[parts[2]]
         d = board_noregress(fl, ar, cfg, cap=a.board_cap)
         with open(os.path.join(outdir, "board_noregress.json"), "w", encoding="utf-8") as f:
+            json.dump(d, f, indent=1)
+        return 0
+    if a.phase7_levers:
+        d = phase7_levers(cap=a.test_cap or 700)
+        with open(os.path.join(outdir, "phase7_levers.json"), "w", encoding="utf-8") as f:
+            json.dump(d, f, indent=1)
+        return 0
+    if a.phase7:
+        d = phase7(cap=a.test_cap or 700)
+        with open(os.path.join(outdir, "phase7_decomposition.json"), "w", encoding="utf-8") as f:
             json.dump(d, f, indent=1)
         return 0
     if a.why_absorbed:

@@ -530,6 +530,36 @@ exactly what the 47-nouns-missing-from-the-store count says. (The re-coding is s
 nothing; it is listed as a candidate for the next rebuild, where its own validity would be learned rather than
 forced to zero.)
 
+**L4 -- SCORE-LEVEL SLOT SATURATION. BUILT, MEASURED, REFUTED -- and it generalises the arm's own recorded
+refutation.** The arm has `OCCUPANCY` (default OFF) which moved dependents AFTER the decode and evicted true
+objects. The Competition-Model statement is about the COMPETITION, so the fair form is a penalty applied when the
+arc is SCORED: among the bare nominals on one side of a verb, all but the strongest lose gamma (the slot has
+capacity one -- MacWhinney 1987), which the tree decode can still overrule.
+
+| | core | delta | CI95 | obj | absorbed class |
+|---|---|---|---|---|---|
+| live asset | 0.7784 | -- | -- | 0.772 | 97 |
+| saturation, gamma 1 (the smallest swept) | 0.7693 | **-0.0091** | **[-0.0173, -0.0017] CI-SEPARATED DOWN** | 0.748 | 112 |
+| saturation, gamma 2 | 0.7560 | **-0.0224** | **[-0.0342, -0.0108] CI-SEPARATED DOWN** | 0.723 | 127 |
+
+**The count predicted this before the build (the true verb's slot is already filled in 4 of 79) and the measurement
+confirms it at the smallest gamma, monotonically worse as gamma rises.** The finding worth keeping: the OCCUPANCY refutation is **not** an artefact of
+applying the constraint after the decode -- the constraint is wrong for this population wherever it is applied,
+because English verbs legitimately take two bare nominals often enough (ditransitives, temporal and measure NPs,
+predicate nominals, appositions) that a capacity-one prior evicts true objects (obj 0.772 -> 0.748). **Argument
+structure has to be LEXICAL (which verb takes this noun), not numerical (how many).**
+
+## P7.4 REMAINING OPPORTUNITIES BEYOND THE BAR, each with the brain's computation
+
+| # | opportunity | the brain's computation | what it would take | status |
+|---|---|---|---|---|
+| O1 | **grow the typed selectional store's NOUN vocabulary** | semantic bootstrapping: the predicate takes its plausible participants (Pinker 1984/89); the store is the substrate's experiential event knowledge | 47 of 57 blocked absorptions are a missing NOUN. The store is grown by `tools/grow_selectional_store_bf.py` over simplewiki with the substrate's own chain -- more reading, or a coarser BACK-OFF class for an unseen noun (the store is typed, so an unseen noun could inherit its class's association) | **the highest-value item this brief found**; a store build, Phase 1, not a governor change |
+| O2 | **a learned validity for "the cue does not apply"** | activation sums over AVAILABLE cues (Bates & MacWhinney) -- "unseen" is a third state, not the bottom of the scale | one extra value in the `plaus` cue at the next rebuild, so its contrast is LEARNED instead of forced to 0. Measured here as a forced zero: +0.0033 n.s. | ready, needs a rebuild |
+| O3 | **graded category input to the boundary computation** | keep the alternative alive (MacDonald 1994) | marginalise the clause/onset matrices over the top-2 category posterior, as `arc_scores_graded` already does for ordinary arcs. 7.07% of clause values flip under the organ's tags | PATH B; a contract change in `arc_scores_graded` |
+| O4 | **the boundary as a graded integration cost** | Gibson's DLT counts intervening DISCOURSE REFERENTS, not predicates, and the cost is continuous | replace the 0/1/2 predicate count with a referent count binned by the organ's own quantiles | PATH D; cheap to try at the next rebuild |
+| O5 | **the clause segmentation as an INCREMENTAL state rather than a span statistic** | the reader knows which clause it is IN at word t; my cue is computed over the finished sentence (both endpoints known) | the in-order decode already has the machinery (`hold_expectation`, the wrap-up); a per-arrival clause id would make the cue strictly incremental. The current form reads no future word for the arc it scores, but the matrix is built once per sentence | honest gap, named in the owner's in-order rule |
+| O6 | **the convention bonus is a fixed +5** | -- (this is an annotation convention, not a brain fact) | the `fw` construction gets a deterministic +5 that the phrase-onset split now redirects rather than removes; a learned magnitude per family would be more honest | out of scope here, flagged |
+
 ## 11. ALTERNATE PATHS -- as brain-foundational or MORE so than what is shipped here
 
 Written at brief precision, with the count each would address, so strategy can queue them directly.
