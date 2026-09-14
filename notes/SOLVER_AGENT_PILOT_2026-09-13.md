@@ -63,3 +63,8 @@ independent golds, ~5 refuted levers each).
 | solver-pri107 | 1 (sent 09:05; closed 07:50) | recovery UD 0.705 / GUM-GENTLE 0.562 / QA-SRL 0.682 at 0.10 fv/sent; reader event recall 0.9186 -> 0.9501; board flat | UNCHANGED on shipped numbers; +1 selectable arm (sole-AUX: recall +0.0096 CI-sep, blind clauses 33 -> 18) | 4 levers (lex_pcw tie; truncation negative; AUX arm; permutation null) | all understood with numbers | YES |
 | solver-pri105 | 1 (sent 21:55; reported 00:05) | in-order core 0.7834 / live 0.7693 / UAS +0.0193 / board patient 0.8069 / labels +0.0129 | UNCHANGED (no shipped number moved) | 2 levers built + refuted (missing-is-not-zero +0.0033 n.s.; slot saturation -0.009..-0.071 CI-sep DOWN) | 5 refuted total, all with counts | YES (within remit); cap-6000 rebuild still running |
 | solver-pri94 | 1 (sent 20:45) | UAS 0.6373 / obl 0.535 / nmod 0.491 (cap 1500, gold cats, pri 97 tree) | (pending) | | | |
+
+## 13:01 (09-14) -- pri 106 + pri 110 yields (strategy)
+- pri 106 (role margin, opus, phase 7 sent): EXHAUSTED at rung; headline moved from the cue form (+0.0054 n.s.) to a landed!=live defect it found on the probe (the affected-entity consumer read a word-order proxy: +0.0864 CI-sep agent-measured). Probe yield: HIGH (the probe produced the result).
+- pri 110 (sole-AUX predicates, opus, phase 7 sent): SOLVED then IMPROVED on the probe (state -3 -> 0 by an upstream repair; 7A built; 10e counted the next hole at 167 clauses). Probe yield: HIGH. Two follow-up briefs filed (113, 114).
+- Both agents reported their own denial verbatim and did not retry. Straddle lesson (pri 110 §10c): a long two-arm board A/B is not controlled while strategy commits; run arms back-to-back in one process or pin the tree.
