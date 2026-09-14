@@ -1,0 +1,36 @@
+{
+ "base": {
+  "coref": {
+   "n": 3145,
+   "model_acc": 0.4172,
+   "strongest_floor": 0.3202
+  },
+  "common_noun": {
+   "n": 3915,
+   "model_acc": 0.4932,
+   "strongest_floor": 0.4876
+  },
+  "salience": {
+   "n": 137,
+   "model_acc": 0.2993,
+   "strongest_floor": 0.219
+  }
+ },
+ "occ": {
+  "coref": {
+   "n": 3145,
+   "model_acc": 0.4172,
+   "strongest_floor": 0.3202
+  },
+  "common_noun": {
+   "n": 3915,
+   "model_acc": 0.4932,
+   "strongest_floor": 0.4876
+  },
+  "salience": {
+   "n": 137,
+   "model_acc": 0.2993,
+   "strongest_floor": 0.219
+  }
+ }
+}

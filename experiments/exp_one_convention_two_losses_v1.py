@@ -1455,12 +1455,94 @@ def state_dim(cap=None, th=0.5, n_boot=2000):
     return out
 
 
+def coref_dim(n_docs=None, th=0.5, n_boot=1000):
+    """THE COREF / COMMON-NOUN / SALIENCE dimensions ALONE, both arms -- the full board A/B showed coref -0.0509 and
+    common_noun_coref -0.0739 where the CAPPED A/B showed both BYTE-IDENTICAL, and that contradiction has to be
+    resolved before any verdict. Same monkeypatch, same entry point the board uses."""
+    import importlib
+    out = {}
+    for arm in ("base", "occ"):
+        os.environ["HDLAB_EXP_NAME"] = "one_convention_two_losses_v1_coref_" + arm
+        if arm == "occ":
+            lcmod = LC.LexicalCategories
+            orig = lcmod.posterior
+
+            def patched(self, words, lag=None, _o=orig):
+                post = _o(self, words, lag)
+                if post is None or getattr(post, "shape", (0,))[0] == 0:
+                    return post
+                tags = [self.tags[int(post[i].argmax())] for i in range(post.shape[0])]
+                occ = predicate_slot_v2(self, list(words), tags=tags, post=post)
+                o2, _s = revise_posterior(self, list(words), post, tags=tags, th=th, occ=occ)
+                return o2
+            lcmod.posterior = patched
+        CG = importlib.import_module("experiments.exp_board_coref_gum_v1")
+        cpr, det = CG.board_coref_modern_dimension(n_docs=n_docs)
+        sal, _sd = CG.board_salience_modern_dimension(n_docs=n_docs, n_boot=n_boot, seed=0)
+        out[arm] = {"coref": {k: cpr.get(k) for k in ("n", "model_acc", "strongest_floor")},
+                    "common_noun": {k: det["common_noun"].get(k) for k in ("n", "model_acc", "strongest_floor")},
+                    "salience": {k: sal.get(k) for k in ("n", "model_acc", "strongest_floor")}}
+        for d in ("coref", "common_noun", "salience"):
+            r = out[arm][d]
+            print("%-5s %-12s n=%-6s acc=%.4f floor=%.4f" % (arm, d, r.get("n"), r.get("model_acc", float("nan")),
+                                                             r.get("strongest_floor", float("nan"))))
+    if "base" in out and "occ" in out:
+        for d in ("coref", "common_noun", "salience"):
+            b = out["base"][d]["model_acc"]; o = out["occ"][d]["model_acc"]
+            if b is not None and o is not None:
+                print("DELTA %-12s %+.4f  (= %.1f items of %s)" % (d, o - b, (o - b) * (out["base"][d]["n"] or 0), out["base"][d]["n"]))
+    json.dump(out, open(os.path.join(out_dir(), "coref_dim.json"), "w", encoding="utf-8"), indent=1)
+    return out
+
+
+def coref_dim(n_docs=None, th=0.5, n_boot=1000):
+    """THE COREF / COMMON-NOUN / SALIENCE dimensions ALONE, both arms -- the full board A/B showed coref -0.0509 and
+    common_noun_coref -0.0739 where the CAPPED A/B showed both BYTE-IDENTICAL, and that contradiction has to be
+    resolved before any verdict. Same monkeypatch, same entry point the board uses."""
+    import importlib
+    out = {}
+    for arm in ("base", "occ"):
+        os.environ["HDLAB_EXP_NAME"] = "one_convention_two_losses_v1_coref_" + arm
+        if arm == "occ":
+            lcmod = LC.LexicalCategories
+            orig = lcmod.posterior
+
+            def patched(self, words, lag=None, _o=orig):
+                post = _o(self, words, lag)
+                if post is None or getattr(post, "shape", (0,))[0] == 0:
+                    return post
+                tags = [self.tags[int(post[i].argmax())] for i in range(post.shape[0])]
+                occ = predicate_slot_v2(self, list(words), tags=tags, post=post)
+                o2, _s = revise_posterior(self, list(words), post, tags=tags, th=th, occ=occ)
+                return o2
+            lcmod.posterior = patched
+        CG = importlib.import_module("experiments.exp_board_coref_gum_v1")
+        cpr, det = CG.board_coref_modern_dimension(n_docs=n_docs)
+        sal, _sd = CG.board_salience_modern_dimension(n_docs=n_docs, n_boot=n_boot, seed=0)
+        out[arm] = {"coref": {k: cpr.get(k) for k in ("n", "model_acc", "strongest_floor")},
+                    "common_noun": {k: det["common_noun"].get(k) for k in ("n", "model_acc", "strongest_floor")},
+                    "salience": {k: sal.get(k) for k in ("n", "model_acc", "strongest_floor")}}
+        for d in ("coref", "common_noun", "salience"):
+            r = out[arm][d]
+            print("%-5s %-12s n=%-6s acc=%.4f floor=%.4f" % (arm, d, r.get("n"), r.get("model_acc", float("nan")),
+                                                             r.get("strongest_floor", float("nan"))))
+    if "base" in out and "occ" in out:
+        for d in ("coref", "common_noun", "salience"):
+            b = out["base"][d]["model_acc"]; o = out["occ"][d]["model_acc"]
+            if b is not None and o is not None:
+                print("DELTA %-12s %+.4f  (= %.1f items of %s)" % (d, o - b, (o - b) * (out["base"][d]["n"] or 0), out["base"][d]["n"]))
+    json.dump(out, open(os.path.join(out_dir(), "coref_dim.json"), "w", encoding="utf-8"), indent=1)
+    return out
+
+
 if __name__ == "__main__":
     a = sys.argv[1:]
     if "--diag" in a:
         diag()
     elif "--cat" in a:
         cat()
+    elif "--coref" in a:
+        coref_dim(n_docs=(int(a[a.index("--docs") + 1]) if "--docs" in a else None))
     elif "--state" in a:
         state_dim(cap=(int(a[a.index("--cap") + 1]) if "--cap" in a else None))
     elif "--attrib" in a:
