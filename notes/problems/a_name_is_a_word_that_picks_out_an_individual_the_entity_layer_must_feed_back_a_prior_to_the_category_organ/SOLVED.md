@@ -500,6 +500,103 @@ On GENTLE (theta 10, the most local setting):
 
 **It recovers roughly half the out-of-domain damage (repeat-mention 0.6343 -> 0.6661 against a floor of 0.6963) and does not reach the floor, and the recovery is MONOTONIC IN HOW LOCAL THE ESTIMATE IS** -- theta 10 gives 0.6661, theta 30 gives 0.6661, theta 100 gives 0.6471, against 0.6343 with no local term at all. That is what the rest of phase 7 predicts it should do: the local estimate is calibrated on known tokens and therefore carries the 2-16 point known/unknown bias of 12d-bis, and underneath that the cue is weakly informative on GENTLE anyway (P(PROPN | repeat AND Cap@mid) = 0.505). **The mechanism is right and it is half-built: the missing piece is the offline known/unknown offset, the same one table 12d-bis asks for.** Ships behind `ent_local=None`.
 
+## 12h. PATH 6 BUILT IN GENERAL FORM -- THE CUE SETS ITS OWN GAIN, AND THE OUT-OF-DOMAIN NEGATIVE GOES AWAY
+
+**The computation.** Precision is the inverse variance of a cue's own recent prediction error, estimated ONLINE (Friston; Feldman & Friston 2010, attention as precision) -- not a constant and not frozen at training time. Every failure in this brief is one cue running at a fixed gain in a passage where its reliability is different: P(PROPN | repeat AND capitalised mid-sentence) is **0.923 on GUM and 0.505 on GENTLE**, and a fixed kappa cannot know that. So the reader MEASURES what the entity symbol is buying, inside this passage, on the tokens where it can check itself -- the ones with a lexical entry, where the organ scores 0.93 -- and sets the cue's weight to that:
+
+```
+gain_t   = log P(c* | E_t) - log P(c* | e_first)      # what the discourse symbol adds over no discourse evidence,
+                                                      # in nats, scored on the organ's OWN settled answer c*
+precision = max(0, EWMA(gain)) / (max(0, EWMA(gain)) + lambda_p)        # lambda_p swept
+kappa_eff = kappa * precision
+```
+
+Strictly in order (the estimate at word t uses only sentences already settled), KNOWN tokens only, no gold, one running scalar per passage. **This is the general form of the two special cases that were the best levers of phase 7** -- the repaired register and its bias correction both estimate a local statistic on tokens the organ is sure about; this one estimates the cue's own worth.
+
+**ON GENTLE, the corpus where the fixed-gain prior is CI-SEPARATED NEGATIVE:**
+
+| arm on GENTLE | overall | unseen | PROPN<->NOUN | repeat-mention acc | first-mention acc |
+|---|---|---|---|---|---|
+| **floor** | 0.8674 | 0.6034 | 284 | **0.6963** | 0.7274 |
+| S2 -- fixed kappa 2 | 0.8643 | 0.5838 | 310 | **0.6343 (-0.0620 CI[-0.1115,-0.0090] CI-SEP NEG)** | 0.7261 |
+| X1 -- online precision, lambda_p 0.05 | 0.8671 | 0.6014 | 285 | 0.6948 | 0.7274 |
+| **X2 -- online precision, lambda_p 0.2** | 0.8672 | 0.6022 | **282** | **0.6979** | **0.7274 (the floor exactly)** |
+
+**The CI-separated out-of-domain negative is GONE: -0.0620 becomes +0.0016.** The cue switches itself off where it is uninformative, which is what it should do and what no fixed kappa, no amount of forgetting and no oracle teacher could achieve (12a/12b). PENDING_P6_GUM
+
+## 12i. THE GRADED NAME BELIEF -- it does NOT beat the boolean on F1, and it is still the thing to ship
+
+The forward-wire patch returns a boolean (a list of name tokens, or empty), which is an argmax over the head's category posterior. The brain's referent route is engaged to a DEGREE, so the graded form hands consumers `P(individual) = P(PROPN) / (P(PROPN) + P(NOUN))` at the span head and lets them threshold or weight it. Swept over 4,822 UD-EWT test spans:
+
+| threshold on P(individual) | precision | recall | F1 | **false name spans** | missed names |
+|---|---|---|---|---|---|
+| 0.1 | 0.8134 | 0.9452 | 0.8743 | 285 | 72 |
+| 0.3 | 0.8598 | 0.9148 | 0.8864 | 196 | 112 |
+| **0.5 (= the argmax, i.e. the boolean I patched)** | 0.8854 | 0.8935 | **0.8894** | 152 | 140 |
+| 0.7 | 0.9038 | 0.8584 | 0.8806 | **120** | 186 |
+| 0.8 | 0.9140 | 0.8250 | 0.8672 | **102** | 230 |
+| 0.9 | 0.9255 | 0.7747 | 0.8434 | **82** | 296 |
+| *(capitalisation, for scale)* | 0.7545 | 0.7904 | 0.7720 | 352 | 287 |
+
+**F1 is maximised EXACTLY at the argmax, so the claim "graded beats boolean" is FALSE and I am not making it.** The boolean is already sitting at the F1-optimal operating point.
+
+**But the graded belief is still what should be handed down, and the table says why: the F1-optimal point is almost certainly not the CONSUMER-optimal one.** A false name span opens a bogus entity file that then competes for every subsequent retrieval, while a missed name merely falls through to the common-noun route which the substrate also has. At threshold 0.8 the eight consumers would see **102 false name spans instead of 152 (a third fewer) for 90 more misses**, and that is a trade the *consumer* should make, not the category organ. **A boolean forecloses it; a scalar does not.** The patch keeps the boolean as the default (it is the measured F1 optimum and it is what today's callers accept) and the graded value is one line away from it -- `P(PROPN)/(P(PROPN)+P(NOUN))` at the head the function already locates.
+
+## 12f. INSTRUMENT AUDIT FOR STRATEGY: THE BOARD'S NAME/COMMON SPLIT IS READ FROM THE GOLD COLUMN
+
+*Requested by strategy as its own brief. Everything here is file:line on disk, not inference.*
+
+**THE READ.** `experiments/gum_coref.py`
+- **line 200** -- the token is constructed straight from the CoNLL-U columns: `upos=cols[3], xpos=cols[4], feats=feats, head=head, deprel=cols[7],`. **`cols[3]` is the GUM gold UPOS column.**
+- **line 107-118** -- `def _mention_type(head_tok, span_toks)`, whose first line is **line 108** `up = head_tok.upos`, then `if up == "PRON" ... return "pronoun"`, `if up == "PROPN": return "name"`, `if any(t.upos == "PROPN" for t in span_toks) ... return "name"`, else `return "common"`. **The entire name / common / pronoun decision is a branch on the gold category.**
+- **line 236** -- `mtype = _mention_type(head, span_same)` inside the document loader.
+- **line 237** -- `gender, number = _gender_number(head, mtype, name_gazetteer)`; `_gender_number` (**line 134**) branches on that same `mtype`, so the gold leaks into gender/number too.
+- **line 240** -- the mention is built with `mtype=mtype, upos=head.upos`, so every downstream consumer reads a gold-derived type AND a gold UPOS field.
+
+**THE CONSUMERS.** `experiments/exp_situation_model_qa_modern_v1.py`
+- **line 2452-2454** -- `cpr, cpr_detail = CG.board_coref_modern_dimension(n_docs=nd)`; `rows["coref"] = cpr`; `rows["common_noun_coref"] = cpr_detail["common_noun"]`.
+- **line 2456-2457** -- `sal, sal_detail = CG.board_salience_modern_dimension(...)`; `rows["salience"] = sal`.
+- **line 2604-2606** -- the `coref` row is also re-exported into the board's `modern_result` block.
+➡️ **THREE board dimensions (`coref`, `common_noun_coref`, `salience`) are scored on mentions whose name/common/pronoun type came from the gold category column.** `board_coref_modern_dimension` is at `experiments/exp_board_coref_gum_v1.py` **line 81**, and its mentions arrive via `_load_test` (**line 47-52**) -> `gum_coref.load_docs` (**line 251**).
+
+**WHAT A GOLD-FREE SPLIT WOULD READ INSTEAD -- and it is measured, not proposed.** The category organ's own posterior for the span head, i.e. `hdlab.frontend.tagger().tag_with_posterior(sentence)`, taking the span's head category (the last NOUN/PROPN of the nominal run). On the same 25,094 UD-EWT test tokens that decision scores **span F1 0.8890** against the capitalisation rule's 0.7720; the live reader currently uses neither -- it uses `hdlab/coref.name_content_tokens`, capitalisation.
+
+**ONE MORE THING STRATEGY'S BRIEF SHOULD CARRY: the PRONOUN branch is gold too.** `_mention_type` line 110 is `if up == "PRON" or low in PRONOUNS_ALL and up not in ("PROPN",)`. The `PRONOUNS_ALL` half is a closed-class list and is gold-free; the `up == "PRON"` half is not. **I deliberately held that branch FIXED across all four arms below**, so my comparison isolates the name-vs-common decision and does NOT measure the pronoun leak. A fully gold-free `_mention_type` needs the organ's PRON as well, and its effect on the `coref` (pronoun) row is UNMEASURED by me.
+
+**WHAT IT IS WORTH ON THE BOARD: almost nothing, and that is the useful part of the finding.** All four deciders, all 275 GUM documents, pronoun population held identical:
+
+| decider | `coref` acc | `common_noun` acc |
+|---|---|---|
+| gold UPOS (today) | 0.4681 | 0.5671 |
+| capitalisation (the live reader) | 0.4709 | 0.5636 |
+| the category organ | 0.4646 | 0.5764 |
+| the category organ + this brief's prior | 0.4658 | 0.5760 |
+
+**So this is a measurement-INTEGRITY defect, not a score inflation:** the board has been reporting numbers produced with a column the reader does not have, and the honest gold-free numbers happen to be within 0.01. **The reason to fix it is that nobody knew, and the next thing that depends on the split might not be so insensitive.** The `caps` and `cat` arms are already built -- `experiments/exp_entity_to_category_prior_v1.py --forward-wire 999`, function `forward_wire()`, which monkeypatches `_load_test` in-process and touches no file on disk.
+
+## 12g. THE NAME LEXICON FOR THE 100 SINGLETONS -- REFUTED BY COUNT, WITH THE ASSETS THIS PROJECT ACTUALLY HOLDS
+
+I called this "the highest-reach unbuilt lead" in round 1 and said the assets were already on disk. **I measured it and I was wrong on both halves.** Every offline asset the project holds, scored on the 154 confusions and on the 100 singletons specifically:
+
+| offline asset (on disk) | size | fires on the 154 | **fires on the 100 singletons** |
+|---|---|---|---|
+| `data/corpora/wikidata_namebridge_types_v2/recognized_surface_types.json` | 2,020 surface forms (451 with a QID) | **3** | **3** |
+| ... restricted to QID-resolved entries | 451 | 2 | 2 |
+| the given-name gazetteer (`exp_name_entity_clustering_v1.load_given_gazetteer`) | 7,210 | **6** | **4** |
+| the reading-induced inventory (`word2cat`, already a live cue) | 20,000 types | 35 | 22 |
+| **WordNet noun membership** (nltk, the admissible foundation asset) | full | **67** | **38** |
+
+**The two wikidata assets are dead by size** -- they are narrow caches built for a different brief, not lexicons. **And WordNet, the one asset with real coverage, DOES NOT DISCRIMINATE:**
+
+| | gold PROPN | gold NOUN |
+|---|---|---|
+| P(the string is in WordNet as a noun), all 154 confusions | **0.411** (37 of 90) | **0.469** (30 of 64) |
+| ... restricted to the 100 singletons | **0.400** (22 of 55) | **0.356** (16 of 45) |
+
+**0.411 against 0.469, and on the singletons it points the WRONG way.** The reason is plain once counted: a large share of gold PROPNs *are* ordinary English words used as names (organisations, places, titles), and the gold NOUNs that get confused are disproportionately rare technical terms that WordNet does not hold either. **So "is it a word?" is not the same question as "is it a name?", and the asset that answers the first does not answer the second.**
+
+**WHAT WOULD REACH THE SINGLETONS, STATED AS A REQUIREMENT RATHER THAN A WISH:** a large-coverage name gazetteer (millions of surface forms, not thousands) whose membership SEPARATES -- the acceptance test is `P(in asset | gold PROPN) >> P(in asset | gold NOUN)` on capitalised unseen tokens, which WordNet fails at 0.411 vs 0.469 and the 7,210-name gazetteer cannot be measured on because it fires 6 times. **That is an acquisition brief with a stated, falsifiable acceptance test -- and the honest status of the 100-singleton slice is that nothing on disk reaches it.**
+
 ## 13. EVERY LEAD, ITS ARITHMETIC REACH, AND WHAT HAPPENED TO IT
 
 | # | lead | arithmetic reach | status |
@@ -511,13 +608,15 @@ On GENTLE (theta 10, the most local setting):
 | 4 | **the repaired passage register** (calibrate on KNOWN words) | the capitalisation convention -- the whole OOD failure | **BUILT + CI-SEPARATED POSITIVE on GENTLE, a wash on GUM** (12d) |
 | 4b | **+ the offline known/unknown bias correction** | the register's regime-dependence | **BUILT + CI-SEPARATED POSITIVE ON BOTH CORPORA** (14c) -- the one unambiguous phase-7 win |
 | 5 | **the passage-local entity table** (the same repair on `entc`) | the OOD failure of the prior itself | **BUILT** (12e) |
+| **5b** | **PATH 6 IN GENERAL FORM -- the cue sets its own gain from its ONLINE-ESTIMATED precision** | the prior's whole regime-dependence | **BUILT + MEASURED (12h): the CI-separated OOD negative -0.0620 becomes +0.0016** |
+| 5c | the GRADED name belief replacing the boolean | the operating point of the name decision | **BUILT + MEASURED (12i): F1 peaks AT the argmax, so it does not beat the boolean -- but it exposes the precision dial the consumer should own** |
 | 6 | a re-reading pass | 19 of 154 confusions | **OUT OF SCOPE** by coordinator ruling (organs take data in order) -- recorded as a located ceiling |
 | 7 | a cross-string register key | the coreferent-with-a-different-string slice | **NOT BUILT** -- circular at this rung (needs a parse that reads these categories); the coref two-half problem owns it |
 | 8 | acronym -> expansion binding | 3 of 119 unseen acronyms | **DEAD BY COUNT** |
-| 9 | **a name lexicon for the singletons** | **100 of 154 confusions** -- the largest single slice left | **NOT BUILT, and it is the honest route to the missing third** (see below) |
+| 9 | a name lexicon for the singletons | 100 of 154 -- the largest slice | **REFUTED BY COUNT against every asset on disk** (12g): the two wikidata caches fire 3 and 6 times; WordNet has coverage but does NOT discriminate (0.411 PROPN vs 0.469 NOUN). Becomes an ACQUISITION brief with a stated acceptance test |
 
-### THE SINGLETON THIRD NEEDS KNOWLEDGE, NOT A BETTER DISCOURSE MODEL -- AND THE ASSET IS ALREADY ON DISK
-100 of the 154 confusions are strings that occur exactly once in the document. No register, no resolver and no second reading pass can reach them, by construction. What reaches them is knowledge from OUTSIDE the passage, and the substrate already holds candidate offline foundation assets: `data/corpora/wikidata_namebridge_types_v2`, `data/corpora/wikidata_person_roles`, and the `who_is_who_lexicon` named in the knowledge register. A static offline name lexicon is ADMISSIBLE supply under the standing rules (it is knowledge the brain already has -- a reader who has met "Souter" before is not doing inference, they are doing retrieval). **This is the highest-reach unbuilt lead in the whole submission and I did not build it: it is a knowledge-acquisition job, not a mechanism job, and it needs a brief of its own.**
+### THE SINGLETON THIRD NEEDS KNOWLEDGE -- AND I CHECKED, AND THIS PROJECT DOES NOT HAVE IT
+100 of the 154 confusions are strings that occur exactly once in the document. No register, no resolver and no second reading pass can reach them, by construction. In round 1 I called this "the highest-reach unbuilt lead" and said the assets were on disk. **12g measures it: they are not.** The two wikidata files are 2,020- and 7,210-entry caches that fire 3 and 6 times on the 154; WordNet has the coverage but does not discriminate (P(in WordNet) 0.411 for gold PROPN against 0.469 for gold NOUN, and on the singletons it points the wrong way). **The slice is real, the route is real, and the asset does not exist here -- so it is an ACQUISITION brief with the acceptance test written down, not a build I withheld.**
 
 ## 14. ALTERNATE PATHS, SIMILARLY OR MORE BRAIN-FOUNDATIONAL
 
