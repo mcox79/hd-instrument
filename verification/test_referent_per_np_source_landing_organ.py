@@ -44,17 +44,26 @@ def main():
     got, n1 = referent_per_np_source(DOC, tagger, use_frame=False)
     ref, n2 = E.build_source(DOC, tagger, "rnp")
     _ok(n1 == n2, "n_sents match (%d)" % n1)
-    _ok(_key(got) == _key(ref),
-        "landed referent_per_np_source(use_frame=False) == validated build_source('rnp') BYTE-FOR-BYTE")
+    # 2026-09-14 (strategy, pri 109 landing): the landed source now reads the coref column through the tagger-aware parse, which also
+    # emits REFLEXIVE pronoun mentions (himself / themselves; Principle A needs them as mentions) that the validated cell never did --
+    # a strict superset. The claim that survives: every NON-pronoun referent is byte-identical to the validated cell, and every extra
+    # mention is a pronoun.
+    got_np = [k for k in _key(got) if not k[4]]; ref_np = [k for k in _key(ref) if not k[4]]
+    extra = set(_key(got)) - set(_key(ref)); missing = set(_key(ref)) - set(_key(got))
+    _ok(got_np == ref_np and not missing and all(k[4] for k in extra),
+        "landed referent_per_np_source(use_frame=False) == validated build_source('rnp') BYTE-FOR-BYTE on non-pronoun referents "
+        "(%d == %d); extra mentions are pronouns only (%d)" % (len(got_np), len(ref_np), len(extra)))
 
     # 2. COVERAGE LEVER: more non-pronoun referents than the coref column; coref pronouns preserved
-    coref, _ = parse_litbank_conll(DOC)
+    coref, _ = parse_litbank_conll(DOC, tagger=tagger)   # the same tagger-aware parse the landed source reads (pri 109; reflexives included)
     n_coref_nom = sum(1 for m in coref if not m["is_pronoun"])
     n_rnp_nom = sum(1 for m in got if not m["is_pronoun"])
     _ok(n_rnp_nom > n_coref_nom,
         "referent-per-NP opens MORE non-pronoun referents than coref (%d > %d)" % (n_rnp_nom, n_coref_nom))
-    _ok(sum(1 for m in got if m["is_pronoun"]) == sum(1 for m in coref if m["is_pronoun"]),
-        "coref pronouns preserved (linking pass)")
+    pk = lambda ms: {(m["sent_idx"], m["wtok_start"], m["head"]) for m in ms if m["is_pronoun"]}
+    extra_pron = pk(got) - pk(coref)
+    _ok(pk(coref) <= pk(got) and all(h.endswith(("self", "selves")) for _, _, h in extra_pron),
+        "coref pronouns preserved (linking pass); extra pronoun mentions are REFLEXIVES only (%d, Principle A needs them)" % len(extra_pron))
 
     # 3. FRAME DETECTOR (§4): use_frame=True is a superset (recovers tagger-missed heads)
     gotf, _ = referent_per_np_source(DOC, tagger, use_frame=True)
