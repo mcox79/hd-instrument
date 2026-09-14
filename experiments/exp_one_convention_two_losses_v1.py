@@ -503,7 +503,7 @@ def copular_available(toks, tags, i):
     if lows[i] not in COP_FORMS or is_existential(toks, tags, i):
         return 0.0
     from hdlab.attachment_arm import WH_FORMS
-    det = False
+    det = False; crossed = False
     for k in range(i + 1, len(toks)):
         if tags[k] == "DET":
             # A DETERMINER OPENS A NOMINAL, and that nominal IS the copula's complement (NP_COMPLEMENT, phase 4):
@@ -515,7 +515,14 @@ def copular_available(toks, tags, i):
                 return 1.0                               # a clause-final determiner is a demonstrative: `Wtf is this ?`
             continue
         if tags[k] in _SKIP or tags[k] == "NUM" or lows[k] in _NEG or tags[k] == "PUNCT":
-            continue                                     # "The answer is , \" Yes ! \"" -- the complement is behind the comma
+            if tags[k] == "PUNCT":
+                crossed = True                           # "The answer is , \" Yes ! \"" -- the complement is behind the comma
+            continue
+        if crossed:
+            # A VERBAL FORM BEHIND A PUNCTUATION BOUNDARY IS NOT IN THIS COPULA'S VERB GROUP -- it opens a quoted or
+            # clausal complement, and that complement occupies the predicate slot (the same locality `cop_predicates`
+            # already respects with _COP_STOP).  `The question is , " Should he have known it was coming ? "`.
+            return 1.0
         if det and NP_COMPLEMENT:
             return 1.0
         if tags[k] == "SCONJ" or lows[k] in WH_FORMS or tags[k] == "PART":
@@ -1414,12 +1421,48 @@ def attrib(cap=700, th=0.5):
     return out
 
 
+def state_dim(cap=None, th=0.5, n_boot=2000):
+    """THE STATE DIMENSION ALONE, AT FULL SIZE, for both arms -- the board dimension the brief names (the copular
+    state read) and the only one the capped A/B moved. Run without the rest of the board so it can be measured at
+    n=378 instead of the capped 73."""
+    import importlib
+    out = {}
+    for arm in ("base", "occ"):
+        os.environ["HDLAB_EXP_NAME"] = "one_convention_two_losses_v1_state_" + arm
+        if arm == "occ":
+            lcmod = LC.LexicalCategories
+            orig = lcmod.posterior
+
+            def patched(self, words, lag=None, _o=orig):
+                post = _o(self, words, lag)
+                if post is None or getattr(post, "shape", (0,))[0] == 0:
+                    return post
+                tags = [self.tags[int(post[i].argmax())] for i in range(post.shape[0])]
+                occ = predicate_slot_v2(self, list(words), tags=tags, post=post)
+                o2, _s = revise_posterior(self, list(words), post, tags=tags, th=th, occ=occ)
+                return o2
+            lcmod.posterior = patched
+        M = importlib.import_module("experiments.exp_situation_model_state_qa_v1")
+        row, det = M.board_state_dimension(cap=cap, n_boot=n_boot, seed=0)
+        out[arm] = {k: row.get(k) for k in ("n", "model_acc", "strongest_floor", "twin_acc", "strongest_floor_name")}
+        print("%-5s state n=%s acc=%.4f floor=%.4f twin=%s" % (arm, row.get("n"), row.get("model_acc", float("nan")),
+              row.get("strongest_floor", float("nan")), row.get("twin_acc")))
+    if "base" in out and "occ" in out and out["base"]["n"]:
+        d = out["occ"]["model_acc"] - out["base"]["model_acc"]
+        print("STATE delta %+.4f  (= %.1f items of %s)" % (d, d * out["base"]["n"], out["base"]["n"]))
+        out["delta"] = d
+    json.dump(out, open(os.path.join(out_dir(), "state_dim.json"), "w", encoding="utf-8"), indent=1)
+    return out
+
+
 if __name__ == "__main__":
     a = sys.argv[1:]
     if "--diag" in a:
         diag()
     elif "--cat" in a:
         cat()
+    elif "--state" in a:
+        state_dim(cap=(int(a[a.index("--cap") + 1]) if "--cap" in a else None))
     elif "--attrib" in a:
         attrib(cap=int(a[a.index("--cap") + 1]) if "--cap" in a else 700)
     elif "--cost" in a:

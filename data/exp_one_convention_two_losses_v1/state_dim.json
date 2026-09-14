@@ -1,0 +1,17 @@
+{
+ "base": {
+  "n": 378,
+  "model_acc": 0.7487,
+  "strongest_floor": 0.5714,
+  "twin_acc": 0.4497,
+  "strongest_floor_name": "most_recent_noun"
+ },
+ "occ": {
+  "n": 378,
+  "model_acc": 0.7407,
+  "strongest_floor": 0.5714,
+  "twin_acc": 0.4153,
+  "strongest_floor_name": "most_recent_noun"
+ },
+ "delta": -0.008000000000000007
+}

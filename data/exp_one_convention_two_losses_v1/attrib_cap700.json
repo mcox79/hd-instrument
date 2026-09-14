@@ -51,27 +51,27 @@
  },
  "occ": {
   "tokens": 9534,
-  "tag_errors": 562,
-  "tag_agreement": 0.9411,
-  "head_flips_lost": 309,
-  "head_flips_gained": 286,
-  "net_head_loss": 23,
-  "net_uas_points": 0.24,
+  "tag_errors": 559,
+  "tag_agreement": 0.9414,
+  "head_flips_lost": 304,
+  "head_flips_gained": 287,
+  "net_head_loss": 17,
+  "net_uas_points": 0.18,
   "verb_as_aux_tokens": 1,
   "verb_as_aux_net": 2,
-  "verb_as_aux_share_of_net": 0.087,
+  "verb_as_aux_share_of_net": 0.1176,
   "top": [
-   {
-    "gold": "NOUN",
-    "pred": "ADJ",
-    "tagerr": 17,
-    "net": 19
-   },
    {
     "gold": "ADJ",
     "pred": "PROPN",
     "tagerr": 16,
     "net": 19
+   },
+   {
+    "gold": "NOUN",
+    "pred": "ADJ",
+    "tagerr": 17,
+    "net": 18
    },
    {
     "gold": "SCONJ",
