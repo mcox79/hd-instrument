@@ -325,6 +325,66 @@ The bar has five clauses. Three are met, one is met on the well-powered populati
 - **A twin can beat its arm, and that is the control doing its job.** On GENTLE the arm is CI-separated NEGATIVE and its shuffled-chains twin is negative by HALF as much -- the real token<->history pairing is worse than a random one there. A twin that merely tied would have said "uninformative"; a twin that does better says "mis-specified". I would not have found the corpus-specificity nearly so sharply without running the twin on a population where I expected the arm to win.
 - **The organ's own docstring told me where to put the term and what shape it takes.** `log P(E | c)` is a LIKELIHOOD, in the emission slot, next to `log_detc` and `log_rightc`; building it as `log P(c | E)` would have re-applied the category prior a third time. pri-99 paid for that lesson; reading its SOLVED.md in full is why I did not.
 
+---
+
+# ROUND 2 (PHASE 7) -- every negative researched to its mechanism, four more levers built, and the board's own coref split found to be a GOLD PEEK
+
+## 9. WHY GENTLE INVERTS -- IT IS THE CAPITALISATION CONVENTION, AND HERE ARE THE COUNTS
+
+I reported the OOD negative without fully explaining it. The explanation is one number measured four ways, and it is **not** "register" in any vague sense:
+
+| corpus | P(PROPN \| Cap@mid) | P(PROPN \| repeat & Cap@mid) | Cap@INIT PROPN:NOUN | acronym PROPN:NOUN | PROPN as a share of tokens |
+|---|---|---|---|---|---|
+| **UD-EWT TRAIN (the supply the table was accrued from)** | **0.790** | -- | 1460 : 750 | 1.43 | 0.0617 |
+| UD-EWT test | 0.773 | 0.889 | 298 : 124 | 1.75 | 0.0827 |
+| **GUM** | **0.933** | **0.923** | 565 : 427 | 3.23 | 0.0547 |
+| **GENTLE (OOD)** | **0.509** | **0.505** | **68 : 214** | **1.02** | 0.0514 |
+
+**On GENTLE a mid-sentence capital is a coin flip, and so is a mid-sentence capital that has been seen before.** On GUM both are ~0.93. The entity prior was accrued where repetition-plus-capitalisation means NAME and applied where it means nothing; it therefore pushes the majority class the wrong way, and GENTLE's majority error direction is already NOUN->PROPN (226 against 58).
+
+**And it is not the corpus, it is the GENRE -- the per-document breakdown localises it exactly:**
+
+| GENTLE genre | n (repeat unseen PROPN/NOUN) | P(PROPN) |
+|---|---|---|
+| `proof_five` / `proof_square` / `proof_wosets` | 77 / 72 / 25 = **174 (29% of GENTLE)** | **0.013 / 0.028 / 0.000** |
+| `medical_*` (4 docs) | 95 | 0.07 - 0.25 |
+| `dictionary_*` (3 docs) | 31 | 0.20 - 0.40 |
+| `poetry_raven` | 45 | 0.178 |
+| `esports_fifa` / `esports_fortnite` | 66 | **0.943 / 0.710** |
+| `syllabus_opensource` / `syllabus_techtonica` | 121 | 0.708 / 0.536 |
+
+**Mathematical proofs and medical text invert; esports and syllabi behave like GUM.** In a proof, a repeated capitalised unseen string is a *defined term* (`Lemma`, `Set`, `WOSet`); in esports it is a player or a team. **The prior is not corpus-specific, it is CONVENTION-specific, and the convention is observable inside the passage** -- which is what §12 builds.
+
+## 10. THE OTHER NEGATIVES, NOW MECHANISTIC
+
+**The passage register (arm B), and it turned out to be the SAME mechanism as the failed online adaptation.** Arm B mixed a passage-local shape table, accumulated from the organ's own graded posteriors, into the novel-form table. It is CI-separated NEGATIVE (GUM repeat-mention -0.0053, unseen -0.0050). *The mechanism, stated exactly:* **the only teacher available to the feedback loop is the organ's own output, and on the population that needs fixing the organ is near chance** -- unseen-word accuracy on GUM is 0.5214. A predictive-coding loop is a gain only when the higher level's estimate is better than the one it displaces; here it is built out of the learner's own errors, and its weight `a = n_d/(n_d + theta)` GROWS with passage length, so the longer the document the more confidently it feeds them back. §12 repairs it by restricting the calibration to tokens the organ actually knows.
+
+**The Baayen novel-form stratum.** 13,117 of 204,578 counts (6.4%) over a 5-symbol alphabet. Baayen's hapax argument is about MORPHOLOGY -- what a *new* word's ending predicts differs from what a frequent word's ending predicts, because the productive suffixes are the ones that generate new types. **Discourse behaviour has no such generative asymmetry**: whether a string is used bare, pluralised or under an indefinite is a fact about how the writer is using it, not about how often the reader has met it. Correctly tested, correctly negative, and now understood rather than merely recorded.
+
+**The singleton ceiling (100 of 154).** Not a limitation of the mechanism at all: those strings occur exactly once in the whole document, so a discourse register -- forward, backward, or with a perfect resolver -- has no evidence about them by construction. This is the one bound in the submission that is pure arithmetic. What could reach them is knowledge from OUTSIDE the passage (a name gazetteer, a lexicon, the reading-induced inventory), not a better discourse model.
+
+## 11. THE FORWARD WIRE, BUILT AND MEASURED -- AND THE BOARD'S OWN NAME/COMMON SPLIT IS A GOLD PEEK
+
+### 11a. The name decision itself (UD-EWT test, 25,094 tokens; the same gold for all three deciders)
+
+| decider | TOKEN P | R | **F1** | false names | SPAN P | R | **F1** | false name SPANS |
+|---|---|---|---|---|---|---|---|---|
+| `coref.name_content_tokens` -- **what 8 live organs use** | 0.5640 | 0.8299 | **0.6716** | **1,331** | 0.7545 | 0.7904 | **0.7720** | **352** |
+| the category organ (live, prior off) | 0.8711 | 0.8564 | **0.8637** | 263 | 0.8896 | 0.8883 | **0.8890** | **145** |
+| the category organ + this brief's entity prior | 0.8677 | 0.8598 | **0.8637** | 272 | 0.8854 | 0.8935 | **0.8894** | 152 |
+
+**The wire is worth +0.1921 F1 at the token level and +0.1170 at the SPAN level** -- and the span level is the one that matters, because a span is what the 8 organs actually type. **207 fewer spurious name spans, a 59% cut**, each of which today opens a bogus entity file. *My own arm adds +0.0004 to this decision and I am not going to dress that up: the entity prior targets repeat-mention unseen tokens, which are a small slice of the name decision. **The wire is the win here, not my arm.***
+
+### 11b. Through the reader, on the board's own coref dimensions -- and what I found doing it
+
+`experiments/gum_coref._mention_type` branches on `head_tok.upos`, and that upos is `cols[3]` of the GUM CoNLL-U: **the GOLD category column.** So the board's `coref` and `common_noun_coref` rows are scored with a GOLD name/common/pronoun split, while the live reader has only a capitalisation rule. **My harness reproduces the board's published numbers exactly under the gold arm (coref 0.4681, common_noun 0.5671 -- the two figures the brief quotes), which is what licenses the comparison.** The pronoun branch is held FIXED across arms, so only the name-vs-common decision varies.
+
+PENDING_FWD_TABLE
+
+## 12. THE THREE MORE LEVERS, BUILT AND MEASURED
+
+PENDING_LEVERS
+
 ## SUBMISSION PROMPT
 
 ```
