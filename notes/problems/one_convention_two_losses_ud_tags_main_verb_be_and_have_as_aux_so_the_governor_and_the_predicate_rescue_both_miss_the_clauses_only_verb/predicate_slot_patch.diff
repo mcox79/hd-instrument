@@ -1,0 +1,265 @@
+diff --git a/hdlab/attachment_arm.py b/hdlab/attachment_arm.py
+--- a/hdlab/attachment_arm.py
++++ b/hdlab/attachment_arm.py
+@@ -1160,6 +1160,198 @@
+                 out.setdefault((v, subj), "later")
+     return out
+ 
++
++
++# ---------------------------------------------------------------------------------- THE CLAUSE'S PREDICATE SLOT
++# ONE CONVENTION, TWO LOSSES (2026-09-14, pri 110).  UD tags a clause's MAIN-VERB / copular `be` and `have` as AUX.
++# The count-based category organ learned that convention, so a real main verb comes out AUX -- and the same 23 tokens
++# of UD-EWT test 700 carry 87 NET head flips, 58% of the whole tag-to-head loss (2026-09-13 attribution), while an
++# ADDITIVE predicate rescue cannot see them at all (4.7-38.8% of dropped verbs; pri 107 section 4g).  Two consumers,
++# one cause, and measuring them apart gave two half-answers.
++#
++# THE BRAIN.  One predicate per clause (Spivey-Knowlton 1993).  An auxiliary is a TENSE CARRIER for a predicate that
++# is not itself finite (Bybee 1994 on auxiliation; Pustet 2003 on the copula as the tense carrier of a NON-VERBAL
++# predication).  There are exactly three ways a clause's tense carrier can be discharged:
++#     (1) a VERBAL HOST in its own verb group            -> the host is the predicate      (an ordinary auxiliary)
++#     (2) a NON-VERBAL PREDICATE it carries tense for    -> the complement is the predicate (copular predication)
++#     (3) neither                                        -> THE CARRIER ITSELF predicates   (existential / possessive)
++# so the clause's predicate-slot occupancy of a carrier at i is
++#     occ_i = (1 - P(verbal host in i's verb group)) * (1 - P(copular predication available at i))
++# Term 1 is GRADED, read off the category organ's own posterior, and the walk over intervening words is weighted by
++# THEIR belief that they are skippable, so an argmax mis-tag cannot silently carry the walk into the next phrase.
++# Term 2 is a CONSTRUCTION test over closed-class forms this organ already carries (COP_FORMS / AUX_BE / AUX_HAVE /
++# WH_FORMS): `have` and `do` are never copulas, and a `be` whose pivot is the expletive `there` predicates EXISTENCE
++# rather than a property of a subject (Goldberg 1995 -- the existential-there construction).
++#
++# WHERE IT IS READ.  `revise_for_predicate_slot` applies it to the posterior the CATEGORY organ hands down
++# (hdlab/lexical_categories.posterior), so ONE computation reaches every consumer -- the governor through the graded
++# category hand-off, the reader's event detector through the tag, and the predicate rescue through the cue block --
++# instead of one arm per consumer.  It is a top-down constraint on a settling belief (MacDonald 1994 constraint
++# satisfaction), not a second organ.
++#
++# MEASURED (UD-EWT test 700, live chain, paired bootstrap over sentences; experiments/exp_one_convention_two_losses_v1.py):
++#   * THE GOVERNOR.  UAS 0.6245 -> 0.6326 (+0.0081 CI[+0.0041,+0.0121] SEP); on the SOLE-AUX CLAUSES 0.6074 ->
++#     0.6566 (+0.0492 CI[+0.0198,+0.0797] SEP).  root +0.0143 SEP (sole-AUX +0.0897 SEP), nsubj +0.0221 SEP
++#     (+0.1129 SEP), expl 0.292 -> 0.833 (+0.5417 SEP; on the sole-AUX clauses 0.077 -> 1.000), ccomp +0.0431 SEP,
++#     obj +0.0100 SEP, obl +0.0084 SEP, nmod +0.0000, cop -0.0108 CI[-0.0273,+0.0000] n.s. (two arcs of 186).
++#     INFORMATION-FREE TWIN (the same number of AUX tokens promoted at random, 3 seeds): UAS 0.6155 / 0.6175 /
++#     0.6178, every one CI-separated BELOW the floor.
++#   * THE READER (2077 sentences, the convention-free instrument -- does the clause produce an event at all?):
++#     gold-verb sentences yielding ZERO events 33 -> 9 of 1240 (0.0266 -> 0.0073; OFF is 55), event recall 0.9501 ->
++#     0.9808 (+0.0307 CI[+0.0240,+0.0374] SEP) at event precision 0.8715 -> 0.8614.  It DOMINATES pri 107's boolean
++#     sole-AUX arm on all three at once (that arm: recall 0.9597, precision 0.8364, blind 18), which is why
++#     HDLAB_PREDICATE_RESCUE_AUX stays default OFF.
++#   * THE DECISION ITSELF, against the only question UD's own column CAN adjudicate (is this be/have a main verb?):
++#     precision 0.6471 / recall 0.9565 on the AUX population (GUM, entirely outside the count supply: 0.65 /
++#     0.80), against 0.1164 for the blanket "a sole AUX is the predicate" rule pri 107 refuted.
++# HDLAB_LC_PREDICATE_SLOT=0 turns it off; HDLAB_PREDICATE_SLOT_TH is the operating point (swept 0.3/0.5/0.7/0.9).
++EXPLETIVE = frozenset({"there"})
++_PS_SKIP = frozenset({"ADV", "INTJ"})
++_PS_NEG = frozenset({"not", "n't", "never", "also", "just", "really", "only", "still", "already"})
++PREDICATE_SLOT_TH = float(os.environ.get("HDLAB_PREDICATE_SLOT_TH", "0.5"))
++_PS_CARRIERS = None
++
++
++def main_verb_carriers() -> frozenset:
++    """The forms that can HEAD a clause on their own.  A modal cannot (Bybee 1994: the fully auxiliated class);
++    `be` predicates existence or location, `have` possession, `do` an activity."""
++    global _PS_CARRIERS
++    if _PS_CARRIERS is None:
++        _PS_CARRIERS = frozenset(set(AUX_BE) | set(AUX_HAVE) | {"do", "does", "did", "doing", "done"})
++    return _PS_CARRIERS
++
++
++def host_belief(toks: Sequence[str], tags: Sequence[str], post, tag_names: Sequence[str], i: int) -> float:
++    """P(a VERBAL HOST stands in the verb group of the tense carrier at 0-based i).  The verb group is CONTIGUOUS
++    modulo adverbs / negation / an inverted subject pronoun, and an auxiliary CHAIN counts (`has been roiled`: the
++    host of `has` is `been`, itself a carrier), so the belief is P(VERB) + P(AUX) at the position reached.
++    Infinitival `to` CLOSES the group -- a to-infinitive is a COMPLEMENT, not an auxiliary's host, which is what
++    leaves `have` predicative in `have to see`.
++    THE WALK IS GRADED, NOT ARGMAX: stepping over a word costs that word's own belief that it is skippable, so an
++    upstream mis-tag cannot carry the walk into the next phrase.  MEASURED: in `i have stronger will than you
++    think`, `stronger` is argmax-ADV, so an argmax walk stepped over it and read the NOUN `will` (argmax-AUX) as the
++    host, scoring the possessive `have` 0.04."""
++    vi = tag_names.index("VERB"); ai = tag_names.index("AUX")
++    advi = tag_names.index("ADV"); pai = tag_names.index("PART"); pri = tag_names.index("PRON")
++    n = len(toks); lows = [t.lower() for t in toks]
++    reach = 1.0; best = 0.0; seen_pron = False
++    for k in range(i + 1, n):
++        if tags[k] == "PART" and lows[k] == "to":
++            break
++        # AUXILIARY ORDER (modal > have > be > V; Chomsky 1957's Aux rule, a PINNED descriptive fact of English):
++        # a MODAL can never be the host of a `have` / `be` / `do` carrier (*have will), so its AUX belief cannot count
++        # as host evidence.  Without this, `i have stronger will than you think` reads the NOUN `will` -- which the
++        # category organ tags AUX -- as the host of the possessive `have`, and the carrier scores 0.24, not 0.99.
++        v = float(post[k, vi]) + (0.0 if lows[k] in AUX_MOD else float(post[k, ai]))
++        best = max(best, min(1.0, reach * v))
++        skip = float(post[k, advi] + post[k, pai])
++        if lows[k] in _PS_NEG:
++            skip = max(skip, 1.0)
++        if not seen_pron and k <= i + 2 and lows[k] not in EXPLETIVE:
++            skip = max(skip, float(post[k, pri]))          # subject-auxiliary inversion: "Should HE have known"
++            seen_pron = True
++        reach *= min(1.0, skip)
++        if reach < 0.02:
++            break
++    return min(1.0, best)
++
++
++def is_existential(toks: Sequence[str], tags: Sequence[str], i: int) -> bool:
++    """The existential-there construction (Goldberg 1995): the pivot adjacent to the carrier at 0-based i is the
++    expletive `there`, so nothing is predicated OF anything and the carrier asserts EXISTENCE.  The backward scan
++    steps over an auxiliary chain, because the pivot sits before the WHOLE chain (`there had BEEN none`)."""
++    lows = [t.lower() for t in toks]; n = len(toks)
++    for k in range(i - 1, max(-1, i - 4), -1):
++        if tags[k] in _PS_SKIP or lows[k] in _PS_NEG or tags[k] == "AUX":
++            continue
++        if lows[k] in EXPLETIVE:
++            return True
++        break
++    for k in range(i + 1, min(n, i + 3)):
++        if tags[k] in _PS_SKIP or lows[k] in _PS_NEG:
++            continue
++        if lows[k] in EXPLETIVE:
++            return True
++        break
++    return False
++
++
++def copular_available(toks: Sequence[str], tags: Sequence[str], i: int) -> float:
++    """1.0 when the carrier at 0-based i is a COPULA with a PREDICABLE COMPLEMENT -- the predicate slot is then held
++    by that non-verbal predicate, which `cop_predicates` already promotes and which the UD convention makes the
++    clause head.  0.0 when the carrier cannot be a copula at all (`have` / `do`), when the construction is
++    existential, or when no complement follows (a bare locative or elliptical `be`, which predicates by itself).
++    THE COMPLEMENT, NOT THE SUBJECT, IS THE TEST: keying on the subject instead left 31 false promotions on UD-EWT
++    test 700, 26 of them copular clauses whose subject scan failed (inversion, a participial NP, a fronted PP).  The
++    slot's occupant is the complement, so that is what has to be looked for."""
++    lows = [t.lower() for t in toks]
++    if lows[i] not in COP_FORMS or is_existential(toks, tags, i):
++        return 0.0
++    det = False
++    for k in range(i + 1, len(toks)):
++        if tags[k] == "DET":
++            # A DETERMINER OPENS A NOMINAL, AND THAT NOMINAL IS THE COMPLEMENT: whatever stands next belongs to the
++            # phrase the determiner opened, so its own argmax category is not the question.  Without this, `Here is a
++            # revised draft` reads the participial modifier `revised` (argmax-VERB) as if a verb stood in complement
++            # position and promotes the copula.  A CLAUSE-FINAL determiner is a demonstrative pronoun (`Wtf is this ?`).
++            det = True
++            if k == len(toks) - 1 or all(tags[m] == "PUNCT" for m in range(k + 1, len(toks))):
++                return 1.0
++            continue
++        if tags[k] in _PS_SKIP or tags[k] in ("NUM", "PUNCT") or lows[k] in _PS_NEG:
++            continue                                       # "The answer is , \" Yes ! \"" -- the complement is behind the comma
++        if det:
++            return 1.0
++        if tags[k] == "SCONJ" or tags[k] == "PART" or lows[k] in WH_FORMS:
++            return 1.0                                     # a CLAUSAL / infinitival complement occupies the slot too
++        if tags[k] in ("ADJ", "NOUN", "PROPN", "PRON", "ADP", "SYM", "X", "INTJ"):
++            return 1.0
++        return 0.0
++    return 0.0
++
++
++def predicate_slot_occupancy(toks: Sequence[str], tags: Sequence[str], post, tag_names: Sequence[str]):
++    """P(this token occupies its clause's predicate slot), per token.  Non-carrier tokens score 0: a VERB already
++    holds the slot and the rescue's noun arm owns the rest.  See the block comment for the computation."""
++    n = len(toks); occ = [0.0] * n
++    lows = [t.lower() for t in toks]
++    carriers = main_verb_carriers()
++    for i in range(n):
++        if tags[i] != "AUX" or lows[i] not in carriers:
++            continue
++        occ[i] = ((1.0 - host_belief(toks, tags, post, tag_names, i))
++                  * (1.0 - copular_available(toks, tags, i)))
++    return occ
++
++
++def revise_for_predicate_slot(toks: Sequence[str], post, tag_names: Sequence[str], th: float = None):
++    """THE HAND-OFF, REVISED ONCE.  The category organ hands DOWN a posterior; the clause's predicate-slot
++    expectation is a top-down constraint on that belief, so it is applied HERE, before the hand-off, and every
++    consumer reads the revised belief without a second organ:
++        P'(VERB) = occ,   P'(t != VERB) = P(t) * (1 - occ) / (1 - P(VERB))
++    Only a tense carrier its clause leaves holding the predicate slot is touched (33 of 9,534 UD-EWT test tokens at
++    the default operating point); every other row is byte-identical.  Returns (revised posterior, promoted indices)."""
++    th = PREDICATE_SLOT_TH if th is None else float(th)
++    if post is None or len(toks) == 0:
++        return post, []
++    tags = [tag_names[int(np.argmax(post[i]))] for i in range(len(toks))]
++    occ = predicate_slot_occupancy(toks, tags, post, tag_names)
++    vi = tag_names.index("VERB")
++    out = None; sites = []
++    for i in range(len(toks)):
++        if occ[i] < th:
++            continue
++        pv = float(post[i, vi])
++        if occ[i] <= pv:
++            continue
++        if out is None:
++            out = post.copy()
++        scale = (1.0 - occ[i]) / max(1e-9, 1.0 - pv)
++        out[i] = out[i] * scale
++        out[i, vi] = occ[i]
++        out[i] = out[i] / max(1e-12, out[i].sum())
++        sites.append(i)
++    return (post if out is None else out), sites
+ 
+ def subordination(toks: Sequence[str], pos: Sequence[str], i: int) -> str:
+     """SUBORDINATION CUE: the clause-dependency marking in force at 1-based i -- the nearest preceding clause opener
+@@ -2447,6 +2639,8 @@
+            "np_starts", "split_runs", "phrase_head", "npb_matrix", "predicate_flags", "clause_matrices", "clause_value",
+            "boundary_penalty",
+            "root_cue_values", "predication_boost", "finiteness",
++           "predicate_slot_occupancy", "revise_for_predicate_slot", "host_belief", "copular_available",
++           "is_existential", "main_verb_carriers",
+            "cop_predicates", "subordination", "assertion_candidates", "arc_scores", "head_posterior", "heads", "arc_scores_graded", "head_posterior_graded", "heads_graded", "SemanticBootstrapTeacher", "ASSET", "FORM"]
+ 
+ 
+diff --git a/hdlab/lexical_categories.py b/hdlab/lexical_categories.py
+--- a/hdlab/lexical_categories.py
++++ b/hdlab/lexical_categories.py
+@@ -56,6 +56,17 @@
+ # CONFLICT-TRIGGERED STEM REANALYSIS (2026-09-13 13:20; DEFAULT ON): full UD-EWT test 0.9264 -> 0.9271, known-rare slice 0.872 -> 0.878,
+ # "wounded" -> VERB; the blanket stem prior was -0.07 to -0.5 points (kept OFF). HDLAB_LC_STEM_REANALYSIS=0 disables.
+ STEM_REANALYSIS = os.environ.get("HDLAB_LC_STEM_REANALYSIS", "1") == "1"
++# THE CLAUSE'S PREDICATE SLOT (2026-09-14, pri 110).  UD tags a clause's main-verb / copular `be` and `have` as AUX and
++# this organ learned that convention from its counts, so a real main verb comes out AUX -- 23 tokens of UD-EWT test 700
++# that carry 58% of the whole tag-to-head loss, and a class an ADDITIVE predicate rescue cannot see at all.  One
++# predicate per clause (Spivey-Knowlton 1993): a tense carrier with no verbal host in its verb group and no non-verbal
++# predicate to carry tense FOR is itself the clause's predicate.  That occupancy is computed ONCE
++# (attachment_arm.revise_for_predicate_slot -- the organ that owns the predication cues) and applied to the posterior
++# THIS organ hands down, so the governor, the reader's event detector and the predicate rescue all read ONE revision
++# instead of one arm each.  MEASURED, UD-EWT test, live chain: heads UAS 0.6245 -> 0.6326 (+0.0081 CI[+0.0041,+0.0121]);
++# on the sole-AUX clauses 0.6074 -> 0.6566 (+0.0492 CI[+0.0198,+0.0797]); gold-verb sentences the reader leaves with NO
++# event at all 33 -> 9 of 1240.  Off with HDLAB_LC_PREDICATE_SLOT=0.
++PREDICATE_SLOT = os.environ.get("HDLAB_LC_PREDICATE_SLOT", "1") == "1"
+ LAG: Optional[int] = (None if _lag_env.strip().lower() in ("inf", "none", "full") else int(_lag_env)) if _lag_env.strip() else 2
+ BOS = "<s>"
+ # FREQUENT-FRAME cue (2026-09-13 14:30 local; strategy): the WORDS immediately left and right of a token categorise it (Mintz 2003
+@@ -1071,6 +1082,10 @@
+                             le[k] = np.logaddexp(math.log(a) + le[k], math.log(1.0 - a) + spri); changed = True
+             if changed:
+                 post = self._posterior_le(le, lag)
++        if PREDICATE_SLOT:
++            # the clause's predicate-slot expectation, applied to the belief this organ hands DOWN (see PREDICATE_SLOT)
++            from hdlab.attachment_arm import revise_for_predicate_slot
++            post, _promoted = revise_for_predicate_slot(list(words), post, self.tags)
+         return post
+ 
+     def _posterior_le(self, le: np.ndarray, lag: Optional[int]) -> np.ndarray:
+diff --git a/hdlab/predicate_detector.py b/hdlab/predicate_detector.py
+--- a/hdlab/predicate_detector.py
++++ b/hdlab/predicate_detector.py
+@@ -273,6 +273,18 @@
+ #     Cost: +0.06 false events/sentence and 3.5 points of event precision (0.8715 -> 0.8364).
+ # It is OFF by default only because the 7-dimension board A/B was run on the noun arm alone; turn it on with
+ # HDLAB_PREDICATE_RESCUE_AUX=1 and re-run the board. It preserves the additive contract (it only ever ADDS).
++# SUPERSEDED 2026-09-14 (pri 110), AND THE DEFAULT STAYS OFF WITH A MEASURED REASON.  The question this arm asks --
++# does the clause's tense carrier hold the predicate slot? -- is now answered ONCE, upstream, where BOTH consumers can
++# read it (attachment_arm.predicate_slot_occupancy, applied to the posterior lexical_categories hands down), so a
++# carrier that IS its clause's predicate arrives here already tagged VERB and fires its event without any rescue.
++# Measured through this same reader on UD-EWT test (2077 sentences, 1240 with a gold verb), at the same budget:
++#     arm                             recall  precis  falseEv  blind clauses
++#     rescue noun arm only (live)     0.9501  0.8715   0.1757    33 / 1240
++#     + THIS boolean sole-AUX arm     0.9597  0.8364   0.2354    18 / 1240
++#     upstream predicate slot (110)   0.9808  0.8614   0.1979     9 / 1240
++#     both together                   0.9816  0.8299   0.2523     9 / 1240
++# The upstream form DOMINATES this arm on recall, precision AND blind clauses at once, and stacking this arm on top
++# buys +0.0008 recall for -0.0315 precision.  Left selectable for the ablation; not the recommended operating point.
+ AUX_ARM = os.environ.get("HDLAB_PREDICATE_RESCUE_AUX", "0") == "1"
+ 
+ # clause boundaries: the closed-class cues a reader has BEFORE any parse
