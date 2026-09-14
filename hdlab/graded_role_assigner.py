@@ -1008,6 +1008,210 @@ def coarse_role_posterior(toks: Sequence[str], pos: Sequence[str], heads: Dict[i
     return softmax(net_activation(S, {c: 1.0 for c in S}), gain=1.0)
 
 
+# ===============================================================================================================
+# THE DECISION TRAVELS WITH ITS CONFIDENCE (pri 106, 2026-09-14).
+# Kiani & Shadlen 2009: the same accumulator that makes the choice carries the certainty -- here the MARGIN between
+# the top two role activations. Ernst & Banks 2002 / Fetsch et al. 2011 / Ma-Beck-Latham-Pouget 2006: a downstream
+# area weights each input by its reliability, trial by trial, and in a probabilistic population code the population
+# GAIN is that reliability. So the organ must hand DOWN not just the MAP label but P(this label is right), and a
+# consumer must be able to enter the role cue at that weight.
+#
+# RELIABILITY BELONGS TO THE DECISION THE CONSUMER READS, not to this organ's private 8-way alphabet. Measured on
+# UD-EWT train through the live chain (74,608 decisions): the 8-way label is right 0.741 of the time, the coarse
+# SUBJ/OBJ/OTHER parallelism class 0.802, the PATIENT flag 0.921 -- because OBJ<->OBL and SUBJ<->PASS_SUBJ
+# confusions are harmless to a consumer that only asks "same grammatical class?". Calibrating on the 8-way label
+# would UNDER-weight the cue a parallelism consumer actually uses, so three maps are kept.
+#
+# THE MAP IS COUNTS, AND IT IS PLASTIC: margin bin -> [n_correct, n_total]; r = add-alpha smoothed accuracy pulled
+# toward the base rate, then pool-adjacent-violators so r is non-decreasing in the evidence balance. One
+# `observe_margin_outcome` call per understood argument keeps it learning online; nothing is frozen.
+# ===============================================================================================================
+MARGIN_BIN_WIDTH = 0.05          # SWEPT 0.02 / 0.05 / 0.10 / 0.20 on the consumer (flat 0.02-0.10); 0.05 reported
+MARGIN_REL_ALPHA = 4.0           # add-alpha pseudo-counts toward the base rate (SWEPT 1 / 4 / 16)
+RELIABILITY_KINDS = ("role8", "aer_class", "patient")
+_MARGIN_REL_PATHS = tuple(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", d,
+                                       "role_margin_reliability_v1.json") for d in ("frontend_assets", "hook_state"))
+_MARGIN_REL_CACHE: Optional[Dict[str, object]] = None
+
+
+def role_margin(posterior) -> float:
+    """The balance of evidence this decision carries: top-1 minus top-2 of the role posterior (Kiani & Shadlen's
+    certainty read off the same accumulator that makes the choice)."""
+    q = np.sort(np.asarray(posterior, dtype=float))
+    return float(q[-1] - q[-2]) if len(q) >= 2 else 1.0
+
+
+def _margin_bin(margin: float, width: float) -> int:
+    return int(min(0.999999, max(0.0, float(margin))) / width)
+
+
+def reliability_from_counts(counts: Dict[object, object], alpha: float = MARGIN_REL_ALPHA) -> Dict[int, float]:
+    """bin -> r, a PURE FUNCTION OF THE COUNTS (the same discipline as the cue strengths): add-alpha smoothing
+    toward the base rate, then pool-adjacent-violators so reliability never falls as the evidence balance grows."""
+    c = {int(k): [float(v[0]), float(v[1])] for k, v in counts.items()}
+    tot = sum(v[1] for v in c.values())
+    base = (sum(v[0] for v in c.values()) / tot) if tot else 0.5
+    bs = sorted(c)
+    vals, wts, idx = [], [], []
+    for b in bs:
+        vals.append((c[b][0] + alpha * base) / (c[b][1] + alpha)); wts.append(c[b][1] + alpha); idx.append([b])
+        while len(vals) > 1 and vals[-2] > vals[-1]:
+            v2 = (vals[-2] * wts[-2] + vals[-1] * wts[-1]) / (wts[-2] + wts[-1])
+            w2 = wts[-2] + wts[-1]; i2 = idx[-2] + idx[-1]
+            vals[-2:] = [v2]; wts[-2:] = [w2]; idx[-2:] = [i2]
+    out: Dict[int, float] = {}
+    for v, group in zip(vals, idx):
+        for b in group:
+            out[b] = float(v)
+    return out
+
+
+def load_margin_reliability(path: Optional[str] = None) -> Optional[Dict[str, object]]:
+    """The margin->reliability maps. Returns None when no asset is on disk, in which case every `margin_reliability`
+    call returns 1.0 and every consumer is byte-identical to the pre-2026-09-14 behaviour."""
+    global _MARGIN_REL_CACHE
+    if path is None and _MARGIN_REL_CACHE is not None:
+        return _MARGIN_REL_CACHE if _MARGIN_REL_CACHE else None
+    cands = (path,) if path else (os.environ.get("HDLAB_ROLE_MARGIN_RELIABILITY"),) + _MARGIN_REL_PATHS
+    doc = None
+    for p in cands:
+        if p and os.path.exists(p):
+            with open(p, encoding="utf-8") as f:
+                doc = json.load(f)
+            break
+    if doc is None:
+        if path is None:
+            _MARGIN_REL_CACHE = {}
+        return None
+    tab = {"width": float(doc.get("width", MARGIN_BIN_WIDTH)), "alpha": float(doc.get("alpha", MARGIN_REL_ALPHA)),
+           "counts": {k: {int(b): [float(x[0]), float(x[1])] for b, x in doc["maps"][k]["counts"].items()}
+                      for k in RELIABILITY_KINDS if k in doc.get("maps", {})}}
+    tab["table"] = {k: reliability_from_counts(v, tab["alpha"]) for k, v in tab["counts"].items()}
+    if path is None:
+        _MARGIN_REL_CACHE = tab
+    return tab
+
+
+def margin_reliability(margin: float, kind: str = "aer_class", table: Optional[Dict[str, object]] = None) -> float:
+    """P(the decision of this KIND is right | this margin). 1.0 when no map is on disk (the cue then enters at its
+    landed full strength, so an un-upgraded deployment is unchanged)."""
+    tab = table if table is not None else load_margin_reliability()
+    if not tab or kind not in tab.get("table", {}):
+        return 1.0
+    t = tab["table"][kind]
+    if not t:
+        return 1.0
+    b = _margin_bin(margin, tab["width"])
+    if b in t:
+        return float(t[b])
+    ks = sorted(t)
+    return float(t[ks[0]] if b < ks[0] else t[ks[-1]])
+
+
+def observe_margin_outcome(margin: float, correct: bool, kind: str = "aer_class",
+                           table: Optional[Dict[str, object]] = None) -> Dict[str, object]:
+    """PLASTICITY: accrue ONE comprehension outcome -- a role decision taken at `margin` turned out right or wrong --
+    into the reliability counts, and recompute r (a pure function of the counts). The caller supplies the outcome
+    from confirmed comprehension, exactly as `observe_role_outcome` does; no gold is read at inference. Persist with
+    save_margin_reliability()."""
+    tab = table if table is not None else load_margin_reliability()
+    if not tab:
+        tab = {"width": MARGIN_BIN_WIDTH, "alpha": MARGIN_REL_ALPHA,
+               "counts": {k: {} for k in RELIABILITY_KINDS}, "table": {k: {} for k in RELIABILITY_KINDS}}
+        global _MARGIN_REL_CACHE
+        _MARGIN_REL_CACHE = tab
+    c = tab["counts"].setdefault(kind, {}).setdefault(_margin_bin(margin, tab["width"]), [0.0, 0.0])
+    c[0] += float(bool(correct)); c[1] += 1.0
+    tab["table"][kind] = reliability_from_counts(tab["counts"][kind], tab["alpha"])
+    return tab
+
+
+def save_margin_reliability(path: Optional[str] = None, table: Optional[Dict[str, object]] = None) -> str:
+    tab = table if table is not None else load_margin_reliability()
+    p = path or _MARGIN_REL_PATHS[0]
+    doc = {"width": tab["width"], "alpha": tab["alpha"], "cue_set": (load_coarse_validities() or {}).get("cue_set"),
+           "source": "P(the Competition-Model role decision is right | its margin), counts accrued from comprehension "
+                     "outcomes; r = add-alpha smoothed accuracy per margin bin, monotone by pool-adjacent-violators.",
+           "maps": {k: {"counts": {str(b): [v[0], v[1]] for b, v in sorted(tab["counts"][k].items())},
+                        "table": {str(b): round(r, 6) for b, r in sorted(tab["table"][k].items())}}
+                    for k in tab["counts"]}}
+    with open(p, "w", encoding="utf-8", newline="\n") as f:
+        json.dump(doc, f, indent=1)
+    return p
+
+
+_MEAN_LLR_CACHE: Dict[str, float] = {}
+
+
+def _llr_weight(r: float, k: int) -> float:
+    """The evidence a categorical observation of reliability r carries over k alternatives, in log-odds:
+    log P(label | true = label) - log P(label | true != label) = log( r (k-1) / (1-r) ). This is Ernst-Banks in
+    the discrete case -- an AMOUNT OF EVIDENCE, not a shrinkage factor."""
+    r = min(max(float(r), 1e-6), 1.0 - 1e-6)
+    return float(np.log(r * (k - 1) / (1.0 - r)))
+
+
+def reliability_gain(margin: float, kind: str = "aer_class", n_alt: int = 3,
+                     table: Optional[Dict[str, object]] = None) -> float:
+    """THE POPULATION GAIN (Ma, Beck, Latham & Pouget 2006: in a probabilistic population code the gain of a
+    population IS its precision, and summing gain-scaled log-likelihoods performs the Bayesian product). Returns
+    the log-odds evidence of this decision DIVIDED by the average over the whole reliability map, so the cue enters
+    at gain 1 ON AVERAGE and only its per-decision VARIATION can move a consumer. 1.0 when no map is on disk."""
+    tab = table if table is not None else load_margin_reliability()
+    if not tab or kind not in tab.get("table", {}):
+        return 1.0
+    key = "%s|%d" % (kind, n_alt)
+    if key not in _MEAN_LLR_CACHE:
+        t = tab["table"][kind]; c = tab["counts"][kind]
+        num = sum(_llr_weight(v, n_alt) * c[b][1] for b, v in t.items())
+        den = sum(c[b][1] for b in t)
+        _MEAN_LLR_CACHE[key] = (num / den) if den else 1.0
+    m = _MEAN_LLR_CACHE[key] or 1.0
+    # The gain IS the reliability (Ma et al.: the population's gain is its precision), expressed relative to the
+    # map's MEAN log-odds evidence -- a per-cue constant, itself a pure function of the counts, that puts the two
+    # role cues on a comparable scale before the consumer's swept weight multiplies them. Both cues have their own
+    # constant, so a single swept gamma could not absorb them.
+    return float(margin_reliability(margin, kind, tab) / m)
+
+
+def calibrated_class_posterior(posterior, class_of: Sequence[str], r: float) -> Dict[str, float]:
+    """P(true class) for a COARSE class alphabet a consumer reads (class_of[k] = the class of ROLE_CLASSES[k]):
+    the MAP class takes the count-calibrated mass r, and the remaining 1-r is spread over the other classes in the
+    SHAPE the organ's own posterior gives them. CALIBRATE, DO NOT MARGINALISE: pri 103 measured that the raw softmax
+    mass is mis-centred (marginalising the head posterior cost 0.027), so its LEVEL is replaced and only its
+    RELATIVE shape among the alternatives is kept."""
+    p = np.asarray(posterior, dtype=float)
+    classes = []
+    for c in class_of:
+        if c not in classes:
+            classes.append(c)
+    mass = {c: float(sum(x for x, cc in zip(p, class_of) if cc == c)) for c in classes}
+    mc = class_of[int(np.argmax(p))]
+    rest = sum(v for c, v in mass.items() if c != mc)
+    out = {}
+    for c in classes:
+        if c == mc:
+            out[c] = float(r)
+        elif rest > 1e-12:
+            out[c] = float((1.0 - r) * mass[c] / rest)
+        else:
+            out[c] = float((1.0 - r) / max(1, len(classes) - 1))
+    return out
+
+
+def role_decision(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int], i: int,
+                  validities: Optional[Dict[str, object]] = None, conf: Optional[Dict[int, float]] = None,
+                  reliability: Optional[Dict[str, object]] = None) -> Dict[str, object]:
+    """THE GRADED HAND-OFF a consumer should read instead of the bare label string: the MAP role and its UD-shaped
+    dep, the full posterior, the decision's own MARGIN, and P(right) for each kind of decision downstream makes."""
+    tab = validities or load_coarse_validities()
+    p = np.asarray(coarse_role_posterior(toks, pos, heads, i, tab, conf), dtype=float)
+    k = int(np.argmax(p)); m = role_margin(p)
+    rel = reliability if reliability is not None else load_margin_reliability()
+    return {"role": ROLE_CLASSES[k], "dep": ROLE_TO_DEP[ROLE_CLASSES[k]], "posterior": p, "margin": m,
+            "reliability": {kind: margin_reliability(m, kind, rel) for kind in RELIABILITY_KINDS}}
+
+
 def coarse_role_posterior_tagmarg(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int], i: int,
                                   tag_post: np.ndarray, tag_labels: Sequence[str],
                                   validities: Optional[Dict[str, object]] = None, min_p: float = 0.02) -> np.ndarray:
@@ -1204,6 +1408,47 @@ def coarse_roles(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int],
     for i, A in A_by_i.items():                              # nominals not governed by a verb: independent read
         if i not in grouped:
             out[i] = ROLE_TO_DEP[ROLE_CLASSES[int(np.argmax(A))]]
+    return out
+
+
+DEP_TO_ROLE = {d: r for r, d in ROLE_TO_DEP.items()}
+
+
+def roles_with_decisions(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int],
+                         validities: Optional[Dict[str, object]] = None,
+                         head_posterior: Optional[Dict[int, Dict[int, float]]] = None,
+                         conf: Optional[Dict[int, float]] = None,
+                         reliability: Optional[Dict[str, object]] = None) -> Dict[int, Dict[str, object]]:
+    """THE GRADED HAND-OFF FOR EVERY CONSUMER AT ONCE (pri 106, strategy ruling Q3, 2026-09-14).
+
+    `coarse_roles` ends in an argmax and returns Dict[int, str]; measured on UD-EWT test, a role POSTERIOR is
+    produced 3698/3698 times and 3698/3698 consumers read a string. That one line is where the whole graded signal
+    dies, and repairing it per consumer means repairing it many times. This is the SAME decode with each nominal's
+    entry being the full DECISION instead of the label:
+
+        {i: {"dep", "role", "posterior", "margin", "reliability": {kind: P(right)}}}
+
+    ADDITIVE AND EXACT: the label is whatever `coarse_roles` decided (the joint frame-slot decode included), so
+        coarse_roles(...) == {i: d["dep"] for i, d in roles_with_decisions(...).items()}
+    holds by construction and NO existing consumer changes. The posterior is the per-nominal competition's own
+    (`coarse_role_posterior`), i.e. the graded read BEFORE any capacity-one slot masking -- a consumer that wants
+    the joint belief should read the slot decode itself.
+
+    COST: the posterior is computed twice (once inside `coarse_roles` for the argmax, once here). A consumer that
+    needs only labels should keep calling `coarse_roles`; a consumer that needs the decision pays ~2x the role-rung
+    cost, which is a small fraction of the parse.
+    """
+    tab = validities or load_coarse_validities()
+    labels = coarse_roles(toks, pos, heads, tab, head_posterior, conf)
+    if conf is None and head_posterior:
+        conf = {i: float((head_posterior.get(i) or {}).get(heads.get(i, 0), 1.0)) for i in head_posterior}
+    rel = reliability if reliability is not None else load_margin_reliability()
+    out: Dict[int, Dict[str, object]] = {}
+    for i, dep in labels.items():
+        d = role_decision(toks, pos, heads, i, tab, conf, rel)
+        d["dep"] = dep                                   # the DECODED label wins (it may come from the slot decode)
+        d["role"] = DEP_TO_ROLE.get(dep, d["role"])
+        out[i] = d
     return out
 
 
@@ -1576,9 +1821,66 @@ def _first_conjunct_agent(toks, pos, v0, cands):
     return cand_starts[k]["head"] if k in cand_starts else None
 
 
+# ---------------------------------------------------------------------------------------------------------------
+# THE MARKED-CUE OVERRIDE IS A CUE, AND A CUE ENTERS AT ITS RELIABILITY (pri 106, 2026-09-14).
+# `hybrid_agent_pick` keeps the high-validity WORD-ORDER default and lets a MARKED cue (passive-with-by /
+# PP-governed / non-nominative positional pick) overturn it. That override is UNCONDITIONAL: it fires whether the
+# role competition is sure or guessing. Measured on the board's who-did-what AGENT population (UD-EWT test, 1423
+# gold agents): of the 103 clauses where it fires, the override FIXES 17 positional picks and BREAKS 45 -- which is
+# exactly why the board shows the hybrid 0.0197 CI-separated BELOW its own positional floor.
+# The brain does not let an unreliable decision overturn a high-validity default (Ernst & Banks 2002; Fetsch et al.
+# 2011 -- reweighting is trial by trial). So license the override by the EVIDENCE DIFFERENCE it can show, in
+# log-odds, between the two candidates:
+#       licensed  iff  log P_agent(override candidate) - log P_agent(positional candidate) > theta
+# with P_agent the role competition's agent probability CALIBRATED by that decision's own margin
+# (margin_reliability), and theta a CRITERION LEARNED FROM COUNTS on UD-EWT train (the override is right only
+# 193/667 = 0.29 of the times it is decisive there), never hand-set.
+# MEASURED (UD-EWT test, n=1423, theta fitted on TRAIN and applied unchanged): positional floor 0.8468, landed
+# unconditional hybrid 0.8271, GATED 0.8517 (+0.0246 CI95[+0.0155,+0.0337] over the landed hybrid, CI-separated;
+# +0.0049 CI95[0.0000,+0.0098] over the floor). The gate keeps 10 of the 17 good overrides and only 3 of the 45
+# bad ones; a PERFECT gate would give 0.8587. TWIN (the confidences permuted across items) falls to 0.8468 = the
+# floor exactly, i.e. it stops overriding altogether -- the signal is in the per-decision confidence, not in the
+# rate. OFF unless `heads` is supplied, so every existing caller is byte-identical.
+# ---------------------------------------------------------------------------------------------------------------
+AGENT_OVERRIDE_THETA = float(os.environ.get("HDLAB_AGENT_OVERRIDE_THETA", "6.5"))
+
+
+def _calibrated_agent_prob(toks, pos, heads, i1, want_role, tab, rel):
+    """P(nominal i1 really bears the agent role), the MAP mass replaced by the count-calibrated reliability of a
+    decision taken at this margin (calibrate, do not marginalise)."""
+    if not (1 <= i1 <= len(pos)) or not is_arg_head(list(toks), list(pos), i1):
+        return 1.0 / len(ROLE_CLASSES)
+    p = np.asarray(coarse_role_posterior(list(toks), list(pos), heads, i1, tab), dtype=float)
+    k = int(np.argmax(p)); m = role_margin(p)
+    r = margin_reliability(m, "role8", rel)
+    w = ROLE_CLASSES.index(want_role)
+    if k == w:
+        return float(r)
+    rest = 1.0 - float(p[k])
+    return float((1.0 - r) * float(p[w]) / rest) if rest > 1e-12 else float((1.0 - r) / (len(ROLE_CLASSES) - 1))
+
+
+def agent_override_licensed(toks, pos, heads, v0, cands, cm_head, validities=None, reliability=None,
+                            theta: Optional[float] = None) -> bool:
+    """Is the marked-cue override licensed by the role competition's own confidence? See the block above."""
+    if heads is None or cm_head is None:
+        return True                                   # no evidence available -> the landed unconditional behaviour
+    base = _positional_agent_base(cands, v0)
+    if base is None or str(base["head"]).lower() == str(cm_head).lower():
+        return True
+    tab = validities or load_coarse_validities()
+    rel = reliability if reliability is not None else load_margin_reliability()
+    from hdlab.thematic_role_labeler import is_passive_clause
+    want = "BY_AGENT" if is_passive_clause(list(toks), list(pos)) else "SUBJ"
+    idx = {str(c["head"]).lower(): c["wtok_start"] + 1 for c in cands}
+    p_b = _calibrated_agent_prob(toks, pos, heads, idx.get(str(base["head"]).lower(), -1), want, tab, rel)
+    p_c = _calibrated_agent_prob(toks, pos, heads, idx.get(str(cm_head).lower(), -1), want, tab, rel)
+    th = AGENT_OVERRIDE_THETA if theta is None else float(theta)
+    return bool(np.log(max(p_c, 1e-6)) - np.log(max(p_b, 1e-6)) > th)
+
 def hybrid_agent_pick(toks, pos, v, cands, cluster_freq=None, weights=None, gaz=None,
                       subj_before=None, byhead_agent_cue=True, twin_seed=None,
-                      construction=False):
+                      construction=False, heads=None, validities=None, override_theta=None):
     """THE DEPLOYABLE brain-foundational AGENT route -- the AGENT counterpart to hybrid_role_patient. Keep the
     POSITIONAL pick (nearest preverbal candidate = the high-validity word-order cue, DOMINANT in canonical
     English) as the default, and invoke the Competition-Model competition (agent_competition_pick, which carries
@@ -1599,9 +1901,14 @@ def hybrid_agent_pick(toks, pos, v, cands, cluster_freq=None, weights=None, gaz=
         if c is not None:
             return c
     if agent_override_fires(toks, pos, v, cands):
-        return agent_competition_pick(toks, pos, v, cands, cluster_freq=cluster_freq, weights=weights,
-                                      gaz=gaz, twin_seed=twin_seed, subj_before=subj_before,
-                                      byhead_agent_cue=byhead_agent_cue)
+        cm = agent_competition_pick(toks, pos, v, cands, cluster_freq=cluster_freq, weights=weights,
+                                    gaz=gaz, twin_seed=twin_seed, subj_before=subj_before,
+                                    byhead_agent_cue=byhead_agent_cue)
+        # CONFIDENCE-LICENSED OVERRIDE (pri 106): `heads` supplied -> the override must show enough calibrated
+        # evidence to overturn the word-order default; omitted -> byte-identical to the landed behaviour.
+        if heads is None or agent_override_licensed(toks, pos, heads, v, cands, cm, validities, None,
+                                                    override_theta):
+            return cm
     base = _positional_agent_base(cands, v)                 # canonical clause -> word-order default
     return base["head"] if base is not None else None
 
@@ -1611,4 +1918,7 @@ __all__ = ["hybrid_role_patient", "competition_pick", "cue_supports", "voice_cue
            "agent_competition_pick", "agent_competition_pick_conf", "agent_supports", "clause_bounds",
            "AGENT_VALIDITIES", "STRUCT_W", "NOMINATIVE_PRON", "_nominals_keep_pron",
            "by_governs", "participle_bypp_gate", "BYHEAD_W",
-           "hybrid_agent_pick", "agent_override_fires"]
+           "hybrid_agent_pick", "agent_override_fires", "agent_override_licensed",
+           "role_margin", "role_decision", "margin_reliability", "observe_margin_outcome",
+           "save_margin_reliability", "load_margin_reliability", "calibrated_class_posterior",
+           "reliability_from_counts", "RELIABILITY_KINDS", "reliability_gain", "roles_with_decisions"]

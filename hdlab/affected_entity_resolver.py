@@ -51,6 +51,7 @@ organ), and the live reader binds `sm.who_was_affected` over it.
 """
 from __future__ import annotations
 
+import os
 from typing import Dict, List, Optional, Sequence
 
 from hdlab.salience_binder import actr_activation, ROLE_PROMINENCE, DEFAULT_DECAY
@@ -132,20 +133,121 @@ def salience_prior(ent_hist: Dict[object, list], now: float,
             for h, hist in ent_hist.items()}
 
 
+# =====================================================================================================
+# THE ROLE CUE READS THE DECISION, NOT THE STRING (pri 106, 2026-09-14).
+# The parallelism and thematic cues are INDICATORS on a role LABEL that the Competition-Model role organ
+# produced with a measured confidence (graded_role_assigner.role_decision: the posterior, its MARGIN and
+# the count-calibrated P(right)). Decisions in the brain travel with their confidence (Kiani & Shadlen
+# 2009 -- certainty is read off the same accumulator that makes the choice) and a downstream area weights
+# each input by its reliability, trial by trial (Ernst & Banks 2002; Fetsch et al. 2011; Ma et al. 2006).
+#
+# THE MEASURED SUBTLETY, and the reason the obvious form is WRONG HERE: a parallelism cue never asks
+# "is this label right?" -- it asks "do these two labels AGREE?". The role organ's errors are SYSTEMATIC,
+# so they partly CANCEL in an agreement test. On UD-EWT train through the live chain: the coarse role
+# class is right 0.803 of the time, yet the MATCH indicator is right 0.748 where independent errors would
+# give only 0.658 -- a +0.090 excess. Consequences, both MEASURED on GUM third-person undergoers:
+#   * weighting the cue by the LABEL's reliability LOSES (-0.017 CI[-0.035,+0.002], n=596);
+#   * even a PERFECT label-gate (switch the cue off exactly when the label is wrong) LOSES (-0.005) --
+#     it discards cues whose MATCH was still right.
+# So the reliability that belongs here is calibrated on the MATCH event, keyed by the WEAKER of the two
+# decisions' margins ("match" below), and the graded alternative is the organ's own class MASS ("graded").
+#
+#   "hard"      1[MAP class matches]                      -- the landed cue; DEFAULT, byte-identical
+#   "graded"    P_role(class = a_role)                     -- the competition's own class mass
+#   "match"     P(the two labels really agree | margins)   -- the correct statistic for a parallelism cue
+#   "shrunk"    r*P_role(class) + (1-r)*prior(class)       -- shrunk to the prior by the label's reliability
+#   "ppc"       gain(margin) * log P_role(class = a_role)   -- the POPULATION-GAIN form; the CI-separated win
+#   "logpost"   log P_role(class = a_role)                   -- the same with the gain held at 1 (the control)
+#   "relweight" r * 1[MAP class matches]                   -- reliability as a gain (MEASURED WORSE; kept for A/B)
+# Selected by HDLAB_AER_ROLE_CUE. Default "hard" so every deployment is unchanged until strategy flips it.
+# =====================================================================================================
+GRADED_ROLE_CUE = os.environ.get("HDLAB_AER_ROLE_CUE", "hard")
+PAR_CLASSES = ("SUBJ", "OBJ", "OTHER")
+
+
+def decision_pack(decision):
+    """Reduce a `graded_role_assigner.role_decision` dict to what THIS consumer reads: the mass of each
+    parallelism class, the PATIENT mass, the MAP class / MAP patient flag, and the decision's margin."""
+    if decision is None:
+        return None
+    from hdlab.graded_role_assigner import ROLE_CLASSES, ROLE_TO_DEP
+    p = list(decision["posterior"])
+    cls = [role_class(ROLE_TO_DEP[r]) for r in ROLE_CLASSES]
+    pat = [ROLE_TO_DEP[r] in PATIENT_DEPS for r in ROLE_CLASSES]
+    k = max(range(len(p)), key=lambda j: p[j])
+    from hdlab.graded_role_assigner import reliability_gain
+    m = float(decision["margin"])
+    return {"class_mass": {c: float(sum(x for x, cc in zip(p, cls) if cc == c)) for c in PAR_CLASSES},
+            "patient_mass": float(sum(x for x, f in zip(p, pat) if f)),
+            "map_class": cls[k], "map_patient": bool(pat[k]), "margin": m,
+            "gain_class": reliability_gain(m, "aer_class", len(PAR_CLASSES)),
+            "gain_patient": reliability_gain(m, "patient", 2),
+            "reliability": dict(decision.get("reliability") or {}), "prior": decision.get("class_prior")}
+
+
+def role_cue_terms(pack, a_role, a_pack=None, mode=None, r_match=None):
+    """(parallelism cue, thematic cue) for ONE candidate in the form `mode` selects, or None to fall back to
+    the landed indicator. `pack` = decision_pack(...) of the candidate's last mention; `r_match` = the
+    match-reliability at min(this margin, the anaphor's margin), from graded_role_assigner."""
+    mode = mode or GRADED_ROLE_CUE
+    if pack is None or mode == "hard":
+        return None
+    cm = pack["class_mass"]; pm = pack["patient_mass"]
+    rel = pack.get("reliability") or {}
+    r_c = float(rel.get("aer_class", 1.0)); r_p = float(rel.get("patient", 1.0))
+    if mode == "graded":
+        return float(cm.get(a_role, 0.0)), float(pm)
+    if mode == "relweight":
+        return r_c * float(pack["map_class"] == a_role), r_p * float(pack["map_patient"])
+    if mode == "match":
+        rm = float(r_match if r_match is not None else r_c)
+        g = float(pack["map_class"] == a_role); t = float(pack["map_patient"])
+        return rm * g + (1.0 - rm) * (1.0 - g), r_p * t + (1.0 - r_p) * (1.0 - t)
+    if mode in ("ppc", "logpost"):
+        # THE POPULATION-GAIN FORM (Ma, Beck, Latham & Pouget 2006), and the ONE that measured a CI-separated gain
+        # at this consumer: the role cue enters as a gain-scaled LOG-probability, so a candidate the competition
+        # gives almost no mass to the anaphor's class contributes a strong NEGATIVE term -- a graded veto an
+        # indicator cannot express. "logpost" holds the gain at 1 (the control isolating the log form).
+        import math
+        gg = gt = 1.0
+        if mode == "ppc":
+            gg = float(pack.get("gain_class", 1.0)); gt = float(pack.get("gain_patient", 1.0))
+        return (gg * math.log(max(float(cm.get(a_role, 0.0)), 1e-4)),
+                gt * math.log(max(float(pm), 1e-4)))
+    pri = pack.get("prior") or {"SUBJ": 0.34, "OBJ": 0.33, "OTHER": 0.33, "_patient": 0.25}
+    return (r_c * float(cm.get(a_role, 0.0)) + (1.0 - r_c) * float(pri.get(a_role, 0.33)),
+            r_p * float(pm) + (1.0 - r_p) * float(pri.get("_patient", 0.25)))
+
+
 def score_and_pick(cand_set: Sequence, sal: Dict[object, float], role_of: Dict[object, str],
                    patient_of: Dict[object, bool], a_role: str,
                    use_par_g: bool = True, use_par_t: bool = True,
-                   gamma_g: float = GAMMA_G, gamma_t: float = GAMMA_T):
+                   gamma_g: float = GAMMA_G, gamma_t: float = GAMMA_T,
+                   pack_of: Optional[Dict[object, object]] = None, a_pack=None,
+                   role_cue_mode: Optional[str] = None, r_match_of: Optional[Dict[object, float]] = None):
     """The deterministic resolver argmax: over `cand_set` (the Principle-B-legal candidates), pick the
     entity maximizing ln-salience + gamma_g*1[gram-role match] + gamma_t*1[candidate is PATIENT]. This is
-    THE win's core (A5 = both bonuses; A1 salience-alone = both False). Returns the picked entity key."""
+    THE win's core (A5 = both bonuses; A1 salience-alone = both False). Returns the picked entity key.
+
+    `pack_of` (pri 106) = {entity key: decision_pack(role_decision)} -- the role organ's DECISION for that
+    entity's last mention, not just its label string. When supplied AND the cue mode is not "hard", the two
+    role cues enter in their graded / match-calibrated form instead of as 1/0 indicators (role_cue_terms).
+    Omitted, or mode "hard" -> byte-identical to the landed arithmetic."""
     best, bs = None, -1e18
     for h in cand_set:
         s = sal[h]
-        if use_par_g and role_of[h] == a_role:
-            s += gamma_g
-        if use_par_t and patient_of.get(h):
-            s += gamma_t
+        terms = role_cue_terms((pack_of or {}).get(h), a_role, a_pack, role_cue_mode,
+                               (r_match_of or {}).get(h)) if pack_of else None
+        if terms is None:
+            if use_par_g and role_of[h] == a_role:
+                s += gamma_g
+            if use_par_t and patient_of.get(h):
+                s += gamma_t
+        else:
+            if use_par_g:
+                s += gamma_g * terms[0]
+            if use_par_t:
+                s += gamma_t * terms[1]
         if s > bs:
             bs, best = s, h
     return best
@@ -174,7 +276,9 @@ def foreground(cands: Sequence, last_ref_sent: Dict[object, float], now_sent: Op
 
 def resolve(entities: Sequence, sal: Dict[object, float], role_of: Dict[object, str],
             patient_of: Dict[object, bool], a_role: str, coarg_key=None,
-            gamma_g: float = GAMMA_G, gamma_t: float = GAMMA_T, reflexive: bool = False):
+            gamma_g: float = GAMMA_G, gamma_t: float = GAMMA_T, reflexive: bool = False,
+            pack_of: Optional[Dict[object, object]] = None, a_pack=None,
+            role_cue_mode: Optional[str] = None, r_match_of: Optional[Dict[object, float]] = None):
     """High-level convenience: Principle-B filter (exclude `coarg_key`) then salience x parallelism pick.
     `reflexive=True` applies PRINCIPLE A instead [PINNED]: a reflexive must corefer with its clause-mate co-argument,
     so the co-argument IS the answer when it is a known entity. Returns the resolved discourse-entity key (the
@@ -185,7 +289,8 @@ def resolve(entities: Sequence, sal: Dict[object, float], role_of: Dict[object, 
         return coarg_key
     cand = legal_candidates(entities, coarg_key)
     return score_and_pick(cand, sal, role_of, patient_of, a_role,
-                          use_par_g=True, use_par_t=True, gamma_g=gamma_g, gamma_t=gamma_t)
+                          use_par_g=True, use_par_t=True, gamma_g=gamma_g, gamma_t=gamma_t,
+                          pack_of=pack_of, a_pack=a_pack, role_cue_mode=role_cue_mode, r_match_of=r_match_of)
 
 
 class EntityTokens:
@@ -197,17 +302,25 @@ class EntityTokens:
     wildcard); the role/patient cue is the token's last COMPATIBLE non-pronoun mention. No gold anywhere."""
 
     def __init__(self, window: Optional[int] = FOREGROUND_WINDOW, decay: float = DEFAULT_DECAY,
-                 gamma_g: float = GAMMA_G, gamma_t: float = GAMMA_T, accrue: bool = True):
+                 gamma_g: float = GAMMA_G, gamma_t: float = GAMMA_T, accrue: bool = True,
+                 role_cue_mode: Optional[str] = None):
         self.window, self.decay, self.gamma_g, self.gamma_t, self.accrue = window, decay, gamma_g, gamma_t, accrue
+        self.role_cue_mode = role_cue_mode or GRADED_ROLE_CUE
+        self.packs: Dict[object, dict] = {}       # (key, order) -> decision_pack of that mention
         self.mentions: Dict[object, list] = {}      # key -> [(order, role, gender, number, dep, sent, payload)]
         self.pron_hist: Dict[object, list] = {}     # key -> [(order, role)] accrued pronoun references
         self.last_ref_sent: Dict[object, float] = {}
 
     def observe(self, key, order: float, role: str, sent: float, gender=None, number=None, dep: str = "",
-                payload=None) -> None:
-        """`payload` is opaque to the organ (a caller handle, e.g. the mention record); never read in a decision."""
+                payload=None, decision=None) -> None:
+        """`payload` is opaque to the organ (a caller handle, e.g. the mention record); never read in a decision.
+        `decision` (pri 106) = the role organ's `graded_role_assigner.role_decision` for this mention's head token,
+        so the role cue can enter at the confidence the decision was actually made with. None -> the landed
+        indicator, byte-identical."""
         self.mentions.setdefault(key, []).append((float(order), role, gender or None, number or None, dep or "", float(sent), payload))
         self.last_ref_sent[key] = float(sent)
+        if decision is not None:
+            self.packs[(key, float(order))] = decision_pack(decision)
 
     @staticmethod
     def _gn_ok(ug, un, g, n) -> bool:
@@ -227,8 +340,11 @@ class EntityTokens:
         return out
 
     def resolve_pronoun(self, order: float, sent: float, *, gender=None, number=None, a_role: str = "OBJ",
-                        role: str = "OTHER", coarg_key=None, reflexive: bool = False, accrue: Optional[bool] = None):
-        """Resolve one pronoun reference over the current tokens and ACCRUE it. Returns (key or None, n_candidates)."""
+                        role: str = "OTHER", coarg_key=None, reflexive: bool = False, accrue: Optional[bool] = None,
+                        decision=None):
+        """Resolve one pronoun reference over the current tokens and ACCRUE it. Returns (key or None, n_candidates).
+        `decision` = the role organ's decision for the PRONOUN's own head token; its margin sets the MATCH
+        reliability jointly with each candidate's. None -> the landed indicator cue."""
         compat = self.candidates(gender, number)
         ents = list(compat)
         if not ents:
@@ -239,6 +355,8 @@ class EntityTokens:
             legal = legal_candidates(ents, coarg_key)
             legal = foreground(legal, self.last_ref_sent, float(sent), self.window)
             sal, role_of, patient_of = {}, {}, {}
+            pack_of, r_match_of = {}, {}
+            a_pack = decision_pack(decision)
             for k in legal:
                 hist = [(m[0], m[1]) for m in compat[k]]
                 if self.accrue if accrue is None else accrue:
@@ -247,7 +365,16 @@ class EntityTokens:
                 sal[k] = a if a != float("-inf") else -1e9
                 last = max(compat[k], key=lambda m: m[0])
                 role_of[k] = role_class(last[4]); patient_of[k] = last[4] in PATIENT_DEPS
-            pick = score_and_pick(legal, sal, role_of, patient_of, a_role, gamma_g=self.gamma_g, gamma_t=self.gamma_t)
+                pk = self.packs.get((k, float(last[0])))
+                if pk is not None:
+                    pack_of[k] = pk
+                    if self.role_cue_mode == "match":
+                        from hdlab.graded_role_assigner import margin_reliability
+                        r_match_of[k] = margin_reliability(
+                            min(pk["margin"], a_pack["margin"] if a_pack else 1.0), "match")
+            pick = score_and_pick(legal, sal, role_of, patient_of, a_role, gamma_g=self.gamma_g,
+                                  gamma_t=self.gamma_t, pack_of=(pack_of or None), a_pack=a_pack,
+                                  role_cue_mode=self.role_cue_mode, r_match_of=r_match_of)
         if pick is not None:
             self.pron_hist.setdefault(pick, []).append((float(order), role))
             self.last_ref_sent[pick] = float(sent)

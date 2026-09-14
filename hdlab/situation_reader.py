@@ -2059,10 +2059,16 @@ class SituationReader:
         # stay the competition's role-reliability readout (the precision-defer signal is orthogonal).
         if self.agent_hybrid:
             from hdlab.graded_role_assigner import hybrid_agent_pick
+            # pri 106: hand the organ the reader's OWN heads so the marked-cue override has to EARN the
+            # right to overturn the word-order default (agent_override_licensed). agent_hybrid_gated=False
+            # passes heads=None and the call is byte-identical to the landed one.
             hyb = hybrid_agent_pick(toks, up, pred_idx, acand, cluster_freq=agent_freq,
                                     weights=self.cm_weights, gaz=self.gaz, subj_before=subj_before,
                                     byhead_agent_cue=self.cm_agent_byhead, twin_seed=self.cm_twin_seed,
-                                    construction=self.agent_hybrid_construction)
+                                    construction=self.agent_hybrid_construction,
+                                    heads=(self._cached_parse_heads(list(toks), list(up))
+                                           if getattr(self, "agent_hybrid_gated", False) else None),
+                                    validities=None, override_theta=None)
             if hyb is not None:
                 head = hyb
         return head, margin, conf
@@ -3356,10 +3362,37 @@ class SituationReader:
         for m in mentions:
             by_sent.setdefault(m.get("sent_idx"), []).append(m)
         T = AER.EntityTokens()                                   # the organ's incremental entity tokens
+        # THE ROLE CUE READS THE DECISION, NOT A POSITIONAL PROXY (pri 106, 2026-09-14). The parallelism cue used
+        # ONLY rank2dep -- "the first nominal of the sentence is the subject, the second the object" -- i.e. the raw
+        # WORD-ORDER proxy, so the Competition-Model role organ's decision never reached this consumer at all
+        # (landed != live). Feed the organ's actual decision, WITH its confidence: role_decision returns the label,
+        # the posterior, its margin and the count-calibrated P(right), and the resolver enters the cue at that
+        # reliability (HDLAB_AER_ROLE_CUE; "hard" = the landed indicator, so this is byte-identical by default).
+        # Costs no extra parse: the tags and heads come from the reader's own per-read caches.
+        import hdlab.graded_role_assigner as _GRA
+        _rdec = {}
+
+        def _decisions(si_, toks_):
+            key = (si_, len(toks_))
+            if key in _rdec:
+                return _rdec[key]
+            try:
+                pos_ = self._cached_tag(list(toks_))
+                heads_ = self._cached_parse_heads(list(toks_), pos_)
+                val_ = _GRA.load_coarse_validities()
+                d = {}
+                for i_ in range(1, len(toks_) + 1):
+                    if i_ - 1 < len(pos_) and _GRA.is_arg_head(list(toks_), pos_, i_):
+                        d[i_ - 1] = _GRA.role_decision(list(toks_), pos_, heads_, i_, val_)
+            except Exception:
+                d = {}
+            _rdec[key] = d
+            return d
         out = []
         for si, toks in enumerate(sents):
             rr = self._router_roles(list(toks))
             noms = sent_noms[si] if si < len(sent_noms) else []
+            decs = _decisions(si, toks) if AER.GRADED_ROLE_CUE != "hard" else {}
             theme_verb = {}                                      # theme token pos -> (verb_pos, roles)
             for vp, vr in rr.items():
                 if "theme" in vr:
@@ -3370,7 +3403,7 @@ class SituationReader:
                 if not m.get("is_pronoun") and not reflexive:
                     T.observe(m["head"], float(m["midx"]), rank2role.get(rank, "OTHER"), float(si),
                               m.get("gender") or m.get("name_gender"), m.get("number"), rank2dep.get(rank, ""),
-                              payload=m)
+                              payload=m, decision=decs.get(m.get("wtok_start")))
                     continue
                 tv = theme_verb.get(m.get("wtok_start"))
                 coarg = None
@@ -3382,7 +3415,7 @@ class SituationReader:
                     g, n = AER.REFLEXIVE_GN.get(m.get("head", "").lower(), (None, None))
                 pick, n_c = T.resolve_pronoun(float(m["midx"]), float(si), gender=g or "", number=n or "",
                                               a_role=a_role, role=rank2role.get(rank, "OTHER"), coarg_key=coarg,
-                                              reflexive=reflexive)
+                                              reflexive=reflexive, decision=decs.get(m.get("wtok_start")))
                 if tv is not None and n_c >= 2:
                     out.append({"sent_idx": si, "verb_pos": tv[0], "undergoer": m["head"],
                                 "resolved": pick, "coarg": coarg})
