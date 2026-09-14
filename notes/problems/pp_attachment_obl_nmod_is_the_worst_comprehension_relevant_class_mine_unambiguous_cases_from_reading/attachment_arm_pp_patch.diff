@@ -1,0 +1,476 @@
+--- a/hdlab/attachment_arm.py
++++ b/hdlab/attachment_arm.py
+@@ -96,7 +96,10 @@
+ COP_LOCALITY = os.environ.get("HDLAB_ARM_COP_LOCALITY", "1") != "0"
+ CSUB_CUE = os.environ.get("HDLAB_ARM_CSUB", "1") != "0"
+ HOLD_FINITENESS = os.environ.get("HDLAB_ARM_HOLD_FINITENESS", "1") != "0"
+-CUES = ("locality", "frame", "form", "boundary", "agree", "constr", "pp") + (("plaus",) if PLAUS_CUE else ()) + ROOT_CUES + (("csub",) if CSUB_CUE else ())   # catpair / root = configuration
++CUES = ("locality", "frame", "form", "boundary", "agree", "constr", "pp", "ppobj") + (("plaus",) if PLAUS_CUE else ()) + ROOT_CUES + (("csub",) if CSUB_CUE else ())   # catpair / root = configuration
++# "ppobj" (2026-09-13, solver pri-94): the THEMATIC channel of the PP cue -- what kind of thing the prepositional
++# phrase is about, given the type of the candidate that would license it (Taraban & McClelland 1988; Ratnaparkhi's
++# fourth element).  See the PP ATTACHMENT block below.
+ # "pp" (2026-09-13, folded from the pri-2 solver's proven Hindle-Rooth lever): for a PP-object nominal, the preposition's verb-vs-noun
+ # association LR(p) = log P(p|verb) / P(p|noun), learned TREEBANK-FREE from UNAMBIGUOUS prepositional phrases in reading.
+ M_SHRINK = 2.0
+@@ -469,6 +472,279 @@
+     return "v2" if lr > 1.5 else "v1" if lr > 0.5 else "n2" if lr < -1.5 else "n1" if lr < -0.5 else "0"
+ 
+ 
++# ---------------------------------------------------------------------------------------- PP ATTACHMENT (obl/nmod)
++# A prepositional phrase is a CASE-MARKED nominal looking for a host, and the reader picks the host by the SAME cue
++# competition as every other attachment (Bates & MacWhinney Competition Model; MacDonald, Pearlmutter & Seidenberg
++# 1994) over candidates RETRIEVED from working memory under decay (Lewis & Vasishth 2005), with the host-preposition
++# LEXICAL ASSOCIATION as the discriminating cue (Hindle & Rooth 1993), learned from the cases experience leaves
++# UNAMBIGUOUS and then re-apportioned over the ambiguous ones (Hindle & Rooth's reallocation; Ratnaparkhi 1998 mines
++# exactly this from raw text: 81.9 vs a 70.4 baseline, no treebank).
++#
++# WHY THIS REPLACES `pp_site` (measured on UD-EWT test 700 before the change, solver pri-94):
++#   `pp_site` offered exactly TWO candidates (nearest preceding VERB, nearest preceding NOUN) and only for a NOUN/PROPN
++#   object sitting directly after DET/ADJ/NUM.  It fired on 253/477 gold obl and 195/534 gold nmod, and of those the
++#   gold head was NEITHER offered candidate for 63 obl + 46 nmod -- at most 339 of the 1011 obl+nmod tokens (33.5%)
++#   were decidable by the cue at all.  Losses: a PRON object (109 nmod + 44 obl) or a NUM object (55); a compound or
++#   possessive inside the NP stopping the leftward scan ("of Google 's new toolbar", "on your hands": 98 obl + 77
++#   nmod); a predicate ADJECTIVE host ("capable OF ...", 24 obl); a noun host that is not the nearest one (23 nmod).
++#   `pp_sites` below is driven by the PREPOSITION (the case marker), takes the object as the head of the nominal run
++#   after it (the arm's own NP-run convention) and retrieves EVERY open host to its left up to PP_KCAP: 333/477 obl
++#   and 266/534 gold nmod detected, gold host inside the candidate set for 313 + 243 = 55.0% of the population.
++#   PP_KCAP is a SWEPT operating point (4/6/8/12 -> 546/556/556/556 retrievable; 6 is the knee).
++PP_NP_RUN = frozenset({"DET", "ADJ", "NUM", "NOUN", "PROPN", "PRON", "PART", "ADV"})
++PP_NOM_HOST = frozenset({"NOUN", "PROPN", "PRON", "NUM"})
++PP_PRED_HOST = frozenset({"VERB", "ADJ"})
++PP_SENT_END = frozenset({".", "!", "?", ";"})
++PP_KCAP = int(os.environ.get("HDLAB_ARM_PP_KCAP", "6"))          # capacity-limited retrieval; swept, never adopted
++PP_M1, PP_M2 = 5.0, 20.0                                          # shrinkage: lemma -> class -> the preposition marginal
++PP_M3, PP_M4 = 20.0, 50.0                                         # shrinkage of the thematic (object-class) channel
++PP_Z_EDGES = (1.0, 0.3, -0.3, -1.0)
++PP_Z_NAMES = ("w2", "w1", "0", "l1", "l2")
++# READOUT FORM, measured not assumed: "share" = log[P(p|h) / mean_h' P(p|h')] -- divisive normalisation over the
++# retrieved population (Carandini & Heeger 2012), symmetric in the host types.  "max" (this candidate against its
++# STRONGEST rival, the literal two-candidate Hindle-Rooth contrast) is REFUTED AS BUILT and kept selectable: the
++# strongest rival of a noun host is almost always a verb, so inside the NOUN>NOUN configuration nearly every value is
++# a losing bin, the losing bin IS that configuration's baseline, its learned contrast collapses to ~0, and the cue
++# degenerates into "prefer a verb" -- a type prior the CONFIGURATION already owns.  Measured seesaw under "max"
++# (cap 1200, test 250): obl 0.443 -> 0.502 but nmod 0.454 -> 0.393 on the search decode.
++PP_ZFORM = os.environ.get("HDLAB_ARM_PP_ZFORM", "share")
++# PHRASE-LEVEL CASE MARKING.  The read-time meaning cue and the semantic-bootstrapping teacher ask "is this nominal
++# case-marked?" with `pos[j-2] == "ADP"` -- the preposition IMMEDIATELY before the noun.  A case marker marks the
++# PHRASE (Pinker 1984), and any NP with more than one modifier breaks adjacency.  MEASURED (UD-EWT test 700): 684
++# nominal run heads are case-marked by the phrase rule, only 396 by the adjacency rule -- 436 missed (63.7%), of which
++# 199 are gold obl and 144 gold nmod, each handed to the meaning cue as a candidate SUBJECT or OBJECT of a nearby verb.
++PP_CASE_RULE = os.environ.get("HDLAB_ARM_PP_CASE_RULE", "1") != "0"
++
++
++def pp_run_head(pos: Sequence[str], i: int) -> Optional[int]:
++    """1-based head of the nominal run starting at 1-based i: its last NOUN/PROPN, else its last PRON/NUM, else None."""
++    n = len(pos); j = i
++    while j <= n and pos[j - 1] in PP_NP_RUN:
++        j += 1
++    nouns = [q for q in range(i, j) if pos[q - 1] in ("NOUN", "PROPN")]
++    if nouns:
++        return nouns[-1]
++    other = [q for q in range(i, j) if pos[q - 1] in ("PRON", "NUM")]
++    return other[-1] if other else None
++
++
++def _pp_is_nominal_host(pos: Sequence[str], q: int) -> bool:
++    """A nominal candidate host is the HEAD of its own run (a compound's modifier is not offered separately)."""
++    if pos[q - 1] not in PP_NOM_HOST:
++        return False
++    return not (q < len(pos) and pos[q] in ("NOUN", "PROPN"))
++
++
++def pp_host_type(p: str) -> str:
++    return "V" if p == "VERB" else "A" if p == "ADJ" else "N"
++
++
++def pp_sites(toks: Sequence[str], pos: Sequence[str], k_cap: Optional[int] = None):
++    """Every case-marked nominal: (prep_idx, object_head_idx, [candidate host indices, nearest first]), 1-based.
++    Category-structural only; no gold, no treebank, no external tool."""
++    k_cap = PP_KCAP if k_cap is None else k_cap
++    n = len(pos); out = []
++    for k in range(1, n + 1):
++        if pos[k - 1] != "ADP" or k == n or pos[k] == "ADP" or pos[k] not in PP_NP_RUN:
++            continue                                   # "because of": the inner preposition carries the case
++        obj = pp_run_head(pos, k + 1)
++        if obj is None or obj <= k:
++            continue
++        cands = []
++        for q in range(k - 1, 0, -1):
++            p = pos[q - 1]
++            if p == "PUNCT" and toks[q - 1] in PP_SENT_END:
++                break
++            if p in PP_PRED_HOST or _pp_is_nominal_host(pos, q):
++                cands.append(q)
++                if len(cands) >= k_cap:
++                    break
++        if cands:
++            out.append((k, obj, cands))
++    return out
++
++
++_PP_CASE_CACHE: Dict[Tuple, set] = {}
++
++
++def pp_case_marked(toks: Sequence[str], pos: Sequence[str], k_cap: Optional[int] = None) -> set:
++    """The 1-based nominals a preposition has case-marked (the PHRASE rule). Memoised: `slot_plausibility` asks once
++    per (verb, nominal) pair, so an unmemoised call is O(n^2) detector passes per sentence. Pure memo -- the set is a
++    function of (tokens, categories, k_cap) and no number changes."""
++    key = (tuple(toks), tuple(pos), k_cap)
++    v = _PP_CASE_CACHE.get(key)
++    if v is None:
++        v = {obj for _, obj, _ in pp_sites(toks, pos, k_cap)}
++        if len(_PP_CASE_CACHE) > 20000:
++            _PP_CASE_CACHE.clear()
++        _PP_CASE_CACHE[key] = v
++    return v
++
++
++def pp_mining_frame(toks: Sequence[str], pos: Sequence[str], k: int):
++    """Hindle & Rooth's two-slot frame at preposition k: the nearest PREDICATE host (verb / predicate adjective) and
++    the nearest NOMINAL host to its left. Exactly one present = an UNAMBIGUOUS case, the clean learning signal."""
++    pred = nom = None
++    for q in range(k - 1, 0, -1):
++        p = pos[q - 1]
++        if p == "PUNCT" and toks[q - 1] in PP_SENT_END:
++            break
++        if pred is None and p in PP_PRED_HOST:
++            pred = q
++        if nom is None and _pp_is_nominal_host(pos, q):
++            nom = q
++        if pred is not None and nom is not None:
++            break
++    return pred, nom
++
++
++def pp_host_key(toks: Sequence[str], pos: Sequence[str], q: int) -> str:
++    """<type>|<lemma>: verbs through the arm's verb lemmatiser, nouns through the morphology organ (glass-box)."""
++    t = pp_host_type(pos[q - 1]); w = toks[q - 1].lower()
++    if t == "V":
++        return "V|" + lemma_verb(toks[q - 1]).lower()
++    if t == "N":
++        from hdlab import morphology as _m
++        return "N|" + (_m.morphy(w, "n") or w)
++    return "A|" + w
++
++
++def pp_host_class(toks: Sequence[str], pos: Sequence[str], q: int) -> str:
++    """The BACKOFF class: verbs/adjectives to their category, nouns to their WordNet supersense (the same offline
++    foundation table the typed selectional-preference organ reads -- Resnik-style type generalisation)."""
++    t = pp_host_type(pos[q - 1])
++    if t != "N":
++        return t
++    from hdlab.typed_selectional_preference import noun_supersense
++    return "N:" + (noun_supersense(toks[q - 1]) or "unk")
++
++
++def pp_obj_class(toks: Sequence[str], pos: Sequence[str], q: int) -> str:
++    """The TYPE of the prepositional object -- what the phrase is ABOUT (Taraban & McClelland 1988 thematic
++    expectation; Ratnaparkhi 1998's fourth element)."""
++    if pos[q - 1] == "NUM":
++        return "num"
++    from hdlab.typed_selectional_preference import noun_supersense
++    return noun_supersense(toks[q - 1]) or ("pron" if pos[q - 1] == "PRON" else "unk")
++
++
++def pp_new_assoc() -> Dict[str, object]:
++    return {"c": {}, "d": {}, "cc": {}, "dc": {}, "cp": {}, "tot": 0.0,
++            "o": {}, "od": {}, "oc": {}, "ocd": {}, "og": {}, "otot": 0.0}
++
++
++def pp_observe(A: Dict[str, object], hkey: str, hcls: str, prep: str, w: float = 1.0,
++               objclass: Optional[str] = None) -> None:
++    """PLASTICITY: one comprehension outcome -- host `hkey` was understood to license the phrase headed by `prep`
++    (and, when given, a phrase ABOUT `objclass`). Counts only; the probability is a pure function of them."""
++    def add(d, k, v):
++        d[k] = d.get(k, 0.0) + v
++    add(A["c"], hkey + "|" + prep, w); add(A["d"], hkey, w)
++    add(A["cc"], hcls + "|" + prep, w); add(A["dc"], hcls, w)
++    add(A["cp"], prep, w); A["tot"] = A.get("tot", 0.0) + w
++    if objclass is not None:
++        t = hkey.split("|", 1)[0]
++        add(A["o"], t + "|" + prep + "|" + objclass, w); add(A["od"], t + "|" + prep, w)
++        add(A["oc"], t + "|" + objclass, w); add(A["ocd"], t, w)
++        add(A["og"], objclass, w); A["otot"] = A.get("otot", 0.0) + w
++
++
++def pp_p_given(A: Dict[str, object], hkey: str, hcls: str, prep: str) -> float:
++    """P(preposition | host), shrunk lemma -> class -> the preposition's own marginal."""
++    pp = (A["cp"].get(prep, 0.0) + 0.5) / (A.get("tot", 0.0) + 1.0)
++    pc = (A["cc"].get(hcls + "|" + prep, 0.0) + PP_M2 * pp) / (A["dc"].get(hcls, 0.0) + PP_M2)
++    return (A["c"].get(hkey + "|" + prep, 0.0) + PP_M1 * pc) / (A["d"].get(hkey, 0.0) + PP_M1)
++
++
++def pp_p_obj(A: Dict[str, object], htype: str, prep: str, objclass: str) -> float:
++    """P(class of the prepositional object | host type, preposition) -- the typed thematic expectation."""
++    pg = (A["og"].get(objclass, 0.0) + 0.5) / (A.get("otot", 0.0) + 1.0)
++    pt = (A["oc"].get(htype + "|" + objclass, 0.0) + PP_M4 * pg) / (A["ocd"].get(htype, 0.0) + PP_M4)
++    return (A["o"].get(htype + "|" + prep + "|" + objclass, 0.0) + PP_M3 * pt) / (A["od"].get(htype + "|" + prep, 0.0) + PP_M3)
++
++
++def pp_assoc_v2_from_reading(sentences_tp, rounds: int = 2, k_cap: Optional[int] = None) -> Dict[str, object]:
++    """TREEBANK-FREE mining from (tokens, categories): the UNAMBIGUOUS sites (only one of the predicate / nominal slot
++    present) give hard credit; the ambiguous ones are then apportioned by the CURRENT estimate and re-estimated for
++    `rounds` rounds (Hindle & Rooth 1993). `rounds = 0` gives the unambiguous-only seed."""
++    inst = []
++    for toks, pos in sentences_tp:
++        n = len(toks)
++        for k in range(1, n + 1):
++            if pos[k - 1] != "ADP" or k == n or pos[k] == "ADP" or pos[k] not in PP_NP_RUN:
++                continue
++            obj = pp_run_head(pos, k + 1)
++            if obj is None:
++                continue
++            pred, nom = pp_mining_frame(toks, pos, k)
++            if pred is None and nom is None:
++                continue
++            rec = {"p": toks[k - 1].lower(), "o": pp_obj_class(toks, pos, obj)}
++            if pred is not None:
++                rec["pred"] = (pp_host_key(toks, pos, pred), pp_host_class(toks, pos, pred))
++            if nom is not None:
++                rec["nom"] = (pp_host_key(toks, pos, nom), pp_host_class(toks, pos, nom))
++            inst.append(rec)
++    unamb = [r for r in inst if ("pred" in r) != ("nom" in r)]
++    amb = [r for r in inst if ("pred" in r) and ("nom" in r)]
++    A = pp_new_assoc()
++    for r in unamb:
++        h = r.get("pred") or r["nom"]
++        pp_observe(A, h[0], h[1], r["p"], 1.0, r.get("o"))
++    for _ in range(max(0, rounds)):
++        B = pp_new_assoc()
++        for r in unamb:
++            h = r.get("pred") or r["nom"]
++            pp_observe(B, h[0], h[1], r["p"], 1.0, r.get("o"))
++        for r in amb:
++            hp, hn = r["pred"], r["nom"]; p = r["p"]; oc = r.get("o") or "unk"
++            a = pp_p_given(A, hp[0], hp[1], p) * pp_p_obj(A, hp[0].split("|", 1)[0], p, oc)
++            b = pp_p_given(A, hn[0], hn[1], p) * pp_p_obj(A, hn[0].split("|", 1)[0], p, oc)
++            w = a / (a + b) if (a + b) > 0 else 0.5
++            pp_observe(B, hp[0], hp[1], p, w, oc); pp_observe(B, hn[0], hn[1], p, 1.0 - w, oc)
++        A = B
++    A["mining"] = {"instances": len(inst), "unambiguous": len(unamb), "ambiguous": len(amb), "rounds": rounds}
++    return A
++
++
++def _pp_zbin(z: float) -> str:
++    for e, nm in zip(PP_Z_EDGES, PP_Z_NAMES):
++        if z > e:
++            return nm
++    return PP_Z_NAMES[-1]
++
++
++def _pp_contrast(sc, idx: int) -> float:
++    if PP_ZFORM == "max":
++        others = [s for i2, s in enumerate(sc) if i2 != idx]
++        return sc[idx] - (max(others) if others else sc[idx] - 1.0)
++    m = max(sc)
++    return sc[idx] - (m + math.log(sum(math.exp(s - m) for s in sc) / len(sc)))
++
++
++def pp_arc_values(toks: Sequence[str], pos: Sequence[str], assoc: Dict[str, object],
++                  k_cap: Optional[int] = None):
++    """(head, dependent) -> cue value for every retrieved candidate host of every case-marked nominal.
++    `pp`    -- the contrast of this candidate's LEXICAL association with the preposition against the retrieved
++               population; `ppobj` -- the same contrast on the THEMATIC channel (what the phrase is about, given the
++               host's type), carrying the host type because that is the only thing that channel conditions on.
++    Returns (pp_values, ppobj_values)."""
++    out = {}; out2 = {}
++    for prep, obj, cands in pp_sites(toks, pos, k_cap):
++        p = toks[prep - 1].lower()
++        sc = [math.log(max(pp_p_given(assoc, pp_host_key(toks, pos, q), pp_host_class(toks, pos, q), p), 1e-12))
++              for q in cands]
++        oc = pp_obj_class(toks, pos, obj)
++        so = [math.log(max(pp_p_obj(assoc, pp_host_type(pos[q - 1]), p, oc), 1e-12)) for q in cands]
++        for idx, q in enumerate(cands):
++            if q == obj:
++                continue
++            out[(q, obj)] = _pp_zbin(_pp_contrast(sc, idx))
++            out2[(q, obj)] = pp_host_type(pos[q - 1]) + ":" + _pp_zbin(_pp_contrast(so, idx))
++    return out, out2
++
++
++
+ # ------------------------------------------------------------------------------------ MAIN-ASSERTION (ROOT) CUES
+ COP_FORMS = frozenset({"be", "is", "are", "was", "were", "been", "being", "am", "become", "became", "becomes",
+                        "seem", "seems", "seemed", "'m", "'s", "'re", "s", "m", "re"})
+@@ -705,7 +981,8 @@
+     """ONE cue pass per sentence (shared by every arc): punctuation cumsum for boundaries, construction map, verb lemmas."""
+ 
+     def __init__(self, toks: Sequence[str], pos: Sequence[str], frames: Dict[str, List[int]],
+-                 pp_assoc: Optional[Dict[str, Dict[str, float]]] = None):
++                 pp_assoc: Optional[Dict[str, Dict[str, float]]] = None,
++                 pp_assoc_v2: Optional[Dict[str, object]] = None):
+         self.toks = list(toks); self.pos = list(pos); self.n = len(toks); self.frames = frames
+         self.cum = np.concatenate([[0], np.cumsum([1 if p == "PUNCT" else 0 for p in self.pos])])
+         self.constr = construction_map(self.toks, self.pos)
+@@ -713,6 +990,15 @@
+         self.teacher = _plaus_teacher() if PLAUS_CUE else None
+         self.rootcues = root_cue_values(self.toks, self.pos)     # MAIN-ASSERTION cues (one pass; read at h == 0)
+         self.csub = csub_sites(self.toks, self.pos) if CSUB_CUE else {}
++        # PP ATTACHMENT (v2): the case-marked nominals and their retrieved candidate hosts, when the table carries the
++        # mined association. The legacy two-candidate `self.pp` path stays for a table that only has `pp_assoc`.
++        self.pp_arc: Dict[Tuple[int, int], str] = {}
++        self.ppobj_arc: Dict[Tuple[int, int], str] = {}
++        self.pp_cased: set = set()
++        if pp_assoc_v2:
++            self.pp_arc, self.ppobj_arc = pp_arc_values(self.toks, self.pos, pp_assoc_v2)
++        if PP_CASE_RULE:
++            self.pp_cased = pp_case_marked(self.toks, self.pos)
+         # PP-object sites: j -> (verb_idx, noun_idx, LR bin) when the preposition cue applies (pp_assoc given)
+         self.pp: Dict[int, Tuple[Optional[int], Optional[int], str]] = {}
+         if pp_assoc:
+@@ -744,6 +1030,10 @@
+         site = self.pp.get(j)
+         if site is not None and h in (site[0], site[1]):
+             c["pp"] = ("V:" if h == site[0] else "N:") + site[2]     # which candidate this head is x the preposition's lean
++        v2 = self.pp_arc.get((h, j))
++        if v2 is not None:
++            c["pp"] = v2                     # v2 REPLACES the two-candidate value when the mined association is present
++            c["ppobj"] = self.ppobj_arc.get((h, j), "0")
+         if self.teacher is not None and ph == "VERB" and pj in NOMINAL and not (j >= 2 and self.pos[j - 2] == "ADP"):
+             # v2 (07:20): CORE slots only -- a case-marked (prepositional) nominal is oblique, and its host is the PP cue's business;
+             # v1 fired on PP objects too and traded obl 0.468 -> 0.379 for nmod 0.311 -> 0.375.
+@@ -798,7 +1088,7 @@
+     with open(path or ASSET, encoding="utf-8") as f:
+         doc = json.load(f)
+     tab = {"counts": doc["counts"], "frames": doc.get("frames", {}), "pp_assoc": doc.get("pp_assoc"),
+-           "strength": strengths_from_arc_counts(doc["counts"])}
++           "pp_assoc_v2": doc.get("pp_assoc_v2"), "strength": strengths_from_arc_counts(doc["counts"])}
+     if path is None:
+         _TABLE = tab
+     return tab
+@@ -808,7 +1098,8 @@
+     tab = table or load_attachment_validities(); p = path or ASSET
+     doc = {"source": "attachment arm of the Competition-Model organ: soft arc counts accrued from reading (knowledge-free teacher + "
+                      "anchored self-teaching; no treebank, no hand prior); strengths = attachment_arm.strengths_from_arc_counts",
+-           "counts": tab["counts"], "frames": tab.get("frames", {}), "pp_assoc": tab.get("pp_assoc")}
++           "counts": tab["counts"], "frames": tab.get("frames", {}), "pp_assoc": tab.get("pp_assoc"),
++           "pp_assoc_v2": tab.get("pp_assoc_v2")}
+     with open(p, "w", encoding="utf-8", newline=chr(10)) as f:
+         json.dump(doc, f, indent=1)
+     return p
+@@ -838,7 +1129,7 @@
+                         weight: float = 1.0) -> None:
+     """PLASTICITY: one confirmed comprehension outcome -- word j was understood to depend on h -- accrues into the counts (the
+     competing candidates of j accrue a zero outcome) and the strengths are recomputed."""
+-    tab = table or load_attachment_validities(); sc = SentenceCues(toks, pos, tab.get("frames", {}), tab.get("pp_assoc"))
++    tab = table or load_attachment_validities(); sc = SentenceCues(toks, pos, tab.get("frames", {}), tab.get("pp_assoc"), tab.get("pp_assoc_v2"))
+     marg = {j: {hh: (weight if hh == h else 0.0) for hh in range(0, sc.n + 1) if hh != j}}
+     accrue_sentence(tab["counts"], sc, marg)
+     tab["strength"] = strengths_from_arc_counts(tab["counts"])
+@@ -935,7 +1226,7 @@
+     if not _ARC_FAST:
+         return arc_scores_reference(toks, pos, table)
+     tab = table or load_attachment_validities(); ix = _arc_index(tab)
+-    sc = SentenceCues(toks, pos, tab.get("frames", {}), tab.get("pp_assoc")); n = sc.n
++    sc = SentenceCues(toks, pos, tab.get("frames", {}), tab.get("pp_assoc"), tab.get("pp_assoc_v2")); n = sc.n
+     cat = np.array([ix.cats.get(p, ix.unk) for p in pos], dtype=np.int64)            # dependent / head (1..n) category ids
+     H = np.arange(0, n + 1)[:, None]; J = np.arange(1, n + 1)[None, :]               # grid: rows h = 0..n, cols j = 1..n
+     dr = (H > J).astype(np.int64)                                                    # config/cue convention: 'L' when the head is LEFT of the dependent (h < j) -> 0; 'R' (h > j) -> 1
+@@ -967,8 +1258,17 @@
+             if CONVENTION_BONUS and fam == "fw":
+                 S[h, j - 1] += CONVENTION_BONUS
+     S += ix.cue_tab["constr"][C, K]
++    # PP cue v2 (sparse: <= PP_KCAP cells per case-marked nominal, both channels)
++    for _cue, _arcs in (("pp", sc.pp_arc), ("ppobj", sc.ppobj_arc)):
++        _T = ix.cue_tab.get(_cue)
++        if _T is None or not _arcs:
++            continue
++        _vid = ix.val_id[_cue]
++        for (h, j), val in _arcs.items():
++            if 1 <= h <= n and 1 <= j <= n:
++                S[h, j - 1] += _T[C[h, j - 1], _vid.get(val, 0)]
+     # PP cue (sparse sites)
+-    if sc.pp and "pp" in ix.cue_tab:
++    if sc.pp and not sc.pp_arc and "pp" in ix.cue_tab:
+         vid = ix.val_id["pp"]; T = ix.cue_tab["pp"]
+         for j, (v, nn, b) in sc.pp.items():
+             if v:
+@@ -1019,7 +1319,7 @@
+ def arc_scores_reference(toks: Sequence[str], pos: Sequence[str], table: Optional[Dict[str, object]] = None) -> Tuple[np.ndarray, int]:
+     """THE REFERENCE readout (the original per-pair loop): additive cue activation per arc (row = head incl. 0 = ROOT, col =
+     dependent); form classes never head or root. Kept as the oracle for the vectorised `arc_scores`."""
+-    tab = table or load_attachment_validities(); st = tab["strength"]; sc = SentenceCues(toks, pos, tab.get("frames", {}), tab.get("pp_assoc"))
++    tab = table or load_attachment_validities(); st = tab["strength"]; sc = SentenceCues(toks, pos, tab.get("frames", {}), tab.get("pp_assoc"), tab.get("pp_assoc_v2"))
+     n = sc.n; A = np.full((n + 1, n + 1), -np.inf)
+     words = [j for j in range(1, n + 1) if pos[j - 1] not in FORM]
+     for j in range(1, n + 1):
+@@ -1697,6 +1997,8 @@
+         in that slot. Case-marking rules (PP_NO_SUBJ): a pre-verbal PREPOSITIONAL object is oblique, never the subject; a pronoun
+         that DETERMINES a following nominal ("its wares") is a possessive, not a participant (2026-09-13 nmod anatomy)."""
+         n = len(toks)
++        if PP_CASE_RULE and j in pp_case_marked(toks, pos):
++            return 0.0            # PHRASE-level case marking: a case-marked nominal is oblique, not a core participant
+         is_pron = pos[j - 1] == "PRON" and bool(self.pron_subj or self.pron_obj)
+         vl = lemma_verb(toks[h - 1]).lower() if is_pron else None
+         if PP_NO_SUBJ and pos[j - 1] == "PRON" and j < n and pos[j] in NP_RUN and toks[j - 1].lower() not in PRONOUNS:
+@@ -1747,7 +2049,9 @@
+ 
+ __all__ = ["SentenceCues", "CONSTRUCTIONS", "construction_map", "verb_frames_from_reading", "strengths_from_arc_counts",
+            "load_attachment_validities", "save_attachment_validities", "new_counts", "accrue_sentence", "observe_arc_outcome",
+-           "pp_site", "pp_assoc_from_reading", "pp_lr", "root_cue_values", "predication_boost", "finiteness",
++           "pp_site", "pp_assoc_from_reading", "pp_lr", "pp_sites", "pp_assoc_v2_from_reading", "pp_arc_values",
++           "pp_case_marked", "pp_observe", "pp_p_given", "pp_p_obj", "pp_new_assoc",
++           "root_cue_values", "predication_boost", "finiteness",
+            "cop_predicates", "subordination", "assertion_candidates", "arc_scores", "head_posterior", "heads", "arc_scores_graded", "head_posterior_graded", "heads_graded", "SemanticBootstrapTeacher", "ASSET", "FORM"]
+ 
+ 
+--- a/tools/build_attachment_validities.py
++++ b/tools/build_attachment_validities.py
+@@ -17,6 +17,7 @@
+ for _v in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS"):
+     os.environ.setdefault(_v, "4")
+ import argparse
++import json
+ import sys
+ import time
+ 
+@@ -131,6 +132,8 @@
+     ap.add_argument("--cap", type=int, default=6000); ap.add_argument("--eval", action="store_true")
+     ap.add_argument("--out", default=AA.ASSET)
+     ap.add_argument("--beta", type=float, default=10.0, help="semantic-bootstrapping weight (0 = co-occurrence only); 10 = the measured operating point")
++    ap.add_argument("--pp-assoc", default=None, help="a PP association (pp_assoc_v2) mined offline from a larger reading corpus")
++    ap.add_argument("--pp-rounds", type=int, default=2, help="Hindle-Rooth reallocation rounds when mining from the training text")
+     ap.add_argument("--tsp-asset", default=None, help="alternative plausibility asset for the semantic-bootstrapping teacher (e.g. the self-grown store's typed asset)")
+     ap.add_argument("--categories-lc", default=None, help="a lexical_categories COUNTS asset (e.g. the reading-acquired one) to tag the sentences with, in place of the UPOS column")
+     ap.add_argument("--categories", default=None, help="reading-induced category asset (word2cat + cluster names) to use INSTEAD of the UPOS column -- the categories->heads hand-off test")
+@@ -149,6 +152,16 @@
+     frames = AA.verb_frames_from_reading([(t, p) for t, p, _, _ in train])
+     pp_assoc = AA.pp_assoc_from_reading([(t, p) for t, p, _, _ in train])    # Hindle-Rooth preposition association (treebank-free)
+     print("pp association: %d verb|prep, %d noun|prep cells" % (len(pp_assoc["fv"]), len(pp_assoc["fn"])), flush=True)
++    # PP ATTACHMENT v2 (solver pri-94): the case-marked-nominal association, mined from UNAMBIGUOUS reading with
++    # Hindle & Rooth reallocation. --pp-assoc points at an association mined OFFLINE from a larger reading corpus
++    # (tagged by the substrate's own category organ); without it, it is mined from the same training sentences.
++    if a.pp_assoc:
++        with open(a.pp_assoc, encoding="utf-8") as _f:
++            pp_assoc_v2 = json.load(_f)
++        print("pp v2 association loaded from", os.path.basename(a.pp_assoc), pp_assoc_v2.get("mining"), flush=True)
++    else:
++        pp_assoc_v2 = AA.pp_assoc_v2_from_reading([(t, p) for t, p, _, _ in train], rounds=a.pp_rounds)
++        print("pp v2 association mined from the training text:", pp_assoc_v2.get("mining"), flush=True)
+     teacher = knowledge_free_teacher(train, beta=a.beta, tsp_asset=a.tsp_asset)
+     if a.tsp_asset:
+         print("plausibility asset =", os.path.basename(a.tsp_asset), flush=True)
+@@ -162,8 +175,9 @@
+         A = AA.predication_boost(A, toks, pos)        # PREDICATION + DEPENDENCY MARKING as a teaching signal (solver pri-97, 2026-09-13):
+         #                                              the teacher put 0.001 posterior mass on a gold ADJECTIVAL root arc (100% of them below 0.05)
+         mt = single_root_marginals(A, n, 1.0); tmarg[i] = mt
+-        AA.accrue_sentence(counts, AA.SentenceCues(toks, pos, frames, pp_assoc), mt)
+-    table = {"counts": counts, "frames": frames, "pp_assoc": pp_assoc, "strength": AA.strengths_from_arc_counts(counts)}
++        AA.accrue_sentence(counts, AA.SentenceCues(toks, pos, frames, pp_assoc, pp_assoc_v2), mt)
++    table = {"counts": counts, "frames": frames, "pp_assoc": pp_assoc, "pp_assoc_v2": pp_assoc_v2,
++             "strength": AA.strengths_from_arc_counts(counts)}
+     print("round 0 accrued (%d sentences) in %.0fs" % (len(train), time.time() - t0), flush=True)
+     for r in range(1, a.rounds + 1):
+         nxt = AA.new_counts()
+@@ -171,8 +185,9 @@
+             ms = AA.head_posterior(toks, pos, table); mt = tmarg[i]; n = len(toks)
+             mix = {j: {h: a.alpha * ms.get(j, {}).get(h, 0.0) + (1 - a.alpha) * mt.get(j, {}).get(h, 0.0)
+                        for h in set(ms.get(j, {})) | set(mt.get(j, {}))} for j in range(1, n + 1)}
+-            AA.accrue_sentence(nxt, AA.SentenceCues(toks, pos, frames, pp_assoc), mix)
+-        table = {"counts": nxt, "frames": frames, "pp_assoc": pp_assoc, "strength": AA.strengths_from_arc_counts(nxt)}
++            AA.accrue_sentence(nxt, AA.SentenceCues(toks, pos, frames, pp_assoc, pp_assoc_v2), mix)
++        table = {"counts": nxt, "frames": frames, "pp_assoc": pp_assoc, "pp_assoc_v2": pp_assoc_v2,
++                 "strength": AA.strengths_from_arc_counts(nxt)}
+         print("round %d re-estimated in %.0fs" % (r, time.time() - t0), flush=True)
+     path = AA.save_attachment_validities(a.out, table)
+     print("wrote", path, flush=True)
