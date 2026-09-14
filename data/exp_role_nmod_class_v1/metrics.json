@@ -11,49 +11,93 @@
   "nmod_desc": 18
  },
  "arms": {
-  "FULL|gold": {
-   "all_expressible": 0.8271,
-   "core": 0.8735,
+  "SHIP_hsglob|gold": {
+   "all_expressible": 0.8604,
+   "core": 0.9207,
    "obl": 0.8352,
-   "obl_nmod": 0.7704,
-   "nmod": 0.7117,
+   "obl_nmod": 0.7865,
+   "nmod": 0.7423,
    "nmod_poss": 0.928,
-   "nmod_bare": 0.8077,
-   "nmod_unmarked": 0.0167,
+   "nmod_bare": 0.8531,
+   "nmod_unmarked": 0.05,
    "nmod_desc": 0.0
   },
-  "FULL|live": {
-   "all_expressible": 0.6899,
-   "core": 0.7251,
-   "obl": 0.623,
+  "SHIP_hsglob|live": {
+   "all_expressible": 0.7041,
+   "core": 0.7513,
+   "obl": 0.6072,
    "obl_nmod": 0.6427,
-   "nmod": 0.6605,
+   "nmod": 0.6748,
    "nmod_poss": 0.904,
-   "nmod_bare": 0.7203,
+   "nmod_bare": 0.7378,
+   "nmod_unmarked": 0.0833,
+   "nmod_desc": 0.0556
+  },
+  "SHIP_hsglob_goldtrain|gold": {
+   "all_expressible": 0.9057,
+   "core": 0.9494,
+   "obl": 0.9052,
+   "obl_nmod": 0.8519,
+   "nmod": 0.8037,
+   "nmod_poss": 0.928,
+   "nmod_bare": 0.9406,
+   "nmod_unmarked": 0.1,
+   "nmod_desc": 0.1111
+  },
+  "SHIP_hsglob_goldtrain|live": {
+   "all_expressible": 0.6498,
+   "core": 0.7285,
+   "obl": 0.5192,
+   "obl_nmod": 0.5483,
+   "nmod": 0.5746,
+   "nmod_poss": 0.744,
+   "nmod_bare": 0.6434,
    "nmod_unmarked": 0.05,
    "nmod_desc": 0.0556
   },
-  "FULL_twin|gold": {
-   "all_expressible": 0.1844,
-   "core": 0.2622,
+  "SHIP_hsglob_goldtrain_twin|gold": {
+   "all_expressible": 0.0719,
+   "core": 0.0042,
    "obl": 0.0722,
-   "obl_nmod": 0.0815,
-   "nmod": 0.09,
-   "nmod_poss": 0.192,
-   "nmod_bare": 0.0524,
-   "nmod_unmarked": 0.0833,
+   "obl_nmod": 0.1567,
+   "nmod": 0.2331,
+   "nmod_poss": 0.0,
+   "nmod_bare": 0.3951,
+   "nmod_unmarked": 0.0167,
    "nmod_desc": 0.0
   },
-  "FULL_twin|live": {
-   "all_expressible": 0.1858,
-   "core": 0.2875,
-   "obl": 0.0587,
-   "obl_nmod": 0.0526,
-   "nmod": 0.047,
-   "nmod_poss": 0.032,
-   "nmod_bare": 0.0455,
-   "nmod_unmarked": 0.0833,
-   "nmod_desc": 0.0556
+  "SHIP_hsglob_goldtrain_twin|live": {
+   "all_expressible": 0.0781,
+   "core": 0.0076,
+   "obl": 0.1377,
+   "obl_nmod": 0.1663,
+   "nmod": 0.1922,
+   "nmod_poss": 0.0,
+   "nmod_bare": 0.3287,
+   "nmod_unmarked": 0.0,
+   "nmod_desc": 0.0
+  },
+  "SHIP_hsglob_twin|gold": {
+   "all_expressible": 0.131,
+   "core": 0.0261,
+   "obl": 0.2483,
+   "obl_nmod": 0.2618,
+   "nmod": 0.274,
+   "nmod_poss": 0.952,
+   "nmod_bare": 0.0245,
+   "nmod_unmarked": 0.1333,
+   "nmod_desc": 0.0
+  },
+  "SHIP_hsglob_twin|live": {
+   "all_expressible": 0.1405,
+   "core": 0.0413,
+   "obl": 0.2415,
+   "obl_nmod": 0.2639,
+   "nmod": 0.2843,
+   "nmod_poss": 0.704,
+   "nmod_bare": 0.1259,
+   "nmod_unmarked": 0.2167,
+   "nmod_desc": 0.1111
   },
   "floor|gold": {
    "all_expressible": 0.6746,
@@ -99,6 +143,50 @@
    "nmod_unmarked": 0.0,
    "nmod_desc": 0.0
   },
+  "nmod|gold": {
+   "all_expressible": 0.8347,
+   "core": 0.9089,
+   "obl": 0.7878,
+   "obl_nmod": 0.7425,
+   "nmod": 0.7014,
+   "nmod_poss": 0.872,
+   "nmod_bare": 0.7902,
+   "nmod_unmarked": 0.1167,
+   "nmod_desc": 0.0556
+  },
+  "nmod|live": {
+   "all_expressible": 0.6794,
+   "core": 0.7445,
+   "obl": 0.5959,
+   "obl_nmod": 0.5933,
+   "nmod": 0.591,
+   "nmod_poss": 0.688,
+   "nmod_bare": 0.6643,
+   "nmod_unmarked": 0.2,
+   "nmod_desc": 0.0556
+  },
+  "nmod_gen|gold": {
+   "all_expressible": 0.8304,
+   "core": 0.9081,
+   "obl": 0.7878,
+   "obl_nmod": 0.7339,
+   "nmod": 0.6851,
+   "nmod_poss": 0.888,
+   "nmod_bare": 0.7797,
+   "nmod_unmarked": 0.0167,
+   "nmod_desc": 0.0
+  },
+  "nmod_gen|live": {
+   "all_expressible": 0.6856,
+   "core": 0.7462,
+   "obl": 0.5982,
+   "obl_nmod": 0.6052,
+   "nmod": 0.6115,
+   "nmod_poss": 0.864,
+   "nmod_bare": 0.6538,
+   "nmod_unmarked": 0.05,
+   "nmod_desc": 0.0556
+  },
   "nmod_gen_hsm_rel_vp|gold": {
    "all_expressible": 0.8528,
    "core": 0.9157,
@@ -142,6 +230,50 @@
    "nmod_bare": 0.0594,
    "nmod_unmarked": 0.0833,
    "nmod_desc": 0.1111
+  },
+  "nmod_gen_twin|gold": {
+   "all_expressible": 0.1825,
+   "core": 0.2648,
+   "obl": 0.0316,
+   "obl_nmod": 0.074,
+   "nmod": 0.1125,
+   "nmod_poss": 0.024,
+   "nmod_bare": 0.0874,
+   "nmod_unmarked": 0.35,
+   "nmod_desc": 0.3333
+  },
+  "nmod_gen_twin|live": {
+   "all_expressible": 0.1825,
+   "core": 0.2496,
+   "obl": 0.0181,
+   "obl_nmod": 0.0933,
+   "nmod": 0.1616,
+   "nmod_poss": 0.064,
+   "nmod_bare": 0.0909,
+   "nmod_unmarked": 0.5833,
+   "nmod_desc": 0.5556
+  },
+  "nmod_twin|gold": {
+   "all_expressible": 0.2773,
+   "core": 0.4536,
+   "obl": 0.0497,
+   "obl_nmod": 0.0472,
+   "nmod": 0.045,
+   "nmod_poss": 0.008,
+   "nmod_bare": 0.0734,
+   "nmod_unmarked": 0.0,
+   "nmod_desc": 0.0
+  },
+  "nmod_twin|live": {
+   "all_expressible": 0.282,
+   "core": 0.3921,
+   "obl": 0.0677,
+   "obl_nmod": 0.1363,
+   "nmod": 0.1984,
+   "nmod_poss": 0.192,
+   "nmod_bare": 0.1503,
+   "nmod_unmarked": 0.4,
+   "nmod_desc": 0.3333
   }
  },
  "deltas": {
@@ -235,6 +367,186 @@
    0.0,
    0.0
   ],
+  "nmod|gold|all_expressible": [
+   0.1601,
+   0.1439,
+   0.1768
+  ],
+  "nmod|gold|core": [
+   0.0017,
+   0.0,
+   0.0042
+  ],
+  "nmod|gold|obl": [
+   -0.0203,
+   -0.0339,
+   -0.009
+  ],
+  "nmod|gold|obl_nmod": [
+   0.3584,
+   0.3262,
+   0.3906
+  ],
+  "nmod|gold|nmod": [
+   0.7014,
+   0.6605,
+   0.7423
+  ],
+  "nmod|gold|nmod_poss": [
+   0.872,
+   0.808,
+   0.928
+  ],
+  "nmod|gold|nmod_bare": [
+   0.7902,
+   0.7413,
+   0.8357
+  ],
+  "nmod|gold|nmod_unmarked": [
+   0.1167,
+   0.05,
+   0.2
+  ],
+  "nmod|gold|nmod_desc": [
+   0.0556,
+   0.0,
+   0.1667
+  ],
+  "nmod|live|all_expressible": [
+   0.102,
+   0.0843,
+   0.1191
+  ],
+  "nmod|live|core": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "nmod|live|obl": [
+   -0.1693,
+   -0.2032,
+   -0.1354
+  ],
+  "nmod|live|obl_nmod": [
+   0.2296,
+   0.1931,
+   0.2682
+  ],
+  "nmod|live|nmod": [
+   0.591,
+   0.5501,
+   0.6339
+  ],
+  "nmod|live|nmod_poss": [
+   0.688,
+   0.608,
+   0.768
+  ],
+  "nmod|live|nmod_bare": [
+   0.6643,
+   0.6084,
+   0.7169
+  ],
+  "nmod|live|nmod_unmarked": [
+   0.2,
+   0.1,
+   0.3
+  ],
+  "nmod|live|nmod_desc": [
+   0.0556,
+   0.0,
+   0.1667
+  ],
+  "nmod_gen|gold|all_expressible": [
+   0.1558,
+   0.1396,
+   0.172
+  ],
+  "nmod_gen|gold|core": [
+   0.0008,
+   -0.0017,
+   0.0042
+  ],
+  "nmod_gen|gold|obl": [
+   -0.0203,
+   -0.0339,
+   -0.009
+  ],
+  "nmod_gen|gold|obl_nmod": [
+   0.3498,
+   0.3176,
+   0.382
+  ],
+  "nmod_gen|gold|nmod": [
+   0.6851,
+   0.6442,
+   0.726
+  ],
+  "nmod_gen|gold|nmod_poss": [
+   0.888,
+   0.832,
+   0.944
+  ],
+  "nmod_gen|gold|nmod_bare": [
+   0.7797,
+   0.7308,
+   0.8253
+  ],
+  "nmod_gen|gold|nmod_unmarked": [
+   0.0167,
+   0.0,
+   0.05
+  ],
+  "nmod_gen|gold|nmod_desc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "nmod_gen|live|all_expressible": [
+   0.1081,
+   0.0905,
+   0.1253
+  ],
+  "nmod_gen|live|core": [
+   0.0017,
+   -0.0017,
+   0.0051
+  ],
+  "nmod_gen|live|obl": [
+   -0.167,
+   -0.2032,
+   -0.1332
+  ],
+  "nmod_gen|live|obl_nmod": [
+   0.2414,
+   0.2049,
+   0.28
+  ],
+  "nmod_gen|live|nmod": [
+   0.6115,
+   0.5706,
+   0.6524
+  ],
+  "nmod_gen|live|nmod_poss": [
+   0.864,
+   0.8,
+   0.92
+  ],
+  "nmod_gen|live|nmod_bare": [
+   0.6538,
+   0.5979,
+   0.7063
+  ],
+  "nmod_gen|live|nmod_unmarked": [
+   0.05,
+   0.0,
+   0.1167
+  ],
+  "nmod_gen|live|nmod_desc": [
+   0.0556,
+   0.0,
+   0.1667
+  ],
   "nmod_gen_hsm_rel_vp|gold|all_expressible": [
    0.1782,
    0.1601,
@@ -325,92 +637,182 @@
    0.0,
    0.1667
   ],
-  "FULL|gold|all_expressible": [
-   0.1525,
-   0.1329,
-   0.171
+  "SHIP_hsglob|gold|all_expressible": [
+   0.1858,
+   0.1677,
+   0.2039
   ],
-  "FULL|gold|core": [
-   -0.0337,
-   -0.0489,
-   -0.0185
+  "SHIP_hsglob|gold|core": [
+   0.0135,
+   0.0025,
+   0.0245
   ],
-  "FULL|gold|obl": [
+  "SHIP_hsglob|gold|obl": [
    0.0271,
    0.0023,
    0.0519
   ],
-  "FULL|gold|obl_nmod": [
-   0.3863,
-   0.353,
-   0.4195
+  "SHIP_hsglob|gold|obl_nmod": [
+   0.4024,
+   0.3691,
+   0.4356
   ],
-  "FULL|gold|nmod": [
-   0.7117,
-   0.6708,
-   0.7505
+  "SHIP_hsglob|gold|nmod": [
+   0.7423,
+   0.7035,
+   0.7791
   ],
-  "FULL|gold|nmod_poss": [
+  "SHIP_hsglob|gold|nmod_poss": [
    0.928,
    0.88,
    0.968
   ],
-  "FULL|gold|nmod_bare": [
-   0.8077,
-   0.7587,
-   0.8531
+  "SHIP_hsglob|gold|nmod_bare": [
+   0.8531,
+   0.8112,
+   0.8916
   ],
-  "FULL|gold|nmod_unmarked": [
-   0.0167,
-   0.0,
-   0.05
-  ],
-  "FULL|gold|nmod_desc": [
-   0.0,
-   0.0,
-   0.0
-  ],
-  "FULL|live|all_expressible": [
-   0.1124,
-   0.0929,
-   0.132
-  ],
-  "FULL|live|core": [
-   -0.0194,
-   -0.032,
-   -0.0067
-  ],
-  "FULL|live|obl": [
-   -0.1422,
-   -0.1828,
-   -0.1016
-  ],
-  "FULL|live|obl_nmod": [
-   0.279,
-   0.2403,
-   0.3187
-  ],
-  "FULL|live|nmod": [
-   0.6605,
-   0.6196,
-   0.7014
-  ],
-  "FULL|live|nmod_poss": [
-   0.904,
-   0.848,
-   0.952
-  ],
-  "FULL|live|nmod_bare": [
-   0.7203,
-   0.6678,
-   0.7693
-  ],
-  "FULL|live|nmod_unmarked": [
+  "SHIP_hsglob|gold|nmod_unmarked": [
    0.05,
    0.0,
    0.1167
   ],
-  "FULL|live|nmod_desc": [
+  "SHIP_hsglob|gold|nmod_desc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "SHIP_hsglob|live|all_expressible": [
+   0.1267,
+   0.1077,
+   0.1453
+  ],
+  "SHIP_hsglob|live|core": [
+   0.0067,
+   -0.0017,
+   0.0152
+  ],
+  "SHIP_hsglob|live|obl": [
+   -0.158,
+   -0.2009,
+   -0.1174
+  ],
+  "SHIP_hsglob|live|obl_nmod": [
+   0.279,
+   0.2382,
+   0.3197
+  ],
+  "SHIP_hsglob|live|nmod": [
+   0.6748,
+   0.6339,
+   0.7157
+  ],
+  "SHIP_hsglob|live|nmod_poss": [
+   0.904,
+   0.848,
+   0.952
+  ],
+  "SHIP_hsglob|live|nmod_bare": [
+   0.7378,
+   0.6887,
+   0.7867
+  ],
+  "SHIP_hsglob|live|nmod_unmarked": [
+   0.0833,
+   0.0167,
+   0.1667
+  ],
+  "SHIP_hsglob|live|nmod_desc": [
+   0.0556,
+   0.0,
+   0.1667
+  ],
+  "SHIP_hsglob_goldtrain|gold|all_expressible": [
+   0.2311,
+   0.2115,
+   0.2496
+  ],
+  "SHIP_hsglob_goldtrain|gold|core": [
+   0.0422,
+   0.027,
+   0.0573
+  ],
+  "SHIP_hsglob_goldtrain|gold|obl": [
+   0.0971,
+   0.0677,
+   0.1287
+  ],
+  "SHIP_hsglob_goldtrain|gold|obl_nmod": [
+   0.4678,
+   0.4335,
+   0.5011
+  ],
+  "SHIP_hsglob_goldtrain|gold|nmod": [
+   0.8037,
+   0.7689,
+   0.8384
+  ],
+  "SHIP_hsglob_goldtrain|gold|nmod_poss": [
+   0.928,
+   0.88,
+   0.968
+  ],
+  "SHIP_hsglob_goldtrain|gold|nmod_bare": [
+   0.9406,
+   0.9126,
+   0.965
+  ],
+  "SHIP_hsglob_goldtrain|gold|nmod_unmarked": [
+   0.1,
+   0.0333,
+   0.1833
+  ],
+  "SHIP_hsglob_goldtrain|gold|nmod_desc": [
+   0.1111,
+   0.0,
+   0.2778
+  ],
+  "SHIP_hsglob_goldtrain|live|all_expressible": [
+   0.0724,
+   0.0524,
+   0.0924
+  ],
+  "SHIP_hsglob_goldtrain|live|core": [
+   -0.016,
+   -0.0304,
+   -0.0017
+  ],
+  "SHIP_hsglob_goldtrain|live|obl": [
+   -0.246,
+   -0.2912,
+   -0.2032
+  ],
+  "SHIP_hsglob_goldtrain|live|obl_nmod": [
+   0.1845,
+   0.1438,
+   0.2264
+  ],
+  "SHIP_hsglob_goldtrain|live|nmod": [
+   0.5746,
+   0.5317,
+   0.6176
+  ],
+  "SHIP_hsglob_goldtrain|live|nmod_poss": [
+   0.744,
+   0.664,
+   0.824
+  ],
+  "SHIP_hsglob_goldtrain|live|nmod_bare": [
+   0.6434,
+   0.5874,
+   0.6993
+  ],
+  "SHIP_hsglob_goldtrain|live|nmod_unmarked": [
+   0.05,
+   0.0,
+   0.1167
+  ],
+  "SHIP_hsglob_goldtrain|live|nmod_desc": [
    0.0556,
    0.0,
    0.1667
@@ -443,6 +845,65 @@
    "obl:agent": 13,
    "nsubj": 7
   },
+  "nmod|gold|conf_nmod": {
+   "nmod": 343,
+   "dep": 107,
+   "obl": 38,
+   "iobj": 1
+  },
+  "nmod|gold|conf_obl": {
+   "obl": 332,
+   "dep": 68,
+   "obl:agent": 20,
+   "obj": 18,
+   "nmod": 4,
+   "nsubj": 1
+  },
+  "nmod|live|conf_nmod": {
+   "nmod": 289,
+   "dep": 118,
+   "obl": 49,
+   "obj": 21,
+   "nsubj": 11,
+   "iobj": 1
+  },
+  "nmod|live|conf_obl": {
+   "obl": 257,
+   "nmod": 75,
+   "dep": 60,
+   "obj": 31,
+   "obl:agent": 13,
+   "nsubj": 7
+  },
+  "nmod_gen|gold|conf_nmod": {
+   "nmod": 335,
+   "dep": 112,
+   "obl": 41,
+   "nsubj": 1
+  },
+  "nmod_gen|gold|conf_obl": {
+   "obl": 332,
+   "dep": 68,
+   "obl:agent": 20,
+   "obj": 18,
+   "nmod": 4,
+   "nsubj": 1
+  },
+  "nmod_gen|live|conf_nmod": {
+   "nmod": 299,
+   "dep": 113,
+   "obl": 50,
+   "obj": 16,
+   "nsubj": 11
+  },
+  "nmod_gen|live|conf_obl": {
+   "obl": 258,
+   "dep": 68,
+   "nmod": 66,
+   "obj": 31,
+   "obl:agent": 13,
+   "nsubj": 7
+  },
   "nmod_gen_hsm_rel_vp|gold|conf_nmod": {
    "nmod": 350,
    "dep": 101,
@@ -471,32 +932,62 @@
    "obl:agent": 14,
    "nsubj": 4
   },
-  "FULL|gold|conf_nmod": {
-   "nmod": 348,
-   "dep": 102,
-   "obl": 39
+  "SHIP_hsglob|gold|conf_nmod": {
+   "nmod": 363,
+   "dep": 96,
+   "obl": 28,
+   "nsubj": 2
   },
-  "FULL|gold|conf_obl": {
-   "obl": 353,
-   "dep": 43,
-   "obl:agent": 20,
-   "obj": 19,
-   "nmod": 8
-  },
-  "FULL|live|conf_nmod": {
-   "nmod": 323,
-   "dep": 92,
-   "obl": 49,
+  "SHIP_hsglob|gold|conf_obl": {
+   "obl": 351,
+   "dep": 46,
+   "obl:agent": 21,
    "obj": 18,
-   "nsubj": 7
+   "nmod": 7
   },
-  "FULL|live|conf_obl": {
-   "obl": 267,
-   "nmod": 76,
-   "dep": 59,
-   "obj": 26,
+  "SHIP_hsglob|live|conf_nmod": {
+   "nmod": 330,
+   "dep": 88,
+   "obl": 43,
+   "obj": 19,
+   "nsubj": 9
+  },
+  "SHIP_hsglob|live|conf_obl": {
+   "obl": 258,
+   "nmod": 89,
+   "dep": 48,
+   "obj": 28,
+   "obl:agent": 15,
+   "nsubj": 5
+  },
+  "SHIP_hsglob_goldtrain|gold|conf_nmod": {
+   "nmod": 393,
+   "dep": 88,
+   "obl": 8
+  },
+  "SHIP_hsglob_goldtrain|gold|conf_obl": {
+   "obl": 382,
+   "obl:agent": 21,
+   "dep": 19,
+   "obj": 16,
+   "nmod": 3,
+   "nsubj": 2
+  },
+  "SHIP_hsglob_goldtrain|live|conf_nmod": {
+   "nmod": 281,
+   "dep": 112,
+   "obl": 58,
+   "obj": 18,
+   "nsubj": 13,
+   "iobj": 7
+  },
+  "SHIP_hsglob_goldtrain|live|conf_obl": {
+   "obl": 220,
+   "nmod": 114,
+   "dep": 61,
+   "obj": 29,
    "obl:agent": 14,
-   "nsubj": 1
+   "nsubj": 5
   }
  }
 }

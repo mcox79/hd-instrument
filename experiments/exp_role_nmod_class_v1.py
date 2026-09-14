@@ -393,7 +393,8 @@ def _converges(toks, pos, heads, i):
 
 
 def build_counts(rows, classes, gen, poss="NMOD", min_conf=MIN_CONF, perceived=True, hostsurf=False,
-                 post_accrual=False, converge_gate=False, brk=False, relcl=False, vprep=False, edge=False):
+                 post_accrual=False, converge_gate=False, brk=False, relcl=False, vprep=False, edge=False,
+                 converge_beta=1.0, hs_global=False):
     """Accrue the Competition-Model counts from READING: for every argument-head nominal the governor believed it
     attached (reliability gate), one decision teaches the configuration and every fired cue value.
 
@@ -426,6 +427,11 @@ def build_counts(rows, classes, gen, poss="NMOD", min_conf=MIN_CONF, perceived=T
                 continue
             if converge_gate and conf is not None and not _converges(toks, pos, heads, i):
                 continue
+            if converge_beta != 1.0 and conf is not None and not _converges(toks, pos, heads, i):
+                # RELIABILITY WEIGHTING, NOT A GATE (Ernst & Banks 2002). The hard gate failed because it DISCARDED
+                # the conflicts that set the relative validity of the two cues (22.6% of decisions). Down-WEIGHTING a
+                # conflicted experience keeps it in the competition while trusting it less.
+                w *= converge_beta
             dec += w
             g = ix[coarse_of(rels[i - 1], classes, poss)]
             prior[g] += w
@@ -445,8 +451,16 @@ def build_counts(rows, classes, gen, poss="NMOD", min_conf=MIN_CONF, perceived=T
                 ww = w * (p / tot)
                 cfg = cu["config"]; cfg_c[cfg][g] += ww
                 for c, v in cu.items():
-                    if c != "config":
-                        cue_c[c][f"{cfg}|{v}"][g] += ww
+                    if c == "config":
+                        continue
+                    # ARC-INDEPENDENT READING (hs_global): a cue whose whole purpose is to survive a WRONG arc must
+                    # not be read INSIDE the arc's configuration -- conditioned on cfg its contrast is looked up in the
+                    # wrong row exactly when the governor mis-attached. Keyed on GLOBAL its strength is the
+                    # unconditioned log P(role|value) - log P(role).
+                    key = ("GLOBAL|" + v) if (hs_global and c == "hostsurf") else (cfg + "|" + v)
+                    cue_c[c][key][g] += ww
+    if hs_global:
+        cfg_c["GLOBAL"] = list(prior)          # the unconditioned base distribution the GLOBAL contrasts are read against
     return {"prior": prior, "config": dict(cfg_c),
             "cues": {c: dict(v) for c, v in cue_c.items()},
             "slot_capacity": slot_capacity_from(rows, classes),
@@ -474,7 +488,7 @@ def twin_table(tab, seed=17):
 
 
 # ----------------------------------------------------------------------------------------------- the reader
-def label_sent(toks, pos, heads, tab, classes, deps, gen, conf=None, hostsurf=False, brk=False, relcl=False, vprep=False, edge=False):
+def label_sent(toks, pos, heads, tab, classes, deps, gen, conf=None, hostsurf=False, brk=False, relcl=False, vprep=False, edge=False, hs_global=False):
     """The organ's read, with the cell's class space: additive cue activation -> MAP (GRA's own supports math)."""
     out = {}
     for i in range(1, len(toks) + 1):
@@ -489,7 +503,8 @@ def label_sent(toks, pos, heads, tab, classes, deps, gen, conf=None, hostsurf=Fa
         for c, val in cu.items():
             if c == "config":
                 continue
-            v = tab["strength"].get(c, {}).get(f"{cfg}|{val}")
+            key = ("GLOBAL|" + val) if (hs_global and c == "hostsurf") else (cfg + "|" + val)
+            v = tab["strength"].get(c, {}).get(key)
             if v is not None:
                 S[c] = v
         A = np.asarray(net_activation(S, {c: 1.0 for c in S}), dtype=float)
@@ -497,7 +512,7 @@ def label_sent(toks, pos, heads, tab, classes, deps, gen, conf=None, hostsurf=Fa
     return out
 
 
-def read_all(rows, tab, classes, deps, gen, heads_source, hostsurf=False, brk=False, relcl=False, vprep=False, edge=False):
+def read_all(rows, tab, classes, deps, gen, heads_source, hostsurf=False, brk=False, relcl=False, vprep=False, edge=False, hs_global=False):
     """heads_source: 'gold' (the labels rung's own ceiling) | 'live' (the frontend Parser's in-order tree)."""
     preds = []
     for r in rows:
@@ -506,7 +521,7 @@ def read_all(rows, tab, classes, deps, gen, heads_source, hostsurf=False, brk=Fa
             pos, heads, conf = r["gpos"], r["gheads"], None
         else:
             pos, heads, conf = r["ppos"], r["pheads"], r["conf"]
-        preds.append(label_sent(toks, pos, heads, tab, classes, deps, gen, conf, hostsurf, brk, relcl, vprep, edge))
+        preds.append(label_sent(toks, pos, heads, tab, classes, deps, gen, conf, hostsurf, brk, relcl, vprep, edge, hs_global))
     return preds
 
 
@@ -624,7 +639,16 @@ def arms_for(tr, te, out_dir, sweep=False):
             ("nmod_gen_hsm", ROLES8, DEP8, True, "marked", {}),
             ("nmod_gen_hsm_rel", ROLES8, DEP8, True, "marked", {"relcl": True}),
             ("nmod_gen_hsm_rel_vp", ROLES8, DEP8, True, "marked", {"relcl": True, "vprep": True}),
-            ("FULL", ROLES8, DEP8, True, "marked", {"relcl": True, "vprep": True, "edge": True})]
+            ("FULL", ROLES8, DEP8, True, "marked", {"relcl": True, "vprep": True, "edge": True}),
+            ("SHIP_b50", ROLES8, DEP8, True, "marked", {"relcl": True, "vprep": True, "converge_beta": 0.5}),
+            ("SHIP_b25", ROLES8, DEP8, True, "marked", {"relcl": True, "vprep": True, "converge_beta": 0.25}),
+            ("SHIP_b75", ROLES8, DEP8, True, "marked", {"relcl": True, "vprep": True, "converge_beta": 0.75}),
+            ("SHIP_hsglob", ROLES8, DEP8, True, "marked", {"relcl": True, "vprep": True, "hs_global": True}),
+            ("SHIP_hsglob_b50", ROLES8, DEP8, True, "marked", {"relcl": True, "vprep": True, "hs_global": True,
+                                                               "converge_beta": 0.5}),
+            # UPSTREAM ORACLE for the SHIPPED cue set (diagnostic only -- it reads the gold tree at learning time)
+            ("SHIP_hsglob_goldtrain", ROLES8, DEP8, True, "marked", {"relcl": True, "vprep": True, "hs_global": True,
+                                                                     "perceived": False})]
     if sweep:
         spec += [("nmod_gen_possOTHER", ROLES8, DEP8, True, False, {"poss": "OTHER"}),
                  # UPSTREAM ORACLE ABLATION (diagnostic, NOT shippable: it reads the gold tree at learning time) --
@@ -640,7 +664,8 @@ def arms_for(tr, te, out_dir, sweep=False):
             continue
         t0 = time.time()
         arms[name] = (classes, deps, gen, hs, bool(kw.get("brk")), bool(kw.get("relcl")), bool(kw.get("vprep")),
-                      bool(kw.get("edge")), build_counts(tr, classes, gen=gen, hostsurf=hs, **kw))
+                      bool(kw.get("edge")), bool(kw.get("hs_global")),
+                      build_counts(tr, classes, gen=gen, hostsurf=hs, **kw))
         print("[build] %s %.0fs" % (name, time.time() - t0), flush=True)
     return arms
 
@@ -761,7 +786,7 @@ def main(argv):
     if "--diag" in argv:
         return diag(tr, te, pops, out_dir)
     if "--emit" in argv:
-        counts = build_counts(tr, ROLES8, gen=True, hostsurf="marked", relcl=True, vprep=True, edge=True)
+        counts = build_counts(tr, ROLES8, gen=True, hostsurf="marked", relcl=True, vprep=True, hs_global=True)
         lf = counts.pop("_lemma_frames"); dec = counts.pop("_decisions")
         with role_space(ROLES8, DEP8):
             b = GRA.strengths_from_counts(counts)
@@ -788,16 +813,16 @@ def main(argv):
             _ARMS_ONLY = a.split("=", 1)[1].split(",")
     arms = arms_for(tr, te, out_dir, sweep=sweep)
     res = {}; acc = {}
-    for name, (classes, deps, gen, hsf, bk, rc, vp, eg, counts) in arms.items():
+    for name, (classes, deps, gen, hsf, bk, rc, vp, eg, hg, counts) in arms.items():
         tab = table_from_counts(counts, classes)
         for hs in ("gold", "live"):
-            preds = read_all(te, tab, classes, deps, gen, hs, hsf, bk, rc, vp, eg)
+            preds = read_all(te, tab, classes, deps, gen, hs, hsf, bk, rc, vp, eg, hg)
             acc[(name, hs)] = score(te, preds, pops)
             res[(name, hs, "conf_nmod")] = confusion(te, preds, "nmod")
             res[(name, hs, "conf_obl")] = confusion(te, preds, "obl")
         tw = twin_table(tab)
         for hs in ("gold", "live"):
-            preds = read_all(te, tw, classes, deps, gen, hs, hsf, bk, rc, vp, eg)
+            preds = read_all(te, tw, classes, deps, gen, hs, hsf, bk, rc, vp, eg, hg)
             acc[(name + "_twin", hs)] = score(te, preds, pops)
         print("[arm] %s done" % name, flush=True)
 

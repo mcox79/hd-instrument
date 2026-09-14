@@ -1,5 +1,5 @@
 diff --git a/hdlab/graded_role_assigner.py b/hdlab/graded_role_assigner.py
-index 4cb62442e..a8ed39ff1 100644
+index 4cb62442e..20a717ea4 100644
 --- a/hdlab/graded_role_assigner.py
 +++ b/hdlab/graded_role_assigner.py
 @@ -39,7 +39,7 @@ from __future__ import annotations
@@ -24,15 +24,15 @@ index 4cb62442e..a8ed39ff1 100644
 +# case marker English puts to the nominal's RIGHT (see `genitive_value`). NMOD is deliberately NOT in ROLE_TO_SLOT: a noun
 +# takes many modifiers, so the class is UNCAPPED in the joint frame-slot decode, like OBL and OTHER.
 +# MEASURED (UD-EWT test 700, subtype-preserving gold, live-chain perceived accrual, paired item bootstrap over items):
-+#   GOLD heads -- gold nmod 0.0000 -> 0.7157 (+0.7157 CI[+0.6748,+0.7546]); gold obl 0.8081 -> 0.8397 (+0.0316
-+#     CI[+0.0045,+0.0564], UP); obl+nmod 0.3841 -> 0.7747; all expressible nominals 0.6746 -> 0.8528 (+0.1782 CI-sep);
-+#     CORE arguments 0.9073 -> 0.9157 (+0.0084 n.s., not down).
-+#   LIVE heads (hdlab.frontend Parser, attachment arm, in-order MBR tree) -- gold nmod 0.0000 -> 0.6667 (+0.6667
-+#     CI-sep); all expressible nominals 0.5774 -> 0.7061 (+0.1286 CI[+0.1101,+0.1472]); obl+nmod 0.3637 -> 0.6513;
-+#     CORE 0.7445 -> 0.7470 (+0.0025 n.s.); gold obl -0.1309 CI-sep, of which 63 of 67 flips have a WRONG live head
++#   GOLD heads -- gold nmod 0.0000 -> 0.7423 (+0.7423 CI[+0.7035,+0.7791]); gold obl 0.8081 -> 0.8352 (+0.0271
++#     CI[+0.0023,+0.0519], UP); obl+nmod 0.3841 -> 0.7865 (+0.4024 CI-sep); all expressible nominals 0.6746 -> 0.8604
++#     (+0.1858 CI[+0.1677,+0.2039]); CORE arguments 0.9073 -> 0.9207 (+0.0135 CI[+0.0025,+0.0245], CI-separated UP).
++#   LIVE heads (hdlab.frontend Parser, attachment arm, in-order MBR tree) -- gold nmod 0.0000 -> 0.6748 (+0.6748
++#     CI-sep); all expressible nominals 0.5774 -> 0.7041 (+0.1267 CI[+0.1077,+0.1453]); obl+nmod 0.3637 -> 0.6427;
++#     CORE 0.7445 -> 0.7513 (+0.0067 n.s.); gold obl -0.1580 CI-sep, of which ~92% of flips have a WRONG live head
 +#     (the floor scored those right by accident: with no NMOD class it called every case-marked nominal `obl`).
 +# Info-free twin (strengths permuted across cue values) CI-separated below in every population and both arms.
-+# Restricted to the two-way OBL-vs-NMOD readout the 0.9813 host-category figure measures, the organ is 0.9088 (n=932).
++# Restricted to the two-way OBL-vs-NMOD readout the 0.9813 host-category figure measures, the organ is 0.8970 (n=932).
 +ROLE_CLASSES = ["SUBJ", "OBJ", "PASS_SUBJ", "BY_AGENT", "OBL", "OTHER", "IOBJ", "NMOD"]
  ROLE_TO_DEP = {"SUBJ": "nsubj", "OBJ": "obj", "PASS_SUBJ": "nsubj:pass", "BY_AGENT": "obl:agent", "OBL": "obl", "OTHER": "dep",
 -               "IOBJ": "iobj"}
@@ -40,7 +40,7 @@ index 4cb62442e..a8ed39ff1 100644
  # VERB-FRAME SLOTS with capacity ONE per verb (owner-DONE pri 93, 2026-09-13; solver diff landed): cue-based retrieval over the
  # verb's frame (Lewis & Vasishth 2005) -- a filled slot lowers its availability for a second same-type filler. SUBJ and PASS_SUBJ
  # share the one SUBJECT slot (a clause has one subject whichever voice). OBL / OTHER are UNCAPPED (a verb takes many adjuncts).
-@@ -409,6 +426,83 @@ _POSS_MARK = frozenset({"'s", "'", "s'", "’s", "’"})
+@@ -409,6 +426,84 @@ _POSS_MARK = frozenset({"'s", "'", "s'", "’s", "’"})
  _WHREL = frozenset({"who", "whom", "whose", "which", "that", "what", "where", "when", "why"})
  
  
@@ -59,9 +59,10 @@ index 4cb62442e..a8ed39ff1 100644
 +#     genitive-marked nominal's licensor is the FOLLOWING head; a GENITIVE to the left is skipped, because a genitive
 +#     stands in determiner position and modifies the nominal rather than licensing it. Alone this cue is 0.707 on the
 +#     obl/nmod population (vs 0.9796 for the arc-bound gold-head rule): HIGH availability, MODERATE reliability --
-+#     which is what a Competition-Model cue is. Added to the competition, never used as a rule, and read ONLY where
-+#     there is a case marker to interpret. Measured: it is what turns the class's obl regression into a gain
-+#     (gold obl 0.7878 -> 0.8397, i.e. -0.0203 CI-sep below floor -> +0.0316 CI-sep ABOVE it).
++#     which is what a Competition-Model cue is. Added to the competition, never used as a rule, read ONLY where there is
++#     a case marker to interpret, and read ARC-INDEPENDENTLY (the GLOBAL key -- see coarse_role_supports). Measured: it is what turns
++#     the class's obl regression into a gain (gold obl 0.7878 -> 0.8352, i.e. -0.0203 CI-sep below the floor ->
++#     +0.0271 CI-sep ABOVE it) and what takes CORE arguments CI-separated UP (+0.0135 CI[+0.0025,+0.0245]).
 +#   * A RELATIVE PRONOUN IS NOT CASE-MARKED FROM THE LEFT, and A PHRASAL VERB IS A STORED LEXICAL ITEM -- see (b) and
 +#     (d) in coarse_role_cues. Both were found by tracing the CORE-argument losses the licensor cue exposed: 6
 +#     relative-clause subjects read as nmod and 8 objects read as obl (the particle of "worked OUT a deal").
@@ -124,7 +125,7 @@ index 4cb62442e..a8ed39ff1 100644
  def is_arg_head(toks: Sequence[str], pos: Sequence[str], i: int, extra=EXTRA_ARG) -> bool:
      """Is token i (1-based) the HEAD of an argument phrase? NOUN/PROPN/PRON always (the pre-v3 population, unchanged);
      a NUM / ADJ / DET / SYM / X only when it is NOT an NP-internal modifier -- the Right-hand Head Rule (Williams 1981)
-@@ -508,7 +602,7 @@ def _prep_of(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int], i:
+@@ -508,7 +603,7 @@ def _prep_of(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int], i:
  
  def coarse_role_cues(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int], i: int,
                       frames: Optional[Dict[str, Sequence[int]]] = None, v3: bool = False,
@@ -133,7 +134,7 @@ index 4cb62442e..a8ed39ff1 100644
      """Categorical cue VALUES for nominal token i (1-based) given its governing head (1-based, 0 = root).
      Reads toks / pos / heads only (no gold, no labels). Each value is a key into the learned validity table.
      v3=False (default) -> byte-identical to the pre-2026-09-13 cue set. v3=True -> the pri-103 cue set (see the CUE
-@@ -635,11 +729,40 @@ def coarse_role_cues(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, i
+@@ -635,11 +730,41 @@ def coarse_role_cues(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, i
              cues["frame"] = "unk"
      else:
          cues["frame"] = "na"
@@ -170,11 +171,12 @@ index 4cb62442e..a8ed39ff1 100644
      return cues
  
  
++_GLOBAL_CUES = frozenset({"hostsurf"})   # cues read UNCONDITIONALLY (key "GLOBAL|value"), not within the arc's configuration
 +_CLASS_ABSENT = -60.0      # log-prior of a class the loaded asset never accrued (it can never win the argmax)
  _VALIDITY_ALPHA = 0.5      # add-alpha on the configuration distributions
  _VALIDITY_M_SHRINK = 2.0   # Dirichlet pseudo-counts centring a cue value's distribution on its configuration's
  # HIERARCHICAL CONFIGURATION BACKOFF (pri 103 round 2; 0.0 = the pre-2026-09-13 maths, byte-identical). Every
-@@ -670,7 +793,11 @@ def strengths_from_counts(counts: Dict[str, object], m_config: float = 0.0) -> D
+@@ -670,7 +795,11 @@ def strengths_from_counts(counts: Dict[str, object], m_config: float = 0.0) -> D
      prior = log P(role); config strength = log P(role|config) - log P(role); cue contrast = log P(role|config,value) -
      log P(role|config) with a Dirichlet prior centred on the configuration (m pseudo-counts); a value that ALWAYS fires within
      its configuration carries no information -> exactly 0. counts = {"prior": [K], "config": {cfg: [K]}, "cues": {cue: {"cfg|value": [K]}}}."""
@@ -187,7 +189,7 @@ index 4cb62442e..a8ed39ff1 100644
      prior = np.asarray(counts["prior"], dtype=float); dec = prior.sum()
      logprior = np.log((prior + a) / (dec + a * K))
      par = {}
-@@ -709,9 +836,31 @@ def strengths_from_counts(counts: Dict[str, object], m_config: float = 0.0) -> D
+@@ -709,9 +838,31 @@ def strengths_from_counts(counts: Dict[str, object], m_config: float = 0.0) -> D
              else:
                  probs = (v + m * base) / (n + m)
                  strength[cue][key] = np.log(probs) - np.log(base)
@@ -219,7 +221,7 @@ index 4cb62442e..a8ed39ff1 100644
  def observe_role_outcome(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int], i: int, role: str,
                           table: Optional[Dict[str, object]] = None) -> None:
      """PLASTICITY (owner 2026-09-12: learning is never frozen): accrue ONE comprehension outcome -- nominal i was understood
-@@ -722,7 +871,9 @@ def observe_role_outcome(toks: Sequence[str], pos: Sequence[str], heads: Dict[in
+@@ -722,13 +873,19 @@ def observe_role_outcome(toks: Sequence[str], pos: Sequence[str], heads: Dict[in
      if "counts" not in tab or not tab["counts"]:
          raise ValueError("this validity table carries no counts (rebuild it with tools/build_coarse_role_validities.py)")
      K = len(ROLE_CLASSES); k = ROLE_CLASSES.index(role)
@@ -230,7 +232,18 @@ index 4cb62442e..a8ed39ff1 100644
      c = tab["counts"]; cfg = cues["config"]
      c["prior"][k] += 1
      c["config"].setdefault(cfg, [0] * K)[k] += 1
-@@ -760,11 +911,14 @@ def load_coarse_validities(path: Optional[str] = None) -> Dict[str, object]:
+     for cue, val in cues.items():
+         if cue != "config":
+-            c["cues"].setdefault(cue, {}).setdefault(cfg + "|" + val, [0] * K)[k] += 1
++            key = ("GLOBAL|" + val) if cue in _GLOBAL_CUES else (cfg + "|" + val)
++            c["cues"].setdefault(cue, {}).setdefault(key, [0] * K)[k] += 1
++    if _GLOBAL_CUES & set(cues):                 # the unconditioned base the GLOBAL contrasts are read against
++        g = c["config"].setdefault("GLOBAL", [0] * K)
++        g[k] += 1
+     new = strengths_from_counts(c)
+     tab["prior"] = new["prior"]; tab["strength"] = new["strength"]
+ 
+@@ -760,11 +917,14 @@ def load_coarse_validities(path: Optional[str] = None) -> Dict[str, object]:
          tab = {"prior": built["prior"], "strength": built["strength"], "counts": doc["counts"],
                 "lemma_frames": doc.get("lemma_frames", {})}
      else:
@@ -248,7 +261,7 @@ index 4cb62442e..a8ed39ff1 100644
      if path is None:
          _COARSE_VALIDITIES_CACHE = tab
      return tab
-@@ -776,7 +930,8 @@ def coarse_role_supports(toks: Sequence[str], pos: Sequence[str], heads: Dict[in
+@@ -776,7 +936,8 @@ def coarse_role_supports(toks: Sequence[str], pos: Sequence[str], heads: Dict[in
      """Per-cue support vectors over ROLE_CLASSES for nominal i: the learned strength vector of each fired cue value
      (plus the role prior). A cue value never seen in training contributes nothing (abstains)."""
      tab = validities or load_coarse_validities()
@@ -258,7 +271,21 @@ index 4cb62442e..a8ed39ff1 100644
      S: Dict[str, np.ndarray] = {"prior": tab["prior"]}
      cfg = cues["config"]
      vec = tab["strength"].get("config", {}).get(cfg)
-@@ -948,7 +1103,7 @@ def coarse_roles(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int],
+@@ -788,7 +949,12 @@ def coarse_role_supports(toks: Sequence[str], pos: Sequence[str], heads: Dict[in
+         # every secondary cue is read WITHIN its configuration (head class x order): its strength is the CONTRAST
+         # log P(role | config, value) - log P(role | config), so an uninformative/absent value contributes ~0 and the
+         # majority class is not double-counted across redundant cues (the v2-naive table misfiled OBJ as OBL 1031x)
+-        vec = tab["strength"].get(c, {}).get(f"{cfg}|{v}")
++        # -- EXCEPT the arc-free LICENSOR cue (pri 108), which is read ARC-INDEPENDENTLY under the GLOBAL key:
++        # log P(role | value) - log P(role). A cue whose whole purpose is to survive a WRONG arc must not be looked up
++        # INSIDE the arc's configuration, because that is the wrong row exactly when the governor mis-attached.
++        # Measured (UD-EWT test 700, gold heads): conditioned 0.7157 nmod / 0.9157 core, GLOBAL 0.7423 / 0.9207
++        # (core +0.0135 CI[+0.0025,+0.0245] over the floor -- CI-separated UP, not merely not-down).
++        vec = tab["strength"].get(c, {}).get(("GLOBAL|" + v) if c in _GLOBAL_CUES else f"{cfg}|{v}")
+         if vec is not None:
+             S[c] = vec
+     return S
+@@ -948,7 +1114,7 @@ def coarse_roles(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int],
      head_posterior = {dep: {head: P}} (optional, from the attachment arm): the role read is then MARGINALISED over the
      head posterior (coarse_role_posterior_headmarg) -- the graded hand-off; None = the hard head (byte-identical to before)."""
      tab = validities or load_coarse_validities()
@@ -304,7 +331,7 @@ index 669016caa..2b9e154a1 100644
          elif _in_competition_space(out.get(i)):
              out[i] = "dep"                     # the competition says NOT an argument; the perceptron's in-space label goes
 diff --git a/tools/build_coarse_role_validities.py b/tools/build_coarse_role_validities.py
-index 00c32d484..e74af7ed9 100644
+index 00c32d484..0cb656be7 100644
 --- a/tools/build_coarse_role_validities.py
 +++ b/tools/build_coarse_role_validities.py
 @@ -46,6 +46,16 @@ def coarse_of(dep: str) -> str:
@@ -341,7 +368,7 @@ index 00c32d484..e74af7ed9 100644
      K = len(GRA.ROLE_CLASSES)
      ix = {r: k for k, r in enumerate(GRA.ROLE_CLASSES)}
      cfg_counts = defaultdict(lambda: [0] * K)                      # config value -> role counts
-@@ -140,7 +154,7 @@ def main():
+@@ -140,12 +154,16 @@ def main():
              decisions += w
              g = ix[coarse_of(deps.get(i))]
              prior[g] += w
@@ -350,7 +377,17 @@ index 00c32d484..e74af7ed9 100644
              cfg = cues["config"]
              cfg_counts[cfg][g] += w
              for cue, val in cues.items():
-@@ -192,14 +206,14 @@ def main():
+                 if cue != "config":
+-                    counts[cue][f"{cfg}|{val}"][g] += w
++                    # the arc-free LICENSOR is accrued UNCONDITIONALLY (pri 108) -- see graded_role_assigner
++                    key = ("GLOBAL|" + val) if cue in GRA._GLOBAL_CUES else f"{cfg}|{val}"
++                    counts[cue][key][g] += w
++            if v4:
++                cfg_counts["GLOBAL"][g] += w
+     # SLOT CAPACITY (verb-frame occupancy knowledge, in counts; owner-DONE pri 93): per core slot, how many verb tokens have >= 1
+     # filler (n1) and >= 2 fillers (n2). lambda = -log P(2nd | >= 1) is a pure function of these (organ side, _slot_capacity).
+     from collections import Counter as _Counter
+@@ -192,14 +210,14 @@ def main():
             "strength": strength, "audit": audit, "lemma_frames": lemma_frames, "counts": counts_doc}
      doc["perceived"] = perceived; doc["confidence_weighted"] = bool(perceived and weighted)
      if v3:

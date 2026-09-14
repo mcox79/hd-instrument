@@ -3,7 +3,7 @@
  "labels": {
   "The storm flooded the village .": {
    "The": "det",
-   "storm": "dep",
+   "storm": "nsubj",
    "flooded": "root",
    "the": "det",
    "village": "obj",
@@ -39,7 +39,7 @@
  "typed": [
   [
    "0",
-   "",
+   "storm",
    "flood",
    "village",
    "CAUSE"
