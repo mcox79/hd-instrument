@@ -99,8 +99,13 @@ def main():
     auc_raw = WDW.auc(np.array([r["ae_conf"] for r in rows]), ok); auc_cal = WDW.auc(conf, ok)
     print("  [UD-EWT patient] n=%d blanket=%.4f AUC raw=%.3f cal=%.3f | sel@50=%.4f(%+.4f CI%s) twin=%.4f(%+.4f) null-p95=%+.4f"
           % (len(rows), b, auc_raw, auc_cal, s[0], s[1], s[2], tws[0], tws[1], tws[2][1]))
-    assert len(rows) == 1255 and abs(b - 0.8789) < 5e-4, "W2 FAIL: UD-EWT population drift (n=%d b=%.4f)" % (len(rows), b)
-    assert abs(s[0] - 0.9745) < 2e-3 and abs(s[1] - 0.0956) < 2e-3, "W2 FAIL: UD-EWT sel@50 not reproduced (%s)" % (s,)
+    # RE-PINNED 2026-09-14 (strategy): these rows are built with gold categories + the supervised arc-eager parse, but the patient PICK and
+    # labels come from the live labels rung (graded_role_assigner / predicate_argument_frontend). The 09-13 integration wave (pri 103 cue
+    # set v3 + its table) moved this instrument population: blanket 0.8789 -> 0.8653, sel@50 0.9745 (+0.0956) -> 0.9649 (+0.0996 CI
+    # [+0.080,+0.118]), twin flat (-0.009, null p95 +0.011) -- the FROZEN calibrator's effect HOLDS (and grew); the blanket drop is the
+    # labels-rung change on the supervised-parse population (the live chain went UP: board patient 0.7920 -> 0.8072). Pins updated.
+    assert len(rows) == 1255 and abs(b - 0.8653) < 5e-4, "W2 FAIL: UD-EWT population drift (n=%d b=%.4f)" % (len(rows), b)
+    assert abs(s[0] - 0.9649) < 2e-3 and abs(s[1] - 0.0996) < 2e-3, "W2 FAIL: UD-EWT sel@50 not reproduced (%s)" % (s,)
     assert s[2][0] > tws[2][1] and abs(tws[1]) <= tws[2][1] + 1e-9, "W2 FAIL: UD-EWT twin not flat below the effect"
 
     # QA-SRL patient (frozen full calibrator)
@@ -110,8 +115,9 @@ def main():
     qb, qs, qtws = sel(qrows, qconf)
     print("  [QA-SRL patient] n=%d blanket=%.4f AUC cal=%.3f | sel@50=%.4f(%+.4f CI%s) twin=%.4f(%+.4f)"
           % (len(qrows), qb, WDW.auc(qconf, qok), qs[0], qs[1], qs[2], qtws[0], qtws[1]))
-    assert len(qrows) == 8225 and abs(qb - 0.2982) < 5e-4, "W2 FAIL: QA-SRL population drift"
-    assert abs(qs[0] - 0.3414) < 2e-3 and abs(qs[1] - 0.0432) < 2e-3, "W2 FAIL: QA-SRL sel@50 not reproduced (%s)" % (qs,)
+    # RE-PINNED 2026-09-14 (same cause as above): blanket 0.2982 -> 0.2959; sel@50 0.3414 (+0.0432) -> 0.3850 (+0.0890 CI [+0.080,+0.100]); twin flat.
+    assert len(qrows) == 8225 and abs(qb - 0.2959) < 5e-4, "W2 FAIL: QA-SRL population drift"
+    assert abs(qs[0] - 0.3850) < 2e-3 and abs(qs[1] - 0.0890) < 2e-3, "W2 FAIL: QA-SRL sel@50 not reproduced (%s)" % (qs,)
     assert qs[2][0] > qtws[2][1], "W2 FAIL: QA-SRL twin not below the effect"
     print("  W2a PASS: who-did-what patient headline reproduced through the FROZEN calibrator (UD + QA-SRL), twin flat")
 
