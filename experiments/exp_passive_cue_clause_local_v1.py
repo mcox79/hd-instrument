@@ -1024,8 +1024,10 @@ def self_test():
         ck("the patched arc_labeler still accepts voice_correction= (no caller churns)",
            "voice_correction: " in _al)
         _s, _rr = _apply(os.path.join(REPO, "hdlab", "relcl_resolver.py"), _RELCL_EDITS)
-        ck("the patched precise_passive delegates to the one organ",
-           "return bool(is_passive_predicate(toks, pos, v))" in _rr)
+        ck("the patched precise_passive asks the one organ FIRST",
+           "if is_passive_predicate(toks, pos, v):" in _rr and "        return True" in _rr)
+        ck("and it is a STRICT SUPERSET of the pre-fold condition (nothing it used to catch is lost)",
+           "has_be and _is_participle(toks[v - 1], vtag)" in _rr)
     except SystemExit as e:
         ck("patch anchors still match the live files", False, str(e)[:300])
 
@@ -1118,9 +1120,12 @@ _AL_HEAD_OLD = 'VOICE_CORRECTION: bool = True     # the LIVE default (owner-DONE
 _AL_HEAD_NEW = '# RETIRED 2026-09-14 (pri 111): `VOICE_CORRECTION` / `_BE_AUX` / `label_voice_correct` are DELETED. They were a\n# SIXTH implementation of the voice cue (an aux CHILD of the head plus an `ed`/`en` suffix), and they are DEAD on\n# the live path: counted on UD-EWT test 700, the correction changes 25 labels with the competition OFF and\n# EXACTLY ZERO with `COMPETITION_ROLES` live -- the Competition-Model organ below already decides every label it\n# would have changed, and decides it from a better voice read. The `voice_correction` keyword survives on\n# `label()` (accepted, ignored) so that no caller churns; it now truthfully names a step that does not exist.\n'
 _AL_BODY_OLD = '        use = VOICE_CORRECTION if voice_correction is None else voice_correction\n        out = label_voice_correct(tokens, pos, heads, out) if use else out\n        use_cm = COMPETITION_ROLES if competition_roles is None else competition_roles\n'
 _AL_BODY_NEW = '        # pri 111: the voice post-correction is retired (see the note above); `voice_correction` is ignored.\n        use_cm = COMPETITION_ROLES if competition_roles is None else competition_roles\n'
+_PP_SUPERSET_OLD = '    return bool(is_passive_predicate(toks, pos, v))\n'
+_PP_SUPERSET_NEW = "    if is_passive_predicate(toks, pos, v):\n        return True\n    # WIDENED 2026-09-14 16:40 to a STRICT SUPERSET, by the same construction-population check that repaired\n    # the byhead gate. Measured on UD-EWT test (2605 predicates, 126 gold passive, live chain): the organ read\n    # ALONE loses 3 true passives this condition caught -- `especially oriented`, `was surprised`, `never been\n    # disappointed` -- all three because the CATEGORY organ tags the participle ADJ, so the voice cue abstains\n    # one rung above. Keeping the old window+suffix condition as a SECOND route recovers them: true positives\n    # 117 -> 120 for 5 more false fires, and at the consumer (the board's who-did-what PATIENT row, by the\n    # board's own function) the model is 0.8135 pre-fold / 0.8151 organ-only / 0.8167 here, with the margin\n    # over its own recomputed floor +0.0932 / +0.0924 / +0.0940. Not CI-separated from the organ-only form\n    # (half-width ~0.02); chosen because it is the only one of the three that cannot lose a firing either\n    # predecessor had, which is what a fold onto one organ has to guarantee.\n    lo = max(1, v - 3)\n    has_be = any(toks[j - 1].lower() in BE_AUX for j in range(lo, v))\n    vtag = pos[v - 1] if v - 1 < len(pos) else None\n    return bool(has_be and _is_participle(toks[v - 1], vtag))\n"
 _RELCL_EDITS = [
     (_RELCL_IMPORT_OLD, _RELCL_IMPORT_NEW),
     (_PP_OLD, _PP_NEW),
+    (_PP_SUPERSET_OLD, _PP_SUPERSET_NEW),   # D2 WIDENING (integration, 16:40)
 ]
 _AL_DOC_OLD = '        the byte-identical fast plan (~9x); output is identical to _predict_label for ANY weights (theorem). Then\n        the VOICE post-correction (module default VOICE_CORRECTION; pass False for the raw perceptron labels)."""\n'
 _AL_DOC_NEW = '        the byte-identical fast plan (~9x); output is identical to _predict_label for ANY weights (theorem).\n        `voice_correction` is ACCEPTED AND IGNORED since pri 111 retired the voice post-correction (see above)."""\n'
@@ -1199,6 +1204,9 @@ _TRL_DEPRECATE = [
 ]
 
 
+_SKIPPED = []
+
+
 def _apply(path, edits, insert_before=None, insert_lines=None):
     with open(path, encoding="utf-8", newline="") as f:
         src = f.read()
@@ -1210,10 +1218,13 @@ def _apply(path, edits, insert_before=None, insert_lines=None):
     for old, new in edits:
         old, new = fix(old), fix(new)
         if out.count(old) != 1:
-            # ALREADY APPLIED (strategy landed the earlier hunks on 2026-09-14 15:45): the anchor is gone and
-            # the replacement is already in the file. Skip it rather than fail -- the diff then carries only
-            # what is still OUTSTANDING against the tree as it now stands.
-            if out.count(old) == 0 and new in out:
+            # ALREADY APPLIED OR SUPERSEDED. Strategy lands these hunks as they are reported (15:45, 16:05),
+            # and some are CHAINED (the D4 gate was folded, then repaired), so an intermediate anchor can be
+            # absent while a LATER state is on disk. Skip a missing anchor: the diff then carries only what is
+            # still OUTSTANDING. `git apply --check` + the compile assertions in the self-test are the real guard.
+            if out.count(old) == 0:
+                _SKIPPED.append((os.path.basename(path), old.strip().splitlines()[0][:70]))
+                continue
                 continue
             raise SystemExit("PATCH ANCHOR MISMATCH in %s (%d occurrences):\n%r" % (path, out.count(old), old[:120]))
         out = out.replace(old, new)
@@ -1228,6 +1239,30 @@ def _apply(path, edits, insert_before=None, insert_lines=None):
         block = "".join(l.rstrip("\r\n") + nl for l in insert_lines)
         out = out.replace(insert_before, block + nl + insert_before)
     return src, out
+
+
+_TWIN_IMP_OLD = 'from hdlab.thematic_role_labeler import _is_participle\n'
+_TWIN_IMP_NEW = 'from hdlab.thematic_role_labeler import _is_participle, is_passive_predicate\n'
+_TWIN_OLD = '    if not (0 <= v < len(toks)):\n        return False\n    low = [t.lower() for t in toks]\n    has_bypp = any(by_governs(low, pos, i) for i in cands)\n    return has_bypp and _is_participle(toks[v], pos[v] if v < len(pos) else None)\n'
+_TWIN_NEW = "    if not (0 <= v < len(toks)):\n        return False\n    low = [t.lower() for t in toks]\n    if not any(by_governs(low, pos, i) for i in cands):\n        return False\n    # pri 111 (2026-09-14): the same construction-plus-voice repair the LANDED organ got\n    # (hdlab.graded_role_assigner.participle_bypp_gate). The suffix test alone cannot see an irregular\n    # participle that carries no -ed/-en, so `They are led BY head coach Monreal` never gated byhead here\n    # and this copy fell back to word order and picked `They`. Fire on a by-governed NP plus EITHER the\n    # organ's voice read (an auxiliary opened the passive expectation) OR participial morphology (the\n    # REDUCED passive, which has no auxiliary at all -- there the by-phrase is the only confirmation there\n    # is). A strict SUPERSET of the old gate. Restores per-row byte-faithfulness with the landed organ on\n    # the QA-SRL clean agent-post (n=90) and full non-canonical (n=201) slices.\n    if is_passive_predicate(toks, pos, v + 1):\n        return True\n    return _is_participle(toks[v], pos[v] if v < len(pos) else None)\n"
+_TWIN_EDITS = [(_TWIN_IMP_OLD, _TWIN_IMP_NEW), (_TWIN_OLD, _TWIN_NEW)]
+TWIN_PATCH_PATH = os.path.join(REPO, "notes", "problems", SLUG, "byhead_twin_repair.diff")
+
+
+def emit_twin_patch(verbose=True):
+    """Q1: the SAME construction-plus-voice repair for the experiment's copy of the gate, so the witness's
+    per-row byte-faithfulness check is restorable. EMITTED ONLY -- never applied from here."""
+    import difflib
+    rel = "experiments/exp_noncanonical_agent_bymorph_v1.py"
+    src, out = _apply(os.path.join(REPO, *rel.split("/")), _TWIN_EDITS)
+    d = difflib.unified_diff(src.splitlines(True), out.splitlines(True),
+                             fromfile="a/" + rel, tofile="b/" + rel, n=3)
+    os.makedirs(os.path.dirname(TWIN_PATCH_PATH), exist_ok=True)
+    with open(TWIN_PATCH_PATH, "w", encoding="utf-8", newline="") as f:
+        f.write("diff --git a/%s b/%s\n" % (rel, rel) + "".join(d))
+    if verbose:
+        print("wrote " + TWIN_PATCH_PATH + " (" + str(os.path.getsize(TWIN_PATCH_PATH)) + " bytes)")
+    return TWIN_PATCH_PATH
 
 
 def emit_patch(verbose=True):
@@ -1252,6 +1287,8 @@ def emit_patch(verbose=True):
         f.write("".join(pieces))
     if verbose:
         print("wrote %s (%d bytes)" % (PATCH_PATH, os.path.getsize(PATCH_PATH)))
+        for f, a in _SKIPPED:
+            print("   (already landed / superseded, not in the diff) %-30s %s" % (f, a))
     return PATCH_PATH
 
 
@@ -2291,6 +2328,174 @@ def arm_repair(n_boot=2000, verbose=True):
     return out
 
 
+# =================================================================================================
+# 16. Q2 -- THE SAME CONSTRUCTION-POPULATION CHECK FOR D2 (`precise_passive`), on its consumers' OWN slices.
+# =================================================================================================
+def _prefold_precise_passive(toks, pos, v):
+    """`relcl_resolver.precise_passive` AS IT WAS BEFORE the pri-111 fold: a BE-aux anywhere in the 3 tokens
+    before v (the WINDOW, which can cross a determiner or a comma) AND a participle SUFFIX at v."""
+    from hdlab.relcl_resolver import BE_AUX
+    from hdlab.thematic_role_labeler import _is_participle as _ip
+    lo = max(1, v - 3)
+    has_be = any(toks[j - 1].lower() in BE_AUX for j in range(lo, v))
+    vtag = pos[v - 1] if v - 1 < len(pos) else None
+    return bool(has_be and _ip(toks[v - 1], vtag))
+
+
+def _superset_precise_passive(toks, pos, v):
+    """THE STRICT-SUPERSET CANDIDATE for D2, built to the same prescription that repaired D4: the folded organ
+    read OR the pre-fold window+suffix condition. Measured, not assumed -- see SOLVED 20.2."""
+    from hdlab.thematic_role_labeler import is_passive_predicate as _ipp
+    return bool(_ipp(toks, pos, v)) or _prefold_precise_passive(toks, pos, v)
+
+
+def arm_d2_check(n_boot=2000, cap=None, verbose=True):
+    """D2's consumers, each on its OWN population, pre-fold vs folded, per item.
+
+    The D4 lesson applied: measure a folded detector on the population of the CONSTRUCTION it detects, not on
+    a gold that cannot see it. `precise_passive`'s consumers are the PATIENT route, so the populations are the
+    patient board's own gold (obj [active] / nsubj:pass [passive]) and the relative-clause resolver's slice.
+    """
+    import experiments.exp_valency_labeled_patient_v1 as VLP
+    import experiments.exp_board_patient_slot_v1 as BP
+    import hdlab.relcl_resolver as RR
+    import hdlab.graded_role_assigner as GRA
+    import hdlab.predicate_argument_frontend as PAF
+    out = {}
+
+    # ---- (i) the DETECTOR itself on the patient arm's own predicates, per item, with the signature table
+    from experiments.exp_whodidwhat_ud_structural_v1 import load_ud
+    import hdlab.frontend as FE
+    sents = load_ud(UD_TEST)
+    if cap:
+        sents = sents[:cap]
+    rows = []
+    disagree = []
+    tc = {}
+    n_pre = n_post = n_sup = 0
+    for s_ in sents:
+        toks = [t["form"] for t in s_]
+        k = tuple(toks)
+        if k not in tc:
+            up, post = FE.tagger().tag_with_posterior(list(toks))
+            tc[k] = list(up)
+        up = tc[k]
+        deps = {t["id"]: t["deprel"] for t in s_}
+        ch = {}
+        for t in s_:
+            ch.setdefault(t["head"], []).append(t["id"])
+        for t in s_:
+            if t["upos"] != "VERB":
+                continue
+            v = t["id"]
+            gold_pass = any(deps.get(c, "").startswith(("aux:pass", "nsubj:pass", "csubj:pass"))
+                            for c in ch.get(v, []))
+            has_by = any(deps.get(c, "").startswith("obl:agent") for c in ch.get(v, []))
+            pre = _prefold_precise_passive(toks, up, v)
+            post_ = bool(RR.precise_passive(toks, up, v))       # the LANDED (folded) one
+            sup = _superset_precise_passive(toks, up, v)
+            n_pre += int(pre); n_post += int(post_); n_sup += int(sup)
+            rows.append((pre, post_, gold_pass, sup))
+            if pre != post_:
+                disagree.append({"verb": toks[v - 1], "pre": pre, "post": post_, "gold_passive": gold_pass,
+                                 "by_agent": has_by, "cue": voice_cue_value(toks, up, v),
+                                 "ctx": " ".join(toks[max(0, v - 6):v + 4])})
+    lost = [d for d in disagree if d["pre"] and not d["post"] and d["gold_passive"]]
+    gainedT = [d for d in disagree if d["post"] and not d["pre"] and d["gold_passive"]]
+    droppedF = [d for d in disagree if d["pre"] and not d["post"] and not d["gold_passive"]]
+    addedF = [d for d in disagree if d["post"] and not d["pre"] and not d["gold_passive"]]
+    out["detector_on_the_patient_predicates"] = {
+        "n_predicates": len(rows), "n_gold_passive": sum(int(r[2]) for r in rows),
+        "fires_prefold": n_pre, "fires_folded": n_post, "disagreements": len(disagree),
+        "TRUE_passives_LOST_by_the_fold": len(lost),
+        "TRUE_passives_GAINED_by_the_fold": len(gainedT),
+        "false_fires_REMOVED_by_the_fold": len(droppedF),
+        "false_fires_ADDED_by_the_fold": len(addedF),
+        "lost_items": lost[:20], "gained_items": gainedT[:10],
+        "fires_strict_superset": n_sup,
+        "superset_TRUE_passives": sum(1 for r in rows if r[3] and r[2]),
+        "superset_FALSE_fires": sum(1 for r in rows if r[3] and not r[2]),
+        "folded_TRUE_passives": sum(1 for r in rows if r[1] and r[2]),
+        "folded_FALSE_fires": sum(1 for r in rows if r[1] and not r[2]),
+        "prefold_TRUE_passives": sum(1 for r in rows if r[0] and r[2]),
+        "prefold_FALSE_fires": sum(1 for r in rows if r[0] and not r[2])}
+    if verbose:
+        print("  [D2 detector] n=%d gold-passive=%d | fires pre %d -> folded %d | disagree %d"
+              % (len(rows), out["detector_on_the_patient_predicates"]["n_gold_passive"], n_pre, n_post,
+                 len(disagree)), flush=True)
+        print("      TRUE passives LOST by the fold: %d | GAINED: %d | false fires REMOVED: %d | ADDED: %d"
+              % (len(lost), len(gainedT), len(droppedF), len(addedF)), flush=True)
+        for d in lost[:12]:
+            print("        LOST  [%s] cue=%-9s by_agent=%-5s | %s" % (d["verb"], d["cue"], d["by_agent"],
+                                                                      d["ctx"]), flush=True)
+
+    # ---- (ii) the CONSUMER: the patient board row, pre-fold vs folded (the board's own function)
+    board = {}
+    for nm, fn in (("prefold_precise_passive", _prefold_precise_passive),
+                   ("LANDED_folded", RR.precise_passive),
+                   ("strict_superset", _superset_precise_passive)):
+        saved = (RR.precise_passive, GRA.precise_passive, PAF.precise_passive, VLP.precise_passive)
+        RR.precise_passive = GRA.precise_passive = PAF.precise_passive = VLP.precise_passive = fn
+        try:
+            row, det = BP.board_patient_dimension(cap=cap)
+        finally:
+            (RR.precise_passive, GRA.precise_passive, PAF.precise_passive, VLP.precise_passive) = saved
+        board[nm] = {"n": row["n"], "model": row["model_acc"], "floor": row["strongest_floor"],
+                     "twin": row["twin_acc"], "model_minus_floor": row["model_minus_strongest"],
+                     "ceiling_gold_parse": det["ceiling_gold_parse"]}
+        if verbose:
+            print("  [D2 patient board] %-24s model %.4f floor %.4f twin %.4f m-f %s"
+                  % (nm, row["model_acc"], row["strongest_floor"], row["twin_acc"],
+                     row["model_minus_strongest"]), flush=True)
+    out["patient_board"] = board
+
+    # ---- (iii) the relative-clause resolver's own witness slice, per item
+    try:
+        import contextlib
+        import importlib.util
+        res = {}
+        for wname in ("test_relcl_resolver_organ.py", "test_noncanonical_role_assigner.py"):
+            path = os.path.join(REPO, "verification", wname)
+            if not os.path.exists(path):
+                continue
+            codes = {}
+            for nm, fn in (("prefold", _prefold_precise_passive), ("folded", RR.precise_passive)):
+                saved = (RR.precise_passive, GRA.precise_passive, PAF.precise_passive)
+                RR.precise_passive = GRA.precise_passive = PAF.precise_passive = fn
+                buf = io.StringIO()
+                code = 0
+                try:
+                    spec = importlib.util.spec_from_file_location("_d2_" + wname[:-3] + nm, path)
+                    mod = importlib.util.module_from_spec(spec)
+                    argv = list(sys.argv); sys.argv = [path]
+                    try:
+                        with contextlib.redirect_stdout(buf), contextlib.redirect_stderr(buf):
+                            spec.loader.exec_module(mod)
+                            if hasattr(mod, "main"):
+                                r = mod.main()
+                                code = int(r) if isinstance(r, int) else 0
+                    except SystemExit as e:
+                        code = int(e.code or 0)
+                    except Exception as e:
+                        code = 99; buf.write(repr(e)[:200])
+                    finally:
+                        sys.argv = argv
+                finally:
+                    (RR.precise_passive, GRA.precise_passive, PAF.precise_passive) = saved
+                txt = buf.getvalue()
+                codes[nm] = {"exit": code,
+                             "tail": [l for l in txt.splitlines() if l.strip()][-2:],
+                             "fails": [l.strip()[:120] for l in txt.splitlines() if "FAIL" in l][:4]}
+            res[wname] = codes
+            if verbose:
+                print("  [D2 witness] %-42s prefold exit %-3d folded exit %-3d"
+                      % (wname, codes["prefold"]["exit"], codes["folded"]["exit"]), flush=True)
+        out["relcl_witnesses"] = res
+    except Exception as e:                                          # pragma: no cover
+        out["relcl_witnesses_error"] = repr(e)[:200]
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--self-test", action="store_true")
@@ -2306,6 +2511,8 @@ def main():
     ap.add_argument("--fold", action="store_true")
     ap.add_argument("--witnesses", action="store_true")
     ap.add_argument("--repair", action="store_true")
+    ap.add_argument("--d2-check", action="store_true")
+    ap.add_argument("--emit-twin-patch", action="store_true")
     ap.add_argument("--emit-patch", action="store_true")
     ap.add_argument("--n-boot", type=int, default=2000)
     a = ap.parse_args()
@@ -2334,6 +2541,14 @@ def main():
                 d = v["vs_live_shipped"].get(nm)
                 print("     %-34s %.4f %s" % (nm, x, ("%+0.4f CI%s %s" % (d["delta"], d["ci95"],
                       "SEP" if d["separated"] else "")) if d else ""))
+        return 0
+    if a.emit_twin_patch:
+        emit_twin_patch()
+        return 0
+    if a.d2_check:
+        os.makedirs(OUT_DIR, exist_ok=True)
+        r = arm_d2_check(n_boot=(200 if a.smoke else a.n_boot), cap=(40 if a.smoke else None))
+        json.dump(r, open(os.path.join(OUT_DIR, "d2_check.json"), "w"), indent=1)
         return 0
     if a.repair:
         os.makedirs(OUT_DIR, exist_ok=True)

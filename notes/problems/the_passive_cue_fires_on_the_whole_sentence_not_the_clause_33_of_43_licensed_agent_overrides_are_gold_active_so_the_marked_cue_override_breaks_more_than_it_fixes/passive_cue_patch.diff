@@ -1,37 +1,27 @@
-diff --git a/hdlab/graded_role_assigner.py b/hdlab/graded_role_assigner.py
---- a/hdlab/graded_role_assigner.py
-+++ b/hdlab/graded_role_assigner.py
-@@ -1481,15 +1481,25 @@
-     from exp_cmrole_agent_board_byhead_v1._participle_bypp_gate."""
-     if not (0 <= v0 < len(toks)):
-         return False
--    # pri 111 (2026-09-14): the participle SUFFIX test is replaced by the ONE voice organ. `_is_participle`
--    # missed irregular participles that carry no -ed/-en (`blown`, `put`, `shut`), which is why `was blown up
--    # by a bomb` never emitted the byhead CASE cue. Measured: the gate's firing rate HALVES (32 -> 16 of 1423
--    # agent decisions -- it now fires only where the predicate really is passive) and the agent row is +0.0007.
--    if not is_passive_predicate(toks, pos, v0 + 1):
-+    # pri 111, REPAIRED 2026-09-14 16:10 after the byhead landing witness caught it. THE GATE IS A
-+    # CONSTRUCTION DETECTOR, NOT A FINITE-CLAUSE VOICE READ, and the two are not the same question. The first
-+    # fold asked `is_passive_predicate` alone, which REQUIRES an auxiliary -- so it dropped every REDUCED
-+    # participial passive (`those used BY non-human animals`, `a display performed BY the male`, `mass divided
-+    # BY volume`), which is exactly where a demoted agent lives. Measured on QA-SRL: gate recall on the clean
-+    # agent-post slice fell 62/90 -> 53/90 and the byhead pick 0.6667 -> 0.6000.
-+    # THE BRAIN'S FORM, and it is this organ's own story read in the other direction: the auxiliary OPENS the
-+    # passive expectation and the by-phrase CONFIRMS it -- so when there is no auxiliary to open it, the
-+    # confirmation carries the construction by itself. Fire on a by-governed NP plus EITHER the organ's voice
-+    # read (an auxiliary opened the expectation, which also catches the irregular participles the suffix test
-+    # missed -- `was blown up by a bomb`) OR participial morphology (the reduced passive). A strict SUPERSET of
-+    # the pre-fold gate, so it cannot lose a firing it used to have.
-+    low = [t.lower() for t in toks]
-+    if not any(by_governs(low, pos, i) for i in range(len(toks))
-+               if (pos[i] if i < len(pos) else None) in _BYHEAD_NOM):
-         return False
--    low = [t.lower() for t in toks]
--    return any(by_governs(low, pos, i) for i in range(len(toks))
--               if (pos[i] if i < len(pos) else None) in _BYHEAD_NOM)
-+    if is_passive_predicate(toks, pos, v0 + 1):
+diff --git a/hdlab/relcl_resolver.py b/hdlab/relcl_resolver.py
+--- a/hdlab/relcl_resolver.py
++++ b/hdlab/relcl_resolver.py
+@@ -65,7 +65,22 @@
+     six consumers of this function for the first time, and `be + V-ing` stops reading as a passive.
+     Measured at the consumers before landing: the board's who-did-what PATIENT row 0.8120 -> 0.8135 with its
+     floor and its gold-parse ceiling unchanged."""
+-    return bool(is_passive_predicate(toks, pos, v))
++    if is_passive_predicate(toks, pos, v):
 +        return True
-+    return _is_participle(toks[v0], pos[v0] if v0 < len(pos) else None)
++    # WIDENED 2026-09-14 16:40 to a STRICT SUPERSET, by the same construction-population check that repaired
++    # the byhead gate. Measured on UD-EWT test (2605 predicates, 126 gold passive, live chain): the organ read
++    # ALONE loses 3 true passives this condition caught -- `especially oriented`, `was surprised`, `never been
++    # disappointed` -- all three because the CATEGORY organ tags the participle ADJ, so the voice cue abstains
++    # one rung above. Keeping the old window+suffix condition as a SECOND route recovers them: true positives
++    # 117 -> 120 for 5 more false fires, and at the consumer (the board's who-did-what PATIENT row, by the
++    # board's own function) the model is 0.8135 pre-fold / 0.8151 organ-only / 0.8167 here, with the margin
++    # over its own recomputed floor +0.0932 / +0.0924 / +0.0940. Not CI-separated from the organ-only form
++    # (half-width ~0.02); chosen because it is the only one of the three that cannot lose a firing either
++    # predecessor had, which is what a fold onto one organ has to guarantee.
++    lo = max(1, v - 3)
++    has_be = any(toks[j - 1].lower() in BE_AUX for j in range(lo, v))
++    vtag = pos[v - 1] if v - 1 < len(pos) else None
++    return bool(has_be and _is_participle(toks[v - 1], vtag))
  
  
- def _agent_pp_governed(low, up, p):
+ def two_line_patient(toks: Sequence[str], pos: Sequence[str], v: int,

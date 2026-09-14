@@ -1,0 +1,34 @@
+diff --git a/experiments/exp_noncanonical_agent_bymorph_v1.py b/experiments/exp_noncanonical_agent_bymorph_v1.py
+--- a/experiments/exp_noncanonical_agent_bymorph_v1.py
++++ b/experiments/exp_noncanonical_agent_bymorph_v1.py
+@@ -47,7 +47,7 @@
+ from hdlab.graded_role_assigner import agent_supports, is_passive_clause, AGENT_VALIDITIES
+ from hdlab.graded_competition import net_activation
+ from hdlab.animacy_lexicon import lookup_animacy
+-from hdlab.thematic_role_labeler import _is_participle
++from hdlab.thematic_role_labeler import _is_participle, is_passive_predicate
+ import experiments.exp_grounded_selfit_role_cue_v1 as G   # reuse: load_rows, nominal_cands, harvest_protos, selfit_raw, whitening, _subj_before
+ 
+ NOMINAL = {"NOUN", "PROPN", "PRON"}
+@@ -95,8 +95,19 @@
+     if not (0 <= v < len(toks)):
+         return False
+     low = [t.lower() for t in toks]
+-    has_bypp = any(by_governs(low, pos, i) for i in cands)
+-    return has_bypp and _is_participle(toks[v], pos[v] if v < len(pos) else None)
++    if not any(by_governs(low, pos, i) for i in cands):
++        return False
++    # pri 111 (2026-09-14): the same construction-plus-voice repair the LANDED organ got
++    # (hdlab.graded_role_assigner.participle_bypp_gate). The suffix test alone cannot see an irregular
++    # participle that carries no -ed/-en, so `They are led BY head coach Monreal` never gated byhead here
++    # and this copy fell back to word order and picked `They`. Fire on a by-governed NP plus EITHER the
++    # organ's voice read (an auxiliary opened the passive expectation) OR participial morphology (the
++    # REDUCED passive, which has no auxiliary at all -- there the by-phrase is the only confirmation there
++    # is). A strict SUPERSET of the old gate. Restores per-row byte-faithfulness with the landed organ on
++    # the QA-SRL clean agent-post (n=90) and full non-canonical (n=201) slices.
++    if is_passive_predicate(toks, pos, v + 1):
++        return True
++    return _is_participle(toks[v], pos[v] if v < len(pos) else None)
+ 
+ 
+ def pick(toks, pos, v, cands, subj_before, *, byhead_w=0.0, selfit=None, selfit_w=0.0,
