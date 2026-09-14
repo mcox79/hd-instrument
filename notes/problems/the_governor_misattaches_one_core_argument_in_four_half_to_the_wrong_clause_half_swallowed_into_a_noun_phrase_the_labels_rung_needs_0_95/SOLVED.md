@@ -765,3 +765,5 @@ REVERIFY: .venv/Scripts/python.exe experiments/exp_attachment_clause_and_constit
   (n=1205, UD-EWT test 700, gold categories, in-order decode), not the 0.753 the brief carries from 20:10.
 
 ---
+
+INTEGRATION NOTE (strategy 2026-09-14 05:15): this diff is LANDED in hdlab/attachment_arm.py (merged with the other attachment-arm diff of the day; one cap-6000 rebuild with the mined PP association). The cell's --self-test now fails BY CONSTRUCTION (TypeError / 'landed npmod absorbs' / fast-path-vs-reference): it monkeypatches the LANDED module's internals to apply the diff in memory and compares against the pre-landing module, which no longer exists -- the same inversion recorded for pri 93. Post-landing verification = verification/test_attachment_arm.py 17/17 + fastpath green on the merged module, the live-chain heads probe on the rebuilt asset, and the board A/B (ledger). The cell's measurement modes remain valid as instruments where they read the landed module without re-patching it.
