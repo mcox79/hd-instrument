@@ -477,6 +477,24 @@ def parse_conll_sentences(path: str) -> List[List[str]]:
 > capitalisation-based cue anywhere downstream of `parse_conll_sentences` is dead -- and the forward wire is
 > therefore not the best repair of the name decision on that stream, it is the ONLY one available.**
 
+### 18c-bis. A PROPERTY OF MY OWN DIFF THAT FALLS OUT OF 18c, and strategy should know it
+
+`parse_litbank_conll(tagger=...)` tags the tokens it reads **from the CoNLL file**, which are **raw-cased**.
+The reader passes `_CachedTagShim(self)`, and `_cached_tag` keys its memo on `tuple(toks)` -- so a raw-cased
+sentence is a **different cache key** from the lowercased one the rest of the reader uses. Two consequences,
+both stated rather than discovered later:
+
+1. **The coref-mention stream gets CASED tags while every other reader path stays lowercased.** That is an
+   accuracy *improvement* for `span_upos` (the organ at 0.8622 PROPN F1 instead of 0.4546) but it is an
+   **inconsistency**: the same document is tagged under two different casings within one read.
+2. **It costs one extra tagging pass per read** (the cased sentences miss the warm cache).
+
+**Both resolve the moment `lower=False` lands** -- the two streams become the same text and the same cache
+key. Until then the inconsistency is in the direction of *more* accuracy for the mention typing, not less,
+which is why I left it rather than lowercasing the mention tokens to match. **The `referent_per_np` stream is
+unaffected and its wire genuinely runs on lowercased tags** -- which is what the 0 -> 150 measurement in
+section 18c used, so that number is faithful to the shipped path.
+
 ### 18d. The negative ids: DESIGN, not defect -- and my repair keeps the intent
 
 Answered from the source rather than inferred. `hdlab/online_entity_cluster.py`'s module docstring ends:
