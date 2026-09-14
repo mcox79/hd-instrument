@@ -1,0 +1,43 @@
+diff --git a/hdlab/affected_entity_resolver.py b/hdlab/affected_entity_resolver.py
+index c7b08b65c..c572529a9 100644
+--- a/hdlab/affected_entity_resolver.py
++++ b/hdlab/affected_entity_resolver.py
+@@ -153,7 +153,15 @@ def salience_prior(ent_hist: Dict[object, list], now: float,
+ # decisions' margins ("match" below), and the graded alternative is the organ's own class MASS ("graded").
+ #
+ #   "hard"      1[MAP class matches]                      -- the landed cue; DEFAULT, byte-identical
+-#   "graded"    P_role(class = a_role)                     -- the competition's own class mass
++#   "label"     1[the organ's MAP class of the candidate == the organ's MAP class of the ANAPHOR]
++#               -- THE WIRE REPAIR WITH NO GRADED CONTENT. The live reader used to hand this cue a POSITIONAL
++#               proxy for the anaphor's role (situation_reader's rank2dep = {0:'nsubj', 1:'obj'}); under "label"
++#               BOTH ends of the match come from the Competition-Model role organ, so the proxy is out of the
++#               loop entirely, and the cue itself stays the plain indicator. MEASURED (GUM, fixed gold targets,
++#               same population as the graded arms): the reader's rank proxy 0.3263 dev / 0.4564 test -> 0.3615 /
++#               0.4916 under "label", +0.0352 CI[+0.0121,+0.0574] dev and +0.0352 CI[+0.0050,+0.0655] test, BOTH
++#               CI-SEPARATED. The graded forms add a further +0.015-0.020 which separates on NEITHER split, which
++#               is why "label" is the form to flip and the graded ones stay off.
+ #   "match"     P(the two labels really agree | margins)   -- the correct statistic for a parallelism cue
+ #   "shrunk"    r*P_role(class) + (1-r)*prior(class)       -- shrunk to the prior by the label's reliability
+ #   "ppc"       gain(margin) * log P_role(class = a_role)   -- the POPULATION-GAIN form; the CI-separated win
+@@ -195,6 +203,12 @@ def role_cue_terms(pack, a_role, a_pack=None, mode=None, r_match=None):
+     cm = pack["class_mass"]; pm = pack["patient_mass"]
+     rel = pack.get("reliability") or {}
+     r_c = float(rel.get("aer_class", 1.0)); r_p = float(rel.get("patient", 1.0))
++    if mode == "label":
++        # Arm B as a live mode: the organ's MAP label on BOTH ends of the match, plain indicator cue. Asserted
++        # item-for-item against the resolver harness's arm B in
++        # experiments/exp_role_margin_weighted_consumers_v1.wire_price().
++        want = a_pack["map_class"] if a_pack is not None else a_role
++        return float(pack["map_class"] == want), float(pack["map_patient"])
+     if mode == "graded":
+         return float(cm.get(a_role, 0.0)), float(pm)
+     if mode == "relweight":
+@@ -365,6 +379,8 @@ class EntityTokens:
+                 sal[k] = a if a != float("-inf") else -1e9
+                 last = max(compat[k], key=lambda m: m[0])
+                 role_of[k] = role_class(last[4]); patient_of[k] = last[4] in PATIENT_DEPS
++                if self.role_cue_mode == "label" and a_pack is not None:
++                    a_role = a_pack["map_class"]        # the organ decides the ANAPHOR's class too (pri 106)
+                 pk = self.packs.get((k, float(last[0])))
+                 if pk is not None:
+                     pack_of[k] = pk

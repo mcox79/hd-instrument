@@ -2,9 +2,9 @@
 problem: the_passive_cue_fires_on_the_whole_sentence_not_the_clause_33_of_43_licensed_agent_overrides_are_gold_active_so_the_marked_cue_override_breaks_more_than_it_fixes
 status: SOLVED
 bar: "Clause-local detector: false fires on gold-active clauses down from 33/43 CI-separated with recall on true passives not down; the override anatomy flips to net-positive (fixes > breaks) or the licence is withdrawn with the number; every consumer moved to the one detector; the board's agent dimension not down; twin (random equal-size set of clauses declared passive) at floor -- OR a numbered located negative naming which consumer the clause-local cue helps and which it hurts."
-result: "THE CUE WAS ANSWERING THE WRONG QUESTION -- 'is this SENTENCE passive' where every one of its four consumers asks 'is THIS PREDICATE passive' -- AND FIXING THAT MOVED THREE CONSUMERS WITH NONE DOWN. (1) THE DETECTOR, per predicate, through the LIVE brain-foundational chain (count-based category organ + attachment arm, no gold at decision time): UD-EWT test, 2605 gold-VERB predicates in 1240 sentences -- the shipped whole-sentence `is_passive_clause` scores precision 0.3784 / recall 0.8235; the predicate-anchored `is_passive_predicate` scores precision 0.9606 / recall 0.8971, i.e. precision up 2.5x with recall UP, 200 fixes against 11 breaks head to head, decision accuracy +0.0726 CI95[+0.0566,+0.0892] CI-separated over the shipped floor, with a same-rate random TWIN at -0.0177 CI-separated BELOW the floor. IT TRANSFERS TO TWO HELD-OUT MODERN GOLDS the counts never saw: GUM 29,217 predicates 0.3643/0.8123 -> 0.9533/0.8517 (+0.1032 CI-sep) and the OOD GENTLE split 0.4596/0.9000 -> 0.9821/0.9167 (+0.0768 CI-sep), twin CI-separated below on both. (2) THE OVERRIDE ANATOMY THE BRIEF WAS OPENED ON: the passive licence fires 92 times on the 1423-item agent population, 83 of them on gold-ACTIVE clauses, fixing 1 and breaking 30 (conflict validity 0.032 -- pri 106's 1/30 reproduced exactly); with the corrected cue plus the by-phrase confirmation it fires 11 times, 0 on gold-active clauses, fixing 1 and breaking 0 (validity 1.000). (3) THE BOARD'S OWN who_did_what_agent ROW, computed by the board's own function: 0.8271 (CI-separated BELOW its own positional floor 0.8468) -> 0.8475 with the cue fix -> 0.8531 when the board arm is additionally replaced by the organ, passive slice 0.1875 -> 0.5625, and the active slice EXACTLY no-regress (0.8564 = the floor). (4) A SECOND CONSUMER UP CI-SEPARATED: `agent_supports` -- the voice flip the live reader runs on every sentence -- 0.7511 -> 0.7637, +0.0127 CI95[+0.0070,+0.0197]. NO CONSUMER DOWN: the coarse role labeler on UD-EWT test 700 under live heads is +0.0014 CI95[0.0000,+0.0031] over all 2216 arguments and +0.0025 over the 1205 core ones, with gold nsubj:pass (n=48) and obl:agent (n=19) byte-identical. THE HONEST ATTRIBUTION: inside the ORGAN the cue fix is worth 3 items (+0.0021, NOT separated) because the organ already required a by-phrase; the 30 broken decisions live in the BOARD ARM's duplicate of the hybrid, where the same one-line change is +0.0204 CI95[+0.0126,+0.0281] CI-separated. A SECOND, INDEPENDENT DEFECT FOUND BY TRACING ONE RUNG DOWN: the board arm's copy never passes `byhead_agent_cue=True`, so the landed by-phrase CASE cue has never reached the board -- retiring the copy in favour of the organ is +0.0239 CI95[+0.0155,+0.0323] on its own and recovers 5 of the 16 passive agents."
-floor: "(1) DETECTOR: the shipped `hdlab.thematic_role_labeler.is_passive_clause`, measured on the SAME 2605 predicates in the SAME run -- precision 0.3784 / recall 0.8235 / decision accuracy 0.9202 -- plus two STRONGER intermediate floors measured alongside: the same detector scoped to the clause span (what `agent_override_fires` does today) 0.4860/0.7647, and `hdlab.relcl_resolver.precise_passive`, which is already predicate-anchored, 0.9464/0.7794. Every delta is quoted against the shipped floor and the new read beats the STRONGEST of the three on precision and recall on every population. (2) AGENT CONSUMER: the POSITIONAL floor the board itself uses (nearest pre-verbal clause-local nominal, `exp_board_agent_slot_ud_v1.floor_positional_agent`) = 0.8468 on UD-EWT test n=1423, with the landed board model 0.8271 measured alongside; `hybrid_without_the_passive_licence` (pp_gov + noncase only) 0.8475 is reported too, so the passive cue's own contribution is not confounded with the other two marked cues. (3) BOARD ROW: the board's own floor from its own function, 0.8468, and its own shuffled-supports twin, 0.2839. (4) GUM / GENTLE: the same shipped whole-sentence detector recomputed in place on each population (0.3643/0.8123 and 0.4596/0.9000) -- no floor is pasted across populations."
-controls: "(1) INFO-FREE TWIN, DETECTOR, on all three populations: a RANDOM equal-size set of predicates declared passive at the new cue's own firing rate -- UD-EWT precision 0.0462 and decision accuracy -0.0177 CI95[-0.0341,-0.0004] CI-separated BELOW the floor; GUM -0.0137 CI-sep below; GENTLE -0.0502 CI-sep below. (2) INFO-FREE TWIN, CONSUMER: the passive licence fires on a random equal-size set of agent decisions -- 0.8468 = the positional floor EXACTLY (it stops helping), against the corrected cue's 0.8482. (3) TWO HELD-OUT MODERN GOLDS the counts never saw (GUM 275 files, GENTLE 26 files OOD), 11x and 0.6x the UD-EWT test size. (4) TWO GOLD CONVENTIONS reported side by side -- raw UD (aux:pass/nsubj:pass/csubj:pass) and a propagated gold adding the bare CONJUNCT of a passive predicate -- and the conclusion is identical under both (raw: 0.9213/0.9286 new vs 0.3503/0.8175 shipped). (5) TRAIN/TEST SEPARATION: the counts and the criterion theta are accrued/swept on UD-EWT TRAIN (22,576 predicates) and applied UNCHANGED to test; the train sweep is a flat plateau (F1 0.9331-0.9350 over theta 0.15-0.65, best 0.50). (6) UPSTREAM CONTRAST: the detector measured with and without the reader's own heads -- 0 of 2605 decisions differ, so the claim 'the arc confirms but does not decide' is a count, not an assertion. (7) NO-REGRESS measured on the other call sites in the same run (see result), and the shipped witness `verification/test_coarse_role_competition.py` is green at HEAD (37/37) with its four voice assertions re-checked under the PATCHED cue inside the cell's self-test. (8) PATCH FIDELITY: the diff is GENERATED from the cell's own organ block, the self-test asserts the diff's added lines are byte-identical to the measured code, `git apply --check` passes, and the PATCHED module is imported and shown to answer identically to the cell on 10 cases. (9) PAIRED BOOTSTRAP, 2000 resamples, clustered by SENTENCE for the detector and by ITEM for the consumer, on each item's own population."
+result: "THE CUE WAS ANSWERING THE WRONG QUESTION -- 'is this SENTENCE passive' where every one of its four consumers asks 'is THIS PREDICATE passive' -- AND FIXING THAT MOVED THREE CONSUMERS WITH NONE DOWN. (1) THE DETECTOR, per predicate, through the LIVE brain-foundational chain (count-based category organ + attachment arm, no gold at decision time): UD-EWT test, 2605 gold-VERB predicates in 1240 sentences -- the shipped whole-sentence `is_passive_clause` scores precision 0.3784 / recall 0.8235; the predicate-anchored `is_passive_predicate` scores precision 0.9606 / recall 0.8971, i.e. precision up 2.5x with recall UP, 200 fixes against 11 breaks head to head, decision accuracy +0.0726 CI95[+0.0566,+0.0892] CI-separated over the shipped floor, with a same-rate random TWIN at -0.0177 CI-separated BELOW the floor. IT TRANSFERS TO TWO HELD-OUT MODERN GOLDS the counts never saw: GUM 29,217 predicates 0.3643/0.8123 -> 0.9503/0.8517 (+0.1030 CI-sep) and the OOD GENTLE split 0.4596/0.9000 -> 0.9821/0.9167 (+0.0768 CI-sep), twin CI-separated below on both. (2) THE OVERRIDE ANATOMY THE BRIEF WAS OPENED ON: the passive licence fires 92 times on the 1423-item agent population, 83 of them on gold-ACTIVE clauses, fixing 1 and breaking 30 (conflict validity 0.032 -- pri 106's 1/30 reproduced exactly); with the corrected cue plus the by-phrase confirmation it fires 11 times, 0 on gold-active clauses, fixing 1 and breaking 0 (validity 1.000). (3) THE BOARD'S OWN who_did_what_agent ROW, computed by the board's own function: 0.8271 (CI-separated BELOW its own positional floor 0.8468) -> 0.8475 with the cue fix -> 0.8531 when the board arm is additionally replaced by the organ, passive slice 0.1875 -> 0.5625, and the active slice EXACTLY no-regress (0.8564 = the floor). (4) A SECOND CONSUMER UP CI-SEPARATED: `agent_supports` -- the voice flip the live reader runs on every sentence -- 0.7511 -> 0.7637, +0.0127 CI95[+0.0070,+0.0197]. NO CONSUMER DOWN: the coarse role labeler on UD-EWT test 700 under live heads is +0.0014 CI95[0.0000,+0.0031] over all 2216 arguments and +0.0025 over the 1205 core ones, with gold nsubj:pass (n=48) and obl:agent (n=19) byte-identical. THE HONEST ATTRIBUTION: inside the ORGAN the cue fix is worth 3 items (+0.0021, NOT separated) because the organ already required a by-phrase; the 30 broken decisions live in the BOARD ARM's duplicate of the hybrid, where the same one-line change is +0.0204 CI95[+0.0126,+0.0281] CI-separated. A SECOND, INDEPENDENT DEFECT FOUND BY TRACING ONE RUNG DOWN: the board arm's copy never passes `byhead_agent_cue=True`, so the landed by-phrase CASE cue has never reached the board -- retiring the copy in favour of the organ is +0.0239 CI95[+0.0155,+0.0323] on its own and recovers 5 of the 16 passive agents."
+floor: "(1) DETECTOR: the shipped `hdlab.thematic_role_labeler.is_passive_clause`, measured on the SAME 2605 predicates in the SAME run -- precision 0.3784 / recall 0.8235 / decision accuracy 0.9202 -- plus two STRONGER intermediate floors measured alongside: the same detector scoped to the clause span (what `agent_override_fires` does today) 0.4860/0.7647, and `hdlab.relcl_resolver.precise_passive`, which is already predicate-anchored, 0.9464/0.7794. Every delta is quoted against the shipped floor and the new read beats the STRONGEST of the three on precision and recall on every population. (2) AGENT CONSUMER: the POSITIONAL floor the board itself uses (nearest pre-verbal clause-local nominal, `exp_board_agent_slot_ud_v1.floor_positional_agent`) = 0.8468 on UD-EWT test n=1423, with the landed board model 0.8271 measured alongside; `hybrid_without_the_passive_licence` (pp_gov + noncase only) 0.8475 is reported too, so the passive cue's own contribution is not confounded with the other two marked cues. (3) BOARD ROW: the board's own floor from its own function, 0.8468, and its own shuffled-supports twin, 0.2853. (4) GUM / GENTLE: the same shipped whole-sentence detector recomputed in place on each population (0.3643/0.8123 and 0.4596/0.9000) -- no floor is pasted across populations."
+controls: "(1) INFO-FREE TWIN, DETECTOR, on all three populations: a RANDOM equal-size set of predicates declared passive at the new cue's own firing rate -- UD-EWT precision 0.0462 and decision accuracy -0.0177 CI95[-0.0341,-0.0004] CI-separated BELOW the floor; GUM -0.0139 CI-sep below; GENTLE -0.0502 CI-sep below. (2) INFO-FREE TWIN, CONSUMER: the passive licence fires on a random equal-size set of agent decisions -- 0.8468 = the positional floor EXACTLY (it stops helping), against the corrected cue's 0.8482. (3) TWO HELD-OUT MODERN GOLDS the counts never saw (GUM 275 files, GENTLE 26 files OOD), 11x and 0.6x the UD-EWT test size. (4) TWO GOLD CONVENTIONS reported side by side -- raw UD (aux:pass/nsubj:pass/csubj:pass) and a propagated gold adding the bare CONJUNCT of a passive predicate -- and the conclusion is identical under both (raw: 0.9213/0.9286 new vs 0.3503/0.8175 shipped). (5) TRAIN/TEST SEPARATION: the counts and the criterion theta are accrued/swept on UD-EWT TRAIN (22,576 predicates) and applied UNCHANGED to test; the train sweep is a flat plateau (F1 0.9331-0.9350 over theta 0.15-0.65, best 0.50). (6) UPSTREAM CONTRAST: the detector measured with and without the reader's own heads -- 0 of 2605 decisions differ, so the claim 'the arc confirms but does not decide' is a count, not an assertion. (7) NO-REGRESS measured on the other call sites in the same run (see result), and the shipped witness `verification/test_coarse_role_competition.py` is green at HEAD (37/37) with its four voice assertions re-checked under the PATCHED cue inside the cell's self-test. (8) PATCH FIDELITY: the diff is GENERATED from the cell's own organ block, the self-test asserts the diff's added lines are byte-identical to the measured code, `git apply --check` passes, and the PATCHED module is imported and shown to answer identically to the cell on 10 cases. (9) PAIRED BOOTSTRAP, 2000 resamples, clustered by SENTENCE for the detector and by ITEM for the consumer, on each item's own population."
 files_changed: "experiments/exp_passive_cue_clause_local_v1.py (the cell; self-test 25/25), notes/problems/<slug>/{SOLVED.md, passive_cue_patch.diff}, data/hook_state/passive_voice_counts_v1.json (the plastic cue-validity counts -- opt-in, re-derivable by --run), and the cell's own data/exp_passive_cue_clause_local_v1/*.json. NO hdlab/ or tools/ file changed on disk. The diff touches hdlab/thematic_role_labeler.py (the organ block + a deprecation note on is_passive_clause), hdlab/graded_role_assigner.py (the import + ALL FOUR call sites) and experiments/exp_board_agent_slot_ud_v1.py (the board arm's OWN copy of the cue -- without this third hunk the board number does not move). Two of the three files are CRLF: apply with `git apply --ignore-whitespace`."
 reverify: ".venv/Scripts/python.exe experiments/exp_passive_cue_clause_local_v1.py --self-test   (25 checks, seconds; includes PATCH == CELL, git apply --check, the patched-module parity check and the shipped witness's voice assertions under the patched cue). Headline numbers, each writing ONLY into its own data/exp_passive_cue_clause_local_v1/ directory: --run (~10 min -> metrics.json + detector.json + override.json + call_sites.json); --push (~1 min -> push.json); --board-dim (~6 min -> board_dimension.json, the board's own row under three arms); --extra (~12 min -> extra.json: the criterion sweep, the heads contrast, the upstream category loss, call site 2); --gum (~8 min -> gum.json, the two held-out golds). Also: .venv/Scripts/python.exe verification/test_coarse_role_competition.py (37/37, unmodified)."
 ---
@@ -112,7 +112,7 @@ per-predicate voice DECISION.
 | shipped detector scoped to the clause span (what `agent_override_fires` does today) | 214 | 0.4860 | 0.7647 | 0.5943 | 0.9455 | +0.0253 CI95[+0.0158,+0.0365] **sep** |
 | `relcl_resolver.precise_passive` (already predicate-anchored) | 112 | 0.9464 | 0.7794 | 0.8548 | 0.9862 | +0.0660 CI95[+0.0503,+0.0830] **sep** |
 | **NEW -- `is_passive_predicate` (construction read)** | 127 | **0.9606** | **0.8971** | **0.9278** | **0.9927** | **+0.0726 CI95[+0.0566,+0.0892] sep** |
-| NEW -- graded read at theta 0.5 | 126 | 0.9603 | 0.8897 | 0.9237 | 0.9923 | +0.0722 CI95[+0.0562,+0.0887] sep |
+| NEW -- graded read at theta 0.5 | 125 | 0.9600 | 0.8824 | 0.9195 | 0.9919 | +0.0718 CI95[+0.0560,+0.0885] sep |
 | NEW -- without the coordination cue | 121 | 0.9669 | 0.8603 | 0.9105 | 0.9912 | +0.0710 CI95[+0.0547,+0.0878] sep |
 | **TWIN -- a random equal-size set of predicates declared passive** | 130 | 0.0462 | 0.0441 | 0.0451 | 0.9025 | **-0.0177 CI95[-0.0341,-0.0004] sep BELOW** |
 
@@ -120,6 +120,16 @@ per-predicate voice DECISION.
 same 2605 predicates: **200 fixes, 11 breaks.** On the raw (unpropagated) gold the new read is
 0.9213 / 0.9286 and the no-coordination variant 0.9669 / 0.9286, i.e. the conclusion does not depend on
 which of the two golds is used.
+
+> **CHAIN-STATE NOTE, and it is a robustness datum rather than a caveat.** Another session landed pri 110's
+> `PREDICATE_SLOT` revision into `hdlab/lexical_categories.py` + `hdlab/attachment_arm.py` at 13:10 local,
+> in the middle of this session. **Every number in this record was therefore re-measured from scratch on the
+> POST-13:10 chain, all arms together**, and the detector table above is byte-identical to the pre-13:10
+> measurement (same precision, recall, F1, accuracy, fixes/breaks and cue-value counts). What the upstream
+> landing did change is visible and in the right direction: the predicates the category organ does not call
+> VERB, where this cue must abstain, fell from **212 to 132 of 2605**, and the coarse-role consumer's
+> absolute accuracy rose (0.6940 -> 0.6986 shipped, section 5.5). The consumer deltas are quoted from the
+> post-13:10 run.
 
 ### 5.2 The cue's own validity, learned from counts (UD-EWT train, live chain, 22,576 predicates)
 
@@ -147,15 +157,22 @@ Paired item bootstrap, 2000 resamples.
 
 | arm | accuracy | vs the positional floor 0.8468 | vs the landed board model 0.8271 |
 |---|---|---|---|
-| positional floor | 0.8468 | -- | -- |
+| **positional floor** (nearest pre-verbal candidate, no override of any kind) | **0.8468** | -- | -- |
+| the hybrid with the passive licence REMOVED (pp_gov + noncase only) | 0.8475 | +0.0007 n.s. | +0.0204 sep |
 | **landed: whole-sentence licence (what the board scores today)** | **0.8271** | **-0.0197 CI95[-0.0309,-0.0091] sep BELOW** | -- |
-| clause-scoped licence | 0.8320 | -0.0155 sep BELOW | +0.0049 sep |
-| clause-scoped + by-phrase required | 0.8468 | -0.0007 n.s. | +0.0197 sep |
+| clause-scoped licence | 0.8320 | -0.0148 CI95[-0.0246,-0.0049] sep BELOW | +0.0049 sep |
+| clause-scoped + by-phrase required | 0.8468 | +0.0000 n.s. | +0.0197 sep |
 | **NEW predicate-anchored licence (the board hunk of the diff)** | **0.8475** | **+0.0007 CI95[-0.0070,+0.0084] n.s.** | **+0.0204 CI95[+0.0126,+0.0281] sep** |
-| NEW + by-phrase required | 0.8482 | +0.0007 n.s. | +0.0211 sep |
-| NEW graded read | 0.8475 / 0.8482 | +0.0000 / +0.0007 n.s. | +0.0204 / +0.0211 sep |
-| **the ORGAN `hdlab.hybrid_agent_pick` with the diff in** | **0.8531** | **+0.0063 CI95[-0.0014,+0.0141] n.s.** | **+0.0260 CI95[+0.0169,+0.0351] sep** |
-| TWIN -- the passive licence fires on a random equal-size set | 0.8468 | -0.0007 (at the floor) | +0.0197 sep |
+| NEW + by-phrase required | 0.8482 | +0.0014 CI95[-0.0063,+0.0091] n.s. | +0.0211 sep |
+| NEW graded read | 0.8475 / 0.8482 | +0.0007 / +0.0014 n.s. | +0.0204 / +0.0211 sep |
+| **the ORGAN `hdlab.hybrid_agent_pick` with the diff in** | **0.8531** | **+0.0063 CI95[-0.0014,+0.0134] n.s.** | **+0.0260 CI95[+0.0169,+0.0351] sep** |
+| TWIN -- the passive licence fires on a random equal-size set | 0.8468 | +0.0000 -- **exactly the floor** | +0.0197 sep |
+
+*(The "hybrid with the passive licence removed" row exists so the passive cue's own contribution is not
+confounded with the other two marked cues: `pp_gov` and `noncase` together are worth +0.0007 on their own,
+and the corrected passive licence adds +0.0007 on top of that. Against the LANDED model every arm is
+CI-separated up -- including the twin -- which is why the floor, not the landed model, is the comparison
+that decides anything here.)*
 
 **THE OVERRIDE ANATOMY -- the brief's own instrument.** Decisions where the PASSIVE cue ALONE licenses the
 override (no `pp_gov`, no `noncase`):
@@ -189,7 +206,7 @@ abstains on the second, which the boolean cannot do.
 organ whose default depends on an uncommitted asset would silently become a DIFFERENT organ on any machine
 that lacks it -- the precise hazard the hard rules name. The counts are therefore the opt-in plastic arm,
 re-derivable by `--run`, with `observe_voice_outcome` as the online path. **On the bigger held-out corpus
-the graded read does win** (GUM F1 0.9027 vs 0.8996, precision 0.9638 vs 0.9533 -- section 8), so a consumer
+the graded read does win** (GUM F1 0.9020 vs 0.8983, precision 0.9622 vs 0.9503 -- section 8), so a consumer
 that has the asset should pass it; the default is a shipping decision, not a claim that the boolean is
 better.
 
@@ -197,8 +214,8 @@ better.
 
 | consumer | population | shipped | patched | delta |
 |---|---|---|---|---|
-| **call site 1** -- `coarse_role_cues` `voice_order` (UD-EWT test 700, live heads, the shipped v4 validity table UNCHANGED) | all labelled arguments, n=2216 | 0.6940 | 0.6954 | +0.0014 CI95[0.0000,+0.0031] n.s. |
-| | core arguments, n=1205 | 0.7361 | 0.7386 | +0.0025 CI95[0.0000,+0.0059] n.s. |
+| **call site 1** -- `coarse_role_cues` `voice_order` (UD-EWT test 700, live heads, the shipped v4 validity table UNCHANGED) | all labelled arguments, n=2216 | 0.6986 | 0.6999 | +0.0014 CI95[0.0000,+0.0031] n.s. |
+| | core arguments, n=1205 | 0.7477 | 0.7502 | +0.0025 CI95[0.0000,+0.0059] n.s. |
 | | gold `nsubj:pass`, n=48 | 0.5417 | 0.5417 | 0.0000 |
 | | gold `obl:agent`, n=19 | 0.6316 | 0.6316 | 0.0000 |
 | **call site 2** -- `agent_supports`, the voice FLIP of every candidate's preverbal/byagent support; scored as the competition's own pick on the agent population | UD-EWT test, n=1422 | 0.7511 | **0.7637** | **+0.0127 CI95[+0.0070,+0.0197] CI-SEPARATED UP** |
@@ -377,17 +394,17 @@ paired bootstrap over sentence clusters, 2000 resamples.
 | | P | R | F1 | acc vs floor | P | R | F1 | acc vs floor |
 | FLOOR -- shipped whole-sentence | 0.3643 | 0.8123 | 0.5030 | -- | 0.4596 | 0.9000 | 0.6085 | -- |
 | `precise_passive` | 0.9321 | 0.7982 | 0.8600 | +0.0981 sep | 0.9397 | 0.9083 | 0.9237 | +0.0732 sep |
-| **NEW construction read** | **0.9533** | **0.8517** | **0.8996** | **+0.1032 CI[+0.0996,+0.1070] sep** | **0.9821** | **0.9167** | **0.9483** | **+0.0768 CI[+0.0629,+0.0895] sep** |
-| NEW graded read | 0.9638 | 0.8489 | **0.9027** | +0.1037 sep | 0.9909 | 0.9083 | 0.9478 | +0.0768 sep |
-| NEW without the coordination cue | 0.9653 | 0.8367 | 0.8964 | +0.1030 sep | 1.0000 | 0.9000 | 0.9474 | +0.0768 sep |
-| **TWIN** | 0.0662 | 0.0605 | 0.0632 | **-0.0137 sep BELOW** | 0.0678 | 0.0667 | 0.0672 | **-0.0502 sep BELOW** |
+| **NEW construction read** | **0.9503** | **0.8517** | **0.8983** | **+0.1030 CI[+0.0994,+0.1068] sep** | **0.9821** | **0.9167** | **0.9483** | **+0.0768 CI[+0.0629,+0.0895] sep** |
+| NEW graded read | 0.9622 | 0.8489 | **0.9020** | +0.1036 sep | 0.9909 | 0.9083 | 0.9478 | +0.0768 sep |
+| NEW without the coordination cue | 0.9622 | 0.8367 | 0.8951 | +0.1028 sep | 1.0000 | 0.9000 | 0.9474 | +0.0768 sep |
+| **TWIN** | 0.0664 | 0.0610 | 0.0636 | **-0.0139 sep BELOW** | 0.0678 | 0.0667 | 0.0672 | **-0.0502 sep BELOW** |
 
 The result transfers: precision 0.36 -> 0.95 on GUM and 0.46 -> 0.98 on the OOD split, with recall up on
 both, the twin CI-separated below the floor on both, and the new read beating `precise_passive` (the
 strongest existing predicate-anchored detector) on precision AND recall on every population.
 
-**And on the bigger held-out corpus the GRADED read earns its keep**: GUM F1 0.9027 vs the construction
-read's 0.8996 (precision 0.9638 vs 0.9533). So a consumer that has the counts asset should pass it; the
+**And on the bigger held-out corpus the GRADED read earns its keep**: GUM F1 0.9020 vs the construction
+read's 0.8983 (precision 0.9622 vs 0.9503). So a consumer that has the counts asset should pass it; the
 shipped default stays the construction read for the reason in 5.4 (the asset is gitignored, and an organ
 whose default silently changes with an absent file is the hazard the hard rules name).
 
@@ -399,9 +416,9 @@ swapped. This is the `who_did_what_agent` row, not a re-implementation of it.
 
 | arm | model | floor | twin | model - floor | passive slice (n=16) |
 |---|---|---|---|---|---|
-| **landed (today's board)** | **0.8271** | 0.8468 | 0.2839 | **-0.0197 CI[-0.0317,-0.0090]** | 0.1875 |
-| **+ pri-111 voice read (the board hunk of the diff)** | **0.8475** | 0.8468 | 0.2839 | **+0.0007 CI[-0.0068,+0.0078]** | 0.1875 |
-| **+ pri-111 voice AND the board arm replaced by the ORGAN** | **0.8531** | 0.8468 | 0.2839 | **+0.0063 CI[-0.0014,+0.0134]** | **0.5625** |
+| **landed (today's board)** | **0.8271** | 0.8468 | 0.2853 | **-0.0197 CI[-0.0317,-0.0090]** | 0.1875 |
+| **+ pri-111 voice read (the board hunk of the diff)** | **0.8475** | 0.8468 | 0.2853 | **+0.0007 CI[-0.0068,+0.0078]** | 0.1875 |
+| **+ pri-111 voice AND the board arm replaced by the ORGAN** | **0.8531** | 0.8468 | 0.2853 | **+0.0063 CI[-0.0014,+0.0134]** | **0.5625** |
 
 The board's agent dimension is **not down** -- it stops being CI-separated BELOW its own floor for the first
 time, and the passive slice triples.
