@@ -563,6 +563,26 @@ structure has to be LEXICAL (which verb takes this noun), not numerical (how man
 | O5 | **the clause segmentation as an INCREMENTAL state rather than a span statistic** | the reader knows which clause it is IN at word t; my cue is computed over the finished sentence (both endpoints known) | the in-order decode already has the machinery (`hold_expectation`, the wrap-up); a per-arrival clause id would make the cue strictly incremental. The current form reads no future word for the arc it scores, but the matrix is built once per sentence | honest gap, named in the owner's in-order rule |
 | O6 | **the convention bonus is a fixed +5** | -- (this is an annotation convention, not a brain fact) | the `fw` construction gets a deterministic +5 that the phrase-onset split now redirects rather than removes; a learned magnitude per family would be more honest | out of scope here, flagged |
 
+**L3b + L4 TOGETHER** (missing-is-not-zero with saturation at gamma 1): core **0.7718 (-0.0066, CI
+[-0.0147, +0.0009])** -- the saturation damage swallows the re-coding's small gain, as it must.
+
+## P7.5 IS THE SESSION EXHAUSTED? -- the honest statement
+
+**Within this brief's remit, yes, and here is the arithmetic that says so.** The brief names two computations. Both
+are built, both are learned, both are measured under both decodes and on the live chain, and the reachable
+population of each was counted BEFORE the build (52 of 267 misattachments = 4.3 points at oracle). The shipped arm
+delivers +0.0183 / +0.0307 / +0.0174 / +0.0191 of that, all CI-separated, with the twin below the floor and the
+board's patient dimension up. **Six further levers were built and measured; five are refuted with a mechanism and a
+count, one (the wrap-up trigger) is accepted and shipped.** The two residual classes were then decomposed until
+they turned out to be the SAME problem -- 47 nouns and 10 verbs missing from the self-grown typed selectional store
+-- and the one part of that which lives inside the governor (coding missing evidence as negative evidence) was
+built and measured: it recovers 4 of 57.
+
+**What is NOT exhausted is the problem, and it is now located precisely: it is Phase-1 meaning supply, not the
+governor.** I cannot grow the store from inside this remit (it is a store build over simplewiki with the
+substrate's own chain), and every governor-side lever I could reach has been measured. The remaining in-remit item
+is the cap-6000 rebuild, which is running.
+
 ## 11. ALTERNATE PATHS -- as brain-foundational or MORE so than what is shipped here
 
 Written at brief precision, with the count each would address, so strategy can queue them directly.
@@ -596,8 +616,21 @@ Written at brief precision, with the count each would address, so strategy can q
   **Expected value:** bounded below by turning a 7% value-flip rate into a graded one; the cue's validity is
   already learned and correct, so this is input quality, not mechanism.
 
+### PATH A2 (NEW, and it is the one I would run first) -- LEXICALISE THE `frame` CUE
+- **Brain structure / computation.** Verb-specific argument structure is available immediately and constrains the
+  next argument (Boland/Trueswell; MacDonald 1994). The arm's `frame` cue is `transitivity x dependent class x
+  direction` -- a CLASS statistic over the verb's propensity, with no lexical identity in it.
+- **What it would take.** The verb's own lemma is already in `SentenceCues.lem`; the value could be
+  `lemma-frequency-binned transitivity x class x direction` (a backed-off lexicalisation, so rare verbs fall back
+  to the class), learned from reading exactly as the frames are today (`verb_frames_from_reading`).
+- **The number that says it matters.** 79 within-clause wrong-predicate errors where neither the boundary (0 of
+  them cross one, by construction) nor capacity (4 of 79) can decide, 59% of them at distance 1.
+- **Why not now:** it needs a rebuild per variant and the session's remaining CPU went to the cap-6000 confirmation.
+
 ### PATH C -- THE COMPOUND ASSOCIATION AS A GROWN STORE RATHER THAN A CORPUS STATISTIC
-- What is built here counts adjacent noun-noun pairs in the training text. The brain's version is a lexical
+- What is built here counts adjacent noun-noun pairs in the training text -- **and Phase 7 counted why that cannot
+  work at this scale: the pair was seen 3 times in 71 cases, and in 57 of them at least one of the two words is
+  unseen.** The brain's version is a lexical
   SEMANTIC relation (is N1 a plausible modifier of N2?), which the substrate already has machinery for: the typed
   selectional-preference store grown by the substrate's own chain. A compound-relation slot in that store would
   generalise to unseen pairs, where a raw adjacency count cannot.
@@ -614,10 +647,15 @@ Written at brief precision, with the count each would address, so strategy can q
 
 ## 12. PRIORITY NEXT STEPS (for strategy)
 
-1. **Land the diff** (it applies clean; the equivalence check below shows it reproduces the measured arm exactly),
-   then rebuild the asset at the landed cap 6000 -- the numbers here are at train 1500 and pri-97 recorded that a
-   cap-1500 result can carry a small-training artefact that disappears at 6000.
-2. **Queue PATH A** -- it is already a filed brief and it owns the biggest remaining block (79 items).
+1. **Land the diff** (it applies clean; the equivalence check shows it reproduces the measured arm exactly), then
+   rebuild the asset at the landed cap 6000 -- the numbers here are at train 1500 and pri-97 recorded that a
+   cap-1500 result can carry a small-training artefact that disappears at 6000. That rebuild was STARTED in this
+   session and did not finish (the machine was carrying six other sessions' jobs); the command is in `reverify`.
+2. **The highest-value item this brief found is NOT in this brief: grow the typed selectional store's NOUN side.**
+   47 of the 57 blocked constituency errors, and most of the 79 within-clause errors, are one missing statistic.
+   Ship it as a Phase-1 item, not a governor item.
+3. **Queue PATH A2** (lexicalise the `frame` cue) ahead of the saturation framing in PATH A -- Phase 7 refuted the
+   capacity form by counting (4 of 79) and by measurement (-0.0091 CI-separated DOWN at the smallest gamma).
 3. **Re-run the head-repair curve** (pri-103's instrument) with the new core-arc accuracy to re-price the labels
    rung's requirement: the 0.95 target is 17 points above where the governor now is, and this brief's two
    computations can supply at most 4.3 of them.
