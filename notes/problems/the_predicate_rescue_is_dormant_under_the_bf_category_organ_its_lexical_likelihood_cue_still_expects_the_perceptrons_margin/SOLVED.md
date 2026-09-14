@@ -6,7 +6,8 @@ result: "THE RESCUE FIRES. Under the live brain-foundational category organ the 
 floor: "(1) THE DORMANT STAND-IN as deployed -- post[i]['VERB'] >= PREDICATE_RESCUE_MIN_P = 0.3 on the live category organ: recovery 0.2768 @ 0.0154 false verbs/sent (UD-EWT test), 0.2250 @ 0.0300 (GUM), 0.2385 @ 0.0245 (QA-SRL). (2) predicate_recall OFF: recovery 0.0 by construction (a dropped verb emits no event). (3) THE STRONGEST FLOOR ACTUALLY RUN, and the one that matters: the SAME cue with its threshold swept to each budget -- 0.6875 / 0.4932 / 0.4771 at fp<=0.10, 0.9554 / 0.8650 / 0.8760 at fp<=0.50. Roughly HALF the recovered signal was the mis-set bar, not the cue: on QA-SRL the decomposition is 0.2385 (dormant) -> 0.4771 (threshold calibrated, same cue, +0.2386) -> 0.6823 (the BF cue block, +0.2052)."
 controls: "(1) INFORMATION-FREE TWIN (random promotion of the same number of gated candidates) loses CI-separated on all three populations; the sampled twin's own mean and p95 are reported beside every arm. (2) PAIRED BOOTSTRAP over SENTENCES (2000 resamples) for every delta; CI half-widths 0.027-0.085. (3) HELD-OUT: 5-fold cross-validation over SENTENCES -- no candidate is scored by a model that saw its own sentence; the shipped asset's threshold is reported both full-fit and held-out. (4) THREE MODERN POPULATIONS, two of them entirely outside the organ's count supply (GUM/GENTLE 12+ genres by stride so every genre is represented; QA-SRL dev). 19c is NOT measured (owner ban). (5) ABLATIONS: every channel alone is far weaker than the combination (fp<=0.10, QA-SRL: clause share alone 0.2646, lexical bias alone 0.2917, posterior log-odds alone 0.3812, the six structural cues alone 0.2792, vs 0.6823 combined) -- the COMBINATION is the mechanism, exactly as the parent found. (6) GATE EQUIVALENCE: the glass-box morphology gate vs the landed nltk WordNet gate, 5612/5629 UD-EWT word types (0.99698). (7) ADDITIVE BY CONSTRUCTION: a token the category organ already called VERB or AUX is never touched, so the existing detections stay byte-identical (verified in the witness). (8) THE ARMS ARE THE READER: the end-to-end arms were cross-checked against a live SituationReader on 300 sentences -- 0 mismatches for both OFF and the stand-in. (9) PATCH == CELL: the proposed hdlab diff reproduces the experiment cell's scorer to 0.0 over 4757 tokens / 250 sentences, with identical rescue sets."
 files_changed: "experiments/exp_predicate_rescue_bf_cue_v1.py (the cell), data/hook_state/predicate_detector_bf_counts_v1.json (the new asset -- strategy swaps it into data/frontend_assets/ on integration), notes/problems/<slug>/{SOLVED.md, predicate_detector_bf_patch.diff} (the proposed diff against hdlab/predicate_detector.py + the _rescue branch of hdlab/situation_reader.py + verification/test_predicate_recall_landing_organ.py). NO hdlab/ or verification/ file changed on disk."
-reverify: ".venv/Scripts/python.exe experiments/exp_predicate_rescue_bf_cue_v1.py --self-test  (fast); then --full --gate-control (~30 min, rows cached in data/exp_predicate_rescue_bf_cue_v1/) and --reader --reader-cap 2100 (~35 min). After the diff is applied: .venv/Scripts/python.exe verification/test_predicate_recall_landing_organ.py"
+phase7: "Four probes measured. (i) OPERATING-POINT TABLE at 0.05/0.10/0.15/0.25 false verbs per sentence through the live reader (recall 0.9413/0.9501/0.9532/0.9585, precision 0.9028/0.8715/0.8403/0.7907, false events 0.127/0.176/0.227/0.318, blind clauses 0.0315/0.0266/0.0242/0.0210); default stays 0.10 (the point the board was measured flat at), the rest selectable by HDLAB_PREDICATE_RESCUE_BUDGET, no second board run. (ii) HAND-OFF TRUNCATION: MEASURED NEGATIVE -- eps 0.01 vs 0.001 vs 0 gives IDENTICAL best recovery (0.6875/0.4932/0.4771) on all three populations because the affordable threshold (0.081/0.125/0.150) already sits an order of magnitude above 0.01; my own phase-6 next-step proposing the widening is WITHDRAWN and NOT shipped. (iii) THE FREQUENCY-NORMALISED RATIO EXISTS AND TIES: lex_pcw = log P(VERB|word) from the counts (AUC 0.8523/0.7572/0.7809 vs lex_bias 0.8525/0.7489/0.7639 vs the inverting lex_llr 0.8402/0.7408/0.7880); in the full combiner +0.018/+0.016/-0.004, every one inside the CI half-width -- what matters is conditioning on the WORD, not which denominator; lex_bias kept because the board and witness were measured on it. (iv) BLOCKING NAMED: the three redundant cues are ctx_odds / verb_share / clause_verb_share (pairwise r 0.437-0.501); the weight dump shows naive Bayes paying verb_share +1.03 to +2.55 in bins where Rescorla-Wagner pays -0.94 to +0.29, and concentrating the credit on ctx_odds instead. (v) GUM GOLD BLANKS: 2045 of 30870 gold VERB tokens corpus-wide (6.62%) are ____ markers -- an eval artefact, never a lexicon gap. (vi) THE AUX-INVISIBLE CLASS BUILT: firing on every sole-AUX token is REFUTED as a rule (precision 0.1164/0.1016/0.0228 against UD's VERB column) -- but UD's column cannot adjudicate a question about UD's own convention, since a copula is gold-AUX there. On the convention-free instrument (does the clause produce an event at all?) the scored sole-AUX arm cuts gold-verb sentences that yield ZERO events from 33 to 18 of 1240 (0.0266 -> 0.0145; OFF 0.0444), event recall +0.0096 CI[+0.0061,+0.0136] CI-SEPARATED, for +0.06 false events/sentence. Shipped behind HDLAB_PREDICATE_RESCUE_AUX=1, DEFAULT OFF with a measured reason: the board A/B covers the noun arm only. READ-TIME COST: +4.7 ms/sentence (base 4.3), dominated by a second forward-backward pass that caching the posterior matrix would remove."
+reverify: ".venv/Scripts/python.exe experiments/exp_predicate_rescue_bf_cue_v1.py --self-test  (fast); then --full --gate-control (~30 min, rows cached in data/exp_predicate_rescue_bf_cue_v1/), --reader --reader-cap 2100 (~50 min), --phase7 --full (~10 s, cached) and --aux --full (~2 min, cached). After the diff is applied: .venv/Scripts/python.exe verification/test_predicate_recall_landing_organ.py"
 ---
 
 # SOLVED -- the rescue's lexical likelihood was the perceptron's; the category organ computes it from counts, and the bar it was being compared to was the real defect
@@ -475,10 +476,17 @@ needs its own board A/B and its own problem.
    the board is flat. Since the board is insensitive to the extra events, a free-text event-recall consumer could
    select 0.25 (recovery 0.9286 / 0.8102 / 0.8635, and the witness sentence fires) by passing `threshold=` to
    `rescue_indices`. Re-run the board at 0.25 before making that the default.
-3. **File alternate path A** (the clause constraint inside the organ's decode) as its own problem -- it is the fix for
-   the witness sentence and it subsumes half of this organ.
-4. **Widen `tag_with_posterior`'s truncation** (P >= 0.01) or give consumers the matrix: 5-15% of this rung's positives
-   were arriving as exact zeros, and every other consumer of the graded category signal inherits the same cut.
+3. **Board-A/B the sole-AUX arm** (`HDLAB_PREDICATE_RESCUE_AUX=1`) -- it is the single largest remaining lever on
+   this rung (45% of the reader's blind clauses) and it is the same VERB-as-AUX confusion that carries 58% of the
+   tag-to-head loss upstream, so run the board for both rungs together.
+4. **File alternate path A** (the clause-level "at least one predicate" constraint inside the organ's own
+   forward-backward) as its own problem -- section 7A is written brief-ready with the math, the population and the
+   reach. It is the fix for the witness sentence and it subsumes `verb_share` / `clause_verbless_g` / the
+   between-sentence threshold problem in one exact quantity.
+5. ~~Widen `tag_with_posterior`'s truncation~~ -- **WITHDRAWN, measured** (4b ii): at every affordable operating
+   point the best threshold is already an order of magnitude above 0.01, so widening buys 0.0000 recovery on all
+   three populations. What IS worth doing on that hot path is caching the posterior MATRIX so the rescue does not
+   pay a second forward-backward pass (4.7 ms/sentence, 4b v-b).
 
 ---
 
@@ -507,7 +515,27 @@ INSIDE the organ's decode, written up as alternate path A. Board A/B (diff monke
 0.6109, 5/7 dims CI-sep over floor in both arms, no dimension moves by more than one item. Landing witness under the
 patch: 30/30 (it FAILS on disk today).
 
+PHASE 7. (a) Operating-point table at 0.05/0.10/0.15/0.25 false verbs per sentence shipped in the asset and
+selectable by HDLAB_PREDICATE_RESCUE_BUDGET; default stays 0.10 (the point the board was flat at). (b) The
+posterior hand-off truncation is a MEASURED NEGATIVE: 0.01 vs 0.001 vs 0 gives identical recovery on all three
+populations, because the affordable threshold already sits 10x above 0.01 -- my own phase-6 next-step is withdrawn
+and not shipped. (c) The frequency-normalised ratio the probe asked for EXISTS (log P(VERB|word) from the counts)
+and TIES with the shipped log-odds form within the CI -- what fixes the inversion is conditioning on the WORD, not
+the choice of denominator. (d) Blocking named with the weight dump: ctx_odds / verb_share / clause_verb_share,
+pairwise r 0.437-0.501; naive Bayes pays verb_share +1.0 to +2.5 where the delta rule pays -0.94 to +0.29.
+(e) GUM's gate figure is an eval artefact: 2045 of 30870 gold VERB tokens corpus-wide are ____ blanks. (f) THE AUX
+CLASS IS BUILT. Firing on every sole-AUX token is refuted as a rule (precision 0.10 against UD's VERB column) --
+but UD cannot adjudicate its own convention, since a copula is gold-AUX there. On the convention-free instrument --
+does the clause produce an event at all? -- the scored sole-AUX arm cuts gold-verb sentences yielding ZERO events
+from 33 to 18 of 1240 (OFF is 55), event recall +0.0096 CI[+0.0061,+0.0136] CI-separated, at +0.06 false
+events/sentence. Shipped behind HDLAB_PREDICATE_RESCUE_AUX=1, default OFF because the board A/B covers the noun arm
+only -- board-A/B it together with the upstream VERB-as-AUX confusion that carries 58% of the tag-to-head loss.
+Alternate path A (the clause-level "at least one predicate" renormalisation P(c_i=VERB | 1 - Z_noverb/Z) inside the
+organ's own forward-backward) is written brief-ready with the math, its population (55-62% of dropped verbs) and
+its reach -- file it.
+
 Files: experiments/exp_predicate_rescue_bf_cue_v1.py, data/hook_state/predicate_detector_bf_counts_v1.json,
 notes/problems/<slug>/{SOLVED.md, predicate_detector_bf_patch.diff}. No hdlab/ file changed on disk.
-Reverify: .venv/Scripts/python.exe experiments/exp_predicate_rescue_bf_cue_v1.py --self-test ; --full ; --reader
+Reverify: .venv/Scripts/python.exe experiments/exp_predicate_rescue_bf_cue_v1.py --self-test ; --full ; --reader ;
+--phase7 --full ; --aux --full
 ```

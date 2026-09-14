@@ -1,7 +1,7 @@
 diff --git a/hdlab/predicate_detector.py b/hdlab/predicate_detector.py
 --- a/hdlab/predicate_detector.py
 +++ b/hdlab/predicate_detector.py
-@@ -187,3 +187,266 @@
+@@ -187,3 +187,313 @@
              if p >= th:
                  out.append((i, p))
          return out
@@ -59,6 +59,39 @@ diff --git a/hdlab/predicate_detector.py b/hdlab/predicate_detector.py
 +
 +BF_ASSET = os.path.join(_REPO, "data/frontend_assets/predicate_detector_bf_counts_v1.json")
 +BF_ASSET_STAGING = os.path.join(_REPO, "data/hook_state/predicate_detector_bf_counts_v1.json")
++
++# THE OPERATING POINT IS AN FP-BUDGET KNOB, NOT A MODEL PARAMETER. The asset carries a calibrated threshold for
++# each false-verbs-per-sentence budget; HDLAB_PREDICATE_RESCUE_BUDGET selects one. Measured through the LIVE reader
++# on modern gold (UD-EWT test, 2077 sentences, 1240 of them with a gold verb) -- event recall / event precision /
++# false events per sentence / share of gold-verb sentences that produce NO EVENT AT ALL:
++#     budget   thresh   recall  precis  falseEv  blind-clauses
++#     (off)        --   0.9186  0.9370   0.0775        0.0444
++#     stand-in   0.30   0.9305  0.9263   0.0929        0.0403
++#     0.05     0.4352   0.9413  0.9028   0.1271        0.0315
++#     0.10     0.2592   0.9501  0.8715   0.1757        0.0266   <- DEFAULT (the board A/B was run here: flat)
++#     0.15     0.1712   0.9532  0.8403   0.2273        0.0242
++#     0.25     0.0929   0.9585  0.7907   0.3182        0.0210
++# Recall rises and precision falls monotonically: 0.10 is the tightest point whose recall gain is CI-separated
++# over BOTH floors, and it is the point the 7-dimension modern board was measured flat at (0.6109 -> 0.6109).
++BUDGET = os.environ.get("HDLAB_PREDICATE_RESCUE_BUDGET", "")
++
++# THE SOLE-AUX CLAUSE ARM (2026-09-14 phase 7), DEFAULT OFF -- with a measured reason, not an omission.
++# UD's AUX/VERB split is an ANNOTATION CONVENTION: UD tags main-verb / copular `be` and `have` as AUX, and the
++# reader fires events only on UPOS==VERB, so a clause whose only verbal token is AUX-tagged emits NO event at all.
++# That class is 4.7-38.8% of the real verbs the organ "drops" and it is invisible to an ADDITIVE rescue by
++# construction. The brain has no such convention -- when nothing else competes for the clause's predicate slot,
++# the auxiliary IS the predicate (one predicate per clause, Spivey-Knowlton 1993).
++# MEASURED, and the two instruments DISAGREE, which is the whole point:
++#   * against UD's own VERB column the arm looks poor -- only 11.6% (UD-EWT) / 10.2% (GUM) / 2.3% (QA-SRL) of
++#     sole-AUX candidates are gold VERB, because UD labels the copula AUX in the gold column too. The gold cannot
++#     adjudicate a question about its own convention.
++#   * on the CONVENTION-FREE instrument -- does the clause produce an event at all? -- the arm removes nearly half
++#     the reader's remaining blind clauses: gold-verb sentences yielding ZERO events fall 33 -> 18 of 1240 at the
++#     default budget (0.0266 -> 0.0145; OFF is 0.0444), event recall +0.0096 CI[+0.0061,+0.0136] CI-separated.
++#     Cost: +0.06 false events/sentence and 3.5 points of event precision (0.8715 -> 0.8364).
++# It is OFF by default only because the 7-dimension board A/B was run on the noun arm alone; turn it on with
++# HDLAB_PREDICATE_RESCUE_AUX=1 and re-run the board. It preserves the additive contract (it only ever ADDS).
++AUX_ARM = os.environ.get("HDLAB_PREDICATE_RESCUE_AUX", "0") == "1"
 +
 +# clause boundaries: the closed-class cues a reader has BEFORE any parse
 +CLAUSE_BREAK = {",", ";", ":", "--", "and", "but", "or", "that", "which", "who", "because", "while",
@@ -209,7 +242,13 @@ diff --git a/hdlab/predicate_detector.py b/hdlab/predicate_detector.py
 +    def load(cls, path: str = None) -> "BFPredicateDetector":
 +        p = path or (BF_ASSET if os.path.exists(BF_ASSET) else BF_ASSET_STAGING)
 +        with open(p, encoding="utf-8") as f:
-+            return cls(json.load(f))
++            d = cls(json.load(f))
++        if BUDGET:                                  # select a calibrated operating point by FP budget
++            ent = d.thresholds_by_budget.get(BUDGET) or d.thresholds_by_budget.get(str(float(BUDGET)))
++            if ent and ent.get("threshold"):
++                d.threshold = float(ent["threshold"])
++                d.budget = float(BUDGET)
++        return d
 +
 +    def _bin(self, name: str, x: float) -> int:
 +        spec = self.bin_spec.get(name)
@@ -260,9 +299,17 @@ diff --git a/hdlab/predicate_detector.py b/hdlab/predicate_detector.py
 +        post = lc.posterior(list(toks))
 +        le = category_emission(lc, list(toks))
 +        cues = bf_cue_block(lc, list(toks), list(tags), post, le)
++        span = hv = None
++        if AUX_ARM:
++            span = clause_spans(list(toks), list(tags))
++            hv = {c: any(tags[j] == "VERB" for j in range(len(toks)) if span[j] == c) for c in set(span)}
 +        out = []
 +        for i in range(len(toks)):
-+            if tags[i] in ("VERB", "AUX") or not has_verb_reading_glassbox(toks[i]):
++            if tags[i] == "AUX":
++                # the SOLE-AUX clause (see AUX_ARM): admitted only when no VERB competes for the predicate slot
++                if not (AUX_ARM and not hv[span[i]]):
++                    continue
++            elif tags[i] == "VERB" or not has_verb_reading_glassbox(toks[i]):
 +                continue
 +            p = self.score(cues[i])
 +            if p >= th:
