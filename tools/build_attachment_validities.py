@@ -159,6 +159,8 @@ def main(argv=None) -> int:
         A, n = teacher._score_matrix(toks, pos)
         A = AA.parallelism_boost(A, toks, pos)        # PARALLEL-STRUCTURE PREDICTION as a teaching signal (owner-DONE pri 95, 2026-09-13):
         #                                              the co-occurrence + semantic teacher was coordination-blind (0.054 mass on gold conj arcs)
+        A = AA.predication_boost(A, toks, pos)        # PREDICATION + DEPENDENCY MARKING as a teaching signal (solver pri-97, 2026-09-13):
+        #                                              the teacher put 0.001 posterior mass on a gold ADJECTIVAL root arc (100% of them below 0.05)
         mt = single_root_marginals(A, n, 1.0); tmarg[i] = mt
         AA.accrue_sentence(counts, AA.SentenceCues(toks, pos, frames, pp_assoc), mt)
     table = {"counts": counts, "frames": frames, "pp_assoc": pp_assoc, "strength": AA.strengths_from_arc_counts(counts)}

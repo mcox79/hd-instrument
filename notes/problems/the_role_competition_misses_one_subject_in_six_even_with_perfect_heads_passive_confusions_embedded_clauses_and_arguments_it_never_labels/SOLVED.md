@@ -555,3 +555,5 @@ attaches correctly the floor is already 0.878-0.907 and v3 adds +0.011/-0.004.
    *Cost:* a new decode path plus an incremental instrument. *Why not now:* out of this brief's scope, and the
    whole-clause read is not currently the binding constraint -- the heads are. **More brain-foundational than what
    shipped** and it is the standing "organs take data in order" direction.
+
+INTEGRATED_BY_STRATEGY 2026-09-13 21:35 local -- DONE by strategy after first-hand reverify (owner 20:05: strategy marks DONE); pri 103 cue set v3 applied to graded_role_assigner (+ --weight builder retained); v3 table LIVE (board 0.6366 interim). Wave board (97+98+99+100+103 together, assets live): AGG 0.6352 -> 0.6369, patient 0.7920 -> 0.8072, every other dimension identical (notes/INTEGRATION_LEDGER.md 21:06). Also corrected in the same commit: the reader's own heads default ('arceager') never flipped with the frontend's -- now one default imported from hdlab.frontend.

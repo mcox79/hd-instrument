@@ -39,7 +39,7 @@ from __future__ import annotations
 
 __bf_status__ = "BF_SPIRIT"   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors data/bf_status_registry.jsonl
 __bf_verified__ = "2026-09-09 operation/math audit (VERIFIED_BF_LEDGER)"
-__bf_note__ = "Competition-Model op pinned; DEFAULT_VALIDITIES gold-FITTED+adopted; agent weights hand-set; UNACC hand-lexicon | 2026-09-12 coarse_roles: argument-role labeler, cue validities LEARNED on UD-EWT train (configuration-conditioned contrasts), live via arc_labeler.COMPETITION_ROLES"
+__bf_note__ = "2026-09-13 pri103 CUE SET v3 (self-gated on the asset cue_set key): argument RANK over the verb dependents (precision-gated on the head posterior), the there-BE CONSTRUCTION as a configuration, LEXICAL case with a relativizer-stopped scan, the copula read in both orders, and the ARGUMENT-HEAD population (quantifier/numeral/nominalised-adjective heads) -- UD-EWT test 700 gold heads: core role recall 0.8655 -> 0.9198 CI-sep, previously unlabelled arguments 0.000 -> 0.838 | Competition-Model op pinned; DEFAULT_VALIDITIES gold-FITTED+adopted; agent weights hand-set; UNACC hand-lexicon | 2026-09-12 coarse_roles: argument-role labeler, cue validities LEARNED on UD-EWT train (configuration-conditioned contrasts), live via arc_labeler.COMPETITION_ROLES"
 __bf_corrections__ = []   # append "YYYY-MM-DD <fix>: OLD -> NEW" when a fix RAISES the status
 
 import json
@@ -379,10 +379,104 @@ def induced_category(word: str) -> str:
     return f"c{c}" if c is not None else "unk"
 
 
-def _head_class(pos: Sequence[str], h: int) -> str:
+# ---------------------------------------------------------------------------------------------------------------
+# CUE SET v3 (pri 103, 2026-09-13). SELF-GATING: every addition below is inert unless the LOADED validity table
+# declares "cue_set": "v3" (data/frontend_assets/coarse_role_validities_ud_ewt*.json without that key -> the organ is
+# byte-identical to the pre-2026-09-13 behaviour). Five points where the cue set read a surface proxy where the brain
+# reads a structure; each measured separately on UD-EWT test 700 (see notes/problems/the_role_competition_misses_one_
+# subject_in_six.../SOLVED.md):
+#   * ARGUMENT RANK over the verb's own dependents, not over TOKENS (an NP-internal compound is not a second argument
+#     slot), and the same rank cue on the PRE-verbal side (the active-filler configuration; Frazier & Clifton 1989)
+#     -- PRECISION-GATED on the heads rung's own posterior, since it is the one arc-dependent addition.
+#   * the EXPLETIVE does not fill the subject slot, and the there-BE CONSTRUCTION is a CONFIGURATION (Goldberg 1995;
+#     MacWhinney item-based constructions), not one additive contrast fighting the general post-verbal configuration.
+#   * CASE IS LEXICAL: the preposition FORM is the cue value (Bates & MacWhinney: case marking is a top cue); the
+#     surface scan STOPS at a relativizer ("in which KENNEDY joined": "in" governs "which").
+#   * the COPULA cue reads BOTH orders (inverted "Here is a draft"), and ADV/ADP/SYM/INTJ predicates get their own
+#     head classes instead of one OTHERH bucket.
+#   * AN ARGUMENT IS WHATEVER FILLS THE SLOT: a quantifier / numeral / nominalised-adjective phrase HEAD is labelled
+#     too (Right-hand Head Rule, Williams 1981 + DP-head, Abney 1987 -- the landed np_head_reduce criterion).
+# REFUTED-AS-BUILT here, with numbers, and deliberately NOT included: reading VOICE off the predicate's AUX
+# DEPENDENTS (-0.025 subject recall CI-sep: the cue then inherits the governor's attachment noise, and the shipped
+# surface window is the higher-validity read); the filler's own CATEGORY as a full-inventory cue (-0.10 CI-sep: it
+# double-counts animacy and case); the relative-pronoun FORM and the relative clause as its own configuration (both
+# trade subjects for objects, net negative).
+EXTRA_ARG = frozenset({"NUM", "ADJ", "DET", "SYM", "X"})   # + the phrase heads the NOMINAL set never labelled
+HEADCLS_V3 = ("VERB", "AUX", "NOUN", "PROPN", "ADJ", "PRON", "NUM", "ADV", "ADP", "SYM", "INTJ")
+RANK_TAU = float(os.environ.get("HDLAB_ROLE_RANK_TAU", "0.5"))   # SWEPT: the head posterior above which rank votes
+_MODSCAN = frozenset({"ADJ", "NUM", "ADV", "DET"})
+_POSS_MARK = frozenset({"'s", "'", "s'", "’s", "’"})
+_WHREL = frozenset({"who", "whom", "whose", "which", "that", "what", "where", "when", "why"})
+
+
+def is_arg_head(toks: Sequence[str], pos: Sequence[str], i: int, extra=EXTRA_ARG) -> bool:
+    """Is token i (1-based) the HEAD of an argument phrase? NOUN/PROPN/PRON always (the pre-v3 population, unchanged);
+    a NUM / ADJ / DET / SYM / X only when it is NOT an NP-internal modifier -- the Right-hand Head Rule (Williams 1981)
+    and the DP-head rule (Abney 1987), i.e. the landed `hdlab.np_head_reduce.is_np_head` criterion extended over the
+    intervening modifier run ("a FEW nerves" -> modifier; "the very FEW who read" -> head; "MANY of them" -> head).
+    Arc-free: reads only toks/pos."""
+    p = pos[i - 1]
+    if p in NOMINAL:
+        return True
+    if p not in extra:
+        return False
+    j, steps = i, 0
+    while j < len(pos) and steps < 4:
+        q = pos[j]
+        if q in ("NOUN", "PROPN"):
+            return False
+        if toks[j].lower() in _POSS_MARK:
+            return False
+        if q in _MODSCAN:
+            j += 1; steps += 1; continue
+        break
+    return True
+
+
+def existential_frame(toks: Sequence[str], pos: Sequence[str], h: int) -> bool:
+    """The there-BE CONSTRUCTION: a clause-initial expletive `there` before the predicate at h with no nominal
+    between. A stored form-meaning pairing whose notional subject FOLLOWS the verb (Goldberg 1995); in the Competition
+    Model the construction is the CONFIGURATION within which cue validities are read. Surface-only (arc-free)."""
+    low = [t.lower() for t in toks]
+    lo, hi = clause_bounds(toks, pos, h - 1)
+    for j in range(lo, min(h - 1, hi)):
+        if low[j] == "there" and (pos[j] if j < len(pos) else None) in ("PRON", "ADV", "DET"):
+            if not any((pos[k] if k < len(pos) else None) in ("NOUN", "PROPN") for k in range(j + 1, h - 1)):
+                return True
+    return False
+
+
+def _prep_of_v3(toks, pos, heads, i):
+    """(preposition form or None, far) -- like `_prep_of`, but the surface scan STOPS at a relativizer: a wh-word is
+    the preposition's OWN object and opens a new clause, so "in which KENNEDY joined" must not read `in` as KENNEDY's
+    case marker (8 subjects mislabelled obl on UD-EWT test 700)."""
+    for j in range(1, i):                     # ASCENDING (deterministic; heads.items() order is not)
+        if heads.get(j) == i and j - 1 < len(pos) and pos[j - 1] == "ADP":
+            return toks[j - 1].lower(), False
+    j, steps, crossed = i - 1, 0, False
+    while j >= 1 and steps < 5:
+        p = pos[j - 1]
+        low = toks[j - 1].lower()
+        if p == "ADP":
+            return low, crossed
+        if low in _WHREL:
+            return None, False
+        if p not in _SPAN_POS:
+            return None, False
+        if p in ("DET", "PRON"):
+            return (toks[j - 2].lower(), crossed) if j >= 2 and pos[j - 2] == "ADP" else (None, False)
+        if p in ("NOUN", "PROPN", "NUM"):
+            crossed = True
+        j -= 1; steps += 1
+    return None, False
+
+
+def _head_class(pos: Sequence[str], h: int, v3: bool = False) -> str:
     if h is None or h < 1 or h > len(pos):
         return "ROOT"
     p = pos[h - 1]
+    if v3:
+        return p if p in HEADCLS_V3 else "OTHERH"
     return p if p in ("VERB", "AUX", "NOUN", "PROPN", "ADJ", "PRON", "NUM") else "OTHERH"
 
 
@@ -413,14 +507,21 @@ def _prep_of(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int], i: 
 
 
 def coarse_role_cues(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int], i: int,
-                     frames: Optional[Dict[str, Sequence[int]]] = None) -> Dict[str, str]:
+                     frames: Optional[Dict[str, Sequence[int]]] = None, v3: bool = False,
+                     conf: Optional[Dict[int, float]] = None) -> Dict[str, str]:
     """Categorical cue VALUES for nominal token i (1-based) given its governing head (1-based, 0 = root).
-    Reads toks / pos / heads only (no gold, no labels). Each value is a key into the learned validity table."""
+    Reads toks / pos / heads only (no gold, no labels). Each value is a key into the learned validity table.
+    v3=False (default) -> byte-identical to the pre-2026-09-13 cue set. v3=True -> the pri-103 cue set (see the CUE
+    SET v3 block above); conf = {token: P(its MAP head)} from the heads rung, which precision-gates the one
+    arc-dependent addition (the argument-rank cue)."""
     h = heads.get(i, 0) or 0
     low = toks[i - 1].lower()
-    hc = _head_class(pos, h)
+    hc = _head_class(pos, h, v3)
     order = "pre" if (h and i < h) else ("post" if h else "root")
-    cues = {"config": f"{hc}_{order}"}
+    cfgkey = f"{hc}_{order}"
+    if v3 and hc in ("VERB", "AUX") and h and existential_frame(toks, pos, h):
+        cfgkey += "_ex"                     # the CONSTRUCTION is the configuration
+    cues = {"config": cfgkey}
     if hc in ("VERB", "AUX") and h:
         vc = voice_cues(toks, pos, h)
         strong = bool(vc["vc_strong"] or vc["vc_get"] or vc["vc_being"])          # be/get/being + participle
@@ -430,11 +531,13 @@ def coarse_role_cues(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, i
     else:
         passive = False
         cues["voice_order"] = "na"
-    prep, far = _prep_of(toks, pos, heads, i)
+    prep, far = _prep_of_v3(toks, pos, heads, i) if v3 else _prep_of(toks, pos, heads, i)
     if prep is None:
         cues["prep"] = "none"
     elif prep == "by":
         cues["prep"] = "by_passive" if passive else "by"
+    elif v3:
+        cues["prep"] = prep + ("_far" if far else "")   # LEXICAL case marking; Dirichlet shrinkage IS the backoff
     elif prep == "of":
         cues["prep"] = "of_far" if far else "of"
     else:
@@ -443,36 +546,80 @@ def coarse_role_cues(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, i
     # is the verb's pre-verbal slot EMPTY (no nominal between the clause edge and the verb)? An empty slot makes a post-verbal
     # nominal the likely SUBJECT (inversion, "said John", questions, relative clauses); a filled slot makes it the OBJECT.
     if order == "post" and hc in ("VERB", "AUX") and h:
-        j = h - 1; filled = False
-        while j >= 1:
-            pj = pos[j - 1]
-            if pj in ("PUNCT", "SCONJ", "CCONJ") or pj in ("VERB",):
-                break
-            if pj in NOMINAL:
-                filled = True; break
-            j -= 1
-        cues["pre_slot"] = "filled" if filled else "empty"
+        if v3:
+            eff = [j for j in range(1, h) if heads.get(j) == h and is_arg_head(toks, pos, j)]
+            if not eff:
+                j = h - 1
+                while j >= 1:
+                    pj = pos[j - 1]
+                    if pj in ("PUNCT", "SCONJ", "CCONJ", "VERB"):
+                        break
+                    if is_arg_head(toks, pos, j):
+                        eff.append(j)
+                    j -= 1
+            # an EXPLETIVE does not fill the subject slot -- it gets its own cue value, not "filled"
+            cues["pre_slot"] = ("empty" if not eff else
+                                ("expletive" if all(toks[j - 1].lower() == "there" for j in eff) else "filled"))
+        else:
+            j = h - 1; filled = False
+            while j >= 1:
+                pj = pos[j - 1]
+                if pj in ("PUNCT", "SCONJ", "CCONJ") or pj in ("VERB",):
+                    break
+                if pj in NOMINAL:
+                    filled = True; break
+                j -= 1
+            cues["pre_slot"] = "filled" if filled else "empty"
     else:
         cues["pre_slot"] = "na"
     # COPULA cue: a nominal BEFORE a non-verbal predicate with an AUX (be/get) in between is the predicate's subject.
-    if order == "pre" and hc not in ("VERB", "AUX"):
+    if v3 and h and hc not in ("VERB", "AUX"):
+        # BOTH orders: the inverted locative copular ("Here IS a revised draft") puts the subject AFTER the predicate
+        lo_, hi_ = (i, h) if i < h else (h, i)
+        between_aux = any(pos[j - 1] == "AUX" for j in range(lo_ + 1, hi_))
+        aux_dep = any(heads.get(j) == h and pos[j - 1] == "AUX" for j in range(1, len(pos) + 1))
+        cues["cop"] = ("aux_between_" if between_aux else ("aux_dep_" if aux_dep else "none_")) + order
+    elif order == "pre" and hc not in ("VERB", "AUX"):
         cues["cop"] = "aux_between" if any(pos[j - 1] == "AUX" for j in range(i + 1, h)) else "none"
     else:
         cues["cop"] = "na"
     cues["case"] = "obj" if low in _OBJ_CASE else ("subj" if low in _SUBJ_CASE else "none")
+    # ARGUMENT RANK (v3), PRECISION-GATED: the Competition Model first-noun/second-noun cue is over the verb ARGUMENTS,
+    # not over tokens -- "criticized President Bush" must not make the object the SECOND post-verbal nominal. It is the
+    # one arc-dependent addition, so where the governor does not believe its own attachment above RANK_TAU the cue
+    # abstains and the arc-free cues decide (Ernst & Banks 2002 reliability weighting; the same self-gating the
+    # structure / byhead agent cues use). Ungated it costs the LIVE copular subject read 0.667 -> 0.623.
+    rank_on = v3 and (conf is None or float(conf.get(i, 1.0)) >= RANK_TAU)
     if order == "post":
         # ONE post-verbal SLOT cue (position x double-object configuration) -- rank and pairing are one coalition, not two
         # independent cues: as separate cues their contrasts double-counted "second post-verbal nominal" and pushed the
-        # PATIENT of "give me a call" to OTHER (signal trace 2026-09-12). first/later = nominals between the head and i;
-        # pair = a SECOND bare (no preposition) nominal dependent of the same head after the verb (first-of-two + animate =
-        # the recipient, later-of-two = the patient).
-        between = sum(1 for j in range(h + 1, i) if pos[j - 1] in NOMINAL)
-        sibs = [j for j in range(h + 1, len(pos) + 1) if heads.get(j) == h and pos[j - 1] in NOMINAL and j != i
-                and _prep_of(toks, pos, heads, j)[0] is None]
+        # PATIENT of "give me a call" to OTHER (signal trace 2026-09-12). first/later = ARGUMENTS between the head and i
+        # (v3) or nominal TOKENS (pre-v3); pair = a SECOND bare (no preposition) nominal dependent of the same head after
+        # the verb (first-of-two + animate = the recipient, later-of-two = the patient).
+        if rank_on and h and hc in ("VERB", "AUX"):
+            between = sum(1 for j in range(h + 1, i) if heads.get(j) == h and is_arg_head(toks, pos, j))
+        elif v3:                              # the gate suspends the SIBLING (arc) read, not the argument population
+            between = sum(1 for j in range(h + 1, i) if is_arg_head(toks, pos, j))
+        else:
+            between = sum(1 for j in range(h + 1, i) if pos[j - 1] in NOMINAL)
+        if v3:
+            sibs = [j for j in range(h + 1, len(pos) + 1) if heads.get(j) == h and is_arg_head(toks, pos, j)
+                    and j != i and _prep_of_v3(toks, pos, heads, j)[0] is None]
+        else:
+            sibs = [j for j in range(h + 1, len(pos) + 1) if heads.get(j) == h and pos[j - 1] in NOMINAL and j != i
+                    and _prep_of(toks, pos, heads, j)[0] is None]
         pair = "pair" if (sibs and prep is None) else "single"
         cues["post_slot"] = ("first" if between == 0 else "later") + "_" + pair
     else:
         cues["post_slot"] = "na"
+    # PRE-verbal argument RANK (v3): the active-filler configuration (Frazier & Clifton 1989) -- in "the aid THAT
+    # Darfur needs" the NEAREST pre-verbal argument is the subject and the earlier one is the extracted object. The
+    # pre-verbal side had no rank cue at all before.
+    if rank_on and order == "pre" and hc in ("VERB", "AUX") and h:
+        nearer = sum(1 for j in range(i + 1, h) if heads.get(j) == h and is_arg_head(toks, pos, j))
+        cues["pre_rank"] = "nearest" if nearer == 0 else ("second" if nearer == 1 else "earlier")
+    elif v3:
+        cues["pre_rank"] = "na"
     a = lookup_animacy(low, pos[i - 1])
     an = a.get("animacy") if isinstance(a, dict) else None
     cues["animacy"] = "anim" if an == "animate" else ("inan" if an == "inanimate" else "unk")
@@ -495,9 +642,30 @@ def coarse_role_cues(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, i
 
 _VALIDITY_ALPHA = 0.5      # add-alpha on the configuration distributions
 _VALIDITY_M_SHRINK = 2.0   # Dirichlet pseudo-counts centring a cue value's distribution on its configuration's
+# HIERARCHICAL CONFIGURATION BACKOFF (pri 103 round 2; 0.0 = the pre-2026-09-13 maths, byte-identical). Every
+# secondary cue VALUE is already shrunk toward its configuration, but the CONFIGURATION itself got add-alpha and
+# nothing else -- so a rare one (ADV_pre: 17 weighted decisions; the there-BE construction: 48) was estimated from
+# almost no experience. A construction inherits its parent's expectations until experience overrides them (Goldberg
+# 1995 inheritance; the usage-based result that construction learning is frequency-driven and item-based, so a
+# low-frequency construction is UNDER-learned, not differently learned). Same Dirichlet maths one level up:
+#     P(role | cfg) = (n_cfg + m * P(role | PARENT(cfg))) / (N_cfg + m)
+# PARENT drops the construction suffix (VERB_post_ex -> VERB_post), then collapses the head class to PRED/NONPRED
+# (ADV_pre -> NONPRED_pre). SWEPT 0/2/5/20/50/200/500/1000/3000: a saturating plateau over 200-1000 and a COLLAPSE at
+# 3000 (gold subject recall -0.0112 CI-sep). The value comes from the ASSET (key "m_config_backoff"), so a pre-v3
+# table carries none and the organ is unchanged.
+_PRED_HC = ("VERB", "AUX")
 
 
-def strengths_from_counts(counts: Dict[str, object]) -> Dict[str, object]:
+def _parent_config(cfg):
+    """(coarse parent, construction base or None), or None when the configuration has no parent."""
+    base = cfg[:-3] if cfg.endswith("_ex") else cfg
+    if "_" not in base or base.startswith("ROOT"):
+        return None
+    hc, order = base.rsplit("_", 1)
+    return ("PRED" if hc in _PRED_HC else "NONPRED") + "_" + order, (base if base != cfg else None)
+
+
+def strengths_from_counts(counts: Dict[str, object], m_config: float = 0.0) -> Dict[str, object]:
     """THE ONE implementation of the Competition-Model strength math (used by the offline learner AND the online accrual):
     prior = log P(role); config strength = log P(role|config) - log P(role); cue contrast = log P(role|config,value) -
     log P(role|config) with a Dirichlet prior centred on the configuration (m pseudo-counts); a value that ALWAYS fires within
@@ -505,9 +673,29 @@ def strengths_from_counts(counts: Dict[str, object]) -> Dict[str, object]:
     K = len(ROLE_CLASSES); a = _VALIDITY_ALPHA; m = _VALIDITY_M_SHRINK
     prior = np.asarray(counts["prior"], dtype=float); dec = prior.sum()
     logprior = np.log((prior + a) / (dec + a * K))
+    par = {}
+    if m_config > 0:                                   # parent distributions for the configuration backoff
+        for cfg, vec in counts["config"].items():
+            pc = _parent_config(cfg)
+            if pc is None:
+                continue
+            coarse, base = pc
+            par.setdefault(coarse, np.zeros(K))
+            par[coarse] += np.asarray(vec, dtype=float)
+            if base:
+                par.setdefault(base, np.zeros(K))
+                par[base] += np.asarray(vec, dtype=float)
+        par = {k: (v + a) / (v.sum() + a * K) for k, v in par.items()}
     p_cfg = {}; strength = {"config": {}}
     for cfg, vec in counts["config"].items():
-        v = np.asarray(vec, dtype=float); n = v.sum(); probs = (v + a) / (n + a * K)
+        v = np.asarray(vec, dtype=float); n = v.sum()
+        back = None
+        if m_config > 0:
+            pc = _parent_config(cfg)
+            if pc is not None:
+                coarse, base = pc
+                back = par.get(base) if (base and base in par) else par.get(coarse)
+        probs = ((v + m_config * back) / (n + m_config)) if back is not None else ((v + a) / (n + a * K))
         p_cfg[cfg] = probs; strength["config"][cfg] = np.log(probs) - logprior
     for cue, vals in counts["cues"].items():
         strength[cue] = {}
@@ -534,7 +722,7 @@ def observe_role_outcome(toks: Sequence[str], pos: Sequence[str], heads: Dict[in
     if "counts" not in tab or not tab["counts"]:
         raise ValueError("this validity table carries no counts (rebuild it with tools/build_coarse_role_validities.py)")
     K = len(ROLE_CLASSES); k = ROLE_CLASSES.index(role)
-    cues = coarse_role_cues(toks, pos, heads, i, tab.get("lemma_frames"))
+    cues = coarse_role_cues(toks, pos, heads, i, tab.get("lemma_frames"), tab.get("cue_set") == "v3")
     c = tab["counts"]; cfg = cues["config"]
     c["prior"][k] += 1
     c["config"].setdefault(cfg, [0] * K)[k] += 1
@@ -568,7 +756,7 @@ def load_coarse_validities(path: Optional[str] = None) -> Dict[str, object]:
     with open(p, encoding="utf-8") as f:
         doc = json.load(f)
     if doc.get("counts"):
-        built = strengths_from_counts(doc["counts"])          # strengths are a pure function of the accrued counts
+        built = strengths_from_counts(doc["counts"], float(doc.get("m_config_backoff", 0.0)))   # pure function of counts
         tab = {"prior": built["prior"], "strength": built["strength"], "counts": doc["counts"],
                "lemma_frames": doc.get("lemma_frames", {})}
     else:
@@ -576,17 +764,19 @@ def load_coarse_validities(path: Optional[str] = None) -> Dict[str, object]:
                "strength": {c: {v: np.asarray(vec, dtype=float) for v, vec in vals.items()} for c, vals in doc["strength"].items()},
                "lemma_frames": doc.get("lemma_frames", {})}
     tab["slot_capacity"] = (doc.get("counts") or {}).get("slot_capacity") or doc.get("slot_capacity")   # verb-frame capacity counts (pri 93)
+    tab["cue_set"] = doc.get("cue_set")          # "v3" (pri 103) selects the v3 cue set + argument-head population
     if path is None:
         _COARSE_VALIDITIES_CACHE = tab
     return tab
 
 
 def coarse_role_supports(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int], i: int,
-                         validities: Optional[Dict[str, object]] = None) -> Dict[str, np.ndarray]:
+                         validities: Optional[Dict[str, object]] = None,
+                         conf: Optional[Dict[int, float]] = None) -> Dict[str, np.ndarray]:
     """Per-cue support vectors over ROLE_CLASSES for nominal i: the learned strength vector of each fired cue value
     (plus the role prior). A cue value never seen in training contributes nothing (abstains)."""
     tab = validities or load_coarse_validities()
-    cues = coarse_role_cues(toks, pos, heads, i, tab.get("lemma_frames"))
+    cues = coarse_role_cues(toks, pos, heads, i, tab.get("lemma_frames"), tab.get("cue_set") == "v3", conf)
     S: Dict[str, np.ndarray] = {"prior": tab["prior"]}
     cfg = cues["config"]
     vec = tab["strength"].get("config", {}).get(cfg)
@@ -605,9 +795,10 @@ def coarse_role_supports(toks: Sequence[str], pos: Sequence[str], heads: Dict[in
 
 
 def coarse_role_posterior(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int], i: int,
-                          validities: Optional[Dict[str, object]] = None) -> np.ndarray:
+                          validities: Optional[Dict[str, object]] = None,
+                          conf: Optional[Dict[int, float]] = None) -> np.ndarray:
     """The graded role posterior (softmax of the additive cue competition) over ROLE_CLASSES."""
-    S = coarse_role_supports(toks, pos, heads, i, validities)
+    S = coarse_role_supports(toks, pos, heads, i, validities, conf)
     return softmax(net_activation(S, {c: 1.0 for c in S}), gain=1.0)
 
 
@@ -639,7 +830,8 @@ HEAD_POSTERIOR_MIN_P = 0.05     # heads below this posterior mass are dropped fr
 
 def coarse_role_posterior_headmarg(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int], i: int,
                                    head_post: Dict[int, float], validities: Optional[Dict[str, object]] = None,
-                                   min_p: float = HEAD_POSTERIOR_MIN_P) -> np.ndarray:
+                                   min_p: float = HEAD_POSTERIOR_MIN_P,
+                                   conf: Optional[Dict[int, float]] = None) -> np.ndarray:
     """P(role | token i) MARGINALISED over the head posterior head_post = {h: P(h | i)} (the heads rung hands DOWN a
     distribution, not a point -- spec RESEARCH_attachment_organ_spec s3): sum_h P(h|i) * P(role | config built with h);
     the other tokens keep their MAP heads. Measured (probe v19, UD-EWT test 8362 nominals): over the BF attachment arm's
@@ -651,10 +843,10 @@ def coarse_role_posterior_headmarg(toks: Sequence[str], pos: Sequence[str], head
         if p < min_p or h == i:
             continue
         hh = dict(heads); hh[i] = int(h)
-        S = coarse_role_supports(toks, pos, hh, i, tab)
+        S = coarse_role_supports(toks, pos, hh, i, tab, conf)
         out += p * softmax(net_activation(S, {c: 1.0 for c in S}), gain=1.0); tot += p
     if tot <= 0:
-        return coarse_role_posterior(toks, pos, heads, i, tab)
+        return coarse_role_posterior(toks, pos, heads, i, tab, conf)
     return out / tot
 
 
@@ -748,24 +940,40 @@ def observe_frame_outcome(slot_counts_per_verb, table=None):
 
 def coarse_roles(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int],
                  validities: Optional[Dict[str, object]] = None,
-                 head_posterior: Optional[Dict[int, Dict[int, float]]] = None) -> Dict[int, str]:
+                 head_posterior: Optional[Dict[int, Dict[int, float]]] = None,
+                 conf: Optional[Dict[int, float]] = None) -> Dict[int, str]:
     """Coarse grammatical-role labels (UD-shaped strings) for every NOMINAL token (1-based index -> dep) by cue
     competition: the MAP of the additive cue activation. OTHER -> 'dep' (the organ labels ARGUMENT roles; a consumer
     needing fine non-argument relations keeps its own source for 'dep'). Non-nominal tokens are not labelled.
     head_posterior = {dep: {head: P}} (optional, from the attachment arm): the role read is then MARGINALISED over the
     head posterior (coarse_role_posterior_headmarg) -- the graded hand-off; None = the hard head (byte-identical to before)."""
     tab = validities or load_coarse_validities()
+    v3 = tab.get("cue_set") == "v3"
     out: Dict[int, str] = {}
+    # THE ARGUMENT-HEAD POPULATION (v3): the brain labels whatever FILLS the slot, so a quantifier / numeral /
+    # nominalised-adjective phrase head is labelled too. Pre-v3 tables keep the NOUN/PROPN/PRON population exactly.
+    # THE HEADS RUNG'S GRADED HAND-OFF IS A RELIABILITY SIGNAL HERE, NOT A MIXTURE (measured, pri 103): marginalising
+    # the role read over the attachment posterior costs the LIVE core role recall 0.7224 -> 0.6952 (and costs the
+    # pre-v3 cue set 0.7250 -> 0.6970) -- the attachment arm's posterior is BROAD and MIS-CENTRED, not narrow and
+    # uncertain (at P >= 0.95 the head is still only 74% correct, AUC 0.678), so the alternative mass is not the right
+    # head and averaging dilutes the correct MAP reads without rescuing the wrong ones. Under a v3 table the posterior
+    # therefore precision-gates the arc-dependent rank cue and the read stays on the MAP head. Pre-v3 tables keep the
+    # marginalising path exactly as landed.
+    if conf is None and head_posterior:
+        conf = {i: float((head_posterior.get(i) or {}).get(heads.get(i, 0), 1.0)) for i in head_posterior}
     # per-nominal activation vectors (honouring the graded head hand-off where a posterior is given)
     A_by_i: Dict[int, np.ndarray] = {}
     for i in range(1, len(toks) + 1):
-        if i - 1 >= len(pos) or pos[i - 1] not in NOMINAL:
+        if i - 1 >= len(pos):
             continue
-        hp = head_posterior.get(i) if head_posterior else None
+        if not (is_arg_head(toks, pos, i) if v3 else pos[i - 1] in NOMINAL):
+            continue
+        hp = None if v3 else (head_posterior.get(i) if head_posterior else None)
         if hp:
-            A_by_i[i] = np.log(np.asarray(coarse_role_posterior_headmarg(toks, pos, heads, i, hp, tab), dtype=float) + 1e-12)
+            A_by_i[i] = np.log(np.asarray(
+                coarse_role_posterior_headmarg(toks, pos, heads, i, hp, tab, conf=conf), dtype=float) + 1e-12)
         else:
-            S = coarse_role_supports(toks, pos, heads, i, tab)
+            S = coarse_role_supports(toks, pos, heads, i, tab, conf)
             A_by_i[i] = np.asarray(net_activation(S, {c: 1.0 for c in S}), dtype=float)
     if not SLOT_OCCUPANCY:                                   # the independent per-nominal read (the pre-2026-09-13 behaviour)
         for i, A in A_by_i.items():

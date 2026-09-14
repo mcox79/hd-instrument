@@ -603,3 +603,5 @@ acquired). They are written here at brief precision so strategy can file them di
 - **Three brain-plausible readout forms of the same evidence give three different answers.** Excitatory, zero-mean
   and inhibitory are all defensible as "a competition"; only measurement separated them, and the winner was the
   plainest one. The story ("the slot has capacity one") was not evidence.
+
+INTEGRATED_BY_STRATEGY 2026-09-13 21:35 local -- DONE by strategy after first-hand reverify (owner 20:05: strategy marks DONE); pri 97 governor patch applied (ROOT_PICK default kept 'score' per its final report); validity asset rebuilt at cap 6000 and LIVE (own-cat UAS 0.6002 -> 0.6134, root 0.703 -> 0.763). Wave board (97+98+99+100+103 together, assets live): AGG 0.6352 -> 0.6369, patient 0.7920 -> 0.8072, every other dimension identical (notes/INTEGRATION_LEDGER.md 21:06). Also corrected in the same commit: the reader's own heads default ('arceager') never flipped with the frontend's -- now one default imported from hdlab.frontend.

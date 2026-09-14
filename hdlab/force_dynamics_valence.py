@@ -219,7 +219,11 @@ def is_affecting(verb: str, lexicon: Optional[Dict[str, str]] = None, afx: Optio
     # verb whose dominant sense is perception/cognition/communication/stative/motion (un-guarded this leaked 6 neutral verbs; guarded 0).
     if verb_first_supersense(v) in _NON_AFFECTING_DOMINANT:
         return False
-    return hyper_state_sign(v, afx) is not None
+    if hyper_state_sign(v, afx) is not None:
+        return True
+    # (f) the SAME manner/genus decomposition doing double duty (2026-09-13): a verb whose lexicalised manner
+    # is unambiguously forceful and valenced IS an affecting event -- one categorisation admits it and signs it.
+    return MANNER_READ and (manner_state_sign(v, afx) is not None or genus_state_sign(v, afx) is not None)
 
 
 WEAK_VALENCE = 0.10   # |word-level valence| below this is treated as UNINFORMATIVE for the patient's outcome (swept)
@@ -310,7 +314,7 @@ def result_state_value(verb: str, afx: Optional[AffectLexicon] = None,
 
 
 def endstate_valence_sign(verb: str, afx: Optional[AffectLexicon] = None,
-                          states: Optional[Dict[str, list]] = None) -> Optional[int]:
+                          states: Optional[Dict[str, list]] = None, posterior=None) -> Optional[int]:
     """The affective value of the patient's ENDSTATE, read at the SENSE level (strategy 2026-09-12, the landing's
     downstream check): Warriner's word-level valence conflates a verb's senses -- 'throttle' is rated mildly POSITIVE
     (the engine sense) though its affecting sense is 'strangle'; 'batter' is near-neutral (the food sense); 'bludgeon'
@@ -322,19 +326,32 @@ def endstate_valence_sign(verb: str, afx: Optional[AffectLexicon] = None,
     default_afx = (afx is None or afx is _AFX) and states is None
     afx = _afx() if afx is None else afx
     v = lemmatize_verb(verb)
-    if default_afx and v in _EV_CACHE:          # cache ONLY for the live lexicon (a scrambled twin must not read it)
+    if default_afx and posterior is None and v in _EV_CACHE:   # cache ONLY for the live lexicon, context-free reads only
         return _EV_CACHE[v]
     sign: Optional[int] = None
     if RESULT_STATE_READ:                       # 1. the RESULT STATE the patient is left in (the brain's valuation target)
         sv = result_state_value(v, None if afx is _AFX else afx, states)
         if sv is not None and abs(sv) >= STATE_MIN:
             sign = 1 if sv > 0 else -1
-    if sign is None:                            # 2. the verb's word-level norm (a cue to that state; sense-conflating)
-        val = afx.valence(v)
-        if val is not None and abs(val) >= WEAK_VALENCE:
-            sign = 1 if val > 0 else -1
+    if sign is None:                            # 2. the SENSE-KEYED value (pri 100): the word-form norm weighted by rho, fused with
+        from hdlab.affect_lexicon import sense_endstate_sign   #    the expectation over the sense posterior (see SENSE_POSTERIOR)
+        sgn, verdict = sense_endstate_sign(v, posterior) if afx is _AFX else (None, "na")
+        if verdict == "sign":
+            sign = sgn
+        elif verdict == "neutral":              # a DECIDED neutral: the active meaning leaves the patient unchanged -> 0, stop
+            if default_afx and posterior is None:
+                _EV_CACHE[v] = 0
+            return 0
+        elif verdict == "na":                   # not in the sense asset -> the word-level norm, unchanged
+            val = afx.valence(v)
+            if val is not None and abs(val) >= WEAK_VALENCE:
+                sign = 1 if val > 0 else -1
     if sign is None:                            # 3. the outcome of the SUPERORDINATE action (taxonomic inheritance; 2026-09-13)
         sign = hyper_state_sign(v, None if afx is _AFX else afx)
+    if sign is None and MANNER_READ:            # 4. the MANNER the verb lexicalises (Talmy manner/result complementarity)
+        sign = manner_state_sign(v, None if afx is _AFX else afx)
+    if sign is None and MANNER_READ:            # 5. the DEFINITION's genus, valued by this organ's result-state read
+        sign = genus_state_sign(v, None if afx is _AFX else afx)
     # else: ABSTAIN. TRIED 2026-09-12 and WITHDRAWN the same night: backing off to the mean Warriner valence of the
     # affecting-sense SYNONYM lemmas (throttle -> strangle ...) turned batter/throttle/bludgeon into HELP -- the synonym
     # lemmas carry the same word-level sense conflation one step removed (bound/limit/buffet rate positive). A wrong
@@ -342,7 +359,7 @@ def endstate_valence_sign(verb: str, afx: Optional[AffectLexicon] = None,
     # STATE the patient is put in (a resulting-state read / verb-sense-in-context), the solver's filed deepest step;
     # 2026-09-12 (pri-14 research): that read now EXISTS as the result-state arm above (VerbNet sense-keyed states);
     # verbs whose senses name no result state in the foundation AND whose norm is weak (wrench, maul) still ABSTAIN.
-    if default_afx:
+    if default_afx and posterior is None:
         _EV_CACHE[v] = sign
     return sign
 
@@ -384,6 +401,237 @@ def hyper_state_sign(verb: str, afx: Optional[AffectLexicon] = None, tau: float 
     if hv is not None and abs(hv) >= tau:
         return 1 if hv > 0 else -1
     return None
+
+
+# ======================================================================================================
+# MANNER-INTENSITY ARM (solver 2026-09-13, pri-98 `manner_encoded_harm_needs_an_intensity_read...`).
+# THE GAP IT CLOSES: for brutalize / manhandle / maltreat / tyrannize / subjugate / gore the harm is in a
+# MANNER word. VerbNet names no result state, the Warriner norm is absent or weak, and WordNet troponymy gives
+# the affect-NEUTRAL superordinate ('treat', 'handle') -- so the cascade above abstains (measured at HEAD:
+# 6 of the 15 named manner verbs abstain; 9 decide).
+# THE BRAIN: MANNER/RESULT COMPLEMENTARITY (Talmy 1985/2000; Levin & Rappaport Hovav 2010, PINNED lexicalisation
+# universal) -- a verb root lexicalises the MANNER of an action or its RESULT, never both, so for a manner verb
+# the valuation target IS the manner. Comprehension SIMULATES it (Barsalou 1999; Zwaan; Pulvermuller action-word
+# somatotopy) and the OFC/vmPFC values the simulated outcome:
+#     value(patient endstate) = sign(valence(manner)) , gated by intensity(manner)
+# SIGN from the evaluative axis, MAGNITUDE from the CIRCUMPLEX RADIUS of the manner's core affect (Russell 1980,
+# PINNED: core affect is a 2-D valence x arousal space whose radius is intensity and whose angle is quality) or
+# from the GROUNDED action/contact strength of the simulation (Lancaster sensorimotor norms), whichever is
+# larger. MEASURED (experiments/exp_manner_intensity_harm_v1.py, independent Connotation-Frames human gold):
+# with a HIGH-arousal manner the valence sign agrees with the human gold 0.864 (negative) / 0.769 (positive);
+# with a LOW-arousal manner 0.643 / 0.633 -- the intensity gate is what makes the sign trustworthy, and a
+# high-arousal POSITIVE manner (excite/arouse/animate) reads HELP, not HARM: the two channels do different jobs.
+# WHERE THE MANNER WORD COMES FROM: the verb's WordNet definition, decomposed OFFLINE into manner / means /
+# result / genus slots by the READER'S OWN glass-box stack (count-based category organ + attachment arm) --
+# tools/build_manner_intensity_asset.py; a dict is shipped, nothing external runs at inference. The entries are
+# COUNTS, so `observe_manner()` accrues the same units from running prose (plastic, never frozen).
+# SHAPE: strictly ADDITIVE and RESIDUAL-ONLY, like the superordinate arm. REFUTED-AS-BUILT and NOT shipped
+# (measured against the human gold): putting the manner ABOVE the diffuse word-level norm costs the whole-arm
+# Connotation-Frames agreement 0.9333 -> 0.9111, and abstaining on manner-host verbs ('treat'/'handle', whose
+# outcome really is underspecified without a manner) costs 0.9014 and a live-gold item.
+# MEASURED at the shipped operating point: 6/6 of the manner slice recovered, 15/15 of the named manner verbs
+# HARM (HEAD 9/15), 46 residual verbs newly decided at Connotation-Frames precision 1.00 with 0 wrong signs,
+# 0 leaks on P_NEUTRAL_BROAD, whole-arm CF agreement 0.9333 >= HEAD 0.9320, live 36-item gold 24/24 unchanged;
+# scrambled-intensity twin 4/6 and 0.875, scrambled-valence twin 2/6 with 3 wrong HELP, parse-free twin 0/6.
+# ======================================================================================================
+MANNER_READ = os.environ.get("HDLAB_FDV_MANNER_READ", "1") == "1"
+MANNER_ASSET = os.path.join(_REPO, "data", "frontend_assets", "manner_intensity_v1.json")
+TAU_INTENSITY = 0.40    # SWEPT 0.35-0.60 x TAU_MANNER_VAL 0.10-0.30: CF precision on new decisions 1.00 and 0
+TAU_MANNER_VAL = 0.10   # neutral leaks at EVERY point; 0.40/0.10 is the knee (46 decided vs 15 at 0.60/0.30)
+A0 = 0.40               # the circumplex resting point (neutral arousal reference); OUR-INVENTION, swept
+K_AROUSAL = 1.0
+K_GROUNDED = 1.0
+MANNER_SLOTS = ("ADVMOD", "MANNER_PP", "MEANS_PP", "RESULT_ADJ")   # the GENUS slot is read separately, below
+_MANNER: Optional[Dict] = None
+
+
+def manner_table() -> Dict:
+    """The offline manner asset ({} when absent -> the arm abstains and nothing else changes)."""
+    global _MANNER
+    if _MANNER is None:
+        try:
+            import json
+            with open(MANNER_ASSET, "r", encoding="utf-8") as f:
+                _MANNER = dict(json.load(f))
+        except Exception:
+            _MANNER = {"words": {}, "evidence": {}}
+    return _MANNER
+
+
+def observe_manner(verb: str, filler: str, slot: str = "ADVMOD", synset: str = "*online*") -> None:
+    """THE ONLINE PATH (plastic, never frozen). A manner adverb bound to a predicate in running prose accrues
+    the SAME count the offline definition parse accrues; the strengths are one pure function of these counts."""
+    ev = manner_table().setdefault("evidence", {}).setdefault(lemmatize_verb(verb), [])
+    for row in ev:
+        if row[0] == synset and row[1] == slot and row[2] == filler:
+            row[3] += 1
+            return
+    ev.append([synset, slot, filler, 1])
+
+
+def manner_intensity(word: str, afx: Optional[AffectLexicon] = None) -> Optional[float]:
+    """Simulated intensity of a manner in [0,1]: max(circumplex radius of its core affect, grounded action
+    strength). None when no norm covers the word."""
+    afx = _afx() if afx is None else afx
+    w = word.lower()
+    v = afx.valence(w)
+    a = afx.arousal(w)
+    g = manner_table().get("words", {}).get(w, {}).get("g")
+    if v is None and a is None and g is None:
+        return None
+    r2 = (float(v) ** 2 if v is not None else 0.0)
+    if a is not None:
+        r2 += (K_AROUSAL * max(0.0, float(a) - A0)) ** 2
+    r = r2 ** 0.5
+    if g is not None:
+        r = max(r, K_GROUNDED * float(g))
+    return min(1.0, r)
+
+
+def manner_state_value(verb: str, afx: Optional[AffectLexicon] = None) -> Optional[float]:
+    """Affective value of the patient's endstate as determined by the MANNER the verb lexicalises, under the
+    same precision discipline that rescued the superordinate read: value per SENSE, and trust the result only
+    under CROSS-SENSE SIGN CONSENSUS (senses that disagree about the manner's goodness -> honest abstain)."""
+    afx = _afx() if afx is None else afx
+    v = lemmatize_verb(verb)
+    per_sense: Dict[str, list] = {}
+    for syn, slot, filler, cnt in manner_table().get("evidence", {}).get(v, ()):
+        if slot not in MANNER_SLOTS:
+            continue
+        x = afx.valence(filler)
+        if x is None or abs(x) < TAU_MANNER_VAL:
+            continue
+        inten = manner_intensity(filler, afx)
+        if inten is None or inten < TAU_INTENSITY:
+            continue
+        per_sense.setdefault(syn, []).append((float(x), float(cnt)))
+    vals = []
+    for items in per_sense.values():
+        wsum = sum(c for _x, c in items)
+        vals.append(sum(x * c for x, c in items) / wsum)
+    if not vals:
+        return None
+    if all(x > 0 for x in vals) or all(x < 0 for x in vals):
+        return sum(vals) / len(vals)
+    return None
+
+
+def manner_state_sign(verb: str, afx: Optional[AffectLexicon] = None) -> Optional[int]:
+    mv = manner_state_value(verb, afx)
+    return None if mv is None else (1 if mv > 0 else -1)
+
+
+def genus_state_sign(verb: str, afx: Optional[AffectLexicon] = None) -> Optional[int]:
+    """The DEFINITION's genus verb valued by THIS organ's result-state read, under full cross-sense UNANIMITY.
+    'gore' = "wound by piercing": the definitional superordinate is a result verb the organ already values
+    (wound -> -0.77) where WordNet troponymy gives a manner-neutral parent (+0.19). TWO restrictions, each
+    measured, without which this degenerates into the refuted parse-free gloss read: (a) the genus must itself
+    NAME A RESULT STATE (inheriting a genus's diffuse word norm leaks -- 'visit' = "pay a brief visit" inherits
+    pay's +0.42: exactly 1 leak on P_NEUTRAL_BROAD); (b) UNANIMITY rather than non-contradiction -- EVERY
+    affecting-animate sense with a genus must yield a sign ('spur' = "give heart or courage to" beside "strike
+    with a spur"; reading only the second produced this arm's one wrong sign against the human gold)."""
+    v = lemmatize_verb(verb)
+    bysyn: Dict[str, list] = {}
+    for syn, slot, filler, _c in manner_table().get("evidence", {}).get(v, ()):
+        if slot == "GENUS" and filler != v:
+            bysyn.setdefault(syn, []).append(filler)
+    if not bysyn:
+        return None
+    signs = []
+    for genera in bysyn.values():
+        here = []
+        for g in genera:
+            rs = result_state_value(g, afx)
+            if rs is not None and abs(rs) >= STATE_MIN:
+                here.append(1 if rs > 0 else -1)
+        if not here:
+            return None
+        signs.extend(here)
+    if all(x > 0 for x in signs):
+        return 1
+    if all(x < 0 for x in signs):
+        return -1
+    return None
+
+
+# --- the manner adverb in RUNNING PROSE, read from the reader's own GRADED governor -------------------------
+# THE UPSTREAM LOSS, COUNTED (36-sentence adverb-in-prose gold): the live governor's POINT head for a clause-
+# final manner adverb is the preceding NOUN in 33/36 sentences (argmax adverb->verb 3/36; mean posterior mass on
+# the verb 0.215). An adverb is not a manner modifier of a common noun, and the attachment arm KEEPS THE
+# ALTERNATIVES ALIVE (MacDonald 1994) -- so this consumer reads the POSTERIOR P(head = the predicate | adverb)
+# instead of the argmax. Measured: graded read 0.639 vs argmax read 0.472 vs the floor 0.444 (+0.194,
+# CI [+0.083, +0.306], CI-separated). The argmax read buys almost nothing; the graded hand-off is the mechanism.
+# The right permanent fix is upstream (an ADV's governor is a predicate -- a category-conditioned arc constraint
+# in hdlab/attachment_arm.py); filed as a board item, not done here.
+MANNER_PROSE = os.environ.get("HDLAB_FDV_MANNER_PROSE", "1") == "1"
+# SENSE-KEYED AFFECT (pri 100, landed 2026-09-13 20:50): the verb's affect value is read at the SENSE level -- value(verb | context)
+# = sum_s P(s | context) v(s), fused with the word-form norm weighted by the word's own sense-unambiguity rho (the precision term
+# pri 98 named as the one rung it could not crack). P(s | context) is the semantic graph's own log-linear blend of the resting level
+# with the settled spreading activation, read as a DISTRIBUTION instead of an argmax (hdlab.affect_lexicon.sense_endstate_sign).
+# Measured (solver cell, reverified 19:12): neutral-cell prose errors 8 -> 3, prose gold 0.444 -> 0.667 CI-sep over the floor, CF
+# whole-arm 0.932 -> 0.949, SemCor sense agreement 0.975 vs the word norm 0.815; 0 leaks, live gold 24/24. HDLAB_FDV_SENSE_POSTERIOR=0
+# = resting-level expectation only (no context).
+SENSE_POSTERIOR = os.environ.get("HDLAB_FDV_SENSE_POSTERIOR", "1") == "1"
+TAU_HEAD_MASS = 0.10    # posterior mass on the predicate below which the adverb is not this event's manner
+
+
+def _adverb_stem(word: str) -> Optional[str]:
+    """The ADJECTIVE a manner adverb is derived from ('brutally'->'brutal'), else None. Route 1 = the stored
+    derivational link (WordNet pertainym); route 2 = -ly stripping with a lexical check (Taft 1979 affix strip +
+    lexical check; Pinker-Ullman dual route). Verb particles ('put down', 'take off') fail both routes."""
+    w = word.lower()
+    try:
+        from nltk.corpus import wordnet as wn
+        for s in wn.synsets(w, "r"):
+            for lm in s.lemmas():
+                if lm.name().lower() == w:
+                    for p in lm.pertainyms():
+                        return p.name().lower()
+        if w.endswith("ly") and len(w) > 4:
+            for cand in (w[:-2], w[:-1] + "e", (w[:-3] + "y") if w.endswith("ily") else None):
+                if cand and wn.synsets(cand, "a"):
+                    return cand
+    except Exception:
+        return None
+    return None
+
+
+def prose_manner_value(tokens, pos, gov_idx: int, parse=None,
+                       afx: Optional[AffectLexicon] = None) -> Optional[float]:
+    """Endstate value carried by the manner adverbs the reader binds to THIS event, or None. MORPHOLOGICAL
+    REANALYSIS: the de-adjectival test is the real gate, so a -ly word the category organ tagged NOUN is still
+    read as a manner adverb (words-and-rules conflict-triggered reanalysis; measured worth 1 item in 36)."""
+    afx = _afx() if afx is None else afx
+    if parse is None:
+        parse = _parse_out(tokens, pos)
+    if parse is None:
+        return None
+    marg = getattr(parse, "marginals", None)
+    heads = dict(getattr(parse, "heads", {}) or {})
+    num = den = 0.0
+    for i, t in enumerate(tokens):
+        if not str(t).isalpha():
+            continue
+        if pos[i] not in ("ADV", "ADJ") and not str(t).lower().endswith("ly"):
+            continue
+        st = _adverb_stem(str(t))
+        if st is None:
+            continue
+        x = afx.valence(st)
+        if x is None or abs(x) < TAU_MANNER_VAL:
+            continue
+        inten = manner_intensity(st, afx)
+        if inten is None or inten < TAU_INTENSITY:
+            continue
+        if marg:
+            mass = float(marg.get(i + 1, {}).get(gov_idx + 1, 0.0))
+        else:
+            mass = 1.0 if heads.get(i + 1, -1) == gov_idx + 1 else 0.0
+        if mass < TAU_HEAD_MASS:
+            continue
+        num += float(x) * mass
+        den += mass
+    return (num / den) if den else None
 
 
 # --- RUNG 3: SENSE-IN-CONTEXT (reuses the PPR spreading-activation WSD of hdlab.grounded_semantic_graph; BF) -----------------
@@ -437,6 +685,36 @@ _CTX_STOP = {"the", "and", "but", "she", "him", "her", "his", "they", "them", "t
              "had", "has", "have", "did", "not", "then", "when", "who", "which", "their", "our", "you", "your", "for", "are"}
 
 
+def sense_posterior_in_context(verb: str, tokens, gov_idx: int, lam: Optional[float] = None):
+    """P(s | context) over ALL of the verb's senses (pri 100): the semantic graph's own log-linear blend of the resting level with
+    the settled spreading activation over the sentence's content words, read as a DISTRIBUTION (not an argmax). None when the
+    verb has < 2 senses in the asset, the context is thin (< 2 content words), or the graph has no seed -- the resting level stands."""
+    try:
+        from hdlab.affect_lexicon import sense_rows, resting_level, SENSE_LAM
+        import numpy as np
+        from nltk.corpus import wordnet as wn
+        from hdlab.grounded_semantic_graph import _sense_ppr
+        lam = SENSE_LAM if lam is None else lam
+        lem = lemmatize_verb(verb)
+        rows = sense_rows(lem)
+        if not rows or len(rows) < 2:
+            return None
+        ctx = [str(t).lower() for i, t in enumerate(tokens) if i != gov_idx and str(t).isalpha()]
+        if sum(1 for w in ctx if len(w) > 2 and w not in _CTX_STOP) < 2:
+            return None
+        g = _gsg()
+        tgt = [wn.synset(r[0]) for r in rows]; tn = [r[0] for r in rows]
+        ppr = _sense_ppr(wn, lem, "V", ctx, g.syn2idx, g.T, len(g.syn2idx), tgt, tn)
+        if ppr is None:
+            return None
+        pp = np.asarray(ppr, float) + 1e-6; pp = pp / pp.sum()
+        lg = np.log(np.asarray(resting_level(rows), float)) + lam * np.log(pp)
+        lg = lg - lg.max(); q = np.exp(lg)
+        return list(q / q.sum())
+    except Exception:
+        return None
+
+
 def context_sense_sign(verb: str, tokens, gov_idx: int):
     """(sign, affecting) of the CONTEXT-ACTIVE sense of the verb, or (None, None) when the graph selects no sense."""
     ctx = [t.lower() for i, t in enumerate(tokens) if i != gov_idx and t.isalpha()]
@@ -470,6 +748,15 @@ def find_blocked_verb_parsed(tokens, pos, heads: Dict[int, int], prevent_idx0: i
     return best
 
 
+def _parse_out(tokens, pos):
+    """The reader's shared governor with its GRADED posterior kept (the manner read needs the alternatives)."""
+    try:
+        from hdlab.frontend import parser as _fe_parser
+        return _fe_parser().parse(list(tokens), list(pos))
+    except Exception:
+        return None
+
+
 def _parse_heads(tokens, pos) -> Optional[Dict[int, int]]:
     """The reader's shared governor (hdlab.frontend; default = the attachment arm) on an already-tagged sentence."""
     try:
@@ -484,7 +771,7 @@ def harm_help_arithmetic(verb: str, animacy: str, *, endstate_reached: Optional[
                          lexicon: Optional[Dict[str, str]] = None,
                          afx: Optional[AffectLexicon] = None,
                          states: Optional[Dict[str, list]] = None,
-                         endstate_sign_override: Optional[int] = None) -> Optional[str]:
+                         endstate_sign_override: Optional[int] = None, posterior=None) -> Optional[str]:
     """Force STRUCTURE x endstate VALENCE-for-patient -> HARM / HELP / NA / None(abstain).
     `endstate_reached` is None when unknown (the live bare-SVO path): for CAUSE/ENABLE unknown => the caused endstate
     happened; for PREVENT unknown => the prevention succeeded. The live path therefore reduces to:
@@ -498,11 +785,12 @@ def harm_help_arithmetic(verb: str, animacy: str, *, endstate_reached: Optional[
     if not is_affecting(v, lexicon, afx):
         return None
     vval = (endstate_sign_override if endstate_sign_override is not None
-            else endstate_valence_sign(v, afx, states=states))   # result state, word norm, superordinate (see above)
+            else endstate_valence_sign(v, afx, states=states, posterior=posterior))   # result state, sense-keyed value, superordinate, manner, genus
     if cls == "PREVENT":
         ev = embedded_endstate_valence
         if ev is None:
-            ev = (-vval if vval else -1)                      # default: prevents a NEGATIVE endstate
+            # pri 100 (18a): a DECIDED neutral (0) is not missing data -- only None takes the default path
+            ev = -1 if vval is None else (0 if vval == 0 else -vval)   # default: prevents a NEGATIVE endstate
         prevention_succeeded = (endstate_reached is not True)
         outcome = (-ev) if prevention_succeeded else ev
         return "HELP" if outcome > 0 else ("HARM" if outcome < 0 else None)
@@ -577,7 +865,31 @@ def force_dynamics_event_type(item, animacy_map, gov_class_dict):
         # the context read ADDS a sign where the verb-level cascade abstains; it never overrides a cascade decision (measured 11:42:
         # as an override it turned "fired the clerk" into HELP -- the selection among affecting senses is not yet reliable enough)
         override = sgn if (affecting and endstate_valence_sign(gov_word) is None) else None
+    post = sense_posterior_in_context(gov_word, toks, gi) if SENSE_POSTERIOR else None     # pri 100: P(sense | this sentence)
     hh = harm_help_arithmetic(gov_word, a["animacy"], endstate_reached=er, embedded_endstate_valence=ev,
-                              endstate_sign_override=override)
+                              endstate_sign_override=override, posterior=post)
+    # RUNG 5 MANNER-IN-PROSE (2026-09-13): PRECISION-WEIGHTED CUE FUSION (Ernst & Banks 2002 w ~ 1/sigma^2;
+    # MacDonald 1994). The cues are ordered by their precision about THIS event's outcome: the verb's RESULT
+    # STATE (direct, sense-keyed) > the MANNER of this very event (explicit, event-level) > the verb's WORD-LEVEL
+    # norm (Warriner rates a word out of context: 'treat' +0.46 is largely the noun 'a treat', so the floor
+    # answers HELP on "treated the prisoner brutally"). A manner therefore outranks the word norm and yields to
+    # a result state -- "stabbed him gently" stays HARM. Measured on a 36-sentence adverb-in-prose gold:
+    # 0.444 -> 0.639, +0.194 CI [+0.083, +0.306] CI-separated; the 36-item live modern gold is unchanged
+    # (it contains no manner adverbs, so the read is identity there).
+    if MANNER_PROSE and a["animacy"] != "inanimate" and cls != "PREVENT":
+        try:
+            mv = prose_manner_value(toks, pos, gi)
+        except Exception:
+            mv = None
+        if mv is not None:
+            rs = result_state_value(gov_word)
+            if rs is None or abs(rs) < STATE_MIN:
+                ss = verb_first_supersense(gov_word)
+                admissible = is_affecting(gov_word) or (
+                    not _is_subject_experiencer(gov_word)
+                    and ss not in ("perception", "cognition", "stative", "motion")
+                    and abs(mv) >= TAU_STRONG)
+                if admissible:
+                    hh = "HARM" if mv < 0 else "HELP"
     mapped = {"NA": "NEUTRAL", "HARM": "BLOCK_HIGH", "HELP": "RECIPROCITY"}.get(hh)
     return (mapped, a["category"], gov_word) if mapped else (None, a["category"], gov_word)

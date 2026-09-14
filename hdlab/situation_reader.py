@@ -70,11 +70,17 @@ from functools import lru_cache
 from typing import Dict, List, Optional, Tuple
 
 _REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-_HEADS_SOURCE = os.environ.get("HDLAB_HEADS_SOURCE", "arceager")
-_TAG_SOURCE = os.environ.get("HDLAB_TAG_SOURCE", "counts")
+# ONE FRONTEND, ONE DEFAULT (2026-09-13 21:10, strategy): the category and heads switches are owned by hdlab.frontend
+# (HDLAB_TAG_SOURCE: "counts" = the BF category organ | "perceptron" = the NOT_BF stand-in; HDLAB_HEADS_SOURCE: "attachment_arm"
+# = the BF rung, the default since 66edc3ad6 | "arceager" = the supervised stand-in). This module used to re-read the env with
+# its OWN default ("arceager"), so after the frontend's default flipped the reader's shared per-read parse silently stayed on the
+# supervised parser whenever the env was unset -- a split default (found by verification/test_reader_frontend_cache_shared [1]:
+# the flags-off reader parsed with the batch parser, the capable reader with the arc-eager one, 45/46 vs 49 copular states; under
+# the arm both routes give the same 50). hdlab.frontend imports nothing from hdlab at module level, so this import has no cycle.
+from hdlab.frontend import HEADS_SOURCE as _HEADS_SOURCE, TAG_SOURCE as _TAG_SOURCE
 PREDICATE_RESCUE_MIN_P = float(os.environ.get("HDLAB_PREDICATE_RESCUE_MIN_P", "0.3"))   # verb belief that rescues a dropped predicate (swept later)
 _STATE_GRADED = os.environ.get("HDLAB_STATE_GRADED", "1") != "0"   # graded category read for the copular state reader
-STATE_NOMINAL_MASS = 0.3         # "counts" (BF category organ, default) | "perceptron" (NOT_BF stand-in)   # "arceager" (supervised stand-in) | "attachment_arm" (BF rung)
+STATE_NOMINAL_MASS = 0.3         # posterior nominal mass that counts a token as nominal for the copular reader (swept later)
 
 if _REPO not in sys.path:
     sys.path.insert(0, _REPO)

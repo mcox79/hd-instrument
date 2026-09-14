@@ -778,3 +778,5 @@ CI-separated upstream win worth **exactly zero** to this consumer and is therefo
 (argument-conditioned selection); one is a real operating-point finding (the organ's blend temperature is
 tuned for an argmax readout, not an expectation); one moved the number (PREVENT); one is safe and
 corpus-starved (the online read loop). Two of my own earlier claims are retracted with numbers.
+
+INTEGRATED_BY_STRATEGY 2026-09-13 21:35 local -- DONE by strategy after first-hand reverify (owner 20:05: strategy marks DONE); pri 100 affect_lexicon patch applied + the consumer hook hand-written into force_dynamics_valence (sense posterior in context; PREVENT decided-neutral fix; HDLAB_FDV_SENSE_POSTERIOR). Wave board (97+98+99+100+103 together, assets live): AGG 0.6352 -> 0.6369, patient 0.7920 -> 0.8072, every other dimension identical (notes/INTEGRATION_LEDGER.md 21:06). Also corrected in the same commit: the reader's own heads default ('arceager') never flipped with the frontend's -- now one default imported from hdlab.frontend.

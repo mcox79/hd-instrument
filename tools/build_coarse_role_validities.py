@@ -27,6 +27,16 @@ TRAIN = os.path.join(REPO, "data", "corpora", "ud_english_ewt", "en_ewt-ud-train
 OUT = os.path.join(REPO, "data", "frontend_assets", "coarse_role_validities_ud_ewt.json")
 ALPHA = 0.5
 M_SHRINK = 2.0
+# pri 103 (2026-09-13): --v3 accrues the v3 cue set over the ARGUMENT-HEAD population and stamps "cue_set": "v3" into
+# the asset, which is what switches the organ (graded_role_assigner is byte-identical on a table without that key).
+# MIN_CONF is the RELIABILITY GATE on learning: a comprehension outcome teaches the cue validities only when the
+# governor believed its own attachment. The brain consolidates what it UNDERSTOOD, not every parse it guessed
+# (reliability-weighted learning, Ernst & Banks 2002; the confidence WEIGHT alone is not enough -- the low-confidence
+# tail teaches the OTHER class the profile of the parser errors). Swept 0.0 / 0.5 / 0.8; 0.5 adopted as the operating
+# point (UD-EWT test 700, gold heads, core role recall +0.044 at 0.5 vs +0.025 ungated).
+MIN_CONF = 0.5
+# hierarchical configuration backoff, stamped into the asset and applied by the organ (see graded_role_assigner)
+M_CONFIG_BACKOFF = 0.0   # SWEPT and REJECTED: see graded_role_assigner (buys argument recall, loses the balanced metric)
 
 
 def coarse_of(dep: str) -> str:
@@ -98,7 +108,10 @@ _FE = None
 def main():
     perceived = "--perceived" in sys.argv
     weighted = "--weight" in sys.argv                                   # confidence-weighted perception (see _confidence)
+    v3 = "--v3" in sys.argv                                             # pri 103 cue set + argument-head population
     out_path = OUT.replace(".json", "_perceived_w.json" if weighted else "_perceived.json") if perceived else OUT
+    if v3:
+        out_path = out_path.replace(".json", "_v3.json")
     K = len(GRA.ROLE_CLASSES)
     ix = {r: k for k, r in enumerate(GRA.ROLE_CLASSES)}
     cfg_counts = defaultdict(lambda: [0] * K)                      # config value -> role counts
@@ -119,15 +132,15 @@ def main():
         pos, heads = _perceive(toks, gpos, gheads) if perceived else (gpos, gheads)
         conf = _confidence(toks, pos, heads) if (perceived and weighted) else None
         for i in range(1, len(toks) + 1):
-            if gpos[i - 1] not in GRA.NOMINAL:
+            if not (GRA.is_arg_head(toks, gpos, i) if v3 else gpos[i - 1] in GRA.NOMINAL):
                 continue
             w = conf.get(i, 0.0) if conf is not None else 1
-            if w <= 0:
-                continue                                             # a perceived head with no posterior mass teaches nothing
+            if w <= 0 or (v3 and conf is not None and w < MIN_CONF):
+                continue                    # no posterior mass, or below the reliability gate -> teaches nothing
             decisions += w
             g = ix[coarse_of(deps.get(i))]
             prior[g] += w
-            cues = GRA.coarse_role_cues(toks, pos, heads, i, lemma_frames)
+            cues = GRA.coarse_role_cues(toks, pos, heads, i, lemma_frames, v3, conf)
             cfg = cues["config"]
             cfg_counts[cfg][g] += w
             for cue, val in cues.items():
@@ -153,7 +166,7 @@ def main():
     counts_doc = {"prior": prior, "config": {k: v for k, v in cfg_counts.items()},
                   "cues": {cue: {key: vec for key, vec in vals.items()} for cue, vals in counts.items()}}
     counts_doc["slot_capacity"] = slot_capacity
-    built = GRA.strengths_from_counts(counts_doc)              # ONE implementation of the math (the organ's)
+    built = GRA.strengths_from_counts(counts_doc, M_CONFIG_BACKOFF if v3 else 0.0)              # ONE implementation of the math (the organ's)
     logprior = [float(x) for x in built["prior"]]
     strength = {c: {v: [round(float(x), 4) for x in vec] for v, vec in vals.items()} for c, vals in built["strength"].items()}
     audit = {"config": {}}
@@ -178,6 +191,8 @@ def main():
            "decisions": decisions, "roles": GRA.ROLE_CLASSES, "prior": [round(x, 4) for x in logprior],
            "strength": strength, "audit": audit, "lemma_frames": lemma_frames, "counts": counts_doc}
     doc["perceived"] = perceived; doc["confidence_weighted"] = bool(perceived and weighted)
+    if v3:
+        doc["cue_set"] = "v3"; doc["min_conf"] = MIN_CONF; doc["m_config_backoff"] = M_CONFIG_BACKOFF
     with open(out_path, "w", encoding="utf-8", newline="\n") as f:
         json.dump(doc, f, indent=1)
     print(f"decisions={decisions}  prior={dict(zip(GRA.ROLE_CLASSES, prior))}")
