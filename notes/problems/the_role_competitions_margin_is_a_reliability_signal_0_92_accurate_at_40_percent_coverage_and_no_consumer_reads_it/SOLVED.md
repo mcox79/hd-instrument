@@ -1,6 +1,7 @@
 ---
 problem: the_role_competitions_margin_is_a_reliability_signal_0_92_accurate_at_40_percent_coverage_and_no_consumer_reads_it
 status: PARTIAL
+live_reader_confirmation: "THE WIRE REPAIR IS CI-SEPARATED ON THE LIVE READER TOO. SituationReader.read() over the first 40 GUM test documents, installed organ, three cue modes on one identical population (n=275 records, 0 errors, paired bootstrap): hard 0.1236, LABEL 0.1745 = +0.0509 CI[+0.0036,+0.0982] CI-SEPARATED, ppc 0.1018 = -0.0218 CI[-0.0618,+0.0182] not separated. So the wire is CI-separated on THREE independent measurements (harness dev +0.0352, harness test +0.0352, live reader +0.0509) and the graded form is separated on none. Commissioned as a no-regress check, it came back a confirmation. PREDICTION I STAKED AND GOT WRONG, recorded: I expected n.s. in both directions; the half-width was right (+/-0.047) and ppc was right, but label moved MORE live than on the harness, not less."
 metric_caveat: "THE LIVE-READER METRIC IS NOT COMPARABLE WITH THE RESOLVER HARNESS'S, IN EITHER DIRECTION. The live arm scores string identity on head-individuated entity KEYS with a MEDIAN OF ONE acceptable answer, over ALL pronouns (40 GUM test docs: 2743 pronoun mentions, 26.5% excluded for having no prior non-pronoun mention of their cluster, 37.2% whose gold head string is shared with another cluster); the harness scores gold-CLUSTER membership of the picked token's last mention on the gender/number-ambiguous >=2-candidate subpopulation. Hence live 0.12 vs harness 0.49 is a difference of TARGET, not of quality. Only WITHIN-METRIC A/Bs between cue modes may be quoted."
 phase_7: "Strategy probe answered in full (sections 7.1-7.10). THE BIGGEST NUMBER OF THE SESSION IS NOT THE CUE FORM, IT IS THE WIRE: situation_reader._read_affected_entity fed the resolver rank2dep = {0:nsubj, 1:obj} -- the raw word-order proxy -- so the Competition-Model role organ never reached this consumer at all. Priced on the same population and the same fixed gold targets: the reader rank proxy 0.3522 -> the organ LABEL 0.3832 (+0.0310 CI[+0.0066,+0.0565] CI-sep) -> the organ DECISION 0.4385 (+0.0864 CI[+0.0576,+0.1163] CI-sep), dev agreeing (0.3263/0.3615/0.3817). EVERY NEGATIVE NOW HAS ITS MECHANISM AND ITS COUNTS. (1a) The +0.0905 correlated-error excess is unchanged on the CURRENT live v4 table and lives in ONE cell: of 5074 pairs where BOTH labels are wrong the match is still right 0.7519 of the time against 0.333 under independence; the top co-occurrences are OBJ->OTHER & OTHER->OBJ (915, a swap) and OTHER->OBJ & OTHER->OBJ (697, the same error twice), and the top single confusions are OTHER<->NMOD (818/543) and OBL<->NMOD (562/346) -- so it IS the nmod/obl confusion, re-partitioned by pri 108 rather than repaired. (1b) The hard indicator is CONSTANT across the legal candidates on 692/2676 = 25.9% of decisions (the log-posterior on 0.9%), 25.0% are decisions the indicator cannot split but the log-posterior can, 59.3% carry a veto, and the mean cue spread is 0.74 against 5.73 -- which is exactly why a gate (which can only switch a cue off) cannot help. (1c) The 45 bad overrides are ONE cue: the PASSIVE licence fires 43 times with conflict validity 0.032, and 33 of those 43 are clauses whose gold is ACTIVE (is_passive_clause false-fires) -- a cue-DETECTION defect. (1d) Gate-vs-twin is power-limited: 62 decisive items of 1423, a half-width of 0.0054 needs 8 items and the effect is 6; and the threshold is already at its own envelope (train-fitted 0.8517 vs best-on-test 0.8524, ONE item apart). FOUR MORE LEVERS BUILT AND MEASURED, ALL REFUTED WITH THEIR MECHANISM: per-cue conflict validity 0.8496 and validity+confidence 0.8510 against the global gate 0.8517 (a validity is a population statistic, the confidence a per-decision one); per-cue CALIBRATION of the confidence overfits (train 0.8507 up, test 0.8482 down vs pooled 0.8496); and narrowing the parallelism class alphabet so the obl/nmod confusion is class-internal LOSES on dev AND test (0.3832 -> 0.3776 hard, 0.4385 -> 0.4341 ppc). Q3 DELIVERED: roles_with_decisions is in the diff, additive, verified 1922/1922 labels AND 1922/1922 posteriors identical on UD-EWT test 300. Q2: the pre-10:37 loader is UNRECOVERABLE (experiments/gum_coref.py is untracked, so git holds no prior version); the surviving old-loader artifact is c1_oracle_gate.json (test n=596, hard 0.4916, perfect gate 0.4866). NO SHIPPED NUMBER CHANGED in phase 7; what it produced is the wire price, four understood negatives, and a named upstream defect to file."
 bar: "At least one consumer up CI-separated with the margin-weighted fusion (affected entity or patient or the chain's agent read), no consumer down, twin at floor, the reliability map as counts with an observe path -- OR a numbered located negative per consumer."
@@ -601,3 +602,47 @@ meaningful, which is what this arm reports.
 affected_entity_resolver.py:206` now carries `if mode == "label":`, and the installed organ reports
 `supports label: True`. It is kept in the folder as the record of that change.
 `role_cue_modes_declaration_patch.diff` is the new, still-unapplied increment.
+
+## 9.7 THE LIVE READER CONFIRMS THE WIRE (40 docs, 3 modes, n=275, 0 errors)
+
+`SituationReader.read()` over the first 40 GUM test documents, against the INSTALLED organ (no shadow load --
+strategy had applied the label patch), the three cue modes on one identical population, paired bootstrap:
+
+| mode | live acc | vs `hard` | |
+|---|---|---|---|
+| `hard` (the pre-repair behaviour) | 0.1236 | -- | |
+| **`label` (the WIRE)** | **0.1745** | **+0.0509 CI[+0.0036,+0.0982]** | **CI-SEPARATED** |
+| `ppc` (the graded form) | 0.1018 | -0.0218 CI[-0.0618,+0.0182] | not separated |
+
+**This is a confirmation, not merely the no-regress check it was commissioned as.** The wire repair is now
+CI-separated on THREE independent measurements -- resolver harness dev (+0.0352), resolver harness test
+(+0.0352), and the live reader (+0.0509) -- and the graded form is not separated on any of the three.
+
+**A prediction I staked and got wrong, recorded because it was checkable:** before the run I wrote that I expected
+"n.s. in both directions at n=275 with a CI half-width near +/-0.04". The half-width was right (+/-0.047) and the
+`ppc` half was right; the `label` half was WRONG -- the live effect is larger than the harness effect (+0.051 vs
++0.035), not smaller. Reading the reason off the metric definition in 9.5: the live metric demands an exact
+surface-key identity with a median of ONE acceptable answer, so getting the anaphor's own grammatical class right
+(which is what `label` adds, and what the positional proxy most often got wrong) moves that stricter target more
+than it moves the harness's cluster-membership target, not less.
+
+## 9.8 Is the brief EXHAUSTED at this rung? YES -- with the residue named and routed
+
+The brief asked whether the role competition's MARGIN, unread by any consumer, could be made to pay.
+
+- **At the affected-entity consumer the margin hypothesis is REFUTED, with mechanism and counts** (7.2-7.3,
+  7.6): the correlated-error excess (+0.0905, in the both-wrong cell at 0.7519 vs 0.333), the flat-indicator
+  anatomy (25.9% of decisions the cue cannot split at all), and two ceiling arms showing the reliability family's
+  ceiling there is ZERO (a perfect confidence gate LOSES, -0.0050).
+- **At the agent read the margin does pay, but it is power-bound and at its own envelope** (7.5): +0.0077
+  CI[+0.0021,+0.0134] over the positional floor through the organ, gate-vs-twin +0.0042 n.s. on 62 decisive
+  items, and the train-fitted threshold is ONE item from the best threshold choosable on test.
+- **Four convert levers built and refuted with their reasons** (7.4-7.6, 9.4): per-cue conflict validity, per-cue
+  calibration (overfits), the class-alphabet narrowing (loses on both splits), and the graded cue form itself.
+- **What actually paid was not the margin but the HAND-OFF being connected at all** -- the landed-!=-live defect.
+  That is now landed and confirmed live.
+
+**The residue is upstream, and it is already routed:** pri 111 is landing the clause-local voice cue, which
+removes the 33-of-43 false passive licences that section 7.4 isolated as the single cue behind the agent read's
+-0.0197; and the role posterior's own quality is pri 103's located requirement (core-arc accuracy 0.95 against
+0.753). Nothing further at THIS rung is measurable without one of those moving first.

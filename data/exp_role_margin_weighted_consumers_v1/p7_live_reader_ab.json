@@ -2,6 +2,7 @@
  "n_docs": 40,
  "modes_run": [
   "hard",
+  "label",
   "ppc"
  ],
  "mode_results": {},
@@ -9,6 +10,17 @@
  "n_errors": 0,
  "n_items": 275,
  "hard": 0.1236,
+ "label": 0.1745,
+ "label_vs_hard": {
+  "acc": 0.1745,
+  "delta": 0.0509,
+  "ci95": [
+   0.0036,
+   0.0982
+  ],
+  "ci_hw": 0.0473,
+  "ci_sep": true
+ },
  "ppc": 0.1018,
  "ppc_vs_hard": {
   "acc": 0.1018,
