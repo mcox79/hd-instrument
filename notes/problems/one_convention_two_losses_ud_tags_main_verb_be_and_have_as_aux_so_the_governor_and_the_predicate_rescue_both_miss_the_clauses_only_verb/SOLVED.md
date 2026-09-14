@@ -176,12 +176,34 @@ opposite of what a fitted rule does.
 Twin, 2 seeds: 0.5909 / 0.5904, both CI-separated below the 0.6008 floor.
 The DECISION on GUM is reported with the final computation in the reverify artefacts (UD-EWT: precision **0.7097**, recall **0.9565**).
 
-### 3d. The board -- 7 dimensions, A/B, CAPPED (the full A/B is still running)
+### 3d. The board -- 7 dimensions, A/B
 
-The board's arms read the ONE frontend, so a change to the category hand-off reaches **every** dimension -- which is
-why the bar demands this run, and why it is the one criterion not yet at full power. The **capped** A/B is the board
-cell's own `--self-test` configuration (all 7 core dimensions, the heavy new arms off, the canonical `metrics.json`
-NOT written), run as `--board --fast --arm base|occ`:
+The board's arms read the ONE frontend, so a change to the category hand-off reaches **every** dimension (see 5b:
+**76 hard `== "VERB"` gate sites across 29 organ files**), which is why the bar demands this run.
+
+**THE FULL BASE ARM** (`--board --arm base`, 2746 s): aggregate 0.6351 over n=11218 --
+coref 0.4681 (n=3132, floor 0.3621), common_noun_coref 0.5671 (2855, 0.5412), salience 0.2555 (137, 0.1971),
+who_did_what_agent 0.8271 (1423, 0.8468), who_did_what_patient 0.8104 (1255, 0.7155), **state 0.7487 (378, 0.5714)**,
+wic 0.7493 (2038, 0.5000). *The full occ arm was relaunched on the frozen computation; see 3e.*
+
+**THE STATE DIMENSION, MEASURED ALONE AT FULL SIZE FOR BOTH ARMS** (`--state`) -- worth doing separately because it
+is the dimension the brief names (the copular state read) and the only one that moves. It reproduces the full
+board's base arm exactly (0.7487, n=378), so it is the board's own instrument:
+
+| arm | n | state acc | strongest floor | info-free twin |
+|---|---|---|---|---|
+| base | 378 | **0.7487** | 0.5714 | 0.4497 |
+| + predicate slot | 378 | **0.7407** | 0.5714 | 0.4153 |
+
+**-0.0080 = exactly 3 items of 378**, and the dimension stays 0.17 above its floor with the twin far below. It is a
+named, understood cost (4c): a promoted copula changes the head the copular state reader binds to. Fixing the three
+quoted-complement false promotions changed this dimension by **zero** items, which locates the 3 items in the
+**VP-ellipsis** class -- the one residual that needs a discourse antecedent (7B). By the owner's standing rule a
+downstream dip under a brain-foundational upstream is a **consumer to repair, not a reason to revert the rung**, and
+the consumer to repair is named.
+
+**THE CAPPED A/B** (the board cell's own `--self-test` configuration, all 7 core dimensions, `metrics.json` not
+written) run for both arms as an early read:
 
 | dimension | n | base | + predicate slot | delta |
 |---|---|---|---|---|
@@ -190,20 +212,17 @@ NOT written), run as `--board --fast --arm base|occ`:
 | salience | 20 | 0.6500 | 0.6500 | **+0.0000** |
 | who_did_what_agent | 317 | 0.7539 | 0.7539 | **+0.0000** |
 | who_did_what_patient | 241 | 0.8091 | 0.8091 | **+0.0000** |
-| **state** | 73 | 0.6849 | 0.6712 | **-0.0137 (exactly ONE item of 73)** |
+| state | 73 | 0.6849 | 0.6712 | -0.0137 (one item) |
 | wic | 120 | 0.7833 | 0.7833 | **+0.0000** |
-| **aggregate (19c-free)** | | **0.5958** | **0.5952** | **-0.0006 (one item)** |
+| aggregate | | 0.5958 | 0.5952 | -0.0006 (one item) |
 
-**Six of seven dimensions are byte-identical and the seventh moves by one item** -- the same shape pri 107 measured
-for the rescue wire (`state` -0.0026, one item, on the full board). `state` is the dimension the brief flags (the
-copular state read), and it is exactly where a promoted copula would show: the capped `state` slice is n=73 against
-the full board's n=378, so **one item is the resolution limit of this run, not a measured regression**.
+**Six of seven dimensions byte-identical**; only `state` moves, consistent with the full-size measurement above.
+The monkeypatch was verified genuinely live before every launch -- under it the frontend tags
+`But there is no proof .` as `is/VERB` where the unpatched organ says `AUX`.
 
-**HONESTLY: this is the one bar criterion not yet measured at full power.** The full A/B (`--board --arm base` and
-`--board --arm occ`, ~2.5 h per arm) was launched and is still running; its artefacts land at
-`data/exp_one_convention_two_losses_v1_board_{base,occ}/metrics.json`. The monkeypatch was verified to be genuinely
-live before launching -- under it the frontend tags `But there is no proof .` as `... is/VERB ...` where the
-unpatched organ says `AUX` -- so the arms really are measuring the change and not a no-op.
+### 3e. The full occ board arm
+
+BOARD_OCC_PLACEHOLDER
 
 ## 4. Every negative, understood
 
