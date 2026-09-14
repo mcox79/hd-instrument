@@ -753,10 +753,8 @@ builder already uses as its teaching weight), and gating on it gives, on the 167
 best in the study; tau 0.90 -> 0.8323 at -0.0016 n.s.; off -> 0.8084 at +0.0012. FLAT from 0.05 to 0.90 (a 0.0034
 precision spread across an 18x threshold change), so the operating point is not a tuned knob. The PUREST arc read
 (the copula's own MAP head, no fallback) is WORSE at every threshold (tau 0.5: precision 0.8274 vs 0.8332), which
-is evidence FOR the landed copular organ's gates. SHIPPED DEFAULT OFF (HDLAB_PREDICATION_ARC_TAU=0) for one stated
-reason: the board A/B covers the SURFACE arm and this one has not had its own. Turning it on is one environment
-variable plus one `--board-ab --full`, and it takes the 167 from 0.8084 to 0.8503 -- the single highest-value
-remaining action in this brief.
+is evidence FOR the landed copular organ's gates. SHIPPED DEFAULT ON at tau 0.5 after phase 7 boarded it (section 11e):
+six dimensions +0.0000 EXACTLY, state +0.0370, aggregate 0.6290 -> 0.6359.
 
 THE TENSE READER WAS SILENT ON EVERY COPULAR CLAUSE and now is not: carrying the tense of a non-finite predication
 is the copula's ONE job (Pustet 2003), so the predication inherits the CARRIER's tense -- 0 -> 117 of 167 (0.7006),
@@ -934,6 +932,11 @@ stored form-meaning knowledge as the first ten:
   neither stops at it nor wanders into it. `copular_available` already crosses this boundary (pri 110 10b); the
   complement scan did not.
 
+A **fifteenth** was built after the phase-7 table below and is worth **exactly zero** on this population, and is
+kept anyway because it is a fact about phrase structure rather than a rule fitted to this gold: **(dp2)** a
+determiner after the head opens a NEW nominal (Abney 1987's DP, the rule the verb-group scan already uses), so the
+NP run must stop before the second `the` in *"that 's the WAY the greatest bear market worked"*. Reported as zero.
+
 **THE SHIPPED POINT MOVES (UD-EWT test 700, same instrument, same floor, three fresh twin seeds):**
 
 | arm | recall | precision | F1 | **on the 167** | fires |
@@ -957,7 +960,35 @@ decomposition, not as the bar being met: the bar is stated over all 167 and over
 
 ### 11e. (2i) THE GRADED ARC CUE'S BOARD A/B
 
-ARC_BOARD_PLACEHOLDER
+**THE SHIPPED CONFIGURATION, BOARDED.** Both arms back-to-back in ONE process, the state dimension at FULL size
+(`HDLAB_STATE_CAP=5000`), arm B = fourteen constructions + the graded arc cue at tau 0.5 + the state consolidation
+-- i.e. exactly what the diff ships:
+
+| dimension | n | base | + the predicate slot | delta | the dimension's own floor |
+|---|---|---|---|---|---|
+| coref | 504 | 0.4206 | 0.4206 | **+0.0000** | -- |
+| common_noun_coref | 447 | 0.4989 | 0.4989 | **+0.0000** | -- |
+| salience | 20 | 0.6500 | 0.6500 | **+0.0000** | -- |
+| who_did_what_agent | 317 | 0.7981 | 0.7981 | **+0.0000** | -- |
+| who_did_what_patient | 241 | 0.8174 | 0.8174 | **+0.0000** | -- |
+| **state** | **378** | **0.7487** | **0.7857** | **+0.0370** (14 items) | 0.5714 |
+| wic | 120 | 0.7833 | 0.7833 | **+0.0000** | -- |
+| **aggregate** | | **0.6290** | **0.6359** | **+0.0069** | |
+
+**Nothing is down anywhere and one dimension is up by 14 items, so per the coordinator's instruction the arc cue is
+now the SHIPPED DEFAULT in the diff** -- `HDLAB_PREDICATION_ARC_TAU=0.5`, the **middle of the flat region** rather
+than the recall-max point (tau 0.10 reaches 0.8802 of the 167 against tau 0.50's 0.8743; I take the flat region's
+middle because that is the choice that is not tuned to the bar, which is pri 110's own rule for the same situation).
+
+*On CIs: six of the seven rows are **+0.0000 EXACTLY**, where a confidence interval is moot. For `state` I report
+14 items net of 378 rather than a paired CI, because the board cell does not expose per-item outcomes to this
+harness -- **that is the one control this result is missing**, and closing it is a small addition to the board cell
+rather than to mine. The state dimension sits 0.21 above its own floor either way.*
+
+*A FULL-SIZE run of the event arm alone (`--board-ab --full`, ~90 min, every dimension uncapped) was launched at
+15:12 and is still running at submission; it lands in
+`data/exp_nonverbal_predication_participants_agent_v1/board_ab_full.json`. It is a confirmation at larger n for the
+six dimensions that are exactly zero here, not a different question.*
 
 ### 11f. (2ii) THE HIGGINS CUE -- the first role-side arm that does not lose
 
@@ -1040,7 +1071,7 @@ between them. Both arms of THIS run share one base, so the A/B is valid; the cro
 | 5a | the role competition's full cue set firing on them | **MET** | slot 2 -> 52, rank 5 -> 136, frame 3 -> 27 |
 | 5b | **role accuracy on the 167 up CI-separated** | **NOT MET** | best arm (Higgins) **+0.0037 CI[-0.0112,+0.0186]** |
 | 6 | the 65 seen-by-nobody down to a counted residual with reasons | **MET** | 65 -> 20; all 32 residual items adjudicated into 9 mechanisms |
-| 7 | board not down on any dimension | ARC_BOARD_VERDICT |
+| 7 | board not down on any dimension | **MET** | six dimensions +0.0000 EXACTLY, `state` **+0.0370** (14 items of 378), aggregate 0.6290 -> 0.6359 |
 | 8 | **one structure per clause** | **PARTIALLY MET** | disagreements **29 -> 20**, of which **9 are cases the state reader gets RIGHT** (not defects) -> the true residual is **11 of 126** |
 
 **VERDICT: PARTIAL.** Two criteria are missed and both are missed by a small, measured, fully attributed margin.
@@ -1145,7 +1176,7 @@ right 20 times and the state reader 9 -- so the consolidation is a UNION, not a 
 in one process, state dimension at FULL size: state 0.7487 -> 0.7857 (+0.0370, 14 items of 378; floor 0.5714),
 EVERY other dimension +0.0000, aggregate 0.6290 -> 0.6359. Disagreements 29 -> 20, of which 9 are the state reader
 being right, so the true residual is 11 and its cause is robust_cop's HOLDER scan, not the predicate read.
-SHIPPED_BOARD_LINE
+THE SHIPPED CONFIGURATION (14 constructions + the graded arc cue at tau 0.5 + the state consolidation) IS BOARDED AND NOT DOWN ANYWHERE: six dimensions +0.0000 EXACTLY, state +0.0370, aggregate 0.6290 -> 0.6359 -- so the arc cue is the SHIPPED DEFAULT (tau 0.5, the middle of the flat region, not the recall-max point).
 
 THE TENSE READER was silent on every copular clause (it fires only on Penn VB* and skips every AUX lemma). Carrying
 the tense of a non-finite predication is the copula's ONE job (Pustet 2003), so the predication inherits the

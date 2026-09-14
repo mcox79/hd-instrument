@@ -234,15 +234,23 @@ def _fronted_predicate(toks, tags, i):
 _HYPHEN = frozenset({"-", "--", "\u2013", "\u2014"})
 
 
-def _np_run_end(toks, tags, k, hyph=True):
+def _np_run_end(toks, tags, k, hyph=True, dp2=True):
     """The end of the NP run that starts at 0-based k.  (hyph) THE RIGHT-HAND HEAD RULE (Williams 1981), which this
     organ already cites in `graded_role_assigner.is_arg_head`, says the head of a compound is its RIGHTMOST member.
     A hyphen is tagged PUNCT, so the shipped walk stops inside the compound and returns the LEFT member:
     `money - redistributors` -> `money`, `ill - advised term` -> `ill`, `al - Qaeda operation` -> `al`.  Crossing a
     hyphen that stands BETWEEN two NP-run tokens restores the rule."""
-    n = len(tags); j = k
+    n = len(tags); j = k; seen_head = False
     while True:
         if j + 1 < n and tags[j + 1] in AA.NP_RUN:
+            # (dp2) A DETERMINER AFTER THE HEAD OPENS A NEW NOMINAL (Abney 1987's DP -- the same rule the verb-group
+            # scan already uses): in "that 's the WAY the greatest bear market worked" the run must stop before the
+            # second `the`, or the head comes out `market`.  A brain fact about phrase structure, not an annotation
+            # convention -- which is why this one is built and the three remaining head-convention cases are not.
+            if dp2 and tags[j + 1] == "DET" and seen_head:
+                return j
+            if tags[j + 1] in ("NOUN", "PROPN"):
+                seen_head = True
             j += 1; continue
         if hyph and j + 2 < n and tags[j + 1] == "PUNCT" and toks[j + 1] in _HYPHEN and tags[j + 2] in AA.NP_RUN:
             j += 2; continue

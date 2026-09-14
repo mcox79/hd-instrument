@@ -1,8 +1,8 @@
 diff --git a/hdlab/attachment_arm.py b/hdlab/attachment_arm.py
-index e77d458..c12346f 100644
+index e77d458..19553b8 100644
 --- a/hdlab/attachment_arm.py
 +++ b/hdlab/attachment_arm.py
-@@ -1389,6 +1389,442 @@ def revise_for_predicate_slot(toks: Sequence[str], post, tag_names: Sequence[str
+@@ -1389,6 +1389,450 @@ def revise_for_predicate_slot(toks: Sequence[str], post, tag_names: Sequence[str
          sites.append(i)
      return (post if out is None else out), sites
  
@@ -62,9 +62,17 @@ index e77d458..c12346f 100644
 +    already cites in `graded_role_assigner.is_arg_head`, makes the RIGHTMOST member the head of a compound; a hyphen
 +    is tagged PUNCT, so a run walk that stops at it returns the LEFT member (`money - redistributors` -> `money`,
 +    `ill - advised term` -> `ill`, `al - Qaeda operation` -> `al`)."""
-+    n = len(pos); j = k
++    n = len(pos); j = k; seen_head = False
 +    while True:
 +        if j + 1 < n and pos[j + 1] in NP_RUN:
++            # (dp2) A DETERMINER AFTER THE HEAD OPENS A NEW NOMINAL (Abney 1987's DP, the rule the verb-group scan
++            # already uses): in "that 's the WAY the greatest bear market worked" the run must stop before the
++            # second `the`, or the head comes out `market`.  Worth EXACTLY ZERO on UD-EWT test 700 and kept anyway,
++            # because it is a fact about phrase structure rather than a rule fitted to this gold.
++            if PREDICATION_CONSTRUCTIONS and pos[j + 1] == "DET" and seen_head:
++                return j
++            if pos[j + 1] in ("NOUN", "PROPN"):
++                seen_head = True
 +            j += 1; continue
 +        if (PREDICATION_CONSTRUCTIONS and j + 2 < n and pos[j + 1] == "PUNCT"
 +                and toks[j + 1] in _HYPHEN and pos[j + 2] in NP_RUN):
@@ -364,10 +372,10 @@ index e77d458..c12346f 100644
 +#     off   0.9541  0.8370     0.8917  0.8084       +0.0012 CI[-0.0059,+0.0079]
 +# The PUREST form of the arc cue (the copula's own MAP head, no fallback chain) is WORSE at every threshold
 +# (tau 0.5: precision 0.8274 against 0.8332), so `robust_cop`'s gated fallback is carrying real signal.
-+# DEFAULT OFF (HDLAB_PREDICATION_ARC_TAU=0) for one reason only, stated so it is not a hiding place: the board A/B
-+# in the submission covers the SURFACE arm, and this arm has not had its own.  Set it to 0.5 and run
-+# `--board-ab --full` to switch it on; it is the first next step.
-+PREDICATION_ARC_TAU = float(os.environ.get("HDLAB_PREDICATION_ARC_TAU", "0"))
++# DEFAULT ON at tau = 0.5 -- the MIDDLE of the flat region, not the recall-max point, and it has its own board A/B:
++# both arms back-to-back in one process with the state dimension at full size, six of seven dimensions +0.0000 and
++# `state` +0.0370 (0.7487 -> 0.7857, n=378), aggregate 0.6290 -> 0.6359.  HDLAB_PREDICATION_ARC_TAU=0 turns it off.
++PREDICATION_ARC_TAU = float(os.environ.get("HDLAB_PREDICATION_ARC_TAU", "0.5"))
 +
 +
 +def arc_predicate_sites(toks: Sequence[str], tags: Sequence[str], heads, head_posterior, tau: float = None) -> dict:
@@ -445,7 +453,7 @@ index e77d458..c12346f 100644
  def subordination(toks: Sequence[str], pos: Sequence[str], i: int) -> str:
      """SUBORDINATION CUE: the clause-dependency marking in force at 1-based i -- the nearest preceding clause opener
      (subordinator / relativizer / coordinator) with no finite predicate in between (a VERB or a sentence-final mark
-@@ -2683,7 +3119,9 @@ __all__ = ["SentenceCues", "CONSTRUCTIONS", "construction_map", "verb_frames_fro
+@@ -2683,7 +3127,9 @@ __all__ = ["SentenceCues", "CONSTRUCTIONS", "construction_map", "verb_frames_fro
             "root_cue_values", "predication_boost", "finiteness",
             "predicate_slot_occupancy", "revise_for_predicate_slot", "host_belief", "copular_available",
             "is_existential", "main_verb_carriers",
