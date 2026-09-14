@@ -1098,3 +1098,108 @@ agrees with its own configuration and a contrast that agrees with its configurat
   own measurement.
 - **One structure.** **Not exhausted**, and now cheap: 11 clauses, and the cause is `robust_cop`'s HOLDER rule, not
   the predicate rule -- a smaller and better-specified problem than the brief posed.
+
+---
+
+## 13. SUBMISSION PROMPT (phase 7 -- this supersedes section 10)
+
+```
+pri 113 (AGENT ARM of the head-to-head) -- one_in_five_asserted_clauses_has_a_non_verbal_predicate_and_every_verb_gated_consumer_is_blind_to_it_fire_events_and_roles_on_the_predicate_slot_not_the_verb_tag
+
+PARTIAL. THE PREDICATION IS THE EVENT. pri 110 shipped branch (3) of the tense carrier's three-way discharge; this
+is branch (2) -- the copula that carries tense FOR a non-verbal predicate -- and it is the SAME product,
+complement_occ = (1 - host) * cop_available against pri 110's (1 - host) * (1 - cop_available), so the two PARTITION
+(1 - host) and one clause can never get two predicates (asserted over 90 copulas). One organ, one computation,
+two branches.
+
+THE INSTRUMENT FIRST (pri 110 filed it as 7D and did not build it): 762 subject-bearing gold clauses on UD-EWT test
+700 (595 verbal + 167 non-verbal); a fire is correct when its index IS the clause's gold predicate, and precision
+counts a fire only if its index governs >= 1 gold CORE argument in the gold TREE. The gold TAG column is never
+asked what category a predicate may be -- it cannot adjudicate a predication event on an ADJ (pri 110 4c2).
+  the LIVE reader as shipped          recall 0.8176  precision 0.8358  F1 0.8266  on the 167: 0.1856
+  14 constructions                    recall 0.9606  precision 0.8356  F1 0.8938  on the 167: 0.8383
+  + the graded ARC cue (tau 0.10)     recall 0.9698  precision 0.8305  F1 0.8948  on the 167: 0.8802
+recall +0.1522 CI[+0.1260,+0.1772] CI-SEPARATED; precision -0.0052 CI[-0.0136,+0.0030] NOT separated down, and the
+whole tau region 0.05-0.90 has a precision CI containing zero. TWIN, 3 seeds, matched fire count: recall
+0.831/0.832/0.836, precision 0.744/0.746/0.747 -- beaten CI-separated on BOTH.
+
+FOURTEEN CONSTRUCTIONS, EVERY ONE FOUND BY ATTRIBUTING THE RESIDUAL AND ABLATED SEPARATELY: LOCATION, CLAUSE-LOCAL,
+INVERSION, DP (the NP-internal participle), LOCATIVE INVERSION, the RIGHT-HAND HEAD RULE across a hyphen, COMPLEX
+LOCATIVE, LEFT-FRONTED PREDICATE, stranded ELLIPSIS, a WH-form predicate, a predicable complement CLOSING the
+copula's verb group, SYM/INTJ, and a PARENTHETICAL skipped comma-to-comma. TWO OF THEM ARE WORTH EXACTLY ZERO and
+are reported as zero. LOCATION alone is NEGATIVE and turns positive only with LOCATIVE INVERSION, because English
+normally FRONTS the locative predicate. The word sets are a SWEPT operating point: a permissive frontable set
+including `that`/`this` cost the 167 recall .7904 -> .7305. One construction cost more than it bought (31 extra
+fires for 2 clauses, precision CI-separated DOWN) and was NARROWED, not kept.
+
+THE BAR'S 0.90 IS MISSED BY FOUR CLAUSES OF 167. All 32 residual items are adjudicated into 9 named mechanisms:
+10 are provably outside this rung (5 upstream chain mis-tags, 5 not copular in the gold tree), so on the 157
+reachable here the arm reaches 147 = 0.9363; the four that remain are TREEBANK HEAD CONVENTIONS (`good 12:30`,
+`the way THE market`, `March 31`, `al - Qaeda`), not facts about comprehension. I built ten constructions and then
+four more because each named a real fact about English predication; I declined four more rules whose only
+justification is which token this annotation scheme calls the head of `al - Qaeda`.
+
+ONE STRUCTURE PER CLAUSE IS A BOARD WIN. The copular state reader was a SECOND, independent predicate finder:
+where both organs name the gold predicate they agree 97 times, and where they differ the predicate-slot read is
+right 20 times and the state reader 9 -- so the consolidation is a UNION, not a replacement. Board A/B, both arms
+in one process, state dimension at FULL size: state 0.7487 -> 0.7857 (+0.0370, 14 items of 378; floor 0.5714),
+EVERY other dimension +0.0000, aggregate 0.6290 -> 0.6359. Disagreements 29 -> 20, of which 9 are the state reader
+being right, so the true residual is 11 and its cause is robust_cop's HOLDER scan, not the predicate read.
+SHIPPED_BOARD_LINE
+
+THE TENSE READER was silent on every copular clause (it fires only on Penn VB* and skips every AUX lemma). Carrying
+the tense of a non-finite predication is the copula's ONE job (Pustet 2003), so the predication inherits the
+CARRIER's tense: 0 -> 117 of 167 (0.7006). I do NOT claim an accuracy number -- the copula's form IS the evidence,
+so scoring against it would be circular.
+
+THE NUMBERED NEGATIVE -- THE ROLE COMPETITION, now understood down to the arithmetic. Cue coverage IS fixed
+(pre-verbal SLOT 2 -> 52, argument RANK 5 -> 136, verb FRAME 3 -> 27). Accuracy is not, in any of FOUR arms, and
+LEAVE-ONE-CUE-OUT over the 264 arguments says why with numbers: those four cues contribute EXACTLY 0.0000 EVEN
+WHERE THEY ALREADY FIRE (81 / 18 / 8 / 26 times), because each agrees with its own configuration and a contrast
+that agrees with its configuration is arithmetically zero -- `pre_rank`'s `nearest` cues SUBJ at 0.94 and
+`config`'s `ADJ_pre` cues SUBJ at 0.94 on the same tokens. What carries this population is `cop` (+0.1818) and
+`config` (+0.0417). I BUILT THE REPAIR MY OWN DIAGNOSIS NAMED (open the cues, KEEP the configuration) AND IT
+REFUTED ME: -0.0297 CI[-0.0595,+0.0000], indistinguishable from the PRED split's -0.0260. A CONFOUND WAS CAUGHT
+FIRST: the live validity asset differs from a fresh build by 22.2% of its teaching decisions, so the -0.0706
+against it measured my change plus every upstream change since; a matched control was rebuilt.
+THE HIGGINS CUE (copular_binding.predicted_type, landed and never read by this organ) wired as a new cue value is
+the FIRST arm that does not lose: +0.0037 CI[-0.0112,+0.0186] on the 269, +0.0000 EXACTLY on the verbal population.
+Not separated, and LOO says why: its three values all cue SUBJ at 0.61/0.70/0.73. The form that should pay is the
+ARGUMENT-POPULATION one ("is the post-copular nominal an argument at all?"), which is a different edit and untried.
+AND ONE VERBAL CUE IS ACTIVELY HARMFUL: dropping `voice_order` is worth +0.0265 here, the largest single movement
+available -- on a GOLD-SELECTED population, so a diagnostic and not a shippable win, and it belongs to pri 111's
+live brief with this number.
+
+A SECOND UNRELATED FINDING, BRIEF-READY: rebuilding the role validity table on today's frontend LOSES 0.0100
+overall and 0.0447 on this population, because 22.2% fewer instances clear the governor's reliability gate
+(74,083 -> 57,646; the builder drops an instance in exactly one place, so this is arithmetic, not inference).
+
+CONTROLS: info-free twin 3 seeds beaten CI-separated on recall AND precision; paired bootstrap 2000 resamples;
+the verbal clauses UNTOUCHED (0.9950 -> 0.9950 on all 595; +0.0000 EXACTLY on the 1533 verbal role decisions);
+PATCH == CELL -- the self-test EXECUTES the diff's own added code, 0 site / 0 complement / 0 arc-cue mismatches,
+max |strength diff| 0.0 over 5,224 tokens (and it CAUGHT the drift when I added four constructions to the cell and
+not the diff: 6 mismatches, then 0 after the diff was brought in line); with every construction OFF the scan
+reproduces attachment_arm.cop_predicates exactly (0 mismatches / 200 sentences); the two occupancy branches
+partition (1 - host) to 1e-6 over 90 copulas; capability guards measured, not assumed (predicate_sites returns {}
+under an inventory lacking the UPOS classes it reads; the PRED head class is used only when the loaded table
+carries PRED rows -- without them role accuracy falls 0.7361 -> 0.3309). Self-test 13/13; git apply --check clean.
+
+EXHAUSTED? The RECALL side of this rung, yes -- 0.1856 -> 0.8802 with the residual adjudicated and the remainder
+being annotation conventions. The ROLE side, NO: four leads named with numbers (the argument-population Higgins
+form; the joint frame-slot decode never grouping a non-verbal predicate's arguments; the voice cue; the drifting
+role asset). ONE STRUCTURE, nearly -- 11 clauses, and the cause is now the HOLDER rule.
+
+HEAD-TO-HEAD NOTE: section 7's file names were occupied on disk by the owner's live session at 13:52:25 EDT; I did
+not overwrite them. My files are the *_agent* ones under notes/comparisons/pri113_agent/. I saw lines 1-90 of that
+file before stopping -- its docstring and two ideas (an ADV/locative complement, a clause-final copula), one of
+which I had derived ten minutes earlier and the other of which is in pri 110's own docstring. Discount both.
+
+Files: experiments/exp_nonverbal_predication_participants_agent_v1.py;
+notes/comparisons/pri113_agent/{SOLVED_agent.md, predicate_slot_consumers_agent_patch.diff};
+data/exp_nonverbal_predication_participants_agent_v1/*.json;
+data/hook_state/coarse_role_validities_pri113_{pred,open,off,higgins}_v1_*.json.
+NO hdlab/ or tools/ file changed on disk.
+Reverify: --self-test ; --participant --v2 --cap 700 ; --arcgrade --cap 700 ; --attrib --cap 700 ;
+--probe-misses ; --probe-union ; --probe-states ; --probe-consolidate ; --cue-loo --mode none|higgins ;
+--roles --mode higgins --table <higgins> --table-a <off> ; HDLAB_STATE_CAP=5000 --board-ab --states-too
+```
