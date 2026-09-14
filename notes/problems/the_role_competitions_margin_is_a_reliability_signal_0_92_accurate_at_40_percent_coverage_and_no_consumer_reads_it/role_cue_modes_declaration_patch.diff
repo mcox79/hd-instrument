@@ -1,0 +1,14 @@
+diff --git a/hdlab/affected_entity_resolver.py b/hdlab/affected_entity_resolver.py
+index fdba6c3d9..323cfa978 100644
+--- a/hdlab/affected_entity_resolver.py
++++ b/hdlab/affected_entity_resolver.py
+@@ -170,6 +170,9 @@ def salience_prior(ent_hist: Dict[object, list], now: float,
+ # Selected by HDLAB_AER_ROLE_CUE. Default "hard" so every deployment is unchanged until strategy flips it.
+ # =====================================================================================================
+ GRADED_ROLE_CUE = os.environ.get("HDLAB_AER_ROLE_CUE", "hard")
++# The modes this organ actually implements, DECLARED so a caller can check support without inspecting source
++# (an A/B harness that guesses from source can silently SKIP a mode -- measured 2026-09-14).
++ROLE_CUE_MODES = ("hard", "label", "graded", "match", "shrunk", "relweight", "ppc", "logpost")
+ PAR_CLASSES = ("SUBJ", "OBJ", "OTHER")
+ 
+ 

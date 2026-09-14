@@ -1,0 +1,9 @@
+{
+ "n_docs": 40,
+ "pronoun_mentions": 2743,
+ "no_prior_mention": 726,
+ "scoreable": 2017,
+ "mean_gold_surface_heads": 1.605,
+ "gold_head_shared_with_other_cluster": 751,
+ "note": "the live metric is string-identity on head-individuated KEYS; the harness metric is gold-CLUSTER membership of the picked token's last mention. They are different targets, so their absolute levels are not comparable -- only the within-metric A/B between cue modes is."
+}

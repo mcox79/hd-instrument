@@ -559,3 +559,44 @@ three-mode run uses the first 40 GUM test documents; because `role_label_mode_pa
 patched organ is shadow-loaded into `sys.modules` in that process only -- no repo file is touched, and
 `situation_reader` imports `affected_entity_resolver` inside `_read_affected_entity`, so the live reader picks it
 up.
+
+## 9.4 A FAULT IN MY OWN GUARD, reported rather than buried
+
+The first 40-document three-mode run **silently skipped `label`** and measured only `hard` and `ppc`
+(`"modes_run": ["hard", "ppc"]`). Cause: the support check used
+`inspect.getsource(AER.role_cue_terms)`, and the shadow-loaded module's `__file__` pointed at the REAL repo file,
+so `inspect` read the UNPATCHED source and filtered `label` out. The guard I added to stop a mode silently running
+as the WRONG arithmetic instead caused it to silently NOT RUN -- the same class of defect, one step over.
+
+**The fix is a declared capability rather than an inference:** `role_cue_modes_declaration_patch.diff` adds
+`ROLE_CUE_MODES = ("hard", "label", "graded", "match", "shrunk", "relweight", "ppc", "logpost")` to the organ, so a
+harness can ask instead of guessing. (Incremental against the current tree, 4 added / 1 removed, applies.)
+
+What the skipped run did establish, on 40 docs / n=275 records / 0 errors: **`ppc` 0.1018 vs `hard` 0.1236,
+-0.0218 CI[-0.0618,+0.0182], not separated** -- the graded form does not help the live reader either, which is the
+same verdict the resolver harness gives it (+0.015 n.s.).
+
+## 9.5 Why the live metric's absolute level is 0.12, not 0.49
+
+Not a reader defect -- a different target, quantified on the same 40 documents:
+
+| | value |
+|---|---|
+| pronoun mentions | 2,743 |
+| with NO prior non-pronoun mention of their cluster (excluded from the live population) | 726 = **0.265** |
+| scoreable | 2,017 |
+| **distinct gold surface heads that would count as a hit** | mean 1.60, **median 1** |
+| whose gold head string is SHARED with another cluster (noise both ways) | 751 = 0.372 |
+
+The live metric is **string identity on head-individuated KEYS with a median of ONE acceptable answer**, over all
+pronouns; the resolver harness asks the much weaker question of whether the picked token's last mention belongs to
+the gold CLUSTER, on the gender/number-ambiguous >=2-candidate subpopulation. **The two absolute levels are not
+comparable and must never be quoted against each other** -- only the within-metric A/B between cue modes is
+meaningful, which is what this arm reports.
+
+## 9.6 Status of the diffs
+
+`role_label_mode_patch.diff` (18 added / 2 removed) **has been applied by strategy** -- `hdlab/
+affected_entity_resolver.py:206` now carries `if mode == "label":`, and the installed organ reports
+`supports label: True`. It is kept in the folder as the record of that change.
+`role_cue_modes_declaration_patch.diff` is the new, still-unapplied increment.

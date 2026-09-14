@@ -1,19 +1,23 @@
 {
- "n_docs": 2,
+ "n_docs": 40,
+ "modes_run": [
+  "hard",
+  "ppc"
+ ],
  "mode_results": {},
  "errors": [],
  "n_errors": 0,
- "hard": 0.6667,
- "ppc": 0.3333,
+ "n_items": 275,
+ "hard": 0.1236,
+ "ppc": 0.1018,
  "ppc_vs_hard": {
-  "acc": 0.3333,
-  "delta": -0.3333,
+  "acc": 0.1018,
+  "delta": -0.0218,
   "ci95": [
-   -1.0,
-   0.0
+   -0.0618,
+   0.0182
   ],
-  "ci_hw": 0.5,
+  "ci_hw": 0.04,
   "ci_sep": false
- },
- "n_items": 3
+ }
 }
