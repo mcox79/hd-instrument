@@ -215,6 +215,16 @@ class EntityPriorCategories(LexicalCategories):
         self.ent_recency = 0
         self.ent_rare = 0
         self.ent_skip_first = False
+        self.ent_decay = 1.0        # PLASTICITY NEEDS FORGETTING: scale the accrued counts before each new passage
+        self.ent_prec = 0.0         # PRECISION-WEIGHTING: scale kappa by how sharp the referent belief is
+        self.ent_nconf = 0          # CONFIDENCE-WEIGHTING: scale kappa by how many prior mentions the card has
+        self.reg_known_only = False  # THE REPAIRED PASSAGE REGISTER: calibrate on words the organ actually KNOWS
+        self.ent_local = None        # THE SAME REPAIR ON THE ENTITY TABLE: a passage-local P(E|c) from KNOWN words
+        self._doc_ent: Dict[str, np.ndarray] = {}
+        self._sent_syms: List[str] = []
+        self._prec: Dict[str, float] = {}
+        self._prec_dirty = True
+        self._maxprec_cache = None
         self.ent_novel = False
         self.entc: Dict[str, Counter] = defaultdict(Counter)     # category -> Counter(entity symbol), whole vocabulary
         self.entc_u: Dict[str, Counter] = defaultdict(Counter)   # ... restricted to the NOVEL-FORM stratum (Baayen)
@@ -262,8 +272,27 @@ class EntityPriorCategories(LexicalCategories):
         self._finalize_entity()
         return self
 
+    def decay_counts(self, lam: float) -> None:
+        """FORGETTING. The organ's counts have an accrual rate and NO decay rate, so a reader who has read 200k
+        tokens of one register cannot adapt to a new one: 7,308 new counts against 204,578 is 3.5% of the mass
+        (measured). The brain's memory strengths DECAY (ACT-R base-level, which this substrate already implements
+        for entity files in `hdlab/salience_binder.actr_activation` and applies to no count table in this organ).
+        One multiplicative factor per PASSAGE, swept -- the exponential form of a power-law forgetting curve."""
+        if lam >= 1.0:
+            return
+        for tab in (self.entc, self.entc_u):
+            for t in list(tab):
+                c = tab[t]
+                for k in list(c):
+                    v = c[k] * lam
+                    if v < 1e-6:
+                        del c[k]
+                    else:
+                        c[k] = v
+
     def observe_document(self, sentences, categories_per_sentence) -> None:
         """THE ONLINE PATH: one comprehended document grows the entity counts and re-derives log P(E | c)."""
+        self.decay_counts(self.ent_decay)
         self.accrue_entity_counts([[list(zip(ws, cs)) for ws, cs in zip(sentences, categories_per_sentence)]])
 
     def _finalize_entity(self) -> None:
@@ -280,21 +309,62 @@ class EntityPriorCategories(LexicalCategories):
             tot = sum(src[t].values()) + self.lam * V
             self.log_entc[t] = {s: math.log((src[t][s] + self.lam) / tot) for s in syms}
             self._ent_back[t] = math.log(self.lam / tot)
+        # PRECISION-WEIGHTED PREDICTION (Rao & Ballard 1999; Friston; Kuperberg & Jaeger 2016 discuss the RELIABILITY
+        # of a prediction explicitly): a top-down message is weighted by its PRECISION, not sent at a fixed gain. The
+        # precision of the referent system's message for symbol E is how SHARP its belief over categories is --
+        # 1 - H(P(c|E))/log T, one pure function of the same counts. `e_rep_plural` (86% NOUN in the novel stratum) is
+        # a confident message; `e_rep_def` (a near coin-flip) is not, and should not be shouted at the same volume.
+        T = max(2, len(self.tags))
+        self._prec = {}
+        for x in syms:
+            col = np.array([src[t][x] + self.lam for t in self.tags], dtype=float)
+            q = col / col.sum()
+            h = float(-(q * np.log(q + 1e-12)).sum())
+            self._prec[x] = max(0.0, 1.0 - h / math.log(T))
+        self._prec_dirty = True
 
     # -------------------------------------------------------------- the document boundary
     def new_document(self, twin_chain_seed: Optional[int] = None) -> None:
         self._reg = DiscourseRegister(rich=self.ent_rich, recency_w=self.ent_recency)
         self._doc_shape = {}
+        self._doc_ent = {}
         self._doc_syms = []
         self._twin_chain = random.Random(twin_chain_seed) if twin_chain_seed is not None else None
 
     def update_document_register(self, words: Sequence[str], post: np.ndarray) -> None:
         """ARM (B): fold the SETTLED, GRADED belief about this sentence into the document's shape register. Called
         at the SENTENCE boundary -- a prediction can only be fed back once the belief it comes from has settled."""
+        if self.ent_local is not None and self._reg is not None:
+            # THE SAME REPAIR, ON THE ENTITY TABLE. The out-of-domain failure is that P(category | discourse
+            # history) is a CONVENTION and the convention differs by passage (P(PROPN | repeat AND Cap@mid) is
+            # 0.923 on GUM and 0.505 on GENTLE). A reader estimates the local convention from the words it KNOWS
+            # -- where the organ scores 0.93 -- and blends it into the global table by the organ's own shrinkage.
+            # Where the local evidence says the cue is uninformative, the blend flattens the prior towards the
+            # local base rate, which is precision-weighting with the precision estimated ONLINE (Feldman &
+            # Friston 2010, attention as precision) rather than frozen at training time.
+            for i, w in enumerate(words):
+                wl = w.lower()
+                if wl not in self.vocab:
+                    continue
+                if i >= len(self._sent_syms):
+                    continue
+                sym = self._sent_syms[i]
+                r = self._doc_ent.get(sym)
+                if r is None:
+                    r = self._doc_ent[sym] = np.zeros(len(self.tags))
+                r += post[i]
         if self.theta_doc is None:
             return
         pos = [LC.position_class(words, i) for i in range(len(words))]
         for i, w in enumerate(words):
+            if self.reg_known_only and w.lower() not in self.vocab:
+                # THE REPAIR. Arm B was CI-separated NEGATIVE because it fed the organ's OWN errors back: on GUM the
+                # organ is right about an unseen word 52% of the time, so the passage table it built was half noise.
+                # A reader calibrates the local convention on what it is SURE about. Restricted to tokens that HAVE
+                # a lexical entry -- where the organ scores 0.93 -- the register measures the PASSAGE'S OWN
+                # capitalisation convention (measured: P(PROPN | Cap@mid) is 0.93 on GUM and 0.51 on GENTLE) and
+                # transfers it to the unknown tokens, which is what the convention is FOR.
+                continue
             sym = self._unk_sym(w, pos[i])
             r = self._doc_shape.get(sym)
             if r is None:
@@ -326,6 +396,7 @@ class EntityPriorCategories(LexicalCategories):
         wl = self._sent_lows[here] if here < len(self._sent_lows) else word.lower()
         sym = self._reg.symbol(wl)
         self._doc_syms.append(sym)
+        self._sent_syms.append(sym)
         # CUE COMPETITION IS GRADED, NOT BINARY (MacDonald 1994; and the organ's own rare-word mixing already says
         # so): the lexical cue is ABSENT for an unseen word and merely WEAK for a word seen once or twice. With
         # ent_rare the prior is also read on the known-but-rare stratum, damped by the SAME Bayesian shrinkage the
@@ -350,14 +421,40 @@ class EntityPriorCategories(LexicalCategories):
                 use = self._twin_chain.choice(self._doc_syms)      # TWIN 1: SHUFFLED CHAINS
             if self._twin_perm is not None:
                 use = self._twin_perm.get(use, use)                # TWIN 2: PERMUTED TABLE
-            out = out + (self.ent_kappa * gate) * np.array(
-                [self.log_entc[t].get(use, self._ent_back[t]) for t in self.tags])
+            w = self.ent_kappa * gate
+            if self.ent_prec:
+                # PRECISION-WEIGHTING: kappa scaled by how sharp the referent system's belief for this symbol is.
+                w *= (1.0 - self.ent_prec) + self.ent_prec * (self._prec.get(use, 0.0) / self._maxprec())
+            if self.ent_nconf:
+                # CONFIDENCE-WEIGHTING: a file card with more prior mentions is a more reliable source -- the organ's
+                # own reliability shrinkage n/(n+theta) again, now on the CARD rather than on a count row.
+                card = self._reg.h.get(wl)
+                nprev = card["n"] if card else 0
+                w *= nprev / (nprev + float(self.ent_nconf))
+            row = np.array([self.log_entc[t].get(use, self._ent_back[t]) for t in self.tags])
+            if self.ent_local is not None:
+                loc = self._doc_ent.get(use)
+                nd = float(loc.sum()) if loc is not None else 0.0
+                if nd > 0:
+                    a_ = nd / (nd + float(self.ent_local))     # the organ's own shrinkage, a = n / (n + theta)
+                    mx = float(row.max())
+                    q = a_ * (loc / nd) + (1.0 - a_) * np.exp(row - mx)
+                    row = np.log(q / q.sum() + 1e-12) + mx
+            out = out + w * row
         raw = self._sent_raw if len(self._sent_raw) == len(self._sent_lows) else list(self._sent_lows)
         self._reg.observe(raw, self._sent_lows, here)
         return out
 
+    def _maxprec(self) -> float:
+        if self._prec_dirty or self._maxprec_cache is None:
+            self._maxprec_cache = max(self._prec.values()) if self._prec else 1.0
+            self._maxprec_cache = max(1e-9, self._maxprec_cache)
+            self._prec_dirty = False
+        return self._maxprec_cache
+
     def posterior(self, words, lag=None):
         self._sent_raw = list(words)
+        self._sent_syms = []
         out = super().posterior(words, lag=lag)
         if self._reg is not None:
             self._reg.sent_no += 1
@@ -581,9 +678,41 @@ ARMS = {
     "S3_k2_rich":   dict(ent_kappa=2.0, theta_doc=None, ent_rich=True, ent_skip_first=True),
     "S4_k4_w5":     dict(ent_kappa=4.0, theta_doc=None, ent_recency=5, ent_skip_first=True),
     "S5_k2_w5_rare5": dict(ent_kappa=2.0, theta_doc=None, ent_recency=5, ent_rare=5, ent_skip_first=True),
+    # --- PHASE 7 (b): FORGETTING. plasticity with an accrual rate and no decay rate cannot adapt (measured: 13
+    #     documents of online reading = 3.5% of the count mass). One multiplicative decay per passage, swept.
+    "D0_nodecay":   dict(ent_kappa=2.0, ent_recency=5, ent_skip_first=True, ent_decay=1.0),
+    "D1_d099":      dict(ent_kappa=2.0, ent_recency=5, ent_skip_first=True, ent_decay=0.99),
+    "D2_d095":      dict(ent_kappa=2.0, ent_recency=5, ent_skip_first=True, ent_decay=0.95),
+    "D3_d090":      dict(ent_kappa=2.0, ent_recency=5, ent_skip_first=True, ent_decay=0.90),
+    "D4_d070":      dict(ent_kappa=2.0, ent_recency=5, ent_skip_first=True, ent_decay=0.70),
+    "D5_d050":      dict(ent_kappa=2.0, ent_recency=5, ent_skip_first=True, ent_decay=0.50),
+    "D6_d030":      dict(ent_kappa=2.0, ent_recency=5, ent_skip_first=True, ent_decay=0.30),
+    # --- PHASE 7 (c): PRECISION-WEIGHTED PREDICTION + card CONFIDENCE
+    "P1_prec1":     dict(ent_kappa=2.0, ent_recency=5, ent_skip_first=True, ent_prec=1.0),
+    "P2_prec05":    dict(ent_kappa=2.0, ent_recency=5, ent_skip_first=True, ent_prec=0.5),
+    "P3_prec1_k4":  dict(ent_kappa=4.0, ent_recency=5, ent_skip_first=True, ent_prec=1.0),
+    "P4_nconf1":    dict(ent_kappa=2.0, ent_recency=5, ent_skip_first=True, ent_nconf=1),
+    "P5_nconf2":    dict(ent_kappa=2.0, ent_recency=5, ent_skip_first=True, ent_nconf=2),
+    "P6_prec1_nc1": dict(ent_kappa=2.0, ent_recency=5, ent_skip_first=True, ent_prec=1.0, ent_nconf=1),
+    "P7_prec1_k4_nc1": dict(ent_kappa=4.0, ent_recency=5, ent_skip_first=True, ent_prec=1.0, ent_nconf=1),
+    # --- PHASE 7 (d): THE REPAIRED PASSAGE REGISTER -- calibrate the passage convention on KNOWN words only
+    "K1_reg10":     dict(ent_kappa=0.0, theta_doc=10.0, reg_known_only=True),
+    "K2_reg30":     dict(ent_kappa=0.0, theta_doc=30.0, reg_known_only=True),
+    "K3_reg100":    dict(ent_kappa=0.0, theta_doc=100.0, reg_known_only=True),
+    "K4_reg300":    dict(ent_kappa=0.0, theta_doc=300.0, reg_known_only=True),
+    "KS1_k2_reg30": dict(ent_kappa=2.0, ent_recency=5, ent_skip_first=True, theta_doc=30.0, reg_known_only=True),
+    "KS2_k2_reg100": dict(ent_kappa=2.0, ent_recency=5, ent_skip_first=True, theta_doc=100.0, reg_known_only=True),
+    # --- PHASE 7 (A): the SAME repair on the ENTITY table -- a passage-local P(E|c) from KNOWN words, blended in
+    "L1_k2_loc10":  dict(ent_kappa=2.0, ent_recency=5, ent_skip_first=True, ent_local=10.0),
+    "L2_k2_loc30":  dict(ent_kappa=2.0, ent_recency=5, ent_skip_first=True, ent_local=30.0),
+    "L3_k2_loc100": dict(ent_kappa=2.0, ent_recency=5, ent_skip_first=True, ent_local=100.0),
+    "L4_k2_loc30_reg100": dict(ent_kappa=2.0, ent_recency=5, ent_skip_first=True, ent_local=30.0,
+                               theta_doc=100.0, reg_known_only=True),
+    "L5_k2_loc10_reg30": dict(ent_kappa=2.0, ent_recency=5, ent_skip_first=True, ent_local=10.0,
+                              theta_doc=30.0, reg_known_only=True),
 }
 
-def online_adapt(model, docs, verbose: bool = True) -> int:
+def online_adapt(model, docs, verbose: bool = True, oracle: bool = False) -> int:
     """THE PLASTIC PATH MADE LOAD-BEARING (the brief: knowledge as counts with an online observe path).
 
     The organ READS real documents and accrues the entity-symbol counts from ITS OWN SETTLED CATEGORIES -- no gold
@@ -603,12 +732,14 @@ def online_adapt(model, docs, verbose: bool = True) -> int:
             post = model.posterior(words)
             model.update_document_register(words, post)
             sents.append(words)
-            cats.append([model.tags[int(i)] for i in post.argmax(axis=1)])
+            cats.append([g for _, g in s] if oracle
+                        else [model.tags[int(i)] for i in post.argmax(axis=1)])
             n += len(words)
         model.observe_document(sents, cats)
     if verbose:
-        print("  online-adapt: %d documents, %d tokens read; entity counts now %d"
-              % (len(docs), n, sum(sum(c.values()) for c in model.entc.values())), flush=True)
+        print("  online-adapt%s: %d documents, %d tokens read; entity counts now %d"
+              % (" [ORACLE TEACHER]" if oracle else "", len(docs), n,
+                 sum(sum(c.values()) for c in model.entc.values())), flush=True)
     return n
 
 
@@ -671,6 +802,167 @@ def read_docs_full(path: str):
     flush_sent()
     flush_doc()
     return docs
+
+
+def forward_wire(arms=("gold", "caps", "cat_floor", "cat"), n_docs=None) -> dict:
+    """THE FORWARD WIRE (phase 7, lead 1): make the ENTITY LAYER read the CATEGORY ORGAN instead of deciding
+    name-vs-common on its own.
+
+    WHAT I FOUND WHILE BUILDING IT, AND IT CHANGES THE QUESTION. The board's coref rows come from
+    `experiments/exp_board_coref_gum_v1.board_coref_modern_dimension`, whose mentions are typed by
+    `experiments/gum_coref._mention_type`, which branches on `head_tok.upos` -- and that upos is `cols[3]` of the
+    GUM CoNLL-U, i.e. THE GOLD CATEGORY COLUMN. The board's `coref` and `common_noun_coref` dimensions are
+    therefore scored with a GOLD name/common/pronoun split. The LIVE reader has no such column: eight organs
+    decide it with `hdlab/coref.name_content_tokens`, a capitalisation rule. So the board cannot show the wire's
+    value -- it is already being handed the answer -- and the honest live number is lower than the board says.
+
+    The three-way comparison that does answer it, on the SAME populations:
+      gold       the board as it stands today (gold UPOS -> mtype)
+      caps       `name_content_tokens` on the span -- what the LIVE reader actually does
+      cat_floor  the category organ own predicted UPOS, entity prior OFF (the live organ)
+      cat        the category organ own predicted UPOS, entity prior ON (the full stack)
+    THE PRONOUN BRANCH IS HELD FIXED across arms, so the `coref` (pronoun) and `common_noun` populations are
+    identical in every arm and only the NAME-vs-COMMON decision varies. That is the wire, isolated."""
+    import experiments.gum_coref as G                      # noqa: F401
+    import experiments.exp_board_coref_gum_v1 as BCG
+    from hdlab.coref import name_content_tokens
+
+    tr = read_docs(TRAIN)
+    cache: dict = {}
+    orig_load_test = BCG._load_test
+    out: dict = {"n_docs": n_docs, "arms": {}}
+
+    def tag_doc(model, doc):
+        """The organ predicted UPOS for every token of one GUM document, read IN ORDER, passage-aware."""
+        by_sent = {}
+        for t in doc.toks:
+            by_sent.setdefault(t.sent, []).append(t)
+        pred = {}
+        model.new_document()
+        for sidx in sorted(by_sent):
+            row = sorted(by_sent[sidx], key=lambda t: t.idx)
+            words = [t.form for t in row]
+            post = model.posterior(words)
+            model.update_document_register(words, post)
+            for t, j in zip(row, post.argmax(axis=1)):
+                pred[(t.sent, t.idx)] = model.tags[int(j)]
+        return pred
+
+    for arm in arms:
+        model = None
+        if arm.startswith("cat"):
+            cfg = dict(ARMS["F_live" if arm == "cat_floor" else "S2_k2_w5"])
+            model = build(cfg, docs=tr, entc_cache=cache)
+
+        def patched_load_test(nd=None, _arm=arm, _model=model):
+            docs, test, gaz = orig_load_test(nd)
+            if _arm == "gold":
+                return docs, test, gaz
+            for doc in docs:
+                pred = tag_doc(_model, doc) if _model is not None else None
+                gmap = {t.gidx: t for t in doc.toks}
+                for m in doc.mentions:
+                    if m.mtype == "pronoun":
+                        continue                       # the pronoun branch is a CONSTANT across arms
+                    span = [gmap[g] for g in range(m.start_g, m.end_g + 1) if g in gmap]
+                    head = gmap.get(m.head_g)
+                    if head is None:
+                        continue
+                    if _arm == "caps":
+                        is_name = bool(name_content_tokens([t.form for t in span]))
+                    else:
+                        up = pred.get((head.sent, head.idx), "X")
+                        is_name = (up == "PROPN")
+                        m.upos = up
+                    m.mtype = "name" if is_name else "common"
+            return docs, test, gaz
+
+        BCG._load_test = patched_load_test
+        t0 = time.time()
+        try:
+            row, detail = BCG.board_coref_modern_dimension(n_docs=n_docs)
+        finally:
+            BCG._load_test = orig_load_test
+        keys = ("n", "model_acc", "strongest_floor", "twin_acc", "model_minus_strongest", "ci_sep_over_strongest")
+        rec = {"coref_pronoun": {k: row.get(k) for k in keys},
+               "common_noun": {k: detail["common_noun"].get(k) for k in keys},
+               "elapsed_s": round(time.time() - t0, 1)}
+        out["arms"][arm] = rec
+        print("FWD %-10s coref n=%s acc=%s floor=%s | common_noun n=%s acc=%s floor=%s  (%ss)"
+              % (arm, rec["coref_pronoun"]["n"], rec["coref_pronoun"]["model_acc"],
+                 rec["coref_pronoun"]["strongest_floor"], rec["common_noun"]["n"],
+                 rec["common_noun"]["model_acc"], rec["common_noun"]["strongest_floor"], rec["elapsed_s"]),
+              flush=True)
+    return out
+
+
+def name_decision(corpus: str = "ewt", stride: int = 1, arm: str = "S2_k2_w5") -> dict:
+    """THE NAME DECISION ITSELF, scored token-by-token and span-by-span against the same gold, for the three
+    deciders. This is what the forward wire is worth BEFORE any downstream consumer is involved."""
+    from hdlab.coref import name_content_tokens
+    tr = read_docs(TRAIN)
+    te = read_corpus(corpus, 0, stride)
+    cache: dict = {}
+    m_floor = build(dict(ARMS["F_live"]), docs=tr, entc_cache=cache)
+    m_arm = build(dict(ARMS[arm]), docs=tr, entc_cache=cache)
+    NP = frozenset({"DET", "ADJ", "NUM", "NOUN", "PROPN"})
+    ctr = {k: Counter() for k in ("caps", "organ_floor", "organ_arm")}
+    sctr = {k: Counter() for k in ("caps", "organ_floor", "organ_arm")}
+
+    def bump(c, pr, gp):
+        c["tp" if (pr and gp) else ("fp" if pr else ("fn" if gp else "tn"))] += 1
+
+    for d in te:
+        m_floor.new_document()
+        m_arm.new_document()
+        for s in d:
+            words = [w for w, _ in s]
+            gold = [g for _, g in s]
+            p0 = m_floor.posterior(words)
+            m_floor.update_document_register(words, p0)
+            p1 = m_arm.posterior(words)
+            m_arm.update_document_register(words, p1)
+            t0 = [m_floor.tags[int(i)] for i in p0.argmax(axis=1)]
+            t1 = [m_arm.tags[int(i)] for i in p1.argmax(axis=1)]
+            caps = [bool(name_content_tokens([w])) for w in words]
+            for i, g in enumerate(gold):
+                gp = (g == "PROPN")
+                bump(ctr["caps"], caps[i], gp)
+                bump(ctr["organ_floor"], t0[i] == "PROPN", gp)
+                bump(ctr["organ_arm"], t1[i] == "PROPN", gp)
+            # SPAN level: maximal contiguous nominal runs ending in a NOUN/PROPN head (the NP_RUN shape the
+            # attachment arm uses), built from EACH decider own categories so no arm gets a better span boundary.
+            for k, tags in (("caps", gold), ("organ_floor", t0), ("organ_arm", t1)):
+                i = 0
+                while i < len(words):
+                    if tags[i] in NP:
+                        j = i
+                        while j + 1 < len(words) and tags[j + 1] in NP:
+                            j += 1
+                        heads = [q for q in range(i, j + 1) if tags[q] in ("NOUN", "PROPN")]
+                        if heads:
+                            h = heads[-1]
+                            gp = (gold[h] == "PROPN")
+                            if k == "caps":
+                                pr = bool(name_content_tokens(words[i:j + 1]))
+                            elif k == "organ_floor":
+                                pr = (t0[h] == "PROPN")
+                            else:
+                                pr = (t1[h] == "PROPN")
+                            bump(sctr[k], pr, gp)
+                        i = j + 1
+                    else:
+                        i += 1
+
+    def prf(c):
+        p = c["tp"] / max(1, c["tp"] + c["fp"])
+        r = c["tp"] / max(1, c["tp"] + c["fn"])
+        return {"precision": round(p, 4), "recall": round(r, 4),
+                "f1": round(2 * p * r / max(1e-9, p + r), 4), "tp": c["tp"], "fp": c["fp"], "fn": c["fn"]}
+
+    return {"corpus": corpus, "arm": arm,
+            "token": {k: prf(v) for k, v in ctr.items()},
+            "span": {k: prf(v) for k, v in sctr.items()}}
 
 
 def population_decomposition() -> dict:
@@ -816,6 +1108,11 @@ def build(cfg: dict, docs=None, entc_cache: Optional[dict] = None) -> EntityPrio
     m.ent_recency = int(cfg.get("ent_recency", 0))
     m.ent_rare = int(cfg.get("ent_rare", 0))
     m.ent_skip_first = bool(cfg.get("ent_skip_first", False))
+    m.ent_decay = float(cfg.get("ent_decay", 1.0))
+    m.ent_prec = float(cfg.get("ent_prec", 0.0))
+    m.ent_nconf = int(cfg.get("ent_nconf", 0))
+    m.reg_known_only = bool(cfg.get("reg_known_only", False))
+    m.ent_local = cfg.get("ent_local")
     key = ("rich" if m.ent_rich else "plain") + "|w%d" % m.ent_recency
     if entc_cache is not None and key in entc_cache:
         a, b = entc_cache[key]
@@ -950,8 +1247,14 @@ def main() -> None:
     ap.add_argument("--doc-stride", type=int, default=1)
     ap.add_argument("--online-adapt", default="", help="corpus to ADAPT on (the organ's own reads, no gold); the "
                                                        "scored corpus stays disjoint")
+    ap.add_argument("--adapt-oracle", action="store_true",
+                    help="ORACLE-CEILING PROBE ONLY: teach the online adaptation with the GOLD tags instead of the "
+                         "organ's own reads, to separate 'the adaptation machinery is wrong' from 'the only "
+                         "available teacher is wrong'. Never a shippable arm.")
     ap.add_argument("--population", action="store_true", help="the population arithmetic that bounds the lever")
     ap.add_argument("--heads", default="", help="arm name: HEADS no-regress rung under the organ's own tags")
+    ap.add_argument("--forward-wire", type=int, default=0, help="n_docs for the forward-wire board measurement")
+    ap.add_argument("--name-decision", action="store_true", help="score the name decision itself, 3 deciders")
     ap.add_argument("--timeout", type=float, default=0.0)
     args = ap.parse_args()
 
@@ -965,6 +1268,24 @@ def main() -> None:
         os.makedirs(od, exist_ok=True)
         with open(os.path.join(od, args.out_name), "w", encoding="utf-8") as f:
             json.dump({"cell": "exp_entity_to_category_prior_v1", "population": r}, f, indent=1)
+        return
+
+    if args.name_decision:
+        r = name_decision(args.corpus, args.doc_stride)
+        print(json.dumps(r, indent=1))
+        od = str(get_output_dir("exp_entity_to_category_prior_v1"))
+        os.makedirs(od, exist_ok=True)
+        with open(os.path.join(od, args.out_name), "w", encoding="utf-8") as f:
+            json.dump({"cell": "exp_entity_to_category_prior_v1", "name_decision": r}, f, indent=1)
+        return
+
+    if args.forward_wire:
+        r = forward_wire(n_docs=args.forward_wire)
+        print(json.dumps(r, indent=1))
+        od = str(get_output_dir("exp_entity_to_category_prior_v1"))
+        os.makedirs(od, exist_ok=True)
+        with open(os.path.join(od, args.out_name), "w", encoding="utf-8") as f:
+            json.dump({"cell": "exp_entity_to_category_prior_v1", "forward_wire": r}, f, indent=1)
         return
 
     if args.heads:
@@ -1030,7 +1351,7 @@ def main() -> None:
     for name in names:
         m = build(dict(ARMS[name]), docs=tr, entc_cache=cache)
         if adapt_docs is not None and name != "F_live":
-            online_adapt(m, adapt_docs)
+            online_adapt(m, adapt_docs, oracle=args.adapt_oracle)
         r = score_docs(m, te, vocab)
         if name == "F_live":
             base = r

@@ -1,8 +1,8 @@
 diff --git a/hdlab/lexical_categories.py b/hdlab/lexical_categories.py
-index 905978322..5b1901a79 100644
+index 905978322..969cfb307 100644
 --- a/hdlab/lexical_categories.py
 +++ b/hdlab/lexical_categories.py
-@@ -145,12 +145,136 @@ UNK_SLOT_F = int(os.environ.get("HDLAB_LC_UNK_SLOT_F", "300"))
+@@ -145,12 +145,153 @@ UNK_SLOT_F = int(os.environ.get("HDLAB_LC_UNK_SLOT_F", "300"))
  #                   MEASURED: on the bare floor the two frame tables alone move accuracy not at all (0.7519 -> 0.7529,
  #                   n.s.) but cut PROPN<->NOUN 163 -> 144 -- they are specifically a NAME cue, exactly as Katz says;
  #                   in combination they hold the accuracy gain and cut the confusion to 154. kappa swept: 0.5 is the
@@ -66,6 +66,23 @@ index 905978322..5b1901a79 100644
 +# perturbing a competition it knows nothing about -- the same defect UNK_PRIOR_GAMMA removes, one rung up.
 +ENT_SKIP_FIRST = os.environ.get("HDLAB_LC_ENT_SKIP_FIRST", "1") == "1"
 +ENT_DOC_DECAY = float(os.environ.get("HDLAB_LC_ENT_DOC_DECAY", "1.0"))   # per-sentence decay of the doc register
++# ENT_REG_KNOWN: THE REPAIRED PASSAGE REGISTER. The first version of the passage register accumulated the organ's
++# posteriors over ALL tokens and was CI-SEPARATED NEGATIVE (GUM PROPN<->NOUN 563 -> 651) -- it calibrated on its own
++# errors, because on an unseen GUM word the organ is right 0.52 of the time. Restricted to tokens that HAVE a
++# lexical entry -- where it scores 0.93 -- the register measures the PASSAGE'S OWN capitalisation convention and
++# transfers it to the unknown tokens, which is what a convention is for. MEASURED: P(PROPN | Cap@mid) is 0.933 on
++# GUM, 0.773 on UD-EWT test and 0.509 on GENTLE, and it is the whole explanation of the out-of-domain failure.
++# On GENTLE (theta 100) it is CI-SEPARATED POSITIVE: repeat-mention 0.6963 -> 0.7186, +0.0223 CI[+0.0057,+0.0367],
++# PROPN<->NOUN 284 -> 273; on UD-EWT test (theta 100) 0.8002 -> 0.8013, 154 -> 151, repeat-mention +0.0104 n.s.
++# BUT ON GUM IT IS NEGATIVE (theta 30: PROPN<->NOUN 563 -> 615, unseen 0.5214 -> 0.5191), so ENT_THETA_DOC stays
++# UNSET and the register ships OFF. THE MEASURED REASON, and it is a flaw in the repair rather than in GUM: a
++# capitalised word the organ ALREADY KNOWS is systematically LESS likely to be a name than one it has never seen
++# -- P(PROPN | Cap@mid) known vs unknown is 0.7374/0.8574 on UD-EWT test, 0.9259/0.9437 on GUM, 0.4460/0.6100 on
++# GENTLE. Calibrating on known tokens therefore imports a 2-16 point NOUN-ward bias; where the global table is
++# badly wrong (GENTLE) that still wins, where it is close (GUM) the bias is all it adds. The fix is one offline
++# per-symbol offset (the supply's known slice vs its novel-form stratum, the two evidence bases already kept) --
++# NOT BUILT.
++ENT_REG_KNOWN = os.environ.get("HDLAB_LC_ENT_REG_KNOWN", "1") == "1"
 +KIND_DET = frozenset({"det_indef", "quant"})       # Katz: "this is A dax" -> a KIND term
 +DEF_DET = frozenset({"det_def", "poss"})           # names DO take determiners ("the MSM"); the counts decide
 +ENT_SYMS = ("e_first", "e_rep_bare", "e_rep_def", "e_rep_indef", "e_rep_plural")
@@ -139,7 +156,7 @@ index 905978322..5b1901a79 100644
  POSS = {"my", "your", "his", "her", "its", "our", "their"}
  PREP = {"of", "in", "on", "at", "to", "for", "from", "by", "with", "about", "into", "over", "after", "before",
          "between", "through", "during", "against", "under", "near", "across", "toward", "towards", "via"}
-@@ -299,12 +423,20 @@ class LexicalCategories:
+@@ -299,12 +440,20 @@ class LexicalCategories:
          #   THE UNKNOWN-WORD CUES (2026-09-13, see the block above SHAPES): two more accrued count tables -- the shape x
          #   forced-position emission and its per-word-type companion, which is what lets `finalize` re-derive the NOVEL-FORM
          #   (productivity) stratum from the emission counts alone. Both grow on every `observe`.
@@ -160,7 +177,7 @@ index 905978322..5b1901a79 100644
          self.n_novel_types = 0
          self._sent_pos: List[str] = []; self._sent_lows: List[str] = []; self._sent_i = 0
          self.frameL: Dict[str, Counter] = defaultdict(Counter)     # category -> Counter(left neighbour word | BOS)
-@@ -353,12 +485,53 @@ class LexicalCategories:
+@@ -353,12 +502,53 @@ class LexicalCategories:
                      if len(w) >= k:
                          self.suf[k][t][w[-k:]] += 1; self.suf_tot[k][w[-k:]] += 1
                  prev2 = prev; prev = t
@@ -214,7 +231,7 @@ index 905978322..5b1901a79 100644
          self.finalize()
  
      def finalize(self) -> "LexicalCategories":
-@@ -390,12 +563,13 @@ class LexicalCategories:
+@@ -390,12 +580,13 @@ class LexicalCategories:
          if self.use_shape:
              self.log_shape = {}
              for t in self.tags:
@@ -228,7 +245,7 @@ index 905978322..5b1901a79 100644
              freq = Counter()
              for t in self.tags:
                  freq.update(self.emit[t])
-@@ -533,20 +707,59 @@ class LexicalCategories:
+@@ -533,20 +724,61 @@ class LexicalCategories:
                      col2: Counter = Counter()
                      for a, n in tab[t].items():
                          col2[a if (a in self.slot_words or a in (BOS, EOS)) else FRAME_OTHER] += n
@@ -259,6 +276,8 @@ index 905978322..5b1901a79 100644
 +            for r in self._doc_shape.values():
 +                r *= ENT_DOC_DECAY
 +        for i, w in enumerate(words):
++            if ENT_REG_KNOWN and w.lower() not in self.vocab:
++                continue                     # calibrate the passage convention on what the organ is SURE about
 +            sp = self._unk_sym(w, position_class(words, i))
 +            r = self._doc_shape.get(sp)
 +            if r is None:
@@ -289,7 +308,7 @@ index 905978322..5b1901a79 100644
          lexical entry (cue competition: the frame carries the weight the absent lexical cue cannot). The right neighbour is
          read only when the revision window allows it, exactly as the FRAME channel does."""
          lows = self._sent_lows; n = len(lows)
-@@ -598,12 +811,18 @@ class LexicalCategories:
+@@ -598,12 +830,18 @@ class LexicalCategories:
          if UNK_DET_KAPPA and self.detc:
              d = det_context(self._sent_lows, here)
              out = out + UNK_DET_KAPPA * np.array([self.log_detc[t][d] for t in self.tags])
@@ -308,7 +327,7 @@ index 905978322..5b1901a79 100644
          if self._w2c is None:
              try:
                  with open(INDUCED_ASSET, encoding="utf-8") as f:
-@@ -757,12 +976,14 @@ class LexicalCategories:
+@@ -757,12 +995,14 @@ class LexicalCategories:
          self._sent_lows = [w.lower() for w in words]
          self._sent_i = 0
          le = np.stack([self._log_emit(w) for w in words])
@@ -323,7 +342,7 @@ index 905978322..5b1901a79 100644
              # wounded = wound + -ed -> VERB/ADJ), and the sentence is settled again. Fires only on conflicts (rare), so the blanket
              # prior's dilution (measured -0.1 to -0.5 points) is avoided.
              changed = False
-@@ -885,12 +1106,14 @@ class LexicalCategories:
+@@ -885,12 +1125,14 @@ class LexicalCategories:
               "suf": {str(k): {t: dict(c) for t, c in v.items()} for k, v in self.suf.items()},
               "shape": {t: dict(c) for t, c in self.shape.items()},
               # the unknown-word cues' accrued counts (the novel-form stratum is re-derived from `emit` on load)
@@ -338,7 +357,7 @@ index 905978322..5b1901a79 100644
               "trans2": {a + "\t" + b: dict(c) for (a, b), c in self.trans2.items()},
               "note": "COUNTS only (plastic); log-probabilities are recomputed from them on load (finalize)"}
          os.makedirs(os.path.dirname(path), exist_ok=True)
-@@ -915,12 +1138,16 @@ class LexicalCategories:
+@@ -915,12 +1157,16 @@ class LexicalCategories:
          for t, c in d.get("shape_pos", {}).items():
              m.shape_pos[t] = Counter(c)
          for w, c in d.get("shape_pos_w", {}).items():
@@ -355,7 +374,7 @@ index 905978322..5b1901a79 100644
              m.slotL[t] = Counter(c)
          for t, c in d.get("slotR", {}).items():
              m.slotR[t] = Counter(c)
-@@ -955,30 +1182,46 @@ ASSET_PENN = os.path.join(_REPO, "data", "frontend_assets", "lexical_categories_
+@@ -955,30 +1201,46 @@ ASSET_PENN = os.path.join(_REPO, "data", "frontend_assets", "lexical_categories_
  def build_asset(train_path: Optional[str] = None, out: str = ASSET, column: int = 3, order: int = 1, use_shape: bool = False,
                  rare_max: int = 0, use_cluster: bool = False, use_frame: bool = False) -> dict:
      """Offline accrual from the UD-EWT training sentences' tag column (foundation supply) -> counts asset.

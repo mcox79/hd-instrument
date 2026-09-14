@@ -323,6 +323,9 @@ The bar has five clauses. Three are met, one is met on the well-powered populati
 - **Enumerate the consumers instead of assuming the wire exists.** The brief says the dependency runs both ways and one direction is wired. Grepping the three files that own the name decision returned **zero** occurrences of `upos` or `PROPN`. Neither direction was wired, and the unwired one is worth +0.192 F1.
 - **PLASTIC IS NOT ENOUGH: PLASTICITY WITHOUT FORGETTING IS DOMINATED BY HISTORY.** The project's standing rule is "knowledge = counts, and an online `observe_*` path must exist". This organ has one, I drove it (13 real documents, 7,308 tokens, the organ's own settled categories, no gold), and the mis-specified table did not move -- because 7,308 new counts against 204,578 accumulated ones is **3.5% of the mass**. An accrual rate with no decay rate cannot adapt; the brain's version of this table decays (ACT-R base-level, which the substrate already implements for entity files in `salience_binder` and applies to no count table in this organ). **I would add a sentence to the standing discipline: an online path is only a learning path if it also forgets.**
 - **A twin can beat its arm, and that is the control doing its job.** On GENTLE the arm is CI-separated NEGATIVE and its shuffled-chains twin is negative by HALF as much -- the real token<->history pairing is worse than a random one there. A twin that merely tied would have said "uninformative"; a twin that does better says "mis-specified". I would not have found the corpus-specificity nearly so sharply without running the twin on a population where I expected the arm to win.
+- **(PHASE 7) A REFUTED ARM CAN BE THE RIGHT IDEA CALIBRATED ON THE WRONG TOKENS.** I refuted the passage register with a CI-separated negative and wrote the mechanism down honestly -- it fed the organ's own errors back. Reading my own mechanism sentence again is what produced the fix: *calibrate on the tokens the organ is SURE about.* One line, no new counts, and it is CI-separated POSITIVE on the exact corpus where everything else failed. **A negative with its mechanism written down is a recipe; a negative with only a verdict is a dead end.**
+- **(PHASE 7) BEFORE BLAMING A MECHANISM, CHECK WHAT IS TEACHING IT.** The online path did not adapt, so I built forgetting; forgetting did not fix it, so I built an ORACLE teacher; the oracle helped by exactly as much as the forgetting let it (+0.003 / +0.019 / +0.046 as lambda fell) and still lost. Only then was the real answer visible: on that corpus the cue is uninformative (P(PROPN | repeat AND capitalised) = 0.505), so no teacher and no memory could help. **Three probes, each one cheap, and each one eliminated a hypothesis I would otherwise have asserted.**
+- **(PHASE 7) THE BOARD WAS BEING HANDED THE ANSWER.** I set out to measure the forward wire through the board and found that `gum_coref._mention_type` branches on the GOLD `upos` column -- so the board's `coref` and `common_noun_coref` rows use a gold name/common split the live reader does not have. **I would not have found it by reading the brief, only by trying to intervene on the exact line the number depends on.** The check that caught it was cheap: my gold arm reproduces the board's published 0.4681 / 0.5671 exactly, which is both the validation of the harness and the proof of the peek.
 - **The organ's own docstring told me where to put the term and what shape it takes.** `log P(E | c)` is a LIKELIHOOD, in the emission slot, next to `log_detc` and `log_rightc`; building it as `log P(c | E)` would have re-applied the category prior a third time. pri-99 paid for that lesson; reading its SOLVED.md in full is why I did not.
 
 ---
@@ -379,11 +382,138 @@ I reported the OOD negative without fully explaining it. The explanation is one 
 
 `experiments/gum_coref._mention_type` branches on `head_tok.upos`, and that upos is `cols[3]` of the GUM CoNLL-U: **the GOLD category column.** So the board's `coref` and `common_noun_coref` rows are scored with a GOLD name/common/pronoun split, while the live reader has only a capitalisation rule. **My harness reproduces the board's published numbers exactly under the gold arm (coref 0.4681, common_noun 0.5671 -- the two figures the brief quotes), which is what licenses the comparison.** The pronoun branch is held FIXED across arms, so only the name-vs-common decision varies.
 
-PENDING_FWD_TABLE
+| the name/common decider | `coref` (pronoun) n | acc | its floor | **margin** | `common_noun` n | acc | its floor | **margin** |
+|---|---|---|---|---|---|---|---|---|
+| **gold UPOS -- the board today** | 3,132 | **0.4681** | 0.3621 | **+0.1060** | 2,855 | **0.5671** | 0.5412 | **+0.0259** |
+| `name_content_tokens` -- the LIVE reader | 3,132 | 0.4709 | 0.3608 | +0.1101 | 3,224 | 0.5636 | 0.5478 | +0.0158 |
+| **the category organ (prior off)** | 3,132 | 0.4646 | 0.3579 | +0.1067 | 3,303 | **0.5764** | 0.5604 | +0.0160 |
+| the category organ + this brief's prior | 3,132 | PENDING_CAT | | | | PENDING_CAT2 | | |
 
-## 12. THE THREE MORE LEVERS, BUILT AND MEASURED
+**AND THE HONEST READING IS THAT THE BOARD'S COREF ROWS BARELY MOVE.** Replacing a gold name/common split with a capitalisation rule changes the pronoun row by +0.003 and the common-noun row by -0.004; replacing it with the category organ changes them by -0.004 and +0.009. **The board's two coref dimensions are close to INSENSITIVE to the quality of this decision** -- the resolver's margin over its own recomputed floor is +0.106 / +0.107 / +0.110 on the pronoun row whatever decides name-hood. *(The `common_noun` population is itself defined by the decision under test, so its `n` moves 2,855 -> 3,224 -> 3,303 and only the margin over its own recomputed floor is comparable; the pronoun population is identical in all three arms by construction.)*
 
-PENDING_LEVERS
+**Two things follow, and they point in opposite directions:**
+1. **The forward wire will NOT show up on the board**, and I am recording that in advance rather than after. Its value is in the decision itself (+0.1170 F1 at the span level, 207 fewer spurious entity files per 25k tokens) and in whatever consumer is sensitive to that -- which these two rows are not. **My round-1 prediction that this brief would be board-neutral was right, but my stated reason was wrong: I said the signal had no wire to travel on; the fuller truth is that the wire exists as a gold shortcut AND the destination barely depends on it.**
+2. **The gold peek is still a measurement-integrity defect** even though fixing it costs almost nothing here: the board is reporting a number produced with a column the live reader does not have, and nobody knew. That it happens to be worth ~0.004 is luck, not design.
+
+## 12. THE FURTHER LEVERS, BUILT AND MEASURED
+
+### 12a. COUNT DECAY -- built, swept, and it does NOT rescue the OOD negative. Here is exactly why.
+
+I named "plasticity without forgetting" as the fix and then built it: one multiplicative decay `lambda` on the accrued counts per passage (the exponential form of a forgetting curve; ACT-R base-level decay is the substrate's own pinned form, in `hdlab/salience_binder.actr_activation`, and it is applied to no count table in this organ). Swept on GENTLE, adapting on the odd 13 documents and scoring the disjoint even 13 (floor: overall 0.8502, unseen 0.5517, PROPN<->NOUN 159, repeat-mention n=366 accuracy 0.7104):
+
+| lambda | count mass after 13 passages | repeat-mention accuracy | PROPN<->NOUN | unseen |
+|---|---|---|---|---|
+| **floor (no prior)** | -- | **0.7104** | **159** | 0.5517 |
+| 1.00 (no forgetting) | 211,886 | 0.6393 | 177 | 0.5311 |
+| 0.99 | 186,344 | 0.6393 | 177 | 0.5311 |
+| 0.95 | 110,249 | 0.6393 | 177 | 0.5311 |
+| 0.90 | 55,843 | 0.6393 | 177 | 0.5311 |
+| 0.70 | 3,460 | 0.6366 | 177 | 0.5311 |
+| 0.50 | -- | 0.6230 | 172 | 0.5279 |
+| 0.30 | 452 | 0.6066 | 165 | 0.5273 |
+
+**The weak decays are null for a reason I can write down in closed form, and I predicted it before running it:** a uniform multiplicative decay changes only the RATIO of old mass to new, so adaptation needs `n * log(1/lambda) >= log(M_old / M_new)` -- here `log(204578/7308) = 3.33` over `n = 13` passages, i.e. `lambda <= 0.774`. Everything at or above 0.90 is arithmetically incapable of moving the table, and the measurements agree to the digit. **Below that threshold the table IS re-learned -- and it still loses.**
+
+### 12b. THE ORACLE-CEILING PROBE THAT SETTLES IT (wall-push move 3)
+
+If forgetting works but the table still loses, either the machinery is wrong or **the teacher is**. The only teacher the online path has is the organ's own settled categories, and on GENTLE unseen words it is right 0.55 of the time. So I re-ran the decay sweep with a **GOLD teacher** -- an oracle, never a shippable arm, labelled as such in the code:
+
+| | organ-taught | **GOLD-taught (ORACLE)** | floor |
+|---|---|---|---|
+| lambda 1.00 | 0.6393 | 0.6421 | **0.7104** |
+| lambda 0.70 | 0.6366 | 0.6557 | **0.7104** |
+| lambda 0.30 | 0.6066 | **0.6530** | **0.7104** |
+
+**The oracle teacher helps, and by more the more the table is forgotten (+0.003 at no decay, +0.019 at 0.70, +0.046 at 0.30) -- which confirms the teacher is a real part of the loss.** But an oracle-taught, almost-fully-re-learned table still scores 0.6530 against a floor of 0.7104. **So the residual is not adaptation and not memory: on GENTLE the discourse-history cue is close to UNINFORMATIVE, and the counts say so directly -- P(PROPN | repeat AND capitalised mid-sentence) is 0.505 there against 0.923 on GUM.** A perfectly-learned table for an uninformative cue is a flat table, and adding a flat log-prior to a competition can only perturb it. **The correct behaviour is for the prior's WEIGHT to fall to zero on such a passage, which is 12d.**
+
+### 12c. PRECISION-WEIGHTED PREDICTION AND CARD CONFIDENCE
+
+Two more pinned refinements, both pure functions of the counts: (i) **precision-weighting** -- scale `kappa` by how SHARP the referent system's belief for this symbol is, `1 - H(P(c|E))/log T` (Rao & Ballard 1999; Kuperberg & Jaeger 2016 discuss prediction reliability explicitly), so `e_rep_plural` (86% NOUN) is shouted and `e_rep_def` (a coin flip) is whispered; (ii) **card confidence** -- scale `kappa` by `n/(n+theta)` in the number of PRIOR MENTIONS on the file card, the organ's own reliability shrinkage moved from a count row onto the Heim card.
+
+**On GUM, precision-weighting is a wash against the flat-gain arm and I am not going to claim it as a win:** P1 (precision 1.0) gives overall 0.8814, unseen 0.5243, PROPN<->NOUN **536**, repeat-mention 0.5762, first-mention accuracy exactly the floor's 0.8871 -- against the shipped S2's 0.8819 / 0.5254 / **516** / 0.5767 / 0.8871. Same to within noise on every metric, slightly worse on the confusion count. *Why:* the precision term is computed from the GLOBAL table and the global table's symbols are all reasonably sharp (the flattest, `e_rep_def`, still carries 0.43 nats), so the re-weighting spans a narrow range and mostly re-scales kappa uniformly -- which the kappa sweep has already explored. **Precision-weighting only pays when the precision VARIES with the situation, which is why the version that matters is the online-estimated one (PATH 6), not this frozen one.** Card confidence (P4/P5) behaves the same way as the rare-word gate did: the shrinkage `n/(n+1)` is 0.5 at one prior mention and 0.67 at two, and most cards have one or two, so it is close to a uniform kappa reduction.
+
+**Neither refinement is recommended.** Both ship behind `ent_prec=0` / `ent_nconf=0`, and the reason is stated above rather than buried: a FROZEN precision cannot express the thing that actually varies.
+
+### 12d. THE REPAIRED PASSAGE REGISTER -- and it is the lever that fixes the out-of-domain negative
+
+Arm B failed because it calibrated on the organ's own errors. **A reader calibrates a local convention on what it is SURE about.** So: accumulate the passage's shape register **only from tokens that HAVE a lexical entry** -- where the organ scores 0.93, not 0.52 -- and transfer that convention to the unknown tokens, which is what a convention is for. One line, no new counts, no new asset, and it is exactly the top-down adaptation Fine, Jaeger, Farmer & Qian (2013) describe: adaptation to the INPUT distribution, estimated where the input is legible.
+
+**On GENTLE -- the corpus where the entity prior, the decay and even the oracle teacher all failed:**
+
+| arm | overall | unseen | PROPN<->NOUN | repeat-mention acc | FIRST-mention acc |
+|---|---|---|---|---|---|
+| **floor** | 0.8674 | 0.6034 | 284 (**58** + **226**) | 0.6963 | 0.7274 |
+| K1 (theta 10) | 0.8688 | 0.6102 | 265 (79 + 186) | 0.7075 | **0.7487** |
+| **K2 (theta 30)** | **0.8689** | **0.6114** | 267 (74 + 193) | 0.7122 | 0.7450 |
+| **K3 (theta 100)** | 0.8687 | 0.6094 | 273 (71 + 202) | **0.7186 -- +0.0223 CI[+0.0057, +0.0367] CI-SEPARATED** | 0.7324 |
+| K4 (theta 300) | 0.8681 | 0.6066 | 274 | 0.7122 +0.0159 [0.0000, +0.0306] | 0.7274 |
+| KS1/KS2 (register **plus** the entity prior) | 0.8663 / 0.8653 | 0.5954 / 0.5894 | 289 / 303 | 0.6598 / 0.6518 | 0.7462 / 0.7312 |
+
+**K3 is CI-SEPARATED POSITIVE on the exact corpus where the entity prior is CI-separated NEGATIVE.** Every metric moves the right way, first mentions included, and the confusion trade is precisely the convention correction the diagnosis predicted: it accepts ~13 more PROPN->NOUN errors to remove ~24 NOUN->PROPN ones, which is the right trade when the dominant direction is NOUN->PROPN. **The refuted arm B was not the wrong idea; it was the right idea calibrated on the wrong tokens.** And the KS arms say the two levers do NOT compose on GENTLE -- the entity prior's damage there exceeds the register's gain, which is consistent with everything in 12b.
+
+**On UD-EWT test it is positive but small (K3, theta 100):** PROPN<->NOUN 154 -> 151, repeat-mention 0.7812 -> 0.7917 (+0.0104 CI[0.0000, +0.0256], not separated), unseen 0.8002 -> 0.8013, overall 0.9312 -> 0.9313, first-mention 0.8188 -> 0.8198.
+
+### 12d-bis. AND ON GUM IT IS NEGATIVE -- so I ran the diagnostic rather than shipping it on two corpora out of three
+
+**K2 (theta 30) on GUM: PROPN<->NOUN 563 -> 615 (PROPN->NOUN 421 -> 484), unseen 0.5214 -> 0.5191, repeat-mention 0.5666 -> 0.5639.** Worse. I had a clean story after GENTLE and UD-EWT and it did not survive the third corpus.
+
+**The reason, measured -- and it is a flaw in the REPAIR, not in the corpus.** Calibrating on known words estimates the convention *of known words*, and the known and unknown populations differ systematically:
+
+| corpus | KNOWN P(PROPN \| Cap@mid) | UNKNOWN P(PROPN \| Cap@mid) | **the bias the repair inherits** |
+|---|---|---|---|
+| UD-EWT test | 0.7374 (n=1,310) | 0.8574 (n=547) | **-0.120** |
+| GUM | 0.9259 (n=4,143) | 0.9437 (n=2,733) | **-0.018** |
+| GENTLE | 0.4460 (n=926) | 0.6100 (n=582) | **-0.164** |
+
+**A capitalised word the organ already knows is systematically LESS likely to be a name than a capitalised word it has never seen** -- in every corpus, by 2 to 16 points. That is not surprising once stated (a novel capitalised string is disproportionately a genuine new name), and it is exactly the bias a known-token calibration imports. Where the global table is badly wrong (GENTLE: global 0.79 against a true 0.61) the biased local estimate still pulls it a long way toward the truth and wins; where the global table is already close (GUM) the bias is the only thing it adds, and it loses.
+
+**So the correct form is not "calibrate on known words" but "calibrate on known words AND subtract the known/unknown offset", and that offset is measurable OFFLINE from the supply** -- one per-symbol number, computed once from the training corpus by comparing its known slice with its novel-form stratum, exactly the two evidence bases the organ already keeps. **I did not build that; it is one table and it is the first thing to try on re-open.** The repaired register therefore ships **default-OFF** (`ENT_THETA_DOC` unset) with all three corpus numbers in the module comment, not on the strength of two out of three.
+
+### 12e. THE SAME REPAIR ON THE ENTITY TABLE -- it recovers about half the out-of-domain damage
+
+If the passage's convention can be estimated locally for the SHAPE cue, it can be estimated for the ENTITY cue: a passage-local `P(E | c)` accumulated from KNOWN tokens only and blended into the global table by the organ's own shrinkage `a = n/(n + theta)`. Where the local evidence says the symbol is uninformative the blend flattens the prior toward the local base rate -- **precision-weighting with the precision estimated ONLINE** (Feldman & Friston 2010, attention as precision) rather than frozen at training time, which is the thing 12c could not do.
+
+On GENTLE (theta 10, the most local setting):
+
+| | floor | S2 (global table only) | **L1 (passage-local blend)** |
+|---|---|---|---|
+| overall | 0.8674 | 0.8643 | 0.8651 |
+| unseen | 0.6034 | 0.5838 | **0.5890** |
+| PROPN<->NOUN | 284 | 310 | **294** |
+| repeat-mention accuracy | 0.6963 | 0.6343 | **0.6661** |
+| first-mention accuracy | 0.7274 | 0.7261 | **0.7274 (the floor exactly)** |
+
+**It recovers roughly half the out-of-domain damage (repeat-mention 0.6343 -> 0.6661 against a floor of 0.6963) and does not reach the floor.** That is what the rest of phase 7 predicts it should do: the local estimate is calibrated on known tokens and therefore carries the 2-16 point known/unknown bias of 12d-bis, and underneath that the cue is weakly informative on GENTLE anyway (P(PROPN | repeat AND Cap@mid) = 0.505). **The mechanism is right and it is half-built: the missing piece is the offline known/unknown offset, the same one table 12d-bis asks for.** Ships behind `ent_local=None`.
+
+## 13. EVERY LEAD, ITS ARITHMETIC REACH, AND WHAT HAPPENED TO IT
+
+| # | lead | arithmetic reach | status |
+|---|---|---|---|
+| 1 | **the forward wire** (entity layer reads the category organ) | the whole name decision: +0.1921 F1 token, **+0.1170 F1 span**, 207 fewer false name spans per 25k tokens | **BUILT + MEASURED + PATCHED** (`coref_forward_wire_patch.diff`, verified 0/5,807 span regressions) |
+| 2 | **count decay** (plasticity with forgetting) | the OOD table mis-specification | **BUILT + SWEPT + REFUTED with a closed form** (12a) |
+| 2b | the oracle-teacher probe | separates "machinery wrong" from "teacher wrong" | **BUILT** -- teacher is part of it, cue uninformativeness is the rest (12b) |
+| 3 | **precision-weighting + card confidence** | the flat-symbol waste | **BUILT + MEASURED** (12c) |
+| 4 | **the repaired passage register** (calibrate on KNOWN words) | the capitalisation convention -- the whole OOD failure | **BUILT + CI-SEPARATED POSITIVE on GENTLE** (12d) |
+| 5 | **the passage-local entity table** (the same repair on `entc`) | the OOD failure of the prior itself | **BUILT** (12e) |
+| 6 | a re-reading pass | 19 of 154 confusions | **OUT OF SCOPE** by coordinator ruling (organs take data in order) -- recorded as a located ceiling |
+| 7 | a cross-string register key | the coreferent-with-a-different-string slice | **NOT BUILT** -- circular at this rung (needs a parse that reads these categories); the coref two-half problem owns it |
+| 8 | acronym -> expansion binding | 3 of 119 unseen acronyms | **DEAD BY COUNT** |
+| 9 | **a name lexicon for the singletons** | **100 of 154 confusions** -- the largest single slice left | **NOT BUILT, and it is the honest route to the missing third** (see below) |
+
+### THE SINGLETON THIRD NEEDS KNOWLEDGE, NOT A BETTER DISCOURSE MODEL -- AND THE ASSET IS ALREADY ON DISK
+100 of the 154 confusions are strings that occur exactly once in the document. No register, no resolver and no second reading pass can reach them, by construction. What reaches them is knowledge from OUTSIDE the passage, and the substrate already holds candidate offline foundation assets: `data/corpora/wikidata_namebridge_types_v2`, `data/corpora/wikidata_person_roles`, and the `who_is_who_lexicon` named in the knowledge register. A static offline name lexicon is ADMISSIBLE supply under the standing rules (it is knowledge the brain already has -- a reader who has met "Souter" before is not doing inference, they are doing retrieval). **This is the highest-reach unbuilt lead in the whole submission and I did not build it: it is a knowledge-acquisition job, not a mechanism job, and it needs a brief of its own.**
+
+## 14. ALTERNATE PATHS, SIMILARLY OR MORE BRAIN-FOUNDATIONAL
+
+**PATH 6 -- ONLINE-ESTIMATED PRECISION AS THE UNIVERSAL GATE (the one the whole of phase 7 points at).** *Structure/computation:* precision-weighted prediction error where the precision is estimated ONLINE rather than frozen at training time (Feldman & Friston 2010, attention as precision; the same idea Kuperberg & Jaeger describe as prediction reliability). *The evidence:* every failure in this submission -- arm B, the online adaptation, the OOD negative -- is one cue being given a fixed gain in a passage where its reliability is different. And the one lever that fixed the worst of them (12d) works precisely by estimating a local statistic on the tokens where the organ is reliable. *What it would take:* generalise 12d from the shape cue to EVERY cue in `_log_emit` -- a per-passage, known-token-calibrated reliability per cue, each cue's kappa scaled by it. *Why this is more brain-foundational than what I shipped:* a fixed kappa per cue is an OUR-INVENTION constant; a locally estimated precision is the pinned computation. **This is my top recommendation and it is bigger than this brief.**
+
+**PATH 7 -- THE NAME DECISION AS A GRADED BELIEF, not a boolean.** `name_content_tokens` returns a list or an empty list, and the eight organs treat name-vs-common as a hard TYPE. The referent route is engaged to a DEGREE. The patch I wrote still returns a boolean-shaped answer (a list or empty) because that is what the callers accept; the more brain-faithful version has `online_cluster` carry P(name) and let it compete inside the retrieval, as the substrate already does for every other cue. *Cost:* medium (8 consumers). *More BF than what I shipped, and I am saying so.*
+
+**PATH 8 -- FIX THE BOARD'S GOLD PEEK (a measurement-integrity job, not a capability one).** `experiments/gum_coref._mention_type` and `_gender_number` both branch on the gold `upos` column, so the board's `coref`, `common_noun_coref` and `salience` rows are scored with a gold name/common/pronoun split the live reader does not have. This is the same family as the 2026-09-09 entity-gate de-leak. *What it would take:* the `caps` and `cat` arms I already built in `forward_wire()`. **This is not my brief's problem to land, but the board has been reporting a number the reader cannot achieve, and someone should know.**
+
+## 15. IS THE SESSION EXHAUSTED?
+
+**Not quite, and I will say what is left rather than declare it done.** Exhausted: the entity prior itself (30+ arms, two corpora, both twins, CI-separated in-genre, understood out of it); the four negatives (each traced to a mechanism with counts); the forward wire (built, measured, patched, verified). **Not exhausted, and each is a specific build with a prediction attached:** (i) PATH 6, the online-estimated precision gate -- I built its special case and it was the best lever of phase 7, so the general case should be built next; (ii) the name lexicon for the 100 singletons; (iii) the graded name belief (PATH 7). **What I will not claim is a wall.** Every one of those is buildable with machinery that exists, and the reason I stopped is machine time and the scope of a single-organ brief, not a limit I found.
 
 ## SUBMISSION PROMPT
 
@@ -415,6 +545,12 @@ the board's coref dimensions did not move for pri-99 and will not move for this.
 
 Read notes/problems/<slug>/SOLVED.md sections 2b, 3, 5 and 7b first.
 ```
+
+## A NOTE ON THE COMMIT ATTRIBUTION (recorded once, per the coordinator)
+
+This session's model is Claude Opus 5 (1M context) and its harness attribution rule names that model; the repo's
+uniform solver line is `Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>`. The coordinator ruled for the
+repo line, so round-2 commits carry it. The round-1 commits (`c29918910`, `8aa416589`) carry the harness line.
 
 ## GAPS -- steps not performed, and not worked around
 
