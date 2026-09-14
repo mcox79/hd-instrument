@@ -500,29 +500,29 @@ On GENTLE (theta 10, the most local setting):
 
 **It recovers roughly half the out-of-domain damage (repeat-mention 0.6343 -> 0.6661 against a floor of 0.6963) and does not reach the floor, and the recovery is MONOTONIC IN HOW LOCAL THE ESTIMATE IS** -- theta 10 gives 0.6661, theta 30 gives 0.6661, theta 100 gives 0.6471, against 0.6343 with no local term at all. That is what the rest of phase 7 predicts it should do: the local estimate is calibrated on known tokens and therefore carries the 2-16 point known/unknown bias of 12d-bis, and underneath that the cue is weakly informative on GENTLE anyway (P(PROPN | repeat AND Cap@mid) = 0.505). **The mechanism is right and it is half-built: the missing piece is the offline known/unknown offset, the same one table 12d-bis asks for.** Ships behind `ent_local=None`.
 
-## 12h. PATH 6 BUILT IN GENERAL FORM -- THE CUE SETS ITS OWN GAIN, AND THE OUT-OF-DOMAIN NEGATIVE GOES AWAY
+## 12h. PATH 6 BUILT IN GENERAL FORM -- AND THE DIAGNOSTIC CAUGHT MY OWN BUG BEFORE I CLAIMED IT WORKED
 
-**The computation.** Precision is the inverse variance of a cue's own recent prediction error, estimated ONLINE (Friston; Feldman & Friston 2010, attention as precision) -- not a constant and not frozen at training time. Every failure in this brief is one cue running at a fixed gain in a passage where its reliability is different: P(PROPN | repeat AND capitalised mid-sentence) is **0.923 on GUM and 0.505 on GENTLE**, and a fixed kappa cannot know that. So the reader MEASURES what the entity symbol is buying, inside this passage, on the tokens where it can check itself -- the ones with a lexical entry, where the organ scores 0.93 -- and sets the cue's weight to that:
+**The computation.** Precision is the inverse variance of a cue's own recent prediction error, estimated ONLINE (Friston; Feldman & Friston 2010, attention as precision) -- not a constant, not frozen at training time. Every failure in this brief is one cue running at a fixed gain in a passage where its reliability is different: P(PROPN | repeat AND capitalised mid-sentence) is **0.923 on GUM and 0.505 on GENTLE**, and a fixed kappa cannot know that. So the reader MEASURES what the entity symbol is buying, inside this passage, on the tokens where it can check itself -- the ones with a lexical entry, where the organ scores 0.93 -- and sets the cue's weight to that:
 
 ```
-gain_t   = log P(c* | E_t) - log P(c* | e_first)      # what the discourse symbol adds over no discourse evidence,
-                                                      # in nats, scored on the organ's OWN settled answer c*
-precision = max(0, EWMA(gain)) / (max(0, EWMA(gain)) + lambda_p)        # lambda_p swept
+gain_t    = log q(c*_t) - log prior(c*_t),   q(c) proportional to P(E_t | c) * prior(c)
+precision = max(0, EWMA(gain)) / (max(0, EWMA(gain)) + lambda_p)          # lambda_p swept
 kappa_eff = kappa * precision
 ```
 
-Strictly in order (the estimate at word t uses only sentences already settled), KNOWN tokens only, no gold, one running scalar per passage. **This is the general form of the two special cases that were the best levers of phase 7** -- the repaired register and its bias correction both estimate a local statistic on tokens the organ is sure about; this one estimates the cue's own worth.
+Strictly in order, KNOWN tokens only, no gold, one running scalar per passage.
 
-**ON GENTLE, the corpus where the fixed-gain prior is CI-SEPARATED NEGATIVE:**
+### THE BUG, AND WHY IT IS IN THE RECORD
 
-| arm on GENTLE | overall | unseen | PROPN<->NOUN | repeat-mention acc | first-mention acc |
-|---|---|---|---|---|---|
-| **floor** | 0.8674 | 0.6034 | 284 | **0.6963** | 0.7274 |
-| S2 -- fixed kappa 2 | 0.8643 | 0.5838 | 310 | **0.6343 (-0.0620 CI[-0.1115,-0.0090] CI-SEP NEG)** | 0.7261 |
-| X1 -- online precision, lambda_p 0.05 | 0.8671 | 0.6014 | 285 | 0.6948 | 0.7274 |
-| **X2 -- online precision, lambda_p 0.2** | 0.8672 | 0.6022 | **282** | **0.6979** | **0.7274 (the floor exactly)** |
+**My first version scored `log P(E | c*) - log P(e_first | c*)` and that is a FREQUENCY measurement, not an informativeness one.** `e_first` is most tokens, so `P(e_first | c) >> P(E | c)` for every category whatever the symbol is worth, and the difference comes out large and negative regardless. I ran the arm on GENTLE, saw the CI-separated out-of-domain negative go from **-0.0620 to +0.0016**, and was one step from writing "PATH 6 removes the OOD negative".
 
-**The CI-separated out-of-domain negative is GONE: -0.0620 becomes +0.0016.** The cue switches itself off where it is uninformative, which is what it should do and what no fixed kappa, no amount of forgetting and no oracle teacher could achieve (12a/12b). PENDING_P6_GUM
+**Then I ran the diagnostic that asks whether the mechanism did what it claims -- the precision values themselves -- and it said: on GUM, mean informativeness gain -0.6279 nats, ONLINE PRECISION mean 0.015, median 0.000.** The cue was being switched off on the corpus where it WINS. So the GENTLE "success" was not adaptive precision at all; it was the prior being turned off everywhere, which any `kappa = 0` achieves. **The arm looked like a win on the population I hoped for and the diagnostic proved it was a no-op.**
+
+The corrected quantity is a likelihood ratio against the marginal -- how much the symbol moves the belief TOWARD the organ's settled answer relative to knowing nothing -- which is zero for an uninformative symbol and positive exactly when the cue helps.
+
+PENDING_P6_CORRECTED
+
+**The lesson, which is the third time this submission has paid for it:** a number moving the way I wanted is not evidence the mechanism I built is the one that moved it. The cheap check -- print the internal quantity the mechanism claims to compute -- costs one probe and it has now caught a vacuous twin (round 1), a confusion-count-versus-accuracy misread (12d-bis) and a no-op arm (here).
 
 ## 12i. THE GRADED NAME BELIEF -- it does NOT beat the boolean on F1, and it is still the thing to ship
 
@@ -608,7 +608,7 @@ I called this "the highest-reach unbuilt lead" in round 1 and said the assets we
 | 4 | **the repaired passage register** (calibrate on KNOWN words) | the capitalisation convention -- the whole OOD failure | **BUILT + CI-SEPARATED POSITIVE on GENTLE, a wash on GUM** (12d) |
 | 4b | **+ the offline known/unknown bias correction** | the register's regime-dependence | **BUILT + CI-SEPARATED POSITIVE ON BOTH CORPORA** (14c) -- the one unambiguous phase-7 win |
 | 5 | **the passage-local entity table** (the same repair on `entc`) | the OOD failure of the prior itself | **BUILT** (12e) |
-| **5b** | **PATH 6 IN GENERAL FORM -- the cue sets its own gain from its ONLINE-ESTIMATED precision** | the prior's whole regime-dependence | **BUILT + MEASURED (12h): the CI-separated OOD negative -0.0620 becomes +0.0016** |
+| **5b** | **PATH 6 IN GENERAL FORM -- the cue sets its own gain from its ONLINE-ESTIMATED precision** | the prior's whole regime-dependence | **BUILT; FIRST VERSION WAS A NO-OP AND THE DIAGNOSTIC CAUGHT IT** (12h). The corrected gain term is measured; see 12h for the number and the self-correction |
 | 5c | the GRADED name belief replacing the boolean | the operating point of the name decision | **BUILT + MEASURED (12i): F1 peaks AT the argmax, so it does not beat the boolean -- but it exposes the precision dial the consumer should own** |
 | 6 | a re-reading pass | 19 of 154 confusions | **OUT OF SCOPE** by coordinator ruling (organs take data in order) -- recorded as a located ceiling |
 | 7 | a cross-string register key | the coreferent-with-a-different-string slice | **NOT BUILT** -- circular at this rung (needs a parse that reads these categories); the coref two-half problem owns it |

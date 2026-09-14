@@ -221,6 +221,10 @@ class EntityPriorCategories(LexicalCategories):
         self.reg_known_only = False  # THE REPAIRED PASSAGE REGISTER: calibrate on words the organ actually KNOWS
         self.ent_local = None        # THE SAME REPAIR ON THE ENTITY TABLE: a passage-local P(E|c) from KNOWN words
         self.reg_offset = False      # correct the known-word calibration for the KNOWN/UNKNOWN bias (measured)
+        self.ent_prec_online = None  # PATH 6: the cue's OWN weight set by its ONLINE-ESTIMATED precision
+        self.ent_prec_decay = 0.9    # exponential window on the running prediction-error statistic
+        self._po_sum = 0.0           # running sum of the cue's informativeness gain (nats)
+        self._po_n = 0.0             # its effective count
         self._sp_offset: Dict[str, np.ndarray] = {}
         self._doc_ent: Dict[str, np.ndarray] = {}
         self._sent_syms: List[str] = []
@@ -326,16 +330,66 @@ class EntityPriorCategories(LexicalCategories):
         self._prec_dirty = True
 
     # -------------------------------------------------------------- the document boundary
+    def online_precision(self) -> float:
+        """PATH 6. PRECISION IS THE INVERSE VARIANCE OF THE CUE'S OWN RECENT PREDICTION ERROR, ESTIMATED ONLINE
+        (Friston; Feldman & Friston 2010, attention as precision) -- not a constant, and not frozen at training
+        time. Every failure in this brief is one cue given a fixed gain in a passage where its reliability is
+        different: on GUM P(PROPN | repeat AND Cap@mid) is 0.923 and on GENTLE it is 0.505, and a fixed kappa
+        cannot know that. So the reader MEASURES how much the entity symbol is buying, inside this passage, on the
+        tokens where it can check itself -- the ones with a lexical entry, where the organ scores 0.93 -- and sets
+        the cue's weight to that. Where the cue is uninformative the estimate goes to zero and the prior switches
+        itself off; where it is informative it runs at full gain. The estimate is a running exponentially-windowed
+        mean of log P(c* | E) - log P(c* | e_first): how much the discourse symbol beats having no discourse
+        evidence at all, in nats, on the organ's own settled answer."""
+        if self.ent_prec_online is None or self._po_n <= 0:
+            return 1.0
+        g = max(0.0, self._po_sum / self._po_n)
+        return g / (g + float(self.ent_prec_online))
+
     def new_document(self, twin_chain_seed: Optional[int] = None) -> None:
+        self._po_sum = 0.0
+        self._po_n = 0.0
         self._reg = DiscourseRegister(rich=self.ent_rich, recency_w=self.ent_recency)
         self._doc_shape = {}
         self._doc_ent = {}
         self._doc_syms = []
         self._twin_chain = random.Random(twin_chain_seed) if twin_chain_seed is not None else None
 
+    def _accrue_online_precision(self, words: Sequence[str], post: np.ndarray) -> None:
+        """Fold this sentence's evidence into the running precision estimate. KNOWN tokens only -- the reader can
+        only check itself where it is reliable -- and strictly after the belief has settled."""
+        if self.ent_prec_online is None or not self.log_entc:
+            return
+        # THE GAIN MUST BE A LIKELIHOOD RATIO AGAINST THE MARGINAL, NOT A RAW LIKELIHOOD DIFFERENCE. My first
+        # version scored log P(E | c*) - log P(e_first | c*), which is dominated by how COMMON the symbol is
+        # (e_first is most tokens, so the difference is large and negative for every category whatever the symbol
+        # is worth). Measured: it returned -0.63 nats and a precision of 0.015 on GUM, i.e. it switched the cue
+        # off on the corpus where the cue WINS -- a frequency measurement wearing an informativeness costume.
+        # The right quantity is how much the symbol moves the belief TOWARD the organ's settled answer relative to
+        # knowing nothing: q(c) proportional to P(E | c) * prior(c), and gain = log q(c*) - log prior(c*). That is
+        # zero for an uninformative symbol and positive exactly when the cue helps.
+        tot = sum(self.tag_count.values())
+        prior = np.array([self.tag_count[t] / max(1, tot) for t in self.tags])
+        lprior = np.log(prior + 1e-12)
+        self._po_sum *= self.ent_prec_decay
+        self._po_n *= self.ent_prec_decay
+        for i, w in enumerate(words):
+            if w.lower() not in self.vocab or i >= len(self._sent_syms):
+                continue
+            sym = self._sent_syms[i]
+            if sym.startswith("e_first"):
+                continue                      # no discourse evidence: nothing to score
+            row = np.array([self.log_entc[t].get(sym, self._ent_back[t]) for t in self.tags])
+            lq = row + lprior
+            lq = lq - (lq.max() + np.log(np.exp(lq - lq.max()).sum()))       # normalise over categories
+            k = int(post[i].argmax())
+            self._po_sum += float(lq[k] - lprior[k])
+            self._po_n += 1.0
+
     def update_document_register(self, words: Sequence[str], post: np.ndarray) -> None:
         """ARM (B): fold the SETTLED, GRADED belief about this sentence into the document's shape register. Called
         at the SENTENCE boundary -- a prediction can only be fed back once the belief it comes from has settled."""
+        self._accrue_online_precision(words, post)
         if self.ent_local is not None and self._reg is not None:
             # THE SAME REPAIR, ON THE ENTITY TABLE. The out-of-domain failure is that P(category | discourse
             # history) is a CONVENTION and the convention differs by passage (P(PROPN | repeat AND Cap@mid) is
@@ -475,6 +529,8 @@ class EntityPriorCategories(LexicalCategories):
             if self._twin_perm is not None:
                 use = self._twin_perm.get(use, use)                # TWIN 2: PERMUTED TABLE
             w = self.ent_kappa * gate
+            if self.ent_prec_online is not None:
+                w *= self.online_precision()      # PATH 6: the cue sets its own gain from its measured value
             if self.ent_prec:
                 # PRECISION-WEIGHTING: kappa scaled by how sharp the referent system's belief for this symbol is.
                 w *= (1.0 - self.ent_prec) + self.ent_prec * (self._prec.get(use, 0.0) / self._maxprec())
@@ -769,6 +825,14 @@ ARMS = {
     "O3_reg300_off": dict(ent_kappa=0.0, theta_doc=300.0, reg_known_only=True, reg_offset=True),
     "O4_k2_reg100_off": dict(ent_kappa=2.0, ent_recency=5, ent_skip_first=True, theta_doc=100.0,
                              reg_known_only=True, reg_offset=True),
+    # --- PATH 6: the entity cue's OWN weight set by its ONLINE-ESTIMATED precision (lambda_p swept)
+    "X1_po005":  dict(ent_kappa=2.0, ent_recency=5, ent_skip_first=True, ent_prec_online=0.05),
+    "X2_po02":   dict(ent_kappa=2.0, ent_recency=5, ent_skip_first=True, ent_prec_online=0.2),
+    "X3_po05":   dict(ent_kappa=2.0, ent_recency=5, ent_skip_first=True, ent_prec_online=0.5),
+    "X4_po02_d1": dict(ent_kappa=2.0, ent_recency=5, ent_skip_first=True, ent_prec_online=0.2, ent_prec_decay=1.0),
+    "X5_po02_d07": dict(ent_kappa=2.0, ent_recency=5, ent_skip_first=True, ent_prec_online=0.2, ent_prec_decay=0.7),
+    "X6_po02_full": dict(ent_kappa=2.0, ent_recency=5, ent_skip_first=True, ent_prec_online=0.2,
+                         ent_prec_decay=1.0, theta_doc=100.0, reg_known_only=True, reg_offset=True),
 }
 
 def online_adapt(model, docs, verbose: bool = True, oracle: bool = False) -> int:
@@ -967,6 +1031,7 @@ def name_decision(corpus: str = "ewt", stride: int = 1, arm: str = "S2_k2_w5") -
     NP = frozenset({"DET", "ADJ", "NUM", "NOUN", "PROPN"})
     ctr = {k: Counter() for k in ("caps", "organ_floor", "organ_arm")}
     sctr = {k: Counter() for k in ("caps", "organ_floor", "organ_arm")}
+    gvals: List[tuple] = []            # (P(individual) at the span head, gold-is-PROPN) for the graded sweep
 
     def bump(c, pr, gp):
         c["tp" if (pr and gp) else ("fp" if pr else ("fn" if gp else "tn"))] += 1
@@ -1008,6 +1073,10 @@ def name_decision(corpus: str = "ewt", stride: int = 1, arm: str = "S2_k2_w5") -
                                 pr = (t0[h] == "PROPN")
                             else:
                                 pr = (t1[h] == "PROPN")
+                                ip = m_arm.tag_idx.get("PROPN"); inn = m_arm.tag_idx.get("NOUN")
+                                if ip is not None and inn is not None:
+                                    a_, b_ = float(p1[h, ip]), float(p1[h, inn])
+                                    gvals.append((a_ / max(1e-9, a_ + b_), gp))
                             bump(sctr[k], pr, gp)
                         i = j + 1
                     else:
@@ -1019,7 +1088,18 @@ def name_decision(corpus: str = "ewt", stride: int = 1, arm: str = "S2_k2_w5") -
         return {"precision": round(p, 4), "recall": round(r, 4),
                 "f1": round(2 * p * r / max(1e-9, p + r), 4), "tp": c["tp"], "fp": c["fp"], "fn": c["fn"]}
 
-    return {"corpus": corpus, "arm": arm,
+    # THE GRADED NAME BELIEF (phase 7 round 2, lead 2): the boolean the forward-wire patch returns is an argmax
+    # over the head's category posterior. The brain's referent route is engaged to a DEGREE, so hand the consumers
+    # P(individual) = P(PROPN) / (P(PROPN) + P(NOUN)) at the span head and let them threshold or weight it. Sweeping
+    # the threshold says whether the boolean is sitting at the right operating point or merely at the argmax.
+    graded = {}
+    for thr in (0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9):
+        c = Counter()
+        for pn, gp in gvals:
+            bump(c, pn >= thr, gp)
+        graded["thr_%.1f" % thr] = prf(c)
+
+    return {"corpus": corpus, "arm": arm, "span_graded": graded, "n_graded_spans": len(gvals),
             "token": {k: prf(v) for k, v in ctr.items()},
             "span": {k: prf(v) for k, v in sctr.items()}}
 
@@ -1172,6 +1252,8 @@ def build(cfg: dict, docs=None, entc_cache: Optional[dict] = None) -> EntityPrio
     m.ent_nconf = int(cfg.get("ent_nconf", 0))
     m.reg_known_only = bool(cfg.get("reg_known_only", False))
     m.reg_offset = bool(cfg.get("reg_offset", False))
+    m.ent_prec_online = cfg.get("ent_prec_online")
+    m.ent_prec_decay = float(cfg.get("ent_prec_decay", 0.9))
     if m.reg_offset:
         m._build_shape_offset()
     m.ent_local = cfg.get("ent_local")
