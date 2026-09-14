@@ -1,0 +1,41 @@
+{
+ "n_questions": 32,
+ "schemes": {
+  "cluster_named": {
+   "n": 32,
+   "acc": {
+    "model": 0.8438,
+    "recency": 0.4688,
+    "mostfreq": 0.875
+   },
+   "model_minus_recency": [
+    0.375,
+    0.3214,
+    0.75
+   ],
+   "model_minus_mostfreq": [
+    -0.0312,
+    -0.1429,
+    0.75
+   ]
+  },
+  "head_named": {
+   "n": 32,
+   "acc": {
+    "model": 0.5312,
+    "recency": 0.1562,
+    "mostfreq": 0.875
+   },
+   "model_minus_recency": [
+    0.375,
+    0.3571,
+    0.5
+   ],
+   "model_minus_mostfreq": [
+    -0.3438,
+    -0.4643,
+    0.5
+   ]
+  }
+ }
+}

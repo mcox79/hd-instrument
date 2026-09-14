@@ -1,0 +1,426 @@
+{
+ "arms": {
+  "gf": {
+   "common_noun": {
+    "ci_sep_over_strongest": false,
+    "ci_sep_over_twin": true,
+    "model_acc": 0.4196,
+    "model_minus_strongest": [
+     0.0047,
+     -0.0264,
+     0.0366
+    ],
+    "model_minus_twin": [
+     0.0163,
+     0.0022,
+     0.0329
+    ],
+    "n": 429,
+    "strongest_floor": 0.4149,
+    "strongest_floor_name": "string_identity",
+    "twin_acc": 0.4033
+   },
+   "coref_pronoun": {
+    "ci_sep_over_strongest": false,
+    "ci_sep_over_twin": true,
+    "model_acc": 0.3968,
+    "model_minus_strongest": [
+     -0.0933,
+     -0.1908,
+     0.019
+    ],
+    "model_minus_twin": [
+     0.0833,
+     0.024,
+     0.1616
+    ],
+    "n": 504,
+    "strongest_floor": 0.4901,
+    "strongest_floor_name": "recency",
+    "twin_acc": 0.3135
+   },
+   "elapsed_s": 0.7,
+   "entity_kb_hardlink": {
+    "ci_sep_over_strongest": false,
+    "ci_sep_over_twin": true,
+    "model_acc": 0.2607,
+    "model_minus_strongest": [
+     0.0451,
+     -0.0076,
+     0.0938
+    ],
+    "model_minus_twin": [
+     0.1529,
+     0.0876,
+     0.2087
+    ],
+    "n": 399,
+    "strongest_floor": 0.2155,
+    "strongest_floor_name": "separate",
+    "twin_acc": 0.1078
+   },
+   "mention_types_test": {
+    "common": 767,
+    "name": 596,
+    "pronoun": 703
+   },
+   "salience": {
+    "ci_sep_over_strongest": false,
+    "ci_sep_over_twin": true,
+    "model_acc": 0.6,
+    "model_minus_strongest": [
+     0.15,
+     -0.15,
+     0.4
+    ],
+    "model_minus_twin": [
+     0.4,
+     0.15,
+     0.65
+    ],
+    "n": 20,
+    "strongest_floor": 0.45,
+    "strongest_floor_name": "first_introduced_entity",
+    "twin_acc": 0.2
+   }
+  },
+  "gf2": {
+   "common_noun": {
+    "ci_sep_over_strongest": false,
+    "ci_sep_over_twin": true,
+    "model_acc": 0.4989,
+    "model_minus_strongest": [
+     0.0045,
+     -0.0265,
+     0.0329
+    ],
+    "model_minus_twin": [
+     0.0201,
+     0.0041,
+     0.0368
+    ],
+    "n": 447,
+    "strongest_floor": 0.4944,
+    "strongest_floor_name": "string_identity",
+    "twin_acc": 0.4787
+   },
+   "coref_pronoun": {
+    "ci_sep_over_strongest": false,
+    "ci_sep_over_twin": true,
+    "model_acc": 0.4206,
+    "model_minus_strongest": [
+     -0.0813,
+     -0.1667,
+     0.0137
+    ],
+    "model_minus_twin": [
+     0.0813,
+     0.034,
+     0.1367
+    ],
+    "n": 504,
+    "strongest_floor": 0.502,
+    "strongest_floor_name": "recency",
+    "twin_acc": 0.3393
+   },
+   "elapsed_s": 0.6,
+   "entity_kb_hardlink": {
+    "ci_sep_over_strongest": false,
+    "ci_sep_over_twin": true,
+    "model_acc": 0.3342,
+    "model_minus_strongest": [
+     0.0349,
+     -0.0183,
+     0.1143
+    ],
+    "model_minus_twin": [
+     0.2469,
+     0.1608,
+     0.3344
+    ],
+    "n": 401,
+    "strongest_floor": 0.2993,
+    "strongest_floor_name": "separate",
+    "twin_acc": 0.0873
+   },
+   "mention_types_test": {
+    "common": 789,
+    "name": 574,
+    "pronoun": 703
+   },
+   "salience": {
+    "ci_sep_over_strongest": false,
+    "ci_sep_over_twin": true,
+    "model_acc": 0.65,
+    "model_minus_strongest": [
+     0.2,
+     -0.1,
+     0.5
+    ],
+    "model_minus_twin": [
+     0.55,
+     0.35,
+     0.75
+    ],
+    "n": 20,
+    "strongest_floor": 0.45,
+    "strongest_floor_name": "first_introduced_entity",
+    "twin_acc": 0.1
+   }
+  },
+  "gf2_isa": {
+   "common_noun": {
+    "ci_sep_over_strongest": false,
+    "ci_sep_over_twin": true,
+    "model_acc": 0.4989,
+    "model_minus_strongest": [
+     0.0045,
+     -0.0265,
+     0.0329
+    ],
+    "model_minus_twin": [
+     0.0201,
+     0.0041,
+     0.0368
+    ],
+    "n": 447,
+    "strongest_floor": 0.4944,
+    "strongest_floor_name": "string_identity",
+    "twin_acc": 0.4787
+   },
+   "coref_pronoun": {
+    "ci_sep_over_strongest": false,
+    "ci_sep_over_twin": true,
+    "model_acc": 0.4206,
+    "model_minus_strongest": [
+     -0.0813,
+     -0.1667,
+     0.0137
+    ],
+    "model_minus_twin": [
+     0.0813,
+     0.034,
+     0.1367
+    ],
+    "n": 504,
+    "strongest_floor": 0.502,
+    "strongest_floor_name": "recency",
+    "twin_acc": 0.3393
+   },
+   "elapsed_s": 0.6,
+   "entity_kb_hardlink": {
+    "ci_sep_over_strongest": false,
+    "ci_sep_over_twin": true,
+    "model_acc": 0.3342,
+    "model_minus_strongest": [
+     0.0349,
+     -0.0183,
+     0.1143
+    ],
+    "model_minus_twin": [
+     0.2469,
+     0.1608,
+     0.3344
+    ],
+    "n": 401,
+    "strongest_floor": 0.2993,
+    "strongest_floor_name": "separate",
+    "twin_acc": 0.0873
+   },
+   "mention_types_test": {
+    "common": 789,
+    "name": 574,
+    "pronoun": 703
+   },
+   "salience": {
+    "ci_sep_over_strongest": false,
+    "ci_sep_over_twin": true,
+    "model_acc": 0.65,
+    "model_minus_strongest": [
+     0.2,
+     -0.1,
+     0.5
+    ],
+    "model_minus_twin": [
+     0.55,
+     0.35,
+     0.75
+    ],
+    "n": 20,
+    "strongest_floor": 0.45,
+    "strongest_floor_name": "first_introduced_entity",
+    "twin_acc": 0.1
+   }
+  },
+  "gf2_wire": {
+   "common_noun": {
+    "ci_sep_over_strongest": false,
+    "ci_sep_over_twin": false,
+    "model_acc": 0.4873,
+    "model_minus_strongest": [
+     -0.0162,
+     -0.0489,
+     0.013
+    ],
+    "model_minus_twin": [
+     0.0185,
+     0.0,
+     0.0375
+    ],
+    "n": 433,
+    "strongest_floor": 0.5035,
+    "strongest_floor_name": "string_identity",
+    "twin_acc": 0.4688
+   },
+   "coref_pronoun": {
+    "ci_sep_over_strongest": false,
+    "ci_sep_over_twin": true,
+    "model_acc": 0.4246,
+    "model_minus_strongest": [
+     -0.0774,
+     -0.1627,
+     0.0187
+    ],
+    "model_minus_twin": [
+     0.0913,
+     0.0353,
+     0.148
+    ],
+    "n": 504,
+    "strongest_floor": 0.502,
+    "strongest_floor_name": "recency",
+    "twin_acc": 0.3333
+   },
+   "elapsed_s": 0.6,
+   "entity_kb_hardlink": {
+    "ci_sep_over_strongest": false,
+    "ci_sep_over_twin": true,
+    "model_acc": 0.3056,
+    "model_minus_strongest": [
+     0.0328,
+     -0.0147,
+     0.1084
+    ],
+    "model_minus_twin": [
+     0.2071,
+     0.1178,
+     0.2954
+    ],
+    "n": 396,
+    "strongest_floor": 0.2727,
+    "strongest_floor_name": "separate",
+    "twin_acc": 0.0985
+   },
+   "mention_types_test": {
+    "common": 781,
+    "name": 582,
+    "pronoun": 703
+   },
+   "salience": {
+    "ci_sep_over_strongest": false,
+    "ci_sep_over_twin": true,
+    "model_acc": 0.55,
+    "model_minus_strongest": [
+     0.15,
+     -0.15,
+     0.4
+    ],
+    "model_minus_twin": [
+     0.45,
+     0.25,
+     0.65
+    ],
+    "n": 20,
+    "strongest_floor": 0.4,
+    "strongest_floor_name": "first_introduced_entity",
+    "twin_acc": 0.1
+   }
+  },
+  "gold": {
+   "common_noun": {
+    "ci_sep_over_strongest": true,
+    "ci_sep_over_twin": true,
+    "model_acc": 0.544,
+    "model_minus_strongest": [
+     0.0622,
+     0.0268,
+     0.0997
+    ],
+    "model_minus_twin": [
+     0.0337,
+     0.0183,
+     0.0505
+    ],
+    "n": 386,
+    "strongest_floor": 0.4819,
+    "strongest_floor_name": "string_identity",
+    "twin_acc": 0.5104
+   },
+   "coref_pronoun": {
+    "ci_sep_over_strongest": false,
+    "ci_sep_over_twin": true,
+    "model_acc": 0.504,
+    "model_minus_strongest": [
+     -0.002,
+     -0.0703,
+     0.0858
+    ],
+    "model_minus_twin": [
+     0.1693,
+     0.1188,
+     0.2257
+    ],
+    "n": 502,
+    "strongest_floor": 0.506,
+    "strongest_floor_name": "recency",
+    "twin_acc": 0.3347
+   },
+   "elapsed_s": 3.2,
+   "entity_kb_hardlink": {
+    "ci_sep_over_strongest": false,
+    "ci_sep_over_twin": true,
+    "model_acc": 0.4769,
+    "model_minus_strongest": [
+     0.0179,
+     -0.0106,
+     0.0524
+    ],
+    "model_minus_twin": [
+     0.3718,
+     0.3072,
+     0.4424
+    ],
+    "n": 390,
+    "strongest_floor": 0.459,
+    "strongest_floor_name": "separate",
+    "twin_acc": 0.1051
+   },
+   "mention_types_test": {
+    "common": 734,
+    "name": 620,
+    "pronoun": 712
+   },
+   "salience": {
+    "ci_sep_over_strongest": false,
+    "ci_sep_over_twin": true,
+    "model_acc": 0.6,
+    "model_minus_strongest": [
+     0.2,
+     -0.1,
+     0.5
+    ],
+    "model_minus_twin": [
+     0.5,
+     0.3,
+     0.7
+    ],
+    "n": 20,
+    "strongest_floor": 0.4,
+    "strongest_floor_name": "first_introduced_entity",
+    "twin_acc": 0.1
+   }
+  }
+ },
+ "n_docs": 40,
+ "utc": "2026-09-14T12:10:28.123601+00:00"
+}

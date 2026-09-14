@@ -254,7 +254,7 @@
          return resolutions, recs_ec, recs_ss
  
      # -- event detection dispatch (stock tense-gated vs opt-in tense-agnostic UPOS==VERB) --
-@@ -4350,11 +4356,16 @@
+@@ -4356,11 +4362,16 @@
              # tagger loads the SAME _FRONTEND_POS_ASSET, so pass a shim over the shared per-read tag cache instead
              # of a redundant private PosTagger copy -> byte-identical, its 71 tags/read become shared-cache hits.
              role_mentions, n_sents = referent_per_np_source(conll_path, _CachedTagShim(self), name_gender_map=self.gaz)
@@ -287,3 +287,234 @@
      sents = parse_conll_sentences(conll_path)
      by_sent: Dict[int, List[dict]] = {i: [] for i in range(len(sents))}
      names: Dict[int, Dict[str, int]] = {}
+--- a/experiments/exp_situation_model_qa_v1.py
++++ b/experiments/exp_situation_model_qa_v1.py
+@@ -117,7 +117,16 @@
+ 
+ 
+ def _named_clusters(sm: SituationModel) -> Dict[int, str]:
+-    """{cluster -> canonical name} for every cluster that has a nameable head."""
++    """{cluster -> canonical name} for every cluster that has a nameable head.
++
++    ⚠️ THIS MAP IS KEYED IN THE ENTITY LAYER'S OWN ID SPACE, and since 2026-09-09 that is NOT the coref
++    column's. `online_entity_cluster` is default-ON and re-keys every NON-pronoun mention to a fresh NEGATIVE
++    online file id, while `sm.coref_resolutions[].gold_cluster` / `.resolved_cluster` stay POSITIVE
++    coref-column ids. The two key spaces are DISJOINT -- measured on the 8 witness documents: 462 entities,
++    433 of them named, ALL under negative ids; 26 resolutions, all under positive ids; overlap 0 -- so
++    `names.get(gold_cluster)` was None for every question and the instrument built ZERO of them from
++    2026-09-09 to 2026-09-14. Use `gold_cluster_names()` for the answer key and `reader_file_names()` for
++    the model's own answer; this function stays for the non-coref readouts that live in the entity space."""
+     out = {}
+     for e in sm.entities:
+         nm = _cluster_name(sm, e.cluster)
+@@ -126,6 +135,51 @@
+     return out
+ 
+ 
++def gold_cluster_names(coref_mentions) -> Dict[int, str]:
++    """THE ANSWER KEY, and nothing else: gold coref cluster -> its canonical surface name, the longest
++    distinct non-pronoun mention span of that gold chain. Read from the corpus's own coref column, which is
++    exactly what the question is asking about -- legitimate as the key, never as an input to a decision."""
++    by: Dict[int, List[str]] = {}
++    for m in coref_mentions:
++        if m.get("is_pronoun"):
++            continue
++        by.setdefault(m["cluster"], []).append(" ".join(m.get("span_toks", [m["head"]])))
++    out = {}
++    for c, hs in by.items():
++        hs = [h for h in hs if h and _norm(h) and _norm(h) not in _PRONOUNS]
++        if hs:
++            out[c] = max(hs, key=len)
++    return out
++
++
++def reader_file_names(sm: SituationModel) -> Dict[str, str]:
++    """THE MODEL'S OWN NAMING, with no gold column in it: surface head -> the canonical name of the READER'S
++    OWN entity file holding it. Naming an answer through `resolved_cluster` instead hands the instrument the
++    gold equivalence classes for free -- two surface forms of one gold chain become identical without the
++    entity layer having done anything. This map is the entity layer doing the job it exists for."""
++    out: Dict[str, str] = {}
++    for e in sm.entities:
++        hs = [h for h in e.heads if h and _norm(h) and _norm(h) not in _PRONOUNS]
++        if not hs:
++            continue
++        canon = max(hs, key=len)
++        for h in hs:
++            parts = h.lower().split()
++            for key in (h.lower(), parts[-1] if parts else ""):
++                if key and (key not in out or len(canon) > len(out[key])):
++                    out[key] = canon
++    return out
++
++
++def canon_answer(head: Optional[str], file_names: Dict[str, str]) -> Optional[str]:
++    """Name one mention through the reader's own files (fall back to its own surface form)."""
++    if not head:
++        return None
++    low = str(head).lower()
++    parts = low.split()
++    return file_names.get(low) or file_names.get(parts[-1] if parts else "") or str(head)
++
++
+ def _content(q_tokens: List[str]) -> List[str]:
+     return [t for t in q_tokens if t not in _STOP and t not in _PRONOUNS and _norm(t)]
+ 
+@@ -416,18 +470,25 @@
+     timeline_frames / causal_links. Returns a string answer, or None to ABSTAIN (dimension not in the
+     live model). This is the proposed situation_reader query API, proven here in experiments/."""
+ 
+-    def __init__(self, sm: SituationModel):
++    def __init__(self, sm: SituationModel, file_names=None):
+         self.sm = sm
+         self.names = _named_clusters(sm)
++        # GOLD-FREE ANSWER NAMING (pri-109): when the reader's own entity files are supplied, the coref
++        # answer is the head the reader ACTUALLY PICKED, named through those files. Omitted -> the
++        # pre-2026-09-14 readout, which names the pick through its GOLD cluster (kept as the comparison arm
++        # and marked INFORMATIONAL, because that readout reads the answer key).
++        self.file_names = file_names
+ 
+-    # -- ENTITIES / coref: "who does <pron> (sent N) refer to?" -> resolved cluster name --
++    # -- ENTITIES / coref: "who does <pron> (sent N) refer to?" -> the picked referent, named --
+     def _answer_coref(self, q: dict) -> Optional[str]:
+         # q carries the pronoun-target index into sm.coref_resolutions (the accumulated resolution).
+         i = q.get("res_idx")
+         if i is None or not (0 <= i < len(self.sm.coref_resolutions)):
+             return None
+-        rc = self.sm.coref_resolutions[i].resolved_cluster
+-        return self.names.get(rc)
++        r = self.sm.coref_resolutions[i]
++        if self.file_names is not None:
++            return canon_answer(getattr(r, "resolved_head", ""), self.file_names)
++        return self.names.get(r.resolved_cluster)
+ 
+     # -- EVENTS / who-did-what: "who <gov_verb>ed?" -> the event's agent (gov_verb gold is a LEMMA) --
+     def _answer_events(self, q: dict) -> Optional[str]:
+@@ -607,10 +668,14 @@
+     return docs[:n] if n else docs
+ 
+ 
+-def build_coref_questions(sm: SituationModel, min_sent_dist: int = 1) -> List[dict]:
++def build_coref_questions(sm: SituationModel, min_sent_dist: int = 1, gold_names=None) -> List[dict]:
+     """WHICH-ENTITY questions from the reader's OWN accumulated coref_resolutions (existing LitBank
+-    coref gold). One question per cross-sentence pronoun target whose gold cluster is NAMEABLE."""
+-    names = _named_clusters(sm)
++    coref gold). One question per cross-sentence pronoun target whose gold cluster is NAMEABLE.
++
++    `gold_names` = `gold_cluster_names(coref_mentions)`, THE ANSWER KEY keyed by gold coref cluster. Pass it:
++    without it this falls back to `_named_clusters(sm)`, whose keys are the entity layer's own (negative,
++    since 2026-09-09) file ids and which therefore matches NO gold cluster and builds ZERO questions."""
++    names = gold_names if gold_names is not None else _named_clusters(sm)
+     qs = []
+     for i, r in enumerate(sm.coref_resolutions):
+         if r.sent_dist < min_sent_dist:
+@@ -810,6 +875,38 @@
+     return sents
+ 
+ 
++def floor_mostfreq_coref_goldfree(sm: SituationModel) -> Optional[str]:
++    """The same protagonist floor, computed from the READER'S OWN entity files (gold-free twin of the floor
++    below) so the floor and the model are named in the same scheme."""
++    cnt = Counter()
++    for e in sm.entities:
++        hs = [h for h in e.heads if h and _norm(h) and _norm(h) not in _PRONOUNS]
++        if hs:
++            cnt[max(hs, key=len)] += e.n_mentions
++    return cnt.most_common(1)[0][0] if cnt else None
++
++
++def floor_recency_coref_goldfree(target_mention: dict, mentions: List[dict],
++                                 file_names: Dict[str, str]) -> Optional[str]:
++    """The nearest preceding non-pronoun mention, named through the reader's own files."""
++    best = _recency_mention(target_mention, mentions)
++    if best is None:
++        return None
++    return canon_answer(" ".join(best.get("span_toks", [best["head"]])), file_names)
++
++
++def _recency_mention(target_mention: dict, mentions: List[dict]):
++    ts, tw = target_mention["sent_idx"], target_mention.get("wtok_start", 0)
++    best = None
++    for m in mentions:
++        if m.get("is_pronoun"):
++            continue
++        if (m["sent_idx"], m.get("wtok_start", 0)) <= (ts, tw):
++            if best is None or (m["sent_idx"], m.get("wtok_start", 0)) > (best["sent_idx"], best.get("wtok_start", 0)):
++                best = m
++    return best
++
++
+ def floor_mostfreq_coref(mentions: List[dict], names: Dict[int, str]) -> Optional[str]:
+     """STRONG coref floor #2: always answer the MOST-MENTIONED named entity (the protagonist) -- a
+     pronoun in narrative most often refers to the protagonist, so this is a strong content-free
+--- a/verification/test_situation_model_qa.py
++++ b/verification/test_situation_model_qa.py
+@@ -73,15 +73,31 @@
+         sents = Q._conll_sents(path)
+         names = Q._named_clusters(sm)
+         qa = Q.SituationQA(sm)
+-        mf = Q.floor_mostfreq_coref(mentions, names)
++        # pri-109: the question's gold comes from the GOLD MENTION STREAM (the answer key). Naming it through
++        # `_named_clusters(sm)` keys it in the ENTITY LAYER's own id space, which since 2026-09-09 is the
++        # negative online-cluster space and overlaps the coref column's positive ids in ZERO places -- so this
++        # builder produced 0 questions on all 8 documents and every arm scored 0.0 by construction.
++        gold_names = Q.gold_cluster_names(mentions)
++        file_names = Q.reader_file_names(sm)          # the reader's OWN files -> the gold-free answer naming
++        qa_gf = Q.SituationQA(sm, file_names=file_names)
++        mf = Q.floor_mostfreq_coref(mentions, gold_names)
++        mf_gf = Q.floor_mostfreq_coref_goldfree(sm)
+ 
+-        for q in Q.build_coref_questions(sm):
++        for q in Q.build_coref_questions(sm, gold_names=gold_names):
+             q["target_mention"] = targets[q["res_idx"]]["target"]
+             _dim, ans = qa.answer(q["question"], q)
+             m = int(Q._match(ans, q["gold"], "coref"))
+-            rec = int(Q._match(Q.floor_recency_coref(q["target_mention"], mentions, names), q["gold"], "coref"))
++            rec = int(Q._match(Q.floor_recency_coref(q["target_mention"], mentions, gold_names),
++                               q["gold"], "coref"))
+             mfk = int(Q._match(mf, q["gold"], "coref"))
+             rows["coref"].append({"model": m, "recency": rec, "mostfreq": mfk})
++            # THE HONEST ARM: the reader's own pick (`resolved_head`), named through its own entity files.
++            _d2, ans_gf = qa_gf.answer(q["question"], q)
++            rows["coref_goldfree"].append({
++                "model": int(Q._match(ans_gf, q["gold"], "coref")),
++                "recency": int(Q._match(Q.floor_recency_coref_goldfree(q["target_mention"], mentions,
++                                                                       file_names), q["gold"], "coref")),
++                "mostfreq": int(Q._match(mf_gf, q["gold"], "coref"))})
+             if m and not rec:
+                 pc["model_right_recency_wrong"] += 1
+             if rec and not m:
+@@ -108,14 +124,31 @@
+ 
+ def test_coref_which_entity_beats_the_strongest_rereading_floor():
+     """Reading the RESOLVED entity off the accumulated coref model answers 'who does <pron> refer to'
+-    better than the strongest trivial re-reading floors (recency AND most-frequent-entity)."""
++    better than the strongest trivial re-reading floors (recency AND most-frequent-entity).
++
++    RED FROM 2026-09-09 TO 2026-09-14 and it scored 0.0 on the model AND both floors, because the question
++    builder found no nameable cluster (pri-109: `online_entity_cluster` default-ON re-keys every non-pronoun
++    mention to a negative online file id, disjoint from the coref column's positive gold ids -- 2,648
++    entities / 2,532 of them negative / key overlap 0 on all 8 documents). Repaired: the gold chain is named
++    from the GOLD MENTION STREAM, 200 questions on the 8 documents.
++
++    TWO ARMS. `coref` is the historical readout and it is INFORMATIONAL: it names the model's pick through
++    the pick's GOLD cluster, which hands the instrument the gold equivalence classes. `coref_goldfree` is the
++    honest one -- the reader's own `resolved_head`, named through the reader's own entity files -- and the
++    gap between them (0.690 vs 0.280 on these 8 documents) is how much that readout was worth."""
+     rows, pc = _score_docs(8)
++    assert len(rows["coref"]) > 0, "the coref question builder produced NO questions (the 09-09..09-14 defect)"
+     m = _acc(rows["coref"], "model"); rec = _acc(rows["coref"], "recency"); mf = _acc(rows["coref"], "mostfreq")
+     assert m > rec and m > mf, {"model": m, "recency": rec, "mostfreq": mf}
++    g = rows["coref_goldfree"]
++    gm = _acc(g, "model"); grec = _acc(g, "recency"); gmf = _acc(g, "mostfreq")
++    assert gm > grec, {"goldfree_model": gm, "goldfree_recency": grec}
+     # positive control: the model resolves MANY antecedents recency misses, and net-positively so
+     assert pc["model_right_recency_wrong"] > pc["recency_right_model_wrong"], pc
+-    print(f"PASS coref: model={m:.3f} > recency={rec:.3f} & mostfreq={mf:.3f}; "
+-          f"pos-control model-right/recency-wrong {pc['model_right_recency_wrong']} > {pc['recency_right_model_wrong']}")
++    print(f"PASS coref: n={len(rows['coref'])} questions; cluster-named (INFORMATIONAL) model={m:.3f} > "
++          f"recency={rec:.3f} & mostfreq={mf:.3f}; GOLD-FREE model={gm:.3f} > recency={grec:.3f} "
++          f"(mostfreq={gmf:.3f}, reported not asserted); pos-control "
++          f"{pc['model_right_recency_wrong']} > {pc['recency_right_model_wrong']}")
+ 
+ 
+ def test_temporal_before_after_beats_text_order():

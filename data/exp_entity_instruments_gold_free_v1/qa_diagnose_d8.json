@@ -1,0 +1,98 @@
+[
+ {
+  "doc": "1023_bleak_house_brat",
+  "entities": 462,
+  "neg_id_entities": 433,
+  "named_clusters": 433,
+  "persons": 13,
+  "persons_with_heads": 0,
+  "resolutions": 26,
+  "gold_clusters": 12,
+  "key_overlap": 0,
+  "questions": 0
+ },
+ {
+  "doc": "105_persuasion_brat",
+  "entities": 327,
+  "neg_id_entities": 311,
+  "named_clusters": 311,
+  "persons": 9,
+  "persons_with_heads": 0,
+  "resolutions": 114,
+  "gold_clusters": 8,
+  "key_overlap": 0,
+  "questions": 0
+ },
+ {
+  "doc": "1064_the_masque_of_the_red_death_brat",
+  "entities": 376,
+  "neg_id_entities": 365,
+  "named_clusters": 365,
+  "persons": 3,
+  "persons_with_heads": 0,
+  "resolutions": 22,
+  "gold_clusters": 3,
+  "key_overlap": 0,
+  "questions": 0
+ },
+ {
+  "doc": "110_tess_of_the_durbervilles_a_pure_woman_brat",
+  "entities": 302,
+  "neg_id_entities": 289,
+  "named_clusters": 289,
+  "persons": 7,
+  "persons_with_heads": 0,
+  "resolutions": 39,
+  "gold_clusters": 7,
+  "key_overlap": 0,
+  "questions": 0
+ },
+ {
+  "doc": "11231_bartleby_the_scrivener_a_story_of_wallstreet_brat",
+  "entities": 433,
+  "neg_id_entities": 423,
+  "named_clusters": 423,
+  "persons": 6,
+  "persons_with_heads": 0,
+  "resolutions": 95,
+  "gold_clusters": 5,
+  "key_overlap": 0,
+  "questions": 0
+ },
+ {
+  "doc": "113_the_secret_garden_brat",
+  "entities": 212,
+  "neg_id_entities": 196,
+  "named_clusters": 196,
+  "persons": 9,
+  "persons_with_heads": 0,
+  "resolutions": 139,
+  "gold_clusters": 8,
+  "key_overlap": 0,
+  "questions": 0
+ },
+ {
+  "doc": "1155_the_secret_adversary_brat",
+  "entities": 327,
+  "neg_id_entities": 315,
+  "named_clusters": 315,
+  "persons": 7,
+  "persons_with_heads": 0,
+  "resolutions": 56,
+  "gold_clusters": 7,
+  "key_overlap": 0,
+  "questions": 0
+ },
+ {
+  "doc": "11_alices_adventures_in_wonderland_brat",
+  "entities": 209,
+  "neg_id_entities": 200,
+  "named_clusters": 200,
+  "persons": 2,
+  "persons_with_heads": 0,
+  "resolutions": 79,
+  "gold_clusters": 2,
+  "key_overlap": 0,
+  "questions": 0
+ }
+]

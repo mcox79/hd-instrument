@@ -1,0 +1,36 @@
+{
+ "gf2": {
+  "confusion": {
+   "common->common": 5435,
+   "pronoun->pronoun": 8317,
+   "common->name": 149,
+   "name->name": 2786,
+   "name->common": 603,
+   "pronoun->common": 802,
+   "common->pronoun": 76,
+   "pronoun->name": 13,
+   "name->pronoun": 16
+  },
+  "n": 18197,
+  "type_agreement": 0.9088,
+  "head_agreement": 0.9432,
+  "lemma_agreement": 0.8196
+ },
+ "gf3": {
+  "confusion": {
+   "common->common": 5435,
+   "pronoun->pronoun": 8317,
+   "common->name": 149,
+   "name->name": 2786,
+   "name->common": 603,
+   "pronoun->common": 802,
+   "common->pronoun": 76,
+   "pronoun->name": 13,
+   "name->pronoun": 16
+  },
+  "n": 18197,
+  "type_agreement": 0.9088,
+  "head_agreement": 0.9432,
+  "lemma_agreement": 0.8177
+ }
+}
