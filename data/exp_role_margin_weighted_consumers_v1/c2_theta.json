@@ -1,0 +1,20 @@
+{
+ "train_best_theta": 6.5,
+ "train_acc": 0.8489,
+ "test_at_train_theta": 0.8517,
+ "test_floor": 0.8468,
+ "test_vs_floor": {
+  "acc": 0.8517,
+  "delta": 0.0049,
+  "ci95": [
+   0.0,
+   0.0098
+  ],
+  "ci_hw": 0.0049,
+  "ci_sep": false
+ },
+ "test_envelope": {
+  "theta": 5.25,
+  "acc": 0.8524
+ }
+}

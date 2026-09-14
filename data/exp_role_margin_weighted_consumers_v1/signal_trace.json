@@ -1,0 +1,99 @@
+{
+ "n_decisions": 3698,
+ "produced": {
+  "tag_posterior": 3698,
+  "head_marginal": 3698,
+  "role_posterior": 3698
+ },
+ "read_by_consumers_today": {
+  "role_label_string": 3698
+ },
+ "role8": {
+  "n": 3698,
+  "base": 0.7209,
+  "auc": 0.7246,
+  "defer_curve": [
+   [
+    0.2,
+    0.8932
+   ],
+   [
+    0.4,
+    0.8567
+   ],
+   [
+    0.6,
+    0.84
+   ],
+   [
+    0.8,
+    0.7877
+   ],
+   [
+    1.0,
+    0.7209
+   ]
+  ],
+  "calibration_error": 0.0432
+ },
+ "aer_class": {
+  "n": 3698,
+  "base": 0.7942,
+  "auc": 0.7341,
+  "defer_curve": [
+   [
+    0.2,
+    0.9297
+   ],
+   [
+    0.4,
+    0.9101
+   ],
+   [
+    0.6,
+    0.8977
+   ],
+   [
+    0.8,
+    0.8523
+   ],
+   [
+    1.0,
+    0.7942
+   ]
+  ],
+  "calibration_error": 0.031
+ },
+ "patient": {
+  "n": 3698,
+  "base": 0.9246,
+  "auc": 0.6876,
+  "defer_curve": [
+   [
+    0.2,
+    0.9878
+   ],
+   [
+    0.4,
+    0.9594
+   ],
+   [
+    0.6,
+    0.9576
+   ],
+   [
+    0.8,
+    0.9381
+   ],
+   [
+    1.0,
+    0.9246
+   ]
+  ],
+  "calibration_error": 0.0291
+ },
+ "head_confidence": {
+  "mean_P_map_head": 0.9868,
+  "corr_headconf_rolemargin": 0.0824
+ }
+}

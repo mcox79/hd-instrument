@@ -1,0 +1,62 @@
+{
+ "n": 1423,
+ "n_marked": 103,
+ "floor_positional": 0.8468,
+ "landed_hybrid": 0.8271,
+ "full_competition": 0.754,
+ "hybrid_vs_floor": {
+  "acc": 0.8271,
+  "delta": -0.0197,
+  "ci95": [
+   -0.0309,
+   -0.0091
+  ],
+  "ci_hw": 0.0109,
+  "ci_sep": true
+ },
+ "grid": {
+  "w_role=0.00": 0.8419,
+  "w_role=0.25": 0.8398,
+  "w_role=0.50": 0.8405,
+  "w_role=0.75": 0.8433,
+  "w_role=1.00": 0.8419,
+  "w_role=1.50": 0.8426,
+  "w_role=2.00": 0.8419,
+  "w_role=3.00": 0.8426,
+  "w_role=6.00": 0.8426,
+  "w_role=1000000000.00": 0.8426
+ },
+ "override_anatomy": {
+  "n_marked": 103,
+  "override_fixes": 17,
+  "override_breaks": 45,
+  "perfect_gate_acc": 0.8587,
+  "margin_auc_on_override_outcome": 0.9007,
+  "n_decisive": 62
+ },
+ "best": {
+  "w_role": 0.75,
+  "bias": -0.8955,
+  "acc": 0.8433,
+  "vs_floor": {
+   "acc": 0.8433,
+   "delta": -0.0035,
+   "ci95": [
+    -0.0119,
+    0.0042
+   ],
+   "ci_hw": 0.0081,
+   "ci_sep": false
+  },
+  "vs_landed_hybrid": {
+   "acc": 0.8433,
+   "delta": 0.0162,
+   "ci95": [
+    0.0098,
+    0.0239
+   ],
+   "ci_hw": 0.007,
+   "ci_sep": true
+  }
+ }
+}

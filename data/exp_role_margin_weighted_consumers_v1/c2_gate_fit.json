@@ -1,0 +1,32 @@
+{
+ "bias": -0.8955,
+ "override_fixes_train": 193,
+ "override_breaks_train": 474,
+ "prior_override_right": 0.29,
+ "w_role": 0.0,
+ "train_acc": 0.8409,
+ "train_floor": 0.8436,
+ "train_landed_hybrid": 0.8202,
+ "grid": {
+  "0.0": null,
+  "0.25": null,
+  "0.5": null,
+  "0.75": null,
+  "1.0": null,
+  "1.5": null,
+  "2.0": null,
+  "3.0": null,
+  "6.0": null,
+  "1000000000.0": null,
+  "w_role=0.00": 0.8409,
+  "w_role=0.25": 0.8362,
+  "w_role=0.50": 0.8399,
+  "w_role=0.75": 0.8397,
+  "w_role=1.00": 0.8396,
+  "w_role=1.50": 0.8394,
+  "w_role=2.00": 0.8389,
+  "w_role=3.00": 0.8389,
+  "w_role=6.00": 0.8398,
+  "w_role=1000000000.00": 0.8394
+ }
+}

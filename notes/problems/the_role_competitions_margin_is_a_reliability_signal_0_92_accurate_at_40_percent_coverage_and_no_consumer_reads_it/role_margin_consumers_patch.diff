@@ -1,8 +1,8 @@
 diff --git a/hdlab/graded_role_assigner.py b/hdlab/graded_role_assigner.py
-index d75ad0a5f..387ea750d 100644
+index d75ad0a5f..92a0cd10c 100644
 --- a/hdlab/graded_role_assigner.py
 +++ b/hdlab/graded_role_assigner.py
-@@ -1008,6 +1008,176 @@ def coarse_role_posterior(toks: Sequence[str], pos: Sequence[str], heads: Dict[i
+@@ -1008,6 +1008,210 @@ def coarse_role_posterior(toks: Sequence[str], pos: Sequence[str], heads: Dict[i
      return softmax(net_activation(S, {c: 1.0 for c in S}), gain=1.0)
  
  
@@ -138,6 +138,40 @@ index d75ad0a5f..387ea750d 100644
 +    return p
 +
 +
++_MEAN_LLR_CACHE: Dict[str, float] = {}
++
++
++def _llr_weight(r: float, k: int) -> float:
++    """The evidence a categorical observation of reliability r carries over k alternatives, in log-odds:
++    log P(label | true = label) - log P(label | true != label) = log( r (k-1) / (1-r) ). This is Ernst-Banks in
++    the discrete case -- an AMOUNT OF EVIDENCE, not a shrinkage factor."""
++    r = min(max(float(r), 1e-6), 1.0 - 1e-6)
++    return float(np.log(r * (k - 1) / (1.0 - r)))
++
++
++def reliability_gain(margin: float, kind: str = "aer_class", n_alt: int = 3,
++                     table: Optional[Dict[str, object]] = None) -> float:
++    """THE POPULATION GAIN (Ma, Beck, Latham & Pouget 2006: in a probabilistic population code the gain of a
++    population IS its precision, and summing gain-scaled log-likelihoods performs the Bayesian product). Returns
++    the log-odds evidence of this decision DIVIDED by the average over the whole reliability map, so the cue enters
++    at gain 1 ON AVERAGE and only its per-decision VARIATION can move a consumer. 1.0 when no map is on disk."""
++    tab = table if table is not None else load_margin_reliability()
++    if not tab or kind not in tab.get("table", {}):
++        return 1.0
++    key = "%s|%d" % (kind, n_alt)
++    if key not in _MEAN_LLR_CACHE:
++        t = tab["table"][kind]; c = tab["counts"][kind]
++        num = sum(_llr_weight(v, n_alt) * c[b][1] for b, v in t.items())
++        den = sum(c[b][1] for b in t)
++        _MEAN_LLR_CACHE[key] = (num / den) if den else 1.0
++    m = _MEAN_LLR_CACHE[key] or 1.0
++    # The gain IS the reliability (Ma et al.: the population's gain is its precision), expressed relative to the
++    # map's MEAN log-odds evidence -- a per-cue constant, itself a pure function of the counts, that puts the two
++    # role cues on a comparable scale before the consumer's swept weight multiplies them. Both cues have their own
++    # constant, so a single swept gamma could not absorb them.
++    return float(margin_reliability(margin, kind, tab) / m)
++
++
 +def calibrated_class_posterior(posterior, class_of: Sequence[str], r: float) -> Dict[str, float]:
 +    """P(true class) for a COARSE class alphabet a consumer reads (class_of[k] = the class of ROLE_CLASSES[k]):
 +    the MAP class takes the count-calibrated mass r, and the remaining 1-r is spread over the other classes in the
@@ -179,8 +213,103 @@ index d75ad0a5f..387ea750d 100644
  def coarse_role_posterior_tagmarg(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int], i: int,
                                    tag_post: np.ndarray, tag_labels: Sequence[str],
                                    validities: Optional[Dict[str, object]] = None, min_p: float = 0.02) -> np.ndarray:
+@@ -1576,9 +1780,66 @@ def _first_conjunct_agent(toks, pos, v0, cands):
+     return cand_starts[k]["head"] if k in cand_starts else None
+ 
+ 
++# ---------------------------------------------------------------------------------------------------------------
++# THE MARKED-CUE OVERRIDE IS A CUE, AND A CUE ENTERS AT ITS RELIABILITY (pri 106, 2026-09-14).
++# `hybrid_agent_pick` keeps the high-validity WORD-ORDER default and lets a MARKED cue (passive-with-by /
++# PP-governed / non-nominative positional pick) overturn it. That override is UNCONDITIONAL: it fires whether the
++# role competition is sure or guessing. Measured on the board's who-did-what AGENT population (UD-EWT test, 1423
++# gold agents): of the 103 clauses where it fires, the override FIXES 17 positional picks and BREAKS 45 -- which is
++# exactly why the board shows the hybrid 0.0197 CI-separated BELOW its own positional floor.
++# The brain does not let an unreliable decision overturn a high-validity default (Ernst & Banks 2002; Fetsch et al.
++# 2011 -- reweighting is trial by trial). So license the override by the EVIDENCE DIFFERENCE it can show, in
++# log-odds, between the two candidates:
++#       licensed  iff  log P_agent(override candidate) - log P_agent(positional candidate) > theta
++# with P_agent the role competition's agent probability CALIBRATED by that decision's own margin
++# (margin_reliability), and theta a CRITERION LEARNED FROM COUNTS on UD-EWT train (the override is right only
++# 193/667 = 0.29 of the times it is decisive there), never hand-set.
++# MEASURED (UD-EWT test, n=1423, theta fitted on TRAIN and applied unchanged): positional floor 0.8468, landed
++# unconditional hybrid 0.8271, GATED 0.8517 (+0.0246 CI95[+0.0155,+0.0337] over the landed hybrid, CI-separated;
++# +0.0049 CI95[0.0000,+0.0098] over the floor). The gate keeps 10 of the 17 good overrides and only 3 of the 45
++# bad ones; a PERFECT gate would give 0.8587. TWIN (the confidences permuted across items) falls to 0.8468 = the
++# floor exactly, i.e. it stops overriding altogether -- the signal is in the per-decision confidence, not in the
++# rate. OFF unless `heads` is supplied, so every existing caller is byte-identical.
++# ---------------------------------------------------------------------------------------------------------------
++AGENT_OVERRIDE_THETA = float(os.environ.get("HDLAB_AGENT_OVERRIDE_THETA", "6.5"))
++
++
++def _calibrated_agent_prob(toks, pos, heads, i1, want_role, tab, rel):
++    """P(nominal i1 really bears the agent role), the MAP mass replaced by the count-calibrated reliability of a
++    decision taken at this margin (calibrate, do not marginalise)."""
++    if not (1 <= i1 <= len(pos)) or not is_arg_head(list(toks), list(pos), i1):
++        return 1.0 / len(ROLE_CLASSES)
++    p = np.asarray(coarse_role_posterior(list(toks), list(pos), heads, i1, tab), dtype=float)
++    k = int(np.argmax(p)); m = role_margin(p)
++    r = margin_reliability(m, "role8", rel)
++    w = ROLE_CLASSES.index(want_role)
++    if k == w:
++        return float(r)
++    rest = 1.0 - float(p[k])
++    return float((1.0 - r) * float(p[w]) / rest) if rest > 1e-12 else float((1.0 - r) / (len(ROLE_CLASSES) - 1))
++
++
++def agent_override_licensed(toks, pos, heads, v0, cands, cm_head, validities=None, reliability=None,
++                            theta: Optional[float] = None) -> bool:
++    """Is the marked-cue override licensed by the role competition's own confidence? See the block above."""
++    if heads is None or cm_head is None:
++        return True                                   # no evidence available -> the landed unconditional behaviour
++    base = _positional_agent_base(cands, v0)
++    if base is None or str(base["head"]).lower() == str(cm_head).lower():
++        return True
++    tab = validities or load_coarse_validities()
++    rel = reliability if reliability is not None else load_margin_reliability()
++    from hdlab.thematic_role_labeler import is_passive_clause
++    want = "BY_AGENT" if is_passive_clause(list(toks), list(pos)) else "SUBJ"
++    idx = {str(c["head"]).lower(): c["wtok_start"] + 1 for c in cands}
++    p_b = _calibrated_agent_prob(toks, pos, heads, idx.get(str(base["head"]).lower(), -1), want, tab, rel)
++    p_c = _calibrated_agent_prob(toks, pos, heads, idx.get(str(cm_head).lower(), -1), want, tab, rel)
++    th = AGENT_OVERRIDE_THETA if theta is None else float(theta)
++    return bool(np.log(max(p_c, 1e-6)) - np.log(max(p_b, 1e-6)) > th)
++
+ def hybrid_agent_pick(toks, pos, v, cands, cluster_freq=None, weights=None, gaz=None,
+                       subj_before=None, byhead_agent_cue=True, twin_seed=None,
+-                      construction=False):
++                      construction=False, heads=None, validities=None, override_theta=None):
+     """THE DEPLOYABLE brain-foundational AGENT route -- the AGENT counterpart to hybrid_role_patient. Keep the
+     POSITIONAL pick (nearest preverbal candidate = the high-validity word-order cue, DOMINANT in canonical
+     English) as the default, and invoke the Competition-Model competition (agent_competition_pick, which carries
+@@ -1599,9 +1860,14 @@ def hybrid_agent_pick(toks, pos, v, cands, cluster_freq=None, weights=None, gaz=
+         if c is not None:
+             return c
+     if agent_override_fires(toks, pos, v, cands):
+-        return agent_competition_pick(toks, pos, v, cands, cluster_freq=cluster_freq, weights=weights,
+-                                      gaz=gaz, twin_seed=twin_seed, subj_before=subj_before,
+-                                      byhead_agent_cue=byhead_agent_cue)
++        cm = agent_competition_pick(toks, pos, v, cands, cluster_freq=cluster_freq, weights=weights,
++                                    gaz=gaz, twin_seed=twin_seed, subj_before=subj_before,
++                                    byhead_agent_cue=byhead_agent_cue)
++        # CONFIDENCE-LICENSED OVERRIDE (pri 106): `heads` supplied -> the override must show enough calibrated
++        # evidence to overturn the word-order default; omitted -> byte-identical to the landed behaviour.
++        if heads is None or agent_override_licensed(toks, pos, heads, v, cands, cm, validities, None,
++                                                    override_theta):
++            return cm
+     base = _positional_agent_base(cands, v)                 # canonical clause -> word-order default
+     return base["head"] if base is not None else None
+ 
+@@ -1611,4 +1877,7 @@ __all__ = ["hybrid_role_patient", "competition_pick", "cue_supports", "voice_cue
+            "agent_competition_pick", "agent_competition_pick_conf", "agent_supports", "clause_bounds",
+            "AGENT_VALIDITIES", "STRUCT_W", "NOMINATIVE_PRON", "_nominals_keep_pron",
+            "by_governs", "participle_bypp_gate", "BYHEAD_W",
+-           "hybrid_agent_pick", "agent_override_fires"]
++           "hybrid_agent_pick", "agent_override_fires", "agent_override_licensed",
++           "role_margin", "role_decision", "margin_reliability", "observe_margin_outcome",
++           "save_margin_reliability", "load_margin_reliability", "calibrated_class_posterior",
++           "reliability_from_counts", "RELIABILITY_KINDS", "reliability_gain"]
 diff --git a/hdlab/affected_entity_resolver.py b/hdlab/affected_entity_resolver.py
-index 040438346..1083a6498 100644
+index 040438346..332e0ae6c 100644
 --- a/hdlab/affected_entity_resolver.py
 +++ b/hdlab/affected_entity_resolver.py
 @@ -51,6 +51,7 @@ organ), and the live reader binds `sm.who_was_affected` over it.
@@ -191,7 +320,7 @@ index 040438346..1083a6498 100644
  from typing import Dict, List, Optional, Sequence
  
  from hdlab.salience_binder import actr_activation, ROLE_PROMINENCE, DEFAULT_DECAY
-@@ -132,20 +133,104 @@ def salience_prior(ent_hist: Dict[object, list], now: float,
+@@ -132,20 +133,121 @@ def salience_prior(ent_hist: Dict[object, list], now: float,
              for h, hist in ent_hist.items()}
  
  
@@ -218,6 +347,8 @@ index 040438346..1083a6498 100644
 +#   "graded"    P_role(class = a_role)                     -- the competition's own class mass
 +#   "match"     P(the two labels really agree | margins)   -- the correct statistic for a parallelism cue
 +#   "shrunk"    r*P_role(class) + (1-r)*prior(class)       -- shrunk to the prior by the label's reliability
++#   "ppc"       gain(margin) * log P_role(class = a_role)   -- the POPULATION-GAIN form; the CI-separated win
++#   "logpost"   log P_role(class = a_role)                   -- the same with the gain held at 1 (the control)
 +#   "relweight" r * 1[MAP class matches]                   -- reliability as a gain (MEASURED WORSE; kept for A/B)
 +# Selected by HDLAB_AER_ROLE_CUE. Default "hard" so every deployment is unchanged until strategy flips it.
 +# =====================================================================================================
@@ -235,9 +366,13 @@ index 040438346..1083a6498 100644
 +    cls = [role_class(ROLE_TO_DEP[r]) for r in ROLE_CLASSES]
 +    pat = [ROLE_TO_DEP[r] in PATIENT_DEPS for r in ROLE_CLASSES]
 +    k = max(range(len(p)), key=lambda j: p[j])
++    from hdlab.graded_role_assigner import reliability_gain
++    m = float(decision["margin"])
 +    return {"class_mass": {c: float(sum(x for x, cc in zip(p, cls) if cc == c)) for c in PAR_CLASSES},
 +            "patient_mass": float(sum(x for x, f in zip(p, pat) if f)),
-+            "map_class": cls[k], "map_patient": bool(pat[k]), "margin": float(decision["margin"]),
++            "map_class": cls[k], "map_patient": bool(pat[k]), "margin": m,
++            "gain_class": reliability_gain(m, "aer_class", len(PAR_CLASSES)),
++            "gain_patient": reliability_gain(m, "patient", 2),
 +            "reliability": dict(decision.get("reliability") or {}), "prior": decision.get("class_prior")}
 +
 +
@@ -259,6 +394,17 @@ index 040438346..1083a6498 100644
 +        rm = float(r_match if r_match is not None else r_c)
 +        g = float(pack["map_class"] == a_role); t = float(pack["map_patient"])
 +        return rm * g + (1.0 - rm) * (1.0 - g), r_p * t + (1.0 - r_p) * (1.0 - t)
++    if mode in ("ppc", "logpost"):
++        # THE POPULATION-GAIN FORM (Ma, Beck, Latham & Pouget 2006), and the ONE that measured a CI-separated gain
++        # at this consumer: the role cue enters as a gain-scaled LOG-probability, so a candidate the competition
++        # gives almost no mass to the anaphor's class contributes a strong NEGATIVE term -- a graded veto an
++        # indicator cannot express. "logpost" holds the gain at 1 (the control isolating the log form).
++        import math
++        gg = gt = 1.0
++        if mode == "ppc":
++            gg = float(pack.get("gain_class", 1.0)); gt = float(pack.get("gain_patient", 1.0))
++        return (gg * math.log(max(float(cm.get(a_role, 0.0)), 1e-4)),
++                gt * math.log(max(float(pm), 1e-4)))
 +    pri = pack.get("prior") or {"SUBJ": 0.34, "OBJ": 0.33, "OTHER": 0.33, "_patient": 0.25}
 +    return (r_c * float(cm.get(a_role, 0.0)) + (1.0 - r_c) * float(pri.get(a_role, 0.33)),
 +            r_p * float(pm) + (1.0 - r_p) * float(pri.get("_patient", 0.25)))
@@ -302,7 +448,7 @@ index 040438346..1083a6498 100644
          if s > bs:
              bs, best = s, h
      return best
-@@ -174,7 +259,9 @@ def foreground(cands: Sequence, last_ref_sent: Dict[object, float], now_sent: Op
+@@ -174,7 +276,9 @@ def foreground(cands: Sequence, last_ref_sent: Dict[object, float], now_sent: Op
  
  def resolve(entities: Sequence, sal: Dict[object, float], role_of: Dict[object, str],
              patient_of: Dict[object, bool], a_role: str, coarg_key=None,
@@ -313,7 +459,7 @@ index 040438346..1083a6498 100644
      """High-level convenience: Principle-B filter (exclude `coarg_key`) then salience x parallelism pick.
      `reflexive=True` applies PRINCIPLE A instead [PINNED]: a reflexive must corefer with its clause-mate co-argument,
      so the co-argument IS the answer when it is a known entity. Returns the resolved discourse-entity key (the
-@@ -185,7 +272,8 @@ def resolve(entities: Sequence, sal: Dict[object, float], role_of: Dict[object,
+@@ -185,7 +289,8 @@ def resolve(entities: Sequence, sal: Dict[object, float], role_of: Dict[object,
          return coarg_key
      cand = legal_candidates(entities, coarg_key)
      return score_and_pick(cand, sal, role_of, patient_of, a_role,
@@ -323,7 +469,7 @@ index 040438346..1083a6498 100644
  
  
  class EntityTokens:
-@@ -197,17 +285,25 @@ class EntityTokens:
+@@ -197,17 +302,25 @@ class EntityTokens:
      wildcard); the role/patient cue is the token's last COMPATIBLE non-pronoun mention. No gold anywhere."""
  
      def __init__(self, window: Optional[int] = FOREGROUND_WINDOW, decay: float = DEFAULT_DECAY,
@@ -352,7 +498,7 @@ index 040438346..1083a6498 100644
  
      @staticmethod
      def _gn_ok(ug, un, g, n) -> bool:
-@@ -227,8 +323,11 @@ class EntityTokens:
+@@ -227,8 +340,11 @@ class EntityTokens:
          return out
  
      def resolve_pronoun(self, order: float, sent: float, *, gender=None, number=None, a_role: str = "OBJ",
@@ -366,7 +512,7 @@ index 040438346..1083a6498 100644
          compat = self.candidates(gender, number)
          ents = list(compat)
          if not ents:
-@@ -239,6 +338,8 @@ class EntityTokens:
+@@ -239,6 +355,8 @@ class EntityTokens:
              legal = legal_candidates(ents, coarg_key)
              legal = foreground(legal, self.last_ref_sent, float(sent), self.window)
              sal, role_of, patient_of = {}, {}, {}
@@ -375,7 +521,7 @@ index 040438346..1083a6498 100644
              for k in legal:
                  hist = [(m[0], m[1]) for m in compat[k]]
                  if self.accrue if accrue is None else accrue:
-@@ -247,7 +348,16 @@ class EntityTokens:
+@@ -247,7 +365,16 @@ class EntityTokens:
                  sal[k] = a if a != float("-inf") else -1e9
                  last = max(compat[k], key=lambda m: m[0])
                  role_of[k] = role_class(last[4]); patient_of[k] = last[4] in PATIENT_DEPS
@@ -394,10 +540,28 @@ index 040438346..1083a6498 100644
              self.pron_hist.setdefault(pick, []).append((float(order), role))
              self.last_ref_sent[pick] = float(sent)
 diff --git a/hdlab/situation_reader.py b/hdlab/situation_reader.py
-index f52dd006c..4051ba96e 100644
+index f52dd006c..e7fb7e30f 100644
 --- a/hdlab/situation_reader.py
 +++ b/hdlab/situation_reader.py
-@@ -3356,10 +3356,37 @@ class SituationReader:
+@@ -2059,10 +2059,16 @@ class SituationReader:
+         # stay the competition's role-reliability readout (the precision-defer signal is orthogonal).
+         if self.agent_hybrid:
+             from hdlab.graded_role_assigner import hybrid_agent_pick
++            # pri 106: hand the organ the reader's OWN heads so the marked-cue override has to EARN the
++            # right to overturn the word-order default (agent_override_licensed). agent_hybrid_gated=False
++            # passes heads=None and the call is byte-identical to the landed one.
+             hyb = hybrid_agent_pick(toks, up, pred_idx, acand, cluster_freq=agent_freq,
+                                     weights=self.cm_weights, gaz=self.gaz, subj_before=subj_before,
+                                     byhead_agent_cue=self.cm_agent_byhead, twin_seed=self.cm_twin_seed,
+-                                    construction=self.agent_hybrid_construction)
++                                    construction=self.agent_hybrid_construction,
++                                    heads=(self._cached_parse_heads(list(toks), list(up))
++                                           if getattr(self, "agent_hybrid_gated", False) else None),
++                                    validities=None, override_theta=None)
+             if hyb is not None:
+                 head = hyb
+         return head, margin, conf
+@@ -3356,10 +3362,37 @@ class SituationReader:
          for m in mentions:
              by_sent.setdefault(m.get("sent_idx"), []).append(m)
          T = AER.EntityTokens()                                   # the organ's incremental entity tokens
@@ -435,7 +599,7 @@ index f52dd006c..4051ba96e 100644
              theme_verb = {}                                      # theme token pos -> (verb_pos, roles)
              for vp, vr in rr.items():
                  if "theme" in vr:
-@@ -3370,7 +3397,7 @@ class SituationReader:
+@@ -3370,7 +3403,7 @@ class SituationReader:
                  if not m.get("is_pronoun") and not reflexive:
                      T.observe(m["head"], float(m["midx"]), rank2role.get(rank, "OTHER"), float(si),
                                m.get("gender") or m.get("name_gender"), m.get("number"), rank2dep.get(rank, ""),
@@ -444,7 +608,7 @@ index f52dd006c..4051ba96e 100644
                      continue
                  tv = theme_verb.get(m.get("wtok_start"))
                  coarg = None
-@@ -3382,7 +3409,7 @@ class SituationReader:
+@@ -3382,7 +3415,7 @@ class SituationReader:
                      g, n = AER.REFLEXIVE_GN.get(m.get("head", "").lower(), (None, None))
                  pick, n_c = T.resolve_pronoun(float(m["midx"]), float(si), gender=g or "", number=n or "",
                                                a_role=a_role, role=rank2role.get(rank, "OTHER"), coarg_key=coarg,
