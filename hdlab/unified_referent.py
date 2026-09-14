@@ -159,10 +159,10 @@ def resolve_unified_stream(mentions: List[dict], targets: List[dict], *,
             continue
 
         # ------------- NAME / COMMON: canonical keying + file-change merge -------------
-        name_toks = name_content_tokens(m.get("span_toks", [head]))
+        name_toks = name_content_tokens(m.get("span_toks", [head]), upos=m.get("span_upos"))
         if name_toks:   # NAME -> EntityAliaser canonical id UNION blind exact-surface fallback (no-regress)
             eff_gender = m.get("gender") or m.get("name_gender")
-            canon = aliaser.assign(m.get("span_toks", [head]), eff_gender)
+            canon = aliaser.assign(m.get("span_toks", [head]), eff_gender, upos=m.get("span_upos"))
             if canon is not None and canon in canon2ref:
                 picked = canon2ref[canon]                            # aliaser cross-variant merge
             elif head in name_surf:

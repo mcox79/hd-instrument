@@ -42,6 +42,7 @@ across a passage (right 47 in 100 on he/she/it) -- and that second one is the fr
 | Reasoning on top | IMPROVING | right 24 to 90 in 100 depending on the question | Time, cause, belief and goals. These work well when handed a correct reading of the sentence and slump on real prose, so the wall they hit is the chain below them, not the reasoning itself. Best: how a character feels about an event, 90 in 100. Worst: answering "why" when the cause is several sentences away, 24 in 100. |
 
 ## WHAT MOVED THIS WEEK
+- 2026-09-14 -- Correction: the who-is-who scores were being graded with help from the answer key. Re-scored honestly: pronoun reference 47 -> 42 in 100 (still clearly above the simple rule, 32), common-noun reference 57 -> 49 in 100 (now about even with the simple rule, 49: that win was the answer key), main character 26 -> 30. Overall board 59.3 in 100 on the honest basis. The reader's own who-is-who test asks 200 questions again where it had been asking none.
 - 2026-09-14 -- The part that names each word's job can now say "this belongs to that" (the roof OF the house): such links went from 0 to 74 in 100 with a correct skeleton, and every nominal link the organ can express from 58 to 71 in 100 on the system's own skeleton. On the board: 'who was acted on' 80.6 -> 81.0, 'what things are like' 74.3 -> 74.9, nothing down; overall 63.5 in 100.
 - 2026-09-14 -- The word-kind part now hears from the passage: the people and things already met feed
   back into the decision about what kind of word is arriving. Names picked out of long documents on

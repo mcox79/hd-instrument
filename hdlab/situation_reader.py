@@ -367,6 +367,11 @@ class CorefResolution:
     attempted: bool
     bucket: str
     sent_dist: int
+    # THE GOLD-FREE ANSWER (pri-109). `resolved_cluster` is the GOLD cluster of the mention the reader
+    # picked, so naming an answer through it hands the instrument the gold equivalence classes for free.
+    # `resolved_head` is the surface head of the mention the reader actually picked -- the model's own
+    # answer, with no gold column in it. Additive: no decision reads it.
+    resolved_head: str = ""
 
 
 @dataclass
@@ -1881,7 +1886,8 @@ class SituationReader:
                 resolved_cluster=(-1 if r["resolved_cluster"] is None
                                   else r["resolved_cluster"]),
                 correct=bool(r["correct"]), attempted=bool(r["attempted"]),
-                bucket=r["bucket"], sent_dist=r["sent_dist"]))
+                bucket=r["bucket"], sent_dist=r["sent_dist"],
+                resolved_head=str(r.get("resolved_head") or "")))
         return resolutions, recs_ec, recs_ss
 
     # -- event detection dispatch (stock tense-gated vs opt-in tense-agnostic UPOS==VERB) --
@@ -4356,16 +4362,24 @@ class SituationReader:
             # tagger loads the SAME _FRONTEND_POS_ASSET, so pass a shim over the shared per-read tag cache instead
             # of a redundant private PosTagger copy -> byte-identical, its 71 tags/read become shared-cache hits.
             role_mentions, n_sents = referent_per_np_source(conll_path, _CachedTagShim(self), name_gender_map=self.gaz)
-            coref_mentions, n_coref = parse_litbank_conll(conll_path, name_gender_map=self.gaz)
+            # THE FORWARD WIRE (pri-109): the coref-column stream carries the category organ's categories too,
+            # so the ten organs that type a mention read the organ, not capitalisation. The shim hits the
+            # reader's shared per-read tag cache -> no extra tagging pass.
+            coref_mentions, n_coref = parse_litbank_conll(conll_path, name_gender_map=self.gaz,
+                                                          tagger=_CachedTagShim(self))
             if n_coref != n_sents:
                 raise RuntimeError("SENTENCE_MISALIGN: rnp=%d coref=%d" % (n_sents, n_coref))
         else:
-            role_mentions, n_sents = parse_litbank_conll(conll_path, name_gender_map=self.gaz)
+            role_mentions, n_sents = parse_litbank_conll(conll_path, name_gender_map=self.gaz,
+                                                        tagger=_CachedTagShim(self))
             coref_mentions = role_mentions   # coupled OFF -> byte-identical to the deployed baseline
         # stash the coref-column (tracked/given) mentions -> the Competition-Model AGENT candidate source
         # (_cm_agent_candidates). Inert unless cm_agent AND referent_per_np are both ON.
         self._coref_mentions = coref_mentions
-        sents = parse_conll_sentences(conll_path)
+        # pri-109: `lower=True` is the shipped default and it costs the category organ -0.4076 PROPN F1
+        # and -0.0275 all-tag accuracy on the reader's path (see hdlab/scene_segment.parse_conll_sentences).
+        # Passed EXPLICITLY so the flip is one visible edit; it needs a board A/B before it moves.
+        sents = parse_conll_sentences(conll_path, lower=True)
         if len(sents) != n_sents:
             raise RuntimeError("SENTENCE_MISALIGN: parse_litbank=%d parse_conll_sentences=%d"
                                % (n_sents, len(sents)))

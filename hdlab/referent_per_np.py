@@ -78,11 +78,22 @@ def frame_heads(toks: Sequence[str], up: Sequence[str], base: Set[int]) -> Set[i
     return add
 
 
-def _mk_referent(head_low: str, sent_idx: int, wpos: int, cluster: int, midx: int) -> Dict:
-    """A discourse-referent mention dict in the parse_litbank_conll schema (single-token, non-pronoun)."""
-    return {"cluster": cluster, "gtok_start": -1, "gtok_end": -1, "sent_idx": sent_idx,
-            "wtok_start": wpos, "head": head_low, "is_pronoun": False,
-            "gender": None, "number": None, "name_gender": None, "span_toks": [head_low], "midx": midx}
+def _mk_referent(head_low: str, sent_idx: int, wpos: int, cluster: int, midx: int,
+                 upos: Optional[str] = None) -> Dict:
+    """A discourse-referent mention dict in the parse_litbank_conll schema (single-token, non-pronoun).
+
+    MEASURED DEFECT THIS FIXES (pri-109, 8 LitBank docs): `span_toks` is the LOWERCASED head, and the ten
+    organs that type a mention call `coref.name_content_tokens`, which decides by CAPITALISATION. So on the
+    LIVE reader's default entity stream the name decision was structurally degenerate -- 0 of 2,123
+    non-pronoun mentions could EVER be typed a name (100% of spans all-lowercase), against 166 of 720 on the
+    raw-cased coref-column stream. `upos` = the category organ's category for this head, so the name decision
+    becomes the organ's and survives the lowercasing: 150 name mentions typed where there were 0."""
+    d = {"cluster": cluster, "gtok_start": -1, "gtok_end": -1, "sent_idx": sent_idx,
+         "wtok_start": wpos, "head": head_low, "is_pronoun": False,
+         "gender": None, "number": None, "name_gender": None, "span_toks": [head_low], "midx": midx}
+    if upos is not None:
+        d["span_upos"] = [upos]
+    return d
 
 
 def _finalize(mentions: List[Dict]) -> List[Dict]:
@@ -108,8 +119,8 @@ def referent_per_np_source(conll_path: str, tagger, name_gender_map=None, use_fr
     `mentions, n_sents = parse_litbank_conll(...)`. `tagger` = the reader's frontend UPOS PosTagger. VERBATIM to
     the validated build_source(mode='rnp'): use_frame=False reproduces the +0.336 source byte-for-byte; use_frame=
     True adds the §4 frame recoveries on top (introduction 0.914->0.931)."""
-    coref, n_sents = parse_litbank_conll(conll_path, name_gender_map=name_gender_map)
-    sents = parse_conll_sentences(conll_path)
+    coref, n_sents = parse_litbank_conll(conll_path, name_gender_map=name_gender_map, tagger=tagger)
+    sents = parse_conll_sentences(conll_path, lower=True)   # pri-109: -0.4076 PROPN F1; see scene_segment
     coref_head_wpos: Dict[tuple, int] = {}
     # REFLEXIVES (himself/herself/itself/themselves) are pronouns too (Binding Principle A; strategy 2026-09-12):
     # the CoNLL mention stream marks only PRONOUN_SCOPE forms as pronouns, so a reflexive coref mention was dropped
@@ -145,5 +156,6 @@ def referent_per_np_source(conll_path: str, tagger, name_gender_map=None, use_fr
             if cl is None:
                 cl = next_cluster
                 next_cluster += 1
-            out.append(_mk_referent(toks[hw].lower(), si, hw, cl, -1))
+            out.append(_mk_referent(toks[hw].lower(), si, hw, cl, -1,
+                                    upos=up[hw] if hw < len(up) else None))
     return _finalize(pron + out), n_sents

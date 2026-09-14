@@ -137,7 +137,7 @@ def _build_mention(m, eid):
     if m.get("is_pronoun"):
         men.mtype = "pronoun"
     else:
-        men.mtype = "name" if name_content_tokens(span) else "common"
+        men.mtype = "name" if name_content_tokens(span, upos=m.get("span_upos")) else "common"
     men.start_g = m.get("gtok_start")
     men.end_g = m.get("gtok_end")
     men.head_g = m.get("head_g", men.end_g)                  # reader head = span_toks[-1] -> last global token

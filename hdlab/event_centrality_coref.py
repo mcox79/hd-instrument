@@ -439,7 +439,8 @@ class EventCentralityReader(SceneProtagonistReader):
                 eff_gender = m["gender"]
                 if eff_gender is None and use_gazetteer:
                     eff_gender = m.get("name_gender")
-                is_named = bool(name_content_tokens(m.get("span_toks", [m["head"]])))
+                is_named = bool(name_content_tokens(m.get("span_toks", [m["head"]]),
+                                                    upos=m.get("span_upos")))
                 overlay.observe(m["head"], gender=eff_gender, number=m["number"],
                                 is_proper_name=is_named)
                 head_to_cluster[m["head"].lower()] = m["cluster"]

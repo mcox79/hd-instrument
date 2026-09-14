@@ -147,8 +147,32 @@ def sentence_opens_scene(sent_tokens: Sequence[str]) -> bool:
 # CoNLL -> per-sentence token lists (aligned with hdlab.coref.parse_litbank_conll's
 # sentence indexing: blank line = boundary, consecutive blanks collapse, '#' skipped).
 # ---------------------------------------------------------------------------
-def parse_conll_sentences(path: str) -> List[List[str]]:
-    """Return the document's sentences as lowercased-token lists (sent_idx-aligned)."""
+def parse_conll_sentences(path: str, lower: bool = True) -> List[List[str]]:
+    """Return the document's sentences (sent_idx-aligned). `lower=True` (the default, byte-identical to
+    every version before 2026-09-14) LOWERCASES every token.
+
+    ⚠️ MEASURED COST OF THAT DEFAULT (pri-109, 127,919 GUM test tokens, the SAME category organ on the SAME
+    text, the only difference being case):
+
+        input the organ receives      PROPN P   PROPN R   PROPN F1   all-tag accuracy
+        cased                          0.9050    0.8232     0.8622        0.9302
+        lowercased (what ships)        0.9417    0.2996     0.4546        0.9027
+                                                           -0.4076       -0.0275
+
+    This is the LIVE READER's ONLY sentence source (`situation_reader.read`, `referent_per_np_source`,
+    `space_reader`, `causation_typing`), so on the reader's path the organ misses 5,024 of 7,173 proper
+    nouns -- 70% of them -- and every consumer downstream loses 2.75 points of category accuracy on every
+    token. One token in 28 changes category purely because the case was thrown away (tag agreement 0.9637).
+    It also silently kills two cues built to use case: `referent_per_np.frame_heads`' documented
+    mid-sentence-CAPITAL cue, and `lexical_categories.word_shape` / `word_shape_rich`.
+
+    FOR SCALE: pri 104's forward wire is worth +0.1921 token F1 on the name decision. `lower=False` is worth
+    +0.4076 PROPN F1 and is one argument.
+
+    THE DEFAULT IS DELIBERATELY LEFT AS IT WAS: flipping it changes the input of every reader consumer at
+    once (5 call sites in hdlab/, 0 in tools/; `crosstype_live_adapter` states the lowercase assumption in
+    its own docstring), so it needs a board A/B, which is strategy's. Every call site below passes `lower`
+    EXPLICITLY so the flip is one visible edit per consumer."""
     sents: List[List[str]] = []
     cur: List[str] = []
     with open(path, "r", encoding="utf-8") as f:
@@ -164,7 +188,7 @@ def parse_conll_sentences(path: str) -> List[List[str]]:
             cols = line.split("\t")
             if len(cols) < 4:
                 continue
-            cur.append(cols[3].lower())
+            cur.append(cols[3].lower() if lower else cols[3])
     if cur:
         sents.append(cur)
     return sents

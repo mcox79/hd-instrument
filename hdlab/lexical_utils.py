@@ -102,7 +102,7 @@ def coarse_class(lemma):
 
 def is_name(m, gaz) -> bool:
     """A clean proper name (aliasable) -- reuse the coref organ's own name test on the raw span."""
-    return bool(name_content_tokens(m.get("span_toks", [m["head"]])))
+    return bool(name_content_tokens(m.get("span_toks", [m["head"]]), upos=m.get("span_upos")))
 
 
 def modifiers(m) -> set:

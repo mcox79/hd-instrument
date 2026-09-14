@@ -72,16 +72,32 @@ def _score_docs(n=8):
         sm = SituationReader(gaz=gaz).read(path)
         sents = Q._conll_sents(path)
         names = Q._named_clusters(sm)
-        qa = Q.SituationQA(sm)
-        mf = Q.floor_mostfreq_coref(mentions, names)
+        # pri-109: the question's gold comes from the GOLD MENTION STREAM (the answer key). Naming it through
+        # `_named_clusters(sm)` keys it in the ENTITY LAYER's own id space, which since 2026-09-09 is the
+        # negative online-cluster space and overlaps the coref column's positive ids in ZERO places -- so this
+        # builder produced 0 questions on all 8 documents and every arm scored 0.0 by construction.
+        gold_names = Q.gold_cluster_names(mentions)
+        file_names = Q.reader_file_names(sm)          # the reader's OWN files -> the gold-free answer naming
+        qa = Q.SituationQA(sm, cluster_names=gold_names)     # the INFORMATIONAL arm, gold-named
+        qa_gf = Q.SituationQA(sm, file_names=file_names)     # THE HONEST ARM
+        mf = Q.floor_mostfreq_coref(mentions, gold_names)
+        mf_gf = Q.floor_mostfreq_coref_goldfree(sm)
 
-        for q in Q.build_coref_questions(sm):
+        for q in Q.build_coref_questions(sm, gold_names=gold_names):
             q["target_mention"] = targets[q["res_idx"]]["target"]
             _dim, ans = qa.answer(q["question"], q)
             m = int(Q._match(ans, q["gold"], "coref"))
-            rec = int(Q._match(Q.floor_recency_coref(q["target_mention"], mentions, names), q["gold"], "coref"))
+            rec = int(Q._match(Q.floor_recency_coref(q["target_mention"], mentions, gold_names),
+                               q["gold"], "coref"))
             mfk = int(Q._match(mf, q["gold"], "coref"))
             rows["coref"].append({"model": m, "recency": rec, "mostfreq": mfk})
+            # THE HONEST ARM: the reader's own pick (`resolved_head`), named through its own entity files.
+            _d2, ans_gf = qa_gf.answer(q["question"], q)
+            rows["coref_goldfree"].append({
+                "model": int(Q._match(ans_gf, q["gold"], "coref")),
+                "recency": int(Q._match(Q.floor_recency_coref_goldfree(q["target_mention"], mentions,
+                                                                       file_names), q["gold"], "coref")),
+                "mostfreq": int(Q._match(mf_gf, q["gold"], "coref"))})
             if m and not rec:
                 pc["model_right_recency_wrong"] += 1
             if rec and not m:
@@ -108,14 +124,31 @@ def _score_docs(n=8):
 
 def test_coref_which_entity_beats_the_strongest_rereading_floor():
     """Reading the RESOLVED entity off the accumulated coref model answers 'who does <pron> refer to'
-    better than the strongest trivial re-reading floors (recency AND most-frequent-entity)."""
+    better than the strongest trivial re-reading floors (recency AND most-frequent-entity).
+
+    RED FROM 2026-09-09 TO 2026-09-14 and it scored 0.0 on the model AND both floors, because the question
+    builder found no nameable cluster (pri-109: `online_entity_cluster` default-ON re-keys every non-pronoun
+    mention to a negative online file id, disjoint from the coref column's positive gold ids -- 2,648
+    entities / 2,532 of them negative / key overlap 0 on all 8 documents). Repaired: the gold chain is named
+    from the GOLD MENTION STREAM, 200 questions on the 8 documents.
+
+    TWO ARMS. `coref` is the historical readout and it is INFORMATIONAL: it names the model's pick through
+    the pick's GOLD cluster, which hands the instrument the gold equivalence classes. `coref_goldfree` is the
+    honest one -- the reader's own `resolved_head`, named through the reader's own entity files -- and the
+    gap between them (0.690 vs 0.280 on these 8 documents) is how much that readout was worth."""
     rows, pc = _score_docs(8)
+    assert len(rows["coref"]) > 0, "the coref question builder produced NO questions (the 09-09..09-14 defect)"
     m = _acc(rows["coref"], "model"); rec = _acc(rows["coref"], "recency"); mf = _acc(rows["coref"], "mostfreq")
     assert m > rec and m > mf, {"model": m, "recency": rec, "mostfreq": mf}
+    g = rows["coref_goldfree"]
+    gm = _acc(g, "model"); grec = _acc(g, "recency"); gmf = _acc(g, "mostfreq")
+    assert gm > grec, {"goldfree_model": gm, "goldfree_recency": grec}
     # positive control: the model resolves MANY antecedents recency misses, and net-positively so
     assert pc["model_right_recency_wrong"] > pc["recency_right_model_wrong"], pc
-    print(f"PASS coref: model={m:.3f} > recency={rec:.3f} & mostfreq={mf:.3f}; "
-          f"pos-control model-right/recency-wrong {pc['model_right_recency_wrong']} > {pc['recency_right_model_wrong']}")
+    print(f"PASS coref: n={len(rows['coref'])} questions; cluster-named (INFORMATIONAL) model={m:.3f} > "
+          f"recency={rec:.3f} & mostfreq={mf:.3f}; GOLD-FREE model={gm:.3f} > recency={grec:.3f} "
+          f"(mostfreq={gmf:.3f}, reported not asserted); pos-control "
+          f"{pc['model_right_recency_wrong']} > {pc['recency_right_model_wrong']}")
 
 
 def test_temporal_before_after_beats_text_order():

@@ -131,7 +131,8 @@ CENTER_PARALLEL_BONUS = 0.5  # role parallelism: subject pronoun prefers subject
 # the within-sentence token index in col 2 resets to 0 after each blank line).
 # ---------------------------------------------------------------------------
 def parse_litbank_conll(path: str,
-                        name_gender_map: Optional[Dict[str, str]] = None
+                        name_gender_map: Optional[Dict[str, str]] = None,
+                        tagger=None,
                         ) -> Tuple[List[dict], int]:
     """Parse a LitBank/OntoNotes-style coref CoNLL file, tracking sentence index.
 
@@ -145,7 +146,13 @@ def parse_litbank_conll(path: str,
     this mention among referring mentions in its sentence (0 = first = subject-ish).
     name_gender = general-gazetteer gender when name_gender_map is supplied AND the
     cue-based gender is unknown (LEVER 4); None otherwise. Passing name_gender_map=
-    None reproduces the legacy fields exactly (backward-compatible)."""
+    None reproduces the legacy fields exactly (backward-compatible).
+
+    THE FORWARD WIRE (pri-109, wiring pri-104's landed capability). `tagger` = anything with `.tag(tokens)`
+    -- the reader passes `_CachedTagShim(self)`, a standalone caller passes `hdlab.frontend.tagger()`. When
+    supplied, every mention carries `span_upos`, the CATEGORY ORGAN's categories for its span in span order,
+    and the ten organs that call `name_content_tokens` decide name-hood from the organ instead of from
+    capitalisation. `tagger=None` -> no `span_upos` key -> byte-identical to before."""
     tokens: List[Tuple[int, str]] = []      # (gtok_idx, token_text)
     tok_sent: Dict[int, int] = {}           # gtok_idx -> sent_idx
     tok_wpos: Dict[int, int] = {}           # gtok_idx -> within-sentence position
@@ -198,6 +205,16 @@ def parse_litbank_conll(path: str,
     # repeated blank lines do not create empty sentences).
     n_sentences = (max(tok_sent.values()) + 1) if tok_sent else 0
     tok_text = {gi: tx for gi, tx in tokens}
+    # THE FORWARD WIRE: the category organ's tags for every token, sentence by sentence, in reading order.
+    tok_upos: Dict[int, str] = {}
+    if tagger is not None:
+        _by_sent: Dict[int, List[Tuple[int, str]]] = {}
+        for gi, tx in tokens:
+            _by_sent.setdefault(tok_sent.get(gi, 0), []).append((gi, tx))
+        for _si in sorted(_by_sent):
+            _row = sorted(_by_sent[_si], key=lambda p: p[0])
+            for (_gi, _tx), _c in zip(_row, tagger.tag([p[1] for p in _row])):
+                tok_upos[_gi] = _c
     out: List[dict] = []
     for cid, start, end in raw_mentions:
         span_toks = [tok_text[i] for i in range(start, end + 1) if i in tok_text]
@@ -224,6 +241,8 @@ def parse_litbank_conll(path: str,
             "gender": gender, "number": number, "name_gender": ng,
             "span_toks": list(span_toks),   # RAW-CASED span tokens (entity-merge input)
         })
+        if tok_upos:
+            out[-1]["span_upos"] = [tok_upos.get(i, "X") for i in range(start, end + 1) if i in tok_text]
     out.sort(key=lambda m: (m["gtok_start"], m["gtok_end"]))
     for i, m in enumerate(out):
         m["midx"] = i
@@ -365,12 +384,39 @@ NAME_SOURCE = os.environ.get("HDLAB_NAME_SOURCE", "category")     # "category" |
 _NOMINAL_HEADS = ("NOUN", "PROPN")
 
 
+# A coref mention span is NOT one NP run: it carries PPs, parentheticals and relative clauses, and a
+# preposition / coordinator / relative marker / comma OPENS A NEW NOMINAL DOMAIN. Taking the last NOUN/PROPN
+# of the WHOLE span therefore types the span by a PROPN inside a MODIFIER -- "the environments identified by
+# Quilis", "a case from English", "a System Under Test ( SUT )" all came out NAME.
+# MEASURED (pri-109, 17,010 GUM test mentions): the whole-span rule and the NP-domain rule disagree on 1,415
+# spans (8.3%) and change the typing of 403 (241 common->name). Through the gold-free common-noun board row
+# the whole-span rule costs the whole margin -- -0.0074 against +0.0023 for the domain rule (+0.0020 with no
+# wire at all), while the pronoun row is identical. The head DOMAIN is the fix, not the head direction.
+_NP_BREAK = ("ADP", "CCONJ", "SCONJ", "VERB", "AUX", "PART")
+_REL_MARKERS = frozenset({"who", "whom", "whose", "which", "that"})
+
+
+def _np_domain(span_toks: List[str], upos: List[str]) -> int:
+    """Length of the FIRST nominal domain of the span (where the head lives)."""
+    seen = False
+    for i, u in enumerate(upos):
+        low = span_toks[i].lower() if i < len(span_toks) else ""
+        if u in _NOMINAL_HEADS:
+            seen = True
+            continue
+        if seen and (u in _NP_BREAK or u == "PUNCT" or low in _REL_MARKERS):
+            return i
+    return len(upos)
+
+
 def _span_head_is_name(span_toks: List[str], upos: List[str]) -> bool:
-    """English nominal spans are head-final: the head is the LAST NOUN/PROPN of the run (the same rule
-    `hdlab/attachment_arm` uses for an NP run). The span is a NAME iff that head is a PROPN."""
-    idx = [i for i, u in enumerate(upos) if u in _NOMINAL_HEADS and i < len(span_toks)]
+    """English nominal spans are head-final WITHIN the head domain: the head is the LAST NOUN/PROPN of the
+    FIRST nominal domain (the same domain boundary `hdlab/attachment_arm`'s NP_SPLIT cue uses). The span is
+    a NAME iff that head is a PROPN."""
+    n = min(_np_domain(span_toks, upos), len(span_toks), len(upos)) or min(len(span_toks), len(upos))
+    idx = [i for i in range(n) if upos[i] in _NOMINAL_HEADS]
     if not idx:
-        return any(u == "PROPN" for u in upos)
+        return any(u == "PROPN" for u in upos[:n])
     return upos[idx[-1]] == "PROPN"
 
 
@@ -393,8 +439,11 @@ def name_content_tokens(span_toks: List[str], upos: Optional[List[str]] = None) 
     if upos is not None and NAME_SOURCE != "caps" and len(upos) == len(span_toks):
         if not _span_head_is_name(list(span_toks), list(upos)):
             return []
+        # the NAME TOKENS come from the head domain too -- "the National Library of the Netherlands" is a
+        # name whose tokens are National/Library, not Netherlands (which names a different individual).
+        _n = min(_np_domain(list(span_toks), list(upos)), len(span_toks)) or len(span_toks)
         out: List[str] = []
-        for t, u in zip(span_toks, upos):
+        for t, u in zip(list(span_toks)[:_n], list(upos)[:_n]):
             core = t.strip(".,'\"!?;:-()[]")
             if not core:
                 continue
@@ -494,8 +543,11 @@ class EntityAliaser:
             e["gender"] = gender
         return e["canon"]
 
-    def assign(self, span_toks: List[str], gender: Optional[str]) -> Optional[str]:
-        toks = name_content_tokens(span_toks)
+    def assign(self, span_toks: List[str], gender: Optional[str],
+               upos: Optional[List[str]] = None) -> Optional[str]:
+        # THE FORWARD WIRE (pri-109): `upos` = the category organ's categories for this span. Omitted ->
+        # byte-identical to the capitalisation rule.
+        toks = name_content_tokens(span_toks, upos=upos)
         if not toks:
             return None
         tokset = set(toks)

@@ -126,9 +126,9 @@ def online_cluster(ms, gaz, type_route="exact", centering=False, hold=None, deca
         sent_idx = m.get("sent_idx", 0)
         number = m.get("number")
         head, gender = _cue(m)
-        name_toks = name_content_tokens(m.get("span_toks", [m["head"]]))
+        name_toks = name_content_tokens(m.get("span_toks", [m["head"]]), upos=m.get("span_upos"))
         if name_toks:                                          # NAME -> given aliaser file
-            canon = aliaser.assign(m.get("span_toks", [m["head"]]), gender)
+            canon = aliaser.assign(m.get("span_toks", [m["head"]]), gender, upos=m.get("span_upos"))
             key = canon if canon is not None else ("surf:" + m["head"])
             f = canon2f.get(key) or surf2f.get(m["head"])
             if f is None:

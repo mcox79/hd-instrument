@@ -66,10 +66,11 @@ class GenderOrganizer:
     def __init__(self, name_gaz: Optional[Dict[str, str]] = None) -> None:
         self.name_gaz = name_gaz or {}
 
-    def infer(self, span_toks: Sequence[str], is_name: bool) -> Optional[str]:
+    def infer(self, span_toks: Sequence[str], is_name: bool,
+              upos: Optional[Sequence[str]] = None) -> Optional[str]:
         toks = [t.lower().strip(".,'\"!?;:") for t in (span_toks or [])]
         if is_name:                                            # NAME -> given-name gazetteer
-            for t in name_content_tokens(list(span_toks or [])):
+            for t in name_content_tokens(list(span_toks or []), upos=list(upos) if upos else None):
                 if t in self.name_gaz:
                     return self.name_gaz[t]
         cue = set(toks) - POSSESSIVE_DETERMINER_CUES           # "his mother" -> head 'mother', ignore 'his'
