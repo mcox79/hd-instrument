@@ -613,3 +613,5 @@ notes/problems/<slug>/{SOLVED.md, graded_role_assigner_nmod_patch.diff}.
 LAND: git apply --ignore-whitespace the diff; copy the table to data/frontend_assets/
 coarse_role_validities_ud_ewt.json (its cue_set:v4 key IS the switch); run the witness and the board.
 ```
+
+INTEGRATED_BY_STRATEGY 2026-09-14 09:56 local -- DONE by strategy after first-hand reverify (self-test clean); diff applied (graded_role_assigner, arc_labeler, builder, witness) and the v4 table LIVE (prev v3 under data/hook_state); the consumer defect you named was landed with it: affected_entity_resolver.OBJ_DEPS no longer contains nmod (bisected: that line alone moves the affected-entity reference 0.4632 -> 0.4676 UP; witness re-pinned). Witnesses 7/7. BOARD (definitive, after landing): AGG 0.6344 -> 0.6351, patient 0.8064 -> 0.8104, state 0.7434 -> 0.7487, every other dimension identical. Leads filed by strategy: the inverted-copular construction (categories + heads), replay-based consolidation of the perceived-heads rung, the appos/cop labeller for the entity bridge (with pri 109's lead).

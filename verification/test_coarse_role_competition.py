@@ -79,7 +79,44 @@ def main():
     h_wrong = {1: 2, 2: 0, 3: 2, 4: 5, 5: 2}   # the ADP mis-attached to the head noun (a predicted-head error)
     check("surface prep robust to ADP mis-attachment", G.coarse_role_cues(t, p, h_wrong, 5)["prep"] == "other")
     r = G.coarse_roles(t, p, h)
-    check("noun-governed PP nominal -> obl (v1 filed it OTHER)", r.get(5) == "obl", r)
+    # pri 108: a nominal licensed by a NOMINAL is a PROPERTY of a thing, not an oblique participant of an event. Under a
+    # v4 table the organ says so (`nmod`); a pre-v4 table has no such class and the best it can do is `obl`.
+    _v4 = tab.get("cue_set") == "v4"
+    check("noun-governed PP nominal -> %s" % ("nmod (pri 108 class)" if _v4 else "obl"),
+          r.get(5) == ("nmod" if _v4 else "obl"), r)
+
+    # 4b. THE NMOD CLASS AND THE GENITIVE CASE CUE (pri 108). The class must exist, must be UNCAPPED in the joint decode
+    #     (a noun takes many modifiers), and the genitive clitic / possessive pronoun must fire as CASE values.
+    check("NMOD is in the class space and maps to `nmod`", "NMOD" in G.ROLE_CLASSES and G.ROLE_TO_DEP["NMOD"] == "nmod")
+    check("NMOD is UNCAPPED in the verb-frame slot decode", "NMOD" not in G.ROLE_TO_SLOT)
+    #     THE CONVENTION CLASS is declared by the organ so every scorer excludes the same tokens. The measured
+    #     numbers it separates (UD-EWT test 700, gold heads, experiments/exp_role_nmod_class_v1.py --bar):
+    #     gold nmod 0.7403 over all 489 | 0.7686 over the 471 CONVENTION-FREE | 0.8710 over the 411 CASE-MARKED.
+    check("the convention class is declared and excludes nmod:desc from the scored population",
+          "nmod:desc" in G.CONVENTION_SUBTYPES and "nmod" not in G.CONVENTION_SUBTYPES, G.CONVENTION_SUBTYPES)
+    tg = "John 's hat".split(); pg = ["PROPN", "PART", "NOUN"]
+    check("genitive clitic is a case-cue value", G.genitive_value(tg, pg, 1) == "gen_clitic", G.genitive_value(tg, pg, 1))
+    check("the possessed head is not itself genitive-marked", G.genitive_value(tg, pg, 3) is None)
+    tp = "her hat fell".split(); pp_ = ["PRON", "NOUN", "VERB"]
+    check("possessive pronoun fires pre-nominally", G.genitive_value(tp, pp_, 1) == "gen_pron")
+    check("object `her` at the clause edge is not genitive",
+          G.genitive_value("I saw her .".split(), ["PRON", "VERB", "PRON", "PUNCT"], 3) is None)
+    #     the ARC-FREE LICENSOR: it must read the host category WITHOUT the arc, so a mis-attachment cannot move it.
+    tl = "the man in the car".split(); pl = ["DET", "NOUN", "ADP", "DET", "NOUN"]
+    check("arc-free licensor of a noun-governed PP is the preceding NOUN", G.host_surface(tl, pl, 5) == "lNOUN",
+          G.host_surface(tl, pl, 5))
+    tv = "he sat in the car".split(); pv = ["PRON", "VERB", "ADP", "DET", "NOUN"]
+    check("arc-free licensor of a verb-governed PP is the preceding VERB", G.host_surface(tv, pv, 5) == "lVERB",
+          G.host_surface(tv, pv, 5))
+    check("arc-free licensor of a genitive looks RIGHT", G.host_surface(tg, pg, 1) == "rNOUN", G.host_surface(tg, pg, 1))
+    #     PREDICATE PROXIMITY, the competing attachment principle, is a SEPARATE cue in the same competition.
+    check("predicate proximity sees the adjacent verb", G.predicate_proximity(tv, pv, 5) == "3-4",
+          G.predicate_proximity(tv, pv, 5))
+    check("predicate proximity reports `far` with no predicate to the left",
+          G.predicate_proximity(tl, pl, 5) == "far", G.predicate_proximity(tl, pl, 5))
+    if _v4:
+        rg = G.coarse_roles(tg, pg, {1: 3, 2: 1, 3: 0})
+        check("possessor -> nmod under a v4 table (v1/v3 filed it `dep`)", rg.get(1) == "nmod", rg)
 
     # 5. posterior is a distribution; an absent-cue contrast is ~0 (configuration-conditioned)
     post = G.coarse_role_posterior(t, p, h, 5)
@@ -115,6 +152,14 @@ def main():
         G.observe_role_outcome(t, p, h, 3, "IOBJ", tab2)
     after = float(G.coarse_role_posterior(t, p, h, 3, tab2)[ki])
     check("online accrual moves the belief toward the observed outcome", after > before + 0.2, (before, after))
+    # PLASTICITY COVERS THE NEW CLASS (pri 108): a table accrued before NMOD existed must be able to GROW into it.
+    kn = G.ROLE_CLASSES.index("NMOD")
+    t_n = "the man in the car".split(); p_n = ["DET", "NOUN", "ADP", "DET", "NOUN"]; h_n = {1: 2, 2: 0, 3: 5, 4: 5, 5: 2}
+    before_n = float(G.coarse_role_posterior(t_n, p_n, h_n, 5, tab2)[kn])
+    for _ in range(200):
+        G.observe_role_outcome(t_n, p_n, h_n, 5, "NMOD", tab2)
+    after_n = float(G.coarse_role_posterior(t_n, p_n, h_n, 5, tab2)[kn])
+    check("online accrual can grow a class the table predates (NMOD)", after_n > before_n + 0.2, (before_n, after_n))
     tmp = _os.path.join(tempfile.gettempdir(), "coarse_role_validities_roundtrip.json")
     G.save_coarse_validities(tmp, tab2); tab3 = G.load_coarse_validities(tmp)
     check("save/load round-trip preserves the grown table", abs(float(G.coarse_role_posterior(t, p, h, 3, tab3)[ki]) - after) < 1e-9)

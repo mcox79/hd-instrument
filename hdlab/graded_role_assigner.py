@@ -39,7 +39,7 @@ from __future__ import annotations
 
 __bf_status__ = "BF_SPIRIT"   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors data/bf_status_registry.jsonl
 __bf_verified__ = "2026-09-09 operation/math audit (VERIFIED_BF_LEDGER)"
-__bf_note__ = "2026-09-13 pri103 CUE SET v3 (self-gated on the asset cue_set key): argument RANK over the verb dependents (precision-gated on the head posterior), the there-BE CONSTRUCTION as a configuration, LEXICAL case with a relativizer-stopped scan, the copula read in both orders, and the ARGUMENT-HEAD population (quantifier/numeral/nominalised-adjective heads) -- UD-EWT test 700 gold heads: core role recall 0.8655 -> 0.9198 CI-sep, previously unlabelled arguments 0.000 -> 0.838 | Competition-Model op pinned; DEFAULT_VALIDITIES gold-FITTED+adopted; agent weights hand-set; UNACC hand-lexicon | 2026-09-12 coarse_roles: argument-role labeler, cue validities LEARNED on UD-EWT train (configuration-conditioned contrasts), live via arc_labeler.COMPETITION_ROLES"
+__bf_note__ = "2026-09-14 pri108 NMOD CLASS + CUE SET v4 (self-gated on the asset cue_set key): a nominal licensed by a nominal is a PROPERTY of a thing, not an oblique participant of an event -- UD-EWT test 700, gold heads: gold nmod 0/489 -> 0.7157 CI-sep, gold obl 0.8081 -> 0.8397 CI-sep UP, all expressible nominals 0.6746 -> 0.8528 CI-sep, core arguments +0.0084 n.s.; LIVE frontend Parser heads: nmod 0 -> 0.6667, all expressible 0.5774 -> 0.7061 CI-sep, core +0.0025 n.s.; the ENGLISH GENITIVE as case VALUES, the arc-free LICENSOR cue (Late Closure) read only where a case marker exists, no left-case-marking of a relative pronoun, and the phrasal verb as a stored (lemma+particle) value | 2026-09-13 pri103 CUE SET v3 (self-gated on the asset cue_set key): argument RANK over the verb dependents (precision-gated on the head posterior), the there-BE CONSTRUCTION as a configuration, LEXICAL case with a relativizer-stopped scan, the copula read in both orders, and the ARGUMENT-HEAD population (quantifier/numeral/nominalised-adjective heads) -- UD-EWT test 700 gold heads: core role recall 0.8655 -> 0.9198 CI-sep, previously unlabelled arguments 0.000 -> 0.838 | Competition-Model op pinned; DEFAULT_VALIDITIES gold-FITTED+adopted; agent weights hand-set; UNACC hand-lexicon | 2026-09-12 coarse_roles: argument-role labeler, cue validities LEARNED on UD-EWT train (configuration-conditioned contrasts), live via arc_labeler.COMPETITION_ROLES"
 __bf_corrections__ = []   # append "YYYY-MM-DD <fix>: OLD -> NEW" when a fix RAISES the status
 
 import json
@@ -317,14 +317,41 @@ _BYHEAD_NOM = ("NOUN", "PROPN", "PRON")
 # IOBJ added 2026-09-12 (signal trace of the who-did-what PATIENT consumer): folding the RECIPIENT ("gave HIM the book") into
 # OBJ made the competition label two post-verbal nominals "obj" and the consumer took the first (23/37 of its lost items).
 # The Competition Model separates recipient from patient by ORDER among two bare post-verbal nominals and by ANIMACY.
-ROLE_CLASSES = ["SUBJ", "OBJ", "PASS_SUBJ", "BY_AGENT", "OBL", "OTHER", "IOBJ"]
+# NMOD added 2026-09-14 (pri 108). A case-marked phrase licensed by a PREDICATE is an oblique PARTICIPANT of an event;
+# one licensed by a NOMINAL is a PROPERTY of a thing -- two different things in the situation model, and the organ could
+# not say the second at all (gold `nmod` 0/489 on UD-EWT test 700 even given the gold tree, so the heads rung's whole nmod
+# gain died at this boundary). The distinction is a pure function of the LICENSING HOST'S CATEGORY, which the organ already
+# computes as its `config` cue, so the class costs no new cue for the prepositional kind; the GENITIVE kind needed the one
+# case marker English puts to the nominal's RIGHT (see `genitive_value`). NMOD is deliberately NOT in ROLE_TO_SLOT: a noun
+# takes many modifiers, so the class is UNCAPPED in the joint frame-slot decode, like OBL and OTHER.
+# MEASURED (UD-EWT test 700, subtype-preserving gold, live-chain perceived accrual, paired item bootstrap over items):
+#   GOLD heads -- gold nmod 0.0000 -> 0.7403 (+0.7403 CI[+0.7014,+0.7771]); gold obl 0.8081 -> 0.8691 (+0.0609
+#     CI[+0.0339,+0.0880], UP); obl+nmod 0.3841 -> 0.8015 (+0.4174 CI-sep); all expressible nominals 0.6746 -> 0.8661
+#     (+0.1915 CI[+0.1729,+0.2101]); CORE arguments 0.9073 -> 0.9191 (+0.0118 CI[+0.0008,+0.0236], CI-separated UP).
+#   LIVE heads (hdlab.frontend Parser, attachment arm, in-order MBR tree) -- gold nmod 0.0000 -> 0.6769 (+0.6769
+#     CI-sep); all expressible nominals 0.5774 -> 0.7061 (+0.1286 CI[+0.1096,+0.1477]); obl+nmod 0.3637 -> 0.6534;
+#     CORE 0.7445 -> 0.7462 (+0.0017 n.s.); gold obl -0.1377 CI-sep, of which ~92% of flips have a WRONG live head
+#     (the floor scored those right by accident: with no NMOD class it called every case-marked nominal `obl`).
+# Info-free twin (strengths permuted across cue values) CI-separated below in every population and both arms.
+# Restricted to the two-way OBL-vs-NMOD readout the 0.9813 host-category figure measures, the organ is 0.8970 (n=932).
+ROLE_CLASSES = ["SUBJ", "OBJ", "PASS_SUBJ", "BY_AGENT", "OBL", "OTHER", "IOBJ", "NMOD"]
 ROLE_TO_DEP = {"SUBJ": "nsubj", "OBJ": "obj", "PASS_SUBJ": "nsubj:pass", "BY_AGENT": "obl:agent", "OBL": "obl", "OTHER": "dep",
-               "IOBJ": "iobj"}
+               "IOBJ": "iobj", "NMOD": "nmod"}
 # VERB-FRAME SLOTS with capacity ONE per verb (owner-DONE pri 93, 2026-09-13; solver diff landed): cue-based retrieval over the
 # verb's frame (Lewis & Vasishth 2005) -- a filled slot lowers its availability for a second same-type filler. SUBJ and PASS_SUBJ
 # share the one SUBJECT slot (a clause has one subject whichever voice). OBL / OTHER are UNCAPPED (a verb takes many adjuncts).
 # Measured by the solver (UD-EWT test 700): OBJ precision +0.067 CI-sep on the supervised parse, +0.022 on gold heads, ~0 on the
 # attachment arm's heads (its core-argument arcs are the binding wall, not this organ); twin CI-sep below in every condition.
+# MEASUREMENT METADATA, read by NO computation in this module (owner/supervisor ruling 2026-09-14, the treatment
+# pri 94 gave the heads rung's convention layer): the UD subtypes that are an ANNOTATION CONVENTION rather than a
+# comprehension distinction this organ could ever draw, recorded HERE so that every scorer of this organ excludes the
+# same tokens instead of each one deciding for itself. `nmod:desc` is the UD-2.16 split of a DESCRIPTIVE nominal off
+# `compound`/`appos` -- "President Bush", "Enron Corp.", "Mr. Lavorato". It is surface-identical to `compound` (348
+# tokens on UD-EWT test 700) and `flat` (188) in the very same configuration, the brain reads "President Bush" and a
+# compound as the same object, and it is unwinnable by construction: an UPSTREAM ORACLE (this cue set trained on the
+# GOLD TREE) gets 2 of 18. UD-EWT test 700, gold heads: gold nmod 0.7423 over all 489, 0.7707 over the 471
+# CONVENTION-FREE tokens, 0.8710 over the 411 that carry a case marker at all.
+CONVENTION_SUBTYPES = ("nmod:desc",)
 ROLE_TO_SLOT = {"SUBJ": "subj", "PASS_SUBJ": "subj", "OBJ": "obj", "IOBJ": "iobj", "BY_AGENT": "byagent"}
 CORE_SLOTS = ["subj", "obj", "iobj", "byagent"]
 # lambda[slot] = -log P(2nd filler of slot | >=1), accrued from reading (tools/build_coarse_role_validities.py, stored in the asset
@@ -407,6 +434,110 @@ RANK_TAU = float(os.environ.get("HDLAB_ROLE_RANK_TAU", "0.5"))   # SWEPT: the he
 _MODSCAN = frozenset({"ADJ", "NUM", "ADV", "DET"})
 _POSS_MARK = frozenset({"'s", "'", "s'", "’s", "’"})
 _WHREL = frozenset({"who", "whom", "whose", "which", "that", "what", "where", "when", "why"})
+
+
+# ---------------------------------------------------------------------------------------------------------------
+# CUE SET v4 (pri 108, 2026-09-14). SELF-GATING exactly like v3: both additions below are inert unless the LOADED
+# validity table declares "cue_set": "v4". Two points where English marks a distinction the cue set never read:
+#   * THE GENITIVE IS A CASE MARKER. Case marking is a top Competition-Model cue (Bates & MacWhinney 1989; MacWhinney
+#     1987) and pri 103 already lexicalised the PREPOSITION -- but English's other case marker, the genitive clitic 's
+#     (and the possessive pronoun forms), was invisible, so a possessor competed against a COMPOUND in the very same
+#     NOUN_pre configuration on no evidence at all. Two new VALUES of the EXISTING `case` cue, so a v3 table simply has
+#     no entry for them and the cue abstains. Worth gold-heads nmod:poss 0.000 -> 0.928 of the class's 489 tokens.
+#   * THE LICENSOR IS ALSO VISIBLE ARC-FREE. The obl/nmod decision IS the host's category, and the organ reads that
+#     category ONLY through its `config` cue, i.e. through the governor's arc -- so it inherits every attachment error
+#     at BOTH learning and reading time. The nearest preceding lexical head is the default licensor (Late Closure /
+#     Recency, Frazier 1979 -- PINNED, the same locality the attachment arm's own distance cue implements), and a
+#     genitive-marked nominal's licensor is the FOLLOWING head; a GENITIVE to the left is skipped, because a genitive
+#     stands in determiner position and modifies the nominal rather than licensing it. Alone this cue is 0.707 on the
+#     obl/nmod population (vs 0.9796 for the arc-bound gold-head rule): HIGH availability, MODERATE reliability --
+#     which is what a Competition-Model cue is. Added to the competition, never used as a rule, read ONLY where there is
+#     a case marker to interpret, and read ARC-INDEPENDENTLY (the GLOBAL key -- see coarse_role_supports). Measured: it is what turns
+#     the class's obl regression into a gain (gold obl 0.7878 -> 0.8352, i.e. -0.0203 CI-sep below the floor ->
+#     +0.0271 CI-sep ABOVE it) and what takes CORE arguments CI-separated UP (+0.0135 CI[+0.0025,+0.0245]).
+#   * THE COMPETING ATTACHMENT PRINCIPLE. Recency / Late Closure (the licensor cue) is only half the account: the
+#     literature pairs it with PREDICATE PROXIMITY (Gibson et al. 1996), which prefers attachment close to a predicate
+#     head, and the two are language-modulated rather than absolute. Both are in the competition (`predprox`), which is
+#     worth gold obl 0.8352 -> 0.8691 and narrows the live obl loss -0.1580 -> -0.1377.
+#   * A RELATIVE PRONOUN IS NOT CASE-MARKED FROM THE LEFT, and A PHRASAL VERB IS A STORED LEXICAL ITEM -- see (b) and
+#     (d) in coarse_role_cues. Both were found by tracing the CORE-argument losses the licensor cue exposed: 6
+#     relative-clause subjects read as nmod and 8 objects read as obl (the particle of "worked OUT a deal").
+# REFUTED-AS-BUILT here, with numbers, and deliberately NOT included: the PROSODIC BREAK (comma/dash/paren) as a cue
+# value -- it costs gold-heads CORE argument accuracy -0.0169 CI-sep while leaving gold nmod flat (354 -> 353 correct),
+# because an intonation boundary separates appositives, conjuncts and list items (all OTHER) just as often as nmod, so
+# the contrast is ~flat for NMOD inside the configuration while it shifts the core classes.
+_POSS_PRON = frozenset({"my", "your", "his", "her", "its", "our", "their", "whose",
+                        "mine", "yours", "hers", "ours", "theirs"})
+_NP_START = frozenset({"NOUN", "PROPN", "ADJ", "NUM", "DET", "PRON", "X", "SYM"})
+_CONTENT_CAT = ("NOUN", "PROPN", "PRON", "VERB", "AUX", "ADJ", "NUM", "ADV", "SYM", "INTJ", "X")
+_LEFT_SKIP = ("DET", "ADJ", "NUM", "ADV", "PART", "PUNCT")
+_LEFT_STOP = ("SCONJ", "CCONJ")
+
+
+def genitive_value(toks: Sequence[str], pos: Sequence[str], i: int):
+    """The ENGLISH GENITIVE as a CASE MARKER -- 'gen_clitic' (the nominal is immediately followed by 's / ') or
+    'gen_pron' (the token IS a possessive pronoun form in the pre-nominal determiner position), else None.
+    Arc-free; AMBIGUOUS by design ('her' is also the object form) -- the learned validity decides, not a rule."""
+    low = toks[i - 1].lower()
+    if i < len(toks) and toks[i].lower() in _POSS_MARK:
+        return "gen_clitic"
+    if low in _POSS_PRON and i < len(toks) and (pos[i] if i < len(pos) else "") in _NP_START:
+        return "gen_pron"
+    return None
+
+
+def host_surface(toks: Sequence[str], pos: Sequence[str], i: int, maxscan: int = 8) -> str:
+    """THE ARC-FREE LICENSOR CUE: the category of the nearest preceding lexical head, skipping the nominal's own left
+    modifiers and at most one ADP case marker (Late Closure / Recency); for a genitive-marked nominal the licensor is
+    the nearest FOLLOWING head. Values 'l<CAT>' / 'r<CAT>' / 'none'. Reads toks/pos only -- no arc, so its validity is
+    learned from clean experience however the governor attached the token."""
+    if genitive_value(toks, pos, i) is not None:
+        j, steps = i, 0
+        while j < len(pos) and steps < maxscan:
+            p = pos[j]
+            if p in ("PART", "DET", "ADJ", "NUM", "ADV", "PUNCT"):
+                j += 1; steps += 1; continue
+            return ("r" + p) if p in _CONTENT_CAT else "rOTHER"
+        return "none"
+    j, steps, seen_adp = i - 1, 0, False
+    while j >= 1 and steps < maxscan:
+        p = pos[j - 1]
+        if p == "ADP" and not seen_adp:
+            seen_adp = True; j -= 1; steps += 1; continue
+        if p in _LEFT_SKIP:
+            j -= 1; steps += 1; continue
+        if genitive_value(toks, pos, j) is not None:
+            # a GENITIVE stands in DETERMINER position -- it is the nominal's own left modifier, not its licensor
+            # (the DP-head rule the organ already applies in `is_arg_head`). Found by a consumer negative: without
+            # this, "HER office is on the third floor" read `Her` as office's licensor and the copular state read
+            # lost its holder.
+            j -= 1; steps += 1; continue
+        if p in _LEFT_STOP:
+            return "none"
+        return ("l" + p) if p in _CONTENT_CAT else "lOTHER"
+    return "none"
+
+
+_PRED_CAT = ("VERB", "AUX", "ADJ", "ADV")
+
+
+def predicate_proximity(toks: Sequence[str], pos: Sequence[str], i: int, window: int = 8) -> str:
+    """PREDICATE PROXIMITY (Gibson, Pearlmutter, Canseco-Gonzalez & Hickok 1996) -- the SECOND attachment principle,
+    the one that competes with Recency / Late Closure: an attachment is preferred as structurally close to the head of
+    a PREDICATE phrase as possible. `host_surface` implements Recency alone (the nearest preceding lexical head);
+    this is the cue that pulls the other way, and the two are known to be language-modulated rather than absolute --
+    which is exactly why the licensor's validity had to be LEARNED (0.707 alone) rather than applied as a rule.
+    Having BOTH in the competition is the faithful form, and it is measurably better: gold obl 0.8352 -> 0.8691,
+    all expressible nominals 0.8604 -> 0.8661, and the live obl loss narrows -0.1580 -> -0.1377.
+    Value = how far back the nearest preceding PREDICATE head is, bucketed. Arc-free (toks/pos only)."""
+    d = None
+    for j in range(i - 1, max(0, i - 1 - window), -1):
+        if pos[j - 1] in _PRED_CAT:
+            d = i - j
+            break
+    if d is None:
+        return "far"
+    return "1" if d == 1 else ("2" if d == 2 else ("3-4" if d <= 4 else "5-8"))
 
 
 def is_arg_head(toks: Sequence[str], pos: Sequence[str], i: int, extra=EXTRA_ARG) -> bool:
@@ -508,7 +639,7 @@ def _prep_of(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int], i: 
 
 def coarse_role_cues(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int], i: int,
                      frames: Optional[Dict[str, Sequence[int]]] = None, v3: bool = False,
-                     conf: Optional[Dict[int, float]] = None) -> Dict[str, str]:
+                     conf: Optional[Dict[int, float]] = None, v4: bool = False) -> Dict[str, str]:
     """Categorical cue VALUES for nominal token i (1-based) given its governing head (1-based, 0 = root).
     Reads toks / pos / heads only (no gold, no labels). Each value is a key into the learned validity table.
     v3=False (default) -> byte-identical to the pre-2026-09-13 cue set. v3=True -> the pri-103 cue set (see the CUE
@@ -635,11 +766,45 @@ def coarse_role_cues(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, i
             cues["frame"] = "unk"
     else:
         cues["frame"] = "na"
+    if v4:
+        # ---- CUE SET v4 (pri 108). Four changes, all inert on a pre-v4 asset.
+        # (a) THE GENITIVE IS A CASE MARKER -- two new VALUES of the existing `case` cue.
+        g = genitive_value(toks, pos, i)
+        if g is not None:
+            cues["case"] = g
+        # (b) A RELATIVE PRONOUN IS THE FILLER OF A GAP, NOT A CASE-MARKED PHRASE. pri 103 stopped the surface case
+        #     scan AT a relativizer; it never stopped it FOR one, so "an area THAT will need 15,000" read `to` --
+        #     which marks the ANTECEDENT, two nouns to the left -- as `that`'s own case marker. Only a PIED-PIPED
+        #     preposition immediately to its left can mark a wh-word ("in which", "to whom").
+        if low in _WHREL and not (i >= 2 and pos[i - 2] == "ADP"):
+            cues["prep"] = "none"
+        # (c) THE ARC-FREE LICENSOR, READ ONLY WHERE THERE IS A CASE MARKER TO INTERPRET. A licensor cue answers
+        #     "what licenses this marked phrase"; an UNMARKED nominal is filling a slot, not asking that question, so
+        #     the cue abstains there. Measured: firing it on every nominal costs core-argument accuracy -0.0185
+        #     CI-sep under gold heads; restricted to marked phrases it is +0.0084 n.s. and takes gold obl UP.
+        cues["hostsurf"] = (host_surface(toks, pos, i)
+                            if (g is not None or (cues["prep"] != "none"
+                                                  and _prep_of_v3(toks, pos, heads, i)[0] is not None))
+                            else "na")
+        # (c2) THE COMPETING PRINCIPLE. Recency and Predicate Proximity are the two attachment preferences the parsing
+        #      literature puts in competition, so both are available in the same situations -- i.e. wherever there is
+        #      a case marker whose licensor is in question.
+        cues["predprox"] = predicate_proximity(toks, pos, i) if cues["hostsurf"] != "na" else "na"
+        # (d) THE PHRASAL VERB IS A STORED LEXICAL ITEM (MacWhinney's item-based constructions; pri 103's own queued
+        #     alternate path). The lexical `prep` cue cannot tell the PARTICLE of "worked OUT a deal" from the case
+        #     marker of "walked OUT of the room", so objects read as obliques. The distinction is a property of the
+        #     VERB-PLUS-PARTICLE PAIR, so the cue VALUE is that pair, learned and shrunk like every other value.
+        _pr = cues.get("prep", "none")
+        cues["vprep"] = (lemma_verb(toks[h - 1]).lower() + "+" + _pr.split("_")[0]
+                         if (h and 1 <= h <= len(pos) and pos[h - 1] in ("VERB", "AUX") and _pr not in ("none", "na"))
+                         else "na")
     if USE_INDUCED_CATEGORY_CUE:
         cues["indcat"] = induced_category(low)
     return cues
 
 
+_GLOBAL_CUES = frozenset({"hostsurf"})   # cues read UNCONDITIONALLY (key "GLOBAL|value"), not within the arc's configuration
+_CLASS_ABSENT = -60.0      # log-prior of a class the loaded asset never accrued (it can never win the argmax)
 _VALIDITY_ALPHA = 0.5      # add-alpha on the configuration distributions
 _VALIDITY_M_SHRINK = 2.0   # Dirichlet pseudo-counts centring a cue value's distribution on its configuration's
 # HIERARCHICAL CONFIGURATION BACKOFF (pri 103 round 2; 0.0 = the pre-2026-09-13 maths, byte-identical). Every
@@ -670,7 +835,11 @@ def strengths_from_counts(counts: Dict[str, object], m_config: float = 0.0) -> D
     prior = log P(role); config strength = log P(role|config) - log P(role); cue contrast = log P(role|config,value) -
     log P(role|config) with a Dirichlet prior centred on the configuration (m pseudo-counts); a value that ALWAYS fires within
     its configuration carries no information -> exactly 0. counts = {"prior": [K], "config": {cfg: [K]}, "cues": {cue: {"cfg|value": [K]}}}."""
-    K = len(ROLE_CLASSES); a = _VALIDITY_ALPHA; m = _VALIDITY_M_SHRINK
+    # K IS THE ASSET'S OWN CLASS SPACE, not the organ's (pri 108): a table accrued before the NMOD class carries 7-wide
+    # count vectors, and reading K from it keeps every smoothing denominator -- hence every strength -- BYTE-IDENTICAL to
+    # the pre-2026-09-14 organ. The vectors are then padded out to the organ's space with a never-winning prior, so an
+    # older asset can no more emit the new class than it could before. Verified: 3224/3224 identical labels.
+    K = len(np.asarray(counts["prior"], dtype=float)); a = _VALIDITY_ALPHA; m = _VALIDITY_M_SHRINK
     prior = np.asarray(counts["prior"], dtype=float); dec = prior.sum()
     logprior = np.log((prior + a) / (dec + a * K))
     par = {}
@@ -709,7 +878,29 @@ def strengths_from_counts(counts: Dict[str, object], m_config: float = 0.0) -> D
             else:
                 probs = (v + m * base) / (n + m)
                 strength[cue][key] = np.log(probs) - np.log(base)
+    KK = len(ROLE_CLASSES)
+    if KK > K:                                      # pad a legacy asset out to the organ's class space
+        logprior = np.concatenate([logprior, np.full(KK - K, _CLASS_ABSENT)])
+        for cue, vals in strength.items():
+            for key, vec in vals.items():
+                vals[key] = np.concatenate([vec, np.zeros(KK - K)])
     return {"prior": logprior, "strength": strength}
+
+
+def _upgrade_counts(counts: Dict[str, object]) -> Dict[str, object]:
+    """Grow an asset's count vectors to the organ's current class space (zeros for a class it never accrued), so the
+    ONLINE path can accrue a class the offline table predates. Idempotent."""
+    K = len(ROLE_CLASSES)
+
+    def _p(v):
+        return (list(v) + [0] * (K - len(v))) if len(v) < K else v
+    counts["prior"] = _p(counts["prior"])
+    for cfg, vec in counts["config"].items():
+        counts["config"][cfg] = _p(vec)
+    for cue, vals in counts["cues"].items():
+        for key, vec in vals.items():
+            vals[key] = _p(vec)
+    return counts
 
 
 def observe_role_outcome(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int], i: int, role: str,
@@ -722,13 +913,19 @@ def observe_role_outcome(toks: Sequence[str], pos: Sequence[str], heads: Dict[in
     if "counts" not in tab or not tab["counts"]:
         raise ValueError("this validity table carries no counts (rebuild it with tools/build_coarse_role_validities.py)")
     K = len(ROLE_CLASSES); k = ROLE_CLASSES.index(role)
-    cues = coarse_role_cues(toks, pos, heads, i, tab.get("lemma_frames"), tab.get("cue_set") == "v3")
+    _upgrade_counts(tab["counts"])              # PLASTICITY covers the NEW class: a legacy table grows into the full space
+    cs = tab.get("cue_set")
+    cues = coarse_role_cues(toks, pos, heads, i, tab.get("lemma_frames"), cs in ("v3", "v4"), None, cs == "v4")
     c = tab["counts"]; cfg = cues["config"]
     c["prior"][k] += 1
     c["config"].setdefault(cfg, [0] * K)[k] += 1
     for cue, val in cues.items():
         if cue != "config":
-            c["cues"].setdefault(cue, {}).setdefault(cfg + "|" + val, [0] * K)[k] += 1
+            key = ("GLOBAL|" + val) if cue in _GLOBAL_CUES else (cfg + "|" + val)
+            c["cues"].setdefault(cue, {}).setdefault(key, [0] * K)[k] += 1
+    if _GLOBAL_CUES & set(cues):                 # the unconditioned base the GLOBAL contrasts are read against
+        g = c["config"].setdefault("GLOBAL", [0] * K)
+        g[k] += 1
     new = strengths_from_counts(c)
     tab["prior"] = new["prior"]; tab["strength"] = new["strength"]
 
@@ -760,11 +957,14 @@ def load_coarse_validities(path: Optional[str] = None) -> Dict[str, object]:
         tab = {"prior": built["prior"], "strength": built["strength"], "counts": doc["counts"],
                "lemma_frames": doc.get("lemma_frames", {})}
     else:
-        tab = {"prior": np.asarray(doc["prior"], dtype=float),
-               "strength": {c: {v: np.asarray(vec, dtype=float) for v, vec in vals.items()} for c, vals in doc["strength"].items()},
+        _K = len(doc["prior"]); _pad = max(0, len(ROLE_CLASSES) - _K)
+        tab = {"prior": np.concatenate([np.asarray(doc["prior"], dtype=float), np.full(_pad, _CLASS_ABSENT)]),
+               "strength": {c: {v: np.concatenate([np.asarray(vec, dtype=float), np.zeros(_pad)])
+                                for v, vec in vals.items()} for c, vals in doc["strength"].items()},
                "lemma_frames": doc.get("lemma_frames", {})}
     tab["slot_capacity"] = (doc.get("counts") or {}).get("slot_capacity") or doc.get("slot_capacity")   # verb-frame capacity counts (pri 93)
-    tab["cue_set"] = doc.get("cue_set")          # "v3" (pri 103) selects the v3 cue set + argument-head population
+    tab["cue_set"] = doc.get("cue_set")          # "v3" (pri 103) cue set + argument-head population; "v4" (pri 108) adds
+    #                                              the genitive case values, the arc-free licensor cue and the NMOD class
     if path is None:
         _COARSE_VALIDITIES_CACHE = tab
     return tab
@@ -776,7 +976,8 @@ def coarse_role_supports(toks: Sequence[str], pos: Sequence[str], heads: Dict[in
     """Per-cue support vectors over ROLE_CLASSES for nominal i: the learned strength vector of each fired cue value
     (plus the role prior). A cue value never seen in training contributes nothing (abstains)."""
     tab = validities or load_coarse_validities()
-    cues = coarse_role_cues(toks, pos, heads, i, tab.get("lemma_frames"), tab.get("cue_set") == "v3", conf)
+    cs = tab.get("cue_set")
+    cues = coarse_role_cues(toks, pos, heads, i, tab.get("lemma_frames"), cs in ("v3", "v4"), conf, cs == "v4")
     S: Dict[str, np.ndarray] = {"prior": tab["prior"]}
     cfg = cues["config"]
     vec = tab["strength"].get("config", {}).get(cfg)
@@ -788,7 +989,12 @@ def coarse_role_supports(toks: Sequence[str], pos: Sequence[str], heads: Dict[in
         # every secondary cue is read WITHIN its configuration (head class x order): its strength is the CONTRAST
         # log P(role | config, value) - log P(role | config), so an uninformative/absent value contributes ~0 and the
         # majority class is not double-counted across redundant cues (the v2-naive table misfiled OBJ as OBL 1031x)
-        vec = tab["strength"].get(c, {}).get(f"{cfg}|{v}")
+        # -- EXCEPT the arc-free LICENSOR cue (pri 108), which is read ARC-INDEPENDENTLY under the GLOBAL key:
+        # log P(role | value) - log P(role). A cue whose whole purpose is to survive a WRONG arc must not be looked up
+        # INSIDE the arc's configuration, because that is the wrong row exactly when the governor mis-attached.
+        # Measured (UD-EWT test 700, gold heads): conditioned 0.7157 nmod / 0.9157 core, GLOBAL 0.7423 / 0.9207
+        # (core +0.0135 CI[+0.0025,+0.0245] over the floor -- CI-separated UP, not merely not-down).
+        vec = tab["strength"].get(c, {}).get(("GLOBAL|" + v) if c in _GLOBAL_CUES else f"{cfg}|{v}")
         if vec is not None:
             S[c] = vec
     return S
@@ -948,7 +1154,7 @@ def coarse_roles(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int],
     head_posterior = {dep: {head: P}} (optional, from the attachment arm): the role read is then MARGINALISED over the
     head posterior (coarse_role_posterior_headmarg) -- the graded hand-off; None = the hard head (byte-identical to before)."""
     tab = validities or load_coarse_validities()
-    v3 = tab.get("cue_set") == "v3"
+    v3 = tab.get("cue_set") in ("v3", "v4")
     out: Dict[int, str] = {}
     # THE ARGUMENT-HEAD POPULATION (v3): the brain labels whatever FILLS the slot, so a quantifier / numeral /
     # nominalised-adjective phrase head is labelled too. Pre-v3 tables keep the NOUN/PROPN/PRON population exactly.

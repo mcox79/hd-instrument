@@ -82,7 +82,9 @@ __bf_corrections__ = (
 
 # --- role / dependency-label vocabulary (UD; matches the proven experiment) ---------------------------
 SUBJ_DEPS = {"nsubj", "nsubj:pass", "nsubjpass", "csubj"}
-OBJ_DEPS = {"obj", "dobj", "iobj", "obl", "obl:arg", "obl:agent", "nmod"}
+OBJ_DEPS = {"obj", "dobj", "iobj", "obl", "obl:arg", "obl:agent"}   # "nmod" removed 2026-09-14 (pri 108): a nominal licensed by a
+# NOMINAL is a property, not an event participant; the role competition now emits nmod (13 -> 573 per 700 sentences) and typing them
+# as OBJ co-arguments would put every "the roof of the house" inside the affected-entity competition.
 PATIENT_DEPS = {"obj", "dobj", "nsubj:pass", "nsubjpass"}
 UND_DEPRELS = {"obj", "dobj", "nsubj:pass", "nsubjpass"}   # an undergoer is an OBJ or a passive subject
 GAMMA_G = 1.0   # grammatical-role parallelism weight (swept 0.5/1.0/2.0 -> all CI-sep; 1.0 the reported)

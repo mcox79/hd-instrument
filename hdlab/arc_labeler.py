@@ -26,7 +26,7 @@ from __future__ import annotations
 
 __bf_status__ = 'NOT_BF'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
 __bf_verified__ = '2026-09-09 BF-certification pass (operation/math read of the pinned computation + key ops; strategy first-hand)'
-__bf_note__ = 'multiclass averaged-perceptron dependency-RELATION labeler, FROZEN supervised hard-decode -- NOT_BF for the fine non-argument relations it still decides (compound/appos/conj/nmod:poss...). 2026-09-12: the ARGUMENT roles of nominal dependents (nsubj/obj/nsubj:pass/obl:agent/obl) are decided by the Competition-Model organ graded_role_assigner.coarse_roles (COMPETITION_ROLES overlay, BF_SPIRIT, learned cue validities)'
+__bf_note__ = 'multiclass averaged-perceptron dependency-RELATION labeler, FROZEN supervised hard-decode -- NOT_BF for the fine non-argument relations it still decides (compound/appos/conj/flat...; 2026-09-14 pri108: `nmod` LEFT that set -- the Competition-Model organ now owns it). 2026-09-12: the ARGUMENT roles of nominal dependents (nsubj/obj/nsubj:pass/obl:agent/obl) are decided by the Competition-Model organ graded_role_assigner.coarse_roles (COMPETITION_ROLES overlay, BF_SPIRIT, learned cue validities)'
 __bf_corrections__ = []
 
 
@@ -88,7 +88,11 @@ def label_voice_correct(toks: Sequence[str], pos: Sequence[str], heads: Dict[int
 # 0.4698 -> 0.4933 = +0.0235 CI95 [+0.0033, +0.0436] vs the perceptron (a third of the -0.0705 parse loss recovered).
 # ======================================================================================================
 COMPETITION_ROLES: bool = True
-_ARG_ROLES = {"nsubj", "obj", "nsubj:pass", "obl:agent", "obl", "iobj"}
+# `nmod` added 2026-09-14 (pri 108): the Competition-Model organ can now say "this nominal modifies another nominal",
+# so that relation is the competition's to decide too and every label consumer reads ONE structure for it. The organ
+# decides the CLASS; a finer SURFACE subtype the perceptron carried (nmod:poss) survives when the class agrees, since
+# the genitive/prepositional distinction is morphology, not a difference of role.
+_ARG_ROLES = {"nsubj", "obj", "nsubj:pass", "obl:agent", "obl", "iobj", "nmod"}
 # every relation inside the competition's CLASS SPACE (SUBJ / OBJ / PASS_SUBJ / BY_AGENT / OBL incl. bare nmod) is the
 # competition's to decide: a perceptron label in this space that the competition rejects (OTHER) becomes 'dep'. Measured
 # (probe v14, 596 items): keeping the perceptron's `nmod` where the competition says OTHER cost -0.0168 CI-sep -- the
@@ -110,6 +114,9 @@ def label_competition_roles(toks: Sequence[str], pos: Sequence[str], heads: Dict
     out = dict(labels)
     for i, dep in coarse_roles(list(toks), list(pos), heads, head_posterior=head_posterior).items():
         if dep in _ARG_ROLES:
+            prev = out.get(i) or ""
+            if dep == "nmod" and prev.split(":")[0] == "nmod":
+                continue                       # the competition CONFIRMS the class; the surface subtype survives
             out[i] = dep                       # the competition's argument role
         elif _in_competition_space(out.get(i)):
             out[i] = "dep"                     # the competition says NOT an argument; the perceptron's in-space label goes

@@ -46,6 +46,16 @@ def coarse_of(dep: str) -> str:
     if d == "iobj": return "IOBJ"
     if d in ("obj", "dobj"): return "OBJ"
     if full == "obl:agent": return "BY_AGENT"
+    # pri 108 (2026-09-14): with an NMOD class in the inventory a nominal licensed by a nominal has a name of its own.
+    # The POSSESSIVE is a genitive-MARKED member of that same class (a property of a thing, marked by the one case
+    # marker English puts to the right) -- filing it under OTHER was a workaround for having only OBL available, and it
+    # is a quarter of the class (125 of 489 on UD-EWT test 700). Measured: mapping it to OTHER instead costs gold-heads
+    # nmod 0.7239 -> 0.4683 CI-sep. A 7-class (pre-108) build is unchanged: `NMOD` simply is not in ROLE_CLASSES then.
+    if "NMOD" in GRA.ROLE_CLASSES:
+        if full == "nmod:poss": return "NMOD"
+        if d == "nmod": return "NMOD"
+        if d == "obl": return "OBL"
+        return "OTHER"
     if full == "nmod:poss": return "OTHER"   # possessive = determiner-like modifier, not an oblique
     if d in ("obl", "nmod"): return "OBL"
     return "OTHER"
@@ -108,10 +118,14 @@ _FE = None
 def main():
     perceived = "--perceived" in sys.argv
     weighted = "--weight" in sys.argv                                   # confidence-weighted perception (see _confidence)
-    v3 = "--v3" in sys.argv                                             # pri 103 cue set + argument-head population
+    v3 = "--v3" in sys.argv or "--v4" in sys.argv                       # pri 103 cue set + argument-head population
+    # pri 108 (2026-09-14): --v4 accrues the v3 cue set PLUS the genitive case values and the arc-free LICENSOR cue over
+    # the NMOD-bearing class space, and stamps "cue_set": "v4" into the asset, which is what switches the organ (a table
+    # without that key leaves graded_role_assigner byte-identical to the pre-2026-09-14 behaviour).
+    v4 = "--v4" in sys.argv
     out_path = OUT.replace(".json", "_perceived_w.json" if weighted else "_perceived.json") if perceived else OUT
     if v3:
-        out_path = out_path.replace(".json", "_v3.json")
+        out_path = out_path.replace(".json", "_v4.json" if v4 else "_v3.json")
     K = len(GRA.ROLE_CLASSES)
     ix = {r: k for k, r in enumerate(GRA.ROLE_CLASSES)}
     cfg_counts = defaultdict(lambda: [0] * K)                      # config value -> role counts
@@ -140,12 +154,16 @@ def main():
             decisions += w
             g = ix[coarse_of(deps.get(i))]
             prior[g] += w
-            cues = GRA.coarse_role_cues(toks, pos, heads, i, lemma_frames, v3, conf)
+            cues = GRA.coarse_role_cues(toks, pos, heads, i, lemma_frames, v3, conf, v4)
             cfg = cues["config"]
             cfg_counts[cfg][g] += w
             for cue, val in cues.items():
                 if cue != "config":
-                    counts[cue][f"{cfg}|{val}"][g] += w
+                    # the arc-free LICENSOR is accrued UNCONDITIONALLY (pri 108) -- see graded_role_assigner
+                    key = ("GLOBAL|" + val) if cue in GRA._GLOBAL_CUES else f"{cfg}|{val}"
+                    counts[cue][key][g] += w
+            if v4:
+                cfg_counts["GLOBAL"][g] += w
     # SLOT CAPACITY (verb-frame occupancy knowledge, in counts; owner-DONE pri 93): per core slot, how many verb tokens have >= 1
     # filler (n1) and >= 2 fillers (n2). lambda = -log P(2nd | >= 1) is a pure function of these (organ side, _slot_capacity).
     from collections import Counter as _Counter
@@ -192,14 +210,14 @@ def main():
            "strength": strength, "audit": audit, "lemma_frames": lemma_frames, "counts": counts_doc}
     doc["perceived"] = perceived; doc["confidence_weighted"] = bool(perceived and weighted)
     if v3:
-        doc["cue_set"] = "v3"; doc["min_conf"] = MIN_CONF; doc["m_config_backoff"] = M_CONFIG_BACKOFF
+        doc["cue_set"] = "v4" if v4 else "v3"; doc["min_conf"] = MIN_CONF; doc["m_config_backoff"] = M_CONFIG_BACKOFF
     with open(out_path, "w", encoding="utf-8", newline="\n") as f:
         json.dump(doc, f, indent=1)
     print(f"decisions={decisions}  prior={dict(zip(GRA.ROLE_CLASSES, prior))}")
     print("[config]")
     for val, a in sorted(audit["config"].items(), key=lambda kv: -kv[1]["n"])[:12]:
         print(f"   {val:16s} n={a['n']:8.1f} avail={a['availability']:.4f} rel={a['reliability']:.3f} -> {a['cued_role']}")
-    for cue in GRA.COARSE_CUES[1:]:
+    for cue in [c for c in (list(GRA.COARSE_CUES[1:]) + (["hostsurf", "vprep"] if v4 else [])) if c in audit]:
         print(f"[{cue}] (within VERB_pre / VERB_post / NOUN_pre / NOUN_post)")
         for key, a in sorted(audit[cue].items(), key=lambda kv: -kv[1]["n"]):
             if key.split("|")[0] in ("VERB_pre", "VERB_post", "NOUN_pre", "NOUN_post") and a["n"] >= 30:

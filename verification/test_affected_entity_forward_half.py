@@ -47,7 +47,10 @@ def main(fast=False):
     _ck(c1["acc"] < a["acc"] and c2["acc"] < a["acc"], f"W2 twins lose: accrual-scrambled {c1['acc']}, window-scrambled {c2['acc']} < {a['acc']}")
     import experiments.exp_affected_entity_binding_parallelism_gum_v1 as B4
     r4 = B4.run()
-    _ck(abs(r4["accuracy"]["A5_full"] - 0.4632) < 1e-4, f"W2 landed resolver path byte-identical (A5_full={r4['accuracy']['A5_full']} == 0.4632)")
+    # RE-PINNED 2026-09-14 (strategy, pri 108 landing): 0.4632 -> 0.4676 because `affected_entity_resolver.OBJ_DEPS` no longer contains
+    # "nmod" (a nominal licensed by a nominal is a property, not an event participant; bisected in memory: restoring nmod gives 0.4632
+    # exactly, and the v3 / v4 role tables give the same 0.4676). The move is UP on the gold-role population.
+    _ck(abs(r4["accuracy"]["A5_full"] - 0.4676) < 1e-4, f"W2 landed resolver path byte-identical (A5_full={r4['accuracy']['A5_full']} == 0.4676)")
     # W3 reader
     rows = [
         (1, 1, "John", "(0)"), (1, 2, "met", "-"), (1, 3, "Peter", "(1)"), (1, 4, ".", "-"),
