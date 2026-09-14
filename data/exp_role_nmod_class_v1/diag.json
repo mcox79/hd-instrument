@@ -1,0 +1,48 @@
+{
+ "head_posterior": {
+  "mean_P_MAP": 0.9884,
+  "frac_P_MAP_ge_0.9": 0.9663,
+  "mean_candidates_above_0.05": 1.044,
+  "n": 9534
+ },
+ "converge_gate": {
+  "decisions_total": 74984,
+  "kept": 58061,
+  "discarded": 16923,
+  "frac_discarded": 0.2257
+ },
+ "live_obl_to_nmod": {
+  "obl_to_nmod": 71,
+  "of_which_live_head_is_nominal": 67,
+  "of_which_live_head_correct": 6,
+  "obl_to_nmod_head_wrong": 65
+ },
+ "binary_readout_gold_heads": {
+  "organ_restricted_to_OBL_vs_NMOD": 0.897,
+  "host_category_rule": 0.9796,
+  "n": 932
+ },
+ "nmod_residual_gold_heads": {
+  "nmod:unmarked->dep": 58,
+  "nmod->obl": 36,
+  "nmod->dep": 17,
+  "nmod:desc->dep": 17,
+  "nmod:poss->dep": 9,
+  "nmod:unmarked->obl": 1,
+  "nmod:desc->nsubj": 1
+ },
+ "nmod_residual_cues": {
+  "NUM_post|none|na": 22,
+  "PROPN_post|none|na": 21,
+  "PROPN_post|none|lPROPN": 10,
+  "NOUN_pre|none|na": 10,
+  "NOUN_post|none|na": 10,
+  "NOUN_post|none|lNOUN": 6,
+  "NOUN_post|none|lPROPN": 6,
+  "NUM_pre|none|na": 6,
+  "PROPN_pre|none|na": 6,
+  "PROPN_pre|none|lNOUN": 3,
+  "ADJ_post|none|lVERB": 3,
+  "PRON_post|none|lPROPN": 2
+ }
+}

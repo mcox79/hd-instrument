@@ -1,0 +1,502 @@
+{
+ "populations": {
+  "all_expressible": 2099,
+  "core": 1186,
+  "obl": 443,
+  "obl_nmod": 932,
+  "nmod": 489,
+  "nmod_poss": 125,
+  "nmod_bare": 286,
+  "nmod_unmarked": 60,
+  "nmod_desc": 18
+ },
+ "arms": {
+  "FULL|gold": {
+   "all_expressible": 0.8271,
+   "core": 0.8735,
+   "obl": 0.8352,
+   "obl_nmod": 0.7704,
+   "nmod": 0.7117,
+   "nmod_poss": 0.928,
+   "nmod_bare": 0.8077,
+   "nmod_unmarked": 0.0167,
+   "nmod_desc": 0.0
+  },
+  "FULL|live": {
+   "all_expressible": 0.6899,
+   "core": 0.7251,
+   "obl": 0.623,
+   "obl_nmod": 0.6427,
+   "nmod": 0.6605,
+   "nmod_poss": 0.904,
+   "nmod_bare": 0.7203,
+   "nmod_unmarked": 0.05,
+   "nmod_desc": 0.0556
+  },
+  "FULL_twin|gold": {
+   "all_expressible": 0.1844,
+   "core": 0.2622,
+   "obl": 0.0722,
+   "obl_nmod": 0.0815,
+   "nmod": 0.09,
+   "nmod_poss": 0.192,
+   "nmod_bare": 0.0524,
+   "nmod_unmarked": 0.0833,
+   "nmod_desc": 0.0
+  },
+  "FULL_twin|live": {
+   "all_expressible": 0.1858,
+   "core": 0.2875,
+   "obl": 0.0587,
+   "obl_nmod": 0.0526,
+   "nmod": 0.047,
+   "nmod_poss": 0.032,
+   "nmod_bare": 0.0455,
+   "nmod_unmarked": 0.0833,
+   "nmod_desc": 0.0556
+  },
+  "floor|gold": {
+   "all_expressible": 0.6746,
+   "core": 0.9073,
+   "obl": 0.8081,
+   "obl_nmod": 0.3841,
+   "nmod": 0.0,
+   "nmod_poss": 0.0,
+   "nmod_bare": 0.0,
+   "nmod_unmarked": 0.0,
+   "nmod_desc": 0.0
+  },
+  "floor|live": {
+   "all_expressible": 0.5774,
+   "core": 0.7445,
+   "obl": 0.7652,
+   "obl_nmod": 0.3637,
+   "nmod": 0.0,
+   "nmod_poss": 0.0,
+   "nmod_bare": 0.0,
+   "nmod_unmarked": 0.0,
+   "nmod_desc": 0.0
+  },
+  "floor_twin|gold": {
+   "all_expressible": 0.425,
+   "core": 0.4654,
+   "obl": 0.7675,
+   "obl_nmod": 0.3648,
+   "nmod": 0.0,
+   "nmod_poss": 0.0,
+   "nmod_bare": 0.0,
+   "nmod_unmarked": 0.0,
+   "nmod_desc": 0.0
+  },
+  "floor_twin|live": {
+   "all_expressible": 0.3497,
+   "core": 0.398,
+   "obl": 0.5914,
+   "obl_nmod": 0.2811,
+   "nmod": 0.0,
+   "nmod_poss": 0.0,
+   "nmod_bare": 0.0,
+   "nmod_unmarked": 0.0,
+   "nmod_desc": 0.0
+  },
+  "nmod_gen_hsm_rel_vp|gold": {
+   "all_expressible": 0.8528,
+   "core": 0.9157,
+   "obl": 0.8397,
+   "obl_nmod": 0.7747,
+   "nmod": 0.7157,
+   "nmod_poss": 0.928,
+   "nmod_bare": 0.8147,
+   "nmod_unmarked": 0.0167,
+   "nmod_desc": 0.0
+  },
+  "nmod_gen_hsm_rel_vp|live": {
+   "all_expressible": 0.7061,
+   "core": 0.747,
+   "obl": 0.6343,
+   "obl_nmod": 0.6513,
+   "nmod": 0.6667,
+   "nmod_poss": 0.912,
+   "nmod_bare": 0.7273,
+   "nmod_unmarked": 0.05,
+   "nmod_desc": 0.0556
+  },
+  "nmod_gen_hsm_rel_vp_twin|gold": {
+   "all_expressible": 0.1872,
+   "core": 0.2681,
+   "obl": 0.079,
+   "obl_nmod": 0.0805,
+   "nmod": 0.0818,
+   "nmod_poss": 0.096,
+   "nmod_bare": 0.0839,
+   "nmod_unmarked": 0.0667,
+   "nmod_desc": 0.0
+  },
+  "nmod_gen_hsm_rel_vp_twin|live": {
+   "all_expressible": 0.2025,
+   "core": 0.2917,
+   "obl": 0.1174,
+   "obl_nmod": 0.0848,
+   "nmod": 0.0552,
+   "nmod_poss": 0.024,
+   "nmod_bare": 0.0594,
+   "nmod_unmarked": 0.0833,
+   "nmod_desc": 0.1111
+  }
+ },
+ "deltas": {
+  "floor|gold|all_expressible": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "floor|gold|core": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "floor|gold|obl": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "floor|gold|obl_nmod": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "floor|gold|nmod": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "floor|gold|nmod_poss": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "floor|gold|nmod_bare": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "floor|gold|nmod_unmarked": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "floor|gold|nmod_desc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "floor|live|all_expressible": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "floor|live|core": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "floor|live|obl": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "floor|live|obl_nmod": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "floor|live|nmod": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "floor|live|nmod_poss": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "floor|live|nmod_bare": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "floor|live|nmod_unmarked": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "floor|live|nmod_desc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "nmod_gen_hsm_rel_vp|gold|all_expressible": [
+   0.1782,
+   0.1601,
+   0.1963
+  ],
+  "nmod_gen_hsm_rel_vp|gold|core": [
+   0.0084,
+   -0.0017,
+   0.0185
+  ],
+  "nmod_gen_hsm_rel_vp|gold|obl": [
+   0.0316,
+   0.0045,
+   0.0564
+  ],
+  "nmod_gen_hsm_rel_vp|gold|obl_nmod": [
+   0.3906,
+   0.3584,
+   0.4238
+  ],
+  "nmod_gen_hsm_rel_vp|gold|nmod": [
+   0.7157,
+   0.6748,
+   0.7546
+  ],
+  "nmod_gen_hsm_rel_vp|gold|nmod_poss": [
+   0.928,
+   0.88,
+   0.968
+  ],
+  "nmod_gen_hsm_rel_vp|gold|nmod_bare": [
+   0.8147,
+   0.7657,
+   0.8601
+  ],
+  "nmod_gen_hsm_rel_vp|gold|nmod_unmarked": [
+   0.0167,
+   0.0,
+   0.05
+  ],
+  "nmod_gen_hsm_rel_vp|gold|nmod_desc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "nmod_gen_hsm_rel_vp|live|all_expressible": [
+   0.1286,
+   0.1101,
+   0.1472
+  ],
+  "nmod_gen_hsm_rel_vp|live|core": [
+   0.0025,
+   -0.0059,
+   0.011
+  ],
+  "nmod_gen_hsm_rel_vp|live|obl": [
+   -0.1309,
+   -0.1693,
+   -0.0926
+  ],
+  "nmod_gen_hsm_rel_vp|live|obl_nmod": [
+   0.2876,
+   0.2489,
+   0.3262
+  ],
+  "nmod_gen_hsm_rel_vp|live|nmod": [
+   0.6667,
+   0.6258,
+   0.7076
+  ],
+  "nmod_gen_hsm_rel_vp|live|nmod_poss": [
+   0.912,
+   0.864,
+   0.96
+  ],
+  "nmod_gen_hsm_rel_vp|live|nmod_bare": [
+   0.7273,
+   0.6748,
+   0.7797
+  ],
+  "nmod_gen_hsm_rel_vp|live|nmod_unmarked": [
+   0.05,
+   0.0,
+   0.1167
+  ],
+  "nmod_gen_hsm_rel_vp|live|nmod_desc": [
+   0.0556,
+   0.0,
+   0.1667
+  ],
+  "FULL|gold|all_expressible": [
+   0.1525,
+   0.1329,
+   0.171
+  ],
+  "FULL|gold|core": [
+   -0.0337,
+   -0.0489,
+   -0.0185
+  ],
+  "FULL|gold|obl": [
+   0.0271,
+   0.0023,
+   0.0519
+  ],
+  "FULL|gold|obl_nmod": [
+   0.3863,
+   0.353,
+   0.4195
+  ],
+  "FULL|gold|nmod": [
+   0.7117,
+   0.6708,
+   0.7505
+  ],
+  "FULL|gold|nmod_poss": [
+   0.928,
+   0.88,
+   0.968
+  ],
+  "FULL|gold|nmod_bare": [
+   0.8077,
+   0.7587,
+   0.8531
+  ],
+  "FULL|gold|nmod_unmarked": [
+   0.0167,
+   0.0,
+   0.05
+  ],
+  "FULL|gold|nmod_desc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "FULL|live|all_expressible": [
+   0.1124,
+   0.0929,
+   0.132
+  ],
+  "FULL|live|core": [
+   -0.0194,
+   -0.032,
+   -0.0067
+  ],
+  "FULL|live|obl": [
+   -0.1422,
+   -0.1828,
+   -0.1016
+  ],
+  "FULL|live|obl_nmod": [
+   0.279,
+   0.2403,
+   0.3187
+  ],
+  "FULL|live|nmod": [
+   0.6605,
+   0.6196,
+   0.7014
+  ],
+  "FULL|live|nmod_poss": [
+   0.904,
+   0.848,
+   0.952
+  ],
+  "FULL|live|nmod_bare": [
+   0.7203,
+   0.6678,
+   0.7693
+  ],
+  "FULL|live|nmod_unmarked": [
+   0.05,
+   0.0,
+   0.1167
+  ],
+  "FULL|live|nmod_desc": [
+   0.0556,
+   0.0,
+   0.1667
+  ]
+ },
+ "confusion": {
+  "floor|gold|conf_nmod": {
+   "obl": 266,
+   "dep": 222,
+   "iobj": 1
+  },
+  "floor|gold|conf_obl": {
+   "obl": 341,
+   "dep": 63,
+   "obl:agent": 20,
+   "obj": 18,
+   "nsubj": 1
+  },
+  "floor|live|conf_nmod": {
+   "obl": 259,
+   "dep": 199,
+   "obj": 20,
+   "nsubj": 10,
+   "iobj": 1
+  },
+  "floor|live|conf_obl": {
+   "obl": 334,
+   "dep": 59,
+   "obj": 30,
+   "obl:agent": 13,
+   "nsubj": 7
+  },
+  "nmod_gen_hsm_rel_vp|gold|conf_nmod": {
+   "nmod": 350,
+   "dep": 101,
+   "obl": 37,
+   "nsubj": 1
+  },
+  "nmod_gen_hsm_rel_vp|gold|conf_obl": {
+   "obl": 355,
+   "dep": 42,
+   "obl:agent": 20,
+   "obj": 18,
+   "nmod": 8
+  },
+  "nmod_gen_hsm_rel_vp|live|conf_nmod": {
+   "nmod": 326,
+   "dep": 89,
+   "obl": 47,
+   "obj": 19,
+   "nsubj": 8
+  },
+  "nmod_gen_hsm_rel_vp|live|conf_obl": {
+   "obl": 272,
+   "nmod": 71,
+   "dep": 54,
+   "obj": 28,
+   "obl:agent": 14,
+   "nsubj": 4
+  },
+  "FULL|gold|conf_nmod": {
+   "nmod": 348,
+   "dep": 102,
+   "obl": 39
+  },
+  "FULL|gold|conf_obl": {
+   "obl": 353,
+   "dep": 43,
+   "obl:agent": 20,
+   "obj": 19,
+   "nmod": 8
+  },
+  "FULL|live|conf_nmod": {
+   "nmod": 323,
+   "dep": 92,
+   "obl": 49,
+   "obj": 18,
+   "nsubj": 7
+  },
+  "FULL|live|conf_obl": {
+   "obl": 267,
+   "nmod": 76,
+   "dep": 59,
+   "obj": 26,
+   "obl:agent": 14,
+   "nsubj": 1
+  }
+ }
+}

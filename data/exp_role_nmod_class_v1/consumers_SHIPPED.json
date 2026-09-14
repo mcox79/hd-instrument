@@ -1,0 +1,121 @@
+{
+ "tag": "SHIPPED",
+ "labels": {
+  "The storm flooded the village .": {
+   "The": "det",
+   "storm": "dep",
+   "flooded": "root",
+   "the": "det",
+   "village": "obj",
+   ".": "punct"
+  },
+  "The guard let the visitors into the hall .": {
+   "The": "det",
+   "guard": "nsubj",
+   "let": "root",
+   "the": "det",
+   "visitors": "obj",
+   "into": "case",
+   "hall": "obl",
+   ".": "punct"
+  },
+  "The dam prevented the flood .": {
+   "The": "det",
+   "dam": "nsubj",
+   "prevented": "root",
+   "the": "det",
+   "flood": "obj",
+   ".": "punct"
+  },
+  "The news broke yesterday morning .": {
+   "The": "det",
+   "news": "nsubj",
+   "broke": "root",
+   "yesterday": "compound",
+   "morning": "obj",
+   ".": "punct"
+  }
+ },
+ "typed": [
+  [
+   "0",
+   "",
+   "flood",
+   "village",
+   "CAUSE"
+  ],
+  [
+   "1",
+   "guard",
+   "let",
+   "visitors",
+   "ENABLE"
+  ],
+  [
+   "2",
+   "dam",
+   "prevent",
+   "flood",
+   "PREVENT"
+  ],
+  [
+   "3",
+   "news",
+   "break",
+   "morning",
+   "ABSTAIN"
+  ]
+ ],
+ "copular_ok": 4,
+ "copular_pairs": [
+  [
+   "Here is a revised draft .",
+   []
+  ],
+  [
+   "John is a teacher .",
+   [
+    [
+     "John",
+     "teacher"
+    ]
+   ]
+  ],
+  [
+   "The room was empty .",
+   [
+    [
+     "room",
+     "empty"
+    ]
+   ]
+  ],
+  [
+   "Attached is the spreadsheet you asked for .",
+   [
+    [
+     "you",
+     "asked"
+    ]
+   ]
+  ],
+  [
+   "The manager , Bob , is angry .",
+   [
+    [
+     "manager",
+     "angry"
+    ]
+   ]
+  ],
+  [
+   "Her office is on the third floor .",
+   [
+    [
+     "office",
+     "floor"
+    ]
+   ]
+  ]
+ ]
+}
