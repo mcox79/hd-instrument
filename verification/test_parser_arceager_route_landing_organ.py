@@ -37,7 +37,7 @@ from hdlab.situation_reader import SituationReader  # noqa: E402
 # the arc-eager route refines the WIRED who-did-what path (role_route='wired')
 CAPABLE = dict(tense_agnostic_events=True, preserve_tense=True, timeline_register=True,
                track_space=True, verb_subcat_gate=True, role_route="wired",
-               spacy_pred_gate=False, causation_typed=False)
+               causation_typed=False)   # spacy_pred_gate kwarg REMOVED 2026-09-08 (zero spaCy in hdlab); witness repaired 2026-09-14
 
 
 def _sig(sm):
@@ -71,12 +71,14 @@ def main():
                    "[1] DEFAULT-OFF byte-identical: parser_arceager=False events (%d) == the no-flag wired reader "
                    "(the default reader is the pre-wire path)" % len(off.events)))
 
-    # [2] FLAG-ON is LIVE.
+    # [2] 2026-09-14 (strategy): the flag is INERT by design now -- the ONE shared parse for every route is hdlab.frontend.parser()
+    # (the attachment arm's in-order decode; the supervised arc-eager parser is selectable only via HDLAB_HEADS_SOURCE=arceager).
+    # The claim that survives is the one-structure invariant: ON == OFF byte-identical on who-did-what.
     changed = [(o, n) for o, n in zip(off.events, on.events)
                if (o.agent, o.patient) != (n.agent, n.patient)]
-    on_live = (len(off.events) == len(on.events) and len(changed) >= 1)
+    on_live = (len(off.events) == len(on.events) and len(changed) == 0)
     checks.append((on_live,
-                   "[2] FLAG-ON LIVE: the arc-eager route changed who-did-what on %d/%d events (only the parse head "
+                   "[2] FLAG INERT (one frontend Parser): parser_arceager ON changed who-did-what on %d/%d events (0 expected: the parse head "
                    "source differs, so a change proves the arc-eager parser fired)" % (len(changed), len(on.events))))
 
     # [3] FLAG-ON VALID.
