@@ -179,17 +179,17 @@ Long term (the next few months):
 
 <!-- AUTO:BEGIN (written by tools/scorecard.py; edit the sections ABOVE, not this) -->
 
-Last full check: 2026-09-14T14:59:28.251899+00:00 (38 on record). Generated 2026-09-14T15:34:18+00:00.
+Last full check: 2026-09-14T15:44:24.985144+00:00 (39 on record). Generated 2026-09-14T15:53:47+00:00.
 
 | Ability | Group | How well | Compared with a simple rule | Since the previous check | Brain-faithful? |
 |---|---|---|---|---|---|
-| Whether 'the dog' is the same dog mentioned earlier | People and things | right 57 in 100 | clearly better than the simple rule (54 in 100) | unchanged since the previous check | brain model; some details still open |
-| Which character the passage is mainly about | People and things | right 26 in 100 | a little better than the simple rule (20 in 100), not yet convincingly | unchanged since the previous check | brain model; some details still open |
-| Who 'he / she / it / they' refers to | People and things | right 47 in 100 | clearly better than the simple rule (36 in 100) | unchanged since the previous check | brain model; some details still open |
-| Linking a description ('the painter') to a named person | People and things | right 55 in 100 | clearly better than the simple rule (45 in 100) | unchanged since the previous check | brain model; some details still open |
-| Pronoun reference as the full reader actually runs it | People and things | right 59 in 100 | clearly better than the simple rule (50 in 100) | unchanged since the previous check | brain model; some details still open |
-| Resolving 'the animal' to the dog just mentioned | People and things | right 58 in 100 | clearly better than the simple rule (52 in 100) | unchanged since the previous check | brain model; some details still open |
-| Who was affected by what happened | People and things | right 40 in 100 | clearly better than the simple rule (32 in 100) | unchanged since the previous check | brain model; some details still open |
+| Whether 'the dog' is the same dog mentioned earlier | People and things | right 49 in 100 | a little better than the simple rule (49 in 100), not yet convincingly | DOWN 0.074 since the previous check | brain model; some details still open |
+| Which character the passage is mainly about | People and things | right 30 in 100 | a little better than the simple rule (22 in 100), not yet convincingly | up 0.044 since the previous check | brain model; some details still open |
+| Who 'he / she / it / they' refers to | People and things | right 42 in 100 | clearly better than the simple rule (32 in 100) | DOWN 0.051 since the previous check | brain model; some details still open |
+| Linking a description ('the painter') to a named person | People and things | right 58 in 100 | clearly better than the simple rule (42 in 100) | up 0.026 since the previous check | brain model; some details still open |
+| Pronoun reference as the full reader actually runs it | People and things | right 56 in 100 | clearly better than the simple rule (48 in 100) | DOWN 0.028 since the previous check | brain model; some details still open |
+| Resolving 'the animal' to the dog just mentioned | People and things | right 51 in 100 | clearly better than the simple rule (47 in 100) | DOWN 0.069 since the previous check | brain model; some details still open |
+| Who was affected by what happened | People and things | right 37 in 100 | clearly better than the simple rule (28 in 100) | DOWN 0.032 since the previous check | brain model; some details still open |
 | Which meaning of a word is meant in this sentence | Word meaning | right 75 in 100 | clearly better than the simple rule (50 in 100) | unchanged since the previous check | brain model; some details still open |
 | Drawing safe conclusions from 'is a kind of' facts | Word meaning | right 77 in 100 | clearly better than the simple rule (54 in 100) | unchanged since the previous check | brain model; some details still open |
 | Handling 'all / some / none' correctly | Word meaning | right 83 in 100 | clearly better than the simple rule (17 in 100) | unchanged since the previous check | brain model; some details still open |
@@ -215,7 +215,7 @@ Last full check: 2026-09-14T14:59:28.251899+00:00 (38 on record). Generated 2026
 | What a character believes, even when it is false | Feelings, goals, beliefs | right 65 in 100 | clearly better than the simple rule (49 in 100) | unchanged since the previous check | brain model; some details still open |
 | Whether an action helped or harmed someone | Feelings, goals, beliefs | right 100 in 100 | clearly better than the simple rule (33 in 100) | unchanged since the previous check | brain model; some details still open |
 | Whether an event helps or blocks a character's goal | Feelings, goals, beliefs | right 98 in 100 | clearly better than the simple rule (49 in 100) | unchanged since the previous check | brain model; some details still open |
-| Who is having the feeling | Feelings, goals, beliefs | right 19 in 100 | clearly better than the simple rule (14 in 100) | unchanged since the previous check | brain model; some details still open |
+| Who is having the feeling | Feelings, goals, beliefs | right 21 in 100 | clearly better than the simple rule (14 in 100) | up 0.012 since the previous check | brain model; some details still open |
 | Working out what a new word means from reading | Learning from reading | right meaning ranked near the top 42 in 100 | clearly better than the simple rule (16 in 100) | unchanged since the previous check | brain model; some details still open |
 | Knowing when to hold back on 'who was acted on' | Knowing its limits | right 96 in 100 | clearly better than the simple rule (86 in 100) | unchanged since the previous check | brain model; one part is a stand-in we are replacing |
 | Knowing when to hold back on a place or time attachment | Knowing its limits | right 84 in 100 | clearly better than the simple rule (76 in 100) | unchanged since the previous check | uses a stand-in we are replacing |

@@ -1,5 +1,5 @@
 diff --git a/hdlab/graded_role_assigner.py b/hdlab/graded_role_assigner.py
-index d75ad0a5f..92a0cd10c 100644
+index d75ad0a5f..aa6d8373e 100644
 --- a/hdlab/graded_role_assigner.py
 +++ b/hdlab/graded_role_assigner.py
 @@ -1008,6 +1008,210 @@ def coarse_role_posterior(toks: Sequence[str], pos: Sequence[str], heads: Dict[i
@@ -213,7 +213,55 @@ index d75ad0a5f..92a0cd10c 100644
  def coarse_role_posterior_tagmarg(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int], i: int,
                                    tag_post: np.ndarray, tag_labels: Sequence[str],
                                    validities: Optional[Dict[str, object]] = None, min_p: float = 0.02) -> np.ndarray:
-@@ -1576,9 +1780,66 @@ def _first_conjunct_agent(toks, pos, v0, cands):
+@@ -1207,6 +1411,47 @@ def coarse_roles(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int],
+     return out
+ 
+ 
++DEP_TO_ROLE = {d: r for r, d in ROLE_TO_DEP.items()}
++
++
++def roles_with_decisions(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int],
++                         validities: Optional[Dict[str, object]] = None,
++                         head_posterior: Optional[Dict[int, Dict[int, float]]] = None,
++                         conf: Optional[Dict[int, float]] = None,
++                         reliability: Optional[Dict[str, object]] = None) -> Dict[int, Dict[str, object]]:
++    """THE GRADED HAND-OFF FOR EVERY CONSUMER AT ONCE (pri 106, strategy ruling Q3, 2026-09-14).
++
++    `coarse_roles` ends in an argmax and returns Dict[int, str]; measured on UD-EWT test, a role POSTERIOR is
++    produced 3698/3698 times and 3698/3698 consumers read a string. That one line is where the whole graded signal
++    dies, and repairing it per consumer means repairing it many times. This is the SAME decode with each nominal's
++    entry being the full DECISION instead of the label:
++
++        {i: {"dep", "role", "posterior", "margin", "reliability": {kind: P(right)}}}
++
++    ADDITIVE AND EXACT: the label is whatever `coarse_roles` decided (the joint frame-slot decode included), so
++        coarse_roles(...) == {i: d["dep"] for i, d in roles_with_decisions(...).items()}
++    holds by construction and NO existing consumer changes. The posterior is the per-nominal competition's own
++    (`coarse_role_posterior`), i.e. the graded read BEFORE any capacity-one slot masking -- a consumer that wants
++    the joint belief should read the slot decode itself.
++
++    COST: the posterior is computed twice (once inside `coarse_roles` for the argmax, once here). A consumer that
++    needs only labels should keep calling `coarse_roles`; a consumer that needs the decision pays ~2x the role-rung
++    cost, which is a small fraction of the parse.
++    """
++    tab = validities or load_coarse_validities()
++    labels = coarse_roles(toks, pos, heads, tab, head_posterior, conf)
++    if conf is None and head_posterior:
++        conf = {i: float((head_posterior.get(i) or {}).get(heads.get(i, 0), 1.0)) for i in head_posterior}
++    rel = reliability if reliability is not None else load_margin_reliability()
++    out: Dict[int, Dict[str, object]] = {}
++    for i, dep in labels.items():
++        d = role_decision(toks, pos, heads, i, tab, conf, rel)
++        d["dep"] = dep                                   # the DECODED label wins (it may come from the slot decode)
++        d["role"] = DEP_TO_ROLE.get(dep, d["role"])
++        out[i] = d
++    return out
++
++
+ def by_governs(low, pos, p, maxscan=8):
+     """Is the nominal at 0-based p the object of the passive-agent preposition 'by'? Scan left through
+     NP-internal modifiers + coordination; a 'by' before any clause-blocking token -> by-PP member (the demoted
+@@ -1576,9 +1821,66 @@ def _first_conjunct_agent(toks, pos, v0, cands):
      return cand_starts[k]["head"] if k in cand_starts else None
  
  
@@ -281,7 +329,7 @@ index d75ad0a5f..92a0cd10c 100644
      """THE DEPLOYABLE brain-foundational AGENT route -- the AGENT counterpart to hybrid_role_patient. Keep the
      POSITIONAL pick (nearest preverbal candidate = the high-validity word-order cue, DOMINANT in canonical
      English) as the default, and invoke the Competition-Model competition (agent_competition_pick, which carries
-@@ -1599,9 +1860,14 @@ def hybrid_agent_pick(toks, pos, v, cands, cluster_freq=None, weights=None, gaz=
+@@ -1599,9 +1901,14 @@ def hybrid_agent_pick(toks, pos, v, cands, cluster_freq=None, weights=None, gaz=
          if c is not None:
              return c
      if agent_override_fires(toks, pos, v, cands):
@@ -299,7 +347,7 @@ index d75ad0a5f..92a0cd10c 100644
      base = _positional_agent_base(cands, v)                 # canonical clause -> word-order default
      return base["head"] if base is not None else None
  
-@@ -1611,4 +1877,7 @@ __all__ = ["hybrid_role_patient", "competition_pick", "cue_supports", "voice_cue
+@@ -1611,4 +1918,7 @@ __all__ = ["hybrid_role_patient", "competition_pick", "cue_supports", "voice_cue
             "agent_competition_pick", "agent_competition_pick_conf", "agent_supports", "clause_bounds",
             "AGENT_VALIDITIES", "STRUCT_W", "NOMINATIVE_PRON", "_nominals_keep_pron",
             "by_governs", "participle_bypp_gate", "BYHEAD_W",
@@ -307,7 +355,7 @@ index d75ad0a5f..92a0cd10c 100644
 +           "hybrid_agent_pick", "agent_override_fires", "agent_override_licensed",
 +           "role_margin", "role_decision", "margin_reliability", "observe_margin_outcome",
 +           "save_margin_reliability", "load_margin_reliability", "calibrated_class_posterior",
-+           "reliability_from_counts", "RELIABILITY_KINDS", "reliability_gain"]
++           "reliability_from_counts", "RELIABILITY_KINDS", "reliability_gain", "roles_with_decisions"]
 diff --git a/hdlab/affected_entity_resolver.py b/hdlab/affected_entity_resolver.py
 index 040438346..332e0ae6c 100644
 --- a/hdlab/affected_entity_resolver.py
