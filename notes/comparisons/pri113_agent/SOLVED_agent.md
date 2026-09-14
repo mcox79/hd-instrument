@@ -258,6 +258,12 @@ came from building the repair my first diagnosis named and having it refute me. 
 
 ### 4c. The copular state reader and the ONE-STRUCTURE question
 
+> **CORRECTED IN PHASE 7 (section 11d).** The numbers below compare the state reader's non-verbal predicates
+> against the slot read's FULL site set, which includes every VERB-tagged token and so hands the slot read a free
+> win on any clause whose gold non-verbal predicate the chain happens to tag VERB. On comparable sets (the slot
+> read restricted to its non-verbal sites) the counts are **97 both / 20 slot-only / 9 state-only / 26 neither**,
+> and the consolidation takes the disagreements **29 -> 20**. Use 11d's numbers.
+
 The brief asks that a clause yield ONE structure. Measured: on **98 of the 128** clauses where both organs fire,
 the event's predicate and the state's PROPERTY are **the same token**; on **30** they disagree (20 slot-only, 10
 state-only). **That is the one-structure defect, quantified.** I did not fix it: the right fix is to make
