@@ -14,6 +14,7 @@ NEW word means from what it reads, using its sense of how things feel and look, 
 near the top about 38 times in 100 where the old method managed about 3.
 
 ## WHAT CHANGED LATELY
+- **14 Sep, 14:42.** Switched on: the who-was-acted-on organ now takes each word's role from the role organ instead of guessing from word order (about +3.5 in 100 on its own test, clearly beyond chance on both halves of the data; the board cannot see this organ, so its own test is the gauge).
 - **14 Sep, 14:30.** Landed: a sentence whose only verb-like word is 'is' or 'has' now counts as having a predicate (the grammar books the system learned from call those helper words). The word-attachment organ gets about 1 in 100 more attachments right overall and 5 in 100 more on exactly those sentences; the sentences the reader could not see at all fell from 33 to 9 in 1,240. Board: 'who was acted on' 81.0 -> 81.2, everything else unchanged.
 - **14 Sep, 13:11.** Eighteen of the 275 test stories turned out to have their words blacked out (only the answer key survives), so the system was being asked to read blank pages. Dropping them: 'which earlier thing is this common noun' 49.3 -> 54.7 in 100 (the simple rule gets 54.0, so still about even), 'main character' 29.9 -> 27.3 (small set), 'who does the pronoun refer to' unchanged at 41.7. Overall board 61.5 in 100 on the honest basis (was 59.3 with the blank pages counted). Separately, the who-was-acted-on organ now reads the role organ's decision instead of guessing from word order (gain measured by the solver at about +9 in 100 on its own test; the board cannot see that organ, so it stays switched off until we measure it ourselves).
 - **14 Sep, 11:54.** CORRECTION: the two 'who is who' scores and the 'main character' score had been graded with help from the answer key (five columns of it). Re-scored honestly: 'who does the pronoun refer to' 46.8 -> 41.7 in 100 (still clearly better than the simple rule at 32.0); 'which earlier thing is this common noun' 56.7 -> 49.3 in 100, now only about even with the simple rule (48.8) -- that apparent win was the answer key; 'main character' 25.6 -> 29.9 in 100 (small set). Overall board 59.3 in 100 on the honest basis. Also: the belongs-to relation landed (81.0 'who was acted on', 74.9 'what things are like'); the desktop is ready for the switch.
@@ -182,7 +183,7 @@ Long term (the next few months):
 
 <!-- AUTO:BEGIN (written by tools/scorecard.py; edit the sections ABOVE, not this) -->
 
-Last full check: 2026-09-14T17:09:22.333287+00:00 (42 on record). Generated 2026-09-14T18:29:58+00:00.
+Last full check: 2026-09-14T18:30:03.731062+00:00 (43 on record). Generated 2026-09-14T18:42:20+00:00.
 
 | Ability | Group | How well | Compared with a simple rule | Since the previous check | Brain-faithful? |
 |---|---|---|---|---|---|
@@ -192,11 +193,11 @@ Last full check: 2026-09-14T17:09:22.333287+00:00 (42 on record). Generated 2026
 | Linking a description ('the painter') to a named person | People and things | right 58 in 100 | clearly better than the simple rule (42 in 100) | unchanged since the previous check | brain model; some details still open |
 | Pronoun reference as the full reader actually runs it | People and things | right 56 in 100 | clearly better than the simple rule (48 in 100) | unchanged since the previous check | brain model; some details still open |
 | Resolving 'the animal' to the dog just mentioned | People and things | right 57 in 100 | clearly better than the simple rule (54 in 100) | unchanged since the previous check | brain model; some details still open |
-| Who was affected by what happened | People and things | right 42 in 100 | clearly better than the simple rule (34 in 100) | unchanged since the previous check | brain model; some details still open |
+| Who was affected by what happened | People and things | right 41 in 100 | clearly better than the simple rule (34 in 100) | unchanged since the previous check | brain model; some details still open |
 | Which meaning of a word is meant in this sentence | Word meaning | right 75 in 100 | clearly better than the simple rule (50 in 100) | unchanged since the previous check | brain model; some details still open |
 | Drawing safe conclusions from 'is a kind of' facts | Word meaning | right 77 in 100 | clearly better than the simple rule (54 in 100) | unchanged since the previous check | brain model; some details still open |
 | Handling 'all / some / none' correctly | Word meaning | right 83 in 100 | clearly better than the simple rule (17 in 100) | unchanged since the previous check | brain model; some details still open |
-| Handling 'not' correctly | Word meaning | right 93 in 100 | clearly better than the simple rule (51 in 100) | unchanged since the previous check | brain model; some details still open |
+| Handling 'not' correctly | Word meaning | right 93 in 100 | clearly better than the simple rule (50 in 100) | unchanged since the previous check | brain model; some details still open |
 | How a word's meaning shifts with its context (graded) | Word meaning | agreement with people 0.39 (out of 1) | clearly better than the simple rule (0.38) | unchanged since the previous check | brain model; some details still open |
 | Picking the right broad sense of an ambiguous word (older test set) | Word meaning | right 52 in 100 | clearly better than the simple rule (35 in 100) | unchanged since the previous check | brain model; some details still open |
 | What something is or is like ('the sky is blue') | Actions and roles | right 75 in 100 | clearly better than the simple rule (57 in 100) | unchanged since the previous check | brain model; some details still open |
@@ -207,7 +208,7 @@ Last full check: 2026-09-14T17:09:22.333287+00:00 (42 on record). Generated 2026
 | Noticing where one scene ends and another begins | Time and place | right 12 in 100 | a little better than the simple rule (7 in 100), not yet convincingly | unchanged since the previous check | brain model; some details still open |
 | Picking out place information correctly | Time and place | right 59 in 100 | clearly better than the simple rule (51 in 100) | unchanged since the previous check | brain model; some details still open |
 | Where things are relative to each other | Time and place | right 20 in 100 | a little better than the simple rule (17 in 100), not yet convincingly | unchanged since the previous check | brain model; some details still open |
-| Whether a state still holds at a later point | Time and place | right 43 in 100 | clearly better than the simple rule (11 in 100) | unchanged since the previous check | brain model; some details still open |
+| Whether a state still holds at a later point | Time and place | right 41 in 100 | clearly better than the simple rule (11 in 100) | DOWN 0.027 since the previous check | brain model; some details still open |
 | Whether two events happened at the same time | Time and place | right 99 in 100 | clearly better than the simple rule (50 in 100) | unchanged since the previous check | brain model; some details still open |
 | Which of two events came first | Time and place | right 59 in 100 | clearly better than the simple rule (52 in 100) | unchanged since the previous check | brain model; some details still open |
 | Answering 'why' when the cause is sentences away | Causes | right 24 in 100 | clearly better than the simple rule (0 in 100) | unchanged since the previous check | brain model; some details still open |

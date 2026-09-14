@@ -169,7 +169,10 @@ def salience_prior(ent_hist: Dict[object, list], now: float,
 #   "relweight" r * 1[MAP class matches]                   -- reliability as a gain (MEASURED WORSE; kept for A/B)
 # Selected by HDLAB_AER_ROLE_CUE. Default "hard" so every deployment is unchanged until strategy flips it.
 # =====================================================================================================
-GRADED_ROLE_CUE = os.environ.get("HDLAB_AER_ROLE_CUE", "hard")
+GRADED_ROLE_CUE = os.environ.get("HDLAB_AER_ROLE_CUE", "label")   # DEFAULT FLIPPED 2026-09-14 (strategy, pri 106 landing): the organ's label replaces the word-order proxy (+0.0352 CI-sep on both GUM splits, item-identical to the measured arm); graded forms stay opt-in (n.s.)
+# The modes this organ actually implements, DECLARED so a caller can check support without inspecting source
+# (an A/B harness that guesses from source can silently SKIP a mode -- measured 2026-09-14).
+ROLE_CUE_MODES = ("hard", "label", "graded", "match", "shrunk", "relweight", "ppc", "logpost")
 PAR_CLASSES = ("SUBJ", "OBJ", "OTHER")
 
 
