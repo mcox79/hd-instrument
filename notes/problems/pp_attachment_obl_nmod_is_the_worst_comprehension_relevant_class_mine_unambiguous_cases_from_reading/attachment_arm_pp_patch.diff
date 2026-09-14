@@ -12,7 +12,7 @@
  # "pp" (2026-09-13, folded from the pri-2 solver's proven Hindle-Rooth lever): for a PP-object nominal, the preposition's verb-vs-noun
  # association LR(p) = log P(p|verb) / P(p|noun), learned TREEBANK-FREE from UNAMBIGUOUS prepositional phrases in reading.
  M_SHRINK = 2.0
-@@ -469,6 +472,279 @@
+@@ -469,6 +472,340 @@
      return "v2" if lr > 1.5 else "v1" if lr > 0.5 else "n2" if lr < -1.5 else "n1" if lr < -0.5 else "0"
  
  
@@ -52,12 +52,22 @@
 +# degenerates into "prefer a verb" -- a type prior the CONFIGURATION already owns.  Measured seesaw under "max"
 +# (cap 1200, test 250): obl 0.443 -> 0.502 but nmod 0.454 -> 0.393 on the search decode.
 +PP_ZFORM = os.environ.get("HDLAB_ARM_PP_ZFORM", "share")
-+# PHRASE-LEVEL CASE MARKING.  The read-time meaning cue and the semantic-bootstrapping teacher ask "is this nominal
-+# case-marked?" with `pos[j-2] == "ADP"` -- the preposition IMMEDIATELY before the noun.  A case marker marks the
-+# PHRASE (Pinker 1984), and any NP with more than one modifier breaks adjacency.  MEASURED (UD-EWT test 700): 684
-+# nominal run heads are case-marked by the phrase rule, only 396 by the adjacency rule -- 436 missed (63.7%), of which
-+# 199 are gold obl and 144 gold nmod, each handed to the meaning cue as a candidate SUBJECT or OBJECT of a nearby verb.
-+PP_CASE_RULE = os.environ.get("HDLAB_ARM_PP_CASE_RULE", "1") != "0"
++# PHRASE-LEVEL CASE MARKING -- REFUTED AS BUILT, DEFAULT OFF, kept selectable with its numbers.
++# The read-time meaning cue and the semantic-bootstrapping teacher ask "is this nominal case-marked?" with
++# `pos[j-2] == "ADP"` -- the preposition IMMEDIATELY before the noun.  A case marker marks the PHRASE (Pinker 1984)
++# and any NP with more than one modifier breaks adjacency: MEASURED (UD-EWT test 700), 684 nominal run heads are
++# case-marked by the phrase rule and only 396 by the adjacency rule -- 436 missed (63.7%), 199 gold obl and 144 gold
++# nmod, each handed to the meaning cue as a candidate SUBJECT or OBJECT of a nearby verb.  Widening the rule is
++# nevertheless WRONG, in both forms tried (train cap 1500, UD-EWT test 700, in-order decode, paired bootstrap):
++#   "zero" (a case-marked nominal is not a core participant, so the cue is silent): obl 0.449 -> 0.380 alone, and
++#     0.449 -> 0.199 together with the PP cue.  MECHANISM, read off the learned table: the over-broad adjacency guard
++#     was the ONLY thing teaching the arm that a verb takes an oblique argument at all, so the acquisition teacher
++#     stops putting mass on verb -> PP-object arcs and the organ learns V:* thematic validities of -1.5 to -1.8
++#     (from about +0.5) -- it concludes that a verb never hosts a case-marked nominal.
++#   "slot" (still a participant, but in a separate OBLIQUE slot value): obl +0.0335, nmod +0.0243, and WORSE than
++#     leaving the guard alone (obl 0.482 vs 0.526).  87% of gold obl is prepositional and its host IS a verb, so the
++#     blanket pull is NET CORRECT; what separates obl from nmod is the ASSOCIATION, not the guard.
++PP_CASE_RULE = os.environ.get("HDLAB_ARM_PP_CASE_RULE", "0") != "0"
 +
 +
 +def pp_run_head(pos: Sequence[str], i: int) -> Optional[int]:
@@ -288,11 +298,62 @@
 +    return out, out2
 +
 +
++# ------------------------------------------------------------------------------------- THE GENITIVE CASE MARKER
++# The nmod population is not one thing.  Split by construction (UD-EWT test 700, gold nmod, the live asset, in-order):
++#   prepositional with a retrieved site 253 (recall 0.613) | POSSESSIVE PRONOUN 98 (0.449) | prepositional with no
++#   site 56 (0.250) | bare PROPN 54 (0.167) | bare NOUN 35 (0.086) | GENITIVE enclitic 27 (0.074) | bare NUM 9 (0.000).
++# 42% of nmod is not prepositional at all, so no preposition association can reach it -- and the two worst-served
++# groups are the OTHER way English marks case: the enclitic genitive (a POSTposition) and the possessive pronoun
++# (inherently genitive).  Same brain principle as the whole PP build -- a case marker identifies the dependent and
++# opens the search for its host (Pinker 1984; the Competition Model's case cue) -- but a genitive's host is not
++# competed for: it specifies the nominal it precedes, so it is an item-based CONSTRUCTION (Tomasello 2003), the
++# family this organ already has for coordination, NP-internal modification and function words.  Its validity is
++# LEARNED by the arm's own soft counts like every other construction; nothing here is hand-weighted.
++# MEASURED (train cap 1500, UD-EWT test 700, in-order, paired bootstrap over sentences): alone, nmod 0.410 -> 0.476
++# (+0.0655, CI [+0.0427, +0.0918]) and UAS +0.0061; with the PP cue, nmod 0.491 and obl 0.535.
++NPMOD_INNER = frozenset({"DET", "ADJ", "NUM", "ADV"})
++# a pronoun that is NOT a possessive determiner: nominative/accusative forms, demonstratives, relatives, quantifiers.
++NON_POSS_PRON = frozenset({"i", "he", "she", "it", "they", "we", "you", "me", "him", "them", "us", "who", "whom",
++                           "which", "that", "this", "these", "those", "what", "there", "one", "all", "some", "both",
++                           "each", "any", "none", "such", "another", "other", "others", "someone", "something",
++                           "anyone", "anything", "everyone", "everything", "nothing", "nobody", "himself",
++                           "herself", "itself", "themselves", "myself", "yourself", "ourselves"})
++
++
++def genitive_arcs(toks: Sequence[str], pos: Sequence[str]) -> List[Tuple[int, int]]:
++    """GENITIVE construction: a nominal marked genitive -- by the enclitic ("John 's book") or by being a possessive
++    pronoun ("its wares") -- depends on the head of the nominal run that follows it; the enclitic itself depends on
++    the genitive nominal (a case marker attaches to its own nominal, as every case marker in this organ does)."""
++    n = len(pos); out: List[Tuple[int, int]] = []
++    lows = [t.lower() for t in toks]
++    for i in range(1, n + 1):
++        gen = None; mark = None
++        if pos[i - 1] == "PART" and lows[i - 1] in ("'s", "s", "'"):
++            for q in range(i - 1, 0, -1):
++                if pos[q - 1] in ("NOUN", "PROPN", "PRON", "NUM"):
++                    gen = q; mark = i; break
++                if pos[q - 1] not in NPMOD_INNER:
++                    break
++        elif pos[i - 1] == "PRON" and i < n and pos[i] in PP_NP_RUN and lows[i - 1] not in NON_POSS_PRON:
++            gen = i
++        if gen is None:
++            continue
++        host = pp_run_head(pos, (mark or gen) + 1)
++        if host is not None and host != gen:
++            out.append((host, gen))
++            if mark is not None:
++                out.append((gen, mark))
++    return out
++
++
++CONSTRUCTIONS["gen"] = genitive_arcs      # registered here: the schema is defined below the construction table
++
++
 +
  # ------------------------------------------------------------------------------------ MAIN-ASSERTION (ROOT) CUES
  COP_FORMS = frozenset({"be", "is", "are", "was", "were", "been", "being", "am", "become", "became", "becomes",
                         "seem", "seems", "seemed", "'m", "'s", "'re", "s", "m", "re"})
-@@ -705,7 +981,8 @@
+@@ -705,7 +1042,8 @@
      """ONE cue pass per sentence (shared by every arc): punctuation cumsum for boundaries, construction map, verb lemmas."""
  
      def __init__(self, toks: Sequence[str], pos: Sequence[str], frames: Dict[str, List[int]],
@@ -302,7 +363,7 @@
          self.toks = list(toks); self.pos = list(pos); self.n = len(toks); self.frames = frames
          self.cum = np.concatenate([[0], np.cumsum([1 if p == "PUNCT" else 0 for p in self.pos])])
          self.constr = construction_map(self.toks, self.pos)
-@@ -713,6 +990,15 @@
+@@ -713,6 +1051,15 @@
          self.teacher = _plaus_teacher() if PLAUS_CUE else None
          self.rootcues = root_cue_values(self.toks, self.pos)     # MAIN-ASSERTION cues (one pass; read at h == 0)
          self.csub = csub_sites(self.toks, self.pos) if CSUB_CUE else {}
@@ -318,7 +379,7 @@
          # PP-object sites: j -> (verb_idx, noun_idx, LR bin) when the preposition cue applies (pp_assoc given)
          self.pp: Dict[int, Tuple[Optional[int], Optional[int], str]] = {}
          if pp_assoc:
-@@ -744,6 +1030,10 @@
+@@ -744,6 +1091,10 @@
          site = self.pp.get(j)
          if site is not None and h in (site[0], site[1]):
              c["pp"] = ("V:" if h == site[0] else "N:") + site[2]     # which candidate this head is x the preposition's lean
@@ -329,7 +390,7 @@
          if self.teacher is not None and ph == "VERB" and pj in NOMINAL and not (j >= 2 and self.pos[j - 2] == "ADP"):
              # v2 (07:20): CORE slots only -- a case-marked (prepositional) nominal is oblique, and its host is the PP cue's business;
              # v1 fired on PP objects too and traded obl 0.468 -> 0.379 for nmod 0.311 -> 0.375.
-@@ -798,7 +1088,7 @@
+@@ -798,7 +1149,7 @@
      with open(path or ASSET, encoding="utf-8") as f:
          doc = json.load(f)
      tab = {"counts": doc["counts"], "frames": doc.get("frames", {}), "pp_assoc": doc.get("pp_assoc"),
@@ -338,7 +399,7 @@
      if path is None:
          _TABLE = tab
      return tab
-@@ -808,7 +1098,8 @@
+@@ -808,7 +1159,8 @@
      tab = table or load_attachment_validities(); p = path or ASSET
      doc = {"source": "attachment arm of the Competition-Model organ: soft arc counts accrued from reading (knowledge-free teacher + "
                       "anchored self-teaching; no treebank, no hand prior); strengths = attachment_arm.strengths_from_arc_counts",
@@ -348,7 +409,7 @@
      with open(p, "w", encoding="utf-8", newline=chr(10)) as f:
          json.dump(doc, f, indent=1)
      return p
-@@ -838,7 +1129,7 @@
+@@ -838,7 +1190,7 @@
                          weight: float = 1.0) -> None:
      """PLASTICITY: one confirmed comprehension outcome -- word j was understood to depend on h -- accrues into the counts (the
      competing candidates of j accrue a zero outcome) and the strengths are recomputed."""
@@ -357,7 +418,7 @@
      marg = {j: {hh: (weight if hh == h else 0.0) for hh in range(0, sc.n + 1) if hh != j}}
      accrue_sentence(tab["counts"], sc, marg)
      tab["strength"] = strengths_from_arc_counts(tab["counts"])
-@@ -935,7 +1226,7 @@
+@@ -935,7 +1287,7 @@
      if not _ARC_FAST:
          return arc_scores_reference(toks, pos, table)
      tab = table or load_attachment_validities(); ix = _arc_index(tab)
@@ -366,7 +427,7 @@
      cat = np.array([ix.cats.get(p, ix.unk) for p in pos], dtype=np.int64)            # dependent / head (1..n) category ids
      H = np.arange(0, n + 1)[:, None]; J = np.arange(1, n + 1)[None, :]               # grid: rows h = 0..n, cols j = 1..n
      dr = (H > J).astype(np.int64)                                                    # config/cue convention: 'L' when the head is LEFT of the dependent (h < j) -> 0; 'R' (h > j) -> 1
-@@ -967,8 +1258,17 @@
+@@ -967,8 +1319,17 @@
              if CONVENTION_BONUS and fam == "fw":
                  S[h, j - 1] += CONVENTION_BONUS
      S += ix.cue_tab["constr"][C, K]
@@ -385,7 +446,7 @@
          vid = ix.val_id["pp"]; T = ix.cue_tab["pp"]
          for j, (v, nn, b) in sc.pp.items():
              if v:
-@@ -1019,7 +1319,7 @@
+@@ -1019,7 +1380,7 @@
  def arc_scores_reference(toks: Sequence[str], pos: Sequence[str], table: Optional[Dict[str, object]] = None) -> Tuple[np.ndarray, int]:
      """THE REFERENCE readout (the original per-pair loop): additive cue activation per arc (row = head incl. 0 = ROOT, col =
      dependent); form classes never head or root. Kept as the oracle for the vectorised `arc_scores`."""
@@ -394,7 +455,7 @@
      n = sc.n; A = np.full((n + 1, n + 1), -np.inf)
      words = [j for j in range(1, n + 1) if pos[j - 1] not in FORM]
      for j in range(1, n + 1):
-@@ -1697,6 +1997,8 @@
+@@ -1697,6 +2058,8 @@
          in that slot. Case-marking rules (PP_NO_SUBJ): a pre-verbal PREPOSITIONAL object is oblique, never the subject; a pronoun
          that DETERMINES a following nominal ("its wares") is a possessive, not a participant (2026-09-13 nmod anatomy)."""
          n = len(toks)
@@ -403,13 +464,13 @@
          is_pron = pos[j - 1] == "PRON" and bool(self.pron_subj or self.pron_obj)
          vl = lemma_verb(toks[h - 1]).lower() if is_pron else None
          if PP_NO_SUBJ and pos[j - 1] == "PRON" and j < n and pos[j] in NP_RUN and toks[j - 1].lower() not in PRONOUNS:
-@@ -1747,7 +2049,9 @@
+@@ -1747,7 +2110,9 @@
  
  __all__ = ["SentenceCues", "CONSTRUCTIONS", "construction_map", "verb_frames_from_reading", "strengths_from_arc_counts",
             "load_attachment_validities", "save_attachment_validities", "new_counts", "accrue_sentence", "observe_arc_outcome",
 -           "pp_site", "pp_assoc_from_reading", "pp_lr", "root_cue_values", "predication_boost", "finiteness",
 +           "pp_site", "pp_assoc_from_reading", "pp_lr", "pp_sites", "pp_assoc_v2_from_reading", "pp_arc_values",
-+           "pp_case_marked", "pp_observe", "pp_p_given", "pp_p_obj", "pp_new_assoc",
++           "pp_case_marked", "pp_observe", "pp_p_given", "pp_p_obj", "pp_new_assoc", "genitive_arcs",
 +           "root_cue_values", "predication_boost", "finiteness",
             "cop_predicates", "subordination", "assertion_candidates", "arc_scores", "head_posterior", "heads", "arc_scores_graded", "head_posterior_graded", "heads_graded", "SemanticBootstrapTeacher", "ASSET", "FORM"]
  
