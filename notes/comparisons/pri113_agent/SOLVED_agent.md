@@ -987,6 +987,45 @@ NP run must stop before the second `the` in *"that 's the WAY the greatest bear 
 tree at all). **On the 157 that ARE reachable here, the arm reaches 147 = 0.9363.** I report that as the honest
 decomposition, not as the bar being met: the bar is stated over all 167 and over all 167 the number is 0.8802.
 
+### 11i. ALL FOURTEEN CONSTRUCTIONS, ABLATED ONE AT A TIME -- and two more zeros, and another interaction
+
+Each row adds ONE construction to the row above, on the participant instrument, UD-EWT test 700:
+
+| arm | recall | precision | F1 | **on the 167** | added-fire precision |
+|---|---|---|---|---|---|
+| shipped `cop_predicates` | 0.9357 | 0.8262 | 0.8775 | 0.7246 | 0.7518 |
+| + LOCATION | 0.9344 | 0.8260 | 0.8769 | 0.7186 | 0.7500 |
+| + CLAUSE-LOCAL | 0.9344 | 0.8287 | 0.8784 | 0.7186 | 0.7721 |
+| + INVERSION | 0.9396 | 0.8354 | 0.8844 | 0.7425 | 0.8321 |
+| + DP (NP-internal participle) | 0.9449 | 0.8333 | 0.8856 | 0.7665 | 0.8143 |
+| + LOCATIVE INVERSION | 0.9514 | 0.8374 | 0.8908 | 0.7964 | 0.8500 |
+| + RIGHT-HAND HEAD RULE | 0.9528 | 0.8375 | 0.8914 | 0.8024 | 0.8511 |
+| + COMPLEX LOCATIVE | 0.9528 | 0.8375 | 0.8914 | **0.8024 (+0.0000)** | 0.8511 |
+| + LEFT-FRONTED PREDICATE | 0.9528 | 0.8375 | 0.8914 | **0.8024 (+0.0000)** | 0.8511 |
+| + ELLIPSIS (stranded) | 0.9541 | 0.8370 | 0.8917 | 0.8084 | 0.8462 |
+| + WH PREDICATE | 0.9541 | 0.8370 | 0.8917 | **0.8084 (+0.0000)** | 0.8462 |
+| + COMPLEMENT-CLAUSE LOCALITY | 0.9580 | 0.8354 | 0.8925 | **0.8263 (+0.0179)** | 0.8322 |
+| + SYM / INTJ | 0.9580 | 0.8354 | 0.8925 | **0.8263 (+0.0000)** | 0.8322 |
+| + PARENTHETICAL | **0.9606** | **0.8356** | **0.8938** | **0.8383 (+0.0120)** | 0.8344 |
+| (+ dp2, the second-determiner stop) | 0.9606 | 0.8356 | 0.8938 | **0.8383 (+0.0000)** | 0.8344 |
+| FLOOR -- the live reader as shipped | 0.8176 | 0.8358 | 0.8266 | **0.1856** | -- |
+
+**FIVE of the fifteen are worth EXACTLY ZERO on this population and all five are reported as zero.** Only
+COMPLEMENT-CLAUSE LOCALITY (+3 clauses) and PARENTHETICAL (+2) pay among the phase-7 four.
+
+**AND THERE IS A SECOND CONSTRUCTION INTERACTION, the same shape as LOCATION/FRONTED.** The WH-PREDICATE branch is
+inert on its own (+0.0000) and the COMPLEMENT-CLAUSE row that follows it jumps **+3 clauses**, more than the two
+`sure` items that row was built for. The reason is structural: **a wh-predicate is almost always followed by its
+own clause** (*"Which is WHY he didn't say it"*, *"that is HOW i want you to refer to me"*), so until a predicable
+complement closes the copula's verb group, the scan runs into `say` / `want` and refuses the copula outright. The
+wh branch cannot fire until the locality branch exists. **Two constructions, one system -- twice in one study.**
+
+*Method note, recorded because it bit me: in the run that produced this table the LEFT-FRONTED row initially
+inherited the four phase-7 constructions' defaults instead of switching them off, and reported 0.8323 -- a number
+for "everything except ellipsis", not for left-fronting. The row is corrected in the cell and the value above is
+LEFT-FRONTED's own, measured when the four did not yet exist. **A cumulative ablation has to switch OFF everything
+below it as well as ON everything above it**, and a row that silently inherits a default is a mislabelled arm.*
+
 ### 11e. (2i) THE GRADED ARC CUE'S BOARD A/B
 
 **THE SHIPPED CONFIGURATION, BOARDED.** Both arms back-to-back in ONE process, the state dimension at FULL size
@@ -1192,9 +1231,12 @@ whole tau region 0.05-0.90 has a precision CI containing zero. TWIN, 3 seeds, ma
 FOURTEEN CONSTRUCTIONS, EVERY ONE FOUND BY ATTRIBUTING THE RESIDUAL AND ABLATED SEPARATELY: LOCATION, CLAUSE-LOCAL,
 INVERSION, DP (the NP-internal participle), LOCATIVE INVERSION, the RIGHT-HAND HEAD RULE across a hyphen, COMPLEX
 LOCATIVE, LEFT-FRONTED PREDICATE, stranded ELLIPSIS, a WH-form predicate, a predicable complement CLOSING the
-copula's verb group, SYM/INTJ, and a PARENTHETICAL skipped comma-to-comma. TWO OF THEM ARE WORTH EXACTLY ZERO and
-are reported as zero. LOCATION alone is NEGATIVE and turns positive only with LOCATIVE INVERSION, because English
-normally FRONTS the locative predicate. The word sets are a SWEPT operating point: a permissive frontable set
+copula's verb group, SYM/INTJ, and a PARENTHETICAL skipped comma-to-comma. FIVE OF THE FIFTEEN ARE WORTH EXACTLY ZERO and every
+one is reported as zero (section 11i); only COMPLEMENT-CLAUSE LOCALITY (+3 clauses) and PARENTHETICAL (+2) pay
+among the phase-7 four. TWO CONSTRUCTION INTERACTIONS, both the same shape: LOCATION alone is NEGATIVE and
+turns positive only with LOCATIVE INVERSION (English normally FRONTS the locative predicate), and the WH-PREDICATE
+branch is inert (+0.0000) until COMPLEMENT-CLAUSE LOCALITY exists, because a wh-predicate is almost always followed
+by its own clause and the verb-group scan ran into it and refused the copula outright. The word sets are a SWEPT operating point: a permissive frontable set
 including `that`/`this` cost the 167 recall .7904 -> .7305. One construction cost more than it bought (31 extra
 fires for 2 clauses, precision CI-separated DOWN) and was NARROWED, not kept.
 

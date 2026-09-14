@@ -742,7 +742,7 @@ ABLATION = [
     ("+COMPLEX LOCATIVE",      dict(loc=True,  front=True,  inv=True,  clause=True,  det=True, hyph=True,
                                     pploc=True, frontl=False, wh=False, cl=False, sym=False, paren=False)),
     ("+LEFT-FRONTED PRED",     dict(loc=True,  front=True,  inv=True,  clause=True,  det=True, hyph=True,
-                                    pploc=True, frontl=True)),
+                                    pploc=True, frontl=True, wh=False, cl=False, sym=False, paren=False)),
     ("+ELLIPSIS (stranded)",   dict(loc=True,  front=True,  inv=True,  clause=True,  det=True, hyph=True,
                                     pploc=True, frontl=True, ellip=True, wh=False, cl=False, sym=False,
                                     paren=False)),
