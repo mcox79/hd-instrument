@@ -737,6 +737,21 @@ constructions, one system. The word sets are a SWEPT operating point: a permissi
 whenever the scan fails: 31 extra fires for 2 clauses, precision CI-separated DOWN) was NARROWED to the truly
 stranded configuration, not kept.
 
+THE BRIEF'S ITEM 4 ANSWERED IN ITS OWN ORDER -- A SECOND CUE, GRADED AND SWEPT. The heads rung gives an
+INDEPENDENT read of the same predicate (a copula attaches TO it), and the two cues overlap but are not the same set
+(98 shared, 20 surface-only, 10 arc-only of the 167). A RAW UNION is a real trade-off: recall +0.0118 CI[+0.0052,
++0.0197] for precision -0.0294 CI[-0.0378,-0.0213], both CI-separated. THE GRADED FORM REMOVES IT: the arc read's
+reliability is the governor's OWN posterior on the copula's arc (Ernst & Banks 2002 -- the same quantity the role
+builder already uses as its teaching weight), and gating on it gives, on the 167: tau 0.00 -> 0.8623 at precision
+-0.0282 SEPARATED DOWN; tau 0.10 -> 0.8563 at -0.0038 n.s.; tau 0.50 -> 0.8503 at -0.0026 n.s. and F1 0.8935, the
+best in the study; tau 0.90 -> 0.8323 at -0.0016 n.s.; off -> 0.8084 at +0.0012. FLAT from 0.05 to 0.90 (a 0.0034
+precision spread across an 18x threshold change), so the operating point is not a tuned knob. The PUREST arc read
+(the copula's own MAP head, no fallback) is WORSE at every threshold (tau 0.5: precision 0.8274 vs 0.8332), which
+is evidence FOR the landed copular organ's gates. SHIPPED DEFAULT OFF (HDLAB_PREDICATION_ARC_TAU=0) for one stated
+reason: the board A/B covers the SURFACE arm and this one has not had its own. Turning it on is one environment
+variable plus one `--board-ab --full`, and it takes the 167 from 0.8084 to 0.8503 -- the single highest-value
+remaining action in this brief.
+
 THE TENSE READER WAS SILENT ON EVERY COPULAR CLAUSE and now is not: carrying the tense of a non-finite predication
 is the copula's ONE job (Pustet 2003), so the predication inherits the CARRIER's tense -- 0 -> 117 of 167 (0.7006),
 82 present / 25 past / 5 modal / 4 future / 1 past-perfect. I do NOT claim an accuracy number: the copula's form IS
