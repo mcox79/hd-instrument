@@ -465,6 +465,71 @@ def z_bin(z: float, edges=Z_EDGES) -> str:
     return Z_NAMES[-1]
 
 
+# ---------------------------------------------------------------------------------------------------------------
+# THE REFERENTIAL CONTEXT CUE (Spivey-Knowlton & Sedivy 1995; Altmann & Steedman 1988)
+# ---------------------------------------------------------------------------------------------------------------
+# The third constraint the constraint-based literature puts on PP attachment, after lexical association and thematic
+# fit, is REFERENTIAL: a modifier is read as a modifier when it is NEEDED to pick a referent out.  A DEFINITE nominal
+# presupposes a unique referent, so when the discourse offers more than one candidate of that kind the reader expects
+# a restrictive modifier and attaches the phrase to the NOUN; an indefinite does not, and the phrase goes to the VERB
+# (Altmann & Steedman 1988's one-referent vs two-referent contexts; Spivey-Knowlton & Sedivy 1995 crossed definiteness
+# with verb bias and found definiteness shifts attachment even against the verb's own preference).  Everything the cue
+# needs is readable off the form: the determiner of the candidate host, and whether a LIKE referent has already
+# occurred.  Values categorical, validity LEARNED by the arm's own counts like every other cue.
+DEF_DET = frozenset({"the", "this", "that", "these", "those", "both", "each", "every", "all"})
+INDEF_DET = frozenset({"a", "an", "some", "any", "another", "one", "no", "several", "many", "few", "other"})
+
+
+def host_definiteness(toks: Sequence[str], pos: Sequence[str], q: int) -> str:
+    """def / indef / poss / bare for a nominal host (its determiner), or "na" for a verb or adjective host."""
+    if pos[q - 1] not in NOM_HOST:
+        return "na"
+    if pos[q - 1] == "PROPN":
+        return "name"
+    k = q - 1
+    while k >= 1 and pos[k - 1] in ("ADJ", "NUM", "ADV", "NOUN", "PROPN"):
+        k -= 1
+    if k >= 1:
+        w = toks[k - 1].lower()
+        if pos[k - 1] == "DET":
+            return "def" if w in DEF_DET else "indef" if w in INDEF_DET else "detother"
+        if pos[k - 1] == "PART" and w in ("'s", "s", "'"):
+            return "poss"
+        if pos[k - 1] == "PRON" and w not in _NON_POSS_PRON:
+            return "poss"
+    return "bare"
+
+
+def has_rival_referent(toks: Sequence[str], pos: Sequence[str], q: int) -> bool:
+    """A COMPETING referent for the candidate host: another nominal earlier in the sentence of the same lemma or the
+    same WordNet supersense. Altmann & Steedman's two-referent context, read off the sentence alone."""
+    if pos[q - 1] not in ("NOUN", "PROPN"):
+        return False
+    key = host_key(toks, pos, q); cls = host_class(toks, pos, q)
+    for r in range(1, q):
+        if pos[r - 1] not in ("NOUN", "PROPN") or not _is_nominal_host(pos, r):
+            continue
+        if host_key(toks, pos, r) == key:
+            return True
+        if cls != "N:unk" and host_class(toks, pos, r) == cls:
+            return True
+    return False
+
+
+def ppref_values(toks: Sequence[str], pos: Sequence[str], k_cap: int = 6) -> Dict[Tuple[int, int], str]:
+    """(host, PP-object) -> "<host type>:<definiteness>[R]" for every retrieved candidate."""
+    out: Dict[Tuple[int, int], str] = {}
+    for prep, obj, cands in pp_sites(toks, pos, k_cap):
+        for q in cands:
+            if q == obj:
+                continue
+            v = host_type(pos[q - 1]) + ":" + host_definiteness(toks, pos, q)
+            if has_rival_referent(toks, pos, q):
+                v += "R"
+            out[(q, obj)] = v
+    return out
+
+
 def _contrast(sc: List[float], idx: int, form: str) -> float:
     """This candidate's score against the retrieved population. See ZFORM.
     "flat" is a CONTROL, not a readout: the cue fires on exactly the same arcs with a CONSTANT value, so the organ
@@ -515,8 +580,151 @@ def pp_arc_values(toks: Sequence[str], pos: Sequence[str], assoc: PPAssoc, k_cap
     return out, out2
 
 
+# ---------------------------------------------------------------------------------------------------------------
+# THE OBLIQUE-SLOT SELECTIONAL CHANNEL (phase 7; the submission's alternate path #1, now buildable)
+# ---------------------------------------------------------------------------------------------------------------
+# The first submission named this "the most brain-foundational thing left in this area" and parked it because it
+# needed "a third grown store".  IT ALREADY EXISTS.  `tools/grow_selectional_store_bf.py` grows the verb->role->filler
+# store FROM THE SUBSTRATE'S OWN READING CHAIN (its own categories -> the attachment arm -> the role competition; no
+# external parser), and it already accrues an `obl:<preposition>` slot alongside SUBJ / OBJ / IOBJ:
+# data/selectional_preferences_bf_v1/selectional_slots_bf_v1.pkl holds 11,857 (verb, obl:<prep>) slots and 41,460
+# oblique filler observations grown from 60,000 Simple-Wiki lines.
+#
+# WHY IT IS THE RIGHT CHANNEL.  The `ppobj` channel this cell already ships is typed only by the host's CATEGORY:
+# P(class of the object | V-or-N, preposition).  It cannot tell "ate the pizza WITH A FORK" from "ate the pizza WITH
+# ANCHOVIES", because both hosts are verbs and both objects compete against the same V-level distribution.
+# Ratnaparkhi's model and the thematic-fit literature are LEXICAL in the predicate: the quadruple (v, n1, p, n2)
+# (Ratnaparkhi 1998; Hindle & Rooth 1993 lexical association; McRae, Ferretti & Amyote 1997 role-as-feature-bundle --
+# a thematic role is a bundle of features of the filler a PARTICULAR predicate expects).  This channel supplies the
+# missing (v, p, class(n2)) term, in the typed Resnik-style form the substrate's selectional organ uses everywhere.
+#
+# THE READOUT IS DELIBERATELY NOT A CROSS-TYPE CONTRAST.  Section 5(a) of the submission refuted the "strongest rival"
+# readout because comparing a noun host with a verb host smuggles a TYPE PRIOR into what should be an association.
+# The store holds only verbs, so a population contrast here would do exactly that again.  The value is instead this
+# host's LEXICAL SPECIFICITY, pointwise:  log[ P(class | this verb, this preposition) / P(class | this preposition) ]
+# -- how much more this particular predicate expects this kind of oblique filler than predicates in general do.  It is
+# ~0 for a predicate with no specific preference, type-neutral by construction, and a host the store has never seen
+# ABSTAINS ("na"), a value whose validity the arm learns like any other.
+BF_SLOT_STORE = os.path.join(REPO, "data", "selectional_preferences_bf_v1", "selectional_slots_bf_v1.pkl")
+
+
+class OblSlotPreference:
+    """P(class of the oblique filler | predicate lemma, preposition) as plastic COUNTS with Resnik-style type
+    generalisation, read off the substrate's own grown slot store.  Counts in, one pure function out; `observe(...)`
+    accrues one comprehension outcome online exactly like `PPAssoc.observe`."""
+
+    def __init__(self, m1: float = 5.0, m2: float = 20.0):
+        self.c: Dict[str, float] = defaultdict(float)     # "<verb>|<prep>|<class>"
+        self.d: Dict[str, float] = defaultdict(float)     # "<verb>|<prep>"
+        self.cg: Dict[str, float] = defaultdict(float)    # "<prep>|<class>"
+        self.dg: Dict[str, float] = defaultdict(float)    # "<prep>"
+        self.cw: Dict[str, float] = defaultdict(float)    # "<class>"
+        self.tot = 0.0
+        self.m1 = float(m1); self.m2 = float(m2)
+        self._cache: Dict[Tuple[str, str, str], float] = {}
+
+    def observe(self, verb: str, prep: str, cls: str, w: float = 1.0) -> None:
+        self.c[verb + "|" + prep + "|" + cls] += w; self.d[verb + "|" + prep] += w
+        self.cg[prep + "|" + cls] += w; self.dg[prep] += w
+        self.cw[cls] += w; self.tot += w
+        self._cache.clear()
+
+    def p_global(self, prep: str, cls: str) -> float:
+        pg = (self.cw.get(cls, 0.0) + 0.5) / (self.tot + 1.0)
+        return (self.cg.get(prep + "|" + cls, 0.0) + self.m2 * pg) / (self.dg.get(prep, 0.0) + self.m2)
+
+    def p_local(self, verb: str, prep: str, cls: str) -> Optional[Tuple[float, float]]:
+        """(P(class | verb, prep), P(class | prep)) or None when the predicate is unseen in this slot."""
+        if self.d.get(verb + "|" + prep, 0.0) <= 0.0:
+            return None
+        g = self.p_global(prep, cls)
+        pl = (self.c.get(verb + "|" + prep + "|" + cls, 0.0) + self.m1 * g) / (self.d[verb + "|" + prep] + self.m1)
+        return pl, g
+
+    def oblique_plausibility(self, verb: str, prep: str, cls: str) -> Optional[float]:
+        """The oblique slot's plausibility on the SAME 0..1 scale the object slot uses: the share this predicate's own
+        oblique expectation takes against what any predicate expects with this preposition.  0.5 = no preference,
+        > 0.5 = this predicate really does take this kind of thing as an oblique with this preposition."""
+        pg = self.p_local(verb, prep, cls)
+        if pg is None:
+            return None
+        pl, g = pg
+        return pl / (pl + g) if (pl + g) > 0 else 0.5
+
+    def logspec(self, verb: str, prep: str, cls: str) -> Optional[float]:
+        """log[P(class | verb, prep) / P(class | prep)]; None when the predicate is unseen in this slot (ABSTAIN)."""
+        if self.d.get(verb + "|" + prep, 0.0) <= 0.0:
+            return None
+        key = (verb, prep, cls)
+        v = self._cache.get(key)
+        if v is None:
+            g = self.p_global(prep, cls)
+            pl = (self.c.get(verb + "|" + prep + "|" + cls, 0.0) + self.m1 * g) / (self.d[verb + "|" + prep] + self.m1)
+            v = math.log(max(pl, 1e-12)) - math.log(max(g, 1e-12))
+            self._cache[key] = v
+        return v
+
+    @classmethod
+    def from_grown_store(cls, path=None, m1: float = 5.0, m2: float = 20.0) -> "OblSlotPreference":
+        """Read the substrate's own grown store and TYPE its fillers with the same WordNet supersense table the typed
+        selectional-preference organ reads. Nothing is fitted here; the counts are the store's own."""
+        import pickle
+        from hdlab.typed_selectional_preference import noun_supersense
+        self = cls(m1, m2)
+        sf = pickle.load(open(path or BF_SLOT_STORE, "rb"))["slot_filler"]
+        for (v, role), fillers in sf.items():
+            if not role.startswith("obl:"):
+                continue
+            prep = role.split(":", 1)[1]
+            if not prep or prep == "_":
+                continue
+            vl = lemma_verb(v).lower()
+            for w, cnt in fillers.items():
+                self.observe(vl, prep, noun_supersense(w) or "unk", float(cnt))
+        return self
+
+    def scramble(self, seed: int = 20260913) -> "OblSlotPreference":
+        """INFORMATION-FREE TWIN: each predicate's oblique-filler profile is reassigned to another predicate. Every
+        count, every marginal and the density are identical; only WHICH predicate expects WHICH filler is destroyed."""
+        rng = random.Random(seed + 7)
+        out = OblSlotPreference(self.m1, self.m2)
+        verbs = sorted({k.split("|", 1)[0] for k in self.d})
+        donor = list(verbs); rng.shuffle(donor); mp = dict(zip(verbs, donor))
+        for k, val in self.c.items():
+            v, p, c = k.split("|", 2)
+            out.c[mp.get(v, v) + "|" + p + "|" + c] = val
+        for k, val in self.d.items():
+            v, p = k.split("|", 1)
+            out.d[mp.get(v, v) + "|" + p] = val
+        out.cg = defaultdict(float, self.cg); out.dg = defaultdict(float, self.dg)
+        out.cw = defaultdict(float, self.cw); out.tot = self.tot
+        return out
+
+    def stats(self) -> dict:
+        return {"predicate_prep_slots": len(self.d), "filler_class_cells": len(self.c),
+                "prepositions": len(self.dg), "observations": round(self.tot, 1)}
+
+
+def ppslot_values(toks: Sequence[str], pos: Sequence[str], slot, k_cap: int = 6,
+                  edges=Z_EDGES) -> Dict[Tuple[int, int], str]:
+    """(host, PP-object) -> the z-bin of the host's lexical oblique specificity, or "na" when the store abstains."""
+    out: Dict[Tuple[int, int], str] = {}
+    for prep, obj, cands in pp_sites(toks, pos, k_cap):
+        p = toks[prep - 1].lower()
+        oc = obj_class(toks, pos, obj)
+        for q in cands:
+            if q == obj:
+                continue
+            if pos[q - 1] != "VERB":
+                out[(q, obj)] = "na"
+                continue
+            z = slot.logspec(lemma_verb(toks[q - 1]).lower(), p, oc)
+            out[(q, obj)] = "na" if z is None else z_bin(z, edges)
+    return out
+
+
 _ACTIVE: Dict[str, object] = {"assoc": None, "k_cap": 6, "edges": Z_EDGES, "typed": False, "on": False,
-                              "obj_cue": False, "casefix": False, "zform": ZFORM}
+                              "obj_cue": False, "casefix": False, "zform": ZFORM, "slot": None}
 
 
 # ---------------------------------------------------------------------------------------------------------------
@@ -581,6 +789,19 @@ _NON_POSS_PRON = frozenset({"i", "he", "she", "it", "they", "we", "you", "me", "
 
 
 _CASE_CACHE: Dict[Tuple, set] = {}
+_CASE_PREP_CACHE: Dict[Tuple, dict] = {}
+
+
+def case_marked_preps(toks: Sequence[str], pos: Sequence[str], k_cap: int = 6) -> dict:
+    """{object index -> the preposition that marks it}. Memoised; a pure function of (tokens, categories, k_cap)."""
+    key = (tuple(toks), tuple(pos), k_cap)
+    v = _CASE_PREP_CACHE.get(key)
+    if v is None:
+        v = {obj: toks[prep - 1].lower() for prep, obj, _ in pp_sites(toks, pos, k_cap)}
+        if len(_CASE_PREP_CACHE) > 20000:
+            _CASE_PREP_CACHE.clear()
+        _CASE_PREP_CACHE[key] = v
+    return v
 
 
 def case_marked_heads(toks: Sequence[str], pos: Sequence[str], k_cap: int = 6) -> set:
@@ -615,19 +836,84 @@ def _slot_plausibility_casefix(self, toks, pos, h, j):
       value), so the arm learns a SEPARATE validity for "plausible participant, oblique slot" instead of conflating it
       with the direct-object slot. The ACQUISITION teacher is untouched (`score_matrix` reads the unsigned value), so
       nothing the teacher taught is removed -- only the read-time cue gains a distinction it did not have."""
-    if _ACTIVE["casefix"] and not _ACTIVE.get("_in_teacher") and j in case_marked_heads(toks, pos, _ACTIVE["k_cap"]):
+    if _ACTIVE["casefix"] == "oblteach" and _ACTIVE.get("slot") is not None and pos[h - 1] == "VERB":
+        # PINKER'S THIRD SLOT, WITH REAL CONTENT (phase 7).  The submission refuted two shortcuts here and named the
+        # real fix: "give the acquisition teacher an OBLIQUE SLOT ... an OBL-slot selectional association grown the way
+        # SUBJ and OBJ already are, so a case-marked nominal is scored as a plausible OBLIQUE participant rather than
+        # as a bad object" (SOLVED.md section 8.1).  That store exists -- the substrate grew it from its own reading --
+        # so the case-marked nominal is now scored in the OBLIQUE slot, by THIS predicate's own oblique expectation
+        # with THIS preposition.  Crucially this does NOT zero the verb's pull: section 5(b) showed the over-broad
+        # guard is the arm's only oblique-argument teacher, and zeroing it collapses obl 0.449 -> 0.199.  When the
+        # store abstains the original value stands, so nothing the teacher taught is ever removed -- only re-scored.
+        # It applies inside the ACQUISITION teacher as well as at read time, which is the whole point: the arm must
+        # LEARN that a verb takes obliques of the kinds this verb takes.
+        pr = case_marked_preps(toks, pos, _ACTIVE["k_cap"]).get(j)
+        if pr is not None:
+            v = _ACTIVE["slot"].oblique_plausibility(lemma_verb(toks[h - 1]).lower(), pr, obj_class(toks, pos, j))
+            if v is not None:
+                return float(v)
+        return _ORIG_SLOT_PLAUS(self, toks, pos, h, j)
+    if _ACTIVE["casefix"] and _ACTIVE["casefix"] != "oblteach" and not _ACTIVE.get("_in_teacher") \
+            and j in case_marked_heads(toks, pos, _ACTIVE["k_cap"]):
         if _ACTIVE["casefix"] == "zero":
             return 0.0
         return -(abs(_ORIG_SLOT_PLAUS(self, toks, pos, h, j)) + 1e-9)
     return _ORIG_SLOT_PLAUS(self, toks, pos, h, j)
 
 
+# ---------------------------------------------------------------------------------------------------------------
+# THE NOMINAL HOST SLOT (phase 7): the acquisition teacher is VERB-ONLY, and that is the asymmetry under the nmod loss
+# ---------------------------------------------------------------------------------------------------------------
+# `SemanticBootstrapTeacher.score_matrix` adds its meaning term `beta * slot_plausibility(h, j)` on exactly one kind of
+# arc: `pos[h-1] == "VERB" and pos[j-1] in NOMINAL`.  A NOUN host gets no meaning support at all, ever.  So while the
+# arm is learning, every case-marked nominal has a verb competing for it with a large semantic vote and a noun
+# competing for it with nothing -- which is precisely the direction of the nmod loss, and precisely why deleting the
+# over-broad case guard collapsed obl (section 5b): that guard was the ONLY meaning signal on this population, and it
+# only ever spoke for verbs.
+#
+# THE BRAIN DOES NOT HAVE THIS ASYMMETRY.  A relational noun selects its complement exactly as a verb selects its
+# argument -- "the picture OF the girl", "the edge OF the table", "the trip TO Paris" (Barker 1995 possessive
+# descriptions; Lobner's relational nouns; Rappaport Hovav & Levin on argument-taking nominals).  Psycholinguistically
+# the noun's own preposition expectation is one of the two lexical terms in the original Hindle & Rooth contrast --
+# the model is log[P(p | VERB) / P(p | NOUN)], symmetric by construction -- and the reader uses it online
+# (Spivey-Knowlton & Sedivy 1995).  The organ has the noun side of that association already (it is mined here); what
+# it lacks is a channel for the noun to VOTE while the validities are being acquired.
+#
+# THE COMPUTATION.  For every retrieved NOMINAL host h of a case-marked nominal j, add `beta_n * P_host(h, p)` to the
+# teacher's arc score, where P_host is the same 0..1 contrast shape the object slot uses:
+#       P_host = P(p | this noun) / [ P(p | this noun) + P(p | this noun's class) ]
+# 0.5 when this noun is no more attracted to the preposition than nouns of its kind, above 0.5 when it is -- the noun's
+# own relational expectation, from counts, with the Resnik-style class as the reference. beta_n is swept, never adopted.
+def _nominal_host_support(A, n, toks, pos):
+    """Give NOMINAL hosts the meaning vote the teacher currently reserves for verbs. Counts only; no gold, no tree."""
+    assoc = _ACTIVE["assoc"]
+    if assoc is None:
+        return A
+    bn = float(_ACTIVE.get("beta_nom") or 0.0)
+    if bn <= 0.0:
+        return A
+    for prep, obj, cands in pp_sites(toks, pos, _ACTIVE["k_cap"]):
+        pw = toks[prep - 1].lower()
+        for q in cands:
+            if q == obj or pos[q - 1] not in NOM_HOST or not (1 <= q <= n) or not np.isfinite(A[q][obj]):
+                continue
+            hk = host_key(toks, pos, q); hc = host_class(toks, pos, q)
+            pl = assoc.p_given(hk, hc, pw)
+            gc = (assoc.cc.get(hc + "|" + pw, 0.0) + assoc.m2 * assoc.p_prep(pw)) / (assoc.dc.get(hc, 0.0) + assoc.m2)
+            A[q][obj] += bn * (pl / (pl + gc) if (pl + gc) > 0 else 0.5)
+    return A
+
+
 def _score_matrix_teacher(self, toks, pos):
     """The acquisition teacher reads the UNSIGNED plausibility: the case-marking distinction is a READ-TIME cue value,
-    never a change to the outcome signal the validities are counted from."""
+    never a change to the outcome signal the validities are counted from.  Phase 7 adds the NOMINAL HOST SLOT here,
+    inside the teacher, because that is where the verb-only asymmetry lives."""
     _ACTIVE["_in_teacher"] = True
     try:
-        return _ORIG_SCORE_MATRIX(self, toks, pos)
+        A, n = _ORIG_SCORE_MATRIX(self, toks, pos)
+        if _ACTIVE.get("beta_nom"):
+            A = _nominal_host_support(A, n, toks, pos)
+        return A, n
     finally:
         _ACTIVE["_in_teacher"] = False
 
@@ -648,6 +934,12 @@ class PPCues(AA.SentenceCues):
         super().__init__(toks, pos, frames, pp_assoc)
         self.pp_arc: Dict[Tuple[int, int], str] = {}
         self.ppobj_arc: Dict[Tuple[int, int], str] = {}
+        self.ppref_arc: Dict[Tuple[int, int], str] = {}
+        self.ppslot_arc: Dict[Tuple[int, int], str] = {}
+        if _ACTIVE.get("ref_cue"):
+            self.ppref_arc = ppref_values(self.toks, self.pos, _ACTIVE["k_cap"])
+        if _ACTIVE.get("slot") is not None and _ACTIVE.get("slot_cue"):
+            self.ppslot_arc = ppslot_values(self.toks, self.pos, _ACTIVE["slot"], _ACTIVE["k_cap"], _ACTIVE["edges"])
         if _ACTIVE["on"] and _ACTIVE["assoc"] is not None:
             self.pp_arc, self.ppobj_arc = pp_arc_values(self.toks, self.pos, _ACTIVE["assoc"], _ACTIVE["k_cap"],
                                                         _ACTIVE["edges"], _ACTIVE["typed"], _ACTIVE["obj_cue"],
@@ -664,6 +956,14 @@ class PPCues(AA.SentenceCues):
             v2 = self.ppobj_arc.get((h, j))
             if v2 is not None:
                 c["ppobj"] = v2
+        if h and self.ppref_arc:
+            v3 = self.ppref_arc.get((h, j))
+            if v3 is not None:
+                c["ppref"] = v3
+        if h and self.ppslot_arc:
+            v4 = self.ppslot_arc.get((h, j))
+            if v4 is not None:
+                c["ppslot"] = v4
         return c
 
 
@@ -688,7 +988,9 @@ def cached_cues(toks, pos, frames, pp_assoc=None):
     key = (tuple(toks), tuple(pos))
     sc = _CUE_CACHE.get(key)
     if sc is None:
-        cls = PPCues if _ACTIVE["on"] else _ORIG_CUES
+        # ANY of the cell's cues (association, referential, oblique slot) needs the widened cue pass. Before phase 7
+        # this read `_ACTIVE["on"]` alone, so an arm carrying ONLY the referential cue silently reduced to `base`.
+        cls = PPCues if (_ACTIVE["on"] or _ACTIVE.get("ref_cue") or _ACTIVE.get("slot_cue")) else _ORIG_CUES
         sc = cls(toks, pos, frames, pp_assoc)
         if len(_CUE_CACHE) < _CUE_CACHE_MAX:
             _CUE_CACHE[key] = sc
@@ -699,12 +1001,13 @@ def arc_scores_pp(toks, pos, table=None):
     """The arm's vectorised activation plus the widened PP cue's contributions (sparse: <= k_cap cells per site).
     Numerically identical to `AA.arc_scores_reference` under the same patched SentenceCues (checked by --self-test)."""
     A, n = _ORIG_ARC_SCORES(toks, pos, table)
-    if not (_ACTIVE["on"] and _ACTIVE["assoc"] is not None):
+    if not (_ACTIVE["on"] and _ACTIVE["assoc"] is not None) and not _ACTIVE.get("ref_cue") and not _ACTIVE.get("slot_cue"):
         return A, n
     tab = table or AA.load_attachment_validities()
     ix = AA._arc_index(tab)
     sc = AA.SentenceCues(toks, pos, tab.get("frames", {}), tab.get("pp_assoc"))
-    for cue, arcs in (("pp", sc.pp_arc), ("ppobj", sc.ppobj_arc)):
+    for cue, arcs in (("pp", sc.pp_arc), ("ppobj", sc.ppobj_arc), ("ppref", sc.ppref_arc),
+                      ("ppslot", getattr(sc, "ppslot_arc", {}))):
         T = ix.cue_tab.get(cue)
         if T is None or not arcs:
             continue
@@ -720,14 +1023,17 @@ _ORIG_CUE_NAMES = AA.CUES
 
 
 def activate(assoc: Optional[PPAssoc], k_cap: int = 6, edges=Z_EDGES, typed: bool = False,
-             obj_cue: bool = False, casefix=False, zform: str = ZFORM, gen_cue: bool = False) -> None:
+             obj_cue: bool = False, casefix=False, zform: str = ZFORM, gen_cue: bool = False,
+             ref_cue: bool = False, slot=None, slot_cue: bool = False, beta_nom: float = 0.0) -> None:
     """Turn the widened PP cue on (assoc given) or off (None) for every subsequent call into the arm."""
     _ACTIVE.update({"assoc": assoc, "k_cap": k_cap, "edges": edges, "typed": typed, "on": assoc is not None,
-                    "obj_cue": obj_cue, "casefix": casefix, "zform": zform, "gen_cue": gen_cue})
+                    "obj_cue": obj_cue, "casefix": casefix, "zform": zform, "gen_cue": gen_cue,
+                    "ref_cue": ref_cue, "slot": slot, "slot_cue": slot_cue, "beta_nom": beta_nom})
     clear_cues_cache()
     AA.SentenceCues = cached_cues
-    AA.arc_scores = arc_scores_pp if assoc is not None else _ORIG_ARC_SCORES
-    AA.CUES = _ORIG_CUE_NAMES + (("ppobj",) if obj_cue else ())
+    AA.arc_scores = arc_scores_pp if (assoc is not None or ref_cue or slot_cue) else _ORIG_ARC_SCORES
+    AA.CUES = (_ORIG_CUE_NAMES + (("ppobj",) if obj_cue else ()) + (("ppref",) if ref_cue else ())
+               + (("ppslot",) if slot_cue else ()))
     AA.SemanticBootstrapTeacher.slot_plausibility = _slot_plausibility_casefix
     AA.SemanticBootstrapTeacher.score_matrix = _score_matrix_teacher
     AA._plaus_bin = _plaus_bin_caseslot
@@ -740,7 +1046,8 @@ def activate(assoc: Optional[PPAssoc], k_cap: int = 6, edges=Z_EDGES, typed: boo
 def deactivate_to_head(cache: bool = True) -> None:
     """Back to the arm exactly as HEAD ships it. `cache` keeps only the (numerically neutral) one-pass cue cache, so
     the base arm's build is timed like the others."""
-    _ACTIVE.update({"assoc": None, "on": False, "obj_cue": False, "casefix": False, "zform": ZFORM})
+    _ACTIVE.update({"assoc": None, "on": False, "obj_cue": False, "casefix": False, "zform": ZFORM,
+                    "ref_cue": False, "slot": None, "slot_cue": False, "beta_nom": 0.0})
     clear_cues_cache()
     AA.SentenceCues = cached_cues if cache else _ORIG_CUES
     AA.arc_scores = _ORIG_ARC_SCORES
@@ -776,6 +1083,8 @@ def build_table(train, teacher, rounds: int = 3, alpha: float = 0.8, pp_assoc_le
         else:
             A, n = teacher._score_matrix(toks, pos)
             A = AA.parallelism_boost(A, toks, pos)
+            if hasattr(AA, "predication_boost"):
+                A = AA.predication_boost(A, toks, pos)     # pri-97's acquisition signal; present in the landed builder
             mt = single_root_marginals(A, n, 1.0)
             tmarg.append(mt)
         AA.accrue_sentence(counts, AA.SentenceCues(toks, pos, frames, pp_assoc_legacy), mt)
@@ -811,6 +1120,54 @@ def per_sentence_hits(table, test, decode: str) -> List[dict]:
         for toks, pos, gold, rels in test:
             hd = AA.heads(toks, pos, table)
             sites = {obj: (prep, c) for prep, obj, c in pp_sites(toks, pos, _ACTIVE["k_cap"] or 6)}
+            rec = {"n": 0, "hit": 0, "rel": defaultdict(lambda: [0, 0]), "pp": [0, 0],
+                   "pp_obl": [0, 0], "pp_nmod": [0, 0]}
+            for i, g in enumerate(gold, start=1):
+                if not (0 <= g <= len(toks)):
+                    continue
+                ok = int(hd.get(i, -1) == g)
+                rec["n"] += 1; rec["hit"] += ok
+                r = rels[i - 1]
+                if r in CORE_RELS:
+                    rec["rel"][r][0] += 1; rec["rel"][r][1] += ok
+                if i in sites and r in ("obl", "nmod"):
+                    rec["pp"][0] += 1; rec["pp"][1] += ok
+                    rec["pp_" + r][0] += 1; rec["pp_" + r][1] += ok
+            rec["rel"] = {k: v for k, v in rec["rel"].items()}
+            out.append(rec)
+    finally:
+        AA.DECODE = old
+    return out
+
+
+_LC_TAGS: Dict[Tuple[str, ...], Tuple[List[str], list]] = {}
+
+
+def live_tags(toks: Sequence[str]):
+    """The categories rung's OWN readout: hdlab.lexical_categories (count-based generative model, forward-backward)
+    -> (argmax tags, per-token posterior). Cached per sentence; it is a pure function of the tokens."""
+    key = tuple(toks)
+    v = _LC_TAGS.get(key)
+    if v is None:
+        from hdlab import lexical_categories as LC
+        v = LC.get().tag_with_posterior(list(toks))
+        _LC_TAGS[key] = v
+    return v
+
+
+def per_sentence_hits_live(table, test, decode: str) -> List[dict]:
+    """THE LIVE CHAIN: no gold categories anywhere. The category organ tags each sentence and hands DOWN its posterior;
+    the attachment competition is marginalised over the uncertain tokens (`arc_scores_graded`), and the PP cue reads
+    the organ's own tags -- so the preposition, the nominal run and the candidate hosts are all the organ's call."""
+    old = AA.DECODE
+    AA.DECODE = decode
+    out = []
+    try:
+        for toks, _gold_pos, gold, rels in test:
+            pos, tpost = live_tags(toks)
+            A, n = AA.arc_scores_graded(toks, pos, tpost, table)
+            hd = AA.decode(toks, pos, A, n, 1.0, table)[0]
+            sites = {obj for _, obj, _ in pp_sites(toks, pos, _ACTIVE["k_cap"] or 6)}
             rec = {"n": 0, "hit": 0, "rel": defaultdict(lambda: [0, 0]), "pp": [0, 0],
                    "pp_obl": [0, 0], "pp_nmod": [0, 0]}
             for i, g in enumerate(gold, start=1):
@@ -1031,6 +1388,280 @@ def consumer_roles(table, test, decode: str) -> dict:
             "obl_nmod_confusions": dict(sorted(conf.items(), key=lambda kv: -kv[1])[:8])}
 
 
+def roles_diag(tables: Dict[str, object], test, decode: str = "incr") -> dict:
+    """HEADS -> LABELS. 283 gold nmod are labelled `obl` by the role competition under the base heads. Is that the
+    labeler's CUE SET (it reads head class x order, so a nominal hanging off a verb looks oblique whatever the head
+    rung says) or the HEAD HAND-OFF (the head is simply wrong)? The decisive control is the role competition run on
+    GOLD heads: if the confusion survives gold heads it is the cue set, if it disappears it is the hand-off."""
+    from hdlab.graded_role_assigner import coarse_roles, load_coarse_validities, NOMINAL as RNOM
+    rtab = load_coarse_validities()
+    old = AA.DECODE
+    AA.DECODE = decode
+    out = {}
+    try:
+        for name, tab in tables.items():
+            conf = defaultdict(int); head_ok = defaultdict(lambda: [0, 0])
+            for toks, pos, gold, rels in test:
+                if name == "GOLD-HEADS":
+                    hd = {i: gold[i - 1] for i in range(1, len(toks) + 1) if 0 <= gold[i - 1] <= len(toks)}
+                    post = {i: {hd[i]: 1.0} for i in hd}
+                else:
+                    A, n = AA.arc_scores(toks, pos, tab)
+                    hd, post = AA.decode(toks, pos, A, n, 1.0, tab)
+                dep = coarse_roles(toks, pos, hd, rtab, post)
+                for i in range(1, len(toks) + 1):
+                    if pos[i - 1] not in RNOM or rels[i - 1] not in ("obl", "nmod"):
+                        continue
+                    got = dep.get(i, "dep")
+                    conf[rels[i - 1] + "->" + got] += 1
+                    ok = int(hd.get(i, -1) == gold[i - 1])
+                    head_ok[rels[i - 1] + ("|headOK" if ok else "|headBAD")][0] += 1
+                    head_ok[rels[i - 1] + ("|headOK" if ok else "|headBAD")][1] += int(got == rels[i - 1])
+            out[name] = {"confusions": dict(sorted(conf.items(), key=lambda kv: -kv[1])[:10]),
+                         "label_recall_by_head_correctness": {k: [v[0], v[1], round(v[1] / max(1, v[0]), 3)]
+                                                              for k, v in sorted(head_ok.items())}}
+    finally:
+        AA.DECODE = old
+    return out
+
+
+# ---------------------------------------------------------------------------------------------------------------
+# THE HEADS -> LABELS HAND-OFF (phase 7: does the head gain reach the relation the consumer reads?)
+# ---------------------------------------------------------------------------------------------------------------
+# UD's own definition of the distinction this problem is about: a case-marked nominal is `obl` when its HOST is a
+# PREDICATE (a verb, an auxiliary, or a predicate adjective -- "capable OF x") and `nmod` when its host is a NOMINAL.
+# The distinction is therefore a pure function of the HOST'S CATEGORY, i.e. of exactly what the heads rung decides.
+# The brain's counterpart is the same: "with the telescope" is an INSTRUMENT of an event when a predicate licenses it
+# and a PROPERTY of a thing when a nominal does (Talmy's figure/ground; the Competition Model's case cue is read
+# against the licensing host, not against the phrase).  A consumer that reads the host's category converts every head
+# gain on this population into a label gain one-for-one.  A consumer whose role inventory has no NMOD class cannot.
+PRED_HEAD_CATS = frozenset({"VERB", "AUX", "ADJ", "ADV"})
+
+
+def head_derived_label(pos: Sequence[str], h: int) -> str:
+    """obl / nmod read off the HOST'S CATEGORY -- the distinction's definition, and all a consumer needs."""
+    if not h or h <= 0 or h > len(pos):
+        return "root"
+    return "obl" if pos[h - 1] in PRED_HEAD_CATS else "nmod"
+
+
+def label_transfer(tables: Dict[str, object], test, decode: str = "incr"):
+    """Trace the hand-off two ways, on the gold obl+nmod population.
+
+    (1) THE ORGAN AS BUILT -- `graded_role_assigner.coarse_roles`.  Its inventory is ROLE_CLASSES =
+        [SUBJ, OBJ, PASS_SUBJ, BY_AGENT, OBL, OTHER, IOBJ] and ROLE_TO_DEP can emit only
+        nsubj / nsubj:pass / obj / iobj / obl / obl:agent / dep -- there is NO nmod class.  So a gold nmod is
+        counted wrong whatever the heads rung hands down.  Measured here, not asserted, including under GOLD HEADS.
+    (2) A CONSUMER THAT CAN EXPRESS THE DISTINCTION -- `head_derived_label`.  This says how much of the head gain is
+        AVAILABLE to a label rung, i.e. whether the gain is real signal or an artefact of the head metric.
+
+    Returns (summary, per-sentence records per arm) so the derived label can be bootstrapped paired over sentences
+    exactly like every other number in this cell."""
+    from hdlab.graded_role_assigner import coarse_roles, load_coarse_validities, NOMINAL as RNOM, ROLE_TO_DEP
+    rtab = load_coarse_validities()
+    old = AA.DECODE
+    AA.DECODE = decode
+    out: Dict[str, dict] = {"_inventory": {"emittable_deps": sorted(set(ROLE_TO_DEP.values())),
+                                           "has_nmod_class": "nmod" in set(ROLE_TO_DEP.values())}}
+    recs_by_arm: Dict[str, List[dict]] = {}
+    heads_by_arm: Dict[str, List[dict]] = {}
+    try:
+        for name, tab in tables.items():
+            organ = defaultdict(lambda: [0, 0])       # gold rel -> [n, organ-correct]
+            deriv = defaultdict(lambda: [0, 0])       # gold rel -> [n, derived-label-correct]
+            recs: List[dict] = []
+            hmap: List[dict] = []
+            for si, (toks, pos, gold, rels) in enumerate(test):
+                if name == "GOLD-HEADS":
+                    hd = {i: gold[i - 1] for i in range(1, len(toks) + 1) if 0 <= gold[i - 1] <= len(toks)}
+                    post = {i: {hd[i]: 1.0} for i in hd}
+                else:
+                    A, n = AA.arc_scores(toks, pos, tab)
+                    hd, post = AA.decode(toks, pos, A, n, 1.0, tab)
+                dep = coarse_roles(toks, pos, hd, rtab, post)
+                rec = {"n": 0, "hit": 0, "rel": defaultdict(lambda: [0, 0])}
+                hh = {}
+                for i in range(1, len(toks) + 1):
+                    r = rels[i - 1]
+                    if r not in ("obl", "nmod"):
+                        continue
+                    lab = head_derived_label(pos, hd.get(i, 0))
+                    ok = int(lab == r)
+                    deriv[r][0] += 1; deriv[r][1] += ok
+                    rec["n"] += 1; rec["hit"] += ok
+                    rec["rel"][r][0] += 1; rec["rel"][r][1] += ok
+                    hh[i] = (int(hd.get(i, -1) == gold[i - 1]), lab, r)
+                    if pos[i - 1] in RNOM:
+                        organ[r][0] += 1; organ[r][1] += int(dep.get(i, "dep") == r)
+                rec["rel"] = {k: v for k, v in rec["rel"].items()}
+                recs.append(rec); hmap.append(hh)
+            recs_by_arm[name] = recs; heads_by_arm[name] = hmap
+            out[name] = {
+                "organ_recall": {k: [v[0], v[1], round(v[1] / max(1, v[0]), 4)] for k, v in sorted(organ.items())},
+                "head_derived_recall": {k: [v[0], v[1], round(v[1] / max(1, v[0]), 4)] for k, v in sorted(deriv.items())},
+                "head_derived_overall": round(sum(v[1] for v in deriv.values()) / max(1, sum(v[0] for v in deriv.values())), 4)}
+    finally:
+        AA.DECODE = old
+    # WHICH GAINS SURVIVE: the per-token transfer table between the floor arm and every other arm.
+    if "base" in heads_by_arm:
+        for name, hmap in heads_by_arm.items():
+            if name == "base":
+                continue
+            t = defaultdict(int)
+            for hb, ha in zip(heads_by_arm["base"], hmap):
+                for i, (ok_b, lab_b, r) in hb.items():
+                    ok_a, lab_a, _ = ha.get(i, (0, "root", r))
+                    t["head_%s_%s" % ("OK" if ok_b else "BAD", "OK" if ok_a else "BAD")] += 1
+                    t["label_%s_%s" % ("OK" if lab_b == r else "BAD", "OK" if lab_a == r else "BAD")] += 1
+                    if not ok_b and ok_a:                       # a head the change REPAIRED
+                        t["repaired_head"] += 1
+                        t["repaired_head_label_" + ("gained" if (lab_b != r and lab_a == r) else
+                                                    "already_right" if lab_b == r else "still_wrong")] += 1
+                    if ok_b and not ok_a:
+                        t["broke_head"] += 1
+                        t["broke_head_label_" + ("lost" if (lab_b == r and lab_a != r) else "unchanged")] += 1
+            out[name]["transfer_vs_base"] = dict(sorted(t.items()))
+    return out, recs_by_arm
+
+
+def gap_decomposition(table, assoc: Optional[PPAssoc], test, decode: str = "incr", k_cap: int = 6,
+                      obj_cue: bool = True) -> dict:
+    """WHERE THE REMAINING SIGNAL IS LOST, per gold obl/nmod token, with counts. Four mutually exclusive causes:
+      NOT_CASE_MARKED  the detector does not see a case-marked nominal here at all (bare adverbials, possessives that
+                       the genitive construction handles instead, appositions) -- out of this cue's reach;
+      NOT_RETRIEVED    detected, but the gold host is not in the retrieved candidate set (beyond the capacity cap,
+                       or across a sentence boundary);
+      ASSOCIATION      detected and retrievable, but the association ranks another candidate above the gold host --
+                       the cue's OWN error, the only bucket more reading or a better association can fix;
+      DECODE           detected, retrievable, the association ranks the gold host FIRST, and the arc is still lost --
+                       the rest of the competition (locality, constructions, the tree/beam) overrules it."""
+    old = AA.DECODE
+    AA.DECODE = decode
+    cause = defaultdict(int); tot = defaultdict(int)
+    try:
+        for toks, pos, gold, rels in test:
+            hd = AA.heads(toks, pos, table)
+            sites = {obj: (prep, c) for prep, obj, c in pp_sites(toks, pos, k_cap)}
+            for i in range(1, len(toks) + 1):
+                r = rels[i - 1]
+                if r not in ("obl", "nmod"):
+                    continue
+                tot[r] += 1
+                if hd.get(i, -1) == gold[i - 1]:
+                    cause[r + ":CORRECT"] += 1
+                    continue
+                if i not in sites:
+                    cause[r + ":NOT_CASE_MARKED"] += 1
+                    continue
+                prep, cands = sites[i]
+                if gold[i - 1] not in cands:
+                    cause[r + ":NOT_RETRIEVED"] += 1
+                    continue
+                if assoc is None:
+                    cause[r + ":DECODE"] += 1
+                    continue
+                p = toks[prep - 1].lower(); oc = obj_class(toks, pos, i)
+                best, bs = None, -1e18
+                for q in cands:
+                    v = math.log(max(assoc.p_given(host_key(toks, pos, q), host_class(toks, pos, q), p), 1e-12))
+                    if obj_cue:
+                        v += math.log(max(assoc.p_obj(host_type(pos[q - 1]), p, oc), 1e-12))
+                    if v > bs:
+                        best, bs = q, v
+                cause[r + (":DECODE" if best == gold[i - 1] else ":ASSOCIATION")] += 1
+    finally:
+        AA.DECODE = old
+    out = {"totals": dict(tot)}
+    for r in ("obl", "nmod"):
+        out[r] = {k.split(":")[1]: v for k, v in sorted(cause.items()) if k.startswith(r + ":")}
+        out[r + "_share"] = {k: round(v / max(1, tot[r]), 3) for k, v in out[r].items()}
+    return out
+
+
+def coverage_probe(test, k_cap: int = 6) -> dict:
+    """WHAT THE CASE-MARKED-NOMINAL DETECTOR STILL CANNOT SEE, and WHY, with counts.
+
+    A preposition is only ONE of the ways English marks a nominal oblique.  The genitive is a second (this cell added
+    it).  A third is SEMANTIC: a bare temporal or measure nominal -- "last year", "three times", "Monday", "home" --
+    is an oblique with no case marker at all, and every language that lets this happen lets it happen for exactly
+    these semantic classes (Bates & MacWhinney's cue coalitions: when the morphological cue is absent the semantic
+    cue carries the same job; UD calls these `obl` with no `case` child).  This probe breaks the UNDETECTED gold
+    obl/nmod population down by the token's own WordNet supersense so the next case cue can be chosen by size, not
+    by guess.  Instrument only: the gold tree selects the population, nothing is learned from it."""
+    from hdlab.typed_selectional_preference import noun_supersense
+    miss = defaultdict(lambda: defaultdict(int)); tot = defaultdict(int); det = defaultdict(int)
+    gen_covered = defaultdict(int)
+    for toks, pos, gold, rels in test:
+        sites = {obj for _, obj, _ in pp_sites(toks, pos, k_cap)}
+        gens = {d for _h, d in genitive_arcs(toks, pos)}
+        for i in range(1, len(toks) + 1):
+            r = rels[i - 1]
+            if r not in ("obl", "nmod"):
+                continue
+            tot[r] += 1
+            if i in sites:
+                det[r] += 1
+                continue
+            if i in gens:
+                gen_covered[r] += 1
+                continue
+            cat = pos[i - 1]
+            ss = noun_supersense(toks[i - 1]) if cat in ("NOUN", "PROPN") else None
+            miss[r]["%s/%s" % (cat, ss or "-")] += 1
+    out = {"totals": dict(tot), "detected_by_preposition": dict(det),
+           "covered_by_the_genitive_construction": dict(gen_covered)}
+    for r in ("obl", "nmod"):
+        rows = sorted(miss[r].items(), key=lambda kv: -kv[1])
+        out[r + "_undetected_by_class"] = dict(rows[:14])
+        out[r + "_undetected_total"] = sum(v for _, v in rows)
+    return out
+
+
+NEAR_W = 1.0          # the weight of the locality term in the rank probe (swept by --near-w, never adopted)
+
+
+def rank_probe(assoc: Optional[PPAssoc], test, k_cap: int = 6, slot=None, channels=("assoc",),
+               ref: bool = False) -> dict:
+    """THE CHANNEL'S OWN RANKING ACCURACY, with no table and no decode in the way.
+
+    The organ's per-relation recall confounds three things: whether the case-marked nominal is DETECTED, whether the
+    gold host is RETRIEVED, and whether the association RANKS it first -- and then the tree decode can still overrule
+    all three.  This probe holds the first two fixed and asks only the third: over the gold obl+nmod tokens whose gold
+    host IS in the retrieved candidate set, how often does a given combination of channels put the gold host on top?
+    It is an INSTRUMENT (it reads the gold tree to select the population and to score), never a build, and it is the
+    cheapest honest way to tell "the channel has no signal" apart from "the decode threw the signal away"."""
+    hit = defaultdict(int); tot = defaultdict(int)
+    for toks, pos, gold, rels in test:
+        for prep, obj, cands in pp_sites(toks, pos, k_cap):
+            r = rels[obj - 1]
+            if r not in ("obl", "nmod"):
+                continue
+            g = gold[obj - 1]
+            if g not in cands:
+                continue
+            pw = toks[prep - 1].lower(); oc = obj_class(toks, pos, obj)
+            best, bs = None, -1e18
+            for q in cands:
+                v = 0.0
+                if "assoc" in channels and assoc is not None:
+                    v += math.log(max(assoc.p_given(host_key(toks, pos, q), host_class(toks, pos, q), pw), 1e-12))
+                if "ppobj" in channels and assoc is not None:
+                    v += math.log(max(assoc.p_obj(host_type(pos[q - 1]), pw, oc), 1e-12))
+                if "slot" in channels and slot is not None and pos[q - 1] == "VERB":
+                    z = slot.logspec(lemma_verb(toks[q - 1]).lower(), pw, oc)
+                    if z is not None:
+                        v += z
+                if "near" in channels:
+                    # LOCALITY as the arm carries it: activation decays with the distance back to the host
+                    # (Lewis & Vasishth 2005 retrieval decay; Gibson 1998 DLT).  NEAR_W is swept, never adopted.
+                    v += -NEAR_W * math.log(1.0 + (prep - q))
+                if v > bs:
+                    best, bs = q, v
+            tot[r] += 1; hit[r] += int(best == g)
+            tot["all"] += 1; hit["all"] += int(best == g)
+    return {k: [tot[k], hit[k], round(hit[k] / max(1, tot[k]), 4)] for k in ("all", "obl", "nmod")}
+
+
 def validity_by_value(table, cue: str) -> dict:
     """What the organ LEARNED for each value of a cue: the count-weighted mean contrast over its configurations.
     A working association cue must learn a monotone ladder (w2 > w1 > 0 > l1 > l2) without being told to."""
@@ -1169,6 +1800,76 @@ def self_test() -> int:
     fin = np.isfinite(A1) & np.isfinite(A2)
     ck("the one-pass cue cache changes no number", float(np.abs(A1[fin] - A2[fin]).max()) == 0.0)
     deactivate_to_head(cache=False)
+
+    # ---- phase 7: the OBLIQUE-SLOT selectional channel, the referential wiring, and the heads->labels readout ----
+    O = OblSlotPreference()
+    O.observe("eat", "with", "artifact", 20.0); O.observe("eat", "with", "food", 1.0)
+    O.observe("go", "with", "person", 20.0); O.observe("go", "with", "food", 1.0)
+    ck("the oblique-slot channel prefers the filler class its own predicate was seen with",
+       O.logspec("eat", "with", "artifact") > O.logspec("go", "with", "artifact"))
+    ck("a predicate never seen in this slot ABSTAINS rather than guessing",
+       O.logspec("sleep", "with", "artifact") is None)
+    O2 = O.scramble(1)
+    ck("the oblique-slot twin keeps every count and marginal; only the predicate->profile map is destroyed",
+       abs(O2.tot - O.tot) < 1e-9 and dict(O2.cg) == dict(O.cg) and len(O2.d) == len(O.d)
+       and sorted(O2.c.values()) == sorted(O.c.values()))
+    tk = "She ate the pizza with a fork .".split()
+    ps = ["PRON", "VERB", "DET", "NOUN", "ADP", "DET", "NOUN", "PUNCT"]
+    sv = ppslot_values(tk, ps, O)
+    ck("the oblique-slot cue fires on the retrieved candidate arcs and abstains on non-predicate hosts",
+       bool(sv) and all(k[1] == 7 for k in sv) and sv.get((4, 7)) == "na", sv)
+    if os.path.isfile(BF_SLOT_STORE):
+        G = OblSlotPreference.from_grown_store()
+        st = G.stats()
+        ck("the grown store really carries oblique slots (the first submission parked this for want of one)",
+           st["predicate_prep_slots"] > 1000 and st["observations"] > 10000, st)
+        ck("a KNOWN FACT falls out of the grown oblique store with no supervision anywhere: live-in-<location> "
+           "outranks live-in-<food>",
+           (G.logspec("live", "in", "noun.location") or -9.0) > (G.logspec("live", "in", "noun.food") or -9.0),
+           (G.logspec("live", "in", "noun.location"), G.logspec("live", "in", "noun.food")))
+    # the referential cue must actually REACH the arm: before this fix a ref-only arm silently reduced to `base`
+    activate(None, ref_cue=True)
+    try:
+        sc_ref = AA.SentenceCues(tk, ps, {})
+        ck("a referential-only arm installs the widened cue pass and the fast path (the phase-7 wiring fix)",
+           isinstance(sc_ref, PPCues) and bool(sc_ref.ppref_arc) and AA.arc_scores is arc_scores_pp,
+           (type(sc_ref).__name__, len(getattr(sc_ref, "ppref_arc", {}))))
+        ck("the referential cue reads definiteness off the candidate host's own determiner",
+           host_definiteness(tk, ps, 4) == "def" and host_definiteness(tk, ps, 2) == "na",
+           (host_definiteness(tk, ps, 4), host_definiteness(tk, ps, 2)))
+    finally:
+        deactivate_to_head(cache=False)
+    # Pinker's THIRD SLOT in the acquisition teacher: it must re-score the case-marked nominal, and it must NEVER
+    # zero the verb's pull (section 5(b): the over-broad guard is the arm's only oblique-argument teacher).
+    Ot = OblSlotPreference()
+    Ot.observe("eat", "with", "noun.artifact", 40.0); Ot.observe("eat", "with", "noun.food", 1.0)
+    ck("the oblique slot scores on the object slot's 0..1 scale, 0.5 = no preference",
+       0.5 < (Ot.oblique_plausibility("eat", "with", "noun.artifact") or 0) < 1.0
+       and (Ot.oblique_plausibility("eat", "with", "noun.food") or 1) < 0.5,
+       (Ot.oblique_plausibility("eat", "with", "noun.artifact"), Ot.oblique_plausibility("eat", "with", "noun.food")))
+    ck("an unseen predicate leaves the teacher's own value in place (the pull is re-scored, never removed)",
+       Ot.oblique_plausibility("sleep", "with", "noun.artifact") is None)
+    _tea = AA.SemanticBootstrapTeacher(beta=10.0)
+    tk3 = "She ate the pizza with a fork .".split()
+    ps3 = ["PRON", "VERB", "DET", "NOUN", "ADP", "DET", "NOUN", "PUNCT"]
+    p_before = _ORIG_SLOT_PLAUS(_tea, tk3, ps3, 2, 7)
+    activate(None, casefix="oblteach", slot=Ot)
+    try:
+        p_after = AA.SemanticBootstrapTeacher.slot_plausibility(_tea, tk3, ps3, 2, 7)
+        ck("the third slot reaches the ACQUISITION teacher (it is applied inside score_matrix too, unlike the two "
+           "refuted read-time-only forms)", p_after != p_before, (p_before, p_after))
+        ck("a nominal that is NOT case-marked is untouched by the third slot",
+           AA.SentenceCues is cached_cues
+           and AA.SemanticBootstrapTeacher.slot_plausibility(_tea, tk3, ps3, 2, 4)
+           == _ORIG_SLOT_PLAUS(_tea, tk3, ps3, 2, 4))
+    finally:
+        deactivate_to_head(cache=False)
+    ck("obl vs nmod is a pure function of the HOST'S category -- the distinction the label rung needs",
+       head_derived_label(ps, 2) == "obl" and head_derived_label(ps, 4) == "nmod")
+    from hdlab.graded_role_assigner import ROLE_TO_DEP as _R2D
+    ck("MEASURED, not asserted: the downstream role organ has NO nmod class, so a gold nmod cannot be labelled "
+       "correctly whatever the heads rung hands it", "nmod" not in set(_R2D.values()), sorted(set(_R2D.values())))
+
     print("\n%d/%d checks passed" % (P, P + F))
     return 0 if F == 0 else 1
 
@@ -1184,6 +1885,19 @@ def main(argv=None) -> int:
     ap.add_argument("--full", action="store_true")
     ap.add_argument("--mine-simplewiki", action="store_true")
     ap.add_argument("--lines", type=int, default=300000)
+    ap.add_argument("--skip", type=int, default=0, help="skip the first N corpus lines (a disjoint reading slice)")
+    ap.add_argument("--mine-out", default=None, help="where to write the mined / merged association")
+    ap.add_argument("--merge-assoc", default=None, help="comma-separated associations to ADD together (more reading)")
+    ap.add_argument("--assoc", default=None, help="use this association file instead of the pp_assoc_simplewiki_<lines> default")
+    ap.add_argument("--live", action="store_true", help="also evaluate the LIVE chain (the category organ's own tags)")
+    ap.add_argument("--save-asset", default=None, help="write the built table of --save-arm as an asset")
+    ap.add_argument("--save-arm", default="objgen")
+    ap.add_argument("--roles-diag", default="", help="comma-separated arms to run the heads->labels diagnostic on")
+    ap.add_argument("--gap-decomp", default="", help="comma-separated arms to decompose the residual for")
+    ap.add_argument("--coverage-probe", action="store_true", help="what the detector still cannot see, by class")
+    ap.add_argument("--rank-probe", action="store_true", help="channel ranking accuracy only: no table, no decode")
+    ap.add_argument("--near-w", type=float, default=1.0, help="the locality weight in the rank probe (swept)")
+    ap.add_argument("--label-transfer", default="", help="comma-separated arms to trace the heads->labels hand-off on")
     ap.add_argument("--cap", type=int, default=6000)
     ap.add_argument("--test-cap", type=int, default=700)
     ap.add_argument("--rounds", type=int, default=3)
@@ -1211,6 +1925,59 @@ def main(argv=None) -> int:
         return self_test()
     if a.verify_patch:
         return verify_patch(a.verify_patch)
+    if a.coverage_probe:
+        test_c = sentences(TEST, cap=a.test_cap, maxlen=10 ** 6)
+        cv = coverage_probe(test_c, a.kcap)
+        print(json.dumps(cv, indent=1), flush=True)
+        od = str(get_output_dir(ANCHOR)); os.makedirs(od, exist_ok=True)
+        with open(os.path.join(od, "coverage_probe%s.json" % (a.tag or "")), "w", encoding="utf-8") as f:
+            json.dump({"anchor": ANCHOR, "probe": "coverage_probe", "test_cap": a.test_cap, "results": cv,
+                       "hdlab_provenance": module_provenance(),
+                       "ts_iso": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}, f, indent=1)
+        return 0
+    if a.rank_probe:
+        global NEAR_W
+        NEAR_W = a.near_w
+        test_r = sentences(TEST, cap=a.test_cap, maxlen=10 ** 6)
+        with open(a.assoc or os.path.join(REPO, "data", "hook_state",
+                                          "attachment_pp_assoc_v2_simplewiki100k_candidate.json"), encoding="utf-8") as f:
+            A_ = PPAssoc.from_json(json.load(f))
+        A_.m1 = a.m1; A_.m2 = a.m2
+        S_ = OblSlotPreference.from_grown_store(m1=a.m1, m2=a.m2) if os.path.isfile(BF_SLOT_STORE) else None
+        St_ = S_.scramble(a.seed) if S_ is not None else None
+        A_tw = A_.scramble(a.seed)
+        # THE FLOOR ON THIS POPULATION IS NOT ZERO AND IT IS NOT THE ASSOCIATION -- IT IS PROXIMITY.  The nearest open
+        # host is right for 71% of the retrievable obl+nmod tokens (92% of nmod), because an nmod's host is usually the
+        # noun immediately before the preposition.  The arm already carries that as its `locality` cue, so the only
+        # question that matters for a NEW channel is what it adds ON TOP OF locality -- measured here, every channel
+        # both alone and stacked on the locality floor, each against its own information-free twin.
+        combos = [("locality only (the floor on this population)", A_, None, ("near",)),
+                  ("association alone", A_, None, ("assoc",)),
+                  ("association + thematic alone (the shipped pair)", A_, None, ("assoc", "ppobj")),
+                  ("OBLIQUE SLOT alone", A_, S_, ("slot",)),
+                  ("locality + association", A_, None, ("near", "assoc")),
+                  ("locality + association + thematic", A_, None, ("near", "assoc", "ppobj")),
+                  ("locality + OBLIQUE SLOT", A_, S_, ("near", "slot")),
+                  ("locality + association + thematic + OBLIQUE SLOT", A_, S_, ("near", "assoc", "ppobj", "slot")),
+                  ("TWIN of the shipped pair (scrambled association)", A_tw, None, ("assoc", "ppobj")),
+                  ("TWIN on the locality floor (scrambled association)", A_tw, None, ("near", "assoc", "ppobj")),
+                  ("TWIN of the oblique slot (scrambled predicates)", A_, St_, ("near", "slot")),
+                  ("TWIN of everything on the locality floor", A_tw, St_, ("near", "assoc", "ppobj", "slot"))]
+        out = {}
+        for nm, aa, ss, ch in combos:
+            out[nm] = rank_probe(aa, test_r, a.kcap, ss, ch)
+            print("  RANK %-42s all %s  obl %s  nmod %s" % (nm, out[nm]["all"], out[nm]["obl"], out[nm]["nmod"]),
+                  flush=True)
+        od = str(get_output_dir(ANCHOR)); os.makedirs(od, exist_ok=True)
+        mp_ = os.path.join(od, "rank_probe%s.json" % (a.tag or ""))
+        out["_near_w"] = a.near_w
+        with open(mp_, "w", encoding="utf-8") as f:
+            json.dump({"anchor": ANCHOR, "probe": "rank_probe", "test_cap": a.test_cap, "kcap": a.kcap,
+                       "slot_stats": (S_.stats() if S_ else None), "results": out,
+                       "hdlab_provenance": module_provenance(),
+                       "ts_iso": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}, f, indent=1)
+        print("wrote", mp_, flush=True)
+        return 0
 
     out_dir = str(get_output_dir(ANCHOR))
     os.makedirs(out_dir, exist_ok=True)
@@ -1221,12 +1988,40 @@ def main(argv=None) -> int:
 
     if a.mine_simplewiki:
         t0 = time.time()
-        print("mining Simple-Wiki (%d lines) with the substrate's own category organ ..." % a.lines, flush=True)
-        assoc, st = mine(simplewiki_reading(a.lines), rounds=a.realloc, m1=a.m1, m2=a.m2, k_cap=a.kcap, verbose=True)
-        d = assoc.to_json(); d["mining"] = st; d["lines"] = a.lines; d["elapsed_s"] = round(time.time() - t0, 1)
-        with open(swpath, "w", encoding="utf-8") as f:
+        out = a.mine_out or swpath
+        print("mining Simple-Wiki (%d lines, skip %d) with the substrate's own category organ ..." % (a.lines, a.skip),
+              flush=True)
+        assoc, st = mine(simplewiki_reading(a.lines, skip=a.skip), rounds=a.realloc, m1=a.m1, m2=a.m2,
+                         k_cap=a.kcap, verbose=True)
+        d = assoc.to_json(); d["mining"] = st; d["lines"] = a.lines; d["skip"] = a.skip
+        d["elapsed_s"] = round(time.time() - t0, 1)
+        with open(out, "w", encoding="utf-8") as f:
             json.dump(d, f)
-        print("wrote", swpath, st, "in %.0fs" % (time.time() - t0), flush=True)
+        print("wrote", out, st, "in %.0fs" % (time.time() - t0), flush=True)
+        return 0
+
+    if a.merge_assoc:
+        # MORE READING = MORE COUNTS. The association is held as counts and the probability is a pure function of
+        # them, so a second disjoint reading slice is merged by ADDING the counts -- exactly what `observe(...)`
+        # does one outcome at a time. No refitting, no retraining: the plastic path.
+        parts = [x for x in a.merge_assoc.split(",") if x]
+        tot = PPAssoc(a.m1, a.m2)
+        lines = 0
+        for q in parts:
+            with open(q, encoding="utf-8") as f:
+                dq = json.load(f)
+            A2 = PPAssoc.from_json(dq); lines += dq.get("lines", 0)
+            for fld in ("c", "d", "cc", "dc", "cp", "o", "od", "oc", "ocd", "og"):
+                dst = getattr(tot, fld)
+                for k, v in getattr(A2, fld).items():
+                    dst[k] = dst.get(k, 0.0) + v
+            tot.tot += A2.tot; tot.otot += A2.otot
+        d = tot.to_json()
+        d["mining"] = {"merged_from": parts, "host_cells": len(tot.d), "assoc_cells": len(tot.c)}
+        d["lines"] = lines
+        with open(a.mine_out, "w", encoding="utf-8") as f:
+            json.dump(d, f)
+        print("merged", len(parts), "slices ->", a.mine_out, d["mining"], flush=True)
         return 0
 
     smoke = a.smoke or not a.full
@@ -1246,6 +2041,8 @@ def main(argv=None) -> int:
     assoc_ud, st_ud = mine(ud_reading, rounds=a.realloc, m1=a.m1, m2=a.m2, k_cap=a.kcap)
     print("UD-mined association:", st_ud, flush=True)
     assoc_sw = None
+    if a.assoc:
+        swpath = a.assoc
     if os.path.isfile(swpath):
         with open(swpath, encoding="utf-8") as f:
             dsw = json.load(f)
@@ -1253,6 +2050,10 @@ def main(argv=None) -> int:
         print("Simple-Wiki association loaded:", dsw.get("mining"), flush=True)
 
     legacy_pp = AA.pp_assoc_from_reading(ud_reading)      # the incumbent two-candidate association (the base arm)
+    OBLSLOT = None
+    if os.path.isfile(BF_SLOT_STORE):
+        OBLSLOT = OblSlotPreference.from_grown_store(m1=a.m1, m2=a.m2)
+        print("oblique-slot selectional channel (grown store):", OBLSLOT.stats(), flush=True)
 
     def arm_config(name):
         # base = the incumbent pipeline, unchanged (the floor: it reproduces the landed asset's build)
@@ -1286,12 +2087,53 @@ def main(argv=None) -> int:
             return {"assoc": assoc_ud, "legacy": None, "obj": True, "casefix": False, "zform": "max"}
         if name == "maxform":                     # the refuted readout form, kept measurable
             return {"assoc": assoc_sw or assoc_ud, "legacy": None, "obj": True, "casefix": "slot", "zform": "max"}
+        if name.startswith("landed:"):        # an asset ON DISK, loaded not rebuilt (the landed cap-6000 candidate)
+            return {"assoc": None, "legacy": None, "obj": False, "casefix": False, "load": name.split(":", 1)[1]}
         if name == "flat":                        # CONTROL: the same arcs, a constant value (structure without content)
             return {"assoc": assoc_sw or assoc_ud, "legacy": None, "obj": True, "casefix": False, "zform": "flat"}
         if name == "flatslot":
             return {"assoc": assoc_sw or assoc_ud, "legacy": None, "obj": True, "casefix": "slot", "zform": "flat"}
         if name == "flatgen":
             return {"assoc": assoc_sw or assoc_ud, "legacy": None, "obj": True, "casefix": False, "zform": "flat", "gen": True}
+        if name == "ref":                         # ONLY the referential/definiteness cue
+            return {"assoc": None, "legacy": legacy_pp, "obj": False, "casefix": False, "ref": True}
+        if name == "objgenref":                   # the shipped build + the referential cue
+            return {"assoc": assoc_sw or assoc_ud, "legacy": None, "obj": True, "casefix": False,
+                    "gen": True, "ref": True}
+        if name == "twingenref":
+            src = assoc_sw or assoc_ud
+            return {"assoc": src.scramble(a.seed), "legacy": None, "obj": True, "casefix": False,
+                    "gen": True, "ref": True}
+        if name.startswith("objgennom"):          # the shipped build + the NOMINAL HOST SLOT in the teacher
+            return {"assoc": assoc_sw or assoc_ud, "legacy": None, "obj": True, "casefix": False, "gen": True,
+                    "beta_nom": float(name[9:].replace("_", ".") or 4.0)}
+        if name.startswith("twinnom"):            # its INFORMATION-FREE TWIN (scrambled association in both roles)
+            _src = (assoc_sw or assoc_ud).scramble(a.seed)
+            return {"assoc": _src, "legacy": None, "obj": True, "casefix": False, "gen": True,
+                    "beta_nom": float(name[7:].replace("_", ".") or 4.0)}
+        if name == "objgenoblboth":               # the third slot in the teacher AND as a read-time cue
+            return {"assoc": assoc_sw or assoc_ud, "legacy": None, "obj": True, "casefix": "oblteach",
+                    "gen": True, "slot": OBLSLOT, "slot_cue": True}
+        if name == "oblteach":                    # ONLY Pinker's third slot in the acquisition teacher
+            return {"assoc": None, "legacy": legacy_pp, "obj": False, "casefix": "oblteach", "slot": OBLSLOT}
+        if name == "objgenoblteach":              # the shipped build + the third slot in the teacher
+            return {"assoc": assoc_sw or assoc_ud, "legacy": None, "obj": True, "casefix": "oblteach",
+                    "gen": True, "slot": OBLSLOT}
+        if name == "twinoblteach":                # INFORMATION-FREE TWIN of the third slot (scrambled predicates)
+            return {"assoc": assoc_sw or assoc_ud, "legacy": None, "obj": True, "casefix": "oblteach",
+                    "gen": True, "slot": OBLSLOT.scramble(a.seed)}
+        if name == "slot":                        # ONLY the oblique-slot selectional channel (no association)
+            return {"assoc": None, "legacy": legacy_pp, "obj": False, "casefix": False, "slot": OBLSLOT,
+                    "slot_cue": True}
+        if name == "objgenslot":                  # the shipped build + the lexical oblique-slot READ-TIME cue
+            return {"assoc": assoc_sw or assoc_ud, "legacy": None, "obj": True, "casefix": False,
+                    "gen": True, "slot": OBLSLOT, "slot_cue": True}
+        if name == "twinslotpref":                # INFORMATION-FREE TWIN of the oblique-slot read-time cue
+            return {"assoc": assoc_sw or assoc_ud, "legacy": None, "obj": True, "casefix": False,
+                    "gen": True, "slot": OBLSLOT.scramble(a.seed), "slot_cue": True}
+        if name == "objgenslotref":               # everything: association + thematic + genitive + slot + referential
+            return {"assoc": assoc_sw or assoc_ud, "legacy": None, "obj": True, "casefix": False,
+                    "gen": True, "slot": OBLSLOT, "slot_cue": True, "ref": True}
         if name == "gen":                         # ONLY the genitive construction (no PP cue)
             return {"assoc": None, "legacy": legacy_pp, "obj": False, "casefix": False, "gen": True}
         if name == "objgen":                      # the full build: volume association + thematic channel + genitive
@@ -1310,26 +2152,46 @@ def main(argv=None) -> int:
 
     results = {}
     per_sent = {}
+    built: Dict[str, object] = {}
+    assoc_by_arm: Dict[str, object] = {}
     for name in arms:
         cfg = arm_config(name)
+        cfg.setdefault("load", None)
+        if name in ("slot", "objgenslot", "twinslotpref", "objgenslotref", "oblteach", "objgenoblteach",
+                    "twinoblteach", "objgenoblboth") and OBLSLOT is None:
+            print("SKIP arm %s: no grown slot store on disk (%s)" % (name, BF_SLOT_STORE), flush=True)
+            continue
         if name in ("vol", "obj", "objslot", "objgen", "twin", "twinslot", "twingen", "all", "noclass", "maxform",
-                    "flat", "flatslot", "flatgen") and cfg["assoc"] is None and assoc_sw is None:
+                    "flat", "flatslot", "flatgen", "objgenref", "twingenref", "objgenslot", "twinslotpref",
+                    "objgenslotref", "objgenoblteach", "twinoblteach", "objgenoblboth") and cfg["assoc"] is None and assoc_sw is None:
             print("SKIP arm %s: no Simple-Wiki association on disk (%s)" % (name, swpath), flush=True)
             continue
         t1 = time.time()
-        if cfg["assoc"] is None and not cfg["casefix"] and not cfg.get("gen"):
+        if (cfg["assoc"] is None and not cfg["casefix"] and not cfg.get("gen") and not cfg.get("ref")
+                and cfg.get("slot") is None and not cfg.get("load")):
             deactivate_to_head()
         else:
             activate(cfg["assoc"], a.kcap, Z_EDGES, a.typed, cfg["obj"], cfg["casefix"],
-                     cfg.get("zform", a.zform), cfg.get("gen", False))
+                     cfg.get("zform", a.zform), cfg.get("gen", False), cfg.get("ref", False),
+                     cfg.get("slot"), cfg.get("slot_cue", False), cfg.get("beta_nom", 0.0))
         try:
-            tab = build_table(train, teacher, rounds=a.rounds, alpha=a.alpha, pp_assoc_legacy=cfg["legacy"],
-                              tmarg_key=("casefix" if cfg["casefix"] else "plain"))
+            if cfg["load"]:
+                with open(cfg["load"], encoding="utf-8") as _f:
+                    _doc = json.load(_f)
+                tab = {"counts": _doc["counts"], "frames": _doc.get("frames", {}),
+                       "pp_assoc": _doc.get("pp_assoc"), "pp_assoc_v2": _doc.get("pp_assoc_v2"),
+                       "strength": AA.strengths_from_arc_counts(_doc["counts"])}
+                print("  loaded asset", os.path.basename(cfg["load"]), flush=True)
+            else:
+                tab = build_table(train, teacher, rounds=a.rounds, alpha=a.alpha, pp_assoc_legacy=cfg["legacy"],
+                                  tmarg_key=((str(cfg["casefix"]) + "|" + name) if (cfg["casefix"] or cfg.get("beta_nom")) else "plain"))
             results[name] = {"build_s": round(time.time() - t1, 1),
                              "pp_cue_cells": len(tab["counts"]["cues"].get("pp", {})),
                              "ppobj_cue_cells": len(tab["counts"]["cues"].get("ppobj", {})),
                              "pp_validity_by_value": validity_by_value(tab, "pp"),
-                             "ppobj_validity_by_value": validity_by_value(tab, "ppobj")}
+                             "ppobj_validity_by_value": validity_by_value(tab, "ppobj"),
+                             "ppref_validity_by_value": validity_by_value(tab, "ppref"),
+                             "ppslot_validity_by_value": validity_by_value(tab, "ppslot")}
             for dec in decodes:
                 recs = per_sentence_hits(tab, test, dec)
                 per_sent[(name, dec)] = recs
@@ -1338,6 +2200,26 @@ def main(argv=None) -> int:
                     name, dec, results[name][dec]["UAS"], results[name][dec]["rel"].get("obl", 0),
                     results[name][dec]["rel"].get("nmod", 0), results[name][dec]["pp_subpop"],
                     results[name][dec]["pp_subpop_n"]), flush=True)
+            built[name] = tab; assoc_by_arm[name] = cfg["assoc"]
+            if a.live:
+                for dec in decodes:
+                    recs = per_sentence_hits_live(tab, test, dec)
+                    per_sent[(name + "@live", dec)] = recs
+                    results[name]["live_" + dec] = summarise(recs)
+                    s2 = results[name]["live_" + dec]
+                    print("  %-8s %-5s LIVE UAS %.4f  obl %.3f  nmod %.3f  pp-subpop %.3f" % (
+                        name, dec, s2["UAS"], s2["rel"].get("obl", 0), s2["rel"].get("nmod", 0), s2["pp_subpop"]),
+                        flush=True)
+            if a.save_asset and name == a.save_arm:
+                doc = {"source": "attachment arm, pri-94 build: soft arc counts from the knowledge-free + semantic-"
+                                 "bootstrapping teacher with the parallelism and predication acquisition signals, "
+                                 "PLUS the case-marked-nominal PP cue (association mined from unambiguous reading) "
+                                 "and the genitive construction; strengths = strengths_from_arc_counts",
+                       "counts": tab["counts"], "frames": tab.get("frames", {}), "pp_assoc": tab.get("pp_assoc"),
+                       "pp_assoc_v2": (cfg["assoc"].to_json() if cfg["assoc"] is not None else None)}
+                with open(a.save_asset, "w", encoding="utf-8", newline=chr(10)) as f:
+                    json.dump(doc, f, indent=1)
+                print("  wrote asset", a.save_asset, flush=True)
             if a.consumer and decodes:
                 results[name]["consumer"] = consumer_roles(tab, test, decodes[0])
                 print("  %-6s consumer role accuracy %.4f  %s" % (
@@ -1369,6 +2251,20 @@ def main(argv=None) -> int:
                 if (name, dec) not in per_sent or ("base", dec) not in per_sent:
                     continue
                 A0 = per_sent[("base", dec)]; A1 = per_sent[(name, dec)]
+                if (name + "@live", dec) in per_sent and ("base@live", dec) in per_sent:
+                    L0 = per_sent[("base@live", dec)]; L1 = per_sent[(name + "@live", dec)]
+                    boots["%s|%s|live" % (name, dec)] = {
+                        "UAS": paired_bootstrap(L0, L1, key_overall, a.boot),
+                        "obl": paired_bootstrap(L0, L1, key_rel("obl"), a.boot),
+                        "nmod": paired_bootstrap(L0, L1, key_rel("nmod"), a.boot),
+                        "pp_subpop": paired_bootstrap(L0, L1, key_pp, a.boot),
+                        "pp_subpop_obl": paired_bootstrap(L0, L1, key_pp_rel("obl"), a.boot),
+                        "pp_subpop_nmod": paired_bootstrap(L0, L1, key_pp_rel("nmod"), a.boot)}
+                    bl = boots["%s|%s|live" % (name, dec)]
+                    print("  LIVE %-8s %-5s UAS %+.4f%s  obl %+.4f%s  nmod %+.4f%s" % (
+                        name, dec, bl["UAS"]["delta"], "*" if bl["UAS"]["separated"] else " ",
+                        bl["obl"]["delta"], "*" if bl["obl"]["separated"] else " ",
+                        bl["nmod"]["delta"], "*" if bl["nmod"]["separated"] else " "), flush=True)
                 boots["%s|%s" % (name, dec)] = {
                     "UAS": paired_bootstrap(A0, A1, key_overall, a.boot),
                     "obl": paired_bootstrap(A0, A1, key_rel("obl"), a.boot),
@@ -1405,6 +2301,46 @@ def main(argv=None) -> int:
                 b["nmod"]["delta"], "*" if b["nmod"]["separated"] else " ",
                 b["pp_subpop_obl"]["delta"], "*" if b["pp_subpop_obl"]["separated"] else " ",
                 b["pp_subpop_nmod"]["delta"], "*" if b["pp_subpop_nmod"]["separated"] else " "), flush=True)
+
+    if a.roles_diag:
+        want = [x for x in a.roles_diag.split(",") if x]
+        rd = roles_diag({k: v for k, v in built.items() if k in want} | {"GOLD-HEADS": None}, test, decodes[0])
+        for k, v in rd.items():
+            print("  ROLEDIAG %-10s %s" % (k, v["confusions"]), flush=True)
+            print("           by head correctness: %s" % v["label_recall_by_head_correctness"], flush=True)
+        results["roles_diag"] = rd
+    if a.label_transfer:
+        want = [x for x in a.label_transfer.split(",") if x]
+        lt, lrecs = label_transfer({k: v for k, v in built.items() if k in want} | {"GOLD-HEADS": None},
+                                   test, decodes[0])
+        print("  LABELXFER inventory %s" % lt["_inventory"], flush=True)
+        for k, v in lt.items():
+            if k == "_inventory":
+                continue
+            print("  LABELXFER %-10s organ %s | head-derived %s (overall %.4f)"
+                  % (k, v["organ_recall"], v["head_derived_recall"], v["head_derived_overall"]), flush=True)
+            if "transfer_vs_base" in v:
+                print("            transfer vs base: %s" % v["transfer_vs_base"], flush=True)
+        for nm in want:
+            if nm == "base" or nm not in lrecs or "base" not in lrecs:
+                continue
+            bt = {"derived_overall": paired_bootstrap(lrecs["base"], lrecs[nm], key_overall, a.boot),
+                  "derived_obl": paired_bootstrap(lrecs["base"], lrecs[nm], key_rel("obl"), a.boot),
+                  "derived_nmod": paired_bootstrap(lrecs["base"], lrecs[nm], key_rel("nmod"), a.boot)}
+            lt.setdefault("bootstrap", {})[nm] = bt
+            print("  LABELXFER BOOT %-8s derived %+.4f%s  obl %+.4f%s  nmod %+.4f%s" % (
+                nm, bt["derived_overall"]["delta"], "*" if bt["derived_overall"]["separated"] else " ",
+                bt["derived_obl"]["delta"], "*" if bt["derived_obl"]["separated"] else " ",
+                bt["derived_nmod"]["delta"], "*" if bt["derived_nmod"]["separated"] else " "), flush=True)
+        results["label_transfer"] = lt
+    if a.gap_decomp:
+        for nm in [x for x in a.gap_decomp.split(",") if x]:
+            if nm not in built:
+                continue
+            gd = gap_decomposition(built[nm], assoc_by_arm.get(nm), test, decodes[0], a.kcap)
+            print("  GAP %-9s obl %s" % (nm, gd["obl"]), flush=True)
+            print("      %-9s nmod %s" % ("", gd["nmod"]), flush=True)
+            results.setdefault("gap_decomposition", {})[nm] = gd
 
     doc = {"anchor": ANCHOR, "mode": "smoke" if smoke else "full", "train_cap": cap, "test_cap": test_cap,
            "rounds": a.rounds, "alpha": a.alpha, "beta": a.beta, "realloc": a.realloc, "kcap": a.kcap,

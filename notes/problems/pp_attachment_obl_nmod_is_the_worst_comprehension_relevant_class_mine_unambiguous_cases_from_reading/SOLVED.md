@@ -269,6 +269,202 @@ a case-marked phrase.
 
 ---
 
+---
+
+# PHASE 7 — the continuation session (2026-09-13 late)
+
+> A previous session was stopped mid-phase-7 by a compaction. Everything below is new work: the composition at the
+> landed training cap, **the LIVE chain with no gold categories anywhere**, the heads → labels hand-off traced to its
+> cause, and six further levers built and measured — of which **one is a clean win, four are refuted as built with
+> their mechanisms, and one is answered as "measured, do not pay for it"**. The shipped arm and the proposed diff are
+> UNCHANGED; nothing in this phase reached the bar to be added to them.
+
+## 12. WHAT PHASE 7 MEASURED
+
+### 12.0 First: is the pipeline even reproducible? (it is, and the floor still moved)
+
+Two byte-identical processes of the `base` arm (cap 1500, test 700) were run concurrently: **UAS 0.6252 / obl 0.440 /
+nmod 0.408 (in-order) and 0.6119 / 0.426 / 0.382 (search) in BOTH**, to four decimals, and a third run of the same arm
+inside a different arm list reproduced them again. The pipeline is deterministic.
+
+**But the floor is not the same floor the first submission measured** (0.6246 / 0.449 / 0.410 in-order, 0.6188 search).
+Between the two sessions something on disk changed. I checked, and could not find it: the treebank is byte-identical
+and untouched since July, every asset `attachment_arm` reads (`typed_selectional_preference_bf_v1`,
+`..._bf_subj_v1`, `selectional_slots_bf_v1.pkl`, `attachment_hold_expect_v1`) is older than the first measurement,
+every module in the teacher path is older, and all 26 `HDLAB_*` switches are at their defaults in both sessions. The
+assets that DID change at 20:41 (`attachment_validities_v1.json`, `lexical_categories_counts_v1.json`,
+`coarse_role_validities_ud_ewt.json`) are not read by the `base` build path — I traced each `load_attachment_validities()`
+call site and every one of them takes the table as an argument.
+**Reported against this submission, and the reason it does not invalidate anything: every comparison here is
+WITHIN-RUN and paired over the same sentences, and the shift (obl −0.009) is a tenth of the effect (obl +0.10).**
+
+### 12.1 THE LIVE CHAIN — no gold categories anywhere (the headline of this phase)
+
+The first submission measured with the categories rung's **gold-UPOS stand-in**. Phase 7 measured the chain the reader
+actually runs: `hdlab.lexical_categories` (the count-based generative category organ) tags the sentence and hands DOWN
+its per-token posterior; the attachment competition marginalises over it (`arc_scores_graded`); the PP detector, the
+nominal runs and the candidate hosts are all read off the ORGAN'S OWN tags. This is byte-for-byte the path
+`hdlab/frontend.Parser.parse` takes at `HDLAB_TAG_SOURCE=counts` (default) and `HDLAB_HEADS_SOURCE=attachment_arm`
+(default) — I checked the frontend source against the probe.
+
+**Train cap 6000 (the landed cap), UD-EWT test 700, in-order decode, paired bootstrap over sentences, 2000 resamples.**
+
+| | UAS | obl | nmod | retrieved PP subpop |
+|---|---|---|---|---|
+| base, gold categories | 0.6239 | 0.4444 | 0.4288 | 0.5175 (n=599) |
+| **objgen, gold categories** | **0.6364** | **0.4969** | **0.5112** | **0.5659** |
+| delta | **+0.0125** [+0.0087,+0.0168] | **+0.0524** [+0.0189,+0.0873] | **+0.0824** [+0.0496,+0.1164] | **+0.0484** [+0.0182,+0.0808] |
+| base, **LIVE** categories | 0.6125 | 0.4340 | 0.4438 | 0.5344 (n=582) |
+| **objgen, LIVE categories** | **0.6243** | **0.4969** | **0.5075** | **0.5756** |
+| delta | **+0.0117** [+0.0079,+0.0160] | **+0.0629** [+0.0321,+0.0948] | **+0.0637** [+0.0301,+0.0997] | **+0.0412** [+0.0132,+0.0709] |
+
+**The win survives the live chain essentially intact** — every headline number stays CI-separated when the categories
+come from the organ instead of from the treebank, and obl is actually LARGER live (+0.063 vs +0.052). The live chain
+costs the arm about 1.1 UAS points overall (0.6239 → 0.6125 at base) and the PP cue loses 17 of its 599 detected sites
+(599 → 582) to category errors — a 2.8% detection loss, which is the whole price the categories rung charges this cue.
+
+### 12.2 THE COMPOSITION AT THE LANDED CAP 6000
+
+Rebuilt at the training cap the landed asset uses, on the working tree that already carries the pri-97
+main-assertion diff (`hdlab/attachment_arm.py` sha1 `dd645eebf25d`, stamped in every metrics file).
+**A new control was added that the first submission could not run: the LANDED ASSET ITSELF, loaded from disk rather
+than rebuilt** (`data/hook_state/attachment_validities_v1_pri97_cap6000.json`, byte-identical to the live
+`data/frontend_assets/attachment_validities_v1.json`).
+
+| arm | UAS | obl | nmod | what it is |
+|---|---|---|---|---|
+| `base` (rebuilt floor) | 0.6239 | 0.444 | 0.429 | the identical pipeline, change off |
+| **the LANDED asset, loaded** | **0.6241** | **0.449** | **0.429** | the file the reader actually loads today |
+
+**The rebuilt floor reproduces the landed asset to 0.0002 UAS.** That closes the one gap the first submission flagged:
+its `base` really is the thing the board would regress against.
+
+### 12.3 HEADS → LABELS: where the gain stops, and why (measured, not inferred)
+
+The first submission observed that "the head fix alone barely moves" the role competition and asked strategy to trace
+the hand-off. Phase 7 traced it, and the cause is structural, not gradual.
+
+**`hdlab/graded_role_assigner` HAS NO NMOD CLASS.** Its inventory is
+`ROLE_CLASSES = [SUBJ, OBJ, PASS_SUBJ, BY_AGENT, OBL, OTHER, IOBJ]` and `ROLE_TO_DEP` can emit only
+`nsubj / nsubj:pass / obj / iobj / obl / obl:agent / dep`. **A gold `nmod` cannot be labelled correctly by this organ
+whatever the heads rung hands it** — which is why 283 gold nmod came out `obl` and 179 came out `dep` at base, and why
+the numbers barely move when the heads improve. This is now a self-test check in the cell, not an assertion.
+
+The consequence at cap 6000 is a **downstream regression**: the role competition's accuracy over the nominals whose
+gold relation it can express falls **0.5765 → 0.5622** (n = 2099) under the better heads, and the confusion moves the
+way the mechanism predicts — `obl→dep` 61 → 96 and `nmod→dep` 195 → 214, because the improved heads move case-marked
+nominals OFF verbs and onto nouns, and a nominal not governed by a verb has nowhere to go in this inventory but `dep`.
+**Per the standing discipline this is not a reason to revert the upstream rung; it is a consumer that must be repaired
+to receive the richer signal.** The repair is one role class, and the distinction is free: in UD, and in the brain's
+own terms, `obl` versus `nmod` is a pure function of the HOST'S CATEGORY — a case-marked phrase licensed by a predicate
+is an oblique participant of an event, one licensed by a nominal is a property of a thing. A consumer that reads the
+host's category converts every head gain on this population into a label gain one-for-one.
+
+### 12.4 A NEW INSTRUMENT: what the channel decides, with the decode taken out of the way
+
+Per-relation recall confounds four things — whether the case-marked nominal is DETECTED, whether the gold host is
+RETRIEVED, whether the association RANKS it first, and whether the tree competition then keeps it. The cell gained a
+table-free, decode-free probe (`--rank-probe`) that holds the first two fixed and measures only the third: over the
+**556 gold obl+nmod tokens whose gold host is inside the retrieved candidate set**, how often does a given combination
+of channels put the gold host on top? It is an instrument (the gold tree selects and scores the population), never a
+build, and it costs 20 seconds instead of 40 minutes.
+
+**It reframed the problem, and this is the most useful thing phase 7 learned.**
+
+| ranking channel | all (n=556) | obl (n=313) | nmod (n=243) |
+|---|---|---|---|
+| **PROXIMITY alone** (the nearest open host) | **0.714** | 0.553 | **0.922** |
+| the association alone | 0.480 | 0.463 | 0.502 |
+| association + thematic (the shipped pair) | 0.484 | 0.463 | 0.510 |
+| its scrambled twin | 0.284 | 0.361 | 0.185 |
+| proximity + association | 0.718 | **0.601** | 0.868 |
+| proximity + association + thematic | 0.710 | 0.597 | 0.856 |
+| proximity + the scrambled twin | 0.610 | 0.572 | 0.658 |
+
+Three things follow, each of which changes how the rest of this phase should be read.
+
+1. **The association carries real signal** — 0.484 against its scrambled twin's 0.284 is not close. That is the
+   submission's central claim, re-confirmed on a population and an instrument the submission never used.
+2. **But proximity, not the association, is the floor on this population**, and for nmod proximity is almost a
+   solved problem (0.922). The arm already carries proximity as its `locality` cue. So the association's job in this
+   organ is not "decide the attachment"; it is "override proximity exactly where proximity is wrong", which is
+   overwhelmingly the obl cases (proximity 0.553).
+3. **Under a single global weight the association trades obl for nmod** (+0.048 obl, −0.054 nmod) — the seesaw the
+   brief named. **The organ does not do that**, because it learns the cue's validity separately inside every
+   configuration (head category × dependent category × order), so it can pull toward the verb in `VERB>NOUN` and
+   toward the noun in `NOUN>NOUN` independently. That is the mechanism behind the submission's headline result — obl
+   and nmod rising together — and it is why a fixed-weight probe under-reads what the organ gets. **The probe is a
+   valid test of "does this channel carry information"; it is not a test of "will the organ use it".** Every channel
+   below was therefore tested on BOTH.
+
+### 12.5 SIX MORE LEVERS, BUILT AND MEASURED
+
+#### (a) The referential / definiteness cue — REFUTED AS BUILT, with the mechanism
+
+The one lever the brief's refresh block named and the first submission did not reach (its alternate path #2):
+Altmann & Steedman 1988's referential context and Spivey-Knowlton & Sedivy 1995's definiteness × verb-bias crossing —
+a definite host with a competing like referent invites the restrictive-modifier reading. Built as a cue in the arm's
+own knowledge form: value = `<host type>:<definiteness of the host's own determiner>` plus an `R` marker when a like
+referent (same lemma or same WordNet supersense) occurred earlier, validity learned by the arm's own counts.
+
+**Measured (cap 1500, test 700, paired bootstrap): `objgenref` vs `objgen` — in-order UAS −0.0013 n.s., obl −0.0189
+n.s., nmod −0.0187 n.s.; SEARCH decode UAS −0.0081\*, obl −0.0650\*, nmod −0.0693\*, retrieved-nmod −0.1353\*.**
+Against its own twin it is indistinguishable everywhere except retrieved-nmod (+0.0301\* in-order). It costs
+accuracy and adds no content.
+
+**The mechanism, read straight off the learned validity table** (this is the whole value of the negative):
+
+```
+A:na +1.731   V:na +0.315   N:name -1.873   N:nameR -1.800
+N:indef +0.515  N:indefR +0.734   N:def +0.369  N:defR +0.599   N:bare +0.184  N:poss +0.417
+```
+
+Almost all of the learned mass sits on `A:na`, `V:na` and `N:name` — i.e. on **"is the host an adjective, a verb, or a
+proper noun"**, which is a HOST-TYPE PRIOR the configuration already owns. This is the identical failure the first
+submission diagnosed for the "strongest rival" readout in §5(a), arriving by a different door. And the definiteness
+contrast the literature predicts is not merely small, it is **reversed**: indefinite hosts (+0.515) outrank definite
+ones (+0.369), and the rival-referent marker adds only ~+0.22. Because the cue fires on exactly the arcs the `pp` cue
+fires on, the additive competition re-splits the credit and **compresses the association's own ladder** (w2 1.241 →
+1.046, l2 −0.255 → −0.302) — that is the numeric cause of the loss.
+
+**Why the effect is absent, and what would find it.** Altmann & Steedman's referential context is a property of the
+DISCOURSE MODEL — how many salient referents of that kind the listener is already entertaining. My `has_rival_referent`
+could only scan the CURRENT SENTENCE, because that is all the attachment arm is handed. **The cue was built at the
+wrong scope.** The right build reads the rival-referent count off the entity / situation layer (the coref organs), and
+it is a cross-organ lever, not a cue this arm can grow on its own. Logged as a lead below.
+
+#### (b) More reading — MEASURED, AND THE ANSWER IS "DO NOT PAY FOR IT" (alternate path #3)
+
+The first submission asked for the reading-volume curve before paying for a 500k-line mining job. Measured on the
+channel probe at 5,000 lines (2,951 host cells) against 100,000 lines (17,118 host cells) — a 20× increase:
+
+| | association alone | its scrambled twin | real − twin | on the proximity floor |
+|---|---|---|---|---|
+| 5,000 lines | 0.4388 (obl 0.4633, nmod 0.4074) | 0.3327 | **+0.106** | 0.7194 |
+| 100,000 lines | 0.4802 (obl 0.4633, nmod 0.5021) | 0.2842 | **+0.196** | 0.7176 |
+
+**The association really is still learning** — its margin over its own twin nearly doubles, and the whole of the gain
+is on the NOUN side (nmod 0.407 → 0.502; **obl is 0.4633 at both volumes, identical to four decimals** — the verb side
+saturates by 5,000 lines). **But once proximity is in the model the curve is flat** (0.7194 → 0.7176). More reading
+buys information the organ cannot convert, because on the noun side proximity already answers the question.
+**Recommendation with a number: do not run the 500k job for this cue.**
+
+#### (c) The retrieval capacity — SWEPT, AND IT IS NOT BINDING (alternate path #5)
+
+The first submission chose the capacity cap K = 6 as "the knee" and listed "learn the cap / use an activation decay
+instead" as a more faithful alternative (Lewis & Vasishth 2005). Swept on the channel probe:
+
+| K | retrievable population | proximity + association |
+|---|---|---|
+| 4 | 546 | 0.7344 (obl 0.6197, nmod 0.8797) |
+| 6 | 556 | 0.7176 (obl 0.6006, nmod 0.8683) |
+| 12 | **556 — identical to K = 6, to the token** | 0.7176 — identical |
+
+**K = 6 already retrieves everything K = 12 does**, so the hard cap is not throwing anything away on this test set and
+a soft activation-decay retrieval could not recover a single additional token. The lever is answered and closed: the
+capacity limit is not where the loss is. (K = 4 ranks slightly better on a slightly smaller population — a precision /
+coverage trade of 10 tokens, not a mechanism.)
+
 ## SUBMISSION PROMPT
 
 ```

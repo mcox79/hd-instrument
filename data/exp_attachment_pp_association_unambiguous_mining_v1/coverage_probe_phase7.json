@@ -1,0 +1,78 @@
+{
+ "anchor": "attachment_pp_association_unambiguous_mining_v1",
+ "probe": "coverage_probe",
+ "test_cap": 700,
+ "results": {
+  "totals": {
+   "obl": 477,
+   "nmod": 534
+  },
+  "detected_by_preposition": {
+   "obl": 333,
+   "nmod": 266
+  },
+  "covered_by_the_genitive_construction": {
+   "nmod": 111
+  },
+  "obl_undetected_by_class": {
+   "NOUN/noun.time": 28,
+   "PRON/-": 19,
+   "NOUN/noun.communication": 12,
+   "NOUN/noun.act": 6,
+   "NUM/-": 6,
+   "PROPN/noun.artifact": 6,
+   "NOUN/noun.artifact": 5,
+   "ADJ/-": 5,
+   "ADP/-": 5,
+   "PROPN/-": 5,
+   "PROPN/noun.location": 5,
+   "NOUN/-": 4,
+   "NOUN/noun.food": 4,
+   "PROPN/noun.time": 4
+  },
+  "obl_undetected_total": 144,
+  "nmod_undetected_by_class": {
+   "NUM/-": 17,
+   "PROPN/noun.person": 14,
+   "PROPN/-": 14,
+   "PROPN/noun.time": 14,
+   "NOUN/noun.act": 11,
+   "PROPN/noun.location": 8,
+   "NOUN/noun.substance": 8,
+   "NOUN/noun.time": 7,
+   "PROPN/noun.artifact": 6,
+   "PRON/-": 6,
+   "PROPN/noun.group": 6,
+   "SYM/-": 5,
+   "NOUN/noun.communication": 5,
+   "NOUN/noun.person": 5
+  },
+  "nmod_undetected_total": 157
+ },
+ "hdlab_provenance": {
+  "hdlab/attachment_arm.py": {
+   "sha1": "dd645eebf25d",
+   "bytes": 112303
+  },
+  "tools/build_attachment_validities.py": {
+   "sha1": "a6867eaca332",
+   "bytes": 11461
+  },
+  "pri97_root_cues_present": true,
+  "cues_at_import": [
+   "locality",
+   "frame",
+   "form",
+   "boundary",
+   "agree",
+   "constr",
+   "pp",
+   "plaus",
+   "rpred",
+   "rsub",
+   "rpos",
+   "csub"
+  ]
+ },
+ "ts_iso": "2026-09-14T02:03:07Z"
+}

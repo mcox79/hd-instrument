@@ -1,0 +1,159 @@
+{
+ "anchor": "attachment_pp_association_unambiguous_mining_v1",
+ "probe": "rank_probe",
+ "test_cap": 700,
+ "kcap": 6,
+ "slot_stats": {
+  "predicate_prep_slots": 6947,
+  "filler_class_cells": 20179,
+  "prepositions": 64,
+  "observations": 39222.0
+ },
+ "results": {
+  "locality only": {
+   "all": [
+    556,
+    397,
+    0.714
+   ],
+   "obl": [
+    313,
+    173,
+    0.5527
+   ],
+   "nmod": [
+    243,
+    224,
+    0.9218
+   ]
+  },
+  "association": {
+   "all": [
+    556,
+    267,
+    0.4802
+   ],
+   "obl": [
+    313,
+    145,
+    0.4633
+   ],
+   "nmod": [
+    243,
+    122,
+    0.5021
+   ]
+  },
+  "association + thematic (shipped)": {
+   "all": [
+    556,
+    269,
+    0.4838
+   ],
+   "obl": [
+    313,
+    145,
+    0.4633
+   ],
+   "nmod": [
+    243,
+    124,
+    0.5103
+   ]
+  },
+  "association + thematic + OBLIQUE SLOT": {
+   "all": [
+    556,
+    266,
+    0.4784
+   ],
+   "obl": [
+    313,
+    144,
+    0.4601
+   ],
+   "nmod": [
+    243,
+    122,
+    0.5021
+   ]
+  },
+  "OBLIQUE SLOT only": {
+   "all": [
+    556,
+    343,
+    0.6169
+   ],
+   "obl": [
+    313,
+    158,
+    0.5048
+   ],
+   "nmod": [
+    243,
+    185,
+    0.7613
+   ]
+  },
+  "TWIN: scrambled association + thematic": {
+   "all": [
+    556,
+    158,
+    0.2842
+   ],
+   "obl": [
+    313,
+    113,
+    0.361
+   ],
+   "nmod": [
+    243,
+    45,
+    0.1852
+   ]
+  },
+  "TWIN: shipped + scrambled slot": {
+   "all": [
+    556,
+    268,
+    0.482
+   ],
+   "obl": [
+    313,
+    146,
+    0.4665
+   ],
+   "nmod": [
+    243,
+    122,
+    0.5021
+   ]
+  }
+ },
+ "hdlab_provenance": {
+  "hdlab/attachment_arm.py": {
+   "sha1": "dd645eebf25d",
+   "bytes": 112303
+  },
+  "tools/build_attachment_validities.py": {
+   "sha1": "a6867eaca332",
+   "bytes": 11461
+  },
+  "pri97_root_cues_present": true,
+  "cues_at_import": [
+   "locality",
+   "frame",
+   "form",
+   "boundary",
+   "agree",
+   "constr",
+   "pp",
+   "plaus",
+   "rpred",
+   "rsub",
+   "rpos",
+   "csub"
+  ]
+ },
+ "ts_iso": "2026-09-14T01:53:49Z"
+}

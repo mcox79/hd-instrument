@@ -1,0 +1,245 @@
+{
+ "anchor": "attachment_pp_association_unambiguous_mining_v1",
+ "probe": "rank_probe",
+ "test_cap": 700,
+ "kcap": 6,
+ "slot_stats": {
+  "predicate_prep_slots": 6947,
+  "filler_class_cells": 20179,
+  "prepositions": 64,
+  "observations": 39222.0
+ },
+ "results": {
+  "locality only (the floor on this population)": {
+   "all": [
+    556,
+    397,
+    0.714
+   ],
+   "obl": [
+    313,
+    173,
+    0.5527
+   ],
+   "nmod": [
+    243,
+    224,
+    0.9218
+   ]
+  },
+  "association alone": {
+   "all": [
+    556,
+    244,
+    0.4388
+   ],
+   "obl": [
+    313,
+    145,
+    0.4633
+   ],
+   "nmod": [
+    243,
+    99,
+    0.4074
+   ]
+  },
+  "association + thematic alone (the shipped pair)": {
+   "all": [
+    556,
+    244,
+    0.4388
+   ],
+   "obl": [
+    313,
+    145,
+    0.4633
+   ],
+   "nmod": [
+    243,
+    99,
+    0.4074
+   ]
+  },
+  "OBLIQUE SLOT alone": {
+   "all": [
+    556,
+    343,
+    0.6169
+   ],
+   "obl": [
+    313,
+    158,
+    0.5048
+   ],
+   "nmod": [
+    243,
+    185,
+    0.7613
+   ]
+  },
+  "locality + association": {
+   "all": [
+    556,
+    400,
+    0.7194
+   ],
+   "obl": [
+    313,
+    187,
+    0.5974
+   ],
+   "nmod": [
+    243,
+    213,
+    0.8765
+   ]
+  },
+  "locality + association + thematic": {
+   "all": [
+    556,
+    400,
+    0.7194
+   ],
+   "obl": [
+    313,
+    187,
+    0.5974
+   ],
+   "nmod": [
+    243,
+    213,
+    0.8765
+   ]
+  },
+  "locality + OBLIQUE SLOT": {
+   "all": [
+    556,
+    382,
+    0.6871
+   ],
+   "obl": [
+    313,
+    162,
+    0.5176
+   ],
+   "nmod": [
+    243,
+    220,
+    0.9053
+   ]
+  },
+  "locality + association + thematic + OBLIQUE SLOT": {
+   "all": [
+    556,
+    393,
+    0.7068
+   ],
+   "obl": [
+    313,
+    180,
+    0.5751
+   ],
+   "nmod": [
+    243,
+    213,
+    0.8765
+   ]
+  },
+  "TWIN of the shipped pair (scrambled association)": {
+   "all": [
+    556,
+    185,
+    0.3327
+   ],
+   "obl": [
+    313,
+    105,
+    0.3355
+   ],
+   "nmod": [
+    243,
+    80,
+    0.3292
+   ]
+  },
+  "TWIN on the locality floor (scrambled association)": {
+   "all": [
+    556,
+    385,
+    0.6924
+   ],
+   "obl": [
+    313,
+    178,
+    0.5687
+   ],
+   "nmod": [
+    243,
+    207,
+    0.8519
+   ]
+  },
+  "TWIN of the oblique slot (scrambled predicates)": {
+   "all": [
+    556,
+    396,
+    0.7122
+   ],
+   "obl": [
+    313,
+    173,
+    0.5527
+   ],
+   "nmod": [
+    243,
+    223,
+    0.9177
+   ]
+  },
+  "TWIN of everything on the locality floor": {
+   "all": [
+    556,
+    382,
+    0.6871
+   ],
+   "obl": [
+    313,
+    175,
+    0.5591
+   ],
+   "nmod": [
+    243,
+    207,
+    0.8519
+   ]
+  },
+  "_near_w": 2.0
+ },
+ "hdlab_provenance": {
+  "hdlab/attachment_arm.py": {
+   "sha1": "dd645eebf25d",
+   "bytes": 112303
+  },
+  "tools/build_attachment_validities.py": {
+   "sha1": "a6867eaca332",
+   "bytes": 11461
+  },
+  "pri97_root_cues_present": true,
+  "cues_at_import": [
+   "locality",
+   "frame",
+   "form",
+   "boundary",
+   "agree",
+   "constr",
+   "pp",
+   "plaus",
+   "rpred",
+   "rsub",
+   "rpos",
+   "csub"
+  ]
+ },
+ "ts_iso": "2026-09-14T02:22:06Z"
+}
