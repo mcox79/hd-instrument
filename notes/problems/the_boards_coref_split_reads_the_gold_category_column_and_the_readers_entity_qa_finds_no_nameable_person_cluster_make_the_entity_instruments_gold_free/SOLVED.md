@@ -753,6 +753,30 @@ common-noun one survives only where the category organ is right -- and the large
 between the reader and its own category organ is that the reader lowercases its input before the organ ever
 sees it.*
 
+## 24. A CONCURRENT INTEGRATION LANDED MID-SESSION -- and here is the control that says my numbers hold
+
+At **09:11:41** strategy committed pri 104's entity prior (`47942dc00`), which changed **`hdlab/lexical_categories.py`
+(+328 lines), the live category asset `lexical_categories_counts_v1.json`, and `hdlab/situation_reader.py`
+(+6 lines, the passage-boundary `new_document` wire)** -- i.e. **the very organ every gold-free arm in this
+document reads.** My runs straddle it: everything up to `board_arms_convert.json` (09:07) and
+`probe_case.json` (09:06) ran on the OLD organ; `board_arms_lower2.json` (09:18) ran on the NEW one.
+
+**THE CONTROL IS FREE, because `gf2` was re-run in both.** Comparing the `gf2` record of the 09:03 publication
+run with the `gf2` record of the 09:18 run, every field except elapsed time:
+
+```
+gf2 arm BYTE-IDENTICAL across the pri-104 integration (09:03 run vs 09:18 run): True
+```
+
+**Identical coref row, identical common-noun row, identical salience, identical entity-KB, identical
+2948/5653/8409 mention-type split.** pri 104's own landing note says the board is byte-identical and the
+probe moves UPOS 0.9312 -> 0.9313; that is consistent with what I measure here from the other side. **So
+every number in this document is comparable, and the two diffs still `git apply --check` clean against the
+post-integration tree (re-checked after the landing).**
+
+*Recorded because it was luck that I had a repeated arm to check with -- a solver measuring a live organ
+while another session integrates into it should re-run one arm on purpose, not hope one overlaps.*
+
 ## GAPS -- steps not performed, and not worked around
 
 1. **The span head from the attachment arm's real parse was NOT measured.** The NP-run rule is a stand-in
