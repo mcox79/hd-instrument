@@ -4334,6 +4334,12 @@ class SituationReader:
 
     def read(self, conll_path: str) -> SituationModel:
         self._read_parse_cache = {}   # per-read tag/parse memo (bound memory; safe if the reader is reused)
+        if _TAG_SOURCE == "counts":
+            # PASSAGE BOUNDARY (pri 104, 2026-09-14): the category organ's entity-feedback arm keeps a per-passage file of the
+            # individuals it has met (Heim 1982 file cards; the referent level re-enters the category competition as a next-mention
+            # prior); a new passage is a new file. Without this call the arm is inert and the organ is byte-identical to before.
+            from hdlab import lexical_categories as _LC
+            _LC.get().new_document()
         if self.referent_per_np:
             # DECOUPLE (P5 wire, owner-DONE wire_the_referent_to_coref_linking_pass): referent_per_np swaps ONLY
             # the who-did-what ROLE-candidate + entity source (a discourse referent per content-noun-head NP);

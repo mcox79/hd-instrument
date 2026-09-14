@@ -148,6 +148,154 @@ UNK_SLOT_F = int(os.environ.get("HDLAB_LC_UNK_SLOT_F", "300"))
 #                   operating point; 1.0 / 1.5 / 2.0 cost unseen accuracy without buying the confusion back.
 UNK_DET_KAPPA = float(os.environ.get("HDLAB_LC_UNK_DET_KAPPA", "0.5"))
 UNK_RIGHT_KAPPA = float(os.environ.get("HDLAB_LC_UNK_RIGHT_KAPPA", "0.5"))
+#   ENT_KAPPA / ENT_THETA_DOC  THE ENTITY LAYER'S TOP-DOWN PRIOR (2026-09-14, pri-104 solver;
+#                   `experiments/exp_entity_to_category_prior_v1.py`). A proper name is a word that picks out an
+#                   INDIVIDUAL (Kripke 1980 rigid designation); proper-name processing runs through a referent
+#                   route in the left temporal pole distinct from the common-noun semantic route (Semenza
+#                   2006/2009 proper-name anomia; Damasio et al. 1996), which sits ABOVE this word-form/category
+#                   level. Comprehension is PREDICTIVE and the prediction runs TOP-DOWN (Rao & Ballard 1999;
+#                   Kuperberg & Jaeger 2016), so the referent system's belief re-enters the category competition
+#                   as ONE additive log-prior term -- the same shape as every other cue in this organ.
+#                   WHY A FORM CUE CANNOT DO THIS: "the MSM" is PROPN and "the CEO" is NOUN; both are Cap/ACRO
+#                   after "the". What separates them is the string's DISCOURSE HISTORY, which is the entity
+#                   layer's to know. ENT_KAPPA reads a count table log P(E | c) over five HEIM (1982) FILE-CARD
+#                   symbols for that history IN THIS PASSAGE: e_first / e_rep_bare / e_rep_def / e_rep_indef /
+#                   e_rep_plural -- the last two are Katz, Baker & Macnamara 1974 ("this is A dax" names a KIND)
+#                   and Gelman & Taylor 1984 (individuals do not pluralise) KIND evidence.
+#                   Read ONLY where there is no lexical entry (MacDonald 1994 cue competition -- the same gate the
+#                   Katz frame uses), and estimated on the NOVEL-FORM stratum when ENT_NOVEL (Baayen productivity:
+#                   the same reason the shape cue keeps two evidence bases; MEASURED, the two tables disagree in
+#                   SIGN on e_rep_def -- +0.43 nats toward PROPN on the whole vocabulary, -0.31 toward NOUN on the
+#                   novel stratum -- and e_rep_plural is 3.6x stronger on the novel stratum).
+#                   ENT_THETA_DOC is the DOCUMENT REGISTER, the same top-down path one level coarser: the reader
+#                   adapts the generative model to the CURRENT passage's statistics (Fine, Jaeger, Farmer & Qian
+#                   2013 rapid expectation adaptation; Delaney-Busch, Morgan, Lau & Kuperberg 2019 trial-by-trial
+#                   Bayesian adaptation of the N400). The novel-form shape table is mixed with a passage-local
+#                   table accumulated from the organ's OWN GRADED posteriors, by the organ's own shrinkage
+#                   a = n/(n + theta). None = off.
+#                   BOTH are NEXT-MENTION priors: the register is written strictly IN ORDER and the belief about
+#                   word t reads only words 0..t-1 -- never a same-token loop.
+#                   WIRING: a consumer that reads a passage calls `new_document()` at each passage boundary and
+#                   then `posterior()` per sentence in reading order; the file cards write themselves inside
+#                   `posterior`, and `update_document_register(words, post)` folds the settled belief back. With
+#                   no `new_document()` call the entity prior is INERT (self._reg is None) and the organ behaves
+#                   exactly as it does today -- so no existing single-sentence consumer changes.
+#                   MEASURED DEFAULTS (swept, never adopted) -- the recommended arm is kappa 2 + recency 5 +
+#                   SKIP_FIRST, on GUM (137 real documents, 136k tokens, the well-powered population): overall
+#                   0.8807 -> 0.8819, unseen 0.5214 -> 0.5254, PROPN<->NOUN 563 -> 516, repeat-mention accuracy
+#                   0.5666 -> 0.5767 and its confusions 293 -> 245, with FIRST-mention accuracy EXACTLY unchanged
+#                   (0.8871 -> 0.8871). Without SKIP_FIRST the same prior costs first mentions (+22 confusions).
+#                   kappa 4 is a CI-SEPARATED NEGATIVE on UD-EWT test (unseen -0.0154 CI[-0.0274,-0.0043]).
+#                   ENT_NOVEL=0: the novel-form stratum holds only 13,117 of 204,578 entity counts and LOSES --
+#                   how a string is USED across a passage does not depend on how often the reader has met it, so
+#                   Baayen's productivity argument (which is about MORPHOLOGY) does not transfer here.
+#                   ENT_THETA_DOC=100: the passage register, in its THIRD and only shipping form. Version 1
+#                   (calibrate on every token) was CI-SEPARATED NEGATIVE -- it fed the organ's own errors back.
+#                   Version 2 (calibrate on KNOWN tokens, ENT_REG_KNOWN) won CI-separated on GENTLE and washed
+#                   out on GUM. Version 3 adds the offline known/unknown bias correction (ENT_REG_OFFSET) and is
+#                   positive on BOTH. The history is kept in these comments on purpose: two of the three forms
+#                   are things not to re-try.
+ENT_KAPPA = float(os.environ.get("HDLAB_LC_ENT_KAPPA", "2.0"))
+_etd = os.environ.get("HDLAB_LC_ENT_THETA_DOC", "100").strip()
+ENT_THETA_DOC = float(_etd) if _etd else None
+ENT_NOVEL = os.environ.get("HDLAB_LC_ENT_NOVEL", "0") == "1"
+ENT_RECENCY = int(os.environ.get("HDLAB_LC_ENT_RECENCY", "5"))
+# ENT_SKIP_FIRST: a top-down prediction EXISTS ONLY WHERE THE HIGHER LEVEL HAS A BELIEF. At `e_first` the referent
+# system has never met this string in this passage; log P(e_first | c) is then a category-marginal-shaped term
+# perturbing a competition it knows nothing about -- the same defect UNK_PRIOR_GAMMA removes, one rung up.
+ENT_SKIP_FIRST = os.environ.get("HDLAB_LC_ENT_SKIP_FIRST", "1") == "1"
+ENT_DOC_DECAY = float(os.environ.get("HDLAB_LC_ENT_DOC_DECAY", "1.0"))   # per-sentence decay of the doc register
+# ENT_REG_KNOWN: THE REPAIRED PASSAGE REGISTER. The first version of the passage register accumulated the organ's
+# posteriors over ALL tokens and was CI-SEPARATED NEGATIVE (GUM PROPN<->NOUN 563 -> 651) -- it calibrated on its own
+# errors, because on an unseen GUM word the organ is right 0.52 of the time. Restricted to tokens that HAVE a
+# lexical entry -- where it scores 0.93 -- the register measures the PASSAGE'S OWN capitalisation convention and
+# transfers it to the unknown tokens, which is what a convention is for. MEASURED: P(PROPN | Cap@mid) is 0.933 on
+# GUM, 0.773 on UD-EWT test and 0.509 on GENTLE, and it is the whole explanation of the out-of-domain failure.
+# On GENTLE (theta 100) it is CI-SEPARATED POSITIVE: repeat-mention 0.6963 -> 0.7186, +0.0223 CI[+0.0057,+0.0367],
+# PROPN<->NOUN 284 -> 273; on UD-EWT test (theta 100) 0.8002 -> 0.8013, 154 -> 151, repeat-mention +0.0104 n.s.
+# ON ITS OWN IT WASHES OUT ON GUM (theta 30 PROPN<->NOUN 563 -> 615 but repeat-mention -0.0027 CI[-0.0069,+0.0012]
+# NOT separated; theta 100 -> 590 and -0.0008 CI[-0.0043,+0.0027]) because calibrating on known tokens imports the
+# known/unknown bias -- which is what ENT_REG_OFFSET below corrects, and with it the register is positive on both.
+ENT_REG_KNOWN = os.environ.get("HDLAB_LC_ENT_REG_KNOWN", "1") == "1"
+# ENT_REG_OFFSET: THE KNOWN/UNKNOWN BIAS CORRECTION, and it is what makes the passage register safe on BOTH
+# corpora. A register calibrated on KNOWN words estimates the convention OF KNOWN WORDS, and a capitalised word
+# the organ already knows is systematically LESS likely to be a name than one it has never seen --
+# P(PROPN | Cap@mid) known vs unknown is 0.7374/0.8574 on UD-EWT test, 0.9259/0.9437 on GUM, 0.4460/0.6100 on
+# GENTLE. That bias is a property of the LANGUAGE, not of the passage, so `_build_shape_offset` measures it ONCE
+# at build time by comparing the supply's KNOWN slice with its NOVEL-FORM stratum (the two evidence bases this
+# organ already keeps) and divides it out of every local estimate. No read-time cost, no new knowledge source.
+# MEASURED at theta 100. GENTLE: repeat-mention 0.6963 -> 0.7186, +0.0223 CI[+0.0079,+0.0361] CI-SEPARATED, a
+# TIGHTER interval than the uncorrected +0.0223 CI[+0.0057,+0.0367]; PROPN<->NOUN 284 -> 273. GUM: repeat-mention
+# 0.5666 -> 0.5703, FIRST-mention 0.8871 -> 0.8907, PROPN<->NOUN 563 -> 568 (against 590 UNCORRECTED). It is the
+# only lever in this brief that is positive on both corpora, which is why ENT_THETA_DOC defaults to 100.
+ENT_REG_OFFSET = os.environ.get("HDLAB_LC_ENT_REG_OFFSET", "1") == "1"
+KIND_DET = frozenset({"det_indef", "quant"})       # Katz: "this is A dax" -> a KIND term
+DEF_DET = frozenset({"det_def", "poss"})           # names DO take determiners ("the MSM"); the counts decide
+ENT_SYMS = ("e_first", "e_rep_bare", "e_rep_def", "e_rep_indef", "e_rep_plural")
+
+
+def _plural_variants(wl):
+    out = [wl + "s", wl + "es"]
+    if wl.endswith("es") and len(wl) > 3:
+        out.append(wl[:-2])
+    if wl.endswith("s") and len(wl) > 2:
+        out.append(wl[:-1])
+    return out
+
+
+class DiscourseRegister:
+    """Heim (1982) FILE CARDS for one passage, keyed by surface type -- the route the entity layer itself uses for
+    NAMES (`hdlab/online_entity_cluster.online_cluster` resolves a name by its string through the aliaser and sends
+    only common nouns through cue-based retrieval). Purely SURFACE: no category is read, so the symbol computed
+    while ACCRUING and the symbol computed while READING are the same function of the same evidence -- no
+    train/read mismatch and no circularity with the decision it informs."""
+
+    __slots__ = ("h", "sent_no")
+
+    def __init__(self):
+        self.h = {}
+        self.sent_no = 0
+
+    def _card(self, wl):
+        c = self.h.get(wl)
+        if c is None:
+            c = self.h[wl] = {"n": 0, "det": set(), "plural": False, "last": -1}
+        return c
+
+    def symbol(self, wl):
+        c = self.h.get(wl)
+        if c is None or c["n"] == 0:
+            return "e_first"
+        if c["plural"]:
+            base = "e_rep_plural"
+        elif c["det"] & KIND_DET:
+            base = "e_rep_indef"
+        elif c["det"] & DEF_DET:
+            base = "e_rep_def"
+        else:
+            base = "e_rep_bare"
+        if ENT_RECENCY:
+            # ACT-R BASE-LEVEL ACTIVATION, discretised (the substrate's own constants live in
+            # `hdlab/salience_binder.actr_activation`): a file card last touched 40 sentences ago is weak evidence
+            # and one touched two sentences ago is strong, so the prior is read against the card's ACTIVATION and
+            # not merely its existence. The window is swept (2 / 5 / 10 measured; 5 is the operating point).
+            base += "|r" if (self.sent_no - c["last"]) <= ENT_RECENCY else "|d"
+        return base
+
+    def observe(self, lows, i):
+        """Write word i into the file cards -- called only AFTER the symbol for word i has been consumed."""
+        wl = lows[i]
+        c = self._card(wl)
+        c["n"] += 1
+        c["last"] = self.sent_no
+        c["det"].add(det_context(lows, i))
+        for alt in _plural_variants(wl):
+            if alt == wl:
+                continue
+            o = self.h.get(alt)
+            if o is not None and o["n"] > 0:
+                c["plural"] = True
+                o["plural"] = True
 DET_DEF = {"the", "this", "that", "these", "those"}
 DET_INDEF = {"a", "an", "another", "any", "some", "each", "every", "no"}
 QUANT = {"many", "few", "several", "most", "all", "both", "one", "two", "three", "more", "much", "other"}
@@ -302,6 +450,15 @@ class LexicalCategories:
         self.shape_pos: Dict[str, Counter] = defaultdict(Counter)     # category -> Counter(shape@position)
         self.shape_pos_w: Dict[str, Counter] = defaultdict(Counter)   # word type -> Counter(shape@position)
         self.detc: Dict[str, Counter] = defaultdict(Counter)          # category -> Counter(Katz left-context class)
+        #   THE ENTITY LAYER'S FEEDBACK (see ENT_KAPPA): P(entity symbol | category), over the whole vocabulary
+        #   and over the NOVEL-FORM stratum. Accrued by `accrue_docs`; log-probabilities re-derived in `finalize`.
+        self.entc: Dict[str, Counter] = defaultdict(Counter)          # category -> Counter(entity symbol)
+        self.entc_u: Dict[str, Counter] = defaultdict(Counter)        # ... over the novel-form stratum only
+        self.log_entc: Dict[str, Dict[str, float]] = {}
+        self._ent_back: Dict[str, float] = {}
+        self._reg = None                                              # the current passage's file cards
+        self._doc_shape: Dict[str, np.ndarray] = {}                   # the passage register (arm B)
+        self._sp_offset: Dict[str, np.ndarray] = {}                   # the known/unknown bias, measured offline
         self.rightc: Dict[str, Counter] = defaultdict(Counter)        # category -> Counter(right-frame class)
         self.slotL: Dict[str, Counter] = defaultdict(Counter)         # category -> Counter(left neighbour word)   [unknown only]
         self.slotR: Dict[str, Counter] = defaultdict(Counter)         # category -> Counter(right neighbour word)  [unknown only]
@@ -356,6 +513,47 @@ class LexicalCategories:
         self._dirty = True
         return self
 
+    def accrue_docs(self, docs) -> "LexicalCategories":
+        """Accrue from PASSAGES (a list of documents, each a list of (word, category) sentences). TWO passes: the
+        emission tables exactly as `accrue` builds them over the flattened stream, then the entity-symbol counts,
+        which need BOTH the passage's reading order AND a complete vocabulary count (to know which types are
+        NOVEL). The emission/suffix/transition tables are byte-identical to the flat accrual."""
+        for d in docs:
+            self.accrue(d)
+        self.finalize()
+        return self.accrue_entity_docs(docs)
+
+    def accrue_entity_docs(self, docs) -> "LexicalCategories":
+        """PASS 2: P(entity symbol | category) over the passages, on the whole vocabulary and on the NOVEL-FORM
+        (Baayen productivity) stratum. Reads no categories of its own -- the symbol is a pure surface function."""
+        wcnt: Counter = Counter()
+        for t in self.tags:
+            wcnt.update(self.emit[t])
+        nmax = max(1, UNK_NOVEL_MAX)
+        for d in docs:
+            reg = DiscourseRegister()
+            for sent in d:
+                lows = [w.lower() for w, _ in sent]
+                for i, (_w, t) in enumerate(sent):
+                    sym = reg.symbol(lows[i])
+                    self.entc[t][sym] += 1
+                    if wcnt.get(lows[i], 0) <= nmax:
+                        self.entc_u[t][sym] += 1
+                    reg.observe(lows, i)
+                reg.sent_no += 1          # the passage advances (the ACT-R recency clock; mirrors `posterior`)
+        self._dirty = True
+        return self
+
+    def observe_document(self, sentences, categories_per_sentence) -> None:
+        """ONLINE accrual of one comprehended PASSAGE -- the plastic path for the entity-feedback counts."""
+        self.accrue_docs([[list(zip(ws, cs)) for ws, cs in zip(sentences, categories_per_sentence)]])
+        self.finalize()
+
+    def new_document(self) -> None:
+        """Passage boundary: open a fresh set of file cards and clear the passage register (Heim: a new file)."""
+        self._reg = DiscourseRegister()
+        self._doc_shape = {}
+
     def observe(self, words: Sequence[str], categories: Sequence[str]) -> None:
         """ONLINE accrual of one confirmed categorisation (a comprehension outcome) -- the plastic path."""
         self.accrue([list(zip(words, categories))])
@@ -393,6 +591,7 @@ class LexicalCategories:
                 tot = self.tag_count[t] + self.lam * len(SHAPES)
                 self.log_shape[t] = {sh: math.log((self.shape[t][sh] + self.lam) / tot) for sh in SHAPES}
         self._finalize_unknown_word_cues()
+        self._finalize_entity()
         if self.use_frame:
             # the frame vocabulary = the FRAME_F most frequent word types in the supply (+ BOS/EOS); every other neighbour -> FRAME_OTHER.
             # log P(a | c) = log (n(c, a) + lam) / (n(c) + lam * |frame vocab|), one pure function of the counts (plastic).
@@ -536,6 +735,79 @@ class LexicalCategories:
                     tot = sum(col2.values()) + self.lam * V
                     out[t] = {a: math.log((col2[a] + self.lam) / tot) for a in syms}
 
+    def _build_shape_offset(self) -> None:
+        """The KNOWN/UNKNOWN offset per shape symbol (see ENT_REG_OFFSET): log P_novel(c | sp) - log P_known(c | sp),
+        measured ONCE from the supply. One pure function of the counts this organ already keeps, so it costs a
+        build-time pass and nothing at read time."""
+        T = len(self.tags)
+        nmax = max(1, UNK_NOVEL_MAX)
+        wcnt: Counter = Counter()
+        wtag: Dict[str, np.ndarray] = {}
+        for i, t in enumerate(self.tags):
+            for w, n in self.emit[t].items():
+                wcnt[w] += n
+                v = wtag.get(w)
+                if v is None:
+                    v = wtag[w] = np.zeros(T)
+                v[i] += n
+        known: Dict[str, np.ndarray] = {}
+        novel: Dict[str, np.ndarray] = {}
+        for w, col in self.shape_pos_w.items():
+            v = wtag.get(w)
+            if v is None or v.sum() <= 0:
+                continue
+            v = v / v.sum()
+            tgt = novel if wcnt[w] <= nmax else known
+            den = float(sum(col.values()))
+            for sp, n in col.items():
+                r = tgt.get(sp)
+                if r is None:
+                    r = tgt[sp] = np.zeros(T)
+                r += v * (n / den)
+        self._sp_offset = {}
+        for sp in set(known) | set(novel):
+            k = known.get(sp)
+            u = novel.get(sp)
+            if k is None or u is None or k.sum() < 5 or u.sum() < 5:
+                continue
+            kp = (k + self.lam) / (k.sum() + self.lam * T)
+            up = (u + self.lam) / (u.sum() + self.lam * T)
+            self._sp_offset[sp] = np.log(up) - np.log(kp)
+
+    def _finalize_entity(self) -> None:
+        """log P(entity symbol | category) -- ONE pure function of the counts (so `observe_document` re-derives it).
+        The emission slot takes a LIKELIHOOD, not a posterior -- the same correction UNK_PRIOR_GAMMA makes."""
+        if ENT_THETA_DOC is not None and ENT_REG_OFFSET and self.shape_pos_w:
+            self._build_shape_offset()
+        src = self.entc_u if (ENT_NOVEL and self.entc_u) else self.entc
+        syms = sorted({x for c in src.values() for x in c})
+        self.log_entc = {}
+        self._ent_back = {}
+        if not syms:
+            return
+        V = len(syms)
+        for t in self.tags:
+            tot = sum(src[t].values()) + self.lam * V
+            self.log_entc[t] = {x: math.log((src[t][x] + self.lam) / tot) for x in syms}
+            self._ent_back[t] = math.log(self.lam / tot)
+
+    def update_document_register(self, words: Sequence[str], post: np.ndarray) -> None:
+        """ARM B: fold the SETTLED, GRADED belief about this sentence into the passage's shape register -- a
+        prediction can only be fed back once the belief it came from has settled, so at a sentence boundary."""
+        if ENT_THETA_DOC is None:
+            return
+        if ENT_DOC_DECAY != 1.0:
+            for r in self._doc_shape.values():
+                r *= ENT_DOC_DECAY
+        for i, w in enumerate(words):
+            if ENT_REG_KNOWN and w.lower() not in self.vocab:
+                continue                     # calibrate the passage convention on what the organ is SURE about
+            sp = self._unk_sym(w, position_class(words, i))
+            r = self._doc_shape.get(sp)
+            if r is None:
+                r = self._doc_shape[sp] = np.zeros(len(self.tags))
+            r += post[i]
+
     def _log_shape_factor(self, w_raw: str, pos: str, known: bool) -> np.ndarray:
         """P(shape x forced-position | c). A word that HAS a lexical entry is read against the whole-vocabulary table; a word
         that does not is read against the NOVEL-FORM stratum (the productivity question, not the frequency question)."""
@@ -543,7 +815,21 @@ class LexicalCategories:
         if known or self._log_shape_u_back is None:
             return np.array([self.log_shape_pos[t].get(sp, self._shape_pos_back[t]) for t in self.tags])
         row = self.log_shape_u.get(sp)
-        return row if row is not None else self._log_shape_u_back
+        base = row if row is not None else self._log_shape_u_back
+        if ENT_THETA_DOC is not None:
+            r = self._doc_shape.get(sp)
+            nd = float(r.sum()) if r is not None else 0.0
+            if nd > 0:
+                a = nd / (nd + ENT_THETA_DOC)          # the organ's own reliability shrinkage, a = n / (n + theta)
+                mx = float(base.max())
+                loc = r / nd
+                off = self._sp_offset.get(sp) if ENT_REG_OFFSET else None
+                if off is not None:
+                    loc = loc * np.exp(off)            # correct the known-word calibration (see ENT_REG_OFFSET)
+                    loc = loc / loc.sum()
+                p = a * loc + (1.0 - a) * np.exp(base - mx)
+                base = np.log(p / p.sum() + 1e-12) + mx
+        return base
 
     def _log_slot(self, i: int) -> np.ndarray:
         """log P(left word | c) + log P(right word | c) -- the determiner / frequent-frame cue, read ONLY where there is no
@@ -601,6 +887,12 @@ class LexicalCategories:
         if UNK_RIGHT_KAPPA and self.rightc and (LAG is None or LAG >= 1):
             r = right_context(self._sent_lows, here)
             out = out + UNK_RIGHT_KAPPA * np.array([self.log_rightc[t][r] for t in self.tags])
+        if ENT_KAPPA and self.log_entc and self._reg is not None:
+            e = self._reg.symbol(w)                    # the entity layer's belief BEFORE this token is filed
+            if not (ENT_SKIP_FIRST and e.startswith("e_first")):
+                out = out + ENT_KAPPA * np.array([self.log_entc[t].get(e, self._ent_back[t]) for t in self.tags])
+        if self._reg is not None:
+            self._reg.observe(self._sent_lows, here)   # strictly in order: file the token only after reading it
         return out
 
     def word2cluster(self) -> Dict[str, str]:
@@ -760,6 +1052,8 @@ class LexicalCategories:
         if self.use_frame and FRAME and FRAME_KAPPA > 0:
             le = le + FRAME_KAPPA * self._log_frame(words, lag)
         post = self._posterior_le(le, lag)
+        if self._reg is not None:
+            self._reg.sent_no += 1                     # the passage advances one sentence (ACT-R recency clock)
         if STEM_REANALYSIS:
             # CONFLICT-TRIGGERED REANALYSIS (2026-09-13): a known word whose settled category has ZERO lexical support (the sequence
             # cue forced a tag the word was never seen under) is re-read with its STEM's knowledge (the lemma organ's rule route:
@@ -888,6 +1182,8 @@ class LexicalCategories:
              "shape_pos": {t: dict(c) for t, c in self.shape_pos.items()},
              "shape_pos_w": {w: dict(c) for w, c in self.shape_pos_w.items()},
              "detc": {t: dict(c) for t, c in self.detc.items()},
+             "entc": {t: dict(c) for t, c in self.entc.items()},
+             "entc_u": {t: dict(c) for t, c in self.entc_u.items()},
              "rightc": {t: dict(c) for t, c in self.rightc.items()},
              "slotL": {t: dict(c) for t, c in self.slotL.items()},
              "slotR": {t: dict(c) for t, c in self.slotR.items()},
@@ -918,6 +1214,10 @@ class LexicalCategories:
             m.shape_pos_w[w] = Counter(c)
         for t, c in d.get("detc", {}).items():
             m.detc[t] = Counter(c)
+        for t, c in d.get("entc", {}).items():
+            m.entc[t] = Counter(c)
+        for t, c in d.get("entc_u", {}).items():
+            m.entc_u[t] = Counter(c)
         for t, c in d.get("rightc", {}).items():
             m.rightc[t] = Counter(c)
         for t, c in d.get("slotL", {}).items():
@@ -958,13 +1258,23 @@ def build_asset(train_path: Optional[str] = None, out: str = ASSET, column: int 
     column 3 = UPOS (the live inventory); column 4 = XPOS (Penn tags: the same organ's arm for consumers that read tense/form
     classes -- the temporal ORDER organ, 2026-09-13 -- replacing nltk's PerceptronTagger at read time)."""
     train_path = train_path or os.path.join(_REPO, "data", "corpora", "ud_english_ewt", "en_ewt-ud-train.conllu")
-    sents, cur = [], []
+    # PASSAGES, not a flat sentence list: `# newdoc id` gives 540 training documents, and the entity-feedback
+    # counts need the reading order inside one passage. The emission/suffix/transition tables come out
+    # byte-identical either way (accrue_docs calls the same `accrue` over the same sentences in order).
+    docs, cur_doc, cur = [], [], []
     with open(train_path, encoding="utf-8") as f:
         for line in f:
             line = line.rstrip("\n")
+            if line.startswith('# newdoc'):
+                if cur:
+                    cur_doc.append(cur); cur = []
+                if cur_doc:
+                    docs.append(cur_doc)
+                cur_doc = []
+                continue
             if not line:
                 if cur:
-                    sents.append(cur); cur = []
+                    cur_doc.append(cur); cur = []
                 continue
             if line.startswith("#"):
                 continue
@@ -973,9 +1283,15 @@ def build_asset(train_path: Optional[str] = None, out: str = ASSET, column: int 
                 continue
             cur.append((c[1], c[column]))
     if cur:
-        sents.append(cur)
-    m = LexicalCategories(order=order, use_shape=use_shape, rare_max=rare_max, use_cluster=use_cluster, use_frame=use_frame).accrue(sents).finalize(); p = m.save(out)
-    return {"n_sentences": len(sents), "n_categories": len(m.tags), "vocab": len(m.vocab), "asset": os.path.relpath(p, _REPO)}
+        cur_doc.append(cur)
+    if cur_doc:
+        docs.append(cur_doc)
+    sents = [x for d in docs for x in d]
+    m = LexicalCategories(order=order, use_shape=use_shape, rare_max=rare_max, use_cluster=use_cluster,
+                          use_frame=use_frame).accrue_docs(docs).finalize()
+    p = m.save(out)
+    return {"n_sentences": len(sents), "n_documents": len(docs), "n_categories": len(m.tags),
+            "vocab": len(m.vocab), "asset": os.path.relpath(p, _REPO)}
 
 
 __all__ = ["LexicalCategories", "get", "build_asset", "ASSET", "UPOS2WN"]

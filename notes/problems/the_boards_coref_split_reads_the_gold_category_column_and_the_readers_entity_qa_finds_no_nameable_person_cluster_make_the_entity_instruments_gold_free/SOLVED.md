@@ -346,6 +346,163 @@ the patch keeps them on the `Tok` as `gold_*` so the answer key still works and 
 4. **File the arc-labeller `appos`/`cop` lever** against pri 108's labels rung with the number attached (+0.0097 of the common-noun margin).
 5. **Do not re-sweep the PROPN posterior mass** on this row -- section 7 is a recorded negative.
 
+# PHASE 7 -- the coordinator's answers applied, and the four mechanisms driven to the bottom
+
+## 17. THE REPUBLISHED BOARD (Q1: exclude the 18 redacted documents) -- before and after, every row
+
+**Answer accepted: it is an instrument defect, not a modelling choice.** Every GUM row, with and without the
+18 `GUM_reddit_*` documents whose FORM column is redacted. TEST = odd doc index; the 18 form an even-length
+consecutive block, so dropping them preserves the parity of every later document and the test set loses
+exactly 9 documents.
+
+| row | arm | **WITH** the redacted docs (n / acc / floor / margin) | **WITHOUT** (n / acc / floor / margin) |
+|---|---|---|---|
+| **coref (pronoun)** | gold | 3132 / 0.4681 / 0.3621 / **+0.1060** | 3132 / 0.4681 / 0.3621 / **+0.1060** |
+| | **gold-free** | 3145 / 0.4172 / 0.3202 / **+0.0970** | 3145 / 0.4172 / 0.3202 / **+0.0970** |
+| **common-noun** | gold | 2855 / 0.5671 / 0.5412 / **+0.0259** | 2682 / 0.5690 / 0.5418 / **+0.0272** |
+| | **gold-free** | 3915 / 0.4891 / 0.4876 / +0.0015 | **3024 / 0.5417 / 0.5397 / +0.0020** |
+| **salience** | gold | 137 / 0.2555 / 0.1971 / +0.0584 | 128 / 0.2656 / 0.2031 / +0.0625 |
+| | **gold-free** | 137 / 0.2993 / 0.2190 / +0.0803 | 128 / 0.2734 / 0.2188 / +0.0547 |
+| **entity-KB hard-link** | gold | 1307 / 0.4682 / 0.3963 / **+0.0719** | 1307 / 0.4682 / 0.3963 / **+0.0719** |
+| | **gold-free** | 1325 / 0.3479 / 0.3079 / +0.0400 | 1325 / 0.3479 / 0.3079 / +0.0400 |
+
+*(CI-separated: gold coref, gold common, gold entity-KB, and the gold-free coref row. Not separated: every
+salience cell, the gold-free common-noun row, the gold-free entity-KB row.)*
+
+**AND THE EXCLUSION IS EXACTLY NEUTRAL ON TWO ROWS, FOR A REASON WORTH KNOWING.** The coref and entity-KB
+rows are **identical to the digit** with and without. Not luck: `URG._per_type_acc` skips a pronoun unless
+its **surface form** is in the third-person list, and a redacted pronoun's surface form is `__`. **The gold
+instrument's own surface gate was already excluding those documents silently** -- so the redacted text was
+never in the pronoun row, and the two rows it WAS in are the two that move.
+
+**What the exclusion is worth on the row that matters:** the gold-free common-noun population falls
+**3915 -> 3024, by 891 items**, while gold's falls only 173. The extra **~718** were redacted `__` tokens the
+organ had typed as common nouns -- the same class as the 698 pronoun->common slips. Accuracy rises
+**0.4891 -> 0.5417**. **The margin does not: +0.0015 -> +0.0020, still not separated.** The exclusion buys
+honesty and a much cleaner population; it does not buy the capability.
+
+**Q2 applied.** The gold-split figures `0.4681` / `0.5671` appear in this document in the table above and in
+section 3, and nowhere as a live number; **the gold-free rows are THE board rows**, and strategy files the
+gold-split pair into the retired-claims file.
+
+## 18. THE FOUR MECHANISMS, DRIVEN TO THE BOTTOM (the coordinator's probe 1)
+
+### 18a. The common-noun margin: is the residual the ENTITY LAYER's or the CATEGORY ORGAN's?
+
+**The entity layer is not in the dock, and this is a structural fact rather than a measurement: the resolver
+is BYTE-IDENTICAL in every arm.** `URG.Resolver(typed_identity=True, bridge=True, bridge_write=False,
+type_comparator="typed_spokes")` is constructed the same way for `gold` and for `gf2`; only its INPUTS
+change. So nothing that vanishes can be the entity layer's capability -- what vanishes is the quality of what
+it is handed. Three independent measurements all land on the category organ:
+
+**(i) The hold-one-gold ablation.** Only the gold category column restores CI-separation
+(**+0.0129 [+0.0003,+0.0245]**); lemma/head/feats/deprel recover at most +0.0039 each.
+
+**(ii) The per-component confusion** (18,197 test mentions):
+
+| gold type | -> name | -> common | -> pronoun | recall |
+|---|---|---|---|---|
+| name | 2786 | 603 | 16 | **0.8182** |
+| common | 149 | 5435 | 76 | 0.9602 |
+| pronoun | 13 | 802 | 8317 | 0.9108 |
+
+type agreement **0.9088** | span-head agreement **0.9432** | lemma-key agreement **0.8196**
+
+**(iii) The typed-spoke vocabulary gate, which I expected to be a second independent lever and is not.**
+`typed_spokes.coref_type_license` returns False for any head it cannot find in WordNet ("an unknown head is
+NOT licensed to bridge"), so the lemma key's vocabulary hit-rate is a hard gate on the bridge. Measured on
+the 5,653 common-row mentions: **gold lemma in WordNet 0.9282, organ lemma 0.9151** -- 148 gold-only losses
+against 74 organ-only, a **net 74 of 5,653 (1.3%)**. Too small to matter. **And the losses are not lemma
+errors at all:** the top gold-only losses are `be->is` (42), `be->'re` (9), `be->been` (7), `say->said` (3),
+`come->came` (3) -- **mentions whose head the organ typed as a NOMINAL when it is a VERB.** The one probe I
+built to look for a second cause found the first cause again.
+
+> **THE ANSWER, PLAINLY: the residual capability is the CATEGORY ORGAN's. The entity layer's resolver is
+> unchanged and un-blamed; the common-noun row's +0.0259 was the gold category column (-0.0109) and the gold
+> `appos`/`cop` arcs (-0.0097), and the lemma/head/feats/deprel columns together are worth -0.0046.**
+
+### 18b. The wire after the head fix: does it ADD anything, anywhere?
+
+**No. Say it plainly: after the head-domain fix the wire's name DECISION is `upos[head] == "PROPN"`.**
+Measured over **17,010** GUM test mentions: the two predicates **agree on 17,005 (0.99971)**. All **5**
+disagreements are the same shape and the wire is **wrong** on every one of them:
+
+```
+Chiang Kai Shek Memorial Hall Station     argmax=name   wire=common   head=Station   [PROPN x6]
+Phoenix Sky Harbor International Airport  argmax=name   wire=common   head=Airport   [PROPN x5]
+Jack Alter Fort Lee Community Center      argmax=name   wire=common   head=Center    [PROPN x6]
+```
+
+These are long all-PROPN names that `name_content_tokens` rejects because the extracted token list exceeds
+`MAX_NAME_TOKENS`. **So the wire is the simpler predicate plus a length cap that misfires.**
+
+> **RECOMMENDATION TO STRATEGY, stated so it can be acted on without re-deriving it: land the SIMPLE form.**
+> The name decision on a typed mention is `categories[np_domain_head] == "PROPN"`. What
+> `name_content_tokens` genuinely contributes is **not the decision but the TOKEN EXTRACTION** -- which
+> tokens of the span are the name, which is what the `EntityAliaser` needs to merge `Sir Leicester` with
+> `Sir Leicester Dedlock`. Keep it for that; do not treat it as a name classifier.
+
+### 18c. The lowercased `span_toks`: the defect is ONE LEVEL UP, and it is bigger
+
+I set out to measure what restoring the case in `referent_per_np._mk_referent` recovers. **It recovers
+exactly nothing, and the reason is the finding.**
+
+| decider, 3,869 referent mentions on 8 LitBank docs | TP | FP | FN | P | R | F1 |
+|---|---|---|---|---|---|---|
+| **today** -- caps rule on the lowercased head | 0 | 0 | 274 | 0.0000 | 0.0000 | **0.0000** |
+| **restore the case in `_mk_referent`** | 0 | 0 | 274 | 0.0000 | 0.0000 | **0.0000** |
+| **the forward wire** (the organ's category) | 80 | 70 | 194 | 0.5333 | 0.2920 | **0.3774** |
+
+**Because the case is already gone before `_mk_referent` ever runs.** `hdlab/scene_segment.parse_conll_sentences`
+-- **the live reader's ONLY sentence source**, used by `situation_reader.read()` and by
+`referent_per_np_source` -- is:
+
+```python
+def parse_conll_sentences(path: str) -> List[List[str]]:
+    """Return the document's sentences as lowercased-token lists (sent_idx-aligned)."""
+    ...
+            cur.append(cols[3].lower())
+```
+
+**Three consequences, none of them previously recorded:**
+
+1. `_mk_referent`'s `.lower()` is **redundant**; restoring it is a no-op (measured above).
+2. `referent_per_np.frame_heads` carries a documented capitalisation cue -- *"a mid-sentence CAPITAL = a
+   likely proper name the tagger mis-class'd"*, `cap = (i > 0 and w[:1].isupper())` -- which **can never
+   fire** on the live path. A second dormant arm, found by this probe.
+3. **The category organ itself is tagging lowercased text on every reader path**, so its shape cue
+   (`lexical_categories.word_shape` / `word_shape_rich`) is answering a question the input cannot pose.
+
+> **THE PLAIN STATEMENT: on the reader's path, capitalisation is destroyed at the sentence source, so every
+> capitalisation-based cue anywhere downstream of `parse_conll_sentences` is dead -- and the forward wire is
+> therefore not the best repair of the name decision on that stream, it is the ONLY one available.**
+
+### 18d. The negative ids: DESIGN, not defect -- and my repair keeps the intent
+
+Answered from the source rather than inferred. `hdlab/online_entity_cluster.py`'s module docstring ends:
+
+> *"WIRE NOTE (for situation_reader): give each online file a FRESH NEGATIVE-INTEGER id, NOT a `CN:` string --
+> `_read_world_state`/`_resolve_commonnouns` do `rc >= 0` and crash on a str."*
+
+and states the intent: *"NO gold coreference is read in any clustering DECISION (`m["cluster"]`, the gold eid,
+is used ONLY by scorers, never here)."* The guard it names is real: `situation_reader.py:2733`,
+`if rc is not None and rc >= 0`.
+
+**So the negative integer was chosen deliberately and for two good reasons** -- it must be an `int` (a `CN:`
+string crashes that guard) and it must be **unmistakable for a gold cluster id**, so that no consumer can
+silently treat an online file as a gold chain. **The negativity is precisely a guard against the confusion my
+instrument fell into**, and the de-leak is correct.
+
+**My repair keeps the intent and does not weaken it.** It touches no clustering decision; it names the
+question's gold chain from the GOLD MENTION STREAM (the answer key, which is what the question asks about)
+and the model's answer from the reader's OWN files. If anything it *completes* the de-leak: the readout it
+replaces (`_named_clusters(sm).get(resolved_cluster)`) was itself a gold read that the 2026-09-09 de-leak had
+not noticed.
+
+> **THE GENERAL LESSON, worth carrying: a sentinel that changes TYPE fails loudly; a sentinel that changes
+> RANGE fails silently.** The author anticipated the `str` crash and guarded it. The int-in-a-disjoint-range
+> case produced `None` on every lookup and ran red for five days with every arm scoring 0.0.
+
 ## GAPS -- steps not performed, and not worked around
 
 1. **The span head from the attachment arm's real parse was NOT measured.** The NP-run rule is a stand-in
