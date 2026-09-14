@@ -1,12 +1,13 @@
 ---
 problem: the_role_competitions_margin_is_a_reliability_signal_0_92_accurate_at_40_percent_coverage_and_no_consumer_reads_it
 status: PARTIAL
+phase_7: "Strategy probe answered in full (sections 7.1-7.10). THE BIGGEST NUMBER OF THE SESSION IS NOT THE CUE FORM, IT IS THE WIRE: situation_reader._read_affected_entity fed the resolver rank2dep = {0:nsubj, 1:obj} -- the raw word-order proxy -- so the Competition-Model role organ never reached this consumer at all. Priced on the same population and the same fixed gold targets: the reader rank proxy 0.3522 -> the organ LABEL 0.3832 (+0.0310 CI[+0.0066,+0.0565] CI-sep) -> the organ DECISION 0.4385 (+0.0864 CI[+0.0576,+0.1163] CI-sep), dev agreeing (0.3263/0.3615/0.3817). EVERY NEGATIVE NOW HAS ITS MECHANISM AND ITS COUNTS. (1a) The +0.0905 correlated-error excess is unchanged on the CURRENT live v4 table and lives in ONE cell: of 5074 pairs where BOTH labels are wrong the match is still right 0.7519 of the time against 0.333 under independence; the top co-occurrences are OBJ->OTHER & OTHER->OBJ (915, a swap) and OTHER->OBJ & OTHER->OBJ (697, the same error twice), and the top single confusions are OTHER<->NMOD (818/543) and OBL<->NMOD (562/346) -- so it IS the nmod/obl confusion, re-partitioned by pri 108 rather than repaired. (1b) The hard indicator is CONSTANT across the legal candidates on 692/2676 = 25.9% of decisions (the log-posterior on 0.9%), 25.0% are decisions the indicator cannot split but the log-posterior can, 59.3% carry a veto, and the mean cue spread is 0.74 against 5.73 -- which is exactly why a gate (which can only switch a cue off) cannot help. (1c) The 45 bad overrides are ONE cue: the PASSIVE licence fires 43 times with conflict validity 0.032, and 33 of those 43 are clauses whose gold is ACTIVE (is_passive_clause false-fires) -- a cue-DETECTION defect. (1d) Gate-vs-twin is power-limited: 62 decisive items of 1423, a half-width of 0.0054 needs 8 items and the effect is 6; and the threshold is already at its own envelope (train-fitted 0.8517 vs best-on-test 0.8524, ONE item apart). FOUR MORE LEVERS BUILT AND MEASURED, ALL REFUTED WITH THEIR MECHANISM: per-cue conflict validity 0.8496 and validity+confidence 0.8510 against the global gate 0.8517 (a validity is a population statistic, the confidence a per-decision one); per-cue CALIBRATION of the confidence overfits (train 0.8507 up, test 0.8482 down vs pooled 0.8496); and narrowing the parallelism class alphabet so the obl/nmod confusion is class-internal LOSES on dev AND test (0.3832 -> 0.3776 hard, 0.4385 -> 0.4341 ppc). Q3 DELIVERED: roles_with_decisions is in the diff, additive, verified 1922/1922 labels AND 1922/1922 posteriors identical on UD-EWT test 300. Q2: the pre-10:37 loader is UNRECOVERABLE (experiments/gum_coref.py is untracked, so git holds no prior version); the surviving old-loader artifact is c1_oracle_gate.json (test n=596, hard 0.4916, perfect gate 0.4866). NO SHIPPED NUMBER CHANGED in phase 7; what it produced is the wire price, four understood negatives, and a named upstream defect to file."
 bar: "At least one consumer up CI-separated with the margin-weighted fusion (affected entity or patient or the chain's agent read), no consumer down, twin at floor, the reliability map as counts with an observe path -- OR a numbered located negative per consumer."
 result: "TWO CONSUMERS MEASURED, ONE UP CI-SEPARATED OVER ITS STRONGEST FLOOR, AND THE BRIEF'S OWN HYPOTHESIS PARTLY REFUTED WITH A MECHANISM. (1) THE AGENT READ (UD-EWT test, the board's who_did_what_agent population, n=1423). The marked-cue override in `graded_role_assigner.hybrid_agent_pick` fires unconditionally -- on the 103 clauses where it fires it FIXES 17 positional picks and BREAKS 45, which is exactly why the board shows that dimension BELOW its own floor. Licensing the override by the role competition's own calibrated confidence -- take it only when log P_agent(override candidate) - log P_agent(positional candidate) > theta, theta a criterion LEARNED ON UD-EWT TRAIN (the override is right 193/667 = 0.29 of the times it is decisive there), never hand-set -- gives, through the ORGAN: positional floor 0.8468, landed organ 0.8510 (+0.0042 CI95[-0.0042,+0.0119], n.s.), GATED 0.8545 (+0.0077 CI95[+0.0021,+0.0134] over the floor, CI-SEPARATED). Through the BOARD ARM's own copy of the hybrid (what the board actually scores today, 0.8271): GATED 0.8517 = +0.0246 CI95[+0.0155,+0.0337] over the landed board model (CI-separated) and +0.0049 CI95[0.0000,+0.0098] over the positional floor. The gate keeps 10 of the 17 good overrides and only 3 of the 45 bad ones; a PERFECT gate would give 0.8587. TWIN (the confidences permuted across items): board arm 0.8468 = the positional floor EXACTLY (it stops overriding altogether); organ path 0.8503, +0.0035 over the floor n.s. -- but gated-minus-twin is +0.0042 CI95[-0.0007,+0.0091], NOT itself CI-separated, which is why this is filed PARTIAL and not PASS. (2) THE AFFECTED-ENTITY RESOLVER (GUM third-person undergoer pronouns, live BF chain, n=903). The brief's form -- weight the parallelism cue by the LABEL's reliability -- LOSES: relweight 0.3677 (-0.0155 n.s.), logodds 0.3654 (-0.0177 n.s.) against the landed 0.3832. What DOES win is the GRADED hand-off in log form: the population-gain cue gain(margin) x log P_role(class) reaches 0.4385, +0.0554 CI95[+0.0299,+0.0831] CI-SEPARATED over the strongest floor, and the POSTERIOR-SHUFFLED twin collapses to 0.3289 (-0.0543 CI-separated DOWN). But the MARGIN-SHUFFLED twin KEEPS 0.4341 (+0.0509), i.e. of that +0.0554 only ~+0.004 is the reliability weighting and the rest is reading the posterior at all -- so at this consumer the brief's margin hypothesis is REFUTED and its neighbour (the rung must hand DOWN a graded signal) is CONFIRMED. THE MECHANISM, MEASURED: a parallelism cue never asks 'is this label right?' but 'do these two labels AGREE?', and the role organ's errors are SYSTEMATIC so they partly CANCEL in an agreement test -- on UD-EWT train through the live chain the coarse role class is right 0.8029, yet the MATCH indicator is right 0.7481 where INDEPENDENT errors would give only 0.6576, a +0.0905 EXCESS. Two ceiling arms prove the consequence by arithmetic: a PERFECT hard role label in the same fusion gives 0.3821 (-0.0011 n.s. -- a perfect label buys NOTHING in indicator form) and a PERFECT confidence gate gives 0.3776 (-0.0055 n.s.) -- the whole reliability family's ceiling at this consumer is ZERO, because a gate can only switch a cue off, never supply the graded shape that is doing the work. A fourth reliability map calibrated on the MATCH event (base 0.7522, r 0.634->0.949 over 314,141 train pairs) was built as the corrected statistic and reaches 0.4020 (+0.0188 CI95[+0.0011,+0.0377]) -- real but far below the log-posterior form."
 floor: "C2 AGENT: the POSITIONAL floor the board itself uses (nearest pre-verbal clause-local nominal, experiments.exp_board_agent_slot_ud_v1.floor_positional_agent) = 0.8468 on UD-EWT test n=1423; the landed models measured alongside are the organ's hybrid_agent_pick 0.8510 and the board arm's own copy 0.8271. C1 AFFECTED ENTITY: the LANDED organ's own arithmetic -- hdlab.affected_entity_resolver.EntityTokens with the hard indicator cue at the landed gamma 1.0, accrual + foreground window 2 + Principle A, over the SAME fixed GOLD undergoer-pronoun target set -- 0.3832 (n=903, live BF chain) and 0.3544 (gold categories + gold heads). The cell's 'hard' arm is asserted ITEM-IDENTICAL to experiments.exp_affected_entity_token_history_gum_v1.run_arm, so the floor is the shipped organ, not a re-implementation. The dev-selected hard gamma (1.5) scores 0.3743 on test, i.e. LOWER, so every delta is quoted against the STRONGER 0.3832."
 controls: "(1) TWIN, C2: the per-decision confidences PERMUTED ACROSS ITEMS -- the gate fires at the same rate but on the wrong decisions. Board arm 0.8468 (exactly the floor); organ path 0.8503. (2) TWIN, C1, TWO of them: MARGINS permuted within each document (destroys the reliability signal, keeps the posterior) -> 0.4341, and the whole POSTERIOR permuted across tokens (info-free for the graded cue) -> 0.3289, CI-separated DOWN. The pair is what separates 'the margin carries information' (it does not, here) from 'the posterior carries information' (it does). (3) CEILING ARMS reading gold ONLY to bound the lever, never shipped: ORACLE (a perfect role label in the same fusion) 0.3821, and ORACLE_GATE (a perfect confidence gate) 0.3776 -- the second is the ceiling of the entire reliability family and it is ZERO. C2's perfect gate is 0.8587. (4) TRAIN/TEST SEPARATION everywhere: the reliability maps are accrued on UD-EWT TRAIN, the C1 fusion weight gamma is swept on the GUM DEV split (even-index docs) and applied unchanged to TEST (odd-index, the board's split), and C2's theta is fitted on UD-EWT TRAIN (best 6.50, train 0.8489 vs train floor 0.8436) and applied unchanged to test; the test ENVELOPE (theta chosen on test, a diagnostic only) is 0.8524 vs the train-fitted 0.8517, so the fit transfers. (5) CALIBRATION TRANSFER: the train-built maps' expected calibration error on UD-EWT TEST is 0.043 (role8) / 0.031 (class) / 0.029 (patient). (6) PATCH FIDELITY: the proposed organ change is byte-identical to the landed organ on its default path -- hybrid_agent_pick with heads=None gives 1423/1423 identical picks, score_and_pick with decisions supplied but mode 'hard' gives the landed pick, and affected_entity_resolver.self_test still passes; the organ's ppc cue equals the cell's to 1.2e-06 (float summation order only), so the arm that was measured is the arm that would ship. (7) PAIRED ITEM BOOTSTRAP, 2000 resamples, on each item's OWN population. (8) UPSTREAM CONTRAST: every C1 arm re-measured under GOLD categories + GOLD heads (n=903): the incumbent is 0.3544 there -- LOWER than under the live chain -- and NOTHING is CI-separated up, the oracle included (+0.0122 n.s.). (9) HEAD-CONFIDENCE INDEPENDENCE: mean P(MAP head) = 0.9868 and corr(head confidence, role margin) = 0.082, so the role margin is not a proxy for attachment uncertainty."
 files_changed: "experiments/exp_role_margin_weighted_consumers_v1.py (the cell), data/hook_state/role_margin_reliability_v1.json (the candidate asset: four count-calibrated margin->reliability maps), notes/problems/the_role_competitions_margin_is_a_reliability_signal_0_92_accurate_at_40_percent_coverage_and_no_consumer_reads_it/{SOLVED.md, role_margin_consumers_patch.diff}, and the cell's own data/exp_role_margin_weighted_consumers_v1/*.json. The diff touches hdlab/graded_role_assigner.py (the reliability maps + role_decision + the confidence-licensed agent override), hdlab/affected_entity_resolver.py (the role cue reads the decision, five selectable forms, default 'hard' = byte-identical) and hdlab/situation_reader.py (the ONE hdlab call site of each widened signature passes the new argument). NOTE: two of the three files are CRLF, so apply with `git apply --ignore-whitespace` (checked)."
-reverify: ".venv/Scripts/python.exe experiments/exp_role_margin_weighted_consumers_v1.py --self-test    then --run. Numbers by artifact: data/exp_role_margin_weighted_consumers_v1/{c1_test_live.json, c1_test_goldupstream.json, c1_logpost.json, c2_final.json, c2_patch_fidelity.json, match_reliability.json, signal_trace.json, dev_sweep.json}. POPULATION CAVEAT: another solver (pri 109) edited experiments/gum_coref.py at 10:37 on 2026-09-14, mid-session, which changed the GUM mention stream and with it the affected-entity population from n=596 to n=903. EVERY C1 number in this record is on the POST-10:37 loader and all arms were re-measured together on it; they are NOT comparable to the board's standing affected_entity row (n=708, 0.3884)."
+reverify: "PHASE 7 artifacts: data/exp_role_margin_weighted_consumers_v1/{p7_match_anatomy, p7_indicator_anatomy, p7_override_anatomy, p7_convert_agent, p7_percue_calibration, p7_class_alphabet, p7_reader_wire_price, p7_wire}.json. .venv/Scripts/python.exe experiments/exp_role_margin_weighted_consumers_v1.py --self-test    then --run. Numbers by artifact: data/exp_role_margin_weighted_consumers_v1/{c1_test_live.json, c1_test_goldupstream.json, c1_logpost.json, c2_final.json, c2_patch_fidelity.json, match_reliability.json, signal_trace.json, dev_sweep.json}. POPULATION CAVEAT: another solver (pri 109) edited experiments/gum_coref.py at 10:37 on 2026-09-14, mid-session, which changed the GUM mention stream and with it the affected-entity population from n=596 to n=903. EVERY C1 number in this record is on the POST-10:37 loader and all arms were re-measured together on it; they are NOT comparable to the board's standing affected_entity row (n=708, 0.3884)."
 ---
 
 # 1. The bar, restated
@@ -262,3 +263,166 @@ identical (1423/1423 identical agent picks with heads=None), apply with --ignore
 experiments/gum_coref.py at 10:37 today and the affected-entity population changed n=596 -> n=903 mid-session;
 every C1 number here is on the post-10:37 loader and the board's standing affected_entity row is not comparable.
 ```
+
+---
+
+# PHASE 7 (2026-09-14) -- the probe answered, four more levers built, and the biggest number of the session
+
+Strategy's rulings: Q1 PARTIAL stands pending the board A/B; Q2 re-base the affected-entity row after pri 109;
+Q3 propose `roles_with_decisions`. All three are done below. **Every negative is now understood with counts, and
+one measurement changed the picture: the repair that matters most is not the cue form at all, it is the WIRE.**
+
+## 7.1 The reader wire, priced -- THE HEADLINE OF THIS ROUND
+
+`situation_reader._read_affected_entity` fed the resolver `rank2dep = {0:'nsubj', 1:'obj'}` -- *the first nominal
+of the sentence is the subject, the second the object.* That is the raw word-order proxy: **the Competition-Model
+role organ's decision never reached this consumer at all.** Priced on the same GUM population and the same fixed
+gold targets, three arms:
+
+| arm | dev (n=993) | test (n=903) | test vs A |
+|---|---|---|---|
+| **A** the reader's own rank proxy (what runs today) | 0.3263 | **0.3522** | -- |
+| **B** the role competition's LABEL (what the patch supplies) | 0.3615 | **0.3832** | **+0.0310 CI[+0.0066,+0.0565] sep** |
+| **C** the role competition's DECISION (ppc cue) | 0.3817 | **0.4385** | **+0.0864 CI[+0.0576,+0.1163] sep** |
+
+Both splits agree in direction and size. **The wire repair alone is worth +0.031, and wire + graded cue +0.086 --
+about three times what the graded cue buys over the label.** Everything earlier in this record quoted its floor as
+the organ's label (0.3832), which is the right floor for judging the CUE FORM; but it is a floor the live reader
+never actually had. Against what the reader really does, the change is +0.0864, CI-separated.
+
+## 7.2 (1a) The correlated-error excess, on the CURRENT live v4 table -- which classes co-occur
+
+Re-measured on the live `cue_set: v4` asset (pri 108's NMOD class included), UD-EWT train, 24,068 labels /
+107,969 pairs. The excess is **unchanged at +0.0905**, and it lives almost entirely in one cell:
+
+| cell | pairs | match still right | independence would give |
+|---|---|---|---|
+| **both labels wrong** | 5,074 | **0.7519** | ~0.333 |
+| exactly one wrong | 34,671 | 0.2519 | ~0.0-0.5 |
+
+Top co-occurring error pairs (both mentions mislabelled): `OBJ->OTHER & OTHER->OBJ` **915**, `OTHER->OBJ &
+OTHER->OBJ` **697**, `OTHER->OBJ & SUBJ->OTHER` 589. The first is a **swap** (gold classes differ, predictions
+differ the other way -- the match indicator is still right); the second is **the same systematic error applied
+twice** (both gold OTHER, both predicted OBJ -- still right).
+
+**And yes, it is the nmod/obl confusion, not repaired by v4 but re-partitioned by it.** Top single confusions:
+`OTHER->NMOD` 818, `OTHER->OBL` 670, `OBL->NMOD` 562, `NMOD->OTHER` 543, `NMOD->OBL` 346. At the resolver's class
+level `obl` is inside OBJ_DEPS while `nmod` was removed from it on 2026-09-14 (pri 108), so an obl/nmod slip
+**flips** the parallelism class -- which is exactly the 915-count swap.
+
+## 7.3 (1b) What the indicator throws away that the log-posterior keeps
+
+GUM test, 2,676 decisions with at least 2 legal candidates:
+
+| | value |
+|---|---|
+| the HARD indicator is **constant across the candidates** (discriminates nothing) | **692 = 0.2586** |
+| the log-posterior is constant | 23 = 0.0086 |
+| decisions the indicator cannot split but the log-posterior **can** | **669 = 0.2500** |
+| decisions carrying a **veto** (some candidate below exp(-6) on the anaphor's class) | 1,587 = 0.5930 |
+| mean cue spread across candidates | indicator **0.74** vs log-posterior **5.73** (7.7x) |
+
+**One decision in four, the indicator is flat and the salience prior decides alone.** A gate cannot repair that --
+it can only switch a cue off, never create discrimination where there is none. That is the complete mechanical
+reason the perfect label-gate loses (0.3776 vs 0.3832) while the log-posterior wins.
+
+## 7.4 (1c) The 45 bad overrides: ONE cue, and it is a detection defect
+
+| cue(s) fired | n | fixes | breaks | net | conflict validity |
+|---|---|---|---|---|---|
+| **passive alone** | 43 | 1 | 30 | **-29** | **0.032** |
+| pp_gov | 36 | 11 | 8 | +3 | 0.579 |
+| passive+pp_gov | 15 | 3 | 2 | +1 | 0.600 |
+| noncase+pp_gov | 7 | 2 | 3 | -1 | 0.400 |
+| noncase / noncase+passive+pp_gov | 2 | 0 | 2 | -2 | 0.000 |
+| **TOTAL** | **103** | **17** | **45** | **-28** | |
+
+**The passive licence is right 1 time in 31, and 33 of its 43 firings are on clauses whose gold is ACTIVE** --
+`is_passive_clause` false-fires. So the damage is a CUE-DETECTION defect, not a confidence problem, and the
+Competition Model's own prescription (a cue enters at its validity) says this licence should almost never fire.
+
+**Is a better validity the fix rather than a gate? BUILT, and NO -- measured.** Learning the conflict validity per
+cue on TRAIN (passive 0.179, pp_gov 0.558, pooled 0.290) and letting the licence compete at it:
+
+| arm (test n=1423) | acc | vs floor 0.8468 |
+|---|---|---|
+| landed board hybrid | 0.8271 | -0.0197 sep DOWN |
+| **global confidence gate (shipped)** | **0.8517** | +0.0049 CI[0.0000,+0.0098] |
+| per-cue conflict validity ONLY | 0.8496 | +0.0028 n.s. |
+| per-cue validity + confidence (w fitted on train) | 0.8510 | +0.0042 n.s. |
+
+**The global confidence gate stays the best form.** A validity is a POPULATION statistic; the confidence is a
+PER-DECISION one, and splitting the population starves the latter.
+
+## 7.5 (1d) Why gate-vs-twin does not separate: power, and the signal is at its own envelope
+
+- decisive marked items: **62 of 1423 = 4.4%** of the population.
+- a paired bootstrap half-width on 1423 items is **~0.0054**, so an effect below **8 items** cannot separate.
+- measured gate-minus-twin is **+0.0042 = 6 items**. **It is power.**
+- but it is *also* partly selection: the gate keeps 10 of 17 fixes and 3 of 45 breaks; a perfect gate is 17/0.
+- **the threshold is not the problem:** the train-fitted theta gives 0.8517 and the best theta chosen ON TEST gives
+  0.8524 -- **one item apart.** This one-parameter family is exhausted; the remaining 9 items to the perfect gate
+  need a better confidence SIGNAL, i.e. a better role posterior, not a better criterion.
+
+**Per-cue CALIBRATION of the confidence (the probe's own candidate) -- BUILT, and REFUTED by overfit:** a monotone
+map from the raw evidence difference to P(override right), fitted per licence on train. Train 0.8507 (better than
+the pooled 0.8488), **test 0.8482 (worse than the pooled 0.8496)** -- 7 cue maps over ~600 decisive train items.
+
+## 7.6 (3) An opportunity the error anatomy suggested -- BUILT, and REFUTED on dev AND test
+
+If the obl/nmod confusion flips the parallelism class, choose the class alphabet so it cannot:
+
+| parallelism class alphabet | dev hard | test hard | test ppc |
+|---|---|---|---|
+| landed (obl inside OBJ) | 0.3615 | **0.3832** | **0.4385** |
+| obl OUT | 0.3585 | 0.3776 | 0.4341 |
+| core arguments only | 0.3585 | 0.3765 | 0.4330 |
+| core only, iobj out too | 0.3555 | 0.3765 | 0.4308 |
+
+Every narrowing LOSES, on both splits. **Understood:** the +0.0905 correlated-error excess already neutralises
+most of that confusion's cost, while an oblique genuinely is often the parallel antecedent -- so narrowing the
+class throws away real discrimination to fix damage that was already cancelling.
+
+## 7.7 (Q3) `roles_with_decisions` -- proposed, additive, PARITY VERIFIED
+
+Added to the diff: the same decode returning `{i: {dep, role, posterior, margin, reliability}}`, so
+`coarse_roles(...)` equals `{i: d["dep"] for i, d in roles_with_decisions(...).items()}` by construction. Verified
+on UD-EWT test 300 sentences: **1922/1922 labels identical and 1922/1922 posteriors identical to the ones the arms
+used.** Cost: the posterior is computed twice; a labels-only consumer keeps calling `coarse_roles`. This removes
+the argmax bottleneck for every consumer at once instead of per consumer -- the structural version of this brief.
+
+## 7.8 (Q2) The two loaders
+
+`experiments/gum_coref.py` is **untracked**, so git holds no prior version and the pre-10:37 loader cannot be
+re-run. What survives on disk is `c1_oracle_gate.json` (old loader: test n=596, hard 0.4916, perfect confidence
+gate 0.4866 = **-0.0050**; dev n=573, 0.4991 to 0.4921). Recorded in-session on the old loader but **not
+reproducible**: hard 0.4916, relweight 0.4748, logodds 0.4748, expected 0.4966, expboth 0.4916, rawpost 0.4950,
+twin 0.4933, **oracle (perfect label) 0.5302**, salience-only 0.4010. The qualitative conclusion is identical on
+both loaders: the reliability forms lose or tie, and the perfect gate loses.
+
+## 7.9 Is the session exhausted?
+
+**At this rung, with this upstream, yes -- and here is why for each open thread.**
+
+1. The C2 gate is **one item from its own envelope** (0.8517 vs 0.8524): no criterion, validity or calibration
+   refinement can move it. Both refinements were built and both lost.
+2. The C1 cue is bounded by what the indicator cannot see; the log form already captures it (+0.0554), and the
+   two ceiling arms show the reliability family's own ceiling there is **zero**.
+3. The class-alphabet lever is refuted on both splits.
+4. **What is NOT exhausted is upstream**, and it is now priced: the passive detector's 33 false fires (7.4), and
+   the role posterior itself, which pri 103 already located as needing core-arc accuracy 0.95 against 0.753.
+
+**The one thing I could not do:** a scored A/B through the live `SituationReader` -- `read()` on raw text routed
+into a LitBank-conll path in my harness, which is a reader-configuration matter outside this brief. 7.1 prices the
+same repair on the same population without it, and the board's reader entry point should confirm it.
+
+## 7.10 Priority next steps, revised
+
+1. **Land the wire repair (7.1) first, not the cue.** It is the largest CI-separated effect in this record
+   (+0.0864 test, +0.0554 dev) and it is a pure landed-vs-live defect: the live reader is using a positional
+   proxy where a Competition-Model organ is available.
+2. Land the C2 gate and run the board A/B (unchanged).
+3. **File the passive detector as its own brief:** `is_passive_clause` false-fires on 33 of 43 agent clauses where
+   it licenses an override, conflict validity 0.032. That is a cue-detection problem with a clean population.
+4. Then the C1 cue form, on a re-based row.
+5. `roles_with_decisions` can land independently of all of the above -- it is provably additive.

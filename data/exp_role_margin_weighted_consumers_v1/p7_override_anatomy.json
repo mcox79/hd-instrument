@@ -1,0 +1,45 @@
+{
+ "marked_anatomy": {
+  "pp_gov": {
+   "n": 36,
+   "fixes": 11,
+   "breaks": 8,
+   "neutral": 17
+  },
+  "passive+pp_gov": {
+   "n": 15,
+   "fixes": 3,
+   "breaks": 2,
+   "neutral": 10
+  },
+  "passive": {
+   "n": 43,
+   "fixes": 1,
+   "breaks": 30,
+   "neutral": 12
+  },
+  "noncase": {
+   "n": 1,
+   "fixes": 0,
+   "breaks": 1,
+   "neutral": 0
+  },
+  "noncase+pp_gov": {
+   "n": 7,
+   "fixes": 2,
+   "breaks": 3,
+   "neutral": 2
+  },
+  "noncase+passive+pp_gov": {
+   "n": 1,
+   "fixes": 0,
+   "breaks": 1,
+   "neutral": 0
+  }
+ },
+ "passive_misfire": {
+  "passive_cue_fired_gold_active": 33
+ },
+ "n_rows": 1423,
+ "n_decisive": 62
+}

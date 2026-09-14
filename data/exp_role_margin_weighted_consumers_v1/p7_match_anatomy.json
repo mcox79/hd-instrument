@@ -1,0 +1,175 @@
+{
+ "cue_set": "v4",
+ "label_class_acc": 0.8029,
+ "match_acc": 0.7481,
+ "independent_prediction": 0.6576,
+ "excess": 0.0905,
+ "both_wrong_pairs": 5074,
+ "both_wrong_match_ok": 3815,
+ "one_wrong_pairs": 34671,
+ "one_wrong_match_ok": 8735,
+ "top_cooccurring_error_pairs": [
+  [
+   "OBJ->OTHER & OTHER->OBJ",
+   915
+  ],
+  [
+   "OTHER->OBJ & OTHER->OBJ",
+   697
+  ],
+  [
+   "OTHER->OBJ & SUBJ->OTHER",
+   589
+  ],
+  [
+   "OTHER->OBJ & OTHER->SUBJ",
+   506
+  ],
+  [
+   "OTHER->SUBJ & SUBJ->OTHER",
+   380
+  ],
+  [
+   "OBJ->OTHER & SUBJ->OTHER",
+   311
+  ],
+  [
+   "OBJ->OTHER & OBJ->OTHER",
+   276
+  ],
+  [
+   "OBJ->OTHER & OTHER->SUBJ",
+   255
+  ],
+  [
+   "OTHER->OBJ & SUBJ->OBJ",
+   223
+  ],
+  [
+   "OBJ->SUBJ & OTHER->OBJ",
+   172
+  ],
+  [
+   "OTHER->SUBJ & SUBJ->OBJ",
+   130
+  ],
+  [
+   "OBJ->OTHER & SUBJ->OBJ",
+   99
+  ],
+  [
+   "SUBJ->OTHER & SUBJ->OTHER",
+   93
+  ],
+  [
+   "OTHER->SUBJ & OTHER->SUBJ",
+   90
+  ],
+  [
+   "SUBJ->OBJ & SUBJ->OTHER",
+   78
+  ],
+  [
+   "OBJ->OTHER & OBJ->SUBJ",
+   78
+  ],
+  [
+   "OBJ->SUBJ & SUBJ->OTHER",
+   70
+  ],
+  [
+   "OBJ->SUBJ & OTHER->SUBJ",
+   63
+  ],
+  [
+   "OBJ->SUBJ & SUBJ->OBJ",
+   28
+  ],
+  [
+   "SUBJ->OBJ & SUBJ->OBJ",
+   12
+  ]
+ ],
+ "top_single_confusions": [
+  [
+   "OTHER->NMOD",
+   818
+  ],
+  [
+   "OTHER->OBL",
+   670
+  ],
+  [
+   "SUBJ->OTHER",
+   648
+  ],
+  [
+   "OTHER->SUBJ",
+   565
+  ],
+  [
+   "OBL->NMOD",
+   562
+  ],
+  [
+   "NMOD->OTHER",
+   543
+  ],
+  [
+   "OTHER->OBJ",
+   531
+  ],
+  [
+   "NMOD->OBL",
+   346
+  ],
+  [
+   "OBJ->OTHER",
+   230
+  ],
+  [
+   "OBJ->SUBJ",
+   189
+  ],
+  [
+   "OBL->OTHER",
+   186
+  ],
+  [
+   "OBL->OBJ",
+   181
+  ],
+  [
+   "SUBJ->OBJ",
+   176
+  ],
+  [
+   "NMOD->OBJ",
+   117
+  ],
+  [
+   "OBJ->OBL",
+   101
+  ],
+  [
+   "NMOD->SUBJ",
+   89
+  ],
+  [
+   "SUBJ->OBL",
+   64
+  ],
+  [
+   "IOBJ->OBJ",
+   61
+  ],
+  [
+   "PASS_SUBJ->OTHER",
+   60
+  ],
+  [
+   "SUBJ->NMOD",
+   52
+  ]
+ ]
+}

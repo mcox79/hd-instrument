@@ -1,0 +1,9 @@
+{
+ "n_decisions": 2676,
+ "hard_cue_constant": 692,
+ "log_cue_constant": 23,
+ "indicator_blind_logpost_sees": 669,
+ "decisions_with_veto": 1587,
+ "mean_spread_indicator": 0.7414,
+ "mean_spread_logpost": 5.7314
+}

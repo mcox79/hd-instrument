@@ -1,0 +1,119 @@
+{
+ "dev": {
+  "landed (obl inside OBJ)": {
+   "hard": 0.3615,
+   "ppc": 0.3817
+  },
+  "obl OUT of the parallelism class": {
+   "hard": 0.3585,
+   "ppc": 0.3837
+  },
+  "core arguments only (obl+obl:agent OUT)": {
+   "hard": 0.3585,
+   "ppc": 0.3837
+  },
+  "core only, iobj OUT too": {
+   "hard": 0.3555,
+   "ppc": 0.3837
+  }
+ },
+ "test": {
+  "floor_landed_hard": 0.3832,
+  "landed (obl inside OBJ)": {
+   "hard": 0.3832,
+   "ppc": 0.4385,
+   "hard_vs_landed_hard": {
+    "acc": 0.3832,
+    "delta": 0.0,
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "ci_hw": 0.0,
+    "ci_sep": false
+   },
+   "ppc_vs_landed_hard": {
+    "acc": 0.4385,
+    "delta": 0.0554,
+    "ci95": [
+     0.0299,
+     0.0831
+    ],
+    "ci_hw": 0.0266,
+    "ci_sep": true
+   }
+  },
+  "obl OUT of the parallelism class": {
+   "hard": 0.3776,
+   "ppc": 0.4341,
+   "hard_vs_landed_hard": {
+    "acc": 0.3776,
+    "delta": -0.0055,
+    "ci95": [
+     -0.0188,
+     0.0078
+    ],
+    "ci_hw": 0.0133,
+    "ci_sep": false
+   },
+   "ppc_vs_landed_hard": {
+    "acc": 0.4341,
+    "delta": 0.0509,
+    "ci95": [
+     0.0255,
+     0.0786
+    ],
+    "ci_hw": 0.0266,
+    "ci_sep": true
+   }
+  },
+  "core arguments only (obl+obl:agent OUT)": {
+   "hard": 0.3765,
+   "ppc": 0.433,
+   "hard_vs_landed_hard": {
+    "acc": 0.3765,
+    "delta": -0.0066,
+    "ci95": [
+     -0.0189,
+     0.0066
+    ],
+    "ci_hw": 0.0127,
+    "ci_sep": false
+   },
+   "ppc_vs_landed_hard": {
+    "acc": 0.433,
+    "delta": 0.0498,
+    "ci95": [
+     0.0244,
+     0.0775
+    ],
+    "ci_hw": 0.0266,
+    "ci_sep": true
+   }
+  },
+  "core only, iobj OUT too": {
+   "hard": 0.3765,
+   "ppc": 0.4308,
+   "hard_vs_landed_hard": {
+    "acc": 0.3765,
+    "delta": -0.0066,
+    "ci95": [
+     -0.0221,
+     0.0078
+    ],
+    "ci_hw": 0.015,
+    "ci_sep": false
+   },
+   "ppc_vs_landed_hard": {
+    "acc": 0.4308,
+    "delta": 0.0476,
+    "ci95": [
+     0.0221,
+     0.0753
+    ],
+    "ci_hw": 0.0266,
+    "ci_sep": true
+   }
+  }
+ }
+}

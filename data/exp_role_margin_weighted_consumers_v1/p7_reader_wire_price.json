@@ -1,0 +1,74 @@
+{
+ "dev": {
+  "n": 993,
+  "A_reader_rank_proxy": 0.3263,
+  "B_role_competition_label": 0.3615,
+  "C_role_competition_decision": 0.3817,
+  "B_vs_A": {
+   "acc": 0.3615,
+   "delta": 0.0352,
+   "ci95": [
+    0.0121,
+    0.0574
+   ],
+   "ci_hw": 0.0227,
+   "ci_sep": true
+  },
+  "C_vs_A": {
+   "acc": 0.3817,
+   "delta": 0.0554,
+   "ci95": [
+    0.0282,
+    0.0816
+   ],
+   "ci_hw": 0.0267,
+   "ci_sep": true
+  },
+  "C_vs_B": {
+   "acc": 0.3817,
+   "delta": 0.0201,
+   "ci95": [
+    -0.005,
+    0.0453
+   ],
+   "ci_hw": 0.0252,
+   "ci_sep": false
+  }
+ },
+ "test": {
+  "n": 903,
+  "A_reader_rank_proxy": 0.3522,
+  "B_role_competition_label": 0.3832,
+  "C_role_competition_decision": 0.4385,
+  "B_vs_A": {
+   "acc": 0.3832,
+   "delta": 0.031,
+   "ci95": [
+    0.0066,
+    0.0565
+   ],
+   "ci_hw": 0.0249,
+   "ci_sep": true
+  },
+  "C_vs_A": {
+   "acc": 0.4385,
+   "delta": 0.0864,
+   "ci95": [
+    0.0576,
+    0.1163
+   ],
+   "ci_hw": 0.0293,
+   "ci_sep": true
+  },
+  "C_vs_B": {
+   "acc": 0.4385,
+   "delta": 0.0554,
+   "ci95": [
+    0.0299,
+    0.0831
+   ],
+   "ci_hw": 0.0266,
+   "ci_sep": true
+  }
+ }
+}
