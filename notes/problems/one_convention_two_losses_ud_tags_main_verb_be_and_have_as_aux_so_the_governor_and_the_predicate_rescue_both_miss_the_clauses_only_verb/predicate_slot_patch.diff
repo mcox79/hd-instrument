@@ -1,7 +1,7 @@
 diff --git a/hdlab/attachment_arm.py b/hdlab/attachment_arm.py
 --- a/hdlab/attachment_arm.py
 +++ b/hdlab/attachment_arm.py
-@@ -1160,6 +1160,198 @@
+@@ -1160,6 +1160,206 @@
                  out.setdefault((v, subj), "later")
      return out
  
@@ -155,10 +155,18 @@ diff --git a/hdlab/attachment_arm.py b/hdlab/attachment_arm.py
 +    return 0.0
 +
 +
++_PS_NEEDED = ("VERB", "AUX", "ADV", "PART", "PRON")
++
++
 +def predicate_slot_occupancy(toks: Sequence[str], tags: Sequence[str], post, tag_names: Sequence[str]):
 +    """P(this token occupies its clause's predicate slot), per token.  Non-carrier tokens score 0: a VERB already
-+    holds the slot and the rescue's noun arm owns the rest.  See the block comment for the computation."""
++    holds the slot and the rescue's noun arm owns the rest.  See the block comment for the computation.
++    Returns all-zero (a no-op) under a category inventory that does not carry the UPOS classes the computation
++    reads -- the organ's own docstring anticipates swapping to induced classes, and a missing class must degrade to
++    silence, not to an exception."""
 +    n = len(toks); occ = [0.0] * n
++    if any(t not in tag_names for t in _PS_NEEDED):
++        return occ
 +    lows = [t.lower() for t in toks]
 +    carriers = main_verb_carriers()
 +    for i in range(n):
@@ -200,7 +208,7 @@ diff --git a/hdlab/attachment_arm.py b/hdlab/attachment_arm.py
  
  def subordination(toks: Sequence[str], pos: Sequence[str], i: int) -> str:
      """SUBORDINATION CUE: the clause-dependency marking in force at 1-based i -- the nearest preceding clause opener
-@@ -2447,6 +2639,8 @@
+@@ -2447,6 +2647,8 @@
             "np_starts", "split_runs", "phrase_head", "npb_matrix", "predicate_flags", "clause_matrices", "clause_value",
             "boundary_penalty",
             "root_cue_values", "predication_boost", "finiteness",

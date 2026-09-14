@@ -889,7 +889,7 @@ def reader(cap=2100, th=0.5, cross=150, seed=0):
     lc = LC.get()
     model = BFPredicateDetector.load()
     rth = model.threshold
-    ARMS = ("OFF", "LIVE", "AUX107", "OCC", "OCC_AUX")
+    ARMS = ("OFF", "LIVE", "AUX107", "OCC", "OCC_AUX", "OCC_COP")
     per = {a: [] for a in ARMS}; blind = {a: 0 for a in ARMS}
     gold_n = []; n_gold_sent = 0; nsent = 0; mism = 0; n_cross = 0
     r_off = None
@@ -916,8 +916,16 @@ def reader(cap=2100, th=0.5, cross=150, seed=0):
         span2 = clause_spans(list(toks), tags2)
         hv2 = {c: any(tags2[j] == "VERB" for j in range(len(toks)) if span2[j] == c) for c in set(span2)}
         aux2 = set(i for i in range(len(toks)) if tags2[i] == "AUX" and not hv2[span2[i]] and model.score(cues2[i]) >= rth)
+        # PHASE-4 LEVER (alternate path D, built): a COPULAR clause has a predicate -- the NON-VERBAL COMPLEMENT
+        # (Pustet 2003) -- and the occupancy deliberately leaves the copula alone there.  The event should fire on
+        # the predicate, and the governor's OWN `cop_predicates` already computes which token that is, so this is a
+        # READ of an existing organ, not a new one.  Fires only in a clause the revised tags leave with no VERB.
+        cp = set()
+        for q in AA.cop_predicates(list(toks), list(tags2)):
+            if not hv2[span2[q - 1]]:
+                cp.add(q - 1)
         sets = {"OFF": base, "LIVE": base | bf, "AUX107": base | bf | aux,
-                "OCC": base2 | bf2, "OCC_AUX": base2 | bf2 | aux2}
+                "OCC": base2 | bf2, "OCC_AUX": base2 | bf2 | aux2, "OCC_COP": base2 | bf2 | cp}
         for a in ARMS:
             S = sets[a]
             per[a].append((len(S & gold_verb), len(S), len(gold_verb)))
@@ -950,7 +958,7 @@ def reader(cap=2100, th=0.5, cross=150, seed=0):
             continue
         d, lo, hi = _boot([(per[a][i][0], per["OFF"][i][0], per[a][i][2]) for i in range(nsent)], seed=seed)
         out["arms"][a]["d_recall_vs_OFF"] = [round(d, 4), round(lo, 4), round(hi, 4)]
-    for a in ("OCC", "OCC_AUX"):
+    for a in ("OCC", "OCC_AUX", "OCC_COP"):
         d, lo, hi = _boot([(per[a][i][0], per["LIVE"][i][0], per[a][i][2]) for i in range(nsent)], seed=seed)
         out["arms"][a]["d_recall_vs_LIVE"] = [round(d, 4), round(lo, 4), round(hi, 4)]
     print("sentences %d (%d with a gold verb), gold verbs %d; OFF-arm vs live reader mismatches %d/%d"
