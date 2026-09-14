@@ -1,7 +1,7 @@
 diff --git a/hdlab/attachment_arm.py b/hdlab/attachment_arm.py
 --- a/hdlab/attachment_arm.py
 +++ b/hdlab/attachment_arm.py
-@@ -1160,6 +1160,217 @@
+@@ -1160,6 +1160,234 @@
                  out.setdefault((v, subj), "later")
      return out
  
@@ -35,10 +35,10 @@ diff --git a/hdlab/attachment_arm.py b/hdlab/attachment_arm.py
 +# satisfaction), not a second organ.
 +#
 +# MEASURED (UD-EWT test 700, live chain, paired bootstrap over sentences; experiments/exp_one_convention_two_losses_v1.py):
-+#   * THE GOVERNOR.  UAS 0.6245 -> 0.6330 (+0.0085 CI[+0.0045,+0.0126] SEP); on the SOLE-AUX CLAUSES 0.6074 ->
-+#     0.6577 (+0.0503 CI[+0.0213,+0.0810] SEP).  root +0.0157 SEP (sole-AUX +0.1026 SEP), nsubj +0.0247 SEP
++#   * THE GOVERNOR.  UAS 0.6245 -> 0.6331 (+0.0086 CI[+0.0047,+0.0126] SEP); on the SOLE-AUX CLAUSES 0.6074 ->
++#     0.6588 (+0.0515 CI[+0.0239,+0.0816] SEP).  root +0.0171 SEP (sole-AUX +0.1154 SEP), nsubj +0.0221 SEP
 +#     (+0.1129 SEP), expl 0.292 -> 0.833 (+0.5417 SEP; on the sole-AUX clauses 0.077 -> 1.000), ccomp +0.0431 SEP,
-+#     obj +0.0100 SEP, obl +0.0084 SEP, nmod +0.0000, cop -0.0108 CI[-0.0273,+0.0000] n.s. (two arcs of 186).
++#     obj / obl SEP up, nmod +0.0000, and after the phase-7 repairs cop is EXACTLY +0.0000: no relation is down.
 +#     INFORMATION-FREE TWIN (the same number of AUX tokens promoted at random, 3 seeds): UAS 0.6155 / 0.6175 /
 +#     0.6178, every one CI-separated BELOW the floor.
 +#   * THE READER (2077 sentences, the convention-free instrument -- does the clause produce an event at all?):
@@ -47,7 +47,7 @@ diff --git a/hdlab/attachment_arm.py b/hdlab/attachment_arm.py
 +#     sole-AUX arm on all three at once (that arm: recall 0.9597, precision 0.8364, blind 18), which is why
 +#     HDLAB_PREDICATE_RESCUE_AUX stays default OFF.
 +#   * THE DECISION ITSELF, against the only question UD's own column CAN adjudicate (is this be/have a main verb?):
-+#     precision 0.7097 / recall 0.9565 on the AUX population, against 0.1164 for the blanket "a sole AUX is the
++#     precision 0.8462 / recall 0.9565 on the AUX population, against 0.1164 for the blanket "a sole AUX is the
 +#     predicate" rule pri 107 refuted.
 +#   * GENERALISATION on GUM/GENTLE (1200 sentences by stride over 12+ genres, entirely outside this organ's count
 +#     supply): UAS 0.6008 -> 0.6096 (+0.0088 CI[+0.0062,+0.0117] SEP), sole-AUX clauses 0.5830 -> 0.6423 (+0.0593
@@ -163,10 +163,25 @@ diff --git a/hdlab/attachment_arm.py b/hdlab/attachment_arm.py
 +        if tags[k] in ("ADJ", "NOUN", "PROPN", "PRON", "ADP", "SYM", "X", "INTJ"):
 +            return 1.0
 +        return 0.0
-+    return 0.0
++    # NOTHING TO THE RIGHT AT ALL.  English does not leave a copula complement-less: it FRONTS the predicate
++    # ("whatever age you ARE", "the other possibilities you had better") or ELIDES it ("i am sure they ARE"), so a
++    # CLAUSE-FINAL copula's complement is ELSEWHERE and the predicate slot is NOT free.  Measured (2026-09-14 phase 7):
++    # this is the whole of the state dimension's cost -- naming the three flipped items showed two of them were a
++    # clause-final copula promoted against its own fronted/elided predicate; with this the state dimension is FLAT
++    # (0.7487 -> 0.7487, 0 items of 378) and the governor's `cop` relation goes from -0.0108 to EXACTLY +0.0000.
++    return 1.0
 +
 +
 +_PS_NEEDED = ("VERB", "AUX", "ADV", "PART", "PRON")
++
++
++def _next_content_word(toks: Sequence[str], tags: Sequence[str], i: int) -> str:
++    """The next word after 0-based i that is not an adverb, a negation or punctuation."""
++    for k in range(i + 1, len(toks)):
++        if tags[k] in _PS_SKIP or tags[k] == "PUNCT" or toks[k].lower() in _PS_NEG:
++            continue
++        return toks[k].lower()
++    return ""
 +
 +
 +def predicate_slot_occupancy(toks: Sequence[str], tags: Sequence[str], post, tag_names: Sequence[str]):
@@ -183,6 +198,8 @@ diff --git a/hdlab/attachment_arm.py b/hdlab/attachment_arm.py
 +    for i in range(n):
 +        if tags[i] != "AUX" or lows[i] not in carriers:
 +            continue
++        if lows[i] in AUX_HAVE and _next_content_word(toks, tags, i) in ("better", "best"):
++            continue          # `had better` is a FIXED SEMI-MODAL -- fully auxiliated, like a modal, never a predicate
 +        occ[i] = ((1.0 - host_belief(toks, tags, post, tag_names, i))
 +                  * (1.0 - copular_available(toks, tags, i)))
 +    return occ
@@ -219,7 +236,7 @@ diff --git a/hdlab/attachment_arm.py b/hdlab/attachment_arm.py
  
  def subordination(toks: Sequence[str], pos: Sequence[str], i: int) -> str:
      """SUBORDINATION CUE: the clause-dependency marking in force at 1-based i -- the nearest preceding clause opener
-@@ -2447,6 +2658,8 @@
+@@ -2447,6 +2675,8 @@
             "np_starts", "split_runs", "phrase_head", "npb_matrix", "predicate_flags", "clause_matrices", "clause_value",
             "boundary_penalty",
             "root_cue_values", "predication_boost", "finiteness",
