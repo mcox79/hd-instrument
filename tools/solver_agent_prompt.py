@@ -63,7 +63,7 @@ PHASES = (
     "priority next steps; notes/problems/<slug>/SOLVED.md with the frontmatter schema used by the other SOLVED.md files in "
     "notes/problems/ (status / bar / result / floor / controls / files_changed / reverify -- copy the schema from an existing "
     "SOLVED.md); the proposed hdlab change as notes/problems/<slug>/{patch} (a unified diff against the current hdlab file); a short "
-    "submission prompt in a code box that includes the original problem name; commit your files path-limited. Your final message = "
+    "submission prompt in a code box that includes the original problem name; commit your files path-limited. YOUR DIFF MUST BE COMPLETE ON THE SHIPPED PATH: if it widens a signature or adds a parameter, every call site in hdlab/ AND tools/ (the asset builders) must pass the new argument in the diff itself -- a builder that runs your organ without the argument your cell passed silently ships a different organ (2026-09-14: a teacher shipped oblique-only because its association was never passed at the builder's call site). Your final message = "
     "TLDR (result with numbers, floor, twin, CI), QUESTIONS, NEXT STEPS, the list of files written, and the counts of tool calls and "
     "experiment runs you made.\n\n"
     "Before writing the words wall / ceiling / negative, read notes/WALL_PUSH_PROTOCOL_owner_motivation_messages.md and "
