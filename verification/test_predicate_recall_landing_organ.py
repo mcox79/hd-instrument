@@ -4,7 +4,7 @@ sklearn predict_proba on standardized features EXACTLY (byte-faithful to the val
 invariant gate/rescue promotes a tagger-DROPPED real verb ("the lake PRESENTS...") and REJECTS the noun-flanked
 distractors below threshold; (3) the wire is ADDITIVE -- flag-ON event detection is a strict SUPERSET of flag-OFF
 (the existing UPOS==VERB detections + their fields are byte-identical, extras only for dropped predicates);
-(4) a normal all-verbs-tagged sentence is byte-identical ON vs OFF; (5) the flag is default-off + factory-covered
+(4) a normal all-verbs-tagged sentence is byte-identical ON vs OFF; (5) the flag is a capability + factory-covered
 and both readers run read() end-to-end; (6) the rescue gate never touches a VERB/AUX token. Glass-box, NO LLM.
 Run:
   .venv/Scripts/python.exe verification/test_predicate_recall_landing_organ.py
@@ -87,10 +87,16 @@ def main():
     # 'adds predicates' check could never pass (stale premise); OFF must be selected explicitly.
     r_off = SituationReader(predicate_recall=False)
     r_on = SituationReader(predicate_recall=True)
+    # 2026-09-14 (pri-107): the first three are the historic set; the last three are MODERN UD-EWT test sentences
+    # (gold UPOS) on which the LIVE category organ drops a real verb and the BF rescue recovers it with no false
+    # promotion -- so "flag-ON adds recovered predicates" is a live-chain check, not a perceptron-era one.
     texts = [
-        "the lake presents an unbroken sheet of ice",      # 'presents' dropped -> +1 event
+        "the lake presents an unbroken sheet of ice",      # 'presents' dropped (19c-flavoured)
         "the man ate the apple and the dog chased the cat",  # all verbs tagged -> byte-identical
         "she quickly ran home",                             # clean
+        "They own blogger , of course .",                   # gold VERB 'own' dropped -> rescued
+        "Plus you land in a preferential terminal ...",     # gold VERB 'land' dropped -> rescued
+        "how do you mold silicone or rubber into a mermaid tail ?",   # gold VERB 'mold' dropped -> rescued
     ]
     total_off = total_on = 0
     for t in texts:
@@ -110,15 +116,78 @@ def main():
 
     # 5. CONSTRUCTOR / FACTORY + end-to-end read()
     _ok("predicate_recall" in SituationReader.CAPABILITY_FLAGS, "flag in CAPABILITY_FLAGS")
-    _ok(SituationReader().predicate_recall is False
+    # 2026-09-14 (pri-107): predicate_recall has been DEFAULT-ON since 2026-09-05, so the stale "default OFF"
+    # premise made this check unsatisfiable. What must hold is that it is a real capability flag and that
+    # all_capabilities_off() turns it off.
+    _ok(SituationReader().predicate_recall is True
         and SituationReader.all_capabilities_off().predicate_recall is False,
-        "default OFF + all_capabilities_off() covers it")
-    sm_off = SituationReader().read(DOC)
+        "default ON + all_capabilities_off() turns it off")
+    sm_off = SituationReader(predicate_recall=False).read(DOC)
     sm_on = SituationReader(predicate_recall=True).read(DOC)
-    _ok(len(sm_off.events) > 0, "default-off reader runs read() (byte-identical detection path)")
+    _ok(len(sm_off.events) > 0, "flag-off reader runs read() (byte-identical detection path)")
     _ok(len(sm_on.events) >= len(sm_off.events),
         "flag-on reader runs read() and never DROPS events (%d >= %d, additive through the full pipeline)"
         % (len(sm_on.events), len(sm_off.events)))
+
+    # =================================================================================================
+    # 7. THE LIVE CHAIN (2026-09-14, pri-107). Everything above checks the detector against the PERCEPTRON its
+    #    asset was fitted to. The live path has been the brain-foundational category organ since 2026-09-12, and
+    #    under it the rescue was DORMANT -- this section is what was silently failing.
+    # =================================================================================================
+    from hdlab import lexical_categories as LC
+    from hdlab.predicate_detector import (BFPredicateDetector, bf_cue_block, category_emission,
+                                          has_verb_reading_glassbox)
+    lc = LC.get()
+    bf = BFPredicateDetector.load()
+    live = lc.tag(sent)
+    _ok(live[2] != "VERB", "under the LIVE category organ 'presents' is still DROPPED (tagged %s)" % live[2])
+
+    cues = bf_cue_block(lc, sent, live, lc.posterior(sent), category_emission(lc, sent))
+    s_presents, s_sheet, s_ice = bf.score(cues[2]), bf.score(cues[5]), bf.score(cues[7])
+    # THE CAPABILITY: the mis-tagged real verb is ranked far above its noun-flanked distractors. (The DEPLOYED
+    # threshold is an FP-BUDGET knob; this sentence sits below the precision-preserving default and above the
+    # recall-oriented threshold recorded in the same asset -- see SOLVED.md, which reports both.)
+    _ok(s_presents > 10 * max(s_sheet, s_ice),
+        "the BF rescue ranks the real verb 'presents' far above the distractors (%.4f vs sheet %.4f / ice %.4f)"
+        % (s_presents, s_sheet, s_ice))
+    recall_th = float(bf.thresholds_by_budget.get("0.25", {}).get("threshold") or bf.threshold)
+    _ok(s_presents >= recall_th,
+        "the BF rescue FIRES on 'presents' at the asset's recall-oriented operating point (%.4f >= %.4f)"
+        % (s_presents, recall_th))
+
+    # THE LIVE CHAIN FIRES ON MODERN PROSE at the DEPLOYED threshold, and only on the real verbs
+    for text, want in (("They own blogger , of course .", 1),
+                       ("Plus you land in a preferential terminal ...", 2),
+                       ("how do you mold silicone or rubber into a mermaid tail ?", 3)):
+        toks = text.split()
+        tags = lc.tag(toks)
+        r = dict(bf.rescue_indices(toks, tags, lc))
+        _ok(set(r) == {want}, "BF rescue recovers exactly the dropped verb %r in %r (got %r)"
+            % (toks[want], text, [toks[i] for i in sorted(r)]))
+        _ok(all(tags[i] not in ("VERB", "AUX") for i in r),
+            "the BF rescue never touches a VERB/AUX token in %r (additive by construction)" % text)
+
+    # THE GATE IS GLASS-BOX: no nltk at inference, same decision as the WordNet gate
+    from hdlab.predicate_detector import has_verb_reading as _wn_gate
+    _ok(all(has_verb_reading_glassbox(w) == _wn_gate(w) for w in sent),
+        "the glass-box morphology gate agrees with the WordNet gate on the witness (no nltk at inference)")
+
+    # THE COMBINER IS PLASTIC: `observe` is a live online path, and the score moves with experience
+    before = bf.score(cues[5])
+    for _ in range(80):
+        bf.observe(cues[5], 1)
+    _ok(bf.score(cues[5]) > before,
+        "observe() is a live plastic path (score %.4f -> %.4f after 80 positive outcomes)"
+        % (before, bf.score(cues[5])))
+
+    # AND THE READER ITSELF fires the recovered predicate on the live chain (this is the dormancy check)
+    r_on2 = SituationReader(predicate_recall=True)
+    r_off2 = SituationReader(predicate_recall=False)
+    add = 0
+    for text in ("They own blogger , of course .", "Plus you land in a preferential terminal ...",
+                 "how do you mold silicone or rubber into a mermaid tail ?"):
+        add += len(r_on2._extract_events(text)[0]) - len(r_off2._extract_events(text)[0])
+    _ok(add == 3, "the LIVE reader fires one recovered predicate per modern witness sentence (%d extra events)" % add)
 
     print("%d/%d checks passed" % (_n, _n), flush=True)
     print("SELF-TEST PASSED", flush=True)

@@ -1940,27 +1940,46 @@ class SituationReader:
         if self._pred_detector is None:
             from hdlab.predicate_detector import PredicateDetector
             self._pred_detector = PredicateDetector.load()
+        if not hasattr(self, "_bf_pred"):
+            self._bf_pred = None
         ft = self._frontend_tagger()   # the shared frontend tagger (the count-based category organ since 2026-09-13; perceptron = baseline)
         if hasattr(ft, "_perc"):
             W = ft._perc.weights
             tags = ft.tags
             rescued = [i for i, _p in self._pred_detector.rescue_indices(toks, up, W, tags)]
         else:
-            # BF form (2026-09-13): the category organ hands down a POSTERIOR; a token the argmax did not call a verb but whose
-            # verb belief is still substantial is the rescued predicate (the detector's perceptron-weight read was the stand-in).
-            from hdlab.predicate_detector import has_verb_reading
-            try:
-                post = ft.tag_with_posterior(list(toks))[1]
-            except Exception:
-                post = None
+            # BF form (2026-09-14, pri-107): the rescue's noisy-channel LEXICAL LIKELIHOOD, re-derived from the category organ
+            # that replaced the perceptron. The 2026-09-13 stand-in read a BARE POSTERIOR THRESHOLD (post[i]["VERB"] >= 0.3) --
+            # the posterior is the likelihood and the structural prior ALREADY MULTIPLIED, so the six structural cues
+            # double-counted the prior and the lexical evidence was washed out; it was measurably DORMANT (0 extra events on
+            # the landing witness). hdlab.predicate_detector.BFPredicateDetector reads the organ's TWO CHANNELS SEPARATELY --
+            # the per-lexeme noun/verb bias off the emission COUNTS, the one-predicate-per-clause COMPETITION (normalised verb
+            # share), the settled belief as graded log-odds -- and combines them with the six register-invariant structural
+            # cues by naive-Bayes cue integration over counts (plastic, `observe`). Falls back to the stand-in read only if the
+            # asset is missing, so a fresh checkout still runs.
+            from hdlab.predicate_detector import BFPredicateDetector, has_verb_reading_glassbox
             rescued = []
-            if post:
-                for i in range(len(toks)):
-                    if up[i] in ("VERB", "AUX") or not has_verb_reading(toks[i]):
-                        continue
-                    d = post[i] if i < len(post) else {}
-                    if d and d.get("VERB", 0.0) >= PREDICATE_RESCUE_MIN_P:
-                        rescued.append(i)
+            if self._bf_pred is None:
+                try:
+                    self._bf_pred = BFPredicateDetector.load()
+                except Exception:
+                    self._bf_pred = False
+            if self._bf_pred:
+                from hdlab import lexical_categories as _LC
+                rescued = [i for i, _p in self._bf_pred.rescue_indices(list(toks), list(up), _LC.get(),
+                                                                         post=self._cached_tag_matrix(list(toks)))]
+            else:
+                try:
+                    post = ft.tag_with_posterior(list(toks))[1]
+                except Exception:
+                    post = None
+                if post:
+                    for i in range(len(toks)):
+                        if up[i] in ("VERB", "AUX") or not has_verb_reading_glassbox(toks[i]):
+                            continue
+                        d = post[i] if i < len(post) else {}
+                        if d and d.get("VERB", 0.0) >= PREDICATE_RESCUE_MIN_P:
+                            rescued.append(i)
         for i in rescued:
             events.append(T.Event(lemma=toks[i].lower(), idx=i, pos="VERB",
                                   tense=T.TENSE_SIMPLE_PAST, is_pp=False))
@@ -2112,11 +2131,27 @@ class SituationReader:
                 # generative category model with a forward-backward GRADED posterior (hdlab.lexical_categories; 0.912 on UD-EWT
                 # test vs the NOT_BF perceptron 0.945) is the live tagger; the posterior is cached for the graded hand-off.
                 from hdlab import lexical_categories as _LC
-                tags, dist = _LC.get().tag_with_posterior(list(toks))
-                c[key] = tags; c[("tagpost", tuple(toks))] = dist
+                import numpy as _np
+                lc = _LC.get()
+                # ONE forward-backward per sentence per read (2026-09-14, pri 107 integration): the posterior MATRIX is computed
+                # once here and cached; tags/dist derive from it exactly as LexicalCategories.tag_with_posterior does, and the
+                # predicate rescue reads the same matrix instead of running its own pass (-4.7 ms/sentence measured by the solver).
+                mat = lc.posterior(list(toks))
+                tags = [lc.tags[int(_np.argmax(mat[i]))] for i in range(len(toks))]
+                dist = [{t: float(mat[i, j]) for j, t in enumerate(lc.tags) if mat[i, j] >= 0.01} for i in range(len(toks))]
+                c[key] = tags; c[("tagpost", tuple(toks))] = dist; c[("tagmat", tuple(toks))] = mat
             else:
                 c[key] = self._frontend_tagger().tag(toks)     # HDLAB_TAG_SOURCE=perceptron: the supervised stand-in
         return list(c[key])
+
+    def _cached_tag_matrix(self, toks):
+        """The category organ's full posterior matrix [n, T] for this sentence (None under the perceptron) -- one pass per read."""
+        if _TAG_SOURCE != "counts":
+            return None
+        key = ("tagmat", tuple(toks))
+        if key not in self._read_parse_cache:
+            self._cached_tag(toks)
+        return self._read_parse_cache.get(key)
 
     def _cached_tag_posterior(self, toks):
         """[{category: P}] per token from the category organ (None under the perceptron) -- the graded hand-off down the chain."""
