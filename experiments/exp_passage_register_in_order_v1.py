@@ -1662,6 +1662,82 @@ def twin_arithmetic(corpus="gum", stride=2, cap=0):
             "seconds": round(time.time() - t0, 1)}
 
 
+def typing_handoff(n_docs=None):
+    """THE HAND-OFF THE CATEGORY ORGAN'S GAIN DIES IN, counted end to end (2026-09-14 phase 7).
+
+    The board's GUM rows do not read the category organ's posterior, or even its tag. They read a THREE-WAY
+    mention type produced by `gum_coref._mention_type` / `_mention_type_organ`, which is a pure function of the
+    argmax: PRON (or a pronoun-list form) -> "pronoun", PROPN -> "name", everything else -> "common". So every
+    category distinction the organ makes among {NOUN, VERB, ADJ, ADV, NUM, ...} collapses to ONE symbol before
+    the board sees it, and the only gain that can survive is one that moves a token ACROSS the PROPN / PRON /
+    other boundary AND that token is a mention head.
+
+    This measures each link: tokens whose argmax the passage register moves, how many of those are mention
+    heads, and how many mention TYPES change as a result -- the three numbers that turn a +0.0101 tag-accuracy
+    gain into nothing on a 3,024-item board row. Both arms are loaded in ONE process; the only difference is
+    whether the loader opens a passage."""
+    install()
+    import experiments.gum_coref as G
+    from experiments.exp_board_coref_gum_v1 import load_given_gazetteer
+    gaz = load_given_gazetteer()
+    out = {}
+    tags = {}
+    types = {}
+    for name in ("inert_no_new_document", "passage_opened_and_fed_in_order"):
+        if name.startswith("passage"):
+            install_gum_coref()
+        else:
+            restore_gum_coref()
+        t0 = time.time()
+        docs = G.load_docs(gum_only=True, limit=n_docs, name_gazetteer=gaz, decision_source="organ")
+        docs = [d for i, d in enumerate(docs) if i % 2 == 1]          # the board's TEST split (odd docs)
+        tg = {}
+        ty = {}
+        for di, d in enumerate(docs):
+            for t in d.toks:
+                tg[(di, t.gidx)] = t.upos
+            for mi, m in enumerate(d.mentions):
+                ty[(di, mi)] = m.mtype
+        tags[name] = tg
+        types[name] = ty
+        out[name] = {"n_docs": len(docs), "n_tokens": len(tg), "n_mentions": len(ty),
+                     "seconds": round(time.time() - t0, 1)}
+        print("  %s  %d docs / %d tokens / %d mentions  %.0fs" % (
+            name, len(docs), len(tg), len(ty), time.time() - t0), flush=True)
+    restore_gum_coref()
+    a, b = tags["inert_no_new_document"], tags["passage_opened_and_fed_in_order"]
+    ta, tb = types["inert_no_new_document"], types["passage_opened_and_fed_in_order"]
+    from collections import Counter
+    tag_flips = Counter()
+    for k in a:
+        if k in b and a[k] != b[k]:
+            tag_flips[(a[k], b[k])] += 1
+    type_flips = Counter()
+    for k in ta:
+        if k in tb and ta[k] != tb[k]:
+            type_flips[(ta[k], tb[k])] += 1
+    n_tag = sum(tag_flips.values())
+    n_type = sum(type_flips.values())
+    # how many of the argmax flips CAN cross the typing boundary at all
+    crossing = sum(v for (x, y), v in tag_flips.items()
+                   if ("PROPN" in (x, y)) or ("PRON" in (x, y)))
+    out["handoff"] = {
+        "tokens_compared": len(a),
+        "argmax_flips_from_opening_the_passage": n_tag,
+        "argmax_flip_rate": round(n_tag / max(1, len(a)), 6),
+        "flips_that_cross_the_PROPN_or_PRON_boundary": crossing,
+        "flips_invisible_to_the_typing_rule": n_tag - crossing,
+        "mentions_compared": len(ta),
+        "mention_TYPES_changed": n_type,
+        "mention_type_change_rate": round(n_type / max(1, len(ta)), 6),
+        "top_tag_flips": [["%s -> %s" % k, v] for k, v in tag_flips.most_common(8)],
+        "mention_type_flips": [["%s -> %s" % k, v] for k, v in type_flips.most_common(8)],
+        "note": ("the board's three GUM rows read ONLY this three-way type; every other category distinction the "
+                 "organ makes is discarded at this hand-off"),
+    }
+    return out
+
+
 def board(patched=True, n_boot=1000, caps=None):
     """THE BOARD A/B (phase 5). The board's `run()` is in-process, so the patch is installed BEFORE the board module
     is imported and every arm it builds therefore routes through the patched organs. Floor and arm are run in
@@ -1783,6 +1859,7 @@ def main():
     ap.add_argument("--gum-loader-ab", action="store_true")
     ap.add_argument("--armb-ab", action="store_true")
     ap.add_argument("--twin-arithmetic", action="store_true")
+    ap.add_argument("--typing-handoff", action="store_true")
     ap.add_argument("--board-smoke", action="store_true")
     ap.add_argument("--floor-arm", action="store_true", help="--repeat WITHOUT the patch (the floor)")
     ap.add_argument("--corpus", default="gum")
@@ -1810,6 +1887,13 @@ def main():
         with open(os.path.join(OUT, "metrics_selftest.json"), "w", encoding="utf-8") as f:
             json.dump({"result": {"passed": PASS, "failed": FAIL}}, f, indent=1)
         sys.exit(0 if ok else 1)
+
+    if a.typing_handoff:
+        r = typing_handoff(n_docs=a.cap or None)
+        print(json.dumps(r, indent=1), flush=True)
+        with open(os.path.join(OUT, "metrics_typing_handoff.json"), "w", encoding="utf-8") as f:
+            json.dump({"result": r}, f, indent=1)
+        return
 
     if a.gum_loader_ab:
         r = gum_loader_ab(n_docs=a.cap or None, n_boot=a.boot)

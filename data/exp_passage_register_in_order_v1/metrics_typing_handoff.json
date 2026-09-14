@@ -1,0 +1,87 @@
+{
+ "result": {
+  "inert_no_new_document": {
+   "n_docs": 128,
+   "n_tokens": 127919,
+   "n_mentions": 17010,
+   "seconds": 198.5
+  },
+  "passage_opened_and_fed_in_order": {
+   "n_docs": 128,
+   "n_tokens": 127919,
+   "n_mentions": 17010,
+   "seconds": 168.5
+  },
+  "handoff": {
+   "tokens_compared": 127919,
+   "argmax_flips_from_opening_the_passage": 385,
+   "argmax_flip_rate": 0.00301,
+   "flips_that_cross_the_PROPN_or_PRON_boundary": 196,
+   "flips_invisible_to_the_typing_rule": 189,
+   "mentions_compared": 17010,
+   "mention_TYPES_changed": 82,
+   "mention_type_change_rate": 0.004821,
+   "top_tag_flips": [
+    [
+     "NOUN -> PROPN",
+     70
+    ],
+    [
+     "ADJ -> NOUN",
+     57
+    ],
+    [
+     "PROPN -> NOUN",
+     39
+    ],
+    [
+     "VERB -> NOUN",
+     34
+    ],
+    [
+     "PROPN -> INTJ",
+     21
+    ],
+    [
+     "ADJ -> PROPN",
+     19
+    ],
+    [
+     "NOUN -> VERB",
+     16
+    ],
+    [
+     "ADJ -> VERB",
+     12
+    ]
+   ],
+   "mention_type_flips": [
+    [
+     "common -> name",
+     50
+    ],
+    [
+     "name -> common",
+     20
+    ],
+    [
+     "name -> pronoun",
+     9
+    ],
+    [
+     "pronoun -> name",
+     1
+    ],
+    [
+     "pronoun -> common",
+     1
+    ],
+    [
+     "common -> pronoun",
+     1
+    ]
+   ],
+   "note": "the board's three GUM rows read ONLY this three-way type; every other category distinction the organ makes is discarded at this hand-off"
+  }
+ }
+}

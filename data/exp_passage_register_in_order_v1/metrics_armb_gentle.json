@@ -1,0 +1,71 @@
+{
+ "result": {
+  "corpus": "gentle",
+  "n_docs": 26,
+  "floor": {
+   "all": 0.8657,
+   "unseen": 0.5838,
+   "repeat": 0.6343,
+   "first": 0.7261
+  },
+  "arm": {
+   "all": 0.8666,
+   "unseen": 0.5882,
+   "repeat": 0.6455,
+   "first": 0.7337
+  },
+  "arm_minus_floor": {
+   "all": {
+    "delta": 0.0009,
+    "ci95": [
+     -6e-05,
+     0.00203
+    ],
+    "half_width": 0.00105,
+    "CIsep": false,
+    "n_docs": 26,
+    "denom": 17799
+   },
+   "unseen": {
+    "delta": 0.0044,
+    "ci95": [
+     -0.00158,
+     0.00977
+    ],
+    "half_width": 0.00567,
+    "CIsep": false,
+    "n_docs": 26,
+    "denom": 2501
+   },
+   "repeat": {
+    "delta": 0.01113,
+    "ci95": [
+     0.00211,
+     0.02222
+    ],
+    "half_width": 0.01006,
+    "CIsep": true,
+    "n_docs": 26,
+    "denom": 629
+   },
+   "first": {
+    "delta": 0.00754,
+    "ci95": [
+     -0.00467,
+     0.01882
+    ],
+    "half_width": 0.01175,
+    "CIsep": false,
+    "n_docs": 26,
+    "denom": 796
+   }
+  },
+  "pn_floor": 683,
+  "pn_arm": 677,
+  "what_it_touches": {
+   "sentences_folded_back": 1334,
+   "distinct_shape_symbols": 20,
+   "sentence_stamped_entries": 4049
+  }
+ }
+}
