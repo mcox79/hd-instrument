@@ -861,14 +861,29 @@ def _assign_frame_primary_roles(lemma: str, toks: List[str], pred_idx: int,
 
 
 @lru_cache(maxsize=8192)
-def _affect_pos_cached(sentence_text: str):
-    """Per-string memo of the frontend UPOS tags for the affect path. EFFICIENCY (2026-09-06): tag() is a
-    PURE deterministic function of the token list, and _assign_affect runs once PER EVENT -- many events share
-    a sentence, so the identical string was re-tagged repeatedly (the affect path was ~half the read's POS-tag
-    calls; tagging is ~40% of read cost). Memoizing by sentence_text is BYTE-IDENTICAL (same split, same
-    deterministic tagger, same tags) and safe across reads (the frontend model is process-constant). Returns a
-    tuple; callers copy to a fresh list so a downstream mutation cannot corrupt the cache."""
+def _affect_pos_cached(reg_gen: int, sentence_text: str):
+    """Per-PASSAGE memo of the frontend UPOS tags for the affect path. EFFICIENCY (2026-09-06): _assign_affect runs
+    once PER EVENT -- many events share a sentence, so the identical string was re-tagged repeatedly (the affect path
+    was ~half the read's POS-tag calls; tagging is ~40% of read cost).
+
+    KEYED ON THE PASSAGE (2026-09-14, pri-112). The 2026-09-06 premise -- "tag() is a PURE deterministic function of
+    the token list ... safe across reads" -- stopped being true when the entity-feedback arm landed: the category organ
+    reads the passage's Heim file cards, so the tags for one string depend on WHICH PASSAGE is open. A process-global
+    memo keyed on the string alone served one document's tags into another, which is how the same document read twice
+    in one process produced different events (236 vs 235; data/hook_state/diag_w3a9.log). `reg_gen` is the category
+    organ's passage counter, which is the unit over which the tags really are constant. Returns a tuple; callers copy
+    to a fresh list so a downstream mutation cannot corrupt the cache."""
     return tuple(_load_frontend()[0].tag(sentence_text.split(" ")))
+
+
+def _affect_pos(sentence_text: str):
+    """The affect path's tags for this sentence, memoized per PASSAGE (see _affect_pos_cached)."""
+    try:
+        from hdlab import lexical_categories as _LC
+        g = _LC.register_generation()
+    except Exception:
+        g = 0
+    return _affect_pos_cached(g, sentence_text)
 
 
 def _assign_affect(patient: str, sentence_text: str, gov_idx: Optional[int] = None) -> Optional[str]:
@@ -900,7 +915,7 @@ def _assign_affect(patient: str, sentence_text: str, gov_idx: Optional[int] = No
     if patient in (None, "?"):
         return None
     toks = sentence_text.split(" ")
-    pos = list(_affect_pos_cached(sentence_text))   # hdlab UD UPOS (memoized per string), one category system
+    pos = list(_affect_pos(sentence_text))   # hdlab UD UPOS (memoized per PASSAGE), one category system
     try:
         result = score_context_grounded_valence_pretagged(patient, toks, pos, governor=False, gov_idx=gov_idx)  # need_valence=False; governor=False: the C6 cert-fit perceptron is decision-dead on this path (verified) -> no fitted classifier trained at inference (100%-BF gate)
     except ValueError:
@@ -4378,7 +4393,24 @@ class SituationReader:
             # individuals it has met (Heim 1982 file cards; the referent level re-enters the category competition as a next-mention
             # prior); a new passage is a new file. Without this call the arm is inert and the organ is byte-identical to before.
             from hdlab import lexical_categories as _LC
-            _LC.get().new_document()
+            import numpy as _np
+            _lc = _LC.get()
+            _lc.new_document()
+            # THE ONE IN-ORDER FEED (pri 112, 2026-09-14). The reader is the one comprehender that advances the
+            # passage, so it reads the passage ONCE, sentence by sentence, IN ORDER, and the file cards are written
+            # HERE and nowhere else; every other consumer's call to tag / posterior is a READ answered AS OF its own
+            # sentence. Before this, five consumers re-tagged each sentence at five different moments and each write
+            # changed what the next one saw (FOUR distinct posteriors for one token in ONE read, and 236 vs 235 events
+            # on the second read of the same document -- data/hook_state/diag_w3a9.log). The settled belief is cached
+            # under the reader's own per-read key, so the consumer that re-asks for a sentence is served THIS pass
+            # instead of re-running forward-backward: the feed costs no extra passes.
+            _raw = parse_conll_sentences(conll_path, lower=False)
+            for _s, _m in zip(_raw, _lc.feed_passage(_raw)):
+                _k = tuple(_s)
+                self._read_parse_cache[("tag", _k)] = [_lc.tags[int(_np.argmax(_m[i]))] for i in range(len(_s))]
+                self._read_parse_cache[("tagpost", _k)] = [
+                    {t: float(_m[i, j]) for j, t in enumerate(_lc.tags) if _m[i, j] >= 0.01} for i in range(len(_s))]
+                self._read_parse_cache[("tagmat", _k)] = _m
         if self.referent_per_np:
             # DECOUPLE (P5 wire, owner-DONE wire_the_referent_to_coref_linking_pass): referent_per_np swaps ONLY
             # the who-did-what ROLE-candidate + entity source (a discourse referent per content-noun-head NP);

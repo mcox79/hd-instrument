@@ -182,9 +182,25 @@ def organ_tags(toks):
     by_sent = {}
     for t in toks:
         by_sent.setdefault(t.sent, []).append(t)
+    rows = [sorted(by_sent[s], key=lambda x: x.idx) for s in sorted(by_sent)]
     pred = {}
-    for s in sorted(by_sent):
-        row = sorted(by_sent[s], key=lambda x: x.idx)
+    # THE PASSAGE BOUNDARY AND THE ONE IN-ORDER FEED (pri 112, 2026-09-14). This loader already read the document
+    # in reading order; it was only ever missing `new_document()`, so with `self._reg is None` the category organ's
+    # entity-feedback arm (pri 104: the Heim file cards that say whether a string has been used to pick out an
+    # INDIVIDUAL in THIS passage) was INERT for every board row this loader feeds -- coref, common_noun_coref and
+    # salience. Measured cost of the inert path on GUM, both arms read in order, 138 documents, paired bootstrap:
+    # repeat-mention -0.01012 CI[-0.01883,-0.00175], unseen -0.00425 CI[-0.00722,-0.00173], overall -0.00119
+    # CI[-0.00181,-0.00066], all CI-separated, PROPN<->NOUN 1,238 -> 1,288. ONE ORGAN, ONE REGISTER: a consumer
+    # that reads a PASSAGE opens one. `feed_passage` returns the settled per-sentence posteriors, so the tags come
+    # from that single in-order pass and no sentence is read twice.
+    lc = getattr(tg, "_lc", None)
+    if lc is not None:
+        lc.new_document()
+        for row, m in zip(rows, lc.feed_passage([[x.form for x in row] for row in rows])):
+            for j, x in enumerate(row):
+                pred[x.gidx] = lc.tags[int(m[j].argmax())]
+        return pred
+    for row in rows:                       # HDLAB_TAG_SOURCE=perceptron: the stand-in keeps no passage register
         for x, c in zip(row, tg.tag([x.form for x in row])):
             pred[x.gidx] = c
     return pred

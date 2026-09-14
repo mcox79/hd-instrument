@@ -25,6 +25,7 @@ from __future__ import annotations
 import json
 import math
 import os
+from bisect import bisect_left as _bisect_left
 from collections import Counter, defaultdict
 from typing import Dict, List, Optional, Sequence, Tuple
 
@@ -245,6 +246,57 @@ ENT_REG_OFFSET = os.environ.get("HDLAB_LC_ENT_REG_OFFSET", "1") == "1"
 KIND_DET = frozenset({"det_indef", "quant"})       # Katz: "this is A dax" -> a KIND term
 DEF_DET = frozenset({"det_def", "poss"})           # names DO take determiners ("the MSM"); the counts decide
 ENT_SYMS = ("e_first", "e_rep_bare", "e_rep_def", "e_rep_indef", "e_rep_plural")
+# --- THE PASSAGE IS READ ONCE, IN ORDER, AND READ AS OF THE SENTENCE (2026-09-14, pri-112 solver) ---------------------
+# Until now EVERY call to `posterior` / `tag` FILED the sentence into the file cards and advanced the ACT-R clock, and
+# five consumers re-tag the same sentence at five different moments -- so one sentence was filed ~5x, out of order, the
+# posterior depended on which consumer's memo happened to hit (FOUR distinct posteriors for one token in ONE read;
+# data/hook_state/diag_w3a9.log), and the same document read twice in one process gave different events (236 vs 235).
+# THE BRAIN'S FORM: a passage is read ONCE, in order (Heim 1982: the file is updated by the utterance being processed,
+# in sequence), and every later process reads what the comprehender knew AT THAT POINT. The recency term of ACT-R
+# base-level activation (Anderson; Lewis & Vasishth 2005) is a quantity at all only if the clock counts SENTENCES OF
+# THE PASSAGE rather than calls into the organ -- under the old path the live clock ran ~5x fast, so a window of five
+# sentences was in truth a window of one.
+#   `posterior(words, observe=True)`  = THE ONE IN-ORDER FEED (the reader advancing the passage): it files this
+#                                       sentence's mentions and advances the clock by exactly one sentence.
+#   `posterior(words)` (the default)  = A READ: files nothing, advances nothing, and is answered AS OF the sentence this
+#                                       token list is (resolved through the register's own sentence key).
+#   ENT_REG_FILE_ALL  a file card is opened for EVERY referring expression the comprehender meets, not only for strings
+#                     with no lexical entry. The offline table log P(E | c) is accrued in `accrue_entity_docs` with
+#                     EVERY token filed, while the live read filed only UNKNOWN tokens: a train/read mismatch in the
+#                     FILING POLICY (the symbol function itself is identical either way). Swept.
+#   ENT_REG_GRAIN     'token' = the card is filed the moment the word is read (within-sentence incrementality; a read AS
+#                     OF sentence k rebuilds the same within-sentence state in a transient overlay that is never
+#                     persisted, so a read reproduces the feed's own belief EXACTLY). 'sentence' = the cards of sentence
+#                     k are filed at its boundary, so the organ at sentence k knows exactly sentences 0..k-1. Swept.
+#                     DEFAULT ON (2026-09-14 phase 7, strategy: the brain-foundational filing policy ships unless it
+#                     costs). Measured on GUM, both arms read IN ORDER, 138 documents, paired bootstrap: all
+#                     -0.00001 CI[-0.00008,+0.00006], unseen -0.00006 CI[-0.00054,+0.00034], repeat-mention
+#                     +0.00027 CI[-0.00142,+0.00196], FIRST-mention 0.00000 CI[0.0,0.0]. It costs nothing and it
+#                     closes the train/read mismatch. Set 0 to reproduce the pre-2026-09-14 filing policy exactly.
+ENT_REG_FILE_ALL = os.environ.get("HDLAB_LC_ENT_REG_FILE_ALL", "1") == "1"
+ENT_REG_GRAIN = os.environ.get("HDLAB_LC_ENT_REG_GRAIN", "token")
+#   ENT_REG_LIVE_DOC  ARM B, the PASSAGE REGISTER, wired to the one in-order feed. `update_document_register` had NO
+#                     live caller anywhere in hdlab/ or tools/ (enumerated 2026-09-14), so `_doc_shape` was always
+#                     empty and ENT_THETA_DOC=100 was INERT on the live path. It is wired here -- and it needed the
+#                     SAME as-of fix one level up, because `_doc_shape` was a single accumulator: a consumer asking
+#                     about sentence k would otherwise be handed the convention of the WHOLE passage, which is the
+#                     defect this rung exists to remove. The entries are cumulative sums stamped with the sentence
+#                     that folded them in (see `_doc_shape_asof`). Exact for ENT_DOC_DECAY == 1.0 (the default).
+#                     DEFAULT ON (2026-09-14 phase 7): measured on GUM, 138 documents, both arms read IN ORDER,
+#                     paired bootstrap over documents -- repeat-mention 0.5770 -> 0.5823 (+0.00533
+#                     CI[+0.00243,+0.00892], CI-SEPARATED) and FIRST-mention 0.8871 -> 0.8907 (+0.00363
+#                     CI[+0.00118,+0.00616], CI-SEPARATED), overall -0.00006 and unseen -0.00071 both n.s.,
+#                     PROPN<->NOUN 1,240 -> 1,247. It folds 7,584 sentences into 24 shape symbols as 25,959
+#                     sentence-stamped entries. Set 0 to leave arm B inert as it was before 2026-09-14.
+ENT_REG_LIVE_DOC = os.environ.get("HDLAB_LC_ENT_REG_LIVE_DOC", "1") == "1"
+_REG_GEN = 0
+
+
+def register_generation() -> int:
+    """The identity of the passage currently open (bumped by `new_document`); 0 = no passage has ever been opened.
+    A memo of anything that depends on the register (the reader's affect-path POS memo) must be keyed on this: the
+    tags for a string are constant WITHIN a passage and not across passages."""
+    return _REG_GEN
 
 
 def _plural_variants(wl):
@@ -261,29 +313,119 @@ class DiscourseRegister:
     NAMES (`hdlab/online_entity_cluster.online_cluster` resolves a name by its string through the aliaser and sends
     only common nouns through cue-based retrieval). Purely SURFACE: no category is read, so the symbol computed
     while ACCRUING and the symbol computed while READING are the same function of the same evidence -- no
-    train/read mismatch and no circularity with the decision it informs."""
+    train/read mismatch and no circularity with the decision it informs.
 
-    __slots__ = ("h", "sent_no")
+    READ ONCE, IN ORDER; READ AS OF THE SENTENCE (2026-09-14, pri-112). Every card carries the FILING TIMES of the
+    sentences in which the comprehender met that string, so a consumer that asks about sentence k long after the
+    passage was read is answered with the cards filed by sentences 0..k-1 -- what the comprehender knew at that
+    point -- and nothing later. Exactly ONE caller FEEDS (`posterior(..., observe=True)`, the reader advancing the
+    passage); every other call is a READ that writes nothing and advances nothing. The current sentence's own
+    mentions live in a transient OVERLAY that `commit` persists on a feed and throws away on a read, so a read of
+    sentence k reproduces the feed's own belief about sentence k exactly (witness W1)."""
+
+    __slots__ = ("h", "sent_no", "sent_key", "_as_of", "_ov", "n_read_miss", "n_read", "n_feed")
 
     def __init__(self):
         self.h = {}
         self.sent_no = 0
+        self.sent_key = {}        # lowered token tuple -> the sentence index at which the reader FED it
+        self._as_of = 0           # the sentence the call in flight is being answered as of
+        self._ov = None           # the current sentence's own mentions (never persisted by a read)
+        self.n_read_miss = 0      # reads of a token list that was never fed (answered as of the passage so far)
+        self.n_read = 0
+        self.n_feed = 0
+
+    # ---------------------------------------------------------------- the clock
+    def begin(self, lows, observe, sent_idx=None):
+        """Open one call. FEED -> as of the next unread sentence. READ -> as of the sentence this token list IS."""
+        if observe:
+            self._as_of = self.sent_no if sent_idx is None else int(sent_idx)
+            self.n_feed += 1
+        else:
+            self.n_read += 1
+            k = sent_idx
+            if k is None:
+                k = self.sent_key.get(tuple(lows))
+            if k is None:
+                # never fed (a sub-span, or a consumer reading text the comprehender never advanced through):
+                # answer with everything the comprehender has read so far. Deterministic either way.
+                self.n_read_miss += 1
+                k = self.sent_no
+            self._as_of = int(k)
+        self._ov = {}
+        return self._as_of
+
+    def commit(self, observe, lows=None):
+        """Close the call. A READ discards the overlay; the FEED persists it at the current sentence and advances the
+        ACT-R clock by exactly ONE sentence."""
+        ov, self._ov = self._ov, None
+        if not observe:
+            return
+        t = self.sent_no
+        self._persist(ov, t)
+        if lows is not None:
+            self.sent_key.setdefault(tuple(lows), t)
+        self.sent_no = t + 1
+
+    def _persist(self, ov, t):
+        """Write the sentence's overlay into the file cards at filing time t."""
+        if ov:
+            for wl, o in ov.items():
+                c = self._card(wl)
+                ev = c["ev"]
+                k = (ev[-1][1] if ev else False) or o["k"]
+                d = (ev[-1][2] if ev else False) or o["d"]
+                if ev and ev[-1][0] == t:
+                    ev[-1] = (t, k, d)
+                else:
+                    ev.append((t, k, d))
+            # the plural pairing is SYMMETRIC (Gelman & Taylor 1984: it is the passage's own evidence that the string
+            # names a KIND, and it becomes available to BOTH cards at the moment the pair is met)
+            for wl in ov:
+                c = self.h[wl]
+                for alt in _plural_variants(wl):
+                    if alt == wl:
+                        continue
+                    o = self.h.get(alt)
+                    if o is not None and o["ev"]:
+                        if c["pf"] is None:
+                            c["pf"] = t
+                        if o["pf"] is None:
+                            o["pf"] = t
 
     def _card(self, wl):
         c = self.h.get(wl)
         if c is None:
-            c = self.h[wl] = {"n": 0, "det": set(), "plural": False, "last": -1}
+            c = self.h[wl] = {"ev": [], "pf": None}
         return c
 
     def symbol(self, wl):
+        """The entity layer's symbol for this string AS OF the sentence the call in flight is about."""
+        k = self._as_of
         c = self.h.get(wl)
-        if c is None or c["n"] == 0:
+        n = 0
+        kind = False
+        deff = False
+        last = -1
+        if c is not None and c["ev"]:
+            ev = c["ev"]
+            j = _bisect_left(ev, (k,))          # the mentions filed STRICTLY BEFORE sentence k
+            if j:
+                n = j
+                last, kind, deff = ev[j - 1]
+        ov = self._ov.get(wl) if self._ov else None
+        if ov is not None:
+            n += 1
+            last = k                             # met earlier in THIS sentence
+            kind = kind or ov["k"]
+            deff = deff or ov["d"]
+        if n == 0:
             return "e_first"
-        if c["plural"]:
+        if (c is not None and c["pf"] is not None and c["pf"] < k) or (ov is not None and ov["p"]):
             base = "e_rep_plural"
-        elif c["det"] & KIND_DET:
+        elif kind:
             base = "e_rep_indef"
-        elif c["det"] & DEF_DET:
+        elif deff:
             base = "e_rep_def"
         else:
             base = "e_rep_bare"
@@ -292,23 +434,48 @@ class DiscourseRegister:
             # `hdlab/salience_binder.actr_activation`): a file card last touched 40 sentences ago is weak evidence
             # and one touched two sentences ago is strong, so the prior is read against the card's ACTIVATION and
             # not merely its existence. The window is swept (2 / 5 / 10 measured; 5 is the operating point).
-            base += "|r" if (self.sent_no - c["last"]) <= ENT_RECENCY else "|d"
+            # THE CLOCK IS SENTENCES OF THE PASSAGE (pri-112): before, it counted calls into the organ, so on the live
+            # reader path it ran ~5x fast and a five-sentence window was in truth a window of one.
+            base += "|r" if (k - last) <= ENT_RECENCY else "|d"
         return base
 
-    def observe(self, lows, i):
-        """Write word i into the file cards -- called only AFTER the symbol for word i has been consumed."""
+    def note(self, lows, i):
+        """Meet mention i of the sentence being read. It enters the CURRENT sentence's overlay only; the cards
+        themselves are written by `commit`, i.e. by the ONE in-order feed and by nothing else. Called strictly AFTER
+        the symbol for word i has been consumed."""
+        if self._ov is None:
+            return
         wl = lows[i]
-        c = self._card(wl)
-        c["n"] += 1
-        c["last"] = self.sent_no
-        c["det"].add(det_context(lows, i))
-        for alt in _plural_variants(wl):
-            if alt == wl:
-                continue
-            o = self.h.get(alt)
-            if o is not None and o["n"] > 0:
-                c["plural"] = True
-                o["plural"] = True
+        d = det_context(lows, i)
+        o = self._ov.get(wl)
+        if o is None:
+            o = self._ov[wl] = {"k": False, "d": False, "p": False}
+        o["k"] = o["k"] or (d in KIND_DET)
+        o["d"] = o["d"] or (d in DEF_DET)
+        if not o["p"]:
+            k = self._as_of
+            for alt in _plural_variants(wl):
+                if alt == wl:
+                    continue
+                a = self.h.get(alt)
+                if (a is not None and a["ev"] and a["ev"][0][0] < k) or (alt in self._ov):
+                    o["p"] = True
+                    po = self._ov.get(alt)
+                    if po is not None:
+                        po["p"] = True
+                    break
+
+    def observe(self, lows, i):
+        """Back-compatible single-mention filing at the CURRENT sentence. It does NOT advance the clock (the caller
+        that uses this form advances it itself, one step per sentence)."""
+        own = self._ov is None
+        if own:
+            self._ov = {}
+            self._as_of = self.sent_no
+        self.note(lows, i)
+        if own:
+            ov, self._ov = self._ov, None
+            self._persist(ov, self.sent_no)
 DET_DEF = {"the", "this", "that", "these", "those"}
 DET_INDEF = {"a", "an", "another", "any", "some", "each", "every", "no"}
 QUANT = {"many", "few", "several", "most", "all", "both", "one", "two", "three", "more", "much", "other"}
@@ -470,6 +637,7 @@ class LexicalCategories:
         self.log_entc: Dict[str, Dict[str, float]] = {}
         self._ent_back: Dict[str, float] = {}
         self._reg = None                                              # the current passage's file cards
+        self._reg_gen = 0                                             # which passage (see register_generation)
         self._doc_shape: Dict[str, np.ndarray] = {}                   # the passage register (arm B)
         self._sp_offset: Dict[str, np.ndarray] = {}                   # the known/unknown bias, measured offline
         self.rightc: Dict[str, Counter] = defaultdict(Counter)        # category -> Counter(right-frame class)
@@ -547,13 +715,18 @@ class LexicalCategories:
             reg = DiscourseRegister()
             for sent in d:
                 lows = [w.lower() for w, _ in sent]
+                # the accrual reads the passage through the SAME in-order API the reader uses (pri-112: begin / note
+                # / commit), so the symbol computed while accruing and the symbol computed while reading are the same
+                # function of the same evidence, evaluated by the same code -- witness W10 asserts the resulting
+                # counts are byte-identical to the pre-pri-112 accrual.
+                reg.begin(lows, True)
                 for i, (_w, t) in enumerate(sent):
                     sym = reg.symbol(lows[i])
                     self.entc[t][sym] += 1
                     if wcnt.get(lows[i], 0) <= nmax:
                         self.entc_u[t][sym] += 1
-                    reg.observe(lows, i)
-                reg.sent_no += 1          # the passage advances (the ACT-R recency clock; mirrors `posterior`)
+                    reg.note(lows, i)
+                reg.commit(True, lows)    # the passage advances (the ACT-R recency clock; mirrors `posterior`)
         self._dirty = True
         return self
 
@@ -563,9 +736,33 @@ class LexicalCategories:
         self.finalize()
 
     def new_document(self) -> None:
-        """Passage boundary: open a fresh set of file cards and clear the passage register (Heim: a new file)."""
+        """Passage boundary: open a fresh set of file cards and clear the passage register (Heim: a new file).
+        Bumps the PASSAGE GENERATION so a memo of register-dependent output cannot serve one passage's belief into
+        another (the reader's affect-path POS memo was exactly that -- see situation_reader._affect_pos)."""
+        global _REG_GEN
+        _REG_GEN += 1
         self._reg = DiscourseRegister()
+        self._reg_gen = _REG_GEN
         self._doc_shape = {}
+
+    def feed_passage(self, sentences, lag: Optional[int] = None):
+        """THE ONE IN-ORDER FEED. The comprehender reads the passage once, sentence by sentence, in order; the file
+        cards are written HERE and nowhere else, and the ACT-R clock advances one sentence per sentence. Returns the
+        per-sentence settled posteriors so the caller can hand the SAME belief to every consumer that later asks for
+        that sentence (they would otherwise each re-run forward-backward and each get a different answer)."""
+        out = []
+        for s in sentences:
+            p = self.posterior(list(s), lag=lag, observe=True)
+            if ENT_REG_LIVE_DOC and ENT_THETA_DOC is not None and self._reg is not None:
+                # ARM B, at the sentence boundary and stamped with the sentence just read (the clock has already
+                # advanced), so the belief re-enters the competition for LATER sentences only -- never its own.
+                self.update_document_register(list(s), p, sent_idx=self._reg.sent_no - 1)
+            out.append(p)
+        return out
+
+    def observe_sentence(self, words: Sequence[str], lag: Optional[int] = None) -> np.ndarray:
+        """One sentence of the in-order feed (see feed_passage)."""
+        return self.posterior(list(words), lag=lag, observe=True)
 
     def observe(self, words: Sequence[str], categories: Sequence[str]) -> None:
         """ONLINE accrual of one confirmed categorisation (a comprehension outcome) -- the plastic path."""
@@ -804,22 +1001,50 @@ class LexicalCategories:
             self.log_entc[t] = {x: math.log((src[t][x] + self.lam) / tot) for x in syms}
             self._ent_back[t] = math.log(self.lam / tot)
 
-    def update_document_register(self, words: Sequence[str], post: np.ndarray) -> None:
+    def update_document_register(self, words: Sequence[str], post: np.ndarray, sent_idx: Optional[int] = None) -> None:
         """ARM B: fold the SETTLED, GRADED belief about this sentence into the passage's shape register -- a
-        prediction can only be fed back once the belief it came from has settled, so at a sentence boundary."""
+        prediction can only be fed back once the belief it came from has settled, so at a sentence boundary.
+        STAMPED WITH ITS SENTENCE (2026-09-14, pri-112): the register keeps CUMULATIVE sums per shape symbol, one
+        entry per sentence that touched it, so `_doc_shape_asof` can answer a later consumer with the convention the
+        comprehender had established BY THAT SENTENCE. Without the stamp a consumer asking about sentence k would be
+        handed the whole passage's convention -- the same read-the-future defect as the file cards, one level up.
+        Exact for ENT_DOC_DECAY == 1.0 (the default); with a decay the prefix sums are only approximate, because a
+        decay touches symbols this sentence did not."""
         if ENT_THETA_DOC is None:
             return
-        if ENT_DOC_DECAY != 1.0:
-            for r in self._doc_shape.values():
-                r *= ENT_DOC_DECAY
+        t = sent_idx
+        if t is None:
+            t = (self._reg.sent_no if self._reg is not None else 0)
+        T = len(self.tags)
+        delta: Dict[str, np.ndarray] = {}
         for i, w in enumerate(words):
             if ENT_REG_KNOWN and w.lower() not in self.vocab:
-                continue                     # calibrate the passage convention on what the organ is SURE about
+                continue
             sp = self._unk_sym(w, position_class(words, i))
-            r = self._doc_shape.get(sp)
-            if r is None:
-                r = self._doc_shape[sp] = np.zeros(len(self.tags))
-            r += post[i]
+            d = delta.get(sp)
+            if d is None:
+                d = delta[sp] = np.zeros(T)
+            d += post[i]
+        for sp, d in delta.items():
+            ent = self._doc_shape.setdefault(sp, [])
+            base = ent[-1][1] if ent else np.zeros(T)
+            if ENT_DOC_DECAY != 1.0:
+                base = base * ENT_DOC_DECAY
+            cum = base + d
+            if ent and ent[-1][0] == t:
+                ent[-1] = (t, cum)
+            else:
+                ent.append((t, cum))
+
+    def _doc_shape_asof(self, sp: str):
+        """The passage's shape register for this symbol AS OF the sentence the call in flight is about: the
+        cumulative sum over the sentences folded in STRICTLY BEFORE it. None when the comprehender had nothing yet."""
+        ent = self._doc_shape.get(sp)
+        if not ent:
+            return None
+        k = self._reg._as_of if self._reg is not None else (ent[-1][0] + 1)
+        j = _bisect_left(ent, (k,))
+        return ent[j - 1][1] if j else None
 
     def _log_shape_factor(self, w_raw: str, pos: str, known: bool) -> np.ndarray:
         """P(shape x forced-position | c). A word that HAS a lexical entry is read against the whole-vocabulary table; a word
@@ -830,7 +1055,7 @@ class LexicalCategories:
         row = self.log_shape_u.get(sp)
         base = row if row is not None else self._log_shape_u_back
         if ENT_THETA_DOC is not None:
-            r = self._doc_shape.get(sp)
+            r = self._doc_shape_asof(sp)          # AS OF this sentence (pri-112), never the whole passage
             nd = float(r.sum()) if r is not None else 0.0
             if nd > 0:
                 a = nd / (nd + ENT_THETA_DOC)          # the organ's own reliability shrinkage, a = n / (n + theta)
@@ -904,8 +1129,6 @@ class LexicalCategories:
             e = self._reg.symbol(w)                    # the entity layer's belief BEFORE this token is filed
             if not (ENT_SKIP_FIRST and e.startswith("e_first")):
                 out = out + ENT_KAPPA * np.array([self.log_entc[t].get(e, self._ent_back[t]) for t in self.tags])
-        if self._reg is not None:
-            self._reg.observe(self._sent_lows, here)   # strictly in order: file the token only after reading it
         return out
 
     def word2cluster(self) -> Dict[str, str]:
@@ -1044,11 +1267,16 @@ class LexicalCategories:
         out = np.log(p + 1e-12)
         return out - UNK_PRIOR_GAMMA * self.log_prior_u if UNK_PRIOR_GAMMA else out
 
-    def posterior(self, words: Sequence[str], lag: Optional[int] = None) -> np.ndarray:
+    def posterior(self, words: Sequence[str], lag: Optional[int] = None, observe: bool = False,
+                  sent_idx: Optional[int] = None) -> np.ndarray:
         """Forward-backward marginals P(category_i | words): [n, T].
         lag (2026-09-13, owner: organs take data IN ORDER): the belief about word i may use only the words up to i + lag -- lag 0 is
         the running (filtered) belief the reader holds the moment a word arrives, a small lag is revision within a short window as
-        the next words come in (reanalysis), None = the whole sentence (smoothing; the offline stand-in). Module default LAG."""
+        the next words come in (reanalysis), None = the whole sentence (smoothing; the offline stand-in). Module default LAG.
+        observe (2026-09-14, pri-112): TRUE only at THE ONE IN-ORDER FEED -- the comprehender advancing the passage. It files this
+        sentence's mentions into the passage's file cards and advances the ACT-R clock by one sentence. FALSE (the default, and
+        every other caller in the substrate) is a READ: it writes nothing, advances nothing, and is answered AS OF the sentence
+        this token list is, so a consumer that asks late still gets what the comprehender knew at that sentence."""
         if lag is None:
             lag = LAG
         if self._dirty:
@@ -1061,12 +1289,27 @@ class LexicalCategories:
         self._sent_pos = [position_class(words, i) for i in range(n)]
         self._sent_lows = [w.lower() for w in words]
         self._sent_i = 0
-        le = np.stack([self._log_emit(w) for w in words])
+        reg = self._reg
+        if reg is not None:
+            reg.begin(self._sent_lows, observe, sent_idx)
+            tok_grain = (ENT_REG_GRAIN == "token")
+            rows = []
+            for i, w in enumerate(words):
+                rows.append(self._log_emit(w))
+                if tok_grain and (ENT_REG_FILE_ALL or self._sent_lows[i] not in self.vocab):
+                    reg.note(self._sent_lows, i)       # strictly in order: file the token only after reading it
+            le = np.stack(rows)
+            if not tok_grain:
+                for i in range(n):
+                    if ENT_REG_FILE_ALL or self._sent_lows[i] not in self.vocab:
+                        reg.note(self._sent_lows, i)
+        else:
+            le = np.stack([self._log_emit(w) for w in words])
         if self.use_frame and FRAME and FRAME_KAPPA > 0:
             le = le + FRAME_KAPPA * self._log_frame(words, lag)
         post = self._posterior_le(le, lag)
-        if self._reg is not None:
-            self._reg.sent_no += 1                     # the passage advances one sentence (ACT-R recency clock)
+        if reg is not None:
+            reg.commit(observe, self._sent_lows)       # a READ writes nothing; the FEED advances the passage one sentence
         if STEM_REANALYSIS:
             # CONFLICT-TRIGGERED REANALYSIS (2026-09-13): a known word whose settled category has ZERO lexical support (the sequence
             # cue forced a tag the word was never seen under) is re-read with its STEM's knowledge (the lemma organ's rule route:
@@ -1157,15 +1400,17 @@ class LexicalCategories:
         post -= post.max(axis=1, keepdims=True); post = np.exp(post); post /= post.sum(axis=1, keepdims=True)
         return post
 
-    def tag(self, words: Sequence[str]) -> List[str]:
-        """Point readout: argmax of the posterior per token (graded marginal, not Viterbi)."""
+    def tag(self, words: Sequence[str], observe: bool = False, sent_idx: Optional[int] = None) -> List[str]:
+        """Point readout: argmax of the posterior per token (graded marginal, not Viterbi). A READ by default -- see
+        `posterior`: it does not write the passage's file cards and does not advance the ACT-R clock."""
         if not words:
             return []
-        post = self.posterior(words)
+        post = self.posterior(words, observe=observe, sent_idx=sent_idx)
         return [self.tags[int(np.argmax(post[i]))] for i in range(len(words))]
 
-    def tag_with_posterior(self, words: Sequence[str]) -> Tuple[List[str], List[Dict[str, float]]]:
-        post = self.posterior(words)
+    def tag_with_posterior(self, words: Sequence[str], observe: bool = False,
+                           sent_idx: Optional[int] = None) -> Tuple[List[str], List[Dict[str, float]]]:
+        post = self.posterior(words, observe=observe, sent_idx=sent_idx)
         tags = [self.tags[int(np.argmax(post[i]))] for i in range(len(words))]
         dist = [{t: float(post[i, j]) for j, t in enumerate(self.tags) if post[i, j] >= 0.01} for i in range(len(words))]
         return tags, dist
