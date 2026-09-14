@@ -63,8 +63,7 @@ PHASES = (
     "never does anything frozen -- every landed table or bias needs an observe path; (v) compare each rung with the state of the art "
     "on its own metric and name the glass-box lever that closes the gap; (vi) audit the negatives you cite for FALSE NEGATIVES (a "
     "weak implementation refuting a lever is not a closed lever -- build the stronger form once); (vii) look at the prior work on the "
-    "same rung on disk for wins already banked; then repeat (ii) until no wall is left untried.
-"
+    "same rung on disk for wins already banked; then repeat (ii) until no wall is left untried.\n"
     "6. FINALIZE: documentation highlighting every component you interacted with or created and its brain-foundational status; an "
     "EVALUATION OF YOUR MOST SUCCESSFUL IMPROVEMENTS -- what about the problem let the signal be maximised so well (the owner: it is almost "
     "always that the real, mathematical brain-foundational chain was cracked all the way to the top -- name that chain rung by rung, and "
