@@ -81,3 +81,4 @@ Owner check-ins expected: DONE marks in the tab; Q on the integration gate; whet
 - 16:03 owner mandates (signal-loss trace / upstream BF per signal / brain math per chain / negatives understood / why the wins won) sent to 97, 98, 99; baked into kick-off phases 3, 5, 6.
 - 17:17 all three pilot sessions CLOSED (97 SOLVED, 98 SOLVED, 99 PARTIAL-by-bar); briefs 101-104 written; slots: pri 100 (17:14) + pri 103 (17:17) running; 94/96/101/102/104 wait for pending patches to land (DONE gate).
 - 18:32 OWNER DECISION: the solver program is strategy's from here ('I'm not going to do the problems any more if you can do them effectively'); the push is tailored by problem type (section added to the supervisor plan). Hand-outs 94/96 move to the agent queue.
+- 20:38 owner rule: every FAILED/PARTIAL -> 'how to convert to a full pass' + research + chase the leads (prompt phase 5 + supervisor plan); leads become the next launches (105 now, 104 next).

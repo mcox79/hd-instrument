@@ -104,3 +104,10 @@ Evidence from the five sessions (pilot log, prodding-yield table: which items of
 Rule: the first probe round is the FULL script (understand? research; opportunities? build+measure); from round 2 on, send only the items
 the type's "PAID" column names, and stop when the session's exhaustion statement is bounded by arithmetic or by remit. Record per session
 which items paid (the yield table's 'new levers' / 'refuted' columns) so this table is re-learned, not asserted.
+
+## OWNER RULE (2026-09-13 20:45): every FAILED or PARTIAL -> "how do we convert it to a full pass?", then RESEARCH and CHASE the leads
+"Whenever a solver gets a failed or partial, always ask how to convert it to a full pass" ... "and research and then chase the leads."
+-> In the session: on PARTIAL/FAIL the supervisor ALWAYS sends "what would it take to convert this to a full pass? list every lead; research
+each (literature + the organs that own it); chase each lead you can build here; hand the rest to strategy as briefs with the numbers". Not
+'try path A once' -- chase until converted or bounded by arithmetic/remit. In strategy: the leads a session hands back become briefs
+LAUNCHED NEXT, not queued (pri 99's lead = pri 104; pri 103's = pri 105; pri 100's = a larger context-varying affect gold + a proper twin).
