@@ -2,7 +2,7 @@
 problem: the_predicate_rescue_is_dormant_under_the_bf_category_organ_its_lexical_likelihood_cue_still_expects_the_perceptrons_margin
 status: SOLVED
 bar: "PASS = the rescue FIRES on the live chain: recovery of mis-tagged real verbs CI-separated above (a) the dormant stand-in (the bare posterior threshold read) and (b) an information-free twin (random promotion at the matched rate), at a false-verbs-per-sentence budget no worse than the perceptron-era detector's (0.466/sent modern); end-to-end event recall through SituationReader.read() up with the flag ON vs OFF on modern gold; the 7-dimension modern board not down; knowledge as counts with an online observe path; verification/test_predicate_recall_landing_organ.py green under the live tagger -- OR a numbered located negative naming which upstream quantity blocks it."
-result: "THE RESCUE FIRES. Under the live brain-foundational category organ the landed rescue was DORMANT: the 2026-09-13 stand-in (post[i]['VERB'] >= 0.3) added ZERO events to the landing witness and recovered 0.2768 / 0.2250 / 0.2385 of the real verbs the organ drops (UD-EWT test / GUM / QA-SRL dev). Re-deriving its noisy-channel LEXICAL LIKELIHOOD from the organ that replaced the perceptron -- the per-lexeme noun/verb bias read straight off the EMISSION COUNTS, the lemma organ's stem route, and the one-predicate-per-clause COMPETITION read as a normalised share of the posterior -- and combining it with six register-invariant structural cues by RESCORLA-WAGNER error-driven cue competition over counts, recovery at a false-verb budget of 0.10/sentence (a FIFTH of the perceptron-era 0.466) is 0.7054 (UD-EWT test, n_pos=112) / 0.5616 (GUM/GENTLE, n_pos=511) / 0.6823 (QA-SRL dev, n_pos=960), 5-fold CV over sentences. Against the DORMANT live read: +0.4293 CI[+0.3301,+0.5264] / +0.3368 CI[+0.2877,+0.3849] / +0.4438 CI[+0.4113,+0.4771], all CI-SEPARATED. Against the INFORMATION-FREE TWIN: +0.6138 CI[+0.5289,+0.6980] (twin p95 0.1339) / +0.4693 CI[+0.4298,+0.5080] (p95 0.1115) / +0.5590 CI[+0.5325,+0.5857] (p95 0.1406), all CI-SEPARATED. Against the STRONGEST floor actually run -- the SAME stand-in cue with its threshold swept to the same budget (0.6875 / 0.4932 / 0.4771): +0.0177 CI[-0.0566,+0.0909] ns (UD-EWT, n_pos=112, underpowered) / +0.0688 CI[+0.0232,+0.1148] SEP / +0.2052 CI[+0.1717,+0.2413] SEP -- CI-separated on BOTH well-powered populations. END-TO-END through the LIVE SituationReader on modern gold (UD-EWT test, 2077 sentences, 2605 gold verbs; the arms reproduce the live reader byte-exactly, 0/300 sentences mismatched): event recall 0.9186 (OFF) -> 0.9305 (dormant stand-in) -> 0.9501 (BF), +0.0315 CI[+0.0249,+0.0384] vs OFF and +0.0196 CI[+0.0136,+0.0260] vs the stand-in, both CI-SEPARATED, at 0.176 false events/sentence (OFF 0.078) and event precision 0.9370 -> 0.8715. The combiner is PLASTIC (associative strengths updated one observation at a time by the delta rule; `observe(cues, label)` is the live online path) and the gate no longer imports nltk at inference (the glass-box morphology organ agrees with the WordNet gate on 5612/5629 UD-EWT word types, 0.99698)."
+result: "THE RESCUE FIRES. Under the live brain-foundational category organ the landed rescue was DORMANT: the 2026-09-13 stand-in (post[i]['VERB'] >= 0.3) added ZERO events to the landing witness and recovered 0.2768 / 0.2250 / 0.2385 of the real verbs the organ drops (UD-EWT test / GUM / QA-SRL dev). Re-deriving its noisy-channel LEXICAL LIKELIHOOD from the organ that replaced the perceptron -- the per-lexeme noun/verb bias read straight off the EMISSION COUNTS, the lemma organ's stem route, and the one-predicate-per-clause COMPETITION read as a normalised share of the posterior -- and combining it with six register-invariant structural cues by RESCORLA-WAGNER error-driven cue competition over counts, recovery at a false-verb budget of 0.10/sentence (a FIFTH of the perceptron-era 0.466) is 0.7054 (UD-EWT test, n_pos=112) / 0.5616 (GUM/GENTLE, n_pos=511) / 0.6823 (QA-SRL dev, n_pos=960), 5-fold CV over sentences. Against the DORMANT live read: +0.4293 CI[+0.3301,+0.5264] / +0.3368 CI[+0.2877,+0.3849] / +0.4438 CI[+0.4113,+0.4771], all CI-SEPARATED. Against the INFORMATION-FREE TWIN: +0.6138 CI[+0.5289,+0.6980] (twin p95 0.1339) / +0.4693 CI[+0.4298,+0.5080] (p95 0.1115) / +0.5590 CI[+0.5325,+0.5857] (p95 0.1406), all CI-SEPARATED. Against the STRONGEST floor actually run -- the SAME stand-in cue with its threshold swept to the same budget (0.6875 / 0.4932 / 0.4771): +0.0177 CI[-0.0566,+0.0909] ns (UD-EWT, n_pos=112, underpowered) / +0.0688 CI[+0.0232,+0.1148] SEP / +0.2052 CI[+0.1717,+0.2413] SEP -- CI-separated on BOTH well-powered populations. END-TO-END through the LIVE SituationReader on modern gold (UD-EWT test, 2077 sentences, 2605 gold verbs; the arms reproduce the live reader byte-exactly, 0/300 sentences mismatched): event recall 0.9186 (OFF) -> 0.9305 (dormant stand-in) -> 0.9501 (BF), +0.0315 CI[+0.0249,+0.0384] vs OFF and +0.0196 CI[+0.0136,+0.0260] vs the stand-in, both CI-SEPARATED, at 0.176 false events/sentence (OFF 0.078) and event precision 0.9370 -> 0.8715. THE 7-DIMENSION MODERN BOARD IS NOT DOWN: run A/B with the rescue monkeypatched to the proposed diff, aggregate 0.6109 -> 0.6109 (+0.0000), 5/7 dimensions CI-separated over their floor in BOTH arms; per dimension coref / common_noun_coref / salience / who_did_what_agent / wic byte-identical, who_did_what_patient +0.0008 (n=1255), state -0.0026 (n=378 -- exactly ONE item). THE LANDING WITNESS IS GREEN under the patch: verification/test_predicate_recall_landing_organ.py 30/30 including the new live-chain section (it FAILS on disk today at 'flag-ON adds recovered predicates overall (3 > 3 events)'). The combiner is PLASTIC (associative strengths updated one observation at a time by the delta rule; `observe(cues, label)` is the live online path -- the witness measures a score moving 0.0012 -> 0.9772 over 80 outcomes) and the gate no longer imports nltk at inference (the glass-box morphology organ agrees with the WordNet gate on 5612/5629 UD-EWT word types, 0.99698)."
 floor: "(1) THE DORMANT STAND-IN as deployed -- post[i]['VERB'] >= PREDICATE_RESCUE_MIN_P = 0.3 on the live category organ: recovery 0.2768 @ 0.0154 false verbs/sent (UD-EWT test), 0.2250 @ 0.0300 (GUM), 0.2385 @ 0.0245 (QA-SRL). (2) predicate_recall OFF: recovery 0.0 by construction (a dropped verb emits no event). (3) THE STRONGEST FLOOR ACTUALLY RUN, and the one that matters: the SAME cue with its threshold swept to each budget -- 0.6875 / 0.4932 / 0.4771 at fp<=0.10, 0.9554 / 0.8650 / 0.8760 at fp<=0.50. Roughly HALF the recovered signal was the mis-set bar, not the cue: on QA-SRL the decomposition is 0.2385 (dormant) -> 0.4771 (threshold calibrated, same cue, +0.2386) -> 0.6823 (the BF cue block, +0.2052)."
 controls: "(1) INFORMATION-FREE TWIN (random promotion of the same number of gated candidates) loses CI-separated on all three populations; the sampled twin's own mean and p95 are reported beside every arm. (2) PAIRED BOOTSTRAP over SENTENCES (2000 resamples) for every delta; CI half-widths 0.027-0.085. (3) HELD-OUT: 5-fold cross-validation over SENTENCES -- no candidate is scored by a model that saw its own sentence; the shipped asset's threshold is reported both full-fit and held-out. (4) THREE MODERN POPULATIONS, two of them entirely outside the organ's count supply (GUM/GENTLE 12+ genres by stride so every genre is represented; QA-SRL dev). 19c is NOT measured (owner ban). (5) ABLATIONS: every channel alone is far weaker than the combination (fp<=0.10, QA-SRL: clause share alone 0.2646, lexical bias alone 0.2917, posterior log-odds alone 0.3812, the six structural cues alone 0.2792, vs 0.6823 combined) -- the COMBINATION is the mechanism, exactly as the parent found. (6) GATE EQUIVALENCE: the glass-box morphology gate vs the landed nltk WordNet gate, 5612/5629 UD-EWT word types (0.99698). (7) ADDITIVE BY CONSTRUCTION: a token the category organ already called VERB or AUX is never touched, so the existing detections stay byte-identical (verified in the witness). (8) THE ARMS ARE THE READER: the end-to-end arms were cross-checked against a live SituationReader on 300 sentences -- 0 mismatches for both OFF and the stand-in. (9) PATCH == CELL: the proposed hdlab diff reproduces the experiment cell's scorer to 0.0 over 4757 tokens / 250 sentences, with identical rescue sets."
 files_changed: "experiments/exp_predicate_rescue_bf_cue_v1.py (the cell), data/hook_state/predicate_detector_bf_counts_v1.json (the new asset -- strategy swaps it into data/frontend_assets/ on integration), notes/problems/<slug>/{SOLVED.md, predicate_detector_bf_patch.diff} (the proposed diff against hdlab/predicate_detector.py + the _rescue branch of hdlab/situation_reader.py + verification/test_predicate_recall_landing_organ.py). NO hdlab/ or verification/ file changed on disk."
@@ -125,12 +125,38 @@ and the stand-in, so these are the reader's numbers.
 | **the BF rescue** (fp<=0.10 point) | **0.9501** | 0.8715 | 0.1757 |
 
 `BF - OFF` **+0.0315 CI[+0.0249,+0.0384] SEP**; `BF - stand-in` **+0.0196 CI[+0.0136,+0.0260] SEP**.
+(`data/exp_predicate_rescue_bf_cue_v1/reader_end_to_end.json`.)
 The full operating curve is in `data/exp_predicate_rescue_bf_cue_v1/reader_end_to_end.json`: recall rises
 monotonically to 0.9608 at fp<=0.50 while event precision falls to 0.6820 -- **this is a recall-for-precision trade
 at the event-set level, and it is reported as one**, which is why the deployed default is the tightest budget at which
 the recall gain is still CI-separated over both floors.
 
-### 3c. Where the signal was lost -- the decomposition
+### 3c. The board is not down (7-dimension modern board, A/B with the diff monkeypatched in)
+
+| dimension | n | base (live today) | with the BF rescue | delta |
+|---|---|---|---|---|
+| coref | 3132 | 0.4681 | 0.4681 | +0.0000 |
+| common_noun_coref | 2855 | 0.5671 | 0.5671 | +0.0000 |
+| salience | 137 | 0.2555 | 0.2555 | +0.0000 |
+| who_did_what_agent | 1423 | 0.8271 | 0.8271 | +0.0000 |
+| who_did_what_patient | 1255 | 0.8072 | 0.8080 | +0.0008 |
+| state | 378 | 0.7328 | 0.7302 | -0.0026 (one item) |
+| wic | 120 | 0.7833 | 0.7833 | +0.0000 |
+| **aggregate (19c-free)** | 9300 | **0.6109** | **0.6109** | **+0.0000** |
+
+5/7 dimensions CI-separated over their floor in BOTH arms. The additive contract holds through every consumer,
+exactly as the parent found when the same wire was measured at a 14x looser false-verb rate.
+Artefacts: `data/exp_predicate_rescue_bf_cue_v1_board_{base,bf}/metrics.json`.
+
+### 3d. The landing witness, under the patch
+
+`verification/test_predicate_recall_landing_organ.py`: **30/30**, including the new live-chain section --
+the BF rescue recovers *exactly* the dropped verb in each of three held-out modern UD-EWT sentences
+(`own` / `land` / `mold`) with no false promotion, never touches a VERB/AUX token, and `observe()` moves a score
+from 0.0012 to 0.9772 over 80 outcomes. On disk today the same file **fails**:
+`AssertionError: FAIL: flag-ON adds recovered predicates overall (3 > 3 events)`.
+
+### 3e. Where the signal was lost -- the decomposition
 
 On QA-SRL (the best-powered population), at the same false-verb budget:
 
@@ -272,9 +298,11 @@ needs its own board A/B and its own problem.
 1. **Land the diff** (`predicate_detector_bf_patch.diff`) and move
    `data/hook_state/predicate_detector_bf_counts_v1.json` -> `data/frontend_assets/`. The patch falls back to the
    staging path and then to the old stand-in read, so it is safe to land before the asset move.
-2. **Decide the operating point on the board, not on this brief.** The asset records calibrated thresholds for
-   0.05 / 0.10 / 0.25 / 0.50 false verbs per sentence; the shipped default is 0.10. The board A/B is the arbiter of
-   whether the extra recall is worth the event-precision cost.
+2. **The operating point is open, and the board says it is cheap to loosen.** The asset records calibrated
+   thresholds for 0.05 / 0.10 / 0.25 / 0.50 false verbs per sentence; the shipped default is 0.10, and at that point
+   the board is flat. Since the board is insensitive to the extra events, a free-text event-recall consumer could
+   select 0.25 (recovery 0.9286 / 0.8102 / 0.8635, and the witness sentence fires) by passing `threshold=` to
+   `rescue_indices`. Re-run the board at 0.25 before making that the default.
 3. **File alternate path A** (the clause constraint inside the organ's decode) as its own problem -- it is the fix for
    the witness sentence and it subsumes half of this organ.
 4. **Widen `tag_with_posterior`'s truncation** (P >= 0.01) or give consumers the matrix: 5-15% of this rung's positives
@@ -303,7 +331,9 @@ the WordNet gate). Located negatives with numbers: 4.7-38.8% of dropped verbs ar
 ADDITIVE rescue (UD's main-verb be/have convention, already the #1 upstream confusion); the witness sentence
 'presents' is ranked 50-100x above its distractors but fires only at the recall-oriented threshold, because the organ
 gives it no more lexical support than 'lake' (0.0220 vs 0.0212) -- the fix is a clause-level one-predicate constraint
-INSIDE the organ's decode, written up as alternate path A.
+INSIDE the organ's decode, written up as alternate path A. Board A/B (diff monkeypatched in): aggregate 0.6109 ->
+0.6109, 5/7 dims CI-sep over floor in both arms, no dimension moves by more than one item. Landing witness under the
+patch: 30/30 (it FAILS on disk today).
 
 Files: experiments/exp_predicate_rescue_bf_cue_v1.py, data/hook_state/predicate_detector_bf_counts_v1.json,
 notes/problems/<slug>/{SOLVED.md, predicate_detector_bf_patch.diff}. No hdlab/ file changed on disk.
