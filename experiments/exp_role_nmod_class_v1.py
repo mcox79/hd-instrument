@@ -214,7 +214,7 @@ def predicate_proximity(toks, pos, i, window=8):
 
 
 def cues_of(toks, pos, heads, i, frames, v3, conf, gen, hostsurf=False, brk=False, relcl=False, vprep=False,
-            edge=False, predprox=False):
+            edge=False, predprox=False, joint_cfg=False):
     """The organ's own cue values (GRA.coarse_role_cues, unchanged) plus, when the table declares cue_set v4, the
     genitive CASE value and the arc-free LICENSOR cue. `hostsurf` is a NEW cue key: a table that does not carry it
     simply has no strength entry, so the cue abstains and the organ is unchanged."""
@@ -239,6 +239,14 @@ def cues_of(toks, pos, heads, i, frames, v3, conf, gen, hostsurf=False, brk=Fals
                          else "na")
     if edge:
         c["edge"] = clause_initial(toks, pos, i)
+    if joint_cfg and c.get("hostsurf", "na") != "na":
+        # LEAD 20.1, TESTED: the CONFIGURATION KEY as a TWO-SOURCE estimate. Today the arc host class is the
+        # configuration and the arc-free licensor enters as a separate unconditioned term -- a naive combination of two
+        # marginals. The two-source form makes the KEY itself the pair, so the competition is read inside the joint
+        # configuration: log P(role | cfg_arc, cfg_surf) - log P(role). Ernst & Banks (2002) cue combination applied to
+        # the configuration rather than to a contrast.
+        c["config"] = c["config"] + "@" + c["hostsurf"]
+        c.pop("hostsurf", None)
     if predprox:
         # read WITH the licensor, and only where there is a case marker to interpret -- the two attachment principles
         # compete over the same decision, so they must be available in the same situations.
@@ -448,7 +456,7 @@ def _converges(toks, pos, heads, i):
 def build_counts(rows, classes, gen, poss="NMOD", min_conf=MIN_CONF, perceived=True, hostsurf=False,
                  post_accrual=False, converge_gate=False, brk=False, relcl=False, vprep=False, edge=False,
                  converge_beta=1.0, hs_global=False, sent_entropy=0.0, top2_split=False, indcat=False,
-                 predprox=False):
+                 predprox=False, joint_cfg=False):
     """Accrue the Competition-Model counts from READING: for every argument-head nominal the governor believed it
     attached (reliability gate), one decision teaches the configuration and every fired cue value.
 
@@ -515,7 +523,7 @@ def build_counts(rows, classes, gen, poss="NMOD", min_conf=MIN_CONF, perceived=T
                     hh = heads
                 else:
                     hh = dict(heads); hh[i] = int(h)
-                cu = cues_of(toks, pos, hh, i, lf, True, conf, gen, hostsurf, brk, relcl, vprep, edge, predprox)
+                cu = cues_of(toks, pos, hh, i, lf, True, conf, gen, hostsurf, brk, relcl, vprep, edge, predprox, joint_cfg)
                 if indcat:
                     cu["indcat"] = GRA.induced_category(toks[i - 1].lower())
                 ww = w * (p / tot)
@@ -537,8 +545,33 @@ def build_counts(rows, classes, gen, poss="NMOD", min_conf=MIN_CONF, perceived=T
             "_decisions": dec, "_lemma_frames": lf}
 
 
-def table_from_counts(counts, classes):
+_GRA_PARENT_CONFIG = GRA._parent_config
+
+
+def _parent_joint(cfg):
+    """Parent of a TWO-SOURCE configuration key "cfg_arc@cfg_surf": the ARC configuration alone, i.e. the marginal the
+    joint key refines. With Dirichlet mass m this makes
+        P(role | cfg_arc, cfg_surf) = (n_joint + m * P(role | cfg_arc)) / (N_joint + m)
+    -- the joint estimate backing off to its own marginal, which is what a two-source cue combination needs and what
+    the naive joint key (m = 0) lacks: it has 253 configurations against the shipped 28, so every SECONDARY cue
+    contrast -- all of which are read WITHIN the configuration -- is estimated from about a ninth of the data."""
+    if "@" in cfg:
+        return cfg.split("@", 1)[0], None
+    return _GRA_PARENT_CONFIG(cfg)
+
+
+def table_from_counts(counts, classes, m_config=0.0, joint=False):
     with role_space(classes, DEP8):
+        if joint:
+            _old = GRA._parent_config
+            GRA._parent_config = _parent_joint
+            try:
+                b = GRA.strengths_from_counts({k: v for k, v in counts.items() if not k.startswith("_")}, m_config)
+            finally:
+                GRA._parent_config = _old
+            return {"prior": b["prior"], "strength": b["strength"], "counts": counts,
+                    "lemma_frames": counts.get("_lemma_frames", {}), "cue_set": "v4",
+                    "slot_capacity": counts.get("slot_capacity")}
         b = GRA.strengths_from_counts({k: v for k, v in counts.items() if not k.startswith("_")})
     return {"prior": b["prior"], "strength": b["strength"], "counts": counts,
             "lemma_frames": counts.get("_lemma_frames", {}), "cue_set": "v4" if True else "v3",
@@ -558,13 +591,13 @@ def twin_table(tab, seed=17):
 
 
 # ----------------------------------------------------------------------------------------------- the reader
-def label_sent(toks, pos, heads, tab, classes, deps, gen, conf=None, hostsurf=False, brk=False, relcl=False, vprep=False, edge=False, hs_global=False, indcat=False, predprox=False):
+def label_sent(toks, pos, heads, tab, classes, deps, gen, conf=None, hostsurf=False, brk=False, relcl=False, vprep=False, edge=False, hs_global=False, indcat=False, predprox=False, joint_cfg=False):
     """The organ's read, with the cell's class space: additive cue activation -> MAP (GRA's own supports math)."""
     out = {}
     for i in range(1, len(toks) + 1):
         if i - 1 >= len(pos) or not GRA.is_arg_head(toks, pos, i):
             continue
-        cu = cues_of(toks, pos, heads, i, tab.get("lemma_frames"), True, conf, gen, hostsurf, brk, relcl, vprep, edge, predprox)
+        cu = cues_of(toks, pos, heads, i, tab.get("lemma_frames"), True, conf, gen, hostsurf, brk, relcl, vprep, edge, predprox, joint_cfg)
         if indcat:
             cu["indcat"] = GRA.induced_category(toks[i - 1].lower())
         S = {"prior": tab["prior"]}
@@ -584,7 +617,7 @@ def label_sent(toks, pos, heads, tab, classes, deps, gen, conf=None, hostsurf=Fa
     return out
 
 
-def read_all(rows, tab, classes, deps, gen, heads_source, hostsurf=False, brk=False, relcl=False, vprep=False, edge=False, hs_global=False, indcat=False, predprox=False):
+def read_all(rows, tab, classes, deps, gen, heads_source, hostsurf=False, brk=False, relcl=False, vprep=False, edge=False, hs_global=False, indcat=False, predprox=False, joint_cfg=False):
     """heads_source: 'gold' (the labels rung's own ceiling) | 'live' (the frontend Parser's in-order tree)."""
     preds = []
     for r in rows:
@@ -593,7 +626,7 @@ def read_all(rows, tab, classes, deps, gen, heads_source, hostsurf=False, brk=Fa
             pos, heads, conf = r["gpos"], r["gheads"], None
         else:
             pos, heads, conf = r["ppos"], r["pheads"], r["conf"]
-        preds.append(label_sent(toks, pos, heads, tab, classes, deps, gen, conf, hostsurf, brk, relcl, vprep, edge, hs_global, indcat, predprox))
+        preds.append(label_sent(toks, pos, heads, tab, classes, deps, gen, conf, hostsurf, brk, relcl, vprep, edge, hs_global, indcat, predprox, joint_cfg))
     return preds
 
 
@@ -743,7 +776,17 @@ def arms_for(tr, te, out_dir, sweep=False):
             ("SHIP_indcat", ROLES8, DEP8, True, "marked", {"relcl": True, "vprep": True, "hs_global": True,
                                                            "indcat": True}),
             ("SHIP_predprox", ROLES8, DEP8, True, "marked", {"relcl": True, "vprep": True, "hs_global": True,
-                                                             "predprox": True})]
+                                                             "predprox": True}),
+            ("SHIP_jointcfg", ROLES8, DEP8, True, "marked", {"relcl": True, "vprep": True, "hs_global": True,
+                                                             "predprox": True, "joint_cfg": True}),
+            ("SHIP_jointcfg_m2", ROLES8, DEP8, True, "marked", {"relcl": True, "vprep": True, "hs_global": True,
+                                                                "predprox": True, "joint_cfg": True}),
+            ("SHIP_jointcfg_m20", ROLES8, DEP8, True, "marked", {"relcl": True, "vprep": True, "hs_global": True,
+                                                                 "predprox": True, "joint_cfg": True}),
+            ("SHIP_jointcfg_m200", ROLES8, DEP8, True, "marked", {"relcl": True, "vprep": True, "hs_global": True,
+                                                                  "predprox": True, "joint_cfg": True}),
+            ("SHIP_jointcfg_m1000", ROLES8, DEP8, True, "marked", {"relcl": True, "vprep": True, "hs_global": True,
+                                                                   "predprox": True, "joint_cfg": True})]
     if sweep:
         spec += [("nmod_gen_possOTHER", ROLES8, DEP8, True, False, {"poss": "OTHER"}),
                  # UPSTREAM ORACLE ABLATION (diagnostic, NOT shippable: it reads the gold tree at learning time) --
@@ -760,7 +803,8 @@ def arms_for(tr, te, out_dir, sweep=False):
         t0 = time.time()
         arms[name] = (classes, deps, gen, hs, bool(kw.get("brk")), bool(kw.get("relcl")), bool(kw.get("vprep")),
                       bool(kw.get("edge")), bool(kw.get("hs_global")), bool(kw.get("indcat")),
-                      bool(kw.get("predprox")), build_counts(tr, classes, gen=gen, hostsurf=hs, **kw))
+                      bool(kw.get("predprox")), bool(kw.get("joint_cfg")),
+                      build_counts(tr, classes, gen=gen, hostsurf=hs, **kw))
         print("[build] %s %.0fs" % (name, time.time() - t0), flush=True)
     return arms
 
@@ -1000,16 +1044,18 @@ def main(argv):
             _ARMS_ONLY = a.split("=", 1)[1].split(",")
     arms = arms_for(tr, te, out_dir, sweep=sweep)
     res = {}; acc = {}
-    for name, (classes, deps, gen, hsf, bk, rc, vp, eg, hg, ic, px, counts) in arms.items():
-        tab = table_from_counts(counts, classes)
+    for name, (classes, deps, gen, hsf, bk, rc, vp, eg, hg, ic, px, jc, counts) in arms.items():
+        _m = float(name.split("_m")[-1]) if (jc and "_m" in name) else 0.0
+        tab = table_from_counts(counts, classes, _m, jc)
+        print("[arm] %s: %d configurations" % (name, len(counts["config"])), flush=True)
         for hs in ("gold", "live"):
-            preds = read_all(te, tab, classes, deps, gen, hs, hsf, bk, rc, vp, eg, hg, ic, px)
+            preds = read_all(te, tab, classes, deps, gen, hs, hsf, bk, rc, vp, eg, hg, ic, px, jc)
             acc[(name, hs)] = score(te, preds, pops)
             res[(name, hs, "conf_nmod")] = confusion(te, preds, "nmod")
             res[(name, hs, "conf_obl")] = confusion(te, preds, "obl")
         tw = twin_table(tab)
         for hs in ("gold", "live"):
-            preds = read_all(te, tw, classes, deps, gen, hs, hsf, bk, rc, vp, eg, hg, ic, px)
+            preds = read_all(te, tw, classes, deps, gen, hs, hsf, bk, rc, vp, eg, hg, ic, px, jc)
             acc[(name + "_twin", hs)] = score(te, preds, pops)
         print("[arm] %s done" % name, flush=True)
 
