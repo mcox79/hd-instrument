@@ -1,8 +1,8 @@
 diff --git a/hdlab/attachment_arm.py b/hdlab/attachment_arm.py
-index e77d458..81082df 100644
+index e77d458..666454e 100644
 --- a/hdlab/attachment_arm.py
 +++ b/hdlab/attachment_arm.py
-@@ -1389,6 +1389,309 @@ def revise_for_predicate_slot(toks: Sequence[str], post, tag_names: Sequence[str
+@@ -1389,6 +1389,361 @@ def revise_for_predicate_slot(toks: Sequence[str], post, tag_names: Sequence[str
          sites.append(i)
      return (post if out is None else out), sites
  
@@ -308,17 +308,70 @@ index e77d458..81082df 100644
 +    return out
 +
 +
++# ------------------------------------------------------------------- THE SECOND CUE TO THE SAME PREDICATE (pri 113)
++# `cop_complement` above is a SURFACE cue -- a construction read off word order and closed-class forms.  The heads
++# rung supplies an INDEPENDENT structural one: a copula attaches TO its predicate, and the landed copular state
++# reader (`hdlab.copular_binding.robust_cop`) already reads exactly that off the tree.  Measured, the two cues see
++# overlapping but not identical sets (98 shared, 20 surface-only, 10 arc-only of the 167).
++# THE BRAIN.  Multiple-cue integration (Christiansen & Chater 2001) with RELIABILITY WEIGHTING (Ernst & Banks 2002;
++# Ma-Beck-Latham-Pouget 2006: a downstream area weights each input by its reliability, trial by trial) -- and the
++# reliability of "this arc names the predicate" is the governor's OWN posterior on that arc, the same quantity
++# tools/build_coarse_role_validities.py already uses as its teaching weight.  A RAW UNION costs participant
++# precision 0.8370 -> 0.8076, CI-separated DOWN; gating on the reliability recovers almost all of the recall at no
++# CI-separated precision cost, and the operating point is FLAT (measured, --arcgrade):
++#     tau   recall  precision  F1      on the 167   d(precision) vs the live floor
++#     0.00  0.9659  0.8076     0.8797  0.8623       -0.0282 CI[-0.0386,-0.0171]  SEPARATED DOWN
++#     0.10  0.9646  0.8320     0.8934  0.8563       -0.0038 CI[-0.0118,+0.0041]  not separated
++#     0.50  0.9633  0.8332     0.8935  0.8503       -0.0026 CI[-0.0108,+0.0051]  not separated
++#     0.90  0.9593  0.8341     0.8924  0.8323       -0.0016 CI[-0.0099,+0.0058]  not separated
++#     off   0.9541  0.8370     0.8917  0.8084       +0.0012 CI[-0.0059,+0.0079]
++# The PUREST form of the arc cue (the copula's own MAP head, no fallback chain) is WORSE at every threshold
++# (tau 0.5: precision 0.8274 against 0.8332), so `robust_cop`'s gated fallback is carrying real signal.
++# DEFAULT OFF (HDLAB_PREDICATION_ARC_TAU=0) for one reason only, stated so it is not a hiding place: the board A/B
++# in the submission covers the SURFACE arm, and this arm has not had its own.  Set it to 0.5 and run
++# `--board-ab --full` to switch it on; it is the first next step.
++PREDICATION_ARC_TAU = float(os.environ.get("HDLAB_PREDICATION_ARC_TAU", "0"))
++
++
++def arc_predicate_sites(toks: Sequence[str], tags: Sequence[str], heads, head_posterior, tau: float = None) -> dict:
++    """{0-based predicate index -> P(the copula attaches to it)} from the ARC cue, gated at `tau`.
++    Reads the landed copular state reader's own detection (ONE organ owns the arc read) and weights each site by
++    the heads rung's own posterior on the copula's arc.  Returns {} if tau <= 0 or anything is unavailable."""
++    tau = PREDICATION_ARC_TAU if tau is None else float(tau)
++    out = {}
++    if tau <= 0.0 or not heads or not head_posterior:
++        return out
++    try:
++        from hdlab.copular_binding import robust_cop
++        pairs = robust_cop(list(toks), list(tags), heads, gate=True)
++    except Exception:
++        return out
++    lows = [t.lower() for t in toks]
++    for (_h, pr) in pairs:
++        if not (0 <= pr < len(tags)) or tags[pr] in ("VERB", "AUX"):
++            continue
++        best = 0.0
++        for c in range(len(toks)):
++            if tags[c] != "AUX" or lows[c] not in COP_FORMS or abs(c - pr) > 6:
++                continue
++            best = max(best, float((head_posterior.get(c + 1) or {}).get(pr + 1, 0.0)))
++        if best >= tau and best > out.get(pr, 0.0):
++            out[pr] = best
++    return out
++
++
 +
  def subordination(toks: Sequence[str], pos: Sequence[str], i: int) -> str:
      """SUBORDINATION CUE: the clause-dependency marking in force at 1-based i -- the nearest preceding clause opener
      (subordinator / relativizer / coordinator) with no finite predicate in between (a VERB or a sentence-final mark
-@@ -2683,7 +2986,8 @@ __all__ = ["SentenceCues", "CONSTRUCTIONS", "construction_map", "verb_frames_fro
+@@ -2683,7 +3038,9 @@ __all__ = ["SentenceCues", "CONSTRUCTIONS", "construction_map", "verb_frames_fro
             "root_cue_values", "predication_boost", "finiteness",
             "predicate_slot_occupancy", "revise_for_predicate_slot", "host_belief", "copular_available",
             "is_existential", "main_verb_carriers",
 -           "cop_predicates", "subordination", "assertion_candidates", "arc_scores", "head_posterior", "heads", "arc_scores_graded", "head_posterior_graded", "heads_graded", "SemanticBootstrapTeacher", "ASSET", "FORM"]
 +           "cop_predicates", "cop_complement", "predicate_complements", "predicate_sites",
-+           "predicate_site_carriers", "copula_tense", "subordination", "assertion_candidates", "arc_scores", "head_posterior", "heads", "arc_scores_graded", "head_posterior_graded", "heads_graded", "SemanticBootstrapTeacher", "ASSET", "FORM"]
++           "predicate_site_carriers", "copula_tense", "arc_predicate_sites", "subordination",
++           "assertion_candidates", "arc_scores", "head_posterior", "heads", "arc_scores_graded", "head_posterior_graded", "heads_graded", "SemanticBootstrapTeacher", "ASSET", "FORM"]
  
  
  # ------------------------------------------------------------------------------ meaning as a read-time cue (PLAUS_CUE)
@@ -445,7 +498,7 @@ index aa6d837..ed91fe8 100644
      #                                              the genitive case values, the arc-free licensor cue and the NMOD class
      if path is None:
 diff --git a/hdlab/situation_reader.py b/hdlab/situation_reader.py
-index 04b6a32..2b1640c 100644
+index 04b6a32..e137cea 100644
 --- a/hdlab/situation_reader.py
 +++ b/hdlab/situation_reader.py
 @@ -80,6 +80,7 @@ _REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -500,7 +553,7 @@ index 04b6a32..2b1640c 100644
          return events, []
  
      def _add_predicate_recall(self, events, toks, up):
-@@ -1992,6 +2000,52 @@ class SituationReader:
+@@ -1992,6 +2000,72 @@ class SituationReader:
          events.sort(key=lambda e: e.idx)
          return events
  
@@ -527,6 +580,7 @@ index 04b6a32..2b1640c 100644
 +        SituationReader(nonverbal_predication=False) is byte-identical to before."""
 +        if not self.nonverbal_predication:
 +            return events
++        from hdlab import attachment_arm as _AA
 +        from hdlab.attachment_arm import predicate_sites, predicate_site_carriers, copula_tense
 +        from hdlab import lexical_categories as _LC
 +        lc = _LC.get()
@@ -547,6 +601,25 @@ index 04b6a32..2b1640c 100644
 +                                  tense=(copula_tense(list(toks), list(up), c) if c is not None
 +                                         else T.TENSE_SIMPLE_PAST),
 +                                  is_pp=False))
++        # THE SECOND CUE (default OFF, HDLAB_PREDICATION_ARC_TAU): the ARC read, gated on the heads rung's own
++        # reliability.  The parse and the head posterior are already in this read's cache on the default reader
++        # configuration (the copular state reader computes both), so this is a cache hit, not an extra parse.
++        if _AA.PREDICATION_ARC_TAU > 0.0:
++            try:
++                _hd = self._cached_parse_heads(list(toks), list(up))
++                _hp = self._cached_head_posterior(list(toks), list(up))
++                _arc = _AA.arc_predicate_sites(list(toks), list(up), _hd, _hp)
++            except Exception:
++                _arc = {}
++            _have = set(e.idx for e in events)
++            for q in _arc:
++                if q in _have or up[q] == "VERB":
++                    continue
++                c = car.get(q)
++                events.append(T.Event(lemma=toks[q].lower(), idx=q, pos=up[q],
++                                      tense=(copula_tense(list(toks), list(up), c) if c is not None
++                                             else T.TENSE_SIMPLE_PAST),
++                                      is_pp=False))
 +        events.sort(key=lambda e: e.idx)
 +        return events
 +

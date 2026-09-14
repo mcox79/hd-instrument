@@ -774,6 +774,8 @@ def _pred_head_set(toks_t, pos_t):
 
 
 def make_patched_cues(mode="pred"):
+    if mode == "none":
+        return _ORIG_CUES
     """mode='pred' -> the PRED head class (needs a table with PRED rows); mode='verb' -> arm B1."""
     def patched(toks, pos, heads, i, frames=None, v3=False, conf=None, v4=False):
         h = heads.get(i, 0) or 0
@@ -1146,6 +1148,30 @@ def _load_patch_arm():
     return mod
 
 
+def arc_sites_cell(toks, tags, heads, hpost, tau):
+    """The cell's copy of the diff's `arc_predicate_sites`, so PATCH == CELL covers the arc cue too."""
+    from hdlab.copular_binding import robust_cop
+    out = {}
+    if tau <= 0.0 or not heads or not hpost:
+        return out
+    try:
+        pairs = robust_cop(list(toks), list(tags), heads, gate=True)
+    except Exception:
+        return out
+    lows = [t.lower() for t in toks]
+    for (_h, pr) in pairs:
+        if not (0 <= pr < len(tags)) or tags[pr] in ("VERB", "AUX"):
+            continue
+        best = 0.0
+        for c in range(len(toks)):
+            if tags[c] != "AUX" or lows[c] not in AA.COP_FORMS or abs(c - pr) > 6:
+                continue
+            best = max(best, float((hpost.get(c + 1) or {}).get(pr + 1, 0.0)))
+        if best >= tau and best > out.get(pr, 0.0):
+            out[pr] = best
+    return out
+
+
 def patch_equals_cell(cap=300):
     """Every predicate SITE and every site STRENGTH, the diff's code vs this cell's, over the same sentences."""
     M = _load_patch_arm()
@@ -1165,9 +1191,23 @@ def patch_equals_cell(cap=300):
             qb = M.cop_complement(list(toks), up, i)
             comp_mismatch += int(qa != qb)
         n_tok += len(toks); n_sent += 1
+    # the ARC cue, same comparison, on a smaller slice (it needs a parse plus the arm's exact head marginals)
+    tab = AA.load_attachment_validities(); arc_mismatch = 0; n_arc = 0
+    for toks, gp, gh, rels in _corpus(60):
+        up = list(rdr._cached_tag(list(toks)))
+        try:
+            hd = rdr._cached_parse_heads(list(toks), up)
+            hp = AA.head_posterior(list(toks), up, tab)
+        except Exception:
+            continue
+        a = arc_sites_cell(list(toks), up, hd, hp, 0.5)
+        b = M.arc_predicate_sites(list(toks), up, hd, hp, 0.5)
+        arc_mismatch += len(set(a) ^ set(b)) + sum(1 for k in set(a) & set(b) if a[k] != b[k])
+        n_arc += len(a)
     print("PATCH == CELL over %d sentences / %d tokens: site mismatches %d, complement mismatches %d, "
-          "max |strength diff| %.6g" % (n_sent, n_tok, site_mismatch, comp_mismatch, max_abs))
-    return site_mismatch == 0 and comp_mismatch == 0 and max_abs == 0.0
+          "max |strength diff| %.6g; ARC-cue mismatches %d over %d sites / 60 sentences"
+          % (n_sent, n_tok, site_mismatch, comp_mismatch, max_abs, arc_mismatch, n_arc))
+    return site_mismatch == 0 and comp_mismatch == 0 and max_abs == 0.0 and arc_mismatch == 0
 
 
 
@@ -1429,6 +1469,74 @@ def arcgrade(cap=700, taus=(0.0, 0.05, 0.1, 0.2, 0.3, 0.5, 0.7, 0.9, 1.01), n_bo
 
 
 
+
+def arc_predicate_sites_pure(toks, tags, heads, hpost, tau=0.5):
+    """THE PUREST FORM OF THE ARC CUE, and the one a diff can own: in UD a copula attaches TO its predicate, so the
+    copula's own MAP head IS the predicate and the governor's posterior on that arc IS its reliability.  No second
+    organ, no `robust_cop` fallback chain -- just the arc the heads rung already produced, weighted by the belief
+    the heads rung already hands down.  {0-based predicate index -> P(the copula attaches to it)}."""
+    out = {}
+    lows = [t.lower() for t in toks]
+    for c in range(len(toks)):
+        if tags[c] != "AUX" or lows[c] not in AA.COP_FORMS:
+            continue
+        h = heads.get(c + 1, 0) or 0
+        if not (1 <= h <= len(toks)) or h - 1 == c:
+            continue
+        if tags[h - 1] in ("VERB", "AUX", "PUNCT"):
+            continue
+        p = float((hpost.get(c + 1) or {}).get(h, 0.0))
+        if p >= tau and p > out.get(h - 1, 0.0):
+            out[h - 1] = p
+    return out
+
+
+def arcpure(cap=700, taus=(0.0, 0.05, 0.1, 0.2, 0.3, 0.5, 0.7, 0.9, 1.01), n_boot=2000, seed=0):
+    corpus = _corpus(cap)
+    lc = LC.get(); tag_names = list(lc.tags); rdr = _reader()
+    tab = AA.load_attachment_validities()
+    rows = []
+    for toks, gp, gh, rels in corpus:
+        up = list(rdr._cached_tag(list(toks)))
+        post = lc.posterior(list(toks))
+        ev, _ = rdr._extract_events(" ".join(toks))
+        floor = set(e.idx for e in ev)
+        surf = set(predicate_sites(list(toks), up, post, tag_names, cons=SHIPPED_CONS)) - floor
+        try:
+            heads = rdr._cached_parse_heads(list(toks), up)
+            hp = AA.head_posterior(list(toks), up, tab)
+        except Exception:
+            heads, hp = {}, {}
+        arcg = {q: v for q, v in arc_predicate_sites_pure(list(toks), up, heads, hp, tau=0.0).items()
+                if q not in floor and q not in surf}
+        preds = sorted(set(gh[i] for i in range(len(toks)) if rels[i] == "nsubj" and 1 <= gh[i] <= len(toks)))
+        rows.append({"toks": toks, "gp": gp, "gh": gh, "rels": rels, "up": up, "floor": floor,
+                     "surface": surf, "arcg": arcg, "preds": preds})
+    fl = _score(rows, None)
+    res = {"cap": cap, "FLOOR": fl, "taus": {}}
+    print("FLOOR   recall %.4f precision %.4f F1 %.4f  on the 167 %.4f" %
+          (fl["recall"], fl["precision"], fl["f1"], fl["recall_nonverbal"]))
+    print("%-7s %8s %8s %8s %9s %8s %9s" % ("tau", "recall", "precis", "F1", "rec.NONV", "addFire", "addPrec"))
+    for tau in taus:
+        for r in rows:
+            r["arm"] = r["surface"] | set(q for q, v in r["arcg"].items() if v >= tau)
+        sc = _score(rows, "arm")
+        nadd = sc["n_fired"] - fl["n_fired"]
+        addok = round(sc["precision"] * sc["n_fired"] - fl["precision"] * fl["n_fired"])
+        d, lo, hi = _boot_pairs(_pairs_recall(rows, "arm", None), n=n_boot, seed=seed)
+        dp, plo, phi = _boot_prec(_pairs_prec(rows, "arm", None), n=n_boot, seed=seed)
+        res["taus"]["%.2f" % tau] = {**sc, "n_added_fires": nadd,
+                                     "added_fire_precision": round(addok / max(1, nadd), 4),
+                                     "d_recall_vs_FLOOR": [round(d, 4), round(lo, 4), round(hi, 4)],
+                                     "d_precision_vs_FLOOR": [round(dp, 4), round(plo, 4), round(phi, 4)]}
+        print("%-7.2f %8.4f %8.4f %8.4f %9.4f %8d %9.4f   dRec %+.4f CI[%+.4f,%+.4f]  dPrec %+.4f CI[%+.4f,%+.4f]"
+              % (tau, sc["recall"], sc["precision"], sc["f1"], sc["recall_nonverbal"], nadd,
+                 addok / max(1, nadd), d, lo, hi, dp, plo, phi))
+    json.dump(res, open(os.path.join(out_dir(), "arcpure_cap%d.json" % cap), "w", encoding="utf-8"), indent=1)
+    return res
+
+
+
 def self_test():
     ok = [0, 0]
 
@@ -1557,6 +1665,8 @@ if __name__ == "__main__":
         sys.exit(0 if self_test() else 1)
     elif "--diag" in a:
         diag(cap=val("--cap", 700))
+    elif "--arcpure" in a:
+        arcpure(cap=val("--cap", 700))
     elif "--arcgrade" in a:
         arcgrade(cap=val("--cap", 700))
     elif "--cueint" in a:
@@ -1581,7 +1691,8 @@ if __name__ == "__main__":
         roles(cap=val("--cap", 700),
               table=(a[a.index("--table") + 1] if "--table" in a else None),
               table_a=(a[a.index("--table-a") + 1] if "--table-a" in a else None),
-              mode=("verb" if "--as-verb" in a else ("open" if "--open" in a else "pred")))
+              mode=("verb" if "--as-verb" in a else
+                    ("open" if "--open" in a else ("none" if "--same-cues" in a else "pred"))))
     elif "--ablate" in a:
         ablate(cap=val("--cap", 700))
     elif "--residual" in a:

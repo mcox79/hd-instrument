@@ -292,7 +292,112 @@ See section 5b for that controlled contrast.
 
 ### 5b. THE CONTROLLED ROLES CONTRAST
 
-PENDING_ROLES_CONTROL
+Two tables, rebuilt today by the organ's own builder with identical flags (`--v4 --perceived --weight`), written
+to `data/hook_state/`, differing in **nothing but the cue function**. They carry **identical** totals
+(**57,645.6** teaching decisions each), which is what makes this the matched contrast the live asset could not give.
+
+| population | n | shipped cues | + PRED configuration | delta |
+|---|---|---|---|---|
+| **under a NON-VERBAL predicate** | 269 | 0.6914 | 0.6654 | **-0.0260 CI[-0.0558,+0.0037] -- NOT separated** |
+| under a VERB | 1533 | 0.7978 | 0.7991 | +0.0013 CI[+0.0000,+0.0033] |
+| all argument heads | 3698 | 0.7956 | 0.7918 | -0.0038 CI[-0.0073,-0.0003] |
+
+**The -0.0706 was the confound.** Controlled, the PRED configuration is a small loss on its own population whose
+confidence interval **includes zero**. The bar asked for an INCREASE CI-separated, and that is not met either way --
+so this stays a NEGATIVE. But it is a *no-effect* negative, not a *harmful* one, and the difference matters for what
+strategy should do next.
+
+**AND THE MECHANISM IS IN THE COUNTS.** Comparing the two matched tables config by config:
+
+| configuration | shipped-cues table | PRED table |
+|---|---|---|
+| `VERB_pre` | n=14207.9, SUBJ, **rel 0.716** | n=14207.9, SUBJ, rel 0.716 (untouched) |
+| **`ADJ_pre`** | **n=1363.7, SUBJ, rel 0.845** | n=109.7, OTHER, rel 0.591 |
+| `NOUN_pre` | n=8419.9, OTHER, rel 0.537 | n=7351.7, OTHER, rel 0.580 |
+| **`PRED_pre`** | absent | **n=2533.1, SUBJ, rel 0.819** |
+
+**`ADJ_pre` was ALREADY an 0.845-reliable SUBJECT cue -- MORE reliable than the pooled `PRED_pre` that replaced
+it.** The split takes ~1,254 predicative-ADJ instances and ~1,068 predicative-NOUN instances and merges them into
+one bucket, and the merged bucket is *less* reliable than the ADJ bucket it absorbed. **So the head's CATEGORY is
+itself informative about its dependent's role, and pooling ADJ-predicates with NOUN-predicates throws that away:**
+a nominal before a predicative adjective is a subject 84.5% of the time, while a nominal before a predicative noun
+sits in an equative clause that has *two* nominals and is a far weaker cue. The un-conflation with the ATTRIBUTIVE
+adjective is real -- but on this treebank it buys less than the conflation of ADJ with NOUN costs.
+
+**That is a fully understood negative, and it names its own repair**: open the predicate-relative cues but **keep the
+head-category configuration** (arm B3, section 5f) -- which preserves `ADJ_pre`'s 0.845 while letting the
+pre-verbal-slot / rank / frame cues fire.
+
+### 5b-bis. AN UNRELATED FINDING THE CONTROL EXPOSED, AND IT IS A BRIEF ON ITS OWN
+
+The matched control had to be built because the live asset differs from a fresh build by **74,083.3 -> 57,645.6**
+teaching decisions. **The builder drops an instance in exactly one place** -- `w <= 0 or w < MIN_CONF` (0.5), the
+reliability gate on the governor's own head posterior -- so a **22.2% fall in teaching decisions IS a fall in the
+governor's confidence**, by arithmetic and not by inference. And the fresh build is WORSE where it matters:
+
+| scored with the SHIPPED cue function | all (n=3698) | under a non-verbal predicate (n=269) |
+|---|---|---|
+| the LIVE asset (built at an earlier HEAD) | **0.8056** | **0.7361** |
+| a fresh rebuild on today's frontend | 0.7956 | 0.6914 |
+
+**Rebuilding the role validity table on today's frontend LOSES 0.0100 overall and 0.0447 on the population this
+brief is about.** That is not my change; it is a property of the current chain, it is invisible to anything that
+does not rebuild the asset, and it means the live role asset is carrying knowledge the current governor can no
+longer teach. **Filed as the highest-value lead in section 7.**
+
+### 5e. THE SECOND CUE: a raw union is a real trade-off, and the GRADED form removes it
+
+The brief's item 4 is explicit -- *"if firing on non-verbal predicates costs precision at a consumer, the hand-off
+is graded and the consumer weights it; measure the graded form before declaring a trade-off."* So I did, in that
+order.
+
+The heads rung supplies an INDEPENDENT cue to the same predicate: a copula attaches TO its predicate, and the landed
+copular state reader (`copular_binding.robust_cop`) already reads that off the tree. The two cues overlap but are
+not the same set (98 shared, 20 surface-only, 10 arc-only of the 167). **A raw UNION is a genuine trade-off:**
+
+| arm | recall | precision | F1 | on the 167 | added-fire precision |
+|---|---|---|---|---|---|
+| FLOOR (live reader) | 0.8176 | 0.8358 | 0.8266 | 0.1856 | -- |
+| SURFACE (shipped here) | 0.9541 | 0.8370 | 0.8917 | 0.8084 | 0.8462 |
+| ARC alone | 0.9423 | 0.8106 | 0.8715 | 0.7545 | 0.6398 |
+| **UNION** | 0.9659 | **0.8076** | 0.8797 | **0.8623** | 0.6533 |
+
+`UNION - SURFACE`: recall **+0.0118 CI[+0.0052,+0.0197]**, precision **-0.0294 CI[-0.0378,-0.0213]** -- both
+CI-separated. Recall bought with precision, exactly as the brief anticipates.
+
+**THE GRADED FORM REMOVES THE TRADE-OFF.** The arc cue is not a boolean: the governor hands down a POSTERIOR over
+the copula's head, and `P(head = q)` IS the reliability of *"q is the predicate"* -- the same quantity the role
+builder already uses as its teaching weight (Ernst & Banks 2002; Ma-Beck-Latham-Pouget 2006). Gating on it:
+
+| tau | recall | precision | F1 | on the 167 | d(precision) vs the live floor |
+|---|---|---|---|---|---|
+| 0.00 (raw union) | 0.9659 | 0.8076 | 0.8797 | 0.8623 | **-0.0282 CI[-0.0386,-0.0171] SEPARATED DOWN** |
+| 0.05 | 0.9646 | 0.8307 | 0.8926 | 0.8563 | -0.0051 CI[-0.0135,+0.0028] |
+| **0.10** | 0.9646 | 0.8320 | **0.8934** | **0.8563** | -0.0038 CI[-0.0118,+0.0041] |
+| 0.20 / 0.30 | 0.9633 | 0.8325 | 0.8931 | 0.8503 | -0.0032 CI[-0.0116,+0.0046] |
+| **0.50** | 0.9633 | 0.8332 | **0.8935** | 0.8503 | -0.0026 CI[-0.0108,+0.0051] |
+| 0.70 | 0.9593 | 0.8335 | 0.8920 | 0.8323 | -0.0023 CI[-0.0105,+0.0052] |
+| 0.90 | 0.9593 | 0.8341 | 0.8924 | 0.8323 | -0.0016 CI[-0.0099,+0.0058] |
+| off (surface only) | 0.9541 | 0.8370 | 0.8917 | 0.8084 | +0.0012 CI[-0.0059,+0.0079] |
+
+**Every threshold from 0.05 to 0.90 has a precision delta whose CI includes zero, and the region is FLAT** -- a
+0.0034 spread in precision across an 18x change in the threshold, which says the operating point is not a tuned
+knob. At tau = 0.5 (the middle of the flat region) the arm reaches **0.8503** of the 167 -- **+0.042 over the
+shipped surface arm** -- at the best F1 in the whole study (0.8935) and no CI-separated precision cost.
+
+**It is shipped DEFAULT OFF (`HDLAB_PREDICATION_ARC_TAU=0`) and I want to be explicit that this is not a hiding
+place:** the board A/B in section 6 covers the SURFACE arm, and this arm has not had its own. Turning it on is one
+environment variable plus one `--board-ab --full`, and it is the first item in section 7.
+
+### 5f. THE PUREST FORM OF THE ARC CUE IS WORSE, and that is informative
+
+The arc cue could be read with no second organ at all: the copula's own MAP head IS its predicate. Measured as its
+own sweep, that read is worse at **every** threshold -- at tau = 0.5, precision **0.8274** against `robust_cop`'s
+**0.8332** at identical recall (0.9633 / 0.8503 on the 167). **So `robust_cop`'s gated fallback chain (skip an
+expletive holder, skip an intervening main verb, fall through to the next content head) is carrying real signal
+beyond the bare arc**, which is worth recording because it is evidence FOR the landed organ at a moment when the
+rest of this report is arguing that that organ should be consolidated away. Consolidating it must preserve those
+gates.
 
 ### 5c. LOCATION alone is negative, and the reason is a construction, not noise
 
@@ -341,9 +446,125 @@ FULL_BOARD_PLACEHOLDER
 
 ---
 
+## 6b. What let the signal be maximised -- the chain, rung by rung
+
+The owner's reading holds here and it is worth being precise about WHICH rungs cracked, because the biggest number
+in this report (**0.1856 -> 0.8084 on the 167**) came from a rung nobody had to build.
+
+**CRACKED.**
+
+1. **THE SIGNAL WAS ALREADY COMPUTED AND THROWN AWAY.** `attachment_arm.cop_predicates` has known which token a
+   copula predicates of since 2026-09-13. Its only consumers were two functions inside its own organ. **The single
+   largest gain in this brief -- 0.1856 -> 0.7246 on the 167, four fifths of the whole effect -- is a WIRE, not a
+   build.** That is the rung, and it is worth naming as a class: *a produced-but-unread signal is a different
+   failure from a missing one, and cheaper to fix by an order of magnitude.*
+2. **THE ARITHMETIC OF THE RUNG ABOVE ALREADY HAD A HOLE IN THE SHAPE OF THIS ONE.** pri 110 wrote
+   `occ = (1 - host) * (1 - cop_available)` and shipped it. The complement of that expression inside the same
+   product -- `(1 - host) * cop_available` -- is this brief, and the two partition `(1 - host)` exactly. **Reading
+   the upstream rung's own equation, rather than the upstream rung's own README, is what made this an ARM of one
+   organ instead of a second predicate finder.** The partition is asserted numerically in the self-test, so the
+   one-predicate-per-clause claim is a measurement rather than an argument.
+3. **THE INSTRUMENT WAS THE PRECONDITION, NOT THE PAPERWORK.** pri 110 BUILT the copular-event arm, measured it,
+   and refused to ship it, because UD's VERB column scored its correct fires as false positives. Nothing about the
+   mechanism changed here; what changed is that the fires are now scored by whether they GOVERN PARTICIPANTS. **The
+   same arm goes from "precision 0.8629 -> 0.7778, not shipped" to "precision +0.0012, shipped" purely by asking
+   the question the brain's definition asks.** The instrument was the lever.
+4. **THE RESIDUAL WAS ATTRIBUTED, NOT NARRATED, AND EVERY CONSTRUCTION CAME OUT OF IT.** Ten constructions, none
+   invented at a desk: each one is a line in `--residual` with the token the scan picked instead. Two of them turned
+   out to be worth zero and are reported as zero; one cost more than it bought and was narrowed; one (LOCATION) is
+   negative alone and positive in company, which is itself a finding about English.
+5. **THE OPERATING POINT WAS SWEPT AND THE SWEEP CAUGHT A REAL ERROR.** A permissive frontable set cost
+   0.7904 -> 0.7305; the graded arc threshold is flat from 0.05 to 0.90 and CI-separated-down only at 0.00. Neither
+   of those is visible without the sweep.
+
+**NOT CRACKED, and each one is named with a number.**
+
+- **THE ROLE COMPETITION'S CONFIGURATION.** The PRED class is right in principle (it un-conflates predicative from
+  attributive) and loses in practice (the pooling costs more, `ADJ_pre` 0.845 -> `PRED_pre` 0.819). The repair --
+  open the cues, keep the configuration -- is named and its table is building.
+- **THE JOINT FRAME-SLOT DECODE** never groups a non-verbal predicate's arguments (line ~1396). Untouched on
+  purpose, so that PATCH == CELL stays exact.
+- **THE ONE-STRUCTURE RECONCILIATION.** Two predicate finders, 30 disagreements of 128. Quantified, not fixed.
+- **THE TENSE IS COVERAGE, NOT ACCURACY.** 0 -> 117 of 167, but UD's morphological `Tense` feature is dropped by
+  this repo's CoNLL-U loader, so the read has no independent gold. Naming that is the honest end of that rung.
+- **ONE POPULATION.** Everything here is UD-EWT test 700. pri 110's effect was LARGER out of supply on GUM; mine is
+  untested there, and that is the first control I would add.
+
+---
+
 ## 7. What it would take to convert this to a FULL PASS
 
-PENDING_FULLPASS
+Six of the bar's eight criteria are met. Here is each one, what is missing, and -- for every gap -- the lead,
+its research, and whether I chased it.
+
+| bar criterion | status |
+|---|---|
+| the participant instrument built and published, gold-free at decision time | **MET** |
+| a twin with predicates picked at random at the same rate at floor | **MET** -- 3 seeds, CI-separated on recall AND precision |
+| participant precision not below the verbal clauses' CI-separated | **MET** -- +0.0012 CI[-0.0059,+0.0079] |
+| the 65 seen-by-nobody down to a counted residual with reasons | **MET** -- 65 -> 39, and all 32 remaining misses in 4 attributed classes |
+| board not down on any dimension | **MET** (capped, all 7 at +0.0000; full run FULL_BOARD_STATUS) |
+| the role competition's full cue set firing on them | **MET** -- slot 2 -> 52, rank 5 -> 136, frame 3 -> 27 |
+| **event/state fired on >= 0.90 of the 167** | **NOT MET: 0.8084** shipped, **0.8503** with the graded arc cue |
+| **role accuracy on the 167 up CI-separated** | **NOT MET: -0.0260 CI[-0.0558,+0.0037]**, controlled -- no gain, not a significant loss |
+| **one structure per clause** | **NOT MET** -- 98 of 128 agree, 30 disagree |
+
+### 7a. To reach 0.90 on the 167 (currently 0.8084 shipped / 0.8503 with the arc cue)
+
+**LEAD 1 -- turn the graded arc cue ON. CHASED AND MEASURED; it needs a board A/B, not a build.**
+0.8084 -> **0.8503** at tau = 0.5, F1 0.8917 -> 0.8935, precision delta CI includes zero, flat from 0.05 to 0.90.
+*What remains:* `HDLAB_PREDICATION_ARC_TAU=0.5` plus one `--board-ab --full`. **This is the single highest-value
+remaining action in the whole brief and it is one environment variable.**
+
+**LEAD 2 -- the 22 complement-scan misses, each named.** *Research:* every one is in
+`data/exp_nonverbal_predication_participants_agent_v1/residual_cap700.json` with the token the scan picked instead.
+The classes that remain after the ten constructions are (i) **postposed-subject inversion with a fronted non-deictic
+predicate** (`Most troubling , however , is the fact ...`, `Wtf is this ?`) -- the fronted element is an ADJ or a
+mis-tagged wh-form, so `FRONTABLE_PRED` does not admit it and admitting ANY left neighbour was measured to cost
+0.7904 -> 0.7305; (ii) **an ADJ + NUM run** (`Today is good 12:30 ?`) where the run's last ADJ/NUM rule takes the
+NUM; (iii) **a complement behind a parenthetical** (`This statement is , despite its facade of fair - mindedness ,
+so many weasel words .`), where the scan breaks at the comma. *Chased:* (iii) is the one I would do next -- the arm
+ALREADY has the reading (`copular_available` returns 1.0 for a crossed-punctuation complement, pri 110 10b), so the
+complement scan needs to cross the same boundary the availability test already crosses. That is a two-line change
+and I ran out of measurement budget, not ideas. *Bound:* these 22 are 13.2% of the 167.
+
+**LEAD 3 -- the 6 non-copular predications.** *Research:* `attachment_arm.assertion_candidates` already admits the
+content heads of phrases in a verbless utterance, and -- exactly like `cop_predicates` before this brief -- **it has
+no event consumer.** *What it would take:* route its fragment branch into `predicate_sites` behind its own switch
+and re-run this instrument. Small; alternate path E.
+
+**LEAD 4 -- the 4 upstream misses.** 3 are the category organ tagging a gold copula `VERB` and 1 is
+`copular_available` denying the slot. Those belong to the categories rung and to pri 110's hand-off. Not mine.
+
+**THE ARITHMETIC BOUND:** with leads 2 and 3 solved perfectly the ceiling on this population is **0.9760**; with
+lead 1 alone the measured value is **0.8503**. The bar's 0.90 sits between them, so **0.90 is reachable on this
+population and the route to it is enumerated** -- it is not a wall.
+
+### 7b. To make role accuracy go UP (currently -0.0260, CI includes zero)
+
+**LEAD 5 -- open the gates but KEEP the head-category configuration (arm B3). CHASED; the table is building.**
+The counts say the split is what costs: `ADJ_pre` is an **0.845**-reliable SUBJ cue that the PRED pooling replaces
+with an 0.819 one. Keeping `ADJ_pre` / `NOUN_pre` / `ADV_pre` as configurations while letting the pre-verbal-slot,
+rank and frame cues fire inside them preserves the 0.845 and adds the coverage. **This is the arm I would ship if
+the build lands.**
+
+**LEAD 6 -- the joint frame-slot decode never groups a non-verbal predicate's arguments.**
+`coarse_roles` groups a verb's dependents for the capacity-one slot assignment only when `pos[h-1] in ("VERB","AUX")`
+(line ~1396). A copular clause's subject and predicate-nominal therefore never compete for one slot, which is
+exactly the situation an equative clause creates. *Not cracked here*, deliberately: my diff matches the cell exactly,
+and the cell does not touch the grouping. Named as an uncracked rung.
+
+**LEAD 7 -- and this one is bigger than my brief.** The matched control exposed that **rebuilding the role validity
+table on today's frontend loses 0.0100 overall and 0.0447 on this population** (5b-bis), because 22.2% fewer
+training instances clear the governor's reliability gate than when the live asset was built. The role competition
+is being taught by a governor that has become less confident. **Until that is understood, every asset-level result
+on this organ -- including mine -- is measured against a floor that is drifting.** Brief-ready, with the numbers.
+
+### 7c. To get ONE structure per clause
+
+**LEAD 8 -- consolidate the copular state reader onto the predicate-slot signal.** 98 of 128 already agree; the 30
+that disagree are two organs answering one question. Alternate path A, with the caveat from 5f that `robust_cop`'s
+gates carry real signal and must survive the consolidation.
 
 ---
 
