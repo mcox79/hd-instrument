@@ -56,6 +56,19 @@ STEM_KAPPA = float(os.environ.get("HDLAB_LC_STEM_KAPPA", "1.0"))
 # CONFLICT-TRIGGERED STEM REANALYSIS (2026-09-13 13:20; DEFAULT ON): full UD-EWT test 0.9264 -> 0.9271, known-rare slice 0.872 -> 0.878,
 # "wounded" -> VERB; the blanket stem prior was -0.07 to -0.5 points (kept OFF). HDLAB_LC_STEM_REANALYSIS=0 disables.
 STEM_REANALYSIS = os.environ.get("HDLAB_LC_STEM_REANALYSIS", "1") == "1"
+# THE CLAUSE'S PREDICATE SLOT (2026-09-14, pri 110).  UD tags a clause's main-verb / copular `be` and `have` as AUX and
+# this organ learned that convention from its counts, so a real main verb comes out AUX -- 23 tokens of UD-EWT test 700
+# that carry 58% of the whole tag-to-head loss, and a class an ADDITIVE predicate rescue cannot see at all.  One
+# predicate per clause (Spivey-Knowlton 1993): a tense carrier with no verbal host in its verb group and no non-verbal
+# predicate to carry tense FOR is itself the clause's predicate.  That occupancy is computed ONCE
+# (attachment_arm.revise_for_predicate_slot -- the organ that owns the predication cues) and applied to the posterior
+# THIS organ hands down, so the governor, the reader's event detector and the predicate rescue all read ONE revision
+# instead of one arm each.  MEASURED, UD-EWT test, live chain: heads UAS 0.6245 -> 0.6330 (+0.0085 CI[+0.0045,+0.0126]);
+# on the sole-AUX clauses 0.6074 -> 0.6577 (+0.0503 CI[+0.0213,+0.0810]); gold-verb sentences the reader leaves with NO
+# event at all 33 -> 9 of 1240; on GUM (outside this organ's count supply) UAS +0.0088 CI[+0.0062,+0.0117].  The
+# information-free twin -- the same number of AUX tokens promoted at random -- is CI-separated BELOW the floor on both
+# populations and every seed.  Off with HDLAB_LC_PREDICATE_SLOT=0.
+PREDICATE_SLOT = os.environ.get("HDLAB_LC_PREDICATE_SLOT", "1") == "1"
 LAG: Optional[int] = (None if _lag_env.strip().lower() in ("inf", "none", "full") else int(_lag_env)) if _lag_env.strip() else 2
 BOS = "<s>"
 # FREQUENT-FRAME cue (2026-09-13 14:30 local; strategy): the WORDS immediately left and right of a token categorise it (Mintz 2003
@@ -1071,6 +1084,12 @@ class LexicalCategories:
                             le[k] = np.logaddexp(math.log(a) + le[k], math.log(1.0 - a) + spri); changed = True
             if changed:
                 post = self._posterior_le(le, lag)
+        if PREDICATE_SLOT and "VERB" in self.tags and "AUX" in self.tags:
+            # the clause's predicate-slot expectation, applied to the belief this organ hands DOWN (see PREDICATE_SLOT).
+            # UD-tagset instances only (strategy 2026-09-14 at landing): the PENN arm (temporal_model._penn_arm) has no VERB/AUX
+            # classes and crashed in revise_for_predicate_slot (`'VERB' is not in list`, copular_is_a_binding witness).
+            from hdlab.attachment_arm import revise_for_predicate_slot
+            post, _promoted = revise_for_predicate_slot(list(words), post, self.tags)
         return post
 
     def _posterior_le(self, le: np.ndarray, lag: Optional[int]) -> np.ndarray:

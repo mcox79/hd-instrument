@@ -273,6 +273,18 @@ BUDGET = os.environ.get("HDLAB_PREDICATE_RESCUE_BUDGET", "")
 #     Cost: +0.06 false events/sentence and 3.5 points of event precision (0.8715 -> 0.8364).
 # It is OFF by default only because the 7-dimension board A/B was run on the noun arm alone; turn it on with
 # HDLAB_PREDICATE_RESCUE_AUX=1 and re-run the board. It preserves the additive contract (it only ever ADDS).
+# SUPERSEDED 2026-09-14 (pri 110), AND THE DEFAULT STAYS OFF WITH A MEASURED REASON.  The question this arm asks --
+# does the clause's tense carrier hold the predicate slot? -- is now answered ONCE, upstream, where BOTH consumers can
+# read it (attachment_arm.predicate_slot_occupancy, applied to the posterior lexical_categories hands down), so a
+# carrier that IS its clause's predicate arrives here already tagged VERB and fires its event without any rescue.
+# Measured through this same reader on UD-EWT test (2077 sentences, 1240 with a gold verb), at the same budget:
+#     arm                             recall  precis  falseEv  blind clauses
+#     rescue noun arm only (live)     0.9501  0.8715   0.1757    33 / 1240
+#     + THIS boolean sole-AUX arm     0.9597  0.8364   0.2354    18 / 1240
+#     upstream predicate slot (110)   0.9812  0.8621   0.1969     9 / 1240
+#     both together                   0.9820  0.8305   0.2513     9 / 1240
+# The upstream form DOMINATES this arm on recall, precision AND blind clauses at once, and stacking this arm on top
+# buys +0.0008 recall for -0.0316 precision.  Left selectable for the ablation; not the recommended operating point.
 AUX_ARM = os.environ.get("HDLAB_PREDICATE_RESCUE_AUX", "0") == "1"
 
 # clause boundaries: the closed-class cues a reader has BEFORE any parse
