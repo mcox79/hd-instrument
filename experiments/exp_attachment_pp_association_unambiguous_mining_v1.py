@@ -1851,6 +1851,62 @@ def gap_decomposition(table, assoc: Optional[PPAssoc], test, decode: str = "incr
     return out
 
 
+def nmod_residual_probe(test, k_cap: int = 6, n_examples: int = 40) -> dict:
+    """LOOK AT THE 155 BEFORE BUILDING ANYTHING.
+
+    The residual ledger says the largest single bucket in this problem is gold `nmod` the case-marked-nominal
+    detector never sees (155 of 534 at cap 6000).  Before minting a construction for them, this probe asks what they
+    ARE: which side of their head they sit on, how far, what the head is, and whether they are adjacent to it -- the
+    facts that decide whether the Right-hand Head Rule (Williams 1981: an English compound is headed by its rightmost
+    member) is even the right structure.  Instrument only: the gold tree selects and describes the population."""
+    from hdlab.typed_selectional_preference import noun_supersense
+    tot = 0
+    side = defaultdict(int); dist = defaultdict(int); headcat = defaultdict(int)
+    shape = defaultdict(int); ex = []; why = defaultdict(int)
+    for toks, pos, gold, rels in test:
+        sites = {obj for _, obj, _ in pp_sites(toks, pos, k_cap)}
+        gens = {d for _h, d in genitive_arcs(toks, pos)}
+        for i in range(1, len(toks) + 1):
+            if rels[i - 1] != "nmod" or i in sites or i in gens:
+                continue
+            g = gold[i - 1]
+            tot += 1
+            # IS IT ALREADY INSIDE A CASE-MARKED RUN, just not the element the run-head rule picked?
+            inside = False
+            for prep, obj, _c in pp_sites(toks, pos, k_cap):
+                q = prep + 1
+                while q <= len(pos) and pos[q - 1] in NP_RUN_X:
+                    if q == i:
+                        inside = True
+                        break
+                    q += 1
+                if inside:
+                    break
+            why[("INSIDE a case-marked run, but the run-head rule chose another element"
+                 if inside else "no case-marked run contains it")] += 1
+            if not (1 <= g <= len(toks)):
+                side["ROOT"] += 1
+                continue
+            d = g - i
+            side["head_is_RIGHT" if d > 0 else "head_is_LEFT"] += 1
+            dist[min(abs(d), 8)] += 1
+            headcat[pos[g - 1]] += 1
+            # the structural shape a construction would have to key on
+            adj = (abs(d) == 1)
+            same_run = all(pos[q - 1] in NP_RUN_X for q in range(min(i, g), max(i, g) + 1))
+            shape[("ADJACENT" if adj else "gap") + "|" + ("same_NP_run" if same_run else "across_a_break")
+                  + "|" + ("head_right" if d > 0 else "head_left")] += 1
+            if len(ex) < n_examples:
+                lo, hi = max(1, min(i, g) - 1), min(len(toks), max(i, g) + 1)
+                ex.append("%s [dep=%s head=%s/%s d=%+d]" % (" ".join(toks[lo - 1:hi]), toks[i - 1], toks[g - 1],
+                                                            pos[g - 1], d))
+    return {"undetected_gold_nmod": tot, "which_side_is_the_head": dict(side),
+            "why_not_a_site": dict(sorted(why.items(), key=lambda kv: -kv[1])),
+            "distance_histogram": dict(sorted(dist.items())), "head_category": dict(sorted(headcat.items(),
+                                                                                          key=lambda kv: -kv[1])),
+            "structural_shape": dict(sorted(shape.items(), key=lambda kv: -kv[1])), "examples": ex}
+
+
 def capacity_probe(test, caps=(4, 6, 8, 12, 24)) -> dict:
     """WHY THE CAPACITY CAP IS NOT BINDING -- the distribution the sweep only summarised.
 
@@ -2265,6 +2321,9 @@ def main(argv=None) -> int:
     ap.add_argument("--coverage-probe", action="store_true", help="what the detector still cannot see, by class")
     ap.add_argument("--two-sided-diff", default=None, help="path to the MAIN diff; emits + checks the second diff")
     ap.add_argument("--two-sided-out", default=None, help="where to write the second diff")
+    ap.add_argument("--ladder-gain", default="", help="comma-separated gains on the learned pp/ppobj strengths "
+                                                     "(the causal test for the ladder compression)")
+    ap.add_argument("--nmod-residual-probe", action="store_true", help="what the 155 undetected gold nmod ARE")
     ap.add_argument("--capacity-probe", action="store_true", help="candidate-set sizes and gold-host ranks, uncapped")
     ap.add_argument("--flip-diag", default="", help="comma-separated relations to trace flips on (needs >=2 arms)")
     ap.add_argument("--rank-probe", action="store_true", help="channel ranking accuracy only: no table, no decode")
@@ -2299,6 +2358,16 @@ def main(argv=None) -> int:
         return verify_patch(a.verify_patch)
     if a.two_sided_diff:
         return two_sided_diff(a.two_sided_diff, a.two_sided_out)
+    if a.nmod_residual_probe:
+        test_r = sentences(TEST, cap=a.test_cap, maxlen=10 ** 6)
+        nr = nmod_residual_probe(test_r, a.kcap)
+        print(json.dumps(nr, indent=1), flush=True)
+        od = str(get_output_dir(ANCHOR)); os.makedirs(od, exist_ok=True)
+        with open(os.path.join(od, "nmod_residual_probe%s.json" % (a.tag or "")), "w", encoding="utf-8") as f:
+            json.dump({"anchor": ANCHOR, "probe": "nmod_residual_probe", "test_cap": a.test_cap, "results": nr,
+                       "hdlab_provenance": module_provenance(),
+                       "ts_iso": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}, f, indent=1)
+        return 0
     if a.capacity_probe:
         test_k = sentences(TEST, cap=a.test_cap, maxlen=10 ** 6)
         cp = capacity_probe(test_k)
@@ -2603,6 +2672,31 @@ def main(argv=None) -> int:
                     results[name][dec]["rel"].get("nmod", 0), results[name][dec]["pp_subpop"],
                     results[name][dec]["pp_subpop_n"]), flush=True)
             built[name] = tab; assoc_by_arm[name] = cfg["assoc"]; cfg_by_arm[name] = dict(cfg)
+            if a.ladder_gain and cfg["assoc"] is not None:
+                # THE CAUSAL TEST FOR THE LADDER COMPRESSION (round 3, closing the one loose end).
+                # MEASURED: the `pp` cue's learned ladder spans 1.496 at cap 1500 and only 1.079 at cap 6000, and obl
+                # falls 0.541 -> 0.497 across the same caps while the FLOOR stands still (0.440 -> 0.444).  That is a
+                # correlate, not a cause.  This holds the built table fixed and multiplies ONLY the learned strengths
+                # of the association cues by a gain, then re-decodes: if the compression is what costs obl, restoring
+                # the spread should restore obl.  It is an INSTRUMENT (a learned table is not rescaled by hand in any
+                # shipped arm), it needs no rebuild per point, and it reads the causal direction directly.
+                import copy as _copy
+                for _g in [float(x) for x in a.ladder_gain.split(",") if x]:
+                    _t = dict(tab); _t["strength"] = _copy.deepcopy(tab["strength"])
+                    for _cue in ("pp", "ppobj"):
+                        for _k in list(_t["strength"].get(_cue, {}) or {}):
+                            _t["strength"][_cue][_k] *= _g
+                    _lv = validity_by_value(_t, "pp")
+                    _rec = per_sentence_hits(_t, test, decodes[0])
+                    _sm = summarise(_rec)
+                    per_sent[("%s@gain%g" % (name, _g), decodes[0])] = _rec
+                    results[name].setdefault("ladder_gain", {})["%g" % _g] = {
+                        "UAS": _sm["UAS"], "obl": _sm["rel"].get("obl"), "nmod": _sm["rel"].get("nmod"),
+                        "pp_subpop": _sm["pp_subpop"],
+                        "pp_ladder_spread": round(max(_lv.values()) - min(_lv.values()), 4) if _lv else None}
+                    print("  GAIN %-8s x%-4g UAS %.4f  obl %.3f  nmod %.3f  (pp ladder spread %.3f)" % (
+                        name, _g, _sm["UAS"], _sm["rel"].get("obl", 0), _sm["rel"].get("nmod", 0),
+                        results[name]["ladder_gain"]["%g" % _g]["pp_ladder_spread"] or 0.0), flush=True)
             if a.live:
                 for dec in decodes:
                     recs = per_sentence_hits_live(tab, test, dec)

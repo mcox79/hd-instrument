@@ -1,0 +1,111 @@
+{
+ "anchor": "attachment_pp_association_unambiguous_mining_v1",
+ "probe": "nmod_residual_probe",
+ "test_cap": 700,
+ "results": {
+  "undetected_gold_nmod": 157,
+  "which_side_is_the_head": {
+   "head_is_LEFT": 122,
+   "head_is_RIGHT": 35
+  },
+  "why_not_a_site": {
+   "no case-marked run contains it": 119,
+   "INSIDE a case-marked run, but the run-head rule chose another element": 38
+  },
+  "distance_histogram": {
+   "1": 45,
+   "2": 54,
+   "3": 18,
+   "4": 18,
+   "5": 10,
+   "6": 6,
+   "7": 1,
+   "8": 5
+  },
+  "head_category": {
+   "NOUN": 66,
+   "PROPN": 45,
+   "NUM": 40,
+   "SYM": 3,
+   "PRON": 2,
+   "ADJ": 1
+  },
+  "structural_shape": {
+   "gap|across_a_break|head_left": 94,
+   "ADJACENT|same_NP_run|head_right": 23,
+   "ADJACENT|same_NP_run|head_left": 21,
+   "gap|across_a_break|head_right": 7,
+   "gap|same_NP_run|head_left": 7,
+   "gap|same_NP_run|head_right": 4,
+   "ADJACENT|across_a_break|head_right": 1
+  },
+  "examples": [
+   "Microsoft Watch from Mary Jo [dep=Mary head=Watch/PROPN d=-2]",
+   "good observations on a few of [dep=few head=observations/NOUN d=-3]",
+   "5 - 3 decision [dep=- head=3/NUM d=+1]",
+   "a 5 - 3 decision [dep=3 head=5/NUM d=-2]",
+   "as President Bush 's [dep=President head=Bush/PROPN d=+1]",
+   "only half of the relief aid that [dep=aid head=half/NOUN d=-4]",
+   "a number of shares each [dep=shares head=number/NOUN d=-2]",
+   "the rate of 5 % a [dep=% head=rate/NOUN d=-3]",
+   "5 % a year ( [dep=year head=%/SYM d=-2]",
+   "in light of Syria 's promised withdrawal . [dep=withdrawal head=light/NOUN d=-5]",
+   "three years after 9-11 , [dep=years head=9-11/NUM d=+2]",
+   "recent article by Daniel Okrent [dep=Daniel head=article/NOUN d=-2]",
+   "President Bush pinched [dep=President head=Bush/PROPN d=+1]",
+   "criticized President Bush on [dep=President head=Bush/PROPN d=+1]",
+   "airplanes part of a \" war with [dep=war head=part/NOUN d=-4]",
+   "the hallmarks of al Qaeda [dep=al head=hallmarks/NOUN d=-2]",
+   "the Council on American - Islamic Relations advocacy [dep=Relations head=Council/PROPN d=-5]",
+   "executive director of the Council on American - Islamic Relations advocacy group . [dep=group head=director/NOUN d=-10]",
+   "the roster of suspected terrorists has [dep=terrorists head=roster/NOUN d=-3]",
+   ", Mississauga , Ont. ; [dep=Ont. head=Mississauga/PROPN d=-2]",
+   ", Kingston , Ont. ; [dep=Ont. head=Kingston/PROPN d=-2]",
+   "Eclipse Avenue , Mississauga . [dep=Mississauga head=Avenue/PROPN d=-2]",
+   "the sheikh of the mujahideen Osama [dep=mujahideen head=sheikh/NOUN d=-3]",
+   "a group of only a few hundred \" Afghan Arabs \" [dep=Arabs head=group/NOUN d=-8]",
+   "by Egyptians from the al - Jihad al - Islami group of [dep=group head=Egyptians/PROPN d=-9]",
+   "Islami group of Ayman al [dep=Ayman head=group/NOUN d=-2]",
+   "polyglot Arabs around Bin Laden [dep=Bin head=Arabs/PROPN d=-2]",
+   "distinctive coloration as mainly Jordanian , [dep=Jordanian head=coloration/NOUN d=-3]",
+   "the leaders of the so - called German Peasant Rebellion among [dep=Rebellion head=leaders/NOUN d=-8]",
+   "wearing its distinctive orange and black insignia . [dep=its head=insignia/NOUN d=+5]",
+   "are hundreds of al - Qaeda members in [dep=members head=hundreds/NOUN d=-5]",
+   "with September 11 ringleader [dep=September head=11/NUM d=+1]",
+   "The September 11 Panel [dep=September head=11/NUM d=+1]",
+   "stopped Bin Laden 's plot . [dep=Bin head=plot/NOUN d=+3]",
+   "its facade of fair - mindedness , [dep=mindedness head=facade/NOUN d=-4]",
+   "counter-terrorism czar Richard Clarke [dep=czar head=Richard/PROPN d=+1]",
+   "accepted Laurie Mylroie 's crackpot conspiracy theory that [dep=Laurie head=theory/NOUN d=+5]",
+   "the attacks on September 11 , [dep=11 head=attacks/NOUN d=-3]",
+   "an attack on al - Qaeda bases in [dep=bases head=attack/NOUN d=-5]",
+   "( What about 40 al - Qaeda bases that [dep=bases head=What/PRON d=-6]"
+  ]
+ },
+ "hdlab_provenance": {
+  "hdlab/attachment_arm.py": {
+   "sha1": "dd645eebf25d",
+   "bytes": 112303
+  },
+  "tools/build_attachment_validities.py": {
+   "sha1": "a6867eaca332",
+   "bytes": 11461
+  },
+  "pri97_root_cues_present": true,
+  "cues_at_import": [
+   "locality",
+   "frame",
+   "form",
+   "boundary",
+   "agree",
+   "constr",
+   "pp",
+   "plaus",
+   "rpred",
+   "rsub",
+   "rpos",
+   "csub"
+  ]
+ },
+ "ts_iso": "2026-09-14T06:25:53Z"
+}

@@ -1053,7 +1053,41 @@ defined by exactly the thing each opportunity would fix.
 **Both are out of this seat's remit** (one needs a new mined store and its own twin, the other a new parser), and both
 are now numbers rather than intentions.
 
-@@ROUND3TAIL@@
+## 23. CLOSING READBACK — every negative, yes or no
+
+| # | the negative / mechanism | understood? | the mechanism, in one line, with its number |
+|---|---|---|---|
+| 1 | the referential / definiteness cue costs accuracy | **YES** | its learned table puts almost all mass on `A:na +1.731`, `V:na +0.315`, `N:name −1.873` — a HOST-TYPE prior the configuration already owns — and the definiteness contrast is *reversed* (indef +0.515 > def +0.369). Built at the wrong scope: Altmann & Steedman's referential context is a discourse property, not a sentence one |
+| 2 | the oblique-slot store as a READ-TIME cue | **YES** | indistinguishable from its own scrambled twin on every number (obl −0.0042, nmod 0.0000); the channel probe said so first (0.671 vs the twin's 0.696) |
+| 3 | each ONE-SIDED teacher slot is a seesaw | **YES** | verbs-amplified obl 0.679 / nmod 0.221, nouns-only obl 0.210 / nmod 0.566, and **each matches its own twin** — so the mover is the meaning BUDGET's allocation, not the stores' content. Read off the ladders: amplifying verbs drives the whole `pp` ladder down ~0.9 (neutral bin −0.600), i.e. the cue stops encoding association and starts encoding "not a verb" |
+| 4 | `ccomp` −0.017 | **YES** | three tokens broken against one repaired out of 116, and the reachability trace says **two of the three are not touched by the cue at all** (no PP site, no genitive) — tree-level side effects of a single-root decode |
+| 5 | more reading does not help | **YES** | the association IS still learning (margin over its twin 0.106 → 0.196 from 5k to 100k lines; the noun side 0.407 → 0.502) but the curve is flat once proximity is in the model (0.7194 → 0.7176), and the obl side saturates by 5,000 lines (0.4633 at both volumes, to four decimals) |
+| 6 | the capacity cap is not binding | **YES** | 264 of 599 sites have more than 6 candidates, but the gold host's rank **never exceeds 6** (397/85/47/17/5/5, then zero). Recall at K identical for 6, 8, 12, 24 |
+| 7 | heavier shrinkage wins on the probe and loses in the organ | **YES** | heavier shrinkage makes the association's values more class-like and therefore more correlated with the configuration the learner already conditions on: it helps a fixed-weight ranker (+0.016) and gives a learner nothing (obl 0.541 → 0.530) |
+| 8 | round 1 mis-attributed the association's content | **YES** | the `flat` and `twin` controls carry no genitive. Against the genitive-matched `flatgen` the content is CI-separated on both relations (obl +0.0210\*, nmod +0.0150\*) |
+| 9 | the `base` floor moved between sessions | **YES** | strategy's 20:41–21:50 live-asset swaps (pri 97 / 99 / 103). My floor is the new live asset |
+| 10 | my own diagnostics disagreed with my own headline | **YES** | `roles_diag` / `gap_decomposition` / `label_transfer` ran after `deactivate_to_head()`, reading each table with its cue off. Fixed with `arm_context`, four self-test guards, everything re-run |
+| 11 | 155 gold nmod the detector never sees | **YES** | the Right-hand Head Rule is already the `npmod` construction; 55 of 157 are same-NP-run internal bracketing (a convention), 94 are appositive/measure/address cases needing an apposition mechanism, 38 sit inside a case-marked run whose head element UD picks differently |
+| 12 | the nmod PARTIAL on the retrieved subpopulation | **YES** | on that population proximity alone already scores 0.922, so the association cannot lift it — its job there is obl. Converted by the two-sided teacher: +0.0752\* over base, +0.0564\* over the shipped arm |
+| 13 | the downstream role regression 0.5765 → 0.5622 | **YES** | no NMOD class + better heads move nominals off verbs, and a nominal not governed by a verb can only be `dep` (`obl→dep` 61→96, `nmod→dep` 195→214). Removed upstream by the two-sided teacher (0.5769) |
+| 14 | **`objgen`'s obl falls 0.541 → 0.497 from cap 1500 to cap 6000 while `base` stands still** | **PARTIALLY — and I am flagging it rather than claiming it** | I measured the correlate: the cue's learned ladder compresses 1.496 → 1.079 and its losing bin rises from −0.255 to +0.001. **I did not run the causal test**, which is: rebuild at cap 6000 but hold the `pp` cue's strengths at their cap-1500 values and see whether obl returns to ~0.541. That is one build plus a table splice, it is buildable from this seat, and it is the one loose end in this file |
+
+## 24. ALTERNATE PATHS AFTER ROUND 3 (superseding §19 where they differ)
+
+1. **The NMOD role class** in `graded_role_assigner` (§17) — unchanged and still first. One class; the host-category
+   rule is 98.1% correct on gold heads; +0.0415 CI-separated of head-rung signal is waiting behind it.
+2. **The two-sided acquisition teacher** — shipped as the second diff, `BETA_NOM` re-swept at the landed cap (§25).
+3. **An APPOSITION mechanism** — *new in round 3, and it replaces the bare-nominal construction I proposed in §18.*
+   *Structure:* apposition is a SAME-REFERENT relation between two nominals ("Mississauga **, Ont.**", "czar
+   **Richard Clarke**", "5 % **a year**"), which is an entity-layer fact, not a case-marked-host fact — the reader
+   knows the two nominals denote one thing. *Reach:* 94 of 534 gold nmod = **+0.176 nmod if perfect.** *Why not
+   here:* it needs the entity/coref layer to supply same-referent evidence, exactly like the referential cue (#4),
+   and it is a different organ's brief.
+4. **The referential cue at DISCOURSE scope** — unchanged; refuted here at sentence scope with its learned table.
+5. **Semantic case marking for bare temporal obliques** — unchanged; 32 measured tokens, +0.067 obl if perfect.
+6. **CLOSED WITH REASONS, do not queue:** more reading, the retrieval capacity, the Dirichlet shrinkage, the
+   oblique-slot read-time cue, each one-sided teacher slot, and the bare-nominal right-headed construction (already
+   present as `npmod`).
 
 ## 19. ALTERNATE PATHS, SIMILARLY OR MORE BRAIN-FOUNDATIONAL THAN WHAT SHIPPED
 
