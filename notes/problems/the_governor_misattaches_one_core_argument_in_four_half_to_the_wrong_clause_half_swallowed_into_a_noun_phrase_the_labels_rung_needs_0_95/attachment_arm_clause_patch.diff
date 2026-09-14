@@ -1,0 +1,296 @@
+--- a/hdlab/attachment_arm.py
++++ b/hdlab/attachment_arm.py
+@@ -96,7 +96,36 @@
+ COP_LOCALITY = os.environ.get("HDLAB_ARM_COP_LOCALITY", "1") != "0"
+ CSUB_CUE = os.environ.get("HDLAB_ARM_CSUB", "1") != "0"
+ HOLD_FINITENESS = os.environ.get("HDLAB_ARM_HOLD_FINITENESS", "1") != "0"
+-CUES = ("locality", "frame", "form", "boundary", "agree", "constr", "pp") + (("plaus",) if PLAUS_CUE else ()) + ROOT_CUES + (("csub",) if CSUB_CUE else ())   # catpair / root = configuration
++# ----------------------------------------------------------------- CLAUSE MEMBERSHIP + CONSTITUENCY (solver pri-105)
++# 2026-09-13.  286 of the 1,205 core arguments on UD-EWT test 700 were attached outside their clause (a verb in
++# another clause, or the root) or absorbed into a neighbouring noun phrase.  Two brain computations the arm had no
++# cue for -- both added as CUES with LEARNED validities (same counts, same log-odds contrast, same observe path):
++#  CLAUSE MEMBERSHIP -- an argument is integrated inside its OWN clause: the first-stage parser packages roughly a
++#    clause (Frazier & Fodor 1978), integration cost is paid across intervening referents and clause boundaries
++#    (Gibson DLT; reading time rises AT a clause boundary, where the integration happens), a subordinator or
++#    complementiser OPENS a clause (Diessel 2004 -- the child's acquisition cue for clause dependency), infinitival
++#    `to` opens a non-finite one, and every predicate projects one.  The arm's only distance cues were log-distance
++#    and PUNCTUATION marks spanned; neither sees a predicate or a complementiser standing between the noun and the
++#    verb competing for it.  `clause` value = (predicates strictly between h and j, capped at 2) + "s" when a clause
++#    opener stands between them; the validity is learned per configuration, so a VERB may head a VERB across a
++#    boundary (that IS the subordinate clause arc) while a VERB may not head a NOUN across one.
++#  CONSTITUENCY -- a noun phrase is a UNIT whose head is its rightmost noun (Right-hand Head Rule, Williams 1981) and
++#    whose onset is its determiner (DP hypothesis; and as an acquisition fact the determiner is the infant's
++#    phrase-onset marker -- Shi & Melancon 2010, Bernal et al. 2010, Christophe et al. 2008).  A determiner arriving
++#    when the current phrase already has its noun opens a SECOND phrase ("gave the man | a book"); a determiner
++#    sequence does not ("all the people").  `npb` value = "in" / "cross" for a nominal-domain pair.
++#  NP_SPLIT applies the SAME computation to the phrase-internal CONSTRUCTIONS: `npmod_arcs` and the preposition frame
++#    in `function_word_arcs` attached every element of a MAXIMAL DET/ADJ/NUM/NOUN/PROPN run to the run's last noun,
++#    which is what proposed the absorbing arc in the first place (and, being an `fw` arc, collected the +5 convention
++#    bonus).  Now the Right-hand Head Rule applies inside one PHRASE.
++CLAUSE_CUE = os.environ.get("HDLAB_ARM_CLAUSE_CUE", "1") != "0"
++NPB_CUE = os.environ.get("HDLAB_ARM_NPB_CUE", "1") != "0"
++NP_SPLIT = os.environ.get("HDLAB_ARM_NP_SPLIT", "1") != "0"
++CLAUSE_MAXV = 2                     # intervening predicates counted up to this (a swept operating point)
++POSS_PRON = frozenset({"my", "your", "his", "her", "its", "their", "our", "whose"})
++CUES = (("locality", "frame", "form", "boundary", "agree", "constr", "pp") + (("plaus",) if PLAUS_CUE else ())
++        + ROOT_CUES + (("csub",) if CSUB_CUE else ())
++        + (("clause",) if CLAUSE_CUE else ()) + (("npb",) if NPB_CUE else ()))   # catpair / root = configuration
+ # "pp" (2026-09-13, folded from the pri-2 solver's proven Hindle-Rooth lever): for a PP-object nominal, the preposition's verb-vs-noun
+ # association LR(p) = log P(p|verb) / P(p|noun), learned TREEBANK-FREE from UNAMBIGUOUS prepositional phrases in reading.
+ M_SHRINK = 2.0
+@@ -245,22 +274,129 @@
+     return B
+ 
+ 
++def np_starts(toks: Sequence[str], pos: Sequence[str]) -> "np.ndarray":
++    """Per 1-based token: does it OPEN a new nominal phrase?  A determiner (or possessive pronoun) that arrives when
++    the current phrase already has its noun starts a second phrase; a determiner sequence does not."""
++    n = len(pos); lows = [t.lower() for t in toks]
++    out = np.zeros(n + 1, dtype=np.int64); seen_head = False
++    for i in range(1, n + 1):
++        p = pos[i - 1]; w = lows[i - 1]
++        if p not in NP_RUN:
++            seen_head = False
++            continue
++        if p == "DET" or (p == "PRON" and w in POSS_PRON):
++            if seen_head:
++                out[i] = 1; seen_head = False
++        elif p in ("NOUN", "PROPN"):
++            seen_head = True
++    return out
++
++
++def split_runs(pos: Sequence[str], starts) -> List[Tuple[int, int]]:
++    """Contiguous NP_RUN spans split at every phrase onset: inclusive 1-based (a, b) spans."""
++    n = len(pos); out = []; i = 1
++    while i <= n:
++        if pos[i - 1] not in NP_RUN:
++            i += 1; continue
++        a = i; j = i + 1
++        while j <= n and pos[j - 1] in NP_RUN and not starts[j]:
++            j += 1
++        out.append((a, j - 1)); i = j
++    return out
++
++
++def phrase_head(pos: Sequence[str], a: int, b: int) -> Optional[int]:
++    """The Right-hand Head Rule INSIDE one phrase: the last NOUN/PROPN, else the last ADJ/NUM."""
++    nouns = [k for k in range(a, b + 1) if pos[k - 1] in ("NOUN", "PROPN")]
++    if nouns:
++        return nouns[-1]
++    adjs = [k for k in range(a, b + 1) if pos[k - 1] in ("ADJ", "NUM")]
++    return adjs[-1] if adjs else None
++
++
++NPB_VALUES = ("na", "in", "cross")
++
++
++def npb_matrix(toks: Sequence[str], pos: Sequence[str]) -> "np.ndarray":
++    """Value id per (head row 0..n, dependent col 1..n): 0 = na (not a nominal-domain pair), 1 = in (same phrase),
++    2 = cross (a phrase onset stands between them, so they belong to different phrases)."""
++    n = len(pos); starts = np_starts(toks, pos)
++    cs = np.concatenate([[0], np.cumsum(starts[1:])])
++    dom = np.array([False] + [p in NP_RUN for p in pos])
++    H = np.arange(0, n + 1)[:, None]; J = np.arange(1, n + 1)[None, :]
++    lo = np.minimum(H, J); hi = np.maximum(H, J)
++    v = np.where((cs[hi] - cs[lo]) > 0, 2, 1)
++    both = np.concatenate([np.zeros((1, n), dtype=bool), (dom[1:, None] & dom[None, 1:])], axis=0)
++    return np.where(both, v, 0)
++
++
++def predicate_flags(toks: Sequence[str], pos: Sequence[str]):
++    """Per 1-based token: (is a PREDICATE, is a CLAUSE OPENER).  Predicate = a VERB or the arm's own copular
++    predicate; opener = a subordinator, a wh relativizer/complementiser, or infinitival `to`."""
++    n = len(pos); lows = [t.lower() for t in toks]
++    pred = np.zeros(n + 1, dtype=np.int64); opn = np.zeros(n + 1, dtype=np.int64)
++    cop = cop_predicates(toks, pos)
++    for i in range(1, n + 1):
++        p = pos[i - 1]; w = lows[i - 1]
++        if p == "VERB" or i in cop:
++            pred[i] = 1
++        if p == "SCONJ":
++            opn[i] = 1
++        elif p in ("PRON", "DET", "ADV") and w in WH_FORMS:
++            opn[i] = 1
++        elif p == "PART" and w == "to":
++            opn[i] = 1
++    return pred, opn
++
++
++def clause_matrices(toks: Sequence[str], pos: Sequence[str]):
++    """(nv, sb) over (head row 0..n, dependent col 1..n): predicates strictly between h and j (capped) and whether a
++    clause opener stands strictly between them.  The ROOT arc (row 0) crosses nothing."""
++    n = len(pos); pred, opn = predicate_flags(toks, pos)
++    cp = np.concatenate([[0], np.cumsum(pred[1:])]); co = np.concatenate([[0], np.cumsum(opn[1:])])
++    H = np.arange(0, n + 1)[:, None]; J = np.arange(1, n + 1)[None, :]
++    lo = np.minimum(H, J); hi = np.maximum(H, J)
++    nv = cp[np.maximum(hi - 1, 0)] - cp[lo]; sb = co[np.maximum(hi - 1, 0)] - co[lo]
++    nv[0, :] = 0; sb[0, :] = 0
++    return np.minimum(nv, CLAUSE_MAXV), (sb > 0).astype(np.int64)
++
++
++def clause_value(nv: int, sb: int) -> str:
++    return ("%d" % nv) + ("s" if sb else "")
++
++
++CLAUSE_VALUES = tuple(clause_value(v, s) for v in range(CLAUSE_MAXV + 1) for s in (0, 1))
++
++
+ def npmod_arcs(toks: Sequence[str], pos: Sequence[str]) -> List[Tuple[int, int]]:
+-    """NP-internal modifier construction: within a contiguous nominal run every element attaches to the last NOUN/PROPN."""
+-    n = len(pos); out = []; i = 0
+-    while i < n:
+-        if pos[i] not in NP_RUN:
+-            i += 1; continue
+-        j = i
+-        while j < n and pos[j] in NP_RUN:
+-            j += 1
+-        run = list(range(i, j)); heads = [k for k in run if pos[k] in ("NOUN", "PROPN")]
+-        if heads:
+-            h = heads[-1] + 1
+-            for k in run:
+-                if k + 1 != h:
+-                    out.append((h, k + 1))
+-        i = j
++    """NP-internal modifier construction: within one PHRASE every element attaches to the phrase's head noun (the
++    Right-hand Head Rule).  The phrase ends at the next determiner that opens one (pri-105): the maximal-run version
++    hung an argument noun under the NEXT phrase's noun ("gave the man a book" -> man under book), which is the
++    dominant constituency error class.  HDLAB_ARM_NP_SPLIT=0 restores the maximal run."""
++    if not NP_SPLIT:
++        n = len(pos); out = []; i = 0
++        while i < n:
++            if pos[i] not in NP_RUN:
++                i += 1; continue
++            j = i
++            while j < n and pos[j] in NP_RUN:
++                j += 1
++            run = list(range(i, j)); heads = [k for k in run if pos[k] in ("NOUN", "PROPN")]
++            if heads:
++                h = heads[-1] + 1
++                for k in run:
++                    if k + 1 != h:
++                        out.append((h, k + 1))
++            i = j
++        return out
++    out = []
++    for (a, b) in split_runs(pos, np_starts(toks, pos)):
++        h = phrase_head(pos, a, b)
++        if h is None or pos[h - 1] not in ("NOUN", "PROPN"):
++            continue
++        for k in range(a, b + 1):
++            if k != h:
++                out.append((h, k))
+     return out
+ 
+ 
+@@ -285,9 +421,11 @@
+     n = len(pos); out = []; lows = [t.lower() for t in toks]
+     COP = {"be", "is", "are", "was", "were", "been", "being", "am", "become", "became", "becomes", "seem", "seems", "seemed",
+            "'m", "'s", "'re", "s", "m", "re"}   # clitic copulas (2026-09-13 root anatomy: "I 'm not fond" rooted 'I'; the rule never fired)
+-    def np_head_after(i):                   # head noun of the nominal run starting at i (0-based) or None
+-        j = i
+-        while j < n and pos[j] in NP_RUN:
++    starts = np_starts(toks, pos) if NP_SPLIT else None
++
++    def np_head_after(i):                   # head noun of the nominal PHRASE starting at i (0-based) or None
++        j = i + 1                           # the phrase ends at the next determiner that OPENS one (pri-105)
++        while j < n and pos[j] in NP_RUN and not (NP_SPLIT and starts[j + 1]):
+             j += 1
+         heads = [k for k in range(i, j) if pos[k] in ("NOUN", "PROPN")]
+         return heads[-1] if heads else None
+@@ -701,6 +839,36 @@
+     return B
+ 
+ 
++BOUNDARY_GAMMA = float(os.environ.get("HDLAB_ARM_BOUNDARY_GAMMA", "4.0"))   # swept 0/2/4/8; never adopted
++
++
++def boundary_penalty(A: "np.ndarray", toks: Sequence[str], pos: Sequence[str], g_clause: float = None,
++                     g_np: float = None) -> "np.ndarray":
++    """ACQUISITION signal (used by tools/build_attachment_validities.py on the teacher's score matrix, NOT at read
++    time) -- the analogue of `parallelism_boost` and `predication_boost` for pri-105's two computations.  The
++    knowledge-free teacher is locality + semantic plausibility: it has no notion of a clause or a phrase, so a
++    noun's posterior mass is spread over every nearby verb whatever stands between them, and the two new cues have
++    little contrast to learn a validity from.  Here the teacher is given the same two facts the child's first-stage
++    parser has -- integrate inside the clause (Frazier & Fodor 1978; Gibson DLT) and a determiner opens a new phrase
++    (Shi & Melancon 2010) -- as a PENALTY on crossing arcs.  Treebank-free (categories + position only); gammas are
++    SWEPT operating points."""
++    g_clause = BOUNDARY_GAMMA if g_clause is None else g_clause
++    g_np = BOUNDARY_GAMMA if g_np is None else g_np
++    n = len(pos); B = A.copy()
++    nv, sb = clause_matrices(toks, pos); V = npb_matrix(toks, pos)
++    for j in range(1, n + 1):
++        for h in range(1, n + 1):
++            if h == j or not np.isfinite(B[h][j]):
++                continue
++            d = 0.0
++            if g_clause:
++                d -= g_clause * (float(nv[h][j - 1]) + float(sb[h][j - 1]))
++            if g_np and V[h][j - 1] == 2:
++                d -= g_np
++            B[h][j] += d
++    return B
++
++
+ class SentenceCues:
+     """ONE cue pass per sentence (shared by every arc): punctuation cumsum for boundaries, construction map, verb lemmas."""
+ 
+@@ -713,6 +881,8 @@
+         self.teacher = _plaus_teacher() if PLAUS_CUE else None
+         self.rootcues = root_cue_values(self.toks, self.pos)     # MAIN-ASSERTION cues (one pass; read at h == 0)
+         self.csub = csub_sites(self.toks, self.pos) if CSUB_CUE else {}
++        self.clause = clause_matrices(self.toks, self.pos) if CLAUSE_CUE else None   # (predicates, opener) crossed
++        self.npb = npb_matrix(self.toks, self.pos) if NPB_CUE else None              # phrase membership
+         # PP-object sites: j -> (verb_idx, noun_idx, LR bin) when the preposition cue applies (pp_assoc given)
+         self.pp: Dict[int, Tuple[Optional[int], Optional[int], str]] = {}
+         if pp_assoc:
+@@ -734,7 +904,10 @@
+ 
+     def cues(self, j: int, h: int) -> Dict[str, str]:
+         if h == 0:
+-            return self.rootcues[j]      # the ROOT configuration is a cue competition too, not a per-category prior
++            d0 = self.rootcues[j]        # the ROOT configuration is a cue competition too, not a per-category prior
++            if self.clause is not None:
++                d0 = dict(d0); d0["clause"] = clause_value(int(self.clause[0][0][j - 1]), int(self.clause[1][0][j - 1]))
++            return d0
+         pj = self.pos[j - 1]; ph = self.pos[h - 1]; dr = "L" if h < j else "R"
+         lo, hi = (h, j) if h < j else (j, h)
+         nb = int(self.cum[hi - 1] - self.cum[lo])
+@@ -752,6 +925,12 @@
+             v = self.csub.get((h, j))
+             if v is not None:
+                 c["csub"] = v                 # the copular predicate vs a later verb, for the SUBJECT
++        if self.clause is not None:
++            c["clause"] = clause_value(int(self.clause[0][h][j - 1]), int(self.clause[1][h][j - 1]))
++        if self.npb is not None:
++            v = int(self.npb[h][j - 1])
++            if v:
++                c["npb"] = NPB_VALUES[v]      # the two nominals are in one phrase, or a determiner separates them
+         if ph == "VERB":
+             fr = self.frames.get(self.lem[h - 1])
+             trans = "unk" if not fr else ("trans" if fr[1] / fr[0] >= 0.3 else "intrans")
+@@ -1007,6 +1186,15 @@
+         for (h, j), v in sc.csub.items():
+             if 1 <= h <= n and 1 <= j <= n:
+                 S[h, j - 1] += T[C[h, j - 1]][vid.get(v, 0)]
++    # CLAUSE MEMBERSHIP + CONSTITUENCY (pri-105): dense adds over the same grid
++    if sc.clause is not None and "clause" in ix.cue_tab:
++        nv, sb = sc.clause; vid = ix.val_id["clause"]
++        lut = np.array([[vid.get(clause_value(v, b), 0) for b in (0, 1)] for v in range(CLAUSE_MAXV + 1)], dtype=np.int64)
++        S += ix.cue_tab["clause"][C, lut[nv, sb]]
++    if sc.npb is not None and "npb" in ix.cue_tab:
++        vid = ix.val_id["npb"]
++        lut = np.array([0] + [vid.get(v, 0) for v in NPB_VALUES[1:]], dtype=np.int64)
++        S += ix.cue_tab["npb"][C, lut[sc.npb]]
+     # masks: no self-arcs, form classes never head, form classes never root when a word exists
+     A = np.full((n + 1, n + 1), -np.inf); A[:, 1:] = S
+     A[np.arange(1, n + 1), np.arange(1, n + 1)] = -np.inf
+@@ -1748,6 +1936,8 @@
+ __all__ = ["SentenceCues", "CONSTRUCTIONS", "construction_map", "verb_frames_from_reading", "strengths_from_arc_counts",
+            "load_attachment_validities", "save_attachment_validities", "new_counts", "accrue_sentence", "observe_arc_outcome",
+            "pp_site", "pp_assoc_from_reading", "pp_lr", "root_cue_values", "predication_boost", "finiteness",
++           "np_starts", "split_runs", "phrase_head", "npb_matrix", "predicate_flags", "clause_matrices", "clause_value",
++           "boundary_penalty",
+            "cop_predicates", "subordination", "assertion_candidates", "arc_scores", "head_posterior", "heads", "arc_scores_graded", "head_posterior_graded", "heads_graded", "SemanticBootstrapTeacher", "ASSET", "FORM"]
+ 
+ 
