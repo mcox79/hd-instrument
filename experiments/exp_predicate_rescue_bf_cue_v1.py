@@ -192,6 +192,28 @@ class CategoryChannels:
             return float(fallback)
         return float(row[self.vi] - max(row[j] for j in self.non))
 
+    def lex_pcw(self, w):
+        """P(VERB | word) FROM THE COUNTS -- the frequency-normalised likelihood ratio, written as a probability.
+
+        The emission log-ratio `lex_llr` divides P(w|VERB) by P(w|c): both numerator and denominator carry the
+        word's frequency through their category-sized denominators, and the add-lambda floor for an unseen cell is
+        an arbitrary constant rather than an estimate, so the ratio INVERTS on rare nouns. Dividing the emission
+        count by the WORD's OWN TOTAL instead -- n(VERB, w) / sum_c n(c, w) -- cancels the frequency term exactly:
+        it is P(category | word), the quantity a reader actually carries per lexeme (Lee & Federmeier 2009 graded
+        category competition). `lex_bias` is the log-odds form of the same thing against the best rival
+        (log n(V,w) - log max_c n(c,w)); this is the log-probability form against the whole distribution
+        (log n(V,w) - log sum_c n(c,w)). Both are measured; they differ only in the denominator, and the
+        difference is exactly how much of the word's mass the best rival holds."""
+        wl = w.lower()
+        m = self.m
+        lam = m.lam
+        cnt = [m.emit[t][wl] for t in self.tags]
+        tot = sum(cnt)
+        if tot == 0:
+            return None                       # no lexical entry: the form route answers instead
+        T = len(self.tags)
+        return float(math.log(cnt[self.vi] + lam) - math.log(tot + lam * T))
+
     def emission(self, words):
         m = self.m
         m._sent_pos = [LC.position_class(words, i) for i in range(len(words))]
@@ -352,9 +374,20 @@ def load_qasrl(path, cap=None):
     return out
 
 
-def build_rows(sents, ch, gate=has_verb_reading_bf, progress=None):
-    """[(sent_idx, tok_idx, cue_dict, label)] over rescue candidates (non-VERB non-AUX + verb reading).
-    label = 1 iff the token is a gold VERB the LIVE category organ dropped. Also returns coverage counts."""
+def build_rows(sents, ch, gate=has_verb_reading_bf, progress=None, mode="noun"):
+    """[(sent_idx, tok_idx, cue_dict, label)] over rescue candidates; label = 1 iff the token is a gold VERB the
+    LIVE category organ dropped.
+
+    mode="noun" (the landed remit): non-VERB non-AUX tokens with a verb reading -- a real verb called a noun.
+    mode="aux"  (2026-09-14 phase 7): THE SOLE-AUX CLAUSE. UD's AUX/VERB split is an ANNOTATION CONVENTION, not a
+      brain category: UD tags main-verb `be`/`have` AUX ("there IS an essay", "she HAS an essay"), and the reader
+      fires events only on UPOS==VERB, so a clause whose only verbal token is AUX-tagged emits NO event and the
+      whole clause disappears -- the same failure as the noun mis-tag, from the other side. The brain has no such
+      convention: the predicate slot is filled by whatever carries the clause's finite core, and when nothing else
+      competes for it that is the auxiliary itself (one predicate per clause, Spivey-Knowlton 1993). The arm
+      therefore admits an AUX-tagged token as a candidate ONLY when NO VERB-tagged token competes in its clause.
+      This is the class that is invisible to the additive rescue by construction (4.7-38.8% of dropped verbs) and
+      it is the same VERB-as-AUX confusion that carries 58% of the tag-to-head loss upstream (2026-09-13)."""
     rows = []
     nsent = 0
     n_drop_total = 0
@@ -364,20 +397,29 @@ def build_rows(sents, ch, gate=has_verb_reading_bf, progress=None):
             continue
         tags, post, le = ch.read(list(toks))
         cues = sentence_cues(ch, list(toks), tags, post, le)
-        dropped = set(i for i in gold_verb if tags[i] not in ("VERB", "AUX"))
+        if mode == "aux":
+            span = clause_spans(list(toks), tags)
+            has_verb = {c: any(tags[j] == "VERB" for j in range(len(toks)) if span[j] == c) for c in set(span)}
+            dropped = set(i for i in gold_verb if tags[i] == "AUX")
+        else:
+            dropped = set(i for i in gold_verb if tags[i] not in ("VERB", "AUX"))
         n_drop_total += len(dropped)
         for i in range(len(toks)):
-            if tags[i] in ("VERB", "AUX"):
-                continue
-            if not gate(toks[i]):
-                continue
+            if mode == "aux":
+                if tags[i] != "AUX" or has_verb[span[i]]:
+                    continue                       # a VERB already occupies this clause's predicate slot
+            else:
+                if tags[i] in ("VERB", "AUX"):
+                    continue
+                if not gate(toks[i]):
+                    continue
             if i in dropped:
                 n_drop_cand += 1
             rows.append((nsent, i, cues[i], 1 if i in dropped else 0))
         nsent += 1
         if progress and k % progress == 0:
             print("    .. %d sentences, %d rows" % (k, len(rows)), flush=True)
-    cov = {"n_dropped_verbs": n_drop_total, "n_dropped_in_gate": n_drop_cand,
+    cov = {"mode": mode, "n_dropped_verbs": n_drop_total, "n_dropped_in_gate": n_drop_cand,
            "gate_coverage": round(n_drop_cand / max(1, n_drop_total), 4)}
     return rows, nsent, cov
 
@@ -413,7 +455,7 @@ def score_logit(model, rows):
 BIN_SPEC = {
     # cue -> (lo, hi, width) in the cue's own natural units; outside the range clips to the edge bin.
     "lex_llr": (-14.0, 8.0, 1.0), "lex_odds": (-14.0, 8.0, 1.0), "ctx_odds": (-14.0, 8.0, 1.0),
-    "lex_bias": (-10.0, 6.0, 1.0), "stem_bias": (-10.0, 6.0, 1.0),
+    "lex_bias": (-10.0, 6.0, 1.0), "stem_bias": (-10.0, 6.0, 1.0), "lex_pcw": (-12.0, 0.0, 1.0),
     "post_p": (0.0, 1.0, 0.05), SHARE: (0.0, 1.0, 0.05), CSHARE: (0.0, 1.0, 0.05),
     "rel_position": (0.0, 1.0, 0.2),
     "subj_before_g": (0.0, 1.0, 0.1), "obj_after_g": (0.0, 1.0, 0.1), "frame_anchor_g": (0.0, 1.0, 0.1),
@@ -745,6 +787,12 @@ def arm_specs():
         ("G_graded__logit", ["lex_bias", "stem_bias", "ctx_odds", SHARE, CSHARE] + SG, "logit"),
         ("G_graded_plus_hard__rw", ["lex_bias", "stem_bias", "ctx_odds", SHARE, CSHARE] + SG + S, "rw"),
         ("ABL_graded_struct_only__rw", SG, "rw"),
+        # --- PHASE 7: the FREQUENCY-NORMALISED likelihood ratio written as P(category | word), against the
+        #     emission log-ratio it replaces and against the log-odds form already shipped.
+        ("P7_pcw__rw", ["lex_pcw", "stem_bias", "ctx_odds", SHARE, CSHARE] + SG, "rw"),
+        ("P7_pcw_and_bias__rw", ["lex_pcw", "lex_bias", "stem_bias", "ctx_odds", SHARE, CSHARE] + SG, "rw"),
+        ("ABL_lex_pcw_only__counts", ["lex_pcw"], "counts"),
+        ("ABL_lex_llr_only__counts", ["lex_llr"], "counts"),
         # --- ABLATIONS: each channel alone (is the COMBINATION earning its keep?)
         ("ABL_share_only__counts", [SHARE], "counts"),
         ("ABL_clause_share_only__counts", [CSHARE], "counts"),
@@ -756,7 +804,7 @@ def arm_specs():
     ]
 
 
-BUDGETS = [0.05, 0.10, 0.25, 0.50]
+BUDGETS = [0.05, 0.10, 0.15, 0.25, 0.50]
 CI_BUDGETS = [0.10, 0.50]
 
 
@@ -849,6 +897,31 @@ def witness_report(ch, model, names, th):
     return {"sentence": WITNESS, "tags": tags, "threshold": round(float(th), 4), "candidates": rows,
             "rescues_presents": any(r["tok"] == "presents" and r["rescued"] for r in rows),
             "rejects_distractors": not any(r["tok"] in ("sheet", "ice", "lake") and r["rescued"] for r in rows)}
+
+
+def augment_rows(rows, sents, ch, extra=("lex_pcw",)):
+    """Add WORD-ONLY cues to already-cached rows. These depend on the token alone (the organ's emission counts for
+    that word), not on the sentence, so they can be filled in without re-running the organ -- the row's (sent, tok)
+    index recovers the token from the same population, in the same order `build_rows` walked it."""
+    by = {}
+    k = 0
+    for toks, _g in sents:
+        if not toks:
+            continue
+        by[k] = toks
+        k += 1
+    miss = 0
+    for r in rows:
+        toks = by.get(r[0])
+        if toks is None or r[1] >= len(toks):
+            miss += 1
+            continue
+        w = toks[r[1]]
+        if "lex_pcw" in extra:
+            v = ch.lex_pcw(w)
+            # an unknown form has no lexical entry at all: fall back to the same novel-form route lex_bias uses
+            r[2]["lex_pcw"] = float(v) if v is not None else float(r[2]["lex_bias"])
+    return miss
 
 
 # ============================================================================ DIAGNOSTICS: understand every negative
@@ -966,6 +1039,74 @@ def diagnose(name, rows, nsent, sents, model=None, th=None):
     return d
 
 
+def truncation_analysis(rows, nsent, budget=0.10):
+    """WHAT THE CATEGORY ORGAN'S HAND-OFF COSTS. `tag_with_posterior` keeps only categories with P >= 0.01, and
+    that dict is what every graded consumer downstream receives. For a consumer that reads P(VERB) the truncation
+    is a HARD FLOOR on its operating point: it cannot set a threshold below eps, because everything below eps
+    arrives as an exact zero. Measured here by capping the achievable threshold at eps -- exactly what the
+    truncation does -- for eps in {0.01 (today), 0.001, 0 (the full distribution)}."""
+    p = np.array([r[2]["post_p"] for r in rows])
+    y = np.array([r[3] for r in rows])
+    npos = max(1, int(y.sum()))
+    out = {}
+    for eps in (0.01, 0.001, 0.0):
+        cv = [c for c in curve(rows, nsent, p) if c["th"] >= eps and c["fp_per_sent"] <= budget]
+        best = max(cv, key=lambda c: c["recovery"]) if cv else None
+        out[str(eps)] = {
+            "best_recovery_at_budget": round(best["recovery"], 4) if best else None,
+            "threshold": round(best["th"], 6) if best else None,
+            "fp_per_sent": round(best["fp_per_sent"], 4) if best else None,
+            "positives_zeroed_by_the_handoff": int((p < eps).sum() and ((p < eps) & (y == 1)).sum()),
+            "share_of_positives_zeroed": round(float(((p < eps) & (y == 1)).sum() / npos), 4),
+            "candidate_entries_kept": int((p >= eps).sum())}
+    return out
+
+
+def truncation_cost(ch, sents, cap=400):
+    """The RUNTIME and SIZE cost of widening the truncation: how many category entries per token survive each eps,
+    and what the dict build costs. The posterior itself is computed either way -- only the dict changes."""
+    import time as _t
+    out = {}
+    ss = [s for s, _g in list(sents)[:cap] if s]
+    posts = [ch.m.posterior(list(s)) for s in ss]                 # the shared cost, paid once, excluded below
+    for eps in (0.01, 0.001, 0.0):
+        t0 = _t.time()
+        ntok = 0
+        nent = 0
+        for post in posts:
+            for i in range(post.shape[0]):
+                d = {ch.tags[j]: float(post[i, j]) for j in range(len(ch.tags)) if post[i, j] >= eps}
+                ntok += 1
+                nent += len(d)
+        out[str(eps)] = {"dict_build_s_per_1000_tokens": round(1000.0 * (_t.time() - t0) / max(1, ntok), 4),
+                         "entries_per_token": round(nent / max(1, ntok), 3), "n_tokens": ntok}
+    return out
+
+
+def blocking_dump(rows, names, cues_of_interest):
+    """THE REDUNDANCY, NAMED. Pearson correlation between the cues, and the naive-Bayes vs Rescorla-Wagner weight
+    each gives the SAME bin. Naive Bayes accumulates every cue independently; the delta rule stops learning about a
+    cue once the cues already present predict the outcome (Rescorla & Wagner 1972, blocking)."""
+    X = {c: np.array([r[2][c] for r in rows], dtype=float) for c in cues_of_interest}
+    corr = {}
+    for a in cues_of_interest:
+        for b in cues_of_interest:
+            if a < b:
+                corr["%s~%s" % (a, b)] = round(float(np.corrcoef(X[a], X[b])[0, 1]), 4)
+    nb = CountCombiner(names).accrue(rows).finalize()
+    rw = RWCombiner(names).accrue(rows).finalize()
+    tab = []
+    for c in cues_of_interest:
+        bins = sorted(set(nb.pos[c]) | set(nb.neg[c]))
+        for b in bins:
+            n_pos = nb.pos[c].get(b, 0)
+            if n_pos < 20:
+                continue
+            tab.append({"cue": c, "bin": b, "n_pos": int(n_pos), "n_neg": int(nb.neg[c].get(b, 0)),
+                        "naive_bayes_w": round(nb._w(c, b), 4), "rescorla_wagner_w": round(rw.w.get((c, b), 0.0), 4)})
+    return {"cue_correlations": corr, "weights": tab}
+
+
 # ============================================================================ END-TO-END: the LIVE reader
 def bf_rescue_indices(ch, toks, model, th):
     """THE PROPOSED LIVE RESCUE, exactly as the patch ships it: read the category organ's posterior AND its
@@ -994,8 +1135,11 @@ def reader_end_to_end(ch, sents, model, th, cap=400):
     from hdlab.situation_reader import SituationReader
     r_off = SituationReader(predicate_recall=False)
     r_on = SituationReader(predicate_recall=True)
-    ARMS = ("OFF", "STANDIN", "BF")
+    ARMS = ("OFF", "STANDIN", "BF", "BF_AUX")
     per = {a: [] for a in ARMS}          # per-sentence (hits, fires)
+    zero_ev = {a: 0 for a in ARMS}       # sentences that produce NO event at all
+    zero_ev_gold = {a: 0 for a in ARMS}  # ... among sentences that DO have a gold verb
+    n_gold_sent = 0
     gold_n = []
     live_off = live_on = mismatch = mism_standin = 0
     nsent = 0
@@ -1010,8 +1154,21 @@ def reader_end_to_end(ch, sents, model, th, cap=400):
                 if tags[i] not in ("VERB", "AUX") and has_verb_reading_bf(toks[i])]
         standin = set(i for i in cand if float(post[i, ch.vi]) >= STANDIN_LIVE_TH)
         bf = set(i for i in cand if model.score(cues[i]) >= th)
-        for a, s in (("OFF", base), ("STANDIN", base | standin), ("BF", base | bf)):
+        # THE SOLE-AUX CLAUSE (phase 7): an AUX-tagged token with no VERB competing in its clause, scored by the
+        # same combiner. Measured as its OWN arm so its cost is never hidden inside the headline one.
+        span = clause_spans(list(toks), tags)
+        hv = {c: any(tags[j] == "VERB" for j in range(len(toks)) if span[j] == c) for c in set(span)}
+        aux = set(i for i in range(len(toks))
+                  if tags[i] == "AUX" and not hv[span[i]] and model.score(cues[i]) >= th)
+        for a, s in (("OFF", base), ("STANDIN", base | standin), ("BF", base | bf),
+                     ("BF_AUX", base | bf | aux)):
             per[a].append((len(s & gold_verb), len(s)))
+            if not s:
+                zero_ev[a] += 1
+                if gold_verb:
+                    zero_ev_gold[a] += 1
+        if gold_verb:
+            n_gold_sent += 1
         gold_n.append(len(gold_verb))
         nsent += 1
         if nsent <= 300:
@@ -1033,13 +1190,22 @@ def reader_end_to_end(ch, sents, model, th, cap=400):
            "arm_STANDIN_vs_live_reader_mismatched_sents": mism_standin, "arms": {}}
     H = {a: np.array([x[0] for x in per[a]], dtype=float) for a in ARMS}
     F = {a: np.array([x[1] for x in per[a]], dtype=float) for a in ARMS}
+    out["n_sentences_with_a_gold_verb"] = n_gold_sent
     for a in ARMS:
         out["arms"][a] = {"event_recall": round(float(H[a].sum() / max(1.0, G.sum())), 4),
                           "event_precision": round(float(H[a].sum() / max(1.0, F[a].sum())), 4),
                           "events_per_sent": round(float(F[a].sum() / max(1, nsent)), 4),
-                          "false_events_per_sent": round(float((F[a].sum() - H[a].sum()) / max(1, nsent)), 4)}
+                          "false_events_per_sent": round(float((F[a].sum() - H[a].sum()) / max(1, nsent)), 4),
+                          # THE CONVENTION-FREE INSTRUMENT: a sentence that produces NO event at all is a whole
+                          # clause that every downstream organ never sees. It does not depend on whether UD calls
+                          # the predicate VERB or AUX, which is exactly the question the AUX arm is about.
+                          "sentences_with_zero_events": zero_ev[a],
+                          "share_of_sentences_with_zero_events": round(zero_ev[a] / max(1, nsent), 4),
+                          "gold_verb_sentences_with_zero_events": zero_ev_gold[a],
+                          "share_of_gold_verb_sentences_with_zero_events":
+                              round(zero_ev_gold[a] / max(1, n_gold_sent), 4)}
     rng = np.random.default_rng(20260914)
-    for a, b in (("BF", "OFF"), ("BF", "STANDIN"), ("STANDIN", "OFF")):
+    for a, b in (("BF", "OFF"), ("BF", "STANDIN"), ("STANDIN", "OFF"), ("BF_AUX", "BF")):
         d = np.empty(2000)
         for k in range(2000):
             pick = rng.integers(0, nsent, nsent)
@@ -1064,6 +1230,9 @@ def main():
     ap.add_argument("--reader-cap", type=int, default=600, dest="reader_cap")
     ap.add_argument("--ship-arm", default="BF_bias_ctx_share__counts", dest="ship_arm")
     ap.add_argument("--ship-budget", type=float, default=0.10, dest="ship_budget")
+    ap.add_argument("--arms", default=None, help="comma-separated arm labels to run (default: all)")
+    ap.add_argument("--aux", action="store_true", help="phase 7: the SOLE-AUX clause arm")
+    ap.add_argument("--phase7", action="store_true", help="phase 7: cue-form, truncation, blocking and gold audits")
     ap.add_argument("--ship-only", action="store_true", dest="ship_only",
                     help="skip the arm sweep; rebuild the shipped asset + witness + diagnostics from the cached rows")
     args = ap.parse_args()
@@ -1107,13 +1276,23 @@ def main():
             arms = r["arms"]
             f1 = lambda d: (2 * d["event_recall"] * d["event_precision"]   # noqa: E731
                             / max(1e-9, d["event_recall"] + d["event_precision"]))
-            print("  budget %-5s th %.4f | OFF r %.4f p %.4f F1 %.4f | STANDIN r %.4f p %.4f F1 %.4f | "
-                  "BF r %.4f p %.4f F1 %.4f | BF-STANDIN %+.4f %s"
-                  % (b, float(ent["threshold"]), arms["OFF"]["event_recall"], arms["OFF"]["event_precision"],
-                     f1(arms["OFF"]), arms["STANDIN"]["event_recall"], arms["STANDIN"]["event_precision"],
-                     f1(arms["STANDIN"]), arms["BF"]["event_recall"], arms["BF"]["event_precision"], f1(arms["BF"]),
+            print("  budget %-5s th %.4f | BF r %.4f p %.4f F1 %.4f falseEv %.4f zeroEvSent %.4f | "
+                  "BF+AUX r %.4f p %.4f falseEv %.4f zeroEvSent %.4f | BF-STANDIN %+.4f %s"
+                  % (b, float(ent["threshold"]), arms["BF"]["event_recall"], arms["BF"]["event_precision"],
+                     f1(arms["BF"]), arms["BF"]["false_events_per_sent"],
+                     arms["BF"]["share_of_gold_verb_sentences_with_zero_events"],
+                     arms["BF_AUX"]["event_recall"], arms["BF_AUX"]["event_precision"],
+                     arms["BF_AUX"]["false_events_per_sent"],
+                     arms["BF_AUX"]["share_of_gold_verb_sentences_with_zero_events"],
                      arms["BF_minus_STANDIN_event_recall"]["delta"],
                      "SEP" if arms["BF_minus_STANDIN_event_recall"]["ci_separated"] else "ns"), flush=True)
+            print("        OFF r %.4f p %.4f falseEv %.4f zeroEvSent %.4f | STANDIN r %.4f p %.4f falseEv %.4f zeroEvSent %.4f"
+                  % (arms["OFF"]["event_recall"], arms["OFF"]["event_precision"],
+                     arms["OFF"]["false_events_per_sent"],
+                     arms["OFF"]["share_of_gold_verb_sentences_with_zero_events"],
+                     arms["STANDIN"]["event_recall"], arms["STANDIN"]["event_precision"],
+                     arms["STANDIN"]["false_events_per_sent"],
+                     arms["STANDIN"]["share_of_gold_verb_sentences_with_zero_events"]), flush=True)
         with open(out_dir / "reader_end_to_end.json", "w", encoding="ascii") as fh:
             json.dump({"anchor_name": "predicate_rescue_bf_cue_v1_reader", "results": out,
                        "ts_iso": datetime.now(timezone.utc).isoformat()}, fh, indent=2)
@@ -1122,7 +1301,96 @@ def main():
 
     cap = 200 if args.smoke else (None if args.full else 800)
     qcap = 200 if args.smoke else (2000 if not args.full else 4000)
+    gcap = 200 if args.smoke else (4000 if args.full else 800)
     tag = "smoke" if args.smoke else ("full" if args.full else "mid")
+
+    # -------------------------------------------------------------------- PHASE 7: the audits
+    if args.phase7:
+        import re as _re
+        pops = [("modern", load_ud(UD_TEST, cap=cap)), ("gum", load_gum(cap=gcap)),
+                ("qasrl", load_qasrl(QASRL, cap=qcap))]
+        res = {}
+        for name, sents in pops:
+            p = out_dir / ("rows_%s_%s.json" % (name, tag))
+            d = json.loads(p.read_text(encoding="ascii"))
+            rows = [(r[0], r[1], r[2], r[3]) for r in d["rows"]]
+            ns = d["nsent"]
+            augment_rows(rows, sents, ch)
+            ent = {"n_sent": ns, "n_candidates": len(rows), "n_positives": int(sum(r[3] for r in rows))}
+            # (a) the cue-form question: does P(category | word) beat the emission log-ratio it replaces?
+            ent["cue_auc"] = {c: rank_auc(rows, c) for c in ("lex_llr", "lex_odds", "lex_bias", "lex_pcw",
+                                                             "stem_bias", "ctx_odds", "post_p", SHARE, CSHARE)}
+            # (b) the hand-off truncation, and what widening it would buy / cost
+            ent["truncation"] = truncation_analysis(rows, ns)
+            # (c) the redundancy that blocks
+            ent["blocking"] = blocking_dump(rows, ["lex_bias", "stem_bias", "ctx_odds", SHARE, CSHARE] +
+                                            CUES_STRUCT_GRADED, ["ctx_odds", SHARE, CSHARE])
+            # (d) ALTERNATE PATH A's population: the 'presents' class -- clauses the organ leaves with NO predicate
+            vless = np.array([r[2]["clause_verbless"] for r in rows])
+            clvl = np.array([r[2]["clause_local_verbless_g"] for r in rows])
+            y = np.array([r[3] for r in rows])
+            ent["path_A_population"] = {
+                "positives_in_a_WHOLLY_VERBLESS_sentence": int(((vless > 0.5) & (y == 1)).sum()),
+                "share_of_positives": round(float(((vless > 0.5) & (y == 1)).sum() / max(1, y.sum())), 4),
+                "positives_whose_CLAUSE_has_no_verb_belief_above_0.5": int(((clvl > 0.5) & (y == 1)).sum()),
+                "share_of_positives_clause": round(float(((clvl > 0.5) & (y == 1)).sum() / max(1, y.sum())), 4)}
+            res[name] = ent
+            print("== %s  AUC %s" % (name, {k: v for k, v in ent["cue_auc"].items()}), flush=True)
+            print("   truncation %s" % json.dumps(ent["truncation"]), flush=True)
+            print("   path-A population %s" % json.dumps(ent["path_A_population"]), flush=True)
+            print("   cue correlations %s" % json.dumps(ent["blocking"]["cue_correlations"]), flush=True)
+        # (e) the GUM gold-blank audit over the WHOLE population, not a sample
+        gall = load_gum()
+        blank = _re.compile(r"^[_—\-]+$")
+        nb_tot = sum(1 for toks, gold in gall for i in gold if blank.match(toks[i]))
+        ng_tot = sum(len(gold) for _t2, gold in gall)
+        res["gum_gold_blank_audit"] = {"n_gold_verbs": ng_tot, "n_gold_verbs_that_are_blanks": nb_tot,
+                                       "share": round(nb_tot / max(1, ng_tot), 4), "n_sentences": len(gall)}
+        print("GUM gold blanks: %d of %d gold VERB tokens (%.4f)"
+              % (nb_tot, ng_tot, nb_tot / max(1, ng_tot)), flush=True)
+        # (f) the runtime/size cost of widening the truncation
+        res["truncation_cost"] = truncation_cost(ch, load_ud(UD_TEST, cap=None), cap=400)
+        print("truncation cost %s" % json.dumps(res["truncation_cost"]), flush=True)
+        with open(out_dir / "phase7_audits.json", "w", encoding="ascii") as fh:
+            json.dump({"anchor_name": "predicate_rescue_bf_cue_v1_phase7", "results": res,
+                       "ts_iso": datetime.now(timezone.utc).isoformat()}, fh, indent=2)
+        print("\n[done] %.0fs -> %s" % (time.time() - t0, out_dir / "phase7_audits.json"), flush=True)
+        return
+
+    # -------------------------------------------------------------------- PHASE 7: the SOLE-AUX clause arm
+    if args.aux:
+        pops = [("modern", load_ud(UD_TEST, cap=cap)), ("gum", load_gum(cap=gcap)),
+                ("qasrl", load_qasrl(QASRL, cap=qcap))]
+        res = {}
+        for name, sents in pops:
+            p = out_dir / ("rows_%s_%s_aux.json" % (name, tag))
+            if p.exists() and not args.rebuild:
+                d = json.loads(p.read_text(encoding="ascii"))
+                rows, ns, cov = [(r[0], r[1], r[2], r[3]) for r in d["rows"]], d["nsent"], d["cov"]
+                print("  [cache] %s -> %d rows" % (p.name, len(rows)), flush=True)
+            else:
+                print("building SOLE-AUX rows for %s ..." % name, flush=True)
+                rows, ns, cov = build_rows(sents, ch, progress=400, mode="aux")
+                p.write_text(json.dumps({"rows": rows, "nsent": ns, "cov": cov}), encoding="ascii")
+            augment_rows(rows, sents, ch)
+            res[name] = evaluate_population("SOLE-AUX (%s)" % name, rows, ns, cov,
+                                            n_boot=(400 if args.smoke else 2000),
+                                            do_arms=["G_graded__rw", "P7_pcw__rw", "ABL_graded_struct_only__rw",
+                                                     "ABL_lex_bias_only__counts", "ABL_ctx_odds_only__counts"])
+            # the ALWAYS-FIRE arm: every sole-AUX token becomes the clause's predicate, no scoring at all.
+            y = np.array([r[3] for r in rows])
+            res[name]["arms"]["ALWAYS_FIRE_sole_aux"] = {
+                "recovery": 1.0, "n_promoted": len(rows), "n_positives": int(y.sum()),
+                "precision": round(float(y.mean()), 4),
+                "fp_per_sent": round(float((len(rows) - y.sum()) / max(1, ns)), 4)}
+            a = res[name]["arms"]["ALWAYS_FIRE_sole_aux"]
+            print("  ALWAYS-FIRE sole-AUX: recovery 1.0000  precision %.4f  fp/sent %.4f  (n_cand %d, n_pos %d)"
+                  % (a["precision"], a["fp_per_sent"], len(rows), a["n_positives"]), flush=True)
+        with open(out_dir / "aux_arm.json", "w", encoding="ascii") as fh:
+            json.dump({"anchor_name": "predicate_rescue_bf_cue_v1_aux_arm", "results": res,
+                       "ts_iso": datetime.now(timezone.utc).isoformat()}, fh, indent=2)
+        print("\n[done] %.0fs -> %s" % (time.time() - t0, out_dir / "aux_arm.json"), flush=True)
+        return
 
     def cached(label, builder):
         p = out_dir / ("rows_%s_%s.json" % (label, tag))
@@ -1143,6 +1411,8 @@ def main():
     print("building QA-SRL rows (modern OOD) ...", flush=True)
     q = load_qasrl(QASRL, cap=qcap)
     q_rows, q_ns, q_cov = cached("qasrl", lambda: build_rows(q, ch, progress=400))
+    for _rows, _s in ((mod_rows, ud), (g_rows, g), (q_rows, q)):
+        augment_rows(_rows, _s, ch)          # the word-only cues (lex_pcw): no organ pass needed
 
     nb = 400 if args.smoke else 2000
     if args.ship_only:
@@ -1153,9 +1423,10 @@ def main():
         results = {k: prev.get(k, {}) for k in ("modern_ud_ewt_test", "modern_gum", "qasrl_dev_modern_ood")}
         print("  [ship-only] arm tables carried over from the previous metrics.json", flush=True)
     else:
-        results = {"modern_ud_ewt_test": evaluate_population("MODERN (UD-EWT test)", mod_rows, mod_ns, mod_cov, n_boot=nb),
-                   "modern_gum": evaluate_population("MODERN (GUM/GENTLE, 12+ genres)", g_rows, g_ns, g_cov, n_boot=nb),
-                   "qasrl_dev_modern_ood": evaluate_population("QA-SRL dev (modern OOD)", q_rows, q_ns, q_cov, n_boot=nb)}
+        only = args.arms.split(",") if args.arms else None
+        results = {"modern_ud_ewt_test": evaluate_population("MODERN (UD-EWT test)", mod_rows, mod_ns, mod_cov, n_boot=nb, do_arms=only),
+                   "modern_gum": evaluate_population("MODERN (GUM/GENTLE, 12+ genres)", g_rows, g_ns, g_cov, n_boot=nb, do_arms=only),
+                   "qasrl_dev_modern_ood": evaluate_population("QA-SRL dev (modern OOD)", q_rows, q_ns, q_cov, n_boot=nb, do_arms=only)}
 
     # ---- gate-equivalence control: the glass-box morphology gate vs the landed nltk WordNet gate
     if args.gate_control or args.full:
