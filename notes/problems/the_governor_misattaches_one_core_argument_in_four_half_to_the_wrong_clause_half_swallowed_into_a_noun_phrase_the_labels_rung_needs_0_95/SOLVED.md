@@ -468,6 +468,68 @@ which is the arc the clause cue rescues from the next verb to the right (obj 0.7
 
 ---
 
+# PHASE 7 -- the understanding audit, and the two residual classes decomposed until they are one problem
+
+## P7.1 DO I UNDERSTAND EVERY NEGATIVE MECHANISTICALLY, WITH A COUNT?
+
+| negative | mechanism | count | status |
+|---|---|---|---|
+| 94 bare noun-noun absorptions | no determiner stands between the argument and the noun that took it, so the Right-hand Head Rule genuinely licenses the compound; a boundary cue has nothing to fire on | 94 of 97 | **understood** |
+| constituency cue as a SCORE | making the arc IMPOSSIBLE recovers 4 of 97 -- the argument does not go to the verb, because the verb's arc is not competitive | +0.0033, 4/97 | **understood** |
+| the compound-association cue | **inert by SPARSITY, now counted**: of the 71 verb-headed absorptions the adjacent noun-noun pair was seen in the reading table **3 times**; 68 unseen, and in 57 at least one of the two words is unseen. The cue cannot fire on the population it was built for | 3 / 71 pairs seen | **understood (new count)** |
+| 57 of 71 absorbed arguments get NOTHING from the meaning channel | **now decomposed: it is pure COVERAGE, and it is the NOUN side.** 47 of the 57 zeros are "the noun is not in the self-grown typed store", 10 are "the verb is not". **Zero of them are a slot rule** (the case-marking / possessive / pronoun rules fire on none of these) | 47 noun / 10 verb / 0 rule | **understood (new count)** |
+| 79 within-clause wrong-predicate errors | **the saturation hypothesis is REFUTED BY COUNTING BEFORE THE BUILD**: the true verb's argument slot on that side is already filled in **4 of 79** cases. 59% of the errors are at distance 1, and the direction is balanced (chosen left 37 / right 42; gold left 42 / right 37). This is not a capacity competition, it is **which of two adjacent predicates takes this noun** -- a LEXICAL argument-structure question | 4/79 saturated; 47/79 at distance 1 | **understood, and it re-aims PATH A** |
+| the tag-free functional opener test | the SCONJ tag is weak (0.7384) but the opener SET is not, because two thirds of openers are wh-forms and `to` at 0.97+; the complement-type test fires on ordinary prepositions | P 0.751 vs 0.981, 138 fp | **understood** |
+| the teacher's boundary penalty | the arm self-teaches 2-3 rounds at alpha 0.8, so its own posterior re-absorbs a blanket correction, while the damage to the legitimate long arcs the teacher must place is not | UAS -0.0141, nmod 0.506 -> 0.405 | **understood** |
+| `npb`'s sign flip on the SEARCH decode (-0.0058 n.s.) | the same mechanism as the row above it: under the whole-sentence tree the cue pushes the nominal OUT of the phrase and, with no competitive verb arc to receive it, it lands on **another noun** -- the absorbed class rises 136 -> 143 on map1 while nmod rises 0.408 -> 0.446. The in-order decode is more forgiving because it commits locally and the clause cue is doing the work there | 136 -> 143 absorbed | **understood** |
+
+**AND THE FINDING THAT MATTERS MOST: THE TWO RESIDUAL CLASSES ARE ONE PROBLEM.** The constituency residual is
+"the verb's arc has no meaning evidence" (57 of 71, 82% of it the noun side of the store). The within-clause
+residual is "which of two adjacent verbs takes this noun", which is not capacity (4 of 79) and not position
+(balanced) -- it is the same per-verb lexical plausibility. **Both point at the coverage of the self-grown typed
+selectional store, which is Phase 1 of the long-term plan, not at anything inside the governor.**
+
+## P7.2 WHAT WOULD IT TAKE TO CONVERT THIS TO A FULL PASS -- every lead, with its arithmetic reach
+
+The only unmet clause is *"the wrong-clause and constituency classes each down by a THIRD"*. Where that stands
+after the build (in-order, floor -> arm): **wrong-clause 134 -> 103 (-23%, needs 89, i.e. 14 more items)**;
+**constituency 96 -> 117 (UP; needs 64, i.e. 53 fewer)**. Every lead I can name, with what it can reach:
+
+| # | lead | the brain's computation | arithmetic reach | in my remit? |
+|---|---|---|---|---|
+| L1 | the boundary-crossing errors the cue still misses | the same clause cue, with a better INPUT | ~18 of the 134 (would take the class to -37%, **meeting the clause**) -- the blocker is the input: 7.07% of clause values flip under the organ's own tags and the additive form cannot express an interaction | **partly** -- PATH B is a change to `arc_scores_graded`'s contract |
+| L2 | the 79 within-clause wrong-predicate errors | which of two adjacent predicates takes this noun = per-verb argument-structure preference | 79 items (6.6 points of core) -- **but the saturation form is refuted by counting: 4 of 79** | no: needs lexical plausibility (L3) or the second-order sibling brief |
+| L3 | **the 57 absorbed arguments whose verb arc has NO meaning evidence** | semantic bootstrapping: the predicate takes its plausible participants (Pinker 1984), the cue the arm already has as `plaus` | **57 items -- alone it takes the constituency class from 117 to ~60, MEETING the clause**; 47 of the 57 are the NOUN missing from the self-grown typed store | **the store growth is not** (a store build, Phase 1) -- **but the MIS-CODING of missing data is** (L3b) |
+| L3b | **"missing is not zero"** | a cue that does not APPLY contributes nothing to the competition; it does not vote against (Bates & MacWhinney: activation sums over AVAILABLE cues). Today an unseen pair and an implausible pair both take the value `0` and carry its learned negative strength | up to the same 57, and it costs nothing to test | **YES -- built and measured below** |
+| L4 | score-level slot saturation | the slot has capacity one, resolved in the COMPETITION rather than after the tree (MacWhinney 1987) | **4 of 79 by count** -- built and measured anyway, below | yes |
+| L5 | the 26 absorbed arguments whose gold head is NOT a verb (NOUN 8, ADJ 7, ADV 3, AUX 3, PRON 2, NUM/PROPN/SYM 3) | mixed: appositions, predicate nominals | small, heterogeneous | no |
+| L6 | the compound association at scale | lexical co-occurrence as a constraint (MacDonald 1994) | **0 as built** -- 3 of 71 pairs are in the table at all; it needs orders more reading, or the typed store's compound slot (PATH C) | no |
+
+**So the FULL PASS is gated on meaning SUPPLY, and the gate is quantified: 57 items on the constituency side and
+most of the 79 on the clause side are the same missing per-verb-per-noun plausibility.** That is Phase 1 of the
+long-term plan, and this brief cannot clear it from inside the governor. What IS inside the governor is L3b, the
+mis-coding of missing evidence as negative evidence, which is measured next.
+
+## P7.3 THE TWO LEVERS THE COUNTS POINTED TO -- BUILT AND MEASURED (live asset, no rebuild)
+
+**L3b -- "MISSING IS NOT ZERO". BUILT, MEASURED, and it settles the diagnosis.** `slot_plausibility` returns 0.0
+both for an implausible pair and for a pair the self-grown store has never seen, and `_plaus_bin` maps both to the
+value `0`, which carries that bin's learned (negative) strength -- so **absence of evidence votes against the arc**.
+The brain's version is the opposite: activation sums over the cues that are AVAILABLE (Bates & MacWhinney); a cue
+that does not apply contributes nothing. Re-coding an uncovered pair to a value the learned table does not carry
+(hence exactly 0.0) is therefore a pure fix of a mis-coding, testable with no rebuild:
+
+| | core | delta | CI95 | UAS | absorbed class |
+|---|---|---|---|---|---|
+| live asset | 0.7784 | -- | -- | 0.6239 | 97 |
+| **missing-is-not-zero** | 0.7817 | **+0.0033** | **[-0.0009, +0.0082] n.s.** | 0.6239 (+0.0000) | **93** |
+
+**It recovers 4 of the 57, and that is the finding.** Removing the negative vote is not enough because the verb arc
+still has **no positive evidence** to beat the compound reading. The blocker is SUPPLY, not coding -- which is
+exactly what the 47-nouns-missing-from-the-store count says. (The re-coding is still the right form and costs
+nothing; it is listed as a candidate for the next rebuild, where its own validity would be learned rather than
+forced to zero.)
+
 ## 11. ALTERNATE PATHS -- as brain-foundational or MORE so than what is shipped here
 
 Written at brief precision, with the count each would address, so strategy can queue them directly.
