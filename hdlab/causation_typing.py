@@ -730,7 +730,7 @@ _UD2DEP = {
 }
 
 
-def _build_adapt_sent(toks: Sequence[str], t, p, l) -> _AdaptSent:
+def _build_adapt_sent(toks: Sequence[str], t, p, l, reader=None) -> _AdaptSent:
     """Parse one already-tokenized sentence with the in-substrate frontend and present a spaCy-style Span.
 
     Topology translations:
@@ -742,8 +742,15 @@ def _build_adapt_sent(toks: Sequence[str], t, p, l) -> _AdaptSent:
         naming-frame veto can see it; an object-predicate ADJ stays reachable via xcomp.
     """
     toks = list(toks)
-    upos = list(t.tag(toks))
-    heads = dict(p.parse(toks, upos).heads)          # 1-based dep -> head (0 = ROOT)
+    # ONE PARSE (2026-09-14, strategy): when called from the reader, read ITS per-read cache -- the same frontend Tagger/Parser,
+    # but tagged once, parsed once per sentence, and with the GRADED category hand-off the reader passes (this organ used to re-tag and
+    # re-parse every sentence on its own, without the posterior: 71 frontend parses over 45 sentences on a warm read).
+    if reader is not None and hasattr(reader, "_cached_parse_heads"):
+        upos = list(reader._cached_tag(list(toks)))
+        heads = dict(reader._cached_parse_heads(list(toks), upos))
+    else:
+        upos = list(t.tag(toks))
+        heads = dict(p.parse(toks, upos).heads)          # 1-based dep -> head (0 = ROOT)
     deprels = dict(l.label(toks, upos, heads))       # 1-based dep -> UD deprel
     n = len(toks)
     atoks = []
@@ -842,7 +849,7 @@ def read_typed_causation(reader, conll_path, sm, *, gate_mode="force", use_gate=
         for ev in sm.events:
             reader_roles.setdefault((ev.sent_idx, ev.predicate), (ev.agent, ev.patient))
     for si, toks in enumerate(sents):
-        for sent in (_build_adapt_sent(toks, t, p, l),):
+        for sent in (_build_adapt_sent(toks, t, p, l, reader=reader),):
             for vtok in sent:
                 # DETECT: verb tokens, OR a force-lexicon lemma the parser GARDEN-PATHED into a NOUN
                 # that still heads a direct object ("A firewall blocks hackers ..." -> blocks tagged NOUN).
