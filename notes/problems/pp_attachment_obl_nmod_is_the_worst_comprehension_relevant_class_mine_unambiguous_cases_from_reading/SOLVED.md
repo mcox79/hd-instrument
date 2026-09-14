@@ -988,13 +988,72 @@ The residual ledger (§12.3b, cap 6000, per gold token, `objgen`) is the budget 
 |---|---|---|---|
 | 1 | **Re-sweep `BETA_NOM` at the landed cap 6000** | the acquisition teacher's meaning budget is a single scalar and where it is spent IS the obl/nmod trade (§16.3); the right split at 1,500 sentences is not the right split at 6,000 | the pair was measured at cap 1500 only. The in-order trade at that cap was obl −0.019 for nmod +0.026; at cap 6000 the obl side is already weaker (0.497 vs 0.541), so the optimum should move toward LESS `BETA_NOM`. **2 / 4 / 6, three builds, one run** — the single cheapest unclaimed number in this problem |
 | 2 | **A third case cue: bare temporal / measure obliques** | Bates & MacWhinney cue coalitions — where the morphological case cue is absent the SEMANTIC one does the same job; UD labels these `obl` with no `case` child | 32 of the 86 undetected obl are temporal nominals (28 `NOUN/noun.time` + 4 `PROPN/noun.time`), the largest single class. Perfect attachment of all 32 = **+0.067 obl**; a realistic half = +0.034 |
-| 3 | **A bare-nominal-modifier construction for the 155 undetected nmod** | apposition and bare nominal modification are marked by ADJACENCY plus type compatibility, not by a case marker — an item-based construction (Tomasello 2003), the family the arm already has for the genitive | 155 tokens = **29% of all gold nmod**, the largest single residual bucket anywhere in this problem. Half of them = **+0.145 nmod.** The genitive construction is the worked precedent: it took 111 nmod tokens and delivered +0.067 nmod on its own |
+| 3 | ~~A bare-nominal-modifier construction for the 155 undetected nmod~~ **— PROBED IN ROUND 3 AND WITHDRAWN (§21)** | the Right-hand Head Rule is ALREADY in the arm as the `npmod` construction; the residual is UD's internal bracketing of complex nominals, not a missing mechanism | **the +0.145 estimate in this row was wrong by ~3× and §21 replaces it with the measured split:** 55 of 157 are same-NP-run bracketing (a convention), 94 are appositive/measure/address cases needing an APPOSITION mechanism (reach +0.176 nmod, a different organ's brief), 23 are arcs `npmod` already offers |
 | 4 | **Lexicalise the object noun in the thematic channel** | Ratnaparkhi's fourth element is the OBJECT noun itself, not only its class; Collins & Brooks 1995 show the back-off must include the lexical `n2` term with the coarser terms behind it | the obl ASSOCIATION bucket is 90 tokens = **+0.19 obl** if perfect. But §16.1 predicts diminishing returns: the lexical term's marginal value collapses once the coarse terms are estimated, and more reading is already closed (§12.5b). **Expect a fraction, and measure the ladder spread, not the recall** |
 | 5 | **Second-order sibling factorisation** | valence occupancy at the phrase level — a host that already carries a PP of the same preposition is a worse candidate | the DECODE bucket, 46 obl + 44 nmod = 90 tokens where the cue ranks the gold host FIRST and the tree still loses it. Needs the projective second-order inside–outside; Matrix-Tree is first-order |
 
 **Built and measured in this session, so not on the list:** the two-sided teacher (shipped as the second diff), the
 referential cue, the oblique-slot read-time cue, the one-sided teacher slots, the reading-volume curve, the retrieval
 capacity, the shrinkage.
+
+---
+
+# PHASE 7, ROUND 3 — the section-18 opportunities, chased in order of reach
+
+## 21. OPPORTUNITY 2 (the 155 undetected nmod): LOOKED AT BEFORE BUILDING, AND IT IS NOT A MISSING CONSTRUCTION
+
+**My §18 arithmetic for this was wrong by about 3×, and looking at the tokens is what showed it.** §18 estimated
+"half of them = +0.145 nmod" from a bare-nominal-modifier construction built on the Right-hand Head Rule. Before
+building it I probed what the 157 undetected gold `nmod` of UD-EWT test 700 actually are
+(`--nmod-residual-probe`, `nmod_residual_probe_phase7.json`). Three facts kill the plan and replace it with a bound.
+
+**Fact 1 — the Right-hand Head Rule is ALREADY IN THE ARM.** `AA.CONSTRUCTIONS` contains `npmod`, and on
+`The September 11 Panel criticized counter-terrorism czar Richard Clarke .` it emits
+`(4,1) (4,2) (4,3) (9,6) (9,7) (9,8)` — every element of an NP run attached to that run's head, right-headed,
+exactly Williams 1981. There is no missing construction to mint. What differs from gold is not the RULE but WHICH
+ELEMENT of a complex nominal counts as its head: gold wants `September → 11` (the date's NUM) and `czar → Richard`
+(the person name's first token), while `npmod` attaches both to the run's last noun.
+
+**Fact 2 — a quarter of them are already inside a case-marked run.** Of the 157, **38 (24%) sit INSIDE a run that a
+preposition has already opened**; my detector simply chose a different element of that run as the object (UD makes
+the FIRST token of a flat name the head: "the hallmarks of **al** Qaeda", "Microsoft Watch from **Mary** Jo",
+"polyglot Arabs around **Bin** Laden"). **119 (76%) have no case-marked run containing them at all.**
+
+**Fact 3 — 55 of the 157 (35%) have their gold head inside the SAME NP run as themselves**
+(ADJACENT|same-run 44, with-a-gap|same-run 11). Those are pure internal-bracketing decisions about complex
+nominals — dates, person names, organisation names, measure phrases.
+
+| the 157 undetected gold nmod, re-classified | count | what it actually is |
+|---|---|---|
+| gold head inside the SAME NP run as the dependent | **55** | UD's internal bracketing of a complex nominal — **a convention about which token heads a date / name / measure, not a comprehension mechanism** |
+| head to the LEFT across a break (appositives, addresses, measures: "Mississauga **, Ont.**", "5 % **a year**") | **94** | genuinely distant nominal modification — needs an APPOSITION mechanism, not a case cue |
+| head to the RIGHT across a break | 7 | long-distance, mixed |
+| head is the root / unattachable | 1 | |
+
+**Verdict: BOUNDED, NOT BUILT, and deliberately so.** The largest sub-bucket (55) is a treebank convention about
+complex-nominal bracketing. The heads rung's own ledger already records the convention layer as "a third of the gap",
+and chasing it would buy board points for a bracketing choice rather than for reading comprehension — the standing
+rule says to say so rather than bank it. The real mechanism-shaped remainder is the **94 appositive / measure /
+address cases**, whose reach is **+0.176 nmod if perfect** and which are a different organ's problem (apposition is a
+same-referent relation, not a case-marked-host relation) and therefore their own brief. **The right-headed
+construction I proposed in §18 would have fired on every noun-noun adjacency in the corpus — overwhelmingly gold
+`compound`, not `nmod` — to chase at most 23 tokens the arm already offers an arc for.** Not building it is the
+result.
+
+## 22. OPPORTUNITIES 4 AND 5: BOUNDED BY THE LEDGER'S OWN ARITHMETIC
+
+Neither needs a new measurement to be bounded — the residual ledger (§12.3b) IS the bound, because its buckets are
+defined by exactly the thing each opportunity would fix.
+
+| opportunity | the bucket it can reach | absolute maximum | what the evidence already says about the realistic share |
+|---|---|---|---|
+| **4. lexicalise the object noun in the thematic channel** (Ratnaparkhi's `n2` term; Collins & Brooks 1995 back-off) | the ASSOCIATION bucket: 90 obl + 40 nmod | **obl +0.189, nmod +0.075** — and it agrees with the independent oracle probe (237 correct + 90 association + 46 decode = 373/477 = 0.782 against the oracle's 0.746) | small and shrinking. §16.1 measured the cue's learned ladder compressing 1.496 → 1.079 from cap 1500 to cap 6000, and §12.5b measured the reading-volume curve flat once proximity is in the model. Collins & Brooks found the same shape: their BACKED-OFF model beat a fully lexical one. **Expect a fraction of the 90, and watch the ladder spread, not the recall** |
+| **5. second-order sibling factorisation** (valence occupancy at the phrase level) | the DECODE bucket: 46 obl + 44 nmod | **obl +0.096, nmod +0.082** | the DECODE bucket already COLLAPSED when the cue landed — 156 → 46 for obl and 91 → 44 for nmod — so the tree competition is no longer discarding correctly-ranked arcs at scale, and this lever is now the smallest of the five. Needs the projective second-order inside–outside; Matrix-Tree is first-order |
+
+**Both are out of this seat's remit** (one needs a new mined store and its own twin, the other a new parser), and both
+are now numbers rather than intentions.
+
+@@ROUND3TAIL@@
 
 ## 19. ALTERNATE PATHS, SIMILARLY OR MORE BRAIN-FOUNDATIONAL THAN WHAT SHIPPED
 
