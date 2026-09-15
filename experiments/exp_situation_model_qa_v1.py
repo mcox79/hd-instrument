@@ -1406,8 +1406,15 @@ def run_paraphrase_qa(docs: List[str]) -> dict:
             continue
         sm = SituationReader(gaz=gaz).read(path)
         sents = _conll_sents(path)
-        qa = SituationQA(sm)
-        qs = build_coref_questions(sm) + build_causal_questions(sm, sents)
+        # 2026-09-15 (strategy, pri 109 follow-through): the coref questions' GOLD comes from the gold mention stream (the
+        # answer key) and the model's answers are named through the reader's OWN files (gold-free) -- the same repair the
+        # coref witness got with pri 109; without it `_named_clusters(sm)` finds no nameable cluster in the entity layer's
+        # id space and this instrument silently built 0 coref questions (the 'coref' key vanished from its result).
+        from hdlab.coref import parse_litbank_conll as _plc
+        _mentions, _ns = _plc(path, name_gender_map=gaz)
+        _gold_names = gold_cluster_names(_mentions)
+        qa = SituationQA(sm, file_names=reader_file_names(sm))
+        qs = build_coref_questions(sm, gold_names=_gold_names) + build_causal_questions(sm, sents)
         if doc in wdw:
             qs += build_events_questions(sm, wdw[doc])
         for q in qs:
