@@ -448,6 +448,23 @@ def purpose_observe(tab, cfg, cues, outcome):
 # ==================================================================================================
 # ARM 1 -- the import probe + per-call-site counts
 # ==================================================================================================
+def patch_is_landed():
+    """Is `labels_rung_consumers_patch.diff` already applied to the LIVE modules?
+
+    Read off the modules themselves, never off a file date or a source grep: the patch is the only thing that
+    puts `patient_slot_confidence` + `defer_below` on the competition organ and `_purpose_deprels` on the
+    reader, so their presence IS the signal.  This is what lets `--self-test` be green on BOTH trees: on an
+    unpatched tree S5b/S5c assert the DEFECT (the reason the brief exists), on the landed tree they assert its
+    ABSENCE (the reason the brief is closed).  A test that can only pass before the fix is not a reverify."""
+    try:
+        from hdlab import graded_role_assigner as _GRA
+        from hdlab.situation_reader import SituationReader as _SR
+    except Exception:
+        return False
+    return (hasattr(_GRA, "patient_slot_confidence") and hasattr(_GRA, "defer_below")
+            and hasattr(_SR, "_purpose_deprels"))
+
+
 def notbf_modules():
     """The registry's NOT_BF module set, as importable dotted names."""
     out = set()
@@ -1652,15 +1669,26 @@ def self_test():
                      lambda rs: float(np.mean([r["x"] for r in rs])), n_boot=50, seed=1)
     chk("S4d constant stat -> zero-width CI", abs(b["hi"] - b["lo"]) < 1e-9, str(b))
 
-    print("S5 the import probe sees a NOT_BF module during a default read (the DEFECT reproduces)")
+    print("S5 the import probe reads the TREE AS IT IS: the defect on an unpatched tree, its ABSENCE once "
+          "the patch is landed")
     pr = run_probe(n_docs=1, smoke=True)
     chk("S5a the probe read a document", pr["n_docs"] == 1 and pr["per_doc"][0]["events"] > 0,
         str(pr["per_doc"]))
-    chk("S5b arc_labeler and/or parse_confidence imported DURING read",
-        any(m in pr["notbf_imported_during_read"] for m in ("hdlab.arc_labeler", "hdlab.parse_confidence")),
-        str(pr["notbf_imported_during_read"]))
-    chk("S5c the call-site table names more than the three consumers the brief lists",
-        len(pr["call_sites"]) >= 3, str(sorted(pr["call_sites"])))
+    landed = patch_is_landed()
+    during = pr["notbf_imported_during_read"]
+    sites = pr["call_sites"]
+    if landed:
+        # THE PATCH IS IN THE LIVE MODULES, so the assertions INVERT -- the probe must now find NOTHING.
+        # (Detected from the live modules, not from a file date: see patch_is_landed().)
+        chk("S5b [landed] NO NOT_BF module is imported during a default read",
+            during == [], "imported during read: %s" % (during or "NONE"))
+        chk("S5c [landed] the NOT_BF call-site table is EMPTY (no consumer reaches either organ)",
+            not sites, "call sites: %s" % (sorted(sites) or "NONE"))
+    else:
+        chk("S5b [unpatched] arc_labeler and/or parse_confidence imported DURING read",
+            any(m in during for m in ("hdlab.arc_labeler", "hdlab.parse_confidence")), str(during))
+        chk("S5c [unpatched] the call-site table names more than the three consumers the brief lists",
+            len(sites) >= 3, str(sorted(sites)))
 
     print("S6 the BF extract_entity_states drop-in has the shipped signature and needs no labeler")
     got = _bf_extract_entity_states(t2, up2, None, None, heads=heads2, head_posterior=hp2)
