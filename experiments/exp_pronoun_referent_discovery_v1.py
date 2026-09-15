@@ -449,6 +449,13 @@ def discovered_pronoun_targets(mentions, window=None):
 # =====================================================================================================
 _GOLD_BY_PATH = {}        # conll_path -> {"pos": {(si,wp): cluster}, "head": {head: set(cluster)}}
 _DISC_CACHE = {}          # (path, arm_token) -> (mentions, n_sents)
+# READ THIS BEFORE INTERPRETING AN ARM ON A PATCHED TREE.  An arm in `DELEGATED` is a configuration of the
+# LANDED organ and means exactly what its name says.  An arm NOT in `DELEGATED` is installed by rebinding, so
+# once the diff is applied it COMPOSES WITH the landed organ rather than replacing it -- e.g. `disc_role`
+# ("discovery in the introduction organ only") was a real ablation before the diff landed and is NOT one
+# afterwards, because the landed `read()` supplies the one-stream flip and the graded pick underneath it.
+# The pre/post ablations that remain valid on a patched tree are the FLAG switches: ship (pre-patch),
+# disc_blankcard (fill_card=False), landed_overlay_pick (graded_anaphora=False).
 ARMS = ("ship", "disc_role", "disc", "twin", "twin_pos", "disc_actr", "disc_freq", "disc_case",
         "disc_nopos", "disc_full", "disc_posagent", "disc_freq2", "disc_case_freq2",
         "disc_case_hybrid", "disc_case_hybridc",
@@ -462,7 +469,10 @@ ARMS = ("ship", "disc_role", "disc", "twin", "twin_pos", "disc_actr", "disc_freq
         "disc_graded_w1", "disc_graded_w3", "disc_graded_w5", "disc_graded_all", "disc_blankcard",
         "disc_graded_g", "disc_graded_g8", "disc_graded_best", "disc_graded_best_twin",
         "disc_graded_best_nophi", "disc_graded_best_nowin", "disc_graded_best_loose",
-        "disc_case_pv6", "disc_case_pv9", "disc_case_pv14")
+        "disc_case_pv6", "disc_case_pv9", "disc_case_pv14",
+        # names that exist ONLY as configurations of the landed organ (see DELEGATED); on an unpatched tree
+        # they fall back to the plain reader, which is what makes them meaningless there and legal here.
+        "landed", "landed_overlay_pick")
 # reader keyword overrides per arm (the arm is still the same organ; these isolate a DOWNSTREAM consumer)
 # PHASE 7 item 2c: the POSITIONAL cue's weight inside the competition.  `graded_role_assigner.py:265-267`
 # sets AGENT_VALIDITIES = {"preverbal": 3.0, "core_arg": 2.0, "animacy": 2.0, "salience": 2.0,
@@ -471,6 +481,105 @@ ARMS = ("ship", "disc_role", "disc", "twin", "twin_pos", "disc_actr", "disc_freq
 # word-order cue's validity was never estimated from ANY register -- not 19c, not gold heads, not the organ's
 # own decisions: it is a constant, and the three non-positional cues sum to 6.0 against its 3.0, which is
 # how a correct word-order pick gets outvoted on modern canonical prose.  These arms sweep it.
+def _detect_live_patched():
+    """True when the pri-125 diff is APPLIED to hdlab/ -- the live organ then carries the pronoun arm, the
+    discovered question set and the graded pick natively.  In that case this cell must NOT monkeypatch: the
+    arms are configurations of the LANDED reader (see DELEGATED), so the self-test and every row measure the
+    organ as it actually ships.  On an unpatched tree the overlay installs the same computation by
+    rebinding, so both paths work from one file."""
+    try:
+        import inspect as _i
+        import hdlab.coref as _CO
+        import hdlab.referent_per_np as _RNP
+        import hdlab.situation_reader as _SR
+        return bool(hasattr(_RNP, "PRONOUN_PHI") and hasattr(_CO, "discovered_pronoun_targets")
+                    and "discover_pronouns" in _i.signature(_SR.SituationReader.__init__).parameters)
+    except Exception:
+        return False
+
+
+_LIVE = None
+_LIVE_PHI_SHIP = None
+_LIVE_SCOPE_SHIP = None
+
+
+def live_patched():
+    global _LIVE
+    if _LIVE is None:
+        _LIVE = _detect_live_patched()
+    return _LIVE
+
+
+# the PRE-PATCH organ, expressed as flags on the landed reader (the A/B that reproduces the old behaviour)
+PRE_PATCH_KW = {"discover_pronouns": False, "fill_card": False, "graded_anaphora": False,
+                "case_cue_marked": False}
+# arm -> the LANDED reader configuration that IS that arm; no monkeypatch needed for these
+DELEGATED = {
+    "ship": dict(PRE_PATCH_KW),
+    "disc": {"graded_anaphora": False, "case_cue_marked": False},
+    "disc_case": {"graded_anaphora": False},
+    "disc_graded_best": {},
+    "disc_graded_best_nowin": {},
+    "landed": {},
+    "disc_blankcard": {"fill_card": False},
+    "landed_overlay_pick": {"graded_anaphora": False},
+}
+# arms that differ ONLY by the permuted phi tables (not expressible as a flag)
+DELEGATED_TWIN = {"twin": {}, "disc_graded_twin": {}, "disc_graded_best_twin": {}}
+
+
+def _twin_live_on():
+    """Permute the phi tables the LANDED organ actually reads: `referent_per_np.PRONOUN_PHI` (discovery and
+    question scheduling) AND `state_of_mind.PRONOUN_SCOPE` (what the shipped pick re-derives from at
+    `event_centrality_coref.py:358`).  Permuting only one of them was the control defect this cell found."""
+    global _LIVE_PHI_SHIP, _LIVE_SCOPE_SHIP
+    import hdlab.referent_per_np as _RNP
+    import hdlab.state_of_mind as _SOM
+    if _LIVE_PHI_SHIP is None:
+        _LIVE_PHI_SHIP = {k: dict(v) for k, v in _RNP.PRONOUN_PHI.items()}
+        _LIVE_SCOPE_SHIP = {k: dict(v) for k, v in _SOM.PRONOUN_SCOPE.items()}
+    rng = random.Random(SEED)
+    byp = defaultdict(list)
+    for k, v in _LIVE_PHI_SHIP.items():
+        byp[v.get("person")].append(k)
+    for _pp, ks in byp.items():
+        ks = sorted(ks)
+        gn = [(_LIVE_PHI_SHIP[k]["gender"], _LIVE_PHI_SHIP[k]["number"]) for k in ks]
+        rng.shuffle(gn)
+        for k, (g, n) in zip(ks, gn):
+            _RNP.PRONOUN_PHI[k] = dict(_LIVE_PHI_SHIP[k], gender=g, number=n)
+    ks = sorted(_LIVE_SCOPE_SHIP)
+    gn = [(_LIVE_SCOPE_SHIP[k]["gender"], _LIVE_SCOPE_SHIP[k]["number"]) for k in ks]
+    random.Random(SEED + 1).shuffle(gn)
+    for k, (g, n) in zip(ks, gn):
+        _SOM.PRONOUN_SCOPE[k]["gender"] = g
+        _SOM.PRONOUN_SCOPE[k]["number"] = n
+
+
+def _twin_live_off():
+    import hdlab.referent_per_np as _RNP
+    import hdlab.state_of_mind as _SOM
+    if _LIVE_PHI_SHIP is None:
+        return
+    for k, v in _LIVE_PHI_SHIP.items():
+        _RNP.PRONOUN_PHI[k] = dict(v)
+    for k, v in _LIVE_SCOPE_SHIP.items():
+        _SOM.PRONOUN_SCOPE[k]["gender"] = v["gender"]
+        _SOM.PRONOUN_SCOPE[k]["number"] = v["number"]
+
+
+def reader_kw(arm):
+    """The reader kwargs for `arm`.  On a PATCHED tree a delegated arm is purely a configuration of the
+    landed organ; on an unpatched tree the flags do not exist and only ARM_READER_KW applies."""
+    kw = dict(ARM_READER_KW.get(arm, {}))
+    if live_patched():
+        if arm in DELEGATED:
+            kw.update(DELEGATED[arm])
+        elif arm in DELEGATED_TWIN:
+            kw.update(DELEGATED_TWIN[arm])
+    return kw
+
+
 _AV = {"preverbal": 3.0, "core_arg": 2.0, "animacy": 2.0, "salience": 2.0, "adjacency": 1.0,
        "byagent": 6.0}
 ARM_READER_KW = {"disc_posagent": {"cm_agent": False},
@@ -754,6 +863,15 @@ class Arm:
             restore_ship_phi()
         TWIN_POS["on"] = (self.arm == "twin_pos")
         POOL_STRICT["on"] = (self.arm in STRICT_ARMS)
+        # DELEGATE when the diff is landed: the live organ IS this arm, so install NOTHING and let
+        # `reader_kw` select the configuration.  Measuring the shipped organ beats measuring an overlay
+        # that merely resembles it, and it is what makes this cell's reverify valid on the landed tree.
+        self.delegated = bool(live_patched()
+                              and (self.arm in DELEGATED or self.arm in DELEGATED_TWIN))
+        if self.delegated:
+            if self.arm in DELEGATED_TWIN:
+                _twin_live_on()
+            return self
         if self.window is None and self.arm in ARM_WINDOW:
             self.window = ARM_WINDOW[self.arm]
             win = self.window
@@ -765,13 +883,25 @@ class Arm:
 
         # (a) THE INTRODUCTION ARM ------------------------------------------------------------------
         self._save(RNP, "referent_per_np_source")
+        import inspect as _insp
+        _real_rnp = RNP.referent_per_np_source
+        _rnp_has_flag = "discover_pronouns" in _insp.signature(_real_rnp).parameters
 
-        def _rnp(conll_path, tagger, name_gender_map=None, use_frame=True):
-            key = (conll_path, id(self))
+        def _rnp(conll_path, tagger, name_gender_map=None, use_frame=True,
+                 discover_pronouns=True, fill_card=None, **_extra):
+            # The PATCHED situation_reader passes `discover_pronouns` / `fill_card` down to this organ, so the
+            # overlay must ACCEPT them (this is exactly what crashed the self-test against the landed tree)
+            # and HONOUR them: discover_pronouns=False has to reproduce the pre-patch organ.
+            if not discover_pronouns:
+                extra = {"discover_pronouns": False} if _rnp_has_flag else {}
+                return _real_rnp(conll_path, tagger, name_gender_map=name_gender_map,
+                                 use_frame=use_frame, **extra)
+            fc = holder_fill[0] if fill_card is None else bool(fill_card)
+            key = (conll_path, id(self), fc)
             if key not in _DISC_CACHE:
                 _DISC_CACHE[key] = discovered_pronoun_source(
                     conll_path, tagger, name_gender_map=name_gender_map, use_frame=use_frame,
-                    keep_possessive=keep_poss, fill_card=(holder_fill[0]))
+                    keep_possessive=keep_poss, fill_card=fc)
             ms, n = _DISC_CACHE[key]
             return [dict(m) for m in ms], n
 
@@ -908,6 +1038,14 @@ class Arm:
         return self
 
     def __exit__(self, *exc):
+        if getattr(self, "delegated", False):
+            _twin_live_off()
+            self.delegated = False
+            restore_ship_phi()
+            TWIN_POS["on"] = False
+            POOL_STRICT["on"] = False
+            _DISC_CACHE.clear()
+            return False
         for mod, name, val in reversed(self._saved):
             setattr(mod, name, val)
         self._saved = []
@@ -1120,7 +1258,7 @@ def row_repro(arms=("ship", "disc"), verbose=True):
                 sents = [[t["form"] for t in s] for s in gold]
                 p = write_conll(sents)
                 try:
-                    sm = SituationReader(**ARM_READER_KW.get(a, {})).read(p)
+                    sm = SituationReader(**reader_kw(a)).read(p)
                 finally:
                     os.unlink(p)
                 r = score_doc(sm, gold)
@@ -1248,7 +1386,7 @@ def row_agents(n_docs=40, arms=ARMS, verbose=True, seed=SEED, window=None):
                 sents = [[t["form"] for t in s] for s in gold]
                 p = write_conll(sents)
                 try:
-                    sm = SituationReader(**ARM_READER_KW.get(a, {})).read(p)
+                    sm = SituationReader(**reader_kw(a)).read(p)
                 finally:
                     os.unlink(p)
                 r = score_doc(sm, gold)
@@ -1363,7 +1501,7 @@ def row_pronouns(n_docs=16, arms=ARMS, verbose=True, window=None):
         t0 = time.time()
         with Arm(a, window=window) as arm:
             for d, p, qs in prepared:
-                sm = SituationReader(**ARM_READER_KW.get(a, {})).read(p)
+                sm = SituationReader(**reader_kw(a)).read(p)
                 pick = {}
                 for r in sm.coref_resolutions:
                     pick[(r.sent_idx, getattr(r, "target_wpos", -1))] = (r.resolved_head or "").lower()
@@ -1502,7 +1640,7 @@ def row_trace(n_docs=5, arms=("ship", "disc"), verbose=True):
                 sents = [[t["form"] for t in s] for s in gold]
                 p = write_conll(sents)
                 try:
-                    reader = SituationReader(**ARM_READER_KW.get(a, {}))
+                    reader = SituationReader(**reader_kw(a))
                     sm = reader.read(p)
                 finally:
                     os.unlink(p)
@@ -2099,30 +2237,54 @@ def self_test(verbose=True):
     assert all(m["head"] != "table" for m in pool), "inanimate feature-blank referent not filtered"
     assert any(m["head"] == "alice" for m in pool), "gendered name dropped from the pool"
     ok += 1
-    # 6. THE LIVE ORGAN: pronoun discovery really happens on text-only input
+    # 6. THE ORGAN, ON WHICHEVER TREE THIS RUNS ON.  With the pri-125 diff APPLIED the arms DELEGATE, so
+    #    this exercises the LANDED organ with no monkeypatch at all; on an unpatched tree it exercises the
+    #    overlay.  The claim is the same either way and it can fail either way.
     from hdlab.situation_reader import SituationReader
-    import hdlab.referent_per_np as RNP
-    sents = [["Alice", "thanked", "Bob", "."], ["She", "was", "happy", "."]]
+    sents = [["Alice", "thanked", "Bob", "."], ["She", "was", "happy", "."],
+             ["They", "own", "blogger", ",", "of", "course", "."]]
     p = write_conll(sents)
+    live = None
     try:
-        with Arm("ship"):
-            a = SituationReader().read(p)
-        with Arm("disc"):
-            b = SituationReader().read(p)
+        with Arm("ship") as _a:
+            a = SituationReader(**reader_kw("ship")).read(p)
+            ship_delegated = _a.delegated
+        with Arm("disc") as _b:
+            b = SituationReader(**reader_kw("disc")).read(p)
+            disc_delegated = _b.delegated
+        if live_patched():
+            live = SituationReader().read(p)        # the organ exactly as it ships, no arm involved
     finally:
         os.unlink(p)
-    assert len(a.coref_resolutions) == 0, "ship already resolves on text-only?"
+    assert len(a.coref_resolutions) == 0, \
+        "the PRE-PATCH organ already resolves on text-only (%d records)" % len(a.coref_resolutions)
     assert len(b.coref_resolutions) >= 1, "discovery scheduled no pronoun question on text-only"
     assert b.coref_resolutions[0].resolved_head, "no antecedent named"
+    if live is not None:
+        assert len(live.coref_resolutions) >= 1, \
+            "THE LANDED ORGAN scheduled no pronoun question on annotation-free text"
+        assert any((e.agent or "").lower() == "they"
+                   for e in live.events if e.predicate == "own"), \
+            "the LANDED organ did not recover the pronoun AGENT of `They own blogger`: %r" % (
+                [(e.predicate, e.agent) for e in live.events],)
+        assert ship_delegated and disc_delegated, \
+            "the diff is landed but the cell monkeypatched instead of delegating to hdlab"
     ok += 1
-    # 7. rebinding is fully reverted
+    # 7. nothing leaked past the with-block, on either path
+    import hdlab.referent_per_np as RNP
     import hdlab.situation_reader as SR
     from hdlab.coref import parse_litbank_conll as real_plc, build_pronoun_targets as real_bpt
     assert SR.parse_litbank_conll is real_plc and SR.build_pronoun_targets is real_bpt, \
         "arm leaked past its with-block"
+    if live_patched():
+        assert RNP.PRONOUN_PHI["he"]["gender"] == "masc", "the twin's PRONOUN_PHI permutation leaked"
+        import hdlab.state_of_mind as SOM
+        assert SOM.PRONOUN_SCOPE["she"]["gender"] == "fem", "the twin's PRONOUN_SCOPE permutation leaked"
     ok += 1
     if verbose:
-        print("SELF-TEST %d/8 PASS" % ok)
+        print("SELF-TEST %d/8 PASS (tree: %s)"
+              % (ok, "pri-125 diff APPLIED -- arms DELEGATE to hdlab" if live_patched()
+                 else "unpatched -- arms installed by rebinding"))
     return ok
 
 
