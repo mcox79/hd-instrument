@@ -1,0 +1,42 @@
+--- a/experiments/exp_situation_model_qa_modern_v1.py
++++ b/experiments/exp_situation_model_qa_modern_v1.py
+@@ -2435,6 +2435,29 @@
+         return row, {"rho_all": r.get("rho_all"), "note": r.get("note")}
+     except Exception as e:
+         return _degraded("scws_graded_meaning", e, informational=True), {"error": "%s: %s" % (type(e).__name__, e)}
++
++
++def board_nonverbal_predication_dimension(smoke=False):
++    """NON-VERBAL PREDICATION board arm (pri 113's largest board-invisible gain, now scored). PLAIN WORDS
++    (scorecard line): what things are / where things are / who has what.
++
++    The who-did-what AGENT/PATIENT rows iterate GOLD VERB predicates (gold_agent_items), the entity rows read
++    mentions, and the state row reads the copular-binding path -- none of them iterates a clause whose GOLD
++    predicate is non-verbal ("the sky is blue", "she is a doctor", "he was here"). 167 of 762 subject-bearing
++    gold clauses on UD-EWT test 700 (21.9%) and 366 of the GUM/GENTLE cap-1200 population are outside every
++    existing row's population; pri 113 (landed, hdlab.situation_reader._add_nonverbal_predication, default ON)
++    is the largest gain on exactly this fifth of the text. Delegates to the instrument cell
++    (exp_board_nonverbal_predication_row_v1): gold = the clause's subject head + predicate head; model = the
++    LIVE SituationReader's fired event/state at the gold predicate AND its copular_binding (holder,property)
++    pair's holder in the gold subject set (a joint hit -- the structure carries a holder field); floors =
++    max(shipped UPOS==VERB detector alone, copula-adjacent simple rule); twin = same-count random-token fires
++    (info-free). Both populations computed (UD-EWT is the row, GUM the out-of-supply replication). NOT folded
++    into the 7-dimension headline aggregate (new_board_arms only) pending strategy's review."""
++    try:
++        from experiments.exp_board_nonverbal_predication_row_v1 import board_nonverbal_predication_dimension as _d
++        return _d(smoke=smoke)
++    except Exception as e:
++        return _degraded("nonverbal_predication", e), {"error": "%s: %s" % (type(e).__name__, e)}
+ 
+ 
+ def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True):
+@@ -2586,6 +2609,9 @@
+         scws_row, scws_det = board_scws_graded_dimension(smoke=bool(caps.get("scws_smoke")))
+         new_arms["scws_graded_meaning"] = scws_row
+         new_arms_detail["scws_graded_meaning"] = scws_det
++        nvp_rows, nvp_det = board_nonverbal_predication_dimension(smoke=bool(caps.get("nvp_smoke")))
++        new_arms["nonverbal_predication"] = nvp_rows
++        new_arms_detail["nonverbal_predication"] = nvp_det
+ 
+     crossref = _informational_19c_crossref()
+ 
