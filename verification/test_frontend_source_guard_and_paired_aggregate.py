@@ -48,6 +48,16 @@ def test_valid_sources_still_construct():
     p = F.Parser(source="attachment_arm"); assert p._AA is not None and p._ae is None
 
 
+def test_unknown_temporal_tagger_raises():
+    import os, subprocess
+    env = dict(os.environ, HDLAB_TEMPORAL_TAGGER="evaluation_invalid_source", OMP_NUM_THREADS="1")
+    r = subprocess.run([sys.executable, "-c", "import hdlab.temporal_model"], cwd=_REPO, env=env,
+                       capture_output=True, text=True)
+    assert r.returncode != 0 and "unknown HDLAB_TEMPORAL_TAGGER" in r.stderr, r.stderr[-400:]
+    from hdlab import temporal_model as T
+    assert T.TEMPORAL_TAGGER == "counts_penn" and T.TEMPORAL_TAGGERS == frozenset({"counts_penn", "perceptron"})
+
+
 def test_aggregate_keeps_missing_comparator_missing():
     agg = _agg_fn()
     rows = {"A": {"n": 100, "model_acc": 0.6, "strongest_floor": 0.5, "twin_acc": 0.1},

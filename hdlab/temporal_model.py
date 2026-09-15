@@ -156,6 +156,9 @@ def pos_tag_sentence(sentence):
 # VBP 0.825/0.880; events on 600 test sentences: 326 vs 373 extracted, 296 shared, 292/296 same tense (nltk's extras include
 # "'s" -> VBZ artefacts; the arm's extras include "I read an Article" -> SIMPLE_PAST, correct). Board no-regress run follows the flip.
 TEMPORAL_TAGGER = os.environ.get("HDLAB_TEMPORAL_TAGGER", "counts_penn")
+TEMPORAL_TAGGERS = frozenset({"counts_penn", "perceptron"})   # the organ's Penn arm | the NLTK stand-in (baselines only)
+if TEMPORAL_TAGGER not in TEMPORAL_TAGGERS:   # E10 (2026-09-15): a typo must not silently select the supervised stand-in
+    raise ValueError("unknown HDLAB_TEMPORAL_TAGGER %r (allowed: %s)" % (TEMPORAL_TAGGER, sorted(TEMPORAL_TAGGERS)))
 AUX_WINDOW_VBD = os.environ.get("HDLAB_TEMPORAL_AUXWINDOW", "0") == "1"   # NULL on gold (6 hits vs 4 false fires in 1500 test sentences); default OFF
 _PENN_ARM = None
 
