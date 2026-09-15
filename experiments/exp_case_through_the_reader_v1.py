@@ -918,48 +918,99 @@ def organ_path(n_docs=0, thetas=(None,), boot=NBOOT, verbose=True):
 
 
 # ---------------------------------------------------------------------------------------------- board probe
-def board_probe():
-    """Can the MODERN BOARD see the flip at all? Count the sentence-source calls the board makes. The flip
-    changes ONLY what `parse_conll_sentences` returns, so a board that never calls it is flat BY ARITHMETIC.
+def board_probe(n_boot=1000):
+    """THE SEVEN HEADLINE BOARD ROWS, BOTH ARMS, IN ONE PROCESS -- and a COUNT of how often each of them calls
+    the sentence source the flip changes.
+
+    The 19c-free modern board's seven rows come from exactly six functions (`exp_situation_model_qa_modern_v1.run`
+    lines 2473-2507): board_coref_modern_dimension (coref + common_noun_coref), board_salience_modern_dimension,
+    exp_board_agent_slot_ud_v1.board_agent_dimension, exp_board_patient_slot_v1.board_patient_dimension,
+    exp_situation_model_state_qa_v1.board_state_dimension, board_wic_via_live_wire_dimension.
+    Running THOSE SIX twice in one process is the board A/B for the headline rows at a fraction of a full board
+    run -- and the call counter says, per arm, whether any of them reaches `parse_conll_sentences` at all. A row
+    that never calls it cannot move, and the zero is EXACT (by construction), not an underpowered estimate.
     """
-    # NEVER overwrite the board's LANDED record (notes/problems/README.md's reverify hazard): the board's
-    # own get_output_dir(ANCHOR) reads HDLAB_EXP_NAME, so this run must be routed to its OWN directory.
     en = os.environ.get("HDLAB_EXP_NAME", "")
     if not en or "situation_model_qa" in en:
-        raise SystemExit("REFUSING: set HDLAB_EXP_NAME to an OWN directory (e.g. case_board_probe_v1) so the "
-                         "board's landed data/exp_situation_model_qa_modern_v1/metrics.json is not rewritten.")
-    import hdlab.scene_segment as SS
-    calls = []
-    orig = SS.parse_conll_sentences
+        raise SystemExit("REFUSING: set HDLAB_EXP_NAME to an OWN directory (e.g. case_board_rows_v1) so no landed "
+                         "board record is rewritten.")
+    harness = CaseHarness()
+    calls = {"n": 0}
+    orig = harness._orig
 
-    def f(path, lower=True):
-        calls.append((path, lower))
-        return orig(path, lower=lower)
-    mods = []
-    for name in ("hdlab.scene_segment", "hdlab.situation_reader", "hdlab.referent_per_np", "hdlab.space_reader"):
-        __import__(name)
-        m = sys.modules[name]
-        if getattr(m, "parse_conll_sentences", None) is not None:
-            m.parse_conll_sentences = f
-            mods.append(m)
+    def counted(path, lower=True):
+        calls["n"] += 1
+        return orig(path, lower=(lower if harness.forced is None else harness.forced))
+    import experiments.exp_board_coref_gum_v1 as CG
+    import experiments.exp_board_agent_slot_ud_v1 as AG
+    from experiments.exp_board_patient_slot_v1 import board_patient_dimension
+    from experiments.exp_situation_model_state_qa_v1 import board_state_dimension
+
+    def seven(tag):
+        out, per = {}, {}
+        def one(name, fn):
+            calls["n"] = 0
+            t0 = time.time()
+            try:
+                r = fn()
+            except Exception as e:                       # a degraded row is still a row; record it
+                r = {"error": "%s: %s" % (type(e).__name__, e)}
+            per[name] = {"sentence_source_calls": calls["n"], "secs": round(time.time() - t0, 1)}
+            return r
+        cpr = one("coref", lambda: CG.board_coref_modern_dimension())
+        if isinstance(cpr, tuple):
+            out["coref"], d = cpr
+            out["common_noun_coref"] = d.get("common_noun")
+            per["common_noun_coref"] = per["coref"]
+        else:
+            out["coref"] = cpr
+        sal = one("salience", lambda: CG.board_salience_modern_dimension(n_boot=n_boot, seed=SEED))
+        out["salience"] = sal[0] if isinstance(sal, tuple) else sal
+        ag = one("who_did_what_agent", lambda: AG.board_agent_dimension(n_boot=n_boot, seed=SEED))
+        out["who_did_what_agent"] = ag[0] if isinstance(ag, tuple) else ag
+        pa = one("who_did_what_patient", lambda: board_patient_dimension())
+        out["who_did_what_patient"] = pa[0] if isinstance(pa, tuple) else pa
+        st = one("state", lambda: board_state_dimension(n_boot=n_boot, seed=SEED))
+        out["state"] = st[0] if isinstance(st, tuple) else st
+        try:
+            from experiments.exp_sense_wire_wic_liveness_v1 import board_wic_via_live_wire_dimension
+            wi = one("wic", lambda: board_wic_via_live_wire_dimension(mode="smoke"))
+            out["wic"] = wi[0] if isinstance(wi, tuple) else wi
+        except Exception as e:
+            out["wic"] = {"error": "%s: %s" % (type(e).__name__, e)}
+        print("  [%s] sentence-source calls per row: %s" % (tag, {k: v["sentence_source_calls"] for k, v in per.items()}))
+        return out, per
+
+    res = {}
+    for m in harness._mods:
+        m.parse_conll_sentences = counted
     try:
-        import experiments.exp_situation_model_qa_modern_v1 as B
-        t0 = time.time()
-        res = B.run()
-        dt = time.time() - t0
+        harness.forced = None
+        res["low"], res["low_calls"] = seven("low (as it ships)")
+        harness.forced = False
+        res["cased"], res["cased_calls"] = seven("cased (the flip)")
     finally:
-        for m in mods:
-            m.parse_conll_sentences = orig
-    out = {"sentence_source_calls": len(calls),
-           "distinct_paths": sorted({os.path.basename(p) for p, _l in calls})[:20],
-           "lower_true_calls": sum(1 for _p, l in calls if l),
-           "lower_false_calls": sum(1 for _p, l in calls if not l),
-           "board_elapsed_s": round(dt, 1),
-           "aggregate": (res or {}).get("aggregate") if isinstance(res, dict) else None}
+        harness.restore()
+    ROWS = ("coref", "salience", "common_noun_coref", "who_did_what_agent", "who_did_what_patient", "state", "wic")
+    diff = {}
+    for k in ROWS:
+        a, b = res["low"].get(k), res["cased"].get(k)
+        diff[k] = {"identical": (json.dumps(a, sort_keys=True, default=str) ==
+                                 json.dumps(b, sort_keys=True, default=str)),
+                   "low": (a or {}).get("model_acc"), "cased": (b or {}).get("model_acc"),
+                   "floor_low": (a or {}).get("strongest_floor"), "floor_cased": (b or {}).get("strongest_floor"),
+                   "n_low": (a or {}).get("n"), "n_cased": (b or {}).get("n"),
+                   "sentence_source_calls": res["low_calls"].get(k, {}).get("sentence_source_calls")}
+    out = {"rows": diff, "detail": res, "ts_iso": datetime.now(timezone.utc).isoformat()}
     os.makedirs(OUT_DIR, exist_ok=True)
-    with open(os.path.join(OUT_DIR, "board_probe.json"), "w", encoding="utf-8") as fh:
-        json.dump({"probe": out, "board": res if isinstance(res, dict) else None}, fh, indent=2, default=str)
-    print(json.dumps(out, indent=2)[:4000])
+    with open(os.path.join(OUT_DIR, "board_rows_ab.json"), "w", encoding="utf-8") as fh:
+        json.dump(out, fh, indent=2, default=str)
+    print("=" * 100)
+    print("%-24s %10s %10s %8s %10s" % ("board row", "low", "cased", "same?", "src calls"))
+    for k in ROWS:
+        d = diff[k]
+        print("%-24s %10s %10s %8s %10s" % (k, d["low"], d["cased"], d["identical"], d["sentence_source_calls"]))
+    print("=" * 100)
     return out
 
 

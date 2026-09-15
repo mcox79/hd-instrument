@@ -27,7 +27,7 @@ index 6fd7442..856282c 100644
      toks = []
      gidx = 0
 diff --git a/hdlab/referent_per_np.py b/hdlab/referent_per_np.py
-index 768db35..07b6e57 100644
+index 768db35..62b114f 100644
 --- a/hdlab/referent_per_np.py
 +++ b/hdlab/referent_per_np.py
 @@ -120,7 +120,10 @@ def referent_per_np_source(conll_path: str, tagger, name_gender_map=None, use_fr
@@ -37,13 +37,13 @@ index 768db35..07b6e57 100644
 -    sents = parse_conll_sentences(conll_path, lower=True)   # pri-109: -0.4076 PROPN F1; see scene_segment
 +    sents = parse_conll_sentences(conll_path, lower=False)  # pri-116: cased -- +0.4106 PROPN F1 (see scene_segment);
 +    # `frame_heads`' mid-sentence-CAPITAL cue can fire again, and `_content_head_positions` opens a referent for
-+    # every content noun the organ can now see. MEASURED through the live reader on 16 modern GUM documents:
-+    # referent files 2504 -> 2547, name-typed referent mentions 243 -> 599.
++    # every content noun the organ can now see. MEASURED through the live reader on 16 modern GUM test documents:
++    # entity files 2,459 -> 2,563 (+4.2%), NAME-typed referent mentions 242 -> 599 (2.48x).
      coref_head_wpos: Dict[tuple, int] = {}
      # REFLEXIVES (himself/herself/itself/themselves) are pronouns too (Binding Principle A; strategy 2026-09-12):
      # the CoNLL mention stream marks only PRONOUN_SCOPE forms as pronouns, so a reflexive coref mention was dropped
 diff --git a/hdlab/scene_segment.py b/hdlab/scene_segment.py
-index a0c785f..d53fdae 100644
+index a0c785f..0f14df9 100644
 --- a/hdlab/scene_segment.py
 +++ b/hdlab/scene_segment.py
 @@ -148,8 +148,11 @@ def sentence_opens_scene(sent_tokens: Sequence[str]) -> bool:
@@ -60,7 +60,7 @@ index a0c785f..d53fdae 100644
  
      ⚠️ MEASURED COST OF THAT DEFAULT (pri-109, 127,919 GUM test tokens, the SAME category organ on the SAME
      text, the only difference being case):
-@@ -169,10 +172,19 @@ def parse_conll_sentences(path: str, lower: bool = True) -> List[List[str]]:
+@@ -169,10 +172,22 @@ def parse_conll_sentences(path: str, lower: bool = True) -> List[List[str]]:
      FOR SCALE: pri 104's forward wire is worth +0.1921 token F1 on the name decision. `lower=False` is worth
      +0.4076 PROPN F1 and is one argument.
  
@@ -74,9 +74,12 @@ index a0c785f..d53fdae 100644
 +    and all-tag 0.9049 -> 0.9328 (+0.0280 CI[+0.0235,+0.0327]); the INFO-FREE TWIN (each sentence's capitals
 +    permuted onto random tokens, the capital budget preserved) scores 0.6292 and loses by +0.2358
 +    CI[+0.2173,+0.2557] -- i.e. the shipped lowercased input was WORSE THAN SCRAMBLING THE CAPITALS AT RANDOM.
-+    Through the LIVE reader on 16 modern GUM documents: no dimension of the situation model down, the entity
-+    layer +1.7% files and name-typed referent mentions x2.5, the who-did-what patient row up, the pronoun
-+    coref row unmoved (its inputs are closed-class -- pri 109 measured that six times).
++    Through the LIVE reader on 16 modern GUM test documents: entity files 2,459 -> 2,563 (+4.2%), NAME-typed
++    referent mentions 242 -> 599, who-did-what PATIENT +0.0215 CI[+0.0085,+0.0381] over the twin, and the
++    pronoun-coref row unmoved to four decimals (its inputs are closed-class -- pri 109 measured that six times;
++    this is the seventh). Two consumer gates that tested a RAW token against a lowercase literal are repaired
++    in the same change (_read_causation, _read_timeline): 49 of the 112 causal-connective sentences in those
++    documents open with a CAPITALISED connective and would otherwise stop matching.
 +    SECOND EFFECT: `situation_reader.read` feeds the category organ the passage CASED (`lower=False`, the
 +    pri-112 in-order feed) and caches the settled belief under tuple(cased sentence); while `sents` was
 +    lowercased, every consumer asked under a different key, so 100% of sentences were tagged twice per read
@@ -85,10 +88,44 @@ index a0c785f..d53fdae 100644
      cur: List[str] = []
      with open(path, "r", encoding="utf-8") as f:
 diff --git a/hdlab/situation_reader.py b/hdlab/situation_reader.py
-index 5697e83..1a68b55 100644
+index 5697e83..fdcb7f1 100644
 --- a/hdlab/situation_reader.py
 +++ b/hdlab/situation_reader.py
-@@ -4532,10 +4532,19 @@ class SituationReader:
+@@ -2629,7 +2629,10 @@ class SituationReader:
+     def _read_timeline(sents) -> List[TimelineFrame]:
+         frames: List[TimelineFrame] = []
+         for si, toks in enumerate(sents):
+-            if "had" not in toks:
++            # CASE-FOLD AT THE LOOKUP (pri-116): the sentence source now hands this consumer the RAW-CASED
++            # tokens, and a capital-initial `Had he known ...` is the same auxiliary. A closed-class cue word
++            # is case-insensitive BY DESIGN, so the fold belongs here and not at the source.
++            if "had" not in [t.lower() for t in toks]:
+                 continue  # cheap gate: past-perfect flashback candidate
+             text = " ".join(toks)
+             ev, tg = M.extract_events_punct(text)
+@@ -2966,7 +2969,11 @@ class SituationReader:
+         try:
+             links: List[CausalLink] = []
+             for si, toks in enumerate(sents):
+-                if not (_CAUSAL_CONNECTIVES & set(toks)):
++                # CASE-FOLD AT THE LOOKUP (pri-116). MEASURED on 16 modern GUM documents: 49 of the 112
++                # sentences carrying a causal connective open with a capitalised one (`So`, `Because`,
++                # `Since`, `Therefore`), i.e. 43.8% of this organ's own input disappears if the raw token is
++                # matched against the lowercase connective set once the case reaches it.
++                if not (_CAUSAL_CONNECTIVES & {t.lower() for t in toks}):
+                     continue
+                 events, _tagged = self._extract_events(" ".join(toks))   # the reader's OWN densified events
+                 if len(events) < 2:
+@@ -3004,7 +3011,7 @@ class SituationReader:
+             if self.causal_mental_bridge:
+                 from hdlab.event_type import event_type as _etype, MENTAL_TRIGGER, MENTAL_OUTCOME
+                 for si, toks in enumerate(sents):
+-                    if _CAUSAL_CONNECTIVES & set(toks):
++                    if _CAUSAL_CONNECTIVES & {t.lower() for t in toks}:   # pri-116: fold case at the lookup
+                         continue
+                     events, _tagged = self._extract_events(" ".join(toks))
+                     if len(events) < 2:
+@@ -4532,10 +4539,19 @@ class SituationReader:
          # stash the coref-column (tracked/given) mentions -> the Competition-Model AGENT candidate source
          # (_cm_agent_candidates). Inert unless cm_agent AND referent_per_np are both ON.
          self._coref_mentions = coref_mentions
