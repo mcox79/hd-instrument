@@ -1,5 +1,7 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🟢 **2026-09-15 13:11 (LATEST -- autoloop ARMED): READ notes/STATUS.md '2026-09-15 13:11' FIRST. External evaluation acted on: hygiene landed; pri 125 (pronoun discovery from text; the reader has none) + pri 122 (board rows on the live reader) RUNNING as opus solvers; pri 126 (sealed holdout) filed; honest AGG 0.6200; the board is a component number, not the product's.**
+
 > # 🟢 **2026-09-15 11:09 (LATEST -- COMPACTION HANDOFF, autoloop DISARMED): READ notes/STATUS.md 'COMPACTION HANDOFF 2026-09-15' FIRST. Landed 09-14/15: 109, 110, 106, 111, 112, 113, 116, 117, 118 + the loader exclusion + the pri 121 row; honest AGG 0.6204; queue 122, 114, 120, 119, 123, 124, 115; top of the chain first; no agents running.**
 
 > # 🟢 **2026-09-15 10:10 (LATEST -- STOPPING POINT, autoloop DISARMED): READ notes/STATUS.md 'STOPPING POINT / HANDOFF 2026-09-15' FIRST. pri 116 landed; pri 117 applied UNCOMMITTED with its board running (commit if it holds); pri 118 agent running; briefs 122-124 filed; honest AGG 0.6205.**
