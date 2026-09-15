@@ -1,5 +1,7 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🟢 **2026-09-15 09:23 (LATEST): pri 116 LANDED (case through the reader); pri 117 in phase 7 (copular subject +0.1183 CI-sep, learned); AGG 0.6205 unchanged (the rows never run the reader -> instrument brief next). TOP ITEMS: (1) pri 117 return -> integrate (default ON + repair the 2 patient items); (2) dispatch pri 118; (3) file the board-rows-on-the-reader brief; (4) 114 / 120 / 119 next. Details: `notes/STATUS.md`.**
+
 > # 🟢 **2026-09-14 23:04 (LATEST -- STOPPING POINT): READ notes/STATUS.md 'STOPPING POINT / HANDOFF 2026-09-14' FIRST. Landed today 109/110/106/111/112/113 + the loader exclusion + the pri 121 row; honest AGG 0.6205; agents 116 + 117 running; next: their returns, then 118/114/120/119; top of the chain first.**
 
 > # 🟢 **2026-09-14 22:29 (LATEST): pri 113 LANDED (merged; state +0.0423 CI-sep; AGG 0.6205 honest baseline); today: 109, 110, 106, 111, 112, 113 landed; briefs 111-121 filed; desktop = laptop at 4f41d32f6. RUNNING (22:32): agents pri 117 (copular subject heads), pri 116 (case), pri 121 row (sonnet). TOP ITEMS: (1) agent returns -> probe -> integrate with full boards; (2) pri 121 (board's non-verbal row; strategy patches); (3) next dispatch: 118 (typing), 114 (organ-tagged acquisition), 119, 120. Details: `notes/STATUS.md`.**
