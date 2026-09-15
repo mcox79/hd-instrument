@@ -371,6 +371,11 @@ table being tuned -- and it is the evidence that the landed form is plastic, not
 mechanism is USEFUL BEFORE IT IS TRAINED: with an empty table the coverage fix and the reanalysis alone are already
 worth +0.077 over the shipped floor, which is what a newly-met construction would get.)
 
+**What the organ actually learned** (the shipped 74 cells, medians by value family): the predicate arc
+**+4.99**, the later-verb competitor **-2.17**, the tense carrier's own arc **-1.61**. The boost and the two
+suppressions -- the three things the owner's prototype set by hand as +5 / -8 / (none) -- fall out of counting
+perceived predications, with the carrier suppression the organ found that the prototype did not have.
+
 ## 10c. AN ORGAN EDGE CASE FOUND ON THE WAY (a lead for strategy, not mine to land)
 
 On out-of-supply text the whole-sentence MAP decode can return a head of `None`, and `punct_convention._chain_top`
