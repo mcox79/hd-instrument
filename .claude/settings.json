@@ -9,11 +9,10 @@
       "Edit(./preregs/**)",
       "MultiEdit(./preregs/**)",
       "NotebookEdit(./preregs/**)",
-      "Write(//d/AI/hd-instrument/preregs/**)",
-      "Edit(//d/AI/hd-instrument/preregs/**)",
-      "MultiEdit(//d/AI/hd-instrument/preregs/**)",
-      "NotebookEdit(//d/AI/hd-instrument/preregs/**)",
-
+      "Write(//c/AI/hd-instrument/preregs/**)",
+      "Edit(//c/AI/hd-instrument/preregs/**)",
+      "MultiEdit(//c/AI/hd-instrument/preregs/**)",
+      "NotebookEdit(//c/AI/hd-instrument/preregs/**)",
       "Write(arm_key*)",
       "Edit(arm_key*)",
       "MultiEdit(arm_key*)",
@@ -22,10 +21,10 @@
       "Edit(**/arm_key*)",
       "MultiEdit(**/arm_key*)",
       "NotebookEdit(**/arm_key*)",
-      "Write(//d/AI/hd-instrument/**/arm_key*)",
-      "Edit(//d/AI/hd-instrument/**/arm_key*)",
-      "MultiEdit(//d/AI/hd-instrument/**/arm_key*)",
-      "NotebookEdit(//d/AI/hd-instrument/**/arm_key*)"
+      "Write(//c/AI/hd-instrument/**/arm_key*)",
+      "Edit(//c/AI/hd-instrument/**/arm_key*)",
+      "MultiEdit(//c/AI/hd-instrument/**/arm_key*)",
+      "NotebookEdit(//c/AI/hd-instrument/**/arm_key*)"
     ]
   },
   "hooks": {
@@ -35,12 +34,12 @@
         "hooks": [
           {
             "type": "command",
-            "command": "C:/Users/marsh/AppData/Local/Programs/Python/Python312/pythonw.exe D:/AI/hd-instrument/data/hooks/staging/stop_hook.py",
+            "command": "C:/Users/marsh/AppData/Local/Programs/Python/Python312/pythonw.exe C:/AI/hd-instrument/data/hooks/staging/stop_hook.py",
             "timeout": 10
           },
           {
             "type": "command",
-            "command": "C:/Users/marsh/AppData/Local/Programs/Python/Python312/pythonw.exe -c \"import time,os; os.makedirs('D:/AI/hd-instrument/data/hook_state', exist_ok=True); open('D:/AI/hd-instrument/data/hook_state/_canary.txt','a').write(f'{time.strftime(\\\"%Y-%m-%dT%H:%M:%SZ\\\", time.gmtime())} canary fired pid={os.getpid()}\\n')\"",
+            "command": "C:/Users/marsh/AppData/Local/Programs/Python/Python312/pythonw.exe -c \"import time,os; os.makedirs('C:/AI/hd-instrument/data/hook_state', exist_ok=True); open('C:/AI/hd-instrument/data/hook_state/_canary.txt','a').write(time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())+' canary fired pid=%d\n' % os.getpid())\"",
             "timeout": 5
           }
         ]
@@ -52,7 +51,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "C:/Users/marsh/AppData/Local/Programs/Python/Python312/pythonw.exe D:/AI/hd-instrument/data/hooks/staging/stop_failure_hook.py",
+            "command": "C:/Users/marsh/AppData/Local/Programs/Python/Python312/pythonw.exe C:/AI/hd-instrument/data/hooks/staging/stop_failure_hook.py",
             "timeout": 10
           }
         ]
@@ -64,7 +63,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "C:/Users/marsh/AppData/Local/Programs/Python/Python312/pythonw.exe D:/AI/hd-instrument/data/hooks/staging/teammate_idle_hook.py",
+            "command": "C:/Users/marsh/AppData/Local/Programs/Python/Python312/pythonw.exe C:/AI/hd-instrument/data/hooks/staging/teammate_idle_hook.py",
             "timeout": 8
           }
         ]
