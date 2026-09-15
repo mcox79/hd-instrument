@@ -43,6 +43,7 @@ __bf_note__ = "2026-09-14 pri108 NMOD CLASS + CUE SET v4 (self-gated on the asse
 __bf_corrections__ = []   # append "YYYY-MM-DD <fix>: OLD -> NEW" when a fix RAISES the status
 
 import json
+import functools
 import os
 from typing import Dict, List, Optional, Sequence
 
@@ -602,10 +603,50 @@ def _prep_of_v3(toks, pos, heads, i):
     return None, False
 
 
-def _head_class(pos: Sequence[str], h: int, v3: bool = False) -> str:
+# THE CONFIGURATION IS A RELATION TO THE PREDICATE, NOT A PART OF SPEECH (2026-09-14, pri 113).  In the Competition
+# Model the configuration a cue is read within is "this nominal's position relative to the PREDICATE of its clause"
+# (Bates & MacWhinney 1989).  `_head_class` read the tag column instead, which did two damages at once on the 21.9%
+# of asserted clauses whose predicate UD puts on an ADJ / NOUN / ADV:
+#   (i)  it CONFLATED a nominal governed by a PREDICATIVE adjective ("the sky is BLUE" -> sky = SUBJ) with one
+#        governed by an ATTRIBUTIVE adjective -- both score hc = "ADJ";
+#   (ii) it shut every predicate-relative cue off for the predicative case: measured on UD-EWT test 700 over the 269
+#        arguments under a non-verbal predicate, the PRE-VERBAL SLOT cue fired 2 times, the argument-RANK cue 5, the
+#        verb-FRAME cue 3 -- against 52 / 136 / 27 once the configuration is read correctly.
+# PRED is therefore a head class of its own: it un-conflates (i), opens (ii), and -- because it is NOT "VERB"/"AUX"
+# -- keeps the `cop` cue, which is the one cue that currently carries the copular subject.
+# CAPABILITY-GATED, NOT ASSUMED: the class is used only when the LOADED validity table carries PRED rows, because
+# the strengths are COUNTS the teacher has to accrue (tools/build_coarse_role_validities.py calls this same cue
+# function, so a rebuild learns them; `observe_role_outcome` is the online form).  On a table without them every
+# `PRED_*` lookup abstains and role accuracy on those clauses falls 0.7361 -> 0.3309 -- measured, which is why this
+# guard is code and not a note.  HDLAB_ROLE_PREDICATE_HEADS=0 disables.
+PRED_HEADS = os.environ.get("HDLAB_ROLE_PREDICATE_HEADS", "1") == "1"
+_HAS_PRED_ROWS = False                      # set by load_coarse_validities from the table itself
+_PRED_HC = ("VERB", "AUX", "PRED")
+
+
+@functools.lru_cache(maxsize=16384)
+def _predicate_heads(toks_t, pos_t):
+    """The 1-based non-verbal predicate heads of this sentence (attachment_arm.predicate_complements -- ONE organ
+    owns predication).  Cached per (tokens, tags): the cue function is called once per argument head."""
+    from hdlab.attachment_arm import predicate_complements
+    try:
+        return frozenset(predicate_complements(list(toks_t), list(pos_t)))
+    except Exception:
+        return frozenset()
+
+
+def _pred_heads_for(toks, pos):
+    if not (PRED_HEADS and _HAS_PRED_ROWS):
+        return frozenset()
+    return _predicate_heads(tuple(toks), tuple(pos))
+
+
+def _head_class(pos: Sequence[str], h: int, v3: bool = False, pred=frozenset()) -> str:
     if h is None or h < 1 or h > len(pos):
         return "ROOT"
     p = pos[h - 1]
+    if h in pred and p not in ("VERB", "AUX"):
+        return "PRED"                       # this head holds its clause's predicate slot (see the block above)
     if v3:
         return p if p in HEADCLS_V3 else "OTHERH"
     return p if p in ("VERB", "AUX", "NOUN", "PROPN", "ADJ", "PRON", "NUM") else "OTHERH"
@@ -647,10 +688,10 @@ def coarse_role_cues(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, i
     arc-dependent addition (the argument-rank cue)."""
     h = heads.get(i, 0) or 0
     low = toks[i - 1].lower()
-    hc = _head_class(pos, h, v3)
+    hc = _head_class(pos, h, v3, _pred_heads_for(toks, pos))
     order = "pre" if (h and i < h) else ("post" if h else "root")
     cfgkey = f"{hc}_{order}"
-    if v3 and hc in ("VERB", "AUX") and h and existential_frame(toks, pos, h):
+    if v3 and hc in _PRED_HC and h and existential_frame(toks, pos, h):
         cfgkey += "_ex"                     # the CONSTRUCTION is the configuration
     cues = {"config": cfgkey}
     if hc in ("VERB", "AUX") and h:
@@ -679,7 +720,7 @@ def coarse_role_cues(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, i
     # PRE-VERBAL SLOT cue (Competition Model "first noun = agent" strategy): for a post-verbal nominal under a VERB/AUX head,
     # is the verb's pre-verbal slot EMPTY (no nominal between the clause edge and the verb)? An empty slot makes a post-verbal
     # nominal the likely SUBJECT (inversion, "said John", questions, relative clauses); a filled slot makes it the OBJECT.
-    if order == "post" and hc in ("VERB", "AUX") and h:
+    if order == "post" and hc in _PRED_HC and h:
         if v3:
             eff = [j for j in range(1, h) if heads.get(j) == h and is_arg_head(toks, pos, j)]
             if not eff:
@@ -730,7 +771,7 @@ def coarse_role_cues(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, i
         # PATIENT of "give me a call" to OTHER (signal trace 2026-09-12). first/later = ARGUMENTS between the head and i
         # (v3) or nominal TOKENS (pre-v3); pair = a SECOND bare (no preposition) nominal dependent of the same head after
         # the verb (first-of-two + animate = the recipient, later-of-two = the patient).
-        if rank_on and h and hc in ("VERB", "AUX"):
+        if rank_on and h and hc in _PRED_HC:
             between = sum(1 for j in range(h + 1, i) if heads.get(j) == h and is_arg_head(toks, pos, j))
         elif v3:                              # the gate suspends the SIBLING (arc) read, not the argument population
             between = sum(1 for j in range(h + 1, i) if is_arg_head(toks, pos, j))
@@ -749,7 +790,7 @@ def coarse_role_cues(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, i
     # PRE-verbal argument RANK (v3): the active-filler configuration (Frazier & Clifton 1989) -- in "the aid THAT
     # Darfur needs" the NEAREST pre-verbal argument is the subject and the earlier one is the extracted object. The
     # pre-verbal side had no rank cue at all before.
-    if rank_on and order == "pre" and hc in ("VERB", "AUX") and h:
+    if rank_on and order == "pre" and hc in _PRED_HC and h:
         nearer = sum(1 for j in range(i + 1, h) if heads.get(j) == h and is_arg_head(toks, pos, j))
         cues["pre_rank"] = "nearest" if nearer == 0 else ("second" if nearer == 1 else "earlier")
     elif v3:
@@ -761,7 +802,7 @@ def coarse_role_cues(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, i
         cues["animacy"] = "anim"            # personal pronouns are animate by form
     # VERB-FRAME cue (the Competition Model's verb-specific knowledge): does this head verb TAKE A RECIPIENT? Read from the
     # learned per-lemma argument-frame counts (frames[lemma] = [n_iobj, n_nominal_deps]) accrued from reading; "unk" = never seen.
-    if hc in ("VERB", "AUX") and h and frames:
+    if hc in _PRED_HC and h and frames:
         fr = frames.get(lemma_verb(toks[h - 1]).lower())
         if fr and fr[1] >= 5:
             cues["frame"] = "ditrans" if fr[0] / fr[1] >= 0.05 else "mono"
@@ -966,6 +1007,8 @@ def load_coarse_validities(path: Optional[str] = None) -> Dict[str, object]:
                                 for v, vec in vals.items()} for c, vals in doc["strength"].items()},
                "lemma_frames": doc.get("lemma_frames", {})}
     tab["slot_capacity"] = (doc.get("counts") or {}).get("slot_capacity") or doc.get("slot_capacity")   # verb-frame capacity counts (pri 93)
+    global _HAS_PRED_ROWS
+    _HAS_PRED_ROWS = any(k.startswith("PRED_") for k in (tab["strength"].get("config") or {}))
     tab["cue_set"] = doc.get("cue_set")          # "v3" (pri 103) cue set + argument-head population; "v4" (pri 108) adds
     #                                              the genitive case values, the arc-free licensor cue and the NMOD class
     if path is None:

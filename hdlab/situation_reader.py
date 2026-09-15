@@ -80,6 +80,7 @@ _REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 from hdlab.frontend import HEADS_SOURCE as _HEADS_SOURCE, TAG_SOURCE as _TAG_SOURCE
 PREDICATE_RESCUE_MIN_P = float(os.environ.get("HDLAB_PREDICATE_RESCUE_MIN_P", "0.3"))   # verb belief that rescues a dropped predicate (swept later)
 _STATE_GRADED = os.environ.get("HDLAB_STATE_GRADED", "1") != "0"   # graded category read for the copular state reader
+_NONVERBAL_PREDICATION = os.environ.get("HDLAB_NONVERBAL_PREDICATION", "1") != "0"   # fire the event on the predicate slot (pri 113)
 STATE_NOMINAL_MASS = 0.3         # posterior nominal mass that counts a token as nominal for the copular reader (swept later)
 
 if _REPO not in sys.path:
@@ -998,6 +999,7 @@ class SituationReader:
                  cm_weights: Optional[Dict[str, float]] = None,
                  cm_twin_seed: Optional[int] = None,
                  predicate_recall: bool = True,
+                 nonverbal_predication: bool = _NONVERBAL_PREDICATION,
                  causal_mental_bridge: bool = True,
                  goal_purpose_filter: bool = True,
                  entity_kb_resolver: bool = False,
@@ -1743,6 +1745,10 @@ class SituationReader:
         # +22/-0 facts, bound_event_tokens 1/3641. FP does not reach a who-did-what answer (additive + lemma-and-
         # sentence match). NO spaCy / NO LLM (WordNet lexical gate only). all_capabilities_off() still sets False.
         self.predicate_recall = bool(predicate_recall)
+        # THE PREDICATION IS THE EVENT (pri 113): fire the clause eventuality on its PREDICATE SLOT, so the
+        # 21.9% of asserted clauses whose predicate UD puts on an ADJ/NOUN/ADV reach the event stream at all.
+        # See _add_nonverbal_predication for the measurement, the floor and the information-free twin.
+        self.nonverbal_predication = bool(nonverbal_predication)
         # MENTAL-BRIDGE causal path (owner-DONE a_force_dynamic_meaning_hub_causal_scorer..., 2026-09-05, Q111):
         # APPEND folk-psych mental-causation links (perception/cognition/emotion trigger -> mental/expressive
         # outcome, via the WordNet event-TYPE representation) on NON-connective sentences where _read_causation
@@ -1854,7 +1860,7 @@ class SituationReader:
         "densify_world_state", "np_head_reduce", "parser_arceager", "causation_typed",
         "bind_entity_states", "structural_do_recover", "referent_per_np", "cm_agent", "include_pron_agents",
         "case_filter", "clause_local", "cm_agent_struct", "cm_agent_byhead", "agent_hybrid",
-        "agent_hybrid_construction", "predicate_recall",
+        "agent_hybrid_construction", "predicate_recall", "nonverbal_predication",
         "track_goals", "track_goal_thwart", "track_affect", "track_tom_action", "track_infer_emotion",
         "affect_structured_matcher",
         "track_bridges", "track_senses", "track_affected_entity",
@@ -1941,6 +1947,7 @@ class SituationReader:
                     events.append(T.Event(lemma=tk.lower(), idx=i, pos=up[i],
                                           tense=_stock_tense(a, _TP), is_pp=bool(a["is_pp"])))
             events = self._add_predicate_recall(events, toks, up)
+            events = self._add_nonverbal_predication(events, toks, up)
             return events, []
         events = []
         for i, tk in enumerate(toks):
@@ -1948,6 +1955,7 @@ class SituationReader:
                 events.append(T.Event(lemma=tk.lower(), idx=i, pos=up[i],
                                       tense=T.TENSE_SIMPLE_PAST, is_pp=False))
         events = self._add_predicate_recall(events, toks, up)
+        events = self._add_nonverbal_predication(events, toks, up)
         return events, []
 
     def _add_predicate_recall(self, events, toks, up):
@@ -2004,6 +2012,77 @@ class SituationReader:
         for i in rescued:
             events.append(T.Event(lemma=toks[i].lower(), idx=i, pos="VERB",
                                   tense=T.TENSE_SIMPLE_PAST, is_pp=False))
+        events.sort(key=lambda e: e.idx)
+        return events
+
+    def _add_nonverbal_predication(self, events, toks, up):
+        """FIRE THE CLAUSE'S EVENTUALITY ON ITS PREDICATE, NOT ON THE TAG COLUMN (pri 113, default-on
+        `nonverbal_predication`).  A clause predicates whether its predicate is a verb, an adjective, a noun or a
+        place; the comprehender builds ONE eventuality per clause and fills its participants from the clause
+        (neo-Davidsonian event-hood, Bach 1986; the copular case is a Kimian STATE, Maienborn 2005 -- which is why
+        the fired node keeps the predicate's own UPOS as its `pos`, the sort marker a consumer reads).  The predicate
+        is located by `attachment_arm.predicate_sites`, the SAME computation pri 110 reads for branch (3), so this
+        is a second CONSUMER of one signal and not a second predicate finder.
+
+        MEASURED on the participant instrument (UD-EWT test 700, 762 subject-bearing gold clauses; a fired event is
+        correct when its index IS the clause's gold predicate and it governs >= 1 gold core argument -- the gold
+        TAG column is never asked what category a predicate may be, because it cannot adjudicate a predication event
+        on an ADJ; pri 110 4c2):
+            the live reader as shipped   recall 0.8176   precision 0.8358   F1 0.8266   on the 167 non-verbal 0.1856
+            + this                       recall 0.9514   precision 0.8367   F1 0.8904   on the 167 non-verbal 0.7964
+        recall +0.1339 CI[+0.1102,+0.1575] CI-separated, precision +0.0009 CI[-0.0064,+0.0080] (NOT down), and the
+        added fires are themselves 0.8440 precise against the shipped detector's own 0.8358.  INFORMATION-FREE TWIN
+        (the same NUMBER of extra fires placed on a random token of the same sentence, 3 seeds): recall 0.829-0.835,
+        precision 0.748-0.752 -- the arm beats every seed CI-separated on BOTH.  ADDITIVE: the verbal fires are
+        untouched, so no existing event can be lost.  HDLAB_NONVERBAL_PREDICATION=0 or
+        SituationReader(nonverbal_predication=False) is byte-identical to before."""
+        if not self.nonverbal_predication:
+            return events
+        from hdlab import attachment_arm as _AA
+        from hdlab.attachment_arm import predicate_sites, predicate_site_carriers, copula_tense
+        from hdlab import lexical_categories as _LC
+        lc = _LC.get()
+        # REUSE THE PER-READ CACHE: the category organ's posterior for this sentence was already computed for the
+        # tag (0 extra passes).  A tag source without a posterior (the perceptron baseline) returns None -> silence.
+        post = self._cached_tag_matrix(list(toks))
+        if post is None:
+            return events
+        have = set(e.idx for e in events)
+        car = predicate_site_carriers(list(toks), list(up), post, list(lc.tags))
+        for q, strength in predicate_sites(list(toks), list(up), post, list(lc.tags)).items():
+            if q in have or up[q] == "VERB":
+                continue
+            c = car.get(q)
+            # THE COPULA IS THE TENSE CARRIER (Pustet 2003): the predication's tense comes from the carrier, not
+            # from the predicate, which is why a copular clause carried no tense at all before.
+            ev = T.Event(lemma=toks[q].lower(), idx=q, pos=up[q],
+                         tense=(copula_tense(list(toks), list(up), c) if c is not None
+                                else T.TENSE_SIMPLE_PAST),
+                         is_pp=False)
+            # ONE STRUCTURE PER CLAUSE, typed (owner's pri 113 form): a non-verbal predication is a neo-Davidsonian STATE
+            # (property / class / location / possession), not an eventive record -- mark it so the copular state reader
+            # and the typed-attribute register (pri 119) read the same structure the event stream carries.
+            setattr(ev, "is_state", True)
+            events.append(ev)
+        # THE SECOND CUE (default OFF, HDLAB_PREDICATION_ARC_TAU): the ARC read, gated on the heads rung's own
+        # reliability.  The parse and the head posterior are already in this read's cache on the default reader
+        # configuration (the copular state reader computes both), so this is a cache hit, not an extra parse.
+        if _AA.PREDICATION_ARC_TAU > 0.0:
+            try:
+                _hd = self._cached_parse_heads(list(toks), list(up))
+                _hp = self._cached_head_posterior(list(toks), list(up))
+                _arc = _AA.arc_predicate_sites(list(toks), list(up), _hd, _hp)
+            except Exception:
+                _arc = {}
+            _have = set(e.idx for e in events)
+            for q in _arc:
+                if q in _have or up[q] == "VERB":
+                    continue
+                c = car.get(q)
+                events.append(T.Event(lemma=toks[q].lower(), idx=q, pos=up[q],
+                                      tense=(copula_tense(list(toks), list(up), c) if c is not None
+                                             else T.TENSE_SIMPLE_PAST),
+                                      is_pp=False))
         events.sort(key=lambda e: e.idx)
         return events
 
@@ -4255,6 +4334,18 @@ class SituationReader:
             bind = set(M.extract_entity_states(toks, up_c, self._es_arc, self._es_lab, heads=heads,
                                                head_posterior=self._cached_head_posterior(toks, up)))   # graded hand-off (2026-09-13)
             pairs = bind | M.robust_cop(toks, up_c, heads, gate=True)
+            # ONE STRUCTURE PER CLAUSE (pri 113): the same PREDICATE SLOT the event detector fires on also supplies
+            # this reader's PROPERTY, so a clause yields ONE eventuality whose SORT is its predicate's category
+            # rather than two organs' independent answers.  Measured: state 0.7487 -> 0.7857 (+0.0370, 14 items of
+            # 378) with every other board dimension +0.0000, and the event/state disagreements 29 -> 20.
+            try:
+                from hdlab.attachment_arm import state_pairs_from_slot
+                _post = self._cached_tag_matrix(list(toks))
+                if _post is not None:
+                    from hdlab import lexical_categories as _LCs
+                    pairs = pairs | state_pairs_from_slot(list(toks), list(up_c), _post, list(_LCs.get().tags))
+            except Exception:
+                pass
             for (h, p) in sorted(pairs):
                 if not (0 <= h < len(toks) and 0 <= p < len(toks)):
                     continue

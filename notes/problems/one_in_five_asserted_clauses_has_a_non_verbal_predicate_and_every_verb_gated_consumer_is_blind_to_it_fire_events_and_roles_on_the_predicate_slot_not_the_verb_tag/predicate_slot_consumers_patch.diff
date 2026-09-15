@@ -1,0 +1,139 @@
+PROPOSED DIFFS -- fire events on the PREDICATE SLOT, not the VERB tag (pri 113).
+Solver scope bars editing hdlab/; these are proposals for the strategy session to re-verify and land.
+The mechanism is proven in experiments/exp_nonverbal_predication_participants_v1.py and measured by the
+PARTICIPANT INSTRUMENT (argument structure, never the tag column).  Each hunk is function-anchored;
+apply with `git apply --ignore-whitespace` after confirming the surrounding lines on the live file.
+
+Three consumers/hand-offs.  (1) and (2) are proven and shippable now; (3) needs a role-table rebuild
+(same as pri 108) and is proposed with its located cost, not force-fitted.
+
+================================================================================================
+(1) hdlab/attachment_arm.py -- cop_predicates: recover the LOCATIVE and CLAUSE-FINAL copula (the 65).
+    SURGICAL: the nominal/adjectival scan is byte-identical; ADV is admitted ONLY as a fallback when the
+    shipped scan finds no complement, so a modifier adverb ("really", "not") never pre-empts a real
+    predicate (LOCATED NEGATIVE -- adding ADV inline lowers BOTH recall and precision, see SOLVED.md 6a).
+================================================================================================
+--- a/hdlab/attachment_arm.py
++++ b/hdlab/attachment_arm.py
+@@ def cop_predicates(toks, pos):
+         if v is not None:
+             continue
++        found = False
++        last_adv = None
+         for k in range(i + 1, n):
+             if pos[k] in ("VERB", "PUNCT"):
+                 break
++            if pos[k] == "ADV":
++                last_adv = k                 # remember; do NOT take it yet (avoids grabbing a modifier adverb)
+             if pos[k] in ("ADJ", "NOUN", "PROPN", "PRON", "NUM"):
+                 if pos[k] == "PRON":
+-                    out.add(k + 1); break
++                    out.add(k + 1); found = True; break
+                 j = k
+                 while j + 1 < n and pos[j + 1] in NP_RUN:
+                     j += 1
+                 heads = [m for m in range(k, j + 1) if pos[m] in ("NOUN", "PROPN")]
+                 if heads:
+-                    out.add(heads[-1] + 1); break
++                    out.add(heads[-1] + 1); found = True; break
+                 adjs = [m for m in range(k, j + 1) if pos[m] in ("ADJ", "NUM")]
+-                out.add((adjs[-1] if adjs else k) + 1); break
++                out.add((adjs[-1] if adjs else k) + 1); found = True; break
++        if not found:
++            # (L) LOCATIVE / adverbial predicate ("he is HERE") -- fallback only, so a modifier adverb never
++            #     pre-empts a real predicate.  (F) CLAUSE-FINAL copula (fronted / elided complement,
++            #     "...whatever age you ARE .") -- the copula itself carries the predication.
++            if last_adv is not None:
++                out.add(last_adv + 1)
++            else:
++                if not [k for k in range(i + 1, n) if pos[k] != "PUNCT"]:
++                    out.add(i + 1)
+     return out
+
+================================================================================================
+(2) hdlab/situation_reader.py -- fire an EVENT on every copular COMPLEMENT (the predication IS the event,
+    neo-Davidsonian; Pustet 2003).  The reader's copular-state-as-event computation currently lives ONLY in
+    the joint temporal reasoner (_build_joint_temporal_reasoner) and is BYTE-IDENTICAL to sm.events off/on --
+    islanded (landed != live).  This lands it in the main event stream, co-indexed on the SAME token the
+    state reader binds (one structure per clause: an event whose predicate is a property = a STATE), so
+    who-did-what / roles / tense see it.  ADDITIVE: the UPOS==VERB detections are untouched.
+    Proven on the participant instrument: non-verbal-clause recall 0.1856 -> 0.7365 (+0.5509 CI-sep),
+    pooled precision 0.8358 -> 0.8244 (held), info-free twin 0.2635 (loses), oracle ceiling 1.0000.
+================================================================================================
+--- a/hdlab/situation_reader.py
++++ b/hdlab/situation_reader.py
+@@ def _tense_agnostic_extract(self, text):
+         events = []
+         for i, tk in enumerate(toks):
+             if up[i] == "VERB":
+                 events.append(T.Event(lemma=tk.lower(), idx=i, pos=up[i],
+                                       tense=T.TENSE_SIMPLE_PAST, is_pp=False))
+         events = self._add_predicate_recall(events, toks, up)
++        events = self._add_copular_predicate_events(events, toks, up)
+         return events, []
++
++    def _add_copular_predicate_events(self, events, toks, up):
++        """Fire the STATE-event of a NON-VERBAL predication on the copula's COMPLEMENT (the property/class/
++        location/possession).  cop_predicates already returns the complement ONLY when the copula has no verbal
++        host in its own verb group, so this fires exactly on the clauses the VERB gate misses.  is_state=True
++        marks the neo-Davidsonian STATE so it is ONE structure with the copular state reader, not two.
++        Default-OFF via nonverbal_predicate_events until landed (no-default-off applies at landing)."""
++        if not getattr(self, "nonverbal_predicate_events", False):
++            return events
++        from hdlab.attachment_arm import cop_predicates
++        have = set(e.idx for e in events)
++        for q in cop_predicates(list(toks), list(up)):
++            if 0 <= q - 1 < len(toks) and (q - 1) not in have:
++                ev = T.Event(lemma=toks[q - 1].lower(), idx=q - 1, pos=up[q - 1],
++                             tense=T.TENSE_SIMPLE_PAST, is_pp=False)
++                setattr(ev, "is_state", True)
++                events.append(ev)
++        events.sort(key=lambda e: e.idx)
++        return events
+
+  (add `self.nonverbal_predicate_events = bool(nonverbal_predicate_events)` in __init__ next to
+   `self.predicate_recall`, and the kwarg in the signature.  NOTE: this fires in the tense-agnostic path;
+   the same two lines belong in the `preserve_tense` branch just above, after its own _add_predicate_recall.)
+
+================================================================================================
+(3) hdlab/graded_role_assigner.py -- a NON-VERBAL predicate is a PREDICATE for the configuration backoff.
+    LOCATED (SOLVED.md 7): on the 167, the SUBJECT is already labelled 0.8402 (the `cop` cue at line 707
+    covers it), but OBLIQUES of a non-verbal predicate score 0.5278 vs 0.8333 for a verbal one.  Root: the
+    hierarchical backoff `_parent_config` collapses a non-verbal-headed config to NONPRED, so a copular
+    predicate's arguments never inherit predicate-argument expectations.  The fix keys PRED on predicate-hood
+    (a head in cop_predicates), not on the VERB/AUX tag -- the same "read the slot, not the tag" principle.
+    NEEDS A ROLE-TABLE REBUILD (the m_config backoff is baked into the strengths at build time, exactly as
+    pri 108): propose, measure with tools/build_coarse_role_validities.py, then a board A/B.  NOT force-fit here.
+================================================================================================
+--- a/hdlab/graded_role_assigner.py
++++ b/hdlab/graded_role_assigner.py
+@@ _PRED_HC = ("VERB", "AUX")
+-def _parent_config(cfg):
++def _parent_config(cfg, pred_heads=None):
+     """(coarse parent, construction base or None), or None when the configuration has no parent.
+-    PARENT collapses the head class to PRED/NONPRED."""
++    PARENT collapses the head class to PRED/NONPRED.  A non-verbal predicate (its head index in pred_heads =
++    cop_predicates(toks,pos)) is PRED -- a predication is a predicate whatever its category (Pustet 2003)."""
+     base = cfg[:-3] if cfg.endswith("_ex") else cfg
+     if "_" not in base or base.startswith("ROOT"):
+         return None
+     hc, order = base.rsplit("_", 1)
+     return ("PRED" if hc in _PRED_HC else "NONPRED") + "_" + order, (base if base != cfg else None)
+
+  (thread pred_heads through the config key at cue-construction time so a copular ADJ/NOUN head emits a
+   PRED_<order> configuration; rebuild the validity table; expect the obl-of-non-verbal gap 0.5278 -> ~0.83.)
+
+================================================================================================
+(4) THE HIGHEST-YIELD FIX -- a WIRING change (SOLVED.md 14), prototyped + measured, not a hunk.
+    A non-verbal predication is a KIMIAN STATE = a typed ATTRIBUTE on the entity, not an eventive record.
+    hdlab/copular_binding.py's NATIVE detection captures only 0.3892 of the 167 (the bottleneck is DETECTION,
+    not holder-binding, which is 0.9077 when detection fires).  The predicate-slot detector (diff 2) already finds
+    the predication at 0.89.  FIX: route the predicate-slot (holder = the clause subject via csub_sites / the parse,
+    property = the predicate slot) INTO copular_binding.extract_entity_states / state_register, replacing its narrow
+    cop-label detection.  MEASURED (--state-binding WIRED arm): typed-attribute-bound-to-the-right-entity capture
+    0.3533 -> 0.5629 (+0.21), holder 0.8545.  Type the write by predication class (property->attribute, class->
+    type/schema, location->spatial index, identity->EQUATE file-merge, clausal->proposition slot; Higgins/Pustet,
+    copular_binding.predicted_type already classifies predicational vs identificational).  Then wire the entity-state
+    output to the attribute-bridging / type-licensed-inference consumers (the silent-failure consumers).  This is a
+    strategy hdlab/ integration across copular_binding + state_register + situation_reader; the diff is architectural,
+    so it is specified here rather than as a single applyable hunk.

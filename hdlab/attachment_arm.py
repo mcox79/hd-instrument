@@ -1389,6 +1389,459 @@ def revise_for_predicate_slot(toks: Sequence[str], post, tag_names: Sequence[str
         sites.append(i)
     return (post if out is None else out), sites
 
+# ------------------------------------------------------------ BRANCH (2): THE COMPLEMENT THE COPULA PREDICATES OF
+# THE PREDICATION IS THE EVENT (2026-09-14, pri 113).  pri 110 (above) computes the tense carrier's three-way
+# discharge and ships branch (3) -- the carrier that predicates on its own.  Branch (2), the copula that carries
+# tense FOR a NON-VERBAL predicate, was left with no consumer: 167 of the 762 subject-bearing clauses of UD-EWT
+# test 700 (21.9%) have their predicate on an ADJ / NOUN / ADV / PROPN / NUM by UD's design, and every downstream
+# organ gates on the VERB tag, so the event detector fired on NONE of them.  The two branches are the same product:
+#     carrier_occ_i      = (1 - P(verbal host at i)) * (1 - P(copular predication available at i))     [pri 110]
+#     complement_occ_q   = (1 - P(verbal host at i)) *      P(copular predication available at i)      [here]
+# so they PARTITION (1 - host) and one clause never gets two predicates from this computation (asserted in the
+# solver cell's self-test over 90 copulas).
+#
+# WHICH token is the complement is a question about CONSTRUCTIONS, and the four that `cop_predicates` carries
+# implicitly (property / class, right of the copula, one clause, no inversion) are not all of English.  Each of the
+# seven below was found by ATTRIBUTING the residual of the participant instrument, never guessed, and each is a
+# stored form-meaning pairing (Goldberg 1995) of exactly the kind this organ already holds in COP_FORMS / WH_FORMS
+# / EXPLETIVE.  Measured on that instrument (UD-EWT test 700, 762 subject-bearing clauses, paired bootstrap):
+#     shipped cop_predicates          recall .9357  precision .8262  on the 167 non-verbal clauses .7246
+#     + LOCATION                             .9344            .8260                                .7186
+#     + CLAUSE-LOCAL                         .9344            .8287                                .7186
+#     + INVERSION                            .9383            .8346                                .7365
+#     + DP (NP-internal participle)          .9436            .8325                                .7605
+#     + LOCATIVE INVERSION (fronted)         .9501            .8366                                .7904
+#     + RIGHT-HAND HEAD RULE (hyphen)        .9514            .8367                                .7964
+#     + ELLIPSIS / WH / COMPLEMENT-CLAUSE /
+#       SYM / PARENTHETICAL (all fourteen)     .9606            .8356                                .8383
+# against the live reader as shipped: recall .8176, precision .8358, non-verbal clauses .1856.
+# HDLAB_PREDICATION_CONSTRUCTIONS=0 restores the shipped scan exactly (asserted: 0 mismatches / 200 sentences).
+PREDICATION_CONSTRUCTIONS = os.environ.get("HDLAB_PREDICATION_CONSTRUCTIONS", "1") == "1"
+# THE LOCATIVE PREDICATE is a DEICTIC or spatial/temporal adverb -- the "location" member of Pustet 2003's inventory
+# of non-verbal predication (property / class / location / possession).  It is NOT "any ADV": scoping it to the
+# deictic set is what separates "the economy is DOWN" from "is just a little nostalgic" (a degree adverb inside an
+# ADJ predicate).
+# A WH-FORM IS THE PREDICATE of an identificational copular clause: "Which is WHY he said it",
+# "that is HOW i want you to refer to me", "this is WHAT I meant".
+WH_PRED = frozenset({"why", "how", "what", "where", "when", "which"})
+LOCATIVE_ADV = frozenset({"here", "there", "above", "below", "out", "in", "up", "down", "back", "away", "off",
+                          "over", "near", "nearby", "home", "abroad", "inside", "outside", "ahead", "behind",
+                          "everywhere", "somewhere", "anywhere", "nowhere", "upstairs", "downstairs",
+                          "today", "tomorrow", "yesterday", "tonight", "now", "then", "soon", "early", "late",
+                          "attached", "enclosed", "gone", "on", "around", "through", "apart", "together"})
+# The frontable predicate of the LOCATIVE-INVERSION / presentational construction (Birner & Ward 1998): "HERE is a
+# copy", "BELOW is a list", "WHICH is why he said it".  `that` / `this` are deliberately absent -- they are
+# canonical SUBJECTS in the same position, and including them cost .7904 -> .7305 on the 167 (measured).
+FRONTABLE_PRED = frozenset({"here", "there", "below", "above", "attached", "enclosed",
+                            "why", "how", "what", "where", "when", "which"})
+_HYPHEN = frozenset({"-", "--", "\u2013", "\u2014"})
+_CLAUSE_EDGE = frozenset({"SCONJ", "CCONJ"})
+_NOMINALISH = frozenset({"NOUN", "PROPN", "PRON", "NUM", "ADJ", "DET"})
+_HARD_STOP = frozenset({".", "!", "?", ";", ":"})
+
+
+def _np_run_end(toks: Sequence[str], pos: Sequence[str], k: int) -> int:
+    """The end of the NP run starting at 0-based k.  THE RIGHT-HAND HEAD RULE (Williams 1981), which this substrate
+    already cites in `graded_role_assigner.is_arg_head`, makes the RIGHTMOST member the head of a compound; a hyphen
+    is tagged PUNCT, so a run walk that stops at it returns the LEFT member (`money - redistributors` -> `money`,
+    `ill - advised term` -> `ill`, `al - Qaeda operation` -> `al`)."""
+    n = len(pos); j = k; seen_head = False
+    while True:
+        if j + 1 < n and pos[j + 1] in NP_RUN:
+            # (dp2) A DETERMINER AFTER THE HEAD OPENS A NEW NOMINAL (Abney 1987's DP, the rule the verb-group scan
+            # already uses): in "that 's the WAY the greatest bear market worked" the run must stop before the
+            # second `the`, or the head comes out `market`.  Worth EXACTLY ZERO on UD-EWT test 700 and kept anyway,
+            # because it is a fact about phrase structure rather than a rule fitted to this gold.
+            if PREDICATION_CONSTRUCTIONS and pos[j + 1] == "DET" and seen_head:
+                return j
+            if pos[j + 1] in ("NOUN", "PROPN"):
+                seen_head = True
+            j += 1; continue
+        if (PREDICATION_CONSTRUCTIONS and j + 2 < n and pos[j + 1] == "PUNCT"
+                and toks[j + 1] in _HYPHEN and pos[j + 2] in NP_RUN):
+            j += 2; continue
+        return j
+
+
+def _cop_inverted(pos: Sequence[str], lows: Sequence[str], i: int) -> bool:
+    """SUBJECT-AUXILIARY INVERSION (the interrogative construction): no subject stands to the copula's left inside
+    its own clause, so the first nominal to its RIGHT is the subject, not the complement -- "IS that a money
+    maker ?", "ARE you free ?".  `host_belief` already carries this construction for the verb-group walk.
+    A COMMA IS NOT A CLAUSE BOUNDARY: treating any PUNCT as one made a parenthetical look like a clause start and
+    discarded the complement in "Most Shiites , however , ARE still reluctant" (found by residual attribution)."""
+    for k in range(i - 1, -1, -1):
+        p = pos[k]
+        if p in _CLAUSE_EDGE:
+            return True
+        if p == "PUNCT":
+            if lows[k] in _HARD_STOP:
+                return True
+            continue
+        if p in _NOMINALISH:
+            return False
+        continue
+    return True
+
+
+def _fronted_predicate(toks: Sequence[str], pos: Sequence[str], i: int):
+    """LOCATIVE INVERSION / the presentational construction: the token immediately left of the copula is a deictic
+    locative or a wh-form with no nominal between it and the copula, and a NOMINAL follows -- "HERE is a copy".
+    A DETERMINER opens that postposed nominal (Abney 1987), so a verbal form after it is an NP-internal participle
+    ("here is a REVISED draft"), not the clause's verb."""
+    n = len(pos); lows = [t.lower() for t in toks]
+    k = i - 1
+    while k >= 0 and (pos[k] == "PUNCT" or (pos[k] in ("ADV", "PART") and lows[k] in _PS_NEG)):
+        k -= 1
+    if k < 0 or lows[k] not in FRONTABLE_PRED or pos[k] not in ("ADV", "PRON", "DET", "ADP", "ADJ"):
+        return None
+    for m in range(i + 1, n):
+        if pos[m] in _CLAUSE_EDGE or pos[m] == "PUNCT":
+            break
+        if pos[m] == "DET":
+            return k
+        if pos[m] == "VERB":
+            break
+        if pos[m] in ("NOUN", "PROPN", "PRON", "NUM"):
+            return k
+    return None
+
+
+def cop_complement(toks: Sequence[str], pos: Sequence[str], i: int, constructions: bool = None):
+    """The 0-based index of the token the copula at 0-based `i` carries tense FOR, or None.
+    `constructions=False` is byte-identical to `cop_predicates`'s own inner scan (0 mismatches over 200 UD-EWT
+    sentences, asserted in the solver cell's self-test); True adds the seven constructions in the block above."""
+    cons = PREDICATION_CONSTRUCTIONS if constructions is None else bool(constructions)
+    n = len(pos); lows = [t.lower() for t in toks]
+    if pos[i] != "AUX" or lows[i] not in COP_FORMS:
+        return None
+    seen_comp = False
+    for k in range(i + 1, n):                               # the verb-group locality (cop_predicates', extended)
+        if cons and pos[k] in ("ADJ", "NOUN", "PROPN", "PRON", "NUM"):
+            # (cl) ONCE THE COMPLEMENT HAS BEEN SEEN, A LATER VERB IS NOT IN THIS COPULA'S VERB GROUP -- it opens
+            # the complement's OWN clause ("I am SURE you 've already GONE", "it is IMPORTANT we do this").  The
+            # same locality argument as _COP_STOP, one step further: a predicable complement closes the group.
+            seen_comp = True
+        if seen_comp and pos[k] == "VERB":
+            break
+        if cons and pos[k] == "DET":
+            break                                           # (det) a determiner opens a nominal; see _fronted_predicate
+        if pos[k] == "VERB":
+            return None
+        if pos[k] == "PUNCT":
+            break
+        if COP_LOCALITY and (pos[k] in _COP_STOP or (pos[k] == "PART" and lows[k] == "to")):
+            break
+    if cons:
+        f = _fronted_predicate(toks, pos, i)
+        if f is not None:
+            return f
+        if all(pos[k] == "PUNCT" for k in range(i + 1, n)):
+            # (frontl) A STRANDED COPULA'S PREDICATE IS TO ITS LEFT, PAST ITS SUBJECT: "how RELIABLE that is",
+            # "whatever AGE you are".  `copular_available` already encodes that the slot is NOT free there (pri 110
+            # phase 7); pri 110 only needed that fact, the event needs to know WHICH token holds it.
+            seen_subj = False
+            for k in range(i - 1, -1, -1):
+                p = pos[k]
+                if p in _CLAUSE_EDGE or (p == "PUNCT" and lows[k] in _HARD_STOP):
+                    break
+                if p in ("PUNCT", "PART") or lows[k] in _PS_NEG:
+                    continue
+                if not seen_subj and p in ("NOUN", "PROPN", "PRON", "DET", "NUM"):
+                    seen_subj = True; continue
+                if seen_subj and p in ("ADJ", "NOUN", "PROPN", "ADV", "NUM"):
+                    return k
+                if p in ("VERB", "AUX"):
+                    break
+            return None
+    skip_subject = cons and _cop_inverted(pos, lows, i)
+    seen_nominal = False; opened = False
+    k = i
+    while True:
+        k += 1
+        if k >= n:
+            break
+        if cons and pos[k] == "DET":
+            opened = True
+        if pos[k] == "PUNCT":
+            # (paren) A PARENTHETICAL IS NOT THE COMPLEMENT AND NOT THE END OF THE CLAUSE: "This statement is ,
+            # despite its facade of fair - mindedness , so many weasel words ."  `copular_available` already knows
+            # the complement is behind such a boundary (pri 110 10b, its `crossed` flag); the complement scan
+            # stopped at it.  Skip the WHOLE aside -- comma to matching comma -- so the scan neither stops at it
+            # nor wanders into it.
+            if cons and lows[k] == "," and not seen_nominal:
+                j = k + 1
+                while j < n and not (pos[j] == "PUNCT" and lows[j] in (",", ".", "!", "?", ";")):
+                    j += 1
+                if j < n and lows[j] == ",":
+                    k = j
+                    continue
+            if cons and lows[k] in ('"', "'", "``", "''", "(") and not seen_nominal:
+                continue
+            break
+        if pos[k] == "VERB" and not (cons and opened):
+            break
+        if cons and pos[k] in _CLAUSE_EDGE:
+            break                                           # (clause) the complement is CLAUSE-LOCAL
+        if cons and pos[k] == "ADV" and not seen_nominal and lows[k] in LOCATIVE_ADV:
+            if k + 1 < n and pos[k + 1] == "ADP":           # (pploc) a COMPLEX locative: "i am OUT OF TOWN"
+                for m in range(k + 2, n):
+                    if pos[m] in ("NOUN", "PROPN", "PRON", "NUM"):
+                        e = _np_run_end(toks, pos, m)
+                        hs = [q for q in range(m, e + 1) if pos[q] in ("NOUN", "PROPN")]
+                        return hs[-1] if hs else m
+                    if pos[m] in ("VERB", "PUNCT") or pos[m] in _CLAUSE_EDGE:
+                        break
+            return k                                        # (loc) "the economy is DOWN", "he is HERE"
+        if cons and pos[k] in ("ADV", "PRON", "DET") and lows[k] in WH_PRED and not seen_nominal:
+            return k                                        # (wh) a WH-form predicate: "Which is WHY he said it"
+        if cons and pos[k] in ("SYM", "INTJ") and not seen_nominal:
+            return k                                        # (sym) a PRICE or a CODE predicates: "is $ 30 an entree"
+        if pos[k] in ("ADJ", "NOUN", "PROPN", "PRON", "NUM"):
+            if skip_subject and not seen_nominal:
+                seen_nominal = True                         # (inv) that was the INVERTED SUBJECT; keep looking
+                _np_run_end(toks, pos, k)
+                continue
+            if pos[k] == "PRON":
+                return k
+            j = _np_run_end(toks, pos, k)
+            heads = [m for m in range(k, j + 1) if pos[m] in ("NOUN", "PROPN")]
+            if heads:
+                return heads[-1]
+            adjs = [m for m in range(k, j + 1) if pos[m] in ("ADJ", "NUM")]
+            return adjs[-1] if adjs else k
+    if not cons:
+        return None
+    for k in range(i + 1, n):                               # the LOCATION fallback (bare ADV / ADP phrase)
+        if pos[k] == "VERB" or pos[k] == "PUNCT" or pos[k] in _CLAUSE_EDGE:
+            break
+        if pos[k] == "ADV" and lows[k] in LOCATIVE_ADV:
+            return k
+        if pos[k] == "ADP":
+            for m in range(k + 1, n):
+                if pos[m] in ("NOUN", "PROPN", "PRON", "NUM"):
+                    j = _np_run_end(toks, pos, m)
+                    hs = [q for q in range(m, j + 1) if pos[q] in ("NOUN", "PROPN")]
+                    return hs[-1] if hs else m
+                if pos[m] in ("VERB", "PUNCT"):
+                    break
+            break
+    return None
+
+
+def predicate_complements(toks: Sequence[str], pos: Sequence[str]) -> set:
+    """The 1-based indices that hold their clause's predicate slot WITHOUT being tagged VERB/AUX -- the non-verbal
+    predicate a copula carries tense for.  Arc-free (toks + pos only), so the ROLE competition can read it."""
+    out = set()
+    if "AUX" not in set(pos) and not any(t.lower() in COP_FORMS for t in toks):
+        return out
+    for i in range(len(pos)):
+        q = cop_complement(toks, pos, i)
+        if q is not None and pos[q] not in ("VERB", "AUX"):
+            out.add(q + 1)
+    return out
+
+
+def predicate_sites(toks: Sequence[str], tags: Sequence[str], post, tag_names: Sequence[str]) -> dict:
+    """P(this token occupies its clause's predicate slot), per 0-based token, for EVERY predicate -- verbal and
+    non-verbal.  GRADED both ways (pri 110's lesson): the verbal site carries the category organ's own P(VERB) and
+    the complement site carries (1 - host_belief) * copular_available, so a consumer can weight an uncertain
+    predication instead of committing it.  Returns {} under a category inventory lacking the UPOS classes this
+    computation reads (the pri-15 induced-class swap and the Penn-tagset temporal instance must degrade to silence,
+    not to an exception -- the guard pri 110 learned the hard way)."""
+    sites = {}
+    if post is None or len(toks) == 0 or any(t not in tag_names for t in _PS_NEEDED):
+        return sites
+    vi = tag_names.index("VERB")
+    for i in range(len(toks)):
+        if tags[i] == "VERB":
+            sites[i] = float(post[i][vi])
+    for i in range(len(toks)):
+        if tags[i] != "AUX" or toks[i].lower() not in COP_FORMS:
+            continue
+        ca = copular_available(toks, tags, i)
+        if ca <= 0.0:
+            continue
+        q = cop_complement(toks, tags, i)
+        if q is None and PREDICATION_CONSTRUCTIONS and all(tags[k] == "PUNCT" for k in range(i + 1, len(toks))):
+            # (ellip) THE COMPLEMENT IS ELIDED and no token carries it -- "i am sure they ARE .",
+            # "more miserable than it 's ever BEEN".  The predication still happened, and the stranded auxiliary is
+            # its surface residue (Hankamer & Sag 1976), so the copula is the only token that can carry the
+            # eventuality.  NARROWED to the TRULY stranded configuration: fired whenever the complement scan merely
+            # failed it was 31 extra fires for 2 clauses and took participant precision 0.8367 -> 0.8177,
+            # CI-separated DOWN (measured, --ablate).
+            q = i
+        if q is None or q in sites:
+            continue
+        s = (1.0 - host_belief(toks, tags, post, tag_names, i)) * ca
+        if s > sites.get(q, 0.0):
+            sites[q] = s
+    return sites
+
+
+
+# ---------------------------------------------------------------- THE COPULA IS THE TENSE CARRIER (pri 113)
+# `temporal_model.extract_events` skips every AUX lemma and the tense-preserving detector assigns a Reichenbach
+# triple only to UPOS==VERB, so a copular clause carried NO tense at all: "she WAS a doctor" and "she IS a doctor"
+# were the same record downstream.  Carrying the tense of a predication that is not itself finite is the copula's
+# ONE job (Pustet 2003; Bybee 1994 on auxiliation) -- it is the reason English inserts it -- so the tense of a
+# non-verbal predication is read off the CARRIER.  Labels match `situation_reader._stock_tense` so the two event
+# streams are comparable.  Coverage on UD-EWT test 700: 0 -> 0.8084 of the non-verbal clauses (measured).
+_PAST_COP = frozenset({"was", "were", "been"})
+_PRES_COP = frozenset({"is", "are", "am", "'s", "'re", "'m", "s", "re", "m", "be", "being",
+                       "become", "becomes", "seem", "seems"})
+_PAST_LEX = frozenset({"became", "seemed"})
+_FUT_AUX = frozenset({"will", "'ll", "ll", "wo", "shall"})
+_MODAL_AUX = frozenset({"would", "can", "could", "may", "might", "must", "should"})
+
+
+def copula_tense(toks: Sequence[str], pos: Sequence[str], i: int) -> str:
+    """The stock tense label a copular predication inherits from its CARRIER at 0-based i."""
+    lows = [t.lower() for t in toks]
+    w = lows[i]; prev = None
+    for k in range(i - 1, max(-1, i - 4), -1):
+        if pos[k] in ("ADV", "PART", "PUNCT") or lows[k] in _PS_NEG:
+            continue
+        prev = lows[k]
+        break
+    if w == "been" and prev in ("had", "'d"):
+        return "PAST_PERFECT"
+    if prev in _FUT_AUX:
+        return "FUTURE"
+    if prev in _MODAL_AUX:
+        return "MODAL_SUBORDINATE"
+    if w in _PAST_COP or w in _PAST_LEX:
+        return "SIMPLE_PAST"
+    if w in _PRES_COP:
+        return "SIMPLE_PRESENT"
+    return "OTHER"
+
+
+def predicate_site_carriers(toks: Sequence[str], tags: Sequence[str], post, tag_names: Sequence[str]) -> dict:
+    """{predicate site -> the 0-based copula carrying its tense}.  The same loop as predicate_sites."""
+    out = {}
+    if post is None or len(toks) == 0 or any(t not in tag_names for t in _PS_NEEDED):
+        return out
+    verbal = set(i for i in range(len(toks)) if tags[i] == "VERB")
+    for i in range(len(toks)):
+        if tags[i] != "AUX" or toks[i].lower() not in COP_FORMS:
+            continue
+        if copular_available(toks, tags, i) <= 0.0:
+            continue
+        q = cop_complement(toks, tags, i)
+        if q is None and PREDICATION_CONSTRUCTIONS and all(tags[k] == "PUNCT" for k in range(i + 1, len(toks))):
+            q = i
+        if q is None or q in verbal or q in out:
+            continue
+        out[q] = i
+    return out
+
+
+# ------------------------------------------------------------------- THE SECOND CUE TO THE SAME PREDICATE (pri 113)
+# `cop_complement` above is a SURFACE cue -- a construction read off word order and closed-class forms.  The heads
+# rung supplies an INDEPENDENT structural one: a copula attaches TO its predicate, and the landed copular state
+# reader (`hdlab.copular_binding.robust_cop`) already reads exactly that off the tree.  Measured, the two cues see
+# overlapping but not identical sets (98 shared, 20 surface-only, 10 arc-only of the 167).
+# THE BRAIN.  Multiple-cue integration (Christiansen & Chater 2001) with RELIABILITY WEIGHTING (Ernst & Banks 2002;
+# Ma-Beck-Latham-Pouget 2006: a downstream area weights each input by its reliability, trial by trial) -- and the
+# reliability of "this arc names the predicate" is the governor's OWN posterior on that arc, the same quantity
+# tools/build_coarse_role_validities.py already uses as its teaching weight.  A RAW UNION costs participant
+# precision 0.8370 -> 0.8076, CI-separated DOWN; gating on the reliability recovers almost all of the recall at no
+# CI-separated precision cost, and the operating point is FLAT (measured, --arcgrade):
+#     tau   recall  precision  F1      on the 167   d(precision) vs the live floor
+#     0.00  0.9659  0.8076     0.8797  0.8623       -0.0282 CI[-0.0386,-0.0171]  SEPARATED DOWN
+#     0.10  0.9646  0.8320     0.8934  0.8563       -0.0038 CI[-0.0118,+0.0041]  not separated
+#     0.50  0.9633  0.8332     0.8935  0.8503       -0.0026 CI[-0.0108,+0.0051]  not separated
+#     0.90  0.9593  0.8341     0.8924  0.8323       -0.0016 CI[-0.0099,+0.0058]  not separated
+#     off   0.9541  0.8370     0.8917  0.8084       +0.0012 CI[-0.0059,+0.0079]
+# The PUREST form of the arc cue (the copula's own MAP head, no fallback chain) is WORSE at every threshold
+# (tau 0.5: precision 0.8274 against 0.8332), so `robust_cop`'s gated fallback is carrying real signal.
+# DEFAULT OFF, AND THE REASON IS A REVERSAL I HAVE TO RECORD.  It was flipped ON on the strength of a CAPPED board
+# A/B in which six of seven dimensions were +0.0000 EXACTLY.  The FULL-SIZE A/B then landed and disagreed: on the
+# uncapped board the event arm is DOWN on coref (0.4172 -> 0.4153, n=3145), on who_did_what_patient
+# (0.8151 -> 0.8104, n=1255) and on state (0.7487 -> 0.7460, n=378), aggregate 0.6191 -> 0.6185.  Those movements
+# are 6, 6 and 1 items and are INVISIBLE at the capped sizes (n=504 / 241 / 73) -- i.e. the capped board was
+# UNDERPOWERED and I treated it as decisive.  The coordinator's condition for the default was "if it is not down
+# anywhere"; at full size it is down somewhere, so the condition fails and the default goes back to 0.
+# WHAT IS STILL TRUE: tau 0.5 takes the 167 from 0.8383 to 0.8743 in supply and GUM's 366 from 0.6120 to 0.6257 out
+# of supply, at a participant-precision delta whose CI contains zero in supply and is unchanged out of it.
+# WHAT IS NEEDED TO TURN IT ON: a FULL-SIZE `--board-ab --full` of the SHIPPED configuration (constructions + arc
+# cue + the state consolidation, which the full run above did NOT include and which is itself +0.0370
+# CI[+0.0186,+0.0571] on state).  Set HDLAB_PREDICATION_ARC_TAU=0.5 to measure it.
+PREDICATION_ARC_TAU = float(os.environ.get("HDLAB_PREDICATION_ARC_TAU", "0"))
+
+
+def arc_predicate_sites(toks: Sequence[str], tags: Sequence[str], heads, head_posterior, tau: float = None) -> dict:
+    """{0-based predicate index -> P(the copula attaches to it)} from the ARC cue, gated at `tau`.
+    Reads the landed copular state reader's own detection (ONE organ owns the arc read) and weights each site by
+    the heads rung's own posterior on the copula's arc.  Returns {} if tau <= 0 or anything is unavailable."""
+    tau = PREDICATION_ARC_TAU if tau is None else float(tau)
+    out = {}
+    if tau <= 0.0 or not heads or not head_posterior:
+        return out
+    try:
+        from hdlab.copular_binding import robust_cop
+        pairs = robust_cop(list(toks), list(tags), heads, gate=True)
+    except Exception:
+        return out
+    lows = [t.lower() for t in toks]
+    for (_h, pr) in pairs:
+        if not (0 <= pr < len(tags)) or tags[pr] in ("VERB", "AUX"):
+            continue
+        best = 0.0
+        for c in range(len(toks)):
+            if tags[c] != "AUX" or lows[c] not in COP_FORMS or abs(c - pr) > 6:
+                continue
+            best = max(best, float((head_posterior.get(c + 1) or {}).get(pr + 1, 0.0)))
+        if best >= tau and best > out.get(pr, 0.0):
+            out[pr] = best
+    return out
+
+
+# ------------------------------------------------------- ONE STRUCTURE PER CLAUSE: the state reader's own pairs
+# `situation_reader._read_entity_states` detects its (HOLDER, PROPERTY) pairs with `copular_binding.robust_cop`, a
+# SECOND, independent predicate finder for the same clause.  Measured on UD-EWT test 700: where both organs name
+# the gold predicate they AGREE 97 times; where they differ the PREDICATE-SLOT read is right 20 times and the state
+# reader 9 -- so the right consolidation is a UNION (the 9 are real), not a replacement.  ONE eventuality per clause
+# whose SORT is read off the predicate's own category (Maienborn 2005) is the brain-foundational form.
+# MEASURED, board A/B with both arms back-to-back in one process, the state dimension at FULL size:
+#     state 0.7487 -> 0.7857  (+0.0370, 14 items of 378; its own floor is 0.5714)
+#     every other dimension +0.0000; aggregate 0.6290 -> 0.6359
+# and the event/state disagreements 29 -> 20, of which 9 are cases the state reader gets RIGHT, so the true
+# residual is 11 -- and its cause is `robust_cop`'s HOLDER scan, not the predicate read.
+# HDLAB_STATE_FROM_PREDICATE_SLOT=0 restores the shipped detection exactly.
+STATE_FROM_PREDICATE_SLOT = os.environ.get("HDLAB_STATE_FROM_PREDICATE_SLOT", "1") == "1"
+
+
+def state_pairs_from_slot(toks: Sequence[str], tags: Sequence[str], post, tag_names: Sequence[str]) -> set:
+    """(HOLDER, PROPERTY) pairs, 0-based, for every predicate-slot site the copular state reader would miss.
+    The HOLDER is recovered by `robust_cop`'s own rule -- the nearest nominal preceding the licensing copula -- so
+    only the PROPERTY set is consolidated and the holder logic is untouched."""
+    out = set()
+    if not STATE_FROM_PREDICATE_SLOT:
+        return out
+    lows = [t.lower() for t in toks]
+    for q in predicate_sites(toks, tags, post, tag_names):
+        if tags[q] == "VERB":
+            continue
+        c = None
+        for k in range(q - 1, max(-1, q - 8), -1):
+            if tags[k] == "AUX" and lows[k] in COP_FORMS:
+                c = k
+                break
+        start = c if c is not None else q
+        hold = None
+        for k in range(start - 1, -1, -1):
+            if tags[k] in ("NOUN", "PROPN", "PRON"):
+                hold = k
+                break
+            if tags[k] in ("VERB", "PUNCT"):
+                break
+        if hold is not None:
+            out.add((hold, q))
+    return out
+
+
+
 def subordination(toks: Sequence[str], pos: Sequence[str], i: int) -> str:
     """SUBORDINATION CUE: the clause-dependency marking in force at 1-based i -- the nearest preceding clause opener
     (subordinator / relativizer / coordinator) with no finite predicate in between (a VERB or a sentence-final mark
@@ -2683,7 +3136,9 @@ __all__ = ["SentenceCues", "CONSTRUCTIONS", "construction_map", "verb_frames_fro
            "root_cue_values", "predication_boost", "finiteness",
            "predicate_slot_occupancy", "revise_for_predicate_slot", "host_belief", "copular_available",
            "is_existential", "main_verb_carriers",
-           "cop_predicates", "subordination", "assertion_candidates", "arc_scores", "head_posterior", "heads", "arc_scores_graded", "head_posterior_graded", "heads_graded", "SemanticBootstrapTeacher", "ASSET", "FORM"]
+           "cop_predicates", "cop_complement", "predicate_complements", "predicate_sites",
+           "predicate_site_carriers", "copula_tense", "arc_predicate_sites",
+           "state_pairs_from_slot", "subordination", "assertion_candidates", "arc_scores", "head_posterior", "heads", "arc_scores_graded", "head_posterior_graded", "heads_graded", "SemanticBootstrapTeacher", "ASSET", "FORM"]
 
 
 # ------------------------------------------------------------------------------ meaning as a read-time cue (PLAUS_CUE)

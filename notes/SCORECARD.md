@@ -14,6 +14,7 @@ NEW word means from what it reads, using its sense of how things feel and look, 
 near the top about 38 times in 100 where the old method managed about 3.
 
 ## WHAT CHANGED LATELY
+- **14 Sep, 22:27.** Landed (a head-to-head: you and an agent solved the same problem blind; the best of both merged): sentences without a doing-word ('the sky is blue', 'she is a doctor') are now read as statements about the thing, one structure per sentence. On the test set the reader now catches 74 to 88 in 100 of them (was 19); 'what things are like' on the board 74.9 -> 79.1 in 100, everything else unchanged. Overall board 62.1 in 100.
 - **14 Sep, 19:50.** Landed: the word-category organ now reads a story once, in order, and every later step sees only what had been read up to that sentence. Before, five different steps re-read sentences out of order into its memory, so the same story read twice could give different events (2 stories in 12), and on first mentions it was effectively peeking at the answer. Now identical every time; board unchanged (61.9 in 100).
 - **14 Sep, 16:41.** Landed: the system now judges whether a clause is passive by looking at the helper verb right before the verb in question, not anywhere in the sentence. Its passive detector went from 38 to 96 in 100 correct; 'who did it' on the board 82.7 -> 85.6 in 100, and for the first time clearly better than the simple word-order rule (84.7). Six separate passive checkers became one. Overall board 61.9 in 100.
 - **14 Sep, 14:42.** Switched on: the who-was-acted-on organ now takes each word's role from the role organ instead of guessing from word order (about +3.5 in 100 on its own test, clearly beyond chance on both halves of the data; the board cannot see this organ, so its own test is the gauge).
@@ -185,16 +186,16 @@ Long term (the next few months):
 
 <!-- AUTO:BEGIN (written by tools/scorecard.py; edit the sections ABOVE, not this) -->
 
-Last full check: 2026-09-14T21:04:53.514471+00:00 (46 on record). Generated 2026-09-14T23:49:27+00:00.
+Last full check: 2026-09-15T00:49:35.856666+00:00 (48 on record). Generated 2026-09-15T02:27:49+00:00.
 
 | Ability | Group | How well | Compared with a simple rule | Since the previous check | Brain-faithful? |
 |---|---|---|---|---|---|
-| Whether 'the dog' is the same dog mentioned earlier | People and things | right 55 in 100 | a little better than the simple rule (54 in 100), not yet convincingly | unchanged since the previous check | brain model; some details still open |
+| Whether 'the dog' is the same dog mentioned earlier | People and things | right 55 in 100 | a little better than the simple rule (53 in 100), not yet convincingly | unchanged since the previous check | brain model; some details still open |
 | Which character the passage is mainly about | People and things | right 27 in 100 | a little better than the simple rule (22 in 100), not yet convincingly | unchanged since the previous check | brain model; some details still open |
 | Who 'he / she / it / they' refers to | People and things | right 42 in 100 | clearly better than the simple rule (32 in 100) | unchanged since the previous check | brain model; some details still open |
-| Linking a description ('the painter') to a named person | People and things | right 58 in 100 | clearly better than the simple rule (42 in 100) | unchanged since the previous check | brain model; some details still open |
+| Linking a description ('the painter') to a named person | People and things | right 59 in 100 | clearly better than the simple rule (45 in 100) | unchanged since the previous check | brain model; some details still open |
 | Pronoun reference as the full reader actually runs it | People and things | right 56 in 100 | clearly better than the simple rule (48 in 100) | unchanged since the previous check | brain model; some details still open |
-| Resolving 'the animal' to the dog just mentioned | People and things | right 57 in 100 | clearly better than the simple rule (54 in 100) | unchanged since the previous check | brain model; some details still open |
+| Resolving 'the animal' to the dog just mentioned | People and things | right 57 in 100 | clearly better than the simple rule (53 in 100) | unchanged since the previous check | brain model; some details still open |
 | Who was affected by what happened | People and things | right 41 in 100 | clearly better than the simple rule (34 in 100) | unchanged since the previous check | brain model; some details still open |
 | Which meaning of a word is meant in this sentence | Word meaning | right 75 in 100 | clearly better than the simple rule (50 in 100) | unchanged since the previous check | brain model; some details still open |
 | Drawing safe conclusions from 'is a kind of' facts | Word meaning | right 77 in 100 | clearly better than the simple rule (54 in 100) | unchanged since the previous check | brain model; some details still open |
@@ -202,18 +203,18 @@ Last full check: 2026-09-14T21:04:53.514471+00:00 (46 on record). Generated 2026
 | Handling 'not' correctly | Word meaning | right 92 in 100 | clearly better than the simple rule (50 in 100) | DOWN 0.008 since the previous check | brain model; some details still open |
 | How a word's meaning shifts with its context (graded) | Word meaning | agreement with people 0.39 (out of 1) | clearly better than the simple rule (0.38) | unchanged since the previous check | brain model; some details still open |
 | Picking the right broad sense of an ambiguous word (older test set) | Word meaning | right 52 in 100 | clearly better than the simple rule (35 in 100) | unchanged since the previous check | brain model; some details still open |
-| What something is or is like ('the sky is blue') | Actions and roles | right 75 in 100 | clearly better than the simple rule (57 in 100) | unchanged since the previous check | brain model; some details still open |
+| What something is or is like ('the sky is blue') | Actions and roles | right 79 in 100 | clearly better than the simple rule (57 in 100) | up 0.042 since the previous check | brain model; some details still open |
 | Who did the action in a sentence | Actions and roles | right 86 in 100 | clearly better than the simple rule (85 in 100) | unchanged since the previous check | brain model; one part is a stand-in we are replacing |
-| Who or what the action was done to | Actions and roles | right 81 in 100 | clearly better than the simple rule (72 in 100) | unchanged since the previous check | brain model; one part is a stand-in we are replacing |
+| Who or what the action was done to | Actions and roles | right 82 in 100 | clearly better than the simple rule (72 in 100) | unchanged since the previous check | brain model; one part is a stand-in we are replacing |
 | Keeping a fact true until something changes it | Actions and roles | right 100 in 100 | clearly better than the simple rule (44 in 100) | unchanged since the previous check | brain model; some details still open |
 | Event order when the text does not say it outright | Time and place | right 56 in 100 | clearly better than the simple rule (53 in 100) | unchanged since the previous check | brain model; some details still open |
 | Noticing where one scene ends and another begins | Time and place | right 12 in 100 | a little better than the simple rule (7 in 100), not yet convincingly | unchanged since the previous check | brain model; some details still open |
-| Picking out place information correctly | Time and place | right 59 in 100 | clearly better than the simple rule (51 in 100) | unchanged since the previous check | brain model; some details still open |
+| Picking out place information correctly | Time and place | right 59 in 100 | clearly better than the simple rule (52 in 100) | unchanged since the previous check | brain model; some details still open |
 | Where things are relative to each other | Time and place | right 20 in 100 | a little better than the simple rule (17 in 100), not yet convincingly | unchanged since the previous check | brain model; some details still open |
 | Whether a state still holds at a later point | Time and place | right 41 in 100 | clearly better than the simple rule (11 in 100) | unchanged since the previous check | brain model; some details still open |
 | Whether two events happened at the same time | Time and place | right 99 in 100 | clearly better than the simple rule (50 in 100) | unchanged since the previous check | brain model; some details still open |
 | Which of two events came first | Time and place | right 59 in 100 | clearly better than the simple rule (52 in 100) | unchanged since the previous check | brain model; some details still open |
-| Answering 'why' when the cause is sentences away | Causes | right 25 in 100 | clearly better than the simple rule (0 in 100) | up 0.012 since the previous check | brain model; some details still open |
+| Answering 'why' when the cause is sentences away | Causes | right 25 in 100 | clearly better than the simple rule (0 in 100) | up 0.008 since the previous check | brain model; some details still open |
 | Following a chain of causes across several steps | Causes | right 26 in 100 | clearly better than the simple rule (0 in 100) | unchanged since the previous check | brain model; some details still open |
 | Whether a cause makes an effect bigger or smaller | Causes | right 62 in 100 | a little better than the simple rule (61 in 100), not yet convincingly | unchanged since the previous check | brain model; some details still open |
 | Whether one event was needed for another to happen | Causes | right 35 in 100 | clearly better than the simple rule (3 in 100) | unchanged since the previous check | brain model; some details still open |
@@ -221,7 +222,7 @@ Last full check: 2026-09-14T21:04:53.514471+00:00 (46 on record). Generated 2026
 | What a character believes, even when it is false | Feelings, goals, beliefs | right 65 in 100 | clearly better than the simple rule (49 in 100) | unchanged since the previous check | brain model; some details still open |
 | Whether an action helped or harmed someone | Feelings, goals, beliefs | right 100 in 100 | clearly better than the simple rule (33 in 100) | unchanged since the previous check | brain model; some details still open |
 | Whether an event helps or blocks a character's goal | Feelings, goals, beliefs | right 98 in 100 | clearly better than the simple rule (49 in 100) | unchanged since the previous check | brain model; some details still open |
-| Who is having the feeling | Feelings, goals, beliefs | right 21 in 100 | clearly better than the simple rule (14 in 100) | unchanged since the previous check | brain model; some details still open |
+| Who is having the feeling | Feelings, goals, beliefs | right 22 in 100 | clearly better than the simple rule (15 in 100) | unchanged since the previous check | brain model; some details still open |
 | Working out what a new word means from reading | Learning from reading | right meaning ranked near the top 42 in 100 | clearly better than the simple rule (16 in 100) | unchanged since the previous check | brain model; some details still open |
 | Knowing when to hold back on 'who was acted on' | Knowing its limits | right 96 in 100 | clearly better than the simple rule (87 in 100) | unchanged since the previous check | brain model; one part is a stand-in we are replacing |
 | Knowing when to hold back on a place or time attachment | Knowing its limits | right 84 in 100 | clearly better than the simple rule (76 in 100) | unchanged since the previous check | uses a stand-in we are replacing |

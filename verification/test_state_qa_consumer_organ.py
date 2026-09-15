@@ -139,8 +139,11 @@ def main():
     # the solver's submission proof; landing CHANGE 2 collapses the label/robust_cop distinction BY DESIGN.)
     uf = res["upstream_fix"]
     opt = STATE.optimize_upstream(cap=800, n_boot=1000)
-    landed_at_fix = abs(res["qa_state_model"] - uf["qa_state_fix"]) < 0.02
-    check("W9 robust_cop LANDED as the reader default (qa_state at the fix level, CI-sep over floor) + arc-eager on top",
+    # RE-PINNED 2026-09-14 (strategy, pri 113 landing): the reader default now carries robust_cop AND the one-structure
+    # consolidation (the copular state reader fed from the predicate slot, HDLAB_STATE_FROM_PREDICATE_SLOT), so it sits
+    # ABOVE the robust_cop fix level by design (0.761 vs 0.59 on this harness); the landed reality is "at or above".
+    landed_at_fix = res["qa_state_model"] >= uf["qa_state_fix"] - 0.02
+    check("W9 robust_cop LANDED as the reader default (qa_state at or above the fix level, CI-sep over floor) + arc-eager on top",
           landed_at_fix and res["model_vs_floor"]["ci_sep"]
           and opt["arceager_vs_july"]["ci_sep"] and opt["qa_state_fix_arceager"] > opt["qa_state_fix_july"],
           "reader-default %.3f == robust_cop fix %.3f (LANDED) ; arc-eager %.3f (d=%+.3f CI-sep on top)" %
