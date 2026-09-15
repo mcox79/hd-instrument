@@ -90,10 +90,20 @@ def _agg(rows):
     if not tot:
         return {}
     def wm(key):
-        s = sum(r["n"] * r[key] for r in rows.values() if r and r.get(key) is not None)
-        return round(s / tot, 4)
+        # E09 (substrate evaluation 2026-09-15): a comparator is averaged over the rows that HAVE it, and the result
+        # names that population -- a missing floor/twin used to be dropped from the numerator but kept in the
+        # denominator (counted as zero), which overstated the model's advantage. A None stays None.
+        have = [r for r in rows.values() if r and r.get("model_acc") is not None and r.get(key) is not None]
+        n_have = sum(r["n"] for r in have)
+        if not n_have:
+            return None
+        return round(sum(r["n"] * r[key] for r in have) / n_have, 4)
+    n_floor = sum(r["n"] for r in rows.values() if r and r.get("model_acc") is not None and r.get("strongest_floor") is not None)
+    n_twin = sum(r["n"] for r in rows.values() if r and r.get("model_acc") is not None and r.get("twin_acc") is not None)
     return {"n": tot, "model_acc": wm("model_acc"), "strongest_floor": wm("strongest_floor"),
             "twin_acc": wm("twin_acc"),
+            "n_with_floor": n_floor, "n_with_twin": n_twin,
+            "comparators_complete": bool(n_floor == tot and n_twin == tot),
             "n_dims_ci_sep_over_floor": sum(1 for r in rows.values() if r and r.get("ci_sep_over_strongest")),
             "n_dims_total": len([r for r in rows.values() if r]),
             "note": "CROSS-POPULATION SUMMARY (item-weighted mean over modern dimensions). NO LitBank "

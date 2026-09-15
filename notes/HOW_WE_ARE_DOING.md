@@ -27,7 +27,7 @@ what people actually do. The test board is the instrument we measure with, not t
 The whole front of the reading chain now runs on brain-style parts and the board sits at right 63
 in 100 against 54 in 100 for simple rules, but two rungs are weak and hold everything above them
 back: working out which word hangs off which (right 64 in 100) and keeping track of who is who
-across a passage (right 47 in 100 on he/she/it) -- and that second one is the front we are on now.
+across a passage (right 42 in 100 on he/she/it, honest basis) -- and that second one is the front we are on now.
 
 ## WHERE WE ARE ON THE PLAN
 
@@ -38,10 +38,11 @@ across a passage (right 47 in 100 on he/she/it) -- and that second one is the fr
 | Which word hangs off which | WEAK | right 64 in 100 | The sentence's skeleton. With the answer key for word kinds it is right 64 in 100, with the system's own word kinds 63 in 100. A parser trained on forty thousand hand-corrected sentences reaches 78 here and people are above 95, so this is the biggest single gap. |
 | Who did what to whom | IMPROVING | right 92 in 100 given a correct skeleton | On a correct skeleton the roles are read almost perfectly. On the system's own skeleton that gain mostly disappears, which is why the rung above matters so much. On the board: who did the action 83 in 100, who it was done to 81 in 100. |
 | Helped or harmed, how it feels | SOLID | right 100 in 100 on the careful test, 67 in 100 on fresh prose | Judging whether an action hurt or helped someone by the state it leaves them in, and how a character would feel about an event. Strong where the test is careful; the drop on fresh prose is the skeleton again. |
-| Who is who across a passage | NEXT FRONT | right 47 in 100 on he/she/it | Following the same person or thing through a passage. Built in the brain's spirit but not yet rebuilt part by part the brain's way. This is the current front of the work. |
+| Who is who across a passage | NEXT FRONT | right 42 in 100 on he/she/it (honest basis; on raw text with no markup the reader cannot yet find pronouns at all -- the top item now) | Following the same person or thing through a passage. Built in the brain's spirit but not yet rebuilt part by part the brain's way. This is the current front of the work. |
 | Reasoning on top | IMPROVING | right 24 to 90 in 100 depending on the question | Time, cause, belief and goals. These work well when handed a correct reading of the sentence and slump on real prose, so the wall they hit is the chain below them, not the reasoning itself. Best: how a character feels about an event, 90 in 100. Worst: answering "why" when the cause is several sentences away, 24 in 100. |
 
 ## WHAT MOVED THIS WEEK
+- 2026-09-15 -- An outside review found that on raw, unmarked text the reader cannot find pronouns (who-did-it 9 right in 52 on its sample; 42 in 52 once our own word-category organ supplies the spans). Filed as the top problem. Two small holes closed: a misspelt setting no longer silently switches to the old supervised parts; a missing baseline no longer counts as zero. Honest overall 62.0 in 100.
 - 2026-09-15 -- Landed: name/pronoun/noun typing decided at the type level (+1 in 100); pronoun reference 41.8 -> 42.2; common-noun line down only by a population artefact (instrument brief pri 122).
 - 2026-09-15 -- Landed: the attacher learns how to attach 'the sky is blue' subjects (54 -> 65 in 100); 'which thing does this property belong to' 65 -> 79; board unchanged but one sentence.
 - 2026-09-15 -- Landed: capital letters kept through the reader; the category organ finds 87 in 100 of names (was 45); through the reader 49 -> 85; board lines unchanged (they never run the reader; instrument problem filed).

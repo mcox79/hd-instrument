@@ -30,6 +30,10 @@ TAG_SOURCE = os.environ.get("HDLAB_TAG_SOURCE", "counts")
 # coref/salience/common-noun/wic identical; patient -0.087 and state -0.140 are LABELS-rung reads (the stand-in parser hands them
 # ready-made relation labels) -> repaired at the roles rung, not by reverting. "arceager" stays selectable for baselines.
 HEADS_SOURCE = os.environ.get("HDLAB_HEADS_SOURCE", "attachment_arm")
+# The ONLY names the switchboard accepts (E10, 2026-09-15): the BF organ and its supervised stand-in, per rung. Any other
+# string (a typo in the env var or a constructor call) raises at construction, before any inference.
+TAG_SOURCES = frozenset({"counts", "perceptron"})
+HEADS_SOURCES = frozenset({"attachment_arm", "arceager"})
 _POS_ASSET = os.path.join(_REPO, "data", "frontend_assets", "pos_tagger_ud_ewt_upos.json")
 
 
@@ -54,6 +58,9 @@ class Tagger:
 
     def __init__(self, source: Optional[str] = None):
         self.source = source or TAG_SOURCE
+        if self.source not in TAG_SOURCES:          # E10 (substrate evaluation 2026-09-15): an unknown name must
+            raise ValueError("unknown tag source %r (allowed: %s); a typo must not silently select the supervised "
+                             "stand-in" % (self.source, sorted(TAG_SOURCES)))   # NOT fall through to the perceptron
         if self.source == "counts":
             from hdlab import lexical_categories as LC
             self._lc = LC.get(); self._pt = None
@@ -77,6 +84,9 @@ class Parser:
 
     def __init__(self, source: Optional[str] = None):
         self.source = source or HEADS_SOURCE
+        if self.source not in HEADS_SOURCES:        # E10: same guard for the heads source (arceager = supervised stand-in)
+            raise ValueError("unknown heads source %r (allowed: %s); a typo must not silently select the supervised "
+                             "stand-in" % (self.source, sorted(HEADS_SOURCES)))
         if self.source == "attachment_arm":
             from hdlab import attachment_arm as AA
             self._AA = AA; self._tab = AA.load_attachment_validities(); self._ae = None
