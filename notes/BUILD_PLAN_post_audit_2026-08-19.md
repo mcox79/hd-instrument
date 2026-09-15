@@ -1,5 +1,7 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🟢 **2026-09-15 11:09 (LATEST -- COMPACTION HANDOFF, autoloop DISARMED): READ notes/STATUS.md 'COMPACTION HANDOFF 2026-09-15' FIRST. Landed 09-14/15: 109, 110, 106, 111, 112, 113, 116, 117, 118 + the loader exclusion + the pri 121 row; honest AGG 0.6204; queue 122, 114, 120, 119, 123, 124, 115; top of the chain first; no agents running.**
+
 > # 🟢 **2026-09-15 10:10 (LATEST -- STOPPING POINT, autoloop DISARMED): READ notes/STATUS.md 'STOPPING POINT / HANDOFF 2026-09-15' FIRST. pri 116 landed; pri 117 applied UNCOMMITTED with its board running (commit if it holds); pri 118 agent running; briefs 122-124 filed; honest AGG 0.6205.**
 
 > # 🟢 **2026-09-15 09:23 (LATEST): pri 116 LANDED (case through the reader); pri 117 in phase 7 (copular subject +0.1183 CI-sep, learned); AGG 0.6205 unchanged (the rows never run the reader -> instrument brief next). RUNNING (09:25): agents pri 117 (phase 7), pri 118 (typing hand-off). pri 122 FILED (board rows on the reader). TOP ITEMS: (1) pri 117 return -> integrate (default ON + repair the 2 patient items); (2) pri 118 return; (3) file the board-rows-on-the-reader brief; (4) 114 / 120 / 119 next. Details: `notes/STATUS.md`.**
