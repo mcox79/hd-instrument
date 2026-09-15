@@ -584,9 +584,26 @@ win the copular cases and is then too big everywhere else, while a per-configura
 its own evidence. Plus the two things a constant cannot have at all: nobody had to tune it (the best constant,
 w=12, is only identifiable with the gold in hand), and it keeps moving.
 
-## P7.5 THE LEARNING-CURVE TAIL: PLATEAU OR BUDGET? (1a)
+## P7.5 THE LEARNING-CURVE TAIL: 4,000 SENTENCES IS THE PLATEAU, NOT A BUDGET (1a)
 
-(filled in below from `--curve-tail`)
+| sentences READ | arcs accrued | cells | non-verbal | verbal | UAS |
+|---|---|---|---|---|---|
+| 250 | 365 | 33 | 0.6331 | 0.8633 | 0.6368 |
+| 1,000 | 1,447 | 56 | 0.6627 | 0.8617 | 0.6366 |
+| 2,000 | 2,684 | 63 | 0.6627 | 0.8617 | 0.6367 |
+| **4,000 (shipped)** | 4,554 | 74 | **0.6627** | 0.8617 | 0.6369 |
+| 6,000 | 6,479 | 82 | 0.6627 | 0.8617 | 0.6368 |
+| 9,000 | 10,320 | 92 | 0.6627 | 0.8617 | 0.6368 |
+| 12,000 (all of UD-EWT train) | 14,982 | 96 | 0.6627 | 0.8617 | 0.6370 |
+
+**The curve is flat from 1,000 sentences onward and the shipped cap sits well inside the plateau -- it is not a
+budget choice.** Reading three times more text adds 22 more cells (74 -> 96) and moves the read by 0.0000: the
+extra cells are rare CONFIGURATIONS (NUM>PROPN, SYM>PRON and the like) whose arcs the decode was already getting
+right, not better estimates of the cells that decide. **Recommended cap: 4,000, i.e. what ships** -- and the
+useful reading of the flatness is that the cue reaches its equilibrium after a few hundred perceived predications,
+which is also why the online overlay matches a full rebuild (P7.7). (The numbers here are the cell readout under
+the shipped hyphen correction, so the plateau is 0.6627 rather than the 0.6686 quoted in section 10b, which was
+measured before it.)
 
 ## P7.6 THE TENSE-CARRIER SUPPRESSION: LEARNED, BUT NOT LOAD-BEARING HERE (1b)
 
@@ -657,3 +674,21 @@ adequate; what section 29 did not name is the DECODE: the same scores under the 
 against the in-order beam's 0.6509, and the beam converges on that number as it widens (0.6746 at 16, 0.6864 at
 32). So the next lever on this rung is the decode's operating point and then the representation -- NOT more
 detection. Any follow-on brief that inherited "detection coverage is the limiter" should be re-pointed.
+
+## P7.11 EXHAUSTED? NOT ENTIRELY -- what is left, in the order I would do it
+
+**Exhausted within this rung's remit:** the cue (graded, learned, plastic, equilibrium reached), its detection
+(coverage is measured NOT to be the limiter), its decode repair (reanalysis, in order), the controls (two twins
+that lose, an oracle, a swept frozen floor, a deterministic re-run of the regressing row), the propagation (the
+participant instrument and the holder capture), and the landing (a diff that applies, executes, costs no read
+time, and whose builder teaches what it reads).
+
+**NOT exhausted, and none of it is a wall:**
+1. **The clausal-subject item** (the one board item still lost): needs the organ's clause cue to fill the subject
+   slot with a CLAUSE (`csubj`), not a left-scan. Bounded: 1 item on the board, ~5 of the 59 residual here.
+2. **The decode**, worth +0.0178 to +0.0296 measured: the beam lead above (organ-wide, needs its own board), then
+   the second-order sibling factorisation already filed.
+3. **The representation** past ~0.72: pri 113 sections 23/25/32's contextual encoder, still untested in its
+   strong form, and the thing my own out-of-supply numbers argue for (+0.118 in supply vs +0.060 out of it).
+4. **The role competition's subject cue on the landed form**: my probe did not produce a defensible number; it is
+   one re-run, not a build.
