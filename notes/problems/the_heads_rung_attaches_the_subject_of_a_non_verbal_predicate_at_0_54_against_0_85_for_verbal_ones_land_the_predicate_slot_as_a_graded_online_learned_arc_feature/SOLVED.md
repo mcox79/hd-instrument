@@ -167,6 +167,16 @@ closed-class scan on the very instrument that located it as a deficit, and the i
 reproduce pri 113's table to the digit (floor 0.1856 / slot 0.7365 / parse 0.6048 / twin 0.2635 / oracle 1.0000),
 so the comparison is like for like.
 
+**Which consumers of the copular subject arc I measured, and which I did not (checklist item 3).** MEASURED here:
+the event/state detector, through pri 113's own participant instrument (4e) -- the consumer the brief names, and
+the one whose located negative this rung was blamed for. NOT measured here, with the reason: the entity-attribute
+BINDING capture (pri 113 measured 0.7087 -> 0.8932 on the covered clauses under its prototype heads; its arm
+re-implements the prototype's reshape internally, so re-running it would have measured the prototype, not the
+landed form) and the role competition's subject cue (pri 113 measured the copular subject is ALREADY labelled
+0.8402 there, close to the verbal clauses' 0.8850, so it is not where this rung's signal is lost). Both are named
+as the first two things to re-run once the diff lands.
+
+
 ### 4f. THE REMAINING DECODE GAP IS A SWEPT OPERATING POINT, NOT A CEILING (the phase diagram)
 
 The in-order beam width is a parameter of the ORGAN, free to move, and moving it closes the gap to the
