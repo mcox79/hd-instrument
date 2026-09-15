@@ -79,7 +79,7 @@ def frame_heads(toks: Sequence[str], up: Sequence[str], base: Set[int]) -> Set[i
 
 
 def _mk_referent(head_low: str, sent_idx: int, wpos: int, cluster: int, midx: int,
-                 upos: Optional[str] = None) -> Dict:
+                 upos: Optional[str] = None, tag_post=None, tags=None) -> Dict:
     """A discourse-referent mention dict in the parse_litbank_conll schema (single-token, non-pronoun).
 
     MEASURED DEFECT THIS FIXES (pri-109, 8 LitBank docs): `span_toks` is the LOWERCASED head, and the ten
@@ -93,6 +93,15 @@ def _mk_referent(head_low: str, sent_idx: int, wpos: int, cluster: int, midx: in
          "gender": None, "number": None, "name_gender": None, "span_toks": [head_low], "midx": midx}
     if upos is not None:
         d["span_upos"] = [upos]
+    if tag_post is not None:
+        # pri 118: the category organ's POSTERIOR row for this head, so `coref.name_content_tokens` can
+        # marginalise over the type partition instead of branching on the argmax.  MEASURED on the reader's
+        # own stream (16 GUM test documents, 4,059 non-pronoun mentions): it changes 9 typings -- the lever
+        # that carries the gain on the board loader's stream is the SPAN-level name-run cue, and it is INERT
+        # here because this builder stores span_toks=[head], ONE token per mention.  Keeping the NP span is
+        # the next rung and is filed as such.
+        d["span_post"] = [tag_post]
+        d["span_tags"] = tags
     return d
 
 
@@ -150,6 +159,17 @@ def referent_per_np_source(conll_path: str, tagger, name_gender_map=None, use_fr
         if si >= n_sents:
             break
         up = tagger.tag(list(toks))
+        mat = None
+        if hasattr(tagger, "tag_with_posterior"):      # capability, not assumption (the perceptron has none)
+            try:
+                _c, mat = tagger.tag_with_posterior(list(toks))
+            except Exception:
+                mat = None
+        _tags = None
+        if mat is not None:
+            from hdlab import frontend as _F
+            _lc = getattr(_F.tagger(), "_lc", None)
+            _tags = list(_lc.tags) if _lc is not None else None
         base = _content_head_positions(toks, up)
         heads = sorted(set(base) | frame_heads(toks, up, set(base))) if use_frame else base
         for hw in heads:
@@ -160,5 +180,8 @@ def referent_per_np_source(conll_path: str, tagger, name_gender_map=None, use_fr
                 cl = next_cluster
                 next_cluster += 1
             out.append(_mk_referent(toks[hw].lower(), si, hw, cl, -1,
-                                    upos=up[hw] if hw < len(up) else None))
+                                    upos=up[hw] if hw < len(up) else None,
+                                    tag_post=(mat[hw] if (mat is not None and hw < len(mat)
+                                                          and _tags) else None),
+                                    tags=_tags))
     return _finalize(pron + out), n_sents

@@ -260,6 +260,13 @@ class _CachedTagShim:
     def tag(self, toks):
         return self._r._cached_tag(list(toks))
 
+    def tag_with_posterior(self, toks):
+        """pri 118: the reader ALREADY computes the category organ's posterior matrix once per sentence
+        (`_cached_tag_matrix`).  Exposing it here is what lets the entity layer's mention typer read the
+        graded belief instead of its argmax -- no extra forward-backward pass, no new organ."""
+        t = list(toks)
+        return self._r._cached_tag(t), self._r._cached_tag_matrix(t)
+
 _CAUSAL_CONNECTIVES = frozenset(
     set(getattr(C, "CONNECTIVE_CAUSE_FIRST", set()))
     | set(getattr(C, "CONNECTIVE_EFFECT_FIRST", set())))

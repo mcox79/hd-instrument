@@ -42,6 +42,7 @@ across a passage (right 47 in 100 on he/she/it) -- and that second one is the fr
 | Reasoning on top | IMPROVING | right 24 to 90 in 100 depending on the question | Time, cause, belief and goals. These work well when handed a correct reading of the sentence and slump on real prose, so the wall they hit is the chain below them, not the reasoning itself. Best: how a character feels about an event, 90 in 100. Worst: answering "why" when the cause is several sentences away, 24 in 100. |
 
 ## WHAT MOVED THIS WEEK
+- 2026-09-15 -- Landed: name/pronoun/noun typing decided at the type level (+1 in 100); pronoun reference 41.8 -> 42.2; common-noun line down only by a population artefact (instrument brief pri 122).
 - 2026-09-15 -- Landed: the attacher learns how to attach 'the sky is blue' subjects (54 -> 65 in 100); 'which thing does this property belong to' 65 -> 79; board unchanged but one sentence.
 - 2026-09-15 -- Landed: capital letters kept through the reader; the category organ finds 87 in 100 of names (was 45); through the reader 49 -> 85; board lines unchanged (they never run the reader; instrument problem filed).
 - 2026-09-14 -- New (informational) board line for 'what things are / where things are': 53 in 100 (was 7 before today); the miss is mostly WHO it is about -> the attacher is next (pri 117).

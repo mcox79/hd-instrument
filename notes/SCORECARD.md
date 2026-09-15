@@ -14,6 +14,7 @@ NEW word means from what it reads, using its sense of how things feel and look, 
 near the top about 38 times in 100 where the old method managed about 3.
 
 ## WHAT CHANGED LATELY
+- **15 Sep, 11:08.** Landed: when deciding whether a phrase is a name, a pronoun or an ordinary noun, the reader now adds up the word-category organ's belief across each answer instead of taking its single best guess, and learns from its own confident decisions which multi-word runs are names ('Game of Thrones'). Typing right 95.1 -> 96.1 in 100 on the test set; 'who does the pronoun refer to' 41.8 -> 42.2; 'which earlier thing is this common noun' falls 54.6 -> 53.8 only because 88 mis-typed names left that line's population (they were resolving at 83 in 100 and propping it up).
 - **15 Sep, 10:24.** Landed: the attacher now learns, from its own reading, how to attach the subject of a sentence like 'the sky is blue' (54 -> 65 in 100 correct; verbs unchanged; whole-sentence attachment slightly up; no extra read time), and 'which thing does this property belong to' rises 65 -> 79 in 100. Board: 'who was acted on' down by one sentence in 1,255 (a 'doing X would be a good idea' case, filed), everything else unchanged; overall 62.0 in 100.
 - **15 Sep, 09:22.** Landed: the reader keeps capital letters. The word-category organ now finds 87 in 100 of the names (was 45: scrambling the capitals at random would have done better than what we shipped); through the whole reader, names 49 -> 85 in 100 and the reader's own files of people and things grew by a tenth. The board's seven lines are unchanged because none of them runs the reader on raw text -- that blindness is now its own instrument problem.
 - **14 Sep, 23:04.** New board line (informational for now): 'what things are / where things are' -- for sentences without a doing-word, did the reader get both what is said and about whom? 53 in 100 on the test set (a simple 'the word after is' rule gets 47; random gets 7); on other genres 43 vs 33. Before today's landing it was 7 in 100. Most of what is still missed is WHO the statement is about, which is the next problem (the attacher, pri 117).
@@ -189,7 +190,7 @@ Long term (the next few months):
 
 <!-- AUTO:BEGIN (written by tools/scorecard.py; edit the sections ABOVE, not this) -->
 
-Last full check: 2026-09-15T14:23:22.456266+00:00 (50 on record). Generated 2026-09-15T14:24:02+00:00.
+Last full check: 2026-09-15T14:23:22.456266+00:00 (50 on record). Generated 2026-09-15T15:07:44+00:00.
 
 | Ability | Group | How well | Compared with a simple rule | Since the previous check | Brain-faithful? |
 |---|---|---|---|---|---|

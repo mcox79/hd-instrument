@@ -174,6 +174,12 @@ def _connective_in_gap(gap_low):
     return False
 
 
+# pri 118: the per-token category POSTERIOR from the last `organ_tags` pass, keyed by global token index.
+# `_mention_type_organ` reads it; with the perceptron stand-in it stays empty and the typer degrades to the
+# shipped argmax rule by construction.
+POSTERIOR = {}
+
+
 def organ_tags(toks):
     """The LIVE category organ (hdlab.frontend.tagger() -> hdlab.lexical_categories) for every token of one
     document, sentence by sentence, in reading order. Reads FORMS only."""
@@ -199,6 +205,9 @@ def organ_tags(toks):
         for row, m in zip(rows, lc.feed_passage([[x.form for x in row] for row in rows])):
             for j, x in enumerate(row):
                 pred[x.gidx] = lc.tags[int(m[j].argmax())]
+                # pri 118: the POSTERIOR travels with the argmax, so the mention typer can marginalise over
+                # the type partition instead of reading a point estimate taken at the category level.
+                POSTERIOR[x.gidx] = m[j]
         return pred
     for row in rows:                       # HDLAB_TAG_SOURCE=perceptron: the stand-in keeps no passage register
         for x, c in zip(row, tg.tag([x.form for x in row])):
@@ -240,12 +249,24 @@ def organ_number(form, dual_route=True):
     return "sing"
 
 
-def _head_of_span_organ(span_toks, pred):
+def _head_of_span_organ(span_toks, pred, post=None):
     """English NPs are head-final WITHIN the head domain; a preposition / coordinator / relative marker /
     comma OPENS A NEW DOMAIN ("the American College of Pediatricians" heads on College, "Kim and Jo" on Kim,
     "Kim , the doctor" on Kim). So the head is the last NOUN/PROPN of the FIRST nominal domain -- the same
     domain boundary the attachment arm's NP_SPLIT cue uses, and what the gold `head` column encodes here."""
     toks = list(span_toks)
+    if post:
+        # pri 118: the head is chosen on NOMINAL MASS with a head-finality decay, not on the argmax tag --
+        # that is where the ADJ<->NOUN / VERB<->NOUN category corrections actually land (they do not change
+        # the three-way type; they change WHICH TOKEN IS THE HEAD, and so the lemma identity key).
+        from hdlab.coref import _graded_head
+        from hdlab import frontend as _F
+        _lc = getattr(_F.tagger(), "_lc", None)
+        if _lc is not None:
+            _rows = [post.get(t.gidx) for t in toks]
+            if all(r is not None for r in _rows):
+                return toks[_graded_head([t.form for t in toks],
+                                         [pred.get(t.gidx, "X") for t in toks], _rows, list(_lc.tags))]
     cut, seen = len(toks), False
     for i, t in enumerate(toks):
         c = pred.get(t.gidx, "X")
@@ -267,7 +288,34 @@ def _head_of_span_organ(span_toks, pred):
     return (nonp or list(span_toks))[-1]
 
 
-def _mention_type_organ(head_tok, span_toks, pred):
+def _mention_type_organ(head_tok, span_toks, pred, post=None, span_tab=None):
+    """pri 118: the ONE graded typer in `hdlab.coref` when the posterior is available (marginalise-then-decide
+    over the type partition + the online span-level name-run counts); the shipped three-valued argmax rule
+    when it is not, byte-identical."""
+    if post:
+        from hdlab.coref import mention_type_graded
+        from hdlab import frontend as _F
+        _lc = getattr(_F.tagger(), "_lc", None)
+        toks = list(span_toks)
+        rows = [post.get(t.gidx) for t in toks]
+        if _lc is not None and rows and all(r is not None for r in rows):
+            hi = [i for i, t in enumerate(toks) if t.gidx == head_tok.gidx]
+            sym = None
+            if getattr(_lc, "_reg", None) is not None:
+                try:
+                    sym = _lc._reg.symbol(head_tok.form.lower())
+                except Exception:
+                    sym = None
+            dist, gi = mention_type_graded([t.form for t in toks],
+                                           upos=[pred.get(t.gidx, "X") for t in toks],
+                                           tag_post=rows, tags=list(_lc.tags), span_tab=span_tab,
+                                           card_sym=sym, log_entc=getattr(_lc, "log_entc", None),
+                                           ent_back=getattr(_lc, "_ent_back", None),
+                                           first_is_sentence_initial=(toks[0].idx == 1),
+                                           observe=True)
+            if not hi or gi == hi[0]:
+                from hdlab.coref import MENTION_TYPES
+                return max(MENTION_TYPES, key=lambda t: dist[t])
     up = pred.get(head_tok.gidx, "X")
     low = head_tok.form.lower()
     if up == "PRON" or (low in PRONOUNS_ALL and up != "PROPN"):
@@ -383,6 +431,7 @@ def construction_isa(toks, pred):
 
 def apply_organ_layer(toks):
     """Move the six gold columns onto `gold_*` and replace them with the live organs' values IN PLACE."""
+    POSTERIOR.clear()                      # pri 118: one document's posterior at a time
     pred = organ_tags(toks)
     dep = positional_deprel(toks, pred)
     for t in toks:
@@ -535,8 +584,8 @@ def parse_gum_conllu(path, name_gazetteer=None, decision_source=None):
             mtype = _mention_type(head, span_same)
             gender, number = _gender_number(head, mtype, name_gazetteer)
         else:
-            head = _head_of_span_organ(span_same, pred)
-            mtype = _mention_type_organ(head, span_same, pred)
+            head = _head_of_span_organ(span_same, pred, POSTERIOR)
+            mtype = _mention_type_organ(head, span_same, pred, POSTERIOR)
             gender, number = _gender_number_organ(head, mtype, name_gazetteer)
         text = " ".join(t.form for t in span)
         mentions.append(Mention(eid=eid, sent=sent_id, start_g=s0, end_g=s1, head_g=head.gidx,
@@ -597,8 +646,8 @@ def _self_test():
         _sp = [_gm[g] for g in range(_m.start_g, _m.end_g + 1) if g in _gm]
         _sp = [t for t in _sp if t.sent == _m.sent] or _sp
         _pr = {t.gidx: t.upos for t in _raw.toks}
-        _h = _head_of_span_organ(_sp, _pr)
-        _mt = _mention_type_organ(_h, _sp, _pr)
+        _h = _head_of_span_organ(_sp, _pr, POSTERIOR)
+        _mt = _mention_type_organ(_h, _sp, _pr, POSTERIOR)
         _g, _n = _gender_number_organ(_h, _mt, None)
         _after.append((_mt, _h.gidx, organ_lemma(_h.form), _g, _n))
     assert len(_before) == len(_after)
