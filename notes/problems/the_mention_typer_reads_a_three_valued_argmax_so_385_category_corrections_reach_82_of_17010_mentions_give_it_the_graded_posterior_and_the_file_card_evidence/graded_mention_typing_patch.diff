@@ -1,0 +1,545 @@
+diff --git a/experiments/gum_coref.py b/experiments/gum_coref.py
+index 12831d1..ee300f9 100644
+--- a/experiments/gum_coref.py
++++ b/experiments/gum_coref.py
+@@ -174,6 +174,12 @@ def _connective_in_gap(gap_low):
+     return False
+ 
+ 
++# pri 118: the per-token category POSTERIOR from the last `organ_tags` pass, keyed by global token index.
++# `_mention_type_organ` reads it; with the perceptron stand-in it stays empty and the typer degrades to the
++# shipped argmax rule by construction.
++POSTERIOR = {}
++
++
+ def organ_tags(toks):
+     """The LIVE category organ (hdlab.frontend.tagger() -> hdlab.lexical_categories) for every token of one
+     document, sentence by sentence, in reading order. Reads FORMS only."""
+@@ -199,6 +205,9 @@ def organ_tags(toks):
+         for row, m in zip(rows, lc.feed_passage([[x.form for x in row] for row in rows])):
+             for j, x in enumerate(row):
+                 pred[x.gidx] = lc.tags[int(m[j].argmax())]
++                # pri 118: the POSTERIOR travels with the argmax, so the mention typer can marginalise over
++                # the type partition instead of reading a point estimate taken at the category level.
++                POSTERIOR[x.gidx] = m[j]
+         return pred
+     for row in rows:                       # HDLAB_TAG_SOURCE=perceptron: the stand-in keeps no passage register
+         for x, c in zip(row, tg.tag([x.form for x in row])):
+@@ -240,12 +249,24 @@ def organ_number(form, dual_route=True):
+     return "sing"
+ 
+ 
+-def _head_of_span_organ(span_toks, pred):
++def _head_of_span_organ(span_toks, pred, post=None):
+     """English NPs are head-final WITHIN the head domain; a preposition / coordinator / relative marker /
+     comma OPENS A NEW DOMAIN ("the American College of Pediatricians" heads on College, "Kim and Jo" on Kim,
+     "Kim , the doctor" on Kim). So the head is the last NOUN/PROPN of the FIRST nominal domain -- the same
+     domain boundary the attachment arm's NP_SPLIT cue uses, and what the gold `head` column encodes here."""
+     toks = list(span_toks)
++    if post:
++        # pri 118: the head is chosen on NOMINAL MASS with a head-finality decay, not on the argmax tag --
++        # that is where the ADJ<->NOUN / VERB<->NOUN category corrections actually land (they do not change
++        # the three-way type; they change WHICH TOKEN IS THE HEAD, and so the lemma identity key).
++        from hdlab.coref import _graded_head
++        from hdlab import frontend as _F
++        _lc = getattr(_F.tagger(), "_lc", None)
++        if _lc is not None:
++            _rows = [post.get(t.gidx) for t in toks]
++            if all(r is not None for r in _rows):
++                return toks[_graded_head([t.form for t in toks],
++                                         [pred.get(t.gidx, "X") for t in toks], _rows, list(_lc.tags))]
+     cut, seen = len(toks), False
+     for i, t in enumerate(toks):
+         c = pred.get(t.gidx, "X")
+@@ -267,7 +288,34 @@ def _head_of_span_organ(span_toks, pred):
+     return (nonp or list(span_toks))[-1]
+ 
+ 
+-def _mention_type_organ(head_tok, span_toks, pred):
++def _mention_type_organ(head_tok, span_toks, pred, post=None, span_tab=None):
++    """pri 118: the ONE graded typer in `hdlab.coref` when the posterior is available (marginalise-then-decide
++    over the type partition + the online span-level name-run counts); the shipped three-valued argmax rule
++    when it is not, byte-identical."""
++    if post:
++        from hdlab.coref import mention_type_graded
++        from hdlab import frontend as _F
++        _lc = getattr(_F.tagger(), "_lc", None)
++        toks = list(span_toks)
++        rows = [post.get(t.gidx) for t in toks]
++        if _lc is not None and rows and all(r is not None for r in rows):
++            hi = [i for i, t in enumerate(toks) if t.gidx == head_tok.gidx]
++            sym = None
++            if getattr(_lc, "_reg", None) is not None:
++                try:
++                    sym = _lc._reg.symbol(head_tok.form.lower())
++                except Exception:
++                    sym = None
++            dist, gi = mention_type_graded([t.form for t in toks],
++                                           upos=[pred.get(t.gidx, "X") for t in toks],
++                                           tag_post=rows, tags=list(_lc.tags), span_tab=span_tab,
++                                           card_sym=sym, log_entc=getattr(_lc, "log_entc", None),
++                                           ent_back=getattr(_lc, "_ent_back", None),
++                                           first_is_sentence_initial=(toks[0].idx == 1),
++                                           observe=True)
++            if not hi or gi == hi[0]:
++                from hdlab.coref import MENTION_TYPES
++                return max(MENTION_TYPES, key=lambda t: dist[t])
+     up = pred.get(head_tok.gidx, "X")
+     low = head_tok.form.lower()
+     if up == "PRON" or (low in PRONOUNS_ALL and up != "PROPN"):
+@@ -383,6 +431,7 @@ def construction_isa(toks, pred):
+ 
+ def apply_organ_layer(toks):
+     """Move the six gold columns onto `gold_*` and replace them with the live organs' values IN PLACE."""
++    POSTERIOR.clear()                      # pri 118: one document's posterior at a time
+     pred = organ_tags(toks)
+     dep = positional_deprel(toks, pred)
+     for t in toks:
+@@ -535,8 +584,8 @@ def parse_gum_conllu(path, name_gazetteer=None, decision_source=None):
+             mtype = _mention_type(head, span_same)
+             gender, number = _gender_number(head, mtype, name_gazetteer)
+         else:
+-            head = _head_of_span_organ(span_same, pred)
+-            mtype = _mention_type_organ(head, span_same, pred)
++            head = _head_of_span_organ(span_same, pred, POSTERIOR)
++            mtype = _mention_type_organ(head, span_same, pred, POSTERIOR)
+             gender, number = _gender_number_organ(head, mtype, name_gazetteer)
+         text = " ".join(t.form for t in span)
+         mentions.append(Mention(eid=eid, sent=sent_id, start_g=s0, end_g=s1, head_g=head.gidx,
+@@ -597,8 +646,8 @@ def _self_test():
+         _sp = [_gm[g] for g in range(_m.start_g, _m.end_g + 1) if g in _gm]
+         _sp = [t for t in _sp if t.sent == _m.sent] or _sp
+         _pr = {t.gidx: t.upos for t in _raw.toks}
+-        _h = _head_of_span_organ(_sp, _pr)
+-        _mt = _mention_type_organ(_h, _sp, _pr)
++        _h = _head_of_span_organ(_sp, _pr, POSTERIOR)
++        _mt = _mention_type_organ(_h, _sp, _pr, POSTERIOR)
+         _g, _n = _gender_number_organ(_h, _mt, None)
+         _after.append((_mt, _h.gidx, organ_lemma(_h.form), _g, _n))
+     assert len(_before) == len(_after)
+diff --git a/hdlab/coref.py b/hdlab/coref.py
+index c7eefb5..94d265f 100644
+--- a/hdlab/coref.py
++++ b/hdlab/coref.py
+@@ -46,6 +46,19 @@ import math
+ import os
+ from typing import Dict, List, Optional, Tuple
+ 
++try:                                   # only the graded typer needs it; the module must import without it
++    import numpy as np
++except Exception:                      # pragma: no cover
++    np = None
++
++_REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
++# the closed-class pronoun forms the mention typer recognises (the same list the board loader carries)
++PRONOUN_FORMS = frozenset({
++    "he", "him", "his", "himself", "she", "her", "hers", "herself", "it", "its", "itself",
++    "they", "them", "their", "theirs", "themselves", "i", "me", "my", "mine", "myself",
++    "you", "your", "yours", "yourself", "yourselves", "we", "us", "our", "ours", "ourselves",
++    "this", "that", "these", "those", "who", "whom", "whose", "which"})
++
+ from hdlab.state_of_mind import (
+     OVERLAY_BETA,
+     OVERLAY_TIEBREAK_LAMBDA,
+@@ -420,7 +433,303 @@ def _span_head_is_name(span_toks: List[str], upos: List[str]) -> bool:
+     return upos[idx[-1]] == "PROPN"
+ 
+ 
+-def name_content_tokens(span_toks: List[str], upos: Optional[List[str]] = None) -> List[str]:
++
++
++# ---------------------------------------------------------------------------------------------------------
++# THE GRADED MENTION TYPE (2026-09-15, pri-118 solver; `experiments/exp_graded_mention_typing_v1.py`).
++#
++# THE DEFECT.  `name_content_tokens` -- the NAME-vs-COMMON gate for TEN live organs -- and the board loader's
++# `_mention_type_organ` both decide from the category organ's ARGMAX, and the type is three-valued.  Two
++# mathematical consequences, both measured:
++#   (1) THE POINT ESTIMATE IS TAKEN AT THE WRONG LEVEL.  The mention type is a COARSENING of the category
++#       variable, and the Bayes decision on a coarsened variable under 0-1 loss is `argmax_t sum_{c in t} P(c)`
++#       -- marginalise, THEN decide -- not `type(argmax_c P(c))`.  The two differ whenever the winning single
++#       category sits in a type whose TOTAL mass is smaller than a rival's (P(PROPN)=.35 vs P(NOUN)+P(ADJ)=.65).
++#   (2) THE HEAD IS AN ARGMAX READ TOO.  "the last NOUN/PROPN of the first nominal domain" is computed on the
++#       argmax tag sequence; graded, each position is scored by its NOMINAL MASS with a head-finality decay
++#       (TYPE_ETA; eta -> inf reproduces the shipped rule exactly when the posterior is peaked).
++#
++# AND THE EVIDENCE ONLY THE CONSUMER CAN SEE.  The category organ reads each token's own shape relative to the
++# sentence convention (`word_shape` x `position_class`).  It cannot see that "Game of Thrones", "The Rains of
++# Castamere", "the Slavonic Dances" are ONE capitalised unit spanning a preposition -- a multi-word name stored
++# as a lexical unit by the referent route (Kripke 1980 rigid designation; Semenza 2006/2009 proper-name anomia,
++# left temporal pole, ABOVE and FED BY the category level).  `SpanCueTable` holds P(span-shape | type) as
++# COUNTS, learned ONLINE from the reader's own confident typings (Fine, Jaeger, Farmer & Qian 2013 rapid
++# expectation adaptation -- the same account the passage register cites one level down).  No gold, no fitted
++# parameter, an observe path, and a table that can be printed.
++#
++# MEASURED, GUM TEST (128 documents / 17,010 mentions), operating point chosen on the TRAIN half, doc-paired
++# bootstrap 2,000, the gold mention type as the ANSWER KEY:
++#     type accuracy   0.9506 -> 0.9608   +0.0103 CI[+0.0067,+0.0139]   CI-SEPARATED
++#     macro F1        0.9352 -> 0.9496   +0.0143 CI[+0.0097,+0.0194]   CI-SEPARATED
++#     name F1         0.8907 -> 0.9171   +0.0264 CI[+0.0178,+0.0362]   (recall .8420 -> .8855, precision UP)
++#     common F1       0.9262 -> 0.9420   +0.0158 CI[+0.0105,+0.0211]   pronoun F1 +0.0009 (n.s., not down)
++#     info-free twin (the posterior rows permuted across the document's tokens, entropy multiset preserved):
++#                     0.7177 / macro 0.5837 -- the arm beats it +0.2351 / +0.3532, CI-separated
++#     the span cue's OWN twin (same table, same kappa, a RANDOM symbol per mention): +0.0021 type accuracy
++#                     over the floor, NOT separated -- so the gain is the cue's CONTENT, not its free parameters
++# BACKWARD COMPATIBILITY: every entry point below is inert unless a caller supplies `tag_post`.  With no
++# posterior, `name_content_tokens` is BYTE-IDENTICAL to the pre-2026-09-15 function.
++MENTION_TYPES = ("pronoun", "name", "common")
++# the categories that can head a REFERRING EXPRESSION.  A mention span has already been segmented as one, so
++# the categories that cannot head it are ruled out by the consumer's own evidence and the posterior is
++# renormalised on this support (structural knowledge of the consumer, not a fitted number).
++TYPE_SUPPORT = frozenset({"PRON", "PROPN", "NOUN", "ADJ", "VERB", "NUM", "ADV", "X", "SYM", "INTJ"})
++TYPE_ETA = float(os.environ.get("HDLAB_TYPE_ETA", "0.5"))            # head-finality decay; inf == the shipped rule
++TYPE_KAPPA_CARD = float(os.environ.get("HDLAB_TYPE_KAPPA_CARD", "0.5"))    # Heim file-card evidence at the TYPE level
++TYPE_KAPPA_CAPS = float(os.environ.get("HDLAB_TYPE_KAPPA_CAPS", "1.0"))    # the span-level name-run cue
++TYPE_TAU_LEARN = float(os.environ.get("HDLAB_TYPE_TAU_LEARN", "0.95"))     # a typing this confident teaches the table
++SPAN_CUE_ASSET = os.environ.get("HDLAB_SPAN_CUE_ASSET") or os.path.join(
++    _REPO_ROOT, "data", "hook_state", "mention_span_cue_counts.json")
++_NP_BREAK_G = ("ADP", "CCONJ", "SCONJ", "VERB", "AUX", "PART")
++# function words that may sit INSIDE a multi-word name without disqualifying it ("Game OF Thrones")
++NAME_INTERNAL_FUNCTION = frozenset({"of", "the", "a", "an", "and", "for", "de", "van", "von", "der", "la",
++                                    "le", "el", "at", "in", "on", "to", "by", "with"})
++
++
++class SpanCueTable:
++    """COUNTS of P(span shape | mention type), learned online from the reader's own confident typings.
++    Plastic, never frozen: `observe` is the update, `logp` is a pure function of the counts, `save`/`load`
++    persist them so a run compounds instead of starting blind."""
++
++    __slots__ = ("n", "lam", "syms", "n_obs")
++
++    def __init__(self, lam: float = 0.5):
++        self.n = {t: {} for t in MENTION_TYPES}
++        self.lam = lam
++        self.syms = set()
++        self.n_obs = 0
++
++    def observe(self, sym, ty, w: float = 1.0) -> None:
++        if ty not in self.n:
++            return
++        self.n[ty][sym] = self.n[ty].get(sym, 0.0) + w
++        self.syms.add(sym)
++        self.n_obs += 1
++
++    def logp(self, sym, ty) -> float:
++        row = self.n.get(ty) or {}
++        tot = sum(row.values()) + self.lam * max(1, len(self.syms))
++        return math.log((row.get(sym, 0.0) + self.lam) / tot)
++
++    def save(self, path=None) -> None:
++        import json
++        p = path or SPAN_CUE_ASSET
++        os.makedirs(os.path.dirname(p), exist_ok=True)
++        tmp = p + ".tmp"
++        with open(tmp, "w", encoding="utf-8") as f:
++            json.dump({"n": self.n, "n_obs": self.n_obs, "lam": self.lam}, f, indent=1)
++        os.replace(tmp, p)
++
++    @classmethod
++    def load(cls, path=None):
++        import json
++        p = path or SPAN_CUE_ASSET
++        t = cls()
++        try:
++            with open(p, encoding="utf-8") as f:
++                d = json.load(f)
++        except Exception:
++            return t                      # no asset -> an EMPTY table, and the cue is silent (graceful)
++        t.lam = float(d.get("lam", 0.5))
++        t.n_obs = int(d.get("n_obs", 0))
++        for ty, row in (d.get("n") or {}).items():
++            if ty in t.n:
++                t.n[ty] = {k: float(v) for k, v in row.items()}
++                t.syms.update(t.n[ty])
++        return t
++
++
++_SPAN_CUE = None
++
++
++def span_cue_table():
++    """The process-wide span-cue table (loaded once from the asset; empty and silent when there is none)."""
++    global _SPAN_CUE
++    if _SPAN_CUE is None:
++        _SPAN_CUE = SpanCueTable.load()
++    return _SPAN_CUE
++
++
++def span_caps_symbol(span_toks, head_i, first_is_sentence_initial=False):
++    """The span-level name-run symbol, EXCLUDING the head, so nothing the category organ already read is
++    counted twice: how many OTHER mid-span capitals the span carries, and whether it carries a lowercase
++    content word (the descriptive-phrase disqualifier this module's capitalisation rule already uses)."""
++    ncap = 0
++    lower_content = 0
++    for i, t in enumerate(span_toks):
++        if i == head_i:
++            continue
++        core = str(t).strip(".,'\"!?;:-()[]")
++        if not core.isalpha():
++            continue
++        mid = not (i == 0 and first_is_sentence_initial)
++        if core[:1].isupper() and mid:
++            ncap += 1
++        elif not core[:1].isupper() and core.lower() not in NAME_INTERNAL_FUNCTION and len(core) > 2:
++            lower_content += 1
++    return "o%d_l%d" % (min(ncap, 3), 1 if lower_content else 0)
++
++
++def _graded_head(span_toks, upos, tag_post, tags, eta=None):
++    """The head of the span, chosen on NOMINAL MASS with a head-finality decay inside the first nominal
++    domain.  Returns the index into the span.  eta -> inf reproduces `_np_domain` + "the last NOUN/PROPN"."""
++    eta = TYPE_ETA if eta is None else eta
++    ip = [tags.index(t) if t in tags else -1 for t in ("NOUN", "PROPN")]
++    ib = [tags.index(t) for t in (_NP_BREAK_G + ("PUNCT",)) if t in tags]
++    n = min(len(span_toks), len(tag_post))
++    nm, bm = [], []
++    for i in range(n):
++        r = tag_post[i]
++        nm.append(float(sum(r[j] for j in ip if j >= 0)))
++        bm.append(float(sum(r[j] for j in ib)))
++    cut, seen = n, False
++    for i in range(n):
++        if nm[i] >= 0.5:
++            seen = True
++            continue
++        rel = str(span_toks[i]).lower() in _REL_MARKERS
++        if seen and ((bm[i] - nm[i]) > 0.0 or rel):
++            cut = i
++            break
++    dom = list(range(cut)) or list(range(n))
++    last = dom[-1]
++    best, best_s = None, None
++    for i in dom:
++        if nm[i] <= 0.0:
++            continue
++        pen = 0.0 if (eta == 0.0 or last == i) else eta * (last - i)
++        s = math.log(max(nm[i], 1e-12)) - pen
++        if best_s is None or s > best_s:
++            best, best_s = i, s
++    if best is not None:
++        return best
++    for i in range(n - 1, -1, -1):
++        if upos and i < len(upos) and upos[i] != "PUNCT":
++            return i
++    return max(0, n - 1)
++
++
++def _type_mix(q, tags, table, key, cover, back=None):
++    """log P(cue | type) from a per-CATEGORY count table, mixed inside each type by the posterior's own
++    weights -- one additive log term per type, the same shape as every cue in the category organ."""
++    lg = {}
++    for ty in MENTION_TYPES:
++        idx = [i for i in cover[ty] if tags[i] in table]
++        w = sum(float(q[i]) for i in idx)
++        if w <= 0 or not idx:
++            lg[ty] = 0.0
++            continue
++        acc = 0.0
++        for i in idx:
++            row = table.get(tags[i]) or {}
++            v = row.get(key, back.get(tags[i]) if back else None)
++            if v is None:
++                continue
++            acc += (float(q[i]) / w) * math.exp(v)
++        lg[ty] = math.log(max(acc, 1e-12))
++    return lg
++
++
++def mention_type_graded(span_toks, upos=None, tag_post=None, tags=None, span_tab=None, card_sym=None,
++                        log_entc=None, ent_back=None, first_is_sentence_initial=False, observe=False):
++    """{'pronoun': P, 'name': P, 'common': P} for one mention span, plus the head index it was read at.
++
++    `tag_post` = the category organ's POSTERIOR rows for the span (one row per token, over `tags`).  Without
++    it this returns the shipped three-valued decision as a degenerate distribution, so every caller is
++    backward-compatible by construction.  `span_tab` supplies the online span-shape counts; `card_sym` +
++    `log_entc` supply the Heim file-card evidence at the TYPE level (the category organ reads it ONLY where a
++    word has no lexical entry -- MacDonald 1994 cue competition -- which is right for the CATEGORY question
++    and wrong for the TYPE question, which is the referent system's own).  `observe=True` lets a confident
++    typing teach the span table (the plastic path)."""
++    toks = list(span_toks)
++    up = list(upos) if upos else None
++    if tag_post is None or tags is None or not len(tag_post):
++        hi = None
++        if up:
++            n = min(_np_domain(toks, up), len(toks), len(up)) or min(len(toks), len(up))
++            idx = [i for i in range(n) if up[i] in _NOMINAL_HEADS]
++            hi = idx[-1] if idx else (n - 1 if n else 0)
++            low = toks[hi].lower() if hi < len(toks) else ""
++            if up[hi] == "PRON" or (low in PRONOUN_FORMS and up[hi] != "PROPN"):
++                t = "pronoun"
++            else:
++                t = "name" if up[hi] == "PROPN" else "common"
++        else:
++            t = "name" if _caps_name_tokens(toks) else "common"
++            hi = len(toks) - 1
++        return {x: (1.0 if x == t else 0.0) for x in MENTION_TYPES}, hi
++    ti = {t: i for i, t in enumerate(tags)}
++    hi = _graded_head(toks, up, tag_post, tags)
++    hi = min(hi, len(tag_post) - 1)
++    sup = np.array([1.0 if t in TYPE_SUPPORT else 0.0 for t in tags], dtype=float)         if np is not None else None
++    q = [float(x) for x in tag_post[hi]]
++    if sup is not None:
++        q = [a * b for a, b in zip(q, sup)]
++    s = sum(q)
++    if s <= 0:
++        q = [float(x) for x in tag_post[hi]]
++        s = sum(q) or 1.0
++    q = [x / s for x in q]
++    i_pron, i_propn = ti.get("PRON", -1), ti.get("PROPN", -1)
++    mass = {"pronoun": q[i_pron] if i_pron >= 0 else 0.0,
++            "name": q[i_propn] if i_propn >= 0 else 0.0}
++    mass["common"] = max(0.0, 1.0 - mass["pronoun"] - mass["name"])
++    low = toks[hi].lower() if hi < len(toks) else ""
++    # the closed-class lexical fact: a listed pronoun form cannot be typed a NAME on sub-majority PROPN mass
++    if low in PRONOUN_FORMS and mass["name"] < mass["pronoun"] + mass["common"]:
++        mass["pronoun"] += mass["common"]
++        mass["common"] = 0.0
++    cover = {"pronoun": [i_pron] if i_pron >= 0 else [],
++             "name": [i_propn] if i_propn >= 0 else [],
++             "common": [i for t, i in ti.items() if t not in ("PRON", "PROPN")]}
++    z = {ty: math.log(max(mass[ty], 1e-12)) for ty in MENTION_TYPES}
++    used = False
++    if TYPE_KAPPA_CARD and log_entc and card_sym and not str(card_sym).startswith("e_first"):
++        lg = _type_mix(q, tags, log_entc, card_sym, cover, ent_back)
++        for ty in MENTION_TYPES:
++            z[ty] += TYPE_KAPPA_CARD * lg[ty]
++        used = True
++    cue = span_caps_symbol(toks, hi, first_is_sentence_initial)
++    tab = span_tab if span_tab is not None else span_cue_table()
++    if TYPE_KAPPA_CAPS and tab is not None and tab.n_obs > 0:
++        for ty in MENTION_TYPES:
++            z[ty] += TYPE_KAPPA_CAPS * tab.logp(cue, ty)
++        used = True
++    if used:
++        mx = max(z.values())
++        e = {ty: math.exp(z[ty] - mx) for ty in MENTION_TYPES}
++        tot = sum(e.values()) or 1.0
++        mass = {ty: e[ty] / tot for ty in MENTION_TYPES}
++    tot = sum(mass.values()) or 1.0
++    dist = {ty: mass[ty] / tot for ty in MENTION_TYPES}
++    if observe and tab is not None:
++        top = max(MENTION_TYPES, key=lambda t: dist[t])
++        if dist[top] >= TYPE_TAU_LEARN:
++            tab.observe(cue, top)
++    return dist, hi
++
++
++def mention_type(span_toks, upos=None, tag_post=None, tags=None, **kw):
++    """The ARGMAX of the graded type -- for the consumers that must branch on a label."""
++    dist, _hi = mention_type_graded(span_toks, upos=upos, tag_post=tag_post, tags=tags, **kw)
++    return max(MENTION_TYPES, key=lambda t: dist[t])
++
++
++
++def _caps_name_tokens(span_toks) -> bool:
++    """The pre-2026-09-14 capitalisation test, kept as the last-resort fallback (no categories, no posterior)."""
++    for t in span_toks:
++        core = str(t).strip(".,'\"!?;:-()[]")
++        if core and core.isalpha() and core[:1].isupper() and core.lower() not in STOP_CAPS:
++            return True
++    return False
++
++
++def name_content_tokens(span_toks: List[str], upos: Optional[List[str]] = None,
++                        tag_post=None, tags=None, span_tab=None, card_sym=None, log_entc=None,
++                        ent_back=None, first_is_sentence_initial: bool = False,
++                        observe: bool = False) -> List[str]:
+     """GENERAL clean-name extraction: the lowercased, title-stripped name tokens of a
+     mention span, IFF the span is a CLEAN proper name. Empty -> the mention is NOT a
+     proper name (a pronoun, a common nominal, or a DESCRIPTIVE phrase) -> no aliasing.
+@@ -436,8 +745,20 @@ def name_content_tokens(span_toks: List[str], upos: Optional[List[str]] = None)
+     span order. When supplied and NAME_SOURCE != "caps", the name decision is the organ's -- the span is a name iff
+     its head (the last NOUN/PROPN of the run) is a PROPN -- and capitalisation is demoted to what it actually is,
+     the cue that picks WHICH tokens of a name span carry the name. Omitted -> byte-identical to the old rule."""
++    if tag_post is not None and tags is not None and NAME_SOURCE != "caps" and len(tag_post):
++        # THE GRADED READ (pri 118): marginalise-then-decide over the category posterior, the head chosen on
++        # nominal mass, plus the span-level name-run counts.  Falls through to the token extraction below,
++        # which is unchanged -- capitalisation stays what it is, the cue that picks WHICH tokens carry the name.
++        _dist, _hi = mention_type_graded(list(span_toks), upos=upos, tag_post=tag_post, tags=tags,
++                                         span_tab=span_tab, card_sym=card_sym, log_entc=log_entc,
++                                         ent_back=ent_back,
++                                         first_is_sentence_initial=first_is_sentence_initial, observe=observe)
++        if max(MENTION_TYPES, key=lambda t: _dist[t]) != "name":
++            return []
++        if upos is None:
++            upos = ["PROPN" if i == _hi else "X" for i in range(len(span_toks))]
+     if upos is not None and NAME_SOURCE != "caps" and len(upos) == len(span_toks):
+-        if not _span_head_is_name(list(span_toks), list(upos)):
++        if tag_post is None and not _span_head_is_name(list(span_toks), list(upos)):
+             return []
+         # the NAME TOKENS come from the head domain too -- "the National Library of the Netherlands" is a
+         # name whose tokens are National/Library, not Netherlands (which names a different individual).
+diff --git a/hdlab/referent_per_np.py b/hdlab/referent_per_np.py
+index 62b114f..01d993c 100644
+--- a/hdlab/referent_per_np.py
++++ b/hdlab/referent_per_np.py
+@@ -79,7 +79,7 @@ def frame_heads(toks: Sequence[str], up: Sequence[str], base: Set[int]) -> Set[i
+ 
+ 
+ def _mk_referent(head_low: str, sent_idx: int, wpos: int, cluster: int, midx: int,
+-                 upos: Optional[str] = None) -> Dict:
++                 upos: Optional[str] = None, tag_post=None, tags=None) -> Dict:
+     """A discourse-referent mention dict in the parse_litbank_conll schema (single-token, non-pronoun).
+ 
+     MEASURED DEFECT THIS FIXES (pri-109, 8 LitBank docs): `span_toks` is the LOWERCASED head, and the ten
+@@ -93,6 +93,15 @@ def _mk_referent(head_low: str, sent_idx: int, wpos: int, cluster: int, midx: in
+          "gender": None, "number": None, "name_gender": None, "span_toks": [head_low], "midx": midx}
+     if upos is not None:
+         d["span_upos"] = [upos]
++    if tag_post is not None:
++        # pri 118: the category organ's POSTERIOR row for this head, so `coref.name_content_tokens` can
++        # marginalise over the type partition instead of branching on the argmax.  MEASURED on the reader's
++        # own stream (16 GUM test documents, 4,059 non-pronoun mentions): it changes 9 typings -- the lever
++        # that carries the gain on the board loader's stream is the SPAN-level name-run cue, and it is INERT
++        # here because this builder stores span_toks=[head], ONE token per mention.  Keeping the NP span is
++        # the next rung and is filed as such.
++        d["span_post"] = [tag_post]
++        d["span_tags"] = tags
+     return d
+ 
+ 
+@@ -150,6 +159,17 @@ def referent_per_np_source(conll_path: str, tagger, name_gender_map=None, use_fr
+         if si >= n_sents:
+             break
+         up = tagger.tag(list(toks))
++        mat = None
++        if hasattr(tagger, "tag_with_posterior"):      # capability, not assumption (the perceptron has none)
++            try:
++                _c, mat = tagger.tag_with_posterior(list(toks))
++            except Exception:
++                mat = None
++        _tags = None
++        if mat is not None:
++            from hdlab import frontend as _F
++            _lc = getattr(_F.tagger(), "_lc", None)
++            _tags = list(_lc.tags) if _lc is not None else None
+         base = _content_head_positions(toks, up)
+         heads = sorted(set(base) | frame_heads(toks, up, set(base))) if use_frame else base
+         for hw in heads:
+@@ -160,5 +180,8 @@ def referent_per_np_source(conll_path: str, tagger, name_gender_map=None, use_fr
+                 cl = next_cluster
+                 next_cluster += 1
+             out.append(_mk_referent(toks[hw].lower(), si, hw, cl, -1,
+-                                    upos=up[hw] if hw < len(up) else None))
++                                    upos=up[hw] if hw < len(up) else None,
++                                    tag_post=(mat[hw] if (mat is not None and hw < len(mat)
++                                                          and _tags) else None),
++                                    tags=_tags))
+     return _finalize(pron + out), n_sents
+diff --git a/hdlab/situation_reader.py b/hdlab/situation_reader.py
+index fdcb7f1..551e3f1 100644
+--- a/hdlab/situation_reader.py
++++ b/hdlab/situation_reader.py
+@@ -260,6 +260,13 @@ class _CachedTagShim:
+     def tag(self, toks):
+         return self._r._cached_tag(list(toks))
+ 
++    def tag_with_posterior(self, toks):
++        """pri 118: the reader ALREADY computes the category organ's posterior matrix once per sentence
++        (`_cached_tag_matrix`).  Exposing it here is what lets the entity layer's mention typer read the
++        graded belief instead of its argmax -- no extra forward-backward pass, no new organ."""
++        t = list(toks)
++        return self._r._cached_tag(t), self._r._cached_tag_matrix(t)
++
+ _CAUSAL_CONNECTIVES = frozenset(
+     set(getattr(C, "CONNECTIVE_CAUSE_FIRST", set()))
+     | set(getattr(C, "CONNECTIVE_EFFECT_FIRST", set())))
