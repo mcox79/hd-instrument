@@ -57,7 +57,14 @@ def _live_imports():
 def _board_aggregate():
     """The most-recent board aggregate on disk + its age (days)."""
     best = None
-    for name in ("exp_situation_model_qa_modern_v1", "exp_situation_model_qa_modern_v1_selftest"):
+    # E06 (substrate evaluation, 2026-09-15): every board since pri 109 runs under a SUFFIXED name
+    # (HDLAB_EXP_NAME -> data/exp_situation_model_qa_modern_v1_<name>/), so the unsuffixed dir went stale
+    # (0.6185 reported against a live 0.6200). Scan every suffixed dir; keep FULL-SIZE runs only (a capped
+    # or smoke board has n far below the ~11k items of the seven rows); newest by mtime wins.
+    import glob as _glob
+    names = [os.path.basename(os.path.dirname(mp)) for mp in
+             _glob.glob(os.path.join(REPO, "data", "exp_situation_model_qa_modern_v1*", "metrics.json"))]
+    for name in names:
         mp = os.path.join(REPO, "data", name, "metrics.json")
         if os.path.exists(mp):
             try:
@@ -65,6 +72,9 @@ def _board_aggregate():
                 agg = d.get("aggregate_19c_free") or (d.get("aggregate") or {})
                 # the board writes the aggregate accuracy under "model_acc" (fall back to "model" for older dumps)
                 val = (agg.get("model_acc") or agg.get("model")) if isinstance(agg, dict) else agg
+                n_items = agg.get("n") if isinstance(agg, dict) else None
+                if n_items is not None and n_items < 10000:      # capped / smoke board: not the headline
+                    continue
                 age = (time.time() - os.path.getmtime(mp)) / 86400.0
                 if val is not None and (best is None or age < best[2]):
                     best = (name, val, age)
