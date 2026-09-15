@@ -1,0 +1,57 @@
+{
+  "ts_iso": "2026-09-15T17:33:04.033512+00:00",
+  "seed": 20260915,
+  "arms": [
+    "ship",
+    "disc_role",
+    "disc",
+    "twin",
+    "twin_pos",
+    "disc_actr"
+  ],
+  "verify_patch": {
+    "loaded": [
+      "coref.py",
+      "referent_per_np.py",
+      "situation_reader.py"
+    ],
+    "events": [
+      [
+        0,
+        "thanked",
+        "alice",
+        "bob"
+      ],
+      [
+        1,
+        "happy",
+        "she",
+        "she"
+      ],
+      [
+        2,
+        "own",
+        "they",
+        "blogger"
+      ]
+    ],
+    "pronouns": [
+      [
+        "she",
+        1,
+        0,
+        "alice"
+      ]
+    ],
+    "abstentions": [],
+    "states": [
+      [
+        1,
+        "She",
+        "happy"
+      ]
+    ],
+    "off_pronouns": 0,
+    "invariant": true
+  }
+}

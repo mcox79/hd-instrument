@@ -1,0 +1,378 @@
+{
+  "ts_iso": "2026-09-15T18:06:17.711911+00:00",
+  "seed": 20260915,
+  "arms": [
+    "ship",
+    "disc_role",
+    "disc",
+    "twin",
+    "twin_pos",
+    "disc_actr",
+    "disc_freq",
+    "disc_case",
+    "disc_nopos",
+    "disc_full",
+    "disc_posagent",
+    "disc_freq2",
+    "disc_case_freq2",
+    "disc_case_hybrid",
+    "disc_case_hybridc"
+  ],
+  "landed": {
+    "n_docs": 40,
+    "docs": [
+      "weblog-blogspot.com_aggressivevoicedaily_20060629164800_ENG_20060629_164800",
+      "weblog-blogspot.com_marketview_20060625150800_ENG_20060625_150800",
+      "email-enronsent23_06",
+      "email-enronsent29_02",
+      "newsgroup-groups.google.com_n3td3v_e874a1e5eb995654_ENG_20060120_052200",
+      "newsgroup-groups.google.com_hiddennook_f50294175d32a8ac_ENG_20041120_152800",
+      "newsgroup-groups.google.com_fineart_0339fc0ed4e53c5a_ENG_20050930_025500",
+      "newsgroup-groups.google.com_chantonline_3e01677617c74720_ENG_20060112_102000",
+      "newsgroup-groups.google.com_hiddennook_e21e429b3ad58235_ENG_20050830_214700",
+      "answers-20090716131314AA4W9uJ_ans",
+      "answers-20111107173321AASNJjc_ans",
+      "answers-20111108044917AALAHtc_ans",
+      "answers-20111106112223AAmR2im_ans",
+      "answers-20090709103651AAwwZKx_ans",
+      "answers-20110101171252AA43jJo_ans",
+      "answers-20111108101906AA2JJqq_ans",
+      "answers-20111108090345AAQiffR_ans",
+      "answers-20111108071652AA8GAZw_ans",
+      "answers-20111108074555AAFT8Aj_ans",
+      "answers-20111107155815AA6LXXJ_ans",
+      "answers-20111108102205AArwNzY_ans",
+      "answers-20111103205154AAOod9K_ans",
+      "reviews-059685",
+      "reviews-184290",
+      "reviews-395218",
+      "reviews-255757",
+      "reviews-351950",
+      "reviews-304759",
+      "reviews-174824",
+      "reviews-207348",
+      "reviews-210153",
+      "reviews-171877",
+      "reviews-097548",
+      "reviews-061721",
+      "reviews-270889",
+      "reviews-186235",
+      "reviews-332068",
+      "reviews-389298",
+      "reviews-103519",
+      "reviews-163250"
+    ],
+    "arms": {
+      "pre": {
+        "agent": 0.1896,
+        "agent_pron": 0.0,
+        "patient": 0.7081,
+        "state": 0.6667,
+        "n": {
+          "agent": 211,
+          "agent_pron": 124,
+          "patient": 161,
+          "state": 72
+        },
+        "coref_records": 0,
+        "open_referents": 0
+      },
+      "landed": {
+        "agent": 0.7536,
+        "agent_pron": 0.9194,
+        "patient": 0.7081,
+        "state": 0.6667,
+        "n": {
+          "agent": 211,
+          "agent_pron": 124,
+          "patient": 161,
+          "state": 72
+        },
+        "coref_records": 35,
+        "open_referents": 3
+      },
+      "landed_hybrid": {
+        "agent": 0.8057,
+        "agent_pron": 0.9435,
+        "patient": 0.7081,
+        "state": 0.6667,
+        "n": {
+          "agent": 211,
+          "agent_pron": 124,
+          "patient": 161,
+          "state": 72
+        },
+        "coref_records": 35,
+        "open_referents": 3
+      },
+      "twin_pos": {
+        "agent": 0.7536,
+        "agent_pron": 0.9194,
+        "patient": 0.7081,
+        "state": 0.6667,
+        "n": {
+          "agent": 211,
+          "agent_pron": 124,
+          "patient": 161,
+          "state": 72
+        },
+        "coref_records": 35,
+        "open_referents": 3
+      }
+    },
+    "contrasts": {
+      "landed": {
+        "vs_pre_agent": {
+          "delta": 0.564,
+          "ci": [
+            0.4085,
+            0.7262
+          ],
+          "half": 0.1589,
+          "sep": true,
+          "n_items": 211,
+          "n_docs": 40
+        },
+        "vs_pre_agent_pron": {
+          "delta": 0.9194,
+          "ci": [
+            0.8559,
+            0.9775
+          ],
+          "half": 0.0608,
+          "sep": true,
+          "n_items": 124,
+          "n_docs": 40
+        },
+        "vs_pre_patient": {
+          "delta": 0.0,
+          "ci": [
+            0.0,
+            0.0
+          ],
+          "half": 0.0,
+          "sep": false,
+          "n_items": 161,
+          "n_docs": 40
+        },
+        "vs_pre_state": {
+          "delta": 0.0,
+          "ci": [
+            0.0,
+            0.0
+          ],
+          "half": 0.0,
+          "sep": false,
+          "n_items": 72,
+          "n_docs": 40
+        },
+        "vs_wordorder_floor_agent": {
+          "delta": -0.0427,
+          "ci": [
+            -0.0802,
+            -0.0087
+          ],
+          "half": 0.0357,
+          "sep": true,
+          "n_items": 211,
+          "n_docs": 40
+        },
+        "vs_wordorder_floor_agent_pron": {
+          "delta": -0.0323,
+          "ci": [
+            -0.0725,
+            0.0
+          ],
+          "half": 0.0362,
+          "sep": false,
+          "n_items": 124,
+          "n_docs": 40
+        },
+        "vs_twin_pos_agent": {
+          "delta": 0.0,
+          "ci": [
+            0.0,
+            0.0
+          ],
+          "half": 0.0,
+          "sep": false,
+          "n_items": 211,
+          "n_docs": 40
+        },
+        "vs_twin_pos_agent_pron": {
+          "delta": 0.0,
+          "ci": [
+            0.0,
+            0.0
+          ],
+          "half": 0.0,
+          "sep": false,
+          "n_items": 124,
+          "n_docs": 40
+        }
+      },
+      "landed_hybrid": {
+        "vs_pre_agent": {
+          "delta": 0.6161,
+          "ci": [
+            0.4709,
+            0.7634
+          ],
+          "half": 0.1463,
+          "sep": true,
+          "n_items": 211,
+          "n_docs": 40
+        },
+        "vs_pre_agent_pron": {
+          "delta": 0.9435,
+          "ci": [
+            0.9035,
+            0.9787
+          ],
+          "half": 0.0376,
+          "sep": true,
+          "n_items": 124,
+          "n_docs": 40
+        },
+        "vs_pre_patient": {
+          "delta": 0.0,
+          "ci": [
+            0.0,
+            0.0
+          ],
+          "half": 0.0,
+          "sep": false,
+          "n_items": 161,
+          "n_docs": 40
+        },
+        "vs_pre_state": {
+          "delta": 0.0,
+          "ci": [
+            0.0,
+            0.0
+          ],
+          "half": 0.0,
+          "sep": false,
+          "n_items": 72,
+          "n_docs": 40
+        },
+        "vs_wordorder_floor_agent": {
+          "delta": 0.0095,
+          "ci": [
+            -0.0128,
+            0.0372
+          ],
+          "half": 0.025,
+          "sep": false,
+          "n_items": 211,
+          "n_docs": 40
+        },
+        "vs_wordorder_floor_agent_pron": {
+          "delta": -0.0081,
+          "ci": [
+            -0.0252,
+            0.0
+          ],
+          "half": 0.0126,
+          "sep": false,
+          "n_items": 124,
+          "n_docs": 40
+        },
+        "vs_twin_pos_agent": {
+          "delta": 0.0521,
+          "ci": [
+            0.0185,
+            0.0892
+          ],
+          "half": 0.0354,
+          "sep": true,
+          "n_items": 211,
+          "n_docs": 40
+        },
+        "vs_twin_pos_agent_pron": {
+          "delta": 0.0242,
+          "ci": [
+            -0.0135,
+            0.0702
+          ],
+          "half": 0.0419,
+          "sep": false,
+          "n_items": 124,
+          "n_docs": 40
+        }
+      },
+      "twin_pos": {
+        "vs_pre_agent": {
+          "delta": 0.564,
+          "ci": [
+            0.4085,
+            0.7262
+          ],
+          "half": 0.1589,
+          "sep": true,
+          "n_items": 211,
+          "n_docs": 40
+        },
+        "vs_pre_agent_pron": {
+          "delta": 0.9194,
+          "ci": [
+            0.8559,
+            0.9775
+          ],
+          "half": 0.0608,
+          "sep": true,
+          "n_items": 124,
+          "n_docs": 40
+        },
+        "vs_pre_patient": {
+          "delta": 0.0,
+          "ci": [
+            0.0,
+            0.0
+          ],
+          "half": 0.0,
+          "sep": false,
+          "n_items": 161,
+          "n_docs": 40
+        },
+        "vs_pre_state": {
+          "delta": 0.0,
+          "ci": [
+            0.0,
+            0.0
+          ],
+          "half": 0.0,
+          "sep": false,
+          "n_items": 72,
+          "n_docs": 40
+        },
+        "vs_wordorder_floor_agent": {
+          "delta": -0.0427,
+          "ci": [
+            -0.0802,
+            -0.0087
+          ],
+          "half": 0.0357,
+          "sep": true,
+          "n_items": 211,
+          "n_docs": 40
+        },
+        "vs_wordorder_floor_agent_pron": {
+          "delta": -0.0323,
+          "ci": [
+            -0.0725,
+            0.0
+          ],
+          "half": 0.0362,
+          "sep": false,
+          "n_items": 124,
+          "n_docs": 40
+        }
+      }
+    },
+    "floor": {
+      "wordorder_agent": 0.7962,
+      "wordorder_agent_pron": 0.9516
+    }
+  }
+}

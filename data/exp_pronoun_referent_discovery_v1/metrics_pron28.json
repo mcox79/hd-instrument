@@ -1,0 +1,146 @@
+{
+  "ts_iso": "2026-09-15T19:27:14.285713+00:00",
+  "seed": 20260915,
+  "arms": [
+    "disc_graded_best_nowin",
+    "disc_graded_best_twin",
+    "disc_graded_best_nophi"
+  ],
+  "pronouns": {
+    "n_docs": 28,
+    "docs": [
+      "GUM_academic_census",
+      "GUM_academic_huh",
+      "GUM_academic_thrones",
+      "GUM_bio_galois",
+      "GUM_bio_marbles",
+      "GUM_conversation_christmas",
+      "GUM_conversation_scientist",
+      "GUM_court_insanity",
+      "GUM_court_property",
+      "GUM_essay_ghost",
+      "GUM_fiction_beast",
+      "GUM_fiction_lunre",
+      "GUM_fiction_time",
+      "GUM_interview_daly",
+      "GUM_interview_mckenzie",
+      "GUM_letter_conference",
+      "GUM_letter_marcie3",
+      "GUM_news_afghan",
+      "GUM_news_hackers",
+      "GUM_news_questionnaire",
+      "GUM_podcast_addiction",
+      "GUM_podcast_mealprep",
+      "GUM_speech_data",
+      "GUM_speech_nixon",
+      "GUM_textbook_chemistry",
+      "GUM_textbook_sociology",
+      "GUM_vlog_hair",
+      "GUM_vlog_radiology"
+    ],
+    "arms": {
+      "disc_graded_best_nowin": {
+        "pronoun_acc": 0.3031,
+        "n_questions": 795,
+        "answered": 783,
+        "abstention_records": 1,
+        "resolutions": 1119,
+        "secs": 401.0
+      },
+      "disc_graded_best_twin": {
+        "pronoun_acc": 0.1811,
+        "n_questions": 795,
+        "answered": 735,
+        "abstention_records": 78,
+        "resolutions": 1042,
+        "secs": 389.1
+      },
+      "disc_graded_best_nophi": {
+        "pronoun_acc": 0.2881,
+        "n_questions": 795,
+        "answered": 750,
+        "abstention_records": 48,
+        "resolutions": 1072,
+        "secs": 577.7
+      }
+    },
+    "floor": {
+      "nearest_prior_compatible": 0.1849,
+      "nearest_prior_any": 0.1849
+    },
+    "contrasts": {
+      "disc_graded_best_nowin": {
+        "vs_nearest_prior_compatible": {
+          "delta": 0.1182,
+          "ci": [
+            0.043,
+            0.1987
+          ],
+          "half": 0.0779,
+          "sep": true,
+          "n_items": 795,
+          "n_docs": 28
+        },
+        "vs_nearest_prior_any": {
+          "delta": 0.1182,
+          "ci": [
+            0.043,
+            0.1987
+          ],
+          "half": 0.0779,
+          "sep": true,
+          "n_items": 795,
+          "n_docs": 28
+        }
+      },
+      "disc_graded_best_twin": {
+        "vs_nearest_prior_compatible": {
+          "delta": -0.0038,
+          "ci": [
+            -0.0454,
+            0.0324
+          ],
+          "half": 0.0389,
+          "sep": false,
+          "n_items": 795,
+          "n_docs": 28
+        },
+        "vs_nearest_prior_any": {
+          "delta": -0.0038,
+          "ci": [
+            -0.0454,
+            0.0324
+          ],
+          "half": 0.0389,
+          "sep": false,
+          "n_items": 795,
+          "n_docs": 28
+        }
+      },
+      "disc_graded_best_nophi": {
+        "vs_nearest_prior_compatible": {
+          "delta": 0.1031,
+          "ci": [
+            0.0154,
+            0.1953
+          ],
+          "half": 0.09,
+          "sep": true,
+          "n_items": 795,
+          "n_docs": 28
+        },
+        "vs_nearest_prior_any": {
+          "delta": 0.1031,
+          "ci": [
+            0.0154,
+            0.1953
+          ],
+          "half": 0.09,
+          "sep": true,
+          "n_items": 795,
+          "n_docs": 28
+        }
+      }
+    }
+  }
+}

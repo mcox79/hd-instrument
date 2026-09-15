@@ -1,0 +1,79 @@
+{
+  "ts_iso": "2026-09-15T18:01:12.829125+00:00",
+  "seed": 20260915,
+  "arms": [
+    "ship",
+    "disc_role",
+    "disc",
+    "twin",
+    "twin_pos",
+    "disc_actr",
+    "disc_freq",
+    "disc_case",
+    "disc_nopos",
+    "disc_full",
+    "disc_posagent",
+    "disc_freq2",
+    "disc_case_freq2",
+    "disc_case_hybrid",
+    "disc_case_hybridc"
+  ],
+  "verify_patch": {
+    "loaded": [
+      "coref.py",
+      "referent_per_np.py",
+      "situation_reader.py"
+    ],
+    "events": [
+      [
+        0,
+        "thanked",
+        "alice",
+        "bob"
+      ],
+      [
+        1,
+        "happy",
+        "she",
+        "she"
+      ],
+      [
+        2,
+        "own",
+        "they",
+        "blogger"
+      ]
+    ],
+    "pronouns": [
+      [
+        "she",
+        1,
+        0,
+        "alice"
+      ]
+    ],
+    "abstentions": [],
+    "states": [
+      [
+        1,
+        "She",
+        "happy"
+      ]
+    ],
+    "off_pronouns": 0,
+    "invariant": true,
+    "five_docs": {
+      "agent": 43,
+      "agent_n": 52,
+      "pron": 31,
+      "pron_n": 33,
+      "patient": 30,
+      "patient_n": 43,
+      "state": 7,
+      "state_n": 9,
+      "missing": 1,
+      "coref": 8,
+      "abstain": 0
+    }
+  }
+}

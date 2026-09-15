@@ -1,0 +1,115 @@
+{
+  "ts_iso": "2026-09-15T18:32:56.063682+00:00",
+  "seed": 20260915,
+  "arms": [
+    "ship",
+    "disc_case",
+    "disc_case_strict",
+    "disc_case_strict_w2",
+    "disc_case_strict_w3",
+    "disc_actr_strict"
+  ],
+  "self_test": 8,
+  "annotated_ab": {
+    "n_docs": 8,
+    "arms": {
+      "ship": {
+        "coref_acc": 0.7714,
+        "n_targets": 35,
+        "events": 1085,
+        "entities": 1460,
+        "abstentions": 0
+      },
+      "disc_case": {
+        "coref_acc": 0.0,
+        "n_targets": 38,
+        "events": 1085,
+        "entities": 1948,
+        "abstentions": 0
+      },
+      "disc_case_strict": {
+        "coref_acc": 0.0,
+        "n_targets": 38,
+        "events": 1085,
+        "entities": 1948,
+        "abstentions": 0
+      },
+      "disc_case_strict_w2": {
+        "coref_acc": 0.0,
+        "n_targets": 38,
+        "events": 1085,
+        "entities": 1948,
+        "abstentions": 0
+      },
+      "disc_case_strict_w3": {
+        "coref_acc": 0.0,
+        "n_targets": 38,
+        "events": 1085,
+        "entities": 1948,
+        "abstentions": 0
+      },
+      "disc_actr_strict": {
+        "coref_acc": 0.0574,
+        "n_targets": 244,
+        "events": 1085,
+        "entities": 1948,
+        "abstentions": 0
+      }
+    },
+    "contrasts_vs_ship_disc_case": {
+      "delta": -0.7714,
+      "ci": [
+        -1.0,
+        -0.3333
+      ],
+      "half": 0.3333,
+      "sep": true,
+      "n_items": 35,
+      "n_docs": 8
+    },
+    "contrasts_vs_ship_disc_case_strict": {
+      "delta": -0.7714,
+      "ci": [
+        -1.0,
+        -0.3333
+      ],
+      "half": 0.3333,
+      "sep": true,
+      "n_items": 35,
+      "n_docs": 8
+    },
+    "contrasts_vs_ship_disc_case_strict_w2": {
+      "delta": -0.7714,
+      "ci": [
+        -1.0,
+        -0.3333
+      ],
+      "half": 0.3333,
+      "sep": true,
+      "n_items": 35,
+      "n_docs": 8
+    },
+    "contrasts_vs_ship_disc_case_strict_w3": {
+      "delta": -0.7714,
+      "ci": [
+        -1.0,
+        -0.3333
+      ],
+      "half": 0.3333,
+      "sep": true,
+      "n_items": 35,
+      "n_docs": 8
+    },
+    "contrasts_vs_ship_disc_actr_strict": {
+      "delta": -0.3714,
+      "ci": [
+        -0.7241,
+        5.0083
+      ],
+      "half": 2.8662,
+      "sep": false,
+      "n_items": 35,
+      "n_docs": 8
+    }
+  }
+}

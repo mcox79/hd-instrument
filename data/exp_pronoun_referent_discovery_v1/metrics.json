@@ -1,0 +1,12 @@
+{
+  "ts_iso": "2026-09-15T17:20:42.937623+00:00",
+  "seed": 20260915,
+  "arms": [
+    "ship",
+    "disc_role",
+    "disc",
+    "twin",
+    "twin_pos"
+  ],
+  "self_test": 8
+}

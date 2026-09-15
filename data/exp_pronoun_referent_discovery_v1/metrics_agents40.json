@@ -1,0 +1,522 @@
+{
+  "ts_iso": "2026-09-15T17:22:56.592008+00:00",
+  "seed": 20260915,
+  "arms": [
+    "ship",
+    "disc_role",
+    "disc",
+    "twin",
+    "twin_pos"
+  ],
+  "agents": {
+    "docs": [
+      "weblog-blogspot.com_aggressivevoicedaily_20060629164800_ENG_20060629_164800",
+      "weblog-blogspot.com_marketview_20060625150800_ENG_20060625_150800",
+      "email-enronsent23_06",
+      "email-enronsent29_02",
+      "newsgroup-groups.google.com_n3td3v_e874a1e5eb995654_ENG_20060120_052200",
+      "newsgroup-groups.google.com_hiddennook_f50294175d32a8ac_ENG_20041120_152800",
+      "newsgroup-groups.google.com_fineart_0339fc0ed4e53c5a_ENG_20050930_025500",
+      "newsgroup-groups.google.com_chantonline_3e01677617c74720_ENG_20060112_102000",
+      "newsgroup-groups.google.com_hiddennook_e21e429b3ad58235_ENG_20050830_214700",
+      "answers-20090716131314AA4W9uJ_ans",
+      "answers-20111107173321AASNJjc_ans",
+      "answers-20111108044917AALAHtc_ans",
+      "answers-20111106112223AAmR2im_ans",
+      "answers-20090709103651AAwwZKx_ans",
+      "answers-20110101171252AA43jJo_ans",
+      "answers-20111108101906AA2JJqq_ans",
+      "answers-20111108090345AAQiffR_ans",
+      "answers-20111108071652AA8GAZw_ans",
+      "answers-20111108074555AAFT8Aj_ans",
+      "answers-20111107155815AA6LXXJ_ans",
+      "answers-20111108102205AArwNzY_ans",
+      "answers-20111103205154AAOod9K_ans",
+      "reviews-059685",
+      "reviews-184290",
+      "reviews-395218",
+      "reviews-255757",
+      "reviews-351950",
+      "reviews-304759",
+      "reviews-174824",
+      "reviews-207348",
+      "reviews-210153",
+      "reviews-171877",
+      "reviews-097548",
+      "reviews-061721",
+      "reviews-270889",
+      "reviews-186235",
+      "reviews-332068",
+      "reviews-389298",
+      "reviews-103519",
+      "reviews-163250"
+    ],
+    "n_docs": 40,
+    "arms": {
+      "ship": {
+        "agent": 0.1896,
+        "agent_pron": 0.0,
+        "patient": 0.7081,
+        "state": 0.6667,
+        "n": {
+          "agent": 211,
+          "agent_pron": 124,
+          "patient": 161,
+          "state": 72
+        },
+        "secs": 144.4,
+        "coref_records": 0
+      },
+      "disc_role": {
+        "agent": 0.1991,
+        "agent_pron": 0.0,
+        "patient": 0.7081,
+        "state": 0.6667,
+        "n": {
+          "agent": 211,
+          "agent_pron": 124,
+          "patient": 161,
+          "state": 72
+        },
+        "secs": 143.2,
+        "coref_records": 0
+      },
+      "disc": {
+        "agent": 0.7441,
+        "agent_pron": 0.9032,
+        "patient": 0.7081,
+        "state": 0.6667,
+        "n": {
+          "agent": 211,
+          "agent_pron": 124,
+          "patient": 161,
+          "state": 72
+        },
+        "secs": 138.1,
+        "coref_records": 35
+      },
+      "twin": {
+        "agent": 0.7441,
+        "agent_pron": 0.9032,
+        "patient": 0.7081,
+        "state": 0.6667,
+        "n": {
+          "agent": 211,
+          "agent_pron": 124,
+          "patient": 161,
+          "state": 72
+        },
+        "secs": 164.2,
+        "coref_records": 35
+      },
+      "twin_pos": {
+        "agent": 0.5829,
+        "agent_pron": 0.621,
+        "patient": 0.6708,
+        "state": 0.6667,
+        "n": {
+          "agent": 211,
+          "agent_pron": 124,
+          "patient": 161,
+          "state": 72
+        },
+        "secs": 132.0,
+        "coref_records": 35
+      }
+    },
+    "contrasts": {
+      "ship": {
+        "vs_wordorder_floor_agent": {
+          "delta": -0.6066,
+          "ci": [
+            -0.7551,
+            -0.4563
+          ],
+          "half": 0.1494,
+          "sep": true,
+          "n_items": 211,
+          "n_docs": 40
+        },
+        "vs_wordorder_floor_agent_pron": {
+          "delta": -0.9516,
+          "ci": [
+            -0.9873,
+            -0.9106
+          ],
+          "half": 0.0384,
+          "sep": true,
+          "n_items": 124,
+          "n_docs": 40
+        }
+      },
+      "disc_role": {
+        "vs_wordorder_floor_agent": {
+          "delta": -0.5972,
+          "ci": [
+            -0.7482,
+            -0.4449
+          ],
+          "half": 0.1517,
+          "sep": true,
+          "n_items": 211,
+          "n_docs": 40
+        },
+        "vs_wordorder_floor_agent_pron": {
+          "delta": -0.9516,
+          "ci": [
+            -0.9873,
+            -0.9106
+          ],
+          "half": 0.0384,
+          "sep": true,
+          "n_items": 124,
+          "n_docs": 40
+        },
+        "vs_ship_agent": {
+          "delta": 0.0095,
+          "ci": [
+            0.0,
+            0.0221
+          ],
+          "half": 0.0111,
+          "sep": false,
+          "n_items": 211,
+          "n_docs": 40
+        },
+        "vs_ship_agent_pron": {
+          "delta": 0.0,
+          "ci": [
+            0.0,
+            0.0
+          ],
+          "half": 0.0,
+          "sep": false,
+          "n_items": 124,
+          "n_docs": 40
+        },
+        "vs_ship_patient": {
+          "delta": 0.0,
+          "ci": [
+            0.0,
+            0.0
+          ],
+          "half": 0.0,
+          "sep": false,
+          "n_items": 161,
+          "n_docs": 40
+        },
+        "vs_ship_state": {
+          "delta": 0.0,
+          "ci": [
+            0.0,
+            0.0
+          ],
+          "half": 0.0,
+          "sep": false,
+          "n_items": 72,
+          "n_docs": 40
+        }
+      },
+      "disc": {
+        "vs_wordorder_floor_agent": {
+          "delta": -0.0521,
+          "ci": [
+            -0.1083,
+            -0.0101
+          ],
+          "half": 0.0491,
+          "sep": true,
+          "n_items": 211,
+          "n_docs": 40
+        },
+        "vs_wordorder_floor_agent_pron": {
+          "delta": -0.0484,
+          "ci": [
+            -0.1071,
+            -0.0075
+          ],
+          "half": 0.0498,
+          "sep": true,
+          "n_items": 124,
+          "n_docs": 40
+        },
+        "vs_ship_agent": {
+          "delta": 0.5545,
+          "ci": [
+            0.4044,
+            0.7113
+          ],
+          "half": 0.1535,
+          "sep": true,
+          "n_items": 211,
+          "n_docs": 40
+        },
+        "vs_ship_agent_pron": {
+          "delta": 0.9032,
+          "ci": [
+            0.8113,
+            0.9748
+          ],
+          "half": 0.0817,
+          "sep": true,
+          "n_items": 124,
+          "n_docs": 40
+        },
+        "vs_ship_patient": {
+          "delta": 0.0,
+          "ci": [
+            0.0,
+            0.0
+          ],
+          "half": 0.0,
+          "sep": false,
+          "n_items": 161,
+          "n_docs": 40
+        },
+        "vs_ship_state": {
+          "delta": 0.0,
+          "ci": [
+            0.0,
+            0.0
+          ],
+          "half": 0.0,
+          "sep": false,
+          "n_items": 72,
+          "n_docs": 40
+        }
+      },
+      "twin": {
+        "vs_wordorder_floor_agent": {
+          "delta": -0.0521,
+          "ci": [
+            -0.1083,
+            -0.0101
+          ],
+          "half": 0.0491,
+          "sep": true,
+          "n_items": 211,
+          "n_docs": 40
+        },
+        "vs_wordorder_floor_agent_pron": {
+          "delta": -0.0484,
+          "ci": [
+            -0.1071,
+            -0.0075
+          ],
+          "half": 0.0498,
+          "sep": true,
+          "n_items": 124,
+          "n_docs": 40
+        },
+        "vs_ship_agent": {
+          "delta": 0.5545,
+          "ci": [
+            0.4044,
+            0.7113
+          ],
+          "half": 0.1535,
+          "sep": true,
+          "n_items": 211,
+          "n_docs": 40
+        },
+        "vs_ship_agent_pron": {
+          "delta": 0.9032,
+          "ci": [
+            0.8113,
+            0.9748
+          ],
+          "half": 0.0817,
+          "sep": true,
+          "n_items": 124,
+          "n_docs": 40
+        },
+        "vs_ship_patient": {
+          "delta": 0.0,
+          "ci": [
+            0.0,
+            0.0
+          ],
+          "half": 0.0,
+          "sep": false,
+          "n_items": 161,
+          "n_docs": 40
+        },
+        "vs_ship_state": {
+          "delta": 0.0,
+          "ci": [
+            0.0,
+            0.0
+          ],
+          "half": 0.0,
+          "sep": false,
+          "n_items": 72,
+          "n_docs": 40
+        }
+      },
+      "twin_pos": {
+        "vs_wordorder_floor_agent": {
+          "delta": -0.2133,
+          "ci": [
+            -0.295,
+            -0.1346
+          ],
+          "half": 0.0802,
+          "sep": true,
+          "n_items": 211,
+          "n_docs": 40
+        },
+        "vs_wordorder_floor_agent_pron": {
+          "delta": -0.3306,
+          "ci": [
+            -0.4091,
+            -0.2581
+          ],
+          "half": 0.0755,
+          "sep": true,
+          "n_items": 124,
+          "n_docs": 40
+        },
+        "vs_ship_agent": {
+          "delta": 0.3934,
+          "ci": [
+            0.2876,
+            0.5119
+          ],
+          "half": 0.1121,
+          "sep": true,
+          "n_items": 211,
+          "n_docs": 40
+        },
+        "vs_ship_agent_pron": {
+          "delta": 0.621,
+          "ci": [
+            0.5156,
+            0.7143
+          ],
+          "half": 0.0994,
+          "sep": true,
+          "n_items": 124,
+          "n_docs": 40
+        },
+        "vs_ship_patient": {
+          "delta": -0.0373,
+          "ci": [
+            -0.0732,
+            -0.005
+          ],
+          "half": 0.0341,
+          "sep": true,
+          "n_items": 161,
+          "n_docs": 40
+        },
+        "vs_ship_state": {
+          "delta": 0.0,
+          "ci": [
+            0.0,
+            0.0
+          ],
+          "half": 0.0,
+          "sep": false,
+          "n_items": 72,
+          "n_docs": 40
+        }
+      },
+      "disc_vs_twin": {
+        "agent": {
+          "delta": 0.0,
+          "ci": [
+            0.0,
+            0.0
+          ],
+          "half": 0.0,
+          "sep": false,
+          "n_items": 211,
+          "n_docs": 40
+        },
+        "agent_pron": {
+          "delta": 0.0,
+          "ci": [
+            0.0,
+            0.0
+          ],
+          "half": 0.0,
+          "sep": false,
+          "n_items": 124,
+          "n_docs": 40
+        },
+        "patient": {
+          "delta": 0.0,
+          "ci": [
+            0.0,
+            0.0
+          ],
+          "half": 0.0,
+          "sep": false,
+          "n_items": 161,
+          "n_docs": 40
+        },
+        "state": {
+          "delta": 0.0,
+          "ci": [
+            0.0,
+            0.0
+          ],
+          "half": 0.0,
+          "sep": false,
+          "n_items": 72,
+          "n_docs": 40
+        }
+      },
+      "disc_vs_twin_pos": {
+        "agent": {
+          "delta": 0.1611,
+          "ci": [
+            0.1033,
+            0.2227
+          ],
+          "half": 0.0597,
+          "sep": true,
+          "n_items": 211,
+          "n_docs": 40
+        },
+        "agent_pron": {
+          "delta": 0.2823,
+          "ci": [
+            0.2157,
+            0.35
+          ],
+          "half": 0.0672,
+          "sep": true,
+          "n_items": 124,
+          "n_docs": 40
+        },
+        "patient": {
+          "delta": 0.0373,
+          "ci": [
+            0.005,
+            0.0732
+          ],
+          "half": 0.0341,
+          "sep": true,
+          "n_items": 161,
+          "n_docs": 40
+        },
+        "state": {
+          "delta": 0.0,
+          "ci": [
+            0.0,
+            0.0
+          ],
+          "half": 0.0,
+          "sep": false,
+          "n_items": 72,
+          "n_docs": 40
+        }
+      }
+    },
+    "floor": {
+      "agent": 0.7962,
+      "agent_pron": 0.9516
+    }
+  }
+}

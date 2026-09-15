@@ -1,0 +1,67 @@
+{
+  "ts_iso": "2026-09-15T17:53:13.956229+00:00",
+  "seed": 20260915,
+  "arms": [
+    "ship",
+    "disc_role",
+    "disc",
+    "twin",
+    "twin_pos",
+    "disc_actr",
+    "disc_freq",
+    "disc_case",
+    "disc_nopos",
+    "disc_full",
+    "disc_posagent",
+    "disc_freq2",
+    "disc_case_freq2",
+    "disc_case_hybrid",
+    "disc_case_hybridc"
+  ],
+  "consumer_audit": {
+    "consumers": [
+      {
+        "consumer": "hdlab/referent_per_np.py referent_per_np_source (pronoun source)",
+        "reads": "coref annotation column",
+        "status": "FIXED by this diff (category organ's PRON tags)"
+      },
+      {
+        "consumer": "hdlab/situation_reader.py read() -> _coref_mentions (AGENT competition)",
+        "reads": "coref annotation column",
+        "status": "FIXED by this diff (ONE discovered stream)"
+      },
+      {
+        "consumer": "hdlab/situation_reader.py read() -> build_pronoun_targets (anaphora questions)",
+        "reads": "same GOLD CLUSTER ID",
+        "status": "FIXED by this diff (discovered_pronoun_targets)"
+      },
+      {
+        "consumer": "hdlab/situation_reader.py _read_entities correctness",
+        "reads": "gold cluster off the DECISION stream",
+        "status": "FIXED by this diff (scorer-side alignment, after the pick)"
+      },
+      {
+        "consumer": "hdlab/space_reader.py:248 (the SPACE dimension, track_space default ON)",
+        "reads": "coref annotation column, RE-PARSED from the file",
+        "status": "NOT FIXED -- outside the three files this brief may diff; measured below"
+      },
+      {
+        "consumer": "hdlab/{bundle_focus_coref,coref_distractor_suppress,event_centrality_coref}.py build_pronoun_targets",
+        "reads": "gold clusters",
+        "status": "NOT on the inference path -- all uses are _selftest_* only"
+      }
+    ],
+    "counts": {
+      "ship_coref_stream": 0,
+      "ship_pron_in_stream": 0,
+      "ship_pron_questions": 0,
+      "ship_locations": 3,
+      "disc_coref_stream": 97,
+      "disc_pron_in_stream": 30,
+      "disc_pron_questions": 2,
+      "disc_locations": 3,
+      "space_reader_mentions": 0,
+      "space_reader_pron": 0
+    }
+  }
+}

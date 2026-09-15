@@ -1,0 +1,58 @@
+{
+  "ts_iso": "2026-09-15T17:58:49.394019+00:00",
+  "seed": 20260915,
+  "arms": [
+    "ship",
+    "disc_role",
+    "disc",
+    "twin",
+    "twin_pos",
+    "disc_actr",
+    "disc_freq",
+    "disc_case",
+    "disc_nopos",
+    "disc_full",
+    "disc_posagent",
+    "disc_freq2",
+    "disc_case_freq2",
+    "disc_case_hybrid",
+    "disc_case_hybridc"
+  ],
+  "annotated_ab": {
+    "n_docs": 8,
+    "arms": {
+      "ship": {
+        "coref_acc": 0.7714,
+        "n_targets": 35,
+        "events": 1085,
+        "entities": 1460,
+        "abstentions": 0
+      },
+      "disc": {
+        "coref_acc": 0.0,
+        "n_targets": 38,
+        "events": 1085,
+        "entities": 1948,
+        "abstentions": 0
+      },
+      "disc_case": {
+        "coref_acc": 0.0,
+        "n_targets": 38,
+        "events": 1085,
+        "entities": 1948,
+        "abstentions": 0
+      }
+    },
+    "contrast_disc_vs_ship": {
+      "delta": -0.7714,
+      "ci": [
+        -1.0,
+        -0.3333
+      ],
+      "half": 0.3333,
+      "sep": true,
+      "n_items": 35,
+      "n_docs": 8
+    }
+  }
+}

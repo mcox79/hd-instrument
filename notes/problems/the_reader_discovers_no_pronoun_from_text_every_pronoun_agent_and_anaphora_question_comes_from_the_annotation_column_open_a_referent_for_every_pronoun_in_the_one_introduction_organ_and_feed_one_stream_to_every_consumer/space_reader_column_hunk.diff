@@ -1,0 +1,98 @@
+# pri 125, PHASE 7 item 2d -- the LAST inference-path reader of the coref ANNOTATION COLUMN.
+#
+# THE NUMBER: hdlab/space_reader.py:248 re-parses the input file itself, so on annotation-free text the
+# SPACE dimension receives 0 mentions and 0 pronouns (measured on 3 UD-EWT test documents, in BOTH the
+# shipped reader and the pronoun-discovery arm), while the reader's OWN stream on those same documents
+# carries 97 mentions of which 30 are pronouns. No mentions -> no person_clusters -> no valid MOVERS, so
+# the location register cannot track anybody on real text. track_space defaults ON.
+#
+# APPLY ORDER: this diff assumes pronoun_discovery_patch.diff is ALREADY APPLIED (its situation_reader.py
+# hunk is cut against the patched file). Apply the main diff first, then this one.
+# COMPLETENESS: both halves are here -- the organ gains the optional `mentions` argument AND the reader's
+# one call site passes role_mentions, so the organ cannot silently run without it.
+# UNVERIFIED: my apply-check for this file was DENIED by the harness, so strategy must run it.
+#
+--- a/hdlab/space_reader.py
++++ b/hdlab/space_reader.py
+@@ -233,7 +233,7 @@
+                 "their", "we", "us", "our"}
+ 
+ 
+-def build_backbone(conll_path: str, gaz=None):
++def build_backbone(conll_path: str, gaz=None, mentions=None):
+     """Return (sents, mentions_by_sent, cluster_name, person_clusters).
+       sents            : CoNLL token lists (the reader's OWN tokenization; wtok positions align).
+       mentions_by_sent : sent_idx -> [mention dicts] (INCLUDING pronouns -- gold coref resolves them).
+@@ -244,8 +244,20 @@
+     """
+     # pri-109: pass the category organ so the mentions carry `span_upos` here too -- a builder that runs
+     # the organ WITHOUT the argument its caller passed silently ships a different organ.
+-    from hdlab import frontend as _F
+-    mentions, n_sents = parse_litbank_conll(conll_path, name_gender_map=gaz, tagger=_F.tagger())
++    #
++    # pri 125 (2026-09-15): `mentions` LETS THE CALLER HAND IN THE READER'S OWN DISCOVERED STREAM.  This is
++    # the last inference-path consumer that reads the COREF ANNOTATION COLUMN: the SPACE dimension re-parses
++    # the input file ITSELF, so on annotation-free text -- which is all real text -- it receives ZERO
++    # mentions and ZERO pronouns (MEASURED on 3 UD-EWT test documents: 0 mentions / 0 pronouns, in BOTH the
++    # shipped reader and the pronoun-discovery arm, while the reader's own stream on those same documents
++    # carries 97 mentions of which 30 are pronouns).  With no mentions there are no `person_clusters`, so
++    # there are no valid MOVERS and the location register cannot track anybody.  `mentions=None` keeps the
++    # previous behaviour byte-for-byte.
++    if mentions is None:
++        from hdlab import frontend as _F
++        mentions, n_sents = parse_litbank_conll(conll_path, name_gender_map=gaz, tagger=_F.tagger())
++    else:
++        n_sents = (max((m["sent_idx"] for m in mentions), default=-1) + 1) if mentions else 0
+     sents = parse_conll_sentences(conll_path, lower=False)  # pri-116: cased -- +0.4106 PROPN F1 (see scene_segment)
+     by_sent: Dict[int, List[dict]] = {i: [] for i in range(len(sents))}
+     names: Dict[int, Dict[str, int]] = {}
+@@ -754,14 +766,14 @@
+ 
+ 
+ def read_locations_in_substrate(conll_path: str, gaz=None, place_typing: bool = True, mode: str = "truth",
+-                                parse_provider=None):
++                                parse_provider=None, mentions=None):
+     """End-to-end: the reader's OWN backbone -> in-substrate motion events -> promoted tracker.
+     mode='truth'     = parse-as-truth (no prior; every extracted event applied -- the discriminator baseline).
+     mode='prior'     = parse-as-EVIDENCE + situation-model PRIOR (realis + discovery gates + revise-on-surprise).
+     mode='prior_ext' = 'prior' + the drill's three brain-faithful recall extensions (veridical embedded-clause
+                        routing + caused-motion theme relocation + expanded stative locatives).
+     Returns (register, events, cluster_name, sents, person_clusters)."""
+-    sents, by_sent, cluster_name, person_clusters = build_backbone(conll_path, gaz=gaz)
++    sents, by_sent, cluster_name, person_clusters = build_backbone(conll_path, gaz=gaz, mentions=mentions)
+     prior = mode in ("prior", "prior_ext")
+     ext = (mode == "prior_ext")
+     events = extract_events_in_substrate(sents, by_sent, person_clusters=person_clusters,
+--- a/hdlab/situation_reader.py
++++ b/hdlab/situation_reader.py
+@@ -2775,7 +2775,7 @@
+         return [{"lemma": lem, "chrono_rank": i, "text_rank": reg.text_rank.get(lem)}
+                 for i, lem in enumerate(reg.order)]
+ 
+-    def _read_space(self, conll_path):
++    def _read_space(self, conll_path, mentions=None):
+         """Opt-in SPACE dimension (default-off; wired 2026-08-31 from the validated
+         experiments/_space_reader.py). Returns a hdlab.location_register.LocationRegister -- per-entity
+         location as STATE, updated ONLY by motion events and PERSISTING between (Zwaan & Radvansky
+@@ -2791,8 +2791,11 @@
+         # PARSE DEDUP (2026-09-03): _read_space runs AFTER _read_events, so the reader's per-read tag/parse cache
+         # is already warm -> the space adapter reuses the reader's parse (SAME model) instead of re-parsing every
+         # sentence a second time (~half the read's parser cost). Byte-identical.
++        # pri 125: hand the SPACE dimension the reader's OWN discovered mention stream instead of letting it
++        # re-parse the coref ANNOTATION COLUMN out of the input file (0 mentions / 0 pronouns on real text).
+         reg, _events, _names, _sents, _persons = _SP.read_locations_in_substrate(
+-            conll_path, gaz=self.gaz, mode="prior_ext", parse_provider=self._space_parse_provider)
++            conll_path, gaz=self.gaz, mode="prior_ext", parse_provider=self._space_parse_provider,
++            mentions=mentions)
+         return reg
+ 
+     def _space_parse_provider(self, toks):
+@@ -4769,7 +4772,7 @@
+         if self.timeline_register:
+             sm.timeline_order = self._read_timeline_register(sents)
+         if self.track_space:
+-            sm.locations = self._read_space(conll_path)
++            sm.locations = self._read_space(conll_path, mentions=role_mentions)
+         if self.causation_typed:
+             # opt-in TYPED causation read (default-off; IN-SUBSTRATE parse + experiment-side literalness gate).
+             from hdlab.causation_typing import read_typed_causation

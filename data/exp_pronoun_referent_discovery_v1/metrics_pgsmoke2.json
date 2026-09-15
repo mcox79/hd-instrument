@@ -1,0 +1,156 @@
+{
+  "ts_iso": "2026-09-15T18:59:28.955224+00:00",
+  "seed": 20260915,
+  "arms": [
+    "disc_graded",
+    "disc_graded_twin",
+    "disc_graded_nophi",
+    "disc_blankcard"
+  ],
+  "self_test": 8,
+  "pronouns": {
+    "n_docs": 4,
+    "docs": [
+      "GUM_academic_census",
+      "GUM_court_property",
+      "GUM_letter_marcie3",
+      "GUM_textbook_chemistry"
+    ],
+    "arms": {
+      "disc_graded": {
+        "pronoun_acc": 0.1493,
+        "n_questions": 67,
+        "answered": 66,
+        "abstention_records": 0,
+        "resolutions": 115,
+        "secs": 67.0
+      },
+      "disc_graded_twin": {
+        "pronoun_acc": 0.194,
+        "n_questions": 67,
+        "answered": 59,
+        "abstention_records": 7,
+        "resolutions": 108,
+        "secs": 51.4
+      },
+      "disc_graded_nophi": {
+        "pronoun_acc": 0.1791,
+        "n_questions": 67,
+        "answered": 66,
+        "abstention_records": 0,
+        "resolutions": 115,
+        "secs": 50.8
+      },
+      "disc_blankcard": {
+        "pronoun_acc": 0.1791,
+        "n_questions": 67,
+        "answered": 64,
+        "abstention_records": 2,
+        "resolutions": 113,
+        "secs": 56.1
+      }
+    },
+    "floor": {
+      "nearest_prior_compatible": 0.2239,
+      "nearest_prior_any": 0.2239
+    },
+    "contrasts": {
+      "disc_graded": {
+        "vs_nearest_prior_compatible": {
+          "delta": -0.0746,
+          "ci": [
+            -0.1154,
+            0.0
+          ],
+          "half": 0.0577,
+          "sep": false,
+          "n_items": 67,
+          "n_docs": 4
+        },
+        "vs_nearest_prior_any": {
+          "delta": -0.0746,
+          "ci": [
+            -0.1154,
+            0.0
+          ],
+          "half": 0.0577,
+          "sep": false,
+          "n_items": 67,
+          "n_docs": 4
+        }
+      },
+      "disc_graded_twin": {
+        "vs_nearest_prior_compatible": {
+          "delta": -0.0299,
+          "ci": [
+            -0.2308,
+            0.0189
+          ],
+          "half": 0.1248,
+          "sep": false,
+          "n_items": 67,
+          "n_docs": 4
+        },
+        "vs_nearest_prior_any": {
+          "delta": -0.0299,
+          "ci": [
+            -0.2308,
+            0.0189
+          ],
+          "half": 0.1248,
+          "sep": false,
+          "n_items": 67,
+          "n_docs": 4
+        }
+      },
+      "disc_graded_nophi": {
+        "vs_nearest_prior_compatible": {
+          "delta": -0.0448,
+          "ci": [
+            -0.0952,
+            0.0667
+          ],
+          "half": 0.081,
+          "sep": false,
+          "n_items": 67,
+          "n_docs": 4
+        },
+        "vs_nearest_prior_any": {
+          "delta": -0.0448,
+          "ci": [
+            -0.0952,
+            0.0667
+          ],
+          "half": 0.081,
+          "sep": false,
+          "n_items": 67,
+          "n_docs": 4
+        }
+      },
+      "disc_blankcard": {
+        "vs_nearest_prior_compatible": {
+          "delta": -0.0448,
+          "ci": [
+            -0.0952,
+            0.0667
+          ],
+          "half": 0.081,
+          "sep": false,
+          "n_items": 67,
+          "n_docs": 4
+        },
+        "vs_nearest_prior_any": {
+          "delta": -0.0448,
+          "ci": [
+            -0.0952,
+            0.0667
+          ],
+          "half": 0.081,
+          "sep": false,
+          "n_items": 67,
+          "n_docs": 4
+        }
+      }
+    }
+  }
+}

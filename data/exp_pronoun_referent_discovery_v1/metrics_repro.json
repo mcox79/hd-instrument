@@ -1,0 +1,1000 @@
+{
+  "ts_iso": "2026-09-15T17:16:30.750422+00:00",
+  "seed": 20260915,
+  "arms": [
+    "ship",
+    "disc_role",
+    "disc",
+    "twin"
+  ],
+  "repro": {
+    "ship": {
+      "per_doc": [
+        {
+          "agent": [
+            0,
+            1
+          ],
+          "patient": [],
+          "state": [],
+          "agent_pron": [],
+          "missing": 0,
+          "verbs_gold": 2,
+          "verbs_detected": 2,
+          "events": 5,
+          "doc": "weblog-blogspot.com_zentelligence_20040423000200_ENG_20040423_000200",
+          "n_coref_res": 0
+        },
+        {
+          "agent": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "patient": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "state": [
+            0,
+            1,
+            1,
+            0
+          ],
+          "agent_pron": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "missing": 3,
+          "verbs_gold": 7,
+          "verbs_detected": 7,
+          "events": 12,
+          "doc": "weblog-blogspot.com_marketview_20050511222700_ENG_20050511_222700",
+          "n_coref_res": 0
+        },
+        {
+          "agent": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          "patient": [
+            0,
+            1,
+            0,
+            0,
+            1,
+            1,
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "state": [
+            1
+          ],
+          "agent_pron": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "missing": 3,
+          "verbs_gold": 19,
+          "verbs_detected": 19,
+          "events": 23,
+          "doc": "weblog-blogspot.com_floppingaces_20041126180010_ENG_20041126_180010",
+          "n_coref_res": 0
+        },
+        {
+          "agent": [
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "patient": [
+            0,
+            1,
+            1,
+            0,
+            0,
+            1,
+            1,
+            1,
+            0,
+            1,
+            0,
+            1
+          ],
+          "state": [
+            1,
+            1,
+            1
+          ],
+          "agent_pron": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "missing": 1,
+          "verbs_gold": 19,
+          "verbs_detected": 19,
+          "events": 23,
+          "doc": "weblog-blogspot.com_marketview_20050224181500_ENG_20050224_181500",
+          "n_coref_res": 0
+        },
+        {
+          "agent": [
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          "patient": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            1,
+            1,
+            1,
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "state": [
+            1
+          ],
+          "agent_pron": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "missing": 8,
+          "verbs_gold": 32,
+          "verbs_detected": 32,
+          "events": 34,
+          "doc": "weblog-blogspot.com_grandpasgripes_20060413051000_ENG_20060413_051000",
+          "n_coref_res": 0
+        }
+      ],
+      "secs": 44.8,
+      "agent": [
+        1,
+        1,
+        1,
+        1,
+        5
+      ],
+      "agent_n": [
+        2,
+        6,
+        11,
+        11,
+        22
+      ],
+      "agent_total": 9,
+      "agent_eligible": 52,
+      "agent_pron_total": 0,
+      "agent_pron_eligible": 33,
+      "patient_total": 30,
+      "patient_eligible": 43,
+      "state_total": 7,
+      "state_eligible": 9,
+      "missing": 15,
+      "verbs": [
+        79,
+        79
+      ],
+      "coref_records": 0
+    },
+    "disc_role": {
+      "per_doc": [
+        {
+          "agent": [
+            0,
+            1
+          ],
+          "patient": [],
+          "state": [],
+          "agent_pron": [],
+          "missing": 0,
+          "verbs_gold": 2,
+          "verbs_detected": 2,
+          "events": 5,
+          "doc": "weblog-blogspot.com_zentelligence_20040423000200_ENG_20040423_000200",
+          "n_coref_res": 0
+        },
+        {
+          "agent": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "patient": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "state": [
+            0,
+            1,
+            1,
+            0
+          ],
+          "agent_pron": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "missing": 3,
+          "verbs_gold": 7,
+          "verbs_detected": 7,
+          "events": 12,
+          "doc": "weblog-blogspot.com_marketview_20050511222700_ENG_20050511_222700",
+          "n_coref_res": 0
+        },
+        {
+          "agent": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          "patient": [
+            0,
+            1,
+            0,
+            0,
+            1,
+            1,
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "state": [
+            1
+          ],
+          "agent_pron": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "missing": 3,
+          "verbs_gold": 19,
+          "verbs_detected": 19,
+          "events": 23,
+          "doc": "weblog-blogspot.com_floppingaces_20041126180010_ENG_20041126_180010",
+          "n_coref_res": 0
+        },
+        {
+          "agent": [
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "patient": [
+            0,
+            1,
+            1,
+            0,
+            0,
+            1,
+            1,
+            1,
+            0,
+            1,
+            0,
+            1
+          ],
+          "state": [
+            1,
+            1,
+            1
+          ],
+          "agent_pron": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "missing": 1,
+          "verbs_gold": 19,
+          "verbs_detected": 19,
+          "events": 23,
+          "doc": "weblog-blogspot.com_marketview_20050224181500_ENG_20050224_181500",
+          "n_coref_res": 0
+        },
+        {
+          "agent": [
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          "patient": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            1,
+            1,
+            1,
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "state": [
+            1
+          ],
+          "agent_pron": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "missing": 8,
+          "verbs_gold": 32,
+          "verbs_detected": 32,
+          "events": 34,
+          "doc": "weblog-blogspot.com_grandpasgripes_20060413051000_ENG_20060413_051000",
+          "n_coref_res": 0
+        }
+      ],
+      "secs": 27.5,
+      "agent": [
+        1,
+        1,
+        1,
+        2,
+        5
+      ],
+      "agent_n": [
+        2,
+        6,
+        11,
+        11,
+        22
+      ],
+      "agent_total": 10,
+      "agent_eligible": 52,
+      "agent_pron_total": 0,
+      "agent_pron_eligible": 33,
+      "patient_total": 30,
+      "patient_eligible": 43,
+      "state_total": 7,
+      "state_eligible": 9,
+      "missing": 15,
+      "verbs": [
+        79,
+        79
+      ],
+      "coref_records": 0
+    },
+    "disc": {
+      "per_doc": [
+        {
+          "agent": [
+            1,
+            1
+          ],
+          "patient": [],
+          "state": [],
+          "agent_pron": [],
+          "missing": 0,
+          "verbs_gold": 2,
+          "verbs_detected": 2,
+          "events": 5,
+          "doc": "weblog-blogspot.com_zentelligence_20040423000200_ENG_20040423_000200",
+          "n_coref_res": 0
+        },
+        {
+          "agent": [
+            0,
+            0,
+            1,
+            0,
+            1,
+            1
+          ],
+          "patient": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "state": [
+            0,
+            1,
+            1,
+            0
+          ],
+          "agent_pron": [
+            1,
+            0,
+            1,
+            1
+          ],
+          "missing": 0,
+          "verbs_gold": 7,
+          "verbs_detected": 7,
+          "events": 12,
+          "doc": "weblog-blogspot.com_marketview_20050511222700_ENG_20050511_222700",
+          "n_coref_res": 0
+        },
+        {
+          "agent": [
+            1,
+            1,
+            0,
+            1,
+            1,
+            0,
+            1,
+            0,
+            1,
+            1,
+            0
+          ],
+          "patient": [
+            0,
+            1,
+            0,
+            0,
+            1,
+            1,
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "state": [
+            1
+          ],
+          "agent_pron": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "missing": 0,
+          "verbs_gold": 19,
+          "verbs_detected": 19,
+          "events": 23,
+          "doc": "weblog-blogspot.com_floppingaces_20041126180010_ENG_20041126_180010",
+          "n_coref_res": 2
+        },
+        {
+          "agent": [
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "patient": [
+            0,
+            1,
+            1,
+            0,
+            0,
+            1,
+            1,
+            1,
+            0,
+            1,
+            0,
+            1
+          ],
+          "state": [
+            1,
+            1,
+            1
+          ],
+          "agent_pron": [
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "missing": 0,
+          "verbs_gold": 19,
+          "verbs_detected": 19,
+          "events": 23,
+          "doc": "weblog-blogspot.com_marketview_20050224181500_ENG_20050224_181500",
+          "n_coref_res": 0
+        },
+        {
+          "agent": [
+            1,
+            0,
+            1,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "patient": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            1,
+            1,
+            1,
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "state": [
+            1
+          ],
+          "agent_pron": [
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            1,
+            1,
+            1,
+            1
+          ],
+          "missing": 1,
+          "verbs_gold": 32,
+          "verbs_detected": 32,
+          "events": 34,
+          "doc": "weblog-blogspot.com_grandpasgripes_20060413051000_ENG_20060413_051000",
+          "n_coref_res": 6
+        }
+      ],
+      "secs": 45.8,
+      "agent": [
+        2,
+        3,
+        7,
+        10,
+        18
+      ],
+      "agent_n": [
+        2,
+        6,
+        11,
+        11,
+        22
+      ],
+      "agent_total": 40,
+      "agent_eligible": 52,
+      "agent_pron_total": 28,
+      "agent_pron_eligible": 33,
+      "patient_total": 30,
+      "patient_eligible": 43,
+      "state_total": 7,
+      "state_eligible": 9,
+      "missing": 1,
+      "verbs": [
+        79,
+        79
+      ],
+      "coref_records": 8
+    },
+    "twin": {
+      "per_doc": [
+        {
+          "agent": [
+            1,
+            1
+          ],
+          "patient": [],
+          "state": [],
+          "agent_pron": [],
+          "missing": 0,
+          "verbs_gold": 2,
+          "verbs_detected": 2,
+          "events": 5,
+          "doc": "weblog-blogspot.com_zentelligence_20040423000200_ENG_20040423_000200",
+          "n_coref_res": 0
+        },
+        {
+          "agent": [
+            0,
+            0,
+            1,
+            0,
+            1,
+            1
+          ],
+          "patient": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "state": [
+            0,
+            1,
+            1,
+            0
+          ],
+          "agent_pron": [
+            1,
+            0,
+            1,
+            1
+          ],
+          "missing": 0,
+          "verbs_gold": 7,
+          "verbs_detected": 7,
+          "events": 12,
+          "doc": "weblog-blogspot.com_marketview_20050511222700_ENG_20050511_222700",
+          "n_coref_res": 0
+        },
+        {
+          "agent": [
+            1,
+            1,
+            0,
+            1,
+            1,
+            0,
+            1,
+            0,
+            1,
+            1,
+            0
+          ],
+          "patient": [
+            0,
+            1,
+            0,
+            0,
+            1,
+            1,
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "state": [
+            1
+          ],
+          "agent_pron": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "missing": 0,
+          "verbs_gold": 19,
+          "verbs_detected": 19,
+          "events": 23,
+          "doc": "weblog-blogspot.com_floppingaces_20041126180010_ENG_20041126_180010",
+          "n_coref_res": 0
+        },
+        {
+          "agent": [
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "patient": [
+            0,
+            1,
+            1,
+            0,
+            0,
+            1,
+            1,
+            1,
+            0,
+            1,
+            0,
+            1
+          ],
+          "state": [
+            1,
+            1,
+            1
+          ],
+          "agent_pron": [
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "missing": 0,
+          "verbs_gold": 19,
+          "verbs_detected": 19,
+          "events": 23,
+          "doc": "weblog-blogspot.com_marketview_20050224181500_ENG_20050224_181500",
+          "n_coref_res": 0
+        },
+        {
+          "agent": [
+            1,
+            0,
+            1,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "patient": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            1,
+            1,
+            1,
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "state": [
+            1
+          ],
+          "agent_pron": [
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            1,
+            1,
+            1,
+            1
+          ],
+          "missing": 1,
+          "verbs_gold": 32,
+          "verbs_detected": 32,
+          "events": 34,
+          "doc": "weblog-blogspot.com_grandpasgripes_20060413051000_ENG_20060413_051000",
+          "n_coref_res": 0
+        }
+      ],
+      "secs": 20.7,
+      "agent": [
+        2,
+        3,
+        7,
+        10,
+        18
+      ],
+      "agent_n": [
+        2,
+        6,
+        11,
+        11,
+        22
+      ],
+      "agent_total": 40,
+      "agent_eligible": 52,
+      "agent_pron_total": 28,
+      "agent_pron_eligible": 33,
+      "patient_total": 30,
+      "patient_eligible": 43,
+      "state_total": 7,
+      "state_eligible": 9,
+      "missing": 1,
+      "verbs": [
+        79,
+        79
+      ],
+      "coref_records": 0
+    }
+  }
+}

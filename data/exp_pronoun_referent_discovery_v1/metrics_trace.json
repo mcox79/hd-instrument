@@ -1,0 +1,45 @@
+{
+  "ts_iso": "2026-09-15T17:36:50.006744+00:00",
+  "seed": 20260915,
+  "arms": [
+    "ship",
+    "disc"
+  ],
+  "self_test": 8,
+  "trace": {
+    "rung1_tokens_to_categories": {
+      "gold_pron": 69,
+      "organ_pron": 72,
+      "organ_pron_on_gold": 68,
+      "tokens": 623,
+      "gold_agent_pron": 33,
+      "gold_agent_pron_tagged": 33
+    },
+    "arms": {
+      "ship": {
+        "rung2_referent_opened": 0,
+        "rung3_in_agent_candidate_set": 0,
+        "rung3_lost_case_filter": 0,
+        "rung4_picked_correct": 0,
+        "anaphora_scheduled": 0,
+        "anaphora_abstained": 0,
+        "anaphora_answered": 0,
+        "gold_agent_pron": 33,
+        "coref_mentions": 0,
+        "role_mentions_pron": 0
+      },
+      "disc": {
+        "rung2_referent_opened": 33,
+        "rung3_in_agent_candidate_set": 29,
+        "rung3_lost_case_filter": 4,
+        "rung4_picked_correct": 28,
+        "anaphora_scheduled": 8,
+        "anaphora_abstained": 0,
+        "anaphora_answered": 8,
+        "gold_agent_pron": 33,
+        "coref_mentions": 217,
+        "role_mentions_pron": 72
+      }
+    }
+  }
+}

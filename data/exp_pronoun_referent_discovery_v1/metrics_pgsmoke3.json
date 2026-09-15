@@ -1,0 +1,221 @@
+{
+  "ts_iso": "2026-09-15T19:04:16.392822+00:00",
+  "seed": 20260915,
+  "arms": [
+    "disc_graded_g",
+    "disc_graded_g8",
+    "disc_graded_nophi",
+    "disc_graded_twin",
+    "disc_graded_nowin",
+    "disc_graded_nopb"
+  ],
+  "pronouns": {
+    "n_docs": 4,
+    "docs": [
+      "GUM_academic_census",
+      "GUM_court_property",
+      "GUM_letter_marcie3",
+      "GUM_textbook_chemistry"
+    ],
+    "arms": {
+      "disc_graded_g": {
+        "pronoun_acc": 0.209,
+        "n_questions": 67,
+        "answered": 66,
+        "abstention_records": 0,
+        "resolutions": 115,
+        "secs": 81.4
+      },
+      "disc_graded_g8": {
+        "pronoun_acc": 0.209,
+        "n_questions": 67,
+        "answered": 66,
+        "abstention_records": 0,
+        "resolutions": 115,
+        "secs": 61.8
+      },
+      "disc_graded_nophi": {
+        "pronoun_acc": 0.1791,
+        "n_questions": 67,
+        "answered": 66,
+        "abstention_records": 0,
+        "resolutions": 115,
+        "secs": 64.6
+      },
+      "disc_graded_twin": {
+        "pronoun_acc": 0.2537,
+        "n_questions": 67,
+        "answered": 59,
+        "abstention_records": 7,
+        "resolutions": 108,
+        "secs": 61.3
+      },
+      "disc_graded_nowin": {
+        "pronoun_acc": 0.1642,
+        "n_questions": 67,
+        "answered": 66,
+        "abstention_records": 0,
+        "resolutions": 115,
+        "secs": 59.8
+      },
+      "disc_graded_nopb": {
+        "pronoun_acc": 0.3134,
+        "n_questions": 67,
+        "answered": 66,
+        "abstention_records": 0,
+        "resolutions": 115,
+        "secs": 62.8
+      }
+    },
+    "floor": {
+      "nearest_prior_compatible": 0.2239,
+      "nearest_prior_any": 0.2239
+    },
+    "contrasts": {
+      "disc_graded_g": {
+        "vs_nearest_prior_compatible": {
+          "delta": -0.0149,
+          "ci": [
+            -0.0952,
+            0.2667
+          ],
+          "half": 0.181,
+          "sep": false,
+          "n_items": 67,
+          "n_docs": 4
+        },
+        "vs_nearest_prior_any": {
+          "delta": -0.0149,
+          "ci": [
+            -0.0952,
+            0.2667
+          ],
+          "half": 0.181,
+          "sep": false,
+          "n_items": 67,
+          "n_docs": 4
+        }
+      },
+      "disc_graded_g8": {
+        "vs_nearest_prior_compatible": {
+          "delta": -0.0149,
+          "ci": [
+            -0.0952,
+            0.2667
+          ],
+          "half": 0.181,
+          "sep": false,
+          "n_items": 67,
+          "n_docs": 4
+        },
+        "vs_nearest_prior_any": {
+          "delta": -0.0149,
+          "ci": [
+            -0.0952,
+            0.2667
+          ],
+          "half": 0.181,
+          "sep": false,
+          "n_items": 67,
+          "n_docs": 4
+        }
+      },
+      "disc_graded_nophi": {
+        "vs_nearest_prior_compatible": {
+          "delta": -0.0448,
+          "ci": [
+            -0.0952,
+            0.0667
+          ],
+          "half": 0.081,
+          "sep": false,
+          "n_items": 67,
+          "n_docs": 4
+        },
+        "vs_nearest_prior_any": {
+          "delta": -0.0448,
+          "ci": [
+            -0.0952,
+            0.0667
+          ],
+          "half": 0.081,
+          "sep": false,
+          "n_items": 67,
+          "n_docs": 4
+        }
+      },
+      "disc_graded_twin": {
+        "vs_nearest_prior_compatible": {
+          "delta": 0.0299,
+          "ci": [
+            -0.1154,
+            0.0629
+          ],
+          "half": 0.0892,
+          "sep": false,
+          "n_items": 67,
+          "n_docs": 4
+        },
+        "vs_nearest_prior_any": {
+          "delta": 0.0299,
+          "ci": [
+            -0.1154,
+            0.0629
+          ],
+          "half": 0.0892,
+          "sep": false,
+          "n_items": 67,
+          "n_docs": 4
+        }
+      },
+      "disc_graded_nowin": {
+        "vs_nearest_prior_compatible": {
+          "delta": -0.0597,
+          "ci": [
+            -0.1154,
+            0.0
+          ],
+          "half": 0.0577,
+          "sep": false,
+          "n_items": 67,
+          "n_docs": 4
+        },
+        "vs_nearest_prior_any": {
+          "delta": -0.0597,
+          "ci": [
+            -0.1154,
+            0.0
+          ],
+          "half": 0.0577,
+          "sep": false,
+          "n_items": 67,
+          "n_docs": 4
+        }
+      },
+      "disc_graded_nopb": {
+        "vs_nearest_prior_compatible": {
+          "delta": 0.0896,
+          "ci": [
+            0.0196,
+            0.3125
+          ],
+          "half": 0.1464,
+          "sep": true,
+          "n_items": 67,
+          "n_docs": 4
+        },
+        "vs_nearest_prior_any": {
+          "delta": 0.0896,
+          "ci": [
+            0.0196,
+            0.3125
+          ],
+          "half": 0.1464,
+          "sep": true,
+          "n_items": 67,
+          "n_docs": 4
+        }
+      }
+    }
+  }
+}

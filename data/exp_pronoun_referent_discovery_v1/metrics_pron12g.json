@@ -1,0 +1,196 @@
+{
+  "ts_iso": "2026-09-15T19:11:32.363159+00:00",
+  "seed": 20260915,
+  "arms": [
+    "disc_graded_best",
+    "disc_graded_best_twin",
+    "disc_graded_best_nophi",
+    "disc_graded_best_nowin",
+    "disc_graded_best_loose"
+  ],
+  "pronouns": {
+    "n_docs": 12,
+    "docs": [
+      "GUM_academic_census",
+      "GUM_bio_dvorak",
+      "GUM_conversation_christmas",
+      "GUM_court_mountain",
+      "GUM_fiction_beast",
+      "GUM_interview_brotherhood",
+      "GUM_letter_conference",
+      "GUM_news_defector",
+      "GUM_podcast_addiction",
+      "GUM_speech_impeachment",
+      "GUM_textbook_sociology",
+      "GUM_voyage_chatham"
+    ],
+    "arms": {
+      "disc_graded_best": {
+        "pronoun_acc": 0.2545,
+        "n_questions": 334,
+        "answered": 309,
+        "abstention_records": 33,
+        "resolutions": 417,
+        "secs": 176.9
+      },
+      "disc_graded_best_twin": {
+        "pronoun_acc": 0.1617,
+        "n_questions": 334,
+        "answered": 303,
+        "abstention_records": 45,
+        "resolutions": 405,
+        "secs": 154.3
+      },
+      "disc_graded_best_nophi": {
+        "pronoun_acc": 0.2246,
+        "n_questions": 334,
+        "answered": 309,
+        "abstention_records": 33,
+        "resolutions": 417,
+        "secs": 183.3
+      },
+      "disc_graded_best_nowin": {
+        "pronoun_acc": 0.2784,
+        "n_questions": 334,
+        "answered": 329,
+        "abstention_records": 1,
+        "resolutions": 449,
+        "secs": 198.0
+      },
+      "disc_graded_best_loose": {
+        "pronoun_acc": 0.2455,
+        "n_questions": 334,
+        "answered": 319,
+        "abstention_records": 21,
+        "resolutions": 429,
+        "secs": 179.3
+      }
+    },
+    "floor": {
+      "nearest_prior_compatible": 0.2036,
+      "nearest_prior_any": 0.2036
+    },
+    "contrasts": {
+      "disc_graded_best": {
+        "vs_nearest_prior_compatible": {
+          "delta": 0.0509,
+          "ci": [
+            -0.0486,
+            0.1815
+          ],
+          "half": 0.1151,
+          "sep": false,
+          "n_items": 334,
+          "n_docs": 12
+        },
+        "vs_nearest_prior_any": {
+          "delta": 0.0509,
+          "ci": [
+            -0.0486,
+            0.1815
+          ],
+          "half": 0.1151,
+          "sep": false,
+          "n_items": 334,
+          "n_docs": 12
+        }
+      },
+      "disc_graded_best_twin": {
+        "vs_nearest_prior_compatible": {
+          "delta": -0.0419,
+          "ci": [
+            -0.1241,
+            0.0354
+          ],
+          "half": 0.0797,
+          "sep": false,
+          "n_items": 334,
+          "n_docs": 12
+        },
+        "vs_nearest_prior_any": {
+          "delta": -0.0419,
+          "ci": [
+            -0.1241,
+            0.0354
+          ],
+          "half": 0.0797,
+          "sep": false,
+          "n_items": 334,
+          "n_docs": 12
+        }
+      },
+      "disc_graded_best_nophi": {
+        "vs_nearest_prior_compatible": {
+          "delta": 0.021,
+          "ci": [
+            -0.0523,
+            0.1095
+          ],
+          "half": 0.0809,
+          "sep": false,
+          "n_items": 334,
+          "n_docs": 12
+        },
+        "vs_nearest_prior_any": {
+          "delta": 0.021,
+          "ci": [
+            -0.0523,
+            0.1095
+          ],
+          "half": 0.0809,
+          "sep": false,
+          "n_items": 334,
+          "n_docs": 12
+        }
+      },
+      "disc_graded_best_nowin": {
+        "vs_nearest_prior_compatible": {
+          "delta": 0.0749,
+          "ci": [
+            -0.0284,
+            0.1943
+          ],
+          "half": 0.1113,
+          "sep": false,
+          "n_items": 334,
+          "n_docs": 12
+        },
+        "vs_nearest_prior_any": {
+          "delta": 0.0749,
+          "ci": [
+            -0.0284,
+            0.1943
+          ],
+          "half": 0.1113,
+          "sep": false,
+          "n_items": 334,
+          "n_docs": 12
+        }
+      },
+      "disc_graded_best_loose": {
+        "vs_nearest_prior_compatible": {
+          "delta": 0.0419,
+          "ci": [
+            -0.0675,
+            0.1699
+          ],
+          "half": 0.1187,
+          "sep": false,
+          "n_items": 334,
+          "n_docs": 12
+        },
+        "vs_nearest_prior_any": {
+          "delta": 0.0419,
+          "ci": [
+            -0.0675,
+            0.1699
+          ],
+          "half": 0.1187,
+          "sep": false,
+          "n_items": 334,
+          "n_docs": 12
+        }
+      }
+    }
+  }
+}

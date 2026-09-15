@@ -1,0 +1,62 @@
+{
+  "ts_iso": "2026-09-15T17:21:07.364672+00:00",
+  "seed": 20260915,
+  "arms": [
+    "ship",
+    "disc"
+  ],
+  "invariance": {
+    "ship": [
+      {
+        "doc": "weblog-blogspot.com_zentelligence_20040423000200_ENG_20040423_000200",
+        "blank_identical": true,
+        "permuted_identical": false,
+        "n_events": 5,
+        "n_pron_text": 0,
+        "n_pron_perm": 0
+      },
+      {
+        "doc": "weblog-blogspot.com_marketview_20050511222700_ENG_20050511_222700",
+        "blank_identical": true,
+        "permuted_identical": false,
+        "n_events": 12,
+        "n_pron_text": 0,
+        "n_pron_perm": 0
+      },
+      {
+        "doc": "weblog-blogspot.com_floppingaces_20041126180010_ENG_20041126_180010",
+        "blank_identical": true,
+        "permuted_identical": false,
+        "n_events": 23,
+        "n_pron_text": 0,
+        "n_pron_perm": 0
+      }
+    ],
+    "disc": [
+      {
+        "doc": "weblog-blogspot.com_zentelligence_20040423000200_ENG_20040423_000200",
+        "blank_identical": true,
+        "permuted_identical": true,
+        "n_events": 5,
+        "n_pron_text": 0,
+        "n_pron_perm": 0
+      },
+      {
+        "doc": "weblog-blogspot.com_marketview_20050511222700_ENG_20050511_222700",
+        "blank_identical": true,
+        "permuted_identical": true,
+        "n_events": 12,
+        "n_pron_text": 0,
+        "n_pron_perm": 0
+      },
+      {
+        "doc": "weblog-blogspot.com_floppingaces_20041126180010_ENG_20041126_180010",
+        "blank_identical": true,
+        "permuted_identical": true,
+        "n_events": 23,
+        "n_pron_text": 2,
+        "n_pron_perm": 2
+      }
+    ]
+  }
+}

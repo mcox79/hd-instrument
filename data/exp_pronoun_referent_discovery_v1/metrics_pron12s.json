@@ -1,0 +1,163 @@
+{
+  "ts_iso": "2026-09-15T18:43:33.156526+00:00",
+  "seed": 20260915,
+  "arms": [
+    "disc_actr",
+    "disc_actr_strict",
+    "disc_case_strict",
+    "twin"
+  ],
+  "pronouns": {
+    "n_docs": 12,
+    "docs": [
+      "GUM_academic_census",
+      "GUM_bio_dvorak",
+      "GUM_conversation_christmas",
+      "GUM_court_mountain",
+      "GUM_fiction_beast",
+      "GUM_interview_brotherhood",
+      "GUM_letter_conference",
+      "GUM_news_defector",
+      "GUM_podcast_addiction",
+      "GUM_speech_impeachment",
+      "GUM_textbook_sociology",
+      "GUM_voyage_chatham"
+    ],
+    "arms": {
+      "disc_actr": {
+        "pronoun_acc": 0.2425,
+        "n_questions": 334,
+        "answered": 327,
+        "abstention_records": 3,
+        "resolutions": 447,
+        "secs": 262.6
+      },
+      "disc_actr_strict": {
+        "pronoun_acc": 0.1677,
+        "n_questions": 334,
+        "answered": 309,
+        "abstention_records": 28,
+        "resolutions": 422,
+        "secs": 199.6
+      },
+      "disc_case_strict": {
+        "pronoun_acc": 0.0449,
+        "n_questions": 334,
+        "answered": 97,
+        "abstention_records": 1,
+        "resolutions": 123,
+        "secs": 176.7
+      },
+      "twin": {
+        "pronoun_acc": 0.1617,
+        "n_questions": 334,
+        "answered": 98,
+        "abstention_records": 1,
+        "resolutions": 123,
+        "secs": 164.1
+      }
+    },
+    "floor": {
+      "nearest_prior_compatible": 0.2036,
+      "nearest_prior_any": 0.2036
+    },
+    "contrasts": {
+      "disc_actr": {
+        "vs_nearest_prior_compatible": {
+          "delta": 0.0389,
+          "ci": [
+            -0.0577,
+            0.1345
+          ],
+          "half": 0.0961,
+          "sep": false,
+          "n_items": 334,
+          "n_docs": 12
+        },
+        "vs_nearest_prior_any": {
+          "delta": 0.0389,
+          "ci": [
+            -0.0577,
+            0.1345
+          ],
+          "half": 0.0961,
+          "sep": false,
+          "n_items": 334,
+          "n_docs": 12
+        }
+      },
+      "disc_actr_strict": {
+        "vs_nearest_prior_compatible": {
+          "delta": -0.0359,
+          "ci": [
+            -0.1331,
+            0.0661
+          ],
+          "half": 0.0996,
+          "sep": false,
+          "n_items": 334,
+          "n_docs": 12
+        },
+        "vs_nearest_prior_any": {
+          "delta": -0.0359,
+          "ci": [
+            -0.1331,
+            0.0661
+          ],
+          "half": 0.0996,
+          "sep": false,
+          "n_items": 334,
+          "n_docs": 12
+        }
+      },
+      "disc_case_strict": {
+        "vs_nearest_prior_compatible": {
+          "delta": -0.1587,
+          "ci": [
+            -0.2464,
+            -0.0462
+          ],
+          "half": 0.1001,
+          "sep": true,
+          "n_items": 334,
+          "n_docs": 12
+        },
+        "vs_nearest_prior_any": {
+          "delta": -0.1587,
+          "ci": [
+            -0.2464,
+            -0.0462
+          ],
+          "half": 0.1001,
+          "sep": true,
+          "n_items": 334,
+          "n_docs": 12
+        }
+      },
+      "twin": {
+        "vs_nearest_prior_compatible": {
+          "delta": -0.0419,
+          "ci": [
+            -0.1885,
+            0.1418
+          ],
+          "half": 0.1651,
+          "sep": false,
+          "n_items": 334,
+          "n_docs": 12
+        },
+        "vs_nearest_prior_any": {
+          "delta": -0.0419,
+          "ci": [
+            -0.1885,
+            0.1418
+          ],
+          "half": 0.1651,
+          "sep": false,
+          "n_items": 334,
+          "n_docs": 12
+        }
+      }
+    }
+  }
+}

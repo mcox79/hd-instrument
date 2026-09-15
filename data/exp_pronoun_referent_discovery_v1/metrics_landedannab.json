@@ -1,0 +1,76 @@
+{
+  "ts_iso": "2026-09-15T20:26:27.897620+00:00",
+  "seed": 20260915,
+  "arms": [
+    "ship",
+    "disc_role",
+    "disc",
+    "twin",
+    "twin_pos",
+    "disc_actr",
+    "disc_freq",
+    "disc_case",
+    "disc_nopos",
+    "disc_full",
+    "disc_posagent",
+    "disc_freq2",
+    "disc_case_freq2",
+    "disc_case_hybrid",
+    "disc_case_hybridc",
+    "disc_strict",
+    "disc_case_strict",
+    "disc_case_strict_w2",
+    "disc_case_strict_w3",
+    "disc_actr_strict",
+    "disc_graded",
+    "disc_graded_twin",
+    "disc_graded_nophi",
+    "disc_graded_nowin",
+    "disc_graded_nopb",
+    "disc_graded_w1",
+    "disc_graded_w3",
+    "disc_graded_w5",
+    "disc_graded_all",
+    "disc_blankcard",
+    "disc_graded_g",
+    "disc_graded_g8",
+    "disc_graded_best",
+    "disc_graded_best_twin",
+    "disc_graded_best_nophi",
+    "disc_graded_best_nowin",
+    "disc_graded_best_loose",
+    "disc_case_pv6",
+    "disc_case_pv9",
+    "disc_case_pv14"
+  ],
+  "landed_annab": {
+    "n_docs": 8,
+    "arms": {
+      "pre": {
+        "coref_acc": 0.7714,
+        "n_targets": 35,
+        "events": 1085,
+        "entities": 1460
+      },
+      "landed": {
+        "coref_acc": 0.1858,
+        "n_targets": 253,
+        "events": 1085,
+        "entities": 2000
+      }
+    },
+    "contrasts": {
+      "landed_vs_pre": {
+        "delta": 0.5714,
+        "ci": [
+          -0.1886,
+          13.3333
+        ],
+        "half": 6.7609,
+        "sep": false,
+        "n_items": 35,
+        "n_docs": 8
+      }
+    }
+  }
+}

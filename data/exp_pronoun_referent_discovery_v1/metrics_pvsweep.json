@@ -1,0 +1,215 @@
+{
+  "ts_iso": "2026-09-15T19:15:51.705908+00:00",
+  "seed": 20260915,
+  "arms": [
+    "disc_case",
+    "disc_case_pv6",
+    "disc_case_pv9",
+    "disc_case_pv14"
+  ],
+  "agents": {
+    "docs": [
+      "weblog-blogspot.com_aggressivevoicedaily_20060629164800_ENG_20060629_164800",
+      "weblog-blogspot.com_marketview_20060625150800_ENG_20060625_150800",
+      "email-enronsent23_06",
+      "email-enronsent29_02",
+      "newsgroup-groups.google.com_n3td3v_e874a1e5eb995654_ENG_20060120_052200",
+      "newsgroup-groups.google.com_hiddennook_f50294175d32a8ac_ENG_20041120_152800",
+      "newsgroup-groups.google.com_fineart_0339fc0ed4e53c5a_ENG_20050930_025500",
+      "newsgroup-groups.google.com_chantonline_3e01677617c74720_ENG_20060112_102000",
+      "newsgroup-groups.google.com_hiddennook_e21e429b3ad58235_ENG_20050830_214700",
+      "answers-20090716131314AA4W9uJ_ans",
+      "answers-20111107173321AASNJjc_ans",
+      "answers-20111108044917AALAHtc_ans",
+      "answers-20111106112223AAmR2im_ans",
+      "answers-20090709103651AAwwZKx_ans",
+      "answers-20110101171252AA43jJo_ans",
+      "answers-20111108101906AA2JJqq_ans",
+      "answers-20111108090345AAQiffR_ans",
+      "answers-20111108071652AA8GAZw_ans",
+      "answers-20111108074555AAFT8Aj_ans",
+      "answers-20111107155815AA6LXXJ_ans",
+      "answers-20111108102205AArwNzY_ans",
+      "answers-20111103205154AAOod9K_ans",
+      "reviews-059685",
+      "reviews-184290",
+      "reviews-395218",
+      "reviews-255757",
+      "reviews-351950",
+      "reviews-304759",
+      "reviews-174824",
+      "reviews-207348",
+      "reviews-210153",
+      "reviews-171877",
+      "reviews-097548",
+      "reviews-061721",
+      "reviews-270889",
+      "reviews-186235",
+      "reviews-332068",
+      "reviews-389298",
+      "reviews-103519",
+      "reviews-163250"
+    ],
+    "n_docs": 40,
+    "arms": {
+      "disc_case": {
+        "agent": 0.7725,
+        "agent_pron": 0.9435,
+        "patient": 0.7081,
+        "state": 0.6667,
+        "n": {
+          "agent": 211,
+          "agent_pron": 124,
+          "patient": 161,
+          "state": 72
+        },
+        "secs": 146.4,
+        "coref_records": 35
+      },
+      "disc_case_pv6": {
+        "agent": 0.7204,
+        "agent_pron": 0.9113,
+        "patient": 0.7081,
+        "state": 0.6667,
+        "n": {
+          "agent": 211,
+          "agent_pron": 124,
+          "patient": 161,
+          "state": 72
+        },
+        "secs": 138.8,
+        "coref_records": 35
+      },
+      "disc_case_pv9": {
+        "agent": 0.7204,
+        "agent_pron": 0.9113,
+        "patient": 0.7081,
+        "state": 0.6667,
+        "n": {
+          "agent": 211,
+          "agent_pron": 124,
+          "patient": 161,
+          "state": 72
+        },
+        "secs": 142.3,
+        "coref_records": 35
+      },
+      "disc_case_pv14": {
+        "agent": 0.7204,
+        "agent_pron": 0.9113,
+        "patient": 0.7081,
+        "state": 0.6667,
+        "n": {
+          "agent": 211,
+          "agent_pron": 124,
+          "patient": 161,
+          "state": 72
+        },
+        "secs": 138.8,
+        "coref_records": 35
+      }
+    },
+    "contrasts": {
+      "disc_case": {
+        "vs_wordorder_floor_agent": {
+          "delta": -0.0237,
+          "ci": [
+            -0.0632,
+            0.0
+          ],
+          "half": 0.0316,
+          "sep": false,
+          "n_items": 211,
+          "n_docs": 40
+        },
+        "vs_wordorder_floor_agent_pron": {
+          "delta": -0.0081,
+          "ci": [
+            -0.0248,
+            0.0
+          ],
+          "half": 0.0124,
+          "sep": false,
+          "n_items": 124,
+          "n_docs": 40
+        }
+      },
+      "disc_case_pv6": {
+        "vs_wordorder_floor_agent": {
+          "delta": -0.0758,
+          "ci": [
+            -0.1191,
+            -0.0305
+          ],
+          "half": 0.0443,
+          "sep": true,
+          "n_items": 211,
+          "n_docs": 40
+        },
+        "vs_wordorder_floor_agent_pron": {
+          "delta": -0.0403,
+          "ci": [
+            -0.0816,
+            -0.0071
+          ],
+          "half": 0.0372,
+          "sep": true,
+          "n_items": 124,
+          "n_docs": 40
+        }
+      },
+      "disc_case_pv9": {
+        "vs_wordorder_floor_agent": {
+          "delta": -0.0758,
+          "ci": [
+            -0.1191,
+            -0.0305
+          ],
+          "half": 0.0443,
+          "sep": true,
+          "n_items": 211,
+          "n_docs": 40
+        },
+        "vs_wordorder_floor_agent_pron": {
+          "delta": -0.0403,
+          "ci": [
+            -0.0816,
+            -0.0071
+          ],
+          "half": 0.0372,
+          "sep": true,
+          "n_items": 124,
+          "n_docs": 40
+        }
+      },
+      "disc_case_pv14": {
+        "vs_wordorder_floor_agent": {
+          "delta": -0.0758,
+          "ci": [
+            -0.1191,
+            -0.0305
+          ],
+          "half": 0.0443,
+          "sep": true,
+          "n_items": 211,
+          "n_docs": 40
+        },
+        "vs_wordorder_floor_agent_pron": {
+          "delta": -0.0403,
+          "ci": [
+            -0.0816,
+            -0.0071
+          ],
+          "half": 0.0372,
+          "sep": true,
+          "n_items": 124,
+          "n_docs": 40
+        }
+      }
+    },
+    "floor": {
+      "agent": 0.7962,
+      "agent_pron": 0.9516
+    }
+  }
+}
