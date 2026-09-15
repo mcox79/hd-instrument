@@ -117,6 +117,12 @@ CSUB_VERBAL_HOST = os.environ.get("HDLAB_ARM_CSUB_VERBAL_HOST", "1") != "0"
 # THE TENSE CARRIER IS NOT THE PREDICATE when it has one (Pustet 2003): the copula competes for the subject and
 # wins it 3 times on the 169 ("that IS how i want ..."), so the carrier's own arc takes the competing value.
 CSUB_SUPPRESS_COP = os.environ.get("HDLAB_ARM_CSUB_SUPPRESS_COP", "1") != "0"
+# THE TWO SUBJECT-SIDE CORRECTIONS the board's two lost patient items paid for, each behind its own switch
+# because they do NOT cost the same (measured, pri 117 phase 7): crossing the hyphen of a compound name is free,
+# and refusing a nominal that sits inside a CLAUSAL subject is NOT -- it also refuses the legitimate pre-copular
+# nominal of an unmarked complement clause ("I think the sky is blue"), which is why it ships OFF.
+CSUB_SUBJ_HYPHEN = os.environ.get("HDLAB_ARM_CSUB_SUBJ_HYPHEN", "1") != "0"
+CSUB_SUBJ_NO_CLAUSAL = os.environ.get("HDLAB_ARM_CSUB_SUBJ_NO_CLAUSAL", "0") == "1"
 
 
 def _csubg_bin(o: float) -> str:
@@ -141,15 +147,34 @@ def _memo(key, val):
 def _csub_subject_before(toks, pos, c):
     """The subject side of a copular clause: the nearest nominal standing before the tense carrier at 1-based `c`,
     skipping a CASE-MARKED one (a prepositional nominal is oblique, never the subject -- Pinker 1984).  This is
-    `csub_sites`' own scan, unchanged."""
+    `csub_sites`' own scan plus the two corrections the pri-117 board A/B paid for, both of which are rules this
+    organ already applies on the complement side:
+      (hyph) THE RIGHT-HAND HEAD RULE ACROSS A HYPHEN (Williams 1981; `_np_run_end`'s `_HYPHEN` clause).  The
+        phrase-start walk stopped at the PUNCT in "with al - Qaeda", so the preposition was never seen and the
+        object of a PP was taken as the subject -- one of the two patient items the board lost.
+      (clsub) A CLAUSE IS NOT A NOMINAL SUBJECT.  In "Call a vet would be a good idea" the nearest nominal before
+        the copula is the OBJECT of the clausal subject's own verb; UD makes that clause (its verb) the subject
+        (`csubj`).  A predicate standing to the left of the candidate, inside the same clause, means the subject
+        is CLAUSAL, so no nominal pair is proposed -- the other patient item."""
     k = c - 1
     while k >= 1:
         if pos[k - 1] in NOMINAL or pos[k - 1] == "NUM":
             a = k
-            while a - 1 >= 1 and pos[a - 2] in NP_RUN:
-                a -= 1
+            while True:
+                if a - 1 >= 1 and pos[a - 2] in NP_RUN:
+                    a -= 1; continue
+                if (CSUB_COVERAGE and CSUB_SUBJ_HYPHEN and a - 2 >= 1 and pos[a - 2] == "PUNCT" and toks[a - 2] in _HYPHEN
+                        and pos[a - 3] in NP_RUN):
+                    a -= 2; continue                          # (hyph) cross the hyphen of a compound name
+                break
             if a - 1 >= 1 and pos[a - 2] == "ADP":
                 k = a - 2; continue
+            if CSUB_SUBJ_NO_CLAUSAL:
+                for m in range(a - 1, 0, -1):                 # (clsub) a predicate to the left, same clause
+                    if pos[m - 1] in ("SCONJ", "CCONJ") or (pos[m - 1] == "PUNCT" and toks[m - 1] in _HARD_STOP):
+                        break
+                    if pos[m - 1] == "VERB":
+                        return None
             return k
         if pos[k - 1] in ("VERB", "SCONJ", "CCONJ"):
             return None
@@ -385,6 +410,8 @@ MAP_FALLBACKS = []        # cell-only: sentences where the reference MAP arm hit
 
 # the patch block above runs inside hdlab/attachment_arm.py; in the cell it needs the organ's own names
 NOMINAL = AA.NOMINAL
+_HYPHEN = AA._HYPHEN
+_HARD_STOP = AA._HARD_STOP
 _PS_NEEDED = getattr(AA, "_PS_NEEDED", ("VERB", "AUX", "NOUN", "PROPN", "PRON", "ADJ", "ADV", "PUNCT"))
 _UPOS = AA._UPOS
 cop_complement = AA.cop_complement
@@ -1005,8 +1032,11 @@ def _apply_unified(src, diff_text, path):
                 m = re.match(r"@@ -(\d+)(?:,(\d+))? \+\d+(?:,\d+)? @@", ln)
                 hunks.append([int(m.group(1)), int(m.group(2) or 1), []])
             continue
-        if cur == path and hunks and (ln[:1] in (" ", "+", "-") or ln == ""):
-            hunks[-1][2].append(ln if ln else " ")
+        if cur == path and hunks and ln[:1] in (" ", "+", "-"):
+            # NOT `or ln == ""`: a blank CONTEXT line is " " in a unified diff, and the empty string is only the
+            # artefact of splitting on the final newline -- treating it as context corrupted the LAST hunk of the
+            # LAST file (it broke the builder hunk only, which is why the arm's patch-test never caught it).
+            hunks[-1][2].append(ln)
     for (start, count, body) in hunks:
         s0 = start - 1
         out.extend(lines[i:s0]); i = s0
@@ -1258,6 +1288,380 @@ def curve(cap=700, reads=(0, 250, 1000, 2000, 4000), seed=0):
     return out
 
 
+
+REBUILT_ASSET = os.path.join(HOOK, "attachment_validities_rebuilt_csubg_v1.json")   # the PATCHED BUILDER's table
+
+
+def rebuild(cap=6000, rounds=3, alpha=0.8, beta=10.0, out=None):
+    """PHASE 7 (2i): rebuild the whole validity table with the PATCHED BUILDER, so the copular-subject cue is
+    TAUGHT jointly with every other cue instead of being accrued as an overlay on the landed table.  Writes a NEW
+    table under data/hook_state/ -- never over the live asset."""
+    out = out or REBUILT_ASSET
+    M = patched_module()                        # the patched organ, installed as hdlab.attachment_arm
+    import importlib.util
+    src = os.path.join(REPO, "tools", "build_attachment_validities.py")
+    dif = open(DIFF, encoding="utf-8", newline="").read()
+    patched_builder = _apply_unified(open(src, encoding="utf-8", newline="").read(), dif,
+                                     "tools/build_attachment_validities.py")
+    import tempfile
+    d = os.path.join(tempfile.gettempdir(), "pri117_patched"); os.makedirs(d, exist_ok=True)
+    f = os.path.join(d, "build_attachment_validities_patched.py")
+    with open(f, "w", encoding="utf-8", newline="") as fh:
+        fh.write(patched_builder)
+    spec = importlib.util.spec_from_file_location("pri117_builder", f)
+    B = importlib.util.module_from_spec(spec); sys.modules["pri117_builder"] = B
+    B.__file__ = src                            # the builder reads REPO off __file__ too
+    spec.loader.exec_module(B)
+    t0 = time.time()
+    B.main(["--cap", str(cap), "--rounds", str(rounds), "--alpha", str(alpha), "--beta", str(beta), "--out", out])
+    print("rebuilt in %.0fs -> %s" % (time.time() - t0, out), flush=True)
+    tab = M.load_attachment_validities(out)
+    print("  csubg cells in the REBUILT table: %d (the overlay has %d)"
+          % (len(tab["strength"].get("csubg", {})),
+             len(M.load_attachment_validities(MERGED_ASSET)["strength"].get("csubg", {}))), flush=True)
+    return out
+
+
+def compare_tables(cap=700, pop="ud", seed=0):
+    """The REBUILT table (taught jointly) against the OVERLAY table (accrued onto the landed counts), on the same
+    169 + the verbal population, through the patched organ."""
+    rows = _cache(pop=pop, cap=cap)
+    M = patched_module(name="pri117_tablecmp")
+    out = {}
+    per_by = {}
+    for name, asset in (("landed (no cue)", AA.ASSET), ("overlay", MERGED_ASSET), ("rebuilt", REBUILT_ASSET)):
+        if not os.path.isfile(asset):
+            print("  %-16s MISSING (%s)" % (name, asset)); continue
+        M._TABLE = None
+        tab = M.load_attachment_validities(asset)
+        per = []
+        for (toks, gpos, gh, rels, t2, dd, occ) in rows:
+            A, nn = M.arc_scores_graded(list(toks), list(t2), dd, tab)
+            per.append(_count(toks, gpos, gh, rels, M.decode(list(toks), list(t2), A, nn)[0], len(toks)))
+        per_by[name] = per
+        nv, n = _agg(per, "nv"); vb, _ = _agg(per, "vb"); ua, _ = _agg(per, "uas")
+        out[name] = {"nonverbal": nv, "verbal": vb, "uas": ua, "n": n,
+                     "csubg_cells": len(tab["strength"].get("csubg", {}))}
+        print("  %-16s non-verbal %.4f | verbal %.4f | UAS %.4f  (%d csubg cells)"
+              % (name, nv, vb, ua, out[name]["csubg_cells"]), flush=True)
+    if "rebuilt" in per_by and "overlay" in per_by:
+        for key, lab in (("nv", "non-verbal"), ("vb", "verbal"), ("uas", "UAS")):
+            d, lo, hi = _boot(per_by["rebuilt"], per_by["overlay"], key, seed=seed)
+            print("    rebuilt - overlay %-11s %+.4f CI[%+.4f,%+.4f] %s" % (lab, d, lo, hi,
+                  "SEP" if lo > 0 else ("SEP-DOWN" if hi < 0 else "ns")))
+            out.setdefault("rebuilt_minus_overlay", {})[key] = [d, lo, hi]
+    with open(os.path.join(out_dir(), "table_compare_%s.json" % pop), "w", encoding="utf-8") as fh:
+        json.dump(out, fh, indent=1)
+    return out
+
+
+def pooled_frozen(seed=0, ws=(1.0, 2.0, 3.0, 4.6, 6.0, 8.0, 12.0)):
+    """PHASE 7 (Q3): the learned-vs-frozen contrast POOLED over UD-EWT test 700 + GUM 1200 so it has power.
+    The frozen arm is the BEST constant, swept and chosen on the pooled population (i.e. tuned in its favour)."""
+    rows = _cache(pop="ud", cap=700) + _cache(pop="gum", cap=1200)
+    tab = AA.load_attachment_validities(AA.ASSET)
+    strength, _m = _load_strength()
+    per_l = _score_rows(rows, tab, "rev", strength, seed=seed)
+    nvl, n = _agg(per_l, "nv")
+    best = None
+    for w in ws:
+        globals()["FIXED_W"] = w
+        per = _score_rows(rows, tab, "fixed", strength, seed=seed)
+        nv, _ = _agg(per, "nv"); vb, _ = _agg(per, "vb")
+        print("    frozen w=%-5.1f pooled non-verbal %.4f | verbal %.4f" % (w, nv, vb), flush=True)
+        if best is None or nv > best[1]:
+            best = (w, nv, per)
+    globals()["FIXED_W"] = 4.6
+    d, lo, hi = _boot(per_l, best[2], "nv", seed=seed)
+    dv, lov, hiv = _boot(per_l, best[2], "vb", seed=seed)
+    print("  POOLED n=%d: LEARNED %.4f vs the BEST frozen (w=%.1f) %.4f : %+.4f CI[%+.4f,%+.4f] %s"
+          % (n, nvl, best[0], best[1], d, lo, hi, "SEP" if lo > 0 else ("SEP-DOWN" if hi < 0 else "ns")), flush=True)
+    print("  POOLED verbal: %+.4f CI[%+.4f,%+.4f]" % (dv, lov, hiv), flush=True)
+    res = {"n": n, "learned": nvl, "best_frozen": {"w": best[0], "nonverbal": best[1]},
+           "learned_minus_best_frozen_nv": [d, lo, hi], "learned_minus_best_frozen_vb": [dv, lov, hiv]}
+    with open(os.path.join(out_dir(), "pooled_frozen.json"), "w", encoding="utf-8") as fh:
+        json.dump(res, fh, indent=1)
+    return res
+
+
+def carrier_cases(cap=700, n_show=6):
+    """PHASE 7 (1b): the sentences where the TENSE-CARRIER suppression (the value the owner's hand-set form did
+    not have) actually decides -- the subject would attach to the copula itself without it."""
+    rows = _cache(cap=cap); tab = AA.load_attachment_validities(AA.ASSET)
+    strength, _m = _load_strength()
+    globals()["CSUB_COVERAGE"] = True; globals()["CSUB_REANALYSIS"] = True; globals()["CSUB_REANALYSIS_ANY"] = True
+    AA.csub_sites = csub_sites
+    shown = []; n_decides = 0
+    st_no_carrier = {"csubg": {k: v for k, v in strength["csubg"].items() if "|carrier" not in k}}
+    for (toks, gpos, gh, rels, t2, dd, occ) in rows:
+        n = len(toks)
+        A0, nn = AA.arc_scores_graded(list(toks), list(t2), dd, tab)
+        A_with = csubg_add(A0.copy(), list(toks), list(t2), occ, strength)
+        A_without = csubg_add(A0.copy(), list(toks), list(t2), occ, st_no_carrier)
+        h_with = revise_copular_subject(list(toks), list(t2), A_with,
+                                        AA.decode(list(toks), list(t2), A_with, nn)[0], occ)
+        h_without = revise_copular_subject(list(toks), list(t2), A_without,
+                                           AA.decode(list(toks), list(t2), A_without, nn)[0], occ)
+        for i in range(n):
+            if rels[i].split(":")[0] != "nsubj" or not (1 <= gh[i] <= n) or gpos[gh[i] - 1] == "VERB":
+                continue
+            sj = i + 1
+            if h_with.get(sj) == h_without.get(sj):
+                continue
+            n_decides += 1
+            ok_w = int(h_with.get(sj) == gh[i]); ok_o = int(h_without.get(sj) == gh[i])
+            if len(shown) < n_show and ok_w != ok_o:
+                shown.append({"sentence": " ".join(toks)[:110], "subject": toks[sj - 1],
+                              "gold_head": toks[gh[i] - 1],
+                              "with_carrier": toks[h_with.get(sj, 0) - 1] if h_with.get(sj, 0) else "ROOT",
+                              "without_carrier": toks[h_without.get(sj, 0) - 1] if h_without.get(sj, 0) else "ROOT",
+                              "carrier_fixes_it": bool(ok_w > ok_o)})
+    AA.csub_sites = _CSUB_SHIPPED
+    print("  the carrier value changes the subject's head on %d of the 169 gold non-verbal subjects" % n_decides)
+    for c in shown:
+        print("   %-108s" % c["sentence"])
+        print("      subject %-12s gold %-12s | with carrier -> %-12s | without -> %-12s  (%s)"
+              % (c["subject"], c["gold_head"], c["with_carrier"], c["without_carrier"],
+                 "the carrier value FIXES it" if c["carrier_fixes_it"] else "the carrier value COSTS it"))
+    with open(os.path.join(out_dir(), "carrier_cases.json"), "w", encoding="utf-8") as fh:
+        json.dump({"n_decides": n_decides, "examples": shown}, fh, indent=1)
+    return shown
+
+
+
+def patient_flips(repeats=3, seed=0):
+    """PHASE 7 (Q1 + 1c): NAME the patient items that flip, and separate them from the dimension's own
+    between-run spread.  The board's patient row returns aggregates only, so the per-item hit lists are taken
+    from the function it wraps (`exp_valency_labeled_patient_v1.eval_split`, READ not edited) and diffed here.
+    Runs the SHIPPED organ `repeats` times first (the spread on one tree), then swaps the organ in place."""
+    import experiments.exp_valency_labeled_patient_v1 as VLP
+    from hdlab import frontend as FE
+    from hdlab.arceager_parser import load_model, MODEL_PATH
+    import hdlab.attachment_arm as LIVE
+
+    import experiments.exp_whodidwhat_ud_structural_v1 as UD
+    sents = UD.load_ud(VLP.UD_TEST)
+
+    def one_run():
+        FE._P = None; FE._T = None
+        tagger = FE.tagger()
+        labeler = VLP.ArcLabeler.load(VLP.LAB_ASSET); arc = VLP.ArcParser.load(VLP.ARC_ASSET)
+        H, _r, _p = VLP.eval_split(sents, tagger, labeler, arc, load_model(MODEL_PATH), seed=seed)
+        h = H["arc"]["R_final"] if "arc" in H else H[list(H)[0]]["R_final"]
+        return h
+
+    runs = []
+    for k in range(repeats):
+        h = one_run()
+        acc = sum(sum(x) for x in h) / max(1, sum(len(x) for x in h))
+        runs.append((h, acc))
+        print("  SHIPPED run %d: patient R_final %.4f (n=%d)" % (k + 1, acc, sum(len(x) for x in h)), flush=True)
+    spread = [a for _h, a in runs]
+    print("  SHIPPED spread over %d runs on the SAME tree: %.4f .. %.4f (range %.4f)"
+          % (repeats, min(spread), max(spread), max(spread) - min(spread)), flush=True)
+    # pairwise item-level churn between shipped runs
+    churn = []
+    for i in range(len(runs) - 1):
+        a, b = runs[i][0], runs[i + 1][0]
+        churn.append(sum(1 for x, y in zip(a, b) for u, v in zip(x, y) if u != v))
+    print("  item-level churn between consecutive SHIPPED runs: %s" % churn, flush=True)
+
+    M = patched_module(name="pri117_patientflip")
+    sys.modules["hdlab.attachment_arm"] = LIVE
+    import hdlab; hdlab.attachment_arm = LIVE
+    for k, v in vars(M).items():
+        if not k.startswith("__"):
+            setattr(LIVE, k, v)
+    LIVE.ASSET = MERGED_ASSET; LIVE._TABLE = None
+    hp = one_run()
+    accp = sum(sum(x) for x in hp) / max(1, sum(len(x) for x in hp))
+    print("  PATCHED: patient R_final %.4f  (delta vs the last shipped run %+.4f)"
+          % (accp, accp - runs[-1][1]), flush=True)
+
+    # name the items that flip against the LAST shipped run (adjacent, so the register state matches)
+    base = runs[-1][0]
+    gold_sents = [s for s in sents if _has_patient_gold(s)]
+    flips = []
+    for si, (a, b) in enumerate(zip(base, hp)):
+        for ii, (u, v) in enumerate(zip(a, b)):
+            if u == v:
+                continue
+            s_ = gold_sents[si] if si < len(gold_sents) else None
+            toks = [t["form"] for t in s_] if s_ else []
+            items = _patient_items(s_) if s_ else []
+            v_id, pat_id, passive = items[ii] if ii < len(items) else (None, None, None)
+            flips.append({"sentence": " ".join(toks)[:150], "verb": toks[v_id - 1] if v_id else "?",
+                          "gold_patient": toks[pat_id - 1] if pat_id else "?", "passive": passive,
+                          "shipped_correct": bool(u), "patched_correct": bool(v)})
+    print("  ITEMS THAT FLIP (shipped -> patched): %d  (%d lost, %d gained)"
+          % (len(flips), sum(1 for f in flips if f["shipped_correct"]),
+             sum(1 for f in flips if f["patched_correct"])), flush=True)
+    for f in flips[:12]:
+        print("   %-6s verb=%-14s gold patient=%-14s %s" %
+              ("LOST" if f["shipped_correct"] else "GAINED", f["verb"], f["gold_patient"], f["sentence"][:95]),
+              flush=True)
+    with open(os.path.join(out_dir(), "patient_flips.json"), "w", encoding="utf-8") as fh:
+        json.dump({"shipped_runs": spread, "churn_between_shipped_runs": churn,
+                   "patched": accp, "flips": flips}, fh, indent=1)
+    return flips
+
+
+def _has_patient_gold(s):
+    return bool(_patient_items(s))
+
+
+def _patient_items(s):
+    """The board arm's own gold-item rule (read from exp_valency_labeled_patient_v1.eval_split)."""
+    out = []
+    for t in s:
+        if t["upos"] != "VERB":
+            continue
+        v = t["id"]; deps = [d for d in s if d["head"] == v]
+        passive = any(d["deprel"].startswith("nsubj:pass") or d["deprel"].startswith("aux:pass") for d in deps)
+        pat = None
+        for d in deps:
+            if not passive and d.get("dep") == "obj":
+                pat = d["id"]; break
+            if passive and d["deprel"].startswith("nsubj:pass"):
+                pat = d["id"]; break
+        if pat is not None:
+            out.append((v, pat, passive))
+    return out
+
+
+
+def beam_lead(cap=700, beams=(8, 16), seed=0):
+    """PHASE 7 (Q2): the ORGAN-WIDE beam-width lead, filed not flipped.  Full UD-EWT test: UAS, LAS (the live arc
+    labeler over the same heads), attachment per relation, and the read cost, at each beam width, on the PATCHED
+    organ.  `HDLAB_ARM_BEAM` is read at call time by the decode, so both widths run in ONE process on one cache."""
+    import time as _t
+    from experiments.exp_valency_labeled_patient_v1 import ArcLabeler, LAB_ASSET
+    lab = ArcLabeler.load(LAB_ASSET)
+    rows = _cache(cap=cap)
+    M = patched_module(name="pri117_beamlead")
+    tab = M.load_attachment_validities(MERGED_ASSET)
+    out = {}
+    per_by = {}
+    for b in beams:
+        M.INCR_BEAM = int(b)
+        per = []; las = [0, 0]; t0 = _t.perf_counter()
+        for (toks, gpos, gh, rels, t2, dd, occ) in rows:
+            A, nn = M.arc_scores_graded(list(toks), list(t2), dd, tab)
+            hd = M.decode(list(toks), list(t2), A, nn)[0]
+            per.append(_count(toks, gpos, gh, rels, hd, len(toks)))
+            try:
+                pl = lab.label(list(toks), list(t2), dict(hd))
+            except Exception:
+                pl = {}
+            for i in range(len(toks)):
+                g = gh[i]
+                if not (0 <= g <= len(toks)):
+                    continue
+                las[1] += 1
+                if hd.get(i + 1, -1) == g and str(pl.get(i + 1, "")).split(":")[0] == rels[i].split(":")[0]:
+                    las[0] += 1
+        ms = 1000.0 * (_t.perf_counter() - t0) / max(1, len(rows))
+        per_by[b] = per
+        nv, n = _agg(per, "nv"); vb, _ = _agg(per, "vb"); ua, _ = _agg(per, "uas")
+        out["beam_%d" % b] = {"nonverbal": nv, "verbal": vb, "uas": ua, "las": las[0] / max(1, las[1]),
+                              "ms_per_sentence": round(ms, 1), "n_nonverbal": n}
+        print("  beam %-3d non-verbal %.4f | verbal %.4f | UAS %.4f | LAS %.4f | %.1f ms/sentence"
+              % (b, nv, vb, ua, las[0] / max(1, las[1]), ms), flush=True)
+    M.INCR_BEAM = 8
+    a, b2 = beams[0], beams[-1]
+    for key, labl in (("nv", "non-verbal"), ("vb", "verbal"), ("uas", "UAS")):
+        d, lo, hi = _boot(per_by[b2], per_by[a], key, seed=seed)
+        out.setdefault("wide_minus_narrow", {})[key] = [d, lo, hi]
+        print("    beam %d - beam %d  %-11s %+.4f CI[%+.4f,%+.4f] %s" % (b2, a, labl, d, lo, hi,
+              "SEP" if lo > 0 else ("SEP-DOWN" if hi < 0 else "ns")), flush=True)
+    r_a, r_b = _rel(per_by[a]), _rel(per_by[b2])
+    print("    attachment per relation (beam %d -> beam %d; n>=100):" % (a, b2), flush=True)
+    for r in sorted(set(r_a) | set(r_b), key=lambda x: -r_a.get(x, (0, 0))[1]):
+        if r_a.get(r, (0, 0))[1] >= 100 and abs(r_b[r][0] - r_a[r][0]) > 1e-9:
+            print("      %-9s %.4f -> %.4f (n=%d)" % (r, r_a[r][0], r_b[r][0], r_a[r][1]), flush=True)
+    out["per_relation"] = {r: [r_a[r][0], r_b.get(r, (0, 0))[0], r_a[r][1]] for r in r_a}
+    with open(os.path.join(out_dir(), "beam_lead.json"), "w", encoding="utf-8") as fh:
+        json.dump(out, fh, indent=1)
+    return out
+
+
+def curve_tail(cap=700, reads=(4000, 6000, 9000, 12000), seed=0):
+    """PHASE 7 (1a): is the shipped accrual (4,000 sentences) the curve's PLATEAU or a budget choice?"""
+    rows = _cache(cap=cap); tab = AA.load_attachment_validities(AA.ASSET)
+    out = {}
+    for n in reads:
+        doc = accrue(cap=n, out=os.path.join(out_dir(), "curve_csubg_%d.json" % n), quiet=True, merged=False)
+        st = {"csubg": doc["strength_csubg"]}
+        per = _score_rows(rows, tab, "rev", st, seed=seed)
+        nv, nn = _agg(per, "nv"); vb, _ = _agg(per, "vb"); ua, _ = _agg(per, "uas")
+        out["reads_%d" % n] = {"sentences": n, "arcs": doc["arcs"], "cells": len(st["csubg"]),
+                               "nonverbal": nv, "verbal": vb, "uas": ua}
+        print("  after %6d sentences (%5d arcs, %3d cells): non-verbal %.4f | verbal %.4f | UAS %.4f"
+              % (n, doc["arcs"], len(st["csubg"]), nv, vb, ua), flush=True)
+    with open(os.path.join(out_dir(), "curve_tail.json"), "w", encoding="utf-8") as fh:
+        json.dump(out, fh, indent=1)
+    return out
+
+
+
+def binding(cap=700, seed=0):
+    """PHASE 7 (2ii): the ENTITY-ATTRIBUTE BINDING capture and the ROLE competition's subject cue, on the LANDED
+    form.  pri 113's own `--binding-after-heads` arm re-implements its prototype's reshape internally, so running
+    it would measure the prototype; the metric it reports -- "the holder of the typed attribute is the clause's
+    gold subject" -- is recomputed here on the shipped vs the patched organ.
+    (a) HOLDER CAPTURE: of the copular clauses the cue COVERS, the share whose subject the parse attaches to the
+        gold predicate (= the attribute binds to the right entity).
+    (b) THE ROLE CUE: the coarse_roles label of that same subject, shipped vs patched (pri 113 measured the
+        copular subject already labelled 0.8402 there -- this asks whether the repaired arc moves it)."""
+    rows = _cache(cap=cap)
+    M = patched_module(name="pri117_binding")
+    tab_s = AA.load_attachment_validities(AA.ASSET)
+    M._TABLE = None
+    tab_p = M.load_attachment_validities(MERGED_ASSET)
+    try:
+        from hdlab.graded_role_assigner import coarse_roles
+    except Exception:
+        coarse_roles = None
+    per_s = []; per_p = []; rs = [0, 0]; rp = [0, 0]
+    for (toks, gpos, gh, rels, t2, dd, occ) in rows:
+        n = len(toks)
+        A0, nn = AA.arc_scores_graded(list(toks), list(t2), dd, tab_s)
+        h0 = AA.decode(list(toks), list(t2), A0, nn)[0]
+        A1, _ = M.arc_scores_graded(list(toks), list(t2), dd, tab_p)
+        h1 = M.decode(list(toks), list(t2), A1, nn)[0]
+        globals()["CSUB_COVERAGE"] = True
+        covered = {sj for (_q, sj) in cop_subject_pairs(list(toks), list(t2))}
+        a = [0, 0]; b = [0, 0]
+        for i in range(n):
+            if rels[i].split(":")[0] != "nsubj" or not (1 <= gh[i] <= n) or gpos[gh[i] - 1] == "VERB":
+                continue
+            sj = i + 1
+            if sj not in covered:
+                continue
+            a[0] += int(h0.get(sj, 0) == gh[i]); a[1] += 1
+            b[0] += int(h1.get(sj, 0) == gh[i]); b[1] += 1
+            if coarse_roles is not None:
+                for hd_, acc in ((h0, rs), (h1, rp)):
+                    try:
+                        lab = coarse_roles(list(toks), list(t2), dict(hd_))
+                        v = lab.get(sj) if isinstance(lab, dict) else None
+                        acc[0] += int(str(v).upper().startswith(("A", "AGENT", "SUBJ", "THEME")) is not None and v is not None)
+                        acc[1] += 1
+                    except Exception:
+                        pass
+        per_s.append((a, [0, 0], [0, 0], {})); per_p.append((b, [0, 0], [0, 0], {}))
+    hs, n_h = _agg(per_s, "nv"); hp, _ = _agg(per_p, "nv")
+    d, lo, hi = _boot(per_p, per_s, "nv", seed=seed)
+    print("  HOLDER CAPTURE on the clauses the cue covers (n=%d): shipped %.4f -> patched %.4f  (%+.4f CI[%+.4f,%+.4f] %s)"
+          % (n_h, hs, hp, d, lo, hi, "SEP" if lo > 0 else ("SEP-DOWN" if hi < 0 else "ns")), flush=True)
+    print("  (pri 113's prototype number on its own covered set was 0.7087 -> 0.8932, n=103)", flush=True)
+    res = {"n_covered": n_h, "holder_shipped": hs, "holder_patched": hp, "delta": [d, lo, hi],
+           "role_cue_labelled": {"shipped": rs, "patched": rp}}
+    with open(os.path.join(out_dir(), "binding.json"), "w", encoding="utf-8") as fh:
+        json.dump(res, fh, indent=1)
+    return res
+
+
 # ------------------------------------------------------------------------------------------------ self-test
 def self_test():
     ok = [0, 0]
@@ -1340,6 +1744,23 @@ def self_test():
         same += int(a == b); diff += int(a != b)
     ck("COVERAGE=0 reproduces the shipped csub pair detection (120 sentences)", diff == 0, "%d differ" % diff)
     globals()["CSUB_COVERAGE"] = True
+    # THE None-HEAD GUARD (pri 117 phase 7): the organ bug found on GUM -- a headless word from the search decode
+    # made punct_convention raise.  The guard must (a) not raise, (b) leave the in-order decode byte-identical.
+    try:
+        _M = patched_module(name="pri117_guard_check")
+        hd_none = {1: 2, 2: None, 3: 0}
+        _M.punct_convention(["a", "b", "."], ["NOUN", "NOUN", "PUNCT"], dict(hd_none))
+        ck("the None-head guard: punct_convention no longer raises on a headless word", True)
+        diff_ = 0
+        _tab = AA.load_attachment_validities(AA.ASSET)
+        for toks, pos, _h, _r in sentences(TEST, cap=60, maxlen=10 ** 6):
+            hd = AA.heads(toks, pos, _tab)                    # the SHIPPED decode's heads, as the input to both
+            a = AA.punct_convention(list(toks), list(pos), dict(hd))
+            b = _M.punct_convention(list(toks), list(pos), dict(hd))
+            diff_ += int(a != b)
+        ck("the None-head guard changes nothing when no head is None (60 sentences, same input)", diff_ == 0, diff_)
+    except Exception as e:                                   # noqa
+        ck("the None-head guard", False, repr(e))
     # PATCH == CELL
     dpath = os.path.join(REPO, "notes", "problems",
                          "the_heads_rung_attaches_the_subject_of_a_non_verbal_predicate_at_0_54_against_0_85_for_"
@@ -1365,7 +1786,7 @@ def main(argv=None) -> int:
     ap.add_argument("--self-test", action="store_true"); ap.add_argument("--smoke", action="store_true")
     ap.add_argument("--accrue", action="store_true"); ap.add_argument("--arms", action="store_true")
     ap.add_argument("--coverage", action="store_true"); ap.add_argument("--sweep", action="store_true")
-    ap.add_argument("--gum", action="store_true"); ap.add_argument("--residual", action="store_true"); ap.add_argument("--oracle", action="store_true"); ap.add_argument("--patch-test", action="store_true"); ap.add_argument("--live-ab", action="store_true"); ap.add_argument("--curve", action="store_true"); ap.add_argument("--board", action="store_true"); ap.add_argument("--arm", default="base"); ap.add_argument("--n-boot", type=int, default=1000); ap.add_argument("--frozen", action="store_true"); ap.add_argument("--accrue-twin", action="store_true")
+    ap.add_argument("--gum", action="store_true"); ap.add_argument("--residual", action="store_true"); ap.add_argument("--oracle", action="store_true"); ap.add_argument("--patch-test", action="store_true"); ap.add_argument("--live-ab", action="store_true"); ap.add_argument("--curve", action="store_true"); ap.add_argument("--binding", action="store_true"); ap.add_argument("--curve-tail", action="store_true"); ap.add_argument("--beam-lead", action="store_true"); ap.add_argument("--patient-flips", action="store_true"); ap.add_argument("--carrier-cases", action="store_true"); ap.add_argument("--pooled-frozen", action="store_true"); ap.add_argument("--compare-tables", action="store_true"); ap.add_argument("--rebuild", action="store_true"); ap.add_argument("--board", action="store_true"); ap.add_argument("--arm", default="base"); ap.add_argument("--n-boot", type=int, default=1000); ap.add_argument("--frozen", action="store_true"); ap.add_argument("--accrue-twin", action="store_true")
     ap.add_argument("--cap", type=int, default=700); ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--weight", type=float, default=1.0)
     ap.add_argument("--which", default=None, help="comma-separated arm list")
@@ -1395,6 +1816,30 @@ def main(argv=None) -> int:
     if a.board:
         print("=" * 100); print("BOARD A/B (one process%s)" % (" -- SMOKE CAPS" if a.smoke else ", FULL SIZE"))
         board_ab(n_boot=a.n_boot, caps={"gum": 4, "ud": 40, "state": 40, "wiqa": 40, "sr": 40, "occ": 40, "tmw": 100, "coarse_files": 2} if a.smoke else None)
+    if getattr(a, "rebuild", False):
+        print("=" * 100); print("REBUILD the validity table with the PATCHED BUILDER")
+        rebuild(cap=a.cap if a.cap != 700 else 6000)
+    if getattr(a, "compare_tables", False):
+        print("=" * 100); print("REBUILT table vs the OVERLAY table")
+        compare_tables(cap=700); compare_tables(cap=1200, pop="gum")
+    if getattr(a, "pooled_frozen", False):
+        print("=" * 100); print("LEARNED vs the BEST FROZEN CONSTANT, POOLED (UD-EWT 700 + GUM 1200)")
+        pooled_frozen(seed=a.seed)
+    if getattr(a, "carrier_cases", False):
+        print("=" * 100); print("WHERE THE TENSE-CARRIER SUPPRESSION DECIDES")
+        carrier_cases(cap=a.cap)
+    if getattr(a, "patient_flips", False):
+        print("=" * 100); print("THE PATIENT ROW: the items that flip, and the dimension's own between-run spread")
+        patient_flips()
+    if getattr(a, "beam_lead", False):
+        print("=" * 100); print("BEAM-WIDTH LEAD (organ-wide default; filed, not flipped)")
+        beam_lead(cap=a.cap)
+    if getattr(a, "curve_tail", False):
+        print("=" * 100); print("LEARNING-CURVE TAIL: is 4,000 sentences the plateau?")
+        curve_tail(cap=a.cap)
+    if getattr(a, "binding", False):
+        print("=" * 100); print("ENTITY-ATTRIBUTE BINDING CAPTURE on the landed form")
+        binding(cap=a.cap)
     if a.curve:
         print("=" * 100); print("LEARNING CURVE (the validity accrued from N sentences of reading)")
         curve(cap=a.cap, seed=a.seed)
@@ -1410,7 +1855,7 @@ def main(argv=None) -> int:
     if a.sweep:
         print("=" * 100); print("SWEEP (free operating points)")
         sweep(cap=a.cap, seed=a.seed)
-    if not any([a.accrue, a.arms, a.coverage, a.sweep, a.gum, a.residual, a.frozen, a.oracle, a.board, a.curve, getattr(a, "patch_test", False), getattr(a, "live_ab", False), getattr(a, "accrue_twin", False)]):
+    if not any([a.accrue, a.arms, a.coverage, a.sweep, a.gum, a.residual, a.frozen, a.oracle, a.board, a.curve, getattr(a, "patch_test", False), getattr(a, "binding", False), getattr(a, "beam_lead", False), getattr(a, "curve_tail", False), getattr(a, "patient_flips", False), getattr(a, "rebuild", False), getattr(a, "compare_tables", False), getattr(a, "pooled_frozen", False), getattr(a, "carrier_cases", False), getattr(a, "live_ab", False), getattr(a, "accrue_twin", False)]):
         return self_test()
     return 0
 

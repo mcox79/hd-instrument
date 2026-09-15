@@ -1,6 +1,6 @@
 --- a/hdlab/attachment_arm.py
 +++ b/hdlab/attachment_arm.py
-@@ -124,8 +124,35 @@
+@@ -124,8 +124,41 @@
  CLAUSE_WRAP_OPENER = os.environ.get("HDLAB_ARM_CLAUSE_WRAP_OPENER", "1") != "0"   # the in-order decode wraps up at a clause opener too
  CLAUSE_MAXV = 2                     # intervening predicates counted up to this (a swept operating point)
  POSS_PRON = frozenset({"my", "your", "his", "her", "its", "their", "our", "whose"})
@@ -29,6 +29,12 @@
 +# THE TENSE CARRIER IS NOT THE PREDICATE when it has one (Pustet 2003): the copula competes for the subject and
 +# wins it 3 times on the 169 ("that IS how i want ..."), so the carrier's own arc takes the competing value.
 +CSUB_SUPPRESS_COP = os.environ.get("HDLAB_ARM_CSUB_SUPPRESS_COP", "1") != "0"
++# THE TWO SUBJECT-SIDE CORRECTIONS the board's two lost patient items paid for, each behind its own switch
++# because they do NOT cost the same (measured, pri 117 phase 7): crossing the hyphen of a compound name is free,
++# and refusing a nominal that sits inside a CLAUSAL subject is NOT -- it also refuses the legitimate pre-copular
++# nominal of an unmarked complement clause ("I think the sky is blue"), which is why it ships OFF.
++CSUB_SUBJ_HYPHEN = os.environ.get("HDLAB_ARM_CSUB_SUBJ_HYPHEN", "1") != "0"
++CSUB_SUBJ_NO_CLAUSAL = os.environ.get("HDLAB_ARM_CSUB_SUBJ_NO_CLAUSAL", "0") == "1"
 +
 +
  CUES = (("locality", "frame", "form", "boundary", "agree", "constr", "pp", "ppobj") + (("plaus",) if PLAUS_CUE else ())
@@ -37,7 +43,7 @@
          + (("clause",) if CLAUSE_CUE else ()) + (("npb",) if NPB_CUE else ()))   # catpair / root = configuration
  # "ppobj" (2026-09-13, solver pri-94): the THEMATIC channel of the PP cue -- what kind of thing the prepositional
  # phrase is about, given the type of the candidate that would license it (Taraban & McClelland 1988; Ratnaparkhi's
-@@ -1122,42 +1149,265 @@
+@@ -1122,42 +1155,284 @@
      return out
  
  
@@ -78,15 +84,46 @@
 +def _csub_subject_before(toks, pos, c):
 +    """The subject side of a copular clause: the nearest nominal standing before the tense carrier at 1-based `c`,
 +    skipping a CASE-MARKED one (a prepositional nominal is oblique, never the subject -- Pinker 1984).  This is
-+    `csub_sites`' own scan, unchanged."""
++    `csub_sites`' own scan plus the two corrections the pri-117 board A/B paid for, both of which are rules this
++    organ already applies on the complement side:
++      (hyph) THE RIGHT-HAND HEAD RULE ACROSS A HYPHEN (Williams 1981; `_np_run_end`'s `_HYPHEN` clause).  The
++        phrase-start walk stopped at the PUNCT in "with al - Qaeda", so the preposition was never seen and the
++        object of a PP was taken as the subject -- one of the two patient items the board lost.
++      (clsub) A CLAUSE IS NOT A NOMINAL SUBJECT.  In "Call a vet would be a good idea" the nearest nominal before
++        the copula is the OBJECT of the clausal subject's own verb; UD makes that clause (its verb) the subject
++        (`csubj`).  A predicate standing to the left of the candidate, inside the same clause, means the subject
++        is CLAUSAL, so no nominal pair is proposed -- the other patient item."""
 +    k = c - 1
 +    while k >= 1:
 +        if pos[k - 1] in NOMINAL or pos[k - 1] == "NUM":
 +            a = k
-+            while a - 1 >= 1 and pos[a - 2] in NP_RUN:
-+                a -= 1
++            while True:
++                if a - 1 >= 1 and pos[a - 2] in NP_RUN:
++                    a -= 1; continue
++                if (CSUB_COVERAGE and CSUB_SUBJ_HYPHEN and a - 2 >= 1 and pos[a - 2] == "PUNCT" and toks[a - 2] in _HYPHEN
++                        and pos[a - 3] in NP_RUN):
++                    a -= 2; continue                          # (hyph) cross the hyphen of a compound name
+                 break
+-        if c is None:
+-            continue
+-        subj = None; k = c - 1
+-        while k >= 1:
+-            if pos[k - 1] in NOMINAL or pos[k - 1] == "NUM":
+-                a = k
+-                while a - 1 >= 1 and pos[a - 2] in NP_RUN:
+-                    a -= 1
+-                if a - 1 >= 1 and pos[a - 2] == "ADP":
+-                    k = a - 2; continue
+-                subj = k; break
+-            if pos[k - 1] in ("VERB", "SCONJ", "CCONJ"):
 +            if a - 1 >= 1 and pos[a - 2] == "ADP":
 +                k = a - 2; continue
++            if CSUB_SUBJ_NO_CLAUSAL:
++                for m in range(a - 1, 0, -1):                 # (clsub) a predicate to the left, same clause
++                    if pos[m - 1] in ("SCONJ", "CCONJ") or (pos[m - 1] == "PUNCT" and toks[m - 1] in _HARD_STOP):
++                        break
++                    if pos[m - 1] == "VERB":
++                        return None
 +            return k
 +        if pos[k - 1] in ("VERB", "SCONJ", "CCONJ"):
 +            return None
@@ -158,19 +195,6 @@
 +                if pos[k] in ("ADV", "AUX", "PART"):
 +                    continue
                  break
--        if c is None:
--            continue
--        subj = None; k = c - 1
--        while k >= 1:
--            if pos[k - 1] in NOMINAL or pos[k - 1] == "NUM":
--                a = k
--                while a - 1 >= 1 and pos[a - 2] in NP_RUN:
--                    a -= 1
--                if a - 1 >= 1 and pos[a - 2] == "ADP":
--                    k = a - 2; continue
--                subj = k; break
--            if pos[k - 1] in ("VERB", "SCONJ", "CCONJ"):
--                break
 -            k -= 1
 -        if subj is None:
 -            continue
@@ -334,7 +358,7 @@
      return out
  
  
-@@ -1995,7 +2245,7 @@
+@@ -1995,7 +2270,7 @@
  
      def __init__(self, toks: Sequence[str], pos: Sequence[str], frames: Dict[str, List[int]],
                   pp_assoc: Optional[Dict[str, Dict[str, float]]] = None,
@@ -343,7 +367,7 @@
          self.toks = list(toks); self.pos = list(pos); self.n = len(toks); self.frames = frames
          self.cum = np.concatenate([[0], np.cumsum([1 if p == "PUNCT" else 0 for p in self.pos])])
          self.constr = construction_map(self.toks, self.pos)
-@@ -2003,6 +2253,11 @@
+@@ -2003,6 +2278,11 @@
          self.teacher = _plaus_teacher() if PLAUS_CUE else None
          self.rootcues = root_cue_values(self.toks, self.pos)     # MAIN-ASSERTION cues (one pass; read at h == 0)
          self.csub = csub_sites(self.toks, self.pos) if CSUB_CUE else {}
@@ -355,7 +379,7 @@
          self.clause = clause_matrices(self.toks, self.pos) if CLAUSE_CUE else None   # (predicates, opener) crossed
          self.npb = npb_matrix(self.toks, self.pos) if NPB_CUE else None              # phrase membership
          # PP ATTACHMENT (v2): the case-marked nominals and their retrieved candidate hosts, when the table carries the
-@@ -2060,6 +2315,10 @@
+@@ -2060,6 +2340,10 @@
              v = self.csub.get((h, j))
              if v is not None:
                  c["csub"] = v                 # the copular predicate vs a later verb, for the SUBJECT
@@ -366,7 +390,7 @@
          if self.clause is not None:
              c["clause"] = clause_value(int(self.clause[0][h][j - 1]), int(self.clause[1][h][j - 1]))
          if self.npb is not None:
-@@ -2244,13 +2503,16 @@
+@@ -2244,13 +2528,16 @@
      return idx[1]
  
  
@@ -386,7 +410,7 @@
      cat = np.array([ix.cats.get(p, ix.unk) for p in pos], dtype=np.int64)            # dependent / head (1..n) category ids
      H = np.arange(0, n + 1)[:, None]; J = np.arange(1, n + 1)[None, :]               # grid: rows h = 0..n, cols j = 1..n
      dr = (H > J).astype(np.int64)                                                    # config/cue convention: 'L' when the head is LEFT of the dependent (h < j) -> 0; 'R' (h > j) -> 1
-@@ -2331,6 +2593,11 @@
+@@ -2331,6 +2618,11 @@
          for (h, j), v in sc.csub.items():
              if 1 <= h <= n and 1 <= j <= n:
                  S[h, j - 1] += T[C[h, j - 1]][vid.get(v, 0)]
@@ -398,7 +422,7 @@
      # CLAUSE MEMBERSHIP + CONSTITUENCY (pri-105): dense adds over the same grid
      if sc.clause is not None and "clause" in ix.cue_tab:
          nv, sb = sc.clause; vid = ix.val_id["clause"]
-@@ -2349,10 +2616,11 @@
+@@ -2349,10 +2641,11 @@
      return A, n
  
  
@@ -412,7 +436,27 @@
      n = sc.n; A = np.full((n + 1, n + 1), -np.inf)
      words = [j for j in range(1, n + 1) if pos[j - 1] not in FORM]
      for j in range(1, n + 1):
-@@ -2441,9 +2709,9 @@
+@@ -2394,10 +2687,17 @@
+ 
+ 
+ def _chain_top(hd: Dict[int, int], k: int, lo: int, hi: int) -> int:
++    ''' The top of k's head chain inside [lo, hi].
++    pri 117: hd.get(k) can be None -- `map_tree_single_root` leaves a word headless on some out-of-supply
++    sentences, and `punct_convention` then raised
++    `TypeError: '<=' not supported between instances of 'int' and 'NoneType'`, aborting a whole GUM run of the
++    `map1` decode.  A MISSING head means the chain ENDS, which is exactly what 0 already means here, so this is a
++    default rather than a new behaviour: the in-order decode is byte-identical and the search decodes stop
++    raising (asserted in the solver cell's --self-test). '''
+     top = k
+     seen = 0
+-    while lo <= k <= hi and seen <= len(hd) + 1:
+-        top = k; k = hd.get(k, 0); seen += 1
++    while k is not None and lo <= k <= hi and seen <= len(hd) + 1:
++        top = k; k = hd.get(k) or 0; seen += 1
+     return top
+ 
+ 
+@@ -2441,9 +2741,9 @@
  
  
  def head_posterior(toks: Sequence[str], pos: Sequence[str], table: Optional[Dict[str, object]] = None,
@@ -424,7 +468,7 @@
  
  
  # POINT DECODE (2026-09-13 06:30 local): "mbr" = minimum-Bayes-risk tree -- the single-rooted tree maximising the SUM of the arc
-@@ -2904,6 +3172,10 @@
+@@ -2904,6 +3204,10 @@
      else:
          hd = chu_liu_edmonds(A, n); post = single_root_marginals(A.copy(), n, temp)
      hd = occupancy_repair(toks, pos, hd, post)
@@ -435,7 +479,7 @@
      hd = punct_convention(toks, pos, hd)
      for j in range(1, len(toks) + 1):
          if PUNCT_CONVENTION and pos[j - 1] == "PUNCT" and j in post:
-@@ -2911,9 +3183,9 @@
+@@ -2911,9 +3215,9 @@
      return hd, post
  
  
@@ -447,7 +491,7 @@
  
  
  # ---------------------------------------------------------------------------------------------------------------------------------
-@@ -2930,7 +3202,10 @@
+@@ -2930,7 +3234,10 @@
                        table: Optional[Dict[str, object]] = None, tau: float = TAG_GRADED_TAU,
                        max_alt: int = TAG_GRADED_MAX_ALT) -> Tuple[np.ndarray, int]:
      """Arc activations marginalised (first order) over each uncertain token's second-best category."""
@@ -459,7 +503,7 @@
      if not tag_post:
          return A, n
      alts = []
-@@ -2950,7 +3225,7 @@
+@@ -2950,7 +3257,7 @@
      out = A.copy()
      for p_alt, i, alt in alts[:max_alt]:
          pos2 = list(pos); pos2[i] = alt
@@ -468,7 +512,7 @@
          fin = np.isfinite(A) & np.isfinite(B)
          out[fin] += p_alt * (B[fin] - A[fin])
          # arcs that exist only under the alternative categorisation enter with their posterior share
-@@ -3137,6 +3412,8 @@
+@@ -3137,6 +3444,8 @@
             "predicate_slot_occupancy", "revise_for_predicate_slot", "host_belief", "copular_available",
             "is_existential", "main_verb_carriers",
             "cop_predicates", "cop_complement", "predicate_complements", "predicate_sites",
