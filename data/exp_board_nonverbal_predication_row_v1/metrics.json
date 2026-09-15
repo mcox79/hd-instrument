@@ -1,0 +1,146 @@
+{
+ "anchor": "board_nonverbal_predication_row_v1",
+ "seed": 20260914,
+ "nonverbal_predication_udewt": {
+  "n": 167,
+  "model_acc": 0.5269,
+  "overlap_floor": 0.4731,
+  "floor_accs": {
+   "upos_verb_detector": 0.0898,
+   "copula_adjacent_simple_rule": 0.4731
+  },
+  "strongest_floor_name": "copula_adjacent_simple_rule",
+  "strongest_floor": 0.4731,
+  "twin_acc": 0.0659,
+  "model_minus_strongest": [
+   0.0539,
+   -0.0301,
+   0.1377
+  ],
+  "model_minus_twin": [
+   0.4611,
+   0.3772,
+   0.5391
+  ],
+  "ci_sep_over_strongest": false,
+  "ci_sep_over_twin": true,
+  "ci_half_width_strongest": 0.0839,
+  "ci_half_width_twin": 0.0809,
+  "recall_predicate_only": {
+   "model": 0.8383,
+   "upos_verb_detector": 0.0898,
+   "copula_adjacent_simple_rule": 0.5329,
+   "twin": 0.1916
+  },
+  "nonverbal_predication_flag": true,
+  "n_sentences": 154,
+  "population": "UD-EWT test 700 (modern, deprels), every gold subject-bearing clause whose gold predicate is non-verbal (n=167, of 762 total subject-bearing clauses); current tree (pri 113 landed, HDLAB_NONVERBAL_PREDICATION default ON). model=the LIVE SituationReader's fired event/state at the gold predicate token AND its copular_binding (holder,property) pair's holder in the gold subject set (a JOINT hit -- the structure carries a holder field, so the brief's no-holder fallback does not apply); floor=max(shipped UPOS==VERB detector alone [expected ~0], copula-adjacent simple rule: first content word after the copula=predicate, nearest nominal before it=holder); twin=the same NUMBER of extra (non-VERB) fires placed on a random eligible token of the same sentence, holder a random nominal token (info-free). THIS IS THE BOARD ROW."
+ },
+ "nonverbal_predication_udewt_pre113_arm": {
+  "n": 167,
+  "model_acc": 0.0659,
+  "overlap_floor": 0.4731,
+  "floor_accs": {
+   "upos_verb_detector": 0.0898,
+   "copula_adjacent_simple_rule": 0.4731
+  },
+  "strongest_floor_name": "copula_adjacent_simple_rule",
+  "strongest_floor": 0.4731,
+  "twin_acc": 0.0,
+  "model_minus_strongest": [
+   -0.4072,
+   -0.485,
+   -0.3234
+  ],
+  "model_minus_twin": [
+   0.0659,
+   0.0299,
+   0.1018
+  ],
+  "ci_sep_over_strongest": false,
+  "ci_sep_over_twin": true,
+  "ci_half_width_strongest": 0.0808,
+  "ci_half_width_twin": 0.0359,
+  "recall_predicate_only": {
+   "model": 0.1856,
+   "upos_verb_detector": 0.0898,
+   "copula_adjacent_simple_rule": 0.5329,
+   "twin": 0.1018
+  },
+  "nonverbal_predication_flag": false,
+  "n_sentences": 154,
+  "population": "UD-EWT test 700 (modern, deprels), every gold subject-bearing clause whose gold predicate is non-verbal (n=167, of 762 total subject-bearing clauses); pre-113 arm (SituationReader(nonverbal_predication=False), equivalent to HDLAB_NONVERBAL_PREDICATION=0). model=the LIVE SituationReader's fired event/state at the gold predicate token AND its copular_binding (holder,property) pair's holder in the gold subject set (a JOINT hit -- the structure carries a holder field, so the brief's no-holder fallback does not apply); floor=max(shipped UPOS==VERB detector alone [expected ~0], copula-adjacent simple rule: first content word after the copula=predicate, nearest nominal before it=holder); twin=the same NUMBER of extra (non-VERB) fires placed on a random eligible token of the same sentence, holder a random nominal token (info-free). THIS IS THE BOARD ROW."
+ },
+ "nonverbal_predication_gum": {
+  "n": 366,
+  "model_acc": 0.429,
+  "overlap_floor": 0.3333,
+  "floor_accs": {
+   "upos_verb_detector": 0.0519,
+   "copula_adjacent_simple_rule": 0.3333
+  },
+  "strongest_floor_name": "copula_adjacent_simple_rule",
+  "strongest_floor": 0.3333,
+  "twin_acc": 0.041,
+  "model_minus_strongest": [
+   0.0956,
+   0.041,
+   0.1503
+  ],
+  "model_minus_twin": [
+   0.388,
+   0.3361,
+   0.4399
+  ],
+  "ci_sep_over_strongest": true,
+  "ci_sep_over_twin": true,
+  "ci_half_width_strongest": 0.0546,
+  "ci_half_width_twin": 0.0519,
+  "recall_predicate_only": {
+   "model": 0.612,
+   "upos_verb_detector": 0.0519,
+   "copula_adjacent_simple_rule": 0.388,
+   "twin": 0.153
+  },
+  "nonverbal_predication_flag": true,
+  "n_sentences": 322,
+  "population": "GUM/GENTLE cap-1200 population (modern, deprels), every gold subject-bearing clause whose gold predicate is non-verbal (n=366); current tree (pri 113 landed, HDLAB_NONVERBAL_PREDICATION default ON). model=the LIVE SituationReader's fired event/state at the gold predicate token AND its copular_binding (holder,property) pair's holder in the gold subject set (a JOINT hit -- the structure carries a holder field, so the brief's no-holder fallback does not apply); floor=max(shipped UPOS==VERB detector alone [expected ~0], copula-adjacent simple rule: first content word after the copula=predicate, nearest nominal before it=holder); twin=the same NUMBER of extra (non-VERB) fires placed on a random eligible token of the same sentence, holder a random nominal token (info-free). SECONDARY population (the UD-EWT row is the board row)."
+ },
+ "nonverbal_predication_gum_pre113_arm": {
+  "n": 366,
+  "model_acc": 0.0492,
+  "overlap_floor": 0.3333,
+  "floor_accs": {
+   "upos_verb_detector": 0.0519,
+   "copula_adjacent_simple_rule": 0.3333
+  },
+  "strongest_floor_name": "copula_adjacent_simple_rule",
+  "strongest_floor": 0.3333,
+  "twin_acc": 0.0082,
+  "model_minus_strongest": [
+   -0.2842,
+   -0.3388,
+   -0.2322
+  ],
+  "model_minus_twin": [
+   0.041,
+   0.0219,
+   0.0628
+  ],
+  "ci_sep_over_strongest": false,
+  "ci_sep_over_twin": true,
+  "ci_half_width_strongest": 0.0533,
+  "ci_half_width_twin": 0.0205,
+  "recall_predicate_only": {
+   "model": 0.123,
+   "upos_verb_detector": 0.0519,
+   "copula_adjacent_simple_rule": 0.388,
+   "twin": 0.0738
+  },
+  "nonverbal_predication_flag": false,
+  "n_sentences": 322,
+  "population": "GUM/GENTLE cap-1200 population (modern, deprels), every gold subject-bearing clause whose gold predicate is non-verbal (n=366); pre-113 arm (SituationReader(nonverbal_predication=False), equivalent to HDLAB_NONVERBAL_PREDICATION=0). model=the LIVE SituationReader's fired event/state at the gold predicate token AND its copular_binding (holder,property) pair's holder in the gold subject set (a JOINT hit -- the structure carries a holder field, so the brief's no-holder fallback does not apply); floor=max(shipped UPOS==VERB detector alone [expected ~0], copula-adjacent simple rule: first content word after the copula=predicate, nearest nominal before it=holder); twin=the same NUMBER of extra (non-VERB) fires placed on a random eligible token of the same sentence, holder a random nominal token (info-free). SECONDARY population (the UD-EWT row is the board row)."
+ },
+ "the_row": "nonverbal_predication_udewt",
+ "runtime_sec": 111.7
+}
