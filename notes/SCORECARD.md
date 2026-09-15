@@ -14,6 +14,7 @@ NEW word means from what it reads, using its sense of how things feel and look, 
 near the top about 38 times in 100 where the old method managed about 3.
 
 ## WHAT CHANGED LATELY
+- **14 Sep, 23:04.** New board line (informational for now): 'what things are / where things are' -- for sentences without a doing-word, did the reader get both what is said and about whom? 53 in 100 on the test set (a simple 'the word after is' rule gets 47; random gets 7); on other genres 43 vs 33. Before today's landing it was 7 in 100. Most of what is still missed is WHO the statement is about, which is the next problem (the attacher, pri 117).
 - **14 Sep, 22:27.** Landed (a head-to-head: you and an agent solved the same problem blind; the best of both merged): sentences without a doing-word ('the sky is blue', 'she is a doctor') are now read as statements about the thing, one structure per sentence. On the test set the reader now catches 74 to 88 in 100 of them (was 19); 'what things are like' on the board 74.9 -> 79.1 in 100, everything else unchanged. Overall board 62.1 in 100.
 - **14 Sep, 19:50.** Landed: the word-category organ now reads a story once, in order, and every later step sees only what had been read up to that sentence. Before, five different steps re-read sentences out of order into its memory, so the same story read twice could give different events (2 stories in 12), and on first mentions it was effectively peeking at the answer. Now identical every time; board unchanged (61.9 in 100).
 - **14 Sep, 16:41.** Landed: the system now judges whether a clause is passive by looking at the helper verb right before the verb in question, not anywhere in the sentence. Its passive detector went from 38 to 96 in 100 correct; 'who did it' on the board 82.7 -> 85.6 in 100, and for the first time clearly better than the simple word-order rule (84.7). Six separate passive checkers became one. Overall board 61.9 in 100.
@@ -186,7 +187,7 @@ Long term (the next few months):
 
 <!-- AUTO:BEGIN (written by tools/scorecard.py; edit the sections ABOVE, not this) -->
 
-Last full check: 2026-09-15T00:49:35.856666+00:00 (48 on record). Generated 2026-09-15T02:27:49+00:00.
+Last full check: 2026-09-15T00:49:35.856666+00:00 (48 on record). Generated 2026-09-15T03:03:53+00:00.
 
 | Ability | Group | How well | Compared with a simple rule | Since the previous check | Brain-faithful? |
 |---|---|---|---|---|---|

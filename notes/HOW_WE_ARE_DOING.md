@@ -42,6 +42,7 @@ across a passage (right 47 in 100 on he/she/it) -- and that second one is the fr
 | Reasoning on top | IMPROVING | right 24 to 90 in 100 depending on the question | Time, cause, belief and goals. These work well when handed a correct reading of the sentence and slump on real prose, so the wall they hit is the chain below them, not the reasoning itself. Best: how a character feels about an event, 90 in 100. Worst: answering "why" when the cause is several sentences away, 24 in 100. |
 
 ## WHAT MOVED THIS WEEK
+- 2026-09-14 -- New (informational) board line for 'what things are / where things are': 53 in 100 (was 7 before today); the miss is mostly WHO it is about -> the attacher is next (pri 117).
 - 2026-09-14 -- Landed (head-to-head, merged): sentences without a doing-word are read as statements about the thing; reader catches 74-88 in 100 of them (was 19); 'what things are like' 74.9 -> 79.1 in 100; overall board 62.1 in 100.
 - 2026-09-14 -- Landed: the category organ reads a story once, in order; the same story now reads identically every time (was 10 of 12); no more peeking at first mentions. Board unchanged at 61.9 in 100.
 - 2026-09-14 -- Landed: passive voice is read at the clause, not the sentence. Passive detector 38 -> 96 in 100; 'who did it' 82.7 -> 85.6 in 100, first time clearly above the word-order rule; six passive checkers became one. Overall board 61.9 in 100.

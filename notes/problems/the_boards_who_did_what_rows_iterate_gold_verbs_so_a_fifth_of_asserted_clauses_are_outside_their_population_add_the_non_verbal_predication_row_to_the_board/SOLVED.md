@@ -160,3 +160,5 @@ nominal") which would sharpen whether the UD-EWT non-sep result survives a harde
 since the brief asks for "the strongest SIMPLE rule," not an arbitrarily strong one; (3) GUM's larger margin
 suggests an out-of-genre robustness story worth a dedicated one-line note on the scorecard alongside the
 plain-words line.
+
+INTEGRATED_BY_STRATEGY 2026-09-14 23:04 local -- the row is REGISTERED on the board as a new_board_arm (informational until promoted): UD-EWT 167 clauses: model 0.5269 vs the copula-adjacent simple rule 0.4731 (not CI-sep; predicate-alone 0.84 -- the loss is the holder half) vs twin 0.0659 (CI-sep); GUM 366: 0.4290 vs 0.3333 (CI-sep) vs twin 0.0410; pre-113 -> current 0.0659 -> 0.5269 / 0.0492 -> 0.4290 (the landing's effect, visible for the first time). Promotion to the seven per_dimension rows waits on pri 117 (the holder half) so the row separates from its simple floor on UD-EWT too.
