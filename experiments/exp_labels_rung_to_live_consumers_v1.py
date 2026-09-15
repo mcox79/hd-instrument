@@ -1024,6 +1024,352 @@ def run_isa(cap=None, n_boot=2000, seed=SEED):
 
 
 # ==================================================================================================
+# ARM 8 (phase 7) -- THE INFINITIVAL ATTACHMENT LOSS, per construction, and a count-accrued cue for it
+# ==================================================================================================
+INFIN_CLASSES = ("xcomp_control", "advcl_purpose", "acl_nominal", "csubj_extrapos", "in_order_to", "other")
+
+
+def _infin_sites(sents, tg, ps):
+    """Every infinitival VERB (a VERB immediately preceded by PART/ADP `to`) with its GOLD head + deprel, its
+    GOLD construction class, and the attachment ARM's head.  The population the purpose decision reads."""
+    from hdlab.verb_subcat_frames import SubcatFrames
+    try:
+        sc = SubcatFrames.load()
+    except Exception:
+        sc = None
+    out = []
+    for si, s in enumerate(sents):
+        toks = [t["form"] for t in s]
+        n = len(toks)
+        if n < 3 or n > 80:
+            continue
+        low = [t.lower() for t in toks]
+        if "to" not in low:
+            continue
+        up, tp, heads, hp, conf, _m = _parse_one(tg, ps, toks)
+        gh = {t["id"]: t["head"] for t in s}
+        gd = {t["id"]: t["deprel"] for t in s}
+        gu = {t["id"]: t["upos"] for t in s}
+        for i in range(1, n):                              # 0-based index of the infinitival VERB
+            if up[i] != "VERB" or low[i - 1] != "to":
+                continue
+            vid = i + 1
+            dep = (gd.get(vid, "") or "").split(":")[0]
+            gold_h = gh.get(vid, 0)
+            hcat = gu.get(gold_h, "ROOT") if gold_h else "ROOT"
+            marked = (i >= 3 and low[i - 3] == "in" and low[i - 2] == "order") or \
+                     (i >= 3 and low[i - 3] == "so" and low[i - 2] == "as")
+            if marked:
+                cls = "in_order_to"
+            elif dep == "xcomp":
+                cls = "xcomp_control"
+            elif dep == "advcl":
+                cls = "advcl_purpose"
+            elif dep in ("acl",) or (dep == "acl" ):
+                cls = "acl_nominal"
+            elif dep in ("csubj", "ccomp"):
+                cls = "csubj_extrapos"
+            else:
+                cls = "other"
+            if cls == "other" and dep == "acl":
+                cls = "acl_nominal"
+            out.append({"sid": si, "vid": vid, "toks": toks, "pos": list(up), "low": low,
+                        "heads": heads, "hp": hp, "conf": conf, "gold_head": gold_h, "gold_dep": dep,
+                        "gold_head_cat": hcat, "cls": cls, "arm_head": heads.get(vid, 0),
+                        "n": n, "sc_ct": (bool(sc and gold_h and 1 <= gold_h <= n
+                                               and sc.is_complement_taker(low[gold_h - 1])) if sc else False)})
+    return out
+
+
+def _infin_gov_cues(r, cand):
+    """The cue VALUES for "is `cand` the governor of this infinitival verb" -- all arc-free, all readable by the
+    attachment arm at read time, all the kind of thing it already accrues a validity for (pri 101's opener class,
+    pri 117's predicate slot).  CONFIGURATION = what the infinitival marker sits behind."""
+    low, pos, n = r["low"], r["pos"], r["n"]
+    t = r["vid"] - 1                                    # 0-based infinitival verb
+    marker = t - 1                                       # the `to`
+    between = pos[min(cand, marker):max(cand - 1, marker)] if cand else []
+    cfg_parts = []
+    cfg_parts.append("mark" if (marker >= 2 and low[marker - 1] in ("order", "as")) else "bare")
+    prev = pos[marker - 1] if marker - 1 >= 0 else "NONE"
+    cfg_parts.append(prev)
+    cfg = "|".join(cfg_parts)
+    ccat = pos[cand - 1] if cand and 1 <= cand <= n else "ROOT"
+    d = (t + 1) - cand
+    return cfg, {
+        "candcat": ccat,
+        "dir": "L" if d > 0 else "R",
+        "dist": "1" if abs(d) == 1 else "2" if abs(d) == 2 else "3-4" if abs(d) <= 4 else "5+",
+        "adp_between": "1" if any(c == "ADP" for c in between) else "0",
+        "verb_between": "1" if any(c == "VERB" for c in between) else "0",
+        "nearest_verb": "1" if cand == _nearest_prev(pos, marker, "VERB") else "0",
+        "nearest_nom": "1" if cand == _nearest_prev(pos, marker, "NOM") else "0",
+        "predslot": "1" if ccat in ("VERB", "AUX") else "0",
+    }
+
+
+def _nearest_prev(pos, k, kind):
+    for j in range(k - 1, -1, -1):
+        if kind == "VERB" and pos[j] == "VERB":
+            return j + 1
+        if kind == "NOM" and pos[j] in NOMINAL:
+            return j + 1
+    return 0
+
+
+def _infin_candidates(r, window=8):
+    """The governors an infinitival clause can have: any VERB / AUX / nominal / ADJ within a window, plus ROOT."""
+    pos, n, t = r["pos"], r["n"], r["vid"] - 1
+    c = [j + 1 for j in range(max(0, t - window), min(n, t + window + 1))
+         if j != t and pos[j] in ("VERB", "AUX", "NOUN", "PROPN", "PRON", "ADJ")]
+    return c or [0]
+
+
+def infin_learn(rows, alpha=1.0, min_count=3):
+    """A count-accrued VALIDITY for the infinitival-governor decision, in the attachment arm's own discipline:
+    strength(cue=value) = log P(correct | cfg, value) - log P(correct | cfg).  PLASTIC by construction -- one
+    `observe` per confirmed comprehension is a counter increment."""
+    cfgc = collections.defaultdict(lambda: [0.0, 0.0])
+    cuec = collections.defaultdict(lambda: [0.0, 0.0])
+    for r in rows:
+        if not r["gold_head"]:
+            continue
+        for cand in _infin_candidates(r):
+            y = 1.0 if cand == r["gold_head"] else 0.0
+            cfg, cues = _infin_gov_cues(r, cand)
+            cfgc[cfg][0] += y
+            cfgc[cfg][1] += 1.0
+            for cn, cv in cues.items():
+                k = "%s|%s|%s" % (cn, cfg, cv)
+                cuec[k][0] += y
+                cuec[k][1] += 1.0
+    base = {k: float(np.log((v[0] + alpha) / (v[1] + 2 * alpha))) for k, v in cfgc.items()}
+    tot = sum(v[0] for v in cfgc.values()); tn = sum(v[1] for v in cfgc.values())
+    prior = float(np.log((tot + alpha) / (tn + 2 * alpha)))
+    st = {}
+    for k, v in cuec.items():
+        if v[1] < min_count:
+            continue
+        cfg = k.split("|")[1] + "|" + k.split("|")[2] if k.count("|") > 3 else k.split("|")[1]
+        st[k] = float(np.log((v[0] + alpha) / (v[1] + 2 * alpha)) - base.get(cfg, prior))
+    return {"prior": prior, "cfg": base, "strength": st, "alpha": alpha, "min_count": min_count,
+            "counts": {"cfg": {k: list(v) for k, v in cfgc.items()},
+                       "cue": {k: list(v) for k, v in cuec.items()}}}
+
+
+def infin_pick(tab, r):
+    """argmax over candidate governors of the additive cue activation -- the attachment arm's own operation."""
+    best, bs = 0, -1e18
+    for cand in _infin_candidates(r):
+        cfg, cues = _infin_gov_cues(r, cand)
+        a = tab["cfg"].get(cfg, tab["prior"])
+        for cn, cv in cues.items():
+            s = tab["strength"].get("%s|%s|%s" % (cn, cfg, cv))
+            if s is not None:
+                a += s
+        if a > bs:
+            best, bs = cand, a
+    return best
+
+
+def run_infin(cap_train=None, cap_test=None, n_boot=2000, seed=SEED):
+    """(1a) WHERE the attachment arm loses the infinitival head, per GOLD construction, with counts.
+    (2c) A PROTOTYPE count-accrued governor cue, and the purpose decision re-measured on its heads."""
+    tg, ps = _frontend()
+    tr = _infin_sites(_load_ud(UD_TRAIN, cap_train), tg, ps)
+    te = _infin_sites(_load_ud(UD_TEST, cap_test), tg, ps)
+    tab = infin_learn(tr)
+    per = collections.defaultdict(lambda: collections.defaultdict(int))
+    wrong_goes = collections.Counter()
+    for r in te:
+        c = r["cls"]
+        per[c]["n"] += 1
+        ok = int(r["arm_head"] == r["gold_head"])
+        per[c]["arm_ok"] += ok
+        r["proto_head"] = infin_pick(tab, r)
+        per[c]["proto_ok"] += int(r["proto_head"] == r["gold_head"])
+        per[c]["nearest_verb_ok"] += int(_nearest_prev(r["pos"], r["vid"] - 2, "VERB") == r["gold_head"])
+        if not ok:
+            ac = (r["pos"][r["arm_head"] - 1] if r["arm_head"] and 1 <= r["arm_head"] <= r["n"] else "ROOT")
+            wrong_goes["%s -> arm says %s (gold %s)" % (c, ac, r["gold_head_cat"])] += 1
+    tot = {"n": sum(per[c]["n"] for c in per),
+           "arm_ok": sum(per[c]["arm_ok"] for c in per),
+           "proto_ok": sum(per[c]["proto_ok"] for c in per),
+           "nearest_verb_ok": sum(per[c]["nearest_verb_ok"] for c in per)}
+    by = collections.defaultdict(list)
+    for r in te:
+        by[r["sid"]].append(r)
+    units = sorted(by)
+    boot = _boot_paired(units, by, lambda rs: float(
+        np.mean([r["proto_head"] == r["gold_head"] for r in rs])
+        - np.mean([r["arm_head"] == r["gold_head"] for r in rs])), n_boot, seed)
+    rng = np.random.default_rng(seed)
+    twin = {"prior": tab["prior"], "cfg": tab["cfg"],
+            "strength": {k: float(v) for k, v in zip(tab["strength"],
+                                                     rng.permutation(list(tab["strength"].values())))},
+            "alpha": tab["alpha"], "min_count": tab["min_count"], "counts": tab["counts"]}
+    twin_ok = float(np.mean([infin_pick(twin, r) == r["gold_head"] for r in te]))
+    return {"n_train": len(tr), "n_test": len(te),
+            "per_construction": {c: {"n": per[c]["n"],
+                                     "arm_head_accuracy": per[c]["arm_ok"] / max(1, per[c]["n"]),
+                                     "arm_error_rate": 1.0 - per[c]["arm_ok"] / max(1, per[c]["n"]),
+                                     "prototype_accuracy": per[c]["proto_ok"] / max(1, per[c]["n"]),
+                                     "floor_nearest_preceding_verb": per[c]["nearest_verb_ok"] / max(1, per[c]["n"])}
+                                 for c in sorted(per, key=lambda k: -per[k]["n"])},
+            "overall": {"arm_head_accuracy": tot["arm_ok"] / max(1, tot["n"]),
+                        "arm_error_rate": 1.0 - tot["arm_ok"] / max(1, tot["n"]),
+                        "prototype_accuracy": tot["proto_ok"] / max(1, tot["n"]),
+                        "floor_nearest_preceding_verb": tot["nearest_verb_ok"] / max(1, tot["n"]),
+                        "twin_permuted_strengths": twin_ok, "n": tot["n"]},
+            "paired_bootstrap_prototype_minus_arm": boot,
+            "where_the_arm_puts_it_instead": dict(wrong_goes.most_common(14)),
+            "n_cue_strengths": len(tab["strength"]), "_table": tab}
+
+
+# ==================================================================================================
+# ARM 9 (phase 7) -- FLIP THE PATIENT DEFER ON: the selective-accuracy / coverage curve, dev-selected tau
+# ==================================================================================================
+def run_defer(ud_cap=400, n_boot=2000, seed=SEED, smoke=False):
+    """The reader's OWN patient decisions on the board's UD path, ONE read per arm, then tau swept post-hoc over
+    the collected confidences (a defer threshold cannot change the read -- it gates the READOUT).  Dev/test split
+    by CHUNK so the reported tau is not selected on the items it is reported on."""
+    from experiments.exp_board_rows_on_the_reader_v1 import (_ud_sents, _ud_write_chunk, _gold_patient_items,
+                                                            UD_CHUNK, _norm)
+    from hdlab.situation_reader import SituationReader
+    from experiments.exp_name_entity_clustering_v1 import load_given_gazetteer
+    gaz = load_given_gazetteer()
+    ud = _ud_sents(cap=ud_cap)
+    chunks = [ud[i:i + UD_CHUNK] for i in range(0, len(ud), UD_CHUNK)]
+    tmp = tempfile.mkdtemp(prefix="p129defer_")
+    rows = {"shipped": [], "bf": []}
+    for arm in ("shipped", "bf"):
+        for k, ch in enumerate(chunks):
+            p = os.path.join(tmp, "ud_%03d.conll" % k)
+            if arm == "shipped":
+                _ud_write_chunk(ch, p, "udchunk%03d" % k)
+            rdr = SituationReader(gaz=gaz)
+            if arm == "bf":
+                rdr._patient_arc_confidence = (lambda toks, v, pk, _r=rdr: _bf_pconf_for(_r, toks, v, pk))
+            sm = rdr.read(p)
+            ev = collections.defaultdict(list)
+            for e in sm.events:
+                ev[(e.sent_idx, e.pred_idx)].append(e)
+            for si, s in enumerate(ch):
+                toks = [t["form"] for t in s]
+                for (v, pat, _pz) in _gold_patient_items(s):
+                    evs = ev.get((si, v - 1), [])
+                    if not evs:
+                        continue
+                    e = evs[0]
+                    if e.patient_conf is None:
+                        continue
+                    rows[arm].append({"chunk": k, "conf": float(e.patient_conf),
+                                      "correct": int(_norm(e.patient) == _norm(toks[pat - 1]))})
+    out = {"n_ud_sentences": len(ud), "n_chunks": len(chunks), "arms": {}}
+    dev_chunks = {k for k in range(len(chunks)) if k % 2 == 0}
+    TAUS = [round(x, 3) for x in np.arange(0.05, 0.96, 0.05)]
+    for arm in ("shipped", "bf"):
+        R = rows[arm]
+        if not R:
+            out["arms"][arm] = {"n": 0}
+            continue
+        dev = [r for r in R if r["chunk"] in dev_chunks]
+        tst = [r for r in R if r["chunk"] not in dev_chunks]
+
+        def curve(rs):
+            o = []
+            for t in TAUS:
+                c = [r for r in rs if r["conf"] >= t]
+                o.append({"tau": t, "coverage": len(c) / max(1, len(rs)),
+                          "selective_accuracy": (float(np.mean([r["correct"] for r in c])) if c else float("nan")),
+                          "n_committed": len(c)})
+            return o
+
+        dcur = curve(dev)
+        # DEV RULE, stated before looking at test: the largest tau whose coverage is still >= 0.75
+        elig = [x for x in dcur if x["coverage"] >= 0.75 and x["n_committed"] >= 20]
+        pick = max(elig, key=lambda x: x["tau"]) if elig else dcur[0]
+        tcur = curve(tst)
+        at = min(tcur, key=lambda x: abs(x["tau"] - pick["tau"]))
+        blanket = float(np.mean([r["correct"] for r in tst])) if tst else float("nan")
+        out["arms"][arm] = {"n_decisions": len(R), "n_dev": len(dev), "n_test": len(tst),
+                            "blanket_accuracy_test": blanket,
+                            "dev_curve": dcur, "test_curve": tcur,
+                            "dev_selected_tau": pick["tau"], "dev_coverage": pick["coverage"],
+                            "dev_selective_accuracy": pick["selective_accuracy"],
+                            "test_coverage_at_tau": at["coverage"],
+                            "test_selective_accuracy_at_tau": at["selective_accuracy"],
+                            "test_lift_over_blanket": (at["selective_accuracy"] - blanket)
+                            if at["selective_accuracy"] == at["selective_accuracy"] else float("nan")}
+        by = collections.defaultdict(list)
+        for r in tst:
+            by[r["chunk"]].append(r)
+        if by:
+            out["arms"][arm]["paired_bootstrap_selective_minus_blanket"] = _boot_paired(
+                sorted(by), by,
+                lambda rs, t=pick["tau"]: (float(np.mean([r["correct"] for r in rs if r["conf"] >= t]))
+                                           - float(np.mean([r["correct"] for r in rs])))
+                if any(r["conf"] >= t for r in rs) else float("nan"), n_boot, seed)
+    return out
+
+
+def _bf_pconf_for(reader, toks, v, pk):
+    try:
+        pos = reader._cached_tag(list(toks))
+        heads, conf, _m = reader._cached_parse_conf(list(toks), pos)
+        hp = reader._cached_head_posterior(list(toks), pos)
+        return bf_patient_confidence(list(toks), list(pos), heads, hp, conf, v, pk)
+    except Exception:
+        return None
+
+
+# ==================================================================================================
+# ARM 10 (phase 7) -- WHY the is-a map is dead: the appos licence is never the SOLE licence
+# ==================================================================================================
+def run_isadead(gum_docs=8, smoke=False):
+    """`entity_resolver.resolve_commonnouns` reaches the appos map at entity_resolver.py:542 ONLY in the
+    DIFF-HEAD branch, and there it is the FIRST of SIX disjoined licences (appos / appos-to-a-name / WordNet
+    type / encyclopedic / conceptual / coarse-focus).  An is-a edge co-types its pair BY DEFINITION, so the
+    WordNet type licence covers the same pairs.  COUNT it: re-run the resolver on the SAME mention stream with
+    the map REAL and EMPTY and diff every record."""
+    from experiments.exp_board_rows_on_the_reader_v1 import (_gum_test_docs, _write_two_conll,
+                                                             _install_role_snapshot)
+    from hdlab.situation_reader import SituationReader
+    from hdlab.scene_segment import parse_conll_sentences
+    docs, gaz = _gum_test_docs(n_docs=gum_docs, prefix=bool(smoke))
+    tmp = tempfile.mkdtemp(prefix="p129isa_")
+    tot = {"records": 0, "differing": 0, "edges": 0, "docs": 0, "bridges_real": 0, "bridges_empty": 0}
+    per_doc = []
+    for d in docs[:gum_docs]:
+        _a, p_txt, _p = _write_two_conll(d, tmp)
+        rdr = SituationReader(gaz=gaz)
+        _install_role_snapshot(rdr)
+        sm = rdr.read(p_txt)
+        ms = list(getattr(rdr, "_role_mentions_snapshot", []) or [])
+        sents = parse_conll_sentences(p_txt, lower=True)
+        if not ms:
+            continue
+        real_map = rdr._commonnoun_appos_map(sents)
+        n_edges = sum(len(v) for v in real_map.values())
+        a = rdr._resolve_commonnouns([dict(m) for m in ms], sents)
+        rdr._commonnoun_appos_map = lambda _s: {}
+        b = rdr._resolve_commonnouns([dict(m) for m in ms], sents)
+        diff = sum(1 for x, y in zip(a, b) if x.get("resolved_ref") != y.get("resolved_ref"))
+        br_a = sum(1 for x in a if x.get("resolved_ref") is not None and x.get("resolved_ref") != x.get("own_ref"))
+        br_b = sum(1 for x in b if x.get("resolved_ref") is not None and x.get("resolved_ref") != x.get("own_ref"))
+        tot["records"] += len(a); tot["differing"] += diff; tot["edges"] += n_edges; tot["docs"] += 1
+        tot["bridges_real"] += br_a; tot["bridges_empty"] += br_b
+        per_doc.append({"docid": d.docid, "records": len(a), "isa_edges": n_edges, "differing": diff,
+                        "nonwriting_bridges_real": br_a, "nonwriting_bridges_empty": br_b})
+    return {"consumer": "hdlab/entity_resolver.py:542 (tset = appos_map.get(hl, set())) -- the FIRST of six "
+                        "disjoined licences in the DIFF-HEAD branch only; the SAME-HEAD recency branch above it "
+                        "never consults the map at all",
+            "totals": tot, "per_doc": per_doc,
+            "verdict": ("the appos licence changes ZERO resolution records -- it is never the SOLE licence"
+                        if tot["differing"] == 0 else "%d records change" % tot["differing"])}
+
+
+# ==================================================================================================
 # ARM 7 -- the live reader's board rows, BOTH ARMS IN ONE PROCESS
 # ==================================================================================================
 def _install_bf_routing(reader, purpose_tab, purpose_tau, purpose_drop, appos="bf"):
@@ -1341,6 +1687,9 @@ def main():
     ap.add_argument("--state", action="store_true")
     ap.add_argument("--isa", action="store_true")
     ap.add_argument("--rows", action="store_true")
+    ap.add_argument("--infin", action="store_true")
+    ap.add_argument("--defer", action="store_true")
+    ap.add_argument("--isadead", action="store_true")
     ap.add_argument("--gum-docs", type=int, default=16)
     ap.add_argument("--ud-cap", type=int, default=400)
     ap.add_argument("--cap", type=int, default=0)
@@ -1353,9 +1702,11 @@ def main():
         sys.exit(0 if self_test() else 1)
     smoke = bool(a.smoke) or a.mode == "smoke"          # BARE == FULL (the remote runner invokes cells bare)
     cap = a.cap or (200 if smoke else None)
-    sel = {k for k in ("probe", "identity", "patient", "goal", "state", "isa", "rows") if getattr(a, k)}
+    sel = {k for k in ("probe", "identity", "patient", "goal", "state", "isa", "rows",
+                       "infin", "defer", "isadead") if getattr(a, k)}
     if not sel:
-        sel = {"probe", "identity", "patient", "goal", "state", "isa", "rows"}
+        sel = {"probe", "identity", "patient", "goal", "state", "isa", "rows",
+               "infin", "defer", "isadead"}
     os.makedirs(OUT_DIR, exist_ok=True)
     M = {"anchor": ANCHOR, "seed": a.seed, "smoke": smoke, "arms_run": sorted(sel),
          "ts_iso": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}
@@ -1414,6 +1765,33 @@ def main():
             print("[rows] %-20s shipped %.4f (n=%s)  bf %.4f (n=%s)  bf_isa_empty %.4f"
                   % (row, sh.get("score", float("nan")), sh.get("n"),
                      bf.get("score", float("nan")), bf.get("n"), em.get("score", float("nan"))))
+    if "infin" in sel:
+        M["infin"] = run_infin(cap_train=(600 if smoke else None), cap_test=cap, n_boot=a.n_boot, seed=a.seed)
+        tb = M["infin"].pop("_table")
+        with open(os.path.join(OUT_DIR, "infinitival_governor_validities_ud_ewt.json"), "w",
+                  encoding="ascii", newline="\n") as fh:
+            json.dump({k: v for k, v in tb.items()}, fh, indent=1, sort_keys=True)
+        o = M["infin"]["overall"]
+        print("[infin] n=%d  arm head %.4f (error %.4f)  prototype %.4f  nearest-verb floor %.4f  twin %.4f"
+              % (o["n"], o["arm_head_accuracy"], o["arm_error_rate"], o["prototype_accuracy"],
+                 o["floor_nearest_preceding_verb"], o["twin_permuted_strengths"]))
+        for c, v in M["infin"]["per_construction"].items():
+            print("         %-16s n=%-5d arm %.4f  proto %.4f" % (c, v["n"], v["arm_head_accuracy"],
+                                                                  v["prototype_accuracy"]))
+    if "defer" in sel:
+        M["defer"] = run_defer(ud_cap=(60 if smoke else a.ud_cap), n_boot=a.n_boot, seed=a.seed, smoke=smoke)
+        for arm, v in M["defer"]["arms"].items():
+            if v.get("n_decisions"):
+                print("[defer] %-8s n=%d  tau(dev)=%.2f  test coverage %.3f  selective %.4f  blanket %.4f "
+                      "(lift %+.4f)" % (arm, v["n_decisions"], v["dev_selected_tau"],
+                                        v["test_coverage_at_tau"], v["test_selective_accuracy_at_tau"],
+                                        v["blanket_accuracy_test"], v["test_lift_over_blanket"]))
+    if "isadead" in sel:
+        M["isadead"] = run_isadead(gum_docs=(2 if smoke else 8), smoke=smoke)
+        t = M["isadead"]["totals"]
+        print("[isadead] %d docs, %d records, %d is-a edges -> %d records change with the map EMPTIED "
+              "(non-writing bridges %d vs %d)" % (t["docs"], t["records"], t["edges"], t["differing"],
+                                                 t["bridges_real"], t["bridges_empty"]))
     M["elapsed_s"] = round(time.time() - t0, 1)
     name = "metrics.json" if not a.tag else ("metrics%s.json" % a.tag)
     with open(os.path.join(OUT_DIR, name), "w", encoding="ascii") as fh:

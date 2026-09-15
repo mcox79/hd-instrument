@@ -2,11 +2,31 @@ From: solver session, priority 129
 Subject: route the default read's NOT_BF consumers to the BF labels rung (the ONE Competition-Model role
          organ) and to the competition's own belief -- retire arc_labeler + parse_confidence from the live path
 
-Unified diff against the CURRENT working tree (pri 125's hunks are already applied there).
+REGENERATED AGAINST HEAD (phase 7).  pri 125's diff is APPLIED in the working tree but NOT COMMITTED, so
+this diff is generated against `git show HEAD:hdlab/<file>`.  THAT IS SAFE AND CHECKED: all 12 hunks'
+pre-images are found VERBATIM in the HEAD version of every file, i.e. NONE of them touches pri 125's
+regions (pri 125 changed situation_reader.py at lines 90/247/380/462/995/1654/1683/1865/1895/2106/
+2674/2690/4531/4618/4639; my hunks are at 1776/1787/2377/3057/4308/4346/4435 in HEAD numbering and are
+disjoint).  So it applies to HEAD and to the working tree alike.
 HOW TO APPLY -- the tracked files are CRLF and this diff is LF, so pass --ignore-whitespace:
   git apply --ignore-whitespace notes/problems/<slug>/labels_rung_consumers_patch.diff
-VERIFIED: `git apply --check --ignore-whitespace ...` is clean on the tree this was written against
-(2026-09-15, after pri 125 landed).  Every hunk carries 1-7 lines of context on both sides.
+VERIFIED, three ways: (1) every hunk's pre-image located verbatim in HEAD; (2) `git apply --check --cached
+--ignore-whitespace` clean (the index holds HEAD's hdlab content, pri 125 being unstaged); (3) every patched
+file COMPILES and an AST walk of the patched sources finds exactly ONE remaining import of either NOT_BF
+module -- `predicate_argument_frontend._labeler()` at line 56, a function this patch leaves with NO caller in
+hdlab/.  THAT AUDIT EARNED ITS KEEP: it caught a live `from hdlab.parse_confidence import defer` in the
+reader's defer branch (HEAD situation_reader.py:2589) that the probe cannot see today only because the default
+tau is None -- it would have re-imported a NOT_BF module the instant anyone flipped the defer on, which is
+exactly the next step.  Fixed by putting the opt-out (`defer_below`, Kiani-Shadlen) in the organ that PRODUCES
+the confidence.
+
+NOT IN THIS DIFF, DELIBERATELY: a non-None default for `precision_weight_tau`.  Flipping the defer ON
+needs the tau selected on the reader's OWN decisions through read(), and that measurement
+(`--defer`, the selective-accuracy/coverage curve with a dev/test chunk split) had not landed at
+submission.  What IS measured: on the reader's patient DECISION FUNCTION over UD-EWT test the BF
+confidence gives selective accuracy 0.9470 at 50% coverage / 0.9234 at 67% / 0.8987 at 80% against a
+blanket 0.8148.  The flip is a ONE-LINE change (`precision_weight_tau: Optional[float] = None` ->
+the dev-selected value, situation_reader.py:1026 in HEAD) and it is left to whoever reads that curve.
 
 FIVE live consumers, not three (measured: experiments/exp_labels_rung_to_live_consumers_v1.py --probe):
   1. predicate_argument_frontend.structural_patient_pick   226 ArcLabeler.label calls / 2 docs  (the brief
@@ -24,10 +44,14 @@ WHAT EACH BECOMES, AND THE NUMBER (full detail + CIs in SOLVED.md):
                                                               +0.0053 CI95 [+0.0000, +0.0134]; dropping the
                                                               path entirely is -0.0107 CI-sep DOWN (so the
                                                               replacement is NECESSARY, not just a removal)
-  4. -> the predicate-slot copular half only; the perceptron `appos` half RETIRED.  MEASURED DEAD AT THE
-     CONSUMER: common_noun_coref scores 0.4903 on 155 anaphoric mentions IDENTICALLY whether the map is the
-     shipped perceptron recipe, the copula-only BF read, or EMPTY (paired 0.0000 CI [0,0] both ways, 8 GUM
-     documents, every floor and twin identical) -- so this half costs 160 label calls/document for nothing
+  4. -> DELETED FROM THE LIVE PATH (phase 7), not halved.  MEASURED DEAD AT THE CONSUMER: common_noun_coref
+     scores 0.4903 on 155 anaphoric mentions IDENTICALLY whether the map is the shipped perceptron recipe, a
+     copula-only BF read, or EMPTY (paired 0.0000 CI [0,0] both ways, 8 GUM documents, every floor and twin
+     identical).  WHY it cannot matter: entity_resolver.py:542 reaches the map only in the DIFF-HEAD branch,
+     and there it is the FIRST OF SIX DISJOINED licences -- the WordNet type licence already admits every
+     pair an is-a edge admits, because an is-a edge co-types its pair by definition.  The brain-foundational
+     copula read is KEPT IMPORTABLE and UNCALLED as `_commonnoun_isa_from_predication` for the
+     definitional-extraction lead.  160 `ArcLabeler.label` calls per document go away
   5. -> graded_role_assigner.purpose_complement_posterior     a new ARM of the same competition, cue
                                                               validities accrued from UD-EWT train counts
 
@@ -40,7 +64,7 @@ NEW ASSET the diff expects (the verb_subcat_frames precedent -- the cell builds 
 diff --git a/hdlab/graded_role_assigner.py b/hdlab/graded_role_assigner.py
 --- a/hdlab/graded_role_assigner.py
 +++ b/hdlab/graded_role_assigner.py
-@@ -1256,6 +1256,214 @@ def role_decision(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int]
+@@ -1256,6 +1256,226 @@ def role_decision(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int]
      rel = reliability if reliability is not None else load_margin_reliability()
      return {"role": ROLE_CLASSES[k], "dep": ROLE_TO_DEP[ROLE_CLASSES[k]], "posterior": p, "margin": m,
              "reliability": {kind: margin_reliability(m, kind, rel) for kind in RELIABILITY_KINDS}}
@@ -111,6 +135,18 @@ diff --git a/hdlab/graded_role_assigner.py b/hdlab/graded_role_assigner.py
 +    for c in cands:
 +        tot += pp if c == pk else patient_belief(toks, pos, heads, c, head_post, conf, tab)
 +    return float(pp * (pp / tot)) if tot > 0 else 0.0
++
++
++def defer_below(confidence: Optional[float], threshold: Optional[float]) -> bool:
++    """THE OPT-OUT (Kiani & Shadlen 2009 / Kepecs 2008): do not hard-commit a decision whose own reliability is
++    below `threshold`; Friston's precision-weighting in its discrete limit.  threshold=None -> never defer, so an
++    un-flipped deployment is byte-identical.  Lives HERE, next to the organ that PRODUCES the confidence, so a
++    consumer that defers never has to import the retired fitted readout for a two-line comparison (pri 129: the
++    reader's defer branch still did `from hdlab.parse_confidence import defer`, which would have re-imported a
++    NOT_BF module the instant anyone set a tau -- invisible today only because the default is None)."""
++    if threshold is None or confidence is None:
++        return False
++    return float(confidence) < float(threshold)
 +
 +
 +# ===============================================================================================================
@@ -255,13 +291,13 @@ diff --git a/hdlab/graded_role_assigner.py b/hdlab/graded_role_assigner.py
  
  
  def coarse_role_posterior_tagmarg(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int], i: int,
-@@ -1980,4 +2188,7 @@ __all__ = ["hybrid_role_patient", "competition_pick", "cue_supports", "voice_cues
+@@ -1980,4 +2200,7 @@ __all__ = ["hybrid_role_patient", "competition_pick", "cue_supports", "voice_cues
             "hybrid_agent_pick", "agent_override_fires", "agent_override_licensed",
             "role_margin", "role_decision", "margin_reliability", "observe_margin_outcome",
             "save_margin_reliability", "load_margin_reliability", "calibrated_class_posterior",
 -           "reliability_from_counts", "RELIABILITY_KINDS", "reliability_gain", "roles_with_decisions"]
 +           "reliability_from_counts", "RELIABILITY_KINDS", "reliability_gain", "roles_with_decisions",
-+           "patient_belief", "patient_slot_confidence", "PATIENT_CLASSES",
++           "patient_belief", "patient_slot_confidence", "defer_below", "PATIENT_CLASSES",
 +           "purpose_cues", "purpose_complement_posterior", "observe_purpose_outcome",
 +           "load_purpose_validities", "save_purpose_validities", "PURPOSE_CLASSES"]
 diff --git a/hdlab/copular_binding.py b/hdlab/copular_binding.py
@@ -330,7 +366,7 @@ diff --git a/hdlab/copular_binding.py b/hdlab/copular_binding.py
 diff --git a/hdlab/predicate_argument_frontend.py b/hdlab/predicate_argument_frontend.py
 --- a/hdlab/predicate_argument_frontend.py
 +++ b/hdlab/predicate_argument_frontend.py
-@@ -450,7 +450,17 @@ def structural_patient_pick(tokens: Sequence[str], upos: Sequence[str], heads: D
+@@ -450,7 +450,21 @@ def structural_patient_pick(tokens: Sequence[str], upos: Sequence[str], heads: D
      0.8785->0.8850 (+0.0065 CI-sep, UD-EWT n=1235). Default (marginals=None), or the asset absent -> BYTE-IDENTICAL
      to the pre-landing labeled pick. (The parameter-free surgical arm _argstruct_marginal_override is FLAT on its
      own -- the incremental lever is the learned ranker's marginal cue, not the arg/adjunct override.)"""
@@ -344,6 +380,10 @@ diff --git a/hdlab/predicate_argument_frontend.py b/hdlab/predicate_argument_fro
 +    # whole UD-EWT test set (experiments/exp_labels_rung_to_live_consumers_v1.py --identity).  The residual it
 +    # names honestly: 9 tokens of ~25k (0.04%) carry an obj/nsubj:pass label the competition does not emit at
 +    # all, and none of them is any matrix verb's chosen patient.
++    # AFTER THIS CHANGE `_labeler()` (line 51) HAS NO CALLER IN hdlab/ AT ALL -- it is the last thing in this
++    # module that would load the perceptron, and it now loads only if an out-of-tree caller asks.  Left in
++    # place deliberately (deleting a public-ish helper is strategy's call, not a solver's); an AST audit of
++    # the patched sources confirms it is the ONLY remaining import of either NOT_BF module anywhere.
 +    from hdlab.graded_role_assigner import coarse_roles as _coarse_roles
 +    labels = _coarse_roles(list(tokens), list(upos), heads)
      pp = precise_passive(tokens, upos, v)
@@ -369,7 +409,7 @@ diff --git a/hdlab/goal_register.py b/hdlab/goal_register.py
 diff --git a/hdlab/situation_reader.py b/hdlab/situation_reader.py
 --- a/hdlab/situation_reader.py
 +++ b/hdlab/situation_reader.py
-@@ -1816,3 +1816,7 @@ class SituationReader:
+@@ -1776,3 +1776,7 @@ class SituationReader:
          self.entity_kb_resolver = bool(entity_kb_resolver)
 -        self._lab = None               # lazy shared hdlab.arc_labeler.ArcLabeler (deprels for the goal filter)
 +        self._lab = None               # RETIRED pri 129: no live consumer loads the supervised relation
@@ -378,12 +418,12 @@ diff --git a/hdlab/situation_reader.py b/hdlab/situation_reader.py
 +        #                                + the is-a map -> the predicate slot).  Kept as a field so any
 +        #                                out-of-tree caller of _frontend_labeler still sees None, not AttributeError.
          self._pred_detector = None     # lazy hdlab.predicate_detector.PredicateDetector
-@@ -1827,3 +1831,3 @@ class SituationReader:
+@@ -1787,3 +1791,3 @@ class SituationReader:
          self._es_arc = None            # lazy ArcParser (M._ARC_ASSET)
 -        self._es_lab = None            # lazy ArcLabeler (M._LAB_ASSET)
 +        self._es_lab = None            # RETIRED pri 129 (the copular detection is the predicate slot)
          self._es_reg_cls = None        # lazy hdlab.state_register.StateRegister
-@@ -2478,33 +2482,64 @@ class SituationReader:
+@@ -2377,33 +2381,64 @@ class SituationReader:
      def _patient_arc_confidence(self, toks, v, pk):
 -        """CALIBRATED reliability in [0,1] of the who-did-what PATIENT parse arc (1-based `v`, `pk`), or None on
 -        any failure (abstain -- never breaks a read). The precision-weighting substrate: the reader can DEFER on
@@ -477,7 +517,21 @@ diff --git a/hdlab/situation_reader.py b/hdlab/situation_reader.py
  
      @staticmethod
      def _has_to_verb(toks, up):
-@@ -3161,14 +3196,12 @@ class SituationReader:
+@@ -2586,7 +2621,11 @@ class SituationReader:
+                     if theme_pos0 is not None and vp is not None:
+                         p_conf = self._patient_arc_confidence(list(toks), vp + 1, theme_pos0 + 1)
+                         if p_conf is not None and tau is not None:
+-                            from hdlab.parse_confidence import defer as _pw_defer
+-                            p_defer = _pw_defer(p_conf, tau)
++                            # pri 129: the opt-out comes from the organ that PRODUCES the confidence, not from
++                            # the retired fitted readout.  This line was the LAST live import of
++                            # hdlab.parse_confidence -- dormant only because the default tau is None, and it
++                            # would have re-imported a NOT_BF module the instant anyone flipped the defer on.
++                            from hdlab.graded_role_assigner import defer_below as _pw_defer
++                            p_defer = _pw_defer(p_conf, tau)
+                     # AGENT reliability = the Competition-Model competition MARGIN (raw; AUC~0.76, NO calibration
+                     # -- the competition maintains the full candidate distribution). None when the positional/
+@@ -3057,14 +3096,12 @@ class SituationReader:
          deprels_by_sent = None
          if self.goal_purpose_filter:
 -            # the reader's OWN arc-labeler deprels over the SHARED per-read parse (consolidated arc-eager heads).
@@ -500,7 +554,7 @@ diff --git a/hdlab/situation_reader.py b/hdlab/situation_reader.py
 +                for i, t in enumerate(sents)]
          goals = GR.extract_goals(sents, pos, subcat=sc, deprels_by_sent=deprels_by_sent)
          canon, _names = GR.make_canonicalizer(sm, commonnoun_canonical=self.commonnoun_canonical)
-@@ -4412,14 +4445,11 @@ class SituationReader:
+@@ -4308,14 +4345,11 @@ class SituationReader:
          if self._es_mod is None:
              from hdlab import copular_binding as _M
 -            from hdlab.pos_tagger import PosTagger
@@ -518,7 +572,7 @@ diff --git a/hdlab/situation_reader.py b/hdlab/situation_reader.py
              self._es_reg_cls = StateRegister
          M = self._es_mod
          reg = self._es_reg_cls()
-@@ -4450,5 +4480,17 @@ class SituationReader:
+@@ -4346,5 +4380,17 @@ class SituationReader:
                      if i < len(up_c) and up_c[i] not in ("NOUN", "PROPN", "PRON") and d and                             sum(d.get(c, 0.0) for c in ("NOUN", "PROPN", "PRON")) >= STATE_NOMINAL_MASS:
                          up_c[i] = max(("NOUN", "PROPN", "PRON"), key=lambda c: d.get(c, 0.0))
 -            bind = set(M.extract_entity_states(toks, up_c, self._es_arc, self._es_lab, heads=heads,
@@ -538,8 +592,84 @@ diff --git a/hdlab/situation_reader.py b/hdlab/situation_reader.py
 +            bind = set(M.extract_entity_states(toks, up_c, heads=heads, cop_preds=_cp,
 +                                               head_posterior=self._cached_head_posterior(toks, up)))   # graded hand-off (2026-09-13)
              pairs = bind | M.robust_cop(toks, up_c, heads, gate=True)
-@@ -4539,45 +4581,63 @@ class SituationReader:
+@@ -4435,46 +4481,79 @@ class SituationReader:
      def _commonnoun_appos_map(self, sents):
++        """RETIRED ON THE LIVE PATH (pri 129, 2026-09-15) -- returns {} and reads nothing.
++
++        THIS MAP WAS MEASURED DEAD AT ITS OWN CONSUMER.  It fed exactly one place:
++        `entity_resolver.resolve_commonnouns` (hdlab/entity_resolver.py:542, `tset = appos_map.get(hl, set())`),
++        and only in the DIFF-HEAD branch -- the SAME-HEAD recency branch above it never consults the map at all.
++        There it is the FIRST of SIX DISJOINED licences (appos / appos-to-a-name / WordNet type / encyclopedic /
++        conceptual / coarse-focus), and an is-a edge CO-TYPES its pair by definition, so the WordNet type licence
++        already covers every pair the map licenses.  MEASURED (8 GUM test documents through the live reader,
++        experiments/exp_labels_rung_to_live_consumers_v1.py --isadead and --rows --gum-docs 8 --ud-cap 0):
++        emptying the map changes ZERO resolution records, and `common_noun_coref` scores 0.4903 on 155 anaphoric
++        mentions IDENTICALLY with the shipped map, with a copula-only brain-foundational map, and with the map
++        EMPTY (paired 0.0000 CI [0.0000, 0.0000] both ways; every floor and twin identical).
++
++        SO IT IS DELETED RATHER THAN REPLACED.  It was the FIRST importer of the frozen supervised relation
++        labeler on a default read (160 `ArcLabeler.label` calls per document) for a cue no consumer can see, and
++        the rule is: fix to brain-foundational or REMOVE, never keep for a metric.  The brain-foundational
++        successor is NOT a syntactic apposition scan at read time -- an apposition is an EPISODE that updates the
++        anterior-temporal hub's typed knowledge (Rogers & McClelland), and `hdlab/definitional_extraction.py`
++        already reads a genus statement off the page.  `_commonnoun_isa_from_predication` below is kept
++        IMPORTABLE and uncalled so that lead can be built against it.
++
++        Returns {} so every caller's contract is unchanged (entity_resolver reads `.get`)."""
++        return {}
++
++    def _commonnoun_isa_from_predication(self, sents):
++        """IMPORTABLE, NOT CALLED (pri 129): in-text is-a edges from the PREDICATE SLOT + the ONE role
++        competition -- the brain-foundational form of the copula half of the retired map above (the predicate a
++        copula carries tense for, Pustet 2003 / Maienborn 2005, plus the competition's SUBJ belief for its
++        holder; no relation labeler anywhere).  MEASURED on UD-EWT test: it recovers 25 of the 63 gold copular
++        is-a edges against the perceptron recipe's 24 (+0.0163 CI95 [-0.0667, +0.0952], not down).  Kept for the
++        definitional-extraction lead; wire it only WITH a consumer-level instrument that can see it."""
++        from hdlab.lexical_utils import concept_lemma   # BF concept-key (matches _resolve_commonnouns' keying)
++        from hdlab import graded_role_assigner as _GRA
++        from hdlab.attachment_arm import predicate_sites as _ps
++        from hdlab import lexical_categories as _LCp
++        _ix = {r: k for k, r in enumerate(_GRA.ROLE_CLASSES)}
++        _NOM2 = ("NOUN", "PROPN")
++        typed = {}
++        for toks in sents:
++            toks = list(toks)
++            n = len(toks)
++            if n < 2:
++                continue
++            up = self._cached_tag(toks)
++            if sum(1 for t in up if t in _NOM2) < 2:
++                continue                                    # cannot yield an is-a edge -> skip
++            heads = self._cached_parse_heads(toks, up)
++            hp = self._cached_head_posterior(toks, up)
++            mat = self._cached_tag_matrix(toks)
++            if mat is None:
++                continue
++            links = set()
++            for pred in {q + 1 for q, s in _ps(toks, list(up), mat, list(_LCp.get().tags)).items()
++                         if up[q] != "VERB" and s > 0.0}:
++                if up[pred - 1] not in _NOM2:
++                    continue                                # an is-a edge needs a NOMINAL predicate
++                best, bp = None, 0.0
++                for d in range(1, n + 1):
++                    hpd = (hp or {}).get(d)
++                    if heads.get(d) == pred or (hpd and hpd.get(pred, 0.0) > 0.0):
++                        if up[d - 1] not in _NOM2:
++                            continue
++                        post = (_GRA.coarse_role_posterior_headmarg(toks, up, heads, d, hpd) if hpd
++                                else _GRA.coarse_role_posterior(toks, up, heads, d))
++                        pr = float(post[_ix["SUBJ"]] + post[_ix["PASS_SUBJ"]])
++                        if pr > bp:
++                            best, bp = d, pr
++                if best is not None and bp >= 0.5:
++                    links.add(frozenset((concept_lemma(toks[pred - 1]), concept_lemma(toks[best - 1]))))
++            for l in links:
++                a, b = tuple(l) if len(l) == 2 else (next(iter(l)), next(iter(l)))
++                if not a or not b:
++                    continue
++                typed.setdefault(a, set()).add(b)
++                typed.setdefault(b, set()).add(a)
++        return typed
 -        """In-text is-a edges (apposition + copula 'X is/are a Y') from the reader's OWN parse, keyed by
 -        head_lemma -- the appos/copula bridge seed (byte-faithful to TC.appos_copula_isa, but on the reader's
 -        arc-labeler output instead of a gum_coref.Doc). REUSES the shared per-read tag/head cache
@@ -576,68 +706,19 @@ diff --git a/hdlab/situation_reader.py b/hdlab/situation_reader.py
 -                            subj = u
 -                    if subj is not None and up[subj - 1] in ("NOUN", "PROPN"):
 -                        links.add(frozenset((concept_lemma(toks[h - 1]), concept_lemma(toks[subj - 1]))))
-+        """In-text is-a edges from the reader's OWN read, keyed by head_lemma -- the conceptual-bridge seed.
-+
-+        pri 129 (2026-09-15): the COPULA half is read from the PREDICATE SLOT + the ONE role competition
-+        (`attachment_arm.predicate_sites` + `graded_role_assigner`), and the APPOSITION half is RETIRED.  Both
-+        halves used the frozen supervised relation labeler, and this method is the FIRST thing on a default
-+        read to import it.  The copula half transfers (25 of 63 gold copular is-a edges from the slot vs 24
-+        from the perceptron, UD-EWT test).  The apposition half does NOT: the perceptron recovers 28 of 105
-+        gold appositions at precision 0.177, and the strongest arc-free construction schema built for it
-+        recovers 17 (0.162 vs 0.267, paired CI95 [-0.2252, +0.0100] -- not separated, but not matched either),
-+        because 65 of those 105 are COMMA-FREE close appositions ("the terrorist group Hamas") that a
-+        comma-set-off schema cannot see.  It is dropped rather than kept as a NOT_BF stand-in because its
-+        map is MEASURED DEAD at its own consumer: common_noun_coref scores 0.4903 on 155 anaphoric mentions
-+        identically with the shipped map, with this copula-only read, and with the map EMPTY (paired 0.0000
-+        CI [0,0] both ways, 8 GUM documents; SOLVED.md §6).  The copula half is kept because it is now free and
-+        BF; the whole map is a deletion candidate on the same evidence, and the BF replacement for an in-text
-+        is-a seed is filed as a follow-on lead (SOLVED.md §9.3), not left running on the perceptron."""
-+        from hdlab.lexical_utils import concept_lemma   # BF concept-key (matches _resolve_commonnouns' r.heads keying)
-+        from hdlab import graded_role_assigner as _GRA
-+        from hdlab.attachment_arm import predicate_sites as _ps
-+        from hdlab import lexical_categories as _LCp
-+        _ix = {r: k for k, r in enumerate(_GRA.ROLE_CLASSES)}
-+        _NOM2 = ("NOUN", "PROPN")
-+        typed = {}
-+        for toks in sents:
-+            toks = list(toks)
-+            n = len(toks)
-+            if n < 2:
-+                continue
-+            up = self._cached_tag(toks)
-+            if sum(1 for t in up if t in _NOM2) < 2:
-+                continue                                    # cannot yield an is-a edge -> skip (byte-safe)
-+            heads = self._cached_parse_heads(toks, up)      # {dep(1-based): head(1-based), 0=ROOT}
-+            hp = self._cached_head_posterior(toks, up)
-+            mat = self._cached_tag_matrix(toks)
-+            if mat is None:
-+                continue
-+            links = set()
-+            for pred in {q + 1 for q, s in _ps(toks, list(up), mat, list(_LCp.get().tags)).items()
-+                         if up[q] != "VERB" and s > 0.0}:
-+                if up[pred - 1] not in _NOM2:
-+                    continue                                # an is-a edge needs a NOMINAL predicate
-+                best, bp = None, 0.0
-+                for d in range(1, n + 1):
-+                    hpd = (hp or {}).get(d)
-+                    if heads.get(d) == pred or (hpd and hpd.get(pred, 0.0) > 0.0):
-+                        if up[d - 1] not in _NOM2:
-+                            continue
-+                        post = (_GRA.coarse_role_posterior_headmarg(toks, up, heads, d, hpd) if hpd
-+                                else _GRA.coarse_role_posterior(toks, up, heads, d))
-+                        pr = float(post[_ix["SUBJ"]] + post[_ix["PASS_SUBJ"]])
-+                        if pr > bp:
-+                            best, bp = d, pr
-+                if best is not None and bp >= 0.5:
-+                    links.add(frozenset((concept_lemma(toks[pred - 1]), concept_lemma(toks[best - 1]))))
-             for l in links:
-                 a, b = tuple(l) if len(l) == 2 else (next(iter(l)), next(iter(l)))
-                 if not a or not b:
-                     continue
-                 typed.setdefault(a, set()).add(b)
-                 typed.setdefault(b, set()).add(a)
-         return typed
+-            for l in links:
+-                a, b = tuple(l) if len(l) == 2 else (next(iter(l)), next(iter(l)))
+-                if not a or not b:
+-                    continue
+-                typed.setdefault(a, set()).add(b)
+-                typed.setdefault(b, set()).add(a)
+-        return typed
  
+     def _resolve_commonnouns(self, role_mentions, sents):
+
+
+
+
 
 
 

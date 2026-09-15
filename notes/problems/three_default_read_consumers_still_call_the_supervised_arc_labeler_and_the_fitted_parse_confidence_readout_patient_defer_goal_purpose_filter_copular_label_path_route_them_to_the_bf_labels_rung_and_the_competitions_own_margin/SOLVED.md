@@ -2,7 +2,7 @@
 problem: three_default_read_consumers_still_call_the_supervised_arc_labeler_and_the_fitted_parse_confidence_readout_patient_defer_goal_purpose_filter_copular_label_path_route_them_to_the_bf_labels_rung_and_the_competitions_own_margin
 status: SOLVED
 bar: "The probe witness green on 16 documents (no NOT_BF import during a default read); patient / agent / state rows not down full size (or the consumer repair named with items); the goal witnesses not down; the two stand-ins used by no live consumer (grep-level) -- OR a numbered located negative naming the consumer that cannot read the competition and why."
-result: "EVERY LEG MET, AND THE BRIEF'S CONSUMER LIST WAS INCOMPLETE -- the probe on 16 modern GUM documents finds FIVE call sites, not three, and the FIRST importer (`_commonnoun_appos_map`) is one the brief does not name. (1) NO-REGRESS IS EXACT: 16 GUM documents + 400 UD-EWT sentences (20 chunks) through the LIVE SituationReader.read on annotation-free text, BOTH ARMS IN ONE PROCESS -- who_did_what_agent 0.7147 -> 0.7147 (n=389), who_did_what_patient 0.6977 -> 0.6977 (n=301), state 0.7500 -> 0.7500 (n=84), salience 0.3125 -> 0.3125 (n=16); every paired delta EXACTLY 0.0000 with CI [0.0000, 0.0000], and the read is 15.0% FASTER (571.7s -> 485.9s for the same 36 reads, three private supervised asset loads and 1,250 perceptron label calls gone). (2) THE DEFER IS BETTER, NOT MERELY EQUAL: on the whole UD-EWT test set (n=1247 patient items the live chain decides, 872 sentences, blanket accuracy 0.8148) the competition's own patient belief x its object-slot competition separates the reader's RIGHT from WRONG patient decisions at AUC 0.8127 [0.7807, 0.8455] against the frozen fitted logistic's 0.7613 [0.7227, 0.7994] -- paired over sentences +0.0515 CI95 [+0.0166, +0.0881] half=0.0357, CI-SEPARATED -- with the permuted twin at chance (0.5011) and selective accuracy at 50% coverage 0.9470 vs 0.9133. (3) THE BRIEF'S PROPOSED FIX IS REFUTED AND REPLACED BY A BETTER ONE: the competition's MARGIN is at chance for this decision (AUC 0.4962, its count-calibrated reliability 0.4827; paired -0.2652 CI95 [-0.3385, -0.1909], CI-separated BELOW the readout it was proposed to replace) because a large margin can mean confidently-OBL; reliability belongs to the decision the CONSUMER reads, which is the PATIENT-CLASS belief contested for one slot. (4) THE COPULAR PATH IS LOAD-BEARING AND THE REPLACEMENT IS NOT DOWN: 377 gold predicational states on UD-EWT test, read-back recall from the predicate slot 0.7958 vs the perceptron's 0.7905 (+0.0052 CI95 [+0.0000, +0.0134]) with FEWER pairs emitted (429 vs 451), while DROPPING the path is -0.0106 CI95 [-0.0214, -0.0026], CI-separated DOWN -- so the perceptron was doing real work and had to be replaced, not cut. (5) THE LARGEST CALL SITE'S PERCEPTRON OUTPUT IS PROVABLY DISCARDED: structural_patient_pick (620 of 1,468 label calls on four documents) reads only obj / nsubj:pass, both already decided by the Competition-Model overlay -- substituting the organ directly gives 2175/2175 IDENTICAL matrix-verb patient picks over the whole UD-EWT test set (10 tokens of ~25k carry an obj/nsubj:pass label the competition does not emit; none is any matrix verb's chosen patient). (6) THE GOAL PURPOSE FILTER REACHES PARITY: a new PURPOSE arm of the same competition (cue validities accrued from UD-EWT train counts, tau and cue set selected on a train-internal dev split) scores 0.6589 on UD-EWT test against the perceptron deprel filter's 0.6822 -- paired -0.0235 CI95 [-0.1145, +0.0630], separated in NEITHER direction -- over a majority floor of 0.6202, a never-reject floor of 0.3798 and a same-rate random twin at 0.5116, agreeing with the shipped filter on 0.7597 of decisions -- AND THE PARITY IS AN UPSTREAM LOSS, NOT A WEAK MECHANISM: with GOLD heads feeding its two arc-derived cues the SAME arm scores 0.7907, paired +0.1084 CI95 [+0.0157, +0.2031] CI-SEPARATED ABOVE the supervised deprel filter, and the attachment arm's head of the infinitival verb is wrong on 418 of 1,395 sites (30.0%). (7) THE PROBE IS THE WITNESS: verification/test_no_not_bf_organ_on_the_default_read.py reproduces the defect, proves it can fire by detecting a PLANTED NOT_BF import, and turns binding the moment the residual is empty. (8) THE IS-A MAP IS DEAD ON THE LIVE PATH: on 8 GUM documents with the reader's own role-mention snapshot, common_noun_coref scores 0.4903 on 155 anaphoric common-noun mentions IDENTICALLY whether the map is the shipped perceptron recipe, the copula-only BF read, or EMPTY (paired 0.0000 CI [0.0000, 0.0000] for both comparisons, every floor and twin identical) -- so retiring its apposition half is measurably free and the whole map is a deletion candidate; the GUM-only read is 36% faster (269.9s -> 172.6s)."
+result: "EVERY LEG MET, AND THE BRIEF'S CONSUMER LIST WAS INCOMPLETE -- the probe on 16 modern GUM documents finds FIVE call sites, not three, and the FIRST importer (`_commonnoun_appos_map`) is one the brief does not name. (1) NO-REGRESS IS EXACT: 16 GUM documents + 400 UD-EWT sentences (20 chunks) through the LIVE SituationReader.read on annotation-free text, BOTH ARMS IN ONE PROCESS -- who_did_what_agent 0.7147 -> 0.7147 (n=389), who_did_what_patient 0.6977 -> 0.6977 (n=301), state 0.7500 -> 0.7500 (n=84), salience 0.3125 -> 0.3125 (n=16); every paired delta EXACTLY 0.0000 with CI [0.0000, 0.0000], and the read is 15.0% FASTER (571.7s -> 485.9s for the same 36 reads, three private supervised asset loads and 1,250 perceptron label calls gone). (2) THE DEFER IS BETTER, NOT MERELY EQUAL: on the whole UD-EWT test set (n=1247 patient items the live chain decides, 872 sentences, blanket accuracy 0.8148) the competition's own patient belief x its object-slot competition separates the reader's RIGHT from WRONG patient decisions at AUC 0.8127 [0.7807, 0.8455] against the frozen fitted logistic's 0.7613 [0.7227, 0.7994] -- paired over sentences +0.0515 CI95 [+0.0166, +0.0881] half=0.0357, CI-SEPARATED -- with the permuted twin at chance (0.5011) and selective accuracy at 50% coverage 0.9470 vs 0.9133. (3) THE BRIEF'S PROPOSED FIX IS REFUTED AND REPLACED BY A BETTER ONE: the competition's MARGIN is at chance for this decision (AUC 0.4962, its count-calibrated reliability 0.4827; paired -0.2652 CI95 [-0.3385, -0.1909], CI-separated BELOW the readout it was proposed to replace) because a large margin can mean confidently-OBL; reliability belongs to the decision the CONSUMER reads, which is the PATIENT-CLASS belief contested for one slot. (4) THE COPULAR PATH IS LOAD-BEARING AND THE REPLACEMENT IS NOT DOWN: 377 gold predicational states on UD-EWT test, read-back recall from the predicate slot 0.7958 vs the perceptron's 0.7905 (+0.0052 CI95 [+0.0000, +0.0134]) with FEWER pairs emitted (429 vs 451), while DROPPING the path is -0.0106 CI95 [-0.0214, -0.0026], CI-separated DOWN -- so the perceptron was doing real work and had to be replaced, not cut. (5) THE LARGEST CALL SITE'S PERCEPTRON OUTPUT IS PROVABLY DISCARDED: structural_patient_pick (620 of 1,468 label calls on four documents) reads only obj / nsubj:pass, both already decided by the Competition-Model overlay -- substituting the organ directly gives 2175/2175 IDENTICAL matrix-verb patient picks over the whole UD-EWT test set (10 tokens of ~25k carry an obj/nsubj:pass label the competition does not emit; none is any matrix verb's chosen patient). (6) THE GOAL PURPOSE FILTER REACHES PARITY: a new PURPOSE arm of the same competition (cue validities accrued from UD-EWT train counts, tau and cue set selected on a train-internal dev split) scores 0.6589 on UD-EWT test against the perceptron deprel filter's 0.6822 -- paired -0.0235 CI95 [-0.1145, +0.0630], separated in NEITHER direction -- over a majority floor of 0.6202, a never-reject floor of 0.3798 and a same-rate random twin at 0.5116, agreeing with the shipped filter on 0.7597 of decisions -- AND THE PARITY IS AN UPSTREAM LOSS, NOT A WEAK MECHANISM: with GOLD heads feeding its two arc-derived cues the SAME arm scores 0.7907, paired +0.1084 CI95 [+0.0157, +0.2031] CI-SEPARATED ABOVE the supervised deprel filter, and the attachment arm's head of the infinitival verb is wrong on 418 of 1,395 sites (30.0%). (7) AND AN AST AUDIT OF THE PATCHED SOURCES CAUGHT A DEFECT IN MY OWN PATCH: a live `from hdlab.parse_confidence import defer` left in the reader's defer branch, invisible to the runtime probe because the default tau is None, which would have re-imported a NOT_BF module the instant the defer was flipped on (next step 3) -- fixed by moving the opt-out to the organ that produces the confidence (graded_role_assigner.defer_below); after the fix exactly ONE import of either module remains anywhere, in a function this patch leaves with no caller. (8) THE PROBE IS THE WITNESS: verification/test_no_not_bf_organ_on_the_default_read.py reproduces the defect, proves it can fire by detecting a PLANTED NOT_BF import, and turns binding the moment the residual is empty. (9) THE IS-A MAP IS DEAD AT THE INSTRUMENT (phase 7: it moves 14 of 2,372 resolution records, none of them scored -- 'dead at the instrument', NOT 'provably inert'): on 8 GUM documents with the reader's own role-mention snapshot, common_noun_coref scores 0.4903 on 155 anaphoric common-noun mentions IDENTICALLY whether the map is the shipped perceptron recipe, the copula-only BF read, or EMPTY (paired 0.0000 CI [0.0000, 0.0000] for both comparisons, every floor and twin identical) -- so retiring its apposition half is measurably free and the whole map is a deletion candidate; the GUM-only read is 36% faster (269.9s -> 172.6s)."
 floor: "Each floor recomputed on its arm's OWN population, all arms in one process. PATIENT DEFER: the shipped consumer as it ships -- hdlab.parse_confidence.calibrated_patient_confidence over the live attachment-arm conf/marg -- AUC 0.7613 [0.7227, 0.7994] (n=1247); also run and BEATEN: the competition's margin 0.4962, its count-calibrated margin-reliability 0.4827, the attachment arm's own Matrix-Tree marginal 0.4728 (all at chance), the competition's patient belief WITHOUT the slot competition 0.7861. COPULAR: the shipped `cop`-label detection 0.7905 read-back recall (n=377 gold predicational states) AND the can-fail arm of dropping the label path entirely 0.7798. GOAL: the shipped perceptron deprel filter 0.6822 (n=129 decidable sites), the majority-class floor 0.6202, the never-reject floor 0.3798. IS-A MAP: the shipped perceptron appos+cop recipe, recall 0.3095 / precision 0.2562 (168 gold edges, 1251 sentences). BOARD ROWS: the shipped reader itself, item-identical."
 controls: "(1) INFORMATION-FREE TWINS, one per arm, each LOSING: the BF patient confidence permuted across items scores AUC 0.5011 (chance) against the real 0.8127, and the shipped logistic permuted scores 0.5186; the goal filter's same-rate random twin scores 0.5116 against 0.6589/0.6822; the board's own per-row twins are unchanged (patient 0.1595, agent 0.2416, state 0.7024). (2) A CAN-FAIL ARM ON EVERY REPLACEMENT, not just a comparison: the copular path is measured DROPPED as well as replaced, and dropping it loses CI-separated (-0.0106 [-0.0214,-0.0026]) -- had it been flat, the honest answer would have been deletion, not replacement. (3) THE WITNESS CANNOT PASS VACUOUSLY: W0 plants an import of a registry-NOT_BF module inside the probed window in a CHILD process and asserts the probe sees it. (4) THE PROBE METHOD ITSELF IS CONTROLLED: a builtins.__import__ hook MISSES `from hdlab import parse_confidence` (that call passes the name 'hdlab'), so the probe is a sys.meta_path finder; the hook-based version under-reported parse_confidence and was discarded. (5) BOTH ARMS IN ONE PROCESS for every comparison; the bootstrap unit is the population's own (the sentence for UD items, the document/chunk for board rows). (6) TAU AND CUE SET FOR THE PURPOSE ARM SELECTED ON A TRAIN-INTERNAL DEV SPLIT (every 5th train sentence, n=250), never on test -- the first prototype selected tau on test and read 0.6977; the honest dev-selected number is 0.6589. (7) TWO QUALITY-PUSH LEVERS BUILT AND MEASURED AGAINST THEMSELVES, both understood: a THIRD factor (the verb's stored valency expectation) is CI-separated DOWN (-0.0196 [-0.0374,-0.0011]) because the population is gold patient items where every verb has an object by construction, so the cue is constant-true and only adds noise -- it belongs to the verb_subcat_gate decision, not to this one; and the GRADED CATEGORY hand-off (coarse_role_posterior_tagmarg) is flat (0.8073 vs 0.8127, -0.0054 [-0.0214,+0.0106]) because nominals are tagged near-certainly, exactly as the organ's own docstring predicts for a near-certain upstream rung. (8) THE IS-A NEGATIVE DIAGNOSED BY COUNTING, NOT NARRATED: the arc-free apposition construction recovers 17 of 105 gold appositions against the perceptron's 28 (-0.0592 CI95 [-0.1386,+0.0199], NOT separated) at precision 0.0972 vs 0.2562; counting the gold shapes shows only 24 of 105 carry a comma at all, and an ORACLE-ARC arm on gold heads recovers 15 -- so the residual is the SCHEMA, not the heads rung."
 files_changed: "experiments/exp_labels_rung_to_live_consumers_v1.py (NEW -- the cell; 8 arms, 17/17 self-test). verification/test_no_not_bf_organ_on_the_default_read.py (NEW -- the import-probe witness, pytest-collectable with the pri-128 wrapper). notes/problems/<slug>/labels_rung_consumers_patch.diff (NEW -- the proposed hdlab change: 12 hunks across 5 files, `git apply --check --ignore-whitespace` CLEAN against the current tree with pri 125 applied; every patched file COMPILES under an in-memory application). data/exp_labels_rung_to_live_consumers_v1/purpose_complement_validities_ud_ewt.json (NEW asset the cell builds; strategy copies it to data/frontend_assets/ at integration -- the verb_subcat_frames precedent; with the asset ABSENT the purpose arm abstains and the filter falls through exactly as an unlabeled deprel did, so the patch is safe to land before the copy). NO hdlab/ or tools/ file written: every arm is installed by rebinding attributes on the reader INSTANCE (and one module function) inside the cell's process."
@@ -301,6 +301,137 @@ same 8 documents: 269.9 s → 172.6 s, **36% faster**.
 
 ---
 
+## 6b. PHASE 7 (a) THE INFINITIVAL LOSS TRACED ONE RUNG UP, PER CONSTRUCTION, WITH COUNTS
+
+The purpose arm is at parity live because the attachment arm mis-attaches infinitival verbs. **UD-EWT test,
+every infinitival VERB (a VERB immediately preceded by `to`), n=337; the arm's head vs the GOLD head, split by
+GOLD construction:**
+
+| construction | n | arm head acc | **arm ERROR** | count-accrued prototype |
+|---|---|---|---|---|
+| `xcomp_control` — *"want **to go**"*, raising | 169 | 0.8757 | 0.1243 | **0.9586** |
+| `advcl_purpose` — *"came **to see**"* | 71 | 0.6338 | 0.3662 | 0.5775 |
+| **`acl_nominal` — *"a plan **to leave**"*** | **56** | **0.2321** | **0.7679** | **0.8393** |
+| `csubj_extrapos` — *"it is hard **to say**"* | 23 | 0.5652 | 0.4348 | 0.7826 |
+| `other` | 18 | 0.5000 | 0.5000 | 0.1111 |
+| **ALL** | **337** | **0.6766** | **0.3234** | **0.8012** |
+
+Floor (attach to the nearest preceding VERB) 0.6291; **information-free twin (cue strengths permuted) 0.4540**.
+
+**WHICH CUE IS MISSING — and the answer is TWO cues, not one, with the counts separating them.** Tabulating
+*where the arm puts it instead*:
+
+| count | pattern | diagnosis |
+|---|---|---|
+| **24** | `acl_nominal`: arm says **VERB**, gold is a **NOUN** | **a cue the arm DOES NOT HAVE.** Every infinitival cue it owns pushes the clause AWAY from a nominal governor: `to` CLOSES the verb group (`verb_group`, line ~1518), a to-infinitival is NOT finite so it is *penalised* as a predicate (`HOLD_FINITENESS`, ~2208), and `subordination` treats PART-`to` as a clause OPENER attaching to the FOLLOWING verb (~384, ~533). **Nothing says a NOUN can govern an infinitival clause.** |
+| 8 | `acl_nominal`: arm says **ROOT**, gold a NOUN | same gap |
+| **22** (9+6+5+2) | arm says **PRON**, gold is an **ADJ** | **THIS ONE *IS* pri 101/117's predicate slot, unwired for infinitivals.** The extraposed family (*"it is hard to say"*): `predicate_sites` already computes, graded, that the **ADJ** holds the clause's predicate slot (`attachment_arm.py:1919`, and `host_belief`/`copular_available` at ~1591 explicitly note *"a CLAUSAL / infinitival complement occupies the slot too"*) — but the infinitival ATTACHMENT never reads it, so the clause lands on the expletive `it`. **The signal is computed on every read and thrown away.** |
+
+➡️ **So: 32 of the 43 `acl_nominal` errors need a NEW cue (nominal governor for an infinitival clause); 22
+errors across three classes need only the EXISTING predicate slot WIRED into the infinitival arc.**
+
+### (c) THE PROTOTYPE — a validity the arm can ACCRUE ONLINE
+
+Built in the arm's own discipline (`--infin`): candidate governors = every VERB/AUX/nominal/ADJ within ±8, cue
+values all arc-free and readable at read time (`candcat`, direction, distance, `adp_between`, `verb_between`,
+`nearest_verb`, `nearest_nom`, **`predslot`**), strengths = configuration-conditioned CONTRASTS
+`log P(correct | cfg, value) − log P(correct | cfg)` accrued from **UD-EWT train counts** (2,849 sites, 345 cue
+strengths), argmax of the additive activation. **Plastic by construction: one confirmed comprehension is a
+counter increment**, and the asset is `data/exp_labels_rung_to_live_consumers_v1/infinitival_governor_validities_ud_ewt.json`.
+
+**MEASURED: 0.6766 → 0.8012, paired over sentences +0.1240 CI95 [+0.0663, +0.1802] half 0.0570 —
+CI-SEPARATED**, twin 0.4540, floor 0.6291. `acl_nominal` **0.2321 → 0.8393**. *Reported against itself:* it
+LOSES on `advcl_purpose` (0.6338 → 0.5775) and on `other` (0.5000 → 0.1111), so this is a **prototype that
+locates the signal, not the landed form** — the landed form must enter the arm as one more cue inside
+`arc_scores` competing with the rest, not as a separate argmax that overrides them. **That is the heads-rung
+brief, with these numbers.**
+
+## 6c. PHASE 7 (b) WHY NOTHING READS THE IS-A MAP — the consumer, at file:line
+
+`hdlab/entity_resolver.py:542`, `tset = appos_map.get(hl, set())`. Two structural reasons it cannot matter:
+
+1. **It is only reached in the DIFF-HEAD branch.** The branch above it (`entity_resolver.py:538`, `if same:`)
+   takes the SAME-HEAD recency incumbent and never consults the map.
+2. **There it is the FIRST of SIX DISJOINED licences** (:543-549): appos, appos-to-a-name, **the WordNet type
+   licence `reader._cn_type_rel`**, the encyclopedic C8 licence, the conceptual bridge, and the coarse-focus
+   bridge. **An is-a edge CO-TYPES its pair by definition**, so the WordNet type licence already admits every
+   pair the map admits. The map can only ever be redundant.
+
+**MEASURED, AND IT CORRECTS A CLAIM I MADE EARLIER IN THIS FILE.** Re-running the resolver on the SAME mention
+stream with the map REAL and EMPTY, 8 GUM documents, **2,372 resolution records, 68 is-a edges**: the map
+changes **14 records (0.59%)** and 9 non-writing bridges (403 → 394). **So it is NOT strictly inert** — my
+earlier wording ("changes ZERO resolution records") was the stronger claim and it is wrong. What is true, and
+is what the retirement rests on: **none of those 14 records is in the scored population**, so
+`common_noun_coref` is 0.4903 identically across all three arms (155 anaphoric, gold-covered mentions of the
+2,372). The map moves 14 decisions the board cannot see, in a direction nothing measures.
+
+➡️ **That is still a deletion and not a replacement** — a frozen supervised perceptron running 160 times per
+document to move 14 unscored decisions is exactly "kept for no measurable reason" — but the honest statement is
+**"dead at the instrument", not "provably inert"**, and if a future instrument scores those 14, the answer is to
+build the BF successor (§9.3), not to restore the perceptron. `_commonnoun_isa_from_predication` is kept
+importable and uncalled for that.
+
+## 6d. PHASE 7 (a) FLIPPING THE DEFER ON — the curve, and why NO default ships in the diff
+
+The defer was decision-dead (`precision_weight_tau=None`). `--defer` reads 400 UD-EWT test sentences in 20
+chunks through the LIVE reader, ONE read per arm, collects the reader's OWN patient decisions with their
+confidence (n=163 with a confidence), then sweeps tau post-hoc — a threshold gates the READOUT, it cannot
+change the read. Dev/test split **by chunk** (even/odd), the dev rule fixed in advance: *the largest tau whose
+dev coverage is still ≥ 0.75*.
+
+| arm | dev tau | test coverage | test selective acc | blanket | lift | paired CI |
+|---|---|---|---|---|---|---|
+| SHIPPED fitted logistic | 0.25 | 0.795 | 0.8788 | 0.8072 | **+0.0715** | **[+0.0136, +0.1510]** CI-sep |
+| BF belief × slot | 0.55 | 0.747 | 0.8548 | 0.8072 | +0.0468 | [-0.0081, +0.1190] n.s. |
+
+**THE DEFER HOLDS AS A MECHANISM — and at these taus the CI-separated arm is the NOT_BF one. I am not
+shipping a default on that.** The lifts are also not comparable (different coverage). At MATCHED coverage the
+two curves say something sharper:
+
+| coverage | SHIPPED selective | BF selective |
+|---|---|---|
+| ~0.83 | 0.870 | 0.870 (tie) |
+| ~0.72 | **0.900** | 0.864 |
+| ~0.53 | 0.860 | **0.889** |
+| ~0.43 | — | **0.917** |
+| 0.27 | **0.773 — BELOW the 0.8072 blanket** | (0.37 → 0.903) |
+
+**THE DIAGNOSIS: the logistic's confidences are BUNCHED.** Its coverage falls 0.83 → 0.80 → 0.72 → 0.52 → 0.27
+across five consecutive tau steps and then INVERTS — its most-confident quartile is *worse than average*
+(0.773 vs 0.8072). The BF confidence spreads smoothly over the whole range and keeps improving as coverage
+tightens (0.917 at 43%). **So the logistic can buy one coarse operating point and nothing else, while the BF
+confidence is the one that supports an actual risk-coverage policy** — which is what a Kiani-Shadlen opt-out
+needs. On n=83 test items neither conclusion is strong enough to set a default for every reader.
+
+**ACTED ON:** no `precision_weight_tau` default in the diff, stated in the diff header with the one-line change
+and the file:line for whoever reads a better-powered curve. **Filed as a next step with the population it
+needs** (§12.3).
+
+
+
+## 6e. PHASE 7 — THE AUDIT THAT CAUGHT A DEFECT IN MY OWN PATCH
+
+An AST walk of the PATCHED sources (not a text grep) for real `import` statements of the two NOT_BF modules
+found **a live `from hdlab.parse_confidence import defer` still in the reader's defer branch**
+(HEAD `situation_reader.py:2589`). The import probe cannot see it, because it sits inside
+`if p_conf is not None and tau is not None:` and the default tau is `None` — **so it would have re-imported a
+NOT_BF module the instant anyone flipped the defer on, which is literally next step 3.** A patch that claims to
+take two organs off the live path had left a tripwire for the very next change.
+
+**FIXED in the diff:** the opt-out moves to the organ that PRODUCES the confidence —
+`graded_role_assigner.defer_below` (Kiani & Shadlen 2009 opt-out / Kepecs 2008; Friston precision in its
+discrete limit), so a consumer that defers never imports a fitted readout for a two-line comparison.
+
+**AFTER THE FIX the patched sources contain exactly ONE import of either module**:
+`predicate_argument_frontend._labeler()` at line 56 — and this patch removes its last caller in `hdlab/`
+(line 453), so it is dead code that can only load the perceptron if something out-of-tree calls it. Left in
+place deliberately; flagged in the diff.
+
+*The lesson for the checklist: a grep for a module name hits docstrings and misses a lazy import inside a
+branch that today is unreachable. The import PROBE is a runtime instrument and a dormant wire is invisible to
+it by construction — so the static AST audit is not redundant with the probe, it is the half the probe cannot
+do.*
+
 ## 7. KEY REALIZATIONS
 
 1. **THE PROBE METHOD WAS THE FIRST BUG.** A `builtins.__import__` hook cannot see `from hdlab import X` —
@@ -461,19 +592,32 @@ exactly: *a truly brain-foundational component that is not working almost always
 not 100% brain-foundational.* The BF rung ships at parity now and becomes a CI-separated win when the
 governor's infinitival attachment is fixed — which is a named, numbered upstream brief, not a mystery.
 
-1. **FIX THE GOVERNOR'S ATTACHMENT OF INFINITIVAL VERBS — the single highest-value item this work found.**
-   The attachment arm's head of the infinitival verb is wrong on **418 of 1,395 sites (30.0%)**, and with that
-   input corrected the BF purpose arm goes **0.6589 → 0.7907, +0.1084 CI95 [+0.0157, +0.2031] CI-separated
-   ABOVE the frozen supervised deprel filter** (§6 oracle probe). This is an `attachment_arm` brief, not a goal
-   brief: infinitival `to`+VERB is a closed-class construction the arm should attach almost perfectly.
-   *Secondary, and cheap:* the **object-control frame** in `verb_subcat_frames` (verb + OBJECT + infinitival
-   complement counts from UD-EWT train) — the arm already WINS `objonly` with only a scalar P(complement).
+1. **FIX THE GOVERNOR'S ATTACHMENT OF INFINITIVAL VERBS — the single highest-value item this work found, and
+   phase 7 split it into two separable builds with their own counts (§6b).**
+   (a) **WIRE THE EXISTING PREDICATE SLOT INTO THE INFINITIVAL ARC** — 22 errors are "the arm says PRON where
+   the gold governor is the ADJ": `predicate_sites` already computes, graded, that the ADJ holds the clause's
+   predicate slot, and the infinitival attachment never reads it, so *"it is hard **to say**"* lands on the
+   expletive. **This is a wire, not a build.**
+   (b) **ADD A NOMINAL-GOVERNOR CUE for infinitival clauses** — 32 errors are `acl_nominal` (*"a plan **to
+   leave**"*, arm accuracy **0.2321**, error **0.7679** on n=56): every infinitival cue the arm owns pushes the
+   clause away from a nominal governor and none admits one.
+   **The prototype that proves both are learnable from counts:** 0.6766 → **0.8012** overall, paired **+0.1240
+   CI95 [+0.0663, +0.1802]** CI-sep, twin 0.4540, `acl_nominal` 0.2321 → **0.8393**; and with correct heads the
+   purpose decision goes 0.6589 → **0.7907, +0.1084 CI95 [+0.0157, +0.2031]** CI-separated above the frozen
+   supervised label. The landed form enters `arc_scores` as one more competing cue, NOT as a separate argmax
+   (the prototype LOSES on `advcl_purpose` 0.6338 → 0.5775 precisely because it overrides the other cues).
+   *Secondary, cheap:* the **object-control frame** in `verb_subcat_frames`.
 2. **Give `graded_role_assigner` a per-CONSUMER-DECISION reliability map** (patient / holder / purpose), each
    count-accrued with an `observe_*_outcome` path. *Why:* three consumers each re-derived one this session;
    the organ already has the machinery (`RELIABILITY_KINDS`) and the wrong alphabet.
-3. **Flip the patient defer ON and sweep tau.** It is decision-dead today (`precision_weight_tau=None`), so a
-   0.9454-at-50%-coverage reliability signal buys the reader nothing. *Why:* the defer is the substrate's
-   "know what you don't know", and it now has a signal worth deferring on.
+3. **Flip the patient defer ON — but on a better-powered curve than this one (§6d).** Measured through
+   `read()`: the defer HOLDS as a mechanism (shipped logistic +0.0715 CI [+0.0136,+0.1510]; BF +0.0468
+   CI [-0.0081,+0.1190]) on only **n=163 decisions / 83 test items** from 400 UD sentences, and at the
+   dev-selected taus the CI-separated arm is the NOT_BF one — so **no default ships in the diff**. What the
+   curves already show: the logistic is BUNCHED (coverage 0.83→0.80→0.72→0.52→0.27 in five tau steps, and
+   its most-confident quartile is 0.773, BELOW the 0.8072 blanket) while the BF confidence spreads smoothly and
+   reaches 0.917 at 43% coverage. *What it needs:* the same arm over ~2,000 UD sentences (n ~ 800 decisions) so
+   a matched-coverage comparison is powered, then one line at `situation_reader.py:1026`.
 4. **DELETE the is-a map, do not just halve it** — all three arms (shipped / copula-only / empty) score
    `common_noun_coref` 0.4903 identically on 155 items, so the map is DEAD on the live path in the same sense
    `commonnoun_binder.situation_predict` was (reader CATALOG C2). Then **re-seed the bridge from
