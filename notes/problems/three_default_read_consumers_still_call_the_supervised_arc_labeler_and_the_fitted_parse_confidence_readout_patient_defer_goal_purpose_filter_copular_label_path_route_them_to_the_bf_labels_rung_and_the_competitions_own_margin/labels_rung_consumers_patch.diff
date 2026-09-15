@@ -1,0 +1,636 @@
+From: solver session, priority 129
+Subject: route the default read's NOT_BF consumers to the BF labels rung (the ONE Competition-Model role
+         organ) and to the competition's own belief -- retire arc_labeler + parse_confidence from the live path
+
+Unified diff against the CURRENT working tree (pri 125's hunks are already applied there).
+HOW TO APPLY -- the tracked files are CRLF and this diff is LF, so pass --ignore-whitespace:
+  git apply --ignore-whitespace notes/problems/<slug>/labels_rung_consumers_patch.diff
+VERIFIED: `git apply --check --ignore-whitespace ...` is clean on the tree this was written against
+(2026-09-15, after pri 125 landed).  Every hunk carries 1-7 lines of context on both sides.
+
+FIVE live consumers, not three (measured: experiments/exp_labels_rung_to_live_consumers_v1.py --probe):
+  1. predicate_argument_frontend.structural_patient_pick   226 ArcLabeler.label calls / 2 docs  (the brief
+     does not name it; its perceptron output is PROVEN DISCARDED -- pick-identity 2182/2182 on UD-EWT test)
+  2. situation_reader._patient_arc_confidence              102 label + 102 parse_confidence calls
+  3. copular_binding.extract_entity_states                  75 label calls
+  4. situation_reader._commonnoun_appos_map                  72 label calls  (THE FIRST IMPORTER)
+  5. situation_reader._read_goals (the ADVCL purpose filter) 13 label calls
+
+WHAT EACH BECOMES, AND THE NUMBER (full detail + CIs in SOLVED.md):
+  1. -> graded_role_assigner.coarse_roles                     pick-identical 2182/2182, perceptron never loaded
+  2. -> graded_role_assigner.patient_slot_confidence          AUC 0.8127 vs the fitted logistic 0.7613,
+                                                              +0.0517 CI95 [+0.0136, +0.0882]; twin 0.4764
+  3. -> attachment_arm.predicate_sites + the competition SUBJ read-back recall 0.7958 vs 0.7905,
+                                                              +0.0053 CI95 [+0.0000, +0.0134]; dropping the
+                                                              path entirely is -0.0107 CI-sep DOWN (so the
+                                                              replacement is NECESSARY, not just a removal)
+  4. -> the predicate-slot copular half only; the perceptron `appos` half RETIRED (measured board-invisible)
+  5. -> graded_role_assigner.purpose_complement_posterior     a new ARM of the same competition, cue
+                                                              validities accrued from UD-EWT train counts
+
+NEW ASSET the diff expects (the verb_subcat_frames precedent -- the cell builds it, strategy ships it):
+  data/frontend_assets/purpose_complement_validities_ud_ewt.json
+  <- data/exp_labels_rung_to_live_consumers_v1/purpose_complement_validities_ud_ewt.json
+  With the asset ABSENT the purpose arm abstains (returns None) and the filter falls through exactly as an
+  unlabeled deprel did -- so the patch is safe to land before the asset is copied, and `arc_labeler` is
+  still gone from the live path.
+diff --git a/hdlab/graded_role_assigner.py b/hdlab/graded_role_assigner.py
+--- a/hdlab/graded_role_assigner.py
++++ b/hdlab/graded_role_assigner.py
+@@ -1256,6 +1256,214 @@ def role_decision(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int]
+     rel = reliability if reliability is not None else load_margin_reliability()
+     return {"role": ROLE_CLASSES[k], "dep": ROLE_TO_DEP[ROLE_CLASSES[k]], "posterior": p, "margin": m,
+             "reliability": {kind: margin_reliability(m, kind, rel) for kind in RELIABILITY_KINDS}}
++
++
++# ===============================================================================================================
++# THE PATIENT RELIABILITY THE CONSUMER ACTUALLY ASKS FOR (pri 129, 2026-09-15).
++# The who-did-what defer used to score its arc with hdlab.parse_confidence -- a logistic FITTED OFFLINE on the
++# arc-eager parser's conf/marg, i.e. on a DIFFERENT parser's features than the live attachment arm now hands
++# down.  Two things are wrong with it and one is measurable: (a) it is a fitted readout bolted on after the
++# decision, not the deciding accumulator's own certainty (Kiani & Shadlen 2009); (b) the reliability it
++# calibrates is of the ORGAN's private 8-way label, while the consumer asks a DIFFERENT question -- "is this
++# token the verb's patient".  This module's own §"RELIABILITY BELONGS TO THE DECISION THE CONSUMER READS" says
++# so; the margin does not answer it (measured: margin AUC 0.4962, margin-reliability 0.4827 -- at chance,
++# because a LARGE margin can mean confidently-OBL).
++#
++# THE OPERATION.  The consumer's question is a conjunction of two beliefs the competition already holds:
++#     P(pk is the patient of v)  =  P(role(pk) in {OBJ, PASS_SUBJ})  x  P(pk wins v's object slot)
++# Factor 1 is this organ's posterior for pk, marginalised over the heads rung's P(head | dep) when the
++# attachment arm hands one down.  Factor 2 is the SLOT-LEVEL competition -- one object slot, several nominal
++# claimants, normalised against each other (Vosse & Kempen 2000 competitive unification; the same
++# winner-take-all normalisation `graded_pick` performs over candidates).  ZERO fitted parameters; both factors
++# are pure functions of the count-accrued cue validities, so `observe_role_outcome` keeps them plastic.
++#
++# MEASURED (UD-EWT test, n=1247 patient items the live chain decides, sentence-clustered paired bootstrap,
++# experiments/exp_labels_rung_to_live_consumers_v1.py --patient):
++#     right-vs-wrong AUC  0.8127  vs the fitted logistic 0.7613  (+0.0517 CI95 [+0.0136, +0.0882])
++#     belief alone        0.7861  (+0.0241 CI95 [-0.0141, +0.0629] -- the SLOT factor is what separates)
++#     permuted twin       0.4764  (chance)
++#     selective accuracy @50% coverage 0.9470 vs 0.9133 (blanket 0.8148); @67% 0.9234 vs 0.9078
++# ===============================================================================================================
++PATIENT_CLASSES = ("OBJ", "PASS_SUBJ")
++SLOT_HEAD_MIN_P = 0.05        # a nominal enters the object-slot competition at this much head mass (swept 0.02/0.05/0.2, flat)
++
++
++def patient_belief(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int], i: int,
++                   head_post: Optional[Dict[int, Dict[int, float]]] = None,
++                   conf: Optional[Dict[int, float]] = None,
++                   validities: Optional[Dict[str, object]] = None) -> float:
++    """P(token i bears a PATIENT role) = the competition's OBJ + PASS_SUBJ mass, marginalised over the heads
++    rung's posterior for i when one is supplied (the graded hand-off)."""
++    ix = {r: k for k, r in enumerate(ROLE_CLASSES)}
++    hpd = (head_post or {}).get(i)
++    p = (coarse_role_posterior_headmarg(toks, pos, heads, i, hpd, validities, conf=conf) if hpd
++         else coarse_role_posterior(toks, pos, heads, i, validities, conf))
++    return float(sum(p[ix[c]] for c in PATIENT_CLASSES))
++
++
++def patient_slot_confidence(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int],
++                            v: int, pk: int,
++                            head_post: Optional[Dict[int, Dict[int, float]]] = None,
++                            conf: Optional[Dict[int, float]] = None,
++                            validities: Optional[Dict[str, object]] = None) -> Optional[float]:
++    """THE RELIABILITY OF THE WHO-DID-WHAT PATIENT DECISION (1-based v, pk), in [0,1], or None when pk is out
++    of range.  P(patient role) x P(wins the object slot) -- see the section note above.  This REPLACES
++    hdlab.parse_confidence.calibrated_patient_confidence for the reader's defer."""
++    n = len(toks)
++    if not (1 <= pk <= n) or not (1 <= v <= n):
++        return None
++    tab = validities or load_coarse_validities()
++    pp = patient_belief(toks, pos, heads, pk, head_post, conf, tab)
++    cands = [c for c in range(1, n + 1)
++             if pos[c - 1] in NOMINAL and (heads.get(c) == v
++                                           or (head_post or {}).get(c, {}).get(v, 0.0) >= SLOT_HEAD_MIN_P)]
++    if pk not in cands:
++        cands.append(pk)
++    tot = 0.0
++    for c in cands:
++        tot += pp if c == pk else patient_belief(toks, pos, heads, c, head_post, conf, tab)
++    return float(pp * (pp / tot)) if tot > 0 else 0.0
++
++
++# ===============================================================================================================
++# THE PURPOSE / COMPLEMENT ARM (pri 129).  The goal register's ADVCL purpose filter used to reject a "to VINF"
++# site by reading the frozen perceptron's deprel (xcomp/ccomp/acl => a complement, not a purpose adjunct).  The
++# brain does not run a relation classifier for this: infinitive attachment is LEXICALIST CONSTRAINT SATISFACTION
++# -- the governing verb's stored subcategorization frame decides complement-vs-adjunct (MacDonald, Pearlmutter &
++# Seidenberg 1994; Trueswell 1996; Garnsey et al. 1997), settled by competition (Vosse & Kempen 2000).  So it is
++# an ARM OF THIS ORGAN, with the same machinery: cue values read from the categories organ / the attachment arm /
++# the stored verb frame, strengths = configuration-conditioned CONTRASTS accrued from counts, additive activation
++# -> softmax.  No new classifier family, no fitted weight, and `observe_purpose_outcome` keeps it learning.
++#
++# MEASURED (the population goal_register branch (3) actually reaches; fit on UD-EWT train, tau + cue set
++# selected on a train-internal dev split, reported on UD-EWT TEST -- see SOLVED.md for the numbers).
++# ===============================================================================================================
++PURPOSE_CLASSES = ("complement", "purpose")
++_PURPOSE_PATHS = tuple(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", d,
++                                    "purpose_complement_validities_ud_ewt.json")
++                       for d in ("frontend_assets", "hook_state"))
++_PURPOSE_CACHE: Optional[Dict[str, object]] = None
++
++
++def load_purpose_validities(path: Optional[str] = None) -> Optional[Dict[str, object]]:
++    """The purpose/complement cue table, or None when no asset is on disk -- in which case every
++    `purpose_complement_posterior` call returns None and the goal filter falls through exactly as an unlabeled
++    deprel did (so an un-upgraded deployment is unchanged)."""
++    global _PURPOSE_CACHE
++    if path is None and _PURPOSE_CACHE is not None:
++        return _PURPOSE_CACHE or None
++    for p in ((path,) if path else (os.environ.get("HDLAB_PURPOSE_VALIDITIES"),) + _PURPOSE_PATHS):
++        if p and os.path.exists(p):
++            with open(p, encoding="utf-8") as f:
++                tab = json.load(f)
++            if path is None:
++                _PURPOSE_CACHE = tab
++            return tab
++    if path is None:
++        _PURPOSE_CACHE = {}
++    return None
++
++
++def purpose_cues(toks: Sequence[str], pos: Sequence[str], to_i: int, mv_i: int,
++                 heads: Dict[int, int], subcat=None):
++    """(configuration, {cue: value}) for the infinitival marker at 0-based `to_i` governed by the verb at
++    0-based `mv_i`.  CONFIGURATION = the unification window between governor and marker; every cue comes from
++    the categories organ, the attachment arm's heads, or the stored verb frame.  Arc-light and glass-box."""
++    from hdlab.goal_register import _lemma as _gl   # the SAME key the validity counts were accrued under
++    n = len(toks)
++    low = [t.lower() for t in toks]
++    mv = low[mv_i]
++    mvl = _gl(mv)
++    pc = None
++    if subcat is not None:
++        pc = subcat.p_complement(mv)
++        if pc is None:
++            pc = subcat.p_complement(mvl)
++    between = list(pos[mv_i + 1:to_i])
++    if not between:
++        cfg = "adjacent"
++    elif all(c in NOMINAL or c in ("DET", "ADJ", "NUM") for c in between):
++        cfg = "objonly"                                  # object control: "told HIM to go"
++    elif any(c == "ADP" for c in between):
++        cfg = "pp"                                       # "went to the market to buy"
++    else:
++        cfg = "other"
++    h = heads.get(to_i + 2, 0)
++    return cfg, {
++        "frame": "na" if pc is None else ("hi" if pc >= 0.7 else "mid" if pc >= 0.4 else "lo"),
++        "prev": pos[to_i - 1] if to_i - 1 >= 0 else "NONE",
++        "dist": "0" if (to_i - mv_i) == 1 else "1" if (to_i - mv_i) == 2 else "2" if (to_i - mv_i) <= 4 else "3+",
++        "headcat": (pos[h - 1] if h and 1 <= h <= n else "ROOT"),
++        "headismv": "1" if h == mv_i + 1 else "0",
++        "post": "end" if (to_i + 2 >= n or all(pos[k] == "PUNCT" for k in range(to_i + 2, n)))
++                else pos[min(to_i + 2, n - 1)],
++        "mvlem": mvl,
++        "hasobj": "1" if any(pos[k] in NOMINAL for k in range(mv_i + 1, to_i)) else "0",
++        "comma": "1" if (to_i - 1 >= 0 and low[to_i - 1] == ",") else "0",
++    }
++
++
++def purpose_complement_posterior(cfg: str, cues: Dict[str, str],
++                                 table: Optional[Dict[str, object]] = None) -> Optional[float]:
++    """P(this 'to VINF' is a COMPLEMENT, not a purpose adjunct) from the additive cue competition, or None when
++    no validity asset is on disk.  A cue value never seen enough times in the counts contributes nothing."""
++    tab = table if table is not None else load_purpose_validities()
++    if not tab:
++        return None
++    drop = set(tab.get("dropped_cues") or ())
++    A = np.array(tab["cfg"].get(cfg) or tab["prior"], dtype=float)
++    for cn, cv in cues.items():
++        if cn in drop:
++            continue
++        s = tab["strength"].get("%s|%s|%s" % (cn, cfg, cv))
++        if s is not None:
++            A = A + np.array(s, dtype=float)
++    return float(softmax(A, gain=1.0)[0])
++
++
++def observe_purpose_outcome(cfg: str, cues: Dict[str, str], outcome: str,
++                            table: Optional[Dict[str, object]] = None) -> Optional[Dict[str, object]]:
++    """PLASTICITY: accrue ONE confirmed comprehension outcome ('complement' / 'purpose') into the purpose arm's
++    counts and recompute its strengths (a pure function of the counts, like every other table here).  Persist
++    with `save_purpose_validities`.  No gold is read at inference -- the caller supplies the outcome."""
++    tab = table if table is not None else load_purpose_validities()
++    if not tab:
++        return None
++    a = float(tab.get("alpha", 1.0))
++    k = len(PURPOSE_CLASSES)
++    tab["counts"]["cfg"].setdefault(cfg, {})
++    tab["counts"]["cfg"][cfg][outcome] = tab["counts"]["cfg"][cfg].get(outcome, 0) + 1
++    for cn, cv in cues.items():
++        key = "%s|%s|%s" % (cn, cfg, cv)
++        tab["counts"]["cue"].setdefault(key, {})
++        tab["counts"]["cue"][key][outcome] = tab["counts"]["cue"][key].get(outcome, 0) + 1
++    pri = {c: 0 for c in PURPOSE_CLASSES}
++    for v in tab["counts"]["cfg"].values():
++        for c, x in v.items():
++            pri[c] = pri.get(c, 0) + x
++    tot = sum(pri.values())
++    tab["prior"] = [float(np.log((pri.get(c, 0) + a) / (max(1, tot) + a * k))) for c in PURPOSE_CLASSES]
++    for key, v in tab["counts"]["cfg"].items():
++        t = sum(v.values())
++        tab["cfg"][key] = [float(np.log((v.get(c, 0) + a) / (t + a * k))) for c in PURPOSE_CLASSES]
++    mc = int(tab.get("min_count", 3))
++    tab["strength"] = {}
++    for key, v in tab["counts"]["cue"].items():
++        t = sum(v.values())
++        if t < mc:
++            continue
++        base = tab["cfg"].get(key.split("|")[1]) or tab["prior"]
++        tab["strength"][key] = [float(np.log((v.get(c, 0) + a) / (t + a * k)) - base[ci])
++                                for ci, c in enumerate(PURPOSE_CLASSES)]
++    return tab
++
++
++def save_purpose_validities(path: Optional[str] = None, table: Optional[Dict[str, object]] = None) -> str:
++    tab = table if table is not None else load_purpose_validities()
++    p = path or _PURPOSE_PATHS[0]
++    with open(p, "w", encoding="ascii", newline="\n") as f:
++        json.dump(tab, f, indent=1, sort_keys=True)
++    return p
+ 
+ 
+ def coarse_role_posterior_tagmarg(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int], i: int,
+@@ -1980,4 +2188,7 @@ __all__ = ["hybrid_role_patient", "competition_pick", "cue_supports", "voice_cues
+            "hybrid_agent_pick", "agent_override_fires", "agent_override_licensed",
+            "role_margin", "role_decision", "margin_reliability", "observe_margin_outcome",
+            "save_margin_reliability", "load_margin_reliability", "calibrated_class_posterior",
+-           "reliability_from_counts", "RELIABILITY_KINDS", "reliability_gain", "roles_with_decisions"]
++           "reliability_from_counts", "RELIABILITY_KINDS", "reliability_gain", "roles_with_decisions",
++           "patient_belief", "patient_slot_confidence", "PATIENT_CLASSES",
++           "purpose_cues", "purpose_complement_posterior", "observe_purpose_outcome",
++           "load_purpose_validities", "save_purpose_validities", "PURPOSE_CLASSES"]
+diff --git a/hdlab/copular_binding.py b/hdlab/copular_binding.py
+--- a/hdlab/copular_binding.py
++++ b/hdlab/copular_binding.py
+@@ -121,27 +121,46 @@ STATE_HEADPOST = os.environ.get("HDLAB_STATE_HEADPOST", "1") == "1"   # graded he
+ 
+ 
+-def extract_entity_states(toks, up, arc, lab, heads=None, head_posterior=None):
+-    """[(holder_idx, property_idx)] 0-based, from the labeled parse: for each `cop` arc, PROPERTY = its head,
+-    HOLDER = the nsubj/nsubj:pass/csubj dependent of that same head. Brain-faithful HOLDER+PROPERTY binding.
+-    `heads` optional (perf): pass precomputed parse heads (e.g. from the caller's shared per-read parse cache)
+-    to SKIP the internal re-parse -- byte-identical, since the labeler consumes those same heads. When None,
+-    parses via `arc` as before (back-compatible)."""
++def extract_entity_states(toks, up, arc=None, lab=None, heads=None, head_posterior=None, cop_preds=None):
++    """[(holder_idx, property_idx)] 0-based: PROPERTY = the token holding its clause's PREDICATE SLOT, HOLDER =
++    the nominal the competition believes is its subject.  Brain-faithful HOLDER+PROPERTY binding.
++
++    DETECTION IS THE PREDICATE SLOT, NOT A RELATION LABEL (pri 129, 2026-09-15).  The copula is a near-empty
++    functional carrier; what the clause asserts is its non-verbal PREDICATE (Pustet 2003; Maienborn 2005 Kimian
++    states; Bemis & Pylkkanen 2011 LATL property attribution), and the substrate already computes exactly that,
++    graded, in `attachment_arm.predicate_sites`.  So `cop_preds` (1-based predicate ids) now comes from the
++    predicate slot instead of the frozen perceptron's `cop` label; the caller may pass its own set.  MEASURED
++    (UD-EWT test, 377 gold predicational states, sentence-paired bootstrap): read-back recall 0.7958 from the
++    slot vs 0.7905 from the perceptron (+0.0053 CI95 [+0.0000, +0.0134]) with FEWER pairs emitted (429 vs 451),
++    while dropping the detection path altogether is -0.0107 CI95 [-0.0217, -0.0026] -- CI-separated DOWN, so
++    this path is load-bearing and the replacement is necessary, not a removal.
++    HOLDER likewise reads the ONE role competition (`graded_role_assigner.coarse_roles`), not a labeler.
++    `arc` / `lab` are kept ONLY for back-compatibility with experiments and witnesses that pass them
++    positionally: when `lab` is given AND `cop_preds` is None the historical label path is used verbatim."""
++    from hdlab import graded_role_assigner as _GRA
+     try:
+         if heads is None:
++            if arc is None:
++                return []
+             heads = arc.parse(toks, up).heads
+         # GRADED HEAD HAND-OFF (2026-09-13, labels-rung trace): the role labels that find the copular holder (nsubj/nsubj:pass/
+         # csubj) are marginalised over the heads rung's P(head | dep) -- as the patient arm and the apposition map already do --
+         # instead of collapsing to the single MAP head first (state 0.8095 -> 0.6614 under the BF governor was this hand-off).
+         hp = head_posterior if STATE_HEADPOST else None
+-        labels = lab.label(toks, up, heads, head_posterior=hp)
++        if cop_preds is None and lab is not None:
++            labels = lab.label(toks, up, heads, head_posterior=hp)          # back-compat label path
++        else:
++            labels = _GRA.coarse_roles(list(toks), list(up), heads, head_posterior=hp)
+     except Exception:
+         return []
+-    cop_preds = set()
+-    for dep_i, rel in labels.items():
+-        if rel == "cop":
+-            h = heads.get(dep_i, 0)
+-            if h and 1 <= h <= len(toks):
+-                cop_preds.add(h)                        # 1-based predicate id
++    if cop_preds is None:
++        cop_preds = set()
++        for dep_i, rel in labels.items():
++            if rel == "cop":
++                h = heads.get(dep_i, 0)
++                if h and 1 <= h <= len(toks):
++                    cop_preds.add(h)                    # 1-based predicate id
++    else:
++        cop_preds = {p for p in cop_preds if 1 <= p <= len(toks)}
+     subj_of = {}
+     for dep_i, rel in labels.items():
+         if rel in ("nsubj", "nsubj:pass", "csubj"):
+diff --git a/hdlab/predicate_argument_frontend.py b/hdlab/predicate_argument_frontend.py
+--- a/hdlab/predicate_argument_frontend.py
++++ b/hdlab/predicate_argument_frontend.py
+@@ -450,7 +450,17 @@ def structural_patient_pick(tokens: Sequence[str], upos: Sequence[str], heads: D
+     0.8785->0.8850 (+0.0065 CI-sep, UD-EWT n=1235). Default (marginals=None), or the asset absent -> BYTE-IDENTICAL
+     to the pre-landing labeled pick. (The parameter-free surgical arm _argstruct_marginal_override is FLAT on its
+     own -- the incremental lever is the learned ranker's marginal cue, not the arg/adjunct override.)"""
+-    labels = _labeler().label(list(tokens), list(upos), heads)
++    # pri 129 (2026-09-15): the perceptron labeler is NOT LOADED here any more.  `labeled_pick` reads exactly
++    # two relations -- obj (active) / nsubj:pass (passive) -- and BOTH are decided by the Competition-Model
++    # organ under `arc_labeler.COMPETITION_ROLES` (the overlay replaces every label in the competition's class
++    # space), so the perceptron's output was computed and then thrown away on the substrate's single largest
++    # live label call site (226 of 488 ArcLabeler.label calls on a default 2-document read).  Calling the organ
++    # DIRECTLY is byte-identical on the decision: PROVEN pick-identity 2182/2182 matrix-verb picks over the
++    # whole UD-EWT test set (experiments/exp_labels_rung_to_live_consumers_v1.py --identity).  The residual it
++    # names honestly: 9 tokens of ~25k (0.04%) carry an obj/nsubj:pass label the competition does not emit at
++    # all, and none of them is any matrix verb's chosen patient.
++    from hdlab.graded_role_assigner import coarse_roles as _coarse_roles
++    labels = _coarse_roles(list(tokens), list(upos), heads)
+     pp = precise_passive(tokens, upos, v)
+     pick = labeled_pick(tokens, upos, v, heads, labels, pp, valency=True)
+     if pick is None:
+diff --git a/hdlab/goal_register.py b/hdlab/goal_register.py
+--- a/hdlab/goal_register.py
++++ b/hdlab/goal_register.py
+@@ -321,7 +321,12 @@ def extract_goals(sents: List[List[str]], pos_tags: List[List[str]], subcat=None
+ def extract_goals(sents: List[List[str]], pos_tags: List[List[str]], subcat=None, deprels_by_sent=None) -> List[Goal]:
+     """Extract explicit goals across a passage. sents = [[token]], pos_tags = [[UPOS]] aligned. When
+     `subcat` (a SubcatFrames lexicalist frame) is provided, the bare-purpose branch is gated by the
+     brain-foundational verb subcategorization frame + extraposition detection (the upstream fix). When
+     `deprels_by_sent` (an optional [{1-based idx -> arc-labeler deprel}] aligned to sents) is provided, the
+-    ADVCL PURPOSE FILTER additionally rejects bare-purpose 'to VP's whose infinitive is a confirmed complement."""
++    ADVCL PURPOSE FILTER additionally rejects bare-purpose 'to VP's whose infinitive is a confirmed complement.
++
++    SOURCE OF THAT VERDICT (pri 129, 2026-09-15): it is no longer a frozen supervised perceptron's deprel.
++    `SituationReader._purpose_deprels` fills this map from the Competition-Model organ's PURPOSE arm
++    (`graded_role_assigner.purpose_complement_posterior` -- lexicalist frame + configuration cues, validities
++    accrued from counts, plastic), which emits "xcomp" for a complement and "advcl" for a purpose adjunct."""
+     goals: List[Goal] = []
+diff --git a/hdlab/situation_reader.py b/hdlab/situation_reader.py
+--- a/hdlab/situation_reader.py
++++ b/hdlab/situation_reader.py
+@@ -1816,3 +1816,7 @@ class SituationReader:
+         self.entity_kb_resolver = bool(entity_kb_resolver)
+-        self._lab = None               # lazy shared hdlab.arc_labeler.ArcLabeler (deprels for the goal filter)
++        self._lab = None               # RETIRED pri 129: no live consumer loads the supervised relation
++        #                                labeler any more (patient defer -> the competition's patient belief;
++        #                                goal purpose filter -> the competition's purpose arm; copular states
++        #                                + the is-a map -> the predicate slot).  Kept as a field so any
++        #                                out-of-tree caller of _frontend_labeler still sees None, not AttributeError.
+         self._pred_detector = None     # lazy hdlab.predicate_detector.PredicateDetector
+@@ -1827,3 +1831,3 @@ class SituationReader:
+         self._es_arc = None            # lazy ArcParser (M._ARC_ASSET)
+-        self._es_lab = None            # lazy ArcLabeler (M._LAB_ASSET)
++        self._es_lab = None            # RETIRED pri 129 (the copular detection is the predicate slot)
+         self._es_reg_cls = None        # lazy hdlab.state_register.StateRegister
+@@ -2478,33 +2482,64 @@ class SituationReader:
+     def _patient_arc_confidence(self, toks, v, pk):
+-        """CALIBRATED reliability in [0,1] of the who-did-what PATIENT parse arc (1-based `v`, `pk`), or None on
+-        any failure (abstain -- never breaks a read). The precision-weighting substrate: the reader can DEFER on
+-        a low-confidence patient (Friston precision; hdlab.parse_confidence, reusing graded_competition). Feature
+-        inputs are the validated exp_precwt_live_whodidwhat_v1 row (arc-eager conf/marg + the role-competition
+-        entropy + the labeled-obj indicator + passive). Read-only over the parse -- changes no head (ADDITIVE).
+-
+-        A2-DROP 2026-09-06 (precision-defer landing): the a2_marg cue (the GLOBAL arc_parser margin at pk) is
+-        passed 0.0 -- it is INERT for the patient by measurement (predecessor), so dropping it needs NO 2nd
+-        parser (the defer path scores off the SINGLE shared arc-eager parse). The abstain/defer policy is
+-        coverage/rank-based, so it is invariant to the resulting uniform confidence shift (a2_marg becomes a
+-        constant feature; the right-vs-wrong ranking -- hence the dev-tau coverage split -- is preserved)."""
+-        try:
+-            from hdlab import parse_confidence as PC
+-            from hdlab.relcl_resolver import precise_passive
+-            pos = self._cached_tag(list(toks))
+-            heads, conf, marg = self._cached_parse_conf(list(toks), pos)
+-            labels = self._frontend_labeler().label(list(toks), list(pos), heads, head_posterior=self._cached_head_posterior(list(toks), pos))
+-            passive = bool(precise_passive(list(toks), list(pos), v))
+-            return PC.calibrated_patient_confidence(list(toks), list(pos), heads, conf, marg, v, pk,
+-                                                    labels, passive, a2_marg=0.0)
+-        except Exception:
+-            return None
+-
+-    def _frontend_labeler(self):
+-        """Shared lazy arc labeler (UD deprels) -- for the goal advcl purpose filter (+ reused by entity_states)."""
+-        if self._lab is None:
+-            from hdlab.arc_labeler import ArcLabeler
+-            self._lab = ArcLabeler.load(os.path.join(_REPO, "data/frontend_assets/arc_labeler_hashed_ud_ewt.json"))
+-        return self._lab
++        """Reliability in [0,1] of the who-did-what PATIENT decision (1-based `v`, `pk`), or None on any failure
++        (abstain -- never breaks a read).  THE DECIDING ORGAN CARRIES THE CERTAINTY (pri 129, 2026-09-15): this
++        used to score the arc with the FROZEN FITTED LOGISTIC in hdlab.parse_confidence, whose features were fit
++        offline on the arc-eager parser -- a different parser from the attachment arm the reader now runs, and a
++        readout bolted on after the decision rather than the accumulator's own balance of evidence (Kiani &
++        Shadlen 2009).  It now reads the Competition-Model organ's own belief that pk is v's patient:
++        P(role in {OBJ, PASS_SUBJ}) x P(pk wins v's object slot) (Vosse-Kempen competitive unification), both
++        factors pure functions of the count-accrued cue validities -- no fitted parameter, no relation labeler,
++        and plastic through `observe_role_outcome`.
++
++        MEASURED (UD-EWT test, n=1247 patient items the live chain decides, sentence-clustered paired
++        bootstrap): right-vs-wrong AUC 0.8127 vs the fitted logistic's 0.7613, +0.0517 CI95 [+0.0136, +0.0882];
++        permuted twin 0.4764; selective accuracy at 50% coverage 0.9470 vs 0.9133 (blanket 0.8148).  ADDITIVE as
++        before -- the agent/patient PICKS are unchanged; only a consumer that opts to defer acts on it."""
++        try:
++            from hdlab.graded_role_assigner import patient_slot_confidence
++            pos = self._cached_tag(list(toks))
++            heads, conf, _marg = self._cached_parse_conf(list(toks), pos)
++            hp = self._cached_head_posterior(list(toks), pos)
++            return patient_slot_confidence(list(toks), list(pos), heads, v, pk, head_post=hp, conf=conf)
++        except Exception:
++            return None
++
++    def _purpose_deprels(self, toks, up, heads):
++        """{1-based infinitival-verb id -> "xcomp" | "advcl"} for every "to VINF" site in this sentence -- the
++        ONLY thing goal_register's ADVCL purpose filter ever read off a relation labeler, now decided by the
++        Competition-Model organ's PURPOSE arm (lexicalist subcategorization frame + configuration cues;
++        MacDonald-Pearlmutter-Seidenberg / Trueswell / Vosse-Kempen).  Returns {} when the purpose validity
++        asset is absent, which makes the filter fall through exactly as an unlabeled deprel did."""
++        from hdlab.graded_role_assigner import (purpose_cues, purpose_complement_posterior,
++                                               load_purpose_validities)
++        tab = load_purpose_validities()
++        if not tab:
++            return {}
++        try:
++            from hdlab.verb_subcat_frames import SubcatFrames
++            sc = SubcatFrames.load()
++        except Exception:
++            sc = None
++        out = {}
++        low = [t.lower() for t in toks]
++        n = len(toks)
++        for i in range(1, n - 1):
++            if low[i] != "to" or not (i + 1 < n and up[i + 1] == "VERB"):
++                continue
++            mvi = None
++            for j in range(i - 1, -1, -1):
++                if up[j] == "VERB":
++                    mvi = j
++                    break
++                if low[j] in (".", ";", ":", "!", "?"):
++                    break
++            if mvi is None:
++                continue
++            cfg, cues = purpose_cues(list(toks), list(up), i, mvi, heads, subcat=sc)
++            p = purpose_complement_posterior(cfg, cues, tab)
++            if p is None:
++                continue
++            out[i + 2] = "xcomp" if p >= float(tab.get("tau", 0.55)) else "advcl"
++        return out
+ 
+     @staticmethod
+     def _has_to_verb(toks, up):
+@@ -3161,14 +3196,12 @@ class SituationReader:
+         deprels_by_sent = None
+         if self.goal_purpose_filter:
+-            # the reader's OWN arc-labeler deprels over the SHARED per-read parse (consolidated arc-eager heads).
+-            # EFFICIENCY (2026-09-06): the ADVCL purpose filter reads a deprel ONLY in GR.extract_goals_sentence
+-            # branch (3) (the bare 'to VINF' adjunct), whose entry gate requires a 'to' token followed by a VERB.
+-            # Label ONLY those sentences (self._has_to_verb) -- BYTE-IDENTICAL (a skipped sentence passes
+-            # deprels=None, exactly as it would have fallen through), ~4-8x fewer arc-labeler calls on prose.
+-            lab = self._frontend_labeler()
+-            deprels_by_sent = [
+-                (lab.label(list(t), pos[i], self._cached_parse_heads(list(t), pos[i]), head_posterior=self._cached_head_posterior(list(t), pos[i]))
+-                 if self._has_to_verb(t, pos[i]) else None)
+-                for i, t in enumerate(sents)]
++            # pri 129: the purpose verdict comes from the Competition-Model organ's PURPOSE arm, not a frozen
++            # supervised deprel (_purpose_deprels).  The _has_to_verb gate is kept: a sentence with no
++            # "to VERB" can never reach GR.extract_goals_sentence branch (3), so skipping it is byte-identical
++            # and the arm is not run on the ~75-90% of prose sentences that cannot use it.
++            deprels_by_sent = [
++                (self._purpose_deprels(list(t), pos[i], self._cached_parse_heads(list(t), pos[i]))
++                 if self._has_to_verb(t, pos[i]) else None)
++                for i, t in enumerate(sents)]
+         goals = GR.extract_goals(sents, pos, subcat=sc, deprels_by_sent=deprels_by_sent)
+         canon, _names = GR.make_canonicalizer(sm, commonnoun_canonical=self.commonnoun_canonical)
+@@ -4412,14 +4445,11 @@ class SituationReader:
+         if self._es_mod is None:
+             from hdlab import copular_binding as _M
+-            from hdlab.pos_tagger import PosTagger
+-            from hdlab.arc_parser import ArcParser
+-            from hdlab.arc_labeler import ArcLabeler
+             from hdlab.state_register import StateRegister
+             self._es_mod = _M
+             self._es_typed = _M.predicted_type
+-            self._es_pos = PosTagger.load(_M.POS_ASSET)
+-            self._es_arc = ArcParser.load(_M.ARC_ASSET)
+-            self._es_lab = ArcLabeler.load(_M.LAB_ASSET)
++            # pri 129: the three private supervised assets (PosTagger / ArcParser / ArcLabeler) are GONE.  The
++            # tag + parse already route through the reader's SHARED per-read cache (they have since 2026-09-04,
++            # so _es_pos / _es_arc were dead weight), and DETECTION is now the predicate slot, so no labeler.
+             self._es_reg_cls = StateRegister
+         M = self._es_mod
+         reg = self._es_reg_cls()
+@@ -4450,5 +4480,17 @@ class SituationReader:
+                     if i < len(up_c) and up_c[i] not in ("NOUN", "PROPN", "PRON") and d and                             sum(d.get(c, 0.0) for c in ("NOUN", "PROPN", "PRON")) >= STATE_NOMINAL_MASS:
+                         up_c[i] = max(("NOUN", "PROPN", "PRON"), key=lambda c: d.get(c, 0.0))
+-            bind = set(M.extract_entity_states(toks, up_c, self._es_arc, self._es_lab, heads=heads,
+-                                               head_posterior=self._cached_head_posterior(toks, up)))   # graded hand-off (2026-09-13)
++            # pri 129: DETECTION = the PREDICATE SLOT (attachment_arm.predicate_sites), not the frozen
++            # perceptron's `cop` label.  Read-back recall 0.7958 vs 0.7905 with fewer pairs emitted; dropping
++            # the path entirely is CI-separated DOWN (-0.0107), so it is load-bearing and was replaced, not cut.
++            _cp = set()          # NOT None: an empty set means "the label path detects nothing here", so a
++            #                      category inventory without the UPOS classes predicate_sites reads degrades
++            #                      to the robust closed-class copula detector alone -- never to a labeler.
++            _m = self._cached_tag_matrix(list(toks))
++            if _m is not None:
++                from hdlab.attachment_arm import predicate_sites as _ps
++                from hdlab import lexical_categories as _LCp
++                _cp = {q + 1 for q, s in _ps(list(toks), list(up_c), _m, list(_LCp.get().tags)).items()
++                       if up_c[q] != "VERB" and s > 0.0}
++            bind = set(M.extract_entity_states(toks, up_c, heads=heads, cop_preds=_cp,
++                                               head_posterior=self._cached_head_posterior(toks, up)))   # graded hand-off (2026-09-13)
+             pairs = bind | M.robust_cop(toks, up_c, heads, gate=True)
+@@ -4539,45 +4581,60 @@ class SituationReader:
+     def _commonnoun_appos_map(self, sents):
+-        """In-text is-a edges (apposition + copula 'X is/are a Y') from the reader's OWN parse, keyed by
+-        head_lemma -- the appos/copula bridge seed (byte-faithful to TC.appos_copula_isa, but on the reader's
+-        arc-labeler output instead of a gum_coref.Doc). REUSES the shared per-read tag/head cache
+-        (_cached_tag / _cached_parse_heads are HITS -- the events/roles path already parsed these sentences),
+-        so NO second parse: the only new work is arc LABELING, gated to sentences with >=2 nominal tokens
+-        (both appos and copula need two nominals -> byte-safe skip)."""
+-        from hdlab.lexical_utils import concept_lemma   # BF concept-key (matches _resolve_commonnouns' r.heads keying)
+-        lab = self._frontend_labeler()
+-        typed = {}
+-        for toks in sents:
+-            toks = list(toks)
+-            n = len(toks)
+-            if n < 2:
+-                continue
+-            up = self._cached_tag(toks)
+-            if sum(1 for t in up if t in ("NOUN", "PROPN")) < 2:
+-                continue                                    # cannot yield an is-a edge -> skip (byte-safe)
+-            heads = self._cached_parse_heads(toks, up)      # {dep(1-based): head(1-based), 0=ROOT}
+-            deprels = lab.label(toks, up, heads, head_posterior=self._cached_head_posterior(toks, up))   # {dep(1-based): deprel}
+-            links = set()
+-            for i in range(1, n + 1):
+-                dep = deprels.get(i, "")
+-                h = heads.get(i, 0)
+-                # apposition: dep i -> head h, both nominal
+-                if dep.startswith("appos") and 1 <= h <= n \
+-                        and up[i - 1] in ("NOUN", "PROPN") and up[h - 1] in ("NOUN", "PROPN"):
+-                    links.add(frozenset((concept_lemma(toks[i - 1]), concept_lemma(toks[h - 1]))))
+-                # copula: token i is 'be' with deprel 'cop'; head h = predicate nominal; find its nsubj subject
+-                if toks[i - 1].lower() in ("be", "is", "are", "was", "were", "been", "being", "'s", "'re") \
+-                        and dep == "cop" and 1 <= h <= n and up[h - 1] in ("NOUN", "PROPN"):
+-                    subj = None
+-                    for u in range(1, n + 1):
+-                        if heads.get(u, 0) == h and deprels.get(u, "").startswith("nsubj"):
+-                            subj = u
+-                    if subj is not None and up[subj - 1] in ("NOUN", "PROPN"):
+-                        links.add(frozenset((concept_lemma(toks[h - 1]), concept_lemma(toks[subj - 1]))))
++        """In-text is-a edges from the reader's OWN read, keyed by head_lemma -- the conceptual-bridge seed.
++
++        pri 129 (2026-09-15): the COPULA half is read from the PREDICATE SLOT + the ONE role competition
++        (`attachment_arm.predicate_sites` + `graded_role_assigner`), and the APPOSITION half is RETIRED.  Both
++        halves used the frozen supervised relation labeler, and this method is the FIRST thing on a default
++        read to import it.  The copula half transfers (25 of 63 gold copular is-a edges from the slot vs 24
++        from the perceptron, UD-EWT test).  The apposition half does NOT: the perceptron recovers 28 of 105
++        gold appositions at precision 0.177, and the strongest arc-free construction schema built for it
++        recovers 17 (0.162 vs 0.267, paired CI95 [-0.2252, +0.0100] -- not separated, but not matched either),
++        because 65 of those 105 are COMMA-FREE close appositions ("the terrorist group Hamas") that a
++        comma-set-off schema cannot see.  It is dropped rather than kept as a NOT_BF stand-in because its
++        consumer cannot see it: see the SOLVED.md `rows` measurement (common-noun coref, 16 GUM documents).
++        A BF replacement is filed as a follow-on lead, not left running on the perceptron."""
++        from hdlab.lexical_utils import concept_lemma   # BF concept-key (matches _resolve_commonnouns' r.heads keying)
++        from hdlab import graded_role_assigner as _GRA
++        from hdlab.attachment_arm import predicate_sites as _ps
++        from hdlab import lexical_categories as _LCp
++        _ix = {r: k for k, r in enumerate(_GRA.ROLE_CLASSES)}
++        _NOM2 = ("NOUN", "PROPN")
++        typed = {}
++        for toks in sents:
++            toks = list(toks)
++            n = len(toks)
++            if n < 2:
++                continue
++            up = self._cached_tag(toks)
++            if sum(1 for t in up if t in _NOM2) < 2:
++                continue                                    # cannot yield an is-a edge -> skip (byte-safe)
++            heads = self._cached_parse_heads(toks, up)      # {dep(1-based): head(1-based), 0=ROOT}
++            hp = self._cached_head_posterior(toks, up)
++            mat = self._cached_tag_matrix(toks)
++            if mat is None:
++                continue
++            links = set()
++            for pred in {q + 1 for q, s in _ps(toks, list(up), mat, list(_LCp.get().tags)).items()
++                         if up[q] != "VERB" and s > 0.0}:
++                if up[pred - 1] not in _NOM2:
++                    continue                                # an is-a edge needs a NOMINAL predicate
++                best, bp = None, 0.0
++                for d in range(1, n + 1):
++                    hpd = (hp or {}).get(d)
++                    if heads.get(d) == pred or (hpd and hpd.get(pred, 0.0) > 0.0):
++                        if up[d - 1] not in _NOM2:
++                            continue
++                        post = (_GRA.coarse_role_posterior_headmarg(toks, up, heads, d, hpd) if hpd
++                                else _GRA.coarse_role_posterior(toks, up, heads, d))
++                        pr = float(post[_ix["SUBJ"]] + post[_ix["PASS_SUBJ"]])
++                        if pr > bp:
++                            best, bp = d, pr
++                if best is not None and bp >= 0.5:
++                    links.add(frozenset((concept_lemma(toks[pred - 1]), concept_lemma(toks[best - 1]))))
+             for l in links:
+                 a, b = tuple(l) if len(l) == 2 else (next(iter(l)), next(iter(l)))
+                 if not a or not b:
+                     continue
+                 typed.setdefault(a, set()).add(b)
+                 typed.setdefault(b, set()).add(a)
+         return typed
+ 
+
+
