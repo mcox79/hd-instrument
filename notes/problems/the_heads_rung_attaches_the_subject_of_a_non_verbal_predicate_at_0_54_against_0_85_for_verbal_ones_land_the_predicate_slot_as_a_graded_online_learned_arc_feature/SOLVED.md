@@ -2,10 +2,10 @@
 problem: the_heads_rung_attaches_the_subject_of_a_non_verbal_predicate_at_0_54_against_0_85_for_verbal_ones_land_the_predicate_slot_as_a_graded_online_learned_arc_feature
 status: SOLVED
 bar: "Non-verbal-subject attachment up CI-separated from 0.5385 toward the prototype's 0.6509 or beyond, verbal not down, with the feature's validity LEARNED (counts + observe path; a twin with the validity permuted at floor); the held/reshape decode landed in the in-order arm; the participant instrument's recall on the 167 up; board not down full-size -- OR a numbered located negative naming the wall (A / B / C above) with its count."
-result: "UD-EWT test 700, live chain (organ categories + graded posterior), population = the 169 gold nsubj/nsubj:pass arcs whose gold head is not a gold VERB. Measured THROUGH THE DIFF, the organ as shipped vs the patched organ, BOTH IN ONE PROCESS: non-verbal subject attachment 0.5385 -> 0.6568 (+0.1183 CI[+0.0705,+0.1706] SEPARATED), verbal subjects 0.8533 -> 0.8617 (+0.0083 CI[+0.0000,+0.0187], not separated, NOT down), UAS 0.6331 -> 0.6370 (+0.0039 CI[+0.0016,+0.0064] SEPARATED UP); per relation nsubj 0.7841 -> 0.8166, cop 0.6398 -> 0.6935, expl 0.8333 -> 0.9583, root unchanged; the largest give-back on a relation with n>=100 is conj -0.0086 (n=233), and the largest anywhere is iobj -0.0278 (n=36, one item). The cue's validity is LEARNED, never hand-set: 4,560 arcs accrued from 4,000 sentences of reading through the organ's own categories (no gold column, no tree, no treebank head), 74 cells, shipped as data/hook_state/attachment_validities_csubg_v1.json (every other cue in the table byte-identical, asserted). OUT OF SUPPLY (GUM/GENTLE, 12+ genres, 367 non-verbal subjects): 0.4796 -> 0.5613, verbal 0.8072 -> 0.8173 (up), UAS 0.6092 -> 0.6135. The lever decomposition on the same population: detection coverage 0.5385 -> 0.5740, + the graded occupancy cue 0.6509, + predicate-arrival reanalysis 0.6686 (cell readout; the diff's own end-to-end number is 0.6568 because it computes the occupancy inside the tag mixture). DOWNSTREAM, on pri 113's OWN participant instrument (unmodified, both arms in one process): the arm that reads the predicate slot FROM THE PARSE rises 0.6048 -> 0.7006 recall on the 167 non-verbal clauses (state-registered 0.6108 -> 0.7066, pooled precision 0.8229 -> 0.8277), and pri 113's headline located negative -- the parse hand-off CI-separated BELOW the closed-class construction scan, -0.1317 CI[-0.1976,-0.0719] -- becomes -0.0359 CI[-0.0898,+0.0240], NO LONGER SEPARATED. LEARNING CURVE (plasticity): 0 sentences read 0.6154, 250 -> 0.6331, 1,000 -> 0.6627, 4,000 -> 0.6686. At the organ's own beam=16 operating point the patched arm is 0.6746 with UAS 0.6414."
+result: "UD-EWT test 700, live chain (organ categories + graded posterior), population = the 169 gold nsubj/nsubj:pass arcs whose gold head is not a gold VERB. Measured THROUGH THE DIFF, the organ as shipped vs the patched organ, BOTH IN ONE PROCESS: non-verbal subject attachment 0.5385 -> 0.6568 (+0.1183 CI[+0.0705,+0.1706] SEPARATED), verbal subjects 0.8533 -> 0.8617 (+0.0083 CI[+0.0000,+0.0187], not separated, NOT down), UAS 0.6331 -> 0.6370 (+0.0039 CI[+0.0016,+0.0064] SEPARATED UP); per relation nsubj 0.7841 -> 0.8166, cop 0.6398 -> 0.6935, expl 0.8333 -> 0.9583, root unchanged; the largest give-back on a relation with n>=100 is conj -0.0086 (n=233), and the largest anywhere is iobj -0.0278 (n=36, one item). The cue's validity is LEARNED, never hand-set: 4,560 arcs accrued from 4,000 sentences of reading through the organ's own categories (no gold column, no tree, no treebank head), 74 cells, shipped as data/hook_state/attachment_validities_csubg_v1.json (every other cue in the table byte-identical, asserted). OUT OF SUPPLY (GUM/GENTLE, 12+ genres, 367 non-verbal subjects): 0.4796 -> 0.5613, verbal 0.8072 -> 0.8173 (up), UAS 0.6092 -> 0.6135. The lever decomposition on the same population: detection coverage 0.5385 -> 0.5740, + the graded occupancy cue 0.6509, + predicate-arrival reanalysis 0.6686 (cell readout; the diff's own end-to-end number is 0.6568 because it computes the occupancy inside the tag mixture). DOWNSTREAM, on pri 113's OWN participant instrument (unmodified, both arms in one process): the arm that reads the predicate slot FROM THE PARSE rises 0.6048 -> 0.7006 recall on the 167 non-verbal clauses (state-registered 0.6108 -> 0.7066, pooled precision 0.8229 -> 0.8277), and pri 113's headline located negative -- the parse hand-off CI-separated BELOW the closed-class construction scan, -0.1317 CI[-0.1976,-0.0719] -- becomes -0.0359 CI[-0.0898,+0.0240], NO LONGER SEPARATED. LEARNING CURVE (plasticity): 0 sentences read 0.6154, 250 -> 0.6331, 1,000 -> 0.6627, 4,000 -> 0.6686. At the organ's own beam=16 operating point the patched arm is 0.6746 with UAS 0.6414 (beam 32: 0.6864 / 0.6447). READ-TIME COST: none (shipped 20.1 ms/sentence, patched 19.5). NOT MEASURED BY ME: the full-size board A/B -- it was still running its first arm when I finalized; the runner and the arm-A checkpoint are on disk (section 4i) and the default flip should wait on it."
 floor: "The live arm exactly as shipped (csub cue on, incremental decode, the landed attachment_validities_v1.json): non-verbal subject attachment 0.5385 (n=169), verbal 0.8533 (n=600), UAS 0.6331 -- reproduced to the digit in every run. Also run as reference points: the owner's pri 113 prototype reproduced in-cell 0.6391; the BEST hand-set frozen constant, swept w in {1,2,3,4.6,6,8,12} and chosen ON THE TEST POPULATION, 0.6568; the whole-sentence MAP decode of the same scores 0.7041; a hard forced re-attach on the detected pairs 0.7219."
 controls: "(1) RANDOM-SITE TWIN -- the same accrued validities applied to random (content head, nominal dependent) pairs at the matched rate: 0.6213, learned beats it +0.0473 CI[+0.0179,+0.0803] SEPARATED (so the win is the construction, not 'push some arcs harder'). (2) OCCUPANCY-PERMUTED TWIN -- the occupancy column shuffled across tokens so the graded VALUE carries no information: 0.6154, learned beats it +0.0533 CI[+0.0233,+0.0893] SEPARATED (so the gradedness is load-bearing). (3) FROZEN-CONSTANT FLOOR, swept and tuned on the test population: best 0.6568 vs learned 0.6686, +0.0118 CI[-0.0115,+0.0343] NOT separated -- reported against myself: the learned table beats every frozen constant tried including the oracle-tuned one, but not CI-separably at n=169. (4) ORACLE PAIRS -- the cue fed the GOLD (predicate, subject) pairs: 0.6450, i.e. -0.0059 CI[-0.0438,+0.0323] vs the learned arm, so perfect detection buys NOTHING and pri 113 section 29's 'detection coverage is the limiter' is overturned with a number. (5) SWITCH-OFF EQUIVALENCE -- with HDLAB_ARM_CSUB_COVERAGE=0 the new pair detection reproduces the shipped csub detection exactly (0 differences over 120 sentences, asserted in --self-test); with no occupancy the graded cue is silent. (6) PATCHED == REFERENCE -- the vectorised readout equals the per-pair reference loop to 1e-9 WITH the occupancy on (60 sentences), the organ's own fastpath invariant. (7) THE ORGAN'S OWN WITNESSES RUN AGAINST THE PATCHED ORGAN with the accrued asset installed: verification/test_attachment_arm.py 17/17 (including the decode contract -- one root, connected tree, identical through the frontend -- and the plasticity round-trip) and verification/test_attachment_arm_fastpath.py PASS (max |fast - reference| 3.55e-15, MAP heads agree 40/40). (8) A FAILED CONTROL, recorded: a twin that accrues the validity from random pairs ('tacc') ties the learned arm exactly (+0.0000 CI[-0.0172,+0.0172]) -- it is uninformative BY CONSTRUCTION, because my twin accrual still hands the outcome by the value label; and the first validity-permutation twin was also uninformative (41 of 52 cells are positive, so a permutation keeps 36 of 41 positive). Both are reported rather than quietly dropped."
-files_changed: "experiments/exp_copular_subject_attachment_learned_v1.py (the cell: the PATCH block, the accrual, the arms, the twins, the oracle/residual/frozen diagnostics, the one-process live A/B through the diff, the board A/B); notes/problems/<slug>/{SOLVED.md, copular_subject_attachment_patch.diff}; data/hook_state/attachment_csubg_validity_v1.json (the accrued cue, for inspection) and data/hook_state/attachment_validities_csubg_v1.json (the SWAPPABLE table = the landed counts + the accrued cue); data/exp_copular_subject_attachment_learned_v1/*.json. NO hdlab/ or tools/ file edited -- the proposal is the diff, which applies cleanly at HEAD 6e35d9fe4 and is EXECUTED by the cell (--patch-test / --live-ab load it in memory as hdlab.attachment_arm)."
+files_changed: "experiments/exp_copular_subject_attachment_learned_v1.py (the cell: the PATCH block, the accrual, the arms, the twins, the oracle/residual/frozen diagnostics, the one-process live A/B through the diff, the learning curve, the read-time measurement, the board A/B runner); notes/problems/<slug>/{SOLVED.md, copular_subject_attachment_patch.diff}; data/hook_state/attachment_csubg_validity_v1.json (the accrued cue, for inspection) and data/hook_state/attachment_validities_csubg_v1.json (the SWAPPABLE table = the landed counts + the accrued cue); data/exp_copular_subject_attachment_learned_v1/*.json. NO hdlab/ or tools/ file edited -- the proposal is the diff, which applies cleanly at HEAD 6e35d9fe4 and is EXECUTED by the cell (--patch-test / --live-ab load it in memory as hdlab.attachment_arm)."
 reverify: ".venv/Scripts/python.exe experiments/exp_copular_subject_attachment_learned_v1.py --self-test  (17/17) ; then --patch-test --cap 120 (6/6, runs the diff's own code) ; then the headline, ~2 min, writes only into its own directory: HDLAB_EXP_NAME=copular_subject_attachment_learned_v1 .venv/Scripts/python.exe experiments/exp_copular_subject_attachment_learned_v1.py --live-ab --cap 700 ; out of supply: --live-ab --gum --cap 1200 ; the lever decomposition and the twins: --arms --cap 700 ; the controls: --oracle --cap 700, --frozen --cap 700, --residual --cap 700. The organ's own witnesses against the patched organ: python -c "import sys;sys.argv=['x'];import experiments.exp_copular_subject_attachment_learned_v1 as C;C.patched_module();import runpy;sys.argv=['v'];runpy.run_path('verification/test_attachment_arm.py',run_name='__main__')" (17/17). The accrual is reproducible from reading: --accrue --cap 4000 (~2 min, rewrites both hook_state assets)."
 ---
 
@@ -14,7 +14,9 @@ reverify: ".venv/Scripts/python.exe experiments/exp_copular_subject_attachment_l
 **0.5385 -> 0.6568 on the non-verbal subject (CI-separated), with the verbal population not down, UAS up, and the
 validity accrued from reading rather than set by hand.** The owner's pri 113 prototype number (0.6509) is reached
 and passed by a mechanism that is learned and plastic instead of a boost/penalty pair, and three of the brief's
-inherited assumptions were overturned with numbers (below).
+inherited assumptions were overturned with numbers (below). **One bar item is NOT closed by me: the full-size
+board A/B was still running its first arm when I finalized -- section 4i says exactly where it stands and how to
+finish it.**
 
 ---
 
@@ -142,7 +144,7 @@ written before `cop_complement` and `LOCATIVE_ADV` landed in the organ, so its p
 the number was taken. **The conclusion survives** -- the landed mechanism passes both numbers -- but the 0.6509 in
 the brief should be read as "the prototype on the pre-merge tree", not as a number reproducible today.
 
-### 4f. THE DOWNSTREAM PROPAGATION -- pri 113's own participant instrument, and a located negative that is no longer separated
+### 4e. THE DOWNSTREAM PROPAGATION -- pri 113's own participant instrument, and a located negative that is no longer separated
 
 pri 113's instrument (`exp_nonverbal_predication_participants_v1.py --participant`, UNMODIFIED) run on the shipped
 organ and then on the patched organ, both in one process. Its `parse` arm is the one this rung feeds: it reads the
@@ -165,7 +167,7 @@ closed-class scan on the very instrument that located it as a deficit, and the i
 reproduce pri 113's table to the digit (floor 0.1856 / slot 0.7365 / parse 0.6048 / twin 0.2635 / oracle 1.0000),
 so the comparison is like for like.
 
-### 4g. THE REMAINING DECODE GAP IS A SWEPT OPERATING POINT, NOT A CEILING (the phase diagram)
+### 4f. THE REMAINING DECODE GAP IS A SWEPT OPERATING POINT, NOT A CEILING (the phase diagram)
 
 The in-order beam width is a parameter of the ORGAN, free to move, and moving it closes the gap to the
 whole-sentence search smoothly. Same one-process A/B, same population, `HDLAB_ARM_BEAM` only:
@@ -185,7 +187,7 @@ population rise with the beam too** (UAS 0.6370 -> 0.6447; verbal 0.8617 -> 0.87
 trading one population for another. The default is strategy's call because beam 32 is roughly 4x the read cost of
 beam 8 and the board's runtime is already the binding constraint; it is recorded here as a measured move, not taken.
 
-### 4i. READ-TIME COST (the organ is performance-sensitive: a board arm is ~20 minutes)
+### 4g. READ-TIME COST (the organ is performance-sensitive: a board arm is ~20 minutes)
 
 Measured over 200 UD-EWT test sentences, the whole live path (`arc_scores_graded` + `decode`):
 **shipped 20.1 ms/sentence, patched 19.5 ms/sentence** -- no cost. The first cut of the patch DID cost +30%
@@ -195,14 +197,39 @@ the (predicate, subject) pairs twice, i.e. eight identical scans per sentence; a
 headline numbers are unchanged to the digit, checked by re-running the cap-700 A/B after the change.
 
 
-### 4h. The board (the last gate), and how it was run
+### 4h. LANDING ORDER IS SAFE EITHER WAY (integration note)
 
-`--board` runs the seven dimensions BOTH ARMS IN ONE PROCESS, arm A on the organ as shipped and arm B after the
-patched organ is bound **in place** onto the live `hdlab.attachment_arm` object (replacing `sys.modules` would leave
-every consumer's `import ... as AA` pointing at the old organ; the swap was verified separately -- the live module
-keeps its identity, the patched functions are reachable through it, and the frontend re-reads the accrued table with
-its 74 cells). Arm A is checkpointed to `board_armA.json` before the swap. **RESULT: section 4h below** (a capped
-board's exact zeros are underpowered, so only the full-size run counts).
+The code and the asset can land in either order. With the **LANDED** table (no `csubg` cells at all, so the graded
+cue is silent), the patched organ still scores **0.6709** against the shipped organ's 0.6076 on the same 200
+sentences -- the coverage fix and the reanalysis ride on the EXISTING `csub` validity -- and with the accrued table
+it reaches 0.6962. Nothing raises an exception when the cue's cells are absent (`_ArcIndex` builds an empty value
+table and contributes exactly zero), and a category inventory without the UPOS classes the occupancy read needs
+(the induced-class swap, the temporal model's Penn-tagset instance) degrades to silence rather than an exception --
+asserted in `--self-test`.
+
+
+### 4i. The board -- THE ONE BAR ITEM I DID NOT CLOSE, and exactly where it stands
+
+**HONEST STATUS: the full-size board A/B was still running its first arm when I finalized, so I have NOT
+measured "board not down full-size". Nothing below should be read as if I had.**
+
+What exists: `--board` runs the seven dimensions BOTH ARMS IN ONE PROCESS -- arm A on the organ as shipped, then
+the patched organ is bound **in place** onto the live `hdlab.attachment_arm` object (replacing `sys.modules` would
+leave every consumer's `import ... as AA` pointing at the old organ; the swap is verified separately: the live
+module keeps its identity, the patched functions are reachable through it, and the frontend re-reads the accrued
+table with its 74 cells), then arm B. Arm A is checkpointed to `board_armA.json` before the swap, and the finished
+comparison lands in `data/exp_copular_subject_attachment_learned_v1/board_ab.json`.
+
+```
+HDLAB_EXP_NAME=copular_subject_attachment_learned_v1 .venv/Scripts/python.exe -u   experiments/exp_copular_subject_attachment_learned_v1.py --board --n-boot 1000     # ~20 min per arm
+```
+
+**The default flip should wait on it.** The diff ships `HDLAB_ARM_CSUBG` / `HDLAB_ARM_CSUB_COVERAGE` /
+`HDLAB_ARM_CSUB_REANALYSIS` ON, which is the configuration every number here was measured in; if the full board
+moves a dimension down, the discipline is to keep the brain-foundational rung ON and repair the consumer rather
+than revert it (2026-09-12), but that is strategy's call with the numbers in hand, not mine to pre-empt. What I can
+say is what the parse-level evidence says: UAS is CI-separated UP in supply and out of it, nsubj +0.033 / cop
++0.054 / expl +0.125 in supply, and the only give-backs are conj -0.009 (n=233) and iobj -0.028 (n=36, one item).
 
 ## 5. THREE INHERITED ASSUMPTIONS OVERTURNED (each with the number)
 
