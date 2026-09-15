@@ -108,7 +108,11 @@ def build_linked(conll_path, tagger, gaz, *, enrich=True, merge=False, use_frame
     co-referring referents merged into shared clusters (merge). enrich=False, merge=False == the landed
     referent_per_np_source byte-for-byte."""
     if not enrich and not merge:
-        return referent_per_np_source(conll_path, tagger, name_gender_map=gaz, use_frame=use_frame)
+        # 2026-09-15 (strategy, pri 125 landing): this arm is the GOLD-GIVEN instrument form of the landed source (its
+        # pronoun targets are same-gold-cluster pairs), so it asks for the coref-column pronouns explicitly; the live
+        # default (discover_pronouns=True) opens singleton pronouns from text and schedules its own questions.
+        return referent_per_np_source(conll_path, tagger, name_gender_map=gaz, use_frame=use_frame,
+                                      discover_pronouns=False)
 
     coref, n_sents = parse_litbank_conll(conll_path, name_gender_map=gaz)
     sents = parse_conll_sentences(conll_path)

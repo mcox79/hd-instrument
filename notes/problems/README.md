@@ -51,6 +51,8 @@ the brief.*
   AT INFERENCE (e.g. spaCy parsing at read-time) or a convenient dataset/model reached for as a shortcut/crutch is a
   DEFECT THAT BLOCKS. This line goes verbatim in the SOLVER OPERATING PROTOCOL block of every new brief (and is
   retro-added to open briefs); the standing-rules section below carries the full statement.
+- **📏🧪 SCORE THE PRODUCT FIRST (owner 2026-09-15, from the efficiency review):** every INSTRUMENT brief states in one line whether the instrument runs `SituationReader.read` on RAW TEXT (no annotation column) and carries a COUNTED witness that it does; the headline board is the reader's own read of raw text (pri 122); rebuilt/component rows are diagnostics with a provenance field. **Witnesses pin CLAIMS, not numbers** (direction, CI-separation, invariants, bounded losses; numbers printed with their history) -- a `n == 2855` or `0.543 <= m <= 0.554` pin is a defect in the witness.
+
 - **The solver's FIRST STEPS (stated in VERIFY BEFORE YOU START, not buried):** (1) **understand ALL the existing
   organs available** — `python tools/substrate_map.py`, `python tools/reader_capabilities.py`, skim `hdlab/`; (2)
   **read the related previous SOLVED solutions IN THEIR ENTIRETY** (the brief names them) before proposing anything.
