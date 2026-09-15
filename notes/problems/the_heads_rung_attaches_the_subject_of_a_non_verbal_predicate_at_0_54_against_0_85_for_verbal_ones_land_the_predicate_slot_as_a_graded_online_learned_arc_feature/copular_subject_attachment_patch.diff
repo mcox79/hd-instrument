@@ -37,7 +37,7 @@
          + (("clause",) if CLAUSE_CUE else ()) + (("npb",) if NPB_CUE else ()))   # catpair / root = configuration
  # "ppobj" (2026-09-13, solver pri-94): the THEMATIC channel of the PP cue -- what kind of thing the prepositional
  # phrase is about, given the type of the candidate that would license it (Taraban & McClelland 1988; Ratnaparkhi's
-@@ -1122,42 +1149,248 @@
+@@ -1122,42 +1149,265 @@
      return out
  
  
@@ -66,6 +66,13 @@
 +    if o >= CSUBG_BINS[0]:
 +        return "lo"
 +    return "no"
++
++
++def _memo(key, val):
++    if len(_CSUB_MEMO) >= _CSUB_MEMO_MAX:
++        _CSUB_MEMO.clear()
++    _CSUB_MEMO[key] = val
++    return val
 +
 +
 +def _csub_subject_before(toks, pos, c):
@@ -103,6 +110,10 @@
 +    return None
 +
 +
++_CSUB_MEMO = {}          # (tokens, categories) -> pairs; the graded hand-off re-scores the same sentence up to
++_CSUB_MEMO_MAX = 8       # four times and each cue pass asks twice, so the scan is memoised (read-time cost)
++
++
 +def cop_subject_pairs(toks, pos):
 +    """(predicate, subject) pairs, 1-based, for every copular predication in the sentence -- the token holding the
 +    clause's predicate slot and the nominal the copula predicates it OF.
@@ -112,6 +123,10 @@
 +    recovered.  pri 113 section 29 located DETECTION COVERAGE as what holds its prototype at 0.65: the pair was
 +    found for 101 of the 167 non-verbal clauses.  With the switch off the shipped detection is reproduced exactly
 +    (asserted over 120 sentences)."""
++    key = (tuple(toks), tuple(pos), CSUB_COVERAGE, CSUB_VERBAL_HOST)
++    hit = _CSUB_MEMO.get(key)
++    if hit is not None:
++        return hit
 +    n = len(pos); lows = [t.lower() for t in toks]; out = []
 +    if not CSUB_COVERAGE:
 +        for q in sorted(cop_predicates(list(toks), list(pos))):
@@ -126,6 +141,7 @@
 +            s = _csub_subject_before(toks, pos, c)
 +            if s is not None:
 +                out.append((q, s))
++        _memo(key, out)
 +        return out
 +    for i in range(n):
 +        if pos[i] != "AUX" or lows[i] not in COP_FORMS:
@@ -167,6 +183,7 @@
 +        if s is None or s == q:
 +            continue
 +        out.append((q, s))
++    _memo(key, out)
 +    return out
 +
 +
@@ -317,7 +334,7 @@
      return out
  
  
-@@ -1995,7 +2228,7 @@
+@@ -1995,7 +2245,7 @@
  
      def __init__(self, toks: Sequence[str], pos: Sequence[str], frames: Dict[str, List[int]],
                   pp_assoc: Optional[Dict[str, Dict[str, float]]] = None,
@@ -326,7 +343,7 @@
          self.toks = list(toks); self.pos = list(pos); self.n = len(toks); self.frames = frames
          self.cum = np.concatenate([[0], np.cumsum([1 if p == "PUNCT" else 0 for p in self.pos])])
          self.constr = construction_map(self.toks, self.pos)
-@@ -2003,6 +2236,11 @@
+@@ -2003,6 +2253,11 @@
          self.teacher = _plaus_teacher() if PLAUS_CUE else None
          self.rootcues = root_cue_values(self.toks, self.pos)     # MAIN-ASSERTION cues (one pass; read at h == 0)
          self.csub = csub_sites(self.toks, self.pos) if CSUB_CUE else {}
@@ -338,7 +355,7 @@
          self.clause = clause_matrices(self.toks, self.pos) if CLAUSE_CUE else None   # (predicates, opener) crossed
          self.npb = npb_matrix(self.toks, self.pos) if NPB_CUE else None              # phrase membership
          # PP ATTACHMENT (v2): the case-marked nominals and their retrieved candidate hosts, when the table carries the
-@@ -2060,6 +2298,10 @@
+@@ -2060,6 +2315,10 @@
              v = self.csub.get((h, j))
              if v is not None:
                  c["csub"] = v                 # the copular predicate vs a later verb, for the SUBJECT
@@ -349,7 +366,7 @@
          if self.clause is not None:
              c["clause"] = clause_value(int(self.clause[0][h][j - 1]), int(self.clause[1][h][j - 1]))
          if self.npb is not None:
-@@ -2244,13 +2486,16 @@
+@@ -2244,13 +2503,16 @@
      return idx[1]
  
  
@@ -369,7 +386,7 @@
      cat = np.array([ix.cats.get(p, ix.unk) for p in pos], dtype=np.int64)            # dependent / head (1..n) category ids
      H = np.arange(0, n + 1)[:, None]; J = np.arange(1, n + 1)[None, :]               # grid: rows h = 0..n, cols j = 1..n
      dr = (H > J).astype(np.int64)                                                    # config/cue convention: 'L' when the head is LEFT of the dependent (h < j) -> 0; 'R' (h > j) -> 1
-@@ -2331,6 +2576,11 @@
+@@ -2331,6 +2593,11 @@
          for (h, j), v in sc.csub.items():
              if 1 <= h <= n and 1 <= j <= n:
                  S[h, j - 1] += T[C[h, j - 1]][vid.get(v, 0)]
@@ -381,7 +398,7 @@
      # CLAUSE MEMBERSHIP + CONSTITUENCY (pri-105): dense adds over the same grid
      if sc.clause is not None and "clause" in ix.cue_tab:
          nv, sb = sc.clause; vid = ix.val_id["clause"]
-@@ -2349,10 +2599,11 @@
+@@ -2349,10 +2616,11 @@
      return A, n
  
  
@@ -395,7 +412,7 @@
      n = sc.n; A = np.full((n + 1, n + 1), -np.inf)
      words = [j for j in range(1, n + 1) if pos[j - 1] not in FORM]
      for j in range(1, n + 1):
-@@ -2441,9 +2692,9 @@
+@@ -2441,9 +2709,9 @@
  
  
  def head_posterior(toks: Sequence[str], pos: Sequence[str], table: Optional[Dict[str, object]] = None,
@@ -407,7 +424,7 @@
  
  
  # POINT DECODE (2026-09-13 06:30 local): "mbr" = minimum-Bayes-risk tree -- the single-rooted tree maximising the SUM of the arc
-@@ -2904,6 +3155,10 @@
+@@ -2904,6 +3172,10 @@
      else:
          hd = chu_liu_edmonds(A, n); post = single_root_marginals(A.copy(), n, temp)
      hd = occupancy_repair(toks, pos, hd, post)
@@ -418,7 +435,7 @@
      hd = punct_convention(toks, pos, hd)
      for j in range(1, len(toks) + 1):
          if PUNCT_CONVENTION and pos[j - 1] == "PUNCT" and j in post:
-@@ -2911,9 +3166,9 @@
+@@ -2911,9 +3183,9 @@
      return hd, post
  
  
@@ -430,7 +447,7 @@
  
  
  # ---------------------------------------------------------------------------------------------------------------------------------
-@@ -2930,7 +3185,10 @@
+@@ -2930,7 +3202,10 @@
                        table: Optional[Dict[str, object]] = None, tau: float = TAG_GRADED_TAU,
                        max_alt: int = TAG_GRADED_MAX_ALT) -> Tuple[np.ndarray, int]:
      """Arc activations marginalised (first order) over each uncertain token's second-best category."""
@@ -442,7 +459,7 @@
      if not tag_post:
          return A, n
      alts = []
-@@ -2950,7 +3208,7 @@
+@@ -2950,7 +3225,7 @@
      out = A.copy()
      for p_alt, i, alt in alts[:max_alt]:
          pos2 = list(pos); pos2[i] = alt
@@ -451,7 +468,7 @@
          fin = np.isfinite(A) & np.isfinite(B)
          out[fin] += p_alt * (B[fin] - A[fin])
          # arcs that exist only under the alternative categorisation enter with their posterior share
-@@ -3137,6 +3395,8 @@
+@@ -3137,6 +3412,8 @@
             "predicate_slot_occupancy", "revise_for_predicate_slot", "host_belief", "copular_available",
             "is_existential", "main_verb_carriers",
             "cop_predicates", "cop_complement", "predicate_complements", "predicate_sites",

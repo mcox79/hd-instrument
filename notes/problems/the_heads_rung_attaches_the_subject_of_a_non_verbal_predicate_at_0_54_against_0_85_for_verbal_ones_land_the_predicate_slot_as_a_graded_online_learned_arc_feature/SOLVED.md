@@ -185,6 +185,16 @@ population rise with the beam too** (UAS 0.6370 -> 0.6447; verbal 0.8617 -> 0.87
 trading one population for another. The default is strategy's call because beam 32 is roughly 4x the read cost of
 beam 8 and the board's runtime is already the binding constraint; it is recorded here as a measured move, not taken.
 
+### 4i. READ-TIME COST (the organ is performance-sensitive: a board arm is ~20 minutes)
+
+Measured over 200 UD-EWT test sentences, the whole live path (`arc_scores_graded` + `decode`):
+**shipped 20.1 ms/sentence, patched 19.5 ms/sentence** -- no cost. The first cut of the patch DID cost +30%
+(19.1 -> 24.9 ms) because the graded hand-off re-scores a sentence up to four times and each cue pass asked for
+the (predicate, subject) pairs twice, i.e. eight identical scans per sentence; an 8-entry memo on
+`cop_subject_pairs`, keyed on (tokens, categories, the two switches), removes it. The memo is pure sharing -- the
+headline numbers are unchanged to the digit, checked by re-running the cap-700 A/B after the change.
+
+
 ### 4h. The board (the last gate), and how it was run
 
 `--board` runs the seven dimensions BOTH ARMS IN ONE PROCESS, arm A on the organ as shipped and arm B after the
@@ -198,8 +208,10 @@ board's exact zeros are underpowered, so only the full-size run counts).
 
 1. **"Detection coverage is what holds the prototype at 0.65" (pri 113 section 29).** FALSE at this operating
    point. Feeding the cue the **GOLD** (predicate, subject) pairs scores **0.6450**, i.e. -0.0059 CI[-0.0438,+0.0323]
-   against the learned arm -- perfect detection buys nothing. Detection coverage did rise (103 -> 117 of 169 gold
-   subjects covered, pair exactness 0.874 -> 0.897) and is worth +0.0355 on its own, but it is not the limiter.
+   against the learned arm -- perfect detection buys nothing. Detection coverage did rise -- **103 -> 127 of the 169 gold
+   non-verbal subjects covered (0.6095 -> 0.7515), pair exactness 0.8738 -> 0.8819, pairs proposed 126 -> 251**
+   (the extra pairs are ordinary auxiliary clauses, which the verbal-host branch now covers and the learned
+   validity weighs) -- and coverage alone is worth +0.0355, but it is not the limiter.
 2. **"The residual is the arc scorer's features" (pri 113 sections 26/28).** Not at this rung. The SAME scores
    decoded by the whole-sentence search give **0.7041** against the in-order beam's 0.6509 -- a 9-arc decode gap on
    a matrix that already contains the right preference. That is why the reanalysis is the lever and a bigger cue is

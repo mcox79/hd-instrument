@@ -131,6 +131,13 @@ def _csubg_bin(o: float) -> str:
     return "no"
 
 
+def _memo(key, val):
+    if len(_CSUB_MEMO) >= _CSUB_MEMO_MAX:
+        _CSUB_MEMO.clear()
+    _CSUB_MEMO[key] = val
+    return val
+
+
 def _csub_subject_before(toks, pos, c):
     """The subject side of a copular clause: the nearest nominal standing before the tense carrier at 1-based `c`,
     skipping a CASE-MARKED one (a prepositional nominal is oblique, never the subject -- Pinker 1984).  This is
@@ -166,6 +173,10 @@ def _csub_subject_inverted(toks, pos, c, q):
     return None
 
 
+_CSUB_MEMO = {}          # (tokens, categories) -> pairs; the graded hand-off re-scores the same sentence up to
+_CSUB_MEMO_MAX = 8       # four times and each cue pass asks twice, so the scan is memoised (read-time cost)
+
+
 def cop_subject_pairs(toks, pos):
     """(predicate, subject) pairs, 1-based, for every copular predication in the sentence -- the token holding the
     clause's predicate slot and the nominal the copula predicates it OF.
@@ -175,6 +186,10 @@ def cop_subject_pairs(toks, pos):
     recovered.  pri 113 section 29 located DETECTION COVERAGE as what holds its prototype at 0.65: the pair was
     found for 101 of the 167 non-verbal clauses.  With the switch off the shipped detection is reproduced exactly
     (asserted over 120 sentences)."""
+    key = (tuple(toks), tuple(pos), CSUB_COVERAGE, CSUB_VERBAL_HOST)
+    hit = _CSUB_MEMO.get(key)
+    if hit is not None:
+        return hit
     n = len(pos); lows = [t.lower() for t in toks]; out = []
     if not CSUB_COVERAGE:
         for q in sorted(cop_predicates(list(toks), list(pos))):
@@ -189,6 +204,7 @@ def cop_subject_pairs(toks, pos):
             s = _csub_subject_before(toks, pos, c)
             if s is not None:
                 out.append((q, s))
+        _memo(key, out)
         return out
     for i in range(n):
         if pos[i] != "AUX" or lows[i] not in COP_FORMS:
@@ -214,6 +230,7 @@ def cop_subject_pairs(toks, pos):
         if s is None or s == q:
             continue
         out.append((q, s))
+    _memo(key, out)
     return out
 
 
