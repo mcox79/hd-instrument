@@ -1,0 +1,194 @@
+diff --git a/experiments/exp_situation_model_qa_modern_v1.py b/experiments/exp_situation_model_qa_modern_v1.py
+index fd2a86b6d..b93415e9e 100644
+--- a/experiments/exp_situation_model_qa_modern_v1.py
++++ b/experiments/exp_situation_model_qa_modern_v1.py
+@@ -111,6 +111,43 @@ def _agg(rows):
+                     "this pooled number crosses scorers/populations and is informational only."}
+ 
+ 
++# ==================================================================================================
++# PROVENANCE -- pri 122 (2026-09-15).  EVERY ARM ON THIS BOARD NOW SAYS, IN WORDS, WHICH READ IT SCORED.
++#
++# pri 116 counted it: NONE of the seven headline rows calls `SituationReader.read`, and the sentence-source
++# call count is 0 on every row in both arms of its A/B -- an EXACT zero from the call graph.  Each row
++# rebuilds its own copy of the read from the annotated corpus file (its own mention stream, its own candidate
++# lists, the loader's organ layer), so a repair worth +0.4106 PROPN F1 THROUGH THE LIVE READER left all seven
++# rows byte-identical.  A number with no provenance field cannot be read safely, so every row carries one.
++#   token_stream : "reader"  = hdlab.scene_segment.parse_conll_sentences, the live reader's only sentence source
++#                  "loader"  = the arm's own corpus loader (gum_coref / load_ud / a benchmark reader)
++#   read_by      : "SituationReader.read" | "rebuilt in the arm"
++#   annotation   : whether the answer key's annotation column was supplied as INPUT to the model's decision
++#   plain        : the one phrase the scorecard prints for the owner
++_REBUILT_PROVENANCE = {
++    "token_stream": "loader", "read_by": "rebuilt in the arm (SituationReader.read NOT called)",
++    "case": "cased (the loader reads the FORM column raw)",
++    "annotation_supplied": "the arm reads the annotated file's own columns",
++    "plain": "a rebuilt read from the annotated file",
++    "witness": "pri 116 --board-probe: sentence_source_calls 0 on every headline row, both arms, one process; "
++               "re-counted by experiments/exp_board_rows_on_the_reader_v1.ReaderCallCounter.",
++}
++
++
++def _stamp_provenance(d, prov=None, depth=2):
++    """Stamp `provenance` on every per_dimension-shaped row in `d` (rows, or a dict of sub-rows). Never
++    overwrites a row that already carries one (the reader-driven rows bring their own)."""
++    prov = prov or _REBUILT_PROVENANCE
++    for _k, v in (d or {}).items():
++        if not isinstance(v, dict):
++            continue
++        if "model_acc" in v or "model" in v:
++            v.setdefault("provenance", dict(prov))
++        elif depth > 1:
++            _stamp_provenance(v, prov, depth - 1)
++    return d
++
++
+ # ==================================================================================================
+ # INFORMATIONAL 19c CROSS-REFERENCE (step 0): the LitBank aggregate + per-dim are KEPT for cross-reference
+ # but DEMOTED out of the headline (owner banned 19c LitBank as a load-bearing gold, 2026-09-06). Reads the
+@@ -2470,7 +2507,7 @@ def board_nonverbal_predication_dimension(smoke=False):
+         return _degraded("nonverbal_predication", e), {"error": "%s: %s" % (type(e).__name__, e)}
+ 
+ 
+-def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True):
++def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True, reader_driven=True):
+     """Assemble every MODERN per_dimension row. caps = dict of per-arm caps for a fast self-test.
+     run_new_arms adds the 3 board-invisible-win arms (coarse-sense/selective-reliability/causal-multihop) as
+     their own rows OUTSIDE the headline aggregate; write_metrics=False (self-test) does not clobber the artifact."""
+@@ -2623,6 +2660,57 @@ def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True
+         new_arms["nonverbal_predication"] = nvp_rows
+         new_arms_detail["nonverbal_predication"] = nvp_det
+ 
++    # -- THE SAME SEVEN ROWS, SCORED FROM THE LIVE READER'S OWN READ (pri 122).  ONE `SituationReader.read`
++    #    per document, shared by every row that reads that document; each row's floors recomputed IN PLACE on
++    #    the reader's own population, an info-free twin per row, document-/chunk-paired bootstrap.  Published
++    #    in TWO provenance columns because the reader's pronoun mentions and its Competition-Model AGENT
++    #    candidate set both come from the CoNLL coref column (`referent_per_np_source` seeds its pronoun list
++    #    from `parse_litbank_conll`; `_cm_agent_candidates` reads `self._coref_mentions`):
++    #      reader_annotated -- the reader's current INPUT CONTRACT (the annotation column supplied)
++    #      reader_textonly  -- the identical read of annotation-free prose (the product's honest number)
++    #    CAPPED BY DOCUMENTS, and the cap is published in `caps`: a full-split reader-driven pass is ~2.5 h
++    #    (~40 s per GUM document per mode), so the board runs a document-capped version and the full-split
++    #    numbers live in data/exp_board_rows_on_the_reader_v1/metrics.json.  caps["reader_docs"]=0 -> full split.
++    reader_rows, reader_detail = {}, {}
++    if reader_driven:
++        try:
++            import experiments.exp_board_rows_on_the_reader_v1 as RDR
++            _rd = caps.get("reader_docs", 24)
++            _r = RDR.run(gum_docs=(None if _rd in (0, None) else _rd),
++                         ud_cap=caps.get("reader_ud", 600), wic_cap=caps.get("reader_wic", 60),
++                         n_boot=min(2000, max(500, n_boot)), do_rebuilt=False, write_metrics=False)
++            reader_rows = _r["per_dimension_reader_driven"]
++            reader_detail = {"aggregate": _r["aggregate_reader_driven"], "caps": _r["caps"],
++                             "counted_reader_calls": _r.get("counted_reader_calls_reader_driven_rows"),
++                             "gum_detail": _r.get("gum_detail"), "ud_detail": _r.get("ud_detail"),
++                             "wic_detail": _r.get("wic_detail"),
++                             "board_arm_provenance_static": _r.get("board_arm_provenance_static"),
++                             "elapsed_s": _r.get("elapsed_s")}
++        except Exception as e:
++            reader_detail = {"error": "%s: %s" % (type(e).__name__, e)}
++    reader_agg = {m: RDR.aggregate(r) for m, r in reader_rows.items()} if reader_rows else {}
++    rebuilt_vs_reader = {}
++    for _k in ("coref", "salience", "common_noun_coref", "who_did_what_agent", "who_did_what_patient",
++               "state", "wic"):
++        _rb = rows.get(_k) or {}
++        _e = {"rebuilt": {"n": _rb.get("n"), "model_acc": _rb.get("model_acc"),
++                          "strongest_floor": _rb.get("strongest_floor"),
++                          "plain": "a rebuilt read from the annotated file"}}
++        for _m, _rr in reader_rows.items():
++            _r2 = _rr.get(_k)
++            if _r2:
++                _e[_m] = {"n": _r2.get("n"), "model_acc": _r2.get("model_acc"),
++                          "strongest_floor": _r2.get("strongest_floor"),
++                          "ci_sep_over_strongest": _r2.get("ci_sep_over_strongest"),
++                          "twin_acc": _r2.get("twin_acc"),
++                          "plain": (_r2.get("provenance") or {}).get("plain")}
++        rebuilt_vs_reader[_k] = _e
++
++    # EVERY ARM CARRIES ITS PROVENANCE (pri 122 checklist item 3): the seven headline rows and every
++    # new_board_arms row are REBUILT unless they brought their own provenance field.
++    _stamp_provenance(rows)
++    _stamp_provenance(new_arms)
++
+     crossref = _informational_19c_crossref()
+ 
+     res = {
+@@ -2645,6 +2733,15 @@ def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True
+                 "modern_who_did_what": "LOCATED register finding: word-order near-ceiling on modern canonical "
+                                        "prose; the 19c CM win does not transfer (see who_did_what_agent detail)",
+                 "cross_consumer_coref": detail["cross_consumer_upstream"]}},
++        "per_dimension_reader_driven": reader_rows,
++        "aggregate_reader_driven": reader_agg,
++        "reader_driven_detail": reader_detail,
++        "rebuilt_vs_reader": rebuilt_vs_reader,
++        "provenance_note": "pri 122: `per_dimension` rows are REBUILT reads of the annotated files (0 calls to "
++                           "the reader's sentence source -- pri 116 counted it). `per_dimension_reader_driven` "
++                           "scores the SAME questions off SituationReader.read's own output, in two provenance "
++                           "columns (annotation supplied / annotation-free). The retired rebuilt figures are "
++                           "listed in notes/reference_retired_claims_never_requote.md.",
+         "detail": detail,
+         "reader_unchanged": True,
+         "elapsed_s": round(time.time() - t0, 1), "ts_iso": datetime.now(timezone.utc).isoformat(),
+@@ -2702,6 +2799,9 @@ def trend_row(res):
+             "agg": {"n": agg.get("n"), "model": agg.get("model_acc"), "floor": agg.get("strongest_floor"),
+                     "twin": agg.get("twin_acc"), "n_sep": agg.get("n_dims_ci_sep_over_floor"), "n_dims": agg.get("n_dims_total")},
+             "dims": {k: _c(v) for k, v in (res.get("per_dimension") or {}).items()},
++            "dims_reader": {("%s.%s" % (m, k)): _c(v)
++                            for m, rr in (res.get("per_dimension_reader_driven") or {}).items()
++                            for k, v in (rr or {}).items()},
+             "arms": _arms(res.get("new_board_arms"))}
+ 
+ 
+@@ -2722,7 +2822,7 @@ def trend_regressions(n_last=2, tol=0.0):
+         return []
+     prev, cur = rows[-2], rows[-1]
+     out = []
+-    for sect in ("dims", "arms"):
++    for sect in ("dims", "dims_reader", "arms"):
+         for k, c in (cur.get(sect) or {}).items():
+             p = (prev.get(sect) or {}).get(k)
+             if c and p and c.get("model") is not None and p.get("model") is not None and c["model"] < p["model"] - tol:
+@@ -2748,6 +2848,27 @@ def _print(res):
+         print("%-22s %6d %8s %8s %8s %10s %9s  %s" % (
+             k, r["n"], r["model_acc"], r["strongest_floor"], r["twin_acc"],
+             r["ci_sep_over_strongest"], r["ci_sep_over_twin"], GOLD_SOURCE.get(k, "")))
++    print("   ^ PROVENANCE of every row above: %s" % _REBUILT_PROVENANCE["plain"])
++    rd = res.get("per_dimension_reader_driven") or {}
++    if rd:
++        print("\nTHE SAME SEVEN QUESTIONS, SCORED OFF `SituationReader.read` (pri 122; caps in `caps`)")
++        print("%-22s %-18s %6s %8s %8s %8s %10s" % ("dimension", "provenance", "n", "model", "floor",
++                                                    "twin", "ci>floor"))
++        for m in sorted(rd):
++            for k in ("coref", "salience", "common_noun_coref", "who_did_what_agent",
++                      "who_did_what_patient", "state", "wic"):
++                r = (rd[m] or {}).get(k)
++                if not r:
++                    continue
++                print("%-22s %-18s %6d %8s %8s %8s %10s" % (
++                    k, m.replace("reader_", ""), r["n"], r["model_acc"], r["strongest_floor"],
++                    r["twin_acc"], r["ci_sep_over_strongest"]))
++        for m, a in (res.get("aggregate_reader_driven") or {}).items():
++            print("  AGGREGATE (%s): n=%s model=%s floor=%s twin=%s (%s/%s dims CI-sep)" % (
++                m, a.get("n"), a.get("model_acc"), a.get("strongest_floor"), a.get("twin_acc"),
++                a.get("n_dims_ci_sep_over_floor"), a.get("n_dims_total")))
++    elif (res.get("reader_driven_detail") or {}).get("error"):
++        print("\n[reader-driven rows NOT built] %s" % res["reader_driven_detail"]["error"])
+     print("\nNAMED GAPS (no modern gold on disk -> filed follow-ons): %s" % ", ".join(res["named_gaps"]))
+     cx = res["detail"]["cross_consumer_upstream"]
+     print("\nUPSTREAM CHAIN:")
+@@ -2770,8 +2891,14 @@ def main():
+     if a.self_test:
+         # self-test: caps on the 7 core dims; the 3 heavy NEW arms are OFF (run_new_arms=False) and the
+         # canonical metrics.json is NOT clobbered (write_metrics=False -- the full-run artifact stands).
++        # reader_driven=False in the self-test ONLY because a reader-driven pass costs ~40 s per document
++        # per provenance mode; the provenance STAMP is asserted below, and the reader-driven rows have their
++        # own can-fail self-test (experiments/exp_board_rows_on_the_reader_v1.py --self-test).
+         res = run(caps={"gum": 40, "ud": 300, "state": 300, "wic_mode": "smoke"}, n_boot=300,
+-                  run_new_arms=False, write_metrics=False)
++                  run_new_arms=False, write_metrics=False, reader_driven=False)
++        for _k, _v in res["per_dimension"].items():          # pri 122: every row says what it read
++            if _v:
++                assert _v.get("provenance", {}).get("token_stream") == "loader", (_k, _v.get("provenance"))
+         assert res["per_dimension"]["coref"]["n"] > 50, res["per_dimension"]["coref"]
+         assert res["per_dimension"]["who_did_what_agent"]["n"] > 20, res["per_dimension"]["who_did_what_agent"]
+         assert res["per_dimension"]["state"] is not None
