@@ -14,6 +14,7 @@ NEW word means from what it reads, using its sense of how things feel and look, 
 near the top about 38 times in 100 where the old method managed about 3.
 
 ## WHAT CHANGED LATELY
+- **15 Sep, 10:24.** Landed: the attacher now learns, from its own reading, how to attach the subject of a sentence like 'the sky is blue' (54 -> 65 in 100 correct; verbs unchanged; whole-sentence attachment slightly up; no extra read time), and 'which thing does this property belong to' rises 65 -> 79 in 100. Board: 'who was acted on' down by one sentence in 1,255 (a 'doing X would be a good idea' case, filed), everything else unchanged; overall 62.0 in 100.
 - **15 Sep, 09:22.** Landed: the reader keeps capital letters. The word-category organ now finds 87 in 100 of the names (was 45: scrambling the capitals at random would have done better than what we shipped); through the whole reader, names 49 -> 85 in 100 and the reader's own files of people and things grew by a tenth. The board's seven lines are unchanged because none of them runs the reader on raw text -- that blindness is now its own instrument problem.
 - **14 Sep, 23:04.** New board line (informational for now): 'what things are / where things are' -- for sentences without a doing-word, did the reader get both what is said and about whom? 53 in 100 on the test set (a simple 'the word after is' rule gets 47; random gets 7); on other genres 43 vs 33. Before today's landing it was 7 in 100. Most of what is still missed is WHO the statement is about, which is the next problem (the attacher, pri 117).
 - **14 Sep, 22:27.** Landed (a head-to-head: you and an agent solved the same problem blind; the best of both merged): sentences without a doing-word ('the sky is blue', 'she is a doctor') are now read as statements about the thing, one structure per sentence. On the test set the reader now catches 74 to 88 in 100 of them (was 19); 'what things are like' on the board 74.9 -> 79.1 in 100, everything else unchanged. Overall board 62.1 in 100.
@@ -188,7 +189,7 @@ Long term (the next few months):
 
 <!-- AUTO:BEGIN (written by tools/scorecard.py; edit the sections ABOVE, not this) -->
 
-Last full check: 2026-09-15T13:02:31.927314+00:00 (49 on record). Generated 2026-09-15T13:21:07+00:00.
+Last full check: 2026-09-15T14:23:22.456266+00:00 (50 on record). Generated 2026-09-15T14:24:02+00:00.
 
 | Ability | Group | How well | Compared with a simple rule | Since the previous check | Brain-faithful? |
 |---|---|---|---|---|---|
@@ -198,7 +199,7 @@ Last full check: 2026-09-15T13:02:31.927314+00:00 (49 on record). Generated 2026
 | Linking a description ('the painter') to a named person | People and things | right 59 in 100 | clearly better than the simple rule (45 in 100) | unchanged since the previous check | brain model; some details still open |
 | Pronoun reference as the full reader actually runs it | People and things | right 56 in 100 | clearly better than the simple rule (48 in 100) | unchanged since the previous check | brain model; some details still open |
 | Resolving 'the animal' to the dog just mentioned | People and things | right 57 in 100 | clearly better than the simple rule (53 in 100) | unchanged since the previous check | brain model; some details still open |
-| Who was affected by what happened | People and things | right 41 in 100 | clearly better than the simple rule (34 in 100) | unchanged since the previous check | brain model; some details still open |
+| Who was affected by what happened | People and things | right 42 in 100 | clearly better than the simple rule (34 in 100) | up 0.009 since the previous check | brain model; some details still open |
 | Which meaning of a word is meant in this sentence | Word meaning | right 75 in 100 | clearly better than the simple rule (50 in 100) | unchanged since the previous check | brain model; some details still open |
 | Drawing safe conclusions from 'is a kind of' facts | Word meaning | right 77 in 100 | clearly better than the simple rule (54 in 100) | unchanged since the previous check | brain model; some details still open |
 | Handling 'all / some / none' correctly | Word meaning | right 83 in 100 | clearly better than the simple rule (17 in 100) | unchanged since the previous check | brain model; some details still open |
@@ -207,7 +208,7 @@ Last full check: 2026-09-15T13:02:31.927314+00:00 (49 on record). Generated 2026
 | Picking the right broad sense of an ambiguous word (older test set) | Word meaning | right 52 in 100 | clearly better than the simple rule (35 in 100) | unchanged since the previous check | brain model; some details still open |
 | What something is or is like ('the sky is blue') | Actions and roles | right 79 in 100 | clearly better than the simple rule (57 in 100) | unchanged since the previous check | brain model; some details still open |
 | Who did the action in a sentence | Actions and roles | right 86 in 100 | clearly better than the simple rule (85 in 100) | unchanged since the previous check | brain model; one part is a stand-in we are replacing |
-| Who or what the action was done to | Actions and roles | right 82 in 100 | clearly better than the simple rule (72 in 100) | unchanged since the previous check | brain model; one part is a stand-in we are replacing |
+| Who or what the action was done to | Actions and roles | right 81 in 100 | clearly better than the simple rule (73 in 100) | unchanged since the previous check | brain model; one part is a stand-in we are replacing |
 | Keeping a fact true until something changes it | Actions and roles | right 100 in 100 | clearly better than the simple rule (44 in 100) | unchanged since the previous check | brain model; some details still open |
 | Event order when the text does not say it outright | Time and place | right 56 in 100 | clearly better than the simple rule (53 in 100) | unchanged since the previous check | brain model; some details still open |
 | Noticing where one scene ends and another begins | Time and place | right 12 in 100 | a little better than the simple rule (7 in 100), not yet convincingly | unchanged since the previous check | brain model; some details still open |

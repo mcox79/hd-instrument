@@ -124,8 +124,41 @@ NP_SPLIT = os.environ.get("HDLAB_ARM_NP_SPLIT", "1") != "0"
 CLAUSE_WRAP_OPENER = os.environ.get("HDLAB_ARM_CLAUSE_WRAP_OPENER", "1") != "0"   # the in-order decode wraps up at a clause opener too
 CLAUSE_MAXV = 2                     # intervening predicates counted up to this (a swept operating point)
 POSS_PRON = frozenset({"my", "your", "his", "her", "its", "their", "our", "whose"})
+# ------------------------------------------- THE COPULAR-SUBJECT CUE, GRADED AND LEARNED (pri 117)
+CSUBG_BINS = (0.25, 0.60, 0.85)        # occupancy bins (a swept operating point, never adopted)
+CSUB_COVERAGE = os.environ.get("HDLAB_ARM_CSUB_COVERAGE", "1") != "0"
+CSUBG_CUE = os.environ.get("HDLAB_ARM_CSUBG", "1") != "0"
+CSUB_REANALYSIS = os.environ.get("HDLAB_ARM_CSUB_REANALYSIS", "1") != "0"
+CSUB_REANALYSIS_LEFT = os.environ.get("HDLAB_ARM_CSUB_REANALYSIS_LEFT", "0") == "1"
+# THE WIDE FORM (pri 117, measured): the in-order beam commits the subject to whatever is open when it arrives, and
+# the committed head is NOT always a later verb -- measured on UD-EWT test 700 it is the tense carrier, a preceding
+# matrix verb, a noun inside the subject's own phrase or the root.  The SAME whole-sentence scores decoded by the
+# search put the non-verbal subject at 0.7041 against the beam's 0.6509, so the arc the competition prefers is
+# already there and the beam cannot reach it; the brain's repair is REANALYSIS when the disambiguating word arrives
+# (Frazier & Rayner 1982), not a wider beam.  The revision still carries NO parameter: it takes the arc the organ's
+# own learned activations prefer, and only for a subject whose clause's predicate slot has been identified.
+CSUB_REANALYSIS_ANY = os.environ.get("HDLAB_ARM_CSUB_REANALYSIS_ANY", "1") != "0"
+# THE TENSE CARRIER'S PREDICATE, WHATEVER ITS CATEGORY (pri 117).  pri 110's three-way discharge says a carrier's
+# slot goes to (1) a VERBAL HOST in its verb group, (2) a NON-VERBAL complement, or (3) itself.  The copular-subject
+# cue fired for branch (2) only -- so "It 's just DISAPPOINTING" and "the people will be DEAD" lost the pair
+# whenever the category organ read the predicate as a VERB (participial predicates: 14 of the 60 residual misses
+# were exactly this).  The ARC claim is the same under both branches -- the subject attaches to the token holding
+# the predicate slot -- so the cue fires on the host too, and the OCCUPANCY (P(VERB) for a host, (1-host)*copular
+# for a complement) is the value whose validity the competition learns SEPARATELY per configuration.
+CSUB_VERBAL_HOST = os.environ.get("HDLAB_ARM_CSUB_VERBAL_HOST", "1") != "0"
+# THE TENSE CARRIER IS NOT THE PREDICATE when it has one (Pustet 2003): the copula competes for the subject and
+# wins it 3 times on the 169 ("that IS how i want ..."), so the carrier's own arc takes the competing value.
+CSUB_SUPPRESS_COP = os.environ.get("HDLAB_ARM_CSUB_SUPPRESS_COP", "1") != "0"
+# THE TWO SUBJECT-SIDE CORRECTIONS the board's two lost patient items paid for, each behind its own switch
+# because they do NOT cost the same (measured, pri 117 phase 7): crossing the hyphen of a compound name is free,
+# and refusing a nominal that sits inside a CLAUSAL subject is NOT -- it also refuses the legitimate pre-copular
+# nominal of an unmarked complement clause ("I think the sky is blue"), which is why it ships OFF.
+CSUB_SUBJ_HYPHEN = os.environ.get("HDLAB_ARM_CSUB_SUBJ_HYPHEN", "1") != "0"
+CSUB_SUBJ_NO_CLAUSAL = os.environ.get("HDLAB_ARM_CSUB_SUBJ_NO_CLAUSAL", "0") == "1"
+
+
 CUES = (("locality", "frame", "form", "boundary", "agree", "constr", "pp", "ppobj") + (("plaus",) if PLAUS_CUE else ())
-        + ROOT_CUES + (("csub",) if CSUB_CUE else ())
+        + ROOT_CUES + (("csub",) if CSUB_CUE else ()) + (("csubg",) if CSUBG_CUE else ())
         + (("clause",) if CLAUSE_CUE else ()) + (("npb",) if NPB_CUE else ()))   # catpair / root = configuration
 # "ppobj" (2026-09-13, solver pri-94): the THEMATIC channel of the PP cue -- what kind of thing the prepositional
 # phrase is about, given the type of the candidate that would license it (Taraban & McClelland 1988; Ratnaparkhi's
@@ -1122,42 +1155,284 @@ def cop_predicates(toks: Sequence[str], pos: Sequence[str]) -> set:
     return out
 
 
-def csub_sites(toks: Sequence[str], pos: Sequence[str]) -> Dict[Tuple[int, int], str]:
-    """COPULAR-SUBJECT cue (round 2): the copular predicate must win its SUBJECT against the verbs sitting inside
-    its own predicate phrase.  Of 161 gold nsubj whose head is a NON-VERBAL predicate the arm scored 0.460, and the
-    DOMINANT miss (49) was the subject pulled to a LATER VERB ("we [are capable of] protecting" -> protecting).
-    That is a competition on the nsubj ARC, not on the root arc, which is why the root cues could not move it.
-    Value `pred` on the (predicate <- subject) arc and `later` on every (verb-to-its-right <- same subject) arc;
-    the validity is LEARNED like every other cue.  MEASURED: cop-subj 0.404 -> 0.466 in-order (+0.0621 CI
-    [+0.0287,+0.1007]) and 0.528 -> 0.627 on the search decode (+0.0994 CI [+0.0490,+0.1511])."""
-    n = len(pos); cop = cop_predicates(toks, pos); out: Dict[Tuple[int, int], str] = {}
-    for q in sorted(cop):
-        c = None
-        for k in range(q - 1, 0, -1):
-            if pos[k - 1] == "AUX" and toks[k - 1].lower() in COP_FORMS:
-                c = k; break
-            if pos[k - 1] == "VERB":
+def _csubg_bin(o: float) -> str:
+    """The occupancy VALUE the cue competes with: a graded belief, binned so the validity of each band is learned
+    separately (the organ's cue values are categorical; the bin edges are swept, never adopted)."""
+    if o >= CSUBG_BINS[2]:
+        return "hi"
+    if o >= CSUBG_BINS[1]:
+        return "md"
+    if o >= CSUBG_BINS[0]:
+        return "lo"
+    return "no"
+
+
+def _memo(key, val):
+    if len(_CSUB_MEMO) >= _CSUB_MEMO_MAX:
+        _CSUB_MEMO.clear()
+    _CSUB_MEMO[key] = val
+    return val
+
+
+def _csub_subject_before(toks, pos, c):
+    """The subject side of a copular clause: the nearest nominal standing before the tense carrier at 1-based `c`,
+    skipping a CASE-MARKED one (a prepositional nominal is oblique, never the subject -- Pinker 1984).  This is
+    `csub_sites`' own scan plus the two corrections the pri-117 board A/B paid for, both of which are rules this
+    organ already applies on the complement side:
+      (hyph) THE RIGHT-HAND HEAD RULE ACROSS A HYPHEN (Williams 1981; `_np_run_end`'s `_HYPHEN` clause).  The
+        phrase-start walk stopped at the PUNCT in "with al - Qaeda", so the preposition was never seen and the
+        object of a PP was taken as the subject -- one of the two patient items the board lost.
+      (clsub) A CLAUSE IS NOT A NOMINAL SUBJECT.  In "Call a vet would be a good idea" the nearest nominal before
+        the copula is the OBJECT of the clausal subject's own verb; UD makes that clause (its verb) the subject
+        (`csubj`).  A predicate standing to the left of the candidate, inside the same clause, means the subject
+        is CLAUSAL, so no nominal pair is proposed -- the other patient item."""
+    k = c - 1
+    while k >= 1:
+        if pos[k - 1] in NOMINAL or pos[k - 1] == "NUM":
+            a = k
+            while True:
+                if a - 1 >= 1 and pos[a - 2] in NP_RUN:
+                    a -= 1; continue
+                if (CSUB_COVERAGE and CSUB_SUBJ_HYPHEN and a - 2 >= 1 and pos[a - 2] == "PUNCT" and toks[a - 2] in _HYPHEN
+                        and pos[a - 3] in NP_RUN):
+                    a -= 2; continue                          # (hyph) cross the hyphen of a compound name
                 break
-        if c is None:
+            if a - 1 >= 1 and pos[a - 2] == "ADP":
+                k = a - 2; continue
+            if CSUB_SUBJ_NO_CLAUSAL:
+                for m in range(a - 1, 0, -1):                 # (clsub) a predicate to the left, same clause
+                    if pos[m - 1] in ("SCONJ", "CCONJ") or (pos[m - 1] == "PUNCT" and toks[m - 1] in _HARD_STOP):
+                        break
+                    if pos[m - 1] == "VERB":
+                        return None
+            return k
+        if pos[k - 1] in ("VERB", "SCONJ", "CCONJ"):
+            return None
+        k -= 1
+    return None
+
+
+def _csub_subject_inverted(toks, pos, c, q):
+    """SUBJECT-AUXILIARY INVERSION (the interrogative construction, a stored form-meaning pairing the organ
+    already carries in `_cop_inverted` / `host_belief`): with no subject to the copula's left, the subject is the
+    first nominal to its RIGHT and the predicate stands after it -- "IS that a money maker ?".  pri 113 section
+    29 counted 13 clauses where the predicate was found and the (pre-copular) subject scan failed."""
+    lows = [t.lower() for t in toks]
+    if not _cop_inverted(list(pos), lows, c - 1):
+        return None
+    for k in range(c + 1, min(q, len(pos) + 1)):
+        if pos[k - 1] in ("NOUN", "PROPN", "PRON", "NUM"):
+            return k
+        if pos[k - 1] in ("VERB", "PUNCT", "SCONJ", "CCONJ"):
+            return None
+    return None
+
+
+_CSUB_MEMO = {}          # (tokens, categories) -> pairs; the graded hand-off re-scores the same sentence up to
+_CSUB_MEMO_MAX = 8       # four times and each cue pass asks twice, so the scan is memoised (read-time cost)
+
+
+def cop_subject_pairs(toks, pos):
+    """(predicate, subject) pairs, 1-based, for every copular predication in the sentence -- the token holding the
+    clause's predicate slot and the nominal the copula predicates it OF.
+    CSUB_COVERAGE (pri 117): the predicate comes from `cop_complement` -- the construction set the merged pri-113
+    tree carries (inverted / fronted / locative / wh / clause-final / parenthetical) -- instead of the narrow
+    `cop_predicates` scan this cue keyed on until now, and the inverted construction's post-copular subject is
+    recovered.  pri 113 section 29 located DETECTION COVERAGE as what holds its prototype at 0.65: the pair was
+    found for 101 of the 167 non-verbal clauses.  With the switch off the shipped detection is reproduced exactly
+    (asserted over 120 sentences)."""
+    key = (tuple(toks), tuple(pos), CSUB_COVERAGE, CSUB_VERBAL_HOST)
+    hit = _CSUB_MEMO.get(key)
+    if hit is not None:
+        return hit
+    n = len(pos); lows = [t.lower() for t in toks]; out = []
+    if not CSUB_COVERAGE:
+        for q in sorted(cop_predicates(list(toks), list(pos))):
+            c = None
+            for k in range(q - 1, 0, -1):
+                if pos[k - 1] == "AUX" and lows[k - 1] in COP_FORMS:
+                    c = k; break
+                if pos[k - 1] == "VERB":
+                    break
+            if c is None:
+                continue
+            s = _csub_subject_before(toks, pos, c)
+            if s is not None:
+                out.append((q, s))
+        _memo(key, out)
+        return out
+    for i in range(n):
+        if pos[i] != "AUX" or lows[i] not in COP_FORMS:
             continue
-        subj = None; k = c - 1
-        while k >= 1:
-            if pos[k - 1] in NOMINAL or pos[k - 1] == "NUM":
-                a = k
-                while a - 1 >= 1 and pos[a - 2] in NP_RUN:
-                    a -= 1
-                if a - 1 >= 1 and pos[a - 2] == "ADP":
-                    k = a - 2; continue
-                subj = k; break
-            if pos[k - 1] in ("VERB", "SCONJ", "CCONJ"):
+        qi = cop_complement(list(toks), list(pos), i)
+        if qi is not None and (qi == i or pos[qi] in ("VERB", "AUX")):
+            qi = None
+        if qi is None and CSUB_VERBAL_HOST:
+            for k in range(i + 1, n):                      # the VERBAL HOST of the same verb group (branch 1)
+                if pos[k] == "VERB":
+                    qi = k; break
+                if pos[k] in ("PUNCT", "SCONJ", "CCONJ") or (pos[k] == "PART" and lows[k] == "to"):
+                    break
+                if pos[k] in ("ADV", "AUX", "PART"):
+                    continue
                 break
-            k -= 1
-        if subj is None:
+        if qi is None:
             continue
+        q = qi + 1; c = i + 1
+        s = _csub_subject_before(toks, pos, c)
+        if s is None:
+            s = _csub_subject_inverted(toks, pos, c, q)
+        if s is None or s == q:
+            continue
+        out.append((q, s))
+    _memo(key, out)
+    return out
+
+
+def csub_sites(toks, pos):
+    """COPULAR-SUBJECT cue: value `pred` on the (predicate <- subject) arc and `later` on every
+    (verb-to-the-predicate's-right <- the same subject) arc; the validity is LEARNED like every other cue.
+    pri 117: the pair detection is `cop_subject_pairs` (the construction set), which is the DETECTION-COVERAGE
+    fix pri 113 section 29 located -- the scan this cue keyed on found the predicate in 101 of the 167
+    non-verbal clauses, the construction set finds it in more."""
+    n = len(pos); out = {}
+    for (q, subj) in cop_subject_pairs(toks, pos):
         out[(q, subj)] = "pred"
         for v in range(q + 1, n + 1):
             if pos[v - 1] == "VERB":
                 out.setdefault((v, subj), "later")
+        if CSUB_SUPPRESS_COP:
+            for c in range(min(q, subj), max(q, subj) + 1):
+                if pos[c - 1] == "AUX" and toks[c - 1].lower() in COP_FORMS:
+                    out.setdefault((c, subj), "carrier")
+    return out
+
+
+def csub_graded_sites(toks, pos, occ):
+    """THE GRADED ARC FEATURE (pri 117).  The same two arcs, valued by HOW STRONGLY the candidate head holds its
+    clause's predicate slot (pri 110's occupancy, graded off the category organ's own posterior): a confident
+    predicate claims its subject, an uncertain one competes weakly.  `occ` is a per-token (0-based) probability;
+    without it the cue is silent (the categorical `csub` cue above still fires)."""
+    if occ is None:
+        return {}
+    n = len(pos); out = {}
+    for (q, subj) in cop_subject_pairs(toks, pos):
+        b = _csubg_bin(float(occ[q - 1]) if q - 1 < len(occ) else 0.0)
+        out[(q, subj)] = "pred:" + b
+        for v in range(q + 1, n + 1):
+            if pos[v - 1] == "VERB":
+                out.setdefault((v, subj), "later:" + b)
+        if CSUB_SUPPRESS_COP:
+            for c in range(min(q, subj), max(q, subj) + 1):
+                if pos[c - 1] == "AUX" and toks[c - 1].lower() in COP_FORMS:
+                    out.setdefault((c, subj), "carrier:" + b)
+    return out
+
+
+def occupancy_from_posterior(toks, pos, tag_post, tag_names=None):
+    """P(this token fills its clause's predicate slot) per 0-based token, from the category organ's GRADED
+    hand-off -- the signal pri 110 already computes and hands down only as a tag (pri 113 section 27).
+    `tag_post` is the per-token {category: P} the frontend already passes to `arc_scores_graded`."""
+    if not tag_post:
+        return None
+    names = list(tag_names) if tag_names else sorted({k for d in tag_post if d for k in d})
+    if not names or any(t not in names for t in _PS_NEEDED):
+        return None                                         # a category inventory this computation cannot read
+    post = np.zeros((len(toks), len(names)))
+    for i, d in enumerate(tag_post):
+        if i >= len(toks) or not d:
+            continue
+        for k, v in d.items():
+            j = names.index(k) if k in names else None
+            if j is not None:
+                post[i, j] = float(v)
+    sites = predicate_sites(list(toks), list(pos), post, names)
+    occ = np.zeros(len(toks))
+    for i, s in sites.items():
+        if 0 <= i < len(occ):
+            occ[i] = float(s)
+    return occ
+
+
+def occupancy_from_tags(toks, pos):
+    """The same read from a ONE-HOT category column -- what the offline teacher (tools/build_attachment_validities)
+    has, so the cue is taught at build time with the same values it is read with."""
+    names = list(_UPOS)
+    if any(t not in names for t in _PS_NEEDED):
+        return None
+    post = np.zeros((len(toks), len(names)))
+    for i, p in enumerate(pos):
+        post[i, names.index(p) if p in names else names.index("X")] = 1.0
+    sites = predicate_sites(list(toks), list(pos), post, names)
+    occ = np.zeros(len(toks))
+    for i, s in sites.items():
+        if 0 <= i < len(occ):
+            occ[i] = float(s)
+    return occ
+
+
+def observe_copular_subject(toks, pos, occ, table=None, weight: float = 1.0) -> int:
+    """PLASTICITY -- the observe path for the graded cue's validity (Rescorla-Wagner / Competition-Model validity
+    accrual: validity = availability x reliability, accrued from what the reader PERCEIVES).  Every copular
+    predication READ is one confirmed outcome: the predicate slot's filler heads the pre-copular nominal, with
+    the occupancy as the strength of the belief, and the later verbs inside the predicate phrase accrue the
+    competing (zero) outcome.  No treebank and no tree is read -- the construction is stored lexical knowledge
+    (Goldberg 1995) the organ already carries in COP_FORMS.  Returns the number of arcs accrued."""
+    tab = table if table is not None else load_attachment_validities()
+    counts = tab["counts"]; cues = counts.setdefault("cues", {}).setdefault("csubg", {})
+    cfgc = counts["config"]; n = len(pos); k = 0
+    sc_cfg = lambda j, h: ("ROOT:" + pos[j - 1]) if h == 0 else f"{pos[h - 1]}>{pos[j - 1]}:{'L' if h < j else 'R'}"
+    for (q, subj) in cop_subject_pairs(toks, pos):
+        o = float(occ[q - 1]) if (occ is not None and q - 1 < len(occ)) else 0.0
+        b = _csubg_bin(o)
+        comp = [(v, subj, "later:" + b, 0.0) for v in range(q + 1, n + 1) if pos[v - 1] == "VERB"]
+        if CSUB_SUPPRESS_COP:
+            comp += [(c, subj, "carrier:" + b, 0.0) for c in range(min(q, subj), max(q, subj) + 1)
+                     if pos[c - 1] == "AUX" and toks[c - 1].lower() in COP_FORMS]
+        for (h, j, val, outcome) in [(q, subj, "pred:" + b, o)] + comp:
+            cfg = sc_cfg(j, h)
+            if cfg not in cfgc:
+                continue                                     # an unseen configuration has no base rate to contrast with
+            cell = cues.setdefault(cfg + "|" + val, [0.0, 0.0])
+            cell[0] += weight * outcome; cell[1] += weight; k += 1
+    if k:
+        tab["strength"] = strengths_from_arc_counts(counts)
+    return k
+
+
+REANALYSIS_STATS = {"fired": 0, "eligible": 0, "sentences": 0}
+
+
+def revise_copular_subject(toks, pos, A, hd, occ=None):
+    """PREDICATE-ARRIVAL REANALYSIS of the subject arc (pri 117), the in-order form of pri 113's held decode.
+    The incremental decode commits the subject while the predicate's competitor is unresolved, and a verb INSIDE
+    the predicate phrase then steals it; the brain revises when the disambiguating word arrives (Frazier &
+    Rayner 1982), which is what this organ already does for the ROOT arc (INCR_ROOT_REANALYSIS).  The revision
+    (a) fires only when the stealer stands to the RIGHT of the predicate -- so at the predicate's arrival the
+    subject was still open and this IS that arrival decision, read in order; (b) carries no parameter: it takes
+    the arc the organ's OWN learned activations prefer; (c) never creates a cycle."""
+    if not CSUB_REANALYSIS or not hd:
+        return hd
+    out = dict(hd); n = len(pos)
+    for (q, subj) in cop_subject_pairs(toks, pos):
+        v = out.get(subj, 0)
+        if v == q or not (1 <= q <= n and 1 <= subj <= n):
+            continue
+        if not (1 <= v <= n or v == 0):
+            continue
+        if not CSUB_REANALYSIS_ANY and not (1 <= v <= n and pos[v - 1] == "VERB" and (v > q or CSUB_REANALYSIS_LEFT)):
+            continue                                        # narrow form: only the late-verb steal
+        REANALYSIS_STATS["eligible"] += 1
+        cur = float(A[v][subj]) if (0 <= v <= n and np.isfinite(A[v][subj])) else -1e18
+        if not (np.isfinite(A[q][subj]) and float(A[q][subj]) > cur):
+            continue                                         # the organ's own activations must prefer the predicate
+        k = q; ok = True; seen = 0                           # q must not sit below subj
+        while k and seen <= n:
+            if k == subj:
+                ok = False; break
+            k = out.get(k, 0); seen += 1
+        if ok:
+            out[subj] = q; REANALYSIS_STATS["fired"] += 1
     return out
 
 
@@ -1995,7 +2270,7 @@ class SentenceCues:
 
     def __init__(self, toks: Sequence[str], pos: Sequence[str], frames: Dict[str, List[int]],
                  pp_assoc: Optional[Dict[str, Dict[str, float]]] = None,
-                 pp_assoc_v2: Optional[Dict[str, object]] = None):
+                 pp_assoc_v2: Optional[Dict[str, object]] = None, occ=None):
         self.toks = list(toks); self.pos = list(pos); self.n = len(toks); self.frames = frames
         self.cum = np.concatenate([[0], np.cumsum([1 if p == "PUNCT" else 0 for p in self.pos])])
         self.constr = construction_map(self.toks, self.pos)
@@ -2003,6 +2278,11 @@ class SentenceCues:
         self.teacher = _plaus_teacher() if PLAUS_CUE else None
         self.rootcues = root_cue_values(self.toks, self.pos)     # MAIN-ASSERTION cues (one pass; read at h == 0)
         self.csub = csub_sites(self.toks, self.pos) if CSUB_CUE else {}
+        # THE PREDICATE SLOT AS A GRADED ARC FEATURE (pri 117): the occupancy the categories rung already computes,
+        # delivered to the competition as a cue VALUE whose validity is learned (pri 113 section 27 -- the signal
+        # existed upstream and was handed down only as a TAG).  `occ` absent => the graded cue is silent.
+        self.occ = occ
+        self.csubg = csub_graded_sites(self.toks, self.pos, occ) if (CSUBG_CUE and occ is not None) else {}
         self.clause = clause_matrices(self.toks, self.pos) if CLAUSE_CUE else None   # (predicates, opener) crossed
         self.npb = npb_matrix(self.toks, self.pos) if NPB_CUE else None              # phrase membership
         # PP ATTACHMENT (v2): the case-marked nominals and their retrieved candidate hosts, when the table carries the
@@ -2060,6 +2340,10 @@ class SentenceCues:
             v = self.csub.get((h, j))
             if v is not None:
                 c["csub"] = v                 # the copular predicate vs a later verb, for the SUBJECT
+        if self.csubg:
+            v = self.csubg.get((h, j))
+            if v is not None:
+                c["csubg"] = v                # the same arcs x HOW STRONGLY this head holds the predicate slot
         if self.clause is not None:
             c["clause"] = clause_value(int(self.clause[0][h][j - 1]), int(self.clause[1][h][j - 1]))
         if self.npb is not None:
@@ -2244,13 +2528,16 @@ def _arc_index(tab: Dict[str, object]) -> _ArcIndex:
     return idx[1]
 
 
-def arc_scores(toks: Sequence[str], pos: Sequence[str], table: Optional[Dict[str, object]] = None) -> Tuple[np.ndarray, int]:
+def arc_scores(toks: Sequence[str], pos: Sequence[str], table: Optional[Dict[str, object]] = None,
+               occ=None) -> Tuple[np.ndarray, int]:
     """Additive cue activation per arc (row = head incl. 0 = ROOT, col = dependent); form classes never head or root.
+    `occ` (pri 117) = P(this token holds its clause's predicate slot) per 0-based token -- the categories rung's own
+    graded read; with it the copular-subject cue competes with a graded value instead of a categorical one.
     Vectorised; numerically identical to `arc_scores_reference` (witness: verification/test_attachment_arm_fastpath.py)."""
     if not _ARC_FAST:
-        return arc_scores_reference(toks, pos, table)
+        return arc_scores_reference(toks, pos, table, occ)
     tab = table or load_attachment_validities(); ix = _arc_index(tab)
-    sc = SentenceCues(toks, pos, tab.get("frames", {}), tab.get("pp_assoc"), tab.get("pp_assoc_v2")); n = sc.n
+    sc = SentenceCues(toks, pos, tab.get("frames", {}), tab.get("pp_assoc"), tab.get("pp_assoc_v2"), occ=occ); n = sc.n
     cat = np.array([ix.cats.get(p, ix.unk) for p in pos], dtype=np.int64)            # dependent / head (1..n) category ids
     H = np.arange(0, n + 1)[:, None]; J = np.arange(1, n + 1)[None, :]               # grid: rows h = 0..n, cols j = 1..n
     dr = (H > J).astype(np.int64)                                                    # config/cue convention: 'L' when the head is LEFT of the dependent (h < j) -> 0; 'R' (h > j) -> 1
@@ -2331,6 +2618,11 @@ def arc_scores(toks: Sequence[str], pos: Sequence[str], table: Optional[Dict[str
         for (h, j), v in sc.csub.items():
             if 1 <= h <= n and 1 <= j <= n:
                 S[h, j - 1] += T[C[h, j - 1]][vid.get(v, 0)]
+    if sc.csubg and "csubg" in ix.cue_tab:
+        vid = ix.val_id["csubg"]; T = ix.cue_tab["csubg"]
+        for (h, j), v in sc.csubg.items():
+            if 1 <= h <= n and 1 <= j <= n:
+                S[h, j - 1] += T[C[h, j - 1]][vid.get(v, 0)]
     # CLAUSE MEMBERSHIP + CONSTITUENCY (pri-105): dense adds over the same grid
     if sc.clause is not None and "clause" in ix.cue_tab:
         nv, sb = sc.clause; vid = ix.val_id["clause"]
@@ -2349,10 +2641,11 @@ def arc_scores(toks: Sequence[str], pos: Sequence[str], table: Optional[Dict[str
     return A, n
 
 
-def arc_scores_reference(toks: Sequence[str], pos: Sequence[str], table: Optional[Dict[str, object]] = None) -> Tuple[np.ndarray, int]:
+def arc_scores_reference(toks: Sequence[str], pos: Sequence[str], table: Optional[Dict[str, object]] = None,
+                         occ=None) -> Tuple[np.ndarray, int]:
     """THE REFERENCE readout (the original per-pair loop): additive cue activation per arc (row = head incl. 0 = ROOT, col =
     dependent); form classes never head or root. Kept as the oracle for the vectorised `arc_scores`."""
-    tab = table or load_attachment_validities(); st = tab["strength"]; sc = SentenceCues(toks, pos, tab.get("frames", {}), tab.get("pp_assoc"), tab.get("pp_assoc_v2"))
+    tab = table or load_attachment_validities(); st = tab["strength"]; sc = SentenceCues(toks, pos, tab.get("frames", {}), tab.get("pp_assoc"), tab.get("pp_assoc_v2"), occ=occ)
     n = sc.n; A = np.full((n + 1, n + 1), -np.inf)
     words = [j for j in range(1, n + 1) if pos[j - 1] not in FORM]
     for j in range(1, n + 1):
@@ -2394,10 +2687,17 @@ _OPENING = frozenset(("(", "[", "{", '"', "\u201c", "\u2018", "``", "`"))
 
 
 def _chain_top(hd: Dict[int, int], k: int, lo: int, hi: int) -> int:
+    ''' The top of k's head chain inside [lo, hi].
+    pri 117: hd.get(k) can be None -- `map_tree_single_root` leaves a word headless on some out-of-supply
+    sentences, and `punct_convention` then raised
+    `TypeError: '<=' not supported between instances of 'int' and 'NoneType'`, aborting a whole GUM run of the
+    `map1` decode.  A MISSING head means the chain ENDS, which is exactly what 0 already means here, so this is a
+    default rather than a new behaviour: the in-order decode is byte-identical and the search decodes stop
+    raising (asserted in the solver cell's --self-test). '''
     top = k
     seen = 0
-    while lo <= k <= hi and seen <= len(hd) + 1:
-        top = k; k = hd.get(k, 0); seen += 1
+    while k is not None and lo <= k <= hi and seen <= len(hd) + 1:
+        top = k; k = hd.get(k) or 0; seen += 1
     return top
 
 
@@ -2441,9 +2741,9 @@ def _punct_posterior(toks, pos, marg: Dict[int, Dict[int, float]]) -> Dict[int, 
 
 
 def head_posterior(toks: Sequence[str], pos: Sequence[str], table: Optional[Dict[str, object]] = None,
-                   temp: float = 1.0) -> Dict[int, Dict[int, float]]:
+                   temp: float = 1.0, occ=None) -> Dict[int, Dict[int, float]]:
     """The graded signal handed DOWN: exact single-root Matrix-Tree marginals P(head | dependent)."""
-    A, n = arc_scores(toks, pos, table); return _punct_posterior(toks, pos, single_root_marginals(A, n, temp))
+    A, n = arc_scores(toks, pos, table, occ); return _punct_posterior(toks, pos, single_root_marginals(A, n, temp))
 
 
 # POINT DECODE (2026-09-13 06:30 local): "mbr" = minimum-Bayes-risk tree -- the single-rooted tree maximising the SUM of the arc
@@ -2904,6 +3204,10 @@ def decode(toks: Sequence[str], pos: Sequence[str], A: np.ndarray, n: int, temp:
     else:
         hd = chu_liu_edmonds(A, n); post = single_root_marginals(A.copy(), n, temp)
     hd = occupancy_repair(toks, pos, hd, post)
+    # PREDICATE-ARRIVAL REANALYSIS (pri 117): the in-order beam commits the subject of a clause whose predicate has
+    # not arrived yet; when it does arrive the subject's attachment is revised, if the organ's OWN activations prefer
+    # it (Frazier & Rayner 1982; the same accounting INCR_ROOT_REANALYSIS already applies to the root arc).
+    hd = revise_copular_subject(toks, pos, A, hd)
     hd = punct_convention(toks, pos, hd)
     for j in range(1, len(toks) + 1):
         if PUNCT_CONVENTION and pos[j - 1] == "PUNCT" and j in post:
@@ -2911,9 +3215,9 @@ def decode(toks: Sequence[str], pos: Sequence[str], A: np.ndarray, n: int, temp:
     return hd, post
 
 
-def heads(toks: Sequence[str], pos: Sequence[str], table: Optional[Dict[str, object]] = None) -> Dict[int, int]:
+def heads(toks: Sequence[str], pos: Sequence[str], table: Optional[Dict[str, object]] = None, occ=None) -> Dict[int, int]:
     """Point heads (MBR tree by default; MAP with HDLAB_ARM_DECODE=map) -- for consumers that insist on a point; prefer head_posterior."""
-    A, n = arc_scores(toks, pos, table); return decode(toks, pos, A, n)[0]
+    A, n = arc_scores(toks, pos, table, occ); return decode(toks, pos, A, n)[0]
 
 
 # ---------------------------------------------------------------------------------------------------------------------------------
@@ -2930,7 +3234,10 @@ def arc_scores_graded(toks: Sequence[str], pos: Sequence[str], tag_post: Optiona
                       table: Optional[Dict[str, object]] = None, tau: float = TAG_GRADED_TAU,
                       max_alt: int = TAG_GRADED_MAX_ALT) -> Tuple[np.ndarray, int]:
     """Arc activations marginalised (first order) over each uncertain token's second-best category."""
-    A, n = arc_scores(toks, pos, table)
+    # pri 117: the GRADED hand-off is where the predicate-slot occupancy is available, so it is computed ONCE here
+    # and handed to every cue pass (the live path is frontend.Parser.parse -> arc_scores_graded).
+    occ = occupancy_from_posterior(toks, pos, tag_post) if CSUBG_CUE else None
+    A, n = arc_scores(toks, pos, table, occ)
     if not tag_post:
         return A, n
     alts = []
@@ -2950,7 +3257,7 @@ def arc_scores_graded(toks: Sequence[str], pos: Sequence[str], tag_post: Optiona
     out = A.copy()
     for p_alt, i, alt in alts[:max_alt]:
         pos2 = list(pos); pos2[i] = alt
-        B, _ = arc_scores(toks, pos2, table)
+        B, _ = arc_scores(toks, pos2, table, occ)
         fin = np.isfinite(A) & np.isfinite(B)
         out[fin] += p_alt * (B[fin] - A[fin])
         # arcs that exist only under the alternative categorisation enter with their posterior share
@@ -3137,6 +3444,8 @@ __all__ = ["SentenceCues", "CONSTRUCTIONS", "construction_map", "verb_frames_fro
            "predicate_slot_occupancy", "revise_for_predicate_slot", "host_belief", "copular_available",
            "is_existential", "main_verb_carriers",
            "cop_predicates", "cop_complement", "predicate_complements", "predicate_sites",
+           "cop_subject_pairs", "csub_sites", "csub_graded_sites", "occupancy_from_posterior",
+           "occupancy_from_tags", "observe_copular_subject", "revise_copular_subject",
            "predicate_site_carriers", "copula_tense", "arc_predicate_sites",
            "state_pairs_from_slot", "subordination", "assertion_candidates", "arc_scores", "head_posterior", "heads", "arc_scores_graded", "head_posterior_graded", "heads_graded", "SemanticBootstrapTeacher", "ASSET", "FORM"]
 

@@ -179,17 +179,23 @@ def main(argv=None) -> int:
         A = AA.predication_boost(A, toks, pos)        # PREDICATION + DEPENDENCY MARKING as a teaching signal (solver pri-97, 2026-09-13):
         #                                              the teacher put 0.001 posterior mass on a gold ADJECTIVAL root arc (100% of them below 0.05)
         mt = single_root_marginals(A, n, 1.0); tmarg[i] = mt
-        AA.accrue_sentence(counts, AA.SentenceCues(toks, pos, frames, pp_assoc, pp_assoc_v2), mt)
+        # pri 117: the graded copular-subject cue is READ with an occupancy value, so it must be TAUGHT with one --
+        # from the one-hot category column the offline teacher has (attachment_arm.occupancy_from_tags).  Without
+        # this its cells are never accrued at build time and the read-out finds an empty table (the 2026-09-14
+        # lesson: a builder that runs the organ without the argument the cell passed ships a different organ).
+        AA.accrue_sentence(counts, AA.SentenceCues(toks, pos, frames, pp_assoc, pp_assoc_v2,
+                                                   occ=AA.occupancy_from_tags(toks, pos)), mt)
     table = {"counts": counts, "frames": frames, "pp_assoc": pp_assoc, "pp_assoc_v2": pp_assoc_v2,
              "strength": AA.strengths_from_arc_counts(counts)}
     print("round 0 accrued (%d sentences) in %.0fs" % (len(train), time.time() - t0), flush=True)
     for r in range(1, a.rounds + 1):
         nxt = AA.new_counts()
         for i, (toks, pos, _, _) in enumerate(train):
-            ms = AA.head_posterior(toks, pos, table); mt = tmarg[i]; n = len(toks)
+            occ = AA.occupancy_from_tags(toks, pos)
+            ms = AA.head_posterior(toks, pos, table, occ=occ); mt = tmarg[i]; n = len(toks)
             mix = {j: {h: a.alpha * ms.get(j, {}).get(h, 0.0) + (1 - a.alpha) * mt.get(j, {}).get(h, 0.0)
                        for h in set(ms.get(j, {})) | set(mt.get(j, {}))} for j in range(1, n + 1)}
-            AA.accrue_sentence(nxt, AA.SentenceCues(toks, pos, frames, pp_assoc, pp_assoc_v2), mix)
+            AA.accrue_sentence(nxt, AA.SentenceCues(toks, pos, frames, pp_assoc, pp_assoc_v2, occ=occ), mix)
         table = {"counts": nxt, "frames": frames, "pp_assoc": pp_assoc, "pp_assoc_v2": pp_assoc_v2,
                  "strength": AA.strengths_from_arc_counts(nxt)}
         print("round %d re-estimated in %.0fs" % (r, time.time() - t0), flush=True)
