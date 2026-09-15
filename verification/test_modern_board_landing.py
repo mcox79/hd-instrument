@@ -53,8 +53,13 @@ def _is_row(r):
 def test_w1_instrument():
     import experiments.exp_situation_model_qa_modern_v1 as B
     # capped, new arms OFF, does NOT clobber the full metrics artifact
-    res = B.run(caps={"gum": 40, "ud": 300, "state": 300, "wic_mode": "smoke"}, n_boot=200,
+    # pri 122: the headline aggregate is now the READER'S OWN READ of the raw text, and the previous
+    # rebuilt number is kept in full under `aggregate_component_rebuilt`. The reader block runs at a
+    # WITNESS-SIZED document cap so this stays a witness, not a 2.5-hour board run.
+    res = B.run(caps={"gum": 40, "ud": 300, "state": 300, "wic_mode": "smoke",
+                      "reader_docs": 2, "reader_ud": 60, "reader_wic": 6}, n_boot=200,
                 run_new_arms=False, write_metrics=False)
+    agg_component = res["aggregate_component_rebuilt"]
     agg = res["aggregate_19c_free"]
     tr = res["transferred_to_modern"]
     no_litbank = all(("LitBank" not in v["gold"] and "19c" not in v["gold"]) for v in tr.values())
@@ -62,12 +67,22 @@ def test_w1_instrument():
     cr = res["informational_19c_crossref"]
     demoted = ("DEMOTED" in cr["status"] and cr["corpus"].startswith("LitBank")
                and "aggregate_19c_free" not in cr)  # the crossref is NOT the headline
-    check("W1 STEP-0: 19c-FREE headline aggregate (model=%s over %d modern dims, NO LitBank dim) + named gaps "
-          "%s + informational_19c_crossref DEMOTED (LitBank kept, not the headline)"
-          % (agg.get("model_acc"), agg.get("n_dims_total"), ", ".join(res["named_gaps"])),
-          bool(agg and no_litbank and gaps_named and demoted),
-          "no_litbank=%s gaps=%s crossref_status=%r loaded_from_disk=%s"
-          % (no_litbank, gaps_named, cr["status"], cr.get("loaded_from_disk")))
+    # pri 122: the headline must be the READER'S read (or an explicitly-flagged fallback), the COMPONENT
+    # number must still be published in full, and every rebuilt row must carry its provenance field.
+    prov_ok = (agg.get("provenance") in ("reader_textonly", "rebuilt_component_FALLBACK")
+               and agg_component.get("provenance") == "rebuilt_component"
+               and agg_component.get("model_acc") is not None
+               and all((v or {}).get("provenance", {}).get("token_stream") == "loader"
+                       for v in res["per_dimension"].values() if v)
+               and len(res.get("rebuilt_vs_reader") or {}) == 7)
+    check("W1 STEP-0: HEADLINE = %s (model=%s), COMPONENT rebuilt kept (model=%s over %d modern dims, NO "
+          "LitBank dim) + named gaps %s + informational_19c_crossref DEMOTED + every rebuilt row stamped"
+          % (agg.get("provenance"), agg.get("model_acc"), agg_component.get("model_acc"),
+             agg_component.get("n_dims_total"), ", ".join(res["named_gaps"])),
+          bool(agg and agg_component and no_litbank and gaps_named and demoted and prov_ok),
+          "no_litbank=%s gaps=%s crossref_status=%r loaded_from_disk=%s provenance_ok=%s reader_caps=%s"
+          % (no_litbank, gaps_named, cr["status"], cr.get("loaded_from_disk"), prov_ok,
+             res.get("reader_caps")))
 
 
 # ---------------------------------------------------------------------------

@@ -42,6 +42,7 @@ across a passage (right 42 in 100 on he/she/it, honest basis) -- and that second
 | Reasoning on top | IMPROVING | right 24 to 90 in 100 depending on the question | Time, cause, belief and goals. These work well when handed a correct reading of the sentence and slump on real prose, so the wall they hit is the chain below them, not the reasoning itself. Best: how a character feels about an event, 90 in 100. Worst: answering "why" when the cause is several sentences away, 24 in 100. |
 
 ## WHAT MOVED THIS WEEK
+- 2026-09-15 -- Landed: the scoreboard now grades the reader's own reading of plain text (the product), with the old component score kept beside it. New honest overall: 47 in 100 (old ruler 62). 'Who did it' on plain text is 15 in 100 until the pronoun fix lands next.
 - 2026-09-15 -- An outside review found that on raw, unmarked text the reader cannot find pronouns (who-did-it 9 right in 52 on its sample; 42 in 52 once our own word-category organ supplies the spans). Filed as the top problem. Two small holes closed: a misspelt setting no longer silently switches to the old supervised parts; a missing baseline no longer counts as zero. Honest overall 62.0 in 100.
 - 2026-09-15 -- Landed: name/pronoun/noun typing decided at the type level (+1 in 100); pronoun reference 41.8 -> 42.2; common-noun line down only by a population artefact (instrument brief pri 122).
 - 2026-09-15 -- Landed: the attacher learns how to attach 'the sky is blue' subjects (54 -> 65 in 100); 'which thing does this property belong to' 65 -> 79; board unchanged but one sentence.

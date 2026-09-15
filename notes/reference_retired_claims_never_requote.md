@@ -22,3 +22,5 @@ feels familiar.
 
 
 - 2026-09-15 12:03: AGG 0.6204 / coref 0.4178 / common-noun 0.5461 (pri117a) SUPERSEDED by pri118a: AGG 0.6200 / coref 0.4217 / common-noun 0.5383 (population artefact, pri 122). The board's 0.62 is a COMPONENT number given gold mentions; the reader on raw text is far below it on agents (evaluation E07) -- never quote 0.62 as the product's reading accuracy.
+
+- 2026-09-15 15:56: 'AGG 0.6200' / '0.62 in 100' as THE BOARD HEADLINE is RETIRED: since pri 122 the headline (aggregate_19c_free) is the reader's own read of raw text (0.4717 at the full split before pri 125); 0.6200 lives on as aggregate_component_rebuilt ('the component score'). The rebuilt agent row 0.8552 and patient 0.8143 are COMPONENT numbers; the reader on raw text is 0.1510 / 0.6869 before pri 125.

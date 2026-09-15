@@ -1219,12 +1219,15 @@ def board_ab(n_boot=1000, caps=None):
     import experiments.exp_situation_model_qa_modern_v1 as B
     t0 = time.time()
     print("BOARD ARM A (the organ as shipped) ...", flush=True)
-    resA = B.run(caps=caps, n_boot=n_boot, write_metrics=False)
+    # pri 122: this A/B compares the REBUILT board rows (what it has always compared), so it reads the
+    # component aggregate and skips the reader-driven block -- which is a separate, document-capped pass and
+    # would make a two-arm board A/B cost ~5 hours.
+    resA = B.run(caps=caps, n_boot=n_boot, write_metrics=False, reader_driven=False)
     print("  arm A done in %.0fs" % (time.time() - t0), flush=True)
     with open(os.path.join(out_dir(), "board_armA.json"), "w", encoding="utf-8") as fh:
         json.dump({"per_dimension": {k: (resA["per_dimension"].get(k) or {}).get("model_acc")
                                      for k in resA["per_dimension"]},
-                   "aggregate": resA["aggregate_19c_free"].get("model_acc"),
+                   "aggregate": resA["aggregate_component_rebuilt"].get("model_acc"),
                    "seconds": round(time.time() - t0, 1)}, fh, indent=1)   # checkpoint: a late crash keeps arm A
     M = patched_module(name="pri117_board_patched")
     sys.modules["hdlab.attachment_arm"] = LIVE          # keep the live module object in place
@@ -1251,7 +1254,8 @@ def board_ab(n_boot=1000, caps=None):
         out["arms"][k] = {"shipped": va, "patched": vb, "delta": d, "n": a.get("n")}
         if d is not None and d < 0:
             down.append((k, d, a.get("n")))
-    ag_a = resA["aggregate_19c_free"].get("model_acc"); ag_b = resB["aggregate_19c_free"].get("model_acc")
+    ag_a = resA["aggregate_component_rebuilt"].get("model_acc")
+    ag_b = resB["aggregate_component_rebuilt"].get("model_acc")
     out["aggregate"] = {"shipped": ag_a, "patched": ag_b,
                         "delta": None if (ag_a is None or ag_b is None) else round(ag_b - ag_a, 4)}
     print("AGGREGATE               %8s %8s %9s" % (ag_a, ag_b, out["aggregate"]["delta"]))

@@ -73,7 +73,14 @@ def _board_aggregate():
                 # the board writes the aggregate accuracy under "model_acc" (fall back to "model" for older dumps)
                 val = (agg.get("model_acc") or agg.get("model")) if isinstance(agg, dict) else agg
                 n_items = agg.get("n") if isinstance(agg, dict) else None
-                if n_items is not None and n_items < 10000:      # capped / smoke board: not the headline
+                # pri 122: the headline aggregate is now the READER'S OWN READ of the raw text, which is
+                # DOCUMENT-CAPPED by design (~4k items, not ~11k), so the old n<10000 "capped/smoke" heuristic
+                # would have silently dropped the real board. When the board states its own cap, believe it;
+                # the n-heuristic stays as the fallback for older dumps that carry no flag.
+                if isinstance(agg, dict) and "capped" in agg:
+                    if agg.get("provenance") == "rebuilt_component_FALLBACK":
+                        continue                                  # the reader rows could not be built
+                elif n_items is not None and n_items < 10000:     # capped / smoke board: not the headline
                     continue
                 age = (time.time() - os.path.getmtime(mp)) / 86400.0
                 if val is not None and (best is None or age < best[2]):
