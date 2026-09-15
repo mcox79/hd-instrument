@@ -14,6 +14,7 @@ NEW word means from what it reads, using its sense of how things feel and look, 
 near the top about 38 times in 100 where the old method managed about 3.
 
 ## WHAT CHANGED LATELY
+- **15 Sep, 09:22.** Landed: the reader keeps capital letters. The word-category organ now finds 87 in 100 of the names (was 45: scrambling the capitals at random would have done better than what we shipped); through the whole reader, names 49 -> 85 in 100 and the reader's own files of people and things grew by a tenth. The board's seven lines are unchanged because none of them runs the reader on raw text -- that blindness is now its own instrument problem.
 - **14 Sep, 23:04.** New board line (informational for now): 'what things are / where things are' -- for sentences without a doing-word, did the reader get both what is said and about whom? 53 in 100 on the test set (a simple 'the word after is' rule gets 47; random gets 7); on other genres 43 vs 33. Before today's landing it was 7 in 100. Most of what is still missed is WHO the statement is about, which is the next problem (the attacher, pri 117).
 - **14 Sep, 22:27.** Landed (a head-to-head: you and an agent solved the same problem blind; the best of both merged): sentences without a doing-word ('the sky is blue', 'she is a doctor') are now read as statements about the thing, one structure per sentence. On the test set the reader now catches 74 to 88 in 100 of them (was 19); 'what things are like' on the board 74.9 -> 79.1 in 100, everything else unchanged. Overall board 62.1 in 100.
 - **14 Sep, 19:50.** Landed: the word-category organ now reads a story once, in order, and every later step sees only what had been read up to that sentence. Before, five different steps re-read sentences out of order into its memory, so the same story read twice could give different events (2 stories in 12), and on first mentions it was effectively peeking at the answer. Now identical every time; board unchanged (61.9 in 100).
@@ -187,7 +188,7 @@ Long term (the next few months):
 
 <!-- AUTO:BEGIN (written by tools/scorecard.py; edit the sections ABOVE, not this) -->
 
-Last full check: 2026-09-15T00:49:35.856666+00:00 (48 on record). Generated 2026-09-15T03:03:53+00:00.
+Last full check: 2026-09-15T13:02:31.927314+00:00 (49 on record). Generated 2026-09-15T13:21:07+00:00.
 
 | Ability | Group | How well | Compared with a simple rule | Since the previous check | Brain-faithful? |
 |---|---|---|---|---|---|
@@ -201,10 +202,10 @@ Last full check: 2026-09-15T00:49:35.856666+00:00 (48 on record). Generated 2026
 | Which meaning of a word is meant in this sentence | Word meaning | right 75 in 100 | clearly better than the simple rule (50 in 100) | unchanged since the previous check | brain model; some details still open |
 | Drawing safe conclusions from 'is a kind of' facts | Word meaning | right 77 in 100 | clearly better than the simple rule (54 in 100) | unchanged since the previous check | brain model; some details still open |
 | Handling 'all / some / none' correctly | Word meaning | right 83 in 100 | clearly better than the simple rule (17 in 100) | unchanged since the previous check | brain model; some details still open |
-| Handling 'not' correctly | Word meaning | right 92 in 100 | clearly better than the simple rule (50 in 100) | DOWN 0.008 since the previous check | brain model; some details still open |
+| Handling 'not' correctly | Word meaning | right 92 in 100 | clearly better than the simple rule (50 in 100) | unchanged since the previous check | brain model; some details still open |
 | How a word's meaning shifts with its context (graded) | Word meaning | agreement with people 0.39 (out of 1) | clearly better than the simple rule (0.38) | unchanged since the previous check | brain model; some details still open |
 | Picking the right broad sense of an ambiguous word (older test set) | Word meaning | right 52 in 100 | clearly better than the simple rule (35 in 100) | unchanged since the previous check | brain model; some details still open |
-| What something is or is like ('the sky is blue') | Actions and roles | right 79 in 100 | clearly better than the simple rule (57 in 100) | up 0.042 since the previous check | brain model; some details still open |
+| What something is or is like ('the sky is blue') | Actions and roles | right 79 in 100 | clearly better than the simple rule (57 in 100) | unchanged since the previous check | brain model; some details still open |
 | Who did the action in a sentence | Actions and roles | right 86 in 100 | clearly better than the simple rule (85 in 100) | unchanged since the previous check | brain model; one part is a stand-in we are replacing |
 | Who or what the action was done to | Actions and roles | right 82 in 100 | clearly better than the simple rule (72 in 100) | unchanged since the previous check | brain model; one part is a stand-in we are replacing |
 | Keeping a fact true until something changes it | Actions and roles | right 100 in 100 | clearly better than the simple rule (44 in 100) | unchanged since the previous check | brain model; some details still open |
@@ -215,7 +216,7 @@ Last full check: 2026-09-15T00:49:35.856666+00:00 (48 on record). Generated 2026
 | Whether a state still holds at a later point | Time and place | right 41 in 100 | clearly better than the simple rule (11 in 100) | unchanged since the previous check | brain model; some details still open |
 | Whether two events happened at the same time | Time and place | right 99 in 100 | clearly better than the simple rule (50 in 100) | unchanged since the previous check | brain model; some details still open |
 | Which of two events came first | Time and place | right 59 in 100 | clearly better than the simple rule (52 in 100) | unchanged since the previous check | brain model; some details still open |
-| Answering 'why' when the cause is sentences away | Causes | right 25 in 100 | clearly better than the simple rule (0 in 100) | up 0.008 since the previous check | brain model; some details still open |
+| Answering 'why' when the cause is sentences away | Causes | right 25 in 100 | clearly better than the simple rule (0 in 100) | unchanged since the previous check | brain model; some details still open |
 | Following a chain of causes across several steps | Causes | right 26 in 100 | clearly better than the simple rule (0 in 100) | unchanged since the previous check | brain model; some details still open |
 | Whether a cause makes an effect bigger or smaller | Causes | right 62 in 100 | a little better than the simple rule (61 in 100), not yet convincingly | unchanged since the previous check | brain model; some details still open |
 | Whether one event was needed for another to happen | Causes | right 35 in 100 | clearly better than the simple rule (3 in 100) | unchanged since the previous check | brain model; some details still open |

@@ -246,7 +246,7 @@ def build_backbone(conll_path: str, gaz=None):
     # the organ WITHOUT the argument its caller passed silently ships a different organ.
     from hdlab import frontend as _F
     mentions, n_sents = parse_litbank_conll(conll_path, name_gender_map=gaz, tagger=_F.tagger())
-    sents = parse_conll_sentences(conll_path, lower=True)   # pri-109: -0.4076 PROPN F1; see scene_segment
+    sents = parse_conll_sentences(conll_path, lower=False)  # pri-116: cased -- +0.4106 PROPN F1 (see scene_segment)
     by_sent: Dict[int, List[dict]] = {i: [] for i in range(len(sents))}
     names: Dict[int, Dict[str, int]] = {}
     person: Dict[int, bool] = {}

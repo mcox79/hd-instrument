@@ -837,7 +837,7 @@ def read_typed_causation(reader, conll_path, sm, *, gate_mode="force", use_gate=
       nlp, lexicon -- optional pre-built spaCy pipeline / force lexicon (loaded lazily if None).
     """
     from hdlab.scene_segment import parse_conll_sentences
-    sents = parse_conll_sentences(conll_path, lower=True)   # pri-109: -0.4076 PROPN F1; see scene_segment
+    sents = parse_conll_sentences(conll_path, lower=False)  # pri-116: cased -- +0.4106 PROPN F1 (see scene_segment)
     t, p, l = _frontend()
     gate = _gate_or_load(_AdaptFrontend(), use_gate)   # non-None -> gate never self-loads spaCy
     lex = lexicon if lexicon is not None else build_force_lexicon()

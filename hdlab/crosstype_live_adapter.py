@@ -100,8 +100,8 @@ def _parse_sentence(forms, reader):
 
 
 def _build_toks(sents, reader):
-    """Build the crosstype Doc `.toks` from the reader's per-sentence tokens (`parse_conll_sentences`, lowercased --
-    the SAME tokens the reader tags/parses). Global gidx increments per token across sentences, matching
+    """Build the crosstype Doc `.toks` from the reader's per-sentence tokens (`parse_conll_sentences`, RAW-CASED
+    since pri-116 -- the SAME tokens the reader tags/parses). Global gidx increments per token across sentences, matching
     parse_litbank_conll's gtok scheme (identical token filter) -> mention gtok_start/gtok_end/head_g line up."""
     toks = []
     gidx = 0

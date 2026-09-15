@@ -147,9 +147,15 @@ def sentence_opens_scene(sent_tokens: Sequence[str]) -> bool:
 # CoNLL -> per-sentence token lists (aligned with hdlab.coref.parse_litbank_conll's
 # sentence indexing: blank line = boundary, consecutive blanks collapse, '#' skipped).
 # ---------------------------------------------------------------------------
-def parse_conll_sentences(path: str, lower: bool = True) -> List[List[str]]:
-    """Return the document's sentences (sent_idx-aligned). `lower=True` (the default, byte-identical to
-    every version before 2026-09-14) LOWERCASES every token.
+def parse_conll_sentences(path: str, lower: bool = False) -> List[List[str]]:
+    # DEFAULT FLIPPED to cased at landing (strategy 2026-09-15, pri 116): the live reader passes lower=False at every hdlab
+    # call site; a default of True would leave the 19 bare verification callers mirroring a reader that no longer exists
+    # (no default-off; one source, one convention). A consumer with a case-insensitive lookup lowercases at ITS lookup.
+    """Return the document's sentences (sent_idx-aligned). `lower=True` LOWERCASES every token.
+
+    ⚠️ EVERY hdlab CALL SITE NOW PASSES `lower=False` (pri-116, 2026-09-14). The default is kept True only so
+    that an experiment cell written against the old behaviour still reproduces it; nothing on the read path
+    uses it. Do not lowercase here: a consumer whose lookup is case-insensitive lowercases at its OWN lookup.
 
     ⚠️ MEASURED COST OF THAT DEFAULT (pri-109, 127,919 GUM test tokens, the SAME category organ on the SAME
     text, the only difference being case):
@@ -169,10 +175,22 @@ def parse_conll_sentences(path: str, lower: bool = True) -> List[List[str]]:
     FOR SCALE: pri 104's forward wire is worth +0.1921 token F1 on the name decision. `lower=False` is worth
     +0.4076 PROPN F1 and is one argument.
 
-    THE DEFAULT IS DELIBERATELY LEFT AS IT WAS: flipping it changes the input of every reader consumer at
-    once (5 call sites in hdlab/, 0 in tools/; `crosstype_live_adapter` states the lowercase assumption in
-    its own docstring), so it needs a board A/B, which is strategy's. Every call site below passes `lower`
-    EXPLICITLY so the flip is one visible edit per consumer."""
+    THE FLIP, MEASURED (pri-116, 2026-09-14): `lower=False` at all four hdlab call sites (0 in tools/),
+    scored on the reader's OWN call sequence over the same 127,919 GUM test tokens -- the categories the
+    reader's 25 downstream organs actually read go PROPN F1 0.4545 -> 0.8651 (+0.4106 CI[+0.3835,+0.4399])
+    and all-tag 0.9049 -> 0.9328 (+0.0280 CI[+0.0235,+0.0327]); the INFO-FREE TWIN (each sentence's capitals
+    permuted onto random tokens, the capital budget preserved) scores 0.6292 and loses by +0.2358
+    CI[+0.2173,+0.2557] -- i.e. the shipped lowercased input was WORSE THAN SCRAMBLING THE CAPITALS AT RANDOM.
+    Through the LIVE reader on 16 modern GUM test documents: entity files 2,459 -> 2,563 (+4.2%), NAME-typed
+    referent mentions 242 -> 599, who-did-what PATIENT +0.0215 CI[+0.0085,+0.0381] over the twin, and the
+    pronoun-coref row unmoved to four decimals (its inputs are closed-class -- pri 109 measured that six times;
+    this is the seventh). Two consumer gates that tested a RAW token against a lowercase literal are repaired
+    in the same change (_read_causation, _read_timeline): 49 of the 112 causal-connective sentences in those
+    documents open with a CAPITALISED connective and would otherwise stop matching.
+    SECOND EFFECT: `situation_reader.read` feeds the category organ the passage CASED (`lower=False`, the
+    pri-112 in-order feed) and caches the settled belief under tuple(cased sentence); while `sents` was
+    lowercased, every consumer asked under a different key, so 100% of sentences were tagged twice per read
+    and the feed's belief was never the one consumed. The flip makes the two streams one."""
     sents: List[List[str]] = []
     cur: List[str] = []
     with open(path, "r", encoding="utf-8") as f:

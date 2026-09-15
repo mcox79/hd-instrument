@@ -120,7 +120,10 @@ def referent_per_np_source(conll_path: str, tagger, name_gender_map=None, use_fr
     the validated build_source(mode='rnp'): use_frame=False reproduces the +0.336 source byte-for-byte; use_frame=
     True adds the §4 frame recoveries on top (introduction 0.914->0.931)."""
     coref, n_sents = parse_litbank_conll(conll_path, name_gender_map=name_gender_map, tagger=tagger)
-    sents = parse_conll_sentences(conll_path, lower=True)   # pri-109: -0.4076 PROPN F1; see scene_segment
+    sents = parse_conll_sentences(conll_path, lower=False)  # pri-116: cased -- +0.4106 PROPN F1 (see scene_segment);
+    # `frame_heads`' mid-sentence-CAPITAL cue can fire again, and `_content_head_positions` opens a referent for
+    # every content noun the organ can now see. MEASURED through the live reader on 16 modern GUM test documents:
+    # entity files 2,459 -> 2,563 (+4.2%), NAME-typed referent mentions 242 -> 599 (2.48x).
     coref_head_wpos: Dict[tuple, int] = {}
     # REFLEXIVES (himself/herself/itself/themselves) are pronouns too (Binding Principle A; strategy 2026-09-12):
     # the CoNLL mention stream marks only PRONOUN_SCOPE forms as pronouns, so a reflexive coref mention was dropped

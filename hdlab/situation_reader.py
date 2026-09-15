@@ -2629,7 +2629,10 @@ class SituationReader:
     def _read_timeline(sents) -> List[TimelineFrame]:
         frames: List[TimelineFrame] = []
         for si, toks in enumerate(sents):
-            if "had" not in toks:
+            # CASE-FOLD AT THE LOOKUP (pri-116): the sentence source now hands this consumer the RAW-CASED
+            # tokens, and a capital-initial `Had he known ...` is the same auxiliary. A closed-class cue word
+            # is case-insensitive BY DESIGN, so the fold belongs here and not at the source.
+            if "had" not in [t.lower() for t in toks]:
                 continue  # cheap gate: past-perfect flashback candidate
             text = " ".join(toks)
             ev, tg = M.extract_events_punct(text)
@@ -2966,7 +2969,11 @@ class SituationReader:
         try:
             links: List[CausalLink] = []
             for si, toks in enumerate(sents):
-                if not (_CAUSAL_CONNECTIVES & set(toks)):
+                # CASE-FOLD AT THE LOOKUP (pri-116). MEASURED on 16 modern GUM documents: 49 of the 112
+                # sentences carrying a causal connective open with a capitalised one (`So`, `Because`,
+                # `Since`, `Therefore`), i.e. 43.8% of this organ's own input disappears if the raw token is
+                # matched against the lowercase connective set once the case reaches it.
+                if not (_CAUSAL_CONNECTIVES & {t.lower() for t in toks}):
                     continue
                 events, _tagged = self._extract_events(" ".join(toks))   # the reader's OWN densified events
                 if len(events) < 2:
@@ -3004,7 +3011,7 @@ class SituationReader:
             if self.causal_mental_bridge:
                 from hdlab.event_type import event_type as _etype, MENTAL_TRIGGER, MENTAL_OUTCOME
                 for si, toks in enumerate(sents):
-                    if _CAUSAL_CONNECTIVES & set(toks):
+                    if _CAUSAL_CONNECTIVES & {t.lower() for t in toks}:   # pri-116: fold case at the lookup
                         continue
                     events, _tagged = self._extract_events(" ".join(toks))
                     if len(events) < 2:
@@ -4532,10 +4539,19 @@ class SituationReader:
         # stash the coref-column (tracked/given) mentions -> the Competition-Model AGENT candidate source
         # (_cm_agent_candidates). Inert unless cm_agent AND referent_per_np are both ON.
         self._coref_mentions = coref_mentions
-        # pri-109: `lower=True` is the shipped default and it costs the category organ -0.4076 PROPN F1
-        # and -0.0275 all-tag accuracy on the reader's path (see hdlab/scene_segment.parse_conll_sentences).
-        # Passed EXPLICITLY so the flip is one visible edit; it needs a board A/B before it moves.
-        sents = parse_conll_sentences(conll_path, lower=True)
+        # THE CASE REACHES EVERY ORGAN BELOW (pri-116, 2026-09-14). `sents` is the input of all 25 downstream
+        # reads (events, timeline, causation, world-state, goals, affect, senses, bridges, affected-entity,
+        # space, ... -- 24 of them default-ON), and it used to be LOWERCASED. Measured on the reader's OWN call
+        # sequence over the 127,919-token GUM test split, gold UPOS the answer key: the categories those organs
+        # read go PROPN P/R/F1 0.9413/0.2996/0.4545 -> 0.9065/0.8273/0.8651 (+0.4106 F1, CI[+0.3835,+0.4399])
+        # and all-tag 0.9049 -> 0.9328 (+0.0280, CI[+0.0235,+0.0327]); the info-free twin (the sentence's
+        # capitals permuted onto random tokens) scores 0.6292 and LOSES by +0.2358 CI[+0.2173,+0.2557].
+        # AND IT MAKES pri-112's IN-ORDER FEED REACHABLE: the feed above caches its settled belief under
+        # tuple(CASED sentence); while `sents` was lowercased every consumer asked under a DIFFERENT key, so
+        # 100% of sentences were tagged TWICE per read -- once cased (the feed) and once on case-stripped text
+        # (what the consumers got). With the two streams identical the per-read tag cache misses 0 times.
+        # Consumers that need a case-insensitive key lowercase AT THEIR OWN LOOKUP (they already do).
+        sents = parse_conll_sentences(conll_path, lower=False)
         if len(sents) != n_sents:
             raise RuntimeError("SENTENCE_MISALIGN: parse_litbank=%d parse_conll_sentences=%d"
                                % (n_sents, len(sents)))
