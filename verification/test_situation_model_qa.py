@@ -244,7 +244,11 @@ def test_temporal_survives_the_keystone_on_the_capable_reader():
         sm_k = SituationReader(gaz=gaz, tense_agnostic_events=True, preserve_tense=False).read(path)
         keystone_only_q += len(Q.build_temporal_questions(sm_k))
     assert cap_q > 0, "temporal collapsed on the capable reader"
-    assert keystone_only_q == 0, ("keystone-only should collapse temporal to 0", keystone_only_q)
+    # RE-PINNED 2026-09-14 (strategy, pri 113 landing): the fired copular predications now carry the copula's TENSE
+    # (the tense reader reaches the 167 non-verbal clauses), so a keystone-only reader answers a few temporal
+    # questions from those events (10 here) where it answered 0; the contrast the check exists for -- the register
+    # readout is load-bearing -- is "well below the capable reader", not "zero".
+    assert keystone_only_q < 0.5 * cap_q, ("keystone-only should collapse temporal well below the capable reader", keystone_only_q, cap_q)
     macc = okc / cap_q
     tacc = toc / cap_q
     assert macc > tacc, {"model": macc, "textorder": tacc}
