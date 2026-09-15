@@ -1,5 +1,7 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🟢 **2026-09-15 (LATEST -- autoloop ARMED): pri 125 LANDED (the reader discovers its own pronouns; plain-text agents 0.19 -> 0.75; annotation invariance) on the product board (headline 0.6425 capped; component 0.6200 unchanged). RUNNING: pri 129 probe. NEXT: integrate 129 (execute its patched tree), apply pri 128's diff, dispatch 131 (identity contract), 130 (dormant flags), 127 (lexicon freeze); then 114, 120, 119, 123, 124, 115. Read notes/STATUS.md 'LANDED pri 125' first.**
+
 > # 🟢 **2026-09-15 16:17 (LATEST -- autoloop ARMED): READ notes/STATUS.md '16:17 LANDED pri 122' FIRST. pri 122 LANDED: the board headline is now the reader's own read of raw text (0.4717 pre-125; 0.6200 kept as the component score). RUNNING: solvers pri 125 (pronoun discovery, finalizing), pri 129 (NOT_BF consumers -> labels rung), pri 128 (sonnet, witness wrappers). NEXT: land 125 + board; dispatch 127; then 114, 120, 119, 123, 124, 115.**
 
 > # 🟢 **2026-09-15 13:20 (LATEST -- autoloop ARMED): READ notes/STATUS.md '2026-09-15 13:11' + '13:20 UPDATE' FIRST. Evaluation fully triaged (repaired / filed 122, 125, 126, 127, 128); solvers pri 125 + 122 RUNNING (opus); next dispatch after they land: 129 (the NOT_BF labeler + confidence readout still RUN on the default read -- labels rung, blocking-class), 127 (lexicon freeze), 128 (sonnet, running), then 114, 120, 119, 123, 124, 115; honest AGG 0.6200 = a component number.**

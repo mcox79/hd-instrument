@@ -90,6 +90,9 @@ if _REPO not in sys.path:
 from hdlab.coref import (
     CorefReader,
     build_pronoun_targets,
+    discovered_pronoun_targets,
+    graded_pronoun_resolve,
+    retrievable_referents,
     load_name_gender,
     parse_litbank_conll,
     sent_dist_bucket,
@@ -247,6 +250,20 @@ def _load_frontend():
     return _FRONTEND_CACHE["t"], _FRONTEND_CACHE["p"]
 
 
+def _gold_alignment(gold_mentions):
+    """The SCORER-side alignment map built from the coref annotation column: (sent_idx, within-sentence
+    token position) -> gold cluster, and surface head -> the gold clusters that head ever names.  It is
+    consulted ONLY after a pick has been made, to say whether the pick was right (pri 125); the head-level
+    granularity is exactly the granularity `resolve_stream`'s own `head_to_cluster` always used."""
+    pos, head = {}, {}
+    for m in gold_mentions:
+        span = max(0, m["gtok_end"] - m["gtok_start"])
+        pos[(m["sent_idx"], m["wtok_start"])] = m["cluster"]
+        pos[(m["sent_idx"], m["wtok_start"] + span)] = m["cluster"]
+        head.setdefault(m["head"].lower(), set()).add(m["cluster"])
+    return {"pos": pos, "head": head}
+
+
 class _CachedTagShim:
     """Adapts the reader's shared per-read tag cache to the `tagger.tag(toks)` interface that
     referent_per_np_source expects, so its per-sentence tagging HITS the shared _cached_tag instead of a
@@ -380,6 +397,9 @@ class CorefResolution:
     # `resolved_head` is the surface head of the mention the reader actually picked -- the model's own
     # answer, with no gold column in it. Additive: no decision reads it.
     resolved_head: str = ""
+    # pri 125: the TARGET's own token position, so a consumer/scorer can align the reader's pick to any
+    # answer key by POSITION instead of by the gold cluster id the decision path no longer carries.
+    target_wpos: int = -1
 
 
 @dataclass
@@ -462,6 +482,11 @@ class SituationModel:
     # mention. Additive -- never touches the other dimensions; the prerequisite for reasoning over the story.
     event_tokens: Optional[list] = None
     episodic_store: Optional[object] = None
+    # pri 125: the third-person pronouns whose referent stayed OPEN -- no accessible phi-compatible prior
+    # referent, so the reader ABSTAINED rather than silently scheduling no question.  Each entry
+    # {head, sent_idx, wtok_start}.  A zero-answer read now scores zero recall on a non-empty question set
+    # instead of vanishing from the denominator.
+    pronoun_abstentions: List[dict] = field(default_factory=list)
     # opt-in mutable WORLD-STATE dimension (WHO-HAS-WHAT / OPEN-CLOSED at story-time t); None unless the reader
     # is built with track_world_state=True. A hdlab.world_state_register.WorldState folded from THIS passage's
     # own extracted events: world_state.has(entity,obj,t) / holder_of(obj,t) / is_open(obj,t) /
@@ -995,9 +1020,14 @@ class SituationReader:
                  bind_entity_states: bool = True,
                  structural_do_recover: bool = False,
                  referent_per_np: bool = True,
+                 discover_pronouns: bool = True,
+                 fill_card: bool = True,
+                 graded_anaphora: bool = True,
+                 pronoun_window: int = 0,
                  cm_agent: bool = True,
                  include_pron_agents: bool = True,
                  case_filter: bool = True,
+                 case_cue_marked: bool = True,
                  clause_local: bool = True,
                  cm_agent_struct: bool = True,
                  cm_agent_byhead: bool = True,
@@ -1654,6 +1684,15 @@ class SituationReader:
         # cuts inanimate-agent error 0.333->0.081) -> then qa_events recovers and default-on is a net board win.**
         # all_capabilities_off() sets it False. NO spaCy / NO LLM.
         self.referent_per_np = bool(referent_per_np)
+        # pri 125: the introduction organ discovers its PRONOUN referents from the category organ's own
+        # PRON tags, and ONE discovered stream feeds every consumer.  pronoun_window = the accessibility
+        # window in sentences (0 = the whole passage read so far; SWEPT on GUM test, 0 reported).
+        self.discover_pronouns = bool(discover_pronouns)
+        self.fill_card = bool(fill_card)
+        self.graded_anaphora = bool(graded_anaphora)
+        self._pronoun_abstentions_extra = []
+        self.pronoun_window = int(pronoun_window)
+        self._gold_align = None
         self._rnp_tagger = None        # lazy hdlab.pos_tagger.PosTagger (the frontend UPOS tagger)
         # COMPETITION-MODEL AGENT role assignment (P2 wire, 2026-09-04, owner-DONE swap_the_positional_role_
         # assigner_for_the_brain_foundational_competition_model). referent_per_np default-ON banks the +0.336
@@ -1683,6 +1722,7 @@ class SituationReader:
         self.cm_agent = bool(cm_agent)
         self.include_pron_agents = bool(include_pron_agents)
         self.case_filter = bool(case_filter)
+        self.case_cue_marked = bool(case_cue_marked)
         self.clause_local = bool(clause_local)
         # STRUCTURE cue (cm_agent_struct, DEFAULT-ON 2026-09-04, owner-DONE the_agent_tie_wall_is_embedded_
         # clauses...): feed the register-general incremental left-corner subject bind (hdlab.incremental_parser.
@@ -1865,8 +1905,11 @@ class SituationReader:
         "tense_agnostic_events", "preserve_tense", "timeline_register", "verb_subcat_gate", "track_space",
         "predict_surprisal", "track_belief", "bind_event_tokens", "predict_revise", "track_world_state",
         "densify_world_state", "np_head_reduce", "parser_arceager", "causation_typed",
-        "bind_entity_states", "structural_do_recover", "referent_per_np", "cm_agent", "include_pron_agents",
-        "case_filter", "clause_local", "cm_agent_struct", "cm_agent_byhead", "agent_hybrid",
+        "bind_entity_states", "structural_do_recover", "referent_per_np", "discover_pronouns", "fill_card",
+        "graded_anaphora",
+        "cm_agent", "include_pron_agents",
+        "case_filter", "case_cue_marked", "clause_local", "cm_agent_struct", "cm_agent_byhead",
+        "agent_hybrid",
         "agent_hybrid_construction", "predicate_recall", "nonverbal_predication",
         "track_goals", "track_goal_thwart", "track_affect", "track_tom_action", "track_infer_emotion",
         "affect_structured_matcher",
@@ -1895,6 +1938,57 @@ class SituationReader:
 
     # -- ENTITIES + COREF (banked EventCentralityReader recency-centrality, 29516) --
     def _read_entities(self, mentions, targets, n_sents):
+        if getattr(self, "_gold_align", None) is not None:
+            # THE RETRIEVAL ORGAN'S OWN CANDIDATE SET (pri 125): a pronoun probe retrieves over the
+            # ACCESSIBLE, cue-compatible referents, not over every NP the introduction organ opened.  This
+            # is the 2026-09-03 flood repair kept as a CUE FILTER (the brain's own) rather than as a second
+            # mention stream sourced from the answer key.
+            if self.graded_anaphora:
+                # THE PINNED RETRIEVAL EQUATION IS THE PICK (pri 125 phase 7).  Every third-person pronoun
+                # is attempted (the shipped pick's six-form gate answered 98 of 334 questions), the
+                # candidates are bounded by accessibility AT RETRIEVAL, and the agreement cue enters as a
+                # GRADED term -- which only became load-bearing once the file card was filled above.
+                recs, ab = graded_pronoun_resolve(mentions, targets, window=self.pronoun_window)
+                self._pronoun_abstentions_extra = ab
+                out = []
+                for r in recs:
+                    gc = self._gold_align["pos"].get((r["sent_idx"], r["target_wpos"]))
+                    rc = self._gold_align["head"].get(r["resolved_head"].lower(), ())
+                    cr = CorefResolution(
+                        pronoun=r["pronoun"], sent_idx=r["sent_idx"],
+                        # resolved_cluster=None (strategy 2026-09-15, deep review D02): -1 IS a valid ONLINE entity id
+                        # (-(cluster+1); the first file is 0 -> -1), so it collided with goal canonicalisation
+                        # (names.get) and world-state densify; None is the package's unresolved value (coref.py:1292)
+                        # and every live consumer is None-safe. The entity-id contract is pri 131.
+                        gold_cluster=(-1 if gc is None else gc), resolved_cluster=None,
+                        correct=bool(gc is not None and gc in rc), attempted=True,
+                        bucket=sent_dist_bucket(r["sent_dist"]), sent_dist=r["sent_dist"],
+                        resolved_head=r["resolved_head"])
+                    cr.target_wpos = r["target_wpos"]
+                    out.append(cr)
+                side = [{"correct": bool(c.correct)} for c in out]
+                return out, side, side
+            pool = retrievable_referents(mentions)
+            keep = {m["midx"] for m in pool}
+            targets = [t for t in targets if t["target"]["midx"] in keep]
+            # NO ANSWER KEY IN THE INPUT -> `correct` is UNKNOWABLE, not False.  Without this the reader
+            # would report coref_acc 0.0 on annotation-free text, which reads as "it got them all wrong"
+            # when the truth is "there is nothing to score against".
+            self._coref_unscoreable = not self._gold_align["pos"]
+            res, recs_ec, recs_ss = self._read_entities_core(pool, targets, n_sents)
+            # SCORING ONLY, after the pick: align the reader's own answer (`resolved_head`, its token
+            # position) to the answer key by POSITION/HEAD.  No decision above reads `self._gold_align`.
+            g = self._gold_align
+            for r, t in zip(res, targets):
+                r.target_wpos = t["target"]["wtok_start"]
+                gc = g["pos"].get((t["target"]["sent_idx"], t["target"]["wtok_start"]))
+                rc = g["head"].get((r.resolved_head or "").lower(), ())
+                r.gold_cluster = -1 if gc is None else gc
+                r.correct = bool(gc is not None and gc in rc)
+            return res, recs_ec, recs_ss
+        return self._read_entities_core(mentions, targets, n_sents)
+
+    def _read_entities_core(self, mentions, targets, n_sents):
         sid_fixed = [i // LOCAL_WINDOW for i in range(n_sents)]
         # query_memory=True / centrality_mode="event_role" are the INCUMBENT (graded_pick=False) config.
         # With the default graded_pick=True reader, resolve_stream forces the event-centrality memory OFF
@@ -2106,11 +2200,22 @@ class SituationReader:
         if not coref_ment:
             return None, None
         from hdlab.graded_role_assigner import NOMINATIVE_PRON, _nominals_keep_pron
+        from hdlab.coref import ACCUSATIVE_MARKED
         if self.include_pron_agents:
             agent_sent_noms = _nominals_keep_pron(coref_ment, n_sents)
-            if self.case_filter:                       # CASE cue: keep only NOMINATIVE pronoun agents
-                agent_sent_noms = [[m for m in lst if (not m.get("is_pronoun"))
-                                    or m["head"].lower() in NOMINATIVE_PRON] for lst in agent_sent_noms]
+            if self.case_filter:
+                # CASE cue (pri 125): the MARKED member of the opposition. English marks the OBLIQUE forms
+                # and leaves the rest case-NEUTRAL, so the cue is "exclude the accusative-marked forms";
+                # the 8-form NOMINATIVE allow-list silently deleted every case-neutral subject pronoun (an
+                # indefinite, a demonstrative) from the competition -- 4 of 33 gold pronoun agents on the
+                # five UD-EWT evaluation documents. case_cue_marked=False restores the allow-list for A/B.
+                if self.case_cue_marked:
+                    agent_sent_noms = [[m for m in lst if (not m.get("is_pronoun"))
+                                        or m["head"].lower() not in ACCUSATIVE_MARKED]
+                                       for lst in agent_sent_noms]
+                else:
+                    agent_sent_noms = [[m for m in lst if (not m.get("is_pronoun"))
+                                        or m["head"].lower() in NOMINATIVE_PRON] for lst in agent_sent_noms]
         else:
             agent_sent_noms = _sentence_nominals(coref_ment, n_sents)
         # Centering givenness per cluster (count pronoun mentions too when they are agent candidates --
@@ -2674,7 +2779,7 @@ class SituationReader:
         return [{"lemma": lem, "chrono_rank": i, "text_rank": reg.text_rank.get(lem)}
                 for i, lem in enumerate(reg.order)]
 
-    def _read_space(self, conll_path):
+    def _read_space(self, conll_path, mentions=None):
         """Opt-in SPACE dimension (default-off; wired 2026-08-31 from the validated
         experiments/_space_reader.py). Returns a hdlab.location_register.LocationRegister -- per-entity
         location as STATE, updated ONLY by motion events and PERSISTING between (Zwaan & Radvansky
@@ -2690,8 +2795,11 @@ class SituationReader:
         # PARSE DEDUP (2026-09-03): _read_space runs AFTER _read_events, so the reader's per-read tag/parse cache
         # is already warm -> the space adapter reuses the reader's parse (SAME model) instead of re-parsing every
         # sentence a second time (~half the read's parser cost). Byte-identical.
+        # pri 125: hand the SPACE dimension the reader's OWN discovered mention stream instead of letting it
+        # re-parse the coref ANNOTATION COLUMN out of the input file (0 mentions / 0 pronouns on real text).
         reg, _events, _names, _sents, _persons = _SP.read_locations_in_substrate(
-            conll_path, gaz=self.gaz, mode="prior_ext", parse_provider=self._space_parse_provider)
+            conll_path, gaz=self.gaz, mode="prior_ext", parse_provider=self._space_parse_provider,
+            mentions=mentions)
         return reg
 
     def _space_parse_provider(self, toks):
@@ -4531,18 +4639,37 @@ class SituationReader:
             # PERF sweep #2: referent_per_np_source tags each sentence via tagger.tag(); the reader's frontend
             # tagger loads the SAME _FRONTEND_POS_ASSET, so pass a shim over the shared per-read tag cache instead
             # of a redundant private PosTagger copy -> byte-identical, its 71 tags/read become shared-cache hits.
-            role_mentions, n_sents = referent_per_np_source(conll_path, _CachedTagShim(self), name_gender_map=self.gaz)
+            role_mentions, n_sents = referent_per_np_source(conll_path, _CachedTagShim(self), name_gender_map=self.gaz,
+                                                            discover_pronouns=self.discover_pronouns,
+                                                            fill_card=self.fill_card)
             # THE FORWARD WIRE (pri-109): the coref-column stream carries the category organ's categories too,
             # so the ten organs that type a mention read the organ, not capitalisation. The shim hits the
             # reader's shared per-read tag cache -> no extra tagging pass.
-            coref_mentions, n_coref = parse_litbank_conll(conll_path, name_gender_map=self.gaz,
-                                                          tagger=_CachedTagShim(self))
+            # ONE DISCOVERED STREAM (pri 125).  The 2026-09-04 DECOUPLE gave pronoun anaphora and the
+            # AGENT competition their own view of the passage by reading the COREF ANNOTATION COLUMN -- which
+            # is a gold leak on the inference path AND empty on real text, so on annotation-free input the
+            # AGENT competition had no candidates (9/52) and no anaphora question was ever scheduled.  The
+            # reader now has ONE stream, the one it discovered itself, and the column is parsed for SCORING
+            # ALIGNMENT ONLY (`self._gold_align`, read after the pick, never before it): gold cluster ids
+            # influence CORRECTNESS, never a prediction.  The DECOUPLE's real content is preserved and moved
+            # to where it belongs -- the two consumers still see DIFFERENT candidate sets, because
+            # `coref.retrievable_referents` applies the pronoun's own retrieval cue filter inside the
+            # RETRIEVAL organ (`_read_entities`) instead of by swapping the stream underneath it.
+            gold_mentions, n_coref = parse_litbank_conll(conll_path, name_gender_map=self.gaz,
+                                                        tagger=_CachedTagShim(self))
             if n_coref != n_sents:
                 raise RuntimeError("SENTENCE_MISALIGN: rnp=%d coref=%d" % (n_sents, n_coref))
+            if self.discover_pronouns:
+                coref_mentions = role_mentions
+                self._gold_align = _gold_alignment(gold_mentions)
+            else:
+                coref_mentions = gold_mentions
+                self._gold_align = None
         else:
             role_mentions, n_sents = parse_litbank_conll(conll_path, name_gender_map=self.gaz,
                                                         tagger=_CachedTagShim(self))
             coref_mentions = role_mentions   # coupled OFF -> byte-identical to the deployed baseline
+            self._gold_align = None
         # stash the coref-column (tracked/given) mentions -> the Competition-Model AGENT candidate source
         # (_cm_agent_candidates). Inert unless cm_agent AND referent_per_np are both ON.
         self._coref_mentions = coref_mentions
@@ -4618,12 +4745,22 @@ class SituationReader:
             # unchanged (byte-identical off vs on -> default-on-safe per no-more-default-off).
             sm.commonnoun_resolution = self._resolve_commonnouns(role_mentions, sents)
 
-        targets = build_pronoun_targets(coref_mentions)   # pronoun anaphora reads the coref-column source
+        if self.referent_per_np and self.discover_pronouns:
+            # THE DISCOVERED QUESTION SET: every third-person pronoun the organ opened that has an
+            # accessible phi-compatible prior referent; the rest are RECORDED as open referents.
+            targets, sm.pronoun_abstentions = discovered_pronoun_targets(
+                coref_mentions, window=self.pronoun_window)
+            self._pronoun_abstentions_extra = []
+        else:
+            targets = build_pronoun_targets(coref_mentions)   # the pre-2026-09-15 coref-column source
         if targets:
             resolutions, recs_ec, recs_ss = self._read_entities(coref_mentions, targets, n_sents)
             sm.coref_resolutions = resolutions
             sm.n_targets = len(resolutions)
-            sm.coref_acc = _acc([r.correct for r in resolutions])
+            sm.coref_acc = (None if getattr(self, "_coref_unscoreable", False)
+                            else _acc([r.correct for r in resolutions]))
+            sm.pronoun_abstentions = list(sm.pronoun_abstentions) + list(
+                getattr(self, "_pronoun_abstentions_extra", ()) or ())
             xs = [i for i, r in enumerate(resolutions) if r.sent_dist >= 1]
             sm.n_xsent_targets = len(xs)
             sm.coref_xsent_acc = _acc([resolutions[i].correct for i in xs]) if xs else None
@@ -4639,7 +4776,7 @@ class SituationReader:
         if self.timeline_register:
             sm.timeline_order = self._read_timeline_register(sents)
         if self.track_space:
-            sm.locations = self._read_space(conll_path)
+            sm.locations = self._read_space(conll_path, mentions=role_mentions)
         if self.causation_typed:
             # opt-in TYPED causation read (default-off; IN-SUBSTRATE parse + experiment-side literalness gate).
             from hdlab.causation_typing import read_typed_causation

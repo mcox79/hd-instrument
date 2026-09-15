@@ -233,7 +233,7 @@ _PERSON_PRON = {"he", "she", "him", "her", "his", "hers", "himself", "herself", 
                 "their", "we", "us", "our"}
 
 
-def build_backbone(conll_path: str, gaz=None):
+def build_backbone(conll_path: str, gaz=None, mentions=None):
     """Return (sents, mentions_by_sent, cluster_name, person_clusters).
       sents            : CoNLL token lists (the reader's OWN tokenization; wtok positions align).
       mentions_by_sent : sent_idx -> [mention dicts] (INCLUDING pronouns -- gold coref resolves them).
@@ -244,8 +244,20 @@ def build_backbone(conll_path: str, gaz=None):
     """
     # pri-109: pass the category organ so the mentions carry `span_upos` here too -- a builder that runs
     # the organ WITHOUT the argument its caller passed silently ships a different organ.
-    from hdlab import frontend as _F
-    mentions, n_sents = parse_litbank_conll(conll_path, name_gender_map=gaz, tagger=_F.tagger())
+    #
+    # pri 125 (2026-09-15): `mentions` LETS THE CALLER HAND IN THE READER'S OWN DISCOVERED STREAM.  This is
+    # the last inference-path consumer that reads the COREF ANNOTATION COLUMN: the SPACE dimension re-parses
+    # the input file ITSELF, so on annotation-free text -- which is all real text -- it receives ZERO
+    # mentions and ZERO pronouns (MEASURED on 3 UD-EWT test documents: 0 mentions / 0 pronouns, in BOTH the
+    # shipped reader and the pronoun-discovery arm, while the reader's own stream on those same documents
+    # carries 97 mentions of which 30 are pronouns).  With no mentions there are no `person_clusters`, so
+    # there are no valid MOVERS and the location register cannot track anybody.  `mentions=None` keeps the
+    # previous behaviour byte-for-byte.
+    if mentions is None:
+        from hdlab import frontend as _F
+        mentions, n_sents = parse_litbank_conll(conll_path, name_gender_map=gaz, tagger=_F.tagger())
+    else:
+        n_sents = (max((m["sent_idx"] for m in mentions), default=-1) + 1) if mentions else 0
     sents = parse_conll_sentences(conll_path, lower=False)  # pri-116: cased -- +0.4106 PROPN F1 (see scene_segment)
     by_sent: Dict[int, List[dict]] = {i: [] for i in range(len(sents))}
     names: Dict[int, Dict[str, int]] = {}
@@ -754,14 +766,14 @@ def ground_bind_events(sents, by_sent, persons, ae, shuffle_rng=None, protagonis
 
 
 def read_locations_in_substrate(conll_path: str, gaz=None, place_typing: bool = True, mode: str = "truth",
-                                parse_provider=None):
+                                parse_provider=None, mentions=None):
     """End-to-end: the reader's OWN backbone -> in-substrate motion events -> promoted tracker.
     mode='truth'     = parse-as-truth (no prior; every extracted event applied -- the discriminator baseline).
     mode='prior'     = parse-as-EVIDENCE + situation-model PRIOR (realis + discovery gates + revise-on-surprise).
     mode='prior_ext' = 'prior' + the drill's three brain-faithful recall extensions (veridical embedded-clause
                        routing + caused-motion theme relocation + expanded stative locatives).
     Returns (register, events, cluster_name, sents, person_clusters)."""
-    sents, by_sent, cluster_name, person_clusters = build_backbone(conll_path, gaz=gaz)
+    sents, by_sent, cluster_name, person_clusters = build_backbone(conll_path, gaz=gaz, mentions=mentions)
     prior = mode in ("prior", "prior_ext")
     ext = (mode == "prior_ext")
     events = extract_events_in_substrate(sents, by_sent, person_clusters=person_clusters,

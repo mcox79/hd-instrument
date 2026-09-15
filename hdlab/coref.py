@@ -59,6 +59,20 @@ PRONOUN_FORMS = frozenset({
     "you", "your", "yours", "yourself", "yourselves", "we", "us", "our", "ours", "ourselves",
     "this", "that", "these", "those", "who", "whom", "whose", "which"})
 
+# THE CASE CUE'S MARKED MEMBER (pri 125, 2026-09-15). English marks the OBLIQUE member of the pronoun case
+# opposition and leaves every other form case-NEUTRAL, so the informative cue is "is this form marked
+# ACCUSATIVE?", not "is this form one of eight listed nominatives". `graded_role_assigner.NOMINATIVE_PRON`
+# is an 8-form ALLOW-LIST, so a case-neutral subject pronoun (an indefinite `anybody`/`everyone`/`one`, a
+# demonstrative `that`) was thrown out of the AGENT competition with nothing marking it a non-subject.
+# MEASURED through the live reader on the five UD-EWT evaluation documents, text only: 4 of 33 gold pronoun
+# agents were lost at this filter, and swapping the allow-list for the exclusion recovers them (agent
+# 40/52 -> 42/52, pronoun agent 28/33 -> 31/33). Reflexives are excluded too (Binding Principle A: a
+# reflexive is bound by its clause-mate co-argument, so it is not an independent agent candidate).
+ACCUSATIVE_MARKED = frozenset({
+    "me", "him", "her", "us", "them", "whom", "thee",
+    "hers", "theirs", "mine", "ours", "yours",
+    "myself", "yourself", "yourselves", "himself", "herself", "itself", "ourselves", "themselves"})
+
 from hdlab.state_of_mind import (
     OVERLAY_BETA,
     OVERLAY_TIEBREAK_LAMBDA,
@@ -300,6 +314,200 @@ def build_pronoun_targets(mentions: List[dict],
                 })
         by_cluster_prior.setdefault(cid, []).append(m)
     return targets
+
+
+# ---------------------------------------------------------------------------------------------------
+# THE DISCOVERED ANAPHORA QUESTION (pri 125, 2026-09-15).  `build_pronoun_targets` above schedules a
+# pronoun only when a PRIOR mention carries the SAME GOLD CLUSTER ID, so on annotation-free text the
+# target list is empty and a missed reference leaves no record at all.  The brain schedules the retrieval
+# from the TEXT: a third-person pronoun is a retrieval probe with cues [person/gender/number], it competes
+# over the ACCESSIBLE prior referents (Centering Cf; Lewis & Vasishth 2005), and when nothing accessible
+# agrees the referent STAYS OPEN -- an explicit abstention with its token position, not a missing question.
+# Gold cluster ids are not read here; they belong to the scorer.
+# ---------------------------------------------------------------------------------------------------
+def phi_compatible(target: dict, cand: dict) -> bool:
+    """The agreement cue between a pronoun probe and a candidate referent. UNKNOWN on either side does NOT
+    block: the brain retrieves on the cues it HAS, and refusing every gender-unknown common noun would
+    delete most legitimate antecedents (measured: it is the common-noun antecedents that carry no cue)."""
+    tg, tn = target.get("gender"), target.get("number")
+    cg = cand.get("gender") or cand.get("name_gender")
+    cn = cand.get("number")
+    if tg and cg and tg != "any" and cg != "any" and tg != cg:
+        return False
+    if tn and cn and tn != cn:
+        return False
+    return True
+
+
+def is_anaphora_target(head: Optional[str]) -> bool:
+    """Is this form a third-person anaphor carrying at least one agreement cue to retrieve with?"""
+    from hdlab.referent_per_np import pronoun_phi
+    d = pronoun_phi(head)
+    if d is None or d.get("person") != "third":
+        return False
+    return bool(d.get("gender")) or bool(d.get("number"))
+
+
+def discovered_pronoun_targets(mentions: List[dict], window: int = 0):
+    """Schedule an anaphora question for every third-person pronoun in the DISCOVERED mention stream that
+    has an accessible, phi-compatible PRIOR referent.  Returns (targets, abstentions):
+      targets      the `build_pronoun_targets` schema; `antecedent` = the nearest prior compatible referent
+                   (a schema slot and the floor's own pick -- NOT the resolver's answer, which is decided
+                   downstream by cue-based retrieval over the whole accessible pool)
+      abstentions  one {head, sent_idx, wtok_start} per third-person pronoun with NO accessible compatible
+                   prior referent: the referent stays OPEN and the miss is RECORDED
+    `window` = the accessibility window in sentences; 0 = the whole passage read so far (swept, not adopted).
+    """
+    targets: List[dict] = []
+    abstentions: List[dict] = []
+    prior: List[dict] = []
+    for m in mentions:
+        if m.get("is_pronoun") and is_anaphora_target(m.get("head")):
+            cands = [p for p in prior
+                     if (not p.get("is_pronoun"))
+                     and (not window or (m["sent_idx"] - p["sent_idx"]) <= window)
+                     and phi_compatible(m, p)]
+            if cands:
+                nearest = cands[-1]
+                targets.append({"target": m, "antecedent": nearest,
+                                "midx_dist": m["midx"] - nearest["midx"],
+                                "sent_dist": m["sent_idx"] - nearest["sent_idx"]})
+            else:
+                abstentions.append({"head": m["head"], "sent_idx": m["sent_idx"],
+                                    "wtok_start": m["wtok_start"]})
+        prior.append(m)
+    return targets, abstentions
+
+
+def retrievable_referents(mentions: List[dict]) -> List[dict]:
+    """The pronoun-RETRIEVABLE subset of a mention stream -- the tracked forward-looking centers a pronoun
+    probe can actually address: pronouns, referents with a gender cue, NAME-typed referents, and referents
+    the animacy lexicon calls animate.  WHY THIS FILTER EXISTS: on 2026-09-03 feeding the full
+    referent-per-NP stream to the anaphora pool collapsed coref 0.4693 -> 0.1019 (514/539 wrong targets
+    bound a NON-coreferent entity) because feature-blank singleton referents flooded the pool.  The brain's
+    filter is the retrieval cue itself -- an inanimate 'table' is not retrievable by 'he' (Garnham 2001) --
+    so it belongs HERE, in the retrieval organ, and not in the introduction organ (which must keep every
+    referent for thematic role binding: letters and doors are patients)."""
+    out: List[dict] = []
+    for m in mentions:
+        if m.get("is_pronoun") or m.get("gender") or m.get("name_gender"):
+            out.append(m)
+            continue
+        if (m.get("span_upos") or [""])[-1] == "PROPN":
+            out.append(m)
+            continue
+        try:
+            from hdlab.animacy_lexicon import lookup_animacy
+            rec = lookup_animacy(m["head"].lower(), "NOUN")
+        except Exception:
+            rec = None
+        if rec and rec.get("animacy") == "animate":
+            out.append(m)
+    return out
+
+
+# ---------------------------------------------------------------------------------------------------
+# THE ANAPHORA PICK (pri 125 phase 7, 2026-09-15).  The shipped pick
+# (`event_centrality_coref.resolve_stream`) has two properties that cost the discovered stream almost
+# everything, both read off the code:
+#   * line 355 enters the retrieval branch ONLY for `m["head"] in TARGET_PRONOUNS` = six forms
+#     {he, him, his, she, her, hers}, so every `it`/`they`/`them`/`their`/`this`/`that` question is
+#     scheduled and never attempted -- MEASURED 98 of 334 GUM questions answered;
+#   * line 358 reads the probe's features from the SURFACE-FORM table PRONOUN_SCOPE rather than from the
+#     mention, and the candidate pool is the whole document (no accessibility bound at retrieval).
+# THE BRAIN'S FORM (PINNED): retrieval activation is ACT-R base level over the referent's reference history
+# weighted by Centering Cf role prominence, PLUS the retrieval CUE VECTOR as a GRADED match term (Lewis &
+# Vasishth 2005: cues are summed, not applied as filters), PLUS the forward-looking centre; Principle A
+# binds a reflexive to its clause-mate co-argument; every retrieval is itself a presentation (impletion,
+# Kahneman-Treisman-Gibbs), so a resolved pronoun is written into its referent's history.
+#     A(cand) = ln SUM_k w(role_k) * (t_now - t_k)^(-d) + w_g*gender_match + w_n*number_match + w_f*Cb
+# MEASURED (28 MODERN GUM test documents, 795 fixed questions from the gold, text-only input, ABSTENTION =
+# WRONG, floor recomputed on the same population, documents the bootstrap unit):
+#     shipped reader                    0.0000   (0 questions answered -- it has no pronoun mentions)
+#     this pick                         0.3031   (783 of 795 answered)
+#     nearest-prior-compatible FLOOR    0.1849   -> +0.1182 CI[+0.0430,+0.1987] half=0.0779 CI-SEPARATED
+#     info-free twin (phi permuted)     0.1811   -> -0.0038 CI[-0.0454,+0.0324] AT FLOOR
+# NUMBER enters at its own weight and NOT for the `they` family: modern English `they` is number-ambiguous
+# (singular they; the collective read of an organisation), and applying a -1 number mismatch at the gender
+# weight scored 0.1493 against 0.1791 with the cue off.  A rank-based Principle-B proxy was built and
+# REFUTED (-0.104): "any other core-ranked mention in the sentence" is not the clause-mate CO-ARGUMENT
+# relation, so the real clause-mate map is a filed follow-on and the proxy is NOT shipped.
+# Gold is never read here; the caller scores the returned `resolved_head` / `target_wpos`.
+# ---------------------------------------------------------------------------------------------------
+NUMBER_AMBIGUOUS = frozenset({"they", "them", "their", "theirs", "themselves"})
+
+
+def graded_pronoun_resolve(mentions: List[dict], targets: List[dict], window: int = 0,
+                           w_gender: float = 4.0, w_number: float = 0.0, w_focus: float = 1.0,
+                           decay: float = 2.0):
+    """ACT-R cue-based antecedent retrieval over a DISCOVERED mention stream, in reading order, one pass.
+    Returns (records, abstentions); each record {pronoun, sent_idx, target_wpos, resolved_head, n_cands,
+    sent_dist}.  `window` = the accessibility bound in sentences (0 = the whole passage read so far; SWEPT
+    0/1/2/3/5 -- 0 reported, and window 2 measurably LOST at scale: 0.2545 vs 0.2784 on 334 questions)."""
+    from hdlab.salience_binder import actr_activation, ROLE_PROMINENCE
+    from hdlab.affected_entity_resolver import is_reflexive
+    tgt = {t["target"]["midx"] for t in targets}
+    hist: Dict[str, list] = {}
+    last_sent: Dict[str, int] = {}
+    feats: Dict[str, tuple] = {}
+    rank_in_sent: Dict[int, Dict[str, int]] = {}
+    prev_cb = [None]
+    cur = [None]
+    recs, abstain = [], []
+    for m in mentions:
+        order = float(m["midx"])
+        si = int(m["sent_idx"])
+        if cur[0] is not None and si != cur[0]:
+            row = sorted(rank_in_sent.get(cur[0], {}).items(), key=lambda kv: kv[1])
+            if row:
+                prev_cb[0] = row[0][0]
+        cur[0] = si
+        rk = m.get("sent_role_rank", 99)
+        role = "SUBJECT" if rk == 0 else ("OBJECT" if rk == 1 else "OTHER")
+        if not m.get("is_pronoun"):
+            k = m["head"].lower()
+            hist.setdefault(k, []).append((order, role))
+            last_sent[k] = si
+            g = m.get("gender") or m.get("name_gender")
+            old = feats.get(k, (None, None))
+            feats[k] = (g or old[0], m.get("number") or old[1])
+            rank_in_sent.setdefault(si, {}).setdefault(k, rk)
+            continue
+        if m["midx"] not in tgt:
+            continue
+        pg, pn = m.get("gender"), m.get("number")
+        cands = [k for k, s in last_sent.items() if (not window) or (si - s) <= window]
+        if not cands:
+            abstain.append({"head": m["head"], "sent_idx": si, "wtok_start": m["wtok_start"]})
+            continue
+        coarg = [k for k, r in rank_in_sent.get(si, {}).items() if r in (0, 1) and r != rk]
+        legal = ([k for k in cands if k in coarg] or cands) if (is_reflexive(m.get("head")) and coarg) \
+            else cands
+        best, bs = None, -1e18
+        amb = m["head"].lower() in NUMBER_AMBIGUOUS
+        for k in legal:
+            a = actr_activation(hist.get(k, ()), order, decay=decay, role_prominence=ROLE_PROMINENCE)
+            if a == float("-inf"):
+                a = -1e9
+            cg, cn = feats.get(k, (None, None))
+            gm = 0.0
+            if pg and cg and pg != "any" and cg != "any":
+                gm = 1.0 if pg == cg else -1.0
+            nm = 0.0
+            if pn and cn and not amb:
+                nm = 1.0 if pn == cn else -1.0
+            s = a + w_gender * gm + w_number * nm + w_focus * (1.0 if k == prev_cb[0] else 0.0)
+            if s > bs:
+                bs, best = s, k
+        if best is None:
+            abstain.append({"head": m["head"], "sent_idx": si, "wtok_start": m["wtok_start"]})
+            continue
+        d = max(0, si - last_sent.get(best, si))
+        hist.setdefault(best, []).append((order, role))    # IMPLETION
+        last_sent[best] = si
+        recs.append({"pronoun": m["head"], "sent_idx": si, "target_wpos": m["wtok_start"],
+                     "resolved_head": best, "n_cands": len(legal), "sent_dist": d})
+    return recs, abstain
 
 
 def sent_dist_bucket(sent_dist: int) -> str:
