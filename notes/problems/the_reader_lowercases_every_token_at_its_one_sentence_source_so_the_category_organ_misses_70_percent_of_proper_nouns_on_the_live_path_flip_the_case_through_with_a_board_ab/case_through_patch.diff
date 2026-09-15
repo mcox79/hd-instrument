@@ -1,0 +1,127 @@
+diff --git a/hdlab/causation_typing.py b/hdlab/causation_typing.py
+index 835296d..4e5ef2f 100644
+--- a/hdlab/causation_typing.py
++++ b/hdlab/causation_typing.py
+@@ -837,7 +837,7 @@ def read_typed_causation(reader, conll_path, sm, *, gate_mode="force", use_gate=
+       nlp, lexicon -- optional pre-built spaCy pipeline / force lexicon (loaded lazily if None).
+     """
+     from hdlab.scene_segment import parse_conll_sentences
+-    sents = parse_conll_sentences(conll_path, lower=True)   # pri-109: -0.4076 PROPN F1; see scene_segment
++    sents = parse_conll_sentences(conll_path, lower=False)  # pri-116: cased -- +0.4106 PROPN F1 (see scene_segment)
+     t, p, l = _frontend()
+     gate = _gate_or_load(_AdaptFrontend(), use_gate)   # non-None -> gate never self-loads spaCy
+     lex = lexicon if lexicon is not None else build_force_lexicon()
+diff --git a/hdlab/crosstype_live_adapter.py b/hdlab/crosstype_live_adapter.py
+index 6fd7442..856282c 100644
+--- a/hdlab/crosstype_live_adapter.py
++++ b/hdlab/crosstype_live_adapter.py
+@@ -100,8 +100,8 @@ def _parse_sentence(forms, reader):
+ 
+ 
+ def _build_toks(sents, reader):
+-    """Build the crosstype Doc `.toks` from the reader's per-sentence tokens (`parse_conll_sentences`, lowercased --
+-    the SAME tokens the reader tags/parses). Global gidx increments per token across sentences, matching
++    """Build the crosstype Doc `.toks` from the reader's per-sentence tokens (`parse_conll_sentences`, RAW-CASED
++    since pri-116 -- the SAME tokens the reader tags/parses). Global gidx increments per token across sentences, matching
+     parse_litbank_conll's gtok scheme (identical token filter) -> mention gtok_start/gtok_end/head_g line up."""
+     toks = []
+     gidx = 0
+diff --git a/hdlab/referent_per_np.py b/hdlab/referent_per_np.py
+index 768db35..07b6e57 100644
+--- a/hdlab/referent_per_np.py
++++ b/hdlab/referent_per_np.py
+@@ -120,7 +120,10 @@ def referent_per_np_source(conll_path: str, tagger, name_gender_map=None, use_fr
+     the validated build_source(mode='rnp'): use_frame=False reproduces the +0.336 source byte-for-byte; use_frame=
+     True adds the §4 frame recoveries on top (introduction 0.914->0.931)."""
+     coref, n_sents = parse_litbank_conll(conll_path, name_gender_map=name_gender_map, tagger=tagger)
+-    sents = parse_conll_sentences(conll_path, lower=True)   # pri-109: -0.4076 PROPN F1; see scene_segment
++    sents = parse_conll_sentences(conll_path, lower=False)  # pri-116: cased -- +0.4106 PROPN F1 (see scene_segment);
++    # `frame_heads`' mid-sentence-CAPITAL cue can fire again, and `_content_head_positions` opens a referent for
++    # every content noun the organ can now see. MEASURED through the live reader on 16 modern GUM documents:
++    # referent files 2504 -> 2547, name-typed referent mentions 243 -> 599.
+     coref_head_wpos: Dict[tuple, int] = {}
+     # REFLEXIVES (himself/herself/itself/themselves) are pronouns too (Binding Principle A; strategy 2026-09-12):
+     # the CoNLL mention stream marks only PRONOUN_SCOPE forms as pronouns, so a reflexive coref mention was dropped
+diff --git a/hdlab/scene_segment.py b/hdlab/scene_segment.py
+index a0c785f..d53fdae 100644
+--- a/hdlab/scene_segment.py
++++ b/hdlab/scene_segment.py
+@@ -148,8 +148,11 @@ def sentence_opens_scene(sent_tokens: Sequence[str]) -> bool:
+ # sentence indexing: blank line = boundary, consecutive blanks collapse, '#' skipped).
+ # ---------------------------------------------------------------------------
+ def parse_conll_sentences(path: str, lower: bool = True) -> List[List[str]]:
+-    """Return the document's sentences (sent_idx-aligned). `lower=True` (the default, byte-identical to
+-    every version before 2026-09-14) LOWERCASES every token.
++    """Return the document's sentences (sent_idx-aligned). `lower=True` LOWERCASES every token.
++
++    ⚠️ EVERY hdlab CALL SITE NOW PASSES `lower=False` (pri-116, 2026-09-14). The default is kept True only so
++    that an experiment cell written against the old behaviour still reproduces it; nothing on the read path
++    uses it. Do not lowercase here: a consumer whose lookup is case-insensitive lowercases at its OWN lookup.
+ 
+     ⚠️ MEASURED COST OF THAT DEFAULT (pri-109, 127,919 GUM test tokens, the SAME category organ on the SAME
+     text, the only difference being case):
+@@ -169,10 +172,19 @@ def parse_conll_sentences(path: str, lower: bool = True) -> List[List[str]]:
+     FOR SCALE: pri 104's forward wire is worth +0.1921 token F1 on the name decision. `lower=False` is worth
+     +0.4076 PROPN F1 and is one argument.
+ 
+-    THE DEFAULT IS DELIBERATELY LEFT AS IT WAS: flipping it changes the input of every reader consumer at
+-    once (5 call sites in hdlab/, 0 in tools/; `crosstype_live_adapter` states the lowercase assumption in
+-    its own docstring), so it needs a board A/B, which is strategy's. Every call site below passes `lower`
+-    EXPLICITLY so the flip is one visible edit per consumer."""
++    THE FLIP, MEASURED (pri-116, 2026-09-14): `lower=False` at all four hdlab call sites (0 in tools/),
++    scored on the reader's OWN call sequence over the same 127,919 GUM test tokens -- the categories the
++    reader's 25 downstream organs actually read go PROPN F1 0.4545 -> 0.8651 (+0.4106 CI[+0.3835,+0.4399])
++    and all-tag 0.9049 -> 0.9328 (+0.0280 CI[+0.0235,+0.0327]); the INFO-FREE TWIN (each sentence's capitals
++    permuted onto random tokens, the capital budget preserved) scores 0.6292 and loses by +0.2358
++    CI[+0.2173,+0.2557] -- i.e. the shipped lowercased input was WORSE THAN SCRAMBLING THE CAPITALS AT RANDOM.
++    Through the LIVE reader on 16 modern GUM documents: no dimension of the situation model down, the entity
++    layer +1.7% files and name-typed referent mentions x2.5, the who-did-what patient row up, the pronoun
++    coref row unmoved (its inputs are closed-class -- pri 109 measured that six times).
++    SECOND EFFECT: `situation_reader.read` feeds the category organ the passage CASED (`lower=False`, the
++    pri-112 in-order feed) and caches the settled belief under tuple(cased sentence); while `sents` was
++    lowercased, every consumer asked under a different key, so 100% of sentences were tagged twice per read
++    and the feed's belief was never the one consumed. The flip makes the two streams one."""
+     sents: List[List[str]] = []
+     cur: List[str] = []
+     with open(path, "r", encoding="utf-8") as f:
+diff --git a/hdlab/situation_reader.py b/hdlab/situation_reader.py
+index 5697e83..1a68b55 100644
+--- a/hdlab/situation_reader.py
++++ b/hdlab/situation_reader.py
+@@ -4532,10 +4532,19 @@ class SituationReader:
+         # stash the coref-column (tracked/given) mentions -> the Competition-Model AGENT candidate source
+         # (_cm_agent_candidates). Inert unless cm_agent AND referent_per_np are both ON.
+         self._coref_mentions = coref_mentions
+-        # pri-109: `lower=True` is the shipped default and it costs the category organ -0.4076 PROPN F1
+-        # and -0.0275 all-tag accuracy on the reader's path (see hdlab/scene_segment.parse_conll_sentences).
+-        # Passed EXPLICITLY so the flip is one visible edit; it needs a board A/B before it moves.
+-        sents = parse_conll_sentences(conll_path, lower=True)
++        # THE CASE REACHES EVERY ORGAN BELOW (pri-116, 2026-09-14). `sents` is the input of all 25 downstream
++        # reads (events, timeline, causation, world-state, goals, affect, senses, bridges, affected-entity,
++        # space, ... -- 24 of them default-ON), and it used to be LOWERCASED. Measured on the reader's OWN call
++        # sequence over the 127,919-token GUM test split, gold UPOS the answer key: the categories those organs
++        # read go PROPN P/R/F1 0.9413/0.2996/0.4545 -> 0.9065/0.8273/0.8651 (+0.4106 F1, CI[+0.3835,+0.4399])
++        # and all-tag 0.9049 -> 0.9328 (+0.0280, CI[+0.0235,+0.0327]); the info-free twin (the sentence's
++        # capitals permuted onto random tokens) scores 0.6292 and LOSES by +0.2358 CI[+0.2173,+0.2557].
++        # AND IT MAKES pri-112's IN-ORDER FEED REACHABLE: the feed above caches its settled belief under
++        # tuple(CASED sentence); while `sents` was lowercased every consumer asked under a DIFFERENT key, so
++        # 100% of sentences were tagged TWICE per read -- once cased (the feed) and once on case-stripped text
++        # (what the consumers got). With the two streams identical the per-read tag cache misses 0 times.
++        # Consumers that need a case-insensitive key lowercase AT THEIR OWN LOOKUP (they already do).
++        sents = parse_conll_sentences(conll_path, lower=False)
+         if len(sents) != n_sents:
+             raise RuntimeError("SENTENCE_MISALIGN: parse_litbank=%d parse_conll_sentences=%d"
+                                % (n_sents, len(sents)))
+diff --git a/hdlab/space_reader.py b/hdlab/space_reader.py
+index 263f251..77242e4 100644
+--- a/hdlab/space_reader.py
++++ b/hdlab/space_reader.py
+@@ -246,7 +246,7 @@ def build_backbone(conll_path: str, gaz=None):
+     # the organ WITHOUT the argument its caller passed silently ships a different organ.
+     from hdlab import frontend as _F
+     mentions, n_sents = parse_litbank_conll(conll_path, name_gender_map=gaz, tagger=_F.tagger())
+-    sents = parse_conll_sentences(conll_path, lower=True)   # pri-109: -0.4076 PROPN F1; see scene_segment
++    sents = parse_conll_sentences(conll_path, lower=False)  # pri-116: cased -- +0.4106 PROPN F1 (see scene_segment)
+     by_sent: Dict[int, List[dict]] = {i: [] for i in range(len(sents))}
+     names: Dict[int, Dict[str, int]] = {}
+     person: Dict[int, bool] = {}
