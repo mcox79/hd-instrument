@@ -24,7 +24,10 @@ WHAT EACH BECOMES, AND THE NUMBER (full detail + CIs in SOLVED.md):
                                                               +0.0053 CI95 [+0.0000, +0.0134]; dropping the
                                                               path entirely is -0.0107 CI-sep DOWN (so the
                                                               replacement is NECESSARY, not just a removal)
-  4. -> the predicate-slot copular half only; the perceptron `appos` half RETIRED (measured board-invisible)
+  4. -> the predicate-slot copular half only; the perceptron `appos` half RETIRED.  MEASURED DEAD AT THE
+     CONSUMER: common_noun_coref scores 0.4903 on 155 anaphoric mentions IDENTICALLY whether the map is the
+     shipped perceptron recipe, the copula-only BF read, or EMPTY (paired 0.0000 CI [0,0] both ways, 8 GUM
+     documents, every floor and twin identical) -- so this half costs 160 label calls/document for nothing
   5. -> graded_role_assigner.purpose_complement_posterior     a new ARM of the same competition, cue
                                                               validities accrued from UD-EWT train counts
 
@@ -535,7 +538,7 @@ diff --git a/hdlab/situation_reader.py b/hdlab/situation_reader.py
 +            bind = set(M.extract_entity_states(toks, up_c, heads=heads, cop_preds=_cp,
 +                                               head_posterior=self._cached_head_posterior(toks, up)))   # graded hand-off (2026-09-13)
              pairs = bind | M.robust_cop(toks, up_c, heads, gate=True)
-@@ -4539,45 +4581,60 @@ class SituationReader:
+@@ -4539,45 +4581,63 @@ class SituationReader:
      def _commonnoun_appos_map(self, sents):
 -        """In-text is-a edges (apposition + copula 'X is/are a Y') from the reader's OWN parse, keyed by
 -        head_lemma -- the appos/copula bridge seed (byte-faithful to TC.appos_copula_isa, but on the reader's
@@ -584,8 +587,11 @@ diff --git a/hdlab/situation_reader.py b/hdlab/situation_reader.py
 +        recovers 17 (0.162 vs 0.267, paired CI95 [-0.2252, +0.0100] -- not separated, but not matched either),
 +        because 65 of those 105 are COMMA-FREE close appositions ("the terrorist group Hamas") that a
 +        comma-set-off schema cannot see.  It is dropped rather than kept as a NOT_BF stand-in because its
-+        consumer cannot see it: see the SOLVED.md `rows` measurement (common-noun coref, 16 GUM documents).
-+        A BF replacement is filed as a follow-on lead, not left running on the perceptron."""
++        map is MEASURED DEAD at its own consumer: common_noun_coref scores 0.4903 on 155 anaphoric mentions
++        identically with the shipped map, with this copula-only read, and with the map EMPTY (paired 0.0000
++        CI [0,0] both ways, 8 GUM documents; SOLVED.md §6).  The copula half is kept because it is now free and
++        BF; the whole map is a deletion candidate on the same evidence, and the BF replacement for an in-text
++        is-a seed is filed as a follow-on lead (SOLVED.md §9.3), not left running on the perceptron."""
 +        from hdlab.lexical_utils import concept_lemma   # BF concept-key (matches _resolve_commonnouns' r.heads keying)
 +        from hdlab import graded_role_assigner as _GRA
 +        from hdlab.attachment_arm import predicate_sites as _ps
@@ -632,5 +638,7 @@ diff --git a/hdlab/situation_reader.py b/hdlab/situation_reader.py
                  typed.setdefault(b, set()).add(a)
          return typed
  
+
+
 
 
