@@ -33,8 +33,14 @@ MEASURED: 465 / 447 / 622 / 153 / 429 (the evaluation, our checker). INFERRED: t
 ## 4. ALREADY TRIED / DO NOT REDO
 Growing the allowlist.
 
-## 5. VERIFY BEFORE YOU START
+## 5. VERIFY BEFORE YOU START (the disk outranks this brief)
 Read the discovery gate file and `test_all_witnesses_exit_clean.py`; run the gate once to see the list.
 
-## 6. DO NOT QUOTE
+## 6. THE BAR (can-fail)
+See checklist item 4.
+
+## 7. FILES AND ENTRY POINTS
+See checklist item 5.
+
+## 8. DO NOT QUOTE / DO NOT REDO
 Retired figures: `notes/reference_retired_claims_never_requote.md`.
