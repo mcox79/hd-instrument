@@ -1,6 +1,6 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
-> # 🟢 **2026-09-15 13:20 (LATEST -- autoloop ARMED): READ notes/STATUS.md '2026-09-15 13:11' + '13:20 UPDATE' FIRST. Evaluation fully triaged (repaired / filed 122, 125, 126, 127, 128); solvers pri 125 + 122 RUNNING (opus); next dispatch after they land: 127 (lexicon freeze), 128 (sonnet, witness wrappers), then 114, 120, 119, 123, 124, 115; honest AGG 0.6200 = a component number.**
+> # 🟢 **2026-09-15 13:20 (LATEST -- autoloop ARMED): READ notes/STATUS.md '2026-09-15 13:11' + '13:20 UPDATE' FIRST. Evaluation fully triaged (repaired / filed 122, 125, 126, 127, 128); solvers pri 125 + 122 RUNNING (opus); next dispatch after they land: 129 (the NOT_BF labeler + confidence readout still RUN on the default read -- labels rung, blocking-class), 127 (lexicon freeze), 128 (sonnet, running), then 114, 120, 119, 123, 124, 115; honest AGG 0.6200 = a component number.**
 
 > # 🟢 **2026-09-15 13:11 (LATEST -- autoloop ARMED): READ notes/STATUS.md '2026-09-15 13:11' FIRST. External evaluation acted on: hygiene landed; pri 125 (pronoun discovery from text; the reader has none) + pri 122 (board rows on the live reader) RUNNING as opus solvers; pri 126 (sealed holdout) filed; honest AGG 0.6200; the board is a component number, not the product's.**
 
