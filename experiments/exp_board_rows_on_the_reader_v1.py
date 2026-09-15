@@ -283,17 +283,38 @@ def _gold_eid_by_wpos(doc):
     return out
 
 
+def _reader_pronoun_targets(ms, reader=None):
+    """The reader's OWN pronoun question set: `coref.discovered_pronoun_targets` when the substrate has it
+    (the gold-gate-free builder), else `build_pronoun_targets` (today's shipped gate). Returns a list whose
+    entries carry a "target" mention, which is all the floors need."""
+    import hdlab.coref as CO
+    fn = getattr(CO, "discovered_pronoun_targets", None)
+    if fn is not None:
+        for kw in ({"reader": reader}, {}):
+            try:
+                tg = fn(ms, **kw) if kw else fn(ms)
+                return list(tg)
+            except TypeError:
+                continue
+            except Exception:
+                break
+    return list(CO.build_pronoun_targets(ms))
+
+
 def score_gum_doc(doc, sm, reader, rng):
     """Score the three GUM rows for ONE document from the SituationModel the live reader returned.
     Every floor and the twin are computed on the reader's OWN items -- the identical decision list."""
-    from hdlab.coref import build_pronoun_targets
     out = {"coref": defaultdict(lambda: [0, 0]), "salience": defaultdict(lambda: [0, 0]),
            "common_noun_coref": defaultdict(lambda: [0, 0])}
     diag = {}
 
     # ---------------- coref (pronoun): the reader's OWN resolutions --------------------------------
+    # THE QUESTION SET IS WHICHEVER ONE THE READER ITSELF USED. Today that is `build_pronoun_targets` (whose
+    # population is gated on a shared GOLD cluster id -- see the SOLVED); when the organ that replaces it
+    # lands (`discovered_pronoun_targets`, pri 125), this picks it up WITHOUT an edit here, so the row starts
+    # reporting a population the moment the upstream gate is opened instead of silently staying at n=0.
     ms = list(getattr(reader, "_coref_mentions", []) or [])
-    targets = build_pronoun_targets(ms)
+    targets = _reader_pronoun_targets(ms, reader)
     res = list(sm.coref_resolutions)
     diag["n_coref_mentions"] = len(ms)
     diag["n_reader_pronoun_targets"] = len(targets)
@@ -456,6 +477,9 @@ def run_gum(n_docs=None, n_boot=2000, seed=SEED, modes=GUM_MODES):
                     pass
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
+    cap_note = (" DOCUMENT CAP: %d of the split's %d test documents, EVENLY SPACED (whole documents; never an "
+                "item cap)." % (len(test), n_docs) if n_docs else
+                " DOCUMENT CAP: none -- the whole test split (%d documents)." % len(test))
     rows = {}
     for mode in sorted(modes):
         rows[mode] = {}
@@ -465,22 +489,26 @@ def run_gum(n_docs=None, n_boot=2000, seed=SEED, modes=GUM_MODES):
             "GUM (modern, TEST=odd docs) PRONOUN anaphora, THE READER'S OWN population: every he/she-family "
             "pronoun mention the live reader opened a target for (hdlab.coref.build_pronoun_targets over the "
             "reader's coref-column mention stream). model = sm.coref_resolutions[].correct; floors + info-free "
-            "twin recomputed on the IDENTICAL target list; document-paired bootstrap.",
-            provenance(mode, "GUM", "sm.coref_resolutions"), n_boot, seed)
+            "twin recomputed on the IDENTICAL target list; document-paired bootstrap." + cap_note,
+            provenance(mode, "GUM", "sm.coref_resolutions"), n_boot, seed,
+            extra={"reader_docs_cap": n_docs, "n_documents": len(test)})
         rows[mode]["salience"] = _row(
             "salience", per[mode]["salience"], "model", ["first_introduced_entity"], "twin",
             "GUM (modern, TEST) main-character salience, one item per document: model = the reader's "
             "MOST-MENTIONED sm.entities entry mapped to a gold entity by surface-head overlap; floor = the "
             "reader's FIRST-introduced entity (a position baseline); twin = a random reader entity. "
-            "Document-paired bootstrap.",
-            provenance(mode, "GUM", "sm.entities"), n_boot, seed)
+            "Document-paired bootstrap." + cap_note,
+            provenance(mode, "GUM", "sm.entities"), n_boot, seed,
+            extra={"reader_docs_cap": n_docs, "n_documents": len(test)})
         rows[mode]["common_noun_coref"] = _row(
             "common_noun_coref", per[mode]["common_noun_coref"], "model",
             ["string_identity", "recency"], "twin",
             "GUM (modern, TEST) anaphoric COMMON-NOUN mentions the reader itself filed: model = the most recent "
             "prior mention sharing the referent sm.commonnoun_resolution assigned; floors (same-head string "
-            "identity / recency) + info-free twin on the identical items; document-paired bootstrap.",
-            provenance(mode, "GUM", "sm.commonnoun_resolution"), n_boot, seed)
+            "identity / recency) + info-free twin on the identical items; document-paired bootstrap."
+            + cap_note,
+            provenance(mode, "GUM", "sm.commonnoun_resolution"), n_boot, seed,
+            extra={"reader_docs_cap": n_docs, "n_documents": len(test)})
     return {"rows": rows, "diag": diags, "n_docs": len(test), "per": per,
             "docids": [d.docid for d in test],
             "n_toks": sum(len(d.toks) for d in test),
@@ -758,7 +786,9 @@ def run_ud(cap=None, chunk=UD_CHUNK, n_boot=2000, seed=SEED, modes=UD_MODES):
         for rname in POP:
             key = {"who_did_what_agent": "agent", "who_did_what_patient": "patient", "state": "state"}[rname]
             d = diag[mode]
-            extra = {"answered_rate": _r4(d.get(key + "_answered", 0) / max(1, d.get(key + "_items", 1)))}
+            extra = {"answered_rate": _r4(d.get(key + "_answered", 0) / max(1, d.get(key + "_items", 1))),
+                     "ud_sentence_cap": cap, "n_sentences": len(sents), "n_pseudo_documents": len(chunks),
+                     "chunk_sentences": chunk}
             if key in ("agent", "patient"):
                 extra["instrument_span_credit"] = {
                     "acc_if_any_token_of_the_gold_ARGUMENT_counts":
@@ -784,6 +814,147 @@ def run_ud(cap=None, chunk=UD_CHUNK, n_boot=2000, seed=SEED, modes=UD_MODES):
     return {"rows": rows, "diag": {m: dict(v) for m, v in diag.items()}, "n_sents": len(sents),
             "n_chunks": len(chunks), "chunk_sentences": chunk, "per": per,
             "pron_discovery_contrast": contrast, "elapsed_s": round(time.time() - t0, 1)}
+
+
+# ===================================================================================================
+# PHASE 7 (a) -- WHY A BARE-CANDIDATE PRONOUN INJECTION REGRESSES THE NON-PRONOUN AGENT SLICE.
+#   `situation_reader._cm_agent_candidates` builds the Competition-Model AGENT candidate set from
+#   `self._coref_mentions` -- the stream parsed out of the input file MENTION column.  The prototype arm
+#   writes ONLY pronoun singletons into that column, so the candidate set the competition sees contains ONLY
+#   PRONOUNS and every non-pronoun nominal is missing from it.  This counts that composition per arm, which is
+#   the decisive number: it is a CANDIDATE-SET composition fact, not a cue-weighting fact.
+# ===================================================================================================
+def candidate_composition(cap=200, chunk=UD_CHUNK, modes=UD_MODES):
+    """Per provenance arm: how many mentions the AGENT competition candidate source holds, and how many of
+    them are pronouns.  Counted on the reader own `_coref_mentions` after a real read."""
+    from hdlab.situation_reader import SituationReader
+    from experiments.exp_name_entity_clustering_v1 import load_given_gazetteer
+    gaz = load_given_gazetteer()
+    sents = _ud_sents(cap)
+    chunks = [sents[i:i + chunk] for i in range(0, len(sents), chunk)]
+    out = {}
+    tmp = tempfile.mkdtemp(prefix="brotrcc_")
+    try:
+        for mode in modes:
+            tot = {"mentions": 0, "pronoun": 0, "non_pronoun": 0, "sentences": 0,
+                   "sentences_with_no_nonpronoun_candidate": 0}
+            for ci, ch in enumerate(chunks):
+                docid = "cc%04d" % ci
+                path = os.path.join(tmp, docid + "." + mode + ".conll")
+                _ud_write_chunk(ch, path, docid,
+                                discover_pronouns=(mode == "reader_textonly_pron_discovered"))
+                rdr = SituationReader(gaz=gaz, **READER_KW)
+                rdr.read(path)
+                ms = list(getattr(rdr, "_coref_mentions", []) or [])
+                tot["mentions"] += len(ms)
+                tot["pronoun"] += sum(1 for m in ms if m.get("is_pronoun"))
+                tot["non_pronoun"] += sum(1 for m in ms if not m.get("is_pronoun"))
+                by_sent = defaultdict(list)
+                for m in ms:
+                    by_sent[m["sent_idx"]].append(m)
+                tot["sentences"] += len(ch)
+                for si in range(len(ch)):
+                    if not any(not m.get("is_pronoun") for m in by_sent.get(si, [])):
+                        tot["sentences_with_no_nonpronoun_candidate"] += 1
+                del rdr
+                os.remove(path)
+            out[mode] = tot
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+    out["note"] = ("`_cm_agent_candidates` reads THIS stream. An arm whose non_pronoun count is 0 cannot hand "
+                   "the Competition Model a non-pronoun agent at any weight -- which is why a bare singleton "
+                   "injection into the mention column regresses the non-pronoun slice, and why ONE stream "
+                   "(content heads AND discovered pronouns together) does not.")
+    return out
+
+
+# ===================================================================================================
+# PHASE 7 (b) -- WHERE THE PATIENT ROW 0.13 GOES, RUNG BY RUNG, ON THE SAME ITEMS.
+#   R = the reader sm.events[].patient (through read())
+#   O = the SAME organ (predicate_argument_frontend.structural_patient_pick) called directly on the READER
+#       OWN tags + the READER OWN parse heads -- isolates the read event/candidate layer
+#   B = the SAME organ on the FRONTEND tagger + FRONTEND parser -- the rebuilt board arm own route
+# ===================================================================================================
+def patient_attribution(cap=600, chunk=UD_CHUNK, n_boot=2000, seed=SEED):
+    from hdlab.situation_reader import SituationReader
+    from hdlab.predicate_argument_frontend import structural_patient_pick
+    from hdlab import frontend as FE
+    from experiments.exp_name_entity_clustering_v1 import load_given_gazetteer
+    t0 = time.time()
+    gaz = load_given_gazetteer()
+    tg, pr = FE.tagger(), FE.parser()
+    sents = _ud_sents(cap)
+    chunks = [sents[i:i + chunk] for i in range(0, len(sents), chunk)]
+    arms = {a: defaultdict(lambda: [0, 0]) for a in ("R_reader_read", "O_organ_on_reader_parse",
+                                                     "B_organ_on_frontend_parse")}
+    cross = Counter()
+    tmp = tempfile.mkdtemp(prefix="brotrpa_")
+    try:
+        for ci, ch in enumerate(chunks):
+            docid = "pa%04d" % ci
+            path = os.path.join(tmp, docid + ".conll")
+            _ud_write_chunk(ch, path, docid)
+            rdr = SituationReader(gaz=gaz)
+            sm = rdr.read(path)
+            ev = defaultdict(list)
+            for e in sm.events:
+                ev[(e.sent_idx, e.pred_idx)].append(e)
+            for si, sent in enumerate(ch):
+                toks = [t["form"] for t in sent]
+                items = _gold_patient_items(sent)
+                if not items:
+                    continue
+                up_r = list(rdr._cached_tag(list(toks)))
+                try:
+                    hd_r = rdr._cached_parse_heads(list(toks), up_r)
+                except Exception:
+                    hd_r = {}
+                up_b = list(tg.tag(list(toks)))
+                try:
+                    po = pr.parse(list(toks), up_b)
+                    hd_b = dict(po.heads) if hasattr(po, "heads") else {}
+                except Exception:
+                    hd_b = {}
+                for (v, pat, _passive) in items:
+                    gold = _norm(toks[pat - 1])
+                    evs = ev.get((si, v - 1), [])
+                    r = _norm(evs[0].patient) if evs else ""
+                    r_ok = int(bool(r) and r != "?" and r == gold)
+                    try:
+                        oi = structural_patient_pick(toks, up_r, hd_r, v, np_head_reduce=True)
+                    except Exception:
+                        oi = None
+                    o_ok = int(oi is not None and _norm(toks[oi - 1]) == gold)
+                    try:
+                        bi = structural_patient_pick(toks, up_b, hd_b, v, np_head_reduce=True)
+                    except Exception:
+                        bi = None
+                    b_ok = int(bi is not None and _norm(toks[bi - 1]) == gold)
+                    for name, hit in (("R_reader_read", r_ok), ("O_organ_on_reader_parse", o_ok),
+                                      ("B_organ_on_frontend_parse", b_ok)):
+                        arms[name][docid][0] += hit
+                        arms[name][docid][1] += 1
+                    cross[("R" if r_ok else "r") + ("O" if o_ok else "o") + ("B" if b_ok else "b")] += 1
+            del sm, rdr
+            os.remove(path)
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+    A = {k: {d: tuple(v) for d, v in dd.items()} for k, dd in arms.items()}
+    accs = {k: _r4(_rate(v)[0]) for k, v in A.items()}
+    n = _rate(A["R_reader_read"])[1]
+    out = {"n": n, "acc": accs, "cross_tab": dict(cross), "elapsed_s": round(time.time() - t0, 1),
+           "cap_sentences": cap}
+    for a, b, label in (("R_reader_read", "O_organ_on_reader_parse", "read_layer"),
+                        ("O_organ_on_reader_parse", "B_organ_on_frontend_parse", "tags_and_heads_layer"),
+                        ("R_reader_read", "B_organ_on_frontend_parse", "total")):
+        d, lo, hi, hw, sep = _paired(A[a], A[b], n_boot, seed)
+        out.setdefault("contrasts", {})[label] = {"delta_b_minus_a": _r4(d), "ci": [_r4(lo), _r4(hi)],
+                                                  "ci_half_width": _r4(hw), "ci_sep": bool(sep)}
+    out["note"] = ("R = the reader own read; O = the SAME landed organ on the reader OWN tags+parse; "
+                   "B = the same organ on the frontend tagger+parser (the rebuilt board arm route). "
+                   "read_layer = what the read event/candidate layer costs; tags_and_heads_layer = what "
+                   "the reader own categories and parse cost against the frontend ones.")
+    return out
 
 
 # ===================================================================================================
@@ -901,7 +1072,7 @@ def run_wic(cap=120, n_boot=2000, seed=SEED):
                "that population; twin = the same closure fed a FOREIGN pair's context. Cluster-paired bootstrap "
                "over blocks of 20 scored items.",
                provenance("reader_textonly", "WiC", "sm.select_sense"), n_boot, seed,
-               extra={"n_abstain": n_abstain, "n_pairs_offered": len(pairs),
+               extra={"n_abstain": n_abstain, "n_pairs_offered": len(pairs), "wic_pair_cap": cap,
                       "coverage": _r4(len(scored) / max(1, len(pairs))),
                       "read_time_contract_cost": {
                           "rebuilt_style_acc_on_the_same_items": _r4(_rate(arms["rebuilt_style_same_items"])[0]),
@@ -1407,6 +1578,8 @@ def main():
                     help="A/B the last three landings (pri 113/116/117) ON the reader-driven rows")
     ap.add_argument("--rebuilt", action="store_true",
                     help="the board's own seven rows + the COUNTED reader-call witness")
+    ap.add_argument("--attrib", action="store_true",
+                    help="phase 7: the AGENT candidate-set composition + the PATIENT rung attribution")
     ap.add_argument("--docs", type=int, default=None)
     ap.add_argument("--ud-cap", type=int, default=None)
     ap.add_argument("--wic-cap", type=int, default=None)
@@ -1439,6 +1612,14 @@ def main():
         print(json.dumps(r, indent=2, default=str))
         with open(os.path.join(OUT_DIR, "wic%s.json" % a.tag), "w", encoding="ascii") as fh:
             json.dump(r, fh, indent=2, default=str)
+        return
+    if a.attrib:
+        cc = candidate_composition(cap=(a.ud_cap or 200))
+        pa = patient_attribution(cap=(a.ud_cap or 600), n_boot=a.n_boot)
+        out = {"candidate_composition": cc, "patient_attribution": pa}
+        print(json.dumps(out, indent=2, default=str))
+        with open(os.path.join(OUT_DIR, "attrib%s.json" % a.tag), "w", encoding="ascii") as fh:
+            json.dump(out, fh, indent=2, default=str)
         return
     if a.landings:
         r = landings(gum_docs=(a.docs or 16), ud_cap=(a.ud_cap or 400), n_boot=a.n_boot)
