@@ -328,7 +328,6 @@ def observe_copular_subject(toks, pos, occ, table=None, weight: float = 1.0) -> 
     return k
 
 
-MAP_FALLBACKS = []
 REANALYSIS_STATS = {"fired": 0, "eligible": 0, "sentences": 0}
 
 
@@ -364,6 +363,7 @@ def revise_copular_subject(toks, pos, A, hd, occ=None):
             out[subj] = q; REANALYSIS_STATS["fired"] += 1
     return out
 # PATCH-END
+MAP_FALLBACKS = []        # cell-only: sentences where the reference MAP arm hit the organ's None-head edge case
 # =====================================================================================================
 
 # the patch block above runs inside hdlab/attachment_arm.py; in the cell it needs the organ's own names
@@ -1330,11 +1330,13 @@ def self_test():
                          "copular_subject_attachment_patch.diff")
     if os.path.isfile(dpath):
         src = open(__file__, encoding="utf-8").read()
-        block = src.split("# PATCH-BEGIN", 1)[1].split("# PATCH-END", 1)[0]
-        dif = open(dpath, encoding="utf-8").read()
+        block = src.split("# PATCH-BEGIN" + chr(10), 1)[1].split("# PATCH-END", 1)[0]
+        organ = open(os.path.join(REPO, "hdlab", "attachment_arm.py"), encoding="utf-8", newline="").read()
+        patched = _apply_unified(organ, open(dpath, encoding="utf-8", newline="").read(), "hdlab/attachment_arm.py")
+        flat = patched.replace(chr(13), "")
         body = [ln for ln in block.splitlines() if ln.strip()]
-        missing = [ln for ln in body if ("+" + ln) not in dif]
-        ck("PATCH == CELL: every line of the patch block is in the diff", not missing, missing[:3])
+        missing = [ln for ln in body if ln not in flat]
+        ck("PATCH == CELL: the diff APPLIED contains every line of the cell's patch block", not missing, missing[:3])
     else:
         print("  note the diff is not written yet -- PATCH == CELL skipped")
     print("\n%d/%d checks passed" % (ok[0], ok[1]))

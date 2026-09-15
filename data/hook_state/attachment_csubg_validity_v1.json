@@ -1,7 +1,7 @@
 {
  "source": "attachment arm, pri 117: the copular-subject occupancy cue's validity, accrued ONLINE from perceived copular constructions in reading (organ's own categories; no gold column, no tree)",
- "sentences": 2000,
- "arcs": 2684,
+ "sentences": 4000,
+ "arcs": 4560,
  "weight": 1.0,
  "bins": [
   0.25,
@@ -18,68 +18,68 @@
    13.0
   ],
   "ADJ>PROPN:R|pred:hi": [
-   21.735199857934624,
-   22.0
+   28.62240489832497,
+   29.0
   ],
   "VERB>PROPN:R|later:hi": [
    0.0,
-   101.0
+   159.0
   ],
   "AUX>PROPN:R|carrier:hi": [
    0.0,
-   134.0
+   185.0
   ],
   "VERB>PRON:R|pred:md": [
-   8.484313497280588,
-   11.0
+   16.698524383354602,
+   23.0
   ],
   "VERB>PRON:R|later:md": [
    0.0,
-   16.0
+   32.0
   ],
   "AUX>PRON:R|carrier:md": [
    0.0,
-   15.0
+   34.0
   ],
   "VERB>NOUN:R|pred:hi": [
-   152.10741150511964,
-   156.0
+   238.84512730981965,
+   245.0
   ],
   "AUX>NOUN:R|carrier:hi": [
    0.0,
-   345.0
+   535.0
   ],
   "VERB>PRON:R|pred:hi": [
-   142.734261232118,
-   146.0
+   279.168176822734,
+   285.0
   ],
   "AUX>PRON:R|carrier:hi": [
    0.0,
-   383.0
+   723.0
   ],
   "VERB>NOUN:R|later:hi": [
    0.0,
-   270.0
+   403.0
   ],
   "PRON>PRON:R|pred:hi": [
-   10.886845387407137,
-   11.0
+   21.54866500116759,
+   22.0
   ],
   "PROPN>PROPN:R|pred:hi": [
-   6.9675274304898,
-   7.0
+   10.967527430489799,
+   11.0
   ],
   "NOUN>PRON:R|pred:hi": [
-   99.62914775572465,
-   100.0
+   176.02422460782742,
+   177.0
   ],
   "VERB>PRON:R|later:hi": [
    0.0,
-   412.0
+   779.0
   ],
   "NOUN>NOUN:R|pred:hi": [
-   78.68823149760269,
-   79.0
+   110.6093216181171,
+   111.0
   ],
   "NOUN>NUM:R|pred:hi": [
    4.0,
@@ -90,36 +90,36 @@
    1.0
   ],
   "ADJ>PRON:R|pred:hi": [
-   89.80584120039586,
-   91.0
+   194.9764412403798,
+   197.0
   ],
   "VERB>PROPN:R|pred:hi": [
-   68.34336095499802,
-   70.0
+   92.05887561725886,
+   94.0
   ],
   "ADV>PROPN:R|pred:hi": [
    2.9866796989036613,
    3.0
   ],
   "ADJ>NOUN:R|pred:hi": [
-   61.264469390821034,
-   62.0
+   105.34334182114792,
+   107.0
   ],
   "PRON>NOUN:R|pred:hi": [
-   10.800175960528165,
-   11.0
+   13.680091707393936,
+   14.0
   ],
   "ADJ>PRON:R|pred:md": [
-   3.032384347606145,
-   4.0
+   6.7194294475829075,
+   9.0
   ],
   "VERB>NUM:R|later:hi": [
    0.0,
    8.0
   ],
   "NOUN>PROPN:R|pred:hi": [
-   30.811083515672724,
-   31.0
+   46.81108351567272,
+   47.0
   ],
   "ADJ>PROPN:R|pred:lo": [
    1.1116079987312064,
@@ -130,52 +130,52 @@
    2.0
   ],
   "ADV>PRON:R|pred:hi": [
-   11.842197766248141,
-   12.0
+   14.842197766248141,
+   15.0
   ],
   "VERB>PROPN:R|pred:md": [
-   4.678346228220326,
-   6.0
+   5.506973371480144,
+   7.0
   ],
   "AUX>PROPN:R|carrier:md": [
    0.0,
-   7.0
+   8.0
   ],
   "VERB>PROPN:R|later:md": [
    0.0,
    8.0
   ],
   "PROPN>NOUN:R|pred:hi": [
-   12.989186683357143,
-   13.0
+   26.989186683357143,
+   27.0
   ],
   "NOUN>NOUN:R|pred:md": [
-   4.760130763609629,
-   6.0
+   7.773220124611447,
+   10.0
   ],
   "AUX>NOUN:R|carrier:md": [
    0.0,
-   25.0
+   37.0
   ],
   "ADV>NOUN:R|pred:hi": [
-   8.900685549108971,
-   9.0
+   9.900685549108971,
+   10.0
   ],
   "PROPN>PRON:R|pred:hi": [
-   12.868506993489373,
-   13.0
+   20.81482676942312,
+   21.0
   ],
   "NOUN>PRON:R|pred:md": [
-   0.7481540747081974,
-   1.0
+   1.527634118498153,
+   2.0
   ],
   "VERB>NOUN:R|pred:md": [
-   8.59246213129481,
-   12.0
+   14.464444566179976,
+   20.0
   ],
   "VERB>NOUN:R|later:md": [
    0.0,
-   22.0
+   32.0
   ],
   "ADJ>NOUN:R|pred:md": [
    3.626040526211945,
@@ -198,8 +198,8 @@
    1.0
   ],
   "NUM>PRON:R|pred:hi": [
-   3.9719794817693037,
-   4.0
+   4.971979481769304,
+   5.0
   ],
   "ADJ>NOUN:R|pred:lo": [
    0.5568438404424813,
@@ -207,11 +207,11 @@
   ],
   "VERB>NOUN:R|later:lo": [
    0.0,
-   1.0
+   5.0
   ],
   "AUX>NOUN:R|carrier:lo": [
    0.0,
-   1.0
+   6.0
   ],
   "NOUN>PRON:R|pred:lo": [
    0.5532557427441727,
@@ -219,19 +219,19 @@
   ],
   "AUX>PRON:R|carrier:lo": [
    0.0,
-   2.0
+   6.0
   ],
   "NUM>PROPN:R|pred:hi": [
-   0.9820886542776626,
-   1.0
+   2.908218328782453,
+   3.0
   ],
   "VERB>PRON:R|pred:lo": [
-   0.5896744822418083,
-   1.0
+   2.881784603121776,
+   5.0
   ],
   "VERB>PRON:R|later:lo": [
    0.0,
-   2.0
+   10.0
   ],
   "ADJ>NOUN:L|pred:hi": [
    1.0,
@@ -242,8 +242,8 @@
    2.0
   ],
   "NUM>NOUN:R|pred:hi": [
-   3.0,
-   3.0
+   7.0,
+   7.0
   ],
   "NOUN>NUM:R|pred:lo": [
    0.5726291171765283,
@@ -258,73 +258,128 @@
    1.0
   ],
   "SYM>NOUN:R|pred:hi": [
-   0.9623052855411887,
+   2.9623052855411887,
+   3.0
+  ],
+  "ADV>PRON:L|pred:hi": [
+   3.0,
+   3.0
+  ],
+  "NUM>PRON:L|pred:hi": [
+   1.0,
    1.0
+  ],
+  "PRON>PRON:R|pred:md": [
+   1.3943594742695034,
+   2.0
+  ],
+  "ADJ>PRON:R|pred:lo": [
+   0.5711684715945592,
+   1.0
+  ],
+  "NOUN>PROPN:L|pred:hi": [
+   1.0,
+   1.0
+  ],
+  "NUM>PRON:R|pred:md": [
+   0.830951475242798,
+   1.0
+  ],
+  "PRON>NOUN:R|pred:no": [
+   0.08223016050911958,
+   5.0
+  ],
+  "VERB>NOUN:R|later:no": [
+   0.0,
+   12.0
+  ],
+  "AUX>NOUN:R|carrier:no": [
+   0.0,
+   5.0
+  ],
+  "SYM>PRON:R|pred:hi": [
+   1.0,
+   1.0
+  ],
+  "VERB>NOUN:R|pred:lo": [
+   1.758712742948694,
+   3.0
   ]
  },
  "strength_csubg": {
   "VERB>NUM:R|pred:hi": 4.8519331894504365,
   "AUX>NUM:R|carrier:hi": -2.021289947975279,
-  "ADJ>PROPN:R|pred:hi": 6.526350043631749,
-  "VERB>PROPN:R|later:hi": -4.076625407069142,
-  "AUX>PROPN:R|carrier:hi": -4.225589791126476,
-  "VERB>PRON:R|pred:md": 1.4846440140216641,
-  "VERB>PRON:R|later:md": -2.5933446420884847,
-  "AUX>PRON:R|carrier:md": -2.14432661317948,
-  "VERB>NOUN:R|pred:hi": 5.253898109268642,
-  "AUX>NOUN:R|carrier:hi": -5.1624062897776986,
-  "VERB>PRON:R|pred:hi": 4.052547553021491,
-  "AUX>PRON:R|carrier:hi": -5.264898278447666,
-  "VERB>NOUN:R|later:hi": -5.0437097485528355,
-  "PRON>PRON:R|pred:hi": 6.084985061202855,
-  "PROPN>PROPN:R|pred:hi": 4.829829966349631,
-  "NOUN>PRON:R|pred:hi": 6.053995151681046,
-  "VERB>PRON:R|later:hi": -5.767200246575831,
-  "NOUN>NOUN:R|pred:hi": 6.097021752376847,
+  "ADJ>PROPN:R|pred:hi": 6.752097356276133,
+  "VERB>PROPN:R|later:hi": -4.524201514075192,
+  "AUX>PROPN:R|carrier:hi": -4.544068204277609,
+  "VERB>PRON:R|pred:md": 1.4330340758424773,
+  "VERB>PRON:R|later:md": -3.2483903200418505,
+  "AUX>PRON:R|carrier:md": -2.8949313345031564,
+  "VERB>NOUN:R|pred:hi": 5.367539679009893,
+  "AUX>NOUN:R|carrier:hi": -5.599092340319262,
+  "VERB>PRON:R|pred:hi": 4.274425813280786,
+  "AUX>PRON:R|carrier:hi": -5.897838330707001,
+  "VERB>NOUN:R|later:hi": -5.442093496442726,
+  "PRON>PRON:R|pred:hi": 6.6166768126735125,
+  "PROPN>PROPN:R|pred:hi": 5.280638851385463,
+  "NOUN>PRON:R|pred:hi": 6.377058205638465,
+  "VERB>PRON:R|later:hi": -6.402712964863074,
+  "NOUN>NOUN:R|pred:hi": 6.40109618984916,
   "NOUN>NUM:R|pred:hi": 2.1051809316387056,
   "PROPN>NOUN:R|pred:md": 3.413844076485036,
-  "ADJ>PRON:R|pred:hi": 6.101525808310967,
-  "VERB>PROPN:R|pred:hi": 4.918897447266408,
+  "ADJ>PRON:R|pred:hi": 6.636945443589625,
+  "VERB>PROPN:R|pred:hi": 5.135452044794217,
   "ADV>PROPN:R|pred:hi": 7.638024467327562,
-  "ADJ>NOUN:R|pred:hi": 7.047505038280994,
-  "PRON>NOUN:R|pred:hi": 6.4460992110925375,
-  "ADJ>PRON:R|pred:md": 2.828271647003752,
+  "ADJ>NOUN:R|pred:hi": 7.295426224264876,
+  "PRON>NOUN:R|pred:hi": 6.628655182301751,
+  "ADJ>PRON:R|pred:md": 3.2227781043537056,
   "VERB>NUM:R|later:hi": -1.6267091709455053,
-  "NOUN>PROPN:R|pred:hi": 5.119070090729032,
+  "NOUN>PROPN:R|pred:hi": 5.535460511734816,
   "ADJ>PROPN:R|pred:lo": 3.3309720286734366,
   "AUX>PROPN:R|carrier:lo": -0.6962382350303669,
-  "ADV>PRON:R|pred:hi": 8.456912379283555,
-  "VERB>PROPN:R|pred:md": 2.3907580967493134,
-  "AUX>PROPN:R|carrier:md": -1.5088815841517915,
+  "ADV>PRON:R|pred:hi": 8.68267767467668,
+  "VERB>PROPN:R|pred:md": 2.4915504985414505,
+  "AUX>PROPN:R|carrier:md": -1.6143790237415496,
   "VERB>PROPN:R|later:md": -1.7209433575481508,
-  "PROPN>NOUN:R|pred:hi": 6.2293252095883185,
-  "NOUN>NOUN:R|pred:md": 2.9638132893197597,
-  "AUX>NOUN:R|carrier:md": -2.6084916640144282,
-  "ADV>NOUN:R|pred:hi": 9.316809158655447,
-  "PROPN>PRON:R|pred:hi": 6.1711026102345645,
-  "NOUN>PRON:R|pred:md": 1.4477511705008048,
-  "VERB>NOUN:R|pred:md": 2.4967797825747877,
-  "VERB>NOUN:R|later:md": -2.606515207085999,
+  "PROPN>NOUN:R|pred:hi": 6.9596270392961355,
+  "NOUN>NOUN:R|pred:md": 3.1648581106540723,
+  "AUX>NOUN:R|carrier:md": -2.976358838422052,
+  "ADV>NOUN:R|pred:hi": 9.42327620849679,
+  "PROPN>PRON:R|pred:hi": 6.626070275109901,
+  "NOUN>PRON:R|pred:md": 1.9485571623484712,
+  "VERB>NOUN:R|pred:md": 2.6608889413665473,
+  "VERB>NOUN:R|later:md": -2.957878857222912,
   "ADJ>NOUN:R|pred:md": 4.017970464669766,
   "PROPN>NUM:R|pred:md": 2.0213302756282987,
   "VERB>NUM:R|later:md": -0.7039766230718043,
   "AUX>NUM:R|carrier:md": -0.40792644857947913,
   "NOUN>PROPN:R|pred:md": 1.5830057882005546,
-  "NUM>PRON:R|pred:hi": 9.595509223228794,
+  "NUM>PRON:R|pred:hi": 9.820049195255669,
   "ADJ>NOUN:R|pred:lo": 2.528263402127002,
-  "VERB>NOUN:R|later:lo": -0.45141555728715077,
-  "AUX>NOUN:R|carrier:lo": -0.40755770046165996,
+  "VERB>NOUN:R|later:lo": -1.3487661461321714,
+  "AUX>NOUN:R|carrier:lo": -1.3909965510205575,
   "NOUN>PRON:R|pred:lo": 1.1256141979388596,
-  "AUX>PRON:R|carrier:lo": -0.6955636635492679,
-  "NUM>PROPN:R|pred:hi": 7.042369491783118,
-  "VERB>PRON:R|pred:lo": 0.33090087010827807,
-  "VERB>PRON:R|later:lo": -0.9348391199576543,
+  "AUX>PRON:R|carrier:lo": -1.3899168993544562,
+  "NUM>PROPN:R|pred:hi": 8.091441812213501,
+  "VERB>PRON:R|pred:lo": 0.6544167120959685,
+  "VERB>PRON:R|later:lo": -2.1672255702960066,
   "ADJ>NOUN:L|pred:hi": 5.7577412237077885,
   "ADJ>NUM:R|pred:hi": 3.5618595153421673,
-  "NUM>NOUN:R|pred:hi": 9.862763974834811,
+  "NUM>NOUN:R|pred:hi": 10.710032075803374,
   "NOUN>NUM:R|pred:lo": 0.44992239186155714,
   "AUX>NUM:R|carrier:lo": -0.40792644857947913,
   "PRON>PROPN:R|pred:hi": 4.651303828591814,
-  "SYM>NOUN:R|pred:hi": 7.9389934432342315
+  "SYM>NOUN:R|pred:hi": 9.063148446314925,
+  "ADV>PRON:L|pred:hi": 8.165519826075876,
+  "NUM>PRON:L|pred:hi": 7.9211113303719864,
+  "PRON>PRON:R|pred:md": 3.8327996700386047,
+  "ADJ>PRON:R|pred:lo": 1.5242063739007043,
+  "NOUN>PROPN:L|pred:hi": 1.6610197845528425,
+  "NUM>PRON:R|pred:md": 7.964077401520123,
+  "PRON>NOUN:R|pred:no": 0.5899111118705491,
+  "VERB>NOUN:R|later:no": -2.060055531287486,
+  "AUX>NOUN:R|carrier:no": -1.2572417452548246,
+  "SYM>PRON:R|pred:hi": 6.926418710388998,
+  "VERB>NOUN:R|pred:lo": 1.5580220854721292
  }
 }
