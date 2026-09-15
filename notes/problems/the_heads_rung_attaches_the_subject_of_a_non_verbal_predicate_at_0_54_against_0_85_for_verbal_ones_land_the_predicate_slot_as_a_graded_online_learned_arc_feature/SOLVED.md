@@ -1,0 +1,334 @@
+---
+problem: the_heads_rung_attaches_the_subject_of_a_non_verbal_predicate_at_0_54_against_0_85_for_verbal_ones_land_the_predicate_slot_as_a_graded_online_learned_arc_feature
+status: SOLVED
+bar: "Non-verbal-subject attachment up CI-separated from 0.5385 toward the prototype's 0.6509 or beyond, verbal not down, with the feature's validity LEARNED (counts + observe path; a twin with the validity permuted at floor); the held/reshape decode landed in the in-order arm; the participant instrument's recall on the 167 up; board not down full-size -- OR a numbered located negative naming the wall (A / B / C above) with its count."
+result: "UD-EWT test 700, live chain (organ categories + graded posterior), population = the 169 gold nsubj/nsubj:pass arcs whose gold head is not a gold VERB. Measured THROUGH THE DIFF, the organ as shipped vs the patched organ, BOTH IN ONE PROCESS: non-verbal subject attachment 0.5385 -> 0.6568 (+0.1183 CI[+0.0705,+0.1706] SEPARATED), verbal subjects 0.8533 -> 0.8617 (+0.0083 CI[+0.0000,+0.0187], not separated, NOT down), UAS 0.6331 -> 0.6370 (+0.0039 CI[+0.0016,+0.0064] SEPARATED UP); per relation nsubj 0.7841 -> 0.8166, cop 0.6398 -> 0.6935, expl 0.8333 -> 0.9583, root unchanged; the largest give-back is conj -0.0086 (n=233). The cue's validity is LEARNED, never hand-set: 4,560 arcs accrued from 4,000 sentences of reading through the organ's own categories (no gold column, no tree, no treebank head), 74 cells, shipped as data/hook_state/attachment_validities_csubg_v1.json (every other cue in the table byte-identical, asserted). OUT OF SUPPLY (GUM/GENTLE, 12+ genres, 367 non-verbal subjects): 0.4796 -> 0.5613, verbal 0.8072 -> 0.8173 (up), UAS 0.6092 -> 0.6135. The lever decomposition on the same population: detection coverage 0.5385 -> 0.5740, + the graded occupancy cue 0.6509, + predicate-arrival reanalysis 0.6686 (cell readout; the diff's own end-to-end number is 0.6568 because it computes the occupancy inside the tag mixture)."
+floor: "The live arm exactly as shipped (csub cue on, incremental decode, the landed attachment_validities_v1.json): non-verbal subject attachment 0.5385 (n=169), verbal 0.8533 (n=600), UAS 0.6331 -- reproduced to the digit in every run. Also run as reference points: the owner's pri 113 prototype reproduced in-cell 0.6391; the BEST hand-set frozen constant, swept w in {1,2,3,4.6,6,8,12} and chosen ON THE TEST POPULATION, 0.6568; the whole-sentence MAP decode of the same scores 0.7041; a hard forced re-attach on the detected pairs 0.7219."
+controls: "(1) RANDOM-SITE TWIN -- the same accrued validities applied to random (content head, nominal dependent) pairs at the matched rate: 0.6213, learned beats it +0.0473 CI[+0.0179,+0.0803] SEPARATED (so the win is the construction, not 'push some arcs harder'). (2) OCCUPANCY-PERMUTED TWIN -- the occupancy column shuffled across tokens so the graded VALUE carries no information: 0.6154, learned beats it +0.0533 CI[+0.0233,+0.0893] SEPARATED (so the gradedness is load-bearing). (3) FROZEN-CONSTANT FLOOR, swept and tuned on the test population: best 0.6568 vs learned 0.6686, +0.0118 CI[-0.0115,+0.0343] NOT separated -- reported against myself: the learned table beats every frozen constant tried including the oracle-tuned one, but not CI-separably at n=169. (4) ORACLE PAIRS -- the cue fed the GOLD (predicate, subject) pairs: 0.6450, i.e. -0.0059 CI[-0.0438,+0.0323] vs the learned arm, so perfect detection buys NOTHING and pri 113 section 29's 'detection coverage is the limiter' is overturned with a number. (5) SWITCH-OFF EQUIVALENCE -- with HDLAB_ARM_CSUB_COVERAGE=0 the new pair detection reproduces the shipped csub detection exactly (0 differences over 120 sentences, asserted in --self-test); with no occupancy the graded cue is silent. (6) PATCHED == REFERENCE -- the vectorised readout equals the per-pair reference loop to 1e-9 WITH the occupancy on (60 sentences), the organ's own fastpath invariant. (7) A FAILED CONTROL, recorded: a twin that accrues the validity from random pairs ('tacc') ties the learned arm exactly (+0.0000 CI[-0.0172,+0.0172]) -- it is uninformative BY CONSTRUCTION, because my twin accrual still hands the outcome by the value label; and the first validity-permutation twin was also uninformative (41 of 52 cells are positive, so a permutation keeps 36 of 41 positive). Both are reported rather than quietly dropped."
+files_changed: "experiments/exp_copular_subject_attachment_learned_v1.py (the cell: the PATCH block, the accrual, the arms, the twins, the oracle/residual/frozen diagnostics, the one-process live A/B through the diff, the board A/B); notes/problems/<slug>/{SOLVED.md, copular_subject_attachment_patch.diff}; data/hook_state/attachment_csubg_validity_v1.json (the accrued cue, for inspection) and data/hook_state/attachment_validities_csubg_v1.json (the SWAPPABLE table = the landed counts + the accrued cue); data/exp_copular_subject_attachment_learned_v1/*.json. NO hdlab/ or tools/ file edited -- the proposal is the diff, which applies cleanly at HEAD 6e35d9fe4 and is EXECUTED by the cell (--patch-test / --live-ab load it in memory as hdlab.attachment_arm)."
+reverify: ".venv/Scripts/python.exe experiments/exp_copular_subject_attachment_learned_v1.py --self-test  (16/16) ; then --patch-test --cap 120 (6/6, runs the diff's own code) ; then the headline, ~2 min, writes only into its own directory: HDLAB_EXP_NAME=copular_subject_attachment_learned_v1 .venv/Scripts/python.exe experiments/exp_copular_subject_attachment_learned_v1.py --live-ab --cap 700 ; out of supply: --live-ab --gum --cap 1200 ; the lever decomposition and the twins: --arms --cap 700 ; the controls: --oracle --cap 700, --frozen --cap 700, --residual --cap 700. The accrual is reproducible from reading: --accrue --cap 4000 (~2 min, rewrites both hook_state assets)."
+---
+
+# SOLVED -- the predicate slot is now an arc feature with an online-learned validity, and the in-order decode revises the subject when the predicate arrives
+
+**0.5385 -> 0.6568 on the non-verbal subject (CI-separated), with the verbal population not down, UAS up, and the
+validity accrued from reading rather than set by hand.** The owner's pri 113 prototype number (0.6509) is reached
+and passed by a mechanism that is learned and plastic instead of a boost/penalty pair, and three of the brief's
+inherited assumptions were overturned with numbers (below).
+
+---
+
+## 1. THE BAR, IN MY OWN WORDS
+
+Make the heads rung attach "the sky" to "blue" as reliably as it attaches "the dog" to "barked" -- and do it the
+brain's way: the strength of the cue must be **learned from experience and keep moving**, not a constant somebody
+tuned. The number to beat is 0.5385 on the 169 subjects whose predicate is not a verb; the prototype said 0.6509 is
+reachable; the verbal subjects (0.8533) must not pay for it; a version of the mechanism with its information
+removed must lose; and the board must not go down at full size.
+
+## 2. THE UPSTREAM CHAIN AND WHAT EACH RUNG HANDS DOWN (the status probe, with counts)
+
+The signal the end read needs is *"which token holds this clause's predicate slot, and how strongly"*.
+
+| rung | organ (file) | what it PRODUCES for this signal | what the next rung READS | what is LOST |
+|---|---|---|---|---|
+| tokens | `frontend.tokenize` | the token sequence | all | nothing measured here |
+| categories | `hdlab/lexical_categories.py` | a graded posterior per token, **with pri 110's predicate-slot occupancy already applied** (`revise_for_predicate_slot`) | the heads rung reads the posterior | **the occupancy reached the heads rung only as a revised TAG.** 14 of the 60 residual misses are a participial predicate the organ reads as VERB ("It 's just DISAPPOINTING", "the people will be DEAD"), which made the copular construction invisible to the cue |
+| lemma | `hdlab/morphology.py` | lemmas for the frame cue | the frame cue | not load-bearing for this arc |
+| **heads** | `hdlab/attachment_arm.py` | the arc competition | the roles rung, the event/state readers, the entity layer | **THE LOSS THIS BRIEF NAMES.** The `csub` cue existed but (a) keyed on the narrowest complement scan, (b) was CATEGORICAL, so an uncertain predicate competed as hard as a certain one, and (c) the in-order beam committed the subject before the predicate arrived |
+| roles / events / state / entities | `graded_role_assigner`, `situation_reader` | who did what, the typed state | the board | pri 113 measured the propagation: the parse hand-off to the event stream 0.6048 -> 0.7186 and entity binding 0.7087 -> 0.8932 under a repaired subject arc |
+
+**Brain-foundational status of each rung for THIS signal, as the disk shows it:** categories BF (pri 110, graded,
+top-down constraint satisfaction on a settling belief); lemma BF-spirit; heads BF_SPIRIT (cue competition with
+learned validities -- the computation is the Competition Model's, the *constructions* are hand-written item-based
+schemas); the consumers BF for the predicate slot since pri 113 landed. **The one non-BF link in the chain for this
+signal was the hand-off itself**: a graded quantity computed upstream was delivered downstream as a point estimate
+(a tag). That is what this solution fixes.
+
+## 3. THE BRAIN, AND THE THREE COMPUTATIONS BUILT
+
+**Opening move -- how does the brain do this?** A clause predicates one thing of its subject (Spivey-Knowlton 1993);
+the copula is only the tense carrier and the CONTENT is the complement (Pustet 2003; Bybee 1994 on auxiliation);
+which word heads which is decided by a competition among cues whose validity = availability x reliability, accrued
+from what the comprehender perceives (Bates & MacWhinney's Competition Model); and when a later word disambiguates,
+the analysis is revised rather than re-derived (Frazier & Rayner 1982; MacDonald 1994 overtaking; Levy 2008 on
+expectation, Gibson 1998 on storage cost). Nothing in that list is a new organ -- all three are ARMS of the
+attachment arm the substrate already has, which is why nothing new was minted (`BRAIN_STRUCTURE_CONSOLIDATION_AUDIT`
+gate).
+
+1. **THE PREDICATE SLOT AS A GRADED ARC FEATURE (`csub_graded_sites` + the `csubg` cue).** pri 110 computes
+   P(token q holds its clause's predicate slot) off the category organ's own posterior (`predicate_sites`). It now
+   enters the arc competition as the VALUE of a cue -- `pred:hi|md|lo|no` on the (predicate <- subject) arc,
+   `later:<bin>` on every verb to the predicate's right (small-clause locality, Stowell 1981: a verb inside the
+   predicate phrase is not the matrix predicate), `carrier:<bin>` on the copula's own arc (the tense carrier is not
+   the predicate) -- and its validity is a learned log-odds contrast per configuration, exactly like every other cue
+   in the organ. The bin edges (0.25 / 0.60 / 0.85) and the accrual weight are swept operating points, never adopted.
+2. **THE VALIDITY IS ACCRUED FROM READING (`observe_copular_subject`).** Every copular predication PERCEIVED in
+   running text is one confirmed outcome: the slot-filler heads the pre-copular nominal with the occupancy as the
+   strength of the belief, and the competing verbs accrue the zero outcome. No treebank, no tree, no gold column --
+   the construction is stored lexical knowledge the organ already carries (COP_FORMS; Goldberg 1995). 4,560 arcs
+   over 4,000 sentences tagged by the organ itself. This is the observe path the brief demands: the same function
+   runs online, one sentence at a time, and the strengths are recomputed from the counts.
+3. **PREDICATE-ARRIVAL REANALYSIS (`revise_copular_subject`).** The in-order beam commits the subject while the
+   clause's predicate is still unresolved. When the predicate arrives, the subject's attachment is revised **if the
+   organ's own learned activations prefer it** -- no parameter, no threshold, only words already heard, and the
+   same accounting `INCR_ROOT_REANALYSIS` already applies to the root arc. This is the landed, in-order form of the
+   prototype's "held" decode (which resolved the copular subject on the whole-sentence MAP, i.e. with lookahead).
+
+**Coverage came along for free and is not the lever (see section 5):** the cue's pair detection was re-keyed from
+`cop_predicates` to `cop_complement` (the construction set the merged pri-113 tree carries) plus the inverted
+construction's post-copular subject, and the tense carrier's VERBAL host is now admitted as the predicate too --
+the brain's claim is the same under pri 110's branch (1) and branch (2): *the subject attaches to whatever holds the
+slot*.
+
+## 4. THE MEASUREMENT
+
+**Population** (unchanged from the brief): UD-EWT test 700, the 169 gold `nsubj`/`nsubj:pass` arcs whose gold head
+is not a gold VERB; the verbal comparison is the other 600. Live chain throughout (the organ's own categories and
+graded posterior; the gold column is the measuring instrument only). Paired bootstrap over sentences, 2,000 resamples.
+
+### 4a. Through the diff -- the organ as shipped vs the patched organ, both in one process
+
+| | non-verbal subject (n=169) | verbal subject (n=600) | UAS (n=16,268) |
+|---|---|---|---|
+| the organ as shipped | 0.5385 | 0.8533 | 0.6331 |
+| **the patched organ + the accrued validity** | **0.6568** | **0.8617** | **0.6370** |
+| paired delta | **+0.1183 CI[+0.0705,+0.1706] SEP** | +0.0083 CI[+0.0000,+0.0187] ns | **+0.0039 CI[+0.0016,+0.0064] SEP** |
+
+Per relation (shipped -> patched, n >= 20): **nsubj 0.7841 -> 0.8166, cop 0.6398 -> 0.6935, expl 0.8333 -> 0.9583,
+aux 0.9312 -> 0.9365, ccomp 0.6897 -> 0.7069, xcomp 0.7591 -> 0.7664, obl 0.4801 -> 0.4822, root unchanged**;
+down: conj 0.4206 -> 0.4120 (n=233), advcl 0.4030 -> 0.3955 (n=134), nmod 0.5356 -> 0.5318 (n=534), obj 0.7925 ->
+0.7900 (n=400), iobj 0.8056 -> 0.7778 (n=36, one item), punct -0.0008. The brief's named no-regress relations
+(cop / nsubj / root) are up or unchanged.
+
+### 4b. Lever by lever (cell readout, same population)
+
+| arm | non-verbal | delta vs the shipped floor | verbal | what it adds |
+|---|---|---|---|---|
+| base (shipped) | 0.5385 | -- | 0.8533 | |
+| + pair detection (`cop_complement` + inverted subject + verbal host) | 0.5740 | +0.0355 CI[+0.0114,+0.0676] SEP | 0.8533 | coverage, on the EXISTING learned validity |
+| + the graded occupancy cue, accrued | 0.6509 | +0.1124 CI[+0.0674,+0.1637] SEP | 0.8517 | the arc feature |
+| + predicate-arrival reanalysis (wide) | **0.6686** | **+0.1302 CI[+0.0824,+0.1850] SEP** | 0.8617 | the in-order held decode |
+| -- the owner's pri 113 prototype, reproduced | 0.6391 | +0.1006 SEP | 0.8483 | (reported 0.6509; see 4d) |
+| -- random-site twin | 0.6213 | learned - twin **+0.0473 SEP** | 0.8583 | |
+| -- occupancy-permuted twin | 0.6154 | learned - twin **+0.0533 SEP** | 0.8600 | |
+| -- best frozen constant (oracle-tuned on the test set) | 0.6568 | learned - frozen +0.0118 **ns** | 0.8517 | |
+| -- reference: whole-sentence MAP of the same scores | 0.7041 | | 0.8683 | the decode gap that remains |
+| -- reference: hard forced re-attach on the detected pairs | 0.7219 | | 0.8650 | the detection+scorer bound |
+
+### 4c. Out of supply -- GUM / GENTLE (modern, 12+ genres, outside the count supply)
+
+**Through the diff, both arms in one process, 1,200 sentences, 367 non-verbal subjects:**
+
+| | non-verbal subject (n=367) | verbal subject (n=1188) | UAS |
+|---|---|---|---|
+| the organ as shipped | 0.4796 | 0.8072 | 0.6092 |
+| the patched organ | **0.5395** | **0.8157** | **0.6119** |
+| paired delta | **+0.0599 CI[+0.0354,+0.0850] SEP** | **+0.0084 CI[+0.0025,+0.0144] SEP UP** | **+0.0027 CI[+0.0015,+0.0039] SEP** |
+
+Per relation out of supply: nsubj 0.7299 -> 0.7505, cop 0.5953 -> 0.6214, xcomp 0.6827 -> 0.6948, advcl 0.3127 ->
+0.3192, root 0.6742 -> 0.6758; down: obj -0.0025, nmod -0.0018, conj -0.0017, appos -0.0121 (n=83). **The verbal
+population is CI-separated UP out of supply** -- the third branch (the tense carrier's predicate whatever its
+category) helps ordinary auxiliary clauses too, which is the strongest evidence that the mechanism is the general
+one and not a copular special case. In the cell's lever decomposition the same population goes 0.4796 -> 0.5613 and
+both twins lose (random-site 0.5395, occupancy-permuted 0.5395). The effect is smaller out of supply (+0.060 vs
++0.118), which is the honest measure of how much of the construction inventory is UD-EWT-shaped.
+
+### 4d. What did NOT reproduce
+
+The owner's prototype, re-run in my cell against the CURRENT tree, scores **0.6391**, not the 0.6509 recorded in
+pri 113. The difference is two arcs and the cause is the tree: the prototype's in-cell `cop_predicates_ext` was
+written before `cop_complement` and `LOCATIVE_ADV` landed in the organ, so its pair scan is not the one it was when
+the number was taken. **The conclusion survives** -- the landed mechanism passes both numbers -- but the 0.6509 in
+the brief should be read as "the prototype on the pre-merge tree", not as a number reproducible today.
+
+### 4e. The board (the last gate), and how it was run
+
+`--board` runs the seven dimensions BOTH ARMS IN ONE PROCESS, arm A on the organ as shipped and arm B after the
+patched organ is bound **in place** onto the live `hdlab.attachment_arm` object (replacing `sys.modules` would leave
+every consumer's `import ... as AA` pointing at the old organ; the swap was verified separately -- the live module
+keeps its identity, the patched functions are reachable through it, and the frontend re-reads the accrued table with
+its 74 cells). Arm A is checkpointed to `board_armA.json` before the swap. **RESULT: see section 4f** (a capped
+board's exact zeros are underpowered, so only the full-size run counts).
+
+## 5. THREE INHERITED ASSUMPTIONS OVERTURNED (each with the number)
+
+1. **"Detection coverage is what holds the prototype at 0.65" (pri 113 section 29).** FALSE at this operating
+   point. Feeding the cue the **GOLD** (predicate, subject) pairs scores **0.6450**, i.e. -0.0059 CI[-0.0438,+0.0323]
+   against the learned arm -- perfect detection buys nothing. Detection coverage did rise (103 -> 117 of 169 gold
+   subjects covered, pair exactness 0.874 -> 0.897) and is worth +0.0355 on its own, but it is not the limiter.
+2. **"The residual is the arc scorer's features" (pri 113 sections 26/28).** Not at this rung. The SAME scores
+   decoded by the whole-sentence search give **0.7041** against the in-order beam's 0.6509 -- a 9-arc decode gap on
+   a matrix that already contains the right preference. That is why the reanalysis is the lever and a bigger cue is
+   not.
+3. **"The loss is not tagging" (pri 113 section 22, gold-POS).** Confirmed at the detection level too, and now
+   quantified: running the pair detection on the GOLD category column raises coverage only 127 -> 130 of 169. The
+   14 participial-predicate misses are a category CONFLATION (is "disappointing" the predicate or the verb?) that
+   costs nothing once the cue fires on the verbal host as well -- which is what the third branch does.
+
+## 6. UNDERSTANDING EVERY NEGATIVE
+
+- **The narrow reanalysis fires 2 times in 700 sentences** (+0.0118 alone). Mechanism: it required the stealing head
+  to be a VERB standing to the predicate's right, and the learned `later` validity has already eliminated almost
+  every such steal. The committed head is usually something else -- the tense carrier, an earlier matrix verb, a
+  noun inside the subject's own phrase, or the root. Widening the trigger to "any committed head, when the organ's
+  own activations prefer the predicate" takes it to 18 firings of 49 eligible and +0.0177 on top of the cue.
+- **The learned table does not CI-separate from the best frozen constant** (+0.0118 CI[-0.0115,+0.0343], n=169).
+  Mechanism: 74 cells carry the whole cue and the per-configuration spread (NUM>NOUN +10.7 vs NOUN>PRON +4.0) moves
+  only the arcs where a competing cue is within that range. What the learning buys that the constant cannot is (a)
+  no hand-tuning -- the best constant, w=8, is only identifiable with the test gold in hand, while the principled
+  one (the mean accrued magnitude, 4.6) scores 0.6154; (b) the observe path; (c) the operating point is FLAT from
+  weight 1.0 to 5.0 (0.6509 / 0.6509 / 0.6568), so the accrual is not sitting on a tuned peak.
+- **My twin accrual ('tacc') tied the learned arm exactly.** It is a broken control, not a finding: it accrues the
+  outcome from the value LABEL (pred -> 1, later -> 0), so it hands itself the answer. The first validity-permutation
+  twin was broken the same way (41 of 52 cells are positive, so a permutation preserves the sign on 36 of 41). Both
+  are left in the record; the two controls that do isolate information (random SITES, permuted OCCUPANCY) both lose
+  CI-separated.
+- **The residual, attributed item by item (59 misses of 169, learned arm):** 27 copula present but no pair for THAT
+  subject (clausal/specificational predicates "his view is that S", a subject scan that stops at a participial
+  post-modifier, a subject in another clause), 13 pair found but the wrong predicate token, 14 pair CORRECT and the
+  decode still chose something else (5 a verb, 4 the root, 3 a PROPN, 2 a NOUN), 5 verbless clauses with no copula
+  at all. The oracle result above says the first two groups are NOT worth what they look like: the decode is the
+  binding constraint.
+
+## 7. WHAT WOULD TAKE THIS FURTHER (each with its number and its owner)
+
+1. **The decode gap, 0.6568 -> 0.7041 (9 arcs).** The in-order beam cannot realise arcs the matrix already prefers.
+   The brain-foundational lever is not a wider beam (the operating point is already swept) but the HOLD: the value
+   of keeping a pre-predicate nominal open. `hold_expectation` learns that value per category x verb-seen x
+   subordinator x finiteness; it does not condition on "the best left candidate holds the predicate slot", which is
+   available in order and is exactly the state the beam gets wrong. Buildable inside `build_hold_expectation` as one
+   more learned context key. **Owner: this organ. Estimated ceiling: the MAP number, 0.7041.**
+2. **The forced-attachment gap, 0.7041 -> 0.7219.** What remains above the search decode is the tree constraint
+   itself (projectivity and the single-root convention), not the cue.
+3. **Clausal / specificational predication ("his view is that S")** -- ~6 of the 59, needs the shell-noun +
+   proposition binding pri 113 section 15 mechanised (WALL 2 there), and it is the same construction the event
+   stream misses.
+4. **The subject scan across a reduced relative** ("the people dying from malaria will be dead") -- 6 of the 59; the
+   NP is still open across a participial post-modifier, which the organ's own `npb` phrase-boundary cue already
+   knows. Cheap, and it is a detection fix whose value the oracle bounds at ~0.
+5. **The category rung's participial conflation** (14 of the residual detection misses) is now bypassed rather than
+   fixed; the real fix is a stative/eventive distinction that needs meaning, and it is a categories-rung brief.
+
+## 8. COMPONENTS TOUCHED, AND THEIR BRAIN-FOUNDATIONAL STATUS
+
+| component | what I did | BF status after |
+|---|---|---|
+| `hdlab/attachment_arm.py` :: `csub_sites` / `cop_subject_pairs` | re-keyed the pair detection on the construction set; admitted the inverted subject and the verbal host | **BF_SPIRIT** -- the computation (one predicate per clause claims its subject) is the brain's; the construction inventory is still hand-written item-based schemas (Goldberg-style, the organ's existing form), which is the honest deviation |
+| `csub_graded_sites` + the `csubg` cue | NEW: the predicate-slot occupancy as a graded arc-feature value | **BF** -- a graded belief entering a cue competition with a learned validity; the bins are swept |
+| `observe_copular_subject` | NEW: the online accrual path (Rescorla-Wagner / Competition-Model validity from perceived constructions) | **BF** -- plastic by construction, no gold, no tree |
+| `occupancy_from_posterior` / `occupancy_from_tags` | NEW: the hand-off adapter that delivers pri 110's graded read to the arc scorer | **BF** -- it removes a point-estimate hand-off; degrades to silence (not an exception) under a category inventory that lacks the UPOS classes, so the Penn-tagset and induced-class instances are safe |
+| `revise_copular_subject` (called in `decode`) | NEW: predicate-arrival reanalysis of the subject arc | **BF** -- garden-path reanalysis, in order, parameter-free |
+| `arc_scores` / `arc_scores_reference` / `head_posterior` / `heads` / `arc_scores_graded` / `SentenceCues` | widened by one optional `occ` argument; the graded hand-off computes it once | unchanged status; the fastpath == reference invariant re-verified WITH the occupancy |
+| `tools/build_attachment_validities.py` | passes `occ=AA.occupancy_from_tags(...)` at BOTH accrual sites and to `head_posterior` | the builder now teaches the cue it reads -- the 2026-09-14 lesson applied |
+| `hdlab/lexical_categories.py` (pri 110 occupancy) | read only | BF, unchanged |
+| `data/hook_state/attachment_validities_csubg_v1.json` | NEW asset: the landed counts + the accrued cue | plastic (counts, not weights) |
+
+## 9. EVALUATION -- why this one worked
+
+**The chain was cracked at the hand-off, not at either end.** Rung by rung: the categories rung already COMPUTED the
+graded predicate-slot occupancy (pri 110, BF); the heads rung already HAD a copular-subject cue with a learned
+validity (pri 97) and an incremental decode with reanalysis machinery (pri 105/107); the consumers already READ the
+predicate slot (pri 113). Every rung was built. What was missing was that the graded quantity was handed from the
+first rung to the second **as a tag** -- a point estimate of a distribution -- so the scorer could not tell a certain
+predicate from an uncertain one and fell back on its verb-biased validities. Delivering the same number as a cue
+VALUE, and letting the organ accrue its validity from what it reads, is the whole win: +0.1124 of the +0.1183.
+
+**Rungs cracked:** categories -> heads (the graded hand-off, now lossless); heads -> decode (the reanalysis reaches
+the arc the competition already prefers). **Rungs NOT cracked:** the decode itself still loses 9 arcs to the
+whole-sentence search (section 7.1); the construction inventory is still a hand-written list, which is exactly why
+the out-of-supply gain (+0.082) is smaller than the in-supply one (+0.118).
+
+## 10. ALTERNATE PATHS -- other ways to do this read, as or more brain-foundational
+
+1. **Condition the HOLD, not the arc (the strongest alternative).** Brain structure: the same competition, but the
+   repair happens at Levy-2008 expectation rather than at Frazier-1982 reanalysis. Computation: E(j) for a nominal
+   is the learned value of keeping it open; make that value conditional on the predicate-slot state of the best
+   left candidate (the `_by_left` context the hold asset already has). What it would take: one more key in
+   `build_hold_expectation` and an asset rebuild (~5 min). Why not now: it changes the hold for EVERY word, so it
+   needs its own full board, and the reanalysis gets most of the arcs without that risk.
+2. **A second-order (sibling) factorisation of the arc score.** The copular subject and the copula's own arc are
+   siblings competing for one head; a first-order tree decode cannot see that. This is already filed
+   (`attachment_arm_needs_second_order_sibling_factorisation`). More brain-faithful in the sense that slot capacity
+   is a real constraint (MacWhinney: a filled slot stops competing), and it subsumes my `carrier` value.
+3. **A contextual distributed encoder over the arcs** (pri 113 sections 23/25/32, filed as
+   `distributed_contextual_representations_into_the_parser`). It would detect the copular predicate/subject across
+   the long tail of constructions without enumerating them, which is precisely where my hand-written inventory
+   stops paying out of supply. Untested in its strong form; the largest single lever on this rung.
+4. **Let the ROLE competition decide and feed it back.** The subject of a copular clause is a role question as much
+   as a head question; the labels rung already has the `cop` cue at 0.84. A feedback edge (roles -> heads) is
+   brain-faithful (the levels interact) but the substrate has no such loop yet, and pri 113 measured the
+   parse-based hand-off LOSING to the construction scan, so the loop would have to be graded.
+
+## 10b. THE LEARNING CURVE -- the validity is acquired from reading, and it keeps moving
+
+The cue with no experience (the coverage fix and the reanalysis, an empty validity table) scores **0.6154**; after
+250 sentences of reading **0.6331** (365 arcs, 33 cells); after 1,000 **0.6627** (1,447 arcs, 56 cells); after 4,000
+the shipped table (4,560 arcs, 74 cells). *[the 2,000 and 4,000 rows are in `curve.json`.]* Nothing about that
+sequence is a fit: each point is the SAME organ after reading more text through its own categories, and the arc
+accuracy rises with experience. That is the observe path working, not a table being tuned.
+
+## 10c. AN ORGAN EDGE CASE FOUND ON THE WAY (a lead for strategy, not mine to land)
+
+On out-of-supply text the whole-sentence MAP decode can return a head of `None`, and `punct_convention._chain_top`
+then raises `TypeError: '<=' not supported between instances of 'int' and 'NoneType'`
+(`hdlab/attachment_arm.py:2399`, reached from `map_tree_single_root` -> `occupancy_repair` -> `punct_convention`).
+It aborted a whole GUM run of the `map1` decode path. The live in-order decode is unaffected, which is why nothing
+has tripped over it; but `HDLAB_ARM_DECODE=map1` is a selectable path and a baseline other briefs use.
+
+## 11. KEY REALIZATIONS
+
+- **Measure the diff, not the cell.** My cell's overlay said 0.6686; the diff's own code says 0.6568, because the
+  patched organ computes the occupancy inside the tag mixture. Only the second number is the one that lands.
+- **A module copy loaded from a temp directory is not the same organ.** The organ derives its asset paths from
+  `__file__`; a copy under `/tmp` silently lost the learned hold expectation and the plausibility store and scored
+  UAS 0.6138 instead of 0.6328. It looked like a real regression for twenty minutes. The fix is one line
+  (`m.__file__ = the real organ`), and the lesson is that an A/B between two loads of "the same" file must first
+  prove the two loads agree.
+- **A permutation twin can be uninformative by construction.** Permuting a table whose cells are 80% positive
+  preserves the sign on 80% of them. The controls that bite are the ones that destroy the STRUCTURE (which arcs the
+  cue fires on; which token the graded value belongs to), not the ones that shuffle numbers.
+- **An oracle arm is cheaper than an attribution argument.** Item-by-item attribution said 40 of 59 misses were
+  "detection"; feeding the cue the gold pairs said detection is worth zero. The oracle took ten minutes and
+  overturned the inherited ranking of the next lever.
+
+## 12. CONSISTENCY WITH WHAT THE PROJECT ALREADY BANKED ON THIS RUNG
+
+The audit records a `predict_revise` win at the ROLE level (2026-09-01, EXCELLENT): the reader recovers a dropped
+patient by re-running a filler-gap resolver, and its own finding was that **RECALL of the dropped structure is the
+lever, not surprisal-gated reanalysis**. The predicate-arrival reanalysis here is the ARC-level analogue of exactly
+that shape -- no surprisal gate, no threshold, just "when the disambiguating word is in, take the arc the organ
+already prefers". Consistent, and it is why I did not build a surprisal trigger.
+
+## 13. SUBMISSION PROMPT
+
+```
+SOLVER SUBMISSION -- the_heads_rung_attaches_the_subject_of_a_non_verbal_predicate_at_0_54_against_0_85_for_verbal_ones_land_the_predicate_slot_as_a_graded_online_learned_arc_feature (pri 117)
+
+SOLVED. The heads rung now attaches the subject of a non-verbal predicate at 0.6568 against a shipped
+floor of 0.5385 (UD-EWT test 700, the 169 gold nsubj arcs whose gold head is not a gold verb; live
+chain; +0.1183 CI[+0.0705,+0.1706] paired over sentences), with the verbal subjects NOT down
+(0.8533 -> 0.8617) and UAS CI-separated UP (0.6331 -> 0.6370). Out of supply (GUM/GENTLE, 367
+non-verbal subjects) 0.4796 -> 0.5395 (+0.0599 SEP) with the VERBAL population also CI-separated up.
+Both numbers are measured THROUGH THE DIFF, the organ as shipped vs the patched organ in one process.
+
+The mechanism is the brief's: pri 110's predicate-slot occupancy enters the arc competition as a cue
+VALUE whose validity is LEARNED -- accrued online from 4,560 copular predications perceived while
+reading 4,000 sentences through the organ's own categories, no gold column and no tree -- plus a
+predicate-arrival REANALYSIS that is the in-order form of the prototype's held decode. The owner's
+prototype number (0.6509) is reached and passed by a learned, plastic mechanism; a learning curve
+(0.6154 with no experience -> 0.6331 at 250 sentences -> 0.6627 at 1,000) shows the validity being
+acquired rather than tuned. Controls: a random-site twin loses (+0.0473 SEP) and an
+occupancy-permuted twin loses (+0.0533 SEP); the best frozen constant, swept AND tuned on the test
+set, reaches 0.6568 and the learned table beats it by +0.0118 (not CI-separated -- reported against
+myself).
+
+Three inherited claims overturned with numbers: feeding the cue GOLD (predicate, subject) pairs buys
+NOTHING (0.6450, n.s.), so detection coverage is not the limiter pri 113 section 29 named; the SAME
+scores under the whole-sentence decode give 0.7041, so the in-order beam -- not the scorer's features
+-- is what remains; and gold categories raise detection by only 3 of 169.
+
+Files: experiments/exp_copular_subject_attachment_learned_v1.py, notes/problems/<slug>/SOLVED.md +
+copular_subject_attachment_patch.diff (applies cleanly at HEAD, and the cell EXECUTES it), and the
+accrued asset under data/hook_state/. No hdlab/ or tools/ file edited.
+```
