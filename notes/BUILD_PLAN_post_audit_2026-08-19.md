@@ -1,5 +1,7 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🟢 **2026-09-15 (LATEST -- autoloop ARMED): pri 128 LANDED (witnesses collectable by pytest with tiers + manifest). pri 129 diff applied and executing (consumer batch + board pri129a). RUNNING: pri 131 (identity contract). NEXT: land 129; dispatch 130 (sonnet) + 127 (opus) + the heads-rung brief (infinitival attachment). Read notes/STATUS.md first.**
+
 > # 🟢 **2026-09-15 (LATEST -- autoloop ARMED): pri 125 LANDED (the reader discovers its own pronouns; plain-text agents 0.19 -> 0.75; annotation invariance) on the product board (headline 0.6425 capped; component 0.6200 unchanged). RUNNING: pri 129 probe. NEXT: integrate 129 (execute its patched tree), apply pri 128's diff, dispatch 131 (identity contract), 130 (dormant flags), 127 (lexicon freeze); then 114, 120, 119, 123, 124, 115. Read notes/STATUS.md 'LANDED pri 125' first.**
 
 > # 🟢 **2026-09-15 16:17 (LATEST -- autoloop ARMED): READ notes/STATUS.md '16:17 LANDED pri 122' FIRST. pri 122 LANDED: the board headline is now the reader's own read of raw text (0.4717 pre-125; 0.6200 kept as the component score). RUNNING: solvers pri 125 (pronoun discovery, finalizing), pri 129 (NOT_BF consumers -> labels rung), pri 128 (sonnet, witness wrappers). NEXT: land 125 + board; dispatch 127; then 114, 120, 119, 123, 124, 115.**

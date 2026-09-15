@@ -76,3 +76,14 @@ def main():
 
 if __name__ == "__main__":
     sys.exit(main())
+
+
+# --- pytest-collectable wrapper (pri 128, mechanical; see notes/problems/447_witness_files_define_no_test_function_so_the_certification_gate_runs_nothing_from_them_give_every_witness_a_collectable_wrapper_with_a_cost_marker_and_an_execution_manifest/PROBLEM.md) ---
+import pytest as _pri128_pytest
+from verification._witness_wrap import _run_main_as_test as _pri128_run
+
+
+@_pri128_pytest.mark.fast
+def test_witness():
+    _code, _out = _pri128_run(main)
+    assert _code == 0, "witness exited %r:\n%s" % (_code, _out[-4000:])

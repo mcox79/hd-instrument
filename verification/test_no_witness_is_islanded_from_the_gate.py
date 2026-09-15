@@ -66,25 +66,25 @@ CHECKED_AT_IMPORT = {
 # "no tests ran" and the gate is none the wiser. THIS LIST MAY SHRINK, NEVER GROW.
 # SLOW = real corpus reads / long computation, deliberately kept out while run_certification.py is
 # itself timing out (see the certification_gate_hangs brief).
+#
+# SHRUNK 2026-09-15 (pri 128, notes/problems/447_witness_files_define_no_test_function_.../
+# PROBLEM.md) from 18 entries to these 4 -- every OTHER previously-islanded file (461 of the 465
+# measured), and 447 more like them across verification/, now carries a `def test_witness()`
+# (tagged fast/corpus/slow -- see verification/_witness_wrap.py). None of the 461 were
+# structurally unwrappable; a witness too slow for the default run gets `@pytest.mark.slow`/
+# `corpus`, not an entry here.
 KNOWN_ISLANDED = {
-    "test_board_archive_and_reading_pane.py",
-    "test_c3_bundling_is_not_the_bottleneck.py",                    # SLOW ~13 min
-    "test_definiens_head_light_nouns.py",
-    "test_does_an_addressed_slot_survive_bundling.py",
-    "test_does_our_format_survive_the_meaning_signal.py",
-    "test_does_sparsity_fix_the_bundling_loss.py",
-    "test_gui_does_not_freeze_the_ui_thread.py",
-    "test_gui_stale_banner.py",
-    "test_hypernym_matcher_positive_control.py",
-    "test_learn_from_reading_strong_arm.py",                        # SLOW, builds a PPMI model
-    "test_segregated_beats_superposed_at_equal_budget.py",
-    "test_sensorimotor_covers_the_verb_hole.py",
-    "test_source_trust_vet_has_a_trivial_floor.py",
-    "test_the_100k_noise_sweep_bites_and_the_system_survives_it.py",
-    "test_the_channel_cannot_gate_links_alone.py",
-    "test_the_familiarity_gate_refuses_most_of_english.py",         # SLOW, 14 corpus reads
-    "test_which_number_is_the_meaning_asset.py",
-    "test_wordnet_advantage_is_selection_not_meaning.py",
+    # a DIFFERENT session was actively landing unrelated content changes to these 4 while this
+    # brief was in progress -- each caught by a `git apply --check` conflict at some point during
+    # the work, not guessed (their current content has no wrapper, no test function; wrapping
+    # raced a live edit and was deferred rather than risking clobbering it -- one of the four,
+    # test_referent_per_np_organ.py, changed again between two checks minutes apart, which is why
+    # this is a live re-check immediately before finalizing, not a one-time scan). Wrapping each
+    # is otherwise a one-line-per-file follow-up once its landing settles.
+    "test_commonnoun_resolution_wire.py",
+    "test_referent_coref_linking_organ.py",
+    "test_referent_per_np_source_landing_organ.py",
+    "test_referent_per_np_organ.py",
 }
 
 

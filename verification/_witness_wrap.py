@@ -90,6 +90,11 @@ def _run_main_as_test(main, argv=None):
     failure to the witness's own line, not to this helper.
     """
     buf = _CaptureBuffer()
+    # ISOLATE sys.argv (strategy 2026-09-15, found at landing): witnesses that parse their own command line
+    # (`int(sys.argv[1])`, `"--smoke" in sys.argv`) otherwise see pytest's flags ("-q", "-m", "fast"...) and
+    # crash or change mode. They run exactly as `python verification/<file>.py` would.
+    saved_argv = list(sys.argv)
+    sys.argv = [getattr(main, "__module__", "witness") + ".py"]
     try:
         with contextlib.redirect_stdout(buf):
             result = main(argv) if argv is not None else main()
@@ -98,6 +103,8 @@ def _run_main_as_test(main, argv=None):
     except BaseException:
         sys.stdout.write(buf.getvalue())
         raise
+    finally:
+        sys.argv = saved_argv
     return _code_from_result(result), buf.getvalue()
 
 

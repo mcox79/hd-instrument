@@ -57,3 +57,15 @@ ignore_missing_imports = true
 [tool.pytest.ini_options]
 testpaths = ["verification"]
 python_files = ["test_*.py"]
+# pri 128 (notes/problems/447_witness_files_define_no_test_function_.../PROBLEM.md): 465 of the
+# 622 verification/test_*.py files defined only a main()/`__main__` block, so pytest collected
+# and ran NOTHING from them. Every one now carries a `def test_witness()` tagged fast/corpus/slow.
+# Default selection stays FAST (+ any pre-existing untiered test): a plain `pytest verification/`
+# must not silently run 5-40-minute corpus reads. `-m fast` / `-m corpus` / `-m slow` /
+# `-m "corpus or slow"` select explicitly (CLI -m overrides this addopts -m, it does not add to it).
+addopts = ["-p", "verification._witness_manifest", "-m", "not corpus and not slow"]
+markers = [
+    "fast: quick witness, no corpus/asset I/O -- runs by default",
+    "corpus: reads a real corpus/foundation asset -- opt-in via -m corpus",
+    "slow: multi-minute witness -- opt-in via -m slow",
+]
