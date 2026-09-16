@@ -896,7 +896,10 @@ def row_bars(verbose=True, smoke=False):
         rows = OCCX.extract_all(gold, smoke=smoke)
         rowsets[arm] = rows
         mft = OCCX._mft(rows)
-        majtype = OCCX._majority_type_of_valence(rows)
+        try:
+            majtype = OCCX._majority_type_of_valence(rows)
+        except IndexError:
+            majtype = {}          # a --smoke subset can carry one valence only; the APPRAISAL arm never reads it
         mfv = Counter(r["gold_val"] for r in rows).most_common(1)[0][0]
         T = OCCX.arm_type_correct(rows, "APPRAISAL", mft=mft, majtype=majtype, twin_perm=None)
         V = OCCX.arm_val_correct(rows, "APPRAISAL", mfv=mfv, twin_perm=None)
@@ -915,7 +918,9 @@ def row_bars(verbose=True, smoke=False):
                      _p(o["floor_lastword_type_acc"]), o["no_goal_found"], len(rows)))
     a, b = out["arms"].get("shipped"), out["arms"].get("npspan")
     if a and b:
-        out["contrast"] = paired_boot([a.pop("_items")], [b.pop("_items")])
+        # the bootstrap unit here is the ITEM: these are 50 independent constructed two-sentence items, not
+        # documents with correlated mentions inside them.
+        out["contrast"] = paired_boot([[x] for x in a.pop("_items")], [[x] for x in b.pop("_items")])
         # ITEM-BY-ITEM: which items the phrase stream fixed, and which it broke
         A, B = rowsets["shipped"], rowsets["npspan"]
         flips = {"fixed": [], "broken": []}
