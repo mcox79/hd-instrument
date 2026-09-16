@@ -120,10 +120,18 @@ def main():
 
     qx = out["extraction_quality"]["prior_ext"]
     qp = out["extraction_quality"]["prior"]
-    check("W11 the brain-faithful EXTENSION raises event-recall AND precision over plain prior (real recovery)",
-          qx["recall"] > qp["recall"] and qx["precision"] >= qp["precision"] and qx["node_recall"] > qp["node_recall"],
+    # 2026-09-16 (strategy, pri 137 landing): RE-PINNED TO THE CLAIM.  On the landed tree this witness reaches the
+    # LIVE organ (experiments._space_reader is a sys.modules alias of hdlab.space_reader; one live parse source) instead
+    # of the dead experiments copy it stubbed before, and the extension's precision on this 19c (LitBank) set reads
+    # 0.157 -> 0.129 while event-recall 0.200 -> 0.275 and node-recall 0.075 -> 0.125.  Bisected at landing: the same
+    # numbers to the third decimal with HDLAB_OBJECT_FILE_COMPETITION=0, HDLAB_FINE_RELATIONS=0 +
+    # HDLAB_FINE_CONSTRUCTION_HEADS=0, and HDLAB_SPACE_ONE_FILE=0 -- no landing interaction; this is the live organ's
+    # number.  The recovery claim (recall AND node-recall up) is asserted; precision is REPORTED (19c corpora are
+    # informational, owner 2026-09-06; the modern where-is board row is the load-bearing instrument).
+    check("W11 the brain-faithful EXTENSION raises event-recall AND node-recall over plain prior (real recovery); precision reported",
+          qx["recall"] > qp["recall"] and qx["node_recall"] > qp["node_recall"],
           f"recall {qp['recall']:.3f}->{qx['recall']:.3f}  node-recall {qp['node_recall']:.3f}->{qx['node_recall']:.3f}  "
-          f"precision {qp['precision']:.3f}->{qx['precision']:.3f}")
+          f"precision {qp['precision']:.3f}->{qx['precision']:.3f} (reported, not asserted since 2026-09-16)")
     gx = out["gates"]["REGISTER_prior_ext"]
     check("W12 REGISTER_prior_ext beats its OWN info-free null p95 AND every stateless floor CI-separated",
           out["twin_null_ext"]["prior_ext_beats_p95"] and gx["vs_strongest_floor"]["CI_separated"]

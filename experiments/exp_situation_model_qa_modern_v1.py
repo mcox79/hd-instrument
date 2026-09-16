@@ -2690,12 +2690,19 @@ def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True
     _rd = caps.get("reader_docs", 24 if run_new_arms else 2)
     _rud = caps.get("reader_ud", 600 if run_new_arms else 60)
     _rwic = caps.get("reader_wic", 60 if run_new_arms else 6)
+    where_is_rows = None
+    where_is_detail = None
     if reader_driven:
         try:
             import experiments.exp_board_rows_on_the_reader_v1 as _RDR
             _r = _RDR.run(gum_docs=(None if _rd in (0, None) else _rd), ud_cap=_rud, wic_cap=_rwic,
                           n_boot=min(2000, max(300, n_boot)), do_rebuilt=False, write_metrics=False)
             reader_rows = _r["per_dimension_reader_driven"]
+            # 2026-09-16 (strategy, pri 137 landing): the rows cell publishes the WHERE-IS row (pri 137) on its own key,
+            # outside the seven-row aggregate; copy it into the board metrics so the product carries it (it was
+            # dropped here on board pri137a, which is why that board shows no where-is row).
+            where_is_rows = _r.get("per_dimension_where_is")
+            where_is_detail = _r.get("where_is_detail")
             reader_detail = {"aggregate": _r["aggregate_reader_driven"], "caps": _r["caps"],
                              "counted_reader_calls": _r.get("counted_reader_calls_reader_driven_rows"),
                              "gum_detail": _r.get("gum_detail"), "ud_detail": _r.get("ud_detail"),
@@ -2779,6 +2786,8 @@ def run(caps=None, n_boot=1000, seed=SEED, run_new_arms=True, write_metrics=True
                 "cross_consumer_coref": detail["cross_consumer_upstream"]}},
         "per_dimension_reader_driven": reader_rows,
         "aggregate_reader_driven": reader_agg,
+        "per_dimension_where_is": where_is_rows,
+        "where_is_detail": where_is_detail,
         "reader_driven_detail": reader_detail,
         "reader_caps": reader_caps,
         "rebuilt_vs_reader": rebuilt_vs_reader,

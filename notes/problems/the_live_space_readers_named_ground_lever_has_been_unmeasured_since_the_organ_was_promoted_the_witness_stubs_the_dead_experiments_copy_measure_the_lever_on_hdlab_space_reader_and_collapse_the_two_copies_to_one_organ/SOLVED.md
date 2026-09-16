@@ -521,3 +521,5 @@ notes/problems/<slug>/SOLVED.md, notes/problems/<slug>/space_ground_lever_patch.
 --check clean; hdlab/situation_reader.py, experiments/_space_reader.py and the two witnesses).
 Reverify: .venv/Scripts/python.exe experiments/exp_space_ground_lever_live_v1.py --self-test
 ```
+
+INTEGRATED_BY_STRATEGY 2026-09-16 12:14 local -- DONE by strategy: the 4-file diff APPLIED after pri 136; reverify on the landed tree: cell --as-landed, W1-W5, test_track_space_landing_organ 960/960, test_space_where_is_end_to_end_organ; the product board (pri137a byte-identical on every row; the where-is row 0.4255 vs 0.1915 CI-sep standalone, wired into the board cell at landing; W11 re-pinned to the claim).

@@ -729,6 +729,66 @@ def _person_cluster(cluster_mentions: List[dict]) -> bool:
     return False
 
 
+SPACE_ONE_FILE_ENV = "HDLAB_SPACE_ONE_FILE"      # "0" -> the pre-2026-09-16 (fragmented) space hand-off
+
+
+def unify_entity_files(mentions, resolutions):
+    """ONE FILE PER REFERENT in a mention stream, using the reader's OWN pronoun resolutions. Returns
+    (new_mentions, n_links); the input list and its dicts are NOT mutated, so every other dimension keeps the
+    stream it was given byte-for-byte.
+
+    WHY THE SPATIAL DIMENSION NEEDS THIS (pri 137). A location is bound to an ENTITY FILE, not to a word: the
+    situation model's SPACE index is per-entity state, updated by motion events and persisting between them (Zwaan
+    & Radvansky 1998), and binding an agent's identity to a place is the hippocampal operation (Heim 1982 file
+    change semantics -- a pronoun UPDATES the antecedent's card, it never opens a new one). The reader resolves
+    every pronoun to a file in `_read_entities`, which runs BEFORE `_read_space`, and the hand-off then passed the
+    RAW stream on, in which each pronoun still carried its own file id.
+
+    MEASURED (2026-09-16, pri 137, `experiments/exp_space_ground_lever_live_v1.py`; 8 modern where-is passages,
+    n=47 items, the reader's OWN file queried by alignment): the PRODUCT reader spread one protagonist over 6-14
+    files per passage and scored where-is 0.0426 -- the named-ground lever was worth -0.0426 there, because a
+    correctly bound named place landed on a throwaway card. With the resolutions applied the same reader scores
+    0.4043 (+0.3617, item-paired CI[+0.2340,+0.5106]), the lever becomes worth +0.2128 (CI[+0.0851,+0.3617]), the
+    RANDOM-merge twin (the same number of unions, target chosen at random) scores 0.2553 and LOSES CI-separated,
+    and the historical-weak reader returns to the 0.4255 its own standalone driver measures.
+
+    THE UNION TARGET IS THE ANTECEDENT'S FILE, so the root of every merged set is the card the reader itself named
+    and `CorefResolution.resolved_entity` stays a valid `sm.locations` track key. The (sent_idx, pronoun-head)
+    fall-back keying is the convention `_read_world_state` already uses to join resolutions to a stream (its
+    `he_she_cluster` map): `target_wpos` is filled only on the discovered-pronoun path, and the fall-back never
+    crosses a sentence boundary. NO gold is read: `resolved_entity` is the reader's own online file id."""
+    par = {}
+
+    def find(x):
+        par.setdefault(x, x)
+        while par[x] != x:
+            par[x] = par[par[x]]
+            x = par[x]
+        return x
+
+    by_pos = {(m["sent_idx"], m["wtok_start"]): m for m in mentions}
+    by_head = {}
+    for m in mentions:
+        if m.get("is_pronoun"):
+            by_head.setdefault((m["sent_idx"], str(m["head"]).lower()), []).append(m)
+    n_links = 0
+    for r in (resolutions or []):
+        rc = getattr(r, "resolved_entity", None)
+        if rc is None:
+            rc = getattr(r, "resolved_cluster", None)
+        if rc is None:
+            continue                  # an OPEN referent stays open: an unresolved pronoun keeps its own card
+        pm = by_pos.get((r.sent_idx, int(getattr(r, "target_wpos", -1) or -1)))
+        cands = ([pm] if (pm is not None and pm.get("is_pronoun"))
+                 else by_head.get((r.sent_idx, str(getattr(r, "pronoun", "") or "").lower()), []))
+        for m in cands:
+            a, b = find(m["cluster"]), find(rc)
+            if a != b:
+                par[a] = b            # the pronoun's file is filed UNDER the antecedent's
+            n_links += 1
+    return [dict(m, cluster=find(m["cluster"])) for m in mentions], n_links
+
+
 def _build_entities(mentions: List[dict]) -> List[TrackedEntity]:
     by_cluster: Dict[int, List[dict]] = {}
     for m in mentions:
@@ -2108,6 +2168,12 @@ class SituationReader:
                 correct=bool(r["correct"]), attempted=bool(r["attempted"]),
                 bucket=r["bucket"], sent_dist=r["sent_dist"],
                 resolved_head=str(r.get("resolved_head") or ""),
+                # THE TARGET'S OWN POSITION, ON THIS PATH TOO (pri 137, 2026-09-16). `target_wpos` was
+                # filled only on the discovered-pronoun path above, so every consumer that joins a
+                # resolution back to a mention had to fall back to (sent_idx, pronoun-head) matching --
+                # which cannot separate two occurrences of the same pronoun in one sentence. The target IS
+                # a mention dict here (`build_pronoun_targets` puts it there), so the position is free.
+                target_wpos=int(tgt["target"].get("wtok_start", -1)),
                 resolved_entity=r["resolved_cluster"], scoreable=True))
         return resolutions, recs_ec, recs_ss
 
@@ -2913,7 +2979,7 @@ class SituationReader:
         return [{"lemma": lem, "chrono_rank": i, "text_rank": reg.text_rank.get(lem)}
                 for i, lem in enumerate(reg.order)]
 
-    def _read_space(self, conll_path, mentions=None):
+    def _read_space(self, conll_path, mentions=None, resolutions=None):
         """Opt-in SPACE dimension (default-off; wired 2026-08-31 from the validated
         experiments/_space_reader.py). Returns a hdlab.location_register.LocationRegister -- per-entity
         location as STATE, updated ONLY by motion events and PERSISTING between (Zwaan & Radvansky
@@ -2931,6 +2997,18 @@ class SituationReader:
         # sentence a second time (~half the read's parser cost). Byte-identical.
         # pri 125: hand the SPACE dimension the reader's OWN discovered mention stream instead of letting it
         # re-parse the coref ANNOTATION COLUMN out of the input file (0 mentions / 0 pronouns on real text).
+        # pri 137 (2026-09-16): ONE FILE PER REFERENT before the stream crosses this hand-off. A place is bound to
+        # an entity FILE (Zwaan & Radvansky SPACE index; Heim file change), and the raw stream gives every pronoun
+        # its own file id -- so the reader RESOLVED those pronouns a few lines above and then dropped the answer
+        # here, splitting one person over 6-14 tracks and throwing the named-ground lever's output away with it.
+        # Default ON (no-more-default-off); HDLAB_SPACE_ONE_FILE=0 restores the fragmented hand-off, for
+        # measurement only.
+        if mentions is not None and os.environ.get(SPACE_ONE_FILE_ENV, "1") != "0":
+            mentions, self._space_one_file_links = unify_entity_files(mentions, resolutions)
+        # the stream the SPACE dimension actually received: the ONLY way a consumer (or a check) can
+        # align a question to the entity FILE this read used, now that the file ids are the reader's own
+        # and no longer the mention stream's raw ones. Read-only bookkeeping; no decision consults it.
+        self._space_stream = mentions
         reg, _events, _names, _sents, _persons = _SP.read_locations_in_substrate(
             conll_path, gaz=self.gaz, mode="prior_ext", parse_provider=self._space_parse_provider,
             mentions=mentions)
@@ -5001,7 +5079,8 @@ class SituationReader:
         if self.timeline_register:
             sm.timeline_order = self._read_timeline_register(sents)
         if self.track_space:
-            sm.locations = self._read_space(conll_path, mentions=role_mentions)
+            sm.locations = self._read_space(conll_path, mentions=role_mentions,
+                                            resolutions=getattr(sm, "coref_resolutions", None))
         if self.causation_typed:
             # opt-in TYPED causation read (default-off; IN-SUBSTRATE parse + experiment-side literalness gate).
             from hdlab.causation_typing import read_typed_causation

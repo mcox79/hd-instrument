@@ -11,8 +11,10 @@ where_is. The disk REFUTES the premise and relocates the lever. This witness pin
   W3 ROBUSTNESS (real 19c LitBank gold, n>=500): conservative ground-binding is NET-POSITIVE over the current
      chain (no regression), beats the floor CI-separated and the twin, precision does not regress. (The AGGRESSIVE
      variant regresses on 19c -- the located wall; only the high-precision subset is robust.)
-  W4 LIVE READER: driven end-to-end through SituationReader(track_space=True).read(), the wired reader beats the
-     stock reader and recovers named grounds the stock reader returns <scene>/<away> for.
+  W4 LIVE READER (REPINNED 2026-09-16, pri 137): driven end-to-end through SituationReader(track_space=True)
+     .read(), switching the lever off IN THE MODULE THE READER RUNS (hdlab.space_reader -- not the promoted-away
+     experiments copy) LOWERS where-is, and the shuffled-ground twin loses. The old stub target made ON == OFF by
+     construction; a structural assert now FAILS instead of passing vacuously if that recurs.
 
 Glass-box, NO LLM, deterministic, ASCII, CPU-only.
 """
@@ -75,12 +77,23 @@ def test_w3_named_ground_binding_litbank_robust():
 
 
 def test_w4_live_reader_end_to_end():
-    """POST-LANDING (2026-09-06): the conservative named-ground wire is now LIVE BY DEFAULT
-    (read_locations_in_substrate passes ground_bind=ext in prior_ext, the mode the reader uses). Confirm the LIVE
-    reader's where_is with the wire ON beats it forced OFF, reproducing the +0.170 live gain. [The old
-    stock-vs-monkeypatch framing became premise-stale at landing -- both arms would now bind.]"""
+    """POST-PROMOTION REPIN (pri 137, 2026-09-16): the lever is switched off IN THE MODULE THE READER RUNS.
+
+    Until today this stubbed `experiments._space_reader.ground_bind_events` -- a function in the COPY the reader
+    stopped running at the 2026-09-09 promotion (`hdlab/situation_reader.py::_read_space` imports
+    `hdlab.space_reader`). Both arms therefore ran the lever ON and the check could not fail for the reason it was
+    written: ON == OFF, 0.3830 both arms, measured 2026-09-16. Two CLAIMS are pinned here, both direction-only:
+      (1) STRUCTURAL -- the reader's space dimension runs the module this check stubs, so the check cannot silently
+          repeat the defect at the next promotion (`reader._space_mod is SP`);
+      (2) DIRECTIONAL -- forcing the conservative named-ground pass OFF LOWERS the live reader's where-is on the
+          modern gold, through the FULL read (SituationReader...read(cp).locations), and the shuffled-ground
+          info-free TWIN also loses to the landed arm.
+    For orientation only (2026-09-16, pri 137, n=47 items over the 8 modern passages, historical-weak reader
+    config): OFF 0.1915 -> ON 0.3830 (+0.1915, item-paired CI[+0.0213,+0.3404]); shuffled-ground twin 0.1277;
+    stateless last-mention place floor 0.1489. Those values are NOT asserted -- the full measurement, with the
+    product-reader arms and the entity-file hand-off, is `experiments/exp_space_ground_lever_live_v1.py`."""
     import numpy as np
-    import experiments._space_reader as SP
+    from hdlab import space_reader as SP          # THE module hdlab/situation_reader.py::_read_space imports
     from hdlab.situation_reader import SituationReader
     from hdlab.coref import parse_litbank_conll
     from experiments.exp_space_where_is_end_to_end_v1 import gold_at, correct
@@ -88,28 +101,69 @@ def test_w4_live_reader_end_to_end():
     _ORIG = SP.ground_bind_events
     cdir = os.path.join(_REPO, "data", "test_space_ground_binding", "conll"); os.makedirs(cdir, exist_ok=True)
 
-    def measure(on):
-        SP.ground_bind_events = _ORIG if on else (lambda *a, **k: [])
-        accs = []
+    # ASK THE READER BY ITS OWN FILE, NOT BY A GOLD CLUSTER ID (the pri 131 identity contract). The register's
+    # track keys are the reader's own entity files, and pri 137's one-file hand-off changes WHICH file the
+    # protagonist is on -- so a question keyed on the gold cluster id "0" answers None after that landing and this
+    # check would read 0.0 for reasons that have nothing to do with the lever. The question is aligned to the
+    # reader's file by MAJORITY over the answer key's own mention positions, and the alignment is computed AFTER
+    # every decision (gold ids influence WHICH TRACK IS SCORED, never a prediction). Capturing the stream needs a
+    # pass-through wrapper on _read_space; it changes no behaviour (it forwards every argument untouched).
+    _orig_rs = SituationReader._read_space
+
+    def _capture(slf, conll_path, mentions=None, **kw):
+        slf._w4_stream = mentions
+        return _orig_rs(slf, conll_path, mentions=mentions, **kw)
+
+    def measure(mode):
+        """mode: 'on' (as landed) | 'off' (lever switched off) | 'twin' (grounds scrambled, firing kept)."""
+        if mode == "on":
+            SP.ground_bind_events = _ORIG
+        elif mode == "off":
+            SP.ground_bind_events = (lambda *a, **k: [])
+        else:
+            SP.ground_bind_events = (lambda *a, **k: _ORIG(*a, **dict(k, shuffle_rng=np.random.default_rng(7))))
+        SituationReader._read_space = _capture
+        accs, mods = [], []
         try:
             for p in MOD.PASSAGES:
                 cp = MOD.write_conll(p, cdir); rows = sorted(MOD.build_gold(p), key=lambda r: r["t"])
                 mentions, _ = parse_litbank_conll(cp)
-                reg = SituationReader.all_capabilities_off(track_space=True).read(cp).locations
+                reader = SituationReader.all_capabilities_off(track_space=True)
+                reg = reader.read(cp).locations
+                mods.append(reader._space_mod)
+                stream = {(m["sent_idx"], m["wtok_start"]): m["cluster"]
+                          for m in (getattr(reader, "_space_stream", None)
+                                    or getattr(reader, "_w4_stream", None) or [])}
+                cand = {}
+                for m in mentions:
+                    if m["cluster"] == 0:
+                        c = stream.get((m["sent_idx"], m["wtok_start"]))
+                        if c is not None:
+                            cand[c] = cand.get(c, 0) + 1
+                key = str(max(cand.items(), key=lambda kv: (kv[1], -abs(kv[0])))[0]) if cand else "0"
                 f, l = rows[0]["t"], rows[-1]["t"] + 20
                 for t in sorted({m["sent_idx"] for m in mentions if m["cluster"] == 0 and f <= m["sent_idx"] <= l}):
                     g = gold_at(rows, t)
                     if g is not None:
-                        accs.append(correct(reg.where_is("0", t), g[0]))
+                        accs.append(correct(reg.where_is(key, t), g[0]))
         finally:
             SP.ground_bind_events = _ORIG
-        return (float(np.mean(accs)) if accs else 0.0), len(accs)
+            SituationReader._read_space = _orig_rs
+        return (float(np.mean(accs)) if accs else 0.0), len(accs), mods
 
-    on, n = measure(True)
-    off, _ = measure(False)
-    assert on > off, (on, off)
-    print("[W4] LANDED live read() where_is (modern, n=%d): ground_bind OFF %.4f -> ON %.4f (+%.4f)"
-          % (n, off, on, on - off))
+    on, n, mods = measure("on")
+    # (1) THE STRUCTURAL CLAIM: the stub target IS the module the live reader runs.
+    assert mods and all(m is SP for m in mods),         ("the reader's space dimension does not run the module this check stubs -- REPIN the stub; this is the "
+         "2026-09-09 promotion defect (pri 137) recurring",
+         [getattr(m, "__name__", m) for m in mods])
+    off, _, _ = measure("off")
+    twin, _, _ = measure("twin")
+    # (2) THE DIRECTIONAL CLAIM: switching the lever off must LOWER where-is; the info-free twin must lose.
+    assert on > off, ("forcing the named-ground pass OFF must lower the live reader's where-is", on, off)
+    assert on > twin, ("the shuffled-ground info-free twin must lose to the landed arm", on, twin)
+    print("[W4] LANDED live read() where_is (modern, n=%d): ground_bind OFF %.4f -> ON %.4f (+%.4f); "
+          "shuffled-ground twin %.4f; stub target %s (the module the reader runs)"
+          % (n, off, on, on - off, twin, SP.__name__))
 
 
 def test_w5_additive_safety_no_other_consumer_regresses():
