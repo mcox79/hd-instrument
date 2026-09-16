@@ -17,10 +17,16 @@ TEXT (no annotation column except where the check is about scoring):
   W8  the goal canonicaliser returns the SELECTED identity, not whatever occupies id -1
   W9  the world-state possession holder is the entity the pick returned (the sign test dropped it)
 
-The organ under test is the PROPOSED change, which is not in hdlab/ yet: the witness materialises
-`notes/problems/<slug>/pick_identity_contract_patch.diff` into the cell's own data directory and loads it,
-exactly as the cell does.  Once the diff is LANDED this file still passes unchanged (the materialised copy is
-then byte-identical to hdlab/).
+IT RUNS GREEN ON THE TREE AS LANDED AND ON AN UNPATCHED TREE, and it tells them apart from the LIVE
+modules (CorefResolution.antecedent_span / resolved_entity / abstain_reason / scoreable, coref.entity_key,
+the `coarg` parameter, the `pronoun_principle_b` flag):
+  * LANDED  -> no materialize, no monkeypatch: every arm IS hdlab/ as it ships, and the four checks that were
+               can-fire controls on the shipped organ become landed-state INVARIANTS (marked "LANDED TREE"),
+               because the shipped code no longer exists on that tree to be run against;
+  * UNPATCHED -> the witness materialises `notes/problems/<slug>/pick_identity_contract_patch.diff` into the
+               cell's own data directory, loads it, and restores the shipped organ by rebinding, so the
+               can-fire halves fire.
+Either way it is 14 checks and any failure is a real one.
 
 Run: .venv/Scripts/python.exe verification/test_pronoun_pick_identity_contract.py
 """

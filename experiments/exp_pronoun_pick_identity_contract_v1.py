@@ -91,9 +91,46 @@ PATCHED_DEFAULT = os.path.join(OUT_DIR, "patched")
 PATCH_FILES = ("coref.py", "situation_reader.py", "goal_register.py")
 
 
+_LANDED = None
+
+
+def landed():
+    """True when the contract is ALREADY in the LIVE modules -- i.e. the diff has been integrated.  Then the
+    cell must NOT materialise or monkeypatch anything: every arm is the landed organ itself (pri 125/129 made
+    the same fix).  Detected from the live objects, never from a file or a git state."""
+    global _LANDED
+    if _LANDED is None:
+        try:
+            import dataclasses
+            import inspect
+            import hdlab.coref as CO
+            import hdlab.situation_reader as SR
+            f = {x.name for x in dataclasses.fields(SR.CorefResolution)}
+            _LANDED = bool(
+                {"resolved_entity", "antecedent_span", "candidates", "abstain_reason", "scoreable"} <= f
+                and hasattr(CO, "entity_key") and hasattr(CO, "mention_span")
+                and "coarg" in inspect.signature(CO.graded_pronoun_resolve).parameters
+                and hasattr(SR.SituationReader, "_coargument_positions")
+                and "pronoun_principle_b" in inspect.signature(SR.SituationReader.__init__).parameters)
+        except Exception:
+            _LANDED = False
+    return _LANDED
+
+
+def head_available():
+    """Is the SHIPPED (pre-diff) organ reachable in this process?  It is not on a LANDED tree -- the code no
+    longer exists there -- so the can-fire halves of the witnesses become landed-state invariants instead."""
+    return bool(_HEAD)
+
+
 def materialize(patched_dir=PATCHED_DEFAULT, diff_path=DIFF, verbose=False):
     """Copy the three hdlab files the diff touches into `patched_dir` and APPLY the diff to the copies, so
     what this cell loads is EXACTLY the proposed landed form (never hdlab/ itself)."""
+    if landed():
+        if verbose:
+            print("LANDED TREE: the contract is already in the live modules -- nothing materialised, "
+                  "every arm runs against hdlab/ as it ships")
+        return patched_dir
     dst = os.path.join(patched_dir, "hdlab")
     os.makedirs(dst, exist_ok=True)
     for f in PATCH_FILES:
@@ -163,6 +200,15 @@ def load_both(patched_dir=PATCHED_DEFAULT, verbose=False):
     if _PATCHED:
         return
     m = _mods()
+    if landed():
+        # the live modules ARE the proposed organ; the shipped organ is not present on this tree, so there is
+        # no `head` arm to restore and nothing to exec.
+        _PATCHED = _snapshot()
+        _HEAD = {}
+        if verbose:
+            print("LANDED TREE: arms run against the live modules (no materialize, no monkeypatch); the "
+                  "shipped-organ can-fire halves are replaced by landed-state invariants")
+        return
     _HEAD = _snapshot()
     for f in PATCH_FILES:
         mod = m["CO"] if f == "coref.py" else (m["GR"] if f == "goal_register.py" else m["SR"])
@@ -189,6 +235,8 @@ class arm(object):
 
     def __enter__(self):
         import hdlab.situation_reader as SR
+        if self.name == "head" and not head_available():
+            raise RuntimeError("the shipped organ is not present on this (landed) tree -- no `head` arm")
         _install(_HEAD if self.name == "head" else _PATCHED)
         self._saved_init = None
         if self.name == "entity_pb":
@@ -446,6 +494,10 @@ def row_pronouns(n_docs=28, arms=("head", "entity", "entity_pb", "twin"), verbos
     if verbose:
         print("GUM: %d test docs, using %d; %d fixed questions (text-only input; gold = the answer key)"
               % (len(test), len(prepared), sum(len(q) for _d, _p, q in prepared)))
+    if not head_available():
+        arms = tuple(a for a in arms if a != "head")
+        print("  NOTE: landed tree -- the `head` (shipped-organ) arm is not available; the floor and the "
+              "info-free twin carry the comparison")
     per = {}
     for a in arms:
         hc_rows, sp_rows, cnt = [], [], defaultdict(int)
@@ -821,7 +873,7 @@ def row_consumers(n_docs=6, verbose=True):
     paths = [P.gum_textonly_conll(d, os.path.join(scratch, str(d.docid).replace(" ", "_") + ".conll"))
              for d in docs]
     out = {"n_docs": len(paths), "arms": {}}
-    for a in ("head", "entity_pb"):
+    for a in (("head", "entity_pb") if head_available() else ("entity_pb",)):
         c = defaultdict(int)
         with arm(a):
             for pth in paths:
@@ -866,7 +918,7 @@ def row_board_coref(n_docs=4, verbose=True):
     step = max(1, len(test) // max(1, n_docs))
     docs = [test[i] for i in range(0, len(test), step)][:n_docs]
     out = {"arms": {}}
-    for a in ("head", "entity_pb"):
+    for a in (("head", "entity_pb") if head_available() else ("entity_pb",)):
         tot = defaultdict(lambda: [0, 0])
         diag = defaultdict(int)
         with arm(a):
@@ -899,7 +951,7 @@ def row_noregress(n_docs=12, verbose=True):
     docs = P.load_ud_docs()[:n_docs]
     out = {"n_docs": len(docs), "arms": {}}
     rows = {}
-    for a in ("head", "entity_pb"):
+    for a in (("head", "entity_pb") if head_available() else ("entity_pb",)):
         per = {"agent": [], "patient": [], "state": []}
         with arm(a):
             for _docid, gold in docs:
@@ -916,7 +968,8 @@ def row_noregress(n_docs=12, verbose=True):
         out["arms"][a] = {k: round(acc(v), 4) if acc(v) is not None else None for k, v in per.items()}
         if verbose:
             print("  %-10s %s" % (a, json.dumps(out["arms"][a], sort_keys=True)))
-    out["contrasts"] = {k: paired_boot(rows["head"][k], rows["entity_pb"][k]) for k in ("agent", "patient", "state")}
+    out["contrasts"] = ({k: paired_boot(rows["head"][k], rows["entity_pb"][k])
+                         for k in ("agent", "patient", "state")} if "head" in rows else {})
     if verbose:
         for k, v in out["contrasts"].items():
             if v:
@@ -973,17 +1026,30 @@ def witnesses(verbose=True):
                            "answers with a live entity id (%r), not a head string" % (len(doctors),
                                                                                      getattr(r, "resolved_entity", None))))
         # and the head-keyed organ cannot tell them apart: ONE candidate key for both
-        with arm("head"):
-            rd2 = SituationReader()
-            p = write_conll(TWO_DOCTORS)
-            sm2 = rd2.read(p)
-            os.unlink(p)
-            r2 = _rec_by_form(sm2, "she")
-        w1b = (r2 is not None and getattr(r2, "resolved_entity", None) is None
-               and r2.resolved_cluster is None)
-        checks.append((w1b, "[W1b] the SHIPPED organ returns no entity at all for the same passage "
-                            "(resolved_entity=%r, resolved_cluster=%r) -- a head string is its whole answer"
-                       % (getattr(r2, "resolved_entity", None), getattr(r2, "resolved_cluster", None))))
+        if head_available():
+            with arm("head"):
+                rd2 = SituationReader()
+                p = write_conll(TWO_DOCTORS)
+                sm2 = rd2.read(p)
+                os.unlink(p)
+                r2 = _rec_by_form(sm2, "she")
+            w1b = (r2 is not None and getattr(r2, "resolved_entity", None) is None
+                   and r2.resolved_cluster is None)
+            checks.append((w1b, "[W1b] the SHIPPED organ returns no entity at all for the same passage "
+                                "(resolved_entity=%r, resolved_cluster=%r) -- a head string is its whole "
+                                "answer" % (getattr(r2, "resolved_entity", None),
+                                            getattr(r2, "resolved_cluster", None))))
+        else:
+            import dataclasses as _dc
+            import hdlab.coref as _CO
+            import hdlab.situation_reader as _SRm
+            fl = {x.name for x in _dc.fields(_SRm.CorefResolution)}
+            w1b = ({"resolved_entity", "antecedent_span", "candidates", "abstain_reason", "scoreable"} <= fl
+                   and hasattr(_CO, "entity_key") and hasattr(_CO, "mention_span"))
+            checks.append((w1b, "[W1b] LANDED TREE -- the shipped head-string organ is no longer on disk, so "
+                                "the CONTRACT is the check: CorefResolution carries the entity, the "
+                                "antecedent span, the candidate set and the abstention reason, and the "
+                                "identity basis is coref.entity_key (not a head string)"))
 
     # W2 -- A NAME AND ITS ALIAS ARE ONE IDENTITY, not two competing candidates (D05 acceptance 2).
     with arm("entity"):
@@ -1029,12 +1095,31 @@ def witnesses(verbose=True):
                            "consistent: discovered %d = attempted %d + abstained %d, scoreable %d"
                        % (sm.n_pronouns_discovered, sm.n_coref_attempted, sm.n_coref_abstained,
                           sm.n_coref_scoreable)))
-    with arm("head"):
-        sm_h = read_text(TWO_DOCTORS)
-        w4b = (sm_h.coref_acc == 0.0)
-        checks.append((w4b, "[W4b] CAN-FIRE: the shipped organ reports coref_acc=%r on the same "
-                            "annotation-free text -- 'it got them all wrong' where there is nothing to score"
-                       % (sm_h.coref_acc,)))
+    if head_available():
+        with arm("head"):
+            sm_h = read_text(TWO_DOCTORS)
+            w4b = (sm_h.coref_acc == 0.0)
+            checks.append((w4b, "[W4b] CAN-FIRE: the shipped organ reports coref_acc=%r on the same "
+                                "annotation-free text -- 'it got them all wrong' where there is nothing to "
+                                "score" % (sm_h.coref_acc,)))
+    else:
+        # LANDED equivalent, and a STRICTLY STRONGER check than the can-fire it replaces: scoreability is a
+        # property of THIS input, so ONE reader reading an annotated document and then an annotation-free one
+        # must report a number and then None (the shipped organ never reset it).
+        with arm("entity"):
+            rd = SituationReader()
+            p1 = write_conll(TWO_DOCTORS, {(0, 0): "(7)", (3, 0): "(7)"})
+            sm_a = rd.read(p1)
+            os.unlink(p1)
+            p2 = write_conll(TWO_DOCTORS)
+            sm_b = rd.read(p2)
+            os.unlink(p2)
+        w4b = (sm_b.coref_acc is None and sm_b.n_coref_scoreable == 0
+               and sm_a.n_coref_scoreable >= 1)
+        checks.append((w4b, "[W4b] LANDED TREE -- scoreability is RESET PER READ on one reader: the "
+                            "annotated document reports %d scoreable item(s) and coref_acc=%r, the "
+                            "annotation-free one that follows it reports 0 and None (never 0.0)"
+                       % (sm_a.n_coref_scoreable, sm_a.coref_acc)))
 
     # W5 -- A WRONG SAME-HEAD ANTECEDENT SCORES WRONG (D06 acceptance 2).  The answer key links `she` to the
     #       FIRST doctor; the organ is made to pick the SECOND doctor's mention, which shares the head.
@@ -1053,18 +1138,30 @@ def witnesses(verbose=True):
                        % (span, getattr(r, "correct", None), picked_second)))
         # the head-membership scorer would have credited it: the head `doctor` occurs in the right cluster too
         g = getattr(sm, "_gold_align", None)
-    with arm("head"):
-        rd = SituationReader()
-        p = write_conll(sents, ann)
-        sm_h = rd.read(p)
-        os.unlink(p)
-        r_h = _rec_by_form(sm_h, "she")
-        gal = getattr(rd, "_gold_align", {}) or {}
-        head_credit = bool(r_h and (r_h.resolved_head or "").lower() in (gal.get("head") or {}))
-        checks.append((head_credit or True,
-                       "[W5b] the shipped scorer asks only whether the picked HEAD (%r) names the gold "
-                       "cluster ANYWHERE in the document (head map hit=%s, correct=%r)"
-                       % (getattr(r_h, "resolved_head", None), head_credit, getattr(r_h, "correct", None))))
+    if head_available():
+        with arm("head"):
+            rd = SituationReader()
+            p = write_conll(sents, ann)
+            sm_h = rd.read(p)
+            os.unlink(p)
+            r_h = _rec_by_form(sm_h, "she")
+            gal = getattr(rd, "_gold_align", {}) or {}
+            head_credit = bool(r_h and (r_h.resolved_head or "").lower() in (gal.get("head") or {}))
+            checks.append((head_credit or True,
+                           "[W5b] the shipped scorer asks only whether the picked HEAD (%r) names the gold "
+                           "cluster ANYWHERE in the document (head map hit=%s, correct=%r)"
+                           % (getattr(r_h, "resolved_head", None), head_credit,
+                              getattr(r_h, "correct", None))))
+    else:
+        # LANDED equivalent: span alignment is only possible if EVERY attempted record carries a span, so
+        # that is the invariant to hold (the shipped organ carried none, which is why it scored by head).
+        with arm("entity"):
+            sm_s = read_text(sents, ann)
+        att = [r for r in sm_s.coref_resolutions if r.attempted]
+        w5b = bool(att) and all(getattr(r, "antecedent_span", None) is not None for r in att)
+        checks.append((w5b, "[W5b] LANDED TREE -- every attempted record carries an ANTECEDENT SPAN (%d of "
+                            "%d), so the scorer can always align by position instead of by head membership"
+                       % (sum(1 for r in att if getattr(r, "antecedent_span", None) is not None), len(att))))
 
     # W6 -- THE SINGLE-SENTENCE COMPARATOR IS EXECUTED AND CAN DISAGREE (D06 acceptance 3).
     with arm("entity"):
@@ -1121,25 +1218,43 @@ def witnesses(verbose=True):
         w8 = (got == want)
         checks.append((w8, "[W8] the goal canonicaliser returns the SELECTED identity (%r), not the entity "
                            "that happens to occupy id -1 (%r)" % (got, first)))
-    with arm("head"):
-        rd = SituationReader()
-        p = write_conll(TWO_DOCTORS)
-        sm_h = rd.read(p)
-        os.unlink(p)
-        from hdlab.goal_register import make_canonicalizer as mc_h
-        canon_h, _nm_h = mc_h(sm_h)
-        r_h = _rec_by_form(sm_h, "she")
-        got_h = canon_h("she", r_h.sent_idx) if r_h is not None else None
-        checks.append((getattr(r_h, "resolved_entity", None) is None,
-                       "[W8b] the shipped organ reaches the goal register only through a HEAD STRING "
-                       "(strategy's 2026-09-15 stopgap: canon=%r) -- the record carries NO entity at all, "
-                       "so two files sharing a head are one owner" % (got_h,)))
+    if head_available():
+        with arm("head"):
+            rd = SituationReader()
+            p = write_conll(TWO_DOCTORS)
+            sm_h = rd.read(p)
+            os.unlink(p)
+            from hdlab.goal_register import make_canonicalizer as mc_h
+            canon_h, _nm_h = mc_h(sm_h)
+            r_h = _rec_by_form(sm_h, "she")
+            got_h = canon_h("she", r_h.sent_idx) if r_h is not None else None
+            checks.append((getattr(r_h, "resolved_entity", None) is None,
+                           "[W8b] the shipped organ reaches the goal register only through a HEAD STRING "
+                           "(strategy's 2026-09-15 stopgap: canon=%r) -- the record carries NO entity at "
+                           "all, so two files sharing a head are one owner" % (got_h,)))
+    else:
+        # LANDED equivalent: the owner is looked up by an id that must NAME A FILE THIS READ HAS, and the
+        # unresolved value must canonicalise nothing (the collision the sentinel used to cause).
+        with arm("entity"):
+            rd = SituationReader()
+            p = write_conll(TWO_DOCTORS)
+            sm_e = rd.read(p)
+            os.unlink(p)
+        from hdlab.goal_register import _named_clusters as _nc
+        ids = {e.cluster for e in sm_e.entities}
+        att = [r for r in sm_e.coref_resolutions if r.attempted]
+        w8b = (bool(att) and all(r.resolved_entity in ids for r in att)
+               and _nc(sm_e).get(None) is None)
+        checks.append((w8b, "[W8b] LANDED TREE -- every attempted record's identity NAMES A FILE THIS READ "
+                            "HAS (%d of %d in sm.entities) and the unresolved value canonicalises nothing, "
+                            "so no sentinel can bind an owner"
+                       % (sum(1 for r in att if r.resolved_entity in ids), len(att))))
 
     # W9 -- THE WORLD-STATE DENSIFY LINK: an entity-keyed holder is accepted (membership, not sign).
     holder_sents = [["Doctor", "Miller", "examined", "the", "patient", "."],
                     ["She", "will", "take", "the", "clipboard", "."]]
     holders = {}
-    for a in ("entity", "head"):
+    for a in (("entity", "head") if head_available() else ("entity",)):
         with arm(a):
             rd = SituationReader(track_world_state=True, densify_world_state=True)
             p = write_conll(holder_sents)
@@ -1147,12 +1262,13 @@ def witnesses(verbose=True):
             os.unlink(p)
             ws = getattr(sm, "world_state", None)
             holders[a] = ws.holder_of("clipboard") if ws is not None else None
-    w9 = (holders.get("entity") is not None
-          and str(holders.get("entity")).startswith("C")
-          and holders.get("entity") != holders.get("head"))
-    checks.append((w9, "[W9] the possession holder is the ENTITY the pick returned (%r); the shipped organ "
-                       "records NO holder at all (%r) because `rc >= 0` dropped the negative online id and "
-                       "the binder then had nothing to bind" % (holders.get("entity"), holders.get("head"))))
+    w9 = (holders.get("entity") is not None and str(holders.get("entity")).startswith("C")
+          and (holders.get("entity") != holders.get("head") if head_available() else True))
+    checks.append((w9, "[W9] the possession holder is the ENTITY the pick returned (%r)%s -- validity is "
+                       "membership in the read's own entity set, never the sign of the id"
+                   % (holders.get("entity"),
+                      ("; the shipped organ records NO holder at all (%r)" % (holders.get("head"),))
+                      if head_available() else " (landed tree: no shipped arm to contrast)")))
 
     if verbose:
         for ok, msg in checks:
