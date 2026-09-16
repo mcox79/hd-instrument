@@ -198,3 +198,59 @@ in which case the earlier event closes the goal; N such flips on this population
    21 closure candidates) and the exact cause of the only downstream cost this brief incurred.
 4. Then re-run this cell's `--run`: the content channel's decidable share (28.57% today) is the number that
    moves when the entity files improve, and it is the honest instrument for that repair.
+
+---
+
+## 9. WHY THE SIGNAL WAS MAXIMISED HERE (the evaluation the protocol asks for)
+
+The owner's rule of thumb held exactly: **the improvement is large wherever the real mathematical chain was
+cracked all the way to the top, and it stops precisely where a rung above is still handing down a point
+estimate.**
+
+**CRACKED, rung by rung, for the closure signal:**
+- **events -> the goal closure.** The theme, the polarity and the within-sentence position were ALREADY
+  computed by the event rung, in the right shape, on every event. Nothing had to be invented -- the repair is
+  a hand-off, and it is worth +0.4375 CI-sep (content), a constant +0.5000 / 208 of 208 items (order) and
+  268 leaks -> 0 (time).
+- **discourse order.** (sentence, position) is the brain's clause-level reference clock and `pred_idx` is
+  already on every event; the only new thing is the rule that the goal's own infinitive cannot close it.
+- **query time.** The register already carried a per-goal sentence index; once the closure TIME is recorded,
+  bounding every read by t is arithmetic -- and it makes the prediction closure prefix-invariant by identity,
+  not by accuracy.
+- **arc precision.** `patient_conf` was produced by the precision-weight rung, consumed by other readers, and
+  simply not read here; reading it is what turned a false veto into an abstain.
+
+**NOT CRACKED -- and this is exactly where the result stops:**
+- **the entity files hand down an identity with no precision.** One rung, three numbers: 7 of 21 closure
+  candidates blocked on it, 1 of 190 anaphoric theme comparisons decided, and the only downstream cost this
+  brief incurs (2 items on the OCC gold). The false veto that cost 6 items before I repaired it was this rung
+  being trusted as certainty.
+- **the patient rung** leaves 3 of 21 outcomes with no theme at all.
+- **the goal construction itself** states no theme on 5 of 21 -- not a defect, but it caps what a content test
+  can ever adjudicate, which is why the record now SAYS which evidence each closure stands on.
+
+The transmission is cracked to the top; the SOURCES above it are the remaining limit, and each one is
+numbered rather than narrated.
+
+---
+
+## 10. THE PRE-LANDING VERIFIER (the tree shape strategy will land)
+
+`experiments/exp_goal_constraints_v1.py --verify-landed` runs the goal organ's own downstream witnesses in
+separate processes with the PROPOSED modules injected under their real `hdlab` names (the compiled code
+carries the real `hdlab/*.py` `__file__`, so every frontend-asset path resolves exactly as it will after
+landing). Results at submission:
+
+| witness | verdict |
+|---|---|
+| `verification/test_goal_register_constraints_are_binding.py` (this brief's) | **PASS** (2.9s) |
+| `verification/test_goal_register_landing_organ.py` (L1-L6: shipped assets, LitBank byte-identity off vs on, live register) | **PASS** (271.6s) |
+| `verification/test_occ_appraisal_landing.py` | RUNNING at submission (it performs ~15 full LitBank reads; **its L5 is the one assertion this diff intentionally changes -- see section 6**) |
+| `verification/test_tom_chain_landing.py` | queued behind it |
+| `verification/test_goal_hierarchy_landing.py` | queued behind it |
+| `verification/test_forward_projection_landing.py` | queued behind it |
+
+The landing-organ witness passing is the load-bearing one for additivity: it re-reads three LitBank documents
+with `track_goals` OFF and ON through the PROPOSED reader and asserts every other situation-model dimension is
+byte-identical, so the wire stays purely additive under this change. Re-run the full set with the command
+above (it writes `data/exp_goal_constraints_v1/metrics_verify_landed.json`).
