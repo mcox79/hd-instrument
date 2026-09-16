@@ -836,6 +836,52 @@ identical on a one-token mention, so the pre-phrase board row is unchanged.
 
 `git apply --check` CLEAN on all six files; self-test 20/20; witness 22/22.
 
+## 22e. PROBE (C) -- DID I RE-IMPLEMENT AN ORGAN THAT EXISTS? (named, one by one)
+
+| the organ strategy named | does it compute the phrase span? | reused or duplicated |
+|---|---|---|
+| **the attachment arm's spans** | it computes ARCS (`P(head \| dep)` and a tree), **not spans** -- there is no span or projection API on `hdlab/attachment_arm.py`; `predicate_sites` and `arc_scores` are the public surface | **REUSED** through `hdlab.frontend.parser` and the reader's shared per-read parse (`_CachedTagShim.parse_heads`). `np_left_edge` walks the arm's arcs; it does not re-derive them and it does not parse a second time |
+| **the fine-relations arm's `compound` / `flat` / `appos` labels** (pri 134, landed in `graded_role_assigner`) | it LABELS a token's relation to its head; it does not draw a phrase boundary, and its own SOLVED records that 48% of UD `appos` is a token its chunker keeps whole | **NOT used as the boundary, deliberately.** Using its labels would make the boundary depend on a downstream rung and would inherit that 48%. The boundary is drawn from the arcs and the categories, one rung earlier. Its `mention_head_wpos` IS reused (below) |
+| **`graded_role_assigner.mention_head_wpos`** (pri 134) | the head index inside a multi-token mention | **REUSED verbatim** at seven call sites -- five in `situation_reader`, one in `coref`, one in the board scorer. I wrote no second head accessor |
+| **`crosstype_live_adapter._mention_gtok`** (pri 134) | RECOVERS a global span from `sent_idx + wtok_start + span_toks` when the mention carries none | **REUSED, and explicitly NOT re-claimed** (section 6): it is why `_can_build` already succeeds on the shipped stream, so the coverage repair is pri 134's and not mine. My organ makes the real `gtok_*` present so the recovery is no longer needed, but I did not duplicate it |
+| **`hdlab/np_head_reduce.is_np_head`** | reduces an NP span to its HEAD -- the INVERSE computation | **REUSED and fed the real head index**; filed for deletion if it measures inert, because the collapse is what it was compensating for |
+| **`coref.name_content_tokens` / `_np_domain` / `_span_head_is_name`** | decide name-hood over a span, with their own NP-domain boundary | **REUSED.** Note `coref._np_domain` is a *third* notion of an NP edge on disk (after pri 134's chunk and this rung's boundary) -- **that is a genuine duplication ALREADY IN THE TREE**, not one I added, and consolidating the three onto `np_left_edge` is filed as a next step |
+| **`entity_resolver._np_boundary_before`** (pri 136, the v2 cue set) | "does a determiner/punctuation open a new nominal before this head" | **left alone**; it is the same question `np_left_edge` now answers properly, so it is the fourth copy and the same consolidation target |
+
+**WHAT IS GENUINELY NEW: one function, `np_groups`** -- the Right-Hand-Head collapse from a candidate
+content-noun set to one referent per phrase. Nothing on `notes/STRUCTURE_MAP_2026-09-16.md` computes it.
+**WHAT I FOUND DUPLICATED AND DID NOT CREATE: FOUR notions of an NP left edge now exist** (`coref._np_domain`,
+`entity_resolver._np_boundary_before`, pri 134's `_np_chunk_start` as shipped in its own unlanded diff, and
+this rung's `np_left_edge`). This rung's is the only one drawn from the parse; the consolidation is a named
+next step, and it is exactly the owner's "one structure, one organ, many arms".
+
+## 22f. PROBE (D) -- THE NESTED CARDS, WITH THE COUNT AND THE BRAIN'S FORM
+
+**THE COUNT.** On the 12-document entity-set population the Right-Hand-Head collapse absorbs **47 of 448
+items that the shipped stream got RIGHT** (10.5%), plus 34 it had already got wrong -- 81 gold mention heads
+in total land inside a phrase without being its head. Over the whole 12-document mention stream the count is
+**862 gold mention heads absorbed** (`gold_heads_absorbed_into_a_phrase`).
+
+**THE BRAIN'S FORM, and it is not a looser boundary.** Treisman's object files do not nest -- one file per
+perceived object -- but DISCOURSE referents demonstrably do: 'the New York Times' and 'New York' are both
+available antecedents in the same paragraph, and a reader who has read 'the roof of the house' can be asked
+about the house. The two candidate forms:
+
+1. **A card with SUB-CARDS** (one file, an internal structure). Cheap, and wrong for the anaphora: a
+   sub-card has to be retrievable by a pronoun on its own, which means it needs its own activation history
+   and its own ACT-R base level -- at which point it IS a card.
+2. **TWO CARDS LINKED BY A PART-OF / CONTAINMENT RELATION** -- and this is the form the substrate already
+   half has. The bridge's `predication` cue is exactly a typed link between two cards, and the fine-relations
+   arm (pri 134) already emits `compound` / `nmod:poss` / `flat` on the very tokens the collapse absorbs.
+   So the build is: keep the collapse (one phrase is one referent for the ROLE and the merge decision), and
+   ALSO open a subordinate card for an absorbed head whose relation to the surviving head is `nmod:poss` or
+   `compound` with a NAME inside it, linked by containment -- not a second mention stream, a second EDGE on
+   the one stream.
+
+**Why not now:** it changes the mention schema for every consumer a second time, and the honest order is to
+fix the partition first -- an over-merging competition would simply merge the sub-cards back. **The number
+it has to beat is 47 of 448 (10.5%).**
+
 ## 23. THE HONEST SELF-ASSESSMENT
 
 **What I am confident in.** The organ is right and it is made of organs the reader already runs: one referent
