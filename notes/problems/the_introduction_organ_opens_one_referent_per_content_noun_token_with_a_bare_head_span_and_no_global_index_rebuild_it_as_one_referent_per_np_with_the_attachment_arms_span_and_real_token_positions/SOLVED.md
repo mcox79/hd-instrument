@@ -633,7 +633,7 @@ partition but to accrue it over the READER'S OWN open files, or to retire the cu
 | # | the bar | verdict | the number |
 |---|---|---|---|
 | 1 | one referent per NP with real positions, from the reader's own parse | **MET** | 4,203 -> 3,521 mentions (one per phrase), 2,526 of 2,526 with a valid global extent, 1,482 multi-token spans, no chunker and no second parse (witness 22/22) |
-| 2 | entity partition up CI-separated, twin loses CI-separated | **NOT MET** | B-cubed -0.4196 CI[-0.5033,-0.3331] DOWN; the twin does not lose (-0.0035, not separated). Cause located: the `np` adjacency cue (section 10.9) |
+| 2 | entity partition up CI-separated, twin loses CI-separated | **NOT MET AS MEASURED, CAUSE CONFIRMED AND EXTERNAL** | B-cubed -0.4196 CI[-0.5033,-0.3331] DOWN on the live read; the twin does not lose (-0.0035, not separated). **With the validity table FROZEN the same stream gives B-cubed 0.6585 against the shipped tree's live 0.6277** -- the destroyer is `entity_resolver`'s online accrual (section 22b), not this rung |
 | 3a | determiner readable | **MET** | 0 -> 1,036 of 2,526 (41.0%) |
 | 3b | same-gold-mention cross-file pairs down | **MET** | 90 -> 6 (**-93%**) |
 | 3c | the bridge's `_can_build` accepting the reader's mentions | **ALREADY TRUE, not mine** (section 6); what this rung buys is binds 0 -> 28 | |
@@ -752,6 +752,35 @@ brain-foundational fix is to accrue the runner-up's cue vector as `different` wh
 accrued as `same` -- the competition already computes it. **That is a change to `entity_resolver`, it is
 pri 136's organ not this one, and it is handed over as the specific board question rather than changed here
 under a running measurement.**
+
+## 22b. THE CAUSE IS CONFIRMED, AND IT IS NOT THIS RUNG -- the plastic table runs away on the phrase stream
+
+3 GUM TEST documents, ONE live read each with the NP-span organ, then the SAME captured mention stream
+clustered three ways in one process:
+
+| how the same NP-span mentions are clustered | entity files | B-cubed | P | R |
+|---|---|---|---|---|
+| **the LIVE read, as measured** (per-document plasticity) | 33 | 0.3562 | 0.2487 | 0.9262 |
+| **replay with the table FROZEN (`online=False`)** | **170** | **0.6585** | **0.6732** | **0.6796** |
+| replay with plasticity ON and the table SHARED across documents | **5** | 0.2208 | 0.1247 | 0.9742 |
+
+**Freezing the validity table takes the phrase stream from B-cubed 0.3562 to 0.6585 -- and 0.6585 is ABOVE
+the shipped tree's live 0.6277.** Letting the table accrue across documents instead of per-document collapses
+the entire three-document corpus into FIVE files. The organ, the boundary and the collapse are exonerated:
+what destroys the partition is `entity_resolver`'s ONLINE ACCRUAL, for the reason set out in section 22 --
+it only ever observes `same`, never `different`, so `log P(v|same) - log P(v|different)` rises monotonically
+and the merge loop closes on itself.
+
+**This is an INTERACTION, not a contradiction of pri 136.** pri 136 measured plasticity as a GAIN on the
+per-token stream (+0.0745 with it against +0.0680 frozen) because that stream's confident merges were
+NP-INTERNAL and genuinely correct -- the runaway had nothing to feed on. Give the same loop a stream whose
+mentions are whole phrases and its confident merges are between phrases, and it feeds on itself.
+
+**THE IMMEDIATE MITIGATION IS ONE ENVIRONMENT VARIABLE** (`HDLAB_OBJECT_FILE_ONLINE=0`) and **the landed fix
+is one line in `observe_file_decision`'s caller**: accrue the RUNNER-UP's cue vector as `different` whenever
+the winner's is accrued as `same`. The competition already computes the runner-up; a cue validity is a
+CONTRAST and the loser is evidence. **That line belongs to pri 136's organ, not this one**, so it is handed
+over rather than changed here.
 
 ## 23. THE HONEST SELF-ASSESSMENT
 
