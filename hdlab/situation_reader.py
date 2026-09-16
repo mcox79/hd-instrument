@@ -4900,7 +4900,17 @@ class SituationReader:
             # _resolve_commonnouns' `rc>=0` guard stays safe on an int). PRONOUN mentions KEEP their coref-column
             # cluster (a SEPARATE stream -> pronoun consumers byte-identical). NO gold read in any decision.
             from hdlab.entity_resolver import EntityResolver
-            _online_lab = EntityResolver().cluster(role_mentions, gaz=self.gaz)   # unified organ (== online_cluster, byte-identical)
+            # 2026-09-16 (strategy, pri 136 landing): THIS reader's plastic object-file table -- one deep copy of the
+            # frozen asset per reader, accruing across the documents this reader reads (pri 136's online path), never
+            # the module-level cache (a fresh reader is a fresh brain; A/B arms stay comparable).
+            _V = getattr(self, "_of_validities", None)
+            if _V is None:
+                from hdlab.entity_resolver import object_file_validities as _ofv
+                import copy as _copy
+                _base = _ofv()
+                _V = _copy.deepcopy(_base) if _base is not None else None
+                self._of_validities = _V
+            _online_lab = EntityResolver(validities=_V).cluster(role_mentions, gaz=self.gaz)   # unified organ (== online_cluster, byte-identical)
             if getattr(self, "online_entity_cluster_bridge", True):
                 # DE-LEAK PART 2 of 2 -- the GOLD-FREE crosstype definite->name BRIDGE (Q111). PART 1 (above) removed
                 # the gold-coref leak; alone that drops the cross-type experiencer bind to the honest floor (~0.156).

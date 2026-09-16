@@ -872,3 +872,5 @@ hdlab/crosstype_live_adapter.py), entity_set_row_patch.diff (the ENTITY-SET boar
 reader-driven block)} -- both diffs `git apply --check` clean.
 Reverify: .venv/Scripts/python.exe verification/test_object_file_competition.py
 ```
+
+INTEGRATED_BY_STRATEGY 2026-09-16 10:52 local -- DONE by strategy: entity_resolver hunks APPLIED (tau=0.0 at landing; accrual margin 1.0; online ON), the coref.py readout repair, the asset, the entity-set row, PLUS the landing repair (the plastic table per reader: entity_resolver.EntityResolver(validities=...) + situation_reader hands its own deep copy; the shared cache read-only) after test_coref_graded_pick_landing exposed order-dependent reads; reverify on the landed tree: test_object_file_competition 10/10, the pri 131 pronoun witnesses, the reader-driven board (pri136a: component byte-identical; coref/salience up; the entity-set row below same-name identity and the emotion arm 0.90 -> 0.64 named as the span rung's cost -> pri 138 bars). The adapter hunk was superseded by pri 134's _mention_gtok.

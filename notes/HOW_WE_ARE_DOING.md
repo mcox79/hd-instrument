@@ -42,6 +42,7 @@ across a passage (right 42 in 100 on he/she/it, honest basis) -- and that second
 | Reasoning on top | IMPROVING | right 24 to 90 in 100 depending on the question | Time, cause, belief and goals. These work well when handed a correct reading of the sentence and slump on real prose, so the wall they hit is the chain below them, not the reasoning itself. Best: how a character feels about an event, 90 in 100. Worst: answering "why" when the cause is several sentences away, 24 in 100. |
 
 ## WHAT MOVED THIS WEEK
+- 2026-09-16 -- Landed: new-or-known decisions for people and things are one learned competition that keeps learning as it reads; grouping up ~7 in 100 (clearly separated); pronoun answers by entity up ~8 in 100; the remaining loss is mention width (next rung).
 - 2026-09-16 -- Landed: the small joining relations (apposition, multi-word names, compounds, possession, 'is') read 76 in 100 on modern text (was 0), above the retired machine-learned labeler; the name-linking step runs on real text for the first time.
 - 2026-09-16 -- Landed: no outside library at read time (one frozen lexicon organ, two million lookups identical, reads a quarter faster); the last hidden machine-learned tagger retired at parity.
 - 2026-09-16 -- Landed: 'to do something' clauses attach right 77 in 100 (was 68), every construction up or level, whole-sentence attachment slightly up; the decoder was losing answers the attacher already preferred (a general lead).

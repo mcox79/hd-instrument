@@ -463,6 +463,95 @@ def score_gum_doc(doc, sm, reader, rng):
     return {k: {a: tuple(v) for a, v in d.items()} for k, d in out.items()}, diag
 
 
+
+
+# ---------------------------------------------------------------------------------------------------
+# ENTITY SET -- the reader's OWN entity partition (pri 136).  The organ that builds it
+# (`hdlab.entity_resolver.cluster`) is measured CI-separated better on B-cubed while the pronoun row has
+# an arithmetic ceiling of ~+0.015 for ANY clustering change, so the clustering's quality is invisible to
+# every existing row.  This row scores the MERGE/SPLIT DECISION ITSELF, on the reader's own mentions.
+# ---------------------------------------------------------------------------------------------------
+def _b3(pred, gold):
+    """B-cubed P/R/F over mention-aligned label lists (the contract of
+    exp_commonnoun_coref_diagnostic_v1.b3)."""
+    n = len(pred)
+    if n == 0:
+        return 0.0, 0.0, 0.0
+    gp, gg = defaultdict(set), defaultdict(set)
+    for i in range(n):
+        gp[pred[i]].add(i)
+        gg[gold[i]].add(i)
+    ps = rs = 0.0
+    for i in range(n):
+        ov = len(gp[pred[i]] & gg[gold[i]])
+        ps += ov / len(gp[pred[i]])
+        rs += ov / len(gg[gold[i]])
+    p, r = ps / n, rs / n
+    return p, r, (2 * p * r / (p + r) if p + r > 0 else 0.0)
+
+
+def score_entity_set(doc, sm, reader, rng):
+    """THE MERGE/SPLIT DECISION, one item per re-mention.  For every NON-pronoun mention the reader filed
+    that has a PRIOR mention of the same gold entity, the model is right when the reader put it in the SAME
+    file as that prior mention.  Floors on the IDENTICAL items: same-head STRING IDENTITY (the strongest
+    simple rule) and RECENCY (the immediately preceding mention).  The info-free TWIN files it with a random
+    prior mention's file.  ALSO returns the set-level B-cubed over every mention that carries a gold entity,
+    for the model and for the string-identity floor, as an `extra` field -- the partition number itself,
+    which is not a per-item rate and so cannot go through `_row`."""
+    out = {"entity_set": defaultdict(lambda: [0, 0])}
+    eid_at = _gold_eid_by_wpos(doc)
+    ms = [m for m in (getattr(reader, "_coref_mentions", []) or []) if not m.get("is_pronoun")]
+    ms = sorted(ms, key=lambda m: (m["sent_idx"], m["wtok_start"]))
+    rows = []
+    for m in ms:
+        e = eid_at.get((m["sent_idx"], int(m["wtok_start"])))
+        if e is None:
+            continue
+        rows.append({"file": m.get("cluster"), "eid": e, "head": (m.get("head") or "").lower()})
+    seen_files, seen_heads = {}, {}
+    for i, x in enumerate(rows):
+        prior = [y for y in rows[:i] if y["eid"] == x["eid"]]
+        if not prior:                                  # this mention INTRODUCES the entity: no decision
+            seen_files.setdefault(x["eid"], x["file"])
+            seen_heads.setdefault(x["head"], x["eid"])
+            continue
+        out["entity_set"]["model"][0] += int(x["file"] == prior[-1]["file"])
+        out["entity_set"]["model"][1] += 1
+        sh = [y for y in rows[:i] if y["head"] == x["head"]]
+        out["entity_set"]["string_identity"][0] += int(bool(sh) and sh[-1]["eid"] == x["eid"])
+        out["entity_set"]["string_identity"][1] += 1
+        out["entity_set"]["recency"][0] += int(bool(rows[:i]) and rows[i - 1]["eid"] == x["eid"])
+        out["entity_set"]["recency"][1] += 1
+        tw = rng.choice(rows[:i]) if rows[:i] else None
+        out["entity_set"]["twin"][0] += int(tw is not None and tw["eid"] == x["eid"])
+        out["entity_set"]["twin"][1] += 1
+    b3 = {}
+    if rows:
+        gold = ["g%s" % x["eid"] for x in rows]
+        b3["model"] = [round(v, 4) for v in _b3(["f%s" % x["file"] for x in rows], gold)]
+        b3["string_identity"] = [round(v, 4) for v in _b3([x["head"] for x in rows], gold)]
+    return {k: {a: tuple(v) for a, v in d.items()} for k, d in out.items()}, {"entity_set_b3": b3,
+                                                                             "entity_set_n": len(rows)}
+
+
+
+def _pooled_b3(diag_rows):
+    """The set-level B-cubed MACRO-AVERAGED over documents (each document scored on its own mentions, then
+    averaged -- never pooled, because two documents' file ids would otherwise merge into one cluster).
+    Reported BESIDE the per-item rate, never instead of it: B-cubed is not a per-item rate and cannot go
+    through `_row`'s bootstrap."""
+    got = [d.get("entity_set_b3") or {} for d in diag_rows]
+    out = {}
+    for arm in ("model", "string_identity"):
+        vals = [g[arm] for g in got if g.get(arm)]
+        if vals:
+            out[arm] = {"b3_p": round(sum(v[0] for v in vals) / len(vals), 4),
+                        "b3_r": round(sum(v[1] for v in vals) / len(vals), 4),
+                        "b3_f1": round(sum(v[2] for v in vals) / len(vals), 4),
+                        "n_documents": len(vals)}
+    return out
+
+
 GUM_MODES = ("reader_annotated", "reader_textonly", "reader_textonly_pron_discovered")
 
 
@@ -472,7 +561,7 @@ def run_gum(n_docs=None, n_boot=2000, seed=SEED, modes=GUM_MODES):
     t0 = time.time()
     test, gaz = _gum_test_docs(n_docs)
     tmp = tempfile.mkdtemp(prefix="brotr_")
-    per = {m: {r: defaultdict(dict) for r in ("coref", "salience", "common_noun_coref")} for m in modes}
+    per = {m: {r: defaultdict(dict) for r in ("coref", "salience", "common_noun_coref", "entity_set")} for m in modes}
     diags = {m: [] for m in modes}
     try:
         for d in test:
@@ -485,6 +574,9 @@ def run_gum(n_docs=None, n_boot=2000, seed=SEED, modes=GUM_MODES):
                 sm = rdr.read(path)
                 rng = random.Random(abs(hash((d.docid, mode))) % 100000)
                 sc, dg = score_gum_doc(d, sm, rdr, rng)
+                sc_e, dg_e = score_entity_set(d, sm, rdr, rng)
+                sc.update(sc_e)
+                dg.update(dg_e)
                 dg["docid"] = d.docid
                 dg["n_toks"] = len(d.toks)
                 diags[mode].append(dg)
@@ -533,6 +625,19 @@ def run_gum(n_docs=None, n_boot=2000, seed=SEED, modes=GUM_MODES):
             + cap_note,
             provenance(mode, "GUM", "sm.commonnoun_resolution"), n_boot, seed,
             extra={"reader_docs_cap": n_docs, "n_documents": len(test)})
+        rows[mode]["entity_set"] = _row(
+            "entity_set", per[mode]["entity_set"], "model",
+            ["string_identity", "recency"], "twin",
+            "GUM (modern, TEST) the reader's OWN ENTITY PARTITION -- the merge/split decision itself, one "
+            "item per re-mention: every NON-pronoun mention the reader filed whose position carries a GOLD "
+            "entity that a PRIOR mention also carries; the model is right when the reader put it in the SAME "
+            "file as that prior mention. Floors on the identical items: same-head string identity (the "
+            "strongest simple rule) and recency; info-free twin = a random prior mention's file. The "
+            "set-level B-cubed for the model and the string-identity floor is carried in `entity_set_b3` "
+            "(a partition score, not a per-item rate). Document-paired bootstrap." + cap_note,
+            provenance(mode, "GUM", "sm.entities / the reader's own mention files"), n_boot, seed,
+            extra={"reader_docs_cap": n_docs, "n_documents": len(test),
+                   "entity_set_b3": _pooled_b3(diags[mode])})
     return {"rows": rows, "diag": diags, "n_docs": len(test), "per": per,
             "docids": [d.docid for d in test],
             "n_toks": sum(len(d.toks) for d in test),
@@ -1149,7 +1254,8 @@ def rebuilt_rows(gum_docs=None, ud_cap=None, n_boot=1000, seed=SEED):
     return out, err
 
 
-ROWS7 = ("coref", "salience", "common_noun_coref", "who_did_what_agent", "who_did_what_patient", "state", "wic")
+ROWS7 = ("coref", "salience", "common_noun_coref", "entity_set", "who_did_what_agent",
+         "who_did_what_patient", "state", "wic")
 
 
 # ===================================================================================================

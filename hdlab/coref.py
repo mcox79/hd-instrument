@@ -515,7 +515,13 @@ def graded_pronoun_resolve(mentions: List[dict], targets: List[dict], window: in
             ent_at_pos[(si, int(m["wtok_start"]))] = k
             hist.setdefault(k, []).append((order, role))
             last_sent[k] = si
-            last_nom[k] = m
+            # 2026-09-16 (strategy, pri 136 landing): the pick ANSWERS with this file's most recent mention; since the
+            # files are real object files (pri 136) that member is often a modifier or a bare dependent the gold mention
+            # does not cover. Keep the most recent NOUN/PROPN mention as the answer, falling back to any (measured by
+            # pri 136: +0.0340 CI-sep on the competition's files, exactly 0.0000 on the old head-bucket files).
+            _u = (m.get("span_upos") or [None])[-1]
+            if _u in ("NOUN", "PROPN") or k not in last_nom:
+                last_nom[k] = m
             g = m.get("gender") or m.get("name_gender")
             old = feats.get(k, (None, None))
             feats[k] = (g or old[0], m.get("number") or old[1])
