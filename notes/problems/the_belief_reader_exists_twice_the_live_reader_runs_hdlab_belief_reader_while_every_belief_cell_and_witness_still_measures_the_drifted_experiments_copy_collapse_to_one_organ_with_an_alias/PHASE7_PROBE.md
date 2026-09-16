@@ -305,11 +305,29 @@ so the diff is not read as a discrimination win.
 in my table**, so their "no board row" is NOT CHECKED, not established. The brief's first job is to
 complete that map from `situation_reader.py` itself.
 
-**Read-time cost — MEASURED ONCE AND THE MEASUREMENT FAILED; re-measured.** The first pass (all-default
-591.8s vs five-dimensions-off 633.9s over 6 documents) returned a cost of **-42.0s (-7.1%)**: switching
-five dimensions OFF made the read *slower*. A negative cost is not a finding, it is ordering plus a noisy
-neighbour (cold caches on pass 1; another solver's job on the same laptop). Re-measured paired and
-alternating (ON,OFF,OFF,ON per document, min per arm) -- numbers below.
+### 🔻 Read-time cost: NOT MEASURED. Two attempts, both failed, and I am stopping at two.
+
+**Attempt 1 (6 documents, all-default then all-off): cost -42.0s (-7.1%)** -- switching five dimensions
+OFF made the read *slower*. A negative cost is not a finding.
+
+**Attempt 2 (3 documents, paired and ALTERNATING -- ON,OFF,OFF,ON per document, min of each arm, one
+process): cost -15.4s (-21.3%).** Still negative, and the per-document breakdown says why:
+
+| document | ON (both reps) | OFF (both reps) | cost |
+|---|---|---|---|
+| `GUM_academic_census` | 20.3s (28.5 / 20.3) | 21.0s (21.0 / 21.2) | **-0.6s (-3.2%)** |
+| `GUM_fiction_frankenstein` | 26.4s (26.4 / 33.6) | 25.7s (25.7 / 26.7) | **+0.6s (+2.4%)** |
+| `GUM_podcast_multitasking` | 25.4s (**73.8** / 25.4) | 40.8s (40.8 / 42.0) | -15.3s (-60.3%) |
+
+**The whole negative total is one document whose two ON reps differ by 3x (73.8s vs 25.4s).** That is
+contention, not computation: this laptop was running another solver's job throughout, and
+`hdlab/coref.py` + `hdlab/entity_resolver.py` were rewritten by that session at 07:46:44, inside this
+measurement's window.
+
+➡️ **The honest statement: on the two documents whose repeats were stable, the cost of the five
+dimensions is within +/-3% of zero (-0.6s and +0.6s on 20-26s reads). The total is not usable.** I am not
+running it a third time on a contended box -- the fix is to measure it on a quiet machine, and that is
+the brief's job, not another dice roll here. **Do not quote -7.1% or -21.3%.**
 
 **What a row would need**, per dimension: a gold the reader can be scored against on MODERN prose, and a
 read-out that consumes the field. `track_belief` has the gold (`belief_at_t_gold`, FANToM) and no row;
