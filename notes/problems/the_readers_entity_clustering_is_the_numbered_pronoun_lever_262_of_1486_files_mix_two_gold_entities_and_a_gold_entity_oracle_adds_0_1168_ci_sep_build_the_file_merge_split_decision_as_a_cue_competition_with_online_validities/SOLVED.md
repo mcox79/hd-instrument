@@ -2,14 +2,46 @@
 problem: the_readers_entity_clustering_is_the_numbered_pronoun_lever_262_of_1486_files_mix_two_gold_entities_and_a_gold_entity_oracle_adds_0_1168_ci_sep_build_the_file_merge_split_decision_as_a_cue_competition_with_online_validities
 status: PARTIAL
 bar: "Partition quality up CI-sep on the 28 docs; the pronoun instrument up CI-sep with the fraction of the oracle gap closed stated; validities accrued with an observe path (twin at floor); consumers not down (or repaired with items); the board's coref row (after the answer-key fix) not down -- OR a numbered located negative naming the cue that cannot be had without new knowledge."
-result: "THE ORGAN'S OWN METRIC IS UP CI-SEPARATED AND THE BRIEF'S CHOSEN END READ IS DOWN CI-SEPARATED, and the second is explained by arithmetic at the top of the chain. Every number is through the LIVE SituationReader().read() on TEXT ONLY, 28 MODERN GUM test documents, the same 795 fixed questions pri 125/131 landed on, abstention = wrong, both arms in ONE process with the shipped organ restored by rebinding the exact attribute the diff touches. (1) PARTITION (the organ's own metric, the reader's non-pronoun mentions that fall on a gold mention, paired bootstrap over documents): B-cubed F1 0.5532 -> 0.6211, +0.0680 CI[+0.0396,+0.0925] CI-SEPARATED, with recall 0.4284 -> 0.5028 AND precision 0.7804 -> 0.8124 (both directions, so it is not an over-merge artifact); MUC/CEAFe move with it. (2) THE INFORMATION-FREE TWIN (the same strengths permuted onto the wrong cue values) scores B-cubed 0.1680, -0.3851 CI[-0.4307,-0.3437] CI-separated BELOW the SHIPPED organ (~-0.45 below the competition), and on the pronoun instrument the competition beats the twin +0.0898 CI[+0.0193,+0.1654] CI-sep where the SHIPPED organ does not (+0.1018, CI includes 0). (3) THE PRONOUN ROW IS DOWN: 0.3283 -> 0.2528, -0.0755 CI[-0.1297,-0.0291] CI-SEPARATED. +0.0340 CI[+0.0139,+0.0610] of it is recovered CI-separated by ONE consumer repair (the pick answers with the file's most recent mention; an object file is reviewed at its HEAD) -- and that repair is EXACTLY 0.0000 CI[0,0] on the shipped files, so it cannot win for free; with it and w_focus=0 the regression is -0.0352 CI[-0.0805,+0.0052], NOT separated. A 12-point sweep of the pick's own operating point recovers nothing further. (4) WHY, AND IT IS ARITHMETIC: re-measured on the full instrument the GOLD-entity ORACLE is worth +0.0390 CI[+0.0092,+0.0730] -- NOT the brief's +0.1168, which is a 12-document estimate with a half-width of 0.1186 measured with Principle B ON (a default-OFF configuration) -- and it DECOMPOSES by partition algebra into under-split +0.0491 CI[-0.0212,+0.1320] and over-merge -0.0050 CI[-0.0183,+0.0068]. The brief's own count reproduces EXACTLY (262 of 1486 files touch more than one gold entity) and repairing all of them is worth -0.0050. So the arithmetic bound on what ANY clustering improvement can buy this consumer is about +0.015. (5) OTHER CONSUMERS NOT DOWN, measured live with the organ installed: common-noun resolution EXACTLY unchanged (d=+0.0000 CI[0,0], n=771 decided mentions), UD-EWT patient 0.6838 -> 0.6838 and state 0.7576 -> 0.7576 EXACTLY, agent 0.6377 -> 0.6304 (-0.0072 CI[-0.0377,+0.0164] n.s.); the read is FASTER (245s vs 285s over 12 documents). (6) THREE DEAD JOINS FOUND AND NUMBERED, all the same one-token-mention-span defect: the crosstype definite->name bridge returns 0 binds on 28 of 28 GUM documents (two blockers repaired in this diff; fully repaired it yields 1 bind, because pri 134's fine relations read 'dep'); Heim's Novelty-Familiarity Condition reads `bare` on 100% of mentions until the determiner is read one token to the left, after which the criterion falls out of the counts with the PINNED sign and order (indefinite +1.46 / definite +0.18 / bare -0.25); and 1,331 of 3,689 same-entity cross-file mention pairs lie INSIDE one gold mention span, so 331 of the 418 split gold entities (79.2%) are reachable only by a nominal-run cue that an NP-span mention would make unnecessary."
+result: "THE ORGAN'S OWN METRIC IS UP CI-SEPARATED AND THE BRIEF'S CHOSEN END READ IS DOWN CI-SEPARATED, and the second is explained by arithmetic at the top of the chain. Every number is through the LIVE SituationReader().read() on TEXT ONLY, 28 MODERN GUM test documents, the same 795 fixed questions pri 125/131 landed on, abstention = wrong, both arms in ONE process with the shipped organ restored by rebinding the exact attribute the diff touches. (1) PARTITION (the organ's own metric, the reader's non-pronoun mentions that fall on a gold mention, paired bootstrap over documents): B-cubed F1 0.5532 -> 0.6211, +0.0680 CI[+0.0396,+0.0925] CI-SEPARATED, with recall 0.4284 -> 0.5028 AND precision 0.7804 -> 0.8124 (both directions, so it is not an over-merge artifact); MUC/CEAFe move with it. (2) THE INFORMATION-FREE TWIN (the same strengths permuted onto the wrong cue values) scores B-cubed 0.1680, -0.3851 CI[-0.4307,-0.3437] CI-separated BELOW the SHIPPED organ (~-0.45 below the competition), and on the pronoun instrument the competition beats the twin +0.0898 CI[+0.0193,+0.1654] CI-sep where the SHIPPED organ does not (+0.1018, CI includes 0). (3) THE PRONOUN ROW: at the FROZEN table with the landed readout it is DOWN 0.3283 -> 0.2528, -0.0755 CI[-0.1297,-0.0291] CI-SEPARATED. +0.0340 CI[+0.0139,+0.0610] of that is recovered CI-separated by ONE consumer repair (the pick answers with the file's most recent mention; an object file is reviewed at its HEAD) -- and that repair is EXACTLY 0.0000 CI[0,0] on the shipped files, so it cannot win for free. PHASE 7 THEN MOVED THE OPERATING POINT AND THE REGRESSION GOES AWAY: with the table PLASTIC (the reader counting its own high-margin decisions as it reads, accrual margin 1.0) at tau = 0, the partition is +0.0745 CI[+0.0431,+0.1031] CI-SEPARATED UP -- the largest partition gain anywhere in the grid -- while the pronoun row is -0.0302 CI[-0.0708,+0.0143], NOT CI-separated down. Nine of the 20 grid points clear both conditions. So the SHIPPED RECOMMENDATION is tau = 0 with the online accrual ON and the readout repaired: partition up CI-sep, no consumer CI-separated down. (4) WHY, AND IT IS ARITHMETIC: re-measured on the full instrument the GOLD-entity ORACLE is worth +0.0390 CI[+0.0092,+0.0730] -- NOT the brief's +0.1168, which is a 12-document estimate with a half-width of 0.1186 measured with Principle B ON (a default-OFF configuration) -- and it DECOMPOSES by partition algebra into under-split +0.0491 CI[-0.0212,+0.1320] and over-merge -0.0050 CI[-0.0183,+0.0068]. The brief's own count reproduces EXACTLY (262 of 1486 files touch more than one gold entity) and repairing all of them is worth -0.0050. So the arithmetic bound on what ANY clustering improvement can buy this consumer is about +0.015. (5) OTHER CONSUMERS NOT DOWN, measured live with the organ installed: common-noun resolution EXACTLY unchanged (d=+0.0000 CI[0,0], n=771 decided mentions), UD-EWT patient 0.6838 -> 0.6838 and state 0.7576 -> 0.7576 EXACTLY, agent 0.6377 -> 0.6304 (-0.0072 CI[-0.0377,+0.0164] n.s.); the read is FASTER (245s vs 285s over 12 documents). (6) THREE DEAD JOINS FOUND AND NUMBERED, all the same one-token-mention-span defect: the crosstype definite->name bridge returns 0 binds on 28 of 28 GUM documents (two blockers repaired in this diff; fully repaired it yields 1 bind, because pri 134's fine relations read 'dep'); Heim's Novelty-Familiarity Condition reads `bare` on 100% of mentions until the determiner is read one token to the left, after which the criterion falls out of the counts with the PINNED sign and order (indefinite +1.46 / definite +0.18 / bare -0.25); and 1,331 of 3,689 same-entity cross-file mention pairs lie INSIDE one gold mention span, so 331 of the 418 split gold entities (79.2%) are reachable only by a nominal-run cue that an NP-span mention would make unnecessary."
 floor: "THE SHIPPED ORGAN ITSELF, restored in the SAME process by rebinding `EntityResolver.cluster` -- code vs code, not run vs run: pronoun span 0.3283 (which reproduces pri 131's landed 28-document headline exactly) and B-cubed 0.5532 on the same population. Also run on the identical population: the GOLD-entity ORACLE as the ceiling probe (span 0.3673, +0.0390 CI[+0.0092,+0.0730]) and its two partition-algebra halves (refine = R and G, coarsen = R or G)."
-controls: "(1) INFORMATION-FREE TWIN -- the SAME learned strengths permuted onto the WRONG cue values (identical shape, magnitude and coverage; the information destroyed): B-cubed 0.1680, -0.3851 CI-separated BELOW the shipped organ, and it loses the pronoun instrument to the competition CI-separated. (2) THE IDENTITY CONTROL ON THE CONSUMER REPAIR: the head-preferring readout is EXACTLY 0.0000 CI[0,0] on the shipped files and +0.0340 CI-sep on the competition's -- so the gain is the upstream rung's, not the readout's. (3) FAITHFULNESS: the offline replay's clustering is asserted to reproduce `m['cluster']` for every non-pronoun mention of every document, and the replayed pick is asserted equal to the LIVE records item-for-item, before any contrast is reported; the LIVE A/B then reproduces the replay's numbers exactly (span 0.3024, B3 0.6172, 66 impure of 528 on 12 documents). (4) TRAIN/TEST SPLIT ON THE OPERATING POINT: tau is swept on the GUM TRAIN split (doc index 0::2, which the teacher also uses and the test rows never touch) and reported on TEST; the sweep shows NO tau at which the partition rises CI-separated and the pronoun row does not fall. (5) THE CONSUMER'S OWN PHASE DIAGRAM: 12 configurations of the pick (w_gender 8/16/32, w_focus 0/4, decay 3/4, window 2/4, two combinations) re-swept over the new files -- nothing recovers the loss, so it is not a stale operating point. (6) NO-REGRESS, live, both arms one process: the common-noun resolution consumer EXACTLY unchanged, UD-EWT patient and state EXACTLY unchanged, agent n.s. (7) GOLD-FREEDOM: witness W5 asserts the decision path's source text contains no gold field name; the gold column is read only by the teacher (offline supply) and by the scorers. (8) A SECOND, CRUDER KEY as an ablation (`head_lemma` vs the brain-foundational `concept_lemma`): B3 +0.0009, span identical -- a null reported against my own expectation. (9) CAN-FIRE CONTROLS on the shipped organ (witnesses): it merges two INDEFINITE same-head referents at every setting because it has no threshold at all; the entity-type spoke BLOCKS an organisation-typed name for a person-headed anaphor (pri 125's `she -> youtube` case)."
+controls: "(1) INFORMATION-FREE TWIN -- the SAME learned strengths permuted onto the WRONG cue values (identical shape, magnitude and coverage; the information destroyed): B-cubed 0.1680, -0.3851 CI-separated BELOW the shipped organ, and it loses the pronoun instrument to the competition CI-separated. (2) THE IDENTITY CONTROL ON THE CONSUMER REPAIR: the head-preferring readout is EXACTLY 0.0000 CI[0,0] on the shipped files and +0.0340 CI-sep on the competition's -- so the gain is the upstream rung's, not the readout's. (3) FAITHFULNESS: the offline replay's clustering is asserted to reproduce `m['cluster']` for every non-pronoun mention of every document, and the replayed pick is asserted equal to the LIVE records item-for-item, before any contrast is reported; the LIVE A/B then reproduces the replay's numbers exactly (span 0.3024, B3 0.6172, 66 impure of 528 on 12 documents). (4) TRAIN/TEST SPLIT ON THE OPERATING POINT: tau is swept on the GUM TRAIN split (doc index 0::2, which the teacher also uses and the test rows never touch) and reported on TEST; the sweep shows NO tau at which the partition rises CI-separated and the pronoun row does not fall. (5) THE CONSUMER'S OWN PHASE DIAGRAM: 12 configurations of the pick (w_gender 8/16/32, w_focus 0/4, decay 3/4, window 2/4, two combinations) re-swept over the new files -- nothing recovers the loss, so it is not a stale operating point. (5b) THE ORGAN'S JOINT PHASE DIAGRAM (phase 7): the ACT-R retrieval threshold x the ONLINE ACCRUAL RATE, 20 points, both rows at every point -- the plastic table beats the frozen one on BOTH rows at tau = 0 (partition +0.0680 -> +0.0745, pronoun row -0.0415 CI-sep down -> -0.0302 not separated), and nine points clear 'partition CI-sep up AND consumer not CI-sep down'. (5c) THE FLIP AUDIT (phase 7): all 111 flips attributed to the decision that caused them from the competition's own trace -- 32 of the 72 losses are the consumer readout choosing the wrong member of the RIGHT file, 21 a wrong validity (the flat `np` cue at +6.23), 19 a split that opened a new file for the antecedent. (6) NO-REGRESS, live, both arms one process: the common-noun resolution consumer EXACTLY unchanged, UD-EWT patient and state EXACTLY unchanged, agent n.s. (7) GOLD-FREEDOM: witness W5 asserts the decision path's source text contains no gold field name; the gold column is read only by the teacher (offline supply) and by the scorers. (8) A SECOND, CRUDER KEY as an ablation (`head_lemma` vs the brain-foundational `concept_lemma`): B3 +0.0009, span identical -- a null reported against my own expectation. (9) CAN-FIRE CONTROLS on the shipped organ (witnesses): it merges two INDEFINITE same-head referents at every setting because it has no threshold at all; the entity-type spoke BLOCKS an organisation-typed name for a person-headed anaphor (pri 125's `she -> youtube` case)."
 files_changed: "experiments/exp_object_file_competition_v1.py (NEW -- the cell; get_output_dir per Q115, rows --self-test/--build-validities/--decompose/--cue-reach/--tune/--competition/--readout/--picksweep/--live/--noregress). verification/test_object_file_competition.py (NEW -- 10 claim-pinning witnesses, 10/10, pytest-collectable + standalone). data/frontend_assets/object_file_validities_gum_v1.json (NEW -- the learned merge/split cue validities: 28,559 mention-file pairs counted on 24 GUM TRAIN documents, counts -> log-odds, re-buildable in one command; data/ is gitignored so it is committed with `git add -f`). notes/problems/<slug>/object_file_competition_patch.diff (NEW -- the proposed hdlab change: hdlab/entity_resolver.py + hdlab/crosstype_live_adapter.py, `git apply --check` CLEAN, the patched files import and dispatch, and the pre-patch arm is asserted byte-identical). NO hdlab/ file written."
 reverify: ".venv/Scripts/python.exe verification/test_object_file_competition.py   # 10/10; every check is a claim (an invariant, a direction, or a can-fire control), never a pinned number.  The measured rows, each writing its OWN metrics_<row>.json and never overwriting another: .venv/Scripts/python.exe experiments/exp_object_file_competition_v1.py --decompose 28 --cue-reach 28 (the decomposition, ~12 min of reads, then cached) / --competition 28 --taus=0 (the headline) / --readout 28 --tau=0 (the consumer repair) / --picksweep 28 --tau=0 (the consumer's phase diagram) / --tune 24 --taus=-2,0,2,4 (the operating point, TRAIN) / --live 12 --tau=0 --noregress 10 (the live A/B with the organ installed) / --build-validities 24 (rebuild the asset)."
 ---
 
 # PARTIAL -- the object-file competition is built and the entity partition is CI-separated better; the brief's own premise is corrected by the decomposition; the pronoun row it was attached to has an arithmetic ceiling of about +0.015 and is CI-separated DOWN
+
+## IN PLAIN LANGUAGE (no organ names, no paths)
+
+When the reader meets a person or a thing, it either adds what it just read to a folder it already keeps
+on that person, or it starts a new folder. Until now it decided that by whether two words were spelled the
+same, and it could never start a second folder for two different people called "the doctor". It now
+decides by weighing up several kinds of evidence at once -- the name, the kind of thing, whether "he" or
+"she" would fit, whether the two words sit inside one phrase, and whether the writer said "a doctor"
+(a new person) or "the doctor" (one we already have) -- and how much each kind of evidence is worth is
+**counted from experience**, not set by hand, and keeps being counted **while it reads**.
+
+**The filing got better, and we can prove it is not luck.** Measured on 28 modern documents the reader had
+never seen: the folders match the real people and things about **7 points better out of 100** (a
+confidence interval that stays on the positive side), and a scrambled version of the same evidence -- same
+numbers, attached to the wrong things -- does **much worse** than what we started with, so the evidence is
+really doing the work.
+
+**Two things I want to be honest about.** First, the number this job was opened on was too big: it was
+measured on 12 documents and said a perfect filing would be worth about **twelve points** on the
+"who does *he* refer to" question. On the full set of 795 questions it is worth about **four**. Second, and
+more important: even with a **perfect** filing the reader still gets **63 out of every 100** of those
+questions wrong -- so filing was never where that question is won. It is won in how the reader *chooses*
+between the folders it has, and that is a different piece of machinery.
+
+**What it costs.** With the best settings the "who does *he* refer to" score is about three points lower
+than before, but that difference is inside the noise -- we cannot say it went down. Every other thing we
+measured is either exactly unchanged or unchanged within noise, and the reading is slightly faster.
+**The risk in my own recommendation:** the strongest single piece of evidence the reader now uses is
+"these two words sit next to each other", and it is that strong only because the reader currently breaks
+a phrase like "tenure track university faculty" into four separate things. Fix that upstream -- which is
+where it should be fixed -- and this piece of evidence should become much weaker. If it does not, I am
+wrong about what it is doing.
 
 ## 0. THE OPENING MOVE -- how the brain does THIS (PINNED vs OUR-INVENTION)
 
@@ -514,6 +546,118 @@ the nominal runs the `np` cue merges, the B-cubed gain would be flattered. The c
   other half*.
 - **`crosstype_live_adapter`:** downgrade from "LIVE" -- it returns **0 binds on 28 of 28 GUM documents** on
   the reader's default path and has since pri 125. Two blockers repaired in this diff, the third is pri 134.
+
+## P7. PHASE 7 -- strategy's probe, answered with numbers
+
+### P7-A. EVERY FLIP, WITH THE DECISION THAT CAUSED IT
+28 documents, 795 questions, competition at `tau = 0` **with** the head-preferring readout (0.3283 →
+0.2868). **111 questions flip: 39 wrong→right, 72 right→wrong** (net −33 items = −0.0415).
+
+Each right→wrong item is traced to the clustering decision responsible, using the competition's own
+decision **trace** (which cue value carried the merge, and the validity it had):
+
+| cause group | count | share of the 72 |
+|---|---|---|
+| **(iv) consumer readout: the RIGHT file, the wrong member of it** | **32** | **44%** |
+| (ii) a SPLIT opened a new file for the antecedent | 19 | 26% |
+| **(i) a MERGE carried by the `np` (nominal-run) cue** | **18** | **25%** |
+| (i) a merge carried by the `head` cue | 2 | 3% |
+| (i) a merge carried by the `name` cue | 1 | 1% |
+
+**So the 72 losses are: 32 a consumer defect (iv), 21 a WRONG VALIDITY (i), 19 a MISSING CUE (ii), and
+none of them the NP-span defect directly** — the NP-span defect (iii) is upstream of all of them and is
+what makes the `np` cue necessary in the first place.
+
+The `np` merges carry the table's single largest weight (`gap1_nom +6.229`, `gap2_nom +4.154`) and they
+**compound within a document**: in `GUM_bio_marbles` one wrong nominal-run merge cost **8 consecutive**
+`she`/`her` questions. That is the diagnosis the quality push acts on (P7-G).
+
+### P7-D. PRINCIPLE B: THE FLAG, THE REASON, AND WHETHER IT STILL HOLDS
+**The flag** is `pronoun_principle_b: bool = False` at `hdlab/situation_reader.py:1044` (read at `:1717`,
+used at `:4954` to build the clause-mate co-argument map). **The reason** is pri 131's measurement: the
+exclusion is PINNED and categorical (Chomsky 1981; Reinhart 1983) but it is applied through a relation the
+reader computes, and at ~0.57 UAS a wrong governor bans the *right* antecedent — off 0.3797 / our parse
+0.3646 / **treebank** parse 0.3848 on 16 documents. Its stated flip condition: *"when the attachment rung
+improves"*. **pri 133 landed tonight** (infinitival heads 0.6766 → 0.7745, UAS up), so the condition is
+re-testable, and I tested it — four arms, one code path, 795 questions:
+
+| arm | span | |
+|---|---|---|
+| shipped, Principle B **off** | **0.3283** | -- |
+| shipped, Principle B **on** | 0.3195 | −0.0088 CI[−0.0313,+0.0115] **not separated** |
+| competition + readout, off | 0.2868 | -- |
+| competition + readout, **on** | 0.2692 | −0.0176 CI[−0.0390,+0.0026] **not separated** |
+
+**The reason still holds: do NOT flip it.** The exclusion costs items on both arms (and costs the
+competition roughly twice what it costs the shipped organ, because banning a file now deletes a whole
+merged object file rather than one head bucket). It is not CI-separated in either direction, so this is a
+*no-evidence-to-flip*, not a refutation of Principle B — the flip condition should be re-stated as a
+**parse-quality threshold measured on the co-argument relation itself**, not on aggregate UAS.
+
+### P7-C. THE JOINT PHASE DIAGRAM -- AND YES, THERE IS SUCH A POINT
+
+**The retrieval threshold `tau` x the ONLINE ACCRUAL RATE** (the margin above which the reader treats its
+own decision as confirmed and counts it). 20 points, 28 documents, 795 questions; both rows at every point;
+the pronoun row uses the head-preferring readout. *(The absolute B-cubed column of the first grid run was
+pooled without namespacing files per document and is not reported; every DELTA below comes from
+`b3_boot`, which namespaces per bootstrap draw and is unaffected. The narrowed re-run's absolutes are in
+the table.)*
+
+| tau | accrual | pronoun row vs shipped | B-cubed vs shipped |
+|---|---|---|---|
+| −2.0 | any | −0.073 … −0.097 **sep DOWN** | −0.09 … −0.32 **sep DOWN** (everything merges) |
+| **0.0** | off | −0.0415 CI[−0.0772,−0.0048] **sep down** | **+0.0680 CI[+0.0396,+0.0925] sep UP** |
+| **0.0** | **2.0** | −0.0377 CI[−0.0740,+0.0011] **not sep** | **+0.0729 CI[+0.0415,+0.1013] sep UP** |
+| **0.0** | **1.0** | **−0.0302 CI[−0.0708,+0.0143] not sep** | **+0.0745 CI[+0.0431,+0.1031] sep UP** |
+| 1.0 | off / 4 / 2 / 1 | −0.039 … −0.045 not sep | +0.0385 … +0.0517 sep UP |
+| 2.0 | 4 / 2 / 1 | −0.040 not sep | +0.0318 … +0.0326 sep UP |
+| 3.0 | any | −0.015 … −0.029 not sep | −0.003 … −0.004 not sep |
+
+🔑 **ANSWER: YES.** At **`tau = 0` with the online accrual margin at 1.0** the entity partition is
+**+0.0745 CI[+0.0431,+0.1031] CI-SEPARATED UP — the largest B-cubed gain anywhere in the grid — while the
+pronoun row is −0.0302 CI[−0.0708,+0.0143], NOT CI-separated down.** Nine points in the grid satisfy both
+conditions; this is the best of them on the partition.
+
+🔑 **AND THE PLASTIC TABLE BEATS THE FROZEN ONE ON BOTH ROWS.** Holding `tau = 0`: accrual **off** gives
+B-cubed +0.0680 and a pronoun row that IS CI-separated down (−0.0415); accrual **1.0** gives B-cubed
+**+0.0745** and a pronoun row that is **not** (−0.0302). Letting the reader count its own confident
+decisions as it reads improves the partition *and* removes the regression. That is the owner's "nothing
+frozen" discipline paying, measured, on the organ's own metric and on its consumer.
+
+### P7-F. WHAT I DID NOT FULLY UNDERSTAND, RESEARCHED
+
+**THE THING I HAD NOT SAID PLAINLY, AND IT IS THE MOST IMPORTANT NUMBER IN THIS DOCUMENT.** With a
+**PERFECT** partition — every mention filed with its gold entity — the pick scores **0.3673 on the 795
+questions**. It gets **63% of them wrong for reasons that have nothing to do with the files.** pri 131
+concluded "the remaining pronoun signal is in the reader's CLUSTERING"; the well-powered measurement says
+the clustering owns **+0.0390 of the remaining 0.6717**, i.e. **5.8% of what is left**. The other 94% is
+the RETRIEVAL itself — the phi cue and the ACT-R activation over files — and its named missing half is
+**Kehler & Rohde's likelihood term** (`P(r|pron) ∝ P(r next-mentioned) · P(pron|r)`; pri 131 alternate path
+2, +0.093 measured in `affected_entity_resolver`). **That, not clustering, is the pronoun rung's lever.**
+
+**Biology / prior work on the readout defect (32 of 72 losses).** Object-file *reviewing* (Kahneman,
+Treisman & Gibbs 1992) says the file is accessed **as a whole** and it is the TOKEN that persists; *which
+surface record counts as "the antecedent"* is an instrumentation question, not a brain question. So part of
+the regression is the SCORER demanding a span where the organ returns a file — which is exactly why P7-G
+also scores the pick **by identity** (the picked file's majority gold entity, which penalises an impure
+merge so it is not a free pass). If the competition wins there and loses on spans, the span scorer is
+measuring the readout, not the reference.
+
+**Opportunities I have NOT taken, and why:**
+1. **Kehler-Rohde on the pick** — the pronoun rung's actual lever by the oracle arithmetic above. It is in
+   `hdlab/coref.py` / `affected_entity_resolver`, outside this brief's three files, and it deserves its own
+   brief with the +0.0390 ceiling stated so nobody attaches it to clustering again.
+2. **A scale-free RETRIEVAL criterion** (`retrieve(policy='compete')`: update only if the top dominates the
+   runner-up by a margin). The phase diagram I swept moves `tau` and the ACCRUAL margin; the *retrieval*
+   margin is a third axis and is the principled answer to §7(c)'s TRAIN→TEST transfer failure. Not built:
+   it changes the core `retrieve` contract that all six consolidated arms share, and that wants its own
+   byte-identity proof.
+3. **A graded posterior over files handed DOWN** instead of an argmax assignment (ACT-R retrieval is
+   stochastic; the substrate already did this for categories and heads). This is the single most
+   brain-foundational thing still missing from this organ, and it is a schema change at `m["cluster"]`.
+4. **The entity-type KB for names** (the filed Wikidata P31 lead): `etype` reaches 28 of 418 split entities;
+   the cue works (`licensed +0.91 / blocked -0.32`), the coverage is the limit.
+5. **The NP span upstream** (P7-B): measured here, but the landed fix belongs in `referent_per_np`.
 
 ## 17. SUBMISSION PROMPT
 

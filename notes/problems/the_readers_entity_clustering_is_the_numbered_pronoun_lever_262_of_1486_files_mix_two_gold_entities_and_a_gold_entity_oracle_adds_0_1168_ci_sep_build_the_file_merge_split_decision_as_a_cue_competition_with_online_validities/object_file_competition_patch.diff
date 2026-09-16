@@ -1,5 +1,5 @@
 diff --git a/hdlab/entity_resolver.py b/hdlab/entity_resolver.py
-index 242e5bae2..8e7676426 100644
+index 242e5bae2..7b63bb6cf 100644
 --- a/hdlab/entity_resolver.py
 +++ b/hdlab/entity_resolver.py
 @@ -69,7 +69,11 @@ __bf_note__ = ("ONE ACT-R content-addressable retrieval CORE (salience_binder.ac
@@ -14,7 +14,7 @@ index 242e5bae2..8e7676426 100644
  from collections import Counter, defaultdict
  from typing import Callable, Dict, List, Optional, Sequence, Tuple
  
-@@ -83,6 +87,480 @@ import hdlab.typed_spokes as TS
+@@ -83,6 +87,533 @@ import hdlab.typed_spokes as TS
  
  NEG_INF = -1e9   # the finite floor every organ substitutes for actr_activation's -inf (empty history)
  
@@ -57,6 +57,13 @@ index 242e5bae2..8e7676426 100644
 +    # ADV-headed tokens per 12 GUM documents, and merging those into a neighbour's file is what cost the
 +    # pronoun row items ("his" -> "put", "he" -> "top").  The category is a VALUE of the cue, not a hard
 +    # gate -- the teacher decides how much it is worth.
++    # ... and the run is CONFIGURATION-CONDITIONED (pri 136 phase 7, from the flip audit: 21 of 72
++    # right->wrong flips were merges carried by a FLAT `np` validity of +6.23).  The configuration is the
++    # token immediately before the later head: a DETERMINER, a possessive, a coordinator or punctuation
++    # OPENS A NEW NOMINAL (Heim again -- a determiner is a file-opening signal), so adjacency across that
++    # boundary is a different cue value from adjacency inside one nominal.  This is the same lesson pri 108
++    # recorded for the role competition: a flat additive table over all cue values double-counts; the
++    # configuration-conditioned contrast form is required.
 +    "np":          ("gap1_nom", "gap1_x", "gap2_nom", "gap2_x", "same_sent_far", "other_sent"),
 +}
 +
@@ -68,6 +75,25 @@ index 242e5bae2..8e7676426 100644
 +# run (indefinite +2.84 == definite +2.84), because the candidate-set size, not identity, drove the ratio.
 +CRITERION = "novelty"
 +CRITERION_VALUES = ("indefinite", "definite", "bare")
++
++# THE CUE-SET VERSION, SELF-GATED ON THE LOADED ASSET (the pattern `graded_role_assigner` already uses):
++# an asset that does not declare `cue_set` is v1 and the organ emits v1's value space, so an older asset
++# keeps reproducing its own numbers exactly.  v2 conditions the nominal-run cue on whether a DETERMINER /
++# possessive / coordinator / punctuation opens a new nominal before the later head -- the fix the phase-7
++# flip audit named (21 of 72 right->wrong flips were merges carried by a FLAT `np` validity of +6.23; the
++# same lesson pri 108 recorded for the role competition: a flat additive table double-counts, the
++# configuration-conditioned contrast form is required).
++NP_VALUES = {
++    "v1": ("gap1_nom", "gap1_x", "gap2_nom", "gap2_x", "same_sent_far", "other_sent"),
++    "v2": ("gap1_same_np", "gap1_new_np", "gap2_same_np", "gap2_new_np",
++           "gap1_x", "gap2_x", "same_sent_far", "other_sent"),
++}
++
++
++def cue_values(cue_set="v1"):
++    v = dict(CUE_VALUES)
++    v["np"] = NP_VALUES.get(cue_set, NP_VALUES["v1"])
++    return v
 +
 +_DEF_DET = frozenset({"the", "this", "that", "these", "those", "its", "his", "her", "their", "my",
 +                      "our", "your"})
@@ -100,6 +126,26 @@ index 242e5bae2..8e7676426 100644
 +        except (IndexError, TypeError):
 +            pass
 +    return "bare"
++
++
++# a determiner / possessive / coordinator / punctuation immediately before a nominal head OPENS a new
++# nominal -- so two adjacent heads across that boundary are two NPs, not one compound.
++_NP_BOUNDARY = frozenset({",", ";", ":", ".", "(", ")", "\"", "'", "and", "or", "but", "nor",
++                          "of", "in", "on", "at", "to", "for", "with", "by", "from"})
++
++
++def _np_boundary_before(sents, sent_idx, wpos):
++    """True when the token immediately before `wpos` starts a NEW nominal (a determiner/possessive/
++    coordinator/punctuation).  Abstains to False when the sentence tokens are not available."""
++    if sents is None or sent_idx is None or wpos is None:
++        return False
++    try:
++        if not (0 <= sent_idx < len(sents)) or not (0 < wpos <= len(sents[sent_idx])):
++            return False
++        w = str(sents[sent_idx][wpos - 1]).lower()
++    except (IndexError, TypeError):
++        return False
++    return (w in _DEF_DET) or (w in _INDEF_DET) or (w in _NP_BOUNDARY) or w.endswith("'s")
 +
 +
 +class OFile:
@@ -153,9 +199,11 @@ index 242e5bae2..8e7676426 100644
 +    The strengths are a PURE FUNCTION of the counts, recomputed after every accrual -- so the table is
 +    never frozen: `observe_file_decision` accrues one confirmed decision at read time."""
 +
-+    def __init__(self, counts=None, crit_counts=None, alpha=0.5):
++    def __init__(self, counts=None, crit_counts=None, alpha=0.5, cue_set="v1"):
 +        self.alpha = float(alpha)
-+        self.counts = {c: {v: [0.0, 0.0] for v in CUE_VALUES[c]} for c in CUES}
++        self.cue_set = cue_set if cue_set in NP_VALUES else "v1"
++        self.values = cue_values(self.cue_set)
++        self.counts = {c: {v: [0.0, 0.0] for v in self.values[c]} for c in CUES}
 +        # the criterion counts are [n_reaccessed_an_open_file, n_opened_a_new_file] per definiteness value
 +        self.crit = {v: [0.0, 0.0] for v in CRITERION_VALUES}
 +        if counts:
@@ -177,7 +225,7 @@ index 242e5bae2..8e7676426 100644
 +        a = self.alpha
 +        st = {}
 +        for c in CUES:
-+            vals = CUE_VALUES[c]
++            vals = self.values[c]
 +            ns = sum(self.counts[c][v][0] for v in vals)
 +            nd = sum(self.counts[c][v][1] for v in vals)
 +            k = len(vals)
@@ -226,12 +274,12 @@ index 242e5bae2..8e7676426 100644
 +        each cue's value->strength map, and of the criterion shift).  Shape, magnitude and coverage
 +        identical; the information destroyed."""
 +        rng = random.Random(seed)
-+        tw = Validities(alpha=self.alpha)
++        tw = Validities(alpha=self.alpha, cue_set=self.cue_set)
 +        tw.counts = {c: {v: list(x) for v, x in vals.items()} for c, vals in self.counts.items()}
 +        tw.crit = {v: list(x) for v, x in self.crit.items()}
 +        st = {}
 +        for c in CUES:
-+            vals = list(CUE_VALUES[c])
++            vals = list(self.values[c])
 +            perm = [self.strength[c][v] for v in vals]
 +            rng.shuffle(perm)
 +            st[c] = dict(zip(vals, perm))
@@ -246,7 +294,8 @@ index 242e5bae2..8e7676426 100644
 +        return {"source": "object-file merge/split cue validities: counts accrued from GUM TRAIN gold "
 +                          "partitions (offline supply) and from the reader's own high-margin decisions "
 +                          "(online); strength = log P(value|same) - log P(value|different)",
-+                "cues": list(CUES), "cue_values": {c: list(v) for c, v in CUE_VALUES.items()},
++                "cues": list(CUES), "cue_set": self.cue_set,
++                "cue_values": {c: list(v) for c, v in self.values.items()},
 +                "criterion": CRITERION, "criterion_values": list(CRITERION_VALUES),
 +                "alpha": self.alpha,
 +                "counts": {c: {v: [float(x) for x in pair] for v, pair in vals.items()}
@@ -261,7 +310,7 @@ index 242e5bae2..8e7676426 100644
 +        with io.open(path, encoding="utf-8") as f:
 +            doc = json.load(f)
 +        return Validities(counts=doc.get("counts"), crit_counts=doc.get("criterion_counts"),
-+                          alpha=float(doc.get("alpha", 0.5)))
++                          alpha=float(doc.get("alpha", 0.5)), cue_set=str(doc.get("cue_set", "v1")))
 +
 +    def save(self, path=None):
 +        path = path or VALIDITY_ASSET
@@ -319,7 +368,7 @@ index 242e5bae2..8e7676426 100644
 +
 +
 +def file_cues(m, f, *, head, canon, surf, gender, number, definite, is_name, sent_idx,
-+              prev_cb, name_link, have_spoke, wpos=-99, upos=""):
++              prev_cb, name_link, have_spoke, wpos=-99, upos="", sents=None, cue_set="v1"):
 +    """THE CUE VECTOR for (mention m, open file f) -- every cue the brief names, read from the reader's own
 +    state and the static foundation assets.  No gold is read anywhere."""
 +    from hdlab.state_of_mind import compatible
@@ -353,12 +402,15 @@ index 242e5bae2..8e7676426 100644
 +        d = int(wpos) - int(f.last_wpos)
 +        nom = (upos in ("NOUN", "PROPN", "ADJ", "NUM")
 +               and f.last_upos in ("NOUN", "PROPN", "ADJ", "NUM"))
-+        if d == 1:
-+            c["np"] = "gap1_nom" if nom else "gap1_x"
-+        elif d == 2:
-+            c["np"] = "gap2_nom" if nom else "gap2_x"
-+        else:
++        if d not in (1, 2):
 +            c["np"] = "same_sent_far"
++        elif not nom:
++            c["np"] = "gap%d_x" % d
++        elif cue_set == "v2":
++            newnp = _np_boundary_before(sents, sent_idx, wpos)
++            c["np"] = "gap%d_%s" % (d, "new_np" if newnp else "same_np")
++        else:
++            c["np"] = "gap%d_nom" % d
 +    return c
 +
 +
@@ -422,7 +474,8 @@ index 242e5bae2..8e7676426 100644
 +                a = -1e9
 +            cu = file_cues(m, f, head=head, canon=canon, surf=surf, gender=gender, number=number,
 +                           definite=definite, is_name=is_name, sent_idx=sent_idx, prev_cb=prev_cb,
-+                           name_link=link_file, have_spoke=have_spoke, wpos=wpos, upos=upos)
++                           name_link=link_file, have_spoke=have_spoke, wpos=wpos, upos=upos,
++                           sents=sents, cue_set=validities.cue_set)
 +            s = a + sum(validities.w(c, v) for c, v in cu.items())
 +            if s > best_a:
 +                runner = best_a
@@ -495,7 +548,7 @@ index 242e5bae2..8e7676426 100644
  
  # ==========================================================================================================
  # THE ONE RETRIEVAL CORE  --  content-addressable, cue-based, ACT-R-scored argmax under a write policy.
-@@ -217,11 +695,35 @@ class EntityResolver:
+@@ -217,11 +748,35 @@ class EntityResolver:
      #   Router: NAME -> identity (aliaser); COMMON -> [phi, type_exact] cue, base-level argmax, always-merge.
      # ---------------------------------------------------------------------------------------------------
      def cluster(self, ms, gaz, *, type_route: str = "exact", centering: bool = False,
