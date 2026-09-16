@@ -1,0 +1,14 @@
+{
+  "acquired_utc": "2026-09-16T07:27:46Z",
+  "sha256": "c80584f2bc2b31d5bada78a1136f9feec7ac49e5e18898db02dea434b5b8f0aa",
+  "bytes": 1386858,
+  "name": "UD_English-PUD",
+  "repo": "https://github.com/UniversalDependencies/UD_English-PUD",
+  "pinned_commit": "f16eba4ae7f3d161870ed320676c5088b8fa476c",
+  "file": "en_pud-ud-test.conllu",
+  "url": "https://raw.githubusercontent.com/UniversalDependencies/UD_English-PUD/f16eba4ae7f3d161870ed320676c5088b8fa476c/en_pud-ud-test.conllu",
+  "license": "CC BY-SA 3.0 (UD_English-PUD LICENSE.txt)",
+  "modern": "2016-17 newswire + Wikipedia (CoNLL-2017 shared-task parallel test data). NOT 19c.",
+  "why_this_corpus": "the enumeration found NO unread document in GUM (301/301 read; master == our pinned commit) and none in UD-EWT (train/dev/test all read, dev via the second on-disk copy under experiments/data/). A corpus absent from disk cannot have been read.",
+  "note": "STATIC OFFLINE FOUNDATION ASSET (an eval gold, acquired once, never used at inference). Placed under data/corpora/holdout/ -- a directory NO existing loader globs -- so no builder can reach it by the paths it already walks. data/ is gitignored; this file is re-acquirable from the pinned commit above."
+}
