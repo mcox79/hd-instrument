@@ -102,13 +102,14 @@ NOMH = ("NOUN", "PROPN")
 # the coarse organ's own ARGUMENT decisions -- never overridden by this arm
 ARG_DEPS = frozenset({"nsubj", "obj", "nsubj:pass", "obl:agent", "obl", "iobj"})
 # the cue set; selection is made on a TRAIN-INTERNAL DEV split, never on test
-FINE_CUES = ("dcat", "gen", "run", "gap", "pslot", "hps", "crs", "runsym", "dist", "typepred", "zcop")
+FINE_CUES = ("dcat", "gen", "run", "gap", "pslot", "hps", "crs", "runsym", "dist", "typepred", "zcop",
+             "dpjux")
 # THE ARC-INDEPENDENT CUES (the argument arm's own pri-108 lesson, applied here): "a cue whose whole
 # purpose is to survive a WRONG arc must not be looked up INSIDE the arc's configuration, because that is
 # the wrong row exactly when the governor mis-attached".  The NAME-RUN chunk, the GENITIVE case marker and
 # the PREDICATE SLOT are all read off the surface with no arc at all -- their strength is the GLOBAL
 # contrast log P(rel | value) - log P(rel).  Measured on the DEV split (arm_build reports both).
-GLOBAL_FINE_CUES = frozenset({"run", "runsym", "gen", "pslot", "typepred", "zcop"})
+GLOBAL_FINE_CUES = frozenset({"run", "runsym", "gen", "pslot", "typepred", "zcop", "dpjux"})
 # QUALITY PUSH 1 -- THE RUN IS ONE UNIT, SO A RUN MEMBER IS NOT A SEPARATE ARGUMENT.  A name phrase / noun
 # compound is ONE referring expression filling ONE slot (Kripke 1980; Semenza 2006 -- the whole basis of the
 # name-run account).  The ARGUMENT arm decides per TOKEN, so it hands a core role to each NOUN of a run
@@ -281,6 +282,69 @@ def _zcop_strength(toks, pos, i, ldom, mat, tag_names):
         return None
 
 
+# PHASE 7 (C) -- THE COPULA-LESS PREDICATION, second attempt, with the discriminator the first one lacked.
+# 
+# WHAT THE BRAIN'S SLOT LOOKS LIKE FOR "Tom, the baker, ...".  It is not the main clause's predicate slot at
+# all.  An appositive is a SECONDARY, PARENTHETICAL predication: Potts 2005 (The Logic of Conventional
+# Implicature) shows supplements contribute an INDEPENDENT, not-at-issue proposition -- "Tom, the baker,
+# left" asserts `left(Tom)` AND, in a separate layer, `baker(Tom)`.  Del Gobbo 2003 / Heringa 2011 derive the
+# appositive as a REDUCED COPULAR CLAUSE ("Tom, (who is) the baker"), which is why Pustet 2003 is the right
+# reference for the copula's absence: the copula carries tense, it is not the predication, and a majority of
+# the world's languages omit it outright in exactly this configuration.
+# 
+# WHY THE FIRST ATTEMPT (zcop) WAS CI-SEPARATED DOWN, AND WHAT THAT TOLD ME.  `zcop` asked "could a copula
+# stand in this gap".  Counted over 11,877 firings its top class was `nmod` (0.355) with `compound` at 0.213,
+# because a copula COULD stand between any nominal and any post-nominal nominal modifier.  The cue could not
+# tell "Tom, the baker" from "the terrorist group Hamas".  The missing discriminator is not the gap -- it is
+# whether the second nominal is A DP OF ITS OWN or a member of the first one's chunk.  A predication needs TWO
+# referring expressions; a compound is ONE.
+# 
+# SO THE ARM IS A CHUNK-BOUNDARY CUE, and it is only expressible because pri 134 phase 7 built the NP chunk:
+#   dp2_comma   a determiner-opened chunk beginning just after a comma that closes a nominal chunk
+#   dp2_bare    a determiner-opened chunk abutting a preceding nominal chunk with nothing between
+#   same_chunk  this token is INSIDE a nominal run that started earlier (a compound / name-run member)
+#   no_det      a nominal chunk with no determiner of its own (a bare second nominal -- close apposition)
+#   no_left     no nominal chunk to its left
+#   na          not a nominal
+# GRADED, not a rule: the value is read together with the category organ's own P(DET) at the chunk opener, so
+# an uncertain determiner makes an uncertain second DP.  Validity is accrued from counts like every other cue.
+DPJUX_DET = ("DET",)
+_DPJUX_STOP = ("VERB", "AUX", "ADP", "SCONJ", "CCONJ", "PART")
+
+
+def _dpjux_value(toks, pos, i, runs, ldom):
+    """The TWO-DP configuration at 1-based nominal i (see the module note).  Arc-free: it reads the chunk
+    boundary the name-run chunker already draws, which is what `zcop` had no access to."""
+    if pos[i - 1] not in NOMH:
+        return "na"
+    r = runs.get(i)
+    if r and i > r[0]:
+        return "same_chunk"                   # a member of a run that started earlier: ONE expression, not two
+    a = r[0] if r else i                      # the left edge of THIS token's own nominal run
+    left = (ldom or {}).get(i)
+    if left is None:
+        return "no_left"
+    # walk left from the run start over the chunk's own determiners / modifiers
+    j = a - 1
+    opener = None
+    steps = 0
+    while j >= 1 and steps < 6:
+        u = pos[j - 1]
+        if u in ("DET", "ADJ", "NUM", "ADV"):
+            if u == "DET":
+                opener = j
+            j -= 1
+            steps += 1
+            continue
+        break
+    if j >= 1 and pos[j - 1] in _DPJUX_STOP:
+        return "no_left"                      # a verb / preposition / coordinator intervenes: not juxtaposition
+    comma = (j >= 1 and str(toks[j - 1]) == ",")
+    if opener is None:
+        return "no_det"
+    return "dp2_comma" if comma else "dp2_bare"
+
+
 def _ps_bin(v):
     if v is None:
         return "na"
@@ -328,6 +392,7 @@ def fine_relation_cues(toks, pos, heads, i, sites=None, coarse=None, runs=None, 
     _ld = ldom if ldom is not None else _left_domains(pos, toks)
     cues["typepred"] = _typepred_value(toks, pos, i, _ld)
     cues["zcop"] = _ps_bin(_zcop_strength(toks, pos, i, _ld, mat, tag_names))
+    cues["dpjux"] = _dpjux_value(toks, pos, i, runs if runs is not None else _run_index(pos, toks), _ld)
     d = abs(i - h) if h else 0
     cues["dist"] = "d0" if d == 0 else ("d1" if d == 1 else ("d2" if d == 2 else ("d3_5" if d <= 5 else "d6")))
     return cues
@@ -755,7 +820,7 @@ def arm_ud(args, tab):
     rng = np.random.default_rng(SEED)
     targets = ["flat", "compound", "appos", "nmod:poss", "cop", "det", "case", "amod", "conj", "acl"]
     arms = ["dep_fallback", "bf_arm", "twin", "perceptron", "bf_oracle_heads",
-            "bf_no_runmembers", "bf_no_typepred", "bf_zcop", "bf_zcop_typepred"]
+            "bf_no_runmembers", "bf_no_typepred", "bf_zcop", "bf_zcop_typepred", "bf_dpjux"]
     CORE = ("nsubj", "obj", "nsubj:pass", "obl", "iobj")
     CA = {a: [] for a in arms}                  # the CORE-ARGUMENT no-regress population, per sentence
     H = {a: {r: collections.Counter() for r in targets} for a in arms}
@@ -763,6 +828,10 @@ def arm_ud(args, tab):
     head_ok = {a: [0, 0] for a in ("bf_arm_armhead", "bf_arm_consthead")}
     nsent = 0
     conf = collections.Counter()
+    # PHASE 7 (F): whose fault is each wrong emission?  For every token the arm labels X where gold says Y,
+    # record whether the CATEGORY the arm read equals the gold category.  A wrong relation on a wrongly-read
+    # category is the category rung's loss travelling down, not this arm's.
+    attrib = collections.defaultdict(lambda: [0, 0])
     for (toks, gpos, gheads, gdeps) in sentences(UD_TEST, cap=args.ud_cap):
         if len(toks) > args.maxlen:
             continue
@@ -816,6 +885,11 @@ def arm_ud(args, tab):
             cs4 = tuple(sorted(set(tab.get("cue_set") or FINE_CUES) | {"zcop", "typepred"}))
             pred["bf_zcop_typepred"] = dict(all_relations(toks, tags, heads, tab, sites=sites, coarse=coarse,
                                                           cue_set=cs4, mat=mat, tag_names=ch.lc.tags))
+            # PHASE 7 (C): the COPULA-LESS PREDICATION read as a TWO-DP JUXTAPOSITION -- the chunk-boundary
+            # discriminator `zcop` lacked.  Added to the DEV-selected set as its own can-fail arm.
+            cs5 = tuple(sorted(set(tab.get("cue_set") or FINE_CUES) | {"dpjux"}))
+            pred["bf_dpjux"] = dict(all_relations(toks, tags, heads, tab, sites=sites, coarse=coarse,
+                                                  cue_set=cs5, mat=mat, tag_names=ch.lc.tags))
         for a in arms:
             if a not in pred:
                 continue
@@ -830,6 +904,11 @@ def arm_ud(args, tab):
                         u_h += 1
                 if p in targets:
                     H[a][p]["pred"] += 1
+                    if a == "bf_arm" and g != p:
+                        k = "%s_emitted_gold_%s" % (p, g or "NONE")
+                        attrib[k][1] += 1
+                        if i - 1 < len(tags) and i - 1 < len(gpos) and tags[i - 1] != gpos[i - 1]:
+                            attrib[k][0] += 1
             U[a].append((u_h, u_n))
             ca_h = ca_n = 0
             for i in range(1, len(toks) + 1):
@@ -868,6 +947,9 @@ def arm_ud(args, tab):
            "head_accuracy_on_constructions": {
                k: {"acc": round(v[0] / v[1], 4) if v[1] else 0.0, "n": v[1]} for k, v in head_ok.items()},
            "confusion_bf_arm": dict(conf.most_common(30)),
+           "wrong_emission_attribution": {k: {"n": v[1], "category_also_wrong": v[0],
+                                              "share_category_wrong": round(v[0] / v[1], 3) if v[1] else 0.0}
+                                          for k, v in sorted(attrib.items(), key=lambda r: -r[1][1])[:16]},
            "core_argument_accuracy": {a: pooled(CA[a])[0] for a in arms if CA[a]},
            "core_argument_n": pooled(CA["bf_arm"])[1],
            "core_argument_paired_bf_vs_depfallback": boot_paired(CA["bf_arm"], CA["dep_fallback"]),
@@ -886,6 +968,9 @@ def arm_ud(args, tab):
         res["QUALITY_PUSH_3_zcop_core_cost"] = boot_paired(CA["bf_zcop"], CA["bf_arm"])
     if U["bf_zcop_typepred"]:
         res["QUALITY_PUSH_2plus3_ADDED_BACK"] = boot_paired(U["bf_zcop_typepred"], U["bf_arm"])
+    if U["bf_dpjux"]:
+        res["PHASE7_C_dpjux"] = boot_paired(U["bf_dpjux"], U["bf_arm"])
+        res["PHASE7_C_dpjux_core_cost"] = boot_paired(CA["bf_dpjux"], CA["bf_arm"])
     return res
 
 
