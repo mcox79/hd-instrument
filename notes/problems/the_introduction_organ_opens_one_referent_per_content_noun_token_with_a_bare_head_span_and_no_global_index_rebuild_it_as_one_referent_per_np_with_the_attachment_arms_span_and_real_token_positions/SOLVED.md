@@ -699,7 +699,33 @@ produces it is the over-merged one (section 10.6), so the number is not trustwor
 recorded because it is the honest conservative reading of the same arm, and because it says where the rung
 would sit once the `np` cue is fixed.
 
-## 21. SECTIONS TO COME
+## 21. AND THE CUE ABLATION OVERTURNS THE COLLAPSE STORY AGAIN -- THE PARTITION IS FINE OFFLINE
+
+Replaying `entity_resolver.competition_cluster` OFFLINE on the SAME NP-span mention stream (6 GUM TEST
+documents, one live read each, then the clustering re-run from the captured mentions):
+
+| configuration | entity files | B-cubed (pri 136 alignment) | B-cubed (gold heads) | entity-set (n=118) |
+|---|---|---|---|---|
+| **ALL CUES, offline replay** | 329 | **0.7221 (P 0.7554 / R 0.7106)** | 0.7018 | 0.5000 |
+| `np` removed | 390 | 0.6566 (P 0.6326 / R 0.7138) | 0.6854 | **0.6525** |
+| `np` + `cb` removed | 711 | 0.7081 (**P 0.9555** / R 0.5745) | **0.8046** | 0.4661 |
+| `np` gap1/gap2 off (recency kept) | 514 | 0.6827 (P 0.8020 / R 0.6039) | 0.7361 | 0.4915 |
+
+**THE SAME MENTION STREAM CLUSTERS AT B-CUBED 0.7221 OFFLINE AND 0.2081 THROUGH THE LIVE READ.** The organ
+is not the problem and neither is the boundary: the collapse is something the LIVE read does that a replay
+does not, and there are exactly two candidates -- the ONLINE ACCRUAL (`HDLAB_OBJECT_FILE_ONLINE=1`, which
+re-learns the table from the reader's own high-margin decisions DURING the read and can run away) and the
+`predication` cue fed by the crosstype bridge's binds (0 in the shipped arm, **28** in the NP-span arm, at a
+strength of **+2.90**). The probe that separates them is running; either way **the phrase stream itself
+produces a partition at 0.7221, ABOVE the shipped tree's live 0.6277**, which is the first evidence that bar
+1 is reachable rather than refuted.
+
+**AND A REAL LEVER FALLS OUT OF THE SAME TABLE:** removing `np` AND `cb` gives B-cubed on gold heads
+**0.8046** at precision **0.9555** -- the two cues that are pure proximity (adjacency and Centering
+continuity) are what the phrase boundary makes redundant, exactly as the brief predicted, and dropping both
+is worth **+0.10 B-cubed on gold heads** over the full cue set on this population.
+
+## 22. SECTIONS TO COME
 
 (2) the measured result; (3) the signal-loss trace with counts; (4) the quality push; (5) the verdict
 check; (6) alternate paths and next steps.
