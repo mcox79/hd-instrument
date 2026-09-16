@@ -66,7 +66,6 @@ os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")
 
 import sys
 from dataclasses import dataclass, field
-from functools import lru_cache
 from typing import Dict, List, Optional, Tuple
 
 _REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -971,30 +970,30 @@ def _assign_frame_primary_roles(lemma: str, toks: List[str], pred_idx: int,
     return subj_role, obj_role
 
 
-@lru_cache(maxsize=8192)
-def _affect_pos_cached(reg_gen: int, sentence_text: str):
-    """Per-PASSAGE memo of the frontend UPOS tags for the affect path. EFFICIENCY (2026-09-06): _assign_affect runs
-    once PER EVENT -- many events share a sentence, so the identical string was re-tagged repeatedly (the affect path
-    was ~half the read's POS-tag calls; tagging is ~40% of read cost).
-
-    KEYED ON THE PASSAGE (2026-09-14, pri-112). The 2026-09-06 premise -- "tag() is a PURE deterministic function of
-    the token list ... safe across reads" -- stopped being true when the entity-feedback arm landed: the category organ
-    reads the passage's Heim file cards, so the tags for one string depend on WHICH PASSAGE is open. A process-global
-    memo keyed on the string alone served one document's tags into another, which is how the same document read twice
-    in one process produced different events (236 vs 235; data/hook_state/diag_w3a9.log). `reg_gen` is the category
-    organ's passage counter, which is the unit over which the tags really are constant. Returns a tuple; callers copy
-    to a fresh list so a downstream mutation cannot corrupt the cache."""
-    return tuple(_load_frontend()[0].tag(sentence_text.split(" ")))
-
-
 def _affect_pos(sentence_text: str):
-    """The affect path's tags for this sentence, memoized per PASSAGE (see _affect_pos_cached)."""
+    """The affect path's tags for this sentence, memoised ON THE PASSAGE FILE THE READER OWNS (pri 146).
+
+    EFFICIENCY (2026-09-06): _assign_affect runs once PER EVENT -- many events share a sentence, so the identical
+    string was re-tagged repeatedly (the affect path was ~half the read's POS-tag calls).  KEYED ON THE PASSAGE
+    (2026-09-14, pri-112): the category organ reads the passage's Heim file cards, so the tags for one string
+    depend on WHICH PASSAGE is open, and a process-global memo keyed on the string alone served one document's
+    tags into another (236 vs 235 events on the same document read twice; data/hook_state/diag_w3a9.log).
+    ON THE READER (2026-09-16, pri 146): the memo is the open PassageFile's, so the unit it is keyed on IS the
+    object that dies with the read -- no module-level lru_cache and no generation counter.  Outside a read (no
+    passage open) the tags are recomputed: correct, just not memoised.  Returns a tuple; callers copy to a fresh
+    list so a downstream mutation cannot corrupt the cache."""
+    from hdlab import lexical_categories as _LC
     try:
-        from hdlab import lexical_categories as _LC
-        g = _LC.register_generation()
+        p = _LC.current_passage()
     except Exception:
-        g = 0
-    return _affect_pos_cached(g, sentence_text)
+        p = None
+    memo = p.pos_memo if p is not None else None
+    if memo is None:
+        return tuple(_load_frontend()[0].tag(sentence_text.split(" ")))
+    r = memo.get(sentence_text)
+    if r is None:
+        r = memo[sentence_text] = tuple(_load_frontend()[0].tag(sentence_text.split(" ")))
+    return r
 
 
 def _assign_affect(patient: str, sentence_text: str, gov_idx: Optional[int] = None) -> Optional[str]:
@@ -4895,6 +4894,23 @@ class SituationReader:
         return EntityResolver().resolve_commonnouns(role_mentions, sents, self)
 
     def read(self, conll_path: str) -> SituationModel:
+        """ONE READER = ONE BRAIN (pri 146).  The two things a read owns are bound here and released here:
+        (1) the reader's ACTIVATION MEMO -- the spreading activation that persists within this reading (61% of a
+        read is that walk, and 26-40% of its runs inside one document were exact repeats); (2) the PASSAGE FILE --
+        Heim's cards, their clock, the passage register and the passage's POS memo -- taken back off the shared
+        category organ when the read ends, so no passage state survives a read at module level."""
+        from hdlab import grounded_semantic_graph as _GSG
+        from hdlab import lexical_categories as _LC
+        self._ppr_memo = _GSG.ActivationMemo()
+        if _TAG_SOURCE != "counts":
+            _LC.open_memo_passage()        # the organ is not this reader's tagger: no cards, just the POS memo
+        try:
+            with _GSG.spreading(self._ppr_memo):
+                return self._read_document(conll_path)
+        finally:
+            self._lc_passage = _LC.detach_passage()
+
+    def _read_document(self, conll_path: str) -> SituationModel:
         self._read_parse_cache = {}   # per-read tag/parse memo (bound memory; safe if the reader is reused)
         if _TAG_SOURCE == "counts":
             # PASSAGE BOUNDARY (pri 104, 2026-09-14): the category organ's entity-feedback arm keeps a per-passage file of the

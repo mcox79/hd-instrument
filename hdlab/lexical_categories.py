@@ -289,14 +289,66 @@ ENT_REG_GRAIN = os.environ.get("HDLAB_LC_ENT_REG_GRAIN", "token")
 #                     PROPN<->NOUN 1,240 -> 1,247. It folds 7,584 sentences into 24 shape symbols as 25,959
 #                     sentence-stamped entries. Set 0 to leave arm B inert as it was before 2026-09-14.
 ENT_REG_LIVE_DOC = os.environ.get("HDLAB_LC_ENT_REG_LIVE_DOC", "1") == "1"
-_REG_GEN = 0
+class PassageFile:
+    """ONE READER = ONE BRAIN (pri 146).  Everything about the passage currently being comprehended -- Heim's
+    (1982) file cards and their ACT-R clock, the passage-register accumulator, and the memo of the tags this
+    passage has settled on -- is ONE object, created at the passage boundary and OWNED BY THE READER that opened
+    it (`SituationReader.read` takes it back through `detach_passage` when the read ends).  The organ object
+    itself stays a READ-ONLY asset shared by every holder (the frontend tagger binds it once at construction),
+    so the file is LENT to the organ for the duration of one read and taken back afterwards: after a read the
+    import system holds no passage state at all, and the next reader cannot see this one's cards.
+
+    Before pri 146 the same state lived at module level behind a generation counter (`_REG_GEN`) -- pri 142's
+    probe A measured `_INST` and `_REG_GEN` as the only module-level names that moved when one document was read
+    twice."""
+
+    __slots__ = ("reg", "doc_shape", "gen", "pos_memo")
+
+    def __init__(self, gen: int = 1, open_register: bool = True):
+        self.reg = DiscourseRegister() if open_register else None
+        self.doc_shape = {}
+        self.gen = int(gen)
+        self.pos_memo = {}          # the affect path's per-passage POS memo (situation_reader._affect_pos)
+
+
+_ACTIVE_PASSAGE = None      # the file open in the reading in progress; None outside a read
+
+
+def current_passage():
+    """The passage file of the reading currently in progress, or None outside a read.  A memo of anything that
+    depends on the register (the reader's affect-path POS memo) belongs ON THIS OBJECT: the tags for a string are
+    constant within a passage and not across passages, and this object dies with the read."""
+    return _ACTIVE_PASSAGE
+
+
+def open_memo_passage():
+    """A passage file with NO file cards -- for a reader whose tagger is not this organ (HDLAB_TAG_SOURCE=
+    perceptron): the register stays closed exactly as it was, and the passage still owns its POS memo."""
+    global _ACTIVE_PASSAGE
+    _ACTIVE_PASSAGE = PassageFile(1, open_register=False)
+    return _ACTIVE_PASSAGE
+
+
+def detach_passage(organ=None):
+    """END OF READ: hand the open passage file back to the reader that opened it and leave the organ with NO
+    passage.  This is the half that makes a read order-independent -- without it the organ still holds document
+    1's file cards while anything asks it about document 2, until the next `new_document()`."""
+    global _ACTIVE_PASSAGE
+    m = organ if organ is not None else get()
+    p = _ACTIVE_PASSAGE
+    _ACTIVE_PASSAGE = None
+    m._reg = None
+    m._doc_shape = {}
+    m._reg_gen = 0
+    return p
 
 
 def register_generation() -> int:
-    """The identity of the passage currently open (bumped by `new_document`); 0 = no passage has ever been opened.
-    A memo of anything that depends on the register (the reader's affect-path POS memo) must be keyed on this: the
-    tags for a string are constant WITHIN a passage and not across passages."""
-    return _REG_GEN
+    """The identity of the passage currently open on the organ (bumped by `new_document`); 0 = none open.
+    pri 146: this is the passage counter of the ORGAN INSTANCE, not a process-global one, so it is NOT a valid
+    key for a process-global memo -- the one memo that used it (the reader's affect-path POS memo) now lives on
+    the PassageFile, which the reader owns."""
+    return int(getattr(get(), "_reg_gen", 0) or 0)
 
 
 def _plural_variants(wl):
@@ -737,13 +789,16 @@ class LexicalCategories:
 
     def new_document(self) -> None:
         """Passage boundary: open a fresh set of file cards and clear the passage register (Heim: a new file).
-        Bumps the PASSAGE GENERATION so a memo of register-dependent output cannot serve one passage's belief into
-        another (the reader's affect-path POS memo was exactly that -- see situation_reader._affect_pos)."""
-        global _REG_GEN
-        _REG_GEN += 1
-        self._reg = DiscourseRegister()
-        self._reg_gen = _REG_GEN
-        self._doc_shape = {}
+        pri 146: the cards, the clock, the passage register and the passage's POS memo are ONE `PassageFile`,
+        OWNED BY THE READER that opened it -- `SituationReader.read` takes it back when the read ends
+        (`detach_passage`), so no passage state survives a read at module level and no process-global generation
+        counter is needed to keep one passage's belief out of another passage's memo."""
+        global _ACTIVE_PASSAGE
+        self._reg_gen += 1
+        p = PassageFile(self._reg_gen)
+        self._reg = p.reg
+        self._doc_shape = p.doc_shape
+        _ACTIVE_PASSAGE = p
 
     def feed_passage(self, sentences, lag: Optional[int] = None):
         """THE ONE IN-ORDER FEED. The comprehender reads the passage once, sentence by sentence, in order; the file

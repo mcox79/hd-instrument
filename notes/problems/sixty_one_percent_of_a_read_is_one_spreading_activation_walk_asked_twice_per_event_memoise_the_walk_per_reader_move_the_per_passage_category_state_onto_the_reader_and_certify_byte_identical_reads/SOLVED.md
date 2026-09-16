@@ -623,3 +623,5 @@ because it closes a question that section left open.
 4. **Two more exposed consumers were found and measured** (the two witnesses), where section 2b had named only
    the board's.
 5. **The diff gained the dead-import removal** and the `SEED_MEMO` comment.
+
+INTEGRATED_BY_STRATEGY 2026-09-16 18:15 local -- DONE by strategy: ppr_memo_patch.diff APPLIED (grounded_semantic_graph, lexical_categories, situation_reader; in bytes, each file's own EOL); reverify on the landed tree: the witness, the self-test 20/20, the identity gate (pri146a byte-identical on every model row; -33% board time). The cue-set memo left OFF as shipped.

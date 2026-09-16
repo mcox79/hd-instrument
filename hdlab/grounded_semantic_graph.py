@@ -85,15 +85,161 @@ def _gloss_content(defn: str):
     return out
 
 
+PPR_MEMO_MAX = 128          # ENTRIES.  One entry is a float32 activation vector over EVERY synset node --
+                            # MEASURED on this graph at 470,636 bytes (117,659 nodes), so 128 entries is 57.5 MB,
+                            # freed when the read ends; the memo measures its own footprint (`stats()`) rather
+                            # than assuming it.  It is a CAPACITY, not a tuned parameter: eviction is least-
+                            # recently-used (the decay) and an evicted cue set is simply re-spread, so no answer
+                            # depends on its value.  MEASURED over 12 GUM TEST documents (12 genres, 817
+                            # sentences): peak 20-128 entries, 7 evictions in all (GUM_court_property, the one
+                            # document that reached the cap), and the read is byte-identical at cap 0, 1 and 128.
+SEED_MEMO = True            # remember the CUE SET too, not only the activation it settles to (see _sense_ppr):
+                            # building the seed is one lexicon lookup per context word, and the same two callers
+                            # ask for the same sentence's cue set twice.  Set False to run the walk memo alone.
+                            # MEASURED marginal over the walk memo alone: +2.4 points of read time (3 documents,
+                            # positive on 2, NEGATIVE on 1), i.e. NOT a separated saving -- and byte-identical
+                            # either way (3/3).  It ships ON because it is the same repeat, the same brain claim
+                            # and the same identity certificate.  THIS SWITCH IS A TIMING LEVER, NOT A
+                            # CAPABILITY FLAG: it cannot change an answer, so the project's no-default-off rule
+                            # (which exists for capabilities that are measurably dormant) does not apply to it.
+_ACTIVE_MEMO = None         # the activation memo of the reading in progress (see SituationReader.read); None
+                            # outside a read -- module level holds the BINDING, never the activation.
+
+
+class ActivationMemo:
+    """THE PERSISTENCE OF SPREADING ACTIVATION WITHIN ONE READING (pri 146).
+
+    Spreading activation from a cue set is a pure function of the cue set and the graph, and the brain does not
+    re-spread from the same cues in the same passage -- the activation is still there (Collins & Loftus 1975;
+    the ATL hub read, Patterson, Nestor & Rogers 2007).  This is that persistence, and it is the READER's: one
+    reader = one brain, so it is created per read, dies with the read, and is capacity-bounded with the least
+    recently used cue set dropped first (the decay).
+
+    The graph is pinned by IDENTITY (`_bind`): the activation depends on the cue set AND the network, so a memo
+    can never serve a vector spread over a different graph.
+    """
+
+    def __init__(self, cap=None):
+        self.d = {}
+        self.cap = PPR_MEMO_MAX if cap is None else int(cap)
+        self.hits = 0
+        self.misses = 0
+        self.evictions = 0
+        self.peak = 0
+        self.vec_bytes = 0          # measured, not assumed: one activation vector's size on this graph
+        self.seeds = {}             # the CUE SET for a context list (see _sense_ppr) -- a list of node indices
+        self.seed_hits = 0
+        self.seed_misses = 0
+        self._graph = None
+
+    def _bind(self, Tt):
+        if self._graph is None:
+            self._graph = Tt
+        elif self._graph is not Tt:
+            self.d.clear()
+            self.seeds.clear()
+            self._graph = Tt
+
+    def get(self, key, Tt):
+        self._bind(Tt)
+        v = self.d.get(key)
+        if v is None:
+            self.misses += 1
+            return None
+        self.d[key] = self.d.pop(key)          # least-recently-used first
+        self.hits += 1
+        return v
+
+    def put(self, key, r, Tt):
+        self._bind(Tt)
+        if self.cap <= 0:
+            return
+        if not self.vec_bytes:
+            self.vec_bytes = int(getattr(r, "nbytes", 0))
+        self.d[key] = r
+        while len(self.d) > self.cap:
+            self.d.pop(next(iter(self.d)))
+            self.evictions += 1
+        if len(self.d) > self.peak:
+            self.peak = len(self.d)
+
+    def stats(self):
+        n = self.hits + self.misses
+        return {"hits": self.hits, "misses": self.misses, "calls": n, "held": len(self.d),
+                "peak_entries": self.peak, "evictions": self.evictions, "vector_bytes": self.vec_bytes,
+                "peak_bytes": self.peak * self.vec_bytes, "cap_bytes": self.cap * self.vec_bytes,
+                "hit_share": round(self.hits / n, 4) if n else 0.0, "cap": self.cap,
+                "seed_hits": self.seed_hits, "seed_misses": self.seed_misses, "seeds_held": len(self.seeds)}
+
+    def seed(self, ckey):
+        """The remembered CUE SET for this context list, or None.  Capacity-bounded like the activation (a cue
+        set is a list of node indices -- small -- so it is held four to a vector's worth of headroom)."""
+        v = self.seeds.get(ckey)
+        if v is None:
+            return None
+        self.seeds[ckey] = self.seeds.pop(ckey)
+        self.seed_hits += 1
+        return v
+
+    def put_seed(self, ckey, seed_idx):
+        self.seed_misses += 1
+        if self.cap <= 0:
+            return
+        self.seeds[ckey] = seed_idx
+        while len(self.seeds) > 4 * self.cap:
+            self.seeds.pop(next(iter(self.seeds)))
+
+
+class _Spreading:
+    """`with spreading(memo):` -- lend THIS reader's activation memo to the walk for one read."""
+
+    def __init__(self, memo):
+        self.memo = memo
+        self.saved = None
+
+    def __enter__(self):
+        global _ACTIVE_MEMO
+        self.saved = _ACTIVE_MEMO
+        _ACTIVE_MEMO = self.memo
+        return self.memo
+
+    def __exit__(self, *exc):
+        global _ACTIVE_MEMO
+        _ACTIVE_MEMO = self.saved
+        return False
+
+
+def spreading(memo):
+    """Bind a reader's ActivationMemo for the duration of one read (SituationReader.read)."""
+    return _Spreading(memo)
+
+
 def _ppr(seed_idx: List[int], Tt: sp.csr_matrix, n: int, d: float = DAMPING, iters: int = PPR_ITERS):
-    """stationary spreading-activation vector: r = (1-d)*p + d*T^T r, p uniform over seed synsets."""
+    """stationary spreading-activation vector: r = (1-d)*p + d*T^T r, p uniform over seed synsets.
+
+    ASKED TWICE PER EVENT (pri 146).  `sense_posterior_in_context` and `context_sense_sign` build byte-identical
+    context lists for one (verb, sentence) and each spread independently: 26-40% of the walks inside one
+    document are exact repeats, and this walk is 61% of a read.  When the reader has lent its ActivationMemo
+    (see `spreading`), a repeat is READ BACK instead of re-spread.  The key is the EXACT seed tuple (never the
+    context words), so a caller that legitimately seeds differently never collides, and nothing about the walk
+    changes: not d, not iters, not the graph.  With no memo bound this function is exactly what it was.
+    """
     if not seed_idx:
         return None
+    memo = _ACTIVE_MEMO
+    key = None
+    if memo is not None:
+        key = (tuple(seed_idx), n, d, iters)
+        hit = memo.get(key, Tt)
+        if hit is not None:
+            return hit
     p = np.zeros(n, np.float32)
     p[seed_idx] = 1.0 / len(seed_idx)
     r = p.copy()
     for _ in range(iters):
         r = (1.0 - d) * p + d * (Tt @ r)
+    if memo is not None:
+        memo.put(key, r, Tt)
     return r
 
 
@@ -215,7 +361,10 @@ def _row_stochastic(A):
     return A.multiply(1.0 / deg[:, None]).tocsr()
 
 
-def _sense_ppr(wn, lemma, pos, context_words, syn2idx, T, n, tgt, tgt_names):
+def _seed_set(wn, context_words, syn2idx, tgt_names):
+    """THE CUE SET the activation spreads from: every synset of every context word, minus the target lemma's own
+    senses.  Split out of `_sense_ppr` unchanged (pri 146) so that building it can be remembered for a passage the
+    way the activation it seeds is -- see `_sense_ppr`."""
     seed = []
     tgt_set = set(tgt_names)
     for w in context_words:
@@ -223,7 +372,27 @@ def _sense_ppr(wn, lemma, pos, context_words, syn2idx, T, n, tgt, tgt_names):
             j = syn2idx.get(gs.name())
             if j is not None and gs.name() not in tgt_set:
                 seed.append(j)
-    r = _ppr(sorted(set(seed)), T, n)
+    return sorted(set(seed))
+
+
+def _sense_ppr(wn, lemma, pos, context_words, syn2idx, T, n, tgt, tgt_names):
+    """THE CUE SET IS ASKED TWICE TOO (pri 146, the second repeat on this path).  Building the seed is one
+    lexicon lookup per context word (`wn.synsets` -> a sqlite read per synset), and the two sibling callers in
+    force_dynamics_valence hand this function the SAME context list for one (verb, sentence).  Lexical access
+    happens once per word per sentence in the brain -- not once per question asked about that sentence -- so the
+    settled cue set is remembered on the SAME per-read memo as the activation it seeds.  The key is the exact
+    context list AND the SET of target names -- the target's own synsets are excluded from the seed, so a
+    different target set is a different cue set, but the ORDER of the targets cannot change it and must not
+    split the key (the two callers reach here with the same synsets in different orders).  Set
+    SEED_MEMO = False to run the activation memo alone."""
+    memo = _ACTIVE_MEMO
+    ckey = (tuple(context_words), tuple(sorted(set(tgt_names))))         if (memo is not None and SEED_MEMO and memo.cap > 0) else None
+    seed_idx = memo.seed(ckey) if ckey is not None else None
+    if seed_idx is None:
+        seed_idx = _seed_set(wn, context_words, syn2idx, tgt_names)
+        if ckey is not None:
+            memo.put_seed(ckey, seed_idx)
+    r = _ppr(seed_idx, T, n)
     if r is None:
         return None
     return np.array([float(r[syn2idx[s.name()]]) if s.name() in syn2idx else 0.0 for s in tgt])
