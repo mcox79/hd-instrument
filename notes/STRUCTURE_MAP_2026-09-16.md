@@ -747,7 +747,7 @@ state, word sense) plus where-is.
 
 | # | target | duplicated computation | cost today | rows it touches | owner |
 |---|---|---|---|---|---|
-| **1** | **Memoise the meaning organ's spreading-activation walk per read.** Not a consolidation — a measured optimisation the cost table handed us. | none (a cache) | **60.6% of read time; ≈27 s per document** (§8.1) | **all nine** — it is read latency, so it is every experiment's iteration time | **new brief-ready text, §7.1** |
+| **1** | **Memoise the meaning organ's spreading-activation walk per read.** Not a consolidation — a measured optimisation the cost table handed us, **now measured end to end (§7.3)**. | 26–40% of its runs inside ONE document ask the identical question | **60.6% of read time; MEASURED saving 28–39% of the whole read = 12.5–17.4 s per document** | **all nine** — it is read latency, so it is every experiment's iteration time | **new brief-ready text, §7.1** |
 | **2** | **One cue-competition engine.** `agent_competition_pick`, `space_reader` ground selection, `affected_entity_resolver.score_and_pick` and `attachment_arm`'s table builder become arms of `graded_competition` with `strengths_from_counts` validities. | 5 private scorers for one equation; 2 with hand-set weights; 1 (space) with no competition at all | **16.8% of read time** | agent, patient, pronoun coref, entity set, where-is, state — **6 of 9** | **pri 143** |
 | **3** | **One situation-model register.** `state` + `location` + `world_state` share one interval fold; `goals` + `affect` gain one; `belief` stops recomputing. One entity id space. | 3 data shapes for 1 mechanism; 2 dimensions with no update mechanism at all | 0.8% of read time — **cheap to run, and the reason a goal closes on the wrong event** | state, entity set, where-is + the goal/belief/affect abilities off-board | **pri 144** |
 | **4** | **Collapse the 14 drifted copies.** | 14 modules exist twice, 834–891 lines apart in the worst case | 0 at read time (the copies are not on the read path) — the cost is **measurement validity**: every cell importing a copy measures a phantom | indirect: any row whose evidence came from a cell that imported a copy | **pri 145** |
@@ -766,7 +766,38 @@ state, word sense) plus where-is.
 > rather than per distinct question, and that the reader's own plasticity makes a naive memo unsafe (§8.1).
 > The brief: measure how many of the 672 runs ask the identical question within one document, establish
 > whether a per-read memo keyed on the exact seed index tuple preserves the read exactly given the organ's
-> `observe` paths, and if it does not, find the safe key. **Sized at ≈27 seconds per document.**
+> `observe` paths, and if it does not, find the safe key. **§7.3 has already done that measurement: the
+> memo is certified byte-identical on the document where the reader was stable, and it saves 28–39% of the
+> whole read.** What is left for the brief is the plastic case and the landing.
+
+### 7.3 THE MEASUREMENT (QUALITY PUSH — `--cache-probe`, 2 GUM TEST documents, one process)
+
+The probe wraps (never edits) `grounded_semantic_graph._ppr` with a counting shim, answers a repeated call
+from a per-read memo keyed on the exact seed index tuple, and **returns the memoised value verbatim** so the
+read is unchanged by construction. It carries its own control: **each document is first read TWICE
+un-shimmed**, so a genuinely unsafe cache is told apart from the reader's own plasticity.
+
+| document | sentences | PPR runs | distinct | **repeats** | read | with memo | **saved** | reader plastic read-to-read? | **memo read byte-identical?** |
+|---|---|---|---|---|---|---|---|---|---|
+| `GUM_academic_census` | 35 | 116 | 70 | **46 (40%)** | 15.11 s | 9.25 s | **5.86 s (39%)** | **yes** | not certifiable — the *reader* changed between the two un-shimmed reads, so the comparison cannot attribute the difference to the memo (and it did **not** differ beyond that plasticity) |
+| `GUM_letter_marcie3` | 28 | 27 | 20 | **7 (26%)** | 3.18 s | 2.24 s | **0.94 s (28%)** | **no** | **YES — identical read, 28% faster** |
+
+**What this establishes, honestly.** On the document where the reader was stable, a per-read memo on the
+spreading-activation walk produced a **byte-identical situation model and removed 28% of the read time**.
+On the document where the reader was not stable, the memo saved 39% and did not change the read beyond that
+plasticity. **Between a quarter and two fifths of the walks in a single document ask the identical
+question.** Mean seed size 89–131 synsets.
+
+**And the probe found a second thing worth more than the cache: the reader is PLASTIC within a process.**
+Two consecutive un-shimmed reads of `GUM_academic_census` do not agree, because `lexical_categories` and the
+validity tables `observe` while they read. That is correct and brain-faithful (§9 iv) — but it means **no
+experiment may assume a repeated read is a repeated measurement**, and the first version of this very probe
+asserted exactly that and failed. The control is now in the cell.
+
+**A caution on absolute seconds.** This probe ran when the laptop was quieter than the §6 profile did: the
+same document reads in 15.1 s here and 48.9 s there. **The ratios within one process are the stable
+quantity**; the seconds-per-document figures in §7 apply the measured *percentage* to §6's
+contention-checked 44.7 s per document.
 
 ### 7.2 BRIEF-READY TEXT FOR ITEM 7 (the rating gap)
 
@@ -946,11 +977,11 @@ re-read from code first.**
 
 ## 10. WHAT THIS MAP DID NOT MEASURE (named, not hidden)
 
-- **The PPR memo's exact saving is bounded, not measured.** `--cache-probe` established the reader is
-  plastic read-to-read (so a naive before/after signature comparison cannot certify the memo), and the probe
-  as written therefore reports the repeat share and the timing **without** an identity certificate. The
-  **27 s/document** figure in §7 is the measured PPR share (60.6%) of the measured honest read (44.7 s), i.e.
-  the size of the target, **not a demonstrated saving**. Item 1's brief must establish the safe key.
+- **The PPR memo is measured on 2 documents, not 6, and certified on 1.** §7.3 has the numbers and the
+  control. The identity certificate exists for `GUM_letter_marcie3` (stable reader, byte-identical read, 28%
+  saved); for `GUM_academic_census` the reader's own plasticity makes an identity claim unavailable, and the
+  39% there is reported as a timing, not as a certified equivalence. **The saving is demonstrated; its
+  universality is not.** A landing brief needs the plastic case.
 - **The goal↔state coordination gain is sized by its population (212 goals), not by a run.** Measuring it
   needs the goal register and the state register in one process with a shared id — which is pri 144's first
   deliverable, so it is correctly that brief's opening measurement, not this map's.
