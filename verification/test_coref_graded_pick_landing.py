@@ -148,7 +148,17 @@ def main():
     chk("W3b goal IDENTITY byte-identical (only the goal AGENT attribution follows the improved coref)",
         goalhead_identical == ndocs,
         "goal-heads identical %d/%d docs" % (goalhead_identical, ndocs))
-    chk("W3c coref-DEPENDENT dim RISES through the full reader (mean per-doc coref_acc ON > OFF)",
+    # 2026-09-16 (strategy, pri 131 landing): the graded pick with the reader's own entity ids is the ONE anaphora
+    # path (pri 125 -> 131); the coref_graded_pick flag no longer changes a decision (ON == OFF exactly), so the
+    # "RISES" claim is SUPERSEDED -- the pick's own instrument is experiments/exp_pronoun_pick_identity_contract_v1.py
+    # (795 GUM questions, 0.3283 vs floor 0.2415 CI-sep). The check now asserts the flag is INERT on the landed tree.
+    from hdlab.situation_reader import CorefResolution as _CR
+    _landed = "antecedent_span" in getattr(_CR, "__dataclass_fields__", {})
+    if _landed:
+        chk("W3c [SUPERSEDED by pri 131] the coref_graded_pick flag is INERT on the landed tree (ON == OFF)",
+            abs(c_on - c_off) < 1e-9, "mean per-doc coref_acc OFF=%.4f ON=%.4f" % (c_off / max(1, ndocs), c_on / max(1, ndocs)))
+    else:
+      chk("W3c coref-DEPENDENT dim RISES through the full reader (mean per-doc coref_acc ON > OFF)",
         c_on > c_off,
         "mean per-doc coref_acc OFF=%.4f -> ON=%.4f (delta %+.4f, %d docs)" % (
             c_off / max(1, ndocs), c_on / max(1, ndocs), (c_on - c_off) / max(1, ndocs), ndocs))

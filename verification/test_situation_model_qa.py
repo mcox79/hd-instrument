@@ -84,7 +84,14 @@ def _score_docs(n=8):
         mf_gf = Q.floor_mostfreq_coref_goldfree(sm)
 
         for q in Q.build_coref_questions(sm, gold_names=gold_names):
-            q["target_mention"] = targets[q["res_idx"]]["target"]
+            # 2026-09-16 (strategy, pri 131 landing): the reader resolves EVERY discovered pronoun (pri 125) and each
+            # record carries its own target position (pri 131), so the gold target is found by POSITION; a
+            # resolution with no gold target at its position is UNSCOREABLE here (target_mention None -> the
+            # recency floor abstains, the model answer is still matched to the gold name).
+            _r = sm.coref_resolutions[q["res_idx"]] if q["res_idx"] < len(sm.coref_resolutions) else None
+            _tpos = (getattr(_r, "sent_idx", None), getattr(_r, "target_wpos", None)) if _r is not None else None
+            q["target_mention"] = next((t["target"] for t in targets
+                                        if (t["target"]["sent_idx"], t["target"].get("wtok_start")) == _tpos), None)
             _dim, ans = qa.answer(q["question"], q)
             m = int(Q._match(ans, q["gold"], "coref"))
             rec = int(Q._match(Q.floor_recency_coref(q["target_mention"], mentions, gold_names),

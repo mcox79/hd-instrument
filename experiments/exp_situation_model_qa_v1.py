@@ -902,6 +902,8 @@ def floor_recency_coref_goldfree(target_mention: dict, mentions: List[dict],
 
 
 def _recency_mention(target_mention: dict, mentions: List[dict]):
+    if not target_mention or "sent_idx" not in target_mention:   # 2026-09-16: unaligned question -> the floor abstains
+        return None
     ts, tw = target_mention["sent_idx"], target_mention.get("wtok_start", 0)
     best = None
     for m in mentions:
