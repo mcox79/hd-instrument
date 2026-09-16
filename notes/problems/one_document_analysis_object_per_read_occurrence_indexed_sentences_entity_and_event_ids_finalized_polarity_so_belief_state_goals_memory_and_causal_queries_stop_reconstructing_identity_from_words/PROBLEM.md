@@ -41,6 +41,10 @@ MEASURED (static, D01-D08 with file:line): the contracts and orders named above.
 ## 4. ALREADY TRIED / DO NOT REDO
 Per-consumer alias lists and word-level special cases; a second reader inside a consumer.
 
+## 4b. MEASURED REQUIREMENT ADDED 2026-09-16 06:23 (pri 139, confirmed with counts): ONE ID SPACE FOR EVERY CONSUMER
+
+`hdlab/situation_reader.py:4920-4924` re-files NON-pronoun mentions under NEGATIVE online file ids (`-(file+1)`) while pronoun mentions keep their POSITIVE coref-column ids: on 3 GUM documents 744 nominal mentions are all negative, 345 pronoun mentions all non-negative, 0 of 345 shared (25/201/0, 188/129/0, 132/151/0 per document). Any consumer that binds an entity across a name -> pronoun boundary through `m["cluster"]` therefore gets NOTHING by construction: the belief organ's entity binding is dead on the live path (pri 139: `by_cluster = 0` in every cell of its hand-off experiment, with 48 of 50 copular subjects mention-covered), and the same convention already dropped every graded reference link once (deep review D02, `densify_world_state`'s `rc >= 0` test). The gold-free join field that already exists is `resolved_entity` (pri 131's identity contract; pri 136's object files); `resolved_cluster` is gold-derived (pri 109) and cannot be a landed join on annotation-free text. THE ANALYSIS OBJECT MUST CARRY ONE ENTITY ID PER MENTION, pronoun and nominal alike, from the object-file organ, and every consumer (belief, space via pri 137's union, goals, affect, salience, the bridge) reads THAT id -- the negative/positive split is retired. Measure: the belief binding rate (0 today), the space where-is (pri 137's union is the same join done locally: 0.0426 -> 0.4043), and the entity-set row, before/after.
+
 ## 5. VERIFY BEFORE YOU START (the disk outranks this brief)
 Read `notes/SUBSTRATE_EVALUATION.md` D01-D08 and 'Opportunities' in full; `read()` end to end; the files in item 2; pri 131's SOLVED.md when landed.
 
