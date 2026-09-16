@@ -40,9 +40,25 @@ def _hdlab_pyfiles():
 
 SR = _read("hdlab/situation_reader.py")
 PASSED = []
+SUPERSEDED = []
+
+# 2026-09-16 (strategy, LOCATED item 16 from pri 137): this witness pinned the AUDIT CATALOG'S SNAPSHOT of the live
+# tree (gold-coref leak present, gate default ON, arceager default ON, the fitted parse_confidence live, experiments/*
+# imported at inference...). Those were the DEFECTS the catalog named, and the landings since remediated them
+# (pri 109 gold-free rows; the 09-11 gate retirement; the 09-13 BF heads default; pri 129 NOT_BF readouts off the
+# default read; pri 127 no library at read time; pri 137 one space reader). A witness that asserts a defect is
+# PRESENT turns red exactly when the defect is fixed. The claims that describe the REMEDIATED state (W10: zero
+# spaCy in hdlab; W12: the WordNet-landed fallbacks are real, not live defects) stay ASSERTED; every snapshot claim
+# is REPORTED (holds / no longer holds) when the tree is detected as remediated (the gate default is False).
+_REMEDIATED = re.search(r"commonnoun_situation_gate:\s*bool\s*=\s*False", SR) is not None
+_STILL_ASSERTED = ("W10", "W12")
 
 
 def _ok(tag, cond, detail=""):
+    if _REMEDIATED and not tag.startswith(_STILL_ASSERTED):
+        SUPERSEDED.append((tag, bool(cond)))
+        print("  [SNAPSHOT %s] %s %s" % ("holds" if cond else "no longer holds (remediated)", tag, detail))
+        return
     assert cond, "%s FAILED %s" % (tag, detail)
     PASSED.append(tag)
     print("  [OK] %s %s" % (tag, detail))
@@ -142,7 +158,13 @@ _ok("W12b location_register region taxonomy has a WordNet fallback (LANDED -> no
     ("wordnet" in loc.lower()) and ("holonym" in loc.lower() or "hypernym" in loc.lower()))
 
 print("\n%d/%d witnesses passed." % (len(PASSED), len(PASSED)))
-print("AUDIT WITNESS GREEN -- the catalog's live/dormant/remediated claims reproduce on the current hdlab/ bytes.")
+if _REMEDIATED:
+    _gone = [t for t, c in SUPERSEDED if not c]
+    print("AUDIT WITNESS GREEN (remediated tree): %d snapshot claims reported, %d no longer hold = defects fixed since "
+          "the catalog (%s); the remediated-state claims (W10, W12) are asserted." % (len(SUPERSEDED), len(_gone),
+          ", ".join(t.split()[0] for t in _gone)))
+else:
+    print("AUDIT WITNESS GREEN -- the catalog's live/dormant/remediated claims reproduce on the current hdlab/ bytes.")
 
 
 # --- pytest-collectable wrapper (pri 128, mechanical; see notes/problems/447_witness_files_define_no_test_function_so_the_certification_gate_runs_nothing_from_them_give_every_witness_a_collectable_wrapper_with_a_cost_marker_and_an_execution_manifest/PROBLEM.md) ---
