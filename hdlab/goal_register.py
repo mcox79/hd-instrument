@@ -323,7 +323,12 @@ def extract_goals(sents: List[List[str]], pos_tags: List[List[str]], subcat=None
     `subcat` (a SubcatFrames lexicalist frame) is provided, the bare-purpose branch is gated by the
     brain-foundational verb subcategorization frame + extraposition detection (the upstream fix). When
     `deprels_by_sent` (an optional [{1-based idx -> arc-labeler deprel}] aligned to sents) is provided, the
-    ADVCL PURPOSE FILTER additionally rejects bare-purpose 'to VP's whose infinitive is a confirmed complement."""
+    ADVCL PURPOSE FILTER additionally rejects bare-purpose 'to VP's whose infinitive is a confirmed complement.
+
+    SOURCE OF THAT VERDICT (pri 129, 2026-09-15): it is no longer a frozen supervised perceptron's deprel.
+    `SituationReader._purpose_deprels` fills this map from the Competition-Model organ's PURPOSE arm
+    (`graded_role_assigner.purpose_complement_posterior` -- lexicalist frame + configuration cues, validities
+    accrued from counts, plastic), which emits "xcomp" for a complement and "advcl" for a purpose adjunct."""
     goals: List[Goal] = []
     for si, toks in enumerate(sents):
         up = pos_tags[si] if si < len(pos_tags) else ["X"] * len(toks)
@@ -393,7 +398,9 @@ class GoalRegister:
                  and _lemma(g.source_verb) == ah]
         if agent is not None:
             ca = (agent or "").lower()
-            cands = [g for g in cands if (g.agent_canonical or g.agent or "").lower() == ca] or cands
+            # R02 (follow-up review 2026-09-15): the agent constraint is BINDING -- no broadening to another
+            # agent's purpose when the requested agent has none (the same-agent active-goal fallback below stays).
+            cands = [g for g in cands if (g.agent_canonical or g.agent or "").lower() == ca]
         if cands:
             return sorted(cands, key=lambda g: (g.sent_idx, g.verb_tok))[0]
         if agent is not None:
@@ -748,6 +755,11 @@ def make_canonicalizer(sm, commonnoun_canonical: bool = False):
     pron_by_sent: Dict[int, list] = defaultdict(list)
     for r in sm.coref_resolutions:
         canon = names.get(r.resolved_cluster)
+        if not canon and getattr(r, "resolved_head", None):
+            # pri 125's graded pick returns the antecedent HEAD and no cluster (resolved_cluster=None since the D02
+            # guard; the entity-id contract is pri 131): canonicalise through the head's named cluster, never
+            # through a sentinel id (strategy 2026-09-15; test_goal_register_landing_organ).
+            canon = head2canon.get(_norm(r.resolved_head))
         if canon:
             pron_by_sent[r.sent_idx].append((r.pronoun.lower(), canon))
 

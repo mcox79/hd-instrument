@@ -14,6 +14,7 @@ NEW word means from what it reads, using its sense of how things feel and look, 
 near the top about 38 times in 100 where the old method managed about 3.
 
 ## WHAT CHANGED LATELY
+- **15 Sep, 21:45.** Landed: the last two parts of the reader that were not built the brain's way (an old machine-learned relation labeller and a small fitted confidence formula) are no longer used while reading. Their five jobs now go through the reader's own role competition: 'how sure am I who was acted on' is judged better than the old formula (81 vs 76 in 100 on ranking right above wrong, clearly separated), 'the sky is blue' binding is unchanged in quality, and a new 'is this clause a purpose' reading is level with the old labeller today and 11 points better once the attacher fixes 'to do' clauses (next problem). A dead lookup table was removed. Every scoreboard line is identical to before, reading is 15 in 100 faster. Also fixed from the follow-up review: states now carry the time they were stated, and 'why did Alice do this' no longer answers with someone else's reason.
 - **15 Sep, 18:45.** Housekeeping landed: 461 of our 465 hand-run checks can now be run by the standard test runner, each labelled fast, corpus or slow, with a manifest that lists which checks actually ran. A green run of the standard runner now means what it says. Seven old checks were found to be broken on their own (not by today's work) and are listed for repair.
 - **15 Sep, 18:18.** Landed: on plain text the reader now finds its own pronouns ('he', 'she', 'they', 'it') and gives each one a file with its gender and number, instead of taking them from the test file's markup. On plain text 'who did it' goes from 19 to 75 in 100 on the reader's own test (level with the simple word-order rule; the last gap is which candidates compete), 'who does the pronoun refer to' from 0 to 27 in 100 against 18 for the simple nearest-match rule, and the reader's answers are now identical whether or not the answer key is in the file. On the new scoreboard (the reader reading plain text): 'who did it' 74 in 100 with 99 in 100 attempted (it was 15), 'who was acted on' 68, 'what things are like' 75, word senses 85; the pronoun line still shows no decisions because the scoreboard's matching predates this change (next problem). The old component score stays at 62.0 exactly.
 - **15 Sep, 15:56.** THE RULER CHANGED. The scoreboard now grades the reader's own reading of plain text, the way you would actually use it. Until today every line quietly rebuilt its reading from the test file's answer-key markup, so it graded the parts, not the whole. On plain text the reader gets 'who did it' right 15 times in 100 (the old line said 86) because it could not see pronouns at all; 'who was acted on' 69 (old 81); 'what things are like' 79 (agrees); word senses 76 (agrees). The overall number becomes 47 in 100 on the new ruler; the old 62 stays on the board labelled as the component score. Nothing in the system got worse today; the measurement got honest. The pronoun fix (the next landing) lifts 'who did it' on plain text from 19 to 75 in 100 on its own test.
@@ -194,7 +195,52 @@ Long term (the next few months):
 
 <!-- AUTO:BEGIN (written by tools/scorecard.py; edit the sections ABOVE, not this) -->
 
-Last full check: 2026-09-15T23:22:47.864898+00:00 (53 on record). Generated 2026-09-16T01:13:43+00:00.
+Last full check: 2026-09-16T01:34:12.748566+00:00 (54 on record). Generated 2026-09-16T01:44:26+00:00.
+
+### THE PRODUCT, QUESTION BY QUESTION
+
+The reader's own read of plain text (no answer key), one row per board question.
+
+| Question | Reader on plain text | Best simple rule | Random twin | Verdict | Since last check | Parts given answer-key spans | Worked on by |
+|---|---|---|---|---|---|---|---|
+| Who 'he / she / it / they' refers to | not measured on this run | - | - | NOT MEASURED YET (0 items scored this run -- the scorer's own matching does not yet line up with the reader's own column) | - | parts given answer-key spans: 42 in 100 | pri 90 (once grammar (Principle B + role parallelism + salience)...); pri 96 (a quarter of all coordination links span nine or more words...); pri 119 (the system records 'the sky is blue' / 'she is a doctor' /...); pri 126 (every modern number we publish comes from test splits the...); pri 127 (37 modules under 'hdlab/' call the NLTK library at read...); +2 more open; pri 125 landed 2026-09-15 |
+| Whether 'the dog' is the same dog mentioned earlier | right 49 in 100 (521 items tested) | 60 in 100 (the same exact word as before) | 9 in 100 | LOSES to the rule | unchanged since the previous check | parts given answer-key spans: 54 in 100 | pri 90 (once grammar (Principle B + role parallelism + salience)...); pri 115 (the who-did-what AGENT competition cannot say which token...); pri 119 (the system records 'the sky is blue' / 'she is a doctor' /...); pri 127 (37 modules under 'hdlab/' call the NLTK library at read...); pri 125 landed 2026-09-15 |
+| Which character the passage is mainly about | right 38 in 100 (24 items tested) | 38 in 100 (whichever character showed up first) | 4 in 100 | roughly level | unchanged since the previous check | parts given answer-key spans: 27 in 100 | pri 90 (once grammar (Principle B + role parallelism + salience)...); pri 126 (every modern number we publish comes from test splits the...); pri 125 landed 2026-09-15 |
+| Who did the action in a sentence | right 74 in 100 (512 items tested); of the 512 asked, 509 answered | 80 in 100 (the nearest word before the verb) | 26 in 100 | LOSES to the rule | unchanged since the previous check | parts given answer-key spans: 86 in 100 | pri 90 (once grammar (Principle B + role parallelism + salience)...); pri 91 (the reader's lexical categories come from a supervised...); pri 96 (a quarter of all coordination links span nine or more words...); pri 101 (the word-category organ reads SUBORDINATORS ("when", "if",...); pri 102 (the governor's cue validities are counted once from an...); +12 more open; pri 128 landed 2026-09-15 |
+| Who or what the action was done to | right 68 in 100 (401 items tested); of the 401 asked, 398 answered | 64 in 100 (the nearest word after the verb) | 20 in 100 | WINS clearly | unchanged since the previous check | parts given answer-key spans: 81 in 100 | pri 90 (once grammar (Principle B + role parallelism + salience)...); pri 96 (a quarter of all coordination links span nine or more words...); pri 101 (the word-category organ reads SUBORDINATORS ("when", "if",...); pri 102 (the governor's cue validities are counted once from an...); pri 115 (the who-did-what AGENT competition cannot say which token...); +6 more open; pri 129 landed 2026-09-15 |
+| What something is or is like ('the sky is blue') | right 75 in 100 (110 items tested); of the 110 asked, 87 answered | 49 in 100 (the most recently mentioned noun) | 68 in 100 | WINS clearly | unchanged since the previous check | parts given answer-key spans: 79 in 100 | pri 90 (once grammar (Principle B + role parallelism + salience)...); pri 114 (the attachment arm's acquisition teacher...); pri 119 (the system records 'the sky is blue' / 'she is a doctor' /...); pri 120 (the predicate-slot event detector landed by pri 113 reaches...); pri 132 (downstream consumers of one read lose information an...); +2 more open; pri 129 landed 2026-09-15 |
+| Which meaning of a word is meant in this sentence | right 85 in 100 (60 items tested) | 55 in 100 (always guessing the most common answer) | 70 in 100 | WINS clearly | unchanged since the previous check | parts given answer-key spans: 75 in 100 | pri 126 (every modern number we publish comes from test splits the...); pri 127 (37 modules under 'hdlab/' call the NLTK library at read...); pri 125 landed 2026-09-15 |
+
+### THE READING CHAIN, RUNG BY RUNG
+
+One row per stage a passage passes through, in order.
+
+| Stage | What it does | Module | Brain-faithful? | Its own instrument | Last landing | Open problems | Health |
+|---|---|---|---|---|---|---|---|
+| Tokens & case | splits the raw text into words and keeps capital letters | *hdlab/scene_segment.py* | in the brain's spirit; some details still open | no instrument on record | 2026-09-15 (pri 118) | none open | improving |
+| Word categories | settles each word's part of speech (noun, verb, name...) as it is read | *hdlab/lexical_categories.py* | in the brain's spirit; some details still open | no instrument on record | 2026-09-15 (pri 125) | pri 91, pri 101, pri 102, pri 114, pri 119, pri 120, pri 123, pri 132; +2 more | improving |
+| Word attachment (heads) | decides which word each word depends on (the sentence's structure) | *hdlab/attachment_arm.py* | in the brain's spirit; some details still open | no instrument on record | 2026-09-15 (pri 129) | pri 92, pri 96, pri 101, pri 102, pri 114, pri 115, pri 119, pri 120; +2 more | improving |
+| Grammatical roles | decides who is the subject, object or agent of each clause | *hdlab/graded_role_assigner.py* | in the brain's spirit; some details still open | no instrument on record | 2026-09-15 (pri 129) | pri 96, pri 101, pri 102, pri 115, pri 123, pri 124, pri 134 | improving |
+| Mention discovery | finds pronouns and noun phrases and opens a target for each one | *hdlab/coref.py* | in the brain's spirit; some details still open | 352 -> 145 | 2026-09-14 (pri 104) | pri 90, pri 96, pri 119, pri 126, pri 127, pri 134 | improving |
+| Entity files (who is who) | keeps one running file per person or thing in the story | *hdlab/online_entity_cluster.py* | in the brain's spirit; some details still open | 298 -> 301 | 2026-09-15 (pri 112) | pri 119, pri 135 | improving |
+| Events | records who did what to whom as a structured event | *hdlab/event_bundle.py* | BF (copies the brain's math) | no instrument on record | 2026-09-15 (pri 127) | pri 120 | improving |
+| States | tracks what things are like, and when that stops being true | *hdlab/state_register.py* | in the brain's spirit; some details still open | no instrument on record | 2026-09-15 (pri 129) | pri 90, pri 114, pri 119, pri 120, pri 132, pri 133, pri 134 | improving |
+| Time | works out the order events happened in | *hdlab/temporal_model.py* | in the brain's spirit; some details still open | no instrument on record | 2026-09-15 (pri 127) | pri 127 | improving |
+| Goals | tracks what a character is trying to do and whether events help or block it | *hdlab/goal_achievement.py* | in the brain's spirit; some details still open | no instrument on record | 2026-09-15 (pri 127) | pri 135 | improving |
+| Belief | tracks what a character believes, even when it is false | *hdlab/belief_reader.py* | in the brain's spirit; some details still open | no instrument on record | no landing on record | pri 132 | unmeasured |
+| Causes | works out why something happened and what it led to | *hdlab/causation_typing.py* | in the brain's spirit; some details still open | no instrument on record | 2026-09-15 (pri 127) | none open | improving |
+| Word senses | picks which meaning of a word is meant from the sentence it is in | *hdlab/grounded_semantic_graph.py* | in the brain's spirit; some details still open | no instrument on record | 2026-09-15 (pri 122) | pri 96, pri 127 | improving |
+
+### WHAT STRATEGY IS DOING NOW
+
+**21:42 OVERNIGHT (owner: work through the long-term plan): the ORDER is in the plan head. In flight: pri 129 landing (waiting on test_state_qa_consumer_organ via a background loop; record written), then pri 131 landing, then the pri 122 coref row key. Dispatched: solver_pri133 (heads: infinitival attachment, opus), solver_pri127 (lexicon freeze, opus), solver_pri130 (dormant flags audit, sonnet; one board at a time). RULES TONIGHT: waits are background shell loops only (owner correction x2); landings via tools/land.py; two opus max; one board at a time. **LANDED pri 128 (witness wrappers: 461
+
+**Running now:** solver_pri127, solver_pri130, solver_pri131, solver_pri133
+
+**Next in the queue:**
+- apply pri 128's diff (463 files; discovery gate), dispatch 130 (sonnet) + 127 (opus) + the heads-rung brief (infinitival attachment; file it) -- targets: -
+
+### EVERY ABILITY, MEASURED
 
 | Ability | Group | How well | Compared with a simple rule | Since the previous check | Brain-faithful? |
 |---|---|---|---|---|---|
@@ -208,7 +254,7 @@ Last full check: 2026-09-15T23:22:47.864898+00:00 (53 on record). Generated 2026
 | Which meaning of a word is meant in this sentence | Word meaning | right 75 in 100 | clearly better than the simple rule (50 in 100) | unchanged since the previous check | brain model; some details still open |
 | Drawing safe conclusions from 'is a kind of' facts | Word meaning | right 77 in 100 | clearly better than the simple rule (54 in 100) | unchanged since the previous check | brain model; some details still open |
 | Handling 'all / some / none' correctly | Word meaning | right 83 in 100 | clearly better than the simple rule (17 in 100) | unchanged since the previous check | brain model; some details still open |
-| Handling 'not' correctly | Word meaning | not scored in the last full check | - | - | brain model; some details still open |
+| Handling 'not' correctly | Word meaning | right 92 in 100 | clearly better than the simple rule (50 in 100) | first full check on record | brain model; some details still open |
 | How a word's meaning shifts with its context (graded) | Word meaning | agreement with people 0.39 (out of 1) | clearly better than the simple rule (0.38) | unchanged since the previous check | brain model; some details still open |
 | Picking the right broad sense of an ambiguous word (older test set) | Word meaning | right 52 in 100 | clearly better than the simple rule (35 in 100) | unchanged since the previous check | brain model; some details still open |
 | What something is or is like ('the sky is blue') | Actions and roles | right 79 in 100 | clearly better than the simple rule (57 in 100) | unchanged since the previous check | brain model; some details still open |
@@ -226,7 +272,7 @@ Last full check: 2026-09-15T23:22:47.864898+00:00 (53 on record). Generated 2026
 | Following a chain of causes across several steps | Causes | right 26 in 100 | clearly better than the simple rule (0 in 100) | unchanged since the previous check | brain model; some details still open |
 | Whether a cause makes an effect bigger or smaller | Causes | right 62 in 100 | a little better than the simple rule (61 in 100), not yet convincingly | unchanged since the previous check | brain model; some details still open |
 | Whether one event was needed for another to happen | Causes | right 35 in 100 | clearly better than the simple rule (3 in 100) | unchanged since the previous check | brain model; some details still open |
-| How a character probably feels about an event | Feelings, goals, beliefs | right 90 in 100 | clearly better than the simple rule (44 in 100) | DOWN 0.020 since the previous check | brain model; some details still open |
+| How a character probably feels about an event | Feelings, goals, beliefs | right 90 in 100 | clearly better than the simple rule (44 in 100) | unchanged since the previous check | brain model; some details still open |
 | What a character believes, even when it is false | Feelings, goals, beliefs | right 65 in 100 | clearly better than the simple rule (49 in 100) | unchanged since the previous check | brain model; some details still open |
 | Whether an action helped or harmed someone | Feelings, goals, beliefs | right 100 in 100 | clearly better than the simple rule (33 in 100) | unchanged since the previous check | brain model; some details still open |
 | Whether an event helps or blocks a character's goal | Feelings, goals, beliefs | right 98 in 100 | clearly better than the simple rule (49 in 100) | unchanged since the previous check | brain model; some details still open |

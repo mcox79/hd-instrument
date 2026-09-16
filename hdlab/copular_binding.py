@@ -120,28 +120,47 @@ GRADED_HOLDER_MIN: "float | None" = 0.5   # graded hand-off threshold for the co
 STATE_HEADPOST = os.environ.get("HDLAB_STATE_HEADPOST", "1") == "1"   # graded head hand-off into the state read (2026-09-13)
 
 
-def extract_entity_states(toks, up, arc, lab, heads=None, head_posterior=None):
-    """[(holder_idx, property_idx)] 0-based, from the labeled parse: for each `cop` arc, PROPERTY = its head,
-    HOLDER = the nsubj/nsubj:pass/csubj dependent of that same head. Brain-faithful HOLDER+PROPERTY binding.
-    `heads` optional (perf): pass precomputed parse heads (e.g. from the caller's shared per-read parse cache)
-    to SKIP the internal re-parse -- byte-identical, since the labeler consumes those same heads. When None,
-    parses via `arc` as before (back-compatible)."""
+def extract_entity_states(toks, up, arc=None, lab=None, heads=None, head_posterior=None, cop_preds=None):
+    """[(holder_idx, property_idx)] 0-based: PROPERTY = the token holding its clause's PREDICATE SLOT, HOLDER =
+    the nominal the competition believes is its subject.  Brain-faithful HOLDER+PROPERTY binding.
+
+    DETECTION IS THE PREDICATE SLOT, NOT A RELATION LABEL (pri 129, 2026-09-15).  The copula is a near-empty
+    functional carrier; what the clause asserts is its non-verbal PREDICATE (Pustet 2003; Maienborn 2005 Kimian
+    states; Bemis & Pylkkanen 2011 LATL property attribution), and the substrate already computes exactly that,
+    graded, in `attachment_arm.predicate_sites`.  So `cop_preds` (1-based predicate ids) now comes from the
+    predicate slot instead of the frozen perceptron's `cop` label; the caller may pass its own set.  MEASURED
+    (UD-EWT test, 377 gold predicational states, sentence-paired bootstrap): read-back recall 0.7958 from the
+    slot vs 0.7905 from the perceptron (+0.0053 CI95 [+0.0000, +0.0134]) with FEWER pairs emitted (429 vs 451),
+    while dropping the detection path altogether is -0.0107 CI95 [-0.0217, -0.0026] -- CI-separated DOWN, so
+    this path is load-bearing and the replacement is necessary, not a removal.
+    HOLDER likewise reads the ONE role competition (`graded_role_assigner.coarse_roles`), not a labeler.
+    `arc` / `lab` are kept ONLY for back-compatibility with experiments and witnesses that pass them
+    positionally: when `lab` is given AND `cop_preds` is None the historical label path is used verbatim."""
+    from hdlab import graded_role_assigner as _GRA
     try:
         if heads is None:
+            if arc is None:
+                return []
             heads = arc.parse(toks, up).heads
         # GRADED HEAD HAND-OFF (2026-09-13, labels-rung trace): the role labels that find the copular holder (nsubj/nsubj:pass/
         # csubj) are marginalised over the heads rung's P(head | dep) -- as the patient arm and the apposition map already do --
         # instead of collapsing to the single MAP head first (state 0.8095 -> 0.6614 under the BF governor was this hand-off).
         hp = head_posterior if STATE_HEADPOST else None
-        labels = lab.label(toks, up, heads, head_posterior=hp)
+        if cop_preds is None and lab is not None:
+            labels = lab.label(toks, up, heads, head_posterior=hp)          # back-compat label path
+        else:
+            labels = _GRA.coarse_roles(list(toks), list(up), heads, head_posterior=hp)
     except Exception:
         return []
-    cop_preds = set()
-    for dep_i, rel in labels.items():
-        if rel == "cop":
-            h = heads.get(dep_i, 0)
-            if h and 1 <= h <= len(toks):
-                cop_preds.add(h)                        # 1-based predicate id
+    if cop_preds is None:
+        cop_preds = set()
+        for dep_i, rel in labels.items():
+            if rel == "cop":
+                h = heads.get(dep_i, 0)
+                if h and 1 <= h <= len(toks):
+                    cop_preds.add(h)                    # 1-based predicate id
+    else:
+        cop_preds = {p for p in cop_preds if 1 <= p <= len(toks)}
     subj_of = {}
     for dep_i, rel in labels.items():
         if rel in ("nsubj", "nsubj:pass", "csubj"):

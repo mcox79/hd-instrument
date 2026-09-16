@@ -1258,6 +1258,226 @@ def role_decision(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int]
             "reliability": {kind: margin_reliability(m, kind, rel) for kind in RELIABILITY_KINDS}}
 
 
+# ===============================================================================================================
+# THE PATIENT RELIABILITY THE CONSUMER ACTUALLY ASKS FOR (pri 129, 2026-09-15).
+# The who-did-what defer used to score its arc with hdlab.parse_confidence -- a logistic FITTED OFFLINE on the
+# arc-eager parser's conf/marg, i.e. on a DIFFERENT parser's features than the live attachment arm now hands
+# down.  Two things are wrong with it and one is measurable: (a) it is a fitted readout bolted on after the
+# decision, not the deciding accumulator's own certainty (Kiani & Shadlen 2009); (b) the reliability it
+# calibrates is of the ORGAN's private 8-way label, while the consumer asks a DIFFERENT question -- "is this
+# token the verb's patient".  This module's own §"RELIABILITY BELONGS TO THE DECISION THE CONSUMER READS" says
+# so; the margin does not answer it (measured: margin AUC 0.4962, margin-reliability 0.4827 -- at chance,
+# because a LARGE margin can mean confidently-OBL).
+#
+# THE OPERATION.  The consumer's question is a conjunction of two beliefs the competition already holds:
+#     P(pk is the patient of v)  =  P(role(pk) in {OBJ, PASS_SUBJ})  x  P(pk wins v's object slot)
+# Factor 1 is this organ's posterior for pk, marginalised over the heads rung's P(head | dep) when the
+# attachment arm hands one down.  Factor 2 is the SLOT-LEVEL competition -- one object slot, several nominal
+# claimants, normalised against each other (Vosse & Kempen 2000 competitive unification; the same
+# winner-take-all normalisation `graded_pick` performs over candidates).  ZERO fitted parameters; both factors
+# are pure functions of the count-accrued cue validities, so `observe_role_outcome` keeps them plastic.
+#
+# MEASURED (UD-EWT test, n=1247 patient items the live chain decides, sentence-clustered paired bootstrap,
+# experiments/exp_labels_rung_to_live_consumers_v1.py --patient):
+#     right-vs-wrong AUC  0.8127  vs the fitted logistic 0.7613  (+0.0517 CI95 [+0.0136, +0.0882])
+#     belief alone        0.7861  (+0.0241 CI95 [-0.0141, +0.0629] -- the SLOT factor is what separates)
+#     permuted twin       0.4764  (chance)
+#     selective accuracy @50% coverage 0.9470 vs 0.9133 (blanket 0.8148); @67% 0.9234 vs 0.9078
+# ===============================================================================================================
+PATIENT_CLASSES = ("OBJ", "PASS_SUBJ")
+SLOT_HEAD_MIN_P = 0.05        # a nominal enters the object-slot competition at this much head mass (swept 0.02/0.05/0.2, flat)
+
+
+def patient_belief(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int], i: int,
+                   head_post: Optional[Dict[int, Dict[int, float]]] = None,
+                   conf: Optional[Dict[int, float]] = None,
+                   validities: Optional[Dict[str, object]] = None) -> float:
+    """P(token i bears a PATIENT role) = the competition's OBJ + PASS_SUBJ mass, marginalised over the heads
+    rung's posterior for i when one is supplied (the graded hand-off)."""
+    ix = {r: k for k, r in enumerate(ROLE_CLASSES)}
+    hpd = (head_post or {}).get(i)
+    p = (coarse_role_posterior_headmarg(toks, pos, heads, i, hpd, validities, conf=conf) if hpd
+         else coarse_role_posterior(toks, pos, heads, i, validities, conf))
+    return float(sum(p[ix[c]] for c in PATIENT_CLASSES))
+
+
+def patient_slot_confidence(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int],
+                            v: int, pk: int,
+                            head_post: Optional[Dict[int, Dict[int, float]]] = None,
+                            conf: Optional[Dict[int, float]] = None,
+                            validities: Optional[Dict[str, object]] = None) -> Optional[float]:
+    """THE RELIABILITY OF THE WHO-DID-WHAT PATIENT DECISION (1-based v, pk), in [0,1], or None when pk is out
+    of range.  P(patient role) x P(wins the object slot) -- see the section note above.  This REPLACES
+    hdlab.parse_confidence.calibrated_patient_confidence for the reader's defer."""
+    n = len(toks)
+    if not (1 <= pk <= n) or not (1 <= v <= n):
+        return None
+    tab = validities or load_coarse_validities()
+    pp = patient_belief(toks, pos, heads, pk, head_post, conf, tab)
+    cands = [c for c in range(1, n + 1)
+             if pos[c - 1] in NOMINAL and (heads.get(c) == v
+                                           or (head_post or {}).get(c, {}).get(v, 0.0) >= SLOT_HEAD_MIN_P)]
+    if pk not in cands:
+        cands.append(pk)
+    tot = 0.0
+    for c in cands:
+        tot += pp if c == pk else patient_belief(toks, pos, heads, c, head_post, conf, tab)
+    return float(pp * (pp / tot)) if tot > 0 else 0.0
+
+
+def defer_below(confidence: Optional[float], threshold: Optional[float]) -> bool:
+    """THE OPT-OUT (Kiani & Shadlen 2009 / Kepecs 2008): do not hard-commit a decision whose own reliability is
+    below `threshold`; Friston's precision-weighting in its discrete limit.  threshold=None -> never defer, so an
+    un-flipped deployment is byte-identical.  Lives HERE, next to the organ that PRODUCES the confidence, so a
+    consumer that defers never has to import the retired fitted readout for a two-line comparison (pri 129: the
+    reader's defer branch still did `from hdlab.parse_confidence import defer`, which would have re-imported a
+    NOT_BF module the instant anyone set a tau -- invisible today only because the default is None)."""
+    if threshold is None or confidence is None:
+        return False
+    return float(confidence) < float(threshold)
+
+
+# ===============================================================================================================
+# THE PURPOSE / COMPLEMENT ARM (pri 129).  The goal register's ADVCL purpose filter used to reject a "to VINF"
+# site by reading the frozen perceptron's deprel (xcomp/ccomp/acl => a complement, not a purpose adjunct).  The
+# brain does not run a relation classifier for this: infinitive attachment is LEXICALIST CONSTRAINT SATISFACTION
+# -- the governing verb's stored subcategorization frame decides complement-vs-adjunct (MacDonald, Pearlmutter &
+# Seidenberg 1994; Trueswell 1996; Garnsey et al. 1997), settled by competition (Vosse & Kempen 2000).  So it is
+# an ARM OF THIS ORGAN, with the same machinery: cue values read from the categories organ / the attachment arm /
+# the stored verb frame, strengths = configuration-conditioned CONTRASTS accrued from counts, additive activation
+# -> softmax.  No new classifier family, no fitted weight, and `observe_purpose_outcome` keeps it learning.
+#
+# MEASURED (the population goal_register branch (3) actually reaches; fit on UD-EWT train, tau + cue set
+# selected on a train-internal dev split, reported on UD-EWT TEST -- see SOLVED.md for the numbers).
+# ===============================================================================================================
+PURPOSE_CLASSES = ("complement", "purpose")
+_PURPOSE_PATHS = tuple(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", d,
+                                    "purpose_complement_validities_ud_ewt.json")
+                       for d in ("frontend_assets", "hook_state"))
+_PURPOSE_CACHE: Optional[Dict[str, object]] = None
+
+
+def load_purpose_validities(path: Optional[str] = None) -> Optional[Dict[str, object]]:
+    """The purpose/complement cue table, or None when no asset is on disk -- in which case every
+    `purpose_complement_posterior` call returns None and the goal filter falls through exactly as an unlabeled
+    deprel did (so an un-upgraded deployment is unchanged)."""
+    global _PURPOSE_CACHE
+    if path is None and _PURPOSE_CACHE is not None:
+        return _PURPOSE_CACHE or None
+    for p in ((path,) if path else (os.environ.get("HDLAB_PURPOSE_VALIDITIES"),) + _PURPOSE_PATHS):
+        if p and os.path.exists(p):
+            with open(p, encoding="utf-8") as f:
+                tab = json.load(f)
+            if path is None:
+                _PURPOSE_CACHE = tab
+            return tab
+    if path is None:
+        _PURPOSE_CACHE = {}
+    return None
+
+
+def purpose_cues(toks: Sequence[str], pos: Sequence[str], to_i: int, mv_i: int,
+                 heads: Dict[int, int], subcat=None):
+    """(configuration, {cue: value}) for the infinitival marker at 0-based `to_i` governed by the verb at
+    0-based `mv_i`.  CONFIGURATION = the unification window between governor and marker; every cue comes from
+    the categories organ, the attachment arm's heads, or the stored verb frame.  Arc-light and glass-box."""
+    from hdlab.goal_register import _lemma as _gl   # the SAME key the validity counts were accrued under
+    n = len(toks)
+    low = [t.lower() for t in toks]
+    mv = low[mv_i]
+    mvl = _gl(mv)
+    pc = None
+    if subcat is not None:
+        pc = subcat.p_complement(mv)
+        if pc is None:
+            pc = subcat.p_complement(mvl)
+    between = list(pos[mv_i + 1:to_i])
+    if not between:
+        cfg = "adjacent"
+    elif all(c in NOMINAL or c in ("DET", "ADJ", "NUM") for c in between):
+        cfg = "objonly"                                  # object control: "told HIM to go"
+    elif any(c == "ADP" for c in between):
+        cfg = "pp"                                       # "went to the market to buy"
+    else:
+        cfg = "other"
+    h = heads.get(to_i + 2, 0)
+    return cfg, {
+        "frame": "na" if pc is None else ("hi" if pc >= 0.7 else "mid" if pc >= 0.4 else "lo"),
+        "prev": pos[to_i - 1] if to_i - 1 >= 0 else "NONE",
+        "dist": "0" if (to_i - mv_i) == 1 else "1" if (to_i - mv_i) == 2 else "2" if (to_i - mv_i) <= 4 else "3+",
+        "headcat": (pos[h - 1] if h and 1 <= h <= n else "ROOT"),
+        "headismv": "1" if h == mv_i + 1 else "0",
+        "post": "end" if (to_i + 2 >= n or all(pos[k] == "PUNCT" for k in range(to_i + 2, n)))
+                else pos[min(to_i + 2, n - 1)],
+        "mvlem": mvl,
+        "hasobj": "1" if any(pos[k] in NOMINAL for k in range(mv_i + 1, to_i)) else "0",
+        "comma": "1" if (to_i - 1 >= 0 and low[to_i - 1] == ",") else "0",
+    }
+
+
+def purpose_complement_posterior(cfg: str, cues: Dict[str, str],
+                                 table: Optional[Dict[str, object]] = None) -> Optional[float]:
+    """P(this 'to VINF' is a COMPLEMENT, not a purpose adjunct) from the additive cue competition, or None when
+    no validity asset is on disk.  A cue value never seen enough times in the counts contributes nothing."""
+    tab = table if table is not None else load_purpose_validities()
+    if not tab:
+        return None
+    drop = set(tab.get("dropped_cues") or ())
+    A = np.array(tab["cfg"].get(cfg) or tab["prior"], dtype=float)
+    for cn, cv in cues.items():
+        if cn in drop:
+            continue
+        s = tab["strength"].get("%s|%s|%s" % (cn, cfg, cv))
+        if s is not None:
+            A = A + np.array(s, dtype=float)
+    return float(softmax(A, gain=1.0)[0])
+
+
+def observe_purpose_outcome(cfg: str, cues: Dict[str, str], outcome: str,
+                            table: Optional[Dict[str, object]] = None) -> Optional[Dict[str, object]]:
+    """PLASTICITY: accrue ONE confirmed comprehension outcome ('complement' / 'purpose') into the purpose arm's
+    counts and recompute its strengths (a pure function of the counts, like every other table here).  Persist
+    with `save_purpose_validities`.  No gold is read at inference -- the caller supplies the outcome."""
+    tab = table if table is not None else load_purpose_validities()
+    if not tab:
+        return None
+    a = float(tab.get("alpha", 1.0))
+    k = len(PURPOSE_CLASSES)
+    tab["counts"]["cfg"].setdefault(cfg, {})
+    tab["counts"]["cfg"][cfg][outcome] = tab["counts"]["cfg"][cfg].get(outcome, 0) + 1
+    for cn, cv in cues.items():
+        key = "%s|%s|%s" % (cn, cfg, cv)
+        tab["counts"]["cue"].setdefault(key, {})
+        tab["counts"]["cue"][key][outcome] = tab["counts"]["cue"][key].get(outcome, 0) + 1
+    pri = {c: 0 for c in PURPOSE_CLASSES}
+    for v in tab["counts"]["cfg"].values():
+        for c, x in v.items():
+            pri[c] = pri.get(c, 0) + x
+    tot = sum(pri.values())
+    tab["prior"] = [float(np.log((pri.get(c, 0) + a) / (max(1, tot) + a * k))) for c in PURPOSE_CLASSES]
+    for key, v in tab["counts"]["cfg"].items():
+        t = sum(v.values())
+        tab["cfg"][key] = [float(np.log((v.get(c, 0) + a) / (t + a * k))) for c in PURPOSE_CLASSES]
+    mc = int(tab.get("min_count", 3))
+    tab["strength"] = {}
+    for key, v in tab["counts"]["cue"].items():
+        t = sum(v.values())
+        if t < mc:
+            continue
+        base = tab["cfg"].get(key.split("|")[1]) or tab["prior"]
+        tab["strength"][key] = [float(np.log((v.get(c, 0) + a) / (t + a * k)) - base[ci])
+                                for ci, c in enumerate(PURPOSE_CLASSES)]
+    return tab
+
+
+def save_purpose_validities(path: Optional[str] = None, table: Optional[Dict[str, object]] = None) -> str:
+    tab = table if table is not None else load_purpose_validities()
+    p = path or _PURPOSE_PATHS[0]
+    with open(p, "w", encoding="ascii", newline="\n") as f:
+        json.dump(tab, f, indent=1, sort_keys=True)
+    return p
+
+
 def coarse_role_posterior_tagmarg(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int], i: int,
                                   tag_post: np.ndarray, tag_labels: Sequence[str],
                                   validities: Optional[Dict[str, object]] = None, min_p: float = 0.02) -> np.ndarray:
@@ -1980,4 +2200,7 @@ __all__ = ["hybrid_role_patient", "competition_pick", "cue_supports", "voice_cue
            "hybrid_agent_pick", "agent_override_fires", "agent_override_licensed",
            "role_margin", "role_decision", "margin_reliability", "observe_margin_outcome",
            "save_margin_reliability", "load_margin_reliability", "calibrated_class_posterior",
-           "reliability_from_counts", "RELIABILITY_KINDS", "reliability_gain", "roles_with_decisions"]
+           "reliability_from_counts", "RELIABILITY_KINDS", "reliability_gain", "roles_with_decisions",
+           "patient_belief", "patient_slot_confidence", "defer_below", "PATIENT_CLASSES",
+           "purpose_cues", "purpose_complement_posterior", "observe_purpose_outcome",
+           "load_purpose_validities", "save_purpose_validities", "PURPOSE_CLASSES"]

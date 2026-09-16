@@ -927,6 +927,11 @@ def floor_mostfreq_coref(mentions: List[dict], names: Dict[int, str]) -> Optiona
 def floor_recency_coref(target_mention: dict, mentions: List[dict], names: Dict[int, str]) -> Optional[str]:
     """STRONGEST coref floor: the nearest PRECEDING non-pronoun mention (recency / proximity). This
     is the trivial re-reading heuristic the accumulated coref model must beat."""
+    # 2026-09-15 (strategy, pri 129 landing): a coref question with NO aligned target mention (the reader's discovered
+    # resolutions no longer align 1:1 with the gold target list -- the scoring contract is pri 131) makes the FLOOR
+    # abstain (None -> recency_ok 0) instead of raising; the model's own answer is scored as before.
+    if not target_mention or "sent_idx" not in target_mention:
+        return None
     ts, tw = target_mention["sent_idx"], target_mention.get("wtok_start", 0)
     best = None
     for m in mentions:

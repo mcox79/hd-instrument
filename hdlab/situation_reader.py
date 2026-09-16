@@ -1814,7 +1814,11 @@ class SituationReader:
         # instance binding + pronoun-into-entity). DEFAULT-OFF pending a live measurement -- its harness win is
         # COMMON-NOUN CoNLL, which the board's PRONOUN coref dim does not score (indirect payoff via affect/goal).
         self.entity_kb_resolver = bool(entity_kb_resolver)
-        self._lab = None               # lazy shared hdlab.arc_labeler.ArcLabeler (deprels for the goal filter)
+        self._lab = None               # RETIRED pri 129: no live consumer loads the supervised relation
+        #                                labeler any more (patient defer -> the competition's patient belief;
+        #                                goal purpose filter -> the competition's purpose arm; copular states
+        #                                + the is-a map -> the predicate slot).  Kept as a field so any
+        #                                out-of-tree caller of _frontend_labeler still sees None, not AttributeError.
         self._pred_detector = None     # lazy hdlab.predicate_detector.PredicateDetector
         # PER-READ tag/parse memo (2026-09-03 perf): dimensions independently re-tag/re-parse the SAME
         # sentences (arc parser ~118x + POS tagger ~310x per read). Tag+parse each distinct sentence ONCE
@@ -1825,7 +1829,7 @@ class SituationReader:
         self._es_typed = None          # lazy predicted_type (Higgins classifier)
         self._es_pos = None            # lazy PosTagger (the copular assets' tagger)
         self._es_arc = None            # lazy ArcParser (M._ARC_ASSET)
-        self._es_lab = None            # lazy ArcLabeler (M._LAB_ASSET)
+        self._es_lab = None            # RETIRED pri 129 (the copular detection is the predicate slot)
         self._es_reg_cls = None        # lazy hdlab.state_register.StateRegister
         self._causation_lex = None     # lazy force lexicon
         # COMMON-NOUN referent former + wiring (opt-in; default OFF -> byte-identical). Wired 2026-09-04 from the
@@ -2480,35 +2484,66 @@ class SituationReader:
         return dict(h), dict(cf), dict(mg)
 
     def _patient_arc_confidence(self, toks, v, pk):
-        """CALIBRATED reliability in [0,1] of the who-did-what PATIENT parse arc (1-based `v`, `pk`), or None on
-        any failure (abstain -- never breaks a read). The precision-weighting substrate: the reader can DEFER on
-        a low-confidence patient (Friston precision; hdlab.parse_confidence, reusing graded_competition). Feature
-        inputs are the validated exp_precwt_live_whodidwhat_v1 row (arc-eager conf/marg + the role-competition
-        entropy + the labeled-obj indicator + passive). Read-only over the parse -- changes no head (ADDITIVE).
+        """Reliability in [0,1] of the who-did-what PATIENT decision (1-based `v`, `pk`), or None on any failure
+        (abstain -- never breaks a read).  THE DECIDING ORGAN CARRIES THE CERTAINTY (pri 129, 2026-09-15): this
+        used to score the arc with the FROZEN FITTED LOGISTIC in hdlab.parse_confidence, whose features were fit
+        offline on the arc-eager parser -- a different parser from the attachment arm the reader now runs, and a
+        readout bolted on after the decision rather than the accumulator's own balance of evidence (Kiani &
+        Shadlen 2009).  It now reads the Competition-Model organ's own belief that pk is v's patient:
+        P(role in {OBJ, PASS_SUBJ}) x P(pk wins v's object slot) (Vosse-Kempen competitive unification), both
+        factors pure functions of the count-accrued cue validities -- no fitted parameter, no relation labeler,
+        and plastic through `observe_role_outcome`.
 
-        A2-DROP 2026-09-06 (precision-defer landing): the a2_marg cue (the GLOBAL arc_parser margin at pk) is
-        passed 0.0 -- it is INERT for the patient by measurement (predecessor), so dropping it needs NO 2nd
-        parser (the defer path scores off the SINGLE shared arc-eager parse). The abstain/defer policy is
-        coverage/rank-based, so it is invariant to the resulting uniform confidence shift (a2_marg becomes a
-        constant feature; the right-vs-wrong ranking -- hence the dev-tau coverage split -- is preserved)."""
+        MEASURED (UD-EWT test, n=1247 patient items the live chain decides, sentence-clustered paired
+        bootstrap): right-vs-wrong AUC 0.8127 vs the fitted logistic's 0.7613, +0.0517 CI95 [+0.0136, +0.0882];
+        permuted twin 0.4764; selective accuracy at 50% coverage 0.9470 vs 0.9133 (blanket 0.8148).  ADDITIVE as
+        before -- the agent/patient PICKS are unchanged; only a consumer that opts to defer acts on it."""
         try:
-            from hdlab import parse_confidence as PC
-            from hdlab.relcl_resolver import precise_passive
+            from hdlab.graded_role_assigner import patient_slot_confidence
             pos = self._cached_tag(list(toks))
-            heads, conf, marg = self._cached_parse_conf(list(toks), pos)
-            labels = self._frontend_labeler().label(list(toks), list(pos), heads, head_posterior=self._cached_head_posterior(list(toks), pos))
-            passive = bool(precise_passive(list(toks), list(pos), v))
-            return PC.calibrated_patient_confidence(list(toks), list(pos), heads, conf, marg, v, pk,
-                                                    labels, passive, a2_marg=0.0)
+            heads, conf, _marg = self._cached_parse_conf(list(toks), pos)
+            hp = self._cached_head_posterior(list(toks), pos)
+            return patient_slot_confidence(list(toks), list(pos), heads, v, pk, head_post=hp, conf=conf)
         except Exception:
             return None
 
-    def _frontend_labeler(self):
-        """Shared lazy arc labeler (UD deprels) -- for the goal advcl purpose filter (+ reused by entity_states)."""
-        if self._lab is None:
-            from hdlab.arc_labeler import ArcLabeler
-            self._lab = ArcLabeler.load(os.path.join(_REPO, "data/frontend_assets/arc_labeler_hashed_ud_ewt.json"))
-        return self._lab
+    def _purpose_deprels(self, toks, up, heads):
+        """{1-based infinitival-verb id -> "xcomp" | "advcl"} for every "to VINF" site in this sentence -- the
+        ONLY thing goal_register's ADVCL purpose filter ever read off a relation labeler, now decided by the
+        Competition-Model organ's PURPOSE arm (lexicalist subcategorization frame + configuration cues;
+        MacDonald-Pearlmutter-Seidenberg / Trueswell / Vosse-Kempen).  Returns {} when the purpose validity
+        asset is absent, which makes the filter fall through exactly as an unlabeled deprel did."""
+        from hdlab.graded_role_assigner import (purpose_cues, purpose_complement_posterior,
+                                               load_purpose_validities)
+        tab = load_purpose_validities()
+        if not tab:
+            return {}
+        try:
+            from hdlab.verb_subcat_frames import SubcatFrames
+            sc = SubcatFrames.load()
+        except Exception:
+            sc = None
+        out = {}
+        low = [t.lower() for t in toks]
+        n = len(toks)
+        for i in range(1, n - 1):
+            if low[i] != "to" or not (i + 1 < n and up[i + 1] == "VERB"):
+                continue
+            mvi = None
+            for j in range(i - 1, -1, -1):
+                if up[j] == "VERB":
+                    mvi = j
+                    break
+                if low[j] in (".", ";", ":", "!", "?"):
+                    break
+            if mvi is None:
+                continue
+            cfg, cues = purpose_cues(list(toks), list(up), i, mvi, heads, subcat=sc)
+            p = purpose_complement_posterior(cfg, cues, tab)
+            if p is None:
+                continue
+            out[i + 2] = "xcomp" if p >= float(tab.get("tau", 0.55)) else "advcl"
+        return out
 
     @staticmethod
     def _has_to_verb(toks, up):
@@ -2691,7 +2726,11 @@ class SituationReader:
                     if theme_pos0 is not None and vp is not None:
                         p_conf = self._patient_arc_confidence(list(toks), vp + 1, theme_pos0 + 1)
                         if p_conf is not None and tau is not None:
-                            from hdlab.parse_confidence import defer as _pw_defer
+                            # pri 129: the opt-out comes from the organ that PRODUCES the confidence, not from
+                            # the retired fitted readout.  This line was the LAST live import of
+                            # hdlab.parse_confidence -- dormant only because the default tau is None, and it
+                            # would have re-imported a NOT_BF module the instant anyone flipped the defer on.
+                            from hdlab.graded_role_assigner import defer_below as _pw_defer
                             p_defer = _pw_defer(p_conf, tau)
                     # AGENT reliability = the Competition-Model competition MARGIN (raw; AUC~0.76, NO calibration
                     # -- the competition maintains the full candidate distribution). None when the positional/
@@ -3164,14 +3203,12 @@ class SituationReader:
         pos = [self._cached_tag(list(t)) for t in sents]
         deprels_by_sent = None
         if self.goal_purpose_filter:
-            # the reader's OWN arc-labeler deprels over the SHARED per-read parse (consolidated arc-eager heads).
-            # EFFICIENCY (2026-09-06): the ADVCL purpose filter reads a deprel ONLY in GR.extract_goals_sentence
-            # branch (3) (the bare 'to VINF' adjunct), whose entry gate requires a 'to' token followed by a VERB.
-            # Label ONLY those sentences (self._has_to_verb) -- BYTE-IDENTICAL (a skipped sentence passes
-            # deprels=None, exactly as it would have fallen through), ~4-8x fewer arc-labeler calls on prose.
-            lab = self._frontend_labeler()
+            # pri 129: the purpose verdict comes from the Competition-Model organ's PURPOSE arm, not a frozen
+            # supervised deprel (_purpose_deprels).  The _has_to_verb gate is kept: a sentence with no
+            # "to VERB" can never reach GR.extract_goals_sentence branch (3), so skipping it is byte-identical
+            # and the arm is not run on the ~75-90% of prose sentences that cannot use it.
             deprels_by_sent = [
-                (lab.label(list(t), pos[i], self._cached_parse_heads(list(t), pos[i]), head_posterior=self._cached_head_posterior(list(t), pos[i]))
+                (self._purpose_deprels(list(t), pos[i], self._cached_parse_heads(list(t), pos[i]))
                  if self._has_to_verb(t, pos[i]) else None)
                 for i, t in enumerate(sents)]
         goals = GR.extract_goals(sents, pos, subcat=sc, deprels_by_sent=deprels_by_sent)
@@ -4415,15 +4452,12 @@ class SituationReader:
         frontend assets so flag-on == the validated experiment. Lazy imports -> byte-identical when off. NO LLM."""
         if self._es_mod is None:
             from hdlab import copular_binding as _M
-            from hdlab.pos_tagger import PosTagger
-            from hdlab.arc_parser import ArcParser
-            from hdlab.arc_labeler import ArcLabeler
             from hdlab.state_register import StateRegister
             self._es_mod = _M
             self._es_typed = _M.predicted_type
-            self._es_pos = PosTagger.load(_M.POS_ASSET)
-            self._es_arc = ArcParser.load(_M.ARC_ASSET)
-            self._es_lab = ArcLabeler.load(_M.LAB_ASSET)
+            # pri 129: the three private supervised assets (PosTagger / ArcParser / ArcLabeler) are GONE.  The
+            # tag + parse already route through the reader's SHARED per-read cache (they have since 2026-09-04,
+            # so _es_pos / _es_arc were dead weight), and DETECTION is now the predicate slot, so no labeler.
             self._es_reg_cls = StateRegister
         M = self._es_mod
         reg = self._es_reg_cls()
@@ -4453,7 +4487,19 @@ class SituationReader:
                 for i, d in enumerate(tp):
                     if i < len(up_c) and up_c[i] not in ("NOUN", "PROPN", "PRON") and d and                             sum(d.get(c, 0.0) for c in ("NOUN", "PROPN", "PRON")) >= STATE_NOMINAL_MASS:
                         up_c[i] = max(("NOUN", "PROPN", "PRON"), key=lambda c: d.get(c, 0.0))
-            bind = set(M.extract_entity_states(toks, up_c, self._es_arc, self._es_lab, heads=heads,
+            # pri 129: DETECTION = the PREDICATE SLOT (attachment_arm.predicate_sites), not the frozen
+            # perceptron's `cop` label.  Read-back recall 0.7958 vs 0.7905 with fewer pairs emitted; dropping
+            # the path entirely is CI-separated DOWN (-0.0107), so it is load-bearing and was replaced, not cut.
+            _cp = set()          # NOT None: an empty set means "the label path detects nothing here", so a
+            #                      category inventory without the UPOS classes predicate_sites reads degrades
+            #                      to the robust closed-class copula detector alone -- never to a labeler.
+            _m = self._cached_tag_matrix(list(toks))
+            if _m is not None:
+                from hdlab.attachment_arm import predicate_sites as _ps
+                from hdlab import lexical_categories as _LCp
+                _cp = {q + 1 for q, s in _ps(list(toks), list(up_c), _m, list(_LCp.get().tags)).items()
+                       if up_c[q] != "VERB" and s > 0.0}
+            bind = set(M.extract_entity_states(toks, up_c, heads=heads, cop_preds=_cp,
                                                head_posterior=self._cached_head_posterior(toks, up)))   # graded hand-off (2026-09-13)
             pairs = bind | M.robust_cop(toks, up_c, heads, gate=True)
             # ONE STRUCTURE PER CLAUSE (pri 113): the same PREDICATE SLOT the event detector fires on also supplies
@@ -4475,7 +4521,9 @@ class SituationReader:
                 holder, prop = toks[h], toks[p]
                 states.append(EntityState(sent_idx=si, holder=holder, property=prop, htype=htype))
                 if htype in ("pred_adj", "pred_nom"):     # predicational -> state register (read-back)
-                    reg.apply_state(holder.lower(), prop.lower())
+                    # R01 (follow-up review 2026-09-15): the state's TIME is its sentence (t defaulted to 0, so
+                    # every state landed at time zero and 'door open' then 'door closed' could not be ordered).
+                    reg.apply_state(holder.lower(), prop.lower(), t=si)
         sm.entity_states = states
         sm.state_register = reg
 
@@ -4541,14 +4589,43 @@ class SituationReader:
         return c
 
     def _commonnoun_appos_map(self, sents):
-        """In-text is-a edges (apposition + copula 'X is/are a Y') from the reader's OWN parse, keyed by
-        head_lemma -- the appos/copula bridge seed (byte-faithful to TC.appos_copula_isa, but on the reader's
-        arc-labeler output instead of a gum_coref.Doc). REUSES the shared per-read tag/head cache
-        (_cached_tag / _cached_parse_heads are HITS -- the events/roles path already parsed these sentences),
-        so NO second parse: the only new work is arc LABELING, gated to sentences with >=2 nominal tokens
-        (both appos and copula need two nominals -> byte-safe skip)."""
-        from hdlab.lexical_utils import concept_lemma   # BF concept-key (matches _resolve_commonnouns' r.heads keying)
-        lab = self._frontend_labeler()
+        """RETIRED ON THE LIVE PATH (pri 129, 2026-09-15) -- returns {} and reads nothing.
+
+        THIS MAP WAS MEASURED DEAD AT ITS OWN CONSUMER.  It fed exactly one place:
+        `entity_resolver.resolve_commonnouns` (hdlab/entity_resolver.py:542, `tset = appos_map.get(hl, set())`),
+        and only in the DIFF-HEAD branch -- the SAME-HEAD recency branch above it never consults the map at all.
+        There it is the FIRST of SIX DISJOINED licences (appos / appos-to-a-name / WordNet type / encyclopedic /
+        conceptual / coarse-focus), and an is-a edge CO-TYPES its pair by definition, so the WordNet type licence
+        already covers every pair the map licenses.  MEASURED (8 GUM test documents through the live reader,
+        experiments/exp_labels_rung_to_live_consumers_v1.py --isadead and --rows --gum-docs 8 --ud-cap 0):
+        emptying the map changes ZERO resolution records, and `common_noun_coref` scores 0.4903 on 155 anaphoric
+        mentions IDENTICALLY with the shipped map, with a copula-only brain-foundational map, and with the map
+        EMPTY (paired 0.0000 CI [0.0000, 0.0000] both ways; every floor and twin identical).
+
+        SO IT IS DELETED RATHER THAN REPLACED.  It was the FIRST importer of the frozen supervised relation
+        labeler on a default read (160 `ArcLabeler.label` calls per document) for a cue no consumer can see, and
+        the rule is: fix to brain-foundational or REMOVE, never keep for a metric.  The brain-foundational
+        successor is NOT a syntactic apposition scan at read time -- an apposition is an EPISODE that updates the
+        anterior-temporal hub's typed knowledge (Rogers & McClelland), and `hdlab/definitional_extraction.py`
+        already reads a genus statement off the page.  `_commonnoun_isa_from_predication` below is kept
+        IMPORTABLE and uncalled so that lead can be built against it.
+
+        Returns {} so every caller's contract is unchanged (entity_resolver reads `.get`)."""
+        return {}
+
+    def _commonnoun_isa_from_predication(self, sents):
+        """IMPORTABLE, NOT CALLED (pri 129): in-text is-a edges from the PREDICATE SLOT + the ONE role
+        competition -- the brain-foundational form of the copula half of the retired map above (the predicate a
+        copula carries tense for, Pustet 2003 / Maienborn 2005, plus the competition's SUBJ belief for its
+        holder; no relation labeler anywhere).  MEASURED on UD-EWT test: it recovers 25 of the 63 gold copular
+        is-a edges against the perceptron recipe's 24 (+0.0163 CI95 [-0.0667, +0.0952], not down).  Kept for the
+        definitional-extraction lead; wire it only WITH a consumer-level instrument that can see it."""
+        from hdlab.lexical_utils import concept_lemma   # BF concept-key (matches _resolve_commonnouns' keying)
+        from hdlab import graded_role_assigner as _GRA
+        from hdlab.attachment_arm import predicate_sites as _ps
+        from hdlab import lexical_categories as _LCp
+        _ix = {r: k for k, r in enumerate(_GRA.ROLE_CLASSES)}
+        _NOM2 = ("NOUN", "PROPN")
         typed = {}
         for toks in sents:
             toks = list(toks)
@@ -4556,27 +4633,31 @@ class SituationReader:
             if n < 2:
                 continue
             up = self._cached_tag(toks)
-            if sum(1 for t in up if t in ("NOUN", "PROPN")) < 2:
-                continue                                    # cannot yield an is-a edge -> skip (byte-safe)
-            heads = self._cached_parse_heads(toks, up)      # {dep(1-based): head(1-based), 0=ROOT}
-            deprels = lab.label(toks, up, heads, head_posterior=self._cached_head_posterior(toks, up))   # {dep(1-based): deprel}
+            if sum(1 for t in up if t in _NOM2) < 2:
+                continue                                    # cannot yield an is-a edge -> skip
+            heads = self._cached_parse_heads(toks, up)
+            hp = self._cached_head_posterior(toks, up)
+            mat = self._cached_tag_matrix(toks)
+            if mat is None:
+                continue
             links = set()
-            for i in range(1, n + 1):
-                dep = deprels.get(i, "")
-                h = heads.get(i, 0)
-                # apposition: dep i -> head h, both nominal
-                if dep.startswith("appos") and 1 <= h <= n \
-                        and up[i - 1] in ("NOUN", "PROPN") and up[h - 1] in ("NOUN", "PROPN"):
-                    links.add(frozenset((concept_lemma(toks[i - 1]), concept_lemma(toks[h - 1]))))
-                # copula: token i is 'be' with deprel 'cop'; head h = predicate nominal; find its nsubj subject
-                if toks[i - 1].lower() in ("be", "is", "are", "was", "were", "been", "being", "'s", "'re") \
-                        and dep == "cop" and 1 <= h <= n and up[h - 1] in ("NOUN", "PROPN"):
-                    subj = None
-                    for u in range(1, n + 1):
-                        if heads.get(u, 0) == h and deprels.get(u, "").startswith("nsubj"):
-                            subj = u
-                    if subj is not None and up[subj - 1] in ("NOUN", "PROPN"):
-                        links.add(frozenset((concept_lemma(toks[h - 1]), concept_lemma(toks[subj - 1]))))
+            for pred in {q + 1 for q, s in _ps(toks, list(up), mat, list(_LCp.get().tags)).items()
+                         if up[q] != "VERB" and s > 0.0}:
+                if up[pred - 1] not in _NOM2:
+                    continue                                # an is-a edge needs a NOMINAL predicate
+                best, bp = None, 0.0
+                for d in range(1, n + 1):
+                    hpd = (hp or {}).get(d)
+                    if heads.get(d) == pred or (hpd and hpd.get(pred, 0.0) > 0.0):
+                        if up[d - 1] not in _NOM2:
+                            continue
+                        post = (_GRA.coarse_role_posterior_headmarg(toks, up, heads, d, hpd) if hpd
+                                else _GRA.coarse_role_posterior(toks, up, heads, d))
+                        pr = float(post[_ix["SUBJ"]] + post[_ix["PASS_SUBJ"]])
+                        if pr > bp:
+                            best, bp = d, pr
+                if best is not None and bp >= 0.5:
+                    links.add(frozenset((concept_lemma(toks[pred - 1]), concept_lemma(toks[best - 1]))))
             for l in links:
                 a, b = tuple(l) if len(l) == 2 else (next(iter(l)), next(iter(l)))
                 if not a or not b:

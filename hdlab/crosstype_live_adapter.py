@@ -90,7 +90,16 @@ def _parse_sentence(forms, reader):
     if reader is not None:
         pos = reader._cached_tag(list(forms))
         heads = reader._cached_parse_heads(list(forms), pos)
-        deprels = reader._frontend_labeler().label(list(forms), list(pos), heads)
+        # pri 129 (2026-09-15, strategy at landing): the reader's supervised relation labeler is RETIRED (NOT_BF), so
+        # the ARGUMENT relations (nsubj / obj / obl -> the bridge's Centering role, its obj/iobj and xcomp/obl reads)
+        # come from the ONE role competition (graded_role_assigner.coarse_roles, count-accrued validities). The FINE
+        # non-argument relations the perceptron used to hand this bridge (appos / flat / compound / nmod:poss -- its
+        # name-linking cues) have NO brain-foundational source yet: they read 'dep' here (the organ's own convention
+        # for non-argument tokens) and the bridge's name-link paths that key on them do not fire. Located gap, filed
+        # by strategy (a non-argument relations rung: pri 118's name-run cue for flat/compound, the predicate slot
+        # for appos, the possessive determiner class for poss).
+        from hdlab.graded_role_assigner import coarse_roles as _coarse_roles
+        deprels = dict(_coarse_roles(list(forms), list(pos), heads))
         return pos, heads, deprels
     f = _standalone_frontend()
     pos = f["tag"].tag(list(forms))

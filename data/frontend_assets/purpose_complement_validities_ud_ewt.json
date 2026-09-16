@@ -1,0 +1,3014 @@
+{
+ "alpha": 1.0,
+ "cfg": {
+  "adjacent": [
+   -0.2955458089119954,
+   -1.363067510510074
+  ],
+  "objonly": [
+   -0.41845230363497554,
+   -1.0731332033671248
+  ],
+  "other": [
+   -0.8162072733171726,
+   -0.583584978048419
+  ],
+  "pp": [
+   -0.9283911388082425,
+   -0.5028392721333408
+  ]
+ },
+ "classes": [
+  "complement",
+  "purpose"
+ ],
+ "counts": {
+  "cfg": {
+   "adjacent": {
+    "complement": 284,
+    "purpose": 97
+   },
+   "objonly": {
+    "complement": 203,
+    "purpose": 105
+   },
+   "other": {
+    "complement": 83,
+    "purpose": 105
+   },
+   "pp": {
+    "complement": 114,
+    "purpose": 175
+   }
+  },
+  "cue": {
+   "comma|adjacent|0": {
+    "complement": 284,
+    "purpose": 97
+   },
+   "comma|objonly|0": {
+    "complement": 203,
+    "purpose": 105
+   },
+   "comma|other|0": {
+    "complement": 80,
+    "purpose": 103
+   },
+   "comma|other|1": {
+    "complement": 3,
+    "purpose": 2
+   },
+   "comma|pp|0": {
+    "complement": 110,
+    "purpose": 169
+   },
+   "comma|pp|1": {
+    "complement": 4,
+    "purpose": 6
+   },
+   "dist|adjacent|0": {
+    "complement": 284,
+    "purpose": 97
+   },
+   "dist|objonly|1": {
+    "complement": 117,
+    "purpose": 37
+   },
+   "dist|objonly|2": {
+    "complement": 82,
+    "purpose": 61
+   },
+   "dist|objonly|3+": {
+    "complement": 4,
+    "purpose": 7
+   },
+   "dist|other|1": {
+    "complement": 21,
+    "purpose": 42
+   },
+   "dist|other|2": {
+    "complement": 28,
+    "purpose": 28
+   },
+   "dist|other|3+": {
+    "complement": 34,
+    "purpose": 35
+   },
+   "dist|pp|1": {
+    "complement": 4,
+    "purpose": 8
+   },
+   "dist|pp|2": {
+    "complement": 24,
+    "purpose": 48
+   },
+   "dist|pp|3+": {
+    "complement": 86,
+    "purpose": 119
+   },
+   "frame|adjacent|lo": {
+    "complement": 91,
+    "purpose": 51
+   },
+   "frame|adjacent|na": {
+    "complement": 193,
+    "purpose": 46
+   },
+   "frame|objonly|hi": {
+    "complement": 112,
+    "purpose": 2
+   },
+   "frame|objonly|lo": {
+    "complement": 12,
+    "purpose": 69
+   },
+   "frame|objonly|mid": {
+    "complement": 1,
+    "purpose": 3
+   },
+   "frame|objonly|na": {
+    "complement": 78,
+    "purpose": 31
+   },
+   "frame|other|hi": {
+    "complement": 33,
+    "purpose": 8
+   },
+   "frame|other|lo": {
+    "complement": 10,
+    "purpose": 54
+   },
+   "frame|other|mid": {
+    "complement": 1
+   },
+   "frame|other|na": {
+    "complement": 39,
+    "purpose": 43
+   },
+   "frame|pp|hi": {
+    "complement": 28,
+    "purpose": 14
+   },
+   "frame|pp|lo": {
+    "complement": 19,
+    "purpose": 98
+   },
+   "frame|pp|mid": {
+    "complement": 4,
+    "purpose": 2
+   },
+   "frame|pp|na": {
+    "complement": 63,
+    "purpose": 61
+   },
+   "hasobj|adjacent|0": {
+    "complement": 284,
+    "purpose": 97
+   },
+   "hasobj|objonly|0": {
+    "complement": 2,
+    "purpose": 3
+   },
+   "hasobj|objonly|1": {
+    "complement": 201,
+    "purpose": 102
+   },
+   "hasobj|other|0": {
+    "complement": 26,
+    "purpose": 52
+   },
+   "hasobj|other|1": {
+    "complement": 57,
+    "purpose": 53
+   },
+   "hasobj|pp|0": {
+    "complement": 4,
+    "purpose": 10
+   },
+   "hasobj|pp|1": {
+    "complement": 110,
+    "purpose": 165
+   },
+   "headcat|adjacent|CCONJ": {
+    "complement": 1
+   },
+   "headcat|adjacent|NOUN": {
+    "complement": 4
+   },
+   "headcat|adjacent|PRON": {
+    "complement": 2,
+    "purpose": 2
+   },
+   "headcat|adjacent|ROOT": {
+    "complement": 2
+   },
+   "headcat|adjacent|SCONJ": {
+    "complement": 1
+   },
+   "headcat|adjacent|VERB": {
+    "complement": 274,
+    "purpose": 95
+   },
+   "headcat|objonly|DET": {
+    "complement": 1
+   },
+   "headcat|objonly|NOUN": {
+    "complement": 12,
+    "purpose": 1
+   },
+   "headcat|objonly|PRON": {
+    "purpose": 1
+   },
+   "headcat|objonly|ROOT": {
+    "complement": 1
+   },
+   "headcat|objonly|VERB": {
+    "complement": 189,
+    "purpose": 103
+   },
+   "headcat|other|ADJ": {
+    "complement": 3,
+    "purpose": 3
+   },
+   "headcat|other|AUX": {
+    "purpose": 2
+   },
+   "headcat|other|NOUN": {
+    "complement": 6,
+    "purpose": 4
+   },
+   "headcat|other|PRON": {
+    "complement": 10,
+    "purpose": 8
+   },
+   "headcat|other|VERB": {
+    "complement": 64,
+    "purpose": 88
+   },
+   "headcat|pp|ADJ": {
+    "complement": 1,
+    "purpose": 3
+   },
+   "headcat|pp|AUX": {
+    "complement": 1
+   },
+   "headcat|pp|NOUN": {
+    "complement": 15,
+    "purpose": 23
+   },
+   "headcat|pp|PRON": {
+    "complement": 13,
+    "purpose": 22
+   },
+   "headcat|pp|ROOT": {
+    "complement": 1,
+    "purpose": 1
+   },
+   "headcat|pp|VERB": {
+    "complement": 83,
+    "purpose": 126
+   },
+   "headismv|adjacent|0": {
+    "complement": 10,
+    "purpose": 2
+   },
+   "headismv|adjacent|1": {
+    "complement": 274,
+    "purpose": 95
+   },
+   "headismv|objonly|0": {
+    "complement": 14,
+    "purpose": 2
+   },
+   "headismv|objonly|1": {
+    "complement": 189,
+    "purpose": 103
+   },
+   "headismv|other|0": {
+    "complement": 19,
+    "purpose": 17
+   },
+   "headismv|other|1": {
+    "complement": 64,
+    "purpose": 88
+   },
+   "headismv|pp|0": {
+    "complement": 31,
+    "purpose": 49
+   },
+   "headismv|pp|1": {
+    "complement": 83,
+    "purpose": 126
+   },
+   "mvlem|adjacent|admitt": {
+    "purpose": 1
+   },
+   "mvlem|adjacent|agre": {
+    "complement": 5
+   },
+   "mvlem|adjacent|apply": {
+    "purpose": 1
+   },
+   "mvlem|adjacent|approv": {
+    "complement": 2,
+    "purpose": 1
+   },
+   "mvlem|adjacent|arriv": {
+    "purpose": 1
+   },
+   "mvlem|adjacent|aspir": {
+    "complement": 1
+   },
+   "mvlem|adjacent|assembl": {
+    "purpose": 1
+   },
+   "mvlem|adjacent|astonish": {
+    "complement": 1
+   },
+   "mvlem|adjacent|ban": {
+    "complement": 1
+   },
+   "mvlem|adjacent|battl": {
+    "purpose": 1
+   },
+   "mvlem|adjacent|be": {
+    "complement": 4
+   },
+   "mvlem|adjacent|began": {
+    "complement": 4
+   },
+   "mvlem|adjacent|beginn": {
+    "complement": 3
+   },
+   "mvlem|adjacent|believ": {
+    "complement": 1
+   },
+   "mvlem|adjacent|bless": {
+    "purpose": 1
+   },
+   "mvlem|adjacent|call": {
+    "purpose": 4
+   },
+   "mvlem|adjacent|came": {
+    "complement": 2
+   },
+   "mvlem|adjacent|choos": {
+    "complement": 1
+   },
+   "mvlem|adjacent|chose": {
+    "complement": 3
+   },
+   "mvlem|adjacent|com": {
+    "complement": 1,
+    "purpose": 3
+   },
+   "mvlem|adjacent|come": {
+    "complement": 3,
+    "purpose": 1
+   },
+   "mvlem|adjacent|commit": {
+    "purpose": 2
+   },
+   "mvlem|adjacent|continu": {
+    "complement": 4
+   },
+   "mvlem|adjacent|cut": {
+    "purpose": 1
+   },
+   "mvlem|adjacent|dedicat": {
+    "purpose": 1
+   },
+   "mvlem|adjacent|develop": {
+    "purpose": 1
+   },
+   "mvlem|adjacent|devot": {
+    "purpose": 1
+   },
+   "mvlem|adjacent|do": {
+    "complement": 1,
+    "purpose": 11
+   },
+   "mvlem|adjacent|endevour": {
+    "complement": 1
+   },
+   "mvlem|adjacent|equipp": {
+    "purpose": 1
+   },
+   "mvlem|adjacent|estimat": {
+    "complement": 1
+   },
+   "mvlem|adjacent|exist": {
+    "purpose": 1
+   },
+   "mvlem|adjacent|fight": {
+    "purpose": 1
+   },
+   "mvlem|adjacent|forc": {
+    "complement": 2
+   },
+   "mvlem|adjacent|forgot": {
+    "complement": 7
+   },
+   "mvlem|adjacent|form": {
+    "purpose": 2
+   },
+   "mvlem|adjacent|gett": {
+    "complement": 1,
+    "purpose": 1
+   },
+   "mvlem|adjacent|given": {
+    "purpose": 1
+   },
+   "mvlem|adjacent|go": {
+    "complement": 71,
+    "purpose": 1
+   },
+   "mvlem|adjacent|goes": {
+    "purpose": 1
+   },
+   "mvlem|adjacent|google": {
+    "purpose": 1
+   },
+   "mvlem|adjacent|got": {
+    "complement": 2,
+    "purpose": 1
+   },
+   "mvlem|adjacent|had": {
+    "complement": 41,
+    "purpose": 1
+   },
+   "mvlem|adjacent|has": {
+    "complement": 11,
+    "purpose": 1
+   },
+   "mvlem|adjacent|hav": {
+    "complement": 6
+   },
+   "mvlem|adjacent|heartbreak": {
+    "complement": 1
+   },
+   "mvlem|adjacent|held": {
+    "purpose": 1
+   },
+   "mvlem|adjacent|hop": {
+    "complement": 1
+   },
+   "mvlem|adjacent|inclin": {
+    "complement": 1
+   },
+   "mvlem|adjacent|incurr": {
+    "purpose": 1
+   },
+   "mvlem|adjacent|initiat": {
+    "purpose": 1
+   },
+   "mvlem|adjacent|instruct": {
+    "complement": 1
+   },
+   "mvlem|adjacent|invit": {
+    "complement": 3
+   },
+   "mvlem|adjacent|knew": {
+    "complement": 1
+   },
+   "mvlem|adjacent|known": {
+    "complement": 1
+   },
+   "mvlem|adjacent|lik": {
+    "complement": 1
+   },
+   "mvlem|adjacent|listen": {
+    "complement": 1
+   },
+   "mvlem|adjacent|look": {
+    "complement": 8
+   },
+   "mvlem|adjacent|lov": {
+    "complement": 1
+   },
+   "mvlem|adjacent|made": {
+    "complement": 5
+   },
+   "mvlem|adjacent|manag": {
+    "complement": 3
+   },
+   "mvlem|adjacent|mang": {
+    "complement": 1
+   },
+   "mvlem|adjacent|mov": {
+    "complement": 1,
+    "purpose": 1
+   },
+   "mvlem|adjacent|muster": {
+    "complement": 1
+   },
+   "mvlem|adjacent|obligat": {
+    "complement": 1
+   },
+   "mvlem|adjacent|oppos": {
+    "purpose": 1
+   },
+   "mvlem|adjacent|paid": {
+    "purpose": 1
+   },
+   "mvlem|adjacent|pay": {
+    "purpose": 3
+   },
+   "mvlem|adjacent|plac": {
+    "purpose": 1
+   },
+   "mvlem|adjacent|plann": {
+    "complement": 6
+   },
+   "mvlem|adjacent|pledg": {
+    "complement": 4
+   },
+   "mvlem|adjacent|preced": {
+    "complement": 1
+   },
+   "mvlem|adjacent|preferr": {
+    "complement": 1
+   },
+   "mvlem|adjacent|promis": {
+    "complement": 3
+   },
+   "mvlem|adjacent|provide": {
+    "purpose": 1
+   },
+   "mvlem|adjacent|push": {
+    "purpose": 1
+   },
+   "mvlem|adjacent|react": {
+    "purpose": 1
+   },
+   "mvlem|adjacent|refus": {
+    "complement": 13
+   },
+   "mvlem|adjacent|requir": {
+    "complement": 4
+   },
+   "mvlem|adjacent|return": {
+    "purpose": 3
+   },
+   "mvlem|adjacent|reword": {
+    "purpose": 1
+   },
+   "mvlem|adjacent|rush": {
+    "purpose": 1
+   },
+   "mvlem|adjacent|said": {
+    "complement": 3
+   },
+   "mvlem|adjacent|schedul": {
+    "complement": 3
+   },
+   "mvlem|adjacent|scream": {
+    "purpose": 1
+   },
+   "mvlem|adjacent|search": {
+    "purpose": 1
+   },
+   "mvlem|adjacent|shop": {
+    "complement": 1
+   },
+   "mvlem|adjacent|solv": {
+    "purpose": 1
+   },
+   "mvlem|adjacent|suck": {
+    "purpose": 1
+   },
+   "mvlem|adjacent|suggest": {
+    "complement": 1
+   },
+   "mvlem|adjacent|suppos": {
+    "complement": 8
+   },
+   "mvlem|adjacent|tak": {
+    "purpose": 1
+   },
+   "mvlem|adjacent|take": {
+    "complement": 2
+   },
+   "mvlem|adjacent|taken": {
+    "complement": 1,
+    "purpose": 1
+   },
+   "mvlem|adjacent|taught": {
+    "complement": 2
+   },
+   "mvlem|adjacent|thailand": {
+    "purpose": 1
+   },
+   "mvlem|adjacent|thought": {
+    "purpose": 1
+   },
+   "mvlem|adjacent|thrill": {
+    "complement": 1
+   },
+   "mvlem|adjacent|thrive": {
+    "purpose": 1
+   },
+   "mvlem|adjacent|told": {
+    "complement": 6
+   },
+   "mvlem|adjacent|travel": {
+    "purpose": 1
+   },
+   "mvlem|adjacent|unequipp": {
+    "purpose": 1
+   },
+   "mvlem|adjacent|updat": {
+    "purpose": 1
+   },
+   "mvlem|adjacent|upsett": {
+    "complement": 1
+   },
+   "mvlem|adjacent|us": {
+    "purpose": 2
+   },
+   "mvlem|adjacent|use": {
+    "purpose": 4
+   },
+   "mvlem|adjacent|used": {
+    "complement": 11,
+    "purpose": 8
+   },
+   "mvlem|adjacent|vot": {
+    "purpose": 1
+   },
+   "mvlem|adjacent|wait": {
+    "purpose": 5
+   },
+   "mvlem|adjacent|went": {
+    "purpose": 2
+   },
+   "mvlem|objonly|'s": {
+    "complement": 1
+   },
+   "mvlem|objonly|absent": {
+    "purpose": 1
+   },
+   "mvlem|objonly|adopt": {
+    "complement": 1
+   },
+   "mvlem|objonly|allow": {
+    "complement": 9
+   },
+   "mvlem|objonly|amend": {
+    "purpose": 1
+   },
+   "mvlem|objonly|appreciate": {
+    "purpose": 1
+   },
+   "mvlem|objonly|approve": {
+    "purpose": 1
+   },
+   "mvlem|objonly|are": {
+    "complement": 3
+   },
+   "mvlem|objonly|ask": {
+    "complement": 13
+   },
+   "mvlem|objonly|attach": {
+    "purpose": 1
+   },
+   "mvlem|objonly|begs": {
+    "complement": 1
+   },
+   "mvlem|objonly|beseech": {
+    "complement": 1
+   },
+   "mvlem|objonly|build": {
+    "purpose": 1
+   },
+   "mvlem|objonly|call": {
+    "complement": 1,
+    "purpose": 12
+   },
+   "mvlem|objonly|carry": {
+    "complement": 1
+   },
+   "mvlem|objonly|caus": {
+    "complement": 1
+   },
+   "mvlem|objonly|cause": {
+    "complement": 2
+   },
+   "mvlem|objonly|challeng": {
+    "complement": 1
+   },
+   "mvlem|objonly|change": {
+    "purpose": 3
+   },
+   "mvlem|objonly|charge": {
+    "purpose": 2
+   },
+   "mvlem|objonly|check": {
+    "purpose": 1
+   },
+   "mvlem|objonly|come": {
+    "purpose": 1
+   },
+   "mvlem|objonly|compel": {
+    "complement": 1
+   },
+   "mvlem|objonly|conceptualize": {
+    "purpose": 1
+   },
+   "mvlem|objonly|confirm": {
+    "complement": 1
+   },
+   "mvlem|objonly|consider": {
+    "complement": 1
+   },
+   "mvlem|objonly|contact": {
+    "purpose": 2
+   },
+   "mvlem|objonly|convinc": {
+    "complement": 2
+   },
+   "mvlem|objonly|convince": {
+    "complement": 3
+   },
+   "mvlem|objonly|dat": {
+    "complement": 1
+   },
+   "mvlem|objonly|develop": {
+    "complement": 2
+   },
+   "mvlem|objonly|did": {
+    "purpose": 1
+   },
+   "mvlem|objonly|do": {
+    "complement": 1,
+    "purpose": 1
+   },
+   "mvlem|objonly|drop": {
+    "complement": 1
+   },
+   "mvlem|objonly|drove": {
+    "purpose": 1
+   },
+   "mvlem|objonly|earn": {
+    "complement": 1
+   },
+   "mvlem|objonly|elect": {
+    "purpose": 1
+   },
+   "mvlem|objonly|enabl": {
+    "complement": 2
+   },
+   "mvlem|objonly|enable": {
+    "complement": 3
+   },
+   "mvlem|objonly|encourag": {
+    "complement": 1
+   },
+   "mvlem|objonly|encourage": {
+    "complement": 4
+   },
+   "mvlem|objonly|enter": {
+    "purpose": 1
+   },
+   "mvlem|objonly|establish": {
+    "complement": 1
+   },
+   "mvlem|objonly|estimat": {
+    "complement": 1
+   },
+   "mvlem|objonly|expand": {
+    "purpose": 2
+   },
+   "mvlem|objonly|expect": {
+    "complement": 3
+   },
+   "mvlem|objonly|feel": {
+    "complement": 1,
+    "purpose": 1
+   },
+   "mvlem|objonly|find": {
+    "complement": 1
+   },
+   "mvlem|objonly|forbidd": {
+    "complement": 1
+   },
+   "mvlem|objonly|forc": {
+    "complement": 1
+   },
+   "mvlem|objonly|gave": {
+    "complement": 1
+   },
+   "mvlem|objonly|get": {
+    "complement": 13
+   },
+   "mvlem|objonly|gett": {
+    "purpose": 1
+   },
+   "mvlem|objonly|give": {
+    "purpose": 4
+   },
+   "mvlem|objonly|go": {
+    "purpose": 1
+   },
+   "mvlem|objonly|got": {
+    "complement": 1
+   },
+   "mvlem|objonly|grant": {
+    "purpose": 1
+   },
+   "mvlem|objonly|had": {
+    "complement": 8,
+    "purpose": 1
+   },
+   "mvlem|objonly|has": {
+    "complement": 5
+   },
+   "mvlem|objonly|hav": {
+    "complement": 2
+   },
+   "mvlem|objonly|have": {
+    "complement": 18,
+    "purpose": 1
+   },
+   "mvlem|objonly|help": {
+    "complement": 7
+   },
+   "mvlem|objonly|hir": {
+    "purpose": 2
+   },
+   "mvlem|objonly|hurt": {
+    "purpose": 1
+   },
+   "mvlem|objonly|increas": {
+    "complement": 1
+   },
+   "mvlem|objonly|inspect": {
+    "purpose": 1
+   },
+   "mvlem|objonly|intermediate": {
+    "purpose": 1
+   },
+   "mvlem|objonly|invit": {
+    "complement": 1
+   },
+   "mvlem|objonly|is": {
+    "complement": 2
+   },
+   "mvlem|objonly|kill": {
+    "purpose": 1
+   },
+   "mvlem|objonly|know": {
+    "complement": 5
+   },
+   "mvlem|objonly|launch": {
+    "complement": 1
+   },
+   "mvlem|objonly|lead": {
+    "complement": 1
+   },
+   "mvlem|objonly|led": {
+    "complement": 2
+   },
+   "mvlem|objonly|left": {
+    "purpose": 1
+   },
+   "mvlem|objonly|like": {
+    "complement": 3
+   },
+   "mvlem|objonly|made": {
+    "complement": 4
+   },
+   "mvlem|objonly|make": {
+    "purpose": 1
+   },
+   "mvlem|objonly|melt": {
+    "purpose": 1
+   },
+   "mvlem|objonly|modify": {
+    "purpose": 1
+   },
+   "mvlem|objonly|nam": {
+    "purpose": 1
+   },
+   "mvlem|objonly|need": {
+    "complement": 3,
+    "purpose": 1
+   },
+   "mvlem|objonly|negotiate": {
+    "purpose": 1
+   },
+   "mvlem|objonly|offer": {
+    "complement": 1
+   },
+   "mvlem|objonly|open": {
+    "purpose": 1
+   },
+   "mvlem|objonly|order": {
+    "complement": 2
+   },
+   "mvlem|objonly|pays": {
+    "purpose": 1
+   },
+   "mvlem|objonly|permit": {
+    "complement": 2
+   },
+   "mvlem|objonly|persuade": {
+    "complement": 1
+   },
+   "mvlem|objonly|pester": {
+    "purpose": 1
+   },
+   "mvlem|objonly|populat": {
+    "purpose": 1
+   },
+   "mvlem|objonly|prefer": {
+    "complement": 1
+   },
+   "mvlem|objonly|pressure": {
+    "complement": 2
+   },
+   "mvlem|objonly|promise": {
+    "complement": 1
+   },
+   "mvlem|objonly|provid": {
+    "purpose": 3
+   },
+   "mvlem|objonly|re-type": {
+    "purpose": 1
+   },
+   "mvlem|objonly|reach": {
+    "purpose": 1
+   },
+   "mvlem|objonly|reccomend": {
+    "complement": 2
+   },
+   "mvlem|objonly|recommend": {
+    "complement": 1
+   },
+   "mvlem|objonly|recruit": {
+    "complement": 1
+   },
+   "mvlem|objonly|reffer": {
+    "purpose": 1
+   },
+   "mvlem|objonly|refus": {
+    "complement": 1
+   },
+   "mvlem|objonly|remind": {
+    "complement": 1
+   },
+   "mvlem|objonly|request": {
+    "purpose": 1
+   },
+   "mvlem|objonly|requir": {
+    "complement": 2
+   },
+   "mvlem|objonly|require": {
+    "complement": 1
+   },
+   "mvlem|objonly|return": {
+    "purpose": 1
+   },
+   "mvlem|objonly|revise": {
+    "purpose": 1
+   },
+   "mvlem|objonly|rigg": {
+    "purpose": 1
+   },
+   "mvlem|objonly|run": {
+    "purpose": 1
+   },
+   "mvlem|objonly|see": {
+    "purpose": 2
+   },
+   "mvlem|objonly|send": {
+    "purpose": 1
+   },
+   "mvlem|objonly|set": {
+    "complement": 1
+   },
+   "mvlem|objonly|show": {
+    "complement": 1,
+    "purpose": 1
+   },
+   "mvlem|objonly|station": {
+    "purpose": 1
+   },
+   "mvlem|objonly|stay": {
+    "purpose": 1
+   },
+   "mvlem|objonly|suggest": {
+    "purpose": 2
+   },
+   "mvlem|objonly|swivel": {
+    "purpose": 1
+   },
+   "mvlem|objonly|tak": {
+    "complement": 4,
+    "purpose": 1
+   },
+   "mvlem|objonly|take": {
+    "complement": 4,
+    "purpose": 3
+   },
+   "mvlem|objonly|taken": {
+    "complement": 1
+   },
+   "mvlem|objonly|tell": {
+    "complement": 5
+   },
+   "mvlem|objonly|told": {
+    "complement": 8
+   },
+   "mvlem|objonly|took": {
+    "complement": 6,
+    "purpose": 1
+   },
+   "mvlem|objonly|toss": {
+    "purpose": 1
+   },
+   "mvlem|objonly|train": {
+    "complement": 1
+   },
+   "mvlem|objonly|trust": {
+    "complement": 1
+   },
+   "mvlem|objonly|updat": {
+    "purpose": 1
+   },
+   "mvlem|objonly|urg": {
+    "complement": 2
+   },
+   "mvlem|objonly|urge": {
+    "complement": 1
+   },
+   "mvlem|objonly|us": {
+    "purpose": 4
+   },
+   "mvlem|objonly|use": {
+    "purpose": 6
+   },
+   "mvlem|objonly|used": {
+    "purpose": 1
+   },
+   "mvlem|objonly|visit": {
+    "purpose": 1
+   },
+   "mvlem|objonly|wait": {
+    "purpose": 1
+   },
+   "mvlem|objonly|warn": {
+    "complement": 1
+   },
+   "mvlem|objonly|wash": {
+    "purpose": 1
+   },
+   "mvlem|objonly|went": {
+    "purpose": 1
+   },
+   "mvlem|objonly|wore": {
+    "purpose": 1
+   },
+   "mvlem|objonly|work": {
+    "complement": 1
+   },
+   "mvlem|objonly|worth": {
+    "complement": 1
+   },
+   "mvlem|other|abstain": {
+    "purpose": 1
+   },
+   "mvlem|other|agre": {
+    "complement": 1
+   },
+   "mvlem|other|allow": {
+    "complement": 1
+   },
+   "mvlem|other|anger": {
+    "purpose": 1
+   },
+   "mvlem|other|apply": {
+    "purpose": 1
+   },
+   "mvlem|other|appreciate": {
+    "complement": 1
+   },
+   "mvlem|other|are": {
+    "complement": 2
+   },
+   "mvlem|other|arrang": {
+    "purpose": 1
+   },
+   "mvlem|other|ask": {
+    "complement": 2
+   },
+   "mvlem|other|assassinat": {
+    "purpose": 1
+   },
+   "mvlem|other|assum": {
+    "complement": 1
+   },
+   "mvlem|other|believ": {
+    "purpose": 1
+   },
+   "mvlem|other|bite": {
+    "complement": 1
+   },
+   "mvlem|other|bloody": {
+    "purpose": 1
+   },
+   "mvlem|other|call": {
+    "complement": 1,
+    "purpose": 5
+   },
+   "mvlem|other|came": {
+    "purpose": 2
+   },
+   "mvlem|other|cancel": {
+    "purpose": 1
+   },
+   "mvlem|other|caus": {
+    "complement": 1
+   },
+   "mvlem|other|charg": {
+    "purpose": 1
+   },
+   "mvlem|other|charge": {
+    "purpose": 2
+   },
+   "mvlem|other|claim": {
+    "complement": 1,
+    "purpose": 1
+   },
+   "mvlem|other|com": {
+    "purpose": 2
+   },
+   "mvlem|other|come": {
+    "purpose": 2
+   },
+   "mvlem|other|contribut": {
+    "purpose": 1
+   },
+   "mvlem|other|did": {
+    "purpose": 1
+   },
+   "mvlem|other|direct": {
+    "complement": 1
+   },
+   "mvlem|other|do": {
+    "complement": 2,
+    "purpose": 2
+   },
+   "mvlem|other|done": {
+    "purpose": 1
+   },
+   "mvlem|other|earn": {
+    "complement": 1
+   },
+   "mvlem|other|enabl": {
+    "complement": 1
+   },
+   "mvlem|other|enable": {
+    "complement": 1
+   },
+   "mvlem|other|explain": {
+    "complement": 2
+   },
+   "mvlem|other|figure": {
+    "complement": 2
+   },
+   "mvlem|other|find": {
+    "complement": 1,
+    "purpose": 1
+   },
+   "mvlem|other|fix": {
+    "complement": 1
+   },
+   "mvlem|other|found": {
+    "complement": 1
+   },
+   "mvlem|other|fuck": {
+    "purpose": 1
+   },
+   "mvlem|other|get": {
+    "complement": 1
+   },
+   "mvlem|other|go": {
+    "purpose": 3
+   },
+   "mvlem|other|got": {
+    "purpose": 1
+   },
+   "mvlem|other|had": {
+    "complement": 3,
+    "purpose": 1
+   },
+   "mvlem|other|handle": {
+    "purpose": 1
+   },
+   "mvlem|other|has": {
+    "complement": 1,
+    "purpose": 2
+   },
+   "mvlem|other|hav": {
+    "complement": 1
+   },
+   "mvlem|other|have": {
+    "complement": 7,
+    "purpose": 2
+   },
+   "mvlem|other|hire": {
+    "purpose": 1
+   },
+   "mvlem|other|hunt": {
+    "purpose": 1
+   },
+   "mvlem|other|includ": {
+    "complement": 1,
+    "purpose": 1
+   },
+   "mvlem|other|is": {
+    "complement": 1
+   },
+   "mvlem|other|know": {
+    "complement": 9
+   },
+   "mvlem|other|learn": {
+    "complement": 2
+   },
+   "mvlem|other|left": {
+    "purpose": 1
+   },
+   "mvlem|other|like": {
+    "complement": 1
+   },
+   "mvlem|other|link": {
+    "complement": 1
+   },
+   "mvlem|other|liv": {
+    "complement": 1
+   },
+   "mvlem|other|look": {
+    "purpose": 16
+   },
+   "mvlem|other|lose": {
+    "complement": 1
+   },
+   "mvlem|other|made": {
+    "purpose": 1
+   },
+   "mvlem|other|manage": {
+    "purpose": 1
+   },
+   "mvlem|other|meet": {
+    "purpose": 1
+   },
+   "mvlem|other|migrat": {
+    "purpose": 1
+   },
+   "mvlem|other|miss": {
+    "purpose": 1
+   },
+   "mvlem|other|need": {
+    "complement": 2
+   },
+   "mvlem|other|noone": {
+    "complement": 1
+   },
+   "mvlem|other|oppose": {
+    "complement": 1
+   },
+   "mvlem|other|owe": {
+    "purpose": 1
+   },
+   "mvlem|other|practice": {
+    "purpose": 1
+   },
+   "mvlem|other|puff": {
+    "purpose": 1
+   },
+   "mvlem|other|pull": {
+    "purpose": 1
+   },
+   "mvlem|other|put": {
+    "purpose": 1
+   },
+   "mvlem|other|quot": {
+    "purpose": 2
+   },
+   "mvlem|other|ratify": {
+    "complement": 1
+   },
+   "mvlem|other|realize": {
+    "purpose": 1
+   },
+   "mvlem|other|recall": {
+    "complement": 1
+   },
+   "mvlem|other|reiterate": {
+    "purpose": 1
+   },
+   "mvlem|other|research": {
+    "complement": 1
+   },
+   "mvlem|other|said": {
+    "complement": 1,
+    "purpose": 1
+   },
+   "mvlem|other|say": {
+    "purpose": 1
+   },
+   "mvlem|other|see": {
+    "purpose": 1
+   },
+   "mvlem|other|seem": {
+    "complement": 1
+   },
+   "mvlem|other|seen": {
+    "complement": 1
+   },
+   "mvlem|other|send": {
+    "purpose": 1
+   },
+   "mvlem|other|sent": {
+    "purpose": 1
+   },
+   "mvlem|other|set": {
+    "complement": 1
+   },
+   "mvlem|other|show": {
+    "complement": 1
+   },
+   "mvlem|other|stay": {
+    "purpose": 1
+   },
+   "mvlem|other|stream": {
+    "purpose": 1
+   },
+   "mvlem|other|tak": {
+    "complement": 1,
+    "purpose": 1
+   },
+   "mvlem|other|take": {
+    "complement": 1,
+    "purpose": 2
+   },
+   "mvlem|other|target": {
+    "complement": 1
+   },
+   "mvlem|other|teach": {
+    "complement": 1
+   },
+   "mvlem|other|think": {
+    "purpose": 2
+   },
+   "mvlem|other|told": {
+    "complement": 4
+   },
+   "mvlem|other|ton": {
+    "purpose": 1
+   },
+   "mvlem|other|took": {
+    "complement": 2,
+    "purpose": 4
+   },
+   "mvlem|other|understand": {
+    "complement": 1
+   },
+   "mvlem|other|urg": {
+    "complement": 1
+   },
+   "mvlem|other|us": {
+    "purpose": 2
+   },
+   "mvlem|other|use": {
+    "complement": 1,
+    "purpose": 4
+   },
+   "mvlem|other|vot": {
+    "purpose": 2
+   },
+   "mvlem|other|vote": {
+    "purpose": 1
+   },
+   "mvlem|other|walk": {
+    "complement": 1
+   },
+   "mvlem|other|was": {
+    "complement": 1
+   },
+   "mvlem|other|went": {
+    "purpose": 1
+   },
+   "mvlem|other|wonder": {
+    "purpose": 1
+   },
+   "mvlem|other|work": {
+    "purpose": 3
+   },
+   "mvlem|other|wrapp": {
+    "complement": 1
+   },
+   "mvlem|pp|acces": {
+    "purpose": 1
+   },
+   "mvlem|pp|accumulate": {
+    "purpose": 1
+   },
+   "mvlem|pp|act": {
+    "purpose": 1
+   },
+   "mvlem|pp|affirm": {
+    "complement": 1
+   },
+   "mvlem|pp|allow": {
+    "complement": 1
+   },
+   "mvlem|pp|apply": {
+    "complement": 1
+   },
+   "mvlem|pp|approach": {
+    "complement": 1
+   },
+   "mvlem|pp|approv": {
+    "complement": 2
+   },
+   "mvlem|pp|are": {
+    "complement": 3
+   },
+   "mvlem|pp|arriv": {
+    "purpose": 1
+   },
+   "mvlem|pp|ask": {
+    "complement": 1
+   },
+   "mvlem|pp|attack": {
+    "purpose": 1
+   },
+   "mvlem|pp|award": {
+    "purpose": 1
+   },
+   "mvlem|pp|become": {
+    "purpose": 1
+   },
+   "mvlem|pp|bother": {
+    "complement": 1
+   },
+   "mvlem|pp|br": {
+    "complement": 1
+   },
+   "mvlem|pp|brought": {
+    "purpose": 2
+   },
+   "mvlem|pp|burrow": {
+    "purpose": 1
+   },
+   "mvlem|pp|buy": {
+    "purpose": 1
+   },
+   "mvlem|pp|call": {
+    "complement": 2,
+    "purpose": 5
+   },
+   "mvlem|pp|came": {
+    "purpose": 2
+   },
+   "mvlem|pp|caus": {
+    "complement": 1
+   },
+   "mvlem|pp|chang": {
+    "complement": 1
+   },
+   "mvlem|pp|charg": {
+    "purpose": 1
+   },
+   "mvlem|pp|check": {
+    "purpose": 1
+   },
+   "mvlem|pp|coin": {
+    "purpose": 1
+   },
+   "mvlem|pp|com": {
+    "complement": 1,
+    "purpose": 1
+   },
+   "mvlem|pp|come": {
+    "purpose": 4
+   },
+   "mvlem|pp|commit": {
+    "complement": 1
+   },
+   "mvlem|pp|communicate": {
+    "complement": 1
+   },
+   "mvlem|pp|compare": {
+    "purpose": 1
+   },
+   "mvlem|pp|contract": {
+    "purpose": 1
+   },
+   "mvlem|pp|convert": {
+    "purpose": 1
+   },
+   "mvlem|pp|cost": {
+    "complement": 1
+   },
+   "mvlem|pp|count": {
+    "purpose": 2
+   },
+   "mvlem|pp|deliver": {
+    "purpose": 1
+   },
+   "mvlem|pp|deny": {
+    "complement": 1
+   },
+   "mvlem|pp|do": {
+    "complement": 1,
+    "purpose": 1
+   },
+   "mvlem|pp|dragg": {
+    "purpose": 1
+   },
+   "mvlem|pp|draw": {
+    "purpose": 1
+   },
+   "mvlem|pp|drive": {
+    "purpose": 2
+   },
+   "mvlem|pp|duel": {
+    "purpose": 1
+   },
+   "mvlem|pp|eat": {
+    "complement": 1
+   },
+   "mvlem|pp|employ": {
+    "purpose": 1
+   },
+   "mvlem|pp|exclude": {
+    "purpose": 1
+   },
+   "mvlem|pp|expect": {
+    "complement": 1
+   },
+   "mvlem|pp|extend": {
+    "purpose": 1
+   },
+   "mvlem|pp|fax": {
+    "purpose": 1
+   },
+   "mvlem|pp|feed": {
+    "purpose": 1
+   },
+   "mvlem|pp|feel": {
+    "purpose": 1
+   },
+   "mvlem|pp|figure": {
+    "purpose": 1
+   },
+   "mvlem|pp|fill": {
+    "complement": 1
+   },
+   "mvlem|pp|find": {
+    "complement": 1
+   },
+   "mvlem|pp|fli": {
+    "purpose": 1
+   },
+   "mvlem|pp|flock": {
+    "purpose": 1
+   },
+   "mvlem|pp|fly": {
+    "purpose": 2
+   },
+   "mvlem|pp|forc": {
+    "complement": 1
+   },
+   "mvlem|pp|forward": {
+    "complement": 1
+   },
+   "mvlem|pp|gave": {
+    "complement": 1
+   },
+   "mvlem|pp|get": {
+    "complement": 1,
+    "purpose": 3
+   },
+   "mvlem|pp|giv": {
+    "complement": 2,
+    "purpose": 1
+   },
+   "mvlem|pp|give": {
+    "complement": 1
+   },
+   "mvlem|pp|go": {
+    "complement": 1,
+    "purpose": 4
+   },
+   "mvlem|pp|gone": {
+    "purpose": 1
+   },
+   "mvlem|pp|grow": {
+    "purpose": 1
+   },
+   "mvlem|pp|guarante": {
+    "complement": 1
+   },
+   "mvlem|pp|had": {
+    "complement": 1,
+    "purpose": 2
+   },
+   "mvlem|pp|hamper": {
+    "complement": 1
+   },
+   "mvlem|pp|happen": {
+    "complement": 1
+   },
+   "mvlem|pp|has": {
+    "complement": 3,
+    "purpose": 1
+   },
+   "mvlem|pp|hav": {
+    "purpose": 2
+   },
+   "mvlem|pp|have": {
+    "complement": 7,
+    "purpose": 5
+   },
+   "mvlem|pp|hear": {
+    "complement": 1
+   },
+   "mvlem|pp|help": {
+    "purpose": 1
+   },
+   "mvlem|pp|ideate": {
+    "complement": 1
+   },
+   "mvlem|pp|increas": {
+    "complement": 1
+   },
+   "mvlem|pp|increase": {
+    "complement": 1
+   },
+   "mvlem|pp|inquir": {
+    "complement": 1
+   },
+   "mvlem|pp|introduce": {
+    "purpose": 1
+   },
+   "mvlem|pp|invite": {
+    "complement": 1
+   },
+   "mvlem|pp|is": {
+    "complement": 1
+   },
+   "mvlem|pp|issu": {
+    "complement": 1
+   },
+   "mvlem|pp|issue": {
+    "purpose": 1
+   },
+   "mvlem|pp|know": {
+    "purpose": 1
+   },
+   "mvlem|pp|known": {
+    "complement": 1
+   },
+   "mvlem|pp|land": {
+    "purpose": 1
+   },
+   "mvlem|pp|leave": {
+    "complement": 1,
+    "purpose": 2
+   },
+   "mvlem|pp|led": {
+    "complement": 1
+   },
+   "mvlem|pp|left": {
+    "complement": 2,
+    "purpose": 1
+   },
+   "mvlem|pp|let": {
+    "purpose": 1
+   },
+   "mvlem|pp|lift": {
+    "purpose": 1
+   },
+   "mvlem|pp|like": {
+    "complement": 1,
+    "purpose": 1
+   },
+   "mvlem|pp|look": {
+    "complement": 1,
+    "purpose": 1
+   },
+   "mvlem|pp|lost": {
+    "purpose": 1
+   },
+   "mvlem|pp|made": {
+    "purpose": 2
+   },
+   "mvlem|pp|mak": {
+    "complement": 1
+   },
+   "mvlem|pp|make": {
+    "complement": 2
+   },
+   "mvlem|pp|manag": {
+    "complement": 1
+   },
+   "mvlem|pp|mandat": {
+    "complement": 1
+   },
+   "mvlem|pp|meet": {
+    "purpose": 2
+   },
+   "mvlem|pp|minimiz": {
+    "complement": 1
+   },
+   "mvlem|pp|move": {
+    "purpose": 2
+   },
+   "mvlem|pp|need": {
+    "complement": 4,
+    "purpose": 1
+   },
+   "mvlem|pp|notice": {
+    "purpose": 2
+   },
+   "mvlem|pp|open": {
+    "purpose": 2
+   },
+   "mvlem|pp|oppose": {
+    "complement": 1
+   },
+   "mvlem|pp|outbid": {
+    "complement": 1
+   },
+   "mvlem|pp|pay": {
+    "purpose": 1
+   },
+   "mvlem|pp|pinn": {
+    "purpose": 1
+   },
+   "mvlem|pp|preced": {
+    "complement": 1
+   },
+   "mvlem|pp|pric": {
+    "purpose": 1
+   },
+   "mvlem|pp|promot": {
+    "purpose": 1
+   },
+   "mvlem|pp|provid": {
+    "complement": 1
+   },
+   "mvlem|pp|puff": {
+    "purpose": 1
+   },
+   "mvlem|pp|purchase": {
+    "purpose": 2
+   },
+   "mvlem|pp|pursu": {
+    "purpose": 1
+   },
+   "mvlem|pp|push": {
+    "purpose": 1
+   },
+   "mvlem|pp|put": {
+    "purpose": 3
+   },
+   "mvlem|pp|qualify": {
+    "purpose": 1
+   },
+   "mvlem|pp|reach": {
+    "complement": 1
+   },
+   "mvlem|pp|read": {
+    "complement": 1,
+    "purpose": 1
+   },
+   "mvlem|pp|receiv": {
+    "complement": 1
+   },
+   "mvlem|pp|regret": {
+    "complement": 1
+   },
+   "mvlem|pp|relate": {
+    "complement": 1
+   },
+   "mvlem|pp|renew": {
+    "complement": 1
+   },
+   "mvlem|pp|rent": {
+    "complement": 1
+   },
+   "mvlem|pp|requir": {
+    "complement": 2
+   },
+   "mvlem|pp|require": {
+    "purpose": 1
+   },
+   "mvlem|pp|retaliate": {
+    "purpose": 1
+   },
+   "mvlem|pp|return": {
+    "purpose": 2
+   },
+   "mvlem|pp|ride": {
+    "purpose": 1
+   },
+   "mvlem|pp|rins": {
+    "purpose": 1
+   },
+   "mvlem|pp|run": {
+    "complement": 1
+   },
+   "mvlem|pp|said": {
+    "purpose": 1
+   },
+   "mvlem|pp|save": {
+    "complement": 1
+   },
+   "mvlem|pp|saw": {
+    "complement": 1
+   },
+   "mvlem|pp|say": {
+    "complement": 3
+   },
+   "mvlem|pp|schedul": {
+    "purpose": 1
+   },
+   "mvlem|pp|search": {
+    "purpose": 1
+   },
+   "mvlem|pp|see": {
+    "complement": 1
+   },
+   "mvlem|pp|seem": {
+    "complement": 2
+   },
+   "mvlem|pp|seen": {
+    "purpose": 1
+   },
+   "mvlem|pp|seize": {
+    "purpose": 1
+   },
+   "mvlem|pp|send": {
+    "purpose": 1
+   },
+   "mvlem|pp|sent": {
+    "purpose": 1
+   },
+   "mvlem|pp|serve": {
+    "complement": 1
+   },
+   "mvlem|pp|set": {
+    "complement": 1,
+    "purpose": 1
+   },
+   "mvlem|pp|shadow": {
+    "purpose": 1
+   },
+   "mvlem|pp|show": {
+    "purpose": 1
+   },
+   "mvlem|pp|slapp": {
+    "purpose": 1
+   },
+   "mvlem|pp|speak": {
+    "purpose": 1
+   },
+   "mvlem|pp|spent": {
+    "purpose": 1
+   },
+   "mvlem|pp|spoke": {
+    "purpose": 1
+   },
+   "mvlem|pp|sponsor": {
+    "complement": 1
+   },
+   "mvlem|pp|stand": {
+    "complement": 1
+   },
+   "mvlem|pp|stor": {
+    "complement": 1
+   },
+   "mvlem|pp|stump": {
+    "purpose": 1
+   },
+   "mvlem|pp|tak": {
+    "purpose": 4
+   },
+   "mvlem|pp|take": {
+    "purpose": 3
+   },
+   "mvlem|pp|talk": {
+    "purpose": 2
+   },
+   "mvlem|pp|tell": {
+    "purpose": 1
+   },
+   "mvlem|pp|thank": {
+    "complement": 1
+   },
+   "mvlem|pp|think": {
+    "complement": 1
+   },
+   "mvlem|pp|told": {
+    "complement": 1
+   },
+   "mvlem|pp|took": {
+    "complement": 1,
+    "purpose": 2
+   },
+   "mvlem|pp|trad": {
+    "complement": 1
+   },
+   "mvlem|pp|travel": {
+    "purpose": 1
+   },
+   "mvlem|pp|travell": {
+    "purpose": 1
+   },
+   "mvlem|pp|unturn": {
+    "purpose": 1
+   },
+   "mvlem|pp|urge": {
+    "complement": 1
+   },
+   "mvlem|pp|us": {
+    "complement": 1,
+    "purpose": 3
+   },
+   "mvlem|pp|use": {
+    "complement": 1,
+    "purpose": 1
+   },
+   "mvlem|pp|used": {
+    "purpose": 2
+   },
+   "mvlem|pp|wait": {
+    "purpose": 6
+   },
+   "mvlem|pp|walk": {
+    "purpose": 3
+   },
+   "mvlem|pp|was": {
+    "complement": 1
+   },
+   "mvlem|pp|went": {
+    "complement": 3,
+    "purpose": 6
+   },
+   "mvlem|pp|were": {
+    "purpose": 1
+   },
+   "mvlem|pp|work": {
+    "complement": 2,
+    "purpose": 8
+   },
+   "mvlem|pp|writ": {
+    "purpose": 1
+   },
+   "mvlem|pp|written": {
+    "purpose": 1
+   },
+   "post|adjacent|ADJ": {
+    "complement": 12,
+    "purpose": 8
+   },
+   "post|adjacent|ADP": {
+    "complement": 57,
+    "purpose": 16
+   },
+   "post|adjacent|ADV": {
+    "complement": 20,
+    "purpose": 9
+   },
+   "post|adjacent|CCONJ": {
+    "complement": 5,
+    "purpose": 2
+   },
+   "post|adjacent|DET": {
+    "complement": 62,
+    "purpose": 26
+   },
+   "post|adjacent|NOUN": {
+    "complement": 23,
+    "purpose": 12
+   },
+   "post|adjacent|NUM": {
+    "complement": 1
+   },
+   "post|adjacent|PART": {
+    "complement": 4
+   },
+   "post|adjacent|PRON": {
+    "complement": 68,
+    "purpose": 16
+   },
+   "post|adjacent|PROPN": {
+    "complement": 4,
+    "purpose": 3
+   },
+   "post|adjacent|PUNCT": {
+    "complement": 7,
+    "purpose": 2
+   },
+   "post|adjacent|SCONJ": {
+    "complement": 9,
+    "purpose": 1
+   },
+   "post|adjacent|SYM": {
+    "complement": 1
+   },
+   "post|adjacent|VERB": {
+    "complement": 5,
+    "purpose": 2
+   },
+   "post|adjacent|end": {
+    "complement": 6
+   },
+   "post|objonly|ADJ": {
+    "complement": 12,
+    "purpose": 6
+   },
+   "post|objonly|ADP": {
+    "complement": 44,
+    "purpose": 11
+   },
+   "post|objonly|ADV": {
+    "complement": 10,
+    "purpose": 7
+   },
+   "post|objonly|AUX": {
+    "complement": 1
+   },
+   "post|objonly|CCONJ": {
+    "complement": 8
+   },
+   "post|objonly|DET": {
+    "complement": 44,
+    "purpose": 26
+   },
+   "post|objonly|NOUN": {
+    "complement": 15,
+    "purpose": 8
+   },
+   "post|objonly|NUM": {
+    "purpose": 2
+   },
+   "post|objonly|PART": {
+    "complement": 5
+   },
+   "post|objonly|PRON": {
+    "complement": 37,
+    "purpose": 25
+   },
+   "post|objonly|PROPN": {
+    "complement": 5,
+    "purpose": 3
+   },
+   "post|objonly|PUNCT": {
+    "complement": 3,
+    "purpose": 3
+   },
+   "post|objonly|SCONJ": {
+    "complement": 4,
+    "purpose": 8
+   },
+   "post|objonly|VERB": {
+    "complement": 5,
+    "purpose": 1
+   },
+   "post|objonly|end": {
+    "complement": 10,
+    "purpose": 5
+   },
+   "post|other|ADJ": {
+    "complement": 1,
+    "purpose": 1
+   },
+   "post|other|ADP": {
+    "complement": 17,
+    "purpose": 18
+   },
+   "post|other|ADV": {
+    "complement": 3,
+    "purpose": 4
+   },
+   "post|other|CCONJ": {
+    "complement": 3
+   },
+   "post|other|DET": {
+    "complement": 22,
+    "purpose": 30
+   },
+   "post|other|NOUN": {
+    "complement": 8,
+    "purpose": 4
+   },
+   "post|other|PART": {
+    "complement": 2
+   },
+   "post|other|PRON": {
+    "complement": 17,
+    "purpose": 37
+   },
+   "post|other|PROPN": {
+    "complement": 1,
+    "purpose": 1
+   },
+   "post|other|PUNCT": {
+    "complement": 1
+   },
+   "post|other|SCONJ": {
+    "complement": 2,
+    "purpose": 5
+   },
+   "post|other|VERB": {
+    "complement": 1,
+    "purpose": 1
+   },
+   "post|other|end": {
+    "complement": 5,
+    "purpose": 4
+   },
+   "post|pp|ADJ": {
+    "complement": 4,
+    "purpose": 14
+   },
+   "post|pp|ADP": {
+    "complement": 27,
+    "purpose": 28
+   },
+   "post|pp|ADV": {
+    "complement": 7,
+    "purpose": 6
+   },
+   "post|pp|CCONJ": {
+    "complement": 4,
+    "purpose": 1
+   },
+   "post|pp|DET": {
+    "complement": 28,
+    "purpose": 45
+   },
+   "post|pp|NOUN": {
+    "complement": 3,
+    "purpose": 11
+   },
+   "post|pp|NUM": {
+    "complement": 1,
+    "purpose": 2
+   },
+   "post|pp|PART": {
+    "complement": 1,
+    "purpose": 1
+   },
+   "post|pp|PRON": {
+    "complement": 22,
+    "purpose": 44
+   },
+   "post|pp|PROPN": {
+    "complement": 2,
+    "purpose": 3
+   },
+   "post|pp|PUNCT": {
+    "complement": 3,
+    "purpose": 3
+   },
+   "post|pp|SCONJ": {
+    "complement": 2,
+    "purpose": 7
+   },
+   "post|pp|SYM": {
+    "complement": 1
+   },
+   "post|pp|VERB": {
+    "complement": 1,
+    "purpose": 2
+   },
+   "post|pp|end": {
+    "complement": 8,
+    "purpose": 8
+   }
+  }
+ },
+ "dropped_cues": [
+  "prev"
+ ],
+ "min_count": 3,
+ "prior": [
+  -0.5336293251259471,
+  -0.8830315097355996
+ ],
+ "source": "P(complement|purpose) cue contrasts accrued from UD-EWT train counts on the population goal_register branch (3) reaches; plastic -- see purpose_observe.",
+ "strength": {
+  "comma|adjacent|0": [
+   0.0,
+   0.0
+  ],
+  "comma|objonly|0": [
+   0.0,
+   0.0
+  ],
+  "comma|other|0": [
+   -0.009699397088713368,
+   0.0076200521114668796
+  ],
+  "comma|other|1": [
+   0.2565914853817498,
+   -0.26371288233878465
+  ],
+  "comma|pp|0": [
+   -0.0004333292131690758,
+   0.000283039849856892
+  ],
+  "comma|pp|1": [
+   0.05292240145434268,
+   -0.036157228599346114
+  ],
+  "dist|adjacent|0": [
+   0.0,
+   0.0
+  ],
+  "dist|objonly|1": [
+   0.13928092085110322,
+   -0.3391366441560264
+  ],
+  "dist|objonly|2": [
+   -0.13944083098900084,
+   0.22353384599164206
+  ],
+  "dist|objonly|3+": [
+   -0.5370591413924608,
+   0.587625387585424
+  ],
+  "dist|other|1": [
+   -0.2671375432201486,
+   0.17039782384634433
+  ],
+  "dist|other|2": [
+   0.12306009275722729,
+   -0.10956220251152626
+  ],
+  "dist|other|3+": [
+   0.10887545776527086,
+   -0.09557596053678641
+  ],
+  "dist|pp|1": [
+   -0.10122827837291559,
+   0.06100651985430161
+  ],
+  "dist|pp|2": [
+   -0.15679812952772643,
+   0.09059447703979767
+  ],
+  "dist|pp|3+": [
+   0.06158046419745711,
+   -0.04238777834998231
+  ],
+  "frame|adjacent|lo": [
+   -0.15247891361496502,
+   0.34449792951550084
+  ],
+  "frame|adjacent|na": [
+   0.07860703448466855,
+   -0.27158182127052233
+  ],
+  "frame|objonly|hi": [
+   0.3922499312409515,
+   -2.58184469907113
+  ],
+  "frame|objonly|lo": [
+   -1.4354389467000854,
+   0.9027878376198859
+  ],
+  "frame|objonly|mid": [
+   -0.6801599850331342,
+   0.6676680952589604
+  ],
+  "frame|objonly|na": [
+   0.0783699547896628,
+   -0.17066109514548278
+  ],
+  "frame|other|hi": [
+   0.5813676822397715,
+   -0.980390560308924
+  ],
+  "frame|other|lo": [
+   -0.9755521959108824,
+   0.40126342125446446
+  ],
+  "frame|other|na": [
+   0.07426992858779524,
+   -0.06304218687663343
+  ],
+  "frame|pp|hi": [
+   0.5114973348764553,
+   -0.5733001606827104
+  ],
+  "frame|pp|lo": [
+   -0.8550000807492958,
+   0.3188356291564014
+  ],
+  "frame|pp|mid": [
+   0.45838750956250696,
+   -0.4779899808783854
+  ],
+  "frame|pp|na": [
+   0.2509923152164364,
+   -0.20630824977304574
+  ],
+  "hasobj|adjacent|0": [
+   0.0,
+   0.0
+  ],
+  "hasobj|objonly|0": [
+   -0.42884555675222813,
+   0.513517415431702
+  ],
+  "hasobj|objonly|1": [
+   0.00640822442876865,
+   -0.012449585010650965
+  ],
+  "hasobj|other|0": [
+   -0.26998249535237995,
+   0.17185025692665923
+  ],
+  "hasobj|other|1": [
+   0.15815141256849752,
+   -0.14592984668240117
+  ],
+  "hasobj|pp|0": [
+   -0.23475967099743833,
+   0.1281458226919301
+  ],
+  "hasobj|pp|1": [
+   0.01390383393323813,
+   -0.00919044569745453
+  ],
+  "headcat|adjacent|NOUN": [
+   0.1132242521180408,
+   -0.42869195871798094
+  ],
+  "headcat|adjacent|PRON": [
+   -0.3976013716479499,
+   0.6699203299501287
+  ],
+  "headcat|adjacent|VERB": [
+   -0.0038851560288684084,
+   0.011213639370475148
+  ],
+  "headcat|objonly|NOUN": [
+   0.2753514599943022,
+   -0.9417698171751399
+  ],
+  "headcat|objonly|VERB": [
+   -0.018103391543219827,
+   0.033944335169815876
+  ],
+  "headcat|other|ADJ": [
+   0.12306009275722729,
+   -0.10956220251152626
+  ],
+  "headcat|other|NOUN": [
+   0.2772107725844857,
+   -0.2918837593054808
+  ],
+  "headcat|other|PRON": [
+   0.21837027256155217,
+   -0.2149227181693526
+  ],
+  "headcat|other|VERB": [
+   -0.04635805920081948,
+   0.0352687453669297
+  ],
+  "headcat|pp|ADJ": [
+   -0.17022114985986725,
+   0.09737416402517635
+  ],
+  "headcat|pp|NOUN": [
+   0.012100406934087538,
+   -0.007986351632649935
+  ],
+  "headcat|pp|PRON": [
+   -0.043469444220723186,
+   0.027415575418266003
+  ],
+  "headcat|pp|VERB": [
+   0.007349804175489694,
+   -0.004831774884134443
+  ],
+  "headismv|adjacent|0": [
+   0.05438375209510729,
+   -0.17737753043707505
+  ],
+  "headismv|adjacent|1": [
+   -0.0038851560288684084,
+   0.011213639370475148
+  ],
+  "headismv|objonly|0": [
+   0.23613074684102095,
+   -0.7186262658609301
+  ],
+  "headismv|objonly|1": [
+   -0.018103391543219827,
+   0.033944335169815876
+  ],
+  "headismv|other|0": [
+   0.17435338714477777,
+   -0.16362942378180212
+  ],
+  "headismv|other|1": [
+   -0.04635805920081948,
+   0.0352687453669297
+  ],
+  "headismv|pp|0": [
+   -0.01259220565628405,
+   0.008143030297233733
+  ],
+  "headismv|pp|1": [
+   0.007349804175489694,
+   -0.004831774884134443
+  ],
+  "mvlem|adjacent|agre": [
+   0.14139512908473703,
+   -0.5828426385452394
+  ],
+  "mvlem|adjacent|approv": [
+   -0.21527981485399533,
+   0.446776778635919
+  ],
+  "mvlem|adjacent|be": [
+   0.1132242521180408,
+   -0.42869195871798094
+  ],
+  "mvlem|adjacent|began": [
+   0.1132242521180408,
+   -0.42869195871798094
+  ],
+  "mvlem|adjacent|beginn": [
+   0.07240225759778568,
+   -0.24637040192402626
+  ],
+  "mvlem|adjacent|call": [
+   -1.4962136603160596,
+   1.1807459537161193
+  ],
+  "mvlem|adjacent|chose": [
+   0.07240225759778568,
+   -0.24637040192402626
+  ],
+  "mvlem|adjacent|com": [
+   -0.8030664797561144,
+   0.9576024024019096
+  ],
+  "mvlem|adjacent|come": [
+   -0.10991929919616905,
+   0.26445522184196424
+  ],
+  "mvlem|adjacent|continu": [
+   0.1132242521180408,
+   -0.42869195871798094
+  ],
+  "mvlem|adjacent|do": [
+   -1.6503643401433181,
+   1.2089168306828157
+  ],
+  "mvlem|adjacent|forgot": [
+   0.17776277325561188,
+   -0.8341570668261455
+  ],
+  "mvlem|adjacent|go": [
+   0.268146834723881,
+   -2.2478504021341505
+  ],
+  "mvlem|adjacent|got": [
+   -0.21527981485399533,
+   0.446776778635919
+  ],
+  "mvlem|adjacent|had": [
+   0.24902579327710256,
+   -1.7279749428482416
+  ],
+  "mvlem|adjacent|has": [
+   0.14139512908473703,
+   -0.5828426385452394
+  ],
+  "mvlem|adjacent|hav": [
+   0.16201441628747276,
+   -0.7163740311697617
+  ],
+  "mvlem|adjacent|invit": [
+   0.07240225759778568,
+   -0.24637040192402626
+  ],
+  "mvlem|adjacent|look": [
+   0.1901852932541691,
+   -0.9395175824839714
+  ],
+  "mvlem|adjacent|made": [
+   0.14139512908473703,
+   -0.5828426385452394
+  ],
+  "mvlem|adjacent|manag": [
+   0.07240225759778568,
+   -0.24637040192402626
+  ],
+  "mvlem|adjacent|pay": [
+   -1.313892103522105,
+   1.1399239591958643
+  ],
+  "mvlem|adjacent|plann": [
+   0.16201441628747276,
+   -0.7163740311697617
+  ],
+  "mvlem|adjacent|pledg": [
+   0.1132242521180408,
+   -0.42869195871798094
+  ],
+  "mvlem|adjacent|promis": [
+   0.07240225759778568,
+   -0.24637040192402626
+  ],
+  "mvlem|adjacent|refus": [
+   0.22655293742504395,
+   -1.344982690592136
+  ],
+  "mvlem|adjacent|requir": [
+   0.1132242521180408,
+   -0.42869195871798094
+  ],
+  "mvlem|adjacent|return": [
+   -1.313892103522105,
+   1.1399239591958643
+  ],
+  "mvlem|adjacent|said": [
+   0.07240225759778568,
+   -0.24637040192402626
+  ],
+  "mvlem|adjacent|schedul": [
+   0.07240225759778568,
+   -0.24637040192402626
+  ],
+  "mvlem|adjacent|suppos": [
+   0.1901852932541691,
+   -0.9395175824839714
+  ],
+  "mvlem|adjacent|told": [
+   0.16201441628747276,
+   -0.7163740311697617
+  ],
+  "mvlem|adjacent|use": [
+   -1.4962136603160596,
+   1.1807459537161193
+  ],
+  "mvlem|adjacent|used": [
+   -0.2640699790234274,
+   0.5157696501228703
+  ],
+  "mvlem|adjacent|wait": [
+   -1.6503643401433181,
+   1.2089168306828157
+  ],
+  "mvlem|objonly|allow": [
+   0.32314212383065066,
+   -1.3247620694312459
+  ],
+  "mvlem|objonly|are": [
+   0.19530875232076583,
+   -0.5363047090669755
+  ],
+  "mvlem|objonly|ask": [
+   0.3494594321480241,
+   -1.6349169977350853
+  ],
+  "mvlem|objonly|call": [
+   -1.596450716907289,
+   0.9300323597264515
+  ],
+  "mvlem|objonly|change": [
+   -1.1909856087991249,
+   0.8499896520529151
+  ],
+  "mvlem|objonly|convince": [
+   0.19530875232076583,
+   -0.5363047090669755
+  ],
+  "mvlem|objonly|enable": [
+   0.19530875232076583,
+   -0.5363047090669755
+  ],
+  "mvlem|objonly|encourage": [
+   0.23613074684102095,
+   -0.7186262658609301
+  ],
+  "mvlem|objonly|expect": [
+   0.19530875232076583,
+   -0.5363047090669755
+  ],
+  "mvlem|objonly|get": [
+   0.3494594321480241,
+   -1.6349169977350853
+  ],
+  "mvlem|objonly|give": [
+   -1.3733071655930793,
+   0.8908116465731702
+  ],
+  "mvlem|objonly|had": [
+   0.21778160817282444,
+   -0.6316148888713005
+  ],
+  "mvlem|objonly|has": [
+   0.26430162380771716,
+   -0.8727769456881886
+  ],
+  "mvlem|objonly|have": [
+   0.318368845077993,
+   -1.2782420537963528
+  ],
+  "mvlem|objonly|help": [
+   0.30066926797859206,
+   -1.1240913739690948
+  ],
+  "mvlem|objonly|know": [
+   0.26430162380771716,
+   -0.8727769456881886
+  ],
+  "mvlem|objonly|like": [
+   0.19530875232076583,
+   -0.5363047090669755
+  ],
+  "mvlem|objonly|made": [
+   0.23613074684102095,
+   -0.7186262658609301
+  ],
+  "mvlem|objonly|need": [
+   0.012987195526811102,
+   -0.02547908530098497
+  ],
+  "mvlem|objonly|provid": [
+   -1.1909856087991249,
+   0.8499896520529151
+  ],
+  "mvlem|objonly|tak": [
+   0.08198006701376265,
+   -0.17962976512824325
+  ],
+  "mvlem|objonly|take": [
+   -0.1693343612671434,
+   0.26220298715079604
+  ],
+  "mvlem|objonly|tell": [
+   0.26430162380771716,
+   -0.8727769456881886
+  ],
+  "mvlem|objonly|told": [
+   0.31309178797714926,
+   -1.2294518896269206
+  ],
+  "mvlem|objonly|took": [
+   0.1671378753540695,
+   -0.43094419340914936
+  ],
+  "mvlem|objonly|us": [
+   -1.3733071655930793,
+   0.8908116465731702
+  ],
+  "mvlem|objonly|use": [
+   -1.66098923804486,
+   0.9396018107426022
+  ],
+  "mvlem|other|call": [
+   -0.570087087802718,
+   0.2959029055966381
+  ],
+  "mvlem|other|do": [
+   0.12306009275722729,
+   -0.10956220251152626
+  ],
+  "mvlem|other|go": [
+   -0.7932306391169277,
+   0.3604414267342093
+  ],
+  "mvlem|other|had": [
+   0.41074216520900814,
+   -0.5150273106196908
+  ],
+  "mvlem|other|has": [
+   -0.10008345855698242,
+   0.0727593542824283
+  ],
+  "mvlem|other|have": [
+   0.497753542198638,
+   -0.7156980060818419
+  ],
+  "mvlem|other|know": [
+   0.7208970935128477,
+   -1.8143102947499516
+  ],
+  "mvlem|other|look": [
+   -2.0741644845789926,
+   0.5264265642084703
+  ],
+  "mvlem|other|take": [
+   -0.10008345855698242,
+   0.0727593542824283
+  ],
+  "mvlem|other|told": [
+   0.633885716523218,
+   -1.208174491179636
+  ],
+  "mvlem|other|took": [
+   -0.1646219796945536,
+   0.11358134880268345
+  ],
+  "mvlem|other|use": [
+   -0.4365556951781955,
+   0.24711274142720613
+  ],
+  "mvlem|other|work": [
+   -0.7932306391169277,
+   0.3604414267342093
+  ],
+  "mvlem|pp|are": [
+   0.7052475874940328,
+   -1.1065986403007595
+  ],
+  "mvlem|pp|call": [
+   -0.17022114985986725,
+   0.09737416402517635
+  ],
+  "mvlem|pp|come": [
+   -0.8633683304198124,
+   0.3205177153393862
+  ],
+  "mvlem|pp|get": [
+   -0.17022114985986725,
+   0.09737416402517635
+  ],
+  "mvlem|pp|giv": [
+   0.4175655150422518,
+   -0.4134514597408142
+  ],
+  "mvlem|pp|go": [
+   -0.3243718296871255,
+   0.1663670355121279
+  ],
+  "mvlem|pp|had": [
+   0.012100406934087538,
+   -0.007986351632649935
+  ],
+  "mvlem|pp|has": [
+   0.522926030700078,
+   -0.595773016534769
+  ],
+  "mvlem|pp|have": [
+   0.36877535087281976,
+   -0.3444585882538629
+  ],
+  "mvlem|pp|leave": [
+   0.012100406934087538,
+   -0.007986351632649935
+  ],
+  "mvlem|pp|left": [
+   0.4175655150422518,
+   -0.4134514597408142
+  ],
+  "mvlem|pp|need": [
+   0.5919189021870297,
+   -0.7499236963620273
+  ],
+  "mvlem|pp|put": [
+   -0.6810467736258577,
+   0.2796957208191311
+  ],
+  "mvlem|pp|say": [
+   0.7052475874940328,
+   -1.1065986403007595
+  ],
+  "mvlem|pp|tak": [
+   -0.8633683304198124,
+   0.3205177153393862
+  ],
+  "mvlem|pp|take": [
+   -0.6810467736258577,
+   0.2796957208191311
+  ],
+  "mvlem|pp|took": [
+   0.012100406934087538,
+   -0.007986351632649935
+  ],
+  "mvlem|pp|us": [
+   -0.17022114985986725,
+   0.09737416402517635
+  ],
+  "mvlem|pp|wait": [
+   -1.151050402871593,
+   0.36930787950881816
+  ],
+  "mvlem|pp|walk": [
+   -0.6810467736258577,
+   0.2796957208191311
+  ],
+  "mvlem|pp|went": [
+   -0.08320977287023734,
+   0.050854148390283516
+  ],
+  "mvlem|pp|work": [
+   -0.45790322231164804,
+   0.21515719968155989
+  ],
+  "post|adjacent|ADJ": [
+   -0.23054728698478372,
+   0.46924963448797763
+  ],
+  "post|adjacent|ADP": [
+   0.03850070592210425,
+   -0.12120725897002038
+  ],
+  "post|adjacent|ADV": [
+   -0.09391895784972792,
+   0.23166539901897343
+  ],
+  "post|adjacent|CCONJ": [
+   -0.10991929919616905,
+   0.26445522184196424
+  ],
+  "post|adjacent|DET": [
+   -0.06112913502673706,
+   0.1590947061841379
+  ],
+  "post|adjacent|NOUN": [
+   -0.13731827338428337,
+   0.3170989553273864
+  ],
+  "post|adjacent|PART": [
+   0.1132242521180408,
+   -0.42869195871798094
+  ],
+  "post|adjacent|PRON": [
+   0.07530501725574701,
+   -0.2580664416872176
+  ],
+  "post|adjacent|PROPN": [
+   -0.29224085599012356,
+   0.5521372942937453
+  ],
+  "post|adjacent|PUNCT": [
+   -0.0229079222065392,
+   0.06378452637981313
+  ],
+  "post|adjacent|SCONJ": [
+   0.1132242521180408,
+   -0.42869195871798094
+  ],
+  "post|adjacent|VERB": [
+   -0.10991929919616905,
+   0.26445522184196424
+  ],
+  "post|adjacent|end": [
+   0.16201441628747276,
+   -0.7163740311697617
+  ],
+  "post|objonly|ADJ": [
+   -0.012330612457478685,
+   0.023311078868446966
+  ],
+  "post|objonly|ADP": [
+   0.18206352557074515,
+   -0.4850114146794251
+  ],
+  "post|objonly|ADV": [
+   -0.12809140273309438,
+   0.20813576588052018
+  ],
+  "post|objonly|CCONJ": [
+   0.31309178797714926,
+   -1.2294518896269206
+  ],
+  "post|objonly|DET": [
+   -0.051551325610760035,
+   0.09230395035539862
+  ],
+  "post|objonly|NOUN": [
+   -0.027834798993443932,
+   0.05148195583514337
+  ],
+  "post|objonly|PART": [
+   0.26430162380771716,
+   -0.8727769456881886
+  ],
+  "post|objonly|PRON": [
+   -0.10284461999831052,
+   0.172346658028935
+  ],
+  "post|objonly|PROPN": [
+   -0.09237332013101518,
+   0.15684247149296981
+  ],
+  "post|objonly|PUNCT": [
+   -0.27469487692496974,
+   0.3799860228071795
+  ],
+  "post|objonly|SCONJ": [
+   -0.6111671135461826,
+   0.6313004510880856
+  ],
+  "post|objonly|VERB": [
+   0.13077023118319464,
+   -0.31316115775276576
+  ],
+  "post|objonly|end": [
+   -0.016865767622869954,
+   0.031679328538963825
+  ],
+  "post|other|ADP": [
+   0.09566111856911286,
+   -0.08289395542936506
+  ],
+  "post|other|ADV": [
+   0.005277057100843807,
+   -0.004201686853699926
+  ],
+  "post|other|CCONJ": [
+   0.5930637220029629,
+   -1.0258529343856813
+  ],
+  "post|other|DET": [
+   -0.03728255731795216,
+   0.028588135969290884
+  ],
+  "post|other|NOUN": [
+   0.3743745210381334,
+   -0.4460344391327391
+  ],
+  "post|other|PRON": [
+   -0.3187726595218119,
+   0.1958194470396556
+  ],
+  "post|other|SCONJ": [
+   -0.2824050153509372,
+   0.17811986994025458
+  ],
+  "post|other|end": [
+   0.21007146974685698,
+   -0.20487238231585114
+  ],
+  "post|pp|ADJ": [
+   -0.45790322231164804,
+   0.21515719968155989
+  ],
+  "post|pp|ADP": [
+   0.2175443811488963,
+   -0.17291616571473534
+  ],
+  "post|pp|ADV": [
+   0.29978247938586833,
+   -0.25930077991355593
+  ],
+  "post|pp|CCONJ": [
+   0.5919189021870297,
+   -0.7499236963620273
+  ],
+  "post|pp|DET": [
+   -0.021801144741593892,
+   0.013992555086125291
+  ],
+  "post|pp|NOUN": [
+   -0.45790322231164804,
+   0.21515719968155989
+  ],
+  "post|pp|NUM": [
+   0.012100406934087538,
+   -0.007986351632649935
+  ],
+  "post|pp|PRON": [
+   -0.1556223504387143,
+   0.08999405672755384
+  ],
+  "post|pp|PROPN": [
+   0.08109327842103886,
+   -0.056776515802081984
+  ],
+  "post|pp|PUNCT": [
+   0.23524395824829725,
+   -0.1903079084266045
+  ],
+  "post|pp|SCONJ": [
+   -0.37089184532201835,
+   0.1843855410148062
+  ],
+  "post|pp|VERB": [
+   0.012100406934087538,
+   -0.007986351632649935
+  ],
+  "post|pp|end": [
+   0.23524395824829725,
+   -0.1903079084266045
+  ]
+ },
+ "tau": 0.6
+}

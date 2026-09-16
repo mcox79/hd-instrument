@@ -1,0 +1,2006 @@
+{
+ "alpha": 1.0,
+ "cfg": {
+  "bare|ADJ": -2.0103426874679693,
+  "bare|ADP": -1.936941479072553,
+  "bare|ADV": -2.11258193418214,
+  "bare|AUX": -2.403228618773733,
+  "bare|CCONJ": -2.4300984132930052,
+  "bare|DET": -1.7047480922384253,
+  "bare|NONE": -2.0794415416798357,
+  "bare|NOUN": -2.061034736922991,
+  "bare|NUM": -1.8870696490323797,
+  "bare|PART": -2.2030554976470125,
+  "bare|PRON": -2.031710138858646,
+  "bare|PROPN": -2.2324927161736774,
+  "bare|PUNCT": -2.5008052358557986,
+  "bare|SCONJ": -2.0149030205422647,
+  "bare|VERB": -1.9769413066829324,
+  "mark|ADV": -1.6739764335716716,
+  "mark|NOUN": -2.2721258855093374,
+  "mark|SCONJ": -2.4849066497880004
+ },
+ "counts": {
+  "cfg": {
+   "bare|ADJ": [
+    336.0,
+    2514.0
+   ],
+   "bare|ADP": [
+    15.0,
+    109.0
+   ],
+   "bare|ADV": [
+    114.0,
+    949.0
+   ],
+   "bare|AUX": [
+    16.0,
+    186.0
+   ],
+   "bare|CCONJ": [
+    24.0,
+    282.0
+   ],
+   "bare|DET": [
+    1.0,
+    9.0
+   ],
+   "bare|NONE": [
+    7.0,
+    62.0
+   ],
+   "bare|NOUN": [
+    561.0,
+    4412.0
+   ],
+   "bare|NUM": [
+    4.0,
+    31.0
+   ],
+   "bare|PART": [
+    18.0,
+    170.0
+   ],
+   "bare|PRON": [
+    176.0,
+    1348.0
+   ],
+   "bare|PROPN": [
+    64.0,
+    604.0
+   ],
+   "bare|PUNCT": [
+    25.0,
+    315.0
+   ],
+   "bare|SCONJ": [
+    1.0,
+    13.0
+   ],
+   "bare|VERB": [
+    1250.0,
+    9031.0
+   ],
+   "mark|ADV": [
+    2.0,
+    14.0
+   ],
+   "mark|NOUN": [
+    9.0,
+    95.0
+   ],
+   "mark|SCONJ": [
+    0.0,
+    10.0
+   ]
+  },
+  "cue": {
+   "adp_between|bare|ADJ|0": [
+    335.0,
+    2056.0
+   ],
+   "adp_between|bare|ADJ|1": [
+    1.0,
+    458.0
+   ],
+   "adp_between|bare|ADP|0": [
+    0.0,
+    42.0
+   ],
+   "adp_between|bare|ADP|1": [
+    15.0,
+    67.0
+   ],
+   "adp_between|bare|ADV|0": [
+    106.0,
+    783.0
+   ],
+   "adp_between|bare|ADV|1": [
+    8.0,
+    166.0
+   ],
+   "adp_between|bare|AUX|0": [
+    15.0,
+    149.0
+   ],
+   "adp_between|bare|AUX|1": [
+    1.0,
+    37.0
+   ],
+   "adp_between|bare|CCONJ|0": [
+    19.0,
+    198.0
+   ],
+   "adp_between|bare|CCONJ|1": [
+    5.0,
+    84.0
+   ],
+   "adp_between|bare|DET|0": [
+    0.0,
+    2.0
+   ],
+   "adp_between|bare|DET|1": [
+    1.0,
+    7.0
+   ],
+   "adp_between|bare|NONE|0": [
+    5.0,
+    35.0
+   ],
+   "adp_between|bare|NONE|1": [
+    2.0,
+    27.0
+   ],
+   "adp_between|bare|NOUN|0": [
+    454.0,
+    3161.0
+   ],
+   "adp_between|bare|NOUN|1": [
+    107.0,
+    1251.0
+   ],
+   "adp_between|bare|NUM|0": [
+    2.0,
+    27.0
+   ],
+   "adp_between|bare|NUM|1": [
+    2.0,
+    4.0
+   ],
+   "adp_between|bare|PART|0": [
+    16.0,
+    128.0
+   ],
+   "adp_between|bare|PART|1": [
+    2.0,
+    42.0
+   ],
+   "adp_between|bare|PRON|0": [
+    139.0,
+    941.0
+   ],
+   "adp_between|bare|PRON|1": [
+    37.0,
+    407.0
+   ],
+   "adp_between|bare|PROPN|0": [
+    31.0,
+    369.0
+   ],
+   "adp_between|bare|PROPN|1": [
+    33.0,
+    235.0
+   ],
+   "adp_between|bare|PUNCT|0": [
+    16.0,
+    220.0
+   ],
+   "adp_between|bare|PUNCT|1": [
+    9.0,
+    95.0
+   ],
+   "adp_between|bare|SCONJ|0": [
+    1.0,
+    9.0
+   ],
+   "adp_between|bare|SCONJ|1": [
+    0.0,
+    4.0
+   ],
+   "adp_between|bare|VERB|0": [
+    1250.0,
+    7061.0
+   ],
+   "adp_between|bare|VERB|1": [
+    0.0,
+    1970.0
+   ],
+   "adp_between|mark|ADV|0": [
+    1.0,
+    7.0
+   ],
+   "adp_between|mark|ADV|1": [
+    1.0,
+    7.0
+   ],
+   "adp_between|mark|NOUN|0": [
+    3.0,
+    38.0
+   ],
+   "adp_between|mark|NOUN|1": [
+    6.0,
+    57.0
+   ],
+   "adp_between|mark|SCONJ|0": [
+    0.0,
+    9.0
+   ],
+   "adp_between|mark|SCONJ|1": [
+    0.0,
+    1.0
+   ],
+   "candcat|bare|ADJ|ADJ": [
+    320.0,
+    555.0
+   ],
+   "candcat|bare|ADJ|AUX": [
+    0.0,
+    496.0
+   ],
+   "candcat|bare|ADJ|NOUN": [
+    4.0,
+    578.0
+   ],
+   "candcat|bare|ADJ|PRON": [
+    3.0,
+    488.0
+   ],
+   "candcat|bare|ADJ|PROPN": [
+    0.0,
+    135.0
+   ],
+   "candcat|bare|ADJ|VERB": [
+    9.0,
+    262.0
+   ],
+   "candcat|bare|ADP|ADJ": [
+    0.0,
+    12.0
+   ],
+   "candcat|bare|ADP|AUX": [
+    0.0,
+    7.0
+   ],
+   "candcat|bare|ADP|NOUN": [
+    0.0,
+    32.0
+   ],
+   "candcat|bare|ADP|PRON": [
+    1.0,
+    18.0
+   ],
+   "candcat|bare|ADP|PROPN": [
+    1.0,
+    8.0
+   ],
+   "candcat|bare|ADP|VERB": [
+    13.0,
+    32.0
+   ],
+   "candcat|bare|ADV|ADJ": [
+    8.0,
+    72.0
+   ],
+   "candcat|bare|ADV|AUX": [
+    1.0,
+    93.0
+   ],
+   "candcat|bare|ADV|NOUN": [
+    5.0,
+    251.0
+   ],
+   "candcat|bare|ADV|PRON": [
+    0.0,
+    248.0
+   ],
+   "candcat|bare|ADV|PROPN": [
+    1.0,
+    53.0
+   ],
+   "candcat|bare|ADV|VERB": [
+    99.0,
+    232.0
+   ],
+   "candcat|bare|AUX|ADJ": [
+    4.0,
+    14.0
+   ],
+   "candcat|bare|AUX|AUX": [
+    2.0,
+    37.0
+   ],
+   "candcat|bare|AUX|NOUN": [
+    2.0,
+    62.0
+   ],
+   "candcat|bare|AUX|PRON": [
+    0.0,
+    42.0
+   ],
+   "candcat|bare|AUX|PROPN": [
+    0.0,
+    4.0
+   ],
+   "candcat|bare|AUX|VERB": [
+    8.0,
+    27.0
+   ],
+   "candcat|bare|CCONJ|ADJ": [
+    2.0,
+    29.0
+   ],
+   "candcat|bare|CCONJ|AUX": [
+    0.0,
+    23.0
+   ],
+   "candcat|bare|CCONJ|NOUN": [
+    4.0,
+    110.0
+   ],
+   "candcat|bare|CCONJ|PRON": [
+    0.0,
+    51.0
+   ],
+   "candcat|bare|CCONJ|PROPN": [
+    0.0,
+    14.0
+   ],
+   "candcat|bare|CCONJ|VERB": [
+    18.0,
+    55.0
+   ],
+   "candcat|bare|DET|ADJ": [
+    0.0,
+    2.0
+   ],
+   "candcat|bare|DET|AUX": [
+    0.0,
+    1.0
+   ],
+   "candcat|bare|DET|NOUN": [
+    0.0,
+    2.0
+   ],
+   "candcat|bare|DET|PRON": [
+    0.0,
+    2.0
+   ],
+   "candcat|bare|DET|PROPN": [
+    0.0,
+    1.0
+   ],
+   "candcat|bare|DET|VERB": [
+    1.0,
+    1.0
+   ],
+   "candcat|bare|NONE|ADJ": [
+    0.0,
+    9.0
+   ],
+   "candcat|bare|NONE|AUX": [
+    0.0,
+    4.0
+   ],
+   "candcat|bare|NONE|NOUN": [
+    0.0,
+    19.0
+   ],
+   "candcat|bare|NONE|PRON": [
+    0.0,
+    7.0
+   ],
+   "candcat|bare|NONE|PROPN": [
+    0.0,
+    10.0
+   ],
+   "candcat|bare|NONE|VERB": [
+    7.0,
+    13.0
+   ],
+   "candcat|bare|NOUN|ADJ": [
+    16.0,
+    535.0
+   ],
+   "candcat|bare|NOUN|AUX": [
+    0.0,
+    353.0
+   ],
+   "candcat|bare|NOUN|NOUN": [
+    325.0,
+    1742.0
+   ],
+   "candcat|bare|NOUN|PRON": [
+    0.0,
+    712.0
+   ],
+   "candcat|bare|NOUN|PROPN": [
+    1.0,
+    289.0
+   ],
+   "candcat|bare|NOUN|VERB": [
+    219.0,
+    781.0
+   ],
+   "candcat|bare|NUM|ADJ": [
+    0.0,
+    2.0
+   ],
+   "candcat|bare|NUM|AUX": [
+    0.0,
+    1.0
+   ],
+   "candcat|bare|NUM|NOUN": [
+    0.0,
+    9.0
+   ],
+   "candcat|bare|NUM|PRON": [
+    0.0,
+    7.0
+   ],
+   "candcat|bare|NUM|PROPN": [
+    0.0,
+    2.0
+   ],
+   "candcat|bare|NUM|VERB": [
+    4.0,
+    10.0
+   ],
+   "candcat|bare|PART|ADJ": [
+    2.0,
+    17.0
+   ],
+   "candcat|bare|PART|AUX": [
+    0.0,
+    14.0
+   ],
+   "candcat|bare|PART|NOUN": [
+    4.0,
+    64.0
+   ],
+   "candcat|bare|PART|PRON": [
+    0.0,
+    27.0
+   ],
+   "candcat|bare|PART|PROPN": [
+    0.0,
+    15.0
+   ],
+   "candcat|bare|PART|VERB": [
+    12.0,
+    33.0
+   ],
+   "candcat|bare|PRON|ADJ": [
+    5.0,
+    97.0
+   ],
+   "candcat|bare|PRON|AUX": [
+    0.0,
+    114.0
+   ],
+   "candcat|bare|PRON|NOUN": [
+    9.0,
+    279.0
+   ],
+   "candcat|bare|PRON|PRON": [
+    24.0,
+    456.0
+   ],
+   "candcat|bare|PRON|PROPN": [
+    0.0,
+    84.0
+   ],
+   "candcat|bare|PRON|VERB": [
+    138.0,
+    318.0
+   ],
+   "candcat|bare|PROPN|ADJ": [
+    2.0,
+    56.0
+   ],
+   "candcat|bare|PROPN|AUX": [
+    0.0,
+    30.0
+   ],
+   "candcat|bare|PROPN|NOUN": [
+    8.0,
+    161.0
+   ],
+   "candcat|bare|PROPN|PRON": [
+    0.0,
+    69.0
+   ],
+   "candcat|bare|PROPN|PROPN": [
+    3.0,
+    175.0
+   ],
+   "candcat|bare|PROPN|VERB": [
+    51.0,
+    113.0
+   ],
+   "candcat|bare|PUNCT|ADJ": [
+    2.0,
+    36.0
+   ],
+   "candcat|bare|PUNCT|AUX": [
+    0.0,
+    18.0
+   ],
+   "candcat|bare|PUNCT|NOUN": [
+    8.0,
+    139.0
+   ],
+   "candcat|bare|PUNCT|PRON": [
+    0.0,
+    43.0
+   ],
+   "candcat|bare|PUNCT|PROPN": [
+    0.0,
+    31.0
+   ],
+   "candcat|bare|PUNCT|VERB": [
+    15.0,
+    48.0
+   ],
+   "candcat|bare|SCONJ|ADJ": [
+    0.0,
+    1.0
+   ],
+   "candcat|bare|SCONJ|AUX": [
+    0.0,
+    1.0
+   ],
+   "candcat|bare|SCONJ|NOUN": [
+    0.0,
+    4.0
+   ],
+   "candcat|bare|SCONJ|PRON": [
+    0.0,
+    2.0
+   ],
+   "candcat|bare|SCONJ|PROPN": [
+    0.0,
+    2.0
+   ],
+   "candcat|bare|SCONJ|VERB": [
+    1.0,
+    3.0
+   ],
+   "candcat|bare|VERB|ADJ": [
+    3.0,
+    727.0
+   ],
+   "candcat|bare|VERB|AUX": [
+    0.0,
+    991.0
+   ],
+   "candcat|bare|VERB|NOUN": [
+    12.0,
+    2295.0
+   ],
+   "candcat|bare|VERB|PRON": [
+    5.0,
+    2083.0
+   ],
+   "candcat|bare|VERB|PROPN": [
+    0.0,
+    626.0
+   ],
+   "candcat|bare|VERB|VERB": [
+    1230.0,
+    2309.0
+   ],
+   "candcat|mark|ADV|ADJ": [
+    0.0,
+    3.0
+   ],
+   "candcat|mark|ADV|AUX": [
+    0.0,
+    1.0
+   ],
+   "candcat|mark|ADV|NOUN": [
+    0.0,
+    8.0
+   ],
+   "candcat|mark|ADV|VERB": [
+    2.0,
+    2.0
+   ],
+   "candcat|mark|NOUN|ADJ": [
+    2.0,
+    12.0
+   ],
+   "candcat|mark|NOUN|AUX": [
+    0.0,
+    7.0
+   ],
+   "candcat|mark|NOUN|NOUN": [
+    0.0,
+    44.0
+   ],
+   "candcat|mark|NOUN|PRON": [
+    0.0,
+    13.0
+   ],
+   "candcat|mark|NOUN|PROPN": [
+    0.0,
+    5.0
+   ],
+   "candcat|mark|NOUN|VERB": [
+    7.0,
+    14.0
+   ],
+   "candcat|mark|SCONJ|ADJ": [
+    0.0,
+    1.0
+   ],
+   "candcat|mark|SCONJ|AUX": [
+    0.0,
+    1.0
+   ],
+   "candcat|mark|SCONJ|NOUN": [
+    0.0,
+    3.0
+   ],
+   "candcat|mark|SCONJ|PRON": [
+    0.0,
+    2.0
+   ],
+   "candcat|mark|SCONJ|PROPN": [
+    0.0,
+    1.0
+   ],
+   "candcat|mark|SCONJ|VERB": [
+    0.0,
+    2.0
+   ],
+   "dir|bare|ADJ|L": [
+    333.0,
+    1447.0
+   ],
+   "dir|bare|ADJ|R": [
+    3.0,
+    1067.0
+   ],
+   "dir|bare|ADP|L": [
+    15.0,
+    49.0
+   ],
+   "dir|bare|ADP|R": [
+    0.0,
+    60.0
+   ],
+   "dir|bare|ADV|L": [
+    111.0,
+    500.0
+   ],
+   "dir|bare|ADV|R": [
+    3.0,
+    449.0
+   ],
+   "dir|bare|AUX|L": [
+    14.0,
+    117.0
+   ],
+   "dir|bare|AUX|R": [
+    2.0,
+    69.0
+   ],
+   "dir|bare|CCONJ|L": [
+    21.0,
+    135.0
+   ],
+   "dir|bare|CCONJ|R": [
+    3.0,
+    147.0
+   ],
+   "dir|bare|DET|L": [
+    1.0,
+    4.0
+   ],
+   "dir|bare|DET|R": [
+    0.0,
+    5.0
+   ],
+   "dir|bare|NONE|R": [
+    7.0,
+    62.0
+   ],
+   "dir|bare|NOUN|L": [
+    555.0,
+    2483.0
+   ],
+   "dir|bare|NOUN|R": [
+    6.0,
+    1929.0
+   ],
+   "dir|bare|NUM|L": [
+    4.0,
+    16.0
+   ],
+   "dir|bare|NUM|R": [
+    0.0,
+    15.0
+   ],
+   "dir|bare|PART|L": [
+    18.0,
+    80.0
+   ],
+   "dir|bare|PART|R": [
+    0.0,
+    90.0
+   ],
+   "dir|bare|PRON|L": [
+    176.0,
+    796.0
+   ],
+   "dir|bare|PRON|R": [
+    0.0,
+    552.0
+   ],
+   "dir|bare|PROPN|L": [
+    64.0,
+    335.0
+   ],
+   "dir|bare|PROPN|R": [
+    0.0,
+    269.0
+   ],
+   "dir|bare|PUNCT|L": [
+    23.0,
+    145.0
+   ],
+   "dir|bare|PUNCT|R": [
+    2.0,
+    170.0
+   ],
+   "dir|bare|SCONJ|L": [
+    1.0,
+    7.0
+   ],
+   "dir|bare|SCONJ|R": [
+    0.0,
+    6.0
+   ],
+   "dir|bare|VERB|L": [
+    1235.0,
+    4762.0
+   ],
+   "dir|bare|VERB|R": [
+    15.0,
+    4269.0
+   ],
+   "dir|mark|ADV|L": [
+    2.0,
+    6.0
+   ],
+   "dir|mark|ADV|R": [
+    0.0,
+    8.0
+   ],
+   "dir|mark|NOUN|L": [
+    6.0,
+    46.0
+   ],
+   "dir|mark|NOUN|R": [
+    3.0,
+    49.0
+   ],
+   "dir|mark|SCONJ|L": [
+    0.0,
+    4.0
+   ],
+   "dir|mark|SCONJ|R": [
+    0.0,
+    6.0
+   ],
+   "dist|bare|ADJ|1": [
+    2.0,
+    118.0
+   ],
+   "dist|bare|ADJ|2": [
+    320.0,
+    498.0
+   ],
+   "dist|bare|ADJ|3-4": [
+    10.0,
+    810.0
+   ],
+   "dist|bare|ADJ|5+": [
+    4.0,
+    1088.0
+   ],
+   "dist|bare|ADP|1": [
+    0.0,
+    6.0
+   ],
+   "dist|bare|ADP|2": [
+    0.0,
+    10.0
+   ],
+   "dist|bare|ADP|3-4": [
+    14.0,
+    42.0
+   ],
+   "dist|bare|ADP|5+": [
+    1.0,
+    51.0
+   ],
+   "dist|bare|ADV|1": [
+    2.0,
+    63.0
+   ],
+   "dist|bare|ADV|2": [
+    0.0,
+    96.0
+   ],
+   "dist|bare|ADV|3-4": [
+    83.0,
+    335.0
+   ],
+   "dist|bare|ADV|5+": [
+    29.0,
+    455.0
+   ],
+   "dist|bare|AUX|1": [
+    0.0,
+    12.0
+   ],
+   "dist|bare|AUX|2": [
+    2.0,
+    36.0
+   ],
+   "dist|bare|AUX|3-4": [
+    6.0,
+    49.0
+   ],
+   "dist|bare|AUX|5+": [
+    8.0,
+    89.0
+   ],
+   "dist|bare|CCONJ|1": [
+    0.0,
+    12.0
+   ],
+   "dist|bare|CCONJ|2": [
+    0.0,
+    29.0
+   ],
+   "dist|bare|CCONJ|3-4": [
+    8.0,
+    90.0
+   ],
+   "dist|bare|CCONJ|5+": [
+    16.0,
+    151.0
+   ],
+   "dist|bare|DET|1": [
+    0.0,
+    1.0
+   ],
+   "dist|bare|DET|2": [
+    0.0,
+    1.0
+   ],
+   "dist|bare|DET|3-4": [
+    0.0,
+    1.0
+   ],
+   "dist|bare|DET|5+": [
+    1.0,
+    6.0
+   ],
+   "dist|bare|NONE|1": [
+    0.0,
+    7.0
+   ],
+   "dist|bare|NONE|2": [
+    1.0,
+    8.0
+   ],
+   "dist|bare|NONE|3-4": [
+    2.0,
+    18.0
+   ],
+   "dist|bare|NONE|5+": [
+    4.0,
+    29.0
+   ],
+   "dist|bare|NOUN|1": [
+    4.0,
+    219.0
+   ],
+   "dist|bare|NOUN|2": [
+    302.0,
+    952.0
+   ],
+   "dist|bare|NOUN|3-4": [
+    102.0,
+    1117.0
+   ],
+   "dist|bare|NOUN|5+": [
+    153.0,
+    2124.0
+   ],
+   "dist|bare|NUM|1": [
+    0.0,
+    2.0
+   ],
+   "dist|bare|NUM|2": [
+    0.0,
+    5.0
+   ],
+   "dist|bare|NUM|3-4": [
+    0.0,
+    7.0
+   ],
+   "dist|bare|NUM|5+": [
+    4.0,
+    17.0
+   ],
+   "dist|bare|PART|1": [
+    0.0,
+    10.0
+   ],
+   "dist|bare|PART|2": [
+    0.0,
+    19.0
+   ],
+   "dist|bare|PART|3-4": [
+    14.0,
+    52.0
+   ],
+   "dist|bare|PART|5+": [
+    4.0,
+    89.0
+   ],
+   "dist|bare|PRON|1": [
+    0.0,
+    65.0
+   ],
+   "dist|bare|PRON|2": [
+    24.0,
+    265.0
+   ],
+   "dist|bare|PRON|3-4": [
+    137.0,
+    412.0
+   ],
+   "dist|bare|PRON|5+": [
+    15.0,
+    606.0
+   ],
+   "dist|bare|PROPN|1": [
+    0.0,
+    24.0
+   ],
+   "dist|bare|PROPN|2": [
+    0.0,
+    138.0
+   ],
+   "dist|bare|PROPN|3-4": [
+    33.0,
+    165.0
+   ],
+   "dist|bare|PROPN|5+": [
+    31.0,
+    277.0
+   ],
+   "dist|bare|PUNCT|1": [
+    1.0,
+    17.0
+   ],
+   "dist|bare|PUNCT|2": [
+    0.0,
+    34.0
+   ],
+   "dist|bare|PUNCT|3-4": [
+    8.0,
+    102.0
+   ],
+   "dist|bare|PUNCT|5+": [
+    16.0,
+    162.0
+   ],
+   "dist|bare|SCONJ|1": [
+    0.0,
+    1.0
+   ],
+   "dist|bare|SCONJ|2": [
+    0.0,
+    1.0
+   ],
+   "dist|bare|SCONJ|3-4": [
+    0.0,
+    2.0
+   ],
+   "dist|bare|SCONJ|5+": [
+    1.0,
+    9.0
+   ],
+   "dist|bare|VERB|1": [
+    9.0,
+    493.0
+   ],
+   "dist|bare|VERB|2": [
+    1216.0,
+    1980.0
+   ],
+   "dist|bare|VERB|3-4": [
+    13.0,
+    2808.0
+   ],
+   "dist|bare|VERB|5+": [
+    12.0,
+    3750.0
+   ],
+   "dist|mark|ADV|1": [
+    0.0,
+    1.0
+   ],
+   "dist|mark|ADV|2": [
+    0.0,
+    1.0
+   ],
+   "dist|mark|ADV|3-4": [
+    1.0,
+    4.0
+   ],
+   "dist|mark|ADV|5+": [
+    1.0,
+    8.0
+   ],
+   "dist|mark|NOUN|1": [
+    0.0,
+    6.0
+   ],
+   "dist|mark|NOUN|2": [
+    0.0,
+    19.0
+   ],
+   "dist|mark|NOUN|3-4": [
+    3.0,
+    23.0
+   ],
+   "dist|mark|NOUN|5+": [
+    6.0,
+    47.0
+   ],
+   "dist|mark|SCONJ|2": [
+    0.0,
+    2.0
+   ],
+   "dist|mark|SCONJ|3-4": [
+    0.0,
+    2.0
+   ],
+   "dist|mark|SCONJ|5+": [
+    0.0,
+    6.0
+   ],
+   "nearest_nom|bare|ADJ|0": [
+    332.0,
+    2187.0
+   ],
+   "nearest_nom|bare|ADJ|1": [
+    4.0,
+    327.0
+   ],
+   "nearest_nom|bare|ADP|0": [
+    13.0,
+    95.0
+   ],
+   "nearest_nom|bare|ADP|1": [
+    2.0,
+    14.0
+   ],
+   "nearest_nom|bare|ADV|0": [
+    111.0,
+    812.0
+   ],
+   "nearest_nom|bare|ADV|1": [
+    3.0,
+    137.0
+   ],
+   "nearest_nom|bare|AUX|0": [
+    15.0,
+    160.0
+   ],
+   "nearest_nom|bare|AUX|1": [
+    1.0,
+    26.0
+   ],
+   "nearest_nom|bare|CCONJ|0": [
+    21.0,
+    247.0
+   ],
+   "nearest_nom|bare|CCONJ|1": [
+    3.0,
+    35.0
+   ],
+   "nearest_nom|bare|DET|0": [
+    1.0,
+    8.0
+   ],
+   "nearest_nom|bare|DET|1": [
+    0.0,
+    1.0
+   ],
+   "nearest_nom|bare|NONE|0": [
+    7.0,
+    62.0
+   ],
+   "nearest_nom|bare|NOUN|0": [
+    261.0,
+    3811.0
+   ],
+   "nearest_nom|bare|NOUN|1": [
+    300.0,
+    601.0
+   ],
+   "nearest_nom|bare|NUM|0": [
+    4.0,
+    26.0
+   ],
+   "nearest_nom|bare|NUM|1": [
+    0.0,
+    5.0
+   ],
+   "nearest_nom|bare|PART|0": [
+    14.0,
+    149.0
+   ],
+   "nearest_nom|bare|PART|1": [
+    4.0,
+    21.0
+   ],
+   "nearest_nom|bare|PRON|0": [
+    152.0,
+    1168.0
+   ],
+   "nearest_nom|bare|PRON|1": [
+    24.0,
+    180.0
+   ],
+   "nearest_nom|bare|PROPN|0": [
+    64.0,
+    527.0
+   ],
+   "nearest_nom|bare|PROPN|1": [
+    0.0,
+    77.0
+   ],
+   "nearest_nom|bare|PUNCT|0": [
+    22.0,
+    269.0
+   ],
+   "nearest_nom|bare|PUNCT|1": [
+    3.0,
+    46.0
+   ],
+   "nearest_nom|bare|SCONJ|0": [
+    1.0,
+    12.0
+   ],
+   "nearest_nom|bare|SCONJ|1": [
+    0.0,
+    1.0
+   ],
+   "nearest_nom|bare|VERB|0": [
+    1250.0,
+    7829.0
+   ],
+   "nearest_nom|bare|VERB|1": [
+    0.0,
+    1202.0
+   ],
+   "nearest_nom|mark|ADV|0": [
+    2.0,
+    12.0
+   ],
+   "nearest_nom|mark|ADV|1": [
+    0.0,
+    2.0
+   ],
+   "nearest_nom|mark|NOUN|0": [
+    9.0,
+    82.0
+   ],
+   "nearest_nom|mark|NOUN|1": [
+    0.0,
+    13.0
+   ],
+   "nearest_nom|mark|SCONJ|0": [
+    0.0,
+    8.0
+   ],
+   "nearest_nom|mark|SCONJ|1": [
+    0.0,
+    2.0
+   ],
+   "nearest_verb|bare|ADJ|0": [
+    329.0,
+    2406.0
+   ],
+   "nearest_verb|bare|ADJ|1": [
+    7.0,
+    108.0
+   ],
+   "nearest_verb|bare|ADP|0": [
+    2.0,
+    94.0
+   ],
+   "nearest_verb|bare|ADP|1": [
+    13.0,
+    15.0
+   ],
+   "nearest_verb|bare|ADV|0": [
+    19.0,
+    823.0
+   ],
+   "nearest_verb|bare|ADV|1": [
+    95.0,
+    126.0
+   ],
+   "nearest_verb|bare|AUX|0": [
+    10.0,
+    172.0
+   ],
+   "nearest_verb|bare|AUX|1": [
+    6.0,
+    14.0
+   ],
+   "nearest_verb|bare|CCONJ|0": [
+    13.0,
+    254.0
+   ],
+   "nearest_verb|bare|CCONJ|1": [
+    11.0,
+    28.0
+   ],
+   "nearest_verb|bare|DET|0": [
+    0.0,
+    8.0
+   ],
+   "nearest_verb|bare|DET|1": [
+    1.0,
+    1.0
+   ],
+   "nearest_verb|bare|NONE|0": [
+    7.0,
+    62.0
+   ],
+   "nearest_verb|bare|NOUN|0": [
+    352.0,
+    3982.0
+   ],
+   "nearest_verb|bare|NOUN|1": [
+    209.0,
+    430.0
+   ],
+   "nearest_verb|bare|NUM|0": [
+    0.0,
+    25.0
+   ],
+   "nearest_verb|bare|NUM|1": [
+    4.0,
+    6.0
+   ],
+   "nearest_verb|bare|PART|0": [
+    6.0,
+    157.0
+   ],
+   "nearest_verb|bare|PART|1": [
+    12.0,
+    13.0
+   ],
+   "nearest_verb|bare|PRON|0": [
+    40.0,
+    1184.0
+   ],
+   "nearest_verb|bare|PRON|1": [
+    136.0,
+    164.0
+   ],
+   "nearest_verb|bare|PROPN|0": [
+    14.0,
+    544.0
+   ],
+   "nearest_verb|bare|PROPN|1": [
+    50.0,
+    60.0
+   ],
+   "nearest_verb|bare|PUNCT|0": [
+    12.0,
+    294.0
+   ],
+   "nearest_verb|bare|PUNCT|1": [
+    13.0,
+    21.0
+   ],
+   "nearest_verb|bare|SCONJ|0": [
+    0.0,
+    11.0
+   ],
+   "nearest_verb|bare|SCONJ|1": [
+    1.0,
+    2.0
+   ],
+   "nearest_verb|bare|VERB|0": [
+    36.0,
+    7771.0
+   ],
+   "nearest_verb|bare|VERB|1": [
+    1214.0,
+    1260.0
+   ],
+   "nearest_verb|mark|ADV|0": [
+    0.0,
+    12.0
+   ],
+   "nearest_verb|mark|ADV|1": [
+    2.0,
+    2.0
+   ],
+   "nearest_verb|mark|NOUN|0": [
+    3.0,
+    89.0
+   ],
+   "nearest_verb|mark|NOUN|1": [
+    6.0,
+    6.0
+   ],
+   "nearest_verb|mark|SCONJ|0": [
+    0.0,
+    9.0
+   ],
+   "nearest_verb|mark|SCONJ|1": [
+    0.0,
+    1.0
+   ],
+   "predslot|bare|ADJ|0": [
+    327.0,
+    1756.0
+   ],
+   "predslot|bare|ADJ|1": [
+    9.0,
+    758.0
+   ],
+   "predslot|bare|ADP|0": [
+    2.0,
+    70.0
+   ],
+   "predslot|bare|ADP|1": [
+    13.0,
+    39.0
+   ],
+   "predslot|bare|ADV|0": [
+    14.0,
+    624.0
+   ],
+   "predslot|bare|ADV|1": [
+    100.0,
+    325.0
+   ],
+   "predslot|bare|AUX|0": [
+    6.0,
+    122.0
+   ],
+   "predslot|bare|AUX|1": [
+    10.0,
+    64.0
+   ],
+   "predslot|bare|CCONJ|0": [
+    6.0,
+    204.0
+   ],
+   "predslot|bare|CCONJ|1": [
+    18.0,
+    78.0
+   ],
+   "predslot|bare|DET|0": [
+    0.0,
+    7.0
+   ],
+   "predslot|bare|DET|1": [
+    1.0,
+    2.0
+   ],
+   "predslot|bare|NONE|0": [
+    0.0,
+    45.0
+   ],
+   "predslot|bare|NONE|1": [
+    7.0,
+    17.0
+   ],
+   "predslot|bare|NOUN|0": [
+    342.0,
+    3278.0
+   ],
+   "predslot|bare|NOUN|1": [
+    219.0,
+    1134.0
+   ],
+   "predslot|bare|NUM|0": [
+    0.0,
+    20.0
+   ],
+   "predslot|bare|NUM|1": [
+    4.0,
+    11.0
+   ],
+   "predslot|bare|PART|0": [
+    6.0,
+    123.0
+   ],
+   "predslot|bare|PART|1": [
+    12.0,
+    47.0
+   ],
+   "predslot|bare|PRON|0": [
+    38.0,
+    916.0
+   ],
+   "predslot|bare|PRON|1": [
+    138.0,
+    432.0
+   ],
+   "predslot|bare|PROPN|0": [
+    13.0,
+    461.0
+   ],
+   "predslot|bare|PROPN|1": [
+    51.0,
+    143.0
+   ],
+   "predslot|bare|PUNCT|0": [
+    10.0,
+    249.0
+   ],
+   "predslot|bare|PUNCT|1": [
+    15.0,
+    66.0
+   ],
+   "predslot|bare|SCONJ|0": [
+    0.0,
+    9.0
+   ],
+   "predslot|bare|SCONJ|1": [
+    1.0,
+    4.0
+   ],
+   "predslot|bare|VERB|0": [
+    20.0,
+    5731.0
+   ],
+   "predslot|bare|VERB|1": [
+    1230.0,
+    3300.0
+   ],
+   "predslot|mark|ADV|0": [
+    0.0,
+    11.0
+   ],
+   "predslot|mark|ADV|1": [
+    2.0,
+    3.0
+   ],
+   "predslot|mark|NOUN|0": [
+    2.0,
+    74.0
+   ],
+   "predslot|mark|NOUN|1": [
+    7.0,
+    21.0
+   ],
+   "predslot|mark|SCONJ|0": [
+    0.0,
+    7.0
+   ],
+   "predslot|mark|SCONJ|1": [
+    0.0,
+    3.0
+   ],
+   "verb_between|bare|ADJ|0": [
+    332.0,
+    1320.0
+   ],
+   "verb_between|bare|ADJ|1": [
+    4.0,
+    1194.0
+   ],
+   "verb_between|bare|ADP|0": [
+    15.0,
+    19.0
+   ],
+   "verb_between|bare|ADP|1": [
+    0.0,
+    90.0
+   ],
+   "verb_between|bare|ADV|0": [
+    108.0,
+    265.0
+   ],
+   "verb_between|bare|ADV|1": [
+    6.0,
+    684.0
+   ],
+   "verb_between|bare|AUX|0": [
+    14.0,
+    97.0
+   ],
+   "verb_between|bare|AUX|1": [
+    2.0,
+    89.0
+   ],
+   "verb_between|bare|CCONJ|0": [
+    16.0,
+    95.0
+   ],
+   "verb_between|bare|CCONJ|1": [
+    8.0,
+    187.0
+   ],
+   "verb_between|bare|DET|0": [
+    1.0,
+    2.0
+   ],
+   "verb_between|bare|DET|1": [
+    0.0,
+    7.0
+   ],
+   "verb_between|bare|NONE|1": [
+    7.0,
+    62.0
+   ],
+   "verb_between|bare|NOUN|0": [
+    544.0,
+    1854.0
+   ],
+   "verb_between|bare|NOUN|1": [
+    17.0,
+    2558.0
+   ],
+   "verb_between|bare|NUM|0": [
+    4.0,
+    11.0
+   ],
+   "verb_between|bare|NUM|1": [
+    0.0,
+    20.0
+   ],
+   "verb_between|bare|PART|0": [
+    18.0,
+    46.0
+   ],
+   "verb_between|bare|PART|1": [
+    0.0,
+    124.0
+   ],
+   "verb_between|bare|PRON|0": [
+    173.0,
+    419.0
+   ],
+   "verb_between|bare|PRON|1": [
+    3.0,
+    929.0
+   ],
+   "verb_between|bare|PROPN|0": [
+    62.0,
+    241.0
+   ],
+   "verb_between|bare|PROPN|1": [
+    2.0,
+    363.0
+   ],
+   "verb_between|bare|PUNCT|0": [
+    22.0,
+    122.0
+   ],
+   "verb_between|bare|PUNCT|1": [
+    3.0,
+    193.0
+   ],
+   "verb_between|bare|SCONJ|0": [
+    1.0,
+    2.0
+   ],
+   "verb_between|bare|SCONJ|1": [
+    0.0,
+    11.0
+   ],
+   "verb_between|bare|VERB|0": [
+    1214.0,
+    1260.0
+   ],
+   "verb_between|bare|VERB|1": [
+    36.0,
+    7771.0
+   ],
+   "verb_between|mark|ADV|0": [
+    2.0,
+    3.0
+   ],
+   "verb_between|mark|ADV|1": [
+    0.0,
+    11.0
+   ],
+   "verb_between|mark|NOUN|0": [
+    6.0,
+    36.0
+   ],
+   "verb_between|mark|NOUN|1": [
+    3.0,
+    59.0
+   ],
+   "verb_between|mark|SCONJ|0": [
+    0.0,
+    3.0
+   ],
+   "verb_between|mark|SCONJ|1": [
+    0.0,
+    7.0
+   ]
+  }
+ },
+ "min_count": 3,
+ "prior": -2.038802139736509,
+ "strength": {
+  "adp_between|bare|ADJ|0": 0.22642338330571832,
+  "adp_between|bare|ADJ|1": -3.3992771691866865,
+  "adp_between|bare|ADP|0": -1.745387494181752,
+  "adp_between|bare|ADP|1": 0.5772843573790309,
+  "adp_between|bare|ADV|0": 0.04594725641600683,
+  "adp_between|bare|ADV|1": -0.8879372623305306,
+  "adp_between|bare|AUX|0": -0.2058889748386341,
+  "adp_between|bare|AUX|1": -0.9316123258331923,
+  "adp_between|bare|CCONJ|0": -0.2637829532575364,
+  "adp_between|bare|CCONJ|1": -0.6237856872889438,
+  "adp_between|bare|DET|1": 0.5347247429602349,
+  "adp_between|bare|NONE|0": 0.21964369632033964,
+  "adp_between|bare|NONE|1": -0.2298814015818551,
+  "adp_between|bare|NOUN|0": 0.09982333538181076,
+  "adp_between|bare|NOUN|1": -0.41236258803533943,
+  "adp_between|bare|NUM|0": -0.2298814015818551,
+  "adp_between|bare|NUM|1": 1.3456549591765636,
+  "adp_between|bare|PART|0": 0.004481033337142559,
+  "adp_between|bare|PART|1": -0.6467752055136424,
+  "adp_between|bare|PRON|0": 0.13137827971235572,
+  "adp_between|bare|PRON|1": -0.337326856579907,
+  "adp_between|bare|PROPN|0": -0.4116640200711994,
+  "adp_between|bare|PROPN|1": 0.09710252321753932,
+  "adp_between|bare|PUNCT|0": -0.5306618980795546,
+  "adp_between|bare|PUNCT|1": -0.23332374577282833,
+  "adp_between|bare|SCONJ|0": 0.33405404749808376,
+  "adp_between|bare|SCONJ|1": 0.24704267050845408,
+  "adp_between|bare|VERB|0": 0.3078754807944979,
+  "adp_between|bare|VERB|1": -5.548001395426072,
+  "adp_between|mark|ADV|0": 0.5347247429602349,
+  "adp_between|mark|ADV|1": 0.5347247429602349,
+  "adp_between|mark|NOUN|0": -0.2637829532575364,
+  "adp_between|mark|NOUN|1": -0.09282515511389722,
+  "adp_between|mark|SCONJ|0": -0.35909313306186164,
+  "candcat|bare|ADJ|ADJ": 1.487678022939241,
+  "candcat|bare|ADJ|AUX": -4.171797937288144,
+  "candcat|bare|ADJ|NOUN": -2.7147880513698555,
+  "candcat|bare|ADJ|PRON": -2.769308890248273,
+  "candcat|bare|ADJ|PROPN": -2.881178786091616,
+  "candcat|bare|ADJ|VERB": -1.2345618704157615,
+  "candcat|bare|ADP|ADJ": -0.6002551898787498,
+  "candcat|bare|ADP|AUX": -0.15842243759971053,
+  "candcat|bare|ADP|NOUN": -1.4875583848796525,
+  "candcat|bare|ADP|PRON": -0.2637829532575364,
+  "candcat|bare|ADP|PROPN": 0.42936422730240875,
+  "candcat|bare|ADP|VERB": 1.1514989447356063,
+  "candcat|bare|ADV|ADJ": -0.06803837613144115,
+  "candcat|bare|ADV|AUX": -1.8219275713040863,
+  "candcat|bare|ADV|NOUN": -1.7028278797629564,
+  "candcat|bare|ADV|PRON": -3.482658778125737,
+  "candcat|bare|ADV|PROPN": -1.2753838649360167,
+  "candcat|bare|ADV|VERB": 1.188651210366899,
+  "candcat|bare|AUX|ADJ": 0.8756513299308282,
+  "candcat|bare|AUX|AUX": -0.5261472177250277,
+  "candcat|bare|AUX|NOUN": -1.0214686549550533,
+  "candcat|bare|AUX|PRON": -1.745387494181752,
+  "candcat|bare|AUX|PROPN": 0.24704267050845408,
+  "candcat|bare|AUX|VERB": 0.8687308870862545,
+  "candcat|bare|CCONJ|ADJ": -0.2965727760805277,
+  "candcat|bare|CCONJ|AUX": -1.1800736851316915,
+  "candcat|bare|CCONJ|NOUN": -1.070258819124485,
+  "candcat|bare|CCONJ|PRON": -1.931489773815613,
+  "candcat|bare|CCONJ|PROPN": -0.7337865825032721,
+  "candcat|bare|CCONJ|VERB": 0.9401898510683993,
+  "candcat|bare|NONE|ADJ": -0.35909313306186164,
+  "candcat|bare|NONE|AUX": 0.24704267050845408,
+  "candcat|bare|NONE|NOUN": -1.005720297986914,
+  "candcat|bare|NONE|PRON": -0.15842243759971053,
+  "candcat|bare|NONE|PROPN": -0.4461045100514913,
+  "candcat|bare|NONE|VERB": 1.4101934803141347,
+  "candcat|bare|NOUN|ADJ": -1.4139826107161397,
+  "candcat|bare|NOUN|AUX": -3.833315649738907,
+  "candcat|bare|NOUN|NOUN": 0.3617629166342917,
+  "candcat|bare|NOUN|PRON": -4.532080822603075,
+  "candcat|bare|NOUN|PROPN": -2.9413739468750384,
+  "candcat|bare|NOUN|VERB": 0.7692969900980675,
+  "candcat|bare|NUM|NOUN": -0.35909313306186164,
+  "candcat|bare|NUM|PRON": -0.15842243759971053,
+  "candcat|bare|NUM|VERB": 1.1633334023826092,
+  "candcat|bare|PART|ADJ": 0.1929754492381781,
+  "candcat|bare|PART|AUX": -0.7337865825032721,
+  "candcat|bare|PART|NOUN": -0.5414146898558161,
+  "candcat|bare|PART|PRON": -1.328493690249965,
+  "candcat|bare|PART|PROPN": -0.7944112043197071,
+  "candcat|bare|PART|VERB": 1.0484034357086323,
+  "candcat|bare|PRON|ADJ": -0.7645582411700258,
+  "candcat|bare|PRON|AUX": -2.7147880513698555,
+  "candcat|bare|PRON|NOUN": -1.296967436603191,
+  "candcat|bare|PRON|PRON": -0.8691912195094753,
+  "candcat|bare|PRON|PROPN": -2.4155451565169983,
+  "candcat|bare|PRON|VERB": 1.2049550770734285,
+  "candcat|bare|PROPN|ADJ": -0.9230285821418005,
+  "candcat|bare|PROPN|AUX": -1.4269337630632175,
+  "candcat|bare|PROPN|NOUN": -0.8577234837340337,
+  "candcat|bare|PROPN|PRON": -2.2238777373048064,
+  "candcat|bare|PROPN|PROPN": -1.7510532317174294,
+  "candcat|bare|PROPN|VERB": 1.2451137299546864,
+  "candcat|bare|PUNCT|ADJ": -0.5001717313217671,
+  "candcat|bare|PUNCT|AUX": -0.9569301338174818,
+  "candcat|bare|PUNCT|NOUN": -0.7127331733054398,
+  "candcat|bare|PUNCT|PRON": -1.7678603500338106,
+  "candcat|bare|PUNCT|PROPN": -1.4577054217299712,
+  "candcat|bare|PUNCT|VERB": 0.8993678565481442,
+  "candcat|bare|SCONJ|NOUN": 0.24704267050845408,
+  "candcat|bare|SCONJ|VERB": 1.122511407862354,
+  "candcat|bare|VERB|ADJ": -3.1665772311522584,
+  "candcat|bare|VERB|AUX": -4.861928524308664,
+  "candcat|bare|VERB|NOUN": -3.1356077054910525,
+  "candcat|bare|VERB|PRON": -3.8119625252683376,
+  "candcat|bare|VERB|PROPN": -4.4037380267316895,
+  "candcat|bare|VERB|VERB": 1.4089486556465816,
+  "candcat|mark|ADV|ADJ": 0.42936422730240875,
+  "candcat|mark|ADV|NOUN": -0.2637829532575364,
+  "candcat|mark|NOUN|ADJ": 0.49835709878935996,
+  "candcat|mark|NOUN|AUX": -0.15842243759971053,
+  "candcat|mark|NOUN|NOUN": -1.789839256752586,
+  "candcat|mark|NOUN|PRON": -0.669248061365701,
+  "candcat|mark|NOUN|PROPN": 0.09289199068119558,
+  "candcat|mark|NOUN|VERB": 1.3456549591765636,
+  "candcat|mark|SCONJ|NOUN": 0.42936422730240875,
+  "dir|bare|ADJ|L": 0.5713141903925272,
+  "dir|bare|ADJ|R": -3.5493824101686453,
+  "dir|bare|ADP|L": 0.8795652292519645,
+  "dir|bare|ADP|R": -2.0883322453085826,
+  "dir|bare|ADV|L": 0.5387008913398743,
+  "dir|bare|ADV|R": -2.686370838646279,
+  "dir|bare|AUX|L": -0.03227115227281052,
+  "dir|bare|AUX|R": -1.1252654486366969,
+  "dir|bare|CCONJ|L": 0.20986366726670003,
+  "dir|bare|CCONJ|R": -1.5788498050890594,
+  "dir|bare|DET|L": 0.9401898510683993,
+  "dir|bare|DET|R": 0.09289199068119558,
+  "dir|bare|NONE|R": -0.040639401943326714,
+  "dir|bare|NOUN|L": 0.5415424954563623,
+  "dir|bare|NOUN|R": -3.581080993636692,
+  "dir|bare|NUM|L": 0.7578682942744448,
+  "dir|bare|NUM|R": -0.7944112043197071,
+  "dir|bare|PART|L": 0.5765218716386964,
+  "dir|bare|PART|R": -2.4829864373125314,
+  "dir|bare|PRON|L": 0.5328432748605294,
+  "dir|bare|PRON|R": -4.278362547010775,
+  "dir|bare|PROPN|L": 0.3931064792797845,
+  "dir|bare|PROPN|R": -3.563316681143192,
+  "dir|bare|PUNCT|L": 0.22642338330571832,
+  "dir|bare|PUNCT|R": -2.0100800484088346,
+  "dir|bare|SCONJ|L": 0.5347247429602349,
+  "dir|bare|SCONJ|R": -0.040639401943326714,
+  "dir|bare|VERB|L": 0.6895948472789544,
+  "dir|bare|VERB|R": -3.548212408865176,
+  "dir|mark|ADV|L": 1.0579728867247828,
+  "dir|mark|ADV|R": -0.2637829532575364,
+  "dir|mark|NOUN|L": 0.11351127788393156,
+  "dir|mark|NOUN|R": -0.5067291318679263,
+  "dir|mark|SCONJ|L": 0.24704267050845408,
+  "dir|mark|SCONJ|R": -0.040639401943326714,
+  "dist|bare|ADJ|1": -1.6500773143774272,
+  "dist|bare|ADJ|2": 1.5956351644443332,
+  "dist|bare|ADJ|3-4": -2.2628029276267982,
+  "dist|bare|ADJ|5+": -3.34569292305258,
+  "dist|bare|ADP|1": -0.040639401943326714,
+  "dist|bare|ADP|2": -0.4461045100514913,
+  "dist|bare|ADP|3-4": 0.9626627069204579,
+  "dist|bare|ADP|5+": -1.2383425932556675,
+  "dist|bare|ADV|1": -1.0369728414910182,
+  "dist|bare|ADV|2": -2.5461653389340633,
+  "dist|bare|ADV|3-4": 0.6495360082274608,
+  "dist|bare|ADV|5+": -0.6846838694955402,
+  "dist|bare|AUX|1": -0.6002551898787498,
+  "dist|bare|AUX|2": -0.5001717313217671,
+  "dist|bare|AUX|3-4": 0.05288665606749676,
+  "dist|bare|AUX|5+": -0.2748327894441216,
+  "dist|bare|CCONJ|1": -0.6002551898787498,
+  "dist|bare|CCONJ|2": -1.3951850647486372,
+  "dist|bare|CCONJ|3-4": -0.28576185997631187,
+  "dist|bare|CCONJ|5+": -0.15842243759971053,
+  "dist|bare|DET|5+": 0.6525077786166185,
+  "dist|bare|NONE|1": -0.15842243759971053,
+  "dist|bare|NONE|2": 0.42936422730240875,
+  "dist|bare|NONE|3-4": 0.14168215485062774,
+  "dist|bare|NONE|5+": 0.21425284768546304,
+  "dist|bare|NOUN|1": -1.7499226493471434,
+  "dist|bare|NOUN|2": 0.8918712737975916,
+  "dist|bare|NOUN|3-4": -0.3466595803457806,
+  "dist|bare|NOUN|5+": -0.586242816751755,
+  "dist|bare|NUM|2": 0.09289199068119558,
+  "dist|bare|NUM|3-4": -0.15842243759971053,
+  "dist|bare|NUM|5+": 0.7038010730041688,
+  "dist|bare|PART|1": -0.4461045100514913,
+  "dist|bare|PART|2": -1.005720297986914,
+  "dist|bare|PART|3-4": 0.7578682942744448,
+  "dist|bare|PART|5+": -0.8626194543462407,
+  "dist|bare|PRON|1": -2.1658904796544567,
+  "dist|bare|PRON|2": -0.3295706937955396,
+  "dist|bare|PRON|3-4": 0.9401898510683993,
+  "dist|bare|PRON|5+": -1.5987840199898766,
+  "dist|bare|PROPN|1": -1.219294398284973,
+  "dist|bare|PROPN|2": -2.9028402828727957,
+  "dist|bare|PROPN|3-4": 0.4471688519359154,
+  "dist|bare|PROPN|5+": -0.12667373928513026,
+  "dist|bare|PUNCT|1": -0.21248965886998628,
+  "dist|bare|PUNCT|2": -1.5447167987196009,
+  "dist|bare|PUNCT|3-4": -0.40836418206864433,
+  "dist|bare|PUNCT|5+": -0.22785094403147355,
+  "dist|bare|SCONJ|5+": 0.33405404749808376,
+  "dist|bare|VERB|1": -1.8631705298381354,
+  "dist|bare|VERB|2": 1.551084517834103,
+  "dist|bare|VERB|3-4": -3.2630802929760234,
+  "dist|bare|VERB|5+": -3.626292812928069,
+  "dist|mark|ADV|3-4": 0.9401898510683993,
+  "dist|mark|ADV|5+": 0.42936422730240875,
+  "dist|mark|NOUN|1": -0.040639401943326714,
+  "dist|mark|NOUN|2": -1.005720297986914,
+  "dist|mark|NOUN|3-4": 0.20622067598819882,
+  "dist|mark|NOUN|5+": 0.09289199068119558,
+  "dist|mark|SCONJ|5+": -0.040639401943326714,
+  "nearest_nom|bare|ADJ|0": 0.15574453219409,
+  "nearest_nom|bare|ADJ|1": -2.1478176985947623,
+  "nearest_nom|bare|ADP|0": 0.10314849084838484,
+  "nearest_nom|bare|ADP|1": 0.36482570616483745,
+  "nearest_nom|bare|ADV|0": 0.05534064502906322,
+  "nearest_nom|bare|ADV|1": -1.509377432274292,
+  "nearest_nom|bare|AUX|0": -0.2762054732560939,
+  "nearest_nom|bare|AUX|1": -0.6002551898787498,
+  "nearest_nom|bare|CCONJ|0": -0.3876083033698827,
+  "nearest_nom|bare|CCONJ|1": -0.18582141178782452,
+  "nearest_nom|bare|DET|0": 0.42936422730240875,
+  "nearest_nom|bare|NONE|0": -0.040639401943326714,
+  "nearest_nom|bare|NOUN|0": -0.6390249163599577,
+  "nearest_nom|bare|NOUN|1": 1.3439952077581994,
+  "nearest_nom|bare|NUM|0": 0.3160355419954055,
+  "nearest_nom|bare|NUM|1": 0.09289199068119558,
+  "nearest_nom|bare|PART|0": -0.2704274959762052,
+  "nearest_nom|bare|PART|1": 0.5127458362414596,
+  "nearest_nom|bare|PRON|0": 0.004481033337142559,
+  "nearest_nom|bare|PRON|1": 0.05367127752791445,
+  "nearest_nom|bare|PROPN|0": -0.057799022226153074,
+  "nearest_nom|bare|PROPN|1": -2.3306457127305125,
+  "nearest_nom|bare|PUNCT|0": -0.4278224652140423,
+  "nearest_nom|bare|PUNCT|1": -0.4461045100514913,
+  "nearest_nom|bare|SCONJ|0": 0.09289199068119558,
+  "nearest_nom|bare|VERB|0": 0.20465515545248247,
+  "nearest_nom|bare|VERB|1": -5.054602486132257,
+  "nearest_nom|mark|ADV|0": 0.49835709878935996,
+  "nearest_nom|mark|NOUN|0": -0.08942956611275887,
+  "nearest_nom|mark|NOUN|1": -0.669248061365701,
+  "nearest_nom|mark|SCONJ|0": -0.2637829532575364,
+  "nearest_verb|bare|ADJ|0": 0.051342987768323356,
+  "nearest_verb|bare|ADJ|1": -0.5822366843760713,
+  "nearest_verb|bare|ADP|0": -1.4269337630632175,
+  "nearest_verb|bare|ADP|1": 1.8446461252955515,
+  "nearest_verb|bare|ADV|0": -1.680848973044181,
+  "nearest_verb|bare|ADV|1": 1.7511200672847282,
+  "nearest_verb|bare|AUX|0": -0.7223578866796494,
+  "nearest_verb|bare|AUX|1": 1.2121235665520411,
+  "nearest_verb|bare|CCONJ|0": -0.8673179751277948,
+  "nearest_verb|bare|CCONJ|1": 1.122511407862354,
+  "nearest_verb|bare|DET|0": -0.2637829532575364,
+  "nearest_verb|bare|NONE|0": -0.040639401943326714,
+  "nearest_verb|bare|NOUN|0": -0.38477142203468295,
+  "nearest_verb|bare|NOUN|1": 1.3174840822098672,
+  "nearest_verb|bare|NUM|0": -1.25703472626782,
+  "nearest_verb|bare|NUM|1": 1.5687985104907733,
+  "nearest_verb|bare|PART|0": -1.084191913428409,
+  "nearest_verb|bare|PART|1": 1.8957012960958357,
+  "nearest_verb|bare|PRON|0": -1.3259673731168542,
+  "nearest_verb|bare|PRON|1": 1.846795277208091,
+  "nearest_verb|bare|PROPN|0": -1.555766634906186,
+  "nearest_verb|bare|PROPN|1": 1.8434933874157433,
+  "nearest_verb|bare|PUNCT|0": -1.0866079571260148,
+  "nearest_verb|bare|PUNCT|1": 1.542365253422618,
+  "nearest_verb|bare|SCONJ|0": -0.5261472177250277,
+  "nearest_verb|bare|VERB|0": -3.308691416849486,
+  "nearest_verb|bare|VERB|1": 2.000848452409999,
+  "nearest_verb|mark|ADV|0": -0.6002551898787498,
+  "nearest_verb|mark|NOUN|0": -1.0857630056604504,
+  "nearest_verb|mark|NOUN|1": 1.9052707471119863,
+  "nearest_verb|mark|SCONJ|0": -0.35909313306186164,
+  "predslot|bare|ADJ|0": 0.35988366987553033,
+  "predslot|bare|ADJ|1": -2.291931200549822,
+  "predslot|bare|ADP|0": -1.1392516906114367,
+  "predslot|bare|ADP|1": 0.9642874026474599,
+  "predslot|bare|ADV|0": -1.6924980302613797,
+  "predslot|bare|ADV|1": 0.863962485680515,
+  "predslot|bare|AUX|0": -0.8355692768132146,
+  "predslot|bare|AUX|1": 0.24704267050845408,
+  "predslot|bare|CCONJ|0": -1.3431638799977588,
+  "predslot|bare|CCONJ|1": 0.6012144842290679,
+  "predslot|bare|DET|0": -0.15842243759971053,
+  "predslot|bare|NONE|0": -1.8113454619735494,
+  "predslot|bare|NONE|1": 1.1738047022499045,
+  "predslot|bare|NOUN|0": -0.21906611447574065,
+  "predslot|bare|NOUN|1": 0.39716108680777396,
+  "predslot|bare|NUM|0": -1.0522403136218066,
+  "predslot|bare|NUM|1": 1.0832906947090728,
+  "predslot|bare|PART|0": -0.8436014485104786,
+  "predslot|bare|PART|1": 0.7119311990874193,
+  "predslot|bare|PRON|0": -1.119833604754335,
+  "predslot|bare|PRON|1": 0.9002315387667958,
+  "predslot|bare|PROPN|0": -1.4598675847344662,
+  "predslot|bare|PROPN|1": 1.013312115897362,
+  "predslot|bare|PUNCT|0": -1.0887555265969042,
+  "predslot|bare|PUNCT|1": 0.5918831568001837,
+  "predslot|bare|SCONJ|0": -0.35909313306186164,
+  "predslot|bare|SCONJ|1": 0.9401898510683993,
+  "predslot|bare|VERB|0": -3.5706696554484507,
+  "predslot|bare|VERB|1": 1.052100641440889,
+  "predslot|mark|ADV|0": -0.5261472177250277,
+  "predslot|mark|ADV|1": 1.5279765159705183,
+  "predslot|mark|NOUN|0": -1.1933189118817125,
+  "predslot|mark|NOUN|1": 0.9827494654871953,
+  "predslot|mark|SCONJ|0": -0.15842243759971053,
+  "predslot|mark|SCONJ|1": 0.42936422730240875,
+  "verb_between|bare|ADJ|0": 0.6600436093053212,
+  "verb_between|bare|ADJ|1": -3.438497882339968,
+  "verb_between|bare|ADP|0": 1.7668684242528672,
+  "verb_between|bare|ADP|1": -2.4829864373125314,
+  "verb_between|bare|ADV|0": 1.1429013635654033,
+  "verb_between|bare|ADV|1": -2.5461653389340633,
+  "verb_between|bare|AUX|0": 0.1517324907041293,
+  "verb_between|bare|AUX|1": -1.3734450781122312,
+  "verb_between|bare|CCONJ|0": 0.29730450528934216,
+  "verb_between|bare|CCONJ|1": -1.005720297986914,
+  "verb_between|bare|DET|1": -0.15842243759971053,
+  "verb_between|bare|NONE|1": -0.040639401943326714,
+  "verb_between|bare|NOUN|0": 0.8134090210536071,
+  "verb_between|bare|NOUN|1": -2.9185886398409346,
+  "verb_between|bare|NUM|0": 1.0832906947090728,
+  "verb_between|bare|NUM|1": -1.0522403136218066,
+  "verb_between|bare|PART|0": 1.1120401079950586,
+  "verb_between|bare|PART|1": -2.797479767214969,
+  "verb_between|bare|PRON|0": 1.1552246052686566,
+  "verb_between|bare|PRON|1": -3.4111627764206673,
+  "verb_between|bare|PROPN|0": 0.6888754227874931,
+  "verb_between|bare|PROPN|1": -2.7624829251778733,
+  "verb_between|bare|PUNCT|0": 0.35401479006062186,
+  "verb_between|bare|PUNCT|1": -1.847903057707347,
+  "verb_between|bare|SCONJ|1": -0.5261472177250277,
+  "verb_between|bare|VERB|0": 2.000848452409999,
+  "verb_between|bare|VERB|1": -3.308691416849486,
+  "verb_between|mark|ADV|0": 1.5279765159705183,
+  "verb_between|mark|ADV|1": -0.5261472177250277,
+  "verb_between|mark|NOUN|0": 0.3471261290654366,
+  "verb_between|mark|NOUN|1": -0.6857773633169115,
+  "verb_between|mark|SCONJ|0": 0.42936422730240875,
+  "verb_between|mark|SCONJ|1": -0.15842243759971053
+ }
+}

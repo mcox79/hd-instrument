@@ -450,7 +450,21 @@ def structural_patient_pick(tokens: Sequence[str], upos: Sequence[str], heads: D
     0.8785->0.8850 (+0.0065 CI-sep, UD-EWT n=1235). Default (marginals=None), or the asset absent -> BYTE-IDENTICAL
     to the pre-landing labeled pick. (The parameter-free surgical arm _argstruct_marginal_override is FLAT on its
     own -- the incremental lever is the learned ranker's marginal cue, not the arg/adjunct override.)"""
-    labels = _labeler().label(list(tokens), list(upos), heads)
+    # pri 129 (2026-09-15): the perceptron labeler is NOT LOADED here any more.  `labeled_pick` reads exactly
+    # two relations -- obj (active) / nsubj:pass (passive) -- and BOTH are decided by the Competition-Model
+    # organ under `arc_labeler.COMPETITION_ROLES` (the overlay replaces every label in the competition's class
+    # space), so the perceptron's output was computed and then thrown away on the substrate's single largest
+    # live label call site (226 of 488 ArcLabeler.label calls on a default 2-document read).  Calling the organ
+    # DIRECTLY is byte-identical on the decision: PROVEN pick-identity 2182/2182 matrix-verb picks over the
+    # whole UD-EWT test set (experiments/exp_labels_rung_to_live_consumers_v1.py --identity).  The residual it
+    # names honestly: 9 tokens of ~25k (0.04%) carry an obj/nsubj:pass label the competition does not emit at
+    # all, and none of them is any matrix verb's chosen patient.
+    # AFTER THIS CHANGE `_labeler()` (line 51) HAS NO CALLER IN hdlab/ AT ALL -- it is the last thing in this
+    # module that would load the perceptron, and it now loads only if an out-of-tree caller asks.  Left in
+    # place deliberately (deleting a public-ish helper is strategy's call, not a solver's); an AST audit of
+    # the patched sources confirms it is the ONLY remaining import of either NOT_BF module anywhere.
+    from hdlab.graded_role_assigner import coarse_roles as _coarse_roles
+    labels = _coarse_roles(list(tokens), list(upos), heads)
     pp = precise_passive(tokens, upos, v)
     pick = labeled_pick(tokens, upos, v, heads, labels, pp, valency=True)
     if pick is None:
