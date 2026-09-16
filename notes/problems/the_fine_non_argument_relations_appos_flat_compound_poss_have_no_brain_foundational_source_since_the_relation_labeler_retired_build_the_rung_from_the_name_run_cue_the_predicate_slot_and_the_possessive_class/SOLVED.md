@@ -228,6 +228,13 @@ nulls:
 `--bridge --c3 --gum-docs 0 --perceptron`; it is in the reverify block and it is what strategy should read
 before trusting any bind delta.** I am not claiming a CI-separated consumer gain from 40 documents.
 
+> **THAT RUN WAS DISPATCHED AND DID NOT FINISH INSIDE THIS SESSION** (it was still going at hand-off, sharing a
+> loaded laptop with three other solver sessions). It writes to
+> `data/exp_fine_relations_arm_v1/metrics_gumfull.json` and nowhere else; if the file is present when strategy
+> picks this up, **read it in preference to the 40-document table above** -- same code, same arms, the full
+> corpus. If it is absent, re-run the command in the reverify block. Nothing in sections 1-3 or 5-7 depends on
+> it: the headline, every floor, every twin, both quality-push negatives and the coverage A/B/C are complete.
+
 ## 5. THE QUALITY PUSH -- three levers built and measured the same way, one wins and two are understood negatives
 
 ### 5.1 THE RUN IS ONE UNIT, SO A RUN MEMBER IS NOT A SEPARATE ARGUMENT -- **the winner, and it costs something**
