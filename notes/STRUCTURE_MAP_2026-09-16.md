@@ -801,11 +801,18 @@ contention-checked 44.7 s per document.
 
 ### 7.2 BRIEF-READY TEXT FOR ITEM 7 (the rating gap)
 
-> **PROBLEM: two thirds of the substrate has never been rated for brain-faithfulness.**
-> `notes/bf_status_registry.jsonl` carries 94 rows against 278 modules on disk. 56 modules execute on a live
-> read; **21 of those 56 are unrated.** The brief: rate every module that executes on a live read first
-> (the 21), then the rest, using the audit's own vocabulary, and record each in the registry's
-> `fidelity_basis` field, which this pass has now made present on every row.
+> **PROBLEM: two thirds of the substrate has never been rated for brain-faithfulness, and the unrated set
+> includes the most expensive organ in the system, the integration layer itself, and the competition
+> engine.** `notes/bf_status_registry.jsonl` carries 94 rows against 278 modules on disk. 56 modules execute
+> on a live read: 4 `BF`, 39 `BF_SPIRIT`, **13 unrated** —
+> `animacy_lexicon`, `binding`, **`graded_competition`**, **`grounded_semantic_graph`**,
+> `hippocampal_encoder`, `learner.plugins.ruleind_plugin`, `n400_coherence_monitor`, `patient_tendency`,
+> `situation_model_accumulate`, **`situation_reader`**, **`space_reader`**, `state_of_mind`, `verb_subcat`.
+> Three of those are load-bearing to this map's own findings: `grounded_semantic_graph` is 60.6% of read
+> time, `graded_competition` is the engine pri 143 is built around, and `space_reader` is one of the four
+> stand-ins on the live chain. The brief: rate these 13 first, then the remaining 171, using the audit's own
+> vocabulary, and record each in the registry's `fidelity_basis` field, which this pass has now made present
+> on every row.
 
 ---
 

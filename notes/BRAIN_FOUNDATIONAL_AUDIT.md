@@ -74,9 +74,14 @@ transaction; 75 modules that had no row now have one). No `hdlab/` or `tools/` f
 - **COVERAGE, RECONCILED.** This document's headline ("5 of 38 organs compute the brain's equation") describes
   `ORGAN_MAP.md` §4's 38-organ enumeration. On disk there are **278 `.py` modules under `hdlab/`** (not the 155
   §1 records, and not the ~70 the pri-142 brief assumed). `notes/bf_status_registry.jsonl` rates **94**: 8
-  `BF`, 80 `BF_SPIRIT`, 6 `NOT_BF`. **184 of 278 (66%) carry no brain-foundational rating at all, and 21 of
-  them execute on a live read.** That is the audit's real coverage gap and it is now a brief-ready item
-  (STRUCTURE_MAP §7.2).
+  `BF`, 80 `BF_SPIRIT`, 6 `NOT_BF`. **184 of 278 (66%) carry no brain-foundational rating at all.** 56
+  modules execute on a live read (4 `BF`, 39 `BF_SPIRIT`, **13 unrated**) and the unrated thirteen include
+  the three this map leans on hardest: **`grounded_semantic_graph`** (60.6% of read time),
+  **`graded_competition`** (the engine pri 143 is built around) and **`situation_reader`** itself, plus
+  `space_reader` (one of the four live-chain stand-ins), `animacy_lexicon`, `binding`, `hippocampal_encoder`,
+  `n400_coherence_monitor`, `patient_tendency`, `situation_model_accumulate`, `state_of_mind`, `verb_subcat`
+  and `learner.plugins.ruleind_plugin`. That is the audit's real coverage gap and it is now a brief-ready
+  item (STRUCTURE_MAP §7.2).
 - **THE SUBSTRATE HAS 21 BRAIN STRUCTURES + 2 honest non-brain buckets** (37 instrumentation modules, 9
   compute-budget primitives). Every module is assigned; zero unmapped.
 - **🔴 THE SELECTION GROUP IS THE AUDIT'S BIGGEST UNRECORDED DEVIATION.** 28 organs compute
