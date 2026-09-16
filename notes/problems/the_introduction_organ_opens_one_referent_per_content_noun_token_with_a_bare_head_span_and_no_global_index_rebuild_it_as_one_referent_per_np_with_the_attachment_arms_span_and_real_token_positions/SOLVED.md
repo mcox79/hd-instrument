@@ -479,12 +479,18 @@ with its 8 LF-only lines intact), `goal_register.py` stays all-CRLF, and `refere
 file's own endings and the diff is generated from those, so what is measured IS what lands.
 
 ```
-hdlab/coref.py            |  12 +-
-hdlab/entity_resolver.py  |  27 +++-
-hdlab/goal_register.py    |  15 +-
-hdlab/referent_per_np.py  | 344 +++++++++++++++++++++++++++++++++++++++++++---
-hdlab/situation_reader.py |  72 ++++++++--
+experiments/exp_board_rows_on_the_reader_v1.py |  11 +-
+hdlab/coref.py                                 |  12 +-
+hdlab/entity_resolver.py                       |  70 ++++-
+hdlab/goal_register.py                         |  15 +-
+hdlab/referent_per_np.py                       | 344 +++++++++++++++++++++++--
+hdlab/situation_reader.py                      |  82 +++++-
+6 files changed, 487 insertions(+), 47 deletions(-)
 ```
+Re-verified after phase 7 with the sixth file (a CRLF `experiments/` file) added: `git diff --stat` and
+`git diff -w --stat` are still IDENTICAL, and every file still keeps its own endings -- `situation_reader.py`
+mixed (5,798 -> 5,854 CRLF with its 8 LF-only lines intact), `goal_register.py` and the board cell all-CRLF,
+the other three LF-only.
 
 ## 17. KNOWN IMPERFECTIONS IN THE FORM AS MEASURED (recorded, not hidden)
 
