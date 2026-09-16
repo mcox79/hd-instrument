@@ -264,7 +264,42 @@ branch coming back.
 keeps accruing the reader's own high-margin decisions during every read (`HDLAB_OBJECT_FILE_ONLINE`), so
 nothing here is frozen.
 
-## 11. SECTIONS TO COME
+## 11. REVERIFY
+
+```
+# 1) the witness -- TREE-AWARE.  On the tree as it ships it asserts THE DEFECT IS PRESENT, then compiles the
+#    shipped diff into the live modules and asserts every claim on that shape; once the diff has LANDED it
+#    asserts every claim against the live modules directly, with no materialize and no monkeypatch.
+OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 PYTHONHASHSEED=0   .venv/Scripts/python.exe verification/test_referent_per_np_span_landing.py      # 22 checks, ~3 min
+
+# 2) the cell's own self-test (corpus-free, same tree-awareness)
+OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 PYTHONHASHSEED=0   .venv/Scripts/python.exe experiments/exp_np_span_introduction_v1.py --self-test  # 20 checks, ~2 min
+
+# 3) the diff applies
+git apply --check notes/problems/<slug>/np_span_patch.diff
+
+# 4) THE INFERRED-EMOTION BAR (bar 2): 50 constructed items, both arms in one process, ~35 min
+OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 PYTHONHASHSEED=0   .venv/Scripts/python.exe experiments/exp_np_span_introduction_v1.py --bars
+
+# 5) THE BOUNDARY SWEEP on the TRAIN split (the operating point is chosen here, never on test)
+  .venv/Scripts/python.exe experiments/exp_np_span_introduction_v1.py --boundary-sweep 6
+
+# 6) THE VALIDITIES, re-accrued on the phrase stream (rebuilds the shipped asset)
+  .venv/Scripts/python.exe experiments/exp_np_span_introduction_v1.py --build-validities 24
+
+# 7) THE HEADLINE A/B on GUM TEST (one live read per document per arm; hours on a contended laptop --
+#    a checkpoint is written to data/exp_np_span_introduction_v1/spans_checkpoint.json after EVERY arm)
+  .venv/Scripts/python.exe experiments/exp_np_span_introduction_v1.py --spans 12       --arms shipped,npspan,twin
+
+# 8) NO-REGRESS on the other entity-layer consumers (UD-EWT agent / patient / state)
+  .venv/Scripts/python.exe experiments/exp_np_span_introduction_v1.py --noregress 8
+```
+
+Every arm runs in ONE process with the SHIPPED arm first, because compiling a diff into a live module is not
+reversible in-process; once the diff has landed the shipped arm is produced by switching the organ off on the
+module (`RPN_SPAN` / `RPN_COLLAPSE`) and pointing the resolver back at the pre-span asset.
+
+## 12. SECTIONS TO COME
 
 (2) the measured result; (3) the signal-loss trace with counts; (4) the quality push; (5) the verdict
 check; (6) alternate paths and next steps.
