@@ -805,12 +805,18 @@ def build_validities(n_docs=24, verbose=True, out_path=None, cue_set="v1"):
             upos = (m.get("span_upos") or [""])[-1] or ""
             is_name = bool(name_content_tokens(span, upos=m.get("span_upos")))
             canon = aliaser.assign(span, gender, upos=m.get("span_upos")) if is_name else None
-            definite = _definiteness(span, c["sents"], m["sent_idx"], wpos)
+            # READ IT THE WAY INFERENCE READS IT.  The live call site
+            # (`situation_reader.read` -> `EntityResolver(...).cluster(role_mentions, gaz=...)`) passes NO
+            # `sents`, so before this rung EVERY mention read `bare` at inference and Heim's criterion shift
+            # was a CONSTANT -- landed and inert.  A real span makes `_definiteness(span_toks)` answer from
+            # the card itself, which turns the criterion ON for the first time; so the teacher must read it
+            # the same way (sents=None) or it hands the organ a shift calibrated on a different signal.
+            definite = _definiteness(span, None, None, None)
             for e2, f in files.items():
                 cu = file_cues(m, f, head=head, canon=canon, surf=surf, gender=gender, number=number,
                                definite=definite, is_name=is_name, sent_idx=m["sent_idx"],
                                prev_cb=prev_cb, name_link=None, have_spoke=have_spoke,
-                               wpos=wpos, upos=upos, sents=c["sents"], cue_set=V.cue_set)
+                               wpos=wpos, upos=upos, sents=None, cue_set=V.cue_set)
                 V.observe(cu, e2 == e)
                 tot["same" if e2 == e else "different"] += 1
             V.observe_criterion(definite, e not in files)
