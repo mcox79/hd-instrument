@@ -745,3 +745,68 @@ Applying that rate to the sealed set's 229 pick errors: 510 + 71 = 581 of 806.
 * The sealed set is translated newswire with a *higher* pick-error share (28.4% of items vs 15.4%) and 25
   `no_event` items (3.1%, twice UD-EWT's rate), so more of any sealed shortfall belongs to pri 133 than on
   UD-EWT.
+
+---
+
+## 16. STRATEGY'S RULINGS, FOLDED IN (12:20)
+
+### Q2 -- WHICH NUMBER IS THE ROW'S GATE
+
+**Ruled: the WHOLE-ROW number is the gate.** The product answers every item and an abstention counts wrong,
+so the row is **0.8378 against its word-order floor of 0.8371 -- level, NOT above it CI-separated
+(+0.0007 CI95[-0.0136,+0.0152])**, and **this submission is PARTIAL because of exactly that.** The
+organ-population number is reported BESIDE it in the row's detail and never instead of it: on the 1,343 items
+where the reader fired an event AND the gold agent was on the ballot, the same arm is **+0.0141
+CI95[+0.0007,+0.0283] CI-separated ABOVE** the same floor recomputed on that population. The two together are
+the honest statement: the competition beats word order where it actually decides, and the row does not,
+because 24 clauses fire no event and 57 never put the gold on the ballot -- both other rungs' work.
+
+### Q1 -- THE TEACHING SIGNAL: three brief-ready leads for pri 143
+
+The gap, restated: **both accrual forms are fixed points under a self-supervised target.** Counting the
+reader's own settled agent re-counts what it already believed; the delta rule's error `(t - p)` with `t` =
+its own argmax only *sharpens* that configuration's margin and can never re-order it. Measured both ways:
+**0 of 31 document-2 decisions change.** A teaching signal has to be an outcome the competition did not
+produce. Three candidates, in the order strategy ruled:
+
+**LEAD 1 (FIRST TO PROTOTYPE) -- THE READER'S OWN LATER REVISION.** *In plain words: read on, and when the
+rest of the sentence forces you to change your mind about who did it, learn from the change.* This is the
+brain's online form -- a reanalysis is a confirmed interpretation that disagrees with the first pick, so the
+target is genuinely not the thing that produced the prediction. The organ already accepts it: 
+`observe_agent_outcome_delta(..., agent_head=<the revised filler>)` takes any target; what is missing is the
+REVISION SOURCE and its instrument.
+* *What to build:* capture the agent the competition picks **at the verb** and the agent the settled reading
+  names **at the end of the clause/passage** (the predicate slot, the entity-state register and the coref
+  linker all settle later), and fire one delta update only where they disagree.
+* *What to measure first, before any learning:* how often does a revision occur, and **does the revised
+  filler agree with gold more often than the first pick?** If it does not, the signal is noise and the lead
+  dies cheaply -- that probe is the gate.
+* *Cost:* no new corpus; the existing UD-EWT capture has both ends. One cell, roughly a day. The
+  Rescorla-Wagner machinery, the schedules and the asset format are already built and committed here.
+* *Risk to name:* revisions may correlate with the same evidence the first pick used, which is exactly the
+  failure mode that killed the `rsubj` cue (re-reading your own measurement through a second softmax). The
+  independence check is not optional.
+
+**LEAD 2 -- A DOWNSTREAM CONSUMER'S DISAGREEMENT.** *In plain words: let the part of the system that uses the
+answer tell you when the answer did not fit.* The affected-entity resolver reads the agent decision (pri
+106's role cue); when its own competition prefers a different filler with high confidence, that is a second
+opinion.
+* *Cost:* one independence probe plus one cell. **Medium risk and it must be probed first**: the resolver
+  reads the role competition, which shares evidence with this one, so it may fail the same way `rsubj` did.
+  Probe C is also relevant -- the board's GUM rows do NOT read the agent at all (`score_gum_doc` never
+  touches `sm.events`), so the consumer has to be the resolver itself, not a board row.
+
+**LEAD 3 -- THE COMPREHENSION-QUESTION OUTCOME, as the OFFLINE VALIDITY BUILDER (not an online signal).**
+*In plain words: build the cue strengths from whether the reader actually answered the question right, not
+from whether it matched a treebank's labelling convention.* Strategy's line holds: **foundation-time gold is
+admissible, gold at inference is not**, so this replaces the SUPPLY of the counts, not the read-time path.
+Today the counts are accrued against UD gold `nsubj` / `obl:agent` -- a convention. Accruing them instead
+against "did the reader's who-did-what answer match" grounds the validities in comprehension.
+* *Cost:* QA-SRL is already on disk and modern, so no acquisition; one builder plus one re-measure. The
+  asset format needs no change -- only the target handed to `accrue_agent`.
+* *What it would settle:* how much of the residual is a *convention* mismatch rather than a misreading --
+  which the split already hints at (11% of pick errors are the UD first-token-of-a-name convention, and 8 of
+  the 48 losses to the floor are that convention).
+
+**All three leave the shipped arm untouched**: the table is counts plus a recorded rule, and every one of
+these changes only what target is handed in. Nothing here needs the organ re-opened.

@@ -34,6 +34,7 @@ Writes ONLY to its own get_output_dir (Q115) plus the named asset.  No sealed fi
 from __future__ import annotations
 
 import argparse
+import io
 import json
 import math
 import os
@@ -2072,18 +2073,40 @@ def _organ_block_text():
     return s[a:b].rstrip("\n") + "\n"
 
 
-def _udiff(path, old, new):
+def _eol(text, nl):
+    """`text` written with LF -> the same text in the TARGET FILE'S OWN line endings."""
+    t = text.replace("\r\n", "\n")
+    return t.replace("\n", "\r\n") if nl == "\r\n" else t
+
+
+def _read_raw(path):
+    """(raw text with its line endings intact, its dominant line ending)."""
+    raw = io.open(path, encoding="utf-8", newline="").read()
+    return raw, ("\r\n" if "\r\n" in raw[:4000] else "\n")
+
+
+def _udiff(path, old_raw, new_raw):
+    """A unified diff IN THE FILE'S OWN BYTES.
+
+    THE RULE THIS OBEYS (standing, and it cost a 2,000-line CRLF diff to learn): a patch must carry the
+    target file's OWN line endings.  The content lines here already end in that file's terminator because
+    they come from `splitlines(keepends=True)` on the RAW text; only the diff's own structural lines
+    (---, +++, @@) get an LF, which is exactly what `git diff` emits for a CRLF file.  The result applies
+    with a bare `git apply` -- no --ignore-whitespace, which was papering over the mismatch before."""
     import difflib
     rel = os.path.relpath(path, _REPO).replace(os.sep, "/")
-    return "".join(difflib.unified_diff(old.splitlines(True), new.splitlines(True),
-                                        fromfile="a/" + rel, tofile="b/" + rel, n=3))
+    a = old_raw.splitlines(keepends=True)
+    b = new_raw.splitlines(keepends=True)
+    assert (not a or a[-1].endswith("\n")) and (not b or b[-1].endswith("\n")), \
+        "%s does not end with a newline; the diff would need a no-newline marker" % rel
+    return "".join(difflib.unified_diff(a, b, fromfile="a/" + rel, tofile="b/" + rel, n=3,
+                                        lineterm="\n"))
 
 
 def emit_patch(out=None, check=True):
     """Build the unified diff for hdlab/graded_role_assigner.py + the board scorer and write it."""
     gra = os.path.join(_REPO, "hdlab", "graded_role_assigner.py")
-    old = open(gra, encoding="utf-8", newline="").read()
-    nl = "\r\n" if "\r\n" in old[:4000] else "\n"
+    old, nl = _read_raw(gra)
     blk = _organ_block_text()
     header = ("\n\n"
               "# =====================================================================================\n"
@@ -2097,57 +2120,73 @@ def emit_patch(out=None, check=True):
               "# `agent_competition_pick_conf` is byte-identical to the landed competition.\n")
     def _n(t):
         return t.replace("\r\n", "\n")
-    o = _n(old)
-    assert o.count(_IMPORT_OLD) == 1 and o.count(_WIRE_ANCHOR) == 1 and o.count(_ALL_OLD) == 1, \
+    o = old                                      # RAW: keep the organ's own line endings
+    def E(t):
+        return _eol(t, nl)
+    assert (_n(o).count(_IMPORT_OLD) == 1 and _n(o).count(_WIRE_ANCHOR) == 1
+            and _n(o).count(_ALL_OLD) == 1), \
         "the organ has moved under this patch -- re-derive it before landing"
-    new = o.replace(_IMPORT_OLD, _IMPORT_NEW)
-    new = new.replace(_WIRE_ANCHOR, _WIRE_NEW)
+    new = o.replace(E(_IMPORT_OLD), E(_IMPORT_NEW))
+    new = new.replace(E(_WIRE_ANCHOR), E(_WIRE_NEW))
     # the block goes BEFORE the whole `__all__` statement, never INSIDE its list literal (the first
     # draft inserted it between the list's head and its last two lines, and the patched organ then did
     # not compile; the sandbox apply-and-compile check in --self-test is what caught that).
     _ALL_HEAD = '__all__ = ["hybrid_role_patient"'
     assert new.count(_ALL_HEAD) == 1, "the organ's __all__ has moved under this patch"
-    new = new.replace(_ALL_HEAD, header + blk + "\n\n" + _ALL_HEAD)
-    new = new.replace(_ALL_OLD, _ALL_NEW)
+    new = new.replace(_ALL_HEAD, E(header + blk + "\n\n") + _ALL_HEAD)
+    new = new.replace(E(_ALL_OLD), E(_ALL_NEW))
     d1 = _udiff(gra, o, new)
 
     brd = os.path.join(_REPO, "experiments", "exp_board_rows_on_the_reader_v1.py")
-    b_old = _n(open(brd, encoding="utf-8", newline="").read())
-    assert (b_old.count(_SCORER_FN_OLD) == 1 and b_old.count(_SCORER_OLD) == 1
-            and b_old.count(_SCORER_EXTRA_OLD) == 1), "the board scorer has moved under this patch"
-    b_new = b_old.replace(_SCORER_FN_OLD, _SCORER_FN_NEW).replace(_SCORER_OLD, _SCORER_NEW) \
-                 .replace(_SCORER_EXTRA_OLD, _SCORER_EXTRA_NEW)
+    b_old, b_nl = _read_raw(brd)
+    def B(t):
+        return _eol(t, b_nl)
+    assert (_n(b_old).count(_SCORER_FN_OLD) == 1 and _n(b_old).count(_SCORER_OLD) == 1
+            and _n(b_old).count(_SCORER_EXTRA_OLD) == 1), "the board scorer has moved under this patch"
+    b_new = (b_old.replace(B(_SCORER_FN_OLD), B(_SCORER_FN_NEW))
+                  .replace(B(_SCORER_OLD), B(_SCORER_NEW))
+                  .replace(B(_SCORER_EXTRA_OLD), B(_SCORER_EXTRA_NEW)))
     d2 = _udiff(brd, b_old, b_new)
 
     wit = os.path.join(_REPO, "verification", "test_byhead_agent_cue_landing.py")
-    w_old = open(wit, encoding="utf-8", newline="").read()
-    w_nl = "\r\n" if "\r\n" in w_old[:4000] else "\n"      # this file's OWN line endings
-    w_n = w_old.replace("\r\n", "\n")
-    assert (w_n.count(_REPIN_W1_OLD) == 1 and w_n.count(_REPIN_HELPER_OLD) == 1
-            and w_n.count(_REPIN_W3B_OLD) == 1 and w_n.count(_REPIN_MAIN_OLD) == 1), \
+    w_old, w_nl = _read_raw(wit)               # this file's OWN line endings
+    def W(t):
+        return _eol(t, w_nl)
+    assert (_n(w_old).count(_REPIN_W1_OLD) == 1 and _n(w_old).count(_REPIN_HELPER_OLD) == 1
+            and _n(w_old).count(_REPIN_W3B_OLD) == 1 and _n(w_old).count(_REPIN_MAIN_OLD) == 1), \
         "the byhead witness has moved under this re-pin"
-    w_new = (w_n.replace(_REPIN_HELPER_OLD, _REPIN_HELPER_NEW)
-                .replace(_REPIN_W1_OLD, _REPIN_W1_NEW)
-                .replace(_REPIN_W3B_OLD, _REPIN_W3B_NEW)
-                .replace(_REPIN_MAIN_OLD, _REPIN_MAIN_NEW))
-    d3 = _udiff(wit, w_n, w_new)
+    w_new = (w_old.replace(W(_REPIN_HELPER_OLD), W(_REPIN_HELPER_NEW))
+                  .replace(W(_REPIN_W1_OLD), W(_REPIN_W1_NEW))
+                  .replace(W(_REPIN_W3B_OLD), W(_REPIN_W3B_NEW))
+                  .replace(W(_REPIN_MAIN_OLD), W(_REPIN_MAIN_NEW)))
+    d3 = _udiff(wit, w_old, w_new)
 
     txt = d1 + d2 + d3
     p = out or PATCH_OUT
     os.makedirs(os.path.dirname(p), exist_ok=True)
-    with open(p, "w", encoding="utf-8", newline="\n") as fh:
+    with io.open(p, "w", encoding="utf-8", newline="") as fh:   # BYTES: no newline translation
         fh.write(txt)
     ok = None
     if check:
         import subprocess
-        r = subprocess.run(["git", "apply", "--check", "--ignore-whitespace", p], cwd=_REPO,
-                           capture_output=True, text=True)
+        # BARE check: no --ignore-whitespace.  If this passes, the hunks carry each file's own endings and
+        # the patch is not relying on git to forgive a line-ending mismatch.
+        r = subprocess.run(["git", "apply", "--check", p], cwd=_REPO, capture_output=True, text=True)
         ok = (r.returncode == 0)
-        print("  git apply --check: %s%s" % ("OK" if ok else "FAILED", ("  " + r.stderr.strip()) if r.stderr else ""))
+        print("  git apply --check (bare, no --ignore-whitespace): %s%s"
+              % ("OK" if ok else "FAILED", ("  " + r.stderr.strip()) if r.stderr else ""))
+        # AND no pure-line-ending churn: a whitespace-blind diff must have the same number of changed lines.
+        n_chg = sum(1 for ln in txt.splitlines() if ln[:1] in "+-" and not ln.startswith(("+++", "---")))
+        print("  changed lines in the patch: %d (hunks only -- a whole-file rewrite would be thousands)"
+              % n_chg)
     print("  wrote %s (%d lines)" % (os.path.relpath(p, _REPO), txt.count("\n")))
     return {"path": os.path.relpath(p, _REPO), "git_apply_check": ok,
-            "organ_block_lines": blk.count("\n"), "files": 3,
+            "organ_block_lines": blk.count("\n"), "files": 3, "bare_git_apply_check": ok,
+            "changed_lines": sum(1 for ln in txt.splitlines()
+                                 if ln[:1] in "+-" and not ln.startswith(("+++", "---"))),
             "line_endings": {"hdlab/graded_role_assigner.py": ("CRLF" if nl == "\r\n" else "LF"),
+                             "experiments/exp_board_rows_on_the_reader_v1.py":
+                                 ("CRLF" if b_nl == "\r\n" else "LF"),
                              "verification/test_byhead_agent_cue_landing.py":
                                  ("CRLF" if w_nl == "\r\n" else "LF")}}
 
@@ -2270,9 +2309,22 @@ def self_test():
                     "verification/test_byhead_agent_cue_landing.py"):
             os.makedirs(os.path.join(tmp, os.path.dirname(rel)), exist_ok=True)
             shutil.copy(os.path.join(_REPO, rel), os.path.join(tmp, rel))
-        r = subprocess.run(["git", "apply", "--ignore-whitespace", os.path.join(OUT_DIR, "selftest_patch.diff")],
+        # BARE apply -- no --ignore-whitespace.  The patch must carry each file's OWN line endings, so
+        # forgiving a mismatch would hide exactly the defect that made the last diff unlandable.
+        r = subprocess.run(["git", "apply", os.path.join(OUT_DIR, "selftest_patch.diff")],
                            cwd=tmp, capture_output=True, text=True)
-        ck("the generated patch APPLIES to the tree as it stands", r.returncode == 0, r.stderr.strip()[:120])
+        ck("the generated patch APPLIES to the tree as it stands, BARE (own line endings)",
+           r.returncode == 0, r.stderr.strip()[:120])
+        _churn = []
+        for _rel in ("hdlab/graded_role_assigner.py", "experiments/exp_board_rows_on_the_reader_v1.py",
+                     "verification/test_byhead_agent_cue_landing.py"):
+            _b = io.open(os.path.join(_REPO, _rel), encoding="utf-8", newline="").read()
+            _a = io.open(os.path.join(tmp, _rel), encoding="utf-8", newline="").read()
+            _bl = _b.count(chr(10)) - _b.count(chr(13) + chr(10))
+            _al = _a.count(chr(10)) - _a.count(chr(13) + chr(10))
+            _churn.append((_rel.split("/")[-1], _bl, _al))
+        ck("applying it introduces ZERO line-ending churn (LF-only line count unchanged per file)",
+           all(x[1] == x[2] for x in _churn), _churn)
         gp = os.path.join(tmp, "hdlab", "graded_role_assigner.py")
         src = open(gp, encoding="utf-8").read()
         bsrc = open(os.path.join(tmp, "experiments", "exp_board_rows_on_the_reader_v1.py"),
