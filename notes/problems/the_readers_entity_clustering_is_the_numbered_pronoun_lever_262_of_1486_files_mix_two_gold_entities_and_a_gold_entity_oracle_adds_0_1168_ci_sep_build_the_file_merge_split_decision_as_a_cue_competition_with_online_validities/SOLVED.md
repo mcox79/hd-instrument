@@ -124,7 +124,7 @@ segmentation the brain never makes.
 2. **Even with the index, the bridge's own anaphoricity test fails on every definite:** it reads
    `mention.text.split()[0] in {the, a, an, this, that, ...}` and the mention text **is the bare head**.
    The diff reads the determiner from the reader's own preceding token and puts it back.
-3. **With BOTH repaired the bridge yields 1 bind on 12 documents** -- through the reader's own
+3. **With BOTH repaired the bridge yields 1 bind on 28 documents** -- through the reader's own
    (pri 129, brain-foundational) relations, because the fine non-argument relations its name-link paths key
    on (`appos`/`flat`/`compound`) read `dep` since the supervised labeler retired. **That is pri 134's rung,
    and this is its number on this population.** The two repairs are shipped anyway: they are correct, they
@@ -312,7 +312,7 @@ the top dominates the runner-up), which is scale-free -- named in §10 as the fi
 here.
 
 **(d) The crosstype bridge cannot be woken from inside this organ** (§3): two repairs shipped, third
-blocker is pri 134's relation rung. `predication` reaches 0 of the 175 split entities today; its learned
+blocker is pri 134's relation rung. `predication` reaches 1 of the 418 split entities today; its learned
 validity (+2.84) says it will be worth a lot the moment it fires.
 
 ## 8. THE SIGNAL-LOSS TRACE, CHAIN BY CHAIN, WITH COUNTS
@@ -324,16 +324,16 @@ one back* -- on real GUM documents, text only:
 |---|---|---|---|---|
 | tokens → categories (`lexical_categories`) | a graded category posterior; PRON on 0.9855 of gold PRON | the introduction organ | small, but **122 VERB / 30 ADV heads per 12 docs** become mentions | BF (counts + forward-backward) |
 | categories → **introduction** (`referent_per_np`) | one referent per content-noun TOKEN, `span_toks=[head]`, a filled phi card | the clustering, the bridge, the criterion | **THE BIGGEST SINGLE LOSS: 1,331 of 3,689 same-entity cross-file pairs are inside ONE gold mention span; the crosstype bridge gets 0 binds; Heim's definiteness reads `bare` on 100% of mentions** | BF in form (DRT referents) but the SPAN is not the brain's unit -- an NP is one object file |
-| introduction → **clustering** (`entity_resolver.cluster`) | 643 files for 293 gold entities; B3 0.5611 (P 0.798, **R 0.433**) | the pick, `sm.entities`, goals, world state | **the hard phi+head FILTER cannot express type, predication, definiteness or a novelty threshold at all** | **was NOT BF in its combination rule** (filter-then-rank vs L&V graded sum) -- this is what the diff fixes; B3 → 0.6172, +0.0560 CI-sep |
+| introduction → **clustering** (`entity_resolver.cluster`) | 1,486 files for 709 gold entities; B3 0.5532 (P 0.780, **R 0.428**) | the pick, `sm.entities`, goals, world state | **the hard phi+head FILTER cannot express type, predication, definiteness or a novelty threshold at all** | **was NOT BF in its combination rule** (filter-then-rank vs L&V graded sum) -- this is what the diff fixes; B3 → 0.6211, +0.0680 CI-sep |
 | clustering → **the pick** (`coref.graded_pronoun_resolve`) | the file id (pri 131) | the record | 0 -- the contract is right | BF (the pinned activation equation over files) |
-| the pick → **the answer** (`last_nom[k]`) | the file's MOST RECENT mention | the antecedent span, the scorer, every consumer | **+0.0569 CI-sep, and EXACTLY 0.0000 on the old files** -- the readout is built for head-buckets | **not BF**: an object file is reviewed at its HEAD, not at whatever token came last |
-| the fine relations (pri 129 → `dep`) → **the bridge** | `appos`/`flat`/`compound` unavailable | `precise_constructs` | the bridge yields **1 bind on 12 documents** even fully repaired | pri 134's rung |
+| the pick → **the answer** (`last_nom[k]`) | the file's MOST RECENT mention | the antecedent span, the scorer, every consumer | **+0.0340 CI-sep, and EXACTLY 0.0000 on the old files** -- the readout is built for head-buckets | **not BF**: an object file is reviewed at its HEAD, not at whatever token came last |
+| the fine relations (pri 129 → `dep`) → **the bridge** | `appos`/`flat`/`compound` unavailable | `precise_constructs` | the bridge yields **1 bind on 28 documents** even fully repaired | pri 134's rung |
 
 ## 9. THE OWNER'S PUSH SCRIPT, RUN ON MYSELF
 
 **(i) Where is the signal lost, rung by rung?** §8. Nothing is lost above the introduction organ; the
 introduction organ loses the NP (1,331 pairs, the bridge, the determiner); the clustering's combination rule
-loses the graded cues (+0.0560 B3 recovered); the pick's readout loses +0.0569.
+loses the graded cues (+0.0680 B3 recovered); the pick's readout loses +0.0340.
 **(ii) Prototyped past every wall; a heuristic is not the landed form.** The nominal-run cue is a LEARNED
 validity, not a rule -- the teacher sets its weight and I report the weight it chose (including where it
 refused my category hypothesis). The head-preferring readout is a PROTOTYPE that LOCATES the signal; its
@@ -386,9 +386,9 @@ pri 131's cell and scorers, pri 125's file card, the B3/MUC/CEAFe contract of
 | component | status for THIS signal | opportunity |
 |---|---|---|
 | `referent_per_np` (the introduction organ) | BF in form; **`span_toks=[head]` is the single biggest loss on this chain** | the NP span: 1,331 pairs, the bridge, the determiner, the modifier cue -- **the highest-value upstream target found here** |
-| `coref.graded_pronoun_resolve` (`last_nom[k]`) | **not BF for this signal**: reviews a file at its most recent token | the head-preferring readout: **+0.0569 CI-sep, and exactly 0.0000 on the old files** |
+| `coref.graded_pronoun_resolve` (`last_nom[k]`) | **not BF for this signal**: reviews a file at its most recent token | the head-preferring readout: **+0.0340 CI-sep, and exactly 0.0000 on the old files** |
 | `crosstype_live_adapter` + `crosstype_bridge` | **dead on the live path** (0 binds on 12/12); two blockers repaired in the diff, the third is pri 134 | learned validity +2.84 -- it pays the moment the relations exist |
-| `typed_spokes` entity-type spoke | BF supply, LIVE in the competition (`licensed +0.91 / blocked -0.32`) | reaches 16 of the 175 split entities; a Wikidata P31 KB (the filed lead) would widen it |
+| `typed_spokes` entity-type spoke | BF supply, LIVE in the competition (`licensed +0.91 / blocked -0.32`) | reaches 28 of the 418 split entities; a Wikidata P31 KB (the filed lead) would widen it |
 | `lexical_categories` | BF | 122 VERB / 30 ADV heads per 12 docs become mentions -- a referent-eligibility gate is a category-rung question |
 | `commonnoun_binder` | NOT_BF, retired | its **modifier-split** cue is a real identity cue that cannot fire on one-token spans |
 | `entity_resolver.retrieve` | the shared core; `policy='compete'` unused on this arm | the scale-free margin criterion (§10.2) |
