@@ -4,27 +4,27 @@
 
 **HEADLINE: 0/1 plan steps done; C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap))**
 
-generated: 2026-09-14T15:56:45Z  |  HEAD: c3ba6f84f
+generated: 2026-09-16T14:37:33Z  |  HEAD: bab1ac0da
 
 ## 1. Where we are against the plan (notes/PLAN_NEXT_12H.md)
 - UNKNOWN -- notes/PLAN_NEXT_12H.md not readable
 
 ## 2. What is running right now
 Heartbeats (data/heartbeats/*.timestamp):
-  - exp_dev: 24054 min ago <-- STALE
-  - orchestrator: 70120 min ago <-- STALE
-  - research: 13 min ago
-  - skunkworks: 72791 min ago <-- STALE
-  - testbed: 109365 min ago <-- STALE
+  - exp_dev: 26854 min ago <-- STALE
+  - orchestrator: 72920 min ago <-- STALE
+  - research: 1276 min ago <-- STALE
+  - skunkworks: 75592 min ago <-- STALE
+  - testbed: 112166 min ago <-- STALE
 data/ directories touched in the last 180 min:
   - logs: 0 min ago, NO metrics.json yet (likely in-flight)
   - local_cpu_queue: 0 min ago, NO metrics.json yet (likely in-flight)
-  - exp_role_margin_weighted_consumers_v1: 3 min ago, NO metrics.json yet (likely in-flight)
   - .metrics_sync: 3 min ago, NO metrics.json yet (likely in-flight)
-  - exp_broaden_causal_order_store_v1: 4 min ago, has metrics.json
-  - exp_causal_sign_integrated_v1: 5 min ago, has metrics.json
-  - exp_situation_model_qa_modern_v1_pri109b: 12 min ago, has metrics.json
-  - context_modulated_scws_v1: 12 min ago, has metrics.json
+  - exp_ppr_memo_v1: 4 min ago, NO metrics.json yet (likely in-flight)
+  - exp_agent_pick_reweigh_v1: 9 min ago, has metrics.json
+  - context_modulated_scws_v1: 25 min ago, has metrics.json
+  - exp_ppr_memo_v1_selftest: 28 min ago, NO metrics.json yet (likely in-flight)
+  - exp_broaden_causal_order_store_v1: 28 min ago, has metrics.json
 notes/STATUS.md WHAT IS RUNNING (verbatim):
   - **2026-09-13 ~08:05 local (overnight session, stop hook ARMED):** RUNNING = the all-category-work board (total routing + category
     organ v2 + dual-route + Penn defaults; `data/hook_state/board_route.log`), then chained behind it the board with the BRAIN-
@@ -47,12 +47,12 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
 - C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap)) -- source: data\exp_orthographic_floor_vet_v1\metrics.json
 
 ## 4. What moved since the last snapshot
-- 158 new commit(s) since last snapshot (HEAD bf7d3680f -> c3ba6f84f)
-- data/ directory count: 9988 -> 10019 (+31)
+- 25 new commit(s) since last snapshot (HEAD efa4430c5 -> bab1ac0da)
+- data/ directory count: 10086 -> 10092 (+6)
 
 ## 5. What is stuck (blocked / pending / no owner)
 - `resync_claude_state.sh` before moving; owner is awake (chat update given 09:31). Two boards still pending (route, arm).
 
 <!-- SNAPSHOT_STATE_JSON
-{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 10019, "generated_at": "2026-09-14T15:56:45Z", "head_commit": "c3ba6f84fbfd225e3715e2026467819d06343ee6", "step_status": {}}
+{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 10092, "generated_at": "2026-09-16T14:37:33Z", "head_commit": "bab1ac0daca1299de2a2db4875c0c2ab7dc6184d", "step_status": {}}
 -->

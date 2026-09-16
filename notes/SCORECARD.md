@@ -202,7 +202,7 @@ Long term (the next few months):
 
 <!-- AUTO:BEGIN (written by tools/scorecard.py; edit the sections ABOVE, not this) -->
 
-Last full check: 2026-09-16T20:44:31.420888+00:00 (61 on record). Generated 2026-09-16T20:44:35+00:00.
+Last full check: 2026-09-16T20:44:31.420888+00:00 (61 on record). Generated 2026-09-16T20:55:48+00:00.
 
 ### THE PRODUCT, QUESTION BY QUESTION
 
@@ -240,7 +240,7 @@ One row per stage a passage passes through, in order.
 
 ### WHAT STRATEGY IS DOING NOW
 
-AS OF: 2026-09-16 15:23 local (autoloop ARMED). POSITION: 136 LANDED 7e6f4c625, 137 LANDED 3d24f41ce; pri 135 APPLIED (all four witnesses green incl. the OCC-appraisal landing witness 5/5 -> its constraints appear to repair the owner naming pri 136 broke; the board decides) -- its 12:35 board SURVIVED the session interruption (suspended, resumed; PID 14760) -- a duplicate I launched at 15:23 on a misread (PID 34996) is still running -- stopping it was DENIED 16:00 ('Permission for this action was denied by the Claude Code auto mode classifier. Reason: [Interfere With Workloads].'), so both run
+AS OF: 2026-09-16 16:45 local (autoloop ARMED). POSITION: 136, 137, 135 LANDED (135 = 139bb1813; board pri135a byte-identical on every row; the where-is row now on the board 0.4255 vs 0.1915 CI-sep). NOW: pri 146 (the memo) APPLIED in the tree -> witness + self-test + the 45-min identity gate + board pri146a chained (data/hook_state/pri146_witnesses.log / board_pri146a.log) -> land with strategy_scratchpad/land_pri146.json (also copied at data/hook_state/strategy_scratchpad_2026-09-16/). THEN 126 -> 139 -> 140 -> 138 (its A/B still running; the loser term + scorer hunk + Heim's sents in its di
 
 **Running now:** nothing recorded as running
 

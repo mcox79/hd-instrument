@@ -1,3 +1,4 @@
 # UPDATES FOR THE OWNER -- significant only (achievements, improvements, walls overcome, problems)
 # Cleared by the owner from the window (tools/scorecard_gui.py tab 3); cleared items go to UPDATES_ARCHIVE.md.
 
+- [2026-09-16 20:45Z] ACHIEVEMENT: 16 Sep, landed: when the reader tracks what a character wants, it now checks the right person, the right thing and the right time before calling the goal met. On 400 modern short stories the check on the thing is right 94 times in 100 where the old rule managed 50, every same-sentence completion is recovered, and no later goal leaks backward into earlier predictions. The downstream cost is two items in fifty, not clearly separated from zero. Found on the way: an over-strict version vetoed correct goals on the strength of shaky pronoun readings; the repair counts a conflict only when the step that raised it could actually know. Every product row is unchanged to the byte.
