@@ -21,7 +21,7 @@
                   referent_per_np: bool = True,
                   discover_pronouns: bool = True,
                   fill_card: bool = True,
-@@ -1050,15 +1055,21 @@
+@@ -1050,8 +1055,12 @@
                   clause_local: bool = True,
                   cm_agent_struct: bool = True,
                   cm_agent_byhead: bool = True,
@@ -36,17 +36,7 @@
                   cm_weights: Optional[Dict[str, float]] = None,
                   cm_twin_seed: Optional[int] = None,
                   predicate_recall: bool = True,
-                  nonverbal_predication: bool = _NONVERBAL_PREDICATION,
-                  causal_mental_bridge: bool = True,
-                  goal_purpose_filter: bool = True,
--                 entity_kb_resolver: bool = False,
-+                 entity_kb_resolver: bool = True,   # FLIPPED DEFAULT-ON 2026-09-15 (pri 130 dormant-flags
-+                 # audit): the "the board's PRONOUN coref dim does not score [common-noun]" reason was STALE
-+                 # since pri 122 put a common_noun_coref row on the reader-driven board. See SOLVED.md.
-                  commonnoun_situation_gate: bool = False,   # RETIRED 2026-09-11 (Q111 consolidation): the NOT_BF
-                  #   commonnoun_binder.situation_predict is empirically DEAD on the live path -- online_entity_cluster
-                  #   (default-on) OVERWRITES m["cluster"] for EVERY non-pronoun after the gate runs, so gate ON==OFF is
-@@ -1067,7 +1078,10 @@
+@@ -1067,7 +1076,10 @@
                   commonnoun_canonical: bool = True,
                   commonnoun_type_license: bool = False,
                   resolve_commonnouns: bool = True,        # Q111 wire #1 (report_the_typed_coref): additive/default-on

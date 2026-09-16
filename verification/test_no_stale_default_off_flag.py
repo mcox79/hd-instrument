@@ -54,7 +54,10 @@ CLASSIFICATION = {
     "structural_do_recover":        "STALE_REASON", # motivated by a 19c-specific count; register-general mechanism, never measured modern
     "agent_hybrid":                 "STALE_REASON", # explicit 19c-board reason; 19c banned from requirements since 2026-09-06
     "agent_hybrid_construction":    "STALE_REASON", # paired with agent_hybrid
-    "entity_kb_resolver":           "STALE_REASON", # "board doesn't score common-noun" reason is stale since pri 122's board rewrite
+    "entity_kb_resolver":           "STALE_REASON", # "board doesn't score common-noun" reason is stale since pri 122's board rewrite;
+                                                     # HELD BACK from default_flips_patch.diff per strategy 2026-09-15 (weakest prior
+                                                     # evidence of the six) until experiments/exp_dormant_flags_ab_v1.py --flag
+                                                     # entity_kb_resolver produces its own number -- see SOLVED.md %4b/%5.
     "commonnoun_situation_gate":    "DEAD_NOOP",    # proven byte-identical; online_entity_cluster overwrites it (RETIRED 2026-09-11)
     "commonnoun_type_license":      "LIVE_REASON",  # measured regression -0.0196 CI-sep, twin indistinguishable (2026-09-11)
     "unified_referent":             "STALE_REASON", # "flips on after first-hand verify" -- the verify already shows +0.106 CI-sep

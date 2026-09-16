@@ -44,7 +44,7 @@ facts). `CAPABILITY_FLAGS` (the one hand-maintained list, `situation_reader.py:1
 | `structural_do_recover` | 1021 / 1685 | 2026-09-03 | **yes — motivated by "47 mis-vetoed clauses" on 19c prose specifically**; mechanism (bare-DO overrides the transitivity-gate veto) is register-general, never measured on modern UD-EWT | **STALE-REASON** | measured this session (§3.4) |
 | `agent_hybrid` | 1034 / 1797 | 2026-09-06 | **yes, explicitly — "the reader's LIVE who-did-what board is 19c LitBank … flipping ON there is a REGRESSION"** | **STALE-REASON** | measured this session (§3.1) — **this brief's named lead** |
 | `agent_hybrid_construction` | 1035 / 1798 | 2026-09-06 | same as `agent_hybrid` (paired) | **STALE-REASON** | measured this session (§3.1), paired with `agent_hybrid` |
-| `entity_kb_resolver` | 1042 / 1841 | ("owner-DONE seed_the_entity_world_model_resolver…") | **yes — "DEFAULT-OFF pending a live measurement … the board's PRONOUN coref dim does not score [common-noun]"**, and pri 122 has SINCE put a `common_noun_coref` row on the reader-driven board | **STALE-REASON** | measured this session (§3.2) |
+| `entity_kb_resolver` | 1042 / 1841 | ("owner-DONE seed_the_entity_world_model_resolver…") | **yes — "DEFAULT-OFF pending a live measurement … the board's PRONOUN coref dim does not score [common-noun]"**, and pri 122 has SINCE put a `common_noun_coref` row on the reader-driven board | **STALE-REASON** | **HELD BACK from the diff per strategy 2026-09-15** — weakest prior evidence of the six; NOT flipped until it has its own measured number (see SOLVED.md §4b/§5) |
 | `commonnoun_situation_gate` | 1043 / 1873 | **RETIRED 2026-09-11** | no — proven byte-identical dead code (`online_entity_cluster` overwrites its output on every non-pronoun) | **DEAD / NO-OP** | already on the pri 129 prune list; recommend deleting the parameter entirely (not a flip) |
 | `commonnoun_type_license` | 1049 / 1885 | 2026-09-11 (Q111 flip-gate) | no — measured: **regresses** the live pick 0.4879→0.4683 (−0.0196 CI-sep), twin indistinguishable | **LIVE-REASON** | keep off, cite it |
 | `unified_referent` | 1051 / 1899 | 2026-09-07 | **yes — "Landed default-off; strategy flips on after first-hand verify"**, and the verify already reports **+0.106 CI-sep pronoun pick / +0.072 CI-sep entity-KB hard-link on MODERN GUM, twin loses, named coref no-regress** | **STALE-REASON** | measured this session (§3.2) — **second-highest documented effect size** |
@@ -79,22 +79,31 @@ bare "default OFF".
 
 ---
 
-## 3. THE MEASURED FLIPS
+## 3. THE MEASURED FLIPS — STATUS: PENDING (board discipline), MECHANISM VERIFIED
 
-See `SOLVED.md` §4-§7 for the numbers, the CI, the floor and the twin. Summary of what was actually run this
-session, in the priority order of §1:
+See `SOLVED.md` §4/§4b for the full account. **The fresh both-arms-one-process product-board number for each
+of the six flags could not be produced on this laptop**: two other concurrent
+`exp_situation_model_qa_modern_v1.py --run` processes occupied it for this session's entire duration
+(confirmed by process command-line inspection), and the brief's own one-board-at-a-time rule correctly
+blocked a third. Per strategy's mid-task instruction, the measurement moved into ONE committed cell,
+`experiments/exp_dormant_flags_ab_v1.py`, for the DESKTOP's idle `tools/desktop_run.py` to run on the
+committed tree:
 
-1. **`agent_hybrid` + `agent_hybrid_construction`** — measured on the product board's reader-driven UD-EWT
-   `who_did_what_agent`/`patient`/`state` rows (`experiments.exp_board_rows_on_the_reader_v1.run_ud`, the same
-   organ `exp_situation_model_qa_modern_v1.run(reader_driven=True)` calls internally — pri 122's own
-   call-graph proof that the OTHER ~40 board dimensions never touch `SituationReader` means this is the
-   full, faithful product-board measurement for THIS flag, at a fraction of the ~2 h full-board wall-clock),
-   3 arms (off / `agent_hybrid` only / `agent_hybrid`+`agent_hybrid_construction`), ALL IN ONE PROCESS via the
-   cell's own `READER_KW` A/B hook (the exact mechanism its own `landings()` function uses — no hdlab file
-   patched, no experiments file edited).
-2. **`unified_referent`** — same mechanism, on the GUM coref/salience/common-noun rows (`run_gum`).
-3. **`entity_kb_resolver`** — measured on the reader-driven `common_noun_coref` row (now that pri 122 put one
-   on the board — the STALE-REASON's own premise).
-4. **`graded_role_marginal`** and **`structural_do_recover`** — measured on the reader-driven UD-EWT rows if
-   time allowed (checklist phase 4, "one more flag if time"); otherwise handed to strategy as numbered,
-   documented-effect-size leads.
+```
+OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 PYTHONHASHSEED=0 HDLAB_EXP_NAME=dormant_flags_ab_v1 \
+  .venv/Scripts/python.exe experiments/exp_dormant_flags_ab_v1.py --flag agent_hybrid --ud-cap 600 --docs 24 --n-boot 1000
+```
+(repeat with `--flag agent_hybrid_construction`, `--flag graded_role_marginal`, `--flag structural_do_recover`,
+`--flag unified_referent`, `--flag entity_kb_resolver` — the cell routes each to UD-EWT or GUM automatically).
+
+`--self-test` was run on this laptop this session and PASSES on mechanism (both the UD injection path and the
+GUM injection path complete, produce the expected per-row contrast structure, and leave `READER_KW` reset to
+`{}` after each arm). Its 180s timing budget is now a printed report, not an assertion: measured directly
+(twice), the GUM leg alone costs ~567s at `docs=3` (12 full `SituationReader.read()` calls at the reader's own
+documented ~30-40s/document cost, not primarily this laptop's contention), so `--ud-cap 600 --docs 24` full
+runs should budget **~15-20 min per UD-corpus flag and ~75-90 min per GUM-corpus flag** (see `SOLVED.md` §4b/§6
+for the extrapolation). The diff
+(`default_flips_patch.diff`) flips the top 5 by documented prior evidence (`agent_hybrid`,
+`agent_hybrid_construction`, `unified_referent`, `graded_role_marginal`, `structural_do_recover`);
+`entity_kb_resolver` (weakest prior evidence) is HELD BACK per strategy until `metrics_entity_kb_resolver.json`
+exists.
