@@ -64,7 +64,7 @@ SLUG = ("the_introduction_organ_opens_one_referent_per_content_noun_token_with_a
         "positions")
 DIFF_PATH = os.path.join(_REPO, "notes", "problems", SLUG, "np_span_patch.diff")
 PATCH_FILES = ["hdlab/referent_per_np.py", "hdlab/situation_reader.py",
-               "hdlab/entity_resolver.py", "hdlab/goal_register.py"]
+               "hdlab/entity_resolver.py", "hdlab/goal_register.py", "hdlab/coref.py"]
 
 
 def get_output_dir(default_name: str = "np_span_introduction_v1"):
@@ -333,6 +333,16 @@ def head_wpos(m) -> int:
     return mention_head_wpos(m)
 
 
+def gold_head_map(doc):
+    """THE BOARD'S OWN ANSWER KEY for the entity-set row: (sent, wpos) of a GOLD mention's HEAD token -> its
+    gold entity (`exp_board_rows_on_the_reader_v1._gold_eid_by_wpos`, IMPORTED, not re-implemented).  It is a
+    DIFFERENT population from `_gold_eid_at` (which maps EVERY token of every gold mention, and is what pri
+    136's pronoun identity scorer uses): keying by the head is what makes the board's same-head string-
+    identity floor 0.738 rather than 0.30, so the bar has to be read on this map."""
+    from experiments.exp_board_rows_on_the_reader_v1 import _gold_eid_by_wpos
+    return _gold_eid_by_wpos(doc)
+
+
 def gold_at(gold, m):
     """The gold entity this mention names.  The answer key is keyed by the GOLD mention's HEAD token and a
     reader mention is now a whole phrase, so the alignment asks at the PHRASE'S HEAD -- and ONLY there.
@@ -435,7 +445,8 @@ def _read_arm(prepared, arm, verbose=True, online=True):
         sents = _sents_of(d)
         base = {m["midx"]: m.get("cluster") for m in ms if not m.get("is_pronoun")}
         caps.append({"doc": str(d.docid), "ms": ms, "sents": sents, "sm": sm, "gaz": rd.gaz,
-                     "qs": gum_questions(d), "gold": _gold_eid_at(d), "ans": _answers(sm, ms),
+                     "qs": gum_questions(d), "gold": _gold_eid_at(d), "goldh": gold_head_map(d),
+                     "ans": _answers(sm, ms),
                      "audit": span_audit(ms, sents, reader=rd, base_labels=base),
                      "gold_doc": d,
                      "entities": [(e.cluster, list(e.heads), list(getattr(e, "names", None) or []))
@@ -470,14 +481,17 @@ def _pronoun_rows(caps):
     return span, ident
 
 
-def _partition_rows(caps):
+def _partition_rows(caps, key="gold"):
+    """`key="gold"` = pri 136's alignment (a mention counts when its HEAD falls anywhere inside a gold
+    mention) so the B-cubed is comparable with its +0.0858; `key="goldh"` = the board's entity-set
+    population (the head must be the GOLD mention's own head)."""
     out = []
     for c in caps:
         pred, gold = [], []
         for m in c["ms"]:
             if m.get("is_pronoun"):
                 continue
-            e = gold_at(c["gold"], m)
+            e = gold_at(c[key], m)
             if e is None:
                 continue
             pred.append("f%s" % m.get("cluster"))
@@ -500,7 +514,7 @@ def _entity_set_rows(caps, pop=None):
                     key=lambda m: (m["sent_idx"], head_wpos(m)))
         seq = []
         for m in ms:
-            e = gold_at(c["gold"], m)
+            e = gold_at(c["goldh"], m)
             if e is None:
                 continue
             seq.append({"file": m.get("cluster"), "eid": e, "head": (m.get("head") or "").lower(),
@@ -566,12 +580,13 @@ def row_spans(n_docs=28, arms=("shipped", "npspan", "twin"), verbose=True, onlin
                     aud[k] += v
         sp, idn = _pronoun_rows(caps[a])
         part = _partition_rows(caps[a])
+        parth = _partition_rows(caps[a], key="goldh")
         es, keys = _entity_set_rows(caps[a])
         out["arms"][a] = {
             "audit": dict(aud), "definiteness": dict(defc),
             "pronoun_span_acc": round(acc(sp), 4), "pronoun_identity_acc": round(acc(idn), 4),
             "pronoun_n": sum(len(x) for x in sp),
-            "b3": b3_macro(part),
+            "b3": b3_macro(part), "b3_gold_heads": b3_macro(parth),
             "entity_set": {k: round(acc(v), 4) for k, v in es.items()},
             "entity_set_n": sum(len(v) for v in es["model"]),
             "same_gold_span_cross_file_pairs": sum(
@@ -579,7 +594,8 @@ def row_spans(n_docs=28, arms=("shipped", "npspan", "twin"), verbose=True, onlin
             "gold_heads_absorbed_into_a_phrase": sum(
                 gold_absorbed(c["gold"], c["ms"]) for c in caps[a]),
         }
-        out["arms"][a]["_rows"] = {"span": sp, "ident": idn, "part": part, "es": es, "keys": keys}
+        out["arms"][a]["_rows"] = {"span": sp, "ident": idn, "part": part, "parth": parth,
+                                   "es": es, "keys": keys}
         if verbose:
             o = out["arms"][a]
             print("    %-9s mentions %5d (%d non-pronoun)  det-readable %4d  gtok-in-range %4d  "
@@ -589,9 +605,11 @@ def row_spans(n_docs=28, arms=("shipped", "npspan", "twin"), verbose=True, onlin
                      o["audit"]["gtok_in_range"], o["audit"]["multi_token_span"],
                      o["audit"]["bridge_doc_built"], o["audit"]["bridge_binds"],
                      o["gold_heads_absorbed_into_a_phrase"]))
-            print("    %-9s B3 %s (P %s R %s)  entity_set model %s vs string_identity %s (n=%d)  "
+            print("    %-9s B3(gold heads) %s  B3 %s (P %s R %s)  entity_set model %s vs "
+                  "string_identity %s (n=%d)  "
                   "pronoun span %s ident %s  same-gold-span cross-file pairs %d"
-                  % (a, _p(o["b3"]["b3_f1"]), _p(o["b3"]["b3_p"]), _p(o["b3"]["b3_r"]),
+                  % (a, _p(o["b3_gold_heads"]["b3_f1"]), _p(o["b3"]["b3_f1"]), _p(o["b3"]["b3_p"]),
+                     _p(o["b3"]["b3_r"]),
                      _p(o["entity_set"]["model"]), _p(o["entity_set"]["string_identity"]),
                      o["entity_set_n"], _p(o["pronoun_span_acc"]), _p(o["pronoun_identity_acc"]),
                      o["same_gold_span_cross_file_pairs"]))
@@ -602,6 +620,7 @@ def row_spans(n_docs=28, arms=("shipped", "npspan", "twin"), verbose=True, onlin
             out["contrasts"]["%s_vs_%s_%s" % (b, a, tag)] = f(R[a], R[b])
     for b in [x for x in arms if x != "shipped"]:
         C("shipped", b, "b3", lambda x, y: b3_boot(x["part"], y["part"]))
+        C("shipped", b, "b3_gold_heads", lambda x, y: b3_boot(x["parth"], y["parth"]))
         C("shipped", b, "pronoun_span", lambda x, y: paired_boot(x["span"], y["span"]))
         C("shipped", b, "pronoun_identity", lambda x, y: paired_boot(x["ident"], y["ident"]))
         C("shipped", b, "entity_set", lambda x, y: paired_boot(x["es"]["model"], y["es"]["model"]))
@@ -632,6 +651,8 @@ def row_spans(n_docs=28, arms=("shipped", "npspan", "twin"), verbose=True, onlin
                 if v:
                     print("      %-26s d=%+.4f CI[%+.4f,%+.4f] half=%.4f sep=%s"
                           % (k, v["delta"], v["ci"][0], v["ci"][1], v["half"], v["sep"]))
+    if "shipped" in caps and "npspan" in caps:
+        out["flips"] = entity_set_flips(caps["shipped"], caps["npspan"], verbose=verbose)
     if verbose:
         for k, v in out["contrasts"].items():
             if v:
@@ -639,6 +660,63 @@ def row_spans(n_docs=28, arms=("shipped", "npspan", "twin"), verbose=True, onlin
                       % (k, v["delta"], v["ci"][0], v["ci"][1], v["half"], v["sep"]))
     out["_caps"] = caps
     return out
+
+
+def entity_set_flips(cap_a, cap_b, verbose=True, n_show=12):
+    """EVERY ENTITY-SET FLIP, WITH ITS CAUSE.  For each re-mention item, why did arm B change the answer?
+      gone_absorbed   the mention is no longer filed at all -- the Right-Hand-Head collapse absorbed it
+      opened_new      B opened a NEW file where A re-accessed the prior one (an under-merge)
+      other_file      B filed it with a DIFFERENT open file (an over-merge onto the wrong card)
+    The cause is read off the two arms' own decisions; gold is consulted only to say right from wrong."""
+    def rows_of(caps):
+        per = {}
+        for c in caps:
+            ms = sorted([m for m in c["ms"] if not m.get("is_pronoun")],
+                        key=lambda m: (m["sent_idx"], head_wpos(m)))
+            seq, nfile = [], Counter()
+            for m in ms:
+                nfile[m.get("cluster")] += 1
+                e = gold_at(c["goldh"], m)
+                if e is None:
+                    continue
+                seq.append({"file": m.get("cluster"), "eid": e,
+                            "head": (m.get("head") or "").lower(),
+                            "span": " ".join(m.get("span_toks") or [m["head"]]),
+                            "key": (c["doc"], m["sent_idx"], head_wpos(m))})
+            for i, x in enumerate(seq):
+                prior = [y for y in seq[:i] if y["eid"] == x["eid"]]
+                if not prior:
+                    continue
+                per[x["key"]] = {"ok": int(x["file"] == prior[-1]["file"]), "file": x["file"],
+                                 "prior_file": prior[-1]["file"], "head": x["head"],
+                                 "span": x["span"], "singleton": nfile[x.get("file")] == 1}
+        return per
+    A, B = rows_of(cap_a), rows_of(cap_b)
+    tot = Counter()
+    ex = []
+    for k, a in A.items():
+        b = B.get(k)
+        if b is None:
+            if a["ok"]:
+                tot["right_to_gone_absorbed"] += 1
+                ex.append(("gone_absorbed", a["head"], "", ""))
+            else:
+                tot["wrong_to_gone_absorbed"] += 1
+            continue
+        if a["ok"] and not b["ok"]:
+            cause = "opened_new" if b["singleton"] else "other_file"
+            tot["right_to_wrong_" + cause] += 1
+            ex.append((cause, a["head"], a["span"], b["span"]))
+        elif b["ok"] and not a["ok"]:
+            tot["wrong_to_right"] += 1
+    tot["items_a"] = len(A)
+    tot["items_b"] = len(B)
+    tot["kept"] = sum(1 for k in A if k in B)
+    if verbose:
+        print("    FLIPS on the shipped arm's %d items: %s" % (len(A), json.dumps(dict(tot), sort_keys=True)))
+        for c, h, sa, sb in ex[:n_show]:
+            print("      %-14s head=%-14s A span=%-28s B span=%s" % (c, h, sa[:28], sb[:40]))
+    return {"counts": dict(tot), "examples": ex[:60]}
 
 
 # =====================================================================================================
@@ -657,6 +735,7 @@ def row_boundary(n_docs=12, verbose=True):
         caps = _read_arm(prepared, mode, verbose=False)
         part = _partition_rows(caps)
         es, _k = _entity_set_rows(caps)
+        parth = _partition_rows(caps, key="goldh")
         aud = Counter()
         for c in caps:
             for k, v in c["audit"].items():
@@ -666,7 +745,7 @@ def row_boundary(n_docs=12, verbose=True):
                     aud[k] += v
         out["modes"][mode] = {"mentions": aud["mentions"], "multi_token": aud["multi_token_span"],
                               "det_readable": aud["definite_readable"],
-                              "b3": b3_macro(part),
+                              "b3": b3_macro(part), "b3_gold_heads": b3_macro(parth),
                               "entity_set_model": round(acc(es["model"]), 4),
                               "entity_set_string_identity": round(acc(es["string_identity"]), 4),
                               "entity_set_n": sum(len(v) for v in es["model"])}
@@ -713,7 +792,7 @@ def build_validities(n_docs=24, verbose=True, out_path=None, cue_set="v1"):
                     key=lambda m: (m["sent_idx"], m["wtok_start"], m["midx"]))
         prev_cb = None
         for order, m in enumerate(ms):
-            e = gold_at(c["gold"], m)
+            e = gold_at(c["goldh"], m)
             if e is None:
                 continue
             span = m.get("span_toks", [m["head"]])

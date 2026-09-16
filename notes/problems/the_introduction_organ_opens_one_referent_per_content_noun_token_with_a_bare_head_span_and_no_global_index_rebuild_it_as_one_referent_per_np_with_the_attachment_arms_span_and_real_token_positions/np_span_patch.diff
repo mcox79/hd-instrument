@@ -625,3 +625,26 @@ index 107a45e26..745ebdfb5 100644
              heads = [h for h in e.heads if _norm(h) and _norm(h) not in _PRONOUNS]
              if not heads:
                  return None
+diff --git a/hdlab/coref.py b/hdlab/coref.py
+index 451477a88..6c875dddf 100644
+--- a/hdlab/coref.py
++++ b/hdlab/coref.py
+@@ -512,7 +512,17 @@ def graded_pronoun_resolve(mentions: List[dict], targets: List[dict], window: in
+         role = "SUBJECT" if rk == 0 else ("OBJECT" if rk == 1 else "OTHER")
+         if not m.get("is_pronoun"):
+             k = entity_key(m)
+-            ent_at_pos[(si, int(m["wtok_start"]))] = k
++            # pri 138: a mention is now a whole NOUN PHRASE, so `wtok_start` is its SPAN START while the
++            # co-argument positions this index is looked up with (`coarg`, from the reader's own parse) name
++            # ARGUMENT HEADS.  Register EVERY token of the phrase -- one phrase is ONE object file, so any
++            # token of it identifies the same card, and Principle B's clause-mate ban stops missing on every
++            # multi-token mention.  On a one-token mention this writes exactly the one key it wrote before.
++            _ws = int(m["wtok_start"])
++            _he = _ws + max(0, int(m.get("gtok_end", -1)) - int(m.get("gtok_start", -1)))
++            if _he == _ws and m.get("span_toks"):
++                _he = _ws + max(0, len(m["span_toks"]) - 1)
++            for _t in range(_ws, _he + 1):
++                ent_at_pos[(si, _t)] = k
+             hist.setdefault(k, []).append((order, role))
+             last_sent[k] = si
+             # 2026-09-16 (strategy, pri 136 landing): the pick ANSWERS with this file's most recent mention; since the
