@@ -881,6 +881,19 @@ competition computes it; that is now fixed and worth +0.1729. The missing decay 
 are a **DEFECT IN WHAT THE TEACHER SEES**: no biological cue-learning rule accumulates unbounded counts from
 a self-selected confident sample, and fixing that is a change to the learning rule, not to a call site.
 
+## 22d1. THE EMOTION BAR HOLDS WITH ALL THREE PHASE-7 HUNKS IN
+
+Re-run of the 50-item inferred-emotion arm with the loser term, the `sents` hand-off and the board-scorer
+alignment all applied (`bars50b.log`), both arms in one process:
+
+| arm | occ_appraisal TYPE | VALENCE | lastword floor | "no goal found" | fixed | broken |
+|---|---|---|---|---|---|---|
+| shipped | 0.6400 | 0.6400 | 0.2000 | 17 / 50 | -- | -- |
+| **NP-span + loser term + live criterion** | **0.9000** | **0.9000** | 0.2000 | **5 / 50** | **13** | **0** |
+
++0.2600 CI95 [+0.1400, +0.3805] CI-SEPARATED -- **byte-identical to the pre-phase-7 run**. The upstream-chain
+fixes cost the bar nothing, which is what "no-regress on the arm that is already met" means here.
+
 ## 22d2. PROBE (B) -- THE BOUNDARY AS A LEARNED CUE COMPETITION: the cue set, the teacher, and why I did not prototype it today
 
 **THE DECISION** is binary and local: *is token k inside the phrase headed by h?* -- which is the same shape
