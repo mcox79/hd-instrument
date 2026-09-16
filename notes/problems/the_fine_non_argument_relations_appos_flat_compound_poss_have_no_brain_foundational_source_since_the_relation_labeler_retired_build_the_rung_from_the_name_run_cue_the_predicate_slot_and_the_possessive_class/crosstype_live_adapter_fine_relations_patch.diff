@@ -1,0 +1,266 @@
+diff --git a/hdlab/crosstype_live_adapter.py b/hdlab/crosstype_live_adapter.py
+index 1fe96ac..6240929 100644
+--- a/hdlab/crosstype_live_adapter.py
++++ b/hdlab/crosstype_live_adapter.py
+@@ -8,12 +8,12 @@ brain-faithful ONLINE cue-based clustering; PART 2 (this module) makes the lande
+ gold peek used to FAKE (the +0.0838 CI-sep experiencer gain the peek was hiding, twin losing, live-parse ~0.86 prec).
+ 
+ WHAT IT DOES: given the reader's `role_mentions` (the parse_litbank_conll / _gum_to_live dict shape), the ONLINE-cluster
+ label dict `{midx: int}`, the reader's per-sentence tokens (`sents`), and the name gazetteer, it (a) builds a crosstype
+-`Doc` from the reader's OWN live parse (arc-eager heads + arc-labeler deprels + frontend UPOS -- reused via the reader's
+-per-read cache, else reparsed by the same hdlab frontend), (b) runs `crosstype_bridge_links` (the deployable cue_conf
+-config, conf_thr swept), and (c) MERGES each bound role mention into its bound NAME's online label. Returns a NEW merged
+-label dict; `role_mentions` and the input labels are never mutated.
++`Doc` from the reader's OWN live parse (attachment-arm heads + category-organ UPOS + BOTH arms of the labels rung --
++reused via the reader's per-read cache, else reparsed by the same hdlab frontend), (b) runs `crosstype_bridge_links` (the
++deployable cue_conf config, conf_thr swept), and (c) MERGES each bound role mention into its bound NAME's online label.
++Returns a NEW merged label dict; `role_mentions` and the input labels are never mutated.
+ 
+ GOLD-FREE ROUTING (the whole point of the de-leak): each Doc mention's `.eid` is set to the mention's ONLINE cluster
+ label (names grouped by the aliaser inside online_cluster -- gold-free), NEVER the gold `m["cluster"]`/`_gold_eid`. So
+ `crosstype_bridge_links` returns `{role_midx: name_ONLINE_label}` and the merge is trivially
+@@ -26,10 +26,11 @@ only the binds). NAME files and the pronoun coref column are untouched (the brid
+ WIRE NOTE (situation_reader.read, online_entity_cluster block): the merged label of a bridged common is a NAME's online
+ int label, so the downstream negative-int scheme `-(int(label)+1)` stays an INT (downstream `rc >= 0` consumers crash on a
+ str). The bridge only ever REASSIGNS a common's online label to a NAME's online label -- both are ints.
+ 
+-SELF-CONTAINED: imports ONLY hdlab (crosstype_bridge, coref, pos_tagger, arceager_parser, arc_labeler). ZERO experiments/
+-imports (the self-containment invariant). NO external LLM at inference (the invariant).
++SELF-CONTAINED: imports ONLY hdlab (crosstype_bridge, coref, frontend, graded_role_assigner, attachment_arm). ZERO
++experiments/ imports (the self-containment invariant). NO external LLM at inference, and since pri 134 no supervised
++stand-in on ANY path through this module (the standalone frontend used to load pos_tagger + arceager + arc_labeler).
+ 
+ Do NOT wire the part-whole type route at the identity entity layer (located negative: meronymy is BRIDGING, not
+ identity -- online_cluster keeps type_route="exact"); this adapter only adds the cross-type NAME bind the online layer
+ cannot express.
+@@ -51,8 +52,28 @@ _REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ # reader gender space ("masc"/"fem"/"neuter"/"any"/None) -> the crosstype Doc's GUM code space ("m"/"f"/"n"/"")
+ # the bridge tests `m.gender in {"m","f"}` (person cue) and sets name_gender from "m"/"f".
+ _G2CODE = {"masc": "m", "fem": "f", "neuter": "n"}
+ 
++# pri 134 (2026-09-16) -- THE NON-ARGUMENT ARM IS ON.  pri 129 routed this adapter to the ONE role competition, which
++# labels ARGUMENT relations only, so every non-argument token read `dep` and the four name-linking cues this bridge is
++# built on (`appos` "Elizabeth, the doctor", `flat`/`compound` "Mary Smith", `nmod:poss` "her brother") plus the copular
++# `cop` path could not fire at all.  `graded_role_assigner.all_relations` restores them from the SAME organ, with count
++# validities and an observe path.  Flipped ON per the no-default-off rule, and inert (byte-identical to pri 129) when the
++# validity asset is absent.  FINE_CONSTRUCTION_HEADS: the construction also names its own governor -- measured on GUM,
++# that is what makes the name link survive an attachment error (UD-EWT test governor accuracy on the five constructions
++# 0.6145 -> 0.6660; the bridge name-link recall reaches the GOLD-deprel ceiling with it).
++# AND THE SECOND, LARGER LOSS ON THE SAME CHAIN, REPAIRED IN `_can_build` / `_mention_gtok` BELOW: this adapter
++# demanded a GLOBAL token index on every non-pronoun mention, and the reader's DEFAULT mention source
++# (`referent_per_np`, :104 / :192) sets `gtok_start = gtok_end = -1` BY CONSTRUCTION -- so `merge_crosstype_bridge`
++# returned its input unchanged on EVERY live read and `precise_constructs` was never entered at all (measured on a
++# GUM document through the real reader: 1 call, `_can_build` False, 292 of 292 non-pronoun mentions out of range,
++# 0 predication edges). The mention was always locatable -- sent_idx + wtok_start + span_toks put it in the SAME
++# `sents` the Doc is built from. THIS IS A LIVE BEHAVIOUR FLIP: the bridge starts firing where it never has, so the
++# reader-driven board must be run at integration (HDLAB_FINE_RELATIONS=0 reverts only the relations arm; the
++# coverage repair is in `_can_build` and is the thing to revert if the board moves the wrong way).
++FINE_RELATIONS = os.environ.get("HDLAB_FINE_RELATIONS", "1") == "1"
++FINE_CONSTRUCTION_HEADS = os.environ.get("HDLAB_FINE_CONSTRUCTION_HEADS", "1") == "1"
++
+ 
+ class _Tok:
+     __slots__ = ("gidx", "sent", "idx", "head", "deprel", "upos", "xpos", "form", "lemma")
+ 
+@@ -69,44 +90,73 @@ class _Doc:
+ _FRONTEND = {}
+ 
+ 
+ def _standalone_frontend():
+-    """Lazily load the SAME hdlab frontend the reader uses (pos_tagger UPOS + arceager parse_with_conf heads +
+-    arc_labeler deprels). Used only when no `reader` is passed -- with a reader we reuse its per-read parse cache so the
+-    Doc's parse is byte-identical to the reader's own parse of those sentences (same assets/weights either way)."""
++    """Lazily load the SAME hdlab frontend the reader uses -- `hdlab.frontend` (the ONE switchboard: the count-based
++    category organ + the attachment arm).  Used only when no `reader` is passed; with a reader we reuse its per-read
++    parse cache so the Doc parse is byte-identical to the reader own parse of those sentences.
++
++    pri 134 (2026-09-16): this path used to load `pos_tagger` + `arceager_parser` + the RETIRED `arc_labeler`, so the
++    one entry point that did not come through the reader still ran two supervised stand-ins and the NOT_BF relation
++    labeler pri 129 removed from the live read.  It now runs the same brain-foundational organs the reader does."""
+     if not _FRONTEND:
+-        from hdlab.pos_tagger import PosTagger
+-        from hdlab.arceager_parser import load_model, parse_with_conf, MODEL_PATH
+-        from hdlab.arc_labeler import ArcLabeler
+-        _FRONTEND["tag"] = PosTagger.load(os.path.join(_REPO, "data/frontend_assets/pos_tagger_ud_ewt_upos.json"))
+-        _FRONTEND["W"] = load_model(MODEL_PATH)
+-        _FRONTEND["parse"] = parse_with_conf
+-        _FRONTEND["lab"] = ArcLabeler.load(os.path.join(_REPO, "data/frontend_assets/arc_labeler_hashed_ud_ewt.json"))
++        from hdlab.frontend import Tagger, Parser
++        _FRONTEND["tag"] = Tagger()
++        _FRONTEND["parse"] = Parser()
+     return _FRONTEND
+ 
+ 
++def _fine_sites(forms, pos, reader):
++    """The graded PREDICATE-SLOT read for this sentence (pri 110/117) -- the cue the apposition (a reduced
++    predication) and the copula are recognised by.  Silent ({}) under a category inventory that cannot
++    provide it, exactly as `predicate_sites` is specified to be."""
++    try:
++        from hdlab.attachment_arm import predicate_sites
++        from hdlab import lexical_categories as _LC
++        mat = reader._cached_tag_matrix(list(forms)) if reader is not None else _LC.get().posterior(list(forms))
++        if mat is None:
++            return {}
++        return predicate_sites(list(forms), list(pos), mat, _LC.get().tags)
++    except Exception:
++        return {}
++
++
+ def _parse_sentence(forms, reader):
+     """(upos, heads, deprels) for one sentence. heads = 1-based child->head (0=root); deprels = {1-based idx: deprel}.
+-    reader!=None -> the reader's OWN per-read cache (byte-identical to its live parse); else the standalone frontend."""
++    reader!=None -> the reader's OWN per-read cache (byte-identical to its live parse); else the SAME frontend
++    organs loaded standalone.  EVERY rung here is brain-foundational since pri 134: categories from the count-based
++    category organ, heads from the attachment arm, and the relations from the ONE labels rung -- its ARGUMENT arm
++    (`coarse_roles`, the Competition-Model role competition) plus its NON-ARGUMENT arm (`all_relations`: the name-run
++    chunk, the reduced predication, the genitive case marker and the copula's tense-carrying), which is what restores
++    this bridge's `appos` / `flat` / `compound` / `nmod:poss` / `cop` name-linking cues after pri 129 retired the
++    supervised relation labeler.  With no fine-validity asset on disk the non-argument arm abstains and this is
++    byte-identical to the pri-129 behaviour."""
++    from hdlab.graded_role_assigner import all_relations as _all_relations, coarse_roles as _coarse_roles
+     if reader is not None:
+         pos = reader._cached_tag(list(forms))
+         heads = reader._cached_parse_heads(list(forms), pos)
+-        # pri 129 (2026-09-15, strategy at landing): the reader's supervised relation labeler is RETIRED (NOT_BF), so
+-        # the ARGUMENT relations (nsubj / obj / obl -> the bridge's Centering role, its obj/iobj and xcomp/obl reads)
+-        # come from the ONE role competition (graded_role_assigner.coarse_roles, count-accrued validities). The FINE
+-        # non-argument relations the perceptron used to hand this bridge (appos / flat / compound / nmod:poss -- its
+-        # name-linking cues) have NO brain-foundational source yet: they read 'dep' here (the organ's own convention
+-        # for non-argument tokens) and the bridge's name-link paths that key on them do not fire. Located gap, filed
+-        # by strategy (a non-argument relations rung: pri 118's name-run cue for flat/compound, the predicate slot
+-        # for appos, the possessive determiner class for poss).
+-        from hdlab.graded_role_assigner import coarse_roles as _coarse_roles
+-        deprels = dict(_coarse_roles(list(forms), list(pos), heads))
+-        return pos, heads, deprels
+-    f = _standalone_frontend()
+-    pos = f["tag"].tag(list(forms))
+-    heads, _cf, _mg = f["parse"](list(forms), pos, f["W"])
+-    deprels = f["lab"].label(list(forms), pos, heads)
+-    return pos, heads, deprels
++    else:
++        f = _standalone_frontend()
++        pos, dist = f["tag"].tag_with_posterior(list(forms))
++        po = f["parse"].parse(list(forms), list(pos), dist)
++        heads = dict(po.heads)
++    coarse = dict(_coarse_roles(list(forms), list(pos), dict(heads)))
++    if not FINE_RELATIONS:
++        return pos, heads, coarse
++    fr = _all_relations(list(forms), list(pos), dict(heads), sites=_fine_sites(forms, pos, reader),
++                        coarse=coarse, with_heads=FINE_CONSTRUCTION_HEADS)
++    if not fr:
++        return pos, heads, coarse                     # no asset -> the argument arm alone (pri-129 behaviour)
++    if FINE_CONSTRUCTION_HEADS:
++        # THE CONSTRUCTION NAMES ITS OWN GOVERNOR (pri 134).  A construction is a form/GOVERNOR pairing, so a
++        # name run's `flat` points at the run's first token and a copula's `cop` at the token it carries tense
++        # for, even where the attachment arm put the arc elsewhere -- that is what makes the bridge's name link
++        # survive an attachment error.  This rewrites ONLY the Doc this adapter hands the bridge; the reader's
++        # own parse cache is untouched.
++        heads = dict(heads)
++        heads.update({i: int(v[1]) for i, v in fr.items()})
++        fr = {i: v[0] for i, v in fr.items()}
++    return pos, heads, dict(fr)
+ 
+ 
+ def _build_toks(sents, reader):
+     """Build the crosstype Doc `.toks` from the reader's per-sentence tokens (`parse_conll_sentences`, RAW-CASED
+@@ -134,9 +184,9 @@ def _build_toks(sents, reader):
+             gidx += 1
+     return toks
+ 
+ 
+-def _build_mention(m, eid):
++def _build_mention(m, eid, span_g=None):
+     """One gold-free crosstype Doc mention from a reader role-mention dict. eid = the ONLINE cluster label (int) for a
+     non-pronoun with a label, else a unique per-mention sentinel (pronoun / unlabelled -- never a name bind target).
+     mtype is derived GOLD-FREE from name_content_tokens (capitalization) -- the same name signal online_cluster uses;
+     head_g = gtok_end (the reader's own last-token head convention, == m["head"]); lemma_head = the surface head."""
+@@ -146,29 +196,62 @@ def _build_mention(m, eid):
+     if m.get("is_pronoun"):
+         men.mtype = "pronoun"
+     else:
+         men.mtype = "name" if name_content_tokens(span, upos=m.get("span_upos")) else "common"
+-    men.start_g = m.get("gtok_start")
+-    men.end_g = m.get("gtok_end")
++    men.start_g = span_g[0] if span_g else m.get("gtok_start")
++    men.end_g = span_g[1] if span_g else m.get("gtok_end")
+     men.head_g = m.get("head_g", men.end_g)                  # reader head = span_toks[-1] -> last global token
+     g = m.get("gender") or m.get("name_gender")
+     men.gender = _G2CODE.get(g, "")
+     men.text = " ".join(span)
+     men.lemma_head = m["head"]
+     return men
+ 
+ 
++def _global_offsets(sents):
++    """(per-sentence global start offset, total token count) for the reader's own sentence list."""
++    offs = []
++    n = 0
++    for s in sents:
++        offs.append(n)
++        n += len(s)
++    return offs, n
++
++
++def _mention_gtok(m, offs, ntok):
++    """THE GLOBAL SPAN OF ONE MENTION, recovered rather than required (pri 134, 2026-09-16).
++
++    The adapter used to demand `gtok_start` / `gtok_end` and abstain on the whole document when any mention
++    lacked them -- and the reader's DEFAULT mention source (`referent_per_np`, :104 / :192) sets them to -1 BY
++    CONSTRUCTION, so `merge_crosstype_bridge` returned its input unchanged on EVERY live read and the bridge's
++    predication detector was never entered (measured: 292 of 292 non-pronoun mentions out of range, 0 edges).
++    The information was never missing -- `sent_idx` + `wtok_start` (0-based inside the sentence) + `span_toks`
++    locate the mention exactly in the SAME `sents` the Doc is built from.  Returns (start_g, end_g) or None."""
++    s, e = m.get("gtok_start"), m.get("gtok_end")
++    if s is not None and e is not None and 0 <= s <= e < ntok:
++        return int(s), int(e)
++    si, w = m.get("sent_idx"), m.get("wtok_start")
++    if si is None or w is None or not (0 <= int(si) < len(offs)):
++        return None
++    g = offs[int(si)] + int(w)
++    if not (0 <= g < ntok):
++        return None
++    span = m.get("span_toks") or []
++    return g, min(ntok - 1, g + max(0, len(span) - 1))
++
++
+ def _can_build(role_mentions, sents):
+-    """The Doc needs global token indices for every NON-pronoun mention (the parse_litbank_conll shape) and enough
+-    tokens to cover them. Abstain (return False) otherwise -- keeps the wire byte-safe on any other mention source."""
++    """The Doc needs a locatable global span for every NON-pronoun mention. Since pri 134 the span is RECOVERED
++    from sent_idx + wtok_start when the mention does not carry one (see `_mention_gtok`), so the reader's own
++    default mention source no longer silences the whole bridge; a mention that still cannot be located at all
++    abstains the document, exactly as before."""
+     if not sents or not role_mentions:
+         return False
+-    ntok = sum(len(s) for s in sents)
++    offs, ntok = _global_offsets(sents)
+     for m in role_mentions:
+         if m.get("is_pronoun"):
+             continue
+-        s, e = m.get("gtok_start"), m.get("gtok_end")
+-        if s is None or e is None or not (0 <= s <= e < ntok):
++        if _mention_gtok(m, offs, ntok) is None:
+             return False
+     return True
+ 
+ 
+@@ -179,17 +262,18 @@ def build_gold_free_doc(role_mentions, online_labels, sents, *, reader=None):
+     if not _can_build(role_mentions, sents):
+         return None
+     doc = _Doc()
+     doc.toks = _build_toks(sents, reader)
++    offs, ntok = _global_offsets(sents)
+     mentions = []
+     _pron = 0
+     for m in role_mentions:
+         if m.get("is_pronoun"):
+             eid = ("__pron__", _pron); _pron += 1            # unique sentinel: never a name bind target
+         else:
+             lab = online_labels.get(m["midx"])
+             eid = lab if lab is not None else ("__nolabel__", m["midx"])
+-        mentions.append(_build_mention(m, eid))
++        mentions.append(_build_mention(m, eid, _mention_gtok(m, offs, ntok)))
+     doc.mentions = mentions
+     return doc
+ 
+ 
