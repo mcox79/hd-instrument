@@ -469,6 +469,32 @@ hdlab/situation_reader.py |  72 ++++++++--
    the default; `post` (the product of the two posteriors at its MAP) is the brain-faithful form and is
    available under `HDLAB_RPN_BOUNDARY=post`.
 
+### 10.4 THE NAMING BAR (strategy's bar 3), on the reader's own GUM read
+
+"A file card's label is its name": for every entity file the reader builds that HOLDS a name, does
+`goal_register._cluster_name` return that name? The names are computed in BOTH arms from the entity layer's
+own name organ over the mentions (`coref.name_content_tokens` + the category organ's categories) -- reading
+the `TrackedEntity.names` field this diff adds would have scored the shipped arm 0 for a reason that is not
+the organ, and that first version of the instrument is recorded as a measurement defect I caught (section 14
+(vi)).
+
+**THE SHIPPED ARM, 4 GUM test documents: 54 entity files hold a name; 33 are labelled by it and 21 -- 38.9%
+-- are labelled by something else.** The examples are the defect in one line each:
+
+| the label `_cluster_name` returns | the name(s) actually on that card |
+|---|---|
+| `directly` | davis, lau, ms |
+| `facilities` | court, district, lavan |
+| `property` | county, maui |
+| `particular` | circuit, court |
+| `public` | world |
+
+`_cluster_name` returns the LONGEST distinct non-pronoun surface, so a card that has absorbed a longer
+common-noun surface loses its own name -- which is exactly the mechanism strategy traced on the 13 flipped
+emotion items ('the goal register then names the owner by the wrong head'). The repair in this diff is that
+the register reads the card's NAME first (Kripke 1980's rigid designator; Semenza 2006's separate
+proper-name retrieval route) and falls back to the longest surface only for a card that holds no name.
+
 ## 18. SECTIONS TO COME
 
 (2) the measured result; (3) the signal-loss trace with counts; (4) the quality push; (5) the verdict
