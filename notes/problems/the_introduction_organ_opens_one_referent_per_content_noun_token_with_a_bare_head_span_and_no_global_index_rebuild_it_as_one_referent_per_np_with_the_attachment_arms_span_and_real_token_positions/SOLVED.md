@@ -217,6 +217,32 @@ arm first, on the pristine tree.
 50 items answering "no goal found".** That is the 0.90 -> 0.64 fall recorded at the pri 136 landing, standing
 on this tree. (Lastword floor 0.2000 on the same items.)
 
+**WITH ONE REFERENT PER NOUN PHRASE THE ARM IS BACK AT 0.9000 -- THE BAR, MET EXACTLY.**
+
+| arm | occ_appraisal TYPE | VALENCE | lastword floor | "no goal found" | fixed | broken |
+|---|---|---|---|---|---|---|
+| shipped (per-token mentions) | 0.6400 | 0.6400 | 0.2000 | **17 / 50** | -- | -- |
+| **NP-span (one referent per phrase)** | **0.9000** | **0.9000** | 0.2000 | **5 / 50** | **13** | **0** |
+
+paired bootstrap over the 50 items: **+0.2600 CI95 [+0.1400, +0.3805] half 0.1203 -- CI-SEPARATED**.
+
+**THIRTEEN ITEMS FIXED, ZERO BROKEN -- and they are the thirteen strategy counted.** The mechanism is visible
+in the appraisal's own `source` field, which is a count, not an interpretation:
+
+| appraisal source | shipped | NP-span |
+|---|---|---|
+| `None` (no goal found for the character) | **17** | **5** |
+| `goal_actual` (a goal of the character's, resolved) | **3** | **16** |
+| `prospect_confirmed` / `prospect_disconfirmed` / `prospect_prospective` | 10 / 9 / 11 | 10 / 9 / 10 |
+
+Twelve of the thirteen fixed items went from **no answer at all** (`was: null`) to the right one, and every
+one of them is now answered from `goal_actual` -- the goal register found a goal belonging to the character.
+That is exactly strategy's diagnosis run in reverse: the character's file was absorbing its neighbouring
+nominal run ('maya' + 'championship'), the register named the goal's owner by the wrong head, and the
+appraisal found no goal for the character. **Draw the phrase boundary and the owner is the character again.**
+The prospect branches are untouched (10/9/10 vs 10/9/11), so this is not a global shift -- it is the goal
+branch coming back.
+
 ## 11. SECTIONS TO COME
 
 (2) the measured result; (3) the signal-loss trace with counts; (4) the quality push; (5) the verdict
