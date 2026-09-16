@@ -494,6 +494,17 @@ class SituationQA:
         if self.file_names is not None:
             return canon_answer(getattr(r, "resolved_head", ""), self.file_names)
         names = self.cluster_names if self.cluster_names is not None else self.names
+        if getattr(r, "resolved_cluster", None) is None:
+            # 2026-09-16 (pri 131 landing): the graded pick carries no gold cluster id (None is the only unresolved
+            # value; identity travels as the entity + antecedent span) -> the INFORMATIONAL arm names the pick through
+            # its resolved head: the gold name equal to it, else the head itself; abstention stays None.
+            head = (getattr(r, "resolved_head", "") or "").strip().lower()
+            if not head:
+                return None
+            for nm in names.values():
+                if nm and nm.strip().lower() == head:
+                    return nm
+            return head
         return names.get(r.resolved_cluster)
 
     # -- EVENTS / who-did-what: "who <gov_verb>ed?" -> the event's agent (gov_verb gold is a LEMMA) --
