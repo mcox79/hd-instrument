@@ -184,6 +184,14 @@ number rather than assumed.
 
 ## 9. PRIORITY NEXT STEPS (handed to strategy, each with what it would have to beat)
 
+0. **STOP THE RUNAWAY IN `entity_resolver`'s ONLINE ACCRUAL -- THIS IS NOW THE FIRST STEP, AND IT IS NOT IN
+   THIS DIFF.** `competition_cluster`'s online branch observes only `same` on a high-margin merge and never
+   `different`, so the log-odds rise monotonically and the merge loop closes on itself. MEASURED (section
+   22b): the same NP-span mention stream gives B-cubed **0.6585 frozen** and **0.3562 live**, and **5 files
+   for a whole three-document corpus** when the table is shared across documents. The fix is one line -- the
+   competition already computes the runner-up, so accrue ITS cue vector as `different` -- and the immediate
+   mitigation for an A/B is `HDLAB_OBJECT_FILE_ONLINE=0`. **Until this lands, this rung cannot be scored on
+   the partition.**
 1. **Repair the board's own entity-set scorer's alignment (ONE LINE, and it must land WITH this diff).**
    `exp_board_rows_on_the_reader_v1.score_entity_set` and `_coref_*` align a reader mention at
    `(sent_idx, m["wtok_start"])`; after this rung that is the phrase's FIRST token, so the board would align
@@ -346,7 +354,17 @@ THE HEADLINE: the inferred-emotion arm occ_appraisal is back at 0.9000 from 0.64
 object-file competition ON -- +0.2600 CI95 [+0.1400,+0.3805] CI-separated, 13 items FIXED and 0 BROKEN, and
 the mechanism is a count ('no goal found' 17 -> 5, goal_actual 3 -> 16, the prospect branches untouched).
 
-TWO THINGS THAT MUST LAND WITH IT, both named in the SOLVED: (1) the board's own entity-set scorer
+THE NEGATIVE, FULLY UNDERSTOOD AND NOT THIS RUNG'S: through the LIVE read the entity partition regresses
+(B-cubed -0.4196 CI-sep DOWN) and the random-boundary twin therefore does NOT lose -- but the SAME mention
+stream clustered with the validity table FROZEN gives B-cubed 0.6585, ABOVE the shipped tree's live 0.6277.
+The destroyer is entity_resolver's ONLINE ACCRUAL: its online branch observes only `same` on a high-margin
+merge and never `different`, so the log-odds rise monotonically and the merge loop closes on itself (5 files
+for a whole 3-document corpus when the table is shared across documents).  The one-line brain-foundational
+fix is to accrue the RUNNER-UP's cue vector as `different` -- a cue validity is a CONTRAST and the loser is
+evidence -- and it belongs to pri 136's organ, so it is handed over rather than changed here.  Bars 1, 2 and
+S9-1 cannot be scored until it lands.
+
+THREE THINGS THAT MUST LAND WITH IT, all named in the SOLVED: (0) that one-line loser term; (1) the board's own entity-set scorer
 (exp_board_rows_on_the_reader_v1.score_entity_set) aligns a reader mention at (sent_idx, m["wtok_start"]),
 which after this rung is the phrase's FIRST token -- it must key on graded_role_assigner.mention_head_wpos(m)
 or the board row will align on determiners; (2) Heim's criterion was LANDED AND INERT on the live read (the
