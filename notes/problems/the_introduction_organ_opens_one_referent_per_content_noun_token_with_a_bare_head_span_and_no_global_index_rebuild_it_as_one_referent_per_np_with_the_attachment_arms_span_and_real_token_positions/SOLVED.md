@@ -144,7 +144,22 @@ the board's entity-set row instead of importing it: `score_entity_set` looks a m
 `(sent_idx, wtok_start)`, which is the phrase's first token once this lands, so the board's entity-set row
 would align on determiners. The scorer repair is one line and is handed to strategy, not applied here.
 
-## 6. SECTIONS TO COME
+## 6. A CORRECTION TO MY OWN BRIEF, MADE BEFORE CLAIMING THE NUMBER
+
+The brief's bar 3 asks for "the crosstype bridge's `_can_build` accepting the reader's mentions (docs
+reaching the detector 6/6 on pri 134's probe)". **On the tree as it now stands that is ALREADY TRUE and it is
+not this rung's doing.** pri 134's LANDED `crosstype_live_adapter._mention_gtok` RECOVERS a global span from
+`sent_idx + wtok_start + span_toks` when the mention carries none, so `_can_build` succeeds on the shipped
+per-token stream too (measured directly here: the shipped arm builds a Doc on 4 of 4 GUM documents). I will
+not claim that repair.
+
+**What this rung actually buys the bridge is the BINDS**, and the mechanism is the one the brief names at
+`crosstype_bridge.py:341`: the definite-description gate reads `m.text.lower().split()[0] in _ART`. With a
+bare-head span the first token IS the head, so every definite failed the test and the gate fired on nothing.
+With the phrase on the card, 'the baker' passes. Measured on the same 4 GUM documents through the live read:
+**binds 0 -> 3**, with `_can_build` at 4/4 in BOTH arms.
+
+## 7. SECTIONS TO COME
 
 (2) the measured result; (3) the signal-loss trace with counts; (4) the quality push; (5) the verdict
 check; (6) alternate paths and next steps.
