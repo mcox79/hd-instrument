@@ -100,7 +100,11 @@ def run_flag(flag, ud_cap=600, docs=24, n_boot=1000, seed=SEED):
             arms["on_%s" % flag][key] = _row_summary(on["rows"][mode][rname])
             a = on["per"][mode][rname]["model"]
             b = off["per"][mode][rname]["model"]
-            dd, lo, hi, hw, sep = M._paired(a, b, n_boot, seed)
+            # 2026-09-16 (strategy): _paired(cl_a, cl_b) returns rate(cl_b) - rate(cl_a) (its floor/model callers pass
+            # (floor, model)); this cell passed (on, off) and labelled the result on_minus_off, so EVERY verdict it
+            # produced before this line was sign-INVERTED (agent_hybrid capped: arms off 0.7363 / on 0.7852 reported
+            # as -0.0488; full UD-EWT test: off 0.7893 / on 0.8160 reported as -0.0267). Order fixed: (off, on).
+            dd, lo, hi, hw, sep = M._paired(b, a, n_boot, seed)
             contrasts[key] = {"on_minus_off": round(dd, 4), "ci": [round(lo, 4), round(hi, 4)],
                                "ci_half_width": round(hw, 4), "ci_sep": bool(sep)}
 
