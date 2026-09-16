@@ -115,3 +115,74 @@ dimension flags; each mapped to the row that scores it; FOUR have no consumer at
 
 REVERIFY: the seven commands in the SOLVED.md frontmatter's `reverify` field.
 ```
+
+---
+
+# PHASE 7 (strategy, 2026-09-16)
+
+## P7.1 — pri 146 BRIEF-READY TEXT: the spreading-activation memo (runs AHEAD of 143/144)
+
+> **PROBLEM: sixty-one per cent of the time it takes to read a document is one graph walk, and two sibling
+> functions in the same module ask it the identical question about the same word in the same sentence.**
+>
+> **THE CALL SITE, EXACTLY.** `hdlab/grounded_semantic_graph.py:88 _ppr(seed_idx, Tt, n, d, iters)` computes
+> `r = (1−d)·p + d·Tᵀr` for `PPR_ITERS` (30) iterations over the frozen lexicon graph. It is reached only
+> through `grounded_semantic_graph.py:218 _sense_ppr(wn, lemma, pos, context_words, syn2idx, T, n, tgt,
+> tgt_names)`, whose seed is *every synset of every context word, minus the target lemma's own synsets*.
+> Two callers reach it, **both inside `hdlab/force_dynamics_valence.py`**, and both are driven from
+> `situation_reader._assign_affect` → `context_grounded_valence.score_item` → `force_dynamics_event_type`:
+>   * `force_dynamics_valence.py:688 sense_posterior_in_context(verb, tokens, gov_idx)` →
+>     `:707 _sense_ppr(...)` directly;
+>   * `force_dynamics_valence.py:718 context_sense_sign(verb, tokens, gov_idx)` →
+>     `:728 g.select_sense_blended(...)` → `grounded_semantic_graph.py:414 _sense_ppr(...)`.
+>
+> **THE REPEAT IS STRUCTURAL, NOT INCIDENTAL.** The two callers build their context list with
+> **byte-identical code** — `[t.lower() for i, t in enumerate(tokens) if i != gov_idx and t.isalpha()]`
+> (`:720`) and `[str(t).lower() for i, t in enumerate(tokens) if i != gov_idx and str(t).isalpha()]`
+> (`:702`) — behind the same `< 2 content words` guard, and both pass the same `lemmatize_verb(verb)`.
+> **For one (verb, tokens, gov_idx) they therefore produce the same seed set and each runs the 30 power
+> iterations independently.** Measured call counts on 6 GUM TEST documents agree: `context_sense_sign` 441,
+> `sense_posterior_in_context` 447, `_sense_ppr` 672 runs (the shortfall is the abstentions).
+>
+> **THE MEMO KEY.** `(tuple(seed_idx), n, damping, iters)` — the exact seed index tuple, not the context
+> words, so a caller that legitimately seeds differently never collides. Scope: **per read**, held on the
+> `SituationReader` instance, not at module level (see P7.2 — module-level plastic state is the thing this
+> program is currently removing).
+>
+> **THE CERTIFIABLE-IDENTITY CONDITION, AND IT IS NOT OPTIONAL.** `_ppr` is a pure function of its arguments,
+> so the memo is sound by construction — but the *reader around it is plastic* (P7.2), so a naive
+> before/after comparison of two reads cannot certify it. The condition under which identity IS certifiable:
+> read the same document twice with no memo first and require the two situation models to agree
+> (`reader_is_plastic_read_to_read == False`); only then does a third, memoised read prove byte-identity.
+> **Already demonstrated on `GUM_letter_marcie3`: identical situation model, 28% faster.** On
+> `GUM_academic_census` the reader was not stable, the memo did not change the read beyond that plasticity,
+> and the 39% there is reported as a timing, not as an equivalence. **The brief must handle the plastic
+> case** — the clean way is to make the plastic state per-reader (P7.2), which makes every document
+> certifiable.
+>
+> **THE MEASURED SIZE.** 26–40% of the walks inside ONE document are exact repeats (46 of 116; 7 of 27).
+> Read time falls 15.11 s → 9.25 s and 3.18 s → 2.24 s, i.e. **28–39% of the whole read**; against the
+> contention-checked honest wall clock of 44.7 s per document that is **12.5–17.4 s per document**.
+> `_ppr` itself is 204.5 s of 337.4 s profiled, 184.8 s of it `scipy.sparse.csr_matvec` (20,160 products).
+>
+> **THE ROWS IT TOUCHES: all nine.** This is latency, not accuracy — no board row's answer changes (that is
+> the point), and every board run and every solver iteration gets ~2.5x more of them per hour. The laptop's
+> read time is the program's bottleneck, which is why this outranks the consolidations.
+>
+> **THE TWIN AND THE NO-REGRESS GATE.** (a) **No-regress is IDENTITY, not a CI:** the gate is
+> byte-identical situation models on every document whose reader is stable — sentences, entities, events and
+> the full (predicate, agent, patient) tuple set — and any difference is a FAIL, not a trade-off.
+> (b) **The info-free twin is a POISONED memo:** return a *wrong stored vector* for a hit (e.g. the previous
+> distinct result) and require the read to CHANGE; a memo that can be poisoned without changing the answer
+> would prove the PPR result is not actually consumed, which would be a different and larger finding.
+> (c) **A coverage control:** report hits/misses per document, because a 0% hit rate on some genre would mean
+> the saving does not generalise. (d) **Cap the memo** (it is per-read, so it dies with the read; report peak
+> entries so nobody ships an unbounded one).
+>
+> **WHAT THIS BRIEF MUST NOT DO:** change `_ppr`'s iteration count, damping, or the graph. The organ is the
+> right operation (spreading activation over a content-addressed semantic store, the ATL hub read); the
+> defect is that it is invoked per event rather than per distinct question.
+>
+> **ENTRY POINTS:** `hdlab/grounded_semantic_graph.py:88,218,414`; `hdlab/force_dynamics_valence.py:688,718`;
+> `hdlab/situation_reader.py::_assign_affect`; the measurement cell
+> `experiments/exp_structure_map_cost_v1.py --cache-probe` and its `data/exp_structure_map_cost_v1/cache_probe.json`.

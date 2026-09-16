@@ -69,6 +69,48 @@ CALL_PROBES = [
 ]
 
 
+# PROBE A's watch list -- every module-level name the static scan found a function can mutate,
+# in the 30 of 56 live-read modules that have any (generated 2026-09-16; see the map's phase-7 section).
+STATE_NAMES = [
+    'affect_lexicon._FAMILY_TERMS', 'affect_lexicon._SENSE_TABLE', 'attachment_arm._OBL_SLOTS',
+    'attachment_arm._PP_PREP_CACHE', 'attachment_arm._PP_CASE_CACHE', 'attachment_arm._CSUB_MEMO',
+    'attachment_arm.REANALYSIS_STATS', 'attachment_arm._PS_CARRIERS', 'attachment_arm.INFIN_STATS',
+    'attachment_arm._TABLE', 'attachment_arm._HOLD_TAB', 'attachment_arm.INCR_STATS',
+    'attachment_arm._PLAUS_T', 'bound_event_backbone._SYM', 'bound_event_backbone._CONTENT',
+    'context_grounded_valence._GOV_PERCEPTRON_CACHE', 'context_grounded_valence._BOW_PERCEPTRON_CACHE', 'context_grounded_valence._THETA_CACHE',
+    'coref._SPAN_CUE', 'crosstype_bridge._ANIMACY_CACHE', 'crosstype_live_adapter._FRONTEND',
+    'entity_resolver._TYPE_CACHE', 'entity_resolver._ETYPE_CACHE', 'entity_resolver._OF_VALIDITIES',
+    'force_dynamics_valence._LEX', 'force_dynamics_valence._AFX', 'force_dynamics_valence._SS_CACHE',
+    'force_dynamics_valence._ALLSS_CACHE', 'force_dynamics_valence._AFFECT_CACHE', 'force_dynamics_valence._RS_TABLE',
+    'force_dynamics_valence._RS_CACHE', 'force_dynamics_valence._EV_CACHE', 'force_dynamics_valence._MANNER',
+    'force_dynamics_valence._GSG', 'frame_induction._INDUCED_SUBJ_HYP_CACHE', 'frontend._T',
+    'frontend._P', 'goal_hierarchy_graph._ASSOC', 'graded_role_assigner._INDUCED_CAT_CACHE',
+    'graded_role_assigner._COARSE_VALIDITIES_CACHE', 'graded_role_assigner._HAS_PRED_ROWS', 'graded_role_assigner._MARGIN_REL_CACHE',
+    'graded_role_assigner._MEAN_LLR_CACHE', 'graded_role_assigner._PURPOSE_CACHE', 'graded_role_assigner._SUPERSENSE',
+    'graded_role_assigner._FINE_VALIDITIES_CACHE', 'graded_role_assigner._FINE_CACHE_SET', 'grounded_similarity._reliability_cache',
+    'grounded_similarity._table_cache', 'grounded_similarity._distinctive_cache', 'hippocampal_encoder._DG_PROJ_CACHE',
+    'incremental_parser._LEMMA_CACHE', 'lexical_categories._INST', 'lexical_categories._REG_GEN',
+    'lexical_utils._MORPHY', 'lexical_utils._CLASS_CACHE', 'lexical_utils._WN',
+    'lexical_utils._PERSON_SYN', 'lexical_utils._person_cache', 'lexicon_foundation._STORE',
+    'lexicon_foundation._SYNSET_CACHE', 'morphology._DEFAULT', 'predicate_argument_frontend._LABELER',
+    'predicate_argument_frontend._verbnet_class_cache', 'predicate_argument_frontend._place_cache', 'predicate_argument_frontend._ARGSTRUCT_RANKER',
+    'predicate_detector._WN', 'predicate_detector._MORPH', 'situation_reader._FRONTEND_CACHE',
+    'space_reader._motion_cache', 'space_reader._frontend_cache', 'space_reader._WN',
+    'space_reader._PLACE_CACHE', 'space_reader._atloc_targets', 'state_register._wn_syn_cache',
+    'state_register._wn_ant_cache', 'temporal_model._ORC_TAGGER', 'temporal_model._PENN_ARM',
+    'thematic_role_labeler._WN', 'thematic_role_labeler._WN_FAILED', 'typed_selectional_preference._SS_TABLE',
+    'typed_selectional_preference._ss_cache', 'typed_selectional_preference._INST', 'typed_spokes._WN',
+    'typed_spokes._WN_MISSING', 'typed_spokes._MFS', 'typed_spokes._ANC_SYN',
+    'typed_spokes._ANC_UNION', 'typed_spokes._MERO_MFS', 'typed_spokes._PW_STORE',
+    'typed_spokes._PW_MISSING', 'typed_spokes._HUB', 'typed_spokes._HUB_MISSING',
+    'typed_spokes._ANT_STORE', 'typed_spokes._ANT_MISSING', 'typed_spokes._C8_CON',
+    'typed_spokes._C8_CON_MISSING', 'typed_spokes._C8_LEMMAS', 'typed_spokes._C8_COMPACT_Z',
+    'typed_spokes._C8_COMPACT_MISSING', 'typed_spokes._C8_CLASS_CACHE', 'verb_subcat._ASSET_CACHE',
+    'verb_subcat._MODEL_CACHE',
+]
+# total 103
+
+
 # ---------------------------------------------------------------------------------------------------
 # attribution
 # ---------------------------------------------------------------------------------------------------
@@ -317,6 +359,82 @@ def coord_probe(n_docs=6, mode="annotated"):
     return res
 
 
+def _fingerprint_module_state(names):
+    """A cheap, order-stable fingerprint of each named module-level object, so 'did a read change it' is a
+    measured fact.  Containers are fingerprinted by size + a hash of their sorted repr; other objects by a
+    hash of repr (assets that define no __repr__ fall back to identity, which still catches a rebind)."""
+    import hashlib, importlib
+    out = {}
+    for mod_name, attr in names:
+        try:
+            m = importlib.import_module("hdlab." + mod_name)
+        except Exception:
+            continue
+        if not hasattr(m, attr):
+            continue
+        v = getattr(m, attr)
+        try:
+            if isinstance(v, dict):
+                key = "dict:%d:%s" % (len(v), repr(sorted(map(repr, v.keys()))[:400]))
+            elif isinstance(v, (list, tuple, set, frozenset)):
+                key = "%s:%d:%s" % (type(v).__name__, len(v), repr(sorted(map(repr, v))[:400]))
+            elif v is None:
+                key = "None"
+            else:
+                key = "obj:%s:%s" % (type(v).__name__, repr(getattr(v, "__dict__", v))[:4000])
+        except Exception as e:
+            key = "unfingerprintable:%s" % type(e).__name__
+        out["%s.%s" % (mod_name, attr)] = hashlib.sha1(key.encode("utf-8", "replace")).hexdigest()[:12]
+    return out
+
+
+def state_probe(n_docs=2, mode="annotated"):
+    """PROBE A: which module-level state does a read() MUTATE, and does it carry ACROSS DOCUMENTS?
+
+    Three reads in one process -- document A, document A again, document B -- fingerprinting every
+    module-level name the static scan flagged, before and after each.  A name that changes between the two
+    reads of the SAME document is state the reader accrues from text (plasticity, or a leak).  A name that
+    then changes again on a DIFFERENT document is state that crosses the document boundary -- which is what
+    decides 'plastic state belongs on the SituationReader instance, module assets are read-only'.
+    """
+    names = [tuple(x.split(".", 1)) for x in STATE_NAMES]
+    test, gaz = _gum_test_docs(max(n_docs, 2))
+    tmp = tempfile.mkdtemp(prefix="p142_state_")
+    pa = _write_two_conll(test[0], tmp)[0 if mode == "annotated" else 1]
+    pb = _write_two_conll(test[1], tmp)[0 if mode == "annotated" else 1]
+    _one_read(pa, gaz)                                    # warm: load every asset OUT of the comparison
+    f0 = _fingerprint_module_state(names)
+    _one_read(pa, gaz)                                    # the SAME document again
+    f1 = _fingerprint_module_state(names)
+    _one_read(pb, gaz)                                    # a DIFFERENT document
+    f2 = _fingerprint_module_state(names)
+    same_doc = sorted(k for k in f1 if f0.get(k) != f1.get(k))
+    cross_doc = sorted(k for k in f2 if f1.get(k) != f2.get(k))
+    res = {"doc_a": test[0].docid, "doc_b": test[1].docid,
+           "n_names_watched": len(f0),
+           "changed_on_a_REPEAT_of_the_same_document": same_doc,
+           "changed_on_a_DIFFERENT_document": cross_doc,
+           "changed_on_either": sorted(set(same_doc) | set(cross_doc)),
+           "stable_across_all_three_reads": sorted(k for k in f0 if k not in set(same_doc) | set(cross_doc)),
+           "plain": ("a name that changes when the same document is re-read is state the reader accrues "
+                     "from text; a name that changes on a different document carries information across "
+                     "the document boundary")}
+    os.makedirs(OUT_DIR, exist_ok=True)
+    with open(os.path.join(OUT_DIR, "state_probe.json"), "w", encoding="utf-8") as fh:
+        json.dump(res, fh, indent=2)
+    print("watched %d module-level names over 3 reads (%s, %s again, %s)"
+          % (len(f0), test[0].docid, test[0].docid, test[1].docid))
+    print("\nCHANGED when the SAME document was read again (%d):" % len(same_doc))
+    for k in same_doc:
+        print("   ", k)
+    print("\nCHANGED on a DIFFERENT document (%d):" % len(cross_doc))
+    for k in cross_doc:
+        print("   ", k)
+    print("\nSTABLE across all three reads: %d" % len(res["stable_across_all_three_reads"]))
+    print("wrote %s" % os.path.join(OUT_DIR, "state_probe.json"))
+    return res
+
+
 def _sig(sm):
     """A read's answer signature: the shape plus the event tuples, so a changed read is visible."""
     return (sm.n_sentences, len(sm.entities), len(sm.events),
@@ -466,6 +584,7 @@ def main():
     ap.add_argument("--run", action="store_true")
     ap.add_argument("--cache-probe", action="store_true")
     ap.add_argument("--coord-probe", action="store_true")
+    ap.add_argument("--state-probe", action="store_true")
     ap.add_argument("--self-test", action="store_true")
     ap.add_argument("--docs", type=int, default=N_DOCS)
     ap.add_argument("--mode", default="annotated", choices=("annotated", "textonly"))
@@ -477,6 +596,9 @@ def main():
         return 0
     if a.coord_probe:
         coord_probe(n_docs=a.docs, mode=a.mode)
+        return 0
+    if a.state_probe:
+        state_probe(n_docs=a.docs, mode=a.mode)
         return 0
     if a.run:
         run(n_docs=a.docs, mode=a.mode)
