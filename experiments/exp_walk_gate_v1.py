@@ -1084,13 +1084,23 @@ def timing(n_docs=6, pairs=2, tau=None, tau_post=0.0, animacy_first=False):
                                            / m["memo_off_gate_off"], 4)
         row["both_vs_neither"] = round((m["memo_off_gate_off"] - m["memo_on_gate_on"])
                                        / m["memo_off_gate_off"], 4)
-        row["kept"] = bool(row["gate_saving_with_memo"] > 0
-                           and max(m.values()) / max(min(m.values()), 1e-9) <= 3.0)
+        # THE DISCARD RULE, CORRECTED (pri 147).  pri 146's rule discarded a document whose FASTEST and
+        # SLOWEST ARM differed by more than 3x.  That rule cannot tell a load spike from a large real effect,
+        # and with all three levers on it discarded 4 of 4 documents BECAUSE the gate is more than 3x faster
+        # -- it was rejecting the finding it was built to protect.  The instability it was actually looking
+        # for is RUN-TO-RUN, so the test is now WITHIN a condition, across its repeats; the cross-arm number
+        # it used to gate on is kept beside it so the change is visible rather than silent.
+        spread = max((max(v) / max(min(v), 1e-9)) for v in acc.values() if v)
+        row["worst_within_condition_spread"] = round(spread, 3)
+        row["cross_arm_spread_the_old_rule_used"] = round(
+            max(m.values()) / max(min(m.values()), 1e-9), 3)
+        row["kept"] = bool(row["gate_saving_with_memo"] > 0 and spread <= 3.0)
         rows.append(row)
         print("  %-30s  no memo: %.2f->%.2f (-%.1f%%)   with memo: %.2f->%.2f (-%.1f%%)   both vs neither -%.1f%%%s"
               % (d.docid, m["memo_off_gate_off"], m["memo_off_gate_on"], 100 * row["gate_saving_no_memo"],
                  m["memo_on_gate_off"], m["memo_on_gate_on"], 100 * row["gate_saving_with_memo"],
-                 100 * row["both_vs_neither"], "" if row["kept"] else "   [DISCARDED]"))
+                 100 * row["both_vs_neither"],
+                 "" if row["kept"] else ("   [DISCARDED: run-to-run spread %.2fx]" % spread)))
     ok = [r for r in rows if r["kept"]]
 
     def mean(rs, k):

@@ -145,3 +145,68 @@ diff --git a/hdlab/force_dynamics_valence.py b/hdlab/force_dynamics_valence.py
          return None
  
  
+@@ -806,12 +821,24 @@
+ 
+ 
+ def harm_help(verb: str, animacy: str) -> Optional[str]:
+     """HARM / HELP / NA / None(abstain) -- the live bare-SVO decision = the force-dynamic arithmetic with the
+     endstate unknown (signature unchanged for every consumer; see SIGNAL_FLOW_MAP s3)."""
+     return harm_help_arithmetic(verb, animacy)
++
++ANIMACY_FIRST = True      # ORGANS TAKE DATA IN ORDER (pri 147).  `harm_help_arithmetic` answers NA for an
++                           # INANIMATE patient on its FIRST line -- a rock has no welfare to be harmed -- yet both
++                           # sense reads below it, and therefore both spreading-activation walks, ran BEFORE that
++                           # line.  MEASURED on 12 GUM TEST documents (`exp_walk_gate_v1.py --chain`): 863 of 932
++                           # harm/help judgements (92.6%) have an inanimate patient and EVERY one of them returns
++                           # NA, and 495 of the 535 graded sense posteriors computed (92.5%) were computed for one
++                           # of them.  The cheap decisive cue gates the expensive one; it does not replace it, and
++                           # nothing about either read changes.  SENSE_ABSTAIN is the ONE branch that consults the
++                           # sense BEFORE animacy, so the gate stands down whenever it is on.  False = OFF (both
++                           # reads always run), which is the floor arm every identity comparison is made against.
++
+ 
+ def force_dynamics_event_type(item, animacy_map, gov_class_dict):
+     """Stage-2 drop-in for the affect/valence organ (replaces event_type_for_item_real's closed-list
+     branch). SAME structural gate (nearest governing verb + valid direct object + WordNet animacy).
+     Returns (BLOCK_HIGH|RECIPROCITY|NEUTRAL|None, category, gov_word) -> HARM|HELP|NA|abstain.
+     `gov_class_dict` is accepted for signature parity with the retired call and is unused (the governor
+@@ -841,12 +868,16 @@
+     #         the doctor from curing the patient" -> HARM). Measured 0.50 -> 0.90 (n=10); extraction is parser-gated (7/10).
+     #  Rung 3 SENSE-IN-CONTEXT: the context-active sense (PPR spreading activation over WordNet++) is valued as ONE synset; a
+     #         non-affecting active sense ("beat the eggs", "throttle the engine") ABSTAINS instead of the word-level HARM.
+     toks, pos = item["tokens"], item["pos"]
+     er = None; ev = None; override = None
+     cls = _lex().get(gov_word)
++    # ORGANS TAKE DATA IN ORDER (pri 147): can either sense read change THIS event's answer at all?  It cannot
++    # when the patient is inanimate, because `harm_help_arithmetic` returns NA before it reads any valence --
++    # unless SENSE_ABSTAIN is on, which is the one branch that consults the sense first.
++    sense_can_matter = (not ANIMACY_FIRST) or SENSE_ABSTAIN or (a["animacy"] != "inanimate")
+     if UPSTREAM_JOINS:
+         try:
+             from hdlab.polarity_operator import event_polarity
+             if cls != "PREVENT":
+                 pol = event_polarity(toks, gi, gov_word, pos=pos).polarity
+                 er = True if pol == 1 else (False if pol == -1 else None)
+@@ -855,20 +886,20 @@
+                 if heads:
+                     bi = find_blocked_verb_parsed(toks, pos, heads, gi)
+                     if bi is not None:
+                         ev = endstate_valence_sign(lemma_verb(toks[bi]))
+         except Exception:
+             er = None; ev = None
+-    if SENSE_CONTEXT and cls != "PREVENT":
++    if SENSE_CONTEXT and cls != "PREVENT" and sense_can_matter:
+         sgn, affecting = context_sense_sign(gov_word, toks, gi)
+         if affecting is False and SENSE_ABSTAIN:
+             return None, a["category"], gov_word                 # the active sense does not affect a patient -> abstain
+         # the context read ADDS a sign where the verb-level cascade abstains; it never overrides a cascade decision (measured 11:42:
+         # as an override it turned "fired the clerk" into HELP -- the selection among affecting senses is not yet reliable enough)
+         override = sgn if (affecting and endstate_valence_sign(gov_word) is None) else None
+-    post = sense_posterior_in_context(gov_word, toks, gi) if SENSE_POSTERIOR else None     # pri 100: P(sense | this sentence)
++    post = sense_posterior_in_context(gov_word, toks, gi) if (SENSE_POSTERIOR and sense_can_matter) else None
+     hh = harm_help_arithmetic(gov_word, a["animacy"], endstate_reached=er, embedded_endstate_valence=ev,
+                               endstate_sign_override=override, posterior=post)
+     # RUNG 5 MANNER-IN-PROSE (2026-09-13): PRECISION-WEIGHTED CUE FUSION (Ernst & Banks 2002 w ~ 1/sigma^2;
+     # MacDonald 1994). The cues are ordered by their precision about THIS event's outcome: the verb's RESULT
+     # STATE (direct, sense-keyed) > the MANNER of this very event (explicit, event-level) > the verb's WORD-LEVEL
+     # norm (Warriner rates a word out of context: 'treat' +0.46 is largely the noun 'a treat', so the floor

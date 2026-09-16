@@ -203,8 +203,21 @@ def w5_the_info_free_twin_loses():
         ck("RECORD: the real gate left the read identical on every document",
            r["n_documents_real_gate_identical"] == r["n_documents"],
            "%d/%d" % (r["n_documents_real_gate_identical"], r["n_documents"]))
-        ck("RECORD: the random twin changed the read", r["n_seed_runs_twin_changed_the_read"] > 0,
-           "%d of %d seed-runs" % (r["n_seed_runs_twin_changed_the_read"], r["n_seed_runs"]))
+        # THE POWERED READOUT is the decision the gate is certified on -- the sense the organ picks.  The
+        # SITUATION-MODEL readout is underpowered for this perturbation BY CONSTRUCTION (pri 146: destroying
+        # EVERY walk moves 5 of 1,753 recorded affect fields), so it is PRINTED with its count, never gated
+        # on.  Asserting on it would be reading an underpowered null as a capability statement.
+        ck("RECORD: the real gate changed NO sense pick",
+           r.get("real_gate_sense_picks_changed_total") == 0,
+           "%s picks" % r.get("real_gate_sense_picks_changed_total"))
+        ck("RECORD: the random twin DID change sense picks (the powered readout)",
+           (r.get("twin_sense_picks_changed_mean_total") or 0) > 0,
+           "%.1f picks on average vs the real gate's %s"
+           % (r.get("twin_sense_picks_changed_mean_total") or 0,
+              r.get("real_gate_sense_picks_changed_total")))
+        print("    (situation-model readout, reported not gated on: the twin moved it on %d of %d seed-runs "
+              "-- underpowered by construction, see twin.json readout_note)"
+              % (r["n_seed_runs_twin_changed_the_read"], r["n_seed_runs"]))
 
 
 def w6_the_skipped_posterior_is_the_resting_level():
@@ -279,10 +292,23 @@ def w7_nothing_is_frozen():
     ck("the observation is counted", c.state()["n"] == 104, c.state())
     r = _rec("criterion.json")
     if r:
-        ck("RECORD: the online criterion settled without losing a decision it had not seen",
-           r["overturns_lost"] <= r["overturns"], "lost %d of %d" % (r["overturns_lost"], r["overturns"]))
-        ck("RECORD: it skipped a real share of the walks", r["share_skipped"] > 0.0,
-           "%.1f%%" % (100 * r["share_skipped"]))
+        for mode, a in sorted(r.get("arms", {}).items()):
+            ck("RECORD: the online criterion [%s] settled and skipped a real share of the walks" % mode,
+               a["share_skipped"] > 0.0,
+               "tau %.3f, skipped %.1f%%, lost %d of %d overturns"
+               % (a["final_tau"], 100 * a["share_skipped"], a["overturns_lost"], a["overturns"]))
+            ck("RECORD: [%s] it only ever became MORE cautious than its floor" % mode,
+               a["final_tau"] >= r["tau_floor"], a["final_state"])
+        adv = r.get("advantage", {})
+        if adv:
+            # THE ALGEBRA'S OWN CAN-FAIL CHECK: a flip REQUIRES the contextual advantage to exceed the
+            # barrier.  If the derivation were wrong, some call would flip with A <= B.
+            ck("RECORD: the derivation 'a flip requires A > B' holds on EVERY recorded call",
+               adv.get("algebra_disagrees_with_the_outcome") == 0
+               and adv.get("flips_with_advantage_below_the_barrier") == 0,
+               "%d of %d agree; %d flips with advantage below the barrier"
+               % (adv.get("algebra_agrees_with_the_outcome", -1), adv.get("n", -1),
+                  adv.get("flips_with_advantage_below_the_barrier", -1)))
 
 
 def w8_the_record_agrees_with_itself():
