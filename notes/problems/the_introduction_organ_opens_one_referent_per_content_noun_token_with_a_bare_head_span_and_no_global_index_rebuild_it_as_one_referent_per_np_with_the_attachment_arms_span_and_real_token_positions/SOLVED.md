@@ -182,7 +182,29 @@ the three pri-136 bars are the remaining measurements; they are written into sec
 document per arm; the run sizes below are chosen against that, and the population is reported with every
 number rather than assumed.
 
-## 9. SECTIONS TO COME
+## 9. PRIORITY NEXT STEPS (handed to strategy, each with what it would have to beat)
+
+1. **Repair the board's own entity-set scorer's alignment (ONE LINE, and it must land WITH this diff).**
+   `exp_board_rows_on_the_reader_v1.score_entity_set` and `_coref_*` align a reader mention at
+   `(sent_idx, m["wtok_start"])`; after this rung that is the phrase's FIRST token, so the board would align
+   the row on determiners. Change it to `graded_role_assigner.mention_head_wpos(m)`. Without it the board's
+   entity-set row will move for a scorer reason and be read as an organ result.
+2. **The boundary as a learned cue competition, with an online outcome signal.** The boundary is currently
+   parameter-free but FROZEN in form; the standing discipline wants it plastic. The outcome signal exists in
+   principle -- a phrase whose card later merges with high margin was cut right -- and the accrual machinery
+   (`observe_file_decision`) is already there. This is the one lever that makes the rung plastic.
+3. **Pass `sents` at the live `EntityResolver.cluster` call site, or delete the fallback.** Section 4: the
+   fallback path of `_definiteness` is dead code on the live read. With a real span it is no longer needed,
+   so the honest move is to DELETE it and keep one way of reading the determiner -- otherwise a future
+   reader of that function will believe the criterion was live all along.
+4. **The absorbed gold mentions.** The Right-Hand-Head collapse gives up every gold mention nested inside a
+   larger phrase; the count is reported in section 10. If that number is large, the answer is nested cards
+   (section 7), not a looser boundary.
+5. **`np_head_reduce` is now largely redundant** -- it existed to reduce a per-token mention set to heads,
+   which is what the collapse does at the source. Measure it off and delete it if it is inert (the
+   dormant-flag discipline).
+
+## 10. SECTIONS TO COME
 
 (2) the measured result; (3) the signal-loss trace with counts; (4) the quality push; (5) the verdict
 check; (6) alternate paths and next steps.
