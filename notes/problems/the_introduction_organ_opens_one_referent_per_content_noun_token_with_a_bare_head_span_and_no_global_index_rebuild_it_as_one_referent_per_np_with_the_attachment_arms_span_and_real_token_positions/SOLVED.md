@@ -1049,6 +1049,26 @@ about the house. The two candidate forms:
 fix the partition first -- an over-merging competition would simply merge the sub-cards back. **The number
 it has to beat is 47 of 448 (10.5%).**
 
+## 22f2. THE PHASE-7 A/B: the shipped arm reproduces itself EXACTLY
+
+First arm of `spans12b.log` against `spans12.log` (the pre-phase-7 run of the same command, same 12 GUM TEST
+documents):
+
+| | pre-phase-7 | with all three phase-7 hunks |
+|---|---|---|
+| mentions | 4,203 (3,208 non-pronoun) | 4,203 (3,208) |
+| B-cubed (pri 136 alignment) | 0.6277 (P 0.6758 / R 0.6541) | **0.6277 (P 0.6758 / R 0.6541)** |
+| B-cubed (gold heads) | 0.6355 | **0.6355** |
+| entity-set row | 0.5379 vs floor 0.7924, n=448 | **0.5379 vs 0.7924, n=448** |
+| pronoun row: span / identity | 0.2964 / 0.3653 | **0.2964 / 0.3653** |
+| cross-file mentions inside one gold mention | 90 | **90** |
+
+**Byte-identical on every row.** Two things this establishes: the read is DETERMINISTIC on this population
+(so any movement in the other arms is the organ, not run-to-run noise), and **the three phase-7 hunks leave
+the shipped arm untouched** -- the loser term and the `sents` hand-off live in the patched modules, which the
+shipped arm does not install, and the board-scorer hunk is an alignment this cell already performed. The
+NP-span and twin arms of this run are the ones to read (see the RESUME POINT below).
+
 ## 22g. RESUME POINT (this session moves to the desktop)
 
 **Everything is on disk and committed.** A re-dispatch resumes from here with no context from this session.
