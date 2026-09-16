@@ -600,6 +600,17 @@ def row_spans(n_docs=28, arms=("shipped", "npspan", "twin"), verbose=True, onlin
         }
         out["arms"][a]["_rows"] = {"span": sp, "ident": idn, "part": part, "parth": parth,
                                    "es": es, "keys": keys}
+        _ck_rows = out["arms"][a].pop("_rows")
+        # CHECKPOINT AFTER EVERY ARM: a live A/B over documents is hours of wall clock on a contended
+        # laptop, and a partial table is evidence while a lost one is not.
+        try:
+            os.makedirs(OUT_DIR, exist_ok=True)
+            with io.open(os.path.join(OUT_DIR, "spans_checkpoint.json"), "w", encoding="utf-8") as _f:
+                _f.write(json.dumps({k: v for k, v in out.items() if k != "_caps"},
+                                    indent=2, sort_keys=True, default=str))
+        except Exception:
+            pass
+        out["arms"][a]["_rows"] = _ck_rows           # restored unconditionally (verbose or not)
         if verbose:
             o = out["arms"][a]
             print("    %-9s mentions %5d (%d non-pronoun)  det-readable %4d  gtok-in-range %4d  "
