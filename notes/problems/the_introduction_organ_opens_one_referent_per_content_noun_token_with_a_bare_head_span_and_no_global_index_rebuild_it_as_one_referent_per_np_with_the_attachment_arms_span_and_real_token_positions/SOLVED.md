@@ -159,7 +159,16 @@ bare-head span the first token IS the head, so every definite failed the test an
 With the phrase on the card, 'the baker' passes. Measured on the same 4 GUM documents through the live read:
 **binds 0 -> 3**, with `_can_build` at 4/4 in BOTH arms.
 
-## 7. SECTIONS TO COME
+## 7. ALTERNATE PATHS CONSIDERED (brain structure, the maths, what it would take, why not now)
+
+| path | the brain structure + the computation | what it would take | why not now |
+|---|---|---|---|
+| **A joint (category, head) posterior over boundaries** | the boundary is `argmax_a P(span = [a,h] | words)`, a proper segmentation posterior rather than a product of two marginals -- what a hierarchical predictive-coding account of chunking (Friston; Dehaene 2015's nested chunk detectors) actually predicts | the attachment arm would have to expose `P(head | dep, category)` jointly instead of marginalising the category away; a new decoding pass over boundary hypotheses | the two marginals are all the substrate hands down today; the `post` arm is the honest approximation and is measured. **Filed as a lead with the number it would have to beat.** |
+| **The boundary as a learned cue competition** (like every other rung) | one more arm of `graded_competition`: cue values (a determiner to the left / a PROPN run / an arc / a comma) with counted log-odds validities, the boundary an argmax of accumulated evidence | a builder accruing boundary decisions from reading (the `tools/build_*` pattern), plus a supervision signal that is not a treebank | it would make the boundary PLASTIC, which is the standing discipline; but the boundary as built is already parameter-free and the competition would need an online outcome signal the reader does not yet produce. **This is the strongest single next step** (see section 9). |
+| **Post-head dependents inside the phrase** ('the baker of York' as one card) | Heim's file card is opened by the whole DP including its complements | one flag | the prior `boundary_nphead` work measured it as a LOSS and the brief forbids re-treading it; the collapse already costs gold-head alignments (section 8) and this would cost more |
+| **Nested cards** (a card for 'New York' INSIDE the card for 'the New York Times') | object files nest under part-whole/containment (Treisman's object files do not, but discourse referents can -- Asher's abstract entities) | a containment relation on the file card + every consumer taught to read it | it changes the mention SCHEMA for every consumer again; the collapse's measured cost has to justify it first. **Filed with its number** (section 8). |
+
+## 8. SECTIONS TO COME
 
 (2) the measured result; (3) the signal-loss trace with counts; (4) the quality push; (5) the verdict
 check; (6) alternate paths and next steps.
