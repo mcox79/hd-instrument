@@ -514,7 +514,7 @@ class SituationModel:
     # opt-in GOAL/INTENTION dimension (WHAT-IS-X-TRYING-TO-DO / WHY-DID-X-ACT); None unless the reader is
     # built with track_goals=True. A hdlab.goal_register.GoalRegister over THIS passage's explicit
     # purpose/desire/intention constructions (the missing 5th Zwaan-Radvansky event-indexing dimension,
-    # intentionality); the query callables sm.wants(agent)/sm.why(action,agent)/sm.achieved(agent,goal) are
+    # intentionality); the query callables sm.wants(agent[,t])/sm.why(action,agent[,t])/sm.achieved(agent,goal[,t]) are
     # bound as attributes at read time (mirroring sm.believes/knows). Additive -- never touches the other
     # dimensions. From the owner-DONE the_situation_model_has_no_goal_intention_dimension (Q111).
     goal_register: Optional[object] = None
@@ -3382,6 +3382,12 @@ class SituationReader:
         except Exception:
             sc = None
         pos = [self._cached_tag(list(t)) for t in sents]
+        # pri 135 (lever 2): a goal's THEME is an ARGUMENT of its infinitival predicate, so the extractor is
+        # handed the SAME per-read parse the purpose filter already reads (memoized -> no extra parse) and
+        # binds the theme with the SAME organ that binds every event's patient. Only a sentence containing a
+        # "to VERB" can bear a goal at all, so the other ~75-90% stay unparsed exactly as before.
+        heads_by_sent = [(self._cached_parse_heads(list(t), pos[i]) if self._has_to_verb(t, pos[i]) else None)
+                         for i, t in enumerate(sents)]
         deprels_by_sent = None
         if self.goal_purpose_filter:
             # pri 129: the purpose verdict comes from the Competition-Model organ's PURPOSE arm, not a frozen
@@ -3389,10 +3395,11 @@ class SituationReader:
             # "to VERB" can never reach GR.extract_goals_sentence branch (3), so skipping it is byte-identical
             # and the arm is not run on the ~75-90% of prose sentences that cannot use it.
             deprels_by_sent = [
-                (self._purpose_deprels(list(t), pos[i], self._cached_parse_heads(list(t), pos[i]))
-                 if self._has_to_verb(t, pos[i]) else None)
+                (self._purpose_deprels(list(t), pos[i], dict(heads_by_sent[i]))
+                 if heads_by_sent[i] is not None else None)
                 for i, t in enumerate(sents)]
-        goals = GR.extract_goals(sents, pos, subcat=sc, deprels_by_sent=deprels_by_sent)
+        goals = GR.extract_goals(sents, pos, subcat=sc, deprels_by_sent=deprels_by_sent,
+                                 heads_by_sent=heads_by_sent)
         canon, _names = GR.make_canonicalizer(sm, commonnoun_canonical=self.commonnoun_canonical)
         GR.passive_agent_guard(goals, sm, sents, pos)
         GR.bind_agents(goals, canon)
@@ -3407,12 +3414,18 @@ class SituationReader:
             _sm = self._structured_matcher() if self.affect_structured_matcher else None
             GR.track_status_thwart(goals, sm.events, sents=sents, canon=canon, matcher=_sm)
         else:
-            GR.track_status(goals, sm.events)
+            # canon is passed here too (pri 135): the goal THEME is compared as an ENTITY through the
+            # reader OWN files, which is part of the satisfaction rule, not an optional generalization.
+            GR.track_status(goals, sm.events, canon=canon)
         reg = GR.GoalRegister(goals)
         sm.goal_register = reg
-        sm.wants = lambda agent: reg.wants(agent)
-        sm.why = lambda action_head, agent=None: reg.why(action_head, agent)
-        sm.achieved = lambda agent, goal_head: reg.achieved(agent, goal_head)
+        # pri 135 R04: every goal query accepts the story time `t` (a sentence index) and reads ONLY goals
+        # stated at or before t, with each status taken AS OF t. t=None (every incumbent caller) is the
+        # whole-passage read, byte-identical to before.
+        sm.wants = lambda agent, t=None: reg.wants(agent, t)
+        sm.why = lambda action_head, agent=None, t=None, with_provenance=False: reg.why(
+            action_head, agent, t, with_provenance=with_provenance)
+        sm.achieved = lambda agent, goal_head, t=None: reg.achieved(agent, goal_head, t)
         # GOAL->SUBGOAL HIERARCHY GRAPH (owner-DONE build_the_goal_subgoal_hierarchy_graph_for_plot_structure_
         # comprehension, 2026-09-05, Q111): compose the flat register's goals + the reader's causal network into
         # an explicit goal->subgoal graph, exposing the plot-structure readouts the FLAT register STRUCTURALLY
@@ -3498,14 +3511,22 @@ class SituationReader:
                 return agent_aliases[0] if agent_aliases else None
             return agent_aliases
 
-        def _desired_value(agent, fact):
-            """The value the agent WANTS F to have, from the LIVE goal register (dmPFC): the fact's value_vocab
-            token named in the agent's current goal text (sm.wants). None if the goal names no candidate value."""
+        def _desired_value(agent, fact, t=None):
+            """The value the agent WANTS F to have, from the LIVE goal register (dmPFC): the fact value_vocab
+            token named in the agent current goal text (sm.wants). None if the goal names no candidate value.
+
+            pri 135 R04: the DESIRE is read AS OF t, the same time the belief is read at -- an action
+            predicted for time t may not be conditioned on a goal the agent states later in the document."""
             wants = getattr(sm, "wants", None)
             if wants is None or agent is None:
                 return None
             try:
-                g = wants(agent)
+                g = wants(agent, t) if t is not None else wants(agent)
+            except TypeError:
+                try:
+                    g = wants(agent)
+                except Exception:
+                    g = None
             except Exception:
                 g = None
             gt = (getattr(g, "goal_text", None) or "") if g is not None else ""
@@ -3528,7 +3549,7 @@ class SituationReader:
         def predict_action(agent_aliases, fact, t, desired=None):
             believed = _believed_value(agent_aliases, fact, t)
             if desired is None:
-                desired = _desired_value(_agent0(agent_aliases), fact)
+                desired = _desired_value(_agent0(agent_aliases), fact, t)      # pri 135 R04: desire as of t
             return TOM.compose_action(believed, desired)
 
         def will_act_on(agent_aliases, fact, t, desired=None):
@@ -3538,7 +3559,7 @@ class SituationReader:
             """INVERSE (Baker 2017): the belief value the observed action implies given the desire. FETCH -> the
             OTHER candidate value of the (binary) fact, read off value_vocab."""
             if desired is None:
-                desired = _desired_value(_agent0(agent_aliases), fact)
+                desired = _desired_value(_agent0(agent_aliases), fact, t)      # pri 135 R04: desire as of t
             other = None
             vocab = list((fact or {}).get("value_vocab") or [])
             if desired is not None:
@@ -3900,21 +3921,33 @@ class SituationReader:
                 toks.extend(str(tok).lower() for tok in s)
             return GEK.lemmatize(" ".join(toks))
 
-        def _goal_lemmas():
-            """The agents' OPEN goal text lemmas, read off the LIVE goal register (sm.wants). [] when track_goals
-            is off / no goal fired -- the projection then falls back to the GEK content cue alone (graceful)."""
+        def _goal_lemmas(t=None):
+            """The agents OPEN goal text lemmas, read off the LIVE goal register (sm.wants). [] when track_goals
+            is off / no goal fired -- the projection then falls back to the GEK content cue alone (graceful).
+
+            pri 135 R04: `t` BOUNDS the whole read the way `_passage_lemmas` already bounds the context -- the
+            agent population comes from events at or before t, and each agent goal is read AS OF t. Without
+            this a t-limited prediction was conditioned on goals stated LATER in the document (the reproduced
+            leak: prefix goal evidence [] vs full-document [buy, yacht] for identical passage context)."""
             wants = getattr(sm, "wants", None)
             if wants is None:
                 return []
             agents = set()
             for e in sm.events:
+                if t is not None and getattr(e, "sent_idx", 0) > t:
+                    continue
                 a = str(getattr(e, "agent", "")).lower()
                 if a and a not in ("?", ""):
                     agents.add(a)
             spans = []
             for ag in sorted(agents):
                 try:
-                    g = wants(ag)
+                    g = wants(ag, t) if t is not None else wants(ag)
+                except TypeError:
+                    try:
+                        g = wants(ag)
+                    except Exception:
+                        g = None
                 except Exception:
                     g = None
                 gt = (getattr(g, "goal_text", None) or "") if g is not None else ""
@@ -3930,7 +3963,7 @@ class SituationReader:
             if candidates is not None:
                 bags = [GEK.lemmatize(c) if isinstance(c, str) else [str(x).lower() for x in c]
                         for c in candidates]
-                fp = org.project(ctx, _goal_lemmas(), bags, gain=gain)
+                fp = org.project(ctx, _goal_lemmas(t), bags, gain=gain)
                 if fp is not None:
                     fp.candidates = [str(c) for c in candidates]
                 sm.forward_prediction = fp

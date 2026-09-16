@@ -429,3 +429,5 @@ organ is not live for arbitrary verbs and a partial map under-closes silently; (
 the goal graph (1 of 212) -- a key-design change in another organ's file; (4) turning the structured type store
 on by default -- it recovers 1 OCC item, but that default belongs to the flag's owner, and my diff simply
 consults the matcher whenever the reader already passes one.
+
+INTEGRATED_BY_STRATEGY 2026-09-16 16:45 local -- DONE by strategy: the 22-hunk register diff APPLIED, then goal_hierarchy_consolidation_patch.diff (4 hunks); reverify on the landed tree: test_goal_register_constraints_are_binding (W6 flipped), --run --n 400, test_occ_appraisal_landing L2b re-pinned to the claim (sat10/sat12 named) and L5's wording amended, test_goal_register_landing_organ; the product board (pri135a byte-identical on every row; the where-is row on the board).
