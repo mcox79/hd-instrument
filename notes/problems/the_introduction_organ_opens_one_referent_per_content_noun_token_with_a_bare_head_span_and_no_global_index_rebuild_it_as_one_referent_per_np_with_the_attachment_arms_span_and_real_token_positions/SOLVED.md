@@ -409,7 +409,34 @@ is the only new computation and no organ on the map computes it; `np_head_reduce
 (reduce a span to its head) and is kept and fed rather than duplicated -- and it is now largely redundant,
 which is filed as next step 5.
 
-## 15. SECTIONS TO COME
+## 15. THE CHAIN, RUNG BY RUNG -- WHAT WAS CRACKED AND WHAT WAS NOT
+
+**CRACKED (with the number):**
+1. **The introduction rung itself.** One referent per NOUN PHRASE, from the reader's own two organs, with the
+   canonical schema and real global positions -- witness [1]-[4], [10]. 1.27 referents per phrase -> 1.00.
+2. **The determiner on the card.** 0 mentions readable for definiteness -> ~30-46% depending on the boundary
+   arm (section 3), and `lexical_utils.definiteness` / `modifiers` / `coref.mention_span` stop returning
+   degenerate values (witness [2], [3b], [10b]).
+3. **The goal register's owner, and through it the inferred-emotion arm.** 0.6400 -> 0.9000 on 50 items,
+   CI-separated, 13 fixed / 0 broken, mechanism counted (section 10.1). **This is the rung cracked to the
+   top: boundary -> object file -> goal owner -> appraisal.**
+4. **The crosstype bridge's definite-description gate.** 0 -> 3 binds on 4 documents (section 6); the gate
+   reads the mention's FIRST token and could never see an article before.
+5. **Heim's criterion, located and repaired.** From landed-and-inert to live, with the shift re-learned the
+   way inference reads it (section 4, section 10.2).
+6. **Two consumer defects that the degenerate span was hiding**: `coref.ent_at_pos` (Principle B's
+   clause-mate ban, keyed on the span start) and the six `situation_reader` head-index sites.
+
+**NOT CRACKED, and I am naming them rather than dressing them up:**
+* **The boundary is not yet PLASTIC.** It is parameter-free but its FORM is fixed; the standing discipline
+  wants a learned cue competition with an online outcome signal (next step 2).
+* **Nested gold mentions are given up by the collapse** (next step 4 / section 7's nested-cards path).
+* **The graded boundary bought nothing measurable** (+0.0394 vs +0.0429 on TRAIN) -- the hard arc and the
+  graded MAP agree on almost every NP-internal token.
+* **The board's own entity-set scorer is not repaired by this diff** (it is an experiment file); without the
+  one-line alignment fix the board row would align on determiners (next step 1).
+
+## 16. SECTIONS TO COME
 
 (2) the measured result; (3) the signal-loss trace with counts; (4) the quality push; (5) the verdict
 check; (6) alternate paths and next steps.
