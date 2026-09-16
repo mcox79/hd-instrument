@@ -33,6 +33,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import subprocess
 import sys
@@ -190,7 +191,8 @@ def build_changes(record: dict, when: datetime) -> list[Change]:
     # 1. INTEGRATION_LEDGER.md -- append one pipe-table row at EOF.
     ledger = record["ledger"]
     ledger_row = "| %s %s local | %s | %s | %s |" % (
-        date_iso, time_hm, ledger["text"], ledger.get("status", ""), ledger.get("leads", ""),
+        date_iso, time_hm, ledger["text"] + record.get("_sealed_fragment", ""),
+        ledger.get("status", ""), ledger.get("leads", ""),
     )
     changes.append(Change(
         "notes/INTEGRATION_LEDGER.md",
@@ -299,6 +301,85 @@ def is_temp_mode(repo: Path) -> bool:
     return repo.resolve() != repo_root().resolve()
 
 
+# --------------------------------------------------------------------------------------------
+# pri 126: THE SEALED MODERN HOLDOUT, READ ONCE PER LANDING.
+#
+# A landing is a commit that changes the reader's path, and the seal's budget is ONE read per landing.
+# The read happens BEFORE the ledger row is built (so the sealed numbers can go INTO it) and before any
+# commit; a second read at the SAME HEAD is REFUSED and the existing record is reused, so re-running
+# tools/land.py cannot spend the seal twice.
+# --------------------------------------------------------------------------------------------
+SEALED_CELL = "experiments/exp_sealed_modern_holdout_v1.py"
+SEALED_LANDINGS = "data/exp_sealed_modern_holdout_v1/board_landings.jsonl"
+
+
+def _git_head(repo: Path) -> str:
+    proc = subprocess.run(["git", "rev-parse", "HEAD"], cwd=str(repo), capture_output=True, text=True)
+    return proc.stdout.strip() if proc.returncode == 0 else ""
+
+
+def sealed_board_read(repo: Path, record: dict) -> Optional[dict]:
+    """Run the sealed holdout board arm ONCE for this HEAD. Returns the landing record, or None when the
+    instrument is not on this tree. Raises if the read fails -- a landing must not be recorded against an
+    unmeasured seal."""
+    cell = repo / SEALED_CELL
+    if not cell.is_file():
+        print("[land] sealed holdout instrument not on this tree -- skipping the sealed read")
+        return None
+    head = _git_head(repo)
+    lp = repo / SEALED_LANDINGS
+    if lp.is_file() and head:
+        for line in lp.read_text(encoding="utf-8").splitlines():
+            try:
+                rec = json.loads(line)
+            except ValueError:
+                continue
+            if rec.get("head_sha") == head:
+                print("[land] the sealed holdout was ALREADY read at HEAD %s -- REFUSING a second read; "
+                      "reusing that record (a holdout is read once per landing)" % head[:9])
+                return rec
+    env = dict(os.environ)
+    env.update({"OMP_NUM_THREADS": "2", "OPENBLAS_NUM_THREADS": "2", "MKL_NUM_THREADS": "2",
+                "PYTHONHASHSEED": "0"})
+    print("[land] $ %s %s --board   (the sealed read, once for HEAD %s)"
+          % (sys.executable, SEALED_CELL, head[:9] or "?"))
+    proc = subprocess.run([sys.executable, str(cell), "--board"], cwd=str(repo), env=env,
+                          capture_output=True, text=True)
+    sys.stdout.write(proc.stdout[-4000:])
+    if proc.returncode != 0:
+        sys.stderr.write(proc.stderr[-4000:])
+        raise RuntimeError("the sealed holdout board arm failed -- refusing to land against an unmeasured "
+                           "seal. Fix the instrument or re-run with the sealed read disabled deliberately.")
+    if not lp.is_file():
+        raise RuntimeError("the sealed board arm reported success but wrote no landing record at %s"
+                           % SEALED_LANDINGS)
+    lines = lp.read_text(encoding="utf-8").splitlines()
+    rec = json.loads(lines[-1])
+    rec["head_sha"] = head
+    rec.setdefault("state_twin_scorer", "v1")
+    rec["landed_by"] = "tools/land.py"
+    lines[-1] = json.dumps(rec)
+    lp.write_text(chr(10).join(lines) + chr(10), encoding="utf-8", newline=chr(10))
+    return rec
+
+
+def sealed_ledger_fragment(rec: Optional[dict]) -> str:
+    """One sentence for the ledger row: the sealed numbers, each with its own floor and CI verdict."""
+    if not rec:
+        return ""
+    rows = rec.get("rows", {})
+
+    def one(key: str) -> str:
+        r = rows.get(key) or {}
+        return "%s %.4f vs floor %.4f %s" % (
+            key, r.get("model_acc") or 0.0, r.get("strongest_floor") or 0.0,
+            "CI-sep" if r.get("ci_sep_over_strongest") else "NOT CI-sep")
+    return (" SEALED HOLDOUT (%d unread modern documents, raw text, read once at this HEAD; state twin "
+            "scorer %s): %s; %s; %s." % (
+                rec.get("n_documents", 0), rec.get("state_twin_scorer", "v1"),
+                one("who_did_what_agent"), one("who_did_what_patient"), one("state")))
+
+
 def post_owner_update(repo: Path, record: dict) -> None:
     upd = record.get("updates")
     if not upd:
@@ -355,6 +436,11 @@ def main(argv: Optional[list[str]] = None) -> int:
     if record.get("witness_smoke") is not None:
         print("[land] witness_smoke=%r (informational; this tool never runs witnesses or a board)"
               % record["witness_smoke"])
+
+    # pri 126: the sealed read happens BEFORE the ledger row is built, so its numbers land IN the row,
+    # and always before any commit. Skipped in temp mode and on a dry run (neither may spend the seal).
+    if not temp and not args.dry_run and not record.get("skip_sealed_read"):
+        record["_sealed_fragment"] = sealed_ledger_fragment(sealed_board_read(repo, record))
 
     changes = build_changes(record, when)
     result = run_changes(repo, changes, dry_run=args.dry_run)

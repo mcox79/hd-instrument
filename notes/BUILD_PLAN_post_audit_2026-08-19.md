@@ -1,5 +1,7 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🟢 **2026-09-16 (LATEST -- autoloop ARMED): pri 126 LANDED (the sealed holdout reads once per landing; the agent row is below its word-order floor on unseen text -> pri 140). Read notes/STATUS.md first.**
+
 > # 🟢 **2026-09-16 (LATEST -- autoloop ARMED): pri 146 LANDED (the consolidation program's step 0: the walk memoised per reader, 12/12 byte-identical, a third off every read; the per-passage category state on the reader). Landing next in order: 126 (the sealed holdout's twin patch + the land-tool hook) -> 139 (one belief reader + the copular deletion + the mention hand-off after 137's union) -> 140 (the agent competition re-weighed; rebased). PROGRAM: 142 DONE; 143 launches after 140 lands; 144 after 139; 145 after 139; 147/148/149 filed (the gate, the affect hand-off, the memo organ). Read notes/STATUS.md first.**
 
 > # 🟢 **2026-09-16 (LATEST -- autoloop ARMED, overnight): pri 135 LANDED (goal constraints binding) after 137, 136, 134, 127, 133, 131, 129, 128, 125, 122. RUNNING: 138. THEN: 132, 126, 114, 120, 119, 123, 124, 115. Read notes/STATUS.md first.**

@@ -42,6 +42,7 @@ across a passage (right 42 in 100 on he/she/it, honest basis) -- and that second
 | Reasoning on top | IMPROVING | right 24 to 90 in 100 depending on the question | Time, cause, belief and goals. These work well when handed a correct reading of the sentence and slump on real prose, so the wall they hit is the chain below them, not the reasoning itself. Best: how a character feels about an event, 90 in 100. Worst: answering "why" when the cause is several sentences away, 24 in 100. |
 
 ## WHAT MOVED THIS WEEK
+- 2026-09-16 -- Landed: a sealed set of unseen modern documents is read once per landing with a pre-declared scorer; first read: patient and state clearly above their floors, the actor below its word-order floor (a standing defect, brief filed).
 - 2026-09-16 -- Landed: the reader remembers its sense decisions within a page; reads a third faster, answers unchanged to the byte; the next lever (only spread activation when the usual sense is not already a clear winner) is filed.
 - 2026-09-16 -- Landed: goals are called met only for the right person, thing and time (thing right 94 in 100 vs 50; no backward leaks); downstream cost two items in fifty, not separated.
 - 2026-09-16 -- Landed: 'where is Tom now' on the product reader 4 -> 40 in 100 (clearly separated) by keeping the reader's own pronoun decisions at the map hand-off; the named place adds +21; the space reader is one organ.

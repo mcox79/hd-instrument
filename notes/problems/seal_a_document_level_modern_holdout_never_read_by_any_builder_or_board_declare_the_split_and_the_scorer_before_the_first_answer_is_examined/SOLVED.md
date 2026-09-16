@@ -574,3 +574,5 @@ the measured path uses an external tool at inference — no spaCy, no nltk tagge
 The one item worth recording is not a fidelity verdict but a **measurement** one: the audit's fidelity claims
 for the who-did-what rungs have, until now, only ever been checked on splits the project chose against, and
 the first sealed check disagrees with the read-split picture on the agent rung.
+
+INTEGRATED_BY_STRATEGY 2026-09-16 18:53 local -- DONE by strategy: cell + witness + manifest committed by the solver (66f5b1948, 4d6682759); the twin patch and the land-tool hook APPLIED by strategy; reverify: the seal witness 23/23, the hook's dry run, one sealed read recorded in board_landings.jsonl (pri126a byte-identical on every model value; twins repaired; the hook fired at the 146 landing).
