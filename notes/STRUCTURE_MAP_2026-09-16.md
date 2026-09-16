@@ -839,6 +839,35 @@ read**.
 | **BELIEF** (off-board ability) | `_read_belief` | O (`belief_reader`, `belief_timeline`, `perceptual_access_ledger`) | **E (`entity_resolver`)** — a belief is about an ENTITY, so it needs the object-file id | **belief binds nothing: the id spaces are disjoint** | belief; entity set |
 | **AFFECT** (off-board ability) | `_read_affect` | M (`affect_lexicon`), G (`affect_register`), N (`goal_register`), B (`psych_verb_frames`) | **E** for the experiencer bind; **G** for the state | affect **does** read goals — the one dimension that already coordinates, and the template for the rest | affect |
 
+### 8.0 THE COORDINATION LEAD, MEASURED — can the goal register even BE joined to the state register?
+
+The owner's concern names a rule ("a goal should close on a result state"). Before writing that rule, the
+question that bounds it is whether the two registers can **name the same thing at all** — belief already
+fails exactly there (744 negative / 345 positive / **0 shared** entity ids). Measured on ONE live read of
+the same 6 GUM TEST documents (`--coord-probe`, 480 sentences):
+
+| document | sentences | goals held | state tracks (all with a state) | **goal agents that are state keys** | **that HAVE a state** |
+|---|---|---|---|---|---|
+| `GUM_academic_census` | 35 | 2 | 15 | 2 | 2 |
+| `GUM_conversation_family` | 186 | 1 | 15 | 0 | 0 |
+| `GUM_fiction_frankenstein` | 89 | 12 | 7 | 9 | 9 |
+| `GUM_letter_marcie3` | 28 | 2 | 3 | 0 | 0 |
+| `GUM_podcast_multitasking` | 39 | 7 | 18 | 3 | 3 |
+| `GUM_vlog_mermaid` | 103 | 2 | 16 | 2 | 2 |
+| **total** | **480** | **26** | **74** | **16** | **16** |
+
+**The answer is better than belief's and it is bounded: 16 of 26 goals (62%) already have an agent the state
+register holds a state for.** The join is buildable today for those, on the surface agent head; the other
+**10 of 26 (38%) cannot be joined at all** until the one entity id space lands (pri 132 / 144). And every one
+of the 74 state tracks carries at least one state, so the state side is not empty — the two registers are
+sitting next to each other in the same read with a 62% key overlap and **no wire between them**.
+
+**Two honest caveats.** (a) The overlap is measured on the agent's *surface head string*, which is what
+`goal_register` keys on; a shared object-file id would be stricter and could be lower or higher. (b) The
+goal population on six GUM documents is **26**, not pri 135's 212 — that brief's population is larger and
+differently drawn, so 62% is this sample's number and pri 144's opening measurement should recompute it on
+pri 135's own items.
+
 ### 8.1 THE 23 DEFAULT-ON DIMENSIONS, AND WHICH ROW SCORES EACH (pri 139 mapped 10; here are all 23)
 
 The brief says "23 default-ON `track_*`". The disk says **17 literal `track_*` flags default-ON, 1 OFF
@@ -923,7 +952,7 @@ id space.
 
 | task | structure it does not read | the number that bounds the gain |
 |---|---|---|
-| **goals** | `state_register`'s result state | pri 135's population: **212 goals**. Today closure = predicate + agent match in a later sentence; the object/theme is ignored ("buy bread" is satisfied by "bought milk"). The bound is the share of those 212 whose closing event carries a result state the state register already holds — **unmeasured, and cheap to measure** (§10). |
+| **goals** | `state_register`'s result state | **MEASURED (§8.0): 16 of 26 goals (62%) on 6 GUM documents already have an agent the state register holds a state for; 10 (38%) cannot be joined until the one id space lands.** Today closure = predicate + agent match in a later sentence; the object/theme is ignored ("buy bread" is satisfied by "bought milk"). |
 | **pronoun coref** (the scored row) | the event-model FOREGROUND, which `affected_entity_resolver` already computes | the foreground is worth **+0.0084 alone and CI-separated in combination** on the affected-entity population (`BRAIN_MATH_REFERENCE` §A), with the window-scramble twin collapsing to 0.216. The coref row does not read it. |
 | **who-did-what patient** | `generalized_event_knowledge`'s joint P(patient-kind｜agent, verb) | PINNED as joint; the marginal stand-ins were **REFUTED-AS-BUILT** (−0.045…−0.118 CI-sep when fused over 18 candidates). The bound is the in-focus top-3 ceiling: **0.753 vs 0.540 today** on THIRD pronouns. |
 | **where-is** | the competition engine | the row is **59 in 100** against a simple rule at 52. A first-match scan cannot express "two grounds compete". |
@@ -989,9 +1018,10 @@ re-read from code first.**
   saved); for `GUM_academic_census` the reader's own plasticity makes an identity claim unavailable, and the
   39% there is reported as a timing, not as a certified equivalence. **The saving is demonstrated; its
   universality is not.** A landing brief needs the plastic case.
-- **The goal↔state coordination gain is sized by its population (212 goals), not by a run.** Measuring it
-  needs the goal register and the state register in one process with a shared id — which is pri 144's first
-  deliverable, so it is correctly that brief's opening measurement, not this map's.
+- **The goal↔state coordination is measured as a KEY OVERLAP (62% of 26 goals), not as an accuracy gain.**
+  §8.0 establishes that the join is buildable for most goals today; it does **not** establish what closing a
+  goal on a result state would be worth on any scored item, because that needs the rule written and run —
+  pri 144's first deliverable. The population here is 26 goals on 6 documents, not pri 135's 212.
 - **Only the `annotated` input contract was profiled.** The text-only contract (pri 125's honest product
   path) will spend more in pronoun discovery and less in mention parsing; the ranking is unlikely to move
   because item 1 is 60.6% and item 2 is 16.8%.

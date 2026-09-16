@@ -1,0 +1,1202 @@
+{
+  "anchor": "exp_structure_map_cost_v1",
+  "seed": 20260916,
+  "mode": "annotated",
+  "corpus": "GUM modern TEST split (odd document index), evenly spaced across genres",
+  "n_documents": 6,
+  "n_sentences": 480,
+  "warm_read_s": 48.1593,
+  "total_profiled_wall_s": 337.4119,
+  "total_self_s": 337.386,
+  "s_per_document": 56.2353,
+  "s_per_sentence": 0.70294,
+  "profiler_overhead_note": "cProfile inflates absolute wall time; the SHARES and the RANKING are what the consolidation list uses, and the unprofiled repeat time is reported per document as the honest wall clock.",
+  "contention_check": {
+    "per_document": [
+      {
+        "docid": "GUM_academic_census",
+        "n_sentences": 35,
+        "profiled_s": 63.07408740000392,
+        "repeat_s": 48.90602700000454,
+        "repeat_ratio": 0.7753743100530616
+      },
+      {
+        "docid": "GUM_conversation_family",
+        "n_sentences": 186,
+        "profiled_s": 54.713615199987544,
+        "repeat_s": 44.46571970000514,
+        "repeat_ratio": 0.8126993534877085
+      },
+      {
+        "docid": "GUM_fiction_frankenstein",
+        "n_sentences": 89,
+        "profiled_s": 75.71553139999742,
+        "repeat_s": 60.653518299994175,
+        "repeat_ratio": 0.8010710243789724
+      },
+      {
+        "docid": "GUM_letter_marcie3",
+        "n_sentences": 28,
+        "profiled_s": 15.126826699997764,
+        "repeat_s": 11.793381700001191,
+        "repeat_ratio": 0.7796335565874457
+      },
+      {
+        "docid": "GUM_podcast_multitasking",
+        "n_sentences": 39,
+        "profiled_s": 71.68311779999931,
+        "repeat_s": 58.1302668999997,
+        "repeat_ratio": 0.810933852824134
+      },
+      {
+        "docid": "GUM_vlog_mermaid",
+        "n_sentences": 103,
+        "profiled_s": 57.09869790000084,
+        "repeat_s": 44.41515559999971,
+        "repeat_ratio": 0.7778663478068394
+      }
+    ],
+    "unstable_documents": [],
+    "plain": "each document is read a second time in the same process; a ratio far from 1 means the laptop was busy and that row is not used"
+  },
+  "cost_table": [
+    {
+      "module": "<builtin>",
+      "self_s": 222.2236,
+      "share_of_self": 0.6587,
+      "calls": 22524790,
+      "s_per_doc": 37.0373
+    },
+    {
+      "module": "hdlab.lexical_categories",
+      "self_s": 20.0803,
+      "share_of_self": 0.0595,
+      "calls": 1101469,
+      "s_per_doc": 3.3467
+    },
+    {
+      "module": "hdlab.attachment_arm",
+      "self_s": 17.4789,
+      "share_of_self": 0.0518,
+      "calls": 1900991,
+      "s_per_doc": 2.9132
+    },
+    {
+      "module": "hdlab.grounded_semantic_graph",
+      "self_s": 14.8261,
+      "share_of_self": 0.0439,
+      "calls": 2591,
+      "s_per_doc": 2.471
+    },
+    {
+      "module": "hdlab.lexicon_foundation",
+      "self_s": 13.4415,
+      "share_of_self": 0.0398,
+      "calls": 6455629,
+      "s_per_doc": 2.2402
+    },
+    {
+      "module": "hdlab.graded_role_assigner",
+      "self_s": 6.1915,
+      "share_of_self": 0.0184,
+      "calls": 790891,
+      "s_per_doc": 1.0319
+    },
+    {
+      "module": "hdlab.morphology",
+      "self_s": 4.9671,
+      "share_of_self": 0.0147,
+      "calls": 1075331,
+      "s_per_doc": 0.8278
+    },
+    {
+      "module": "hdlab.entity_resolver",
+      "self_s": 4.5318,
+      "share_of_self": 0.0134,
+      "calls": 1463047,
+      "s_per_doc": 0.7553
+    },
+    {
+      "module": "hdlab.typed_spokes",
+      "self_s": 4.1834,
+      "share_of_self": 0.0124,
+      "calls": 1845195,
+      "s_per_doc": 0.6972
+    },
+    {
+      "module": "hdlab.graded_competition",
+      "self_s": 4.0633,
+      "share_of_self": 0.012,
+      "calls": 28708,
+      "s_per_doc": 0.6772
+    },
+    {
+      "module": "hdlab.conceptual_meaning",
+      "self_s": 3.985,
+      "share_of_self": 0.0118,
+      "calls": 4167130,
+      "s_per_doc": 0.6642
+    },
+    {
+      "module": "<3rd-party:numpy>",
+      "self_s": 2.5001,
+      "share_of_self": 0.0074,
+      "calls": 539008,
+      "s_per_doc": 0.4167
+    },
+    {
+      "module": "<stdlib/other>",
+      "self_s": 2.4431,
+      "share_of_self": 0.0072,
+      "calls": 1328529,
+      "s_per_doc": 0.4072
+    },
+    {
+      "module": "<3rd-party:scipy>",
+      "self_s": 1.7958,
+      "share_of_self": 0.0053,
+      "calls": 221760,
+      "s_per_doc": 0.2993
+    },
+    {
+      "module": "hdlab.situation_reader",
+      "self_s": 1.6492,
+      "share_of_self": 0.0049,
+      "calls": 101664,
+      "s_per_doc": 0.2749
+    },
+    {
+      "module": "hdlab.hippocampal_encoder",
+      "self_s": 1.6074,
+      "share_of_self": 0.0048,
+      "calls": 953,
+      "s_per_doc": 0.2679
+    },
+    {
+      "module": "hdlab.predicate_detector",
+      "self_s": 1.43,
+      "share_of_self": 0.0042,
+      "calls": 292968,
+      "s_per_doc": 0.2383
+    },
+    {
+      "module": "hdlab.salience_binder",
+      "self_s": 1.3827,
+      "share_of_self": 0.0041,
+      "calls": 407688,
+      "s_per_doc": 0.2304
+    },
+    {
+      "module": "hdlab.thematic_role_labeler",
+      "self_s": 1.3618,
+      "share_of_self": 0.004,
+      "calls": 173554,
+      "s_per_doc": 0.227
+    },
+    {
+      "module": "hdlab.role_slot_summarizer",
+      "self_s": 1.0343,
+      "share_of_self": 0.0031,
+      "calls": 8722,
+      "s_per_doc": 0.1724
+    },
+    {
+      "module": "hdlab.coref",
+      "self_s": 0.6538,
+      "share_of_self": 0.0019,
+      "calls": 77989,
+      "s_per_doc": 0.109
+    },
+    {
+      "module": "hdlab.affected_entity_resolver",
+      "self_s": 0.5568,
+      "share_of_self": 0.0017,
+      "calls": 152591,
+      "s_per_doc": 0.0928
+    },
+    {
+      "module": "hdlab.animacy_lexicon",
+      "self_s": 0.4498,
+      "share_of_self": 0.0013,
+      "calls": 30775,
+      "s_per_doc": 0.075
+    },
+    {
+      "module": "hdlab.event_bundle",
+      "self_s": 0.4096,
+      "share_of_self": 0.0012,
+      "calls": 9483,
+      "s_per_doc": 0.0683
+    },
+    {
+      "module": "hdlab.predicate_argument_frontend",
+      "self_s": 0.3666,
+      "share_of_self": 0.0011,
+      "calls": 51795,
+      "s_per_doc": 0.0611
+    },
+    {
+      "module": "hdlab.polarity_operator",
+      "self_s": 0.3618,
+      "share_of_self": 0.0011,
+      "calls": 96872,
+      "s_per_doc": 0.0603
+    },
+    {
+      "module": "hdlab.situation_focus",
+      "self_s": 0.3338,
+      "share_of_self": 0.001,
+      "calls": 5622,
+      "s_per_doc": 0.0556
+    },
+    {
+      "module": "hdlab.bound_event_backbone",
+      "self_s": 0.3137,
+      "share_of_self": 0.0009,
+      "calls": 18358,
+      "s_per_doc": 0.0523
+    },
+    {
+      "module": "hdlab.space_reader",
+      "self_s": 0.2509,
+      "share_of_self": 0.0007,
+      "calls": 28933,
+      "s_per_doc": 0.0418
+    },
+    {
+      "module": "hdlab.force_dynamics_valence",
+      "self_s": 0.2301,
+      "share_of_self": 0.0007,
+      "calls": 15327,
+      "s_per_doc": 0.0383
+    },
+    {
+      "module": "hdlab.goal_register",
+      "self_s": 0.2103,
+      "share_of_self": 0.0006,
+      "calls": 37505,
+      "s_per_doc": 0.0351
+    },
+    {
+      "module": "hdlab.crosstype_live_adapter",
+      "self_s": 0.1607,
+      "share_of_self": 0.0005,
+      "calls": 5986,
+      "s_per_doc": 0.0268
+    },
+    {
+      "module": "hdlab.relcl_resolver",
+      "self_s": 0.1605,
+      "share_of_self": 0.0005,
+      "calls": 33433,
+      "s_per_doc": 0.0268
+    },
+    {
+      "module": "hdlab.scene_segment",
+      "self_s": 0.1529,
+      "share_of_self": 0.0005,
+      "calls": 24,
+      "s_per_doc": 0.0255
+    },
+    {
+      "module": "hdlab.binding",
+      "self_s": 0.1308,
+      "share_of_self": 0.0004,
+      "calls": 3515,
+      "s_per_doc": 0.0218
+    },
+    {
+      "module": "hdlab.lexical_utils",
+      "self_s": 0.1254,
+      "share_of_self": 0.0004,
+      "calls": 21478,
+      "s_per_doc": 0.0209
+    },
+    {
+      "module": "hdlab.predictive_reader",
+      "self_s": 0.1247,
+      "share_of_self": 0.0004,
+      "calls": 7260,
+      "s_per_doc": 0.0208
+    },
+    {
+      "module": "hdlab.incremental_parser",
+      "self_s": 0.0987,
+      "share_of_self": 0.0003,
+      "calls": 6376,
+      "s_per_doc": 0.0164
+    },
+    {
+      "module": "hdlab.referent_per_np",
+      "self_s": 0.0967,
+      "share_of_self": 0.0003,
+      "calls": 9407,
+      "s_per_doc": 0.0161
+    },
+    {
+      "module": "hdlab.frontend",
+      "self_s": 0.0853,
+      "share_of_self": 0.0003,
+      "calls": 9450,
+      "s_per_doc": 0.0142
+    },
+    {
+      "module": "hdlab.crosstype_bridge",
+      "self_s": 0.0847,
+      "share_of_self": 0.0003,
+      "calls": 14051,
+      "s_per_doc": 0.0141
+    },
+    {
+      "module": "hdlab.temporal_model",
+      "self_s": 0.0819,
+      "share_of_self": 0.0002,
+      "calls": 2108,
+      "s_per_doc": 0.0137
+    },
+    {
+      "module": "hdlab.tense_preserving_detector",
+      "self_s": 0.0783,
+      "share_of_self": 0.0002,
+      "calls": 14702,
+      "s_per_doc": 0.013
+    },
+    {
+      "module": "hdlab.state_of_mind",
+      "self_s": 0.0768,
+      "share_of_self": 0.0002,
+      "calls": 37862,
+      "s_per_doc": 0.0128
+    },
+    {
+      "module": "hdlab.affect_lexicon",
+      "self_s": 0.0652,
+      "share_of_self": 0.0002,
+      "calls": 17207,
+      "s_per_doc": 0.0109
+    },
+    {
+      "module": "hdlab.context_grounded_valence",
+      "self_s": 0.062,
+      "share_of_self": 0.0002,
+      "calls": 2866,
+      "s_per_doc": 0.0103
+    },
+    {
+      "module": "hdlab.situation_model_accumulate",
+      "self_s": 0.0614,
+      "share_of_self": 0.0002,
+      "calls": 760,
+      "s_per_doc": 0.0102
+    },
+    {
+      "module": "hdlab.copular_binding",
+      "self_s": 0.0594,
+      "share_of_self": 0.0002,
+      "calls": 1871,
+      "s_per_doc": 0.0099
+    },
+    {
+      "module": "hdlab.typed_selectional_preference",
+      "self_s": 0.0591,
+      "share_of_self": 0.0002,
+      "calls": 14097,
+      "s_per_doc": 0.0099
+    },
+    {
+      "module": "hdlab.affect_register",
+      "self_s": 0.0583,
+      "share_of_self": 0.0002,
+      "calls": 875,
+      "s_per_doc": 0.0097
+    },
+    {
+      "module": "hdlab.frame_induction",
+      "self_s": 0.0547,
+      "share_of_self": 0.0002,
+      "calls": 9232,
+      "s_per_doc": 0.0091
+    },
+    {
+      "module": "hdlab.n400_coherence_monitor",
+      "self_s": 0.0431,
+      "share_of_self": 0.0001,
+      "calls": 1840,
+      "s_per_doc": 0.0072
+    },
+    {
+      "module": "hdlab.patient_tendency",
+      "self_s": 0.0312,
+      "share_of_self": 0.0001,
+      "calls": 4291,
+      "s_per_doc": 0.0052
+    },
+    {
+      "module": "hdlab.verb_subcat",
+      "self_s": 0.0141,
+      "share_of_self": 0.0,
+      "calls": 4440,
+      "s_per_doc": 0.0023
+    },
+    {
+      "module": "hdlab.state_register",
+      "self_s": 0.0138,
+      "share_of_self": 0.0,
+      "calls": 1509,
+      "s_per_doc": 0.0023
+    },
+    {
+      "module": "hdlab.goal_hierarchy_graph",
+      "self_s": 0.0104,
+      "share_of_self": 0.0,
+      "calls": 1358,
+      "s_per_doc": 0.0017
+    },
+    {
+      "module": "hdlab.learner.plugins.ruleind_plugin",
+      "self_s": 0.0103,
+      "share_of_self": 0.0,
+      "calls": 337,
+      "s_per_doc": 0.0017
+    },
+    {
+      "module": "hdlab.grounded_similarity",
+      "self_s": 0.01,
+      "share_of_self": 0.0,
+      "calls": 2867,
+      "s_per_doc": 0.0017
+    },
+    {
+      "module": "hdlab.world_state_register",
+      "self_s": 0.0097,
+      "share_of_self": 0.0,
+      "calls": 2886,
+      "s_per_doc": 0.0016
+    },
+    {
+      "module": "hdlab.psych_verb_frames",
+      "self_s": 0.0094,
+      "share_of_self": 0.0,
+      "calls": 1567,
+      "s_per_doc": 0.0016
+    }
+  ],
+  "top_functions_by_cumulative": [
+    {
+      "module": "experiments.exp_structure_map_cost_v1",
+      "func": "_timed_read",
+      "line": 164,
+      "ncalls": 6,
+      "tottime": 0.0001,
+      "cumtime": 337.4119
+    },
+    {
+      "module": "experiments.exp_structure_map_cost_v1",
+      "func": "_one_read",
+      "line": 158,
+      "ncalls": 6,
+      "tottime": 0.0061,
+      "cumtime": 337.4118
+    },
+    {
+      "module": "hdlab.situation_reader",
+      "func": "read",
+      "line": 4786,
+      "ncalls": 6,
+      "tottime": 0.1434,
+      "cumtime": 337.4042
+    },
+    {
+      "module": "hdlab.situation_reader",
+      "func": "_read_events",
+      "line": 2382,
+      "ncalls": 6,
+      "tottime": 0.0006,
+      "cumtime": 236.1986
+    },
+    {
+      "module": "hdlab.situation_reader",
+      "func": "_read_events_wired",
+      "line": 2715,
+      "ncalls": 6,
+      "tottime": 0.1751,
+      "cumtime": 236.198
+    },
+    {
+      "module": "hdlab.situation_reader",
+      "func": "_assign_affect",
+      "line": 940,
+      "ncalls": 917,
+      "tottime": 0.0173,
+      "cumtime": 219.937
+    },
+    {
+      "module": "hdlab.context_grounded_valence",
+      "func": "score_context_grounded_valence_pretagged",
+      "line": 253,
+      "ncalls": 612,
+      "tottime": 0.0233,
+      "cumtime": 212.562
+    },
+    {
+      "module": "hdlab.context_grounded_valence",
+      "func": "score_item",
+      "line": 173,
+      "ncalls": 612,
+      "tottime": 0.0222,
+      "cumtime": 212.5139
+    },
+    {
+      "module": "hdlab.force_dynamics_valence",
+      "func": "force_dynamics_event_type",
+      "line": 813,
+      "ncalls": 612,
+      "tottime": 0.0364,
+      "cumtime": 212.2416
+    },
+    {
+      "module": "hdlab.grounded_semantic_graph",
+      "func": "_sense_ppr",
+      "line": 218,
+      "ncalls": 672,
+      "tottime": 0.4195,
+      "cumtime": 208.329
+    },
+    {
+      "module": "hdlab.grounded_semantic_graph",
+      "func": "_ppr",
+      "line": 88,
+      "ncalls": 672,
+      "tottime": 14.2847,
+      "cumtime": 204.5057
+    },
+    {
+      "module": "<3rd-party:scipy>",
+      "func": "__matmul__",
+      "line": 919,
+      "ncalls": 20160,
+      "tottime": 0.1819,
+      "cumtime": 189.9953
+    },
+    {
+      "module": "<3rd-party:scipy>",
+      "func": "_matmul_dispatch",
+      "line": 788,
+      "ncalls": 20160,
+      "tottime": 0.2403,
+      "cumtime": 188.7213
+    },
+    {
+      "module": "<3rd-party:scipy>",
+      "func": "_matmul_vector",
+      "line": 387,
+      "ncalls": 20160,
+      "tottime": 0.6395,
+      "cumtime": 188.4214
+    },
+    {
+      "module": "<builtin>",
+      "func": "<built-in method scipy.sparse._sparsetools.csr_matvec>",
+      "line": 0,
+      "ncalls": 20160,
+      "tottime": 184.8063,
+      "cumtime": 184.8063
+    },
+    {
+      "module": "hdlab.force_dynamics_valence",
+      "func": "context_sense_sign",
+      "line": 718,
+      "ncalls": 441,
+      "tottime": 0.032,
+      "cumtime": 126.1529
+    },
+    {
+      "module": "hdlab.grounded_semantic_graph",
+      "func": "select_sense_blended",
+      "line": 405,
+      "ncalls": 437,
+      "tottime": 0.0235,
+      "cumtime": 125.9797
+    },
+    {
+      "module": "hdlab.force_dynamics_valence",
+      "func": "sense_posterior_in_context",
+      "line": 688,
+      "ncalls": 447,
+      "tottime": 0.0925,
+      "cumtime": 83.5691
+    },
+    {
+      "module": "hdlab.lexical_categories",
+      "func": "posterior",
+      "line": 1270,
+      "ncalls": 952,
+      "tottime": 0.388,
+      "cumtime": 25.6456
+    },
+    {
+      "module": "hdlab.crosstype_live_adapter",
+      "func": "merge_crosstype_bridge",
+      "line": 291,
+      "ncalls": 6,
+      "tottime": 0.002,
+      "cumtime": 24.94
+    },
+    {
+      "module": "hdlab.crosstype_live_adapter",
+      "func": "build_gold_free_doc",
+      "line": 258,
+      "ncalls": 6,
+      "tottime": 0.0095,
+      "cumtime": 23.7014
+    },
+    {
+      "module": "hdlab.crosstype_live_adapter",
+      "func": "_build_toks",
+      "line": 161,
+      "ncalls": 6,
+      "tottime": 0.0405,
+      "cumtime": 23.5845
+    },
+    {
+      "module": "hdlab.crosstype_live_adapter",
+      "func": "_parse_sentence",
+      "line": 123,
+      "ncalls": 480,
+      "tottime": 0.0429,
+      "cumtime": 23.5301
+    },
+    {
+      "module": "hdlab.frontend",
+      "func": "parse",
+      "line": 97,
+      "ncalls": 513,
+      "tottime": 0.0737,
+      "cumtime": 21.0049
+    },
+    {
+      "module": "<builtin>",
+      "func": "<built-in method builtins.any>",
+      "line": 0,
+      "ncalls": 298319,
+      "tottime": 0.9555,
+      "cumtime": 20.2293
+    },
+    {
+      "module": "hdlab.situation_reader",
+      "func": "_resolve_commonnouns",
+      "line": 4772,
+      "ncalls": 6,
+      "tottime": 0.0536,
+      "cumtime": 20.0747
+    },
+    {
+      "module": "hdlab.entity_resolver",
+      "func": "resolve_commonnouns",
+      "line": 991,
+      "ncalls": 6,
+      "tottime": 0.4708,
+      "cumtime": 20.0211
+    },
+    {
+      "module": "hdlab.lexicon_foundation",
+      "func": "synsets",
+      "line": 563,
+      "ncalls": 188926,
+      "tottime": 2.7007,
+      "cumtime": 19.6442
+    },
+    {
+      "module": "hdlab.situation_reader",
+      "func": "_cached_parse_heads",
+      "line": 2498,
+      "ncalls": 3422,
+      "tottime": 0.035,
+      "cumtime": 18.9093
+    },
+    {
+      "module": "hdlab.situation_reader",
+      "func": "_cached_parse_conf",
+      "line": 2540,
+      "ncalls": 752,
+      "tottime": 0.0601,
+      "cumtime": 18.8797
+    },
+    {
+      "module": "hdlab.lexical_categories",
+      "func": "_posterior_le",
+      "line": 1338,
+      "ncalls": 982,
+      "tottime": 1.9031,
+      "cumtime": 17.5214
+    },
+    {
+      "module": "hdlab.typed_spokes",
+      "func": "_synset_names",
+      "line": 168,
+      "ncalls": 149666,
+      "tottime": 1.3448,
+      "cumtime": 16.1765
+    },
+    {
+      "module": "hdlab.entity_resolver",
+      "func": "cluster",
+      "line": 760,
+      "ncalls": 6,
+      "tottime": 0.0015,
+      "cumtime": 15.9558
+    },
+    {
+      "module": "hdlab.entity_resolver",
+      "func": "competition_cluster",
+      "line": 486,
+      "ncalls": 6,
+      "tottime": 0.9001,
+      "cumtime": 15.954
+    },
+    {
+      "module": "hdlab.lexical_categories",
+      "func": "_posterior2",
+      "line": 1367,
+      "ncalls": 970,
+      "tottime": 11.1347,
+      "cumtime": 14.8702
+    },
+    {
+      "module": "hdlab.typed_spokes",
+      "func": "coref_type_license",
+      "line": 233,
+      "ncalls": 60242,
+      "tottime": 0.6526,
+      "cumtime": 14.4971
+    },
+    {
+      "module": "hdlab.attachment_arm",
+      "func": "decode",
+      "line": 3580,
+      "ncalls": 513,
+      "tottime": 0.0636,
+      "cumtime": 12.5149
+    },
+    {
+      "module": "hdlab.attachment_arm",
+      "func": "incremental_tree",
+      "line": 3433,
+      "ncalls": 513,
+      "tottime": 6.6352,
+      "cumtime": 12.2507
+    },
+    {
+      "module": "hdlab.entity_resolver",
+      "func": "file_cues",
+      "line": 439,
+      "ncalls": 52751,
+      "tottime": 0.5993,
+      "cumtime": 11.7708
+    },
+    {
+      "module": "hdlab.frontend",
+      "func": "tag",
+      "line": 71,
+      "ncalls": 460,
+      "tottime": 0.0053,
+      "cumtime": 11.4251
+    }
+  ],
+  "top_functions_by_self": [
+    {
+      "module": "<builtin>",
+      "func": "<built-in method scipy.sparse._sparsetools.csr_matvec>",
+      "line": 0,
+      "ncalls": 20160,
+      "tottime": 184.8063,
+      "cumtime": 184.8063
+    },
+    {
+      "module": "hdlab.grounded_semantic_graph",
+      "func": "_ppr",
+      "line": 88,
+      "ncalls": 672,
+      "tottime": 14.2847,
+      "cumtime": 204.5057
+    },
+    {
+      "module": "hdlab.lexical_categories",
+      "func": "_posterior2",
+      "line": 1367,
+      "ncalls": 970,
+      "tottime": 11.1347,
+      "cumtime": 14.8702
+    },
+    {
+      "module": "hdlab.attachment_arm",
+      "func": "incremental_tree",
+      "line": 3433,
+      "ncalls": 513,
+      "tottime": 6.6352,
+      "cumtime": 12.2507
+    },
+    {
+      "module": "<builtin>",
+      "func": "<method 'get' of 'dict' objects>",
+      "line": 0,
+      "ncalls": 6269070,
+      "tottime": 5.1661,
+      "cumtime": 5.1661
+    },
+    {
+      "module": "<builtin>",
+      "func": "<method 'reduce' of 'numpy.ufunc' objects>",
+      "line": 0,
+      "ncalls": 163217,
+      "tottime": 4.6804,
+      "cumtime": 4.6804
+    },
+    {
+      "module": "hdlab.graded_competition",
+      "func": "net_activation",
+      "line": 57,
+      "ncalls": 19970,
+      "tottime": 3.7462,
+      "cumtime": 5.0866
+    },
+    {
+      "module": "hdlab.lexicon_foundation",
+      "func": "synset_from_pos_and_offset",
+      "line": 556,
+      "ncalls": 798080,
+      "tottime": 3.6172,
+      "cumtime": 8.5562
+    },
+    {
+      "module": "hdlab.attachment_arm",
+      "func": "fin",
+      "line": 3438,
+      "ncalls": 361169,
+      "tottime": 2.9836,
+      "cumtime": 2.9836
+    },
+    {
+      "module": "<builtin>",
+      "func": "<built-in method numpy.zeros>",
+      "line": 0,
+      "ncalls": 73747,
+      "tottime": 2.8436,
+      "cumtime": 2.8436
+    },
+    {
+      "module": "<builtin>",
+      "func": "<method 'execute' of 'sqlite3.Connection' objects>",
+      "line": 0,
+      "ncalls": 10332,
+      "tottime": 2.8415,
+      "cumtime": 2.8415
+    },
+    {
+      "module": "hdlab.lexical_categories",
+      "func": "_log_emit",
+      "line": 1089,
+      "ncalls": 24933,
+      "tottime": 2.7287,
+      "cumtime": 7.9214
+    },
+    {
+      "module": "hdlab.lexicon_foundation",
+      "func": "synsets",
+      "line": 563,
+      "ncalls": 188926,
+      "tottime": 2.7007,
+      "cumtime": 19.6442
+    },
+    {
+      "module": "<builtin>",
+      "func": "<built-in method builtins.sum>",
+      "line": 0,
+      "ncalls": 192038,
+      "tottime": 2.6142,
+      "cumtime": 6.8018
+    },
+    {
+      "module": "<builtin>",
+      "func": "<method 'lower' of 'str' objects>",
+      "line": 0,
+      "ncalls": 4143101,
+      "tottime": 2.5495,
+      "cumtime": 2.5495
+    },
+    {
+      "module": "hdlab.lexical_categories",
+      "func": "_posterior_le",
+      "line": 1338,
+      "ncalls": 982,
+      "tottime": 1.9031,
+      "cumtime": 17.5214
+    },
+    {
+      "module": "<builtin>",
+      "func": "<method 'endswith' of 'str' objects>",
+      "line": 0,
+      "ncalls": 2345216,
+      "tottime": 1.833,
+      "cumtime": 1.833
+    },
+    {
+      "module": "hdlab.attachment_arm",
+      "func": "arc_scores",
+      "line": 2910,
+      "ncalls": 1040,
+      "tottime": 1.8189,
+      "cumtime": 7.8396
+    },
+    {
+      "module": "hdlab.morphology",
+      "func": "_morphy",
+      "line": 84,
+      "ncalls": 240153,
+      "tottime": 1.7546,
+      "cumtime": 6.1437
+    },
+    {
+      "module": "hdlab.morphology",
+      "func": "apply_rules",
+      "line": 90,
+      "ncalls": 238727,
+      "tottime": 1.6623,
+      "cumtime": 3.0973
+    },
+    {
+      "module": "<stdlib/other>",
+      "func": "raw_decode",
+      "line": 344,
+      "ncalls": 17579,
+      "tottime": 1.6034,
+      "cumtime": 1.6034
+    },
+    {
+      "module": "<builtin>",
+      "func": "<method 'append' of 'list' objects>",
+      "line": 0,
+      "ncalls": 2071794,
+      "tottime": 1.4229,
+      "cumtime": 1.4229
+    },
+    {
+      "module": "hdlab.lexicon_foundation",
+      "func": "offset_name",
+      "line": 141,
+      "ncalls": 798080,
+      "tottime": 1.4163,
+      "cumtime": 2.4374
+    },
+    {
+      "module": "hdlab.typed_spokes",
+      "func": "_synset_names",
+      "line": 168,
+      "ncalls": 149666,
+      "tottime": 1.3448,
+      "cumtime": 16.1765
+    },
+    {
+      "module": "hdlab.graded_role_assigner",
+      "func": "coarse_role_cues",
+      "line": 685,
+      "ncalls": 14565,
+      "tottime": 1.1443,
+      "cumtime": 8.8007
+    },
+    {
+      "module": "hdlab.conceptual_meaning",
+      "func": "_sparse_cos",
+      "line": 146,
+      "ncalls": 27183,
+      "tottime": 1.0678,
+      "cumtime": 4.5134
+    },
+    {
+      "module": "hdlab.attachment_arm",
+      "func": "E",
+      "line": 3441,
+      "ncalls": 419726,
+      "tottime": 1.0378,
+      "cumtime": 1.2171
+    },
+    {
+      "module": "hdlab.salience_binder",
+      "func": "actr_activation",
+      "line": 74,
+      "ncalls": 113296,
+      "tottime": 1.0041,
+      "cumtime": 1.9421
+    },
+    {
+      "module": "hdlab.lexicon_foundation",
+      "func": "__new__",
+      "line": 300,
+      "ncalls": 899668,
+      "tottime": 0.99,
+      "cumtime": 1.9819
+    },
+    {
+      "module": "<builtin>",
+      "func": "<method 'reshape' of 'numpy.ndarray' objects>",
+      "line": 0,
+      "ncalls": 351803,
+      "tottime": 0.9704,
+      "cumtime": 0.9704
+    },
+    {
+      "module": "<builtin>",
+      "func": "<built-in method builtins.any>",
+      "line": 0,
+      "ncalls": 298319,
+      "tottime": 0.9555,
+      "cumtime": 20.2293
+    },
+    {
+      "module": "hdlab.entity_resolver",
+      "func": "competition_cluster",
+      "line": 486,
+      "ncalls": 6,
+      "tottime": 0.9001,
+      "cumtime": 15.954
+    },
+    {
+      "module": "hdlab.morphology",
+      "func": "filter_forms",
+      "line": 93,
+      "ncalls": 240153,
+      "tottime": 0.8971,
+      "cumtime": 1.1594
+    },
+    {
+      "module": "<3rd-party:numpy>",
+      "func": "_frombuffer",
+      "line": 1968,
+      "ncalls": 80910,
+      "tottime": 0.8323,
+      "cumtime": 1.2934
+    },
+    {
+      "module": "hdlab.hippocampal_encoder",
+      "func": "write",
+      "line": 187,
+      "ncalls": 917,
+      "tottime": 0.8291,
+      "cumtime": 1.02
+    },
+    {
+      "module": "hdlab.graded_role_assigner",
+      "func": "clause_bounds",
+      "line": 2301,
+      "ncalls": 23489,
+      "tottime": 0.8079,
+      "cumtime": 1.3701
+    },
+    {
+      "module": "hdlab.lexicon_foundation",
+      "func": "_rel",
+      "line": 343,
+      "ncalls": 228749,
+      "tottime": 0.7735,
+      "cumtime": 2.7207
+    },
+    {
+      "module": "hdlab.hippocampal_encoder",
+      "func": "encode_batch",
+      "line": 139,
+      "ncalls": 6,
+      "tottime": 0.7608,
+      "cumtime": 0.8478
+    },
+    {
+      "module": "hdlab.typed_spokes",
+      "func": "<genexpr>",
+      "line": 172,
+      "ncalls": 776660,
+      "tottime": 0.7534,
+      "cumtime": 0.9921
+    },
+    {
+      "module": "<builtin>",
+      "func": "<built-in method builtins.len>",
+      "line": 0,
+      "ncalls": 1329695,
+      "tottime": 0.748,
+      "cumtime": 0.748
+    }
+  ],
+  "repetition_counts": {
+    "scene_segment.parse_conll_sentences": {
+      "calls": 24,
+      "plain": "parse the document's sentences off disk"
+    },
+    "coref.parse_litbank_conll": {
+      "calls": 12,
+      "plain": "parse the document's mentions off disk"
+    },
+    "lexical_categories.tag": {
+      "calls": 460,
+      "plain": "tag a sentence with the category organ"
+    },
+    "lexical_categories.posterior": {
+      "calls": 952,
+      "plain": "category posterior for a sentence"
+    },
+    "lexical_categories.feed_passage": {
+      "calls": 6,
+      "plain": "the one in-order passage feed"
+    },
+    "attachment_arm.arc_scores": {
+      "calls": 1040,
+      "plain": "score every candidate arc of a sentence"
+    },
+    "attachment_arm.incremental_tree": {
+      "calls": 513,
+      "plain": "decode a sentence's tree in order"
+    }
+  },
+  "situation_model_shape": {
+    "GUM_academic_census": {
+      "n_sentences": 35,
+      "n_entities": 99,
+      "n_events": 116,
+      "n_targets": 11,
+      "n_pronouns_discovered": 11
+    },
+    "GUM_conversation_family": {
+      "n_sentences": 186,
+      "n_entities": 304,
+      "n_events": 200,
+      "n_targets": 126,
+      "n_pronouns_discovered": 126
+    },
+    "GUM_fiction_frankenstein": {
+      "n_sentences": 89,
+      "n_entities": 289,
+      "n_events": 208,
+      "n_targets": 82,
+      "n_pronouns_discovered": 82
+    },
+    "GUM_letter_marcie3": {
+      "n_sentences": 28,
+      "n_entities": 78,
+      "n_events": 48,
+      "n_targets": 12,
+      "n_pronouns_discovered": 12
+    },
+    "GUM_podcast_multitasking": {
+      "n_sentences": 39,
+      "n_entities": 236,
+      "n_events": 178,
+      "n_targets": 43,
+      "n_pronouns_discovered": 43
+    },
+    "GUM_vlog_mermaid": {
+      "n_sentences": 103,
+      "n_entities": 249,
+      "n_events": 167,
+      "n_targets": 42,
+      "n_pronouns_discovered": 42
+    }
+  }
+}

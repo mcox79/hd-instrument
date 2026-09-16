@@ -1,0 +1,37 @@
+{
+  "per_document": [
+    {
+      "docid": "GUM_academic_census",
+      "n_sentences": 35,
+      "uncached_s": 15.108,
+      "with_memo_s": 9.25,
+      "saved_s": 5.857,
+      "ppr_calls": 116,
+      "ppr_distinct": 70,
+      "ppr_repeat_calls": 46,
+      "repeat_share": 0.3966,
+      "mean_seed_size": 131.4,
+      "reader_is_plastic_read_to_read": true,
+      "memo_changed_the_read_beyond_plasticity": false,
+      "read_unchanged": false
+    },
+    {
+      "docid": "GUM_letter_marcie3",
+      "n_sentences": 28,
+      "uncached_s": 3.18,
+      "with_memo_s": 2.242,
+      "saved_s": 0.938,
+      "ppr_calls": 27,
+      "ppr_distinct": 20,
+      "ppr_repeat_calls": 7,
+      "repeat_share": 0.2593,
+      "mean_seed_size": 89.3,
+      "reader_is_plastic_read_to_read": false,
+      "memo_changed_the_read_beyond_plasticity": false,
+      "read_unchanged": true
+    }
+  ],
+  "n_documents": 2,
+  "mean_saved_s_per_document": 3.397,
+  "plain": "the meaning organ's spreading-activation run is the biggest single cost in a read; this counts how many of its runs inside ONE document ask the identical question, and times the read with those answered from a per-read memo instead of recomputed"
+}

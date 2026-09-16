@@ -1,0 +1,103 @@
+{
+  "per_document": [
+    {
+      "docid": "GUM_academic_census",
+      "n_sentences": 35,
+      "n_goals": 2,
+      "goal_status": {
+        "active": 2
+      },
+      "n_state_tracks": 15,
+      "n_state_tracks_with_a_state": 15,
+      "n_entity_states": 16,
+      "goals_whose_agent_is_a_state_key": 2,
+      "goals_whose_agent_HAS_a_state": 2,
+      "n_events": 116
+    },
+    {
+      "docid": "GUM_conversation_family",
+      "n_sentences": 186,
+      "n_goals": 1,
+      "goal_status": {
+        "active": 1
+      },
+      "n_state_tracks": 15,
+      "n_state_tracks_with_a_state": 15,
+      "n_entity_states": 42,
+      "goals_whose_agent_is_a_state_key": 0,
+      "goals_whose_agent_HAS_a_state": 0,
+      "n_events": 200
+    },
+    {
+      "docid": "GUM_fiction_frankenstein",
+      "n_sentences": 89,
+      "n_goals": 12,
+      "goal_status": {
+        "failed": 2,
+        "satisfied": 3,
+        "active": 7
+      },
+      "n_state_tracks": 7,
+      "n_state_tracks_with_a_state": 7,
+      "n_entity_states": 19,
+      "goals_whose_agent_is_a_state_key": 9,
+      "goals_whose_agent_HAS_a_state": 9,
+      "n_events": 208
+    },
+    {
+      "docid": "GUM_letter_marcie3",
+      "n_sentences": 28,
+      "n_goals": 2,
+      "goal_status": {
+        "active": 2
+      },
+      "n_state_tracks": 3,
+      "n_state_tracks_with_a_state": 3,
+      "n_entity_states": 7,
+      "goals_whose_agent_is_a_state_key": 0,
+      "goals_whose_agent_HAS_a_state": 0,
+      "n_events": 48
+    },
+    {
+      "docid": "GUM_podcast_multitasking",
+      "n_sentences": 39,
+      "n_goals": 7,
+      "goal_status": {
+        "failed": 6,
+        "active": 1
+      },
+      "n_state_tracks": 18,
+      "n_state_tracks_with_a_state": 18,
+      "n_entity_states": 33,
+      "goals_whose_agent_is_a_state_key": 3,
+      "goals_whose_agent_HAS_a_state": 3,
+      "n_events": 178
+    },
+    {
+      "docid": "GUM_vlog_mermaid",
+      "n_sentences": 103,
+      "n_goals": 2,
+      "goal_status": {
+        "satisfied": 2
+      },
+      "n_state_tracks": 16,
+      "n_state_tracks_with_a_state": 16,
+      "n_entity_states": 39,
+      "goals_whose_agent_is_a_state_key": 2,
+      "goals_whose_agent_HAS_a_state": 2,
+      "n_events": 167
+    }
+  ],
+  "totals": {
+    "n_goals": 26,
+    "n_state_tracks": 74,
+    "n_state_tracks_with_a_state": 74,
+    "n_entity_states": 156,
+    "goals_whose_agent_is_a_state_key": 16,
+    "goals_whose_agent_HAS_a_state": 16,
+    "n_events": 917,
+    "n_sentences": 480
+  },
+  "n_documents": 6,
+  "plain": "how many goals could even be checked against the state register: a goal whose agent is not a key in the state register cannot be closed by a result state, however good the rule is"
+}

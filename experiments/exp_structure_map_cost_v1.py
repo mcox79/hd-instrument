@@ -262,6 +262,61 @@ def run(n_docs=N_DOCS, mode="annotated"):
 # ---------------------------------------------------------------------------------------------------
 # OPTIMIZATION LEAD -- is the dominant cost REPEATED work?
 # ---------------------------------------------------------------------------------------------------
+def coord_probe(n_docs=6, mode="annotated"):
+    """THE COORDINATION LEAD, COUNTED: does the goal register have any way to read a result state?
+
+    The owner's 2026-09-16 concern is that a goal closes without the state register's result state.  The
+    binding constraint on that repair is not the rule -- it is whether the two registers can even name the
+    same thing.  This counts, per document, on ONE live read: how many goals the goal register holds, how
+    many entities the state register tracks, and HOW MANY GOAL AGENTS APPEAR AS STATE-REGISTER KEYS.  A
+    coordination that cannot be keyed cannot be built, and the overlap is the number that bounds it.
+    """
+    test, gaz = _gum_test_docs(n_docs)
+    tmp = tempfile.mkdtemp(prefix="p142_coord_")
+    rows = []
+    for d in test:
+        p_ann, p_txt = _write_two_conll(d, tmp)
+        _, sm = _timed_read(p_ann if mode == "annotated" else p_txt, gaz)
+        gr = getattr(sm, "goal_register", None)
+        sr = getattr(sm, "state_register", None)
+        goals = list(getattr(gr, "goals", []) or [])
+        tracks = dict(getattr(sr, "tracks", {}) or {})
+        stated = {k for k, v in tracks.items() if getattr(v, "spans", None) or getattr(v, "occurrences", None)}
+        def keys_of(g):
+            return {str(x).lower() for x in (getattr(g, "agent_canonical", None), getattr(g, "agent", None)) if x}
+        low_tracks = {str(k).lower() for k in tracks}
+        low_stated = {str(k).lower() for k in stated}
+        shared = sum(1 for g in goals if keys_of(g) & low_tracks)
+        shared_stated = sum(1 for g in goals if keys_of(g) & low_stated)
+        status = collections.Counter(getattr(g, "status", "?") for g in goals)
+        rows.append({"docid": d.docid, "n_sentences": sm.n_sentences,
+                     "n_goals": len(goals), "goal_status": dict(status),
+                     "n_state_tracks": len(tracks), "n_state_tracks_with_a_state": len(stated),
+                     "n_entity_states": len(getattr(sm, "entity_states", []) or []),
+                     "goals_whose_agent_is_a_state_key": shared,
+                     "goals_whose_agent_HAS_a_state": shared_stated,
+                     "n_events": len(sm.events)})
+        print("  %-28s sents=%-4d goals=%-4d state_tracks=%-4d (with a state %-4d)  "
+              "goal agents that are state keys: %d   that HAVE a state: %d"
+              % (d.docid, sm.n_sentences, len(goals), len(tracks), len(stated), shared, shared_stated))
+    tot = {k: sum(r[k] for r in rows) for k in
+           ("n_goals", "n_state_tracks", "n_state_tracks_with_a_state", "n_entity_states",
+            "goals_whose_agent_is_a_state_key", "goals_whose_agent_HAS_a_state", "n_events", "n_sentences")}
+    res = {"per_document": rows, "totals": tot, "n_documents": len(rows),
+           "plain": ("how many goals could even be checked against the state register: a goal whose agent is "
+                     "not a key in the state register cannot be closed by a result state, however good the "
+                     "rule is")}
+    os.makedirs(OUT_DIR, exist_ok=True)
+    with open(os.path.join(OUT_DIR, "coord_probe.json"), "w", encoding="utf-8") as fh:
+        json.dump(res, fh, indent=2)
+    print("\nTOTALS over %d documents / %d sentences: goals %d | state tracks %d (with a state %d) | "
+          "entity_states %d | goal agents that are state keys %d | that HAVE a state %d"
+          % (len(rows), tot["n_sentences"], tot["n_goals"], tot["n_state_tracks"],
+             tot["n_state_tracks_with_a_state"], tot["n_entity_states"],
+             tot["goals_whose_agent_is_a_state_key"], tot["goals_whose_agent_HAS_a_state"]))
+    return res
+
+
 def _sig(sm):
     """A read's answer signature: the shape plus the event tuples, so a changed read is visible."""
     return (sm.n_sentences, len(sm.entities), len(sm.events),
@@ -410,6 +465,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--run", action="store_true")
     ap.add_argument("--cache-probe", action="store_true")
+    ap.add_argument("--coord-probe", action="store_true")
     ap.add_argument("--self-test", action="store_true")
     ap.add_argument("--docs", type=int, default=N_DOCS)
     ap.add_argument("--mode", default="annotated", choices=("annotated", "textonly"))
@@ -418,6 +474,9 @@ def main():
         return self_test()
     if a.cache_probe:
         cache_probe(n_docs=a.docs, mode=a.mode)
+        return 0
+    if a.coord_probe:
+        coord_probe(n_docs=a.docs, mode=a.mode)
         return 0
     if a.run:
         run(n_docs=a.docs, mode=a.mode)
