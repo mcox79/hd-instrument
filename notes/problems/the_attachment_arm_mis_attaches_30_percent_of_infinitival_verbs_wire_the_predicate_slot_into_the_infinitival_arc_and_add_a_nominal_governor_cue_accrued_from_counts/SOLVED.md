@@ -2,11 +2,11 @@
 problem: the_attachment_arm_mis_attaches_30_percent_of_infinitival_verbs_wire_the_predicate_slot_into_the_infinitival_arc_and_add_a_nominal_governor_cue_accrued_from_counts
 status: SOLVED
 bar: "Infinitival heads CI-sep over the shipped arm with no construction down CI-sep; UAS not down; the purpose decision up (target +0.10); validities accrued with an observe path (twin at floor); the reference twin ported; the board not down -- OR a numbered located negative naming the construction that cannot be won by competition and why."
-result: "UD-EWT test, the organ's OWN categories (live chain, no gold column on the decision path), population = every infinitival VERB by the organ's own tags, n=337 -- pri 129's population reproduced to the item. Measured THROUGH THE DIFF, the organ as shipped vs the patched organ, BOTH IN ONE PROCESS: infinitival heads 0.6766 -> 0.7745 (+0.0979 CI[+0.0564,+0.1381] half 0.0409, SEPARATED). NO CONSTRUCTION DOWN: acl_nominal 0.2321 -> 0.4286 (+0.1964 CI[+0.0577,+0.3333] SEP), csubj_extrapos 0.5652 -> 0.8261 (+0.2609 CI[+0.1000,+0.4643] SEP), xcomp_control 0.8757 -> 0.9349 (+0.0592 CI[+0.0119,+0.1087] SEP), advcl_purpose 0.6338 -> 0.7183 (+0.0845 CI[-0.0282,+0.2059] ns, UP -- the construction pri 129's prototype LOST, 0.6338 -> 0.5775), other 0.5000 -> 0.5000 (exactly flat). UAS 0.6465 -> 0.6493 (+0.0028 CI[+0.0019,+0.0040] SEPARATED UP, n=24,586); non-verbal subject attachment 0.6186 -> 0.6332 (+0.0146 CI[+0.0040,+0.0268] SEP), verbal subjects flat; per relation the only movements below zero at n>=20 are amod -0.0008 and mark -0.0013, while acl 0.1421 -> 0.1716, advcl 0.4180 -> 0.4399, xcomp 0.7583 -> 0.8000, csubj 0.3600 -> 0.5600, cop 0.6724 -> 0.6810, nsubj 0.8054 -> 0.8093, root 0.7454 -> 0.7465. READ TIME: none (shipped 15.72 ms/sentence, patched 15.67). The knowledge is LEARNED FROM READING with no tree, no treebank head and no gold column anywhere on the learning path: 5,767 lexical keys accrued from 3,192 sentences read through the organ's own categories, and the two cue channels' validities accrued by the organ's own observe path from the clear cases -- every OTHER cue channel of the landed table is byte-identical (asserted, 15 channels). OUT OF SUPPLY (GUM/GENTLE, 12+ genres, 1,127 sentences, 184 infinitivals): 0.6304 -> 0.7283 (+0.0978 CI[+0.0342,+0.1656] SEPARATED) -- THE SAME SIZE AS IN SUPPLY, with acl_nominal 0.1200 -> 0.4800 SEP and UAS 0.6081 -> 0.6100 SEP UP. DOWNSTREAM, pri 129's OWN purpose decision (its cell, unmodified, both arms one process, n=129 decidable): the BF competition arm 0.6589 -> 0.6744 and its gap to the frozen supervised deprel filter closes from -0.0235 CI[-0.1145,+0.0630] to -0.0077 CI[-0.1061,+0.0916]. THE BAR'S '+0.10' ON THAT DECISION IS NOT MET AND I DO NOT CLAIM IT: on the consumer's OWN 129 sites the infinitival head goes 88/129 -> 90/129 (+0.0155), the SAME number the decision moved, because that population's entry gate excludes the extraposed and nominal-governor constructions this rung repaired and the arm reads only two head-derived cues (headcat / headismv) of its nine. PRODUCT ROWS (pri 122's reader-driven cell, unmodified, both arms one process, 600 UD-EWT sentences read through SituationReader.read): who_did_what_agent 0.7363, who_did_what_patient 0.6808, state 0.7455 -- ALL THREE EXACTLY UNCHANGED under both provenances; the organ swap was VERIFIED to reach the live reader (the frontend parser is the patched module, its table carries the new cue, and the live parse of a test sentence moves `leave` from `have` to `plan`), so the zeros are a real fact about which rows can see this rung, not a failed swap. A 600-sentence board is a CONTROL, not a no-regress verdict."
+result: "UD-EWT test, the organ's OWN categories (live chain, no gold column on the decision path), population = every infinitival VERB by the organ's own tags, n=337 -- pri 129's population reproduced to the item. Measured THROUGH THE DIFF, the organ as shipped vs the patched organ, BOTH IN ONE PROCESS: infinitival heads 0.6766 -> 0.7745 (+0.0979 CI[+0.0564,+0.1381] half 0.0409, SEPARATED). NO CONSTRUCTION DOWN: acl_nominal 0.2321 -> 0.4286 (+0.1964 CI[+0.0577,+0.3333] SEP), csubj_extrapos 0.5652 -> 0.8261 (+0.2609 CI[+0.1000,+0.4643] SEP), xcomp_control 0.8757 -> 0.9349 (+0.0592 CI[+0.0119,+0.1087] SEP), advcl_purpose 0.6338 -> 0.7183 (+0.0845 CI[-0.0282,+0.2059] ns, UP -- the construction pri 129's prototype LOST, 0.6338 -> 0.5775), other 0.5000 -> 0.5000 (exactly flat). UAS 0.6465 -> 0.6493 (+0.0028 CI[+0.0019,+0.0040] SEPARATED UP, n=24,586); non-verbal subject attachment 0.6186 -> 0.6332 (+0.0146 CI[+0.0040,+0.0268] SEP), verbal subjects flat; per relation the only movements below zero at n>=20 are amod -0.0008 and mark -0.0013, while acl 0.1421 -> 0.1716, advcl 0.4180 -> 0.4399, xcomp 0.7583 -> 0.8000, csubj 0.3600 -> 0.5600, cop 0.6724 -> 0.6810, nsubj 0.8054 -> 0.8093, root 0.7454 -> 0.7465. READ TIME: none (shipped 15.72 ms/sentence, patched 15.67). The knowledge is LEARNED FROM READING with no tree, no treebank head and no gold column anywhere on the learning path: 5,767 lexical keys accrued from 3,192 sentences read through the organ's own categories, and the two cue channels' validities accrued by the organ's own observe path from the clear cases -- every OTHER cue channel of the landed table is byte-identical (asserted, 15 channels). OUT OF SUPPLY (GUM/GENTLE, 12+ genres, 1,127 sentences, 184 infinitivals): 0.6304 -> 0.7283 (+0.0978 CI[+0.0342,+0.1656] SEPARATED) -- THE SAME SIZE AS IN SUPPLY, with acl_nominal 0.1200 -> 0.4800 SEP and UAS 0.6081 -> 0.6100 SEP UP. DOWNSTREAM, pri 129's OWN purpose decision (its cell, unmodified, both arms one process, n=129 decidable): the BF competition arm 0.6589 -> 0.6744 and its gap to the frozen supervised deprel filter closes from -0.0235 CI[-0.1145,+0.0630] to -0.0077 CI[-0.1061,+0.0916]. THE BAR'S '+0.10' ON THAT DECISION IS NOT MET AND I DO NOT CLAIM IT: on the consumer's OWN 129 sites the infinitival head goes 88/129 -> 90/129 (+0.0155), the SAME number the decision moved, because that population's entry gate excludes the extraposed and nominal-governor constructions this rung repaired and the arm reads only two head-derived cues (headcat / headismv) of its nine. PRODUCT ROWS (pri 122's reader-driven cell, unmodified, both arms one process, 600 UD-EWT sentences read through SituationReader.read): who_did_what_agent 0.7363, who_did_what_patient 0.6808, state 0.7455 -- ALL THREE EXACTLY UNCHANGED under both provenances; the organ swap was VERIFIED to reach the live reader (the frontend parser is the patched module, its table carries the new cue, and the live parse of a test sentence moves `leave` from `have` to `plan`), so the zeros are a real fact about which rows can see this rung, not a failed swap. A 600-sentence board is a CONTROL, not a no-regress verdict. PHASE 7: (a) THE CONSUMER HAND-OFF BUILT AND MEASURED -- reading the lexicalist frame off the governor the ARM chose instead of goal_register's backward scan takes pri 129's purpose decision 0.6744 -> 0.6899, ABOVE the frozen supervised deprel filter (0.6822) for the first time (paired +0.0073 CI[-0.0821,+0.0960], train-internal dev 0.748 -> 0.776), with an exact information-free twin (the same cue-set shape holding both new values constant returns 0.6744); shipped as notes/problems/<slug>/purpose_handoff_patch.diff against hdlab/graded_role_assigner.py, and INERT until the purpose validity asset is rebuilt. The dev split DROPPED the new expectation cue and kept the frame-on-the-right-word, against my expectation. (b) THE DECODE CLAIM IS LIMITED, NOT GENERAL: over all 24,586 UD-EWT test arcs the in-order beam BEATS the tree-free matrix argmax 0.6465 vs 0.6186 (-0.0279 CI[-0.0322,-0.0235]); the infinitival arc was a local exception (+0.0712 shipped, +0.0148 after the reanalysis), so this is not a heads-rung-wide lead. (c) RETRIEVAL OVER THE CATEGORY POSTERIOR IS BOUNDED AND ITS CHEAP FORM IS FLAT: 0.7745 identical at tau 0.80/0.90/0.95/0.99, 3 of 18 unretrieved golds have no candidate class in the posterior at all, ceiling ~15 of 337. (d) THE LEXICAL REALLOCATION TO CONVERGENCE IS NOT ADOPTED: test peaks at rounds 8 (+0.0119 ns, acl_nominal 0.5000) but a dev split outside the accrual supply (n=510) selects rounds 4, whose test number 0.7685 is BELOW the shipped rounds 1 -- a test-tuned number refused. (e) A MEASUREMENT HAZARD CAUGHT: strategy had applied this diff to the WORKING TREE, so the cell's baseline was the PATCHED organ; both arms now read `git show HEAD:<path>` and --self-test (19/19) fails if the shipped arm ever carries this brief's functions."
 floor: "Attach the infinitival verb to the NEAREST PRECEDING VERB (the arm's dominant existing behaviour): 0.6291 overall (acl_nominal 0.0357, advcl_purpose 0.6197, csubj_extrapos 0.4348, xcomp_control 0.8757, other 0.4444) -- reproduced to the digit against pri 129's landed table. The organ EXACTLY AS SHIPPED is the second floor: 0.6766. Also run as reference points, not as arms: pri 129's count-accrued prototype reproduced in-cell at 0.8012 (it loses advcl_purpose 0.5775 and other 0.1111); the whole-sentence single-root search decode of the patched matrix 0.7597; the matrix ARGMAX with no tree constraint at all 0.7674."
 controls: "(1) PERMUTED-VALIDITY TWIN -- both cue channels' accrued cells permuted across their values, sites and values unchanged: 0.4481, the shipped form beats it +0.3264 CI[+0.2699,+0.3824] SEPARATED, and the twin scores BELOW the organ as shipped and below the nearest-verb floor. (2) SHUFFLED-LEXICON TWIN -- the lexical infinitival-expectation store's counts shuffled across words, so `plan` and `market` swap expectations and nothing else changes: 0.7359, the shipped form beats it +0.0386 CI[+0.0100,+0.0669] SEPARATED, and acl_nominal falls 0.4286 -> 0.3036, so the LEXICAL CONTENT is load-bearing exactly where the brief said it would be. (3) UNIFORM-VALUE TWIN -- the control for the ARITHMETIC rather than the information: every value of both channels collapsed to one string, so the per-configuration OFFSET that a targeted overlay necessarily carries survives and the information does not. It scores 0.6706, i.e. BELOW the organ as shipped (0.6766) -- the offset is not the source of the gain, it is slightly harmful. (4) SWITCH-OFF EQUIVALENCE -- with every new switch off the patched organ reproduces the shipped readout EXACTLY (0 differing sentences of 37, asserted in --self-test). (5) PATCHED == REFERENCE -- the vectorised readout equals the per-pair reference loop to 1e-9 with all three new channels live (43 sentences), the organ's own fastpath invariant; the reference twin is ported in the same diff. (6) SILENT DEGRADATION -- each channel returns {} when its own input is absent (a table built before this cue; a category inventory the occupancy read cannot use), asserted. (7) A REFUTED ARM, REPORTED AGAINST MYSELF -- a case-marking / retrieval-interference channel (`ictx`) was built and MEASURED: it lifts acl_nominal to 0.4821 but takes advcl_purpose 0.7183 -> 0.5915, net 0.7745 -> 0.7359; it ships default OFF with its number and the mechanism (section 7). (8) THE ORGAN'S OWN WITNESSES RUN AGAINST THE PATCHED ORGAN with the new asset installed: verification/test_attachment_arm.py 17/17 (including the decode contract -- exactly one root, a connected tree, identical through the frontend -- and the plasticity round-trip), verification/test_attachment_arm_fastpath.py PASS (max |fast - reference| 3.55e-15 over 80,848 finite pairs, MAP heads agree 40/40), verification/test_attachment_coordination.py 6/6 PASS (conj 0.341 -> 0.419 with its own twins intact). (9) THE POPULATION AND THE SCORER ARE pri 129's OWN: its `--infin` scorer was imported and re-run, reproducing its table to the digit (arm 0.6766 / prototype 0.8012 / floor 0.6291 / twin 0.4540 and all five per-construction rows), and my cache-based population is the same 337 items with the same class counts."
-files_changed: "experiments/exp_infinitival_governor_competition_v1.py (the cell: the population, the accrual, the arms, the twins, the residual attribution, the one-process live A/B through the diff, the purpose consumer, the board rows); notes/problems/<slug>/{SOLVED.md, infinitival_governor_patch.diff} (the PROPOSED change -- unified diffs against hdlab/attachment_arm.py AND tools/build_attachment_validities.py, applying cleanly at 584cc37a9 with `git apply`); data/frontend_assets/attachment_validities_infin_v1.json and data/frontend_assets/attachment_validities_infin_adv_v1.json (NEW file names -- the shipped table is never overwritten); data/exp_infinitival_governor_competition_v1/*.json. NO hdlab/ or tools/ file edited: the diff is EXECUTED by the cell, which loads it in memory as the organ."
-reverify: ".venv/Scripts/python.exe experiments/exp_infinitival_governor_competition_v1.py --self-test  (18/18, and it applies the diff, runs the fastpath-vs-reference invariant with the new cues, and asserts the switch-off equivalence) ; then the headline, ~2.5 min, writes only into its own directory: HDLAB_EXP_NAME=infinitival_governor_competition_v1 .venv/Scripts/python.exe experiments/exp_infinitival_governor_competition_v1.py --live-ab ; the controls: --twins ; the lever decomposition: --arms ; the residual attribution: --residual ; pri 129's own table: --repro ; out of supply: --oos ; the consumer: --purpose ; the product rows: --board. The knowledge is reproducible from reading alone: --accrue --cap 4000 --teacher clear (~40 s, writes the NEW asset only)."
+files_changed: "experiments/exp_infinitival_governor_competition_v1.py (the cell: the population, the accrual, the arms, the twins, the residual attribution, the one-process live A/B through the diff, the purpose consumer, the board rows); notes/problems/<slug>/{SOLVED.md, infinitival_governor_patch.diff, purpose_handoff_patch.diff} (the PROPOSED changes; the second is the consumer-side hand-off against hdlab/graded_role_assigner.py -- unified diffs against hdlab/attachment_arm.py AND tools/build_attachment_validities.py, applying cleanly at 584cc37a9 with `git apply`); data/frontend_assets/attachment_validities_infin_v1.json and data/frontend_assets/attachment_validities_infin_adv_v1.json (NEW file names -- the shipped table is never overwritten); data/exp_infinitival_governor_competition_v1/*.json. NO hdlab/ or tools/ file edited: the diff is EXECUTED by the cell, which loads it in memory as the organ."
+reverify: ".venv/Scripts/python.exe experiments/exp_infinitival_governor_competition_v1.py --self-test  (19/19, and it applies the diff, runs the fastpath-vs-reference invariant with the new cues, and asserts the switch-off equivalence) ; then the headline, ~2.5 min, writes only into its own directory: HDLAB_EXP_NAME=infinitival_governor_competition_v1 .venv/Scripts/python.exe experiments/exp_infinitival_governor_competition_v1.py --live-ab ; the controls: --twins ; the lever decomposition: --arms ; the residual attribution: --residual ; pri 129's own table: --repro ; out of supply: --oos ; the consumer: --purpose ; the product rows: --board. PHASE 7 arms: --decodegap (is the decode loss general), --unretrieved + --tausweep (retrieval over the posterior), --roundssweep (the reallocation curve), --handoff (the consumer hand-off, four arms, ~10 min). The knowledge is reproducible from reading alone: --accrue --cap 4000 --teacher clear (~40 s, writes the NEW asset only)."
 ---
 
 # SOLVED -- the infinitival governor is now decided by the same cue competition as every other arc, and the clause is reanalysed when it arrives
@@ -186,7 +186,10 @@ something else anyway. So I measured the decode directly, on the same slice, wit
 | **the live in-order beam** | **0.6822** |
 | the in-order beam at width 16 / 32 | 0.7054 / 0.7054 |
 
-**0.0852 of the signal was in the matrix and thrown away by the decode.** The brain's repair for that is not a
+**0.0852 of the signal was in the matrix and thrown away by the decode** -- *on THIS arc. Section 22
+(phase 7) measured the same contrast over all 24,586 test arcs and the beam BEATS the tree-free argmax by
+0.0279 CI-separated, so this is a LOCAL exception and not a general property of the decode; read section 22
+before quoting this paragraph.* The brain's repair for that is not a
 wider beam -- the operating point was swept and it saturates at 0.7054 -- it is reanalysis when the disambiguating
 word arrives, which this organ already does for the root arc and (pri 117) for the copular subject. With the
 reanalysis the live in-order decode reaches **0.7674 on that slice, exactly the matrix-argmax number**: the
@@ -455,7 +458,10 @@ arm. That is the same defect pri 117 named one arc over, and it is where the nex
    version of the ADV arm that was refuted: it adds the 11 missing governors WITHOUT adding full-strength
    competitors, which is exactly why the flat widening failed. **What it would take:** the candidate scan reads
    `tag_post` (already threaded into this function) instead of `pos`. **Why not now:** it needs its own accrual
-   and its own no-regress pass; it is the single most promising next build (section 15.1).
+   and its own no-regress pass. **WITHDRAWN IN PHASE 7 (section 24): the cheap form of this -- widening the
+   graded hand-off's own alternative-category operating point -- is EXACTLY FLAT (0.7745 at tau 0.80 / 0.90 /
+   0.95 / 0.99), the ceiling is 15 of 337 items, and the ADV arm is direct evidence that extra candidates cost
+   more than they gain. I would no longer call it the most promising next build.**
 4. **SUPERVISED / SOTA COMPARISON, for honesty.** A supervised neural parser is ~0.95 on these arcs and a
    competent human reader is at ceiling; we are at 0.7745 from 0.6766. The glass-box levers that close the rest
    are (a) the retrieval over the posterior, (b) the hold, and (c) the arc scorer's REPRESENTATION, which is
@@ -467,16 +473,24 @@ arm. That is the same defect pri 117 named one arc over, and it is where the nex
    same defect pri 117 fixed one arc over.** The gold governor is never offered because the organ reads `ADJ` as
    `ADV` (x3), `NOUN` as `ADV` (x1), `VERB` as `ADP` (x1), or because the class is not offered at all (`ADV` x4,
    `PART` x2). Widening the class list FLATLY is refuted with a number (-0.0267 CI-separated DOWN, section 7c);
-   weighting the candidate by its posterior mass is the version that should work. *Owner: this organ, one scan.*
+   weighting the candidate by its posterior mass is the version that MIGHT work -- **but phase 7 bounded it:
+   the cheap form is exactly flat, 3 of the 18 have no candidate class in the posterior at all and 9 are ranked
+   3rd or lower, so the ceiling is ~4.5 points before any dilution cost (section 24). Do this LAST, if at all.**
+   *Owner: this organ, one scan.*
 2. **TEACH THE NOMINAL EXPECTATION TO DISTINGUISH LICENSING FROM ADJACENCY -- 16 of the 76 remaining misses.**
    The cue over-fires on "prefers a NOUN where the gold is a VERB" (7 of them `advcl_purpose`). The missing
    distinction is between a noun that LICENSES an infinitival complement and one that merely precedes one inside
    a prepositional phrase. The case-marking form of this is refuted (section 7b); the form that should work is
    Hindle-Rooth reallocation run to CONVERGENCE over both candidates rather than one pass, so a high-expectation
-   verb can take credit back from a low-expectation adjacent noun. *Owner: this organ,
-   `infin_assoc_from_reading`, the `--rounds` operating point.*
-3. **GIVE THE PURPOSE ARM THE GOVERNOR'S IDENTITY, NOT ITS CATEGORY -- the consumer-side half of this rung's
-   value.** Measured here: the infinitival head changed on 30 of 129 decidable sites, the arm reads only
+   verb can take credit back from a low-expectation adjacent noun. **RUN IN PHASE 7 (section 25): the test
+   peak is rounds 8 (+0.0119, acl_nominal 0.4286 -> 0.5000) but the DEV split selects rounds 4, whose test number
+   is BELOW the shipped rounds 1, and no contrast is CI-separated -- so it is NOT adopted and the default stays
+   1. Re-open only with a powered, independently-selected run.** *Owner: this organ,
+   `infin_assoc_from_reading`, the `--infin-rounds` operating point.*
+3. **GIVE THE PURPOSE ARM THE GOVERNOR'S IDENTITY, NOT ITS CATEGORY -- BUILT AND MEASURED IN PHASE 7
+   (section 23): 0.6744 -> 0.6899, above the frozen supervised label for the first time, shipped as
+   `purpose_handoff_patch.diff`; the dev split attributes it to reading the FRAME off the arm's head, not to the
+   new expectation cue. What remains for strategy is to land it WITH a rebuilt purpose validity asset.** Measured here: the infinitival head changed on 30 of 129 decidable sites, the arm reads only
    `headcat` / `headismv`, and its oracle ceiling on those two cues is +0.1084. Adding the governor's own
    infinitival expectation (now a shipped asset) as a cue would let it read the thing that actually decides
    complement-vs-purpose. *Owner: pri 129's organ (`goal_register` / the purpose arm).*
@@ -542,3 +556,185 @@ piece whose failure mode would be least local. The cues would survive its remova
 **Four of the six are one shape: a high-expectation NOUN losing to a nearby VERB whose frame and locality cues
 outweigh it.** That is the pattern next step 15.2 addresses (reallocation to convergence, so a verb that does NOT
 license an infinitival cannot keep the credit), and the first is next step 15.1.
+
+---
+
+# PHASE 7 (strategy's follow-up) -- four questions, four answers, two of them overturning what I wrote above
+
+## 21. (1a) THE CONSUMER'S GATE AND ITS TWO BITS, AT FILE:LINE -- and what it needs to receive instead
+
+**THE GATE** is `hdlab/goal_register.py`, the purpose branch:
+
+| file:line | what it does | which of this rung's repairs it removes |
+|---|---|---|
+| `goal_register.py:274-280` | finds the governing verb by **scanning backwards for the nearest preceding VERB** | the governor is never taken from the attachment arm at all |
+| `goal_register.py:281` | `if mvi is None: continue` -- and its own comment reads **"no matrix verb (e.g. 'a plan to leave') -> skip"** | **`acl_nominal` in its entirety** (+0.1964 here). The gate names the construction |
+| `goal_register.py:287` | `if _is_extraposed(...): continue` | **`csubj_extrapos` in its entirety** (+0.2609 here) |
+| `goal_register.py:294` | skips a governor in `GOAL_VERBS` | part of `xcomp_control` |
+| `goal_register.py:296` | skips an adjacent complement-taker | more of `xcomp_control` |
+
+What survives the gate is the `xcomp` / `advcl` contrast, where this rung gains +0.0592 and +0.0845 -- **not** the two
+constructions it gains +0.20 and +0.26 on. *Skipping them is not a bug: an `acl` infinitival is not a purpose
+adjunct, so the consumer is right to skip it. It just means this rung's largest repairs are invisible there by
+design.*
+
+**THE TWO BITS** are in the landed cue set, `hdlab/graded_role_assigner.py:1379 purpose_cues`:
+`"headcat"` (**:1408**) = the head's CATEGORY or `"ROOT"`, and `"headismv"` (**:1409**) = `"1"` if the arm's head
+equals the backward-scan verb. Of nine cues those are the only two derived from the arc.
+
+**AND A THIRD THING, WHICH TURNED OUT TO BE THE ACTUAL DEFECT (I did not see it until I read the function).**
+`purpose_cues:1387-1392` computes the `frame` cue as `subcat.p_complement(mv)` where `mv` is the **backward-scan**
+verb. So on every site where the arm disagrees with that scan -- **30 of the 129 decidable sites, measured** --
+the lexicalist frame, the cue whose whole job is to decide complement-vs-purpose, is **looked up on a word that
+does not govern the clause.**
+
+**WHAT THE CONSUMER NEEDS TO RECEIVE: the governor's IDENTITY -- the head token index the arm already returns --
+not a category.** With the identity it can (a) read the frame off the governor the arm chose and (b) read that
+governor's own accrued infinitival expectation. Both are built and measured in section 23.
+
+## 22. (1b) IS THE DECODE LOSS GENERAL? NO -- AND IT IS THE OPPOSITE ACROSS ALL ARCS. This CORRECTS section 5.
+
+Strategy asked the right question. Measured once over **every dependent of every UD-EWT test sentence**
+(n=24,586 arcs), reading the same matrix two ways -- the per-dependent ARGMAX over all heads with no tree
+constraint at all, and the live in-order beam:
+
+| | in-order beam | matrix argmax (no tree) | argmax - beam |
+|---|---|---|---|
+| **ALL ARCS, the organ as shipped** | **0.6465** | 0.6186 | **-0.0279 CI[-0.0322,-0.0235]** |
+| **ALL ARCS, patched** | **0.6493** | 0.6192 | **-0.0301 CI[-0.0343,-0.0259]** |
+| infinitivals only, shipped | 0.6766 | 0.7478 | **+0.0712** |
+| infinitivals only, patched | 0.7745 | 0.7893 | **+0.0148** |
+
+**Across the whole treebank the in-order beam BEATS the tree-free argmax by 2.8 points, CI-separated.** The tree
+constraint plus in-order commitment is a net WIN, not a loss -- so *"the decode throws signal away"* is **false as
+a general statement and I withdraw it in that form.** What is true, and what section 5 actually measured, is that
+**the infinitival arc was a local exception** (+0.0712 in the argmax's favour), and the reanalysis closed most of
+it (+0.0148 left). The largest remaining per-relation exceptions are small and named: `compound +0.032` (n=1049),
+`root +0.022` (n=1787), `advmod +0.018` (n=1314), `nsubj +0.010` (n=2066).
+
+➡️ **So this is NOT a heads-rung-wide lead worth more than this brief.** It is a *per-construction* question: for
+which relations does the beam commit before the disambiguating word? The answer today is `compound`, `root` and
+`advmod`, each worth ~2-3 points of its own relation and ~0.1 point of UAS. *(Section 5's numbers stand as
+measured; note that its 0.7674 was the argmax over the RETRIEVED CANDIDATES plus ROOT, while the 0.7478 / 0.7893
+here is the argmax over EVERY head -- two different readings of the same matrix, and both are reported so neither
+number travels without its definition.)*
+
+## 23. (2a) THE CONSUMER HAND-OFF -- BUILT, MEASURED, AND IT CROSSES THE SUPERVISED LABEL
+
+pri 129's own cell, its learner, its **train-internal dev selection** and its scorer, all unchanged -- only the
+cue function is swapped, and only in this process. Four arms, one process, n=129 decidable:
+
+| arm | competition (BF) | vs the frozen supervised deprel filter (0.6822) | dev acc |
+|---|---|---|---|
+| shipped heads + shipped cues (the landed configuration) | 0.6589 | -0.0235 CI[-0.1145,+0.0630] | 0.752 |
+| patched heads + shipped cues (this rung, as the consumer reads it now) | 0.6744 | -0.0077 CI[-0.1061,+0.0916] | 0.748 |
+| **patched heads + IDENTITY cues** | **0.6899** | **+0.0073 CI[-0.0821,+0.0960]** | **0.776** |
+| -- TWIN: the same cue-set SHAPE, both new values held CONSTANT | 0.6744 | -0.0077 | 0.748 |
+
+**0.6589 -> 0.6899 = +0.0310 over the landed configuration, half from this rung's heads and half from the
+hand-off, and for the first time the brain-foundational arm is ABOVE the frozen supervised label rather than
+below it.** The twin is exact: with the same two extra cue slots carrying a constant, the score returns to
+0.6744, so the gain is the information and not the wider cue set.
+
+**AND THE DEV SPLIT ATTRIBUTES IT PRECISELY, against my own expectation.** It selected `drop=['headexp']` --
+i.e. it **threw away the governor's infinitival expectation** and kept only `hframe`, the frame read on the arm's
+head. **The load-bearing fix is not the new statistic; it is reading an existing cue off the right word.** I had
+expected the opposite and am recording it that way round.
+
+⚠️ **Still short of the bar's +0.10, and the paired CI still contains zero at n=129.** What this establishes is
+direction and a crossing, not separation.
+
+**SHIPPED AS A SEPARATE DIFF, per strategy's instruction:**
+`notes/problems/<slug>/purpose_handoff_patch.diff` against `hdlab/graded_role_assigner.py` (generated against
+HEAD; that file is unmodified in the working tree, so it applies clean and is disjoint from pri 131's
+`situation_reader` / `coref` / `goal_register` edits). **INTEGRATION REQUIREMENT, stated because the diff is inert
+without it:** `hframe` is a NEW cue, so the landed purpose validity asset has no cells for it and the cue
+ABSTAINS until that asset is rebuilt by pri 129's own builder. Land the diff and rebuild the purpose validities
+in the same step, or the change measures as exactly nothing.
+
+## 24. (2b) RETRIEVAL OVER THE CATEGORY POSTERIOR -- the lever is REAL but BOUNDED, and the cheap form is FLAT
+
+**Step 1, the diagnosis.** For every miss whose gold governor was never OFFERED (18 of them), how much posterior
+mass does the categories rung put on a class that WOULD have offered it? Median **0.3325**; 13 of 18 carry at
+least 0.05; **6** have it as the 2nd-ranked category, **9** at 3rd or lower, and **3 have no candidate class in
+the posterior at all**. So the signal exists for at most 15 of 18 and is deep in the ranking for most.
+
+**Step 2, the cheap form, and it is exactly flat.** `arc_scores_graded` ALREADY re-scores the matrix under each
+uncertain token's alternative categories (`TAG_GRADED_TAU` / `TAG_GRADED_MAX_ALT`), so moving that operating
+point IS retrieval-over-the-posterior with no signature change. Swept:
+
+| tau / max_alt | infinitivals ALL | UAS | acl_nominal | csubj_extrapos |
+|---|---|---|---|---|
+| 0.80 / 3 (the live default) | 0.7745 | 0.6493 | 0.4286 | 0.8261 |
+| 0.90 / 3 | 0.7745 | 0.6493 | 0.4286 | 0.8261 |
+| 0.95 / 5 | 0.7745 | 0.6493 | 0.4286 | 0.8261 |
+| 0.99 / 8 | 0.7745 | 0.6493 | 0.4286 | 0.8261 |
+
+**Identical to four decimal places at every setting.** The graded hand-off's alternative passes enter the matrix
+as `log(p_alt) + B` for an arc that exists only under the alternative, which is far too heavy a penalty to win a
+competition -- so the existing machinery cannot deliver the missing candidates however wide it is opened.
+
+➡️ **I therefore WITHDRAW "the single most promising next build" from section 14.3 / 15.1 and replace it with a
+bounded one:** a governor missing from the retrieval can be recovered only by the CANDIDATE SCAN itself reading
+the posterior (a signature change through `arc_scores`), the ceiling is 15 of 337 items (~4.5 points) before any
+cost, and the ADV experiment (section 7c, -0.0267 CI-separated DOWN) is direct evidence that adding candidates
+costs more than it gains. **On the current evidence I would not build it, and I would not have said that
+yesterday.**
+
+## 25. (2c) THE LEXICAL REALLOCATION RUN TO CONVERGENCE -- a test-set peak that the DEV SPLIT REFUSES
+
+Each setting re-accrues the store and both cue channels from scratch; nothing else changes.
+
+| reallocation rounds | **DEV** (UD-EWT train 4000-6500, outside the accrual supply, n=510) | TEST (n=337) | TEST acl_nominal | TEST paired vs rounds 1 |
+|---|---|---|---|---|
+| 0 (pure parse-free adjacency) | 0.7157 | 0.7567 | 0.4464 | -0.0178 CI[-0.0402,+0.0029] ns |
+| **1 (the shipped default)** | 0.7275 | **0.7745** | 0.4286 | -- |
+| 2 | 0.7294 | 0.7774 | 0.4821 | +0.0030 CI[-0.0123,+0.0186] ns |
+| **4 (DEV-SELECTED)** | **0.7471** | **0.7685** | 0.4643 | -0.0059 CI[-0.0265,+0.0142] ns |
+| 8 | 0.7431 | 0.7864 | **0.5000** | +0.0119 CI[-0.0096,+0.0347] ns |
+
+**The test peak is rounds 8 (+0.0119, acl_nominal 0.4286 -> 0.5000). The dev split selects rounds 4, whose test
+number is 0.7685 -- BELOW the shipped rounds 1.** Not one contrast is CI-separated. So the honest reading is:
+**the lever is real in direction (dev rises monotonically 0 -> 4, and the construction the residual named is the
+one that moves) and it does not survive honest selection, so I am NOT adopting it.** Taking rounds 8 would be
+exactly the move pri 117 recorded against itself -- a constant identifiable only with the test gold in hand.
+**Shipped default stays 1**, the switch is `--infin-rounds` in the builder, and strategy can adopt a different
+value only on a powered, independently-selected run.
+
+*This also retires next step 15.2 as I wrote it: "run the reallocation to convergence" has now been run, and it
+is not worth +0.01 of unearned credit.*
+
+## 26. A MEASUREMENT HAZARD I WALKED INTO IN PHASE 7, AND THE GUARD THAT NOW CATCHES IT
+
+**Strategy applies an accepted solver diff to the WORKING TREE before committing it.** Between phase 6 and phase 7
+it did exactly that with this diff, so `hdlab/attachment_arm.py` on disk became **byte-identical to my patched
+source** (verified: HEAD has no `INFIN_CUE`, the working tree does, and the working tree equals
+`arm_patched.py`). My cell read the baseline **from disk**. Left alone, `shipped_module()` would have loaded the
+**patched** organ as the control and every A/B in this file would have reported **+0.0000** -- indistinguishable
+from *"the mechanism does nothing"*, on a brief whose whole claim is a +0.0979.
+
+It surfaced as a crash (the in-memory diff would not apply to an already-patched source), not as a wrong number,
+which is luck. Both arms now read **`git show HEAD:<path>`**, the patch generator does too, and `--self-test`
+carries a new check that fails if the shipped arm ever carries this brief's own functions:
+`ok   the SHIPPED arm is HEAD's organ, not the working tree's (strategy may have applied the diff there)`
+(**19/19** now). **The generalisable rule: a solver cell that A/Bs its own diff must pin its baseline to a commit,
+never to the working tree, because the working tree is where its own change lands first.**
+
+⚠️ **ONE STEP LEFT UNDONE, AND WHY.** Verifying the regenerated diff against a pristine HEAD checkout was
+DENIED by the harness. Per the operating rules I stopped and did not retry it or achieve it another way, so
+**"applies clean against HEAD" is asserted by construction (the diff is generated from `git show HEAD:` text by
+the same generator) and not by an independent `git apply` run.** The verbatim denial:
+`Permission to use Bash with command D="notes/problems/the_attachment_arm.../infinitival_governor_patch.diff"; TMP=$(mktemp -d); git archive HEAD hdlab/attachment_arm.py tools/build_attachment_validities.py | tar -x -C "$TMP" && (cd "$TMP" && git init -q . && git apply --check "/c/AI/hd-instrument/$D" && echo "DIFF APPLIES CLEAN AGAINST HEAD ($(cd /c/AI/hd-instrument && git rev-parse --short HEAD))"); rm -rf "$TMP" has been denied.`
+*The earlier commit's copy of this diff DID pass `git apply --check` at `cc57f7aba`, before strategy applied it.*
+
+## 27. THE PUSH SCRIPT, RUN ONCE MORE -- what is left after phase 7
+
+| question | answer, with the number |
+|---|---|
+| (i) where is signal lost now? | 51 of 76 residual misses are the competition itself (23 prefer a VERB, 16 a NOUN); 18 are never retrieved; **7** are the decode -- and the decode is now shown to be a NET WIN treebank-wide (section 22) |
+| (ii) prototype past every wall | done: three refuted-as-built arms (context cue, ADV retrieval, posterior-retrieval-by-tau) and one adopted (the hand-off). Each one's landed form is stated; none is a heuristic |
+| (iii) is wiring enough? | **No.** The remaining 51 competition losses need the arc scorer's REPRESENTATION (categorical over 17 classes), not another cue -- the same third item pri 117 named. That is a representation brief, not a wiring one |
+| (iv) nothing frozen | the lexical store and both cue channels accrue online (`observe_infinitival_site`, `observe_infinitival_governor`); the reanalysis carries no parameter; `--infin-rounds` stays at its a-priori value because dev refused the test peak |
+| (v) vs SOTA on this metric | supervised parser ~0.95 on these arcs; we are 0.6766 -> 0.7745. The glass-box lever that remains is the representation (above); the two cheap ones are now measured and bounded |
+| (vi) false negatives among my own negatives | checked: the ADV arm was re-accrued for the wider retrieval before being refuted; the context cue was measured ungated AND gated; posterior retrieval was diagnosed before being swept. The reallocation negative is the one I would most expect to flip on a powered run |
+| (vii) prior work on this rung | pri 117's decode-gap lesson generalised here and then **limited** by section 22; its "frozen constant tuned on test" lesson is what stopped me adopting rounds 8 |

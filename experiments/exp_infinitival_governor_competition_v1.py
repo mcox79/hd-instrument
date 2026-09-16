@@ -118,9 +118,28 @@ def _apply_unified(src, diff_text, path):
     return NL.join(out)
 
 
+def _head_source(path="hdlab/attachment_arm.py"):
+    """THE BASELINE IS HEAD, NOT THE WORKING TREE -- and this is not pedantry, it is a measurement failure mode
+    this cell walked into.  Strategy applies an accepted solver diff to the WORKING TREE before committing it;
+    on 2026-09-15 it did exactly that with THIS diff, so `hdlab/attachment_arm.py` on disk already carried the
+    change.  Read from disk, the 'shipped' arm would have been the PATCHED organ and every A/B in this file
+    would have reported +0.0000 -- indistinguishable from 'the mechanism does nothing'.  Both arms therefore
+    read `git show HEAD:<path>`, and the fallback to disk fires only outside a git checkout."""
+    import subprocess
+    try:
+        p = subprocess.run(["git", "show", "HEAD:" + path], cwd=REPO, capture_output=True, text=True)
+        if p.returncode == 0 and p.stdout:
+            return p.stdout
+    except Exception:
+        pass
+    return open(os.path.join(REPO, *path.split("/")), encoding="utf-8", newline="").read()
+
+
 def _patched_source(path="hdlab/attachment_arm.py"):
-    src = open(os.path.join(REPO, *path.split("/")), encoding="utf-8", newline="").read()
+    src = _head_source(path)
     dif = open(DIFF, encoding="utf-8", newline="").read()
+    if "INFIN_CUE" in src:
+        return src                      # the diff is already in this source: nothing to apply
     return _apply_unified(src, dif, path)
 
 
@@ -148,7 +167,8 @@ def _fresh_module(src, name, asset=None, real="hdlab/attachment_arm.py"):
 
 
 def shipped_module(name="pri133_arm_shipped"):
-    src = open(os.path.join(REPO, "hdlab", "attachment_arm.py"), encoding="utf-8", newline="").read()
+    src = _head_source("hdlab/attachment_arm.py")
+    assert "INFIN_CUE" not in src, "the SHIPPED arm must not already carry this brief's change (see _head_source)"
     return _fresh_module(src, name, AA.ASSET)
 
 
@@ -850,6 +870,297 @@ def board(ud_cap=600, n_boot=1000):
     return out
 
 
+def decodegap(cap=None, n_boot=2000):
+    """PHASE 7 (1b).  IS THE DECODE LOSS GENERAL, or only the infinitival arc?  For EVERY dependent of every
+    UD-EWT test sentence, read the SAME arc matrix two ways: the per-dependent ARGMAX over all heads (no tree
+    constraint at all) and the live IN-ORDER beam.  If the gap is large across the board this is a heads-rung
+    lead worth more than this brief; if it is specific to the arcs a cue was just added for, it is this
+    brief's finding and no more."""
+    rows = cache("ud", cap)
+    pidx = collections.defaultdict(list)
+    for it in infin_population(rows):
+        pidx[it["sid"]].append(it)
+    out = {}
+    for name, mod, asset in (("shipped", shipped_module("p7_dg_s"), AA.ASSET),
+                             ("patched", patched_module("p7_dg_p", INFIN_ASSET), INFIN_ASSET)):
+        tab = mod.load_attachment_validities(asset)
+        per = []
+        rel_a = collections.defaultdict(lambda: [0, 0]); rel_b = collections.defaultdict(lambda: [0, 0])
+        infin = {"beam": 0, "argmax": 0, "n": 0}
+        for r in rows:
+            A, nn = mod.arc_scores_graded(list(r["toks"]), list(r["up"]), r["tp"], tab)
+            hd = mod.decode(list(r["toks"]), list(r["up"]), A, nn)[0]
+            col = np.where(np.isfinite(A), A, -np.inf)
+            rec = {"beam": [0, 0], "argmax": [0, 0]}
+            for i in range(r["n"]):
+                g = r["gh"][i]
+                if not (0 <= g <= r["n"]):
+                    continue
+                j = i + 1
+                best = int(np.argmax(col[:, j])) if np.isfinite(col[:, j]).any() else 0
+                ok_b = int(hd.get(j, -1) == g); ok_a = int(best == g)
+                rec["beam"][0] += ok_b; rec["beam"][1] += 1
+                rec["argmax"][0] += ok_a; rec["argmax"][1] += 1
+                rl = r["rel"][i]
+                rel_a[rl][0] += ok_a; rel_a[rl][1] += 1
+                rel_b[rl][0] += ok_b; rel_b[rl][1] += 1
+            for it in pidx.get(r["sid"], ()):
+                j = it["vid"]
+                best = int(np.argmax(col[:, j])) if np.isfinite(col[:, j]).any() else 0
+                infin["beam"] += int(hd.get(j, 0) == it["gold_head"])
+                infin["argmax"] += int(best == it["gold_head"]); infin["n"] += 1
+            per.append(rec)
+        b = agg_key(per, "beam"); a = agg_key(per, "argmax")
+        rng = np.random.default_rng(SEED); vals = []
+        d0 = a[0] - b[0]
+        for _ in range(int(n_boot)):
+            pick = rng.integers(0, len(per), len(per))
+            sub = [per[i] for i in pick]
+            x = sum(q["argmax"][0] for q in sub) / max(1, sum(q["argmax"][1] for q in sub))
+            y = sum(q["beam"][0] for q in sub) / max(1, sum(q["beam"][1] for q in sub))
+            vals.append(x - y)
+        v = np.sort(np.array(vals)); lo = float(v[int(0.025 * len(v))]); hi = float(v[int(0.975 * len(v))])
+        out[name] = {"all_arcs": {"beam": b[0], "argmax": a[0], "n": b[1],
+                                  "argmax_minus_beam": [float(d0), lo, hi]},
+                     "infinitivals": {"beam": infin["beam"] / max(1, infin["n"]),
+                                      "argmax": infin["argmax"] / max(1, infin["n"]), "n": infin["n"]},
+                     "per_relation": {k: {"beam": rel_b[k][0] / max(1, rel_b[k][1]),
+                                          "argmax": rel_a[k][0] / max(1, rel_a[k][1]), "n": rel_b[k][1]}
+                                      for k in rel_b if rel_b[k][1] >= 50}}
+        print("  %-8s ALL ARCS beam %.4f | matrix argmax %.4f | gap %+.4f CI[%+.4f,%+.4f] (n=%d)"
+              % (name, b[0], a[0], d0, lo, hi, b[1]), flush=True)
+        print("           infinitivals only: beam %.4f | argmax %.4f | gap %+.4f (n=%d)"
+              % (out[name]["infinitivals"]["beam"], out[name]["infinitivals"]["argmax"],
+                 out[name]["infinitivals"]["argmax"] - out[name]["infinitivals"]["beam"],
+                 out[name]["infinitivals"]["n"]), flush=True)
+        pr = out[name]["per_relation"]
+        worst = sorted(pr.items(), key=lambda kv: -(kv[1]["argmax"] - kv[1]["beam"]))[:10]
+        print("           biggest per-relation decode gaps: " + ", ".join(
+            "%s %+.3f(n=%d)" % (k, v["argmax"] - v["beam"], v["n"]) for k, v in worst), flush=True)
+    _w("metrics_decodegap.json", out)
+    return out
+
+
+def unretrieved_posterior(cap=None):
+    """PHASE 7 (2b), STEP 1.  For every miss whose GOLD governor was never OFFERED to the competition, ask
+    whether the categories rung's POSTERIOR already carries a class that would have offered it -- i.e. whether
+    retrieval over the posterior is a real lever or a mis-diagnosis.  Reads the same posterior that
+    `arc_scores_graded` is handed, so nothing new is computed."""
+    rows = cache("ud", cap)
+    pidx = collections.defaultdict(list)
+    for it in infin_population(rows):
+        pidx[it["sid"]].append(it)
+    M = patched_module("p7_unret", INFIN_ASSET)
+    tab = M.load_attachment_validities(INFIN_ASSET)
+    found = collections.Counter(); mass = []
+    for r in rows:
+        if not pidx.get(r["sid"]):
+            continue
+        A, nn = M.arc_scores_graded(list(r["toks"]), list(r["up"]), r["tp"], tab)
+        hd = M.decode(list(r["toks"]), list(r["up"]), A, nn)[0]
+        for it in pidx[r["sid"]]:
+            j = it["vid"]; g = it["gold_head"]
+            if hd.get(j, 0) == g or not g:
+                continue
+            if g in M.infin_candidates(r["up"], j):
+                continue
+            d = (r["tp"][g - 1] if r["tp"] and g - 1 < len(r["tp"]) else None) or {}
+            cand_mass = sum(float(v) for k, v in d.items() if k in M.INFIN_CAND)
+            rank = sorted(d.items(), key=lambda kv: -kv[1])
+            pos_of = next((i for i, (k, _v) in enumerate(rank) if k in M.INFIN_CAND), None)
+            mass.append(cand_mass)
+            found["candidate-class mass >= 0.05" if cand_mass >= 0.05 else "candidate-class mass < 0.05"] += 1
+            found["the class is the 2nd-ranked category" if pos_of == 1 else
+                  ("the class is 3rd or lower" if pos_of is not None
+                   else "no candidate class in the posterior at all")] += 1
+    out = {"n_unretrieved_misses": len(mass),
+           "median_candidate_class_mass": float(np.median(mass)) if mass else 0.0,
+           "breakdown": dict(found)}
+    print("  %d unretrieved-gold misses; median posterior mass on a CANDIDATE class %.4f"
+          % (out["n_unretrieved_misses"], out["median_candidate_class_mass"]))
+    for k, v in found.most_common():
+        print("    %-46s %d" % (k, v))
+    _w("metrics_unretrieved_posterior.json", out)
+    return out
+
+
+def tau_sweep(cap=None):
+    """PHASE 7 (2b), STEP 2.  The graded hand-off ALREADY re-scores the matrix under each uncertain token's
+    second-best category (TAG_GRADED_TAU / TAG_GRADED_MAX_ALT).  If the missing governors are carried by the
+    posterior, MOVING THAT OPERATING POINT is retrieval-over-the-posterior without widening any signature --
+    the organ's own phase diagram, swept and not adopted."""
+    rows = cache("ud", cap)
+    pidx = collections.defaultdict(list)
+    for it in infin_population(rows):
+        pidx[it["sid"]].append(it)
+    M = patched_module("p7_tau", INFIN_ASSET)
+    tab = M.load_attachment_validities(INFIN_ASSET)
+    res = {}
+    for tau, mx in ((0.8, 3), (0.9, 3), (0.95, 5), (0.99, 8)):
+        M.TAG_GRADED_TAU = tau; M.TAG_GRADED_MAX_ALT = mx
+        per, secs = score(M, tab, rows, pidx)
+        ia = agg_infin(per)
+        k = "tau %.2f max_alt %d" % (tau, mx)
+        res[k] = {"ALL": ia.get("ALL", (0, 0))[0], "uas": agg_key(per, "uas")[0],
+                  "per": {kk: vv[0] for kk, vv in ia.items()}, "seconds": secs}
+        print("  %s: ALL %.4f UAS %.4f  acl %.4f csubj %.4f advcl %.4f xcomp %.4f  (%.0fs)"
+              % (k, res[k]["ALL"], res[k]["uas"], ia.get("acl_nominal", (0, 0))[0],
+                 ia.get("csubj_extrapos", (0, 0))[0], ia.get("advcl_purpose", (0, 0))[0],
+                 ia.get("xcomp_control", (0, 0))[0], secs), flush=True)
+    M.TAG_GRADED_TAU = 0.8; M.TAG_GRADED_MAX_ALT = 3
+    _w("metrics_tau_sweep.json", res)
+    return res
+
+
+def rounds_sweep(cap=None, rounds=(0, 1, 2, 4, 8), accrue_cap=4000, n_boot=2000):
+    """PHASE 7 (2c).  THE LEXICAL REALLOCATION RUN TOWARD CONVERGENCE.  Hindle & Rooth's estimator is an
+    EM-style reallocation and this shipped with ONE pass; the residual says 16 of 76 misses are a noun keeping
+    credit a competing verb should have taken back.  Each setting re-accrues the store AND the two cue channels
+    from scratch (nothing else changes) and is scored on the same population."""
+    rows = cache("ud", cap)
+    pidx = collections.defaultdict(list)
+    for it in infin_population(rows):
+        pidx[it["sid"]].append(it)
+    res = {}; keep = {}
+    for r in rounds:
+        path = os.path.join(REPO, "data", "frontend_assets", "attachment_validities_infin_r%d_v1.json" % r)
+        accrue(cap=accrue_cap, rounds=r, teacher="clear", out=path, quiet=True)
+        M = patched_module("p7_r%d" % r, path)
+        tab = M.load_attachment_validities(path)
+        per, _s = score(M, tab, rows, pidx)
+        ia = agg_infin(per)
+        k = "rounds %d" % r
+        keep[k] = per
+        res[k] = {"ALL": ia.get("ALL", (0, 0))[0], "uas": agg_key(per, "uas")[0],
+                  "per": {kk: vv[0] for kk, vv in ia.items()}, "asset": os.path.basename(path)}
+        print("  %s: ALL %.4f UAS %.4f  acl %.4f csubj %.4f advcl %.4f xcomp %.4f other %.4f"
+              % (k, res[k]["ALL"], res[k]["uas"], ia.get("acl_nominal", (0, 0))[0],
+                 ia.get("csubj_extrapos", (0, 0))[0], ia.get("advcl_purpose", (0, 0))[0],
+                 ia.get("xcomp_control", (0, 0))[0], ia.get("other", (0, 0))[0]), flush=True)
+    base = keep.get("rounds 1")
+    if base is not None:
+        for k in res:
+            if k == "rounds 1":
+                continue
+            res[k]["paired_vs_rounds1"] = boot(keep[k], base, _stat_infin(None), n_boot)
+            print("    %s - rounds 1: %+.4f CI[%+.4f,%+.4f] %s"
+                  % (k, res[k]["paired_vs_rounds1"]["delta"], res[k]["paired_vs_rounds1"]["lo"],
+                     res[k]["paired_vs_rounds1"]["hi"], res[k]["paired_vs_rounds1"]["separated"]), flush=True)
+    _w("metrics_rounds_sweep.json", res)
+    return res
+
+
+def install_shipped(name="hdlab.attachment_arm"):
+    """Bind HEAD's organ onto the live `hdlab.attachment_arm` object.  Needed because strategy stages an accepted
+    diff in the WORKING TREE: without this the 'shipped' consumer arm would run the patched organ."""
+    M = shipped_module("pri133_arm_live_shipped")
+    import hdlab.attachment_arm as LIVE
+    for k in dir(M):
+        if not k.startswith("__"):
+            setattr(LIVE, k, getattr(M, k))
+    for k in ("infin_arc_values", "infin_sites", "infin_candidates", "revise_infinitival_governor",
+              "observe_infinitival_site", "observe_infinitival_governor", "infin_assoc_from_reading",
+              "infin_rate", "infin_key", "infin_case_context", "infin_clear_case", "infin_new_assoc"):
+        if hasattr(LIVE, k) and not hasattr(M, k):
+            delattr(LIVE, k)          # the shipped organ must not carry this brief's functions
+    LIVE.ASSET = AA.ASSET; LIVE._TABLE = None
+    return LIVE
+
+
+def handoff(cap=None, n_boot=2000):
+    """PHASE 7 (2a).  THE CONSUMER HAND-OFF: give the purpose decision the GOVERNOR'S IDENTITY instead of two
+    bits of its category.
+
+    THE GATE AND THE TWO BITS, at file:line.  `hdlab/goal_register.py:274-281` finds the governing verb by
+    SCANNING BACKWARDS for the nearest preceding VERB and `:281` skips the site when that scan finds none --
+    its own comment says "no matrix verb (e.g. 'a plan to leave') -> skip", i.e. the gate names the construction
+    this rung repaired; `:287` skips every extraposed site (`it is hard to say`); `:294` and `:296` skip goal
+    verbs and adjacent complement-takers.  What survives is the xcomp/advcl contrast.  The decision's cue set
+    (`hdlab/graded_role_assigner.py:1379 purpose_cues`) then reads the attachment arm ONLY through
+    `headcat` (:1408, the head's CATEGORY) and `headismv` (:1409, does the head equal the backward-scan verb).
+    AND THE FRAME CUE IS LOOKED UP ON THE WRONG WORD: `:1387-1392` takes `p_complement(mv)` where `mv` is the
+    BACKWARD-SCAN verb, so on every site where the arm disagrees with that scan the lexicalist frame -- the cue
+    that is supposed to decide complement vs purpose -- is read off a word that does not govern the clause.
+
+    WHAT THE CONSUMER NEEDS TO RECEIVE: the governor's IDENTITY (the head TOKEN INDEX the arm already computes),
+    so that (a) the frame is looked up on the governor the arm actually chose, and (b) the governor's own
+    infinitival expectation -- the statistic this brief accrued -- can compete.  Both are read from the arm's
+    existing output; nothing new is computed.
+
+    ARMS (pri 129's own cell, its learner, its train-internal dev selection and its scorer, UNCHANGED -- only
+    the cue function is swapped, and only in this process):
+      shipped heads + shipped cues    the landed configuration
+      patched heads + shipped cues    this rung's gain as the consumer currently reads it
+      patched heads + IDENTITY cues   the same heads, read as an identity instead of a category
+    """
+    import experiments.exp_labels_rung_to_live_consumers_v1 as L
+    import hdlab.frontend as FE
+    from hdlab.verb_subcat_frames import SubcatFrames
+    try:
+        SC = SubcatFrames.load()
+    except Exception:
+        SC = None
+    MOD = patched_module("pri133_handoff_cues", INFIN_ASSET)
+    ASSOC = MOD.load_attachment_validities(INFIN_ASSET).get("infin_assoc")
+    orig = L._purpose_cues
+
+    def identity_cues(toks, pos, low, i, mvi, heads):
+        cfg, c = orig(toks, pos, low, i, mvi, heads)
+        n = len(toks)
+        h = heads.get(i + 2, 0)
+        if h and 1 <= h <= n:
+            # (a) THE FRAME, READ ON THE GOVERNOR THE ARM CHOSE (not on the backward scan's verb)
+            hw = low[h - 1]
+            pc = None
+            if SC is not None:
+                pc = SC.p_complement(hw)
+                if pc is None:
+                    from hdlab.goal_register import _lemma as _gl
+                    pc = SC.p_complement(_gl(hw))
+            c["hframe"] = "na" if pc is None else ("hi" if pc >= 0.7 else "mid" if pc >= 0.4 else "lo")
+            # (b) THE GOVERNOR'S OWN INFINITIVAL EXPECTATION -- the statistic this brief accrued
+            c["headexp"] = (("NOM" if pos[h - 1] in NOMINAL else pos[h - 1]) + ":"
+                            + MOD._infin_bin(MOD.infin_rate(ASSOC, MOD.infin_key(toks, pos, h))))
+        else:
+            c["hframe"] = "na"; c["headexp"] = "ROOT:unk"
+        return cfg, c
+
+    out = {}
+
+    def one(tag, install, cues_fn):
+        install()
+        FE._P = None
+        L._purpose_cues = cues_fn
+        r = L.run_goal(cap_train=None, cap_test=cap, n_boot=n_boot, seed=SEED)
+        out[tag] = {k: v for k, v in r.items() if not k.startswith("_")}
+        a = r["arms"]
+        print("  %-30s n=%d  competition %.4f | perceptron %.4f | majority %.4f | twin %.4f | agree %.4f"
+              % (tag, r["n_test_decidable"], a["competition_purpose_arm_BF"]["accuracy"],
+                 a["perceptron_deprel_filter_SHIPPED"]["accuracy"], r["majority_floor"],
+                 a["twin_same_rate_random"]["accuracy"], r["agreement_with_shipped"]), flush=True)
+        print("        paired BF - perceptron %+.4f CI[%+.4f,%+.4f] | dev-selected %s"
+              % (r["paired_bootstrap_accuracy_bf_minus_shipped"]["mean"],
+                 r["paired_bootstrap_accuracy_bf_minus_shipped"]["lo"],
+                 r["paired_bootstrap_accuracy_bf_minus_shipped"]["hi"], r["selected_on_dev"]), flush=True)
+        return r
+
+    try:
+        one("shipped heads + shipped cues", install_shipped, orig)
+        one("patched heads + shipped cues", install_patched, orig)
+        one("patched heads + IDENTITY cues", install_patched, identity_cues)
+        # INFORMATION-FREE TWIN for the new cues: the two identity cues given a CONSTANT value, so the cue set
+        # has the same shape and carries nothing.
+        def flat_cues(toks, pos, low, i, mvi, heads):
+            cfg, c = orig(toks, pos, low, i, mvi, heads)
+            c["hframe"] = "flat"; c["headexp"] = "flat"
+            return cfg, c
+        one("patched heads + FLAT twin cues", install_patched, flat_cues)
+    finally:
+        L._purpose_cues = orig
+    _w("metrics_handoff.json", out)
+    return out
+
+
 # ---------------------------------------------------------------------------------- self-test
 def self_test():
     ok = [0, 0]
@@ -864,8 +1175,8 @@ def self_test():
     M = patched_module("pri133_selftest", AA.ASSET)
     ck("the diff applies in memory and the patched organ imports", hasattr(M, "infin_arc_values"))
     ck("both new cues are in CUES", "iexp" in M.CUES and "islot" in M.CUES, M.CUES)
-    ck("the organ file on disk is untouched",
-       "infin_arc_values" not in open(os.path.join(REPO, "hdlab", "attachment_arm.py"), encoding="utf-8").read())
+    ck("HEAD's organ is untouched by this solver (the proposal is the diff, not an edit)",
+       "infin_arc_values" not in _head_source("hdlab/attachment_arm.py"))
     tk = "it is hard to say so".split(); ps = ["PRON", "AUX", "ADJ", "PART", "VERB", "ADV"]
     ck("the infinitival site is found by the organ's own categories", M.infin_sites(tk, ps) == [5])
     ck("`to` as ADP is also a marker (the category organ reads it either way)",
@@ -921,6 +1232,8 @@ def self_test():
     Moff = patched_module("pri133_selftest_off", AA.ASSET)
     S = shipped_module("pri133_selftest_shipped")
     os.environ.clear(); os.environ.update(env0)
+    ck("the SHIPPED arm is HEAD's organ, not the working tree's (strategy may have applied the diff there)",
+       not hasattr(S, "infin_arc_values"))
     tS = S.load_attachment_validities(AA.ASSET); tO = Moff.load_attachment_validities(AA.ASSET)
     from experiments.exp_whodidwhat_ud_structural_v1 import load_ud
     diffs = 0; nn = 0
@@ -976,7 +1289,8 @@ def sweep(cap=None, n_boot=500):
 
 def main(argv=None):
     ap = argparse.ArgumentParser()
-    for k in ("self-test", "repro", "accrue", "arms", "live-ab", "purpose", "oos", "sweep", "board", "residual", "twins"):
+    for k in ("self-test", "repro", "accrue", "arms", "live-ab", "purpose", "oos", "sweep", "board", "residual", "twins", "decodegap",
+              "unretrieved", "tausweep", "roundssweep", "handoff"):
         ap.add_argument("--" + k, action="store_true")
     ap.add_argument("--cap", type=int, default=None)
     ap.add_argument("--n-boot", type=int, default=2000)
@@ -1003,6 +1317,21 @@ def main(argv=None):
         print("OUT OF SUPPLY -- GUM / GENTLE:"); M["oos"] = live_ab(a.cap or 1200, "gum", a.n_boot)
     if a.purpose:
         print("PURPOSE -- pri 129's own consumer:"); M["purpose"] = purpose(a.cap, a.n_boot)
+    if a.decodegap:
+        print("DECODE GAP -- is the loss general or only the infinitival arc?")
+        M["decodegap"] = decodegap(a.cap, a.n_boot)
+    if a.unretrieved:
+        print("UNRETRIEVED GOLD -- does the posterior carry the missing class?")
+        M["unretrieved"] = unretrieved_posterior(a.cap)
+    if a.tausweep:
+        print("TAU SWEEP -- retrieval over the posterior via the graded hand-off's own operating point:")
+        M["tau_sweep"] = tau_sweep(a.cap)
+    if a.roundssweep:
+        print("ROUNDS SWEEP -- the lexical reallocation run toward convergence:")
+        M["rounds_sweep"] = rounds_sweep(a.cap, n_boot=a.n_boot)
+    if a.handoff:
+        print("HAND-OFF -- the purpose decision on the governor's IDENTITY:")
+        M["handoff"] = handoff(a.cap, a.n_boot)
     if a.twins:
         print("TWINS -- the information-free controls, paired against the shipped form:")
         M["twins"] = twin_cis(a.cap, a.n_boot)

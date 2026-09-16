@@ -1,0 +1,32 @@
+diff --git a/hdlab/graded_role_assigner.py b/hdlab/graded_role_assigner.py
+--- a/hdlab/graded_role_assigner.py
++++ b/hdlab/graded_role_assigner.py
+@@ -1401,8 +1401,28 @@ def purpose_cues(toks: Sequence[str], pos: Sequence[str], to_i: int, mv_i: int,
+     else:
+         cfg = "other"
+     h = heads.get(to_i + 2, 0)
++    # THE FRAME, READ ON THE GOVERNOR THE ATTACHMENT ARM ACTUALLY CHOSE (pri 133).  `mv_i` above is
++    # `goal_register`'s BACKWARD SCAN for the nearest preceding VERB (goal_register.py:274-280), so `frame` --
++    # the lexicalist cue that is supposed to decide complement-vs-purpose -- was looked up on a word that does
++    # not govern the clause whenever the arm disagrees with that scan.  MEASURED (pri 133, UD-EWT test, n=129
++    # decidable, pri 129's own learner / dev selection / scorer, only this cue function changed): the arm's head
++    # differs from the scan on 30 of the 129 sites, and reading the frame off the ARM'S HEAD takes the
++    # Competition-Model purpose arm 0.6744 -> 0.6899 -- above the frozen supervised deprel filter (0.6822) for
++    # the first time, paired +0.0073 CI[-0.0821,+0.0960] -- with the train-internal dev accuracy 0.748 -> 0.776.
++    # INFORMATION-FREE TWIN: the same cue-set SHAPE with both new values held CONSTANT scores 0.6744, i.e.
++    # exactly the no-new-cue arm, so the gain is the information and not the extra cue slot.
++    # A SECOND CUE WAS MEASURED AND DEV-DROPPED, recorded so it is not re-tried blind: `headexp`, the governor's
++    # own accrued infinitival expectation (pri 133's asset).  The dev split selected `drop=['headexp']`, so the
++    # load-bearing half is the FRAME ON THE RIGHT WORD, not the expectation.
++    hpc = None
++    if subcat is not None and h and 1 <= h <= n:
++        hw = low[h - 1]
++        hpc = subcat.p_complement(hw)
++        if hpc is None:
++            hpc = subcat.p_complement(_gl(hw))
+     return cfg, {
+         "frame": "na" if pc is None else ("hi" if pc >= 0.7 else "mid" if pc >= 0.4 else "lo"),
++        "hframe": "na" if hpc is None else ("hi" if hpc >= 0.7 else "mid" if hpc >= 0.4 else "lo"),
+         "prev": pos[to_i - 1] if to_i - 1 >= 0 else "NONE",
+         "dist": "0" if (to_i - mv_i) == 1 else "1" if (to_i - mv_i) == 2 else "2" if (to_i - mv_i) <= 4 else "3+",
+         "headcat": (pos[h - 1] if h and 1 <= h <= n else "ROOT"),
