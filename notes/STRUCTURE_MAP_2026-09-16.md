@@ -100,6 +100,445 @@ this pass, DOC = the module's own stated computation)**.
 live reading path, not that it is free.
 
 <!-- BEGIN GENERATED TABLE -->
+
+### A_VWFA — VISUAL WORD FORM AREA (left occipito-temporal) -- orthography to an invariant lexical code
+
+*Citation:* Dehaene et al. 2005; Grainger & Whitney 2004 (open-bigram coding; update rule UNPINNED)
+
+| organ | computation (one sentence of math) | BF | read cost s / calls | imp | copy | reg | src |
+|---|---|---|---|---|---|---|---|
+| `char_positional_encoder` | sign(SUM_i bind(char_hd[c_i], pos_hd[i])) -- position is a hashed atom, not a rotation. | unrated | 0 (not on this read) | 16 | — | yes | MATH |
+| `char_trigram_encoder` | bag of character trigrams bundled into one bipolar hypervector; order destroyed. | unrated | 0 (not on this read) | 63 | — | yes | MATH |
+| `morphology` | lemma(w) = stored irregular form, else the first affix-detached candidate passing the lexical check, POS order n/v/a/r; dual-route frequency race on collision. | BF | 4.97 / 1,075,331 | 29 | — | **NO ROW** | MATH |
+| `vwfa` | acc += weight * SUM_scale (n-gram, scale) hashed bipolar HV optionally bound to position, then sign(). | unrated | 0 (not on this read) | 6 | — | yes | MATH |
+
+### B_LEXSTORE — ANTERIOR TEMPORAL LEXICAL STORE -- content-addressed read of a developmentally laid-down lexicon
+
+*Citation:* Patterson, Nestor & Rogers 2007; Binder & Desai 2011 (acquisition offline, retrieval a read)
+
+| organ | computation (one sentence of math) | BF | read cost s / calls | imp | copy | reg | src |
+|---|---|---|---|---|---|---|---|
+| `animacy_lexicon` | word/lemma -> {animacy, category, agent_capable} by a frozen WordNet hypernym-closure lookup. | unrated | 0.45 / 30,775 | 84 | — | yes | DOC |
+| `closed_class_lexicon` | membership test: is this word a function/discourse word (so it cannot be a content word's meaning). | unrated | 0 (not on this read) | 31 | — | yes | DOC |
+| `definitional_extraction` | symbolic detector for the surface constructions by which text states what a word means. | unrated | 0 (not on this read) | 27 | — | yes | DOC |
+| `definitional_predicate_v61` | recovers the PREDICATE of a process definition from the definitional construction. | unrated | 0 (not on this read) | 3 | — | yes | DOC |
+| `event_type` | verb -> WordNet supersense -> a folk-psychological event ontology class. | BF_SPIRIT | 0 (not on this read) | 24 | — | **NO ROW** | MATH |
+| `force_dynamics_lexicon` | frozen verb -> force class (CAUSE/ENABLE/PREVENT) lexicon from FrameNet causation frames. | BF_SPIRIT | 0 (not on this read) | 29 | **Y** | yes | DOC |
+| `gender_organ` | glass-box natural-gender inference for a nominal (no gold, no LLM). | unrated | 0 (not on this read) | 1 | — | **NO ROW** | DOC |
+| `idiom_grounding` | idiom / colloquialism -> attribute polarity grounding. | unrated | 0 (not on this read) | 3 | — | yes | DOC |
+| `idiom_lexicon` | a frozen stored-unit multiword-expression lexicon (the brain stores idioms whole). | unrated | 0 (not on this read) | 1 | — | **NO ROW** | DOC |
+| `lexical_utils` | the BF lexical helpers (head lemma, person synset, concept lemma) split out of the NOT_BF commonnoun_binder. | BF_SPIRIT | 0.13 / 21,478 | 10 | — | **NO ROW** | DOC |
+| `lexicon_foundation` | content-addressed read of a frozen sqlite lexical store (senses, supersenses, taxonomy, frames, polarity) -- ONE store, many reads, no library in the call chain. | BF_SPIRIT | 13.44 / 6,455,629 | 38 | — | yes | MATH |
+| `meaning_foundation` | loader for the frozen curated sense-signature foundation (117,614 WordNet senses). | BF_SPIRIT | 0 (not on this read) | 37 | — | **NO ROW** | DOC |
+| `psych_verb_frames` | psych verbs -> which argument is the EXPERIENCER (subject or object). | BF_SPIRIT | 0.01 / 1,567 | 8 | — | **NO ROW** | DOC |
+| `quality_relation` | two-channel adjective opposition/relation detection (WordNet antonymy + a learned channel). | BF_SPIRIT | 0 (not on this read) | 1 | — | yes | DOC |
+| `who_is_who_lexicon` | a frozen relational lexicon: title -> role, possessed -> type. | BF_SPIRIT | 0 (not on this read) | 2 | — | **NO ROW** | DOC |
+| `wordnet_polarity_propagation` | propagate result-valence to an OOV verb through the WordNet graph, voted against a seed set. | unrated | 0 (not on this read) | 13 | — | yes | DOC |
+
+### C_HUBSPOKE — ATL AMODAL HUB + MODALITY SPOKES -- one graded meaning code converged from modality channels
+
+*Citation:* Rogers et al. 2004; Lambon Ralph et al. 2017 (hub-spoke double dissociation; combination rule UNPINNED)
+
+| organ | computation (one sentence of math) | BF | read cost s / calls | imp | copy | reg | src |
+|---|---|---|---|---|---|---|---|
+| `bridging_inference` | construction-integration antecedent selection: score candidate antecedents by ATL relatedness and commit the best unstated link. | BF_SPIRIT | 0 (not on this read) | 8 | — | **NO ROW** | DOC |
+| `composed_encoder_v3` | score-level late combination of a VWFA orthographic stream and a PPMI/SVD distributional stream. | unrated | 0 (not on this read) | 4 | — | yes | DOC |
+| `concept_encoder` | competitive-Hebbian sparse coding of a concept-label-conditioned embedding. | unrated | 0 (not on this read) | 13 | — | yes | DOC |
+| `conceptual_meaning` | definitional/conceptual meaning channel over the ATL hub -- the reader's second meaning system. | BF_SPIRIT | 3.98 / 4,167,130 | 31 | — | yes | DOC |
+| `distributional_meaning_channel` | PPMI over the reading loop's separable co-occurrence store -> a taught substitutability read-out. | unrated | 0 (not on this read) | 31 | — | yes | DOC |
+| `fractional_power_encoding` | FPE magnitude code: z^x with fractional exponent -- a log-Weber scalar magnitude representation. | unrated | 0 (not on this read) | 8 | — | yes | MATH |
+| `grounded_semantic_graph` | spreading activation as personalised PageRank r = (1-d)p + d*T^T r over a WordNet++ synset graph. | unrated | 14.83 / 2,591 | 13 | — | yes | MATH |
+| `grounded_similarity` | perceptual-grounding fallback similarity for OOV words. | BF_SPIRIT | 0.01 / 2,867 | 146 | — | yes | DOC |
+| `hub_spoke_word` | word_vector(w) = Q(SUM_s bind(spoke_key[s], facet_s)) -- one vector that stays internally addressable. | unrated | 0 (not on this read) | 5 | — | yes | MATH |
+| `late_combine` | weighted integration of N parallel streams into one vector (an N400-window analog). | unrated | 0 (not on this read) | 2 | — | yes | DOC |
+| `lexical_similarity` | shared-feature lexical similarity over typed concept features. | unrated | 0 (not on this read) | 33 | — | yes | DOC |
+| `meaning_fusion` | equal-weight z-fusion of a reading spoke and a grounded spoke (complementary, not distillation). | unrated | 0 (not on this read) | 2 | — | yes | MATH |
+| `ppmi_sparse_encoder` | PPMI/SVD then threshold -> a sparse distributional code. | unrated | 0 (not on this read) | 13 | — | yes | MATH |
+| `random_indexing` | forward-only Hebbian co-occurrence: each word's context vector accumulates its neighbours' sparse index vectors. | unrated | 0 (not on this read) | 10 | — | yes | MATH |
+| `scalar_adjective_operation` | gradable adjective -> a magnitude on its dimension (the 'ruler' meaning operation). | unrated | 0 (not on this read) | 3 | — | yes | DOC |
+| `semantic_hub` | one shared nonlinear layer over five graded spokes, consolidated by denoising reconstruction + precision-weighted consensus. | BF_SPIRIT | 0 (not on this read) | 1 | — | **NO ROW** | DOC |
+| `sensorimotor_spoke` | a modality-specific spoke feeding the hub; the candidate nearest in spoke space is the meaning (selection rule OUR-INVENTION). | BF_SPIRIT | 0 (not on this read) | 7 | — | yes | DOC |
+| `structured_matcher` | the SIGN/TYPE store complementing the polarity-blind distributional hub: typed, directed role-filler match. | BF_SPIRIT | 0 (not on this read) | 2 | **Y** | **NO ROW** | DOC |
+| `typed_spokes` | frozen TYPED, DIRECTED world-knowledge spokes (is-a, part-of, ...) on the ATL hub -- the additive fix for the superposition ceiling. | BF_SPIRIT | 4.18 / 1,845,195 | 32 | — | **NO ROW** | DOC |
+| `verb_lexical_similarity` | open-vocabulary verb-class shared-feature similarity (the verb sibling of lexical_similarity). | unrated | 0 (not on this read) | 33 | — | yes | DOC |
+
+### D_SEMCTL — SEMANTIC CONTROL (LIFG / pMTG) -- conflict-gated suppression of the frequency-dominant meaning
+
+*Citation:* Jefferies & Lambon Ralph 2006; Noonan et al. 2013; biased competition Desimone & Duncan 1995
+
+| organ | computation (one sentence of math) | BF | read cost s / calls | imp | copy | reg | src |
+|---|---|---|---|---|---|---|---|
+| `coref_distractor_suppress` | suppress generic/non-referential distractor candidates and abstain when no candidate clears. | unrated | 0 (not on this read) | 12 | — | yes | DOC |
+| `diagnostic_context_wsd` | biased-competition sense readout: the diagnostic context word biases the sense competition. | unrated | 0 (not on this read) | 60 | — | **NO ROW** | DOC |
+| `layer_075_structural_slot_filter` | narrow a PPR candidate set to the few facts a composition query actually needs. | unrated | 0 (not on this read) | 2 | — | yes | DOC |
+| `low_information_filter` | refuse a grounding object that carries too little information to be a meaning. | unrated | 0 (not on this read) | 5 | — | yes | DOC |
+| `meaning_operation_router` | dispatch the meaning read-out by word class -- the semantic-control routing step. | unrated | 0 (not on this read) | 4 | — | yes | DOC |
+| `semantic_control` | LIFG/pMTG conflict-gated suppression: let context override the frequency-dominant sense. | unrated | 0 (not on this read) | 7 | — | yes | DOC |
+| `underspecified_sense_reader` | commit the underspecified shared-core sense of a target word over the decorrelated sense hub. | BF_SPIRIT | 0 (not on this read) | 18 | — | **NO ROW** | DOC |
+
+### E_SELECT — CORTEX - BASAL GANGLIA SELECTION LOOP / COMPETITION MODEL -- candidates scored by summed cue validities, argmax gated
+
+*Citation:* Bates & MacWhinney 1982/1989; Lewis & Vasishth 2005; McClelland 2013 (additive+softmax = the posterior); Redgrave, Prescott & Gurney 1999 (one selection loop, many domains)
+
+| organ | computation (one sentence of math) | BF | read cost s / calls | imp | copy | reg | src |
+|---|---|---|---|---|---|---|---|
+| `affected_entity_resolver` | argmax over Principle-B-legal candidates of ln(ACT-R salience) + g_g*1[role match] + g_t*1[patient]; gammas HAND-SWEPT, not learned log-odds. | BF_SPIRIT | 0.56 / 152,591 | 18 | — | **NO ROW** | MATH |
+| `attachment_arm` | arc score(h->j) = config strength + SUM_cues log-odds contrast(cue value / config); tree = single-root MAP or incremental beam with decaying hold expectations. | BF_SPIRIT | 17.48 / 1,900,991 | 46 | — | **NO ROW** | MATH |
+| `commonnoun_binder` | situation-gated common-noun referent forming. NOT_BF and empirically dead on the live path (its BF lexical helpers were split out to lexical_utils). | NOT_BF | 0 (not on this read) | 22 | — | **NO ROW** | DOC |
+| `convergent_cue_reader` | combine two cues by reliability weighting w_i proportional to 1/sigma_i^2 (Ernst-Banks / Ma-Pouget), not a post-hoc AND. | BF_SPIRIT | 0 (not on this read) | 6 | — | yes | MATH |
+| `coref` | the reference backbone: a per-sentence pass that opens entities and resolves pronouns against the running overlay by ACT-R activation x phi agreement. | BF_SPIRIT | 0.65 / 77,989 | 160 | — | yes | MATH |
+| `coreference_resolver` | canonical match-or-allocate identity tracking across clauses. | unrated | 0 (not on this read) | 36 | — | yes | DOC |
+| `crf_tagger` | calibrated joint-decoded POS posterior (a CRF over the same features). Supervised weights -> NOT_BF. | unrated | 0 (not on this read) | 10 | — | yes | DOC |
+| `crosstype_bridge` | definite -> prior NAME binding by in-text predication (precise constructs) x ACT-R cue retrieval. | BF_SPIRIT | 0.08 / 14,051 | 15 | — | **NO ROW** | DOC |
+| `crosstype_live_adapter` | runs the crosstype bridge gold-free off the reader's own live parse and online cluster labels. | BF_SPIRIT | 0.16 / 5,986 | 6 | — | **NO ROW** | DOC |
+| `entity_resolver` | ONE ACT-R retrieval core A_i = B_i + SUM_cue W_cue*match_cue(i) with mention-type-routed cue arms (Ariel accessibility) -- the model consolidation. | BF_SPIRIT | 4.53 / 1,463,047 | 5 | — | **NO ROW** | MATH |
+| `entity_world_model_resolver` | entity resolution seeded with a world-knowledge role/kinship prior. | BF_SPIRIT | 0 (not on this read) | 4 | — | **NO ROW** | DOC |
+| `event_centrality_coref` | event/situation centrality as a tie-break cue in the coreference decision. | BF_SPIRIT | 0 (not on this read) | 25 | — | yes | DOC |
+| `gated_fusion` | learned convex-gate fusion of two retrieval streams. | unrated | 0 (not on this read) | 1 | — | yes | DOC |
+| `goal_owner_select` | directed coherence scoring to pick WHOSE goal a purpose clause states. | unrated | 0 (not on this read) | 25 | — | yes | DOC |
+| `graded_competition` | THE engine: A_i = SUM_c w_c*support_c(i); softmax(gain*A) = the posterior; argmax = the task-triggered collapse; normalised entropy = difficulty. | unrated | 4.06 / 28,708 | 68 | — | yes | MATH |
+| `graded_coref_pick` | the antecedent pick as graded competition: softmax over ACT-R + phi supports, argmax the pick, entropy the confidence. | unrated | 0 (not on this read) | 35 | — | yes | MATH |
+| `graded_role_assigner` | role = argmax_k SUM_cues strength[cue][cfg/value][k]; strengths = log P(k/cfg,value) - log P(k/cfg) from counts (strengths_from_counts) -- THE ONE learned-validity implementation. | BF_SPIRIT | 6.19 / 790,891 | 103 | — | yes | MATH |
+| `intent_classifier` | Hebbian-bound prototype bundles; intent = argmax similarity to a prototype. | unrated | 0 (not on this read) | 3 | — | yes | DOC |
+| `lexical_categories` | P(c_i/words) by forward-backward over count-estimated log P(w/c), P(suffix/c), log P(c/c_prev); fixed-lag (2) incremental revision; argmax = the tag. | BF_SPIRIT | 20.08 / 1,101,469 | 33 | — | **NO ROW** | MATH |
+| `online_entity_cluster` | Heim file-change + Lewis-Vasishth ACT-R retrieval: cluster each new mention onto the most active compatible file, else open one. | BF_SPIRIT | 0 (not on this read) | 5 | — | **NO ROW** | MATH |
+| `pos_tagger` | averaged structured perceptron + Viterbi -> UPOS. NOT_BF (max-margin fitted weights, not counted cue validities); superseded on the live path by lexical_categories. | NOT_BF | 0 (not on this read) | 277 | — | yes | MATH |
+| `salience_binder` | B = ln(SUM_k w(role_k) * dt_k^-decay) -- ACT-R base-level activation x Centering prominence; THE shared base term of every retrieval organ. | BF | 1.38 / 407,688 | 47 | — | yes | MATH |
+| `selection_weighted_sharded_typer` | discriminativeness-weighted, role-sharded VSA superposition typing of pragmatic constructions. | unrated | 0 (not on this read) | 3 | — | yes | DOC |
+| `thematic_role_labeler` | role = argmax over AGENT/PATIENT/EXPERIENCER/... of integrated probabilistic surface cues (word order, animacy, frame) -- Competition Model, its own cue table. | BF_SPIRIT | 1.36 / 173,554 | 229 | — | yes | DOC |
+| `typed_coref` | typed common-noun coreference: bind a definite to a prior mention of a compatible TYPE. | BF_SPIRIT | 0 (not on this read) | 31 | — | **NO ROW** | DOC |
+| `verb_role_exemplar_selector` | pick WHICH argument fills a verb's role from a structured exemplar store, not a coarse centroid. | unrated | 0 (not on this read) | 9 | — | **NO ROW** | DOC |
+| `verb_role_integrated` | construction-conditional integration of the verb-role exemplar store with position. | unrated | 0 (not on this read) | 0 | — | **NO ROW** | DOC |
+| `world_state_entity_binding` | stage-1 dispatcher: a raw participant mention -> a canonical discourse-entity key (deixis / expletive / retrieval routing). | BF_SPIRIT | 0 (not on this read) | 5 | — | yes | DOC |
+
+### F_SYNTAX — SYNTACTIC STRUCTURE BUILDING (left pIFG / pSTG) -- incremental attachment under memory limits
+
+*Citation:* MacDonald, Pearlmutter & Seidenberg 1994; Lewis & Vasishth 2005; Levy 2008; Gibson DLT
+
+| organ | computation (one sentence of math) | BF | read cost s / calls | imp | copy | reg | src |
+|---|---|---|---|---|---|---|---|
+| `arc_labeler` | supervised averaged perceptron over arc features -> UD deprel; argmax over label lanes. NOT_BF (a fitted discriminative classifier, not cue competition). | NOT_BF | 0 (not on this read) | 96 | — | yes | MATH |
+| `arc_parser` | hashed arc-factored averaged perceptron scoring head->dep, decoded to a tree. NOT_BF (fitted weights, no cue contrasts). | NOT_BF | 0 (not on this read) | 183 | — | yes | DOC |
+| `arceager_parser` | arc-eager transition system with Zhang-Nivre non-local features; argmax over legal actions. NOT_BF (fitted). | NOT_BF | 0 (not on this read) | 79 | — | yes | MATH |
+| `candidate_generator` | sentence -> tokens -> categories -> arcs -> the SET of (verb, argument-candidate) pairs the parse licenses. | unrated | 0 (not on this read) | 76 | — | yes | DOC |
+| `frontend` | THE one shared reading frontend: categories and heads for every consumer, honouring the organ switches. | BF_SPIRIT | 0.09 / 9,450 | 40 | — | **NO ROW** | MATH |
+| `graded_parser` | globally normalised arc marginals over the arc-factored scorer (keep alternatives alive). | unrated | 0 (not on this read) | 81 | — | **NO ROW** | DOC |
+| `incremental_parser` | left-corner Now-or-Never eager attachment -- the noise->0 limit of graded competition. | BF_SPIRIT | 0.10 / 6,376 | 31 | — | yes | DOC |
+| `joint_relation_frontend` | parse the clause ONCE and read every relation channel off the SAME dependency structure (the brain extracts a clause's relations jointly). | BF_SPIRIT | 0 (not on this read) | 11 | **Y** | **NO ROW** | DOC |
+| `np_head_reduce` | reduce an NP span to its head (stage A of who-did-what role assignment). | BF_SPIRIT | 0 (not on this read) | 14 | — | yes | DOC |
+| `predicate_argument_frontend` | the shared shallow-SRL front end: a parsed clause -> argument roles. | BF_SPIRIT | 0.37 / 51,795 | 84 | — | yes | DOC |
+| `predicate_detector` | register-robust predicate (verbhood) recall from counted cues, recovering events the tagger misses. | BF_SPIRIT | 1.43 / 292,968 | 7 | — | yes | DOC |
+| `relcl_resolver` | filler-gap role assignment for relative clauses as cue-based retrieval of the filler, no arc graph. | BF_SPIRIT | 0.16 / 33,433 | 61 | — | yes | DOC |
+| `semantic_parser` | intent + role-slot extraction from a composed HD bundle by unbinding. | unrated | 0 (not on this read) | 1 | — | yes | DOC |
+| `structural_do` | is this a bare post-verbal direct object (structural evidence overriding an intransitivity veto). | BF_SPIRIT | 0 (not on this read) | 2 | — | **NO ROW** | DOC |
+| `verb_subcat` | verb -> P(has an overt patient); suppress a bound patient below threshold. | unrated | 0.01 / 4,440 | 15 | — | yes | DOC |
+| `verb_subcat_frames` | verb -> its infinitival frame, separating a purpose adjunct from a complement. | BF_SPIRIT | 0 (not on this read) | 6 | — | **NO ROW** | DOC |
+
+### G_SITMODEL — HIPPOCAMPAL-CORTICAL SITUATION MODEL -- one indexed event model with dimensions
+
+*Citation:* Zwaan & Radvansky 1998 event-indexing; Glenberg, Meyer & Lindem 1987; Zacks, Speer & Reynolds 2009
+
+| organ | computation (one sentence of math) | BF | read cost s / calls | imp | copy | reg | src |
+|---|---|---|---|---|---|---|---|
+| `affect_register` | a per-character LIST of extracted affect records with query callables; no time-indexed fold (the register-group deviation). | BF_SPIRIT | 0.06 / 875 | 4 | — | **NO ROW** | MATH |
+| `belief_timeline` | belief(agent, obj, t) RECOMPUTED at query time from the event list x the observation set; no folded register (the register-group deviation). | BF_SPIRIT | 0 (not on this read) | 14 | — | yes | MATH |
+| `copular_binding` | bind a copular predication to its subject as a typed (holder, property) state. | BF_SPIRIT | 0.06 / 1,871 | 11 | — | yes | DOC |
+| `goal_register` | a LIST of extracted goals with a status marked by predicate+agent match in a strictly later sentence; no interval fold, no result-state read (the register-group deviation). | BF_SPIRIT | 0.21 / 37,505 | 60 | — | **NO ROW** | MATH |
+| `location_register` | per-entity spatial INTERVALS: open_interval(node,t), node_at(t); fold(entities, motion events) -- the interval bookkeeping the state register shares. | BF_SPIRIT | 0 (not on this read) | 20 | — | **NO ROW** | MATH |
+| `polarity_operator` | event negation operator + Johnson-Laird quantifier cardinality over an already-extracted proposition. | BF_SPIRIT | 0.36 / 96,872 | 4 | **Y** | **NO ROW** | DOC |
+| `possession_operators` | derive the world-state TRANSFER operators from FrameNet rather than a hand-authored verb list. | BF_SPIRIT | 0 (not on this read) | 13 | — | yes | DOC |
+| `referent_per_np` | open ONE discourse referent per content-noun-head NP (DRT file cards), not only per coref mention. | BF_SPIRIT | 0.10 / 9,407 | 14 | — | **NO ROW** | DOC |
+| `situation_model_accumulate` | per-entity register: bundle(bind(role, event-slot)) accumulated, decoded by unbind + cleanup argmax (accumulate, never overwrite). | unrated | 0.06 / 760 | 143 | — | yes | MATH |
+| `situation_model_multibank` | the same register sub-bundled across banks to lift the flat-bundle capacity wall. | unrated | 0 (not on this read) | 12 | — | yes | DOC |
+| `situation_reader` | THE integration layer: one in-order pass over a passage producing a SituationModel with 23 default-on dimensions. | unrated | 1.65 / 101,664 | 301 | — | yes | MATH |
+| `state_of_mind` | a symbolic salience-weighted working-memory discourse overlay (an entity tracker, NOT theory of mind). | unrated | 0.08 / 37,862 | 81 | — | yes | DOC |
+| `state_register` | per-entity state INTERVALS: add_state(value, polarity, aspect, t); active_at(t); fold(entities, events) -- the same interval bookkeeping as the location register, a different attribute. | BF_SPIRIT | 0.01 / 1,509 | 11 | — | yes | MATH |
+| `unified_referent` | ONE discourse referent per entity (Heim/Kamp DRT file change). | unrated | 0 (not on this read) | 6 | — | **NO ROW** | DOC |
+| `world_state_register` | STRIPS-style operators over relational predicates: per-SLOT set(value,t) / value_at(t); fold(events) -- interval bookkeeping keyed on the OBJECT, not the entity. | BF_SPIRIT | 0.01 / 2,886 | 14 | — | yes | MATH |
+
+### H_EPISODIC — HIPPOCAMPUS / CLS -- DG pattern separation, CA3 completion, replay to neocortex
+
+*Citation:* Marr 1971; McClelland, McNaughton & O'Reilly 1995; Yonelinas dual-process
+
+| organ | computation (one sentence of math) | BF | read cost s / calls | imp | copy | reg | src |
+|---|---|---|---|---|---|---|---|
+| `bound_event_backbone` | tiers the bound event tokens into one assembly so the reader's dimensions share one episodic backbone. | BF_SPIRIT | 0.31 / 18,358 | 2 | — | yes | DOC |
+| `ca3_completer` | CA3 auto-associative completion from a partial cue, routed through an address. DEFAULT-OFF. | unrated | 0 (not on this read) | 2 | — | yes | DOC |
+| `content_addressable_retrieval` | additive Lewis-Vasishth cue-based retrieval: A_i = SUM_cue w_cue * match_cue(i); retrieve argmax (partial-cue, not exact-key). | unrated | 0 (not on this read) | 5 | — | yes | DOC |
+| `cortical_recall` | retrieval from the CONSOLIDATED (cortical) store rather than the episodic sketchpad -- the CLS position fix. | unrated | 0 (not on this read) | 8 | — | yes | DOC |
+| `dg_ca3_recollection_gate` | DG expansive random projection + k-WTA, then CA3 completion; the gate's own confidence self-certifies. | unrated | 0 (not on this read) | 2 | — | yes | MATH |
+| `dg_pattern_separation` | expansive random projection + top-k sparsify -> orthogonalised codes (the anti-over-merge stage). | unrated | 0 (not on this read) | 6 | — | yes | DOC |
+| `factorized_entity_store` | episodic store factorised as CONTENT x graded TEMPORAL CONTEXT x within-moment ORDER. | unrated | 0 (not on this read) | 1 | — | yes | DOC |
+| `gather_reason` | state-of-mind-conditioned CA3 relevance gather, then bounded K<=2 fan-out reasoning. | unrated | 0 (not on this read) | 10 | — | yes | DOC |
+| `hd_fact_store` | a fact as one role-slot-bound hypervector with source and trust bound into the same bundle. | unrated | 0 (not on this read) | 87 | — | yes | MATH |
+| `hippocampal_encoder` | DG expansion + top-K sparsify + sign, then CA3 Marr-style auto-association -- the CLS write path. | unrated | 1.61 / 953 | 27 | — | yes | MATH |
+| `kg_traversal` | substrate-native single-hop and n-hop KG traversal: E @ (W @ key). | unrated | 0 (not on this read) | 65 | — | yes | MATH |
+| `multi_hop` | multi-hop chain traversal with iterative (modern-Hopfield) cleanup between hops. | unrated | 0 (not on this read) | 7 | — | yes | DOC |
+| `perirhinal_conjunctive` | sparse CONJUNCTIVE feature coding (perirhinal), the code DG/CA3 operate over. DEFAULT-OFF. | unrated | 0 (not on this read) | 3 | — | yes | DOC |
+| `schema_exemplar_bayes` | log-sum-exp Bayesian routing to a compressed schema centroid. | unrated | 0 (not on this read) | 5 | — | yes | DOC |
+
+### I_WM — WORKING MEMORY -- a bounded focus of attention with active maintenance (PFC + parietal)
+
+*Citation:* Cowan 2001 (~4 chunks); Baddeley; slot-based maintenance
+
+| organ | computation (one sentence of math) | BF | read cost s / calls | imp | copy | reg | src |
+|---|---|---|---|---|---|---|---|
+| `bundle_focus_coref` | a bounded Cowan-4 event-bundle focus fed back into cross-sentence pronoun resolution. | unrated | 0 (not on this read) | 1 | — | yes | DOC |
+| `context_retention` | two-tier multi-turn dialogue context retention. | unrated | 0 (not on this read) | 6 | — | yes | DOC |
+| `entity_slot_gate` | a small addressable entity-slot memory with a learned write gate over frozen encoder states. | unrated | 0 (not on this read) | 1 | — | yes | DOC |
+| `situation_focus` | a bounded ~4-chunk superposition of the most recent event bundles, hierarchically chunked, gracefully forgetting. | BF_SPIRIT | 0.33 / 5,622 | 8 | — | yes | MATH |
+| `slot_attention_wm` | slot-attention working memory: competing slots bind the input by attention, maintained across steps. | unrated | 0 (not on this read) | 6 | — | yes | DOC |
+| `working_memory` | K-item capacity via per-bank cleanup (multi-bank working memory). | unrated | 0 (not on this read) | 3 | — | yes | MATH |
+
+### J_VSA — BINDING ALGEBRA -- the substrate's vector binding primitive (implementation UNPINNED in the brain; kept as a defensible computational-level model)
+
+*Citation:* Plate 1995 HRR; Gayler 2003; SEM/Franklin 2020 as the computational-level model (owner 2026-08-26)
+
+| organ | computation (one sentence of math) | BF | read cost s / calls | imp | copy | reg | src |
+|---|---|---|---|---|---|---|---|
+| `atoms` | FHRR/HRR atom generation and similarity: random unit-phase vectors, cosine/phase similarity. | unrated | 0 (not on this read) | 79 | — | yes | DOC |
+| `binding` | bind = elementwise complex multiply (FHRR) / circular convolution (HRR) / bipolar multiply (BSC); unbind = the conjugate. | unrated | 0.13 / 3,515 | 216 | — | yes | MATH |
+| `bundling` | superposition: recency-weighted sum of hypervectors, then quantise. | unrated | 0 (not on this read) | 78 | — | yes | MATH |
+| `cleanup_family` | four cleanup primitives mapping a noisy retrieved vector to the nearest stored item. | BF | 0 (not on this read) | 34 | — | yes | DOC |
+| `event_bundle` | event_vec = quantize(SUM_r bind(role_key[r], filler_vec[r])) -- one event as one role-slot-bound hypervector. | BF | 0.41 / 9,483 | 31 | — | yes | MATH |
+| `gsbc_graded_encoder` | generalised sparse block code: block-wise top-m positive survivors, unit-L1 per block. | unrated | 0 (not on this read) | 4 | — | yes | MATH |
+| `iterative_attractor` | iterative attractor settling (CAN-bump / Wilson-Cowan style) replacing one-shot argmax cleanup. | BF | 0 (not on this read) | 35 | — | yes | MATH |
+| `memory` | cleanup memory: nearest stored named atom under an attention-gated cosine floor. | unrated | 0 (not on this read) | 28 | — | yes | MATH |
+| `modern_hopfield_readout` | modern-Hopfield softmax retrieval over a stored HD table (interpolating readout). | unrated | 0 (not on this read) | 2 | — | yes | MATH |
+| `role_slot_summarizer` | hierarchical role-slot binding summarisation: sharded per-role slots over the same bind/bundle primitives. | BF | 1.03 / 8,722 | 22 | — | yes | MATH |
+| `sequence_memory` | offline-Hebbian-bound ordered pair store (the S matrix); successor prediction by unbind + cleanup. | unrated | 0 (not on this read) | 12 | — | yes | MATH |
+| `vsa_cleanup_memory` | a real Plate-style cleanup memory: a separate item memory the noisy unbind result is cleaned against. | unrated | 0 (not on this read) | 2 | — | yes | DOC |
+
+### K_PREDICT — PREDICTIVE CODING / N400 -- forward expectation and the precision-weighted update it is scored by
+
+*Citation:* Rao & Ballard 1999; Rabovsky & McClelland 2018; Kuperberg & Jaeger 2016; Elman 2009 GEK
+
+| organ | computation (one sentence of math) | BF | read cost s / calls | imp | copy | reg | src |
+|---|---|---|---|---|---|---|---|
+| `composed_hub_predictor` | forward prediction from a ~200-d ATL hub code by precision-weighted composed-exemplar retrieval. | unrated | 0 (not on this read) | 4 | **Y** | **NO ROW** | DOC |
+| `generalized_event_knowledge` | score(cont/ctx) = SUM_a PPMI(a->c) over story transitions; precision = 1 - normalised entropy. | BF_SPIRIT | 0 (not on this read) | 43 | — | **NO ROW** | MATH |
+| `n400_coherence_monitor` | //Delta situation-model// as the integration cost of the incoming item; a relative-threshold boundary on it. | unrated | 0.04 / 1,840 | 10 | — | yes | MATH |
+| `predictive_coding` | predict(key) = sign(W @ key); write only when the residual exceeds threshold (gated write). | unrated | 0 (not on this read) | 30 | — | yes | MATH |
+| `predictive_reader` | the verb pre-activates its role filler; surprisal at the filler is the prediction error. | BF_SPIRIT | 0.12 / 7,260 | 19 | — | yes | DOC |
+| `predictive_world_model` | online event-transition model; leave-one-out predictive relevance log[P(B/ctx)/P(B/ctx-A)]. | BF_SPIRIT | 0 (not on this read) | 15 | — | **NO ROW** | MATH |
+| `typed_selectional_preference` | Resnik class-based selectional association over the noun-supersense cut, from the reading-grown store. | BF_SPIRIT | 0.06 / 14,097 | 7 | — | **NO ROW** | DOC |
+
+### L_SEGMENT — EVENT SEGMENTATION (SEM) -- a schema switch when prediction error crosses a relative threshold
+
+*Citation:* Zacks et al. 2007; Reynolds, Zacks & Braver 2007; Franklin, Norman, Ranganath, Zacks & Gershman 2020
+
+| organ | computation (one sentence of math) | BF | read cost s / calls | imp | copy | reg | src |
+|---|---|---|---|---|---|---|---|
+| `scene_segment` | scene segmentation + per-scene topical-protagonist coreference; also the reader's sentence/token parse entry. | BF_SPIRIT | 0.15 / 24 | 89 | — | yes | DOC |
+| `sem_event_segmenter` | SEM schema switch: start a new event when prediction error crosses a relative threshold (Franklin/Zacks). | unrated | 0 (not on this read) | 4 | **Y** | **NO ROW** | DOC |
+
+### M_AFFECT — VALUATION / AFFECT (OFC-vmPFC, amygdala, nociception) -- core affect as valence x arousal
+
+*Citation:* Russell 1980 circumplex; Barrett constructed emotion; Talmy 1988 / Wolff 2007 force dynamics for harm
+
+| organ | computation (one sentence of math) | BF | read cost s / calls | imp | copy | reg | src |
+|---|---|---|---|---|---|---|---|
+| `affect_lexicon` | word -> (valence, arousal) core-affect coordinates read from a frozen norm table. | BF_SPIRIT | 0.07 / 17,207 | 101 | — | **NO ROW** | DOC |
+| `context_grounded_valence` | harm/neutral for an extracted (verb, patient) pair, flipped by the patient's grounded properties. | BF_SPIRIT | 0.06 / 2,866 | 14 | — | yes | DOC |
+| `force_dynamics_valence` | HARM/HELP = sign(result-state valence) gated by force type and affectedness >= tau. | BF_SPIRIT | 0.23 / 15,327 | 21 | — | **NO ROW** | MATH |
+| `occ_appraisal` | OCC appraisal: goal-conduciveness x prospect -> OCC emotion type + valence. | BF_SPIRIT | 0 (not on this read) | 3 | **Y** | **NO ROW** | MATH |
+| `valence_polarity_channel` | the SIGNED evaluative axis that un-blinds meaning to antonymy (love vs hate). | BF_SPIRIT | 0 (not on this read) | 2 | — | **NO ROW** | DOC |
+
+### N_GOALS — GOAL / INTENTION SYSTEM (mPFC-ACC) -- an agent's goal is a state about an object at a time, closed by a matching outcome
+
+*Citation:* Trabasso & van den Broek 1985 causal network; Zwaan & Radvansky intentionality dimension; OCC appraisal
+
+| organ | computation (one sentence of math) | BF | read cost s / calls | imp | copy | reg | src |
+|---|---|---|---|---|---|---|---|
+| `goal_achievement` | three inspectable channels composed by an explicit precedence policy into a goal-fulfilment verdict. | unrated | 0 (not on this read) | 14 | — | yes | DOC |
+| `goal_hierarchy_graph` | a goal -> subgoal hierarchy graph for plot structure. | BF_SPIRIT | 0.01 / 1,358 | 5 | — | **NO ROW** | DOC |
+| `goal_outcome_relation` | does an outcome semantically relate to the goal (the abstain-cohort residual). | unrated | 0 (not on this read) | 6 | — | yes | DOC |
+| `goal_outcome_relation_grounded` | the graded situation-model ablation of the goal-outcome relation. | unrated | 0 (not on this read) | 1 | — | yes | DOC |
+| `goal_typing` | type a goal by three validated construction signals. | unrated | 0 (not on this read) | 57 | — | yes | DOC |
+| `outcome_event_extraction` | extract the outcome event and feed it to the already-proven goal-outcome organs. | unrated | 0 (not on this read) | 1 | — | yes | DOC |
+| `parse_goal_extraction` | extract the goal referent from the parse structure. | unrated | 0 (not on this read) | 2 | — | yes | DOC |
+
+### O_TOM — MENTALIZING NETWORK (rTPJ / mPFC) -- a per-agent belief partition and the action it predicts
+
+*Citation:* Saxe & Kanwisher 2003; Apperly & Butterfill 2009; Baker/Tenenbaum inverse planning
+
+| organ | computation (one sentence of math) | BF | read cost s / calls | imp | copy | reg | src |
+|---|---|---|---|---|---|---|---|
+| `belief_partition` | believed_location(observed, initial, final) = final if observed else initial, held as an FHRR binding read back by cleanup argmax. | unrated | 0 (not on this read) | 7 | — | yes | MATH |
+| `belief_reader` | drives the belief timeline from the live reader's own extraction on real prose. | BF_SPIRIT | 0 (not on this read) | 3 | **Y** | **NO ROW** | DOC |
+| `perceptual_access_ledger` | did agent A perceive event E: a glass-box observation-cue front end for Theory of Mind. | BF_SPIRIT | 0 (not on this read) | 16 | — | yes | DOC |
+| `theory_of_mind` | believes(A,F,t) x wants(A) -> predicted action (the forward mentalizing chain). | BF_SPIRIT | 0 (not on this read) | 3 | — | **NO ROW** | MATH |
+
+### P_CAUSE — FORCE-DYNAMIC CAUSAL SYSTEM -- CAUSE / ENABLE / PREVENT read off the force vectors of a clause
+
+*Citation:* Talmy 1988; Wolff 2007 force theory; Wolff & Song 2003; Gopnik/Schulz intervention learning
+
+| organ | computation (one sentence of math) | BF | read cost s / calls | imp | copy | reg | src |
+|---|---|---|---|---|---|---|---|
+| `causal_network` | build a running cause->effect graph over event bundles and mark on-chain vs dead-end by reachability to the outcome. | BF_SPIRIT | 0 (not on this read) | 3 | **Y** | **NO ROW** | DOC |
+| `causal_reasoner` | multi-hop chain traversal + counterfactual necessity by simulated intervention over the reader's own causal links. | BF_SPIRIT | 0 (not on this read) | 20 | **Y** | **NO ROW** | DOC |
+| `causal_sign_channel` | the increase/decrease SIGN of a causal edge, read from mined directed testimony. | BF_SPIRIT | 0 (not on this read) | 4 | — | **NO ROW** | DOC |
+| `causation_typing` | force-dynamic CAUSE/ENABLE/PREVENT typing of within-clause causatives from the verb's force class x patient tendency. | BF_SPIRIT | 0 (not on this read) | 23 | — | yes | DOC |
+| `coherence_reader` | SDRT-lite: infer RESULT/EXPLANATION edges across sentences from causal world knowledge, not connectives. | BF_SPIRIT | 0 (not on this read) | 4 | — | **NO ROW** | DOC |
+| `force_dynamics_typer` | read CAUSE/ENABLE/PREVENT off the verb's force class (Wolff/Talmy). | unrated | 0 (not on this read) | 5 | — | **NO ROW** | DOC |
+| `patient_tendency` | estimate the patient's own tendency (toward or against the result) for the force-dynamic typer. | unrated | 0.03 / 4,291 | 28 | **Y** | yes | DOC |
+
+### Q_SPACE — SPATIAL SYSTEM (hippocampal place / boundary cells; parietal frames) -- where each entity is, and the relations between grounds
+
+*Citation:* O'Keefe & Nadel 1978; Franklin & Tversky 1990; Glenberg, Meyer & Lindem 1987 foregrounding
+
+| organ | computation (one sentence of math) | BF | read cost s / calls | imp | copy | reg | src |
+|---|---|---|---|---|---|---|---|
+| `space_reader` | ground selection by a FIRST-MATCH linear scan with hand-ordered fallbacks (PP ground, then direct object, then anticipated) -- NOT a competition (the selection-group deviation). | unrated | 0.25 / 28,933 | 4 | **Y** | **NO ROW** | MATH |
+| `spatial_relational_model` | transitive region nesting (containment) + Franklin-Tversky relative position + Goal-over-Source path reasoning. | BF | 0 (not on this read) | 3 | — | **NO ROW** | DOC |
+
+### R_TIME — TEMPORAL SYSTEM -- event order, tense as a Reichenbach relation, intervals as Allen relations, and a graded temporal context signal
+
+*Citation:* Reichenbach 1947; Allen 1983; Howard & Kahana 2002 temporal context; Zwaan time dimension
+
+| organ | computation (one sentence of math) | BF | read cost s / calls | imp | copy | reg | src |
+|---|---|---|---|---|---|---|---|
+| `aspect_interval` | aspect -> interval endpoints; Allen relations computed over the endpoints. | BF_SPIRIT | 0 (not on this read) | 2 | **Y** | **NO ROW** | DOC |
+| `graded_temporal_context` | a bindable multi-timescale temporal context vector (the 'when' of an episodic trace). | unrated | 0 (not on this read) | 13 | — | yes | MATH |
+| `successor_representation` | M = (I - gamma*P)^-1 -- the one fully pinned closed form in the substrate. | unrated | 0 (not on this read) | 6 | — | yes | MATH |
+| `temporal_model` | THE one temporal ORDER organ in three layers: single-frame cue ordering, cross-sentence constraint graph + toposort, passage-level before/after register. | BF_SPIRIT | 0.08 / 2,108 | 12 | — | **NO ROW** | MATH |
+| `temporal_order_register` | backward-compatible SHIM onto temporal_model layer 3 (the consolidation model case). | BF_SPIRIT | 0 (not on this read) | 1 | **Y** | **NO ROW** | MATH |
+| `temporal_ordering` | backward-compatible SHIM onto temporal_model layer 1. | BF_SPIRIT | 0 (not on this read) | 2 | **Y** | **NO ROW** | MATH |
+| `temporal_ordering_multiframe` | backward-compatible SHIM onto temporal_model layer 2. | BF_SPIRIT | 0 (not on this read) | 1 | **Y** | **NO ROW** | MATH |
+| `temporal_reasoner` | integrated before/after with signal-class provenance + Allen OVERLAP over aspect-derived endpoints. | BF_SPIRIT | 0 (not on this read) | 6 | — | **NO ROW** | DOC |
+| `temporal_script_schema` | script/schema ordering of IMPLICIT events the text never states. | unrated | 0 (not on this read) | 8 | — | **NO ROW** | DOC |
+| `temporal_trace` | Foldiak post-synaptic exponential-decay trace over temporally contiguous input. | unrated | 0 (not on this read) | 2 | — | yes | MATH |
+| `tense_preserving_detector` | compositional Reichenbach tense reading (E, R, S relations) preserved through event detection. | BF_SPIRIT | 0.08 / 14,702 | 1 | — | **NO ROW** | DOC |
+| `transitive_ordering` | transitive closure over pairwise comparisons into a total magnitude order. | unrated | 0 (not on this read) | 13 | — | **NO ROW** | MATH |
+| `uds_time_duration` | typical duration per event type (no LLM). | unrated | 0 (not on this read) | 1 | — | **NO ROW** | DOC |
+
+### S_ACTSEL — BASAL GANGLIA GO / NOGO ACTION SELECTION + DOPAMINE PREDICTION ERROR -- gate one action, learn its value
+
+*Citation:* Frank 2005; Schultz 1998; Redgrave et al. 1999
+
+| organ | computation (one sentence of math) | BF | read cost s / calls | imp | copy | reg | src |
+|---|---|---|---|---|---|---|---|
+| `action_selection` | Go_i = w_m*manifold_i + a*goal_sim_i + w_r*reach_i; gate = argmax_i Go_i (winner-take-all disinhibition). | unrated | 0 (not on this read) | 2 | — | yes | MATH |
+| `modulators` | named scalar control variables (arousal, attention) wired to specific substrate operations -- the neuromodulator analog. | unrated | 0 (not on this read) | 15 | — | yes | DOC |
+
+### T_LEARN — PLASTICITY AND CONSOLIDATION -- Hebbian association from experience, gated admission to the slow store, model selection by evidence
+
+*Citation:* Hebb 1949; McClelland et al. 1995 CLS; Anderson & Schooler 1991; MDL / Bayesian model selection
+
+| organ | computation (one sentence of math) | BF | read cost s / calls | imp | copy | reg | src |
+|---|---|---|---|---|---|---|---|
+| `additive_map` | an additive (CLS cortical-schema) KG map: entity coordinates accumulated by summation rather than by multiplicative binding. | unrated | 0 (not on this read) | 15 | — | yes | DOC |
+| `bayesian_inference` | posterior from prior x likelihood; MAP = argmax_k P(H_k/E); EM responsibilities. | unrated | 0 (not on this read) | 5 | — | yes | MATH |
+| `cls_growth` | keep-both-stores safe growth: admit to the slow store only under a reversible gate. | unrated | 0 (not on this read) | 4 | — | yes | DOC |
+| `compose_freq_routing` | gate stored associative traces by the target's composition frequency. | unrated | 0 (not on this read) | 1 | — | yes | DOC |
+| `consequence_learning_loop` | learn an OOV outcome verb's result valence from the episode's own computed consequence. | unrated | 0 (not on this read) | 15 | — | yes | DOC |
+| `consolidation_gate` | the knowledge-admission quality gate: refuse raw co-occurrence into the slow store unless it passes. | unrated | 0 (not on this read) | 4 | — | yes | DOC |
+| `continual` | NREM-replay consolidation with a companion drift bound. | unrated | 0 (not on this read) | 15 | — | yes | DOC |
+| `edge_importance` | a per-pair importance matrix H[i,j] orthogonal to per-atom weight magnitude. | unrated | 0 (not on this read) | 12 | — | yes | DOC |
+| `excitability` | a per-atom excitability tensor E[i] (CREB / synaptic tag-and-capture analog) orthogonal to /W[i]/. | unrated | 0 (not on this read) | 3 | — | yes | DOC |
+| `frame_induction` | induce an OOV verb's thematic frame from the constructions it is observed in. | BF_SPIRIT | 0.05 / 9,232 | 13 | — | yes | DOC |
+| `grounding_acquisition_loop` | flag -> library -> consolidate -> guard -> bank: the closed self-growing grounding loop. | unrated | 0 (not on this read) | 50 | — | yes | DOC |
+| `induced_categories` | the reading-acquired category inventory: distributional substitution classes with no labels. | unrated | 0 (not on this read) | 1 | — | **NO ROW** | DOC |
+| `learner.__init__` | learner package marker. | unrated | 0 (not on this read) | 0 | — | **NO ROW** | MATH |
+| `learner.core` | ONE model-selection engine: pick the hypothesis whose two-part (MDL) / Laplace evidence is best. | unrated | 0 (not on this read) | 21 | — | yes | MATH |
+| `learner.plugins.__init__` | plugin package marker. | unrated | 0 (not on this read) | 0 | — | **NO ROW** | MATH |
+| `learner.plugins.estimation_plugin` | frequency-estimation hypothesis class (Laplace-smoothed condensed counts). | unrated | 0 (not on this read) | 0 | — | yes | DOC |
+| `learner.plugins.gam_plugin` | additive graded shape functions with explicit pairwise interactions. | unrated | 0 (not on this read) | 0 | — | yes | DOC |
+| `learner.plugins.proginduction_plugin` | bounded enumerative symbolic regression over a small boolean DSL. | unrated | 0 (not on this read) | 0 | — | yes | DOC |
+| `learner.plugins.ruleind_plugin` | MDL-gated sequential-covering rule induction. | unrated | 0.01 / 337 | 0 | — | yes | DOC |
+| `learner.registry` | hypothesis-class plugin registry for the learner core. | unrated | 0 (not on this read) | 1 | — | yes | DOC |
+| `learning` | W[t+1] = (1-decay)*W[t] + arousal*reward for co-active pairs -- reward-modulated Hebbian update. | unrated | 0 (not on this read) | 11 | — | yes | MATH |
+| `perceptron` | Collins averaged structured perceptron with Viterbi decoding -- a supervised learning primitive. | unrated | 0 (not on this read) | 3 | — | yes | MATH |
+| `prelim_tier` | the middle tier: retain-forever + accumulate + DG/CA3 combined-evidence generalisation. | unrated | 0 (not on this read) | 8 | — | yes | DOC |
+| `reading_grounding_loop` | read-to-grow: accumulate co-occurrence from real text, ground concepts, criterion-gate what is admitted. | BF_SPIRIT | 0 (not on this read) | 272 | — | yes | DOC |
+| `result_type_induction` | learn the speech-act / result type from construction-cue features. | unrated | 0 (not on this read) | 5 | — | yes | DOC |
+| `script_grain_acquisition_loop` | the grounding acquisition loop at the recurring-event-type (script) grain. | unrated | 0 (not on this read) | 14 | — | yes | DOC |
+| `three_tier_loop` | the assembled three-tier knowledge loop (fast / prelim / consolidated). | unrated | 0 (not on this read) | 7 | — | yes | DOC |
+| `ultrametric_clustering` | single-linkage agglomerative coarse-graining of high-cosine atom clusters into representative + residual codes. | unrated | 0 (not on this read) | 12 | — | yes | MATH |
+| `word_acquisition_loop` | online grounded word acquisition for one dimension at a time. | unrated | 0 (not on this read) | 4 | — | yes | DOC |
+| `word_learning_tool` | look the OOV word up first, then confirm or override that sense through story consequence. | unrated | 0 (not on this read) | 1 | — | yes | DOC |
+
+### U_META — METACOGNITION AND FORAGING (ACC / frontopolar) -- when to stop, when to refuse, what to read next
+
+*Citation:* Charnov 1976 Marginal Value Theorem; Green & Swets SDT; Fleming & Lau confidence
+
+| organ | computation (one sentence of math) | BF | read cost s / calls | imp | copy | reg | src |
+|---|---|---|---|---|---|---|---|
+| `atom_consultation` | consult a constraint store at operation boundaries: encode the query, K x d matmul + argmax against stored constraints. | unrated | 0 (not on this read) | 6 | — | yes | DOC |
+| `clarify_gate` | detect an under-specified query and ask rather than answer; a turn-taking gate. | unrated | 0 (not on this read) | 15 | — | yes | DOC |
+| `completeness_checker` | graded sentence-completeness check over the front-end parse. | unrated | 0 (not on this read) | 2 | — | yes | DOC |
+| `conformal` | split-conformal: accept iff the nonconformity score is below the (1-alpha) calibration quantile. | unrated | 0 (not on this read) | 4 | — | yes | MATH |
+| `gap_detector` | online detection of what the fact store does not contain. | unrated | 0 (not on this read) | 7 | — | yes | DOC |
+| `gap_driven_reader` | rank candidate reading material by how well it supplies a specific missing prerequisite. | unrated | 0 (not on this read) | 12 | — | yes | DOC |
+| `glass_box_loop` | retrieve -> gate -> audit -> requery -> commit, with every step inspectable. | unrated | 0 (not on this read) | 7 | — | yes | DOC |
+| `information_foraging` | patch-leaving under the Marginal Value Theorem: leave when the instantaneous gain drops below the environment's average. | unrated | 0 (not on this read) | 16 | — | yes | MATH |
+| `parse_confidence` | calibrated per-arc reliability for precision-weighting head-driven readers. NOT_BF (a fitted calibrator). | NOT_BF | 0 (not on this read) | 18 | — | **NO ROW** | DOC |
+| `quality_proxy` | a cheap glass-box check on whether a learned (subject, object) fact is likely to mean anything. | unrated | 0 (not on this read) | 2 | — | yes | DOC |
+| `reasoner` | the composed verification-by-derivation reasoner: an inspectable derivation chain. | unrated | 0 (not on this read) | 9 | — | yes | DOC |
+| `refuse_gate` | calibrate tau maximising 0.5*(accept_rate + refuse_rate) on paired in/out-of-distribution scores. | unrated | 0 (not on this read) | 12 | — | yes | MATH |
+| `safe_kb_gate` | a familiarity gate making a broad/noisy entity KB safe to consult. | BF | 0 (not on this read) | 1 | — | **NO ROW** | DOC |
+| `self_improving_loop` | coherence-gated autonomous keep/revert controller for its own changes. | unrated | 0 (not on this read) | 32 | — | yes | DOC |
+| `self_manager` | content-free scalar meta-controllers tuning the gain/threshold of the gates below them. | unrated | 0 (not on this read) | 2 | — | yes | DOC |
+
+### V_INSTR — NO BRAIN STRUCTURE -- instrumentation, harness, storage, profiling and reporting scaffolding
+
+*Citation:* not applicable: this is measurement or plumbing, not a model of a neural system
+
+| organ | computation (one sentence of math) | BF | read cost s / calls | imp | copy | reg | src |
+|---|---|---|---|---|---|---|---|
+| `__init__` | package marker; no computation. | unrated | — | 0 | — | **NO ROW** | MATH |
+| `ablation` | context managers that mask a relation/edge/modulator so a causal probe can run. | unrated | — | 1 | — | yes | DOC |
+| `bigram_gap_measurement` | standardised bigram baseline: predict argmax_t' count(t_prev,t') with add-alpha smoothing; a measurement floor. | unrated | — | 3 | — | yes | DOC |
+| `corpus_registry` | an enumerable registry over the corpora on disk -- 'what should I read next' made representable. | unrated | — | 60 | — | yes | DOC |
+| `cortex` | a facade composing five cortex primitives behind one forward() API. | unrated | — | 8 | — | yes | DOC |
+| `dashboard.__init__` | dashboard package marker. | unrated | — | 0 | — | **NO ROW** | MATH |
+| `dashboard.__main__` | CLI entry for the PDF observability report. | unrated | — | 0 | — | yes | MATH |
+| `dashboard.app` | Streamlit live-observability app. | unrated | — | 0 | — | yes | DOC |
+| `dashboard.panels.__init__` | dashboard panel package marker. | unrated | — | 0 | — | **NO ROW** | MATH |
+| `dashboard.report` | multi-page PDF trace report. | unrated | — | 5 | — | yes | DOC |
+| `director_kb` | ingest the project's own notes/metrics into a KB of typed triples. | unrated | — | 16 | — | yes | DOC |
+| `director_kb_bio_sources` | bio/neuro source fetchers for the KB ingest. | unrated | — | 3 | — | yes | DOC |
+| `director_kb_chunk_ingest` | content-chunk KB ingest (DEPRECATED, folded into director_kb). | unrated | — | 11 | — | yes | DOC |
+| `director_kb_math_sources` | math source fetchers for the KB ingest. | unrated | — | 2 | — | yes | DOC |
+| `director_kb_query` | query the Director-KB by trigram encode + KG traversal. | unrated | — | 20 | — | yes | DOC |
+| `encoder_retrain_persist` | opt-in loader making a retrained encoder a discoverable asset. | unrated | — | 4 | — | yes | DOC |
+| `experiment` | declarative experiment harness: seeded RNG, traced execution, persisted artifacts. | unrated | — | 34 | — | yes | DOC |
+| `foundation_persistence` | deterministic save/reload of the reading-grounded foundation. | unrated | — | 18 | — | yes | DOC |
+| `generation` | substrate-native sequence emission from the sequence matrix with Langevin noise. | unrated | — | 3 | — | yes | DOC |
+| `harness` | re-export shim for high-reuse experiment helpers. | unrated | — | 0 | — | yes | DOC |
+| `ingest_profiles` | named lean ingest profiles -- read a corpus FOR A PURPOSE. | unrated | — | 1 | — | **NO ROW** | DOC |
+| `kb_encoder_registry` | resolve a KB encoder by manifest name. | unrated | — | 3 | — | yes | DOC |
+| `lm_eval_harness` | top-K + temperature-calibrated BPC + bigram-gap LM evaluation harness. | unrated | — | 4 | — | yes | DOC |
+| `mcscript_extraction` | MCScript2.0 XML parsing + parse-structure role extraction for benchmarking. | unrated | — | 7 | — | yes | DOC |
+| `metrics` | standard metric suite (health, composition fidelity, capacity, calibration). | unrated | — | 3 | — | yes | DOC |
+| `morphology_leakage` | strip morphological leakage from a gold set so a spelling control cannot win on form. | unrated | — | 4 | — | yes | DOC |
+| `per_item_log` | one persisted row per held-out item for stage/cause attribution. | unrated | — | 5 | — | yes | DOC |
+| `profiling` | per-op latency, FLOPs and memory-access profiling. | unrated | — | 0 | — | yes | DOC |
+| `reachability_audit` | graph traversal certifying each entity's reachability to grounded content. | unrated | — | 17 | — | yes | DOC |
+| `semantic` | semantic trace-event emit helpers (the WHY layer of the trace bus). | unrated | — | 1 | — | yes | DOC |
+| `session_log` | append-only JSONL event log for cross-session recovery. | unrated | — | 240 | — | yes | DOC |
+| `snapshots` | timestamped connection-state snapshots emitted onto the trace bus. | unrated | — | 1 | — | yes | DOC |
+| `store` | persistent trace storage on DuckDB. | unrated | — | 1 | — | yes | DOC |
+| `substrate` | THE assembled substrate object that holds the organs and runs them. | unrated | — | 46 | — | yes | DOC |
+| `token_vocab` | deterministic-hash token -> id -> content-free bipolar codebook. | unrated | — | 3 | — | yes | DOC |
+| `tracing` | structured trace event bus for every public operation. | unrated | — | 27 | — | yes | DOC |
+| `typed_rule_parser` | TSV tablestore -> typed rule-graph rows for the reasoner. | unrated | — | 2 | — | yes | DOC |
+
+### W_ENGINEER — NO BRAIN STRUCTURE -- an engineering primitive for compute or memory budget (the phase-diagram knobs, not an organ)
+
+*Citation:* not applicable: a hardware/scale accommodation, swept not adopted
+
+| organ | computation (one sentence of math) | BF | read cost s / calls | imp | copy | reg | src |
+|---|---|---|---|---|---|---|---|
+| `chunked_attention` | streaming log-sum-exp attention over M keys in chunks; a memory-budget primitive. | unrated | — | 11 | — | yes | DOC |
+| `gpu_generated_streaming_attention` | generate keys/vals on GPU per chunk instead of materialising them. | unrated | — | 3 | — | yes | DOC |
+| `gpu_memory_budget` | project peak GPU memory and refuse to start above budget. | unrated | — | 4 | — | yes | DOC |
+| `int8_dense` | int8 dense workspace utilities (0.25x memory at matched recall). | unrated | — | 10 | — | yes | DOC |
+| `k_cliff_scaling` | closed-form sequence-binding capacity K_cliff(N) = 0.87*N/log2(N). | unrated | — | 3 | — | yes | MATH |
+| `lock_in_amp` | phase-sensitive detection for coherent signal recovery. | unrated | — | 1 | — | yes | DOC |
+| `noise_channel` | stochastic noise injection at the substrate-cortex boundary. | unrated | — | 4 | — | yes | DOC |
+| `streaming_attention` | CPU-resident streaming attention for M >> VRAM. | unrated | — | 1 | — | yes | DOC |
+| `whitening` | ZCA / PCA whitening of encoder residuals. | unrated | — | 2 | — | yes | DOC |
 <!-- END GENERATED TABLE -->
 
 ---
