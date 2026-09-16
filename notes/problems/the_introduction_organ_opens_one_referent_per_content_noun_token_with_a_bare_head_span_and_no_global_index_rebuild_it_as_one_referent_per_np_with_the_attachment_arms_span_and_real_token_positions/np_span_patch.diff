@@ -1,0 +1,627 @@
+diff --git a/hdlab/referent_per_np.py b/hdlab/referent_per_np.py
+index 78504fb0c..24dc7b48c 100644
+--- a/hdlab/referent_per_np.py
++++ b/hdlab/referent_per_np.py
+@@ -11,6 +11,12 @@ that source: it REUSES the real coref parse for pronouns/clusters/gender, opens
+ (reusing the coref cluster where a coref span already covers that head, else a fresh singleton the linker connects
+ downstream), and returns the parse_litbank_conll mention schema so every reader path behaves identically.
+ 
++pri 138 (2026-09-16): ONE referent per NOUN PHRASE, not per content-noun TOKEN, with the CANONICAL mention
++schema (the raw-cased span with the head last, `wtok_start` at the span start, a true global extent).  The
++boundary is the reader's own attachment arm intersected with the category organ's NP-internal categories and
++closed at the determiner (Abney 1991); the surviving head is the phrase's rightmost member (Williams 1981).
++See `np_groups` for the measurement and the brain citations.
++
+ MEASURED (through the LIVE reader, mention source swapped, else identical; 25 real LitBank docs): effective
+ end-to-end who-did-what on the cleaned-DO instrument 0.4698 -> 0.8054 (+0.336 CI-sep), the info-free twin
+ (matched-count random-position referents) LOSES AND HURTS, NO regression on the noun-supplied eval (rnp==supplied),
+@@ -26,6 +32,8 @@ attested -- Nieuwland 2019); the DRT introduction OPERATION is PINNED.
+ """
+ from __future__ import annotations
+ 
++import os
++
+ __bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
+ __bf_verified__ = '2026-09-09 BF-certification pass (reader CATALOG owner-DONE + BRAIN_FOUNDATIONAL_AUDIT §2b; strategy first-hand cross-ref)'
+ __bf_note__ = 'Kamp/Heim DRT one-referent-per-NP discourse construction; CAT genuinely-BF'
+@@ -96,12 +104,199 @@ def pronoun_phi(form: Optional[str]) -> Optional[Dict]:
+     return PRONOUN_PHI.get((form or "").lower().strip(".,\'\"!?;:"))
+ 
+ 
++# ===============================================================================================================
++# ONE REFERENT PER NOUN PHRASE, WITH REAL TOKEN POSITIONS (pri 138, 2026-09-16).
++#
++# THE DEFECT THIS REPLACES, MEASURED.  `_content_head_positions` returns EVERY content-noun TOKEN and
++# `_mk_referent` stored `span_toks = [head_low]` with `gtok_start = gtok_end = -1`.  So 'the New York Times'
++# opened THREE discourse referents, no mention carried its determiner, and no mention carried a position:
++#   * 28 GUM test documents through the live read: 7,168 mentions where the NPs number 5,625 (1,543 of the
++#     mentions are members of another mention's noun phrase), determiner readable on 0 of 7,168,
++#     `crosstype_live_adapter._can_build` in range on 0 of them (so the default-ON bridge returned its input
++#     unchanged on every raw-text read), same-gold-mention cross-file pairs 3,431.
++#   * the object-file competition's `np` adjacency cue (entity_resolver:469-482) was learned ON that stream:
++#     `gap1_nom` counts 490 same-file against 16 different, i.e. the cue's whole strength is NP-INTERNAL
++#     adjacency -- it is a STAND-IN for the phrase boundary, and it merges a character's file with its
++#     neighbouring nominal run ('maya' + 'championship'), which is what flipped the inferred-emotion arm.
++#
++# THE BRAIN.  One perceived object, one object file (Kahneman, Treisman & Gibbs 1992).  One noun phrase, one
++# discourse referent (Karttunen 1976's discourse referent; Heim 1982's file card): the card is opened by a
++# DETERMINER PHRASE, not by a noun, and the determiner is read ON the card (Heim's Novelty-Familiarity
++# Condition).  The phrase's head is its RIGHTMOST member in English (Williams 1981's Right-Hand Head Rule),
++# so a content noun that lies inside a later noun's phrase is a MEMBER of that phrase, not a referent of its
++# own.  WHERE the mention was said is part of the card (recency and distance are cues on it).
++#
++# THE BOUNDARY IS THE READER'S OWN PARSE, not a chunker: the phrase is the head plus its PRE-HEAD dependents
++# (`hdlab/attachment_arm.py` through `hdlab.frontend.parser`), intersected with the categories that can be
++# NP-internal material (the category organ), and CLOSED at the determiner -- the D is the phrase's outermost
++# layer (Abney 1991), so a second determiner opens a second phrase.  POST-head dependents are NOT absorbed
++# (the prior `boundary_nphead` finding).  `mode`:
++#     "cat"    -- the category run alone (arc-free; what pri 134's chunk did)
++#     "arc"    -- the arc projection alone
++#     "both"   -- the conjunction (DEFAULT, selected on GUM TRAIN)
++#     "graded" -- "both", with the attachment arm's GRADED head belief deciding the uncertain token
++#                 (MAP membership: P(this token's head is inside the phrase) >= P(outside); no threshold
++#                 is fitted -- 0.5 IS the MAP boundary)
++# ===============================================================================================================
++RPN_SPAN = os.environ.get("HDLAB_RPN_SPAN", "1") == "1"
++RPN_BOUNDARY = os.environ.get("HDLAB_RPN_BOUNDARY", "both")
++RPN_COLLAPSE = os.environ.get("HDLAB_RPN_COLLAPSE", "1") == "1"
++
++# The categories a determiner phrase can contain to the LEFT of its head.  A VERB / AUX / ADP / SCONJ /
++# CCONJ / PUNCT closes the phrase -- the same domain boundary `coref._np_domain` and the attachment arm's
++# NP_SPLIT cue already use, so a phrase can never cross its clause's verb.
++_NP_LEFT = frozenset(("DET", "ADJ", "NUM", "NOUN", "PROPN", "PART", "PRON", "SYM", "X", "ADV"))
++_NP_LEFT_MAX = 8
++_POSS_DET = frozenset({"my", "your", "his", "her", "its", "our", "their", "whose"})
++# absorbing one of these CLOSES the phrase on its left: the determiner is the DP's outermost layer, so the
++# next token to the left belongs to a different phrase ('the dog the cat saw' is two phrases, not one).
++_CLOSES_LEFT = frozenset(("DET",))
++
++
++def _np_cat_admissible(toks, up, k) -> bool:
++    """Is token `k` NP-INTERNAL MATERIAL by category?  (The category organ's own decision; arc-free.)"""
++    u = up[k] if k < len(up) else "X"
++    if u not in _NP_LEFT:
++        return False
++    if u == "ADV":                       # an adverb continues the phrase only as a degree word on an adjective
++        return (k + 1 < len(up) and up[k + 1] == "ADJ")
++    if u == "PRON":                      # a pronoun continues it only in determiner position (a possessive)
++        return str(toks[k]).lower() in _POSS_DET
++    return True
++
++
++def _np_closes_left(toks, up, k) -> bool:
++    """Does absorbing `k` close the phrase's left edge?  A determiner / possessive is the DP's outermost
++    layer (Abney 1991), so nothing to its left is in THIS phrase."""
++    u = up[k] if k < len(up) else "X"
++    w = str(toks[k]).lower()
++    return (u in _CLOSES_LEFT) or (u == "PRON" and w in _POSS_DET) or w.endswith("'s") or w == "'s"
++
++
++def _arc_reaches(gov, k: int, h: int, maxdepth: int = 8) -> bool:
++    """Does the attachment arm's arc path from 0-based `k` reach the head `h` without leaving its left side?"""
++    j = k
++    for _ in range(maxdepth):
++        j = int(gov.get(j, -1))
++        if j == h:
++            return True
++        if j < 0 or j > h:
++            return False
++    return False
++
++
++def _graded_inside(head_post, k: int, lo: int, h: int) -> bool:
++    """MAP membership under the attachment arm's GRADED head belief: token `k` is inside the phrase when
++    P(k's head lies in the phrase already built, k+1..h) >= P(it lies outside).  `head_post` is the arm's
++    {1-based dep: {1-based head: P}}; with no posterior the caller's hard decision stands."""
++    if not head_post:
++        return True
++    row = head_post.get(k + 1) or head_post.get(str(k + 1)) or {}
++    if not row:
++        return True
++    p_in = 0.0
++    for j, p in row.items():
++        try:
++            j = int(j)
++        except (TypeError, ValueError):
++            continue
++        if lo + 1 <= j <= h + 1:
++            p_in += float(p)
++    return p_in >= 0.5
++
++
++def np_left_edge(toks, up, h: int, gov=None, head_post=None, mode=None) -> int:
++    """THE LEFT EDGE (0-based, inclusive) of the noun phrase headed by 0-based `h`."""
++    mode = RPN_BOUNDARY if mode is None else mode
++    a = h
++    for _ in range(_NP_LEFT_MAX):
++        k = a - 1
++        if k < 0:
++            break
++        okc = _np_cat_admissible(toks, up, k)
++        oka = (gov is None) or _arc_reaches(gov, k, h)
++        if mode == "cat":
++            ok = okc
++        elif mode == "arc":
++            ok = (gov is not None) and _arc_reaches(gov, k, h)
++        elif mode == "graded":
++            ok = okc and (oka or _graded_inside(head_post, k, k, h))
++        else:
++            ok = okc and oka
++        if not ok:
++            break
++        a = k
++        if _np_closes_left(toks, up, k):
++            break
++    return a
++
++
++def np_groups(toks, up, head_wpos, gov=None, head_post=None, mode=None):
++    """ONE REFERENT PER NP.  Group this sentence's content-noun heads into noun phrases and return
++    {surviving_head: (span_start, surviving_head, [absorbed head positions])}.
++
++    The Right-Hand Head Rule decides which head survives: a content head that lies inside a LATER head's
++    phrase is a MEMBER of that phrase (a compound modifier, a name run, a possessor's noun), so it does not
++    open a discourse referent of its own.  `RPN_COLLAPSE=0` keeps one referent per token (spans only), for
++    the A/B that separates the span repair from the collapse."""
++    hs = sorted({int(x) for x in (head_wpos or ())})
++    if not hs:
++        return {}
++    edge = {h: np_left_edge(toks, up, h, gov, head_post, mode) for h in hs}
++    parent = {}
++    if RPN_COLLAPSE:
++        for i, h in enumerate(hs):
++            for h2 in hs[i + 1:]:
++                if edge[h2] <= h < h2:
++                    parent[h] = h2
++                    break
++    root = {}
++    for h in hs:
++        r, seen = h, set()
++        while r in parent and r not in seen:
++            seen.add(r)
++            r = parent[r]
++        root[h] = r
++    out = {}
++    for h in hs:
++        r = root[h]
++        if r not in out:
++            out[r] = [edge[r], r, []]
++        if h != r:
++            out[r][0] = min(out[r][0], edge[h])
++            out[r][2].append(h)
++    return {r: (v[0], v[1], sorted(v[2])) for r, v in out.items()}
++
++
++def _arcs_for(tagger, toks, up):
++    """The reader's OWN attachment-arm arcs for this sentence -- from the reader's shared per-read parse when
++    the caller can serve one (`_CachedTagShim.parse_heads`, no extra pass), else from `hdlab.frontend.parser`
++    (the SAME organ).  Returns (0-based child->head, graded head posterior|None); (None, None) on any
++    failure, which makes the boundary the category run alone rather than breaking a read."""
++    try:
++        if hasattr(tagger, "parse_heads"):
++            h1, post = tagger.parse_heads(list(toks), list(up))
++        else:
++            from hdlab import frontend as _F
++            out = _F.parser().parse(list(toks), list(up))
++            h1 = out[0]
++            post = out[2] if len(out) > 2 else None
++        gov = {int(j) - 1: int(v) - 1 for j, v in dict(h1 or {}).items()}
++        return gov, post
++    except Exception:
++        return None, None
++
++
+ def _mk_pronoun_referent(form_low: str, sent_idx: int, wpos: int, cluster: int,
+-                         upos: Optional[str] = None) -> Dict:
++                         upos: Optional[str] = None, gtok: Optional[int] = None) -> Dict:
+     """A DISCOVERED pronoun mention in the parse_litbank_conll schema. `discovered` marks the provenance
+-    (this organ, from the category organ's tag) so a consumer can tell it from a column mention."""
++    (this organ, from the category organ's tag) so a consumer can tell it from a column mention.
++
++    pri 138: a pronoun IS its own one-token referring expression, so its GLOBAL position is the token's --
++    the degenerate extent is the honest one here, and it is the position every distance cue needs."""
+     d = pronoun_phi(form_low) or {}
+-    return {"cluster": cluster, "gtok_start": -1, "gtok_end": -1, "sent_idx": sent_idx,
++    _g = -1 if (gtok is None or not RPN_SPAN) else int(gtok)
++    return {"cluster": cluster, "gtok_start": _g, "gtok_end": _g, "sent_idx": sent_idx,
+             "wtok_start": wpos, "head": form_low, "is_pronoun": True,
+             "gender": d.get("gender"), "number": d.get("number"), "name_gender": None,
+             "span_toks": [form_low], "midx": -1, "span_upos": [upos or "PRON"],
+@@ -109,8 +304,12 @@ def _mk_pronoun_referent(form_low: str, sent_idx: int, wpos: int, cluster: int,
+ 
+ 
+ def _content_head_positions(toks: Sequence[str], up: Sequence[str]) -> List[int]:
+-    """Referent-per-NP head set (Kamp/Heim): token indices of every content-noun head (NOUN/PROPN, non-STOP,
+-    len>=3). VERBATIM the validated prototype's coverage rule."""
++    """The CANDIDATE content-noun tokens (NOUN/PROPN, non-STOP, len>=3) -- VERBATIM the validated
++    prototype's coverage rule.
++
++    pri 138: this is the candidate set, NOT the referent set.  `np_groups` turns it into one referent per
++    NOUN PHRASE (Right-Hand Head Rule), so a content noun inside a later noun's phrase is a MEMBER of that
++    phrase and opens no card of its own."""
+     return [i for i, u in enumerate(up)
+             if u in NOMINAL and toks[i].lower() not in STOP and len(toks[i]) >= 3]
+ 
+@@ -178,7 +377,8 @@ def _file_card_features(head_low: str, upos: Optional[str], name_gender_map=None
+ 
+ def _mk_referent(head_low: str, sent_idx: int, wpos: int, cluster: int, midx: int,
+                  upos: Optional[str] = None, tag_post=None, tags=None,
+-                 name_gender_map=None, fill_card: bool = True) -> Dict:
++                 name_gender_map=None, fill_card: bool = True,
++                 span=None, span_upos=None, span_post=None, gtok=None, wstart=None) -> Dict:
+     """A discourse-referent mention dict in the parse_litbank_conll schema (single-token, non-pronoun).
+ 
+     MEASURED DEFECT THIS FIXES (pri-109, 8 LitBank docs): `span_toks` is the LOWERCASED head, and the ten
+@@ -189,10 +389,21 @@ def _mk_referent(head_low: str, sent_idx: int, wpos: int, cluster: int, midx: in
+     becomes the organ's and survives the lowercasing: 150 name mentions typed where there were 0."""
+     _g, _n, _ng = (_file_card_features(head_low, upos, name_gender_map) if fill_card
+                    else (None, None, None))
+-    d = {"cluster": cluster, "gtok_start": -1, "gtok_end": -1, "sent_idx": sent_idx,
+-         "wtok_start": wpos, "head": head_low, "is_pronoun": False,
+-         "gender": _g, "number": _n, "name_gender": _ng, "span_toks": [head_low], "midx": midx}
+-    if upos is not None:
++    # pri 138: THE CANONICAL MENTION SCHEMA (`coref.parse_litbank_conll`, coref.py:167) -- `wtok_start` is the
++    # SPAN START, `span_toks` is the RAW-CASED phrase with the HEAD LAST, and `gtok_start..gtok_end` is its
++    # true GLOBAL extent.  The two conventions used to agree only because the span was degenerate, so every
++    # extent consumer was accidentally right and would be actively wrong the moment a span appeared; the head
++    # is recovered by `graded_role_assigner.mention_head_wpos`, which every head-index consumer now calls.
++    # With HDLAB_RPN_SPAN=0 (or no span supplied) every field is byte-identical to the pre-2026-09-16 organ.
++    _sp = list(span) if (RPN_SPAN and span) else [head_low]
++    _gs, _ge = ((int(gtok[0]), int(gtok[1])) if (RPN_SPAN and gtok) else (-1, -1))
++    _ws = int(wstart) if (RPN_SPAN and wstart is not None) else wpos
++    d = {"cluster": cluster, "gtok_start": _gs, "gtok_end": _ge, "sent_idx": sent_idx,
++         "wtok_start": _ws, "head": head_low, "is_pronoun": False,
++         "gender": _g, "number": _n, "name_gender": _ng, "span_toks": _sp, "midx": midx}
++    if RPN_SPAN and span and span_upos:
++        d["span_upos"] = list(span_upos)
++    elif upos is not None:
+         d["span_upos"] = [upos]
+     if tag_post is not None:
+         # pri 118: the category organ's POSTERIOR row for this head, so `coref.name_content_tokens` can
+@@ -201,7 +412,11 @@ def _mk_referent(head_low: str, sent_idx: int, wpos: int, cluster: int, midx: in
+         # that carries the gain on the board loader's stream is the SPAN-level name-run cue, and it is INERT
+         # here because this builder stores span_toks=[head], ONE token per mention.  Keeping the NP span is
+         # the next rung and is filed as such.
+-        d["span_post"] = [tag_post]
++        # pri 138: the posterior travels PER SPAN TOKEN, so pri 118's SPAN-LEVEL name-run cue can fire at
++        # all -- its own docstring records that it is inert against a one-token span.
++        d["span_post"] = (list(span_post) if (RPN_SPAN and span and span_post
++                                              and len(span_post) == len(d["span_toks"]))
++                          else [tag_post])
+         d["span_tags"] = tags
+     return d
+ 
+@@ -223,7 +438,7 @@ def _finalize(mentions: List[Dict]) -> List[Dict]:
+ 
+ 
+ def referent_per_np_source(conll_path: str, tagger, name_gender_map=None, use_frame: bool = True,
+-                          discover_pronouns: bool = True, fill_card: bool = True):
++                          discover_pronouns: bool = True, fill_card: bool = True, boundary=None):
+     """THE candidate source: a discourse referent per content-noun-head NP (+ the determiner/name FRAME detector
+     when use_frame), coref pronouns/clusters PRESERVED (coref demoted to a downstream linking pass). REPLACES the
+     coref-column candidate source. Returns (mentions, n_sents) in the parse_litbank_conll schema -- a drop-in for
+@@ -234,12 +449,22 @@ def referent_per_np_source(conll_path: str, tagger, name_gender_map=None, use_fr
+     `discover_pronouns=True` (pri 125, the DEFAULT): the pronoun referents come from the CATEGORY ORGAN's
+     own PRON tags on the reader's own tokens, in reading order -- so the organ discovers its mentions from
+     TEXT and the coref annotation column reaches no decision.  `discover_pronouns=False` reproduces the
+-    pre-2026-09-15 organ byte-for-byte (pronouns lifted from the column), for A/B only."""
++    pre-2026-09-15 organ byte-for-byte (pronouns lifted from the column), for A/B only.
++
++    `boundary` (pri 138) selects the phrase-boundary evidence -- see `np_left_edge`; None reads
++    HDLAB_RPN_BOUNDARY (default "both": the arm's arcs AND the category organ's NP-internal categories)."""
+     coref, n_sents = parse_litbank_conll(conll_path, name_gender_map=name_gender_map, tagger=tagger)
+     sents = parse_conll_sentences(conll_path, lower=False)  # pri-116: cased -- +0.4106 PROPN F1 (see scene_segment);
+     # `frame_heads`' mid-sentence-CAPITAL cue can fire again, and `_content_head_positions` opens a referent for
+     # every content noun the organ can now see. MEASURED through the live reader on 16 modern GUM test documents:
+     # entity files 2,459 -> 2,563 (+4.2%), NAME-typed referent mentions 242 -> 599 (2.48x).
++    # pri 138: the per-sentence GLOBAL token offset, so every mention can carry the global extent
++    # `crosstype_live_adapter._can_build` (and every other extent consumer) asks for.
++    _offs: List[int] = []
++    _acc = 0
++    for _s in sents:
++        _offs.append(_acc)
++        _acc += len(_s)
+     coref_head_wpos: Dict[tuple, int] = {}
+     # REFLEXIVES (himself/herself/itself/themselves) are pronouns too (Binding Principle A; strategy 2026-09-12):
+     # the CoNLL mention stream marks only PRONOUN_SCOPE forms as pronouns, so a reflexive coref mention was dropped
+@@ -289,20 +514,40 @@ def referent_per_np_source(conll_path: str, tagger, name_gender_map=None, use_fr
+             for wi, w in enumerate(toks):
+                 if wi >= len(up) or up[wi] != "PRON":
+                     continue
+-                pron.append(_mk_pronoun_referent(w.lower(), si, wi, next_cluster, up[wi]))
++                pron.append(_mk_pronoun_referent(w.lower(), si, wi, next_cluster, up[wi],
++                                                 gtok=(_offs[si] + wi) if si < len(_offs) else None))
+                 next_cluster += 1
+                 pron_pos.add(wi)
+-        for hw in heads:
+-            if (si, hw) in refl_pos or hw in pron_pos:
+-                continue                                   # the reflexive/pronoun is already a mention
+-            cl = coref_head_wpos.get((si, hw))
++        cands = [hw for hw in heads if not ((si, hw) in refl_pos or hw in pron_pos)]
++        # ONE REFERENT PER NOUN PHRASE (pri 138).  The boundary is the reader's OWN attachment arm, so the
++        # arcs come from the shared per-read parse when the caller serves one -- no second parse.
++        _gov, _post = (_arcs_for(tagger, toks, up) if (RPN_SPAN and cands) else (None, None))
++        _grp = (np_groups(toks, up, cands, _gov, _post, boundary) if (RPN_SPAN and cands)
++                else {hw: (hw, hw, []) for hw in cands})
++        _base = _offs[si] if si < len(_offs) else None
++        for hw in sorted(_grp):
++            _a, _h, _members = _grp[hw]
++            # THE CLUSTER: a coref-column span covering ANY member of this phrase supplies its id (the column
++            # is the linking pass, demoted -- it is empty on annotation-free text and simply supplies nothing).
++            cl = coref_head_wpos.get((si, _h))
++            if cl is None:
++                for _mw in _members:
++                    cl = coref_head_wpos.get((si, _mw))
++                    if cl is not None:
++                        break
+             if cl is None:
+                 cl = next_cluster
+                 next_cluster += 1
+-            out.append(_mk_referent(toks[hw].lower(), si, hw, cl, -1,
+-                                    upos=up[hw] if hw < len(up) else None,
+-                                    tag_post=(mat[hw] if (mat is not None and hw < len(mat)
++            out.append(_mk_referent(toks[_h].lower(), si, _h, cl, -1,
++                                    upos=up[_h] if _h < len(up) else None,
++                                    tag_post=(mat[_h] if (mat is not None and _h < len(mat)
+                                                           and _tags) else None),
+                                     tags=_tags,
+-                                    name_gender_map=name_gender_map, fill_card=fill_card))
++                                    name_gender_map=name_gender_map, fill_card=fill_card,
++                                    span=[toks[k] for k in range(_a, _h + 1)],
++                                    span_upos=[up[k] if k < len(up) else "X" for k in range(_a, _h + 1)],
++                                    span_post=([mat[k] for k in range(_a, _h + 1)]
++                                               if (mat is not None and _h < len(mat) and _tags) else None),
++                                    gtok=((_base + _a, _base + _h) if _base is not None else None),
++                                    wstart=_a))
+     return _finalize(pron + out), n_sents
+diff --git a/hdlab/situation_reader.py b/hdlab/situation_reader.py
+index 67b0df3ae..abec3dfc7 100644
+--- a/hdlab/situation_reader.py
++++ b/hdlab/situation_reader.py
+@@ -113,6 +113,9 @@ from hdlab.frame_induction import (
+     predict_subj_role as FI_predict_subj_role,
+ )
+ from hdlab.thematic_role_labeler import lemma_verb, lemma_word, is_strictly_intransitive
++# pri 138 (the span -> head index repair, and the file card's NAME label)
++from hdlab.graded_role_assigner import mention_head_wpos as _mention_head_wpos
++from hdlab.coref import name_content_tokens as _name_content_tokens
+ 
+ # WIRE-DON'T-ISLAND (2026-08-05): the OOV-subject construction->frame hypothesis, induced from the
+ # real litbank-mined TRAIN split only (experiments/data/experiencer_narrative_roles_v1.jsonl);
+@@ -284,6 +287,15 @@ class _CachedTagShim:
+         t = list(toks)
+         return self._r._cached_tag(t), self._r._cached_tag_matrix(t)
+ 
++    def parse_heads(self, toks, pos):
++        """pri 138: the reader's OWN attachment-arm arcs for this sentence, from the SHARED per-read parse
++        (`_cached_parse_heads` + `_cached_head_posterior`), so the INTRODUCTION organ can draw the noun
++        phrase's boundary from the arm with NO second parse -- the events/roles path re-asks for the same
++        sentence and is served this very pass.  Returns (1-based child->head, the arm's graded head
++        posterior or None under the supervised parser)."""
++        t, p = list(toks), list(pos)
++        return self._r._cached_parse_heads(t, p), self._r._cached_head_posterior(t, p)
++
+ _CAUSAL_CONNECTIVES = frozenset(
+     set(getattr(C, "CONNECTIVE_CAUSE_FIRST", set()))
+     | set(getattr(C, "CONNECTIVE_EFFECT_FIRST", set())))
+@@ -299,6 +311,12 @@ class TrackedEntity:
+     sent_indices: List[int]    # sentences in which this entity is mentioned
+     n_mentions: int
+     is_person: bool
++    # pri 138: the NAME surfaces filed on this card, decided by the entity layer's own name organ
++    # (`coref.name_content_tokens` over the mention's span + the category organ's categories).  A file
++    # card's LABEL is its name (Kripke 1980's rigid designator; Semenza 2006's separate proper-name
++    # route), so `goal_register._cluster_name` reads this before it falls back to the longest surface --
++    # which, once a mention carries its whole noun phrase, is otherwise a common-noun phrase.
++    names: Optional[List[str]] = None
+ 
+ 
+ @dataclass
+@@ -800,7 +818,9 @@ def _build_entities(mentions: List[dict]) -> List[TrackedEntity]:
+     for cid in sorted(by_cluster, key=lambda c: (0, c) if isinstance(c, int) else (1, str(c))):
+         ms = by_cluster[cid]
+         heads: List[str] = []
++        names: List[str] = []
+         seen = set()
++        seen_n = set()
+         for m in ms:
+             if m["is_pronoun"]:
+                 continue
+@@ -808,10 +828,18 @@ def _build_entities(mentions: List[dict]) -> List[TrackedEntity]:
+             if h.lower() not in seen:
+                 seen.add(h.lower())
+                 heads.append(h)
++            # pri 138: the NAME content of this mention, from the entity layer's own name organ -- the
++            # card's label when it has one.
++            nt = _name_content_tokens(list(m.get("span_toks") or [m["head"]]), upos=m.get("span_upos"))
++            if nt:
++                nm = " ".join(nt)
++                if nm.lower() not in seen_n:
++                    seen_n.add(nm.lower())
++                    names.append(nm)
+         sent_idx = sorted({m["sent_idx"] for m in ms})
+         out.append(TrackedEntity(
+             cluster=cid, heads=heads, sent_indices=sent_idx,
+-            n_mentions=len(ms), is_person=_person_cluster(ms)))
++            n_mentions=len(ms), is_person=_person_cluster(ms), names=names))
+     return out
+ 
+ 
+@@ -960,14 +988,17 @@ def _assign_frame_primary_roles(lemma: str, toks: List[str], pred_idx: int,
+     subj_m, obj_m = _pick_role_mentions(pred_idx, sent_noms,
+                                         gate_intransitive=gate_intransitive,
+                                         pred_lemma=true_lemma if gate_intransitive else None)
++    # pri 138: `frame_primary_role` classifies the ARGUMENT'S OWN TOKEN, so it wants the phrase's HEAD --
++    # `wtok_start` is the span start since the introduction organ emits whole noun phrases.
++    from hdlab.graded_role_assigner import mention_head_wpos as _mhw
+     subj_role = None
+     if subj_m is not None:
+         _ind_name, _ind_hyp = _induced_subj()
+-        subj_role = frame_primary_role(true_lemma, toks, pred_idx, int(subj_m["wtok_start"]), "subj",
++        subj_role = frame_primary_role(true_lemma, toks, pred_idx, int(_mhw(subj_m)), "subj",
+                                        chosen_name=_ind_name, hypothesis=_ind_hyp)
+     obj_role = None
+     if obj_m is not None:
+-        obj_role = frame_primary_role(true_lemma, toks, pred_idx, int(obj_m["wtok_start"]), "obj")
++        obj_role = frame_primary_role(true_lemma, toks, pred_idx, int(_mhw(obj_m)), "obj")
+     return subj_role, obj_role
+ 
+ 
+@@ -2769,12 +2800,22 @@ class SituationReader:
+     @staticmethod
+     def _nom_head_at(noms, pos0):
+         """The non-pronoun mention head at/covering token position pos0 (the reader tracks only non-pronoun
+-        heads for roles), else the nearest within 1 token, else None."""
++        heads for roles), else the nearest within 1 token, else None.
++
++        pri 138: a mention now carries its whole NOUN PHRASE, so `wtok_start` is the SPAN START while a role
++        index handed in by the parse names the phrase's HEAD.  Match the head first, then ANY token of the
++        phrase (one phrase is ONE object file, so a role pointing at a modifier names this referent), then
++        the nearest within one token of the head.  On a one-token mention every branch reduces to the old
++        test, so this is byte-identical on the pre-span stream."""
++        from hdlab.graded_role_assigner import mention_head_wpos
++        for m in noms:
++            if mention_head_wpos(m) == pos0:
++                return m["head"]
+         for m in noms:
+-            if m["wtok_start"] == pos0:
++            if int(m["wtok_start"]) <= pos0 <= mention_head_wpos(m):
+                 return m["head"]
+         for m in noms:
+-            if abs(m["wtok_start"] - pos0) <= 1:
++            if abs(mention_head_wpos(m) - pos0) <= 1:
+                 return m["head"]
+         return None
+ 
+@@ -2799,8 +2840,11 @@ class SituationReader:
+                 # POSITIONAL-path fix: drop mentions whose head token is a compound modifier / genitive possessor,
+                 # so _assign_roles + the router's _nom_head_at pick the NP HEAD (mention-level 2nd-pass wire).
+                 from hdlab.np_head_reduce import is_np_head as _is_np_head
++                from hdlab.graded_role_assigner import mention_head_wpos as _mhw
+                 _up = self._cached_tag(list(toks))
+-                noms = [m for m in noms if _is_np_head(toks, _up, m["wtok_start"])] or noms
++                # pri 138: the gate asks whether THIS MENTION'S HEAD TOKEN is a compound modifier /
++                # genitive possessor -- a question about the head, not about the span's first token.
++                noms = [m for m in noms if _is_np_head(toks, _up, _mhw(m))] or noms
+             rr = self._router_roles(list(toks))
+             # the event extractor uses a DIFFERENT tokenization than `toks` (e.idx is its space, not toks-
+             # space); align each event's predicate to its `toks` position by surface match (greedy L->R), so
+@@ -2867,8 +2911,9 @@ class SituationReader:
+                     if self._sdo is None:
+                         from hdlab import structural_do as _SDO
+                         self._sdo = _SDO
+-                    pcands = [m["wtok_start"] for m in noms
+-                              if m.get("head") == patient and m["wtok_start"] > vp]
++                    from hdlab.graded_role_assigner import mention_head_wpos as _mhw
++                    pcands = [_mhw(m) for m in noms
++                              if m.get("head") == patient and _mhw(m) > vp]
+                     if pcands:
+                         _up = self._cached_tag(list(toks))
+                         pib = bool(self._sdo.is_bare_do(toks, _up, vp, min(pcands)))
+@@ -3855,12 +3900,15 @@ class SituationReader:
+             for m in sorted(by_sent.get(si, []), key=lambda x: (x.get("wtok_start", 0), x["midx"])):
+                 rank = m.get("sent_role_rank", 99)
+                 reflexive = AER.is_reflexive(m.get("head"))
++                # pri 138: `decs` and `theme_verb` are keyed by the ARGUMENT TOKEN the role read decided on,
++                # i.e. the phrase's HEAD; `wtok_start` is the span start now that mentions are whole NPs.
++                _hw = _mention_head_wpos(m)
+                 if not m.get("is_pronoun") and not reflexive:
+                     T.observe(m["head"], float(m["midx"]), rank2role.get(rank, "OTHER"), float(si),
+                               m.get("gender") or m.get("name_gender"), m.get("number"), rank2dep.get(rank, ""),
+-                              payload=m, decision=decs.get(m.get("wtok_start")))
++                              payload=m, decision=decs.get(_hw))
+                     continue
+-                tv = theme_verb.get(m.get("wtok_start"))
++                tv = theme_verb.get(_hw)
+                 coarg = None
+                 a_role = "OBJ" if tv is not None else AER.role_class(rank2dep.get(rank, ""))
+                 if tv is not None and "agent" in tv[1]:
+@@ -3870,7 +3918,7 @@ class SituationReader:
+                     g, n = AER.REFLEXIVE_GN.get(m.get("head", "").lower(), (None, None))
+                 pick, n_c = T.resolve_pronoun(float(m["midx"]), float(si), gender=g or "", number=n or "",
+                                               a_role=a_role, role=rank2role.get(rank, "OTHER"), coarg_key=coarg,
+-                                              reflexive=reflexive, decision=decs.get(m.get("wtok_start")))
++                                              reflexive=reflexive, decision=decs.get(_hw))
+                 if tv is not None and n_c >= 2:
+                     out.append({"sent_idx": si, "verb_pos": tv[0], "undergoer": m["head"],
+                                 "resolved": pick, "coarg": coarg})
+diff --git a/hdlab/entity_resolver.py b/hdlab/entity_resolver.py
+index d82773efb..846e3f46b 100644
+--- a/hdlab/entity_resolver.py
++++ b/hdlab/entity_resolver.py
+@@ -529,6 +529,18 @@ def competition_cluster(ms, gaz, *, validities, tau=0.0, decay=None, role_promin
+         number = m.get("number")
+         surf = str(m["head"]).lower()
+         wpos = int(m.get("wtok_start", -99))
++        # pri 138: with one referent per NOUN PHRASE, `wtok_start` is the phrase's START and the file records
++        # the phrase's END (`best.update(wpos=wend)` below), so the `np` cue's `d = wpos - f.last_wpos` is the
++        # GAP BETWEEN TWO PHRASES -- the cross-phrase adjacency that carries the apposition / close-apposition
++        # signal -- instead of the NP-INTERNAL adjacency it used to count (gap1_nom 490 same / 16 different on
++        # the one-token stream: the cue was a STAND-IN for the phrase boundary this rung now draws, so its
++        # validities are RE-ACCRUED on the phrase stream).  One-token mentions: start == end, unchanged.
++        wend = wpos
++        _gs, _ge = m.get("gtok_start", -1), m.get("gtok_end", -1)
++        if isinstance(_gs, int) and isinstance(_ge, int) and 0 <= _gs <= _ge:
++            wend = wpos + (_ge - _gs)
++        elif m.get("span_toks"):
++            wend = wpos + max(0, len(m["span_toks"]) - 1)
+         upos = (m.get("span_upos") or [""])[-1] or ""
+         is_name = bool(name_content_tokens(span, upos=m.get("span_upos")))
+         canon = aliaser.assign(span, gender, upos=m.get("span_upos")) if is_name else None
+@@ -570,7 +582,7 @@ def competition_cluster(ms, gaz, *, validities, tau=0.0, decay=None, role_promin
+                 validities.observe(best_cues, True)
+             validities.observe_criterion(definite, opened)
+             validities.recompute()
+-        best.update(order, role, gender, number, head, sent_idx, canon, surf, is_name, wpos=wpos,
++        best.update(order, role, gender, number, head, sent_idx, canon, surf, is_name, wpos=wend,
+                     upos=upos)
+         rank_in_sent.setdefault(sent_idx, {}).setdefault(best.cid, rk)
+         labels[m["midx"]] = best.cid
+@@ -602,9 +614,16 @@ OBJECT_FILE_TAU = 0.0   # 2026-09-16 landing (strategy): pri 136's joint grid --
+ # order-independent, for a byte-identical A/B).
+ OBJECT_FILE_ONLINE_MARGIN = 1.0
+ 
+-OBJECT_FILE_VALIDITY_ASSET = os.path.join(
+-    os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "frontend_assets",
+-    "object_file_validities_gum_v1.json")
++_OF_ASSET_DIR = os.path.join(
++    os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "frontend_assets")
++# pri 138: the validities RE-ACCRUED on the noun-phrase mention stream (one referent per NP, real spans).
++# The `np` cue's values mean something different on that stream -- the gap between two PHRASES, not inside
++# one -- so the counts are re-accrued rather than reused.  The pre-span asset stays the fallback, so a tree
++# without the phrase stream keeps reproducing its own numbers exactly.
++_OF_NPSPAN_ASSET = os.path.join(_OF_ASSET_DIR, "object_file_validities_gum_npspan_v1.json")
++OBJECT_FILE_VALIDITY_ASSET = (
++    _OF_NPSPAN_ASSET if os.path.exists(_OF_NPSPAN_ASSET)
++    else os.path.join(_OF_ASSET_DIR, "object_file_validities_gum_v1.json"))
+ VALIDITY_ASSET = OBJECT_FILE_VALIDITY_ASSET   # the name Validities.load/save resolve at call time
+ _OF_VALIDITIES = None
+ 
+diff --git a/hdlab/goal_register.py b/hdlab/goal_register.py
+index 107a45e26..745ebdfb5 100644
+--- a/hdlab/goal_register.py
++++ b/hdlab/goal_register.py
+@@ -1182,10 +1182,21 @@ def _norm(s: str) -> str:
+ 
+ 
+ def _cluster_name(sm, cluster: int) -> Optional[str]:
+-    """Canonical NAME of a coref cluster read off the model's entities: the longest distinct
+-    non-pronoun head. None if the cluster is all-pronoun (no nameable answer)."""
++    """Canonical NAME of a coref cluster read off the model's entities.
++
++    pri 138: A FILE CARD'S LABEL IS ITS NAME.  A proper name is a rigid designator that picks the individual
++    out directly (Kripke 1980) and is retrieved by its own lexical route (Semenza 2006), so when the card
++    holds a name that name IS the answer; the longest surface is only the fallback for a card that holds no
++    name.  This was masked while every mention was a bare head: once a mention carries its whole noun phrase,
++    `max(len)` returns a common-noun phrase ('the community championship') in preference to the character
++    the card is about ('maya'), and the appraisal then finds no goal for that character.
++    None if the cluster has no nameable head at all (all-pronoun)."""
+     for e in sm.entities:
+         if e.cluster == cluster:
++            names = [n for n in (getattr(e, "names", None) or [])
++                     if _norm(n) and _norm(n) not in _PRONOUNS]
++            if names:
++                return max(names, key=lambda h: len(_norm(h)))
+             heads = [h for h in e.heads if _norm(h) and _norm(h) not in _PRONOUNS]
+             if not heads:
+                 return None
