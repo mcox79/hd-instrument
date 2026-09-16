@@ -1,0 +1,147 @@
+diff --git a/hdlab/grounded_semantic_graph.py b/hdlab/grounded_semantic_graph.py
+--- a/hdlab/grounded_semantic_graph.py
++++ b/hdlab/grounded_semantic_graph.py
+@@ -411,15 +411,49 @@
+     counts = np.array(counts, float)
+     if counts.sum() == 0:
+         counts = 1.0 / (1.0 + np.arange(len(tgt)))
+     return counts
+ 
+ 
++WALK_GATE_TAU = 1.25     # NATS.  THE BARRIER GATE (pri 147).  Spreading activation is recruited only when
++                         # the sense-frequency RESTING LEVEL has NOT already decided: skip the walk when the
++                         # top sense already leads the runner-up by >= WALK_GATE_TAU nats on the normalised
++                         # prior.  THE COMPUTATION IS PINNED -- reordered access / the subordinate-bias effect
++                         # (Duffy, Morris & Rayner 1988; Rayner & Frazier 1989; Binder & Rayner 1998): context
++                         # measurably changes the read of a BALANCED ambiguous word and not of a BIASED one
++                         # unless it is strong enough to overcome the dominance.  THE THRESHOLD IS OURS and is
++                         # SWEPT, never adopted: swept on the GUM TRAIN split (even document index) and
++                         # reported on the 12 TEST documents.  0.0 disables the gate (every walk runs), which
++                         # is the floor arm every identity and timing comparison is made against.
++                         # NOTHING ABOUT THE WALK CHANGES -- not DAMPING, not PPR_ITERS, not the graph, not
++                         # the blend's lam.  Only WHEN it runs.
++
++
++def _norm_prior(prior, alpha=0.1):
++    """The sense-frequency RESTING LEVEL as a distribution.  ONE implementation, used by the blend AND by the
++    barrier that gates it -- a second copy of this line would be a second implementation of the same
++    computation."""
++    pf = np.asarray(prior, dtype=float) + alpha
++    return pf / pf.sum()
++
++
++def frequency_barrier(prior, alpha=0.1):
++    """HOW FAR AHEAD THE BASE RATE'S WINNER ALREADY IS, in nats: log P(top-1) - log P(top-2) on the normalised
++    resting level.  `inf` when there is only one candidate (nothing to compete).  This is the whole of the
++    gate's evidence and it is computed from the PRIOR ALONE, before any walk is requested."""
++    pf = _norm_prior(prior, alpha)
++    if pf.size < 2:
++        return float("inf")
++    top = np.partition(pf, -2)[-2:]
++    return float(np.log(top[1]) - np.log(top[0]))
++
++
+ def _blend_pick(ppr, prior, lam, alpha=0.1, eps=1e-6):
+-    """argmax [ log P_freq + lam*log PPR ]. ppr None (no context) -> prior only (== MFS-by-count)."""
+-    pf = prior + alpha; pf = pf / pf.sum()
++    """argmax [ log P_freq + lam*log PPR ]. ppr None (no context, or the barrier gate fired) -> prior only
++    (== MFS-by-count)."""
++    pf = _norm_prior(prior, alpha)
+     if ppr is None:
+         return int(np.argmax(pf))
+     pp = ppr + eps; pp = pp / pp.sum()
+     return int(np.argmax(np.log(pf) + lam * np.log(pp)))
+ 
+ 
+@@ -570,21 +604,31 @@
+             return tn[0]
+         ppr = _sense_ppr(wn, lemma, pos, list(context_words), self.syn2idx, self.T, len(self.syn2idx), tgt, tn)
+         return tn[0] if ppr is None else tn[int(np.argmax(ppr))]
+ 
+     def select_sense_blended(self, lemma, pos, context_words, lam=0.5):
+         """Read + the frequency resting-level prior via the log-linear blend (log P_freq + lam*log PPR) --
+-        the brain's ambiguity gate == the field's UKB combination. Best for all-words WSD where the prior matters."""
++        the brain's ambiguity gate == the field's UKB combination. Best for all-words WSD where the prior matters.
++
++        THE BARRIER GATE (pri 147).  The blend's prior is available before the walk is, so the walk is
++        REQUESTED only when the resting level has not already decided (`frequency_barrier` >= WALK_GATE_TAU
++        -> the prior stands).  Skipping hands `_blend_pick` the organ's own `ppr is None` branch, so the
++        gated answer is the SAME function of the SAME prior -- there is no second argmax anywhere.
++        MEASURED (12 GUM TEST documents, 817 sentences): the walk overturns the prior on 91 of 844 calls,
++        and every one of those 91 had a barrier below 1.0 nat."""
+         from hdlab.lexicon_foundation import wordnet as wn
+         tgt = wn.synsets(lemma, pos=_WNPOS.get(pos)); tn = [s.name() for s in tgt]
+         if not tgt:
+             return None
+         if len(tgt) == 1:
+             return tn[0]
++        prior = _sense_prior(lemma, tgt)
++        if WALK_GATE_TAU > 0.0 and frequency_barrier(prior) >= WALK_GATE_TAU:
++            return tn[_blend_pick(None, prior, lam)]          # the resting level has already decided
+         ppr = _sense_ppr(wn, lemma, pos, list(context_words), self.syn2idx, self.T, len(self.syn2idx), tgt, tn)
+-        return tn[_blend_pick(ppr, _sense_prior(lemma, tgt), lam)]
++        return tn[_blend_pick(ppr, prior, lam)]
+ 
+ 
+ def _demo():
+     """Live demo of the three capabilities (build -> read -> augment -> learn)."""
+     import time
+     t0 = time.time()
+diff --git a/hdlab/force_dynamics_valence.py b/hdlab/force_dynamics_valence.py
+--- a/hdlab/force_dynamics_valence.py
++++ b/hdlab/force_dynamics_valence.py
+@@ -682,36 +682,51 @@
+ 
+ 
+ _CTX_STOP = {"the", "and", "but", "she", "him", "her", "his", "they", "them", "that", "this", "with", "from", "into", "was", "were",
+              "had", "has", "have", "did", "not", "then", "when", "who", "which", "their", "our", "you", "your", "for", "are"}
+ 
+ 
++SENSE_POSTERIOR_GATE_TAU = 1.25   # NATS.  The barrier gate (pri 147) on the DISTRIBUTION path.  Same
++                                  # pinned computation as grounded_semantic_graph.WALK_GATE_TAU, a DIFFERENT
++                                  # threshold because this path has a different prior (affect_lexicon's
++                                  # resting level, SENSE_ALPHA smoothing) and a different temperature
++                                  # (SENSE_LAM = 4.0), so the argmax path's tau does not transfer and is not
++                                  # reused.  0.0 = OFF.  Returning None here is EXACTLY equivalent to
++                                  # returning the resting level: every consumer of this value
++                                  # (`sense_expectation`, `fused_sense_value`, `sense_endstate_sign`) falls
++                                  # back to `resting_level(rows)` when the posterior is None.
++
++
+ def sense_posterior_in_context(verb: str, tokens, gov_idx: int, lam: Optional[float] = None):
+     """P(s | context) over ALL of the verb's senses (pri 100): the semantic graph's own log-linear blend of the resting level with
+     the settled spreading activation over the sentence's content words, read as a DISTRIBUTION (not an argmax). None when the
+-    verb has < 2 senses in the asset, the context is thin (< 2 content words), or the graph has no seed -- the resting level stands."""
++    verb has < 2 senses in the asset, the context is thin (< 2 content words), the graph has no seed, or the frequency
++    barrier has already decided (pri 147) -- the resting level stands."""
+     try:
+         from hdlab.affect_lexicon import sense_rows, resting_level, SENSE_LAM
+         import numpy as np
+         from hdlab.lexicon_foundation import wordnet as wn
+-        from hdlab.grounded_semantic_graph import _sense_ppr
++        from hdlab.grounded_semantic_graph import _sense_ppr, frequency_barrier
+         lam = SENSE_LAM if lam is None else lam
+         lem = lemmatize_verb(verb)
+         rows = sense_rows(lem)
+         if not rows or len(rows) < 2:
+             return None
+         ctx = [str(t).lower() for i, t in enumerate(tokens) if i != gov_idx and str(t).isalpha()]
+         if sum(1 for w in ctx if len(w) > 2 and w not in _CTX_STOP) < 2:
+             return None
++        rest = resting_level(rows)
++        if SENSE_POSTERIOR_GATE_TAU > 0.0 and frequency_barrier(rest, alpha=0.0) >= SENSE_POSTERIOR_GATE_TAU:
++            return None                      # the resting level has already decided -> do not recruit context
+         g = _gsg()
+         tgt = [wn.synset(r[0]) for r in rows]; tn = [r[0] for r in rows]
+         ppr = _sense_ppr(wn, lem, "V", ctx, g.syn2idx, g.T, len(g.syn2idx), tgt, tn)
+         if ppr is None:
+             return None
+         pp = np.asarray(ppr, float) + 1e-6; pp = pp / pp.sum()
+-        lg = np.log(np.asarray(resting_level(rows), float)) + lam * np.log(pp)
++        lg = np.log(np.asarray(rest, float)) + lam * np.log(pp)
+         lg = lg - lg.max(); q = np.exp(lg)
+         return list(q / q.sum())
+     except Exception:
+         return None
+ 
+ 

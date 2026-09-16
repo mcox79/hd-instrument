@@ -68,10 +68,14 @@ FDV_PATH = os.path.join(REPO, "hdlab", "force_dynamics_valence.py")
 # The tau the patch SHIPS.  Set from the TRAIN sweep (`--sweep --split train`); the sweep writes the value
 # it chose into data/exp_walk_gate_v1/sweep_train.json and this constant is what `--make-diff` renders.
 TAU_SHIPPED = 1.25
-# The distribution path's own tau.  0.0 = the gate is OFF on that path.  Decided by MEASUREMENT AT THE
-# CONSUMER (`--identity` arm C), not by assumption: its prior is a different one (affect_lexicon's
-# resting level) and its lam is 4.0, so the argmax path's tau does not transfer.
-TAU_POST_SHIPPED = 0.0
+# The distribution path's own tau.  0.0 = the gate is OFF on that path.  DECIDED BY MEASUREMENT AT THE
+# CONSUMER (`--identity` arm C), not by assumption: its prior is a different one (affect_lexicon's resting
+# level) and its lam is 4.0, so the argmax path's tau does not transfer -- and NO tau > 0 is lossless on that
+# path's own argmax (TRAIN: 27 of 242 moves lost at 1.25, 1 at 3.0, and 0 only where it skips nothing), so it
+# can ONLY be certified at its consumer.  It is: on TRAIN it removes the graded posterior on 106 of 403
+# consumer calls and changes 0 of 541 outputs, and the situation model is byte-identical on 12/12 documents;
+# TEST confirms at 135 of 535 and 0 of 565, 12/12.
+TAU_POST_SHIPPED = 1.25
 
 
 # =====================================================================================================================
@@ -650,9 +654,17 @@ def memo_join(ppr_rows, blend_rows, tau):
             moved += 1
         else:
             removed += 1
+    # THE DOUBLE ACCESS, COUNTED.  `moved` exists only because the same cue set is asked by BOTH callers --
+    # the sibling pays what the gate stops the first one paying.  The size of the double access is the number
+    # of distinct cue sets both paths ask for, and it is the cap on what ANY gate on one path alone can save.
+    by_key = {}
+    for r in ppr_rows:
+        by_key.setdefault(r["key"], set()).add(r["path"])
+    both = [k for k, v in by_key.items() if "argmax" in v and "posterior" in v]
     return {"aligned": True, "tau": tau, "walks_skipped": already_free + removed + moved,
             "already_free_a_memo_hit": already_free, "genuinely_removed": removed,
             "merely_moved_to_the_other_caller": moved,
+            "distinct_cue_sets": len(by_key), "cue_sets_asked_by_BOTH_paths": len(both),
             "total_ppr_calls": len(ppr_rows),
             "ppr_calls_by_path": {p: sum(1 for r in ppr_rows if r["path"] == p)
                                   for p in ("argmax", "posterior", None)},
@@ -727,7 +739,7 @@ def sweep(split="train", n_docs=12, mode="annotated"):
     return res
 
 
-def identity(n_docs=12, tau=None, tau_post=None, mode="annotated"):
+def identity(n_docs=12, tau=None, tau_post=None, split="test"):
     """BAR 2 + BAR 3 -- THE IDENTITY GATE AND THE CONSUMER.  Three arms per document, a FRESH READER each:
       A  gate OFF                      (the floor: every walk runs)
       B  the ARGMAX-path gate at tau   (must be byte-identical, or the loss is counted per event)
@@ -736,7 +748,7 @@ def identity(n_docs=12, tau=None, tau_post=None, mode="annotated"):
     tau = TAU_SHIPPED if tau is None else tau
     tau_post = 1.0 if tau_post is None else tau_post
     install()
-    docs, gaz = _split_docs("test", n_docs)
+    docs, gaz = _split_docs(split, n_docs)
     tmp = tempfile.mkdtemp(prefix="p147_ident_")
     rows = []
     for d in docs:
@@ -750,7 +762,7 @@ def identity(n_docs=12, tau=None, tau_post=None, mode="annotated"):
             with Recorder() as rec:
                 dt, sm, m = _read(path, gaz, tau=tt, tau_post=tp, reader=rdr)
             arms[name] = {"s": round(dt, 2), "sig": sig_json(sm), "hh": dict(rec.hh),
-                          "hh_post": dict(rec.hh_post),
+                          "hh_post": dict(rec.hh_post), "misses": (m or {}).get("misses"),
                           "ppr_calls": len(rec.ppr), "memo": m,
                           "events": {"%d|%d|%s" % (e.sent_idx, getattr(e, "idx", getattr(e, "global_idx", -1)),
                                                    e.predicate): e.affect for e in sm.events}}
@@ -780,6 +792,12 @@ def identity(n_docs=12, tau=None, tau_post=None, mode="annotated"):
                          "harm_help_calls_that_lost_the_graded_posterior": lost_post,
                          "harm_help_calls_that_had_a_graded_posterior": tot_post,
                          "ppr_calls_off": a["ppr_calls"], "ppr_calls_on": b["ppr_calls"],
+                         # THE COST CURRENCY IS THE MISS, NOT THE CALL.  With the memo live a skipped call
+                         # that the sibling asks for again is MOVED, not removed: the call count falls but
+                         # nothing is saved.  `misses` is the number of spreads actually computed.
+                         "spreads_computed_off": a["misses"], "spreads_computed_on": b["misses"],
+                         "spreads_removed": (None if a["misses"] is None
+                                             else a["misses"] - b["misses"]),
                          "ppr_calls_removed": a["ppr_calls"] - b["ppr_calls"],
                          "ppr_calls_removed_share": round((a["ppr_calls"] - b["ppr_calls"])
                                                           / max(a["ppr_calls"], 1), 4),
@@ -794,8 +812,8 @@ def identity(n_docs=12, tau=None, tau_post=None, mode="annotated"):
                   % (row["C_both_gates"]["situation_model_identical"],
                      row["C_both_gates"]["n_harm_help_outputs_that_differ"],
                      100 * row["C_both_gates"]["ppr_calls_removed_share"])) if "C_both_gates" in row else ""))
-    res = {"arm": "identity", "landed_before_install": landed(), "tau": tau, "tau_post": tau_post,
-           "n_documents": len(rows), "per_document": rows}
+    res = {"arm": "identity", "split": split, "landed_before_install": landed(), "tau": tau,
+           "tau_post": tau_post, "n_documents": len(rows), "per_document": rows}
     for name in ("B_argmax_gate", "C_both_gates"):
         got = [r[name] for r in rows if name in r]
         if not got:
@@ -811,11 +829,15 @@ def identity(n_docs=12, tau=None, tau_post=None, mode="annotated"):
                      "total_calls_that_had_a_graded_posterior":
                          sum(g["harm_help_calls_that_had_a_graded_posterior"] for g in got),
                      "walks_off": sum(g["ppr_calls_off"] for g in got),
-                     "walks_on": sum(g["ppr_calls_on"] for g in got)}
+                     "walks_on": sum(g["ppr_calls_on"] for g in got),
+                     "spreads_computed_off": sum(g["spreads_computed_off"] or 0 for g in got),
+                     "spreads_computed_on": sum(g["spreads_computed_on"] or 0 for g in got)}
         res[name]["walks_removed_share"] = round(1 - res[name]["walks_on"] / max(res[name]["walks_off"], 1), 4)
+        res[name]["spreads_removed_share"] = round(
+            1 - res[name]["spreads_computed_on"] / max(res[name]["spreads_computed_off"], 1), 4)
     res["plain"] = ("each page is read with the gate off and with it on and the two readings are compared "
                     "field by field; any difference is the gate's own loss and is listed event by event")
-    _write("identity.json", res)
+    _write("identity_%s.json" % split, res)
     for name in ("B_argmax_gate", "C_both_gates"):
         if name in res:
             print("\n%s: IDENTICAL on %d of %d documents; walks %d -> %d (-%.1f%%); harm/help outputs that "
@@ -906,10 +928,13 @@ def timing(n_docs=6, pairs=2, tau=None, tau_post=0.0, mode="annotated"):
     rows = []
 
     def one(path, cap, tt):
+        """(seconds, spreads actually computed).  The MISS count is the cost currency: with the memo live a
+        skipped call whose sibling asks again is MOVED, not removed."""
         prev = GSG.PPR_MEMO_MAX
         GSG.PPR_MEMO_MAX = cap
         try:
-            return _read(path, gaz, tau=tt, tau_post=tau_post)[0]
+            dt, _sm, st = _read(path, gaz, tau=tt, tau_post=tau_post)
+            return dt, (st or {}).get("misses")
         finally:
             GSG.PPR_MEMO_MAX = prev
 
@@ -917,15 +942,19 @@ def timing(n_docs=6, pairs=2, tau=None, tau_post=0.0, mode="annotated"):
         path = _conll(d, tmp)
         one(path, 0, 0.0)                    # warm every lazy asset OUT of the measurement
         acc = {k: [] for k in ("memo_off_gate_off", "memo_off_gate_on", "memo_on_gate_off", "memo_on_gate_on")}
+        spreads = {k: [] for k in acc}
         for i in range(pairs):
             order = [("memo_off_gate_off", 0, 0.0), ("memo_off_gate_on", 0, tau),
                      ("memo_on_gate_off", None, 0.0), ("memo_on_gate_on", None, tau)]
             if i % 2:
                 order = order[::-1]
             for nm, cap, tt in order:
-                acc[nm].append(one(path, GSG.PPR_MEMO_MAX if cap is None else cap, tt))
+                dt, ms = one(path, GSG.PPR_MEMO_MAX if cap is None else cap, tt)
+                acc[nm].append(dt)
+                spreads[nm].append(ms)
         row = {"docid": d.docid, "pairs": pairs, "seconds": {k: [round(x, 3) for x in v] for k, v in acc.items()},
-               "mean_s": {k: round(sum(v) / len(v), 3) for k, v in acc.items()}}
+               "mean_s": {k: round(sum(v) / len(v), 3) for k, v in acc.items()},
+               "spreads_computed": {k: v for k, v in spreads.items()}}
         m = row["mean_s"]
         row["gate_saving_no_memo"] = round((m["memo_off_gate_off"] - m["memo_off_gate_on"])
                                            / m["memo_off_gate_off"], 4)
@@ -1143,6 +1172,87 @@ def board(n_docs=3, n_boot=200, tau=None, tau_post=0.0, mode="annotated"):
     _write("board.json", res)
     print("\nBOARD: %s (%d rows differ: %s)  block %.0fs -> %.0fs"
           % ("BYTE-IDENTICAL" if not diff else "DIFFERS", len(diff), diff or "none", off_t, on_t))
+    return res
+
+
+def chain(n_docs=12, split="test"):
+    """PHASE 3(a) -- WHERE THE WALK'S SIGNAL IS LOST, COUNTED RUNG BY RUNG, NOT NARRATED.
+
+    The distribution the walk feeds reaches the record through `harm_help_arithmetic` ->
+    `endstate_valence_sign(v, afx, states, posterior)`, and that function is a CASCADE whose FIRST rung is
+    posterior-BLIND:
+      rung 0  `_EV_CACHE`               -- context-free reads only, so a call WITH a posterior never hits it
+      rung 1  `result_state_value(v)`   -- the verb's VerbNet result state.  Decides without looking at the
+                                          posterior at all; when it fires the walk cannot matter.
+      rung 2  `sense_endstate_sign(v, posterior)` -- THE ONLY RUNG THAT READS THE DISTRIBUTION, and it reads
+                                          it through `fused_sense_value` = (pw*v_word + E)/(pw+1) with
+                                          pw = 2*rho, i.e. the WORD-FORM norm outweighs the sense expectation
+                                          whenever rho > 0.5, and then thresholds |fused| at SENSE_TAU = 0.10
+      rungs 3-5  superordinate / manner / genus -- posterior-blind again
+    This arm reads each document once with the gate OFF and counts, per consumer call, which rung decided."""
+    install()
+    import hdlab.force_dynamics_valence as FDV
+    import hdlab.affect_lexicon as AFX
+    docs, gaz = _split_docs(split, n_docs)
+    tmp = tempfile.mkdtemp(prefix="p147_chain_")
+    calls = []
+    b_hh, b_evs = FDV.harm_help_arithmetic, FDV.endstate_valence_sign
+
+    def hh(verb, animacy, **kw):
+        out = b_hh(verb, animacy, **kw)
+        v = FDV.lemmatize_verb(verb)
+        post = kw.get("posterior")
+        rs = None
+        try:
+            rs = FDV.result_state_value(v)
+        except Exception:
+            rs = None
+        rung1 = bool(rs is not None and abs(rs) >= FDV.STATE_MIN)
+        verdict = None
+        try:
+            if AFX.sense_rows(v):
+                verdict = AFX.sense_endstate_sign(v, post)[1]
+        except Exception:
+            verdict = None
+        calls.append({"verb": v, "animacy": animacy, "had_posterior": post is not None,
+                      "override_present": kw.get("endstate_sign_override") is not None,
+                      "rung1_result_state_decides": rung1, "rung2_verdict": verdict,
+                      "in_sense_asset": bool(AFX.sense_rows(v)), "output": out})
+        return out
+
+    FDV.harm_help_arithmetic = hh
+    try:
+        for d in docs:
+            path = _conll(d, tmp)
+            _read(path, gaz, tau=0.0, tau_post=0.0, reader=_reader(gaz))
+            print("  read %-30s cumulative consumer calls=%d" % (d.docid, len(calls)))
+    finally:
+        FDV.harm_help_arithmetic = b_hh
+    n = len(calls)
+    withp = [c for c in calls if c["had_posterior"]]
+    pre = [c for c in withp if c["rung1_result_state_decides"]]
+    reach = [c for c in withp if not c["rung1_result_state_decides"] and c["in_sense_asset"]]
+    verdicts = {}
+    for c in reach:
+        verdicts[str(c["rung2_verdict"])] = verdicts.get(str(c["rung2_verdict"]), 0) + 1
+    res = {"arm": "chain", "split": split, "n_documents": len(docs), "n_consumer_calls": n,
+           "calls_handed_a_graded_posterior": len(withp),
+           "of_those_decided_by_the_posterior_BLIND_result_state_rung_first": len(pre),
+           "of_those_reaching_the_only_rung_that_reads_the_distribution": len(reach),
+           "rung2_verdicts_on_those": verdicts,
+           "share_of_posterior_calls_where_the_distribution_can_matter":
+               round(len(reach) / max(len(withp), 1), 4),
+           "outputs": {str(k): sum(1 for c in calls if c["output"] == k)
+                       for k in {c["output"] for c in calls}},
+           "SENSE_TAU": AFX.SENSE_TAU, "SENSE_K_W": AFX.SENSE_K_W, "STATE_MIN": FDV.STATE_MIN,
+           "plain": ("counts, for every harm/help judgement the reader makes, whether the graded meaning "
+                     "distribution the expensive spread produces could have mattered at all -- an earlier "
+                     "rung of the same cascade answers first on most of them")}
+    _write("chain_%s.json" % split, res)
+    print("\nCONSUMER CALLS %d; handed a graded posterior %d; the posterior-BLIND result-state rung decides "
+          "first on %d; only %d (%.1f%%) reach the one rung that reads the distribution -- verdicts %s"
+          % (n, len(withp), len(pre), len(reach),
+             100 * res["share_of_posterior_calls_where_the_distribution_can_matter"], verdicts))
     return res
 
 
@@ -1409,6 +1519,7 @@ def main():
     ap.add_argument("--criterion", action="store_true")
     ap.add_argument("--board", action="store_true")
     ap.add_argument("--organs", action="store_true")
+    ap.add_argument("--chain", action="store_true")
     ap.add_argument("--make-diff", action="store_true")
     ap.add_argument("--split", default="train", choices=("train", "test"))
     ap.add_argument("--docs", type=int, default=12)
@@ -1433,13 +1544,15 @@ def main():
     if a.sweep:
         sweep(a.split, a.docs)
     if a.identity:
-        identity(a.docs, a.tau, a.tau_post)
+        identity(a.docs, a.tau, a.tau_post, a.split)
     if a.twin:
         twin(a.twin_docs, a.tau)
     if a.timing:
         timing(a.docs, a.pairs, a.tau, a.tau_post or 0.0)
     if a.criterion:
         criterion(a.docs, a.split)
+    if a.chain:
+        chain(a.docs, a.split)
     if a.organs:
         organs()
     if a.board:

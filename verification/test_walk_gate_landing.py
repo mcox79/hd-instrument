@@ -278,7 +278,7 @@ def w8_the_record_agrees_with_itself():
         ck("SWEEP(test): the walk still overturns the prior on a real minority of calls",
            0 < st["walk_changed_the_argmax"] < st["blend_calls_with_a_walk"],
            "%d of %d" % (st["walk_changed_the_argmax"], st["blend_calls_with_a_walk"]))
-    idr = _rec("identity.json")
+    idr = _rec("identity_test.json") or _rec("identity.json")
     if idr:
         any_rec = True
         b = idr.get("B_argmax_gate")
@@ -289,6 +289,16 @@ def w8_the_record_agrees_with_itself():
                % (b["n_identical"], b["n_documents"], b["total_affect_fields_that_differ"]))
             ck("IDENTITY: the gate actually removed walks", b["walks_on"] < b["walks_off"],
                "%d -> %d (-%.1f%%)" % (b["walks_off"], b["walks_on"], 100 * b["walks_removed_share"]))
+        c = idr.get("C_both_gates")
+        if c:
+            # THE COVERAGE CHECK the project's own discipline demands: "no difference" is only evidence if the
+            # gate actually had chances to make one.  Count the graded posteriors it removed.
+            ck("IDENTITY: the distribution gate REALLY fired (its 'no change' is not a coverage artifact)",
+               c["total_calls_that_lost_the_graded_posterior"] > 0,
+               "%d of %d consumer calls lost their graded posterior; %d outputs changed"
+               % (c["total_calls_that_lost_the_graded_posterior"],
+                  c["total_calls_that_had_a_graded_posterior"],
+                  c["total_harm_help_outputs_that_differ"]))
     tm = _rec("timing.json")
     if tm:
         any_rec = True
