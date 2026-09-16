@@ -187,6 +187,101 @@ REVERIFY: the seven commands in the SOLVED.md frontmatter's `reverify` field.
 > `hdlab/situation_reader.py::_assign_affect`; the measurement cell
 > `experiments/exp_structure_map_cost_v1.py --cache-probe` and its `data/exp_structure_map_cost_v1/cache_probe.json`.
 
+
+## P7.2 — PROBE A: every organ whose state survives a `read()`, and whether it is plasticity or a leak
+
+**Method, in two halves so neither can hide the other's blind spot.**
+*Static:* an AST scan of the **56 modules that execute on a live read**, collecting every module-level name a
+function can mutate — rebound under `global`, assigned into (`x[k] = ...`), mutated by a container method, or
+memoised by `@lru_cache`. *Dynamic:* three reads in one process — document A, **document A again**, document
+B — fingerprinting all 103 names before and after each (`--state-probe`). A name that moves on the **repeat of
+the same document** is state accrued from text; one that then moves on a **different document** crosses the
+document boundary.
+
+**Static result: 30 of the 56 live modules hold module-level mutable state, across 103 names.**
+
+| module | names | module | names |
+|---|---|---|---|
+| `typed_spokes` | 18 | `lexical_utils` | 5 |
+| `attachment_arm` | 11 (+3 stats counters) | `space_reader` | 5 |
+| `force_dynamics_valence` | 10 | `predicate_argument_frontend` | 4 |
+| `graded_role_assigner` | 9 + 1 `@lru_cache` | `entity_resolver`, `grounded_similarity`, `context_grounded_valence`, `typed_selectional_preference` | 3 each |
+| `affect_lexicon`, `bound_event_backbone`, `frontend`, `lexical_categories`, `lexicon_foundation`, `predicate_detector`, `state_register`, `temporal_model`, `thematic_role_labeler`, `verb_subcat` | 2 each | `coref`, `crosstype_bridge`, `crosstype_live_adapter`, `frame_induction`, `goal_hierarchy_graph`, `hippocampal_encoder`, `incremental_parser`, `morphology`, `situation_reader` | 1 each |
+
+**The four kinds, and the rule each implies.**
+
+| kind | what it is | examples | verdict |
+|---|---|---|---|
+| **1. ASSET SINGLETON** | loaded once from a frozen file, read-only thereafter; the `global X; if X is None: X = load()` idiom | `lexicon_foundation._STORE`, `attachment_arm._TABLE`/`_HOLD_TAB`/`_PLAUS_T`, `frontend._T`/`_P`, `force_dynamics_valence._LEX`/`_RS_TABLE`/`_MANNER`/`_GSG`, `morphology._DEFAULT`, `temporal_model._ORC_TAGGER`/`_PENN_ARM`, `typed_spokes._HUB`/`_PW_STORE`/`_ANT_STORE`/`_C8_*`, `verb_subcat._ASSET_CACHE`/`_MODEL_CACHE`, `graded_role_assigner._COARSE_VALIDITIES_CACHE`, `typed_selectional_preference._SS_TABLE`/`_INST` | **CORRECT AS IS.** This is the developmental store: laid down offline, read during comprehension. It is exactly what `lexicon_foundation` was built to be. **Keep at module level** — one process, one lexicon. |
+| **2. PURE CONTENT-ADDRESSED MEMO** | value is a deterministic function of the key; grows as new words arrive, never changes an existing answer | `lexicon_foundation._SYNSET_CACHE`, `lexical_utils._MORPHY`/`_CLASS_CACHE`/`_person_cache`, `entity_resolver._TYPE_CACHE`/`_ETYPE_CACHE`, `space_reader._PLACE_CACHE`/`_motion_cache`, `typed_spokes._MFS`/`_ANC_SYN`/`_MERO_MFS`/`_C8_CLASS_CACHE`, `predicate_argument_frontend._verbnet_class_cache`/`_place_cache`, `state_register._wn_syn_cache`/`_wn_ant_cache`, `force_dynamics_valence._SS_CACHE`/`_ALLSS_CACHE`/`_AFFECT_CACHE`/`_RS_CACHE`/`_EV_CACHE`, `bound_event_backbone._SYM`/`_CONTENT`, `hippocampal_encoder._DG_PROJ_CACHE`, `incremental_parser._LEMMA_CACHE`, `crosstype_bridge._ANIMACY_CACHE`, `frame_induction._INDUCED_SUBJ_HYP_CACHE`, `graded_role_assigner._SUPERSENSE`/`_MEAN_LLR_CACHE`, `@lru_cache _predicate_heads()` | **NOT A LEAK OF MEANING**, and not plasticity either — it is the retrieval store being addressed. **Keep at module level**; the only real cost is unbounded growth in a long-lived process (nothing caps them today). |
+| **3. PER-PASSAGE STATE, RESET AT THE BOUNDARY** | genuinely about *this* passage, and the organ has an explicit reset | `lexical_categories._REG_GEN` + the `DiscourseRegister` it stamps (`new_document()` at `lexical_categories.py:738-746` bumps the generation and opens fresh file cards), `attachment_arm._CSUB_MEMO`/`_PP_PREP_CACHE`/`_PP_CASE_CACHE` (each `.clear()`s on a key change), `situation_reader._read_parse_cache` (already per-read, on the instance) | **THIS IS THE BRAIN'S FORM AND IT IS ALREADY RIGHT IN SPIRIT** — Heim's new file per passage. But it is implemented at **module level with a generation counter** instead of on the reader, which is exactly the shape pri 136 is replacing. **Move to the `SituationReader` instance**; the generation counter then becomes unnecessary. |
+| **4. ACCRUED FROM TEXT — PLASTICITY THAT CROSSES THE DOCUMENT BOUNDARY** | the value depends on **what has been read**, and nothing resets it | **`entity_resolver._OF_VALIDITIES`** — the object-file merge/split cue-validity table. `entity_resolver.py:566-572`: on every high-margin clustering decision, `validities.observe(best_cues, True)`, `validities.observe_criterion(...)`, `validities.recompute()` mutate the table **in place**; `HDLAB_OBJECT_FILE_ONLINE` defaults to on (`:781`) and `_OF_VALIDITIES` is a module global (`:609-623`) | **THIS IS THE ONE THAT MATTERS BY CODE -- AND THE PROBE FOUND IT INERT ON THIS SAMPLE (see below).** The computation is right and brain-faithful (cue validity learned from the organ's own confirmed decisions — the owner's "plastic, never frozen"). **The LEVEL is wrong: it is per PROCESS, so document 2 is read by a reader that document 1 has already taught, and document 6 by one that five documents have taught.** Two consequences, both real: (a) **reads are order-dependent**, so a board is not a set of independent measurements; (b) it is why `HDLAB_OBJECT_FILE_ONLINE=0` exists at all — the organ ships an escape hatch to get a byte-identical A/B, which is an admission that the default is not reproducible. |
+
+**THE RULE THIS SUPPORTS, and pri 136 is right to apply it:** *one reader = one brain.* **Plastic state
+(kind 3 and kind 4) belongs on the `SituationReader` instance; module level holds only kind 1 (read-only
+assets) and kind 2 (content-addressed memos).** Under that rule a read becomes order-independent and every
+document becomes certifiable for pri 146's memo, while the plasticity itself is *kept* — it just lives where
+a brain's does, in the reader, not in the import system.
+
+**One open question this probe cannot settle and pri 136 must:** if plastic state moves onto the reader
+instance, **a fresh `SituationReader` per document forgets everything between documents** — which is *less*
+plastic than the brain, not more. The honest target is a reader that persists across a corpus **when the
+experiment says so**, and is fresh when the measurement requires independence. That is a decision about the
+experimental contract, not about the organ.
+
+**Dynamic result (`--state-probe --docs 2`; `data/exp_structure_map_cost_v1/state_probe.json`).** Three reads
+in one process: `GUM_academic_census`, the **same document again**, then `GUM_letter_marcie3`.
+
+| | count | names |
+|---|---|---|
+| **changed on a REPEAT of the SAME document** | **2** | `lexical_categories._INST`, `lexical_categories._REG_GEN` |
+| changed on a DIFFERENT document | 27 | the 2 above + 25 content-addressed memos and asset-internal caches (`lexicon_foundation._STORE`/`_SYNSET_CACHE`, `lexical_utils._MORPHY`/`_person_cache`, `entity_resolver._TYPE_CACHE`/`_ETYPE_CACHE`, `space_reader._PLACE_CACHE`/`_motion_cache`, `typed_spokes._MFS`/`_ANC_SYN`/`_MERO_MFS`/`_C8_CLASS_CACHE`, `force_dynamics_valence._SS_CACHE`-family, `predicate_argument_frontend._verbnet_class_cache`/`_place_cache`, `state_register._wn_ant_cache`, `attachment_arm._CSUB_MEMO`/`_PP_PREP_CACHE`/`_PLAUS_T`, `bound_event_backbone._SYM`/`_CONTENT`, `temporal_model._PENN_ARM`, `typed_selectional_preference._ss_cache`) |
+| stable across all three reads | 76 | the asset singletons |
+
+**A FALSE NEGATIVE IN MY OWN FIRST PROBE, FOUND AND FIXED — report it because it changes the reading.** The
+first version hashed `repr(obj.__dict__)[:4000]`. At that truncation it reported `lexical_categories._INST`
+as STABLE, which is wrong: with the truncation removed and a numeric digest of any `counts`/`crit` table
+folded in, `_INST` moves on a same-document repeat, and `attachment_arm._PLAUS_T`,
+`lexicon_foundation._STORE` and `temporal_model._PENN_ARM` join the cross-document list (their internal
+memos grow). **Any claim of the form "this module-level object is stable" is only as good as the
+fingerprint's depth**, and the corrected probe is the one to quote.
+
+**WHAT THE TWO SAME-DOCUMENT CHANGES ARE, read from code.** Both belong to the **per-passage register**, not
+to accrued knowledge: `lexical_categories.new_document()` (`:738-746`) bumps the module-global `_REG_GEN` and
+installs a **fresh `DiscourseRegister()`**, and that register owns the clock (`sent_no`, `sent_key`,
+`n_feed`, `n_read` — `:326-336`), so the clock and the file-card map **are** reset per document. *(I suspected
+they were not and checked: they are. The unfounded version is not published.)* So the repeat-read change is
+the passage machinery doing its job — a new file for a new passage, Heim's form.
+
+**AND THEREFORE ONE HONEST RESIDUAL, LOCATED AND NOT EXPLAINED.** The memo probe measured that two reads of
+`GUM_academic_census` return **different situation models**, and this probe shows the only module-level state
+that moved between them is the per-passage register and its generation counter — **both of which are supposed
+to be reset, and are**. So the read-to-read difference is *inside the per-passage register / generation
+machinery*, not in an accrued-knowledge table. **I have not pinned which step it is**, and I am not going to
+guess: it is a located, unexplained residual, it belongs to the machinery pri 136 is landing right now, and
+pri 146's identity gate depends on it.
+
+**THE ONE KIND-4 TABLE, AND THE SECOND FINDING ABOUT IT.** `entity_resolver._OF_VALIDITIES` is, **by code**,
+plasticity that crosses the document boundary: `:566-572` calls `validities.observe(...)`,
+`observe_criterion(...)` and `recompute()` **in place** on the module global whenever a clustering decision
+clears `online_margin`, `HDLAB_OBJECT_FILE_ONLINE` defaults on (`:781`), and the asset it loads exists
+(`data/frontend_assets/object_file_validities_gum_v1.json`, 3,276 bytes, 2026-09-16 00:32). **But the probe
+reports it UNCHANGED across all three reads — including its `counts` and `crit` digests.** The accrual branch
+therefore **did not fire once on two GUM documents**: the high-margin gate `(best_a − runner) >= 1.0` never
+cleared. That is not "safe", it is **a default-on plastic path that is inert on this sample** — the
+landed-but-not-firing shape this program keeps finding. **Flagged for pri 136**, which owns the module: either
+the margin is too high for real text, or the accrual is reachable only on a population these two documents do
+not contain. Measure the firing rate before treating the plasticity as live.
+
+**SO THE RULE THE COORDINATOR NAMED IS SUPPORTED, WITH ONE AMENDMENT.** *One reader = one brain: plastic
+state lives on the `SituationReader` instance; module-level holds only read-only assets and content-addressed
+memos.* On the measured evidence: 76 of 103 names are read-only assets (**leave at module level**), 25 are
+content-addressed memos (**leave**, but nothing caps their growth), and 2 are per-passage state implemented at
+module level with a generation counter (**move to the reader; the counter then becomes unnecessary**). The
+amendment: **the one genuine cross-document accrual is not currently accruing**, so moving it to the reader
+would change nothing measurable today — which is an argument for measuring its firing rate first, not for
+skipping it.
+
 ## P7.3 — PROBE B: the method behind the two coordination numbers, so pri 144 can reproduce them
 
 ### B1. "16 of 26 goals already share a key with the state register"
