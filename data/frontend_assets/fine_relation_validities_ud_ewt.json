@@ -34,7 +34,8 @@
   "runsym",
   "dist",
   "typepred",
-  "zcop"
+  "zcop",
+  "dpjux"
  ],
  "counts": {
   "prior": [
@@ -36654,6 +36655,146 @@
      0.0,
      14.46377894804224
     ]
+   },
+   "dpjux": {
+    "GLOBAL|no_left": [
+     2.0,
+     3046.1425690992287,
+     94.51234303338299,
+     344.15340283263544,
+     2975.618987573571,
+     1.9999999999999998,
+     1.9999999999999998,
+     8.898109081949533,
+     113.73668065004196,
+     12.79143724277106,
+     11.332413727821613,
+     1.0,
+     0.0,
+     0.0,
+     2.0,
+     72.60674493651354,
+     73.11707080192303,
+     20.96815265590012,
+     31.2330338516061,
+     1102.8301110505238,
+     2039.9730155383459
+    ],
+    "GLOBAL|na": [
+     315.7987046767156,
+     1161.515440652916,
+     264.4516001033312,
+     2319.6780704799626,
+     732.0481582361255,
+     3744.849703049783,
+     12403.962070234886,
+     13709.343390112166,
+     7171.5683995738,
+     1079.4234019965943,
+     8308.149238129443,
+     5407.802241331984,
+     5604.360504425361,
+     18839.09369647831,
+     6236.199521227205,
+     1933.7815935783885,
+     2153.5358643417685,
+     1921.0684986789952,
+     1279.8144107400715,
+     3099.2151961899294,
+     6022.037314387718
+    ],
+    "GLOBAL|no_det": [
+     72.02601279744088,
+     669.5533366562086,
+     283.7332517864779,
+     54.89055408236302,
+     518.5565143331628,
+     1.0,
+     0.0,
+     3.0,
+     51.990448155272595,
+     2.9999999999999996,
+     14.788268518612302,
+     2.0,
+     1.9999999999999998,
+     0.0,
+     0.99502001880506,
+     14.0,
+     18.93648773033158,
+     10.66041154156936,
+     9.0,
+     513.0862656349785,
+     784.2890017782909
+    ],
+    "GLOBAL|same_chunk": [
+     1005.1547628524405,
+     873.5010978499855,
+     156.24033053074496,
+     33.0,
+     976.6539385611339,
+     0.0,
+     0.0,
+     3.0,
+     58.70960265337181,
+     1.0,
+     18.418756596213367,
+     0.0,
+     2.9999999999999996,
+     0.0,
+     0.0,
+     16.67557940513082,
+     18.222290052620657,
+     12.843414076103038,
+     15.758365099706113,
+     555.6243906937341,
+     1219.1650648725831
+    ],
+    "GLOBAL|dp2_comma": [
+     0.0,
+     55.79633684522509,
+     45.12167166621951,
+     4.0,
+     1.0,
+     0.0,
+     0.0,
+     0.0,
+     4.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     2.0,
+     0.0,
+     0.0,
+     0.0,
+     34.0,
+     72.0
+    ],
+    "GLOBAL|dp2_bare": [
+     0.0,
+     60.756630067154845,
+     25.579898998663456,
+     7.0,
+     28.521866282990487,
+     0.0,
+     0.0,
+     0.9999999999999998,
+     2.0,
+     0.0,
+     2.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     1.0,
+     5.0,
+     1.0,
+     8.48358331440555,
+     125.94262480281034
+    ]
    }
   }
  },
@@ -36685,15 +36826,16 @@
     "runsym",
     "dist",
     "typepred",
-    "zcop"
+    "zcop",
+    "dpjux"
    ],
-   "dev_macro_f1": 0.6611,
+   "dev_macro_f1": 0.6503,
    "per_rel": {
-    "flat": 0.5601,
-    "compound": 0.6776,
-    "appos": 0.3023,
-    "nmod:poss": 0.8784,
-    "cop": 0.8871
+    "flat": 0.5056,
+    "compound": 0.6763,
+    "appos": 0.3133,
+    "nmod:poss": 0.8717,
+    "cop": 0.8843
    }
   },
   {
@@ -36707,15 +36849,16 @@
     "runsym",
     "dist",
     "typepred",
-    "zcop"
+    "zcop",
+    "dpjux"
    ],
    "dropped": "dcat",
-   "dev_macro_f1": 0.5977,
+   "dev_macro_f1": 0.5827,
    "per_rel": {
-    "flat": 0.5611,
-    "compound": 0.6763,
-    "appos": 0.3,
-    "nmod:poss": 0.8939,
+    "flat": 0.4954,
+    "compound": 0.6752,
+    "appos": 0.2944,
+    "nmod:poss": 0.8912,
     "cop": 0.5572
    }
   },
@@ -36730,16 +36873,17 @@
     "runsym",
     "dist",
     "typepred",
-    "zcop"
+    "zcop",
+    "dpjux"
    ],
    "dropped": "gen",
-   "dev_macro_f1": 0.6503,
+   "dev_macro_f1": 0.6378,
    "per_rel": {
-    "flat": 0.5612,
-    "compound": 0.6772,
-    "appos": 0.3018,
-    "nmod:poss": 0.8239,
-    "cop": 0.8871
+    "flat": 0.5046,
+    "compound": 0.6758,
+    "appos": 0.3133,
+    "nmod:poss": 0.8108,
+    "cop": 0.8843
    }
   },
   {
@@ -36753,15 +36897,16 @@
     "runsym",
     "dist",
     "typepred",
-    "zcop"
+    "zcop",
+    "dpjux"
    ],
    "dropped": "run",
-   "dev_macro_f1": 0.6625,
+   "dev_macro_f1": 0.664,
    "per_rel": {
-    "flat": 0.5647,
-    "compound": 0.6527,
-    "appos": 0.3132,
-    "nmod:poss": 0.8947,
+    "flat": 0.5768,
+    "compound": 0.6528,
+    "appos": 0.3258,
+    "nmod:poss": 0.8776,
     "cop": 0.8871
    }
   },
@@ -36776,15 +36921,16 @@
     "runsym",
     "dist",
     "typepred",
-    "zcop"
+    "zcop",
+    "dpjux"
    ],
    "dropped": "gap",
-   "dev_macro_f1": 0.6436,
+   "dev_macro_f1": 0.6383,
    "per_rel": {
-    "flat": 0.5552,
-    "compound": 0.6769,
-    "appos": 0.2386,
-    "nmod:poss": 0.8926,
+    "flat": 0.4995,
+    "compound": 0.6794,
+    "appos": 0.2743,
+    "nmod:poss": 0.8835,
     "cop": 0.8547
    }
   },
@@ -36799,15 +36945,16 @@
     "runsym",
     "dist",
     "typepred",
-    "zcop"
+    "zcop",
+    "dpjux"
    ],
    "dropped": "pslot",
-   "dev_macro_f1": 0.6634,
+   "dev_macro_f1": 0.6499,
    "per_rel": {
-    "flat": 0.5636,
-    "compound": 0.6788,
-    "appos": 0.304,
-    "nmod:poss": 0.8915,
+    "flat": 0.5041,
+    "compound": 0.6778,
+    "appos": 0.3158,
+    "nmod:poss": 0.8729,
     "cop": 0.879
    }
   },
@@ -36822,15 +36969,16 @@
     "runsym",
     "dist",
     "typepred",
-    "zcop"
+    "zcop",
+    "dpjux"
    ],
    "dropped": "hps",
-   "dev_macro_f1": 0.6621,
+   "dev_macro_f1": 0.6533,
    "per_rel": {
-    "flat": 0.5586,
-    "compound": 0.6779,
-    "appos": 0.309,
-    "nmod:poss": 0.877,
+    "flat": 0.5041,
+    "compound": 0.6763,
+    "appos": 0.3264,
+    "nmod:poss": 0.8717,
     "cop": 0.888
    }
   },
@@ -36845,15 +36993,16 @@
     "runsym",
     "dist",
     "typepred",
-    "zcop"
+    "zcop",
+    "dpjux"
    ],
    "dropped": "crs",
-   "dev_macro_f1": 0.6578,
+   "dev_macro_f1": 0.6453,
    "per_rel": {
-    "flat": 0.5576,
-    "compound": 0.6815,
-    "appos": 0.2931,
-    "nmod:poss": 0.8701,
+    "flat": 0.5005,
+    "compound": 0.6793,
+    "appos": 0.2991,
+    "nmod:poss": 0.8609,
     "cop": 0.8865
    }
   },
@@ -36868,16 +37017,17 @@
     "crs",
     "dist",
     "typepred",
-    "zcop"
+    "zcop",
+    "dpjux"
    ],
    "dropped": "runsym",
-   "dev_macro_f1": 0.6668,
+   "dev_macro_f1": 0.6619,
    "per_rel": {
-    "flat": 0.5736,
-    "compound": 0.6796,
-    "appos": 0.3059,
-    "nmod:poss": 0.8877,
-    "cop": 0.8871
+    "flat": 0.5625,
+    "compound": 0.6754,
+    "appos": 0.3184,
+    "nmod:poss": 0.8691,
+    "cop": 0.8843
    }
   },
   {
@@ -36891,15 +37041,16 @@
     "crs",
     "runsym",
     "typepred",
-    "zcop"
+    "zcop",
+    "dpjux"
    ],
    "dropped": "dist",
-   "dev_macro_f1": 0.6577,
+   "dev_macro_f1": 0.6403,
    "per_rel": {
-    "flat": 0.56,
-    "compound": 0.6783,
-    "appos": 0.3249,
-    "nmod:poss": 0.8923,
+    "flat": 0.5,
+    "compound": 0.6756,
+    "appos": 0.3112,
+    "nmod:poss": 0.8815,
     "cop": 0.8331
    }
   },
@@ -36914,15 +37065,16 @@
     "crs",
     "runsym",
     "dist",
-    "zcop"
+    "zcop",
+    "dpjux"
    ],
    "dropped": "typepred",
-   "dev_macro_f1": 0.663,
+   "dev_macro_f1": 0.6566,
    "per_rel": {
-    "flat": 0.54,
-    "compound": 0.6763,
-    "appos": 0.3211,
-    "nmod:poss": 0.8905,
+    "flat": 0.5385,
+    "compound": 0.6733,
+    "appos": 0.3087,
+    "nmod:poss": 0.8752,
     "cop": 0.8871
    }
   },
@@ -36937,31 +37089,57 @@
     "crs",
     "runsym",
     "dist",
-    "typepred"
+    "typepred",
+    "dpjux"
    ],
    "dropped": "zcop",
-   "dev_macro_f1": 0.6646,
+   "dev_macro_f1": 0.6511,
    "per_rel": {
-    "flat": 0.5674,
-    "compound": 0.6795,
-    "appos": 0.2881,
-    "nmod:poss": 0.9009,
+    "flat": 0.5035,
+    "compound": 0.6794,
+    "appos": 0.3056,
+    "nmod:poss": 0.8797,
+    "cop": 0.8871
+   }
+  },
+  {
+   "cue_set": [
+    "dcat",
+    "gen",
+    "run",
+    "gap",
+    "pslot",
+    "hps",
+    "crs",
+    "runsym",
+    "dist",
+    "typepred",
+    "zcop"
+   ],
+   "dropped": "dpjux",
+   "dev_macro_f1": 0.6611,
+   "per_rel": {
+    "flat": 0.5601,
+    "compound": 0.6776,
+    "appos": 0.3023,
+    "nmod:poss": 0.8784,
     "cop": 0.8871
    }
   }
  ],
- "dev_macro_f1": 0.6668,
+ "dev_macro_f1": 0.664,
  "perceived": true,
  "confidence_weighted": true,
  "chain": "lexical_categories(counts) -> attachment_arm -> coarse_roles -> predicate_sites",
  "cue_set_selection": {
-  "procedure": "macro-F1 over flat/compound/appos/nmod:poss/cop on the TRAIN-INTERNAL dev split (every 5th train sentence, n=2507), never on test; the best over every candidate set evaluated across the three builds",
+  "procedure": "macro-F1 over flat/compound/appos/nmod:poss/cop on the TRAIN-INTERNAL dev split (every 5th train sentence, n=2507), never on test; the best over every candidate set evaluated across FOUR builds",
   "dev_macro_f1": 0.669,
   "rejected": {
-   "all_v3_cues": 0.6611,
+   "v4_all_cues": 0.6503,
+   "v4_minus_run": 0.664,
+   "v4_minus_dpjux": 0.6611,
    "v3_minus_runsym": 0.6668,
-   "v3_minus_zcop": 0.6646,
-   "v2_all": 0.6646
+   "v3_all": 0.6611
   }
  }
 }

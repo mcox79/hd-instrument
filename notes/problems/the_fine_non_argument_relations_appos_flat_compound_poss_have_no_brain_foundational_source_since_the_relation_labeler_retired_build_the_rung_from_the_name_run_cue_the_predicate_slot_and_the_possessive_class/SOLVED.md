@@ -701,7 +701,29 @@ is lead 2 — referential identity proposed by the entity layer — and the row 
 `licensed` edges, not the treebank label. Measured below on the appos row and the core-argument read so the
 prediction above is a result and not a forecast.
 
-**@@CMEASURE@@**
+### AND THE ROW MEASUREMENT, because a prediction is not a result — UD-EWT test, 2,077 sentences, one process
+
+The cue was accrued into a fourth build (123,390 decisions, same population) and run as its own can-fail arm
+against the DEV-selected set. **The DEV split rejected it again** — best-with-`dpjux` 0.6640 against the
+standing 0.6690 — and on test:
+
+| arm | appos P | appos R | appos F1 | union target (n=8,891) | CORE-ARGUMENT read (n=4,457) |
+|---|---|---|---|---|---|
+| the BF arm (DEV-selected set) | 0.2262 | 0.3851 | **0.2850** | **0.7622** | 0.7162 |
+| **+ `dpjux`** | 0.1865 | **0.4122** | 0.2568 | 0.7586 | **0.7162** |
+| the retired perceptron | 0.2913 | 0.4054 | 0.3390 | 0.7081 | — |
+| the same arm on GOLD heads | 0.2739 | 0.4257 | 0.3333 | 0.7846 | — |
+
+paired on the union target: **−0.0036 CI95 [−0.0062, −0.0013], CI-SEPARATED DOWN.** Core-argument cost:
+**0.0000 CI [0.0000, 0.0000]** — unlike the run-members lever, this one costs the argument read *nothing*.
+
+**AND IT DOES EXACTLY WHAT THE ACCOUNT PREDICTS, WHICH IS WHY IT LOSES.** `dpjux` raises apposition RECALL to
+**0.4122 — the highest of any arm except the gold-heads oracle, and above the retired perceptron's 0.4054** —
+and pays for it in precision (0.2262 → 0.1865). It finds more appositions and is less often right about them,
+which is precisely what a ×25.9-lift cue that ties `compound` at its best value must do. **So the shipped
+answer is: the account is confirmed, the cue is not shipped, and the reason is arithmetic rather than
+mysterious.** Turn it on with the cue set if a consumer ever wants appos RECALL over precision; the counts are
+in the asset and the arm is one entry in `cue_set`.
 
 ## D. WHAT A DISCRIMINATIVE VERSION OF EACH REJECTED CUE WOULD NEED
 
@@ -748,21 +770,67 @@ builds, and it is arc-free, so it is available at this rung with no second parse
 re-run of the same idea: `dpjux` conditions the same predication account on the chunk boundary the chunker now
 draws, which is the one piece of evidence `zcop` had no access to. Measured below.
 
-## E. THE FULL-CORPUS CONSUMER RUN
+## E. THE FULL-CORPUS CONSUMER RUN — it finished, it replaces §4.2, and it goes against me
 
-`--bridge --c3 --gum-docs 0 --perceptron` (all ~190 GUM documents, 7 arms, one process) was dispatched in
-phase 6 and **had still not finished at phase-7 hand-off** — it shares this laptop with the pri 127 product
-board and three other solver sessions, and at last check it had consumed ~40 minutes of CPU without reaching
-its write. It writes exactly one file, `data/exp_fine_relations_arm_v1/metrics_gumfull.json`, and nothing else.
+`--bridge --c3 --gum-docs 0 --perceptron` completed after **3,074 s**: **257 GUM documents, ceiling population
+176 (against 24 on the 40-document table), C3 n = 601**, 7 arms, all in ONE process, only the relation source
+varying. **This supersedes the 40-document table in §4.2 entirely.**
 
-**So the 40-document consumer table in §4.2 stands, with its caveat unchanged: pop = 24, every bind delta is
-one or two items, and I do not claim it as CI-separated.** If `metrics_gumfull.json` is on disk when strategy
-picks this up, read it in preference — same code, same arms, the full corpus. If it is absent, the command is
-in the reverify block.
+| relation source | fine-relation tokens (appos/flat/compound/poss/cop) | predication EDGES | bridge recall | bridge precision | C3 experiencer |
+|---|---|---|---|---|---|
+| honest floor, no bridge | — | — | — | — | 0.1381 |
+| **THE TREE AS IT SHIPS** (`dep` fallback) | 0 / 0 / 0 / 0 / 0 | **9** | 0.1932 | 0.6182 | 0.1814 |
+| **THE BF ARM** | 2292 / 3484 / 7104 / 3886 / 5435 | **133** | 0.2159 | 0.6230 | 0.1797 |
+| **THE BF ARM + construction governors** | same | **153** | 0.2216 | 0.6290 | 0.1814 |
+| **THE BF ARM, RUN-MEMBERS OFF** | 2288 / 3156 / 6201 / 3886 / 5435 | 122 | **0.2443** | **0.6515** | **0.1880** |
+| the RETIRED perceptron (informational) | 1759 / 2278 / 5547 / **0** / 4786 | 135 | **0.2557** | **0.6716** | **0.1930** |
+| GOLD deprels | 1370 / 2232 / 8646 / 4298 / 5232 | **195** | 0.2500 | 0.6567 | 0.1930 |
+| INFO-FREE TWIN | 1093 / 1165 / 7297 / 1129 / 8957 | **35** | 0.1932 | 0.6182 | 0.1764 |
 
-**What does NOT depend on it:** the UD-EWT headline and every floor and twin (§3), both quality-push negatives
-(§5), the coverage A/B/C (§4.1a), the span-contract audit and the introduction-organ repair (§A, §B), and the
-two-DP cue validity (§C) — all of those are complete and measured.
+paired: bf vs the `dep` fallback, bridge recall **+0.0227 CI[−0.0077,+0.0602] NOT separated**; bf vs the twin
+**+0.0227 CI[+0.0052,+0.0476] SEPARATED**; construction governors vs arm heads +0.0057 CI[0.0000,+0.0201] not
+separated; gold vs bf +0.0341 CI[−0.0139,+0.0918] not separated. C3: every arm beats the honest floor
+CI-separated, and **bf vs the `dep` fallback is −0.0017 CI[−0.0187,+0.0116], NOT separated**.
+
+### FOUR THINGS THIS SAYS, AND TWO OF THEM ARE AGAINST ME
+
+1. **THE MECHANISM FIRES AT SCALE AND IT IS THE CUE'S CONTENT.** 9 predication edges → 133, and 153 with the
+   construction governors, against a GOLD-deprel 195 and an info-free **twin at 35** from comparable token
+   counts. The arm beats its twin on bridge recall **CI-separated**. `nmod:poss` is 3,886 tokens where the
+   perceptron emits 0.
+2. **AND IT DOES NOT BEAT THE SHIPPED `dep` FALLBACK ON EITHER CONSUMER ROW.** Bridge recall +0.0227 is not
+   separated; C3 is −0.0017, not separated. **On the consumer's own instruments this is a restored mechanism,
+   not yet a consumer win, and I am not going to call it one.** The UD-EWT rung result (§3) stands as a rung
+   result; it has not yet cashed downstream.
+3. **THE RUN-MEMBERS LEVER IS HARMFUL HERE, exactly as I predicted against it in §5.1.** Turning it OFF gives
+   bridge recall **0.2443 vs 0.2159** and precision **0.6515 vs 0.6230** and C3 **0.1880 vs 0.1797** — the best
+   BF arm on all three. The predicted mechanism is the one I wrote down before measuring: the reader's mention
+   head is the span's LAST token while UD heads a name phrase by its FIRST, so `Smith` in "Mary Smith" becomes
+   `flat` and `crosstype_bridge._mention_role` loses its SUBJECT Centering rank. **On 40 documents this was
+   invisible; at pop 176 it is the difference between the best and the worst BF arm.**
+4. **GOLD DEPRELS ARE NOT THE CEILING ON THIS INSTRUMENT — the retired perceptron BEATS them** (recall 0.2557
+   vs 0.2500, precision 0.6716 vs 0.6567). So the bridge's precise-constructs sieve is not simply
+   label-quality-limited; it prefers perceptron-shaped labels to the treebank's own. That is a property of the
+   INSTRUMENT, it caps what any labeller can show here, and it is a reason not to read "the perceptron still
+   wins" as "the supervised labeller is better at the job".
+
+### SO I AM CHANGING MY RECOMMENDATION, AND SAYING THE RISK OF IT
+
+The coordinator's ruling was *ship with run-members ON and state the two numbers it trades.* **Those two numbers
+are now both measured and they point opposite ways:**
+
+| | UD-EWT non-argument targets (n=8,891) | the bridge's own row (pop 176) | C3 (n=601) |
+|---|---|---|---|
+| run-members **ON** | **0.7622** (+0.0126 CI-sep) | recall 0.2159 / prec 0.6230 | 0.1797 |
+| run-members **OFF** | 0.7496 | **recall 0.2443 / prec 0.6515** | **0.1880** |
+
+**My recommendation is now `HDLAB_FINE_RUN_MEMBERS=0` as the shipped default**, because the project's own rule
+is to score the product first and the product prefers OFF on all three consumer figures, while ON wins only on
+the rung's own target metric. **The risk of my recommendation:** neither consumer difference is
+CI-separated-tested against ON (I measured the arms, not the paired ON-vs-OFF contrast on the bridge), the UD
+gain it gives up IS CI-separated, and `compound` recall drops 0.5352 → 0.4486 — so if a later consumer wants
+compound structure, OFF is the wrong default and the switch has to move back. The decision stays the
+coordinator's; both numbers are now on the table instead of one.
 
 ## F. WHAT I DID NOT FULLY UNDERSTAND, AND WHAT I DID ABOUT IT
 
@@ -783,7 +851,33 @@ two-DP cue validity (§C) — all of those are complete and measured.
 while its recall rose. Both are over-emissions, and the hypothesis is that they are the CATEGORY rung's loss
 travelling down — a token the organ reads PROPN inside a title-cased web sentence looks like a name run. I
 added `wrong_emission_attribution` to the UD arm: for every token the arm labels X where gold says Y, it
-records whether the category the arm READ differs from the gold category. **@@FDIAG@@**
+records whether the category the arm READ differs from the gold category. **THE ANSWER SPLITS THE RESIDUALS
+CLEANLY IN TWO, AND MY HYPOTHESIS WAS WRONG ABOUT THE ONE I CARED ABOUT:**
+
+| wrong emission (arm said X, gold said Y) | n | category ALSO wrong | share |
+|---|---|---|---|
+| `amod` on gold `compound` | 49 | 47 | **0.959** |
+| `case` on gold `mark` | 63 | 53 | **0.841** |
+| `case` on gold `advmod` | 59 | 45 | **0.763** |
+| `amod` on gold `dep` | 47 | 15 | 0.319 |
+| `flat` on gold `compound` | 66 | 14 | 0.212 |
+| `flat` on gold `dep` | 145 | 28 | 0.193 |
+| `compound` on gold `dep` | 114 | 21 | 0.184 |
+| `case` on gold `dep` | 70 | 12 | 0.171 |
+| `appos` on gold `dep` | 96 | 12 | 0.125 |
+| `acl` on gold `dep` | 100 | 10 | 0.100 |
+| `conj` on gold `dep` | 152 | 14 | 0.092 |
+| `cop` on gold `aux` | 51 | 0 | **0.000** |
+
+**THE CONVENTION LAYER'S LOSSES ARE THE CATEGORY RUNG'S; THE CONSTRUCTION LAYER'S ARE THE ARM'S OWN.** `case`
+and `amod` over-emit almost entirely where the category organ read the wrong category (84%, 76%, 96%) — that is
+the ADP/`mark`, ADP/`advmod` and ADJ/NOUN confusions travelling down, and it is why `case` precision fell
+against the perceptron (0.8356 vs 0.9038) while its recall rose. **But `flat` — the residual I actually cared
+about — is only 19-21% category-driven, so my hypothesis was WRONG: the flat precision of 0.4278 is the ARM's
+error, not the tagger's**, and the lever is the run chunker's own boundary rule rather than a better tagger.
+`cop` on gold `aux` is **0.000** category-wrong, confirming that the one genuine `cop` confusion is the lexical
+ambiguity of *be* and nothing upstream. And `conj` at 0.092 confirms §3's structural reading: the arm has no
+parallel-structure computation, and no amount of category accuracy would give it one.
 
 **IMPROVEMENT OPPORTUNITIES NOT TAKEN, and why — none of them is "no time".**
 1. **The arc-based NP chunk.** `heads_fn` ships as an inert hook. Wiring it needs `situation_reader` to hand
