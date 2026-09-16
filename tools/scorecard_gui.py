@@ -132,6 +132,8 @@ class ScorecardWindow:
         st.map("TNotebook.Tab", background=[("selected", PANEL)])
         st.configure("Treeview", background=PANEL, fieldbackground=PANEL, foreground=FG, rowheight=26, font=FONT)
         st.configure("Treeview.Heading", background="#333", foreground=FG, font=FONT_B)
+        st.configure("Mono.Treeview", background=PANEL, fieldbackground=PANEL, foreground=FG, rowheight=24, font=("Consolas", 9))
+        st.configure("Mono.Treeview.Heading", background="#333", foreground=FG, font=("Consolas", 9, "bold"))
         self.nb = ttk.Notebook(root)
         self.nb.pack(fill="both", expand=True, padx=8, pady=(8, 4))
         self.sc: dict = {}
@@ -211,6 +213,52 @@ class ScorecardWindow:
         self.trend_note.pack(fill="x", padx=12, pady=(0, 10))
         self._wraps.append((self.trend_note, 70))
 
+        # --- MORE RESOLUTION (owner 2026-09-15: "more resolution on which parts are performing well and
+        #     which aren't; it's very hard to understand what you're working on"). Three tables, open by
+        #     default (the ask was visibility, not one more thing to click open), fixed-width font so the
+        #     numbers line up, verdict/health colouring the same way the ability table below already does.
+        pcard = tk.Frame(inner, bg=CARD, highlightbackground=EDGE, highlightthickness=1)
+        pcard.pack(fill="x", padx=14, pady=(0, 8))
+        tk.Label(pcard, text="THE PRODUCT, QUESTION BY QUESTION — the reader's own read of plain text, no answer key",
+                 bg=CARD, fg=DIM, font=FONT_SEC, anchor="w").pack(fill="x", padx=12, pady=(9, 2))
+        pcols = ("reader", "rule", "twin", "verdict", "trend", "component", "worked")
+        self.ptable = ttk.Treeview(pcard, columns=pcols, show="tree headings", selectmode="browse", height=7, style="Mono.Treeview")
+        self.ptable.heading("#0", text="Question")
+        for c, w, t in (("reader", 190, "Reader on plain text"), ("rule", 170, "Best simple rule"), ("twin", 70, "Random twin"),
+                        ("verdict", 190, "Verdict"), ("trend", 150, "Since last check"),
+                        ("component", 190, "Parts given answer-key spans"), ("worked", 260, "Worked on by")):
+            self.ptable.heading(c, text=t); self.ptable.column(c, width=w, stretch=(c == "worked"))
+        self.ptable.column("#0", width=210, stretch=False)
+        for tag, col in (("wins", GREEN), ("level", ORANGE), ("loses", RED), ("none", DIM)):
+            self.ptable.tag_configure(tag, foreground=col)
+        self.ptable.pack(fill="x", padx=12, pady=(2, 10))
+
+        ccard = tk.Frame(inner, bg=CARD, highlightbackground=EDGE, highlightthickness=1)
+        ccard.pack(fill="x", padx=14, pady=(0, 8))
+        tk.Label(ccard, text="THE READING CHAIN, RUNG BY RUNG — one stage per row, in the order a passage passes through them",
+                 bg=CARD, fg=DIM, font=FONT_SEC, anchor="w").pack(fill="x", padx=12, pady=(9, 2))
+        ccols = ("what", "organ", "bf", "instrument", "landing", "open", "health")
+        self.ctable = ttk.Treeview(ccard, columns=ccols, show="tree headings", selectmode="browse", height=13, style="Mono.Treeview")
+        self.ctable.heading("#0", text="Stage")
+        for c, w, t in (("what", 260, "What it does"), ("organ", 150, "Module"), ("bf", 150, "Brain-faithful?"),
+                        ("instrument", 130, "Its own instrument"), ("landing", 150, "Last landing"),
+                        ("open", 170, "Open problems"), ("health", 80, "Health")):
+            self.ctable.heading(c, text=t); self.ctable.column(c, width=w, stretch=(c == "what"))
+        self.ctable.column("#0", width=170, stretch=False)
+        for tag, col in (("strong", GREEN), ("improving", BLUE), ("weak", RED), ("unmeasured", DIM)):
+            self.ctable.tag_configure(tag, foreground=col)
+        self.ctable.pack(fill="x", padx=12, pady=(2, 10))
+
+        scard = tk.Frame(inner, bg=CARD, highlightbackground=EDGE, highlightthickness=1)
+        scard.pack(fill="x", padx=14, pady=(0, 8))
+        tk.Label(scard, text="WHAT STRATEGY IS DOING NOW", bg=CARD, fg=DIM, font=FONT_SEC, anchor="w").pack(fill="x", padx=12, pady=(9, 2))
+        self.strat_lbl = tk.Label(scard, bg=CARD, fg=FG, font=FONT, anchor="w", justify="left")
+        self.strat_lbl.pack(fill="x", padx=12, pady=(2, 4))
+        self._wraps.append((self.strat_lbl, 70))
+        self.strat_queue = tk.Label(scard, bg=CARD, fg=DIM, font=FONT_S, anchor="w", justify="left")
+        self.strat_queue.pack(fill="x", padx=12, pady=(0, 10))
+        self._wraps.append((self.strat_queue, 70))
+
         # --- FOLDED SECTIONS
         self.sec_moved = Disclosure(inner, "What moved", "newest first", wrapper=None)
         self.sec_moved.frame.pack(fill="x", padx=14, pady=(0, 8))
@@ -279,8 +327,38 @@ class ScorecardWindow:
         self._fill_chips()
         self._layout_chain()
         self._draw_trend()
+        self._fill_product_table()
+        self._fill_chain_table()
+        self._fill_strategy_now()
         self._fill_sections()
         self._fill_table()
+
+    def _fill_product_table(self) -> None:
+        self.ptable.delete(*self.ptable.get_children())
+        for r in (self.sc.get("product_rows") or []):
+            v = r.get("verdict", "")
+            tag = ("wins" if "WINS" in v else "loses" if "LOSES" in v else "none" if "NOT MEASURED" in v else "level")
+            verdict_txt = v + ((" (%s)" % r["reason"]) if r.get("reason") else "")
+            self.ptable.insert("", "end", text=r.get("question", "")[:36], tags=(tag,),
+                               values=(r.get("reader", ""), r.get("rule", ""), r.get("twin", ""), verdict_txt,
+                                       r.get("trend", ""), r.get("component", ""), "; ".join(r.get("worked_on_by") or [])))
+
+    def _fill_chain_table(self) -> None:
+        self.ctable.delete(*self.ctable.get_children())
+        for r in (self.sc.get("chain_rows") or []):
+            h = r.get("health", "unmeasured")
+            self.ctable.insert("", "end", text=r.get("name", ""), tags=(h,),
+                               values=(r.get("what", ""), r.get("organ", ""), r.get("bf_status", ""),
+                                       r.get("instrument", ""), r.get("last_landing", ""), r.get("open_problems", ""), h))
+
+    def _fill_strategy_now(self) -> None:
+        strat = self.sc.get("strategy_now") or {}
+        self.strat_lbl.config(text=strat.get("summary") or "(nothing recorded)")
+        running = strat.get("running") or []
+        lines = ["Running now: " + (", ".join(running) if running else "nothing recorded as running")]
+        for item in (strat.get("queue") or []):
+            lines.append("Queue: %s  ->  targets: %s" % (item.get("item", ""), item.get("targets", "-")))
+        self.strat_queue.config(text="\n".join(lines))
 
     def _fill_chips(self) -> None:
         for w in self.chips.winfo_children():

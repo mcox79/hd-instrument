@@ -194,7 +194,7 @@ Long term (the next few months):
 
 <!-- AUTO:BEGIN (written by tools/scorecard.py; edit the sections ABOVE, not this) -->
 
-Last full check: 2026-09-15T22:14:22.905914+00:00 (52 on record). Generated 2026-09-15T22:45:19+00:00.
+Last full check: 2026-09-15T23:22:47.864898+00:00 (53 on record). Generated 2026-09-16T01:13:43+00:00.
 
 | Ability | Group | How well | Compared with a simple rule | Since the previous check | Brain-faithful? |
 |---|---|---|---|---|---|
@@ -208,7 +208,7 @@ Last full check: 2026-09-15T22:14:22.905914+00:00 (52 on record). Generated 2026
 | Which meaning of a word is meant in this sentence | Word meaning | right 75 in 100 | clearly better than the simple rule (50 in 100) | unchanged since the previous check | brain model; some details still open |
 | Drawing safe conclusions from 'is a kind of' facts | Word meaning | right 77 in 100 | clearly better than the simple rule (54 in 100) | unchanged since the previous check | brain model; some details still open |
 | Handling 'all / some / none' correctly | Word meaning | right 83 in 100 | clearly better than the simple rule (17 in 100) | unchanged since the previous check | brain model; some details still open |
-| Handling 'not' correctly | Word meaning | right 92 in 100 | clearly better than the simple rule (50 in 100) | unchanged since the previous check | brain model; some details still open |
+| Handling 'not' correctly | Word meaning | not scored in the last full check | - | - | brain model; some details still open |
 | How a word's meaning shifts with its context (graded) | Word meaning | agreement with people 0.39 (out of 1) | clearly better than the simple rule (0.38) | unchanged since the previous check | brain model; some details still open |
 | Picking the right broad sense of an ambiguous word (older test set) | Word meaning | right 52 in 100 | clearly better than the simple rule (35 in 100) | unchanged since the previous check | brain model; some details still open |
 | What something is or is like ('the sky is blue') | Actions and roles | right 79 in 100 | clearly better than the simple rule (57 in 100) | unchanged since the previous check | brain model; some details still open |
@@ -226,7 +226,7 @@ Last full check: 2026-09-15T22:14:22.905914+00:00 (52 on record). Generated 2026
 | Following a chain of causes across several steps | Causes | right 26 in 100 | clearly better than the simple rule (0 in 100) | unchanged since the previous check | brain model; some details still open |
 | Whether a cause makes an effect bigger or smaller | Causes | right 62 in 100 | a little better than the simple rule (61 in 100), not yet convincingly | unchanged since the previous check | brain model; some details still open |
 | Whether one event was needed for another to happen | Causes | right 35 in 100 | clearly better than the simple rule (3 in 100) | unchanged since the previous check | brain model; some details still open |
-| How a character probably feels about an event | Feelings, goals, beliefs | right 92 in 100 | clearly better than the simple rule (44 in 100) | up 0.020 since the previous check | brain model; some details still open |
+| How a character probably feels about an event | Feelings, goals, beliefs | right 90 in 100 | clearly better than the simple rule (44 in 100) | DOWN 0.020 since the previous check | brain model; some details still open |
 | What a character believes, even when it is false | Feelings, goals, beliefs | right 65 in 100 | clearly better than the simple rule (49 in 100) | unchanged since the previous check | brain model; some details still open |
 | Whether an action helped or harmed someone | Feelings, goals, beliefs | right 100 in 100 | clearly better than the simple rule (33 in 100) | unchanged since the previous check | brain model; some details still open |
 | Whether an event helps or blocks a character's goal | Feelings, goals, beliefs | right 98 in 100 | clearly better than the simple rule (49 in 100) | unchanged since the previous check | brain model; some details still open |
