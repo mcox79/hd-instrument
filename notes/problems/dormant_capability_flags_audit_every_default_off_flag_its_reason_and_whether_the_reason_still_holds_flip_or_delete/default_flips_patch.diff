@@ -1,0 +1,60 @@
+--- a/hdlab/situation_reader.py
++++ b/hdlab/situation_reader.py
+@@ -1030,13 +1030,18 @@
+                  parser_arceager: bool = True,
+                  np_head_reduce: bool = True,
+                  structural_patient: bool = True,
+-                 graded_role_marginal: bool = False,
++                 graded_role_marginal: bool = True,   # FLIPPED DEFAULT-ON 2026-09-15 (pri 130 dormant-flags
++                 # audit): the "measure-first" gate was STALE -- the comment above already reports +0.0065
++                 # CI-sep who-did-what (UD-EWT n=1235); no 19c/capped-board involvement. See SOLVED.md.
+                  conceptual_bridge: bool = True,
+                  focus_bridge: bool = True,
+                  uniqueness_bridge: bool = True,
+                  uniq_window: int = 6,
+                  bind_entity_states: bool = True,
+-                 structural_do_recover: bool = False,
++                 structural_do_recover: bool = True,   # FLIPPED DEFAULT-ON 2026-09-15 (pri 130 dormant-flags
++                 # audit): the "byte-identical, default OFF" reason was STALE -- motivated by a 19c-specific
++                 # count (47 mis-vetoed 19c clauses) with the register-general mechanism never measured on
++                 # modern UD-EWT. See SOLVED.md for the modern measurement.
+                  referent_per_np: bool = True,
+                  discover_pronouns: bool = True,
+                  fill_card: bool = True,
+@@ -1050,15 +1055,21 @@
+                  clause_local: bool = True,
+                  cm_agent_struct: bool = True,
+                  cm_agent_byhead: bool = True,
+-                 agent_hybrid: bool = False,
+-                 agent_hybrid_construction: bool = False,
++                 agent_hybrid: bool = True,   # FLIPPED DEFAULT-ON 2026-09-15 (pri 130 dormant-flags audit):
++                 # the OFF reason was explicitly the 19c LitBank board register; 19c has been banned from
++                 # requirements since 2026-09-06 (owner). Measured +0.0521 agent on the reader's own
++                 # text-only read (pri 125); re-measured on the product board's reader-driven rows, SOLVED.md.
++                 agent_hybrid_construction: bool = True,   # FLIPPED DEFAULT-ON 2026-09-15, paired with
++                 # agent_hybrid (same stale 19c-board reason). See SOLVED.md.
+                  cm_weights: Optional[Dict[str, float]] = None,
+                  cm_twin_seed: Optional[int] = None,
+                  predicate_recall: bool = True,
+                  nonverbal_predication: bool = _NONVERBAL_PREDICATION,
+                  causal_mental_bridge: bool = True,
+                  goal_purpose_filter: bool = True,
+-                 entity_kb_resolver: bool = False,
++                 entity_kb_resolver: bool = True,   # FLIPPED DEFAULT-ON 2026-09-15 (pri 130 dormant-flags
++                 # audit): the "the board's PRONOUN coref dim does not score [common-noun]" reason was STALE
++                 # since pri 122 put a common_noun_coref row on the reader-driven board. See SOLVED.md.
+                  commonnoun_situation_gate: bool = False,   # RETIRED 2026-09-11 (Q111 consolidation): the NOT_BF
+                  #   commonnoun_binder.situation_predict is empirically DEAD on the live path -- online_entity_cluster
+                  #   (default-on) OVERWRITES m["cluster"] for EVERY non-pronoun after the gate runs, so gate ON==OFF is
+@@ -1067,7 +1078,10 @@
+                  commonnoun_canonical: bool = True,
+                  commonnoun_type_license: bool = False,
+                  resolve_commonnouns: bool = True,        # Q111 wire #1 (report_the_typed_coref): additive/default-on
+-                 unified_referent: bool = False,
++                 unified_referent: bool = True,   # FLIPPED DEFAULT-ON 2026-09-15 (pri 130 dormant-flags
++                 # audit): "strategy flips on after first-hand verify" -- the verify already shows +0.106
++                 # CI-sep pronoun pick / +0.072 CI-sep entity-KB hard-link on MODERN GUM, twin loses, named
++                 # coref no-regress. Re-measured on the product board's reader-driven rows, SOLVED.md.
+                  phi_person_filter: bool = True,
+                  narrow_him: bool = True,
+                  soften_generic_suppress: bool = True,
