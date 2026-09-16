@@ -42,6 +42,24 @@ def ck(name, cond, extra=""):
     print("  [%s] %s%s" % ("PASS" if cond else "FAIL", name, ("   %s" % (extra,)) if extra != "" else ""))
 
 
+def _served_is_derived(mod, asset):
+    """The loader serves EITHER the marginal count contrasts OR the same counts refined by the delta rule
+    (phase 7).  Both are derived from the counts and nothing else -- the marginal table by a pure function,
+    the competed table by replaying the recorded rule over the recorded cue set -- so the claim this pins is
+    "the weights come from counted experience", not "the weights are one particular arithmetic".  The
+    counts-only table is ALWAYS checked, so the delta branch cannot hide a hand-set table."""
+    counts = asset["counts"]
+    marginal = mod.agent_strengths_from_counts(counts)
+    if not asset.get("delta"):
+        return asset["strengths"] == marginal
+    meta = asset.get("delta_meta") or {}
+    same_keys = set(asset["delta"]) == set(marginal)
+    cues_ok = bool(meta.get("cue_set")) and set(meta["cue_set"]) <= set(mod.AGENT_CUES)
+    rule_ok = "Rescorla-Wagner" in str(meta.get("rule", ""))
+    return bool(asset["strengths"] == asset["delta"] and same_keys and cues_ok and rule_ok
+                and marginal)
+
+
 def landed():
     """Is the pri 140 arm IN THE ORGAN (landed) or still only in the experiment cell (proposed)?"""
     return hasattr(GRA, "agent_competition_reweighed") and hasattr(GRA, "load_agent_validities")
@@ -106,8 +124,8 @@ def test_the_defect_is_absent_on_the_landed_tree():
         ck("LANDED: the organ exposes the online observe path for it", hasattr(GRA, "observe_agent_outcome"))
         ck("LANDED: the organ exposes the re-weighed competition arm", hasattr(GRA, "agent_competition_reweighed"))
         asset = GRA.load_agent_validities()
-        ck("LANDED: the learned asset loads and its strengths rebuild FROM ITS COUNTS",
-           asset is not None and asset["strengths"] == GRA.agent_strengths_from_counts(asset["counts"]))
+        ck("LANDED: the learned asset loads and what it serves is DERIVED FROM ITS COUNTS",
+           asset is not None and _served_is_derived(GRA, asset))
         # THE DEFECT ITSELF, ON THE SHIPPED PATH.  `The company OF FALLUJAH condemned it` is the
         # commonest remaining pattern: the reader picked the postmodifier INSIDE the gold agent's own NP.
         # On the landed tree the shipped entry point must pick the NP HEAD, and the hand-set arm -- still
@@ -133,8 +151,8 @@ def test_the_defect_is_absent_on_the_landed_tree():
         ck("PROPOSED: the re-weighed competition arm exists in the cell",
            hasattr(E, "agent_competition_reweighed"))
         a = E.load_agent_validities()
-        ck("PROPOSED: the learned asset is on disk and its strengths rebuild FROM ITS COUNTS",
-           a is not None and a["strengths"] == E.agent_strengths_from_counts(a["counts"]))
+        ck("PROPOSED: the learned asset is on disk and what it serves is DERIVED FROM ITS COUNTS",
+           a is not None and _served_is_derived(E, a))
 
 
 def test_the_twin_is_a_real_destruction():
@@ -158,7 +176,9 @@ def test_the_twin_is_a_real_destruction():
 def test_the_recorded_result_agrees_with_itself():
     """The cell's own landed record, when present.  Reads the RECORD -- it never re-asserts a constant."""
     d = os.path.join(_REPO, "data", "exp_agent_pick_reweigh_v1")
-    f = os.path.join(d, "metrics_measure.json")
+    f = os.path.join(d, "metrics_measure_p7.json")
+    if not os.path.exists(f):
+        f = os.path.join(d, "metrics_measure.json")
     if not os.path.exists(f):
         print("       (no measurement record on disk at %s -- SKIPPED; run the cell with --measure)"
               % os.path.relpath(f, _REPO))

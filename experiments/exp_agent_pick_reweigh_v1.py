@@ -118,16 +118,24 @@ AGENT_TEMP = 1.0
 # position relative to the predicate, which is what the coarse role table already does (head-class x order)
 # and for the same reason: the two highest-validity cues become the CONFIGURATION and every other cue is
 # read as a CONTRAST WITHIN it, so correlated cues cannot each re-count the majority class.
-AGENT_CONFIG = os.environ.get("HDLAB_AGENT_CONFIG", "voice")
-# THE CUE SET THAT VOTES.  All 12 cues are COMPUTED and ACCRUED (the table stays complete and the online path
-# keeps learning every one of them), but only these VOTE.  Chosen by backward elimination on the UD-EWT TRAIN
-# DEV slice the counts never saw, and the same four survive under all three configurations tried -- they are
-# the DECORRELATED core.  WHY a subset at all: this integrator adds each cue's MARGINAL log-odds, so two cues
-# that carry the same variance each re-count it (the additive form is exact only for conditionally independent
-# cues).  The Competition Model's own connectionist simulations discount that overlap by error-driven weight
-# competition; a COUNTS table cannot, and a fitted classifier is barred here -- so the overlap is handled by
-# which cues enter, decided on dev.  THIS IS THE HONEST LIMIT OF THE COUNT FORM and it is named in SOLVED.md.
-AGENT_CUE_SET = tuple((os.environ.get("HDLAB_AGENT_CUE_SET") or "order,govern,struct,cat").split(","))
+AGENT_CONFIG = os.environ.get("HDLAB_AGENT_CONFIG", "voice_pconf")
+# PHASE 7 (probes A + B) REPLACED THE FOUR-CUE SET AND THE CONFIGURATION.  Probe B found that 25 of the 30
+# genuine losses to the word-order floor have the gold agent as the NEAREST PRE-VERBAL CANDIDATE -- linear
+# recency, the one thing the floor knows -- and `nearrank` was in the table, correctly signed (n0 +1.55) and
+# SWITCHED OFF, because marginal log-odds double-count it against the parse's attachment belief.  Probe A's
+# delta rule confirmed the diagnosis by stripping its credit (n0 +1.55 -> -0.07 under error-driven
+# competition) and showed the deeper fact: the two cues agree on the MAJORITY and diverge on the hard
+# MINORITY, so no single global weight serves both.  The fix is precision-weighted integration expressed as
+# a CONFIGURATION (`voice_pconf`, see agent_cue_values), plus recency back in the voting set, with the
+# weights learned IN COMPETITION.  Pooled dev (n=2,497, two independent TRAIN slices): wrong-entity pick
+# errors 162 -> 121 CI-separated DOWN while the row stays CI-separated ABOVE the floor.
+# THE CUE SET THAT VOTES.  All 13 cues are COMPUTED and ACCRUED (the table stays complete and the online path
+# keeps learning every one of them), but only these VOTE.  Chosen on POOLED dev -- two independent UD-EWT
+# TRAIN slices, because the first slice alone turned out to be a genre outlier (its word-order floor is
+# 0.7389 against the second slice's 0.8830 and the test set's 0.8371), which is how the phase-1-6 arm came
+# to drop recency.  Every arm choice is made there; test is read once per reported arm.
+AGENT_CUE_SET = tuple((os.environ.get("HDLAB_AGENT_CUE_SET")
+                       or "order,govern,struct,cat,nearrank").split(","))
 
 
 def _agent_bin(x, edges, names):
@@ -321,7 +329,24 @@ def agent_cue_values(toks, pos, v0, cands, gaz=None, cluster_freq=None, head_pos
         d["agree"] = demand + "_" + _agent_number(head, tag)
         d["vfit"] = _agent_subject_fit(toks[v0] if 0 <= v0 < len(toks) else "", head)
         out.append(d)
-    if AGENT_CONFIG == "voice_order":
+    if AGENT_CONFIG == "voice_pconf":
+        # PRECISION-WEIGHTED CUE INTEGRATION, expressed the way this organ already expresses it.
+        # Probe B: 25 of the 30 genuine losses to the word-order floor have the gold agent as the NEAREST
+        # PRE-VERBAL CANDIDATE -- i.e. linear recency would have got them -- and the delta rule showed why
+        # recency cannot vote: on the MAJORITY it predicts the same thing as the parse's attachment belief,
+        # so error-driven competition strips its credit (nearrank n0 +1.55 -> -0.07).  But those two cues
+        # DIVERGE exactly on the hard minority, where the parse is wrong.  One global weight per cue cannot
+        # serve both regimes; a downstream area weights each input by its RELIABILITY, trial by trial
+        # (Ernst & Banks 2002; Ma-Beck-Latham-Pouget 2006), and this organ's way of saying that is a
+        # CONFIGURATION: read every cue WITHIN "the parse bound some candidate to this predicate
+        # confidently" vs "it did not".  Then recency is free to carry the clauses where the parse abstains
+        # without stealing credit on the clauses where it does not.
+        _pc = 0.0
+        if head_post is not None:
+            _pc = max([float((head_post.get(c[0]) or {}).get(v0, 0.0)) for c in cands] or [0.0])
+        _pcv = _agent_bin(_pc, (0.25, 0.75), ("p0", "p1", "p2")) if head_post is not None else "na"
+        cfgs = [cfg + "|" + _pcv] * len(out)
+    elif AGENT_CONFIG == "voice_order":
         cfgs = [cfg + "|" + d["order"] for d in out]
     elif AGENT_CONFIG == "voice_order_govern":
         cfgs = [cfg + "|" + d["order"] + "|" + d["govern"] for d in out]
@@ -467,7 +492,126 @@ def load_agent_validities(path=None):
     with open(p, encoding="utf-8") as fh:
         doc = json.load(fh)
     doc["strengths"] = agent_strengths_from_counts(doc["counts"])   # ALWAYS rebuilt from the counts
+    if AGENT_STRENGTH_SOURCE == "delta" and doc.get("delta"):
+        doc["strengths"] = doc["delta"]        # the same counts, refined by error-driven cue competition
     return doc
+
+
+# ================== THE DELTA RULE: cue strengths learned IN COMPETITION (phase 7 probe A) ==================
+# WHY THIS AND NOT THE MARGINAL CONTRASTS ALONE.  `agent_strengths_from_counts` gives each cue value its own
+# MARGINAL log-odds, and an additive integrator then adds them as if they were independent measurements.  They
+# are not: linear recency (`nearrank`) and the parse's attachment belief (`struct`) carry much of the same
+# variance, so adding both re-counts it, which is why backward elimination on dev switched `nearrank` OFF --
+# and probe B then showed that `nearrank` is exactly what the word-order floor knows: 25 of the 30 genuine
+# losses to the floor have the gold agent as the NEAREST PRE-VERBAL CANDIDATE.  The cue was in the table,
+# correctly signed, and could not vote.
+#
+# THE BRAIN'S ANSWER IS ERROR-DRIVEN CUE COMPETITION, and it is the Competition Model's own: MacWhinney's
+# simulations learn cue strengths with a delta rule, and cue competition in that sense IS Rescorla-Wagner
+# competition -- blocking and overshadowing, where cues that predict the same outcome share the credit instead
+# of each claiming it.  The update is per observation, online, driven by the PREDICTION ERROR:
+#       p = softmax(A)                       (A = the same additive activation over the same cue values)
+#       w[cfg][cue][value] += eta * (t_i - p_i)   for every cue value that candidate i fires
+# with t_i = 1 for the candidate that turned out to be the agent and 0 otherwise.  No held-out objective, no
+# batch optimiser, no regularisation term: one clause in, one update out, and the same call is the online path.
+# `eta` is a SWEPT operating point (dev), never adopted from anywhere.
+AGENT_DELTA_ETA = float(os.environ.get("HDLAB_AGENT_DELTA_ETA", "0.1"))
+AGENT_DELTA_PASSES = int(os.environ.get("HDLAB_AGENT_DELTA_PASSES", "2"))
+# Which table the competition reads: "counts" = the marginal contrasts (phase 1-6), "delta" = the same counts
+# refined by error-driven competition (phase 7).  The asset carries both, so this is a read-time switch.
+AGENT_STRENGTH_SOURCE = os.environ.get("HDLAB_AGENT_STRENGTHS", "delta")
+
+
+def agent_delta_init(counts, from_counts=True):
+    """Starting weights, in the same {config: {prior, cue: {value: strength}}} shape the activation reads.
+    from_counts=True starts from the MARGINAL contrasts (experience first, then competition refines it --
+    the developmental order); from_counts=False starts from zero (pure error-driven learning, the control)."""
+    base = agent_strengths_from_counts(counts)
+    if from_counts:
+        return {g: {"prior": v["prior"], "cue": {c: dict(t) for c, t in v["cue"].items()}}
+                for g, v in base.items()}
+    return {g: {"prior": v["prior"], "cue": {c: {k: 0.0 for k in t} for c, t in v["cue"].items()}}
+            for g, v in base.items()}
+
+
+def agent_delta_update(W, cfgs, vals, target, eta=None, cue_set=None, N=None, decay=0.0, t=0):
+    """ONE Rescorla-Wagner step over one clause's candidate set.  Returns the total absolute prediction error
+    (the learning signal's own magnitude, so a caller can watch it fall).  Mutates W in place.
+
+    TWO SCHEDULES, because a FIXED rate is not the rule, it is the crudest discretisation of it:
+      * `decay` > 0  -- eta_t = eta / (1 + decay * t), the annealed rate every delta-rule implementation
+        needs to stop oscillating around the fixed point.
+      * `N` given    -- eta_effective = eta / (1 + N[cfg][cue][value]), the rate DECLINING WITH EXPERIENCE
+        of that particular cue value, with N incremented as it goes.  This is the incremental form of a
+        running average, i.e. the same thing the counts table computes in closed form -- which is exactly
+        why the brain can do both with one mechanism, and the honest way to let experience, not a
+        hyper-parameter, set how fast a cue value moves."""
+    from hdlab.graded_competition import softmax as _sm
+    e = AGENT_DELTA_ETA if eta is None else float(eta)
+    cs = AGENT_CUE_SET if cue_set is None else cue_set
+    n = len(vals)
+    if n == 0:
+        return 0.0
+    A = np.zeros(n)
+    for i in range(n):
+        g = W.get(cfgs[i]) or W.get(str(cfgs[i]).split("|")[0])
+        if g is None:
+            continue
+        A[i] = float(g.get("prior", 0.0)) + sum(
+            float((g["cue"].get(c) or {}).get(str(vals[i].get(c)), 0.0)) for c in cs)
+    pr = np.asarray(_sm(A), dtype=float)
+    if decay > 0.0:
+        e = e / (1.0 + float(decay) * float(t))
+    err = 0.0
+    for i in range(n):
+        tgt = 1.0 if i == target else 0.0
+        d = tgt - float(pr[i])
+        err += abs(d)
+        g = W.get(cfgs[i]) or W.get(str(cfgs[i]).split("|")[0])
+        if g is None:
+            continue
+        for c in cs:
+            tb = g["cue"].get(c)
+            if tb is None:
+                continue
+            k = str(vals[i].get(c))
+            ee = e
+            if N is not None:
+                nb = N.setdefault(cfgs[i], {}).setdefault(c, {})
+                ee = e / (1.0 + float(nb.get(k, 0.0)))
+                nb[k] = float(nb.get(k, 0.0)) + 1.0
+            tb[k] = float(tb.get(k, 0.0)) + ee * d
+    return err
+
+
+def observe_agent_outcome_delta(toks, pos, v, cands, agent_head, table, gaz=None, cluster_freq=None,
+                                head_post=None, tag_post=None, eta=None):
+    """THE ONLINE PATH, error-driven.  `agent_head` is the outcome the reader settled on; the update is the
+    PREDICTION ERROR, so it is non-zero even when the pick was right (p < 1) and it sharpens the cues that
+    were carrying the decision.  This is the teaching signal pure count-accrual does not have -- and it is
+    SELF-supervised, so it consolidates the reader's own reading and can entrench an error as readily as a
+    success.  Measured in `run_observe`."""
+    cfgs, vals, idx = _agent_delta_case(toks, pos, v, cands, agent_head, gaz, cluster_freq,
+                                        head_post, tag_post)
+    if idx is None:
+        return table
+    W = table.setdefault("delta", agent_delta_init(table["counts"]))
+    agent_delta_update(W, cfgs, vals, idx, eta=eta)
+    if AGENT_STRENGTH_SOURCE == "delta":
+        table["strengths"] = W
+    return table
+
+
+def _agent_delta_case(toks, pos, v, cands, target_head, gaz, cluster_freq, head_post, tag_post):
+    c = [(mention_head_wpos(m), m["head"], m.get("cluster"), m.get("wtok_end", m.get("wtok_start")))
+         for m in cands]
+    if not c:
+        return [], [], None
+    cfgs, vals = agent_cue_values(toks, pos, v, c, gaz=gaz, cluster_freq=cluster_freq,
+                                  head_post=head_post, tag_post=tag_post)
+    tgt = str(target_head or "").strip().lower()
+    idx = next((k for k, cd in enumerate(c) if str(cd[1]).strip().lower() == tgt), None)
+    return cfgs, vals, idx
 
 
 _AGENT_TABLE_CACHE = [False, None]
@@ -1234,6 +1378,257 @@ def run_rate_sweep(chunk=CHUNK, n_boot=1000, train_cap=None, rates=(0.5, 2.0, 8.
     return {"dev_floor": _r4(floor.mean()), "config": AGENT_CONFIG, "rates": out}
 
 
+
+# ===================================================================================================
+# PHASE 7 PROBE A -- train the delta weights, sweep the rate on dev, read test once.
+# ===================================================================================================
+def _cases(items, gaz, graded=True):
+    """Pre-compute every clause's (configs, cue values, gold index) ONCE so a delta pass is arithmetic."""
+    out = []
+    for it in items:
+        if not it["cands"]:
+            continue
+        hp = agent_head_belief(it["toks"], it["pos"]) if graded else None
+        tp = agent_category_belief(it["toks"]) if graded else None
+        cfgs, vals, idx = _agent_delta_case(it["toks"], it["pos"], it["v"] - 1, it["cands"], it["gold"],
+                                            gaz, _freq(it), hp, tp)
+        if idx is not None:
+            out.append((cfgs, vals, idx))
+    return out
+
+
+def train_delta(counts, cases, eta, passes, cue_set=None, from_counts=True, seed=SEED,
+                schedule="fixed"):
+    """schedule: "fixed" | "anneal" (eta/(1+t/len(cases))) | "count" (eta/(1+n[cue][value]))."""
+    import random as _r
+    W = agent_delta_init(counts, from_counts=from_counts)
+    rng = _r.Random(seed)
+    errs = []
+    order = list(range(len(cases)))
+    N = {} if schedule == "count" else None
+    dec = (1.0 / max(1, len(cases))) if schedule == "anneal" else 0.0
+    t = 0
+    for _p in range(int(passes)):
+        rng.shuffle(order)                 # the order of experience is not a parameter of the rule
+        e = 0.0
+        for k in order:
+            cfgs, vals, idx = cases[k]
+            e += agent_delta_update(W, cfgs, vals, idx, eta=eta, cue_set=cue_set, N=N, decay=dec, t=t)
+            t += 1
+        errs.append(_r4(e / max(1, len(cases))))
+    return W, errs
+
+
+def run_delta(chunk=CHUNK, train_cap=None, n_boot=2000, dev_n=_DEV_N,
+              etas=(0.05, 0.2, 1.0), passes=(2, 8), schedules=("fixed", "anneal", "count")):
+    from experiments.exp_name_entity_clustering_v1 import load_given_gazetteer
+    import copy
+    gaz = load_given_gazetteer()
+    mod, src = _organ_or_local()
+    base = mod.load_agent_validities()
+    if base is None:
+        raise SystemExit("no validity asset -- run --build first")
+    counts = base["counts"]
+    train = get_train_capture(cap=(train_cap or _TRAIN_CAP_DEFAULT), chunk=chunk)
+    print("  pre-computing the training cue values ...")
+    cases = _cases(train, gaz)
+    dev = get_dev_capture(train_cap=train_cap, chunk=chunk, dev_n=dev_n)
+    dg = [it["docid"] for it in dev]
+    dfl = word_order_floor(dev)
+    ALL = tuple(AGENT_CUES)
+    print(chr(10) + "=" * 100)
+    print("PROBE A -- ERROR-DRIVEN CUE COMPETITION (Rescorla-Wagner), rate swept ON DEV "
+          "(n=%d, floor %.4f); %d training clauses" % (len(dev), dfl.mean(), len(cases)))
+    print("=" * 100)
+    rows = {}
+    best = (None, -1.0)
+    for cs_name, cs in (("all%d" % len(ALL), ALL), ("chosen%d" % len(AGENT_CUE_SET), AGENT_CUE_SET)):
+        for sch in schedules:
+            for e in etas:
+                for P in passes:
+                    W, errs = train_delta(counts, cases, e, P, cue_set=cs, schedule=sch)
+                    t = copy.deepcopy(base)
+                    t["strengths"] = W
+                    v = score_picks(dev, replay(dev, t, gaz=gaz, cue_set=cs))
+                    b = paired_boot(v["tok"], dfl, dg, n_boot=500)
+                    key = "%s_%s_eta%g_p%d" % (cs_name, sch, e, P)
+                    rows[key] = {"cue_set": list(cs), "eta": e, "passes": P, "schedule": sch,
+                                 "mean_abs_error_per_clause": errs,
+                                 "dev_token_acc": _r4(v["tok"].mean()),
+                                 "dev_wrong_entity": int(v["wrong_entity"].sum()),
+                                 "dev_vs_floor": b}
+                    print("  %-30s dev %.4f  wrongent %3d  vs floor %+0.4f %s%s   err %s"
+                          % (key, v["tok"].mean(), v["wrong_entity"].sum(), b["delta"], b["ci95"],
+                             "  CI-SEP" if b["ci_sep"] else "", errs[-1]))
+                    if v["tok"].mean() > best[1]:
+                        best = (key, v["tok"].mean())
+    # the CONTROL: pure error-driven learning from ZERO (no marginal contrasts at all)
+    W0, e0 = train_delta(counts, cases, rows[best[0]]["eta"], rows[best[0]]["passes"],
+                         cue_set=tuple(rows[best[0]]["cue_set"]), from_counts=False,
+                         schedule=rows[best[0]]["schedule"])
+    t0 = copy.deepcopy(base); t0["strengths"] = W0
+    v0 = score_picks(dev, replay(dev, t0, gaz=gaz, cue_set=tuple(rows[best[0]]["cue_set"])))
+    rows["control_from_zero"] = {"dev_token_acc": _r4(v0["tok"].mean()),
+                                 "dev_wrong_entity": int(v0["wrong_entity"].sum()),
+                                 "mean_abs_error_per_clause": e0}
+    print("  %-26s dev %.4f  wrongent %3d   (control: no marginal contrasts, pure error-driven from zero)"
+          % ("control_from_zero", v0["tok"].mean(), v0["wrong_entity"].sum()))
+    print("  DEV WINNER: %s at %.4f" % (best[0], best[1]))
+    # read TEST once with the dev winner, and write the delta weights into the asset
+    win = rows[best[0]]
+    Wb, errb = train_delta(counts, cases, win["eta"], win["passes"], cue_set=tuple(win["cue_set"]),
+                           schedule=win["schedule"])
+    # THE ALL-CUES ARM under the SAME schedule, so the correlated pair can be shown before/after even when
+    # the dev winner is the subset (the coordinator asked for the pair, not for the winner's weights).
+    Wall, _ea = train_delta(counts, cases, win["eta"], win["passes"], cue_set=ALL,
+                            schedule=win["schedule"])
+    base["delta"] = Wb
+    base["delta_meta"] = {"rule": "Rescorla-Wagner over the additive cue activation, softmax readout",
+                          "eta": win["eta"], "passes": win["passes"], "cue_set": win["cue_set"],
+                          "init": "the marginal count contrasts", "mean_abs_error_per_clause": errb,
+                          "schedule": win["schedule"],
+                          "swept_on": "the UD-EWT TRAIN dev slice the counts never saw"}
+    save_agent_validities(None, base)
+    items, ns, nc = get_capture()
+    tg = [it["docid"] for it in items]
+    tfl = word_order_floor(items)
+    tb = copy.deepcopy(base); tb["strengths"] = Wb
+    lnd = np.array([int(it["fired"] and it["model"] == it["gold"]) for it in items])
+    vt = score_picks(items, replay(items, tb, gaz=gaz, cue_set=tuple(win["cue_set"])))
+    vc = score_picks(items, replay(items, base, gaz=gaz))        # the counts arm, same population
+    out = {"dev": rows, "dev_winner": best[0], "eta": win["eta"], "passes": win["passes"],
+           "cue_set": win["cue_set"],
+           "test": {"population": "UD-EWT test n=%d in %d chunks" % (len(items), nc),
+                    "floor": _r4(tfl.mean()), "landed_read": _r4(lnd.mean()),
+                    "counts_arm": _r4(vc["tok"].mean()), "delta_arm": _r4(vt["tok"].mean()),
+                    "counts_wrong_entity": int(vc["wrong_entity"].sum()),
+                    "delta_wrong_entity": int(vt["wrong_entity"].sum()),
+                    "delta_vs_floor": paired_boot(vt["tok"], tfl, tg, n_boot=n_boot),
+                    "delta_vs_counts": paired_boot(vt["tok"], vc["tok"], tg, n_boot=n_boot),
+                    "delta_vs_landed": paired_boot(vt["tok"], lnd, tg, n_boot=n_boot),
+                    "wrong_entity_delta_vs_counts": paired_boot(vt["wrong_entity"], vc["wrong_entity"],
+                                                                tg, n_boot=n_boot)}}
+    print(chr(10) + "TEST, READ ONCE with the dev winner (%s):" % best[0])
+    T = out["test"]
+    print("  floor %.4f | landed read %.4f | counts arm %.4f | DELTA arm %.4f"
+          % (T["floor"], T["landed_read"], T["counts_arm"], T["delta_arm"]))
+    for k in ("delta_vs_floor", "delta_vs_counts", "delta_vs_landed", "wrong_entity_delta_vs_counts"):
+        print("  %-30s %+0.4f CI95 %s%s" % (k, T[k]["delta"], T[k]["ci95"],
+                                            "   CI-SEPARATED" if T[k]["ci_sep"] else ""))
+    print("  wrong-entity pick errors: counts arm %d -> delta arm %d"
+          % (T["counts_wrong_entity"], T["delta_wrong_entity"]))
+    # THE DOUBLE-COUNTED PAIR, before and after (the coordinator asked for this explicitly)
+    print(chr(10) + "THE CORRELATED PAIR nearrank x struct, marginal contrasts vs delta-competed weights "
+          "(config act):")
+    m = agent_strengths_from_counts(counts)["act"]["cue"]
+    d = Wall["act"]["cue"]      # the ALL-CUES delta arm: the only arm in which nearrank is allowed to move
+    for c in ("nearrank", "struct", "order", "govern", "cat"):
+        if c in m and c in d:
+            print("  %-10s marginal %s" % (c, "  ".join("%s %+.2f" % (k, v)
+                                                        for k, v in sorted(m[c].items(), key=lambda kv: -kv[1]))))
+            print("  %-10s delta    %s" % ("", "  ".join("%s %+.2f" % (k, d[c].get(k, 0.0))
+                                                         for k, v in sorted(m[c].items(), key=lambda kv: -kv[1]))))
+    out["weights_before_after_act"] = {c: {"marginal": m.get(c, {}), "delta_allcues": d.get(c, {}),
+                                           "delta_winner": Wb["act"]["cue"].get(c, {})}
+                                       for c in AGENT_CUES}
+    vall = score_picks(items, replay(items, {"counts": counts, "strengths": Wall}, gaz=gaz, cue_set=ALL))
+    out["test"]["delta_all_cues_arm"] = _r4(vall["tok"].mean())
+    out["test"]["delta_all_cues_wrong_entity"] = int(vall["wrong_entity"].sum())
+    out["test"]["delta_all_cues_vs_counts"] = paired_boot(vall["tok"], vc["tok"], tg, n_boot=n_boot)
+    print("  the ALL-CUES delta arm on test: %.4f (wrong-entity %d), vs the counts arm %+0.4f %s"
+          % (vall["tok"].mean(), vall["wrong_entity"].sum(),
+             out["test"]["delta_all_cues_vs_counts"]["delta"],
+             out["test"]["delta_all_cues_vs_counts"]["ci95"]))
+    return out
+
+
+# ===================================================================================================
+# PHASE 7 PROBE C -- THE GUM ROWS, BOTH ARMS IN ONE PROCESS.
+# ===================================================================================================
+# The board's reader-driven GUM rows are coref / salience / common_noun_coref / entity_set.  There is no
+# goal / affect / who-has-what ROW on this board (checked: `ROWS7` and `score_gum_doc`), so the rows that
+# can move under an agent change are these four -- the agent DECISION reaches them through pri 106's
+# affected-entity role cue (`HDLAB_AER_ROLE_CUE`) and the entity layer.  Each document is read TWICE in the
+# SAME process, once per arm, and scored by the board's OWN `score_gum_doc`, so the arms are paired per
+# document and the bootstrap resamples the document.
+def run_gum_ab(n_docs=None, n_boot=2000, seed=SEED, mode="reader_textonly"):
+    import experiments.exp_board_rows_on_the_reader_v1 as B
+    from hdlab.situation_reader import SituationReader
+    import random as _r
+    ROWS = ("coref", "salience", "common_noun_coref", "entity_set")
+    test, gaz = B._gum_test_docs(n_docs)
+    table = (_organ_or_local()[0]).load_agent_validities()
+    if table is None:
+        raise SystemExit("no validity asset -- run --build first")
+    per = {"landed": {r: {} for r in ROWS}, "reweigh": {r: {} for r in ROWS}}
+    tmp = tempfile.mkdtemp(prefix="p140gum_")
+    t0 = time.time()
+    try:
+        for di, d in enumerate(test):
+            p_ann, p_txt, p_prn = B._write_two_conll(d, tmp)
+            path = {"reader_annotated": p_ann, "reader_textonly": p_txt,
+                    "reader_textonly_pron_discovered": p_prn}[mode]
+            for arm in ("landed", "reweigh"):
+                ctx = _reweighed_competition(table) if arm == "reweigh" else None
+                if ctx is not None:
+                    ctx.__enter__()
+                try:
+                    rdr = SituationReader(gaz=gaz, **B.READER_KW)
+                    B._install_role_snapshot(rdr)
+                    sm = rdr.read(path)
+                    rng = _r.Random(abs(hash((d.docid, mode))) % 100000)
+                    sc, _dg = B.score_gum_doc(d, sm, rdr, rng)
+                    for rn in ROWS:
+                        if rn in sc:
+                            per[arm][rn][d.docid] = {k: tuple(v) for k, v in sc[rn].items()}
+                    del sm, rdr
+                finally:
+                    if ctx is not None:
+                        ctx.__exit__(None, None, None)
+            if (di + 1) % 20 == 0:
+                print("    ... %d/%d GUM documents, %.0fs" % (di + 1, len(test), time.time() - t0),
+                      flush=True)
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+
+    def vec(arm, rn, sub):
+        docs = sorted(per[arm][rn])
+        h, g = [], []
+        for dd in docs:
+            a = per[arm][rn][dd].get(sub)
+            if a is None:
+                continue
+            h.extend([1] * int(a[0]) + [0] * (int(a[1]) - int(a[0])))
+            g.extend([dd] * int(a[1]))
+        return np.array(h, dtype=float), g
+
+    out = {"mode": mode, "n_documents": len(test), "rows": {}, "elapsed_s": round(time.time() - t0, 1)}
+    print(chr(10) + "=" * 100)
+    print("PROBE C -- THE GUM READER-DRIVEN ROWS, BOTH ARMS IN ONE PROCESS (%d documents, %s)"
+          % (len(test), mode))
+    print("=" * 100)
+    for rn in ROWS:
+        la, lg = vec("landed", rn, "model")
+        ra, rg = vec("reweigh", rn, "model")
+        if len(la) == 0 or len(la) != len(ra):
+            print("  %-20s n_landed=%d n_reweigh=%d -- POPULATIONS DIFFER, not compared"
+                  % (rn, len(la), len(ra)))
+            out["rows"][rn] = {"n_landed": int(len(la)), "n_reweigh": int(len(ra)),
+                               "note": "populations differ; not compared"}
+            continue
+        b = paired_boot(ra, la, lg, n_boot=n_boot)
+        out["rows"][rn] = {"n": int(len(la)), "landed": _r4(la.mean()), "reweigh": _r4(ra.mean()),
+                           "reweigh_minus_landed": b}
+        print("  %-20s n=%5d  landed %.4f  reweigh %.4f   %+0.4f CI95 %s%s"
+              % (rn, len(la), la.mean(), ra.mean(), b["delta"], b["ci95"],
+                 "   CI-SEPARATED" if b["ci_sep"] else ""))
+    down = [r for r, v in out["rows"].items()
+            if isinstance(v.get("reweigh_minus_landed"), dict)
+            and v["reweigh_minus_landed"]["ci_sep"] and v["reweigh_minus_landed"]["delta"] < 0]
+    out["rows_down_ci_separated"] = down
+    print("  rows DOWN CI-separated: %s" % (down or "none"))
+    return out
+
 def run_sweep(cap=UD_CAP, chunk=CHUNK, n_boot=2000, dev=True, train_cap=None, dev_n=_DEV_N):
     from experiments.exp_name_entity_clustering_v1 import load_given_gazetteer
     gaz = load_given_gazetteer()
@@ -1561,6 +1956,114 @@ _SCORER_EXTRA_NEW = '''                extra["instrument_span_credit"] = {
                                 "row's model_acc (the strict head match) REMAINS THE GATE."}'''
 
 
+# --- PHASE 7 PROBE E: the RE-PIN for verification/test_byhead_agent_cue_landing.py ------------------
+# That witness pins the by-phrase CASE cue by asserting the `cm_agent_byhead` FLAG CHANGES the reader's
+# pick.  On the re-weighed path the flag is INERT BY CONSTRUCTION -- `agent_competition_reweighed` never
+# calls `agent_supports`, which is where `byhead` lives (one line, grep-verified) -- so that assertion
+# would go red on a tree where nothing is broken.  The CLAIM the witness exists to protect is not the
+# flag; it is "the by-phrase morphology identifies the demoted agent".  Under the re-weighed competition
+# that claim is carried by `govern=by` inside the `pass` CONFIGURATION, and the re-pin asserts exactly
+# that, in a form that is green BEFORE the diff lands (the flag still flips) and AFTER it (the flag is
+# inert, the by-NP agent is still picked, and the learned contrast has the right sign in both voices).
+_REPIN_W1_OLD = (
+    '    _ok("byhead ON resolves to the by-NP agent (\'process\')", a_on == "process", "ON=%s" % a_on)\n'
+    '    _ok("byhead OFF keeps the incumbent surface subject (\'mineral\')", a_off == "mineral", "OFF=%s" % a_off)\n'
+    '    _ok("the flag CHANGES the live reader pick", a_on != a_off, "%s vs %s" % (a_on, a_off))')
+
+_REPIN_W1_NEW = (
+    '    _ok("byhead ON resolves to the by-NP agent (\'process\')", a_on == "process", "ON=%s" % a_on)\n'
+    '    # pri 140 re-pin.  The CLAIM is "the by-phrase morphology identifies the demoted agent", not "this\n'
+    '    # flag flips the answer".  With the re-weighed competition live the flag is inert BY CONSTRUCTION\n'
+    '    # (agent_competition_reweighed never calls agent_supports, where byhead lives), and the by-phrase\n'
+    '    # evidence is carried by `govern=by` within the `pass` configuration -- asserted in W4 below.  Both\n'
+    '    # branches are checks, so neither tree can pass vacuously.\n'
+    '    if _pri140_reweigh_live():\n'
+    '        _ok("[re-weighed] the by-NP agent is picked with the flag OFF too (byhead is inert, not lost)",\n'
+    '            a_off == "process", "OFF=%s" % a_off)\n'
+    '        _ok("[re-weighed] the flag is INERT by construction (same pick either way)", a_on == a_off,\n'
+    '            "%s vs %s" % (a_on, a_off))\n'
+    '    else:\n'
+    '        _ok("byhead OFF keeps the incumbent surface subject (\'mineral\')", a_off == "mineral",\n'
+    '            "OFF=%s" % a_off)\n'
+    '        _ok("the flag CHANGES the live reader pick", a_on != a_off, "%s vs %s" % (a_on, a_off))')
+
+_REPIN_HELPER_OLD = "def w1_live_wire():"
+
+_REPIN_HELPER_NEW = (
+    'def _pri140_reweigh_live():\n'
+    '    """Is the pri 140 re-weighed competition the arm the live reader runs?  Read off the organ."""\n'
+    '    import hdlab.graded_role_assigner as _G\n'
+    '    return bool(getattr(_G, "AGENT_REWEIGH", False) and hasattr(_G, "agent_validities")\n'
+    '                and _G.agent_validities() is not None)\n'
+    '\n'
+    '\n'
+    'def w4_byhead_under_reweigh():\n'
+    '    """pri 140: where the by-phrase evidence lives once the cue weights are accrued from reading."""\n'
+    '    import hdlab.graded_role_assigner as G\n'
+    '    print("\\nW4. pri 140: the by-phrase evidence under the RE-WEIGHED competition")\n'
+    '    if not _pri140_reweigh_live():\n'
+    '        print("    (the re-weighed arm is not live here -- byhead is still a weighted cue; W1-W3 cover it)")\n'
+    '        _ok("the organ still exposes the by-phrase cue machinery for the landed arm",\n'
+    '            hasattr(G, "by_governs") and hasattr(G, "participle_bypp_gate"))\n'
+    '        return\n'
+    '    tab = G.agent_validities()\n'
+    '    S = tab["strengths"]\n'
+    '    act = [g for k, g in S.items() if str(k).startswith("act")]\n'
+    '    pas = [g for k, g in S.items() if str(k).startswith("pass")]\n'
+    '    by_act = [float((g["cue"].get("govern") or {}).get("by", 0.0)) for g in act]\n'
+    '    by_pas = [float((g["cue"].get("govern") or {}).get("by", 0.0)) for g in pas]\n'
+    '    print("    govern=by learned contrast: active %s | passive %s"\n'
+    '          % ([round(x, 2) for x in by_act], [round(x, 2) for x in by_pas]))\n'
+    '    _ok("the learned table has a `govern=by` contrast in every PASSIVE configuration", bool(by_pas))\n'
+    '    _ok("`govern=by` is POSITIVE under PASSIVE (the demoted agent is by-marked)",\n'
+    '        bool(by_pas) and max(by_pas) > 0.0, "max %.2f" % (max(by_pas) if by_pas else 0.0))\n'
+    '    _ok("`govern=by` is NEGATIVE under ACTIVE (a by-NP is not the agent of an active clause)",\n'
+    '        bool(by_act) and max(by_act) < 0.0, "max %.2f" % (max(by_act) if by_act else 0.0))\n'
+    '    toks = ["the", "mineral", "was", "formed", "by", "a", "natural", "process", "."]\n'
+    '    pos = ["DET", "NOUN", "AUX", "VERB", "ADP", "DET", "ADJ", "NOUN", "PUNCT"]\n'
+    '    cands = [{"wtok_start": 1, "head": "mineral", "cluster": None, "wtok_end": 1},\n'
+    '             {"wtok_start": 7, "head": "process", "cluster": None, "wtok_end": 7}]\n'
+    '    on = G.agent_competition_pick_conf(toks, pos, 3, cands, byhead_agent_cue=True)[0]\n'
+    '    off = G.agent_competition_pick_conf(toks, pos, 3, cands, byhead_agent_cue=False)[0]\n'
+    '    _ok("the re-weighed competition picks the by-NP agent on a by-agent passive", on == "process",\n'
+    '        "pick=%s" % on)\n'
+    '    _ok("and byhead_agent_cue is inert on that path (the evidence moved, it was not lost)", on == off,\n'
+    '        "%s vs %s" % (on, off))\n'
+    '    hand = G.agent_competition_pick_conf(toks, pos, 3, cands, weights=G.AGENT_VALIDITIES,\n'
+    '                                         byhead_agent_cue=False)[0]\n'
+    '    _ok("the hand-set arm WITHOUT byhead still mis-picks the surface subject, so this can fail",\n'
+    '        hand == "mineral", "pick=%s" % hand)\n'
+    '\n'
+    '\n'
+    'def w1_live_wire():')
+
+_REPIN_W3B_OLD = (
+    '    _ok("byhead changes only a negligible fraction of board answers (<= ~1%%)", changed <= max(4, n // 100),\n'
+    '        "changed=%d / %d" % (changed, n))\n'
+    '    _ok("byhead does not MATERIALLY move the 19c board (|delta| < 0.01)", abs(delta) < 0.01,\n'
+    '        "delta=%+.4f" % delta)')
+
+_REPIN_W3B_NEW = (
+    '    # pri 140 re-pin: the first check pinned a COUNT against a 1% threshold and has been red at\n'
+    '    # 11/853 = 1.29% -- a numeric pin, which is the shape of witness the standing rule calls a defect,\n'
+    '    # on a 19c corpus that is informational only (owner 2026-09-06).  The CLAIM is additive SAFETY.\n'
+    '    print("    byhead changed %d of %d answers on the 19c board (reported, not pinned: 19c is "\n'
+    '          "informational only)" % (changed, n))\n'
+    '    _ok("byhead does not MATERIALLY move the 19c board (|delta| < 0.02, sign reported)",\n'
+    '        abs(delta) < 0.02, "delta=%+.4f over %d answers changed" % (delta, changed))')
+
+_REPIN_MAIN_OLD = (
+    '    w1_live_wire()\n'
+    '    w2_w3a_qasrl()\n'
+    '    w3b_board()')
+
+_REPIN_MAIN_NEW = (
+    '    w1_live_wire()\n'
+    '    w2_w3a_qasrl()\n'
+    '    w3b_board()\n'
+    '    w4_byhead_under_reweigh()')
+
+
 def _organ_block_text():
     s = open(os.path.abspath(__file__), encoding="utf-8").read()
     a = s.index(_BEGIN)
@@ -1616,7 +2119,20 @@ def emit_patch(out=None, check=True):
                  .replace(_SCORER_EXTRA_OLD, _SCORER_EXTRA_NEW)
     d2 = _udiff(brd, b_old, b_new)
 
-    txt = d1 + d2
+    wit = os.path.join(_REPO, "verification", "test_byhead_agent_cue_landing.py")
+    w_old = open(wit, encoding="utf-8", newline="").read()
+    w_nl = "\r\n" if "\r\n" in w_old[:4000] else "\n"      # this file's OWN line endings
+    w_n = w_old.replace("\r\n", "\n")
+    assert (w_n.count(_REPIN_W1_OLD) == 1 and w_n.count(_REPIN_HELPER_OLD) == 1
+            and w_n.count(_REPIN_W3B_OLD) == 1 and w_n.count(_REPIN_MAIN_OLD) == 1), \
+        "the byhead witness has moved under this re-pin"
+    w_new = (w_n.replace(_REPIN_HELPER_OLD, _REPIN_HELPER_NEW)
+                .replace(_REPIN_W1_OLD, _REPIN_W1_NEW)
+                .replace(_REPIN_W3B_OLD, _REPIN_W3B_NEW)
+                .replace(_REPIN_MAIN_OLD, _REPIN_MAIN_NEW))
+    d3 = _udiff(wit, w_n, w_new)
+
+    txt = d1 + d2 + d3
     p = out or PATCH_OUT
     os.makedirs(os.path.dirname(p), exist_ok=True)
     with open(p, "w", encoding="utf-8", newline="\n") as fh:
@@ -1630,7 +2146,10 @@ def emit_patch(out=None, check=True):
         print("  git apply --check: %s%s" % ("OK" if ok else "FAILED", ("  " + r.stderr.strip()) if r.stderr else ""))
     print("  wrote %s (%d lines)" % (os.path.relpath(p, _REPO), txt.count("\n")))
     return {"path": os.path.relpath(p, _REPO), "git_apply_check": ok,
-            "organ_block_lines": blk.count("\n"), "files": 2}
+            "organ_block_lines": blk.count("\n"), "files": 3,
+            "line_endings": {"hdlab/graded_role_assigner.py": ("CRLF" if nl == "\r\n" else "LF"),
+                             "verification/test_byhead_agent_cue_landing.py":
+                                 ("CRLF" if w_nl == "\r\n" else "LF")}}
 
 # ===================================================================================================
 # SECTION 8 -- SELF-TEST + MAIN
@@ -1747,7 +2266,8 @@ def self_test():
     d = emit_patch(out=os.path.join(OUT_DIR, "selftest_patch.diff"), check=False)
     tmp = tempfile.mkdtemp(prefix="p140st_")
     try:
-        for rel in ("hdlab/graded_role_assigner.py", "experiments/exp_board_rows_on_the_reader_v1.py"):
+        for rel in ("hdlab/graded_role_assigner.py", "experiments/exp_board_rows_on_the_reader_v1.py",
+                    "verification/test_byhead_agent_cue_landing.py"):
             os.makedirs(os.path.join(tmp, os.path.dirname(rel)), exist_ok=True)
             shutil.copy(os.path.join(_REPO, rel), os.path.join(tmp, rel))
         r = subprocess.run(["git", "apply", "--ignore-whitespace", os.path.join(OUT_DIR, "selftest_patch.diff")],
@@ -1770,6 +2290,17 @@ def self_test():
            blk in src.replace("\r\n", "\n"))
         ck("the board scorer gains the entity-level column beside the token-level gate",
            "_name_run_forms" in bsrc and "entity_level_credit" in bsrc and "agent_entity_credit" in bsrc)
+        wsrc = open(os.path.join(tmp, "verification", "test_byhead_agent_cue_landing.py"),
+                    encoding="utf-8").read()
+        ok_w = True
+        try:
+            compile(wsrc, "byhead_witness", "exec")
+        except SyntaxError as e:
+            ok_w = False
+            print("        %s" % e)
+        ck("the byhead witness RE-PIN compiles and moves the claim to govern=by + the pass configuration",
+           ok_w and "w4_byhead_under_reweigh" in wsrc and "_pri140_reweigh_live" in wsrc
+           and "changed <= max(4, n // 100)" not in wsrc)
         spec = importlib.util.spec_from_file_location("p140_patched_gra", gp)
         m = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(m)
@@ -1805,6 +2336,9 @@ def main():
     ap.add_argument("--emit-patch", action="store_true")
     ap.add_argument("--select", action="store_true")
     ap.add_argument("--rate-sweep", action="store_true")
+    ap.add_argument("--delta", action="store_true")
+    ap.add_argument("--gum-ab", action="store_true")
+    ap.add_argument("--gum-docs", type=int, default=None)
     ap.add_argument("--dev-n", type=int, default=_DEV_N)
     ap.add_argument("--cap", type=int, default=UD_CAP)
     ap.add_argument("--train-cap", type=int, default=_TRAIN_CAP_DEFAULT)
@@ -1828,6 +2362,13 @@ def main():
         M["build"] = {"cap": a.train_cap, "asset": os.path.relpath(_AGENT_VALIDITIES_PATH, _REPO)}
         tab = build_validities(cap=a.train_cap, chunk=a.chunk, refresh=a.refresh)
         M["build"]["n_observations"] = tab["counts"]["n_observations"]
+        did = True
+    if a.gum_ab:
+        M["gum_ab"] = run_gum_ab(n_docs=a.gum_docs, n_boot=a.n_boot)
+        did = True
+    if a.delta:
+        M["delta"] = run_delta(chunk=a.chunk, train_cap=a.train_cap, n_boot=a.n_boot,
+                               dev_n=a.dev_n)
         did = True
     if a.rate_sweep:
         M["rate_sweep"] = run_rate_sweep(chunk=a.chunk, n_boot=a.n_boot, train_cap=a.train_cap)

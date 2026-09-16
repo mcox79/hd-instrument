@@ -2,11 +2,11 @@
 problem: the_agent_competition_loses_with_the_right_answer_on_the_ballot_77_to_80_percent_of_agent_errors_on_sealed_and_test_text_are_pick_errors_split_wrong_entity_from_wrong_name_token_then_reweigh_the_cues
 status: PARTIAL
 bar: "1. THE SPLIT FIRST. Every pick error on UD-EWT test (109) and, by strategy at landing, on the sealed set (229) labelled wrong-ENTITY vs right-entity-wrong-TOKEN, with the method stated (gold name runs / coref) and the two counts reported; the scorer of the reader-driven agent row gains an entity-level column (right entity counts as right) beside the token-level one -- both reported, the token-level stays the gate until the owner rules otherwise. 2. Wrong-entity pick errors DOWN CI-separated on UD-EWT test (bootstrap over items, both arms in one process) with the re-weighed competition; the agent row ABOVE the word-order floor on UD-EWT test CI-separated; an info-free twin (validities permuted across cues) loses. 3. No-regress: patient / state / the copular subject read on the same populations not down CI-separated; the pri 106/111/117 witnesses green on the landed tree. 4. Plastic: the validities are counts with an observe path (a two-document read shows the second document's decisions used the first's updates); the accrual rate swept, not adopted. 5. Sub-item (LOCATED item 1): the by-phrase candidate set reads the attachment arm's head; the 3 UD-EWT items reported before/after. 6. Hand-off for strategy: the landed competition re-read on the sealed holdout ONCE at landing (pri 126's hook); you predict the sealed number from UD-EWT and the prediction is recorded before the read."
-result: "THE SPLIT (bar 1, MET): of the 209 pick errors on the FULL UD-EWT test (2077 sentences, n=1424 gold agent items, the reader's own annotation-free read), 114 (54.6%) are WRONG-ENTITY, 23 (11.0%) are the right entity under a different token of its NAME RUN (the UD first-token-of-a-name convention, `Kori` vs `Schulman`), and 72 (34.5%) are a MODIFIER inside the gold agent's own NP (`The people OF FALLUJAH condemn` -> `Fallujah`), which is a real misread and NOT a convention artifact. On pri 126's own 719-sentence cap the same split is 52 / 16 / 41 of 109, and the cause table reproduces pri 126 EXACTLY (561 items, correct 424 = 0.7558, no_event 3, candidate_set_miss 25, pick_error 109). So the naming convention is ONE ERROR IN NINE, not the story: the brief's hypothesis that most of the 'nearby nominal' errors are wrong-ENTITY picks is CONFIRMED, and a second, larger, previously unnamed bucket is the NP-head choice. THE RE-WEIGHED COMPETITION (bar 2, HALF MET): cue validities ACCRUED FROM READING UD-EWT TRAIN through the live reader (6,000 sentences in the reader's own 20-sentence pseudo-documents, 4,929 gold agent clauses, 29,191 candidate observations), strength(cue value -> AGENT) = log P(agent | voice, cue=value) - log P(agent | voice) with add-alpha counting and Dirichlet shrinkage toward the configuration marginal -- the SAME math `strengths_from_counts` already uses for the coarse role table, replacing the HAND-SET `AGENT_VALIDITIES` dict. LIVE, both arms plus the twin in ONE process, `SituationReader.read` on annotation-free UD-EWT test text (n=1,424 items, 104 pseudo-documents, chunk-paired bootstrap 2,000 resamples): the agent row 0.7900 -> 0.8322, +0.0421 CI95[+0.0237,+0.0627] CI-SEPARATED over the landed competition; WRONG-ENTITY PICK ERRORS 162 -> 135, -0.0190 CI95[-0.0346,-0.0044] CI-SEPARATED DOWN (offline replay of the identical arms: 114 -> 90); the ENTITY-LEVEL column 0.8083 -> 0.8385, +0.0302 CI95[+0.0140,+0.0471]; the info-free twin (the learned strengths permuted within each cue) 0.2640, model-minus-twin +0.5681 CI95[+0.5416,+0.5948] CI-SEPARATED. AGAINST THE WORD-ORDER FLOOR (0.8371, the board's own nearest-pre-verbal-nominal rule on the reader's OWN categories): the landed competition is -0.0471 CI95[-0.0618,-0.0327] CI-SEPARATED BELOW; the re-weighed competition is -0.0049 CI95[-0.0202,+0.0118], i.e. the below-floor defect the brief was opened on is GONE but the row is LEVEL with the floor, not CI-separated ABOVE it -- THAT HALF OF BAR 2 IS NOT MET and this submission is PARTIAL because of it. ON THE COMPETITION'S OWN POPULATION (the reader fired an event AND the gold was on the ballot, n=1,343 -- the decisions the organ actually takes): landed 0.8444 = -0.0290 CI95[-0.0430,-0.0160] CI-SEPARATED BELOW the floor; re-weighed 0.8824 = +0.0089 CI95[-0.0056,+0.0250] ABOVE, not separated. THE REMAINING GAP IS TRACED AND COUNTED, not asserted: of the 61 items where the floor is right and the re-weighed competition is wrong, 15 are `no_event` (the reader fired NO event at the gold verb -- the predicate-slot chain, pri 133, which the brief says to count and not chase), 4 are `candidate_set_miss` (the mention stream, pri 138), 6 are the name-run convention and 6 an NP modifier, leaving 30 genuine wrong-entity losses against 54 genuine wins. SUB-ITEM (bar 5, MET and larger than the brief expected): the passive / by-phrase slice 7/16 -> 13/16 on the full test (the brief scoped this to 3 items at the 719-sentence cap). NO-REGRESS (bar 3, MET): patient 0.6869 and state 0.7989 are BYTE-IDENTICAL across all three live arms (delta +0.0000, CI95[0.0000,0.0000]) -- the change is confined to the agent slot, which is the claim. PLASTIC (bar 4, HALF MET): the table is counts with a live observe path (`observe_agent_outcome`; one comprehended clause grows the counts 29,191 -> 29,290 and moves the strengths) and THE EXPOSURE CURVE on UD-EWT test shows the weights really are read off experience -- 2 clauses read 0.7683 (68 wrong-entity), 5 -> 0.8128, 15 -> 0.8289, 50 -> 0.8271, 200 -> 0.8217, 1000 -> 0.8253, 4,929 -> 0.8289 (35 wrong-entity), with 54 / 15 / 22 / 11 / 7 / 15 decisions changing between consecutive steps. The half NOT met: the brief's own demonstration -- read document 1, observe, and watch document 2's decisions change -- gives ZERO changed decisions, from the shipped table AND from a 960-count cold start, because accruing the reader's OWN settled agent is a FIXED POINT; an online teaching signal has to be an outcome the competition did not itself produce, and the organ has none yet. That is named, not hidden."
+result: "PHASE 7 HEADLINE (the current arm; the phase-1-6 numbers below are superseded and kept for the record). Cue validities ACCRUED FROM READING UD-EWT train through the live reader (4,929 gold agent clauses, 29,191 candidate observations), read within a PRECISION-WEIGHTED configuration (voice x the attachment arm's own confidence at this predicate) with the weights learned IN COMPETITION by an online Rescorla-Wagner update. LIVE, three arms in ONE process, SituationReader.read on annotation-free UD-EWT test (2,077 sentences, n=1,424, chunk-paired bootstrap 2,000): the agent row 0.7893 -> 0.8378 (+0.0485 CI95[+0.0314,+0.0673] CI-SEPARATED); WRONG-ENTITY PICK ERRORS 164 -> 114 (-0.0351 CI95[-0.0507,-0.0205] CI-SEPARATED DOWN); entity-level column 0.8076 -> 0.8483 (+0.0407 CI-sep); info-free twin 0.2191 (+0.6187 CI-sep); patient 0.6869 and state 0.7989 BYTE-IDENTICAL. Against the word-order floor 0.8371: the shipped competition is -0.0478 CI95[-0.0624,-0.0331] CI-SEPARATED BELOW and the re-weighed one is +0.0007 CI95[-0.0136,+0.0152] -- LEVEL with the floor, NOT CI-separated above it, which is why this stays PARTIAL. On the competition's OWN decided population (event fired AND gold on the ballot, n=1,343) it IS CI-separated above: +0.0141 CI95[+0.0007,+0.0283]. Pick errors 219 -> 151 and wrong-entity 121 -> 72 offline on the same population; 48 wins vs 48 losses against the floor, of which 15 losses are no_event (pri 133), 4 candidate-supply (pri 138) and 8 the name-run convention. STRATEGY'S CORRECTED agent_hybrid BAR IS CLEARED: the word-order-default gate reaches 0.8160 (+0.0267 CI[+0.0109,+0.0426] over the shipped arm) and the competition alone reaches 0.8378 on the same 1,424 items with the same scorer, its CI lower bound (+0.0314) above the gate's point gain -- so agent_hybrid becomes a DELETE. GUM rows (60 documents, both arms one process): coref 0.2212, salience 0.1833, common_noun_coref 0.5317, all BYTE-IDENTICAL, none down; entity_set has an empty population in this mode and is not compared. Witnesses ON THE TREE AS LANDED: test_cmrole_agent_struct_organ ALL PASS, test_coarse_role_competition 37/37, test_byhead_agent_cue_landing 20/20 with the re-pin carried in this diff (14/15 at HEAD). Read cost +6.0% measured fairly in one warm process (the phase-1-6 +15% was a cross-process artifact). THE DELTA RULE, prototyped per strategy's ruling: on the decorrelated cue subset it is a WASH; on the FULL 13-cue inventory it cuts wrong-entity errors CI-separated (pooled dev 148 -> 124) and its weights show the double-counting directly (recency n0 +1.55 marginal -> -0.07 competed), but it does NOT beat the subset on token accuracy and it does NOT supply bar 4's teaching signal (0 of 31 decisions change either way, because a self-supervised target is the competition's own argmax). --- SUPERSEDED PHASE 1-6 RESULT FOLLOWS --- THE SPLIT (bar 1, MET): of the 209 pick errors on the FULL UD-EWT test (2077 sentences, n=1424 gold agent items, the reader's own annotation-free read), 114 (54.6%) are WRONG-ENTITY, 23 (11.0%) are the right entity under a different token of its NAME RUN (the UD first-token-of-a-name convention, `Kori` vs `Schulman`), and 72 (34.5%) are a MODIFIER inside the gold agent's own NP (`The people OF FALLUJAH condemn` -> `Fallujah`), which is a real misread and NOT a convention artifact. On pri 126's own 719-sentence cap the same split is 52 / 16 / 41 of 109, and the cause table reproduces pri 126 EXACTLY (561 items, correct 424 = 0.7558, no_event 3, candidate_set_miss 25, pick_error 109). So the naming convention is ONE ERROR IN NINE, not the story: the brief's hypothesis that most of the 'nearby nominal' errors are wrong-ENTITY picks is CONFIRMED, and a second, larger, previously unnamed bucket is the NP-head choice. THE RE-WEIGHED COMPETITION (bar 2, HALF MET): cue validities ACCRUED FROM READING UD-EWT TRAIN through the live reader (6,000 sentences in the reader's own 20-sentence pseudo-documents, 4,929 gold agent clauses, 29,191 candidate observations), strength(cue value -> AGENT) = log P(agent | voice, cue=value) - log P(agent | voice) with add-alpha counting and Dirichlet shrinkage toward the configuration marginal -- the SAME math `strengths_from_counts` already uses for the coarse role table, replacing the HAND-SET `AGENT_VALIDITIES` dict. LIVE, both arms plus the twin in ONE process, `SituationReader.read` on annotation-free UD-EWT test text (n=1,424 items, 104 pseudo-documents, chunk-paired bootstrap 2,000 resamples): the agent row 0.7900 -> 0.8322, +0.0421 CI95[+0.0237,+0.0627] CI-SEPARATED over the landed competition; WRONG-ENTITY PICK ERRORS 162 -> 135, -0.0190 CI95[-0.0346,-0.0044] CI-SEPARATED DOWN (offline replay of the identical arms: 114 -> 90); the ENTITY-LEVEL column 0.8083 -> 0.8385, +0.0302 CI95[+0.0140,+0.0471]; the info-free twin (the learned strengths permuted within each cue) 0.2640, model-minus-twin +0.5681 CI95[+0.5416,+0.5948] CI-SEPARATED. AGAINST THE WORD-ORDER FLOOR (0.8371, the board's own nearest-pre-verbal-nominal rule on the reader's OWN categories): the landed competition is -0.0471 CI95[-0.0618,-0.0327] CI-SEPARATED BELOW; the re-weighed competition is -0.0049 CI95[-0.0202,+0.0118], i.e. the below-floor defect the brief was opened on is GONE but the row is LEVEL with the floor, not CI-separated ABOVE it -- THAT HALF OF BAR 2 IS NOT MET and this submission is PARTIAL because of it. ON THE COMPETITION'S OWN POPULATION (the reader fired an event AND the gold was on the ballot, n=1,343 -- the decisions the organ actually takes): landed 0.8444 = -0.0290 CI95[-0.0430,-0.0160] CI-SEPARATED BELOW the floor; re-weighed 0.8824 = +0.0089 CI95[-0.0056,+0.0250] ABOVE, not separated. THE REMAINING GAP IS TRACED AND COUNTED, not asserted: of the 61 items where the floor is right and the re-weighed competition is wrong, 15 are `no_event` (the reader fired NO event at the gold verb -- the predicate-slot chain, pri 133, which the brief says to count and not chase), 4 are `candidate_set_miss` (the mention stream, pri 138), 6 are the name-run convention and 6 an NP modifier, leaving 30 genuine wrong-entity losses against 54 genuine wins. SUB-ITEM (bar 5, MET and larger than the brief expected): the passive / by-phrase slice 7/16 -> 13/16 on the full test (the brief scoped this to 3 items at the 719-sentence cap). NO-REGRESS (bar 3, MET): patient 0.6869 and state 0.7989 are BYTE-IDENTICAL across all three live arms (delta +0.0000, CI95[0.0000,0.0000]) -- the change is confined to the agent slot, which is the claim. PLASTIC (bar 4, HALF MET): the table is counts with a live observe path (`observe_agent_outcome`; one comprehended clause grows the counts 29,191 -> 29,290 and moves the strengths) and THE EXPOSURE CURVE on UD-EWT test shows the weights really are read off experience -- 2 clauses read 0.7683 (68 wrong-entity), 5 -> 0.8128, 15 -> 0.8289, 50 -> 0.8271, 200 -> 0.8217, 1000 -> 0.8253, 4,929 -> 0.8289 (35 wrong-entity), with 54 / 15 / 22 / 11 / 7 / 15 decisions changing between consecutive steps. The half NOT met: the brief's own demonstration -- read document 1, observe, and watch document 2's decisions change -- gives ZERO changed decisions, from the shipped table AND from a 960-count cold start, because accruing the reader's OWN settled agent is a FIXED POINT; an online teaching signal has to be an outcome the competition did not itself produce, and the organ has none yet. That is named, not hidden."
 floor: "The board's own agent floor, recomputed in place on every population it is quoted against: the nearest PRE-verbal nominal on the READER'S OWN categories -- 0.8371 on the full UD-EWT test (n=1,424), 0.8093 on pri 126's 719-sentence cap (n=561), 0.8734 on the competition's own decided population (n=1,343), 0.7389 on the UD-EWT TRAIN dev slice (n=1,283). The LANDED competition is measured alongside in the same process on each (0.7900 / 0.7963 / 0.8444 / 0.6656) and every delta is quoted against both. The info-free twin, two forms: `within` (each cue's learned strengths re-assigned to its own values by a random bijection -- same availability, same value count, same multiset of strengths, meaning destroyed) 0.2640 live / 0.2640 offline; `across` (the brief's wording -- each cue's table swapped with another cue's; because two cues share no value names every lookup misses and the arm degenerates to 'always the first candidate') 0.5892. The gate is read against `within`, the stronger control."
 controls: "(1) INFO-FREE TWIN, both forms, LIVE and offline, CI-separated below on every population (live model-minus-twin +0.5681 CI95[+0.5416,+0.5948]). (2) THE UNGRADED ARM: the same competition with the attachment arm's head belief and the category posterior withheld (both cues fall to the value `na`) scores 0.5948 on the full test, -0.2423 CI-separated BELOW the floor -- so the win is carried by the GRADED upstream reads, not by the re-weighing alone, and the cue that carries it is named (dropping `struct` alone: 0.8322 -> 0.6243). (3) TRAIN / DEV / TEST SEPARATION, enforced by construction: the counts are accrued on UD-EWT TRAIN sentences [0,6000); EVERY arm choice (the cue set, the configuration, the accrual rate) is made on a DEV slice of TRAIN, sentences [6000,7200), that the counts never saw; UD-EWT TEST is read once per reported arm. The dev-chosen arm is {order, govern, struct, cat} under a voice configuration, dev 0.7942 = +0.0553 CI95[+0.0306,+0.0807] CI-SEPARATED above the dev floor. (4) THE ACCRUAL RATE SWEPT, NOT ADOPTED: m_shrink 0.5 / 2 / 8 / 32 / 128 / 512 on dev is a flat plateau (0.7514 / 0.7514 / 0.7514 / 0.7514 / 0.7498 / 0.7482), so 2.0 is kept and the result does not rest on it. (5) THE CONFIGURATION SWEPT ON DEV, three forms (voice; voice x order; voice x order x government) -- all three converge on the SAME decorrelated cue core, and the simplest wins (0.7942 / 0.7872 / 0.7880). (6) TWO CUES BUILT AND REFUTED ON DEV, reported with their numbers rather than deleted: the landed role competition's P(SUBJ) marginalised over the head posterior (`rsubj`, dev 0.7880 -> 0.7794) and the `for X to VERB` infinitival-subject construction as its own government value (dev 0.7942 -> 0.7880). (7) THE EXPOSURE CURVE as a can-fail control on the claim that the weights are learned: a table with 2 clauses of experience scores 0.7683 against the read table's 0.8289. (8) PATCH FIDELITY, in the cell's own `--self-test`: the diff is GENERATED from the cell's ORGAN BLOCK, applied to a COPY of the two target files in a sandbox, both patched files COMPILED, the organ block asserted BYTE-IDENTICAL to the code that was measured, the patched organ IMPORTED, and asked `The company of Fallujah condemned it` -- it answers `company` (the NP head) where the hand-set arm, still reachable for A/B, answers `Fallujah`. hdlab/ is never written. (9) SELF-GATING PROVED: with no asset on disk the patched organ's pick is byte-identical to the landed competition, and HDLAB_AGENT_REWEIGH=0 restores it with the asset present. (10) Chunk-paired bootstrap, 2,000 resamples, resampling the READ UNIT (the pseudo-document), on each population's own items; no floor or twin is pasted across populations."
-files_changed: "experiments/exp_agent_pick_reweigh_v1.py (NEW cell: the anatomy + the split, the validity build from reading, the dev arm sweep and backward cue selection, the accrual-rate sweep, the LIVE two-arm gate, the exposure curve, the patch emitter, --self-test 26 checks); verification/test_agent_competition_reweigh_landing.py (NEW witness, green on the tree as it stands AND written to assert the defect's ABSENCE once the diff lands); data/frontend_assets/agent_cue_validities_ud_ewt_v1.json (NEW asset, 6.9 KB: the counts accrued from reading UD-EWT train, plus the strengths rebuilt from them on every load); notes/problems/<slug>/{SOLVED.md, agent_reweigh_patch.diff}. NO hdlab/ or tools/ file is written. The diff touches TWO files: hdlab/graded_role_assigner.py (an `import math`, the 461-line organ block before `__all__`, ONE self-gating branch at the top of `agent_competition_pick_conf`, and the `__all__` additions) and experiments/exp_board_rows_on_the_reader_v1.py (the entity-level column beside the token-level gate). There is exactly ONE call site of `agent_competition_pick_conf` in hdlab/ (situation_reader.py:2357) and NONE in tools/ (enumerated); the branch adds no argument, so every call site is complete by construction. Both target files are CRLF: apply with `git apply --ignore-whitespace`."
-reverify: ".venv/Scripts/python.exe verification/test_agent_competition_reweigh_landing.py    (scaffold-free; 17 checks with the arm still in experiments/, 21 once the diff lands -- it detects which tree it is on and says so). Then, for the headline, each writing ONLY into data/exp_agent_pick_reweigh_v1/: .venv/Scripts/python.exe experiments/exp_agent_pick_reweigh_v1.py --self-test (26 checks, ~90s, includes APPLY + COMPILE + IMPORT of the generated patch in a sandbox and the can-fail NP-head behaviour check); --measure --cap 2077 --n-boot 2000 --tag measure (~45 min: the LIVE two-arm gate, all three arms in one process); --anatomy --cap 2077 --tag anat (~12 min: the cause table and the split); --observe --tag obs (~6 min: the observe path and the exposure curve); --build --train-cap 6000 (~25 min: rebuilds the asset from reading, byte-reproducible from the counts). Never a bare run of exp_sealed_modern_holdout_v1.py -- it writes into a landed directory."
+files_changed: "experiments/exp_agent_pick_reweigh_v1.py (NEW cell: the anatomy + the split, the validity build from reading, the dev arm sweep and backward cue selection, the accrual-rate sweep, the LIVE two-arm gate, the exposure curve, the patch emitter, and the phase-7 additions -- the Rescorla-Wagner delta rule with three learning-rate schedules (--delta), the precision-weighted configuration, and the GUM two-arm A/B (--gum-ab); --self-test 26 checks); verification/test_agent_competition_reweigh_landing.py (NEW witness, green on the tree as it stands AND written to assert the defect's ABSENCE once the diff lands); data/frontend_assets/agent_cue_validities_ud_ewt_v1.json (NEW asset, 6.9 KB: the counts accrued from reading UD-EWT train, plus the strengths rebuilt from them on every load); notes/problems/<slug>/{SOLVED.md, agent_reweigh_patch.diff}. NO hdlab/ or tools/ file is written. The diff touches THREE files (phase 7 added the third): hdlab/graded_role_assigner.py (an `import math`, the 461-line organ block before `__all__`, ONE self-gating branch at the top of `agent_competition_pick_conf`, and the `__all__` additions) experiments/exp_board_rows_on_the_reader_v1.py (the entity-level column beside the token-level gate), and verification/test_byhead_agent_cue_landing.py (the phase-7 re-pin: the by-head claim moves to govern=by plus the pass configuration, a new W4, and a retired numeric threshold). Each file's hunks carry that file's OWN line endings -- the organ and the board scorer are CRLF, the witness is LF. There is exactly ONE call site of `agent_competition_pick_conf` in hdlab/ (situation_reader.py:2357) and NONE in tools/ (enumerated); the branch adds no argument, so every call site is complete by construction. Both target files are CRLF: apply with `git apply --ignore-whitespace`."
+reverify: ".venv/Scripts/python.exe verification/test_agent_competition_reweigh_landing.py    (scaffold-free; 17 checks with the arm still in experiments/, 21 once the diff lands -- it detects which tree it is on and says so). Then, for the headline, each writing ONLY into data/exp_agent_pick_reweigh_v1/: .venv/Scripts/python.exe experiments/exp_agent_pick_reweigh_v1.py --self-test (26 checks, ~90s, includes APPLY + COMPILE + IMPORT of the generated patch in a sandbox and the can-fail NP-head behaviour check); --measure --cap 2077 --n-boot 2000 --tag measure (~45 min: the LIVE two-arm gate, all three arms in one process); --anatomy --cap 2077 --tag anat (~12 min: the cause table and the split); --observe --tag obs (~6 min: the observe path and the exposure curve); --delta --train-cap 6000 --dev-n 1200 (~35 min: the Rescorla-Wagner sweep on dev, then test read once); --gum-ab --gum-docs 60 (~45 min: the GUM rows, both arms in one process); --build --train-cap 6000 (~25 min: rebuilds the asset from reading, byte-reproducible from the counts). Never a bare run of exp_sealed_modern_holdout_v1.py -- it writes into a landed directory."
 ---
 
 # The agent competition was weighed by hand. It is now weighed by counting, and the below-floor defect is gone.
@@ -482,3 +482,266 @@ method reused here), pri 117 (the copular subject), pri 129 (patient reliability
    affect and who-has-what rows read the agent and live on GUM; strategy should re-run them before landing.
 5. **Read cost +15%** (602 s → 693 s for 104 pseudo-documents) because the attachment arm's head posterior is
    recomputed for this cue; the reader already computes a parse for the same sentence.
+
+---
+---
+
+# PHASE 7 (strategy's probes A-F). The arm changed, and the phase-1-6 arm choice was made on a bad slice.
+
+**Headline: the row that was CI-separated BELOW its floor is now level with it, and wrong-entity pick errors
+are down 30%.** Live, all three arms in ONE process, `SituationReader.read` on annotation-free UD-EWT test
+(2,077 sentences, n = 1,424, chunk-paired bootstrap 2,000):
+
+| arm | agent | entity-level | wrong-entity picks | patient | state |
+|---|---|---|---|---|---|
+| **floor** (nearest pre-verbal nominal, reader's own categories) | **0.8371** | — | — | — | — |
+| shipped (hand-set `AGENT_VALIDITIES`) | 0.7893 | 0.8076 | 164 | 0.6869 | 0.7989 |
+| **re-weighed, phase 7** | **0.8378** | **0.8483** | **114** | 0.6869 | 0.7989 |
+| info-free twin | 0.2191 | 0.2282 | 997 | 0.6869 | 0.7989 |
+
+| contrast | delta | CI95 | |
+|---|---|---|---|
+| re-weighed - shipped | **+0.0485** | [+0.0314, +0.0673] | CI-SEPARATED |
+| **wrong-entity picks, re-weighed - shipped** | **-0.0351** | [-0.0507, -0.0205] | **CI-SEPARATED DOWN** (bar 2a met) |
+| entity-level, re-weighed - shipped | +0.0407 | [+0.0260, +0.0566] | CI-SEPARATED |
+| re-weighed - twin | +0.6187 | [+0.5901, +0.6485] | CI-SEPARATED |
+| shipped - floor | -0.0478 | [-0.0624, -0.0331] | CI-SEPARATED **BELOW** |
+| **re-weighed - floor** | **+0.0007** | [-0.0136, +0.0152] | level; not separated either way (bar 2b NOT met) |
+| **re-weighed - floor, on the competition's OWN decided population (n=1,343)** | **+0.0141** | [+0.0007, +0.0283] | **CI-SEPARATED ABOVE** |
+| no-regress patient / state | +0.0000 | [0.0000, 0.0000] | byte-identical |
+
+Phase 1-6 reported 0.8322 with 135 wrong-entity picks. **Status stays PARTIAL**: the whole row is level with
+the floor, not CI-separated above it.
+
+## THE CORRECTED agent_hybrid BAR (strategy, 11:25)
+
+Strategy's sign-inverted A/B is fixed: the word-order-default gate reaches **0.8160** against the shipped
+0.7893 (**+0.0267** CI[+0.0109,+0.0426]) on the full 1,424 items. **The competition alone, no gate, on the
+same 1,424 items with the same scorer (`_run_board_rows`, the board's own `_gold_agent_items` recipe):
+0.8378 -- +0.0218 over the gate.** And measured against the same shipped baseline in the same process, the
+competition's gain is **+0.0485 CI[+0.0314, +0.0673]**, whose **lower bound exceeds the gate's point gain of
++0.0267**. The gate is a positional stand-in that the organ now beats from the inside: **`agent_hybrid` and
+`agent_hybrid_construction` become a DELETE** (see the flip list). I did not touch the A/B cell.
+
+## A -- THE DELTA RULE, prototyped on this arm
+
+Implemented as the organ's own arm (`agent_delta_update`, `observe_agent_outcome_delta`): per observation,
+online, `w[cfg][cue][value] += eta * (t_i - p_i)` over the same additive activation with a softmax readout --
+Rescorla-Wagner, which is what MacWhinney's own Competition-Model simulations use and what makes cue
+competition *blocking and overshadowing* rather than independent addition. Three learning-rate schedules
+(fixed / annealed / declining-with-experience-of-that-cue-value), eta swept 0.02-1.0, 1-8 passes, plus a
+**from-zero control** (no marginal contrasts at all), all on dev.
+
+**Does the full inventory now beat the decorrelated subset?** On pooled dev **no on token accuracy, yes on
+the metric the bar is about**:
+
+| arm (pooled dev, n=2,497, floor 0.8090) | token | wrong-entity | vs floor | wrong-entity vs the phase-1-6 arm |
+|---|---|---|---|---|
+| counts, 4 cues (phase 1-6) | 0.8262 | 148 | +0.0172 [+0.0004,+0.0338] CI-SEP | -- |
+| delta, 4 cues | 0.8270 | 147 | +0.0180 [+0.0012,+0.0345] CI-SEP | -0.0004 |
+| delta, all 13 cues, fixed | 0.8234 | 129 | +0.0144 n.s. | -0.0076 |
+| delta, all 13 cues, annealed | 0.8186 | **124** | +0.0096 n.s. | **-0.0096 CI-SEP** |
+| from-zero control (DEV1 only) | 0.7935 | 92 | -- | -- |
+
+**The rule does exactly what theory says.** On the four cues that are already decorrelated it is a WASH
+(0.8262 -> 0.8270, one item). On the full inventory it recovers most of what marginal contrasts lose and cuts
+wrong-entity errors CI-separated -- i.e. **it confirms the double-counting diagnosis and fixes it** -- but the
+full inventory still trails the subset on token accuracy. The **from-zero control reaching 0.7935** says the
+rule is genuinely learning, not riding the initialisation.
+
+**The correlated pair, before and after (config `act`, the ALL-CUES arm -- the only arm in which recency is
+allowed to move):**
+
+```
+nearrank   marginal  n0 +1.55  n1 -0.26  n2+ -0.90  p0 -1.55  p1+ -2.13
+           delta     n0 -0.07  n1 -0.38  n2+ -0.49  p0 -1.05  p1+ -1.31
+struct     marginal  s4 +1.20  s3 +0.05  s2 -0.34  s1 -0.66  s0 -1.48
+           delta     s4 +0.27  s3 -0.27  s2 -0.34  s1 -0.25  s0 -0.64
+order      marginal  pre +0.78  post -1.95         delta  pre -0.54  post -0.63
+govern     marginal  free +0.25  by -0.86  prep -2.29    delta  free -0.33  by -1.17  prep -1.41
+cat        marginal  g3 +0.17  g2 -0.26  g1 -0.97  g0 -3.93   delta  g3 -0.86  g2 -0.80  g1 -1.14  g0 -2.19
+```
+
+**That is blocking, in numbers:** recency's marginal credit `n0 +1.55` is stripped to **-0.07** because the
+parse's attachment belief and word order already predict it. Which is exactly why backward elimination had
+switched recency off -- and exactly what probe B says is the thing we most need.
+
+**Bar 4's teaching signal: the delta rule does NOT supply it.** Two documents, the reader observing its own
+settled agent: **0 of 31 document-2 decisions change under count accrual AND 0 of 31 under the delta rule.**
+Understood, not shrugged at: with `t` = the competition's own argmax, the update raises every cue value the
+argmax fires and lowers the rest, which monotonically *increases* that configuration's margin and can never
+re-order it. **The rule is not the problem; the TARGET is.** A teaching signal must be an outcome the
+competition did not produce -- the reader's own later revision, a downstream consumer's disagreement, or a
+comprehension-question outcome. Named as the open end of bar 4 and as NEXT STEP 1.
+
+## B -- WHAT THE FLOOR KNOWS THAT THE COMPETITION DID NOT
+
+Of the 30 genuine wrong-entity losses to the floor (phase-1-6 arm): **25 of 30 have the gold agent as the
+NEAREST PRE-VERBAL CANDIDATE** -- linear recency alone would have got them. So it is **a weight, not a
+missing cue**: `nearrank` was in the table, correctly signed (`n0 +1.55`), and switched off by the integrator.
+
+| cause | n | gold is the nearest pre-verbal candidate | example |
+|---|---|---|---|
+| picked the subject of ANOTHER verb (clause crossing) | 8 | yes | *I certainly concur with **Jeff** making the call* -> `i` |
+| picked an OBLIQUE / temporal nominal | 6 | yes | *Two weeks later, and the **violence** continues* -> `weeks` |
+| the infinitival-subject construction `for X to VERB` | 10 | 5 yes / 5 no | *for **Iraqis** to take part* -> `ams`; *OK for **me** to sit in* -> `it` |
+| picked the ROOT nominal (copular / verbless) | 4 | yes | *Friendliest place **I** have ever stayed* -> `place` |
+| coordinate conjunct / role swap | 2 | yes | *the 3 **years** have made it difficult* -> `discussions` |
+
+## A+B TOGETHER -- THE FIX, AND WHY IT IS THE BRAIN'S
+
+Recency and the parse's attachment belief **agree on the majority and diverge exactly on the hard minority**,
+so one global weight per cue cannot serve both regimes -- which is why marginal contrasts double-count them
+and why error-driven competition then deletes one of them. The brain's answer is not a third weighting of the
+same kind: a downstream area weights each input **by its reliability, trial by trial** (Ernst & Banks 2002;
+Ma-Beck-Latham-Pouget 2006). This organ's way of saying that is a **CONFIGURATION**, so the fix is to read
+every cue *within* "the parse bound some candidate to this predicate confidently" vs "it did not"
+(`AGENT_CONFIG="voice_pconf"`, three bins of the arm's own max head-posterior mass at the predicate), and put
+recency back in the voting set with the weights learned in competition.
+
+The learned table shows the regimes separating exactly as predicted:
+
+```
+act|p0  (parse bound nothing confidently, 907 cands)   struct  s1 +1.06  s0 -0.21    nearrank  n0 +1.31  n1 +0.47
+act|p2  (confident parse, 26,289 cands)                struct  s4 +1.17 ... s0 -1.59  nearrank  n0 +1.56  n1 -0.34
+```
+
+Pooled dev decision (n = 2,497, floor 0.8090): **token 0.8262, +0.0172 CI[+0.0033,+0.0320] CI-separated above
+the floor, wrong-entity 162 -> 121, -0.0164 CI-separated DOWN.** Same token accuracy and floor separation as
+the phase-1-6 arm, with 25% fewer wrong-entity errors. **ADOPTED**: config `voice_pconf`, cues
+{order, govern, struct, cat, **nearrank**}, delta rule (fixed eta 0.05, 8 passes, initialised from the
+marginal contrasts).
+
+**AND A CORRECTION I OWE THE RECORD: the phase-1-6 arm was chosen on an unrepresentative slice.** DEV1
+(UD-EWT train [6000,7200)) has a word-order floor of **0.7389**; DEV2 ([7200,8400), never used for any
+choice) has **0.8830** and the test set **0.8371**. DEV1 is a hard, non-canonical outlier, which is why it
+preferred an arm leaning on the parse and dropped recency. Every phase-7 choice is made on **pooled
+DEV1+DEV2**. This is the biggest methodological error in the phase-1-6 submission and it surfaced only
+because probe A forced a second slice.
+
+| offline, full UD-EWT test (n=1,424) | acc | no_event | cand_miss | pick errors | wrong-entity | name-token | NP-modifier |
+|---|---|---|---|---|---|---|---|
+| shipped | 0.7893 | 24 | 57 | 219 | 121 | 24 | 74 |
+| **phase-7 re-weighed** | **0.8371** | 24 | 57 | **151** | **72** | 15 | 64 |
+
+Against the floor: **48 wins, 48 losses.** Of the 48 losses -- **15 `no_event`** (pri 133), **4
+candidate-supply** (pri 138), **8** the name-run convention, **7** an NP modifier, **14** genuine
+wrong-entity. **19 of 48 belong to two other rungs and 8 to the scoring convention**; 21 are this organ's.
+
+## C -- THE GUM ROWS BEFORE LANDING (60 documents, both arms in ONE process, `reader_textonly`)
+
+| row | n | shipped | re-weighed | delta | |
+|---|---|---|---|---|---|
+| coref | 1,668 | 0.2212 | 0.2212 | +0.0000 [0.0000, 0.0000] | byte-identical |
+| salience | 60 | 0.1833 | 0.1833 | +0.0000 [0.0000, 0.0000] | byte-identical |
+| common_noun_coref | 1,418 | 0.5317 | 0.5317 | +0.0000 [0.0000, 0.0000] | byte-identical |
+| entity_set | 0 / 0 | -- | -- | -- | **population empty in this mode; NOT compared** |
+
+**Rows down CI-separated: none.** And this is STRUCTURAL, not luck: `score_gum_doc` never reads `sm.events`
+(enumerated -- zero hits for `sm.events` / `.agent` / `entity_states` in its body), so the agent pick cannot
+reach these rows. **The honest consequence cuts both ways: no-regress is guaranteed, and the agent
+improvement is board-invisible outside its own row.** There is no goal / affect / who-has-what ROW on this
+board (checked against `ROWS7`), so the four GUM rows are the whole of what strategy asked for.
+`entity_set` having an empty population in the text-only mode is a gap in the instrument, not a pass --
+flagged for strategy.
+
+## D -- SHARE THE PARSE: the +15% was a measurement artifact; the real cost is +6%
+
+The phase-1-6 figure (602 s -> 693 s) compared **two different processes** with different cache states and
+CPU contention. Measured properly -- one warm process, warm-up pass discarded, arms alternated A-B-B-A, the
+cue caches cleared per arm, 400 UD-EWT sentences: **landed 76.7 s -> re-weighed 81.3 s = +6.0%** (the
+contended fourth pair, 128.5 / 136.8 s, is excluded and reported). In the full phase-7 live gate the
+re-weighed arm was **478.5 s against the shipped arm's 487.0 s** -- the difference is inside the noise.
+
+**Why it is only 6%, counted:** a landed read of one 20-sentence chunk already calls
+`attachment_arm.arc_scores` **50 times** and `head_posterior` **0** times, so the arc scores are computed
+anyway; the cue adds the *marginalisation*, memoised per sentence inside the organ. Removing the rest needs a
+one-line memo on `arc_scores` in `hdlab/attachment_arm.py` so the cue and the reader share one computation --
+**outside this brief's write set, so it is named with its number rather than smuggled into the diff.**
+
+## E -- THE RE-PIN, AND THE THREE WITNESSES ON THE TREE AS LANDED
+
+The re-pin is **hunk 3 of `agent_reweigh_patch.diff`** (LF -- that file's own line endings; the organ and the
+board scorer are CRLF and the diff carries each file's own). It changes the CLAIM, not the threshold:
+
+1. **W1** becomes state-aware. The old assertion was *"the `cm_agent_byhead` flag CHANGES the reader's
+   pick"*; on the re-weighed path the flag is **inert by construction** (`agent_competition_reweighed` never
+   calls `agent_supports`, where `byhead` lives -- one line, grep-verified), so it asserts instead that the
+   by-NP agent is picked **with the flag off too**, and that the flag is inert. The pre-landing branch keeps
+   the old flip assertion, so neither tree passes vacuously.
+2. **New W4** puts the claim where the evidence now lives: `govern=by` must be POSITIVE in every `pass`
+   configuration and NEGATIVE in every `act` one; the re-weighed competition must pick the by-NP agent on a
+   by-agent passive; the flag must be inert on that path; and **the hand-set arm without byhead must still
+   mis-pick the surface subject**, so the check can fail.
+3. **W3b's count check is retired.** It pinned `changed <= max(4, n//100)` and had been red at 11/853 =
+   1.29% -- a numeric pin, which the standing rule calls a witness defect -- on a **19c** corpus that is
+   informational only. It now reports the count and asserts bounded additive safety.
+
+**Run on the tree AS LANDED** (the patched organ compiled under its real filename and installed as
+`hdlab.graded_role_assigner`, so its asset paths resolve as they would after landing; `hdlab/` never written;
+re-weighed arm confirmed LIVE with configs `act|p0..p2`, `pass|p0..p2`):
+
+| witness | as landed |
+|---|---|
+| `test_cmrole_agent_struct_organ` | **ALL CHECKS PASS** (exit 0) |
+| `test_coarse_role_competition` | **37/37** (exit 0) |
+| `test_byhead_agent_cue_landing` | **20/20 PASS** (exit 0) -- was 14/15 at HEAD |
+
+W4's own output: `govern=by` learned contrast **active [-1.08, -0.51, -0.58] | passive [+0.96, +1.36,
++0.40]**, and the previously-failing check now reads **`byhead changed 0 of 853 answers`** -- zero, because
+the flag is inert, which is the re-pin's whole point.
+
+## F -- WHAT I STILL DO NOT FULLY UNDERSTAND, AND THE OPPORTUNITIES NOT TAKEN
+
+**Understood now that I did not understand before:** why dropping eight Competition-Model cues helped
+(marginal double-counting; delta-rule blocking made it visible in the weights); why recency was the floor's
+whole advantage (probe B's 25/30); why self-supervised accrual cannot teach (the target is the argmax, so the
+update only sharpens); why the +15% cost was not real (cross-process).
+
+**Still not fully understood -- stated as such:**
+
+1. **Why the full 13-cue inventory still trails the 5-cue arm on token accuracy** even with error-driven
+   competition (pooled dev 0.8234 vs 0.8262). Overfitting on roughly 100 parameters over 4,929 clauses is the
+   obvious hypothesis and it is NOT tested -- a per-configuration parameter count against observations, and a
+   held-out learning curve per cue, would settle it. I did not run it.
+2. **Why the whole-row number is level with the floor while the organ's own decided population is
+   CI-separated above it.** The arithmetic is clear (24 `no_event` + 57 candidate misses score 0 for us and
+   often right for the floor), but I have not checked whether the floor's wins on those 81 items are
+   *systematic* (e.g. its nominal happens to be the gold in copular clauses where no event fires) or
+   incidental. That decides whether pri 133 fixing the predicate slot hands us all 15 or only some.
+
+**Opportunities not taken, and why:** (a) a per-item continuous precision weight on each cue rather than a
+3-bin configuration -- the configuration is the count-based form and it worked; the continuous form needs a
+different integrator, which is pri 143's; (b) a better `for X to VERB` construction detector -- 10 of the 30
+losses are that construction and the version I built learned the right sign but lost on dev, so it is a real
+lever left on the table; (c) sharing `arc_scores` (probe D) -- outside the write set; (d) a third dev slice to
+settle (1) above -- I spent the remaining budget on C and E, which gate landing.
+
+## PHASE 7 ADDITIONS TO THE FLIP LIST
+
+1. **`agent_hybrid` / `agent_hybrid_construction` become a DELETE.** The corrected A/B puts the gate at
+   +0.0267 over the shipped arm; the competition inside the organ is +0.0485 CI[+0.0314,+0.0673] on the same
+   items, so the gate's point gain is below the competition's CI lower bound. A positional default over a
+   cue competition is a stand-in; it has no remaining job.
+2. **`test_byhead_agent_cue_landing` is re-pinned inside this diff (hunk 3)** and is 20/20 as landed.
+   `test_cmrole_agent_struct_organ` and `test_coarse_role_competition` are green as landed, run first-hand.
+3. **`entity_set` has an empty population in `reader_textonly`** -- an instrument gap found by probe C, not
+   caused by this work.
+4. **The agent pick has no consumer among the board's GUM rows** (`score_gum_doc` never reads `sm.events`).
+   No-regress is therefore structural; so is board-invisibility outside the agent row.
+5. **Read cost +6.0%**, not +15%; a one-line `arc_scores` memo in `hdlab/attachment_arm.py` would remove
+   most of the remainder.
+
+## THE SEALED PREDICTION, RE-STATED FOR THE PHASE-7 ARM (recorded before strategy's one read)
+
+The phase-7 arm converts **68 of 219** pick errors on the full UD-EWT test (31.1%), against phase 1-6's 24.4%.
+Applying that rate to the sealed set's 229 pick errors: 510 + 71 = 581 of 806.
+
+* **Point prediction: sealed agent accuracy 0.721** (was 0.700 for the phase-1-6 arm).
+* **Interval: 0.69 to 0.75.**
+* **Against the sealed floor 0.7171: I now predict the row is AT OR JUST ABOVE it** (point +0.004), most
+  likely NOT CI-separated in either direction -- a change from the phase-1-6 prediction of "still below".
+* **Wrong-entity pick errors on the sealed set: I predict a fall of 25-35%** of the wrong-entity share.
+* The sealed set is translated newswire with a *higher* pick-error share (28.4% of items vs 15.4%) and 25
+  `no_event` items (3.1%, twice UD-EWT's rate), so more of any sealed shortfall belongs to pri 133 than on
+  UD-EWT.
