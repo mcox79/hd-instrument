@@ -896,6 +896,31 @@ competition computes it; that is now fixed and worth +0.1729. The missing decay 
 are a **DEFECT IN WHAT THE TEACHER SEES**: no biological cue-learning rule accumulates unbounded counts from
 a self-selected confident sample, and fixing that is a change to the learning rule, not to a call site.
 
+## 22d0. Q3 -- IS HEIM'S CRITERION INERT BY CONSTRUCTION OR BY THE TEACHER? By the teacher, and only HALF of it
+
+The criterion shift is `log P(value | opened a new file) - log P(value | re-accessed an open one)`. Re-accrued
+on the phrase stream with the teacher reading definiteness exactly as inference does, the counts are:
+
+| definiteness | re-accessed | opened | P(v \| re-access) | P(v \| open) | shift |
+|---|---|---|---|---|---|
+| `bare` | 717 | 277 | 0.6357 | 0.5529 | **-0.139** |
+| `definite` | 377 | 168 | **0.3342** | **0.3353** | **+0.004** |
+| `indefinite` | 34 | 56 | 0.0301 | 0.1118 | **+1.304** |
+
+**The definite shift is +0.004 BECAUSE THE TWO PROBABILITIES ARE EQUAL TO THREE DECIMAL PLACES (0.3342 vs
+0.3353), not because the cue is unreadable.** It is readable on 1,036 of 2,526 mentions. So: **inert BY THE
+TEACHER'S COUNTS, not by construction** -- and that is a finding about the language, not a defect in the
+organ. **Heim's condition is HALF-CONFIRMED by the substrate's own counting**: *"an indefinite introduces a
+NEW file"* holds strongly and independently (+1.304, a 3.7x lift on the open branch), while *"a definite
+re-accesses an OPEN one"* does not discriminate at all in modern English prose -- because a definite also
+INTRODUCES, on first mention, whenever the referent is unique or bridged ('the sun', 'the roof of the
+house', 'the government'). Heim 1982 states the condition over a formal file-change semantics; the counts say
+that on real text only its novelty half carries information.
+
+**This is why `sents` is now passed at the call site anyway**: not to rescue the definite half, which is
+inert, but so that the INDEFINITE half -- the half that works -- is live on either mention stream, where
+before it was live on neither.
+
 ## 22d1. THE EMOTION BAR HOLDS WITH ALL THREE PHASE-7 HUNKS IN
 
 Re-run of the 50-item inferred-emotion arm with the loser term, the `sents` hand-off and the board-scorer
