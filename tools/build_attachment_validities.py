@@ -135,6 +135,7 @@ def main(argv=None) -> int:
     ap.add_argument("--beta", type=float, default=10.0, help="semantic-bootstrapping weight (0 = co-occurrence only); 10 = the measured operating point")
     ap.add_argument("--pp-assoc", default=None, help="a PP association (pp_assoc_v2) mined offline from a larger reading corpus")
     ap.add_argument("--pp-rounds", type=int, default=2, help="Hindle-Rooth reallocation rounds when mining from the training text")
+    ap.add_argument("--infin-rounds", type=int, default=1, help="reallocation rounds for the infinitival lexical expectation (pri 133; 0 = the parse-free nearest-left estimate)")
     ap.add_argument("--tsp-asset", default=None, help="alternative plausibility asset for the semantic-bootstrapping teacher (e.g. the self-grown store's typed asset)")
     ap.add_argument("--categories-lc", default=None, help="a lexical_categories COUNTS asset (e.g. the reading-acquired one) to tag the sentences with, in place of the UPOS column")
     ap.add_argument("--categories", default=None, help="reading-induced category asset (word2cat + cluster names) to use INSTEAD of the UPOS column -- the categories->heads hand-off test")
@@ -153,6 +154,12 @@ def main(argv=None) -> int:
     frames = AA.verb_frames_from_reading([(t, p) for t, p, _, _ in train])
     pp_assoc = AA.pp_assoc_from_reading([(t, p) for t, p, _, _ in train])    # Hindle-Rooth preposition association (treebank-free)
     print("pp association: %d verb|prep, %d noun|prep cells" % (len(pp_assoc["fv"]), len(pp_assoc["fn"])), flush=True)
+    # pri 133: the INFINITIVAL EXPECTATION is read as a cue VALUE, so it must be accrued at build time from the same
+    # reading the rest of the table is taught from -- and PASSED to every SentenceCues call below (the 2026-09-14
+    # builder rule: a builder that runs the organ without the argument the cell passed ships a DIFFERENT organ).
+    infin_assoc = AA.infin_assoc_from_reading([(t, p) for t, p, _, _ in train], rounds=a.infin_rounds)
+    print("infinitival expectation: %d lexical keys, %d sites, base rate %.4f"
+          % (len(infin_assoc["n"]), int(infin_assoc["sites"]), infin_assoc["base"]), flush=True)
     # PP ATTACHMENT v2 (solver pri-94): the case-marked-nominal association, mined from UNAMBIGUOUS reading with
     # Hindle & Rooth reallocation. --pp-assoc points at an association mined OFFLINE from a larger reading corpus
     # (tagged by the substrate's own category organ); without it, it is mined from the same training sentences.
@@ -184,9 +191,10 @@ def main(argv=None) -> int:
         # this its cells are never accrued at build time and the read-out finds an empty table (the 2026-09-14
         # lesson: a builder that runs the organ without the argument the cell passed ships a different organ).
         AA.accrue_sentence(counts, AA.SentenceCues(toks, pos, frames, pp_assoc, pp_assoc_v2,
-                                                   occ=AA.occupancy_from_tags(toks, pos)), mt)
+                                                   occ=AA.occupancy_from_tags(toks, pos),
+                                                   infin_assoc=infin_assoc), mt)
     table = {"counts": counts, "frames": frames, "pp_assoc": pp_assoc, "pp_assoc_v2": pp_assoc_v2,
-             "strength": AA.strengths_from_arc_counts(counts)}
+             "infin_assoc": infin_assoc, "strength": AA.strengths_from_arc_counts(counts)}
     print("round 0 accrued (%d sentences) in %.0fs" % (len(train), time.time() - t0), flush=True)
     for r in range(1, a.rounds + 1):
         nxt = AA.new_counts()
@@ -195,9 +203,10 @@ def main(argv=None) -> int:
             ms = AA.head_posterior(toks, pos, table, occ=occ); mt = tmarg[i]; n = len(toks)
             mix = {j: {h: a.alpha * ms.get(j, {}).get(h, 0.0) + (1 - a.alpha) * mt.get(j, {}).get(h, 0.0)
                        for h in set(ms.get(j, {})) | set(mt.get(j, {}))} for j in range(1, n + 1)}
-            AA.accrue_sentence(nxt, AA.SentenceCues(toks, pos, frames, pp_assoc, pp_assoc_v2, occ=occ), mix)
+            AA.accrue_sentence(nxt, AA.SentenceCues(toks, pos, frames, pp_assoc, pp_assoc_v2, occ=occ,
+                                                    infin_assoc=infin_assoc), mix)
         table = {"counts": nxt, "frames": frames, "pp_assoc": pp_assoc, "pp_assoc_v2": pp_assoc_v2,
-                 "strength": AA.strengths_from_arc_counts(nxt)}
+                 "infin_assoc": infin_assoc, "strength": AA.strengths_from_arc_counts(nxt)}
         print("round %d re-estimated in %.0fs" % (r, time.time() - t0), flush=True)
     path = AA.save_attachment_validities(a.out, table)
     print("wrote", path, flush=True)
