@@ -905,7 +905,15 @@ difference being where the scorer looks a reader mention up (`data/exp_np_span_i
 | alignment | reader mentions | ALIGNED to gold | entity-set items | model | string-identity floor |
 |---|---|---|---|---|---|
 | **BEFORE -- keyed on `m["wtok_start"]`** (the span's FIRST token, a determiner on 41% of mentions) | 303 | **23** | **10** | **1.0000** | 0.1000 |
-| **AFTER -- keyed on `mention_head_wpos(m)`** | 303 | (below) | (below) | | |
+| **AFTER -- keyed on `mention_head_wpos(m)`** | 303 | **38** | **17** | 1.0000 | **0.7647** |
+
+**THE FLOOR IS THE TELL.** The head-keyed alignment recovers the population (23 -> 38 aligned, 10 -> 17
+items) and, decisively, **the same-head string-identity floor goes from 0.1000 to 0.7647 -- which is the
+board's own 0.738.** A floor of 0.10 was never plausible for a rule that just repeats the last mention with
+the same head; it was 0.10 because the scorer was looking at determiners, where every head string is 'the'
+and no two are the same entity. (Both `model` columns read 1.0000 here for the separate reason documented in
+section 10.6 -- these two documents' partition is the over-merged one, on which every re-mention is trivially
+filed with its predecessor. The alignment fix and the partition defect are independent and both are real.)
 
 **THE "BEFORE" ROW IS A PHANTOM AND THE NUMBERS SAY SO EXACTLY.** Of 303 reader mentions only **23** find a
 gold entity at all -- the answer key is keyed by gold HEADS and the scorer is asking at determiners -- and
