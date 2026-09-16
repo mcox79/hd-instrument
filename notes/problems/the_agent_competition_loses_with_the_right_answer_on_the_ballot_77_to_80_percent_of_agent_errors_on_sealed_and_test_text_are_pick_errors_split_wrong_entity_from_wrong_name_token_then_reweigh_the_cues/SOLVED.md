@@ -406,3 +406,79 @@ agent_reweigh_patch.diff}.  No hdlab/ or tools/ file written; the diff touches
 hdlab/graded_role_assigner.py (one self-gating branch, one call site in hdlab/, none in tools/) and the
 board scorer.  Reverify: .venv/Scripts/python.exe verification/test_agent_competition_reweigh_landing.py
 ```
+
+---
+
+## 14. THE OWNER'S PUSH SCRIPT, answered with numbers
+
+**(i) Performance vs the brain at each rung, and where the signal is lost.** A competent reader identifies
+the agent of an ordinary English clause essentially without error; the organ's ceiling *given the candidate
+stream it is handed* is **0.9431** (1,424 items minus 24 clauses where no event fires minus 57 where the gold
+agent never reaches the ballot), and it reaches **0.8322** of that. So the loss splits: **4.0% of items the
+mention stream never offers** (`referent_per_np`, pri 138), **1.7% where no event fires** (the predicate slot,
+pri 133), **11.1% where the competition picks the wrong candidate**. Within that last 11.1%, 6.3% are a
+different entity and 4.2% a modifier inside the right entity's noun phrase.
+
+**(ii) Every wall researched and prototyped past.** Four prototypes were built after the first arm cleared:
+the labels rung read graded (`rsubj`), the `for X to VERB` construction as a case value, the nominal-licensor
+cue, and a richer configuration (voice × order × government). All four are measured on dev with numbers in
+§7; three lose and one ties. **None of them is a heuristic**: each is a counts-learned cue value in the same
+table, and each is reported with the reason it lost. The learned/graded form of the two that still matter is
+named in §13 items 1 and 3.
+
+**(iii) Is wiring alone sufficient — the upstream gap with its number.** No. The re-weighing plus the graded
+upstream reads move the row **+0.0421 CI-separated** and remove a **−0.0471 CI-separated** below-floor defect,
+and that is where wiring runs out: **19 of the 61 remaining losses to the floor belong to two other rungs**
+(15 `no_event`, 4 candidate-supply), and the largest single remaining bucket — **72 pick errors that are a
+modifier inside the gold agent's own NP** — is a *span-head* question in `referent_per_np`, not a weighting
+question here. Fixing the predicate slot alone is worth up to **+0.0169** with no change to this organ.
+
+**(iv) Every table has an observe path.** `observe_agent_outcome` is live and the strengths are a pure
+function of the counts, so the batch build and the online path produce the same table from the same
+experience; the exposure curve (§5) shows a table with 2 clauses of experience scores 0.7683 and a read one
+0.8289. **The half that is missing is named**: the teaching signal. Self-supervised accrual is a fixed point.
+
+**(v) State of the art on this rung, and the glass-box lever.** The strongest reference *on disk* is the
+retired supervised labeler (**0.7081** on pri 134's non-argument population, beaten by the counts arm's
+0.7622) and the coarse role competition read at **gold heads** (pri 108: core-role recall **0.9198**) against
+**0.5774 → 0.7061** at live heads. The pattern is consistent and it names the lever: **the gap to a supervised
+system on this rung is the HEADS rung, not the role competition** — this work's single strongest cue is the
+attachment arm's graded head belief (removing it: 0.8322 → 0.6243), so improving the arm improves the agent
+row directly. The glass-box lever is therefore the arm's second-order / relation-aware arc quality
+(§13 item 3), not a better weighting.
+
+**(vi) My negatives audited for false negatives.** Each was re-run in a form that could have rescued it:
+`rsubj` was tested alone, added to the chosen arm, and with the arm reduced to three cues (0.6485 — worse
+still); the cue-set choice was re-derived under **three** configurations rather than one; the accrual rate was
+swept over three orders of magnitude; the plasticity probe was re-run from a **960-count cold start** before
+being reported as a fixed point; and the exposure curve's first run looked flat (0.8307 at 25 clauses) until
+it was re-run from **2** clauses, where it became a real learning curve. One negative did change verdict under
+audit: the first version of the exposure curve asserted improvement and failed; the honest version measures
+saturation and passes.
+
+**(vii) Prior work on disk, read before building.** pri 106 (the `ppc` cue and `role_decision`), pri 108 (the
+NMOD class and cue set v4), pri 111 (the clause-local voice cue, and the `_ALL` / call-site enumeration
+method reused here), pri 117 (the copular subject), pri 129 (patient reliability from the competition), pri
+134 (the non-argument arm, `RUN_MEMBERS` off — the diff applies on it and does not touch it). The
+`agent_hybrid` / `agent_hybrid_construction` flags were **not** re-tried (measured worse, 2026-09-16).
+
+## 15. FLIPS AND OPEN ITEMS FOR STRATEGY AT LANDING
+
+1. **`verification/test_byhead_agent_cue_landing.py` will need re-pinning.** At HEAD it is **14/15**, and the
+   one failure is **pre-existing** (`byhead changes only a negligible fraction of board answers` — changed
+   11/853 = 1.29% against a ~1% threshold; `hdlab/` is untouched by this work, so nothing here caused it —
+   and a numeric threshold like that is the kind of pin the standing rule calls a witness defect). It will
+   also go **vacuous** once the diff lands: `agent_competition_reweighed` never calls `agent_supports`, so
+   `byhead_agent_cue` is structurally unused on the re-weighed path (grep-verified, one line). The by-phrase
+   evidence is not lost — it is carried by `govern=by` (+1.04) and `nearrank=p0` (+1.25) in the `pass`
+   configuration, and the passive slice goes **7/16 → 13/16** — but the witness's byhead-ON-vs-OFF assertions
+   will compare two identical arms. Re-pin it to the `pass` configuration's own contrasts, or to the passive
+   slice.
+2. `verification/test_cmrole_agent_struct_organ.py` **ALL PASS** and `verification/test_coarse_role_competition.py`
+   **37/37** at HEAD, both run first-hand.
+3. **`hybrid_agent_pick` / `agent_override_licensed` still read the hand-set table.** They are default-off on
+   the reader, so nothing regresses, but they are now the only consumers of `AGENT_VALIDITIES`.
+4. **The GUM rows were not measured.** The no-regress here is UD-EWT patient/state (byte-identical). The goal,
+   affect and who-has-what rows read the agent and live on GUM; strategy should re-run them before landing.
+5. **Read cost +15%** (602 s → 693 s for 104 pseudo-documents) because the attachment arm's head posterior is
+   recomputed for this cue; the reader already computes a parse for the same sentence.
