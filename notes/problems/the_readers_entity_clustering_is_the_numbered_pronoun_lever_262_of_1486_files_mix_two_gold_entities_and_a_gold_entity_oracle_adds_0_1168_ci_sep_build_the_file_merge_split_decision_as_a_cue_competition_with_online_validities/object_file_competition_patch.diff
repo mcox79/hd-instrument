@@ -1,5 +1,5 @@
 diff --git a/hdlab/entity_resolver.py b/hdlab/entity_resolver.py
-index 242e5bae2..fdb213bbf 100644
+index 242e5bae2..8e7676426 100644
 --- a/hdlab/entity_resolver.py
 +++ b/hdlab/entity_resolver.py
 @@ -69,7 +69,11 @@ __bf_note__ = ("ONE ACT-R content-addressable retrieval CORE (salience_binder.ac
@@ -14,7 +14,7 @@ index 242e5bae2..fdb213bbf 100644
  from collections import Counter, defaultdict
  from typing import Callable, Dict, List, Optional, Sequence, Tuple
  
-@@ -83,6 +87,462 @@ import hdlab.typed_spokes as TS
+@@ -83,6 +87,480 @@ import hdlab.typed_spokes as TS
  
  NEG_INF = -1e9   # the finite floor every organ substitutes for actr_activation's -inf (empty history)
  
@@ -53,7 +53,11 @@ index 242e5bae2..fdb213bbf 100644
 +    # object.  English compounds are RIGHT-HEADED (Williams 1981 Right-Hand Head Rule) and a complex
 +    # nominal denotes ONE object, so an adjacent run of content heads is ONE file card.  Measured: 1,331 of
 +    # 3,689 differently-filed mention pairs of a split gold entity lie INSIDE one gold mention span.
-+    "np":          ("gap1", "gap2", "same_sent_far", "other_sent"),
++    # ... and the run is a run of NOMINALS: the reader opens a referent on 122 VERB-headed and 30
++    # ADV-headed tokens per 12 GUM documents, and merging those into a neighbour's file is what cost the
++    # pronoun row items ("his" -> "put", "he" -> "top").  The category is a VALUE of the cue, not a hard
++    # gate -- the teacher decides how much it is worth.
++    "np":          ("gap1_nom", "gap1_x", "gap2_nom", "gap2_x", "same_sent_far", "other_sent"),
 +}
 +
 +# THE CRITERION CUE, which is a property of the MENTION and not of any pair: Heim's Novelty-Familiarity
@@ -101,7 +105,7 @@ index 242e5bae2..fdb213bbf 100644
 +class OFile:
 +    """One object file / Heim file card: the mention history (for ACT-R base-level) + the accrued card."""
 +    __slots__ = ("cid", "history", "gender", "number", "heads", "canons", "surfaces", "names",
-+                 "subj_sent", "last_order", "last_sent", "last_wpos")
++                 "subj_sent", "last_order", "last_sent", "last_wpos", "last_upos")
 +
 +    def __init__(self, cid):
 +        self.cid = cid
@@ -116,8 +120,9 @@ index 242e5bae2..fdb213bbf 100644
 +        self.last_order = -1
 +        self.last_sent = -1
 +        self.last_wpos = -99
++        self.last_upos = ""
 +
-+    def update(self, order, role, gender, number, head, sent_idx, canon, surf, is_name, wpos=-99):
++    def update(self, order, role, gender, number, head, sent_idx, canon, surf, is_name, wpos=-99, upos=""):
 +        self.history.append((float(order), role))
 +        if gender and self.gender is None:
 +            self.gender = gender
@@ -136,6 +141,7 @@ index 242e5bae2..fdb213bbf 100644
 +        self.last_order = order
 +        self.last_sent = sent_idx
 +        self.last_wpos = wpos
++        self.last_upos = upos or ""
 +
 +
 +class Validities:
@@ -215,7 +221,7 @@ index 242e5bae2..fdb213bbf 100644
 +        if definiteness in self.crit:
 +            self.crit[definiteness][1 if opened_new else 0] += 1.0
 +
-+    def permuted(self, seed=SEED):
++    def permuted(self, seed=20260916):
 +        """THE INFORMATION-FREE TWIN: the SAME numbers, attached to the WRONG cue values (a permutation of
 +        each cue's value->strength map, and of the criterion shift).  Shape, magnitude and coverage
 +        identical; the information destroyed."""
@@ -250,13 +256,15 @@ index 242e5bae2..fdb213bbf 100644
 +                "criterion_shift": {v: float(x) for v, x in self.crit_shift.items()}}
 +
 +    @staticmethod
-+    def load(path=VALIDITY_ASSET):
++    def load(path=None):
++        path = path or VALIDITY_ASSET
 +        with io.open(path, encoding="utf-8") as f:
 +            doc = json.load(f)
 +        return Validities(counts=doc.get("counts"), crit_counts=doc.get("criterion_counts"),
 +                          alpha=float(doc.get("alpha", 0.5)))
 +
-+    def save(self, path=VALIDITY_ASSET):
++    def save(self, path=None):
++        path = path or VALIDITY_ASSET
 +        with io.open(path, "w", encoding="utf-8", newline="\n") as f:
 +            f.write(json.dumps(self.to_json(), indent=1, sort_keys=True))
 +        return path
@@ -311,7 +319,7 @@ index 242e5bae2..fdb213bbf 100644
 +
 +
 +def file_cues(m, f, *, head, canon, surf, gender, number, definite, is_name, sent_idx,
-+              prev_cb, name_link, have_spoke, wpos=-99):
++              prev_cb, name_link, have_spoke, wpos=-99, upos=""):
 +    """THE CUE VECTOR for (mention m, open file f) -- every cue the brief names, read from the reader's own
 +    state and the static foundation assets.  No gold is read anywhere."""
 +    from hdlab.state_of_mind import compatible
@@ -343,7 +351,14 @@ index 242e5bae2..fdb213bbf 100644
 +        c["np"] = "other_sent"
 +    else:
 +        d = int(wpos) - int(f.last_wpos)
-+        c["np"] = "gap1" if d == 1 else ("gap2" if d == 2 else "same_sent_far")
++        nom = (upos in ("NOUN", "PROPN", "ADJ", "NUM")
++               and f.last_upos in ("NOUN", "PROPN", "ADJ", "NUM"))
++        if d == 1:
++            c["np"] = "gap1_nom" if nom else "gap1_x"
++        elif d == 2:
++            c["np"] = "gap2_nom" if nom else "gap2_x"
++        else:
++            c["np"] = "same_sent_far"
 +    return c
 +
 +
@@ -393,6 +408,7 @@ index 242e5bae2..fdb213bbf 100644
 +        number = m.get("number")
 +        surf = str(m["head"]).lower()
 +        wpos = int(m.get("wtok_start", -99))
++        upos = (m.get("span_upos") or [""])[-1] or ""
 +        is_name = bool(name_content_tokens(span, upos=m.get("span_upos")))
 +        canon = aliaser.assign(span, gender, upos=m.get("span_upos")) if is_name else None
 +        definite = _definiteness(span, sents, sent_idx, wpos)
@@ -406,7 +422,7 @@ index 242e5bae2..fdb213bbf 100644
 +                a = -1e9
 +            cu = file_cues(m, f, head=head, canon=canon, surf=surf, gender=gender, number=number,
 +                           definite=definite, is_name=is_name, sent_idx=sent_idx, prev_cb=prev_cb,
-+                           name_link=link_file, have_spoke=have_spoke, wpos=wpos)
++                           name_link=link_file, have_spoke=have_spoke, wpos=wpos, upos=upos)
 +            s = a + sum(validities.w(c, v) for c, v in cu.items())
 +            if s > best_a:
 +                runner = best_a
@@ -432,7 +448,8 @@ index 242e5bae2..fdb213bbf 100644
 +                validities.observe(best_cues, True)
 +            validities.observe_criterion(definite, opened)
 +            validities.recompute()
-+        best.update(order, role, gender, number, head, sent_idx, canon, surf, is_name, wpos=wpos)
++        best.update(order, role, gender, number, head, sent_idx, canon, surf, is_name, wpos=wpos,
++                    upos=upos)
 +        rank_in_sent.setdefault(sent_idx, {}).setdefault(best.cid, rk)
 +        labels[m["midx"]] = best.cid
 +    return labels
@@ -456,6 +473,7 @@ index 242e5bae2..fdb213bbf 100644
 +OBJECT_FILE_VALIDITY_ASSET = os.path.join(
 +    os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "frontend_assets",
 +    "object_file_validities_gum_v1.json")
++VALIDITY_ASSET = OBJECT_FILE_VALIDITY_ASSET   # the name Validities.load/save resolve at call time
 +_OF_VALIDITIES = None
 +
 +
@@ -477,7 +495,7 @@ index 242e5bae2..fdb213bbf 100644
  
  # ==========================================================================================================
  # THE ONE RETRIEVAL CORE  --  content-addressable, cue-based, ACT-R-scored argmax under a write policy.
-@@ -217,11 +677,35 @@ class EntityResolver:
+@@ -217,11 +695,35 @@ class EntityResolver:
      #   Router: NAME -> identity (aliaser); COMMON -> [phi, type_exact] cue, base-level argmax, always-merge.
      # ---------------------------------------------------------------------------------------------------
      def cluster(self, ms, gaz, *, type_route: str = "exact", centering: bool = False,

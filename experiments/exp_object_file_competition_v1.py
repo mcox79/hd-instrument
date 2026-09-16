@@ -38,13 +38,18 @@ Heim's indefinite ("a dog" after "a dog") is merged by construction.
 
 ROWS
 ----
-  --decompose N   the partition ALGEBRA decomposition of the +0.1168 oracle gain: refine (fix over-merges
-                  only) / coarsen (fix under-splits only) / oracle, on the pronoun instrument, plus the
-                  error-type counts (which cue merged, which cue was missing) -- the diagnosis.
-  --competition N the competition build: partition quality vs GUM gold (B3/MUC/CEAFe) + the pronoun
-                  instrument + the information-free twin (validities permuted), tau swept.
-  --noregress N   the consumers: the common-noun resolution population and UD-EWT agent/patient/state.
-  --build-validities   build data/frontend_assets/object_file_validities_gum_v1.json from GUM TRAIN.
+  --decompose N   the partition ALGEBRA decomposition of the oracle gain: refine (fix over-merges only) /
+                  coarsen (fix under-splits only) / oracle, on the pronoun instrument, plus the error-type
+                  counts (which cue merged, which cue was missing) -- the diagnosis.
+  --cue-reach N   for every gold entity the reader SPLIT, does ANY cue in the set even reach it?
+  --build-validities N   build data/frontend_assets/object_file_validities_gum_v1.json from GUM TRAIN.
+  --tune N        sweep the retrieval threshold on the TRAIN split (choose the operating point here).
+  --competition N the competition build on TEST: partition quality vs GUM gold (B3/MUC/CEAFe, paired
+                  bootstrap over documents) + the pronoun instrument + the information-free twin.
+  --readout N     the CONSUMER REPAIR: the pick's antecedent readout, with its identity control.
+  --picksweep N   the consumer's own phase diagram over the new files (is its operating point stale?).
+  --live N        the LIVE A/B with the organ INSTALLED (every consumer measured through read()).
+  --noregress N   UD-EWT agent/patient/state through the live reader, both arms in one process.
   --self-test     corpus-free structural self-test.
 
 EVERY ARM IS AN OFFLINE REPLAY THAT IS ASSERTED EQUAL TO THE LIVE ORGAN before any contrast is reported:
@@ -433,7 +438,7 @@ class Validities:
         if definiteness in self.crit:
             self.crit[definiteness][1 if opened_new else 0] += 1.0
 
-    def permuted(self, seed=SEED):
+    def permuted(self, seed=20260916):
         """THE INFORMATION-FREE TWIN: the SAME numbers, attached to the WRONG cue values (a permutation of
         each cue's value->strength map, and of the criterion shift).  Shape, magnitude and coverage
         identical; the information destroyed."""
@@ -468,13 +473,15 @@ class Validities:
                 "criterion_shift": {v: float(x) for v, x in self.crit_shift.items()}}
 
     @staticmethod
-    def load(path=VALIDITY_ASSET):
+    def load(path=None):
+        path = path or VALIDITY_ASSET
         with io.open(path, encoding="utf-8") as f:
             doc = json.load(f)
         return Validities(counts=doc.get("counts"), crit_counts=doc.get("criterion_counts"),
                           alpha=float(doc.get("alpha", 0.5)))
 
-    def save(self, path=VALIDITY_ASSET):
+    def save(self, path=None):
+        path = path or VALIDITY_ASSET
         with io.open(path, "w", encoding="utf-8", newline="\n") as f:
             f.write(json.dumps(self.to_json(), indent=1, sort_keys=True))
         return path
@@ -1348,6 +1355,73 @@ def row_readout(n_docs=12, tau=0.0, verbose=True, cap=None):
 
 
 # =====================================================================================================
+# 6a2. ROW: IS THE CONSUMER'S OPERATING POINT STALE?  pri 131 swept the pick's cue weights over the
+#      HEAD-BUCKET files and found the shipped point best THERE.  Real object files are bigger (more
+#      history -> more ACT-R base-level), so the balance between the base-level and the agreement cue is
+#      a different balance.  Sweep the PICK over the competition's files, the same grid, one code path.
+# =====================================================================================================
+def row_picksweep(n_docs=28, tau=0.0, verbose=True, cap=None):
+    import hdlab.coref as CO
+    from experiments.exp_pronoun_pick_identity_contract_v1 import _score_q
+    cap = cap if cap is not None else capture_cached(n_docs, verbose=verbose)
+    V = Validities.load()
+    labs_of = {}
+    for c in cap:
+        labs_of[c["doc"]] = competition_cluster(
+            c["ms"], None, validities=V, tau=tau, sents=c["sents"],
+            bridge_binds=(c.get("bridge_binds_repaired") or c["bridge_binds"]))
+
+    def score(labels_of_doc, cfg, head_readout):
+        rows = []
+        for c in cap:
+            ms = _apply_labels(c["ms"], labels_of_doc(c))
+            tg = CO.discovered_pronoun_targets(ms, window=cfg.get("window", 0))
+            recs, _ab = CO.graded_pronoun_resolve(
+                ms, tg, window=cfg.get("window", 0), w_gender=cfg.get("w_gender", 4.0),
+                w_number=cfg.get("w_number", 0.0), w_focus=cfg.get("w_focus", 1.0),
+                decay=cfg.get("decay", 2.0))
+            seq = sorted([m for m in ms if not m.get("is_pronoun")],
+                         key=lambda m: (m["sent_idx"], m["wtok_start"]))
+            ans = {}
+            for r in recs:
+                k = (r["sent_idx"], r["target_wpos"])
+                sp = r["antecedent_span"]
+                ent = r.get("resolved_entity")
+                if head_readout and ent is not None:
+                    prior = [m for m in seq
+                             if (m["sent_idx"], m["wtok_start"]) < k and m.get("cluster") == ent]
+                    noms = [m for m in prior if (m.get("span_upos") or [""])[-1] in ("NOUN", "PROPN")]
+                    pick = noms or prior
+                    if pick:
+                        m = pick[-1]
+                        sp = (m["sent_idx"], m["wtok_start"], m["wtok_start"])
+                ans[k] = {"head": r["resolved_head"], "span": sp}
+            rows.append([_score_q(q, ans.get((q["sent"], q["wpos"])))[1] for q in c["qs"]])
+        return rows
+
+    base = score(lambda c: c["shipped_labels"], {}, False)
+    out = {"n_docs": len(cap), "tau": tau, "n_questions": sum(len(c["qs"]) for c in cap),
+           "shipped_default": round(acc(base), 4), "grid": []}
+    grid = [{}]
+    grid += [{"w_gender": g} for g in (8.0, 16.0, 32.0)]
+    grid += [{"w_focus": f} for f in (0.0, 4.0)]
+    grid += [{"decay": d} for d in (3.0, 4.0)]
+    grid += [{"window": w} for w in (2, 4)]
+    grid += [{"w_gender": 16.0, "decay": 3.0}, {"w_gender": 16.0, "w_focus": 0.0}]
+    for cfg in grid:
+        rows = score(lambda c: labs_of[c["doc"]], cfg, True)
+        b = paired_boot(base, rows)
+        out["grid"].append({"cfg": cfg, "span_acc": round(acc(rows), 4), "vs_shipped_default": b})
+        if verbose:
+            print("    %-34s span %s  d=%+.4f CI[%+.4f,%+.4f] sep=%s"
+                  % (json.dumps(cfg, sort_keys=True), _p(round(acc(rows), 4)),
+                     b["delta"], b["ci"][0], b["ci"][1], b["sep"]))
+    if verbose:
+        print("    shipped organ at its own default: %s" % _p(out["shipped_default"]))
+    return out, cap
+
+
+# =====================================================================================================
 # 6b. ROW: THE LIVE A/B -- the competition INSTALLED as the organ, every consumer measured in ONE process
 # =====================================================================================================
 class installed(object):
@@ -1618,6 +1692,7 @@ def main():
     ap.add_argument("--cue-reach", type=int, default=0, dest="cue_reach")
     ap.add_argument("--tune", type=int, default=0)
     ap.add_argument("--readout", type=int, default=0)
+    ap.add_argument("--picksweep", type=int, default=0)
     ap.add_argument("--taus", type=str, default="-8,-4,-2,0,2")
     a = ap.parse_args()
     res = {"ts_iso": datetime.now(timezone.utc).isoformat(), "seed": SEED}
@@ -1645,6 +1720,9 @@ def main():
     if a.readout:
         print("\n== THE CONSUMER REPAIR: the pick's ANTECEDENT READOUT ==")
         res["readout"], cap = row_readout(a.readout, tau=a.tau, cap=cap)
+    if a.picksweep:
+        print("\n== IS THE PICK'S OPERATING POINT STALE FOR REAL OBJECT FILES? ==")
+        res["picksweep"], cap = row_picksweep(a.picksweep, tau=a.tau, cap=cap)
     if a.live:
         print("\n== THE LIVE A/B (the organ installed; every consumer measured) ==")
         res["live"] = row_live(a.live, tau=a.tau, online=a.online)
@@ -1654,7 +1732,7 @@ def main():
     if len(res) > 2:
         p = os.path.join(OUT_DIR, "metrics_%s.json" % "_".join(
             k for k in ("self_test", "build_validities", "decompose", "cue_reach", "tune",
-                        "competition", "readout", "live", "noregress") if k in res))
+                        "competition", "readout", "picksweep", "live", "noregress") if k in res))
         with io.open(p, "w", encoding="utf-8") as f:
             f.write(json.dumps(res, indent=2, sort_keys=True, default=str))
         print("\nwrote %s" % p)
