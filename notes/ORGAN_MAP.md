@@ -278,7 +278,76 @@ CAPACITY-limited.**
 
 ---
 
-## 4. THE ORGAN MAP
+## 3b. 🧭 REGROUPED BY STRUCTURE — 2026-09-16 (pri 142, THE STRUCTURE MAP)
+
+> **THE PRIMARY ORGANISATION OF THIS DOCUMENT IS NOW THE BRAIN STRUCTURE, NOT THE TASK.** The owner's rule of
+> 2026-09-11 — *the brain reuses ONE structure for many functions* — means the unit is the STRUCTURE and an
+> organ is one of its ARMS or one of its COPIES. **§4 below (the task view, A–H) is KEPT UNCHANGED** because
+> it is what the plan in §6 and the audits in §10 reference; this section is the index that sits above it.
+>
+> **The per-organ rows for all 278 modules live in `notes/STRUCTURE_MAP_2026-09-16.md` §4** (structure ·
+> computation as one sentence of math · BF status · read cost · importers · copy · registry row · whether the
+> computation was read from code or from the module's own docstring). Every row is also in
+> `data/capability_registry.jsonl` under `brain_structure` / `fidelity_basis` / `computation`.
+
+**⚠️ THE FILE COUNT IN §1 IS STALE.** §1 says 155 `.py` files in `hdlab/`; `os.walk` on 2026-09-16 counts
+**278** (265 at the package root + 7 `learner/` + 6 `dashboard/`). §1's "5 of 38 organs" describes the
+38-organ enumeration in §4 and is NOT a statement about the 278 modules — on disk the brain-foundational
+registry rates **94 of 278**: 8 `BF`, 80 `BF_SPIRIT`, 6 `NOT_BF`, **184 unrated**.
+
+| # | STRUCTURE | organs | read cost (6 GUM docs) | where it maps into §4's task view |
+|---|---|---|---|---|
+| A | **VWFA** — orthography → an invariant lexical code | 4 | 4.97 s (1.5%) | §4 A |
+| B | **ATL LEXICAL STORE** — content-addressed read of a frozen lexicon | 16 | 14.03 s (4.2%) | §4 B, H |
+| C | **ATL HUB + SPOKES** — one graded meaning code from many channels | 20 | 23.00 s (6.8%) | §4 B |
+| D | **SEMANTIC CONTROL** (LIFG/pMTG) — conflict-gated suppression | 7 | ~0 | §4 C |
+| **E** | **SELECTION / COMPETITION** — score by cue validities, pick the argmax | **28** | **56.55 s (16.8%)** | §4 C, E, F |
+| F | **SYNTACTIC STRUCTURE BUILDING** | 16 | 2.16 s (0.6%) | §4 F |
+| G | **SITUATION-MODEL REGISTER** — event indexing | 15 | 2.60 s (0.8%) | §4 E |
+| H | **HIPPOCAMPUS / CLS** | 14 | 1.92 s (0.6%) | §4 D |
+| I | **WORKING MEMORY** — bounded focus | 6 | 0.33 s | §4 D |
+| J | **BINDING ALGEBRA** (FHRR; impl UNPINNED, kept as the model) | 12 | 1.57 s (0.5%) | §4 E |
+| K | **PREDICTIVE CODING / N400** | 7 | 0.23 s | §4 H |
+| L | **EVENT SEGMENTATION** (SEM) | 2 | 0.15 s | §4 H |
+| M | **VALUATION / AFFECT** | 5 | 0.36 s | (new since §4) |
+| N | **GOALS / INTENTION** | 7 | 0.01 s | (new since §4) |
+| O | **MENTALIZING** (rTPJ/mPFC) | 4 | ~0 | (new since §4) |
+| P | **FORCE-DYNAMIC CAUSATION** | 7 | 0.03 s | (new since §4) |
+| Q | **SPATIAL SYSTEM** | 2 | 0.25 s | (new since §4) |
+| R | **TEMPORAL SYSTEM** | 13 | 0.16 s | (new since §4) |
+| S | **BASAL-GANGLIA ACTION SELECTION** | 2 | ~0 | §4 C |
+| T | **PLASTICITY / CONSOLIDATION** | 30 | 0.07 s | §4 G |
+| U | **METACOGNITION / FORAGING** | 15 | ~0 | §4 H |
+| V | *no brain structure* — instrumentation | 37 | — | — |
+| W | *no brain structure* — compute budget | 9 | — | — |
+
+**THE THREE SAME-COMPUTATION GROUPS, and only one is finished** (math in
+`notes/STRUCTURE_MAP_2026-09-16.md` §5):
+
+1. **SELECTION (E), 28 organs, ONE equation `A_i = Σ_c w_c·support_c(i)`, FIVE private implementations.**
+   `graded_competition` is the engine and only two organs feed it their decision. `graded_role_assigner`'s
+   role table learns `log P(k|cfg,value) − log P(k|cfg)` from counting; the **agent pick next to it uses
+   eight hand-set constants**, `affected_entity_resolver` two hand-swept gammas, and **`space_reader`'s
+   ground selection is a first-match linear scan with no competition at all**. → **pri 143**.
+2. **REGISTER (G), 6 organs, THREE data shapes.** `state_register` and `location_register` are near-identical
+   per-entity interval bookkeeping; `world_state_register` keys on the OBJECT; `goal_register` and
+   `affect_register` are flat lists with no time index; `belief_timeline` keeps no state and recomputes per
+   query. **This is why a goal closes on a verb and an agent and never on a result state.** → **pri 144**.
+3. **LEXICAL READ (B) — DONE, and it is the model case.** pri 127 put every read-time lexical lookup behind
+   ONE content-addressed store (`lexicon_foundation`); **zero** modules call `nltk` on the read path. 6.5M
+   reads per 480 sentences through one address space. *Both other groups should be executed this way:
+   byte-identical per arm first, then the shared repair.*
+
+**THE COST HEADLINE (measured 2026-09-16, `experiments/exp_structure_map_cost_v1.py`, 6 GUM TEST documents,
+480 sentences, contention-checked):** one document takes **44.7 s** to read, and **60.6% of it is one
+operation** — `grounded_semantic_graph._ppr`, thirty power iterations of `r = (1−d)p + d·Tᵀr`, run **672
+times**, inside the harm/help judgement of every event. Redundant work at the reader level is a factor of
+~2 (2.17 arc-scorings and 1.98 category posteriors per sentence, 4 on-disk token parses per document), not
+the ~90k the pri-142 brief inferred.
+
+---
+
+## 4. THE ORGAN MAP — THE TASK VIEW (kept; the structure view is §3b)
 
 Columns: ORGAN · BRAIN'S MATH (cited, or UNPINNED) · OUR MODULE · OUR OP (read from code at HEAD) ·
 FIDELITY · WIRED (runtime) · EVIDENCE (+ its floor) · BLOCKS.
