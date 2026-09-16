@@ -975,24 +975,45 @@ def row_goal_naming(n_docs=6, verbose=True):
         twin_on(False)
         import hdlab.goal_register as GR
         from hdlab.situation_reader import SituationReader
+        from hdlab.coref import name_content_tokens
         tot = Counter()
+        examples = []
         for d, pth in prepared:
             rd = SituationReader()
             sm = rd.read(pth)
+            # THE NAMES ARE COMPUTED FROM THE MENTIONS IN BOTH ARMS.  Reading `TrackedEntity.names` would be
+            # free on the landed tree and EMPTY BY CONSTRUCTION on the shipped one (the field is part of this
+            # diff), which would make the shipped arm score 0 for a reason that is not the organ.  The name
+            # organ (`coref.name_content_tokens` over the mention's span + the category organ's categories)
+            # runs identically on both streams.
+            by_cluster = defaultdict(list)
+            for m in (getattr(rd, "_coref_mentions", []) or []):
+                if m.get("is_pronoun"):
+                    continue
+                nt = name_content_tokens(list(m.get("span_toks") or [m["head"]]), upos=m.get("span_upos"))
+                if nt:
+                    by_cluster[m.get("cluster")].append(" ".join(nt))
             for e in (sm.entities or []):
-                names = list(getattr(e, "names", None) or [])
+                names = by_cluster.get(e.cluster) or []
                 nm = GR._cluster_name(sm, e.cluster)
                 if not names:
                     tot["files_without_a_name"] += 1
                     continue
                 tot["files_with_a_name"] += 1
-                tot["named_by_its_name" if (nm and nm.lower() in {x.lower() for x in names})
-                    else "named_by_something_else"] += 1
-        out["arms"][arm] = dict(tot)
+                ok = bool(nm) and nm.lower() in {x.lower() for x in names}
+                tot["named_by_its_name" if ok else "named_by_something_else"] += 1
+                if not ok and len(examples) < 20:
+                    examples.append({"doc": str(d.docid), "label": nm, "names": sorted(set(names))[:4]})
+        tot_d = dict(tot)
+        tot_d["examples_named_by_something_else"] = examples
+        out["arms"][arm] = tot_d
         if verbose:
             print("    %-9s files holding a name %d -> named by it %d, by something else %d"
                   % (arm, tot["files_with_a_name"], tot["named_by_its_name"],
                      tot["named_by_something_else"]))
+            for ex in examples[:6]:
+                print("      labelled %-28s but the card holds the name(s) %s"
+                      % (str(ex["label"])[:28], ex["names"]))
     return out
 
 
