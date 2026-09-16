@@ -896,6 +896,24 @@ competition computes it; that is now fixed and worth +0.1729. The missing decay 
 are a **DEFECT IN WHAT THE TEACHER SEES**: no biological cue-learning rule accumulates unbounded counts from
 a self-selected confident sample, and fixing that is a change to the learning rule, not to a call site.
 
+## 22c2. Q2 -- THE BOARD SCORER, BEFORE AND AFTER: the phantom row, measured
+
+2 GUM TEST documents, the NP-span stream, the board's own answer key
+(`exp_board_rows_on_the_reader_v1._gold_eid_by_wpos`, keyed by the GOLD mention's HEAD token), the ONLY
+difference being where the scorer looks a reader mention up (`data/exp_np_span_introduction_v1/scorer_ba.log`):
+
+| alignment | reader mentions | ALIGNED to gold | entity-set items | model | string-identity floor |
+|---|---|---|---|---|---|
+| **BEFORE -- keyed on `m["wtok_start"]`** (the span's FIRST token, a determiner on 41% of mentions) | 303 | **23** | **10** | **1.0000** | 0.1000 |
+| **AFTER -- keyed on `mention_head_wpos(m)`** | 303 | (below) | (below) | | |
+
+**THE "BEFORE" ROW IS A PHANTOM AND THE NUMBERS SAY SO EXACTLY.** Of 303 reader mentions only **23** find a
+gold entity at all -- the answer key is keyed by gold HEADS and the scorer is asking at determiners -- and
+the 10 survivors are the degenerate residue where the phrase happens to be one token, on which the model
+trivially scores **1.0000** against a string-identity floor of **0.1000**. A row reported from that would
+look like a triumph and would be measuring nothing. **This is why the scorer hunk had to go into the diff
+rather than be handed over as a note.**
+
 ## 22d0. Q3 -- IS HEIM'S CRITERION INERT BY CONSTRUCTION OR BY THE TEACHER? By the teacher, and only HALF of it
 
 The criterion shift is `log P(value | opened a new file) - log P(value | re-accessed an open one)`. Re-accrued
