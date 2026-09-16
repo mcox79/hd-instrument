@@ -977,6 +977,37 @@ about the house. The two candidate forms:
 fix the partition first -- an over-merging competition would simply merge the sub-cards back. **The number
 it has to beat is 47 of 448 (10.5%).**
 
+## 22g. RESUME POINT (this session moves to the desktop)
+
+**Everything is on disk and committed.** A re-dispatch resumes from here with no context from this session.
+
+| what | where |
+|---|---|
+| the proposed change (6 files, `git apply --check` CLEAN) | `notes/problems/<slug>/np_span_patch.diff` |
+| the patched sources the diff is generated FROM (bytes, each file's own endings) | `data/exp_np_span_introduction_v1/patched/{hdlab,experiments}/` |
+| the cell | `experiments/exp_np_span_introduction_v1.py` |
+| the witness (22 checks, tree-aware) | `verification/test_referent_per_np_span_landing.py` |
+| the re-accrued asset | `data/frontend_assets/object_file_validities_gum_npspan_v1.json` |
+| every measurement log | `data/exp_np_span_introduction_v1/*.log` (`boundary6`, `build24`, `bars50`, `bars50b`, `naming4b`, `spans12`, `spans12b`, `ablate`, `online`, `loser3`) |
+| the per-arm checkpoint of the long A/B | `data/exp_np_span_introduction_v1/spans_checkpoint.json` (written after EVERY arm) |
+
+**THE ONE MEASUREMENT STILL IN FLIGHT** when this was written: `--spans 12 --arms shipped,npspan,twin` with
+all three phase-7 hunks applied (log `spans12b.log`). The pre-phase-7 run of the same command is `spans12.log`
+and its numbers are in sections 10.5-10.8. What to read off the new one, in order:
+
+1. **the twin MUST now LOSE** on B-cubed (it did not before: -0.0035, not separated) -- this is the bar that
+   the loser term was supposed to unblock;
+2. **B-cubed npspan vs shipped** (was -0.4196 CI-sep DOWN; the 3-document probe predicts it lands between the
+   live 0.5291 and the frozen 0.6585, against the shipped tree's live 0.6277 -- i.e. **close, possibly still
+   slightly down**, and the residual is the missing decay of section 22d);
+3. **the entity-set row** on the board scorer, which now aligns on the head;
+4. the joins (determiner / extents / bridge binds / cross-file-inside-one-gold-mention), which do not depend
+   on the partition and were already met.
+
+**If (1) still fails**, the next build is NOT another boundary change -- it is the decay on
+`Validities.counts` named in section 22d, measured the same way (`loser3.log`'s six-way replay is the cheap
+instrument: one live read per document, then cluster six ways in one process).
+
 ## 23. THE HONEST SELF-ASSESSMENT
 
 **What I am confident in.** The organ is right and it is made of organs the reader already runs: one referent
